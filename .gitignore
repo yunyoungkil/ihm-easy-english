@@ -5,3 +5,12 @@ dist
 
 # Ignore the output video from Git but not videos you import into src/.
 out
+
+# Whisper.cpp binary + models + scratch audio used by scripts/generate-highlights.mjs
+.whisper
+.whisper-scratch
+.tts-usage.json
+
+# Design reference footage (~498MB). Studied to derive the `reference` motion
+# style; nothing renders from it, so it stays out of history. Keep locally.
+public/reference

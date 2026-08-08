@@ -1,0 +1,87 @@
+{
+  "title": "CELEBRATE에 TION을 붙이면?",
+  "segments": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 2,
+      "word": "CELEBRATE",
+      "stress": "셀",
+      "pronunciation": "셀러브레이트",
+      "narration": "셀러브레이트. 강세는 셀에 있죠.",
+      "stressEn": "CEL",
+      "subtitleGroups": [
+        {
+          "text": "셀러브레이트.",
+          "from": 0,
+          "to": 60
+        },
+        {
+          "text": "강세는 셀에 있죠.",
+          "from": 60,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 8,
+      "highlightEnd": 43
+    },
+    {
+      "id": 2,
+      "start": 2,
+      "end": 5,
+      "narration": "여기에 션을 붙이면, 강세는 어디로 갈까요?",
+      "countdown": true,
+      "subtitleGroups": [
+        {
+          "text": "여기에 션을 붙이면, 강세는 어디로 갈까요?",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 5,
+      "end": 7,
+      "word": "CELEBRATION",
+      "stress": "브레이",
+      "pronunciation": "셀러브레이션",
+      "narration": "정답은 브레이! 강세가 통째로 옮겨갔습니다.",
+      "stressEn": "BRA",
+      "subtitleGroups": [
+        {
+          "text": "정답은 브레이!",
+          "from": 0,
+          "to": 66
+        },
+        {
+          "text": "강세가 통째로 옮겨갔습니다.",
+          "from": 66,
+          "to": 9007199254740991
+        }
+      ],
+      "narrationCue": "브레이",
+      "reveal": true,
+      "highlightAt": 17,
+      "highlightEnd": 61
+    },
+    {
+      "id": 4,
+      "start": 7,
+      "end": 9,
+      "cta": "전체 규칙 보러가기",
+      "narration": "션 강세의 비밀, 전체 영상에서 확인하세요.",
+      "subtitleGroups": [
+        {
+          "text": "션 강세의 비밀, 전체 영상에서 확인하세요.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    }
+  ],
+  "header": [
+    "강세가 통째로 바뀌는 단어",
+    "CELEBRATE → CELEBRATION"
+  ]
+}

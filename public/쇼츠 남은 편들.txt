@@ -1,0 +1,119 @@
+EP06-shortsA/B와 동일한 템플릿(1080x1920, Safe Area,
+@remotion/sfx 효과음, createTikTokStyleCaptions,
+TTS는 Charon/empathetic/natural)으로 다음 7개
+Composition을 만들어줘.
+
+## 생성할 것
+1. EP07-shortsA (Track A, quiz 레이아웃)
+2. EP07-shortsB (Track B, compare 세로 스택 레이아웃)
+3. EP08-shortsA
+4. EP08-shortsB
+5. EP09-shortsA
+6. EP09-shortsB
+7. EP10-shorts (단일, 빠른 리듬의 단어 순환 퀴즈 레이아웃 —
+   기존 quiz 레이아웃을 변형해서 8개 세그먼트가
+   1.3초씩 빠르게 전환되도록)
+
+## 데이터
+scripts/ep07_shortsA.json, ep07_shortsB.json,
+ep08_shortsA.json, ep08_shortsB.json,
+ep09_shortsA.json, ep09_shortsB.json, ep10_shorts.json을
+아래 내용으로 각각 생성해줘.
+
+--- scripts/ep07_shortsA.json ---
+{
+  "title": "옷 얘기가 아닙니다 / PASS → PASSION",
+  "segments": [
+    {"id":1,"start":0,"end":2,"word":"PASS","stress":"패스","narration":"패스. 다들 아는 단어죠."},
+    {"id":2,"start":2,"end":5,"narration":"여기에 에스, 아이, 오, 엔을 붙이면 어떻게 될까요?","countdown":true},
+    {"id":3,"start":5,"end":7,"word":"PASSION","stress":"패","pronunciation":"패션","narration":"패션! 그런데 옷 얘기가 아닙니다. 열정이라는 뜻이에요."},
+    {"id":4,"start":7,"end":9,"cta":"왜 션으로 읽힐까? EP7 보러가기","narration":"왜 션으로 읽히는지, 전체 영상에서 확인하세요."}
+  ]
+}
+
+--- scripts/ep07_shortsB.json ---
+{
+  "title": "이렇게 읽으면 틀립니다 / MISSION · DECISION · TELEVISION",
+  "segments": [
+    {"id":1,"start":0,"end":3,"wrong":"미시온","word":"MISSION","stress":"미","pronunciation":"미션","narration":"미션. 자음 뒤에 오니까, 션으로 읽습니다."},
+    {"id":2,"start":3,"end":6,"wrong":"디시온","word":"DECISION","stress":"시","pronunciation":"디시전","narration":"디시전. 모음 뒤에 오니까, 전으로 읽습니다."},
+    {"id":3,"start":6,"end":9,"wrong":"텔레비시온","word":"TELEVISION","stress":"비","pronunciation":"텔레비전","narration":"텔레비전. 모음 뒤라서, 역시 전입니다."},
+    {"id":4,"start":9,"end":10,"cta":"EP7 전체 규칙 보러가기","narration":"모음이냐 자음이냐, 전체 영상에서 확인하세요."}
+  ]
+}
+
+--- scripts/ep08_shortsA.json ---
+{
+  "title": "공항에서 매일 보는 단어 / DEPART → DEPARTURE",
+  "segments": [
+    {"id":1,"start":0,"end":2,"word":"DEPART","stress":"파","pronunciation":"디파트","narration":"디파트. 출발하다, 라는 뜻이죠."},
+    {"id":2,"start":2,"end":5,"narration":"여기에 유, 알, 이를 붙이면 어떻게 될까요?","countdown":true},
+    {"id":3,"start":5,"end":7,"word":"DEPARTURE","stress":"파","pronunciation":"디파처","narration":"디파처! 출발이라는 명사입니다. 공항에서 매일 보시는 단어죠."},
+    {"id":4,"start":7,"end":9,"cta":"왜 처로 읽힐까? EP8 보러가기","narration":"왜 처로 읽히는지, 전체 영상에서 확인하세요."}
+  ]
+}
+
+--- scripts/ep08_shortsB.json ---
+{
+  "title": "이렇게 읽으면 틀립니다 / PICTURE · NATURE · FUTURE",
+  "segments": [
+    {"id":1,"start":0,"end":3,"wrong":"픽투어","word":"PICTURE","stress":"픽","pronunciation":"픽처","narration":"픽처. 티와 유가 만나면 처가 됩니다."},
+    {"id":2,"start":3,"end":6,"wrong":"네이투어","word":"NATURE","stress":"네이","pronunciation":"네이처","narration":"네이처. 강세는 네이입니다."},
+    {"id":3,"start":6,"end":9,"wrong":"퓨투어","word":"FUTURE","stress":"퓨","pronunciation":"퓨처","narration":"퓨처. 강세는 퓨입니다."},
+    {"id":4,"start":9,"end":10,"cta":"EP8 전체 규칙 보러가기","narration":"티와 유가 만나는 이유, 전체 영상에서 확인하세요."}
+  ]
+}
+
+--- scripts/ep09_shortsA.json ---
+{
+  "title": "TV에서 매일 보는 단어 / COMMERCE → COMMERCIAL",
+  "segments": [
+    {"id":1,"start":0,"end":2,"word":"COMMERCE","stress":"커","pronunciation":"커머스","narration":"커머스. 상업이라는 뜻이죠."},
+    {"id":2,"start":2,"end":5,"narration":"여기에 아이, 에이, 엘을 붙이면 어떻게 될까요?","countdown":true},
+    {"id":3,"start":5,"end":7,"word":"COMMERCIAL","stress":"머","pronunciation":"커머셜","narration":"커머셜! 광고라는 뜻입니다. 씨가 셔 소리로 바뀝니다."},
+    {"id":4,"start":7,"end":9,"cta":"왜 셜로 읽힐까? EP9 보러가기","narration":"왜 셜로 읽히는지, 전체 영상에서 확인하세요."}
+  ]
+}
+
+--- scripts/ep09_shortsB.json ---
+{
+  "title": "이렇게 읽으면 틀립니다 / OFFICIAL · SOCIAL · FINANCIAL",
+  "segments": [
+    {"id":1,"start":0,"end":3,"wrong":"오피시알","word":"OFFICIAL","stress":"피","pronunciation":"오피셜","narration":"오피셜. 씨는 항상 셜로 읽힙니다."},
+    {"id":2,"start":3,"end":6,"wrong":"소시알","word":"SOCIAL","stress":"소","pronunciation":"소셜","narration":"소셜. 강세는 소입니다."},
+    {"id":3,"start":6,"end":9,"wrong":"파이낸시알","word":"FINANCIAL","stress":"낸","pronunciation":"파이낸셜","narration":"파이낸셜. 강세는 낸입니다."},
+    {"id":4,"start":9,"end":10,"cta":"EP9 전체 규칙 보러가기","narration":"예외 없는 규칙, 전체 영상에서 확인하세요."}
+  ]
+}
+
+--- scripts/ep10_shorts.json ---
+{
+  "title": "이거 다 맞히면 시즌1 완성 / 익션전천처저셜",
+  "segments": [
+    {"id":1,"start":0,"end":1.3,"word":"HEROIC","pronunciation":"히로익","stress":"로"},
+    {"id":2,"start":1.3,"end":2.6,"word":"NATION","pronunciation":"네이션","stress":"네이"},
+    {"id":3,"start":2.6,"end":3.9,"word":"DECISION","pronunciation":"디시전","stress":"시"},
+    {"id":4,"start":3.9,"end":5.2,"word":"QUESTION","pronunciation":"퀘스천","stress":"퀘스"},
+    {"id":5,"start":5.2,"end":6.5,"word":"PICTURE","pronunciation":"픽처","stress":"픽"},
+    {"id":6,"start":6.5,"end":7.8,"word":"MEASURE","pronunciation":"메저","stress":"메"},
+    {"id":7,"start":7.8,"end":9.0,"word":"SPECIAL","pronunciation":"스페셜","stress":"스페"},
+    {"id":8,"start":9.0,"end":10,"cta":"시즌1 총정리 EP10 보러가기","narration":"일곱 소리, 하나의 원리. 전체 영상에서 확인하세요."}
+  ]
+}
+
+## 공통 규칙 (기존과 동일)
+- narration에 영어 알파벳 단독 노출 금지,
+  wrong 필드(오독 텍스트)는 화면 표시 전용
+  (TTS가 절대 읽지 않게)
+- Track B는 세로 스택 배치
+  (오독 취소선+작은X 위→화살표→실제 발음)
+- 효과음: 카운트다운=switch.wav, 정답공개=ding.wav, CTA=whoosh.wav
+- EP10만 예외: narration 없이 빠른 리듬,
+  단어 등장마다 switch.wav만
+
+## 음성 생성 + 렌더링
+scripts/generate-tts.mjs로 7개 쇼츠의 음성을 순서대로 생성
+(EP10은 narration 세그먼트만 — CTA 부분만 음성 필요),
+Whisper 동기화 후 out/ 폴더에 각각 mp4로 렌더링해줘.
+
+완료 후 7개 전체 스틸 이미지와 최종 보고 부탁해.

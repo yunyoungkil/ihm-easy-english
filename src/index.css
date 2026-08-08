@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+/* Large bold type over a dark background renders noticeably cleaner with
+   subpixel antialiasing disabled. */
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

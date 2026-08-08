@@ -1,0 +1,72 @@
+scripts/ep10.json을 scripts/ep09.json과 동일한 스키마로 만들어줘.
+마스터 문서 규칙을 전부 따라줘 — narration에 영어 알파벳 
+단독 노출 금지(TTS 오류 방지), voice는 Charon/empathetic/natural 고정.
+이 편은 시즌1 완결편이니 엔드스크린 Scene도 반드시 포함해줘.
+
+## 제목
+영어 발음 규칙 총정리 | 익션전천처저셜, 하나로 정리합니다 (영어기초배우기 EP10, 시즌1 완결)
+
+## Scene 1 (category: quiz, 0:00~0:40)
+narration: "지금까지 우리는 일곱 개의 시간을 함께 보냈습니다. 히어로익, 네이션, 디시전, 퀘스천, 픽처, 메저, 스페셜. 전부 소리가 다르게 들렸지만, 사실 전부 같은 이야기였습니다. 오늘은 그 하나의 이야기를 처음부터 끝까지 정리해 보겠습니다."
+caption: "일곱 개의 시간, 하나의 이야기"
+
+## Scene 2 (category: intro, 0:40~1:10)
+narration: "안녕하세요. 영어 발음과 강세를 원리로 배우는, 「이해하면 쉬운 영어」입니다. 오늘은 시즌1의 마지막 시간, 총정리입니다. 새로운 규칙은 없습니다. 지금까지 배운 것들이 어떻게 하나로 연결되는지, 그 큰 그림을 보여드리겠습니다."
+caption: "시즌1 완결편"
+
+## Scene 3 (category: principle, 1:10~2:00)
+narration: "모든 이야기의 출발은 강세 자석이었습니다. 익, 션, 전, 천, 처, 저, 셜. 이 소리들이 붙으면, 강세는 예외 없이 그 바로 앞 음절로 끌려왔습니다. 히어로가 히로익이 되고, 인폼이 인포메이션이 된 것도 전부 이 자석의 힘이었습니다."
+words: HEROIC(익), INFORMATION(메)
+caption: "강세 자석 규칙"
+
+## Scene 4 (category: example, 2:00~2:50)
+narration: "두 번째 이야기는 소리의 변신이었습니다. 티가 이를 만나면 션이 되거나 처가 됩니다. 에스가 이를 만나면 션이 되거나 전이 됩니다. 씨가 이를 만나면 셜이 됩니다. 전부 같은 원리였죠. 딱딱한 자음이, 부드러운 이 소리와 부딪히면서 새로운 소리로 태어난 겁니다."
+words: NATION(션), PICTURE(처), MISSION(션), DECISION(전), SPECIAL(셜)
+caption: "자음 + 이 = 새로운 소리"
+
+## Scene 5 (category: principle, 2:50~3:40)
+narration: "세 번째 이야기는 예외처럼 보였던 것들이었습니다. 퀘스천이 왜 천인지, 기억나시나요? 앞에 스 소리가 있었기 때문입니다. 디시전이 왜 전인지도 기억나시나요? 앞에 모음이 있었기 때문입니다. 겉보기엔 예외 같았지만, 전부 이유가 있는 결과였습니다."
+words: QUESTION(천), DECISION(전)
+caption: "예외에도 이유가 있다"
+
+## Scene 6 (category: quiz, 3:40~4:40)
+narration: "이제 여러분이 직접 정리해 보실 시간입니다. 옵저베이션. 션입니다. 강세는 베이. 컨퓨전은요? 전입니다. 모음 뒤라서요. 캡처는요? 처입니다. 마지막으로 아티피셜은요? 셜입니다. 전부 맞히셨다면, 시즌1을 완전히 이해하신 겁니다."
+words: OBSERVATION(베이,션), CONFUSION(전), CAPTURE(처), ARTIFICIAL(셜)
+caption: "시즌1 완전 정복 퀴즈"
+
+## Scene 7 (category: summary, 4:40~5:40)
+narration: "시즌1 전체를 세 문장으로 정리하겠습니다. 첫째, 강세는 항상 그 소리 바로 앞 음절에 있습니다. 둘째, 자음이 이 소리를 만나면 션, 전, 천, 처, 저, 셜로 변합니다. 셋째, 예외처럼 보이는 것도 전부 이유가 있습니다. 이 세 가지만 기억하시면, 처음 보는 어떤 단어도 스스로 읽으실 수 있습니다."
+caption: "세 가지만 기억하세요"
+지금까지 배운 단어 태그: HEROIC, NATION, DECISION, QUESTION, PICTURE, MEASURE, SPECIAL, OBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL
+
+## Scene 8 (category: teaser, 5:40~6:20)
+narration: "여기까지 함께해 주신 여러분께 진심으로 감사드립니다. 외우지 않고 이해하는 영어, 이게 바로 이 채널이 시작된 이유였습니다. 시즌2에서는 발음을 넘어, 문장 속에서 소리가 어떻게 연결되고 줄어드는지 함께 풀어보겠습니다. 영어는 외우는 것이 아니라, 이해하는 것입니다. 「이해하면 쉬운 영어」였습니다. 시즌1, 여기까지입니다. 감사합니다."
+caption: "시즌1 완결"
+
+## Scene 9 (category: endscreen, 6:20~6:28)
+- 기존 엔드스크린 규칙 그대로 적용 (8초, 무음, 
+  유튜브 카드 영역 비워두기)
+- 좌측 문구는 이번만 특별히: "시즌1 전체 재생목록 보러가기"
+- 채널 배지 + 구독 유도
+
+## 검증
+- narration에 영어 알파벳 단독 노출 없는지 재검사
+- 스키마 검사(layout/category, syllables 철자 일치) 통과 확인
+- 이 편이 시즌1의 마지막 편이므로, 전체 재생목록 링크가 
+  Scene 9 화면 텍스트와 설명란에 정확히 반영되는지 확인
+
+## 이후 파이프라인 (마스터 문서 순서 그대로)
+1. scripts/generate-tts.mjs로 public/audio/ep10_scene01.wav ~ 
+   scene09.wav 생성 (voice: Charon 고정)
+2. Whisper 타임스탬프 추출 → narration과 LCS 정렬 재보정
+3. @remotion/captions createTikTokStyleCaptions()로 
+   자막 문장 단위 그룹화
+4. Root.tsx에 EP10-card Composition 추가, cardStyle 레이아웃 렌더링
+   (트랜지션 0.85초 버전, category 다를 때만 shape-wipe)
+5. 완료 후 스틸 이미지 몇 장 + 총 프레임 수 + 에러/판단사항 
+   최종 보고해줘
+
+## 완결 처리
+CLAUDE.md에 "시즌1 완결 (EP1~EP10)" 상태로 표시해줘. 
+앞으로 새 에피소드 요청 시 기본적으로 "시즌2"로 
+분류되도록 규칙을 추가해줘.

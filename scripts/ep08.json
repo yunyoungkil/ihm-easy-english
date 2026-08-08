@@ -1,0 +1,1415 @@
+{
+  "episode": "EP8",
+  "title": "-TURE의 비밀",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "오프닝 퀴즈 - PICTURE는 왜 픽투어가 아닌가",
+      "duration": 40,
+      "layout": "quiz",
+      "words": [
+        {
+          "word": "PICTURE",
+          "stress": "PIC",
+          "pronunciation": "픽처",
+          "meaning": "사진",
+          "narrationCue": "픽처",
+          "highlightAt": 353,
+          "highlightEnd": 383
+        }
+      ],
+      "content": "철자 그대로면 픽투어, 실제로는 픽처",
+      "caption": "티와 유가 만나면?",
+      "narration": "피, 아이, 씨, 티, 유, 알, 이. 이 철자 그대로 읽으면, 픽투어가 되어야 합니다. 그런데 우리는 이 단어를 뭐라고 읽죠? 픽처. 티와 유가 만나는 순간, 갑자기 처라는 전혀 다른 소리가 튀어나옵니다. 분명 티도 있고 유도 있는데, 왜 처가 될까요? 오늘 이 비밀을 완전히 풀어드리겠습니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "퀴즈",
+        "heading": "철자대로면 '픽투어'인데, 왜 '픽처'일까요?",
+        "words": [
+          {
+            "word": "PICTURE",
+            "syllables": [
+              "PIC",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "픽",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "티와 유가 만나는 순간 소리가 바뀝니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "피, 아이, 씨, 티, 유, 알, 이.",
+          "from": 0,
+          "to": 22
+        },
+        {
+          "text": "이 철자",
+          "from": 22,
+          "to": 131
+        },
+        {
+          "text": "그대로 읽으면, 픽투어가 되어야",
+          "from": 131,
+          "to": 238
+        },
+        {
+          "text": "합니다.",
+          "from": 238,
+          "to": 262
+        },
+        {
+          "text": "그런데 우리는 이 단어를 뭐라고 읽죠?",
+          "from": 262,
+          "to": 387
+        },
+        {
+          "text": "픽처.",
+          "from": 387,
+          "to": 399
+        },
+        {
+          "text": "티와 유가 만나는 순간, 갑자기 처라는 전혀",
+          "from": 399,
+          "to": 511
+        },
+        {
+          "text": "다른 소리가 튀어나옵니다.",
+          "from": 511,
+          "to": 570
+        },
+        {
+          "text": "분명 티도 있고 유도 있는데, 왜 처가",
+          "from": 570,
+          "to": 688
+        },
+        {
+          "text": "될까요?",
+          "from": 688,
+          "to": 706
+        },
+        {
+          "text": "오늘 이 비밀을 완전히 풀어드리겠습니다.",
+          "from": 706,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "채널 인트로 및 지난 편 리마인드",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "채널 인트로, 지난 편(-SION) 언급",
+      "caption": "시즌1 EP8",
+      "narration": "안녕하세요. 영어 발음과 강세를 원리로 배우는, 「이해하면 쉬운 영어」입니다. 영어 공부를 하시면서, 철자와 소리가 너무 달라서 당황하셨던 적 있으시죠? 지난 시간에는 에스-아이-오-엔이 왜 션과 전으로 갈리는지 배웠습니다. 앞이 모음이면 전, 자음이면 션이었죠. 오늘은 세 번째 소리, 처의 정체를 밝혀보겠습니다.",
+      "card": {
+        "category": "intro",
+        "badge": "인트로",
+        "lines": [
+          "안녕하세요.",
+          "영어 발음과 강세를 원리로 배우는,",
+          "「이해하면 쉬운 영어」입니다."
+        ],
+        "box": [
+          "지난 시간에는 -SION",
+          "모음 뒤 전 / 자음 뒤 션"
+        ],
+        "note": "오늘은 세 번째 소리,\n처의 정체를 밝혀보겠습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "안녕하세요.",
+          "from": 0,
+          "to": 45
+        },
+        {
+          "text": "영어 발음과 강세를 원리로 배우는, 「이해하면",
+          "from": 45,
+          "to": 157
+        },
+        {
+          "text": "쉬운 영어」입니다.",
+          "from": 157,
+          "to": 212
+        },
+        {
+          "text": "영어 공부를 하시면서, 철자와 소리가 너무",
+          "from": 212,
+          "to": 319
+        },
+        {
+          "text": "달라서 당황하셨던 적 있으시죠?",
+          "from": 319,
+          "to": 413
+        },
+        {
+          "text": "지난 시간에는 에스-아이-오-엔이 왜 션과",
+          "from": 413,
+          "to": 526
+        },
+        {
+          "text": "전으로 갈리는지 배웠습니다.",
+          "from": 526,
+          "to": 610
+        },
+        {
+          "text": "앞이 모음이면 전, 자음이면 션이었죠.",
+          "from": 610,
+          "to": 755
+        },
+        {
+          "text": "오늘은 세 번째 소리, 처의 정체를 밝혀보겠습니다.",
+          "from": 755,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "패턴 확인 - PICTURE / NATURE / FUTURE",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "PICTURE",
+          "stress": "PIC",
+          "pronunciation": "픽처",
+          "meaning": "사진",
+          "narrationCue": "픽처",
+          "highlightAt": 84,
+          "highlightEnd": 146
+        },
+        {
+          "word": "NATURE",
+          "stress": "NA",
+          "pronunciation": "네이처",
+          "meaning": "자연",
+          "narrationCue": "네이처",
+          "highlightAt": 234,
+          "highlightEnd": 273
+        },
+        {
+          "word": "FUTURE",
+          "stress": "FU",
+          "pronunciation": "퓨처",
+          "meaning": "미래",
+          "narrationCue": "퓨처",
+          "highlightAt": 314,
+          "highlightEnd": 359
+        }
+      ],
+      "content": "-TURE 앞 음절에 강세",
+      "caption": "티-유-알-이 = 처",
+      "narration": "먼저 세 단어를 보겠습니다. 픽처. 강세는 앞쪽, 픽에 있습니다. 네이처는 어디일까요? 네이입니다. 퓨처는요? 퓨입니다. 세 단어 모두 처 앞 음절에 힘이 들어갑니다. 그리고 세 단어 모두, 철자 티-유-알-이가 처로 발음됩니다.",
+      "card": {
+        "category": "principle",
+        "badge": "패턴 확인",
+        "words": [
+          {
+            "word": "PICTURE",
+            "syllables": [
+              "PIC",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "픽",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "NATURE",
+            "syllables": [
+              "NA",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "FUTURE",
+            "syllables": [
+              "FU",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "퓨",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "-TURE 바로 앞 음절에 강세!"
+      },
+      "subtitleGroups": [
+        {
+          "text": "먼저 세 단어를 보겠습니다.",
+          "from": 0,
+          "to": 84
+        },
+        {
+          "text": "픽처.",
+          "from": 84,
+          "to": 130
+        },
+        {
+          "text": "강세는 앞쪽, 픽에 있습니다.",
+          "from": 130,
+          "to": 234
+        },
+        {
+          "text": "네이처는 어디일까요?",
+          "from": 234,
+          "to": 295
+        },
+        {
+          "text": "네이입니다.",
+          "from": 295,
+          "to": 352
+        },
+        {
+          "text": "퓨처는요?",
+          "from": 352,
+          "to": 394
+        },
+        {
+          "text": "퓨입니다.",
+          "from": 394,
+          "to": 445
+        },
+        {
+          "text": "세 단어 모두 처 앞 음절에 힘이 들어갑니다.",
+          "from": 445,
+          "to": 569
+        },
+        {
+          "text": "그리고 세 단어 모두, 철자 티-유-알-이가 처로",
+          "from": 569,
+          "to": 684
+        },
+        {
+          "text": "발음됩니다.",
+          "from": 684,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "문제 제기 - 왜 티가 처가 되나",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "티가 아니라 유의 문제",
+      "caption": "티가 아니라 유의 문제",
+      "narration": "그럼 질문은 하나입니다. 왜 티가 처가 될까요? 티는 원래 트 소리입니다. 탑, 텐, 타임. 전부 깔끔한 트 소리죠. 그런데 유를 만나는 순간, 이 트가 처로 변해버립니다. 힌트를 드리겠습니다. 이건 티의 문제가 아닙니다. 유의 문제입니다.",
+      "card": {
+        "category": "principle",
+        "badge": "문제는 소리",
+        "box": [
+          "탑 · 텐 · 타임 → 전부 깔끔한 '트'",
+          "그런데 '유'를 만나면 '처'"
+        ],
+        "lines": [
+          "이건 T의 문제가 아닙니다.",
+          "U의 문제입니다."
+        ]
+      },
+      "subtitleGroups": [
+        {
+          "text": "그럼 질문은 하나입니다.",
+          "from": 0,
+          "to": 92
+        },
+        {
+          "text": "왜 티가 처가 될까요?",
+          "from": 92,
+          "to": 185
+        },
+        {
+          "text": "티는 원래 트 소리입니다.",
+          "from": 185,
+          "to": 278
+        },
+        {
+          "text": "탑, 텐, 타임.",
+          "from": 278,
+          "to": 362
+        },
+        {
+          "text": "전부 깔끔한 트 소리죠.",
+          "from": 362,
+          "to": 440
+        },
+        {
+          "text": "그런데 유를 만나는 순간, 이 트가",
+          "from": 440,
+          "to": 546
+        },
+        {
+          "text": "처로 변해버립니다.",
+          "from": 546,
+          "to": 620
+        },
+        {
+          "text": "힌트를 드리겠습니다.",
+          "from": 620,
+          "to": 671
+        },
+        {
+          "text": "이건 티의 문제가 아닙니다.",
+          "from": 671,
+          "to": 761
+        },
+        {
+          "text": "유의 문제입니다.",
+          "from": 761,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "핵심 규칙 - 트와 이가 만나면 처",
+      "duration": 60,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "유 안에 숨은 이 소리",
+      "caption": "트 + 이 = 처",
+      "narration": "정답을 말씀드리겠습니다. 여기서 유는 우 소리가 아니라, 유 소리입니다. 이 유 안에는 이 소리가 숨어 있습니다. 이와 우를 빠르게 붙이면 유가 되죠. 그러니까 픽처는 실제로 트와 이가 바로 붙어서 나는 소리입니다. 빠르게 해보세요. 트이, 트이, 츠이. 자연스럽게 처가 됩니다.",
+      "card": {
+        "category": "principle",
+        "badge": "정답 공개",
+        "flow": [
+          {
+            "label": "트\n(T)"
+          },
+          {
+            "label": "이\n(U 속의 소리)"
+          },
+          {
+            "label": "처"
+          }
+        ],
+        "caption": "'유' 안에 숨은 '이'가 '트'와 부딪혀 '처'가 됩니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "정답을 말씀드리겠습니다.",
+          "from": 0,
+          "to": 82
+        },
+        {
+          "text": "여기서 유는 우 소리가 아니라,",
+          "from": 82,
+          "to": 203
+        },
+        {
+          "text": "유 소리입니다.",
+          "from": 203,
+          "to": 239
+        },
+        {
+          "text": "이 유 안에는 이 소리가 숨어 있습니다.",
+          "from": 239,
+          "to": 358
+        },
+        {
+          "text": "이와 우를 빠르게 붙이면 유가",
+          "from": 358,
+          "to": 480
+        },
+        {
+          "text": "되죠.",
+          "from": 480,
+          "to": 492
+        },
+        {
+          "text": "그러니까 픽처는 실제로 트와 이가",
+          "from": 492,
+          "to": 611
+        },
+        {
+          "text": "바로 붙어서 나는 소리입니다.",
+          "from": 611,
+          "to": 683
+        },
+        {
+          "text": "빠르게 해보세요.",
+          "from": 683,
+          "to": 727
+        },
+        {
+          "text": "트이, 트이, 츠이.",
+          "from": 727,
+          "to": 818
+        },
+        {
+          "text": "자연스럽게 처가 됩니다.",
+          "from": 818,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "왜 그럴까 - 혀의 위치",
+      "duration": 50,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "혀가 편한 중간 지점",
+      "caption": "혀가 편한 길을 찾아간 결과",
+      "narration": "그런데 왜 하필 트와 이가 만나면 처가 될까요? 우리 혀의 위치를 생각해 보시면 됩니다. 트를 발음할 때, 혀끝은 윗니 뒤쪽 잇몸에 붙습니다. 그런데 이를 발음할 때는, 혀가 입천장 쪽으로 넓게 올라갑니다. 이 두 동작을 연달아 빠르게 하기가 불편해서, 우리 입은 중간 지점을 선택합니다. 그게 바로 처입니다. 영어가 게을러서가 아니라, 혀가 편한 길을 찾아간 결과입니다.",
+      "card": {
+        "category": "principle",
+        "badge": "왜 그럴까 — 혀의 위치",
+        "flow": [
+          {
+            "label": "혀끝이\n잇몸에"
+          },
+          {
+            "label": "혀가\n입천장으로"
+          },
+          {
+            "label": "중간 지점\n= 처"
+          }
+        ],
+        "caption": "두 동작을 빠르게 잇기 어려워 중간 지점이 선택됩니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "그런데 왜 하필 트와 이가 만나면",
+          "from": 0,
+          "to": 132
+        },
+        {
+          "text": "처가 될까요?",
+          "from": 132,
+          "to": 175
+        },
+        {
+          "text": "우리 혀의 위치를 생각해 보시면 됩니다.",
+          "from": 175,
+          "to": 271
+        },
+        {
+          "text": "트를 발음할 때, 혀끝은 윗니 뒤쪽 잇몸에",
+          "from": 271,
+          "to": 410
+        },
+        {
+          "text": "붙습니다.",
+          "from": 410,
+          "to": 430
+        },
+        {
+          "text": "그런데 이를 발음할 때는, 혀가 입천장",
+          "from": 430,
+          "to": 548
+        },
+        {
+          "text": "쪽으로 넓게 올라갑니다.",
+          "from": 548,
+          "to": 611
+        },
+        {
+          "text": "이 두 동작을 연달아 빠르게 하기가 불편해서,",
+          "from": 611,
+          "to": 732
+        },
+        {
+          "text": "우리 입은 중간 지점을 선택합니다.",
+          "from": 732,
+          "to": 803
+        },
+        {
+          "text": "그게 바로 처입니다.",
+          "from": 803,
+          "to": 887
+        },
+        {
+          "text": "영어가 게을러서가 아니라, 혀가 편한 길을 찾아간 결과입니다.",
+          "from": 887,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "실생활 연결",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "CULTURE",
+          "stress": "CUL",
+          "pronunciation": "컬처",
+          "meaning": "문화",
+          "narrationCue": "컬처",
+          "highlightAt": 128,
+          "highlightEnd": 166
+        },
+        {
+          "word": "ADVENTURE",
+          "stress": "VEN",
+          "pronunciation": "어드벤처",
+          "meaning": "모험",
+          "narrationCue": "어드벤처",
+          "highlightAt": 338,
+          "highlightEnd": 388
+        },
+        {
+          "word": "FURNITURE",
+          "stress": "FUR",
+          "pronunciation": "퍼니처",
+          "meaning": "가구",
+          "narrationCue": "퍼니처",
+          "highlightAt": 481,
+          "highlightEnd": 527
+        }
+      ],
+      "content": "이미 매일 쓰던 단어들",
+      "caption": "이미 매일 쓰던 단어였다",
+      "narration": "이 규칙, 여러분이 매일 쓰는 단어에도 그대로 있습니다. 컬처. 문화라는 뜻이죠. 컬에 강세가 있고, 끝은 처입니다. 어드벤처. 모험. 벤에 강세가 있습니다. 퍼니처는요? 가구라는 뜻입니다. 퍼에 강세가 있고, 역시 처로 끝납니다. 예외 없이 전부 맞아떨어집니다.",
+      "card": {
+        "category": "example",
+        "badge": "실생활 연결",
+        "words": [
+          {
+            "word": "CULTURE",
+            "syllables": [
+              "CUL",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "컬",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "ADVENTURE",
+            "syllables": [
+              "AD",
+              "VEN",
+              "TURE"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "어드",
+              "벤",
+              "처"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "FURNITURE",
+            "syllables": [
+              "FUR",
+              "NI",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "퍼",
+              "니",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 2
+          }
+        ],
+        "caption": "예외 없이 전부 맞아떨어집니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "이 규칙, 여러분이 매일 쓰는 단어에도 그대로",
+          "from": 0,
+          "to": 125
+        },
+        {
+          "text": "있습니다.",
+          "from": 125,
+          "to": 155
+        },
+        {
+          "text": "컬처.",
+          "from": 155,
+          "to": 191
+        },
+        {
+          "text": "문화라는 뜻이죠.",
+          "from": 191,
+          "to": 249
+        },
+        {
+          "text": "컬에 강세가 있고, 끝은 처입니다.",
+          "from": 249,
+          "to": 372
+        },
+        {
+          "text": "어드벤처.",
+          "from": 372,
+          "to": 411
+        },
+        {
+          "text": "모험.",
+          "from": 411,
+          "to": 445
+        },
+        {
+          "text": "벤에 강세가 있습니다.",
+          "from": 445,
+          "to": 515
+        },
+        {
+          "text": "퍼니처는요?",
+          "from": 515,
+          "to": 559
+        },
+        {
+          "text": "가구라는 뜻입니다.",
+          "from": 559,
+          "to": 619
+        },
+        {
+          "text": "퍼에 강세가 있고, 역시 처로 끝납니다.",
+          "from": 619,
+          "to": 749
+        },
+        {
+          "text": "예외 없이 전부 맞아떨어집니다.",
+          "from": 749,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "지난 두 편과 통합 - 션·전·처의 뿌리",
+      "duration": 60,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "NATION",
+          "stress": "NA",
+          "pronunciation": "네이션",
+          "meaning": "국가",
+          "narrationCue": "네이션",
+          "highlightAt": 650,
+          "highlightEnd": 687
+        },
+        {
+          "word": "DECISION",
+          "stress": "CI",
+          "pronunciation": "디시전",
+          "meaning": "결정",
+          "narrationCue": "디시전",
+          "highlightAt": 739,
+          "highlightEnd": 776
+        },
+        {
+          "word": "PICTURE",
+          "stress": "PIC",
+          "pronunciation": "픽처",
+          "meaning": "사진",
+          "narrationCue": "픽처",
+          "highlightAt": 851,
+          "highlightEnd": 884
+        }
+      ],
+      "content": "자음이 이 소리와 부딪혀 생긴 변화",
+      "caption": "션·전·처, 뿌리는 하나",
+      "narration": "여기서 지난 두 시간 내용과 이어보겠습니다. 우리는 지금까지 세 가지 소리를 배웠습니다. 션, 전, 그리고 오늘의 처. 그런데 이 세 소리, 사실 전부 같은 원리로 만들어졌습니다. 자음이 이 소리와 부딪히면서 변한 겁니다. 네이션은 티가 이를 만나 션이 됐고, 디시전은 에스가 이를 만나 전이 됐고, 픽처는 티가 이를 만나 처가 됐습니다. 다르게 보였지만, 뿌리는 하나였던 겁니다.",
+      "card": {
+        "category": "principle",
+        "badge": "세 소리의 뿌리",
+        "words": [
+          {
+            "word": "NATION",
+            "syllables": [
+              "NA",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "DECISION",
+            "syllables": [
+              "DE",
+              "CI",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디",
+              "시",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "PICTURE",
+            "syllables": [
+              "PIC",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "픽",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "box": [
+          "자음이 '이' 소리와 부딪히며 변한 결과",
+          "다르게 보였지만 뿌리는 하나"
+        ],
+        "caption": "션 · 전 · 처는 같은 원리입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "여기서 지난 두 시간 내용과 이어보겠습니다.",
+          "from": 0,
+          "to": 122
+        },
+        {
+          "text": "우리는 지금까지 세 가지 소리를 배웠습니다.",
+          "from": 122,
+          "to": 229
+        },
+        {
+          "text": "션, 전, 그리고 오늘의 처.",
+          "from": 229,
+          "to": 355
+        },
+        {
+          "text": "그런데 이 세 소리, 사실 전부 같은",
+          "from": 355,
+          "to": 460
+        },
+        {
+          "text": "원리로 만들어졌습니다.",
+          "from": 460,
+          "to": 524
+        },
+        {
+          "text": "자음이 이 소리와 부딪히면서 변한 겁니다.",
+          "from": 524,
+          "to": 650
+        },
+        {
+          "text": "네이션은 티가 이를 만나 션이 됐고,",
+          "from": 650,
+          "to": 764
+        },
+        {
+          "text": "디시전은 에스가 이를 만나 전이 됐고,",
+          "from": 764,
+          "to": 877
+        },
+        {
+          "text": "픽처는 티가 이를 만나 처가 됐습니다.",
+          "from": 877,
+          "to": 994
+        },
+        {
+          "text": "다르게 보였지만, 뿌리는 하나였던 겁니다.",
+          "from": 994,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "확장 - 에스가 유를 만나면",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "MEASURE",
+          "stress": "MEA",
+          "pronunciation": "메저",
+          "meaning": "측정하다",
+          "narrationCue": "메저",
+          "highlightAt": 211,
+          "highlightEnd": 249
+        },
+        {
+          "word": "PLEASURE",
+          "stress": "PLEA",
+          "pronunciation": "플레저",
+          "meaning": "즐거움",
+          "narrationCue": "플레저",
+          "highlightAt": 389,
+          "highlightEnd": 433
+        },
+        {
+          "word": "TREASURE",
+          "stress": "TREA",
+          "pronunciation": "트레저",
+          "meaning": "보물",
+          "narrationCue": "트레저",
+          "highlightAt": 487,
+          "highlightEnd": 534
+        }
+      ],
+      "content": "에스 + 유 = 저 (앞이 모음이라 저)",
+      "caption": "지난 시간 규칙 재적용",
+      "narration": "하나만 더 보여드리겠습니다. 티가 아니라 에스가 유를 만나면 어떻게 될까요? 메저. 측정하다. 에스가 유를 만나서, 저가 됐습니다. 플레저. 즐거움. 역시 저입니다. 트레저. 보물. 이것도 저죠. 왜 셔가 아니라 저일까요? 지난 시간 규칙을 떠올려 보세요. 메저, 플레저, 트레저. 전부 에스 앞에 모음이 있습니다. 지난 시간 배운 규칙이 여기서도 그대로 작동합니다.",
+      "card": {
+        "category": "example",
+        "badge": "규칙 확장",
+        "words": [
+          {
+            "word": "MEASURE",
+            "syllables": [
+              "MEA",
+              "SURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "메",
+              "저"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "PLEASURE",
+            "syllables": [
+              "PLEA",
+              "SURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "플레",
+              "저"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "TREASURE",
+            "syllables": [
+              "TREA",
+              "SURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "트레",
+              "저"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "box": [
+          "-SURE 앞이 모음이라 '셔'가 아니라 '저'",
+          "지난 시간 규칙이 그대로 작동"
+        ],
+        "caption": "규칙은 하나로 이어집니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "하나만 더 보여드리겠습니다.",
+          "from": 0,
+          "to": 77
+        },
+        {
+          "text": "티가 아니라 에스가 유를 만나면 어떻게",
+          "from": 77,
+          "to": 191
+        },
+        {
+          "text": "될까요?",
+          "from": 191,
+          "to": 211
+        },
+        {
+          "text": "메저.",
+          "from": 211,
+          "to": 243
+        },
+        {
+          "text": "측정하다.",
+          "from": 243,
+          "to": 283
+        },
+        {
+          "text": "에스가 유를 만나서, 저가 됐습니다.",
+          "from": 283,
+          "to": 389
+        },
+        {
+          "text": "플레저.",
+          "from": 389,
+          "to": 422
+        },
+        {
+          "text": "즐거움.",
+          "from": 422,
+          "to": 453
+        },
+        {
+          "text": "역시 저입니다.",
+          "from": 453,
+          "to": 518
+        },
+        {
+          "text": "트레저.",
+          "from": 518,
+          "to": 549
+        },
+        {
+          "text": "보물.",
+          "from": 549,
+          "to": 576
+        },
+        {
+          "text": "이것도 저죠.",
+          "from": 576,
+          "to": 633
+        },
+        {
+          "text": "왜 셔가 아니라 저일까요?",
+          "from": 633,
+          "to": 715
+        },
+        {
+          "text": "지난 시간 규칙을 떠올려 보세요.",
+          "from": 715,
+          "to": 787
+        },
+        {
+          "text": "메저, 플레저, 트레저.",
+          "from": 787,
+          "to": 875
+        },
+        {
+          "text": "전부 에스 앞에 모음이 있습니다.",
+          "from": 875,
+          "to": 974
+        },
+        {
+          "text": "지난 시간 배운 규칙이 여기서도 그대로",
+          "from": 974,
+          "to": 1083
+        },
+        {
+          "text": "작동합니다.",
+          "from": 1083,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "실전 적용 - CAPTURE / MIXTURE",
+      "duration": 40,
+      "layout": "quiz",
+      "words": [
+        {
+          "word": "CAPTURE",
+          "stress": "CAP",
+          "pronunciation": "캡처",
+          "meaning": "포착하다",
+          "narrationCue": "캡처",
+          "highlightAt": 107,
+          "highlightEnd": 140
+        },
+        {
+          "word": "MIXTURE",
+          "stress": "MIX",
+          "pronunciation": "믹스처",
+          "meaning": "혼합물",
+          "narrationCue": "믹스처",
+          "highlightAt": 407,
+          "highlightEnd": 447
+        }
+      ],
+      "content": "규칙만 알면 처음 보는 단어도 읽는다",
+      "caption": "일시정지하고 맞혀보세요",
+      "narration": "이제 직접 해보시겠습니다. 처음 보는 단어입니다. 캡처. 붙잡다, 포착하다라는 뜻입니다. 처입니다. 강세는 캡. 하나 더. 믹스처. 혼합물입니다. 역시 처. 강세는 믹스입니다. 보세요. 뜻을 몰라도, 처음 보는 단어여도, 규칙만 알면 소리를 맞힐 수 있습니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "실전 적용",
+        "heading": "처음 보는 단어도 규칙으로 읽어보세요",
+        "words": [
+          {
+            "word": "CAPTURE",
+            "syllables": [
+              "CAP",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "캡",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "MIXTURE",
+            "syllables": [
+              "MIX",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "믹스",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "뜻을 몰라도 규칙만 알면 됩니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "이제 직접 해보시겠습니다.",
+          "from": 0,
+          "to": 77
+        },
+        {
+          "text": "처음 보는 단어입니다.",
+          "from": 77,
+          "to": 129
+        },
+        {
+          "text": "캡처.",
+          "from": 129,
+          "to": 146
+        },
+        {
+          "text": "붙잡다, 포착하다라는 뜻입니다.",
+          "from": 146,
+          "to": 292
+        },
+        {
+          "text": "처입니다.",
+          "from": 292,
+          "to": 333
+        },
+        {
+          "text": "강세는 캡.",
+          "from": 333,
+          "to": 401
+        },
+        {
+          "text": "하나 더.",
+          "from": 401,
+          "to": 438
+        },
+        {
+          "text": "믹스처.",
+          "from": 438,
+          "to": 466
+        },
+        {
+          "text": "혼합물입니다.",
+          "from": 466,
+          "to": 517
+        },
+        {
+          "text": "역시 처.",
+          "from": 517,
+          "to": 566
+        },
+        {
+          "text": "강세는 믹스입니다.",
+          "from": 566,
+          "to": 647
+        },
+        {
+          "text": "보세요.",
+          "from": 647,
+          "to": 672
+        },
+        {
+          "text": "뜻을 몰라도, 처음 보는 단어여도, 규칙만 알면",
+          "from": 672,
+          "to": 779
+        },
+        {
+          "text": "소리를 맞힐 수 있습니다.",
+          "from": 779,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "3가지 규칙 요약",
+      "duration": 35,
+      "layout": "summary",
+      "words": [],
+      "content": [
+        "① 티+유 = 처, 강세는 바로 앞 음절",
+        "② 유 속의 '이'가 트와 부딪힌 결과",
+        "③ 에스+유 = 저"
+      ],
+      "caption": "영어는 이해하는 것입니다",
+      "narration": "오늘 배운 영어 발음 규칙, 세 가지로 정리하겠습니다. 첫째, 티와 유가 만나면 처로 발음됩니다. 강세는 그 바로 앞 음절입니다. 둘째, 이건 유 안에 숨은 이 소리가 트와 부딪혀서 생긴 변화입니다. 셋째, 에스가 유를 만나면 저가 됩니다. 기초 영어 공부하실 때 꼭 활용해 보세요. 영어는 외우는 것이 아니라, 이해하는 것입니다.",
+      "card": {
+        "category": "summary",
+        "badge": "요약",
+        "points": [
+          "T와 U가 만나면 '처'로 발음됩니다.\n강세는 그 바로 앞 음절입니다.",
+          "'유' 안에 숨은 '이' 소리가\n'트'와 부딪혀 생긴 변화입니다.",
+          "S가 U를 만나면 '저'가 됩니다."
+        ],
+        "chips": [
+          "PICTURE",
+          "NATURE",
+          "FUTURE",
+          "CULTURE",
+          "ADVENTURE",
+          "FURNITURE",
+          "MEASURE",
+          "PLEASURE",
+          "TREASURE",
+          "CAPTURE",
+          "MIXTURE"
+        ],
+        "caption": "기초 영어 공부하실 때 꼭 활용해 보세요! 영어는 외우는 것이 아니라, 이해하는 것입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "오늘 배운 영어 발음 규칙, 세 가지로 정리하겠습니다.",
+          "from": 0,
+          "to": 139
+        },
+        {
+          "text": "첫째, 티와 유가 만나면 처로 발음됩니다.",
+          "from": 139,
+          "to": 278
+        },
+        {
+          "text": "강세는 그 바로 앞 음절입니다.",
+          "from": 278,
+          "to": 373
+        },
+        {
+          "text": "둘째, 이건 유 안에 숨은 이 소리가",
+          "from": 373,
+          "to": 482
+        },
+        {
+          "text": "트와 부딪혀서 생긴 변화입니다.",
+          "from": 482,
+          "to": 574
+        },
+        {
+          "text": "셋째, 에스가 유를 만나면 저가",
+          "from": 574,
+          "to": 692
+        },
+        {
+          "text": "됩니다.",
+          "from": 692,
+          "to": 725
+        },
+        {
+          "text": "기초 영어 공부하실 때 꼭 활용해 보세요.",
+          "from": 725,
+          "to": 810
+        },
+        {
+          "text": "영어는 외우는 것이 아니라, 이해하는 것입니다.",
+          "from": 810,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "다음 편 예고 - -CIAL의 비밀",
+      "duration": 30,
+      "layout": "compare",
+      "words": [
+        {
+          "word": "PICTURE",
+          "sound": "처",
+          "highlightPart": "TURE",
+          "causeChar": "U",
+          "pronunciation": "픽처",
+          "meaning": "사진",
+          "narrationCue": "픽처"
+        },
+        {
+          "word": "SPECIAL",
+          "sound": "셜",
+          "highlightPart": "CIAL",
+          "causeChar": "I",
+          "pronunciation": "스페셜",
+          "meaning": "특별한",
+          "narrationCue": "스페셜",
+          "highlightAt": 79,
+          "highlightEnd": 118
+        }
+      ],
+      "content": "이번엔 씨가 변했다",
+      "caption": "다음 시간: -CIAL의 비밀",
+      "narration": "그런데 여기서, 또 하나가 남습니다. 스페셜. 특별한이라는 뜻이죠. 씨, 아이, 에이, 엘로 끝나는데, 소리는 셜입니다. 오피셜, 소셜도 마찬가지입니다. 이번엔 티도 에스도 아닌 씨가 변했습니다. 대체 왜일까요? 이 비밀은 다음 시간에 함께 풀어보겠습니다. 영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다. 오늘도 끝까지 함께해 주셔서 감사합니다.",
+      "card": {
+        "category": "teaser",
+        "badge": "다음 편 예고",
+        "words": [
+          {
+            "word": "SPECIAL",
+            "syllables": [
+              "SPE",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "스페",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "OFFICIAL",
+            "syllables": [
+              "OF",
+              "FI",
+              "CIAL"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "오",
+              "피",
+              "셜"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "SOCIAL",
+            "syllables": [
+              "SO",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "소",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "lines": [
+          "션, 전, 처. 그리고 셜?"
+        ],
+        "note": "이번엔 T도 S도 아닌 C가 변했습니다.\n다음 시간에 함께 풀어보겠습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "그런데 여기서, 또 하나가 남습니다.",
+          "from": 0,
+          "to": 100
+        },
+        {
+          "text": "스페셜.",
+          "from": 100,
+          "to": 146
+        },
+        {
+          "text": "특별한이라는 뜻이죠.",
+          "from": 146,
+          "to": 207
+        },
+        {
+          "text": "씨, 아이, 에이, 엘로 끝나는데,",
+          "from": 207,
+          "to": 317
+        },
+        {
+          "text": "소리는 셜입니다.",
+          "from": 317,
+          "to": 386
+        },
+        {
+          "text": "오피셜, 소셜도 마찬가지입니다.",
+          "from": 386,
+          "to": 496
+        },
+        {
+          "text": "이번엔 티도 에스도 아닌 씨가 변했습니다.",
+          "from": 496,
+          "to": 622
+        },
+        {
+          "text": "대체 왜일까요?",
+          "from": 622,
+          "to": 683
+        },
+        {
+          "text": "이 비밀은 다음 시간에 함께 풀어보겠습니다.",
+          "from": 683,
+          "to": 790
+        },
+        {
+          "text": "영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다.",
+          "from": 790,
+          "to": 916
+        },
+        {
+          "text": "오늘도 끝까지 함께해 주셔서 감사합니다.",
+          "from": 916,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "엔드스크린",
+      "duration": 8,
+      "layout": "summary",
+      "words": [],
+      "content": "구독 유도 + 재생목록 안내",
+      "caption": "구독하고 다음 편도 놓치지 마세요",
+      "narration": "",
+      "card": {
+        "category": "endscreen",
+        "badge": "엔드스크린",
+        "subscribe": "구독하고 다음 편도 놓치지 마세요",
+        "playlist": "시즌1 전체 재생목록",
+        "playlistUrl": "이해하면 쉬운 영어 · 시즌1 모아보기"
+      }
+    }
+  ]
+}

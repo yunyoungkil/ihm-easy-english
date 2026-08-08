@@ -1,0 +1,1576 @@
+{
+  "episode": "EP7",
+  "title": "-SION의 비밀",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "오프닝 퀴즈 - MISSION vs TELEVISION",
+      "duration": 40,
+      "layout": "compare",
+      "words": [
+        {
+          "word": "MISSION",
+          "sound": "션",
+          "highlightPart": "SION",
+          "pronunciation": "미션",
+          "meaning": "임무",
+          "narrationCue": "미션",
+          "highlightAt": 133,
+          "highlightEnd": 191
+        },
+        {
+          "word": "TELEVISION",
+          "sound": "전",
+          "highlightPart": "SION",
+          "causeChar": "I",
+          "pronunciation": "텔레비전",
+          "meaning": "텔레비전",
+          "narrationCue": "텔레비전",
+          "highlightAt": 212,
+          "highlightEnd": 282
+        }
+      ],
+      "content": "같은 -SION 철자, 다른 소리",
+      "caption": "같은 철자, 다른 소리?",
+      "narration": "두 단어를 들려드리겠습니다. 잘 들어보세요. 미션. 그리고, 텔레비전. 둘 다 에스-아이-오-엔으로 끝납니다. 철자가 똑같습니다. 그런데 하나는 션, 하나는 전. 소리가 완전히 다릅니다. 같은 철자인데, 왜 소리가 갈릴까요? 오늘 이 비밀을 완전히 풀어드리겠습니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "퀴즈",
+        "heading": "같은 철자인데, 왜 소리가 갈릴까요?",
+        "words": [
+          {
+            "word": "MISSION",
+            "syllables": [
+              "MIS",
+              "SION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "미",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "TELEVISION",
+            "syllables": [
+              "TE",
+              "LE",
+              "VI",
+              "SION"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "텔",
+              "레",
+              "비",
+              "전"
+            ],
+            "pronStressIndex": 2,
+            "pronDiffIndex": 3
+          }
+        ],
+        "caption": "둘 다 -SION 인데 소리가 다릅니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "두 단어를 들려드리겠습니다.",
+          "from": 0,
+          "to": 80
+        },
+        {
+          "text": "잘 들어보세요.",
+          "from": 80,
+          "to": 133
+        },
+        {
+          "text": "미션.",
+          "from": 133,
+          "to": 178
+        },
+        {
+          "text": "그리고, 텔레비전.",
+          "from": 178,
+          "to": 267
+        },
+        {
+          "text": "둘 다 에스-아이-오-엔으로 끝납니다.",
+          "from": 267,
+          "to": 360
+        },
+        {
+          "text": "철자가 똑같습니다.",
+          "from": 360,
+          "to": 416
+        },
+        {
+          "text": "그런데 하나는 션, 하나는",
+          "from": 416,
+          "to": 579
+        },
+        {
+          "text": "소리가 완전히 다릅니다.",
+          "from": 579,
+          "to": 648
+        },
+        {
+          "text": "같은 철자인데, 왜 소리가 갈릴까요?",
+          "from": 648,
+          "to": 760
+        },
+        {
+          "text": "오늘 이 비밀을 완전히 풀어드리겠습니다.",
+          "from": 760,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "채널 인트로 및 지난 편 리마인드",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "채널 인트로, 지난 편(-TION) 언급",
+      "caption": "시즌1 EP7",
+      "narration": "안녕하세요. 영어 발음과 강세를 원리로 배우는, 「이해하면 쉬운 영어」입니다. 영어 공부를 하시면서, 분명 아는 단어인데 발음이 헷갈렸던 적 있으시죠? 지난 시간에는 션으로 끝나는 단어의 강세 규칙을 배웠습니다. 션 바로 앞 음절에 힘이 들어간다는 것, 기억하시죠? 오늘은 그 형제 격인 전, 에스-아이-오-엔의 비밀입니다. 이 영어 발음 규칙을 이해하시면, 처음 보는 단어도 정확하게 읽으실 수 있습니다.",
+      "card": {
+        "category": "intro",
+        "badge": "인트로",
+        "lines": [
+          "안녕하세요.",
+          "영어 발음과 강세를 원리로 배우는,",
+          "「이해하면 쉬운 영어」입니다."
+        ],
+        "box": [
+          "지난 시간에는 -TION",
+          "션 바로 앞 음절에 강세"
+        ],
+        "note": "오늘은 그 형제 격인 -SION,\n전의 비밀입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "안녕하세요.",
+          "from": 0,
+          "to": 47
+        },
+        {
+          "text": "영어 발음과 강세를 원리로 배우는, 「이해하면",
+          "from": 47,
+          "to": 163
+        },
+        {
+          "text": "쉬운 영어」입니다.",
+          "from": 163,
+          "to": 212
+        },
+        {
+          "text": "영어 공부를 하시면서, 분명 아는 단어인데",
+          "from": 212,
+          "to": 324
+        },
+        {
+          "text": "발음이 헷갈렸던 적 있으시죠?",
+          "from": 324,
+          "to": 404
+        },
+        {
+          "text": "지난 시간에는 션으로 끝나는 단어의 강세 규칙을",
+          "from": 404,
+          "to": 526
+        },
+        {
+          "text": "배웠습니다.",
+          "from": 526,
+          "to": 556
+        },
+        {
+          "text": "션 바로 앞 음절에 힘이 들어간다는 것,",
+          "from": 556,
+          "to": 666
+        },
+        {
+          "text": "기억하시죠?",
+          "from": 666,
+          "to": 694
+        },
+        {
+          "text": "오늘은 그 형제 격인 전, 에스-아이-오-엔의",
+          "from": 694,
+          "to": 827
+        },
+        {
+          "text": "비밀입니다.",
+          "from": 827,
+          "to": 862
+        },
+        {
+          "text": "이 영어 발음 규칙을 이해하시면, 처음 보는 단어도 정확하게",
+          "from": 862,
+          "to": 983
+        },
+        {
+          "text": "읽으실 수 있습니다.",
+          "from": 983,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "강세 규칙 재확인 - DECISION / TELEVISION / DISCUSSION",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "DECISION",
+          "stress": "CI",
+          "pronunciation": "디시전",
+          "meaning": "결정",
+          "narrationCue": "디시전",
+          "highlightAt": 239,
+          "highlightEnd": 278
+        },
+        {
+          "word": "TELEVISION",
+          "stress": "VI",
+          "pronunciation": "텔레비전",
+          "meaning": "텔레비전",
+          "narrationCue": "텔레비전",
+          "highlightAt": 416,
+          "highlightEnd": 456
+        },
+        {
+          "word": "DISCUSSION",
+          "stress": "CUS",
+          "pronunciation": "디스커션",
+          "meaning": "토론",
+          "narrationCue": "디스커션",
+          "highlightAt": 632,
+          "highlightEnd": 680
+        }
+      ],
+      "content": "-SION 바로 앞 음절에 강세",
+      "caption": "강세는 지난 시간과 동일!",
+      "narration": "먼저 좋은 소식부터 말씀드리겠습니다. 강세 규칙은 지난 시간과 완전히 똑같습니다. 디시전. 강세는 시에 있습니다. 바로 앞 음절이죠. 그렇다면 텔레비전은 어디일까요? 정답은, 비입니다. 역시 바로 앞입니다. 하나 더. 디스커션은요? 맞습니다. 커입니다. 보세요. 션이든 전이든, 강세는 무조건 그 바로 앞 음절입니다. 지난 시간에 배운 규칙이 그대로 적용됩니다. 그러니까 오늘 새로 외울 강세 규칙은 없습니다.",
+      "card": {
+        "category": "principle",
+        "badge": "패턴 확인",
+        "words": [
+          {
+            "word": "DECISION",
+            "syllables": [
+              "DE",
+              "CI",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디",
+              "시",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "TELEVISION",
+            "syllables": [
+              "TE",
+              "LE",
+              "VI",
+              "SION"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "텔",
+              "레",
+              "비",
+              "전"
+            ],
+            "pronStressIndex": 2,
+            "pronDiffIndex": 3
+          },
+          {
+            "word": "DISCUSSION",
+            "syllables": [
+              "DIS",
+              "CUS",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디스",
+              "커",
+              "션"
+            ],
+            "pronStressIndex": 1
+          }
+        ],
+        "caption": "-SION 바로 앞 음절에 강세!"
+      },
+      "subtitleGroups": [
+        {
+          "text": "먼저 좋은 소식부터 말씀드리겠습니다.",
+          "from": 0,
+          "to": 115
+        },
+        {
+          "text": "강세 규칙은 지난 시간과 완전히 똑같습니다.",
+          "from": 115,
+          "to": 239
+        },
+        {
+          "text": "디시전.",
+          "from": 239,
+          "to": 282
+        },
+        {
+          "text": "강세는 시에 있습니다.",
+          "from": 282,
+          "to": 345
+        },
+        {
+          "text": "바로 앞 음절이죠.",
+          "from": 345,
+          "to": 410
+        },
+        {
+          "text": "그렇다면 텔레비전은 어디일까요?",
+          "from": 410,
+          "to": 499
+        },
+        {
+          "text": "정답은, 비입니다.",
+          "from": 499,
+          "to": 563
+        },
+        {
+          "text": "역시 바로 앞입니다.",
+          "from": 563,
+          "to": 626
+        },
+        {
+          "text": "하나 더.",
+          "from": 626,
+          "to": 658
+        },
+        {
+          "text": "디스커션은요?",
+          "from": 658,
+          "to": 710
+        },
+        {
+          "text": "맞습니다.",
+          "from": 710,
+          "to": 741
+        },
+        {
+          "text": "커입니다.",
+          "from": 741,
+          "to": 785
+        },
+        {
+          "text": "보세요.",
+          "from": 785,
+          "to": 811
+        },
+        {
+          "text": "션이든 전이든, 강세는 무조건 그 바로",
+          "from": 811,
+          "to": 929
+        },
+        {
+          "text": "앞 음절입니다.",
+          "from": 929,
+          "to": 973
+        },
+        {
+          "text": "지난 시간에 배운 규칙이 그대로 적용됩니다.",
+          "from": 973,
+          "to": 1069
+        },
+        {
+          "text": "그러니까 오늘 새로 외울 강세 규칙은",
+          "from": 1069,
+          "to": 1186
+        },
+        {
+          "text": "없습니다.",
+          "from": 1186,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "문제 제기 - 소리는 왜 갈리나",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "강세는 같다. 남은 문제는 소리뿐",
+      "caption": "정답은 앞 글자에 있다",
+      "narration": "그럼 문제는 하나만 남습니다. 소리입니다. 미션은 션인데, 텔레비전은 전. 텐션은 션인데, 디시전은 전. 이 차이, 사실 아주 단순한 규칙 하나로 완벽하게 갈립니다. 힌트를 드리겠습니다. 답은 에스-아이-오-엔 안에 있는 게 아닙니다. 바로 앞 글자에 있습니다.",
+      "card": {
+        "category": "principle",
+        "badge": "문제는 소리",
+        "box": [
+          "미션 → 션 / 텔레비전 → 전",
+          "텐션 → 션 / 디시전 → 전"
+        ],
+        "lines": [
+          "답은 -SION 안에 있지 않습니다.",
+          "바로 앞 글자에 있습니다."
+        ]
+      },
+      "subtitleGroups": [
+        {
+          "text": "그럼 문제는 하나만 남습니다.",
+          "from": 0,
+          "to": 88
+        },
+        {
+          "text": "소리입니다.",
+          "from": 88,
+          "to": 133
+        },
+        {
+          "text": "미션은 션인데, 텔레비전은 전.",
+          "from": 133,
+          "to": 242
+        },
+        {
+          "text": "텐션은 션인데, 디시전은 전.",
+          "from": 242,
+          "to": 344
+        },
+        {
+          "text": "이 차이, 사실 아주 단순한 규칙 하나로 완벽하게",
+          "from": 344,
+          "to": 469
+        },
+        {
+          "text": "갈립니다.",
+          "from": 469,
+          "to": 497
+        },
+        {
+          "text": "힌트를 드리겠습니다.",
+          "from": 497,
+          "to": 544
+        },
+        {
+          "text": "답은 에스-아이-오-엔 안에 있는 게 아닙니다.",
+          "from": 544,
+          "to": 652
+        },
+        {
+          "text": "바로 앞 글자에 있습니다.",
+          "from": 652,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "핵심 규칙 - 모음 뒤 전, 자음 뒤 션",
+      "duration": 60,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "DECISION",
+          "stress": "CI",
+          "pronunciation": "디시전",
+          "meaning": "결정",
+          "narrationCue": "디시전",
+          "highlightAt": 487,
+          "highlightEnd": 523
+        },
+        {
+          "word": "TELEVISION",
+          "stress": "VI",
+          "pronunciation": "텔레비전",
+          "meaning": "텔레비전",
+          "narrationCue": "텔레비전",
+          "highlightAt": 692,
+          "highlightEnd": 739
+        },
+        {
+          "word": "CONFUSION",
+          "stress": "FU",
+          "pronunciation": "컨퓨전",
+          "meaning": "혼란",
+          "narrationCue": "컨퓨전",
+          "highlightAt": 856,
+          "highlightEnd": 893
+        },
+        {
+          "word": "MISSION",
+          "stress": "MIS",
+          "pronunciation": "미션",
+          "meaning": "임무",
+          "narrationCue": "미션",
+          "highlightAt": 1088,
+          "highlightEnd": 1117
+        },
+        {
+          "word": "TENSION",
+          "stress": "TEN",
+          "pronunciation": "텐션",
+          "meaning": "긴장",
+          "narrationCue": "텐션",
+          "highlightAt": 1287,
+          "highlightEnd": 1320
+        }
+      ],
+      "content": "모음 뒤에는 전, 자음 뒤에는 션",
+      "caption": "모음→전, 자음→션",
+      "narration": "정답을 말씀드리겠습니다. 바로 앞이 모음이면 전, 자음이면 션입니다. 다시 한번 말씀드립니다. 모음 뒤에는 전. 자음 뒤에는 션. 확인해 보겠습니다. 디시전. 에스 앞에 아이가 있습니다. 모음이죠. 그래서 전입니다. 텔레비전. 역시 아이, 모음입니다. 전이 맞습니다. 컨퓨전. 앞에 유가 있습니다. 모음입니다. 전입니다. 반대쪽도 보겠습니다. 미션. 에스 앞에 또 에스가 있습니다. 자음이죠. 그래서 션입니다. 텐션. 앞에 엔이 있습니다. 자음입니다. 션이 맞습니다. 예외 없이 전부 맞아떨어집니다.",
+      "card": {
+        "category": "principle",
+        "badge": "정답 공개",
+        "box": [
+          "앞이 모음이면 → 전",
+          "앞이 자음이면 → 션"
+        ],
+        "words": [
+          {
+            "word": "DECISION",
+            "syllables": [
+              "DE",
+              "CI",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디",
+              "시",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "CONFUSION",
+            "syllables": [
+              "CON",
+              "FU",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "컨",
+              "퓨",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "MISSION",
+            "syllables": [
+              "MIS",
+              "SION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "미",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "TENSION",
+            "syllables": [
+              "TEN",
+              "SION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "텐",
+              "션"
+            ],
+            "pronStressIndex": 0
+          }
+        ],
+        "caption": "예외 없이 전부 맞아떨어집니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "정답을 말씀드리겠습니다.",
+          "from": 0,
+          "to": 84
+        },
+        {
+          "text": "바로 앞이 모음이면 전, 자음이면",
+          "from": 84,
+          "to": 210
+        },
+        {
+          "text": "션입니다.",
+          "from": 210,
+          "to": 239
+        },
+        {
+          "text": "다시 한번 말씀드립니다.",
+          "from": 239,
+          "to": 291
+        },
+        {
+          "text": "모음 뒤에는 전.",
+          "from": 291,
+          "to": 359
+        },
+        {
+          "text": "자음 뒤에는 션.",
+          "from": 359,
+          "to": 431
+        },
+        {
+          "text": "확인해 보겠습니다.",
+          "from": 431,
+          "to": 487
+        },
+        {
+          "text": "디시전.",
+          "from": 487,
+          "to": 529
+        },
+        {
+          "text": "에스 앞에 아이가 있습니다.",
+          "from": 529,
+          "to": 595
+        },
+        {
+          "text": "모음이죠.",
+          "from": 595,
+          "to": 628
+        },
+        {
+          "text": "그래서 전입니다.",
+          "from": 628,
+          "to": 692
+        },
+        {
+          "text": "텔레비전.",
+          "from": 692,
+          "to": 730
+        },
+        {
+          "text": "역시 아이, 모음입니다.",
+          "from": 730,
+          "to": 803
+        },
+        {
+          "text": "전이 맞습니다.",
+          "from": 803,
+          "to": 856
+        },
+        {
+          "text": "컨퓨전.",
+          "from": 856,
+          "to": 892
+        },
+        {
+          "text": "앞에 유가 있습니다.",
+          "from": 892,
+          "to": 948
+        },
+        {
+          "text": "모음입니다.",
+          "from": 948,
+          "to": 980
+        },
+        {
+          "text": "전입니다.",
+          "from": 980,
+          "to": 1030
+        },
+        {
+          "text": "반대쪽도 보겠습니다.",
+          "from": 1030,
+          "to": 1088
+        },
+        {
+          "text": "미션.",
+          "from": 1088,
+          "to": 1124
+        },
+        {
+          "text": "에스 앞에 또 에스가 있습니다.",
+          "from": 1124,
+          "to": 1196
+        },
+        {
+          "text": "자음이죠.",
+          "from": 1196,
+          "to": 1225
+        },
+        {
+          "text": "그래서 션입니다.",
+          "from": 1225,
+          "to": 1287
+        },
+        {
+          "text": "텐션.",
+          "from": 1287,
+          "to": 1319
+        },
+        {
+          "text": "앞에 엔이 있습니다.",
+          "from": 1319,
+          "to": 1373
+        },
+        {
+          "text": "자음입니다.",
+          "from": 1373,
+          "to": 1407
+        },
+        {
+          "text": "션이 맞습니다.",
+          "from": 1407,
+          "to": 1457
+        },
+        {
+          "text": "예외 없이 전부 맞아떨어집니다.",
+          "from": 1457,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "왜 그럴까 - 모음의 떨림이 이어진다",
+      "duration": 50,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "모음 = 성대가 떨리는 소리",
+      "caption": "모음의 떨림이 이어진다",
+      "narration": "그런데 왜 하필 모음 뒤에서만 소리가 바뀔까요? 모음은 항상 성대가 떨리는 소리입니다. 아, 이, 우. 목에 손을 대고 소리 내보시면 진동이 느껴집니다. 모음 뒤에서는 그 떨림이 자연스럽게 다음 소리로 이어져서, 전처럼 떨리는 소리가 됩니다. 하지만 자음 뒤에서는 이 떨림이 그대로 이어지지 않고, 원래 소리인 션이 유지됩니다. 그러니까 이건 영어가 게을러서가 아니라, 모음의 떨림이 자연스럽게 이어지려는 흐름 때문에 생긴 결과입니다.",
+      "card": {
+        "category": "principle",
+        "badge": "왜 그럴까 — 소리의 원리",
+        "flow": [
+          {
+            "label": "모음\n(떨림)"
+          },
+          {
+            "label": "떨림이\n이어짐"
+          },
+          {
+            "label": "전"
+          }
+        ],
+        "caption": "자음 뒤에서는 떨림이 이어지지 않아 션이 유지됩니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "그런데 왜 하필 모음 뒤에서만 소리가",
+          "from": 0,
+          "to": 126
+        },
+        {
+          "text": "바뀔까요?",
+          "from": 126,
+          "to": 154
+        },
+        {
+          "text": "모음은 항상 성대가 떨리는 소리입니다.",
+          "from": 154,
+          "to": 265
+        },
+        {
+          "text": "아, 이, 우.",
+          "from": 265,
+          "to": 363
+        },
+        {
+          "text": "목에 손을 대고 소리 내보시면 진동이 느껴집니다.",
+          "from": 363,
+          "to": 488
+        },
+        {
+          "text": "모음 뒤에서는 그 떨림이 자연스럽게 다음 소리로",
+          "from": 488,
+          "to": 603
+        },
+        {
+          "text": "이어져서, 전처럼 떨리는 소리가 됩니다.",
+          "from": 603,
+          "to": 697
+        },
+        {
+          "text": "하지만 자음 뒤에서는 이 떨림이 그대로 이어지지",
+          "from": 697,
+          "to": 819
+        },
+        {
+          "text": "않고, 원래 소리인 션이 유지됩니다.",
+          "from": 819,
+          "to": 911
+        },
+        {
+          "text": "그러니까 이건 영어가 게을러서가 아니라, 모음의",
+          "from": 911,
+          "to": 1025
+        },
+        {
+          "text": "떨림이 자연스럽게 이어지려는 흐름 때문에 생긴 결과입니다.",
+          "from": 1025,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "실생활 연결",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "TELEVISION",
+          "stress": "VI",
+          "pronunciation": "텔레비전",
+          "meaning": "텔레비전",
+          "narrationCue": "텔레비전",
+          "highlightAt": 173,
+          "highlightEnd": 230
+        },
+        {
+          "word": "MISSION",
+          "stress": "MIS",
+          "pronunciation": "미션",
+          "meaning": "임무",
+          "narrationCue": "미션",
+          "highlightAt": 398,
+          "highlightEnd": 446
+        },
+        {
+          "word": "TENSION",
+          "stress": "TEN",
+          "pronunciation": "텐션",
+          "meaning": "긴장",
+          "narrationCue": "텐션",
+          "highlightAt": 610,
+          "highlightEnd": 660
+        },
+        {
+          "word": "CONFUSION",
+          "stress": "FU",
+          "pronunciation": "컨퓨전",
+          "meaning": "혼란",
+          "narrationCue": "컨퓨전",
+          "highlightAt": 853,
+          "highlightEnd": 904
+        }
+      ],
+      "content": "이미 매일 쓰던 단어들",
+      "caption": "이미 매일 쓰던 단어였다",
+      "narration": "이 규칙, 여러분이 매일 쓰는 단어에도 그대로 살아 있습니다. 텔레비전. 이제 왜 전인지 아시겠죠? 앞에 모음 아이가 있기 때문입니다. 미션. 게임에서도 자주 쓰는 말이죠. 앞에 자음이 있어서 션입니다. 텐션. 우리도 그냥 텐션이라고 부르죠. 앞에 엔, 자음입니다. 션이 맞습니다. 컨퓨전. 혼란이라는 뜻입니다. 앞에 유, 모음. 그래서 전입니다. 규칙 하나로 전부 설명됩니다.",
+      "card": {
+        "category": "example",
+        "badge": "실생활 연결",
+        "words": [
+          {
+            "word": "TELEVISION",
+            "syllables": [
+              "TE",
+              "LE",
+              "VI",
+              "SION"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "텔",
+              "레",
+              "비",
+              "전"
+            ],
+            "pronStressIndex": 2,
+            "pronDiffIndex": 3
+          },
+          {
+            "word": "MISSION",
+            "syllables": [
+              "MIS",
+              "SION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "미",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "TENSION",
+            "syllables": [
+              "TEN",
+              "SION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "텐",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "CONFUSION",
+            "syllables": [
+              "CON",
+              "FU",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "컨",
+              "퓨",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          }
+        ],
+        "caption": "규칙 하나로 전부 설명됩니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "이 규칙, 여러분이 매일 쓰는 단어에도 그대로",
+          "from": 0,
+          "to": 134
+        },
+        {
+          "text": "살아 있습니다.",
+          "from": 134,
+          "to": 173
+        },
+        {
+          "text": "텔레비전.",
+          "from": 173,
+          "to": 214
+        },
+        {
+          "text": "이제 왜 전인지 아시겠죠?",
+          "from": 214,
+          "to": 296
+        },
+        {
+          "text": "앞에 모음 아이가 있기 때문입니다.",
+          "from": 296,
+          "to": 398
+        },
+        {
+          "text": "미션.",
+          "from": 398,
+          "to": 432
+        },
+        {
+          "text": "게임에서도 자주 쓰는 말이죠.",
+          "from": 432,
+          "to": 502
+        },
+        {
+          "text": "앞에 자음이 있어서 션입니다.",
+          "from": 502,
+          "to": 610
+        },
+        {
+          "text": "텐션.",
+          "from": 610,
+          "to": 642
+        },
+        {
+          "text": "우리도 그냥 텐션이라고 부르죠.",
+          "from": 642,
+          "to": 718
+        },
+        {
+          "text": "앞에 엔, 자음입니다.",
+          "from": 718,
+          "to": 794
+        },
+        {
+          "text": "션이 맞습니다.",
+          "from": 794,
+          "to": 853
+        },
+        {
+          "text": "컨퓨전.",
+          "from": 853,
+          "to": 890
+        },
+        {
+          "text": "혼란이라는 뜻입니다.",
+          "from": 890,
+          "to": 946
+        },
+        {
+          "text": "앞에 유, 모음.",
+          "from": 946,
+          "to": 1006
+        },
+        {
+          "text": "그래서 전입니다.",
+          "from": 1006,
+          "to": 1077
+        },
+        {
+          "text": "규칙 하나로 전부 설명됩니다.",
+          "from": 1077,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "지난 편 -TION과의 비교",
+      "duration": 50,
+      "layout": "compare",
+      "words": [
+        {
+          "word": "QUESTION",
+          "sound": "천",
+          "highlightPart": "TION",
+          "causeChar": "S",
+          "pronunciation": "퀘스천",
+          "meaning": "질문",
+          "narrationCue": "퀘스천",
+          "highlightAt": 125,
+          "highlightEnd": 175
+        },
+        {
+          "word": "MISSION",
+          "sound": "션",
+          "highlightPart": "SION",
+          "pronunciation": "미션",
+          "meaning": "임무",
+          "narrationCue": "미션",
+          "highlightAt": 453,
+          "highlightEnd": 479
+        }
+      ],
+      "content": "철자가 다르면 소리도 다르다",
+      "caption": "철자가 다르면 소리도 다르다",
+      "narration": "여기서 지난 시간 내용과 이어보겠습니다. 지난 시간, 퀘스천을 기억하시나요? 티-아이-오-엔인데 천으로 발음됐죠. 앞에 스 소리가 있었기 때문입니다. 그런데 오늘 배운 미션도 앞에 에스가 있는데, 왜 천이 아니라 션일까요? 차이는 철자에 있습니다. 퀘스천은 티-아이-오-엔이고, 미션은 에스-아이-오-엔입니다. 티 뒤에 스가 오면 천, 에스가 겹치면 션. 서로 다른 글자니까 소리도 다른 겁니다. 헷갈리셨다면 지금 정리하고 가시면 됩니다.",
+      "card": {
+        "category": "exception",
+        "badge": "지난 편과 비교",
+        "words": [
+          {
+            "word": "QUESTION",
+            "syllables": [
+              "QUES",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "퀘스",
+              "천"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "MISSION",
+            "syllables": [
+              "MIS",
+              "SION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "미",
+              "션"
+            ],
+            "pronStressIndex": 0
+          }
+        ],
+        "box": [
+          "-TION 앞에 S → 천",
+          "-SION 앞에 S → 션"
+        ],
+        "caption": "서로 다른 글자니까 소리도 다릅니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "여기서 지난 시간 내용과 이어보겠습니다.",
+          "from": 0,
+          "to": 112
+        },
+        {
+          "text": "지난 시간, 퀘스천을 기억하시나요?",
+          "from": 112,
+          "to": 215
+        },
+        {
+          "text": "티-아이-오-엔인데 천으로 발음됐죠.",
+          "from": 215,
+          "to": 313
+        },
+        {
+          "text": "앞에 스 소리가 있었기 때문입니다.",
+          "from": 313,
+          "to": 426
+        },
+        {
+          "text": "그런데 오늘 배운 미션도 앞에 에스가 있는데,",
+          "from": 426,
+          "to": 537
+        },
+        {
+          "text": "왜 천이 아니라 션일까요?",
+          "from": 537,
+          "to": 626
+        },
+        {
+          "text": "차이는 철자에 있습니다.",
+          "from": 626,
+          "to": 707
+        },
+        {
+          "text": "퀘스천은 티-아이-오-엔이고, 미션은",
+          "from": 707,
+          "to": 823
+        },
+        {
+          "text": "에스-아이-오-엔입니다.",
+          "from": 823,
+          "to": 866
+        },
+        {
+          "text": "티 뒤에 스가 오면 천, 에스가 겹치면",
+          "from": 866,
+          "to": 1020
+        },
+        {
+          "text": "서로 다른 글자니까 소리도 다른 겁니다.",
+          "from": 1020,
+          "to": 1124
+        },
+        {
+          "text": "헷갈리셨다면 지금 정리하고 가시면",
+          "from": 1124,
+          "to": 1230
+        },
+        {
+          "text": "됩니다.",
+          "from": 1230,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "실전 적용 - EXPANSION / CONCLUSION",
+      "duration": 50,
+      "layout": "quiz",
+      "words": [
+        {
+          "word": "EXPANSION",
+          "stress": "PAN",
+          "pronunciation": "익스팬션",
+          "meaning": "확장",
+          "narrationCue": "익스팬션",
+          "highlightAt": 126,
+          "highlightEnd": 169
+        },
+        {
+          "word": "CONCLUSION",
+          "stress": "CLU",
+          "pronunciation": "컨클루전",
+          "meaning": "결론",
+          "narrationCue": "컨클루전",
+          "highlightAt": 556,
+          "highlightEnd": 602
+        }
+      ],
+      "content": "앞 글자 하나만 보면 소리를 맞힐 수 있다",
+      "caption": "일시정지하고 맞혀보세요",
+      "narration": "이제 직접 해보시겠습니다. 처음 보는 단어로 확인해 보죠. 익스팬션. 확장이라는 뜻입니다. 에스 앞에 엔이 있습니다. 자음이죠. 그래서 익스팬션. 션입니다. 강세는 팬에 있습니다. 하나 더. 컨클루전. 결론이라는 뜻입니다. 앞에 유가 있습니다. 모음입니다. 그래서 컨클루전. 전입니다. 강세는 클루입니다. 보세요. 뜻을 몰라도, 앞 글자 하나만 보면 소리를 맞힐 수 있습니다. 이게 원리를 이해했을 때 생기는 힘입니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "실전 적용",
+        "heading": "앞 글자를 보고 소리를 맞혀보세요",
+        "words": [
+          {
+            "word": "EXPANSION",
+            "syllables": [
+              "EX",
+              "PAN",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "익스",
+              "팬",
+              "션"
+            ],
+            "pronStressIndex": 1
+          },
+          {
+            "word": "CONCLUSION",
+            "syllables": [
+              "CON",
+              "CLU",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "컨",
+              "클루",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          }
+        ],
+        "caption": "뜻을 몰라도 앞 글자 하나면 됩니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "이제 직접 해보시겠습니다.",
+          "from": 0,
+          "to": 83
+        },
+        {
+          "text": "처음 보는 단어로 확인해 보죠.",
+          "from": 83,
+          "to": 158
+        },
+        {
+          "text": "익스팬션.",
+          "from": 158,
+          "to": 190
+        },
+        {
+          "text": "확장이라는 뜻입니다.",
+          "from": 190,
+          "to": 268
+        },
+        {
+          "text": "에스 앞에 엔이 있습니다.",
+          "from": 268,
+          "to": 331
+        },
+        {
+          "text": "자음이죠.",
+          "from": 331,
+          "to": 367
+        },
+        {
+          "text": "그래서 익스팬션.",
+          "from": 367,
+          "to": 437
+        },
+        {
+          "text": "션입니다.",
+          "from": 437,
+          "to": 478
+        },
+        {
+          "text": "강세는 팬에 있습니다.",
+          "from": 478,
+          "to": 549
+        },
+        {
+          "text": "하나 더.",
+          "from": 549,
+          "to": 584
+        },
+        {
+          "text": "컨클루전.",
+          "from": 584,
+          "to": 616
+        },
+        {
+          "text": "결론이라는 뜻입니다.",
+          "from": 616,
+          "to": 689
+        },
+        {
+          "text": "앞에 유가 있습니다.",
+          "from": 689,
+          "to": 745
+        },
+        {
+          "text": "모음입니다.",
+          "from": 745,
+          "to": 785
+        },
+        {
+          "text": "그래서 컨클루전.",
+          "from": 785,
+          "to": 857
+        },
+        {
+          "text": "전입니다.",
+          "from": 857,
+          "to": 898
+        },
+        {
+          "text": "강세는 클루입니다.",
+          "from": 898,
+          "to": 967
+        },
+        {
+          "text": "보세요.",
+          "from": 967,
+          "to": 994
+        },
+        {
+          "text": "뜻을 몰라도, 앞 글자 하나만 보면 소리를 맞힐",
+          "from": 994,
+          "to": 1102
+        },
+        {
+          "text": "수 있습니다.",
+          "from": 1102,
+          "to": 1131
+        },
+        {
+          "text": "이게 원리를 이해했을 때 생기는 힘입니다.",
+          "from": 1131,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "3가지 규칙 요약",
+      "duration": 40,
+      "layout": "summary",
+      "words": [],
+      "content": [
+        "① 강세는 -SION 바로 앞 음절",
+        "② 모음 뒤 전, 자음 뒤 션",
+        "③ 모음의 떨림이 이어진 결과"
+      ],
+      "caption": "영어는 이해하는 것입니다",
+      "narration": "오늘 배운 영어 발음 규칙, 세 가지로 정리하겠습니다. 첫째, 강세는 지난 시간과 똑같습니다. 에스-아이-오-엔 바로 앞 음절입니다. 둘째, 앞이 모음이면 전, 자음이면 션입니다. 셋째, 이건 모음의 떨림이 자연스럽게 이어진 결과입니다. 기초 영어 공부하실 때 꼭 활용해 보세요. 영어는 외우는 것이 아니라, 이해하는 것입니다.",
+      "card": {
+        "category": "summary",
+        "badge": "요약",
+        "points": [
+          "강세는 지난 시간과 똑같습니다.\n-SION 바로 앞 음절입니다.",
+          "앞이 모음이면 전,\n자음이면 션입니다.",
+          "이건 모음의 떨림이\n자연스럽게 이어진 결과입니다."
+        ],
+        "chips": [
+          "DECISION",
+          "TELEVISION",
+          "DISCUSSION",
+          "MISSION",
+          "TENSION",
+          "CONFUSION",
+          "EXPANSION",
+          "CONCLUSION"
+        ],
+        "caption": "기초 영어 공부하실 때 꼭 활용해 보세요! 영어는 외우는 것이 아니라, 이해하는 것입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "오늘 배운 영어 발음 규칙, 세 가지로 정리하겠습니다.",
+          "from": 0,
+          "to": 142
+        },
+        {
+          "text": "첫째, 강세는 지난 시간과 똑같습니다.",
+          "from": 142,
+          "to": 262
+        },
+        {
+          "text": "에스-아이-오-엔 바로 앞 음절입니다.",
+          "from": 262,
+          "to": 365
+        },
+        {
+          "text": "둘째, 앞이 모음이면 전,",
+          "from": 365,
+          "to": 473
+        },
+        {
+          "text": "자음이면 션입니다.",
+          "from": 473,
+          "to": 550
+        },
+        {
+          "text": "셋째, 이건 모음의 떨림이 자연스럽게",
+          "from": 550,
+          "to": 658
+        },
+        {
+          "text": "이어진 결과입니다.",
+          "from": 658,
+          "to": 714
+        },
+        {
+          "text": "기초 영어 공부하실 때 꼭 활용해 보세요.",
+          "from": 714,
+          "to": 816
+        },
+        {
+          "text": "영어는 외우는 것이 아니라, 이해하는 것입니다.",
+          "from": 816,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "다음 편 예고 - -TURE의 비밀",
+      "duration": 30,
+      "layout": "compare",
+      "words": [
+        {
+          "word": "DECISION",
+          "sound": "전",
+          "highlightPart": "SION",
+          "causeChar": "I",
+          "pronunciation": "디시전",
+          "meaning": "결정",
+          "narrationCue": "디시전"
+        },
+        {
+          "word": "PICTURE",
+          "sound": "처",
+          "highlightPart": "TURE",
+          "causeChar": "U",
+          "pronunciation": "픽처",
+          "meaning": "사진",
+          "narrationCue": "픽처",
+          "highlightAt": 314,
+          "highlightEnd": 361
+        }
+      ],
+      "content": "션, 전, 천 그리고 처",
+      "caption": "다음 시간: -TURE의 비밀",
+      "narration": "그런데 여기서, 또 하나의 질문이 남습니다. 우리는 지금까지 션, 전, 천. 세 가지 소리를 배웠습니다. 그런데 픽처. 사진이라는 뜻이죠. 여기에는 처라는 또 다른 소리가 있습니다. 네이처, 퓨처도 마찬가지입니다. 티-유가 만나면 왜 처가 될까요? 이 비밀은 다음 시간에 함께 풀어보겠습니다. 영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다. 오늘도 끝까지 함께해 주셔서 감사합니다.",
+      "card": {
+        "category": "teaser",
+        "badge": "다음 편 예고",
+        "words": [
+          {
+            "word": "PICTURE",
+            "syllables": [
+              "PIC",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "픽",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "NATURE",
+            "syllables": [
+              "NA",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "FUTURE",
+            "syllables": [
+              "FU",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "퓨",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "lines": [
+          "션, 전, 천. 그리고 처?"
+        ],
+        "note": "T와 U가 만나면 왜 처가 될까요?\n다음 시간에 함께 풀어보겠습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "그런데 여기서, 또 하나의 질문이 남습니다.",
+          "from": 0,
+          "to": 121
+        },
+        {
+          "text": "우리는 지금까지 션, 전, 천.",
+          "from": 121,
+          "to": 221
+        },
+        {
+          "text": "세 가지 소리를 배웠습니다.",
+          "from": 221,
+          "to": 314
+        },
+        {
+          "text": "그런데 픽처.",
+          "from": 314,
+          "to": 376
+        },
+        {
+          "text": "사진이라는 뜻이죠.",
+          "from": 376,
+          "to": 429
+        },
+        {
+          "text": "여기에는 처라는 또 다른 소리가 있습니다.",
+          "from": 429,
+          "to": 545
+        },
+        {
+          "text": "네이처, 퓨처도 마찬가지입니다.",
+          "from": 545,
+          "to": 647
+        },
+        {
+          "text": "티-유가 만나면 왜 처가 될까요?",
+          "from": 647,
+          "to": 761
+        },
+        {
+          "text": "이 비밀은 다음 시간에 함께 풀어보겠습니다.",
+          "from": 761,
+          "to": 869
+        },
+        {
+          "text": "영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다.",
+          "from": 869,
+          "to": 1002
+        },
+        {
+          "text": "오늘도 끝까지 함께해 주셔서 감사합니다.",
+          "from": 1002,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "엔드스크린",
+      "duration": 8,
+      "layout": "summary",
+      "words": [],
+      "content": "구독 유도 + 재생목록 안내",
+      "caption": "구독하고 다음 편도 놓치지 마세요",
+      "narration": "",
+      "card": {
+        "category": "endscreen",
+        "badge": "엔드스크린",
+        "subscribe": "구독하고 다음 편도 놓치지 마세요",
+        "playlist": "시즌1 전체 재생목록",
+        "playlistUrl": "이해하면 쉬운 영어 · 시즌1 모아보기"
+      }
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "title": "STATION을 그대로 읽으면?",
+  "header": [
+    "이렇게 읽으면 틀립니다",
+    "STATION · VACATION · EDUCATION"
+  ],
+  "segments": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 3,
+      "compareLeft": {
+        "label": "그대로 읽으면",
+        "text": "스테이 티온"
+      },
+      "compareRight": {
+        "label": "실제 발음",
+        "word": "STATION",
+        "stress": "스테이",
+        "pronunciation": "스테이션",
+        "stressEn": "STA"
+      },
+      "narration": "스테이션. 강세는 앞쪽, 스테이에 있습니다.",
+      "subtitleGroups": [
+        {
+          "text": "스테이션.",
+          "from": 0,
+          "to": 53
+        },
+        {
+          "text": "강세는 앞쪽, 스테이에 있습니다.",
+          "from": 53,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 13,
+      "highlightEnd": 33
+    },
+    {
+      "id": 2,
+      "start": 3,
+      "end": 6,
+      "compareLeft": {
+        "label": "그대로 읽으면",
+        "text": "베이케이 티온"
+      },
+      "compareRight": {
+        "label": "실제 발음",
+        "word": "VACATION",
+        "stress": "케이",
+        "pronunciation": "베이케이션",
+        "stressEn": "CA"
+      },
+      "narration": "베이케이션. 강세는 케이입니다.",
+      "subtitleGroups": [
+        {
+          "text": "베이케이션.",
+          "from": 0,
+          "to": 52
+        },
+        {
+          "text": "강세는 케이입니다.",
+          "from": 52,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 8,
+      "highlightEnd": 34
+    },
+    {
+      "id": 3,
+      "start": 6,
+      "end": 9,
+      "compareLeft": {
+        "label": "그대로 읽으면",
+        "text": "에듀케이 티온"
+      },
+      "compareRight": {
+        "label": "실제 발음",
+        "word": "EDUCATION",
+        "stress": "케이",
+        "pronunciation": "에듀케이션",
+        "stressEn": "CA"
+      },
+      "narration": "에듀케이션. 강세는 케이. 규칙, 그대로입니다.",
+      "subtitleGroups": [
+        {
+          "text": "에듀케이션.",
+          "from": 0,
+          "to": 64
+        },
+        {
+          "text": "강세는 케이.",
+          "from": 64,
+          "to": 127
+        },
+        {
+          "text": "규칙, 그대로입니다.",
+          "from": 127,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 19,
+      "highlightEnd": 44
+    },
+    {
+      "id": 4,
+      "start": 9,
+      "end": 10,
+      "cta": "EP6 전체 규칙 보러가기",
+      "narration": "션 강세의 비밀, 전체 영상에서 확인하세요.",
+      "subtitleGroups": [
+        {
+          "text": "션 강세의 비밀, 전체 영상에서 확인하세요.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1090 @@
+{
+  "episode": "EP9",
+  "title": "-CIAL의 비밀",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "오프닝 퀴즈 - SPECIAL의 C는 왜 셔 소리인가",
+      "duration": 40,
+      "layout": "quiz",
+      "words": [
+        {
+          "word": "SPECIAL",
+          "stress": "SPE",
+          "pronunciation": "스페셜",
+          "meaning": "특별한",
+          "narrationCue": "스페셜",
+          "highlightAt": 240,
+          "highlightEnd": 280
+        }
+      ],
+      "content": "C는 크 소리 아니면 스 소리인데",
+      "caption": "C가 셔 소리로?",
+      "narration": "씨는 원래 크 소리거나 스 소리입니다. 캣, 시티처럼요. 그런데 스페셜을 볼까요. 에스, 피, 이, 씨, 아이, 에이, 엘. 씨가 갑자기 셔 소리로 바뀝니다. 크도 아니고 스도 아닌, 전혀 다른 소리요. 왜 이런 일이 생길까요? 오늘 이 비밀을 완전히 풀어드리겠습니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "퀴즈",
+        "heading": "C는 '크' 아니면 '스'인데, 왜 '셜'일까요?",
+        "words": [
+          {
+            "word": "SPECIAL",
+            "syllables": [
+              "SPE",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "스페",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "크도 스도 아닌 전혀 다른 소리가 납니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "씨는 원래 크 소리거나 스 소리입니다.",
+          "from": 0,
+          "to": 145
+        },
+        {
+          "text": "캣, 시티처럼요.",
+          "from": 145,
+          "to": 221
+        },
+        {
+          "text": "그런데 스페셜을 볼까요.",
+          "from": 221,
+          "to": 299
+        },
+        {
+          "text": "에스, 피, 이, 씨, 아이,",
+          "from": 299,
+          "to": 437
+        },
+        {
+          "text": "에이, 엘.",
+          "from": 437,
+          "to": 474
+        },
+        {
+          "text": "씨가 갑자기 셔 소리로 바뀝니다.",
+          "from": 474,
+          "to": 574
+        },
+        {
+          "text": "크도 아니고 스도 아닌, 전혀 다른 소리요.",
+          "from": 574,
+          "to": 695
+        },
+        {
+          "text": "왜 이런 일이 생길까요?",
+          "from": 695,
+          "to": 756
+        },
+        {
+          "text": "오늘 이 비밀을 완전히 풀어드리겠습니다.",
+          "from": 756,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "채널 인트로 및 지난 편 리마인드",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "채널 인트로, 지난 편(-TURE) 언급",
+      "caption": "시즌1 EP9",
+      "narration": "안녕하세요. 영어 발음과 강세를 원리로 배우는, 「이해하면 쉬운 영어」입니다. 지난 시간에는 티와 유가 만나면 처가 된다는 걸 배웠습니다. 티도 아니고 에스도 아닌, 씨가 변하는 경우도 있다고 예고했었죠. 오늘이 바로 그 시간입니다. 그리고 오늘 배우는 규칙은, 지금까지 중에 가장 간단합니다.",
+      "card": {
+        "category": "intro",
+        "badge": "인트로",
+        "lines": [
+          "안녕하세요.",
+          "영어 발음과 강세를 원리로 배우는,",
+          "「이해하면 쉬운 영어」입니다."
+        ],
+        "box": [
+          "지난 시간에는 -TURE",
+          "T와 U가 만나면 '처'"
+        ],
+        "note": "오늘 배우는 규칙은\n지금까지 중에 가장 간단합니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "안녕하세요.",
+          "from": 0,
+          "to": 55
+        },
+        {
+          "text": "영어 발음과 강세를 원리로 배우는, 「이해하면",
+          "from": 55,
+          "to": 174
+        },
+        {
+          "text": "쉬운 영어」입니다.",
+          "from": 174,
+          "to": 230
+        },
+        {
+          "text": "지난 시간에는 티와 유가 만나면 처가",
+          "from": 230,
+          "to": 336
+        },
+        {
+          "text": "된다는 걸 배웠습니다.",
+          "from": 336,
+          "to": 408
+        },
+        {
+          "text": "티도 아니고 에스도 아닌, 씨가 변하는 경우도",
+          "from": 408,
+          "to": 528
+        },
+        {
+          "text": "있다고 예고했었죠.",
+          "from": 528,
+          "to": 580
+        },
+        {
+          "text": "오늘이 바로 그 시간입니다.",
+          "from": 580,
+          "to": 655
+        },
+        {
+          "text": "그리고 오늘 배우는 규칙은, 지금까지 중에 가장",
+          "from": 655,
+          "to": 763
+        },
+        {
+          "text": "간단합니다.",
+          "from": 763,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "패턴 확인 - SPECIAL / OFFICIAL / SOCIAL",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "SPECIAL",
+          "stress": "SPE",
+          "pronunciation": "스페셜",
+          "meaning": "특별한",
+          "narrationCue": "스페셜",
+          "highlightAt": 60,
+          "highlightEnd": 126
+        },
+        {
+          "word": "OFFICIAL",
+          "stress": "FI",
+          "pronunciation": "오피셜",
+          "meaning": "공식적인",
+          "narrationCue": "오피셜",
+          "highlightAt": 250,
+          "highlightEnd": 293
+        },
+        {
+          "word": "SOCIAL",
+          "stress": "SO",
+          "pronunciation": "소셜",
+          "meaning": "사회의",
+          "narrationCue": "소셜",
+          "highlightAt": 337,
+          "highlightEnd": 383
+        }
+      ],
+      "content": "-CIAL 바로 앞 음절에 강세",
+      "caption": "셜 바로 앞 음절에 강세",
+      "narration": "먼저 세 단어를 보겠습니다. 스페셜. 강세는 앞쪽, 스페에 있습니다. 오피셜은 어디일까요? 피입니다. 소셜은요? 소입니다. 그리고 셋 다, 씨-아이-에이-엘이 똑같이 셜로 발음됩니다.",
+      "card": {
+        "category": "principle",
+        "badge": "패턴 확인",
+        "words": [
+          {
+            "word": "SPECIAL",
+            "syllables": [
+              "SPE",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "스페",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "OFFICIAL",
+            "syllables": [
+              "OF",
+              "FI",
+              "CIAL"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "오",
+              "피",
+              "셜"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "SOCIAL",
+            "syllables": [
+              "SO",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "소",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "-CIAL 바로 앞 음절에 강세!"
+      },
+      "subtitleGroups": [
+        {
+          "text": "먼저 세 단어를 보겠습니다.",
+          "from": 0,
+          "to": 86
+        },
+        {
+          "text": "스페셜.",
+          "from": 86,
+          "to": 135
+        },
+        {
+          "text": "강세는 앞쪽, 스페에 있습니다.",
+          "from": 135,
+          "to": 250
+        },
+        {
+          "text": "오피셜은 어디일까요?",
+          "from": 250,
+          "to": 322
+        },
+        {
+          "text": "피입니다.",
+          "from": 322,
+          "to": 369
+        },
+        {
+          "text": "소셜은요?",
+          "from": 369,
+          "to": 413
+        },
+        {
+          "text": "소입니다.",
+          "from": 413,
+          "to": 465
+        },
+        {
+          "text": "그리고 셋 다, 씨-아이-에이-엘이 똑같이",
+          "from": 465,
+          "to": 583
+        },
+        {
+          "text": "셜로 발음됩니다.",
+          "from": 583,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "규칙 정리 - 소리 쪼개짐이 없다",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "무조건 셜, 예외 없음",
+      "caption": "예외 없이 항상 셜",
+      "narration": "정리하면 이렇습니다. 단어가 셜로 끝나면, 강세는 셜 바로 앞 음절에 위치합니다. 지난 시간, 지지난 시간과 똑같은 자석 규칙입니다. 그런데 오늘은 한 가지가 다릅니다. 소리 쪼개짐이 없습니다. 션도 아니고 전도 아니고, 무조건 셜입니다.",
+      "card": {
+        "category": "principle",
+        "badge": "규칙 정리",
+        "box": [
+          "-CIAL 로 끝나면 강세는 바로 앞 음절",
+          "소리는 갈리지 않고 언제나 '셜'"
+        ],
+        "lines": [
+          "-TION은 션과 천으로,",
+          "-SION은 션과 전으로 갈렸지만",
+          "-CIAL은 갈리지 않습니다."
+        ]
+      },
+      "subtitleGroups": [
+        {
+          "text": "정리하면 이렇습니다.",
+          "from": 0,
+          "to": 79
+        },
+        {
+          "text": "단어가 셜로 끝나면, 강세는 셜",
+          "from": 79,
+          "to": 184
+        },
+        {
+          "text": "바로 앞 음절에 위치합니다.",
+          "from": 184,
+          "to": 278
+        },
+        {
+          "text": "지난 시간, 지지난 시간과 똑같은 자석 규칙입니다.",
+          "from": 278,
+          "to": 412
+        },
+        {
+          "text": "그런데 오늘은 한 가지가 다릅니다.",
+          "from": 412,
+          "to": 508
+        },
+        {
+          "text": "소리 쪼개짐이 없습니다.",
+          "from": 508,
+          "to": 584
+        },
+        {
+          "text": "션도 아니고 전도 아니고, 무조건 셜입니다.",
+          "from": 584,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "왜 그럴까 - C는 자기 소리가 약하다",
+      "duration": 50,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "정해진 소리가 없는 글자라 가장 쉽게 넘어간다",
+      "caption": "씨는 원래 소리가 약하다",
+      "narration": "왜 이번엔 소리가 안 갈릴까요? 이유는 씨 자체에 있습니다. 씨는 원래 정해진 소리가 없는 글자입니다. 앞에 오는 모음에 따라 크로도, 스로도 소리 납니다. 그런데 셜 앞에서는, 이미 다른 접미사에서 봤던 것처럼 이 소리와 부딪힙니다. 씨는 원래 자기 소리가 약해서, 이 부딪힘에 가장 쉽게, 그리고 가장 일정하게 넘어갑니다. 그래서 예외가 없는 겁니다.",
+      "card": {
+        "category": "principle",
+        "badge": "왜 그럴까 — C의 성질",
+        "flow": [
+          {
+            "label": "C는 정해진\n소리가 없다"
+          },
+          {
+            "label": "'이' 소리와\n부딪힌다"
+          },
+          {
+            "label": "가장 쉽게\n'셜'로"
+          }
+        ],
+        "caption": "자기 소리가 약해서 가장 일정하게 넘어갑니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "왜 이번엔 소리가 안 갈릴까요?",
+          "from": 0,
+          "to": 101
+        },
+        {
+          "text": "이유는 씨 자체에 있습니다.",
+          "from": 101,
+          "to": 191
+        },
+        {
+          "text": "씨는 원래 정해진 소리가 없는 글자입니다.",
+          "from": 191,
+          "to": 307
+        },
+        {
+          "text": "앞에 오는 모음에 따라 크로도, 스로도 소리",
+          "from": 307,
+          "to": 430
+        },
+        {
+          "text": "납니다.",
+          "from": 430,
+          "to": 449
+        },
+        {
+          "text": "그런데 셜 앞에서는, 이미 다른 접미사에서",
+          "from": 449,
+          "to": 560
+        },
+        {
+          "text": "봤던 것처럼 이 소리와 부딪힙니다.",
+          "from": 560,
+          "to": 655
+        },
+        {
+          "text": "씨는 원래 자기 소리가 약해서, 이 부딪힘에",
+          "from": 655,
+          "to": 767
+        },
+        {
+          "text": "가장 쉽게, 그리고 가장 일정하게 넘어갑니다.",
+          "from": 767,
+          "to": 881
+        },
+        {
+          "text": "그래서 예외가 없는 겁니다.",
+          "from": 881,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "실생활 연결",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "COMMERCIAL",
+          "stress": "MER",
+          "pronunciation": "커머셜",
+          "meaning": "광고",
+          "narrationCue": "커머셜",
+          "highlightAt": 106,
+          "highlightEnd": 151
+        },
+        {
+          "word": "FINANCIAL",
+          "stress": "NAN",
+          "pronunciation": "파이낸셜",
+          "meaning": "금융의",
+          "narrationCue": "파이낸셜",
+          "highlightAt": 318,
+          "highlightEnd": 365
+        },
+        {
+          "word": "CRUCIAL",
+          "stress": "CRU",
+          "pronunciation": "크루셜",
+          "meaning": "중요한",
+          "narrationCue": "크루셜",
+          "highlightAt": 497,
+          "highlightEnd": 536
+        }
+      ],
+      "content": "이미 매일 쓰던 단어들",
+      "caption": "이미 매일 쓰던 단어였다",
+      "narration": "실생활에서 이 규칙, 정말 많이 만나실 겁니다. 커머셜. 광고라는 뜻이죠. 머에 강세가 있습니다. 파이낸셜. 금융이라는 뜻입니다. 낸에 강세가 있습니다. 크루셜은요? 중요하다는 뜻입니다. 크루에 강세가 있습니다. 전부 셜로 끝나고, 예외 없이 그 앞 음절에 힘이 있습니다.",
+      "card": {
+        "category": "example",
+        "badge": "실생활 연결",
+        "words": [
+          {
+            "word": "COMMERCIAL",
+            "syllables": [
+              "COM",
+              "MER",
+              "CIAL"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "커",
+              "머",
+              "셜"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "FINANCIAL",
+            "syllables": [
+              "FI",
+              "NAN",
+              "CIAL"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "파이",
+              "낸",
+              "셜"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "CRUCIAL",
+            "syllables": [
+              "CRU",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "크루",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "예외 없이 그 앞 음절에 힘이 있습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "실생활에서 이 규칙, 정말 많이 만나실 겁니다.",
+          "from": 0,
+          "to": 141
+        },
+        {
+          "text": "커머셜.",
+          "from": 141,
+          "to": 184
+        },
+        {
+          "text": "광고라는 뜻이죠.",
+          "from": 184,
+          "to": 241
+        },
+        {
+          "text": "머에 강세가 있습니다.",
+          "from": 241,
+          "to": 318
+        },
+        {
+          "text": "파이낸셜.",
+          "from": 318,
+          "to": 362
+        },
+        {
+          "text": "금융이라는 뜻입니다.",
+          "from": 362,
+          "to": 423
+        },
+        {
+          "text": "낸에 강세가 있습니다.",
+          "from": 423,
+          "to": 497
+        },
+        {
+          "text": "크루셜은요?",
+          "from": 497,
+          "to": 542
+        },
+        {
+          "text": "중요하다는 뜻입니다.",
+          "from": 542,
+          "to": 604
+        },
+        {
+          "text": "크루에 강세가 있습니다.",
+          "from": 604,
+          "to": 673
+        },
+        {
+          "text": "전부 셜로 끝나고, 예외 없이 그 앞 음절에",
+          "from": 673,
+          "to": 795
+        },
+        {
+          "text": "힘이 있습니다.",
+          "from": 795,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "시즌1 통합 - 다섯 소리, 하나의 원리",
+      "duration": 60,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "NATION",
+          "stress": "NA",
+          "pronunciation": "네이션",
+          "meaning": "국가",
+          "narrationCue": "네이션",
+          "highlightAt": 120,
+          "highlightEnd": 160
+        },
+        {
+          "word": "DECISION",
+          "stress": "CI",
+          "pronunciation": "디시전",
+          "meaning": "결정",
+          "narrationCue": "디시전",
+          "highlightAt": 184,
+          "highlightEnd": 245
+        },
+        {
+          "word": "QUESTION",
+          "stress": "QUES",
+          "pronunciation": "퀘스천",
+          "meaning": "질문",
+          "narrationCue": "퀘스천",
+          "highlightAt": 251,
+          "highlightEnd": 312
+        },
+        {
+          "word": "PICTURE",
+          "stress": "PIC",
+          "pronunciation": "픽처",
+          "meaning": "사진",
+          "narrationCue": "픽처",
+          "highlightAt": 320,
+          "highlightEnd": 377
+        },
+        {
+          "word": "SPECIAL",
+          "stress": "SPE",
+          "pronunciation": "스페셜",
+          "meaning": "특별한",
+          "narrationCue": "스페셜",
+          "highlightAt": 425,
+          "highlightEnd": 472
+        }
+      ],
+      "content": "자음이 이 소리와 부딪혀 각자 다른 색으로",
+      "caption": "다섯 소리, 하나의 원리",
+      "narration": "여기서 지금까지 배운 소리들을 전부 모아보겠습니다. 네이션은 션. 디시전은 전. 퀘스천은 천. 픽처는 처. 그리고 오늘, 스페셜은 셜. 전부 다르게 보이시나요? 사실 전부 하나의 원리입니다. 자음이 이 소리와 부딪히면서 각자 다른 색깔로 변한 겁니다. 티는 션이나 천으로, 에스는 전이나 션으로, 씨는 셜로. 부딪히는 재료가 다르니 결과물도 다른 거죠.",
+      "card": {
+        "category": "principle",
+        "badge": "다섯 소리의 지도",
+        "words": [
+          {
+            "word": "NATION",
+            "syllables": [
+              "NA",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "DECISION",
+            "syllables": [
+              "DE",
+              "CI",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디",
+              "시",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "QUESTION",
+            "syllables": [
+              "QUES",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "퀘스",
+              "천"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "PICTURE",
+            "syllables": [
+              "PIC",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "픽",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "SPECIAL",
+            "syllables": [
+              "SPE",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "스페",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "부딪히는 재료가 다르니 결과물도 다릅니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "여기서 지금까지 배운 소리들을 전부 모아보겠습니다.",
+          "from": 0,
+          "to": 149
+        },
+        {
+          "text": "네이션은 션.",
+          "from": 149,
+          "to": 217
+        },
+        {
+          "text": "디시전은 전.",
+          "from": 217,
+          "to": 286
+        },
+        {
+          "text": "퀘스천은 천.",
+          "from": 286,
+          "to": 352
+        },
+        {
+          "text": "픽처는 처.",
+          "from": 352,
+          "to": 400
+        },
+        {
+          "text": "그리고 오늘, 스페셜은 셜.",
+          "from": 400,
+          "to": 521
+        },
+        {
+          "text": "전부 다르게 보이시나요?",
+          "from": 521,
+          "to": 597
+        },
+        {
+          "text": "사실 전부 하나의 원리입니다.",
+          "from": 597,
+          "to": 688
+        },
+        {
+          "text": "자음이 이 소리와 부딪히면서 각자 다른",
+          "from": 688,
+          "to": 808
+        },
+        {
+          "text": "색깔로 변한 겁니다.",
+          "from": 808,
+          "to": 864
+        },
+        {
+          "text": "티는 션이나 천으로, 에스는 전이나",
+          "from": 864,
+          "to": 1005
+        },
+        {
+          "text": "션으로, 씨는 셜로.",
+          "from": 1005,
+          "to": 1088
+        },
+        {
+          "text": "부딪히는 재료가 다르니 결과물도 다른 거죠.",
+          "from": 1088,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "실전 적용 - ARTIFICIAL / SUPERFICIAL",
+      "duration": 40,
+      "layout": "quiz",
+      "words": [
+        {
+          "word": "ARTIFICIAL",
+          "stress": "FI",
+          "pronunciation": "아티피셜",
+          "meaning": "인공적인",
+          "narrationCue": "아티피셜",
+          "highlightAt": 113,
+          "highlightEnd": 169
+        },
+        {
+          "word": "SUPERFICIAL",
+          "stress": "FI",
+          "pronunciation": "수퍼피셜",
+          "meaning": "표면적인",
+          "narrationCue": "수퍼피셜",
+          "highlightAt": 369,
+          "highlightEnd": 428
+        }
+      ],
+      "content": "셜만 보이면 강세와 소리를 동시에",
+      "caption": "일시정지하고 맞혀보세요",
+      "narration": "이제 처음 보는 단어로 확인해 보겠습니다. 아티피셜. 인공적인이라는 뜻입니다. 셜로 끝나니, 강세는 그 앞. 피입니다. 하나 더. 수퍼피셜. 표면적인이라는 뜻입니다. 강세는 피입니다. 뜻을 몰라도, 셜만 보이면 강세와 소리를 동시에 맞힐 수 있습니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "실전 적용",
+        "heading": "셜만 보이면 강세와 소리를 동시에",
+        "words": [
+          {
+            "word": "ARTIFICIAL",
+            "syllables": [
+              "AR",
+              "TI",
+              "FI",
+              "CIAL"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "아",
+              "티",
+              "피",
+              "셜"
+            ],
+            "pronStressIndex": 2,
+            "pronDiffIndex": 3
+          },
+          {
+            "word": "SUPERFICIAL",
+            "syllables": [
+              "SU",
+              "PER",
+              "FI",
+              "CIAL"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "수",
+              "퍼",
+              "피",
+              "셜"
+            ],
+            "pronStressIndex": 2,
+            "pronDiffIndex": 3
+          }
+        ],
+        "caption": "뜻을 몰라도 규칙만 알면 됩니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "이제 처음 보는 단어로 확인해 보겠습니다.",
+          "from": 0,
+          "to": 113
+        },
+        {
+          "text": "아티피셜.",
+          "from": 113,
+          "to": 164
+        },
+        {
+          "text": "인공적인이라는 뜻입니다.",
+          "from": 164,
+          "to": 231
+        },
+        {
+          "text": "셜로 끝나니, 강세는 그 앞.",
+          "from": 231,
+          "to": 320
+        },
+        {
+          "text": "피입니다.",
+          "from": 320,
+          "to": 363
+        },
+        {
+          "text": "하나 더.",
+          "from": 363,
+          "to": 396
+        },
+        {
+          "text": "수퍼피셜.",
+          "from": 396,
+          "to": 447
+        },
+        {
+          "text": "표면적인이라는 뜻입니다.",
+          "from": 447,
+          "to": 508
+        },
+        {
+          "text": "강세는 피입니다.",
+          "from": 508,
+          "to": 581
+        },
+        {
+          "text": "뜻을 몰라도, 셜만 보이면 강세와 소리를 동시에",
+          "from": 581,
+          "to": 699
+        },
+        {
+          "text": "맞힐 수 있습니다.",
+          "from": 699,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "규칙 요약",
+      "duration": 40,
+      "layout": "summary",
+      "words": [],
+      "content": [
+        "① 셜로 끝나면 강세는 바로 앞 음절",
+        "② C는 소리가 약해 예외 없이 셜",
+        "③ 시즌1의 모든 변화는 하나의 원리"
+      ],
+      "caption": "영어는 이해하는 것입니다",
+      "narration": "오늘 배운 영어 발음 규칙, 정리하겠습니다. 첫째, 셜로 끝나면 강세는 항상 그 바로 앞 음절입니다. 둘째, 씨는 자기 소리가 약해서, 예외 없이 항상 셜로만 소리 납니다. 지금까지 시즌1에서 배운 모든 소리 변화가 사실 하나의 원리였다는 것, 잊지 마세요. 영어는 외우는 것이 아니라, 이해하는 것입니다.",
+      "card": {
+        "category": "summary",
+        "badge": "요약",
+        "points": [
+          "-CIAL 로 끝나면 강세는\n항상 그 바로 앞 음절입니다.",
+          "C는 자기 소리가 약해서\n예외 없이 항상 '셜'로만 납니다.",
+          "시즌1에서 배운 모든 소리 변화가\n사실 하나의 원리였습니다."
+        ],
+        "chips": [
+          "SPECIAL",
+          "OFFICIAL",
+          "SOCIAL",
+          "COMMERCIAL",
+          "FINANCIAL",
+          "CRUCIAL",
+          "ARTIFICIAL",
+          "SUPERFICIAL"
+        ],
+        "caption": "영어는 외우는 것이 아니라, 이해하는 것입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "오늘 배운 영어 발음 규칙, 정리하겠습니다.",
+          "from": 0,
+          "to": 114
+        },
+        {
+          "text": "첫째, 셜로 끝나면 강세는 항상 그",
+          "from": 114,
+          "to": 230
+        },
+        {
+          "text": "바로 앞 음절입니다.",
+          "from": 230,
+          "to": 297
+        },
+        {
+          "text": "둘째, 씨는 자기 소리가 약해서,",
+          "from": 297,
+          "to": 403
+        },
+        {
+          "text": "예외 없이 항상 셜로만 소리 납니다.",
+          "from": 403,
+          "to": 523
+        },
+        {
+          "text": "지금까지 시즌1에서 배운 모든 소리 변화가",
+          "from": 523,
+          "to": 636
+        },
+        {
+          "text": "사실 하나의 원리였다는 것, 잊지 마세요.",
+          "from": 636,
+          "to": 746
+        },
+        {
+          "text": "영어는 외우는 것이 아니라, 이해하는 것입니다.",
+          "from": 746,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "다음 편 예고 - 시즌1 총정리",
+      "duration": 30,
+      "layout": "summary",
+      "words": [],
+      "content": "익, 션, 전, 천, 처, 셜을 하나의 지도로",
+      "caption": "다음 시간: 시즌1 총정리",
+      "narration": "자, 이제 시즌1도 거의 끝나갑니다. 다음 시간에는 지금까지 배운 모든 규칙을 한 번에 정리하는 총정리 시간을 가지겠습니다. 익, 션, 전, 천, 처, 셜. 이 모든 소리를 하나의 지도로 그려보겠습니다. 영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다. 오늘도 끝까지 함께해 주셔서 감사합니다.",
+      "card": {
+        "category": "teaser",
+        "badge": "다음 편 예고",
+        "chips": [
+          "익",
+          "션",
+          "전",
+          "천",
+          "처",
+          "셜"
+        ],
+        "lines": [
+          "이 모든 소리를 하나의 지도로."
+        ],
+        "note": "다음 시간은 시즌1 총정리입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "자, 이제 시즌1도 거의 끝나갑니다.",
+          "from": 0,
+          "to": 113
+        },
+        {
+          "text": "다음 시간에는 지금까지 배운 모든 규칙을 한",
+          "from": 113,
+          "to": 227
+        },
+        {
+          "text": "번에 정리하는 총정리 시간을 가지겠습니다.",
+          "from": 227,
+          "to": 323
+        },
+        {
+          "text": "익, 션, 전, 천,",
+          "from": 323,
+          "to": 443
+        },
+        {
+          "text": "처, 셜.",
+          "from": 443,
+          "to": 492
+        },
+        {
+          "text": "이 모든 소리를 하나의 지도로 그려보겠습니다.",
+          "from": 492,
+          "to": 613
+        },
+        {
+          "text": "영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다.",
+          "from": 613,
+          "to": 739
+        },
+        {
+          "text": "오늘도 끝까지 함께해 주셔서 감사합니다.",
+          "from": 739,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "엔드스크린",
+      "duration": 8,
+      "layout": "summary",
+      "words": [],
+      "content": "구독 유도 + 재생목록 안내",
+      "caption": "구독하고 다음 편도 놓치지 마세요",
+      "narration": "",
+      "card": {
+        "category": "endscreen",
+        "badge": "엔드스크린",
+        "subscribe": "구독하고 다음 편도 놓치지 마세요",
+        "playlist": "시즌1 전체 재생목록",
+        "playlistUrl": "이해하면 쉬운 영어 · 시즌1 모아보기"
+      }
+    }
+  ]
+}

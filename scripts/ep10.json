@@ -1,0 +1,878 @@
+{
+  "episode": "EP10",
+  "title": "시즌1 총정리",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "오프닝 - 일곱 개의 시간, 하나의 이야기",
+      "duration": 40,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "일곱 편이 사실 하나의 이야기였다",
+      "caption": "일곱 개의 시간, 하나의 이야기",
+      "narration": "지금까지 우리는 일곱 개의 시간을 함께 보냈습니다. 히어로익, 네이션, 디시전, 퀘스천, 픽처, 메저, 스페셜. 전부 소리가 다르게 들렸지만, 사실 전부 같은 이야기였습니다. 오늘은 그 하나의 이야기를 처음부터 끝까지 정리해 보겠습니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "시즌1 총정리",
+        "heading": "일곱 개의 시간, 사실은 하나의 이야기",
+        "chips": [
+          "HEROIC",
+          "NATION",
+          "DECISION",
+          "QUESTION",
+          "PICTURE",
+          "MEASURE",
+          "SPECIAL"
+        ],
+        "caption": "전부 다르게 들렸지만 뿌리는 하나였습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "지금까지 우리는 일곱 개의 시간을 함께 보냈습니다.",
+          "from": 0,
+          "to": 151
+        },
+        {
+          "text": "히어로익, 네이션, 디시전,",
+          "from": 151,
+          "to": 285
+        },
+        {
+          "text": "퀘스천, 픽처, 메저, 스페셜.",
+          "from": 285,
+          "to": 423
+        },
+        {
+          "text": "전부 소리가 다르게 들렸지만, 사실 전부",
+          "from": 423,
+          "to": 537
+        },
+        {
+          "text": "같은 이야기였습니다.",
+          "from": 537,
+          "to": 587
+        },
+        {
+          "text": "오늘은 그 하나의 이야기를 처음부터 끝까지",
+          "from": 587,
+          "to": 702
+        },
+        {
+          "text": "정리해 보겠습니다.",
+          "from": 702,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "채널 인트로 - 시즌1 완결편",
+      "duration": 30,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "채널 인트로, 완결편 안내",
+      "caption": "시즌1 완결편",
+      "narration": "안녕하세요. 영어 발음과 강세를 원리로 배우는, 「이해하면 쉬운 영어」입니다. 오늘은 시즌1의 마지막 시간, 총정리입니다. 새로운 규칙은 없습니다. 지금까지 배운 것들이 어떻게 하나로 연결되는지, 그 큰 그림을 보여드리겠습니다.",
+      "card": {
+        "category": "intro",
+        "badge": "인트로",
+        "lines": [
+          "안녕하세요.",
+          "영어 발음과 강세를 원리로 배우는,",
+          "「이해하면 쉬운 영어」입니다."
+        ],
+        "box": [
+          "오늘은 시즌1의 마지막 시간",
+          "새로운 규칙은 없습니다"
+        ],
+        "note": "지금까지 배운 것들이 어떻게\n하나로 연결되는지 보여드리겠습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "안녕하세요.",
+          "from": 0,
+          "to": 46
+        },
+        {
+          "text": "영어 발음과 강세를 원리로 배우는, 「이해하면",
+          "from": 46,
+          "to": 164
+        },
+        {
+          "text": "쉬운 영어」입니다.",
+          "from": 164,
+          "to": 218
+        },
+        {
+          "text": "오늘은 시즌1의 마지막 시간, 총정리입니다.",
+          "from": 218,
+          "to": 344
+        },
+        {
+          "text": "새로운 규칙은 없습니다.",
+          "from": 344,
+          "to": 410
+        },
+        {
+          "text": "지금까지 배운 것들이 어떻게 하나로 연결되는지,",
+          "from": 410,
+          "to": 525
+        },
+        {
+          "text": "그 큰 그림을 보여드리겠습니다.",
+          "from": 525,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "첫 번째 이야기 - 강세 자석",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "HEROIC",
+          "stress": "RO",
+          "pronunciation": "히로익",
+          "meaning": "영웅적인",
+          "narrationCue": "히로익",
+          "highlightAt": 584,
+          "highlightEnd": 620
+        },
+        {
+          "word": "INFORMATION",
+          "stress": "MA",
+          "pronunciation": "인포메이션",
+          "meaning": "정보",
+          "narrationCue": "인포메이션",
+          "highlightAt": 655,
+          "highlightEnd": 701
+        }
+      ],
+      "content": "붙으면 강세가 바로 앞으로 끌려온다",
+      "caption": "강세 자석 규칙",
+      "narration": "모든 이야기의 출발은 강세 자석이었습니다. 익, 션, 전, 천, 처, 저, 셜. 이 소리들이 붙으면, 강세는 예외 없이 그 바로 앞 음절로 끌려왔습니다. 히어로가 히로익이 되고, 인폼이 인포메이션이 된 것도 전부 이 자석의 힘이었습니다.",
+      "card": {
+        "category": "principle",
+        "badge": "첫 번째 이야기 — 강세 자석",
+        "words": [
+          {
+            "word": "HEROIC",
+            "syllables": [
+              "HE",
+              "RO",
+              "IC"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "히",
+              "로",
+              "익"
+            ],
+            "pronStressIndex": 1
+          },
+          {
+            "word": "INFORMATION",
+            "syllables": [
+              "IN",
+              "FOR",
+              "MA",
+              "TION"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "인",
+              "포",
+              "메",
+              "이",
+              "션"
+            ],
+            "pronStressIndex": 2
+          }
+        ],
+        "box": [
+          "익 · 션 · 전 · 천 · 처 · 저 · 셜",
+          "붙는 순간 강세가 바로 앞으로"
+        ],
+        "caption": "예외 없이 그 바로 앞 음절로 끌려옵니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "모든 이야기의 출발은 강세 자석이었습니다.",
+          "from": 0,
+          "to": 151
+        },
+        {
+          "text": "익, 션, 전, 천,",
+          "from": 151,
+          "to": 282
+        },
+        {
+          "text": "처, 저, 셜.",
+          "from": 282,
+          "to": 377
+        },
+        {
+          "text": "이 소리들이 붙으면, 강세는 예외 없이 그",
+          "from": 377,
+          "to": 493
+        },
+        {
+          "text": "바로 앞 음절로 끌려왔습니다.",
+          "from": 493,
+          "to": 572
+        },
+        {
+          "text": "히어로가 히로익이 되고, 인폼이 인포메이션이",
+          "from": 572,
+          "to": 703
+        },
+        {
+          "text": "된 것도 전부 이 자석의 힘이었습니다.",
+          "from": 703,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "두 번째 이야기 - 소리의 변신",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "NATION",
+          "stress": "NA",
+          "pronunciation": "네이션",
+          "meaning": "국가",
+          "narrationCue": "네이션"
+        },
+        {
+          "word": "PICTURE",
+          "stress": "PIC",
+          "pronunciation": "픽처",
+          "meaning": "사진",
+          "narrationCue": "픽처"
+        },
+        {
+          "word": "MISSION",
+          "stress": "MIS",
+          "pronunciation": "미션",
+          "meaning": "임무",
+          "narrationCue": "미션"
+        },
+        {
+          "word": "DECISION",
+          "stress": "CI",
+          "pronunciation": "디시전",
+          "meaning": "결정",
+          "narrationCue": "디시전"
+        },
+        {
+          "word": "SPECIAL",
+          "stress": "SPE",
+          "pronunciation": "스페셜",
+          "meaning": "특별한",
+          "narrationCue": "스페셜"
+        }
+      ],
+      "content": "딱딱한 자음이 부드러운 이 소리와 부딪히다",
+      "caption": "자음 + 이 = 새로운 소리",
+      "narration": "두 번째 이야기는 소리의 변신이었습니다. 티가 이를 만나면 션이 되거나 처가 됩니다. 에스가 이를 만나면 션이 되거나 전이 됩니다. 씨가 이를 만나면 셜이 됩니다. 전부 같은 원리였죠. 딱딱한 자음이, 부드러운 이 소리와 부딪히면서 새로운 소리로 태어난 겁니다.",
+      "card": {
+        "category": "example",
+        "badge": "두 번째 이야기 — 소리의 변신",
+        "words": [
+          {
+            "word": "NATION",
+            "syllables": [
+              "NA",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "PICTURE",
+            "syllables": [
+              "PIC",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "픽",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "MISSION",
+            "syllables": [
+              "MIS",
+              "SION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "미",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "DECISION",
+            "syllables": [
+              "DE",
+              "CI",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디",
+              "시",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "SPECIAL",
+            "syllables": [
+              "SPE",
+              "CIAL"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "스페",
+              "셜"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "caption": "딱딱한 자음이 '이' 소리와 부딪혀 새로 태어납니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "두 번째 이야기는 소리의 변신이었습니다.",
+          "from": 0,
+          "to": 127
+        },
+        {
+          "text": "티가 이를 만나면 션이 되거나 처가",
+          "from": 127,
+          "to": 231
+        },
+        {
+          "text": "됩니다.",
+          "from": 231,
+          "to": 262
+        },
+        {
+          "text": "에스가 이를 만나면 션이 되거나 전이",
+          "from": 262,
+          "to": 366
+        },
+        {
+          "text": "됩니다.",
+          "from": 366,
+          "to": 396
+        },
+        {
+          "text": "씨가 이를 만나면 셜이 됩니다.",
+          "from": 396,
+          "to": 488
+        },
+        {
+          "text": "전부 같은 원리였죠.",
+          "from": 488,
+          "to": 551
+        },
+        {
+          "text": "딱딱한 자음이, 부드러운 이 소리와 부딪히면서 새로운",
+          "from": 551,
+          "to": 666
+        },
+        {
+          "text": "소리로 태어난 겁니다.",
+          "from": 666,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "세 번째 이야기 - 예외에도 이유가 있다",
+      "duration": 50,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "QUESTION",
+          "stress": "QUES",
+          "pronunciation": "퀘스천",
+          "meaning": "질문",
+          "narrationCue": "퀘스천",
+          "highlightAt": 113,
+          "highlightEnd": 143
+        },
+        {
+          "word": "DECISION",
+          "stress": "CI",
+          "pronunciation": "디시전",
+          "meaning": "결정",
+          "narrationCue": "디시전",
+          "highlightAt": 342,
+          "highlightEnd": 395
+        }
+      ],
+      "content": "앞 글자가 결과를 바꾼다",
+      "caption": "예외에도 이유가 있다",
+      "narration": "세 번째 이야기는 예외처럼 보였던 것들이었습니다. 퀘스천이 왜 천인지, 기억나시나요? 앞에 스 소리가 있었기 때문입니다. 디시전이 왜 전인지도 기억나시나요? 앞에 모음이 있었기 때문입니다. 겉보기엔 예외 같았지만, 전부 이유가 있는 결과였습니다.",
+      "card": {
+        "category": "principle",
+        "badge": "세 번째 이야기 — 예외의 이유",
+        "words": [
+          {
+            "word": "QUESTION",
+            "syllables": [
+              "QUES",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "퀘스",
+              "천"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "DECISION",
+            "syllables": [
+              "DE",
+              "CI",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디",
+              "시",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          }
+        ],
+        "box": [
+          "앞에 '스' 소리 → 천",
+          "앞에 모음 → 전"
+        ],
+        "caption": "겉보기엔 예외였지만 전부 이유가 있었습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "세 번째 이야기는 예외처럼 보였던 것들이었습니다.",
+          "from": 0,
+          "to": 145
+        },
+        {
+          "text": "퀘스천이 왜 천인지, 기억나시나요?",
+          "from": 145,
+          "to": 241
+        },
+        {
+          "text": "앞에 스 소리가 있었기 때문입니다.",
+          "from": 241,
+          "to": 376
+        },
+        {
+          "text": "디시전이 왜 전인지도 기억나시나요?",
+          "from": 376,
+          "to": 491
+        },
+        {
+          "text": "앞에 모음이 있었기 때문입니다.",
+          "from": 491,
+          "to": 586
+        },
+        {
+          "text": "겉보기엔 예외 같았지만, 전부 이유가 있는",
+          "from": 586,
+          "to": 690
+        },
+        {
+          "text": "결과였습니다.",
+          "from": 690,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "실전 - 시즌1 완전 정복 퀴즈",
+      "duration": 60,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "OBSERVATION",
+          "stress": "VA",
+          "pronunciation": "옵저베이션",
+          "meaning": "관찰",
+          "narrationCue": "옵저베이션",
+          "highlightAt": 126,
+          "highlightEnd": 182
+        },
+        {
+          "word": "CONFUSION",
+          "stress": "FU",
+          "pronunciation": "컨퓨전",
+          "meaning": "혼란",
+          "narrationCue": "컨퓨전",
+          "highlightAt": 242,
+          "highlightEnd": 293
+        },
+        {
+          "word": "CAPTURE",
+          "stress": "CAP",
+          "pronunciation": "캡처",
+          "meaning": "포착하다",
+          "narrationCue": "캡처",
+          "highlightAt": 415,
+          "highlightEnd": 461
+        },
+        {
+          "word": "ARTIFICIAL",
+          "stress": "FI",
+          "pronunciation": "아티피셜",
+          "meaning": "인공적인",
+          "narrationCue": "아티피셜",
+          "highlightAt": 530,
+          "highlightEnd": 585
+        }
+      ],
+      "content": "네 단어로 시즌1 전체 확인",
+      "caption": "시즌1 완전 정복 퀴즈",
+      "narration": "이제 여러분이 직접 정리해 보실 시간입니다. 옵저베이션. 션입니다. 강세는 베이. 컨퓨전은요? 전입니다. 모음 뒤라서요. 캡처는요? 처입니다. 마지막으로 아티피셜은요? 셜입니다. 전부 맞히셨다면, 시즌1을 완전히 이해하신 겁니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "완전 정복 퀴즈",
+        "words": [
+          {
+            "word": "OBSERVATION",
+            "syllables": [
+              "OB",
+              "SER",
+              "VA",
+              "TION"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "옵",
+              "저",
+              "베이",
+              "션"
+            ],
+            "pronStressIndex": 2
+          },
+          {
+            "word": "CONFUSION",
+            "syllables": [
+              "CON",
+              "FU",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "컨",
+              "퓨",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          },
+          {
+            "word": "CAPTURE",
+            "syllables": [
+              "CAP",
+              "TURE"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "캡",
+              "처"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          },
+          {
+            "word": "ARTIFICIAL",
+            "syllables": [
+              "AR",
+              "TI",
+              "FI",
+              "CIAL"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "아",
+              "티",
+              "피",
+              "셜"
+            ],
+            "pronStressIndex": 2,
+            "pronDiffIndex": 3
+          }
+        ],
+        "caption": "전부 맞히셨다면 시즌1을 완전히 이해하신 겁니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "이제 여러분이 직접 정리해 보실 시간입니다.",
+          "from": 0,
+          "to": 126
+        },
+        {
+          "text": "옵저베이션.",
+          "from": 126,
+          "to": 179
+        },
+        {
+          "text": "션입니다.",
+          "from": 179,
+          "to": 216
+        },
+        {
+          "text": "강세는 베이.",
+          "from": 216,
+          "to": 278
+        },
+        {
+          "text": "컨퓨전은요?",
+          "from": 278,
+          "to": 322
+        },
+        {
+          "text": "전입니다.",
+          "from": 322,
+          "to": 360
+        },
+        {
+          "text": "모음 뒤라서요.",
+          "from": 360,
+          "to": 415
+        },
+        {
+          "text": "캡처는요?",
+          "from": 415,
+          "to": 460
+        },
+        {
+          "text": "처입니다.",
+          "from": 460,
+          "to": 505
+        },
+        {
+          "text": "마지막으로 아티피셜은요?",
+          "from": 505,
+          "to": 584
+        },
+        {
+          "text": "셜입니다.",
+          "from": 584,
+          "to": 629
+        },
+        {
+          "text": "전부 맞히셨다면, 시즌1을 완전히 이해하신 겁니다.",
+          "from": 629,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "시즌1 세 문장 요약",
+      "duration": 60,
+      "layout": "summary",
+      "words": [],
+      "content": [
+        "① 강세는 그 소리 바로 앞 음절",
+        "② 자음 + 이 = 션·전·천·처·저·셜",
+        "③ 예외처럼 보여도 전부 이유가 있다"
+      ],
+      "caption": "세 가지만 기억하세요",
+      "narration": "시즌1 전체를 세 문장으로 정리하겠습니다. 첫째, 강세는 항상 그 소리 바로 앞 음절에 있습니다. 둘째, 자음이 이 소리를 만나면 션, 전, 천, 처, 저, 셜로 변합니다. 셋째, 예외처럼 보이는 것도 전부 이유가 있습니다. 이 세 가지만 기억하시면, 처음 보는 어떤 단어도 스스로 읽으실 수 있습니다.",
+      "card": {
+        "category": "summary",
+        "badge": "시즌1 요약",
+        "points": [
+          "강세는 항상 그 소리\n바로 앞 음절에 있습니다.",
+          "자음이 '이' 소리를 만나면\n션 · 전 · 천 · 처 · 저 · 셜로 변합니다.",
+          "예외처럼 보이는 것도\n전부 이유가 있습니다."
+        ],
+        "chips": [
+          "HEROIC",
+          "NATION",
+          "DECISION",
+          "QUESTION",
+          "PICTURE",
+          "MEASURE",
+          "SPECIAL",
+          "OBSERVATION",
+          "CONFUSION",
+          "CAPTURE",
+          "ARTIFICIAL"
+        ],
+        "caption": "이 세 가지만 기억하시면 처음 보는 단어도 스스로 읽으실 수 있습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "시즌1 전체를 세 문장으로 정리하겠습니다.",
+          "from": 0,
+          "to": 140
+        },
+        {
+          "text": "첫째, 강세는 항상 그 소리 바로",
+          "from": 140,
+          "to": 253
+        },
+        {
+          "text": "앞 음절에 있습니다.",
+          "from": 253,
+          "to": 321
+        },
+        {
+          "text": "둘째, 자음이 이 소리를 만나면",
+          "from": 321,
+          "to": 454
+        },
+        {
+          "text": "션, 전, 천, 처, 저,",
+          "from": 454,
+          "to": 565
+        },
+        {
+          "text": "셜로 변합니다.",
+          "from": 565,
+          "to": 626
+        },
+        {
+          "text": "셋째, 예외처럼 보이는 것도 전부 이유가",
+          "from": 626,
+          "to": 754
+        },
+        {
+          "text": "있습니다.",
+          "from": 754,
+          "to": 782
+        },
+        {
+          "text": "이 세 가지만 기억하시면, 처음 보는 어떤 단어도",
+          "from": 782,
+          "to": 893
+        },
+        {
+          "text": "스스로 읽으실 수 있습니다.",
+          "from": 893,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "시즌1 마무리 및 시즌2 예고",
+      "duration": 40,
+      "layout": "summary",
+      "words": [],
+      "content": "시즌2 예고 - 문장 속에서 소리가 연결되고 줄어드는 법",
+      "caption": "시즌1 완결",
+      "narration": "여기까지 함께해 주신 여러분께 진심으로 감사드립니다. 외우지 않고 이해하는 영어, 이게 바로 이 채널이 시작된 이유였습니다. 시즌2에서는 발음을 넘어, 문장 속에서 소리가 어떻게 연결되고 줄어드는지 함께 풀어보겠습니다. 영어는 외우는 것이 아니라, 이해하는 것입니다. 「이해하면 쉬운 영어」였습니다. 시즌1, 여기까지입니다. 감사합니다.",
+      "card": {
+        "category": "teaser",
+        "badge": "시즌1 완결",
+        "lines": [
+          "여기까지 함께해 주셔서",
+          "진심으로 감사드립니다."
+        ],
+        "box": [
+          "시즌2 예고",
+          "문장 속에서 소리가 어떻게 연결되고 줄어드는지"
+        ],
+        "note": "영어는 외우는 것이 아니라,\n이해하는 것입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "여기까지 함께해 주신 여러분께 진심으로 감사드립니다.",
+          "from": 0,
+          "to": 154
+        },
+        {
+          "text": "외우지 않고 이해하는 영어, 이게 바로 이 채널이 시작된",
+          "from": 154,
+          "to": 281
+        },
+        {
+          "text": "이유였습니다.",
+          "from": 281,
+          "to": 311
+        },
+        {
+          "text": "시즌2에서는 발음을 넘어, 문장 속에서",
+          "from": 311,
+          "to": 420
+        },
+        {
+          "text": "소리가 어떻게 연결되고 줄어드는지 함께",
+          "from": 420,
+          "to": 534
+        },
+        {
+          "text": "풀어보겠습니다.",
+          "from": 534,
+          "to": 583
+        },
+        {
+          "text": "영어는 외우는 것이 아니라, 이해하는 것입니다.",
+          "from": 583,
+          "to": 702
+        },
+        {
+          "text": "「이해하면 쉬운 영어」였습니다.",
+          "from": 702,
+          "to": 792
+        },
+        {
+          "text": "시즌1, 여기까지입니다.",
+          "from": 792,
+          "to": 856
+        },
+        {
+          "text": "감사합니다.",
+          "from": 856,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "엔드스크린 - 시즌1 완결",
+      "duration": 8,
+      "layout": "summary",
+      "words": [],
+      "content": "구독 유도 + 시즌1 전체 재생목록",
+      "caption": "시즌1 전체 재생목록 보러가기",
+      "narration": "",
+      "card": {
+        "category": "endscreen",
+        "badge": "엔드스크린",
+        "subscribe": "구독하고 시즌2도 놓치지 마세요",
+        "playlist": "시즌1 전체 재생목록 보러가기",
+        "playlistUrl": "이해하면 쉬운 영어 · 시즌1 전체 보기"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1464 @@
+{
+  "episode": "EP6",
+  "title": "-TION의 비밀",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "오프닝 퀴즈 - INFORM vs INFORMATION",
+      "duration": 40,
+      "layout": "quiz",
+      "words": [
+        {
+          "word": "INFORM",
+          "stress": "FORM",
+          "pronunciation": "인폼",
+          "meaning": "알리다",
+          "highlightAt": 8,
+          "highlightEnd": 16
+        },
+        {
+          "word": "INFORMATION",
+          "stress": "MA",
+          "pronunciation": "인포메이션",
+          "meaning": "정보",
+          "highlightAt": 448,
+          "highlightEnd": 518
+        }
+      ],
+      "caption": "강세가 왜 옮겨갈까?",
+      "narration": "인폼. 알리다, 라는 뜻이죠. 강세는 뒤쪽, 폼에 있습니다. 그렇다면 여기에 다섯 글자, 에이-티-아이-오-엔을 붙이면 어떻게 될까요? 인포메이션. 강세가 완전히 다른 자리로 옮겨갔습니다. 폼에 있던 힘이, 메로 이동했습니다. 글자 몇 개 붙었을 뿐인데, 왜 힘의 자리가 통째로 바뀌는 걸까요?",
+      "card": {
+        "category": "quiz",
+        "badge": "퀴즈",
+        "heading": "강세는 어디로 이동할까요?",
+        "pairs": [
+          {
+            "from": {
+              "word": "INFORM",
+              "syllables": [
+                "IN",
+                "FORM"
+              ],
+              "stressIndex": 1,
+              "pronCells": [
+                "인",
+                "폼"
+              ],
+              "pronStressIndex": 1
+            },
+            "to": {
+              "word": "INFORMATION",
+              "syllables": [
+                "IN",
+                "FOR",
+                "MA",
+                "TION"
+              ],
+              "stressIndex": 2,
+              "pronCells": [
+                "인",
+                "포",
+                "메",
+                "이",
+                "션"
+              ],
+              "pronStressIndex": 2
+            }
+          }
+        ],
+        "caption": "강세가 FORM → MA 로 이동"
+      },
+      "subtitleGroups": [
+        {
+          "text": "인폼.",
+          "from": 0,
+          "to": 20
+        },
+        {
+          "text": "알리다, 라는 뜻이죠.",
+          "from": 20,
+          "to": 115
+        },
+        {
+          "text": "강세는 뒤쪽, 폼에 있습니다.",
+          "from": 115,
+          "to": 226
+        },
+        {
+          "text": "그렇다면 여기에 다섯 글자, 에이-티-아이-오-엔을",
+          "from": 226,
+          "to": 369
+        },
+        {
+          "text": "붙이면 어떻게 될까요?",
+          "from": 369,
+          "to": 448
+        },
+        {
+          "text": "인포메이션.",
+          "from": 448,
+          "to": 511
+        },
+        {
+          "text": "강세가 완전히 다른 자리로 옮겨갔습니다.",
+          "from": 511,
+          "to": 617
+        },
+        {
+          "text": "폼에 있던 힘이, 메로 이동했습니다.",
+          "from": 617,
+          "to": 731
+        },
+        {
+          "text": "글자 몇 개 붙었을 뿐인데, 왜 힘의 자리가",
+          "from": 731,
+          "to": 845
+        },
+        {
+          "text": "통째로 바뀌는 걸까요?",
+          "from": 845,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "채널 인트로 및 지난 편 리마인드",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "채널 인트로, 지난 편(-IC) 언급",
+      "caption": "시즌1 EP6",
+      "narration": "안녕하세요. 영어 발음과 강세를 원리로 배우는, 「이해하면 쉬운 영어」입니다. 영어 공부를 하시면서, 단어 강세를 어디에 줘야 할지 헷갈리셨던 적 있으시죠? 지난 시간에는, 익이 붙으면 강세가 바로 앞으로 끌려온다는 사실을 함께 배웠습니다. 히어로가 히로익이 되면서 힘의 자리가 움직였죠. 오늘은 또 다른 강세 자석, 션의 비밀을 풀어보겠습니다. 이 영어 강세 규칙 하나만 이해하시면, 처음 보는 단어도 강세를 스스로 예측하실 수 있게 됩니다.",
+      "card": {
+        "category": "intro",
+        "badge": "인트로",
+        "lines": [
+          "안녕하세요.",
+          "영어 발음과 강세를 원리로 배우는,",
+          "「이해하면 쉬운 영어」입니다."
+        ],
+        "box": [
+          "지난 시간에는 -IC",
+          "히어로 → 히로익"
+        ],
+        "note": "오늘은 또 다른 강세 자석,\n션의 비밀을 풀어보겠습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "안녕하세요.",
+          "from": 0,
+          "to": 46
+        },
+        {
+          "text": "영어 발음과 강세를 원리로 배우는,",
+          "from": 46,
+          "to": 154
+        },
+        {
+          "text": "「이해하면 쉬운 영어」입니다.",
+          "from": 154,
+          "to": 227
+        },
+        {
+          "text": "영어 공부를 하시면서, 단어 강세를 어디에 줘야 할지",
+          "from": 227,
+          "to": 350
+        },
+        {
+          "text": "헷갈리셨던 적 있으시죠?",
+          "from": 350,
+          "to": 414
+        },
+        {
+          "text": "지난 시간에는, 익이 붙으면 강세가 바로",
+          "from": 414,
+          "to": 525
+        },
+        {
+          "text": "앞으로 끌려온다는 사실을 함께 배웠습니다.",
+          "from": 525,
+          "to": 643
+        },
+        {
+          "text": "히어로가 히로익이 되면서 힘의 자리가 움직였죠.",
+          "from": 643,
+          "to": 778
+        },
+        {
+          "text": "오늘은 또 다른 강세 자석, 션의 비밀을 풀어보겠습니다.",
+          "from": 778,
+          "to": 902
+        },
+        {
+          "text": "이 영어 강세 규칙 하나만 이해하시면, 처음 보는",
+          "from": 902,
+          "to": 1010
+        },
+        {
+          "text": "단어도 강세를 스스로 예측하실 수 있게 됩니다.",
+          "from": 1010,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "핵심 단어 3개 - NATION / ATTENTION / EDUCATION",
+      "duration": 45,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "NATION",
+          "stress": "NA",
+          "pronunciation": "네이션",
+          "meaning": "국가",
+          "highlightAt": 82,
+          "highlightEnd": 134
+        },
+        {
+          "word": "ATTENTION",
+          "stress": "TEN",
+          "pronunciation": "어텐션",
+          "meaning": "주의",
+          "highlightAt": 290,
+          "highlightEnd": 343
+        },
+        {
+          "word": "EDUCATION",
+          "stress": "CA",
+          "pronunciation": "에듀케이션",
+          "meaning": "교육",
+          "highlightAt": 534,
+          "highlightEnd": 596
+        }
+      ],
+      "caption": "-TION 바로 앞 음절",
+      "narration": "먼저 세 단어를 함께 보겠습니다. 네이션. 강세는 앞쪽, 네이에 있습니다. 그렇다면 어텐션은 어디일까요? 정답은, 텐입니다. 하나 더 가보겠습니다. 에듀케이션은요? 맞습니다. 케이입니다. 패턴이 보이시나요? 네이션도, 어텐션도, 에듀케이션도, 전부 션 바로 앞 음절에 힘이 들어갑니다. 우연이 아닙니다.",
+      "card": {
+        "category": "principle",
+        "badge": "패턴 확인",
+        "words": [
+          {
+            "word": "NATION",
+            "syllables": [
+              "NA",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "ATTENTION",
+            "syllables": [
+              "AT",
+              "TEN",
+              "TION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "어",
+              "텐",
+              "션"
+            ],
+            "pronStressIndex": 1
+          },
+          {
+            "word": "EDUCATION",
+            "syllables": [
+              "EDU",
+              "CA",
+              "TION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "에듀",
+              "케이",
+              "션"
+            ],
+            "pronStressIndex": 1
+          }
+        ],
+        "caption": "션 바로 앞 음절에 강세!"
+      },
+      "subtitleGroups": [
+        {
+          "text": "먼저 세 단어를 함께 보겠습니다.",
+          "from": 0,
+          "to": 114
+        },
+        {
+          "text": "네이션.",
+          "from": 114,
+          "to": 158
+        },
+        {
+          "text": "강세는 앞쪽, 네이에 있습니다.",
+          "from": 158,
+          "to": 282
+        },
+        {
+          "text": "그렇다면 어텐션은 어디일까요?",
+          "from": 282,
+          "to": 395
+        },
+        {
+          "text": "정답은, 텐입니다.",
+          "from": 395,
+          "to": 477
+        },
+        {
+          "text": "하나 더 가보겠습니다.",
+          "from": 477,
+          "to": 534
+        },
+        {
+          "text": "에듀케이션은요?",
+          "from": 534,
+          "to": 601
+        },
+        {
+          "text": "맞습니다.",
+          "from": 601,
+          "to": 637
+        },
+        {
+          "text": "케이입니다.",
+          "from": 637,
+          "to": 695
+        },
+        {
+          "text": "패턴이 보이시나요?",
+          "from": 695,
+          "to": 754
+        },
+        {
+          "text": "네이션도, 어텐션도, 에듀케이션도,",
+          "from": 754,
+          "to": 874
+        },
+        {
+          "text": "전부 션 바로 앞 음절에 힘이 들어갑니다.",
+          "from": 874,
+          "to": 1006
+        },
+        {
+          "text": "우연이 아닙니다.",
+          "from": 1006,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "규칙 정리 - TION 앞 음절 강세",
+      "duration": 35,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "-TION으로 끝나면 강세는 바로 앞 음절",
+      "caption": "예외는 거의 없다",
+      "narration": "정리하면 이렇습니다. 단어가 션으로 끝나면, 강세는 반드시 션 바로 앞 음절에 위치합니다. 이건 예외가 거의 없는, 아주 강력한 규칙입니다. 다시 말해, 션이라는 글자 뭉치가 자석처럼 강세를 자기 앞으로 끌어당기는 겁니다. 그런데 이 규칙에는, 예외처럼 들리는 경우가 딱 하나 있습니다. 그건 오늘 영상 후반부에 꼭 말씀드리겠습니다.",
+      "card": {
+        "category": "principle",
+        "badge": "규칙 정리",
+        "box": [
+          "-TION",
+          "↓",
+          "션 바로 앞 음절에 강세"
+        ],
+        "lines": [
+          "예외처럼 들리는 경우가",
+          "딱 하나 있습니다.",
+          "(후반부에 설명드릴게요!)"
+        ]
+      },
+      "subtitleGroups": [
+        {
+          "text": "정리하면 이렇습니다.",
+          "from": 0,
+          "to": 86
+        },
+        {
+          "text": "단어가 션으로 끝나면, 강세는 반드시",
+          "from": 86,
+          "to": 205
+        },
+        {
+          "text": "션 바로 앞 음절에 위치합니다.",
+          "from": 205,
+          "to": 296
+        },
+        {
+          "text": "이건 예외가 거의 없는, 아주 강력한",
+          "from": 296,
+          "to": 411
+        },
+        {
+          "text": "규칙입니다.",
+          "from": 411,
+          "to": 448
+        },
+        {
+          "text": "다시 말해, 션이라는 글자 뭉치가 자석처럼",
+          "from": 448,
+          "to": 565
+        },
+        {
+          "text": "강세를 자기 앞으로 끌어당기는 겁니다.",
+          "from": 565,
+          "to": 662
+        },
+        {
+          "text": "그런데 이 규칙에는, 예외처럼 들리는 경우가",
+          "from": 662,
+          "to": 775
+        },
+        {
+          "text": "딱 하나 있습니다.",
+          "from": 775,
+          "to": 818
+        },
+        {
+          "text": "그건 오늘 영상 후반부에 꼭 말씀드리겠습니다.",
+          "from": 818,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "어원 설명 - 라틴어에서 영어까지",
+      "duration": 45,
+      "layout": "ruleBox",
+      "words": [],
+      "content": "라틴어 → 프랑스어 → 영어",
+      "caption": "라틴어 시절의 습관",
+      "narration": "그런데, 왜 하필 션 바로 앞일까요? 션은 원래 영어 단어가 아닙니다. 라틴어에서 출발해, 프랑스어를 거쳐 영어로 들어온 접미사입니다. 라틴어에는 원래부터 강세 규칙이 있었습니다. 단어 끝에서 두 번째 음절이 무거우면, 거기에 힘을 주는 방식이었죠. 션이 붙는 순간, 그 바로 앞 음절이 정확히 그 자리에 놓입니다. 그러니까 이건 영어가 새로 만든 규칙이 아니라, 라틴어 시절의 습관이 그대로 살아남은 겁니다. 외워야 할 예외가 아니라, 이유가 있는 결과인 셈이죠.",
+      "card": {
+        "category": "principle",
+        "badge": "왜 그럴까 — 어원",
+        "flow": [
+          { "label": "라틴어\n(Latin)", "icon": "latin" },
+          { "label": "프랑스어\n(French)", "icon": "french" },
+          { "label": "영어\n(English)", "icon": "english" }
+        ],
+        "caption": "라틴어 강세 규칙이 그대로 남아 있습니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "그런데, 왜 하필 션 바로 앞일까요?",
+          "from": 0,
+          "to": 146
+        },
+        {
+          "text": "션은 원래 영어 단어가 아닙니다.",
+          "from": 146,
+          "to": 240
+        },
+        {
+          "text": "라틴어에서 출발해, 프랑스어를 거쳐 영어로",
+          "from": 240,
+          "to": 362
+        },
+        {
+          "text": "들어온 접미사입니다.",
+          "from": 362,
+          "to": 415
+        },
+        {
+          "text": "라틴어에는 원래부터 강세 규칙이 있었습니다.",
+          "from": 415,
+          "to": 531
+        },
+        {
+          "text": "단어 끝에서 두 번째 음절이 무거우면, 거기에",
+          "from": 531,
+          "to": 649
+        },
+        {
+          "text": "힘을 주는 방식이었죠.",
+          "from": 649,
+          "to": 702
+        },
+        {
+          "text": "션이 붙는 순간, 그 바로 앞 음절이 정확히",
+          "from": 702,
+          "to": 819
+        },
+        {
+          "text": "그 자리에 놓입니다.",
+          "from": 819,
+          "to": 870
+        },
+        {
+          "text": "그러니까 이건 영어가 새로 만든 규칙이 아니라,",
+          "from": 870,
+          "to": 981
+        },
+        {
+          "text": "라틴어 시절의 습관이 그대로 살아남은 겁니다.",
+          "from": 981,
+          "to": 1084
+        },
+        {
+          "text": "외워야 할 예외가 아니라, 이유가 있는 결과인 셈이죠.",
+          "from": 1084,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "동사-명사 강세 이동 비교",
+      "duration": 60,
+      "layout": "compare",
+      "words": [
+        {
+          "word": "EDUCATE",
+          "highlightPart": "ED",
+          "narrationCue": "에듀케이트",
+          "highlightAt": 164,
+          "highlightEnd": 215
+        },
+        {
+          "word": "EDUCATION",
+          "highlightPart": "CA",
+          "narrationCue": "에듀케이션",
+          "highlightAt": 415,
+          "highlightEnd": 459
+        },
+        {
+          "word": "COMMUNICATE",
+          "highlightPart": "MU",
+          "narrationCue": "커뮤니케이트",
+          "highlightAt": 554,
+          "highlightEnd": 605
+        },
+        {
+          "word": "COMMUNICATION",
+          "highlightPart": "CA",
+          "narrationCue": "커뮤니케이션",
+          "highlightAt": 680,
+          "highlightEnd": 730
+        },
+        {
+          "word": "TRANSLATE",
+          "highlightPart": "TRANS",
+          "narrationCue": "트랜슬레이트",
+          "highlightAt": 803,
+          "highlightEnd": 864
+        },
+        {
+          "word": "TRANSLATION",
+          "highlightPart": "LA",
+          "narrationCue": "트랜슬레이션",
+          "highlightAt": 971,
+          "highlightEnd": 1034
+        }
+      ],
+      "caption": "강세가 끌려온다",
+      "narration": "이 자석의 힘이 얼마나 강한지, 직접 확인해 보겠습니다. 에듀케이트. 교육하다. 강세는 맨 앞, 에에 있습니다. 여기에 션을 붙이면, 에듀케이션. 강세가 케이로 넘어갑니다. 커뮤니케이트. 강세는 뮤에 있습니다. 커뮤니케이션이 되면, 케이로 이동합니다. 트랜슬레이트는요? 강세는 앞쪽 트랜스에 있습니다. 트랜슬레이션이 되면? 레이로 옮겨갑니다. 원래 어디에 힘이 있었든 상관없습니다. 션이 붙는 순간, 강세는 무조건 그 앞자리로 끌려옵니다.",
+      "card": {
+        "category": "example",
+        "badge": "강세 이동 직접 확인",
+        "pairs": [
+          {
+            "from": {
+              "word": "EDUCATE",
+              "syllables": [
+                "EDU",
+                "CATE"
+              ],
+              "stressIndex": 0,
+              "pronCells": [
+                "에",
+                "듀",
+                "케이트"
+              ],
+              "pronStressIndex": 0
+            },
+            "to": {
+              "word": "EDUCATION",
+              "syllables": [
+                "EDU",
+                "CA",
+                "TION"
+              ],
+              "stressIndex": 1,
+              "pronCells": [
+                "에듀",
+                "케이",
+                "션"
+              ],
+              "pronStressIndex": 1
+            }
+          },
+          {
+            "from": {
+              "word": "COMMUNICATE",
+              "syllables": [
+                "COM",
+                "MU",
+                "NICATE"
+              ],
+              "stressIndex": 1,
+              "pronCells": [
+                "커",
+                "뮤",
+                "니케이트"
+              ],
+              "pronStressIndex": 1
+            },
+            "to": {
+              "word": "COMMUNICATION",
+              "syllables": [
+                "COM",
+                "MUNI",
+                "CA",
+                "TION"
+              ],
+              "stressIndex": 2,
+              "pronCells": [
+                "커뮤니",
+                "케이",
+                "션"
+              ],
+              "pronStressIndex": 1
+            }
+          },
+          {
+            "from": {
+              "word": "TRANSLATE",
+              "syllables": [
+                "TRANS",
+                "LATE"
+              ],
+              "stressIndex": 0,
+              "pronCells": [
+                "트랜스",
+                "레이트"
+              ],
+              "pronStressIndex": 0
+            },
+            "to": {
+              "word": "TRANSLATION",
+              "syllables": [
+                "TRANS",
+                "LA",
+                "TION"
+              ],
+              "stressIndex": 1,
+              "pronCells": [
+                "트랜스",
+                "레이",
+                "션"
+              ],
+              "pronStressIndex": 1
+            }
+          }
+        ],
+        "caption": "션이 붙는 순간, 강세는 무조건 그 앞자리로 끌려옵니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "이 자석의 힘이 얼마나 강한지, 직접 확인해",
+          "from": 0,
+          "to": 133
+        },
+        {
+          "text": "보겠습니다.",
+          "from": 133,
+          "to": 164
+        },
+        {
+          "text": "에듀케이트.",
+          "from": 164,
+          "to": 203
+        },
+        {
+          "text": "교육하다.",
+          "from": 203,
+          "to": 246
+        },
+        {
+          "text": "강세는 맨 앞, 에에 있습니다.",
+          "from": 246,
+          "to": 355
+        },
+        {
+          "text": "여기에 션을 붙이면, 에듀케이션.",
+          "from": 355,
+          "to": 462
+        },
+        {
+          "text": "강세가 케이로 넘어갑니다.",
+          "from": 462,
+          "to": 554
+        },
+        {
+          "text": "커뮤니케이트.",
+          "from": 554,
+          "to": 598
+        },
+        {
+          "text": "강세는 뮤에 있습니다.",
+          "from": 598,
+          "to": 680
+        },
+        {
+          "text": "커뮤니케이션이 되면, 케이로 이동합니다.",
+          "from": 680,
+          "to": 803
+        },
+        {
+          "text": "트랜슬레이트는요?",
+          "from": 803,
+          "to": 864
+        },
+        {
+          "text": "강세는 앞쪽 트랜스에 있습니다.",
+          "from": 864,
+          "to": 971
+        },
+        {
+          "text": "트랜슬레이션이 되면?",
+          "from": 971,
+          "to": 1052
+        },
+        {
+          "text": "레이로 옮겨갑니다.",
+          "from": 1052,
+          "to": 1111
+        },
+        {
+          "text": "원래 어디에 힘이 있었든 상관없습니다.",
+          "from": 1111,
+          "to": 1208
+        },
+        {
+          "text": "션이 붙는 순간, 강세는 무조건 그 앞자리로",
+          "from": 1208,
+          "to": 1331
+        },
+        {
+          "text": "끌려옵니다.",
+          "from": 1331,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "추가 단어 3개 - STATION / VACATION / IMAGINATION",
+      "duration": 45,
+      "layout": "wordList",
+      "words": [
+        {
+          "word": "STATION",
+          "stress": "STA",
+          "pronunciation": "스테이션",
+          "meaning": "정거장",
+          "highlightAt": 147,
+          "highlightEnd": 192
+        },
+        {
+          "word": "VACATION",
+          "stress": "CA",
+          "pronunciation": "베이케이션",
+          "meaning": "휴가",
+          "highlightAt": 396,
+          "highlightEnd": 449
+        },
+        {
+          "word": "IMAGINATION",
+          "stress": "NA",
+          "pronunciation": "이매지네이션",
+          "meaning": "상상력",
+          "highlightAt": 550,
+          "highlightEnd": 610
+        }
+      ],
+      "caption": "매일 만나던 규칙",
+      "narration": "사실 여러분은 이 규칙을 매일 만나고 계셨습니다. 스테이션. 정거장. 스테이에 힘이 들어갑니다. 지하철역에서 매일 보시는 단어죠. 베이케이션. 휴가. 케이에 강세가 있습니다. 이매지네이션. 상상력. 네이에 힘이 들어갑니다. 규칙, 그대로입니다. 이제 여러분은 이 단어들을 외운 게 아니라, 이해하고 계신 겁니다.",
+      "card": {
+        "category": "example",
+        "badge": "실생활 연결",
+        "words": [
+          {
+            "word": "STATION",
+            "syllables": [
+              "STA",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "스테이",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "VACATION",
+            "syllables": [
+              "VA",
+              "CA",
+              "TION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "베이",
+              "케이",
+              "션"
+            ],
+            "pronStressIndex": 1
+          },
+          {
+            "word": "IMAGINATION",
+            "syllables": [
+              "IMAG",
+              "INA",
+              "TION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "이매지",
+              "네이",
+              "션"
+            ],
+            "pronStressIndex": 1
+          }
+        ],
+        "caption": "규칙, 그대로입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "사실 여러분은 이 규칙을 매일 만나고 계셨습니다.",
+          "from": 0,
+          "to": 147
+        },
+        {
+          "text": "스테이션.",
+          "from": 147,
+          "to": 186
+        },
+        {
+          "text": "정거장.",
+          "from": 186,
+          "to": 225
+        },
+        {
+          "text": "스테이에 힘이 들어갑니다.",
+          "from": 225,
+          "to": 301
+        },
+        {
+          "text": "지하철역에서 매일 보시는 단어죠.",
+          "from": 301,
+          "to": 396
+        },
+        {
+          "text": "베이케이션.",
+          "from": 396,
+          "to": 440
+        },
+        {
+          "text": "휴가.",
+          "from": 440,
+          "to": 476
+        },
+        {
+          "text": "케이에 강세가 있습니다.",
+          "from": 476,
+          "to": 550
+        },
+        {
+          "text": "이매지네이션.",
+          "from": 550,
+          "to": 595
+        },
+        {
+          "text": "상상력.",
+          "from": 595,
+          "to": 637
+        },
+        {
+          "text": "네이에 힘이 들어갑니다.",
+          "from": 637,
+          "to": 706
+        },
+        {
+          "text": "규칙, 그대로입니다.",
+          "from": 706,
+          "to": 779
+        },
+        {
+          "text": "이제 여러분은 이 단어들을 외운 게 아니라, 이해하고",
+          "from": 779,
+          "to": 891
+        },
+        {
+          "text": "계신 겁니다.",
+          "from": 891,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "예외처럼 보이는 S 뒤 발음 변화",
+      "duration": 55,
+      "layout": "compare",
+      "words": [
+        {
+          "word": "NATION",
+          "sound": "션",
+          "highlightPart": "TION",
+          "narrationCue": "네이션",
+          "highlightAt": 482,
+          "highlightEnd": 522
+        },
+        {
+          "word": "QUESTION",
+          "sound": "천",
+          "highlightPart": "TION",
+          "causeChar": "S",
+          "narrationCue": "퀘스천",
+          "highlightAt": 551,
+          "highlightEnd": 587
+        }
+      ],
+      "content": "S 뒤에서 '션'이 '천'으로",
+      "caption": "진짜 예외는 없었다",
+      "narration": "자, 아까 말씀드린 예외. 지금 공개하겠습니다. 퀘스천. 질문이라는 뜻이죠. 강세는 퀘스에 있습니다. 규칙대로입니다. 그런데 소리를 잘 들어보세요. 네이션은 션인데, 퀘스천은 천입니다. 분명 똑같은 철자인데, 소리가 다릅니다. 이유가 있습니다. 바로 앞에 스 소리가 오면, 션이 천으로 바뀝니다. 서제스천, 다이제스천. 전부 앞에 스가 있죠. 그래서 전부 천으로 발음됩니다. 강세 규칙은 흔들리지 않았습니다. 소리만 살짝 달라진 겁니다. 진짜 예외는 없었던 거죠.",
+      "card": {
+        "category": "exception",
+        "badge": "예외 공개",
+        "words": [
+          {
+            "word": "NATION",
+            "syllables": [
+              "NA",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "QUESTION",
+            "syllables": [
+              "QUES",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "퀘스",
+              "천"
+            ],
+            "pronStressIndex": 0,
+            "pronDiffIndex": 1
+          }
+        ],
+        "box": [
+          "앞에 S 소리가 오면, 션이 천으로 바뀝니다.",
+          "서제스천, 다이제스천 → 전부 '천'으로 발음"
+        ],
+        "caption": "강세 규칙은 그대로! 소리만 달라집니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "자, 아까 말씀드린 예외.",
+          "from": 0,
+          "to": 90
+        },
+        {
+          "text": "지금 공개하겠습니다.",
+          "from": 90,
+          "to": 155
+        },
+        {
+          "text": "퀘스천.",
+          "from": 155,
+          "to": 191
+        },
+        {
+          "text": "질문이라는 뜻이죠.",
+          "from": 191,
+          "to": 249
+        },
+        {
+          "text": "강세는 퀘스에 있습니다.",
+          "from": 249,
+          "to": 331
+        },
+        {
+          "text": "규칙대로입니다.",
+          "from": 331,
+          "to": 391
+        },
+        {
+          "text": "그런데 소리를 잘 들어보세요.",
+          "from": 391,
+          "to": 482
+        },
+        {
+          "text": "네이션은 션인데, 퀘스천은 천입니다.",
+          "from": 482,
+          "to": 628
+        },
+        {
+          "text": "분명 똑같은 철자인데, 소리가 다릅니다.",
+          "from": 628,
+          "to": 742
+        },
+        {
+          "text": "이유가 있습니다.",
+          "from": 742,
+          "to": 796
+        },
+        {
+          "text": "바로 앞에 스 소리가 오면, 션이",
+          "from": 796,
+          "to": 908
+        },
+        {
+          "text": "천으로 바뀝니다.",
+          "from": 908,
+          "to": 965
+        },
+        {
+          "text": "서제스천, 다이제스천.",
+          "from": 965,
+          "to": 1042
+        },
+        {
+          "text": "전부 앞에 스가 있죠.",
+          "from": 1042,
+          "to": 1115
+        },
+        {
+          "text": "그래서 전부 천으로 발음됩니다.",
+          "from": 1115,
+          "to": 1220
+        },
+        {
+          "text": "강세 규칙은 흔들리지 않았습니다.",
+          "from": 1220,
+          "to": 1296
+        },
+        {
+          "text": "소리만 살짝 달라진 겁니다.",
+          "from": 1296,
+          "to": 1375
+        },
+        {
+          "text": "진짜 예외는 없었던 거죠.",
+          "from": 1375,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "실전 퀴즈 - OBSERVATION / CONGRATULATION",
+      "duration": 45,
+      "layout": "quiz",
+      "words": [
+        {
+          "word": "OBSERVATION",
+          "stress": "VA",
+          "pronunciation": "옵저베이션",
+          "meaning": "관찰",
+          "highlightAt": 161,
+          "highlightEnd": 220
+        },
+        {
+          "word": "CONGRATULATION",
+          "stress": "LA",
+          "pronunciation": "콩그래츄레이션",
+          "meaning": "축하",
+          "highlightAt": 473,
+          "highlightEnd": 546
+        }
+      ],
+      "caption": "일시정지하고 맞혀보세요",
+      "narration": "그럼 이제, 처음 보는 단어로 직접 확인해 보겠습니다. 옵저베이션. 관찰이라는 뜻입니다. 강세는 어디일까요? 션 바로 앞. 베이입니다. 하나 더. 콩그래츄레이션. 축하한다는 말이죠. 강세는요? 레이입니다. 보세요. 뜻을 몰라도, 처음 보는 단어여도, 션만 찾으면 강세를 맞힐 수 있습니다. 이게 원리를 이해했을 때 생기는 힘입니다.",
+      "card": {
+        "category": "quiz",
+        "badge": "실전 적용",
+        "words": [
+          {
+            "word": "OBSERVATION",
+            "syllables": [
+              "OB",
+              "SER",
+              "VA",
+              "TION"
+            ],
+            "stressIndex": 2,
+            "pronCells": [
+              "옵",
+              "저",
+              "베이",
+              "션"
+            ],
+            "pronStressIndex": 2
+          },
+          {
+            "word": "CONGRATULATION",
+            "syllables": [
+              "CON",
+              "GRA",
+              "TU",
+              "LA",
+              "TION"
+            ],
+            "stressIndex": 3,
+            "pronCells": [
+              "콩",
+              "그래",
+              "츄",
+              "레이",
+              "션"
+            ],
+            "pronStressIndex": 3
+          }
+        ],
+        "caption": "처음 보는 단어도, 션만 찾으면 강세를 맞힐 수 있습니다!"
+      },
+      "subtitleGroups": [
+        {
+          "text": "그럼 이제, 처음 보는 단어로 직접 확인해",
+          "from": 0,
+          "to": 131
+        },
+        {
+          "text": "보겠습니다.",
+          "from": 131,
+          "to": 161
+        },
+        {
+          "text": "옵저베이션.",
+          "from": 161,
+          "to": 215
+        },
+        {
+          "text": "관찰이라는 뜻입니다.",
+          "from": 215,
+          "to": 283
+        },
+        {
+          "text": "강세는 어디일까요?",
+          "from": 283,
+          "to": 361
+        },
+        {
+          "text": "션 바로 앞.",
+          "from": 361,
+          "to": 412
+        },
+        {
+          "text": "베이입니다.",
+          "from": 412,
+          "to": 467
+        },
+        {
+          "text": "하나 더.",
+          "from": 467,
+          "to": 510
+        },
+        {
+          "text": "콩그래츄레이션.",
+          "from": 510,
+          "to": 560
+        },
+        {
+          "text": "축하한다는 말이죠.",
+          "from": 560,
+          "to": 634
+        },
+        {
+          "text": "강세는요?",
+          "from": 634,
+          "to": 668
+        },
+        {
+          "text": "레이입니다.",
+          "from": 668,
+          "to": 724
+        },
+        {
+          "text": "보세요.",
+          "from": 724,
+          "to": 754
+        },
+        {
+          "text": "뜻을 몰라도, 처음 보는 단어여도, 션만",
+          "from": 754,
+          "to": 871
+        },
+        {
+          "text": "찾으면 강세를 맞힐 수 있습니다.",
+          "from": 871,
+          "to": 950
+        },
+        {
+          "text": "이게 원리를 이해했을 때 생기는 힘입니다.",
+          "from": 950,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "3가지 규칙 요약",
+      "duration": 35,
+      "layout": "summary",
+      "words": [],
+      "content": [
+        "① -TION 앞 음절에 강세",
+        "② 라틴어 규칙의 잔재",
+        "③ S 뒤에서 '천'으로 변화"
+      ],
+      "caption": "영어는 이해하는 것입니다",
+      "narration": "오늘 배운 영어 강세 규칙, 세 가지로 정리하겠습니다. 첫째, 션으로 끝나는 단어는 강세가 항상 션 바로 앞 음절에 옵니다. 둘째, 이건 라틴어 시절의 강세 규칙이 그대로 남은 결과입니다. 셋째, 앞에 스 소리가 오면 션이 천으로 바뀝니다. 강세는 그대로고, 소리만 달라집니다. 기초 영어 공부하실 때 꼭 활용해 보세요. 영어는 외우는 것이 아니라, 이해하는 것입니다.",
+      "card": {
+        "category": "summary",
+        "badge": "요약",
+        "points": [
+          "션으로 끝나는 단어는\n강세가 항상 션 바로 앞 음절에 옵니다.",
+          "이건 라틴어 시절의 강세 규칙이\n그대로 남은 결과입니다.",
+          "앞에 S 소리가 오면\n션이 천으로 바뀝니다.\n강세는 그대로고, 소리만 달라집니다."
+        ],
+        "chips": [
+          "INFORM",
+          "NATION",
+          "ATTENTION",
+          "EDUCATION",
+          "STATION",
+          "VACATION",
+          "IMAGINATION",
+          "QUESTION",
+          "OBSERVATION",
+          "CONGRATULATION"
+        ],
+        "caption": "기초 영어 공부하실 때 꼭 활용해 보세요! 영어는 외우는 것이 아니라, 이해하는 것입니다."
+      },
+      "subtitleGroups": [
+        {
+          "text": "오늘 배운 영어 강세 규칙, 세 가지로 정리하겠습니다.",
+          "from": 0,
+          "to": 144
+        },
+        {
+          "text": "첫째, 션으로 끝나는 단어는",
+          "from": 144,
+          "to": 244
+        },
+        {
+          "text": "강세가 항상 션 바로 앞 음절에 옵니다.",
+          "from": 244,
+          "to": 370
+        },
+        {
+          "text": "둘째, 이건 라틴어 시절의 강세 규칙이",
+          "from": 370,
+          "to": 487
+        },
+        {
+          "text": "그대로 남은 결과입니다.",
+          "from": 487,
+          "to": 563
+        },
+        {
+          "text": "셋째, 앞에 스 소리가 오면",
+          "from": 563,
+          "to": 666
+        },
+        {
+          "text": "션이 천으로 바뀝니다.",
+          "from": 666,
+          "to": 750
+        },
+        {
+          "text": "강세는 그대로고, 소리만 달라집니다.",
+          "from": 750,
+          "to": 862
+        },
+        {
+          "text": "기초 영어 공부하실 때 꼭 활용해 보세요.",
+          "from": 862,
+          "to": 959
+        },
+        {
+          "text": "영어는 외우는 것이 아니라, 이해하는 것입니다.",
+          "from": 959,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "다음 편 예고 - SION의 비밀",
+      "duration": 30,
+      "layout": "compare",
+      "words": [
+        {
+          "word": "NATION",
+          "sound": "션",
+          "highlightPart": "TION",
+          "narrationCue": "네이션",
+          "highlightAt": 457,
+          "highlightEnd": 498
+        },
+        {
+          "word": "DECISION",
+          "sound": "전",
+          "highlightPart": "SION",
+          "causeChar": "S",
+          "narrationCue": "디시전",
+          "highlightAt": 494,
+          "highlightEnd": 549
+        }
+      ],
+      "caption": "다음 시간: -SION의 비밀",
+      "narration": "그런데 여기서, 마지막 질문이 하나 남습니다. 디시전. 결정이라는 뜻이죠. 강세는 시에 있습니다. 규칙대로입니다. 그런데 소리를 들어보세요. 네이션의 션과, 디시전의 전. 확실히 다릅니다. 오늘 배운 스 규칙으로도 설명이 안 되는 이 차이. 대체 왜 생기는 걸까요? 이 비밀은 다음 시간에 함께 풀어보겠습니다. 영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다. 오늘도 끝까지 함께해 주셔서 감사합니다.",
+      "card": {
+        "category": "teaser",
+        "badge": "다음 편 예고",
+        "words": [
+          {
+            "word": "NATION",
+            "syllables": [
+              "NA",
+              "TION"
+            ],
+            "stressIndex": 0,
+            "pronCells": [
+              "네이",
+              "션"
+            ],
+            "pronStressIndex": 0
+          },
+          {
+            "word": "DECISION",
+            "syllables": [
+              "DE",
+              "CI",
+              "SION"
+            ],
+            "stressIndex": 1,
+            "pronCells": [
+              "디",
+              "시",
+              "전"
+            ],
+            "pronStressIndex": 1,
+            "pronDiffIndex": 2
+          }
+        ],
+        "lines": [
+          "왜 소리가 다를까?",
+          "이 비밀은 다음 시간에 함께 풀어보겠습니다!"
+        ],
+        "note": "「이해하면 쉬운 영어」였습니다.\n오늘도 끝까지 함께해 주셔서 감사합니다!"
+      },
+      "subtitleGroups": [
+        {
+          "text": "그런데 여기서, 마지막 질문이 하나 남습니다.",
+          "from": 0,
+          "to": 145
+        },
+        {
+          "text": "디시전.",
+          "from": 145,
+          "to": 186
+        },
+        {
+          "text": "결정이라는 뜻이죠.",
+          "from": 186,
+          "to": 247
+        },
+        {
+          "text": "강세는 시에 있습니다.",
+          "from": 247,
+          "to": 317
+        },
+        {
+          "text": "규칙대로입니다.",
+          "from": 317,
+          "to": 373
+        },
+        {
+          "text": "그런데 소리를 들어보세요.",
+          "from": 373,
+          "to": 457
+        },
+        {
+          "text": "네이션의 션과, 디시전의 전.",
+          "from": 457,
+          "to": 580
+        },
+        {
+          "text": "확실히 다릅니다.",
+          "from": 580,
+          "to": 640
+        },
+        {
+          "text": "오늘 배운 스 규칙으로도 설명이 안 되는",
+          "from": 640,
+          "to": 760
+        },
+        {
+          "text": "이 차이.",
+          "from": 760,
+          "to": 777
+        },
+        {
+          "text": "대체 왜 생기는 걸까요?",
+          "from": 777,
+          "to": 849
+        },
+        {
+          "text": "이 비밀은 다음 시간에 함께 풀어보겠습니다.",
+          "from": 849,
+          "to": 957
+        },
+        {
+          "text": "영어 발음이 쉬워지는 채널, 「이해하면 쉬운 영어」였습니다.",
+          "from": 957,
+          "to": 1097
+        },
+        {
+          "text": "오늘도 끝까지 함께해 주셔서 감사합니다.",
+          "from": 1097,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "엔드스크린",
+      "duration": 8,
+      "layout": "summary",
+      "words": [],
+      "content": "구독 유도 + 재생목록 안내",
+      "caption": "구독하고 다음 편도 놓치지 마세요",
+      "narration": "",
+      "card": {
+        "category": "endscreen",
+        "badge": "엔드스크린",
+        "subscribe": "구독하고 다음 편도 놓치지 마세요",
+        "playlist": "시즌1 전체 재생목록",
+        "playlistUrl": "이해하면 쉬운 영어 · 시즌1 모아보기"
+      }
+    }
+  ]
+}

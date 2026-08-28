@@ -1,0 +1,79 @@
+# 경쟁 채널 비교(market_demand_score) 구현
+
+마지막 갱신: 2026-08-29
+
+## 계기
+
+[채널 자체 적합도 점수 도입](2026-08-25-content-opportunity-score.md)에서 미룬 나머지 절반.
+project1이 원래 없던 것과 달리 로컬에 남아있지 않아서(`github.com/yunyoungkil/project1` 원격에만
+존재, 이 컴퓨터엔 클론 안 돼 있음) 코드를 그대로 이식하지 못하고, 결정 문서에 적힌 개념
+(소형 채널 검색 → 채널 자체 baseline → outlier 탐지)만 보고 재구현함.
+
+## 구현
+
+`scripts/market-demand.mjs` — `data/youtube/market-demand.json` 생성.
+
+1. 키워드 풀(`content-formats.md`/`channel-strategy.md` 기반 6개: "영어 발음 규칙", "영어 발음 원리",
+   "영어 연음 축약", "왕초보 영어 발음", "영어 듣기 안 들리는 이유", "미국식 발음 규칙")로
+   `search.list(type=video)` 1회씩 — 채널 소개가 아니라 실제로 관련 영상을 만든 채널을 찾기 위해.
+2. 발견된 채널을 `channels.list`로 구독자 100,000명 이하만 필터링(우리 채널 규모와 비교 가능한
+   채널만 — 메가 채널의 outlier는 우리가 재현 못 하는 알고리즘 도달력 문제라 신호가 아님).
+3. 각 채널의 최근 업로드 25개(`playlistItems.list`)를 그 채널 자체 baseline 표본으로 삼음.
+4. `videos.list`로 조회수 확보, 후보 영상의 outlierRatio = 그 채널 baseline 대비 비율.
+5. 키워드별로 outlierRatio 중앙값 → `marketDemandScore`(50 = 그 채널 평균과 동일).
+
+쿼터: `search.list`가 100 units/회로 제일 비싸서 키워드 풀을 6개로 제한. 실행당 약 632 units
+(일일 10,000 한도 대비 여유 큼). `--dry-run`으로 실행 전 예상치 확인 가능.
+
+## 발견한 버그: 원 조회수 비교는 항상 오래된 영상이 이긴다
+
+1차 실행 결과 **6개 키워드 전부가 상한(150)을 그대로 찍었다** — 이례적으로 깔끔한 결과라 의심했고,
+실제로 버그였다. 원인: 후보 영상(검색 relevance로 뽑힘, 사실상 그 채널에서 잘 된 영상)의 **원
+누적 조회수**를, 최근 업로드 baseline과 그대로 비교했다. 5년 된 영상이 5.5M 조회수인데 baseline은
+"최근 25개 업로드" 기준 1,894회 — 조회수는 게시 후 경과 시간에 비례해 계속 쌓이므로, 오래된 영상은
+baseline보다 무조건 유리하다. 주제가 좋아서가 아니라 시간이 더 지나서 이긴 것.
+
+**수정**: 조회수 대신 `viewCount / max(1, 게시후경과일)` = 하루당 조회수로 정규화. 후보 영상과
+baseline 영상 양쪽 다 같은 방식으로 계산. 재실행 후 키워드별 점수가 142~250으로 자연스럽게
+갈렸다 — 버그 수정 확인.
+
+## 추가 보정: 5배 캡
+
+`channel-strategy.md`의 "작은 표본은 성공으로 과장하지 않는다" 원칙에 따라, 개별 outlierRatio를
+중앙값 계산 전에 5배에서 캡했다(원본 비율은 `topOutliers`에 그대로 남겨 투명성 유지). 캡 없이는
+바이럴 영상 하나(예: 다니엘 잉글리시 클럽, ratio 2624)가 그 키워드 전체 점수를 지배해버린다.
+
+## content-opportunity.mjs와의 결합 — 곱하지 않고 나란히 표시
+
+project1 원 공식은 `content_opportunity_score = market_demand_score * (fitScore / 100)`인데,
+그대로 구현하지 않았다. 우리 `byRule`(시즌1 발음 규칙: -TION/-SION/-TURE/-CIAL)과 이번 키워드 풀
+("영어 발음 규칙" 등 일반 검색어)은 **같은 축이 아니다** — 하나는 우리가 이미 만든 포맷의 성과이고,
+하나는 일반 청중이 검색하는 주제어다. 억지로 표를 조인하면 존재하지 않는 정밀도를 지어내는
+꼴이라, `content-opportunity.mjs` 출력에 `marketDemand` 필드로 별도 노출만 하고 곱셈은 하지 않았다.
+**새 소재 후보를 정할 때 사람(또는 아이디어 추천 단계)이 키워드와 후보를 직접 매칭해서 판단한다.**
+
+## 실행
+
+```bash
+node scripts/market-demand.mjs --dry-run   # 쿼터 예상치만 확인
+node scripts/market-demand.mjs             # 실제 실행, ~632 units
+npm run content-opportunity                # market-demand.json이 있으면 자동으로 같이 표시
+```
+
+## 첫 실행 결과 (2026-08-29 기준)
+
+| 키워드 | marketDemandScore | 표본 |
+|---|---|---|
+| 왕초보 영어 발음 | 250 (캡) | 4 |
+| 미국식 발음 규칙 | 250 (캡, 표본 1이라 신뢰도 낮음) | 1 |
+| 영어 듣기 안 들리는 이유 | 243.6 | 6 |
+| 영어 연음 축약 | 224.7 | 5 |
+| 영어 발음 규칙 | 161.1 | 6 |
+| 영어 발음 원리 | 142.4 | 6 |
+
+"영어 연음 축약"이 시즌2(문장 속 연결·축약·리듬)와 가장 직접 관련 있는 키워드라는 점이 눈에 띈다.
+
+## 관련 문서
+
+- [채널 자체 적합도 점수 도입](2026-08-25-content-opportunity-score.md)
+- [영상 제작 표준 워크플로우](../VIDEO_WORKFLOW.md)

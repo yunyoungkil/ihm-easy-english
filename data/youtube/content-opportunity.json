@@ -1,86 +1,86 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-25T14:20:48.860Z",
-  "sourceAnalyticsSyncedAt": "2026-08-22T13:45:34.859Z",
-  "note": "my_channel_fit_score만 계산함 (github.com/yunyoungkil/project1의 research/my_channel.py 이식). market_demand_score(경쟁 채널 outlier 비교)는 별도 시장 리서치 파이프라인이 없어 계산하지 않음 — 값을 추측해서 채우지 않는다. fitScore 50 = 해당 콘텐츠 타입 평균과 동일, 50 초과 = 평균보다 유지율 높음. SHORTS(반복 재생으로 100% 초과 가능)와 VIDEO_ON_DEMAND(단일 재생)는 유지율 스케일이 달라 타입별 자체 기준선 대비 비율(retentionRatio)로 정규화한 뒤 비교함.",
+  "generatedAt": "2026-08-28T16:51:25.191Z",
+  "sourceAnalyticsSyncedAt": "2026-08-27T13:42:25.861Z",
+  "note": "my_channel_fit_score (github.com/yunyoungkil/project1의 research/my_channel.py 이식). fitScore 50 = 해당 콘텐츠 타입 평균과 동일, 50 초과 = 평균보다 유지율 높음. SHORTS(반복 재생으로 100% 초과 가능)와 VIDEO_ON_DEMAND(단일 재생)는 유지율 스케일이 달라 타입별 자체 기준선 대비 비율(retentionRatio)로 정규화한 뒤 비교함. market_demand_score(경쟁 채널 outlier 비교, scripts/market-demand.mjs)는 marketDemand 필드에 키워드별로 별도 표시함 — byRole/byRule과 축이 달라 곱하지 않았음. 새 소재 후보를 이 키워드들과 매칭해 판단할 것.",
   "baselineRetentionByContentType": {
-    "SHORTS": 122.32804347826085,
-    "VIDEO_ON_DEMAND": 36.918749999999996
+    "SHORTS": 122.31847826086955,
+    "VIDEO_ON_DEMAND": 34.41529411764706
   },
   "byRole": [
     {
       "role": "LEGACY",
       "videoCount": 41,
-      "avgRetention": 122.77853658536581,
-      "avgRetentionRatio": 1.1344552275683126,
-      "avgViews": 749.0975609756098,
+      "avgRetention": 122.66731707317068,
+      "avgRetentionRatio": 1.1449681133091907,
+      "avgViews": 749.1463414634146,
       "avgSubscriberNet": 1.2926829268292683,
       "contentTypes": [
         "SHORTS",
         "VIDEO_ON_DEMAND"
       ],
-      "fitScore": 56.72276137841563
+      "fitScore": 57.248405665459536
     },
     {
       "role": "EXPERIMENT",
       "videoCount": 4,
-      "avgRetention": 31.822499999999998,
-      "avgRetentionRatio": 0.8619603859827325,
-      "avgViews": 542.5,
+      "avgRetention": 30.7075,
+      "avgRetentionRatio": 0.8922631866817079,
+      "avgViews": 543.5,
       "avgSubscriberNet": 0.5,
       "contentTypes": [
         "VIDEO_ON_DEMAND"
       ],
-      "fitScore": 43.098019299136624
-    },
-    {
-      "role": "SEASON-A",
-      "videoCount": 5,
-      "avgRetention": 91.128,
-      "avgRetentionRatio": 0.7449477438605034,
-      "avgViews": 1495.4,
-      "avgSubscriberNet": 2,
-      "contentTypes": [
-        "SHORTS"
-      ],
-      "fitScore": 37.24738719302517
+      "fitScore": 44.613159334085395
     },
     {
       "role": "SEASON-B",
       "videoCount": 4,
       "avgRetention": 63.05500000000001,
-      "avgRetentionRatio": 0.7376242407101229,
+      "avgRetentionRatio": 0.7608036243369682,
       "avgViews": 1287.5,
       "avgSubscriberNet": 3.75,
       "contentTypes": [
         "VIDEO_ON_DEMAND",
         "SHORTS"
       ],
-      "fitScore": 36.881212035506145
+      "fitScore": 38.04018121684841
+    },
+    {
+      "role": "SEASON-A",
+      "videoCount": 5,
+      "avgRetention": 91.128,
+      "avgRetentionRatio": 0.7450059982405162,
+      "avgViews": 1495.4,
+      "avgSubscriberNet": 2,
+      "contentTypes": [
+        "SHORTS"
+      ],
+      "fitScore": 37.25029991202581
     },
     {
       "role": "SEASON-LONG",
-      "videoCount": 5,
-      "avgRetention": 26.582,
-      "avgRetentionRatio": 0.7200135432537669,
-      "avgViews": 15.6,
-      "avgSubscriberNet": 0.2,
+      "videoCount": 6,
+      "avgRetention": 22.7,
+      "avgRetentionRatio": 0.6595904693535707,
+      "avgViews": 13.333333333333334,
+      "avgSubscriberNet": 0.16666666666666666,
       "contentTypes": [
         "VIDEO_ON_DEMAND"
       ],
-      "fitScore": 36.00067716268834
+      "fitScore": 32.97952346767853
     },
     {
       "role": "OTHER",
       "videoCount": 1,
-      "avgRetention": 71.49,
-      "avgRetentionRatio": 0.5844121917367592,
-      "avgViews": 2164,
+      "avgRetention": 71.14,
+      "avgRetentionRatio": 0.5815965094683337,
+      "avgViews": 2173,
       "avgSubscriberNet": 5,
       "contentTypes": [
         "SHORTS"
       ],
-      "fitScore": 29.22060958683796
+      "fitScore": 29.079825473416687
     }
   ],
   "byRule": [
@@ -88,40 +88,88 @@
       "rule": "-SION",
       "videoCount": 2,
       "avgRetention": 51.03,
-      "avgRetentionRatio": 0.8614889716203313,
+      "avgRetentionRatio": 0.9077997433199516,
       "avgViews": 1813.5,
       "avgSubscriberNet": 7.5,
       "contentTypes": [
         "VIDEO_ON_DEMAND",
         "SHORTS"
       ],
-      "fitScore": 43.07444858101657
+      "fitScore": 45.38998716599758
     },
     {
       "rule": "-TION",
       "videoCount": 4,
       "avgRetention": 54.137499999999996,
-      "avgRetentionRatio": 0.7329501930322486,
+      "avgRetentionRatio": 0.7632295763144474,
       "avgViews": 226.25,
       "avgSubscriberNet": 0.5,
       "contentTypes": [
         "VIDEO_ON_DEMAND",
         "SHORTS"
       ],
-      "fitScore": 36.64750965161243
+      "fitScore": 38.16147881572237
     },
     {
       "rule": "-TURE",
       "videoCount": 3,
       "avgRetention": 46.20000000000001,
-      "avgRetentionRatio": 0.47172752866879336,
+      "avgRetentionRatio": 0.4815530474282883,
       "avgViews": 1140.3333333333333,
       "avgSubscriberNet": 0.6666666666666666,
       "contentTypes": [
         "SHORTS",
         "VIDEO_ON_DEMAND"
       ],
-      "fitScore": 23.586376433439668
+      "fitScore": 24.077652371414416
+    },
+    {
+      "rule": "-CIAL",
+      "videoCount": 1,
+      "avgRetention": 3.29,
+      "avgRetentionRatio": 0.09559703278296243,
+      "avgViews": 2,
+      "avgSubscriberNet": 0,
+      "contentTypes": [
+        "VIDEO_ON_DEMAND"
+      ],
+      "fitScore": 4.779851639148122
     }
-  ]
+  ],
+  "marketDemand": {
+    "generatedAt": "2026-08-28T16:50:19.076Z",
+    "channelsAnalyzed": 18,
+    "byKeyword": [
+      {
+        "keyword": "왕초보 영어 발음",
+        "marketDemandScore": 250,
+        "videoCount": 4
+      },
+      {
+        "keyword": "미국식 발음 규칙",
+        "marketDemandScore": 250,
+        "videoCount": 1
+      },
+      {
+        "keyword": "영어 듣기 안 들리는 이유",
+        "marketDemandScore": 243.6,
+        "videoCount": 6
+      },
+      {
+        "keyword": "영어 연음 축약",
+        "marketDemandScore": 224.7,
+        "videoCount": 5
+      },
+      {
+        "keyword": "영어 발음 규칙",
+        "marketDemandScore": 161.1,
+        "videoCount": 6
+      },
+      {
+        "keyword": "영어 발음 원리",
+        "marketDemandScore": 142.4,
+        "videoCount": 6
+      }
+    ]
+  }
 }

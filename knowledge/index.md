@@ -25,6 +25,7 @@
 - [HyperFrames 전면 전환](decisions/2026-08-26-hyperframes-full-migration.md) — 새 제작(롱폼 포함) 전부 HyperFrames로, Remotion은 EP6~EP10 보존용
 - [팟캐스트 형식 콘텐츠 추가 검토](decisions/2026-08-25-podcast-format-idea.md) — 초기 브레인스토밍, 미착수
 - [채널 자체 적합도 점수 도입](decisions/2026-08-25-content-opportunity-score.md) — project1에서 `my_channel_fit_score` 공식만 이식, 경쟁 채널 비교는 미포함
+- [경쟁 채널 비교(market_demand_score) 구현](decisions/2026-08-29-market-demand-score.md) — 소형 채널 outlier 탐지, 원 조회수 비교 버그를 하루당 조회수로 수정
 
 ## 에피소드
 
@@ -40,7 +41,8 @@
 
 - `../data/youtube/analytics-latest.json` — 최신 YouTube 분석 스냅샷
 - `../data/youtube/evaluations-48h.json` — 업로드 후 48시간 자동 판정
-- `../data/youtube/content-opportunity.json` — 포맷·규칙별 채널 자체 적합도 점수(`npm run content-opportunity`로 재생성). github.com/yunyoungkil/project1의 `my_channel_fit_score` 공식 이식, 경쟁 채널 비교(market_demand_score)는 미포함
+- `../data/youtube/content-opportunity.json` — 포맷·규칙별 채널 자체 적합도 점수(`npm run content-opportunity`로 재생성). `my_channel_fit_score`(project1 이식) + `marketDemand`(경쟁 채널 outlier, `market-demand.json`이 있으면 자동 포함) 표시, 둘은 축이 달라 곱하지 않고 나란히 표시
+- `../data/youtube/market-demand.json` — 경쟁 채널 outlier 기반 키워드별 시장 수요 점수(`node scripts/market-demand.mjs`로 재생성, YouTube Data API 쿼터 ~632 units 소모)
 - `../data/youtube/catalog.json` — 채널 영상 카탈로그
 - `../scripts/ep09_shortsA_auto.json` — EP9 Track A 대본·타이밍
 - `../scripts/ep09_shortsB_auto.json` — EP9 Track B 대본·타이밍

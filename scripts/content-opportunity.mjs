@@ -18,7 +18,7 @@
 // retention is expressed as a ratio to its own type's baseline before grouping/averaging — this
 // keeps mixed-format groups (e.g. one season1 rule spans a long-form + two shorts) comparable.
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -109,19 +109,44 @@ for (const [videoId, cls] of Object.entries(classifications)) {
   byRule.get(rule).push(perf);
 }
 
+// market-demand.mjs (scripts/market-demand.mjs) computes the other half of
+// project1's content_opportunity_score — competitor outlier signal, keyed by
+// search keyword rather than our internal role/rule taxonomy. The two don't
+// share an axis (our byRule is past season1 sound-rules; market demand is
+// general audience search terms), so this is surfaced alongside byRole/byRule
+// rather than force-multiplied into them — matching a keyword to a candidate
+// topic is a judgment call made at ideation time, not a fixed table join.
+const marketDemandPath = join(projectDir, "data", "youtube", "market-demand.json");
+const marketDemand = existsSync(marketDemandPath) ? JSON.parse(readFileSync(marketDemandPath, "utf8")) : null;
+
 const result = {
   schemaVersion: 1,
   generatedAt: new Date().toISOString(),
   sourceAnalyticsSyncedAt: analytics.syncedAt,
   note:
-    "my_channel_fit_score만 계산함 (github.com/yunyoungkil/project1의 research/my_channel.py 이식). " +
-    "market_demand_score(경쟁 채널 outlier 비교)는 별도 시장 리서치 파이프라인이 없어 계산하지 않음 — " +
-    "값을 추측해서 채우지 않는다. fitScore 50 = 해당 콘텐츠 타입 평균과 동일, 50 초과 = 평균보다 유지율 높음. " +
+    "my_channel_fit_score (github.com/yunyoungkil/project1의 research/my_channel.py 이식). " +
+    "fitScore 50 = 해당 콘텐츠 타입 평균과 동일, 50 초과 = 평균보다 유지율 높음. " +
     "SHORTS(반복 재생으로 100% 초과 가능)와 VIDEO_ON_DEMAND(단일 재생)는 유지율 스케일이 달라 " +
-    "타입별 자체 기준선 대비 비율(retentionRatio)로 정규화한 뒤 비교함.",
+    "타입별 자체 기준선 대비 비율(retentionRatio)로 정규화한 뒤 비교함. " +
+    (marketDemand
+      ? "market_demand_score(경쟁 채널 outlier 비교, scripts/market-demand.mjs)는 marketDemand 필드에 " +
+        "키워드별로 별도 표시함 — byRole/byRule과 축이 달라 곱하지 않았음. 새 소재 후보를 이 키워드들과 " +
+        "매칭해 판단할 것."
+      : "market_demand_score는 아직 계산 안 됨 — `node scripts/market-demand.mjs` 실행 후 다시 돌리면 포함됨."),
   baselineRetentionByContentType: Object.fromEntries(baselineByType),
   byRole: rank(byRole, "role"),
   byRule: rank(byRule, "rule"),
+  marketDemand: marketDemand
+    ? {
+        generatedAt: marketDemand.generatedAt,
+        channelsAnalyzed: marketDemand.channelsAnalyzed,
+        byKeyword: marketDemand.byKeyword.map((k) => ({
+          keyword: k.keyword,
+          marketDemandScore: k.marketDemandScore,
+          videoCount: k.videoCount,
+        })),
+      }
+    : null,
 };
 
 writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf8");

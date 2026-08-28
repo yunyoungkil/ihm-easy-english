@@ -38,8 +38,11 @@
 
 ### 순서 (2026-08-26 확정)
 
-1. **아이디어 추천** — 유튜브 리서치(경쟁 채널 동향)와 채널 자체 성과 데이터(`npm run content-opportunity`,
-   `data/youtube/`)를 근거로 소재 후보를 뽑는다. 감으로 정하지 않는다.
+1. **아이디어 추천** — 경쟁 채널 동향(`node scripts/market-demand.mjs`, `data/youtube/market-demand.json`)과
+   채널 자체 성과 데이터(`npm run content-opportunity`, `data/youtube/`)를 근거로 소재 후보를 뽑는다.
+   감으로 정하지 않는다. 두 점수는 축이 달라 곱하지 않는다 — market-demand는 일반 검색 키워드 기준,
+   content-opportunity의 byRule/byRole은 우리가 이미 만든 포맷 기준이라, 후보 소재를 관련 키워드와
+   사람이 직접 매칭해서 판단한다([결정 기록](decisions/2026-08-29-market-demand-score.md)).
 2. **5개를 표로 제시** — 소재/각도별로 5개, 사용자가 하나를 고른다.
 3. 고른 소재로 아래 "확정할 것"을 채운다.
 

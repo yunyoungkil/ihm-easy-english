@@ -1,0 +1,26 @@
+GOING TO → GONNA: 왜 원어민은 항상 GONNA로 줄여 발음하는가
+
+주제: 영어 문장에서 GOING TO가 GONNA로 축약되는 발음 현상과 그 원리.
+채널: 「이해하면 쉬운영어」, 시즌2 EP1 (시즌1은 -TION/-SION/-TURE/-CIAL 등 단어 단위 발음 규칙을
+다뤘고, 시즌2는 문장 속 소리 연결·축약을 다룬다).
+대상: 영어 철자·발음 규칙이 낯선 40~60대 왕초보 학습자.
+
+핵심 사실:
+1. GOING TO는 미래를 나타낼 때 쓰는 표현이지만, 실제 구어(영화·노래·일상 대화)에서는 거의 항상
+   GONNA로 발음된다.
+2. 축약이 일어나는 이유는 두 가지다.
+   - GOING의 끝소리 NG(비음)는 조음이 약해서 뒤에 오는 소리와 쉽게 이어진다.
+   - TO의 T는 강세 없는 문장 안에서 조음 힘을 거의 잃는다(flap/약화).
+   - 두 현상이 겹치면서 GOING TO 전체가 GONNA라는 하나의 음절 덩어리로 인식된다.
+3. 이 축약은 인칭·시제·문장 형태(긍정/부정/의문)와 무관하게 항상 같은 자리에서 일어난다:
+   I'm gonna go home. / She's gonna call you. / He's gonna be late. / We're gonna start now.
+   I'm not gonna do that. / Are you gonna come?
+4. 단, GOING TO 뒤에 동사가 올 때만 GONNA로 축약된다. 뒤에 장소/명사가 오면(예: I'm going to
+   the store) 축약되지 않는다 — "가다"라는 원래 동사 GO의 의미로 쓰였기 때문.
+5. 과거형(was/were going to)도 같은 원리로 "워즈/워 거너"로 들린다.
+6. GONNA는 비문법적인 게 아니라, 구어에서 자연스럽게 일어나는 발음 압축일 뿐이다. 격식 있는 글쓰기
+   (이메일, 이력서, 공식 문서)에서는 여전히 GOING TO로 쓴다 — 말과 글의 레지스터 차이.
+7. 실제 원어민 발화 예시(리스닝 자료): What are you gonna do this weekend? / She's probably
+   gonna be late. / It's gonna be okay. / They're gonna miss the train.
+8. 이 채널의 다음 편(시즌2 EP2)에서는 WANT TO → WANNA를 다룰 예정이며, 이번 편에서는 그 내용을
+   미리 설명하지 않는다(Rehook으로 남겨둠).

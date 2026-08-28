@@ -1,0 +1,219 @@
+{
+  "title": "틀리기 쉬운 영어 발음 테스트",
+  "header": [
+    "틀리기 쉬운",
+    "영어 발음 테스트"
+  ],
+  "segments": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 4,
+      "word": "DISCUSSION",
+      "stress": "커",
+      "stressEn": "CUS",
+      "pronunciation": "디스커션",
+      "narration": "디스커션. 에스, 자음 뒤라 션으로 읽습니다.",
+      "subtitleGroups": [
+        {
+          "text": "디스커션.",
+          "from": 0,
+          "to": 41
+        },
+        {
+          "text": "에스, 자음 뒤라 션으로 읽습니다.",
+          "from": 41,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 19,
+      "highlightEnd": 45
+    },
+    {
+      "id": 2,
+      "start": 4,
+      "end": 8,
+      "word": "EXPANSION",
+      "stress": "팬",
+      "stressEn": "PAN",
+      "pronunciation": "익스팬션",
+      "narration": "익스팬션. 엔, 이것도 자음 뒤라 션으로 읽죠?",
+      "subtitleGroups": [
+        {
+          "text": "익스팬션.",
+          "from": 0,
+          "to": 10
+        },
+        {
+          "text": "엔, 이것도 자음 뒤라 션으로 읽죠?",
+          "from": 10,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 10,
+      "highlightEnd": 17
+    },
+    {
+      "id": 3,
+      "start": 8,
+      "end": 11,
+      "narration": "그렇다면... 이 두 단어는 어떻게 읽을까요?",
+      "subtitleGroups": [
+        {
+          "text": "그렇다면...",
+          "from": 0,
+          "to": 71
+        },
+        {
+          "text": "이 두 단어는 어떻게 읽을까요?",
+          "from": 71,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 11,
+      "end": 15,
+      "word": "TELEVISION",
+      "stress": "비",
+      "stressEn": "VI",
+      "pronunciation": "텔레비전",
+      "reveal": true,
+      "narration": "혹시 '텔레비션' 하셨나요? 땡! 정답은 텔레비전입니다.",
+      "subtitleGroups": [
+        {
+          "text": "혹시 '텔레비션' 하셨나요?",
+          "from": 0,
+          "to": 130
+        },
+        {
+          "text": "정답은 텔레비전입니다.",
+          "from": 130,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 131,
+      "highlightEnd": 179
+    },
+    {
+      "id": 5,
+      "start": 15,
+      "end": 18,
+      "word": "CONFUSION",
+      "stress": "퓨",
+      "stressEn": "FU",
+      "pronunciation": "컨퓨전",
+      "reveal": true,
+      "narration": "그럼 '컨퓨션'은요? 땡! 정답은 컨퓨전입니다.",
+      "subtitleGroups": [
+        {
+          "text": "그럼 '컨퓨션'은요?",
+          "from": 0,
+          "to": 103
+        },
+        {
+          "text": "정답은 컨퓨전입니다.",
+          "from": 103,
+          "to": 9007199254740991
+        }
+      ],
+      "highlightAt": 103,
+      "highlightEnd": 146
+    },
+    {
+      "id": 6,
+      "start": 18,
+      "end": 22,
+      "narration": "아니, 똑같이 에스아이오엔인데 왜 소리가 갈려? 하실 텐데요.",
+      "subtitleGroups": [
+        {
+          "text": "아니, 똑같이 에스아이오엔인데 왜 소리가 갈려?",
+          "from": 0,
+          "to": 148
+        },
+        {
+          "text": "하실 텐데요.",
+          "from": 148,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 22,
+      "end": 27,
+      "narration": "눈썰미 좋은 분들은 바로 눈치채셨을 겁니다. 핵심은 바로 에스아이오엔 앞의 글자입니다!",
+      "subtitleGroups": [
+        {
+          "text": "눈썰미 좋은 분들은 바로 눈치채셨을 겁니다.",
+          "from": 0,
+          "to": 121
+        },
+        {
+          "text": "핵심은 바로 에스아이오엔 앞의 글자입니다!",
+          "from": 121,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 27,
+      "end": 32,
+      "narration": "영어에서 에스아이오엔 앞에 모음이 오면 부드러운 전이 되고, 자음이 오면 션이 됩니다.",
+      "subtitleGroups": [
+        {
+          "text": "영어에서 에스아이오엔 앞에 모음이 오면 부드러운 전이 되고, 자음이 오면 션이 됩니다.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "start": 32,
+      "end": 35,
+      "narration": "텔레비전의 아이, 컨퓨전의 유처럼 말이죠.",
+      "subtitleGroups": [
+        {
+          "text": "텔레비전의 아이, 컨퓨전의 유처럼 말이죠.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "start": 35,
+      "end": 40,
+      "narration": "그런데, 왜 모음 뒤에서는 하필 전 소리로 변하는 걸까요? 소름 돋는 성대의 비밀이 숨어있습니다.",
+      "subtitleGroups": [
+        {
+          "text": "그런데, 왜 모음 뒤에서는 하필 전 소리로 변하는 걸까요?",
+          "from": 0,
+          "to": 173
+        },
+        {
+          "text": "소름 돋는 성대의 비밀이 숨어있습니다.",
+          "from": 173,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "start": 40,
+      "end": 45,
+      "cta": "EP7 전체 규칙 보러가기",
+      "narration": "그 과학적인 원리, 아래 관련 동영상에서 지금 바로 확인해 보세요!",
+      "subtitleGroups": [
+        {
+          "text": "그 과학적인 원리, 아래 관련 동영상에서 지금 바로 확인해 보세요!",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    }
+  ]
+}

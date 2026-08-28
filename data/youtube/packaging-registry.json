@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-21T16:20:48.327Z",
+  "items": [
+    {
+      "id": "s1-ep09-longform-package-v2",
+      "contentId": "s1-ep09-longform",
+      "videoId": "sNNufVhkjT8",
+      "version": "V2",
+      "status": "scheduled",
+      "format": "LONGFORM",
+      "title": "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙",
+      "thumbnailPath": "output/upload-packages/s1-ep09-longform/thumbnail-v2.png",
+      "thumbnailMessage": [
+        "영어 읽기 치트키",
+        "-CIAL → 셜",
+        "처음 보는 단어도 읽힌다!"
+      ],
+      "design": {
+        "strategy": "problem-solution",
+        "palette": [
+          "#09101c",
+          "#078df0",
+          "#FFD21A",
+          "#F2212B"
+        ],
+        "hasPerson": false,
+        "layout": "diagonal-split",
+        "channelRibbon": true
+      },
+      "activeFrom": "2026-08-23T11:00:00Z",
+      "activeTo": null,
+      "notes": "EP9 V2. 제목+썸네일 패키징의 첫 기준점."
+    }
+  ]
+}

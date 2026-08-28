@@ -1,0 +1,3406 @@
+{
+  "total_duration_s": 186.154,
+  "width": 1920,
+  "height": 1080,
+  "groups": [
+    {
+      "id": "caption-group-0",
+      "frame": 1,
+      "start": 0.259,
+      "end": 1.759,
+      "text": "시즌1 배우셨으니",
+      "words": [
+        {
+          "id": "caption-word-0-0",
+          "text": "시즌1",
+          "start": 0.259,
+          "end": 0.62
+        },
+        {
+          "id": "caption-word-0-1",
+          "text": "배우셨으니",
+          "start": 0.699,
+          "end": 1.639
+        }
+      ]
+    },
+    {
+      "id": "caption-group-1",
+      "frame": 1,
+      "start": 1.839,
+      "end": 3.119,
+      "text": "단어는 이제 읽으실",
+      "words": [
+        {
+          "id": "caption-word-1-0",
+          "text": "단어는",
+          "start": 1.839,
+          "end": 2.18
+        },
+        {
+          "id": "caption-word-1-1",
+          "text": "이제",
+          "start": 2.319,
+          "end": 2.559
+        },
+        {
+          "id": "caption-word-1-2",
+          "text": "읽으실",
+          "start": 2.72,
+          "end": 3
+        }
+      ]
+    },
+    {
+      "id": "caption-group-2",
+      "frame": 1,
+      "start": 3.119,
+      "end": 3.58,
+      "text": "겁니다.",
+      "words": [
+        {
+          "id": "caption-word-2-0",
+          "text": "겁니다.",
+          "start": 3.119,
+          "end": 3.46
+        }
+      ]
+    },
+    {
+      "id": "caption-group-3",
+      "frame": 1,
+      "start": 4.239,
+      "end": 5.639,
+      "text": "근데 문장으로 말하면",
+      "words": [
+        {
+          "id": "caption-word-3-0",
+          "text": "근데",
+          "start": 4.239,
+          "end": 4.46
+        },
+        {
+          "id": "caption-word-3-1",
+          "text": "문장으로",
+          "start": 4.639,
+          "end": 5.019
+        },
+        {
+          "id": "caption-word-3-2",
+          "text": "말하면",
+          "start": 5.139,
+          "end": 5.519
+        }
+      ]
+    },
+    {
+      "id": "caption-group-4",
+      "frame": 1,
+      "start": 5.9,
+      "end": 7.179,
+      "text": "왜 다르게 들릴까요?",
+      "words": [
+        {
+          "id": "caption-word-4-0",
+          "text": "왜",
+          "start": 5.9,
+          "end": 6.059
+        },
+        {
+          "id": "caption-word-4-1",
+          "text": "다르게",
+          "start": 6.179,
+          "end": 6.44
+        },
+        {
+          "id": "caption-word-4-2",
+          "text": "들릴까요?",
+          "start": 6.539,
+          "end": 7.059
+        }
+      ]
+    },
+    {
+      "id": "caption-group-5",
+      "frame": 1,
+      "start": 7.879,
+      "end": 8.759,
+      "text": "오늘 그 이유,",
+      "words": [
+        {
+          "id": "caption-word-5-0",
+          "text": "오늘",
+          "start": 7.879,
+          "end": 8.099
+        },
+        {
+          "id": "caption-word-5-1",
+          "text": "그",
+          "start": 8.199,
+          "end": 8.279
+        },
+        {
+          "id": "caption-word-5-2",
+          "text": "이유,",
+          "start": 8.439,
+          "end": 8.639
+        }
+      ]
+    },
+    {
+      "id": "caption-group-6",
+      "frame": 1,
+      "start": 9,
+      "end": 10.239,
+      "text": "하나 보여드리겠습니다.",
+      "words": [
+        {
+          "id": "caption-word-6-0",
+          "text": "하나",
+          "start": 9,
+          "end": 9.179
+        },
+        {
+          "id": "caption-word-6-1",
+          "text": "보여드리겠습니다.",
+          "start": 9.3,
+          "end": 10.119
+        }
+      ]
+    },
+    {
+      "id": "caption-group-7",
+      "frame": 2,
+      "start": 10.674,
+      "end": 11.194,
+      "text": "안녕하세요,",
+      "words": [
+        {
+          "id": "caption-word-7-0",
+          "text": "안녕하세요,",
+          "start": 10.674,
+          "end": 11.194
+        }
+      ]
+    },
+    {
+      "id": "caption-group-8",
+      "frame": 2,
+      "start": 11.194,
+      "end": 13.514,
+      "text": "「이해하면 쉬운영어」입니다.",
+      "words": [
+        {
+          "id": "caption-word-8-0",
+          "text": "「이해하면",
+          "start": 11.194,
+          "end": 12.374
+        },
+        {
+          "id": "caption-word-8-1",
+          "text": "쉬운영어」입니다.",
+          "start": 12.514,
+          "end": 13.394
+        }
+      ]
+    },
+    {
+      "id": "caption-group-9",
+      "frame": 2,
+      "start": 14.034,
+      "end": 16.134,
+      "text": "오늘부터 시즌2 문장 속에서",
+      "words": [
+        {
+          "id": "caption-word-9-0",
+          "text": "오늘부터",
+          "start": 14.034,
+          "end": 14.514
+        },
+        {
+          "id": "caption-word-9-1",
+          "text": "시즌2",
+          "start": 14.654,
+          "end": 15.194
+        },
+        {
+          "id": "caption-word-9-2",
+          "text": "문장",
+          "start": 15.314,
+          "end": 15.594
+        },
+        {
+          "id": "caption-word-9-3",
+          "text": "속에서",
+          "start": 15.734,
+          "end": 16.014
+        }
+      ]
+    },
+    {
+      "id": "caption-group-10",
+      "frame": 2,
+      "start": 16.134,
+      "end": 16.974,
+      "text": "소리가 어떻게",
+      "words": [
+        {
+          "id": "caption-word-10-0",
+          "text": "소리가",
+          "start": 16.134,
+          "end": 16.434
+        },
+        {
+          "id": "caption-word-10-1",
+          "text": "어떻게",
+          "start": 16.594,
+          "end": 16.854
+        }
+      ]
+    },
+    {
+      "id": "caption-group-11",
+      "frame": 2,
+      "start": 17.074,
+      "end": 18.434,
+      "text": "연결되고 줄어드는지,",
+      "words": [
+        {
+          "id": "caption-word-11-0",
+          "text": "연결되고",
+          "start": 17.074,
+          "end": 17.574
+        },
+        {
+          "id": "caption-word-11-1",
+          "text": "줄어드는지,",
+          "start": 17.694,
+          "end": 18.314
+        }
+      ]
+    },
+    {
+      "id": "caption-group-12",
+      "frame": 2,
+      "start": 18.735,
+      "end": 19.454,
+      "text": "함께 봅니다.",
+      "words": [
+        {
+          "id": "caption-word-12-0",
+          "text": "함께",
+          "start": 18.735,
+          "end": 18.914
+        },
+        {
+          "id": "caption-word-12-1",
+          "text": "봅니다.",
+          "start": 19.034,
+          "end": 19.334
+        }
+      ]
+    },
+    {
+      "id": "caption-group-13",
+      "frame": 3,
+      "start": 19.969,
+      "end": 20.769,
+      "text": "고잉 투,",
+      "words": [
+        {
+          "id": "caption-word-13-0",
+          "text": "고잉",
+          "start": 19.969,
+          "end": 20.389
+        },
+        {
+          "id": "caption-word-13-1",
+          "text": "투,",
+          "start": 20.489,
+          "end": 20.649
+        }
+      ]
+    },
+    {
+      "id": "caption-group-14",
+      "frame": 3,
+      "start": 21.229,
+      "end": 21.789,
+      "text": "미래 말할",
+      "words": [
+        {
+          "id": "caption-word-14-0",
+          "text": "미래",
+          "start": 21.229,
+          "end": 21.429
+        },
+        {
+          "id": "caption-word-14-1",
+          "text": "말할",
+          "start": 21.549,
+          "end": 21.749
+        }
+      ]
+    },
+    {
+      "id": "caption-group-15",
+      "frame": 3,
+      "start": 21.789,
+      "end": 22.309,
+      "text": "때 쓰죠.",
+      "words": [
+        {
+          "id": "caption-word-15-0",
+          "text": "때",
+          "start": 21.789,
+          "end": 21.91
+        },
+        {
+          "id": "caption-word-15-1",
+          "text": "쓰죠.",
+          "start": 22.009,
+          "end": 22.189
+        }
+      ]
+    },
+    {
+      "id": "caption-group-16",
+      "frame": 3,
+      "start": 22.809,
+      "end": 23.049,
+      "text": "근데",
+      "words": [
+        {
+          "id": "caption-word-16-0",
+          "text": "근데",
+          "start": 22.809,
+          "end": 22.929
+        }
+      ]
+    },
+    {
+      "id": "caption-group-17",
+      "frame": 3,
+      "start": 23.15,
+      "end": 24.369,
+      "text": "영화에서 이렇게 말하는",
+      "words": [
+        {
+          "id": "caption-word-17-0",
+          "text": "영화에서",
+          "start": 23.15,
+          "end": 23.509
+        },
+        {
+          "id": "caption-word-17-1",
+          "text": "이렇게",
+          "start": 23.589,
+          "end": 23.849
+        },
+        {
+          "id": "caption-word-17-2",
+          "text": "말하는",
+          "start": 24.009,
+          "end": 24.249
+        }
+      ]
+    },
+    {
+      "id": "caption-group-18",
+      "frame": 3,
+      "start": 24.369,
+      "end": 24.509,
+      "text": "거,",
+      "words": [
+        {
+          "id": "caption-word-18-0",
+          "text": "거,",
+          "start": 24.369,
+          "end": 24.389
+        }
+      ]
+    },
+    {
+      "id": "caption-group-19",
+      "frame": 3,
+      "start": 24.909,
+      "end": 26.109,
+      "text": "들어보신 적 있으세요?",
+      "words": [
+        {
+          "id": "caption-word-19-0",
+          "text": "들어보신",
+          "start": 24.909,
+          "end": 25.309
+        },
+        {
+          "id": "caption-word-19-1",
+          "text": "적",
+          "start": 25.369,
+          "end": 25.469
+        },
+        {
+          "id": "caption-word-19-2",
+          "text": "있으세요?",
+          "start": 25.59,
+          "end": 25.989
+        }
+      ]
+    },
+    {
+      "id": "caption-group-20",
+      "frame": 3,
+      "start": 26.65,
+      "end": 27.829,
+      "text": "거의 없으실 겁니다.",
+      "words": [
+        {
+          "id": "caption-word-20-0",
+          "text": "거의",
+          "start": 26.65,
+          "end": 26.849
+        },
+        {
+          "id": "caption-word-20-1",
+          "text": "없으실",
+          "start": 26.989,
+          "end": 27.309
+        },
+        {
+          "id": "caption-word-20-2",
+          "text": "겁니다.",
+          "start": 27.449,
+          "end": 27.709
+        }
+      ]
+    },
+    {
+      "id": "caption-group-21",
+      "frame": 3,
+      "start": 28.249,
+      "end": 28.889,
+      "text": "그럼 뭐라고",
+      "words": [
+        {
+          "id": "caption-word-21-0",
+          "text": "그럼",
+          "start": 28.249,
+          "end": 28.43
+        },
+        {
+          "id": "caption-word-21-1",
+          "text": "뭐라고",
+          "start": 28.529,
+          "end": 28.769
+        }
+      ]
+    },
+    {
+      "id": "caption-group-22",
+      "frame": 3,
+      "start": 28.949,
+      "end": 29.369,
+      "text": "할까요?",
+      "words": [
+        {
+          "id": "caption-word-22-0",
+          "text": "할까요?",
+          "start": 28.949,
+          "end": 29.249
+        }
+      ]
+    },
+    {
+      "id": "caption-group-23",
+      "frame": 3,
+      "start": 30.09,
+      "end": 30.489,
+      "text": "정답,",
+      "words": [
+        {
+          "id": "caption-word-23-0",
+          "text": "정답,",
+          "start": 30.09,
+          "end": 30.369
+        }
+      ]
+    },
+    {
+      "id": "caption-group-24",
+      "frame": 3,
+      "start": 30.729,
+      "end": 31.13,
+      "text": "GONNA.",
+      "words": [
+        {
+          "id": "caption-word-24-0",
+          "text": "GONNA.",
+          "start": 30.729,
+          "end": 31.01
+        }
+      ]
+    },
+    {
+      "id": "caption-group-25",
+      "frame": 4,
+      "start": 31.653,
+      "end": 33.152,
+      "text": "왜 이렇게 바뀔까요?",
+      "words": [
+        {
+          "id": "caption-word-25-0",
+          "text": "왜",
+          "start": 31.653,
+          "end": 31.832
+        },
+        {
+          "id": "caption-word-25-1",
+          "text": "이렇게",
+          "start": 31.933,
+          "end": 32.272
+        },
+        {
+          "id": "caption-word-25-2",
+          "text": "바뀔까요?",
+          "start": 32.432,
+          "end": 33.032
+        }
+      ]
+    },
+    {
+      "id": "caption-group-26",
+      "frame": 4,
+      "start": 33.772,
+      "end": 34.953,
+      "text": "두 가지 때문입니다.",
+      "words": [
+        {
+          "id": "caption-word-26-0",
+          "text": "두",
+          "start": 33.772,
+          "end": 33.833
+        },
+        {
+          "id": "caption-word-26-1",
+          "text": "가지",
+          "start": 33.972,
+          "end": 34.113
+        },
+        {
+          "id": "caption-word-26-2",
+          "text": "때문입니다.",
+          "start": 34.232,
+          "end": 34.833
+        }
+      ]
+    },
+    {
+      "id": "caption-group-27",
+      "frame": 4,
+      "start": 35.432,
+      "end": 35.853,
+      "text": "하나,",
+      "words": [
+        {
+          "id": "caption-word-27-0",
+          "text": "하나,",
+          "start": 35.432,
+          "end": 35.733
+        }
+      ]
+    },
+    {
+      "id": "caption-group-28",
+      "frame": 4,
+      "start": 36.492,
+      "end": 38.832,
+      "text": "고잉의 끝소리 NG는",
+      "words": [
+        {
+          "id": "caption-word-28-0",
+          "text": "고잉의",
+          "start": 36.492,
+          "end": 36.892
+        },
+        {
+          "id": "caption-word-28-1",
+          "text": "끝소리",
+          "start": 37.072,
+          "end": 38.152
+        },
+        {
+          "id": "caption-word-28-2",
+          "text": "NG는",
+          "start": 38.313,
+          "end": 38.712
+        }
+      ]
+    },
+    {
+      "id": "caption-group-29",
+      "frame": 4,
+      "start": 38.912,
+      "end": 40.732,
+      "text": "원래 여려서 뒤 소리랑",
+      "words": [
+        {
+          "id": "caption-word-29-0",
+          "text": "원래",
+          "start": 38.912,
+          "end": 39.172
+        },
+        {
+          "id": "caption-word-29-1",
+          "text": "여려서",
+          "start": 39.333,
+          "end": 39.833
+        },
+        {
+          "id": "caption-word-29-2",
+          "text": "뒤",
+          "start": 39.972,
+          "end": 40.072
+        },
+        {
+          "id": "caption-word-29-3",
+          "text": "소리랑",
+          "start": 40.192,
+          "end": 40.612
+        }
+      ]
+    },
+    {
+      "id": "caption-group-30",
+      "frame": 4,
+      "start": 40.833,
+      "end": 41.112,
+      "text": "쉽게",
+      "words": [
+        {
+          "id": "caption-word-30-0",
+          "text": "쉽게",
+          "start": 40.833,
+          "end": 40.992
+        }
+      ]
+    },
+    {
+      "id": "caption-group-31",
+      "frame": 4,
+      "start": 41.213,
+      "end": 41.692,
+      "text": "붙어요.",
+      "words": [
+        {
+          "id": "caption-word-31-0",
+          "text": "붙어요.",
+          "start": 41.213,
+          "end": 41.572
+        }
+      ]
+    },
+    {
+      "id": "caption-group-32",
+      "frame": 4,
+      "start": 42.592,
+      "end": 42.812,
+      "text": "둘,",
+      "words": [
+        {
+          "id": "caption-word-32-0",
+          "text": "둘,",
+          "start": 42.592,
+          "end": 42.692
+        }
+      ]
+    },
+    {
+      "id": "caption-group-33",
+      "frame": 4,
+      "start": 43.312,
+      "end": 44.212,
+      "text": "TO의 T는",
+      "words": [
+        {
+          "id": "caption-word-33-0",
+          "text": "TO의",
+          "start": 43.312,
+          "end": 43.753
+        },
+        {
+          "id": "caption-word-33-1",
+          "text": "T는",
+          "start": 43.852,
+          "end": 44.092
+        }
+      ]
+    },
+    {
+      "id": "caption-group-34",
+      "frame": 4,
+      "start": 44.293,
+      "end": 45.432,
+      "text": "문장 안에서 힘을",
+      "words": [
+        {
+          "id": "caption-word-34-0",
+          "text": "문장",
+          "start": 44.293,
+          "end": 44.472
+        },
+        {
+          "id": "caption-word-34-1",
+          "text": "안에서",
+          "start": 44.612,
+          "end": 44.992
+        },
+        {
+          "id": "caption-word-34-2",
+          "text": "힘을",
+          "start": 45.152,
+          "end": 45.312
+        }
+      ]
+    },
+    {
+      "id": "caption-group-35",
+      "frame": 4,
+      "start": 45.472,
+      "end": 46.512,
+      "text": "거의 잃습니다.",
+      "words": [
+        {
+          "id": "caption-word-35-0",
+          "text": "거의",
+          "start": 45.472,
+          "end": 45.672
+        },
+        {
+          "id": "caption-word-35-1",
+          "text": "잃습니다.",
+          "start": 45.793,
+          "end": 46.392
+        }
+      ]
+    },
+    {
+      "id": "caption-group-36",
+      "frame": 4,
+      "start": 46.812,
+      "end": 47.272,
+      "text": "이 둘이",
+      "words": [
+        {
+          "id": "caption-word-36-0",
+          "text": "이",
+          "start": 46.812,
+          "end": 46.892
+        },
+        {
+          "id": "caption-word-36-1",
+          "text": "둘이",
+          "start": 47.032,
+          "end": 47.152
+        }
+      ]
+    },
+    {
+      "id": "caption-group-37",
+      "frame": 4,
+      "start": 47.393,
+      "end": 47.913,
+      "text": "겹치면,",
+      "words": [
+        {
+          "id": "caption-word-37-0",
+          "text": "겹치면,",
+          "start": 47.393,
+          "end": 47.793
+        }
+      ]
+    },
+    {
+      "id": "caption-group-38",
+      "frame": 4,
+      "start": 48.452,
+      "end": 49.192,
+      "text": "고잉 투는",
+      "words": [
+        {
+          "id": "caption-word-38-0",
+          "text": "고잉",
+          "start": 48.452,
+          "end": 48.732
+        },
+        {
+          "id": "caption-word-38-1",
+          "text": "투는",
+          "start": 48.813,
+          "end": 49.072
+        }
+      ]
+    },
+    {
+      "id": "caption-group-39",
+      "frame": 4,
+      "start": 49.332,
+      "end": 51.412,
+      "text": "GONNA라는 한 소리가 됩니다.",
+      "words": [
+        {
+          "id": "caption-word-39-0",
+          "text": "GONNA라는",
+          "start": 49.332,
+          "end": 50.352
+        },
+        {
+          "id": "caption-word-39-1",
+          "text": "한",
+          "start": 50.492,
+          "end": 50.553
+        },
+        {
+          "id": "caption-word-39-2",
+          "text": "소리가",
+          "start": 50.652,
+          "end": 50.893
+        },
+        {
+          "id": "caption-word-39-3",
+          "text": "됩니다.",
+          "start": 51.012,
+          "end": 51.292
+        }
+      ]
+    },
+    {
+      "id": "caption-group-40",
+      "frame": 5,
+      "start": 51.825,
+      "end": 52.786,
+      "text": "문장으로 볼까요.",
+      "words": [
+        {
+          "id": "caption-word-40-0",
+          "text": "문장으로",
+          "start": 51.825,
+          "end": 52.265
+        },
+        {
+          "id": "caption-word-40-1",
+          "text": "볼까요.",
+          "start": 52.445,
+          "end": 52.786
+        }
+      ]
+    },
+    {
+      "id": "caption-group-41",
+      "frame": 5,
+      "start": 52.786,
+      "end": 53.945,
+      "text": "\"아임",
+      "words": [
+        {
+          "id": "caption-word-41-0",
+          "text": "\"아임",
+          "start": 52.786,
+          "end": 53.825
+        }
+      ]
+    },
+    {
+      "id": "caption-group-42",
+      "frame": 5,
+      "start": 54.006,
+      "end": 54.565,
+      "text": "거너 고",
+      "words": [
+        {
+          "id": "caption-word-42-0",
+          "text": "거너",
+          "start": 54.006,
+          "end": 54.205
+        },
+        {
+          "id": "caption-word-42-1",
+          "text": "고",
+          "start": 54.306,
+          "end": 54.445
+        }
+      ]
+    },
+    {
+      "id": "caption-group-43",
+      "frame": 5,
+      "start": 54.665,
+      "end": 54.845,
+      "text": "홈.\"",
+      "words": [
+        {
+          "id": "caption-word-43-0",
+          "text": "홈.\"",
+          "start": 54.665,
+          "end": 54.725
+        }
+      ]
+    },
+    {
+      "id": "caption-group-44",
+      "frame": 5,
+      "start": 55.445,
+      "end": 56.446,
+      "text": "아임 고잉 투",
+      "words": [
+        {
+          "id": "caption-word-44-0",
+          "text": "아임",
+          "start": 55.445,
+          "end": 55.745
+        },
+        {
+          "id": "caption-word-44-1",
+          "text": "고잉",
+          "start": 55.905,
+          "end": 56.145
+        },
+        {
+          "id": "caption-word-44-2",
+          "text": "투",
+          "start": 56.285,
+          "end": 56.345
+        }
+      ]
+    },
+    {
+      "id": "caption-group-45",
+      "frame": 5,
+      "start": 56.446,
+      "end": 57.545,
+      "text": "고 홈이 아니라",
+      "words": [
+        {
+          "id": "caption-word-45-0",
+          "text": "고",
+          "start": 56.446,
+          "end": 56.625
+        },
+        {
+          "id": "caption-word-45-1",
+          "text": "홈이",
+          "start": 56.805,
+          "end": 56.925
+        },
+        {
+          "id": "caption-word-45-2",
+          "text": "아니라",
+          "start": 57.026,
+          "end": 57.425
+        }
+      ]
+    },
+    {
+      "id": "caption-group-46",
+      "frame": 5,
+      "start": 57.645,
+      "end": 58.345,
+      "text": "거너입니다.",
+      "words": [
+        {
+          "id": "caption-word-46-0",
+          "text": "거너입니다.",
+          "start": 57.645,
+          "end": 58.225
+        }
+      ]
+    },
+    {
+      "id": "caption-group-47",
+      "frame": 5,
+      "start": 58.965,
+      "end": 60.446,
+      "text": "주어를 바꿔도 마찬가지죠.",
+      "words": [
+        {
+          "id": "caption-word-47-0",
+          "text": "주어를",
+          "start": 58.965,
+          "end": 59.265
+        },
+        {
+          "id": "caption-word-47-1",
+          "text": "바꿔도",
+          "start": 59.445,
+          "end": 59.685
+        },
+        {
+          "id": "caption-word-47-2",
+          "text": "마찬가지죠.",
+          "start": 59.845,
+          "end": 60.446
+        }
+      ]
+    },
+    {
+      "id": "caption-group-48",
+      "frame": 5,
+      "start": 60.446,
+      "end": 62.205,
+      "text": "\"쉬즈 거너 콜 유.\"",
+      "words": [
+        {
+          "id": "caption-word-48-0",
+          "text": "\"쉬즈",
+          "start": 60.446,
+          "end": 61.326
+        },
+        {
+          "id": "caption-word-48-1",
+          "text": "거너",
+          "start": 61.465,
+          "end": 61.645
+        },
+        {
+          "id": "caption-word-48-2",
+          "text": "콜",
+          "start": 61.705,
+          "end": 62.085
+        },
+        {
+          "id": "caption-word-48-3",
+          "text": "유.\"",
+          "start": 62.105,
+          "end": 62.205
+        }
+      ]
+    },
+    {
+      "id": "caption-group-49",
+      "frame": 5,
+      "start": 62.205,
+      "end": 63.885,
+      "text": "\"히즈 거너 비 레이트.\"",
+      "words": [
+        {
+          "id": "caption-word-49-0",
+          "text": "\"히즈",
+          "start": 62.205,
+          "end": 62.946
+        },
+        {
+          "id": "caption-word-49-1",
+          "text": "거너",
+          "start": 63.066,
+          "end": 63.265
+        },
+        {
+          "id": "caption-word-49-2",
+          "text": "비",
+          "start": 63.425,
+          "end": 63.446
+        },
+        {
+          "id": "caption-word-49-3",
+          "text": "레이트.\"",
+          "start": 63.486,
+          "end": 63.885
+        }
+      ]
+    },
+    {
+      "id": "caption-group-50",
+      "frame": 5,
+      "start": 63.885,
+      "end": 65.925,
+      "text": "\"위아 거너 스타트 나우.\"",
+      "words": [
+        {
+          "id": "caption-word-50-0",
+          "text": "\"위아",
+          "start": 63.885,
+          "end": 64.685
+        },
+        {
+          "id": "caption-word-50-1",
+          "text": "거너",
+          "start": 64.825,
+          "end": 65.026
+        },
+        {
+          "id": "caption-word-50-2",
+          "text": "스타트",
+          "start": 65.105,
+          "end": 65.446
+        },
+        {
+          "id": "caption-word-50-3",
+          "text": "나우.\"",
+          "start": 65.605,
+          "end": 65.805
+        }
+      ]
+    },
+    {
+      "id": "caption-group-51",
+      "frame": 5,
+      "start": 66.325,
+      "end": 66.905,
+      "text": "부정문도",
+      "words": [
+        {
+          "id": "caption-word-51-0",
+          "text": "부정문도",
+          "start": 66.325,
+          "end": 66.785
+        }
+      ]
+    },
+    {
+      "id": "caption-group-52",
+      "frame": 5,
+      "start": 67.005,
+      "end": 67.325,
+      "text": "같아요.",
+      "words": [
+        {
+          "id": "caption-word-52-0",
+          "text": "같아요.",
+          "start": 67.005,
+          "end": 67.325
+        }
+      ]
+    },
+    {
+      "id": "caption-group-53",
+      "frame": 5,
+      "start": 67.325,
+      "end": 68.805,
+      "text": "\"아임 낫 거너",
+      "words": [
+        {
+          "id": "caption-word-53-0",
+          "text": "\"아임",
+          "start": 67.325,
+          "end": 68.086
+        },
+        {
+          "id": "caption-word-53-1",
+          "text": "낫",
+          "start": 68.205,
+          "end": 68.326
+        },
+        {
+          "id": "caption-word-53-2",
+          "text": "거너",
+          "start": 68.445,
+          "end": 68.685
+        }
+      ]
+    },
+    {
+      "id": "caption-group-54",
+      "frame": 5,
+      "start": 68.885,
+      "end": 69.026,
+      "text": "두",
+      "words": [
+        {
+          "id": "caption-word-54-0",
+          "text": "두",
+          "start": 68.885,
+          "end": 68.906
+        }
+      ]
+    },
+    {
+      "id": "caption-group-55",
+      "frame": 5,
+      "start": 69.125,
+      "end": 69.265,
+      "text": "댓.\"",
+      "words": [
+        {
+          "id": "caption-word-55-0",
+          "text": "댓.\"",
+          "start": 69.125,
+          "end": 69.145
+        }
+      ]
+    },
+    {
+      "id": "caption-group-56",
+      "frame": 5,
+      "start": 69.586,
+      "end": 70.406,
+      "text": "의문문도요.",
+      "words": [
+        {
+          "id": "caption-word-56-0",
+          "text": "의문문도요.",
+          "start": 69.586,
+          "end": 70.406
+        }
+      ]
+    },
+    {
+      "id": "caption-group-57",
+      "frame": 5,
+      "start": 70.406,
+      "end": 71.725,
+      "text": "\"아 유 거너",
+      "words": [
+        {
+          "id": "caption-word-57-0",
+          "text": "\"아",
+          "start": 70.406,
+          "end": 71.045
+        },
+        {
+          "id": "caption-word-57-1",
+          "text": "유",
+          "start": 71.225,
+          "end": 71.265
+        },
+        {
+          "id": "caption-word-57-2",
+          "text": "거너",
+          "start": 71.345,
+          "end": 71.605
+        }
+      ]
+    },
+    {
+      "id": "caption-group-58",
+      "frame": 5,
+      "start": 71.785,
+      "end": 72.045,
+      "text": "컴?\"",
+      "words": [
+        {
+          "id": "caption-word-58-0",
+          "text": "컴?\"",
+          "start": 71.785,
+          "end": 71.925
+        }
+      ]
+    },
+    {
+      "id": "caption-group-59",
+      "frame": 5,
+      "start": 72.666,
+      "end": 73.106,
+      "text": "주어가",
+      "words": [
+        {
+          "id": "caption-word-59-0",
+          "text": "주어가",
+          "start": 72.666,
+          "end": 72.986
+        }
+      ]
+    },
+    {
+      "id": "caption-group-60",
+      "frame": 5,
+      "start": 73.185,
+      "end": 73.585,
+      "text": "뭐든,",
+      "words": [
+        {
+          "id": "caption-word-60-0",
+          "text": "뭐든,",
+          "start": 73.185,
+          "end": 73.465
+        }
+      ]
+    },
+    {
+      "id": "caption-group-61",
+      "frame": 5,
+      "start": 74.045,
+      "end": 75.725,
+      "text": "형태가 뭐든 고잉 투",
+      "words": [
+        {
+          "id": "caption-word-61-0",
+          "text": "형태가",
+          "start": 74.045,
+          "end": 74.345
+        },
+        {
+          "id": "caption-word-61-1",
+          "text": "뭐든",
+          "start": 74.505,
+          "end": 75.105
+        },
+        {
+          "id": "caption-word-61-2",
+          "text": "고잉",
+          "start": 75.285,
+          "end": 75.465
+        },
+        {
+          "id": "caption-word-61-3",
+          "text": "투",
+          "start": 75.585,
+          "end": 75.605
+        }
+      ]
+    },
+    {
+      "id": "caption-group-62",
+      "frame": 5,
+      "start": 75.725,
+      "end": 76.305,
+      "text": "자리는",
+      "words": [
+        {
+          "id": "caption-word-62-0",
+          "text": "자리는",
+          "start": 75.725,
+          "end": 76.185
+        }
+      ]
+    },
+    {
+      "id": "caption-group-63",
+      "frame": 5,
+      "start": 76.385,
+      "end": 77.825,
+      "text": "항상 GONNA로 들립니다.",
+      "words": [
+        {
+          "id": "caption-word-63-0",
+          "text": "항상",
+          "start": 76.385,
+          "end": 76.685
+        },
+        {
+          "id": "caption-word-63-1",
+          "text": "GONNA로",
+          "start": 76.725,
+          "end": 77.145
+        },
+        {
+          "id": "caption-word-63-2",
+          "text": "들립니다.",
+          "start": 77.246,
+          "end": 77.705
+        }
+      ]
+    },
+    {
+      "id": "caption-group-64",
+      "frame": 6,
+      "start": 78.175,
+      "end": 78.815,
+      "text": "근데 조심할",
+      "words": [
+        {
+          "id": "caption-word-64-0",
+          "text": "근데",
+          "start": 78.175,
+          "end": 78.355
+        },
+        {
+          "id": "caption-word-64-1",
+          "text": "조심할",
+          "start": 78.455,
+          "end": 78.775
+        }
+      ]
+    },
+    {
+      "id": "caption-group-65",
+      "frame": 6,
+      "start": 78.815,
+      "end": 79.596,
+      "text": "게 하나 있습니다.",
+      "words": [
+        {
+          "id": "caption-word-65-0",
+          "text": "게",
+          "start": 78.815,
+          "end": 78.835
+        },
+        {
+          "id": "caption-word-65-1",
+          "text": "하나",
+          "start": 78.895,
+          "end": 78.976
+        },
+        {
+          "id": "caption-word-65-2",
+          "text": "있습니다.",
+          "start": 79.076,
+          "end": 79.476
+        }
+      ]
+    },
+    {
+      "id": "caption-group-66",
+      "frame": 6,
+      "start": 80.395,
+      "end": 81.576,
+      "text": "고잉 투 뒤에",
+      "words": [
+        {
+          "id": "caption-word-66-0",
+          "text": "고잉",
+          "start": 80.395,
+          "end": 80.595
+        },
+        {
+          "id": "caption-word-66-1",
+          "text": "투",
+          "start": 80.696,
+          "end": 80.735
+        },
+        {
+          "id": "caption-word-66-2",
+          "text": "뒤에",
+          "start": 80.855,
+          "end": 81.456
+        }
+      ]
+    },
+    {
+      "id": "caption-group-67",
+      "frame": 6,
+      "start": 81.615,
+      "end": 82.956,
+      "text": "항상 GONNA가 오는 건",
+      "words": [
+        {
+          "id": "caption-word-67-0",
+          "text": "항상",
+          "start": 81.615,
+          "end": 81.956
+        },
+        {
+          "id": "caption-word-67-1",
+          "text": "GONNA가",
+          "start": 81.995,
+          "end": 82.515
+        },
+        {
+          "id": "caption-word-67-2",
+          "text": "오는",
+          "start": 82.615,
+          "end": 82.735
+        },
+        {
+          "id": "caption-word-67-3",
+          "text": "건",
+          "start": 82.795,
+          "end": 82.856
+        }
+      ]
+    },
+    {
+      "id": "caption-group-68",
+      "frame": 6,
+      "start": 82.956,
+      "end": 83.455,
+      "text": "아니에요.",
+      "words": [
+        {
+          "id": "caption-word-68-0",
+          "text": "아니에요.",
+          "start": 82.956,
+          "end": 83.335
+        }
+      ]
+    },
+    {
+      "id": "caption-group-69",
+      "frame": 6,
+      "start": 83.855,
+      "end": 84.436,
+      "text": "동사가 올",
+      "words": [
+        {
+          "id": "caption-word-69-0",
+          "text": "동사가",
+          "start": 83.855,
+          "end": 84.135
+        },
+        {
+          "id": "caption-word-69-1",
+          "text": "올",
+          "start": 84.275,
+          "end": 84.335
+        }
+      ]
+    },
+    {
+      "id": "caption-group-70",
+      "frame": 6,
+      "start": 84.436,
+      "end": 85.335,
+      "text": "때만 그렇습니다.",
+      "words": [
+        {
+          "id": "caption-word-70-0",
+          "text": "때만",
+          "start": 84.436,
+          "end": 84.635
+        },
+        {
+          "id": "caption-word-70-1",
+          "text": "그렇습니다.",
+          "start": 84.715,
+          "end": 85.335
+        }
+      ]
+    },
+    {
+      "id": "caption-group-71",
+      "frame": 6,
+      "start": 85.335,
+      "end": 87.356,
+      "text": "\"아임 고잉 투 콜\"은",
+      "words": [
+        {
+          "id": "caption-word-71-0",
+          "text": "\"아임",
+          "start": 85.335,
+          "end": 86.236
+        },
+        {
+          "id": "caption-word-71-1",
+          "text": "고잉",
+          "start": 86.396,
+          "end": 86.616
+        },
+        {
+          "id": "caption-word-71-2",
+          "text": "투",
+          "start": 86.795,
+          "end": 86.816
+        },
+        {
+          "id": "caption-word-71-3",
+          "text": "콜\"은",
+          "start": 86.976,
+          "end": 87.236
+        }
+      ]
+    },
+    {
+      "id": "caption-group-72",
+      "frame": 6,
+      "start": 87.375,
+      "end": 88.135,
+      "text": "거너로 줄지만,",
+      "words": [
+        {
+          "id": "caption-word-72-0",
+          "text": "거너로",
+          "start": 87.375,
+          "end": 87.655
+        },
+        {
+          "id": "caption-word-72-1",
+          "text": "줄지만,",
+          "start": 87.755,
+          "end": 88.135
+        }
+      ]
+    },
+    {
+      "id": "caption-group-73",
+      "frame": 6,
+      "start": 88.135,
+      "end": 89.795,
+      "text": "\"아임 고잉 투 더",
+      "words": [
+        {
+          "id": "caption-word-73-0",
+          "text": "\"아임",
+          "start": 88.135,
+          "end": 89.035
+        },
+        {
+          "id": "caption-word-73-1",
+          "text": "고잉",
+          "start": 89.155,
+          "end": 89.356
+        },
+        {
+          "id": "caption-word-73-2",
+          "text": "투",
+          "start": 89.455,
+          "end": 89.515
+        },
+        {
+          "id": "caption-word-73-3",
+          "text": "더",
+          "start": 89.655,
+          "end": 89.715
+        }
+      ]
+    },
+    {
+      "id": "caption-group-74",
+      "frame": 6,
+      "start": 89.795,
+      "end": 91.936,
+      "text": "스토어\"처럼 장소가 오면 안",
+      "words": [
+        {
+          "id": "caption-word-74-0",
+          "text": "스토어\"처럼",
+          "start": 89.795,
+          "end": 90.875
+        },
+        {
+          "id": "caption-word-74-1",
+          "text": "장소가",
+          "start": 91.035,
+          "end": 91.316
+        },
+        {
+          "id": "caption-word-74-2",
+          "text": "오면",
+          "start": 91.436,
+          "end": 91.635
+        },
+        {
+          "id": "caption-word-74-3",
+          "text": "안",
+          "start": 91.755,
+          "end": 91.816
+        }
+      ]
+    },
+    {
+      "id": "caption-group-75",
+      "frame": 6,
+      "start": 91.936,
+      "end": 92.335,
+      "text": "줄어요.",
+      "words": [
+        {
+          "id": "caption-word-75-0",
+          "text": "줄어요.",
+          "start": 91.936,
+          "end": 92.215
+        }
+      ]
+    },
+    {
+      "id": "caption-group-76",
+      "frame": 6,
+      "start": 93.055,
+      "end": 93.615,
+      "text": "동사로 갈",
+      "words": [
+        {
+          "id": "caption-word-76-0",
+          "text": "동사로",
+          "start": 93.055,
+          "end": 93.315
+        },
+        {
+          "id": "caption-word-76-1",
+          "text": "갈",
+          "start": 93.455,
+          "end": 93.535
+        }
+      ]
+    },
+    {
+      "id": "caption-group-77",
+      "frame": 6,
+      "start": 93.615,
+      "end": 93.915,
+      "text": "때만",
+      "words": [
+        {
+          "id": "caption-word-77-0",
+          "text": "때만",
+          "start": 93.615,
+          "end": 93.795
+        }
+      ]
+    },
+    {
+      "id": "caption-group-78",
+      "frame": 6,
+      "start": 93.976,
+      "end": 94.815,
+      "text": "압축되는 거죠.",
+      "words": [
+        {
+          "id": "caption-word-78-0",
+          "text": "압축되는",
+          "start": 93.976,
+          "end": 94.375
+        },
+        {
+          "id": "caption-word-78-1",
+          "text": "거죠.",
+          "start": 94.496,
+          "end": 94.695
+        }
+      ]
+    },
+    {
+      "id": "caption-group-79",
+      "frame": 7,
+      "start": 95.135,
+      "end": 96.176,
+      "text": "직접 맞혀보세요.",
+      "words": [
+        {
+          "id": "caption-word-79-0",
+          "text": "직접",
+          "start": 95.135,
+          "end": 95.435
+        },
+        {
+          "id": "caption-word-79-1",
+          "text": "맞혀보세요.",
+          "start": 95.555,
+          "end": 96.176
+        }
+      ]
+    },
+    {
+      "id": "caption-group-80",
+      "frame": 7,
+      "start": 96.176,
+      "end": 98.375,
+      "text": "\"아이 워즈 거너 콜",
+      "words": [
+        {
+          "id": "caption-word-80-0",
+          "text": "\"아이",
+          "start": 96.176,
+          "end": 97.416
+        },
+        {
+          "id": "caption-word-80-1",
+          "text": "워즈",
+          "start": 97.555,
+          "end": 97.735
+        },
+        {
+          "id": "caption-word-80-2",
+          "text": "거너",
+          "start": 97.855,
+          "end": 98.015
+        },
+        {
+          "id": "caption-word-80-3",
+          "text": "콜",
+          "start": 98.035,
+          "end": 98.255
+        }
+      ]
+    },
+    {
+      "id": "caption-group-81",
+      "frame": 7,
+      "start": 98.456,
+      "end": 98.675,
+      "text": "유.\"",
+      "words": [
+        {
+          "id": "caption-word-81-0",
+          "text": "유.\"",
+          "start": 98.456,
+          "end": 98.555
+        }
+      ]
+    },
+    {
+      "id": "caption-group-82",
+      "frame": 7,
+      "start": 99.275,
+      "end": 100.395,
+      "text": "원래 뭐였을까요?",
+      "words": [
+        {
+          "id": "caption-word-82-0",
+          "text": "원래",
+          "start": 99.275,
+          "end": 99.436
+        },
+        {
+          "id": "caption-word-82-1",
+          "text": "뭐였을까요?",
+          "start": 99.575,
+          "end": 100.275
+        }
+      ]
+    },
+    {
+      "id": "caption-group-83",
+      "frame": 7,
+      "start": 101.215,
+      "end": 102.375,
+      "text": "잠깐 생각해 보시고...",
+      "words": [
+        {
+          "id": "caption-word-83-0",
+          "text": "잠깐",
+          "start": 101.215,
+          "end": 101.376
+        },
+        {
+          "id": "caption-word-83-1",
+          "text": "생각해",
+          "start": 101.495,
+          "end": 101.755
+        },
+        {
+          "id": "caption-word-83-2",
+          "text": "보시고...",
+          "start": 101.896,
+          "end": 102.255
+        }
+      ]
+    },
+    {
+      "id": "caption-group-84",
+      "frame": 7,
+      "start": 103.015,
+      "end": 104.815,
+      "text": "정답은 \"아이 워즈 고잉",
+      "words": [
+        {
+          "id": "caption-word-84-0",
+          "text": "정답은",
+          "start": 103.015,
+          "end": 103.695
+        },
+        {
+          "id": "caption-word-84-1",
+          "text": "\"아이",
+          "start": 103.695,
+          "end": 104.055
+        },
+        {
+          "id": "caption-word-84-2",
+          "text": "워즈",
+          "start": 104.216,
+          "end": 104.376
+        },
+        {
+          "id": "caption-word-84-3",
+          "text": "고잉",
+          "start": 104.515,
+          "end": 104.716
+        }
+      ]
+    },
+    {
+      "id": "caption-group-85",
+      "frame": 7,
+      "start": 104.815,
+      "end": 105.155,
+      "text": "투",
+      "words": [
+        {
+          "id": "caption-word-85-0",
+          "text": "투",
+          "start": 104.815,
+          "end": 105.035
+        }
+      ]
+    },
+    {
+      "id": "caption-group-86",
+      "frame": 7,
+      "start": 105.216,
+      "end": 105.956,
+      "text": "콜 유\"입니다.",
+      "words": [
+        {
+          "id": "caption-word-86-0",
+          "text": "콜",
+          "start": 105.216,
+          "end": 105.275
+        },
+        {
+          "id": "caption-word-86-1",
+          "text": "유\"입니다.",
+          "start": 105.376,
+          "end": 105.836
+        }
+      ]
+    },
+    {
+      "id": "caption-group-87",
+      "frame": 7,
+      "start": 106.336,
+      "end": 107.376,
+      "text": "과거형도 원리는",
+      "words": [
+        {
+          "id": "caption-word-87-0",
+          "text": "과거형도",
+          "start": 106.336,
+          "end": 106.796
+        },
+        {
+          "id": "caption-word-87-1",
+          "text": "원리는",
+          "start": 106.956,
+          "end": 107.256
+        }
+      ]
+    },
+    {
+      "id": "caption-group-88",
+      "frame": 7,
+      "start": 107.456,
+      "end": 107.836,
+      "text": "같아요.",
+      "words": [
+        {
+          "id": "caption-word-88-0",
+          "text": "같아요.",
+          "start": 107.456,
+          "end": 107.716
+        }
+      ]
+    },
+    {
+      "id": "caption-group-89",
+      "frame": 8,
+      "start": 108.118,
+      "end": 108.638,
+      "text": "GONNA,",
+      "words": [
+        {
+          "id": "caption-word-89-0",
+          "text": "GONNA,",
+          "start": 108.118,
+          "end": 108.518
+        }
+      ]
+    },
+    {
+      "id": "caption-group-90",
+      "frame": 8,
+      "start": 109.078,
+      "end": 110.299,
+      "text": "틀린 영어 아니냐고요?",
+      "words": [
+        {
+          "id": "caption-word-90-0",
+          "text": "틀린",
+          "start": 109.078,
+          "end": 109.278
+        },
+        {
+          "id": "caption-word-90-1",
+          "text": "영어",
+          "start": 109.398,
+          "end": 109.518
+        },
+        {
+          "id": "caption-word-90-2",
+          "text": "아니냐고요?",
+          "start": 109.618,
+          "end": 110.179
+        }
+      ]
+    },
+    {
+      "id": "caption-group-91",
+      "frame": 8,
+      "start": 110.798,
+      "end": 111.438,
+      "text": "아닙니다.",
+      "words": [
+        {
+          "id": "caption-word-91-0",
+          "text": "아닙니다.",
+          "start": 110.798,
+          "end": 111.318
+        }
+      ]
+    },
+    {
+      "id": "caption-group-92",
+      "frame": 8,
+      "start": 112.238,
+      "end": 112.758,
+      "text": "격식 있는",
+      "words": [
+        {
+          "id": "caption-word-92-0",
+          "text": "격식",
+          "start": 112.238,
+          "end": 112.399
+        },
+        {
+          "id": "caption-word-92-1",
+          "text": "있는",
+          "start": 112.419,
+          "end": 112.638
+        }
+      ]
+    },
+    {
+      "id": "caption-group-93",
+      "frame": 8,
+      "start": 112.758,
+      "end": 113.578,
+      "text": "자리가 아니면,",
+      "words": [
+        {
+          "id": "caption-word-93-0",
+          "text": "자리가",
+          "start": 112.758,
+          "end": 112.978
+        },
+        {
+          "id": "caption-word-93-1",
+          "text": "아니면,",
+          "start": 113.098,
+          "end": 113.458
+        }
+      ]
+    },
+    {
+      "id": "caption-group-94",
+      "frame": 8,
+      "start": 114.118,
+      "end": 114.778,
+      "text": "원어민도",
+      "words": [
+        {
+          "id": "caption-word-94-0",
+          "text": "원어민도",
+          "start": 114.118,
+          "end": 114.658
+        }
+      ]
+    },
+    {
+      "id": "caption-group-95",
+      "frame": 8,
+      "start": 114.859,
+      "end": 115.898,
+      "text": "실제 대화에선",
+      "words": [
+        {
+          "id": "caption-word-95-0",
+          "text": "실제",
+          "start": 114.859,
+          "end": 115.018
+        },
+        {
+          "id": "caption-word-95-1",
+          "text": "대화에선",
+          "start": 115.158,
+          "end": 115.778
+        }
+      ]
+    },
+    {
+      "id": "caption-group-96",
+      "frame": 8,
+      "start": 115.978,
+      "end": 117.138,
+      "text": "거의 항상 이렇게",
+      "words": [
+        {
+          "id": "caption-word-96-0",
+          "text": "거의",
+          "start": 115.978,
+          "end": 116.199
+        },
+        {
+          "id": "caption-word-96-1",
+          "text": "항상",
+          "start": 116.338,
+          "end": 116.638
+        },
+        {
+          "id": "caption-word-96-2",
+          "text": "이렇게",
+          "start": 116.739,
+          "end": 117.018
+        }
+      ]
+    },
+    {
+      "id": "caption-group-97",
+      "frame": 8,
+      "start": 117.159,
+      "end": 117.538,
+      "text": "말해요.",
+      "words": [
+        {
+          "id": "caption-word-97-0",
+          "text": "말해요.",
+          "start": 117.159,
+          "end": 117.418
+        }
+      ]
+    },
+    {
+      "id": "caption-group-98",
+      "frame": 8,
+      "start": 117.978,
+      "end": 118.678,
+      "text": "문법이 틀린",
+      "words": [
+        {
+          "id": "caption-word-98-0",
+          "text": "문법이",
+          "start": 117.978,
+          "end": 118.279
+        },
+        {
+          "id": "caption-word-98-1",
+          "text": "틀린",
+          "start": 118.439,
+          "end": 118.618
+        }
+      ]
+    },
+    {
+      "id": "caption-group-99",
+      "frame": 8,
+      "start": 118.678,
+      "end": 119.218,
+      "text": "게 아니라,",
+      "words": [
+        {
+          "id": "caption-word-99-0",
+          "text": "게",
+          "start": 118.678,
+          "end": 118.718
+        },
+        {
+          "id": "caption-word-99-1",
+          "text": "아니라,",
+          "start": 118.819,
+          "end": 119.098
+        }
+      ]
+    },
+    {
+      "id": "caption-group-100",
+      "frame": 8,
+      "start": 119.658,
+      "end": 120.858,
+      "text": "발음이 자연스럽게",
+      "words": [
+        {
+          "id": "caption-word-100-0",
+          "text": "발음이",
+          "start": 119.658,
+          "end": 119.958
+        },
+        {
+          "id": "caption-word-100-1",
+          "text": "자연스럽게",
+          "start": 120.078,
+          "end": 120.738
+        }
+      ]
+    },
+    {
+      "id": "caption-group-101",
+      "frame": 8,
+      "start": 120.958,
+      "end": 122.038,
+      "text": "압축된 것뿐입니다.",
+      "words": [
+        {
+          "id": "caption-word-101-0",
+          "text": "압축된",
+          "start": 120.958,
+          "end": 121.319
+        },
+        {
+          "id": "caption-word-101-1",
+          "text": "것뿐입니다.",
+          "start": 121.478,
+          "end": 121.918
+        }
+      ]
+    },
+    {
+      "id": "caption-group-102",
+      "frame": 9,
+      "start": 122.453,
+      "end": 124.293,
+      "text": "그럼 언제 고잉 투를",
+      "words": [
+        {
+          "id": "caption-word-102-0",
+          "text": "그럼",
+          "start": 122.453,
+          "end": 123.033
+        },
+        {
+          "id": "caption-word-102-1",
+          "text": "언제",
+          "start": 123.153,
+          "end": 123.593
+        },
+        {
+          "id": "caption-word-102-2",
+          "text": "고잉",
+          "start": 123.734,
+          "end": 123.953
+        },
+        {
+          "id": "caption-word-102-3",
+          "text": "투를",
+          "start": 124.033,
+          "end": 124.213
+        }
+      ]
+    },
+    {
+      "id": "caption-group-103",
+      "frame": 9,
+      "start": 124.293,
+      "end": 125.213,
+      "text": "그대로 쓸까요?",
+      "words": [
+        {
+          "id": "caption-word-103-0",
+          "text": "그대로",
+          "start": 124.293,
+          "end": 124.593
+        },
+        {
+          "id": "caption-word-103-1",
+          "text": "쓸까요?",
+          "start": 124.714,
+          "end": 125.093
+        }
+      ]
+    },
+    {
+      "id": "caption-group-104",
+      "frame": 9,
+      "start": 125.693,
+      "end": 126.374,
+      "text": "이메일이나",
+      "words": [
+        {
+          "id": "caption-word-104-0",
+          "text": "이메일이나",
+          "start": 125.693,
+          "end": 126.254
+        }
+      ]
+    },
+    {
+      "id": "caption-group-105",
+      "frame": 9,
+      "start": 126.493,
+      "end": 127.213,
+      "text": "면접처럼",
+      "words": [
+        {
+          "id": "caption-word-105-0",
+          "text": "면접처럼",
+          "start": 126.493,
+          "end": 127.093
+        }
+      ]
+    },
+    {
+      "id": "caption-group-106",
+      "frame": 9,
+      "start": 127.353,
+      "end": 128.653,
+      "text": "격식 있는 자리에서죠.",
+      "words": [
+        {
+          "id": "caption-word-106-0",
+          "text": "격식",
+          "start": 127.353,
+          "end": 127.513
+        },
+        {
+          "id": "caption-word-106-1",
+          "text": "있는",
+          "start": 127.613,
+          "end": 127.793
+        },
+        {
+          "id": "caption-word-106-2",
+          "text": "자리에서죠.",
+          "start": 127.913,
+          "end": 128.533
+        }
+      ]
+    },
+    {
+      "id": "caption-group-107",
+      "frame": 9,
+      "start": 129.573,
+      "end": 131.933,
+      "text": "GONNA는 말할 때 자연스럽게",
+      "words": [
+        {
+          "id": "caption-word-107-0",
+          "text": "GONNA는",
+          "start": 129.573,
+          "end": 130.273
+        },
+        {
+          "id": "caption-word-107-1",
+          "text": "말할",
+          "start": 130.413,
+          "end": 130.674
+        },
+        {
+          "id": "caption-word-107-2",
+          "text": "때",
+          "start": 130.773,
+          "end": 130.913
+        },
+        {
+          "id": "caption-word-107-3",
+          "text": "자연스럽게",
+          "start": 131.073,
+          "end": 131.813
+        }
+      ]
+    },
+    {
+      "id": "caption-group-108",
+      "frame": 9,
+      "start": 131.933,
+      "end": 132.913,
+      "text": "줄어드는 소리일",
+      "words": [
+        {
+          "id": "caption-word-108-0",
+          "text": "줄어드는",
+          "start": 131.933,
+          "end": 132.333
+        },
+        {
+          "id": "caption-word-108-1",
+          "text": "소리일",
+          "start": 132.453,
+          "end": 132.793
+        }
+      ]
+    },
+    {
+      "id": "caption-group-109",
+      "frame": 9,
+      "start": 132.973,
+      "end": 133.193,
+      "text": "뿐,",
+      "words": [
+        {
+          "id": "caption-word-109-0",
+          "text": "뿐,",
+          "start": 132.973,
+          "end": 133.073
+        }
+      ]
+    },
+    {
+      "id": "caption-group-110",
+      "frame": 9,
+      "start": 133.613,
+      "end": 133.933,
+      "text": "글로",
+      "words": [
+        {
+          "id": "caption-word-110-0",
+          "text": "글로",
+          "start": 133.613,
+          "end": 133.813
+        }
+      ]
+    },
+    {
+      "id": "caption-group-111",
+      "frame": 9,
+      "start": 134.033,
+      "end": 134.453,
+      "text": "쓸 땐",
+      "words": [
+        {
+          "id": "caption-word-111-0",
+          "text": "쓸",
+          "start": 134.033,
+          "end": 134.054
+        },
+        {
+          "id": "caption-word-111-1",
+          "text": "땐",
+          "start": 134.193,
+          "end": 134.333
+        }
+      ]
+    },
+    {
+      "id": "caption-group-112",
+      "frame": 9,
+      "start": 134.473,
+      "end": 134.893,
+      "text": "여전히",
+      "words": [
+        {
+          "id": "caption-word-112-0",
+          "text": "여전히",
+          "start": 134.473,
+          "end": 134.773
+        }
+      ]
+    },
+    {
+      "id": "caption-group-113",
+      "frame": 9,
+      "start": 134.953,
+      "end": 135.874,
+      "text": "고잉 투입니다.",
+      "words": [
+        {
+          "id": "caption-word-113-0",
+          "text": "고잉",
+          "start": 134.953,
+          "end": 135.174
+        },
+        {
+          "id": "caption-word-113-1",
+          "text": "투입니다.",
+          "start": 135.254,
+          "end": 135.754
+        }
+      ]
+    },
+    {
+      "id": "caption-group-114",
+      "frame": 10,
+      "start": 136.226,
+      "end": 136.727,
+      "text": "이제",
+      "words": [
+        {
+          "id": "caption-word-114-0",
+          "text": "이제",
+          "start": 136.226,
+          "end": 136.607
+        }
+      ]
+    },
+    {
+      "id": "caption-group-115",
+      "frame": 10,
+      "start": 136.787,
+      "end": 138.406,
+      "text": "실제 속도로 들어보고",
+      "words": [
+        {
+          "id": "caption-word-115-0",
+          "text": "실제",
+          "start": 136.787,
+          "end": 137.086
+        },
+        {
+          "id": "caption-word-115-1",
+          "text": "속도로",
+          "start": 137.206,
+          "end": 137.506
+        },
+        {
+          "id": "caption-word-115-2",
+          "text": "들어보고",
+          "start": 137.566,
+          "end": 138.326
+        }
+      ]
+    },
+    {
+      "id": "caption-group-116",
+      "frame": 10,
+      "start": 138.406,
+      "end": 138.966,
+      "text": "GONNA를",
+      "words": [
+        {
+          "id": "caption-word-116-0",
+          "text": "GONNA를",
+          "start": 138.406,
+          "end": 138.846
+        }
+      ]
+    },
+    {
+      "id": "caption-group-117",
+      "frame": 10,
+      "start": 139.027,
+      "end": 140.046,
+      "text": "직접 찾아보세요.",
+      "words": [
+        {
+          "id": "caption-word-117-0",
+          "text": "직접",
+          "start": 139.027,
+          "end": 139.226
+        },
+        {
+          "id": "caption-word-117-1",
+          "text": "찾아보세요.",
+          "start": 139.366,
+          "end": 139.926
+        }
+      ]
+    },
+    {
+      "id": "caption-group-118",
+      "frame": 10,
+      "start": 140.706,
+      "end": 140.846,
+      "text": "첫",
+      "words": [
+        {
+          "id": "caption-word-118-0",
+          "text": "첫",
+          "start": 140.706,
+          "end": 140.726
+        }
+      ]
+    },
+    {
+      "id": "caption-group-119",
+      "frame": 10,
+      "start": 140.947,
+      "end": 141.246,
+      "text": "번째.",
+      "words": [
+        {
+          "id": "caption-word-119-0",
+          "text": "번째.",
+          "start": 140.947,
+          "end": 141.126
+        }
+      ]
+    },
+    {
+      "id": "caption-group-120",
+      "frame": 10,
+      "start": 142.058,
+      "end": 142.338,
+      "text": "What are",
+      "words": [
+        {
+          "id": "caption-word-120-0",
+          "text": "What",
+          "start": 142.058,
+          "end": 142.157
+        },
+        {
+          "id": "caption-word-120-1",
+          "text": "are",
+          "start": 142.197,
+          "end": 142.297
+        }
+      ]
+    },
+    {
+      "id": "caption-group-121",
+      "frame": 10,
+      "start": 142.338,
+      "end": 142.697,
+      "text": "you gonna",
+      "words": [
+        {
+          "id": "caption-word-121-0",
+          "text": "you",
+          "start": 142.338,
+          "end": 142.417
+        },
+        {
+          "id": "caption-word-121-1",
+          "text": "gonna",
+          "start": 142.458,
+          "end": 142.657
+        }
+      ]
+    },
+    {
+      "id": "caption-group-122",
+      "frame": 10,
+      "start": 142.697,
+      "end": 143.638,
+      "text": "do this weekend?",
+      "words": [
+        {
+          "id": "caption-word-122-0",
+          "text": "do",
+          "start": 142.697,
+          "end": 142.837
+        },
+        {
+          "id": "caption-word-122-1",
+          "text": "this",
+          "start": 142.857,
+          "end": 142.998
+        },
+        {
+          "id": "caption-word-122-2",
+          "text": "weekend?",
+          "start": 143.057,
+          "end": 143.518
+        }
+      ]
+    },
+    {
+      "id": "caption-group-123",
+      "frame": 10,
+      "start": 144.555,
+      "end": 145.135,
+      "text": "두 번째.",
+      "words": [
+        {
+          "id": "caption-word-123-0",
+          "text": "두",
+          "start": 144.555,
+          "end": 144.596
+        },
+        {
+          "id": "caption-word-123-1",
+          "text": "번째.",
+          "start": 144.715,
+          "end": 145.015
+        }
+      ]
+    },
+    {
+      "id": "caption-group-124",
+      "frame": 10,
+      "start": 145.898,
+      "end": 146.998,
+      "text": "She's probably gonna",
+      "words": [
+        {
+          "id": "caption-word-124-0",
+          "text": "She's",
+          "start": 145.898,
+          "end": 146.178
+        },
+        {
+          "id": "caption-word-124-1",
+          "text": "probably",
+          "start": 146.219,
+          "end": 146.718
+        },
+        {
+          "id": "caption-word-124-2",
+          "text": "gonna",
+          "start": 146.759,
+          "end": 146.958
+        }
+      ]
+    },
+    {
+      "id": "caption-group-125",
+      "frame": 10,
+      "start": 146.998,
+      "end": 147.678,
+      "text": "be late.",
+      "words": [
+        {
+          "id": "caption-word-125-0",
+          "text": "be",
+          "start": 146.998,
+          "end": 147.178
+        },
+        {
+          "id": "caption-word-125-1",
+          "text": "late.",
+          "start": 147.198,
+          "end": 147.558
+        }
+      ]
+    },
+    {
+      "id": "caption-group-126",
+      "frame": 10,
+      "start": 148.572,
+      "end": 149.172,
+      "text": "세 번째.",
+      "words": [
+        {
+          "id": "caption-word-126-0",
+          "text": "세",
+          "start": 148.572,
+          "end": 148.672
+        },
+        {
+          "id": "caption-word-126-1",
+          "text": "번째.",
+          "start": 148.752,
+          "end": 149.052
+        }
+      ]
+    },
+    {
+      "id": "caption-group-127",
+      "frame": 10,
+      "start": 149.895,
+      "end": 150.275,
+      "text": "It's gonna",
+      "words": [
+        {
+          "id": "caption-word-127-0",
+          "text": "It's",
+          "start": 149.895,
+          "end": 150.056
+        },
+        {
+          "id": "caption-word-127-1",
+          "text": "gonna",
+          "start": 150.075,
+          "end": 150.235
+        }
+      ]
+    },
+    {
+      "id": "caption-group-128",
+      "frame": 10,
+      "start": 150.275,
+      "end": 150.895,
+      "text": "be okay.",
+      "words": [
+        {
+          "id": "caption-word-128-0",
+          "text": "be",
+          "start": 150.275,
+          "end": 150.355
+        },
+        {
+          "id": "caption-word-128-1",
+          "text": "okay.",
+          "start": 150.415,
+          "end": 150.775
+        }
+      ]
+    },
+    {
+      "id": "caption-group-129",
+      "frame": 10,
+      "start": 151.839,
+      "end": 152.479,
+      "text": "네 번째.",
+      "words": [
+        {
+          "id": "caption-word-129-0",
+          "text": "네",
+          "start": 151.839,
+          "end": 151.92
+        },
+        {
+          "id": "caption-word-129-1",
+          "text": "번째.",
+          "start": 151.999,
+          "end": 152.359
+        }
+      ]
+    },
+    {
+      "id": "caption-group-130",
+      "frame": 10,
+      "start": 153.193,
+      "end": 153.572,
+      "text": "They're gonna",
+      "words": [
+        {
+          "id": "caption-word-130-0",
+          "text": "They're",
+          "start": 153.193,
+          "end": 153.353
+        },
+        {
+          "id": "caption-word-130-1",
+          "text": "gonna",
+          "start": 153.372,
+          "end": 153.532
+        }
+      ]
+    },
+    {
+      "id": "caption-group-131",
+      "frame": 10,
+      "start": 153.572,
+      "end": 154.372,
+      "text": "miss the train.",
+      "words": [
+        {
+          "id": "caption-word-131-0",
+          "text": "miss",
+          "start": 153.572,
+          "end": 153.733
+        },
+        {
+          "id": "caption-word-131-1",
+          "text": "the",
+          "start": 153.772,
+          "end": 153.872
+        },
+        {
+          "id": "caption-word-131-2",
+          "text": "train.",
+          "start": 153.912,
+          "end": 154.252
+        }
+      ]
+    },
+    {
+      "id": "caption-group-132",
+      "frame": 10,
+      "start": 155.247,
+      "end": 156.188,
+      "text": "다 찾으셨나요?",
+      "words": [
+        {
+          "id": "caption-word-132-0",
+          "text": "다",
+          "start": 155.247,
+          "end": 155.408
+        },
+        {
+          "id": "caption-word-132-1",
+          "text": "찾으셨나요?",
+          "start": 155.447,
+          "end": 156.068
+        }
+      ]
+    },
+    {
+      "id": "caption-group-133",
+      "frame": 10,
+      "start": 156.727,
+      "end": 157.127,
+      "text": "매번",
+      "words": [
+        {
+          "id": "caption-word-133-0",
+          "text": "매번",
+          "start": 156.727,
+          "end": 157.007
+        }
+      ]
+    },
+    {
+      "id": "caption-group-134",
+      "frame": 10,
+      "start": 157.187,
+      "end": 157.767,
+      "text": "같은 자리,",
+      "words": [
+        {
+          "id": "caption-word-134-0",
+          "text": "같은",
+          "start": 157.187,
+          "end": 157.367
+        },
+        {
+          "id": "caption-word-134-1",
+          "text": "자리,",
+          "start": 157.487,
+          "end": 157.647
+        }
+      ]
+    },
+    {
+      "id": "caption-group-135",
+      "frame": 10,
+      "start": 158.207,
+      "end": 159.267,
+      "text": "같은 소리였습니다.",
+      "words": [
+        {
+          "id": "caption-word-135-0",
+          "text": "같은",
+          "start": 158.207,
+          "end": 158.407
+        },
+        {
+          "id": "caption-word-135-1",
+          "text": "소리였습니다.",
+          "start": 158.487,
+          "end": 159.147
+        }
+      ]
+    },
+    {
+      "id": "caption-group-136",
+      "frame": 11,
+      "start": 159.682,
+      "end": 160.042,
+      "text": "이제",
+      "words": [
+        {
+          "id": "caption-word-136-0",
+          "text": "이제",
+          "start": 159.682,
+          "end": 159.922
+        }
+      ]
+    },
+    {
+      "id": "caption-group-137",
+      "frame": 11,
+      "start": 160.103,
+      "end": 161.182,
+      "text": "직접 소리 내보세요.",
+      "words": [
+        {
+          "id": "caption-word-137-0",
+          "text": "직접",
+          "start": 160.103,
+          "end": 160.302
+        },
+        {
+          "id": "caption-word-137-1",
+          "text": "소리",
+          "start": 160.402,
+          "end": 160.522
+        },
+        {
+          "id": "caption-word-137-2",
+          "text": "내보세요.",
+          "start": 160.622,
+          "end": 161.062
+        }
+      ]
+    },
+    {
+      "id": "caption-group-138",
+      "frame": 11,
+      "start": 161.862,
+      "end": 162.262,
+      "text": "거너.",
+      "words": [
+        {
+          "id": "caption-word-138-0",
+          "text": "거너.",
+          "start": 161.862,
+          "end": 162.142
+        }
+      ]
+    },
+    {
+      "id": "caption-group-139",
+      "frame": 11,
+      "start": 162.802,
+      "end": 163.562,
+      "text": "아임 거너.",
+      "words": [
+        {
+          "id": "caption-word-139-0",
+          "text": "아임",
+          "start": 162.802,
+          "end": 163.062
+        },
+        {
+          "id": "caption-word-139-1",
+          "text": "거너.",
+          "start": 163.182,
+          "end": 163.442
+        }
+      ]
+    },
+    {
+      "id": "caption-group-140",
+      "frame": 11,
+      "start": 164.082,
+      "end": 164.902,
+      "text": "아임 거너 고.",
+      "words": [
+        {
+          "id": "caption-word-140-0",
+          "text": "아임",
+          "start": 164.082,
+          "end": 164.322
+        },
+        {
+          "id": "caption-word-140-1",
+          "text": "거너",
+          "start": 164.423,
+          "end": 164.582
+        },
+        {
+          "id": "caption-word-140-2",
+          "text": "고.",
+          "start": 164.682,
+          "end": 164.782
+        }
+      ]
+    },
+    {
+      "id": "caption-group-141",
+      "frame": 11,
+      "start": 165.463,
+      "end": 165.943,
+      "text": "세 번만",
+      "words": [
+        {
+          "id": "caption-word-141-0",
+          "text": "세",
+          "start": 165.463,
+          "end": 165.502
+        },
+        {
+          "id": "caption-word-141-1",
+          "text": "번만",
+          "start": 165.622,
+          "end": 165.842
+        }
+      ]
+    },
+    {
+      "id": "caption-group-142",
+      "frame": 11,
+      "start": 165.943,
+      "end": 167.142,
+      "text": "따라 하시면 입에",
+      "words": [
+        {
+          "id": "caption-word-142-0",
+          "text": "따라",
+          "start": 165.943,
+          "end": 166.062
+        },
+        {
+          "id": "caption-word-142-1",
+          "text": "하시면",
+          "start": 166.182,
+          "end": 166.722
+        },
+        {
+          "id": "caption-word-142-2",
+          "text": "입에",
+          "start": 166.902,
+          "end": 167.022
+        }
+      ]
+    },
+    {
+      "id": "caption-group-143",
+      "frame": 11,
+      "start": 167.182,
+      "end": 167.682,
+      "text": "붙습니다.",
+      "words": [
+        {
+          "id": "caption-word-143-0",
+          "text": "붙습니다.",
+          "start": 167.182,
+          "end": 167.562
+        }
+      ]
+    },
+    {
+      "id": "caption-group-144",
+      "frame": 12,
+      "start": 168.034,
+      "end": 168.634,
+      "text": "그래서",
+      "words": [
+        {
+          "id": "caption-word-144-0",
+          "text": "그래서",
+          "start": 168.034,
+          "end": 168.514
+        }
+      ]
+    },
+    {
+      "id": "caption-group-145",
+      "frame": 12,
+      "start": 168.933,
+      "end": 169.713,
+      "text": "영화에서도,",
+      "words": [
+        {
+          "id": "caption-word-145-0",
+          "text": "영화에서도,",
+          "start": 168.933,
+          "end": 169.593
+        }
+      ]
+    },
+    {
+      "id": "caption-group-146",
+      "frame": 12,
+      "start": 170.074,
+      "end": 172.753,
+      "text": "노래 가사에서도 고잉 투보다",
+      "words": [
+        {
+          "id": "caption-word-146-0",
+          "text": "노래",
+          "start": 170.074,
+          "end": 170.253
+        },
+        {
+          "id": "caption-word-146-1",
+          "text": "가사에서도",
+          "start": 170.374,
+          "end": 171.374
+        },
+        {
+          "id": "caption-word-146-2",
+          "text": "고잉",
+          "start": 171.553,
+          "end": 171.793
+        },
+        {
+          "id": "caption-word-146-3",
+          "text": "투보다",
+          "start": 171.894,
+          "end": 172.673
+        }
+      ]
+    },
+    {
+      "id": "caption-group-147",
+      "frame": 12,
+      "start": 172.753,
+      "end": 173.893,
+      "text": "GONNA를 훨씬",
+      "words": [
+        {
+          "id": "caption-word-147-0",
+          "text": "GONNA를",
+          "start": 172.753,
+          "end": 173.313
+        },
+        {
+          "id": "caption-word-147-1",
+          "text": "훨씬",
+          "start": 173.374,
+          "end": 173.773
+        }
+      ]
+    },
+    {
+      "id": "caption-group-148",
+      "frame": 12,
+      "start": 173.953,
+      "end": 174.453,
+      "text": "자주 듣게",
+      "words": [
+        {
+          "id": "caption-word-148-0",
+          "text": "자주",
+          "start": 173.953,
+          "end": 174.113
+        },
+        {
+          "id": "caption-word-148-1",
+          "text": "듣게",
+          "start": 174.253,
+          "end": 174.354
+        }
+      ]
+    },
+    {
+      "id": "caption-group-149",
+      "frame": 12,
+      "start": 174.453,
+      "end": 175.113,
+      "text": "되는 겁니다.",
+      "words": [
+        {
+          "id": "caption-word-149-0",
+          "text": "되는",
+          "start": 174.453,
+          "end": 174.593
+        },
+        {
+          "id": "caption-word-149-1",
+          "text": "겁니다.",
+          "start": 174.733,
+          "end": 174.993
+        }
+      ]
+    },
+    {
+      "id": "caption-group-150",
+      "frame": 12,
+      "start": 175.593,
+      "end": 176.793,
+      "text": "사실 이미 수없이",
+      "words": [
+        {
+          "id": "caption-word-150-0",
+          "text": "사실",
+          "start": 175.593,
+          "end": 175.893
+        },
+        {
+          "id": "caption-word-150-1",
+          "text": "이미",
+          "start": 176.033,
+          "end": 176.253
+        },
+        {
+          "id": "caption-word-150-2",
+          "text": "수없이",
+          "start": 176.354,
+          "end": 176.713
+        }
+      ]
+    },
+    {
+      "id": "caption-group-151",
+      "frame": 12,
+      "start": 176.793,
+      "end": 177.733,
+      "text": "들으셨던 거고요.",
+      "words": [
+        {
+          "id": "caption-word-151-0",
+          "text": "들으셨던",
+          "start": 176.793,
+          "end": 177.213
+        },
+        {
+          "id": "caption-word-151-1",
+          "text": "거고요.",
+          "start": 177.333,
+          "end": 177.613
+        }
+      ]
+    },
+    {
+      "id": "caption-group-152",
+      "frame": 13,
+      "start": 178.026,
+      "end": 179.467,
+      "text": "오늘은 고잉 투가",
+      "words": [
+        {
+          "id": "caption-word-152-0",
+          "text": "오늘은",
+          "start": 178.026,
+          "end": 178.366
+        },
+        {
+          "id": "caption-word-152-1",
+          "text": "고잉",
+          "start": 178.527,
+          "end": 178.746
+        },
+        {
+          "id": "caption-word-152-2",
+          "text": "투가",
+          "start": 178.866,
+          "end": 179.386
+        }
+      ]
+    },
+    {
+      "id": "caption-group-153",
+      "frame": 13,
+      "start": 179.467,
+      "end": 180.147,
+      "text": "GONNA로",
+      "words": [
+        {
+          "id": "caption-word-153-0",
+          "text": "GONNA로",
+          "start": 179.467,
+          "end": 180.027
+        }
+      ]
+    },
+    {
+      "id": "caption-group-154",
+      "frame": 13,
+      "start": 180.226,
+      "end": 181.766,
+      "text": "압축되는 이유를 봤습니다.",
+      "words": [
+        {
+          "id": "caption-word-154-0",
+          "text": "압축되는",
+          "start": 180.226,
+          "end": 180.686
+        },
+        {
+          "id": "caption-word-154-1",
+          "text": "이유를",
+          "start": 180.807,
+          "end": 181.067
+        },
+        {
+          "id": "caption-word-154-2",
+          "text": "봤습니다.",
+          "start": 181.226,
+          "end": 181.646
+        }
+      ]
+    },
+    {
+      "id": "caption-group-155",
+      "frame": 13,
+      "start": 182.327,
+      "end": 183.907,
+      "text": "그럼 WANT TO는요?",
+      "words": [
+        {
+          "id": "caption-word-155-0",
+          "text": "그럼",
+          "start": 182.327,
+          "end": 182.726
+        },
+        {
+          "id": "caption-word-155-1",
+          "text": "WANT",
+          "start": 182.827,
+          "end": 183.247
+        },
+        {
+          "id": "caption-word-155-2",
+          "text": "TO는요?",
+          "start": 183.327,
+          "end": 183.787
+        }
+      ]
+    },
+    {
+      "id": "caption-group-156",
+      "frame": 13,
+      "start": 184.466,
+      "end": 185.947,
+      "text": "다음 영상에서 확인하세요.",
+      "words": [
+        {
+          "id": "caption-word-156-0",
+          "text": "다음",
+          "start": 184.466,
+          "end": 184.666
+        },
+        {
+          "id": "caption-word-156-1",
+          "text": "영상에서",
+          "start": 184.807,
+          "end": 185.226
+        },
+        {
+          "id": "caption-word-156-2",
+          "text": "확인하세요.",
+          "start": 185.347,
+          "end": 185.827
+        }
+      ]
+    }
+  ]
+}

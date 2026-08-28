@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko" data-resolution="portrait">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @font-face{font-family:Bebas;src:url('./public/bebas-neue.ttf') format('truetype');font-display:block}
+    @font-face{font-family:BarlowC;src:url('./public/barlow-condensed-bold.ttf') format('truetype');font-weight:700;font-display:block}
+    @font-face{font-family:BarlowC;src:url('./public/barlow-condensed-extrabold.ttf') format('truetype');font-weight:800;font-display:block}
+    @font-face{font-family:CapcutKR;src:url('./public/capcut-korean.ttf') format('truetype');font-display:block}
+    :root{--bg:#0A0A0D;--ink:#FFFFFF;--sub:#9AA0A6;--red:#FF3B30;--mint:#00E5A0;--mint-dark:#00B586;--pill:#1B1B22;--pill-line:#2A2A33}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--bg);color:var(--ink)}
+    body{font-family:CapcutKR,BarlowC,sans-serif}
+    #root{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+    .clip{position:absolute}
+    .full{inset:0}
+    .scene{inset:0;overflow:hidden}
+    .row{position:absolute;left:0;right:0;display:flex;justify-content:center;align-items:center}
+    #bg-wash{background:radial-gradient(ellipse 900px 900px at 50% 34%,#15151b 0%,#0A0A0D 62%,#050506 100%)}
+    #bg-wash::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 1400px 1900px at 50% 50%,transparent 55%,rgba(0,0,0,.55) 100%)}
+
+    .micro-badge{top:118px;font:800 30px/1 BarlowC,sans-serif;letter-spacing:.24em;color:var(--sub);text-transform:uppercase}
+
+    .hero-hook-wrap{top:520px;height:260px}
+    .glow{position:absolute;left:50%;width:900px;height:900px;margin-left:-450px;margin-top:-450px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,.55) 0%,rgba(0,229,160,0) 70%);opacity:0}
+    #hk-glow,#sp-glow{top:130px}
+    #rv-glow{top:230px}
+    #ru-glow{top:110px}
+    #ho-glow{top:200px}
+    .glitch-stack{position:relative;z-index:2;display:grid}
+    .glitch-base,.glitch-copy{grid-area:1/1;font-family:Bebas,sans-serif;font-size:148px;line-height:1;letter-spacing:.005em;white-space:nowrap}
+    .glitch-base{color:var(--ink);z-index:2}
+    .glitch-copy{z-index:1;opacity:0;will-change:transform;mix-blend-mode:screen}
+    .glitch-copy.warm{color:var(--red)}
+    .glitch-copy.cool{color:var(--mint)}
+
+    .question-line{top:968px;font:900 56px/1 CapcutKR,sans-serif;color:var(--ink);text-align:center}
+    .choices{top:1068px;gap:36px}
+    .pill{width:460px;padding:32px 0;border-radius:20px;background:var(--pill);border:2px solid var(--pill-line);text-align:center;font:800 60px/1 BarlowC,CapcutKR,sans-serif;color:var(--ink);will-change:transform}
+    .footer-note{top:1420px;font:700 30px/1 BarlowC,sans-serif;letter-spacing:.12em;color:var(--sub);text-transform:uppercase}
+
+    .hero-static{position:relative;z-index:2;font-family:Bebas,sans-serif;font-size:148px;line-height:1;letter-spacing:.005em;color:var(--ink);white-space:nowrap}
+
+    #flash,#flash2{background:#fff;opacity:0;pointer-events:none}
+
+    .rv-label-top{top:560px;font:900 54px/1 CapcutKR,sans-serif;color:var(--sub)}
+    .rv-hero-wrap{top:680px;height:460px}
+    .rv-hero{position:relative;z-index:2;font-family:CapcutKR,sans-serif;font-size:400px;line-height:1;color:var(--mint)}
+    .rv-sub-wrap{top:1240px;display:flex;flex-direction:column;align-items:center;gap:14px}
+    .rv-sub-main{font:900 64px/1 CapcutKR,sans-serif;color:var(--ink)}
+    .rv-sub-en{font:700 32px/1 BarlowC,sans-serif;letter-spacing:.08em;color:var(--sub)}
+
+    .ru-track{top:820px;height:220px}
+    .ru-block{position:relative;width:280px;display:flex;flex-direction:column;align-items:center;gap:10px;will-change:transform}
+    .ru-chip{padding:26px 40px;border-radius:16px;background:var(--pill);border:2px solid var(--pill-line);font:800 92px/1 Bebas,sans-serif;letter-spacing:.02em;color:var(--ink)}
+    .ru-cap{font:700 28px/1 BarlowC,sans-serif;letter-spacing:.1em;color:var(--sub);text-transform:uppercase}
+    .ru-gap{width:120px}
+    .ru-fused-wrap{top:850px;height:220px}
+    .ru-fused{position:relative;z-index:2;font-family:CapcutKR,sans-serif;font-size:200px;line-height:1;color:var(--mint)}
+    .ru-strip-wrap{top:1230px;flex-direction:column;align-items:center;gap:18px}
+    .ru-strip{font:900 56px/1.2 CapcutKR,sans-serif;color:var(--ink);text-align:center;max-width:920px}
+    .ru-strip b{color:var(--mint)}
+    .ru-bar{width:520px;height:4px;background:var(--mint);transform-origin:0 50%}
+
+    .ho-ghost{top:520px;font:800 34px/1 BarlowC,sans-serif;letter-spacing:.2em;color:var(--sub)}
+    .ho-hero-wrap{top:620px;height:400px}
+    .ho-hero{position:relative;z-index:2;font-family:CapcutKR,sans-serif;font-size:260px;line-height:1;color:var(--ink)}
+    .ho-sweep-mask{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:3}
+    .ho-sweep{position:absolute;top:0;bottom:0;width:180px;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%);opacity:0}
+    .ho-strip{top:1080px;font:900 54px/1.2 CapcutKR,sans-serif;color:var(--sub);text-align:center;max-width:920px}
+    .ho-strip b{color:var(--mint)}
+    .ho-footer{top:1620px;gap:24px}
+    .chip-brand{padding:24px 40px;border-radius:16px;background:var(--pill);border:2px solid var(--pill-line);font:400 40px/1 CapcutKR,sans-serif;color:var(--ink)}
+    .chip-ep{padding:24px 36px;border-radius:16px;background:var(--mint);font:800 36px/1 BarlowC,sans-serif;letter-spacing:.04em;color:#052018}
+  </style>
+</head>
+<body>
+  <div data-hf-id="hf-kye2" id="root" data-composition-id="ep10-confusion-pilot" data-start="0" data-duration="12" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-iutf" id="bg-wash" class="clip full" data-start="0" data-duration="11.9" data-track-index="0"></div>
+    <div data-hf-id="hf-0jy2" id="flash" class="clip full" data-start="4.55" data-duration="0.35" data-track-index="9"></div>
+    <div data-hf-id="hf-s0c8" id="flash2" class="clip full" data-start="5.9" data-duration="2.0" data-track-index="9"></div>
+
+    <!-- SECTION 1 — HOOK -->
+    <section data-hf-id="hf-i0te" id="scene-hook" class="clip scene" data-start="0" data-duration="3.2" data-track-index="1">
+      <div data-hf-id="hf-rkpe" class="row micro-badge" id="hk-badge">SEASON 1 · EP10</div>
+      <div data-hf-id="hf-wqb5" class="row hero-hook-wrap">
+        <div data-hf-id="hf-a987" class="glow" id="hk-glow" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-zllu" class="glitch-stack" id="hk-hero">
+          <span data-hf-id="hf-ws1s" class="glitch-copy warm" aria-hidden="true">CONFUSION</span>
+          <span data-hf-id="hf-bok4" class="glitch-copy cool" aria-hidden="true">CONFUSION</span>
+          <span data-hf-id="hf-4ars" class="glitch-base">CONFUSION</span>
+        </div>
+      </div>
+      <div data-hf-id="hf-nxqw" class="row question-line" id="hk-question">어떻게 읽을까요?</div>
+      <div data-hf-id="hf-9i6c" class="row choices">
+        <div data-hf-id="hf-owap" class="pill" id="hk-pill-wrong">컨퓨션?</div>
+        <div data-hf-id="hf-11ng" class="pill" id="hk-pill-right">컨퓨전?</div>
+      </div>
+      <div data-hf-id="hf-qkgn" class="row footer-note" id="hk-footer">틀리기 쉬운 발음 테스트</div>
+    </section>
+
+    <!-- SECTION 2 — SPOTLIGHT (narration: 컨퓨전은요?) -->
+    <section data-hf-id="hf-avwg" id="scene-spotlight" class="clip scene" data-start="3.2" data-duration="1.5" data-track-index="2">
+      <div data-hf-id="hf-0w3b" class="row micro-badge">SEASON 1 · EP10</div>
+      <div data-hf-id="hf-g55x" class="row hero-hook-wrap">
+        <div data-hf-id="hf-qwnd" class="glow" id="sp-glow" style="opacity:.14" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-o045" class="hero-static">CONFUSION</div>
+      </div>
+      <div data-hf-id="hf-z1to" class="row question-line">어떻게 읽을까요?</div>
+      <div data-hf-id="hf-8hvg" class="row choices">
+        <div data-hf-id="hf-waar" class="pill" id="sp-pill-wrong">컨퓨션?</div>
+        <div data-hf-id="hf-e1sy" class="pill" id="sp-pill-right">컨퓨전?</div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 — REVEAL (narration: 전입니다.) -->
+    <section data-hf-id="hf-v1gv" id="scene-reveal" class="clip scene" data-start="4.7" data-duration="1.2" data-track-index="3">
+      <div data-hf-id="hf-sx7q" class="row rv-label-top" id="rv-label">정답은</div>
+      <div data-hf-id="hf-w7ke" class="row rv-hero-wrap">
+        <div data-hf-id="hf-cdty" class="glow" id="rv-glow" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-6q4q" class="particle-field" id="rv-particles" style="position:absolute;left:50%;top:50%;width:0;height:0"></div>
+        <div data-hf-id="hf-z5n8" class="rv-hero" id="rv-hero">전</div>
+      </div>
+      <div data-hf-id="hf-ejyu" class="row rv-sub-wrap">
+        <div data-hf-id="hf-7tiv" class="rv-sub-main" id="rv-sub-main">컨퓨전입니다</div>
+        <div data-hf-id="hf-kbao" class="rv-sub-en" id="rv-sub-en">CONFUSION</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 — RULE (narration: 모음 뒤라서요.) -->
+    <section data-hf-id="hf-7kqp" id="scene-rule" class="clip scene" data-start="5.9" data-duration="2.0" data-track-index="4">
+      <div data-hf-id="hf-j69y" id="ru-shake-wrap" style="position:absolute;inset:0">
+        <div data-hf-id="hf-04mt" class="row ru-track">
+          <div data-hf-id="hf-wab5" class="ru-block" id="ru-block-u" data-layout-allow-overflow="">
+            <div data-hf-id="hf-21tx" class="ru-chip">U</div>
+            <div data-hf-id="hf-7alc" class="ru-cap">모음</div>
+          </div>
+          <div data-hf-id="hf-0954" class="ru-gap"></div>
+          <div data-hf-id="hf-2ly4" class="ru-block" id="ru-block-si" data-layout-allow-overflow="">
+            <div data-hf-id="hf-avlf" class="ru-chip">S+I</div>
+            <div data-hf-id="hf-0dtw" class="ru-cap">소리</div>
+          </div>
+        </div>
+        <div data-hf-id="hf-7noq" class="row ru-fused-wrap">
+          <div data-hf-id="hf-l49b" class="glow" id="ru-glow" data-layout-allow-overflow=""></div>
+          <div data-hf-id="hf-t0p1" class="particle-field" id="ru-particles" style="position:absolute;left:50%;top:50%;width:0;height:0"></div>
+          <div data-hf-id="hf-wzie" class="ru-fused" id="ru-fused">전</div>
+        </div>
+        <div data-hf-id="hf-l0ez" class="row ru-strip-wrap">
+          <div data-hf-id="hf-f70d" class="ru-strip" id="ru-strip">모음 + <b data-hf-id="hf-bbom">S+I</b>가 만나면 → 전</div>
+          <div data-hf-id="hf-s0ui" class="ru-bar" id="ru-bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 — HOLD -->
+    <section data-hf-id="hf-dlj8" id="scene-hold" class="clip scene" data-start="7.9" data-duration="4.1" data-track-index="5">
+      <div data-hf-id="hf-0mju" class="row ho-ghost" id="ho-ghost">CONFUSION</div>
+      <div data-hf-id="hf-fdmh" class="row ho-hero-wrap">
+        <div data-hf-id="hf-9hmj" class="glow" id="ho-glow" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-qguu" class="ho-hero" id="ho-hero">컨퓨전</div>
+        <div data-hf-id="hf-c2i1" class="ho-sweep-mask"><div data-hf-id="hf-rlx6" class="ho-sweep" id="ho-sweep"></div></div>
+      </div>
+      <div data-hf-id="hf-9bs0" class="row ho-strip" id="ho-strip">모음 뒤 <b data-hf-id="hf-aaac">S + I</b> → 전</div>
+      <div data-hf-id="hf-0irw" class="row ho-footer" id="ho-footer">
+        <div data-hf-id="hf-3irr" class="chip-brand">이해하면 쉬운영어</div>
+        <div data-hf-id="hf-56ck" class="chip-ep">EP10</div>
+      </div>
+    </section>
+
+    <audio data-hf-id="hf-7ymh" id="voiceover" class="clip" data-start="3.2" data-duration="4.7" data-track-index="6" src="./public/voice.wav"></audio>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    const hash = (n) => {
+      const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+      return x - Math.floor(x);
+    };
+
+    function makeParticleBurst(fieldId, opts) {
+      const field = document.getElementById(fieldId);
+      const { count, palette, radial, cone, speedMin, speedMax, g, sizeMin, sizeMax } = opts;
+      const parts = [];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.style.position = 'absolute';
+        el.style.left = '0';
+        el.style.top = '0';
+        el.style.borderRadius = '50%';
+        el.style.opacity = '0';
+        el.style.willChange = 'transform, opacity';
+        const size = sizeMin + hash(i * 3 + 1) * (sizeMax - sizeMin);
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.background = palette[i % palette.length];
+        field.appendChild(el);
+        let angle;
+        if (radial) {
+          angle = hash(i * 5 + 2) * Math.PI * 2;
+        } else {
+          angle = -Math.PI / 2 + (hash(i * 5 + 2) * 2 - 1) * cone;
+        }
+        const speed = speedMin + hash(i * 7 + 3) * (speedMax - speedMin);
+        parts.push({ el, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, spin: (hash(i * 11 + 4) * 2 - 1) * 90 });
+      }
+      return { parts, g };
+    }
+
+    function driveBurst(tl, burst, burstAt, flightDur, fadeFrac) {
+      const drive = { T: 0 };
+      tl.fromTo(drive, { T: 0 }, {
+        T: 1,
+        duration: flightDur,
+        ease: 'none',
+        onUpdate: () => {
+          const t = drive.T * flightDur;
+          const fade = Math.min(1, (1 - drive.T) / fadeFrac);
+          burst.parts.forEach((p) => {
+            const x = p.vx * t;
+            const y = p.vy * t + 0.5 * burst.g * t * t;
+            p.el.style.transform = `translate(${x}px, ${y}px) rotate(${p.spin * t}deg)`;
+            p.el.style.opacity = String(drive.T === 0 ? 0 : fade);
+          });
+        },
+      }, burstAt);
+    }
+
+    const tl = gsap.timeline({ paused: true });
+
+    // ===================== SECTION 1 — HOOK (0 – 3.2) =====================
+    gsap.set('#hk-badge', { opacity: 0 });
+    tl.to('#hk-badge', { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.05);
+
+    // hero word entrance — fast scale-in settle (power4.out front, no overshoot)
+    gsap.set('#hk-hero', { scale: 2.05, opacity: 0 });
+    gsap.set('#hk-glow', { scale: 0.85, opacity: 0 });
+    tl.to('#hk-hero', { scale: 1, opacity: 1, duration: 0.42, ease: 'power4.out' }, 0.05);
+    tl.to('#hk-glow', { scale: 1, opacity: 0.28, duration: 0.42, ease: 'power2.out' }, 0.05);
+
+    // glitch emphasis bursts on CONFUSION (RGB split) — thematically "confused" word
+    (function () {
+      const copies = gsap.utils.toArray('#hk-hero .glitch-copy');
+      const bursts = [0.62, 0.98];
+      bursts.forEach((start) => {
+        const amp = { a: 0 };
+        tl.set(amp, { a: 1 }, start);
+        tl.set(copies, { opacity: 0.75 }, start);
+        tl.to(amp, {
+          a: 0,
+          duration: 0.16,
+          ease: 'power3.in',
+          onUpdate: () => {
+            const step = Math.floor(tl.time() / 0.05);
+            copies.forEach((el, layer) => {
+              const jx = (hash(step * 13 + layer * 7) * 2 - 1) * 10 * amp.a;
+              const jy = (hash(step * 29 + layer * 11) * 2 - 1) * 3.5 * amp.a;
+              gsap.set(el, { x: jx, y: jy });
+            });
+          },
+        }, start);
+        tl.set(copies, { x: 0, y: 0, opacity: 0 }, start + 0.16);
+      });
+    })();
+
+    tl.fromTo('#hk-question', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 1.30);
+    tl.fromTo('#hk-pill-wrong', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: 'power3.out' }, 1.55);
+    tl.fromTo('#hk-pill-right', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: 'power3.out' }, 1.63);
+    tl.fromTo('#hk-footer', { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 1.9);
+
+    // ===================== SECTION 2 — SPOTLIGHT (3.2 – 4.7) =====================
+    tl.to('#sp-pill-right', {
+      scale: 1.08, backgroundColor: '#0C2620', borderColor: '#00E5A0',
+      duration: 0.3, ease: 'power2.out',
+    }, 3.25);
+    tl.to('#sp-pill-wrong', { opacity: 0.4, duration: 0.3, ease: 'power2.out' }, 3.25);
+    tl.to('#sp-glow', { opacity: 0.22, duration: 0.5, ease: 'power2.out' }, 3.25);
+
+    // ===================== SECTION 3 — REVEAL (4.7 – 5.9) =====================
+    tl.fromTo('#flash', { opacity: 0 }, { opacity: 0.92, duration: 0.05, ease: 'none' }, 4.70);
+    tl.to('#flash', { opacity: 0, duration: 0.18, ease: 'power1.in' }, 4.75);
+
+    gsap.set('#rv-hero', { scale: 0, opacity: 0 });
+    gsap.set('#rv-glow', { scale: 0.85, opacity: 0 });
+    gsap.set('#rv-label', { opacity: 0, y: 16 });
+    gsap.set('#rv-sub-main', { opacity: 0, y: 16 });
+    gsap.set('#rv-sub-en', { opacity: 0 });
+
+    tl.to('#rv-hero', { scale: 1, opacity: 1, duration: 0.5, ease: 'expo.out' }, 4.75);
+    tl.to('#rv-glow', { scale: 1, opacity: 0.32, duration: 0.5, ease: 'power2.out' }, 4.75);
+    tl.to('#rv-label', { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 4.95);
+    tl.to('#rv-sub-main', { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 5.25);
+    tl.to('#rv-sub-en', { opacity: 1, duration: 0.32, ease: 'power2.out' }, 5.35);
+
+    const rvBurst = makeParticleBurst('rv-particles', {
+      count: 16, palette: ['#00E5A0', '#00B586', '#FFFFFF'], radial: true,
+      speedMin: 260, speedMax: 520, g: 60, sizeMin: 5, sizeMax: 10,
+    });
+    driveBurst(tl, rvBurst, 5.25, 0.65, 0.3);
+
+    // ===================== SECTION 4 — RULE (5.9 – 7.9, local 0-2.0) =====================
+    gsap.set('#ru-block-u', { x: -560, opacity: 0 });
+    gsap.set('#ru-block-si', { x: 560, opacity: 0 });
+    gsap.set('#ru-fused', { scale: 0, opacity: 0 });
+    gsap.set('#ru-glow', { scale: 0.85, opacity: 0 });
+    gsap.set('#ru-strip', { opacity: 0, y: 16 });
+    gsap.set('#ru-bar', { scaleX: 0 });
+
+    (function () {
+      const driver = { p: 0 };
+      const START = 5.98, DUR = 0.42;
+      tl.to(driver, {
+        p: 1, duration: DUR, ease: 'power2.out',
+        onUpdate: () => {
+          const p = driver.p;
+          const ux = -560 * (1 - p);
+          const sx = 560 * (1 - p);
+          document.getElementById('ru-block-u').style.transform = `translate(${ux}px,0)`;
+          document.getElementById('ru-block-u').style.opacity = String(Math.min(1, p * 4));
+          document.getElementById('ru-block-si').style.transform = `translate(${sx}px,0)`;
+          document.getElementById('ru-block-si').style.opacity = String(Math.min(1, p * 4));
+        },
+      }, START);
+    })();
+
+    const COLLIDE_AT = 5.98 + 0.42; // 6.40
+    // tiny deterministic impact shake
+    [0, 1 / 20, 2 / 20].forEach((dt, i) => {
+      const offs = [[5, -3], [-4, 2], [0, 0]];
+      tl.set('#ru-shake-wrap', { x: offs[i][0], y: offs[i][1] }, COLLIDE_AT + dt);
+    });
+    tl.fromTo('#flash2', { opacity: 0 }, { opacity: 0.85, duration: 0.04, ease: 'none' }, COLLIDE_AT);
+    tl.to('#flash2', { opacity: 0, duration: 0.16, ease: 'power1.in' }, COLLIDE_AT + 0.04);
+    tl.to(['#ru-block-u', '#ru-block-si'], { opacity: 0, duration: 0.12, ease: 'power2.in' }, COLLIDE_AT);
+    tl.to('#ru-fused', { scale: 1, opacity: 1, duration: 0.35, ease: 'power3.out' }, COLLIDE_AT + 0.02);
+    tl.to('#ru-glow', { scale: 1, opacity: 0.3, duration: 0.35, ease: 'power2.out' }, COLLIDE_AT + 0.02);
+
+    const ruBurst = makeParticleBurst('ru-particles', {
+      count: 14, palette: ['#00E5A0', '#FFFFFF'], radial: true,
+      speedMin: 220, speedMax: 460, g: 50, sizeMin: 4, sizeMax: 8,
+    });
+    driveBurst(tl, ruBurst, COLLIDE_AT + 0.02, 0.55, 0.3);
+
+    tl.to('#ru-strip', { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }, COLLIDE_AT + 0.40);
+    tl.to('#ru-bar', { scaleX: 1, duration: 0.35, ease: 'power2.out' }, COLLIDE_AT + 0.40);
+
+    // ===================== SECTION 5 — HOLD (7.9 – 12.0, local 0-4.1) =====================
+    gsap.set('#ho-hero', { opacity: 0, y: 14 });
+    gsap.set('#ho-glow', { scale: 0.85, opacity: 0 });
+    gsap.set('#ho-ghost', { opacity: 0 });
+    gsap.set('#ho-strip', { opacity: 0, y: 12 });
+    gsap.set('#ho-footer .chip-brand, #ho-footer .chip-ep', { opacity: 0, scale: 0.85 });
+    gsap.set('#ho-sweep', { x: -260, opacity: 0 });
+
+    tl.to('#ho-hero', { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 7.95);
+    tl.to('#ho-glow', { scale: 1, opacity: 0.26, duration: 0.4, ease: 'power2.out' }, 7.95);
+    tl.to('#ho-ghost', { opacity: 1, duration: 0.3, ease: 'power2.out' }, 8.05);
+    tl.to('#ho-strip', { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }, 8.45);
+
+    (function () {
+      const items = gsap.utils.toArray('#ho-footer .chip-brand, #ho-footer .chip-ep');
+      items.forEach((el, i) => {
+        tl.fromTo(el, { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: 'power3.out' }, 8.80 + i * 0.08);
+      });
+    })();
+
+    // bounded glow breathe during the hold
+    (function () {
+      const glow = document.getElementById('ho-glow');
+      const phase = { p: 0 };
+      tl.to(phase, {
+        p: Math.PI * 2 * 1.2,
+        duration: 3.0,
+        ease: 'none',
+        onUpdate: () => {
+          const s = Math.sin(phase.p);
+          glow.style.opacity = String(0.26 + s * 0.04);
+          glow.style.transform = `scale(${1 + s * 0.02})`;
+        },
+      }, 8.35);
+    })();
+
+    // single traveling sweep across the hold hero word
+    tl.fromTo('#ho-sweep', { x: -260, opacity: 0 }, { x: 540, opacity: 0.5, duration: 1.0, ease: 'none' }, 9.7);
+    tl.to('#ho-sweep', { opacity: 0, duration: 0.2, ease: 'power1.in' }, 10.7);
+
+    window.__timelines['ep10-confusion-pilot'] = tl;
+  </script>
+</body>
+</html>

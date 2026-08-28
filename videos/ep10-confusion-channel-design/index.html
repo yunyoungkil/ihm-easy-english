@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" data-resolution="portrait">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @font-face{font-family:RubikBold;src:url('./public/rubik-bold.ttf') format('truetype');font-display:block}
+    @font-face{font-family:CapcutKR;src:url('./public/capcut-korean.ttf') format('truetype');font-display:block}
+    :root{--bg:#05080D;--card:#FFD600;--white:#FFFFFF;--red:#FF0000;--blue:#008EFF;--orange:#FF7200;--muted:#8A8F98;--ink:#05080D}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:var(--bg);color:var(--white)}
+    body{font-family:CapcutKR,sans-serif}
+    #root{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+    .clip{position:absolute}.full{inset:0}.scene{inset:0;overflow:hidden}
+    .ground{inset:0;background:var(--bg)}
+    .ground::before{content:"";position:absolute;inset:0;opacity:.16;background-image:radial-gradient(circle at 2px 2px,rgba(0,142,255,.28) 0 1px,transparent 1.5px);background-size:42px 42px}
+    .ground::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:var(--blue)}
+    .safe{position:absolute;inset:190px 36px 170px;display:flex;flex-direction:column;align-items:center}
+    .headline{width:100%;text-align:center;font:900 66px/1.18 CapcutKR,sans-serif;letter-spacing:-.035em;color:var(--white)}
+    .headline .orange{color:var(--orange)}
+    .headline .outline{-webkit-text-stroke:5px var(--white);paint-order:stroke fill;color:var(--bg)}
+    .word-card{width:930px;min-height:236px;padding:34px 38px;border-radius:28px;background:var(--card);display:flex;align-items:center;justify-content:center;border:6px solid var(--ink);box-shadow:0 20px 0 #000;color:var(--white);font:900 132px/.92 RubikBold,sans-serif;letter-spacing:-.045em;text-align:center;white-space:nowrap}
+    .word-card .plain{-webkit-text-stroke:7px var(--ink);paint-order:stroke fill;color:var(--white)}
+    .word-card .en-accent{-webkit-text-stroke:7px #7D0000;paint-order:stroke fill;color:var(--red)}
+    .choice-row{display:flex;width:900px;gap:26px;justify-content:center}
+    .choice{flex:1;padding:27px 20px;border:6px solid var(--white);border-radius:20px;background:var(--bg);text-align:center;font:900 66px/1 CapcutKR,sans-serif;color:var(--white)}
+    .ko-accent{color:var(--blue);-webkit-text-stroke:4px var(--white);paint-order:stroke fill}
+    .strike{position:relative;display:inline-block}.strike::after{content:"";position:absolute;left:-18px;right:-18px;top:51%;height:16px;background:var(--red);transform:rotate(-5deg);border-radius:8px}
+    .eyebrow{font:900 40px/1 RubikBold,CapcutKR,sans-serif;letter-spacing:.08em;color:var(--muted)}
+    .handle{position:absolute;left:0;right:0;bottom:18px;text-align:center;font:900 42px/1 CapcutKR,sans-serif;color:#8A8A8A}
+    .answer-title{font:900 74px/1 CapcutKR,sans-serif;color:var(--white)}
+    .answer-big{font:900 300px/.88 CapcutKR,sans-serif;color:var(--blue);-webkit-text-stroke:12px var(--white);paint-order:stroke fill;text-shadow:14px 14px 0 #000}
+    .answer-copy{font:900 78px/1.08 CapcutKR,sans-serif;color:var(--white);text-align:center}
+    .logic-row{display:flex;align-items:center;justify-content:center;gap:22px;width:100%}
+    .logic-box{min-width:190px;padding:30px 28px;border:6px solid var(--white);border-radius:22px;background:var(--bg);font:900 104px/1 RubikBold,CapcutKR,sans-serif;text-align:center;color:var(--white)}
+    .logic-box.red{color:var(--red)}.logic-box.blue{color:var(--blue)}
+    .operator{font:900 92px/1 RubikBold,CapcutKR,sans-serif;color:var(--white)}
+    .summary{width:900px;padding:34px 20px;border-top:6px solid var(--white);border-bottom:6px solid var(--white);font:900 60px/1.2 CapcutKR,sans-serif;text-align:center;color:var(--white)}
+    .summary .en{font-family:RubikBold,sans-serif;color:var(--red)}.summary .ko{color:var(--blue)}
+    .flash{position:absolute;inset:0;background:var(--blue);opacity:0;pointer-events:none}
+    .hook .headline{margin-top:28px}.hook .word-card{margin-top:210px}.hook .choice-row{margin-top:86px}.hook .eyebrow{margin-top:250px}
+    .wrong .headline{margin-top:48px}.wrong .word-card{margin-top:238px}.wrong .wrong-ko{margin-top:135px;font:900 164px/1 CapcutKR,sans-serif;color:var(--white)}.wrong .eyebrow{margin-top:auto;margin-bottom:80px}
+    .answer .answer-title{margin-top:70px}.answer .answer-big{margin-top:185px}.answer .word-card{margin-top:120px;min-height:200px;font-size:110px}.answer .answer-copy{margin-top:76px}
+    .rule .headline{margin-top:62px}.rule .logic-row{margin-top:260px}.rule .summary{margin-top:160px}.rule .eyebrow{margin-top:auto;margin-bottom:88px}
+    .hold .word-card{margin-top:148px}.hold .final-pron{margin-top:100px;font:900 150px/1 CapcutKR,sans-serif;color:var(--white)}.hold .summary{margin-top:160px}.hold .eyebrow{margin-top:auto;margin-bottom:76px;color:var(--white)}
+  </style>
+</head>
+<body>
+  <div data-hf-id="hf-channel-root" id="root" data-composition-id="ep10-confusion-channel-design" data-start="0" data-duration="12" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-channel-ground" id="ground" class="clip full ground" data-start="0" data-duration="12" data-track-index="0"></div>
+
+    <section data-hf-id="hf-channel-hook" id="scene-hook" class="clip scene hook" data-start="0" data-duration="3.2" data-track-index="1">
+      <div data-hf-id="hf-zbmn" class="safe">
+        <div data-hf-id="hf-m4da" id="hook-title" class="headline">틀리기 쉬운<br data-hf-id="hf-x5px"><span data-hf-id="hf-5352" class="orange">영어 발음 테스트</span></div>
+        <div data-hf-id="hf-11w3" id="hook-card" class="word-card"><span data-hf-id="hf-aufl" class="plain">CONFUSION</span></div>
+        <div data-hf-id="hf-hsza" id="hook-choices" class="choice-row"><div data-hf-id="hf-v6ec" class="choice">컨퓨션?</div><div data-hf-id="hf-24bs" class="choice">컨퓨전?</div></div>
+        <div data-hf-id="hf-756o" id="hook-note" class="eyebrow">SEASON 1 · EP10</div>
+        <div data-hf-id="hf-nntb" class="handle">@이해하면쉬운영어</div>
+      </div>
+    </section>
+
+    <section data-hf-id="hf-channel-wrong" id="scene-wrong-read" class="clip scene wrong" data-start="3.2" data-duration="1.5" data-track-index="2">
+      <div data-hf-id="hf-nz8f" class="safe">
+        <div data-hf-id="hf-5ik5" id="wrong-title" class="headline">컨퓨전은요?</div>
+        <div data-hf-id="hf-p3tv" id="wrong-card" class="word-card"><span data-hf-id="hf-6ogo" class="plain">CONFU</span><span data-hf-id="hf-18br" class="en-accent">SI</span><span data-hf-id="hf-pada" class="plain">ON</span></div>
+        <div data-hf-id="hf-7mft" id="wrong-pron" class="wrong-ko"><span data-hf-id="hf-5wda" class="strike">컨퓨션?</span></div>
+        <div data-hf-id="hf-kxa1" id="wrong-note" class="eyebrow">그대로 읽으면 틀립니다</div>
+        <div data-hf-id="hf-ujcf" class="handle">@이해하면쉬운영어</div>
+      </div>
+    </section>
+
+    <section data-hf-id="hf-channel-answer" id="scene-answer" class="clip scene answer" data-start="4.7" data-duration="1.2" data-track-index="3">
+      <div data-hf-id="hf-nkxe" class="safe">
+        <div data-hf-id="hf-lujg" id="answer-title" class="answer-title">정답은</div>
+        <div data-hf-id="hf-mi06" id="answer-big" class="answer-big">전</div>
+        <div data-hf-id="hf-93mu" id="answer-card" class="word-card"><span data-hf-id="hf-ipww" class="plain">CONFU</span><span data-hf-id="hf-bb47" class="en-accent">SI</span><span data-hf-id="hf-y3ky" class="plain">ON</span></div>
+        <div data-hf-id="hf-qauh" id="answer-copy" class="answer-copy">컨퓨<span data-hf-id="hf-b0ja" class="ko-accent">전</span>입니다</div>
+        <div data-hf-id="hf-u51e" class="handle">@이해하면쉬운영어</div>
+      </div>
+      <div data-hf-id="hf-yn0n" id="answer-flash" class="flash"></div>
+    </section>
+
+    <section data-hf-id="hf-channel-rule" id="scene-rule" class="clip scene rule" data-start="5.9" data-duration="2" data-track-index="4">
+      <div data-hf-id="hf-n6md" class="safe">
+        <div data-hf-id="hf-ixzb" id="rule-title" class="headline">모음 뒤라서요</div>
+        <div data-hf-id="hf-gnsw" id="rule-logic" class="logic-row"><div data-hf-id="hf-v8ph" class="logic-box">U</div><div data-hf-id="hf-190x" class="operator">+</div><div data-hf-id="hf-50lv" class="logic-box red">SI</div><div data-hf-id="hf-qnme" class="operator">→</div><div data-hf-id="hf-z36m" class="logic-box blue">전</div></div>
+        <div data-hf-id="hf-xysd" id="rule-summary" class="summary">모음 뒤의 <span data-hf-id="hf-cwfv" class="en">S + I</span>는<br data-hf-id="hf-rsrt"><span data-hf-id="hf-2ote" class="ko">‘전’</span>으로 들려요</div>
+        <div data-hf-id="hf-moj8" id="rule-note" class="eyebrow">한 번만 이해하면 다음 단어도 읽힙니다</div>
+        <div data-hf-id="hf-tqqd" class="handle">@이해하면쉬운영어</div>
+      </div>
+    </section>
+
+    <section data-hf-id="hf-channel-hold" id="scene-hold" class="clip scene hold" data-start="7.9" data-duration="4.1" data-track-index="5">
+      <div data-hf-id="hf-pyrk" class="safe">
+        <div data-hf-id="hf-mo09" id="hold-card" class="word-card"><span data-hf-id="hf-hizt" class="plain">CONFU</span><span data-hf-id="hf-awt6" class="en-accent">SI</span><span data-hf-id="hf-yhvz" class="plain">ON</span></div>
+        <div data-hf-id="hf-eib3" id="hold-pron" class="final-pron">컨퓨<span data-hf-id="hf-po0q" class="ko-accent">전</span></div>
+        <div data-hf-id="hf-q3w0" id="hold-summary" class="summary">모음 뒤 <span data-hf-id="hf-cet7" class="en">S + I</span> → <span data-hf-id="hf-scc5" class="ko">전</span></div>
+        <div data-hf-id="hf-l20y" id="hold-note" class="eyebrow">관련 영상에서 전체 원리 확인</div>
+        <div data-hf-id="hf-wivk" class="handle">@이해하면쉬운영어</div>
+      </div>
+    </section>
+
+    <audio data-hf-id="hf-channel-voice" id="voiceover" class="clip" data-start="3.2" data-duration="3.7" data-media-start="1" data-track-index="6" src="./public/voice.wav"></audio>
+  </div>
+  <script>
+    window.__timelines=window.__timelines||{};
+    const tl=gsap.timeline({paused:true});
+
+    tl.from('#hook-title',{opacity:0,y:36,duration:.34,ease:'power2.out'},0)
+      .from('#hook-card',{opacity:0,scale:.86,y:52,duration:.42,ease:'back.out(1.35)'},.24)
+      .from('#hook-choices .choice',{opacity:0,y:34,duration:.3,stagger:.12,ease:'power2.out'},.66)
+      .from('#hook-note',{opacity:0,duration:.25,ease:'power1.out'},1.08);
+
+    tl.from('#wrong-title',{opacity:0,y:-26,duration:.22,ease:'power2.out'},3.2)
+      .from('#wrong-card',{x:-64,scale:.96,duration:.3,ease:'power3.out'},3.28)
+      .from('#wrong-pron',{opacity:0,scale:.9,duration:.28,ease:'back.out(1.25)'},3.64)
+      .from('#wrong-note',{opacity:0,duration:.2,ease:'power1.out'},4.02);
+
+    tl.set('#answer-flash',{opacity:.35},4.7)
+      .set('#answer-flash',{opacity:0},4.7+1/24)
+      .from('#answer-title',{opacity:0,y:-25,duration:.18,ease:'power2.out'},4.7)
+      .from('#answer-big',{opacity:0,scale:.58,duration:.3,ease:'back.out(1.8)'},4.72)
+      .from('#answer-card',{opacity:0,y:34,duration:.25,ease:'power2.out'},4.9)
+      .from('#answer-copy',{opacity:0,y:24,duration:.2,ease:'power2.out'},5.1);
+
+    tl.from('#rule-title',{opacity:0,y:-25,duration:.22,ease:'power2.out'},5.9)
+      .from('#rule-logic .logic-box, #rule-logic .operator',{opacity:0,y:32,scale:.9,duration:.26,stagger:.09,ease:'back.out(1.35)'},6.02)
+      .from('#rule-summary',{opacity:0,y:28,duration:.28,ease:'power2.out'},6.54)
+      .from('#rule-note',{opacity:0,duration:.2,ease:'power1.out'},6.94);
+
+    tl.from('#hold-card',{opacity:0,y:42,duration:.32,ease:'power2.out'},7.9)
+      .from('#hold-pron',{opacity:0,scale:.88,duration:.3,ease:'back.out(1.35)'},8.18)
+      .from('#hold-summary',{opacity:0,y:28,duration:.3,ease:'power2.out'},8.48)
+      .from('#hold-note',{opacity:0,duration:.28,ease:'power1.out'},8.82);
+
+    window.__timelines['ep10-confusion-channel-design']=tl;
+  </script>
+</body>
+</html>

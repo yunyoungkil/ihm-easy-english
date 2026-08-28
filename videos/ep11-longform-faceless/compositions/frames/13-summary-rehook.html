@@ -1,0 +1,185 @@
+<template>
+<style>
+@font-face {
+  font-family: 'Black Han Sans';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 900;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Archivo Black';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6CYyF_g.woff2') format('woff2');
+}
+#root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  container-type: size;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.f13-summary-rehook-line1 {
+  position: absolute;
+  left: 0;
+  top: 31.48cqh;
+  width: 100%;
+  text-align: center;
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 400;
+  font-size: 3.2cqw;
+  line-height: 1.15;
+  color: #FFFFFF;
+}
+
+.f13-summary-rehook-word {
+  display: inline-block;
+  opacity: 0;
+}
+
+.f13-summary-rehook-gonna {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 400;
+  color: #F5C518;
+  text-shadow: 0 0 24px rgba(245, 197, 24, 0.35);
+}
+
+#f13-summary-rehook-w1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 400;
+}
+
+.f13-summary-rehook-glow {
+  position: absolute;
+  left: 50%;
+  top: 31.48cqh;
+  width: 46cqw;
+  height: 46cqw;
+  margin-left: -23cqw;
+  margin-top: -23cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 142, 255, 0.24) 0%, rgba(0, 142, 255, 0) 68%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.f13-summary-rehook-line2 {
+  position: absolute;
+  left: 0;
+  top: 44.44cqh;
+  width: 100%;
+  text-align: center;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  font-size: 2.0cqw;
+  color: #A9B4C4;
+  opacity: 0;
+}
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+<div data-hf-id="hf-vdxg" id="root" data-composition-id="13-summary-rehook" data-width="1920" data-height="1080" data-duration="7.811">
+
+  <div data-hf-id="hf-wake" id="f13-summary-rehook-bg-clip" class="clip f13-summary-rehook-bg" data-start="0" data-duration="7.811" data-track-index="0" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 42%, #12203A 0%, rgba(18,32,58,0) 62%);"></div>
+
+  <div data-hf-id="hf-glow13" id="f13-summary-rehook-glow" class="f13-summary-rehook-glow"></div>
+
+  <div data-hf-id="hf-wvyo" class="f13-summary-rehook-line1">
+    <span data-hf-id="hf-ozbt" class="f13-summary-rehook-word" id="f13-summary-rehook-w1">GOING</span> <span data-hf-id="hf-nswh" class="f13-summary-rehook-word" id="f13-summary-rehook-w2">TO는</span> <span data-hf-id="hf-rclg" class="f13-summary-rehook-word" id="f13-summary-rehook-w3">문장</span> <span data-hf-id="hf-3eiv" class="f13-summary-rehook-word" id="f13-summary-rehook-w4">속에서</span> <span data-hf-id="hf-9s1v" class="f13-summary-rehook-word" id="f13-summary-rehook-w5"><span data-hf-id="hf-hxma" class="f13-summary-rehook-gonna">GONNA</span>로</span> <span data-hf-id="hf-eqxo" class="f13-summary-rehook-word" id="f13-summary-rehook-w6">압축된다</span>
+  </div>
+
+  <div data-hf-id="hf-blnq" class="f13-summary-rehook-line2" id="f13-summary-rehook-line2">그럼 WANT TO는요?</div>
+
+</div>
+
+<script>
+window.__timelines = window.__timelines || {};
+var tl = gsap.timeline({ paused: true });
+
+(function () {
+  var root = document.querySelector('[data-composition-id="13-summary-rehook"]');
+  var w1 = root.querySelector('#f13-summary-rehook-w1');
+  var w2 = root.querySelector('#f13-summary-rehook-w2');
+  var w3 = root.querySelector('#f13-summary-rehook-w3');
+  var w4 = root.querySelector('#f13-summary-rehook-w4');
+  var w5 = root.querySelector('#f13-summary-rehook-w5');
+  var w6 = root.querySelector('#f13-summary-rehook-w6');
+  var line2 = root.querySelector('#f13-summary-rehook-line2');
+
+  // Scene 1 (0.0-3.5s): per-word waterfall reveal of the summary line (rules/waterfall-entry.md) —
+  // words whip in from below, overlapping, resolving into the composed sentence.
+  // GONNA로 carries the heaviest travel: it is the frame's focal word.
+  var t0 = 0.15;
+  tl.set(w1, { opacity: 1, y: 72 }, t0);
+  tl.to(w1, { y: 0, duration: 0.19, ease: "power4.out" }, t0);
+
+  var t1 = t0 + 0.19 + 0.05;
+  tl.set(w2, { opacity: 1, y: 46 }, t1);
+  tl.to(w2, { y: 0, duration: 0.15, ease: "power4.out" }, t1);
+
+  var t2 = t1 + 0.15 - 0.025;
+  tl.set(w3, { opacity: 1, y: 44 }, t2);
+  tl.to(w3, { y: 0, duration: 0.145, ease: "power4.out" }, t2);
+
+  var t3 = t2 + 0.145 - 0.025;
+  tl.set(w4, { opacity: 1, y: 42 }, t3);
+  tl.to(w4, { y: 0, duration: 0.14, ease: "power4.out" }, t3);
+
+  var t4 = t3 + 0.14 - 0.02;
+  tl.set(w5, { opacity: 1, y: 64 }, t4);
+  tl.to(w5, { y: 0, duration: 0.17, ease: "power4.out" }, t4);
+
+  // glow bloom behind GONNA — the frame's focal word — settling to a low
+  // ambient presence. Scoped to before the Rehook line only: that line stays
+  // deliberately bare (its own comment above explains why).
+  var glow13 = document.getElementById("f13-summary-rehook-glow");
+  tl.fromTo(glow13, { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, t4);
+  tl.to(glow13, { opacity: 0.55, duration: 1.2, ease: "sine.inOut" }, t4 + 0.5);
+
+  var t5 = t4 + 0.17 - 0.03;
+  tl.set(w6, { opacity: 1, y: 34 }, t5);
+  tl.to(w6, { y: 0, duration: 0.125, ease: "power4.out" }, t5);
+
+  // Scene 2 (3.5-5.5s): the Rehook line hard-cuts in at 70% opacity — a deliberate
+  // tl.set swap, no transition, no glow, no sound. The incompleteness IS the point.
+  tl.set(line2, { opacity: 0.7 }, 3.5);
+
+  // Scene 3 (5.5-7.811s): full hold, no new visual elements. The only remaining life
+  // is a subtle sine-driven jitter (rules/sine-wave-loop.md) on the open question —
+  // the summary has settled; the question deliberately has not.
+  var phase = { p: 0 };
+  tl.to(
+    phase,
+    {
+      p: Math.PI * 2 * 1.1,
+      duration: 2.211,
+      ease: "none",
+      onUpdate: function () {
+        var s = Math.sin(phase.p);
+        line2.style.transform = "translateY(" + (s * 2.5).toFixed(2) + "px) scale(" + (1 + s * 0.01).toFixed(4) + ")";
+      },
+    },
+    5.6,
+  );
+})();
+
+window.__timelines["13-summary-rehook"] = tl;
+</script>
+
+</template>

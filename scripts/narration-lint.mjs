@@ -30,6 +30,7 @@ export const VERIFIED_WORDS = new Set([
   "DECISION", "TELEVISION", "DISCUSSION", "MISSION", "TENSION", "CONFUSION",
   "EXPANSION", "CONCLUSION", "PICTURE", "NATURE", "FUTURE", "CELEBRATE",
   "CELEBRATION", "SUGGESTION", "DIGESTION", "HERO", "HEROIC", "EP",
+  "SOCIAL",
 ]);
 
 /** Runs of 2+ uppercase letters, and hyphen-chained letters like `A-C-T`. */

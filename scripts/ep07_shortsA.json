@@ -1,0 +1,104 @@
+{
+  "title": "SION 발음 3문제, 5초 테스트",
+  "openingWords": [
+    "PASSION",
+    "MISSION",
+    "DECISION"
+  ],
+  "segments": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 2,
+      "narration": "이 세 단어, 어떻게 읽을까요?",
+      "subtitleGroups": [
+        {
+          "text": "이 세 단어, 어떻게 읽을까요?",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 2,
+      "end": 7,
+      "countdown": 5,
+      "narration": "5초 안에 소리 내어 읽어보세요.",
+      "subtitleGroups": [
+        {
+          "text": "5초 안에 소리 내어 읽어보세요.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 7,
+      "end": 9,
+      "reveal": "PASSION",
+      "stress": "패",
+      "pronunciation": "패션",
+      "narration": "패션. 자음 뒤라서 션입니다.",
+      "subtitleGroups": [
+        {
+          "text": "패션.",
+          "from": 0,
+          "to": 50
+        },
+        {
+          "text": "자음 뒤라서 션입니다.",
+          "from": 50,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 9,
+      "end": 11,
+      "reveal": "MISSION",
+      "stress": "미",
+      "pronunciation": "미션",
+      "narration": "미션도 자음 뒤라 션입니다.",
+      "subtitleGroups": [
+        {
+          "text": "미션도 자음 뒤라 션입니다.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 11,
+      "end": 14,
+      "reveal": "DECISION",
+      "stress": "시",
+      "pronunciation": "디시전",
+      "narration": "그런데 디시전은 모음 뒤라서 전입니다.",
+      "subtitleGroups": [
+        {
+          "text": "그런데 디시전은 모음 뒤라서 전입니다.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 14,
+      "end": 18,
+      "cta": "EP7 전체 규칙 보러가기",
+      "narration": "왜 다른지, 전체 영상에서 확인하세요.",
+      "subtitleGroups": [
+        {
+          "text": "왜 다른지, 전체 영상에서 확인하세요.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    }
+  ]
+}

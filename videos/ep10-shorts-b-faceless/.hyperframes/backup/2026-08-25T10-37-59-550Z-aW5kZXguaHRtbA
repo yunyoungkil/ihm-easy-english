@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko" data-resolution="portrait">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @font-face{font-family:CapcutKR;src:url('./assets/fonts/capcut-korean.ttf') format('truetype');font-display:block}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#B8C9D9}
+    body{font-family:CapcutKR,sans-serif;color:#1A1A1A}
+    #root{position:relative;width:1080px;height:1920px;overflow:hidden;background:#B8C9D9}
+    .clip{position:absolute}
+    .full{inset:0}
+
+    #chatBg{background:#B8C9D9}
+    #letterboxTop{top:0;left:0;right:0;height:200px;background:#000000}
+    #letterboxBottom{bottom:0;left:0;right:0;height:220px;background:#000000}
+    #chatGroup{position:absolute;inset:0}
+    #header{position:absolute;top:200px;left:0;right:0;height:140px;background:#FFFFFF;border-bottom:1px solid #E2E2E2;display:flex;align-items:center;padding:0 40px;gap:20px}
+    #headerAvatar{width:64px;height:64px;border-radius:50%;background:#3D5670;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700}
+    #headerName{font-size:34px;font-weight:700}
+
+    .row{position:absolute;left:60px;right:60px;display:flex}
+    .row.me{justify-content:flex-end}
+    .row.friend{justify-content:flex-start}
+    .bubble{max-width:74%;height:110px;padding:0 32px;border-radius:26px;font-size:36px;line-height:1.3;display:flex;align-items:center;transform-origin:50% 100%}
+    .bubble.me{background:#FFE300}
+    .bubble.friend{background:#FFFFFF;border:1px solid #DDDDDD}
+
+    #myBubbleRow{top:710px}
+    #typingRow{top:940px}
+    #typingDot{width:16px;height:16px;border-radius:50%;background:#999;display:inline-block;margin:0 5px}
+
+    #bubble1Row{top:940px}
+    #bubble1 .accent{color:#008EFF;font-weight:700}
+
+    #bubble2Row{top:1170px}
+    .word-display{font-size:44px;font-weight:800;letter-spacing:.5px}
+    .cial{color:#FF0000}
+    .arrow{color:#008EFF;font-weight:700;margin-left:20px}
+
+    #dimmer{background:#000000;opacity:0}
+
+    #ruleCard{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0}
+    #ruleCardText{color:#FFFFFF;text-align:center;font-size:64px;font-weight:800;line-height:1.5}
+    #ruleCardText b{color:#FF0000}
+    #ruleCardText .kr-accent{color:#008EFF}
+
+    .row.brand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+    .chip{padding:28px 44px;border-radius:16px;background:#1c2530;color:#fff;font-size:38px;font-weight:700;max-width:860px;text-align:center;line-height:1.4}
+    .chip.ep{background:#008EFF;font-size:32px;padding:20px 36px;max-width:none}
+    #downArrow{color:#8FA0B3;font-size:56px;font-weight:800;line-height:1}
+  </style>
+</head>
+<body>
+  <div data-hf-id="hf-hsml" id="root" data-composition-id="ep10-shorts-b-faceless" data-start="0" data-duration="17.8" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-9k8s" id="chatBg" class="clip full" data-start="0" data-duration="17.8" data-track-index="0"></div>
+    <div data-hf-id="hf-mvma" id="letterboxTop" class="clip" data-start="0" data-duration="17.8" data-track-index="4"></div>
+    <div data-hf-id="hf-7e6o" id="letterboxBottom" class="clip" data-start="0" data-duration="17.8" data-track-index="4"></div>
+
+    <div data-hf-id="hf-wmtk" id="chatGroup">
+      <div data-hf-id="hf-rw2y" id="header">
+        <div data-hf-id="hf-qfyv" id="headerAvatar">지</div>
+        <div data-hf-id="hf-6r2h" id="headerName">지연이</div>
+      </div>
+
+      <div data-hf-id="hf-vt2s" class="row me" id="myBubbleRow">
+        <div data-hf-id="hf-7hiw" class="bubble me" id="myBubble">SOCIAL 발음이 뭐야?</div>
+      </div>
+
+      <div data-hf-id="hf-3571" class="row friend" id="typingRow">
+        <div data-hf-id="hf-2d97" class="bubble friend" id="typingBubble"><span data-hf-id="hf-xryw" id="typingDot"></span><span data-hf-id="hf-2o1c" id="typingDot"></span><span data-hf-id="hf-1h49" id="typingDot"></span></div>
+      </div>
+
+      <div data-hf-id="hf-hcsa" class="row friend" id="bubble1Row" style="opacity:0">
+        <div data-hf-id="hf-zt1a" class="bubble friend" id="bubble1"><span data-hf-id="hf-x4jw" class="accent" id="socialWord">소셜</span>이지!</div>
+      </div>
+
+      <div data-hf-id="hf-a52f" class="row friend" id="bubble2Row" style="opacity:0">
+        <div data-hf-id="hf-sgrg" class="bubble friend" id="bubble2">
+          <span data-hf-id="hf-ur5e" class="word-display">SO<span data-hf-id="hf-sc0y" class="cial" id="cialSpan">CIAL</span></span><span data-hf-id="hf-6ih9" class="arrow" id="arrowSpan">→ <span data-hf-id="hf-xn64" id="shulSpan">셜</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-xzuo" id="dimmer" class="clip full" data-start="10.80" data-duration="6.2" data-track-index="2"></div>
+
+    <div data-hf-id="hf-439t" id="ruleCard">
+      <div data-hf-id="hf-rgqy" id="ruleCardText">-<b data-hf-id="hf-wlb8">CIAL</b>로 끝나면<br data-hf-id="hf-x5px">항상 '<span data-hf-id="hf-8b3v" class="kr-accent">셜</span>'</div>
+    </div>
+
+    <div data-hf-id="hf-9lg5" class="row brand" id="brandRow" style="opacity:0">
+      <div data-hf-id="hf-r1ln" class="chip">전체 원리는 관련 영상에서 지금 바로 확인</div>
+      <div data-hf-id="hf-14j9" class="chip ep">아래 관련 영상 선택</div>
+      <div data-hf-id="hf-0kh5" id="downArrow">↓</div>
+    </div>
+
+    <!-- Narration starts only from bubble2 onward — the opening exchange (my question,
+         typing, bubble1's reveal) plays silent + KakaoTalk SFX only, per the
+         faceless-explainer guide: "open with a useful question, then reveal the
+         mechanism one layer at a time." -->
+    <audio data-hf-id="hf-4gq6" id="a-frame04" class="clip" data-start="4.00" data-duration="6.16" data-track-index="5" src="./assets/audio/frame04.wav"></audio>
+    <audio data-hf-id="hf-s48a" id="a-frame05" class="clip" data-start="11.40" data-duration="3.68" data-track-index="5" src="./assets/audio/frame05.wav"></audio>
+
+    <!-- KakaoTalk notification SFX, one per bubble arrival -->
+    <audio data-hf-id="hf-dd46" id="sfx-my" class="clip" data-start="0.40" data-duration="0.83" data-track-index="6" src="./assets/audio/카톡.mp3"></audio>
+    <audio data-hf-id="hf-2bhw" id="sfx-b1" class="clip" data-start="2.50" data-duration="0.83" data-track-index="6" src="./assets/audio/카톡.mp3"></audio>
+    <audio data-hf-id="hf-k8iv" id="sfx-b2" class="clip" data-start="3.80" data-duration="0.83" data-track-index="6" src="./assets/audio/카톡.mp3"></audio>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    gsap.set("#ruleCardText", { x: 0, y: 0 });
+    const tl = gsap.timeline({ paused: true });
+
+    // ---- initial states (t=0, non-clip elements — immediate) ----
+    gsap.set('#chatGroup', { opacity: 0 });
+    gsap.set('#myBubble', { scale: 0, opacity: 0 });
+    gsap.set('#typingRow', { opacity: 0 });
+    gsap.set(['#socialWord'], { color: '#1A1A1A' });
+    gsap.set('#cialSpan', { color: '#1A1A1A' });
+    gsap.set(['#arrowSpan', '#shulSpan'], { opacity: 0 });
+    gsap.set('#dimmer', { opacity: 0 });
+    gsap.set('#ruleCard', { opacity: 0, scale: 0.92 });
+    gsap.set('#brandRow', { opacity: 0 });
+
+    // ---- open: chat group fades in ----
+    tl.to('#chatBg', { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.0);
+    tl.to('#chatGroup', { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.1);
+
+    // ---- my bubble sends (silent — no narration yet) ----
+    tl.to('#myBubble', { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' }, 0.4);
+
+    // ---- typing indicator ----
+    tl.to('#typingRow', { opacity: 1, duration: 0.3, ease: 'power2.out' }, 1.3);
+    (function () {
+      const dots = gsap.utils.toArray('#typingDot');
+      dots.forEach((d, i) => {
+        tl.fromTo(d, { y: 0 }, { y: -10, duration: 0.25, ease: 'sine.inOut', yoyo: true, repeat: 3 }, 1.4 + i * 0.12);
+      });
+    })();
+    tl.to('#typingRow', { opacity: 0, duration: 0.2, ease: 'power1.in' }, 2.4);
+
+    // ---- friend bubble 1: 소셜이지! (still silent) ----
+    tl.fromTo('#bubble1Row', { opacity: 0 }, { opacity: 1, duration: 0.001 }, 2.50);
+    tl.fromTo('#bubble1', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' }, 2.50);
+
+    // ---- friend bubble 2: SOCIAL breakdown — narration begins here ----
+    tl.fromTo('#bubble2Row', { opacity: 0 }, { opacity: 1, duration: 0.001 }, 3.80);
+    tl.fromTo('#bubble2', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' }, 3.80);
+    // CIAL highlights red ~1.5s into frame04's line
+    tl.to('#cialSpan', { color: '#FF0000', duration: 0.15 }, 5.50);
+    tl.to('#cialSpan', { scale: 1.1, duration: 0.15, ease: 'power2.out' }, 5.50);
+    tl.to('#cialSpan', { scale: 1, duration: 0.2, ease: 'power2.out' }, 5.65);
+    // 셜 + arrow reveal ~4.2s into frame04's line
+    tl.to(['#arrowSpan', '#shulSpan'], { opacity: 1, duration: 0.3, ease: 'power2.out' }, 8.20);
+
+    // ---- chat exits completely before the rule card appears ----
+    tl.to('#chatGroup', { opacity: 0, duration: 0.4, ease: 'power2.out' }, 10.40);
+    tl.set('#chatGroup', { opacity: 0 }, 10.80);
+    tl.to('#dimmer', { opacity: 1, duration: 0.4, ease: 'power2.out' }, 10.80);
+
+    // ---- rule card: centered, on its own, after the chat is gone ----
+    tl.to('#ruleCard', { opacity: 1, scale: 1, duration: 0.5, ease: 'power3.out' }, 11.20);
+    tl.to('#ruleCard', { opacity: 0, duration: 0.3, ease: 'power1.in' }, 15.30);
+
+    // ---- branding ----
+    tl.to('#brandRow', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 15.60);
+    // finite downward-nudge bounce on the arrow, pointing at the related-video
+    // card YouTube overlays below the short — 2 cycles, timed to the hold
+    tl.fromTo('#downArrow', { y: 0 }, { y: 16, duration: 0.35, ease: 'sine.inOut', yoyo: true, repeat: 3 }, 16.10);
+
+    tl.set("#ruleCardText", { width: 476, height: 220, immediateRender: true }, 0);
+
+    window.__timelines['ep10-shorts-b-faceless'] = tl;
+  </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<template>
+<style>
+@font-face {
+  font-family: 'Black Han Sans';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 900;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Archivo Black';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6CYyF_g.woff2') format('woff2');
+}
+#root[data-composition-id="04-mechanism"] { position:relative; width:1920px; height:1080px; overflow:hidden; }
+.m04mechanism-bgplate { position:absolute; inset:0; background:#0A1526; }
+.m04mechanism-glow { position:absolute; inset:0; background:radial-gradient(ellipse 800px 620px at 50% 40%, #12203A 0%, rgba(18,32,58,0) 72%); transform-origin:50% 50%; }
+.m04mechanism-explain { position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:50% 50%; z-index:1; }
+.m04mechanism-headline { position:absolute; left:0; top:46px; width:1920px; text-align:center; font-family:"Noto Sans KR", sans-serif; font-weight:800; font-size:46px; line-height:1.3; color:#FFFFFF; }
+.m04mechanism-word { display:inline-block; }
+.m04mechanism-hl-accent { color:#F5C518; }
+.m04mechanism-burst-wrap { position:absolute; inset:0; display:grid; place-items:center; }
+.m04mechanism-burst-item { position:absolute; top:50%; left:50%; will-change:transform; }
+.m04mechanism-badge { width:72px; height:72px; border-radius:50%; background:#F5C518; color:#0A1526; display:flex; align-items:center; justify-content:center; font-family:"Black Han Sans", sans-serif; font-weight:400; font-size:36px; flex-shrink:0; }
+.m04mechanism-desc { position:absolute; left:264px; width:1480px; font-family:"Noto Sans KR", sans-serif; font-weight:700; font-size:36px; line-height:1.3; color:#FFFFFF; }
+.m04mechanism-desc1 { top:234px; }
+.m04mechanism-desc2 { top:414px; }
+.m04mechanism-mono {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  color: #008EFF;
+}
+
+/* ---- equation strip: NG + T -> GONNA, assembles as each badge lands, rides
+       the same group transform as .m04mechanism-explain at the scale-swap ---- */
+.m04mechanism-equation {
+  position: absolute; left: 264px; top: 560px; width: 1480px; height: 90px;
+  display: flex; align-items: center; gap: 28px;
+}
+.m04mechanism-eq-chip {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  font-size: 34px;
+  color: #008EFF;
+  background: rgba(0, 142, 255, 0.1);
+  border: 2px solid rgba(0, 142, 255, 0.4);
+  border-radius: 10px;
+  padding: 10px 22px;
+  opacity: 0;
+}
+.m04mechanism-eq-sym {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 900;
+  font-size: 34px;
+  color: #A9B4C4;
+  opacity: 0;
+}
+.m04mechanism-eq-result {
+  font-family: "Archivo Black", sans-serif;
+  font-weight: 400;
+  font-size: 34px;
+  color: #F5C518;
+  opacity: 0;
+}
+.m04mechanism-gonnawrap { position:absolute; left:0; top:0; width:1920px; height:1080px; z-index:2; }
+.m04mechanism-glowbloom { position:absolute; left:510px; top:254px; width:900px; height:400px; background:radial-gradient(circle, rgba(245,197,24,0.55) 0%, rgba(245,197,24,0) 70%); filter:blur(30px); }
+.m04mechanism-gonna { position:absolute; left:0; top:364px; width:1920px; text-align:center; transform-origin:50% 50%; font-family:"Archivo Black", sans-serif; font-weight:400; font-size:180px; line-height:1; color:#F5C518; }
+</style>
+<div data-hf-id="hf-oicd" id="root" data-composition-id="04-mechanism" data-start="0" data-duration="20.693" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-4pa4" id="m04mechanism-bgplate-clip" class="clip m04mechanism-bgplate" data-start="0" data-duration="20.902" data-track-index="0"></div>
+  <div data-hf-id="hf-p503" id="m04mechanism-glow-clip" class="clip m04mechanism-glow" data-start="0" data-duration="20.902" data-track-index="1"></div>
+
+  <div data-hf-id="hf-izw2" class="m04mechanism-explain" id="m04mechanism-explain">
+    <div data-hf-id="hf-5q80" class="m04mechanism-headline" id="m04mechanism-headline">
+      <span data-hf-id="hf-tw7q" class="m04mechanism-word">왜</span> <span data-hf-id="hf-li5h" class="m04mechanism-word">이렇게</span> <span data-hf-id="hf-uj6z" class="m04mechanism-word">바뀔까요?</span> <span data-hf-id="hf-9tzy" class="m04mechanism-word m04mechanism-hl-accent">두</span> <span data-hf-id="hf-oj7u" class="m04mechanism-word m04mechanism-hl-accent">가지</span> <span data-hf-id="hf-tnr5" class="m04mechanism-word">때문입니다</span>
+    </div>
+
+    <div data-hf-id="hf-f3za" class="m04mechanism-burst-wrap">
+      <div data-hf-id="hf-me64" class="m04mechanism-burst-item" id="m04mechanism-badge1" data-target-x="-764" data-target-y="-284">
+        <div data-hf-id="hf-o43x" class="m04mechanism-badge">1</div>
+      </div>
+      <div data-hf-id="hf-gzvu" class="m04mechanism-burst-item" id="m04mechanism-badge2" data-target-x="-764" data-target-y="-104">
+        <div data-hf-id="hf-pb10" class="m04mechanism-badge">2</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-ay4o" class="m04mechanism-desc m04mechanism-desc1" id="m04mechanism-desc1">
+      <span data-hf-id="hf-jogs" class="m04mechanism-word"><span data-hf-id="hf-jogsm" class="m04mechanism-mono">GOING</span>의</span> <span data-hf-id="hf-1f3d" class="m04mechanism-word">끝소리</span> <span data-hf-id="hf-33pf" class="m04mechanism-word"><span data-hf-id="hf-33pfm" class="m04mechanism-mono">NG</span>는</span> <span data-hf-id="hf-o8sm" class="m04mechanism-word">원래</span> <span data-hf-id="hf-8kmm" class="m04mechanism-word">여려서</span> <span data-hf-id="hf-4h9a" class="m04mechanism-word">뒤</span> <span data-hf-id="hf-4drx" class="m04mechanism-word">소리랑</span> <span data-hf-id="hf-vjfj" class="m04mechanism-word">쉽게</span> <span data-hf-id="hf-f1it" class="m04mechanism-word">붙는다</span>
+    </div>
+    <div data-hf-id="hf-0fck" class="m04mechanism-desc m04mechanism-desc2" id="m04mechanism-desc2">
+      <span data-hf-id="hf-wzht" class="m04mechanism-word"><span data-hf-id="hf-wzhtm" class="m04mechanism-mono">TO</span>의</span> <span data-hf-id="hf-iozy" class="m04mechanism-word"><span data-hf-id="hf-iozym" class="m04mechanism-mono">T</span>는</span> <span data-hf-id="hf-g4rp" class="m04mechanism-word">문장</span> <span data-hf-id="hf-ajn2" class="m04mechanism-word">안에서</span> <span data-hf-id="hf-8klu" class="m04mechanism-word">힘을</span> <span data-hf-id="hf-2kpy" class="m04mechanism-word">거의</span> <span data-hf-id="hf-8vgn" class="m04mechanism-word">잃는다</span>
+    </div>
+
+    <div data-hf-id="hf-eqrow" class="m04mechanism-equation" id="m04mechanism-equation">
+      <span data-hf-id="hf-eqng" class="m04mechanism-eq-chip" id="m04mechanism-eq-ng">NG</span>
+      <span data-hf-id="hf-eqplus" class="m04mechanism-eq-sym" id="m04mechanism-eq-plus">+</span>
+      <span data-hf-id="hf-eqt" class="m04mechanism-eq-chip" id="m04mechanism-eq-t">T</span>
+      <span data-hf-id="hf-eqarrow" class="m04mechanism-eq-sym" id="m04mechanism-eq-arrow">→</span>
+      <span data-hf-id="hf-eqres" class="m04mechanism-eq-result" id="m04mechanism-eq-result">GONNA</span>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-bnt8" class="m04mechanism-gonnawrap">
+    <div data-hf-id="hf-i0gm" class="m04mechanism-glowbloom" id="m04mechanism-glowbloom"></div>
+    <div data-hf-id="hf-aphb" class="m04mechanism-gonna" id="m04mechanism-gonna">GONNA</div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+
+  // ---- Scene 1 (0.0-3.0s): hook question, per-word reveal ----
+  var HL_START = 0.25, HL_STAGGER = 0.12, HL_DUR = 0.45;
+  document.querySelectorAll("#m04mechanism-headline .m04mechanism-word").forEach(function (el, i) {
+    tl.fromTo(el,
+      { y: 16, opacity: 0 },
+      { y: 0, opacity: 1, duration: HL_DUR, ease: "power2.out" },
+      HL_START + i * HL_STAGGER
+    );
+  });
+  // settle/de-emphasize the question once the mechanism explanation begins
+  tl.to("#m04mechanism-headline", { opacity: 0.55, duration: 0.5, ease: "power1.out" }, 3.0);
+
+  // ---- Scene 2 (3.0-8.0s): step-badge 1 lands (center-outward-expansion) + description ----
+  var EXPAND_DUR = 1.2, EXPAND_EASE = "power3.out";
+  var BADGE1_TRIGGER = 3.0;
+  tl.fromTo("#m04mechanism-badge1",
+    { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.6, opacity: 0 },
+    {
+      x: Number(document.getElementById("m04mechanism-badge1").dataset.targetX),
+      y: Number(document.getElementById("m04mechanism-badge1").dataset.targetY),
+      scale: 1, opacity: 1, duration: EXPAND_DUR, ease: EXPAND_EASE,
+    },
+    BADGE1_TRIGGER
+  );
+  var BADGE1_LAND = BADGE1_TRIGGER + EXPAND_DUR; // 4.2
+  // soft landing tick
+  tl.to("#m04mechanism-badge1", { scale: 1.08, duration: 0.12, ease: "power1.out" }, BADGE1_LAND)
+    .to("#m04mechanism-badge1", { scale: 1, duration: 0.18, ease: "power2.out" }, BADGE1_LAND + 0.12);
+
+  var DESC1_START = BADGE1_LAND + 0.25, DESC_STAGGER = 0.09, DESC_DUR = 0.4;
+  document.querySelectorAll("#m04mechanism-desc1 .m04mechanism-word").forEach(function (el, i) {
+    tl.fromTo(el,
+      { y: 14, opacity: 0 },
+      { y: 0, opacity: 1, duration: DESC_DUR, ease: "power2.out" },
+      DESC1_START + i * DESC_STAGGER
+    );
+  });
+
+  // ---- Scene 3 (8.0-13.0s): step-badge 2 lands (same move) + description ----
+  var BADGE2_TRIGGER = 8.0;
+  tl.fromTo("#m04mechanism-badge2",
+    { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.6, opacity: 0 },
+    {
+      x: Number(document.getElementById("m04mechanism-badge2").dataset.targetX),
+      y: Number(document.getElementById("m04mechanism-badge2").dataset.targetY),
+      scale: 1, opacity: 1, duration: EXPAND_DUR, ease: EXPAND_EASE,
+    },
+    BADGE2_TRIGGER
+  );
+  var BADGE2_LAND = BADGE2_TRIGGER + EXPAND_DUR; // 9.2
+  tl.to("#m04mechanism-badge2", { scale: 1.08, duration: 0.12, ease: "power1.out" }, BADGE2_LAND)
+    .to("#m04mechanism-badge2", { scale: 1, duration: 0.18, ease: "power2.out" }, BADGE2_LAND + 0.12);
+
+  var DESC2_START = BADGE2_LAND + 0.25;
+  document.querySelectorAll("#m04mechanism-desc2 .m04mechanism-word").forEach(function (el, i) {
+    tl.fromTo(el,
+      { y: 14, opacity: 0 },
+      { y: 0, opacity: 1, duration: DESC_DUR, ease: "power2.out" },
+      DESC2_START + i * DESC_STAGGER
+    );
+  });
+
+  // ---- equation strip: assembles as each mechanism lands (content-specific
+  // diagram, not decoration — "NG + T -> GONNA" restates the two badges as a
+  // formula), then rides .m04mechanism-explain's own shrink+fade at Scene 4. ----
+  var EQ_CHIP_DUR = 0.35;
+  tl.fromTo("#m04mechanism-eq-ng", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: EQ_CHIP_DUR, ease: "power2.out" }, 5.7);
+  tl.fromTo("#m04mechanism-eq-plus", { opacity: 0 }, { opacity: 1, duration: EQ_CHIP_DUR, ease: "power1.out" }, 10.5);
+  tl.fromTo("#m04mechanism-eq-t", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: EQ_CHIP_DUR, ease: "power2.out" }, 10.65);
+  tl.fromTo("#m04mechanism-eq-arrow", { opacity: 0 }, { opacity: 1, duration: EQ_CHIP_DUR, ease: "power1.out" }, 12.2);
+  tl.fromTo("#m04mechanism-eq-result", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: EQ_CHIP_DUR, ease: "power2.out" }, 12.35);
+
+  // ---- Scene 4 (13.0-18.0s): scale-swap-transition — badges/explanation merge into GONNA ----
+  var TRIGGER = 13.0, EXIT_DUR = 0.4, OVERLAP = 0.15, ENTER_DUR = 0.6, EXIT_SCALE = 0.7, BOUNCE_FACTOR = 1.6;
+
+  // outgoing: the whole explanation (headline + both badges + both descriptions) shrinks + fades together
+  tl.to("#m04mechanism-explain",
+    { scale: EXIT_SCALE, opacity: 0, duration: EXIT_DUR, ease: "power2.in" },
+    TRIGGER
+  );
+
+  // incoming: GONNA pops in with overshoot, starting OVERLAP before the exit finishes
+  var INCOMING_AT = TRIGGER + EXIT_DUR - OVERLAP; // 13.25
+  tl.fromTo("#m04mechanism-gonna",
+    { scale: EXIT_SCALE, opacity: 0 },
+    { scale: 1, opacity: 1, duration: ENTER_DUR, ease: "back.out(" + BOUNCE_FACTOR + ")" },
+    INCOMING_AT
+  );
+  var GONNA_SETTLE = INCOMING_AT + ENTER_DUR; // 13.85
+
+  // glow bloom after GONNA settles, then hold for the rest of the frame
+  tl.fromTo("#m04mechanism-glowbloom",
+    { opacity: 0 },
+    { opacity: 1, duration: 0.6, ease: "sine.out" },
+    GONNA_SETTLE
+  );
+
+  // ---- ambient background glow drift across the full runtime ----
+  tl.fromTo(".m04mechanism-glow",
+    { scale: 1, opacity: 0.85 },
+    { scale: 1.05, opacity: 1, duration: 20.402, ease: "sine.inOut" },
+    0
+  );
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["04-mechanism"] = tl;
+})();
+</script>
+</template>

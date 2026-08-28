@@ -1,0 +1,197 @@
+<template>
+<style>
+  @font-face {
+    font-family: 'Black Han Sans';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  #root { position:relative; width:1920px; height:1080px; overflow:hidden; background:#0A1526; font-family:"Noto Sans KR", sans-serif; color:#FFFFFF; }
+
+  .m08-bg {
+    position:absolute; inset:0; width:1920px; height:1080px;
+    background: radial-gradient(circle at 50% 45%, #12203A 0%, #0A1526 68%);
+  }
+
+  .m08-rail-track {
+    position:absolute; left:0; top:0; width:1920px; height:3px;
+    background: rgba(245,197,24,0.15);
+  }
+  .m08-rail-fill {
+    position:absolute; left:0; top:0; width:1182px; height:3px;
+    background:#F5C518;
+  }
+
+  .m08-myth-row {
+    position:absolute; left:0; top:214px; width:1920px; text-align:center;
+  }
+  .m08-myth-wrap {
+    position:relative; display:inline-block;
+    font-family:"Black Han Sans", sans-serif;
+    font-size:60px; font-weight:400; line-height:1.3;
+    color:#A9B4C4;
+  }
+  .m08-word { position:relative; z-index:0; display:inline-block; }
+  .m08-cross { position:absolute; inset:0 -24px; z-index:1; pointer-events:none; }
+  .m08-cross-line {
+    position:absolute; top:50%; left:0; width:100%; height:4px;
+    background:#FF0000; border-radius:2px; transform-origin:left center;
+  }
+  .m08-cross-fwd { }
+  .m08-cross-bwd { }
+
+  .m08-hero-row {
+    position:absolute; left:0; top:368px; width:1920px; height:173px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .m08-hero {
+    font-family:"Black Han Sans", sans-serif;
+    font-size:172px; font-weight:400; line-height:1;
+    color:#F5C518;
+  }
+
+  .m08-reveal-glow {
+    position:absolute; left:50%; top:454px; width:900px; height:400px;
+    margin-left:-450px; margin-top:-200px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(245,197,24,0.55) 0%, rgba(245,197,24,0) 70%);
+    filter: blur(20px);
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .m08-exp-row {
+    position:absolute; left:0; width:1920px; text-align:center;
+    font-family:"Noto Sans KR", sans-serif; font-weight:700; font-size:36px; color:#FFFFFF;
+  }
+  .m08-exp1 { top:640px; }
+  .m08-exp2 { top:730px; }
+</style>
+
+<div data-hf-id="hf-k6or" id="root" class="m08-scope" data-composition-id="08-myth" data-start="0" data-duration="14.815" data-width="1920" data-height="1080">
+
+  <div data-hf-id="hf-hyrt" id="m08-bg-clip" class="m08-bg clip" data-start="0" data-duration="14.815" data-track-index="0"></div>
+
+  <div data-hf-id="hf-glow8" id="m08-reveal-glow" class="m08-reveal-glow"></div>
+
+  <div data-hf-id="hf-iauc" class="m08-rail-track">
+    <div data-hf-id="hf-8e3s" class="m08-rail-fill"></div>
+  </div>
+
+  <div data-hf-id="hf-32zn" class="m08-myth-row">
+    <span data-hf-id="hf-loy9" class="m08-myth-wrap" id="m08-myth-wrap">
+      <span data-hf-id="hf-irjw" class="m08-word">GONNA는</span> <span data-hf-id="hf-52ej" class="m08-word">틀린</span> <span data-hf-id="hf-u04r" class="m08-word">영어다?</span>
+      <span data-hf-id="hf-mw1b" class="m08-cross" id="m08-cross">
+        <span data-hf-id="hf-8nc6" class="m08-cross-line m08-cross-fwd"></span>
+        <span data-hf-id="hf-lpai" class="m08-cross-line m08-cross-bwd"></span>
+      </span>
+    </span>
+  </div>
+
+  <div data-hf-id="hf-udxh" class="m08-hero-row">
+    <div data-hf-id="hf-y0tp" class="m08-hero" id="m08-hero">아닙니다</div>
+  </div>
+
+  <div data-hf-id="hf-6roe" class="m08-exp-row m08-exp1" id="m08-exp1">
+    <span data-hf-id="hf-dng9" class="m08-word">격식</span> <span data-hf-id="hf-q3hb" class="m08-word">있는</span> <span data-hf-id="hf-j5fx" class="m08-word">자리가</span> <span data-hf-id="hf-0pvz" class="m08-word">아니면,</span> <span data-hf-id="hf-pdnj" class="m08-word">원어민도</span> <span data-hf-id="hf-vj5n" class="m08-word">실제</span> <span data-hf-id="hf-6dmn" class="m08-word">대화에선</span> <span data-hf-id="hf-qznn" class="m08-word">거의</span> <span data-hf-id="hf-85m9" class="m08-word">항상</span> <span data-hf-id="hf-8oha" class="m08-word">이렇게</span> <span data-hf-id="hf-n4zt" class="m08-word">말해요</span>
+  </div>
+
+  <div data-hf-id="hf-xbs6" class="m08-exp-row m08-exp2" id="m08-exp2">
+    <span data-hf-id="hf-l708" class="m08-word">문법이</span> <span data-hf-id="hf-wyff" class="m08-word">틀린</span> <span data-hf-id="hf-huvx" class="m08-word">게</span> <span data-hf-id="hf-1ykn" class="m08-word">아니라,</span> <span data-hf-id="hf-63s5" class="m08-word">발음이</span> <span data-hf-id="hf-m5pw" class="m08-word">자연스럽게</span> <span data-hf-id="hf-b5rf" class="m08-word">압축된</span> <span data-hf-id="hf-nthc" class="m08-word">것</span>
+  </div>
+
+</div>
+
+<script>
+window.__timelines = window.__timelines || {};
+(function () {
+  var tl = gsap.timeline({ paused: true });
+
+  // -- ground: soft radial glow fade-in + slow breathing drift (explicit legs, no repeat) --
+  tl.fromTo("#root .m08-bg", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0);
+  tl.to("#root .m08-bg", { scale: 1.04, duration: 3.5, ease: "sine.inOut" }, 1.0);
+  tl.to("#root .m08-bg", { scale: 1.0, duration: 3.5, ease: "sine.inOut" }, 4.5);
+  tl.to("#root .m08-bg", { scale: 1.03, duration: 3.5, ease: "sine.inOut" }, 8.0);
+  tl.to("#root .m08-bg", { scale: 1.0, duration: 2.815, ease: "sine.inOut" }, 11.5);
+
+  // -- progress rail: persistent chrome, quiet fade-in (frame 8 of 13) --
+  tl.fromTo("#root .m08-rail-track", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.1);
+
+  // -- Scene 1 (0.0-2.5s): myth question, per-word reveal, muted --
+  tl.fromTo(
+    "#m08-myth-wrap .m08-word",
+    { opacity: 0, y: 14 },
+    { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", stagger: 0.4 },
+    0.3
+  );
+
+  // -- Scene 2 (2.5-3.5s): handwritten strikethrough crosses the myth line while it recedes
+  //    (fades to a faint background layer, not zero -- "layered-depth", not an exit),
+  //    then "아닙니다" hard-cuts in below at hero scale and settles. --
+  tl.fromTo("#m08-cross .m08-cross-fwd", { scaleX: 0, rotation: -4 }, { scaleX: 1, rotation: -4, duration: 0.3, ease: "power2.out" }, 2.5);
+  tl.fromTo("#m08-cross .m08-cross-bwd", { scaleX: 0, rotation: 4 }, { scaleX: 1, rotation: 4, duration: 0.3, ease: "power2.out" }, 2.65);
+  tl.to("#m08-myth-wrap", { opacity: 0.15, duration: 0.4, ease: "power1.inOut" }, 2.6);
+
+  tl.set("#m08-hero", { opacity: 0 }, 0); // hidden until the hard cut lands
+  tl.set("#m08-hero", { opacity: 1 }, 3.0); // hard cut -- instant, no dissolve
+  tl.fromTo("#m08-hero", { scale: 1.15 }, { scale: 1.0, duration: 0.3, ease: "back.out(1.4)" }, 3.0);
+
+  // -- reveal glow: blooms behind the hero word on the same hard cut, then
+  //    settles to a low ambient presence (never fully off -- ties the
+  //    background texture to the frame's actual narrative beat). --
+  var glow8 = document.getElementById("m08-reveal-glow");
+  var glow8Peak = 0.32;
+  tl.fromTo(glow8, { opacity: 0, scale: 0.85 }, { opacity: glow8Peak, scale: 1, duration: 0.85, ease: "power2.out" }, 3.0);
+  var glow8Driver = { t: 0 };
+  tl.to(
+    glow8Driver,
+    {
+      t: 10.5,
+      duration: 10.5,
+      ease: "none",
+      onUpdate: function () {
+        var s = Math.sin(glow8Driver.t * 0.4);
+        glow8.style.opacity = (glow8Peak + s * 0.05).toFixed(3);
+      },
+    },
+    3.85,
+  );
+
+  // -- Scene 3 (3.5-9.0s): register explanation, per-word reveal --
+  tl.fromTo(
+    "#m08-exp1 .m08-word",
+    { opacity: 0, y: 14 },
+    { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", stagger: 0.33 },
+    3.5
+  );
+
+  // -- Scene 4 (9.0-12.0s): closing line, per-word reveal, then full stop --
+  tl.fromTo(
+    "#m08-exp2 .m08-word",
+    { opacity: 0, y: 14 },
+    { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", stagger: 0.28 },
+    9.0
+  );
+
+  // -- hold to end (14.315s): subtle deterministic jitter on the hero word only --
+  tl.to("#m08-hero", { x: 2, y: -1, duration: 0.6, ease: "sine.inOut" }, 11.6);
+  tl.to("#m08-hero", { x: -2, y: 1, duration: 0.6, ease: "sine.inOut" }, 12.3);
+  tl.to("#m08-hero", { x: 1, y: 1, duration: 0.6, ease: "sine.inOut" }, 13.0);
+  tl.to("#m08-hero", { x: 0, y: 0, duration: 0.6, ease: "sine.inOut" }, 13.7);
+
+  window.__timelines["08-myth"] = tl;
+})();
+</script>
+</template>

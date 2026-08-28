@@ -1,0 +1,1390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>frame.md · Soft Neumorphic UI Board · Showcase</title>
+<style>
+  /* ─────────────────────────────────────────────────────
+     :root — colors carried VERBATIM from frame.md tokens
+     ───────────────────────────────────────────────────── */
+  :root {
+    --bg-top: #D8D7D3;
+    --bg-mid: #C9C7C2;
+    --bg-bottom: #BEBBB5;
+
+    --surface: #E7E4DE;
+    --surface-soft: #DEDAD4;
+    --surface-dark: #D0CEC8;
+
+    --ink: #555751;
+    --ink-soft: #777A74;
+    --ink-caption: #96938D;
+    --ink-strip: #444640;
+    --white-soft: #F3F2ED;
+
+    --sage: #7F9E8F;
+    --mint-gray: #A8B5AB;
+    --blue-gray: #789094;
+    --dusty-blue: #8599A0;
+    --muted-green: #8FA292;
+    --pale-sage: #B6C1B5;
+
+    --lavender: #B6ACC9;
+    --icy-blue: #8FA6AE;
+    --seafoam: #94AD9D;
+
+    --red-dot: #D45662;
+    --amber-pale: #D9BB91;
+
+    --strip: #D4D0CA;
+
+    --shadow-raised:
+      0 10px 18px rgba(80,76,70,.22),
+      0 3px 6px  rgba(80,76,70,.14),
+      inset 0 1px 0 rgba(255,255,255,.24);
+    --shadow-control:
+      0 5px 10px rgba(87,84,79,.16),
+      inset 0 1px 1px rgba(255,255,255,.50);
+    --shadow-focus:
+      0 0 0 3px rgba(220,214,255,.60),
+      0 6px 14px rgba(115,106,155,.18),
+      inset 0 1px 1px rgba(255,255,255,.55);
+    --shadow-recessed:
+      inset 2px 2px 5px rgba(100,96,89,.20),
+      inset -2px -2px 5px rgba(255,255,255,.50);
+    --shadow-raised-giant:
+      0 22px 38px rgba(80,76,70,.22),
+      0 8px 14px  rgba(80,76,70,.14),
+      inset 0 1px 0 rgba(255,255,255,.24);
+
+    --sans: Inter, "SF Pro Display", Manrope, "Helvetica Neue", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: #17161a; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--white-soft);
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ─────────────────────────────────────────────────────
+     Frame ground — the reusable warm-gray gradient
+     ───────────────────────────────────────────────────── */
+  .frame-ground {
+    background-image:
+      radial-gradient(circle at 50% 22%, rgba(255,255,255,.30), transparent 38%),
+      linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 50%, var(--bg-bottom) 100%);
+    box-shadow: inset 0 0 90px rgba(78,75,70,.06);
+  }
+
+  /* ─────────────────────────────────────────────────────
+     COVER — full-bleed 16:9, first element in <body>
+     ───────────────────────────────────────────────────── */
+  .cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    container-type: size;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-fill {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.2cqw;
+    padding: 5cqw;
+  }
+
+  /* ─────────────────────────────────────────────────────
+     Doc chrome — branded (warm ink on deep neutral)
+     ───────────────────────────────────────────────────── */
+  .doc { max-width: 1400px; margin: 0 auto; padding: 0 5vw; }
+
+  .section {
+    padding: 96px 0 88px;
+    border-top: 1px solid rgba(243,242,237,.08);
+  }
+  .section:first-child { border-top: 0; }
+
+  .section-idx {
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+    margin: 0 0 56px;
+  }
+  .section-num {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--ink-caption);
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  .section-title {
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--white-soft);
+    letter-spacing: -0.018em;
+    margin: 0;
+  }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--ink-caption);
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid rgba(243,242,237,.14);
+    border-radius: 4px;
+  }
+  .section-rule { flex: 1; height: 1px; background: rgba(243,242,237,.14); }
+
+  .section-lede {
+    max-width: 640px;
+    margin: -32px 0 48px;
+    font-size: 14px;
+    color: var(--ink-caption);
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+  }
+
+  /* ─────────────────────────────────────────────────────
+     Palette
+     ───────────────────────────────────────────────────── */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(243,242,237,.10);
+    border: 1px solid rgba(243,242,237,.10);
+  }
+  .swatch {
+    background: #1c1b1f;
+    padding: 22px 20px 18px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .swatch-chip {
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    box-shadow: var(--shadow-control);
+  }
+  .swatch-name {
+    font-size: 13px;
+    color: var(--white-soft);
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  .swatch-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink-caption);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ─────────────────────────────────────────────────────
+     Typography — branded ruled rows
+     ───────────────────────────────────────────────────── */
+  .type-ramp { display: flex; flex-direction: column; }
+  .type-ramp-head {
+    padding: 14px 0;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: var(--ink-caption);
+    text-transform: uppercase;
+    border-top: 1px solid rgba(243,242,237,.14);
+    border-bottom: 1px solid rgba(243,242,237,.14);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .type-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 160px;
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(243,242,237,.06);
+    align-items: baseline;
+  }
+  .type-name  { color: var(--white-soft); font-size: 13px; letter-spacing: -0.01em; font-weight: 500; }
+  .type-meta  { font-size: 11px; color: var(--ink-caption); letter-spacing: 0.12em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+  .type-size  { text-align: right; }
+  .type-specimen {
+    color: var(--white-soft);
+    letter-spacing: -0.01em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* ─────────────────────────────────────────────────────
+     Components — captioned clusters on frame-ground stages
+     ───────────────────────────────────────────────────── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .comp-card {
+    border: 1px solid rgba(243,242,237,.10);
+    background: rgba(243,242,237,.02);
+    display: flex; flex-direction: column;
+  }
+  .comp-head {
+    padding: 18px 22px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid rgba(243,242,237,.08);
+  }
+  .comp-name { font-size: 14px; color: var(--white-soft); font-weight: 500; letter-spacing: -0.01em; }
+  .comp-token { font-size: 11px; color: var(--ink-caption); letter-spacing: 0.06em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+  .comp-stage {
+    padding: 40px 24px;
+    display: flex; justify-content: center; align-items: center; gap: 18px; flex-wrap: wrap;
+    min-height: 160px;
+  }
+  .comp-stage.tight { gap: 10px; }
+  .comp-note {
+    padding: 12px 22px 16px;
+    font-size: 11px;
+    color: var(--ink-caption);
+    letter-spacing: -0.005em;
+    line-height: 1.5;
+    border-top: 1px solid rgba(243,242,237,.05);
+  }
+
+  /* ─── Component atoms (source-native sizes, for the components section) ─── */
+  .soft-card {
+    width: 177px; height: 88px; border-radius: 14px;
+    background: var(--sage);
+    color: var(--white-soft);
+    box-shadow: var(--shadow-raised);
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; font-weight: 600; letter-spacing: -0.012em;
+  }
+  .soft-card.mint  { background: var(--mint-gray); }
+  .soft-card.blue  { background: var(--blue-gray); }
+  .soft-card.dusty { background: var(--dusty-blue); }
+  .soft-card.green { background: var(--muted-green); }
+  .soft-card.pale  { background: var(--pale-sage); }
+  .soft-card-copy { display: flex; flex-direction: column; line-height: 1.2; }
+  .soft-card-copy small { font-size: 9px; font-weight: 400; opacity: .85; letter-spacing: -0.005em; margin-top: 3px; }
+
+  .ico {
+    width: 24px; height: 24px;
+    flex: 0 0 24px;
+    border: 1.4px solid currentColor;
+    border-radius: 50%;
+    position: relative;
+    color: var(--white-soft);
+  }
+  .ico::before {
+    content: "";
+    position: absolute; inset: 5px;
+    border: 1.4px solid currentColor;
+    border-radius: 50%;
+    opacity: .75;
+  }
+  .ico.dots {
+    border: 0;
+    background:
+      radial-gradient(circle, currentColor 14%, transparent 22%) 0    0    / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 50%  0    / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 100% 0    / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 0    50%  / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 50%  50%  / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 100% 50%  / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 0    100% / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 50%  100% / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 14%, transparent 22%) 100% 100% / 33% 33% no-repeat;
+  }
+  .ico.branch::before {
+    inset: 0;
+    border: 0;
+    background:
+      linear-gradient(45deg,  transparent 44%, currentColor 44%, currentColor 56%, transparent 56%) 50% 50% / 100% 100% no-repeat,
+      linear-gradient(-45deg, transparent 44%, currentColor 44%, currentColor 56%, transparent 56%) 50% 50% / 100% 100% no-repeat;
+    opacity: .85;
+  }
+  .ico.rect { border-radius: 4px; }
+  .ico.rect::before { border-radius: 3px; inset: 4px; }
+  .ico.ring { border-radius: 50%; }
+  .ico.ring::before { inset: 8px; }
+
+  .state-pill {
+    height: 40px; padding: 0 18px;
+    border-radius: 20px;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-control);
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500; letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .state-pill.hover   { background: var(--lavender); color: var(--white-soft); }
+  .state-pill.pressed { background: var(--icy-blue); color: var(--white-soft); }
+  .state-pill.green   { background: var(--seafoam);  color: var(--white-soft); }
+  .state-pill .plus {
+    width: 12px; height: 12px; position: relative; display: inline-block;
+  }
+  .state-pill .plus::before, .state-pill .plus::after {
+    content: ""; position: absolute; background: currentColor;
+  }
+  .state-pill .plus::before { left: 5px; top: 0; width: 2px; height: 12px; border-radius: 1px; }
+  .state-pill .plus::after  { top: 5px; left: 0; height: 2px; width: 12px; border-radius: 1px; }
+
+  .circular-action {
+    width: 68px; height: 68px;
+    border-radius: 50%;
+    background: var(--seafoam);
+    border: 7px solid rgba(230,230,222,.6);
+    box-shadow: var(--shadow-raised);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--white-soft);
+  }
+  .ca-glyph {
+    width: 22px; height: 26px;
+    position: relative;
+  }
+  .ca-glyph::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 50% 30%, currentColor 2px, transparent 2.5px),
+      linear-gradient(currentColor, currentColor) 50% 40% / 1.4px 60% no-repeat,
+      radial-gradient(circle at 30% 65%, currentColor 2.5px, transparent 3px),
+      radial-gradient(circle at 70% 65%, currentColor 2.5px, transparent 3px);
+  }
+
+  .lavender-pill {
+    height: 45px; padding: 0 22px;
+    border-radius: 22px;
+    background: var(--lavender);
+    color: var(--white-soft);
+    box-shadow: var(--shadow-focus);
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 500; letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .lavender-pill-dot {
+    width: 12px; height: 12px;
+    border: 1.4px solid currentColor;
+    border-radius: 50%;
+    display: block; flex: 0 0 12px;
+  }
+
+  .input-focused {
+    height: 42px; padding: 0 14px;
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: var(--shadow-focus);
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--ink);
+    font-size: 13px; font-weight: 500; letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .red-dot {
+    width: 10px; height: 10px;
+    background: var(--red-dot);
+    border-radius: 50%;
+    display: block; flex: 0 0 10px;
+  }
+  .caret { color: var(--ink-soft); font-size: 11px; margin-left: 4px; }
+
+  .toggle {
+    width: 53px; height: 28px;
+    background: #DAD8D3;
+    border-radius: 14px;
+    box-shadow: var(--shadow-recessed);
+    position: relative;
+    display: inline-block;
+  }
+  .toggle-thumb {
+    position: absolute;
+    top: 2.5px; left: 3px;
+    width: 23px; height: 23px;
+    background: #ECEAE5;
+    border-radius: 50%;
+    box-shadow: var(--shadow-control);
+    display: block;
+  }
+  .toggle.multi { width: 51px; overflow: hidden; background: transparent; box-shadow: none; }
+  .toggle.multi::before, .toggle.multi::after, .toggle.multi span {
+    content: ""; position: absolute; top: 2px;
+    width: 24px; height: 24px; border-radius: 50%;
+    box-shadow: var(--shadow-control);
+    display: block;
+  }
+  .toggle.multi::before { left: 0;  background: var(--blue-gray); }
+  .toggle.multi span    { left: 14px; background: var(--seafoam); }
+  .toggle.multi::after  { left: 28px; background: var(--amber-pale); }
+
+  .vertical-strip {
+    width: 24px; height: 140px;
+    border-radius: 11px;
+    background: var(--strip);
+    color: var(--ink-strip);
+    box-shadow: var(--shadow-control);
+    display: inline-flex; justify-content: center; align-items: center;
+  }
+  .vertical-strip span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .table-panel {
+    width: 340px; padding: 12px 14px;
+    background: var(--surface);
+    border-radius: 14px;
+    box-shadow: var(--shadow-control);
+    color: var(--ink);
+    font-size: 11px; font-weight: 500; letter-spacing: -0.01em;
+  }
+  .table-panel header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; font-size: 12px; font-weight: 600; border-bottom: 1px solid rgba(87,84,79,.14); margin-bottom: 8px; }
+  .table-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .table-cell {
+    background: rgba(210,208,202,.55);
+    color: var(--ink);
+    border-radius: 5px;
+    padding: 6px 4px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .table-cell.hover    { background: var(--mint-gray);  color: var(--white-soft); }
+  .table-cell.selected { background: var(--dusty-blue); color: var(--white-soft); }
+
+  .segment-nav {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 4px;
+    display: inline-flex; gap: 4px;
+    box-shadow: var(--shadow-control);
+  }
+  .segment-tile {
+    padding: 8px 20px;
+    border-radius: 8px;
+    color: var(--white-soft);
+    font-size: 12px; font-weight: 500; letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .segment-tile.nover  { background: var(--seafoam); }
+  .segment-tile.comel  { background: var(--blue-gray); }
+  .segment-tile.doiden { background: var(--pale-sage); }
+
+  /* ─────────────────────────────────────────────────────
+     Composition Examples — the frames themselves
+     ───────────────────────────────────────────────────── */
+  .frames-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 44px 32px;
+  }
+
+  .frame-card { display: flex; flex-direction: column; gap: 14px; }
+  .frame-rail {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 0 2px;
+  }
+  .frame-rail-name {
+    font-size: 15px;
+    color: var(--white-soft);
+    letter-spacing: -0.012em;
+    font-weight: 500;
+  }
+  .frame-rail-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+    font-variant-numeric: tabular-nums;
+    display: flex; gap: 14px;
+  }
+  .frame-rail-meta span::before { content: ""; display: inline-block; width: 6px; }
+
+  .frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    container-type: size;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 90px rgba(78,75,70,.06),
+      0 14px 32px rgba(0,0,0,.32);
+    background-image:
+      radial-gradient(circle at 50% 22%, rgba(255,255,255,.30), transparent 38%),
+      linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 50%, var(--bg-bottom) 100%);
+  }
+  .frame-fill {
+    position: absolute; inset: 0;
+    padding: 5cqw;
+    display: flex;
+    box-sizing: border-box;
+  }
+
+  /* ─── Frame-scale components (cqw against the frame) ─── */
+  .f-strip {
+    position: absolute;
+    top: 5cqw; bottom: 5cqw;
+    width: 1.4cqw;
+    background: var(--strip);
+    color: var(--ink-strip);
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-control);
+    z-index: 2;
+  }
+  .f-strip.left  { left: 1cqw; }
+  .f-strip.right { right: 1cqw; }
+  .f-strip span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 1.05cqw;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .f-eyebrow {
+    color: var(--ink-soft);
+    font-size: 1.4cqw;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .f-caption {
+    color: var(--ink-caption);
+    font-size: 1.4cqw;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+    text-align: center;
+    max-width: 60cqw;
+  }
+
+  .f-wordmark {
+    color: var(--ink);
+    font-size: 30cqw;
+    font-weight: 600;
+    line-height: 0.84;
+    letter-spacing: -1.9cqw;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .f-headline-hero {
+    color: var(--ink);
+    font-size: 14cqw;
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: -0.6cqw;
+    margin: 0;
+    text-align: center;
+    max-width: 78cqw;
+  }
+  .f-claim-large {
+    color: var(--ink);
+    font-size: 6.5cqw;
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.14cqw;
+    margin: 0;
+    text-align: center;
+    max-width: 78cqw;
+  }
+  .f-section-head {
+    color: var(--ink);
+    font-size: 4.2cqw;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.08cqw;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .f-state-pill-giant {
+    height: 5.4cqw;
+    padding: 0 2.4cqw;
+    border-radius: 40px;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-control);
+    display: inline-flex; align-items: center; gap: 1cqw;
+    font-size: 2.4cqw;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .f-state-pill-giant::before {
+    content: "";
+    width: 1cqw; height: 1cqw;
+    background: var(--seafoam);
+    border-radius: 50%;
+    display: block; flex: 0 0 1cqw;
+  }
+
+  .f-circular-action-giant {
+    width: 22cqw; height: 22cqw;
+    background: var(--seafoam);
+    border-radius: 50%;
+    border: 2.2cqw solid rgba(230,230,222,.6);
+    box-shadow: var(--shadow-raised-giant);
+    position: relative;
+    box-sizing: border-box;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f-ca-glyph {
+    width: 7cqw; height: 8cqw;
+    position: relative;
+    color: var(--white-soft);
+  }
+  .f-ca-glyph::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 50% 20%, currentColor 0.7cqw, transparent 0.9cqw),
+      linear-gradient(currentColor, currentColor) 50% 42% / 0.35cqw 55% no-repeat,
+      radial-gradient(circle at 25% 70%, currentColor 0.9cqw, transparent 1.1cqw),
+      radial-gradient(circle at 75% 70%, currentColor 0.9cqw, transparent 1.1cqw);
+  }
+
+  .f-lavender-pill-giant {
+    height: 6cqw;
+    padding: 0 2.8cqw;
+    border-radius: 40px;
+    background: var(--lavender);
+    color: var(--white-soft);
+    box-shadow: var(--shadow-focus);
+    display: inline-flex; align-items: center; gap: 1.2cqw;
+    font-size: 2.4cqw;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .f-lavender-pill-giant::before {
+    content: "";
+    width: 1.4cqw; height: 1.4cqw;
+    border: 0.16cqw solid var(--white-soft);
+    border-radius: 50%;
+    display: block; flex: 0 0 1.4cqw;
+  }
+
+  .f-input-focused {
+    height: 3.4cqw;
+    padding: 0 1.2cqw;
+    border-radius: 22px;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-focus);
+    display: inline-flex; align-items: center; gap: 0.8cqw;
+    font-size: 1.6cqw;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .f-red-dot {
+    width: 0.8cqw; height: 0.8cqw;
+    background: var(--red-dot);
+    border-radius: 50%;
+    display: block; flex: 0 0 0.8cqw;
+  }
+  .f-caret {
+    color: var(--ink-soft);
+    font-size: 1.2cqw;
+    margin-left: 0.4cqw;
+  }
+
+  .f-soft-card {
+    border-radius: 14px;
+    color: var(--white-soft);
+    box-shadow: var(--shadow-raised);
+    padding: 1.6cqw 1.8cqw;
+    display: flex; align-items: center; gap: 1.4cqw;
+    font-size: 1.7cqw;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.2;
+  }
+  .f-soft-card small {
+    font-size: 1.0cqw;
+    font-weight: 400;
+    opacity: .85;
+    letter-spacing: -0.005em;
+    display: block;
+    margin-top: 0.3cqw;
+  }
+  .f-soft-card.sage  { background: var(--sage); }
+  .f-soft-card.mint  { background: var(--mint-gray); }
+  .f-soft-card.blue  { background: var(--blue-gray); }
+  .f-soft-card.dusty { background: var(--dusty-blue); }
+  .f-soft-card.green { background: var(--muted-green); }
+  .f-soft-card.pale  { background: var(--pale-sage); }
+
+  .f-ico {
+    width: 2.6cqw; height: 2.6cqw;
+    flex: 0 0 2.6cqw;
+    border: 0.14cqw solid currentColor;
+    border-radius: 50%;
+    position: relative;
+    color: inherit;
+  }
+  .f-ico::before {
+    content: "";
+    position: absolute; inset: 30%;
+    border: 0.14cqw solid currentColor;
+    border-radius: 50%;
+    opacity: .8;
+  }
+  .f-ico.dots {
+    border: 0;
+    background:
+      radial-gradient(circle, currentColor 15%, transparent 22%) 0    0    / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 50%  0    / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 100% 0    / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 0    50%  / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 50%  50%  / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 100% 50%  / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 0    100% / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 50%  100% / 33% 33% no-repeat,
+      radial-gradient(circle, currentColor 15%, transparent 22%) 100% 100% / 33% 33% no-repeat;
+  }
+  .f-ico.rect { border-radius: 4px; }
+  .f-ico.rect::before { border-radius: 2px; inset: 22%; }
+
+  .f-table-panel {
+    background: var(--surface);
+    border-radius: 14px;
+    box-shadow: var(--shadow-control);
+    padding: 1.4cqw 1.6cqw;
+    display: flex;
+    flex-direction: column;
+    gap: 1cqw;
+    width: 60cqw;
+    color: var(--ink);
+  }
+  .f-table-panel header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 1.7cqw;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    padding-bottom: 0.8cqw;
+    border-bottom: 1px solid rgba(87,84,79,.14);
+    white-space: nowrap;
+  }
+  .f-table-panel header .plus {
+    color: var(--ink-soft); font-size: 1.4cqw; font-weight: 500;
+  }
+  .f-table-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8cqw;
+  }
+  .f-table-cell {
+    background: rgba(210,208,202,.55);
+    color: var(--ink);
+    border-radius: 5px;
+    padding: 0.8cqw 0.6cqw;
+    text-align: center;
+    font-size: 1.5cqw;
+    font-weight: 500;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  .f-table-cell.hover    { background: var(--mint-gray);  color: var(--white-soft); }
+  .f-table-cell.selected { background: var(--dusty-blue); color: var(--white-soft); }
+
+  .f-settings-button {
+    background: var(--muted-green);
+    color: var(--white-soft);
+    border-radius: 0.8cqw;
+    padding: 0.9cqw 1.6cqw;
+    font-size: 1.4cqw;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    box-shadow: var(--shadow-control);
+    display: inline-flex; align-self: flex-start;
+    white-space: nowrap;
+  }
+
+  .f-segment-nav {
+    background: var(--surface);
+    border-radius: 1cqw;
+    padding: 0.4cqw;
+    display: flex; gap: 0.4cqw;
+    box-shadow: var(--shadow-control);
+  }
+  .f-segment-tile {
+    padding: 0.9cqw 2cqw;
+    border-radius: 0.7cqw;
+    color: var(--white-soft);
+    font-size: 1.4cqw;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .f-segment-tile.nover  { background: var(--seafoam); }
+  .f-segment-tile.comel  { background: var(--blue-gray); }
+  .f-segment-tile.doiden { background: var(--pale-sage); }
+
+  /* ─── per-treatment layouts ─── */
+
+  .frame.cover .frame-fill {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.2cqw;
+  }
+
+  .frame.claim .frame-fill {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3cqw;
+  }
+  .frame.claim .quadrant-action {
+    position: absolute;
+    right: 8cqw; bottom: 8cqw;
+    width: 7cqw; height: 7cqw;
+    background: var(--seafoam);
+    border-radius: 50%;
+    border: 0.7cqw solid rgba(230,230,222,.6);
+    box-shadow: var(--shadow-raised);
+    box-sizing: border-box;
+    z-index: 2;
+  }
+
+  .frame.artifact .frame-fill {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3cqw;
+  }
+
+  .frame.ledger .frame-fill {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2.4cqw;
+    padding-left: 8cqw;
+  }
+  .frame.ledger .ledger-head {
+    display: flex; flex-direction: column; gap: 0.6cqw;
+    margin-bottom: 0.4cqw;
+  }
+
+  .frame.catalog .frame-fill {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.2cqw;
+  }
+  .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 26cqw);
+    grid-template-rows: repeat(2, 12cqw);
+    gap: 1.8cqw;
+  }
+  .catalog-grid .f-soft-card {
+    height: 100%; box-sizing: border-box; padding: 1.2cqw 1.4cqw;
+  }
+
+  .frame.closer .frame-fill {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.6cqw;
+  }
+
+  /* ─────────────────────────────────────────────────────
+     Principles — Do / Don't cards
+     ───────────────────────────────────────────────────── */
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .principle {
+    padding: 24px 26px;
+    background: rgba(243,242,237,.02);
+    border: 1px solid rgba(243,242,237,.10);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .principle.do   { border-left: 3px solid var(--seafoam); }
+  .principle.dont { border-left: 3px solid var(--red-dot); }
+  .principle-tag {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-caption); font-weight: 500;
+  }
+  .principle.do   .principle-tag { color: var(--seafoam); }
+  .principle.dont .principle-tag { color: var(--red-dot); }
+  .principle h4 { margin: 0; font-size: 16px; font-weight: 600; color: var(--white-soft); letter-spacing: -0.012em; }
+  .principle p  { margin: 0; font-size: 13px; color: var(--ink-caption); line-height: 1.55; letter-spacing: -0.005em; }
+
+  /* Footer */
+  footer.doc-footer {
+    padding: 60px 5vw 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-caption);
+    border-top: 1px solid rgba(243,242,237,.08);
+    font-variant-numeric: tabular-nums;
+    gap: 24px; flex-wrap: wrap;
+  }
+  footer.doc-footer b { color: var(--white-soft); letter-spacing: -0.01em; text-transform: none; font-weight: 500; }
+</style>
+</head>
+<body>
+
+  <!-- ─────────────────────────────────────────────────
+       COVER FRAME · full-bleed 16:9 · identity treatment
+       ───────────────────────────────────────────────── -->
+  <section class="cover">
+    <div class="f-strip left"><span>SNB-0135 · SOFT SAMPLE BOARD · WARM GRAY · V.1</span></div>
+    <div class="f-strip right"><span>MATTE · TACTILE · MUTED PASTEL · SHOP FLOOR</span></div>
+    <div class="cover-fill">
+      <div class="f-eyebrow">Soft Neumorphic · UI Sample Board</div>
+      <h1 class="f-wordmark">Tives</h1>
+      <div class="f-state-pill-giant">Sample Board · warm gray</div>
+    </div>
+  </section>
+
+  <div class="doc">
+
+    <!-- ─────────────────────────────────────────────
+         01 · Palette
+         ───────────────────────────────────────────── -->
+    <section class="section" id="palette">
+      <header class="section-idx">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Palette</h2>
+        <span class="section-rule"></span>
+        <span class="section-tag">14 tokens · muted</span>
+      </header>
+
+      <div class="palette-grid">
+        <div class="swatch"><div class="swatch-chip" style="background:var(--bg-top)"></div>       <div class="swatch-name">bg-top</div>       <div class="swatch-meta"><span>#D8D7D3</span><span>Ground</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--bg-mid)"></div>       <div class="swatch-name">bg-mid</div>       <div class="swatch-meta"><span>#C9C7C2</span><span>Ground</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--bg-bottom)"></div>    <div class="swatch-name">bg-bottom</div>    <div class="swatch-meta"><span>#BEBBB5</span><span>Ground</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--surface)"></div>      <div class="swatch-name">surface</div>      <div class="swatch-meta"><span>#E7E4DE</span><span>Panel</span></div></div>
+
+        <div class="swatch"><div class="swatch-chip" style="background:var(--sage)"></div>         <div class="swatch-name">sage</div>         <div class="swatch-meta"><span>#7F9E8F</span><span>Card</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--mint-gray)"></div>    <div class="swatch-name">mint-gray</div>    <div class="swatch-meta"><span>#A8B5AB</span><span>Card</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--blue-gray)"></div>    <div class="swatch-name">blue-gray</div>    <div class="swatch-meta"><span>#789094</span><span>Card</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--dusty-blue)"></div>   <div class="swatch-name">dusty-blue</div>   <div class="swatch-meta"><span>#8599A0</span><span>Card</span></div></div>
+
+        <div class="swatch"><div class="swatch-chip" style="background:var(--muted-green)"></div>  <div class="swatch-name">muted-green</div>  <div class="swatch-meta"><span>#8FA292</span><span>Card</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--pale-sage)"></div>    <div class="swatch-name">pale-sage</div>    <div class="swatch-meta"><span>#B6C1B5</span><span>Card</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--seafoam)"></div>      <div class="swatch-name">seafoam</div>      <div class="swatch-meta"><span>#94AD9D</span><span>Action</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--icy-blue)"></div>     <div class="swatch-name">icy-blue</div>     <div class="swatch-meta"><span>#8FA6AE</span><span>State</span></div></div>
+
+        <div class="swatch"><div class="swatch-chip" style="background:var(--lavender)"></div>     <div class="swatch-name">lavender</div>     <div class="swatch-meta"><span>#B6ACC9</span><span>Voltage</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--red-dot)"></div>      <div class="swatch-name">red-dot</div>      <div class="swatch-meta"><span>#D45662</span><span>Signal</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--amber-pale)"></div>   <div class="swatch-name">amber-pale</div>   <div class="swatch-meta"><span>#D9BB91</span><span>Signal</span></div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:var(--strip)"></div>        <div class="swatch-name">strip</div>        <div class="swatch-meta"><span>#D4D0CA</span><span>Chrome</span></div></div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         02 · Typography
+         ───────────────────────────────────────────── -->
+    <section class="section" id="typography">
+      <header class="section-idx">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Typography</h2>
+        <span class="section-rule"></span>
+        <span class="section-tag">Inter · weight ceiling 600</span>
+      </header>
+
+      <p class="section-lede">
+        Two ramps. Reading carries the source px hierarchy at its cqw equivalent — anything below
+        the 1.4cqw legibility floor is chrome only. Display is frame-native, sized so a single
+        word can hold the whole frame.
+      </p>
+
+      <div class="type-ramp">
+        <div class="type-ramp-head"><span>Reading ramp</span><span>px @1920 · cqw · weight</span></div>
+
+        <div class="type-row">
+          <div class="type-name">caption</div>
+          <div class="type-specimen" style="font-size:27px; font-weight:400">A quiet caption sits on ambient warm gray.</div>
+          <div class="type-meta type-size">27px · 1.4cqw · 400</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">body</div>
+          <div class="type-specimen" style="font-size:31px; font-weight:400">The frame is the unit; less per frame, more frames.</div>
+          <div class="type-meta type-size">31px · 1.6cqw · 400</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">label</div>
+          <div class="type-specimen" style="font-size:35px; font-weight:500">Focused · Default · Filled</div>
+          <div class="type-meta type-size">35px · 1.8cqw · 500</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">title-s</div>
+          <div class="type-specimen" style="font-size:42px; font-weight:600; letter-spacing:-0.012em">Tives Lirming — soft neumorphic.</div>
+          <div class="type-meta type-size">42px · 2.2cqw · 600</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">title-m</div>
+          <div class="type-specimen" style="font-size:58px; font-weight:600; letter-spacing:-0.015em">Ambient light, restrained.</div>
+          <div class="type-meta type-size">58px · 3.0cqw · 600</div>
+        </div>
+      </div>
+
+      <div class="type-ramp" style="margin-top: 56px;">
+        <div class="type-ramp-head"><span>Display / hero ramp</span><span>cqw · weight · usage</span></div>
+
+        <div class="type-row">
+          <div class="type-name">wordmark-mega</div>
+          <div class="type-specimen" style="font-size:96px; font-weight:600; letter-spacing:-0.06em">Tives</div>
+          <div class="type-meta type-size">30cqw · 600 · Cover</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">display-hero</div>
+          <div class="type-specimen" style="font-size:76px; font-weight:600; letter-spacing:-0.04em">Softer.</div>
+          <div class="type-meta type-size">14cqw · 600 · Claim</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">claim-large</div>
+          <div class="type-specimen" style="font-size:52px; font-weight:500; letter-spacing:-0.02em">Softer than intended.</div>
+          <div class="type-meta type-size">6.5cqw · 500 · Editorial</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">section-head</div>
+          <div class="type-specimen" style="font-size:36px; font-weight:600; letter-spacing:-0.015em">Table Lsdtcision</div>
+          <div class="type-meta type-size">4.2cqw · 600 · Ledger</div>
+        </div>
+        <div class="type-row">
+          <div class="type-name">stat-ledger</div>
+          <div class="type-specimen" style="font-size:32px; font-weight:600; letter-spacing:-0.01em">Default · Hover · Selected</div>
+          <div class="type-meta type-size">3.6cqw · 600 · Cell</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         03 · Components
+         ───────────────────────────────────────────── -->
+    <section class="section" id="components">
+      <header class="section-idx">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Components</h2>
+        <span class="section-rule"></span>
+        <span class="section-tag">Buildable units · source-native px</span>
+      </header>
+
+      <p class="section-lede">
+        Every buildable unit here is a frontmatter token in <code style="font-family:inherit;color:var(--white-soft)">frame.md</code>. The stages render each on the brand's ambient warm-gray ground so
+        shadow, ring, and glow read as intended. Sizes below are source-native (735 canvas); the
+        frame-scale variants live inside the Composition Examples.
+      </p>
+
+      <div class="comp-grid">
+
+        <article class="comp-card">
+          <header class="comp-head"><span class="comp-name">Soft card family</span><span class="comp-token">soft-card-{tone}</span></header>
+          <div class="comp-stage frame-ground tight">
+            <div class="soft-card">      <div class="ico"></div>       <div class="soft-card-copy">Tives<small>Lirming</small></div></div>
+            <div class="soft-card mint"> <div class="ico dots"></div>  <div class="soft-card-copy">Sonbri<small>Venornan Stoes</small></div></div>
+            <div class="soft-card blue"> <div class="ico branch"></div><div class="soft-card-copy">Nover<small>branching</small></div></div>
+          </div>
+          <p class="comp-note">Six coloured grounds; ink is <code style="font-family:inherit">white-soft</code>. Icon is thin monoline in current text colour. <code style="font-family:inherit">shadow.raised</code>.</p>
+        </article>
+
+        <article class="comp-card">
+          <header class="comp-head"><span class="comp-name">State pills</span><span class="comp-token">state-pill-{state}</span></header>
+          <div class="comp-stage frame-ground tight">
+            <div class="state-pill hover"><span class="plus"></span>Hover</div>
+            <div class="state-pill">Hover</div>
+            <div class="state-pill pressed">Pressed</div>
+            <div class="state-pill green">Filled</div>
+          </div>
+          <p class="comp-note">Four coloured states. Wide-blur control shadow; ink flips to <code style="font-family:inherit">white-soft</code> on coloured grounds. Never wraps.</p>
+        </article>
+
+        <article class="comp-card">
+          <header class="comp-head"><span class="comp-name">Circular action</span><span class="comp-token">circular-action</span></header>
+          <div class="comp-stage frame-ground">
+            <div class="circular-action"><div class="ca-glyph"></div></div>
+          </div>
+          <p class="comp-note">Seafoam disc with 7px surface-tone ring. At <code style="font-family:inherit">-giant</code> (22cqw) it becomes the brand's most recognisable focal artifact.</p>
+        </article>
+
+        <article class="comp-card">
+          <header class="comp-head"><span class="comp-name">Lavender voltage</span><span class="comp-token">lavender-pill · input-focused</span></header>
+          <div class="comp-stage frame-ground tight">
+            <div class="input-focused"><span class="red-dot"></span>Focused<span class="caret">⌄</span></div>
+            <div class="lavender-pill"><span class="lavender-pill-dot"></span>Ephinodagios</div>
+          </div>
+          <p class="comp-note">The brand's scarce voltage. One lavender glow per frame, maximum. Red-dot only appears inside the composed <code style="font-family:inherit">input-focused</code> unit.</p>
+        </article>
+
+        <article class="comp-card">
+          <header class="comp-head"><span class="comp-name">Toggle · multi-toggle</span><span class="comp-token">toggle-track · toggle-thumb</span></header>
+          <div class="comp-stage frame-ground tight">
+            <div class="toggle"><span class="toggle-thumb"></span></div>
+            <div class="toggle multi"><span></span></div>
+            <div class="vertical-strip"><span>SNB-0135 · LEFT-A</span></div>
+          </div>
+          <p class="comp-note">Recessed track holds a lifted thumb. Multi-toggle stacks blue-gray · seafoam · amber-pale. The vertical strip (right) is chrome only — below the 1.4cqw legibility floor.</p>
+        </article>
+
+        <article class="comp-card">
+          <header class="comp-head"><span class="comp-name">Table panel · segment nav</span><span class="comp-token">table-panel · segment-nav</span></header>
+          <div class="comp-stage frame-ground" style="flex-direction:column; gap:16px;">
+            <div class="table-panel">
+              <header>Table Lsdtcision <span style="color:var(--ink-soft)">+</span></header>
+              <div class="table-grid">
+                <div class="table-cell">On/Off</div>
+                <div class="table-cell">Default</div>
+                <div class="table-cell hover">Hover</div>
+                <div class="table-cell selected">Selected</div>
+                <div class="table-cell">Enclale</div>
+                <div class="table-cell">Enquted</div>
+                <div class="table-cell">Hourres</div>
+                <div class="table-cell">Staves</div>
+              </div>
+            </div>
+            <div class="segment-nav">
+              <div class="segment-tile nover">Nover</div>
+              <div class="segment-tile comel">Comelons</div>
+              <div class="segment-tile doiden">Doiden</div>
+            </div>
+          </div>
+          <p class="comp-note">The one dense archetype. Exactly one <code style="font-family:inherit">-hover</code> and one <code style="font-family:inherit">-selected</code> cell per instance — the selected dusty-blue is the frame's single accent.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         04 · Composition Examples — the six treatments
+         ───────────────────────────────────────────── -->
+    <section class="section" id="frames">
+      <header class="section-idx">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Composition Examples</h2>
+        <span class="section-rule"></span>
+        <span class="section-tag">16:9 · 1920×1080 · cqw</span>
+      </header>
+
+      <p class="section-lede">
+        Six frame treatments, each an <code style="font-family:inherit;color:var(--white-soft)">aspect-ratio: 16/9</code> container with
+        <code style="font-family:inherit;color:var(--white-soft)">container-type: size</code>; internal sizing in cqw so the frames render at
+        true proportions at this contact-sheet size. Cover (above) is treatment 1.
+      </p>
+
+      <div class="frames-grid">
+
+        <!-- 2 · Oversized Claim -->
+        <div class="frame-card">
+          <header class="frame-rail">
+            <span class="frame-rail-name">2 · Oversized Claim</span>
+            <span class="frame-rail-meta"><span>Editorial</span><span>Sparse</span></span>
+          </header>
+          <div class="frame claim">
+            <div class="frame-fill">
+              <div class="f-eyebrow">Sample Notes · No.2</div>
+              <h3 class="f-claim-large">Softer than intended.</h3>
+            </div>
+            <div class="quadrant-action" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- 3 · Focal Artifact -->
+        <div class="frame-card">
+          <header class="frame-rail">
+            <span class="frame-rail-name">3 · Focal Artifact</span>
+            <span class="frame-rail-meta"><span>Brand-signature</span><span>Sparse</span></span>
+          </header>
+          <div class="frame artifact">
+            <div class="f-strip right"><span>SNB-0135 · ACT · SEAFOAM · V.1</span></div>
+            <div class="frame-fill">
+              <div class="f-circular-action-giant"><div class="f-ca-glyph"></div></div>
+              <div class="f-caption">The action — one moon, warm-gray sky, seafoam under the ring.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 · Ledger -->
+        <div class="frame-card">
+          <header class="frame-rail">
+            <span class="frame-rail-name">4 · Ledger</span>
+            <span class="frame-rail-meta"><span>Data</span><span>Dense-exception</span></span>
+          </header>
+          <div class="frame ledger">
+            <div class="frame-fill">
+              <div class="ledger-head">
+                <div class="f-eyebrow">Sample Board · state matrix</div>
+                <h3 class="f-section-head">Table Lsdtcision</h3>
+              </div>
+              <div class="f-table-panel">
+                <header>Row 1 · states <span class="plus">+</span></header>
+                <div class="f-table-grid">
+                  <div class="f-table-cell">On/Off</div>
+                  <div class="f-table-cell">Default</div>
+                  <div class="f-table-cell hover">Hover</div>
+                  <div class="f-table-cell selected">Selected</div>
+                  <div class="f-table-cell">Enclale</div>
+                  <div class="f-table-cell">Enquted</div>
+                  <div class="f-table-cell">Hourres</div>
+                  <div class="f-table-cell">Staves</div>
+                </div>
+              </div>
+              <div class="f-settings-button">Ephinodagios</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 · Catalog -->
+        <div class="frame-card">
+          <header class="frame-rail">
+            <span class="frame-rail-name">5 · Catalog</span>
+            <span class="frame-rail-meta"><span>Chrome</span><span>Dense-exception</span></span>
+          </header>
+          <div class="frame catalog">
+            <div class="frame-fill">
+              <div class="f-eyebrow">Sample Board · 6 tones</div>
+              <div class="catalog-grid">
+                <div class="f-soft-card sage"> <div class="f-ico"></div>       <div>Tives<small>Lirming</small></div></div>
+                <div class="f-soft-card mint"> <div class="f-ico dots"></div>  <div>Sonbri<small>Venornan Stoes</small></div></div>
+                <div class="f-soft-card blue"> <div class="f-ico rect"></div>  <div>Nover<small>branching</small></div></div>
+                <div class="f-soft-card dusty"><div class="f-ico rect"></div>  <div>Comelons<small>outline</small></div></div>
+                <div class="f-soft-card green"><div class="f-ico"></div>       <div>Doiden<small>diagonal link</small></div></div>
+                <div class="f-soft-card pale"> <div class="f-ico"></div>       <div>Hourres<small>eye · ring</small></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 · Closer -->
+        <div class="frame-card">
+          <header class="frame-rail">
+            <span class="frame-rail-name">6 · Closer</span>
+            <span class="frame-rail-meta"><span>Identity</span><span>Sparse</span></span>
+          </header>
+          <div class="frame closer">
+            <div class="f-strip left"><span>SNB-0135 · CLOSE · LAVENDER · V.1</span></div>
+            <div class="f-strip right"><span>ONE VOLTAGE · WARM SILENCE · MATTE</span></div>
+            <div class="frame-fill">
+              <div class="f-input-focused"><span class="f-red-dot"></span>Focused<span class="f-caret">⌄</span></div>
+              <div class="f-lavender-pill-giant">Ephinodagios</div>
+              <div class="f-caption">One voltage per frame. The rest is warm gray.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1 · Cover (contact-sheet reference of the full-bleed cover) -->
+        <div class="frame-card">
+          <header class="frame-rail">
+            <span class="frame-rail-name">1 · Cover (reference)</span>
+            <span class="frame-rail-meta"><span>Identity</span><span>Sparse</span></span>
+          </header>
+          <div class="frame cover">
+            <div class="f-strip left"><span>SNB-0135 · SOFT SAMPLE BOARD · WARM GRAY · V.1</span></div>
+            <div class="f-strip right"><span>MATTE · TACTILE · MUTED PASTEL · SHOP FLOOR</span></div>
+            <div class="frame-fill">
+              <div class="f-eyebrow">Soft Neumorphic · UI Sample Board</div>
+              <h3 class="f-wordmark">Tives</h3>
+              <div class="f-state-pill-giant">Sample Board · warm gray</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         05 · Principles
+         ───────────────────────────────────────────── -->
+    <section class="section" id="principles">
+      <header class="section-idx">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Principles</h2>
+        <span class="section-rule"></span>
+        <span class="section-tag">Craft Bar · Squint · Silence · Restraint</span>
+      </header>
+
+      <div class="principle-grid">
+        <article class="principle do">
+          <div class="principle-tag">Do · squint</div>
+          <h4>One thing holds the light.</h4>
+          <p>One element dominates at 3–6× its nearest neighbour. The 3×2 card grid reads as a single mass, not six equal cards; the giant action reads as a moon.</p>
+        </article>
+
+        <article class="principle do">
+          <div class="principle-tag">Do · silence</div>
+          <h4>Warm-gray silence is ambient light.</h4>
+          <p>Sparse archetypes read 55–75% empty. Ledger and Catalog are the two named density exceptions — every other frame breathes.</p>
+        </article>
+
+        <article class="principle do">
+          <div class="principle-tag">Do · restraint</div>
+          <h4>One voltage per frame.</h4>
+          <p>Exactly one lavender focus glow, one red-dot signal, one giant focal artifact. If two things want to glow, demote one to plain surface.</p>
+        </article>
+
+        <article class="principle do">
+          <div class="principle-tag">Do · anchor</div>
+          <h4>Lean centred.</h4>
+          <p>Cover, claim, focal-artifact and closer all centre their focal element. Left anchor is reserved for ledger and catalog. Vary anchor across the sequence.</p>
+        </article>
+
+        <article class="principle dont">
+          <div class="principle-tag">Don't · shadow</div>
+          <h4>No sharp drop shadows.</h4>
+          <p>Wide-blur or nothing. <code style="font-family:inherit; color:var(--red-dot)">0 3px 5px #999</code>-class shadows break the ambient lighting instantly.</p>
+        </article>
+
+        <article class="principle dont">
+          <div class="principle-tag">Don't · saturation</div>
+          <h4>No high-saturation colour.</h4>
+          <p>If a colour reads like Material or iOS default blue, it is wrong. Every accent stays inside the muted family; no black outlines, ever.</p>
+        </article>
+
+        <article class="principle dont">
+          <div class="principle-tag">Don't · slideshow</div>
+          <h4>No headline top-left with an image parked in the right.</h4>
+          <p>That is the deck tell. Anchor varies every 2 frames maximum; the eyebrow appears on a minority of frames, not all.</p>
+        </article>
+
+        <article class="principle dont">
+          <div class="principle-tag">Don't · density</div>
+          <h4>Never more than 2–3 things on a frame.</h4>
+          <p>Two things to say → two frames, not a denser one. Sparse archetypes read empty by design; the density exceptions are named (ledger, catalog).</p>
+        </article>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="doc-footer">
+    <div><b>frame.md</b> · Soft Neumorphic UI Board · Frame Layer</div>
+    <div>Atoms sacred · Composition free · Numbers from the script</div>
+    <div>SNB-0135 · v.1 · 16:9 primary</div>
+  </footer>
+
+</body>
+</html>

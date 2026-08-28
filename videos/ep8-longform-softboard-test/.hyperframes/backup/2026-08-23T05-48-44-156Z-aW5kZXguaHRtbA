@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "StudyKorean"; src: url("public/fonts/capcut-korean.ttf") format("truetype"); font-weight: 400 600; }
+      @font-face { font-family: "StudyLatin"; src: url("public/fonts/rubik-bold.ttf") format("truetype"); font-weight: 400 600; }
+      * { box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; margin: 0; overflow: hidden; background: #D8D7D3; }
+      body { font-family: "StudyKorean", sans-serif; color: #30332F; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #D8D7D3; }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+      .board { position: absolute; inset: 0; padding: 76px 96px; background: linear-gradient(135deg, #D8D7D3 0%, #C9C7C2 55%, #BEBBB5 100%); }
+      .brand { position: absolute; top: 78px; left: 98px; display: flex; align-items: center; gap: 16px; font-size: 28px; font-weight: 600; letter-spacing: -0.04em; color: #30332F; }
+      .brand-dot { width: 18px; height: 18px; border-radius: 999px; background: #D45662; box-shadow: 0 6px 16px rgba(85, 87, 81, .18); }
+      .lesson { position: absolute; top: 80px; right: 98px; font-family: "StudyLatin", sans-serif; font-size: 23px; letter-spacing: .12em; color: #37474D; }
+      .rail { position: absolute; left: 98px; top: 177px; bottom: 79px; width: 10px; border-radius: 99px; background: #BEBBB5; box-shadow: inset 5px 5px 10px rgba(85, 87, 81, .14), inset -5px -5px 10px rgba(243, 242, 237, .75); }
+      .rail-progress { width: 100%; border-radius: inherit; background: #7F9E8F; transform-origin: 50% 0%; }
+      .hero { position: absolute; left: 210px; top: 212px; width: 1410px; height: 695px; display: grid; grid-template-columns: 1fr 1.14fr; gap: 64px; align-items: center; }
+      .eyebrow { margin-bottom: 22px; color: #37474D; font-family: "StudyLatin", sans-serif; font-size: 24px; letter-spacing: .11em; }
+      .headline { max-width: 620px; font-size: 68px; line-height: 1.22; font-weight: 600; letter-spacing: -0.055em; }
+      .headline strong { color: #416A58; font-weight: 600; }
+      .support { margin-top: 30px; max-width: 610px; font-size: 29px; line-height: 1.55; font-weight: 400; color: #37474D; letter-spacing: -0.035em; }
+      .soft-card { border-radius: 46px; background: #E7E4DE; box-shadow: 24px 24px 46px rgba(85, 87, 81, .19), -22px -22px 40px rgba(243, 242, 237, .72); }
+      .word-orbit { position: relative; height: 565px; }
+      .u-button { position: absolute; left: 132px; top: 42px; width: 314px; height: 314px; border-radius: 999px; display: grid; place-items: center; background: #E7E4DE; box-shadow: 24px 24px 46px rgba(85, 87, 81, .20), -23px -23px 42px rgba(243, 242, 237, .80); font-family: "StudyLatin", sans-serif; font-size: 180px; font-weight: 600; color: #37474D; will-change: transform; }
+      .u-label { position: absolute; left: 70px; top: 390px; width: 445px; padding: 20px; text-align: center; font-size: 32px; line-height: 1.25; font-weight: 600; letter-spacing: -0.04em; }
+      .hidden-i { position: absolute; right: 52px; top: 74px; width: 170px; height: 170px; display: grid; place-items: center; border-radius: 38px; background: #B6ACC9; box-shadow: 14px 14px 27px rgba(85, 87, 81, .17), -12px -12px 24px rgba(243, 242, 237, .58); font-family: "StudyLatin", sans-serif; font-size: 104px; color: #30332F; will-change: transform; }
+      .note { position: absolute; right: 0; bottom: 8px; width: 240px; color: #37474D; font-size: 25px; line-height: 1.35; text-align: center; letter-spacing: -0.03em; }
+      .formula-stage { position: absolute; inset: 0; display: grid; place-items: center; }
+      .formula-panel { width: 1395px; height: 590px; padding: 82px 102px; display: flex; flex-direction: column; justify-content: space-between; }
+      .formula-top { display: flex; align-items: center; justify-content: space-between; }
+      .formula-kicker { font-family: "StudyLatin", sans-serif; color: #37474D; font-size: 24px; letter-spacing: .12em; }
+      .formula-caption { color: #37474D; font-size: 30px; letter-spacing: -0.04em; }
+      .formula { display: flex; align-items: center; justify-content: center; gap: 52px; font-family: "StudyLatin", "StudyKorean", sans-serif; font-weight: 600; }
+      .formula-token { width: 210px; height: 210px; display: grid; place-items: center; border-radius: 42px; background: #E7E4DE; box-shadow: 16px 16px 31px rgba(85, 87, 81, .18), -15px -15px 29px rgba(243, 242, 237, .72); font-size: 126px; color: #30332F; }
+      .formula-token.i { background: #B6ACC9; color: #30332F; }
+      .operator { color: #37474D; font-size: 88px; font-weight: 400; }
+      .answer { width: 316px; height: 210px; display: grid; place-items: center; border-radius: 42px; background: #7F9E8F; box-shadow: 17px 17px 30px rgba(85, 87, 81, .17), -15px -15px 28px rgba(243, 242, 237, .58); color: #30332F; font-family: "StudyKorean", sans-serif; font-size: 112px; letter-spacing: -0.08em; }
+      .picture-stage { position: absolute; inset: 0; display: grid; place-items: center; }
+      .picture-card { position: relative; width: 1430px; height: 670px; padding: 88px 112px; }
+      .picture-kicker { color: #37474D; font-family: "StudyLatin", sans-serif; font-size: 24px; letter-spacing: .12em; }
+      .picture-word { margin-top: 26px; font-family: "StudyLatin", sans-serif; font-size: 172px; line-height: 1; letter-spacing: .025em; color: #30332F; }
+      .picture-word .t { color: #416A58; }
+      .picture-divider { position: absolute; left: 112px; right: 112px; top: 350px; height: 4px; border-radius: 99px; background: #C9C7C2; box-shadow: inset 2px 2px 4px rgba(85, 87, 81, .11); }
+      .picture-bottom { position: absolute; left: 112px; right: 112px; bottom: 91px; display: flex; align-items: center; justify-content: space-between; }
+      .cue { font-size: 37px; letter-spacing: -0.05em; color: #37474D; }
+      .cue strong { color: #416A58; font-weight: 600; }
+      .result-chip { min-width: 420px; padding: 24px 44px; border-radius: 30px; background: #B6ACC9; box-shadow: 12px 12px 25px rgba(85, 87, 81, .17), -10px -10px 22px rgba(243, 242, 237, .58); color: #30332F; font-size: 58px; font-weight: 600; letter-spacing: -0.07em; text-align: center; }
+      .footer { position: absolute; left: 98px; right: 98px; bottom: 62px; display: flex; justify-content: space-between; color: #37474D; font-family: "StudyLatin", sans-serif; font-size: 20px; letter-spacing: .08em; }
+      .frame { opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-sebc" id="root" data-composition-id="main" data-start="0" data-duration="28" data-width="1920" data-height="1080">
+      <audio data-hf-id="hf-mnzp" id="ep8-narration" class="clip" src="./public/audio/ep08_scene05.wav" data-start="0" data-duration="28" data-track-index="10" data-volume="1" data-hidden=""></audio>
+      <div data-hf-id="hf-2qej" class="board" aria-hidden="true"></div>
+      <div data-hf-id="hf-oojr" class="brand"><span data-hf-id="hf-i9p2" class="brand-dot"></span><span data-hf-id="hf-ciz4">이해하면 쉬운 영어</span></div>
+      <div data-hf-id="hf-1a9i" class="lesson">EP8 · SOFTBOARD TEST</div>
+      <div data-hf-id="hf-qzq8" class="rail"><div data-hf-id="hf-vhke" id="rail-progress" class="rail-progress"></div></div>
+      <div data-hf-id="hf-bd7f" id="intro" class="clip frame" data-start="0" data-duration="9" data-track-index="1"><div data-hf-id="hf-hie8" class="hero"><div data-hf-id="hf-yeow"><div data-hf-id="hf-md47" class="eyebrow">THE FIRST CLUE</div><div data-hf-id="hf-ojhu" class="headline">여기서 <strong data-hf-id="hf-0az1">U</strong>는<br data-hf-id="hf-x5px">‘우’가 아니라<br data-hf-id="hf-rsrt">‘유’ 소리예요.</div><div data-hf-id="hf-pq2f" class="support">그 안에 숨어 있는 소리를 하나씩 꺼내 보면, 단어가 읽히기 시작합니다.</div></div><div data-hf-id="hf-q717" class="word-orbit"><div data-hf-id="hf-gm51" id="u-button" class="u-button">U</div><div data-hf-id="hf-qh5d" id="hidden-i" class="hidden-i">I</div><div data-hf-id="hf-fqn5" class="u-label soft-card">U 안에 I 소리가<br data-hf-id="hf-szow">숨어 있어요</div><div data-hf-id="hf-m4lw" class="note">우가 아닌<br data-hf-id="hf-sldv">유로 들어요</div></div></div></div>
+      <div data-hf-id="hf-shyk" id="formula-scene" class="clip frame" data-start="8.5" data-duration="9" data-track-index="2" data-layout-allow-overlap="true"><div data-hf-id="hf-5hb3" class="formula-stage"><div data-hf-id="hf-7ay0" class="formula-panel soft-card"><div data-hf-id="hf-3604" class="formula-top"><div data-hf-id="hf-8ii9" class="formula-kicker">SOUND ASSEMBLY</div><div data-hf-id="hf-kgt6" class="formula-caption">이와 우를 빠르게 붙이면</div></div><div data-hf-id="hf-oty6" class="formula"><div data-hf-id="hf-n83q" id="formula-i" class="formula-token i">I</div><div data-hf-id="hf-190x" class="operator">+</div><div data-hf-id="hf-npyb" id="formula-u" class="formula-token">U</div><div data-hf-id="hf-qnme" class="operator">→</div><div data-hf-id="hf-ugg3" id="formula-answer" class="answer">유</div></div></div></div></div>
+      <div data-hf-id="hf-2kf7" id="picture-scene" class="clip frame" data-start="17" data-duration="11" data-track-index="3"><div data-hf-id="hf-yus7" class="picture-stage"><div data-hf-id="hf-04x6" class="picture-card soft-card"><div data-hf-id="hf-sp83" class="picture-kicker">READ THE WORD IN PIECES</div><div data-hf-id="hf-tkrs" id="picture-word" class="picture-word">PIC<span data-hf-id="hf-imdx" class="t">T</span>URE</div><div data-hf-id="hf-1lp6" class="picture-divider"></div><div data-hf-id="hf-5qum" class="picture-bottom"><div data-hf-id="hf-hool" class="cue">빠르게 이어지면 <strong data-hf-id="hf-hprd">‘처’</strong></div><div data-hf-id="hf-mu2q" id="result-chip" class="result-chip">T + I → 처</div></div></div></div></div>
+      <div data-hf-id="hf-yh7l" class="footer"><span data-hf-id="hf-w3uq">PRONUNCIATION NOTE</span><span data-hf-id="hf-bnqr">TEST · 28 SEC</span></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const reveal = (target, at, duration = .6, y = 20) => tl.fromTo(target, { opacity: 0, y, scale: .97 }, { opacity: 1, y: 0, scale: 1, duration, ease: "power3.out" }, at);
+      tl.fromTo("#rail-progress", { scaleY: 0 }, { scaleY: 1, duration: 28, ease: "none" }, 0);
+      tl.set("#intro", { opacity: 1 }, 0); reveal("#intro .eyebrow", .15, .42, 12); reveal("#intro .headline", .35, .72, 22); reveal("#intro .support", 1.05, .58, 16);
+      tl.fromTo("#u-button", { opacity: 0, scale: 0, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: .68, ease: "power3.out" }, .55); tl.fromTo("#hidden-i", { opacity: 0, scale: 0, y: 16 }, { opacity: 1, scale: 1, y: 0, duration: .55, ease: "power3.out" }, 3.2); reveal("#intro .u-label", 3.55, .5, 12); reveal("#intro .note", 4.1, .45, 10); tl.to("#u-button", { scale: .96, duration: .16, ease: "power1.in" }, 5.1); tl.to("#u-button", { scale: 1, duration: .46, ease: "power3.out" }, 5.26);
+      tl.to("#intro", { opacity: 0, duration: .5, ease: "power2.inOut" }, 8.5); tl.set("#formula-scene", { opacity: 1 }, 8.5); reveal("#formula-scene .formula-panel", 8.68, .6, 18); reveal("#formula-scene .formula-kicker", 9.08, .38, 10); reveal("#formula-scene .formula-caption", 9.18, .4, 10);
+      ["#formula-i", "#formula-u", "#formula-answer"].forEach((id, index) => tl.fromTo(id, { opacity: 0, scale: 0, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: .52, ease: "power3.out" }, 9.85 + index * .2));
+      tl.to("#formula-scene", { opacity: 0, duration: .5, ease: "power2.inOut" }, 17); tl.set("#picture-scene", { opacity: 1 }, 17); reveal("#picture-scene .picture-card", 17.18, .62, 18); reveal("#picture-scene .picture-kicker", 17.48, .38, 10); tl.fromTo("#picture-word", { opacity: 0, scale: .92, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: .7, ease: "power3.out" }, 17.72); reveal("#picture-scene .cue", 20.35, .5, 12); tl.fromTo("#result-chip", { opacity: 0, scale: 0, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: .58, ease: "power3.out" }, 21.0);
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

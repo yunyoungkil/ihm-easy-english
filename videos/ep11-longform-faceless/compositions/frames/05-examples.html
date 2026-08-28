@@ -1,0 +1,300 @@
+<template>
+<style>
+@font-face {
+  font-family: 'Black Han Sans';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 900;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Archivo Black';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6CYyF_g.woff2') format('woff2');
+}
+#root {
+  container-type: size;
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #FFFFFF;
+}
+.f05ex-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 78% 62% at 50% 42%, #12203A 0%, #0A1526 72%);
+}
+.f05ex-glow {
+  position: absolute;
+  left: 15cqw;
+  top: 50%;
+  width: 46cqw;
+  height: 46cqw;
+  margin-left: -23cqw;
+  margin-top: -23cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.2) 0%, rgba(245, 197, 24, 0) 68%);
+  pointer-events: none;
+}
+.f05ex-row {
+  position: absolute;
+  left: 6cqw;
+  right: 6cqw;
+  top: 4.1cqw;
+  display: flex;
+  align-items: flex-start;
+  gap: 2.4cqw;
+}
+.f05ex-anchor {
+  flex: 0 0 auto;
+  width: 19cqw;
+  padding: 2.4cqh 1.8cqw;
+  background: rgba(18, 32, 58, 0.85);
+  border: 2px solid #f5c518;
+  border-radius: 20px;
+  box-shadow: 0 0 3.6cqw rgba(245, 197, 24, 0.28), inset 0 0 3cqw rgba(245, 197, 24, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9cqh;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+.f05ex-anchor-word {
+  font-family: "Archivo Black", sans-serif;
+  font-weight: 400;
+  font-size: 3.4cqw;
+  line-height: 1;
+  color: #f5c518;
+  letter-spacing: -0.01em;
+}
+.f05ex-anchor-rule {
+  width: 60px;
+  height: 5px;
+  border-radius: 100px;
+  background: rgba(245, 197, 24, 0.55);
+}
+.f05ex-anchor-pron {
+  font-size: 1.5cqw;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #008eff;
+}
+.f05ex-anchor-label {
+  font-size: 1.0cqw;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #a9b4c4;
+}
+.f05ex-stack {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1cqw;
+}
+.f05ex-card {
+  background: rgba(18, 32, 58, 0.85);
+  border: 2px solid rgba(245, 197, 24, 0.25);
+  border-radius: 14px;
+  padding: 1.0cqw 2.0cqw;
+  will-change: opacity, transform;
+}
+.f05ex-en {
+  font-size: 1.5cqw;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #FFFFFF;
+}
+.f05ex-ko {
+  font-size: 1.4cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #008EFF;
+  margin-top: 0.35cqw;
+}
+.f05ex-hi {
+  color: #F5C518;
+  display: inline-block; /* required for transform on <span> */
+  transform-origin: 50% 50%;
+}
+</style>
+<div data-hf-id="hf-p3f0" id="root" data-composition-id="05-examples" data-start="0" data-duration="26.91" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-eta6" id="f05ex-bg-clip" class="clip f05ex-bg" data-start="0" data-duration="26.91" data-track-index="0"></div>
+
+  <div data-hf-id="hf-glow5" id="f05ex-glow" class="f05ex-glow"></div>
+
+  <div data-hf-id="hf-row5" class="f05ex-row">
+    <div data-hf-id="hf-anc5" class="f05ex-anchor" id="f05ex-anchor">
+      <div data-hf-id="hf-ancl5" class="f05ex-anchor-label">언제나 이 소리</div>
+      <div data-hf-id="hf-ancw5" class="f05ex-anchor-word">gonna</div>
+      <div data-hf-id="hf-ancr5" class="f05ex-anchor-rule"></div>
+      <div data-hf-id="hf-ancp5" class="f05ex-anchor-pron">거너</div>
+    </div>
+
+    <div data-hf-id="hf-hf0v" class="f05ex-stack">
+    <div data-hf-id="hf-h8ba" class="f05ex-card" data-card="1">
+      <div data-hf-id="hf-ne7a" class="f05ex-en">I'm <span data-hf-id="hf-p8vt" class="f05ex-hi" data-word="card1">gonna</span> go home.</div>
+      <div data-hf-id="hf-g661" class="f05ex-ko">아임 <span data-hf-id="hf-xkfk" class="f05ex-hi" data-word="card1">거너</span> 고 홈.</div>
+    </div>
+    <div data-hf-id="hf-da79" class="f05ex-card" data-card="2">
+      <div data-hf-id="hf-4ipj" class="f05ex-en">She's <span data-hf-id="hf-fl34" class="f05ex-hi" data-word="card2">gonna</span> call you.</div>
+      <div data-hf-id="hf-po35" class="f05ex-ko">쉬즈 <span data-hf-id="hf-f6sz" class="f05ex-hi" data-word="card2">거너</span> 콜 유.</div>
+    </div>
+    <div data-hf-id="hf-cijg" class="f05ex-card" data-card="3">
+      <div data-hf-id="hf-5fpa" class="f05ex-en">He's <span data-hf-id="hf-6vnb" class="f05ex-hi" data-word="card3">gonna</span> be late.</div>
+      <div data-hf-id="hf-eng9" class="f05ex-ko">히즈 <span data-hf-id="hf-nysq" class="f05ex-hi" data-word="card3">거너</span> 비 레이트.</div>
+    </div>
+    <div data-hf-id="hf-000z" class="f05ex-card" data-card="4">
+      <div data-hf-id="hf-wh4a" class="f05ex-en">We're <span data-hf-id="hf-ruee" class="f05ex-hi" data-word="card4">gonna</span> start now.</div>
+      <div data-hf-id="hf-ntzr" class="f05ex-ko">위아 <span data-hf-id="hf-f0p1" class="f05ex-hi" data-word="card4">거너</span> 스타트 나우.</div>
+    </div>
+    <div data-hf-id="hf-w1wy" class="f05ex-card" data-card="5">
+      <div data-hf-id="hf-brie" class="f05ex-en">I'm not <span data-hf-id="hf-lerp" class="f05ex-hi" data-word="card5">gonna</span> do that.</div>
+      <div data-hf-id="hf-mi9r" class="f05ex-ko">아임 낫 <span data-hf-id="hf-jkro" class="f05ex-hi" data-word="card5">거너</span> 두 댓.</div>
+    </div>
+    <div data-hf-id="hf-s3sx" class="f05ex-card" data-card="6">
+      <div data-hf-id="hf-imgi" class="f05ex-en">Are you <span data-hf-id="hf-pzyk" class="f05ex-hi" data-word="card6">gonna</span> come?</div>
+      <div data-hf-id="hf-s82w" class="f05ex-ko">아 유 <span data-hf-id="hf-evdz" class="f05ex-hi" data-word="card6">거너</span> 컴?</div>
+    </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["05-examples"] = tl;
+
+  var DURATION = 26.41;
+  var cards = document.querySelectorAll(".f05ex-card");
+
+  // ---- anchor: pinned "gonna" — the throughline word across all 6 examples,
+  // matching frame 10's anchor+list pattern (zone-based, not a floating
+  // centered stack). spring-pop entrance, then pins for the whole frame. ----
+  tl.fromTo(
+    "#f05ex-anchor",
+    { opacity: 0, scale: 0, y: 10 },
+    { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "power3.out" },
+    0.05,
+  );
+
+  // ---- ambient background texture: one slow-breathing accent glow behind the
+  // card stack (seek-safe sine driver, bounded — no repeat/yoyo). ----
+  var glowEl = document.getElementById("f05ex-glow");
+  var glowDriver = { t: 0 };
+  tl.to(
+    glowDriver,
+    {
+      t: DURATION,
+      duration: DURATION,
+      ease: "none",
+      onUpdate: function () {
+        var s = Math.sin(glowDriver.t * 0.35);
+        glowEl.style.transform = "scale(" + (1 + s * 0.08).toFixed(4) + ")";
+        glowEl.style.opacity = (0.75 + s * 0.25).toFixed(3);
+      },
+    },
+    0,
+  );
+
+  // blueprint: grid-card-assemble, short-path "direct-into-slot" variant of
+  // center-outward-expansion — each card fades + slides a short local
+  // distance into its own resting slot on its own voiceover cue, instead of
+  // bursting from a shared center. Timed off HeyGen's own word-level
+  // timestamps (audio_meta.json, frame 5) — each card lands just before its
+  // own quote is spoken.
+  var LAND = [0.4, 8.6, 10.4, 12.05, 14.5, 17.75];
+
+  cards.forEach(function (card, i) {
+    tl.fromTo(
+      card,
+      { y: 34, opacity: 0, scale: 0.96 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" },
+      LAND[i]
+    );
+  });
+
+  // asr-keyword-glow (default, non-karaoke style): "gonna"/"거너" stay
+  // permanently accent-stress yellow (frame.md's fixed color-meaning law),
+  // one linear driver sweeps scene time and modulates glow blur + scale on
+  // every target-word span (en + ko share one data-word key per card) plus
+  // that card's own border alpha, from one onUpdate loop over ALL words.
+  var ATTACK_DUR = 0.15;
+  var RELEASE = 0.35;
+  var REST_LEVEL = 0.22;
+  var MAX_BLUR = 20;
+  var MAX_SCALE_BOOST = 0.08;
+
+  // Final "...고잉 투 자리는 항상 GONNA로 들립니다" payoff: all six target
+  // words glow once, synchronized to "GONNA로" itself.
+  var SYNC = [25.16, 25.58];
+
+  var TIMINGS = {
+    card1: [[2.44, 2.639], [6.079, 6.659], SYNC], // "아임 거너 고 홈" then callback "...아니라 거너입니다"
+    card2: [[9.899, 10.079], SYNC],                // "쉬즈 거너 콜 유"
+    card3: [[11.5, 11.699], SYNC],                 // "히즈 거너 비 레이트"
+    card4: [[13.259, 13.46], SYNC],                // "위아 거너 스타트 나우"
+    card5: [[16.879, 17.119], SYNC],               // "아임 낫 거너 두 댓" (부정문)
+    card6: [[19.779, 20.039], SYNC]                // "아 유 거너 컴" (의문문)
+  };
+
+  function envelope(t, windows) {
+    var val = REST_LEVEL;
+    for (var i = 0; i < windows.length; i++) {
+      var start = windows[i][0];
+      var end = windows[i][1];
+      var e;
+      if (t < start) continue;
+      if (t < end) {
+        e = Math.min((t - start) / ATTACK_DUR, 1);
+      } else {
+        var releaseEnd = end + RELEASE;
+        e = t < releaseEnd ? 1 - ((t - end) / RELEASE) * (1 - REST_LEVEL) : REST_LEVEL;
+      }
+      if (e > val) val = e;
+    }
+    return val;
+  }
+
+  var words = document.querySelectorAll(".f05ex-hi");
+  var driver = { t: 0 };
+
+  tl.to(
+    driver,
+    {
+      t: DURATION,
+      duration: DURATION,
+      ease: "none", // linear — t maps 1:1 to scene time, do not change
+      onUpdate: function () {
+        words.forEach(function (el) {
+          var env = envelope(driver.t, TIMINGS[el.dataset.word]);
+          el.style.textShadow =
+            "0 0 " + (MAX_BLUR * env).toFixed(1) + "px rgba(245,197,24," + (0.25 + 0.65 * env).toFixed(2) + ")";
+          el.style.transform = "scale(" + (1 + MAX_SCALE_BOOST * env).toFixed(3) + ")";
+        });
+        cards.forEach(function (card, i) {
+          var env = envelope(driver.t, TIMINGS["card" + (i + 1)]);
+          card.style.borderColor = "rgba(245,197,24," + (0.25 + 0.35 * env).toFixed(2) + ")";
+        });
+      }
+    },
+    0
+  );
+})();
+</script>
+</template>

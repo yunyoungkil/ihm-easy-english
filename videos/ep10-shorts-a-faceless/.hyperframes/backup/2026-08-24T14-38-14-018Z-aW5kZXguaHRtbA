@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #F7F4EA;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-2do0" id="root" data-composition-id="main" data-start="0" data-duration="54.247" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-rdkt" id="el-01-graduation-hook" class="scene" data-composition-id="01-graduation-hook" data-composition-src="compositions/frames/01-graduation-hook.html" data-start="0" data-duration="5.265" data-track-index="0"></div>
+      <audio data-hf-id="hf-694f" id="el-01-graduation-hook-voice" src="assets/audio/frame01.wav" data-start="0" data-duration="4.765" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-6sof" id="el-02-observation" class="scene" data-composition-id="02-observation" data-composition-src="compositions/frames/02-observation.html" data-start="4.765" data-duration="9.818" data-track-index="1"></div>
+      <audio data-hf-id="hf-sl52" id="el-02-observation-voice" src="assets/audio/frame02.wav" data-start="4.765" data-duration="9.318" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-rk0r" id="el-03-confusion" class="scene" data-composition-id="03-confusion" data-composition-src="compositions/frames/03-confusion.html" data-start="14.082999999999998" data-duration="10.917" data-track-index="0"></div>
+      <audio data-hf-id="hf-i8u2" id="el-03-confusion-voice" src="assets/audio/frame03.wav" data-start="14.082999999999998" data-duration="10.417" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-puhz" id="el-04-capture" class="scene" data-composition-id="04-capture" data-composition-src="compositions/frames/04-capture.html" data-start="24.5" data-duration="8.229" data-track-index="1"></div>
+      <audio data-hf-id="hf-hwtd" id="el-04-capture-voice" src="assets/audio/frame04.wav" data-start="24.5" data-duration="7.729" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-olw9" id="el-05-artificial" class="scene" data-composition-id="05-artificial" data-composition-src="compositions/frames/05-artificial.html" data-start="32.229" data-duration="9.962" data-track-index="0"></div>
+      <audio data-hf-id="hf-pask" id="el-05-artificial-voice" src="assets/audio/frame05.wav" data-start="32.229" data-duration="9.462" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-8byk" id="el-06-three-rules" class="scene" data-composition-id="06-three-rules" data-composition-src="compositions/frames/06-three-rules.html" data-start="41.691" data-duration="7.526" data-track-index="1"></div>
+      <audio data-hf-id="hf-cc4r" id="el-06-three-rules-voice" src="assets/audio/frame06.wav" data-start="41.691" data-duration="7.026" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-nm5a" id="el-07-score-cta" class="scene" data-composition-id="07-score-cta" data-composition-src="compositions/frames/07-score-cta.html" data-start="48.717" data-duration="5.53" data-track-index="0"></div>
+      <audio data-hf-id="hf-pz9w" id="el-07-score-cta-voice" src="assets/audio/frame07.wav" data-start="48.717" data-duration="5.53" data-track-index="10" data-volume="1"></audio>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // ── frame transitions (injected by transitions.mjs) ──
+      (function () { var tl = window.__timelines["main"];
+        tl.to("#el-01-graduation-hook", { y: -1920, duration: 0.5, ease: "power3.inOut" }, 4.765);
+        tl.fromTo("#el-02-observation", { y: 1920, opacity: 1 }, { y: 0, duration: 0.5, ease: "power3.inOut" }, 4.765);
+        tl.to("#el-02-observation", { y: -1920, duration: 0.5, ease: "power3.inOut" }, 14.083);
+        tl.fromTo("#el-03-confusion", { y: 1920, opacity: 1 }, { y: 0, duration: 0.5, ease: "power3.inOut" }, 14.083);
+        tl.to("#el-03-confusion", { y: -1920, duration: 0.5, ease: "power3.inOut" }, 24.5);
+        tl.fromTo("#el-04-capture", { y: 1920, opacity: 1 }, { y: 0, duration: 0.5, ease: "power3.inOut" }, 24.5);
+        tl.to("#el-04-capture", { y: -1920, duration: 0.5, ease: "power3.inOut" }, 32.229);
+        tl.fromTo("#el-05-artificial", { y: 1920, opacity: 1 }, { y: 0, duration: 0.5, ease: "power3.inOut" }, 32.229);
+        tl.to("#el-05-artificial", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 41.691);
+        tl.fromTo("#el-06-three-rules", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 41.691);
+        tl.to("#el-06-three-rules", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 48.717);
+        tl.fromTo("#el-07-score-cta", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 48.717);
+        tl.to({}, { duration: 54.247 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+      })();
+    </script>
+  </body>
+</html>

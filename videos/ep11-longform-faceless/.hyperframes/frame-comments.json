@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "pass": "final",
+  "submitted_at": "2026-08-28T08:50:27.494Z",
+  "comments": [
+    {
+      "frame": 5,
+      "src": "compositions/frames/05-examples.html",
+      "title": "실제 문장으로 확인",
+      "text": "나레이션과 카드 나오는 속도 안 맞음"
+    },
+    {
+      "frame": 10,
+      "src": "compositions/frames/10-listening.html",
+      "title": "리스닝 트레이닝",
+      "text": "첫번째 문장 발음이 원어민 발음이 아님"
+    }
+  ]
+}

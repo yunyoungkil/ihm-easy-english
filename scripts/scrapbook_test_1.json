@@ -1,0 +1,53 @@
+{
+  "title": "scrapbook-test-1 — Market the Outcome",
+  "segments": [
+    {
+      "id": 1,
+      "scene": 1,
+      "narration": "아무도 아침에 일어나서 당신의 제품을 원하지 않습니다.",
+      "subtitleGroups": [
+        {
+          "text": "아무도 아침에 일어나서 당신의 제품을 원하지 않습니다.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "scene": 2,
+      "narration": "사람들은 그저, 자기 문제가 사라지길 원할 뿐이죠.",
+      "subtitleGroups": [
+        {
+          "text": "사람들은 그저, 자기 문제가 사라지길 원할 뿐이죠.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "scene": 3,
+      "narration": "그러니까, 결과를 마케팅하세요.",
+      "subtitleGroups": [
+        {
+          "text": "그러니까, 결과를 마케팅하세요.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "scene": 4,
+      "narration": "디지털 코치, 푸남이었습니다.",
+      "subtitleGroups": [
+        {
+          "text": "디지털 코치, 푸남이었습니다.",
+          "from": 0,
+          "to": 9007199254740991
+        }
+      ]
+    }
+  ]
+}

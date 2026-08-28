@@ -1,0 +1,20 @@
+· tts: heygen · voice 05f19352e8f74b0392a8f411eba40de1 · 13 line(s)
+  voice 01: assets/voice/01.wav (10.475s, 17 words)
+  voice 02: assets/voice/02.wav (9.195s, 14 words)
+  voice 03: assets/voice/03.wav (13.505s, 22 words)
+  voice 04: assets/voice/04.wav (20.402s, 33 words)
+  voice 05: assets/voice/05.wav (28.97s, 51 words)
+  voice 06: assets/voice/06.wav (16.013s, 37 words)
+  voice 07: assets/voice/07.wav (12.983s, 22 words)
+  voice 08: assets/voice/08.wav (14.315s, 24 words)
+  voice 09: assets/voice/09.wav (11.833s, 24 words)
+  voice 10: assets/voice/10.wav (21.995s, 39 words)
+  voice 11: assets/voice/11.wav (8.411s, 16 words)
+  voice 12: assets/voice/12.wav (9.195s, 17 words)
+  voice 13: assets/voice/13.wav (7.811s, 13 words)
+  bgm: assets/bgm/track.mp3 (retrieve "calm minimal ambient underscore, very low presence — educational, never distracting")
+✓ audio engine → C:\Users\yunyo\Downloads\project\videos\ep11-longform-faceless\audio_engine_meta.json
+  heygen: yes  ·  ran: tts,bgm
+  voices: 13  ·  bgm: heygen  ·  sfx: 0
+  total voice duration: 185.103s
+✓ audio generate: 13 voice + 1 bgm → C:\Users\yunyo\Downloads\project\videos\ep11-longform-faceless\audio_meta.json

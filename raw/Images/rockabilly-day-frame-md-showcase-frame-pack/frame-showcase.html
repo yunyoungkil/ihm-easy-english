@@ -1,0 +1,1413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rockabilly Day · frame.md showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow+Condensed:wght@500;700;800&family=Bebas+Neue&family=Lobster&display=swap" rel="stylesheet">
+<style>
+  /* ─── colors — mirror frame.md frontmatter exactly ─────────── */
+  :root{
+    --paper:#F2E7C7;
+    --paper-light:#F7EFD6;
+    --paper-shadow:#D7C89E;
+    --vintage-red:#E34232;
+    --dark-red:#C93429;
+    --faded-red:#D94B3B;
+    --ink-black:#080908;
+    --soft-black:#171714;
+    --mint:#8EC7B4;
+    --mint-light:#AED2BF;
+    --mint-dark:#669C8E;
+
+    --f-slab:"Alfa Slab One", Rye, Georgia, serif;
+    --f-cond:"Barlow Condensed", "Arial Narrow", sans-serif;
+    --f-bebas:"Bebas Neue", Anton, "Arial Narrow", sans-serif;
+    --f-script:"Lobster", "Brush Script MT", cursive;
+
+    --rounded-none:0px;
+    --rounded-pill:18px;
+    --rounded-pill-lg:36px;
+
+    --page:#0e0e0e;
+    --page-ink:#e8dfbf;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--page);color:var(--page-ink);font-family:var(--f-cond);}
+  body{overflow-x:hidden;}
+
+  /* ─── paper ground overlays (screen-print texture) ────────── */
+  .surface-paper{
+    background:
+      radial-gradient(circle at 40% 30%, rgba(255,255,255,.18), transparent 45%),
+      linear-gradient(180deg,var(--paper-light) 0%,var(--paper-shadow) 100%),
+      var(--paper);
+    color:var(--ink-black);
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  /* halftone dots + paper grain — CSS-only, using layered radial-gradients */
+  .surface-paper::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:
+      radial-gradient(rgba(8,9,8,.16) 0.6px, transparent 1px),
+      radial-gradient(rgba(8,9,8,.10) 0.5px, transparent 1px);
+    background-size:6px 6px, 3px 3px;
+    background-position:0 0, 1.5px 1.5px;
+    mix-blend-mode:multiply;
+    opacity:.55;
+    z-index:3;
+  }
+  /* fibers + flecks + edge wear */
+  .surface-paper::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 12% 88%, rgba(8,9,8,.15), transparent 22%),
+      radial-gradient(circle at 88% 12%, rgba(8,9,8,.12), transparent 20%),
+      radial-gradient(circle at 65% 78%, rgba(102,156,142,.08), transparent 35%);
+    mix-blend-mode:multiply;
+    z-index:4;
+  }
+  .surface-ink{
+    background:var(--ink-black);color:var(--paper);
+    position:relative;isolation:isolate;
+  }
+  .surface-ink::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(242,231,199,.14) 0.6px, transparent 1px);
+    background-size:5px 5px;
+    opacity:.5;
+  }
+
+  /* ─── frame container — cqw against the frame, not the viewport ─ */
+  .frame{
+    position:relative;
+    aspect-ratio:16/9;
+    container-type:size;
+    overflow:hidden;
+  }
+  .frame.p9{aspect-ratio:9/16;}
+  .frame > .inner{
+    position:absolute;inset:0;
+    padding:5cqw;
+    z-index:2;
+  }
+
+  /* ─── COMPONENT CLASSES — one per frame.md component ─────── */
+
+  /* ribbon */
+  .red-ribbon{
+    position:relative;
+    background:var(--vintage-red);
+    color:var(--paper);
+    font-family:var(--f-slab);
+    font-size:5.6cqw;
+    line-height:.92;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    padding:1.2cqw 3cqw;
+    height:12cqw;
+    display:flex;align-items:center;justify-content:center;
+    /* arc — apex up in center — clip-path polygon approximation */
+    clip-path:polygon(
+      0% 60%, 3% 45%, 8% 30%, 18% 18%, 32% 8%, 50% 3%, 68% 8%, 82% 18%, 92% 30%, 97% 45%, 100% 60%,
+      100% 100%, 96% 88%, 92% 100%, 8% 100%, 4% 88%, 0% 100%
+    );
+    box-shadow:0 0 0 0 transparent;
+    text-shadow:.28cqw .22cqw 0 var(--dark-red);
+  }
+  .red-ribbon::before{
+    /* halftone on ribbon */
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(8,9,8,.22) 0.5px, transparent 1px);
+    background-size:4px 4px;
+    mix-blend-mode:multiply;opacity:.5;
+    pointer-events:none;
+  }
+  .red-ribbon-tail{
+    background:var(--dark-red);
+    color:var(--paper);
+    height:5cqw;
+    padding:.6cqw 2cqw;
+    font-family:var(--f-slab);
+    font-size:2.4cqw;
+    line-height:1;
+    text-transform:uppercase;
+    display:inline-flex;align-items:center;
+    clip-path:polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%, 8% 50%);
+  }
+
+  /* hero-type-misreg — 3 stacked layers */
+  .hero-mis{
+    position:relative;
+    font-family:var(--f-slab);
+    font-weight:900;
+    text-transform:uppercase;
+    line-height:.84;
+    letter-spacing:-.02em;
+    color:var(--ink-black);
+    display:block;
+  }
+  .hero-mis .red{
+    position:absolute;inset:0;
+    color:var(--vintage-red);
+    transform:translate(.24cqw,.20cqw);
+    z-index:1;
+    pointer-events:none;
+  }
+  .hero-mis .cream{
+    position:absolute;inset:0;
+    color:var(--paper);
+    -webkit-text-stroke:.5cqw var(--paper);
+    transform:translate(-.12cqw,-.10cqw);
+    z-index:2;
+    pointer-events:none;
+  }
+  .hero-mis .black{position:relative;z-index:3;}
+  /* per-letter jitter */
+  .hero-mis .l{display:inline-block;transform-origin:50% 100%;}
+  .hero-mis .l:nth-child(1){transform:rotate(-3deg) translateY(.2cqw);}
+  .hero-mis .l:nth-child(2){transform:rotate(4deg) translateY(-.3cqw);}
+  .hero-mis .l:nth-child(3){transform:rotate(-2deg);}
+  .hero-mis .l:nth-child(4){transform:rotate(5deg) translateY(.1cqw);}
+  .hero-mis .l:nth-child(5){transform:rotate(-4deg) translateY(-.2cqw);}
+  .hero-mis .l:nth-child(6){transform:rotate(3deg);}
+  .hero-mis .l:nth-child(7){transform:rotate(-5deg) translateY(.25cqw);}
+  .hero-mis .l:nth-child(8){transform:rotate(2deg) translateY(-.15cqw);}
+  .hero-mis .l:nth-child(9){transform:rotate(-3deg);}
+  .hero-mis .l:nth-child(10){transform:rotate(6deg) translateY(.1cqw);}
+
+  .hero-mega{font-size:22cqw;}
+  .hero-day{font-size:18cqw;}
+  .hero-claim{font-size:14cqw;}
+  .hero-claim-mid{font-size:9.5cqw;}
+
+  /* feature pill */
+  .feature-pill{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--ink-black);color:var(--paper);
+    font-family:var(--f-cond);font-weight:800;
+    font-size:1.8cqw;letter-spacing:.12em;text-transform:uppercase;line-height:1;
+    padding:.5cqw 1.3cqw;
+    border-radius:18px;
+    white-space:nowrap;
+  }
+  .feature-pill-giant{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--ink-black);color:var(--paper);
+    font-family:var(--f-cond);font-weight:800;
+    font-size:3.2cqw;letter-spacing:.14em;text-transform:uppercase;line-height:1;
+    padding:1.4cqw 3.4cqw;
+    border-radius:36px;
+    white-space:nowrap;
+    transform:rotate(-1.2deg);
+    box-shadow:.22cqw .22cqw 0 var(--vintage-red);
+  }
+  .feature-pill-giant:nth-child(even){transform:rotate(1.4deg); box-shadow:-.22cqw .22cqw 0 var(--vintage-red);}
+
+  /* red badge — irregular circle */
+  .red-badge{
+    display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+    background:var(--vintage-red);color:var(--paper);
+    font-family:var(--f-cond);font-weight:800;
+    font-size:1.8cqw;letter-spacing:.12em;text-transform:uppercase;line-height:1.05;
+    text-align:center;
+    padding:1.8cqw 2.2cqw;
+    border-radius:48% 52% 51% 49% / 47% 53% 47% 53%;
+    transform:rotate(-8deg);
+    text-shadow:.15cqw .12cqw 0 var(--dark-red);
+    aspect-ratio:1/1;
+    width:14cqw;
+    white-space:normal;
+  }
+  .red-badge::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;
+    background-image:radial-gradient(rgba(8,9,8,.20) 0.5px, transparent 1px);
+    background-size:4px 4px;
+    mix-blend-mode:multiply;opacity:.6;pointer-events:none;
+  }
+
+  /* organizer tag / tagline / stars */
+  .top-tagline{
+    font-family:var(--f-slab);
+    font-size:1.6cqw;
+    color:var(--ink-black);
+    letter-spacing:.01em;
+    line-height:1.15;
+    text-align:center;
+  }
+  .organizer-tag{
+    font-family:var(--f-cond);font-weight:700;
+    font-size:1.4cqw;letter-spacing:.14em;text-transform:uppercase;line-height:1;
+    color:var(--mint-dark);
+    white-space:nowrap;
+  }
+  .eyebrow-star{
+    display:inline-block;width:2cqw;height:2cqw;
+    color:var(--ink-black);
+    background:
+      conic-gradient(from 0deg,
+        var(--ink-black) 0 22deg, transparent 22deg 68deg,
+        var(--ink-black) 68deg 112deg, transparent 112deg 158deg,
+        var(--ink-black) 158deg 202deg, transparent 202deg 248deg,
+        var(--ink-black) 248deg 292deg, transparent 292deg 338deg,
+        var(--ink-black) 338deg 360deg);
+    clip-path:polygon(50% 0%,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0% 50%,42% 42%);
+    transform:rotate(-6deg);
+  }
+
+  /* band ledger rows */
+  .band-row-black{
+    color:var(--ink-black);
+    font-family:var(--f-slab);
+    font-size:3.4cqw;line-height:.95;letter-spacing:.01em;
+    text-transform:uppercase;
+  }
+  .band-row-red{
+    color:var(--vintage-red);
+    font-family:var(--f-slab);
+    font-size:3.4cqw;line-height:.95;letter-spacing:.01em;
+    text-transform:uppercase;
+    text-shadow:.14cqw .1cqw 0 rgba(8,9,8,.35);
+  }
+  .band-connector{
+    color:var(--ink-black);
+    font-family:var(--f-script);
+    font-size:1.9cqw;line-height:1;
+    display:inline-block;transform:rotate(-3deg);
+    padding:0 .6cqw;
+  }
+  .country-code{
+    color:var(--mint-dark);
+    font-family:var(--f-cond);font-weight:500;
+    font-size:1.4cqw;line-height:1;letter-spacing:.05em;text-transform:uppercase;
+  }
+
+  /* info script */
+  .info-script{
+    font-family:var(--f-script);
+    font-size:3.2cqw;line-height:1;
+    color:var(--vintage-red);
+    display:inline-block;transform:rotate(-4deg);
+    text-shadow:.18cqw .14cqw 0 rgba(8,9,8,.25);
+  }
+  .section-head{
+    font-family:var(--f-bebas);
+    font-size:4.2cqw;line-height:.95;letter-spacing:.02em;
+    text-transform:uppercase;color:var(--ink-black);
+  }
+
+  /* website banner */
+  .website-banner{
+    display:inline-flex;align-items:center;
+    background:var(--ink-black);color:var(--paper);
+    font-family:var(--f-bebas);font-weight:700;
+    font-size:3.6cqw;letter-spacing:.03em;text-transform:uppercase;line-height:.95;
+    padding:1.2cqw 2.6cqw;
+    border-radius:18px;
+    white-space:nowrap;
+  }
+  .website-banner .www{color:var(--vintage-red);margin-right:.4cqw;}
+
+  /* signs arrow */
+  .signs-arrow{
+    display:inline-flex;align-items:center;
+    background:var(--vintage-red);color:var(--paper);
+    font-family:var(--f-cond);font-weight:800;
+    font-size:1.8cqw;letter-spacing:.12em;text-transform:uppercase;line-height:1;
+    padding:1cqw 2.8cqw 1cqw 1.8cqw;
+    clip-path:polygon(0 0, 88% 0, 100% 50%, 88% 100%, 0 100%, 6% 50%);
+    outline:.22cqw solid var(--ink-black);
+    outline-offset:-.22cqw;
+    white-space:nowrap;
+    text-shadow:.15cqw .12cqw 0 var(--dark-red);
+  }
+
+  /* location strip */
+  .location-strip{
+    display:flex;align-items:center;justify-content:center;
+    gap:1.4cqw;
+    font-family:var(--f-bebas);font-weight:700;
+    font-size:4.8cqw;letter-spacing:.02em;text-transform:uppercase;line-height:.95;
+    color:var(--ink-black);
+    white-space:nowrap;
+  }
+  .location-strip .dot{
+    display:inline-block;width:.9cqw;height:.9cqw;border-radius:50%;
+    background:var(--vintage-red);
+    transform:translateY(-.4cqw);
+  }
+
+  /* mint burst — behind hero / plug */
+  .mint-burst{
+    position:absolute;
+    width:60cqw;height:60cqw;
+    background:
+      radial-gradient(circle at 50% 50%,
+        rgba(142,199,180,.55) 0%,
+        rgba(142,199,180,.35) 22%,
+        rgba(142,199,180,.15) 42%,
+        transparent 62%);
+    filter:blur(.3cqw);
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:0;
+  }
+  .mint-burst::before{
+    content:"";position:absolute;inset:0;
+    background:
+      conic-gradient(from 12deg,
+        rgba(102,156,142,.35) 0 6deg, transparent 6deg 32deg,
+        rgba(102,156,142,.30) 32deg 40deg, transparent 40deg 68deg,
+        rgba(102,156,142,.35) 68deg 76deg, transparent 76deg 108deg,
+        rgba(102,156,142,.28) 108deg 116deg, transparent 116deg 148deg,
+        rgba(102,156,142,.32) 148deg 156deg, transparent 156deg 190deg,
+        rgba(102,156,142,.30) 190deg 198deg, transparent 198deg 230deg,
+        rgba(102,156,142,.33) 230deg 238deg, transparent 238deg 270deg,
+        rgba(102,156,142,.30) 270deg 278deg, transparent 278deg 310deg,
+        rgba(102,156,142,.32) 310deg 318deg, transparent 318deg 360deg);
+    border-radius:50%;
+    mix-blend-mode:multiply;
+    opacity:.55;
+  }
+
+  /* music staff */
+  .music-staff{
+    position:absolute;
+    color:var(--ink-black);
+    pointer-events:none;
+  }
+  .music-staff svg{width:100%;height:100%;display:block;overflow:visible;}
+
+  /* ─── spark plug — CSS-drawn engraving ─────────────────── */
+  .spark-plug{
+    position:relative;
+    width:14cqw;height:34cqw;
+    transform:rotate(-15deg);
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .sp-top{
+    width:35%;height:9%;background:var(--ink-black);
+    border-radius:2px 2px 0 0;
+  }
+  .sp-cap{
+    width:55%;height:7%;background:var(--ink-black);
+    margin-top:.3cqw;
+  }
+  .sp-ribs{
+    width:80%;height:22%;
+    background:
+      repeating-linear-gradient(0deg,
+        var(--paper) 0 5%, var(--ink-black) 5% 5.6%,
+        var(--paper) 5.6% 11%, var(--ink-black) 11% 11.6%);
+    border:.22cqw solid var(--ink-black);
+    margin-top:.3cqw;
+    position:relative;
+  }
+  .sp-ribs::after{
+    content:"";position:absolute;left:0;right:0;bottom:-.6cqw;height:1cqw;
+    background:var(--mint-dark);opacity:.6;
+  }
+  .sp-hex{
+    width:70%;height:9%;
+    background:var(--paper);
+    border:.22cqw solid var(--ink-black);
+    background-image:repeating-linear-gradient(45deg, var(--ink-black) 0 1px, transparent 1px 3px);
+    margin-top:-.2cqw;
+    position:relative;
+  }
+  .sp-hex::after{
+    content:"HOT ROD ROCK";
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--f-cond);font-weight:800;font-size:.9cqw;
+    color:var(--ink-black);letter-spacing:.1em;
+  }
+  .sp-thread{
+    width:55%;height:35%;
+    background:
+      repeating-linear-gradient(-8deg,
+        var(--paper) 0 3.5%,
+        var(--ink-black) 3.5% 4.5%,
+        var(--paper) 4.5% 8%);
+    border-left:.22cqw solid var(--ink-black);
+    border-right:.22cqw solid var(--ink-black);
+    position:relative;
+  }
+  .sp-thread::before{
+    content:"";position:absolute;right:-1.4cqw;top:20%;width:1.2cqw;height:1.2cqw;
+    background:var(--vintage-red);
+    border-radius:50%;
+    box-shadow:0 0 0 .18cqw var(--ink-black);
+  }
+  .sp-tip{
+    width:20%;height:12%;background:var(--ink-black);
+    clip-path:polygon(0 0,100% 0,60% 100%,40% 100%);
+  }
+
+  /* ─── classic car — CSS-drawn silhouette ─────────────── */
+  .classic-car{
+    position:relative;
+    width:85cqw;height:32cqw;
+    margin:0 auto;
+  }
+  .cc-body{
+    position:absolute;left:5%;right:5%;bottom:22%;top:20%;
+    background:var(--paper-light);
+    border:.32cqw solid var(--ink-black);
+    border-radius:60% 30% 10% 8% / 80% 60% 20% 20%;
+    box-shadow:inset 0 -1.5cqw 0 var(--paper-shadow);
+  }
+  .cc-cabin{
+    position:absolute;left:22%;top:5%;width:44%;height:45%;
+    background:var(--paper);
+    border:.32cqw solid var(--ink-black);
+    border-radius:80% 65% 0 0 / 100% 100% 0 0;
+  }
+  .cc-cabin::after{
+    content:"";position:absolute;left:8%;right:8%;top:18%;bottom:15%;
+    background:var(--mint);
+    border:.16cqw solid var(--ink-black);
+    border-radius:70% 60% 0 0 / 100% 100% 0 0;
+    background-image:repeating-linear-gradient(15deg, rgba(8,9,8,.18) 0 1px, transparent 1px 4px);
+  }
+  .cc-hood{
+    position:absolute;left:5%;top:32%;width:32%;height:22%;
+    background:var(--paper-light);
+    border-top:.32cqw solid var(--ink-black);
+    border-bottom:.32cqw solid var(--ink-black);
+    transform:skewX(-8deg);
+  }
+  .cc-grille{
+    position:absolute;left:2%;bottom:22%;width:14%;height:16%;
+    background:var(--ink-black);
+    background-image:repeating-linear-gradient(90deg,
+      var(--paper) 0 .2cqw, var(--ink-black) .2cqw .5cqw);
+    border:.22cqw solid var(--ink-black);
+    border-radius:40% 8% 8% 40% / 60% 15% 15% 60%;
+  }
+  .cc-headlight{
+    position:absolute;left:8%;bottom:39%;width:6%;height:9%;
+    background:var(--paper);
+    border:.22cqw solid var(--ink-black);
+    border-radius:50%;
+  }
+  .cc-wheel{
+    position:absolute;bottom:2%;width:16%;aspect-ratio:1/1;
+    background:var(--ink-black);
+    border-radius:50%;
+    box-shadow:inset 0 0 0 .8cqw var(--paper), inset 0 0 0 1cqw var(--ink-black), inset 0 0 0 2cqw var(--paper);
+  }
+  .cc-wheel::before{
+    content:"";position:absolute;inset:28%;border-radius:50%;
+    background:var(--ink-black);
+    background-image:conic-gradient(from 0deg, var(--paper) 0 6deg, var(--ink-black) 6deg 60deg, var(--paper) 60deg 66deg, var(--ink-black) 66deg 120deg, var(--paper) 120deg 126deg, var(--ink-black) 126deg 180deg, var(--paper) 180deg 186deg, var(--ink-black) 186deg 240deg, var(--paper) 240deg 246deg, var(--ink-black) 246deg 300deg, var(--paper) 300deg 306deg, var(--ink-black) 306deg 360deg);
+  }
+  .cc-wheel.front{left:14%;}
+  .cc-wheel.rear{right:8%;}
+  .cc-shadow{
+    position:absolute;left:2%;right:2%;bottom:-1cqw;height:3.4cqw;
+    background:var(--ink-black);
+    border-radius:50%;
+    filter:blur(.15cqw);
+    background-image:repeating-linear-gradient(90deg,
+      var(--ink-black) 0 6px, rgba(8,9,8,.6) 6px 9px);
+    opacity:.9;
+  }
+  .cc-fender-shade{
+    position:absolute;left:6%;right:6%;bottom:20%;height:8%;
+    background:var(--mint);
+    opacity:.55;
+    border-radius:60% 40% 0 0 / 100% 100% 0 0;
+    mix-blend-mode:multiply;
+  }
+
+  /* ─── COVER FRAME (first element, full-bleed) ────────── */
+  .cover-wrap{
+    width:100vw;
+    position:relative;
+  }
+  .cover-wrap .frame{width:100%;}
+
+  /* internal composition of the identity cover */
+  .plate-cover .inner{
+    display:flex;flex-direction:column;align-items:center;
+    padding:3cqw 5cqw 4cqw;
+    gap:1cqw;
+  }
+  .plate-cover .top-row{
+    display:flex;align-items:center;justify-content:center;gap:1.4cqw;
+    width:100%;
+  }
+  .plate-cover .top-row .top-tagline{max-width:60cqw;}
+  .plate-cover .ribbon-row{
+    width:78cqw;position:relative;margin-top:.4cqw;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .plate-cover .ribbon-row .red-ribbon{width:100%;}
+  .plate-cover .ribbon-row .red-ribbon-tail{
+    position:absolute;right:-6cqw;top:60%;
+  }
+  .plate-cover .organizer-line{
+    position:absolute;left:8cqw;top:5.4cqw;
+  }
+  .plate-cover .hero-row{
+    margin-top:.6cqw;
+    display:flex;flex-direction:column;align-items:center;line-height:.84;
+    position:relative;
+  }
+  .plate-cover .hero-row .mint-burst{
+    left:50%;top:50%;transform:translate(-50%,-50%);
+    width:78cqw;height:52cqw;
+  }
+  .plate-cover .day-row{
+    display:flex;align-items:baseline;justify-content:center;gap:2cqw;
+    margin-top:-2cqw;
+    position:relative;z-index:2;
+  }
+  .plate-cover .day-hash{
+    font-family:var(--f-slab);font-size:8cqw;color:var(--ink-black);
+    transform:rotate(-6deg);line-height:1;
+  }
+
+  /* ─── OVERSIZED CLAIM (plate 2) ───────────────────────── */
+  .plate-claim .inner{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+  }
+  .plate-claim .claim-block{
+    max-width:78cqw;
+    display:flex;flex-direction:column;align-items:center;line-height:.88;
+  }
+  .plate-claim .organizer-bottom{
+    position:absolute;left:0;right:0;bottom:5cqw;text-align:center;
+  }
+  .plate-claim .star-mark{position:absolute;top:8cqw;left:50%;transform:translateX(-50%);}
+
+  /* ─── FOCAL ARTIFACT — spark plug (plate 3) ───────────── */
+  .plate-plug .inner{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    position:relative;
+  }
+  .plate-plug .mint-burst{
+    left:52%;top:50%;transform:translate(-50%,-50%);
+    width:56cqw;height:56cqw;
+  }
+  .plate-plug .plug-holder{
+    grid-column:2;display:flex;justify-content:center;align-items:center;
+    position:relative;z-index:2;
+  }
+  .plate-plug .left-info{
+    grid-column:1;display:flex;flex-direction:column;gap:.9cqw;padding-left:2cqw;
+    position:relative;z-index:2;
+  }
+  .plate-plug .left-info .info-script{align-self:flex-start;}
+  .plate-plug .caption-row{
+    position:absolute;left:5cqw;right:5cqw;bottom:5cqw;
+    display:flex;justify-content:space-between;align-items:center;
+    z-index:2;
+  }
+
+  /* ─── BAND LEDGER (plate 4) ───────────────────────────── */
+  .plate-ledger .inner{
+    display:grid;
+    grid-template-columns:62cqw 1fr;
+    column-gap:2.4cqw;
+    align-content:start;
+    row-gap:1.4cqw;
+    padding-top:4cqw;
+  }
+  .plate-ledger .lh{grid-column:1 / -1;display:flex;align-items:baseline;gap:2cqw;margin-bottom:.6cqw;}
+  .plate-ledger .row{
+    display:contents;
+  }
+  .plate-ledger .name{
+    display:flex;align-items:baseline;flex-wrap:wrap;gap:.4cqw;
+  }
+  .plate-ledger .cc{align-self:baseline;text-align:right;}
+  .plate-ledger .music-staff{
+    right:-4cqw;top:12%;width:22cqw;height:60%;
+  }
+
+  /* ─── FEATURE CATALOG (plate 5) ───────────────────────── */
+  .plate-catalog .inner{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    position:relative;
+  }
+  .plate-catalog .mint-burst{left:60%;top:50%;transform:translate(-50%,-50%);width:60cqw;height:60cqw;}
+  .plate-catalog .left-badge{
+    display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;gap:2cqw;
+    position:relative;z-index:2;
+    padding-top:2cqw;
+  }
+  .plate-catalog .pill-stack{
+    display:flex;flex-direction:column;align-items:flex-end;gap:1.6cqw;
+    position:relative;z-index:2;
+  }
+  .plate-catalog .cat-head{
+    font-family:var(--f-bebas);font-size:3.4cqw;letter-spacing:.03em;
+    text-transform:uppercase;color:var(--ink-black);
+    align-self:flex-end;margin-bottom:.6cqw;
+  }
+
+  /* ─── BRAND SIGNATURE — CAR (plate 6) ─────────────────── */
+  .plate-car .inner{
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:3cqw 5cqw 4cqw;
+  }
+  .plate-car .top-strip{
+    display:flex;align-items:center;justify-content:space-between;gap:2cqw;
+  }
+  .plate-car .car-holder{
+    display:flex;justify-content:center;align-items:flex-end;
+    margin-top:1cqw;
+  }
+  .plate-car .closer{
+    display:flex;align-items:center;justify-content:space-between;gap:1.6cqw;
+    padding:0 1cqw;
+  }
+
+  /* ─── CLOSER LOCATION (plate 7) ───────────────────────── */
+  .plate-loc .inner{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:1.2cqw;
+  }
+  .plate-loc .stars{
+    display:flex;align-items:center;justify-content:center;gap:1.6cqw;
+  }
+
+  /* ─── DOC CHROME (branded, dark ground so paper reads as artifact) */
+  .doc{
+    max-width:1440px;
+    margin:0 auto;
+    padding:0 4vw 8vw;
+    color:var(--page-ink);
+  }
+  .doc-header{
+    padding:6vw 0 4vw;
+    display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:2vw;
+    border-bottom:1px solid rgba(232,223,191,.18);
+  }
+  .doc-header .num{
+    font-family:var(--f-slab);font-size:6vw;color:var(--vintage-red);
+    line-height:.9;letter-spacing:-.02em;
+  }
+  .doc-header h1{
+    font-family:var(--f-slab);font-size:3.4vw;color:var(--paper);
+    line-height:.95;letter-spacing:-.01em;text-transform:uppercase;
+  }
+  .doc-header .meta{
+    font-family:var(--f-cond);font-size:.95vw;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--mint);
+    text-align:right;line-height:1.4;
+  }
+  section.doc-section{padding:5vw 0 3vw;border-bottom:1px solid rgba(232,223,191,.14);}
+  section.doc-section:last-of-type{border-bottom:none;}
+  .sec-head{
+    display:grid;grid-template-columns:auto 1fr auto;align-items:end;
+    gap:1.6vw;margin-bottom:2.4vw;
+  }
+  .sec-head .idx{
+    font-family:var(--f-slab);font-size:2.4vw;color:var(--vintage-red);
+    line-height:.9;
+  }
+  .sec-head h2{
+    font-family:var(--f-bebas);font-size:2.6vw;color:var(--paper);
+    text-transform:uppercase;letter-spacing:.03em;line-height:.95;
+  }
+  .sec-head .rule{
+    height:4px;background:var(--paper);width:100%;align-self:center;
+  }
+  .sec-head .tag{
+    font-family:var(--f-cond);font-size:.85vw;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--mint);
+  }
+
+  /* palette */
+  .palette{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw;
+  }
+  .swatch{
+    border:1px solid rgba(232,223,191,.22);
+    padding:1.2vw;
+    display:flex;flex-direction:column;gap:.6vw;
+  }
+  .swatch .chip{
+    height:6.4vw;border:1px solid rgba(232,223,191,.24);
+  }
+  .swatch .tok{
+    font-family:var(--f-cond);font-size:.9vw;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--paper);
+  }
+  .swatch .hex{
+    font-family:var(--f-cond);font-size:.82vw;letter-spacing:.06em;
+    color:var(--mint);
+  }
+  .swatch .role{
+    font-family:var(--f-slab);font-size:.95vw;color:var(--page-ink);
+    line-height:1.2;
+  }
+
+  /* typography rows */
+  .type-row{
+    display:grid;grid-template-columns:22vw 1fr;
+    gap:2vw;padding:1.6vw 0;
+    border-top:1px solid rgba(232,223,191,.14);
+  }
+  .type-row:first-child{border-top:none;}
+  .type-row .tmeta{
+    font-family:var(--f-cond);font-size:.85vw;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--mint);
+    line-height:1.6;
+  }
+  .type-row .tmeta b{color:var(--paper);font-weight:700;letter-spacing:.16em;display:block;font-size:.95vw;}
+  .type-row .tspec{
+    color:var(--paper);
+  }
+  .tspec.slab{font-family:var(--f-slab);}
+  .tspec.cond{font-family:var(--f-cond);font-weight:800;text-transform:uppercase;letter-spacing:.12em;}
+  .tspec.bebas{font-family:var(--f-bebas);text-transform:uppercase;letter-spacing:.03em;}
+  .tspec.script{font-family:var(--f-script);color:var(--vintage-red);}
+
+  /* components strip */
+  .comp-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;
+  }
+  .comp-cell{
+    background:var(--paper);
+    color:var(--ink-black);
+    padding:2.4vw;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1vw;
+    min-height:14vw;
+    container-type:inline-size;
+    position:relative;overflow:hidden;
+  }
+  .comp-cell .cap{
+    position:absolute;left:1vw;top:1vw;
+    font-family:var(--f-cond);font-size:.75vw;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--mint-dark);
+  }
+  .comp-cell.dark{background:var(--ink-black);}
+  .comp-cell.dark .cap{color:var(--mint);}
+
+  /* frame grid */
+  .grid-frames{
+    display:grid;grid-template-columns:1fr 1fr;gap:2vw;
+  }
+  .frame-card{
+    background:transparent;
+  }
+  .frame-card .frame{
+    box-shadow:0 1vw 3vw rgba(0,0,0,.55), 0 0 0 1px rgba(232,223,191,.16);
+  }
+  .frame-card .rail{
+    display:grid;grid-template-columns:auto 1fr auto auto;gap:1.2vw;align-items:baseline;
+    padding:1.2vw .2vw 0;
+    font-family:var(--f-cond);font-size:.85vw;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--mint);
+  }
+  .frame-card .rail .n{color:var(--vintage-red);font-family:var(--f-slab);font-size:1.4vw;letter-spacing:0;line-height:.9;}
+  .frame-card .rail .nm{color:var(--paper);font-family:var(--f-bebas);font-size:1.4vw;letter-spacing:.04em;text-transform:uppercase;}
+  .frame-card .rail .ar{color:var(--mint-dark);}
+  .frame-card .rail .dn{color:var(--mint);}
+
+  /* portrait section */
+  .portrait-row{
+    display:grid;grid-template-columns:repeat(3,minmax(280px,1fr));gap:2vw;
+    max-width:1180px;
+  }
+  .portrait-row .frame-card .rail{grid-template-columns:auto 1fr auto;}
+
+  /* principles */
+  .principles{
+    display:grid;grid-template-columns:1fr 1fr;gap:2vw;
+  }
+  .princ{
+    background:var(--paper);color:var(--ink-black);
+    padding:2vw;
+    border:4px solid var(--ink-black);
+  }
+  .princ.no{background:var(--ink-black);color:var(--paper);border-color:var(--vintage-red);}
+  .princ h3{
+    font-family:var(--f-bebas);font-size:2vw;letter-spacing:.03em;
+    text-transform:uppercase;margin-bottom:1vw;
+    display:flex;align-items:center;gap:.8vw;
+  }
+  .princ h3::before{
+    content:"";display:inline-block;width:1.4vw;height:1.4vw;
+    background:currentColor;
+    clip-path:polygon(50% 0%,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0% 50%,42% 42%);
+  }
+  .princ ul{list-style:none;padding:0;}
+  .princ li{
+    font-family:var(--f-cond);font-size:1.05vw;line-height:1.55;letter-spacing:.02em;
+    padding:.4vw 0;border-top:1px solid rgba(0,0,0,.14);
+  }
+  .princ.no li{border-color:rgba(242,231,199,.14);}
+
+  footer.doc-footer{
+    padding:4vw 0 2vw;
+    display:flex;align-items:center;justify-content:space-between;gap:2vw;
+    border-top:1px solid rgba(232,223,191,.18);
+    margin-top:3vw;
+  }
+  footer .lft{
+    font-family:var(--f-slab);font-size:1.4vw;color:var(--vintage-red);
+  }
+  footer .rgt{
+    font-family:var(--f-cond);font-size:.85vw;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--mint);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ COVER FRAME (full-bleed, first element) ═══════════════ -->
+<div class="cover-wrap">
+  <div class="frame plate-cover surface-paper">
+    <div class="inner">
+      <div class="top-row">
+        <span class="eyebrow-star"></span>
+        <div class="top-tagline">Thousands of visitors from all over the world every year!!</div>
+        <span class="eyebrow-star"></span>
+      </div>
+
+      <div class="ribbon-row">
+        <div class="organizer-line">
+          <div class="organizer-tag">VZW Rockabillydaybelgium</div>
+          <div class="organizer-tag">Presents</div>
+        </div>
+        <div class="red-ribbon">
+          <span>Sunday&nbsp;September</span>
+        </div>
+        <div class="red-ribbon-tail">2<sup style="font-size:1.3cqw;">nd</sup></div>
+      </div>
+
+      <div class="hero-row">
+        <div class="mint-burst"></div>
+        <div class="hero-mis hero-mega">
+          <span class="red"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+          <span class="cream"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+          <span class="black"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+        </div>
+
+        <div class="day-row">
+          <div class="hero-mis hero-day">
+            <span class="red"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+            <span class="cream"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+            <span class="black"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+          </div>
+          <span class="day-hash">#2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DOC CHROME BEGINS ═══════════════ -->
+<div class="doc">
+
+  <header class="doc-header">
+    <div class="num">01</div>
+    <h1>Rockabilly Day<br><span style="color:var(--vintage-red);">Frame&nbsp;Showcase</span></h1>
+    <div class="meta">
+      Video companion to design.md<br>
+      1920 × 1080 · 16:9 primary<br>
+      Ink · Paper · Red · Mint
+    </div>
+  </header>
+
+  <!-- ── Palette ── -->
+  <section class="doc-section">
+    <div class="sec-head">
+      <div class="idx">02</div>
+      <h2>Palette</h2>
+      <div class="rule"></div>
+      <div class="tag">3-plate + paper</div>
+    </div>
+    <div class="palette">
+      <div class="swatch"><div class="chip" style="background:#F2E7C7"></div><div class="tok">paper</div><div class="hex">#F2E7C7</div><div class="role">Default ground</div></div>
+      <div class="swatch"><div class="chip" style="background:#F7EFD6"></div><div class="tok">paper-light</div><div class="hex">#F7EFD6</div><div class="role">Vignette top</div></div>
+      <div class="swatch"><div class="chip" style="background:#D7C89E"></div><div class="tok">paper-shadow</div><div class="hex">#D7C89E</div><div class="role">Vignette base</div></div>
+      <div class="swatch"><div class="chip" style="background:#E34232"></div><div class="tok">vintage-red</div><div class="hex">#E34232</div><div class="role">Voltage · ribbon</div></div>
+      <div class="swatch"><div class="chip" style="background:#C93429"></div><div class="tok">dark-red</div><div class="hex">#C93429</div><div class="role">Ribbon tail</div></div>
+      <div class="swatch"><div class="chip" style="background:#D94B3B"></div><div class="tok">faded-red</div><div class="hex">#D94B3B</div><div class="role">Faded plate</div></div>
+      <div class="swatch"><div class="chip" style="background:#080908"></div><div class="tok">ink-black</div><div class="hex">#080908</div><div class="role">Main letter · pill</div></div>
+      <div class="swatch"><div class="chip" style="background:#171714"></div><div class="tok">soft-black</div><div class="hex">#171714</div><div class="role">Warm ink</div></div>
+      <div class="swatch"><div class="chip" style="background:#8EC7B4"></div><div class="tok">mint</div><div class="hex">#8EC7B4</div><div class="role">Air · car shadow</div></div>
+      <div class="swatch"><div class="chip" style="background:#AED2BF"></div><div class="tok">mint-light</div><div class="hex">#AED2BF</div><div class="role">Burst mid</div></div>
+      <div class="swatch"><div class="chip" style="background:#669C8E"></div><div class="tok">mint-dark</div><div class="hex">#669C8E</div><div class="role">Organizer text</div></div>
+      <div class="swatch"><div class="chip" style="background:repeating-linear-gradient(45deg,#F2E7C7 0 6px,#D7C89E 6px 8px)"></div><div class="tok">forbidden</div><div class="hex">#FFFFFF · banned</div><div class="role">No pure white</div></div>
+    </div>
+  </section>
+
+  <!-- ── Typography ── -->
+  <section class="doc-section">
+    <div class="sec-head">
+      <div class="idx">03</div>
+      <h2>Typography</h2>
+      <div class="rule"></div>
+      <div class="tag">Two ramps · floor 1.4cqw</div>
+    </div>
+
+    <div class="type-row">
+      <div class="tmeta"><b>wordmark-mega</b>Alfa Slab One · 900<br>22cqw · lh 0.84 · tr −0.02em<br>display / hero</div>
+      <div class="tspec slab" style="font-size:5vw;line-height:.86;color:var(--paper);text-transform:uppercase;letter-spacing:-.02em;">ROCKABILLY</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>wordmark-day</b>Alfa Slab One · 900<br>18cqw · lh 0.86<br>display / hero</div>
+      <div class="tspec slab" style="font-size:4.4vw;color:var(--paper);text-transform:uppercase;">DAY</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>claim-hero · claim-mid · claim-long</b>Alfa Slab One · 900<br>14 / 9.5 / 6.5 cqw<br>word-count step</div>
+      <div class="tspec slab" style="color:var(--paper);text-transform:uppercase;line-height:.92;">
+        <div style="font-size:3.4vw;">HOT ROD</div>
+        <div style="font-size:2.4vw;">Live On Stage · Bands</div>
+        <div style="font-size:1.6vw;">Belgian screen-print festival poster since — figure —</div>
+      </div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>ribbon-condensed</b>Alfa Slab One · 400<br>5.6cqw · lh 0.92<br>curved banner</div>
+      <div class="tspec slab" style="font-size:2.2vw;color:var(--vintage-red);text-transform:uppercase;letter-spacing:.02em;">SUNDAY SEPTEMBER 2ND</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>band-primary</b>Alfa Slab One · 400<br>3.4cqw · lh 0.95<br>ledger row</div>
+      <div class="tspec slab" style="font-size:1.8vw;color:var(--paper);text-transform:uppercase;letter-spacing:.01em;">THE TINSTARS · JAKE ALLEN</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>band-connective</b>Lobster · 400<br>1.9cqw<br>row connectors</div>
+      <div class="tspec script" style="font-size:1.6vw;">and her band · and the</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>location-caps</b>Bebas Neue · 700<br>4.8cqw · lh 0.95<br>closer strip</div>
+      <div class="tspec bebas" style="font-size:2.4vw;color:var(--paper);">STOEPEDSTRAAT&nbsp;·&nbsp;ASSENEDE&nbsp;·&nbsp;BELGIUM</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>website-caps</b>Bebas Neue · 700<br>3.6cqw · lh 0.95<br>banner</div>
+      <div class="tspec bebas" style="font-size:1.9vw;color:var(--paper);"><span style="color:var(--vintage-red);">WWW.</span>ROCKABILLYDAY.BE</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>pill-label · pill-giant</b>Barlow Condensed · 800<br>1.8 · 3.2 cqw<br>feature pills</div>
+      <div class="tspec cond" style="font-size:1.1vw;color:var(--paper);">LIVE MUSIC · RETRO MARKET · ART SHOW</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>country-code</b>Barlow Condensed · 500<br>1.4cqw · legibility floor<br>decorative only</div>
+      <div class="tspec cond" style="font-size:.85vw;color:var(--mint);font-weight:500;letter-spacing:.05em;">(NL) (UK) (SE) (FR)</div>
+    </div>
+    <div class="type-row">
+      <div class="tmeta"><b>script-red</b>Lobster · 400<br>3.2cqw<br>"Live on Stage" · "Info"</div>
+      <div class="tspec script" style="font-size:2.4vw;">Live on Stage</div>
+    </div>
+  </section>
+
+  <!-- ── Components ── -->
+  <section class="doc-section">
+    <div class="sec-head">
+      <div class="idx">04</div>
+      <h2>Components</h2>
+      <div class="rule"></div>
+      <div class="tag">Composable atoms</div>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-cell surface-paper" style="min-height:16vw;">
+        <div class="cap">feature-pill · pill-giant</div>
+        <span class="feature-pill">Live Music</span>
+        <span class="feature-pill-giant">Retro Market</span>
+      </div>
+      <div class="comp-cell surface-paper" style="min-height:16vw;">
+        <div class="cap">red-badge</div>
+        <div class="red-badge">Free<br>Entry<br>For 2</div>
+      </div>
+      <div class="comp-cell surface-paper" style="min-height:16vw;">
+        <div class="cap">signs-arrow · info-script</div>
+        <span class="info-script">Info</span>
+        <span class="signs-arrow">Follow The Signs</span>
+      </div>
+      <div class="comp-cell dark" style="min-height:16vw;">
+        <div class="cap">website-banner</div>
+        <span class="website-banner"><span class="www">WWW.</span>ROCKABILLYDAY.BE</span>
+      </div>
+      <div class="comp-cell surface-paper" style="min-height:16vw;">
+        <div class="cap">eyebrow-star · organizer-tag</div>
+        <span class="eyebrow-star" style="width:2vw;height:2vw;"></span>
+        <span class="organizer-tag" style="font-size:.9vw;">VZW · Rockabillydaybelgium presents</span>
+      </div>
+      <div class="comp-cell surface-paper" style="min-height:16vw;overflow:hidden;">
+        <div class="cap">red-ribbon</div>
+        <div style="width:80%;">
+          <div class="red-ribbon" style="font-size:2.2vw;height:5vw;padding:.6vw 2vw;">Sunday September</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Composition Examples · Frame Treatments ── -->
+  <section class="doc-section">
+    <div class="sec-head">
+      <div class="idx">05</div>
+      <h2>Composition Examples</h2>
+      <div class="rule"></div>
+      <div class="tag">7 treatments · 16:9</div>
+    </div>
+
+    <div class="grid-frames">
+
+      <!-- Frame 1 duplicate = cover (also shown here for the contact-sheet completeness) -->
+      <div class="frame-card">
+        <div class="frame plate-cover surface-paper">
+          <div class="inner">
+            <div class="top-row">
+              <span class="eyebrow-star"></span>
+              <div class="top-tagline">Thousands of visitors from all over the world every year!!</div>
+              <span class="eyebrow-star"></span>
+            </div>
+            <div class="ribbon-row">
+              <div class="organizer-line">
+                <div class="organizer-tag">VZW Rockabillydaybelgium</div>
+                <div class="organizer-tag">Presents</div>
+              </div>
+              <div class="red-ribbon"><span>Sunday&nbsp;September</span></div>
+              <div class="red-ribbon-tail">2<sup style="font-size:1.3cqw;">nd</sup></div>
+            </div>
+            <div class="hero-row">
+              <div class="mint-burst"></div>
+              <div class="hero-mis hero-mega">
+                <span class="red"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+                <span class="cream"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+                <span class="black"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+              </div>
+              <div class="day-row">
+                <div class="hero-mis hero-day">
+                  <span class="red"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+                  <span class="cream"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+                  <span class="black"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+                </div>
+                <span class="day-hash">#2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">01</span><span class="nm">Identity Cover</span><span class="ar">identity</span><span class="dn">sparse</span></div>
+      </div>
+
+      <!-- Frame 2 — Oversized Claim -->
+      <div class="frame-card">
+        <div class="frame plate-claim surface-paper">
+          <div class="inner">
+            <span class="star-mark eyebrow-star"></span>
+            <div class="claim-block">
+              <div class="hero-mis hero-claim">
+                <span class="red"><span class="l">H</span><span class="l">O</span><span class="l">T</span></span>
+                <span class="cream"><span class="l">H</span><span class="l">O</span><span class="l">T</span></span>
+                <span class="black"><span class="l">H</span><span class="l">O</span><span class="l">T</span></span>
+              </div>
+              <div class="hero-mis hero-claim" style="margin-top:-1cqw;">
+                <span class="red"><span class="l">R</span><span class="l">O</span><span class="l">D</span></span>
+                <span class="cream"><span class="l">R</span><span class="l">O</span><span class="l">D</span></span>
+                <span class="black"><span class="l">R</span><span class="l">O</span><span class="l">D</span></span>
+              </div>
+            </div>
+            <div class="organizer-bottom">
+              <span class="organizer-tag">VZW Rockabillydaybelgium · Assenede · Belgium</span>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">02</span><span class="nm">Oversized Claim</span><span class="ar">editorial</span><span class="dn">sparse</span></div>
+      </div>
+
+      <!-- Frame 3 — Focal Artifact · Spark Plug -->
+      <div class="frame-card">
+        <div class="frame plate-plug surface-paper">
+          <div class="inner">
+            <div class="mint-burst"></div>
+            <div class="left-info">
+              <span class="info-script">Start</span>
+              <div style="font-family:var(--f-slab);font-size:5cqw;line-height:.9;color:var(--ink-black);">11h00</div>
+              <span class="organizer-tag">Hot Rod · Rock</span>
+              <span class="organizer-tag">Assenede · BE</span>
+            </div>
+            <div class="plug-holder">
+              <div class="spark-plug">
+                <div class="sp-top"></div>
+                <div class="sp-cap"></div>
+                <div class="sp-ribs"></div>
+                <div class="sp-hex"></div>
+                <div class="sp-thread"></div>
+                <div class="sp-tip"></div>
+              </div>
+            </div>
+            <div class="caption-row">
+              <span class="info-script">Pre '65</span>
+              <span class="organizer-tag">Aircooled · Caferacer · VW's</span>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">03</span><span class="nm">Focal Artifact — Spark Plug</span><span class="ar">focal-artifact</span><span class="dn">sparse</span></div>
+      </div>
+
+      <!-- Frame 4 — Band Ledger -->
+      <div class="frame-card">
+        <div class="frame plate-ledger surface-paper">
+          <div class="inner">
+            <div class="music-staff">
+              <svg viewBox="0 0 200 400" preserveAspectRatio="none">
+                <g stroke="currentColor" stroke-width="1.5" fill="none">
+                  <path d="M20 20 Q100 60 180 20 T340 20" />
+                  <path d="M20 60 Q100 100 180 60 T340 60" />
+                  <path d="M20 100 Q100 140 180 100 T340 100" />
+                  <path d="M20 140 Q100 180 180 140 T340 140" />
+                  <path d="M20 180 Q100 220 180 180 T340 180" />
+                </g>
+                <ellipse cx="60" cy="45" rx="8" ry="6" fill="currentColor" transform="rotate(-20 60 45)"/>
+                <line x1="66" y1="42" x2="66" y2="10" stroke="currentColor" stroke-width="2"/>
+                <ellipse cx="130" cy="85" rx="8" ry="6" fill="currentColor" transform="rotate(-20 130 85)"/>
+                <line x1="136" y1="82" x2="136" y2="50" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="lh">
+              <span class="info-script">Live on Stage</span>
+              <span class="organizer-tag">Sunday September 2ND</span>
+            </div>
+            <div class="name"><span class="band-connector">The</span><span class="band-row-black">TINSTARS</span></div>
+            <span class="cc country-code">(NL)</span>
+
+            <div class="name"><span class="band-row-red">JAKE ALLEN</span></div>
+            <span class="cc country-code">(UK)</span>
+
+            <div class="name"><span class="band-row-black">LIL' ESTHER</span><span class="band-connector">and her band</span></div>
+            <span class="cc country-code">(SE)</span>
+
+            <div class="name"><span class="band-row-red">JOE</span><span class="band-connector">and the</span><span class="band-row-red">HORNETS</span></div>
+            <span class="cc country-code">(FR)</span>
+
+            <div class="name"><span class="band-connector">The</span><span class="band-row-black">SPUNBOYS</span></div>
+            <span class="cc country-code">(NL)</span>
+          </div>
+        </div>
+        <div class="rail"><span class="n">04</span><span class="nm">Band Ledger</span><span class="ar">data / ledger</span><span class="dn">dense-exception</span></div>
+      </div>
+
+      <!-- Frame 5 — Feature Catalog -->
+      <div class="frame-card">
+        <div class="frame plate-catalog surface-paper">
+          <div class="inner">
+            <div class="mint-burst"></div>
+            <div class="left-badge">
+              <span class="organizer-tag">Feature Programme</span>
+              <div class="red-badge">Free<br>Entry<br>For 2</div>
+            </div>
+            <div class="pill-stack">
+              <div class="cat-head">On the Bill</div>
+              <span class="feature-pill-giant">Live Music</span>
+              <span class="feature-pill-giant">Retro Market</span>
+              <span class="feature-pill-giant">Art Show</span>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">05</span><span class="nm">Feature Catalog</span><span class="ar">chrome / catalog</span><span class="dn">standard</span></div>
+      </div>
+
+      <!-- Frame 6 — Brand Signature · Classic Car -->
+      <div class="frame-card">
+        <div class="frame plate-car surface-paper">
+          <div class="inner">
+            <div class="top-strip">
+              <span class="info-script">Pre '65</span>
+              <span class="organizer-tag">Hot Rods · Bikes · Bicycles · Harley's · Caferacer · Aircooled · VW's</span>
+              <span class="eyebrow-star"></span>
+            </div>
+            <div class="car-holder">
+              <div class="classic-car">
+                <div class="cc-body"></div>
+                <div class="cc-hood"></div>
+                <div class="cc-cabin"></div>
+                <div class="cc-fender-shade"></div>
+                <div class="cc-grille"></div>
+                <div class="cc-headlight"></div>
+                <div class="cc-wheel front"></div>
+                <div class="cc-wheel rear"></div>
+                <div class="cc-shadow"></div>
+              </div>
+            </div>
+            <div class="closer">
+              <span class="info-script">Info</span>
+              <span class="website-banner"><span class="www">WWW.</span>ROCKABILLYDAY.BE</span>
+              <span class="signs-arrow">Follow The Signs</span>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">06</span><span class="nm">Brand Signature — Classic Car</span><span class="ar">brand-signature</span><span class="dn">standard</span></div>
+      </div>
+
+      <!-- Frame 7 — Closer Location -->
+      <div class="frame-card">
+        <div class="frame plate-loc surface-paper">
+          <div class="inner">
+            <div class="stars">
+              <span class="eyebrow-star"></span>
+              <span class="organizer-tag">Rockabilly Day · Sunday September 2ND</span>
+              <span class="eyebrow-star"></span>
+            </div>
+            <div class="location-strip">
+              <span>Stoepedstraat</span>
+              <span class="dot"></span>
+              <span>Assenede</span>
+              <span class="dot"></span>
+              <span>Belgium</span>
+            </div>
+            <span class="organizer-tag" style="margin-top:1cqw;">Follow the Signs · Free Entry for 2</span>
+          </div>
+        </div>
+        <div class="rail"><span class="n">07</span><span class="nm">Closer Location Strip</span><span class="ar">closer</span><span class="dn">sparse</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Portrait Section (9:16) ── -->
+  <section class="doc-section">
+    <div class="sec-head">
+      <div class="idx">06</div>
+      <h2>Portrait · 9:16</h2>
+      <div class="rule"></div>
+      <div class="tag">Same tokens · new frame shape</div>
+    </div>
+
+    <div class="portrait-row">
+
+      <!-- Portrait Cover -->
+      <div class="frame-card">
+        <div class="frame p9 plate-cover surface-paper">
+          <div class="inner" style="padding:5cqw 5cqw 6cqw;gap:2cqw;">
+            <div class="top-row">
+              <span class="eyebrow-star"></span>
+              <div class="top-tagline" style="font-size:2.6cqw;max-width:70cqw;">Thousands of visitors from all over the world every year!!</div>
+              <span class="eyebrow-star"></span>
+            </div>
+            <div class="ribbon-row" style="width:84cqw;">
+              <div class="red-ribbon" style="font-size:6.4cqw;height:14cqw;"><span>Sunday&nbsp;Sept</span></div>
+              <div class="red-ribbon-tail" style="position:absolute;right:-4cqw;top:70%;font-size:3.4cqw;height:7cqw;">2<sup style="font-size:1.6cqw;">nd</sup></div>
+            </div>
+            <div class="hero-row" style="margin-top:2cqw;">
+              <div class="mint-burst" style="width:84cqw;height:64cqw;"></div>
+              <div class="hero-mis" style="font-size:24cqw;line-height:.86;">
+                <span class="red"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+                <span class="cream"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+                <span class="black"><span class="l">R</span><span class="l">O</span><span class="l">C</span><span class="l">K</span><span class="l">A</span><span class="l">B</span><span class="l">I</span><span class="l">L</span><span class="l">L</span><span class="l">Y</span></span>
+              </div>
+              <div class="day-row" style="margin-top:1cqw;">
+                <div class="hero-mis" style="font-size:22cqw;line-height:.86;">
+                  <span class="red"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+                  <span class="cream"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+                  <span class="black"><span class="l">D</span><span class="l">A</span><span class="l">Y</span></span>
+                </div>
+                <span class="day-hash" style="font-size:10cqw;">#2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">01</span><span class="nm">Identity Cover</span><span class="dn">9:16 · sparse</span></div>
+      </div>
+
+      <!-- Portrait Focal Artifact -->
+      <div class="frame-card">
+        <div class="frame p9 plate-plug surface-paper">
+          <div class="inner" style="grid-template-columns:1fr;grid-template-rows:auto 1fr auto;padding:6cqw 5cqw;">
+            <div class="left-info" style="flex-direction:row;align-items:baseline;gap:2cqw;">
+              <span class="info-script" style="font-size:5cqw;">Start</span>
+              <span style="font-family:var(--f-slab);font-size:8cqw;color:var(--ink-black);">11h00</span>
+            </div>
+            <div class="plug-holder" style="align-self:center;">
+              <div class="mint-burst" style="width:80cqw;height:80cqw;left:50%;top:50%;transform:translate(-50%,-50%);"></div>
+              <div class="spark-plug" style="width:22cqw;height:54cqw;position:relative;z-index:2;">
+                <div class="sp-top"></div>
+                <div class="sp-cap"></div>
+                <div class="sp-ribs"></div>
+                <div class="sp-hex"></div>
+                <div class="sp-thread"></div>
+                <div class="sp-tip"></div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="info-script" style="font-size:4cqw;">Hot Rod Rock</span>
+              <span class="organizer-tag" style="font-size:2.2cqw;">Assenede · BE</span>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">03</span><span class="nm">Focal Artifact</span><span class="dn">9:16 · sparse</span></div>
+      </div>
+
+      <!-- Portrait Feature Catalog -->
+      <div class="frame-card">
+        <div class="frame p9 plate-catalog surface-paper">
+          <div class="inner" style="grid-template-columns:1fr;grid-template-rows:auto auto 1fr;gap:3cqw;padding:6cqw 5cqw;">
+            <div class="left-badge" style="align-items:center;flex-direction:column;padding-top:0;">
+              <span class="organizer-tag" style="font-size:2.2cqw;">Feature Programme</span>
+              <div class="red-badge" style="width:22cqw;font-size:2.8cqw;">Free<br>Entry<br>For 2</div>
+            </div>
+            <div class="mint-burst" style="width:80cqw;height:80cqw;left:50%;top:60%;transform:translate(-50%,-50%);"></div>
+            <div class="pill-stack" style="align-items:center;gap:2.4cqw;">
+              <span class="feature-pill-giant" style="font-size:4.4cqw;padding:2cqw 4cqw;">Live Music</span>
+              <span class="feature-pill-giant" style="font-size:4.4cqw;padding:2cqw 4cqw;">Retro Market</span>
+              <span class="feature-pill-giant" style="font-size:4.4cqw;padding:2cqw 4cqw;">Art Show</span>
+            </div>
+          </div>
+        </div>
+        <div class="rail"><span class="n">05</span><span class="nm">Feature Catalog</span><span class="dn">9:16 · standard</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Principles ── -->
+  <section class="doc-section">
+    <div class="sec-head">
+      <div class="idx">07</div>
+      <h2>Principles</h2>
+      <div class="rule"></div>
+      <div class="tag">Do / Don't · at frame scale</div>
+    </div>
+    <div class="principles">
+      <div class="princ">
+        <h3>Do</h3>
+        <ul>
+          <li>Compose centered by default; break to left only for the band ledger.</li>
+          <li>Vary the composition axis every 1–2 frames.</li>
+          <li>Let one red silhouette carry the frame — misreg offset is ambient.</li>
+          <li>Keep 55–75% paper visible on sparse plates.</li>
+          <li>Let the car bleed the lower edge; let the wordmark crop the sides.</li>
+          <li>Alternate row tones in the band list.</li>
+          <li>Carry halftone + paper grain over every frame.</li>
+        </ul>
+      </div>
+      <div class="princ no">
+        <h3>Don't</h3>
+        <ul>
+          <li>Never use #FFFFFF.</li>
+          <li>Never re-align the misregistration layers.</li>
+          <li>No box-shadow, gradient fills, or gaussian blur.</li>
+          <li>Never repeat the same L/R split across consecutive frames.</li>
+          <li>Never combine red ribbon + red badge + red script on one frame.</li>
+          <li>Never drop a load-bearing line below 1.4cqw.</li>
+          <li>Never ease anything — motion is cut.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="doc-footer">
+    <div class="lft">Rockabilly Day · 2026</div>
+    <div class="rgt">Frame · 1920 × 1080 · 24fps · Screen-print register</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

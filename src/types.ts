@@ -208,3 +208,37 @@ export type ShortsData = {
   header?: string[];
   segments: ShortsSegment[];
 };
+
+/** One of the three words tested in EP07-shortsA's "which reads how" beat. */
+export type ShortsAPillWord = "PASSION" | "MISSION" | "DECISION";
+
+/**
+ * One beat of EP07-shortsA (1080x1920). A dedicated type rather than reusing
+ * `ShortsSegment`: here `countdown` is a digit *count* and `reveal` names
+ * *which* pill word is being answered, both incompatible with EP06 shorts'
+ * boolean fields of the same names.
+ */
+export type ShortsASegment = {
+  id: number;
+  /** Draft plan (seconds); the real screen duration comes from the audio. */
+  start: number;
+  end: number;
+  narration: string;
+  /** Renders a countdown of this many digits (5, 4, 3, ...) instead of content. */
+  countdown?: number;
+  /** Which opening pill this beat answers. */
+  reveal?: ShortsAPillWord;
+  /** Korean syllable carrying the stress, highlighted in `pronunciation`. */
+  stress?: string;
+  pronunciation?: string;
+  /** Closing call-to-action pill. */
+  cta?: string;
+  subtitleGroups?: SubtitleCue[];
+};
+
+export type ShortsAData = {
+  title: string;
+  /** The three pill words shown together at 0-2s, before any are answered. */
+  openingWords: ShortsAPillWord[];
+  segments: ShortsASegment[];
+};

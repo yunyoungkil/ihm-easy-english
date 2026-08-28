@@ -1,0 +1,374 @@
+<template>
+      <style>
+        @font-face {
+          font-family: 'Black Han Sans';
+          font-weight: 400;
+          font-style: normal;
+          src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+        }
+        @font-face {
+          font-family: 'Noto Sans KR';
+          font-weight: 700;
+          font-style: normal;
+          src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+        }
+        @font-face {
+          font-family: 'Noto Sans KR';
+          font-weight: 900;
+          font-style: normal;
+          src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+        }
+        @font-face {
+          font-family: 'Archivo Black';
+          font-weight: 400;
+          font-style: normal;
+          src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6CYyF_g.woff2') format('woff2');
+        }
+        #root {
+          position: relative;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          container-type: size;
+          font-family: "Noto Sans KR", sans-serif;
+          color: #ffffff;
+        }
+
+        .clip {
+          position: absolute;
+          inset: 0;
+        }
+
+        /* ---- ground ---- */
+        .f10-listening-bg {
+          background: radial-gradient(120cqw 100cqh at 50% 42%, #12203a 0%, #0a1526 68%), #0a1526;
+        }
+
+        /* ---- structural row (preserves the confirmed sketch: flex row,
+               align-items:center, anchor left-fixed + list right-variable) ---- */
+        .f10-listening-row {
+          position: absolute;
+          left: 6cqw;
+          top: 0;
+          width: 88cqw;
+          height: 84cqh;
+          display: flex;
+          align-items: center;
+          gap: 3.4cqw;
+        }
+
+        /* ---- anchor: pinned "gonna" — the foreground subject ---- */
+        .f10-listening-anchor {
+          flex: 0 0 auto;
+          width: 27cqw;
+          padding: 2.6cqh 2cqw;
+          background: rgba(18, 32, 58, 0.85);
+          border: 2px solid #f5c518;
+          border-radius: 20px;
+          box-shadow: 0 0 3.6cqw rgba(245, 197, 24, 0.28), inset 0 0 3cqw rgba(245, 197, 24, 0.06);
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1cqh;
+          transform-origin: 50% 50%;
+          will-change: transform, opacity;
+        }
+        .f10-listening-anchor-word {
+          font-family: "Archivo Black", sans-serif;
+          font-size: 4.6cqw;
+          font-weight: 400;
+          line-height: 1;
+          letter-spacing: -0.01em;
+        }
+        .f10-listening-anchor-rule {
+          width: 80px;
+          height: 5px;
+          border-radius: 100px;
+          background: rgba(245, 197, 24, 0.55);
+        }
+        .f10-listening-anchor-pron {
+          font-size: 1.8cqw;
+          font-weight: 700;
+          letter-spacing: 0.01em;
+          color: #008eff;
+        }
+
+        /* ---- list: 4 sentence-cards, supporting / cycling region ---- */
+        .f10-listening-list {
+          flex: 1 1 auto;
+          display: flex;
+          flex-direction: column;
+          gap: 1.7cqh;
+        }
+        .f10-listening-card {
+          background: rgba(18, 32, 58, 0.85);
+          border: 2px solid rgba(245, 197, 24, 0.25);
+          border-radius: 14px;
+          padding: 1.3cqh 1.6cqw;
+          display: flex;
+          flex-direction: column;
+          gap: 0.3cqh;
+          transform-origin: 0% 50%;
+          will-change: transform, opacity;
+        }
+        .f10-listening-num {
+          font-size: 1cqw;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+          color: #a9b4c4;
+          margin-right: 0.5cqw;
+        }
+        .f10-listening-en {
+          font-size: 1.6cqw;
+          font-weight: 700;
+          line-height: 1.5;
+          color: #ffffff;
+        }
+        .f10-listening-ko {
+          font-size: 1.4cqw;
+          font-weight: 700;
+          line-height: 1.35;
+          color: #008eff;
+          margin-top: 0.2cqh;
+        }
+
+        /* ---- shared target-word treatment (asr-keyword-glow drives text-shadow + scale) ---- */
+        .f10-listening-hit {
+          display: inline-block;
+          color: #f5c518;
+          font-weight: 800;
+          transform-origin: 50% 50%;
+          text-shadow: 0 0 0 rgba(245, 197, 24, 0);
+        }
+        .f10-listening-anchor-word .f10-listening-hit {
+          font-weight: 900;
+        }
+
+        /* ---- ambient background texture: a faint EQ/waveform strip along the
+               bottom edge — thematic to "listening", never competes with card
+               content above it. Bars pulse via a phase-offset sine driver
+               (seek-safe: no repeat/yoyo, no Math.random). ---- */
+        .f10-listening-waves {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 7cqh;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          gap: 1cqw;
+          opacity: 0.14;
+          pointer-events: none;
+        }
+        .f10-listening-wave-bar {
+          width: 0.5cqw;
+          border-radius: 100px;
+          background: #008eff;
+          transform-origin: 50% 100%;
+        }
+      </style>
+
+      <div data-hf-id="hf-evmw" id="root" data-composition-id="10-listening" data-start="0" data-duration="23.936" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-hz9r" id="f10-listening-bg-clip" class="clip f10-listening-bg" data-start="0" data-duration="23.936" data-track-index="0"></div>
+
+        <div data-hf-id="hf-wav0" id="f10-listening-waves" class="f10-listening-waves"></div>
+
+        <div data-hf-id="hf-qaw9" id="f10-listening-content" class="clip" data-start="0" data-duration="23.936" data-track-index="1">
+          <div data-hf-id="hf-u0zk" class="f10-listening-row">
+            <div data-hf-id="hf-n0ms" class="f10-listening-anchor" id="f10-listening-anchor">
+              <div data-hf-id="hf-rxrs" class="f10-listening-anchor-word">
+                <span data-hf-id="hf-0jag" class="f10-listening-hit" data-word="anchor">gonna</span>
+              </div>
+              <div data-hf-id="hf-11lm" class="f10-listening-anchor-rule"></div>
+              <div data-hf-id="hf-m4g5" class="f10-listening-anchor-pron">거너</div>
+            </div>
+
+            <div data-hf-id="hf-yx5g" class="f10-listening-list">
+              <div data-hf-id="hf-pnk3" class="f10-listening-card" id="f10-listening-chip1">
+                <div data-hf-id="hf-9ohr" class="f10-listening-en">
+                  <span data-hf-id="hf-u1da" class="f10-listening-num">1.</span>What are you
+                  <span data-hf-id="hf-h9jp" class="f10-listening-hit" data-word="w1">gonna</span> do this weekend?
+                </div>
+                <div data-hf-id="hf-uv4s" class="f10-listening-ko">
+                  왓 아 유 <span data-hf-id="hf-0g1g" class="f10-listening-hit" data-word="w1">거너</span> 두 디스 위켄드?
+                </div>
+              </div>
+
+              <div data-hf-id="hf-es2g" class="f10-listening-card" id="f10-listening-chip2">
+                <div data-hf-id="hf-wwsz" class="f10-listening-en">
+                  <span data-hf-id="hf-whvd" class="f10-listening-num">2.</span>She's probably
+                  <span data-hf-id="hf-t8m4" class="f10-listening-hit" data-word="w2">gonna</span> be late.
+                </div>
+                <div data-hf-id="hf-2h00" class="f10-listening-ko">
+                  쉬즈 프라바블리 <span data-hf-id="hf-3k53" class="f10-listening-hit" data-word="w2">거너</span> 비 레이트.
+                </div>
+              </div>
+
+              <div data-hf-id="hf-hrc1" class="f10-listening-card" id="f10-listening-chip3">
+                <div data-hf-id="hf-pc17" class="f10-listening-en">
+                  <span data-hf-id="hf-hf6k" class="f10-listening-num">3.</span>It's
+                  <span data-hf-id="hf-l07n" class="f10-listening-hit" data-word="w3">gonna</span> be okay.
+                </div>
+                <div data-hf-id="hf-x0en" class="f10-listening-ko">
+                  잇츠 <span data-hf-id="hf-w94u" class="f10-listening-hit" data-word="w3">거너</span> 비 오케이.
+                </div>
+              </div>
+
+              <div data-hf-id="hf-6vue" class="f10-listening-card" id="f10-listening-chip4">
+                <div data-hf-id="hf-6abc" class="f10-listening-en">
+                  <span data-hf-id="hf-yngv" class="f10-listening-num">4.</span>They're
+                  <span data-hf-id="hf-5myy" class="f10-listening-hit" data-word="w4">gonna</span> miss the train.
+                </div>
+                <div data-hf-id="hf-j5j4" class="f10-listening-ko">
+                  데이아 <span data-hf-id="hf-xyo1" class="f10-listening-hit" data-word="w4">거너</span> 미스 더 트레인.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          // ---- ambient background texture: EQ/waveform strip, phase-offset sine
+          // pulse (bounded, seek-safe — no repeat/yoyo/Math.random). Runs the full
+          // frame duration so it reads under arbitrary seeks, not just playback.
+          var WAVE_BAR_COUNT = 28;
+          var wavesEl = document.getElementById("f10-listening-waves");
+          var waveBars = [];
+          for (var wi = 0; wi < WAVE_BAR_COUNT; wi++) {
+            var bar = document.createElement("div");
+            bar.className = "f10-listening-wave-bar";
+            wavesEl.appendChild(bar);
+            waveBars.push(bar);
+          }
+          var waveDriver = { t: 0 };
+          tl.to(
+            waveDriver,
+            {
+              t: 23.436,
+              duration: 23.436,
+              ease: "none",
+              onUpdate: function () {
+                for (var i = 0; i < waveBars.length; i++) {
+                  var phase = i * 0.7;
+                  var base = 14 + 10 * Math.sin(i * 1.3);
+                  var s = Math.sin(waveDriver.t * 1.6 + phase);
+                  var heightPx = base + 16 * ((s + 1) / 2);
+                  waveBars[i].style.height = heightPx.toFixed(1) + "px";
+                }
+              },
+            },
+            0,
+          );
+
+          // ---- Scene 1 (0.0-3.5s): anchor spring-pop entrance, then pins forever. ----
+          // spring-pop-entrance: calm/editorial settle, no overshoot, hero visible by t<=0.5s.
+          tl.fromTo(
+            "#f10-listening-anchor",
+            { opacity: 0, scale: 0, y: 10 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "power3.out" },
+            0.05,
+          );
+
+          // ---- one chip arrives per sentence, stacking — never moves again. ----
+          // Timed off the stitched combined-audio word timeline (audio_meta.json,
+          // frame 10 — Korean cues + real English example-sentence audio spliced
+          // together, see SCRIPT.md Line 10). Each chip lands right as its ordinal
+          // cue ("첫/두/세/네 번째") begins.
+          var chipArrivals = [
+            ["#f10-listening-chip1", 4.35],
+            ["#f10-listening-chip2", 8.2],
+            ["#f10-listening-chip3", 12.2],
+            ["#f10-listening-chip4", 15.5],
+          ];
+          chipArrivals.forEach(function (entry) {
+            tl.fromTo(
+              entry[0],
+              { opacity: 0, scale: 0, y: 26 },
+              { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power3.out" },
+              entry[1],
+            );
+          });
+
+          // ---- asr-keyword-glow: one linear driver for every "gonna"/"거너" span. ----
+          // Each chip's target word flashes once when spoken, decays to a lingering
+          // breadcrumb glow; in Scene 6 all four chips + the anchor flash together
+          // (synchronized) as the payoff — "same place, same sound" made visible.
+          var ATTACK_DUR = 0.18;
+          var RELEASE = 0.4;
+          var MAX_BLUR = 22;
+          var MAX_SCALE_BOOST = 0.09;
+          var SYNC_START = 20.68;
+          var SYNC_END = 21.6;
+
+          // w1-w4 glow windows are the real English clip's own measured "gonna"
+          // timestamp (not an estimate) — precise by construction.
+          var TIMINGS = {
+            w1: [
+              { start: 6.411, end: 6.61, rest: 0.2 },
+              { start: SYNC_START, end: SYNC_END, rest: 0.32 },
+            ],
+            w2: [
+              { start: 10.712, end: 10.911, rest: 0.2 },
+              { start: SYNC_START, end: SYNC_END, rest: 0.32 },
+            ],
+            w3: [
+              { start: 14.028, end: 14.188, rest: 0.2 },
+              { start: SYNC_START, end: SYNC_END, rest: 0.32 },
+            ],
+            w4: [
+              { start: 17.325, end: 17.485, rest: 0.2 },
+              { start: SYNC_START, end: SYNC_END, rest: 0.32 },
+            ],
+            anchor: [{ start: SYNC_START, end: SYNC_END, rest: 0.32 }],
+          };
+
+          function envelope(time, start, end, restLevel) {
+            if (time < start) return 0;
+            if (time < end) return Math.min((time - start) / ATTACK_DUR, 1);
+            var releaseEnd = end + RELEASE;
+            if (time < releaseEnd) return 1 - ((time - end) / RELEASE) * (1 - restLevel);
+            return restLevel;
+          }
+
+          function envelopeFor(time, windows) {
+            var maxEnv = 0;
+            for (var i = 0; i < windows.length; i++) {
+              var w = windows[i];
+              var e = envelope(time, w.start, w.end, w.rest);
+              if (e > maxEnv) maxEnv = e;
+            }
+            return maxEnv;
+          }
+
+          var hitEls = Array.prototype.slice.call(document.querySelectorAll(".f10-listening-hit"));
+          var driver = { t: 0 };
+          tl.to(
+            driver,
+            {
+              t: 23.436,
+              duration: 23.436,
+              ease: "none",
+              onUpdate: function () {
+                hitEls.forEach(function (el) {
+                  var windows = TIMINGS[el.dataset.word];
+                  if (!windows) return;
+                  var env = envelopeFor(driver.t, windows);
+                  var alpha = Math.min(0.85, env * 0.85);
+                  el.style.textShadow = "0 0 " + (MAX_BLUR * env).toFixed(1) + "px rgba(245,197,24," + alpha.toFixed(2) + ")";
+                  el.style.transform = "scale(" + (1 + MAX_SCALE_BOOST * env).toFixed(3) + ")";
+                });
+              },
+            },
+            0,
+          );
+
+          window.__timelines["10-listening"] = tl;
+        })();
+      </script>
+    </template>

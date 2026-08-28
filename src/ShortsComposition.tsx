@@ -10,6 +10,7 @@ import {
 import { getAudioDurationInSeconds } from "@remotion/media-utils";
 import shortsA from "../scripts/ep06_shortsA.json";
 import shortsB from "../scripts/ep06_shortsB.json";
+import ep07ShortsB from "../scripts/ep07_shortsB.json";
 import type { ShortsData } from "./types";
 import { COLORS, LAYOUT, SHORTS } from "./theme";
 import { SHORTS_COUNTDOWN } from "./shortsLayout";
@@ -44,6 +45,21 @@ export const SHORTS_A_SPEC: ShortsSpec = {
 export const SHORTS_B_SPEC: ShortsSpec = {
   data: shortsB as ShortsData,
   audioPrefix: "ep06_shortsB",
+};
+
+/**
+ * EP7's plain-word beats (DISCUSSION, EXPANSION) reuse `word`/`pronunciation`
+ * like shortsA; the trick-word beats (TELEVISION, CONFUSION) deliberately
+ * skip `compareLeft`/`compareRight` even though they read like a compare
+ * beat — the narration itself says the wrong reading aloud as the joke
+ * ("혹시 텔레비션 하셨나요?"), and generate-tts.mjs hard-blocks any narration
+ * that contains `compareLeft.text` to stop the narrator from teaching a wrong
+ * reading by accident. Here it's intentional, so the wrong spelling only ever
+ * appears in narration/subtitles, never as on-screen `compareLeft` text.
+ */
+export const EP07_SHORTS_B_SPEC: ShortsSpec = {
+  data: ep07ShortsB as ShortsData,
+  audioPrefix: "ep07_shortsB",
 };
 
 const segmentAudio = (spec: ShortsSpec, id: number) =>

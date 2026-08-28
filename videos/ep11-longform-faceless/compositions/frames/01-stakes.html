@@ -1,0 +1,214 @@
+<template>
+<style>
+  /* 01-stakes — Frame 1 "Stakes" (kinetic-type-beats blueprint, Hook/escalation shape).
+     Reassurance line (Scene 1) settles, then the question (Scene 2) snaps in as the
+     dominant element exactly on the VO cue, then both hold with a subtle jitter
+     (Scene 3, deliberate hold — no exit tween, this is not the final frame). */
+
+  @font-face {
+    font-family: 'Black Han Sans';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0A1526;
+    color: #FFFFFF;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  #root .stakes-bg {
+    background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%);
+  }
+
+  #root .stakes-glow {
+    background: radial-gradient(circle at 50% 46%, rgba(245, 197, 24, 0.10) 0%, rgba(245, 197, 24, 0) 55%);
+    opacity: 0.2;
+  }
+
+  #root .stakes-progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 4px;
+    background: rgba(245, 197, 24, 0.15);
+  }
+
+  #root .stakes-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 4px;
+    background: #F5C518;
+  }
+
+  #root .stakes-textblock {
+    position: absolute;
+    left: 160px;
+    top: 400px;
+    width: 1600px;
+  }
+
+  #root .stakes-line1 {
+    font-size: 44px;
+    font-weight: 700;
+    color: #A9B4C4;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  #root .stakes-line2 {
+    font-size: 64px;
+    font-weight: 900;
+    color: #F5C518;
+    line-height: 1.15;
+    text-shadow: 0 0 28px rgba(245, 197, 24, 0.30);
+  }
+
+  #root .stakes-word {
+    display: inline-block;
+    opacity: 0;
+  }
+
+  #root .stakes-eyebrow {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #A9B4C4;
+    margin-bottom: 22px;
+    opacity: 0;
+  }
+</style>
+
+<div data-hf-id="hf-4h0l" id="root" data-composition-id="01-stakes" data-start="0" data-duration="10.975" data-width="1920" data-height="1080">
+
+  <div data-hf-id="hf-54ae" id="stakes-bg-clip" class="clip stakes-bg" data-start="0" data-duration="10.975" data-track-index="0"></div>
+  <div data-hf-id="hf-22lj" class="clip stakes-glow" id="stakes-glow" data-start="0" data-duration="10.975" data-track-index="1"></div>
+
+  <div data-hf-id="hf-q6ol" class="stakes-progress-track">
+    <div data-hf-id="hf-7aza" class="stakes-progress-fill" id="stakes-progress-fill"></div>
+  </div>
+
+  <div data-hf-id="hf-y32a" class="stakes-textblock" id="stakes-textblock">
+    <div data-hf-id="hf-eyeb" class="stakes-eyebrow" id="stakes-eyebrow">이해하면 쉬운영어 · 시즌2</div>
+    <div data-hf-id="hf-hm0e" class="stakes-line1" id="stakes-line1"></div>
+    <div data-hf-id="hf-9vg2" class="stakes-line2" id="stakes-line2"></div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["01-stakes"] = tl;
+
+  var line1Words = ["시즌1", "배우셨으니", "단어는", "이제", "읽으실", "겁니다."];
+  var line2Words = ["근데", "문장으로", "말하면", "왜", "다르게", "들릴까요?"];
+
+  var line1El = document.getElementById("stakes-line1");
+  var line2El = document.getElementById("stakes-line2");
+  var glowEl = document.getElementById("stakes-glow");
+  var textBlockEl = document.getElementById("stakes-textblock");
+  var progressFillEl = document.getElementById("stakes-progress-fill");
+
+  // dynamic-content-sequencing, applied at word granularity: each word's reveal
+  // start is pre-computed once from its character length (content-aware, no
+  // hardcoded per-word offsets) — a longer word earns a slightly longer beat
+  // before the next word lands, same principle as the recipe's TIMELINE reduce.
+  var WORD_BASE = 0.10; // s — floor stagger even for a 1-char word
+  var WORD_SEC_PER_CHAR = 0.028;
+  var ENTRANCE_DUR = 0.38;
+  var Y_OFFSET = 18;
+
+  function layWords(container, words, startAt, ease) {
+    var cumulative = startAt;
+    var spans = [];
+    for (var i = 0; i < words.length; i++) {
+      var span = document.createElement("span");
+      span.className = "stakes-word";
+      span.textContent = words[i];
+      container.appendChild(span);
+      if (i < words.length - 1) container.appendChild(document.createTextNode(" "));
+      var dur = WORD_BASE + words[i].length * WORD_SEC_PER_CHAR;
+      spans.push({ el: span, start: cumulative });
+      cumulative += dur;
+    }
+    spans.forEach(function (w) {
+      tl.fromTo(
+        w.el,
+        { opacity: 0, y: Y_OFFSET },
+        { opacity: 1, y: 0, duration: ENTRANCE_DUR, ease: ease },
+        w.start
+      );
+    });
+    return cumulative;
+  }
+
+  // small tracked eyebrow — scale/weight contrast above the reassurance line,
+  // documentation-style framing (frame.md typography.eyebrow role, muted variant).
+  tl.fromTo(
+    document.getElementById("stakes-eyebrow"),
+    { opacity: 0, y: 8 },
+    { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+    0.05,
+  );
+
+  // Scene 1 (0.0–4.0s): "시즌1 배우셨으니 단어는 이제 읽으실 겁니다." — reassurance line,
+  // supporting role, calm per-word rise-fade. Starts just after the cut so the
+  // ground/glow register first.
+  layWords(line1El, line1Words, 0.3, "power2.out");
+
+  // Scene 2 (4.0–7.5s): "근데 문장으로 말하면 왜 다르게 들릴까요?" — the question, foreground
+  // subject and this frame's dominant element (size+weight+color). VO reaches it
+  // exactly at 4.0s; per-word reveal snaps in more emphatically (slight overshoot)
+  // than line 1's calmer entrance.
+  layWords(line2El, line2Words, 4.0, "back.out(1.5)");
+
+  // Scene 3 (7.5s → 10.475s, deliberate hold — not the final frame, so no exit):
+  // both lines are already settled and simply held for reading, sold with a small
+  // deterministic jitter (explicit waypoints, no repeat/yoyo) rather than freezing
+  // dead — while the first of 13 progress-rail segments fills in.
+  tl.to(textBlockEl, { x: 2, y: -1, duration: 0.55, ease: "sine.inOut" }, 7.6)
+    .to(textBlockEl, { x: -2, y: 1, duration: 0.6, ease: "sine.inOut" }, 8.15)
+    .to(textBlockEl, { x: 1, y: 0, duration: 0.55, ease: "sine.inOut" }, 8.75)
+    .to(textBlockEl, { x: 0, y: 0, duration: 0.6, ease: "sine.inOut" }, 9.3);
+
+  // Ambient center glow — single bounded breathe across the whole shot, no loop.
+  tl.fromTo(glowEl, { opacity: 0.2 }, { opacity: 0.42, duration: 5.2, ease: "sine.inOut" }, 0).to(
+    glowEl,
+    { opacity: 0.3, duration: 5.275, ease: "sine.inOut" },
+    5.2
+  );
+
+  // progress-rail: first of 13 segments fills as Scene 3 lands, then holds flat.
+  tl.fromTo(
+    progressFillEl,
+    { width: "0%" },
+    { width: (100 / 13).toFixed(3) + "%", duration: 1.1, ease: "power1.inOut" },
+    7.6
+  );
+})();
+</script>
+</template>

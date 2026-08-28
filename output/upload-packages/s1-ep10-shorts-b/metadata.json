@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "contentId": "s1-ep10-shorts-b",
+  "status": "scheduled",
+  "classification": {
+    "season": 1,
+    "episode": 10,
+    "track": "B",
+    "format": "SHORTS"
+  },
+  "youtube": {
+    "videoId": "nVrCk8IZFGA",
+    "url": "https://youtu.be/nVrCk8IZFGA",
+    "title": "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다 #영어발음 #shorts",
+    "thumbnailText": [
+      "SOCIAL 발음 헷갈려?",
+      "근데 이미 \"소셜\"이라 하잖아요"
+    ],
+    "description": "SOCIAL, 발음이 헷갈리시나요?\n\n근데 우리 이미 맨날 '소셜'이라고 하잖아요.\n\n왜 소셜일까요? -CIAL로 끝나는 부분이 항상 '셜' 소리가 나거든요.\n\n이렇게 끝나는 단어는 다 '셜'로 읽어요.\n\n📌 전체 원리는 관련 영상에서 확인\nhttps://youtu.be/3PkSwrFIcRE\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #social발음 #EnglishPronunciation #shorts",
+    "tags": [
+      "영어 발음",
+      "영어 발음 규칙",
+      "기초 영어",
+      "왕초보 영어",
+      "social 발음",
+      "소셜",
+      "cial 발음",
+      "영어 쇼츠",
+      "영어교육",
+      "English pronunciation",
+      "social pronunciation"
+    ],
+    "pinnedComment": "여러분도 SOCIAL을 이미 \"소셜\"이라고 읽고 계셨죠? 😄\n\n-CIAL로 끝나는 다른 단어들도 다 같은 규칙이에요. 전체 원리는 관련 영상에서 확인하세요 👇\nhttps://youtu.be/3PkSwrFIcRE",
+    "relatedVideo": {
+      "videoId": "3PkSwrFIcRE",
+      "url": "https://youtu.be/3PkSwrFIcRE",
+      "status": "connect-after-longform-publish",
+      "availableFromKst": "2026-08-29 20:00"
+    }
+  },
+  "script": {
+    "language": "ko-KR",
+    "tts": {
+      "provider": "Google AI Studio",
+      "voice": "Charon",
+      "speedProfile": "casual-friend-tone"
+    },
+    "segments": [
+      {
+        "id": 1,
+        "role": "opening-silent",
+        "narration": "(무음 — 카톡 알림 SFX만) SOCIAL 발음이 뭐야? / 소셜이지!"
+      },
+      {
+        "id": 2,
+        "role": "rule",
+        "narration": "왜 소셜일까요? 이 부분이 항상 '셜' 소리가 나거든요."
+      },
+      {
+        "id": 3,
+        "role": "rule-recap",
+        "narration": "이렇게 끝나는 단어는 다 '셜'로 읽어요."
+      },
+      {
+        "id": 4,
+        "role": "related-video-cta",
+        "narration": "전체 원리는 관련 영상에서 지금 바로 확인해보세요!"
+      }
+    ]
+  },
+  "production": {
+    "compositionId": "ep10-shorts-b-faceless",
+    "renderFileName": "s1-ep10-shorts-b-social-pronunciation.mp4",
+    "thumbnailFileName": "thumbnail.png",
+    "thumbnailFrame": null,
+    "fps": 30,
+    "durationSeconds": 20.8,
+    "audioFiles": [
+      "frame04.wav",
+      "frame05.wav",
+      "frame06.wav"
+    ]
+  },
+  "publishing": {
+    "order": 3,
+    "relativeToLongform": "+4 days",
+    "timeKst": "20:00",
+    "scheduledAtKst": "2026-09-02 20:00",
+    "scheduledPublishAtUtc": "2026-09-02T11:00:00Z",
+    "playlist": "이해하면 쉬운 영어 | 영어 읽는 법 테스트 시즌1 (30초 퀴즈)",
+    "category": "교육",
+    "alteredContent": false,
+    "location": "대한민국",
+    "prePublishTasks": [
+      {
+        "task": "EP10 롱폼 YouTube 업로드",
+        "status": "completed"
+      },
+      {
+        "task": "썸네일 파일 생성",
+        "status": "completed"
+      },
+      {
+        "task": "공개 일정 확정",
+        "status": "completed"
+      }
+    ],
+    "postPublishTasks": [
+      {
+        "task": "고정 댓글 작성",
+        "status": "pending"
+      },
+      {
+        "task": "댓글 고정 여부 확인",
+        "status": "pending"
+      },
+      {
+        "task": "관련 영상 EP10 롱폼 연결 상태 최종 확인",
+        "status": "pending"
+      }
+    ]
+  }
+}

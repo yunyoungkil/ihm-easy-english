@@ -61,6 +61,7 @@ const itemsOf = (data) => data.scenes ?? data.segments ?? [];
 const kindOf = (data) => (data.scenes ? "scene" : "seg");
 
 let outputName = (id) => `${scriptName}_scene${String(id).padStart(2, "0")}.wav`;
+let delivery = {};
 
 /**
  * Nothing is sent until every narration line is safe to read aloud.
@@ -240,6 +241,7 @@ function reportTotals() {
 
 async function generateScene(scene, apiKey) {
   const narration = (scene.narration ?? "").trim();
+  const sceneDelivery = { ...delivery, ...(scene.tts ?? {}) };
   if (narration.length === 0) {
     console.log(`  Scene ${scene.id}: narration empty, skipping.`);
     return { status: "skipped" };
@@ -253,11 +255,11 @@ async function generateScene(scene, apiKey) {
 
   if (dryRun) {
     console.log(`  Scene ${scene.id}: would send ${narration.length} chars`);
-    console.log(`    ${buildPrompt(narration).slice(0, 90).replace(/\n/g, " ")}...`);
+    console.log(`    ${buildPrompt(narration, sceneDelivery).slice(0, 180).replace(/\n/g, " ")}...`);
     return { status: "dry-run" };
   }
 
-  const { pcm, mimeType, usage } = await synthesize(narration, apiKey);
+  const { pcm, mimeType, usage } = await synthesize(narration, apiKey, sceneDelivery);
 
   // The pipeline resamples these for whisper and measures scene lengths from
   // them, so a silent format change would show up as drifting subtitles rather
@@ -312,6 +314,7 @@ async function main() {
     throw new Error(`No script at ${scriptPath}`);
   }
   const data = JSON.parse(fs.readFileSync(scriptPath, "utf8"));
+  delivery = data.tts ?? {};
   const kind = kindOf(data);
   outputName = (id) => `${scriptName}_${kind}${String(id).padStart(2, "0")}.wav`;
 
@@ -320,7 +323,9 @@ async function main() {
     : loadApiKey();
 
   console.log(`${data.episode ?? scriptName} — ${data.title ?? ""}`);
-  console.log(`Voice: ${VOICE.name} / ${VOICE.style} / ${VOICE.pace} / ${VOICE.languageCode}`);
+  console.log(
+    `Voice: ${VOICE.name} / ${delivery.style ?? VOICE.style} / ${delivery.pace ?? VOICE.pace} / ${VOICE.languageCode}`,
+  );
   console.log(`Model: ${VOICE.model}`);
   console.log(`API key from: ${name}\n`);
 

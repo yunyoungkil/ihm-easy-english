@@ -1,0 +1,370 @@
+<template>
+<style>
+  @font-face {
+    font-family: 'Black Han Sans';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6CYyF_g.woff2') format('woff2');
+  }
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    color: #FFFFFF;
+    font-family: "Noto Sans KR", sans-serif;
+    container-type: size;
+  }
+
+  .f09-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 1500px 1050px at 50% 46%, #12203A 0%, #0A1526 68%);
+  }
+
+  .f09-title {
+    position: absolute;
+    left: 0;
+    top: 150px;
+    width: 1920px;
+    text-align: center;
+    font-family: "Black Han Sans", sans-serif;
+    font-size: 3.2cqw;
+    line-height: 1.15;
+    color: #FFFFFF;
+    z-index: 3;
+  }
+  .f09-word { display: inline-block; }
+
+  .f09-glow {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    top: 125px;
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .f09-glow-left {
+    left: 190px;
+    background: radial-gradient(circle, rgba(0,90,180,0.85) 0%, rgba(0,90,180,0) 70%);
+  }
+  .f09-glow-right {
+    left: 1030px;
+    background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 70%);
+  }
+
+  .f09-stage-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    perspective: 1600px;
+    z-index: 2;
+  }
+  .f09-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    transform-style: preserve-3d;
+  }
+  .f09-card {
+    position: absolute;
+    top: 330px;
+    width: 760px;
+    padding: 44px;
+    border-radius: 20px;
+    background: rgba(18,32,58,0.85);
+    border: 2px solid rgba(245,197,24,0.25);
+    transform-style: preserve-3d;
+    will-change: transform;
+    opacity: 0;
+  }
+  .f09-card-left { left: 160px; box-shadow: 30px 14px 50px rgba(0,0,0,0.45); }
+  .f09-card-right { left: 1000px; box-shadow: -30px 14px 50px rgba(0,0,0,0.45); }
+
+  .f09-eyebrow {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.4cqw;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+  }
+  .f09-headline {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 400;
+    font-size: 4.6cqw;
+    line-height: 1.0;
+    margin-bottom: 16px;
+  }
+  .f09-pron {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.8cqw;
+    font-weight: 700;
+    color: #008EFF;
+  }
+
+  .f09-card-left .f09-eyebrow { color: #008EFF; }
+  .f09-card-left .f09-headline { color: #008EFF; }
+  .f09-card-right .f09-eyebrow { color: #FFFFFF; }
+  .f09-card-right .f09-headline { color: #FFFFFF; }
+
+  .f09-underline {
+    position: absolute;
+    left: 44px;
+    bottom: 38px;
+    width: 80px;
+    height: 5px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+</style>
+
+<div data-hf-id="hf-8oac" id="root" data-composition-id="09-register" data-start="0" data-duration="14.293" data-width="1920" data-height="1080">
+
+  <div data-hf-id="hf-bg09" id="f09-bg-clip" class="clip f09-bg" data-start="0" data-duration="12.333" data-track-index="0"></div>
+
+  <div data-hf-id="hf-p6bd" class="f09-glow f09-glow-left" id="f09-glow-left"></div>
+  <div data-hf-id="hf-dof3" class="f09-glow f09-glow-right" id="f09-glow-right"></div>
+
+  <div data-hf-id="hf-khaa" class="f09-title">
+    <span data-hf-id="hf-4tzm" class="f09-word" id="f09-w0">그럼</span>
+    <span data-hf-id="hf-2cb7" class="f09-word" id="f09-w1">언제</span>
+    <span data-hf-id="hf-94o6" class="f09-word" id="f09-w2">GOING</span>
+    <span data-hf-id="hf-mreg" class="f09-word" id="f09-w3">TO를</span>
+    <span data-hf-id="hf-hzuq" class="f09-word" id="f09-w4">그대로</span>
+    <span data-hf-id="hf-k68y" class="f09-word" id="f09-w5">쓸까요?</span>
+  </div>
+
+  <div data-hf-id="hf-6x0b" class="f09-stage-wrap">
+    <div data-hf-id="hf-qheq" class="f09-stage">
+      <div data-hf-id="hf-0l6g" class="f09-card f09-card-left" id="f09-card-left">
+        <div data-hf-id="hf-bey5" class="f09-eyebrow">말할 때</div>
+        <div data-hf-id="hf-wcbt" class="f09-headline">GONNA</div>
+        <div data-hf-id="hf-l6t1" class="f09-pron">거너</div>
+      </div>
+      <div data-hf-id="hf-j9xs" class="f09-card f09-card-right" id="f09-card-right">
+        <div data-hf-id="hf-snbl" class="f09-eyebrow">이메일 · 면접에서 쓸 때</div>
+        <div data-hf-id="hf-8b4j" class="f09-headline">GOING TO</div>
+        <div data-hf-id="hf-twum" class="f09-pron">고잉 투</div>
+        <div data-hf-id="hf-420a" class="f09-underline" id="f09-underline"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.__timelines = window.__timelines || {};
+  var tl = gsap.timeline({ paused: true });
+
+  // ---- Scene 1 (0.0-2.5s): title, per-word reveal, slide down from above ----
+  var titleWords = ["#f09-w0", "#f09-w1", "#f09-w2", "#f09-w3", "#f09-w4", "#f09-w5"];
+  titleWords.forEach(function (sel, i) {
+    tl.fromTo(
+      sel,
+      { opacity: 0, y: -26 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" },
+      0.10 + i * 0.14
+    );
+  });
+
+  // ---- Scene 2 (2.5-6.0s): right card (GOING TO / formal) enters from right wing ----
+  tl.fromTo(
+    "#f09-card-right",
+    { x: 320, rotateY: -22, opacity: 0 },
+    { x: 0, rotateY: -14, opacity: 1, duration: 0.9, ease: "power3.out" },
+    2.5
+  );
+  tl.fromTo(
+    "#f09-glow-right",
+    { opacity: 0, scale: 0.85 },
+    { opacity: 0.30, scale: 1, duration: 0.9, ease: "power2.out" },
+    2.5
+  );
+  ["#f09-card-right .f09-eyebrow", "#f09-card-right .f09-headline", "#f09-card-right .f09-pron"].forEach(
+    function (sel, i) {
+      tl.fromTo(
+        sel,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+        2.9 + i * 0.09
+      );
+    }
+  );
+
+  // ---- Scene 3 (6.0-9.0s): left card (GONNA / blue) enters from left wing -> mirrored pair complete ----
+  tl.fromTo(
+    "#f09-card-left",
+    { x: -320, rotateY: 22, opacity: 0 },
+    { x: 0, rotateY: 14, opacity: 1, duration: 0.9, ease: "power3.out" },
+    6.0
+  );
+  tl.fromTo(
+    "#f09-glow-left",
+    { opacity: 0, scale: 0.85 },
+    { opacity: 0.30, scale: 1, duration: 0.9, ease: "power2.out" },
+    6.0
+  );
+  ["#f09-card-left .f09-eyebrow", "#f09-card-left .f09-headline", "#f09-card-left .f09-pron"].forEach(
+    function (sel, i) {
+      tl.fromTo(
+        sel,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+        6.4 + i * 0.09
+      );
+    }
+  );
+
+  // ---- Scene 4 (9.0-11.833s): both settled, subtle counter-phase jitter; "여전히 GOING TO입니다" underline beat ----
+  var TOTAL = 11.833;
+
+  tl.fromTo(
+    "#f09-underline",
+    { scaleX: 0 },
+    { scaleX: 1, duration: 0.5, ease: "power2.out" },
+    9.1
+  );
+
+  // Right card idle bob (starts once it has settled, at 3.4s)
+  (function () {
+    var el = document.getElementById("f09-card-right");
+    var phase = { p: 0 };
+    var IDLE_START = 3.4;
+    var IDLE_DUR = TOTAL - IDLE_START;
+    var PERIOD = 2.6;
+    var CYCLES = IDLE_DUR / PERIOD;
+    var Y_AMP = 3;
+    var FADE_FRAC = 0.2;
+    tl.to(
+      phase,
+      {
+        p: Math.PI * 2 * CYCLES,
+        duration: IDLE_DUR,
+        ease: "none",
+        onUpdate: function () {
+          var t = phase.p / (Math.PI * 2 * CYCLES);
+          var env = t < 1 - FADE_FRAC ? 1 : Math.max(0, (1 - t) / FADE_FRAC);
+          var s = Math.sin(phase.p);
+          gsap.set(el, { y: s * Y_AMP * env });
+        },
+      },
+      IDLE_START
+    );
+  })();
+
+  // Right glow bounded breathe
+  (function () {
+    var el = document.getElementById("f09-glow-right");
+    var phase = { p: 0 };
+    var IDLE_START = 3.4;
+    var IDLE_DUR = TOTAL - IDLE_START;
+    var PERIOD = 2.8;
+    var CYCLES = IDLE_DUR / PERIOD;
+    var PEAK = 0.30;
+    var OPACITY_AMP = 0.04;
+    var SCALE_AMP = 0.02;
+    var FADE_FRAC = 0.2;
+    tl.to(
+      phase,
+      {
+        p: Math.PI * 2 * CYCLES,
+        duration: IDLE_DUR,
+        ease: "none",
+        onUpdate: function () {
+          var t = phase.p / (Math.PI * 2 * CYCLES);
+          var env = t < 1 - FADE_FRAC ? 1 : Math.max(0, (1 - t) / FADE_FRAC);
+          var s = Math.sin(phase.p);
+          el.style.opacity = String(PEAK + s * OPACITY_AMP * env);
+          gsap.set(el, { scale: 1 + s * SCALE_AMP * env });
+        },
+      },
+      IDLE_START
+    );
+  })();
+
+  // Left card idle bob (starts once it has settled, at 6.9s) - opposite sign, different period
+  (function () {
+    var el = document.getElementById("f09-card-left");
+    var phase = { p: 0 };
+    var IDLE_START = 6.9;
+    var IDLE_DUR = TOTAL - IDLE_START;
+    var PERIOD = 2.9;
+    var CYCLES = IDLE_DUR / PERIOD;
+    var Y_AMP = 3;
+    var FADE_FRAC = 0.2;
+    tl.to(
+      phase,
+      {
+        p: Math.PI * 2 * CYCLES,
+        duration: IDLE_DUR,
+        ease: "none",
+        onUpdate: function () {
+          var t = phase.p / (Math.PI * 2 * CYCLES);
+          var env = t < 1 - FADE_FRAC ? 1 : Math.max(0, (1 - t) / FADE_FRAC);
+          var s = Math.sin(phase.p);
+          gsap.set(el, { y: -s * Y_AMP * env });
+        },
+      },
+      IDLE_START
+    );
+  })();
+
+  // Left glow bounded breathe
+  (function () {
+    var el = document.getElementById("f09-glow-left");
+    var phase = { p: 0 };
+    var IDLE_START = 6.9;
+    var IDLE_DUR = TOTAL - IDLE_START;
+    var PERIOD = 3.0;
+    var CYCLES = IDLE_DUR / PERIOD;
+    var PEAK = 0.30;
+    var OPACITY_AMP = 0.04;
+    var SCALE_AMP = 0.02;
+    var FADE_FRAC = 0.2;
+    tl.to(
+      phase,
+      {
+        p: Math.PI * 2 * CYCLES,
+        duration: IDLE_DUR,
+        ease: "none",
+        onUpdate: function () {
+          var t = phase.p / (Math.PI * 2 * CYCLES);
+          var env = t < 1 - FADE_FRAC ? 1 : Math.max(0, (1 - t) / FADE_FRAC);
+          var s = Math.sin(phase.p);
+          el.style.opacity = String(PEAK + s * OPACITY_AMP * env);
+          gsap.set(el, { scale: 1 + s * SCALE_AMP * env });
+        },
+      },
+      IDLE_START
+    );
+  })();
+
+  window.__timelines["09-register"] = tl;
+</script>
+</template>

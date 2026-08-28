@@ -1,0 +1,57 @@
+<template>
+  <style>
+    @font-face { font-family: "EP10 Rubik"; src: url("assets/fonts/rubik-bold.ttf") format("truetype"); font-weight: 700 900; font-style: normal; }
+    @font-face { font-family: "EP10 Korean"; src: url("assets/fonts/capcut-korean.ttf") format("truetype"); font-weight: 400 900; font-style: normal; }
+    #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; color:#09101c; container-type:size; isolation:isolate; }
+    [id="02-observation-ground"] { position:absolute; inset:0; overflow:hidden; background-color:#bfe3ff; background-image:radial-gradient(rgba(9,16,28,.17) 2px,transparent 2px); background-size:30px 30px; }
+    [id="02-observation-ground"]::before,[id="02-observation-ground"]::after { content:""; position:absolute; border:4px solid #09101c; background:#ff8f8f; box-shadow:8px 8px 0 #09101c; }
+    [id="02-observation-ground"]::before { width:250px; height:76px; top:126px; right:-68px; rotate:8deg; }
+    [id="02-observation-ground"]::after { width:190px; height:190px; left:-74px; bottom:344px; background:repeating-linear-gradient(45deg,#008eff 0 18px,#09101c 18px 25px); rotate:-9deg; }
+    [id="02-observation-safe"] { position:absolute; inset:288px 72px 320px; font-family:"EP10 Korean",sans-serif; }
+    [id="02-observation-step"] { display:inline-flex; align-items:center; min-height:64px; padding:0 26px; border:3px solid #09101c; border-radius:9999px; background:#f7f4ea; box-shadow:4px 4px 0 #09101c; font-family:"EP10 Korean",sans-serif; font-size:25px; font-weight:900; letter-spacing:.02em; line-height:1; white-space:nowrap; transform-origin:50% 50%; will-change:transform,opacity; }
+    [id="02-observation-word"] { margin-top:154px; text-align:center; font-family:"EP10 Rubik",sans-serif; font-size:105px; font-weight:900; line-height:.95; letter-spacing:-.045em; white-space:nowrap; transform-origin:50% 50%; will-change:transform,opacity; }
+    [id="02-observation-word-va"],[id="02-observation-word-tion"] { display:inline-block; padding:8px 2px; border:0 solid transparent; color:#09101c; transform-origin:50% 50%; }
+    [id="02-observation-question"] { margin-top:84px; text-align:center; font-size:55px; font-weight:900; line-height:1.25; letter-spacing:-.035em; transform-origin:50% 50%; will-change:transform,opacity; }
+    [id="02-observation-answer"] { position:relative; margin-top:136px; padding:46px 30px 42px; border:4px solid #09101c; background:#f7f4ea; box-shadow:8px 8px 0 #09101c; text-align:center; transform-origin:50% 50%; will-change:transform,opacity; }
+    [id="02-observation-pronunciation"] { font-size:91px; font-weight:900; line-height:1.05; letter-spacing:-.055em; }
+    [id="02-observation-pronunciation-accent"] { display:inline-block; color:#008eff; transform-origin:50% 50%; }
+    [id="02-observation-rule"] { margin-top:31px; font-size:43px; font-weight:900; line-height:1.35; letter-spacing:-.035em; }
+    [id="02-observation-map"] { margin-top:76px; display:flex; justify-content:center; align-items:center; gap:24px; font-family:"EP10 Rubik",sans-serif; font-size:46px; font-weight:900; line-height:1; }
+    [id="02-observation-box-va"],[id="02-observation-box-tion"] { min-width:160px; padding:22px 28px; border:4px solid #09101c; background:#f7f4ea; box-shadow:8px 8px 0 #09101c; text-align:center; transform-origin:50% 50%; will-change:transform,opacity; }
+    [id="02-observation-box-va"] { background:#ff8f8f; }
+    [id="02-observation-box-tion"] { background:#008eff; color:#f7f4ea; }
+    [id="02-observation-arrow"] { font-size:56px; transform-origin:50% 50%; will-change:transform,opacity; }
+  </style>
+  <div data-hf-id="hf-fa7g" id="root" data-composition-id="02-observation" data-start="0" data-width="1080" data-height="1920" data-duration="9.818">
+    <div data-hf-id="hf-hvvt" id="02-observation-ground" class="clip" data-start="0" data-duration="10.639" data-track-index="0"></div>
+    <section data-hf-id="hf-roww" id="02-observation-safe" class="clip" data-start="0" data-duration="10.639" data-track-index="1">
+      <div data-hf-id="hf-8nxx" id="02-observation-step">01 · 발음 + 강세</div>
+      <div data-hf-id="hf-b6dz" id="02-observation-word"><span data-hf-id="hf-mive">OBSER</span><span data-hf-id="hf-papp" id="02-observation-word-va">VA</span><span data-hf-id="hf-dkaj" id="02-observation-word-tion">TION</span></div>
+      <div data-hf-id="hf-oges" id="02-observation-question">어떻게 읽을까요?</div>
+      <div data-hf-id="hf-c5ot" id="02-observation-answer">
+        <div data-hf-id="hf-14c3" id="02-observation-pronunciation">옵저베이<span data-hf-id="hf-kqu0" id="02-observation-pronunciation-accent">션</span></div>
+        <div data-hf-id="hf-zsns" id="02-observation-rule">끝은 ‘션’ · 강세는 바로 앞 ‘베이’</div>
+      </div>
+      <div data-hf-id="hf-yhqb" id="02-observation-map"><span data-hf-id="hf-a8mk" id="02-observation-box-va">VA</span><span data-hf-id="hf-9fj1" id="02-observation-arrow">→</span><span data-hf-id="hf-54pm" id="02-observation-box-tion">TION</span></div>
+    </section>
+  </div>
+  <script>
+    (() => {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const byId = (id) => document.getElementById(id);
+      tl.fromTo(byId("02-observation-step"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.48,ease:"power3.out"},.02);
+      tl.fromTo(byId("02-observation-word"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.64,ease:"power3.out"},.18);
+      tl.fromTo(byId("02-observation-question"),{scale:.82,opacity:0,y:22},{scale:1,opacity:1,y:0,duration:.56,ease:"power3.out"},1.82);
+      tl.fromTo(byId("02-observation-answer"),{scale:.72,opacity:0,y:28},{scale:1,opacity:1,y:0,duration:.68,ease:"back.out(1.4)"},3.84);
+      tl.fromTo(byId("02-observation-pronunciation-accent"),{scale:.62,opacity:0},{scale:1,opacity:1,duration:.52,ease:"power3.out"},4.68);
+      tl.fromTo(byId("02-observation-rule"),{opacity:0,y:20},{opacity:1,y:0,duration:.48,ease:"power3.out"},5.52);
+      tl.fromTo(byId("02-observation-box-va"),{scale:0,opacity:0,y:22},{scale:1,opacity:1,y:0,duration:.58,ease:"power3.out"},6.36);
+      tl.to(byId("02-observation-word-va"),{backgroundColor:"#ff8f8f",borderWidth:4,duration:.34,ease:"power2.out"},6.76);
+      tl.fromTo(byId("02-observation-box-tion"),{scale:0,opacity:0,y:22},{scale:1,opacity:1,y:0,duration:.58,ease:"power3.out"},7.38);
+      tl.to(byId("02-observation-word-tion"),{backgroundColor:"#008eff",color:"#f7f4ea",borderWidth:4,duration:.34,ease:"power2.out"},7.78);
+      tl.fromTo(byId("02-observation-arrow"),{scale:.7,opacity:0},{scale:1,opacity:1,duration:.46,ease:"power3.out"},8.42);
+      window.__timelines["02-observation"] = tl;
+    })();
+  </script>
+</template>

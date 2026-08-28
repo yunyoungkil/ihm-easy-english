@@ -1,0 +1,67 @@
+<template>
+  <style>
+    @font-face{font-family:"f07-score-cta-Rubik";src:url("assets/fonts/rubik-bold.ttf") format("truetype");font-weight:700 900;font-style:normal}
+    @font-face{font-family:"f07-score-cta-Korean";src:url("assets/fonts/capcut-korean.ttf") format("truetype");font-weight:500 900;font-style:normal}
+    #root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;color:#f7f4ea;container-type:size;isolation:isolate}
+    .f07-score-cta-ground{position:absolute;inset:0;overflow:hidden;background:#09101c}
+    .f07-score-cta-ground:before{content:"";position:absolute;inset:0;opacity:.13;background-image:radial-gradient(#f7f4ea 2px,transparent 2px);background-size:34px 34px}
+    .f07-score-cta-stripe{position:absolute;left:-40px;top:110px;width:278px;height:90px;border:4px solid #f7f4ea;background:repeating-linear-gradient(45deg,#008eff 0 22px,#09101c 22px 34px);box-shadow:8px 8px 0 #008eff;transform:rotate(-7deg)}
+    .f07-score-cta-star{position:absolute;right:-50px;top:1010px;width:200px;height:200px;border:4px solid #f7f4ea;background:#ff8f8f;clip-path:polygon(50% 0%,61% 31%,90% 10%,69% 39%,100% 50%,69% 61%,90% 90%,61% 69%,50% 100%,39% 69%,10% 90%,31% 61%,0% 50%,31% 39%,10% 10%,39% 31%);transform:rotate(9deg)}
+    .f07-score-cta-safe{position:absolute;inset:288px 72px 340px;text-align:center;font-family:"f07-score-cta-Korean",sans-serif}
+    .f07-score-cta-eyebrow{display:inline-flex;align-items:center;min-height:54px;padding:4px 22px 2px;border:3px solid #f7f4ea;border-radius:999px;background:#09101c;box-shadow:4px 4px 0 #008eff;font-family:"f07-score-cta-Korean",sans-serif;font-size:28px;font-weight:900;letter-spacing:.02em;line-height:1}
+    .f07-score-cta-title{margin-top:104px;font-size:94px;line-height:1.08;font-weight:900;letter-spacing:-6px;transform-origin:50% 50%;will-change:transform,opacity}
+    .f07-score-cta-line{display:block}
+    .f07-score-cta-scores{display:flex;justify-content:center;gap:22px;margin-top:82px;transform-origin:50% 50%;will-change:transform,opacity}
+    .f07-score-cta-score{width:150px;height:150px;border:5px solid #f7f4ea;background:#fff;color:#09101c;box-shadow:8px 8px 0 #008eff;display:grid;place-items:center;font-family:"f07-score-cta-Rubik",sans-serif;font-size:76px;font-weight:900;font-variant-numeric:tabular-nums}
+    .f07-score-cta-ticker{display:block;overflow:hidden;background:#008eff;color:#fff}
+    .f07-score-cta-stack{display:flex;flex-direction:column;will-change:transform}
+    .f07-score-cta-item{display:flex;flex:0 0 150px;width:150px;height:150px;align-items:center;justify-content:center}
+    .f07-score-cta-card{position:relative;margin-top:118px;padding:48px 38px 44px;border:5px solid #f7f4ea;background:#fff;color:#09101c;box-shadow:12px 12px 0 #008eff;font-size:56px;line-height:1.32;font-weight:900;transform-origin:50% 50%;will-change:transform,opacity}
+    .f07-score-cta-card:before{content:"RELATED VIDEO";position:absolute;top:-28px;left:28px;padding:7px 18px 5px;border:3px solid #09101c;border-radius:999px;background:#ff8f8f;box-shadow:4px 4px 0 #09101c;font-family:"f07-score-cta-Rubik",sans-serif;font-size:21px;font-weight:900;letter-spacing:.1em}
+    .f07-score-cta-card b{color:rgb(0,114,205)}
+    .f07-score-cta-arrow{margin-top:42px;font-family:"f07-score-cta-Rubik",sans-serif;font-size:116px;font-weight:900;line-height:.8;color:#008eff;transform-origin:50% 50%;will-change:transform,opacity}
+    .f07-score-cta-note{display:inline-flex;align-items:center;min-height:48px;margin-top:24px;padding:2px 18px;border:3px solid #f7f4ea;border-radius:999px;background:#09101c;box-shadow:4px 4px 0 #008eff;font-size:30px;font-weight:900;letter-spacing:-.02em;transform-origin:50% 50%;will-change:transform,opacity}
+  </style>
+  <div data-hf-id="hf-y77z" id="root" data-composition-id="07-score-cta" data-start="0" data-width="1080" data-height="1920" data-duration="5.530">
+    <div data-hf-id="hf-eimq" class="clip f07-score-cta-ground" data-start="0" data-duration="5.530" data-track-index="0"><div data-hf-id="hf-qk69" class="f07-score-cta-stripe"></div><div data-hf-id="hf-qwli" class="f07-score-cta-star"></div></div>
+    <section data-hf-id="hf-ra8h" class="clip f07-score-cta-safe" data-start="0" data-duration="5.530" data-track-index="1">
+      <div data-hf-id="hf-a86e" id="f07-score-cta-eyebrow" class="f07-score-cta-eyebrow">최종 점수</div>
+      <div data-hf-id="hf-9jh2" id="f07-score-cta-title" class="f07-score-cta-title"><span data-hf-id="hf-rpv6" class="f07-score-cta-line">네 단어 중</span><span data-hf-id="hf-25bl" class="f07-score-cta-line">몇 개를 맞히셨나요?</span></div>
+      <div data-hf-id="hf-4cou" id="f07-score-cta-scores" class="f07-score-cta-scores">
+        <span data-hf-id="hf-mfym" id="f07-score-cta-chip-1" class="f07-score-cta-score">1</span>
+        <span data-hf-id="hf-izx2" id="f07-score-cta-chip-2" class="f07-score-cta-score">2</span>
+        <span data-hf-id="hf-wuem" id="f07-score-cta-chip-3" class="f07-score-cta-score">3</span>
+        <span data-hf-id="hf-api7" id="f07-score-cta-ticker" class="f07-score-cta-score f07-score-cta-ticker"><span data-hf-id="hf-nghv" id="f07-score-cta-stack" class="f07-score-cta-stack" data-layout-allow-overflow data-layout-allow-overlap><span data-hf-id="hf-j1bl" class="f07-score-cta-item">1</span><span data-hf-id="hf-k88o" class="f07-score-cta-item">2</span><span data-hf-id="hf-jtxn" class="f07-score-cta-item">3</span><span data-hf-id="hf-huei" class="f07-score-cta-item">4</span></span></span>
+      </div>
+      <div data-hf-id="hf-fzgy" id="f07-score-cta-card" class="f07-score-cta-card"><span data-hf-id="hf-0z31" class="f07-score-cta-line">전체 원리는</span><b data-hf-id="hf-eg3a" class="f07-score-cta-line">관련 영상에서 지금 바로 확인</b></div>
+      <div data-hf-id="hf-0p5x" id="f07-score-cta-arrow" class="f07-score-cta-arrow">↓</div>
+      <div data-hf-id="hf-uc5v" id="f07-score-cta-note" class="f07-score-cta-note">아래 관련 영상 선택</div>
+    </section>
+  </div>
+  <script>
+    window.__timelines=window.__timelines||{};
+    const tl07ScoreCta=gsap.timeline({paused:true});
+    window.__timelines["07-score-cta"]=tl07ScoreCta;
+    tl07ScoreCta.fromTo("#f07-score-cta-eyebrow",{opacity:0,y:-16},{opacity:1,y:0,duration:.38,ease:"power3.out"},.04);
+    tl07ScoreCta.fromTo("#f07-score-cta-title",{scale:.92,opacity:0},{scale:1,opacity:1,duration:.5,ease:"power3.out"},.08);
+    tl07ScoreCta.fromTo("#f07-score-cta-scores",{scale:.9,opacity:0},{scale:1,opacity:1,duration:.42,ease:"power3.out"},.16);
+    const f07Stack=document.getElementById("f07-score-cta-stack");
+    const f07Springs=Array.from({length:3},()=>({p:0}));
+    const f07ApplyTicker=()=>{
+      const sum=f07Springs.reduce((total,spring)=>total+spring.p,0);
+      f07Stack.style.transform="translateY("+(-sum*150)+"px)";
+    };
+    f07ApplyTicker();
+    f07Springs.forEach((spring,index)=>{
+      tl07ScoreCta.to(spring,{p:1,duration:.5,ease:"back.out(1.7)",onUpdate:f07ApplyTicker},.18+index*.3);
+    });
+    tl07ScoreCta.to("#f07-score-cta-chip-1",{backgroundColor:"#ff8f8f",duration:.18,ease:"none"},.2);
+    tl07ScoreCta.to("#f07-score-cta-chip-2",{backgroundColor:"#6ebfff",duration:.18,ease:"none"},.5);
+    tl07ScoreCta.to("#f07-score-cta-chip-3",{backgroundColor:"#bfe3ff",duration:.18,ease:"none"},.8);
+    tl07ScoreCta.fromTo("#f07-score-cta-card",{opacity:0,y:84},{opacity:1,y:0,duration:.68,ease:"power3.out"},2.3);
+    tl07ScoreCta.fromTo("#f07-score-cta-note",{scale:.86,opacity:0},{scale:1,opacity:1,duration:.46,ease:"power3.out"},3.72);
+    tl07ScoreCta.fromTo("#f07-score-cta-arrow",{scale:.72,opacity:0},{scale:1,opacity:1,duration:.42,ease:"power3.out"},4.58);
+    tl07ScoreCta.to("#f07-score-cta-arrow",{y:24,duration:.16,ease:"power2.in"},4.84);
+    tl07ScoreCta.to("#f07-score-cta-arrow",{y:0,duration:.32,ease:"power3.out"},5.0);
+  </script>
+</template>

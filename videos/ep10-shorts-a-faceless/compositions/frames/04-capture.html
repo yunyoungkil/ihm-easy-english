@@ -1,0 +1,84 @@
+<template>
+  <style>
+    @font-face{font-family:"f04-capture-Rubik";src:url("assets/fonts/rubik-bold.ttf") format("truetype");font-weight:700 900;font-style:normal}
+    @font-face{font-family:"f04-capture-Korean";src:url("assets/fonts/capcut-korean.ttf") format("truetype");font-weight:500 900;font-style:normal}
+    #root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;color:#09101c;container-type:size;isolation:isolate}
+    .f04-capture-ground{position:absolute;inset:0;overflow:hidden;background:#bfe3ff}
+    .f04-capture-ground:before{content:"";position:absolute;inset:0;opacity:.12;background-image:radial-gradient(#09101c 2px,transparent 2px);background-size:32px 32px}
+    .f04-capture-stripe{position:absolute;top:88px;left:-34px;width:270px;height:90px;border:4px solid #09101c;background:repeating-linear-gradient(-45deg,#ff8f8f 0 22px,#09101c 22px 34px);box-shadow:8px 8px 0 #09101c;transform:rotate(-7deg)}
+    .f04-capture-star{position:absolute;right:-42px;top:1040px;width:190px;height:190px;border:4px solid #09101c;background:#008eff;clip-path:polygon(50% 0%,61% 31%,90% 10%,69% 39%,100% 50%,69% 61%,90% 90%,61% 69%,50% 100%,39% 69%,10% 90%,31% 61%,0% 50%,31% 39%,10% 10%,39% 31%);transform:rotate(9deg)}
+    .f04-capture-safe{position:absolute;inset:288px 72px 330px;overflow:hidden;font-family:"f04-capture-Korean",sans-serif}
+    .f04-capture-step{display:inline-flex;align-items:center;min-height:54px;padding:4px 22px 2px;border:3px solid #09101c;border-radius:999px;background:#ff8f8f;box-shadow:4px 4px 0 #09101c;font-family:"f04-capture-Korean",sans-serif;font-size:28px;font-weight:900;letter-spacing:.02em;line-height:1}
+    .f04-capture-word{position:relative;z-index:2;margin-top:146px;font-family:"f04-capture-Rubik",sans-serif;font-size:156px;font-weight:900;letter-spacing:-8px;line-height:.92;text-align:center;white-space:nowrap;transform-origin:50% 50%;will-change:transform,opacity}
+    .f04-capture-word-accent{position:relative;display:inline-block;color:rgb(0,127,228);transform-origin:50% 50%}
+    .f04-capture-marker{position:absolute;z-index:3;left:-2%;bottom:-8%;width:105%;height:22%;overflow:visible;pointer-events:none}
+    .f04-capture-marker path{fill:none;stroke:#008eff;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+    .f04-capture-q{margin-top:76px;text-align:center;font-size:58px;font-weight:900;letter-spacing:-.025em;line-height:1.1;transform-origin:50% 50%;will-change:transform,opacity}
+    .f04-capture-answer{position:relative;margin-top:112px;padding:42px 34px 38px;border:5px solid #09101c;background:#fff;box-shadow:12px 12px 0 #09101c;text-align:center;will-change:transform,opacity}
+    .f04-capture-answer:before{content:"ANSWER";position:absolute;top:-28px;left:28px;padding:7px 18px 5px;border:3px solid #09101c;border-radius:999px;background:#6ebfff;box-shadow:4px 4px 0 #09101c;font-family:"f04-capture-Rubik",sans-serif;font-size:22px;font-weight:900;letter-spacing:.1em}
+    .f04-capture-pron{font-size:118px;font-weight:900;letter-spacing:-.05em;line-height:1;color:#008eff;transform-origin:50% 50%}
+    .f04-capture-rule{margin-top:30px;font-size:44px;font-weight:900;line-height:1.3}
+    .f04-capture-formula-stage{position:relative;height:170px;margin-top:70px;overflow:hidden}
+    .f04-capture-collision{position:absolute;inset:0;z-index:3;overflow:hidden}
+    .f04-capture-collider{position:absolute;top:8px;display:grid;width:150px;height:150px;place-items:center;border:5px solid #09101c;background:#fff;box-shadow:8px 8px 0 #09101c;font-family:"f04-capture-Rubik",sans-serif;font-size:100px;font-weight:900;will-change:transform,opacity}
+    .f04-capture-collider-t{left:84px;z-index:1}
+    .f04-capture-collider-u{right:84px;z-index:2;background:#ff8f8f}
+    .f04-capture-impact{position:absolute;z-index:4;left:365px;top:0;width:180px;height:170px;border:4px solid #09101c;background:#008eff;clip-path:polygon(50% 0%,61% 31%,90% 10%,69% 39%,100% 50%,69% 61%,90% 90%,61% 69%,50% 100%,39% 69%,10% 90%,31% 61%,0% 50%,31% 39%,10% 10%,39% 31%);transform-origin:50% 50%;will-change:transform,opacity}
+    .f04-capture-formula{position:absolute;inset:0;z-index:5;display:flex;justify-content:center;gap:22px;align-items:center;font-family:"f04-capture-Rubik","f04-capture-Korean",sans-serif;font-size:88px;font-weight:900;transform-origin:50% 50%;will-change:transform,opacity}
+    .f04-capture-letter{display:grid;width:136px;height:136px;place-items:center;border:5px solid #09101c;background:#fff;box-shadow:8px 8px 0 #09101c}
+    .f04-capture-symbol{font-size:70px}
+    .f04-capture-sound{display:grid;width:136px;height:136px;place-items:center;border:5px solid #09101c;background:#008eff;box-shadow:8px 8px 0 #09101c;color:#fff;transform-origin:50% 50%}
+  </style>
+  <div data-hf-id="hf-4tzt" id="root" data-composition-id="04-capture" data-start="0" data-width="1080" data-height="1920" data-duration="8.229">
+    <div data-hf-id="hf-s9eo" class="clip f04-capture-ground" data-start="0" data-duration="9.143" data-track-index="0"><div data-hf-id="hf-v9kj" class="f04-capture-stripe"></div><div data-hf-id="hf-lqps" class="f04-capture-star"></div></div>
+    <section data-hf-id="hf-30gj" class="clip f04-capture-safe" data-start="0" data-duration="9.143" data-track-index="1">
+      <div data-hf-id="hf-478a" id="f04-capture-step" class="f04-capture-step">03 · 글자 결합</div>
+      <div data-hf-id="hf-qtvy" id="f04-capture-word" class="f04-capture-word">CAP<span data-hf-id="hf-d16i" id="f04-capture-word-accent" class="f04-capture-word-accent">TURE<svg data-hf-id="hf-yvpx" id="f04-capture-marker" class="f04-capture-marker" viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path data-hf-id="hf-itkn" id="f04-capture-marker-path" d="M 2 7 C 20 4.5, 46 8.5, 66 6 C 80 4.5, 92 7.5, 98 5.5" /></svg></span></div>
+      <div data-hf-id="hf-3kr9" id="f04-capture-q" class="f04-capture-q">어떻게 읽을까요?</div>
+      <div data-hf-id="hf-mvpu" id="f04-capture-answer" class="f04-capture-answer"><div data-hf-id="hf-z3jb" id="f04-capture-pron" class="f04-capture-pron">캡처</div><div data-hf-id="hf-phqu" class="f04-capture-rule">두 글자가 만나 한 소리로</div></div>
+      <div data-hf-id="hf-gzo7" class="f04-capture-formula-stage">
+        <div data-hf-id="hf-y9c2" id="f04-capture-collision" class="f04-capture-collision">
+          <span data-hf-id="hf-i70n" id="f04-capture-collider-t" class="f04-capture-collider f04-capture-collider-t">T</span>
+          <span data-hf-id="hf-g3og" id="f04-capture-collider-u" class="f04-capture-collider f04-capture-collider-u">U</span>
+          <span data-hf-id="hf-83k3" id="f04-capture-impact" class="f04-capture-impact"></span>
+        </div>
+        <div data-hf-id="hf-0f8q" id="f04-capture-formula" class="f04-capture-formula"><span data-hf-id="hf-4i4j" class="f04-capture-letter">T</span><span data-hf-id="hf-iuoe" class="f04-capture-symbol">+</span><span data-hf-id="hf-4wfk" class="f04-capture-letter">U</span><span data-hf-id="hf-kjp5" class="f04-capture-symbol">→</span><span data-hf-id="hf-9v3n" id="f04-capture-sound" class="f04-capture-sound">처</span></div>
+      </div>
+    </section>
+  </div>
+  <script>
+    window.__timelines=window.__timelines||{};
+    const tl04Capture=gsap.timeline({paused:true});
+    window.__timelines["04-capture"]=tl04Capture;
+    tl04Capture.fromTo("#f04-capture-step",{opacity:0,y:-18},{opacity:1,y:0,duration:.42,ease:"power3.out"},.05);
+    tl04Capture.fromTo("#f04-capture-word",{scale:0,opacity:0},{scale:1,opacity:1,duration:.58,ease:"power3.out"},.12);
+    const f04MarkerPath=document.getElementById("f04-capture-marker-path");
+    const f04MarkerLength=f04MarkerPath.getTotalLength();
+    gsap.set(f04MarkerPath,{strokeDasharray:f04MarkerLength,strokeDashoffset:f04MarkerLength,opacity:0});
+    tl04Capture.set(f04MarkerPath,{opacity:1},.72);
+    tl04Capture.fromTo(f04MarkerPath,{strokeDashoffset:f04MarkerLength},{strokeDashoffset:0,duration:.6,ease:"power2.inOut"},.72);
+    tl04Capture.fromTo("#f04-capture-word-accent",{scale:1},{scale:1.045,duration:.16,ease:"power1.out",yoyo:true,repeat:1},1.14);
+    tl04Capture.fromTo("#f04-capture-q",{scale:.9,opacity:0,y:18},{scale:1,opacity:1,y:0,duration:.54,ease:"power3.out"},1.46);
+    tl04Capture.fromTo("#f04-capture-answer",{opacity:0,y:30},{opacity:1,y:0,duration:.6,ease:"power3.out"},3.94);
+    tl04Capture.fromTo("#f04-capture-pron",{scale:.72,opacity:0},{scale:1,opacity:1,duration:.52,ease:"power3.out"},4.38);
+    tl04Capture.fromTo("#f04-capture-collision",{opacity:0},{opacity:1,duration:.12,ease:"none"},5.96);
+    gsap.set("#f04-capture-impact",{scale:0,opacity:0});
+    const f04Collision={p:0};
+    tl04Capture.to(f04Collision,{p:1,duration:.72,ease:"back.out(1.45)",onUpdate:()=>{
+      const p=f04Collision.p;
+      const t=document.getElementById("f04-capture-collider-t");
+      const u=document.getElementById("f04-capture-collider-u");
+      const impact=document.getElementById("f04-capture-impact");
+      const travel=286;
+      t.style.transform="translateX("+(travel*p)+"px) rotate("+(7*p)+"deg)";
+      u.style.transform="translateX("+(-travel*p)+"px) rotate("+(-10*(1-p))+"deg)";
+      t.style.opacity=String(Math.max(0,1-(p-.82)*5.56));
+      u.style.opacity=String(Math.max(0,1-(p-.82)*5.56));
+      const hit=Math.max(0,Math.min(1,(p-.72)/.18));
+      impact.style.transform="scale("+hit+")";
+      impact.style.opacity=String(Math.max(0,1-Math.max(0,(p-.9)/.1)));
+    }},5.96);
+    tl04Capture.fromTo("#f04-capture-formula",{scale:0,opacity:0},{scale:1,opacity:1,duration:.54,ease:"power3.out"},6.38);
+    tl04Capture.fromTo("#f04-capture-sound",{scale:.7,backgroundColor:"#fff",color:"#09101c"},{scale:1,backgroundColor:"#008eff",color:"#fff",duration:.52,ease:"power3.out"},6.60);
+  </script>
+</template>

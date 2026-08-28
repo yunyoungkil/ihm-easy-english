@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "contentId": "s1-ep08-shorts-b",
+  "status": "published-test",
+  "classification": {
+    "season": 1,
+    "episode": 8,
+    "track": "B",
+    "format": "SHORTS"
+  },
+  "youtube": {
+    "videoId": "5MiM1tIpQQk",
+    "url": "https://youtu.be/5MiM1tIpQQk",
+    "title": "TREASURE를 ‘트레처’라고 읽으면 틀립니다 #영어발음 #shorts",
+    "thumbnailText": [
+      "TREASURE",
+      "트레처가 아니라고?"
+    ],
+    "description": "CULTURE는 컬처, FURNITURE는 퍼니처.\n\n그렇다면 TREASURE와 LEISURE도\n‘트레처’, ‘리처’라고 읽으면 될까요?\n\n정답은 트레저, 리저입니다.\n\n비슷하게 생긴 철자라도\nT + U와 S + U는 발음이 달라질 수 있어요.\n\n혀 모양과 발음 원리가 궁금하다면\n관련 영상에서 자세히 확인해 보세요.\n\n📌 발음 원리와 혀 모양 자세히 보기\nhttps://youtu.be/YoaCRYCWpws\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #발음테스트 #EnglishPronunciation #shorts",
+    "tags": [
+      "영어 발음",
+      "영어 발음 테스트",
+      "영어 발음 규칙",
+      "기초 영어",
+      "왕초보 영어",
+      "영어 공부",
+      "영단어 발음",
+      "culture 발음",
+      "furniture 발음",
+      "treasure 발음",
+      "leisure 발음",
+      "컬처",
+      "퍼니처",
+      "트레저",
+      "리저",
+      "영어 쇼츠",
+      "영어교육",
+      "English pronunciation",
+      "pronunciation test",
+      "treasure pronunciation",
+      "leisure pronunciation"
+    ],
+    "pinnedComment": "여러분은 TREASURE와 LEISURE를 처음 보고 어떻게 읽으셨나요? 👀\n\n① 트레처 / 리처\n② 트레저 / 리저\n\n정답을 맞혔는지 댓글로 알려주세요!\n\nCULTURE·FURNITURE와 발음이 달라지는 이유와\n정확한 혀 모양은 관련 영상에서 확인할 수 있습니다. 👇\nPICTURE는 왜 '픽투어'가 아닐까? : https://youtu.be/YoaCRYCWpws",
+    "relatedVideo": {
+      "videoId": "YoaCRYCWpws",
+      "url": "https://youtu.be/YoaCRYCWpws"
+    }
+  },
+  "production": {
+    "compositionId": "ep8-shorts-b-auto",
+    "renderFileName": "s1-ep8-shorts-b-treasure-leisure.mp4",
+    "fps": 30,
+    "durationFrames": 1568,
+    "durationSeconds": 53,
+    "audioFiles": [
+      "ep08_shortsB_auto_seg01.wav",
+      "ep08_shortsB_auto_seg02.wav",
+      "ep08_shortsB_auto_seg03.wav",
+      "ep08_shortsB_auto_seg04.wav",
+      "ep08_shortsB_auto_seg05.wav",
+      "ep08_shortsB_auto_seg06.wav"
+    ],
+    "words": [
+      {
+        "word": "CULTURE",
+        "accent": "TU",
+        "reading": "컬처"
+      },
+      {
+        "word": "FURNITURE",
+        "accent": "TU",
+        "reading": "퍼니처"
+      },
+      {
+        "word": "TREASURE",
+        "accent": "SU",
+        "reading": "트레저"
+      },
+      {
+        "word": "LEISURE",
+        "accent": "SU",
+        "reading": "리저"
+      }
+    ],
+    "colors": {
+      "background": "#06090E",
+      "wordCard": "#FFD900",
+      "letterAccent": "#FF0000",
+      "koreanAccent": "#008EFF",
+      "cta": "#8100FF"
+    },
+    "keyFrames": {
+      "answerReveal": 542,
+      "wordSequenceStart": 784,
+      "distinctionStart": 1011,
+      "questionStart": 1247,
+      "ctaStart": 1395
+    }
+  },
+  "evaluation": {
+    "decisionStatus": "waiting-48h",
+    "comparisonVideoId": "h-UUbuWQuag",
+    "successCriteria": {
+      "minimumAverageViewPercentage": 60,
+      "targetAverageViewPercentage": 70,
+      "mustBeatOrMatchTrackA": true
+    }
+  }
+}

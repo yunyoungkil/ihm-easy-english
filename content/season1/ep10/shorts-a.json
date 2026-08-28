@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "contentId": "s1-ep10-shorts-a",
+  "status": "scheduled",
+  "classification": {
+    "season": 1,
+    "episode": 10,
+    "track": "A",
+    "format": "SHORTS"
+  },
+  "youtube": {
+    "videoId": "LdiZKCzKf0c",
+    "url": "https://youtu.be/LdiZKCzKf0c",
+    "title": "시즌1 발음 테스트, 4문제 다 맞히면 진짜 실력 #영어발음 #shorts",
+    "thumbnailText": [
+      "시즌1 발음 진짜 내 것?",
+      "OBSERVATION · CONFUSION · CAPTURE · ARTIFICIAL",
+      "4문제 테스트"
+    ],
+    "description": "시즌1에서 배운 발음, 진짜 내 것이 됐을까요?\n\nOBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL.\n네 단어로 확인해 보세요.\n\n정답: 옵저베이션 · 컨퓨전 · 캡처 · 아티피셜\n\n강세는 바로 앞 음절에, 글자들이 만나면 소리가 바뀌고, 예외처럼 보여도 전부 이유가 있습니다.\n\n📌 시즌1 전체 원리 다시 보기\nhttps://youtu.be/3PkSwrFIcRE\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #발음테스트 #EnglishPronunciation #shorts",
+    "tags": [
+      "영어 발음",
+      "영어 발음 테스트",
+      "영어 발음 규칙",
+      "기초 영어",
+      "왕초보 영어",
+      "영어 공부",
+      "observation 발음",
+      "confusion 발음",
+      "capture 발음",
+      "artificial 발음",
+      "시즌1 총정리",
+      "영어 쇼츠",
+      "영어교육",
+      "English pronunciation",
+      "pronunciation test"
+    ],
+    "pinnedComment": "4문제 중 몇 개 맞히셨나요? 👀\n\n댓글로 점수 알려주세요! 시즌1 전체 원리는 관련 영상에서 다시 확인할 수 있어요 👇\nhttps://youtu.be/3PkSwrFIcRE",
+    "relatedVideo": {
+      "videoId": "3PkSwrFIcRE",
+      "url": "https://youtu.be/3PkSwrFIcRE",
+      "status": "connect-after-longform-publish",
+      "availableFromKst": "2026-08-29 20:00"
+    }
+  },
+  "script": {
+    "language": "ko-KR",
+    "tts": {
+      "provider": "Google AI Studio",
+      "voice": "Charon",
+      "speedProfile": "slightly-fast-clear"
+    },
+    "segments": [
+      {"id": 1, "role": "hook", "narration": "시즌1에서 배운 발음, 진짜 내 것이 됐을까요? 네 단어로 확인해 보세요."},
+      {"id": 2, "role": "quiz-1", "narration": "첫 번째 단어입니다. 어떻게 읽을까요? — 정답은 옵저베이션. 끝은 션, 강세는 바로 앞 베이에 있습니다."},
+      {"id": 3, "role": "quiz-2", "narration": "두 번째 단어입니다. 어떻게 읽을까요? — 정답은 컨퓨전. 에스 아이 오 엔 앞이 모음이라 전으로 읽습니다."},
+      {"id": 4, "role": "quiz-3", "narration": "세 번째 단어입니다. 어떻게 읽을까요? — 정답은 캡처. 티와 유가 만나 처가 됩니다."},
+      {"id": 5, "role": "quiz-4", "narration": "마지막 단어입니다. 어떻게 읽을까요? — 정답은 아티피셜. 씨 아이 에이 엘은 한 글자씩 나누지 않고 셜로 붙여 읽습니다."},
+      {"id": 6, "role": "recap", "narration": "강세는 바로 앞. 글자들이 만나면 소리가 변하고, 예외처럼 보여도 전부 이유가 있습니다."},
+      {"id": 7, "role": "related-video-cta", "narration": "네 단어 중 몇 개를 맞히셨나요? 전체 원리는 관련 영상에서 지금 바로 확인해 보세요."}
+    ]
+  },
+  "production": {
+    "compositionId": "ep10-shorts-a-faceless",
+    "renderFileName": "s1-ep10-shorts-a-pronunciation-quiz.mp4",
+    "thumbnailFileName": "thumbnail.png",
+    "thumbnailFrame": null,
+    "fps": 30,
+    "durationSeconds": 54.3,
+    "audioFiles": [
+      "frame01.wav",
+      "frame02.wav",
+      "frame03.wav",
+      "frame04.wav",
+      "frame05.wav",
+      "frame06.wav",
+      "frame07.wav"
+    ]
+  },
+  "publishing": {
+    "order": 2,
+    "relativeToLongform": "+2 days",
+    "timeKst": "20:00",
+    "scheduledAtKst": "2026-08-31 20:00",
+    "scheduledPublishAtUtc": "2026-08-31T11:00:00Z",
+    "playlist": "이해하면 쉬운 영어 | 영어 읽는 법 테스트 시즌1 (30초 퀴즈)",
+    "category": "교육",
+    "alteredContent": false,
+    "location": "대한민국",
+    "prePublishTasks": [
+      {"task": "EP10 롱폼 YouTube 업로드", "status": "completed"},
+      {"task": "썸네일 파일 생성", "status": "completed"},
+      {"task": "공개 일정 확정", "status": "completed"}
+    ],
+    "postPublishTasks": [
+      {"task": "고정 댓글 작성", "status": "pending"},
+      {"task": "댓글 고정 여부 확인", "status": "pending"},
+      {"task": "관련 영상 EP10 롱폼 연결 상태 최종 확인", "status": "pending"}
+    ]
+  }
+}

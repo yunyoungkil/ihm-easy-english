@@ -1,0 +1,70 @@
+<template>
+  <style>
+    @font-face{font-family:"05-artificial-korean";src:url("assets/fonts/capcut-korean.ttf") format("truetype");font-weight:500 900;font-style:normal}
+    @font-face{font-family:"05-artificial-latin";src:url("assets/fonts/rubik-bold.ttf") format("truetype");font-weight:700;font-style:normal}
+    #root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;color:#09101c;container-type:size;font-family:"05-artificial-korean"}
+    [class~="05-artificial-ground"]{position:absolute;inset:0;background-color:#f7f4ea;background-image:radial-gradient(circle,rgba(9,16,28,.12) 2px,transparent 2.6px);background-size:28px 28px}
+    [class~="05-artificial-stage"]{position:absolute;inset:0;perspective:1400px}
+    [class~="05-artificial-step"]{position:absolute;top:288px;left:74px;padding:15px 24px 13px;border:4px solid #09101c;border-radius:9999px;background:#ff8f8f;box-shadow:7px 7px 0 #09101c;font-family:"05-artificial-korean";font-size:27px;font-weight:700;line-height:1;letter-spacing:1px;white-space:nowrap;will-change:transform}
+    [class~="05-artificial-word"]{position:absolute;top:454px;left:58px;right:58px;margin:0;text-align:center;font-family:"05-artificial-latin";font-size:118px;font-weight:700;line-height:1;letter-spacing:-6px;white-space:nowrap;will-change:transform,opacity}
+    [class~="05-artificial-word"] b{color:#008eff;font-weight:700}
+    [class~="05-artificial-question"]{position:absolute;top:670px;left:100px;right:100px;margin:0;text-align:center;font-size:58px;font-weight:900;line-height:1.15;letter-spacing:-2px;will-change:transform,opacity}
+    [class~="05-artificial-answer"]{position:absolute;top:834px;left:88px;right:88px;min-height:276px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:38px 30px;border:5px solid #09101c;background:#fff;box-shadow:10px 10px 0 #09101c;text-align:center;transform-origin:50% 50%;will-change:transform,opacity}
+    [class~="05-artificial-pronunciation"]{color:#008eff;font-size:100px;font-weight:900;line-height:1;letter-spacing:-4px}
+    [class~="05-artificial-rule"]{margin-top:34px;font-size:43px;font-weight:900;line-height:1.3;letter-spacing:-1.5px}
+    [class~="05-artificial-swap-wrap"]{position:absolute;top:1264px;left:70px;right:70px;height:390px}
+    [class~="05-artificial-letters-layer"],[class~="05-artificial-result-layer"]{position:absolute;inset:0;transform-origin:50% 50%;will-change:transform,opacity}
+    [class~="05-artificial-letters-layer"]{z-index:1}
+    [class~="05-artificial-result-layer"]{z-index:2;display:flex;align-items:flex-end;justify-content:center;padding-bottom:0}
+    [class~="05-artificial-cloud-stage"]{position:absolute;top:60px;left:0;right:0;height:170px;transform-style:preserve-3d;will-change:transform}
+    [class~="05-artificial-fragment"]{position:absolute;top:50%;left:50%;width:138px;height:138px;display:grid;place-items:center;border:5px solid #09101c;background:#fff;box-shadow:8px 8px 0 #09101c;font-family:"05-artificial-latin";font-size:80px;font-weight:700;line-height:1;transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity}
+    [class~="05-artificial-fragment"]:nth-child(1),[class~="05-artificial-fragment"]:nth-child(4){background:#bfe3ff}
+    [class~="05-artificial-fragment"]:nth-child(2){background:#ff8f8f}
+    [class~="05-artificial-result"]{padding:20px 42px 14px;border:5px solid #09101c;background:#fff;box-shadow:10px 10px 0 #09101c;color:#008eff;font-size:112px;font-weight:900;line-height:1;letter-spacing:-5px;white-space:nowrap}
+    [class~="05-artificial-stripe"]{position:absolute;top:359px;right:-48px;width:220px;height:68px;border:4px solid #09101c;background:repeating-linear-gradient(135deg,#09101c 0 11px,#bfe3ff 11px 24px);transform:rotate(9deg)}
+    [class~="05-artificial-star"]{position:absolute;top:1071px;left:-24px;width:140px;height:140px;display:grid;place-items:center;border:4px solid #09101c;background:#ff8f8f;clip-path:polygon(50% 0%,61% 31%,88% 12%,70% 39%,100% 50%,70% 61%,88% 88%,61% 69%,50% 100%,39% 69%,12% 88%,30% 61%,0% 50%,30% 39%,12% 12%,39% 31%);transform:rotate(-9deg)}
+    [class~="05-artificial-star"]::after{content:"✓";font-family:"05-artificial-latin";font-size:48px;font-weight:700}
+  </style>
+  <div data-hf-id="hf-2b5x" id="root" data-composition-id="05-artificial" data-start="0" data-width="1080" data-height="1920" data-duration="9.962">
+    <div data-hf-id="hf-4w24" class="clip 05-artificial-ground" data-start="0" data-duration="11.821" data-track-index="0"></div>
+    <section data-hf-id="hf-rai6" class="clip 05-artificial-stage" data-start="0" data-duration="11.821" data-track-index="1">
+      <div data-hf-id="hf-avih" class="05-artificial-stripe" aria-hidden="true"></div>
+      <div data-hf-id="hf-1wta" class="05-artificial-star" aria-hidden="true"></div>
+      <div data-hf-id="hf-wa1h" class="05-artificial-step" data-role="step">04 · 한 소리로 읽기</div>
+      <div data-hf-id="hf-932y" class="05-artificial-word" data-role="word">ARTIFI<b data-hf-id="hf-wlb8">CIAL</b></div>
+      <div data-hf-id="hf-bn00" class="05-artificial-question" data-role="question">어떻게 읽을까요?</div>
+      <div data-hf-id="hf-0mej" class="05-artificial-answer" data-role="answer"><div data-hf-id="hf-6cyq" class="05-artificial-pronunciation">아티피셜</div><div data-hf-id="hf-ydpz" class="05-artificial-rule">낱자 네 개가 아니라 한 소리 ‘셜’</div></div>
+      <div data-hf-id="hf-tl4f" class="05-artificial-swap-wrap">
+        <div data-hf-id="hf-nvhr" class="05-artificial-letters-layer" data-role="letters-layer"><div data-hf-id="hf-xpvn" class="05-artificial-cloud-stage" data-role="cloud-stage">
+          <span data-hf-id="hf-cwt9" class="05-artificial-fragment" data-role="fragment" data-target-x="-240" data-target-y="0">C</span><span data-hf-id="hf-9c9v" class="05-artificial-fragment" data-role="fragment" data-target-x="-80" data-target-y="0">I</span><span data-hf-id="hf-og48" class="05-artificial-fragment" data-role="fragment" data-target-x="80" data-target-y="0">A</span><span data-hf-id="hf-2apd" class="05-artificial-fragment" data-role="fragment" data-target-x="240" data-target-y="0">L</span>
+        </div></div>
+        <div data-hf-id="hf-mrwh" class="05-artificial-result-layer" data-role="result-layer"><div data-hf-id="hf-a5qy" class="05-artificial-result">→ 셜</div></div>
+      </div>
+    </section>
+  </div>
+  <script>
+    (()=>{
+      window.__timelines=window.__timelines||{};
+      const root=document.querySelector('[data-composition-id="05-artificial"]');
+      const step=root.querySelector('[data-role="step"]'),word=root.querySelector('[data-role="word"]'),question=root.querySelector('[data-role="question"]'),answer=root.querySelector('[data-role="answer"]');
+      const lettersLayer=root.querySelector('[data-role="letters-layer"]'),resultLayer=root.querySelector('[data-role="result-layer"]'),cloudStage=root.querySelector('[data-role="cloud-stage"]');
+      const fragments=Array.from(root.querySelectorAll('[data-role="fragment"]'));
+      const GOLDEN=Math.PI*(3-Math.sqrt(5)),n=fragments.length;
+      const scatter=fragments.map((el,index)=>{const angle=index*GOLDEN,depthT=n>1?index/(n-1):0;return{x:Math.cos(angle)*118,y:Math.sin(angle)*96,z:130-depthT*270,rotationX:Math.sin(angle)*48,rotationY:Math.cos(angle)*48}});
+      fragments.forEach((fragment,index)=>gsap.set(fragment,{xPercent:-50,yPercent:-50,...scatter[index],opacity:0}));
+      gsap.set(cloudStage,{rotationY:-18});
+      gsap.set(resultLayer,{scale:.7,opacity:0});
+      const tl=gsap.timeline({paused:true});
+      tl.set([step,word,question,answer],{opacity:0},0);
+      tl.fromTo(step,{y:-60,opacity:0},{y:0,opacity:1,duration:.32,ease:"power4.out"},.05);
+      tl.fromTo(word,{scale:1.28,opacity:0},{scale:1,opacity:1,duration:.58,ease:"power3.out"},.12);
+      tl.fromTo(question,{y:52,opacity:0},{y:0,opacity:1,duration:.42,ease:"power4.out"},.82);
+      tl.fromTo(answer,{x:230,opacity:.35},{x:0,opacity:1,duration:.38,ease:"power4.out"},3.45);
+      tl.fromTo(cloudStage,{rotationY:-18},{rotationY:0,duration:1.42,ease:"power1.out"},6.02);
+      fragments.forEach((fragment,index)=>tl.to(fragment,{x:Number(fragment.dataset.targetX),y:Number(fragment.dataset.targetY),z:0,rotationX:0,rotationY:0,opacity:1,duration:1.15,ease:"power3.out"},6.02+index*.07));
+      tl.to(lettersLayer,{scale:.72,opacity:0,duration:.3,ease:"power2.in"},8.02);
+      tl.to(resultLayer,{scale:1,opacity:1,duration:.45,ease:"back.out(1.4)"},8.17);
+      window.__timelines["05-artificial"]=tl;
+    })();
+  </script>
+</template>

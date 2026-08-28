@@ -1,0 +1,24 @@
+{
+  "provider": "google-studio-gemini-tts",
+  "playback_rate_applied": 1.15,
+  "voices": [
+    {"frame":1,"path":"assets/audio/frame01.wav","duration":4.745083,"duration_s":4.765},
+    {"frame":2,"path":"assets/audio/frame02.wav","duration":9.318292,"duration_s":9.318},
+    {"frame":3,"path":"assets/audio/frame03.wav","duration":10.417083,"duration_s":10.417},
+    {"frame":4,"path":"assets/audio/frame04.wav","duration":7.729250,"duration_s":7.729},
+    {"frame":5,"path":"assets/audio/frame05.wav","duration":9.461583,"duration_s":9.462},
+    {"frame":6,"path":"assets/audio/frame06.wav","duration":7.022542,"duration_s":7.026},
+    {"frame":7,"path":"assets/audio/frame07.wav","duration":5.525333,"duration_s":5.530}
+  ],
+  "bgm": null,
+  "sfx": [],
+  "source_segments": [
+    {"frame":1,"segments":["seg01.wav"]},
+    {"frame":2,"segments":["seg02.wav","1.2s silence","seg03.wav"]},
+    {"frame":3,"segments":["seg04.wav","1.2s silence","seg05.wav"]},
+    {"frame":4,"segments":["seg06.wav","1.2s silence","seg07.wav"]},
+    {"frame":5,"segments":["seg08.wav","1.2s silence","seg09.wav"]},
+    {"frame":6,"segments":["seg10.wav"]},
+    {"frame":7,"segments":["seg11.wav"]}
+  ]
+}

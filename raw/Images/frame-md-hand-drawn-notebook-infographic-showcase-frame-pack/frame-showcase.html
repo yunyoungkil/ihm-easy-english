@@ -1,0 +1,1540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>frame.md · Hand-Drawn Notebook Infographic — showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Kalam:wght@400;700&family=Schoolbell&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── Root tokens (mirror frame.md `colors` verbatim) ─────────────── */
+:root{
+  --bg:#ECEEF6;
+  --background:#EEF0F8;
+  --background-shadow:#E1E3ED;
+  --bg-radial-inner:#F3F4FA;
+  --bg-radial-outer:#E8EAF3;
+  --paper:#FFFCF5;
+  --paper-warm:#FAF7EF;
+  --paper-line:#DDDCD6;
+  --paper-line-alt:#DEDDD7;
+  --ink:#171719;
+  --ink-alt:#181719;
+  --spiral-dark:#171718;
+  --spiral-mid:#3C3B3D;
+  --spiral-highlight:#777578;
+  --pink:#F7C7D2;
+  --pink-soft:#F6D2DF;
+  --pink-highlight:#F8C9CF;
+  --yellow:#FFE685;
+  --yellow-header:#FFE374;
+  --yellow-soft:#FFF0A5;
+  --blue:#BEE9F4;
+  --blue-soft:#D3F2F7;
+  --green:#C9EEAF;
+  --green-soft:#D8F4C5;
+  --orange:#FFCB95;
+  --lavender:#D9C5E9;
+  --lavender-dark:#C7B1E1;
+  --badge-yellow:#FFE78A;
+  --badge-blue:#BFE9F5;
+  --badge-orange:#FFC98F;
+  --badge-green:#C7EDAE;
+  --highlight-yellow:#FFE99A;
+  --highlight-blue:#C8EDF5;
+  --highlight-orange:#FFD09E;
+  --highlight-green:#D0F1B8;
+  --highlight-pink:#F7C8D3;
+  --fold-pink:#EFB6D6;
+  --fold-purple:#D5C2EB;
+  --fold-blue:#BDE8ED;
+  --card-shadow:#D9C7E7;
+  --notebook-shadow:rgba(55,55,70,.23);
+  --features-pink:#F6C4D9;
+  --cloud-blue-a:#C9EFF7;
+  --cloud-blue-b:#C6EDF4;
+  --cloud-blue-c:#C9EFF6;
+  --password-bg:#FCFBF7;
+  --slider-track:#F8F7F1;
+  --slider-progress:#E6BCE9;
+  --slider-thumb:#AFC7FF;
+  --button-green:#BCEAB9;
+  --button-copy:#AEE3F1;
+  --strength-red:#FF6B68;
+  --strength-yellow:#FFD56D;
+  --strength-green:#69DD82;
+
+  --font-hand:"Patrick Hand","Kalam","Schoolbell","Comic Neue",system-ui,sans-serif;
+  --font-mono:"Kalam","Patrick Hand",ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{background:#DDDFE9}
+body{
+  font-family:var(--font-hand);
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 50% 30%, var(--bg-radial-inner) 0%, var(--bg-radial-outer) 55%, #D6D8E2 100%);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Cover: full-bleed 16:9, first element in body ─────────────── */
+.cover-frame{
+  width:100%;
+  aspect-ratio:16/9;
+  container-type:size;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 40%, var(--bg-radial-inner) 0%, var(--bg-radial-outer) 100%);
+}
+
+/* ── Doc chrome (after cover) ──────────────────────────────────── */
+.doc{
+  max-width:1500px;
+  margin:0 auto;
+  padding:0 5vw 12vw;
+}
+.doc-section{
+  padding:8vw 0 2vw;
+}
+.doc-section + .doc-section{
+  border-top:2px dashed var(--paper-line);
+}
+.section-head{
+  display:flex;
+  align-items:baseline;
+  gap:2vw;
+  margin:0 0 4vw;
+}
+.section-head .index{
+  font-family:var(--font-hand);
+  font-size:clamp(38px,4.4vw,68px);
+  font-weight:600;
+  color:var(--ink);
+  line-height:1;
+  padding:.15em .55em .35em;
+  background:var(--yellow-header);
+  border:3px solid var(--ink);
+  border-radius:14px 8px 12px 7px;
+  transform:rotate(-1.4deg);
+  box-shadow:6px 7px 0 var(--card-shadow);
+}
+.section-head .title{
+  font-family:var(--font-hand);
+  font-size:clamp(30px,3.6vw,52px);
+  font-weight:600;
+  color:var(--ink);
+  letter-spacing:.02em;
+  line-height:1;
+  text-transform:uppercase;
+}
+.section-head .rule{
+  flex:1;
+  height:0;
+  border-top:3px solid var(--ink);
+  position:relative;
+  transform:translateY(-.4em) rotate(-.4deg);
+}
+.section-head .rule::after{
+  content:"";
+  position:absolute;
+  right:-3px;top:-9px;
+  width:14px;height:14px;
+  border-radius:50%;
+  background:var(--pink-highlight);
+  border:2.5px solid var(--ink);
+}
+.section-lede{
+  font-family:var(--font-hand);
+  font-size:clamp(18px,1.4vw,24px);
+  color:var(--ink);
+  max-width:78ch;
+  margin:0 0 5vw;
+  line-height:1.5;
+  opacity:.88;
+}
+
+/* ── Palette ───────────────────────────────────────────────────── */
+.palette{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:2vw 3vw;
+  border-top:2px solid var(--ink);
+  padding-top:2vw;
+}
+.swatch{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:14px;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1.5px dashed var(--paper-line);
+}
+.swatch .chip{
+  width:64px;height:44px;
+  border:2.5px solid var(--ink);
+  border-radius:7px 11px 12px 8px;
+  box-shadow:5px 5px 0 var(--card-shadow);
+}
+.swatch .meta{
+  font-family:var(--font-hand);
+  font-size:16px;
+  line-height:1.25;
+}
+.swatch .meta .tk{ font-weight:600; color:var(--ink); font-size:18px; }
+.swatch .meta .hex{ font-family:var(--font-mono); color:var(--spiral-mid); font-size:15px; }
+
+/* ── Typography rows ───────────────────────────────────────────── */
+.type-rows{
+  border-top:2px solid var(--ink);
+}
+.type-row{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:3vw;
+  align-items:center;
+  padding:2vw 0;
+  border-bottom:1.5px dashed var(--paper-line);
+}
+.type-row .meta{
+  font-family:var(--font-hand);
+  font-size:15px;
+  line-height:1.35;
+  color:var(--ink);
+}
+.type-row .meta .tk{ font-size:17px; font-weight:600; }
+.type-row .meta .val{ font-family:var(--font-mono); color:var(--spiral-mid); font-size:14px; display:block; }
+.type-row .specimen{ font-family:var(--font-hand); color:var(--ink); }
+.type-wordmark  { font-size:82px;  font-weight:600; line-height:.92; letter-spacing:1px; text-transform:uppercase; }
+.type-subtitle  { font-size:44px;  font-weight:600; line-height:1.05; }
+.type-section   { font-size:36px;  font-weight:700; line-height:1.05; }
+.type-label     { font-size:28px;  font-weight:500; }
+.type-feature   { font-size:26px;  font-weight:500; line-height:1.4; }
+.type-caption   { font-size:19px;  font-weight:400; }
+.type-handle    { font-size:19px;  font-weight:500; }
+.subtitle-mark  { background:var(--pink-highlight); border-radius:12px 8px 11px 7px; padding:0 12px 3px; box-decoration-break:clone; }
+.ramp-label{
+  font-family:var(--font-hand);
+  font-size:15px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--spiral-mid);
+  padding:2vw 0 .5vw;
+}
+
+/* ── Component clusters ────────────────────────────────────────── */
+.components-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:2.5vw;
+  border-top:2px solid var(--ink);
+  padding-top:3vw;
+}
+.comp-card{
+  background:var(--paper);
+  border:2.5px solid var(--ink);
+  border-radius:7px 11px 12px 8px;
+  box-shadow:7px 7px 0 var(--card-shadow);
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  min-height:200px;
+}
+.comp-card .caption{
+  font-family:var(--font-hand);
+  font-size:15px;
+  color:var(--spiral-mid);
+  border-top:1.5px dashed var(--paper-line);
+  padding-top:10px;
+  margin-top:auto;
+}
+.comp-card .caption .tk{ color:var(--ink); font-weight:600; font-size:17px; display:block; margin-bottom:2px; }
+.comp-stage{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:120px;
+  padding:12px 4px;
+}
+
+/* ── Component atom styles (mirror `components:` tokens) ───────── */
+.c-wordmark{ font-family:var(--font-hand); font-size:52px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--ink); line-height:1; }
+.c-subtitle-marked{ font-family:var(--font-hand); font-size:33px; font-weight:600; color:var(--ink); background:var(--pink-highlight); border-radius:12px 8px 11px 7px; padding:0 10px 3px; box-decoration-break:clone; }
+.c-section-head-marked{ font-family:var(--font-hand); font-size:26px; font-weight:700; color:var(--ink); border-radius:12px 8px 11px 7px; padding:2px 12px 5px; display:inline-block; }
+.c-section-head-marked.y{ background:var(--highlight-yellow); }
+.c-section-head-marked.b{ background:var(--highlight-blue); }
+.c-section-head-marked.o{ background:var(--highlight-orange); }
+.c-section-head-marked.g{ background:var(--highlight-green); }
+.c-section-head-marked.p{ background:var(--highlight-pink); }
+
+.c-badge{
+  width:56px;height:56px;
+  border:2.5px solid var(--ink);
+  border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--font-hand);font-size:30px;font-weight:700;color:var(--ink);
+  line-height:1;
+}
+.c-badge.y{ background:var(--badge-yellow); }
+.c-badge.b{ background:var(--badge-blue); }
+.c-badge.o{ background:var(--badge-orange); }
+.c-badge.g{ background:var(--badge-green); }
+
+.c-password{
+  background:var(--password-bg);
+  border:3px solid var(--ink);
+  border-radius:11px;
+  box-shadow:6px 7px 0 var(--lavender);
+  padding:12px 22px;
+  font-family:var(--font-mono);
+  font-size:34px;font-weight:600;
+  letter-spacing:.06em;
+  color:var(--ink);
+  white-space:nowrap;
+}
+.c-slider{ display:flex; align-items:center; width:220px; height:34px; position:relative; }
+.c-slider .track{ position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); height:15px; background:var(--slider-track); border:2.5px solid var(--ink); border-radius:10px; overflow:hidden; display:block;}
+.c-slider .progress{ position:absolute; left:0; top:50%; transform:translateY(-50%); height:15px; width:52%; background:var(--slider-progress); border-radius:10px 0 0 10px; display:block; }
+.c-slider .thumb{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:19px;height:34px; background:var(--slider-thumb); border:2px solid var(--ink); border-radius:8px; display:block;}
+.c-check{ display:inline-flex; align-items:center; gap:10px; }
+.c-check .box{ width:28px;height:28px; border:2.8px solid var(--ink); border-radius:3px; position:relative; display:inline-block;}
+.c-check .box.pink{ background:var(--pink); }
+.c-check .box.green{ background:var(--green); }
+.c-check .box::after{ content:""; position:absolute; left:5px; top:1px; width:12px; height:20px; border-right:3px solid var(--ink); border-bottom:3px solid var(--ink); transform:rotate(42deg); border-radius:2px; }
+.c-check .lbl{ font-family:var(--font-hand); font-weight:700; text-transform:uppercase; font-size:22px; color:var(--ink); letter-spacing:.03em; }
+.c-btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--button-green);
+  border:2.5px solid var(--ink);
+  border-radius:9px;
+  box-shadow:5px 6px 0 var(--card-shadow);
+  padding:10px 22px;
+  font-family:var(--font-hand);
+  font-size:26px;font-weight:600;color:var(--ink);
+  white-space:nowrap;
+}
+.c-btn-copy{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--button-copy);
+  border:2.5px solid var(--ink);
+  border-radius:10px;
+  padding:10px 18px;
+  font-family:var(--font-hand);
+  font-size:24px;font-weight:600;color:var(--ink);
+  box-shadow:5px 6px 0 var(--card-shadow);
+  white-space:nowrap;
+}
+.c-btn-copy .icon{
+  position:relative;width:22px;height:26px;
+}
+.c-btn-copy .icon::before,
+.c-btn-copy .icon::after{
+  content:""; position:absolute; width:16px; height:20px; border:2px solid var(--ink); border-radius:3px;
+}
+.c-btn-copy .icon::before{ left:0; top:6px; background:var(--yellow-soft); }
+.c-btn-copy .icon::after{ left:6px; top:0; background:var(--lavender); }
+
+.c-strength{
+  width:280px;height:34px;
+  background:linear-gradient(90deg, var(--strength-red) 0%, var(--strength-yellow) 50%, var(--strength-green) 100%);
+  border:2.5px solid var(--ink);
+  border-radius:20px;
+  display:block;
+}
+.c-features-heading{
+  font-family:var(--font-hand);font-size:32px;font-weight:700;color:var(--ink);
+  background:var(--features-pink);
+  border-radius:12px 8px 11px 7px;
+  padding:2px 14px 6px;
+  display:inline-block;
+}
+.c-feature-bullet{
+  width:16px;height:16px;
+  border:2px solid var(--ink);
+  border-radius:50%;
+  display:inline-block;
+}
+.c-feature-bullet.lav{background:var(--lavender);}
+.c-feature-bullet.o{background:var(--orange);}
+.c-feature-bullet.y{background:var(--badge-yellow);}
+.c-feature-bullet.g{background:var(--green);}
+
+/* Paper-fold (little corner triangle) */
+.c-fold{
+  width:22px;height:22px;
+  position:absolute;
+  clip-path:polygon(100% 0, 0 100%, 100% 100%);
+  border-right:2px solid var(--ink);
+  border-bottom:2px solid var(--ink);
+}
+.c-fold.pink{ background:var(--fold-pink); }
+.c-fold.purple{ background:var(--fold-purple); }
+.c-fold.blue{ background:var(--fold-blue); }
+
+/* ── Frame gallery (Composition Examples) ──────────────────────── */
+.frames-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(620px,1fr));
+  gap:5vw 4vw;
+  padding-top:3vw;
+  border-top:2px solid var(--ink);
+}
+.frame-cell{ display:flex; flex-direction:column; gap:14px; }
+.frame-label{
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  font-family:var(--font-hand);
+  color:var(--ink);
+  padding-bottom:6px;
+  border-bottom:2px solid var(--ink);
+}
+.frame-label .n{ font-size:22px; font-weight:700; padding:2px 10px 4px; background:var(--yellow-header); border:2px solid var(--ink); border-radius:8px 5px 7px 4px; }
+.frame-label .name{ font-size:22px; font-weight:700; }
+.frame-label .meta{ font-size:15px; color:var(--spiral-mid); margin-left:auto; letter-spacing:.02em; }
+.frame-label .meta em{ font-style:normal; color:var(--ink); font-weight:600; }
+
+/* ── The frame itself ──────────────────────────────────────────── */
+.frame{
+  container-type:size;
+  aspect-ratio:16/9;
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  border:2px solid var(--ink);
+  border-radius:6px;
+  background:
+    radial-gradient(circle at 50% 40%, var(--bg-radial-inner) 0%, var(--bg-radial-outer) 100%);
+}
+.frame.portrait{ aspect-ratio:9/16; }
+
+/* Notebook page inside the frame */
+.notebook{
+  position:absolute;
+  inset:5cqw 5cqw 5cqw 5cqw;
+  background:var(--paper);
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(3.2cqh - 1px),
+      rgba(190,188,181,.55) calc(3.2cqh),
+      transparent calc(3.2cqh + 1px)
+    );
+  border-radius:0.5cqw 3.5cqw 3.5cqw 0.5cqw;
+  box-shadow:
+    1.4cqw 1.8cqw 2.5cqw var(--notebook-shadow),
+    0.4cqw 0.7cqw 1.2cqw rgba(58,58,72,.14);
+  overflow:hidden;
+}
+
+/* Spiral binding — left edge rings */
+.spiral{
+  position:absolute;
+  left:-1.1cqw;
+  top:6cqh;
+  bottom:6cqh;
+  width:3.2cqw;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  z-index:3;
+}
+.spiral::before{
+  /* the vertical wire behind */
+  content:"";
+  position:absolute;
+  left:1.4cqw; top:0; bottom:0;
+  width:0.35cqw;
+  background:var(--spiral-mid);
+  border-radius:2px;
+  z-index:0;
+}
+.ring{
+  width:3.2cqw;
+  height:1.4cqw;
+  border:0.32cqw solid var(--spiral-dark);
+  border-right:none;
+  border-radius:1.6cqw 0 0 1.6cqw;
+  background:transparent;
+  position:relative;
+  z-index:1;
+  transform:rotate(-1deg);
+}
+.ring:nth-child(2n){ transform:rotate(1deg); }
+
+/* Handle tag */
+.handle-tag{
+  position:absolute;
+  top:4cqh;
+  right:6cqw;
+  font-family:var(--font-hand);
+  font-size:1.5cqw;
+  font-weight:500;
+  color:var(--ink);
+  transform:rotate(-1deg);
+  z-index:5;
+}
+
+/* Frame-scale display tokens */
+.wordmark-mega{
+  font-family:var(--font-hand);
+  font-size:15cqw;
+  font-weight:600;
+  letter-spacing:0.35cqw;
+  line-height:0.92;
+  text-transform:uppercase;
+  color:var(--ink);
+  text-align:center;
+}
+.display-hero{
+  font-family:var(--font-hand);
+  font-size:9.5cqw;
+  font-weight:600;
+  line-height:0.98;
+  letter-spacing:0.12cqw;
+  color:var(--ink);
+  text-align:center;
+}
+.subtitle-giant{
+  font-family:var(--font-hand);
+  font-size:5.4cqw;
+  font-weight:600;
+  line-height:1.05;
+  color:var(--ink);
+  background:var(--pink-highlight);
+  border-radius:0.9cqw 0.5cqw 0.8cqw 0.4cqw;
+  padding:0.3cqw 1.4cqw 0.8cqw;
+  display:inline-block;
+  transform:rotate(-.6deg);
+}
+.section-head-marked-g{
+  font-family:var(--font-hand);
+  font-size:3.4cqw;
+  font-weight:700;
+  color:var(--ink);
+  border-radius:0.7cqw 0.4cqw 0.6cqw 0.35cqw;
+  padding:0.3cqw 1.1cqw 0.6cqw;
+  display:inline-block;
+}
+.section-head-marked-g.y{ background:var(--highlight-yellow); }
+.section-head-marked-g.b{ background:var(--highlight-blue); }
+.section-head-marked-g.o{ background:var(--highlight-orange); }
+.section-head-marked-g.g{ background:var(--highlight-green); }
+.section-head-marked-g.p{ background:var(--highlight-pink); }
+
+.badge-giant{
+  width:14cqw;height:14cqw;
+  border:0.35cqw solid var(--ink);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-hand);
+  font-size:11cqw;font-weight:700;color:var(--ink);
+  line-height:1;
+  box-shadow:0.5cqw 0.6cqw 0 var(--card-shadow);
+}
+.badge-giant.y{ background:var(--badge-yellow); }
+.badge-giant.b{ background:var(--badge-blue); }
+.badge-giant.o{ background:var(--badge-orange); }
+.badge-giant.g{ background:var(--badge-green); }
+
+.badge-small{
+  width:3.4cqw;height:3.4cqw;
+  border:0.14cqw solid var(--ink);
+  border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--font-hand);
+  font-size:2.4cqw;font-weight:700;color:var(--ink);
+  line-height:1;
+  flex:none;
+}
+.badge-small.y{background:var(--badge-yellow);}
+.badge-small.b{background:var(--badge-blue);}
+.badge-small.o{background:var(--badge-orange);}
+.badge-small.g{background:var(--badge-green);}
+
+.password-giant{
+  background:var(--password-bg);
+  border:0.2cqw solid var(--ink);
+  border-radius:0.7cqw;
+  box-shadow:0.4cqw 0.5cqw 0 var(--lavender);
+  padding:1.4cqw 3cqw;
+  font-family:var(--font-mono);
+  font-size:6.5cqw;font-weight:600;
+  letter-spacing:0.25cqw;
+  color:var(--ink);
+  white-space:nowrap;
+  display:inline-block;
+  position:relative;
+}
+
+.strength-giant{
+  width:66cqw; height:6cqw;
+  background:linear-gradient(90deg, var(--strength-red) 0%, var(--strength-yellow) 50%, var(--strength-green) 100%);
+  border:0.28cqw solid var(--ink);
+  border-radius:3cqw;
+  display:block;
+  position:relative;
+}
+.strength-arrow{
+  position:absolute;
+  left:62%;
+  bottom:calc(100% + 0.6cqw);
+  font-family:var(--font-hand);
+  font-size:5cqw;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1;
+  transform:rotate(45deg);
+}
+
+/* Feature card interior (ledger plate) */
+.f-card{
+  position:relative;
+  background:rgba(255,252,245,.75);
+  border:0.16cqw solid var(--ink);
+  border-radius:0.5cqw 0.8cqw 0.9cqw 0.55cqw;
+  box-shadow:0.42cqw 0.42cqw 0 var(--card-shadow);
+  padding:1.3cqw 1.5cqw;
+  display:flex;
+  flex-direction:column;
+  gap:0.8cqw;
+  min-height:0;
+}
+.f-head{
+  display:flex;align-items:center;gap:0.9cqw;
+  white-space:nowrap;
+}
+.f-title{
+  font-family:var(--font-hand);
+  font-size:2.1cqw;
+  font-weight:700;
+  color:var(--ink);
+  border-radius:0.5cqw 0.3cqw 0.4cqw 0.25cqw;
+  padding:0.15cqw 0.7cqw 0.4cqw;
+  white-space:nowrap;
+}
+.f-title.y{background:var(--highlight-yellow);}
+.f-title.b{background:var(--highlight-blue);}
+.f-title.o{background:var(--highlight-orange);}
+.f-title.g{background:var(--highlight-green);}
+.f-body{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0.4cqw 0;
+}
+.f-fold{
+  position:absolute;
+  top:0.35cqw;right:0.35cqw;
+  width:1.3cqw;height:1.3cqw;
+  clip-path:polygon(100% 0, 0 100%, 100% 100%);
+  border-right:0.12cqw solid var(--ink);
+  border-bottom:0.12cqw solid var(--ink);
+}
+.f-fold.pink{background:var(--fold-pink);}
+.f-fold.purple{background:var(--fold-purple);}
+.f-fold.blue{background:var(--fold-blue);}
+
+.mini-password{
+  background:var(--password-bg);
+  border:0.16cqw solid var(--ink);
+  border-radius:0.55cqw;
+  box-shadow:0.3cqw 0.35cqw 0 var(--lavender);
+  padding:0.6cqw 1.1cqw;
+  font-family:var(--font-mono);
+  font-size:2.4cqw;font-weight:600;
+  letter-spacing:0.1cqw;
+  color:var(--ink);
+  white-space:nowrap;
+}
+.mini-slider{ position:relative; width:12cqw; height:2cqw; display:flex; align-items:center; }
+.mini-slider .mtrack{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:0.9cqw;background:var(--slider-track);border:0.14cqw solid var(--ink);border-radius:0.5cqw;display:block;overflow:hidden;}
+.mini-slider .mprog{position:absolute;left:0;top:50%;transform:translateY(-50%);height:0.9cqw;width:52%;background:var(--slider-progress);border-radius:0.5cqw 0 0 0.5cqw;display:block;}
+.mini-slider .mthumb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:1cqw;height:2cqw;background:var(--slider-thumb);border:0.14cqw solid var(--ink);border-radius:0.35cqw;display:block;}
+.mini-checks{ display:flex; flex-direction:column; gap:0.55cqw; align-items:flex-start; }
+.mini-check{ display:flex; align-items:center; gap:0.7cqw; }
+.mini-check .mbox{
+  width:1.9cqw;height:1.9cqw;
+  border:0.17cqw solid var(--ink);
+  border-radius:0.2cqw;
+  position:relative;
+}
+.mini-check .mbox.pink{background:var(--pink);}
+.mini-check .mbox.green{background:var(--green);}
+.mini-check .mbox::after{
+  content:"";position:absolute;left:0.35cqw;top:0.05cqw;
+  width:0.75cqw;height:1.3cqw;
+  border-right:0.18cqw solid var(--ink);
+  border-bottom:0.18cqw solid var(--ink);
+  transform:rotate(42deg);
+}
+.mini-check .mlbl{
+  font-family:var(--font-hand);
+  font-size:1.7cqw;font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.03cqw;
+  color:var(--ink);
+  white-space:nowrap;
+}
+.mini-btn-copy{
+  display:inline-flex;align-items:center;gap:0.6cqw;
+  background:var(--button-copy);
+  border:0.16cqw solid var(--ink);
+  border-radius:0.55cqw;
+  padding:0.5cqw 1.1cqw;
+  font-family:var(--font-hand);
+  font-size:2.1cqw;font-weight:600;color:var(--ink);
+  box-shadow:0.28cqw 0.35cqw 0 var(--card-shadow);
+  white-space:nowrap;
+}
+.mini-btn-copy .micon{ position:relative; width:1.5cqw; height:1.8cqw; flex:none; }
+.mini-btn-copy .micon::before,
+.mini-btn-copy .micon::after{
+  content:""; position:absolute; width:1.1cqw; height:1.4cqw; border:0.12cqw solid var(--ink); border-radius:0.2cqw;
+}
+.mini-btn-copy .micon::before{ left:0;top:0.4cqw; background:var(--yellow-soft);}
+.mini-btn-copy .micon::after{ left:0.4cqw;top:0; background:var(--lavender);}
+.mini-strength{
+  width:100%; height:2cqw;
+  background:linear-gradient(90deg,var(--strength-red) 0%, var(--strength-yellow) 50%, var(--strength-green) 100%);
+  border:0.16cqw solid var(--ink);
+  border-radius:1.2cqw;
+  display:block;
+  position:relative;
+}
+.mini-strength::after{
+  content:"→";
+  position:absolute;
+  left:60%;
+  bottom:calc(100% + 0.15cqw);
+  font-family:var(--font-hand);font-weight:700;
+  font-size:2cqw;color:var(--ink);
+  line-height:1;
+}
+
+/* Doodles */
+.star{
+  position:absolute;
+  width:2.2cqw;height:2.2cqw;
+  background:var(--yellow-header);
+  clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  filter:drop-shadow(0 0 0 var(--ink));
+  z-index:4;
+}
+.star.small{width:1.4cqw;height:1.4cqw;}
+.star::after{
+  /* fake outline via subtle inner shadow using a second ::after through box-shadow is hard; keep star as fill */
+  content:"";
+}
+.cloud{
+  position:absolute;
+  width:6cqw;height:3cqw;
+  background:var(--cloud-blue-a);
+  border:0.18cqw solid var(--ink);
+  border-radius:3cqw;
+  z-index:4;
+}
+.cloud::before,.cloud::after{
+  content:"";position:absolute;background:var(--cloud-blue-a);border:0.18cqw solid var(--ink);border-radius:50%;
+}
+.cloud::before{ width:2.2cqw;height:2.2cqw; top:-1.2cqw; left:1cqw; }
+.cloud::after{ width:1.6cqw;height:1.6cqw; top:-0.7cqw; right:1.2cqw; }
+.sparkle{
+  position:absolute;
+  width:1.4cqw;height:1.4cqw;
+  color:var(--ink);
+  font-family:var(--font-hand);
+  font-size:2cqw;
+  line-height:1;
+  z-index:4;
+}
+.sparkle::before{ content:"✦"; }
+
+/* Closer plate cast */
+.laptop{
+  position:absolute;
+  width:26cqw;height:19cqw;
+}
+.laptop .screen{
+  position:absolute;top:0;left:1cqw;right:1cqw;height:13cqw;
+  background:var(--blue-soft);
+  border:0.25cqw solid var(--ink);
+  border-radius:1.2cqw 1.2cqw 0.4cqw 0.4cqw;
+}
+.laptop .base{
+  position:absolute;bottom:0;left:0;right:0;height:2.6cqw;
+  background:var(--lavender);
+  border:0.25cqw solid var(--ink);
+  border-radius:0.3cqw 0.3cqw 1cqw 1cqw;
+}
+.laptop .keyboard{
+  position:absolute;bottom:2.6cqw;left:1cqw;right:1cqw;height:3cqw;
+  background:var(--lavender-dark);
+  border:0.25cqw solid var(--ink);
+  border-radius:0.2cqw 0.2cqw 0.6cqw 0.6cqw;
+}
+.laptop .face{
+  position:absolute;top:4cqw;left:0;right:0;text-align:center;
+  font-family:var(--font-hand);font-size:3.5cqw;color:var(--ink);line-height:1;
+}
+.laptop .cheeks{
+  position:absolute;top:6.7cqw;left:0;right:0;text-align:center;
+  font-family:var(--font-hand);font-size:2.6cqw;color:var(--ink);line-height:1;
+}
+.laptop .blushL,.laptop .blushR{
+  position:absolute;top:6cqw;width:1.6cqw;height:1cqw;background:var(--pink);border-radius:50%;
+}
+.laptop .blushL{ left:6cqw; }
+.laptop .blushR{ right:6cqw; }
+
+.speech{
+  position:absolute;
+  width:16cqw;
+  background:var(--cloud-blue-c);
+  border:0.22cqw solid var(--ink);
+  border-radius:1.4cqw;
+  padding:1cqw 1.4cqw;
+  font-family:var(--font-hand);
+  font-size:1.9cqw;
+  line-height:1.15;
+  color:var(--ink);
+  text-align:center;
+}
+.speech::after{
+  content:"";position:absolute;left:2.5cqw;bottom:-1.2cqw;
+  width:0;height:0;
+  border-left:1cqw solid transparent;
+  border-right:1cqw solid transparent;
+  border-top:1.4cqw solid var(--cloud-blue-c);
+  filter:drop-shadow(0 0.2cqw 0 var(--ink));
+}
+
+.plant{ position:absolute; width:7cqw; height:9cqw; }
+.plant .pot{
+  position:absolute;bottom:0;left:0.4cqw;right:0.4cqw;height:3.6cqw;
+  background:var(--orange);
+  border:0.24cqw solid var(--ink);
+  border-radius:0.3cqw 0.3cqw 0.8cqw 0.8cqw;
+  clip-path:polygon(6% 0, 94% 0, 84% 100%, 16% 100%);
+}
+.plant .leaves{
+  position:absolute;bottom:3cqw;left:0;right:0;height:6cqw;
+}
+.plant .leaves::before,.plant .leaves::after{
+  content:"";position:absolute;bottom:0;
+  width:3.4cqw;height:5cqw;
+  background:var(--green);
+  border:0.22cqw solid var(--ink);
+  border-radius:100% 30% 100% 30% / 60% 30% 70% 30%;
+}
+.plant .leaves::before{ left:-0.3cqw; transform:rotate(-14deg); }
+.plant .leaves::after{ right:-0.3cqw; transform:rotate(14deg); }
+
+/* Features list */
+.features-block{ display:flex; flex-direction:column; gap:1.1cqw; }
+.features-h{
+  font-family:var(--font-hand);
+  font-size:3.4cqw;font-weight:700;color:var(--ink);
+  background:var(--features-pink);
+  border-radius:0.6cqw 0.4cqw 0.55cqw 0.3cqw;
+  padding:0.2cqw 1cqw 0.6cqw;
+  display:inline-block;
+  align-self:flex-start;
+}
+.feat-row{
+  display:flex;align-items:center;gap:0.8cqw;
+  font-family:var(--font-hand);
+  font-size:2.1cqw;
+  color:var(--ink);
+  white-space:nowrap;
+}
+.feat-bullet{
+  width:1.1cqw;height:1.1cqw;
+  border:0.14cqw solid var(--ink);
+  border-radius:50%;
+  flex:none;
+}
+.feat-bullet.lav{background:var(--lavender);}
+.feat-bullet.o{background:var(--orange);}
+.feat-bullet.y{background:var(--badge-yellow);}
+.feat-bullet.g{background:var(--green);}
+
+/* ── Principles cards ──────────────────────────────────────────── */
+.principles{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:2.5vw;
+  border-top:2px solid var(--ink);
+  padding-top:3vw;
+}
+.prin{
+  background:var(--paper);
+  border:2.5px solid var(--ink);
+  border-radius:7px 11px 12px 8px;
+  box-shadow:7px 7px 0 var(--card-shadow);
+  padding:20px 22px;
+  min-height:180px;
+}
+.prin .tag{
+  display:inline-block;
+  font-family:var(--font-hand);font-weight:700;font-size:20px;
+  padding:2px 12px 5px;
+  border-radius:12px 8px 11px 7px;
+  color:var(--ink);
+  margin-bottom:12px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.prin.do .tag{ background:var(--highlight-green); }
+.prin.dont .tag{ background:var(--highlight-pink); }
+.prin ul{ margin:0; padding-left:20px; font-family:var(--font-hand); font-size:17px; line-height:1.55; }
+.prin li{ margin-bottom:4px; }
+
+/* ── Portrait section ──────────────────────────────────────────── */
+.portrait-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,340px));
+  gap:3vw;
+  padding-top:3vw;
+  border-top:2px solid var(--ink);
+  justify-content:center;
+}
+.portrait-cell{ display:flex; flex-direction:column; gap:12px; }
+.portrait-cell .frame-label .meta{ font-size:14px; }
+
+/* ── Footer ────────────────────────────────────────────────────── */
+.footer{
+  padding:6vw 5vw 4vw;
+  border-top:3px solid var(--ink);
+  margin-top:6vw;
+  background:var(--paper);
+  font-family:var(--font-hand);
+  color:var(--ink);
+  display:flex;
+  flex-wrap:wrap;
+  gap:2vw;
+  align-items:baseline;
+  justify-content:space-between;
+}
+.footer .fbrand{ font-size:26px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+.footer .fmeta{ font-size:16px; color:var(--spiral-mid); }
+
+/* ── Utility ───────────────────────────────────────────────────── */
+.stack-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2.2cqw; z-index:2; padding:6cqw; text-align:center; }
+
+/* Explicit z-orders inside frames */
+.notebook, .spiral, .handle-tag, .doodle-layer, .stack-center, .content-layer{ position:absolute; }
+.content-layer{ inset:0; z-index:2; padding:6cqw 6cqw 6cqw 8cqw; }
+.doodle-layer{ inset:0; z-index:3; pointer-events:none; }
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- COVER FRAME (full-bleed 16:9, first element)                  -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="cover-frame">
+  <div class="notebook"></div>
+  <div class="spiral">
+    <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+    <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+    <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+    <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+    <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+  </div>
+  <div class="handle-tag">@shahzaibnawaz</div>
+
+  <!-- Header doodles: 6-8 in header band -->
+  <div class="doodle-layer">
+    <span class="star"      style="top:11cqh; left:20cqw;"></span>
+    <span class="star small"style="top:15cqh; left:14cqw;"></span>
+    <span class="cloud"     style="top:22cqh; left:78cqw;"></span>
+    <span class="sparkle"   style="top:12cqh; left:74cqw;"></span>
+    <span class="star small"style="top:8cqh;  left:70cqw;"></span>
+    <span class="sparkle"   style="top:18cqh; left:24cqw;"></span>
+    <!-- bottom band doodles -->
+    <span class="cloud"     style="bottom:12cqh; left:14cqw;"></span>
+    <span class="star small"style="bottom:10cqh; left:82cqw;"></span>
+    <span class="sparkle"   style="bottom:16cqh; left:50cqw;"></span>
+  </div>
+
+  <div class="stack-center">
+    <div class="wordmark-mega">FRONTEND<br>PROJECT</div>
+    <div class="subtitle-giant">Password Generator</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- DOC CHROME                                                    -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<main class="doc">
+
+  <!-- ── 01 Palette ─────────────────────────────────────────── -->
+  <section class="doc-section" id="palette">
+    <header class="section-head">
+      <span class="index">01</span>
+      <span class="title">Palette</span>
+      <span class="rule"></span>
+    </header>
+    <p class="section-lede">
+      Every hex in <em>frame.md</em> is carried verbatim from <em>design.md</em>. Grounds set the room; marker highlights are the rationed voltage — <strong>one at full-frame strength per plate</strong>; ink is every outline and letterform.
+    </p>
+    <div class="palette">
+      <div class="swatch"><span class="chip" style="background:#ECEEF6"></span><div class="meta"><span class="tk">bg</span><span class="hex">#ECEEF6 · ground</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#FFFCF5"></span><div class="meta"><span class="tk">paper</span><span class="hex">#FFFCF5 · notebook</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#DDDCD6"></span><div class="meta"><span class="tk">paper-line</span><span class="hex">#DDDCD6 · rule</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#171719"></span><div class="meta"><span class="tk">ink</span><span class="hex">#171719 · outline</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#F8C9CF"></span><div class="meta"><span class="tk">pink-highlight</span><span class="hex">#F8C9CF · subtitle marker</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#FFE99A"></span><div class="meta"><span class="tk">highlight-yellow</span><span class="hex">#FFE99A · marker</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#C8EDF5"></span><div class="meta"><span class="tk">highlight-blue</span><span class="hex">#C8EDF5 · marker</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#FFD09E"></span><div class="meta"><span class="tk">highlight-orange</span><span class="hex">#FFD09E · marker</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#D0F1B8"></span><div class="meta"><span class="tk">highlight-green</span><span class="hex">#D0F1B8 · marker</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#FFE78A"></span><div class="meta"><span class="tk">badge-yellow</span><span class="hex">#FFE78A · badge fill</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#BFE9F5"></span><div class="meta"><span class="tk">badge-blue</span><span class="hex">#BFE9F5 · badge fill</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#FFC98F"></span><div class="meta"><span class="tk">badge-orange</span><span class="hex">#FFC98F · badge fill</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#C7EDAE"></span><div class="meta"><span class="tk">badge-green</span><span class="hex">#C7EDAE · badge fill</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#D9C5E9"></span><div class="meta"><span class="tk">lavender</span><span class="hex">#D9C5E9 · offset</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#D9C7E7"></span><div class="meta"><span class="tk">card-shadow</span><span class="hex">#D9C7E7 · offset</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#F6C4D9"></span><div class="meta"><span class="tk">features-pink</span><span class="hex">#F6C4D9 · features hdr</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#BCEAB9"></span><div class="meta"><span class="tk">button-green</span><span class="hex">#BCEAB9 · CTA</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#AEE3F1"></span><div class="meta"><span class="tk">button-copy</span><span class="hex">#AEE3F1 · copy btn</span></div></div>
+      <div class="swatch"><span class="chip" style="background:linear-gradient(90deg,#FF6B68,#FFD56D,#69DD82)"></span><div class="meta"><span class="tk">strength gradient</span><span class="hex">the one gradient</span></div></div>
+      <div class="swatch"><span class="chip" style="background:#C9EFF7"></span><div class="meta"><span class="tk">cloud-blue-a</span><span class="hex">#C9EFF7 · doodle</span></div></div>
+    </div>
+  </section>
+
+  <!-- ── 02 Typography ─────────────────────────────────────── -->
+  <section class="doc-section" id="typography">
+    <header class="section-head">
+      <span class="index">02</span>
+      <span class="title">Typography</span>
+      <span class="rule"></span>
+    </header>
+    <p class="section-lede">
+      Two ramps. The <strong>reading ramp</strong> carries the source's notebook interior (labels, checkbox rows, feature list). The <strong>hero ramp</strong> is frame-native (<code>cqw</code>) and only fires when a plate elevates one atom to hero size. Legibility floor: 1.4cqw / ~27px.
+    </p>
+
+    <div class="ramp-label">Reading ramp · source hierarchy (px @ 736)</div>
+    <div class="type-rows">
+      <div class="type-row"><div class="meta"><span class="tk">wordmark</span><span class="val">52px · 600 · +1px · Patrick Hand</span></div><div class="specimen type-wordmark">FRONTEND PROJECT</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">subtitle</span><span class="val">33px · 600</span></div><div class="specimen type-subtitle"><span class="subtitle-mark">Password Generator</span></div></div>
+      <div class="type-row"><div class="meta"><span class="tk">section-header</span><span class="val">29px · 700</span></div><div class="specimen type-section">Generated password display box</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">label</span><span class="val">26px · 500</span></div><div class="specimen type-label">Length</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">feature-item</span><span class="val">26px · 500 · lh 1.4</span></div><div class="specimen type-feature">Custom length</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">caption</span><span class="val">18px · 400</span></div><div class="specimen type-caption">Keep Coding · Keep Growing!</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">handle</span><span class="val">18px · 500</span></div><div class="specimen type-handle">@shahzaibnawaz</div></div>
+    </div>
+
+    <div class="ramp-label">Hero / display ramp · frame-native (cqw @ 1920 frame)</div>
+    <div class="type-rows">
+      <div class="type-row"><div class="meta"><span class="tk">wordmark-mega</span><span class="val">18cqw · 600 · lh .92 · ≤3 words</span></div><div class="specimen type-wordmark" style="font-size:88px">FRONTEND</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">display-hero</span><span class="val">11cqw · 600 · lh .98 · 4–6 words</span></div><div class="specimen type-wordmark" style="font-size:64px;text-transform:none">Organized hand drawing</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">subtitle-giant</span><span class="val">6.5cqw · 600 · lh 1.05 · 7+ words</span></div><div class="specimen type-subtitle" style="font-size:40px"><span class="subtitle-mark">Password Generator</span></div></div>
+      <div class="type-row"><div class="meta"><span class="tk">section-head</span><span class="val">4.2cqw · 700 · marker eyebrow</span></div><div class="specimen"><span class="c-section-head-marked y">Generated password</span></div></div>
+      <div class="type-row"><div class="meta"><span class="tk">numeral-giant</span><span class="val">14cqw · 700 · badge core</span></div><div class="specimen type-wordmark" style="font-size:82px">3</div></div>
+      <div class="type-row"><div class="meta"><span class="tk">password-giant</span><span class="val">7cqw · 600 · Kalam mono</span></div><div class="specimen"><span class="c-password">aB$9gH&amp;j</span></div></div>
+    </div>
+  </section>
+
+  <!-- ── 03 Components ─────────────────────────────────────── -->
+  <section class="doc-section" id="components">
+    <header class="section-head">
+      <span class="index">03</span>
+      <span class="title">Components</span>
+      <span class="rule"></span>
+    </header>
+    <p class="section-lede">
+      Every buildable unit is a token in the <em>frame.md</em> frontmatter. Below, each token is rendered as its resolved CSS class — the copy-fidelity reference. Frame Treatments <em>compose</em> these; they do not re-state construction.
+    </p>
+    <div class="components-grid">
+
+      <div class="comp-card">
+        <div class="comp-stage"><span class="c-wordmark">FRONTEND</span></div>
+        <div class="caption"><span class="tk">wordmark-header</span>52px · Patrick Hand · 600 · uppercase</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage"><span class="c-subtitle-marked">Password Generator</span></div>
+        <div class="caption"><span class="tk">subtitle-marked</span>Pink-highlight marker, asymmetric radius</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage" style="gap:14px;display:flex;flex-wrap:wrap;justify-content:center">
+          <span class="c-section-head-marked y">Generated password</span>
+          <span class="c-section-head-marked b">Length slider</span>
+          <span class="c-section-head-marked o">Checkboxes for</span>
+          <span class="c-section-head-marked g">Strength indicator</span>
+        </div>
+        <div class="caption"><span class="tk">section-head-marked</span>Yellow / Blue / Orange / Green marker variants</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage" style="gap:14px">
+          <span class="c-badge y">1</span>
+          <span class="c-badge b">2</span>
+          <span class="c-badge o">3</span>
+          <span class="c-badge g">4</span>
+          <span class="c-badge g">5</span>
+        </div>
+        <div class="caption"><span class="tk">badge-numeral</span>Circle, 2.5px ink outline, pastel fill per index</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage"><span class="c-password">aB$9gH&amp;j</span></div>
+        <div class="caption"><span class="tk">password-display</span>3px ink, lavender offset shadow, Kalam mono</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage"><div class="c-slider"><span class="track"></span><span class="progress"></span><span class="thumb"></span></div></div>
+        <div class="caption"><span class="tk">slider-track / progress / thumb</span>Lavender progress, blue thumb, ink border</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage" style="flex-direction:column;gap:10px;align-items:flex-start;justify-content:center">
+          <div class="c-check"><span class="box pink"></span><span class="lbl">Uppercase</span></div>
+          <div class="c-check"><span class="box green"></span><span class="lbl">Numbers</span></div>
+          <div class="c-check"><span class="box green"></span><span class="lbl">Symbols</span></div>
+        </div>
+        <div class="caption"><span class="tk">checkbox-square + checkbox-label</span>Pink / Green fills, hand-drawn tick</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage" style="gap:14px">
+          <span class="c-btn-primary">Button</span>
+          <span class="c-btn-copy">Copy to <span class="icon"></span></span>
+        </div>
+        <div class="caption"><span class="tk">button-primary · button-copy</span>Green CTA + blue copy w/ overlapping paper icons</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage"><span class="c-strength"></span></div>
+        <div class="caption"><span class="tk">strength-bar</span>The one gradient in the system · Red → Yellow → Green</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-stage" style="flex-direction:column;gap:8px;align-items:flex-start">
+          <span class="c-features-heading">Features</span>
+          <div style="display:flex;flex-direction:column;gap:6px;font-family:var(--font-hand);font-size:22px">
+            <div style="display:flex;align-items:center;gap:10px"><span class="c-feature-bullet lav"></span> Custom length</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="c-feature-bullet o"></span> Character options</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="c-feature-bullet y"></span> Copy function</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="c-feature-bullet g"></span> Strength meter</div>
+          </div>
+        </div>
+        <div class="caption"><span class="tk">features-heading + feature-bullet + feature-row</span>Pink marker header, colored circle bullets</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 04 Composition Examples · 16:9 ─────────────────────── -->
+  <section class="doc-section" id="frames">
+    <header class="section-head">
+      <span class="index">04</span>
+      <span class="title">Composition · 16:9</span>
+      <span class="rule"></span>
+    </header>
+    <p class="section-lede">
+      Seven plates. Each frame is a <code>container-type: size</code> box with internal sizing in <code>cqw</code>, so the frame renders at true proportions independent of its display width. Cover already appeared full-bleed above; here it returns beside the rest of the sequence for review.
+    </p>
+
+    <div class="frames-grid">
+
+      <!-- 1 · Cover -->
+      <div class="frame-cell">
+        <div class="frame-label"><span class="n">01</span><span class="name">Cover — Notebook Identity</span><span class="meta"><em>identity/cover</em> · sparse</span></div>
+        <div class="frame">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="handle-tag">@shahzaibnawaz</div>
+          <div class="doodle-layer">
+            <span class="star"       style="top:12cqh; left:18cqw;"></span>
+            <span class="star small" style="top:16cqh; left:12cqw;"></span>
+            <span class="cloud"      style="top:22cqh; left:78cqw;"></span>
+            <span class="sparkle"    style="top:14cqh; left:72cqw;"></span>
+            <span class="star small" style="top:10cqh; left:66cqw;"></span>
+            <span class="sparkle"    style="top:20cqh; left:26cqw;"></span>
+            <span class="cloud"      style="bottom:11cqh; left:14cqw;"></span>
+            <span class="star small" style="bottom:9cqh;  left:82cqw;"></span>
+          </div>
+          <div class="stack-center">
+            <div class="wordmark-mega">FRONTEND<br>PROJECT</div>
+            <div class="subtitle-giant">Password Generator</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 · Editorial -->
+      <div class="frame-cell">
+        <div class="frame-label"><span class="n">02</span><span class="name">Editorial — Oversized Claim</span><span class="meta"><em>editorial</em> · sparse</span></div>
+        <div class="frame">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="doodle-layer">
+            <span class="sparkle" style="top:15cqh; left:78cqw;"></span>
+            <span class="star small" style="top:22cqh; left:14cqw;"></span>
+            <span class="sparkle" style="bottom:22cqh; left:82cqw;"></span>
+          </div>
+          <div class="stack-center" style="gap:3cqw">
+            <span class="section-head-marked-g y">A cute, hand-drawn note</span>
+            <div class="display-hero">Organized<br>hand drawing.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 · Focal Artifact — Password Display -->
+      <div class="frame-cell">
+        <div class="frame-label"><span class="n">03</span><span class="name">Focal Artifact — Password Display</span><span class="meta"><em>focal-artifact</em> · sparse</span></div>
+        <div class="frame">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="doodle-layer">
+            <span class="sparkle" style="top:20cqh; left:78cqw;"></span>
+            <span class="star small" style="bottom:14cqh; left:16cqw;"></span>
+            <span class="sparkle" style="bottom:22cqh; left:80cqw;"></span>
+          </div>
+          <div class="stack-center" style="gap:3cqw">
+            <span class="section-head-marked-g y">Generated password</span>
+            <span class="password-giant">aB$9gH&amp;j
+              <span class="f-fold pink" style="top:0.6cqw;right:0.6cqw;width:1.4cqw;height:1.4cqw"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 · Focal Numeral -->
+      <div class="frame-cell">
+        <div class="frame-label"><span class="n">04</span><span class="name">Focal Numeral — Section Callout</span><span class="meta"><em>focal-artifact</em> · sparse</span></div>
+        <div class="frame">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="doodle-layer">
+            <span class="star small" style="top:12cqh; left:80cqw;"></span>
+            <span class="sparkle" style="bottom:18cqh; left:78cqw;"></span>
+          </div>
+          <div class="content-layer" style="display:flex;align-items:center;gap:5cqw;padding-left:12cqw;padding-right:8cqw">
+            <span class="badge-giant o">3</span>
+            <div style="display:flex;flex-direction:column;gap:1.6cqw;align-items:flex-start">
+              <span class="section-head-marked-g o">Checkboxes for</span>
+              <div style="font-family:var(--font-hand);font-size:2.4cqw;line-height:1.35;color:var(--ink);max-width:32cqw">
+                UPPERCASE · NUMBERS · SYMBOLS — the character options that go into every password.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 · Ledger -->
+      <div class="frame-cell">
+        <div class="frame-label"><span class="n">05</span><span class="name">Ledger — 5-Section Grid</span><span class="meta"><em>data/ledger</em> · dense-exception</span></div>
+        <div class="frame">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="handle-tag">@shahzaibnawaz</div>
+          <div class="content-layer" style="padding:7cqw 7cqw 5cqw 11cqw;display:grid;grid-template-rows:auto 1fr;gap:1.2cqw">
+            <!-- header row -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0.6cqw;text-align:center">
+              <div style="font-family:var(--font-hand);font-size:5.2cqw;font-weight:600;letter-spacing:0.15cqw;text-transform:uppercase;line-height:0.95;color:var(--ink)">FRONTEND PROJECT</div>
+              <span style="font-family:var(--font-hand);font-size:2.6cqw;font-weight:600;color:var(--ink);background:var(--pink-highlight);border-radius:0.7cqw 0.4cqw 0.6cqw 0.35cqw;padding:0.1cqw 0.9cqw 0.4cqw;">Password Generator</span>
+            </div>
+            <!-- 2-col grid -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1.4cqw">
+              <!-- 1 password -->
+              <div class="f-card" style="grid-column:1;grid-row:1">
+                <div class="f-head"><span class="badge-small y">1</span><span class="f-title y">Generated password</span></div>
+                <div class="f-body"><span class="mini-password">aB$9gH&amp;j</span></div>
+                <span class="f-fold pink"></span>
+              </div>
+              <!-- 2 slider -->
+              <div class="f-card" style="grid-column:2;grid-row:1">
+                <div class="f-head"><span class="badge-small b">2</span><span class="f-title b">Length slider</span></div>
+                <div class="f-body" style="flex-direction:column;gap:0.6cqw">
+                  <div style="font-family:var(--font-hand);font-size:2cqw;font-weight:700;color:var(--ink)">Length</div>
+                  <div class="mini-slider"><span class="mtrack"></span><span class="mprog"></span><span class="mthumb"></span></div>
+                  <div style="font-family:var(--font-hand);font-size:1.4cqw;color:var(--ink);display:flex;justify-content:space-between;width:12cqw"><span>0</span><span>5</span><span>10</span></div>
+                </div>
+                <span class="f-fold blue"></span>
+              </div>
+              <!-- 3 checkboxes -->
+              <div class="f-card" style="grid-column:1;grid-row:2">
+                <div class="f-head"><span class="badge-small o">3</span><span class="f-title o">Checkboxes for</span></div>
+                <div class="f-body" style="justify-content:flex-start">
+                  <div class="mini-checks">
+                    <div class="mini-check"><span class="mbox pink"></span><span class="mlbl">Uppercase</span></div>
+                    <div class="mini-check"><span class="mbox green"></span><span class="mlbl">Numbers</span></div>
+                    <div class="mini-check"><span class="mbox green"></span><span class="mlbl">Symbols</span></div>
+                  </div>
+                </div>
+              </div>
+              <!-- 4 + 5 combined right column -->
+              <div style="grid-column:2;grid-row:2;display:grid;grid-template-rows:1fr 1fr;gap:1.4cqw">
+                <div class="f-card">
+                  <div class="f-head"><span class="badge-small g">4</span><span class="f-title g">Copy to clipboard</span></div>
+                  <div class="f-body"><span class="mini-btn-copy">Copy to <span class="micon"></span></span></div>
+                  <span class="f-fold purple"></span>
+                </div>
+                <div class="f-card">
+                  <div class="f-head"><span class="badge-small g">5</span><span class="f-title g">Strength indicator</span></div>
+                  <div class="f-body"><span class="mini-strength"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 · Brand Signature -->
+      <div class="frame-cell">
+        <div class="frame-label"><span class="n">06</span><span class="name">Brand Signature — Strength Meter</span><span class="meta"><em>brand-signature</em> · sparse</span></div>
+        <div class="frame">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="doodle-layer">
+            <span class="sparkle" style="top:16cqh; left:16cqw;"></span>
+            <span class="star small" style="top:14cqh; left:80cqw;"></span>
+            <span class="sparkle" style="bottom:14cqh; left:20cqw;"></span>
+          </div>
+          <div class="stack-center" style="gap:4cqw">
+            <span class="section-head-marked-g g">Strength indicator</span>
+            <span class="strength-giant"><span class="strength-arrow">→</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 · Closer -->
+      <div class="frame-cell">
+        <div class="frame-label"><span class="n">07</span><span class="name">Closer — Cast on the Page</span><span class="meta"><em>closer</em> · standard</span></div>
+        <div class="frame">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="doodle-layer">
+            <span class="star small" style="top:12cqh; left:22cqw;"></span>
+            <span class="sparkle" style="top:18cqh; left:60cqw;"></span>
+            <span class="cloud"    style="top:16cqh; left:36cqw;"></span>
+          </div>
+          <div class="content-layer" style="padding:8cqw 8cqw 6cqw 12cqw;display:grid;grid-template-columns:1.4fr 1fr;gap:4cqw;align-items:end">
+            <div style="position:relative;height:100%;">
+              <span class="speech" style="top:12cqh; left:0.5cqw">Keep Coding<br>Keep Growing!</span>
+              <span class="laptop" style="bottom:0; left:0">
+                <span class="screen"></span>
+                <span class="face">• &nbsp; •</span>
+                <span class="cheeks">‿</span>
+                <span class="blushL"></span>
+                <span class="blushR"></span>
+                <span class="keyboard"></span>
+                <span class="base"></span>
+              </span>
+              <span class="plant" style="bottom:0; left:28cqw">
+                <span class="leaves"></span>
+                <span class="pot"></span>
+              </span>
+            </div>
+            <div class="features-block" style="align-self:center">
+              <span class="features-h">Features</span>
+              <div class="feat-row"><span class="feat-bullet lav"></span> Custom length</div>
+              <div class="feat-row"><span class="feat-bullet o"></span> Character options</div>
+              <div class="feat-row"><span class="feat-bullet y"></span> Copy function</div>
+              <div class="feat-row"><span class="feat-bullet g"></span> Strength meter</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 05 Portrait · 9:16 ─────────────────────────────────── -->
+  <section class="doc-section" id="portrait">
+    <header class="section-head">
+      <span class="index">05</span>
+      <span class="title">Portrait · 9:16</span>
+      <span class="rule"></span>
+    </header>
+    <p class="section-lede">
+      Three plates re-rendered at <code>aspect-ratio:9/16</code>. Sizes are unchanged; only the container shape changes — so the reflow is the actual proof. Portrait is the source's native orientation, so the notebook page reads especially at home here.
+    </p>
+
+    <div class="portrait-grid">
+
+      <!-- Portrait Cover -->
+      <div class="portrait-cell">
+        <div class="frame-label"><span class="n">01</span><span class="name">Cover</span><span class="meta"><em>9:16</em> · sparse</span></div>
+        <div class="frame portrait">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="handle-tag" style="top:6cqh">@shahzaibnawaz</div>
+          <div class="doodle-layer">
+            <span class="star"       style="top:11cqh; left:16cqw;"></span>
+            <span class="cloud"      style="top:18cqh; left:60cqw;"></span>
+            <span class="sparkle"    style="top:14cqh; left:76cqw;"></span>
+            <span class="cloud"      style="bottom:14cqh; left:14cqw;"></span>
+            <span class="star small" style="bottom:11cqh; left:74cqw;"></span>
+          </div>
+          <div class="stack-center" style="gap:3cqw">
+            <div class="wordmark-mega" style="font-size:16cqw">FRONTEND<br>PROJECT</div>
+            <div class="subtitle-giant" style="font-size:6cqw">Password Generator</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portrait Editorial -->
+      <div class="portrait-cell">
+        <div class="frame-label"><span class="n">02</span><span class="name">Editorial</span><span class="meta"><em>9:16</em> · sparse</span></div>
+        <div class="frame portrait">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="doodle-layer">
+            <span class="sparkle" style="top:12cqh; left:78cqw;"></span>
+            <span class="star small" style="bottom:16cqh; left:14cqw;"></span>
+          </div>
+          <div class="stack-center" style="gap:3cqw">
+            <span class="section-head-marked-g y" style="font-size:4cqw">A cute, hand-drawn note</span>
+            <div class="display-hero" style="font-size:11cqw">Organized<br>hand<br>drawing.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portrait Focal Artifact -->
+      <div class="portrait-cell">
+        <div class="frame-label"><span class="n">03</span><span class="name">Focal Artifact</span><span class="meta"><em>9:16</em> · sparse</span></div>
+        <div class="frame portrait">
+          <div class="notebook"></div>
+          <div class="spiral">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          </div>
+          <div class="doodle-layer">
+            <span class="sparkle" style="top:18cqh; left:80cqw;"></span>
+            <span class="star small" style="bottom:20cqh; left:18cqw;"></span>
+          </div>
+          <div class="stack-center" style="gap:3cqw">
+            <span class="section-head-marked-g y" style="font-size:4cqw">Generated password</span>
+            <span class="password-giant" style="font-size:7cqw;padding:1.4cqw 2.4cqw">aB$9gH&amp;j</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 06 Principles ─────────────────────────────────────── -->
+  <section class="doc-section" id="principles">
+    <header class="section-head">
+      <span class="index">06</span>
+      <span class="title">Principles</span>
+      <span class="rule"></span>
+    </header>
+    <p class="section-lede">
+      70% clean information design + 30% hand-drawn imperfection. Lean centered by default. Ration doodles. One marker voltage per plate — the ledger is the one named density exception.
+    </p>
+    <div class="principles">
+
+      <div class="prin do">
+        <span class="tag">Do</span>
+        <ul>
+          <li>Lean centered — cover, editorial, focal-artifact, brand-signature, closer.</li>
+          <li>One idea per plate; two things → two plates.</li>
+          <li>Let ivory paper carry the silence (55–75% empty).</li>
+          <li>Ration doodles: header 6–8, middle 2–4, bottom 8–12.</li>
+          <li>Keep marker rounded asymmetric — <code>12/8/11/7</code>.</li>
+          <li>Full-bleed one atom every 3–4 plates.</li>
+        </ul>
+      </div>
+      <div class="prin dont">
+        <span class="tag">Don't</span>
+        <ul>
+          <li>No dark backgrounds, no glassmorphism, no glossy 3D.</li>
+          <li>No new hexes, radii, or fonts.</li>
+          <li>No gradient except <code>strength-bar</code> + ground radial.</li>
+          <li>No doodle over a headline / badge / marker (≥2cqw keep-out).</li>
+          <li>No top-left eyebrow on every plate.</li>
+          <li>No web chrome as a treatment.</li>
+        </ul>
+      </div>
+      <div class="prin do">
+        <span class="tag">Voltage</span>
+        <ul>
+          <li>Pink highlight is <em>only</em> the subtitle voice.</li>
+          <li>Yellow / Blue / Orange / Green mark section titles.</li>
+          <li>Features header uses <code>features-pink</code>.</li>
+          <li>Strength bar is the one gradient; never repeat it elsewhere.</li>
+          <li>Badge color ↔ section-head-marked color must match.</li>
+        </ul>
+      </div>
+      <div class="prin do">
+        <span class="tag">Ink</span>
+        <ul>
+          <li>All outlines <code>#171719</code>, 2.2–3px, round caps &amp; joins.</li>
+          <li>±1–2° rotation and ±2px baseline shimmer on long outlines.</li>
+          <li>Right notebook corners far rounder than the left (spiral edge is nearly square).</li>
+          <li>Every card carries the lavender offset shadow — zero blur.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="fbrand">frame.md · Hand-Drawn Notebook</div>
+  <div class="fmeta">Atoms are sacred · composition is free · numbers come from the script</div>
+  <div class="fmeta">1920 × 1080 · 16:9 · 2026-08-23</div>
+</footer>
+
+</body>
+</html>

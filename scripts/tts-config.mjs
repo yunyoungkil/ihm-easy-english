@@ -30,10 +30,17 @@ export const VOICE = Object.freeze({
  * of the text itself. Keeping the sentence here (rather than in the generator)
  * is what makes the delivery reproducible across episodes.
  */
-export const styleDirective = () =>
-  `Say in an ${VOICE.style}, ${VOICE.pace} pace tone:`;
+export const styleDirective = (delivery = {}) => {
+  const style = delivery.style ?? VOICE.style;
+  const pace = delivery.pace ?? VOICE.pace;
+  const pronunciation = delivery.pronunciationDirective
+    ? ` ${delivery.pronunciationDirective} 이 지시문은 소리 내어 읽지 말고, 콜론 뒤의 나레이션만 읽으세요.`
+    : "";
+  return `Say only the narration after the colon in an ${style}, ${pace} pace tone.${pronunciation}:`;
+};
 
-export const buildPrompt = (narration) => `${styleDirective()}\n\n${narration}`;
+export const buildPrompt = (narration, delivery) =>
+  `${styleDirective(delivery)}\n\n${narration}`;
 
 /**
  * What the WAVs must be for the rest of the pipeline to work.
@@ -195,7 +202,7 @@ export function sampleRateFromMime(mimeType) {
  * One narration line -> PCM bytes, in the channel voice.
  * Throws with the API's own message so failures are diagnosable.
  */
-export async function synthesize(narration, apiKey) {
+export async function synthesize(narration, apiKey, delivery) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${VOICE.model}:generateContent`;
 
   const response = await fetch(url, {
@@ -206,7 +213,7 @@ export async function synthesize(narration, apiKey) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: buildPrompt(narration) }] }],
+      contents: [{ parts: [{ text: buildPrompt(narration, delivery) }] }],
       generationConfig: {
         responseModalities: ["AUDIO"],
         speechConfig: {

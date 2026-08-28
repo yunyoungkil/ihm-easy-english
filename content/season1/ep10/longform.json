@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "contentId": "s1-ep10-longform",
+  "status": "scheduled",
+  "classification": {
+    "season": 1,
+    "episode": 10,
+    "track": "LONGFORM",
+    "format": "LONGFORM"
+  },
+  "youtube": {
+    "videoId": "3PkSwrFIcRE",
+    "url": "https://youtu.be/3PkSwrFIcRE",
+    "title": "익-션-전-천-처-저-셜, 사실 한 규칙이었습니다 | 시즌1 총정리",
+    "thumbnailText": [
+      "7개 규칙",
+      "사실 하나였다",
+      "강세가 정답이었다"
+    ],
+    "description": "지금까지 우리는 일곱 개의 시간을 함께 보냈습니다.\n히어로익, 네이션, 디시전, 퀘스천, 픽처, 메저, 스페셜.\n\n「이해하면 쉬운 영어」 시즌1의 마지막 시간, 오늘은 그 이야기들을 하나로 연결합니다.\n\n📌 오늘 정리하는 내용\n・강세 자석 — 익, 션, 전, 천, 처, 저, 셜이 강세를 끌어당기는 이유\n・소리의 변신 — 티/에스가 이를 만나 션·처로 바뀌는 원리\n・예외에도 이유가 있다 — 퀘스천이 왜 천으로 읽히는지\n・시즌1 완전 정복 퀴즈 — OBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL\n・시즌1을 관통하는 세 문장 요약\n\n⏱️ 영상 순서\n00:00 오프닝 - 일곱 개의 시간, 하나의 이야기\n00:25 채널 인트로 - 시즌1 완결편\n00:46 첫 번째 이야기 - 강세 자석\n01:13 두 번째 이야기 - 소리의 변신\n01:37 세 번째 이야기 - 예외에도 이유가 있다\n02:02 실전 - 시즌1 완전 정복 퀴즈\n02:27 시즌1 세 문장 요약\n02:59 시즌1 마무리 및 시즌2 예고\n\n📚 시즌1 전체 재생목록\nhttps://www.youtube.com/playlist?list=PLdTWj5v6v8zE\n\n▶ 지난 시간 EP9: SPECIAL은 왜 '스페시알'이 아닐까?\nhttps://youtu.be/sNNufVhkjT8\n\n다음 시즌2에서는 발음을 넘어, 문장 속에서 소리가 어떻게 연결되고 줄어드는지 함께 풀어봅니다.\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어공부 #영어강세 #기초영어 #왕초보영어 #영어단어읽는법 #파닉스규칙 #시즌1완결",
+    "tags": [
+      "영어 발음",
+      "영어 발음 규칙",
+      "영어 강세",
+      "영어 단어 읽는 법",
+      "기초 영어",
+      "왕초보 영어",
+      "영어 공부",
+      "성인 영어",
+      "파닉스 규칙",
+      "시즌1 총정리",
+      "tion 발음",
+      "sion 발음",
+      "ture 발음",
+      "cial 발음",
+      "observation 발음",
+      "confusion 발음",
+      "capture 발음",
+      "artificial 발음",
+      "English pronunciation",
+      "word stress",
+      "English for beginners"
+    ],
+    "pinnedComment": "시즌1 전체 중에서 가장 헷갈렸던 단어는 무엇이었나요? 👀\n\n오늘 퀴즈(OBSERVATION·CONFUSION·CAPTURE·ARTIFICIAL) 네 개 중 몇 개 맞히셨는지도 댓글로 알려주세요!\n\n시즌2에서는 문장 속 소리 연결·축약을 다룹니다. 기대해 주세요 👇\n📚 시즌1 처음부터 이어서 보기\nhttps://www.youtube.com/playlist?list=PLdTWj5v6v8zE",
+    "playlist": {
+      "title": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
+      "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
+    },
+    "previousVideo": {
+      "videoId": "sNNufVhkjT8",
+      "url": "https://youtu.be/sNNufVhkjT8"
+    },
+    "endScreenVideo": {
+      "videoId": "sNNufVhkjT8",
+      "url": "https://youtu.be/sNNufVhkjT8",
+      "title": "SPECIAL은 왜 '스페시알'이 아닐까? | -CIAL 영어 발음 규칙 (EP9)",
+      "note": "엔딩 화면은 항상 직전 편에 연결(채널 규칙, knowledge/production-rules.md 참고) — 다음 편 개념이 아니므로 시즌2 EP1이 나와도 바꾸지 않는다."
+    }
+  },
+  "script": {
+    "language": "ko-KR",
+    "sourceFile": "scripts/ep10.json",
+    "segments": [
+      {"id": 1, "role": "opening-hook", "narration": "지금까지 함께한 일곱 개의 시간을 하나의 이야기로 되짚어본다고 예고합니다."},
+      {"id": 2, "role": "intro", "narration": "시즌1 완결편임을 알리는 채널 인트로."},
+      {"id": 3, "role": "story-1-stress-magnet", "narration": "익/션/전/천/처/저/셜 같은 소리가 강세를 앞으로 끌어당긴다는 첫 번째 이야기를 정리합니다."},
+      {"id": 4, "role": "story-2-sound-shift", "narration": "티/에스가 이를 만나 션·처로 바뀌는 소리 변신을 정리합니다."},
+      {"id": 5, "role": "story-3-exceptions", "narration": "퀘스천이 왜 천으로 읽히는지 등, 예외처럼 보였던 것에도 이유가 있음을 정리합니다."},
+      {"id": 6, "role": "quiz", "narration": "OBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL 네 단어로 시즌1 완전 정복 퀴즈를 진행합니다."},
+      {"id": 7, "role": "summary", "narration": "시즌1 전체를 세 문장으로 요약합니다."},
+      {"id": 8, "role": "closing-season2-teaser", "narration": "시청에 감사드리며, 시즌2에서는 문장 속 소리 연결·축약을 다룰 것을 예고합니다."}
+    ]
+  },
+  "production": {
+    "compositionId": "EP10-card",
+    "thumbnailCompositionId": null,
+    "thumbnailFileName": "thumbnail.png",
+    "renderFileName": "s1-ep10-longform-season1-recap.mp4",
+    "fps": 30,
+    "durationSeconds": 216.92,
+    "durationText": "03:37"
+  },
+  "publishing": {
+    "order": 1,
+    "proposedAtKst": "2026-08-29 20:00",
+    "scheduledAtKst": "2026-08-29 20:00",
+    "scheduledPublishAtUtc": "2026-08-29T11:00:00Z",
+    "playlist": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
+    "category": "교육",
+    "alteredContent": false,
+    "location": "대한민국",
+    "recordingDate": null,
+    "prePublishTasks": [
+      {"task": "썸네일 파일 생성", "status": "completed"},
+      {"task": "공개 일정 확정", "status": "completed"},
+      {"task": "YouTube에 실제 업로드(비공개/예약)", "status": "completed"}
+    ],
+    "postPublishTasks": [
+      {"task": "고정 댓글 작성", "status": "pending"},
+      {"task": "댓글 고정 여부 확인", "status": "pending"},
+      {"task": "엔딩 화면 EP9 연결 확인", "status": "pending"},
+      {"task": "쇼츠 A·B 관련 영상에 EP10 롱폼 연결", "status": "completed"},
+      {"task": "쇼츠 A·B 콘텐츠 JSON의 [EP10-videoId] 자리를 실제 videoId로 교체 후 패키지 재생성", "status": "completed"}
+    ]
+  }
+}

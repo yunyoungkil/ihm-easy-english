@@ -1,0 +1,226 @@
+<template>
+<style>
+  @font-face {
+    font-family: 'Black Han Sans';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6CYyF_g.woff2') format('woff2');
+  }
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0A1526;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #FFFFFF;
+  }
+
+  .clip { position: absolute; inset: 0; }
+
+  .rec12-bg {
+    background: radial-gradient(ellipse 920px 720px at 50% 40%, #12203A 0%, #0A1526 70%, #0A1526 100%);
+  }
+
+  .rec12-triptych {
+    position: absolute;
+    left: 0;
+    top: 280px;
+    width: 1920px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 70px;
+  }
+
+  .rec12-icon {
+    width: 122px;
+    height: 122px;
+    flex: 0 0 auto;
+    opacity: 0.92;
+  }
+  .rec12-icon svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .rec12-icon path,
+  .rec12-icon rect,
+  .rec12-icon line,
+  .rec12-icon ellipse {
+    fill: none;
+    stroke: #008EFF;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  #rec12-music-head-1,
+  #rec12-music-head-2 {
+    fill: #008EFF;
+    fill-opacity: 0;
+  }
+
+  .rec12-word {
+    flex: 0 0 auto;
+    display: flex;
+    line-height: 1;
+  }
+  .rec12-letter {
+    display: inline-block;
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 400;
+    font-size: 130px;
+    color: #FFFFFF;
+    letter-spacing: 0.01em;
+  }
+
+  .rec12-accent-line {
+    position: absolute;
+    left: 50%;
+    top: 470px;
+    width: 80px;
+    height: 5px;
+    margin-left: -40px;
+    background: #F5C518;
+    border-radius: 3px;
+    transform-origin: 50% 50%;
+  }
+
+  .rec12-caption {
+    position: absolute;
+    left: 0;
+    top: 520px;
+    width: 1920px;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    color: #A9B4C4;
+  }
+</style>
+
+<div data-hf-id="hf-lpky" id="root" data-composition-id="12-recognition" data-start="0" data-duration="10.453" data-width="1920" data-height="1080">
+
+  <div data-hf-id="hf-28wj" id="rec12-bg-clip" class="clip rec12-bg" data-start="0" data-duration="9.695" data-track-index="0"></div>
+
+  <div data-hf-id="hf-r7i7" id="rec12-content" class="clip" data-start="0" data-duration="9.695" data-track-index="1">
+
+    <div data-hf-id="hf-ge6d" class="rec12-triptych">
+      <div data-hf-id="hf-5nsu" class="rec12-icon" aria-hidden="true">
+        <svg data-hf-id="hf-luk3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect data-hf-id="hf-hogz" id="rec12-film-frame" x="25" y="20" width="50" height="60" rx="7" ry="7" />
+          <path data-hf-id="hf-zqi7" id="rec12-film-holes" d="M10,26 h8 v8 h-8 Z M10,46 h8 v8 h-8 Z M10,66 h8 v8 h-8 Z M82,26 h8 v8 h-8 Z M82,46 h8 v8 h-8 Z M82,66 h8 v8 h-8 Z" />
+          <line data-hf-id="hf-bsmu" id="rec12-film-flow" x1="32" y1="50" x2="68" y2="50" stroke-dasharray="10 8" />
+        </svg>
+      </div>
+
+      <div data-hf-id="hf-55c1" class="rec12-word" id="rec12-gonna">
+        <span data-hf-id="hf-j3oq" class="rec12-letter">G</span><span data-hf-id="hf-ma4y" class="rec12-letter">O</span><span data-hf-id="hf-lvtx" class="rec12-letter">N</span><span data-hf-id="hf-lewp" class="rec12-letter">N</span><span data-hf-id="hf-lhiw" class="rec12-letter">A</span>
+      </div>
+
+      <div data-hf-id="hf-7esi" class="rec12-icon" aria-hidden="true">
+        <svg data-hf-id="hf-jbrn" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path data-hf-id="hf-a32g" id="rec12-music-stem" d="M32,75 L32,28 M62,68 L62,18 M32,30 L62,20 M32,38 L62,28" />
+          <ellipse data-hf-id="hf-5ggw" id="rec12-music-head-1" cx="32" cy="78" rx="11" ry="8" />
+          <ellipse data-hf-id="hf-zgwj" id="rec12-music-head-2" cx="62" cy="71" rx="11" ry="8" />
+        </svg>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-md6k" class="rec12-accent-line" id="rec12-accent-line"></div>
+    <div data-hf-id="hf-nqb3" class="rec12-caption" id="rec12-caption">이미 수없이 들으셨던 소리입니다</div>
+
+  </div>
+</div>
+
+<script>
+  window.__timelines = window.__timelines || {};
+
+  (function () {
+    // Setup: measure every stroke-draw target and arm its dash pattern (real geometry, not guessed).
+    var drawTargets = document.querySelectorAll(
+      '#rec12-film-frame, #rec12-film-holes, #rec12-music-stem, #rec12-music-head-1, #rec12-music-head-2'
+    );
+    drawTargets.forEach(function (p) {
+      var len = p.getTotalLength() * 1.03;
+      p.style.strokeDasharray = String(len);
+      p.style.strokeDashoffset = String(len);
+    });
+
+    var tl = gsap.timeline({ paused: true });
+
+    // --- Scene 1 (0.0-2.76s): "영화에서도" -- film-strip icon self-draws, center stays empty ---
+    tl.to('#rec12-film-frame', { strokeDashoffset: 0, duration: 0.6, ease: 'power2.out' }, 0.20);
+    tl.to('#rec12-film-holes', { strokeDashoffset: 0, duration: 0.4, ease: 'power2.out' }, 0.65);
+
+    // --- Scene 1: "노래 가사에서도" -- music-note icon self-draws (stroke, then note-head fill) ---
+    tl.to('#rec12-music-stem', { strokeDashoffset: 0, duration: 0.6, ease: 'power2.out' }, 1.40);
+    tl.to(['#rec12-music-head-1', '#rec12-music-head-2'], { strokeDashoffset: 0, duration: 0.4, ease: 'power2.out' }, 1.85);
+    tl.to(['#rec12-music-head-1', '#rec12-music-head-2'], { fillOpacity: 1, duration: 0.3, ease: 'power1.out' }, 2.25);
+
+    // --- Scene 2 (2.76-6.44s): "GONNA를 훨씬 자주 듣게 되는 겁니다" -- word fills the empty center slot ---
+    tl.fromTo(
+      '.rec12-letter',
+      { y: 26, opacity: 0, scale: 0.72 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.6)', stagger: 0.06 },
+      3.00
+    );
+
+    // recognition flash: a soft accent-stress glow washes the completed word, then settles low
+    var gonna = document.getElementById('rec12-gonna');
+    var glow = { v: 0 };
+    function paintGlow() {
+      gonna.style.textShadow = '0 0 ' + (18 + 42 * glow.v) + 'px rgba(245,197,24,' + (0.55 * glow.v) + ')';
+    }
+    tl.fromTo(glow, { v: 0 }, { v: 1, duration: 0.3, ease: 'power2.out', onUpdate: paintGlow }, 3.55);
+    tl.to(glow, { v: 0.4, duration: 0.35, ease: 'power1.out', onUpdate: paintGlow }, 3.85);
+
+    // --- Scene 3 (6.44-9.195s): "사실 이미 수없이 들으셨던 거고요" -- accent line + caption settle in ---
+    tl.fromTo('#rec12-accent-line', { scaleX: 0 }, { scaleX: 1, duration: 0.2, ease: 'power2.out' }, 6.50);
+    tl.fromTo('#rec12-caption', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power1.out' }, 6.70);
+
+    // Scene 3: the only motion left is sanctioned live-SVG internals -- dash-flow (film) + weak pulse (music).
+    // No card breathing, no further hero motion -- the shot holds from here to the end.
+    var flowLine = document.getElementById('rec12-film-flow');
+    tl.fromTo(flowLine, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power1.out' }, 6.44);
+    var flow = { offset: 0 };
+    tl.to(flow, {
+      offset: -54, // 3x the "10 8" dash period (18) -- clean loop, no phase jump on the last frame
+      duration: 2.66,
+      ease: 'none',
+      onUpdate: function () { flowLine.style.strokeDashoffset = String(flow.offset); }
+    }, 6.44);
+
+    var head1 = document.getElementById('rec12-music-head-1');
+    var head2 = document.getElementById('rec12-music-head-2');
+    var pulse = { p: 0 };
+    tl.to(pulse, {
+      p: Math.PI * 4, // 2 cycles over the enrichment window
+      duration: 2.66,
+      ease: 'none',
+      onUpdate: function () {
+        var s1 = 1 + Math.sin(pulse.p) * 0.08;
+        var s2 = 1 + Math.sin(pulse.p + Math.PI / 2) * 0.06;
+        head1.setAttribute('transform', 'translate(32 78) scale(' + s1 + ') translate(-32 -78)');
+        head2.setAttribute('transform', 'translate(62 71) scale(' + s2 + ') translate(-62 -71)');
+      }
+    }, 6.44);
+
+    window.__timelines['12-recognition'] = tl;
+  })();
+</script>
+</template>

@@ -7,7 +7,13 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import type { CardPair, CardWord, FlowIconName, Scene, SceneCard } from "../types";
+import type {
+  CardPair,
+  CardWord,
+  FlowIconName,
+  Scene,
+  SceneCard,
+} from "../types";
 import {
   CARD,
   CARD_CATEGORY_COLORS,
@@ -27,16 +33,24 @@ import {
 } from "../utils/animation";
 import { mixHexColors } from "../utils/color";
 import { ArrowGlyph } from "../components/icons";
-import { BigBenGlyph, EiffelTowerGlyph, PillarGlyph } from "../components/languageIcons";
+import {
+  BigBenGlyph,
+  EiffelTowerGlyph,
+  PillarGlyph,
+} from "../components/languageIcons";
 import { fillTextBox } from "@remotion/layout-utils";
 
-const FLOW_ICONS: Record<FlowIconName, React.FC<{ size: number; color: string }>> = {
+const FLOW_ICONS: Record<
+  FlowIconName,
+  React.FC<{ size: number; color: string }>
+> = {
   latin: PillarGlyph,
   french: EiffelTowerGlyph,
   english: BigBenGlyph,
 };
 
-const categoryColor = (category: string) => CARD_CATEGORY_COLORS[category] ?? COLORS.muted;
+const categoryColor = (category: string) =>
+  CARD_CATEGORY_COLORS[category] ?? COLORS.muted;
 
 /**
  * A syllable row. Stress and deviant sounds are shown by colour alone —
@@ -51,8 +65,17 @@ const SyllableRow: React.FC<{
   fontFamily: string;
   /** 0..1 narration emphasis; warms the plain cells toward the accent. */
   emphasis?: number;
-}> = ({ cells, stressIndex, diffIndex, fontSize, fontFamily, emphasis = 0 }) => (
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+}> = ({
+  cells,
+  stressIndex,
+  diffIndex,
+  fontSize,
+  fontFamily,
+  emphasis = 0,
+}) => (
+  <div
+    style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+  >
     {cells.map((cell, i) => (
       <React.Fragment key={i}>
         {i > 0 && (
@@ -194,7 +217,10 @@ const WordBlock: React.FC<{
         stressIndex={word.stressIndex}
         fontSize={
           frameHeight !== undefined
-            ? Math.max(frameHeight * MOBILE_MIN_FONT_SIZE.syllable, height * CARD.cellSizePct)
+            ? Math.max(
+                frameHeight * MOBILE_MIN_FONT_SIZE.syllable,
+                height * CARD.cellSizePct,
+              )
             : height * CARD.cellSizePct * cellScale
         }
         fontFamily={FONT_EN}
@@ -207,7 +233,10 @@ const WordBlock: React.FC<{
           diffIndex={word.pronDiffIndex}
           fontSize={
             frameHeight !== undefined
-              ? Math.max(frameHeight * MOBILE_MIN_FONT_SIZE.pronunciation, height * CARD.pronCellSizePct)
+              ? Math.max(
+                  frameHeight * MOBILE_MIN_FONT_SIZE.pronunciation,
+                  height * CARD.pronCellSizePct,
+                )
               : height * CARD.pronCellSizePct * cellScale
           }
           fontFamily={FONT_KO}
@@ -267,7 +296,15 @@ const PairRow: React.FC<{
   dimFor: (word: string) => number;
   wordScale: number;
   compact?: boolean;
-}> = ({ pair, height, color, speechFor, dimFor, wordScale, compact = false }) => {
+}> = ({
+  pair,
+  height,
+  color,
+  speechFor,
+  dimFor,
+  wordScale,
+  compact = false,
+}) => {
   const cellScale = compact ? CARD.pairCompactPct : 1;
   return (
     <div
@@ -354,7 +391,8 @@ const wordBlockHeight = (compact = false) => {
   // mobile-minimum floors), leaving cells at full size here left no room for
   // the word-glyph floor to fit 3 rows. The word glyph itself is never
   // scaled by `compact`; only `wordScale`'s own floor logic touches it.
-  const supporting = (CARD.cellSizePct + CARD.pronCellSizePct) * 1.35 + 0.024 + 0.068;
+  const supporting =
+    (CARD.cellSizePct + CARD.pronCellSizePct) * 1.35 + 0.024 + 0.068;
   return wordGlyph + supporting * (compact ? CARD.pairCompactPct : 1);
 };
 
@@ -376,11 +414,16 @@ const wordBlockHeight = (compact = false) => {
 const panelGapPctFor = (panels: number) =>
   panels <= 2 ? CARD.panelGapWidePct : CARD.panelGapPct;
 
-const wordsWrapInfo = (words: CardWord[], frameHeight: number, bodyWidth: number) => {
+const wordsWrapInfo = (
+  words: CardWord[],
+  frameHeight: number,
+  bodyWidth: number,
+) => {
   const floorFontPx = frameHeight * CARD.wordListMinSizePct;
   const charWidthPx = floorFontPx * CARD.wordCharWidthRatio;
   const panels = words.length;
-  const panelPadding = frameHeight * CARD.panelPadXPct * 2 + CARD.cardBorderWidth * 2;
+  const panelPadding =
+    frameHeight * CARD.panelPadXPct * 2 + CARD.cardBorderWidth * 2;
   const chrome =
     panels * panelPadding + (panels - 1) * frameHeight * panelGapPctFor(panels);
   // Text-only width available per panel.
@@ -389,7 +432,9 @@ const wordsWrapInfo = (words: CardWord[], frameHeight: number, bodyWidth: number
   // included) needs its own budget added back so it doesn't re-shrink the
   // text area it was already excluded from.
   const panelBoxMaxWidth = textWidthCap + panelPadding;
-  const anyWraps = words.some((w) => w.word.length * charWidthPx > textWidthCap);
+  const anyWraps = words.some(
+    (w) => w.word.length * charWidthPx > textWidthCap,
+  );
   return { anyWraps, textWidthCap, panelBoxMaxWidth };
 };
 
@@ -403,7 +448,11 @@ const wordsWrapInfo = (words: CardWord[], frameHeight: number, bodyWidth: number
  * frame. `fillTextBox` is fed one space-delimited word at a time and reports
  * whenever a word lands on a new line.
  */
-const measureLineCount = (text: string, fontSizePx: number, maxBoxWidth: number) => {
+const measureLineCount = (
+  text: string,
+  fontSizePx: number,
+  maxBoxWidth: number,
+) => {
   const box = fillTextBox({ maxBoxWidth, maxLines: 99 });
   let lines = 1;
   for (const word of text.split(" ")) {
@@ -442,7 +491,9 @@ const proseBlockFrac = (
   const totalLines = entries.reduce(
     (n, entry) =>
       n +
-      entry.split("\n").reduce((m, sub) => m + measureLineCount(sub, fontSizePx, maxWidth), 0),
+      entry
+        .split("\n")
+        .reduce((m, sub) => m + measureLineCount(sub, fontSizePx, maxWidth), 0),
     0,
   );
   return totalLines * (fontSizePct * lineHeight);
@@ -532,7 +583,8 @@ const totalLines = (entries: string[]) =>
 const chipsFrac = (chips: string[], frameHeight: number, bodyWidth: number) => {
   const fontPx = frameHeight * CARD.chipSizePct;
   // Chip box = glyphs (Inter-700 caps run ~0.62em) + horizontal padding + gap.
-  const chipPx = (chars: number) => chars * fontPx * 0.62 + frameHeight * 0.028 + frameHeight * 0.012;
+  const chipPx = (chars: number) =>
+    chars * fontPx * 0.62 + frameHeight * 0.028 + frameHeight * 0.012;
   // The chip container is capped at 72% of the body width (see the render).
   const rowWidth = bodyWidth * 0.72;
   let rows = 1;
@@ -568,7 +620,13 @@ const estimateBodyHeight = (
   }
   if (card.lines) {
     blocks++;
-    h += proseBlockFrac(card.lines, CARD.bodySizePct, CARD.proseLineHeight, frameHeight, bodyWidth);
+    h += proseBlockFrac(
+      card.lines,
+      CARD.bodySizePct,
+      CARD.proseLineHeight,
+      frameHeight,
+      bodyWidth,
+    );
   }
   if (card.box) {
     blocks++;
@@ -600,7 +658,9 @@ const estimateBodyHeight = (
     // "\n") plus the icon and its gap, but only for stages that have one —
     // EP7-9's flows are label-only, and reserving icon height for them left
     // the row floating in space it never used.
-    const labelLines = Math.max(...card.flow.map((s) => s.label.split("\n").length));
+    const labelLines = Math.max(
+      ...card.flow.map((s) => s.label.split("\n").length),
+    );
     const hasIcon = card.flow.some((s) => s.icon);
     h +=
       (hasIcon ? CARD.flowIconSizePct + CARD.flowIconGapPct : 0) +
@@ -622,7 +682,13 @@ const estimateBodyHeight = (
   }
   if (card.note) {
     blocks++;
-    h += proseBlockFrac([card.note], CARD.noteSizePct, CARD.proseLineHeight, frameHeight, bodyWidth);
+    h += proseBlockFrac(
+      [card.note],
+      CARD.noteSizePct,
+      CARD.proseLineHeight,
+      frameHeight,
+      bodyWidth,
+    );
   }
   if (card.caption) {
     blocks++;
@@ -658,11 +724,21 @@ const estimateBodyHeight = (
  * exactly the amount that content "should" have shrunk. Splitting the budget
  * up front makes `fit` solve for the truly flexible remainder instead.
  */
-const protectedBodyHeight = (card: SceneCard, frameHeight: number, bodyWidth: number) => {
+const protectedBodyHeight = (
+  card: SceneCard,
+  frameHeight: number,
+  bodyWidth: number,
+) => {
   let p = 0;
   if (card.heading) p += 0.06;
   if (card.lines) {
-    p += proseBlockFrac(card.lines, CARD.bodySizePct, CARD.proseLineHeight, frameHeight, bodyWidth);
+    p += proseBlockFrac(
+      card.lines,
+      CARD.bodySizePct,
+      CARD.proseLineHeight,
+      frameHeight,
+      bodyWidth,
+    );
   }
   if (card.box) {
     p += proseBlockFrac(
@@ -681,7 +757,13 @@ const protectedBodyHeight = (card: SceneCard, frameHeight: number, bodyWidth: nu
   }
   if (card.chips) p += chipsFrac(card.chips, frameHeight, bodyWidth);
   if (card.note) {
-    p += proseBlockFrac([card.note], CARD.noteSizePct, CARD.proseLineHeight, frameHeight, bodyWidth);
+    p += proseBlockFrac(
+      [card.note],
+      CARD.noteSizePct,
+      CARD.proseLineHeight,
+      frameHeight,
+      bodyWidth,
+    );
   }
   if (card.caption) {
     p += proseBlockFrac(
@@ -708,7 +790,8 @@ const protectedBodyHeight = (card: SceneCard, frameHeight: number, bodyWidth: nu
  * tuning this without checking whether the scene in question escalates.
  */
 const availableBodyHeight = (padPct: number, marginRelaxed: boolean) =>
-  (CARD.cardZonePct - padPct * 2 - CARD.cardHeaderPct) * (marginRelaxed ? 0.98 : 0.92);
+  (CARD.cardZonePct - padPct * 2 - CARD.cardHeaderPct) *
+  (marginRelaxed ? 0.98 : 0.92);
 
 /**
  * Inner padding for this card: the tighter `densePaddingPct` when the
@@ -718,7 +801,11 @@ const availableBodyHeight = (padPct: number, marginRelaxed: boolean) =>
  * the padding) and CardBody (which budgets against it) call this, so the two
  * can't disagree.
  */
-const cardPadPctFor = (card: SceneCard, frameHeight: number, bodyWidth: number) => {
+const cardPadPctFor = (
+  card: SceneCard,
+  frameHeight: number,
+  bodyWidth: number,
+) => {
   const protectedFrac = protectedBodyHeight(card, frameHeight, bodyWidth);
   return protectedFrac > availableBodyHeight(CARD.cardPaddingPct, true)
     ? CARD.densePaddingPct
@@ -755,19 +842,27 @@ const CardBlock: React.FC<{
         // a child narrower than the wrapper sat at its left edge instead of
         // centred. Both showed up as the chip row drifting off-centre.
         width: "100%",
+
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+
         opacity: interpolate(local, [0, enter], [0, 1], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
           easing: Easing.bezier(0.16, 1, 0.3, 1),
         }),
-        translate: interpolate(local, [0, enter], [`0px ${CARD.blockRisePx}px`, "0px 0px"], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-          easing: Easing.bezier(0.16, 1, 0.3, 1),
-        }),
+
+        translate: interpolate(
+          local,
+          [0, enter],
+          [`0px ${CARD.blockRisePx}px`, "0px 0px"],
+          {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.bezier(0.16, 1, 0.3, 1),
+          },
+        ),
       }}
     >
       {children}
@@ -807,12 +902,14 @@ const CardBody: React.FC<{
   // bit more room than usual.
   const compact =
     (!!card.pairs && card.pairs.length >= 3) ||
-    (!!card.words && (!!card.lines || !!card.box || !!card.note || !!card.points));
+    (!!card.words &&
+      (!!card.lines || !!card.box || !!card.note || !!card.points));
   // Any card carrying floor-protected prose gets the relaxed 0.98 margin
   // (vs the default 0.92) — safe to apply broadly, since it only ever gives
   // `fit` more room than the plain margin would (see the derivation in
   // theme.ts's pairCompactPct comment).
-  const marginRelaxed = compact || !!card.lines || !!card.box || !!card.note || !!card.points;
+  const marginRelaxed =
+    compact || !!card.lines || !!card.box || !!card.note || !!card.points;
 
   // Available body height inside the card, in the same units as the estimate:
   // card zone minus its vertical padding and the badge/timecode header. The
@@ -825,7 +922,10 @@ const CardBody: React.FC<{
   // `fit` solves only for the *flexible* remainder — see protectedBodyHeight().
   const protectedFrac = protectedBodyHeight(card, frameHeight, bodyWidth);
   const flexibleFrac = Math.max(estimate - protectedFrac, 0.0001);
-  let fit = Math.min(1, Math.max(available - protectedFrac, 0.0001) / flexibleFrac);
+  let fit = Math.min(
+    1,
+    Math.max(available - protectedFrac, 0.0001) / flexibleFrac,
+  );
 
   // A sparse prose/flow card leaves the band half empty at fit 1, so let it
   // grow into the space. Only when there are no word panels — see
@@ -833,12 +933,16 @@ const CardBody: React.FC<{
   // floor clamp is slack (height*pct already exceeds it), so the whole body
   // scales uniformly and the budget is simply `estimate * fit <= available`.
   if (fit >= 1 && !card.words && !card.pairs) {
-    let grow = Math.min(CARD.maxGrowFit, available / Math.max(estimate, 0.0001));
+    let grow = Math.min(
+      CARD.maxGrowFit,
+      available / Math.max(estimate, 0.0001),
+    );
     // Re-measure at the grown size: a bigger caption can take an extra line,
     // which the pre-growth estimate didn't budget for.
     while (
       grow > 1 &&
-      estimateBodyHeight(card, frameHeight * grow, bodyWidth, compact) * grow > available
+      estimateBodyHeight(card, frameHeight * grow, bodyWidth, compact) * grow >
+        available
     ) {
       grow -= 0.05;
     }
@@ -854,7 +958,8 @@ const CardBody: React.FC<{
     : card.words
       ? CARD.wordListMinSizePct
       : undefined;
-  let requiredWordScale = floorPct !== undefined ? floorPct / (fit * CARD.wordSizePct) : 0;
+  let requiredWordScale =
+    floorPct !== undefined ? floorPct / (fit * CARD.wordSizePct) : 0;
   if (floorPct !== undefined && requiredWordScale > 1) {
     // Raising wordScale to its ceiling of 1 still isn't enough — fit itself
     // must rise. The only path that can affect it: card.pairs rows already
@@ -907,7 +1012,10 @@ const CardBody: React.FC<{
           <div
             style={{
               fontFamily: FONT_KO,
-              fontSize: Math.max(frameHeight * MOBILE_MIN_FONT_SIZE.description, height * CARD.bodySizePct),
+              fontSize: Math.max(
+                frameHeight * MOBILE_MIN_FONT_SIZE.description,
+                height * CARD.bodySizePct,
+              ),
               fontWeight: 700,
               color: COLORS.text,
               textAlign: "center",
@@ -920,300 +1028,330 @@ const CardBody: React.FC<{
 
       {card.lines && (
         <CardBlock index={beat.lines!} name="Lines">
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          {card.lines.map((line, i) => (
-            <div
-              key={i}
-              style={{
-                fontFamily: FONT_KO,
-                fontSize: Math.max(frameHeight * MOBILE_MIN_FONT_SIZE.description, height * CARD.bodySizePct),
-                fontWeight: 700,
-                color: COLORS.text,
-                textAlign: "center",
-                lineHeight: CARD.proseLineHeight,
-                // A flex column with alignItems:"center" doesn't stretch
-                // children to its own width, so each line needs its own cap
-                // to actually wrap where proseBlockFrac() measured it wrapping.
-                maxWidth: bodyWidth * CARD.proseMaxWidthPct,
-              }}
-            >
-              {line}
-            </div>
-          ))}
-        </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {card.lines.map((line, i) => (
+              <div
+                key={i}
+                style={{
+                  fontFamily: FONT_KO,
+                  fontSize: Math.max(
+                    frameHeight * MOBILE_MIN_FONT_SIZE.description,
+                    height * CARD.bodySizePct,
+                  ),
+                  fontWeight: 700,
+                  color: COLORS.text,
+                  textAlign: "center",
+                  lineHeight: CARD.proseLineHeight,
+                  // A flex column with alignItems:"center" doesn't stretch
+                  // children to its own width, so each line needs its own cap
+                  // to actually wrap where proseBlockFrac() measured it wrapping.
+                  maxWidth: bodyWidth * CARD.proseMaxWidthPct,
+                }}
+              >
+                {line}
+              </div>
+            ))}
+          </div>
         </CardBlock>
       )}
 
       {card.box && (
         <CardBlock index={beat.box!} name="Rule box">
-        <Panel
-          color={color}
-          height={height}
-          padXPct={CARD.boxPadXPct}
-          padYPct={CARD.boxPadYPct}
-          maxWidth={bodyWidth * CARD.proseMaxWidthPct}
-        >
-          {card.box.map((line, i) => (
-            <div
-              key={i}
-              style={{
-                fontFamily: FONT_KO,
-                // Fully protected at its own resting size — see
-                // protectedBodyHeight()'s comment on why this never shrinks
-                // with `fit` the way the plain `bodySizePct` floor does.
-                fontSize: frameHeight * CARD.boxRestSizePct,
-                fontWeight: 700,
-                color: i === card.box!.length - 1 ? COLORS.accent : COLORS.text,
-                textAlign: "center",
-                lineHeight: CARD.proseLineHeight,
-                maxWidth: boxTextWidth(frameHeight, bodyWidth),
-              }}
-            >
-              {line}
-            </div>
-          ))}
-        </Panel>
+          <Panel
+            color={color}
+            height={height}
+            padXPct={CARD.boxPadXPct}
+            padYPct={CARD.boxPadYPct}
+            maxWidth={bodyWidth * CARD.proseMaxWidthPct}
+          >
+            {card.box.map((line, i) => (
+              <div
+                key={i}
+                style={{
+                  fontFamily: FONT_KO,
+                  // Fully protected at its own resting size — see
+                  // protectedBodyHeight()'s comment on why this never shrinks
+                  // with `fit` the way the plain `bodySizePct` floor does.
+                  fontSize: frameHeight * CARD.boxRestSizePct,
+                  fontWeight: 700,
+                  color:
+                    i === card.box!.length - 1 ? COLORS.accent : COLORS.text,
+                  textAlign: "center",
+                  lineHeight: CARD.proseLineHeight,
+                  maxWidth: boxTextWidth(frameHeight, bodyWidth),
+                }}
+              >
+                {line}
+              </div>
+            ))}
+          </Panel>
         </CardBlock>
       )}
 
       {card.pairs && (
         <CardBlock index={beat.pairs!} name="Word pairs">
-        <div style={{ display: "flex", flexDirection: "column", gap: gap * 0.8 }}>
-          {card.pairs.map((pair, i) => (
-            <PairRow
-              key={i}
-              pair={pair}
-              height={height}
-              color={color}
-              wordScale={wordScale}
-              compact={compact}
-              speechFor={speechFor}
-              dimFor={dimFor}
-            />
-          ))}
-        </div>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: gap * 0.8 }}
+          >
+            {card.pairs.map((pair, i) => (
+              <PairRow
+                key={i}
+                pair={pair}
+                height={height}
+                color={color}
+                wordScale={wordScale}
+                compact={compact}
+                speechFor={speechFor}
+                dimFor={dimFor}
+              />
+            ))}
+          </div>
         </CardBlock>
       )}
 
       {card.words && (
         <CardBlock index={beat.words!} name="Word panels">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "stretch",
-            justifyContent: "center",
-            gap: height * panelGapPctFor(card.words.length),
-          }}
-        >
-          {card.words.map((word, i) => (
-            <Panel
-              key={i}
-              color={color}
-              height={height}
-              compact={compact}
-              maxWidth={wrapInfo?.panelBoxMaxWidth}
-            >
-              <WordBlock
-                word={word}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "stretch",
+              justifyContent: "center",
+              gap: height * panelGapPctFor(card.words.length),
+            }}
+          >
+            {card.words.map((word, i) => (
+              <Panel
+                key={i}
+                color={color}
                 height={height}
-                frameHeight={frameHeight}
-                wordScale={wordScale}
-                wrap={!!wrapInfo}
-                speech={speechFor(word.word)}
-                dim={dimFor(word.word)}
-              />
-            </Panel>
-          ))}
-        </div>
+                compact={compact}
+                maxWidth={wrapInfo?.panelBoxMaxWidth}
+              >
+                <WordBlock
+                  word={word}
+                  height={height}
+                  frameHeight={frameHeight}
+                  wordScale={wordScale}
+                  wrap={!!wrapInfo}
+                  speech={speechFor(word.word)}
+                  dim={dimFor(word.word)}
+                />
+              </Panel>
+            ))}
+          </div>
         </CardBlock>
       )}
 
       {card.flow && (
         <CardBlock index={beat.flow!} name="Flow stages">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: height * 0.03,
-          }}
-        >
-          {card.flow.map((stage, i) => {
-            // Label-only when the stage names something a landmark can't
-            // stand for — see FlowStage in types.ts.
-            const Icon = stage.icon ? FLOW_ICONS[stage.icon] : null;
-            return (
-              <React.Fragment key={i}>
-                {i > 0 && (
-                  <ArrowGlyph
-                    size={height * CARD.flowArrowSizePct}
-                    color={COLORS.accent}
-                    strokeWidth={2.2}
-                  />
-                )}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: height * CARD.flowIconGapPct,
-                  }}
-                >
-                  {Icon && <Icon size={height * CARD.flowIconSizePct} color={color} />}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: height * 0.03,
+            }}
+          >
+            {card.flow.map((stage, i) => {
+              // Label-only when the stage names something a landmark can't
+              // stand for — see FlowStage in types.ts.
+              const Icon = stage.icon ? FLOW_ICONS[stage.icon] : null;
+              return (
+                <React.Fragment key={i}>
+                  {i > 0 && (
+                    <ArrowGlyph
+                      size={height * CARD.flowArrowSizePct}
+                      color={COLORS.accent}
+                      strokeWidth={2.2}
+                    />
+                  )}
                   <div
                     style={{
-                      fontFamily: FONT_KO,
-                      fontSize: Math.max(frameHeight * MOBILE_MIN_FONT_SIZE.description, height * CARD.bodySizePct),
-                      fontWeight: 700,
-                      color: COLORS.text,
-                      textAlign: "center",
-                      whiteSpace: "pre-line",
-                      lineHeight: 1.35,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: height * CARD.flowIconGapPct,
                     }}
                   >
-                    {stage.label}
+                    {Icon && (
+                      <Icon
+                        size={height * CARD.flowIconSizePct}
+                        color={color}
+                      />
+                    )}
+                    <div
+                      style={{
+                        fontFamily: FONT_KO,
+                        fontSize: Math.max(
+                          frameHeight * MOBILE_MIN_FONT_SIZE.description,
+                          height * CARD.bodySizePct,
+                        ),
+                        fontWeight: 700,
+                        color: COLORS.text,
+                        textAlign: "center",
+                        whiteSpace: "pre-line",
+                        lineHeight: 1.35,
+                      }}
+                    >
+                      {stage.label}
+                    </div>
                   </div>
-                </div>
-              </React.Fragment>
-            );
-          })}
-        </div>
+                </React.Fragment>
+              );
+            })}
+          </div>
         </CardBlock>
       )}
 
       {card.points && (
         <CardBlock index={beat.points!} name="Summary points">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: height * CARD.summaryGapPct,
-          }}
-        >
-          {card.points.map((point, i) => {
-            const pointFontSize = Math.max(
-              frameHeight * MOBILE_MIN_FONT_SIZE.summaryItem,
-              height * CARD.noteSizePct,
-            );
-            return (
-              <div
-                key={i}
-                style={{ display: "flex", gap: height * 0.016, alignItems: "flex-start" }}
-              >
-                <span
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: height * CARD.summaryGapPct,
+            }}
+          >
+            {card.points.map((point, i) => {
+              const pointFontSize = Math.max(
+                frameHeight * MOBILE_MIN_FONT_SIZE.summaryItem,
+                height * CARD.noteSizePct,
+              );
+              return (
+                <div
+                  key={i}
                   style={{
-                    flexShrink: 0,
-                    width: pointFontSize * 0.8,
-                    height: pointFontSize * 0.8,
-                    borderRadius: "50%",
-                    border: `2px solid ${color}`,
-                    color,
-                    fontFamily: FONT_KO,
-                    fontSize: pointFontSize * 0.45,
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    gap: height * 0.016,
+                    alignItems: "flex-start",
                   }}
                 >
-                  {i + 1}
-                </span>
-                <span
-                  style={{
-                    fontFamily: FONT_KO,
-                    fontSize: pointFontSize,
-                    fontWeight: 500,
-                    color: COLORS.text,
-                    whiteSpace: "pre-line",
-                    lineHeight: CARD.summaryLineHeight,
-                  }}
-                >
-                  {point}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      width: pointFontSize * 0.8,
+                      height: pointFontSize * 0.8,
+                      borderRadius: "50%",
+                      border: `2px solid ${color}`,
+                      color,
+                      fontFamily: FONT_KO,
+                      fontSize: pointFontSize * 0.45,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: FONT_KO,
+                      fontSize: pointFontSize,
+                      fontWeight: 500,
+                      color: COLORS.text,
+                      whiteSpace: "pre-line",
+                      lineHeight: CARD.summaryLineHeight,
+                    }}
+                  >
+                    {point}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </CardBlock>
       )}
 
       {card.chips && (
         <CardBlock index={beat.chips!} name="Word chips">
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: height * 0.012,
-            maxWidth: "72%",
-          }}
-        >
-          {card.chips.map((chip) => (
-            <span
-              key={chip}
-              style={{
-                fontFamily: FONT_EN,
-                fontSize: Math.max(
-                  frameHeight * MOBILE_MIN_FONT_SIZE.chip,
-                  height * CARD.chipSizePct,
-                ),
-                fontWeight: 700,
-                color: COLORS.text,
-                border: `1px solid ${COLORS.muted}66`,
-                borderRadius: 8,
-                padding: `${height * 0.007}px ${height * 0.014}px`,
-              }}
-            >
-              {chip}
-            </span>
-          ))}
-        </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: height * 0.012,
+              maxWidth: "72%",
+            }}
+          >
+            {card.chips.map((chip) => (
+              <span
+                key={chip}
+                style={{
+                  fontFamily: FONT_EN,
+                  fontSize: Math.max(
+                    frameHeight * MOBILE_MIN_FONT_SIZE.chip,
+                    height * CARD.chipSizePct,
+                  ),
+                  fontWeight: 700,
+                  color: COLORS.text,
+                  border: `1px solid ${COLORS.muted}66`,
+                  borderRadius: 8,
+                  padding: `${height * 0.007}px ${height * 0.014}px`,
+                }}
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
         </CardBlock>
       )}
 
       {card.note && (
         <CardBlock index={beat.note!} name="Note">
-        <div
-          style={{
-            fontFamily: FONT_KO,
-            fontSize: Math.max(frameHeight * MOBILE_MIN_FONT_SIZE.summaryItem, height * CARD.noteSizePct),
-            fontWeight: 500,
-            color: COLORS.muted,
-            textAlign: "center",
-            whiteSpace: "pre-line",
-            lineHeight: CARD.proseLineHeight,
-            maxWidth: bodyWidth * CARD.proseMaxWidthPct,
-          }}
-        >
-          {card.note}
-        </div>
+          <div
+            style={{
+              fontFamily: FONT_KO,
+              fontSize: Math.max(
+                frameHeight * MOBILE_MIN_FONT_SIZE.summaryItem,
+                height * CARD.noteSizePct,
+              ),
+              fontWeight: 500,
+              color: COLORS.muted,
+              textAlign: "center",
+              whiteSpace: "pre-line",
+              lineHeight: CARD.proseLineHeight,
+              maxWidth: bodyWidth * CARD.proseMaxWidthPct,
+            }}
+          >
+            {card.note}
+          </div>
         </CardBlock>
       )}
 
       {card.caption && (
         <CardBlock index={beat.caption!} name="Caption">
-        <div
-          style={{
-            fontFamily: FONT_KO,
-            fontSize: Math.max(frameHeight * MOBILE_MIN_FONT_SIZE.description, height * CARD.captionSizePct),
-            fontWeight: 700,
-            color: COLORS.accent,
-            textAlign: "center",
-            maxWidth: bodyWidth * CARD.proseMaxWidthPct,
-          }}
-        >
-          {card.caption}
-        </div>
+          <div
+            style={{
+              fontFamily: FONT_KO,
+              fontSize: Math.max(
+                frameHeight * MOBILE_MIN_FONT_SIZE.description,
+                height * CARD.captionSizePct,
+              ),
+              fontWeight: 700,
+              color: COLORS.accent,
+              textAlign: "center",
+              maxWidth: bodyWidth * CARD.proseMaxWidthPct,
+            }}
+          >
+            {card.caption}
+          </div>
         </CardBlock>
       )}
     </div>
   );
 };
 
-const ProgressDots: React.FC<{ total: number; current: number; color: string }> = ({
-  total,
-  current,
-  color,
-}) => (
+const ProgressDots: React.FC<{
+  total: number;
+  current: number;
+  color: string;
+}> = ({ total, current, color }) => (
   <div style={{ display: "flex", alignItems: "center", gap: CARD.dotGap }}>
     {Array.from({ length: total }, (_, i) => (
       <div
@@ -1466,7 +1604,9 @@ export const CardScene: React.FC<{
           ...topEntrance.style,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: height * 0.018 }}>
+        <div
+          style={{ display: "flex", alignItems: "center", gap: height * 0.018 }}
+        >
           <Interactive.Span
             name="Episode title"
             style={{
@@ -1495,7 +1635,6 @@ export const CardScene: React.FC<{
         </div>
         <ProgressDots total={total} current={index} color={color} />
       </div>
-
       {/* ---- content band (70%) — no border: see the CARD comment in theme.ts ---- */}
       <div
         style={{
@@ -1560,7 +1699,6 @@ export const CardScene: React.FC<{
           />
         </div>
       </div>
-
       {/* ---- narration subtitle, centred low in the frame. Centred rather
              than top-anchored so a two-line cue grows both ways instead of
              marching toward the frame edge. ---- */}
@@ -1589,8 +1727,7 @@ export const CardScene: React.FC<{
             color: COLORS.text,
             textAlign: "center",
             lineHeight: CARD.subtitleLineHeight,
-            minHeight:
-              height * CARD.subtitleSizePct * CARD.subtitleLineHeight,
+            minHeight: height * CARD.subtitleSizePct * CARD.subtitleLineHeight,
             // Painted behind the glyphs rather than with -webkit-text-stroke,
             // which eats into the letterforms and thins Korean strokes.
             textShadow: subtitleOutline(

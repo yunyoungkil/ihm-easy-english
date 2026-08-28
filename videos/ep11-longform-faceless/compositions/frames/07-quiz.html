@@ -1,0 +1,211 @@
+<template>
+<div data-hf-id="hf-jxql" id="root" data-composition-id="07-quiz" data-start="0" data-duration="13.483" data-width="1920" data-height="1080">
+<style>
+  @font-face {
+    font-family: 'Black Han Sans';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    container-type: size;
+    --bg: #0A1526;
+    --bg-glow-center: #12203A;
+    --text: #FFFFFF;
+    --text-muted: #A9B4C4;
+    --accent-stress: #F5C518;
+    --accent-pron: #008EFF;
+  }
+  #root * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .clip { position: absolute; inset: 0; }
+
+  .f07quiz-bg {
+    background: radial-gradient(ellipse 70% 60% at 50% 46%, var(--bg-glow-center) 0%, var(--bg) 62%);
+  }
+
+  .f07quiz-progress-track {
+    position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+    background: rgba(245, 197, 24, 0.15);
+  }
+  .f07quiz-progress-fill {
+    height: 100%; width: 53.8%; background: var(--accent-stress);
+  }
+
+  .f07quiz-glow {
+    position: absolute;
+    left: 50%; top: 47cqh;
+    width: 62cqw; height: 34cqh;
+    margin-left: -31cqw; margin-top: -17cqh;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(196, 145, 8, 0.9) 0%, rgba(196, 145, 8, 0) 68%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .f07quiz-qblock, .f07quiz-ablock {
+    position: absolute; left: 0; right: 0;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .f07quiz-qblock { top: 18cqh; gap: 1.6cqh; opacity: 1; }
+  .f07quiz-ablock { top: 37cqh; gap: 1.8cqh; opacity: 0; }
+
+  .f07quiz-line { text-align: center; white-space: normal; }
+
+  .f07quiz-qline-en {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 2.2cqw;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .f07quiz-qline-kr {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 1.6cqw;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .f07quiz-word { display: inline-block; }
+  .f07quiz-accent-pron { color: var(--accent-pron); }
+  .f07quiz-qmark { display: inline-block; }
+
+  .f07quiz-eyebrow {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 900;
+    font-size: 1.3cqw;
+    letter-spacing: 0.04em;
+    color: var(--accent-stress);
+  }
+  .f07quiz-aline-en {
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 400;
+    font-size: 3.6cqw;
+    line-height: 1.05;
+    color: var(--text);
+    text-align: center;
+  }
+  .f07quiz-aline-kr {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 1.8cqw;
+    line-height: 1.3;
+    color: var(--accent-pron);
+    text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-zoxh" id="f07quiz-bg-clip" class="clip f07quiz-bg" data-start="0" data-duration="13.483" data-track-index="0"></div>
+
+<div data-hf-id="hf-zy70" class="f07quiz-progress-track">
+  <div data-hf-id="hf-hnv4" class="f07quiz-progress-fill"></div>
+</div>
+
+<div data-hf-id="hf-ez46" class="f07quiz-glow" id="f07quiz-glow"></div>
+
+<div data-hf-id="hf-1j2e" class="f07quiz-qblock" id="f07quiz-qblock">
+  <div data-hf-id="hf-j04f" class="f07quiz-line f07quiz-qline-en" id="f07quiz-q-en"><span data-hf-id="hf-pvp9" class="f07quiz-word">I</span> <span data-hf-id="hf-rsvj" class="f07quiz-word">was</span> <span data-hf-id="hf-ny82" class="f07quiz-word f07quiz-accent-pron">gonna</span> <span data-hf-id="hf-pewa" class="f07quiz-word">call</span> <span data-hf-id="hf-felh" class="f07quiz-word">you.</span></div>
+  <div data-hf-id="hf-hbyz" class="f07quiz-line f07quiz-qline-kr" id="f07quiz-q-kr"><span data-hf-id="hf-sxpy" class="f07quiz-word">아이</span> <span data-hf-id="hf-morm" class="f07quiz-word">워즈</span> <span data-hf-id="hf-uuy1" class="f07quiz-word f07quiz-accent-pron">거너</span> <span data-hf-id="hf-8idq" class="f07quiz-word">콜</span> <span data-hf-id="hf-b5qs" class="f07quiz-word">유.</span> <span data-hf-id="hf-rrxq" class="f07quiz-word">원래</span> <span data-hf-id="hf-wyji" class="f07quiz-word">뭐였을까요<span data-hf-id="hf-ihma" class="f07quiz-qmark" id="f07quiz-qmark">?</span></span></div>
+</div>
+
+<div data-hf-id="hf-593a" class="f07quiz-ablock" id="f07quiz-ablock">
+  <div data-hf-id="hf-jg72" class="f07quiz-eyebrow">정답</div>
+  <div data-hf-id="hf-a4av" class="f07quiz-line f07quiz-aline-en">I was going to call you.</div>
+  <div data-hf-id="hf-mluc" class="f07quiz-line f07quiz-aline-kr">아이 워즈 고잉 투 콜 유</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var TOTAL_DURATION = 12.983;
+  var HARD_CUT = 8.0; // "정답은" cue — Scene 3 start: hard-cut word-swap Q -> A
+
+  window.__timelines = window.__timelines || {};
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines["07-quiz"] = tl;
+
+  var qBlock = document.getElementById('f07quiz-qblock');
+  var aBlock = document.getElementById('f07quiz-ablock');
+  var glow = document.getElementById('f07quiz-glow');
+  var qmark = document.getElementById('f07quiz-qmark');
+  var qEnWords = document.querySelectorAll('#f07quiz-q-en .f07quiz-word');
+  var qKrWords = document.querySelectorAll('#f07quiz-q-kr .f07quiz-word');
+
+  function revealWord(el, t) {
+    tl.fromTo(el, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: 'power3.out' }, t);
+  }
+
+  // ── Scene 1 (0.0-4.0s): question sentence + Korean pronunciation, per-word reveal ──
+  var WORD_STEP = 0.14;
+  var WORD_DUR = 0.42;
+  var QEN_START = 0.0;
+  qEnWords.forEach(function (el, i) { revealWord(el, QEN_START + i * WORD_STEP); });
+  var qEnEnd = QEN_START + (qEnWords.length - 1) * WORD_STEP + WORD_DUR;
+  var QKR_START = qEnEnd + 0.35;
+  qKrWords.forEach(function (el, i) { revealWord(el, QKR_START + i * WORD_STEP); });
+
+  // ── Scene 2 (4.0-8.0s): deliberate stillness — only the trailing "?" carries a low-amplitude jitter ──
+  var JITTER_START = 4.0;
+  var JITTER_END = HARD_CUT;
+  var JITTER_PERIOD = 1.7;
+  var jitterCycles = (JITTER_END - JITTER_START) / JITTER_PERIOD;
+  var jitterPhase = { p: 0 };
+  tl.to(jitterPhase, {
+    p: Math.PI * 2 * jitterCycles,
+    duration: JITTER_END - JITTER_START,
+    ease: 'none',
+    onUpdate: function () {
+      var s = Math.sin(jitterPhase.p);
+      qmark.style.transform = 'translateY(' + (s * 2).toFixed(2) + 'px) rotate(' + (s * 0.6).toFixed(2) + 'deg)';
+    }
+  }, JITTER_START);
+
+  // ── Scene 3 (8.0-12.0s): hard-cut word-swap — question -> answer, accent glow bloom ──
+  tl.set(aBlock, { opacity: 0, visibility: 'hidden' }, 0);
+  tl.set(qBlock, { opacity: 0, visibility: 'hidden' }, HARD_CUT);
+  tl.set(aBlock, { opacity: 1, visibility: 'visible' }, HARD_CUT);
+
+  var GLOW_PEAK = 0.30;
+  var BLOOM_DUR = 0.85;
+  tl.fromTo(glow, { opacity: 0, scale: 0.85 }, { opacity: GLOW_PEAK, scale: 1, duration: BLOOM_DUR, ease: 'power2.out' }, HARD_CUT);
+
+  // bounded breathe through Scene 4's hold (12.0-12.983s) — never a yoyo/repeat loop
+  var BREATHE_START = HARD_CUT + BLOOM_DUR;
+  var BREATHE_DUR = TOTAL_DURATION - BREATHE_START;
+  var BREATHE_PERIOD = 2.8;
+  var breatheCycles = BREATHE_DUR / BREATHE_PERIOD;
+  var breathePhase = { p: 0 };
+  tl.to(breathePhase, {
+    p: Math.PI * 2 * breatheCycles,
+    duration: BREATHE_DUR,
+    ease: 'none',
+    onUpdate: function () {
+      var s = Math.sin(breathePhase.p);
+      glow.style.opacity = String(GLOW_PEAK + s * 0.03);
+      glow.style.transform = 'scale(' + (1 + s * 0.015).toFixed(4) + ')';
+    }
+  }, BREATHE_START);
+
+  // Scene 4 (12.0-12.983s): the answer sentence settles and holds — designated read beat, no exit.
+})();
+</script>
+</div>
+</template>

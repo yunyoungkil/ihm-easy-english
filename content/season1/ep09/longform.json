@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "contentId": "s1-ep09-longform",
+  "status": "scheduled",
+  "classification": {
+    "season": 1,
+    "episode": 9,
+    "track": "LONGFORM",
+    "format": "LONGFORM"
+  },
+  "youtube": {
+    "videoId": "sNNufVhkjT8",
+    "url": "https://youtu.be/sNNufVhkjT8",
+    "title": "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙",
+    "thumbnailText": [
+      "영어 읽기 치트키",
+      "-CIAL → 셜",
+      "처음 보는 단어도 읽힌다!"
+    ],
+    "description": "SPECIAL은 왜 ‘스페시알’이 아니라 스페셜일까요?\nOFFICIAL, SOCIAL, COMMERCIAL, FINANCIAL의 공통된 발음과 강세 규칙을 왕초보도 이해할 수 있게 설명합니다.\n\n「이해하면 쉬운 영어」 시즌1 아홉 번째 시간입니다.\n\n📌 오늘 배우는 내용\n・-CIAL이 한 글자씩 나뉘지 않고 ‘셜’로 소리 나는 이유\n・SPECIAL, OFFICIAL, SOCIAL의 발음과 강세\n・COMMERCIAL, FINANCIAL, CRUCIAL 실생활 단어\n・ARTIFICIAL, SUPERFICIAL로 확인하는 실전 적용\n・-TION, -SION, -TURE, -CIAL을 연결하는 하나의 원리\n\n⏱️ 영상 순서\n00:00 SPECIAL의 C는 왜 ‘셔’ 소리일까?\n00:28 지난 편 복습과 오늘의 규칙\n00:54 SPECIAL·OFFICIAL·SOCIAL 패턴\n01:15 -CIAL 발음과 강세 규칙\n01:39 C가 ‘셜’로 바뀌는 이유\n02:10 실생활 단어로 확인\n02:37 시즌1 소리 변화 한 번에 연결하기\n03:16 ARTIFICIAL·SUPERFICIAL 실전 적용\n03:41 오늘의 핵심 요약\n04:08 다음 편: 시즌1 총정리\n\n📚 시즌1 전체 재생목록\nhttps://www.youtube.com/playlist?list=PLdTWj5v6v8zE\n\n▶ 지난 시간 EP8: PICTURE는 왜 ‘픽투어’가 아닐까?\nhttps://youtu.be/YoaCRYCWpws\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어공부 #영어강세 #기초영어 #왕초보영어 #영어단어읽는법 #파닉스규칙 #CIAL발음",
+    "tags": [
+      "영어 발음",
+      "영어 발음 규칙",
+      "영어 강세",
+      "영어 단어 읽는 법",
+      "기초 영어",
+      "왕초보 영어",
+      "영어 공부",
+      "성인 영어",
+      "파닉스 규칙",
+      "cial 발음",
+      "special 발음",
+      "official 발음",
+      "social 발음",
+      "commercial 발음",
+      "financial 발음",
+      "artificial 발음",
+      "superficial 발음",
+      "스페셜",
+      "오피셜",
+      "커머셜",
+      "파이낸셜",
+      "English pronunciation",
+      "word stress",
+      "English for beginners"
+    ],
+    "pinnedComment": "SPECIAL·OFFICIAL·SOCIAL 중에서 처음 읽을 때 가장 헷갈렸던 단어는 무엇인가요? 👀\n\n영상의 규칙을 적용하면 처음 보는 -CIAL 단어도 ‘셜’과 강세 위치를 함께 예상할 수 있습니다.\n\n① SPECIAL\n② OFFICIAL\n③ COMMERCIAL\n④ FINANCIAL\n\n가장 헷갈렸던 번호와 발음을 댓글로 남겨주세요!\n\n📚 시즌1 처음부터 이어서 보기\nhttps://www.youtube.com/playlist?list=PLdTWj5v6v8zE",
+    "playlist": {
+      "title": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
+      "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
+    },
+    "previousVideo": {
+      "videoId": "YoaCRYCWpws",
+      "url": "https://youtu.be/YoaCRYCWpws"
+    },
+    "endScreenVideo": {
+      "videoId": "YoaCRYCWpws",
+      "url": "https://youtu.be/YoaCRYCWpws",
+      "title": "영어 발음, PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초배우기 EP8)"
+    }
+  },
+  "script": {
+    "language": "ko-KR",
+    "sourceFile": "scripts/ep09.json",
+    "segments": [
+      {"id": 1, "role": "opening-quiz", "narration": "C는 원래 크 소리거나 스 소리인데 SPECIAL에서는 왜 셔 소리로 바뀌는지 질문합니다."},
+      {"id": 2, "role": "intro", "narration": "지난 편 -TURE를 복습하고 오늘은 -CIAL의 규칙을 다룬다고 안내합니다."},
+      {"id": 3, "role": "pattern", "narration": "SPECIAL, OFFICIAL, SOCIAL의 발음과 강세 위치를 비교합니다."},
+      {"id": 4, "role": "rule", "narration": "-CIAL은 언제나 셜로 붙여 읽고 강세는 셜 바로 앞부분에 온다고 정리합니다."},
+      {"id": 5, "role": "reason", "narration": "C의 소리가 약해 뒤의 소리와 합쳐지는 원리를 설명합니다."},
+      {"id": 6, "role": "examples", "narration": "COMMERCIAL, FINANCIAL, CRUCIAL을 실생활 예시로 확인합니다."},
+      {"id": 7, "role": "season-integration", "narration": "-TION, -SION, -TURE, -CIAL의 소리 변화를 하나의 원리로 연결합니다."},
+      {"id": 8, "role": "practice", "narration": "ARTIFICIAL과 SUPERFICIAL로 발음과 강세 규칙을 적용합니다."},
+      {"id": 9, "role": "summary", "narration": "-CIAL 발음과 강세의 핵심을 세 가지로 요약합니다."},
+      {"id": 10, "role": "next-episode", "narration": "다음 편 시즌1 총정리를 예고합니다."}
+    ]
+  },
+  "production": {
+    "compositionId": "EP09-card",
+    "thumbnailCompositionId": "ep09-longform-thumbnail-v2",
+    "thumbnailFileName": "thumbnail-v2.png",
+    "renderFileName": "s1-ep09-longform-cial.mp4",
+    "fps": 30,
+    "durationSeconds": 283.712,
+    "durationText": "04:44"
+  },
+  "publishing": {
+    "order": 1,
+    "proposedAtKst": "2026-08-23 20:00",
+    "scheduledAtKst": "2026-08-23 20:00",
+    "scheduledPublishAtUtc": "2026-08-23T11:00:00Z",
+    "playlist": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
+    "category": "교육",
+    "alteredContent": false,
+    "location": "대한민국",
+    "recordingDate": "2026-08-23"
+    ,"postPublishTasks": [
+      {"task": "고정 댓글 작성", "status": "pending"},
+      {"task": "댓글 고정 여부 확인", "status": "pending"},
+      {"task": "엔딩 화면 EP8 연결 확인", "status": "pending"},
+      {"task": "쇼츠 A·B 관련 영상에 EP9 롱폼 연결", "status": "pending"}
+    ]
+  }
+}

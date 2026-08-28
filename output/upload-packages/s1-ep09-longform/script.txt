@@ -1,0 +1,29 @@
+[1. opening-quiz]
+C는 원래 크 소리거나 스 소리인데 SPECIAL에서는 왜 셔 소리로 바뀌는지 질문합니다.
+
+[2. intro]
+지난 편 -TURE를 복습하고 오늘은 -CIAL의 규칙을 다룬다고 안내합니다.
+
+[3. pattern]
+SPECIAL, OFFICIAL, SOCIAL의 발음과 강세 위치를 비교합니다.
+
+[4. rule]
+-CIAL은 언제나 셜로 붙여 읽고 강세는 셜 바로 앞부분에 온다고 정리합니다.
+
+[5. reason]
+C의 소리가 약해 뒤의 소리와 합쳐지는 원리를 설명합니다.
+
+[6. examples]
+COMMERCIAL, FINANCIAL, CRUCIAL을 실생활 예시로 확인합니다.
+
+[7. season-integration]
+-TION, -SION, -TURE, -CIAL의 소리 변화를 하나의 원리로 연결합니다.
+
+[8. practice]
+ARTIFICIAL과 SUPERFICIAL로 발음과 강세 규칙을 적용합니다.
+
+[9. summary]
+-CIAL 발음과 강세의 핵심을 세 가지로 요약합니다.
+
+[10. next-episode]
+다음 편 시즌1 총정리를 예고합니다.

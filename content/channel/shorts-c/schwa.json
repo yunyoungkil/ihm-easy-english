@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "contentId": "channel-shorts-c-schwa",
+  "status": "ready-to-upload",
+  "classification": {
+    "category": "CHANNEL",
+    "role": "C",
+    "format": "SHORTS",
+    "season": null,
+    "episode": null
+  },
+  "sourceLongform": {
+    "videoId": "BsyRH8GWYJ4",
+    "url": "https://youtu.be/BsyRH8GWYJ4",
+    "title": "원어민 발음이 유독 빠르게 들리는 진짜 이유 (게으른 소리 슈와)",
+    "selectionEvidence": {
+      "rank": 1,
+      "growthScore": 79,
+      "evidenceViews": 3085,
+      "weightedAverageViewPercentage": 80.9,
+      "relatedShorts": 2,
+      "confidence": "high"
+    }
+  },
+  "youtube": {
+    "title": "원어민 영어가 빠르게 들리는 이유, 속도가 아닙니다 #영어발음 #shorts",
+    "thumbnailText": ["원어민이 빠른 이유", "속도가 아니다?"],
+    "description": "원어민 영어가 빠르게 들리는 진짜 이유는 단순히 말하는 속도 때문만은 아닙니다.\n\n영어는 중요한 음절을 강하게 말하고, 나머지 모음은 짧고 약하게 줄입니다. 이때 자주 들리는 힘 빠진 소리가 바로 슈와(Schwa) /ə/입니다.\n\nBANANA·PIZZA·COMPUTER처럼 철자는 달라도 강세 없는 모음은 비슷한 슈와 소리로 짧아질 수 있어요. 모든 철자를 들으려 하지 말고 강한 소리를 먼저 잡아보세요.\n\n📌 슈와를 찾는 3가지 방법과 더 많은 예시\nhttps://youtu.be/BsyRH8GWYJ4\n\n#영어발음 #영어듣기 #슈와 #기초영어 #왕초보영어 #EnglishPronunciation #shorts",
+    "tags": ["영어 발음", "영어 듣기", "원어민 발음", "빠른 영어 듣기", "영어가 빠르게 들리는 이유", "슈와", "schwa", "슈와 발음", "영어 강세", "영어 리듬", "영어 축약", "약모음", "기초 영어", "왕초보 영어", "영어 공부", "영단어 발음", "바나나 영어 발음", "피자 영어 발음", "컴퓨터 영어 발음", "영어 쇼츠", "영어교육", "English pronunciation", "English listening", "schwa sound", "shorts"],
+    "pinnedComment": "BANANA·PIZZA·COMPUTER에서 힘이 빠지는 모음을 찾으셨나요? 👀\n\n영어를 들을 때 모든 철자를 잡으려 하면 오히려 더 어렵습니다.\n강한 소리를 먼저 찾고, 약한 모음은 슈와 /ə/로 줄어들 수 있다는 점을 기억해 보세요.\n\n👇 슈와를 찾는 3가지 방법과 더 많은 예시\nhttps://youtu.be/BsyRH8GWYJ4",
+    "relatedVideo": {
+      "videoId": "BsyRH8GWYJ4",
+      "url": "https://youtu.be/BsyRH8GWYJ4"
+    }
+  },
+  "script": {
+    "language": "ko-KR",
+    "tts": {
+      "provider": "Google AI Studio",
+      "voice": "Charon",
+      "speedProfile": "standard",
+      "audioNormalizationTarget": "-17 LUFS"
+    },
+    "segments": [
+      {
+        "id": 1,
+        "role": "hook",
+        "narration": "원어민 말이 빠르게 들리는 이유, 정말 말하는 속도 때문일까요? 사실은 소리를 줄이기 때문입니다."
+      },
+      {
+        "id": 2,
+        "role": "rhythm-explanation",
+        "narration": "영어는 모든 글자를 똑같이 읽지 않습니다. 중요한 음절은 강하게, 나머지는 짧고 약하게 흘려보내죠."
+      },
+      {
+        "id": 3,
+        "role": "core-rule",
+        "narration": "강세를 받지 못한 모음은 원래 소리를 잃고, 어와 으 사이의 힘 빠진 소리, 슈와로 바뀝니다."
+      },
+      {
+        "id": 4,
+        "role": "examples",
+        "narration": "바나나, 피자, 컴퓨터. 철자는 다르지만 힘이 빠진 모음은 모두 같은 슈와 소리로 짧아집니다."
+      },
+      {
+        "id": 5,
+        "role": "listening-application",
+        "narration": "그래서 영어를 잘 들으려면 모든 글자를 찾지 마세요. 강한 소리를 먼저 잡고, 약한 소리는 흘려들어야 합니다."
+      },
+      {
+        "id": 6,
+        "role": "related-video-cta",
+        "narration": "슈와를 찾는 세 가지 방법과 더 많은 예시는 관련 영상에서 확인해 보세요."
+      }
+    ],
+    "fullText": "원어민 말이 빠르게 들리는 이유, 정말 말하는 속도 때문일까요? 사실은 소리를 줄이기 때문입니다. 영어는 모든 글자를 똑같이 읽지 않습니다. 중요한 음절은 강하게, 나머지는 짧고 약하게 흘려보내죠. 강세를 받지 못한 모음은 원래 소리를 잃고, 어와 으 사이의 힘 빠진 소리, 슈와로 바뀝니다. 바나나, 피자, 컴퓨터. 철자는 다르지만 힘이 빠진 모음은 모두 같은 슈와 소리로 짧아집니다. 그래서 영어를 잘 들으려면 모든 글자를 찾지 마세요. 강한 소리를 먼저 잡고, 약한 소리는 흘려들어야 합니다. 슈와를 찾는 세 가지 방법과 더 많은 예시는 관련 영상에서 확인해 보세요."
+  },
+  "production": {
+    "compositionId": "channel-shorts-c-schwa",
+    "renderFileName": "channel-shorts-c-schwa-fast-english.mp4",
+    "scriptFile": "scripts/channel_shortsC_schwa.json",
+    "fps": 30,
+    "durationFrames": 1577,
+    "durationSeconds": 52.57,
+    "audioFiles": [
+      "channel_shortsC_schwa_seg01_norm.wav",
+      "channel_shortsC_schwa_seg02_norm.wav",
+      "channel_shortsC_schwa_seg03_norm.wav",
+      "channel_shortsC_schwa_seg04_norm.wav",
+      "channel_shortsC_schwa_seg05_norm.wav",
+      "channel_shortsC_schwa_seg06_norm.wav"
+    ],
+    "contentFlow": [
+      "빠른 말이라는 오해",
+      "영어의 강약 리듬",
+      "강세 없는 모음이 슈와로 축약",
+      "BANANA·PIZZA·COMPUTER 예시",
+      "강한 소리 중심으로 듣기",
+      "관련 롱폼 연결"
+    ]
+  },
+  "evaluation": {
+    "decisionStatus": "waiting-upload",
+    "evaluationWindowHours": 48,
+    "successCriteria": {
+      "minimumAverageViewPercentage": 70,
+      "targetAverageViewPercentage": 80,
+      "minimumViewedPercentage": 60,
+      "primaryGoal": "related-longform-discovery"
+    }
+  }
+}

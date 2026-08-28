@@ -1,0 +1,76 @@
+{
+  "episode": "EP10 Shorts A",
+  "title": "시즌1 졸업 테스트 - 네 단어로 확인하는 발음 원리",
+  "tts": {
+    "style": "friendly, confident, and lively teacher for an absolute beginner",
+    "pace": "slightly quicker than natural, with a clear pause before each answer"
+  },
+  "segments": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 4.5,
+      "narration": "시즌 원에서 배운 발음, 진짜 내 것이 됐을까요? 네 단어로 확인해 보세요."
+    },
+    {
+      "id": 2,
+      "start": 4.5,
+      "end": 7.2,
+      "narration": "첫 번째 단어입니다. 어떻게 읽을까요?"
+    },
+    {
+      "id": 3,
+      "start": 8.8,
+      "end": 13,
+      "narration": "정답은 옵저베이션. 끝은 션, 강세는 바로 앞 베이에 있습니다."
+    },
+    {
+      "id": 4,
+      "start": 13,
+      "end": 15.8,
+      "narration": "두 번째 단어입니다. 어떻게 읽을까요?"
+    },
+    {
+      "id": 5,
+      "start": 17.4,
+      "end": 21.5,
+      "narration": "정답은 컨퓨전. 에스, 아이, 오, 엔 앞이 모음이라 전으로 읽습니다."
+    },
+    {
+      "id": 6,
+      "start": 21.5,
+      "end": 24.2,
+      "narration": "세 번째 단어입니다. 어떻게 읽을까요?"
+    },
+    {
+      "id": 7,
+      "start": 25.6,
+      "end": 29,
+      "narration": "정답은 캡처. 티와 유가 만나 처가 됩니다."
+    },
+    {
+      "id": 8,
+      "start": 29,
+      "end": 32,
+      "narration": "마지막 단어입니다. 어떻게 읽을까요?"
+    },
+    {
+      "id": 9,
+      "start": 33.6,
+      "end": 38,
+      "narration": "정답은 아티피셜. 씨, 아이, 에이, 엘은 한 글자씩 나누지 않고 셜로 붙여 읽습니다."
+    },
+    {
+      "id": 10,
+      "start": 38,
+      "end": 46,
+      "narration": "강세는 바로 앞. 글자들이 만나면 소리가 변하고, 예외처럼 보여도 전부 이유가 있습니다."
+    },
+    {
+      "id": 11,
+      "start": 46,
+      "end": 52.5,
+      "narration": "네 단어 중 몇 개를 맞히셨나요? 전체 원리는 관련 영상에서 지금 바로 확인해 보세요."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-28T16:51:25.191Z",
+  "generatedAt": "2026-08-28T17:01:40.500Z",
   "sourceAnalyticsSyncedAt": "2026-08-27T13:42:25.861Z",
   "note": "my_channel_fit_score (github.com/yunyoungkil/project1의 research/my_channel.py 이식). fitScore 50 = 해당 콘텐츠 타입 평균과 동일, 50 초과 = 평균보다 유지율 높음. SHORTS(반복 재생으로 100% 초과 가능)와 VIDEO_ON_DEMAND(단일 재생)는 유지율 스케일이 달라 타입별 자체 기준선 대비 비율(retentionRatio)로 정규화한 뒤 비교함. market_demand_score(경쟁 채널 outlier 비교, scripts/market-demand.mjs)는 marketDemand 필드에 키워드별로 별도 표시함 — byRole/byRule과 축이 달라 곱하지 않았음. 새 소재 후보를 이 키워드들과 매칭해 판단할 것.",
   "baselineRetentionByContentType": {
@@ -137,8 +137,8 @@
     }
   ],
   "marketDemand": {
-    "generatedAt": "2026-08-28T16:50:19.076Z",
-    "channelsAnalyzed": 18,
+    "generatedAt": "2026-08-28T17:01:32.858Z",
+    "channelsAnalyzed": 19,
     "byKeyword": [
       {
         "keyword": "왕초보 영어 발음",
@@ -146,29 +146,34 @@
         "videoCount": 4
       },
       {
-        "keyword": "미국식 발음 규칙",
+        "keyword": "영어 발음 규칙",
         "marketDemandScore": 250,
-        "videoCount": 1
+        "videoCount": 4
       },
       {
         "keyword": "영어 듣기 안 들리는 이유",
         "marketDemandScore": 243.6,
-        "videoCount": 6
+        "videoCount": 8
       },
       {
         "keyword": "영어 연음 축약",
-        "marketDemandScore": 224.7,
+        "marketDemandScore": 224.8,
         "videoCount": 5
-      },
-      {
-        "keyword": "영어 발음 규칙",
-        "marketDemandScore": 161.1,
-        "videoCount": 6
       },
       {
         "keyword": "영어 발음 원리",
         "marketDemandScore": 142.4,
         "videoCount": 6
+      },
+      {
+        "keyword": "미국식 발음 규칙",
+        "marketDemandScore": 139.5,
+        "videoCount": 2
+      },
+      {
+        "keyword": "WANT TO 축약",
+        "marketDemandScore": 72.7,
+        "videoCount": 13
       }
     ]
   }

@@ -23,8 +23,12 @@
 // 10,000/day quota, leaving room for other YouTube API work the same day.
 //
 // Usage:
-//   node scripts/market-demand.mjs                # full run, writes the JSON
-//   node scripts/market-demand.mjs --dry-run       # print keyword pool + quota estimate, no calls
+//   node scripts/market-demand.mjs                       # full pool run, upserts into the JSON
+//   node scripts/market-demand.mjs --dry-run              # print keyword pool + quota estimate, no calls
+//   node scripts/market-demand.mjs --keyword="WANT TO 축약"  # check ONE ad-hoc candidate idea instead of
+//   node scripts/market-demand.mjs --keyword="A" --keyword="B"  # of the fixed pool (repeatable flag).
+//                                                          # Upserts into the existing byKeyword array —
+//                                                          # other keywords already in the file are kept.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -38,7 +42,7 @@ const dryRun = process.argv.includes("--dry-run");
 // Grounded in knowledge/content-formats.md ("영어 발음·듣기 원리", 시즌2 "문장 속 연결·축약·리듬")
 // and channel-strategy.md's 왕초보 audience framing. Keep this pool SHORT — each
 // entry is a 100-unit search.list call.
-const KEYWORD_POOL = [
+const DEFAULT_KEYWORD_POOL = [
   "영어 발음 규칙",
   "영어 발음 원리",
   "영어 연음 축약",
@@ -46,6 +50,22 @@ const KEYWORD_POOL = [
   "영어 듣기 안 들리는 이유",
   "미국식 발음 규칙",
 ];
+
+// --keyword="..." (repeatable): check specific candidate ideas on demand
+// instead of the fixed pool — e.g. validating a teased next-episode topic
+// ("그럼 WANT TO는요?") before committing to it, rather than waiting for it
+// to show up in the general sweep.
+const adHocKeywords = process.argv
+  .filter((a) => a.startsWith("--keyword="))
+  .map((a) => a.slice("--keyword=".length))
+  .filter(Boolean);
+const KEYWORD_POOL = adHocKeywords.length > 0 ? adHocKeywords : DEFAULT_KEYWORD_POOL;
+
+// Below this many observed videos, a keyword's score is one or two data
+// points wearing a median's clothes — channel-strategy.md's "작은 표본은
+// 성공으로 과장하지 않는다" applies to reporting the number, not just to
+// capping it.
+const LOW_SAMPLE_THRESHOLD = 3;
 
 // Exclude channels far outside our own scale (99 subscribers as of the
 // original decision doc) — a mega-channel's outliers reflect algorithmic
@@ -264,9 +284,14 @@ async function main() {
     .map(([keyword, rows]) => {
       const cappedRatios = rows.map((r) => Math.min(RATIO_CAP, r.outlierRatio));
       const avgRatio = median(cappedRatios);
+      const lowSample = rows.length < LOW_SAMPLE_THRESHOLD;
       return {
         keyword,
         videoCount: rows.length,
+        confidence: lowSample ? "low" : "ok",
+        lowSampleWarning: lowSample
+          ? `표본 ${rows.length}개뿐 — ${LOW_SAMPLE_THRESHOLD}개 미만은 median이 사실상 최댓값과 같아 과대평가 위험. 참고용으로만 쓸 것.`
+          : null,
         marketDemandScore: avgRatio !== null ? Math.round(Math.max(0, 50 * avgRatio) * 10) / 10 : null,
         topOutliers: rows.sort((a, b) => b.outlierRatio - a.outlierRatio).slice(0, 3).map((r) => ({
           title: r.title,
@@ -280,6 +305,14 @@ async function main() {
     })
     .sort((a, b) => (b.marketDemandScore ?? -1) - (a.marketDemandScore ?? -1));
 
+  // Upsert into any existing file by keyword — a --keyword ad-hoc check
+  // shouldn't erase the default pool's results, and re-running the default
+  // pool shouldn't erase keywords someone checked ad-hoc earlier.
+  const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
+  const mergedByKeyword = new Map((existing?.byKeyword ?? []).map((k) => [k.keyword, k]));
+  for (const entry of marketDemandByKeyword) mergedByKeyword.set(entry.keyword, entry);
+  const allByKeyword = [...mergedByKeyword.values()].sort((a, b) => (b.marketDemandScore ?? -1) - (a.marketDemandScore ?? -1));
+
   const result = {
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
@@ -290,16 +323,22 @@ async function main() {
       "누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: " +
       "정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). " +
       "채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 " +
-      `구독자 ${MAX_SUBSCRIBERS.toLocaleString()}명 이하 채널만 포함). content-opportunity.mjs가 이 파일과 ` +
-      "my_channel_fit_score를 곱해 content_opportunity_score를 완성함.",
-    keywordPool: KEYWORD_POOL,
+      `구독자 ${MAX_SUBSCRIBERS.toLocaleString()}명 이하 채널만 포함). 표본 ${LOW_SAMPLE_THRESHOLD}개 미만은 ` +
+      '`confidence: "low"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 ' +
+      "(곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). " +
+      "--keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert).",
+    keywordPool: DEFAULT_KEYWORD_POOL,
+    lastRunKeywords: KEYWORD_POOL,
     channelsAnalyzed: smallChannels.length,
-    byKeyword: marketDemandByKeyword,
+    byKeyword: allByKeyword,
   };
 
   writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf8");
   console.log(`\n✓ ${outputPath}`);
-  console.log(JSON.stringify(marketDemandByKeyword.map((k) => ({ keyword: k.keyword, marketDemandScore: k.marketDemandScore, videoCount: k.videoCount })), null, 2));
+  for (const k of marketDemandByKeyword) {
+    if (k.confidence === "low") console.warn(`⚠ "${k.keyword}": ${k.lowSampleWarning}`);
+  }
+  console.log(JSON.stringify(marketDemandByKeyword.map((k) => ({ keyword: k.keyword, marketDemandScore: k.marketDemandScore, videoCount: k.videoCount, confidence: k.confidence })), null, 2));
 }
 
 main().catch((err) => {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-28T16:50:19.076Z",
-  "note": "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, 채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 이례적으로 잘된 주제. 조회수는 게시 후 경과일로 나눠 비교함 — 오래된 영상이 최근 업로드보다 누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: 정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). 채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 구독자 100,000명 이하 채널만 포함). content-opportunity.mjs가 이 파일과 my_channel_fit_score를 곱해 content_opportunity_score를 완성함.",
+  "generatedAt": "2026-08-28T17:01:32.858Z",
+  "note": "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, 채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 이례적으로 잘된 주제. 조회수는 게시 후 경과일로 나눠 비교함 — 오래된 영상이 최근 업로드보다 누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: 정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). 채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 구독자 100,000명 이하 채널만 포함). 표본 3개 미만은 `confidence: \"low\"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 (곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). --keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert).",
   "keywordPool": [
     "영어 발음 규칙",
     "영어 발음 원리",
@@ -10,11 +10,21 @@
     "영어 듣기 안 들리는 이유",
     "미국식 발음 규칙"
   ],
-  "channelsAnalyzed": 18,
+  "lastRunKeywords": [
+    "영어 발음 규칙",
+    "영어 발음 원리",
+    "영어 연음 축약",
+    "왕초보 영어 발음",
+    "영어 듣기 안 들리는 이유",
+    "미국식 발음 규칙"
+  ],
+  "channelsAnalyzed": 19,
   "byKeyword": [
     {
       "keyword": "왕초보 영어 발음",
       "videoCount": 4,
+      "confidence": "ok",
+      "lowSampleWarning": null,
       "marketDemandScore": 250,
       "topOutliers": [
         {
@@ -44,10 +54,20 @@
       ]
     },
     {
-      "keyword": "미국식 발음 규칙",
-      "videoCount": 1,
+      "keyword": "영어 발음 규칙",
+      "videoCount": 4,
+      "confidence": "ok",
+      "lowSampleWarning": null,
       "marketDemandScore": 250,
       "topOutliers": [
+        {
+          "title": "영어 읽는법 1편 - 자음과 모음, 그리고 파닉스 | 왕초보영어",
+          "channel": "렉스쌤의 왕초보영어훈련소",
+          "ageDays": 2038,
+          "viewsPerDay": 166.4,
+          "channelBaselineViewsPerDay": 3.3,
+          "outlierRatio": 50.33
+        },
         {
           "title": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
           "channel": "MagicEnglish 이근철의 마법영어",
@@ -55,12 +75,22 @@
           "viewsPerDay": 198.7,
           "channelBaselineViewsPerDay": 4.9,
           "outlierRatio": 40.9
+        },
+        {
+          "title": "각 알파벳 소리 익히기(Learning English letters with Hangl 'Aa~Zz')",
+          "channel": "쑥쑥 영어(에리카)",
+          "ageDays": 1205,
+          "viewsPerDay": 1242.6,
+          "channelBaselineViewsPerDay": 45.3,
+          "outlierRatio": 27.44
         }
       ]
     },
     {
       "keyword": "영어 듣기 안 들리는 이유",
-      "videoCount": 6,
+      "videoCount": 8,
+      "confidence": "ok",
+      "lowSampleWarning": null,
       "marketDemandScore": 243.6,
       "topOutliers": [
         {
@@ -92,7 +122,9 @@
     {
       "keyword": "영어 연음 축약",
       "videoCount": 5,
-      "marketDemandScore": 224.7,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "marketDemandScore": 224.8,
       "topOutliers": [
         {
           "title": "빠른 영어가 안 들린다면? 이것만 알면 됩니다 - 36가지 축약 표현",
@@ -100,13 +132,13 @@
           "ageDays": 494,
           "viewsPerDay": 207.7,
           "channelBaselineViewsPerDay": 23.8,
-          "outlierRatio": 8.71
+          "outlierRatio": 8.72
         },
         {
           "title": "이러니 안 들리지.. 😅 | 영어축약발음",
           "channel": "이지 액센트 Easy Accent",
           "ageDays": 213,
-          "viewsPerDay": 1293.6,
+          "viewsPerDay": 1293.8,
           "channelBaselineViewsPerDay": 266.1,
           "outlierRatio": 4.86
         },
@@ -116,53 +148,24 @@
           "ageDays": 376,
           "viewsPerDay": 107.1,
           "channelBaselineViewsPerDay": 23.8,
-          "outlierRatio": 4.49
-        }
-      ]
-    },
-    {
-      "keyword": "영어 발음 규칙",
-      "videoCount": 6,
-      "marketDemandScore": 161.1,
-      "topOutliers": [
-        {
-          "title": "영어 읽는법 1편 - 자음과 모음, 그리고 파닉스 | 왕초보영어",
-          "channel": "렉스쌤의 왕초보영어훈련소",
-          "ageDays": 2038,
-          "viewsPerDay": 166.4,
-          "channelBaselineViewsPerDay": 3.3,
-          "outlierRatio": 50.33
-        },
-        {
-          "title": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
-          "channel": "MagicEnglish 이근철의 마법영어",
-          "ageDays": 2063,
-          "viewsPerDay": 198.7,
-          "channelBaselineViewsPerDay": 4.9,
-          "outlierRatio": 40.9
-        },
-        {
-          "title": "각 알파벳 소리 익히기(Learning English letters with Hangl 'Aa~Zz')",
-          "channel": "쑥쑥 영어(에리카)",
-          "ageDays": 1205,
-          "viewsPerDay": 1242.6,
-          "channelBaselineViewsPerDay": 45.3,
-          "outlierRatio": 27.44
+          "outlierRatio": 4.5
         }
       ]
     },
     {
       "keyword": "영어 발음 원리",
       "videoCount": 6,
+      "confidence": "ok",
+      "lowSampleWarning": null,
       "marketDemandScore": 142.4,
       "topOutliers": [
         {
           "title": "영어 발음이 어려운이유 😭😭 #영어회화 #영어 #영어발음 #영어공부 #영어단어",
           "channel": "다니엘 잉글리시 클럽! 다잉클!",
           "ageDays": 338,
-          "viewsPerDay": 16485.7,
+          "viewsPerDay": 16485.4,
           "channelBaselineViewsPerDay": 6.3,
-          "outlierRatio": 2624.77
+          "outlierRatio": 2624.75
         },
         {
           "title": "버터발음, 복식호흡이 문제가 아니다 #영어발음꿀팁",
@@ -179,6 +182,64 @@
           "viewsPerDay": 1242.6,
           "channelBaselineViewsPerDay": 45.3,
           "outlierRatio": 27.44
+        }
+      ]
+    },
+    {
+      "keyword": "미국식 발음 규칙",
+      "videoCount": 2,
+      "confidence": "low",
+      "lowSampleWarning": "표본 2개뿐 — 3개 미만은 median이 사실상 최댓값과 같아 과대평가 위험. 참고용으로만 쓸 것.",
+      "marketDemandScore": 139.5,
+      "topOutliers": [
+        {
+          "title": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
+          "channel": "MagicEnglish 이근철의 마법영어",
+          "ageDays": 2063,
+          "viewsPerDay": 198.7,
+          "channelBaselineViewsPerDay": 4.9,
+          "outlierRatio": 40.9
+        },
+        {
+          "title": "0217. 영어 연음, 무조건 들리는 방법",
+          "channel": "바딱 영어",
+          "ageDays": 527,
+          "viewsPerDay": 45,
+          "channelBaselineViewsPerDay": 77.7,
+          "outlierRatio": 0.58
+        }
+      ]
+    },
+    {
+      "keyword": "WANT TO 축약",
+      "videoCount": 13,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "marketDemandScore": 72.7,
+      "topOutliers": [
+        {
+          "title": "영어 수동태 단번에 마스터 하기",
+          "channel": "19asjdklajsdlkj",
+          "ageDays": 378,
+          "viewsPerDay": 30544.6,
+          "channelBaselineViewsPerDay": 163.9,
+          "outlierRatio": 186.4
+        },
+        {
+          "title": "👈클릭! 영어 초보 탈출 필수암기 축약형 Wanna Gonna 완벽 정리! #영어회화 #이지리스닝 #영어공부 #영어 #영어회화학원 #koreanlanguage #korean #쇼츠",
+          "channel": "영어페이지",
+          "ageDays": 255,
+          "viewsPerDay": 973.4,
+          "channelBaselineViewsPerDay": 101.5,
+          "outlierRatio": 9.59
+        },
+        {
+          "title": "🌟wanna, gotta, gonna 차이점?!",
+          "channel": "은하수업, 은하쌤의 친절한 영어",
+          "ageDays": 1379,
+          "viewsPerDay": 138,
+          "channelBaselineViewsPerDay": 14.5,
+          "outlierRatio": 9.49
         }
       ]
     }

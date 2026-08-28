@@ -71,7 +71,7 @@ const LOW_SAMPLE_THRESHOLD = 3;
 // original decision doc) — a mega-channel's outliers reflect algorithmic
 // reach we don't have, not topic-level demand a channel our size could repeat.
 const MAX_SUBSCRIBERS = 100_000;
-const MAX_CHANNELS = 20; // cap total channels analyzed, regardless of how many the searches surface
+const MAX_CHANNELS = 30; // cap total channels analyzed, regardless of how many the searches surface
 const VIDEOS_PER_CHANNEL_BASELINE = 25; // recent uploads sampled per channel for its own baseline
 
 function estimateQuota() {
@@ -143,7 +143,7 @@ async function main() {
       part: "snippet",
       type: "video",
       order: "relevance",
-      maxResults: "15",
+      maxResults: "50", // search.list costs the same 100 units regardless of count — take the max
       regionCode: "KR",
       relevanceLanguage: "ko",
     });

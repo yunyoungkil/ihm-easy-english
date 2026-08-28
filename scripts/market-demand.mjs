@@ -129,6 +129,35 @@ function chunk(arr, size) {
   return out;
 }
 
+// Common particles/punctuation/emoji noise stripped before counting title
+// words — not real Korean morphological analysis, just enough to keep
+// frequent CONTENT words (not grammar glue) visible in the output.
+const TITLE_STOPWORDS = new Set([
+  "이", "그", "저", "이것", "저것", "그것", "우리", "당신", "너", "나", "제",
+  "이유", "방법", "정리", "꿀팁", "완벽", "총정리", "1편", "2편", "3편",
+]);
+const TITLE_NOISE_RE = /[#|｜\-–—()【】\[\]{}!?！？.,·:：'"'"~*✨🔥😅😭💯👍🎯]/g;
+
+function extractTitlePatterns(rows, minOutlierRatio = 1.5) {
+  const counts = new Map();
+  for (const r of rows) {
+    if (r.outlierRatio < minOutlierRatio) continue;
+    const tokens = r.title
+      .replace(TITLE_NOISE_RE, " ")
+      .split(/\s+/)
+      .map((t) => t.trim())
+      .filter((t) => t.length >= 2 && !TITLE_STOPWORDS.has(t) && !/^[0-9]+$/.test(t));
+    for (const t of new Set(tokens)) { // count each word once per title, not per repeat
+      counts.set(t, (counts.get(t) ?? 0) + 1);
+    }
+  }
+  return [...counts.entries()]
+    .filter(([, count]) => count >= 2) // must recur across at least 2 different overperforming titles
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([word, count]) => ({ word, titleCount: count }));
+}
+
 async function main() {
   console.log(`쿼터 예상: ~${estimateQuota().total} units\n`);
 
@@ -136,6 +165,7 @@ async function main() {
   //    finds channels actually making relevant content, not just channels
   //    whose ABOUT page happens to mention the keyword.
   const candidateByChannel = new Map(); // channelId -> { keywords: Set, videoIds: Set }
+  const totalResultsByKeyword = new Map(); // keyword -> YouTube's approximate total match count (saturation proxy)
   for (const keyword of KEYWORD_POOL) {
     console.log(`검색 중: "${keyword}"`);
     const data = await apiGet("search", {
@@ -147,6 +177,7 @@ async function main() {
       regionCode: "KR",
       relevanceLanguage: "ko",
     });
+    totalResultsByKeyword.set(keyword, data.pageInfo?.totalResults ?? null);
     for (const item of data.items ?? []) {
       const channelId = item.snippet?.channelId;
       const videoId = item.id?.videoId;
@@ -285,6 +316,18 @@ async function main() {
       const cappedRatios = rows.map((r) => Math.min(RATIO_CAP, r.outlierRatio));
       const avgRatio = median(cappedRatios);
       const lowSample = rows.length < LOW_SAMPLE_THRESHOLD;
+      const marketDemandScore = avgRatio !== null ? Math.round(Math.max(0, 50 * avgRatio) * 10) / 10 : null;
+      const totalResults = totalResultsByKeyword.get(keyword) ?? null;
+      // Saturation discount: log-scaled so it separates hundreds of
+      // competing videos from hundreds of thousands without a linear
+      // divide-by-totalResults swinging wildly on YouTube's rounding of its
+      // own approximate count. Rough heuristic, not a precise calculation —
+      // read it as "demand relative to how crowded this keyword already is,"
+      // never as a calibrated probability.
+      const opportunityScore =
+        marketDemandScore !== null && totalResults
+          ? Math.round((marketDemandScore / Math.log10(totalResults + 10)) * 10) / 10
+          : null;
       return {
         keyword,
         videoCount: rows.length,
@@ -292,7 +335,10 @@ async function main() {
         lowSampleWarning: lowSample
           ? `표본 ${rows.length}개뿐 — ${LOW_SAMPLE_THRESHOLD}개 미만은 median이 사실상 최댓값과 같아 과대평가 위험. 참고용으로만 쓸 것.`
           : null,
-        marketDemandScore: avgRatio !== null ? Math.round(Math.max(0, 50 * avgRatio) * 10) / 10 : null,
+        marketDemandScore,
+        totalResults, // YouTube's own approximate match count for this keyword — saturation proxy
+        opportunityScore, // marketDemandScore discounted by how crowded the keyword already is
+        titlePatterns: extractTitlePatterns(rows), // recurring words across overperforming titles — the "angle", not just the topic
         topOutliers: rows.sort((a, b) => b.outlierRatio - a.outlierRatio).slice(0, 3).map((r) => ({
           title: r.title,
           channel: r.channelTitle,
@@ -303,7 +349,7 @@ async function main() {
         })),
       };
     })
-    .sort((a, b) => (b.marketDemandScore ?? -1) - (a.marketDemandScore ?? -1));
+    .sort((a, b) => (b.opportunityScore ?? b.marketDemandScore ?? -1) - (a.opportunityScore ?? a.marketDemandScore ?? -1));
 
   // Upsert into any existing file by keyword — a --keyword ad-hoc check
   // shouldn't erase the default pool's results, and re-running the default
@@ -311,7 +357,9 @@ async function main() {
   const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
   const mergedByKeyword = new Map((existing?.byKeyword ?? []).map((k) => [k.keyword, k]));
   for (const entry of marketDemandByKeyword) mergedByKeyword.set(entry.keyword, entry);
-  const allByKeyword = [...mergedByKeyword.values()].sort((a, b) => (b.marketDemandScore ?? -1) - (a.marketDemandScore ?? -1));
+  const allByKeyword = [...mergedByKeyword.values()].sort(
+    (a, b) => (b.opportunityScore ?? b.marketDemandScore ?? -1) - (a.opportunityScore ?? a.marketDemandScore ?? -1),
+  );
 
   const result = {
     schemaVersion: 1,
@@ -326,7 +374,11 @@ async function main() {
       `구독자 ${MAX_SUBSCRIBERS.toLocaleString()}명 이하 채널만 포함). 표본 ${LOW_SAMPLE_THRESHOLD}개 미만은 ` +
       '`confidence: "low"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 ' +
       "(곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). " +
-      "--keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert).",
+      "--keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert). " +
+      "opportunityScore = marketDemandScore / log10(totalResults+10) — 수요가 높아도 이미 포화된(totalResults " +
+      "큰) 키워드는 할인함. 정밀 계산이 아니라 대략적인 경쟁 밀도 보정이니 참고용으로만 쓸 것. " +
+      "titlePatterns = 그 채널 기준으로 이례적으로(outlierRatio≥1.5) 잘 된 영상들의 제목에서 2회 이상 " +
+      "반복된 단어 — 무슨 주제를 다룰지가 아니라 어떤 각도/후킹으로 제목을 달지에 대한 신호.",
     keywordPool: DEFAULT_KEYWORD_POOL,
     lastRunKeywords: KEYWORD_POOL,
     channelsAnalyzed: smallChannels.length,
@@ -338,7 +390,19 @@ async function main() {
   for (const k of marketDemandByKeyword) {
     if (k.confidence === "low") console.warn(`⚠ "${k.keyword}": ${k.lowSampleWarning}`);
   }
-  console.log(JSON.stringify(marketDemandByKeyword.map((k) => ({ keyword: k.keyword, marketDemandScore: k.marketDemandScore, videoCount: k.videoCount, confidence: k.confidence })), null, 2));
+  console.log(JSON.stringify(
+    marketDemandByKeyword.map((k) => ({
+      keyword: k.keyword,
+      marketDemandScore: k.marketDemandScore,
+      totalResults: k.totalResults,
+      opportunityScore: k.opportunityScore,
+      videoCount: k.videoCount,
+      confidence: k.confidence,
+      titlePatterns: k.titlePatterns.map((p) => p.word),
+    })),
+    null,
+    2,
+  ));
 }
 
 main().catch((err) => {

@@ -143,7 +143,11 @@ const result = {
         byKeyword: marketDemand.byKeyword.map((k) => ({
           keyword: k.keyword,
           marketDemandScore: k.marketDemandScore,
+          totalResults: k.totalResults,
+          opportunityScore: k.opportunityScore,
           videoCount: k.videoCount,
+          confidence: k.confidence,
+          titlePatterns: (k.titlePatterns ?? []).map((p) => p.word),
         })),
       }
     : null,

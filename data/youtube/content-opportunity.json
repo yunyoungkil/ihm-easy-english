@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-28T17:07:11.872Z",
+  "generatedAt": "2026-08-28T17:13:15.898Z",
   "sourceAnalyticsSyncedAt": "2026-08-27T13:42:25.861Z",
   "note": "my_channel_fit_score (github.com/yunyoungkil/project1의 research/my_channel.py 이식). fitScore 50 = 해당 콘텐츠 타입 평균과 동일, 50 초과 = 평균보다 유지율 높음. SHORTS(반복 재생으로 100% 초과 가능)와 VIDEO_ON_DEMAND(단일 재생)는 유지율 스케일이 달라 타입별 자체 기준선 대비 비율(retentionRatio)로 정규화한 뒤 비교함. market_demand_score(경쟁 채널 outlier 비교, scripts/market-demand.mjs)는 marketDemand 필드에 키워드별로 별도 표시함 — byRole/byRule과 축이 달라 곱하지 않았음. 새 소재 후보를 이 키워드들과 매칭해 판단할 것.",
   "baselineRetentionByContentType": {
@@ -137,43 +137,111 @@
     }
   ],
   "marketDemand": {
-    "generatedAt": "2026-08-28T17:06:59.655Z",
+    "generatedAt": "2026-08-28T17:12:50.326Z",
     "channelsAnalyzed": 27,
     "byKeyword": [
       {
+        "keyword": "WANT TO 축약",
+        "marketDemandScore": 72.7,
+        "videoCount": 13,
+        "confidence": "ok",
+        "titlePatterns": []
+      },
+      {
         "keyword": "왕초보 영어 발음",
         "marketDemandScore": 250,
-        "videoCount": 7
+        "totalResults": 941184,
+        "opportunityScore": 41.9,
+        "videoCount": 8,
+        "confidence": "ok",
+        "titlePatterns": [
+          "영어",
+          "읽는법",
+          "왕초보영어",
+          "여행영어",
+          "영어회화",
+          "공항",
+          "입국심사",
+          "호텔"
+        ]
       },
       {
         "keyword": "영어 발음 원리",
         "marketDemandScore": 234.9,
-        "videoCount": 16
+        "totalResults": 450385,
+        "opportunityScore": 41.5,
+        "videoCount": 16,
+        "confidence": "ok",
+        "titlePatterns": [
+          "영어",
+          "소리",
+          "파닉스",
+          "발음",
+          "알파벳",
+          "외우세요",
+          "영어가",
+          "들리는"
+        ]
       },
       {
         "keyword": "영어 듣기 안 들리는 이유",
         "marketDemandScore": 172.9,
-        "videoCount": 8
-      },
-      {
-        "keyword": "영어 발음 규칙",
-        "marketDemandScore": 108.6,
-        "videoCount": 21
+        "totalResults": 321972,
+        "opportunityScore": 31.4,
+        "videoCount": 8,
+        "confidence": "ok",
+        "titlePatterns": [
+          "영어",
+          "영어축약발음"
+        ]
       },
       {
         "keyword": "미국식 발음 규칙",
-        "marketDemandScore": 108.6,
-        "videoCount": 11
-      },
-      {
-        "keyword": "WANT TO 축약",
-        "marketDemandScore": 72.7,
-        "videoCount": 13
+        "marketDemandScore": 98.4,
+        "totalResults": 308745,
+        "opportunityScore": 17.9,
+        "videoCount": 10,
+        "confidence": "ok",
+        "titlePatterns": [
+          "영어",
+          "영어축약발음"
+        ]
       },
       {
         "keyword": "영어 연음 축약",
         "marketDemandScore": 72.3,
-        "videoCount": 25
+        "totalResults": 12550,
+        "opportunityScore": 17.6,
+        "videoCount": 25,
+        "confidence": "ok",
+        "titlePatterns": [
+          "영어",
+          "빠른",
+          "축약",
+          "영어축약발음",
+          "듣기",
+          "영어공부",
+          "영어회화",
+          "영어발음"
+        ]
+      },
+      {
+        "keyword": "영어 발음 규칙",
+        "marketDemandScore": 90.4,
+        "totalResults": 616364,
+        "opportunityScore": 15.6,
+        "videoCount": 20,
+        "confidence": "ok",
+        "titlePatterns": [
+          "영어",
+          "읽는법",
+          "모음",
+          "왕초보영어",
+          "이렇게",
+          "쉽다고",
+          "읽는",
+          "규칙"
+        ]
       }
     ]
   }

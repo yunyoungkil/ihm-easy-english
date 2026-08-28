@@ -73,6 +73,28 @@ npm run content-opportunity                # market-demand.json이 있으면 자
 
 "영어 연음 축약"이 시즌2(문장 속 연결·축약·리듬)와 가장 직접 관련 있는 키워드라는 점이 눈에 띈다.
 
+## 후속 업그레이드 (같은 날, "정확히 우리 채널을 성장시킬 아이디어" 요청에 대응)
+
+수요만 보면 "다른 채널도 이미 다 다룬 포화 주제"랑 "아직 비어있는 틈새"를 구분 못 한다는 문제 제기 후
+세 가지 옵션을 냈고, 사용자가 1·2번만 채택(3번=제작비용 반영은 "TTS 생성 시점에 비용을 알려주면
+그때 판단하겠다"로 범위 밖 처리 — 이미 있는 `generate-tts.mjs`의 견적/승인 절차로 충분하다는 판단):
+
+1. **경쟁 밀도 보정(`opportunityScore`)** — `search.list` 응답의 `pageInfo.totalResults`(그 키워드
+   전체 검색 결과 수, YouTube 자체 근사치)를 saturation 프록시로 써서
+   `opportunityScore = marketDemandScore / log10(totalResults + 10)`로 할인. 로그 스케일을 쓴 이유는
+   totalResults가 수백~수십만까지 자릿수 차이가 나서 선형 나눗셈은 너무 거칠기 때문. 실행해보니
+   "영어 연음 축약"이 totalResults 12,550(다른 키워드의 1/25~1/70 수준)인데도 marketDemandScore
+   자체는 중간이라, opportunityScore로 보정해도 상위권 — 진짜 틈새인지는 아니지만 최소한 원 순위와
+   다른 관점을 보여줌. **정밀 계산이 아니라 대략적 신호로만 쓸 것**(byKeyword의 `opportunityScore` 필드).
+2. **제목 패턴 추출(`titlePatterns`)** — 그 채널 기준 이례적으로 잘 된 영상(outlierRatio ≥ 1.5)의
+   제목에서 조사/불용어를 제거하고 2회 이상 반복되는 단어를 뽑음. 진짜 한국어 형태소 분석이 아니라
+   공백 분리 + 불용어 필터 수준의 근사치. 실행 결과 "영어축약발음"이라는 표현이 서로 다른 3개 키워드
+   검색 결과에 걸쳐 반복 등장 — 특정 검색어와 무관하게 여러 채널이 공통으로 쓰는 프레이밍이라는 신호.
+   주제 선택뿐 아니라 **제목을 어떻게 지을지**에 대한 근거로 쓸 것.
+
+`market-demand.mjs`의 기본 정렬 기준이 `marketDemandScore`에서 `opportunityScore`로 바뀌었다
+(opportunityScore가 없으면 marketDemandScore로 폴백).
+
 ## 관련 문서
 
 - [채널 자체 적합도 점수 도입](2026-08-25-content-opportunity-score.md)

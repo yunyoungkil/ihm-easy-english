@@ -95,6 +95,18 @@ npm run content-opportunity                # market-demand.json이 있으면 자
 `market-demand.mjs`의 기본 정렬 기준이 `marketDemandScore`에서 `opportunityScore`로 바뀌었다
 (opportunityScore가 없으면 marketDemandScore로 폴백).
 
+## 다음에 필요한 것 (썸네일 신호)
+
+제목 패턴(`titlePatterns`)의 이미지 버전. 검색량·경쟁 채널 구독 전환과 달리 **구조적으로 막혀있지
+않음** — `videos.list`가 이미 `snippet.thumbnails` URL을 돌려주는데 지금 안 쓰고 있을 뿐.
+
+- 간단·무료: 썸네일 이미지의 색상/밝기/대비 등 기초 통계만 로컬 분석(예: `sharp`), API 비용 없음.
+- 더 강력하지만 비용 발생: 얼굴/텍스트/구도 같은 실제 내용 분석은 이미지 이해 AI 호출이 필요 —
+  TTS처럼 그때그때 견적 승인 필요.
+
+지금은 착수하지 않음 — EP12 제작 + 성과 검증까지 끝난 뒤 필요성 확인되면 다시 논의
+(2026-08-29 사용자 확정, "이 정도면 됐다, 실전에 써보자"로 도구 개발 일단 마무리).
+
 ## 관련 문서
 
 - [채널 자체 적합도 점수 도입](2026-08-25-content-opportunity-score.md)

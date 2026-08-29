@@ -2,6 +2,8 @@ node_modules
 dist
 .DS_Store
 .env
+.env*
+.env.*
 client_secret_*.json
 .youtube-oauth-token.json
 .youtube-video-map.json
@@ -30,3 +32,5 @@ videos/**/renders/*.mp4
 
 # Scratch/log working files, regenerable.
 tmp
+data/youtube/studio-browser-profile
+data/youtube/*.png

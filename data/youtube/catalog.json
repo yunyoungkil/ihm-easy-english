@@ -1,23 +1,75 @@
 {
   "schemaVersion": 1,
-  "syncedAt": "2026-08-29T09:34:18.801Z",
+  "syncedAt": "2026-08-29T16:35:26.600Z",
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/UwaFBTsYzyF6x2QDMrA6BruMLlqLlYXOfDMTDWPscY34ytuXsrCA5lZhgbFwTvXd05-0nBGFaw=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 107,
     "totalViews": 50283,
-    "videos": 62,
+    "videos": 63,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
   },
   "uploadsPlaylist": "UUwNrEdm2jYAtUlfHVvH3WQw",
   "videos": [
     {
+      "videoId": "3PkSwrFIcRE",
+      "title": "익-션-전-천-처-저-셜, 사실 한 규칙이었습니다 | 시즌1 총정리",
+      "publishedAt": "2026-08-29T11:00:15Z",
+      "thumbnail": "https://i.ytimg.com/vi/3PkSwrFIcRE/maxresdefault.jpg",
+      "description": "지금까지 우리는 일곱 개의 시간을 함께 보냈습니다.\n히어로익, 네이션, 디시전, 퀘스천, 픽처, 메저, 스페셜.\n\n「이해하면 쉬운 영어」 시즌1의 마지막 시간, 오늘은 그 이야기들을 하나로 연결합니다.\n\n📌 오늘 정리하는 내용\n・강세 자석 — 익, 션, 전, 천, 처, 저, 셜이 강세를 끌어당기는 이유\n・소리의 변신 — 티/에스가 이를 만나 션·처로 바뀌는 원리\n・예외에도 이유가 있다 — 퀘스천이 왜 천으로 읽히는지\n・시즌1 완전 정복 퀴즈 — OBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL\n・시즌1을 관통하는 세 문장 요약\n\n⏱️ 영상 순서\n00:00 오프닝 - 일곱 개의 시간, 하나의 이야기\n00:25 채널 인트로 - 시즌1 완결편\n00:46 첫 번째 이야기 - 강세 자석\n01:13 두 번째 이야기 - 소리의 변신\n01:37 세 번째 이야기 - 예외에도 이유가 있다\n02:02 실전 - 시즌1 완전 정복 퀴즈\n02:27 시즌1 세 문장 요약\n02:59 시즌1 마무리 및 시즌2 예고\n\n📚 시즌1 전체 재생목록\nhttps://www.youtube.com/playlist?list=PLdTWj5v6v8zE\n\n▶ 지난 시간 EP9: SPECIAL은 왜 '스페시알'이 아닐까?\nhttps://youtu.be/sNNufVhkjT8\n\n다음 시즌2에서는 발음을 넘어, 문장 속에서 소리가 어떻게 연결되고 줄어드는지 함께 풀어봅니다.\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어공부 #영어강세 #기초영어 #왕초보영어 #영어단어읽는법 #파닉스규칙 #시즌1완결",
+      "tags": [
+        "영어 발음",
+        "영어 발음 규칙",
+        "영어 강세",
+        "영어 단어 읽는 법",
+        "기초 영어",
+        "왕초보 영어",
+        "영어 공부",
+        "성인 영어",
+        "파닉스 규칙",
+        "시즌1 총정리",
+        "tion 발음",
+        "sion 발음",
+        "ture 발음",
+        "cial 발음",
+        "observation 발음",
+        "confusion 발음",
+        "capture 발음",
+        "artificial 발음",
+        "English pronunciation",
+        "word stress",
+        "English for beginners"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT3M31S",
+      "durationSeconds": 211,
+      "privacyStatus": "public",
+      "scheduledPublishAt": null,
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "1"
+      },
+      "url": "https://youtu.be/3PkSwrFIcRE",
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "comments": [],
+      "channelOwnerComments": []
+    },
+    {
       "videoId": "nVrCk8IZFGA",
       "title": "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다 #영어발음 #shorts",
       "publishedAt": "2026-08-27T13:35:54Z",
-      "thumbnail": "https://i9.ytimg.com/vi/nVrCk8IZFGA/maxresdefault.jpg?sqp=CJjNytQG&rs=AOn4CLDIF9j4UfCyxQcfwl3p8bfCduxLlQ",
+      "thumbnail": "https://i9.ytimg.com/vi/nVrCk8IZFGA/maxresdefault.jpg?sqp=CLSUzNQG&rs=AOn4CLC1WCSx6RGnp1a-oya7RyMrmLv6nQ",
       "description": "SOCIAL, 발음이 헷갈리시나요?\n\n근데 우리 이미 맨날 '소셜'이라고 하잖아요.\n\n왜 소셜일까요? -CIAL로 끝나는 부분이 항상 '셜' 소리가 나거든요.\n\n이렇게 끝나는 단어는 다 '셜'로 읽어요.\n\n📌 전체 원리는 관련 영상에서 확인\nhttps://youtu.be/3PkSwrFIcRE\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #social발음 #EnglishPronunciation #shorts",
       "tags": [
         "영어 발음",
@@ -47,12 +99,10 @@
       },
       "url": "https://youtu.be/nVrCk8IZFGA",
       "classification": {
-        "category": "SEASON",
-        "season": 1,
-        "episode": 10,
-        "role": "B",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:17:52.624Z"
+        "category": "OTHER",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "검토 필요"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -61,7 +111,7 @@
       "videoId": "LdiZKCzKf0c",
       "title": "시즌1 발음 테스트, 4문제 다 맞히면 진짜 실력 #영어발음 #shorts",
       "publishedAt": "2026-08-27T13:29:06Z",
-      "thumbnail": "https://i9.ytimg.com/vi/LdiZKCzKf0c/maxresdefault.jpg?sqp=CJjNytQG&rs=AOn4CLAKkW7Xjv54HAGFnb5D_DdEBp4iLQ",
+      "thumbnail": "https://i9.ytimg.com/vi/LdiZKCzKf0c/maxresdefault.jpg?sqp=CLSUzNQG&rs=AOn4CLBUUN1ry2QKxjaFxoXH4q4_3zsv1A",
       "description": "시즌1에서 배운 발음, 진짜 내 것이 됐을까요?\n\nOBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL.\n네 단어로 확인해 보세요.\n\n정답: 옵저베이션 · 컨퓨전 · 캡처 · 아티피셜\n\n강세는 바로 앞 음절에, 글자들이 만나면 소리가 바뀌고, 예외처럼 보여도 전부 이유가 있습니다.\n\n📌 시즌1 전체 원리 다시 보기\nhttps://youtu.be/3PkSwrFIcRE\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #발음테스트 #EnglishPronunciation #shorts",
       "tags": [
         "영어 발음",
@@ -95,66 +145,10 @@
       },
       "url": "https://youtu.be/LdiZKCzKf0c",
       "classification": {
-        "category": "SEASON",
-        "season": 1,
-        "episode": 10,
-        "role": "A",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:18:07.961Z"
-      },
-      "comments": [],
-      "channelOwnerComments": []
-    },
-    {
-      "videoId": "3PkSwrFIcRE",
-      "title": "익-션-전-천-처-저-셜, 사실 한 규칙이었습니다 | 시즌1 총정리",
-      "publishedAt": "2026-08-27T13:20:16Z",
-      "thumbnail": "https://i9.ytimg.com/vi/3PkSwrFIcRE/maxresdefault.jpg?sqp=CJjNytQG&rs=AOn4CLD33oJV2vqOzWDr9RzWuBJPsL9kdQ",
-      "description": "지금까지 우리는 일곱 개의 시간을 함께 보냈습니다.\n히어로익, 네이션, 디시전, 퀘스천, 픽처, 메저, 스페셜.\n\n「이해하면 쉬운 영어」 시즌1의 마지막 시간, 오늘은 그 이야기들을 하나로 연결합니다.\n\n📌 오늘 정리하는 내용\n・강세 자석 — 익, 션, 전, 천, 처, 저, 셜이 강세를 끌어당기는 이유\n・소리의 변신 — 티/에스가 이를 만나 션·처로 바뀌는 원리\n・예외에도 이유가 있다 — 퀘스천이 왜 천으로 읽히는지\n・시즌1 완전 정복 퀴즈 — OBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL\n・시즌1을 관통하는 세 문장 요약\n\n⏱️ 영상 순서\n00:00 오프닝 - 일곱 개의 시간, 하나의 이야기\n00:25 채널 인트로 - 시즌1 완결편\n00:46 첫 번째 이야기 - 강세 자석\n01:13 두 번째 이야기 - 소리의 변신\n01:37 세 번째 이야기 - 예외에도 이유가 있다\n02:02 실전 - 시즌1 완전 정복 퀴즈\n02:27 시즌1 세 문장 요약\n02:59 시즌1 마무리 및 시즌2 예고\n\n📚 시즌1 전체 재생목록\nhttps://www.youtube.com/playlist?list=PLdTWj5v6v8zE\n\n▶ 지난 시간 EP9: SPECIAL은 왜 '스페시알'이 아닐까?\nhttps://youtu.be/sNNufVhkjT8\n\n다음 시즌2에서는 발음을 넘어, 문장 속에서 소리가 어떻게 연결되고 줄어드는지 함께 풀어봅니다.\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어공부 #영어강세 #기초영어 #왕초보영어 #영어단어읽는법 #파닉스규칙 #시즌1완결",
-      "tags": [
-        "영어 발음",
-        "영어 발음 규칙",
-        "영어 강세",
-        "영어 단어 읽는 법",
-        "기초 영어",
-        "왕초보 영어",
-        "영어 공부",
-        "성인 영어",
-        "파닉스 규칙",
-        "시즌1 총정리",
-        "tion 발음",
-        "sion 발음",
-        "ture 발음",
-        "cial 발음",
-        "observation 발음",
-        "confusion 발음",
-        "capture 발음",
-        "artificial 발음",
-        "English pronunciation",
-        "word stress",
-        "English for beginners"
-      ],
-      "categoryId": "27",
-      "defaultLanguage": "ko",
-      "duration": "PT3M31S",
-      "durationSeconds": 211,
-      "privacyStatus": "private",
-      "scheduledPublishAt": "2026-08-29T11:00:00Z",
-      "statistics": {
-        "viewCount": "0",
-        "likeCount": "0",
-        "dislikeCount": "0",
-        "favoriteCount": "0",
-        "commentCount": "0"
-      },
-      "url": "https://youtu.be/3PkSwrFIcRE",
-      "classification": {
-        "category": "SEASON",
-        "season": 1,
-        "episode": 10,
-        "role": "LONG",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:17:39.122Z"
+        "category": "OTHER",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "검토 필요"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -207,7 +201,7 @@
         "episode": 9,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-29T08:18:45.148Z"
+        "updatedAt": "2026-08-22T13:44:18.301Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -247,7 +241,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1195",
+        "viewCount": "1197",
         "likeCount": "5",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -260,7 +254,7 @@
         "episode": 9,
         "role": "A",
         "source": "manual",
-        "updatedAt": "2026-08-29T08:18:46.851Z"
+        "updatedAt": "2026-08-22T13:44:16.233Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -304,7 +298,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "4",
+        "viewCount": "5",
         "likeCount": "0",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -317,7 +311,7 @@
         "episode": 9,
         "role": "LONG",
         "source": "manual",
-        "updatedAt": "2026-08-29T08:17:15.776Z"
+        "updatedAt": "2026-08-22T13:04:15.605Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -370,12 +364,10 @@
       },
       "url": "https://youtu.be/IfK4Itzgt6o",
       "classification": {
-        "category": "CHANNEL",
-        "season": null,
-        "episode": null,
-        "role": "C",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:19:43.744Z"
+        "category": "OTHER",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "검토 필요"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -429,7 +421,7 @@
         "episode": 8,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-29T08:19:15.717Z"
+        "updatedAt": "2026-08-14T09:04:01.715Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -456,12 +448,12 @@
       },
       "url": "https://youtu.be/h-UUbuWQuag",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "A",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:19:28.454Z"
+        "updatedAt": "2026-08-13T10:59:21.686Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -488,12 +480,12 @@
       },
       "url": "https://youtu.be/YoaCRYCWpws",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "LONG",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:47:26.611Z"
+        "updatedAt": "2026-08-13T10:59:22.388Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -520,12 +512,12 @@
       },
       "url": "https://youtu.be/dijhGjxOQOw",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "B",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:20:00.116Z"
+        "updatedAt": "2026-08-13T10:59:23.069Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -552,12 +544,12 @@
       },
       "url": "https://youtu.be/M9ru03p3QoE",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "A",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:20:11.918Z"
+        "updatedAt": "2026-08-13T10:59:24.354Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -584,12 +576,12 @@
       },
       "url": "https://youtu.be/tFe-cB__uns",
       "classification": {
-        "category": "SEASON",
         "season": 1,
-        "episode": 7,
+        "episode": 6,
         "role": "LONG",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:47:24.534Z"
+        "updatedAt": "2026-08-13T10:59:24.857Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -624,12 +616,12 @@
       },
       "url": "https://youtu.be/ewv3GcXNLsE",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "B",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:47:17.892Z"
+        "updatedAt": "2026-08-13T10:59:25.760Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -665,12 +657,12 @@
       },
       "url": "https://youtu.be/FwBboz1jenA",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "A",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:47:18.938Z"
+        "updatedAt": "2026-08-13T10:59:27.740Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -713,12 +705,12 @@
       },
       "url": "https://youtu.be/hu4GNC7peTY",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "LONG",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:48:14.029Z"
+        "updatedAt": "2026-08-13T10:59:28.319Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -754,11 +746,9 @@
       "url": "https://youtu.be/f4wkmIvplCc",
       "classification": {
         "category": "EXPERIMENT",
-        "season": null,
-        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:47:37.636Z"
+        "source": "auto",
+        "reason": "독립 포맷 실험"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -806,11 +796,9 @@
       "url": "https://youtu.be/Ha_7wdnFNmo",
       "classification": {
         "category": "EXPERIMENT",
-        "season": null,
-        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:47:43.003Z"
+        "source": "auto",
+        "reason": "독립 포맷 실험"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -855,12 +843,12 @@
       },
       "url": "https://youtu.be/6nANjHxy2Lc",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 5,
         "role": "A",
-        "source": "manual",
-        "updatedAt": "2026-08-29T08:48:05.835Z"
+        "updatedAt": "2026-08-13T11:02:48.029Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -907,12 +895,12 @@
       },
       "url": "https://youtu.be/BLinHY3p4yc",
       "classification": {
-        "category": "SEASON",
         "season": 1,
         "episode": 5,
         "role": "LONG",
-        "source": "auto",
-        "reason": "제목의 시즌·EP 표기"
+        "updatedAt": "2026-08-13T11:02:40.397Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -963,10 +951,12 @@
       },
       "url": "https://youtu.be/k8T7chDCj3Q",
       "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
+        "season": 1,
+        "episode": 4,
+        "role": "B",
+        "updatedAt": "2026-08-13T11:02:37.588Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1014,10 +1004,12 @@
       },
       "url": "https://youtu.be/F-o7EmQL3zY",
       "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
+        "season": 1,
+        "episode": 4,
+        "role": "A",
+        "updatedAt": "2026-08-13T11:02:30.945Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1055,10 +1047,12 @@
       },
       "url": "https://youtu.be/BsyRH8GWYJ4",
       "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
+        "season": 1,
+        "episode": 4,
+        "role": "LONG",
+        "updatedAt": "2026-08-13T11:02:30.571Z",
+        "category": "SEASON",
+        "source": "manual"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1548,7 +1542,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CJjNytQG&rs=AOn4CLDw-WbVrT1OEIZ3ni1SvrzGmwm73A",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CLSUzNQG&rs=AOn4CLA6xtiyblbz7_p4LCkYo8oudkdZ2A",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -2488,7 +2482,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1216",
+        "viewCount": "1217",
         "likeCount": "4",
         "dislikeCount": "2",
         "favoriteCount": "0",

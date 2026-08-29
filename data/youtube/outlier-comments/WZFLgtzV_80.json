@@ -1,0 +1,896 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-08-29T06:45:09.077Z",
+  "video": {
+    "videoId": "WZFLgtzV_80",
+    "title": "영어 수동태 단번에 마스터 하기",
+    "channelTitle": "19asjdklajsdlkj",
+    "channelId": "UCa70-eZLQx1SlEfmDFkZDQg",
+    "publishedAt": "2025-08-15T11:38:13Z",
+    "viewCount": 11553018,
+    "likeCount": 94493,
+    "commentCount": 2312,
+    "thumbnailUrl": "https://i.ytimg.com/vi/WZFLgtzV_80/hqdefault.jpg"
+  },
+  "commentCountCollected": 100,
+  "aiInsights": {
+    "painPoints": [
+      {
+        "issue": "원리 없이 '그냥 외워라/동사 개수 세라' 식의 주입식 설명으로 인한 혼란과 좌절",
+        "detail": "왜 be동사와 과거분사(p.p)가 결합하는지 원리는 알려주지 않고 단순 공식이나 동사 개수 따위로 퉁치려 해 기초 학습자가 오히려 더 깊은 혼란에 빠짐",
+        "quote": "아니 이걸 동사 개수로 접근해서 설명하면 어쩌자는 건지... / 주입식 교육의 폐해지 ㅋㅋㅋㅋㅋ"
+      },
+      {
+        "issue": "과거형 동사와 과거분사(p.p) 형태가 같아 생기는 해석·청취 붕괴",
+        "detail": "made(만들었다)와 made(만들어진)처럼 모양이 똑같은 단어가 문장에서 동사인지 형용사 상태인지 구분을 못해 말하기와 리스닝에서 과부하가 걸림",
+        "quote": "make의 과거형이 made인 걸 모르고 was made의 made가 p.p형태인 걸 모르는 것 같습니다 / made가 갑자기 동사였다고?"
+      },
+      {
+        "issue": "be동사를 언제 붙이고 언제 빼야 하는지 기준이 없어 아무 데나 남발하는 습관",
+        "detail": "'I am love you', 'I was made it'처럼 습관적으로 be동사를 집어넣거나, 반대로 수동태일 때 be동사를 빼먹는 등 be동사의 본질적 역할을 모름",
+        "quote": "be동사를 모든 문장에 쓰는 친구들은 수동태에서 왜 be동사가 들어가는지, 어떨 때 쓰는지에 대한 충분한 이해가 필요해요."
+      },
+      {
+        "issue": "'왜?'라고 물으면 공부 못한다는 핀잔을 듣는 한국식 교육에 대한 트라우마",
+        "detail": "원리를 이해하고 싶어 질문하면 '그냥 외우면 편하다'라며 무시당해 결국 영어를 포기(영포자)하게 만들었던 학습 상처",
+        "quote": "보통 동생같이 궁금해서 질문하는 사람들을 무시함 / 왜?라는 질문이 너무 많아서 성적이 안 좋았던.. 그냥 다 포기하니까 편하더라"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "KISS 노래의 'I was made for lovin' you'는 사람 주어인데 왜 was made가 되나요?",
+        "context": "'세종 was made'는 안 된다면서 왜 팝송이나 특정 문장에서는 '사람 + was made'가 자연스럽게 쓰이는지에 대한 예외 상황 의문"
+      },
+      {
+        "question": "과거분사(p.p)는 도대체 동사인가요, 형용사인가요?",
+        "context": "동사 3단 변화 마지막에 외운 p.p가 왜 be동사랑 만나야 비로소 말이 끝나는지(서술어가 되는지)에 대한 본질적 의문"
+      },
+      {
+        "question": "'I made it'과 'I was made it'은 원어민 귀에 어떻게 다르게 들리나요?",
+        "context": "단순 문법 오류를 넘어, 실제로 be동사를 잘못 끼워 넣었을 때 원어민이 느끼는 뉘앙스 충격과 어색함의 정체"
+      },
+      {
+        "question": "The plate was made of metal 같은 문장은 주어가 사물인데 왜 be동사가 꼭 붙어야 하나요?",
+        "context": "수동태 공식 'be + p.p'에서 be동사를 생략하고 그냥 'The plate made of metal'로 쓰면 왜 틀린 문장이 되는지에 대한 구조적 질문"
+      }
+    ],
+    "audienceVocabulary": [
+      "동사 개수",
+      "be p.p 세트",
+      "3단 변화",
+      "사짜 강의",
+      "시험 찍기용 영어",
+      "방구석 일타강사",
+      "그냥 삼키듯이 외우기",
+      "원어민 말하는 느낌/감"
+    ],
+    "whatWorked": [
+      {
+        "point": "과거분사(p.p)를 '동사에서 나온 형용사(~된 상태)'로 재정의한 설명",
+        "reason": "She pretty가 틀리고 She is pretty가 맞듯, made(만들어진)도 형용사 상태이므로 be동사(~다)가 받쳐줘야 '만들어지다'가 완성된다는 비유가 왕초보의 눈높이를 정확히 관통함"
+      },
+      {
+        "point": "주어가 '하는 주체'인지 '당하는 상태'인지 주어 중심 시각화",
+        "reason": "복잡한 5형식 문법 용어 대신 '세종대왕이 만들어진 게 아니잖아'처럼 직관적인 상식과 상황으로 납득시키는 방식에 큰 호응을 보임"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "I was made it? 제발 'be동사' 아무 데나 넣지 마세요 (수동태가 단 3분 만에 끝나는 원리)",
+        "영어 3단 변화 마지막 p.p는 '동사'가 아닙니다! 99%가 모르는 be동사의 진짜 비밀",
+        "수동태를 'be + p.p' 공식으로 외우면 평생 영어 귀 안 뚫립니다 (원어민 뇌 구조 장착)"
+      ],
+      "hookThreeSeconds": "\"아직도 '수동태는 be+p.p'라고 달달 외우시나요? 그러니 'I was made it' 같은 외계어 영어가 나오는 겁니다!\"",
+      "shortsTrackAIdea": {
+        "concept": "p.p(과거분사)는 동사가 아니라 '형용사(~된 상태)'라는 시각적 원리 설명",
+        "hook": "\"pretty(예쁜) 앞에 is 붙이듯, made(만들어진) 앞에도 was가 필요한 딱 하나의 이유!\""
+      },
+      "shortsTrackBIdea": {
+        "concept": "식당이나 카페에서 be동사를 잘못 썼을 때 원어민이 겪는 멘붕 상황극",
+        "hook": "\"I was made coffee라고 하면 원어민은 '네가 커피로 변신해서 태어났다고?'로 알아듣습니다.\""
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "Ugx7LmfOvqHZ9RSpl_94AaABAg",
+      "text": "나 솔직히 여기서 조정식이 능동 수동을 저따구로 설명하는 거 보고 놀랐음",
+      "author": "@DDung_DDu",
+      "likeCount": 5100,
+      "publishedAt": "2025-08-19T12:40:47Z",
+      "replyCount": 50
+    },
+    {
+      "commentId": "UgwWK7uyh-d2X6u4i014AaABAg",
+      "text": "아니 이걸 동사 개수로 접근해서 설명하면 어쩌자는 건지...",
+      "author": "@rhd5373",
+      "likeCount": 21645,
+      "publishedAt": "2025-08-16T15:18:06Z",
+      "replyCount": 291
+    },
+    {
+      "commentId": "Ugxauxs_y1pK3yMMqw14AaABAg",
+      "text": "영어를 이해하는 방법으로 접근하면 망함...\n왜냐는 의문이 믾은 애들이 공부는 잘하는데 영어는 못하더라",
+      "author": "@jeyj9304",
+      "likeCount": 16527,
+      "publishedAt": "2025-08-18T02:24:24Z",
+      "replyCount": 136
+    },
+    {
+      "commentId": "UgyoI4n1L7DoH9laOBN4AaABAg",
+      "text": "나도 왜?라는 질문이 너무 많아서 성적이 안 좋았던.. 지금은 너무 깊숙이 이해할려고 하지 않으니까 더 편함",
+      "author": "@ERIC-f3n8f",
+      "likeCount": 8781,
+      "publishedAt": "2025-08-23T13:01:00Z",
+      "replyCount": 77
+    },
+    {
+      "commentId": "UgxuEnueiVKSxE-RqM14AaABAg",
+      "text": "미치것다. 야... 설명을 이렇게 하나... 전국의 영어강사들이 보구 있다. 진짜..환장하긋네.",
+      "author": "@seanlake1707",
+      "likeCount": 570,
+      "publishedAt": "2025-11-17T17:05:06Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugwg5xcmO72L5kLJOcl4AaABAg",
+      "text": "동사 갯수 듣고 나만 벙찐게 아니구나 ㅋㅋㅋ 저게 뭔 소리임..?",
+      "author": "@애틀랜타여름",
+      "likeCount": 1130,
+      "publishedAt": "2025-08-19T13:29:55Z",
+      "replyCount": 20
+    },
+    {
+      "commentId": "UgzbhCQzgPS26Fkay1R4AaABAg",
+      "text": "이게 수동태를 이해하는 방법임..?ㅋㅋㅋㅋ",
+      "author": "@김진-r4t",
+      "likeCount": 3236,
+      "publishedAt": "2025-08-17T19:29:06Z",
+      "replyCount": 31
+    },
+    {
+      "commentId": "Ugw7t7ELsNZTlHzNQkh4AaABAg",
+      "text": "현직 영어강사입니다. 영어 공부하시는 분들께 도움이 될까 싶어서 설명 남겨요 :) 저는 수동태의 개념을 가르칠때 분사의 개념부터 알려줘요. 동사 뿌리에서 형용사로 바뀐게 분사(한자로 나눌 분을 써서 동사에서 나눠져 나와서 형용사의 역할을 나눠 가진다고 알려줍니다)에요. 그렇기때문에 현재분사와 과거분사는 모두 형용사에요! 형용사는 명사의 상태를 나타내는데 분사는 동사의 성질을 상태로 나타내줘요. Make를 예로 본다면 make 만들다 - made 만들었다 현재형(원형)과 과거형은 모두 동사에요. 그런데 여기에 ing를 붙이면 능동과 진행의 의미를 가진 형용사(상태)로 변합니다. 더 이상 동사가 아니구요. 그래서 making (현재분사 형용사)은 ’만드는/만드는 중인‘ 의 의미를 가져요. Making을 형용사로 이해하면 쉬운데 She pretty ‘그녀는 예쁜’ 라고 이야기하면 문장이 성립이 안되고 틀리죠? ’~다.‘의 의미를 가지고 끝맺음을 내주는 be동사가 있어야 She is pretty. ‘그녀는 예쁘다’가 돼요. 마찬가지로 making도 be동사와 함께 써야 ‘만들고 있다’ 우리가 흔히 be동사+동사ing으로 외우는 진행형의 완성이 됩니다^^ 그래서 진행형에서는 be동사까지가 세트에요! \n과거분사를 볼까요? 과거분사도 똑같이 형용사고 상태를 나타내지만 현재분사와 반대로 이름처럼 완료나 수동의 상태를 의미합니다. 그래서 보통 과거분사는 동사에 ‘~된, ~해진’의 의미가 붙어요. 우리가 알고 있는 make의 동사 3단 변화에서 make-made-made 마지막 과거분사 made만 형용사인거죠~ 그래서 made 역시 과거분사로 쓰일때는 ’만들어진‘ 의미를 가진 형용사이기 때문에 be동사가 필요해요! ‘~다.‘ 의 의미를 가진 be동사와 함께 써서 be made로 쓰게 되면 ’만들어진다‘ 동사가 되고 이게 바로 be동사 +p.p(과거분사)로 우리가 외우는 수동태의 개념입니다!\n\n그런데 만약 수동태가 아닌데 일반동사에 be동사를 붙이게 되면\nI made it. ‘내가 그것을 만들었다.’에서\nI was made it. ’내가 그것을 만들었다였다.‘ 가 되어서 이상한 문장이 돼버리죠!\n여기서 made가 과거분사(만들어진)라면 ‘내가 그것을 만들어졌다.’ 라는 더 이상한 문장이 되는거구요! 그래서 be동사를 모든 문장에 쓰는 친구들은 수동태에서 왜 be동사가 들어가는지 be동사를 어떨때 쓰는지에 대한 충분한 이해가 필요해요. :) be동사에도 다른 동사들처럼 의미가 있기 때문에 그 의미에 맞게 명사, 형용사, 장소 등과 써야 해요! 일반적인 문장에서 일반동사와 be동사는 함께 쓸 수 없어요.",
+      "author": "@Amy_Lemon_house",
+      "likeCount": 4352,
+      "publishedAt": "2025-08-18T16:43:58Z",
+      "replyCount": 143
+    },
+    {
+      "commentId": "UgxpwLuU529WdZa4Gcp4AaABAg",
+      "text": "팩트체크:\n\n조정식은 어학 전공자가 아님. 신뢰할 수 없음 그래서",
+      "author": "@millermiller3427",
+      "likeCount": 190,
+      "publishedAt": "2026-02-16T01:35:13Z",
+      "replyCount": 8
+    },
+    {
+      "commentId": "Ugy6vcAvryD4YVbeAmp4AaABAg",
+      "text": "우리나라는 \n진심으로 배우려는 사람은 없고\n진심으로 가르치기 좋아하는 사람은 너무나 많다",
+      "author": "@user-xi8cz8uo6k",
+      "likeCount": 55,
+      "publishedAt": "2025-12-29T15:18:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw7ak1EMNM8Kg7XbhB4AaABAg",
+      "text": "현직 영어강사입니다. 조정식 선생님이 저렇게만 강의하진 않았을꺼에용 동사에 갯수로 설명하기에는 ‘한글 was made by 세종대왕‘ 이라는 문장이 가능합니다.\n한글은 무언가를 ’능동’적으로 만드는 주체가 아니고 ’만들어지는’ (수동) 주체죠! 그래서 be동사 +pp 형태인 수동태를 써줘야합니다.\n즉, 저기에 쓰이는 was made에서 made는 과거동사로 쓰인게 아니라 pp(과거분사)로 쓰인거지요\n\n분사는 형용사입니다. 과거분사와 현재분사로 나뉘어지고, 과거분사(pp)는 ~되는 (수동의 의미) / 현재분사(Ving)(능동의 의미)는 ~하는 으로, 형용사의 원래역할인 명사를 수식한다고 생각하시면 됩니다. \n\n근데 봅시다. 문장에서 be동사나 2형식 동사 (become, feel, taste,smell…)가 없이 형용사가 혼자 쓰일수 있나요?(be동사는 대표적인 2형식 동사입니다. \n예를 들어 ‘I happy’는 나는 행복한 이란 뜻입니다. 이거 문장인가요? (\n아닙니다.. 그래서 형용사 앞에는 be동사(또는 2형식 동사) 와 같이 쓰여야한다는 것입니다. \n\n따라서 과거분사, 즉 형용사 앞에도 be동사를 써서 뒷쪽 과거분사(-되는)에서 되다. 로 바뀔 수 있는겁니다. 그래서 I am happy에서 am happy가 행복하다로 해석되어진 것 처럼 마찬가지고 ’be동사 + 과거분사‘자체가 ’되어지다‘라는 수동의 의미를 가진 동사(=수동태라 불립니다) 로 되는겁니당 \n\n이렇게까지 설명을 해야 옳은 설명입니다.\n그래서 저기서는 was made에서 made가 마찬가지로 과거 동사로 쓰였다면 동사가 두개가되어 안되는 문장이겠지만, made는 과거분사도 가능하기 때문에 be동사 뒤에 과거분사(즉 형용사)오 보면 수동의 의미를 지니고 가능한 말이 된다는겁니당",
+      "author": "@xxBinibin88",
+      "likeCount": 1870,
+      "publishedAt": "2025-08-19T14:20:00Z",
+      "replyCount": 59
+    },
+    {
+      "commentId": "UgxWC1k03EWOKtSMzNp4AaABAg",
+      "text": "조정식이 딱 애들이 착각하는 범위 내에서만 설명해준거임. 주어는 분명 사람이었을 거고, “누군가 한글을 만들었다.” 이런 식이었을 거임. 동생이 가진 지식은 그저 was가 과거형 동사라는 점, made가 과거형 동사인지는 인지를 못하고 있는 거. 그러니 조정식은 “이미 과거형 동사가 있는데 왜 was를 또 쓰냐;;”라는 거임. Was made가 되면 made가 분사가 돼서 수동태 문장이 되고 능동태 주어와 안맞고.. 어쩌구저쩌구.. 등의 설명은 조정식이 굳이 떠먹여 줄 필요가 없는 거임. 왜냐면 능동태 문장에 대해 was를 끼워 넣은거니까.",
+      "author": "@No_moregret",
+      "likeCount": 977,
+      "publishedAt": "2025-08-20T04:44:59Z",
+      "replyCount": 27
+    },
+    {
+      "commentId": "UgyOnT5FWbCGIumLFaV4AaABAg",
+      "text": "세종이 만들어진게 아니니까 당연 하잖아",
+      "author": "@creativerealinmind",
+      "likeCount": 34,
+      "publishedAt": "2025-08-20T08:47:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxpanNp40XoBLfTR3h4AaABAg",
+      "text": "보통 \n동생같이 궁금해서 질문하는 사람들을 무시함\n정작 본인은 뿌리까지 알지도 못하면서\n아는 척만 하면서",
+      "author": "@자골",
+      "likeCount": 27,
+      "publishedAt": "2025-12-02T14:37:42Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgzTpj64j9_e-CRqusN4AaABAg",
+      "text": "진짜 별 게 다 궁금햇었는데.. 해가 왜 동쪽에서 뜨는 지도 궁금했고 왜 우린 살아있는건지 어떻게 생겨난건지도 그냥 만사가 의문투성이었고 여기에 5~6시간정돈 낭비햇엇는데.. 그냥 다 포기하니까 생각이 편하더라",
+      "author": "@촟초-c1p",
+      "likeCount": 8,
+      "publishedAt": "2025-09-13T13:42:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxkYIoCqhSeLAY3pEV4AaABAg",
+      "text": "현직이 중학교 학원 영어 선생님이에요. 수동태 능동태 설명하는데 동사 갯수로 설명 하면 안되죠. 더구나 make의 과거분사도 made 인데. 저분이 ‘저기 정지 표지판이 있다.’ 를 there is a stop sign. 은 틀리고 영미권 사람들의 밀하는 빙식을 이해하고 that sign says you should stop here. 라고 해야한다는거 보고 바로 저 방송 꺼버렸습니다. 수능영어만 가르치니까 저 야랄 하는거 같아요.",
+      "author": "@jihw7342",
+      "likeCount": 503,
+      "publishedAt": "2025-08-18T08:39:51Z",
+      "replyCount": 39
+    },
+    {
+      "commentId": "Ugxe9y2tgEcW4VoFz3d4AaABAg",
+      "text": "세종 was made 한글 안되는 이유를 동사 개수로가 아닌 능동태 수동태 구분으로 설명해야죠..\n\n그러니 저 자리에서 저 학생은 여전히 be p.p 수동태 역할과 과거시제 구분 하는 방법을 여전히 이해 못하는 표정인데",
+      "author": "@binnnsuha",
+      "likeCount": 380,
+      "publishedAt": "2025-08-18T04:52:58Z",
+      "replyCount": 10
+    },
+    {
+      "commentId": "Ugzkxr0x4sGYzzKt_FB4AaABAg",
+      "text": "우리나라에 영어 박사님들이 정말 많네요~~",
+      "author": "@일찍일어나는벌레는일",
+      "likeCount": 9,
+      "publishedAt": "2025-09-27T12:50:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwUH9TeuCdG6NCCVN94AaABAg",
+      "text": "이건 그냥 이해보다 삼키듯이 외우고 익숙해지는 방법밖에 없어",
+      "author": "@amelia1898",
+      "likeCount": 2,
+      "publishedAt": "2025-09-09T14:20:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxHhAKPd4cyha8Midd4AaABAg",
+      "text": "이명학 들어야겠다고 확신이 들게 해주시네요 😊😊😊",
+      "author": "@user-uurraa",
+      "likeCount": 3,
+      "publishedAt": "2026-02-15T13:57:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgygynAU-PPZ4-l5qK94AaABAg",
+      "text": "조정식은 말만하면 항상 반박당함ㅋㅋ",
+      "author": "@삼삼치치",
+      "likeCount": 12,
+      "publishedAt": "2025-08-19T14:30:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxcBaIzs9bLNGFnqs54AaABAg",
+      "text": "was made를 쓰려면 \n한글 was made by 세종이 되어야 한다고 설명하는게 맞는거 아닌가?",
+      "author": "@불싸이버거",
+      "likeCount": 123,
+      "publishedAt": "2025-08-19T02:28:34Z",
+      "replyCount": 7
+    },
+    {
+      "commentId": "UgzBFHdVXuP8SltBNQ54AaABAg",
+      "text": "걍 주입식 교육의 폐해지ㅋㅋㅋㅋㅋㅋㅋ\n딱 봐도 말이 안되는 문장인데, 학원에서 선생님이 Be동사+P.P가 수동태라고 했으니까라고 주입식 교육을 받았으니까ㅋㅋㅋㅋㅋ",
+      "author": "@msjjtp135",
+      "likeCount": 3,
+      "publishedAt": "2025-09-23T12:06:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwZ38HFvCAEHwW94Zh4AaABAg",
+      "text": "지나가는 알파벳만 기억하고있는 직장인 입니다. 앞만보며 계속 지나가겠습니다.",
+      "author": "@맥도날드는빅맥",
+      "likeCount": 2,
+      "publishedAt": "2025-09-07T18:06:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy3jI3SgwqZsagEOAp4AaABAg",
+      "text": "저게 저도 못 외우는 스타일인데. 잘 모르겠으면 계속 영어 영화도 보고 책도 보면 감이 옵니다. 어색함을 느끼게 되는데..  그래서 이렇게 수능 독해 만점 맞았는데 맞는 방법을 찾아야 할듯요. \n 언어영역도 중딩때 책을 그냥 많이 봐서 1등급이었어요. 언어는 느낌도 중요한것 같습니다. 어색함을 느끼는 정도",
+      "author": "@gdayma21254",
+      "likeCount": 2,
+      "publishedAt": "2025-11-21T03:29:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxSmdguoApHDiWaB9B4AaABAg",
+      "text": "정식 선생님 말씀에 태클을 거시는 이유가 다른 문장을 만들땐 가능해서 라고 하시는데, I am love you 라는 예시를 말해 주셨잖아요 그러면 이제 세종이 주어가 됐을때는 이제 뒤로 가는게 궁금한게 아니라. 왜? 저 문장에서 was랑 made를 같이 쓰지 않냐고 물어봤으니 뒤로 간다는건 다른거고, 학생이 물어본 중점을 보고 계신거고 저 문장에서는 동사의 개수가 1개여야 한다라는 거로 간단하게 설명해 주신거잖아요 왜 수동,능동 나왔다고 그걸 중점으로 보시는건 질문과는 다른 것 같네요..ㅎㅎ",
+      "author": "@깁유진",
+      "likeCount": 3,
+      "publishedAt": "2025-12-08T11:38:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyzHjEbuPPU61UiV854AaABAg",
+      "text": "난이거 고민할 필요도 없이 배웠는데\n우리선생님이 천재였네 p.p가 형용사니까",
+      "author": "@Tyler-f8r",
+      "likeCount": 3,
+      "publishedAt": "2026-02-03T13:36:54Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwGKzeMm85V90EbY_J4AaABAg",
+      "text": "주인장 되/돼 구분도 못합니까...",
+      "author": "@2k2k2kwv",
+      "likeCount": 85,
+      "publishedAt": "2025-10-14T15:44:33Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgyXMh4JyCgfCzw3Uwh4AaABAg",
+      "text": "세상 모든 분야는 기본적으로 암기를 기반으로 시작하는게 지극히 정상이죠.",
+      "author": "@LUKKASSSS7177",
+      "likeCount": 1,
+      "publishedAt": "2025-09-15T15:42:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwc_z-sgr6QPspcSCt4AaABAg",
+      "text": "조정식이 출연할수록 느끼는건 사짜가 점차 보인다는거...\n와 진짜 이게 대한민국 1타강사 수준입니다ㅉㅉㅉ",
+      "author": "@9글-e1w",
+      "likeCount": 2,
+      "publishedAt": "2025-11-26T12:13:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwRP2WjxWMtHlcqPW94AaABAg",
+      "text": "미국에서 1년 반 살면서 느낀점 한국 영어교육 방식 실전X 완전 논문용, 대화할 때 한문장에 동사 50개 써도 이해한다. 심지어 미국애들도 그렇게 쓰고 말한다. 대충 한국에서 배우는 영어는 우리로 따지면 사실 일상에서 거의 쓰지 않는  고급지고 예의있는 말만 하는 느낌 나이먹고 미국가서 실전 영어배우고 있으니 힘들어요. 애들 키우신다면 최대한 어릴때 1년이느 6개월 정도 살아보는걸 추천합니다..😅",
+      "author": "@토토-c2t",
+      "likeCount": 60,
+      "publishedAt": "2025-09-18T10:41:21Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgzebNBaS2EiUOYRwFl4AaABAg",
+      "text": "중학교 때 영어만 50점을 못 넘어서 최대 평균이 80점이였는데요.\n고등학교와서 학원에 하루에 3~6시간동안 앉아있으면 안 배워도 문법 2~4개정도는 어느 느낌으로 쓰는지 혼자 깨닫더라고요...\n영상에서는 동사 갯수로 설명을 해주셨는데 아마 그냥 make의 과거형이 made인 걸 모르고 was made의 made가 p.p형태인 걸 모르는 것 같습니다. \nBe p.p 형태와 3단 변화를 그냥 알려주는 게 좋을 것 같습니다. 참고로 저 고1 들어가기전 겨울에 학원 다니기 시작했는데, 학원에서 수업들으면 대답은 제일 잘하는데\n목적어가 뭐고 목적격보어는 스@봉 뭐고 그냥 주어랑 동사 밖에 모르는 바보멍청이였습니다. 내신  영어 역대 등급은 4-3-2 입니다. 공부를 너무 안하고 자서 1등급 못 했는데 이번에 기말 1등급먹고 올게요 😊\n참고로 하루에 3~5시간씩 앉아서 끄적끄적 할 때 처음 내신 본문 한개 해석해서 총 10퍼센트도 해석 못 맞췄습니다. 그리고 that이랑 what이랑 which랑 다 위치 외우고 그랬습니다.  솔직히 로블록스 한글 해석 이상해서 직접 해석 하면서 하고 싶어서 열심히 한 것도 있긴 함 ㅋㅋㅋ",
+      "author": "@santapopc13",
+      "likeCount": 25,
+      "publishedAt": "2025-08-19T08:33:24Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugwf0ajOAs1PsYNasOt4AaABAg",
+      "text": "PP가 분사라서 라고 할 줄 알았다",
+      "author": "@Theone_0323",
+      "likeCount": 4,
+      "publishedAt": "2026-02-03T15:25:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy06r-ycxazCfOUJ_x4AaABAg",
+      "text": "개인적으로는 제일 베스트는 원서랑 미드같이 일상 영어를 계속 접해보는거라고 생각함, 실제로 초등학교 때 문법 하나도 안하고 원서만 읽었는데 지금 문법 하나도 몰라도 단어랑 숙어만 알면 엔간한건 해석할 수 있음(문법은…배웠는데 몇번을 들어도 외워지거나 이해가 안되서…포기함)",
+      "author": "@celina5340",
+      "likeCount": 1,
+      "publishedAt": "2025-09-18T15:45:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxjXJfuQvbeFQZ19u14AaABAg",
+      "text": "저도 순간 뭔 말하나 하다가 댓글보고 마음 편안해지고 갑니다~~",
+      "author": "@nooneknows87-13",
+      "likeCount": 0,
+      "publishedAt": "2025-10-02T06:50:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyRqbLc0F0N1uFYrah4AaABAg",
+      "text": "왜 아무도 되 에 대해선 관심이 없을까..",
+      "author": "@Junnnnnnng",
+      "likeCount": 85,
+      "publishedAt": "2025-08-19T16:25:09Z",
+      "replyCount": 6
+    },
+    {
+      "commentId": "UgwcdIPspU1RlMH6cCp4AaABAg",
+      "text": "주어를 잘봐야됨 주어가 사람인지 사물인지 이것만 잘 파악하면 수동태만큼 쉬운게 없음",
+      "author": "@smtjmt4040",
+      "likeCount": 20,
+      "publishedAt": "2025-08-20T09:11:53Z",
+      "replyCount": 9
+    },
+    {
+      "commentId": "Ugw_S_nCreFm-7UwZ5t4AaABAg",
+      "text": "정식이형. 대학교다닐때 맨날 수업 안쳐듣고 학생들 선동해서 데모나 쳐다니고, 수업 시간에 어쩌다 가끔 들어오면 그 알량한 몇가지 잡지식으로 교수님들 농락하고 개무시하고, 급기야 교수님들 감금까지 해서 출교까지 당해놓고, 나중에 구질구질하게 복학해서 학교 면학분위기 개판쳐놓고, 일타강사 흉내내는 거 개역겨웠는데,\n\n이번에 제대로 나락 가는 듯해서 기분 좋습니다.\n\n형, 이번에 논란 생기는데, 왜 그 고대법대 출신 변호사들 중에서 그 누구도 형을 위해 선뜻 변호해주겠다고 하지 않을까요? 뭔가 시사하는 바가 있지 않을까요? 참고로 제가 속한 100명짜리 단톡방에서는 이제야 정의구현돼간다고, 인과응보라고 했습니다.\n\n잘 가세요. 가시면서 형이 20, 30대 때 그 독사같은 혀로 비난하고 몰아가고 좌절하게 만든 수많은 사람들에게 죄책감도 조금 느끼시고요😂😊",
+      "author": "@kulawdwy",
+      "likeCount": 2,
+      "publishedAt": "2026-01-30T09:09:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxdml3dSrWu1VbXiyV4AaABAg",
+      "text": "국어도 맞춤법이나 발음나는대로 적기 이런거에 매번 규칙이 있고 그 규칙에 또 예외가 있고 어쩌구저쩌구 많아서 그냥 외워야되는거 많음ㅋㅋㅋ",
+      "author": "@초코보달린다",
+      "likeCount": 1,
+      "publishedAt": "2025-09-29T15:43:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxOYoxJ9LnVWD_LPkB4AaABAg",
+      "text": "진짜 오늘 무대 최종치임… 왜이렇게 오늘 분위기 좋지?",
+      "author": "@user-jl5cb8dd6m",
+      "likeCount": 1,
+      "publishedAt": "2025-08-30T17:34:31Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz7DlRCko6IrYluo7R4AaABAg",
+      "text": "제목이 잘못됐네요.\n\n세종 made 한글 을 왜 was made로 쓰지않느냐는 질문은 수동태와 전혀 상관이 없구요.\n강사님이 설명하신 건 수동태를 be + p.p는 암기해야하는 사례를 드신 부분일 뿐입니다..",
+      "author": "@pes9488",
+      "likeCount": 3,
+      "publishedAt": "2025-12-05T10:35:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwd84UFZeS_6MxAJal4AaABAg",
+      "text": "시팜 슬픈건 막상 영어권 가면 저딴 식으로 쓰는 놈들 있다 ㅋㅋㅋ\n특히 술자리서 말 배우면 더 그렇다 ㅋㅋㅋㅋ",
+      "author": "@아몰랑2",
+      "likeCount": 17,
+      "publishedAt": "2025-08-18T09:35:47Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgyALh38iEW6QTgCGix4AaABAg",
+      "text": "아니 ㅋㅋ 이걸 왜 다 수동태에 꽂혀있는 거임? 여자애 질문이 ‘과거에 만든 거지, 지금 만들고 있는 게 아니다.’ 즉 시제에 대한 질문이므로 made가 과거 동사로 쓰였으니 was가 붙으면 동사가 2개가 되어버리니까 안 된다. 이게 맞는 건데;\n\n정식쌤이 말씀하실 때 앞에 수동태에 대해서 얘기를 한 건 수동태의 경우에는 이럴 수 있다 하고 예를 든 거고, 그 뒤가 핵심인데 공부 못하는 사람들 왤케 많냐 ㅋㅋ",
+      "author": "@velorain404",
+      "likeCount": 91,
+      "publishedAt": "2025-08-19T15:42:30Z",
+      "replyCount": 6
+    },
+    {
+      "commentId": "UgxzKBU7PSX0MJMuphh4AaABAg",
+      "text": "뭐랄까 그냥 어렸을때부터 영어 배우고 유학도 다녀오고 햇더니 문법을 안배웠어도 감으로 풀 수 있더라고요....",
+      "author": "@kir4kir4star",
+      "likeCount": 1,
+      "publishedAt": "2025-11-26T15:11:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzybqtpBKXZGJtoIGl4AaABAg",
+      "text": "사실 저렇게 된 이유를 찾으려면 언어학, 게르만어, 라틴어 공부도 해야함.\n대학수준 언어학을 파고 들어야 왜 저런지 정확한 이유를 알 수 있는건데 고등학교 수준으로 배울게 아님...",
+      "author": "@-mandoo-",
+      "likeCount": 2,
+      "publishedAt": "2025-12-06T11:04:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzVg3RfPqDDrSxOReB4AaABAg",
+      "text": "조정석이 니네가 얘기하는걸 모르겠냐고ㅋㅋㅋㅋㅋㅋ",
+      "author": "@Beyoung-i1t",
+      "likeCount": 7,
+      "publishedAt": "2025-10-17T17:59:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwMUqGBjnFvtIEsBs14AaABAg",
+      "text": "수동태는 과거분사가 필수적으로 쓰이지만, \n모든 과거분사는 수동태만을 의미하진 않습니다. \n즉, 동생이 질의한 왜 was(과거분사)를 쓰지 않았어?에 수동태가 아니니까! 라고 답변하는건 잘못된 명제라는 의미죠",
+      "author": "@숟갈-l9g",
+      "likeCount": 5,
+      "publishedAt": "2025-08-19T16:20:42Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzMZ5yPq7N-BZ5H8st4AaABAg",
+      "text": "영어를 조기교육하면 좋은 이유 아닌 이유가 문법이 그냥 체득됨... 문법 틀린건 뭔가 문장이 어색한게 느껴짐. \n\n대신 수능 영어같이 이리꼬고 저리꼬고 하는건 풀기 어렵고, 오히려 토익은 술술 쉽게 잘 풀림",
+      "author": "@june6378",
+      "likeCount": 8,
+      "publishedAt": "2025-08-22T22:09:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw0aMwOv8bYEx2yDX94AaABAg",
+      "text": "왜? 를 안하면 발전이 없음\n우리나라 교육의 가장 큰 문제점이라고 생각함\n학교에서도 왜 그런거에요? 라고 질문하면 그냥 외워 가 됨\n당장 성적을 잘 받기 위해 그냥 외웠다고 하더라도 왜 그런지에 대해서 본인이 알아보는 과정에서 본인 스스로가 발전하고 있다는걸 느낄 수 있을거임",
+      "author": "@보검보다보겸",
+      "likeCount": 2,
+      "publishedAt": "2025-09-14T21:42:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw3EQWG91s1fywcOK94AaABAg",
+      "text": "와 겁나 재밌다 ... 난 그냥 몰랐는데 이해가 돼 ... 대박...",
+      "author": "@uri_nennne96",
+      "likeCount": 0,
+      "publishedAt": "2026-01-29T09:14:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyHwCcklMuCgMpd5kV4AaABAg",
+      "text": "수동태면 was made가 쓰일 수도 있는거 아니에요? 동사수가 아니라 능동이 상황상 맞으니 능동능동을 쓴다가 적절한거 아닌가요 ㅠㅠ 저 혼자 이해 못했나요 ㅠ",
+      "author": "@anna_angry",
+      "likeCount": 41,
+      "publishedAt": "2025-08-18T08:08:34Z",
+      "replyCount": 10
+    },
+    {
+      "commentId": "Ugzb7vHEti-eZpGKFhd4AaABAg",
+      "text": "저딴게 스타강사라고 다 방송빨임",
+      "author": "@dhrj35283",
+      "likeCount": 42,
+      "publishedAt": "2026-03-10T09:47:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyFcQCQ5hZPf4Q9QgN4AaABAg",
+      "text": "방구석 일타강사 다 튀나오노 씹 존나 웃기네 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅌㅌㅋㅋ",
+      "author": "@배진우-j3m",
+      "likeCount": 52,
+      "publishedAt": "2025-10-06T02:55:49Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgyFtGQTJ1wrYDzloh14AaABAg",
+      "text": "들어도뭐가잘못됬는지도모르는나는세종대왕님께한번더감사해야지",
+      "author": "@이름성-g1c",
+      "likeCount": 1,
+      "publishedAt": "2026-04-05T07:05:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw7I7rSpBJ2VOzpg-14AaABAg",
+      "text": "일단 주인장은 한국어 공부부터 해야 할 듯",
+      "author": "@요세하녕안1",
+      "likeCount": 1,
+      "publishedAt": "2026-04-04T17:19:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzYrHi6tYfPss8fW4F4AaABAg",
+      "text": "저건 설명이 잘못된것 같은데  한문장에 동사가 몇개 있어야 되냐니?? 그렇게 따지면 저 아이 수준에서는 be도 동사고 made도 동산데  동사가 2개가 되서 was 를 be로 바꿔야 한다는 설명을 한들 애초에 be +p.p 형태의 정의를 가르쳐 주지 않은상태에서는 저렇게 설명해도 못알아듣는건 매한가지임.",
+      "author": "@성이름-v7n8w",
+      "likeCount": 17,
+      "publishedAt": "2025-08-22T10:12:31Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzLC4IOn9PNF03FUL14AaABAg",
+      "text": "돈주고 시험문제 사서 명맥 유지하던게 설명이야 제대로 하겠어요~?!",
+      "author": "@kakakfjekxhsk",
+      "likeCount": 8,
+      "publishedAt": "2025-12-31T21:24:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwaN6uIQntvYXCSgFB4AaABAg",
+      "text": "수동태 설명을 ㅋㅋㅋ 동사갯수로 해주면 어쩌자는기고",
+      "author": "@dd99297",
+      "likeCount": 3,
+      "publishedAt": "2025-11-24T16:12:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw6TJ5rl4iEkSbWGoF4AaABAg",
+      "text": "분사를 설명할줄알았는데 동사 두개라니....  이래서 영어교육과 나온분에게 배우는게...",
+      "author": "@다메다메2",
+      "likeCount": 0,
+      "publishedAt": "2026-01-18T15:29:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwEKrsgcxt5avjOLaZ4AaABAg",
+      "text": "?? 밴드 KISS 노래중에\nI was made for lovin' you라는 곡이 있는데\n이거랑\nsejong was made 한글 이거랑 다른거 있나요?\n영어 공부를 열심히 하지않아서 궁금하네요",
+      "author": "@sbndnn77",
+      "likeCount": 1,
+      "publishedAt": "2026-05-04T10:34:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgztgRD007tD9SuaXTl4AaABAg",
+      "text": "언어는 약속인 경우가 대부분이라 깊게 의미를 파고들면 머리 아픔",
+      "author": "@미친붕기견",
+      "likeCount": 3,
+      "publishedAt": "2025-11-26T04:46:32Z",
+      "replyCount": 9
+    },
+    {
+      "commentId": "UgziEy554-304hAc_fZ4AaABAg",
+      "text": "이걸 무슨 동사 개수로 판단하고 있어 우리가 사동 표현 쓰면서 동사가 몇 개인지 세고 있냐 그냥 쓰는 그 동시에 의미를 이해하기 때문에 자연스럽게 쓰는 거지",
+      "author": "@HARVEY-Kim",
+      "likeCount": 8,
+      "publishedAt": "2025-08-19T07:39:42Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugx5gy1Wc4KwkBx_8r54AaABAg",
+      "text": "뭐라는...\n뒤에 목적어가 있으니 수동태를 사용할 수 없고 그러니 비동사도 못 쓰는거지 동사의 개수로 접근하면 그것도 그냥 설명부족인거지",
+      "author": "@WM-mq8um",
+      "likeCount": 16,
+      "publishedAt": "2025-08-18T15:47:07Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwCUaXykINoOYnUp014AaABAg",
+      "text": "원래 언어엔 무조건적인 규칙성은 없음 그냥 사람들이 쓰다보니 생긴 규칙이 있을 뿐 언어에 왜? 를 물어도 답이 없어",
+      "author": "@네모두번",
+      "likeCount": 1,
+      "publishedAt": "2025-09-30T16:01:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_LQ_vek42mUoBZ654AaABAg",
+      "text": "공교육 영어 교육 도입한지가 이제 거진 30년인데 아직도 이러고 있나 ㅋㅋㅋㅋ",
+      "author": "@parkbro29",
+      "likeCount": 2,
+      "publishedAt": "2026-02-07T19:17:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwXnORryOFv688ycY14AaABAg",
+      "text": "이래서 해당 분야에 지식있는 사람이 편집을 해야 함. 아님 영상을 퍼 나르는 사람이 편집점을 잘못 잡은 거임. 예시 문장의 주어가 사람이기에 동사 두개가 나오면 안된다는 설명이 맞는 간데 예시 문장도 없이 동사만 가지고 설명한 부분만 편집해서 내 보내니 오해가 생길 수밖에...",
+      "author": "@대한건아-y3x",
+      "likeCount": 13,
+      "publishedAt": "2025-08-22T15:34:27Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz6L9MQJ4kcpVQoeE94AaABAg",
+      "text": "I was made for you 라는 노래제목도 있는데",
+      "author": "@tv-fh7fo",
+      "likeCount": 3,
+      "publishedAt": "2025-08-21T14:08:26Z",
+      "replyCount": 6
+    },
+    {
+      "commentId": "UgyLROEZInaCFr8BO194AaABAg",
+      "text": "The plate was made of metal <- 이건 그럼 틀린 문장이겠네? 뭔 소리야 저겤ㅋㅋㅋㅋ 아니나 다를까 댓굴둘 다 답답해하고있는 거 넘 웃김",
+      "author": "@챨챨",
+      "likeCount": 11,
+      "publishedAt": "2025-11-14T06:13:41Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw79wvWE2_fhb6S7uJ4AaABAg",
+      "text": "정승재쌤 영어도 공부해서 알려줘요 ㅋㅋㅋㅋㅋ",
+      "author": "@SSpasmr1233",
+      "likeCount": 1,
+      "publishedAt": "2026-01-30T23:27:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzWS8pLWvumOFWM8Bd4AaABAg",
+      "text": "동사가 2개라서 안된다고 하는거 진짜 웃기네요ㅋㅋㅋ",
+      "author": "@앞창오빠",
+      "likeCount": 0,
+      "publishedAt": "2025-12-21T07:16:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwKpxYDnGsThTXXcGJ4AaABAg",
+      "text": "I AM SEOUL YOU🥰",
+      "author": "@veritasastro",
+      "likeCount": 7,
+      "publishedAt": "2025-08-15T16:27:13Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgyM3D8tIEv895_Eirt4AaABAg",
+      "text": "저 사람 그 수능 문제팔이 강사 아님?",
+      "author": "@rising_moon",
+      "likeCount": 3,
+      "publishedAt": "2026-03-19T03:52:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwE_167U_drYYhmYqV4AaABAg",
+      "text": "엥 was made가 동사의 개수??",
+      "author": "@user-pv5lg8dc2q",
+      "likeCount": 82,
+      "publishedAt": "2025-08-16T19:26:13Z",
+      "replyCount": 16
+    },
+    {
+      "commentId": "Ugy_CmQ85v_bIZSOq9p4AaABAg",
+      "text": "우리나라 영어 전공자들 다 납셨노",
+      "author": "@kyj0527",
+      "likeCount": 1,
+      "publishedAt": "2025-09-18T04:45:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwnIlK7xen2Ecs9tS14AaABAg",
+      "text": "이유를 알고자 하는 마음가짐은 좋은데 그 부분은 \"언어학적 접근\"이라서 굉장히 어려움. 설령 그 부분을 잘 아는 사람이 있다고 하더라도 지금은 이해하기가 어려울 것임. 우선,  문법은 어느 정도 외우고 혼자 공부해도 괜찮은 실력이 갖춰졌을 때, 언어학적 지식이 쌓아 나가면 훨씬 더 깊은 언어 공부가 되는 것임.",
+      "author": "@ohtaekwon2240",
+      "likeCount": 1,
+      "publishedAt": "2025-08-21T13:00:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwlb4_Kalm3Soy6g6R4AaABAg",
+      "text": "영어를 배우는 거냐, 시험 찍기 배우는 거냐?\n한국식 교육은 50년 동안 변하는 게 없네",
+      "author": "@lIlllIIllIlI-l",
+      "likeCount": 8,
+      "publishedAt": "2025-08-17T17:39:40Z",
+      "replyCount": 33
+    },
+    {
+      "commentId": "UgyQPZDpDpA3RclyOgd4AaABAg",
+      "text": "아니 그니깐 저걸 동사 갯수로 풀이하는 방식이 맞는거임?",
+      "author": "@I-love777",
+      "likeCount": 14,
+      "publishedAt": "2025-08-18T17:24:35Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "Ugx_mJaThslzwDcJ6jh4AaABAg",
+      "text": "세종 was made by 이방원.",
+      "author": "@민영우-j8m",
+      "likeCount": 5,
+      "publishedAt": "2025-12-15T02:28:19Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgwqQ81Gwz6sAFxLWbN4AaABAg",
+      "text": "수동태를 얘기하다가 갑자기 made가 동사였다고? ㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@cleoiqos9331",
+      "likeCount": 1,
+      "publishedAt": "2025-08-31T12:37:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz3tbITc2Lym1n7x_h4AaABAg",
+      "text": "주어가 세종이니까 '세종이 한글을 만들었다' -> made 가 되는거지..was made 라고 쓰면 '세종이 한글을 만들어 졌다' 가 되니까..",
+      "author": "@only_see_jiwonpark",
+      "likeCount": 1,
+      "publishedAt": "2026-02-22T16:35:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzDkEhlULCHE4AT-9l4AaABAg",
+      "text": "걍 수능도 갈아엎고 교육도 근본적으로 갈아엎고\n실전에 도움되는 걸 가르쳐라. \n\n어른들 뭣들 하냐",
+      "author": "@doochang2",
+      "likeCount": 5,
+      "publishedAt": "2025-08-23T11:28:17Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgysEsK8SQnuzmKpr7h4AaABAg",
+      "text": "made는 과거분사로서 형용사에 속하게 되는데 왜 동사가 두개가됨 ?",
+      "author": "@긍긍이-t3t",
+      "likeCount": 18,
+      "publishedAt": "2025-08-16T17:03:54Z",
+      "replyCount": 12
+    },
+    {
+      "commentId": "Ugz0vofefWSfAsq7Jqt4AaABAg",
+      "text": "동사 개수로 접근하는 방법이 한국식 영어 문제 풀이에서 가장 빠른 방법이기 때문입니다!\n댓글 분들께서 말해주신 의미를 통해 수동태 사용 문장은 쉬운 문장형태에서는 가능합니다\n하지만 문장이 길어지고 주어가 추상명사, 문장 전체 등으로 바뀌면 능동 수동 판단하는 것 자채가 어려워져요! 그래서 동사 개수로 판단하는 것이 한국형 영어 시험에서는 가장 효과적이랍니다! 문장 하나에는 동사 하나! 접속사 1개에는 동사 2개!",
+      "author": "@msc5341",
+      "likeCount": 3,
+      "publishedAt": "2025-08-21T19:10:43Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwdNdlv769P21iSsUJ4AaABAg",
+      "text": "이명학 들으면 걍 이해된다ㅋㅋ",
+      "author": "@blplzue3960",
+      "likeCount": 1,
+      "publishedAt": "2025-08-21T08:34:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyzYpJSs5JK0JM_lRV4AaABAg",
+      "text": "둘다 맞는 말임 언어는 그냥 외워서 쓰는거지 공식에 맞추는게 아님\n문의 법은 다 외우고 나중에 분석하는 것",
+      "author": "@kairos521",
+      "likeCount": 0,
+      "publishedAt": "2026-04-12T02:37:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzxTW41B26amP92Jul4AaABAg",
+      "text": "돼돼돼돼돼",
+      "author": "@wtheecat",
+      "likeCount": 4,
+      "publishedAt": "2025-09-25T13:01:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyH_s8T0JAn5GAFl0N4AaABAg",
+      "text": "지나가는 영어 선생입니다. \n\n 수동태, 이렇게 이해하면 쉽습니다\n  \n주어가 행동을 하는 것이 아니라, 주어가 행동을 당하는 것입니다.  \n\n능동태: I made it. (내가 만들었어)  \n수동태: It was made. (그것이 만들어졌어)  \n\n수동태 공식은 be동사 + 과거분사(p.p) 입니다.  \n이 공식이 있으면 수동태, 없으면 능동태입니다.",
+      "author": "@retiya23",
+      "likeCount": 7,
+      "publishedAt": "2025-08-21T16:12:54Z",
+      "replyCount": 8
+    },
+    {
+      "commentId": "Ugw5Jwtsx6ry389YplR4AaABAg",
+      "text": "해당 ‘수동태’ 설명은 언어학·영어교육학적으로 여러 층위에서 잘못되어 있어 학습자에게 오개념을 심습니다. 핵심만 정확히 짚겠습니다.\n\n먼저 “문장에 동사는 한 개”라는 주장은 오개념입니다.\n정확한 원칙은 “각 절(clause)마다 유한동사(finite verb)는 하나”입니다. 영어의 술부는 보조동사 사슬(modal > have > be(진행) > be(수동) > 본동사 분사/동명사)로 이루어질 수 있어 표면상 동사 형태가 여러 개가 나와도 하나의 술부를 이룹니다. \n예시로는: I will have been being watched — 동사 형태는 여러 개지만 유한성은 ‘will’ 하나가 담당합니다. 또한 비유한절(to go, having done)이 결합하면 한 문장에 본동사가 여러 개처럼 보이는 것은 통사구조상 자연스러운 현상입니다. “한 문장=동사 한 개” 식 구호는 통사론을 왜곡합니다.\n\n“I am love you”가 틀린 이유는 “동사가 둘이라서”가 아닙니다.\n\n만약 am을 진행 조동사로 쓴다면 뒤에는 반드시 현재분사: I am loving you. (다만 love는 상태동사(stative)라 보통 I love you를 씁니다. 맥도널드 광고 같은 맥락에서는 진행이 가능하지만 이는 담화·양태의 문제지 규칙 위반 보정이 아닙니다.)\n\n만약 am을 계사(copula)로 쓴다면 보어는 명사/형용사/전치사구가 와야 합니다. I am love(‘나는 사랑 그 자체다’)는 가능하지만 I am love you처럼 동사구(VP: love you)를 보어로 둘 수 없습니다.\n결론은 오류의 본질은 “동사가 두 개”가 아니라 보조/계사의 기능과 보어 유형, 상(Aspect) 선택을 틀리게 이해한 겁니다.\n\n“세종 was made 한글”이 틀린 이유는 수동태의 논항배열을 거꾸로 했기 때문입니다.\n능동: Sejong (Agent) made Hangul (Patient)\n수동: Hangul (Patient) was made (by Sejong)\n“Sejong was made Hangul”은 ‘세종이 한글로 만들어졌다’라는 비상식적 의미가 됩니다. 수동은 목적어를 주어 자리로 올리고(승격), 행위자는 by-phrase로 내리는 구조 변환이지, 임의로 어휘를 재배열하는 기계가 아닙니다.\n\n“왜 made 앞에 was를 안 쓰냐?“에 대해서 말씀드리자면\n그 문장을 능동 과거로 말하면 Sejong made Hangul이고, 수동 과거로 말하면 Hangul was made by Sejong입니다. was는 “과거라서 붙이는 표지”가 아니라 수동(또는 진행)을 형성하는 be-보조동사입니다. 과거 표지는 능동에서는 made 자체의 굴절(-ed)이 담당하므로 was를 추가하면 품질(voice)이 바뀝니다. (덧: 자연스러운 영어 collocation은 created/devised가 made보다 적합합니다: Hangul was created by King Sejong.)\n\n\n“동사 한 개” 같은 암기용 슬로건은 절/유한성/보조동사 사슬/논항구조라는 핵심 개념을 가립니다.\n\n올바른 지도 절차는 (i) 절 경계 파악→(ii) 담화 초점에 따라 능동/수동 선택→(iii) 보조동사 순서(modal > perfect > progressive > passive)→(iv) 본동사 형태 결정을 따르는 것입니다.\n\n자, 그런데 봅시다. “동사 한 개” 운운하며 I am love you와 Sejong was made Hangul을 예로 드는 설명은 유한성·보조동사 기능·수동 변환 규칙을 모두 혼동시켜 학습자의 문장 구축 능력을 떨어뜨립니다. 학습자는 ‘외워서 맞히는’ 요령이 아니라 구조를 이해해 스스로 조립하는 능력을 길러야 합니다. 이런 기본기를 흐리는 콘텐츠는 수정이 필요하지 않을까요?",
+      "author": "@pitrishoseery8547",
+      "likeCount": 5,
+      "publishedAt": "2025-08-21T16:21:44Z",
+      "replyCount": 8
+    },
+    {
+      "commentId": "UgxbzqHZlmNd8m4Rw5F4AaABAg",
+      "text": "어렸을때 같은 질문했었는데 저 영어 쌤  같ㅇ은 설명으로 그냥 외우라 시킴ㅋㅋ",
+      "author": "@냥냥-b5z1x",
+      "likeCount": 0,
+      "publishedAt": "2025-11-24T07:11:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyf2dFcB9YRL8SI45Z4AaABAg",
+      "text": "10년 동안 학생으로 공부하고 카투사 제대 후에 외국계 부동산 회사에서 일하고 있습니다. \n이게 한국어로 설명하려면 너무 힘든 일인데 강사로서의 답답함이 느껴지네요\n그냥 1학년부터 제발 회화 수업했으면 좋겠습니다 언어에 엄마아빠 외에는 딱히 절대성이 없습니다",
+      "author": "@SNalogy",
+      "likeCount": 1,
+      "publishedAt": "2025-09-20T00:17:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwmi56CoRjjINqEtjZ4AaABAg",
+      "text": "원어민과 자유롭게 대화도 못하는 영어강사들이 수동태 설명하겠다고 여럿 나서는 모양새가 웃길따름",
+      "author": "@parkjack-w3i",
+      "likeCount": 7,
+      "publishedAt": "2025-08-23T08:09:07Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugw3gHgIfKmBYw3ljxp4AaABAg",
+      "text": "좀 잘못 가르치시긴 했는데 저 때 쓰이는 made는 과거분사(수동태)가 아니라 과거형으로 쓰여 앞에 was가 붙을 수 없습니다",
+      "author": "@Jokey조키",
+      "likeCount": 1,
+      "publishedAt": "2025-11-25T13:41:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzog4nhffyEhwOyY714AaABAg",
+      "text": "다들 외우는게 중요하다고 하는데 그냥 외우는건 한 상위 10%정도임. 영어 원서 많이읽고하면서 영어 자체에 익숙해지는건 3%임. 0.5%가 되려면 영어 자체에 익숙해지는건 물론이고 그거를 완벽하게 응용할수있어야되는데 그럼 이해가 중요함. 영어에서 이해가 안중요하다고 생각하는건 영어가 익숙하지않아서 이해가 불가능한 레벨이라서 그런거임. 영어가 완전히 익숙해지면 거기서부터 이해가 중요해지는거임.",
+      "author": "@acelee8373",
+      "likeCount": 1,
+      "publishedAt": "2025-12-18T18:19:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzXb4uE5ATId1_ONqh4AaABAg",
+      "text": "정식아 영어공부 더하고 온나~ 퍽유다~",
+      "author": "@iejxjns",
+      "likeCount": 1,
+      "publishedAt": "2026-04-15T16:45:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxTrCQvGSbT0Rfy1zl4AaABAg",
+      "text": "공부 못해도 되니까 왜 라는 질문이 가장 중요하다고 본다",
+      "author": "@chory-c8n",
+      "likeCount": 0,
+      "publishedAt": "2025-09-12T11:24:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwOgqU7rIT63zotW9N4AaABAg",
+      "text": "아니 물론 왜? 를 끝도없이 파고들어가면 답이없지만\n\n기본적인 것들은 언어인만큼 약속으로 받아들이고, \n충분히 원리로 이해할 수 있는 부분도 있는데\n\n밑도 끝도 없이 언어는 설명하려면 전공 이상의 지식이 있어야해 무조건 암기야! 이러면 뭐 그냥 막막해지는거죠\n\n그냥 자기가 쉽게 설명할 자신이 없어서 걍 받아들이라는 식으로 가르치는 강사가 많은데 굳이 깊게 안들어가도 충분히 납득하면서 배울 수 있는 과목입니다",
+      "author": "@yundda2",
+      "likeCount": 1,
+      "publishedAt": "2025-08-26T22:18:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxKcdJFQ6z6moU6qLx4AaABAg",
+      "text": "저 죄진 표정의 아빠의 모습은..보여주지 말자...",
+      "author": "@tonyta432",
+      "likeCount": 0,
+      "publishedAt": "2025-12-05T20:51:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugybml64Kmm3wbD6L4d4AaABAg",
+      "text": "언어는 외우는게 맞음 한글도 첨엔 외운다",
+      "author": "@히나타-z8o",
+      "likeCount": 1,
+      "publishedAt": "2026-03-09T14:57:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzVUXZ26VBkHo6tB3V4AaABAg",
+      "text": "내가 진짜 이해안되면 외우기ㅜ싫어하는 타입이라 항상 수학도 공식 외워서 풀라고 학원쌤이 할때 그만뒀고 영어도 이해하고 싶은데 그냥 외우라 할때 관뒀음.. 근데 그러다가 입시 끝나고 대학와서 영어 전용 수업 들으면서 원어민 쌤 대화 일상적으로 듣고 영어 노래나 영어로 된 영화같은거 몇번 접하니까 오히려 영어가 싫지 않아지고 더 쉬워지더라..",
+      "author": "@lobo_lobo_",
+      "likeCount": 0,
+      "publishedAt": "2025-09-04T07:16:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxFcnlw8cHmAzHRPuJ4AaABAg",
+      "text": "Made 앞에 was 안쓰는 이유 \n\n1. 문장의 동사는 한개여야하는 게 맞음\n\n2. 해당 문장에 이미 make가 3형식 완전타동사로 존재하기 때문에 해당 의미로는 be동사가 또 있으면 안됨 \n\n3. 반대로 Be 동사를 넣어서 Was made라고 쓸 수도 있지만 이러면 be + p.p인 수동태로 쓰는 것이라 의미가 달라짐 \n(보통 만들어졌다로 끝이 아니라 그래서 어쨌다는 부가의미가 더 들어가야함)\n\n세종 made 한글 : 세종이 한글을 만들었다\n한글 was made of letters based on the shapes of the speech organs : 훈민정음은 발성기관의 모양을 본딴 글자로 만들어졌다\n한글 was made to teach 백성 : 한글은 백성을 가르치기 위해 만들어졌다\n한글 was made by 세종 : 한글은 세종에 의해 만들어졌다 \n\n그래서 was made 형태로 쓰려면 주어가 동사를 당하는 피동의 의미일 때 써야하고 영상의 맥락에서 세종이 당하는 상태가 아니기 때문에 be동사는 불필요함",
+      "author": "@hwang5217",
+      "likeCount": 1,
+      "publishedAt": "2026-01-29T09:19:37Z",
+      "replyCount": 0
+    }
+  ]
+}

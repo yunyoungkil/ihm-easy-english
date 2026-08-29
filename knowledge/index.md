@@ -26,6 +26,11 @@
 - [팟캐스트 형식 콘텐츠 추가 검토](decisions/2026-08-25-podcast-format-idea.md) — 초기 브레인스토밍, 미착수
 - [채널 자체 적합도 점수 도입](decisions/2026-08-25-content-opportunity-score.md) — project1에서 `my_channel_fit_score` 공식만 이식, 경쟁 채널 비교는 미포함
 - [경쟁 채널 비교(market_demand_score) 구현](decisions/2026-08-29-market-demand-score.md) — 소형 채널 outlier 탐지, 원 조회수 비교 버그를 하루당 조회수로 수정
+- [아웃라이어 댓글 AI 분석 구축](decisions/2026-08-29-outlier-comment-analysis.md) — Gemini AI 시청자 고민/어휘 분석 파이프라인
+- [Studio CTR 다운로드 폴더 자동 낚아채기](decisions/2026-08-29-studio-ctr-auto-ingest.md) — Downloads 폴더 실시간 무인 압축해제 & 대시보드 SSE 동기화
+- [경쟁사 대본 역설계 & 맞춤 대본 생성](decisions/2026-08-29-competitor-script-reverse-engineering.md) — 1-Click 자막 추출 및 Gemini AI 대본 역설계 파이프라인
+- [Cyber-HUD 대시보드 & 디자인 시스템 구축](decisions/2026-08-29-cyber-hud-command-center.md) — 피치블랙/네온 벤토 그리드, 시장수요 레이더 및 에피소드 인스펙터 구축
+- [브랜드 & 대시보드 디자인 시스템](brand-dashboard-design-system.md) — 컬러 토큰, 폰트 스케일, Faceless Explainer 비주얼 일체화 표준 가이드
 
 ## 에피소드
 

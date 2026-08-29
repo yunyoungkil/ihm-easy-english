@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-08-29T06:45:00.039Z",
+  "video": {
+    "videoId": "t_wVvVyqdbg",
+    "title": "30초 만에  'Want' vs 'Won't' #발음 완벽 구분!",
+    "channelTitle": "돔잭맘TV (DomJacTV)",
+    "channelId": "UCpuj_iVeu2rlLYykummjRLA",
+    "publishedAt": "2025-11-17T13:19:02Z",
+    "viewCount": 11875,
+    "likeCount": 64,
+    "commentCount": 3,
+    "thumbnailUrl": "https://i.ytimg.com/vi/t_wVvVyqdbg/hqdefault.jpg"
+  },
+  "commentCountCollected": 3,
+  "aiInsights": {
+    "painPoints": [
+      "원어민의 'won't' 발음이 '우엉ㅌ'처럼 국적 불명의 외계어처럼 들려 청취에 좌절감을 느낌 (\"왜 저는 우엉ㅌ 로 들리는걸까요? 하아..\")",
+      "단어로 배운 발음과 실제 문장 속 연음에서 발생하는 't' 탈락 현상 때문에 실전 대화에서 소리를 놓침",
+      "'원하다(want)'와 '안 할 것이다(won't)'는 정반대의 뜻인데 소리 구분이 안 되어 상대방 의도를 정반대로 오해할 위험이 큼"
+    ],
+    "audienceQuestions": [
+      "won't 뒤에 다른 단어가 올 때(won't be, won't do)는 왜 '트' 소리가 전혀 안 들리나요?",
+      "won't의 모음 소리는 도대체 '오'인가요 '우'인가요? 왜 한국인 귀에는 '우엉'처럼 들릴까요?",
+      "문장 끝에 올 때(No you won't)와 문장 중간에 올 때 발음 규칙이 구체적으로 어떻게 다른가요?",
+      "want to(워너/원투)와 won't는 원어민이 빠르게 말할 때 0.1초 만에 어떻게 구별하나요?"
+    ],
+    "audienceVocabulary": [
+      "우엉ㅌ",
+      "트 발음",
+      "맛보기로 (살짝 내는 소리)",
+      "문장 안에서",
+      "하아.. (청취 좌절 감탄사)",
+      "완벽 구분"
+    ],
+    "whatWorked": [
+      "헷갈리는 두 단어(Want vs Won't)의 핵심 차이를 단 30초 만에 직관적으로 대조해 준 명쾌함",
+      "사전적 발음(won't)에 갇히지 않고, 문장 결합 시 '트' 발음이 사라지는 실전 연음/탈락 규칙을 명확하게 짚어준 점"
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "Won't가 '우엉ㅌ'로 들리셨다면 정상입니다 (Want vs Won't 30초 종결)",
+        "원어민은 Won't에서 '트' 소리를 내지 않습니다! (귀 뚫리는 원리)",
+        "원하다(Want) vs 안 한다(Won't) 정반대 뜻인데 왜 똑같이 들릴까?"
+      ],
+      "hookThreeSeconds": "아직도 Won't 들을 때 '우엉ㅌ'로 들리시나요? 오늘 딱 1가지만 알면 평생 완벽하게 들립니다!",
+      "shortsTrackAIdea": {
+        "concept": "입모양(턱 떨어지는 '아' vs 입술 모으는 '오우') 원리와 문장 속 T 탈락 공식(Won't do → '워운두') 시각화",
+        "hookOneLine": "Won't 발음할 때 제발 '트' 소리 내지 마세요! 원어민은 문장 중간에서 '트'를 버립니다."
+      },
+      "shortsTrackBIdea": {
+        "concept": "'I want to go(갈래)'와 'I won't go(안 가)'를 헷갈려 약속 장소에 혼자 나간 중장년 초보의 코믹 상황극",
+        "hookOneLine": "가겠다는 거야, 안 가겠다는 거야? 정반대 뜻인 Want와 Won't 0.1초 만에 구별하는 법!"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "Ugwa7mLuAbDFZfMsca94AaABAg",
+      "text": "발음 설명 진짜 잘하십니다. \n한가지 부연설명으로 : 문장안에서 발음 하실때는 (won't be/won't do) 트 발음 아예 안하시면 돼요. 트 발음 나올때는 No you won't 이렇게 won't 로 문장이 끝날 경우만 진짜 맛보기로.",
+      "author": "@langam2140",
+      "likeCount": 2,
+      "publishedAt": "2025-11-19T06:01:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwbr3TcYjgPOjKKvmV4AaABAg",
+      "text": "🎉🎉🎉",
+      "author": "@이종호-b5i",
+      "likeCount": 0,
+      "publishedAt": "2025-11-20T15:00:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy0B5UIUcBL0YLtOKp4AaABAg",
+      "text": "왜 저는 우엉ㅌ 로 들리는걸까요? 하아..",
+      "author": "@시란ya",
+      "likeCount": 0,
+      "publishedAt": "2025-11-19T16:55:15Z",
+      "replyCount": 0
+    }
+  ]
+}

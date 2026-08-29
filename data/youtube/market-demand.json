@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-28T17:12:50.326Z",
+  "generatedAt": "2026-08-29T06:44:31.249Z",
   "note": "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, 채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 이례적으로 잘된 주제. 조회수는 게시 후 경과일로 나눠 비교함 — 오래된 영상이 최근 업로드보다 누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: 정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). 채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 구독자 100,000명 이하 채널만 포함). 표본 3개 미만은 `confidence: \"low\"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 (곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). --keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert). opportunityScore = marketDemandScore / log10(totalResults+10) — 수요가 높아도 이미 포화된(totalResults 큰) 키워드는 할인함. 정밀 계산이 아니라 대략적인 경쟁 밀도 보정이니 참고용으로만 쓸 것. titlePatterns = 그 채널 기준으로 이례적으로(outlierRatio≥1.5) 잘 된 영상들의 제목에서 2회 이상 반복된 단어 — 무슨 주제를 다룰지가 아니라 어떤 각도/후킹으로 제목을 달지에 대한 신호.",
   "keywordPool": [
     "영어 발음 규칙",
@@ -11,48 +11,10 @@
     "미국식 발음 규칙"
   ],
   "lastRunKeywords": [
-    "영어 발음 규칙",
-    "영어 발음 원리",
-    "영어 연음 축약",
-    "왕초보 영어 발음",
-    "영어 듣기 안 들리는 이유",
-    "미국식 발음 규칙"
+    "WANT TO 축약"
   ],
-  "channelsAnalyzed": 27,
+  "channelsAnalyzed": 30,
   "byKeyword": [
-    {
-      "keyword": "WANT TO 축약",
-      "videoCount": 13,
-      "confidence": "ok",
-      "lowSampleWarning": null,
-      "marketDemandScore": 72.7,
-      "topOutliers": [
-        {
-          "title": "영어 수동태 단번에 마스터 하기",
-          "channel": "19asjdklajsdlkj",
-          "ageDays": 378,
-          "viewsPerDay": 30544.6,
-          "channelBaselineViewsPerDay": 163.9,
-          "outlierRatio": 186.4
-        },
-        {
-          "title": "👈클릭! 영어 초보 탈출 필수암기 축약형 Wanna Gonna 완벽 정리! #영어회화 #이지리스닝 #영어공부 #영어 #영어회화학원 #koreanlanguage #korean #쇼츠",
-          "channel": "영어페이지",
-          "ageDays": 255,
-          "viewsPerDay": 973.4,
-          "channelBaselineViewsPerDay": 101.5,
-          "outlierRatio": 9.59
-        },
-        {
-          "title": "🌟wanna, gotta, gonna 차이점?!",
-          "channel": "은하수업, 은하쌤의 친절한 영어",
-          "ageDays": 1379,
-          "viewsPerDay": 138,
-          "channelBaselineViewsPerDay": 14.5,
-          "outlierRatio": 9.49
-        }
-      ]
-    },
     {
       "keyword": "왕초보 영어 발음",
       "videoCount": 8,
@@ -416,6 +378,78 @@
           "viewsPerDay": 28.6,
           "channelBaselineViewsPerDay": 1,
           "outlierRatio": 29.05
+        }
+      ]
+    },
+    {
+      "keyword": "WANT TO 축약",
+      "videoCount": 33,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "marketDemandScore": 71.9,
+      "totalResults": 42844,
+      "opportunityScore": 15.5,
+      "titlePatterns": [
+        {
+          "word": "발음",
+          "titleCount": 6
+        },
+        {
+          "word": "영어",
+          "titleCount": 3
+        },
+        {
+          "word": "싶다면",
+          "titleCount": 2
+        },
+        {
+          "word": "축약",
+          "titleCount": 2
+        },
+        {
+          "word": "영어회화",
+          "titleCount": 2
+        },
+        {
+          "word": "won",
+          "titleCount": 2
+        },
+        {
+          "word": "차이",
+          "titleCount": 2
+        },
+        {
+          "word": "shorts",
+          "titleCount": 2
+        }
+      ],
+      "topOutliers": [
+        {
+          "videoId": "t_wVvVyqdbg",
+          "title": "30초 만에  'Want' vs 'Won't' #발음 완벽 구분!",
+          "channel": "돔잭맘TV (DomJacTV)",
+          "ageDays": 285,
+          "viewsPerDay": 41.7,
+          "channelBaselineViewsPerDay": 0.2,
+          "outlierRatio": 270.55
+        },
+        {
+          "videoId": "p74e7Yt9zWM",
+          "title": "[ 58 ] 그러고 싶었어   i wanted to  [영꿀]",
+          "channel": "영어 꿀팁",
+          "ageDays": 1080,
+          "viewsPerDay": 3.6,
+          "channelBaselineViewsPerDay": 0,
+          "outlierRatio": 237.18
+        },
+        {
+          "videoId": "WZFLgtzV_80",
+          "title": "영어 수동태 단번에 마스터 하기",
+          "channel": "19asjdklajsdlkj",
+          "ageDays": 379,
+          "viewsPerDay": 30499.3,
+          "channelBaselineViewsPerDay": 163.6,
+          "outlierRatio": 186.39
         }
       ]
     }

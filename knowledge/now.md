@@ -1,12 +1,21 @@
 # 지금 할 일
 
-마지막 확인: 2026-08-24
+마지막 확인: 2026-08-29
+
+## 최근 완료 (2026-08-29)
+- **Cyber-HUD Command Center 전면 개편 & 브랜드 디자인 시스템 수립 완료**:
+  - 피치블랙(`05070c`) + 네온 마젠타(`ff2a6d`) & 사이언(`00f0ff`) 벤토 그리드 레이아웃 구축.
+  - 시장 수요 레이더(`market-demand.json`) + 아웃라이어 댓글 AI 분석실 + 1-Click 에피소드 업로드 패키지 인스펙터 + 48H 판정 보드 통합.
+  - [브랜드 디자인 시스템 문서](brand-dashboard-design-system.md) 및 [결정 기록](decisions/2026-08-29-cyber-hud-command-center.md) 영구 보존 완료.
+- **경쟁 채널 시장 수요 점수(`scripts/market-demand.mjs`) & 아웃라이어 댓글 AI 분석(`scripts/analyze-outlier-comments.mjs`) 파이프라인 구축 완료**.
+- **경쟁사 대본·자막 역설계 및 Gemini AI 맞춤 대본 생성 파이프라인(`scripts/analyze-competitor-script.mjs`) 구축 완료**: 유튜브 자막 1-Click 추출 ➔ 후킹/비유/타임라인 분해 ➔ '이해하면 쉬운영어' 맞춤 롱폼·쇼츠 대본 자동 완성.
+- **Studio CTR 다운로드 폴더 자동 낚아채기(`scripts/studio-auto-ingest.mjs`) & 실시간 무인 연동 구축 완료**: 스튜디오에서 내보내기만 누르면 `Downloads` 폴더에서 자동 감지 ➔ 압축해제 ➔ 매칭 ➔ 대시보드 실시간 반영.
 
 ## 최우선
 
 - EP9 롱폼·쇼츠A 공개 확인 완료(2026-08-25, 실제 API 재동기화로 검증: 둘 다 `public`). 고정 댓글·엔딩화면 EP8 연결도 사용자 확인 완료.
 - EP9 쇼츠B는 8월 27일 20:00 예약 그대로 대기 중(정상, 아직 비공개).
-- EP9 노출수·CTR은 공개 30일 후 YouTube Studio CSV를 `imports/youtube-studio/`에 넣어 확인 예정(아직 30일 안 지남) — 폴더명 형식: `콘텐츠 YYYY-MM-DD_YYYY-MM-DD <영상 제목>`, 안에 `표 데이터.csv` 필요.
+- EP9 노출수·CTR은 스튜디오에서 [내보내기]를 누르면 다운로드 폴더에서 자동 낚아채어 대시보드에 즉시 반영됨 (파일 이동 불필요).
 
 ## 예약 상태
 

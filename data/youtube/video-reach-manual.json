@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-27T13:42:25.169Z",
+  "updatedAt": "2026-08-29T09:19:56.994Z",
   "videos": {
     "YoaCRYCWpws": {
       "videoId": "YoaCRYCWpws",
@@ -145,6 +145,54 @@
           "importedAt": "2026-08-27T13:42:25.169Z"
         }
       }
+    },
+    "f4wkmIvplCc": {
+      "videoId": "f4wkmIvplCc",
+      "windows": {},
+      "periods": {
+        "2026-07-31_2026-08-28": {
+          "startDate": "2026-07-31",
+          "endDate": "2026-08-28",
+          "impressions": 444,
+          "ctr": 2.25,
+          "packageId": "youtube-f4wkmIvplCc",
+          "source": "youtube-studio-folder",
+          "sourceFolder": "콘텐츠 2026-07-31_2026-08-28 _보고 싶어요_를 영어로_ 초급 영어 필수 문장 20개 EP2",
+          "importedAt": "2026-08-29T09:07:07.690Z"
+        }
+      }
+    },
+    "riZ2xrY67kU": {
+      "videoId": "riZ2xrY67kU",
+      "windows": {},
+      "periods": {
+        "2026-08-01_2026-08-29": {
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-29",
+          "impressions": 0,
+          "ctr": 0,
+          "packageId": "youtube-riZ2xrY67kU",
+          "source": "youtube-studio-folder",
+          "sourceFolder": "콘텐츠 2026-08-01_2026-08-29 영어 기초 배우기 _ 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
+          "importedAt": "2026-08-29T09:18:55.014Z"
+        }
+      }
+    },
+    "JOyI0DWGzEM": {
+      "videoId": "JOyI0DWGzEM",
+      "windows": {},
+      "periods": {
+        "2026-08-01_2026-08-29": {
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-29",
+          "impressions": 17,
+          "ctr": 29.41,
+          "packageId": "youtube-JOyI0DWGzEM",
+          "source": "youtube-studio-folder",
+          "sourceFolder": "콘텐츠 2026-08-01_2026-08-29 영어 기초 배우기 _ 왜 CAKE는 케이크일까_ #영어기초,#영어읽기,#영어공부,#알파벳소리,#영어발음,#영어왕초보,#기초영어,#중년영어,#영어배우기,#영어독학",
+          "importedAt": "2026-08-29T09:19:56.994Z"
+        }
+      }
     }
   },
   "lastCsvImport": {
@@ -155,12 +203,12 @@
     "importedAt": "2026-08-21T16:20:48.327Z"
   },
   "lastFolderScan": {
-    "directory": "C:\\Users\\yunyo\\Downloads\\project\\imports\\youtube-studio",
-    "scanned": 8,
+    "directory": "C:\\Users\\yunyo\\.gemini\\antigravity-ide\\scratch\\ihm-easy-english\\imports\\youtube-studio",
+    "scanned": 11,
     "imported": 1,
-    "unchanged": 7,
+    "unchanged": 10,
     "waiting": [],
     "skipped": [],
-    "scannedAt": "2026-08-27T13:42:25.169Z"
+    "scannedAt": "2026-08-29T09:19:56.994Z"
   }
 }

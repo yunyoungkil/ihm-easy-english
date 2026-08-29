@@ -340,6 +340,7 @@ async function main() {
         opportunityScore, // marketDemandScore discounted by how crowded the keyword already is
         titlePatterns: extractTitlePatterns(rows), // recurring words across overperforming titles — the "angle", not just the topic
         topOutliers: rows.sort((a, b) => b.outlierRatio - a.outlierRatio).slice(0, 3).map((r) => ({
+          videoId: r.videoId,
           title: r.title,
           channel: r.channelTitle,
           ageDays: r.ageDays,

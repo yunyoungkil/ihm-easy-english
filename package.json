@@ -36,6 +36,8 @@
     "wiki:lint": "node scripts/lint-knowledge.mjs",
     "evaluate-48h": "node scripts/evaluate-48h.mjs",
     "content-opportunity": "node scripts/content-opportunity.mjs",
+    "market-demand": "node scripts/market-demand.mjs",
+    "analyze-comments": "node scripts/analyze-outlier-comments.mjs",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"

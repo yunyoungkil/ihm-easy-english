@@ -3918,6 +3918,8 @@ function openMatrixDiagnosisModal(video) {
         if (!res.ok) throw new Error(data.error || '진단 실패');
         const diag = data.diagnosis;
 
+        const altTitles = diag.alternativeTitles || diag.suggestedAlternativeTitles || [];
+
         container.innerHTML = 
           '<div style="display:grid; gap:14px;">' +
             '<div style="background:rgba(0,240,255,0.08); border:1px solid var(--accent-cyan); border-radius:12px; padding:16px;">' +
@@ -3938,10 +3940,18 @@ function openMatrixDiagnosisModal(video) {
             '</div>' +
 
             '<div style="background:#080c14; border:1px solid var(--border-subtle); border-radius:12px; padding:16px;">' +
-              '<div class="card-title" style="color:var(--accent-magenta); margin-bottom:8px;">⚡ 추천 고클릭률 대체 제목 3종</div>' +
-              '<ul style="margin:0 0 0 16px; font-size:13px; color:var(--text-bright); line-height:1.6;">' +
-                (diag.suggestedAlternativeTitles || []).map(t => '<li>"' + esc(t) + '"</li>').join('') +
-              '</ul>' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
+                '<div class="card-title" style="color:var(--accent-magenta);">⚡ 추천 고클릭률 대체 제목 3종 (클릭 시 복사)</div>' +
+                '<span class="badge badge-magenta" style="font-size:10px;">HIGH CTR</span>' +
+              '</div>' +
+              '<div style="display:grid; gap:8px;">' +
+                (altTitles.length > 0 ? altTitles.map((t, idx) => 
+                  '<div class="tag-chip copy-chip" data-copy="' + esc(t) + '" style="cursor:pointer; display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:#05070c; border:1px solid var(--border-subtle); border-radius:8px; font-size:13px; font-weight:700; color:var(--text-bright); line-height:1.4;">' +
+                    '<span><b style="color:var(--accent-cyan); margin-right:6px;">#' + (idx + 1) + '</b> "' + esc(t) + '"</span>' +
+                    '<span style="color:var(--accent-magenta); font-size:11px; margin-left:8px; flex-shrink:0;">📋 복사</span>' +
+                  '</div>'
+                ).join('') : '<div style="color:var(--text-muted); font-size:12px;">대체 제목이 생성되지 않았습니다.</div>') +
+              '</div>' +
             '</div>' +
 
             '<div style="display:flex; justify-content:space-between; align-items:center; background:#060910; padding:12px 16px; border-radius:10px; border:1px solid var(--border-active);">' +
@@ -3949,6 +3959,10 @@ function openMatrixDiagnosisModal(video) {
               '<button class="btn btn-sm btn-cyan" id="btn-modal-to-ab" style="font-weight:800;">🎯 이 영상으로 A/B 시뮬레이터 바로 실행</button>' +
             '</div>' +
           '</div>';
+
+        container.querySelectorAll('.copy-chip').forEach(chip => {
+          chip.onclick = () => copyToClipboard(chip.dataset.copy, chip);
+        });
 
         const toAbBtn = document.getElementById('btn-modal-to-ab');
         if (toAbBtn) {
@@ -3962,10 +3976,10 @@ function openMatrixDiagnosisModal(video) {
               thumbnailCopy: '기존 썸네일',
               badge: '현재 시안',
             };
-            if (diag.suggestedAlternativeTitles?.[0]) {
+            if (altTitles[0]) {
               gAbVariants[1] = {
                 id: 'B',
-                title: diag.suggestedAlternativeTitles[0],
+                title: altTitles[0],
                 imageUrl: video.thumbnail,
                 thumbnailCopy: 'AI 추천 카피',
                 badge: 'AI 추천 1위',

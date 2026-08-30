@@ -190,6 +190,23 @@ const googleGetAllPages = async (url, accessToken) => {
 
 const chunks = (values, size) => Array.from({length: Math.ceil(values.length / size)}, (_, index) => values.slice(index * size, (index + 1) * size));
 
+const mapConcurrent = async (items, limit, fn) => {
+  const results = new Array(items.length);
+  let index = 0;
+  const workers = new Array(Math.min(limit, items.length)).fill(0).map(async () => {
+    while (index < items.length) {
+      const i = index++;
+      try {
+        results[i] = await fn(items[i], i);
+      } catch (err) {
+        results[i] = null;
+      }
+    }
+  });
+  await Promise.all(workers);
+  return results;
+};
+
 const saveJson = async (path, value) => {
   await mkdir(youtubeDataDir, {recursive: true});
   await writeFile(path, JSON.stringify(value, null, 2), 'utf8');
@@ -609,7 +626,7 @@ const getDashboard = async (accessToken) => {
   }));
 
   const commentsByVideo = {};
-  for (const video of recentVideos) {
+  await mapConcurrent(recentVideos, 6, async (video) => {
     try {
       const items = await googleGetAllPages(
         `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${encodeURIComponent(video.videoId)}&maxResults=100`,
@@ -630,7 +647,7 @@ const getDashboard = async (accessToken) => {
     } catch {
       commentsByVideo[video.videoId] = [];
     }
-  }
+  });
 
   const savedClassifications = await loadVideoMap();
   const classifications = inferClassifications(recentVideos, savedClassifications);
@@ -817,7 +834,13 @@ const getDashboard = async (accessToken) => {
   return {...dashboard, sync: {syncedAt, snapshotId, catalogPath, latestSnapshotPath, commentsPath, videoCount: recentVideos.length, playlistCount: playlists.length, commentCount: Object.values(commentsByVideo).flat().length}};
 };
 
-const getEpisodesSummary = async () => {
+let memoryEpisodesSummary = null;
+let lastEpisodesSummaryTime = 0;
+
+const getEpisodesSummary = async (forceReload = false) => {
+  if (!forceReload && memoryEpisodesSummary && (Date.now() - lastEpisodesSummaryTime < 60_000)) {
+    return memoryEpisodesSummary;
+  }
   const episodes = [];
   if (existsSync(contentDir)) {
     const seasons = await readdir(contentDir, {withFileTypes: true});
@@ -855,11 +878,14 @@ const getEpisodesSummary = async () => {
       }
     }
   }
-  return episodes.sort((a, b) => {
+  const sorted = episodes.sort((a, b) => {
     const numA = parseInt(a.episode.replace(/\D/g, ''), 10) || 0;
     const numB = parseInt(b.episode.replace(/\D/g, ''), 10) || 0;
     return numB - numA;
   });
+  memoryEpisodesSummary = sorted;
+  lastEpisodesSummaryTime = Date.now();
+  return sorted;
 };
 
 /* Cyber-HUD Single Page Application HTML */
@@ -1973,7 +1999,8 @@ async function loadAll() {
     gDashboard = await dashRes.json();
 
     if (gDashboard?.channel) {
-      const isCached = gDashboard.isOffline ? ' (스냅샷 캐시 모드)' : ' (실시간 연동)';
+      const syncTimeStr = gDashboard.syncedAt ? ('최근 동기화: ' + new Date(gDashboard.syncedAt).toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit'})) : '동기화 완료';
+      const isCached = gDashboard.isOffline ? ' (오프라인 모드)' : (' (' + syncTimeStr + ')');
       document.getElementById('hero-greeting').textContent = 'Welcome back, ' + (gDashboard.channel.title || 'Creator') + '.';
       document.getElementById('channel-meta-subtext').innerHTML = 
         '<span>구독자 <b>' + fmt.format(gDashboard.channel.subscribers || 0) + '명</b></span> · ' +
@@ -4586,23 +4613,62 @@ loadAll();
 </body>
 </html>`;
 
-async function getFullDashboardData() {
-  const accessToken = await getAccessToken();
-  if (accessToken) {
-    try {
-      return await getDashboard(accessToken);
-    } catch (err) {
-      console.warn('[Dashboard] 실시간 API 조회 실패, 캐시 데이터로 대체합니다:', err.message);
-    }
+let memoryDashboardCache = null;
+let lastDashboardCacheTime = 0;
+let memoryMarketDemand = null;
+let lastMarketDemandTime = 0;
+
+async function getFullDashboardData(forceLiveSync = false) {
+  if (forceLiveSync) {
+    const accessToken = await getAccessToken();
+    if (!accessToken) throw new Error('YouTube 채널 재연동(로그인)이 필요합니다.');
+    const dashboard = await getDashboard(accessToken);
+    memoryDashboardCache = dashboard;
+    lastDashboardCacheTime = Date.now();
+    return dashboard;
   }
+
+  // Return in-memory cache if fresh (< 30s)
+  if (memoryDashboardCache && (Date.now() - lastDashboardCacheTime < 30_000)) {
+    return memoryDashboardCache;
+  }
+
+  // 1. Instantly return cached snapshot from local storage
   const cached = await loadJson(latestSnapshotPath);
   if (cached) {
     const catalog = await loadJson(catalogPath);
     const packaging = cached.packagingRegistry || await loadJson(packagingRegistryPath) || {schemaVersion: 1, items: []};
+    const localThumbs = await getLocalPackageThumbnailMap();
     const scan = await scanStudioExportFolders(cached.recentVideos || catalog?.videos || [], packaging);
     const reach = await loadJson(videoReachManualPath) || {schemaVersion: 1, videos: {}};
-    return {...cached, studioFolderScan: scan, videoReachManual: reach, isOffline: true};
+    const token = await loadToken();
+    const isOnline = Boolean(token?.access_token || token?.refresh_token);
+
+    const fullData = {
+      ...cached,
+      localThumbnails: localThumbs,
+      studioFolderScan: scan,
+      videoReachManual: reach,
+      isOffline: !isOnline,
+    };
+    memoryDashboardCache = fullData;
+    lastDashboardCacheTime = Date.now();
+    return fullData;
   }
+
+  // 2. If no snapshot exists on disk, run live sync once on bootstrap
+  const accessToken = await getAccessToken();
+  if (accessToken) {
+    try {
+      const dashboard = await getDashboard(accessToken);
+      memoryDashboardCache = dashboard;
+      lastDashboardCacheTime = Date.now();
+      return dashboard;
+    } catch (err) {
+      console.warn('[Dashboard] 실시간 API 조회 실패, 캐시 데이터로 대체합니다:', err.message);
+    }
+  }
+
   return null;
 }
 
@@ -4677,6 +4743,10 @@ const server = createServer(async (req, res) => {
       const videos = catalog?.videos || [];
       const scanResult = await scanStudioExportFolders(videos, packaging);
       const reach = await loadJson(videoReachManualPath) || {schemaVersion: 1, videos: {}};
+      if (memoryDashboardCache) {
+        memoryDashboardCache.studioFolderScan = scanResult;
+        memoryDashboardCache.videoReachManual = reach;
+      }
       notifyClients('studio-updated', { event: { type: 'manual-scan' }, scan: scanResult, videoReachManual: reach });
       return json(res, 200, {ok: true, scan: scanResult, videoReachManual: reach});
     }
@@ -4705,8 +4775,13 @@ const server = createServer(async (req, res) => {
       return;
     }
     if (url.pathname === '/api/market-demand') {
+      if (memoryMarketDemand && (Date.now() - lastMarketDemandTime < 60_000)) {
+        return json(res, 200, memoryMarketDemand);
+      }
       const marketDemand = await loadJson(marketDemandPath);
       if (!marketDemand) return json(res, 404, {error: 'market-demand.json 파일이 없습니다.'});
+      memoryMarketDemand = marketDemand;
+      lastMarketDemandTime = Date.now();
       return json(res, 200, marketDemand);
     }
     if (url.pathname === '/api/market-demand/run' && req.method === 'POST') {
@@ -4716,6 +4791,8 @@ const server = createServer(async (req, res) => {
       try {
         await execAsync(cmd, {cwd: projectDir});
         const updated = await loadJson(marketDemandPath);
+        memoryMarketDemand = updated;
+        lastMarketDemandTime = Date.now();
         return json(res, 200, {ok: true, data: updated});
       } catch (err) {
         return json(res, 500, {error: `스크립트 실행 오류: ${err.message}`});
@@ -4758,6 +4835,9 @@ const server = createServer(async (req, res) => {
       reach.videos[videoId].windows[window] = {impressions, ctr, packageId, recordedAt: new Date().toISOString()};
       reach.updatedAt = new Date().toISOString();
       await saveJson(videoReachManualPath, reach);
+      if (memoryDashboardCache?.videoReachManual?.videos) {
+        memoryDashboardCache.videoReachManual.videos[videoId] = reach.videos[videoId];
+      }
       return json(res, 200, {ok: true, video: reach.videos[videoId], package: packageItem || null});
     }
     if (url.pathname === '/api/insights/list') {
@@ -4915,7 +4995,7 @@ const server = createServer(async (req, res) => {
       const accessToken = await getAccessToken();
       if (!accessToken) return json(res, 401, {error: 'YouTube 채널 재연동(로그인)이 필요합니다.'});
       try {
-        const dashboard = await getDashboard(accessToken);
+        const dashboard = await getFullDashboardData(true);
         return json(res, 200, {ok: true, sync: dashboard.sync, channel: dashboard.channel});
       } catch (err) {
         return json(res, err.status || 500, {error: err.message});
@@ -5019,6 +5099,9 @@ const server = createServer(async (req, res) => {
         snapshot.classifications[videoId] = map[videoId];
         await saveJson(latestSnapshotPath, snapshot);
       }
+      if (memoryDashboardCache?.classifications) {
+        memoryDashboardCache.classifications[videoId] = map[videoId];
+      }
       
       return json(res, 200, {ok: true, classification: map[videoId]});
     }
@@ -5043,6 +5126,10 @@ const studioWatcher = startStudioWatcher({
       const packaging = await loadJson(packagingRegistryPath) || {schemaVersion: 1, items: []};
       const scanResult = await scanStudioExportFolders(catalog?.videos || [], packaging);
       const reach = await loadJson(videoReachManualPath) || {schemaVersion: 1, videos: {}};
+      if (memoryDashboardCache) {
+        memoryDashboardCache.studioFolderScan = scanResult;
+        memoryDashboardCache.videoReachManual = reach;
+      }
       notifyClients('studio-updated', { event, scan: scanResult, videoReachManual: reach });
     } catch (err) {
       console.error('[Studio Auto-Ingest Handler Error]', err);

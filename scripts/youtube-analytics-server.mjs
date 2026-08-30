@@ -16,8 +16,9 @@ import {
 } from './analyze-outlier-comments.mjs';
 import { analyzeSingleScript } from './analyze-competitor-script.mjs';
 import { startStudioWatcher } from './studio-auto-ingest.mjs';
-import { getMockCompetitorVideos, evaluateThumbnailTitleVariants } from './ab-simulator.mjs';
+import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage } from './ab-simulator.mjs';
 import { buildMatrixDataset, diagnoseVideoWithGemini } from './matrix-diagnosis.mjs';
+import { lintBrandScript } from './brand-script-linter.mjs';
 
 const execAsync = promisify(exec);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -116,7 +117,7 @@ const readJsonBody = async (req) => {
   let size = 0;
   for await (const chunk of req) {
     size += chunk.length;
-    if (size > 2 * 1024 * 1024) throw new Error('요청 데이터가 너무 큽니다.');
+    if (size > 50 * 1024 * 1024) throw new Error('요청 데이터가 너무 큽니다 (50MB 초과).');
     chunks.push(chunk);
   }
   return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
@@ -888,6 +889,37 @@ const getEpisodesSummary = async (forceReload = false) => {
   return sorted;
 };
 
+const BRAND_LINTER_SAMPLE_SHORTS_TOPIC = "30초 만에 'Want' vs 'Won\'t' 발음 완벽 구분법";
+const BRAND_LINTER_SAMPLE_SHORTS_TEXT = `Want와 Won't, 원어민 발음 들을 때마다 헷갈리셨죠?
+당신이 영어를 못해서가 아니라, 미국인 혀의 '소리 지름길'을 몰랐기 때문입니다.
+
+미국인들은 Want를 말할 때 혀와 입술을 게으르게 툭 떨어뜨려 '원-트'처럼 편하게 소리 냅니다.
+이 원리는 Water, What, Watch에도 똑같이 통합니다! 입술에 힘을 빼면 다 들립니다.
+
+근데 Won't는 왜 다를까요? 딱 요 차이 하나만 기억하세요!
+Won't는 입술을 동그랗게 모으면서 '오우' 소리를 살짝 넣어 '워운트'로 발음해야 합니다.
+
+소리 원리만 알면 무작정 외우지 않아도 귀가 저절로 열립니다.
+하루 1분, 소리 비법을 매일 받아보시려면 구독을 눌러주세요!`;
+
+const BRAND_LINTER_SAMPLE_LONG_TOPIC = "원어민이 평생 써먹는 영어 발음 3대 황금 공식 (3060 맞춤 7분 완성)";
+const BRAND_LINTER_SAMPLE_LONG_TEXT = `기초가 전혀 없어도 괜찮습니다.
+당신이 영어를 못했던 게 아니라 소리 나는 원리를 몰랐을 뿐입니다. 무작정 외우지 마세요.
+
+미국인들이 빠르게 말할 때 혀를 굴리는 게 아니라, 사실은 혀를 덜 움직이려고 소리를 깎아내는 겁니다.
+1단계 소리 지름길: T와 D가 모음 사이에 끼면 부드러운 'ㄹ' 소리로 변신합니다.
+Water가 '워러', Butter가 '버러'로 들리는 이유입니다.
+
+이 원리는 다른 수백 개 단어에도 똑같이 통합니다!
+City(씨리), Better(베러), Letter(레러), Hospital(하스피럴).
+패턴만 익히면 CNN 뉴스도 우리말처럼 편안하게 들리기 시작합니다.
+
+근데 왜 Mountain이나 Button은 '마운런', '버런'이 아닐까요?
+딱 요 사소한 반전 차이! 코로 숨을 턱 막는 '비음 멈춤 소리' 때문입니다.
+
+하루 일하고 지친 여러분을 위한 세련된 지적 휴식, 이해하면 쉬운 영어였습니다.
+다음 영상에서도 귀가 뻥 뚫리는 소리 비법을 전해드립니다. 구독하고 편하게 받아보세요!`;
+
 /* Cyber-HUD Single Page Application HTML */
 const pageHtml = `<!doctype html>
 <html lang="ko">
@@ -1478,45 +1510,190 @@ input:disabled, select:disabled {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Smartphone Mockup Frame */
+/* Smartphone Mockup Frame & Authentic YouTube Mobile UI */
 .mockup-phone {
-  width: 380px;
+  width: 360px;
   max-width: 100%;
-  height: 660px;
-  background: #0f0f0f;
-  border: 7px solid #27272a;
-  border-radius: 34px;
+  height: 600px;
+  background: #000;
+  border: 6px solid #27272a;
+  border-radius: 32px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.15);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 240, 255, 0.1);
   display: flex;
   flex-direction: column;
   position: relative;
   margin: 0 auto;
 }
 .mockup-phone-header {
-  height: 46px;
-  background: rgba(15, 15, 15, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #27272a;
+  height: 34px;
+  background: #000;
+  border-bottom: 1px solid #141417;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
-  font-size: 14px;
+  padding: 0 14px;
+  font-size: 11px;
   font-weight: 800;
   color: #fff;
   z-index: 10;
   flex-shrink: 0;
 }
+.mockup-phone-appbar {
+  height: 38px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-bottom: 1px solid #141417;
+  flex-shrink: 0;
+  z-index: 9;
+}
 .mockup-feed-scroll {
   flex: 1;
   overflow-y: auto;
-  background: #0f0f0f;
-  padding-bottom: 40px;
+  background: #000;
+  padding-bottom: 16px;
   transition: filter 0.25s ease;
 }
+.mockup-phone-bottom-nav {
+  height: 46px;
+  background: #000;
+  border-top: 1px solid #141417;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #aaa;
+  gap: 2px;
+  cursor: pointer;
+}
+.nav-item.active {
+  color: #fff;
+  font-weight: 700;
+}
+.nav-item-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.nav-item-create {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* Shorts 2-Column Grid Shelf */
+.shorts-shelf {
+  padding: 12px 8px 14px;
+  border-top: 4px solid #111;
+  border-bottom: 4px solid #111;
+  margin: 6px 0 12px;
+  background: #000;
+}
+.shorts-shelf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 4px;
+}
+.ab-feed-card-draggable {
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.ab-feed-card-draggable:active {
+  cursor: grabbing;
+}
+.ab-feed-card-draggable.is-dragging {
+  opacity: 0.45;
+  transform: scale(0.96);
+}
+.ab-feed-drop-zone {
+  transition: all 0.2s ease;
+}
+.ab-feed-drop-zone.drag-over {
+  outline: 2.5px dashed var(--accent-cyan) !important;
+  outline-offset: -2px;
+  background: rgba(0, 240, 255, 0.18) !important;
+  transform: scale(0.98);
+}
+.shorts-shelf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.shorts-card {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.shorts-card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.shorts-card-top {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 6px 0;
+}
+.shorts-card-bottom {
+  position: relative;
+  z-index: 3;
+  padding: 20px 8px 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+}
+.shorts-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  max-height: 28px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+}
+.shorts-card-views {
+  font-size: 9px;
+  color: #ccc;
+  margin-top: 3px;
+  text-shadow: 0 1px 2px #000;
+}
+
 .feed-item {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   transition: all 0.2s ease;
 }
 .feed-thumb-wrap {
@@ -1534,23 +1711,23 @@ input:disabled, select:disabled {
 }
 .feed-duration {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  bottom: 6px;
+  right: 6px;
   background: rgba(0,0,0,0.85);
   color: #fff;
-  padding: 2px 6px;
-  font-size: 11px;
+  padding: 2px 5px;
+  font-size: 10px;
   font-weight: 700;
   border-radius: 4px;
 }
 .feed-meta {
   display: flex;
-  gap: 12px;
-  padding: 10px 12px 6px;
+  gap: 10px;
+  padding: 10px 12px 4px;
 }
 .feed-avatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: #27272a;
   flex-shrink: 0;
@@ -1562,8 +1739,8 @@ input:disabled, select:disabled {
 }
 .feed-title {
   color: #f1f1f1;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1572,7 +1749,7 @@ input:disabled, select:disabled {
 }
 .feed-sub {
   color: #aaa;
-  font-size: 12px;
+  font-size: 11px;
   margin-top: 3px;
 }
 .vision-filter-blur {
@@ -1722,11 +1899,47 @@ const esc = (s) => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 let gDashboard = null;
 let gMarketDemand = null;
 let gEpisodes = null;
-let gCurrentTab = 'tab-overview';
+let gCurrentTab = (function() {
+  try { return localStorage.getItem('ihm_active_tab') || 'tab-overview'; } catch (_) { return 'tab-overview'; }
+})();
 let gClassificationFilter = 'ALL';
 let gClassificationSearch = '';
 let gStudioFilter = 'ALL';
-let gAiLabSubTab = 'comments'; // 'comments' | 'scripts'
+let gAiLabSubTab = (function() {
+  try { return localStorage.getItem('ihm_ailab_subtab') || 'comments'; } catch (_) { return 'comments'; }
+})(); // 'comments' | 'scripts' | 'brand-linter'
+
+/* 3060 BRAND SCRIPT LINTER & HYPERFRAMES STATE */
+let gBrandScriptTopic = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TOPIC)};
+let gBrandScriptFormat = "SHORTS";
+let gBrandScriptText = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TEXT)};
+let gBrandScriptLinterResult = null;
+
+function saveBrandLinterState() {
+  try {
+    const state = {
+      topic: gBrandScriptTopic,
+      format: gBrandScriptFormat,
+      text: gBrandScriptText,
+      result: gBrandScriptLinterResult,
+    };
+    localStorage.setItem('ihm_brand_linter_state', JSON.stringify(state));
+  } catch (_) {}
+}
+
+function loadBrandLinterState() {
+  try {
+    const saved = localStorage.getItem('ihm_brand_linter_state');
+    if (saved) {
+      const state = JSON.parse(saved);
+      if (state.topic) gBrandScriptTopic = state.topic;
+      if (state.format) gBrandScriptFormat = state.format;
+      if (state.text) gBrandScriptText = state.text;
+      if (state.result) gBrandScriptLinterResult = state.result;
+    }
+  } catch (_) {}
+}
+loadBrandLinterState();
 
 /* 4-QUADRANT MATRIX STATE */
 let gMatrixFormatFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
@@ -1739,33 +1952,96 @@ let gMatrixRetThresholdShorts = 70.0;
 let gAbVariants = [
   {
     id: 'A',
-    title: "30초 만에 'Want' vs 'Won't' #발음 완벽 구분! (이 원리 모르면 평생 안 들림)",
-    imageUrl: 'https://i.ytimg.com/vi/t_wVvVyqdbg/mqdefault.jpg',
-    thumbnailCopy: "WANT vs WON'T 입모양 공식",
-    badge: '1초 구분',
+    title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙",
+    imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
+    thumbnailCopy: "SPECIAL 발음 치트키",
+    badge: '발음 원리',
+    isLocalFile: false,
   },
   {
     id: 'B',
-    title: "원어민이 'Want' 발음할 때 절대 입술 안 모으는 진짜 이유 #영어발음",
-    imageUrl: 'https://i.ytimg.com/vi/5MiM1tIpQQk/mqdefault.jpg',
-    thumbnailCopy: "원어민 비밀 입술 모양",
-    badge: '비법 공개',
+    title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)",
+    imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg',
+    thumbnailCopy: "PICTURE 소리 비밀",
+    badge: '소리 법칙',
+    isLocalFile: false,
   },
   {
     id: 'C',
-    title: "영어 'Want'와 'Won't'가 똑같이 들렸던 이유? 딱 1가지만 기억하세요",
-    imageUrl: 'https://i.ytimg.com/vi/WZFLgtzV_80/mqdefault.jpg',
-    thumbnailCopy: "귀가 뚫리는 1가지 법칙",
-    badge: '귀 뚫림',
+    title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)",
+    imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg',
+    thumbnailCopy: "시즌1 완결 총정리 족보",
+    badge: '총정리',
+    isLocalFile: false,
   },
 ];
-let gAbTopic = "30초 만에 'Want' vs 'Won't' 발음 완벽 구분법";
-let gAbAudience = "5060 시니어 & 왕초보 영어 학습자";
+let gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
+let gAbAudience = "3060 성인 & 왕초보 영어 학습자";
+let gAbFormat = "LONGFORM"; // 'LONGFORM' | 'SHORTS'
 let gAbCompetitors = [];
 let gAbActiveFeedView = 'A'; // 'A' | 'B' | 'C' | 'ALL'
+let gAbFeedPosition = 'TOP'; // 'TOP' | 'MIDDLE' | 'BOTTOM'
+let gAbFeedSlotIndex = 0; // 0 to 6 (Exact slot position in mobile feed)
 let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale'
 let gAbAiReport = null;
 let gAbSelectedVariantTab = 'A'; // 'A' | 'B' | 'C'
+
+function saveAbSimulatorState() {
+  try {
+    const state = {
+      format: gAbFormat,
+      topic: gAbTopic,
+      audience: gAbAudience,
+      variants: gAbVariants,
+      activeFeedView: gAbActiveFeedView,
+      feedPosition: gAbFeedPosition,
+      feedSlotIndex: gAbFeedSlotIndex,
+      selectedVariantTab: gAbSelectedVariantTab,
+      visionFilter: gAbVisionFilter,
+      aiReport: gAbAiReport,
+    };
+    localStorage.setItem('ihm_ab_simulator_state', JSON.stringify(state));
+  } catch (err) {
+    console.warn('Failed to save A/B simulator state:', err);
+  }
+}
+
+function loadAbSimulatorState() {
+  try {
+    const saved = localStorage.getItem('ihm_ab_simulator_state');
+    if (saved) {
+      const state = JSON.parse(saved);
+      if (state.format) gAbFormat = state.format;
+      if (state.topic) gAbTopic = state.topic;
+      if (state.audience) gAbAudience = state.audience;
+      if (typeof state.feedSlotIndex === 'number') gAbFeedSlotIndex = state.feedSlotIndex;
+      if (state.feedPosition) gAbFeedPosition = state.feedPosition;
+      if (Array.isArray(state.variants) && state.variants.length === 3) {
+        gAbVariants = state.variants;
+        // Self-heal: If format is LONGFORM but variants still hold old competitor images, update to our channel's 16:9 Longform thumbnails
+        if (gAbFormat === 'LONGFORM') {
+          const hasOldSample = gAbVariants.some(v => v.imageUrl && (v.imageUrl.includes('OVAeeJxmdw0') || v.imageUrl.includes('tpveKY5pnis') || v.imageUrl.includes('t_wVvVyqdbg') || v.imageUrl.includes('5MiM1tIpQQk') || v.imageUrl.includes('unsplash.com')) && !v.isLocalFile);
+          if (hasOldSample) {
+            gAbVariants = [
+              { id: 'A', title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙", imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg', thumbnailCopy: "SPECIAL 발음 치트키", badge: '발음 원리', isLocalFile: false },
+              { id: 'B', title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)", imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg', thumbnailCopy: "PICTURE 소리 비밀", badge: '소리 법칙', isLocalFile: false },
+              { id: 'C', title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)", imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg', thumbnailCopy: "시즌1 완결 총정리 족보", badge: '총정리', isLocalFile: false },
+            ];
+            gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
+          }
+        }
+      }
+      if (state.activeFeedView) gAbActiveFeedView = state.activeFeedView;
+      if (state.feedPosition) gAbFeedPosition = state.feedPosition;
+      if (state.selectedVariantTab) gAbSelectedVariantTab = state.selectedVariantTab;
+      if (state.visionFilter) gAbVisionFilter = state.visionFilter;
+      if (state.aiReport) gAbAiReport = state.aiReport;
+    }
+  } catch (err) {
+    console.warn('Failed to load A/B simulator state:', err);
+  }
+}
+loadAbSimulatorState();
 
 function updateClock() {
   const now = new Date();
@@ -1855,6 +2131,7 @@ function generateSparklineSvg(dataPoints, strokeColor = '#ff2a6d') {
 
 function switchTab(tabId) {
   gCurrentTab = tabId;
+  try { localStorage.setItem('ihm_active_tab', tabId); } catch (_) {}
   document.querySelectorAll('.rail-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === tabId);
   });
@@ -2034,6 +2311,12 @@ async function loadAll() {
       document.getElementById('btn-logout').style.display = 'inline-flex';
     }
 
+    document.querySelectorAll('.rail-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === gCurrentTab);
+    });
+    document.querySelectorAll('.tab-pill').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === gCurrentTab);
+    });
     renderCurrentTab();
   } catch (err) {
     document.getElementById('tab-content-root').innerHTML = '<div class="bento-card" style="color:#ff7676;padding:40px">❌ 데이터 로드 오류: ' + esc(err.message) + '</div>';
@@ -2510,6 +2793,71 @@ function bindMarketDemandEvents() {
 }
 function renderOutlierLabTab() {
   const isComments = gAiLabSubTab === 'comments';
+  const isScripts = gAiLabSubTab === 'scripts';
+  const isBrandLinter = gAiLabSubTab === 'brand-linter';
+
+  let subtabControlsHtml = '';
+  if (isComments) {
+    subtabControlsHtml = '<div style="margin-top:18px">' +
+      '<div class="card-subtext" style="margin-bottom:8px">시청자가 실제로 헷갈린 문장, 질문, 생생한 어휘(Mental Model)를 분석합니다.</div>' +
+      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+        '<input type="text" id="input-ai-kw" placeholder="키워드 분석 (예: WANT TO 축약, 영어 연음)" style="flex:1;min-width:240px">' +
+        '<button class="btn btn-magenta" id="btn-run-ai-kw">🚀 키워드 아웃라이어 분석</button>' +
+        '<input type="text" id="input-ai-url" placeholder="유튜브 URL 직접 입력 (https://...)" style="flex:1;min-width:240px">' +
+        '<button class="btn btn-cyan" id="btn-run-ai-url">🔎 URL 댓글 분석</button>' +
+      '</div>' +
+    '</div>';
+  } else if (isScripts) {
+    subtabControlsHtml = '<div style="margin-top:18px">' +
+      '<div class="card-subtext" style="margin-bottom:8px">유튜브 자막을 1-Click 추출하여 <b>[도입부 후킹 구조] + [핵심 비유법] + [대본 타임라인] + [우리 채널 맞춤 대본]</b>을 역설계합니다.</div>' +
+      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+        '<input type="text" id="input-script-url" placeholder="유튜브 URL 또는 영상 ID 입력 (https://youtube.com/watch?v=...)" style="flex:1;min-width:300px">' +
+        '<button class="btn btn-cyan" id="btn-run-script-analyze">🚀 대본 역설계 & 맞춤 대본 생성</button>' +
+      '</div>' +
+    '</div>';
+  } else {
+    const charCount = (gBrandScriptText || '').length;
+    const estSec = Math.round(charCount / 5.3);
+
+    subtabControlsHtml = '<div style="margin-top:18px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">' +
+        '<div class="card-subtext">3060 맞춤 <b>[도파민 3단계 공식]</b>과 <b>[HyperFrames 씬 규격]</b>을 엄격하게 심사하고 즉시 제작용 JSON으로 변환합니다.</div>' +
+        '<div style="display:flex;gap:6px;">' +
+          '<button class="btn btn-sm" id="btn-brand-linter-sample-shorts">📱 쇼츠 3060 샘플</button>' +
+          '<button class="btn btn-sm" id="btn-brand-linter-sample-long">📺 롱폼 3060 샘플</button>' +
+          '<button class="btn btn-sm btn-amber" id="btn-brand-linter-clear">🗑️ 비우기</button>' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px;">' +
+        '<div>' +
+          '<div style="font-size:11px;font-weight:700;color:var(--accent-amber);margin-bottom:4px;">📌 영상 주제 / 핵심 키워드</div>' +
+          '<input type="text" id="input-brand-linter-topic" value="' + esc(gBrandScriptTopic) + '" placeholder="예: 30초 만에 Want vs Wont 발음 구분법" style="width:100%;">' +
+        '</div>' +
+        '<div>' +
+          '<div style="font-size:11px;font-weight:700;color:var(--accent-cyan);margin-bottom:4px;">🎬 영상 포맷</div>' +
+          '<select id="select-brand-linter-format" style="width:100%;">' +
+            '<option value="SHORTS"' + (gBrandScriptFormat === 'SHORTS' ? ' selected' : '') + '>📱 쇼츠 (9:16 / 60초 미만)</option>' +
+            '<option value="LONGFORM"' + (gBrandScriptFormat === 'LONGFORM' ? ' selected' : '') + '>📺 롱폼 (16:9 / 3~8분)</option>' +
+          '</select>' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="margin-bottom:12px;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">' +
+          '<span style="font-weight:700;color:var(--text-bright);">✍️ 심사할 대본 원문 입력 (줄바꿈 = 씬 분절 기준)</span>' +
+          '<span id="brand-linter-char-stats" style="color:var(--accent-cyan);font-weight:700;">총 ' + charCount + '자 · 예상 낭독시간 약 ' + estSec + '초</span>' +
+        '</div>' +
+        '<textarea id="textarea-brand-linter-script" style="width:100%;height:180px;font-size:13px;line-height:1.6;font-family:monospace;background:#060910;border:1px solid var(--border-subtle);border-radius:10px;padding:12px;color:#fff;" placeholder="심사할 대본을 입력하세요...">' + esc(gBrandScriptText) + '</textarea>' +
+      '</div>' +
+
+      '<div style="display:flex;justify-content:flex-end;">' +
+        '<button class="btn btn-magenta" id="btn-run-brand-linter" style="font-size:14px;padding:10px 24px;font-weight:800;">' +
+          '🚀 3060 브랜드 도파민 린팅 & HyperFrames 씬 JSON 생성' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+  }
 
   return '<div class="bento-grid">' +
     '<div class="bento-card highlight-cyan col-12">' +
@@ -2517,137 +2865,219 @@ function renderOutlierLabTab() {
         '<div>' +
           '<div class="card-title" style="color:var(--accent-cyan)">GEMINI AUDIENCE & SCRIPT INTELLIGENCE</div>' +
           '<h2 style="font-family:var(--font-display);font-size:24px;color:var(--text-bright);margin-top:2px">🤖 아웃라이어 영상 댓글 & 대본 AI 심층 분석실</h2>' +
-          '<p style="color:var(--text-normal);margin-top:4px;font-size:13px">시청자의 생생한 질문·고통(VoC)과 경쟁 채널의 대본 전개 공식을 역설계하여 &lsquo;이해하면 쉬운영어&rsquo;만의 대본 템플릿을 도출합니다.</p>' +
+          '<p style="color:var(--text-normal);margin-top:4px;font-size:13px">시청자의 생생한 질문·고통(VoC)과 경쟁 채널의 대본 전개 공식을 역설계하여 &lsquo;이해하면 쉬운영어&rsquo;만의 대본 템플릿과 HyperFrames 씬을 도출합니다.</p>' +
         '</div>' +
-        '<div style="display:flex;gap:8px;background:rgba(0,0,0,0.5);padding:4px;border-radius:10px;border:1px solid var(--border-subtle)">' +
-          '<button class="tab-pill' + (isComments ? ' active' : '') + '" id="subtab-btn-comments">💬 1. 시청자 댓글 VoC 분석</button>' +
-          '<button class="tab-pill' + (!isComments ? ' active' : '') + '" id="subtab-btn-scripts">📜 2. 경쟁사 대본·자막 역설계 분석</button>' +
+        '<div style="display:flex;gap:8px;background:rgba(0,0,0,0.5);padding:4px;border-radius:10px;border:1px solid var(--border-subtle);flex-wrap:wrap;">' +
+          '<button class="tab-pill' + (isComments ? ' active' : '') + '" id="subtab-btn-comments">💬 1. 댓글 VoC 분석</button>' +
+          '<button class="tab-pill' + (isScripts ? ' active' : '') + '" id="subtab-btn-scripts">📜 2. 경쟁사 대본 역설계</button>' +
+          '<button class="tab-pill' + (isBrandLinter ? ' active' : '') + '" id="subtab-btn-brand-linter" style="' + (isBrandLinter ? 'border-color:var(--accent-magenta);color:var(--accent-magenta);' : '') + '">✨ 3. 3060 대본 린터 & HyperFrames</button>' +
         '</div>' +
       '</div>' +
 
-      (isComments ? 
-        '<div style="margin-top:18px">' +
-          '<div class="card-subtext" style="margin-bottom:8px">시청자가 실제로 헷갈린 문장, 질문, 생생한 어휘(Mental Model)를 분석합니다.</div>' +
-          '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-            '<input type="text" id="input-ai-kw" placeholder="키워드 분석 (예: WANT TO 축약, 영어 연음)" style="flex:1;min-width:240px">' +
-            '<button class="btn btn-magenta" id="btn-run-ai-kw">🚀 키워드 아웃라이어 분석</button>' +
-            '<input type="text" id="input-ai-url" placeholder="유튜브 URL 직접 입력 (https://...)" style="flex:1;min-width:240px">' +
-            '<button class="btn btn-cyan" id="btn-run-ai-url">🔎 URL 댓글 분석</button>' +
-          '</div>' +
-        '</div>' :
-        '<div style="margin-top:18px">' +
-          '<div class="card-subtext" style="margin-bottom:8px">유튜브 자막을 1-Click 추출하여 <b>[도입부 후킹 구조] + [핵심 비유법] + [대본 타임라인] + [우리 채널 맞춤 대본]</b>을 역설계합니다.</div>' +
-          '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-            '<input type="text" id="input-script-url" placeholder="유튜브 URL 또는 영상 ID 입력 (https://youtube.com/watch?v=...)" style="flex:1;min-width:300px">' +
-            '<button class="btn btn-cyan" id="btn-run-script-analyze">🚀 대본 역설계 & 맞춤 대본 생성</button>' +
-          '</div>' +
-        '</div>'
-      ) +
+      subtabControlsHtml +
 
       '<div id="ai-lab-status" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(0,240,255,0.1);border:1px solid var(--accent-cyan);border-radius:10px;color:var(--text-bright);font-weight:700">' +
         '⏳ <span id="ai-lab-status-text">Gemini AI 심층 분석 중입니다... (약 5~10초 소요)</span>' +
       '</div>' +
     '</div>' +
 
-    '<div class="bento-card col-12" id="ai-results-container" style="display:none"></div>' +
-
-    '<div class="bento-card col-12">' +
-      '<div class="card-header">' +
-        '<span class="card-title">' + (isComments ? '📑 생성된 댓글 기획 리포트 아카이브' : '📜 생성된 대본 역설계 리포트 아카이브') + '</span>' +
-        '<button class="btn btn-sm" id="btn-refresh-ai-reports">↻ 리포트 목록 새로고침</button>' +
-      '</div>' +
-      '<div id="saved-reports-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px"></div>' +
+    '<div class="bento-card col-12" id="ai-results-container"' + (isBrandLinter && gBrandScriptLinterResult ? '' : ' style="display:none"') + '>' +
+      (isBrandLinter && gBrandScriptLinterResult ? renderBrandLinterResults(gBrandScriptLinterResult) : '') +
     '</div>' +
+
+    (!isBrandLinter ? 
+      '<div class="bento-card col-12">' +
+        '<div class="card-header">' +
+          '<span class="card-title">' + (isComments ? '📑 생성된 댓글 기획 리포트 아카이브' : '📜 생성된 대본 역설계 리포트 아카이브') + '</span>' +
+          '<button class="btn btn-sm" id="btn-refresh-ai-reports">↻ 리포트 목록 새로고침</button>' +
+        '</div>' +
+        '<div id="saved-reports-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px"></div>' +
+      '</div>' : '') +
   '</div>';
 }
 
-async function runAiCommentAnalysis(payload) {
-  const statusBox = document.getElementById('ai-lab-status');
-  const statusText = document.getElementById('ai-lab-status-text');
-  const resultsContainer = document.getElementById('ai-results-container');
+function renderBrandLinterResults(r) {
+  if (!r) return '';
+  const isPass = r.score >= 80;
+  const badgeClass = r.score >= 90 ? 'badge-strong-pass' : r.score >= 80 ? 'badge-pass' : 'badge-revise';
+  const scenes = r.hyperFramesScenes || [];
 
-  if (statusBox) statusBox.style.display = 'block';
-  if (statusText) statusText.textContent = '인기 댓글 100개 수집 및 Gemini AI 심층 분석 중입니다... (약 5~10초 소요)';
-  if (resultsContainer) resultsContainer.style.display = 'none';
+  const typeColorMap = {
+    hook: 'var(--accent-magenta)',
+    rule: 'var(--accent-cyan)',
+    expand: 'var(--accent-amber)',
+    twist: '#ff4d4d',
+    outro: 'var(--accent-emerald)',
+  };
 
-  try {
-    const res = await fetch('/api/insights/analyze', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || '분석 중 오류가 발생했습니다.');
-    if (statusBox) statusBox.style.display = 'none';
-    if (resultsContainer) {
-      resultsContainer.style.display = 'block';
-      resultsContainer.innerHTML = data.results?.map(r => renderSingleAiReportCard(r)).join('') || '<div class="card-subtext">분석 결과가 없습니다.</div>';
+  const typeNameMap = {
+    hook: '1. HOOK (3초 후킹)',
+    rule: '2. RULE (소리 지름길 원리)',
+    expand: '3. EXPAND (패턴 확장 쾌감)',
+    twist: '4. TWIST (반전 꿀팁)',
+    outro: '5. OUTRO (힐링 & 구독)',
+  };
+
+  let html = '<div style="display:grid; gap:18px;">' +
+    /* CARD 1: 3060 SCOREBOARD */
+    '<div style="background:#080c14; border:1px solid ' + (isPass ? 'var(--accent-cyan)' : 'var(--accent-amber)') + '; border-radius:14px; padding:20px;">' +
+      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">' +
+        '<div>' +
+          '<div class="card-title" style="color:var(--accent-cyan)">3060 BRAND DOPAMINE & READABILITY SCORECARD</div>' +
+          '<h3 style="font-family:var(--font-display); font-size:22px; color:#fff; margin-top:2px;">' +
+            '🏆 대본 종합 점수: <span style="color:' + (isPass ? 'var(--accent-cyan)' : 'var(--accent-amber)') + '">' + r.score + '점</span> (' + esc(r.grade || 'B') + ' 등급)' +
+          '</h3>' +
+        '</div>' +
+        '<span class="badge ' + badgeClass + '" style="font-size:13px; padding:6px 14px;">' + (isPass ? '✅ 3060 제작 승인 (PASS)' : '⚠️ 도파민 보완 권장 (REVISE)') + '</span>' +
+      '</div>' +
+      '<p style="color:var(--text-normal); font-size:13px; line-height:1.5; margin-bottom:16px;">' + esc(r.summary || '') + '</p>' +
+
+      /* 3 Stages Dopamine Grid */
+      '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:10px; margin-bottom:16px;">' +
+        '<div style="background:rgba(255,42,109,0.08); border:1px solid rgba(255,42,109,0.25); border-radius:10px; padding:12px;">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+            '<b style="color:var(--accent-magenta); font-size:12px;">⚡ 1단계: 게으른 혀의 소리 지름길</b>' +
+            (r.dopamineStages?.stage1_shortcut?.present ? '<span class="badge badge-pass" style="font-size:9px">충족</span>' : '<span class="badge badge-hold" style="font-size:9px">미흡</span>') +
+          '</div>' +
+          '<div style="font-size:11px; color:var(--text-normal); line-height:1.4;">' + esc(r.dopamineStages?.stage1_shortcut?.note || '원리 해제 설명') + '</div>' +
+        '</div>' +
+
+        '<div style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.25); border-radius:10px; padding:12px;">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+            '<b style="color:var(--accent-cyan); font-size:12px;">🚀 2단계: 패턴 확장 (카타르시스)</b>' +
+            (r.dopamineStages?.stage2_expansion?.present ? '<span class="badge badge-pass" style="font-size:9px">충족</span>' : '<span class="badge badge-hold" style="font-size:9px">미흡</span>') +
+          '</div>' +
+          '<div style="font-size:11px; color:var(--text-normal); line-height:1.4;">' + esc(r.dopamineStages?.stage2_expansion?.note || '단어 확장 쾌감') + '</div>' +
+        '</div>' +
+
+        '<div style="background:rgba(255,184,0,0.08); border:1px solid rgba(255,184,0,0.25); border-radius:10px; padding:12px;">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+            '<b style="color:var(--accent-amber); font-size:12px;">💡 3단계: 반전 꿀팁 (미세한 차이)</b>' +
+            (r.dopamineStages?.stage3_twist?.present ? '<span class="badge badge-pass" style="font-size:9px">충족</span>' : '<span class="badge badge-hold" style="font-size:9px">미흡</span>') +
+          '</div>' +
+          '<div style="font-size:11px; color:var(--text-normal); line-height:1.4;">' + esc(r.dopamineStages?.stage3_twist?.note || '예외/차이점 꿀팁') + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      /* Readability Stats */
+      '<div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12px; background:#04060a; padding:10px 14px; border-radius:8px; border:1px solid var(--border-subtle);">' +
+        '<span>👓 <b>한 줄 평균 글자수:</b> ' + (r.readabilityCheck?.avgCharsPerLine || 0) + '자 ' + ((r.readabilityCheck?.avgCharsPerLine || 0) <= 28 ? '<span style="color:var(--accent-cyan); font-weight:700;">(3060 낭독 최적)</span>' : '<span style="color:var(--accent-amber); font-weight:700;">(다소 긺)</span>') + '</span> · ' +
+        '<span>🚫 <b>어려운 음성학/문법 용어:</b> ' + ((r.readabilityCheck?.jargonWordsFound?.length || 0) === 0 ? '<span style="color:var(--accent-emerald); font-weight:700;">0건 (완벽 차단)</span>' : '<span style="color:var(--accent-magenta); font-weight:700;">' + esc(r.readabilityCheck.jargonWordsFound.join(', ')) + '</span>') + '</span> · ' +
+        '<span>🎵 <b>3060 낭독 리듬감:</b> <b style="color:var(--accent-cyan);">' + (r.readabilityCheck?.rhythmScore || 90) + '점</b></span>' +
+      '</div>' +
+    '</div>';
+
+    /* CARD 2: VIOLATIONS & POLISHED SCRIPT */
+    if (r.violations && r.violations.length > 0) {
+      html += '<div style="background:#080c14; border:1px solid rgba(255,100,100,0.3); border-radius:14px; padding:18px;">' +
+        '<div class="card-title" style="color:#ff7676; margin-bottom:10px;">⚠️ 위반 항목 & 3060 브랜드 교정 진단 (' + r.violations.length + '건)</div>' +
+        '<div style="display:grid; gap:8px; margin-bottom:16px;">' +
+          r.violations.map(v => 
+            '<div style="background:#05070c; border:1px solid var(--border-subtle); border-radius:8px; padding:10px 12px; font-size:12px; line-height:1.4;">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+                '<span style="color:#ff7676; font-weight:700;">' + (v.lineIndex ? ('#' + v.lineIndex + '행: ') : '') + esc(v.type || '위반') + '</span>' +
+                (v.lineText ? '<span style="color:var(--text-muted); font-size:11px;">원문: &ldquo;' + esc(v.lineText.slice(0, 25)) + '...&rdquo;</span>' : '') +
+              '</div>' +
+              '<div style="color:var(--text-bright); margin-bottom:4px;">' + esc(v.message || '') + '</div>' +
+              (v.suggestedFix ? '<div style="color:var(--accent-cyan); background:rgba(0,240,255,0.06); padding:6px 8px; border-radius:6px;">💡 <b>추천 교정:</b> &ldquo;' + esc(v.suggestedFix) + '&rdquo;</div>' : '') +
+            '</div>'
+          ).join('') +
+        '</div>' +
+      '</div>';
     }
-    loadSavedReportsList();
-    showToast('AI 댓글 분석이 완료되었습니다!');
-  } catch (err) {
-    if (statusBox) statusBox.style.display = 'block';
-    if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
-  }
-}
 
-async function runScriptAnalysis(targetUrl) {
-  if (!targetUrl) return alert('유튜브 URL 또는 영상 ID를 입력하세요.');
-  const statusBox = document.getElementById('ai-lab-status');
-  const statusText = document.getElementById('ai-lab-status-text');
-  const resultsContainer = document.getElementById('ai-results-container');
-  const urlInput = document.getElementById('input-script-url');
-  if (urlInput) urlInput.value = targetUrl;
-
-  if (statusBox) statusBox.style.display = 'block';
-  if (statusText) statusText.textContent = 'YouTube 자막을 1-Click 추출하고 Gemini AI로 대본 구조를 역설계 중입니다... (약 5~10초 소요)';
-  if (resultsContainer) resultsContainer.style.display = 'none';
-
-  try {
-    const res = await fetch('/api/scripts/analyze', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({url: targetUrl})
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || '대본 분석에 실패했습니다.');
-    if (statusBox) statusBox.style.display = 'none';
-    if (resultsContainer) {
-      resultsContainer.style.display = 'block';
-      resultsContainer.innerHTML = renderSingleScriptReportCard(data.result);
+    if (r.improvedScript) {
+      html += '<div style="background:#080c14; border:1px solid var(--accent-emerald); border-radius:14px; padding:18px;">' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">' +
+          '<div class="card-title" style="color:var(--accent-emerald);">✨ 3060 브랜드 맞춤 100% 교정 대본 전문</div>' +
+          '<div style="display:flex; gap:6px;">' +
+            '<button class="btn btn-sm btn-cyan btn-apply-improved-script" data-script="' + encodeURIComponent(r.improvedScript) + '">✍️ 위 에디터에 반영</button>' +
+            '<button class="btn btn-sm btn-magenta btn-copy-text" data-text="' + encodeURIComponent(r.improvedScript) + '">📋 교정 대본 복사</button>' +
+          '</div>' +
+        '</div>' +
+        '<pre style="background:#020408; border:1px solid #1a2234; border-radius:8px; padding:14px; color:#fff; font-size:12px; line-height:1.6; white-space:pre-wrap; font-family:monospace; margin:0;">' + esc(r.improvedScript) + '</pre>' +
+      '</div>';
     }
-    loadSavedScriptReportsList();
-    showToast('🎉 경쟁사 대본 역설계 및 맞춤 대본 생성이 완료되었습니다!');
-  } catch (err) {
-    if (statusBox) statusBox.style.display = 'block';
-    if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
-  }
-}
 
-function triggerScriptAnalysis(vidOrUrl) {
-  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
-  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
-  gAiLabSubTab = 'scripts';
-  switchTab('tab-outlier');
-  runScriptAnalysis(fullUrl);
-}
+    /* CARD 3: HYPERFRAMES SCENE CARDS PREVIEW & ACTIONS */
+    if (scenes.length > 0) {
+      html += '<div style="background:#090d16; border:1px solid var(--accent-magenta); border-radius:14px; padding:20px;">' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">' +
+          '<div>' +
+            '<div class="card-title" style="color:var(--accent-magenta)">🎬 HYPERFRAMES SCENE JSON & CYBER-HUD CARDS (' + scenes.length + '개 씬 분절 완료)</div>' +
+            '<h3 style="font-family:var(--font-display); font-size:18px; color:#fff; margin-top:2px;">⚡ HyperFrames 비주얼 씬 규격</h3>' +
+          '</div>' +
+          '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
+            '<button class="btn btn-sm btn-magenta" id="btn-export-scenes-json">💾 scenes.json 파일 저장</button>' +
+            '<button class="btn btn-sm btn-cyan btn-copy-text" data-text="' + encodeURIComponent(JSON.stringify(scenes, null, 2)) + '">📋 씬 JSON 복사</button>' +
+            '<button class="btn btn-sm btn-amber" id="btn-send-scenes-to-ab" data-topic="' + encodeURIComponent(gBrandScriptTopic) + '">🎯 A/B 시뮬레이터로 연동</button>' +
+          '</div>' +
+        '</div>' +
 
-function triggerCommentAnalysis(vidOrUrl) {
-  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
-  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
-  gAiLabSubTab = 'comments';
-  switchTab('tab-outlier');
-  const urlInput = document.getElementById('input-ai-url');
-  if (urlInput) urlInput.value = fullUrl;
-  runAiCommentAnalysis({url: fullUrl});
+        /* Scene Visual Cards */
+        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:12px; margin-bottom:16px;">' +
+          scenes.map(sc => {
+            const scColor = typeColorMap[sc.type] || 'var(--accent-cyan)';
+            const scName = typeNameMap[sc.type] || ('Scene ' + sc.sceneIndex);
+            return '<div style="background:#05070c; border:1px solid ' + scColor + '; border-radius:12px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 4px 15px rgba(0,0,0,0.5);">' +
+              '<div>' +
+                '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
+                  '<span class="badge" style="background:rgba(0,0,0,0.4); border-color:' + scColor + '; color:' + scColor + '; font-size:10px; font-weight:800;">' + scName + '</span>' +
+                  '<span style="color:#aaa; font-size:11px; font-weight:700;">⏱️ ' + (sc.durationSec || 6) + '초</span>' +
+                '</div>' +
+
+                '<div style="font-size:13px; font-weight:700; color:#fff; line-height:1.45; margin-bottom:10px; background:rgba(255,255,255,0.03); padding:8px 10px; border-radius:6px;">' +
+                  '&ldquo;' + esc(sc.spokenText || '') + '&rdquo;' +
+                '</div>' +
+
+                '<div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:11px; margin-bottom:8px;">' +
+                  '<div style="background:#0a0e18; padding:6px 8px; border-radius:6px; border:1px solid #1a2234;"><span style="color:var(--text-muted);">카드 타이틀:</span> <b style="color:var(--text-bright);">' + esc(sc.cardTitle || '') + '</b></div>' +
+                  '<div style="background:#0a0e18; padding:6px 8px; border-radius:6px; border:1px solid #1a2234;"><span style="color:var(--text-muted);">키워드:</span> <b style="color:' + scColor + ';">' + esc(sc.highlightWord || '') + '</b></div>' +
+                '</div>' +
+              '</div>' +
+
+              (sc.onScreenVisualTip ? 
+                '<div style="font-size:10px; color:var(--accent-cyan); background:rgba(0,240,255,0.05); padding:6px 8px; border-radius:6px; border:1px dashed rgba(0,240,255,0.2);">' +
+                  '🎨 <b>비주얼 룩:</b> ' + esc(sc.onScreenVisualTip) +
+                '</div>' : '') +
+            '</div>';
+          }).join('') +
+        '</div>' +
+
+        /* JSON collapsible box */
+        '<details style="background:#020408; border:1px solid var(--border-subtle); border-radius:8px; padding:10px;">' +
+          '<summary style="color:var(--text-muted); font-size:11px; font-weight:700; cursor:pointer;">🔍 HyperFrames 씬 원본 JSON 코드 보기 (' + scenes.length + ' scenes)</summary>' +
+          '<pre style="color:#00f0ff; font-size:11px; font-family:monospace; line-height:1.4; max-height:220px; overflow-y:auto; margin-top:8px; white-space:pre-wrap;">' + esc(JSON.stringify(scenes, null, 2)) + '</pre>' +
+        '</details>' +
+      '</div>';
+    }
+
+  html += '</div>';
+  return html;
 }
 
 function bindOutlierLabEvents() {
   const subtabComments = document.getElementById('subtab-btn-comments');
   const subtabScripts = document.getElementById('subtab-btn-scripts');
-  if (subtabComments) subtabComments.onclick = () => { gAiLabSubTab = 'comments'; renderCurrentTab(); };
-  if (subtabScripts) subtabScripts.onclick = () => { gAiLabSubTab = 'scripts'; renderCurrentTab(); };
+  const subtabBrandLinter = document.getElementById('subtab-btn-brand-linter');
 
+  if (subtabComments) subtabComments.onclick = () => { 
+    gAiLabSubTab = 'comments'; 
+    try { localStorage.setItem('ihm_ailab_subtab', 'comments'); } catch (_) {}
+    renderCurrentTab(); 
+  };
+  if (subtabScripts) subtabScripts.onclick = () => { 
+    gAiLabSubTab = 'scripts'; 
+    try { localStorage.setItem('ihm_ailab_subtab', 'scripts'); } catch (_) {}
+    renderCurrentTab(); 
+  };
+  if (subtabBrandLinter) subtabBrandLinter.onclick = () => { 
+    gAiLabSubTab = 'brand-linter'; 
+    try { localStorage.setItem('ihm_ailab_subtab', 'brand-linter'); } catch (_) {}
+    renderCurrentTab(); 
+  };
+
+  // 1. Comments Subtab Events
   const btnKw = document.getElementById('btn-run-ai-kw');
   if (btnKw) btnKw.onclick = () => {
     const kw = document.getElementById('input-ai-kw')?.value.trim();
@@ -2662,6 +3092,7 @@ function bindOutlierLabEvents() {
     runAiCommentAnalysis({url});
   };
 
+  // 2. Script Subtab Events
   const btnScript = document.getElementById('btn-run-script-analyze');
   if (btnScript) btnScript.onclick = () => {
     const urlInput = document.getElementById('input-script-url');
@@ -2669,15 +3100,195 @@ function bindOutlierLabEvents() {
     runScriptAnalysis(targetUrl);
   };
 
-  const refreshBtn = document.getElementById('btn-refresh-ai-reports');
-  if (refreshBtn) refreshBtn.onclick = () => {
-    if (gAiLabSubTab === 'comments') loadSavedReportsList();
-    else loadSavedScriptReportsList();
+  // 3. Brand Linter Subtab Events
+  const topicInput = document.getElementById('input-brand-linter-topic');
+  if (topicInput) topicInput.oninput = (e) => {
+    gBrandScriptTopic = e.target.value;
+    saveBrandLinterState();
   };
+
+  const formatSelect = document.getElementById('select-brand-linter-format');
+  if (formatSelect) formatSelect.onchange = (e) => {
+    gBrandScriptFormat = e.target.value;
+    saveBrandLinterState();
+  };
+
+  const scriptTextarea = document.getElementById('textarea-brand-linter-script');
+  if (scriptTextarea) {
+    scriptTextarea.oninput = (e) => {
+      gBrandScriptText = e.target.value;
+      saveBrandLinterState();
+      const stats = document.getElementById('brand-linter-char-stats');
+      if (stats) {
+        const cLen = gBrandScriptText.length;
+        const est = Math.round(cLen / 5.3);
+        stats.textContent = '총 ' + cLen + '자 · 예상 낭독시간 약 ' + est + '초';
+      }
+    };
+  }
+
+  // Sample Buttons
+  const btnSampleShorts = document.getElementById('btn-brand-linter-sample-shorts');
+  if (btnSampleShorts) {
+    btnSampleShorts.onclick = () => {
+      gBrandScriptFormat = 'SHORTS';
+      gBrandScriptTopic = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TOPIC)};
+      gBrandScriptText = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TEXT)};
+      saveBrandLinterState();
+      renderCurrentTab();
+      showToast('📱 쇼츠 3060 도파민 샘플 대본이 로드되었습니다!');
+    };
+  }
+
+  const btnSampleLong = document.getElementById('btn-brand-linter-sample-long');
+  if (btnSampleLong) {
+    btnSampleLong.onclick = () => {
+      gBrandScriptFormat = 'LONGFORM';
+      gBrandScriptTopic = ${JSON.stringify(BRAND_LINTER_SAMPLE_LONG_TOPIC)};
+      gBrandScriptText = ${JSON.stringify(BRAND_LINTER_SAMPLE_LONG_TEXT)};
+      saveBrandLinterState();
+      renderCurrentTab();
+      showToast('📺 롱폼 3060 도파민 샘플 대본이 로드되었습니다!');
+    };
+  }
+
+  const btnClear = document.getElementById('btn-brand-linter-clear');
+  if (btnClear) {
+    btnClear.onclick = () => {
+      if (confirm('대본 에디터를 비우시겠습니까?')) {
+        gBrandScriptText = '';
+        gBrandScriptLinterResult = null;
+        saveBrandLinterState();
+        renderCurrentTab();
+      }
+    };
+  }
+
+  // Run Brand Linter Button
+  const btnRunLinter = document.getElementById('btn-run-brand-linter');
+  if (btnRunLinter) {
+    btnRunLinter.onclick = async () => {
+      const scriptText = (gBrandScriptText || '').trim();
+      if (!scriptText) return alert('심사할 대본을 입력하세요.');
+
+      const statusBox = document.getElementById('ai-lab-status');
+      const statusText = document.getElementById('ai-lab-status-text');
+      const resultsContainer = document.getElementById('ai-results-container');
+
+      if (statusBox) statusBox.style.display = 'block';
+      if (statusText) statusText.textContent = 'Gemini AI가 3060 브랜드 도파민 3단계 공식 및 HyperFrames 씬 규격을 정밀 심사 중입니다... (약 3~5초 소요)';
+      btnRunLinter.disabled = true;
+
+      try {
+        const res = await fetch('/api/brand-script/lint', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            scriptText,
+            topic: gBrandScriptTopic,
+            format: gBrandScriptFormat,
+          }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '대본 심사에 실패했습니다.');
+
+        gBrandScriptLinterResult = data.result;
+        saveBrandLinterState();
+
+        if (statusBox) statusBox.style.display = 'none';
+        if (resultsContainer) {
+          resultsContainer.style.display = 'block';
+          resultsContainer.innerHTML = renderBrandLinterResults(data.result);
+          resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        showToast('🎉 3060 브랜드 대본 린팅 및 HyperFrames 씬 생성이 완료되었습니다!');
+      } catch (err) {
+        if (statusBox) statusBox.style.display = 'block';
+        if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
+      } finally {
+        btnRunLinter.disabled = false;
+      }
+    };
+  }
+
+  // Dynamic Button Listeners for results
+  document.querySelectorAll('.btn-apply-improved-script').forEach(btn => {
+    btn.onclick = () => {
+      const script = decodeURIComponent(btn.dataset.script || '');
+      gBrandScriptText = script;
+      saveBrandLinterState();
+      renderCurrentTab();
+      showToast('✍️ 교정된 대본이 에디터에 반영되었습니다!');
+    };
+  });
+
+  document.querySelectorAll('.btn-copy-text').forEach(btn => {
+    btn.onclick = () => {
+      const text = decodeURIComponent(btn.dataset.text || '');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text);
+        showToast('📋 복사되었습니다!');
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('📋 복사되었습니다!');
+      }
+    };
+  });
+
+  const btnExportScenes = document.getElementById('btn-export-scenes-json');
+  if (btnExportScenes && gBrandScriptLinterResult?.hyperFramesScenes) {
+    btnExportScenes.onclick = async () => {
+      try {
+        const res = await fetch('/api/brand-script/export-scenes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            scenes: gBrandScriptLinterResult.hyperFramesScenes,
+            topic: gBrandScriptTopic,
+            format: gBrandScriptFormat,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '저장 실패');
+        showToast('💾 [' + data.filename + '] 파일이 output/scenes/ 에 성공적으로 저장되었습니다!');
+      } catch (err) {
+        alert('저장 오류: ' + err.message);
+      }
+    };
+  }
+
+  const btnSendToAb = document.getElementById('btn-send-scenes-to-ab');
+  if (btnSendToAb) {
+    btnSendToAb.onclick = () => {
+      const topic = decodeURIComponent(btnSendToAb.dataset.topic || gBrandScriptTopic);
+      gAbTopic = topic;
+      gAbFormat = gBrandScriptFormat;
+      gAbVariants[0].title = topic + ' (핵심 소리 원리 1초 완성)';
+      gAbVariants[1].title = '원어민이 ' + topic.slice(0, 10) + ' 발음할 때 절대 모르는 비밀 #영어발음';
+      gAbVariants[2].title = topic + '? 딱 1가지만 기억하세요! 귀가 뚫리는 공식';
+      saveAbSimulatorState();
+      switchTab('tab-ab-simulator');
+      showToast('🎯 린팅된 주제가 A/B 시뮬레이터에 연동되었습니다!');
+    };
+  }
+
+  const refreshBtn = document.getElementById('btn-refresh-ai-reports');
+  if (refreshBtn) {
+    refreshBtn.onclick = () => {
+      if (gAiLabSubTab === 'comments') loadSavedReportsList();
+      else if (gAiLabSubTab === 'scripts') loadSavedScriptReportsList();
+    };
+  }
 
   if (gAiLabSubTab === 'comments') {
     loadSavedReportsList();
-  } else {
+  } else if (gAiLabSubTab === 'scripts') {
     loadSavedScriptReportsList();
   }
 }
@@ -3838,8 +4449,13 @@ function bindMatrixEvents() {
   document.querySelectorAll('.btn-send-to-ab').forEach(btn => {
     btn.onclick = (e) => {
       e.stopPropagation();
-      const videoTitle = decodeURIComponent(btn.dataset.title);
-      const videoThumb = decodeURIComponent(btn.dataset.thumb);
+      const vid = btn.dataset.videoId;
+      const targetVideo = allItems.find(v => v.videoId === vid);
+      const videoTitle = targetVideo ? targetVideo.title : decodeURIComponent(btn.dataset.title);
+      const videoThumb = targetVideo ? targetVideo.thumbnail : decodeURIComponent(btn.dataset.thumb);
+      const isVideoShorts = targetVideo ? (targetVideo.format === 'SHORTS' || targetVideo.isShorts) : (videoTitle.toLowerCase().includes('#shorts'));
+      
+      gAbFormat = isVideoShorts ? 'SHORTS' : 'LONGFORM';
       gAbTopic = videoTitle;
       gAbVariants[0] = {
         id: 'A',
@@ -3847,17 +4463,29 @@ function bindMatrixEvents() {
         imageUrl: videoThumb,
         thumbnailCopy: '기존 썸네일',
         badge: '현재 시안',
+        isLocalFile: false
       };
       gAbVariants[1] = {
         id: 'B',
-        title: videoTitle.replace(/#.*/, '') + ' (핵심 원리 30초 완성)',
-        imageUrl: videoThumb,
+        title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (핵심 원리)' : ' (핵심 원리 30초 완성)'),
+        imageUrl: '',
         thumbnailCopy: '핵심 원리 대조',
         badge: '대안 B',
+        isLocalFile: false
       };
-      gAbSelectedVariantTab = 'B';
+      gAbVariants[2] = {
+        id: 'C',
+        title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts (필수 패턴)' : ' (필수 패턴 총정리)'),
+        imageUrl: '',
+        thumbnailCopy: '패턴 확장 카피',
+        badge: '대안 C',
+        isLocalFile: false
+      };
+      gAbSelectedVariantTab = 'A';
+      gAbActiveFeedView = 'A';
+      saveAbSimulatorState();
       switchTab('tab-ab-simulator');
-      showToast('💎 숨은 보석 영상이 A/B 시뮬레이터에 로드되었습니다! 새 시안을 진단해 보세요.');
+      showToast(isVideoShorts ? '📱 쇼츠(9:16) 영상이 A/B 시뮬레이터에 로드되었습니다!' : '📺 롱폼(16:9) 영상이 A/B 시뮬레이터에 로드되었습니다!');
     };
   });
 
@@ -3968,26 +4596,45 @@ function openMatrixDiagnosisModal(video) {
         if (toAbBtn) {
           toAbBtn.onclick = () => {
             closeModal();
+            const isVideoShorts = (video.format === 'SHORTS') || video.isShorts || (typeof video.durationSec === 'number' && video.durationSec <= 60) || (typeof video.durationSeconds === 'number' && video.durationSeconds <= 60) || (video.title && (video.title.toLowerCase().includes('#shorts') || video.title.toLowerCase().includes('shorts')));
+            gAbFormat = isVideoShorts ? 'SHORTS' : 'LONGFORM';
             gAbTopic = video.title;
+            
+            // 1. Variant A (Original Baseline Video)
             gAbVariants[0] = {
               id: 'A',
               title: video.title,
               imageUrl: video.thumbnail,
-              thumbnailCopy: '기존 썸네일',
+              thumbnailCopy: '기존 원본 카피',
               badge: '현재 시안',
+              isLocalFile: false
             };
-            if (altTitles[0]) {
-              gAbVariants[1] = {
-                id: 'B',
-                title: altTitles[0],
-                imageUrl: video.thumbnail,
-                thumbnailCopy: 'AI 추천 카피',
-                badge: 'AI 추천 1위',
-              };
-            }
-            gAbSelectedVariantTab = 'B';
+            
+            // 2. Variant B (AI Recommendation 1 - Empty image ready for new thumbnail drop/generation)
+            gAbVariants[1] = {
+              id: 'B',
+              title: (altTitles && altTitles[0]) ? altTitles[0] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (개선안 B)' : ' (개선안 B)')),
+              imageUrl: '',
+              thumbnailCopy: (altTitles && altTitles[0]) ? altTitles[0].slice(0, 15) : '대안 B 카피',
+              badge: 'AI 추천 1위',
+              isLocalFile: false
+            };
+
+            // 3. Variant C (AI Recommendation 2 - Empty image ready for new thumbnail drop/generation)
+            gAbVariants[2] = {
+              id: 'C',
+              title: (altTitles && altTitles[1]) ? altTitles[1] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts' : ' (완전정복 C)')),
+              imageUrl: '',
+              thumbnailCopy: (altTitles && altTitles[1]) ? altTitles[1].slice(0, 15) : '대안 C 카피',
+              badge: 'AI 추천 2위',
+              isLocalFile: false
+            };
+
+            gAbSelectedVariantTab = 'A';
+            gAbActiveFeedView = 'A';
+            saveAbSimulatorState();
             switchTab('tab-ab-simulator');
-            showToast('💎 AI 진단 결과가 A/B 시뮬레이터에 로드되었습니다!');
+            showToast(isVideoShorts ? '📱 쇼츠(9:16) 영상이 A/B 시뮬레이터에 로드되었습니다!' : '📺 롱폼(16:9) 영상이 A/B 시뮬레이터에 로드되었습니다!');
           };
         }
       } catch (err) {
@@ -4068,75 +4715,340 @@ function bindStudioRpaModalEvents() {
 
 /* TAB: A/B FEED SIMULATOR & AI CTR PREDICTOR */
 function renderAbSimulatorTab() {
+  const isShorts = gAbFormat === 'SHORTS';
   const currentVariant = gAbVariants.find(v => v.id === gAbSelectedVariantTab) || gAbVariants[0];
   const colorMap = { A: 'var(--accent-magenta)', B: 'var(--accent-cyan)', C: 'var(--accent-amber)' };
   const badgeClassMap = { A: 'badge-revise', B: 'badge-pass', C: 'badge-hold' };
 
-  const comps = (gAbCompetitors && gAbCompetitors.length > 0) ? gAbCompetitors : [
-    { title: "영어 수동태 단번에 마스터 하기 (원리만 알면 초보도 1초 컷)", channelTitle: "이지 잉글리시", views: 645000, publishedAgo: "1개월 전", thumbnail: "https://i.ytimg.com/vi/WZFLgtzV_80/mqdefault.jpg", duration: "11:45" },
-    { title: "TREASURE를 ‘트레처’라고 읽으면 틀립니다! #영어발음", channelTitle: "발음의 신", views: 1200000, publishedAgo: "3일 전", thumbnail: "https://i.ytimg.com/vi/5MiM1tIpQQk/mqdefault.jpg", duration: "00:58" },
-    { title: "원어민이 가장 많이 쓰는 초급 회화 50문장", channelTitle: "매일 영어 루틴", views: 450000, publishedAgo: "1달 전", thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=640&q=80", duration: "18:30" }
+  const chosenVariant = (gAbActiveFeedView === 'ALL') ? currentVariant : (gAbVariants.find(v => v.id === gAbActiveFeedView) || currentVariant);
+  const bColor = colorMap[chosenVariant.id] || 'var(--accent-magenta)';
+
+  /* Rich Competitor Videos: 2 Top Longforms & 4 Bottom Longforms from Market Demand Radar (100% Pure 16:9 Longforms) */
+  const topLongforms = [
+    {
+      title: "왕초보를 위한 영어회화 강의 - Lesson 001 [기본적인 문장 구성하기]",
+      channelTitle: "라이브 아카데미 토들러",
+      views: "185만회",
+      publishedAgo: "1개월 전",
+      thumbnail: "https://i.ytimg.com/vi/OGHo7apPWIY/mqdefault.jpg",
+      duration: "14:28",
+      avatarSeed: "LiveAcademy1",
+    },
+    {
+      title: "🌱영어회화 | 기초 영어 - 문장 만들기 - Lesson 002",
+      channelTitle: "라이브 아카데미 토들러",
+      views: "145만회",
+      publishedAgo: "1개월 전",
+      thumbnail: "https://i.ytimg.com/vi/yJg0rrmRZhA/mqdefault.jpg",
+      duration: "11:20",
+      avatarSeed: "LiveAcademy2",
+    }
   ];
 
-  let feedItemsList = [];
-  if (gAbActiveFeedView === 'ALL') {
-    feedItemsList = [
-      { isComp: true, ...comps[0] },
-      { isTest: true, variant: gAbVariants[0] },
-      { isComp: true, ...(comps[1] || comps[0]) },
-      { isTest: true, variant: gAbVariants[1] },
-      { isComp: true, ...(comps[2] || comps[0]) },
-      { isTest: true, variant: gAbVariants[2] },
-      ...(comps.slice(3).map(c => ({ isComp: true, ...c })))
-    ];
-  } else {
-    const chosen = gAbVariants.find(v => v.id === gAbActiveFeedView) || gAbVariants[0];
-    feedItemsList = [
-      { isComp: true, ...comps[0] },
-      { isTest: true, variant: chosen },
-      ...(comps.slice(1).map(c => ({ isComp: true, ...c })))
-    ];
-  }
-
-  const feedHtml = feedItemsList.map((item) => {
-    if (item.isTest) {
-      const v = item.variant;
-      const bColor = colorMap[v.id] || 'var(--accent-magenta)';
-      return '<div class="feed-item active-test" style="border: 2px solid ' + bColor + '; border-radius: 12px; margin-bottom: 16px; background: rgba(0,0,0,0.6); overflow: hidden;">' +
-        '<div style="background:' + bColor + '; color:#000; font-weight:900; font-size:11px; padding:3px 10px; display:flex; justify-content:space-between; align-items:center;">' +
-          '<span>★ 우리 채널 시안 ' + v.id + ' (테스트 노출 중)</span>' +
-          (v.badge ? '<span style="background:rgba(0,0,0,0.3); color:#fff; padding:1px 6px; border-radius:4px; font-size:10px;">' + esc(v.badge) + '</span>' : '') +
-        '</div>' +
-        '<div class="feed-thumb-wrap">' +
-          '<img class="feed-thumb-img" src="' + esc(v.imageUrl || 'https://i.ytimg.com/vi/t_wVvVyqdbg/mqdefault.jpg') + '" alt="">' +
-          '<span class="feed-duration">07:42</span>' +
-        '</div>' +
-        '<div class="feed-meta" style="padding:10px 12px 14px;">' +
-          '<div style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg, var(--accent-magenta), #7928ca); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:14px; flex-shrink:0;">⚡</div>' +
-          '<div class="feed-details">' +
-            '<div class="feed-title" style="color:#fff; font-weight:700;">' + esc(v.title || '(제목을 입력하세요)') + '</div>' +
-            '<div class="feed-sub">이해하면 쉬운 영어 · 조회수 2.4만회 · 2시간 전</div>' +
-          '</div>' +
-          '<div style="color:#888; font-size:16px; cursor:pointer;">⋮</div>' +
-        '</div>' +
-      '</div>';
+  /* 6 Authentic Competitor Shorts Cards from Real Competitor Channels (10초 영어회화, 톡톡영어, 딴딴영어, 리스닝영어창고, 시니어 엄지척 영어, 보리영어) */
+  const shortsList = [
+    {
+      title: "맛이 왜 이래 영어로? 원어민은 off 하나로 끝냅니다. #shorts",
+      channelTitle: "10초 영어회화",
+      imageUrl: "https://i.ytimg.com/vi/PQJwmKD4YiA/hqdefault.jpg",
+      views: "180만회",
+      tag: "인기 급상승",
+    },
+    {
+      title: "너는 그럴 자격이 있다 영어로? You deserve it #shorts",
+      channelTitle: "톡톡영어",
+      imageUrl: "https://i.ytimg.com/vi/7zrEVHsWwV0/hqdefault.jpg",
+      views: "94만회",
+      tag: "새 동영상",
+    },
+    {
+      title: "[패턴영어] It's all good~ 패턴으로 배우는 영어 표현! #shorts",
+      channelTitle: "딴딴영어",
+      imageUrl: "https://i.ytimg.com/vi/AwKOIQjT4Tc/hqdefault.jpg",
+      views: "63만회",
+      tag: "인기",
+    },
+    {
+      title: "왕초보 영어 5문장 | 매일 쓰는 필수 표현 #shorts",
+      channelTitle: "리스닝영어창고",
+      imageUrl: "https://i.ytimg.com/vi/1zwyCkBvTXc/hqdefault.jpg",
+      views: "57만회",
+      tag: "추천",
+    },
+    {
+      title: "원어민이 대화 중에 자주 쓰는 짧은 영어 #shorts",
+      channelTitle: "시니어 엄지척 영어",
+      imageUrl: "https://i.ytimg.com/vi/d-4OjN7OnCA/hqdefault.jpg",
+      views: "87만회",
+      tag: "",
+    },
+    {
+      title: "미드로 배우는 쉬운 영어표현 It was all for nothing #shorts",
+      channelTitle: "보리영어",
+      imageUrl: "https://i.ytimg.com/vi/XVPPUe_elEw/hqdefault.jpg",
+      views: "52만회",
+      tag: "새 동영상",
     }
+  ];
 
-    return '<div class="feed-item" style="margin-bottom: 16px; background:#0f0f0f; border-radius:12px; overflow:hidden;">' +
+  /* 4 Real Bottom Longform Videos from Market Demand Radar & YouTube (100% Pure 16:9 Competitor Longforms) */
+  const bottomLongforms = [
+    {
+      title: "[왕기초 영어 읽기 0편] 준비 1단계. ⭐알파벳⭐ 배우기 | 한글로 배우는 영어",
+      channelTitle: "하니티처",
+      views: "63만회",
+      publishedAgo: "3주 전",
+      thumbnail: "https://i.ytimg.com/vi/tpveKY5pnis/mqdefault.jpg",
+      duration: "12:15",
+      avatarSeed: "HaniTeacher",
+    },
+    {
+      title: "[왕기초 영어 읽기 0편] 준비 2단계 ⭐대문자 쓰기⭐ 함께 쓰면서 외워요!",
+      channelTitle: "하니티처",
+      views: "57만회",
+      publishedAgo: "2개월 전",
+      thumbnail: "https://i.ytimg.com/vi/Eh5h2WatNII/mqdefault.jpg",
+      duration: "09:40",
+      avatarSeed: "HaniTeacher2",
+    },
+    {
+      title: "[왕기초 영어 읽기 8편] 모르면 실수하는 ⭐L 단어 읽기⭐ (L 심화편)",
+      channelTitle: "하니티처",
+      views: "48만회",
+      publishedAgo: "2개월 전",
+      thumbnail: "https://i.ytimg.com/vi/4YHtkTvQmYk/mqdefault.jpg",
+      duration: "13:20",
+      avatarSeed: "HaniTeacher3",
+    },
+    {
+      title: "[왕기초 영어 읽기 7편] ⭐장모음 U⭐ 읽고 쓰기, 이걸로 끝!",
+      channelTitle: "하니티처",
+      views: "52만회",
+      publishedAgo: "4개월 전",
+      thumbnail: "https://i.ytimg.com/vi/6iCB2V4Leeo/mqdefault.jpg",
+      duration: "15:30",
+      avatarSeed: "HaniTeacher4",
+    }
+  ];
+
+  function renderLongformFeedCard(item, isTest = false, testId = '', borderCol = '', slotIdx = 0) {
+    const isT = isTest;
+    const bC = borderCol || (isT ? bColor : 'transparent');
+    const borderStyle = isT 
+      ? ('border: 2px solid ' + bC + '; border-radius: 12px; margin: 0 6px 14px; background: rgba(0,0,0,0.6); overflow: hidden; box-shadow: 0 0 15px ' + bC + '40;') 
+      : 'margin-bottom: 14px; background: transparent;';
+    
+    return '<div class="feed-item ab-feed-drop-zone' + (isT ? ' ab-feed-card-draggable active-test' : '') + '" ' + (isT ? 'draggable="true"' : '') + ' data-is-test="' + (isT ? '1' : '0') + '" data-slot-type="longform" data-slot-idx="' + slotIdx + '" style="' + borderStyle + '">' +
+      (isT ? 
+        '<div style="background:' + bC + '; color:#000; font-weight:900; font-size:11px; padding:4px 10px; display:flex; justify-content:space-between; align-items:center; cursor:grab;">' +
+          '<span>☰ ★ 우리 채널 시안 ' + (testId || chosenVariant.id) + ' (드래그하여 위치 이동)</span>' +
+          (chosenVariant.badge ? '<span style="background:rgba(0,0,0,0.4); color:#fff; padding:1px 6px; border-radius:4px; font-size:10px;">' + esc(chosenVariant.badge) + '</span>' : '') +
+        '</div>' : '') +
       '<div class="feed-thumb-wrap">' +
-        '<img class="feed-thumb-img" src="' + esc(item.thumbnail || '') + '" alt="">' +
-        '<span class="feed-duration">' + esc(item.duration || '10:20') + '</span>' +
+        '<img class="feed-thumb-img" src="' + esc(item.thumbnail || item.imageUrl || 'https://i.ytimg.com/vi/OVAeeJxmdw0/mqdefault.jpg') + '" draggable="false" style="pointer-events:none;" alt="">' +
+        '<span class="feed-duration">' + esc(item.duration || '08:24') + '</span>' +
       '</div>' +
-      '<div class="feed-meta" style="padding:10px 12px 14px;">' +
-        '<img class="feed-avatar" src="' + esc(item.channelAvatar || 'https://api.dicebear.com/7.x/identicon/svg?seed=' + esc(item.channelTitle)) + '" alt="">' +
-        '<div class="feed-details">' +
-          '<div class="feed-title">' + esc(item.title) + '</div>' +
-          '<div class="feed-sub">' + esc(item.channelTitle) + ' · 조회수 ' + fmt.format(item.views || 0) + '회 · ' + esc(item.publishedAgo || '최근') + '</div>' +
+      '<div class="feed-meta" style="padding: 10px 12px 6px; display:flex; gap:10px;">' +
+        '<div style="width:34px; height:34px; border-radius:50%; background:' + (isT ? 'linear-gradient(135deg, var(--accent-magenta), #7928ca)' : '#27272a') + '; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:13px; flex-shrink:0; overflow:hidden;">' +
+          (isT ? '⚡' : '<img src="https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(item.avatarSeed || item.channelTitle || 'channel') + '" style="width:100%;height:100%;object-fit:cover;">') +
         '</div>' +
-        '<div style="color:#888; font-size:16px; cursor:pointer;">⋮</div>' +
+        '<div class="feed-details" style="flex:1; min-width:0;">' +
+          '<div class="feed-title" style="color:#f1f1f1; font-size:13px; font-weight:700; line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">' + esc(item.title || '(제목 없음)') + '</div>' +
+          '<div class="feed-sub" style="color:#aaa; font-size:11px; margin-top:3px;">' + esc(item.channelTitle || '이해하면 쉬운 영어') + ' · ' + (typeof item.views === 'number' ? ('조회수 ' + Math.round(item.views/10000) + '만회') : esc(item.views || '조회수 2.4만회')) + ' · ' + esc(item.publishedAgo || '2시간 전') + '</div>' +
+        '</div>' +
+        '<div style="color:#aaa; font-size:14px;">⋮</div>' +
       '</div>' +
     '</div>';
-  }).join('');
+  }
+
+  function renderSingleShortsCard(item, isTest = false, testId = '', borderCol = '', slotIdx = 0) {
+    const isT = isTest;
+    const bC = borderCol || (isT ? bColor : 'transparent');
+    const borderStyle = isT 
+      ? ('border: 2.5px solid ' + bC + '; box-shadow: 0 0 14px ' + bC + '50; cursor:grab;') 
+      : '';
+    return '<div class="shorts-card ab-feed-drop-zone' + (isT ? ' ab-feed-card-draggable active-test' : '') + '" ' + (isT ? 'draggable="true"' : '') + ' data-is-test="' + (isT ? '1' : '0') + '" data-slot-type="shorts" data-slot-idx="' + slotIdx + '" style="' + borderStyle + '">' +
+      '<img class="shorts-card-img" src="' + esc(item.imageUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=480&h=854&fit=crop&q=80') + '" draggable="false" style="pointer-events:none;" alt="">' +
+      '<div class="shorts-card-top">' +
+        (isT ? '<span style="background:' + bC + '; color:#000; font-size:9px; font-weight:900; padding:2px 5px; border-radius:3px;">☰ ★ 시안 ' + (testId || item.id) + '</span>' : (item.tag ? '<span style="background:rgba(0,0,0,0.6); color:#fff; font-size:9px; font-weight:700; padding:2px 5px; border-radius:3px;">' + esc(item.tag) + '</span>' : '<span></span>')) +
+        '<span style="color:#fff; font-size:12px; text-shadow:0 1px 3px #000;">⋮</span>' +
+      '</div>' +
+      '<div class="shorts-card-bottom">' +
+        '<div class="shorts-card-title" style="color:#fff; font-weight:800;">' + esc(item.title || '(쇼츠 제목을 입력하세요)') + '</div>' +
+        '<div class="shorts-card-views" style="' + (isT ? 'color:var(--accent-cyan);' : '') + '">' + (isT ? '이해하면 쉬운 영어 · 2.4만회' : (item.channelTitle ? (esc(item.channelTitle) + ' · ') : '') + esc(item.views || '조회수 120만회')) + '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderShortsFeedShelf() {
+    let cardsHtml = '';
+    if (isShorts) {
+      if (gAbActiveFeedView === 'ALL') {
+        /* ALL Mode in Shorts shelf: Zigzag 3 variants + 3 competitors */
+        const varA = gAbVariants.find(v => v.id === 'A') || gAbVariants[0];
+        const varB = gAbVariants.find(v => v.id === 'B') || gAbVariants[1];
+        const varC = gAbVariants.find(v => v.id === 'C') || gAbVariants[2];
+
+        cardsHtml += renderSingleShortsCard(varA, true, 'A', 'var(--accent-magenta)', 0);
+        cardsHtml += renderSingleShortsCard(shortsList[0], false, '', '', 1);
+        cardsHtml += renderSingleShortsCard(shortsList[1], false, '', '', 2);
+        cardsHtml += renderSingleShortsCard(varB, true, 'B', 'var(--accent-cyan)', 3);
+        cardsHtml += renderSingleShortsCard(varC, true, 'C', 'var(--accent-amber)', 4);
+        cardsHtml += renderSingleShortsCard(shortsList[2], false, '', '', 5);
+      } else {
+        /* Single Variant Mode in Shorts Shelf with Exact Slot (0 to 5) */
+        const activeSlot = Math.max(0, Math.min(5, gAbFeedSlotIndex));
+        for (let i = 0; i < 6; i++) {
+          if (i === activeSlot) {
+            cardsHtml += renderSingleShortsCard(chosenVariant, true, chosenVariant.id, bColor, i);
+          } else {
+            const compIdx = i > activeSlot ? i - 1 : i;
+            cardsHtml += renderSingleShortsCard(shortsList[compIdx] || shortsList[0], false, '', '', i);
+          }
+        }
+      }
+    } else {
+      /* Longform Mode: Shorts 선반 - 올바른 9:16 비율의 실제 유튜브 쇼츠 썸네일만 사용 */
+      shortsList.forEach((item, idx) => {
+        /* object-fit: cover로 9:16 이미지가 컨테이너에 완전히 맞게 표시 */
+        cardsHtml += renderSingleShortsCard(item, false, '', '', idx);
+      });
+    }
+
+    return '<div class="shorts-shelf">' +
+      '<div class="shorts-shelf-header">' +
+        '<div style="display:flex; align-items:center; gap:6px; font-weight:900; font-size:14px; color:#fff;">' +
+          '<span style="color:#ff0033; font-size:15px;">▶</span> Shorts' +
+        '</div>' +
+        '<div style="color:#aaa; font-size:14px; cursor:pointer;">⋮</div>' +
+      '</div>' +
+      '<div class="shorts-shelf-grid">' + cardsHtml + '</div>' +
+    '</div>';
+  }
+
+  let feedHtml = '';
+  if (isShorts) {
+    /* 1. Top Section: 2 Real Competitor Longforms */
+    feedHtml += renderLongformFeedCard(topLongforms[0], false, '', '', 0);
+    feedHtml += renderLongformFeedCard(topLongforms[1], false, '', '', 1);
+
+    /* 2. Middle Section: 6 Shorts Shelf */
+    feedHtml += renderShortsFeedShelf();
+
+    /* 3. Bottom Section: 4 Real Competitor Longforms */
+    bottomLongforms.forEach((v, idx) => {
+      feedHtml += renderLongformFeedCard(v, false, '', '', idx + 2);
+    });
+  } else {
+    /* Longform Mode (Top 2 Longforms ➔ Middle Shorts Shelf ➔ Bottom 4 Longforms) */
+    if (gAbActiveFeedView === 'ALL') {
+      /* Section 1 (Top before Shorts): Variant A + 2 Real Competitor Longforms */
+      const varA = gAbVariants.find(v => v.id === 'A') || gAbVariants[0];
+      const varB = gAbVariants.find(v => v.id === 'B') || gAbVariants[1];
+      const varC = gAbVariants.find(v => v.id === 'C') || gAbVariants[2];
+
+      feedHtml += renderLongformFeedCard({
+        title: varA.title || '(시안 A 제목)',
+        channelTitle: "이해하면 쉬운 영어",
+        views: "2.4만회",
+        publishedAgo: "2시간 전",
+        thumbnail: varA.imageUrl || 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
+        duration: "07:42",
+      }, true, 'A', 'var(--accent-magenta)', 0);
+      feedHtml += renderLongformFeedCard(topLongforms[0], false, '', '', 1);
+      feedHtml += renderLongformFeedCard(topLongforms[1], false, '', '', 2);
+
+      /* Section 2 (Middle): Shorts Shelf with 6 items */
+      feedHtml += renderShortsFeedShelf();
+
+      /* Section 3 (Bottom after Shorts): Variant B + Competitor 1 + Variant C + Competitors 2, 3, 4 */
+      feedHtml += renderLongformFeedCard({
+        title: varB.title || '(시안 B 제목)',
+        channelTitle: "이해하면 쉬운 영어",
+        views: "2.4만회",
+        publishedAgo: "2시간 전",
+        thumbnail: varB.imageUrl || 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg',
+        duration: "07:42",
+      }, true, 'B', 'var(--accent-cyan)', 3);
+      feedHtml += renderLongformFeedCard(bottomLongforms[0], false, '', '', 4);
+
+      feedHtml += renderLongformFeedCard({
+        title: varC.title || '(시안 C 제목)',
+        channelTitle: "이해하면 쉬운 영어",
+        views: "2.4만회",
+        publishedAgo: "2시간 전",
+        thumbnail: varC.imageUrl || 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg',
+        duration: "07:42",
+      }, true, 'C', 'var(--accent-amber)', 5);
+      feedHtml += renderLongformFeedCard(bottomLongforms[1], false, '', '', 6);
+      feedHtml += renderLongformFeedCard(bottomLongforms[2], false, '', '', 7);
+      feedHtml += renderLongformFeedCard(bottomLongforms[3], false, '', '', 8);
+    } else {
+      /* Single Variant Mode with Exact Slot Index (0 to 7) */
+      const testCard = {
+        title: chosenVariant.title || '(제목을 입력하세요)',
+        channelTitle: "이해하면 쉬운 영어",
+        views: "2.4만회",
+        publishedAgo: "2시간 전",
+        thumbnail: chosenVariant.imageUrl || 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
+        duration: "07:42",
+      };
+
+      const compVideos = [
+        topLongforms[0],    // 0: 라이브 아카데미 토들러 (기본적인 문장 구성하기)
+        topLongforms[1],    // 1: 라이브 아카데미 토들러 (기초 영어 문장 만들기)
+        bottomLongforms[0], // 2: 하니티처 (알파벳 배우기 왕기초)
+        bottomLongforms[1], // 3: 하니티처 (대문자 쓰기)
+        bottomLongforms[2], // 4: 하니티처 (L 단어 읽기)
+        bottomLongforms[3], // 5: 하니티처 (장모음 U 읽고 쓰기)
+      ];
+
+      const targetSlot = Math.max(0, Math.min(7, gAbFeedSlotIndex));
+
+      // Section 1: Before Shorts Shelf (ALWAYS contains BOTH top competitor longforms)
+      if (targetSlot === 0) {
+        feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, 0);
+        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 1);
+        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 2);
+      } else if (targetSlot === 1) {
+        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 0);
+        feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, 1);
+        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 2);
+      } else if (targetSlot === 2) {
+        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 0);
+        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 1);
+        feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, 2);
+      } else {
+        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 0);
+        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 1);
+      }
+
+      // Section 2: Middle Section - YouTube Shorts Shelf
+      feedHtml += renderShortsFeedShelf();
+
+      // Section 3: After Shorts Shelf (Slots 3, 4, 5, 6, 7)
+      if (targetSlot >= 3) {
+        const bottomComps = compVideos.slice(2); // 4 items: bottomLongforms
+        const relSlot = targetSlot - 3;
+        for (let i = 0; i < 5; i++) {
+          const currentSlotIdx = i + 3;
+          if (i === relSlot) {
+            feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, currentSlotIdx);
+          } else {
+            const cIdx = i > relSlot ? i - 1 : i;
+            if (bottomComps[cIdx]) {
+              feedHtml += renderLongformFeedCard(bottomComps[cIdx], false, '', '', currentSlotIdx);
+            }
+          }
+        }
+      } else {
+        // When our card is in top section, render the 4 bottom competitors
+        for (let i = 0; i < 4; i++) {
+          feedHtml += renderLongformFeedCard(compVideos[i + 2], false, '', '', i + 3);
+        }
+      }
+    }
+  }
 
   const report = gAbAiReport;
 
@@ -4146,10 +5058,15 @@ function renderAbSimulatorTab() {
         '<div>' +
           '<div class="card-title" style="color:#ffccd9">YOUTUBE FEED SALIENCE & AI CTR PREDICTOR</div>' +
           '<h2 style="font-family:var(--font-display); font-size:24px; color:#fff; margin-top:2px">🎯 썸네일 & 제목 A/B 피드 시뮬레이터 · AI CTR 예측기</h2>' +
-          '<p style="color:#ffe6ec; margin-top:4px; font-size:13px">실제 모바일 유튜브 홈 피드 환경에서 경쟁 채널 영상들과 나란히 비교하여 시각적 스턴건 효과와 예상 CTR을 사전 진단합니다.</p>' +
+          '<p style="color:#ffe6ec; margin-top:4px; font-size:13px">실제 모바일 유튜브 피드 환경에서 경쟁 영상과 나란히 비교하여 시각적 스턴건 효과와 예상 CTR을 사전 진단합니다.</p>' +
         '</div>' +
-        '<div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">' +
-          '<button class="btn btn-sm" id="btn-ab-fill-sample">🎲 샘플 데이터 불러오기</button>' +
+        '<div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">' +
+          '<div style="display:flex; gap:4px; background:#080d16; padding:3px 6px; border-radius:10px; border:1px solid var(--border-subtle);">' +
+            '<button class="tab-pill btn-ab-format-toggle' + (!isShorts ? ' active' : '') + '" data-format="LONGFORM">📺 롱폼 (16:9)</button>' +
+            '<button class="tab-pill btn-ab-format-toggle' + (isShorts ? ' active' : '') + '" data-format="SHORTS">📱 쇼츠 (9:16)</button>' +
+          '</div>' +
+          '<button class="btn btn-sm" id="btn-ab-fill-sample">🎲 샘플 불러오기</button>' +
+          '<button class="btn btn-sm btn-amber" id="btn-ab-reset-state" title="기본 데이터로 초기화합니다">🗑️ 초기화</button>' +
           '<button class="btn btn-cyan btn-sm" id="btn-ab-run-ai">🚀 Gemini AI CTR 정밀 진단</button>' +
         '</div>' +
       '</div>' +
@@ -4162,7 +5079,7 @@ function renderAbSimulatorTab() {
         '<div style="flex:1; min-width:200px;">' +
           '<div style="font-size:11px; font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">👥 타겟 시청자층</div>' +
           '<select id="select-ab-audience" style="width:100%">' +
-            '<option value="5060 시니어 & 왕초보 영어 학습자"' + (gAbAudience.includes('5060') ? ' selected' : '') + '>5060 시니어 & 왕초보 영어</option>' +
+            '<option value="3060 성인 & 왕초보 영어 학습자"' + (gAbAudience.includes('3060') || gAbAudience.includes('5060') ? ' selected' : '') + '>3060 성인 & 왕초보 영어</option>' +
             '<option value="기초 회화 및 발음 교정 학습자"' + (gAbAudience.includes('회화') ? ' selected' : '') + '>기초 회화 및 발음 교정</option>' +
             '<option value="알파벳/파닉스 읽는 법 입문자"' + (gAbAudience.includes('파닉스') ? ' selected' : '') + '>알파벳/파닉스 읽는 법 입문</option>' +
           '</select>' +
@@ -4175,176 +5092,213 @@ function renderAbSimulatorTab() {
     '</div>' +
 
     /* LEFT: VARIANT WORKBENCH */
-    '<div class="bento-card col-6">' +
-      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">' +
-        '<div class="card-title" style="color:var(--accent-cyan)">VARIANT WORKBENCH (시안 편집기)</div>' +
-        '<div style="display:flex; gap:6px;">' +
+    '<div class="bento-card col-6" style="display:flex; flex-direction:column; justify-content:space-between;">' +
+      '<div>' +
+        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">' +
+          '<div style="margin-bottom:14px;">' +
+            '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
+              '<span style="font-weight:700; color:var(--text-bright)">제목 (Title)</span>' +
+              '<span id="ab-char-counter" style="color:' + ((currentVariant.title || '').length > 28 ? 'var(--accent-amber)' : 'var(--text-muted)') + '">' + (currentVariant.title || '').length + '자 ' + ((currentVariant.title || '').length > 28 ? '(모바일 28자 초과 주의)' : '') + '</span>' +
+            '</div>' +
+            '<input type="text" id="input-ab-variant-title" value="' + esc(currentVariant.title || '') + '" placeholder="유튜브 제목을 입력하세요" style="width:100%; font-size:14px; font-weight:600;">' +
+          '</div>' +
+
+          '<div style="margin-bottom:14px;">' +
+            '<div style="font-size:12px; font-weight:700; color:var(--text-bright); margin-bottom:6px;">썸네일 이미지 (Thumbnail Image - ' + (isShorts ? '9:16 세로형' : '16:9 가로형') + ')</div>' +
+            '<div style="display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap;">' +
+              '<input type="text" id="input-ab-variant-img" value="' + ((currentVariant.imageUrl || '').startsWith('data:') || (currentVariant.imageUrl || '').startsWith('blob:') ? '' : esc(currentVariant.imageUrl || '')) + '" placeholder="' + ((currentVariant.imageUrl || '').startsWith('data:') || (currentVariant.imageUrl || '').startsWith('blob:') ? '📁 이미지 적용됨 (새 URL 입력 시 교체)' : '이미지 URL (https://...)') + '" style="flex:1; min-width:180px;">' +
+              '<input type="file" id="input-ab-file-upload" accept="image/*" style="display:none">' +
+              '<button class="btn btn-sm btn-cyan" id="btn-ab-upload-trigger">📁 파일</button>' +
+              '<button class="btn btn-sm btn-magenta" id="btn-ab-generate-workbench-thumb" title="AI가 이 시안의 주제와 카피로 4K 네온 배경을 1-Click 자동 생성합니다">🎨 AI 1-Click 생성</button>' +
+            '</div>' +
+            '<div id="ab-thumb-dropzone" style="width:100%; max-width:' + (isShorts ? '180px' : '100%') + '; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; margin:0 auto; background:#05070c; border:2px dashed var(--border-active); border-radius:10px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;">' +
+              (currentVariant.imageUrl ? '<img src="' + esc(currentVariant.imageUrl) + '" style="width:100%; height:100%; object-fit:cover; background:#000;">' : '<div class="card-subtext" style="text-align:center; padding:10px;">🖼️ ' + (isShorts ? '쇼츠(9:16) 이미지' : '롱폼(16:9) 이미지') + '를 드래그하거나 [🎨 AI 1-Click 생성]을 누르세요</div>') +
+            '</div>' +
+          '</div>' +
+
+          '<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">' +
+            '<div>' +
+              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">썸네일 텍스트 카피 (AI 분석용)</div>' +
+              '<input type="text" id="input-ab-variant-copy" value="' + esc(currentVariant.thumbnailCopy || '') + '" placeholder="예: WANT vs WONT 입모양" style="width:100%">' +
+            '</div>' +
+            '<div>' +
+              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">포인트 뱃지 태그</div>' +
+              '<input type="text" id="input-ab-variant-badge" value="' + esc(currentVariant.badge || '') + '" placeholder="예: 1초 컷 / 비법 공개" style="width:100%">' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      /* 3-VARIANT MINIATURE COMPARISON GALLERY with Direct Image Drop */
+      '<div style="margin-top:14px; background:#060910; border:1px solid var(--border-subtle); border-radius:12px; padding:12px;">' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
+          '<span style="font-weight:800; font-size:13px; color:' + colorMap[currentVariant.id] + '">💎 시안 ' + currentVariant.id + ' 설정 (' + (isShorts ? '쇼츠 9:16' : '롱폼 16:9') + ')</span>' +
+          '<span class="badge ' + badgeClassMap[currentVariant.id] + '">Variant ' + currentVariant.id + '</span>' +
+        '</div>' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">' +
+          '<span style="font-size:11px; font-weight:700; color:var(--text-muted);">👥 시안 A · B · C 썸네일 비교 (직접 선택)</span>' +
+          '<div style="display:flex; gap:6px;">' +
+            '<button class="btn btn-xs btn-magenta" id="btn-ab-generate-all-thumbs" title="경쟁사 결핍을 분석하여 3개 시안의 고화질 썸네일을 모두 생성합니다">⚡ 3개 시안 동시 AI 생성</button>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">' +
           ['A', 'B', 'C'].map(vId => {
-            const isActive = gAbSelectedVariantTab === vId;
-            const bCol = vId === 'A' ? 'var(--accent-magenta)' : vId === 'B' ? 'var(--accent-cyan)' : 'var(--accent-amber)';
-            return '<button class="tab-pill btn-ab-tab-select' + (isActive ? ' active' : '') + '" data-var="' + vId + '" style="' + (isActive ? 'border-color:' + bCol + '; color:' + bCol + ';' : '') + '">시안 ' + vId + '</button>';
+            const v = gAbVariants.find(item => item.id === vId) || { id: vId, title: '', imageUrl: '' };
+            const isSelected = gAbSelectedVariantTab === vId;
+            const bColor = colorMap[vId] || 'var(--accent-cyan)';
+            return '<div class="btn-ab-tab-select ab-gallery-card" data-var="' + vId + '" title="클릭하여 선택하거나, 외부 이미지를 드롭하세요" style="cursor:pointer; background:#0a0e18; border:2px solid ' + (isSelected ? bColor : 'var(--border-subtle)') + '; border-radius:8px; padding:6px; transition:all 0.2s; box-shadow:' + (isSelected ? '0 0 10px rgba(0,240,255,0.2)' : 'none') + ';">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+                '<span style="font-weight:800; font-size:11px; color:' + bColor + ';">시안 ' + vId + '</span>' +
+                '<button class="btn btn-xs btn-outline btn-ab-generate-card-thumb" data-var="' + vId + '" style="font-size:9px; padding:1px 5px; border-color:' + bColor + '; color:' + bColor + ';" title="이 시안의 썸네일을 AI로 생성합니다">🎨 생성</button>' +
+              '</div>' +
+              '<div style="width:100%; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; background:#05070c; border-radius:4px; overflow:hidden; margin-bottom:4px; display:flex; align-items:center; justify-content:center;">' +
+                (v.imageUrl ? '<img src="' + esc(v.imageUrl) + '" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none; user-select:none; -webkit-user-drag:none;">' : '<div style="font-size:10px; color:' + bColor + '; text-align:center; padding:4px; line-height:1.2; border:1px dashed rgba(255,255,255,0.15); border-radius:4px; width:92%; height:88%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><span>🖼️</span><span style="font-size:9px; color:var(--text-muted); margin-top:2px;">새 시안 드롭</span></div>') +
+              '</div>' +
+              '<div style="font-size:10px; color:var(--text-normal); line-height:1.2; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; height:24px;" title="' + esc(v.title || '') + '">' +
+                esc(v.title || '(제목 없음)') +
+              '</div>' +
+            '</div>';
           }).join('') +
         '</div>' +
       '</div>' +
+    '</div>' +
 
-      '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
-          '<span style="font-weight:800; font-size:15px; color:' + colorMap[currentVariant.id] + '">💎 시안 ' + currentVariant.id + ' 설정</span>' +
-          '<span class="badge ' + badgeClassMap[currentVariant.id] + '">Variant ' + currentVariant.id + '</span>' +
-        '</div>' +
-
-        '<div style="margin-bottom:14px;">' +
-          '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
-            '<span style="font-weight:700; color:var(--text-bright)">제목 (Title)</span>' +
-            '<span id="ab-char-counter" style="color:' + ((currentVariant.title || '').length > 28 ? 'var(--accent-amber)' : 'var(--text-muted)') + '">' + (currentVariant.title || '').length + '자 ' + ((currentVariant.title || '').length > 28 ? '(모바일 28자 초과 주의)' : '') + '</span>' +
-          '</div>' +
-          '<input type="text" id="input-ab-variant-title" value="' + esc(currentVariant.title || '') + '" placeholder="유튜브 제목을 입력하세요" style="width:100%; font-size:14px; font-weight:600;">' +
-        '</div>' +
-
-        '<div style="margin-bottom:14px;">' +
-          '<div style="font-size:12px; font-weight:700; color:var(--text-bright); margin-bottom:6px;">썸네일 이미지 (Thumbnail Image)</div>' +
-          '<div style="display:flex; gap:10px; margin-bottom:8px;">' +
-            '<input type="text" id="input-ab-variant-img" value="' + esc(currentVariant.imageUrl || '') + '" placeholder="이미지 URL (https://...)" style="flex:1;">' +
-            '<input type="file" id="input-ab-file-upload" accept="image/*" style="display:none">' +
-            '<button class="btn btn-sm btn-cyan" id="btn-ab-upload-trigger">📁 파일 업로드</button>' +
-          '</div>' +
-          '<div id="ab-thumb-dropzone" style="width:100%; aspect-ratio:16/9; background:#05070c; border:2px dashed var(--border-active); border-radius:10px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;">' +
-            (currentVariant.imageUrl ? '<img src="' + esc(currentVariant.imageUrl) + '" style="width:100%; height:100%; object-fit:cover;">' : '<div class="card-subtext">🖼️ 이미지를 여기에 드래그하거나 클릭하여 업로드하세요</div>') +
-          '</div>' +
-        '</div>' +
-
-        '<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">' +
-          '<div>' +
-            '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">썸네일 텍스트 카피 (AI 분석용)</div>' +
-            '<input type="text" id="input-ab-variant-copy" value="' + esc(currentVariant.thumbnailCopy || '') + '" placeholder="예: WANT vs WONT 입모양" style="width:100%">' +
-          '</div>' +
-          '<div>' +
-            '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">포인트 뱃지 태그</div>' +
-            '<input type="text" id="input-ab-variant-badge" value="' + esc(currentVariant.badge || '') + '" placeholder="예: 1초 컷 / 비법 공개" style="width:100%">' +
-          '</div>' +
-        '</div>' +
+    /* RIGHT: MOCKUP with Unified View Controls */
+    '<div class="bento-card col-6" style="display:flex; flex-direction:column;">' +
+      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">' +
+        '<div class="card-title" style="color:var(--accent-magenta)">LIVE MOBILE FEED PREVIEW</div>' +
       '</div>' +
 
-      /* 3-Variant Mini Comparator */
-      '<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-top:14px;">' +
-        gAbVariants.map(v => {
-          const isCur = v.id === gAbSelectedVariantTab;
-          return '<div class="btn-ab-tab-select" data-var="' + v.id + '" style="background:#080c14; border:1px solid ' + (isCur ? colorMap[v.id] : 'var(--border-subtle)') + '; border-radius:10px; padding:10px; cursor:pointer;">' +
-            '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-              '<b style="color:' + colorMap[v.id] + '; font-size:12px;">시안 ' + v.id + '</b>' +
-              (isCur ? '<span class="pulse-dot" style="width:6px;height:6px;"></span>' : '') +
+      '<div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;">' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; width:360px; max-width:100%; margin:0 auto 10px auto; padding:0 4px;">' +
+          '<button class="tab-pill btn-ab-feed-view' + (gAbActiveFeedView === 'ALL' ? ' active' : '') + '" data-feed="ALL" title="시안 A·B·C를 피드 전체에 교차 배치하여 비교합니다">' +
+            '🌐 3개 동시 교차 (ALL)' +
+          '</button>' +
+          '<div style="display:flex; gap:3px; background:#080d16; padding:2px 5px; border-radius:8px; border:1px solid var(--border-subtle);">' +
+            '<button class="tab-pill btn-ab-filter' + (gAbVisionFilter === 'normal' ? ' active' : '') + '" data-filter="normal" title="표준 시각 모드">👁️</button>' +
+            '<button class="tab-pill btn-ab-filter' + (gAbVisionFilter === 'blur' ? ' active' : '') + '" data-filter="blur" title="시선 흐림(블러) 테스트 - 썸네일 핵심 형태 감지">🌫️</button>' +
+            '<button class="tab-pill btn-ab-filter' + (gAbVisionFilter === 'grayscale' ? ' active' : '') + '" data-filter="grayscale" title="흑백 명도 대비 테스트">⚫</button>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="mockup-phone">' +
+          /* Status Header */
+          '<div class="mockup-phone-header">' +
+            '<span>7:49</span>' +
+            '<div style="width:65px; height:10px; background:#111; border-radius:99px;"></div>' +
+            '<div style="display:flex; align-items:center; gap:4px; font-size:10px;"><span>LTE</span><span>🔋</span></div>' +
+          '</div>' +
+          /* YouTube App Bar */
+          '<div class="mockup-phone-appbar">' +
+            '<div style="display:flex; align-items:center; gap:4px; font-weight:900; font-size:13px; color:#fff; letter-spacing:-0.5px;">' +
+              '<span style="color:#ff0033; font-size:15px;">▶</span> YouTube' +
             '</div>' +
-            '<img src="' + esc(v.imageUrl || 'https://i.ytimg.com/vi/t_wVvVyqdbg/mqdefault.jpg') + '" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:6px; margin-bottom:4px;">' +
-            '<div style="font-size:11px; color:var(--text-bright); line-height:1.3; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; min-height:28px;">' + esc(v.title || '(제목 없음)') + '</div>' +
-          '</div>';
-        }).join('') +
-      '</div>' +
-    '</div>' +
-
-    /* RIGHT: SMARTPHONE MOCK FEED */
-    '<div class="bento-card col-6" style="display:flex; flex-direction:column; align-items:center;">' +
-      '<div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">' +
-        '<div class="card-title" style="color:var(--accent-magenta)">LIVE MOBILE MOCK FEED</div>' +
-        '<div style="display:flex; gap:6px;">' +
-          '<button class="tab-pill btn-ab-feed-view' + (gAbActiveFeedView === 'A' ? ' active' : '') + '" data-feed="A">시안 A 피드</button>' +
-          '<button class="tab-pill btn-ab-feed-view' + (gAbActiveFeedView === 'B' ? ' active' : '') + '" data-feed="B">시안 B 피드</button>' +
-          '<button class="tab-pill btn-ab-feed-view' + (gAbActiveFeedView === 'C' ? ' active' : '') + '" data-feed="C">시안 C 피드</button>' +
-          '<button class="tab-pill btn-ab-feed-view' + (gAbActiveFeedView === 'ALL' ? ' active' : '') + '" data-feed="ALL">3개 교차</button>' +
-        '</div>' +
-      '</div>' +
-
-      /* Vision Mode Filter Buttons */
-      '<div style="width:100%; display:flex; justify-content:space-between; align-items:center; background:#080d16; padding:8px 14px; border-radius:10px; border:1px solid var(--border-subtle); margin-bottom:14px;">' +
-        '<span style="font-size:11px; font-weight:700; color:var(--text-muted);">시각 가독성 필터:</span>' +
-        '<div style="display:flex; gap:6px;">' +
-          '<button class="btn btn-sm btn-ab-filter' + (gAbVisionFilter === 'normal' ? ' btn-cyan' : '') + '" data-filter="normal">🎨 일반 컬러</button>' +
-          '<button class="btn btn-sm btn-ab-filter' + (gAbVisionFilter === 'blur' ? ' btn-amber' : '') + '" data-filter="blur" title="5060 원거리 시력 시뮬레이션">👓 5060 블러 (원거리)</button>' +
-          '<button class="btn btn-sm btn-ab-filter' + (gAbVisionFilter === 'grayscale' ? ' btn-magenta' : '') + '" data-filter="grayscale" title="명도 및 색상 독립 대비 검증">🌓 흑백 명도 대비</button>' +
-        '</div>' +
-      '</div>' +
-
-      /* Phone Bezel */
-      '<div class="mockup-phone">' +
-        '<div class="mockup-phone-header">' +
-          '<div style="display:flex; align-items:center; gap:6px;">' +
-            '<span style="color:#ff0033; font-size:18px;">▶</span>' +
-            '<span style="font-family:var(--font-display); font-weight:900; letter-spacing:-0.03em; color:#fff;">YouTube</span>' +
+            '<div style="display:flex; align-items:center; gap:10px; font-size:13px; color:#fff;">' +
+              '<span>📡</span>' +
+              '<span>🔔</span>' +
+              '<span>🔍</span>' +
+              '<div style="width:20px; height:20px; border-radius:50%; background:#27272a; overflow:hidden;"><img src="https://api.dicebear.com/7.x/identicon/svg?seed=Me" style="width:100%;height:100%;object-fit:cover;"></div>' +
+            '</div>' +
           '</div>' +
-          '<div style="display:flex; gap:12px; font-size:13px; color:#aaa;">' +
-            '<span>📡</span><span>🔔</span><span>🔍</span>' +
-            '<div style="width:22px; height:22px; border-radius:50%; background:#3ea6ff; display:flex; align-items:center; justify-content:center; color:#000; font-size:11px; font-weight:900;">Y</div>' +
+          /* Scrollable Feed with Vision Filter */
+          '<div class="mockup-feed-scroll" style="' + (gAbVisionFilter === 'blur' ? 'filter: blur(4.5px);' : (gAbVisionFilter === 'grayscale' ? 'filter: grayscale(100%) contrast(1.15);' : '')) + '">' + feedHtml + '</div>' +
+          /* Bottom Navigation Bar (Image 1 replica) */
+          '<div class="mockup-phone-bottom-nav">' +
+            '<div class="nav-item active"><span class="nav-item-icon">🏠</span><span>홈</span></div>' +
+            '<div class="nav-item"><span class="nav-item-icon">⚡</span><span>Shorts</span></div>' +
+            '<div class="nav-item-create"><span>➕</span></div>' +
+            '<div class="nav-item"><span class="nav-item-icon">📺</span><span>구독</span></div>' +
+            '<div class="nav-item"><span class="nav-item-icon">👤</span><span>내 페이지</span></div>' +
           '</div>' +
-        '</div>' +
-        '<div class="mockup-feed-scroll' + (gAbVisionFilter === 'blur' ? ' vision-filter-blur' : gAbVisionFilter === 'grayscale' ? ' vision-filter-grayscale' : '') + '">' +
-          feedHtml +
         '</div>' +
       '</div>' +
     '</div>' +
 
-    /* BOTTOM: AI CTR INTELLIGENCE & TITLE SUITE */
     (report ? 
       '<div class="bento-card highlight-cyan col-12" id="ab-report-section">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">' +
-          '<div>' +
-            '<div class="card-title" style="color:var(--accent-cyan)">GEMINI CTR INTELLIGENCE VERDICT</div>' +
-            '<h3 style="font-family:var(--font-display); font-size:20px; color:#fff; margin-top:2px;">🏆 AI 추천 1위: 시안 ' + esc(report.bestVariant || 'A') + '</h3>' +
-            '<p style="color:var(--text-normal); font-size:13px; margin-top:4px;">' + esc(report.overallVerdict || '') + '</p>' +
-          '</div>' +
-          '<span class="badge badge-strong-pass" style="font-size:13px; padding:6px 14px;">예측 최고 성과: 시안 ' + esc(report.bestVariant || 'A') + '</span>' +
-        '</div>' +
-
-        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; margin-bottom:20px;">' +
+        '<div class="card-title" style="color:var(--accent-cyan)">GEMINI CTR INTELLIGENCE VERDICT</div>' +
+        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; margin-top:16px;">' +
           (report.variantsEvaluation || []).map(ve => {
             const vKey = ve.variantKey;
             const bCol = colorMap[vKey] || 'var(--accent-cyan)';
-            return '<div style="background:#080c14; border:1px solid ' + (vKey === report.bestVariant ? bCol : 'var(--border-subtle)') + '; border-radius:14px; padding:16px; position:relative;">' +
-              (vKey === report.bestVariant ? '<div style="position:absolute; top:-10px; right:14px; background:' + bCol + '; color:#000; font-size:10px; font-weight:900; padding:2px 8px; border-radius:99px;">★ TOP PICK</div>' : '') +
-              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">' +
+            return '<div style="background:#080c14; border:1px solid ' + (vKey === report.bestVariant ? bCol : 'var(--border-subtle)') + '; border-radius:14px; padding:16px;">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
                 '<span style="font-weight:800; font-size:16px; color:' + bCol + '">시안 ' + vKey + '</span>' +
-                '<span class="badge badge-pass" style="font-size:13px;">예상 CTR ' + esc(ve.predictedCtrRange || '') + ' (등급: ' + esc(ve.predictedGrade || 'A') + ')</span>' +
+                '<span class="badge badge-pass" style="font-size:12px;">예상 CTR ' + esc(ve.predictedCtrRange || '') + '</span>' +
               '</div>' +
-
               '<div style="display:grid; gap:8px; margin-bottom:12px;">' +
                 '<div>' +
                   '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>호기심 갭 (Curiosity)</span><b>' + (ve.curiosityGapScore||0) + '점</b></div>' +
-                  '<div style="height:6px; background:#111; border-radius:99px; overflow:hidden;"><div style="height:100%; width:' + (ve.curiosityGapScore||0) + '%; background:var(--accent-magenta); border-radius:99px;"></div></div>' +
+                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.curiosityGapScore||0) + '%; height:100%; background:var(--accent-magenta);"></div></div>' +
                 '</div>' +
                 '<div>' +
-                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>5060 시니어 가독성 (Legibility)</span><b>' + (ve.seniorLegibilityScore||0) + '점</b></div>' +
-                  '<div style="height:6px; background:#111; border-radius:99px; overflow:hidden;"><div style="height:100%; width:' + (ve.seniorLegibilityScore||0) + '%; background:var(--accent-cyan); border-radius:99px;"></div></div>' +
-                '</div>' +
-                '<div>' +
-                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>피드 속 시각 주목도 (Salience)</span><b>' + (ve.visualSalienceScore||0) + '점</b></div>' +
-                  '<div style="height:6px; background:#111; border-radius:99px; overflow:hidden;"><div style="height:100%; width:' + (ve.visualSalienceScore||0) + '%; background:var(--accent-amber); border-radius:99px;"></div></div>' +
+                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>시각 시선 강도 (Salience)</span><b>' + (ve.visualSalienceScore||0) + '점</b></div>' +
+                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.visualSalienceScore||0) + '%; height:100%; background:var(--accent-cyan);"></div></div>' +
                 '</div>' +
               '</div>' +
-
-              '<div style="font-size:12px; line-height:1.5; color:var(--text-bright); margin-top:8px;">' +
-                '💡 <b>개선 팁:</b> ' + esc(ve.improvementTip || '없음') +
+              '<div style="font-size:11px; margin-bottom:8px;"><b style="color:var(--accent-cyan);">🎯 핵심 시선점:</b> ' + esc(ve.focalPoint || '전체 고른 시선') + '</div>' +
+              '<div style="background:rgba(0,0,0,0.3); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
+                '<div style="color:var(--accent-emerald); font-weight:700; margin-bottom:2px;">✅ 시각 강점:</div>' +
+                '<ul style="margin:0; padding-left:14px; color:var(--text-bright);">' +
+                  (ve.strengths || []).map(s => '<li>' + esc(s) + '</li>').join('') +
+                '</ul>' +
+              '</div>' +
+              '<div style="background:rgba(255,100,100,0.08); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
+                '<div style="color:#ff7676; font-weight:700; margin-bottom:2px;">⚠️ 개선 포인트:</div>' +
+                '<ul style="margin:0; padding-left:14px; color:#ffccd9;">' +
+                  (ve.weaknesses || []).map(w => '<li>' + esc(w) + '</li>').join('') +
+                '</ul>' +
+              '</div>' +
+              '<div style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:8px; padding:8px 10px; font-size:11px; color:var(--accent-cyan);">' +
+                '<b>💡 디자이너 피드백:</b> ' + esc(ve.visualImprovementTip || '명도 대비 강화 권장') +
               '</div>' +
             '</div>';
           }).join('') +
         '</div>' +
 
-        /* 5 High Converting Titles */
-        '<div style="background:#090d16; border:1px solid var(--border-active); border-radius:14px; padding:18px;">' +
-          '<div class="card-title" style="color:var(--accent-amber); margin-bottom:10px;">⚡ GEMINI AI 추천 고클릭률 제목 5종 (클릭 시 즉시 적용)</div>' +
-          '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:10px;">' +
+        /* Title Suite (5 types) */
+        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:18px; margin-bottom:16px;">' +
+          '<div class="card-title" style="color:var(--accent-cyan); margin-bottom:12px;">⚡ GEMINI AI 추천 고클릭률 제목 5종 (클릭 시 즉시 적용)</div>' +
+          '<div style="display:grid; gap:8px;">' +
             (report.aiTitleSuggestions || []).map(s => {
-              return '<div style="background:#06080e; border:1px solid var(--border-subtle); border-radius:10px; padding:12px; display:flex; flex-direction:column; justify-content:space-between;">' +
-                '<div>' +
-                  '<div class="badge badge-hold" style="font-size:10px; margin-bottom:6px;">' + esc(s.type || '추천 제목') + '</div>' +
-                  '<div style="font-size:13px; font-weight:700; color:var(--text-bright); line-height:1.4; margin-bottom:8px;">&ldquo;' + esc(s.title || '') + '&rdquo;</div>' +
+              return '<div style="display:flex; justify-content:space-between; align-items:center; background:#06080e; border:1px solid var(--border-subtle); border-radius:8px; padding:10px 14px; gap:12px; flex-wrap:wrap;">' +
+                '<div style="display:flex; align-items:center; gap:10px; flex:1; min-width:240px;">' +
+                  '<span class="badge" style="background:rgba(255,0,85,0.15); color:var(--accent-magenta); border:1px solid rgba(255,0,85,0.3); font-size:11px;">' + esc(s.type) + '</span>' +
+                  '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
                 '</div>' +
-                '<div style="display:flex; gap:6px; justify-content:flex-end;">' +
-                  '<button class="btn btn-sm btn-ab-apply-title" data-title="' + encodeURIComponent(s.title || '') + '" data-var="A" style="font-size:10px; padding:4px 8px;">A 적용</button>' +
-                  '<button class="btn btn-sm btn-ab-apply-title" data-title="' + encodeURIComponent(s.title || '') + '" data-var="B" style="font-size:10px; padding:4px 8px;">B 적용</button>' +
-                  '<button class="btn btn-sm btn-ab-apply-title" data-title="' + encodeURIComponent(s.title || '') + '" data-var="C" style="font-size:10px; padding:4px 8px;">C 적용</button>' +
+                '<div style="display:flex; gap:6px;">' +
+                  '<button class="btn btn-sm btn-ab-apply-title" data-title="' + esc(s.title) + '" data-var="A" style="font-size:10px; padding:3px 8px;">시안 A에 적용</button>' +
+                  '<button class="btn btn-sm btn-cyan btn-ab-apply-title" data-title="' + esc(s.title) + '" data-var="B" style="font-size:10px; padding:3px 8px;">시안 B에 적용</button>' +
+                  '<button class="btn btn-sm btn-amber btn-ab-apply-title" data-title="' + esc(s.title) + '" data-var="C" style="font-size:10px; padding:3px 8px;">시안 C에 적용</button>' +
                 '</div>' +
               '</div>';
             }).join('') +
           '</div>' +
         '</div>' +
+
+        /* AI Image Prompts for Midjourney/Imagen */
+        (report.aiImagePrompts && report.aiImagePrompts.length > 0 ?
+          '<div style="background:#090d16; border:1px solid var(--accent-magenta); border-radius:14px; padding:18px; margin-top:16px;">' +
+            '<div class="card-title" style="color:var(--accent-magenta); margin-bottom:10px;">🖼️ GEMINI AI 고클릭률 썸네일 콘셉트 & 1-Click 자동 생성 (FLUX / Imagen 3)</div>' +
+            '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:12px;">' +
+              report.aiImagePrompts.map(p => {
+                const vKey = p.variantKey || 'A';
+                const bCol = colorMap[vKey] || 'var(--accent-cyan)';
+                return '<div style="background:#06080e; border:1px solid var(--border-subtle); border-radius:10px; padding:14px;">' +
+                  '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">' +
+                    '<b style="color:' + bCol + '; font-size:13px;">시안 ' + esc(vKey) + ' 썸네일 설계도</b>' +
+                    '<div style="display:flex; gap:6px;">' +
+                      '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-var="' + esc(vKey) + '" data-prompt="' + encodeURIComponent(p.midjourneyPrompt || '') + '" style="font-size:11px; font-weight:800; padding:3px 10px;">🎨 시안 ' + esc(vKey) + '에 1-Click 자동 생성 & 적용</button>' +
+                      '<button class="btn btn-sm btn-ab-copy-prompt" data-prompt="' + encodeURIComponent(p.midjourneyPrompt || '') + '" style="font-size:10px; padding:3px 8px;">📋 프롬프트 복사</button>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div style="font-size:12px; color:var(--text-bright); margin-bottom:8px; line-height:1.4;">' + esc(p.designConcept || '') + '</div>' +
+                  (p.koreanOverlayCopy ? '<div style="font-size:11px; color:var(--accent-amber); background:rgba(255,184,0,0.08); border:1px solid rgba(255,184,0,0.25); border-radius:6px; padding:6px 10px; margin-bottom:8px;">✍️ <b>배경 위 추천 한국어 카피:</b> ' + esc(p.koreanOverlayCopy) + '</div>' : '') +
+                  '<div style="font-size:11px; color:var(--text-muted); font-family:monospace; background:#020408; padding:8px; border-radius:6px; word-break:break-all; border:1px solid #1a2234;">' + esc(p.midjourneyPrompt || '') + '</div>' +
+                '</div>';
+              }).join('') +
+            '</div>' +
+          '</div>' : '') +
       '</div>' : '') +
   '</div>';
 }
@@ -4354,16 +5308,23 @@ function bindAbSimulatorEvents() {
 
   // 1. Topic & Audience Inputs
   const topicInput = document.getElementById('input-ab-topic');
-  if (topicInput) topicInput.oninput = (e) => { gAbTopic = e.target.value; };
+  if (topicInput) topicInput.oninput = (e) => { 
+    gAbTopic = e.target.value; 
+    saveAbSimulatorState(); 
+  };
 
   const audienceSelect = document.getElementById('select-ab-audience');
-  if (audienceSelect) audienceSelect.onchange = (e) => { gAbAudience = e.target.value; };
+  if (audienceSelect) audienceSelect.onchange = (e) => { 
+    gAbAudience = e.target.value; 
+    saveAbSimulatorState(); 
+  };
 
   // 2. Variant Title input & char count
   const titleInput = document.getElementById('input-ab-variant-title');
   if (titleInput) {
     titleInput.oninput = (e) => {
       currentVar.title = e.target.value;
+      saveAbSimulatorState();
       const counter = document.getElementById('ab-char-counter');
       if (counter) {
         counter.textContent = currentVar.title.length + '자 ' + (currentVar.title.length > 28 ? '(모바일 28자 초과 주의)' : '');
@@ -4378,16 +5339,117 @@ function bindAbSimulatorEvents() {
   if (imgInput) {
     imgInput.oninput = (e) => {
       currentVar.imageUrl = e.target.value;
+      currentVar._base64Data = null;
+      currentVar.isLocalFile = false;
+      saveAbSimulatorState();
       renderAbSimulatorTabDirect();
     };
   }
 
   // 4. Variant Copy & Badge input
   const copyInput = document.getElementById('input-ab-variant-copy');
-  if (copyInput) copyInput.oninput = (e) => { currentVar.thumbnailCopy = e.target.value; };
+  if (copyInput) copyInput.oninput = (e) => { 
+    currentVar.thumbnailCopy = e.target.value; 
+    saveAbSimulatorState(); 
+  };
 
   const badgeInput = document.getElementById('input-ab-variant-badge');
-  if (badgeInput) badgeInput.oninput = (e) => { currentVar.badge = e.target.value; renderAbFeedOnly(); };
+  if (badgeInput) badgeInput.oninput = (e) => { 
+    currentVar.badge = e.target.value; 
+    saveAbSimulatorState(); 
+    renderAbFeedOnly(); 
+  };
+
+  // Helper: Apply Image from Local File
+  function setVariantImageFromFile(file, targetVarId) {
+    const vId = targetVarId || gAbSelectedVariantTab;
+    const targetVar = gAbVariants.find(v => v.id === vId) || gAbVariants[0];
+    if (!file) return;
+    try {
+      gAbSelectedVariantTab = targetVar.id;
+      if (gAbActiveFeedView !== 'ALL') {
+        gAbActiveFeedView = targetVar.id;
+      }
+      const blobUrl = URL.createObjectURL(file);
+      targetVar.imageUrl = blobUrl;
+      targetVar.isLocalFile = true;
+
+      const img = new Image();
+      img.onload = () => {
+        if (img.naturalHeight > img.naturalWidth * 1.15) {
+          gAbFormat = 'SHORTS';
+        } else if (img.naturalWidth > img.naturalHeight * 1.15) {
+          gAbFormat = 'LONGFORM';
+        }
+        saveAbSimulatorState();
+        renderAbSimulatorTabDirect();
+      };
+      img.src = blobUrl;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        targetVar._base64Data = event.target.result;
+        saveAbSimulatorState();
+      };
+      reader.readAsDataURL(file);
+
+      saveAbSimulatorState();
+      renderAbSimulatorTabDirect();
+      showToast('🖼️ 시안 ' + targetVar.id + '에 썸네일 이미지가 성공적으로 적용되었습니다!');
+    } catch (err) {
+      console.error('File load error:', err);
+    }
+  }
+
+  function handleDropOrPaste(e, isDrop, targetVarId) {
+    const dt = isDrop ? e.dataTransfer : e.clipboardData;
+    if (!dt) return false;
+
+    // Real OS file drop / paste
+    if (dt.files && dt.files.length > 0) {
+      for (let i = 0; i < dt.files.length; i++) {
+        const file = dt.files[i];
+        if (file.type.startsWith('image/')) {
+          setVariantImageFromFile(file, targetVarId);
+          return true;
+        }
+      }
+    }
+
+    if (dt.items && dt.items.length > 0) {
+      for (let i = 0; i < dt.items.length; i++) {
+        const item = dt.items[i];
+        if (item.type.indexOf('image') !== -1) {
+          const file = item.getAsFile();
+          if (file) {
+            setVariantImageFromFile(file, targetVarId);
+            return true;
+          }
+        }
+      }
+    }
+
+    // Only process text/URL on explicit PASTE (do not allow dragging internal web images to overwrite other variants)
+    if (!isDrop) {
+      const uri = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').trim();
+      if (uri && (uri.startsWith('http://') || uri.startsWith('https://'))) {
+        const vId = targetVarId || gAbSelectedVariantTab;
+        const targetVar = gAbVariants.find(v => v.id === vId) || gAbVariants[0];
+        gAbSelectedVariantTab = targetVar.id;
+        if (gAbActiveFeedView !== 'ALL') {
+          gAbActiveFeedView = targetVar.id;
+        }
+        targetVar.imageUrl = uri;
+        targetVar._base64Data = null;
+        targetVar.isLocalFile = false;
+        saveAbSimulatorState();
+        renderAbSimulatorTabDirect();
+        showToast('🔗 시안 ' + targetVar.id + '에 이미지 링크가 적용되었습니다!');
+        return true;
+      }
+    }
+    return false;
+  }
 
   // 5. File Upload Handler
   const uploadTrigger = document.getElementById('btn-ab-upload-trigger');
@@ -4396,15 +5458,7 @@ function bindAbSimulatorEvents() {
     uploadTrigger.onclick = () => fileInput.click();
     fileInput.onchange = (e) => {
       const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        const dataUrl = event.target.result;
-        currentVar.imageUrl = dataUrl;
-        renderAbSimulatorTabDirect();
-        showToast('썸네일 이미지가 성공적으로 로드되었습니다!');
-      };
-      reader.readAsDataURL(file);
+      if (file) setVariantImageFromFile(file);
     };
   }
 
@@ -4412,127 +5466,531 @@ function bindAbSimulatorEvents() {
   const dropzone = document.getElementById('ab-thumb-dropzone');
   if (dropzone) {
     dropzone.onclick = () => fileInput && fileInput.click();
-    dropzone.ondragover = (e) => { e.preventDefault(); dropzone.style.borderColor = 'var(--accent-cyan)'; };
-    dropzone.ondragleave = () => { dropzone.style.borderColor = 'var(--border-active)'; };
+    dropzone.ondragover = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.style.borderColor = 'var(--accent-cyan)';
+      dropzone.style.background = 'rgba(0, 240, 255, 0.08)';
+    };
+    dropzone.ondragleave = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.style.borderColor = 'var(--border-active)';
+      dropzone.style.background = '#05070c';
+    };
     dropzone.ondrop = (e) => {
       e.preventDefault();
+      e.stopPropagation();
       dropzone.style.borderColor = 'var(--border-active)';
-      const file = e.dataTransfer.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        currentVar.imageUrl = event.target.result;
-        renderAbSimulatorTabDirect();
-        showToast('썸네일 이미지가 성공적으로 적용되었습니다!');
-      };
-      reader.readAsDataURL(file);
+      dropzone.style.background = '#05070c';
+      handleDropOrPaste(e, true);
     };
   }
 
-  // 7. Tab Selectors (A, B, C)
+  window.ondragover = (e) => { e.preventDefault(); };
+  window.ondrop = (e) => {
+    e.preventDefault();
+    if (gCurrentTab === 'tab-ab-simulator') {
+      handleDropOrPaste(e, true);
+    }
+  };
+
+  window.onpaste = (e) => {
+    if (gCurrentTab === 'tab-ab-simulator') {
+      const activeTag = document.activeElement ? document.activeElement.tagName : '';
+      const isInput = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
+      if (!isInput || document.activeElement?.id === 'input-ab-variant-img') {
+        const handled = handleDropOrPaste(e, false);
+        if (handled && e.cancelable) e.preventDefault();
+      }
+    }
+  };
+
+  // 7. Format Toggle (Longform vs Shorts)
+  document.querySelectorAll('.btn-ab-format-toggle').forEach(btn => {
+    btn.onclick = () => {
+      const prevFormat = gAbFormat;
+      gAbFormat = btn.dataset.format;
+      if (prevFormat !== gAbFormat) {
+        const hasCustomFile = gAbVariants.some(v => v.isLocalFile || (v.imageUrl && v.imageUrl.startsWith('data:')));
+        if (!hasCustomFile) {
+          if (gAbFormat === 'SHORTS') {
+            gAbTopic = "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다";
+            gAbVariants = [
+              { id: 'A', title: "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다 #영어발음 #shorts", imageUrl: 'https://i.ytimg.com/vi/nVrCk8IZFGA/hqdefault.jpg', thumbnailCopy: "SOCIAL 발음 비밀", badge: '1분 컷', isLocalFile: false },
+              { id: 'B', title: "시즌1 발음 테스트, 4문제 다 맞히면 진짜 실력 #영어발음 #shorts", imageUrl: 'https://i.ytimg.com/vi/LdiZKCzKf0c/hqdefault.jpg', thumbnailCopy: "발음 테스트 4문제", badge: '실력 테스트', isLocalFile: false },
+              { id: 'C', title: "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts", imageUrl: 'https://i.ytimg.com/vi/Si88xXt-EQc/hqdefault.jpg', thumbnailCopy: "COMMERCIAL 발음 비법", badge: '비법 공개', isLocalFile: false }
+            ];
+          } else {
+            gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
+            gAbVariants = [
+              { id: 'A', title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙", imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg', thumbnailCopy: "SPECIAL 발음 치트키", badge: '발음 원리', isLocalFile: false },
+              { id: 'B', title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)", imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg', thumbnailCopy: "PICTURE 소리 비밀", badge: '소리 법칙', isLocalFile: false },
+              { id: 'C', title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)", imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg', thumbnailCopy: "시즌1 완결 총정리 족보", badge: '총정리', isLocalFile: false }
+            ];
+          }
+        }
+      }
+      saveAbSimulatorState();
+      renderAbSimulatorTabDirect();
+      showToast(gAbFormat === 'SHORTS' ? '📱 쇼츠 (9:16) 모드로 전환되었습니다.' : '📺 롱폼 (16:9) 모드로 전환되었습니다.');
+    };
+  });
+
+  // 8. Variant Tab Select (A, B, C) & Direct Image Drop
   document.querySelectorAll('.btn-ab-tab-select').forEach(btn => {
     btn.onclick = () => {
-      gAbSelectedVariantTab = btn.dataset.var;
+      const vId = btn.dataset.var;
+      gAbSelectedVariantTab = vId;
+      if (gAbActiveFeedView !== 'ALL') {
+        gAbActiveFeedView = vId;
+      }
+      saveAbSimulatorState();
       renderAbSimulatorTabDirect();
+    };
+
+    // Support external image drop directly onto each variant card
+    btn.ondragover = (e) => {
+      e.preventDefault();
+      btn.style.borderColor = 'var(--accent-cyan)';
+      btn.style.background = 'rgba(0, 240, 255, 0.08)';
+    };
+    btn.ondragleave = () => {
+      btn.style.borderColor = '';
+      btn.style.background = '#0a0e18';
+    };
+    btn.ondrop = (e) => {
+      e.preventDefault();
+      btn.style.borderColor = '';
+      btn.style.background = '#0a0e18';
+      const targetVarId = btn.dataset.var;
+      handleDropOrPaste(e, true, targetVarId);
     };
   });
 
-  // 8. Feed View Buttons (A, B, C, ALL)
+  // 9. Feed View Toggle (Single vs ALL)
   document.querySelectorAll('.btn-ab-feed-view').forEach(btn => {
     btn.onclick = () => {
-      gAbActiveFeedView = btn.dataset.feed;
+      if (gAbActiveFeedView === 'ALL') {
+        gAbActiveFeedView = gAbSelectedVariantTab;
+      } else {
+        gAbActiveFeedView = 'ALL';
+      }
+      saveAbSimulatorState();
       renderAbSimulatorTabDirect();
     };
   });
 
-  // 9. Vision Filter Buttons
+  // 9-2. Auto-Scroll & Drag & Drop on Mobile Feed cards
+  let gAbFeedDragActive = false;
+  let autoScrollRafId = null;
+  let autoScrollSpeed = 0;
+  const feedScrollEl = document.querySelector('.mockup-feed-scroll');
+
+  function performAutoScroll() {
+    if (!gAbFeedDragActive || !feedScrollEl || autoScrollSpeed === 0) {
+      autoScrollRafId = null;
+      return;
+    }
+    feedScrollEl.scrollTop += autoScrollSpeed;
+    autoScrollRafId = requestAnimationFrame(performAutoScroll);
+  }
+
+  function handleFeedAutoScroll(e) {
+    if (!gAbFeedDragActive || !feedScrollEl) return;
+    const rect = feedScrollEl.getBoundingClientRect();
+    const mouseY = e.clientY;
+    
+    // Bottom edge auto-scroll (triggers within 90px of bottom, or below container)
+    if (mouseY > rect.bottom - 90) {
+      const dist = Math.max(1, mouseY - (rect.bottom - 90));
+      autoScrollSpeed = Math.min(22, dist * 0.35 + 4);
+      if (!autoScrollRafId) {
+        autoScrollRafId = requestAnimationFrame(performAutoScroll);
+      }
+    } 
+    // Top edge auto-scroll (triggers within 90px of top, or above container)
+    else if (mouseY < rect.top + 90) {
+      const dist = Math.max(1, (rect.top + 90) - mouseY);
+      autoScrollSpeed = -Math.min(22, dist * 0.35 + 4);
+      if (!autoScrollRafId) {
+        autoScrollRafId = requestAnimationFrame(performAutoScroll);
+      }
+    } 
+    else {
+      autoScrollSpeed = 0;
+    }
+  }
+
+  function stopFeedDrag() {
+    gAbFeedDragActive = false;
+    autoScrollSpeed = 0;
+    if (autoScrollRafId) {
+      cancelAnimationFrame(autoScrollRafId);
+      autoScrollRafId = null;
+    }
+    document.querySelectorAll('.ab-feed-card-draggable').forEach(c => c.classList.remove('is-dragging'));
+    document.querySelectorAll('.ab-feed-drop-zone').forEach(z => z.classList.remove('drag-over'));
+  }
+
+  document.querySelectorAll('.ab-feed-card-draggable').forEach(card => {
+    card.ondragstart = (e) => {
+      gAbFeedDragActive = true;
+      e.dataTransfer.setData('text/feed-internal-drag', 'true');
+      e.dataTransfer.setData('text/feed-source-slot', card.dataset.slotIdx || '0');
+      e.dataTransfer.effectAllowed = 'move';
+      card.classList.add('is-dragging');
+    };
+    card.ondragend = () => {
+      stopFeedDrag();
+    };
+  });
+
+  if (feedScrollEl) {
+    feedScrollEl.ondragover = (e) => {
+      e.preventDefault();
+      if (gAbFeedDragActive) {
+        handleFeedAutoScroll(e);
+      }
+    };
+    feedScrollEl.ondrop = (e) => {
+      if (e.target === feedScrollEl || e.target.classList.contains('mockup-feed-scroll')) {
+        e.preventDefault();
+        stopFeedDrag();
+        if (e.dataTransfer && e.dataTransfer.getData('text/feed-internal-drag') === 'true') {
+          gAbFeedSlotIndex = (gAbFormat === 'SHORTS') ? 5 : 7;
+          gAbFeedPosition = 'BOTTOM';
+          saveAbSimulatorState();
+          renderAbSimulatorTabDirect({ scrollToActive: true });
+          showToast('📍 시안 ' + gAbSelectedVariantTab + ' 위치가 [맨 하단]으로 이동되었습니다!');
+        }
+      }
+    };
+  }
+
+  window.addEventListener('dragover', (e) => {
+    if (gAbFeedDragActive) {
+      handleFeedAutoScroll(e);
+    }
+  });
+
+  window.addEventListener('dragend', () => {
+    stopFeedDrag();
+  });
+
+  document.querySelectorAll('.ab-feed-drop-zone').forEach(el => {
+    el.ondragover = (e) => {
+      e.preventDefault();
+      el.classList.add('drag-over');
+      if (gAbFeedDragActive) {
+        handleFeedAutoScroll(e);
+      }
+    };
+    el.ondragleave = () => {
+      el.classList.remove('drag-over');
+    };
+    el.ondrop = (e) => {
+      e.preventDefault();
+      stopFeedDrag();
+
+      // Case 1: Internal feed card drag (repositioning test card within feed to exact slot)
+      if (e.dataTransfer && e.dataTransfer.getData('text/feed-internal-drag') === 'true') {
+        const targetSlotIdx = parseInt(el.dataset.slotIdx || '0', 10);
+        const slotType = el.dataset.slotType || 'longform';
+        
+        gAbFeedSlotIndex = targetSlotIdx;
+        gAbFeedPosition = (targetSlotIdx <= 2) ? 'TOP' : (targetSlotIdx === 3 ? 'MIDDLE' : 'BOTTOM');
+
+        saveAbSimulatorState();
+        renderAbSimulatorTabDirect({ scrollToActive: true });
+        showToast('🎯 시안 ' + gAbSelectedVariantTab + '를 ' + (slotType === 'shorts' ? '쇼츠 ' : '피드 ') + (targetSlotIdx + 1) + '번째 위치에 정확히 배치했습니다!');
+        return;
+      }
+
+      // Case 2: External OS image file drop
+      handleDropOrPaste(e, true);
+    };
+  });
+
+  // 10. Vision Filter Buttons (Normal / Blur / Grayscale)
   document.querySelectorAll('.btn-ab-filter').forEach(btn => {
     btn.onclick = () => {
-      gAbVisionFilter = btn.dataset.filter;
-      renderAbSimulatorTabDirect();
+      const filter = btn.dataset.filter;
+      gAbVisionFilter = filter;
+      saveAbSimulatorState();
+
+      const feedScroll = document.querySelector('.mockup-feed-scroll');
+      if (feedScroll) {
+        if (filter === 'blur') {
+          feedScroll.style.filter = 'blur(4.5px)';
+        } else if (filter === 'grayscale') {
+          feedScroll.style.filter = 'grayscale(100%) contrast(1.15)';
+        } else {
+          feedScroll.style.filter = 'none';
+        }
+      }
+      document.querySelectorAll('.btn-ab-filter').forEach(b => {
+        b.classList.toggle('active', b.dataset.filter === filter);
+      });
+      showToast(filter === 'blur' ? '🌫️ 시선 흐림(블러) 모드가 적용되었습니다 (썸네일 형태 감지).' : (filter === 'grayscale' ? '⚫ 흑백 명도 대비 모드가 적용되었습니다.' : '👁️ 표준 시각 모드로 복귀했습니다.'));
     };
   });
 
-  // 10. Fill Sample Button
+  // 11. Fill Sample Button
   const fillSampleBtn = document.getElementById('btn-ab-fill-sample');
   if (fillSampleBtn) {
     fillSampleBtn.onclick = () => {
-      gAbTopic = "30초 만에 'Want' vs 'Won't' 발음 완벽 구분법";
-      gAbVariants = [
-        {
-          id: 'A',
-          title: "30초 만에 'Want' vs 'Won't' #발음 완벽 구분! (이 원리 모르면 평생 안 들림)",
-          imageUrl: 'https://i.ytimg.com/vi/t_wVvVyqdbg/mqdefault.jpg',
-          thumbnailCopy: "WANT vs WON'T 입모양 공식",
-          badge: '1초 구분',
-        },
-        {
-          id: 'B',
-          title: "원어민이 'Want' 발음할 때 절대 입술 안 모으는 진짜 이유 #영어발음",
-          imageUrl: 'https://i.ytimg.com/vi/5MiM1tIpQQk/mqdefault.jpg',
-          thumbnailCopy: "원어민 비밀 입술 모양",
-          badge: '비법 공개',
-        },
-        {
-          id: 'C',
-          title: "영어 'Want'와 'Won't'가 똑같이 들렸던 이유? 딱 1가지만 기억하세요",
-          imageUrl: 'https://i.ytimg.com/vi/WZFLgtzV_80/mqdefault.jpg',
-          thumbnailCopy: "귀가 뚫리는 1가지 법칙",
-          badge: '귀 뚫림',
-        },
-      ];
+      if (gAbFormat === 'SHORTS') {
+        gAbTopic = "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다";
+        gAbVariants = [
+          {
+            id: 'A',
+            title: "OFFICIAL을 ‘오피시알’로 읽으면 틀립니다 #영어발음 #shorts",
+            imageUrl: 'https://i.ytimg.com/vi/7qSWJZqV14o/hqdefault.jpg',
+            thumbnailCopy: "OFFICIAL 발음 비밀",
+            badge: '1분 컷',
+            isLocalFile: false,
+          },
+          {
+            id: 'B',
+            title: "왜 HEROIC은 히로익일까? 30초 테스트 #영어발음 #shorts",
+            imageUrl: 'https://i.ytimg.com/vi/6nANjHxy2Lc/hqdefault.jpg',
+            thumbnailCopy: "발음 테스트 30초",
+            badge: '실력 테스트',
+            isLocalFile: false,
+          },
+          {
+            id: 'C',
+            title: "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
+            imageUrl: 'https://i.ytimg.com/vi/Si88xXt-EQc/hqdefault.jpg',
+            thumbnailCopy: "COMMERCIAL 발음 비법",
+            badge: '비법 공개',
+            isLocalFile: false,
+          },
+        ];
+      } else {
+        gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
+        gAbVariants = [
+          {
+            id: 'A',
+            title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙",
+            imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
+            thumbnailCopy: "SPECIAL 발음 치트키",
+            badge: '발음 원리',
+            isLocalFile: false,
+          },
+          {
+            id: 'B',
+            title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)",
+            imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg',
+            thumbnailCopy: "PICTURE 소리 비밀",
+            badge: '소리 법칙',
+            isLocalFile: false,
+          },
+          {
+            id: 'C',
+            title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)",
+            imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg',
+            thumbnailCopy: "시즌1 완결 총정리 족보",
+            badge: '총정리',
+            isLocalFile: false,
+          },
+        ];
+      }
+      saveAbSimulatorState();
       renderAbSimulatorTabDirect();
-      showToast('샘플 A/B 데이터가 채워졌습니다!');
+      showToast('샘플 ' + (gAbFormat === 'SHORTS' ? '쇼츠' : '롱폼') + ' A/B 데이터가 채워졌습니다!');
     };
   }
 
-  // 11. Run AI Evaluation Button
+  // 12. Reset State Button
+  const resetBtn = document.getElementById('btn-ab-reset-state');
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      if (confirm('시안 편집기 데이터를 기본 상태로 초기화하시겠습니까?')) {
+        try { localStorage.removeItem('ihm_ab_simulator_state'); } catch (_) {}
+        location.reload();
+      }
+    };
+  }
+
+  // 13. Run AI Evaluation Button
   const runAiBtn = document.getElementById('btn-ab-run-ai');
   if (runAiBtn) {
     runAiBtn.onclick = async () => {
       const statusBox = document.getElementById('ab-eval-status');
       const statusText = document.getElementById('ab-eval-status-text');
       if (statusBox) statusBox.style.display = 'block';
-      if (statusText) statusText.textContent = 'Gemini AI가 3개 시안의 호기심 갭, 가독성, 색상 대비를 정밀 진단 중입니다... (약 3~5초 소요)';
+      if (statusText) statusText.textContent = 'Gemini AI가 ' + (gAbFormat === 'SHORTS' ? '쇼츠(9:16) 사각지대 및 시선 스턴건' : '롱폼(16:9) 호기심 갭 및 가독성') + '을 정밀 진단 중입니다... (약 3~5초 소요)';
       runAiBtn.disabled = true;
 
       try {
+        const payloadVariants = gAbVariants.map(v => ({
+          id: v.id,
+          title: v.title,
+          imageUrl: v._base64Data || v.imageUrl,
+          thumbnailCopy: v.thumbnailCopy,
+          badge: v.badge,
+        }));
+
         const res = await fetch('/api/ab-simulator/evaluate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             topic: gAbTopic,
-            variants: gAbVariants,
             targetAudience: gAbAudience,
+            format: gAbFormat,
+            variants: payloadVariants,
           }),
         });
+
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '진단 중 오류가 발생했습니다.');
+        if (!res.ok) throw new Error(data.error || 'AI 진단에 실패했습니다.');
+
         gAbAiReport = data.evaluation;
-        showToast('🎉 Gemini AI CTR 정밀 진단이 완료되었습니다!');
+        saveAbSimulatorState();
         renderAbSimulatorTabDirect();
+
+        const reportEl = document.getElementById('ab-report-section');
+        if (reportEl) reportEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast('🎉 Gemini AI CTR 정밀 진단이 완료되었습니다!');
       } catch (err) {
-        if (statusBox) statusBox.style.display = 'block';
-        if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
+        showToast('❌ 진단 오류: ' + err.message);
       } finally {
+        if (statusBox) statusBox.style.display = 'none';
         runAiBtn.disabled = false;
       }
     };
   }
 
-  // 12. Apply AI Title Buttons
+  // 14. Apply AI Title Buttons
   document.querySelectorAll('.btn-ab-apply-title').forEach(btn => {
     btn.onclick = () => {
       const targetVarId = btn.dataset.var;
-      const newTitle = decodeURIComponent(btn.dataset.title);
+      const newTitle = btn.dataset.title;
       const targetVar = gAbVariants.find(v => v.id === targetVarId);
       if (targetVar) {
         targetVar.title = newTitle;
-        showToast('시안 ' + targetVarId + ' 제목에 &ldquo;' + esc(newTitle.slice(0, 15)) + '...&rdquo; 이 적용되었습니다!');
+        saveAbSimulatorState();
+        showToast('시안 ' + targetVarId + ' 제목에 적용되었습니다!');
         renderAbSimulatorTabDirect();
       }
     };
   });
+
+  // 15. Copy AI Image Prompt Buttons
+  document.querySelectorAll('.btn-ab-copy-prompt').forEach(btn => {
+    btn.onclick = () => {
+      const promptText = decodeURIComponent(btn.dataset.prompt || '');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(promptText);
+        showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!');
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = promptText;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!');
+      }
+    };
+  });
+
+  // 16. 1-Click AI Image Generation Handler (FLUX.1 / Imagen 3)
+  const generateImgForVariant = async (vKey, promptText, btnEl) => {
+    const targetVar = gAbVariants.find(v => v.id === vKey) || currentVar;
+    let finalPrompt = promptText;
+    if (!finalPrompt) {
+      const topic = gAbTopic || targetVar.title || 'English pronunciation guide';
+      finalPrompt = (gAbFormat === 'SHORTS' ? 'Clean vertical visual artwork for English pronunciation education: ' : 'Clean horizontal visual artwork for English pronunciation education: ') + 
+        topic + (targetVar.thumbnailCopy ? (', showing ' + targetVar.thumbnailCopy) : '') + ', dark cyber-hud deep navy ambient background, neon yellow glow, minimalist 3D graphic, 4k ultra-high resolution';
+    }
+
+    const originalText = btnEl ? btnEl.innerHTML : '';
+    if (btnEl) {
+      btnEl.disabled = true;
+      btnEl.innerHTML = '⏳ 4K AI 렌더링 중...';
+    }
+
+    try {
+      showToast('🎨 Gemini 3.6 AI 일러스트레이터가 영상 주제에 맞춘 고유 비주얼 썸네일을 생성 중입니다... (약 10~15초)');
+      const res = await fetch('/api/ab-simulator/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          variantKey: vKey,
+          title: targetVar.title || gAbTopic || '',
+          thumbnailCopy: targetVar.thumbnailCopy || '',
+          badge: targetVar.badge || '',
+          topic: gAbTopic || targetVar.title || '',
+          format: gAbFormat,
+          engine: 'gemini',
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || '이미지 생성 실패');
+
+      targetVar.imageUrl = data.imageUrl;
+      targetVar._base64Data = data.imageUrl;
+      targetVar.isLocalFile = true;
+
+      saveAbSimulatorState();
+      renderAbSimulatorTabDirect();
+      showToast('🎉 [' + (data.engine || 'Gemini 3.6 AI') + '] 맞춤형 비주얼 썸네일이 시안 ' + vKey + '에 1-Click 적용되었습니다!');
+    } catch (err) {
+      showToast('❌ 이미지 생성 오류: ' + err.message);
+    } finally {
+      if (btnEl) {
+        btnEl.disabled = false;
+        btnEl.innerHTML = originalText;
+      }
+    }
+  };
+
+  document.querySelectorAll('.btn-ab-generate-img').forEach(btn => {
+    btn.onclick = () => {
+      const vKey = btn.dataset.var;
+      const prompt = decodeURIComponent(btn.dataset.prompt || '');
+      generateImgForVariant(vKey, prompt, btn);
+    };
+  });
+
+  const wbGenBtn = document.getElementById('btn-ab-generate-workbench-thumb');
+  if (wbGenBtn) {
+    wbGenBtn.onclick = () => {
+      generateImgForVariant(gAbSelectedVariantTab, '', wbGenBtn);
+    };
+  }
+
+  // Gallery Card AI Generation Buttons
+  document.querySelectorAll('.btn-ab-generate-card-thumb').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const vKey = btn.dataset.var;
+      generateImgForVariant(vKey, '', btn);
+    };
+  });
+
+  // Batch 3-Variant AI Generation Button
+  const allGenBtn = document.getElementById('btn-ab-generate-all-thumbs');
+  if (allGenBtn) {
+    allGenBtn.onclick = async () => {
+      allGenBtn.disabled = true;
+      const originalText = allGenBtn.innerHTML;
+      allGenBtn.innerHTML = '⏳ 3개 시안 순차 생성 중...';
+      try {
+        for (const vKey of ['A', 'B', 'C']) {
+          await generateImgForVariant(vKey, '', null);
+        }
+        showToast('🎉 시안 A, B, C 전체 3종의 레퍼런스급 썸네일 생성이 완료되었습니다!');
+      } finally {
+        allGenBtn.disabled = false;
+        allGenBtn.innerHTML = originalText;
+      }
+    };
+  }
 
   // Prefetch competitor videos if not yet loaded
   if (gAbCompetitors.length === 0) {
@@ -4545,21 +6003,35 @@ function bindAbSimulatorEvents() {
   }
 }
 
-function renderAbSimulatorTabDirect() {
+function renderAbSimulatorTabDirect(options = {}) {
   if (gCurrentTab === 'tab-ab-simulator') {
+    const scrollEl = document.querySelector('.mockup-feed-scroll');
+    const currentScrollTop = scrollEl ? scrollEl.scrollTop : 0;
+
     renderCurrentTab();
+
+    const newScrollEl = document.querySelector('.mockup-feed-scroll');
+    if (newScrollEl) {
+      newScrollEl.scrollTop = currentScrollTop;
+      if (options && options.scrollToActive) {
+        setTimeout(() => {
+          const activeCard = newScrollEl.querySelector('.active-test');
+          if (activeCard) {
+            activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 30);
+      }
+    }
   }
 }
 
 function renderAbFeedOnly() {
   if (gCurrentTab === 'tab-ab-simulator') {
     const scrollEl = document.querySelector('.mockup-feed-scroll');
-    if (scrollEl) {
-      const currentScrollTop = scrollEl.scrollTop;
-      renderCurrentTab();
-      const newScrollEl = document.querySelector('.mockup-feed-scroll');
-      if (newScrollEl) newScrollEl.scrollTop = currentScrollTop;
-    }
+    const currentScrollTop = scrollEl ? scrollEl.scrollTop : 0;
+    renderCurrentTab();
+    const newScrollEl = document.querySelector('.mockup-feed-scroll');
+    if (newScrollEl) newScrollEl.scrollTop = currentScrollTop;
   }
 }
 
@@ -5084,12 +6556,68 @@ const server = createServer(async (req, res) => {
           topic: body.topic,
           variants: body.variants,
           targetAudience: body.targetAudience,
+          format: body.format || 'LONGFORM',
           geminiKey,
         });
         return json(res, 200, {ok: true, evaluation});
       } catch (err) {
         return json(res, 500, {error: err.message});
       }
+    }
+    if (url.pathname === '/api/ab-simulator/generate-image' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+      try {
+        const result = await generateAiThumbnailImage({
+          prompt: body.prompt,
+          topic: body.topic || '',
+          variantKey: body.variantKey || 'A',
+          title: body.title || '',
+          thumbnailCopy: body.thumbnailCopy || '',
+          badge: body.badge || '',
+          format: body.format || 'LONGFORM',
+          engine: body.engine || 'flux',
+          geminiKey,
+        });
+        return json(res, 200, {ok: true, ...result});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    if (url.pathname === '/api/brand-script/lint' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+      try {
+        const result = await lintBrandScript({
+          scriptText: body.scriptText,
+          topic: body.topic || '',
+          format: body.format || 'SHORTS',
+          apiKey: geminiKey,
+        });
+        return json(res, 200, { ok: true, result });
+      } catch (err) {
+        return json(res, 500, { error: err.message });
+      }
+    }
+    if (url.pathname === '/api/brand-script/export-scenes' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const scenes = body.scenes || [];
+      const topic = body.topic || 'episode';
+      const format = body.format || 'SHORTS';
+      const outputScenesDir = join(projectDir, 'output', 'scenes');
+      if (!existsSync(outputScenesDir)) await mkdir(outputScenesDir, { recursive: true });
+      const safeTopic = (topic || 'scene').replace(/[\\/:*?"<>|]/g, '_').slice(0, 30);
+      const filename = `scenes_${safeTopic}_${Date.now()}.json`;
+      const filePath = join(outputScenesDir, filename);
+      await writeFile(filePath, JSON.stringify({
+        topic,
+        format,
+        exportedAt: new Date().toISOString(),
+        brandPersona: "이해하면 쉬운영어 Cyber-HUD",
+        sceneCount: scenes.length,
+        scenes,
+      }, null, 2), 'utf8');
+      return json(res, 200, { ok: true, filename, filePath });
     }
     if (url.pathname === '/api/classification' && req.method === 'POST') {
       const body = await readJsonBody(req);

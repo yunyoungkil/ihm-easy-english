@@ -10,6 +10,7 @@
 ## 운영
 
 - [영상 제작 표준 워크플로우](VIDEO_WORKFLOW.md) — 기획부터 업로드·분석까지 10단계와 승인 게이트
+- [브랜드 아이덴티티 & 페르소나 헌장](brand-persona.md) — 대표님의 실제 철학, 3단계 도파민 공식, 시그니처 멘트 및 비주얼 DNA
 - [채널 전략](channel-strategy.md) — 성장·수익화 목표와 판단 기준
 - [콘텐츠 포맷](content-formats.md) — 시즌 롱폼, Track A/B, 채널 쇼츠 C의 역할
 - [제작 규칙](production-rules.md) — 대상 시청자, 쇼츠 화면, TTS와 검수 원칙
@@ -30,6 +31,7 @@
 - [Studio CTR 다운로드 폴더 자동 낚아채기](decisions/2026-08-29-studio-ctr-auto-ingest.md) — Downloads 폴더 실시간 무인 압축해제 & 대시보드 SSE 동기화
 - [경쟁사 대본 역설계 & 맞춤 대본 생성](decisions/2026-08-29-competitor-script-reverse-engineering.md) — 1-Click 자막 추출 및 Gemini AI 대본 역설계 파이프라인
 - [Cyber-HUD 대시보드 & 디자인 시스템 구축](decisions/2026-08-29-cyber-hud-command-center.md) — 피치블랙/네온 벤토 그리드, 시장수요 레이더 및 에피소드 인스펙터 구축
+- [대시보드 AI 기능 고도화 로드맵](decisions/2026-08-30-ai-features-enhancement-plan.md) — Vision 썸네일 분석, 3060 대본 린터 & HyperFrames 연동 4단계 계획
 - [브랜드 & 대시보드 디자인 시스템](brand-dashboard-design-system.md) — 컬러 토큰, 폰트 스케일, Faceless Explainer 비주얼 일체화 표준 가이드
 
 ## 에피소드

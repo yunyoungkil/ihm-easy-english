@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060911"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#050B14"/>
+    </linearGradient>
+    <linearGradient id="cyanG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00F0FF"/>
+      <stop offset="100%" stop-color="#0088FF"/>
+    </linearGradient>
+    <linearGradient id="goldG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFEA00"/>
+      <stop offset="100%" stop-color="#FF9900"/>
+    </linearGradient>
+    <radialGradient id="flareC" cx="80%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#00F0FF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#00F0FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="flareG" cx="20%" cy="20%" r="45%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glowC" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="720" fill="url(#flareC)"/>
+  <rect width="1280" height="720" fill="url(#flareG)"/>
+
+  <path d="M 0,150 L 1280,150 M 0,570 L 1280,570 M 760,0 L 760,720" stroke="#00F0FF" stroke-opacity="0.08" stroke-width="2"/>
+  <circle cx="1020" cy="360" r="250" fill="none" stroke="#00F0FF" stroke-opacity="0.15" stroke-width="3" stroke-dasharray="12 12"/>
+  <circle cx="1020" cy="360" r="170" fill="none" stroke="#FFD700" stroke-opacity="0.15" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <path d="M 840,720 C 840,540 910,430 980,370 C 950,350 930,310 930,260 C 930,180 990,120 1070,120 C 1150,120 1210,180 1210,260 C 1210,310 1190,350 1160,370 C 1230,430 1280,540 1280,720 Z" fill="#0A1220"/>
+    <path d="M 842,720 C 842,543 911,433 980,372 C 951,352 932,312 932,260 C 932,182 991,122 1070,122" fill="none" stroke="#00F0FF" stroke-width="7" filter="url(#glowC)"/>
+    <path d="M 930,420 L 730,340" stroke="url(#cyanG)" stroke-width="8" stroke-linecap="round" filter="url(#glowC)"/>
+    <circle cx="730" cy="340" r="11" fill="#00F0FF" filter="url(#glowC)"/>
+  </g>
+
+  <g transform="translate(80, 75)" filter="url(#shadow)">
+    <rect x="0" y="0" width="140" height="46" rx="23" fill="#1E293B" stroke="#00F0FF" stroke-width="2"/>
+    <text x="70" y="29" fill="#00F0FF" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="20" text-anchor="middle">EP.07</text>
+
+    <rect x="155" y="0" width="230" height="46" rx="23" fill="url(#goldG)"/>
+    <text x="270" y="29" fill="#000000" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="20" text-anchor="middle">1초 소리 족보 ⚡</text>
+  </g>
+
+  <g transform="translate(80, 230)" filter="url(#shadow)">
+    <text x="0" y="0" fill="#00F0FF" font-family="'Segoe UI', Roboto, 'Apple SD Gothic Neo', sans-serif" font-weight="900" font-size="34" letter-spacing="2">99%가 틀리는 영어 발음 원리</text>
+    <text x="0" y="105" fill="#FFFFFF" font-family="'Segoe UI', Roboto, 'Arial Black', sans-serif" font-weight="900" font-size="92" stroke="#000000" stroke-width="12" paint-order="stroke fill">-SION 소리 공식</text>
+    <g transform="translate(0, 140)">
+      <text x="0" y="95" fill="url(#goldG)" font-family="'Segoe UI', Roboto, 'Arial Black', sans-serif" font-weight="900" font-size="100" stroke="#000000" stroke-width="14" paint-order="stroke fill">‘션’일까 ‘젼’일까?</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 535)" filter="url(#shadow)">
+    <rect x="0" y="0" width="590" height="100" rx="24" fill="#06152D" stroke="#00F0FF" stroke-width="4"/>
+    <rect x="12" y="12" width="170" height="76" rx="16" fill="url(#cyanG)"/>
+    <text x="97" y="59" fill="#040D1A" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="32" text-anchor="middle">비밀공식</text>
+    <text x="210" y="61" fill="#FFFFFF" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="34">모음 뒤 -sion = </text>
+    <text x="475" y="63" fill="#FFEA00" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="44" filter="url(#glowC)">[젼] ⭕</text>
+  </g>
+
+  <g transform="translate(680, 195)" filter="url(#glowC)">
+    <polygon points="30,0 40,25 65,30 40,35 30,60 20,35 -5,30 20,25" fill="#FFD700"/>
+  </g>
+</svg>

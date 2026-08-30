@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="twilightBG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0a0518"/><stop offset="40%" stop-color="#1b0e36"/><stop offset="100%" stop-color="#2d0a22"/></linearGradient>
+    <radialGradient id="sunGlow" cx="20%" cy="20%" r="60%"><stop offset="0%" stop-color="rgba(255, 42, 109, 0.3)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.95"/></filter>
+  </defs>
+
+  <!-- Twilight Atmosphere -->
+  <rect width="1280" height="720" fill="url(#twilightBG)"/>
+  <rect width="1280" height="720" fill="url(#sunGlow)"/>
+
+  <!-- Stars / Particles -->
+  <circle cx="120" cy="80" r="2.5" fill="#fff" opacity="0.8"/>
+  <circle cx="340" cy="140" r="3" fill="#facc15" opacity="0.7"/>
+  <circle cx="1100" cy="90" r="2" fill="#fff" opacity="0.9"/>
+  <circle cx="880" cy="160" r="3.5" fill="#38bdf8" opacity="0.6"/>
+
+  <!-- Top Badge -->
+  <g transform="translate(60, 45)" filter="url(#cardShadow)">
+    <rect width="300" height="46" rx="23" fill="#ff0055" stroke="#ffffff" stroke-width="2"/>
+    <text x="150" y="30" text-anchor="middle" font-family="'Pretendard', sans-serif" font-size="20" font-weight="900" fill="#ffffff">⚡ 필수문장 EP2</text>
+  </g>
+
+  
+  <!-- Longform Mode: Left Dialog Scene + Right High-CTR Contrast Cards -->
+  <!-- Left Side: Dramatic Dialogue Scene -->
+  <g transform="translate(60, 130)" filter="url(#cardShadow)">
+    <!-- Speech Bubble -->
+    <rect width="480" height="150" rx="28" fill="#ffffff"/>
+    <polygon points="100,150 140,185 160,150" fill="#ffffff"/>
+    <text x="240" y="65" text-anchor="middle" font-family="'Pretendard', sans-serif" font-size="36" font-weight="900" fill="#0f172a">"보고 싶어요"</text>
+    <text x="240" y="115" text-anchor="middle" font-family="'Pretendard', sans-serif" font-size="26" font-weight="900" fill="#ff0055">영어로 바로 안 나온다면?</text>
+
+    <!-- Bold Main Hook Below -->
+    <text x="0" y="270" font-family="'Pretendard', 'Arial Black', sans-serif" font-size="64" font-weight="900" fill="#ffffff">보고 싶어요</text>
+    <text x="0" y="355" font-family="'Pretendard', 'Arial Black', sans-serif" font-size="72" font-weight="900" fill="#facc15">I want to see 말고</text>
+    <text x="0" y="440" font-family="'Pretendard', sans-serif" font-size="30" font-weight="900" fill="#38bdf8">🔥 입에서 바로 나오는 20문장</text>
+  </g>
+
+  <!-- Right Side: Clean Expression Solution Badges -->
+  <g transform="translate(620, 100)" filter="url(#cardShadow)">
+    <!-- Mistake Box -->
+    <g transform="translate(0, 30)">
+      <rect width="580" height="220" rx="28" fill="rgba(18, 3, 10, 0.9)" stroke="#ff0055" stroke-width="4"/>
+      <text x="40" y="55" font-family="'Pretendard', sans-serif" font-size="26" font-weight="900" fill="#ff4d79">❌ 어색한 직역 표현</text>
+      <text x="290" y="145" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="46" font-weight="900" fill="#ffffff">~I want to see you~</text>
+    </g>
+
+    <!-- Native Solution Box -->
+    <g transform="translate(0, 280)">
+      <rect width="580" height="250" rx="28" fill="#facc15" stroke="#ffffff" stroke-width="6"/>
+      <text x="40" y="60" font-family="'Pretendard', sans-serif" font-size="28" font-weight="900" fill="#000000">⭕ 진짜 마음을 전할때</text>
+      <text x="290" y="160" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="62" font-weight="900" fill="#0f172a">I miss you</text>
+    </g>
+  </g>
+
+  <!-- Branding -->
+  <text x="60" y="670" font-family="'Pretendard', sans-serif" font-size="22" font-weight="800" fill="#cbd5e1">@이해하면쉬운영어</text>
+  
+</svg>

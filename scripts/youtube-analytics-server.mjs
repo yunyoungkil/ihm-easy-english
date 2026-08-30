@@ -1973,6 +1973,16 @@ document.addEventListener('click', (e) => {
     switchTab(tabBtn.dataset.targetTab);
     return;
   }
+  const outlierScriptBtn = e.target.closest('.btn-outlier-script');
+  if (outlierScriptBtn && outlierScriptBtn.dataset.vid) {
+    triggerScriptAnalysis(outlierScriptBtn.dataset.vid);
+    return;
+  }
+  const outlierAnalyzeBtn = e.target.closest('.btn-outlier-analyze');
+  if (outlierAnalyzeBtn && outlierAnalyzeBtn.dataset.vid) {
+    triggerCommentAnalysis(outlierAnalyzeBtn.dataset.vid);
+    return;
+  }
 });
 
 async function loadAll() {
@@ -2491,31 +2501,11 @@ function bindMarketDemandEvents() {
   });
 
   document.querySelectorAll('.btn-outlier-analyze').forEach(btn => {
-    btn.onclick = () => {
-      gAiLabSubTab = 'comments';
-      switchTab('tab-outlier');
-      setTimeout(() => {
-        const urlInput = document.getElementById('input-ai-url');
-        if (urlInput) {
-          urlInput.value = 'https://youtu.be/' + btn.dataset.vid;
-          document.getElementById('btn-run-ai-url')?.click();
-        }
-      }, 200);
-    };
+    btn.onclick = () => triggerCommentAnalysis(btn.dataset.vid);
   });
 
   document.querySelectorAll('.btn-outlier-script').forEach(btn => {
-    btn.onclick = () => {
-      gAiLabSubTab = 'scripts';
-      switchTab('tab-outlier');
-      setTimeout(() => {
-        const urlInput = document.getElementById('input-script-url');
-        if (urlInput) {
-          urlInput.value = 'https://youtu.be/' + btn.dataset.vid;
-          document.getElementById('btn-run-script-analyze')?.click();
-        }
-      }, 200);
-    };
+    btn.onclick = () => triggerScriptAnalysis(btn.dataset.vid);
   });
 }
 function renderOutlierLabTab() {
@@ -2571,80 +2561,112 @@ function renderOutlierLabTab() {
   '</div>';
 }
 
-function bindOutlierLabEvents() {
+async function runAiCommentAnalysis(payload) {
   const statusBox = document.getElementById('ai-lab-status');
   const statusText = document.getElementById('ai-lab-status-text');
   const resultsContainer = document.getElementById('ai-results-container');
 
+  if (statusBox) statusBox.style.display = 'block';
+  if (statusText) statusText.textContent = '인기 댓글 100개 수집 및 Gemini AI 심층 분석 중입니다... (약 5~10초 소요)';
+  if (resultsContainer) resultsContainer.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/insights/analyze', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || '분석 중 오류가 발생했습니다.');
+    if (statusBox) statusBox.style.display = 'none';
+    if (resultsContainer) {
+      resultsContainer.style.display = 'block';
+      resultsContainer.innerHTML = data.results?.map(r => renderSingleAiReportCard(r)).join('') || '<div class="card-subtext">분석 결과가 없습니다.</div>';
+    }
+    loadSavedReportsList();
+    showToast('AI 댓글 분석이 완료되었습니다!');
+  } catch (err) {
+    if (statusBox) statusBox.style.display = 'block';
+    if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
+  }
+}
+
+async function runScriptAnalysis(targetUrl) {
+  if (!targetUrl) return alert('유튜브 URL 또는 영상 ID를 입력하세요.');
+  const statusBox = document.getElementById('ai-lab-status');
+  const statusText = document.getElementById('ai-lab-status-text');
+  const resultsContainer = document.getElementById('ai-results-container');
+  const urlInput = document.getElementById('input-script-url');
+  if (urlInput) urlInput.value = targetUrl;
+
+  if (statusBox) statusBox.style.display = 'block';
+  if (statusText) statusText.textContent = 'YouTube 자막을 1-Click 추출하고 Gemini AI로 대본 구조를 역설계 중입니다... (약 5~10초 소요)';
+  if (resultsContainer) resultsContainer.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/scripts/analyze', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({url: targetUrl})
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || '대본 분석에 실패했습니다.');
+    if (statusBox) statusBox.style.display = 'none';
+    if (resultsContainer) {
+      resultsContainer.style.display = 'block';
+      resultsContainer.innerHTML = renderSingleScriptReportCard(data.result);
+    }
+    loadSavedScriptReportsList();
+    showToast('🎉 경쟁사 대본 역설계 및 맞춤 대본 생성이 완료되었습니다!');
+  } catch (err) {
+    if (statusBox) statusBox.style.display = 'block';
+    if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
+  }
+}
+
+function triggerScriptAnalysis(vidOrUrl) {
+  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
+  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
+  gAiLabSubTab = 'scripts';
+  switchTab('tab-outlier');
+  runScriptAnalysis(fullUrl);
+}
+
+function triggerCommentAnalysis(vidOrUrl) {
+  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
+  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
+  gAiLabSubTab = 'comments';
+  switchTab('tab-outlier');
+  const urlInput = document.getElementById('input-ai-url');
+  if (urlInput) urlInput.value = fullUrl;
+  runAiCommentAnalysis({url: fullUrl});
+}
+
+function bindOutlierLabEvents() {
   const subtabComments = document.getElementById('subtab-btn-comments');
   const subtabScripts = document.getElementById('subtab-btn-scripts');
   if (subtabComments) subtabComments.onclick = () => { gAiLabSubTab = 'comments'; renderCurrentTab(); };
   if (subtabScripts) subtabScripts.onclick = () => { gAiLabSubTab = 'scripts'; renderCurrentTab(); };
 
-  // 1. Comments Analysis
-  const runAiAnalysis = async (payload) => {
-    statusBox.style.display = 'block';
-    statusText.textContent = '인기 댓글 100개 수집 및 Gemini AI 심층 분석 중입니다... (약 5~10초 소요)';
-    resultsContainer.style.display = 'none';
-    try {
-      const res = await fetch('/api/insights/analyze', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || '분석 중 오류가 발생했습니다.');
-      statusBox.style.display = 'none';
-      resultsContainer.style.display = 'block';
-      resultsContainer.innerHTML = data.results?.map(r => renderSingleAiReportCard(r)).join('') || '<div class="card-subtext">분석 결과가 없습니다.</div>';
-      loadSavedReportsList();
-      showToast('AI 댓글 분석이 완료되었습니다!');
-    } catch (err) {
-      statusBox.style.display = 'block';
-      statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
-    }
-  };
-
   const btnKw = document.getElementById('btn-run-ai-kw');
   if (btnKw) btnKw.onclick = () => {
-    const kw = document.getElementById('input-ai-kw').value.trim();
+    const kw = document.getElementById('input-ai-kw')?.value.trim();
     if (!kw) return alert('키워드를 입력하세요.');
-    runAiAnalysis({keyword: kw});
+    runAiCommentAnalysis({keyword: kw});
   };
 
   const btnUrl = document.getElementById('btn-run-ai-url');
   if (btnUrl) btnUrl.onclick = () => {
-    const url = document.getElementById('input-ai-url').value.trim();
+    const url = document.getElementById('input-ai-url')?.value.trim();
     if (!url) return alert('유튜브 URL을 입력하세요.');
-    runAiAnalysis({url});
+    runAiCommentAnalysis({url});
   };
 
-  // 2. Script Reverse-Engineering Analysis
   const btnScript = document.getElementById('btn-run-script-analyze');
-  if (btnScript) btnScript.onclick = async () => {
+  if (btnScript) btnScript.onclick = () => {
     const urlInput = document.getElementById('input-script-url');
     const targetUrl = urlInput ? urlInput.value.trim() : '';
-    if (!targetUrl) return alert('유튜브 URL 또는 영상 ID를 입력하세요.');
-    statusBox.style.display = 'block';
-    statusText.textContent = 'YouTube 자막을 1-Click 추출하고 Gemini AI로 대본 구조를 역설계 중입니다... (약 5~10초 소요)';
-    resultsContainer.style.display = 'none';
-    try {
-      const res = await fetch('/api/scripts/analyze', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({url: targetUrl})
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || '대본 분석에 실패했습니다.');
-      statusBox.style.display = 'none';
-      resultsContainer.style.display = 'block';
-      resultsContainer.innerHTML = renderSingleScriptReportCard(data.result);
-      loadSavedScriptReportsList();
-      showToast('🎉 경쟁사 대본 역설계 및 맞춤 대본 생성이 완료되었습니다!');
-    } catch (err) {
-      statusBox.style.display = 'block';
-      statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
-    }
+    runScriptAnalysis(targetUrl);
   };
 
   const refreshBtn = document.getElementById('btn-refresh-ai-reports');

@@ -386,33 +386,53 @@ export async function generateAiThumbnailImage({ prompt, topic = '', variantKey 
     subCallout = '💡 원어민 귀가 뚫리는 공식';
   }
 
-  // 2. Generate 100% Freeform Pure AI Generative SVG Artwork with Gemini 3.6 Flash
+  // 2. Generate 100% Freeform Pure AI Photorealistic & High-CTR Generative SVG Artwork with Gemini 3.6 Flash
   if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
     const W = isShorts ? 720 : 1280;
     const H = isShorts ? 1280 : 720;
+    
+    // Curated high-res real person photos matched to variant psychology
+    const photoUrlMap = {
+      A: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80', // Surprised / Shocked reaction
+      B: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80', // Confident teacher / Pointing formula
+      C: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80', // Adult learner discovery / Real nuance
+    };
+    const chosenPhotoUrl = photoUrlMap[vKey] || photoUrlMap.B;
+
     const prompt = `You are the Lead Art Director and YouTube Growth Strategist for English education channel '이해하면 쉬운영어' (Target: 3060 adult learners).
 
 YOUR MISSION:
-Perform a deep COMPETITOR GAP & VIEWER PSYCHOLOGY ANALYSIS on topic: "${rawText}" (${isShorts ? '9:16 Shorts' : '16:9 Longform'}).
+Draw a standalone High-CTR YouTube Thumbnail SVG (viewBox="0 0 ${W} ${H}") on topic: "${rawText}" (${isShorts ? '9:16 Shorts' : '16:9 Longform'}).
 Target Variant: ${vKey} (${
       vKey === 'A'
         ? '오답 충격 & 뒤통수형: 평생 맞다고 믿었던 콩글리시/오해를 찌르는 강렬한 시각적 충격'
         : vKey === 'B'
-        ? '1초 소리 족보 & 비밀 공식형 (Brendan Jowett 테크/노하우 스타일): 2~3단어 초대형 네온 뱃지와 직관적 원리 가치 제안'
+        ? '1초 소리 족보 & 비밀 공식형: 2~3단어 초대형 네온 뱃지와 직관적 원리 가치 제안'
         : '원어민 리얼 뉘앙스 & 비교 대조형: 상황별 당혹스러운 실수 ❌ vs 원어민 진짜 정답 ⭕의 극적 대비'
     })
 
-STEP 1. COMPETITOR DEFICIENCY OVERCOME:
-- Typical competitors do: boring whiteboard photos, long text lists, low-contrast generic boxes.
-- Our Channel Advantage: Brendan Jowett style dark cinematic studio lighting, neon rim-light flares (cyan, magenta, gold), expressive stylized reaction character silhouette, massive 2~3 word high-CTR micro-copy, floating high-contrast neon pill badges.
-
-STEP 2. DRAW FULL STANDALONE SVG ARTWORK (viewBox="0 0 ${W} ${H}"):
-- NO generic 3-box templates!
-- Dark cinematic studio background with ambient radial glow and subtle lighting grid.
-- Expressive stylized character/reaction figure on one side with vibrant rim light (shocked pose for A, confident/pointing for B, speaker for C).
-- Massive 2~3 word ultra-bold Korean/English typography with thick black stroke and heavy drop shadows for instant mobile readability.
-- NO verbose XML comments. Write clean, direct SVG code under 80 lines (< 4KB) so it completes cleanly and closes with </svg>.
-- Return ONLY the raw valid SVG starting with <svg and ending with </svg>. No markdown backticks, no code fence, no commentary.`;
+DESIGN REQUIREMENTS:
+1. BACKGROUND: Dark cinematic studio (#060911, #0F172A) with radial cyan (#00F0FF) and magenta (#FF0077) glow.
+2. PHOTOREALISTIC HERO CARD (${isShorts ? 'Center/Bottom' : 'Right side'}):
+   - Place a sleek rounded frame with a high-res photo element:
+     ${isShorts ? `
+     <clipPath id="personClip"><rect x="60" y="520" width="600" height="700" rx="30"/></clipPath>
+     <g filter="url(#shadow)">
+       <rect x="56" y="516" width="608" height="708" rx="34" fill="none" stroke="#00F0FF" stroke-width="4"/>
+       <image href="${chosenPhotoUrl}" x="60" y="520" width="600" height="700" preserveAspectRatio="xMidYMid slice" clip-path="url(#personClip)"/>
+     </g>` : `
+     <clipPath id="personClip"><rect x="730" y="30" width="510" height="660" rx="32"/></clipPath>
+     <g filter="url(#shadow)">
+       <rect x="726" y="26" width="518" height="668" rx="36" fill="none" stroke="#00F0FF" stroke-width="4"/>
+       <image href="${chosenPhotoUrl}" x="730" y="30" width="510" height="660" preserveAspectRatio="xMidYMid slice" clip-path="url(#personClip)"/>
+       <rect x="730" y="460" width="510" height="230" fill="#060911" fill-opacity="0.7" clip-path="url(#personClip)"/>
+     </g>`}
+   - CRITICAL: DO NOT draw any crude humanoid path silhouettes or doodle monster shapes! Use ONLY the clean <image> photo card.
+3. HIGH-CTR TYPOGRAPHY & BADGES (${isShorts ? 'Top' : 'Left side'}):
+   - Top Neon Pill Badges: [EP.07 or Topic Tag] + [🚨 99%가 틀림 or 1초 소리 족보 ⚡]
+   - Massive 2~3 word headline with thick black stroke (stroke="#000000" stroke-width="14" paint-order="stroke fill"): Yellow #FFE600, White #FFFFFF, Cyan #00F0FF.
+   - Bottom Secret Rule Box or ❌ vs ⭕ contrast box.
+4. Clean code under 90 lines. Return ONLY the raw valid SVG starting with <svg and ending with </svg>. No markdown backticks, no code fence, no commentary.`;
 
     try {
       const gEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiKey}`;

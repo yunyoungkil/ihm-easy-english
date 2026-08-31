@@ -57,10 +57,12 @@
       },
       "url": "https://youtu.be/3PkSwrFIcRE",
       "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "검토 필요"
+        "category": "SEASON",
+        "season": 1,
+        "episode": 10,
+        "role": "LONG",
+        "source": "manual",
+        "updatedAt": "2026-08-31T11:09:56.737Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -2551,5 +2553,6 @@
       "itemCount": 11,
       "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
     }
-  ]
+  ],
+  "updatedAt": "2026-08-31T11:09:56.739Z"
 }

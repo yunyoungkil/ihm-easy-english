@@ -2408,10 +2408,12 @@
       "updatedAt": "2026-08-22T13:44:18.301Z"
     },
     "3PkSwrFIcRE": {
-      "category": "OTHER",
-      "role": "STANDALONE_LONG",
-      "source": "auto",
-      "reason": "검토 필요"
+      "category": "SEASON",
+      "season": 1,
+      "episode": 10,
+      "role": "LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-31T11:09:56.737Z"
     },
     "LdiZKCzKf0c": {
       "category": "OTHER",

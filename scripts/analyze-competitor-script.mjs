@@ -11,6 +11,8 @@ const envPath = join(projectDir, ".env");
 const outputScriptInsightsDir = join(projectDir, "output", "script-insights");
 const dataScriptInsightsDir = join(projectDir, "data", "youtube", "script-insights");
 const marketDemandPath = join(projectDir, "data", "youtube", "market-demand.json");
+const audienceDnaPath = join(projectDir, "data", "youtube", "audience-dna.json");
+const AUDIENCE_DNA_MAX_ENTRIES = 300;
 
 // Ensure directories exist
 mkdirSync(outputScriptInsightsDir, { recursive: true });
@@ -87,12 +89,27 @@ export async function analyzeScriptWithGemini(videoMeta, transcriptData, apiKey 
   const prompt = `
 당신은 대한민국 최고의 유튜브 영어 교육 콘텐츠 기획자이자 대본 디렉터입니다.
 타겟 채널: **'이해하면 쉬운영어'**
-- 타겟 시청자: 5060 중장년 및 왕초보 학습자
-- 핵심 가치: 단순 무한 암기가 아닌 **직관적인 소리 변신 원리**, **시각적 자막 카드**, **귀가 뚫리는 반복 낭독 훈련**
-
+- **채널 페르소나 & 철학**:
+  * "기초가 전혀 없어도 괜찮습니다. 당신이 영어를 못했던 게 아니라 소리 나는 원리를 몰랐을 뿐입니다. 무작정 외우지 마세요."
+  * 선생님처럼 어려운 문법/음성학 용어 절대 금지. 가식 없이 솔직하고 담백한 실전 학습 파트너 톤.
+  * 일하고 지친 시청자에게 주는 '세련된 지적 휴식 & 힐링(Rest & Recharge)' 3분.
+- **독점 3단계 도파민 공식 (The Epiphany Formula)**:
+  * 1단계: 게으른 혀의 소리 지름길 (원리 해제 - "미국인들도 혀가 편하려고 이렇게 소리가 뭉개지는 겁니다")
+  * 2단계: 패턴 확장 카타르시스 (어? 다른 단어에도 똑같이 통하네? 아싸!)
+  * 3단계: 반전 비밀 꿀팁 (어? 근데 왜 이건 다르지? 딱 요 사소한 차이!)
+- **핵심 가치**: 직관적인 소리 변신 원리 + 3060 맞춤 3회 반복 낭독 훈련 + 일상/해외여행에서 당당해지는 실전 자신감.
+${(() => {
+    if (!existsSync(audienceDnaPath)) return "";
+    try {
+      const store = JSON.parse(readFileSync(audienceDnaPath, "utf8"));
+      const known = (store.entries || []).filter((e) => e.type === "painPoint").slice(0, 10);
+      if (!known.length) return "";
+      return `\n[이미 파악된 경쟁사 맹점/고통점 — 재탕하지 말고 새로운 관점 위주로 blindSpots를 뽑을 것]:\n${known.map((e) => `- ${e.text}`).join("\n")}\n`;
+    } catch { return ""; }
+  })()}
 다음은 유튜브에서 높은 조회수 또는 반응을 얻은 영상의 [메타데이터]와 [전체 자막/대본(타임스탬프 포함)]입니다.
 이 대본을 철저히 **역설계(Reverse-Engineering)**하여 왜 시청자가 끝까지 시청했는지 분해하고,
-우리 채널('이해하면 쉬운영어') 스타일로 10배 더 뛰어난 **신규 대본 템플릿(롱폼 & 쇼츠 2종)**을 설계해 주세요.
+우리 채널('이해하면 쉬운영어')의 고유 브랜드 페르소나 스타일로 10배 더 뛰어난 **신규 대본 템플릿(롱폼 & 쇼츠 2종)**을 설계해 주세요.
 
 ---
 ### [분석 대상 영상 정보]
@@ -165,7 +182,7 @@ ${transcriptData.fullText}
       "step1_Hook": "...",
       "step2_CardDisplay": "자막 카드에 띄울 한글 발음 표기 및 영어 단어",
       "step3_Principle": "소리가 변하는 원리 해설",
-      "step4_RepetitionDrill": "5060 시니어를 위한 3회 반복 낭독 유도",
+      "step4_RepetitionDrill": "3060 성인 학습자를 위한 3회 반복 낭독 유도",
       "step5_Outro": "고정댓글/다음 EP 유도 멘트"
     },
     "shortsTrackA": {
@@ -294,6 +311,50 @@ export function generateScriptMarkdownReport(videoMeta, transcriptData, aiInsigh
   return md;
 }
 
+const normalizeDnaText = (text) => String(text || "").trim().toLowerCase().replace(/\s+/g, " ");
+
+// entries: [{type, text, videoId, channelTitle, sourceType}]
+function upsertAudienceDnaFromScript(newEntries) {
+  if (!newEntries?.length) return;
+  let store = { schemaVersion: 1, entries: [] };
+  if (existsSync(audienceDnaPath)) {
+    try { store = JSON.parse(readFileSync(audienceDnaPath, "utf8")); } catch { /* keep default */ }
+  }
+  const byKey = new Map((store.entries || []).map((e) => [`${e.type}:${normalizeDnaText(e.text)}`, e]));
+  const now = new Date().toISOString();
+
+  for (const raw of newEntries) {
+    const text = String(raw.text || "").trim();
+    if (!text) continue;
+    const key = `${raw.type}:${normalizeDnaText(text)}`;
+    const existing = byKey.get(key);
+    if (existing) {
+      existing.occurrences = (existing.occurrences || 1) + 1;
+      existing.lastSeenAt = now;
+      if (raw.videoId && !existing.sources.some((s) => s.videoId === raw.videoId)) {
+        existing.sources.push({ videoId: raw.videoId, channelTitle: raw.channelTitle || "", sourceType: raw.sourceType || "" });
+        if (existing.sources.length > 10) existing.sources = existing.sources.slice(-10);
+      }
+    } else {
+      byKey.set(key, {
+        id: key,
+        type: raw.type,
+        text,
+        occurrences: 1,
+        sources: raw.videoId ? [{ videoId: raw.videoId, channelTitle: raw.channelTitle || "", sourceType: raw.sourceType || "" }] : [],
+        firstSeenAt: now,
+        lastSeenAt: now,
+      });
+    }
+  }
+
+  const entries = [...byKey.values()]
+    .sort((a, b) => (b.occurrences - a.occurrences) || (new Date(b.lastSeenAt) - new Date(a.lastSeenAt)))
+    .slice(0, AUDIENCE_DNA_MAX_ENTRIES);
+
+  writeFileSync(audienceDnaPath, JSON.stringify({ schemaVersion: 1, updatedAt: now, entries }, null, 2), "utf8");
+}
+
 export async function analyzeSingleScript(videoId) {
   console.log(`\n========================================`);
   console.log(`🔍 영상 대본/자막 심층 분석 시작: ${videoId}`);
@@ -336,6 +397,15 @@ export async function analyzeSingleScript(videoId) {
 
   writeFileSync(jsonPath, JSON.stringify(reportPayload, null, 2), "utf8");
   writeFileSync(mdPath, mdContent, "utf8");
+
+  const isMyChannel = meta.channelTitle.includes("이해하면 쉬운");
+  if (aiInsights && !isMyChannel) {
+    const dnaEntries = [
+      ...(aiInsights.coreMetaphors || []).map((m) => ({ type: "vocabulary", text: m.metaphorUsed ? `${m.concept}: ${m.metaphorUsed}` : m.concept })),
+      ...(aiInsights.blindSpots || []).map((text) => ({ type: "painPoint", text })),
+    ].filter((e) => e.text).map((e) => ({ ...e, videoId, channelTitle: meta.channelTitle, sourceType: "competitorScript" }));
+    upsertAudienceDnaFromScript(dnaEntries);
+  }
 
   console.log(`\n✅ 대본 분석 리포트 저장 완료:`);
   console.log(`   - JSON: ${jsonPath}`);

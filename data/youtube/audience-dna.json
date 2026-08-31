@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-31T06:32:53.195Z",
+  "entries": [
+    {
+      "id": "vocabulary:끝소리 t의 파열음: 목소리를 빼고 '바람만 퉤- 나가는 소리'",
+      "type": "vocabulary",
+      "text": "끝소리 T의 파열음: 목소리를 빼고 '바람만 퉤- 나가는 소리'",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "t_wVvVyqdbg",
+          "channelTitle": "돔잭맘TV (DomJacTV)",
+          "sourceType": "competitorScript"
+        }
+      ],
+      "firstSeenAt": "2026-08-31T05:54:44.387Z",
+      "lastSeenAt": "2026-08-31T05:54:44.387Z"
+    },
+    {
+      "id": "painPoint:제목은 'want vs won't' 비교였으나 실제 본문에서는 won't 발음만 쪼개어 설명해 두 단어의 결정적인 소리 차이(턱의 움직임, 모음 차이)가 직관적으로 비교되지 않음",
+      "type": "painPoint",
+      "text": "제목은 'Want vs Won't' 비교였으나 실제 본문에서는 won't 발음만 쪼개어 설명해 두 단어의 결정적인 소리 차이(턱의 움직임, 모음 차이)가 직관적으로 비교되지 않음",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "t_wVvVyqdbg",
+          "channelTitle": "돔잭맘TV (DomJacTV)",
+          "sourceType": "competitorScript"
+        }
+      ],
+      "firstSeenAt": "2026-08-31T05:54:44.387Z",
+      "lastSeenAt": "2026-08-31T05:54:44.387Z"
+    },
+    {
+      "id": "painPoint:'long 오운 장모음' 등 전문 용어가 섞여 있어 기초 학습자에게 순간적인 인지 부담을 줌",
+      "type": "painPoint",
+      "text": "'long 오운 장모음' 등 전문 용어가 섞여 있어 기초 학습자에게 순간적인 인지 부담을 줌",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "t_wVvVyqdbg",
+          "channelTitle": "돔잭맘TV (DomJacTV)",
+          "sourceType": "competitorScript"
+        }
+      ],
+      "firstSeenAt": "2026-08-31T05:54:44.387Z",
+      "lastSeenAt": "2026-08-31T05:54:44.387Z"
+    },
+    {
+      "id": "painPoint:단어 하나에 그쳐 실전 문장(i want it / i won't do it)으로의 확장 연결이 부족함",
+      "type": "painPoint",
+      "text": "단어 하나에 그쳐 실전 문장(I want it / I won't do it)으로의 확장 연결이 부족함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "t_wVvVyqdbg",
+          "channelTitle": "돔잭맘TV (DomJacTV)",
+          "sourceType": "competitorScript"
+        }
+      ],
+      "firstSeenAt": "2026-08-31T05:54:44.387Z",
+      "lastSeenAt": "2026-08-31T05:54:44.387Z"
+    }
+  ]
+}

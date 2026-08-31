@@ -270,7 +270,7 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
 }
 
 // 5. Sanitized Gemini AI Diagnostic Engine
-export async function diagnoseVideoWithGemini({ video, geminiKey }) {
+export async function diagnoseVideoWithGemini({ video, geminiKey, successPatterns = [] }) {
   if (!geminiKey) {
     throw new Error('Gemini API 키(GEMINI_API_KEY)가 설정되지 않았습니다.');
   }
@@ -305,16 +305,32 @@ export async function diagnoseVideoWithGemini({ video, geminiKey }) {
   } else if (video.quadrant === 'Q1') {
     quadrantGuidance = `[🚨 Q1 알고리즘 효자 영상 전용 지침]:
 - CTR(${sanitizedCtr}%)과 지속률(${sanitizedRet}%)이 모두 최상위권인 채널 대표 영상입니다.
-- 처방전은 **시리즈 2탄 제작, 쇼츠 파생 확장, 재생목록 상단 배치** 등 추천 알고리즘 폭발 유지에 집중하세요.`;
+- 처방전은 **시리즈 2탄 제작, 쇼츠 파생 확장, 재생목록 상단 배치** 등 추천 알고리즘 폭발 유지에 집중하세요.
+- 이 영상은 우리 채널의 '성공 패턴 DB'에 영구 저장됩니다. 응답의 "successPattern" 필드에 이 영상이
+  먹힌 이유를 **다른 영상에도 재사용 가능한 일반화된 패턴**으로 반드시 채워 주세요(제목/썸네일의
+  구체적 문구가 아니라 재사용 가능한 후킹 기법·비유 방식 자체).`;
   } else {
     quadrantGuidance = `[🚨 Q4 기획 재검토 영상 전용 지침]:
 - CTR과 지속률이 모두 저조합니다.
-- 처방전은 **소재 재선정, 5060 시니어의 근본적 결핍(Pain Point) 재발굴**에 집중하세요.`;
+- 처방전은 **소재 재선정, 3060 성인 학습자의 근본적 결핍(Pain Point) 재발굴**에 집중하세요.`;
   }
 
-  const prompt = `당신은 대한민국 최고 수준의 유튜브 알고리즘 & 채널 성장 데이터 전략가입니다.
-유튜브 교육 채널 '이해하면 쉬운영어'(5060 시니어 & 왕초보 영어 타겟)의 영상을 4사분면 진단 매트릭스에 따라 정밀 처방합니다.
+  const otherPatterns = successPatterns.filter((p) => p.videoId !== video.videoId).slice(0, 5);
+  const successPatternsBlock = otherPatterns.length
+    ? `[우리 채널 검증된 성공 패턴 DB — Q1(알고리즘 효자) 영상에서 실제로 먹혔던 패턴, 처방에 참고할 것]:
+${otherPatterns.map((p) => `- (${p.title}, CTR ${p.ctr}%) 후킹: ${p.reusableHook || '기록 없음'} / 비유: ${p.reusableAnalogy || '기록 없음'}`).join('\n')}
+`
+    : '';
 
+  const prompt = `당신은 대한민국 최고 수준의 유튜브 알고리즘 & 채널 성장 데이터 전략가입니다.
+유튜브 교육 채널 '이해하면 쉬운영어'(3060 성인 & 왕초보 영어 타겟)의 영상을 4사분면 진단 매트릭스에 따라 정밀 처방합니다.
+
+[채널 핵심 브랜드 철학 & 페르소나 — alternativeTitles·처방전 문구에 반드시 반영할 것]:
+- 톤앤매너: 가식 없는 솔직 담백한 실전 학습 파트너. ("기초가 전혀 없어도 괜찮습니다. 당신이 영어를 못했던 게 아니라 소리 나는 원리를 몰랐을 뿐입니다. 무작정 외우지 마세요.")
+- 선생님처럼 훈계하는 말투, 자극적인 낚시성 과장, 어려운 음성학 용어(비음화, 유음화, 연음 공식, IPA 기호) 절대 금지.
+- 독점 3단계 도파민 공식: 1) 게으른 혀의 소리 지름길(원리 발견) → 2) 패턴 확장(카타르시스) → 3) 반전 꿀팁(미세한 차이).
+
+${successPatternsBlock}
 [정규화된 영상 데이터]:
 - 제목: "${cleanTitle}"
 - 포맷: ${video.format === 'SHORTS' ? '쇼츠 (Shorts)' : '롱폼 (Longform)'} (길이: ${durationMinSec})
@@ -350,10 +366,14 @@ ${quadrantGuidance}
     }
   ],
   "alternativeTitles": [
-    "5060 시니어의 클릭을 부르는 고클릭률 대체 제목 1",
+    "3060 성인 학습자의 클릭을 부르는 고클릭률 대체 제목 1",
     "호기심과 손실 회피를 자극하는 대체 제목 2",
     "직관적이고 쉬운 완성형 대체 제목 3"
-  ]
+  ],
+  "successPattern": {
+    "reusableHook": "${video.quadrant === 'Q1' ? '이 영상의 후킹 기법을 다른 영상에도 쓸 수 있게 일반화한 한 문장 (Q1만 필수)' : 'null'}",
+    "reusableAnalogy": "${video.quadrant === 'Q1' ? '이 영상이 쓴 핵심 비유/설명 방식을 일반화한 한 문장 (Q1만 필수)' : 'null'}"
+  }
 }`;
 
   const models = ['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.5-flash-lite', 'gemini-3.7-flash'];

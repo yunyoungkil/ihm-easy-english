@@ -139,7 +139,7 @@ async function fetchComments(videoId, apiKey, maxResults = 100) {
   });
 }
 
-async function analyzeCommentsWithGemini(videoMeta, comments, apiKey) {
+async function analyzeCommentsWithGemini(videoMeta, comments, apiKey, existingPainPoints = []) {
   if (!apiKey) {
     console.warn("  ⚠ GEMINI_API_KEY가 없어 규칙 기반 키워드 요약으로 대체합니다.");
     return null;
@@ -153,10 +153,15 @@ async function analyzeCommentsWithGemini(videoMeta, comments, apiKey) {
     )
     .join("\n");
 
-  const prompt = `
-당신은 유튜브 영어 발음·리스닝 교육 채널('이해하면 쉬운영어')의 수석 콘텐츠 기획자입니다.
-우리 채널은 영어 왕초보 및 중장년층을 대상으로, "왜 그렇게 소리 나는지" 명쾌한 원리를 설명해 귀를 뚫어주는 채널입니다.
+  const knownBlock = existingPainPoints.length
+    ? `\n[이미 파악된 고통점/질문 — 이미 여러 번 확인된 것이므로 그대로 재탕하지 말고, 새로운 관점이나 아직 안 나온 항목 위주로 뽑을 것]:\n${existingPainPoints.slice(0, 10).map((e) => `- ${e.text}`).join("\n")}\n`
+    : "";
 
+  const prompt = `
+당신은 유튜브 영어 교육 채널 **'이해하면 쉬운영어'**의 수석 콘텐츠 기획자입니다.
+- **채널 페르소나**: "기초가 전혀 없어도 괜찮습니다. 당신이 영어를 못했던 게 아니라 소리 나는 원리를 몰랐을 뿐입니다. 무작정 외우지 마세요."
+- **톤앤매너**: 어려운 문법 용어 배제, '게으른 혀의 소리 지름길' 직관 비유, 시청자의 가려운 곳을 긁어주는 솔직 담백한 학습 동반자.
+${knownBlock}
 다음은 경쟁/벤치마크 채널에서 큰 조회수를 기록한 아웃라이어 영상과, 그 영상에 달린 시청자들의 인기 댓글 목록입니다.
 
 ---
@@ -341,6 +346,7 @@ export {
   analyzeCommentsWithGemini,
   analyzeSingleVideo,
   generateMarkdownReport,
+  formatInsightText,
 };
 
 

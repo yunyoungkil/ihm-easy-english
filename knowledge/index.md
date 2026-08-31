@@ -34,7 +34,7 @@
 - [대시보드 AI 기능 고도화 로드맵](decisions/2026-08-30-ai-features-enhancement-plan.md) — Vision 썸네일 분석, 3060 대본 린터 & HyperFrames 연동 4단계 계획
 - [클라이언트 JS 문법 에러 방지 규칙](decisions/2026-08-30-preventing-embedded-client-js-syntax-errors.md) — 문자열 JSON.stringify 주입 표준 및 가상 DOM 0에러 자동 검증
 - [브랜드 & 대시보드 디자인 시스템](brand-dashboard-design-system.md) — 컬러 토큰, 폰트 스케일, Faceless Explainer 비주얼 일체화 표준 가이드
-- [대시보드 1-Click AI 썸네일 생성기의 제작 프로세스 이탈](decisions/2026-08-31-ai-thumbnail-generator-process-gap.md) — `generateAiThumbnailImage`가 "이미지는 사용자가 직접 생성" 규칙을 건너뜀, 수정 방향 미정
+- [대시보드 1-Click AI 썸네일 생성기의 제작 프로세스 이탈](decisions/2026-08-31-ai-thumbnail-generator-process-gap.md) — `generateAiThumbnailImage`가 "이미지는 사용자가 직접 생성" 규칙을 건너뜀 → 문구 5안 진단 전엔 이미지 생성 버튼 잠그는 승인 게이트로 해결
 
 
 ## 에피소드

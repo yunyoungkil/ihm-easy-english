@@ -20,6 +20,7 @@ import { startStudioWatcher } from './studio-auto-ingest.mjs';
 import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage } from './ab-simulator.mjs';
 import { buildMatrixDataset, diagnoseVideoWithGemini } from './matrix-diagnosis.mjs';
 import { lintBrandScript } from './brand-script-linter.mjs';
+import { generateTopicCandidates } from './idea-board.mjs';
 
 const execAsync = promisify(exec);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -38,6 +39,7 @@ const outputCommentsDir = join(youtubeDataDir, 'outlier-comments');
 const outputInsightsDir = join(projectDir, 'output', 'insights');
 const outputScriptInsightsDir = join(projectDir, 'output', 'script-insights');
 const marketDemandPath = join(youtubeDataDir, 'market-demand.json');
+const contentOpportunityPath = join(youtubeDataDir, 'content-opportunity.json');
 const audienceDnaPath = join(youtubeDataDir, 'audience-dna.json');
 const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
 const AUDIENCE_DNA_MAX_ENTRIES = 300;
@@ -1873,6 +1875,9 @@ input:disabled, select:disabled {
   <button class="rail-btn active" data-tab="tab-overview" title="전체 관제 (Overview)">
     ⚡<span class="label">Home</span>
   </button>
+  <button class="rail-btn" data-tab="tab-idea-board" title="아이디어 추천부터 썸네일 제작까지 기획 보드">
+    💡<span class="label">Idea</span>
+  </button>
   <button class="rail-btn" data-tab="tab-matrix" title="CTR vs 시청지속률 4사분면 진단 매트릭스">
     📊<span class="label">Matrix</span>
   </button>
@@ -1925,6 +1930,7 @@ input:disabled, select:disabled {
     <button class="tab-scroll-btn tab-scroll-left" id="btn-tab-scroll-left" title="왼쪽 탭으로 이동">‹</button>
     <nav class="category-tabs" id="category-tabs-nav">
       <button class="tab-pill active" data-tab="tab-overview">⚡ 전체 관제 (Overview)</button>
+      <button class="tab-pill" data-tab="tab-idea-board">💡 아이디어→썸네일 기획 보드</button>
       <button class="tab-pill" data-tab="tab-matrix">📊 CTR·지속률 4사분면 매트릭스</button>
       <button class="tab-pill" data-tab="tab-ab-simulator">🎯 썸네일·제목 A/B 시뮬레이터</button>
       <button class="tab-pill" data-tab="tab-demand">🎯 시장 수요 레이더 (Market Demand)</button>
@@ -1963,6 +1969,7 @@ const esc = (s) => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 
 let gDashboard = null;
 let gMarketDemand = null;
+let gContentOpportunity = null;
 let gEpisodes = null;
 let gKnowledgeDb = null;
 let gCurrentTab = (function() {
@@ -2108,6 +2115,38 @@ function loadAbSimulatorState() {
   }
 }
 loadAbSimulatorState();
+
+/* IDEA BOARD STATE */
+let gIdeaBoardCandidates = null;
+let gIdeaBoardSelected = null;
+let gIdeaBoardGeneratedAt = null;
+
+function saveIdeaBoardState() {
+  try {
+    localStorage.setItem('ihm_idea_board_state', JSON.stringify({
+      candidates: gIdeaBoardCandidates,
+      selected: gIdeaBoardSelected,
+      generatedAt: gIdeaBoardGeneratedAt,
+    }));
+  } catch (err) {
+    console.warn('Failed to save idea board state:', err);
+  }
+}
+
+function loadIdeaBoardState() {
+  try {
+    const saved = localStorage.getItem('ihm_idea_board_state');
+    if (saved) {
+      const state = JSON.parse(saved);
+      if (state.candidates) gIdeaBoardCandidates = state.candidates;
+      if (state.selected) gIdeaBoardSelected = state.selected;
+      if (state.generatedAt) gIdeaBoardGeneratedAt = state.generatedAt;
+    }
+  } catch (err) {
+    console.warn('Failed to load idea board state:', err);
+  }
+}
+loadIdeaBoardState();
 
 function updateClock() {
   const now = new Date();
@@ -2330,14 +2369,16 @@ document.addEventListener('click', (e) => {
 
 async function loadAll() {
   try {
-    const [dashRes, demandRes, epRes, kdbRes] = await Promise.all([
+    const [dashRes, demandRes, coRes, epRes, kdbRes] = await Promise.all([
       fetch('/api/dashboard'),
       fetch('/api/market-demand'),
+      fetch('/api/content-opportunity'),
       fetch('/api/episodes/summary'),
       fetch('/api/knowledge-db')
     ]);
 
     gMarketDemand = demandRes.ok ? await demandRes.json() : null;
+    gContentOpportunity = coRes.ok ? await coRes.json() : null;
     gEpisodes = epRes.ok ? await epRes.json() : [];
     gKnowledgeDb = kdbRes.ok ? await kdbRes.json() : null;
 
@@ -2410,6 +2451,10 @@ function renderCurrentTab() {
       case 'tab-overview':
         root.innerHTML = renderOverviewTab();
         bindOverviewEvents();
+        break;
+      case 'tab-idea-board':
+        root.innerHTML = renderIdeaBoardTab();
+        bindIdeaBoardEvents();
         break;
       case 'tab-matrix':
         root.innerHTML = renderMatrixTab();
@@ -5181,7 +5226,7 @@ function renderAbSimulatorTab() {
               '<input type="text" id="input-ab-variant-img" value="' + ((currentVariant.imageUrl || '').startsWith('data:') || (currentVariant.imageUrl || '').startsWith('blob:') ? '' : esc(currentVariant.imageUrl || '')) + '" placeholder="' + ((currentVariant.imageUrl || '').startsWith('data:') || (currentVariant.imageUrl || '').startsWith('blob:') ? '📁 이미지 적용됨 (새 URL 입력 시 교체)' : '이미지 URL (https://...)') + '" style="flex:1; min-width:180px;">' +
               '<input type="file" id="input-ab-file-upload" accept="image/*" style="display:none">' +
               '<button class="btn btn-sm btn-cyan" id="btn-ab-upload-trigger">📁 파일</button>' +
-              '<button class="btn btn-sm btn-magenta" id="btn-ab-generate-workbench-thumb" title="AI가 이 시안의 주제와 카피로 4K 네온 배경을 1-Click 자동 생성합니다">🎨 AI 1-Click 생성</button>' +
+              '<button class="btn btn-sm btn-magenta" id="btn-ab-generate-workbench-thumb"' + (report ? '' : ' disabled') + ' style="' + (report ? '' : 'opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? 'AI가 이 시안의 주제와 카피로 4K 네온 배경을 1-Click 자동 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">🎨 AI 1-Click 생성</button>' +
             '</div>' +
             '<div id="ab-thumb-dropzone" style="width:100%; max-width:' + (isShorts ? '180px' : '100%') + '; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; margin:0 auto; background:#05070c; border:2px dashed var(--border-active); border-radius:10px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;">' +
               (currentVariant.imageUrl ? '<img src="' + esc(currentVariant.imageUrl) + '" style="width:100%; height:100%; object-fit:cover; background:#000;">' : '<div class="card-subtext" style="text-align:center; padding:10px;">🖼️ ' + (isShorts ? '쇼츠(9:16) 이미지' : '롱폼(16:9) 이미지') + '를 드래그하거나 [🎨 AI 1-Click 생성]을 누르세요</div>') +
@@ -5210,9 +5255,10 @@ function renderAbSimulatorTab() {
         '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">' +
           '<span style="font-size:11px; font-weight:700; color:var(--text-muted);">👥 시안 A · B · C 썸네일 비교 (직접 선택)</span>' +
           '<div style="display:flex; gap:6px;">' +
-            '<button class="btn btn-xs btn-magenta" id="btn-ab-generate-all-thumbs" title="경쟁사 결핍을 분석하여 3개 시안의 고화질 썸네일을 모두 생성합니다">⚡ 3개 시안 동시 AI 생성</button>' +
+            '<button class="btn btn-xs btn-magenta" id="btn-ab-generate-all-thumbs"' + (report ? '' : ' disabled') + ' style="' + (report ? '' : 'opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? '경쟁사 결핍을 분석하여 3개 시안의 고화질 썸네일을 모두 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">⚡ 3개 시안 동시 AI 생성</button>' +
           '</div>' +
         '</div>' +
+        (report ? '' : '<div style="font-size:10px; color:var(--accent-amber); margin-bottom:8px;">⚠️ AI 이미지 생성은 잠겨 있습니다 — 상단 [🚀 Gemini AI CTR 정밀 진단]을 먼저 실행해 문구 5안을 확인하고 시안에 적용한 뒤 이용하세요.</div>') +
         '<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">' +
           ['A', 'B', 'C'].map(vId => {
             const v = gAbVariants.find(item => item.id === vId) || { id: vId, title: '', imageUrl: '' };
@@ -5221,7 +5267,7 @@ function renderAbSimulatorTab() {
             return '<div class="btn-ab-tab-select ab-gallery-card" data-var="' + vId + '" title="클릭하여 선택하거나, 외부 이미지를 드롭하세요" style="cursor:pointer; background:#0a0e18; border:2px solid ' + (isSelected ? bColor : 'var(--border-subtle)') + '; border-radius:8px; padding:6px; transition:all 0.2s; box-shadow:' + (isSelected ? '0 0 10px rgba(0,240,255,0.2)' : 'none') + ';">' +
               '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
                 '<span style="font-weight:800; font-size:11px; color:' + bColor + ';">시안 ' + vId + '</span>' +
-                '<button class="btn btn-xs btn-outline btn-ab-generate-card-thumb" data-var="' + vId + '" style="font-size:9px; padding:1px 5px; border-color:' + bColor + '; color:' + bColor + ';" title="이 시안의 썸네일을 AI로 생성합니다">🎨 생성</button>' +
+                '<button class="btn btn-xs btn-outline btn-ab-generate-card-thumb" data-var="' + vId + '"' + (report ? '' : ' disabled') + ' style="font-size:9px; padding:1px 5px; border-color:' + bColor + '; color:' + bColor + ';' + (report ? '' : ' opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? '이 시안의 썸네일을 AI로 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">🎨 생성</button>' +
               '</div>' +
               '<div style="width:100%; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; background:#05070c; border-radius:4px; overflow:hidden; margin-bottom:4px; display:flex; align-items:center; justify-content:center;">' +
                 (v.imageUrl ? '<img src="' + esc(v.imageUrl) + '" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none; user-select:none; -webkit-user-drag:none;">' : '<div style="font-size:10px; color:' + bColor + '; text-align:center; padding:4px; line-height:1.2; border:1px dashed rgba(255,255,255,0.15); border-radius:4px; width:92%; height:88%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><span>🖼️</span><span style="font-size:9px; color:var(--text-muted); margin-top:2px;">새 시안 드롭</span></div>') +
@@ -5286,8 +5332,43 @@ function renderAbSimulatorTab() {
       '</div>' +
     '</div>' +
 
-    (report ? 
+    (report ?
       '<div class="bento-card highlight-cyan col-12" id="ab-report-section">' +
+
+        /* Title + Visual Suite (5 types, merged — 적용은 텍스트만, 생성은 이미지까지) — 진단 스코어카드보다
+           먼저 보여줌: 바로 쓸 수 있는 제안이 스코어 분석보다 실행 우선순위가 높다. */
+        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:18px; margin-bottom:16px;">' +
+          '<div class="card-title" style="color:var(--accent-cyan); margin-bottom:4px;">⚡ GEMINI AI 추천 고클릭률 제목+비주얼 5종</div>' +
+          '<div class="card-subtext" style="margin-bottom:12px;">"텍스트 적용"은 제목·카피만 바꿉니다(무료·즉시). "이미지도 생성"은 이 문구 전용 프롬프트로 실제 썸네일까지 만듭니다(Gemini 호출 발생).</div>' +
+          '<div style="display:grid; gap:10px;">' +
+            (report.aiTitleSuggestions || []).map((s, sIdx) => {
+              return '<div style="background:#06080e; border:1px solid var(--border-subtle); border-radius:10px; padding:12px 14px;">' +
+                '<div style="display:flex; align-items:center; gap:10px; margin-bottom:6px; flex-wrap:wrap;">' +
+                  '<span class="badge" style="background:rgba(255,0,85,0.15); color:var(--accent-magenta); border:1px solid rgba(255,0,85,0.3); font-size:11px;">' + esc(s.type) + '</span>' +
+                  '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
+                '</div>' +
+                (s.thumbnailCopy ? '<div style="font-size:11px; color:var(--accent-amber); margin-bottom:6px;">✍️ 썸네일 카피(시청 후 보상): ' + esc(s.thumbnailCopy) + '</div>' : '') +
+                (s.designConcept ? '<div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">🎨 비주얼 컨셉: ' + esc(s.designConcept) + '</div>' : '') +
+                '<div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">' +
+                  '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
+                    '<span style="font-size:10px; color:var(--text-muted); align-self:center;">텍스트 적용:</span>' +
+                    '<button class="btn btn-sm btn-ab-apply-title" data-idx="' + sIdx + '" data-var="A" style="font-size:10px; padding:3px 8px;">A</button>' +
+                    '<button class="btn btn-sm btn-cyan btn-ab-apply-title" data-idx="' + sIdx + '" data-var="B" style="font-size:10px; padding:3px 8px;">B</button>' +
+                    '<button class="btn btn-sm btn-amber btn-ab-apply-title" data-idx="' + sIdx + '" data-var="C" style="font-size:10px; padding:3px 8px;">C</button>' +
+                  '</div>' +
+                  '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
+                    '<span style="font-size:10px; color:var(--text-muted); align-self:center;">이미지도 생성:</span>' +
+                    '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-idx="' + sIdx + '" data-var="A" style="font-size:10px; padding:3px 8px;">🎨 A</button>' +
+                    '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-idx="' + sIdx + '" data-var="B" style="font-size:10px; padding:3px 8px;">🎨 B</button>' +
+                    '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-idx="' + sIdx + '" data-var="C" style="font-size:10px; padding:3px 8px;">🎨 C</button>' +
+                    '<button class="btn btn-sm btn-ab-copy-prompt" data-prompt="' + encodeURIComponent(s.midjourneyPrompt || '') + '" style="font-size:10px; padding:3px 8px;">📋</button>' +
+                  '</div>' +
+                '</div>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+
         '<div class="card-title" style="color:var(--accent-cyan)">GEMINI CTR INTELLIGENCE VERDICT</div>' +
         '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; margin-top:16px;">' +
           (report.variantsEvaluation || []).map(ve => {
@@ -5327,50 +5408,6 @@ function renderAbSimulatorTab() {
             '</div>';
           }).join('') +
         '</div>' +
-
-        /* Title Suite (5 types) */
-        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:18px; margin-bottom:16px;">' +
-          '<div class="card-title" style="color:var(--accent-cyan); margin-bottom:12px;">⚡ GEMINI AI 추천 고클릭률 제목 5종 (클릭 시 즉시 적용)</div>' +
-          '<div style="display:grid; gap:8px;">' +
-            (report.aiTitleSuggestions || []).map(s => {
-              return '<div style="display:flex; justify-content:space-between; align-items:center; background:#06080e; border:1px solid var(--border-subtle); border-radius:8px; padding:10px 14px; gap:12px; flex-wrap:wrap;">' +
-                '<div style="display:flex; align-items:center; gap:10px; flex:1; min-width:240px;">' +
-                  '<span class="badge" style="background:rgba(255,0,85,0.15); color:var(--accent-magenta); border:1px solid rgba(255,0,85,0.3); font-size:11px;">' + esc(s.type) + '</span>' +
-                  '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
-                '</div>' +
-                '<div style="display:flex; gap:6px;">' +
-                  '<button class="btn btn-sm btn-ab-apply-title" data-title="' + esc(s.title) + '" data-var="A" style="font-size:10px; padding:3px 8px;">시안 A에 적용</button>' +
-                  '<button class="btn btn-sm btn-cyan btn-ab-apply-title" data-title="' + esc(s.title) + '" data-var="B" style="font-size:10px; padding:3px 8px;">시안 B에 적용</button>' +
-                  '<button class="btn btn-sm btn-amber btn-ab-apply-title" data-title="' + esc(s.title) + '" data-var="C" style="font-size:10px; padding:3px 8px;">시안 C에 적용</button>' +
-                '</div>' +
-              '</div>';
-            }).join('') +
-          '</div>' +
-        '</div>' +
-
-        /* AI Image Prompts for Midjourney/Imagen */
-        (report.aiImagePrompts && report.aiImagePrompts.length > 0 ?
-          '<div style="background:#090d16; border:1px solid var(--accent-magenta); border-radius:14px; padding:18px; margin-top:16px;">' +
-            '<div class="card-title" style="color:var(--accent-magenta); margin-bottom:10px;">🖼️ GEMINI AI 고클릭률 썸네일 콘셉트 & 1-Click 자동 생성 (FLUX / Imagen 3)</div>' +
-            '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:12px;">' +
-              report.aiImagePrompts.map(p => {
-                const vKey = p.variantKey || 'A';
-                const bCol = colorMap[vKey] || 'var(--accent-cyan)';
-                return '<div style="background:#06080e; border:1px solid var(--border-subtle); border-radius:10px; padding:14px;">' +
-                  '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">' +
-                    '<b style="color:' + bCol + '; font-size:13px;">시안 ' + esc(vKey) + ' 썸네일 설계도</b>' +
-                    '<div style="display:flex; gap:6px;">' +
-                      '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-var="' + esc(vKey) + '" data-prompt="' + encodeURIComponent(p.midjourneyPrompt || '') + '" style="font-size:11px; font-weight:800; padding:3px 10px;">🎨 시안 ' + esc(vKey) + '에 1-Click 자동 생성 & 적용</button>' +
-                      '<button class="btn btn-sm btn-ab-copy-prompt" data-prompt="' + encodeURIComponent(p.midjourneyPrompt || '') + '" style="font-size:10px; padding:3px 8px;">📋 프롬프트 복사</button>' +
-                    '</div>' +
-                  '</div>' +
-                  '<div style="font-size:12px; color:var(--text-bright); margin-bottom:8px; line-height:1.4;">' + esc(p.designConcept || '') + '</div>' +
-                  (p.koreanOverlayCopy ? '<div style="font-size:11px; color:var(--accent-amber); background:rgba(255,184,0,0.08); border:1px solid rgba(255,184,0,0.25); border-radius:6px; padding:6px 10px; margin-bottom:8px;">✍️ <b>배경 위 추천 한국어 카피:</b> ' + esc(p.koreanOverlayCopy) + '</div>' : '') +
-                  '<div style="font-size:11px; color:var(--text-muted); font-family:monospace; background:#020408; padding:8px; border-radius:6px; word-break:break-all; border:1px solid #1a2234;">' + esc(p.midjourneyPrompt || '') + '</div>' +
-                '</div>';
-              }).join('') +
-            '</div>' +
-          '</div>' : '') +
       '</div>' : '') +
   '</div>';
 }
@@ -5939,12 +5976,13 @@ function bindAbSimulatorEvents() {
   document.querySelectorAll('.btn-ab-apply-title').forEach(btn => {
     btn.onclick = () => {
       const targetVarId = btn.dataset.var;
-      const newTitle = btn.dataset.title;
+      const suggestion = ((gAbAiReport && gAbAiReport.aiTitleSuggestions) || [])[Number(btn.dataset.idx)];
       const targetVar = gAbVariants.find(v => v.id === targetVarId);
-      if (targetVar) {
-        targetVar.title = newTitle;
+      if (targetVar && suggestion) {
+        targetVar.title = suggestion.title || '';
+        targetVar.thumbnailCopy = suggestion.thumbnailCopy || targetVar.thumbnailCopy;
         saveAbSimulatorState();
-        showToast('시안 ' + targetVarId + ' 제목에 적용되었습니다!');
+        showToast('시안 ' + targetVarId + '에 제목·카피가 적용됐습니다 (이미지는 그대로예요 — 옆의 🎨 버튼으로 채우세요)');
         renderAbSimulatorTabDirect();
       }
     };
@@ -5954,17 +5992,39 @@ function bindAbSimulatorEvents() {
   document.querySelectorAll('.btn-ab-copy-prompt').forEach(btn => {
     btn.onclick = () => {
       const promptText = decodeURIComponent(btn.dataset.prompt || '');
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(promptText);
-        showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!');
+      if (!promptText) {
+        showToast('❌ 복사할 프롬프트가 비어 있습니다.');
+        return;
+      }
+      // execCommand 기반 수동 복사 — Clipboard API가 권한 거부(NotAllowedError 등)로 실패할 때의 폴백.
+      const copyViaExecCommand = () => {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = promptText;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          const ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (ok) {
+            showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!');
+          } else {
+            showToast('❌ 복사에 실패했습니다 — 프롬프트를 직접 드래그해서 복사해주세요.');
+          }
+        } catch (err) {
+          showToast('❌ 복사에 실패했습니다 — 프롬프트를 직접 드래그해서 복사해주세요.');
+        }
+      };
+      // Clipboard API는 실패해도(권한 거부 등) 예외를 던지지 않고 조용히 reject되므로,
+      // .catch() 없이 두면 실제로는 실패했는데 성공 토스트가 뜨는 버그가 생긴다 — 반드시 폴백으로 이어줄 것.
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(promptText)
+          .then(() => showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!'))
+          .catch(() => copyViaExecCommand());
       } else {
-        const ta = document.createElement('textarea');
-        ta.value = promptText;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!');
+        copyViaExecCommand();
       }
     };
   });
@@ -6024,8 +6084,14 @@ function bindAbSimulatorEvents() {
   document.querySelectorAll('.btn-ab-generate-img').forEach(btn => {
     btn.onclick = () => {
       const vKey = btn.dataset.var;
-      const prompt = decodeURIComponent(btn.dataset.prompt || '');
-      generateImgForVariant(vKey, prompt, btn);
+      const suggestion = ((gAbAiReport && gAbAiReport.aiTitleSuggestions) || [])[Number(btn.dataset.idx)];
+      const targetVar = gAbVariants.find(v => v.id === vKey);
+      if (!suggestion || !targetVar) return;
+      // 이미지는 이 문구 전용 프롬프트로 만드는 거라, 먼저 시안의 제목·카피를 같은 문구로 맞춰야
+      // 텍스트와 이미지가 서로 다른 얘기를 하지 않는다.
+      targetVar.title = suggestion.title || '';
+      targetVar.thumbnailCopy = suggestion.thumbnailCopy || targetVar.thumbnailCopy;
+      generateImgForVariant(vKey, suggestion.midjourneyPrompt || '', btn);
     };
   });
 
@@ -6217,6 +6283,179 @@ function bindKnowledgeDbEvents() {
       }
     };
   });
+}
+
+/* TAB: 💡 IDEA BOARD (아이디어 추천 → A/B 시뮬레이터 핸드오프) */
+function renderIdeaBoardTab() {
+  const md = gMarketDemand;
+  const co = gContentOpportunity;
+  const hasMd = !!(md && md.byKeyword && md.byKeyword.length);
+  const hasCo = !!(co && ((co.byRule && co.byRule.length) || (co.byRole && co.byRole.length)));
+
+  if (!hasMd && !hasCo) {
+    return '<div class="bento-card" style="padding:40px;text-align:center">' +
+      '<h3>아이디어 추천에 필요한 데이터가 아직 없습니다.</h3>' +
+      '<p class="card-subtext" style="justify-content:center;margin-bottom:20px">market-demand·content-opportunity 데이터를 먼저 생성해야 근거 있는 소재 후보를 추천할 수 있습니다.</p>' +
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+        '<button class="btn btn-magenta" id="btn-idea-board-run-demand">🚀 시장 수요 분석 실행</button>' +
+        '<button class="btn btn-cyan" id="btn-idea-board-run-co">📊 채널 성과 분석 실행</button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  const srcLabel = {marketDemand: '시장수요', contentOpportunity: '채널성과', audienceDna: '시청자DNA', successPatterns: '성공패턴'};
+  const candidates = (gIdeaBoardCandidates && gIdeaBoardCandidates.candidates) || [];
+  const genAt = gIdeaBoardGeneratedAt ? esc(gIdeaBoardGeneratedAt.slice(0, 19).replace('T', ' ')) : '';
+
+  let html = '<div class="bento-grid">' +
+    '<div class="bento-card highlight-cyan col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
+      '<div>' +
+        '<div class="card-title" style="color:var(--accent-cyan)">IDEA → THUMBNAIL PIPELINE</div>' +
+        '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">💡 아이디어→썸네일 기획 보드</h2>' +
+        '<div class="card-subtext">market-demand · content-opportunity · audience-dna · success-patterns 4개 데이터를 근거로 다음 소재를 추천합니다' + (genAt ? ' · 마지막 생성: ' + genAt : '') + '</div>' +
+      '</div>' +
+      '<button class="btn btn-magenta" id="btn-idea-board-generate">🔄 아이디어 후보 5개 생성</button>' +
+    '</div>' +
+    '<div id="idea-board-status" style="display:none; margin-top:0; padding:12px 16px; background:rgba(0,240,255,0.12); border:1px solid var(--accent-cyan); border-radius:10px; color:var(--text-bright); font-weight:700;" class="bento-card col-12">' +
+      '⏳ Gemini AI가 4개 데이터 소스를 근거로 소재 후보를 뽑는 중입니다... (약 5~10초 소요)' +
+    '</div>';
+
+  if (!candidates.length) {
+    html += '<div class="bento-card col-12" style="padding:30px;text-align:center"><p class="card-subtext" style="justify-content:center">위 버튼을 눌러 데이터 기반 소재 후보 5개를 생성하세요.</p></div>';
+  } else {
+    if (gIdeaBoardCandidates.summaryNote) {
+      html += '<div class="bento-card col-12" style="font-size:12px;color:var(--text-muted)">📋 ' + esc(gIdeaBoardCandidates.summaryNote) + '</div>';
+    }
+    candidates.forEach((c) => {
+      const isSelected = !!(gIdeaBoardSelected && gIdeaBoardSelected.rank === c.rank && gIdeaBoardSelected.topic === c.topic);
+      html += '<div class="bento-card col-6" style="border:' + (isSelected ? '2px solid var(--accent-emerald)' : '1px solid var(--border-subtle)') + '">' +
+        '<div class="card-header">' +
+          '<span style="font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text-bright)">#' + esc(c.rank) + ' ' + esc(c.topic || '') + '</span>' +
+          '<span class="badge badge-pass">점수 ' + (c.score || 0) + '</span>' +
+        '</div>' +
+        '<div style="font-size:13px;color:var(--accent-amber);margin:8px 0">🎣 ' + esc(c.angleOrHook || '') + '</div>' +
+        '<div style="font-size:12px;color:var(--text-normal);margin-bottom:10px">' + esc(c.rationale || '') + '</div>' +
+        ((c.dataSourceRefs && c.dataSourceRefs.length) ?
+          '<div style="margin-bottom:10px">' + c.dataSourceRefs.map((r) => '<span class="tag-chip" style="font-size:10px">' + esc(srcLabel[r.source] || r.source) + ': ' + esc(r.detail || '') + '</span>').join('') + '</div>' : '') +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
+          '<span class="tag-chip">' + (c.suggestedFormat === 'SHORTS' ? '📱 쇼츠' : '📺 롱폼') + '</span>' +
+          '<button class="btn btn-sm ' + (isSelected ? 'btn-cyan' : 'btn-outline') + ' btn-idea-board-pick" data-rank="' + esc(c.rank) + '">' + (isSelected ? '✅ 선택됨' : '이 주제로 진행 →') + '</button>' +
+        '</div>' +
+      '</div>';
+    });
+  }
+
+  if (gIdeaBoardSelected) {
+    html += '<div class="bento-card highlight-magenta col-12">' +
+      '<div class="card-title" style="color:#ffccd9">선택된 기획</div>' +
+      '<h3 style="color:#fff;margin-top:4px">' + esc(gIdeaBoardSelected.topic || '') + '</h3>' +
+      '<div class="card-subtext">' + esc(gIdeaBoardSelected.rationale || '') + '</div>' +
+      '<div style="margin-top:12px"><button class="btn btn-cyan" id="btn-idea-board-handoff">🎯 제목·썸네일 확정하러 가기</button></div>' +
+    '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function bindIdeaBoardEvents() {
+  const genBtn = document.getElementById('btn-idea-board-generate');
+  if (genBtn) {
+    genBtn.onclick = async () => {
+      const statusBox = document.getElementById('idea-board-status');
+      if (statusBox) statusBox.style.display = 'block';
+      genBtn.disabled = true;
+      const originalText = genBtn.innerHTML;
+      genBtn.innerHTML = '⏳ 생성 중...';
+      try {
+        const res = await fetch('/api/idea-board/generate-candidates', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({}),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '아이디어 생성에 실패했습니다.');
+        gIdeaBoardCandidates = data;
+        gIdeaBoardGeneratedAt = data.generatedAt || new Date().toISOString();
+        gIdeaBoardSelected = null;
+        saveIdeaBoardState();
+        renderCurrentTab();
+        showToast('💡 아이디어 후보 5개가 생성되었습니다!');
+      } catch (err) {
+        showToast('❌ 오류: ' + err.message);
+      } finally {
+        if (statusBox) statusBox.style.display = 'none';
+        genBtn.disabled = false;
+        genBtn.innerHTML = originalText;
+      }
+    };
+  }
+
+  document.querySelectorAll('.btn-idea-board-pick').forEach((btn) => {
+    btn.onclick = () => {
+      const rank = Number(btn.dataset.rank);
+      const cand = ((gIdeaBoardCandidates && gIdeaBoardCandidates.candidates) || []).find((c) => c.rank === rank);
+      if (!cand) return;
+      gIdeaBoardSelected = cand;
+      saveIdeaBoardState();
+      renderCurrentTab();
+      showToast('✅ "' + cand.topic + '" 소재를 선택했습니다.');
+    };
+  });
+
+  const handoffBtn = document.getElementById('btn-idea-board-handoff');
+  if (handoffBtn) {
+    handoffBtn.onclick = () => {
+      const sel = gIdeaBoardSelected;
+      if (!sel) return;
+      gAbFormat = sel.suggestedFormat === 'SHORTS' ? 'SHORTS' : 'LONGFORM';
+      gAbTopic = sel.topic;
+      gAbVariants[0] = {id: 'A', title: sel.topic, imageUrl: '', thumbnailCopy: sel.angleOrHook || '', badge: '기획 보드 선정안', isLocalFile: false};
+      gAbVariants[1] = {id: 'B', title: sel.topic + ' (변형안 B)', imageUrl: '', thumbnailCopy: '', badge: '', isLocalFile: false};
+      gAbVariants[2] = {id: 'C', title: sel.topic + ' (변형안 C)', imageUrl: '', thumbnailCopy: '', badge: '', isLocalFile: false};
+      gAbSelectedVariantTab = 'A';
+      gAbActiveFeedView = 'A';
+      saveAbSimulatorState();
+      switchTab('tab-ab-simulator');
+      showToast('💡 기획 보드에서 선택한 소재가 A/B 시뮬레이터에 로드되었습니다!');
+    };
+  }
+
+  const runDemandBtn = document.getElementById('btn-idea-board-run-demand');
+  if (runDemandBtn) {
+    runDemandBtn.onclick = async () => {
+      runDemandBtn.disabled = true;
+      runDemandBtn.innerHTML = '⏳ 실행 중...';
+      try {
+        const res = await fetch('/api/market-demand/run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({})});
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '실행 실패');
+        gMarketDemand = data.data;
+        renderCurrentTab();
+      } catch (err) {
+        showToast('❌ 오류: ' + err.message);
+        runDemandBtn.disabled = false;
+      }
+    };
+  }
+
+  const runCoBtn = document.getElementById('btn-idea-board-run-co');
+  if (runCoBtn) {
+    runCoBtn.onclick = async () => {
+      runCoBtn.disabled = true;
+      runCoBtn.innerHTML = '⏳ 실행 중...';
+      try {
+        const res = await fetch('/api/content-opportunity/run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({})});
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '실행 실패');
+        gContentOpportunity = data.data;
+        renderCurrentTab();
+      } catch (err) {
+        showToast('❌ 오류: ' + err.message);
+        runCoBtn.disabled = false;
+      }
+    };
+  }
 }
 
 const btnRpa = document.getElementById('btn-open-studio-rpa');
@@ -6726,9 +6965,10 @@ const server = createServer(async (req, res) => {
         return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
       }
       try {
-        const [dnaStore, patternsStore] = await Promise.all([
+        const [dnaStore, patternsStore, marketDemand] = await Promise.all([
           loadJson(audienceDnaPath, {entries: []}),
           loadJson(successPatternsPath, {entries: []}),
+          loadJson(marketDemandPath),
         ]);
         const evaluation = await evaluateThumbnailTitleVariants({
           topic: body.topic,
@@ -6738,6 +6978,7 @@ const server = createServer(async (req, res) => {
           geminiKey,
           audienceDna: dnaStore.entries || [],
           successPatterns: patternsStore.entries || [],
+          marketDemand,
         });
         return json(res, 200, {ok: true, evaluation});
       } catch (err) {
@@ -6780,6 +7021,41 @@ const server = createServer(async (req, res) => {
       store.updatedAt = new Date().toISOString();
       await saveJson(storeKey, store);
       return json(res, 200, {ok: true});
+    }
+    if (url.pathname === '/api/content-opportunity') {
+      const data = await loadJson(contentOpportunityPath);
+      if (!data) return json(res, 404, {error: 'content-opportunity.json 파일이 없습니다. npm run content-opportunity를 실행하세요.'});
+      return json(res, 200, data);
+    }
+    if (url.pathname === '/api/content-opportunity/run' && req.method === 'POST') {
+      try {
+        await execAsync('node scripts/content-opportunity.mjs', {cwd: projectDir});
+        return json(res, 200, {ok: true, data: await loadJson(contentOpportunityPath)});
+      } catch (err) {
+        return json(res, 500, {error: `스크립트 실행 오류: ${err.message}`});
+      }
+    }
+    if (url.pathname === '/api/idea-board/generate-candidates' && req.method === 'POST') {
+      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+      if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY_HERE') {
+        return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
+      }
+      try {
+        const [marketDemand, contentOpportunity, dnaStore, patternsStore] = await Promise.all([
+          loadJson(marketDemandPath),
+          loadJson(contentOpportunityPath),
+          loadJson(audienceDnaPath, {entries: []}),
+          loadJson(successPatternsPath, {entries: []}),
+        ]);
+        const result = await generateTopicCandidates({
+          geminiKey, marketDemand, contentOpportunity,
+          audienceDna: dnaStore.entries || [],
+          successPatterns: patternsStore.entries || [],
+        });
+        return json(res, 200, {ok: true, ...result});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
     }
     if (url.pathname === '/api/brand-script/lint' && req.method === 'POST') {
       const body = await readJsonBody(req);

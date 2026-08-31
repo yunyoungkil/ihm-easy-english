@@ -176,7 +176,30 @@ async function resolveImageToInlineData(imageUrl) {
   return null;
 }
 
-export async function evaluateThumbnailTitleVariants({ topic, variants, targetAudience = '3060 성인 및 기초 영어 학습자', format = 'LONGFORM', geminiKey, audienceDna = [], successPatterns = [] }) {
+// 시청자 DNA/성공 패턴 DB가 쌓일수록 topic과 무관한 항목까지 섞여 상위 N개를 차지할 수 있어서,
+// occurrences/CTR만으로 정렬하지 않고 topic과의 텍스트 연관성을 1차 기준으로 삼는다.
+function tokenizeTopic(topic) {
+  return String(topic || '')
+    .toLowerCase()
+    .replace(/[^\w\s가-힣]/g, ' ')
+    .split(/\s+/)
+    .filter((t) => t.length >= 2);
+}
+
+function relevanceScore(text, topicTokens) {
+  if (!topicTokens.length) return 0;
+  const t = String(text || '').toLowerCase();
+  return topicTokens.reduce((score, tok) => score + (t.includes(tok) ? 1 : 0), 0);
+}
+
+// topic 토큰이 없거나 전부 무관(relevance 0)이면 원래 순서(occurrences/CTR 내림차순, 호출부에서
+// 이미 정렬해 전달)가 그대로 유지된다 — Array.sort는 안정 정렬이라 동점일 때 원본 순서를 보존한다.
+function rankByTopicRelevance(items, topicTokens, textOf) {
+  if (!items.length || !topicTokens.length) return items;
+  return [...items].sort((a, b) => relevanceScore(textOf(b), topicTokens) - relevanceScore(textOf(a), topicTokens));
+}
+
+export async function evaluateThumbnailTitleVariants({ topic, variants, targetAudience = '3060 성인 및 기초 영어 학습자', format = 'LONGFORM', geminiKey, audienceDna = [], successPatterns = [], marketDemand = null }) {
   if (!geminiKey) {
     throw new Error('Gemini API 키(GEMINI_API_KEY)가 설정되지 않았습니다.');
   }
@@ -190,11 +213,23 @@ export async function evaluateThumbnailTitleVariants({ topic, variants, targetAu
   const arParam = isShorts ? '--ar 9:16' : '--ar 16:9';
   const formatLabel = isShorts ? '📱 유튜브 쇼츠 (Shorts - 9:16 세로형)' : '📺 유튜브 롱폼 (Longform - 16:9 가로형)';
 
+  const topicTokens = tokenizeTopic(topic);
+  const rankedAudienceDna = rankByTopicRelevance(audienceDna, topicTokens, (d) => d.text).slice(0, 8);
+  const rankedSuccessPatterns = rankByTopicRelevance(successPatterns, topicTokens, (p) => `${p.title} ${p.reusableHook || ''} ${p.reusableAnalogy || ''}`).slice(0, 8);
+
+  // topic과 겹치는 키워드의 market-demand 결과에서 검증된 후킹 단어(titlePatterns)만 뽑는다.
+  // 정밀 매칭이 아니라 topic 토큰 중 하나라도 키워드에 포함되면 채택 — 후보 소재 문구와 검색
+  // 키워드 문구가 정확히 일치할 일이 거의 없기 때문(자유 텍스트 vs 자유 텍스트 매칭).
+  const matchedDemandKeywords = (marketDemand?.byKeyword || [])
+    .filter((k) => topicTokens.some((tok) => String(k.keyword || '').toLowerCase().includes(tok)))
+    .slice(0, 3);
+
   const parts = [];
 
   // 1. Intro Text
   let introText = `당신은 대한민국 최고 수준의 유튜브 썸네일 & 타이틀 알고리즘 전략가이자 시각 디자인(Visual Salience) 및 CTR(노출 클릭률) 데이터 전문가입니다.
-특히 '3060 성인 학습자(바쁜 직장인·시니어·왕초보)'를 타겟으로 하는 영어 교육 채널('이해하면 쉬운영어')의 ${formatLabel} 썸네일·제목 A/B 시안을 '시각적 이미지'와 '텍스트 카피'를 모두 결합하여 정밀 진단합니다.
+영어 교육 채널('이해하면 쉬운영어')의 ${formatLabel} 썸네일·제목 A/B 시안을 '시각적 이미지'와 '텍스트 카피'를 모두 결합하여 정밀 진단합니다.
+**이번 진단의 타겟은 아래 [타겟 시청자] 필드에 지정된 대상이다 — 채널이 과거에 자주 다룬 특정 연령대가 아니라, 이번 영상에 실제로 지정된 타겟층 기준으로 legibilityScore를 포함한 모든 점수·문구를 판단할 것.**
 
 [채널 핵심 브랜드 철학 & 페르소나 — aiTitleSuggestions·visualImprovementTip에 반드시 반영할 것]:
 - 톤앤매너: 가식 없는 솔직 담백한 실전 학습 파트너. ("기초가 전혀 없어도 괜찮습니다. 당신이 영어를 못했던 게 아니라 소리 나는 원리를 몰랐을 뿐입니다. 무작정 외우지 마세요.")
@@ -204,12 +239,15 @@ export async function evaluateThumbnailTitleVariants({ topic, variants, targetAu
 [영상 기획 주제]: ${topic || '기초 영어 발음 및 소리 변신 원리'}
 [타겟 시청자]: ${targetAudience}
 [콘텐츠 포맷]: ${formatLabel}
-${audienceDna.length ? `
-[누적된 시청자 실제 언어·고통점 DB — aiTitleSuggestions에 이 표현을 최대한 활용할 것]:
-${audienceDna.slice(0, 8).map(d => `- (${d.occurrences}회 반복 확인) [${d.type}] ${d.text}`).join('\n')}
-` : ''}${successPatterns.length ? `
-[우리 채널 검증된 성공 패턴 DB — Q1 영상에서 실제로 먹혔던 후킹/비유, 일반적 archetype 대신 이걸 우선 참고]:
-${successPatterns.slice(0, 8).map(p => `- (${p.title}, CTR ${p.ctr}%) 후킹: ${p.reusableHook || '기록 없음'} / 비유: ${p.reusableAnalogy || '기록 없음'}`).join('\n')}
+${rankedAudienceDna.length ? `
+[누적된 시청자 실제 언어·고통점 DB — 이 소재와 연관도 높은 순, aiTitleSuggestions에 이 표현을 최대한 활용할 것]:
+${rankedAudienceDna.map(d => `- (${d.occurrences}회 반복 확인) [${d.type}] ${d.text}`).join('\n')}
+` : ''}${rankedSuccessPatterns.length ? `
+[우리 채널 검증된 성공 패턴 DB — 이 소재와 연관도 높은 순, Q1 영상에서 실제로 먹혔던 후킹/비유, 일반적 archetype 대신 이걸 우선 참고]:
+${rankedSuccessPatterns.map(p => `- (${p.title}, CTR ${p.ctr}%) 후킹: ${p.reusableHook || '기록 없음'} / 비유: ${p.reusableAnalogy || '기록 없음'}`).join('\n')}
+` : ''}${matchedDemandKeywords.length ? `
+[검증된 클릭 유발 후킹 단어 — market-demand.json, 이 소재와 관련된 경쟁 채널 제목에서 반복 확인된 단어. aiTitleSuggestions 작성 시 참고할 것]:
+${matchedDemandKeywords.map(k => `- "${k.keyword}" 관련 반복 단어: ${(k.titlePatterns || []).slice(0, 5).map(p => p.word).join(', ') || '없음'}`).join('\n')}
 ` : ''}
 [포맷별 핵심 평가 규칙]:
 ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
@@ -253,14 +291,25 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
   const instructionText = `
 ---
 위 각 시안의 ${imageCount > 0 ? "'실제 썸네일 이미지(시각 디자인/색상/폰트/배경)'와 " : ""}'제목/카피'를 엄격하게 정밀 진단하여 아래 JSON 포맷 규격으로만 응답하세요. 백틱(\`\`\`json)으로 감싸서 출력하세요.
-특히 'aiImagePrompts'의 'midjourneyPrompt' 종횡비는 반드시 '${arParam}'를 포함해야 합니다.
+특히 'aiTitleSuggestions'의 'midjourneyPrompt' 종횡비는 반드시 '${arParam}'를 포함해야 합니다.
+
+'aiTitleSuggestions' 5개는 반드시 아래 세 규칙을 지킬 것:
+1. **정답/핵심 메커니즘 노출 금지** — 특히 '💥 반전형'은 "상식이 틀렸다는 사실"까지만 드러내고 "왜/어떻게 그런지"는 절대 밝히지 말 것.
+   제목에서 정답을 다 알려주면 영상을 볼 이유가 없다. (예: "끝소리 T는 소리 내지 마세요, 목소리 빼고 바람만 뱉는 원리"처럼
+   메커니즘 자체를 설명하면 안 됨 — "끝소리 T, 원어민은 절대 이렇게 안 읽습니다"처럼 궁금증만 남길 것.)
+2. **5개 전부 [영상 기획 주제]를 구체적으로 반영할 것** — 특히 '🤝 공감형'이 브랜드 톤앤매너 문장을 그대로 재사용하는 슬로건이
+   되지 않도록, 이 소재 고유의 키워드(단어/상황)를 반드시 포함할 것.
+3. **'title'과 'thumbnailCopy'는 절대 같은 정보를 반복하지 말 것** — title은 호기심을 유발하는 훅(질문/반전/예고),
+   thumbnailCopy는 그 영상을 시청한 뒤에 얻는 보상/확인 느낌의 짧은 문구(15자 내외)여야 한다. 이 둘이 같은 내용을
+   다른 말로 반복하면 안 됨(예: title="원어민이 0.1초 만에 구분하는 차이" → thumbnailCopy는 그 차이를 재설명하지
+   말고 "이제 헷갈리지 않는다" 류의 확인/보상 톤으로).
 
 {
   "variantsEvaluation": [
     {
       "variantKey": "A",
       "curiosityGapScore": 88,
-      "seniorLegibilityScore": 92,
+      "legibilityScore": 92,
       "visualSalienceScore": 85,
       "contrastRating": "최상(High)",
       "focalPoint": "첫 1초에 시선이 머무는 핵심 시각 오브젝트 (예: ${isShorts ? '중앙 상단 발광 Q 알파벳' : '중앙 옐로우 WANT 텍스트 박스'})",
@@ -281,31 +330,38 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
   "aiTitleSuggestions": [
     {
       "type": "⚡ 후킹형 (호기심 극대화)",
-      "title": "..."
+      "title": "...",
+      "thumbnailCopy": "이 title과 짝을 이루는 시청 후 보상 카피 (15자 내외, title과 내용 겹치지 않게)",
+      "designConcept": "이 title/thumbnailCopy 조합에 맞는 비주얼 컨셉 한 줄",
+      "midjourneyPrompt": "${isShorts ? 'Clean vertical visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k ultra-high resolution, 9:16 --ar 9:16 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0' : 'Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0'}(이 title 고유의 비주얼 요소로 구체화해서 다시 쓸 것 — 5개 프롬프트가 서로 달라야 함)"
     },
     {
       "type": "❓ 질문형 (클릭 유도)",
-      "title": "..."
+      "title": "...",
+      "thumbnailCopy": "...",
+      "designConcept": "...",
+      "midjourneyPrompt": "..."
     },
     {
       "type": "💥 반전형 (상식 파괴)",
-      "title": "..."
+      "title": "...",
+      "thumbnailCopy": "...",
+      "designConcept": "...",
+      "midjourneyPrompt": "..."
     },
     {
       "type": "📐 원리형 (쉬운 해결책)",
-      "title": "..."
+      "title": "...",
+      "thumbnailCopy": "...",
+      "designConcept": "...",
+      "midjourneyPrompt": "..."
     },
     {
-      "type": "🤝 공감형 (시니어 맞춤)",
-      "title": "..."
-    }
-  ],
-  "aiImagePrompts": [
-    {
-      "variantKey": "A",
-      "designConcept": "${isShorts ? '쇼츠 9:16 세로형 고클릭 커버 프레임 설계 (상단 강조, 중앙 오브젝트, 하단 여백)' : '롱폼 16:9 고클릭 썸네일 레이아웃 설계'}",
-      "koreanOverlayCopy": "${isShorts ? '상단(Yellow): \"Q는 어떻게 읽을까요?\" / 중앙: 대형 \"Q\" / 하단 뱃지: \"10초 발음 공식\"' : '좌측: \"WANT vs WON\\\'T\" 대형 노란 글씨 / 우측: 입모양 다이어그램'}",
-      "midjourneyPrompt": "${isShorts ? 'Clean vertical visual artwork for English pronunciation education, large glowing neon yellow letter Q in center, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k ultra-high resolution, 9:16 --ar 9:16 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0' : 'Clean horizontal visual artwork for English pronunciation education, split-screen contrast, glowing neon accents on deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0'}"
+      "type": "🤝 공감형 (타겟 시청자 맞춤)",
+      "title": "...",
+      "thumbnailCopy": "...",
+      "designConcept": "...",
+      "midjourneyPrompt": "..."
     }
   ]
 }`;

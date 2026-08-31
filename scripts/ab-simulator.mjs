@@ -2,11 +2,12 @@ import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { randomBytes } from 'node:crypto';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const marketDemandPath = join(projectDir, 'data', 'youtube', 'market-demand.json');
 const catalogPath = join(projectDir, 'data', 'youtube', 'catalog.json');
-const tempThumbDir = join(projectDir, 'output', 'temp-thumbnails');
+export const tempThumbDir = join(projectDir, 'output', 'temp-thumbnails');
 
 export async function getMockCompetitorVideos() {
   const competitorVideos = [];
@@ -125,7 +126,24 @@ async function resolveImageToInlineData(imageUrl) {
     };
   }
 
-  // 2. Local File Path (Relative or Absolute)
+  // 2. 우리 서버가 직접 저장한 생성 썸네일 (/api/temp-thumbnail/<filename> — generateAiThumbnailImage가
+  //    output/temp-thumbnails/에 파일로 저장하고 돌려주는 서빙 URL). 파일시스템 경로가 아니라 라우트라서
+  //    아래 범용 로컬 경로 분기보다 먼저 정확히 매칭해야 한다.
+  const tempThumbMatch = trimmed.match(/^\/api\/temp-thumbnail\/([^\/?#]+)$/);
+  if (tempThumbMatch) {
+    try {
+      const filePath = join(tempThumbDir, decodeURIComponent(tempThumbMatch[1]));
+      if (existsSync(filePath)) {
+        const ext = filePath.toLowerCase().endsWith('.png') ? 'image/png' : filePath.toLowerCase().endsWith('.svg') ? 'image/svg+xml' : 'image/jpeg';
+        const buf = await readFile(filePath);
+        return { inline_data: { mime_type: ext, data: buf.toString('base64') } };
+      }
+    } catch (err) {
+      // ignore, falls through to null
+    }
+  }
+
+  // 3. Local File Path (Relative or Absolute)
   try {
     let localPath = null;
     if (trimmed.startsWith('/') || /^[A-Za-z]:[\\/]/.test(trimmed)) {
@@ -149,7 +167,7 @@ async function resolveImageToInlineData(imageUrl) {
     // ignore
   }
 
-  // 3. Remote URL (http/https)
+  // 4. Remote URL (http/https)
   if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
     try {
       const controller = new AbortController();
@@ -406,6 +424,122 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
   throw new Error(`AI 진단 실패: ${lastError?.message}`);
 }
 
+// 진짜 이미지 생성 모델(코드명 "나노바나나" 계열) — SVG 코드를 손으로 쓰게 하던 기존 방식과 달리
+// 실제 픽셀 이미지를 diffusion으로 만든다. flash(저렴) 먼저, 실패하면 pro로 승격.
+// temperature를 낮추면(기본 미지정보다) 텍스트 렌더링이 좀 더 보수적/일관적으로 나오는 경향이
+// 있어 기본값을 살짝 낮춰 받는다 — 그래도 완전히 안정적이진 않아서 호출부의 재시도 루프가 진짜 안전망.
+async function generateImageWithGeminiNative({ prompt, geminiKey, temperature }) {
+  const models = ['gemini-2.5-flash-image', 'gemini-3-pro-image', 'gemini-3-pro-image-preview'];
+  let lastError = null;
+
+  for (const model of models) {
+    try {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 55000);
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          ...(typeof temperature === 'number' ? { generationConfig: { temperature } } : {}),
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`${model} error (${res.status}): ${errText.slice(0, 300)}`);
+      }
+
+      const data = await res.json();
+      const parts = data.candidates?.[0]?.content?.parts || [];
+      const imgPart = parts.find((p) => p.inlineData || p.inline_data);
+      const inline = imgPart && (imgPart.inlineData || imgPart.inline_data);
+      if (!inline || !inline.data) throw new Error(`${model} returned no image data`);
+
+      return { mimeType: inline.mimeType || inline.mime_type || 'image/png', base64: inline.data, model };
+    } catch (err) {
+      lastError = err;
+    }
+  }
+
+  throw new Error(`나노바나나 이미지 생성 실패: ${lastError?.message}`);
+}
+
+// 나노바나나가 방금 만든 이미지 안의 텍스트가 의도한 문구와 정확히 일치하는지 Gemini Vision으로
+// 다시 읽어서 확인한다. 검증 자체가 실패(네트워크 오류 등)하면 "틀렸다"가 아니라 관대하게
+// 통과 처리한다 — 검증 실패를 텍스트 오류로 오인해 무한정 재생성하면 안 되기 때문.
+async function verifyThumbnailText({ base64, mimeType, expectedTexts, geminiKey }) {
+  const prompt = `이 이미지 안에 실제로 렌더링된 모든 한글·영어 텍스트를 확인하세요.
+
+아래는 이 이미지에 오탈자나 깨진 글자 없이 정확히 나타나야 하는 문구 목록입니다:
+${expectedTexts.map((t, i) => `${i + 1}. "${t}"`).join('\n')}
+
+각 문구가 이미지 안에 정확히 그 철자로 나타나는지 하나씩 확인하세요. 줄바꿈 위치 차이는 무시하되,
+글자가 다른 글자로 바뀌었거나(예: "영어"가 "영애"로), 알아볼 수 없이 뭉개졌으면 불일치로 판정합니다.
+
+아래 JSON 포맷으로만 응답하세요:
+{"allCorrect": true 또는 false, "brokenTexts": ["실제로 깨져서 나온 원래 문구만 나열, 문제 없으면 빈 배열"]}`;
+
+  const models = ['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.5-flash-lite'];
+  for (const model of models) {
+    try {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 20000);
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [
+            { text: prompt },
+            { inline_data: { mime_type: mimeType, data: base64 } },
+          ] }],
+          generationConfig: { temperature: 0.1, responseMimeType: 'application/json' },
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      if (!res.ok) continue;
+
+      const data = await res.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!rawText) continue;
+
+      const jsonMatch = rawText.match(/```json\s*([\s\S]*?)\s*```/) || [null, rawText];
+      const parsed = JSON.parse(jsonMatch[1].trim());
+      return { allCorrect: !!parsed.allCorrect, brokenTexts: Array.isArray(parsed.brokenTexts) ? parsed.brokenTexts : [] };
+    } catch (err) {
+      // 다음 모델로 계속 시도
+    }
+  }
+  return { allCorrect: true, brokenTexts: [] };
+}
+
+// 생성 결과(data: base64 URL)를 브라우저 localStorage가 아니라 실제 파일로 저장한다.
+// PNG 1장이 1~2MB라 localStorage에 그대로 넣으면 브라우저 용량 한도(보통 5~10MB)를
+// 시안 2~3개만 생성해도 넘겨서 저장이 "조용히" 실패한다(knowledge/now.md 2026-09-01 기록).
+// 디스크 쓰기가 실패하는 예외 상황에서만 base64를 그대로 반환하는 안전망을 둔다.
+async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }) {
+  const match = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
+  if (!match) return { engine: engineLabel, imageUrl: dataUrl };
+
+  const mimeType = match[1];
+  const ext = mimeType === 'image/png' ? 'png' : mimeType === 'image/jpeg' ? 'jpg' : 'svg';
+  const filename = `${variantKey}-${Date.now()}-${randomBytes(3).toString('hex')}.${ext}`;
+
+  try {
+    await mkdir(tempThumbDir, { recursive: true });
+    await writeFile(join(tempThumbDir, filename), Buffer.from(match[2], 'base64'));
+    return { engine: engineLabel, imageUrl: `/api/temp-thumbnail/${filename}` };
+  } catch (err) {
+    console.error('생성된 썸네일을 파일로 저장하지 못해 base64로 폴백:', err.message);
+    return { engine: engineLabel, imageUrl: dataUrl };
+  }
+}
+
 export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', engine = 'flux', geminiKey }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
@@ -453,20 +587,99 @@ export async function generateAiThumbnailImage({ prompt, topic = '', variantKey 
     subCallout = '💡 원어민 귀가 뚫리는 공식';
   }
 
-  // 2. Generate 100% Freeform Pure AI Photorealistic & High-CTR Generative SVG Artwork with Gemini 3.6 Flash
-  if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
-    const W = isShorts ? 720 : 1280;
-    const H = isShorts ? 1280 : 720;
-    
-    // Curated high-res real person photos matched to variant psychology
-    const photoUrlMap = {
-      A: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80', // Surprised / Shocked reaction
-      B: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80', // Confident teacher / Pointing formula
-      C: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80', // Adult learner discovery / Real nuance
-    };
-    const chosenPhotoUrl = photoUrlMap[vKey] || photoUrlMap.B;
+  const W = isShorts ? 720 : 1280;
+  const H = isShorts ? 1280 : 720;
 
-    const prompt = `You are the Lead Art Director and YouTube Growth Strategist for English education channel '이해하면 쉬운영어' (Target: 3060 adult learners).
+  // 사용자가 직접 쓴 프롬프트인지 판별 — topic/title로 들어오는 짧은 문자열과 구분하기 위한
+  // 임계값. 이 값 이상이면 아래 하드코딩 템플릿을 완전히 건너뛰고 그 프롬프트를 그대로 쓴다.
+  const customPrompt = String(prompt || '').trim();
+  const useCustomPrompt = customPrompt.length > 60;
+
+  // Curated high-res real person photos matched to variant psychology (SVG 폴백 경로 전용 —
+  // 진짜 이미지 모델은 사람 묘사를 텍스트로 직접 생성하므로 이 사진이 필요 없다)
+  const photoUrlMap = {
+    A: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80', // Surprised / Shocked reaction
+    B: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80', // Confident teacher / Pointing formula
+    C: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80', // Adult learner discovery / Real nuance
+  };
+  const chosenPhotoUrl = photoUrlMap[vKey] || photoUrlMap.B;
+
+  // 1. PRIMARY PATH: 진짜 이미지 생성 모델(나노바나나). 커스텀 프롬프트면 그대로, 아니면 변형별
+  //    무드를 자연어 브리프로 번역 — 실제 이미지 모델은 SVG 마크업 작성법을 몰라도 되고 알 필요도 없다.
+  if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
+    // 인물을 "항상 둥근 박스+청록 테두리"로 고정하면 매 생성이 똑같아 보인다는 문제가 있었음 —
+    // 이 채널의 "고정 템플릿 지양" 원칙과 어긋남. 매 호출마다 구도 하나를 무작위로 골라서
+    // variant/에피소드와 무관하게 실제로 다양해지게 한다. 4번째는 EP9/EP10에서 실제로 쓴
+    // "찢어진 종이 컷아웃" 기법(CLAUDE.md 기록)을 그대로 반영.
+    const heroFramingOptions = [
+      'inside a sleek rounded photo frame with a thin glowing cyan border',
+      'bleeding directly to the frame edge with a soft dark vignette fading into the background, no visible border or frame',
+      'inside a sharp-edged rectangular card with a subtle hard white outline and a soft drop shadow, no glow',
+      'cut out along an irregular torn-paper silhouette following the person\'s head and shoulders, with a slightly rough paper-fiber edge texture (not a smooth sticker outline)',
+    ];
+    const heroFraming = heroFramingOptions[Math.floor(Math.random() * heroFramingOptions.length)];
+
+    const creativeDirection = useCustomPrompt ? customPrompt : `A high-CTR YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), ${isShorts ? '9:16 vertical shorts cover' : '16:9 horizontal'}, on the topic "${rawText}".
+
+Mood: ${
+      vKey === 'A'
+        ? '충격/뒤통수형 — 평생 맞다고 믿었던 콩글리시 발음을 찌르는 강렬한 시각적 충격'
+        : vKey === 'B'
+        ? '1초 소리 족보/비밀 공식형 — 직관적인 원리 발견의 짜릿함'
+        : '원어민 리얼 뉘앙스 & 대조형 — 상황별 실수와 진짜 정답의 극적 대비'
+    }.
+
+Background: dark cinematic studio (near-black navy #060911 to #0F172A) with a soft radial glow of cyan (#00F0FF) and magenta (#FF0077) light emanating from the center.
+
+Hero: a photorealistic close-up of a Korean adult (20s-40s) positioned ${isShorts ? 'center-bottom' : 'on the right side'}, with a genuine, expressive reaction matching the mood above, softly rim-lit in cyan, ${heroFraming}.
+
+Typography (${isShorts ? 'top of frame' : 'left side'}): ONE small glowing neon pill-shaped badge reading "${badgeText}" (do not repeat it twice); below it a massive bold headline in two lines reading "${hookLine1}" and "${hookLine2}", rendered in thick white or yellow letters with a heavy black outline for legibility; near the bottom, a small secondary info box or contrast callout referencing "${card1}", "${card2}", "${card3}" and the note "${subCallout}".
+
+CRITICAL TEXT ACCURACY: every Korean and English word listed above must be spelled out exactly, letter by letter, with correct characters — do not invent, substitute, or garble any character. If unsure how to render a word clearly, make it larger and simpler rather than risk misspelling it.
+
+Style: clean, professional, high-contrast studio photography blended with bold graphic design elements. No watermark, no fake phone or browser UI, no stock-photo text, no crude cartoon doodles — the human subject must look like a real photograph, not an illustration.`;
+
+    // 텍스트 정확도는 diffusion 특성상 매번 다르게 나온다(같은 프롬프트로도 성공/실패가 갈림,
+    // 2026-09-01 실측). 그래서 프롬프트 튜닝만으론 신뢰 못 하고, 생성 후 Gemini Vision으로
+    // 실제 렌더링된 텍스트를 읽어 의도한 문구와 대조 → 틀리면 재생성(최대 3회 시도).
+    // 커스텀 프롬프트는 어떤 텍스트가 "정답"인지 파싱할 수 없으므로 검증을 건너뛴다.
+    const expectedTexts = useCustomPrompt ? [] : [hookLine1, hookLine2, badgeText, card1, card2, card3, subCallout].filter(Boolean);
+    const maxAttempts = expectedTexts.length ? 3 : 1;
+    let lastResult = null;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const result = await generateImageWithGeminiNative({ prompt: creativeDirection, geminiKey, temperature: 0.4 });
+        lastResult = result;
+        if (!expectedTexts.length) break;
+        const verify = await verifyThumbnailText({ base64: result.base64, mimeType: result.mimeType, expectedTexts, geminiKey });
+        if (verify.allCorrect) break;
+        console.error(`나노바나나 시도 ${attempt}/${maxAttempts}: 텍스트 깨짐 감지(${verify.brokenTexts.join(', ')}) — 재생성`);
+      } catch (err) {
+        console.error(`나노바나나 시도 ${attempt}/${maxAttempts} 실패:`, err.message);
+      }
+    }
+
+    if (lastResult) {
+      return await persistGeneratedImage({
+        engineLabel: useCustomPrompt ? `Nano Banana Custom Prompt (${lastResult.model}, Variant ${vKey})` : `Nano Banana Studio (${lastResult.model}, Variant ${vKey})`,
+        dataUrl: `data:${lastResult.mimeType};base64,${lastResult.base64}`,
+        variantKey: vKey,
+      });
+    }
+    console.error('Nano Banana native image generation failed after all attempts, falling back to SVG-writer.');
+  }
+
+  // 2. FALLBACK: 위 이미지 모델 호출이 실패했을 때만 — Gemini가 SVG 마크업을 직접 손으로 쓰게 하는
+  //    구식 경로. 복잡한 구성(그리드 등)엔 약하지만 키가 없거나 API 장애 시의 최후 보루로 남겨둔다.
+  if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
+    const geminiPrompt = useCustomPrompt ? `${customPrompt}
+
+TECHNICAL OUTPUT CONSTRAINT (do not skip): this must render as a standalone SVG, viewBox="0 0 ${W} ${H}".
+This pipeline generates images by writing SVG markup directly — there is no raster diffusion step. So:
+- Anything described as "photorealistic" must be approximated with rich vector shading (gradients, layered shapes,
+  highlights) rather than an actual photo, UNLESS you use <image href="${chosenPhotoUrl}"> for a hero photo element.
+- Return ONLY the raw valid SVG, starting with <svg and ending with </svg>. No markdown backticks, no commentary.` : `You are the Lead Art Director and YouTube Growth Strategist for English education channel '이해하면 쉬운영어' (Target: 3060 adult learners).
 
 YOUR MISSION:
 Draw a standalone High-CTR YouTube Thumbnail SVG (viewBox="0 0 ${W} ${H}") on topic: "${rawText}" (${isShorts ? '9:16 Shorts' : '16:9 Longform'}).
@@ -509,7 +722,7 @@ DESIGN REQUIREMENTS:
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
+          contents: [{ parts: [{ text: geminiPrompt }] }],
           generationConfig: { temperature: 0.7, maxOutputTokens: 8192 }
         }),
         signal: controller.signal
@@ -525,10 +738,11 @@ DESIGN REQUIREMENTS:
         if (startIdx !== -1 && endIdx !== -1) {
           const customSvg = raw.substring(startIdx, endIdx + 6);
           const base64CustomSvg = Buffer.from(customSvg).toString('base64');
-          return {
-            engine: `Competitor-Gap & Reference Studio (Variant ${vKey})`,
-            imageUrl: `data:image/svg+xml;base64,${base64CustomSvg}`,
-          };
+          return await persistGeneratedImage({
+            engineLabel: useCustomPrompt ? `Custom Prompt Test (Variant ${vKey})` : `Competitor-Gap & Reference Studio (Variant ${vKey})`,
+            dataUrl: `data:image/svg+xml;base64,${base64CustomSvg}`,
+            variantKey: vKey,
+          });
         } else {
           console.error('Gemini SVG missing tag. Raw preview:', raw.slice(0, 200));
         }
@@ -544,15 +758,14 @@ DESIGN REQUIREMENTS:
   }
 
   // 3. Fallback High-Res Vector SVG Renderer if Offline
-  const W = isShorts ? 720 : 1280;
-  const H = isShorts ? 1280 : 720;
   const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
   <rect width="${W}" height="${H}" fill="#0a0518"/>
   <text x="${W/2}" y="${H/2}" text-anchor="middle" font-family="'Pretendard', sans-serif" font-size="48" font-weight="900" fill="#facc15">${rawText}</text>
 </svg>`;
   const base64Svg = Buffer.from(fallbackSvg).toString('base64');
-  return {
-    engine: `Fallback Renderer`,
-    imageUrl: `data:image/svg+xml;base64,${base64Svg}`,
-  };
+  return await persistGeneratedImage({
+    engineLabel: `Fallback Renderer`,
+    dataUrl: `data:image/svg+xml;base64,${base64Svg}`,
+    variantKey: vKey,
+  });
 }

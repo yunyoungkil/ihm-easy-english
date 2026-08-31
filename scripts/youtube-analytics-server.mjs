@@ -17,7 +17,7 @@ import {
 } from './analyze-outlier-comments.mjs';
 import { analyzeSingleScript } from './analyze-competitor-script.mjs';
 import { startStudioWatcher } from './studio-auto-ingest.mjs';
-import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage } from './ab-simulator.mjs';
+import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage, tempThumbDir } from './ab-simulator.mjs';
 import { buildMatrixDataset, diagnoseVideoWithGemini } from './matrix-diagnosis.mjs';
 import { lintBrandScript } from './brand-script-linter.mjs';
 import { generateTopicCandidates } from './idea-board.mjs';
@@ -2056,6 +2056,7 @@ let gAbActiveFeedView = 'A'; // 'A' | 'B' | 'C' | 'ALL'
 let gAbFeedPosition = 'TOP'; // 'TOP' | 'MIDDLE' | 'BOTTOM'
 let gAbFeedSlotIndex = 0; // 0 to 6 (Exact slot position in mobile feed)
 let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale'
+let gAbCustomPromptDraft = ''; // 커스텀 프롬프트 테스트 textarea — 재렌더링에도 안 날아가게 상태로 보관
 let gAbAiReport = null;
 let gAbSelectedVariantTab = 'A'; // 'A' | 'B' | 'C'
 
@@ -5231,6 +5232,11 @@ function renderAbSimulatorTab() {
             '<div id="ab-thumb-dropzone" style="width:100%; max-width:' + (isShorts ? '180px' : '100%') + '; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; margin:0 auto; background:#05070c; border:2px dashed var(--border-active); border-radius:10px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;">' +
               (currentVariant.imageUrl ? '<img src="' + esc(currentVariant.imageUrl) + '" style="width:100%; height:100%; object-fit:cover; background:#000;">' : '<div class="card-subtext" style="text-align:center; padding:10px;">🖼️ ' + (isShorts ? '쇼츠(9:16) 이미지' : '롱폼(16:9) 이미지') + '를 드래그하거나 [🎨 AI 1-Click 생성]을 누르세요</div>') +
             '</div>' +
+            '<div style="margin-top:10px; padding-top:10px; border-top:1px dashed var(--border-subtle);">' +
+              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">🧪 커스텀 프롬프트 테스트 — 결과가 위 시안 ' + esc(currentVariant.id) + ' 미리보기에 바로 뜹니다(게이트 없음, 자유 실험용)</div>' +
+              '<textarea id="input-ab-custom-prompt" placeholder="여기에 프롬프트를 붙여넣으세요. 예: public/thumbnail-reference/test-prompts.md 의 3개 예시 중 하나." style="width:100%; min-height:90px; font-size:11px; font-family:monospace; padding:8px; resize:vertical; background:#05070c; border:1px solid var(--border-subtle); color:var(--text-bright); border-radius:6px;">' + esc(gAbCustomPromptDraft) + '</textarea>' +
+              '<button class="btn btn-sm btn-magenta" id="btn-ab-generate-custom-prompt" style="margin-top:6px; width:100%;">🎨 이 프롬프트로 시안 ' + esc(currentVariant.id) + ' 생성</button>' +
+            '</div>' +
           '</div>' +
 
           '<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">' +
@@ -6032,12 +6038,10 @@ function bindAbSimulatorEvents() {
   // 16. 1-Click AI Image Generation Handler (FLUX.1 / Imagen 3)
   const generateImgForVariant = async (vKey, promptText, btnEl) => {
     const targetVar = gAbVariants.find(v => v.id === vKey) || currentVar;
-    let finalPrompt = promptText;
-    if (!finalPrompt) {
-      const topic = gAbTopic || targetVar.title || 'English pronunciation guide';
-      finalPrompt = (gAbFormat === 'SHORTS' ? 'Clean vertical visual artwork for English pronunciation education: ' : 'Clean horizontal visual artwork for English pronunciation education: ') + 
-        topic + (targetVar.thumbnailCopy ? (', showing ' + targetVar.thumbnailCopy) : '') + ', dark cyber-hud deep navy ambient background, neon yellow glow, minimalist 3D graphic, 4k ultra-high resolution';
-    }
+    // promptText가 비어 있으면 그대로 빈 문자열로 보낸다 — 서버(generateAiThumbnailImage)가
+    // title/topic/thumbnailCopy/badge로 자체 템플릿을 구성하므로 여기서 대충 뭉친 대체
+    // 프롬프트를 만들면 서버 템플릿을 가로채 버린다(실제로 그랬던 버그였음).
+    const finalPrompt = promptText || '';
 
     const originalText = btnEl ? btnEl.innerHTML : '';
     if (btnEl) {
@@ -6051,6 +6055,7 @@ function bindAbSimulatorEvents() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          prompt: finalPrompt,
           variantKey: vKey,
           title: targetVar.title || gAbTopic || '',
           thumbnailCopy: targetVar.thumbnailCopy || '',
@@ -6064,8 +6069,10 @@ function bindAbSimulatorEvents() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || '이미지 생성 실패');
 
+      // imageUrl은 이제 base64가 아니라 서버가 저장한 파일을 가리키는 짧은 서빙 URL
+      // (/api/temp-thumbnail/...)이다 — _base64Data는 진짜 로컬 업로드(파일 첨부) 전용으로
+      // 남겨두고 여기서는 건드리지 않는다. resolveImageToInlineData가 이 URL을 직접 처리한다.
       targetVar.imageUrl = data.imageUrl;
-      targetVar._base64Data = data.imageUrl;
       targetVar.isLocalFile = true;
 
       saveAbSimulatorState();
@@ -6099,6 +6106,23 @@ function bindAbSimulatorEvents() {
   if (wbGenBtn) {
     wbGenBtn.onclick = () => {
       generateImgForVariant(gAbSelectedVariantTab, '', wbGenBtn);
+    };
+  }
+
+  const customPromptTa = document.getElementById('input-ab-custom-prompt');
+  if (customPromptTa) {
+    customPromptTa.oninput = (e) => { gAbCustomPromptDraft = e.target.value; };
+  }
+
+  const customPromptBtn = document.getElementById('btn-ab-generate-custom-prompt');
+  if (customPromptBtn) {
+    customPromptBtn.onclick = () => {
+      const customText = gAbCustomPromptDraft.trim();
+      if (!customText) {
+        showToast('❌ 먼저 프롬프트를 입력하세요.');
+        return;
+      }
+      generateImgForVariant(gAbSelectedVariantTab, customText, customPromptBtn);
     };
   }
 
@@ -6668,6 +6692,22 @@ const server = createServer(async (req, res) => {
       const image = await readFile(filePath);
       const isPng = filePath.endsWith('.png');
       res.writeHead(200, {'Content-Type': isPng ? 'image/png' : 'image/jpeg', 'Cache-Control': 'max-age=3600'});
+      res.end(image);
+      return;
+    }
+    if (url.pathname.startsWith('/api/temp-thumbnail/')) {
+      // A/B 시뮬레이터가 generateAiThumbnailImage로 생성해 output/temp-thumbnails/에 저장한
+      // 파일을 서빙한다 — 파일명은 서버가 직접 생성하므로(persistGeneratedImage) 임의 문자는
+      // 안 들어오지만, 공개 라우트인 만큼 경로 이탈만 방어적으로 한 번 더 막는다.
+      const filename = decodeURIComponent(url.pathname.slice('/api/temp-thumbnail/'.length));
+      if (!filename || filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
+        return json(res, 400, {error: '잘못된 파일명입니다.'});
+      }
+      const filePath = join(tempThumbDir, filename);
+      if (!existsSync(filePath)) return json(res, 404, {error: '생성된 썸네일 파일을 찾지 못했습니다.'});
+      const image = await readFile(filePath);
+      const contentType = filename.endsWith('.png') ? 'image/png' : filename.endsWith('.svg') ? 'image/svg+xml' : 'image/jpeg';
+      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
       res.end(image);
       return;
     }

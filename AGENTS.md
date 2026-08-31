@@ -22,7 +22,7 @@
 3. **HyperFrames 초고속 제작**: 1인 제작 시간을 80% 단축하여 주 1~2회 롱폼 + 2~3회 쇼츠의 꾸준한 공급을 달성한다.
 4. **우리 채널 데이터 자산화**: 4사분면 진단 및 시청 지속률 피드백을 통해 검증된 **'성공 비유 족보'**를 누적하고, AI 프롬프트에 자동 환류시킨다.
 5. **다단계 수익화 연계**: 단순 조회수 수익을 넘어 **3060 맞춤 실물/전자책 교재, 유료 멤버십 챌린지, 자체 카카오톡 구독자 DB**로 연결한다.
-(상세: [`knowledge/channel-strategy.md`](knowledge/channel-strategy.md) 및 [`knowledge/decisions/2026-08-30-ai-features-enhancement-plan.md`](knowledge/decisions/2026-08-30-ai-features-enhancement-plan.md). **주의**: 4~5단계가 요구하는 `audience-dna.json`/`success-patterns.json` 누적·환류 루프는 2026-08-31 기준 아직 미구현 — 코드 없이 문서상 목표만 있는 상태다.)
+(상세: [`knowledge/channel-strategy.md`](knowledge/channel-strategy.md) 및 [`knowledge/decisions/2026-08-30-ai-features-enhancement-plan.md`](knowledge/decisions/2026-08-30-ai-features-enhancement-plan.md). 4~5단계가 요구하는 `audience-dna.json`/`success-patterns.json` 누적·환류 루프는 2026-08-31 구현 완료 — `scripts/youtube-analytics-server.mjs`의 🧬 Knowledge DB 탭과 write/read 훅 참고.)
 
 
 ## 채널 고유 페르소나 & 대본 작성 화법 (Brand Persona)

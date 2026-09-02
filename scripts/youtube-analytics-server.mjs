@@ -17,7 +17,7 @@ import {
 } from './analyze-outlier-comments.mjs';
 import { analyzeSingleScript } from './analyze-competitor-script.mjs';
 import { startStudioWatcher } from './studio-auto-ingest.mjs';
-import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage, tempThumbDir } from './ab-simulator.mjs';
+import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage, buildThumbnailPrompt, hasPresenterReference, tempThumbDir, persistGeneratedImage } from './ab-simulator.mjs';
 import { buildMatrixDataset, diagnoseVideoWithGemini } from './matrix-diagnosis.mjs';
 import { lintBrandScript } from './brand-script-linter.mjs';
 import { generateTopicCandidates } from './idea-board.mjs';
@@ -42,6 +42,8 @@ const marketDemandPath = join(youtubeDataDir, 'market-demand.json');
 const contentOpportunityPath = join(youtubeDataDir, 'content-opportunity.json');
 const audienceDnaPath = join(youtubeDataDir, 'audience-dna.json');
 const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
+const ideaBoardStatePath = join(youtubeDataDir, 'idea-board-state.json');
+const abSimulatorStatePath = join(youtubeDataDir, 'ab-simulator-state.json');
 const AUDIENCE_DNA_MAX_ENTRIES = 300;
 const SUCCESS_PATTERNS_MAX_ENTRIES = 300;
 const contentDir = join(projectDir, 'content');
@@ -1167,6 +1169,16 @@ header.cockpit-header {
   70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
+/* "텍스트 적용" 클릭 후 워크벤치로 자동 스크롤될 때, 뭐가 바뀌었는지 시각적으로도 알려주는
+   짧은 테두리 플래시. 0.9초 후 JS가 클래스를 제거한다(youtube-analytics-server.mjs 검색:
+   ab-just-applied). */
+@keyframes abApplyFlash {
+  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.9); }
+  100% { box-shadow: 0 0 0 14px rgba(0, 240, 255, 0); }
+}
+.ab-just-applied {
+  animation: abApplyFlash 0.9s ease-out;
+}
 h1.hero-greeting {
   font-family: var(--font-display);
   font-size: 34px;
@@ -2052,31 +2064,86 @@ let gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 �
 let gAbAudience = "3060 성인 & 왕초보 영어 학습자";
 let gAbFormat = "LONGFORM"; // 'LONGFORM' | 'SHORTS'
 let gAbCompetitors = [];
+let gAbCompetitorsFetchedForTopic = null; // 마지막으로 gAbCompetitors를 가져온 topic — 바뀌면 재요청
 let gAbActiveFeedView = 'A'; // 'A' | 'B' | 'C' | 'ALL'
 let gAbFeedPosition = 'TOP'; // 'TOP' | 'MIDDLE' | 'BOTTOM'
 let gAbFeedSlotIndex = 0; // 0 to 6 (Exact slot position in mobile feed)
 let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale'
-let gAbCustomPromptDraft = ''; // 커스텀 프롬프트 테스트 textarea — 재렌더링에도 안 날아가게 상태로 보관
 let gAbAiReport = null;
 let gAbSelectedVariantTab = 'A'; // 'A' | 'B' | 'C'
 
+let gAbStateSyncTimer = null;
+let gAbStateSyncFailedNotified = false;
 function saveAbSimulatorState() {
+  const state = {
+    format: gAbFormat,
+    topic: gAbTopic,
+    audience: gAbAudience,
+    variants: gAbVariants,
+    activeFeedView: gAbActiveFeedView,
+    feedPosition: gAbFeedPosition,
+    feedSlotIndex: gAbFeedSlotIndex,
+    selectedVariantTab: gAbSelectedVariantTab,
+    visionFilter: gAbVisionFilter,
+    aiReport: gAbAiReport,
+  };
+  // localStorage는 같은 탭에서만 쓰는 빠른 캐시일 뿐, 진짜 저장소는 서버 파일이다 — 이 저장이
+  // 실패해도(예: 용량 초과) 서버 동기화는 반드시 계속 시도해야 한다. 예전엔 이 둘이 같은 try
+  // 블록 안에 있어서, localStorage.setItem이 QuotaExceededError로 던지면 그 아래 서버 동기화
+  // setTimeout 자체가 등록조차 안 됐다 — "드래그앤드롭했는데 서버에 저장이 안 된다"던 게 실은
+  // 업로드 자체 버그가 아니라 saveAbSimulatorState 함수 전체가 조용히 멈춰있던 문제였다
+  // (2026-09-02, Playwright 검증으로 실제 QuotaExceededError를 콘솔에서 확인해서 발견 — 예전
+  // 로컬 업로드가 base64를 그대로 상태에 남겨서 용량을 초과시켰었다).
   try {
-    const state = {
-      format: gAbFormat,
-      topic: gAbTopic,
-      audience: gAbAudience,
-      variants: gAbVariants,
-      activeFeedView: gAbActiveFeedView,
-      feedPosition: gAbFeedPosition,
-      feedSlotIndex: gAbFeedSlotIndex,
-      selectedVariantTab: gAbSelectedVariantTab,
-      visionFilter: gAbVisionFilter,
-      aiReport: gAbAiReport,
-    };
     localStorage.setItem('ihm_ab_simulator_state', JSON.stringify(state));
   } catch (err) {
-    console.warn('Failed to save A/B simulator state:', err);
+    console.warn('Failed to save A/B simulator state to localStorage (서버 동기화는 계속 진행):', err);
+  }
+  // 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서 못 봄(2026-09-02, 사용자 지적).
+  // 입력창 타이핑마다 saveAbSimulatorState가 호출되므로 네트워크 요청은 디바운스한다.
+  if (gAbStateSyncTimer) clearTimeout(gAbStateSyncTimer);
+  gAbStateSyncTimer = setTimeout(() => {
+    fetch('/api/ab-simulator/state', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(state),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        gAbStateSyncFailedNotified = false;
+      })
+      .catch((err) => {
+        // 예전엔 여기서 그냥 삼켜서 실패해도 아무 표시가 없었다 — 반복 토스트로 스팸이 안 되게
+        // 다음 성공 전까지 한 번만 띄운다.
+        console.warn('Failed to sync A/B simulator state to server:', err);
+        if (!gAbStateSyncFailedNotified) {
+          gAbStateSyncFailedNotified = true;
+          showToast('⚠️ 시안 변경사항이 서버에 저장되지 않고 있습니다 — 새로고침하면 사라질 수 있어요.');
+        }
+      });
+  }, 1200);
+}
+
+async function hydrateAbSimulatorFromServer() {
+  try {
+    const res = await fetch('/api/ab-simulator/state');
+    if (!res.ok) return;
+    const state = await res.json();
+    if (state && Array.isArray(state.variants) && state.variants.length === 3) {
+      if (state.format) gAbFormat = state.format;
+      if (state.topic) gAbTopic = state.topic;
+      if (state.audience) gAbAudience = state.audience;
+      gAbVariants = state.variants;
+      if (state.activeFeedView) gAbActiveFeedView = state.activeFeedView;
+      if (state.feedPosition) gAbFeedPosition = state.feedPosition;
+      if (typeof state.feedSlotIndex === 'number') gAbFeedSlotIndex = state.feedSlotIndex;
+      if (state.selectedVariantTab) gAbSelectedVariantTab = state.selectedVariantTab;
+      if (state.visionFilter) gAbVisionFilter = state.visionFilter;
+      if (state.aiReport) gAbAiReport = state.aiReport;
+      try { localStorage.setItem('ihm_ab_simulator_state', JSON.stringify(state)); } catch (_) {}
+    }
+  } catch (err) {
+    console.warn('Failed to hydrate A/B simulator state from server:', err);
   }
 }
 
@@ -2124,13 +2191,37 @@ let gIdeaBoardGeneratedAt = null;
 
 function saveIdeaBoardState() {
   try {
-    localStorage.setItem('ihm_idea_board_state', JSON.stringify({
+    const state = {
       candidates: gIdeaBoardCandidates,
       selected: gIdeaBoardSelected,
       generatedAt: gIdeaBoardGeneratedAt,
-    }));
+    };
+    localStorage.setItem('ihm_idea_board_state', JSON.stringify(state));
+    // 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서 못 봐서 후보를 다시 생성해야
+    // 했음(2026-09-02, 사용자 지적). 생성·선택 시에만 호출되는 함수라 디바운스 없이 바로 보낸다.
+    fetch('/api/idea-board/state', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(state),
+    }).catch(() => {});
   } catch (err) {
     console.warn('Failed to save idea board state:', err);
+  }
+}
+
+async function hydrateIdeaBoardFromServer() {
+  try {
+    const res = await fetch('/api/idea-board/state');
+    if (!res.ok) return;
+    const state = await res.json();
+    if (state && state.candidates) {
+      gIdeaBoardCandidates = state.candidates;
+      gIdeaBoardSelected = state.selected || null;
+      gIdeaBoardGeneratedAt = state.generatedAt || null;
+      try { localStorage.setItem('ihm_idea_board_state', JSON.stringify(state)); } catch (_) {}
+    }
+  } catch (err) {
+    console.warn('Failed to hydrate idea board state from server:', err);
   }
 }
 
@@ -2375,7 +2466,11 @@ async function loadAll() {
       fetch('/api/market-demand'),
       fetch('/api/content-opportunity'),
       fetch('/api/episodes/summary'),
-      fetch('/api/knowledge-db')
+      fetch('/api/knowledge-db'),
+      // 서버에 저장된 아이디어 보드/A-B 시뮬레이터 상태를 첫 렌더 전에 반영 — 다른 PC/브라우저에서
+      // 열어도 localStorage 없이 바로 이전 상태가 보이게 한다(2026-09-02).
+      hydrateIdeaBoardFromServer(),
+      hydrateAbSimulatorFromServer(),
     ]);
 
     gMarketDemand = demandRes.ok ? await demandRes.json() : null;
@@ -4575,32 +4670,47 @@ function bindMatrixEvents() {
       
       gAbFormat = isVideoShorts ? 'SHORTS' : 'LONGFORM';
       gAbTopic = videoTitle;
+      // 이 핸드오프엔 영상별 타겟층을 추정할 근거 데이터가 없다(아이디어 보드처럼 AI가 만든
+      // targetAudience가 없음) — 그래도 이전 화면에서 쓰던 무관한 값이 그대로 남는 것보다는
+      // 채널 기본값으로 리셋하는 게 낫다(2026-09-01, 같은 문제가 아이디어 보드 핸드오프에도
+      // 있었던 걸 사용자가 지적해서 발견).
+      gAbAudience = '3060 성인 & 왕초보 영어 학습자';
+      // badge/thumbnailCopy는 메모가 아니라 실제 생성 이미지에 그대로 그려지는 뱃지·캡션
+      // 문구다(buildThumbnailPrompt) — "현재 시안"/"대안 B" 같은 내부 비교용 라벨을 넣으면
+      // 그게 그대로 썸네일에 박혀 나온다(사용자 지적, 2026-09-01 — 아이디어 보드 핸드오프에서
+      // 먼저 발견돼 여기도 같은 패턴으로 수정). 빈 칸으로 둬서 시안별 기본값으로 폴백시킨다.
       gAbVariants[0] = {
         id: 'A',
         title: videoTitle,
         imageUrl: videoThumb,
-        thumbnailCopy: '기존 썸네일',
-        badge: '현재 시안',
+        thumbnailCopy: '',
+        badge: '',
+        visualConcept: '',
         isLocalFile: false
       };
       gAbVariants[1] = {
         id: 'B',
         title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (핵심 원리)' : ' (핵심 원리 30초 완성)'),
         imageUrl: '',
-        thumbnailCopy: '핵심 원리 대조',
-        badge: '대안 B',
+        thumbnailCopy: '',
+        badge: '',
+        visualConcept: '',
         isLocalFile: false
       };
       gAbVariants[2] = {
         id: 'C',
         title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts (필수 패턴)' : ' (필수 패턴 총정리)'),
         imageUrl: '',
-        thumbnailCopy: '패턴 확장 카피',
-        badge: '대안 C',
+        thumbnailCopy: '',
+        badge: '',
+        visualConcept: '',
         isLocalFile: false
       };
       gAbSelectedVariantTab = 'A';
       gAbActiveFeedView = 'A';
+      // 이전 진단(gAbAiReport)은 완전히 다른 소재/시안을 평가한 결과라 그대로 두면 새 소재를 진단한
+      // 것처럼 오인된다(2026-09-02, 실제로 이 문제 때문에 혼란이 생겨서 발견) — 핸드오프 시 항상 비움.
+      gAbAiReport = null;
       saveAbSimulatorState();
       switchTab('tab-ab-simulator');
       showToast(isVideoShorts ? '📱 쇼츠(9:16) 영상이 A/B 시뮬레이터에 로드되었습니다!' : '📺 롱폼(16:9) 영상이 A/B 시뮬레이터에 로드되었습니다!');
@@ -4717,24 +4827,33 @@ function openMatrixDiagnosisModal(video) {
             const isVideoShorts = (video.format === 'SHORTS') || video.isShorts || (typeof video.durationSec === 'number' && video.durationSec <= 60) || (typeof video.durationSeconds === 'number' && video.durationSeconds <= 60) || (video.title && (video.title.toLowerCase().includes('#shorts') || video.title.toLowerCase().includes('shorts')));
             gAbFormat = isVideoShorts ? 'SHORTS' : 'LONGFORM';
             gAbTopic = video.title;
-            
+            // 이 핸드오프도 영상별 타겟층 추정 데이터가 없다 — 이전 화면의 무관한 값이 남는 것보다
+            // 채널 기본값으로 리셋(2026-09-01, 위 .btn-send-to-ab와 동일 이유).
+            gAbAudience = '3060 성인 & 왕초보 영어 학습자';
+
+            // badge는 항상 내부 비교용 라벨이라(실제 콘텐츠 아님) 무조건 비운다. thumbnailCopy는
+            // altTitles[i]에서 실제로 뽑아낸 값이면(진짜 AI 추천 문구) 남기고, 그마저도 없을 때만
+            // 내부 placeholder("대안 B 카피" 등) 대신 빈 칸으로 — 둘 다 실제 생성 이미지에 그대로
+            // 그려지므로(buildThumbnailPrompt) 내부 라벨이 새 나가면 안 된다(2026-09-01 수정).
             // 1. Variant A (Original Baseline Video)
             gAbVariants[0] = {
               id: 'A',
               title: video.title,
               imageUrl: video.thumbnail,
-              thumbnailCopy: '기존 원본 카피',
-              badge: '현재 시안',
+              thumbnailCopy: '',
+              badge: '',
+              visualConcept: '',
               isLocalFile: false
             };
-            
+
             // 2. Variant B (AI Recommendation 1 - Empty image ready for new thumbnail drop/generation)
             gAbVariants[1] = {
               id: 'B',
               title: (altTitles && altTitles[0]) ? altTitles[0] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (개선안 B)' : ' (개선안 B)')),
               imageUrl: '',
-              thumbnailCopy: (altTitles && altTitles[0]) ? altTitles[0].slice(0, 15) : '대안 B 카피',
-              badge: 'AI 추천 1위',
+              thumbnailCopy: (altTitles && altTitles[0]) ? altTitles[0].slice(0, 15) : '',
+              badge: '',
+              visualConcept: '',
               isLocalFile: false
             };
 
@@ -4743,13 +4862,15 @@ function openMatrixDiagnosisModal(video) {
               id: 'C',
               title: (altTitles && altTitles[1]) ? altTitles[1] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts' : ' (완전정복 C)')),
               imageUrl: '',
-              thumbnailCopy: (altTitles && altTitles[1]) ? altTitles[1].slice(0, 15) : '대안 C 카피',
-              badge: 'AI 추천 2위',
+              thumbnailCopy: (altTitles && altTitles[1]) ? altTitles[1].slice(0, 15) : '',
+              badge: '',
+              visualConcept: '',
               isLocalFile: false
             };
 
             gAbSelectedVariantTab = 'A';
             gAbActiveFeedView = 'A';
+            gAbAiReport = null;
             saveAbSimulatorState();
             switchTab('tab-ab-simulator');
             showToast(isVideoShorts ? '📱 쇼츠(9:16) 영상이 A/B 시뮬레이터에 로드되었습니다!' : '📺 롱폼(16:9) 영상이 A/B 시뮬레이터에 로드되었습니다!');
@@ -4842,7 +4963,7 @@ function renderAbSimulatorTab() {
   const bColor = colorMap[chosenVariant.id] || 'var(--accent-magenta)';
 
   /* Rich Competitor Videos: 2 Top Longforms & 4 Bottom Longforms from Market Demand Radar (100% Pure 16:9 Longforms) */
-  const topLongforms = [
+  const FALLBACK_topLongforms = [
     {
       title: "왕초보를 위한 영어회화 강의 - Lesson 001 [기본적인 문장 구성하기]",
       channelTitle: "라이브 아카데미 토들러",
@@ -4864,7 +4985,7 @@ function renderAbSimulatorTab() {
   ];
 
   /* 6 Authentic Competitor Shorts Cards from Real Competitor Channels (10초 영어회화, 톡톡영어, 딴딴영어, 리스닝영어창고, 시니어 엄지척 영어, 보리영어) */
-  const shortsList = [
+  const FALLBACK_shortsList = [
     {
       title: "맛이 왜 이래 영어로? 원어민은 off 하나로 끝냅니다. #shorts",
       channelTitle: "10초 영어회화",
@@ -4910,7 +5031,7 @@ function renderAbSimulatorTab() {
   ];
 
   /* 4 Real Bottom Longform Videos from Market Demand Radar & YouTube (100% Pure 16:9 Competitor Longforms) */
-  const bottomLongforms = [
+  const FALLBACK_bottomLongforms = [
     {
       title: "[왕기초 영어 읽기 0편] 준비 1단계. ⭐알파벳⭐ 배우기 | 한글로 배우는 영어",
       channelTitle: "하니티처",
@@ -4949,21 +5070,57 @@ function renderAbSimulatorTab() {
     }
   ];
 
+  // 실제 경쟁 영상 데이터(gAbCompetitors — bindAbSimulatorEvents가 topic 관련도 순으로 정렬해서
+  // 가져옴)로 topLongforms/shortsList/bottomLongforms를 채운다. 2026-09-01: 예전엔 이 세 목록이
+  // 전부 고정 하드코딩이라 소재가 뭐든 항상 같은 경쟁 영상만 보여줬음(사용자 피드백) — 이제
+  // "우리 썸네일이 실제로 지금 소재와 겹치는 경쟁 영상들 사이에서 얼마나 눈에 띄는가"를 보여준다.
+  // 롱폼 슬롯과 쇼츠 선반은 반드시 분리한다 — market-demand.json의 각 영상엔 실측 duration(초)이
+  // 있고 60초 이하면 isShort(이 프로젝트의 기존 쇼츠 판정 기준, youtube-analytics-server.mjs의
+  // durationSeconds/creatorContentType과 동일)다. 안 섞으면 세로 9:16 쇼츠 카드에 가로 롱폼
+  // 썸네일이 찌그러져 들어가는 걸 막을 수 있다(사용자가 직접 지적). 해당 타입의 실제 데이터가
+  // 없으면(예: 아직 market-demand.json을 재생성 안 해서 옛 데이터에 isShort가 없음) 그 슬롯만
+  // FALLBACK_*로 폴백 — 두 폴백 모두 원래부터 타입이 맞는 목록이라 안전하다. 풀이 슬롯 수보다
+  // 작으면 모듈로 순환으로 채운다 — 카드가 비거나 깨지는 것보다 일부 반복이 낫다.
+  const realLongformPool = gAbCompetitors.filter((v) => !v.isShort);
+  const realShortsPool = gAbCompetitors.filter((v) => v.isShort);
+  const longformPool = realLongformPool.length ? realLongformPool : [...FALLBACK_topLongforms, ...FALLBACK_bottomLongforms];
+  const shortsPool = realShortsPool.length ? realShortsPool : FALLBACK_shortsList;
+  const pickFrom = (pool, count, offset) => {
+    if (!pool.length) return [];
+    return Array.from({ length: count }, (_, i) => pool[(offset + i) % pool.length]);
+  };
+  const topLongforms = pickFrom(longformPool, 2, 0);
+  const bottomLongforms = pickFrom(longformPool, 4, 2);
+  const shortsList = pickFrom(shortsPool, 6, 0);
+
   function renderLongformFeedCard(item, isTest = false, testId = '', borderCol = '', slotIdx = 0) {
     const isT = isTest;
     const bC = borderCol || (isT ? bColor : 'transparent');
-    const borderStyle = isT 
-      ? ('border: 2px solid ' + bC + '; border-radius: 12px; margin: 0 6px 14px; background: rgba(0,0,0,0.6); overflow: hidden; box-shadow: 0 0 15px ' + bC + '40;') 
+    // 2026-09-01: 예전엔 box-shadow 글로우까지 줘서 우리 카드가 경쟁 영상보다 항상 눈에 띄게
+    // "치팅"하고 있었다(사용자 지적) — 이 도구의 목적은 "실제로 경쟁 영상 사이에서 눈에 띄는지"를
+    // 보는 것이라 인위적으로 강조하면 비교가 무의미해진다. 드래그 핸들 바(아래)만으로 어느 카드가
+    // 우리 것인지 알 수 있으니, 썸네일 자체엔 얇은 테두리(위치 구분용)만 남기고 글로우는 뺀다.
+    const borderStyle = isT
+      // bC는 'var(--accent-magenta)' 같은 CSS 변수 참조라 뒤에 헥스 알파(66)를 그냥 이어붙이면
+      // 무효한 CSS가 되어 브라우저가 border 선언 전체를 조용히 버린다(2026-09-01, Playwright로
+      // 실제 발견) — color-mix()로 반투명을 만들어야 한다.
+      ? ('border: 1px solid color-mix(in srgb, ' + bC + ' 40%, transparent); border-radius: 12px; margin: 0 6px 14px; background: rgba(0,0,0,0.6); overflow: hidden;')
       : 'margin-bottom: 14px; background: transparent;';
-    
+    // 아이디어 보드에서 막 넘어온 시안은 아직 썸네일 이미지가 없는 게 정상이다(의도적으로 비워둠).
+    // 그런데도 실제 이미지처럼 보이는 대체 썸네일(예전엔 EP9 실제 썸네일 URL)을 채워 넣으면,
+    // "이미 완성된 썸네일이 있다"고 착각하게 만든다(사용자 지적) — 없으면 명확한 빈 상태를 보여준다.
+    const realThumb = item.thumbnail || item.imageUrl || (!isT ? 'https://i.ytimg.com/vi/OVAeeJxmdw0/mqdefault.jpg' : '');
+
     return '<div class="feed-item ab-feed-drop-zone' + (isT ? ' ab-feed-card-draggable active-test' : '') + '" ' + (isT ? 'draggable="true"' : '') + ' data-is-test="' + (isT ? '1' : '0') + '" data-slot-type="longform" data-slot-idx="' + slotIdx + '" style="' + borderStyle + '">' +
-      (isT ? 
+      (isT ?
         '<div style="background:' + bC + '; color:#000; font-weight:900; font-size:11px; padding:4px 10px; display:flex; justify-content:space-between; align-items:center; cursor:grab;">' +
           '<span>☰ ★ 우리 채널 시안 ' + (testId || chosenVariant.id) + ' (드래그하여 위치 이동)</span>' +
           (chosenVariant.badge ? '<span style="background:rgba(0,0,0,0.4); color:#fff; padding:1px 6px; border-radius:4px; font-size:10px;">' + esc(chosenVariant.badge) + '</span>' : '') +
         '</div>' : '') +
       '<div class="feed-thumb-wrap">' +
-        '<img class="feed-thumb-img" src="' + esc(item.thumbnail || item.imageUrl || 'https://i.ytimg.com/vi/OVAeeJxmdw0/mqdefault.jpg') + '" draggable="false" style="pointer-events:none;" alt="">' +
+        (realThumb
+          ? '<img class="feed-thumb-img" src="' + esc(realThumb) + '" draggable="false" style="pointer-events:none;" alt="">'
+          : '<div class="feed-thumb-img" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:#0a0e18; color:var(--text-muted); font-size:11px;"><span style="font-size:22px;">🖼️</span><span>썸네일 없음 — 아래 [🎨 AI 1-Click 생성]으로 채우세요</span></div>') +
         '<span class="feed-duration">' + esc(item.duration || '08:24') + '</span>' +
       '</div>' +
       '<div class="feed-meta" style="padding: 10px 12px 6px; display:flex; gap:10px;">' +
@@ -4982,18 +5139,23 @@ function renderAbSimulatorTab() {
   function renderSingleShortsCard(item, isTest = false, testId = '', borderCol = '', slotIdx = 0) {
     const isT = isTest;
     const bC = borderCol || (isT ? bColor : 'transparent');
-    const borderStyle = isT 
-      ? ('border: 2.5px solid ' + bC + '; box-shadow: 0 0 14px ' + bC + '50; cursor:grab;') 
+    // 2026-09-01: 글로우(box-shadow)를 빼고 테두리도 얇게 — 롱폼 카드와 같은 이유(사용자 지적,
+    // 위 renderLongformFeedCard 주석 참고).
+    const borderStyle = isT
+      ? ('border: 1px solid color-mix(in srgb, ' + bC + ' 40%, transparent); cursor:grab;')
       : '';
+    const realThumb = item.imageUrl || item.thumbnail || (!isT ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=480&h=854&fit=crop&q=80' : '');
     return '<div class="shorts-card ab-feed-drop-zone' + (isT ? ' ab-feed-card-draggable active-test' : '') + '" ' + (isT ? 'draggable="true"' : '') + ' data-is-test="' + (isT ? '1' : '0') + '" data-slot-type="shorts" data-slot-idx="' + slotIdx + '" style="' + borderStyle + '">' +
-      '<img class="shorts-card-img" src="' + esc(item.imageUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=480&h=854&fit=crop&q=80') + '" draggable="false" style="pointer-events:none;" alt="">' +
+      (realThumb
+        ? '<img class="shorts-card-img" src="' + esc(realThumb) + '" draggable="false" style="pointer-events:none;" alt="">'
+        : '<div class="shorts-card-img" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:#0a0e18; color:var(--text-muted); font-size:10px; text-align:center; padding:8px;"><span style="font-size:20px;">🖼️</span><span>썸네일 없음</span></div>') +
       '<div class="shorts-card-top">' +
         (isT ? '<span style="background:' + bC + '; color:#000; font-size:9px; font-weight:900; padding:2px 5px; border-radius:3px;">☰ ★ 시안 ' + (testId || item.id) + '</span>' : (item.tag ? '<span style="background:rgba(0,0,0,0.6); color:#fff; font-size:9px; font-weight:700; padding:2px 5px; border-radius:3px;">' + esc(item.tag) + '</span>' : '<span></span>')) +
         '<span style="color:#fff; font-size:12px; text-shadow:0 1px 3px #000;">⋮</span>' +
       '</div>' +
       '<div class="shorts-card-bottom">' +
         '<div class="shorts-card-title" style="color:#fff; font-weight:800;">' + esc(item.title || '(쇼츠 제목을 입력하세요)') + '</div>' +
-        '<div class="shorts-card-views" style="' + (isT ? 'color:var(--accent-cyan);' : '') + '">' + (isT ? '이해하면 쉬운 영어 · 2.4만회' : (item.channelTitle ? (esc(item.channelTitle) + ' · ') : '') + esc(item.views || '조회수 120만회')) + '</div>' +
+        '<div class="shorts-card-views" style="' + (isT ? 'color:var(--accent-cyan);' : '') + '">' + (isT ? '이해하면 쉬운 영어 · 2.4만회' : (item.channelTitle ? (esc(item.channelTitle) + ' · ') : '') + (typeof item.views === 'number' ? ('조회수 ' + Math.round(item.views / 10000) + '만회') : esc(item.views || '조회수 120만회'))) + '</div>' +
       '</div>' +
     '</div>';
   }
@@ -5070,7 +5232,7 @@ function renderAbSimulatorTab() {
         channelTitle: "이해하면 쉬운 영어",
         views: "2.4만회",
         publishedAgo: "2시간 전",
-        thumbnail: varA.imageUrl || 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
+        thumbnail: varA.imageUrl || '',
         duration: "07:42",
       }, true, 'A', 'var(--accent-magenta)', 0);
       feedHtml += renderLongformFeedCard(topLongforms[0], false, '', '', 1);
@@ -5085,7 +5247,7 @@ function renderAbSimulatorTab() {
         channelTitle: "이해하면 쉬운 영어",
         views: "2.4만회",
         publishedAgo: "2시간 전",
-        thumbnail: varB.imageUrl || 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg',
+        thumbnail: varB.imageUrl || '',
         duration: "07:42",
       }, true, 'B', 'var(--accent-cyan)', 3);
       feedHtml += renderLongformFeedCard(bottomLongforms[0], false, '', '', 4);
@@ -5095,7 +5257,7 @@ function renderAbSimulatorTab() {
         channelTitle: "이해하면 쉬운 영어",
         views: "2.4만회",
         publishedAgo: "2시간 전",
-        thumbnail: varC.imageUrl || 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg',
+        thumbnail: varC.imageUrl || '',
         duration: "07:42",
       }, true, 'C', 'var(--accent-amber)', 5);
       feedHtml += renderLongformFeedCard(bottomLongforms[1], false, '', '', 6);
@@ -5108,7 +5270,7 @@ function renderAbSimulatorTab() {
         channelTitle: "이해하면 쉬운 영어",
         views: "2.4만회",
         publishedAgo: "2시간 전",
-        thumbnail: chosenVariant.imageUrl || 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
+        thumbnail: chosenVariant.imageUrl || '',
         duration: "07:42",
       };
 
@@ -5171,12 +5333,15 @@ function renderAbSimulatorTab() {
   const report = gAbAiReport;
 
   return '<div class="bento-grid">' +
-    '<div class="bento-card highlight-magenta col-12">' +
+    /* 2026-09-01: 편집·결과 어디를 스크롤해서 보고 있어도 진단 버튼에 바로 닿도록 sticky.
+       .nav-rail(1061행)과 같은 패턴(position:sticky; top:0), z-index는 nav-rail(100)보다
+       낮고 토스트(9999)·모달(1000)보다는 훨씬 낮은 40으로 잡아 겹침 문제를 피한다. */
+    '<div class="bento-card highlight-magenta col-12" style="position:sticky; top:0; z-index:40;">' +
       '<div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">' +
         '<div>' +
           '<div class="card-title" style="color:#ffccd9">YOUTUBE FEED SALIENCE & AI CTR PREDICTOR</div>' +
           '<h2 style="font-family:var(--font-display); font-size:24px; color:#fff; margin-top:2px">🎯 썸네일 & 제목 A/B 피드 시뮬레이터 · AI CTR 예측기</h2>' +
-          '<p style="color:#ffe6ec; margin-top:4px; font-size:13px">실제 모바일 유튜브 피드 환경에서 경쟁 영상과 나란히 비교하여 시각적 스턴건 효과와 예상 CTR을 사전 진단합니다.</p>' +
+          '<p style="color:#ffe6ec; margin-top:4px; font-size:13px">실제 모바일 유튜브 피드 환경에서 경쟁 영상과 나란히 비교하여 시각적 스턴건 효과와 예상 CTR을 사전 진단합니다. <b>1. 시안 입력 → 2. 진단 실행 → 3. 결과 확인</b> 순서로 진행하세요.</p>' +
         '</div>' +
         '<div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">' +
           '<div style="display:flex; gap:4px; background:#080d16; padding:3px 6px; border-radius:10px; border:1px solid var(--border-subtle);">' +
@@ -5187,6 +5352,19 @@ function renderAbSimulatorTab() {
           '<button class="btn btn-sm btn-amber" id="btn-ab-reset-state" title="기본 데이터로 초기화합니다">🗑️ 초기화</button>' +
           '<button class="btn btn-cyan btn-sm" id="btn-ab-run-ai">🚀 Gemini AI CTR 정밀 진단</button>' +
         '</div>' +
+        /* 채널 기준 인물 — 나노바나나 생성이 항상 이 얼굴을 레퍼런스로 쓴다. "📋 프롬프트만
+           복사"로 제미나이 웹에서 직접 생성할 땐 프롬프트가 "첨부된 레퍼런스 이미지"를 가리키므로
+           이 이미지도 같이 첨부해야 한다 — 그래서 바로 옆에서 보고 복사할 수 있게 둔다(2026-09-01). */
+        '<div style="display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center;">' +
+          '<span style="font-size:9px; color:var(--text-muted); max-width:100px; line-height:1.3;">채널 기준 인물<br>(제미나이 웹 생성 시 같이 첨부)</span>' +
+          /* onerror는 인라인 속성값이라 그 안에 작은따옴표를 또 쓰면 CLAUDE.md가 금지하는
+             수동 이스케이프(\') 문제가 재현된다 — 서버가 이 문자열을 조립할 때 이스케이프가
+             한 겹 풀려서 브라우저에는 따옴표 없는 this.style.display=none 이 도착해
+             "Unexpected identifier 'none'"로 클라이언트 스크립트 전체가 깨졌다. 따옴표가
+             필요 없는 this.hidden=true로 바꿔 같은 효과(요소 숨김)를 낸다. */
+          '<img id="ab-presenter-ref-img" src="/api/presenter-reference" style="width:64px; height:64px; object-fit:cover; border-radius:8px; border:2px solid var(--accent-amber); cursor:pointer;" title="클릭하면 이 이미지가 클립보드로 복사됩니다" onerror="this.hidden=true">' +
+          '<button class="btn btn-xs" id="btn-ab-copy-presenter-ref" style="font-size:9px; padding:2px 6px;">📋 이미지 복사</button>' +
+        '</div>' +
       '</div>' +
 
       '<div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; align-items:center;">' +
@@ -5196,11 +5374,16 @@ function renderAbSimulatorTab() {
         '</div>' +
         '<div style="flex:1; min-width:200px;">' +
           '<div style="font-size:11px; font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">👥 타겟 시청자층</div>' +
-          '<select id="select-ab-audience" style="width:100%">' +
-            '<option value="3060 성인 & 왕초보 영어 학습자"' + (gAbAudience.includes('3060') || gAbAudience.includes('5060') ? ' selected' : '') + '>3060 성인 & 왕초보 영어</option>' +
-            '<option value="기초 회화 및 발음 교정 학습자"' + (gAbAudience.includes('회화') ? ' selected' : '') + '>기초 회화 및 발음 교정</option>' +
-            '<option value="알파벳/파닉스 읽는 법 입문자"' + (gAbAudience.includes('파닉스') ? ' selected' : '') + '>알파벳/파닉스 읽는 법 입문</option>' +
-          '</select>' +
+          // 2026-09-01: 예전엔 고정 3개 중에서만 고를 수 있는 <select>였음 — 아이디어 보드가
+          // 소재별로 추천하는 targetAudience(예: "발음 원리를 처음 배우는 알파벳 입문자")가 이
+          // 3개 중 어디에도 안 맞을 수 있어서 자유 입력으로 바꿨다. 기존 3개는 빠른 선택용
+          // datalist로 남겨 편의성은 유지.
+          '<input type="text" id="input-ab-audience" list="ab-audience-presets" value="' + esc(gAbAudience) + '" placeholder="예: 발음 원리를 처음 배우는 알파벳 입문자" style="width:100%">' +
+          '<datalist id="ab-audience-presets">' +
+            '<option value="3060 성인 & 왕초보 영어 학습자">' +
+            '<option value="기초 회화 및 발음 교정 학습자">' +
+            '<option value="알파벳/파닉스 읽는 법 입문자">' +
+          '</datalist>' +
         '</div>' +
       '</div>' +
 
@@ -5209,9 +5392,136 @@ function renderAbSimulatorTab() {
       '</div>' +
     '</div>' +
 
-    /* LEFT: VARIANT WORKBENCH */
-    '<div class="bento-card col-6" style="display:flex; flex-direction:column; justify-content:space-between;">' +
+    (report ?
+      '<div class="bento-card highlight-cyan col-12" id="ab-report-section">' +
+
+        /* Title + Visual Suite (5 types, merged — 적용은 텍스트만, 생성은 이미지까지) — 진단 스코어카드보다
+           먼저 보여줌: 바로 쓸 수 있는 제안이 스코어 분석보다 실행 우선순위가 높다. */
+        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:18px; margin-bottom:16px;">' +
+          '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:4px;">' +
+            '<div class="card-title" style="color:var(--accent-cyan); margin:0;">⚡ GEMINI AI 추천 고클릭률 제목+비주얼 5종</div>' +
+            '<span class="badge" style="background:color-mix(in srgb, ' + colorMap[gAbSelectedVariantTab] + ' 13%, transparent); color:' + colorMap[gAbSelectedVariantTab] + '; border:1px solid color-mix(in srgb, ' + colorMap[gAbSelectedVariantTab] + ' 40%, transparent); font-size:11px; font-weight:700;">💎 지금 워크벤치 = 시안 ' + gAbSelectedVariantTab + '</span>' +
+          '</div>' +
+          '<div class="card-subtext" style="margin-bottom:12px;">"텍스트 적용"은 제목·카피만 바꿉니다(무료·즉시). 이미지는 아래 워크벤치의 [🎨 AI 1-Click 생성] 또는 [📋 프롬프트만 복사]로 만드세요. 굵은 글씨는 지금 워크벤치가 보고 있는 시안, 노란 테두리+✓는 그 시안에 지금 실제로 적용돼 있는 문구입니다.</div>' +
+          '<div style="display:grid; gap:10px;">' +
+            (report.aiTitleSuggestions || []).map((s, sIdx) => {
+              const applyBtn = (vId, cls) => {
+                const active = gAbSelectedVariantTab === vId;
+                // "지금 워크벤치가 보는 시안"(active, 카드 전체에 동일하게 적용되는 전역 상태)과
+                // "이 카드의 문구가 실제로 그 시안에 적용돼 있는지"(appliedHere, 카드마다 다름)는
+                // 서로 다른 정보라 표시를 분리한다 — active만 있으면 어느 카드를 눌러서 지금 상태가
+                // 됐는지 알 수 없다(2026-09-01, 사용자 피드백).
+                const targetVar = gAbVariants.find(v => v.id === vId);
+                const appliedHere = !!(s.title && targetVar && targetVar.title === s.title);
+                let extraStyle = '';
+                if (active) extraStyle += ' box-shadow:0 0 0 2px ' + colorMap[vId] + '; font-weight:900;';
+                if (appliedHere) extraStyle += ' border:2px solid var(--accent-amber);';
+                const titleAttr = appliedHere ? '이 문구가 지금 시안 ' + vId + '에 적용돼 있습니다' : (active ? '지금 워크벤치에서 편집 중인 시안입니다' : '');
+                return '<button class="btn btn-sm ' + cls + ' btn-ab-apply-title" data-idx="' + sIdx + '" data-var="' + vId + '" style="font-size:10px; padding:3px 8px;' + extraStyle + '" title="' + titleAttr + '">' + vId + (appliedHere ? ' ✓' : '') + '</button>';
+              };
+              return '<div style="background:#06080e; border:1px solid var(--border-subtle); border-radius:10px; padding:12px 14px;">' +
+                '<div style="display:flex; align-items:center; gap:10px; margin-bottom:6px; flex-wrap:wrap;">' +
+                  '<span class="badge" style="background:rgba(255,0,85,0.15); color:var(--accent-magenta); border:1px solid rgba(255,0,85,0.3); font-size:11px;">' + esc(s.type) + '</span>' +
+                  '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
+                '</div>' +
+                (s.thumbnailCopy ? '<div style="font-size:11px; color:var(--accent-amber); margin-bottom:6px;">✍️ 썸네일 카피(시청 후 보상): ' + esc(s.thumbnailCopy) + '</div>' : '') +
+                (s.suggestedBadge ? '<div style="font-size:11px; color:var(--accent-cyan); margin-bottom:6px;">🏷️ 추천 뱃지: ' + esc(s.suggestedBadge) + '</div>' : '') +
+                (s.designConcept ? '<div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">🎨 비주얼 컨셉: ' + esc(s.designConcept) + '</div>' : '') +
+                '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
+                  '<span style="font-size:10px; color:var(--text-muted); align-self:center;">텍스트 적용:</span>' +
+                  applyBtn('A', '') +
+                  applyBtn('B', 'btn-cyan') +
+                  applyBtn('C', 'btn-amber') +
+                '</div>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+
+        '<div class="card-title" style="color:var(--accent-cyan)">GEMINI CTR INTELLIGENCE VERDICT</div>' +
+        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; margin-top:16px;">' +
+          (report.variantsEvaluation || []).map(ve => {
+            const vKey = ve.variantKey;
+            const bCol = colorMap[vKey] || 'var(--accent-cyan)';
+            return '<div style="background:#080c14; border:1px solid ' + (vKey === report.bestVariant ? bCol : 'var(--border-subtle)') + '; border-radius:14px; padding:16px;">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
+                '<span style="font-weight:800; font-size:16px; color:' + bCol + '">시안 ' + vKey + '</span>' +
+                '<span class="badge badge-pass" style="font-size:12px;">예상 CTR ' + esc(ve.predictedCtrRange || '') + '</span>' +
+              '</div>' +
+              '<div style="display:grid; gap:8px; margin-bottom:12px;">' +
+                '<div>' +
+                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>호기심 갭 (Curiosity)</span><b>' + (ve.curiosityGapScore||0) + '점</b></div>' +
+                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.curiosityGapScore||0) + '%; height:100%; background:var(--accent-magenta);"></div></div>' +
+                '</div>' +
+                '<div>' +
+                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>시각 시선 강도 (Salience)</span><b>' + (ve.visualSalienceScore||0) + '점</b></div>' +
+                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.visualSalienceScore||0) + '%; height:100%; background:var(--accent-cyan);"></div></div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="font-size:11px; margin-bottom:8px;"><b style="color:var(--accent-cyan);">🎯 핵심 시선점:</b> ' + esc(ve.focalPoint || '전체 고른 시선') + '</div>' +
+              '<div style="background:rgba(0,0,0,0.3); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
+                '<div style="color:var(--accent-emerald); font-weight:700; margin-bottom:2px;">✅ 시각 강점:</div>' +
+                '<ul style="margin:0; padding-left:14px; color:var(--text-bright);">' +
+                  (ve.strengths || []).map(s => '<li>' + esc(s) + '</li>').join('') +
+                '</ul>' +
+              '</div>' +
+              '<div style="background:rgba(255,100,100,0.08); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
+                '<div style="color:#ff7676; font-weight:700; margin-bottom:2px;">⚠️ 개선 포인트:</div>' +
+                '<ul style="margin:0; padding-left:14px; color:#ffccd9;">' +
+                  (ve.weaknesses || []).map(w => '<li>' + esc(w) + '</li>').join('') +
+                '</ul>' +
+              '</div>' +
+              '<div style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:8px; padding:8px 10px; font-size:11px; color:var(--accent-cyan);">' +
+                '<b>💡 디자이너 피드백:</b> ' + esc(ve.visualImprovementTip || '명도 대비 강화 권장') +
+              '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>' : '') +
+
+    /* LEFT: VARIANT WORKBENCH — 탭(미니 갤러리)을 먼저, 그 아래에 선택된 시안의 편집 필드를
+       배치한다(2026-09-01, 사용자 피드백). 탭이 그 아래 필드보다 위에 있어야 "탭을 눌렀는데
+       뭐가 바뀌었는지" 스크롤 없이 바로 보인다. id="ab-workbench-card"는 "텍스트 적용" 클릭 시
+       자동 스크롤·하이라이트 타겟. */
+    '<div class="bento-card col-6" id="ab-workbench-card" style="display:flex; flex-direction:column; justify-content:space-between;">' +
       '<div>' +
+        /* 3-VARIANT MINIATURE COMPARISON GALLERY with Direct Image Drop */
+        '<div style="margin-bottom:14px; background:#060910; border:1px solid var(--border-subtle); border-radius:12px; padding:12px;">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
+            '<span style="font-weight:800; font-size:13px; color:' + colorMap[currentVariant.id] + '">💎 시안 ' + currentVariant.id + ' 설정 (' + (isShorts ? '쇼츠 9:16' : '롱폼 16:9') + ')</span>' +
+            '<span class="badge ' + badgeClassMap[currentVariant.id] + '">Variant ' + currentVariant.id + '</span>' +
+          '</div>' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">' +
+            '<span style="font-size:11px; font-weight:700; color:var(--text-muted);">👥 시안 A · B · C 썸네일 비교 (직접 선택)</span>' +
+          '</div>' +
+          '<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">' +
+            ['A', 'B', 'C'].map(vId => {
+              const v = gAbVariants.find(item => item.id === vId) || { id: vId, title: '', imageUrl: '' };
+              const isSelected = gAbSelectedVariantTab === vId;
+              const bColor = colorMap[vId] || 'var(--accent-cyan)';
+              return '<div class="btn-ab-tab-select ab-gallery-card" data-var="' + vId + '" title="클릭하여 선택하거나, 외부 이미지를 드롭하세요" style="cursor:pointer; background:#0a0e18; border:2px solid ' + (isSelected ? bColor : 'var(--border-subtle)') + '; border-radius:8px; padding:6px; transition:all 0.2s; box-shadow:' + (isSelected ? '0 0 10px rgba(0,240,255,0.2)' : 'none') + ';">' +
+                '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
+                  '<span style="font-weight:800; font-size:11px; color:' + bColor + ';">시안 ' + vId + '</span>' +
+                  '<button class="btn btn-xs btn-outline btn-ab-generate-card-thumb" data-var="' + vId + '"' + (report ? '' : ' disabled') + ' style="font-size:9px; padding:1px 5px; border-color:' + bColor + '; color:' + bColor + ';' + (report ? '' : ' opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? '이 시안의 썸네일을 AI로 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">🎨 생성</button>' +
+                '</div>' +
+                '<div style="width:100%; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; background:#05070c; border-radius:4px; overflow:hidden; margin-bottom:4px; display:flex; align-items:center; justify-content:center;">' +
+                  (v.imageUrl ? '<img src="' + esc(v.imageUrl) + '" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none; user-select:none; -webkit-user-drag:none;">' : '<div style="font-size:10px; color:' + bColor + '; text-align:center; padding:4px; line-height:1.2; border:1px dashed rgba(255,255,255,0.15); border-radius:4px; width:92%; height:88%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><span>🖼️</span><span style="font-size:9px; color:var(--text-muted); margin-top:2px;">새 시안 드롭</span></div>') +
+                '</div>' +
+                '<div style="font-size:10px; color:var(--text-normal); line-height:1.2; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; height:24px;" title="' + esc(v.title || '') + '">' +
+                  esc(v.title || '(제목 없음)') +
+                '</div>' +
+                /* 유튜브 Test & Compare에 실제로 올린 시안 표시 — 2026-09-02, 3종을 전부 만들어두고
+                   실제 유튜브 A/B 테스트로 겨루기로 한 워크플로우 지원. 체크 자체는 대시보드
+                   상태일 뿐 실제 업로드를 대신하지 않는다(사용자가 유튜브에 직접 올린 뒤 표시). */
+                '<label style="display:flex; align-items:center; gap:4px; margin-top:4px; font-size:9px; color:var(--text-muted); cursor:pointer;" onclick="event.stopPropagation()">' +
+                  '<input type="checkbox" class="cb-ab-in-use" data-var="' + vId + '"' + (v.inUse ? ' checked' : '') + ' style="cursor:pointer; margin:0;">' +
+                  (v.inUse ? '<span style="color:var(--accent-emerald); font-weight:700;">✅ 유튜브 테스트 중</span>' : '<span>유튜브 A/B 테스트에 사용</span>') +
+                '</label>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+
         '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">' +
           '<div style="margin-bottom:14px;">' +
             '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
@@ -5228,20 +5538,17 @@ function renderAbSimulatorTab() {
               '<input type="file" id="input-ab-file-upload" accept="image/*" style="display:none">' +
               '<button class="btn btn-sm btn-cyan" id="btn-ab-upload-trigger">📁 파일</button>' +
               '<button class="btn btn-sm btn-magenta" id="btn-ab-generate-workbench-thumb"' + (report ? '' : ' disabled') + ' style="' + (report ? '' : 'opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? 'AI가 이 시안의 주제와 카피로 4K 네온 배경을 1-Click 자동 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">🎨 AI 1-Click 생성</button>' +
+              '<button class="btn btn-sm btn-cyan" id="btn-ab-copy-workbench-prompt" title="API 비용 없이 이 시안 프롬프트를 복사해서 gemini.google.com(제미나이 유료 구독)에 직접 붙여넣어 생성할 수 있습니다">📋 프롬프트만 복사</button>' +
             '</div>' +
+            '<div style="font-size:10px; color:var(--accent-amber); margin-bottom:8px;">⚠️ 프롬프트만 복사해서 쓸 땐, 상단의 [채널 기준 인물] 이미지도 같이 복사해서 함께 첨부해야 매번 같은 얼굴로 나옵니다.</div>' +
             '<div id="ab-thumb-dropzone" style="width:100%; max-width:' + (isShorts ? '180px' : '100%') + '; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; margin:0 auto; background:#05070c; border:2px dashed var(--border-active); border-radius:10px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;">' +
               (currentVariant.imageUrl ? '<img src="' + esc(currentVariant.imageUrl) + '" style="width:100%; height:100%; object-fit:cover; background:#000;">' : '<div class="card-subtext" style="text-align:center; padding:10px;">🖼️ ' + (isShorts ? '쇼츠(9:16) 이미지' : '롱폼(16:9) 이미지') + '를 드래그하거나 [🎨 AI 1-Click 생성]을 누르세요</div>') +
-            '</div>' +
-            '<div style="margin-top:10px; padding-top:10px; border-top:1px dashed var(--border-subtle);">' +
-              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">🧪 커스텀 프롬프트 테스트 — 결과가 위 시안 ' + esc(currentVariant.id) + ' 미리보기에 바로 뜹니다(게이트 없음, 자유 실험용)</div>' +
-              '<textarea id="input-ab-custom-prompt" placeholder="여기에 프롬프트를 붙여넣으세요. 예: public/thumbnail-reference/test-prompts.md 의 3개 예시 중 하나." style="width:100%; min-height:90px; font-size:11px; font-family:monospace; padding:8px; resize:vertical; background:#05070c; border:1px solid var(--border-subtle); color:var(--text-bright); border-radius:6px;">' + esc(gAbCustomPromptDraft) + '</textarea>' +
-              '<button class="btn btn-sm btn-magenta" id="btn-ab-generate-custom-prompt" style="margin-top:6px; width:100%;">🎨 이 프롬프트로 시안 ' + esc(currentVariant.id) + ' 생성</button>' +
             '</div>' +
           '</div>' +
 
           '<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">' +
             '<div>' +
-              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">썸네일 텍스트 카피 (AI 분석용)</div>' +
+              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">썸네일 텍스트 카피 (진단 근거 + 생성 시 하단 문구)</div>' +
               '<input type="text" id="input-ab-variant-copy" value="' + esc(currentVariant.thumbnailCopy || '') + '" placeholder="예: WANT vs WONT 입모양" style="width:100%">' +
             '</div>' +
             '<div>' +
@@ -5249,40 +5556,11 @@ function renderAbSimulatorTab() {
               '<input type="text" id="input-ab-variant-badge" value="' + esc(currentVariant.badge || '') + '" placeholder="예: 1초 컷 / 비법 공개" style="width:100%">' +
             '</div>' +
           '</div>' +
-        '</div>' +
-      '</div>' +
 
-      /* 3-VARIANT MINIATURE COMPARISON GALLERY with Direct Image Drop */
-      '<div style="margin-top:14px; background:#060910; border:1px solid var(--border-subtle); border-radius:12px; padding:12px;">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
-          '<span style="font-weight:800; font-size:13px; color:' + colorMap[currentVariant.id] + '">💎 시안 ' + currentVariant.id + ' 설정 (' + (isShorts ? '쇼츠 9:16' : '롱폼 16:9') + ')</span>' +
-          '<span class="badge ' + badgeClassMap[currentVariant.id] + '">Variant ' + currentVariant.id + '</span>' +
-        '</div>' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">' +
-          '<span style="font-size:11px; font-weight:700; color:var(--text-muted);">👥 시안 A · B · C 썸네일 비교 (직접 선택)</span>' +
-          '<div style="display:flex; gap:6px;">' +
-            '<button class="btn btn-xs btn-magenta" id="btn-ab-generate-all-thumbs"' + (report ? '' : ' disabled') + ' style="' + (report ? '' : 'opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? '경쟁사 결핍을 분석하여 3개 시안의 고화질 썸네일을 모두 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">⚡ 3개 시안 동시 AI 생성</button>' +
+          '<div style="margin-top:10px;">' +
+            '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">🎨 비주얼 컨셉 힌트 (AI 5종의 "텍스트 적용" 시 자동 채워짐 — 생성 프롬프트에 실제로 반영됨)</div>' +
+            '<input type="text" id="input-ab-variant-visual" value="' + esc(currentVariant.visualConcept || '') + '" placeholder="예: 상단에 큰 X표시로 오답 강조, 좌우 대비 구도" style="width:100%">' +
           '</div>' +
-        '</div>' +
-        (report ? '' : '<div style="font-size:10px; color:var(--accent-amber); margin-bottom:8px;">⚠️ AI 이미지 생성은 잠겨 있습니다 — 상단 [🚀 Gemini AI CTR 정밀 진단]을 먼저 실행해 문구 5안을 확인하고 시안에 적용한 뒤 이용하세요.</div>') +
-        '<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">' +
-          ['A', 'B', 'C'].map(vId => {
-            const v = gAbVariants.find(item => item.id === vId) || { id: vId, title: '', imageUrl: '' };
-            const isSelected = gAbSelectedVariantTab === vId;
-            const bColor = colorMap[vId] || 'var(--accent-cyan)';
-            return '<div class="btn-ab-tab-select ab-gallery-card" data-var="' + vId + '" title="클릭하여 선택하거나, 외부 이미지를 드롭하세요" style="cursor:pointer; background:#0a0e18; border:2px solid ' + (isSelected ? bColor : 'var(--border-subtle)') + '; border-radius:8px; padding:6px; transition:all 0.2s; box-shadow:' + (isSelected ? '0 0 10px rgba(0,240,255,0.2)' : 'none') + ';">' +
-              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-                '<span style="font-weight:800; font-size:11px; color:' + bColor + ';">시안 ' + vId + '</span>' +
-                '<button class="btn btn-xs btn-outline btn-ab-generate-card-thumb" data-var="' + vId + '"' + (report ? '' : ' disabled') + ' style="font-size:9px; padding:1px 5px; border-color:' + bColor + '; color:' + bColor + ';' + (report ? '' : ' opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? '이 시안의 썸네일을 AI로 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">🎨 생성</button>' +
-              '</div>' +
-              '<div style="width:100%; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; background:#05070c; border-radius:4px; overflow:hidden; margin-bottom:4px; display:flex; align-items:center; justify-content:center;">' +
-                (v.imageUrl ? '<img src="' + esc(v.imageUrl) + '" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none; user-select:none; -webkit-user-drag:none;">' : '<div style="font-size:10px; color:' + bColor + '; text-align:center; padding:4px; line-height:1.2; border:1px dashed rgba(255,255,255,0.15); border-radius:4px; width:92%; height:88%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><span>🖼️</span><span style="font-size:9px; color:var(--text-muted); margin-top:2px;">새 시안 드롭</span></div>') +
-              '</div>' +
-              '<div style="font-size:10px; color:var(--text-normal); line-height:1.2; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; height:24px;" title="' + esc(v.title || '') + '">' +
-                esc(v.title || '(제목 없음)') +
-              '</div>' +
-            '</div>';
-          }).join('') +
         '</div>' +
       '</div>' +
     '</div>' +
@@ -5337,84 +5615,6 @@ function renderAbSimulatorTab() {
         '</div>' +
       '</div>' +
     '</div>' +
-
-    (report ?
-      '<div class="bento-card highlight-cyan col-12" id="ab-report-section">' +
-
-        /* Title + Visual Suite (5 types, merged — 적용은 텍스트만, 생성은 이미지까지) — 진단 스코어카드보다
-           먼저 보여줌: 바로 쓸 수 있는 제안이 스코어 분석보다 실행 우선순위가 높다. */
-        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:18px; margin-bottom:16px;">' +
-          '<div class="card-title" style="color:var(--accent-cyan); margin-bottom:4px;">⚡ GEMINI AI 추천 고클릭률 제목+비주얼 5종</div>' +
-          '<div class="card-subtext" style="margin-bottom:12px;">"텍스트 적용"은 제목·카피만 바꿉니다(무료·즉시). "이미지도 생성"은 이 문구 전용 프롬프트로 실제 썸네일까지 만듭니다(Gemini 호출 발생).</div>' +
-          '<div style="display:grid; gap:10px;">' +
-            (report.aiTitleSuggestions || []).map((s, sIdx) => {
-              return '<div style="background:#06080e; border:1px solid var(--border-subtle); border-radius:10px; padding:12px 14px;">' +
-                '<div style="display:flex; align-items:center; gap:10px; margin-bottom:6px; flex-wrap:wrap;">' +
-                  '<span class="badge" style="background:rgba(255,0,85,0.15); color:var(--accent-magenta); border:1px solid rgba(255,0,85,0.3); font-size:11px;">' + esc(s.type) + '</span>' +
-                  '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
-                '</div>' +
-                (s.thumbnailCopy ? '<div style="font-size:11px; color:var(--accent-amber); margin-bottom:6px;">✍️ 썸네일 카피(시청 후 보상): ' + esc(s.thumbnailCopy) + '</div>' : '') +
-                (s.designConcept ? '<div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">🎨 비주얼 컨셉: ' + esc(s.designConcept) + '</div>' : '') +
-                '<div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">' +
-                  '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
-                    '<span style="font-size:10px; color:var(--text-muted); align-self:center;">텍스트 적용:</span>' +
-                    '<button class="btn btn-sm btn-ab-apply-title" data-idx="' + sIdx + '" data-var="A" style="font-size:10px; padding:3px 8px;">A</button>' +
-                    '<button class="btn btn-sm btn-cyan btn-ab-apply-title" data-idx="' + sIdx + '" data-var="B" style="font-size:10px; padding:3px 8px;">B</button>' +
-                    '<button class="btn btn-sm btn-amber btn-ab-apply-title" data-idx="' + sIdx + '" data-var="C" style="font-size:10px; padding:3px 8px;">C</button>' +
-                  '</div>' +
-                  '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
-                    '<span style="font-size:10px; color:var(--text-muted); align-self:center;">이미지도 생성:</span>' +
-                    '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-idx="' + sIdx + '" data-var="A" style="font-size:10px; padding:3px 8px;">🎨 A</button>' +
-                    '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-idx="' + sIdx + '" data-var="B" style="font-size:10px; padding:3px 8px;">🎨 B</button>' +
-                    '<button class="btn btn-sm btn-magenta btn-ab-generate-img" data-idx="' + sIdx + '" data-var="C" style="font-size:10px; padding:3px 8px;">🎨 C</button>' +
-                    '<button class="btn btn-sm btn-ab-copy-prompt" data-prompt="' + encodeURIComponent(s.midjourneyPrompt || '') + '" style="font-size:10px; padding:3px 8px;">📋</button>' +
-                  '</div>' +
-                '</div>' +
-              '</div>';
-            }).join('') +
-          '</div>' +
-        '</div>' +
-
-        '<div class="card-title" style="color:var(--accent-cyan)">GEMINI CTR INTELLIGENCE VERDICT</div>' +
-        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; margin-top:16px;">' +
-          (report.variantsEvaluation || []).map(ve => {
-            const vKey = ve.variantKey;
-            const bCol = colorMap[vKey] || 'var(--accent-cyan)';
-            return '<div style="background:#080c14; border:1px solid ' + (vKey === report.bestVariant ? bCol : 'var(--border-subtle)') + '; border-radius:14px; padding:16px;">' +
-              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
-                '<span style="font-weight:800; font-size:16px; color:' + bCol + '">시안 ' + vKey + '</span>' +
-                '<span class="badge badge-pass" style="font-size:12px;">예상 CTR ' + esc(ve.predictedCtrRange || '') + '</span>' +
-              '</div>' +
-              '<div style="display:grid; gap:8px; margin-bottom:12px;">' +
-                '<div>' +
-                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>호기심 갭 (Curiosity)</span><b>' + (ve.curiosityGapScore||0) + '점</b></div>' +
-                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.curiosityGapScore||0) + '%; height:100%; background:var(--accent-magenta);"></div></div>' +
-                '</div>' +
-                '<div>' +
-                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>시각 시선 강도 (Salience)</span><b>' + (ve.visualSalienceScore||0) + '점</b></div>' +
-                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.visualSalienceScore||0) + '%; height:100%; background:var(--accent-cyan);"></div></div>' +
-                '</div>' +
-              '</div>' +
-              '<div style="font-size:11px; margin-bottom:8px;"><b style="color:var(--accent-cyan);">🎯 핵심 시선점:</b> ' + esc(ve.focalPoint || '전체 고른 시선') + '</div>' +
-              '<div style="background:rgba(0,0,0,0.3); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
-                '<div style="color:var(--accent-emerald); font-weight:700; margin-bottom:2px;">✅ 시각 강점:</div>' +
-                '<ul style="margin:0; padding-left:14px; color:var(--text-bright);">' +
-                  (ve.strengths || []).map(s => '<li>' + esc(s) + '</li>').join('') +
-                '</ul>' +
-              '</div>' +
-              '<div style="background:rgba(255,100,100,0.08); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
-                '<div style="color:#ff7676; font-weight:700; margin-bottom:2px;">⚠️ 개선 포인트:</div>' +
-                '<ul style="margin:0; padding-left:14px; color:#ffccd9;">' +
-                  (ve.weaknesses || []).map(w => '<li>' + esc(w) + '</li>').join('') +
-                '</ul>' +
-              '</div>' +
-              '<div style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:8px; padding:8px 10px; font-size:11px; color:var(--accent-cyan);">' +
-                '<b>💡 디자이너 피드백:</b> ' + esc(ve.visualImprovementTip || '명도 대비 강화 권장') +
-              '</div>' +
-            '</div>';
-          }).join('') +
-        '</div>' +
-      '</div>' : '') +
   '</div>';
 }
 
@@ -5428,10 +5628,10 @@ function bindAbSimulatorEvents() {
     saveAbSimulatorState(); 
   };
 
-  const audienceSelect = document.getElementById('select-ab-audience');
-  if (audienceSelect) audienceSelect.onchange = (e) => { 
-    gAbAudience = e.target.value; 
-    saveAbSimulatorState(); 
+  const audienceInput = document.getElementById('input-ab-audience');
+  if (audienceInput) audienceInput.oninput = (e) => {
+    gAbAudience = e.target.value;
+    saveAbSimulatorState();
   };
 
   // 2. Variant Title input & char count
@@ -5469,10 +5669,16 @@ function bindAbSimulatorEvents() {
   };
 
   const badgeInput = document.getElementById('input-ab-variant-badge');
-  if (badgeInput) badgeInput.oninput = (e) => { 
-    currentVar.badge = e.target.value; 
-    saveAbSimulatorState(); 
-    renderAbFeedOnly(); 
+  if (badgeInput) badgeInput.oninput = (e) => {
+    currentVar.badge = e.target.value;
+    saveAbSimulatorState();
+    renderAbFeedOnly();
+  };
+
+  const visualConceptInput = document.getElementById('input-ab-variant-visual');
+  if (visualConceptInput) visualConceptInput.oninput = (e) => {
+    currentVar.visualConcept = e.target.value;
+    saveAbSimulatorState();
   };
 
   // Helper: Apply Image from Local File
@@ -5485,6 +5691,11 @@ function bindAbSimulatorEvents() {
       if (gAbActiveFeedView !== 'ALL') {
         gAbActiveFeedView = targetVar.id;
       }
+      // blob: URL로 즉시 미리보기(네트워크 대기 없이 바로 보이게) — 이건 이 브라우저 탭에서만
+      // 유효하므로 최종 저장값으로 쓰지 않는다. 아래에서 서버 업로드가 끝나면 짧은
+      // /api/temp-thumbnail/... URL로 덮어써서 새로고침·다른 PC에서도 열리게 한다
+      // (2026-09-02 — 예전엔 blob:+base64를 그대로 상태에 남겨서 새로고침하면 깨지고,
+      // 시안 3개를 다 채우면 상태 동기화 요청이 커져 조용히 실패하곤 했다).
       const blobUrl = URL.createObjectURL(file);
       targetVar.imageUrl = blobUrl;
       targetVar.isLocalFile = true;
@@ -5496,23 +5707,39 @@ function bindAbSimulatorEvents() {
         } else if (img.naturalWidth > img.naturalHeight * 1.15) {
           gAbFormat = 'LONGFORM';
         }
-        saveAbSimulatorState();
         renderAbSimulatorTabDirect();
       };
       img.src = blobUrl;
+      renderAbSimulatorTabDirect();
 
       const reader = new FileReader();
       reader.onload = (event) => {
-        targetVar._base64Data = event.target.result;
-        saveAbSimulatorState();
+        fetch('/api/ab-simulator/upload-local-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dataUrl: event.target.result, variantKey: targetVar.id }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.ok) throw new Error(data.error || '업로드 실패');
+            URL.revokeObjectURL(blobUrl);
+            targetVar.imageUrl = data.imageUrl;
+            delete targetVar._base64Data;
+            saveAbSimulatorState();
+            renderAbSimulatorTabDirect();
+            showToast('🖼️ 시안 ' + targetVar.id + '에 썸네일 이미지가 저장됐습니다!');
+          })
+          .catch((err) => {
+            // 실패해도 blob: 미리보기는 화면에 남아있지만, 이 값은 새로고침하면 사라지고
+            // 서버/다른 PC에도 안 남는다는 걸 반드시 알려야 한다(예전엔 조용히 실패해서
+            // "드래그앤드롭했는데 저장이 안 되는 것 같다"는 혼란을 만들었다).
+            showToast('❌ 이미지 서버 저장 실패 — 새로고침하면 사라집니다: ' + err.message);
+          });
       };
       reader.readAsDataURL(file);
-
-      saveAbSimulatorState();
-      renderAbSimulatorTabDirect();
-      showToast('🖼️ 시안 ' + targetVar.id + '에 썸네일 이미지가 성공적으로 적용되었습니다!');
     } catch (err) {
       console.error('File load error:', err);
+      showToast('❌ 이미지를 불러오지 못했습니다: ' + err.message);
     }
   }
 
@@ -5680,6 +5907,22 @@ function bindAbSimulatorEvents() {
       btn.style.background = '#0a0e18';
       const targetVarId = btn.dataset.var;
       handleDropOrPaste(e, true, targetVarId);
+    };
+  });
+
+  // 8-2. "유튜브 A/B 테스트에 사용" 체크 — 3종을 전부 만들어두고 유튜브 자체 Test & Compare로
+  // 겨루는 워크플로우 지원(2026-09-02). 체크 자체는 대시보드 기록일 뿐 실제 업로드를 대신하지
+  // 않는다 — 사용자가 유튜브에 직접 올린 뒤 표시하는 용도.
+  document.querySelectorAll('.cb-ab-in-use').forEach(cb => {
+    cb.onclick = (e) => e.stopPropagation();
+    cb.onchange = (e) => {
+      const vId = e.target.dataset.var;
+      const targetVar = gAbVariants.find(v => v.id === vId);
+      if (targetVar) {
+        targetVar.inUse = e.target.checked;
+        saveAbSimulatorState();
+        renderAbSimulatorTabDirect();
+      }
     };
   });
 
@@ -5929,6 +6172,38 @@ function bindAbSimulatorEvents() {
     };
   }
 
+  // 채널 기준 인물 이미지를 클립보드로 복사 — 제미나이 웹에서 프롬프트와 함께 붙여넣을 수 있게.
+  // 텍스트 복사(execCommand)와 달리 이미지는 Clipboard API(ClipboardItem)가 유일한 방법이라
+  // 폴백이 마땅치 않음 — 실패하면 새 탭에서 열어 우클릭 복사하도록 안내한다.
+  // ⚠️ 원본 파일은 image/jpeg인데 Chromium의 ClipboardItem.write()는 image/png만 지원한다
+  // (image/jpeg를 그대로 넘기면 "Type image/jpeg not supported on write" 예외가 매번 발생해
+  // 이 기능이 100% 실패했다 — 2026-09-01 Playwright 검증 중 발견). 그래서 fetch한 jpeg blob을
+  // <canvas>에 그린 뒤 canvas.toBlob('image/png')로 변환해 png로만 클립보드에 쓴다.
+  const copyPresenterRefHandler = async () => {
+    try {
+      const res = await fetch('/api/presenter-reference');
+      if (!res.ok) throw new Error('이미지를 찾을 수 없습니다');
+      const jpegBlob = await res.blob();
+      const bitmap = await createImageBitmap(jpegBlob);
+      const canvas = document.createElement('canvas');
+      canvas.width = bitmap.width;
+      canvas.height = bitmap.height;
+      canvas.getContext('2d').drawImage(bitmap, 0, 0);
+      const pngBlob = await new Promise((resolve, reject) => {
+        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('PNG 변환 실패'))), 'image/png');
+      });
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob })]);
+      showToast('📋 채널 기준 인물 이미지가 복사되었습니다! 제미나이 웹에 Ctrl+V로 붙여넣으세요.');
+    } catch (err) {
+      showToast('❌ 자동 복사에 실패했습니다 — 이미지를 새 탭에서 열어 우클릭으로 복사해주세요.');
+      window.open('/api/presenter-reference', '_blank');
+    }
+  };
+  const presenterRefImg = document.getElementById('ab-presenter-ref-img');
+  if (presenterRefImg) presenterRefImg.onclick = copyPresenterRefHandler;
+  const copyPresenterRefBtn = document.getElementById('btn-ab-copy-presenter-ref');
+  if (copyPresenterRefBtn) copyPresenterRefBtn.onclick = copyPresenterRefHandler;
+
   // 13. Run AI Evaluation Button
   const runAiBtn = document.getElementById('btn-ab-run-ai');
   if (runAiBtn) {
@@ -5987,50 +6262,30 @@ function bindAbSimulatorEvents() {
       if (targetVar && suggestion) {
         targetVar.title = suggestion.title || '';
         targetVar.thumbnailCopy = suggestion.thumbnailCopy || targetVar.thumbnailCopy;
+        // designConcept(비주얼 컨셉 한 줄)도 같이 저장 — buildThumbnailPrompt가 이걸 프롬프트에
+        // 반영해서, 5종 제안마다 실제로 다른 비주얼이 나오게 한다(2026-09-01, 예전엔 텍스트만
+        // 반영되고 이 필드는 화면 표시용으로만 쓰이던 dead data였음 — 사용자 지적으로 발견).
+        targetVar.visualConcept = suggestion.designConcept || '';
+        // suggestedBadge도 같이 적용 — B/C에 적용할 때 뱃지 칸이 안 채워지는 걸 사용자가 지적해서
+        // 발견(2026-09-02). 아이디어 보드의 suggestedBadge와 같은 패턴으로 스키마에 추가.
+        // 구버전 캐시(필드 없음)에도 안전하도록 없으면 건드리지 않고 기존 값 유지.
+        if (suggestion.suggestedBadge) targetVar.badge = suggestion.suggestedBadge;
+        // 적용한 시안으로 워크벤치 포커스도 같이 옮긴다 — "지금 워크벤치 = 시안 X" 배지와
+        // 텍스트 적용 버튼의 강조 표시가 방금 클릭한 시안으로 바로 따라오게.
+        gAbSelectedVariantTab = targetVarId;
         saveAbSimulatorState();
-        showToast('시안 ' + targetVarId + '에 제목·카피가 적용됐습니다 (이미지는 그대로예요 — 옆의 🎨 버튼으로 채우세요)');
+        showToast('시안 ' + targetVarId + '에 제목·카피·뱃지·비주얼 컨셉이 적용됐습니다 (이미지 자체는 그대로예요 — 옆의 🎨 버튼으로 채우세요)');
         renderAbSimulatorTabDirect();
-      }
-    };
-  });
-
-  // 15. Copy AI Image Prompt Buttons
-  document.querySelectorAll('.btn-ab-copy-prompt').forEach(btn => {
-    btn.onclick = () => {
-      const promptText = decodeURIComponent(btn.dataset.prompt || '');
-      if (!promptText) {
-        showToast('❌ 복사할 프롬프트가 비어 있습니다.');
-        return;
-      }
-      // execCommand 기반 수동 복사 — Clipboard API가 권한 거부(NotAllowedError 등)로 실패할 때의 폴백.
-      const copyViaExecCommand = () => {
-        try {
-          const ta = document.createElement('textarea');
-          ta.value = promptText;
-          ta.style.position = 'fixed';
-          ta.style.opacity = '0';
-          document.body.appendChild(ta);
-          ta.focus();
-          ta.select();
-          const ok = document.execCommand('copy');
-          document.body.removeChild(ta);
-          if (ok) {
-            showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!');
-          } else {
-            showToast('❌ 복사에 실패했습니다 — 프롬프트를 직접 드래그해서 복사해주세요.');
-          }
-        } catch (err) {
-          showToast('❌ 복사에 실패했습니다 — 프롬프트를 직접 드래그해서 복사해주세요.');
+        // 리포트 섹션(아래)에서 클릭했는데 반영 결과는 워크벤치(위)에 나타나므로, 자동
+        // 스크롤+짧은 하이라이트로 스크롤 없이 바로 보이게 한다(2026-09-01, 사용자 피드백).
+        const wbCard = document.getElementById('ab-workbench-card');
+        if (wbCard) {
+          wbCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          wbCard.classList.remove('ab-just-applied');
+          void wbCard.offsetWidth; // 같은 클래스를 연속 클릭 시에도 애니메이션이 재시작되도록 강제 리플로우
+          wbCard.classList.add('ab-just-applied');
+          setTimeout(() => wbCard.classList.remove('ab-just-applied'), 900);
         }
-      };
-      // Clipboard API는 실패해도(권한 거부 등) 예외를 던지지 않고 조용히 reject되므로,
-      // .catch() 없이 두면 실제로는 실패했는데 성공 토스트가 뜨는 버그가 생긴다 — 반드시 폴백으로 이어줄 것.
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(promptText)
-          .then(() => showToast('📋 AI 썸네일 생성 프롬프트가 복사되었습니다!'))
-          .catch(() => copyViaExecCommand());
-      } else {
-        copyViaExecCommand();
       }
     };
   });
@@ -6063,6 +6318,7 @@ function bindAbSimulatorEvents() {
           topic: gAbTopic || targetVar.title || '',
           format: gAbFormat,
           engine: 'gemini',
+          visualConcept: targetVar.visualConcept || '',
         }),
       });
 
@@ -6088,20 +6344,6 @@ function bindAbSimulatorEvents() {
     }
   };
 
-  document.querySelectorAll('.btn-ab-generate-img').forEach(btn => {
-    btn.onclick = () => {
-      const vKey = btn.dataset.var;
-      const suggestion = ((gAbAiReport && gAbAiReport.aiTitleSuggestions) || [])[Number(btn.dataset.idx)];
-      const targetVar = gAbVariants.find(v => v.id === vKey);
-      if (!suggestion || !targetVar) return;
-      // 이미지는 이 문구 전용 프롬프트로 만드는 거라, 먼저 시안의 제목·카피를 같은 문구로 맞춰야
-      // 텍스트와 이미지가 서로 다른 얘기를 하지 않는다.
-      targetVar.title = suggestion.title || '';
-      targetVar.thumbnailCopy = suggestion.thumbnailCopy || targetVar.thumbnailCopy;
-      generateImgForVariant(vKey, suggestion.midjourneyPrompt || '', btn);
-    };
-  });
-
   const wbGenBtn = document.getElementById('btn-ab-generate-workbench-thumb');
   if (wbGenBtn) {
     wbGenBtn.onclick = () => {
@@ -6109,20 +6351,62 @@ function bindAbSimulatorEvents() {
     };
   }
 
-  const customPromptTa = document.getElementById('input-ab-custom-prompt');
-  if (customPromptTa) {
-    customPromptTa.oninput = (e) => { gAbCustomPromptDraft = e.target.value; };
-  }
+  // 제미나이 유료 구독으로 직접(API 비용 없이) 생성하고 싶을 때 — 실제 자동 생성과 똑같은
+  // 프롬프트를 서버에서 받아와 복사만 해준다(이미지 생성 자체는 안 함).
+  const wbCopyPromptBtn = document.getElementById('btn-ab-copy-workbench-prompt');
+  if (wbCopyPromptBtn) {
+    wbCopyPromptBtn.onclick = async () => {
+      const targetVar = gAbVariants.find(v => v.id === gAbSelectedVariantTab) || currentVar;
+      const originalText = wbCopyPromptBtn.innerHTML;
+      wbCopyPromptBtn.disabled = true;
+      wbCopyPromptBtn.innerHTML = '⏳ 준비 중...';
+      try {
+        const res = await fetch('/api/ab-simulator/thumbnail-prompt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            variantKey: gAbSelectedVariantTab,
+            title: targetVar.title || gAbTopic || '',
+            thumbnailCopy: targetVar.thumbnailCopy || '',
+            badge: targetVar.badge || '',
+            topic: gAbTopic || targetVar.title || '',
+            format: gAbFormat,
+            visualConcept: targetVar.visualConcept || '',
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '프롬프트 생성 실패');
 
-  const customPromptBtn = document.getElementById('btn-ab-generate-custom-prompt');
-  if (customPromptBtn) {
-    customPromptBtn.onclick = () => {
-      const customText = gAbCustomPromptDraft.trim();
-      if (!customText) {
-        showToast('❌ 먼저 프롬프트를 입력하세요.');
-        return;
+        const promptText = data.prompt || '';
+        const copyViaExecCommand = () => {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = promptText;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            const ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(ok ? '📋 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.' : '❌ 복사에 실패했습니다.');
+          } catch (err) {
+            showToast('❌ 복사에 실패했습니다.');
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(promptText)
+            .then(() => showToast('📋 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.'))
+            .catch(() => copyViaExecCommand());
+        } else {
+          copyViaExecCommand();
+        }
+      } catch (err) {
+        showToast('❌ 프롬프트 준비 오류: ' + err.message);
+      } finally {
+        wbCopyPromptBtn.disabled = false;
+        wbCopyPromptBtn.innerHTML = originalText;
       }
-      generateImgForVariant(gAbSelectedVariantTab, customText, customPromptBtn);
     };
   }
 
@@ -6135,33 +6419,18 @@ function bindAbSimulatorEvents() {
     };
   });
 
-  // Batch 3-Variant AI Generation Button
-  const allGenBtn = document.getElementById('btn-ab-generate-all-thumbs');
-  if (allGenBtn) {
-    allGenBtn.onclick = async () => {
-      allGenBtn.disabled = true;
-      const originalText = allGenBtn.innerHTML;
-      allGenBtn.innerHTML = '⏳ 3개 시안 순차 생성 중...';
-      try {
-        for (const vKey of ['A', 'B', 'C']) {
-          await generateImgForVariant(vKey, '', null);
-        }
-        showToast('🎉 시안 A, B, C 전체 3종의 레퍼런스급 썸네일 생성이 완료되었습니다!');
-      } finally {
-        allGenBtn.disabled = false;
-        allGenBtn.innerHTML = originalText;
-      }
-    };
-  }
-
-  // Prefetch competitor videos if not yet loaded
-  if (gAbCompetitors.length === 0) {
-    fetch('/api/ab-simulator/competitors').then(r => r.json()).then(data => {
+  // Prefetch/refresh competitor videos — topic이 바뀌면(예: 아이디어 보드에서 핸드오프) 다시
+  // 가져온다. 예전엔 한 번만 불러온 뒤 화면 어디에도 안 쓰이던 죽은 데이터였음(2026-09-01 수정) —
+  // 이제 LIVE MOBILE FEED PREVIEW의 경쟁 영상 카드들이 이 데이터를 실제로 그린다.
+  if (gAbCompetitors.length === 0 || gAbCompetitorsFetchedForTopic !== gAbTopic) {
+    const topicAtFetch = gAbTopic;
+    gAbCompetitorsFetchedForTopic = topicAtFetch; // 같은 topic으로 재렌더될 때마다 중복 요청 방지(낙관적 마킹)
+    fetch('/api/ab-simulator/competitors?topic=' + encodeURIComponent(topicAtFetch)).then(r => r.json()).then(data => {
       if (data.competitors && data.competitors.length > 0) {
         gAbCompetitors = data.competitors;
         renderAbFeedOnly();
       }
-    }).catch(() => {});
+    }).catch(() => { gAbCompetitorsFetchedForTopic = null; }); // 실패하면 다음 렌더에서 재시도
   }
 }
 
@@ -6359,6 +6628,8 @@ function renderIdeaBoardTab() {
         '</div>' +
         '<div style="font-size:13px;color:var(--accent-amber);margin:8px 0">🎣 ' + esc(c.angleOrHook || '') + '</div>' +
         '<div style="font-size:12px;color:var(--text-normal);margin-bottom:10px">' + esc(c.rationale || '') + '</div>' +
+        (c.targetAudience ? '<div style="font-size:11px;color:var(--accent-cyan);margin-bottom:6px">👥 ' + esc(c.targetAudience) + '</div>' : '') +
+        (c.suggestedBadge ? '<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">🏷️ 추천 뱃지: ' + esc(c.suggestedBadge) + '</div>' : '') +
         ((c.dataSourceRefs && c.dataSourceRefs.length) ?
           '<div style="margin-bottom:10px">' + c.dataSourceRefs.map((r) => '<span class="tag-chip" style="font-size:10px">' + esc(srcLabel[r.source] || r.source) + ': ' + esc(r.detail || '') + '</span>').join('') + '</div>' : '') +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
@@ -6374,6 +6645,7 @@ function renderIdeaBoardTab() {
       '<div class="card-title" style="color:#ffccd9">선택된 기획</div>' +
       '<h3 style="color:#fff;margin-top:4px">' + esc(gIdeaBoardSelected.topic || '') + '</h3>' +
       '<div class="card-subtext">' + esc(gIdeaBoardSelected.rationale || '') + '</div>' +
+      (gIdeaBoardSelected.targetAudience ? '<div style="font-size:12px;color:var(--accent-cyan);margin-top:6px">👥 타겟 시청자층: ' + esc(gIdeaBoardSelected.targetAudience) + '</div>' : '') +
       '<div style="margin-top:12px"><button class="btn btn-cyan" id="btn-idea-board-handoff">🎯 제목·썸네일 확정하러 가기</button></div>' +
     '</div>';
   }
@@ -6434,11 +6706,27 @@ function bindIdeaBoardEvents() {
       if (!sel) return;
       gAbFormat = sel.suggestedFormat === 'SHORTS' ? 'SHORTS' : 'LONGFORM';
       gAbTopic = sel.topic;
-      gAbVariants[0] = {id: 'A', title: sel.topic, imageUrl: '', thumbnailCopy: sel.angleOrHook || '', badge: '기획 보드 선정안', isLocalFile: false};
-      gAbVariants[1] = {id: 'B', title: sel.topic + ' (변형안 B)', imageUrl: '', thumbnailCopy: '', badge: '', isLocalFile: false};
-      gAbVariants[2] = {id: 'C', title: sel.topic + ' (변형안 C)', imageUrl: '', thumbnailCopy: '', badge: '', isLocalFile: false};
+      // 예전엔 핸드오프가 gAbAudience를 아예 안 건드려서 이전 값이 그대로 남았다(사용자 지적,
+      // 2026-09-01) — 아이디어 후보의 targetAudience(이 소재에 맞춰 AI가 추천한 구체적 타겟)를
+      // 그대로 반영한다. 후보에 없으면(구버전 캐시 등) 채널 기본값으로 폴백.
+      gAbAudience = sel.targetAudience || '3060 성인 & 왕초보 영어 학습자';
+      // B/C는 "(변형안 B)" 같은 문자열을 붙인 가짜 제목을 채우지 않는다 — 실제로 정해진 게
+      // 없는데 진짜 제목처럼 보이면, 여기서 바로 진단을 돌렸을 때 그 가짜 문구를 채점해버린다
+      // (2026-09-01, 사용자 지적). 아직 안 정해졌으면 빈 칸으로 둬서 "🚀 진단"으로 받은 5종
+      // 추천 중 다른 걸 B/C에 각각 적용하는 게 다음 단계임을 명확히 한다.
+      // badge는 단순 메모가 아니라 실제 생성되는 썸네일 이미지에 그대로 그려지는 네온 뱃지
+      // 문구다(buildThumbnailPrompt) — "기획 보드 선정안"(내부 라벨)을 넣으면 시청자용 썸네일에
+      // 그대로 박혀 나왔던 버그를 빈 칸으로 고쳤었는데, 빈 칸도 최선은 아니다(사용자 지적,
+      // 2026-09-01) — 이 소재에 맞는 진짜 뱃지 문구를 AI가 추천하게(suggestedBadge) 스키마를
+      // 확장해서 자동으로 채운다. 후보에 없으면(구버전 캐시 등) 빈 칸 → 시안별 기본 뱃지로 폴백.
+      gAbVariants[0] = {id: 'A', title: sel.topic, imageUrl: '', thumbnailCopy: sel.angleOrHook || '', badge: sel.suggestedBadge || '', visualConcept: '', isLocalFile: false};
+      gAbVariants[1] = {id: 'B', title: '', imageUrl: '', thumbnailCopy: '', badge: '', visualConcept: '', isLocalFile: false};
+      gAbVariants[2] = {id: 'C', title: '', imageUrl: '', thumbnailCopy: '', badge: '', visualConcept: '', isLocalFile: false};
       gAbSelectedVariantTab = 'A';
       gAbActiveFeedView = 'A';
+      // 이전 진단(gAbAiReport)은 완전히 다른 소재/시안을 평가한 결과라 그대로 두면 새 소재를 진단한
+      // 것처럼 오인된다(2026-09-02, 실제로 이 문제 때문에 혼란이 생겨서 발견) — 핸드오프 시 항상 비움.
+      gAbAiReport = null;
       saveAbSimulatorState();
       switchTab('tab-ab-simulator');
       showToast('💡 기획 보드에서 선택한 소재가 A/B 시뮬레이터에 로드되었습니다!');
@@ -6708,6 +6996,17 @@ const server = createServer(async (req, res) => {
       const image = await readFile(filePath);
       const contentType = filename.endsWith('.png') ? 'image/png' : filename.endsWith('.svg') ? 'image/svg+xml' : 'image/jpeg';
       res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
+      res.end(image);
+      return;
+    }
+    if (url.pathname === '/api/presenter-reference') {
+      // 채널 기준 인물(public/brand/thumbnail-presenter-reference.jpg)을 대시보드에서 직접
+      // 보고 복사할 수 있게 서빙 — 제미나이 웹에서 수동 생성할 때 이 이미지를 같이 첨부해야
+      // 실제 생성 경로(레퍼런스 이미지 첨부)와 결과가 어긋나지 않는다(2026-09-01).
+      const refPath = join(projectDir, 'public', 'brand', 'thumbnail-presenter-reference.jpg');
+      if (!existsSync(refPath)) return json(res, 404, {error: '아직 기준 인물 이미지가 설정되지 않았습니다.'});
+      const image = await readFile(refPath);
+      res.writeHead(200, {'Content-Type': 'image/jpeg', 'Cache-Control': 'max-age=3600'});
       res.end(image);
       return;
     }
@@ -6995,7 +7294,8 @@ const server = createServer(async (req, res) => {
       }
     }
     if (url.pathname === '/api/ab-simulator/competitors') {
-      const competitors = await getMockCompetitorVideos();
+      const topic = url.searchParams.get('topic') || '';
+      const competitors = await getMockCompetitorVideos({ topic });
       return json(res, 200, {ok: true, competitors});
     }
     if (url.pathname === '/api/ab-simulator/evaluate' && req.method === 'POST') {
@@ -7025,6 +7325,26 @@ const server = createServer(async (req, res) => {
         return json(res, 500, {error: err.message});
       }
     }
+    if (url.pathname === '/api/ab-simulator/thumbnail-prompt' && req.method === 'POST') {
+      // API로 직접 생성하지 않고, 사용자가 제미나이 웹(유료 구독)에 직접 붙여넣을 프롬프트만
+      // 돌려준다 — buildThumbnailPrompt는 순수 함수라 Gemini API 호출이 없고 비용도 안 든다.
+      const body = await readJsonBody(req);
+      try {
+        const built = buildThumbnailPrompt({
+          topic: body.topic || '',
+          variantKey: body.variantKey || 'A',
+          title: body.title || '',
+          thumbnailCopy: body.thumbnailCopy || '',
+          badge: body.badge || '',
+          format: body.format || 'LONGFORM',
+          hasPersonReference: await hasPresenterReference(),
+          visualConcept: body.visualConcept || '',
+        });
+        return json(res, 200, {ok: true, prompt: built.prompt});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
     if (url.pathname === '/api/ab-simulator/generate-image' && req.method === 'POST') {
       const body = await readJsonBody(req);
       const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
@@ -7039,8 +7359,46 @@ const server = createServer(async (req, res) => {
           format: body.format || 'LONGFORM',
           engine: body.engine || 'flux',
           geminiKey,
+          visualConcept: body.visualConcept || '',
         });
         return json(res, 200, {ok: true, ...result});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // 드래그앤드롭/파일 업로드로 넣은 로컬 이미지를 서버 파일로 저장 — 예전엔 blob: URL +
+    // base64를 그대로 상태에 남겨서 (1) blob:은 그 브라우저 탭에서만 유효해 새로고침/다른 PC에서
+    // 못 열리고, (2) base64가 시안당 수 MB라 A/B/C 세 개를 다 채우면 상태 동기화 요청이 커져서
+    // 조용히 실패하기 쉬웠다(2026-09-02, 사용자가 "드래그앤드롭했는데 서버 연결이 안 되는 것 같다"고
+    // 지적해서 발견). AI 1-Click 생성(`persistGeneratedImage`)과 똑같이 파일로 저장해 짧은
+    // `/api/temp-thumbnail/...` URL만 상태에 남기도록 통일한다.
+    if (url.pathname === '/api/ab-simulator/upload-local-image' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      try {
+        const result = await persistGeneratedImage({
+          engineLabel: 'local-upload',
+          dataUrl: body.dataUrl,
+          variantKey: body.variantKey || 'A',
+        });
+        return json(res, 200, {ok: true, ...result});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // A/B 시뮬레이터 상태도 서버 파일로 저장(아이디어 보드와 같은 이유, 2026-09-02).
+    if (url.pathname === '/api/ab-simulator/state' && req.method === 'GET') {
+      try {
+        const state = await loadJson(abSimulatorStatePath, {});
+        return json(res, 200, state || {});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    if (url.pathname === '/api/ab-simulator/state' && req.method === 'POST') {
+      try {
+        const body = await readJsonBody(req);
+        await writeFile(abSimulatorStatePath, JSON.stringify(body, null, 2), 'utf8');
+        return json(res, 200, {ok: true});
       } catch (err) {
         return json(res, 500, {error: err.message});
       }
@@ -7093,6 +7451,25 @@ const server = createServer(async (req, res) => {
           successPatterns: patternsStore.entries || [],
         });
         return json(res, 200, {ok: true, ...result});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // 아이디어 보드 상태(후보·선택)를 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서
+    // 똑같은 유료 Gemini 호출을 불필요하게 반복해야 했음(2026-09-02, 사용자 지적으로 발견).
+    if (url.pathname === '/api/idea-board/state' && req.method === 'GET') {
+      try {
+        const state = await loadJson(ideaBoardStatePath, {});
+        return json(res, 200, state || {});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    if (url.pathname === '/api/idea-board/state' && req.method === 'POST') {
+      try {
+        const body = await readJsonBody(req);
+        await writeFile(ideaBoardStatePath, JSON.stringify(body, null, 2), 'utf8');
+        return json(res, 200, {ok: true});
       } catch (err) {
         return json(res, 500, {error: err.message});
       }

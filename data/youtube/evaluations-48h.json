@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T12:57:48.104Z",
-  "reportEndDate": "2026-08-28",
+  "generatedAt": "2026-09-01T09:21:07.833Z",
+  "reportEndDate": "2026-08-30",
   "evaluations": [
     {
       "contentId": "s1-ep08-shorts-b",
@@ -17,7 +17,7 @@
       "decisionStatus": "pass",
       "label": "통과",
       "reason": "평균 시청률 65.7%로 최소 기준 통과",
-      "evaluatedAt": "2026-08-30T12:57:48.104Z",
+      "evaluatedAt": "2026-09-01T09:21:07.833Z",
       "metrics": {
         "views": 1578,
         "estimatedMinutesWatched": 243,

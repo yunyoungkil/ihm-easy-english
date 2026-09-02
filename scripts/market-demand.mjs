@@ -129,6 +129,16 @@ function chunk(arr, size) {
   return out;
 }
 
+// ISO 8601 duration ("PT4M13S") → seconds. 이 프로젝트의 기존 관례
+// (youtube-analytics-server.mjs의 durationSeconds/creatorContentType)와 동일하게
+// 60초 이하를 쇼츠로 판정한다 — 다른 곳과 기준을 다르게 두지 않기 위함.
+function durationSecondsFromIso(iso) {
+  const match = String(iso || '').match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!match) return null;
+  const [, h, m, s] = match;
+  return Number(h || 0) * 3600 + Number(m || 0) * 60 + Number(s || 0);
+}
+
 // Common particles/punctuation/emoji noise stripped before counting title
 // words — not real Korean morphological analysis, just enough to keep
 // frequent CONTENT words (not grammar glue) visible in the output.
@@ -250,13 +260,16 @@ async function main() {
   }
   const MS_PER_DAY = 86_400_000;
   const now = Date.now();
-  const videoStats = new Map(); // videoId -> { viewCount, viewsPerDay, channelId, title, publishedAt }
+  const videoStats = new Map(); // videoId -> { viewCount, viewsPerDay, channelId, title, publishedAt, durationSeconds, isShort }
   for (const batch of chunk([...allVideoIds], 50)) {
-    const data = await apiGet("videos", { id: batch.join(","), part: "snippet,statistics" });
+    // contentDetails를 같이 요청해도 videos.list 쿼터 비용은 그대로다(파트 개수가 아니라 호출
+    // 1회당 ~1 unit) — 롱폼/쇼츠 구분 신호(duration)를 추가로 얻는데 추가 비용이 없다.
+    const data = await apiGet("videos", { id: batch.join(","), part: "snippet,statistics,contentDetails" });
     for (const item of data.items ?? []) {
       const viewCount = Number(item.statistics?.viewCount ?? NaN);
       const publishedAt = item.snippet?.publishedAt;
       const ageDays = publishedAt ? Math.max(1, (now - new Date(publishedAt).getTime()) / MS_PER_DAY) : null;
+      const durationSeconds = durationSecondsFromIso(item.contentDetails?.duration);
       videoStats.set(item.id, {
         viewCount,
         viewsPerDay: ageDays ? viewCount / ageDays : null,
@@ -264,6 +277,8 @@ async function main() {
         channelId: item.snippet?.channelId,
         title: item.snippet?.title,
         publishedAt,
+        durationSeconds,
+        isShort: durationSeconds != null ? durationSeconds <= 60 : null,
       });
     }
   }
@@ -296,10 +311,13 @@ async function main() {
           channelId,
           channelTitle: channelMeta.get(channelId)?.title,
           viewCount: stat.viewCount,
+          publishedAt: stat.publishedAt,
           ageDays: stat.ageDays,
           viewsPerDay: Math.round(stat.viewsPerDay * 10) / 10,
           channelBaselineViewsPerDay: Math.round(baseline * 10) / 10,
           outlierRatio: ratio,
+          durationSeconds: stat.durationSeconds,
+          isShort: stat.isShort,
         });
       }
     }
@@ -342,11 +360,15 @@ async function main() {
         topOutliers: rows.sort((a, b) => b.outlierRatio - a.outlierRatio).slice(0, 3).map((r) => ({
           videoId: r.videoId,
           title: r.title,
-          channel: r.channelTitle,
+          channelTitle: r.channelTitle,
+          viewCount: r.viewCount,
+          publishedAt: r.publishedAt,
           ageDays: r.ageDays,
           viewsPerDay: r.viewsPerDay,
           channelBaselineViewsPerDay: r.channelBaselineViewsPerDay,
           outlierRatio: Math.round(r.outlierRatio * 100) / 100,
+          durationSeconds: r.durationSeconds,
+          isShort: r.isShort,
         })),
       };
     })

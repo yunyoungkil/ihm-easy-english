@@ -8,8 +8,22 @@ const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const marketDemandPath = join(projectDir, 'data', 'youtube', 'market-demand.json');
 const catalogPath = join(projectDir, 'data', 'youtube', 'catalog.json');
 export const tempThumbDir = join(projectDir, 'output', 'temp-thumbnails');
+// 채널 정체성으로 쓸 기준 얼굴 — resolveImageToInlineData가 'public/'로 시작하는 상대경로를
+// 로컬 파일로 읽어주므로 절대경로가 아니라 이 형태를 그대로 써야 한다. 파일이 아직 없으면
+// resolveImageToInlineData가 null을 반환해 레퍼런스 없이 조용히 폴백한다.
+const PRESENTER_REFERENCE_PATH = 'public/brand/thumbnail-presenter-reference.jpg';
+// "프롬프트만 복사"(서버 라우트)도 이 파일 존재 여부로 hasPersonReference 문구를 넣을지 결정해야
+// 실제 생성 경로와 프롬프트 내용이 어긋나지 않는다 — buildThumbnailPrompt 자체는 파일 I/O가 없는
+// 순수 함수로 유지하고, 존재 확인만 별도로 export.
+export async function hasPresenterReference() {
+  return !!(await resolveImageToInlineData(PRESENTER_REFERENCE_PATH));
+}
 
-export async function getMockCompetitorVideos() {
+// topic을 넘기면 관련도 높은 순으로 정렬해서 돌려준다 — LIVE MOBILE FEED PREVIEW가 아무 경쟁
+// 영상이나 보여주는 게 아니라, 지금 다루는 소재와 실제로 겹치는 경쟁 영상을 보여줘야 "우리
+// 썸네일이 이 경쟁 영상들 사이에서 얼마나 눈에 띄는가"라는 이 도구의 목적에 맞는다
+// (2026-09-01, 사용자 피드백). topic이 없으면 기존 순서(수집된 순서) 그대로.
+export async function getMockCompetitorVideos({ topic = '' } = {}) {
   const competitorVideos = [];
 
   if (existsSync(marketDemandPath)) {
@@ -27,7 +41,11 @@ export async function getMockCompetitorVideos() {
             publishedAgo: item.publishedAt ? formatTimeAgo(item.publishedAt) : '3주 전',
             thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${item.videoId}/mqdefault.jpg`,
             channelAvatar: `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.channelTitle || item.videoId)}`,
-            duration: '08:24',
+            duration: item.durationSeconds != null ? formatDurationLabel(item.durationSeconds) : '08:24',
+            // market-demand.mjs가 videos.list contentDetails로 구한 실측값 — 없으면(구버전
+            // market-demand.json) null이라 롱폼/쇼츠 어느 쪽으로도 단정하지 않고 롱폼 취급한다
+            // (기존 폴백 목록도 전부 롱폼이라 안전한 기본값).
+            isShort: item.isShort === true,
           });
         }
       }
@@ -46,6 +64,7 @@ export async function getMockCompetitorVideos() {
         thumbnail: 'https://i.ytimg.com/vi/t_wVvVyqdbg/mqdefault.jpg',
         channelAvatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=eng1',
         duration: '06:12',
+        isShort: false,
       },
       {
         videoId: 'WZFLgtzV_80',
@@ -56,6 +75,7 @@ export async function getMockCompetitorVideos() {
         thumbnail: 'https://i.ytimg.com/vi/WZFLgtzV_80/mqdefault.jpg',
         channelAvatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=eng2',
         duration: '11:45',
+        isShort: false,
       },
       {
         videoId: '5MiM1tIpQQk',
@@ -66,6 +86,7 @@ export async function getMockCompetitorVideos() {
         thumbnail: 'https://i.ytimg.com/vi/5MiM1tIpQQk/mqdefault.jpg',
         channelAvatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=eng3',
         duration: '00:58',
+        isShort: true,
       },
       {
         videoId: 'mock_comp_04',
@@ -76,6 +97,7 @@ export async function getMockCompetitorVideos() {
         thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=640&q=80',
         channelAvatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=eng4',
         duration: '18:30',
+        isShort: false,
       },
       {
         videoId: 'mock_comp_05',
@@ -86,12 +108,15 @@ export async function getMockCompetitorVideos() {
         thumbnail: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=640&q=80',
         channelAvatar: 'https://api.dicebear.com/7.x/identicon/svg?seed=eng5',
         duration: '14:20',
+        isShort: false,
       },
     ];
     competitorVideos.push(...fallbackList);
   }
 
-  return competitorVideos.slice(0, 10);
+  const topicTokens = tokenizeTopic(topic);
+  const ranked = rankByTopicRelevance(competitorVideos, topicTokens, (v) => `${v.title} ${v.channelTitle}`);
+  return ranked.slice(0, 16);
 }
 
 function formatTimeAgo(isoString) {
@@ -106,6 +131,18 @@ function formatTimeAgo(isoString) {
   } catch {
     return '최근';
   }
+}
+
+// 초 단위 duration을 화면 표시용 "M:SS"/"H:MM:SS"로. market-demand.mjs의 durationSeconds를
+// LIVE MOBILE FEED PREVIEW 카드에 그대로 보여주기 위한 포맷터.
+function formatDurationLabel(totalSeconds) {
+  const s = Math.max(0, Math.round(totalSeconds));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  const mm = h > 0 ? String(m).padStart(2, '0') : String(m);
+  const ss = String(sec).padStart(2, '0');
+  return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
 }
 
 /**
@@ -350,6 +387,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
       "type": "⚡ 후킹형 (호기심 극대화)",
       "title": "...",
       "thumbnailCopy": "이 title과 짝을 이루는 시청 후 보상 카피 (15자 내외, title과 내용 겹치지 않게)",
+      "suggestedBadge": "썸네일 상단 포인트 뱃지 문구, 이모지 1개+한글 2~5단어 (예: '⚡ 소리 비밀 반전', '⏱️ 10초 완성') — 이 title/thumbnailCopy 조합 고유의 문구로, 5개가 서로 겹치지 않게 지을 것",
       "designConcept": "이 title/thumbnailCopy 조합에 맞는 비주얼 컨셉 한 줄",
       "midjourneyPrompt": "${isShorts ? 'Clean vertical visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k ultra-high resolution, 9:16 --ar 9:16 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0' : 'Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0'}(이 title 고유의 비주얼 요소로 구체화해서 다시 쓸 것 — 5개 프롬프트가 서로 달라야 함)"
     },
@@ -357,6 +395,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
       "type": "❓ 질문형 (클릭 유도)",
       "title": "...",
       "thumbnailCopy": "...",
+      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     },
@@ -364,6 +403,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
       "type": "💥 반전형 (상식 파괴)",
       "title": "...",
       "thumbnailCopy": "...",
+      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     },
@@ -371,6 +411,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
       "type": "📐 원리형 (쉬운 해결책)",
       "title": "...",
       "thumbnailCopy": "...",
+      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     },
@@ -378,6 +419,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
       "type": "🤝 공감형 (타겟 시청자 맞춤)",
       "title": "...",
       "thumbnailCopy": "...",
+      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     }
@@ -425,14 +467,24 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
 }
 
 // 진짜 이미지 생성 모델(코드명 "나노바나나" 계열) — SVG 코드를 손으로 쓰게 하던 기존 방식과 달리
-// 실제 픽셀 이미지를 diffusion으로 만든다. flash(저렴) 먼저, 실패하면 pro로 승격.
+// 실제 픽셀 이미지를 diffusion으로 만든다. 기본값은 나노바나나 2 Lite(가장 빠르고 저렴) 먼저,
+// 실패하면 나노바나나 2 → 프로 순으로 승격. `models`를 넘기면 그 순서를 그대로 쓴다 — 텍스트가
+// 들어가는 생성은 호출부가 나노바나나 2/프로를 1순위로 지정한다(2026-09-01: 이 체인이 "첫
+// 성공"에서 멈추는 구조라, 기본 순서로는 flash가 API 에러 없이 항상 성공해서 pro가 한 번도
+// 실제로 시도되지 않았던 버그가 있었음 — knowledge/now.md 참고). ListModels API로 실제 존재를
+// 확인한 모델 ID만 사용할 것(추측 금지). 1세대 나노바나나(gemini-2.5-flash-image)는 Google
+// 공식 문서(ai.google.dev/gemini-api/docs/image-generation, 2026-09-01 확인)가 "나노바나나 2
+// Lite로 전환을 강력 권장"이라고 명시한 레거시 모델이라 체인에서 제외했다.
 // temperature를 낮추면(기본 미지정보다) 텍스트 렌더링이 좀 더 보수적/일관적으로 나오는 경향이
 // 있어 기본값을 살짝 낮춰 받는다 — 그래도 완전히 안정적이진 않아서 호출부의 재시도 루프가 진짜 안전망.
-async function generateImageWithGeminiNative({ prompt, geminiKey, temperature }) {
-  const models = ['gemini-2.5-flash-image', 'gemini-3-pro-image', 'gemini-3-pro-image-preview'];
+// referenceImages: [{inline_data: {mime_type, data}}, ...] — 넘기면 프롬프트 텍스트 뒤에 이미지
+// 파트로 이어 붙여서, 나노바나나가 "이 사람과 같은 얼굴로"처럼 레퍼런스 기반 생성/편집을 하게
+// 한다(Vision 진단이 이미지를 보낼 때 쓰는 것과 같은 형태라 새 포맷을 만들 필요 없음).
+async function generateImageWithGeminiNative({ prompt, geminiKey, temperature, models, referenceImages }) {
+  const modelChain = models && models.length ? models : ['gemini-3.1-flash-lite-image', 'gemini-3.1-flash-image', 'gemini-3-pro-image'];
   let lastError = null;
 
-  for (const model of models) {
+  for (const model of modelChain) {
     try {
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
       const controller = new AbortController();
@@ -441,7 +493,7 @@ async function generateImageWithGeminiNative({ prompt, geminiKey, temperature })
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
+          contents: [{ parts: [{ text: prompt }, ...(referenceImages || [])] }],
           ...(typeof temperature === 'number' ? { generationConfig: { temperature } } : {}),
         }),
         signal: controller.signal,
@@ -522,7 +574,7 @@ ${expectedTexts.map((t, i) => `${i + 1}. "${t}"`).join('\n')}
 // PNG 1장이 1~2MB라 localStorage에 그대로 넣으면 브라우저 용량 한도(보통 5~10MB)를
 // 시안 2~3개만 생성해도 넘겨서 저장이 "조용히" 실패한다(knowledge/now.md 2026-09-01 기록).
 // 디스크 쓰기가 실패하는 예외 상황에서만 base64를 그대로 반환하는 안전망을 둔다.
-async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }) {
+export async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }) {
   const match = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
   if (!match) return { engine: engineLabel, imageUrl: dataUrl };
 
@@ -540,52 +592,144 @@ async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }) {
   }
 }
 
-export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', engine = 'flux', geminiKey }) {
+// 나노바나나 프롬프트를 순수하게 문자열로만 조립한다(API 호출 없음). `generateAiThumbnailImage`가
+// 실제 생성에 쓰는 것과 정확히 같은 프롬프트를 만들어야, 사용자가 "프롬프트만 복사해서 제미나이
+// 웹(유료 구독)에 직접 붙여넣는" 경로와 API 자동 생성 경로가 서로 다른 결과를 내지 않는다 —
+// 그래서 별도로 다시 쓰지 않고 두 경로가 이 함수 하나를 공유한다.
+export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', hasPersonReference = false, visualConcept = '' }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
-  const rawText = (title || topic || prompt || '10초 영어 읽기 테스트').trim();
+  const rawText = (title || topic || '10초 영어 읽기 테스트').trim();
 
-  // 1. Variant-Specific Layout Profiles
-  let hookLine1 = '';
-  let hookLine2 = '';
+  // Variant-Specific Layout Profiles — 제목(title)/카피(thumbnailCopy)가 없을 때만 쓰는 폴백.
+  // 2026-09-01: 예전엔 이 값들이 사실상 항상 쓰였다 — "텍스트 적용"으로 시안에 title을 넣어도
+  // 실제 생성 프롬프트의 헤드라인은 이 하드코딩된 문구 그대로였다(사용자 피드백으로 발견).
+  // 이제 title/thumbnailCopy가 있으면 그걸 그대로 헤드라인/캡션으로 쓰고, 없을 때만 이 프로필로
+  // 폴백한다. card1~3(보조 예시 단어)은 title이 그 세부 단어까지 담고 있지 않으므로 계속
+  // 시안별 고정값을 쓴다.
+  let hookFallback1 = '';
+  let hookFallback2 = '';
   let card1 = '';
   let card2 = '';
   let card3 = '';
   let badgeText = '';
-  let subCallout = '';
-  let theme = 'yellow'; // 'yellow' | 'cyan' | 'magenta'
+  let subCalloutFallback = '';
 
   if (vKey === 'A') {
     // VARIANT A: 3-Row Phonics Quiz / Self-Diagnosis (Yellow Gold Theme)
-    theme = 'yellow';
-    hookLine1 = '10초 영어 읽기';
-    hookLine2 = '소리 테스트!';
+    hookFallback1 = '10초 영어 읽기';
+    hookFallback2 = '소리 테스트!';
     card1 = 'CAT';
     card2 = 'BOOK';
     card3 = 'ANT';
     badgeText = badge || '⏱️ 10초 완성';
-    subCallout = '💡 3문제 다 맞히면 상위 1%';
+    subCalloutFallback = '💡 3문제 다 맞히면 상위 1%';
   } else if (vKey === 'B') {
     // VARIANT B: Phonetic Rule & Shocking Secret (Cyber Cyan Theme)
-    theme = 'cyan';
-    hookLine1 = '한국인 90% 틀리는';
-    hookLine2 = '슈와(ə) 소리 법칙!';
+    hookFallback1 = '한국인 90% 틀리는';
+    hookFallback2 = '슈와(ə) 소리 법칙!';
     card1 = 'BANANA';
     card2 = 'ABOUT';
     card3 = 'PENCIL';
     badgeText = badge || '⚡ 소리 비밀 반전';
-    subCallout = '💡 게으른 혀의 소리 지름길';
+    subCalloutFallback = '💡 게으른 혀의 소리 지름길';
   } else {
     // VARIANT C: Loss Aversion & Key Secret Contrast (Magenta / Red Theme)
-    theme = 'magenta';
-    hookLine1 = '단어가 안 들리는 이유?';
-    hookLine2 = '이 소리 모르면 평생 고생!';
+    hookFallback1 = '단어가 안 들리는 이유?';
+    hookFallback2 = '이 소리 모르면 평생 고생!';
     card1 = 'WANT vs WON\'T';
     card2 = '모음 탈락 법칙';
     card3 = '30초 귀 뚫림 족보';
     badgeText = badge || '🔥 필수 핵심 족보';
-    subCallout = '💡 원어민 귀가 뚫리는 공식';
+    subCalloutFallback = '💡 원어민 귀가 뚫리는 공식';
   }
+
+  // 적용된 title이 있으면 한 줄 헤드라인으로 그대로 쓴다(모델이 알아서 자연스럽게 줄바꿈) —
+  // 시안별 고정 2줄 문구는 title이 아예 없을 때만 폴백으로 쓴다.
+  const headlineLines = title.trim() ? [title.trim()] : [hookFallback1, hookFallback2].filter(Boolean);
+  const subCallout = thumbnailCopy.trim()
+    ? (thumbnailCopy.trim().startsWith('💡') ? thumbnailCopy.trim() : '💡 ' + thumbnailCopy.trim())
+    : subCalloutFallback;
+
+  // card1/2/3(하단 예시 단어 3개)은 시안별 고정 데모 값(CAT/BOOK/ANT 등)이라 실제 소재와 무관하다.
+  // headline과 달리 이 값들은 실제 title이 있어도 대체할 방법이 없어서, 지금까지 A/B/C 어떤
+  // 소재든 이 고정 단어 3개가 그대로 박혀 나왔다(2026-09-02, 실제 생성 3장으로 확인). title이
+  // 실제로 채워졌으면(=진짜 소재가 정해졌으면) 이 무관한 예시 대신 카드 자체를 생략한다 — 빈
+  // 워크벤치 상태(title 없음, 데모 폴백을 쓰는 중)일 때만 보여준다.
+  const useCards = !title.trim();
+
+  // 인물을 "항상 둥근 박스+청록 테두리"로 고정하면 매 생성이 똑같아 보인다는 문제가 있었음 —
+  // 이 채널의 "고정 템플릿 지양" 원칙과 어긋남. 매 호출마다 구도 하나를 무작위로 골라서
+  // variant/에피소드와 무관하게 실제로 다양해지게 한다.
+  // 2026-09-02: 카드 프레임 2종(둥근 청록 테두리·각진 흰 테두리)은 완전히 제거 — 하단 정보 카드
+  // (`useCards`)와 시각적으로 겹쳐 "카드가 너무 많아 보이는" 문제, 그리고 사용자가 실제 생성
+  // 이미지에서 "얼굴이 네모 카드에 갇힌 느낌"을 반복적으로 지적해서 결정. 남은 두 방식(EP9/EP10
+  // 에서 실제로 쓴 "찢어진 종이 컷아웃" 기법 포함, CLAUDE.md 기록)만 랜덤으로 고른다.
+  const heroFramingOptions = [
+    'bleeding directly to the frame edge with a soft dark vignette fading into the background, no visible border or frame',
+    'cut out along an irregular torn-paper silhouette following the person\'s head and shoulders, with a slightly rough paper-fiber edge texture (not a smooth sticker outline)',
+  ];
+  const heroFraming = heroFramingOptions[Math.floor(Math.random() * heroFramingOptions.length)];
+
+  // "인물 위치는 자유롭게 판단"이라고만 지시했더니 실제로는 거의 항상 오른쪽으로 수렴했다
+  // (2026-09-02, 사용자가 여러 장을 보고 지적 — "자유 판단"은 모델이 제일 흔한 관습적 기본값
+  // 하나로 회귀하게 만들 뿐, 강제하지 않으면 실제 다양성이 안 나온다는 걸 확인). heroFraming처럼
+  // 위치·샷 거리도 우리 코드가 미리 랜덤으로 골라 프롬프트에 못박는다 — "선택하라"가 아니라
+  // "이렇게 배치하라"로 바꿔야 매번 실제로 달라진다.
+  const heroPositionOptions = [
+    'positioned on the right side of the frame, with all text content arranged to its left',
+    'positioned on the left side of the frame, with all text content arranged to its right',
+    'positioned centered in the upper half of the frame, with the badge and headline arranged below it',
+    'positioned in the lower third of the frame, with the badge and headline arranged above it',
+  ];
+  const heroPosition = heroPositionOptions[Math.floor(Math.random() * heroPositionOptions.length)];
+  const heroDistanceOptions = [
+    'a tight close-up cropped just above the shoulders',
+    'a medium shot showing head, shoulders, and some of the chest',
+    'a waist-up shot showing more of the body and outfit',
+  ];
+  const heroDistance = heroDistanceOptions[Math.floor(Math.random() * heroDistanceOptions.length)];
+
+  const prompt = `A high-CTR YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), ${isShorts ? '9:16 vertical shorts cover' : '16:9 horizontal'}, on the topic "${rawText}".
+
+=== TEXT CONTENT (render each quoted string below exactly character-for-character — do not substitute, merge, reorder, or invent a single character) ===
+- Badge — ONE small glowing neon pill-shaped label, appears exactly once, centered on itself, single line: "${badgeText}"
+- Headline — ${headlineLines.length === 2 ? 'two separate lines' : 'one line (wrap naturally across 2 lines only if it does not fit on one)'}, massive bold letters: ${headlineLines.map((l) => `"${l}"`).join(' / ')}
+${useCards ? `- Secondary info cards near the bottom, three short items: "${card1}", "${card2}", "${card3}"\n` : ''}- Supporting caption near the bottom, single line: "${subCallout}"
+Do not render any text other than the strings quoted above — no channel name, no logo, no watermark, no UI mockup text, no extra labels, no duplicated copies of any string.
+
+=== VISUAL STYLE ===
+Mood: ${
+    vKey === 'A'
+      ? '충격/뒤통수형 — 평생 맞다고 믿었던 콩글리시 발음을 찌르는 강렬한 시각적 충격'
+      : vKey === 'B'
+      ? '1초 소리 족보/비밀 공식형 — 직관적인 원리 발견의 짜릿함'
+      : '원어민 리얼 뉘앙스 & 대조형 — 상황별 실수와 진짜 정답의 극적 대비'
+  }.
+
+${visualConcept.trim() ? `Concept direction for this specific variant (work this into the scene — extra graphic elements, color accents, iconography, framing choices — without breaking any rule stated elsewhere in this brief, especially the Hero identity and text-accuracy rules): ${visualConcept.trim()}\n\n` : ''}Background: dark cinematic studio (near-black navy #060911 to #0F172A) with a soft radial glow of cyan (#00F0FF) and magenta (#FF0077) light emanating from the center.
+
+Hero: ${
+    hasPersonReference
+      ? `the exact same person's face shown in the attached reference image — same facial identity and features, clearly recognizable as this person. Freely vary their hairstyle and facial hair from what is shown in the reference image — only the face must match. Dress them in the EXACT SAME outfit shown in the reference image — the same navy baseball cap and black t-shirt, each printed with the same small colorful vertical-bar sound-wave icon exactly as shown (icon only, no text on the cap or shirt) — this is the channel's fixed signature uniform, do not substitute a different outfit, different colors, or a different logo`
+      : 'a photorealistic Korean adult (20s-40s)'
+  }, with a genuine, expressive reaction matching the mood above, their eyes and gaze directed toward the headline text rather than straight at the camera — as if they just reacted to reading it, softly rim-lit in cyan, ${heroFraming}.
+
+Composition: this is a ${isShorts ? '9:16 vertical' : '16:9 horizontal'} frame. Place the hero ${heroPosition}, shot as ${heroDistance}. Arrange the badge, headline${useCards ? ', cards' : ''}, and caption freely within the remaining space — pick whatever exact layout best fits THIS specific headline length${useCards ? ' and card count' : ''}. Treat the hero photo and every text block as separate, non-intersecting regions with a visible gap of empty background between them, the way a clean infographic keeps its photo and its text in distinct zones — never let the hero's head, hair, or shoulders cross in front of or behind any letter. Before finalizing, check every line of text and confirm no part of it is covered, thinned, or interrupted by the hero photo; if it would be, shrink or move the hero instead of the text.
+
+Typography: use a clean, bold, heavy sans-serif font throughout for maximum legibility, rendered as sharp, stylized, infographic-quality text (not painterly or hand-lettered), with a heavy black outline for contrast. Within the headline, pick the single most important 2-4 word phrase — the core hook of this specific topic — and render just those words with a solid warm-yellow (#F5C518) background chip directly behind the letters (dark navy or black lettering on the yellow chip, not yellow lettering); every other word in the headline stays plain white with the black outline. This highlighted-phrase chip must appear exactly once somewhere in the headline — never skip it and never apply it to more than one phrase.
+
+CRITICAL TEXT ACCURACY: every string in the TEXT CONTENT section must be spelled out exactly, letter by letter, with correct Korean/English characters — do not invent, substitute, or garble any character. If unsure how to render a word clearly, make it larger and simpler rather than risk misspelling it.
+
+Style: clean, professional, high-contrast studio photography blended with bold graphic design elements. No watermark, no fake phone or browser UI, no stock-photo text, no crude cartoon doodles — the human subject must look like a real photograph, not an illustration.`;
+
+  const expectedTexts = [...headlineLines, badgeText, ...(useCards ? [card1, card2, card3] : []), subCallout].filter(Boolean);
+  return { prompt, expectedTexts, variantKey: vKey, isShorts };
+}
+
+export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', engine = 'flux', geminiKey, visualConcept = '' }) {
+  const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
+  const vKey = String(variantKey || 'A').toUpperCase();
 
   const W = isShorts ? 720 : 1280;
   const H = isShorts ? 1280 : 720;
@@ -595,68 +739,50 @@ export async function generateAiThumbnailImage({ prompt, topic = '', variantKey 
   const customPrompt = String(prompt || '').trim();
   const useCustomPrompt = customPrompt.length > 60;
 
-  // Curated high-res real person photos matched to variant psychology (SVG 폴백 경로 전용 —
-  // 진짜 이미지 모델은 사람 묘사를 텍스트로 직접 생성하므로 이 사진이 필요 없다)
-  const photoUrlMap = {
-    A: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80', // Surprised / Shocked reaction
-    B: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80', // Confident teacher / Pointing formula
-    C: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80', // Adult learner discovery / Real nuance
-  };
-  const chosenPhotoUrl = photoUrlMap[vKey] || photoUrlMap.B;
+  const rawText = (title || topic || prompt || '10초 영어 읽기 테스트').trim();
+
+  // 채널 정체성으로 쓸 기준 얼굴 — 있으면 매 생성에 레퍼런스로 첨부해 "같은 사람"이 나오게 한다.
+  // 없으면(아직 안 정했으면) 조용히 건너뛰고 기존처럼 매번 새 얼굴을 생성한다(2026-09-01 추가).
+  const personReference = await resolveImageToInlineData(PRESENTER_REFERENCE_PATH);
 
   // 1. PRIMARY PATH: 진짜 이미지 생성 모델(나노바나나). 커스텀 프롬프트면 그대로, 아니면 변형별
   //    무드를 자연어 브리프로 번역 — 실제 이미지 모델은 SVG 마크업 작성법을 몰라도 되고 알 필요도 없다.
   if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
-    // 인물을 "항상 둥근 박스+청록 테두리"로 고정하면 매 생성이 똑같아 보인다는 문제가 있었음 —
-    // 이 채널의 "고정 템플릿 지양" 원칙과 어긋남. 매 호출마다 구도 하나를 무작위로 골라서
-    // variant/에피소드와 무관하게 실제로 다양해지게 한다. 4번째는 EP9/EP10에서 실제로 쓴
-    // "찢어진 종이 컷아웃" 기법(CLAUDE.md 기록)을 그대로 반영.
-    const heroFramingOptions = [
-      'inside a sleek rounded photo frame with a thin glowing cyan border',
-      'bleeding directly to the frame edge with a soft dark vignette fading into the background, no visible border or frame',
-      'inside a sharp-edged rectangular card with a subtle hard white outline and a soft drop shadow, no glow',
-      'cut out along an irregular torn-paper silhouette following the person\'s head and shoulders, with a slightly rough paper-fiber edge texture (not a smooth sticker outline)',
-    ];
-    const heroFraming = heroFramingOptions[Math.floor(Math.random() * heroFramingOptions.length)];
-
-    const creativeDirection = useCustomPrompt ? customPrompt : `A high-CTR YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), ${isShorts ? '9:16 vertical shorts cover' : '16:9 horizontal'}, on the topic "${rawText}".
-
-Mood: ${
-      vKey === 'A'
-        ? '충격/뒤통수형 — 평생 맞다고 믿었던 콩글리시 발음을 찌르는 강렬한 시각적 충격'
-        : vKey === 'B'
-        ? '1초 소리 족보/비밀 공식형 — 직관적인 원리 발견의 짜릿함'
-        : '원어민 리얼 뉘앙스 & 대조형 — 상황별 실수와 진짜 정답의 극적 대비'
-    }.
-
-Background: dark cinematic studio (near-black navy #060911 to #0F172A) with a soft radial glow of cyan (#00F0FF) and magenta (#FF0077) light emanating from the center.
-
-Hero: a photorealistic close-up of a Korean adult (20s-40s) positioned ${isShorts ? 'center-bottom' : 'on the right side'}, with a genuine, expressive reaction matching the mood above, softly rim-lit in cyan, ${heroFraming}.
-
-Typography (${isShorts ? 'top of frame' : 'left side'}): ONE small glowing neon pill-shaped badge reading "${badgeText}" (do not repeat it twice); below it a massive bold headline in two lines reading "${hookLine1}" and "${hookLine2}", rendered in thick white or yellow letters with a heavy black outline for legibility; near the bottom, a small secondary info box or contrast callout referencing "${card1}", "${card2}", "${card3}" and the note "${subCallout}".
-
-CRITICAL TEXT ACCURACY: every Korean and English word listed above must be spelled out exactly, letter by letter, with correct characters — do not invent, substitute, or garble any character. If unsure how to render a word clearly, make it larger and simpler rather than risk misspelling it.
-
-Style: clean, professional, high-contrast studio photography blended with bold graphic design elements. No watermark, no fake phone or browser UI, no stock-photo text, no crude cartoon doodles — the human subject must look like a real photograph, not an illustration.`;
-
+    const built = useCustomPrompt ? null : buildThumbnailPrompt({ topic, variantKey: vKey, title, thumbnailCopy, badge, format, hasPersonReference: !!personReference, visualConcept });
+    const creativeDirection = useCustomPrompt ? customPrompt : built.prompt;
     // 텍스트 정확도는 diffusion 특성상 매번 다르게 나온다(같은 프롬프트로도 성공/실패가 갈림,
     // 2026-09-01 실측). 그래서 프롬프트 튜닝만으론 신뢰 못 하고, 생성 후 Gemini Vision으로
-    // 실제 렌더링된 텍스트를 읽어 의도한 문구와 대조 → 틀리면 재생성(최대 3회 시도).
+    // 실제 렌더링된 텍스트를 읽어 의도한 문구와 대조 → 틀리면 재생성.
     // 커스텀 프롬프트는 어떤 텍스트가 "정답"인지 파싱할 수 없으므로 검증을 건너뛴다.
-    const expectedTexts = useCustomPrompt ? [] : [hookLine1, hookLine2, badgeText, card1, card2, card3, subCallout].filter(Boolean);
-    const maxAttempts = expectedTexts.length ? 3 : 1;
+    const expectedTexts = useCustomPrompt ? [] : built.expectedTexts;
+    // 2026-09-01: generateImageWithGeminiNative는 체인의 "첫 성공"에서 멈추므로, 매 시도가 같은
+    // 기본 순서(flash 먼저)로 호출되면 flash가 API 에러 없이 항상 성공해 pro가 전혀 시도되지
+    // 않는다(재시도가 사실상 가짜였던 버그). 텍스트가 있는 생성은 시도마다 다른 상위 모델을
+    // 명시적으로 1순위로 지정해 나노바나나 2 → 프로 → 프로 프리뷰를 실제로 한 번씩 다 써본다.
+    // (ListModels로 확인한 실제 모델 ID — displayName: "Nano Banana 2"/"Nano Banana Pro")
+    const textCandidateModels = ['gemini-3.1-flash-image', 'gemini-3-pro-image', 'gemini-3-pro-image-preview'];
+    const maxAttempts = expectedTexts.length ? textCandidateModels.length : 1;
     let lastResult = null;
 
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const primaryModel = expectedTexts.length ? textCandidateModels[attempt - 1] : undefined;
       try {
-        const result = await generateImageWithGeminiNative({ prompt: creativeDirection, geminiKey, temperature: 0.4 });
+        const result = await generateImageWithGeminiNative({
+          prompt: creativeDirection,
+          geminiKey,
+          temperature: 0.4,
+          // 안전망은 나노바나나 2 Lite로 — 1세대(gemini-2.5-flash-image)는 Google이 전환을
+          // 권고하는 레거시 모델이라 더 이상 후보에 넣지 않는다.
+          models: primaryModel ? [primaryModel, 'gemini-3.1-flash-lite-image'] : undefined,
+          referenceImages: personReference ? [personReference] : undefined,
+        });
         lastResult = result;
         if (!expectedTexts.length) break;
         const verify = await verifyThumbnailText({ base64: result.base64, mimeType: result.mimeType, expectedTexts, geminiKey });
         if (verify.allCorrect) break;
-        console.error(`나노바나나 시도 ${attempt}/${maxAttempts}: 텍스트 깨짐 감지(${verify.brokenTexts.join(', ')}) — 재생성`);
+        console.error(`나노바나나 시도 ${attempt}/${maxAttempts} (${primaryModel}): 텍스트 깨짐 감지(${verify.brokenTexts.join(', ')}) — 다음 모델로 재생성`);
       } catch (err) {
-        console.error(`나노바나나 시도 ${attempt}/${maxAttempts} 실패:`, err.message);
+        console.error(`나노바나나 시도 ${attempt}/${maxAttempts} (${primaryModel}) 실패:`, err.message);
       }
     }
 
@@ -667,97 +793,14 @@ Style: clean, professional, high-contrast studio photography blended with bold g
         variantKey: vKey,
       });
     }
-    console.error('Nano Banana native image generation failed after all attempts, falling back to SVG-writer.');
+    console.error('Nano Banana native image generation failed after all attempts, falling back to plain-text renderer.');
   }
 
-  // 2. FALLBACK: 위 이미지 모델 호출이 실패했을 때만 — Gemini가 SVG 마크업을 직접 손으로 쓰게 하는
-  //    구식 경로. 복잡한 구성(그리드 등)엔 약하지만 키가 없거나 API 장애 시의 최후 보루로 남겨둔다.
-  if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
-    const geminiPrompt = useCustomPrompt ? `${customPrompt}
-
-TECHNICAL OUTPUT CONSTRAINT (do not skip): this must render as a standalone SVG, viewBox="0 0 ${W} ${H}".
-This pipeline generates images by writing SVG markup directly — there is no raster diffusion step. So:
-- Anything described as "photorealistic" must be approximated with rich vector shading (gradients, layered shapes,
-  highlights) rather than an actual photo, UNLESS you use <image href="${chosenPhotoUrl}"> for a hero photo element.
-- Return ONLY the raw valid SVG, starting with <svg and ending with </svg>. No markdown backticks, no commentary.` : `You are the Lead Art Director and YouTube Growth Strategist for English education channel '이해하면 쉬운영어' (Target: 3060 adult learners).
-
-YOUR MISSION:
-Draw a standalone High-CTR YouTube Thumbnail SVG (viewBox="0 0 ${W} ${H}") on topic: "${rawText}" (${isShorts ? '9:16 Shorts' : '16:9 Longform'}).
-Target Variant: ${vKey} (${
-      vKey === 'A'
-        ? '오답 충격 & 뒤통수형: 평생 맞다고 믿었던 콩글리시/오해를 찌르는 강렬한 시각적 충격'
-        : vKey === 'B'
-        ? '1초 소리 족보 & 비밀 공식형: 2~3단어 초대형 네온 뱃지와 직관적 원리 가치 제안'
-        : '원어민 리얼 뉘앙스 & 비교 대조형: 상황별 당혹스러운 실수 ❌ vs 원어민 진짜 정답 ⭕의 극적 대비'
-    })
-
-DESIGN REQUIREMENTS:
-1. BACKGROUND: Dark cinematic studio (#060911, #0F172A) with radial cyan (#00F0FF) and magenta (#FF0077) glow.
-2. PHOTOREALISTIC HERO CARD (${isShorts ? 'Center/Bottom' : 'Right side'}):
-   - Place a sleek rounded frame with a high-res photo element:
-     ${isShorts ? `
-     <clipPath id="personClip"><rect x="60" y="520" width="600" height="700" rx="30"/></clipPath>
-     <g filter="url(#shadow)">
-       <rect x="56" y="516" width="608" height="708" rx="34" fill="none" stroke="#00F0FF" stroke-width="4"/>
-       <image href="${chosenPhotoUrl}" x="60" y="520" width="600" height="700" preserveAspectRatio="xMidYMid slice" clip-path="url(#personClip)"/>
-     </g>` : `
-     <clipPath id="personClip"><rect x="730" y="30" width="510" height="660" rx="32"/></clipPath>
-     <g filter="url(#shadow)">
-       <rect x="726" y="26" width="518" height="668" rx="36" fill="none" stroke="#00F0FF" stroke-width="4"/>
-       <image href="${chosenPhotoUrl}" x="730" y="30" width="510" height="660" preserveAspectRatio="xMidYMid slice" clip-path="url(#personClip)"/>
-       <rect x="730" y="460" width="510" height="230" fill="#060911" fill-opacity="0.7" clip-path="url(#personClip)"/>
-     </g>`}
-   - CRITICAL: DO NOT draw any crude humanoid path silhouettes or doodle monster shapes! Use ONLY the clean <image> photo card.
-3. HIGH-CTR TYPOGRAPHY & BADGES (${isShorts ? 'Top' : 'Left side'}):
-   - Top Neon Pill Badges: [EP.07 or Topic Tag] + [🚨 99%가 틀림 or 1초 소리 족보 ⚡]
-   - Massive 2~3 word headline with thick black stroke (stroke="#000000" stroke-width="14" paint-order="stroke fill"): Yellow #FFE600, White #FFFFFF, Cyan #00F0FF.
-   - Bottom Secret Rule Box or ❌ vs ⭕ contrast box.
-4. Clean code under 90 lines. Return ONLY the raw valid SVG starting with <svg and ending with </svg>. No markdown backticks, no code fence, no commentary.`;
-
-    try {
-      const gEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiKey}`;
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 55000);
-      const gRes = await fetch(gEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: geminiPrompt }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 8192 }
-        }),
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
-
-      if (gRes.ok) {
-        const gData = await gRes.json();
-        let raw = gData.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        raw = raw.replace(/^```(svg|xml)?/i, '').replace(/```$/i, '').trim();
-        const startIdx = raw.indexOf('<svg');
-        const endIdx = raw.lastIndexOf('</svg>');
-        if (startIdx !== -1 && endIdx !== -1) {
-          const customSvg = raw.substring(startIdx, endIdx + 6);
-          const base64CustomSvg = Buffer.from(customSvg).toString('base64');
-          return await persistGeneratedImage({
-            engineLabel: useCustomPrompt ? `Custom Prompt Test (Variant ${vKey})` : `Competitor-Gap & Reference Studio (Variant ${vKey})`,
-            dataUrl: `data:image/svg+xml;base64,${base64CustomSvg}`,
-            variantKey: vKey,
-          });
-        } else {
-          console.error('Gemini SVG missing tag. Raw preview:', raw.slice(0, 200));
-        }
-      } else {
-        const errText = await gRes.text();
-        console.error('Gemini SVG HTTP Error:', gRes.status, errText);
-      }
-    } catch (err) {
-      console.error('Gemini direct SVG generator exception:', err.message);
-    }
-  } else {
-    console.error('Gemini direct SVG skipped: No geminiKey provided');
-  }
-
-  // 3. Fallback High-Res Vector SVG Renderer if Offline
+  // 2. FALLBACK: 나노바나나가 실패했거나(API 키 없음 포함) 완전히 실패했을 때의 최후 보루.
+  // API 호출이 전혀 없는 순수 텍스트 SVG라 항상 성공한다 — 2026-09-01, 나노바나나 2로 텍스트
+  // 정확도가 검증된 뒤 중간 단계였던 레거시 AI-SVG-작성기(gemini-3.6-flash가 SVG 마크업을
+  // 직접 쓰던 방식)는 제거했다. 이제 실패해도 조용히 하위 품질로 넘어가지 않고 이 보루 하나로
+  // 바로 떨어지므로, 실패 자체는 위 console.error로 알 수 있다.
   const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
   <rect width="${W}" height="${H}" fill="#0a0518"/>
   <text x="${W/2}" y="${H/2}" text-anchor="middle" font-family="'Pretendard', sans-serif" font-size="48" font-weight="900" fill="#facc15">${rawText}</text>

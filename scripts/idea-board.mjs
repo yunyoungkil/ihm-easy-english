@@ -89,6 +89,8 @@ ${audienceDnaBlock}${successPatternsBlock}
       "rank": 1,
       "topic": "짧은 소재 제목",
       "angleOrHook": "이 소재를 어떤 각도/훅으로 풀지 한 문장",
+      "targetAudience": "이 소재에 가장 적합한 구체적 타겟 시청자층 한 문장 (채널 기본값 '3060 성인 & 왕초보'를 그대로 반복하지 말고, 이 소재라면 실제로 누가 가장 반응할지 audienceDna/소재 성격에 맞춰 구체화 — 예: '발음 원리를 처음 배우는 알파벳 입문자', '기초는 아는데 듣기만 안 되는 중급 학습자')",
+      "suggestedBadge": "썸네일 상단에 들어갈 짧은 포인트 뱃지 문구, 이모지 1개+한글 2~5단어 (예: '⚡ 소리 비밀 반전', '🔥 필수 핵심 족보', '⏱️ 10초 완성') — 이 소재의 angleOrHook에 맞는 새 문구를 지을 것, 예시를 그대로 복사하지 말 것",
       "rationale": "왜 지금 이 소재인가 — dataSourceRefs를 구체적으로 인용한 한 문장",
       "dataSourceRefs": [
         {"source": "marketDemand", "detail": "인용한 키워드/수치"},

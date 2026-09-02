@@ -1,6 +1,6 @@
 # Knowledge Index
 
-마지막 갱신: 2026-08-31
+마지막 갱신: 2026-09-03
 
 ## 항상 읽기
 
@@ -41,6 +41,8 @@
 
 - [시즌1 EP9 — -CIAL](episodes/season1-ep09.md) — 제작 결과, YouTube 예약, 공개 후 확인
 - [시즌1 EP10 — 시즌1 총정리](episodes/season1-ep10.md) — 완성된 롱폼과 미제작 쇼츠 A·B
+- [시즌2 EP11 — GONNA](episodes/season2-ep11.md) — 시즌2 첫 편, **렌더링까지 완료, 업로드만 남음**(2026-09-03 재발견)
+- [시즌2 EP12 — Want vs Won't](episodes/season2-ep12.md) — 시즌2 두 번째 편, 제목·썸네일 확정 완료(2단계), 대본 작성 전(EP11 번호였던 걸 정정)
 
 ## 이전 기록
 

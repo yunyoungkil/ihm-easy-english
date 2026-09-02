@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "youtube-longform",
+      "confirmed_in": [
+        "ep12-want-wont"
+      ],
+      "updated_at": "2026-09-02T15:34:09.202Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "ep12-want-wont"
+      ],
+      "updated_at": "2026-09-02T15:34:09.336Z"
+    },
+    "language": {
+      "value": "ko",
+      "confirmed_in": [
+        "ep12-want-wont"
+      ],
+      "updated_at": "2026-09-02T15:34:09.476Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "ep12-want-wont"
+      ],
+      "updated_at": "2026-09-02T15:34:09.613Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "ep12-want-wont"
+      ],
+      "updated_at": "2026-09-02T15:34:09.750Z"
+    }
+  },
+  "sightings": {}
+}

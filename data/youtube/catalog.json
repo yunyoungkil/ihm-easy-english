@@ -1,18 +1,66 @@
 {
   "schemaVersion": 1,
-  "syncedAt": "2026-08-30T12:57:48.843Z",
+  "syncedAt": "2026-09-01T09:21:08.536Z",
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/UwaFBTsYzyF6x2QDMrA6BruMLlqLlYXOfDMTDWPscY34ytuXsrCA5lZhgbFwTvXd05-0nBGFaw=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 107,
     "totalViews": 50294,
-    "videos": 63,
+    "videos": 64,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
   },
   "uploadsPlaylist": "UUwNrEdm2jYAtUlfHVvH3WQw",
   "videos": [
+    {
+      "videoId": "LdiZKCzKf0c",
+      "title": "시즌1 발음 테스트, 4문제 다 맞히면 진짜 실력 #영어발음 #shorts",
+      "publishedAt": "2026-08-31T11:00:24Z",
+      "thumbnail": "https://i.ytimg.com/vi/LdiZKCzKf0c/maxresdefault.jpg",
+      "description": "시즌1에서 배운 발음, 진짜 내 것이 됐을까요?\n\nOBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL.\n네 단어로 확인해 보세요.\n\n정답: 옵저베이션 · 컨퓨전 · 캡처 · 아티피셜\n\n강세는 바로 앞 음절에, 글자들이 만나면 소리가 바뀌고, 예외처럼 보여도 전부 이유가 있습니다.\n\n📌 시즌1 전체 원리 다시 보기\nhttps://youtu.be/3PkSwrFIcRE\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #발음테스트 #EnglishPronunciation #shorts",
+      "tags": [
+        "영어 발음",
+        "영어 발음 테스트",
+        "영어 발음 규칙",
+        "기초 영어",
+        "왕초보 영어",
+        "영어 공부",
+        "observation 발음",
+        "confusion 발음",
+        "capture 발음",
+        "artificial 발음",
+        "시즌1 총정리",
+        "영어 쇼츠",
+        "영어교육",
+        "English pronunciation",
+        "pronunciation test"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT55S",
+      "durationSeconds": 55,
+      "privacyStatus": "public",
+      "scheduledPublishAt": null,
+      "statistics": {
+        "viewCount": "1151",
+        "likeCount": "2",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "1"
+      },
+      "url": "https://youtu.be/LdiZKCzKf0c",
+      "classification": {
+        "category": "SEASON",
+        "season": 1,
+        "episode": 10,
+        "role": "A",
+        "source": "auto",
+        "reason": "같은 주에 업로드된 시즌 쇼츠"
+      },
+      "comments": [],
+      "channelOwnerComments": []
+    },
     {
       "videoId": "3PkSwrFIcRE",
       "title": "익-션-전-천-처-저-셜, 사실 한 규칙이었습니다 | 시즌1 총정리",
@@ -71,7 +119,7 @@
       "videoId": "nVrCk8IZFGA",
       "title": "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다 #영어발음 #shorts",
       "publishedAt": "2026-08-27T13:35:54Z",
-      "thumbnail": "https://i9.ytimg.com/vi/nVrCk8IZFGA/maxresdefault.jpg?sqp=CKTQ0NQG&rs=AOn4CLADCqccQ7Jcwqa2CZ1Tfkznq3sQEQ",
+      "thumbnail": "https://i9.ytimg.com/vi/nVrCk8IZFGA/maxresdefault.jpg?sqp=CMCx2tQG&rs=AOn4CLAHKiIuJ4zQVMF4qGzo7gUmRLzyVw",
       "description": "SOCIAL, 발음이 헷갈리시나요?\n\n근데 우리 이미 맨날 '소셜'이라고 하잖아요.\n\n왜 소셜일까요? -CIAL로 끝나는 부분이 항상 '셜' 소리가 나거든요.\n\n이렇게 끝나는 단어는 다 '셜'로 읽어요.\n\n📌 전체 원리는 관련 영상에서 확인\nhttps://youtu.be/3PkSwrFIcRE\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #social발음 #EnglishPronunciation #shorts",
       "tags": [
         "영어 발음",
@@ -100,52 +148,6 @@
         "commentCount": "0"
       },
       "url": "https://youtu.be/nVrCk8IZFGA",
-      "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "검토 필요"
-      },
-      "comments": [],
-      "channelOwnerComments": []
-    },
-    {
-      "videoId": "LdiZKCzKf0c",
-      "title": "시즌1 발음 테스트, 4문제 다 맞히면 진짜 실력 #영어발음 #shorts",
-      "publishedAt": "2026-08-27T13:29:06Z",
-      "thumbnail": "https://i9.ytimg.com/vi/LdiZKCzKf0c/maxresdefault.jpg?sqp=CKTQ0NQG&rs=AOn4CLBtwUhXcsrKU9C61d0CzigorzXvkw",
-      "description": "시즌1에서 배운 발음, 진짜 내 것이 됐을까요?\n\nOBSERVATION, CONFUSION, CAPTURE, ARTIFICIAL.\n네 단어로 확인해 보세요.\n\n정답: 옵저베이션 · 컨퓨전 · 캡처 · 아티피셜\n\n강세는 바로 앞 음절에, 글자들이 만나면 소리가 바뀌고, 예외처럼 보여도 전부 이유가 있습니다.\n\n📌 시즌1 전체 원리 다시 보기\nhttps://youtu.be/3PkSwrFIcRE\n\n#영어발음 #영어공부 #기초영어 #왕초보영어 #발음테스트 #EnglishPronunciation #shorts",
-      "tags": [
-        "영어 발음",
-        "영어 발음 테스트",
-        "영어 발음 규칙",
-        "기초 영어",
-        "왕초보 영어",
-        "영어 공부",
-        "observation 발음",
-        "confusion 발음",
-        "capture 발음",
-        "artificial 발음",
-        "시즌1 총정리",
-        "영어 쇼츠",
-        "영어교육",
-        "English pronunciation",
-        "pronunciation test"
-      ],
-      "categoryId": "27",
-      "defaultLanguage": "ko",
-      "duration": "PT55S",
-      "durationSeconds": 55,
-      "privacyStatus": "private",
-      "scheduledPublishAt": "2026-08-31T11:00:00Z",
-      "statistics": {
-        "viewCount": "1",
-        "likeCount": "0",
-        "dislikeCount": "0",
-        "favoriteCount": "0",
-        "commentCount": "0"
-      },
-      "url": "https://youtu.be/LdiZKCzKf0c",
       "classification": {
         "category": "OTHER",
         "role": "STANDALONE_SHORT",
@@ -998,7 +1000,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1922",
+        "viewCount": "1923",
         "likeCount": "3",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1378,7 +1380,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "13",
+        "viewCount": "15",
         "likeCount": "1",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1544,7 +1546,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CKTQ0NQG&rs=AOn4CLDcd_iAFObi1C0AwXkTjpRi1Lt6ng",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CMCx2tQG&rs=AOn4CLA-U9VCVwrdRMiwH0kLvz_CBMkeFA",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -1794,7 +1796,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "364",
+        "viewCount": "365",
         "likeCount": "0",
         "dislikeCount": "1",
         "favoriteCount": "0",
@@ -2553,6 +2555,5 @@
       "itemCount": 11,
       "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
     }
-  ],
-  "updatedAt": "2026-08-31T11:09:56.739Z"
+  ]
 }

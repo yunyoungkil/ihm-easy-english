@@ -1,0 +1,146 @@
+{
+  "format": "LONGFORM",
+  "topic": "Want vs Won't 턱 움직임 구분법과 실전 문장 완성",
+  "audience": "원트와 우언트의 소리 차이를 구별하지 못해 듣기와 말하기에서 늘 헷갈리는 왕초보 학습자",
+  "variants": [
+    {
+      "id": "A",
+      "title": "원어민은 I want it과 I won't do it을 어떻게 구분해서 들을까?",
+      "imageUrl": "/api/temp-thumbnail/A-1788358967197-dfb687.jpg",
+      "thumbnailCopy": "한 번 들으면 평생 구분",
+      "badge": "🔍 듣기 고민 해결",
+      "visualConcept": "화면 좌우로 대조되는 두 개의 음파 파형과 깔끔하게 정돈된 모던 미니멀리즘 교육 그래픽 레이아웃",
+      "isLocalFile": true,
+      "inUse": true
+    },
+    {
+      "id": "B",
+      "title": "원트인지 우언트인지 매번 찍어서 맞추던 왕초보 필독 영상",
+      "imageUrl": "/api/temp-thumbnail/B-1788359000569-d7b026.jpg",
+      "thumbnailCopy": "더 이상 찍지 않아도 됩니다",
+      "badge": "🎯 왕초보 듣기 탈출",
+      "visualConcept": "시험지 앞에서 헷갈려하던 답답함이 확 풀리는 편안하고 따뜻한 실전 스터디룸 분위기",
+      "isLocalFile": true,
+      "inUse": true
+    },
+    {
+      "id": "C",
+      "title": "Want와 Won't, 미드에서 똑같이 들리는 진짜 이유",
+      "imageUrl": "/api/temp-thumbnail/C-1788359541279-5c2fd2.jpg",
+      "thumbnailCopy": "0.1초 만에 귀가 열린다",
+      "badge": "⚡ 소리 착각 탈출",
+      "visualConcept": "어두운 스튜디오 조명 아래 헤드폰을 착용하고 소리의 미세한 차이를 깨달아 눈이 번쩍 뜨인 인물의 대비감 있는 비주얼",
+      "isLocalFile": true,
+      "inUse": true
+    }
+  ],
+  "activeFeedView": "A",
+  "feedPosition": "TOP",
+  "feedSlotIndex": 0,
+  "selectedVariantTab": "A",
+  "visionFilter": "normal",
+  "aiReport": {
+    "variantsEvaluation": [
+      {
+        "variantKey": "A",
+        "curiosityGapScore": 86,
+        "legibilityScore": 90,
+        "visualSalienceScore": 84,
+        "contrastRating": "우수(High)",
+        "focalPoint": "좌우 대조 문장 구조(I want it vs I won't do it)와 '평생 구분' 볼드 텍스트",
+        "predictedGrade": "A-",
+        "predictedCtrRange": "7.8% ~ 9.5%",
+        "strengths": [
+          "실전 문장 레벨(I want it / I won't do it)을 직접 제시하여 단어 단위를 넘어선 실용성을 기대하게 만듦",
+          "'평생 구분'이라는 직관적이고 강력한 학습 보상 카피가 왕초보의 심리적 피로도를 낮춤"
+        ],
+        "weaknesses": [
+          "제목이 다소 정직한 설명형 질문 구조라 홈 피드를 빠르게 스크롤하는 시청자의 도파민을 즉각 자극하기엔 텐션이 다소 밋밋함",
+          "우측 하단 영상 길이 태그 영역 근처에 카피가 배치될 경우 긴 문장 텍스트가 잘릴 위험성 존재"
+        ],
+        "visualImprovementTip": "좌측에는 WANT, 우측에는 WON'T를 대비시키는 2분할 네이비/앰버 배경을 깔고, 'I want it'과 'I won't do it' 텍스트를 카드형 UI 박스로 묶어 가독성을 120px 모바일 기준으로 극대화할 것"
+      },
+      {
+        "variantKey": "B",
+        "curiosityGapScore": 83,
+        "legibilityScore": 94,
+        "visualSalienceScore": 82,
+        "contrastRating": "우수(High)",
+        "focalPoint": "중앙의 '더 이상 찍지 않아도 됩니다' 안정적인 화이트/옐로우 텍스트 블록",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "6.8% ~ 8.4%",
+        "strengths": [
+          "'매번 찍어서 맞추던'이라는 타겟 시청자의 실제 고통점과 부끄러운 경험을 정확하게 찔러 높은 공감대 형성",
+          "썸네일 카피가 간결하여 120px 모바일 화면에서도 한눈에 의미 파악이 가능함"
+        ],
+        "weaknesses": [
+          "'왕초보 필독 영상'과 같은 표현은 유튜브 피드에서 흔히 소비되어 다소 전형적인 강의 썸네일 느낌을 줄 수 있음",
+          "소리가 어떻게 다른지에 대한 기획의 핵심 호기심 갭(Gap)이 제목에서 충분히 부각되지 않음"
+        ],
+        "visualImprovementTip": "'찍지 마세요' 텍스트 옆에 50:50 객관식 찍기 시험지를 연상시키는 반투명 그래픽 요소를 흐리게 배치해 공감 시각 장치를 강화할 것"
+      },
+      {
+        "variantKey": "C",
+        "curiosityGapScore": 92,
+        "legibilityScore": 89,
+        "visualSalienceScore": 88,
+        "contrastRating": "최상(High)",
+        "focalPoint": "대형 WANT vs WON'T 네온 텍스트 대조와 '0.1초' 포인트 강조 영역",
+        "predictedGrade": "A",
+        "predictedCtrRange": "8.8% ~ 11.4%",
+        "strengths": [
+          "'미드에서 똑같이 들리는 진짜 이유'라는 명확한 원인 규명 프레임이 클릭 동기를 강력하게 유발함",
+          "'0.1초 만에 귀가 열린다'는 즉각적인 변화를 약속하여 학습 허들을 대폭 낮춤"
+        ],
+        "weaknesses": [
+          "'0.1초 만에 귀가 열린다'는 자칫 과장된 어그로로 오인될 수 있으므로, 브랜드 신뢰도를 위해 뱃지나 디자인에서 차분하고 분석적인 톤을 유지해야 함"
+        ],
+        "visualImprovementTip": "어두운 딥 네이비 배경 위에 'WANT vs WON'T'를 좌우로 확실하게 가르고, 가운데에 0.1초 타이머 그래픽 아이콘을 얇은 라인 아트로 넣어 전문적이고 과학적인 분석 느낌을 줄 것"
+      }
+    ],
+    "bestVariant": "C",
+    "overallVerdict": "시안 C는 왕초보가 미드나 실전 대화에서 겪는 '소리가 똑같이 들려 답답했던 순간'을 정확히 포착해 가장 높은 클릭 유발력을 발휘합니다. '진짜 이유'라는 호기심 갭과 '0.1초'라는 즉각적 보상 카피가 결합되어 피드 스크롤 중 멈춤 효과(Thumb-stop effect)가 가장 뛰어납니다.",
+    "aiTitleSuggestions": [
+      {
+        "type": "⚡ 후킹형 (호기심 극대화)",
+        "title": "Want와 Won't, 원어민은 '소리'가 아니라 '이곳'을 보고 압니다",
+        "thumbnailCopy": "귀보다 눈이 먼저 반응하는 순간",
+        "suggestedBadge": "⚡ 0.1초 직관 구별",
+        "designConcept": "어두운 스튜디오 조명 아래 말하는 입과 턱의 실루엣에 옐로우 포커스 링이 맺히는 미니멀 대비 레이아웃",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, glowing focus line on jaw and lower face profile, minimalist graphic layout, copy space for Korean text on left side, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+      },
+      {
+        "type": "❓ 질문형 (클릭 유도)",
+        "title": "왜 I want it과 I won't do it은 항상 반대로 들릴까?",
+        "thumbnailCopy": "문장 속 착각이 단번에 풀린다",
+        "suggestedBadge": "❓ 듣기 함정 탈출",
+        "designConcept": "두 갈래로 나뉘는 사운드 웨이브 라인이 중앙에서 깔끔하게 정리되는 비주얼 구조",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, split screen comparison abstract audio waves, deep indigo and muted cyan contrast, sleek modern graphic layout, ample negative space for text on right, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+      },
+      {
+        "type": "💥 반전형 (상식 파괴)",
+        "title": "Want vs Won't, 단어 끝 T 발음을 열심히 들으면 절대 안 들립니다",
+        "thumbnailCopy": "집착을 버리니 바로 들립니다",
+        "suggestedBadge": "💥 상식 파괴 소리",
+        "designConcept": "공기가 빠져나가는 미세한 바람 궤적 그래픽과 정돈된 다크 네이비 배경의 세련된 대조",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, subtle aerodynamic breath vapor flow effect in dark space, minimal studio lighting, balanced horizontal composition, wide negative space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+      },
+      {
+        "type": "📐 원리형 (쉬운 해결책)",
+        "title": "원트와 우언트의 결정적 차이, 입모양 딱 하나만 바꾸면 끝납니다",
+        "thumbnailCopy": "외우지 않고 몸으로 익히는 소리",
+        "suggestedBadge": "📐 턱 하나로 완성",
+        "designConcept": "위아래 턱의 간격을 직관적으로 측정한 듯한 정밀 가이드라인 눈금 디자인",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, precision geometric measuring lines and aesthetic grid markers, high-end educational studio background, dark slate and warm yellow accent, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+      },
+      {
+        "type": "🤝 공감형 (타겟 시청자 맞춤)",
+        "title": "미드 볼 때마다 원트인지 우언트인지 찍어서 맞추던 분들을 위한 영상",
+        "thumbnailCopy": "이제 확신을 갖고 듣고 말합니다",
+        "suggestedBadge": "🤝 왕초보 맞춤 해답",
+        "designConcept": "답답했던 안개가 걷히고 선명한 빛이 들어오는 모던 미니멀리즘 비주얼",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cinematic moody background with a clear focused light beam cutting through mist, clean minimalist aesthetic, large copy space for typography on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+      }
+    ]
+  }
+}

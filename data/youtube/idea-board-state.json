@@ -1,0 +1,130 @@
+{
+  "candidates": {
+    "ok": true,
+    "candidates": [
+      {
+        "rank": 1,
+        "topic": "Want vs Won't 턱 움직임 구분법과 실전 문장 완성",
+        "angleOrHook": "어려운 장모음 용어 없이 턱의 움직임 하나로 '원트'와 '워운트'를 구별하고 I want it / I won't do it 실전 문장까지 한 번에 뚫어드립니다.",
+        "targetAudience": "원트와 우언트의 소리 차이를 구별하지 못해 듣기와 말하기에서 늘 헷갈리는 왕초보 학습자",
+        "suggestedBadge": "💡 턱 하나로 끝",
+        "rationale": "시청자 DB에서 지적된 'Want vs Won't 직관적 비교 부재' 및 '전문용어 인지부담' 고통점을 직접 해결하며, 검색 수요 'WANT TO 축약(opportunityScore 13.7)'과 결합한 최우선 개선 소재입니다.",
+        "dataSourceRefs": [
+          {
+            "source": "audienceDna",
+            "detail": "제목은 Want vs Won't 비교였으나 실제 본문 직관적 비교 부족, long 오운 장모음 등 전문 용어 부담, 실전 문장 확장 부족 고통점"
+          },
+          {
+            "source": "marketDemand",
+            "detail": "WANT TO 축약 (opportunityScore 13.7)"
+          }
+        ],
+        "suggestedFormat": "LONGFORM",
+        "score": 88
+      },
+      {
+        "rank": 2,
+        "topic": "영어 노베이스 왕초보가 가장 먼저 알아야 할 소리 원리",
+        "angleOrHook": "무작정 알파벳만 외우다 지친 분들을 위해, 혀가 가장 편하게 움직이는 글자 결합 소리 지름길을 알려드립니다.",
+        "targetAudience": "영어 공부를 다시 시작하고 싶지만 어디서부터 손대야 할지 막막한 노베이스 알파벳 입문자",
+        "suggestedBadge": "🌱 노베이스 첫걸음",
+        "rationale": "시장 검색 수요 1위인 '영어 왕초보, 어디서부터 시작하죠?(opportunityScore 86.6)'와 채널 내 최고 유지율 포맷인 'LEGACY(fitScore 57)'를 결합하여 대중성과 안정성을 모두 확보할 수 있는 소재입니다.",
+        "dataSourceRefs": [
+          {
+            "source": "marketDemand",
+            "detail": "영어 왕초보, 어디서부터 시작하죠? (opportunityScore 86.6), 왕초보 영어 발음 (opportunityScore 41.8)"
+          },
+          {
+            "source": "contentOpportunity",
+            "detail": "포맷/역할 LEGACY (fitScore 57, 영상 41개)"
+          }
+        ],
+        "suggestedFormat": "LONGFORM",
+        "score": 85
+      },
+      {
+        "rank": 3,
+        "topic": "끝소리 T 바람만 퉤- 뱉는 원리와 단어 확장",
+        "angleOrHook": "목소리를 섞지 않고 바람만 가볍게 '퉤-' 뱉는 게으른 혀의 원리만 알면 끝소리 T 발음과 듣기가 단번에 풀립니다.",
+        "targetAudience": "단어 끝 T 소리를 '트'하고 또박또박 발음하다가 원어민 소리가 안 들리는 초급 학습자",
+        "suggestedBadge": "💨 바람 퉤 비법",
+        "rationale": "시청자 언어 DB의 검증된 표현('바람만 퉤- 나가는 소리')을 활용하고, 검색 수요가 높은 '영어 발음 규칙(29.6)' 및 '영어 발음 원리(27)' 수요를 직접 공략합니다.",
+        "dataSourceRefs": [
+          {
+            "source": "audienceDna",
+            "detail": "끝소리 T의 파열음: 목소리를 빼고 '바람만 퉤- 나가는 소리'"
+          },
+          {
+            "source": "marketDemand",
+            "detail": "영어 발음 규칙 (opportunityScore 29.6), 영어 발음 원리 (opportunityScore 27)"
+          }
+        ],
+        "suggestedFormat": "SHORTS",
+        "score": 78
+      },
+      {
+        "rank": 4,
+        "topic": "빠른 영어가 안 들리는 이유, 게으른 혀의 연음과 축약 원리",
+        "angleOrHook": "원어민이 말을 빨리 하는 게 아니라 혀의 움직임을 줄여서 그렇습니다. 귀가 저절로 뚫리는 소리 생략 원리를 보여드립니다.",
+        "targetAudience": "단어는 다 아는데 문장으로 빠르게 이어지면 하나도 들리지 않아 답답한 리스닝 정체기 학습자",
+        "suggestedBadge": "👂 귀 뚫리는 원리",
+        "rationale": "시장 수요 키워드 '영어 듣기 안 들리는 이유(13.3)'와 '미국식 발음 규칙(20)'을 채널 검증 포맷인 'EXPERIMENT(fitScore 45)' 구조로 풀어내어 도파민 공식을 전달할 수 있습니다.",
+        "dataSourceRefs": [
+          {
+            "source": "marketDemand",
+            "detail": "영어 듣기 안 들리는 이유 (opportunityScore 13.3), 미국식 발음 규칙 (opportunityScore 20), 영어 연음 축약 (opportunityScore 11.6)"
+          },
+          {
+            "source": "contentOpportunity",
+            "detail": "포맷/역할 EXPERIMENT (fitScore 45, 영상 4개)"
+          }
+        ],
+        "suggestedFormat": "LONGFORM",
+        "score": 72
+      },
+      {
+        "rank": 5,
+        "topic": "헷갈리는 영어 단어 꼬리 -SION vs -TION 발음 법칙",
+        "angleOrHook": "단어 끝에 붙는 -sion과 -tion을 무작정 외우지 않고 혀 위치 차이 하나로 카타르시스를 느끼는 규칙 확장법을 공개합니다.",
+        "targetAudience": "비슷하게 생긴 단어 꼬리 스펠링 때문에 읽을 때마다 망설여지는 기초 파닉스/단어 학습자",
+        "suggestedBadge": "🎯 꼬리 규칙 완정복",
+        "rationale": "채널 규칙 데이터 중 가장 높은 성과를 낸 '-SION(fitScore 45)'과 '-TION(fitScore 38)'을 엮고, '영어 발음 규칙(opportunityScore 29.6)' 수요를 타겟팅한 안정적 후속작입니다.",
+        "dataSourceRefs": [
+          {
+            "source": "contentOpportunity",
+            "detail": "시즌1 규칙 -SION (fitScore 45), -TION (fitScore 38)"
+          },
+          {
+            "source": "marketDemand",
+            "detail": "영어 발음 규칙 (opportunityScore 29.6)"
+          }
+        ],
+        "suggestedFormat": "LONGFORM",
+        "score": 68
+      }
+    ],
+    "summaryNote": "market-demand(시장 수요), content-opportunity(내부 규칙/포맷 성과), audience-dna(시청자 미해결 고통점)를 상호 보완적으로 교차 검증하여 5개 소재를 선출했습니다.",
+    "generatedAt": "2026-09-02T11:34:01.366Z"
+  },
+  "selected": {
+    "rank": 1,
+    "topic": "Want vs Won't 턱 움직임 구분법과 실전 문장 완성",
+    "angleOrHook": "어려운 장모음 용어 없이 턱의 움직임 하나로 '원트'와 '워운트'를 구별하고 I want it / I won't do it 실전 문장까지 한 번에 뚫어드립니다.",
+    "targetAudience": "원트와 우언트의 소리 차이를 구별하지 못해 듣기와 말하기에서 늘 헷갈리는 왕초보 학습자",
+    "suggestedBadge": "💡 턱 하나로 끝",
+    "rationale": "시청자 DB에서 지적된 'Want vs Won't 직관적 비교 부재' 및 '전문용어 인지부담' 고통점을 직접 해결하며, 검색 수요 'WANT TO 축약(opportunityScore 13.7)'과 결합한 최우선 개선 소재입니다.",
+    "dataSourceRefs": [
+      {
+        "source": "audienceDna",
+        "detail": "제목은 Want vs Won't 비교였으나 실제 본문 직관적 비교 부족, long 오운 장모음 등 전문 용어 부담, 실전 문장 확장 부족 고통점"
+      },
+      {
+        "source": "marketDemand",
+        "detail": "WANT TO 축약 (opportunityScore 13.7)"
+      }
+    ],
+    "suggestedFormat": "LONGFORM",
+    "score": 88
+  },
+  "generatedAt": "2026-09-02T11:34:01.366Z"
+}

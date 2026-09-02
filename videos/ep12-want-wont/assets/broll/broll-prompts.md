@@ -6,25 +6,42 @@ Frame 3(메커니즘, 클라이맥스)에 쓸 B롤. 얼굴 전체 대신 **코 �
 두 클립을 따로 만든다(편집 시 나레이션 타이밍에 맞춰 각각 배치). Google Flow(Veo)든 다른 도구든,
 아래 텍스트를 그대로 붙여넣으면 된다.
 
-## 클립 1 — WANT (턱을 크게 벌리는 "아" 소리)
+## 클립 1 — WANT (턱을 크게 벌리는 "아" 소리) — 2차 수정본(2026-09-03)
+
+**1차 결과물이 약했다** — 실제 프레임을 뽑아 확인해보니 입이 살짝만 벌어져서 Won't 클립이랑
+대비가 안 됨. "wide" 한 단어로는 모델이 자연스러운 대화 수준의 작은 움직임으로 해석하는 것 같다
+— 아래는 구체적 비교 대상(하품 직전 단계)과 명시적 각도·수치를 넣어서 강제한 버전.
 
 ```
 Extreme close-up shot of a person's mouth, jaw, and chin only — framed from just below the
 nose to the collarbone, no eyes or upper face visible. Dark navy studio background (#0A1526),
 soft single-source rim light from the side, minimal and clean, no distracting props.
 
-The mouth opens wide and slowly, the jaw dropping straight down to form a large open "ah"
-shape (as in pronouncing the English word "want"), holds for a beat, then closes. Repeat this
-same slow, deliberate jaw-drop motion 3 times in a row, evenly spaced, so there are multiple
-usable repetitions to cut from.
+The jaw drops DRAMATICALLY and slowly straight down — like the first half of a yawn, NOT a
+normal speaking mouth-open. The mouth should open to roughly the height of two stacked fingers
+(a large, obvious, exaggerated gap between the upper and lower teeth), clearly more open than
+anyone would open their mouth in ordinary conversation. This is a teaching demonstration of an
+open "ah" vowel shape, so the exaggeration is intentional and correct — do not soften it into
+a subtle, natural, or restrained mouth movement. Hold the fully-open position for a clear beat
+(about 1 second) before closing. Repeat this same slow, deliberate, exaggerated jaw-drop motion
+3 times in a row, evenly spaced, so there are multiple usable repetitions to cut from — each
+repetition must reach the same dramatically wide opening, not a smaller version.
 
 Neutral skin tone, no visible facial hair pattern that would identify a specific person, plain
 soft lighting, shallow depth of field with the mouth in sharp focus. No text, no captions, no
-logos, no watermark. Slow, calm, instructional pacing — not exaggerated or comedic. Silent
-(no dialogue, no sound needed — this is narration-under B-roll).
+logos, no watermark. Slow and deliberate pacing (this is instructional, not comedic), but the
+JAW OPENING ITSELF must be large and unmistakable — this is the one part of the shot that
+should NOT be restrained. Silent (no dialogue, no sound needed — this is narration-under B-roll).
 
 Duration: 6-8 seconds, static camera, no camera movement.
 ```
+
+### 참고용 실측 문제 (1차 결과물)
+
+`want-jaw-drop.mp4`를 ffmpeg로 프레임 추출해서 확인한 결과, 대화 수준의 아주 작은 벌어짐만
+나왔다(치아가 살짝 보이는 정도) — `wont-lip-round.mp4`의 뚜렷한 입술 오므림과 나란히 놓으면
+대비가 거의 안 보인다. 재생성 후에도 이 방식(ffmpeg 프레임 추출 → Read로 확인)으로 다시
+검증할 것.
 
 ## 클립 2 — WON'T (입술을 오므리는 "오" 소리)
 

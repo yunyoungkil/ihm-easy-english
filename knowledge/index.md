@@ -35,6 +35,7 @@
 - [클라이언트 JS 문법 에러 방지 규칙](decisions/2026-08-30-preventing-embedded-client-js-syntax-errors.md) — 문자열 JSON.stringify 주입 표준 및 가상 DOM 0에러 자동 검증
 - [브랜드 & 대시보드 디자인 시스템](brand-dashboard-design-system.md) — 컬러 토큰, 폰트 스케일, Faceless Explainer 비주얼 일체화 표준 가이드
 - [대시보드 1-Click AI 썸네일 생성기의 제작 프로세스 이탈](decisions/2026-08-31-ai-thumbnail-generator-process-gap.md) — `generateAiThumbnailImage`가 "이미지는 사용자가 직접 생성" 규칙을 건너뜀 → 문구 5안 진단 전엔 이미지 생성 버튼 잠그는 승인 게이트로 해결
+- [채널 아바타 인트로 클립 제작 전 결정 사항](decisions/2026-09-03-avatar-intro-clip-setup.md) — 아바타·목소리·대사는 확정, 화면비/배경/해상도/고지문구는 아직 미정
 
 
 ## 에피소드

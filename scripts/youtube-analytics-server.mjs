@@ -3988,23 +3988,36 @@ function renderStudioTab() {
       '</div>'
     );
 
-    // Studio 폴더를 겹치는 날짜로 계속 가져오면 periods가 영상당 수십 개까지 쌓인다 — 전부 알약으로
-    // 그리면 카드가 무한정 길어지므로 최신 2개만 펼쳐 보여주고 나머지는 개수만 알려준다.
+    // Studio 폴더를 겹치는 날짜로 계속 가져오면 periods가 영상당 수십 개까지 쌓인다. 대부분
+    // 26~27일이 겹치는 28일 롤링 윈도우라 둘을 나란히 보여줘도 사실상 같은 정보의 반복이고,
+    // (일별 세부 데이터가 없어서) 수치를 정확히 합산할 방법도 없다 — 그래서 최신 구간 하나만
+    // "현재 값"으로 보여주고, 그 직전 구간과 비교한 증감만 같이 표시한다.
     const sortedPeriods = periodList.sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')));
-    const visiblePeriods = sortedPeriods.slice(0, 2);
-    const hiddenPeriodCount = sortedPeriods.length - visiblePeriods.length;
-    const periodPills = visiblePeriods.map(p =>
-      '<div class="monthly-pill" style="border-left:3px solid var(--accent-cyan);padding:6px 10px;margin-bottom:5px;background:rgba(0,240,255,0.06);border-radius:6px">' +
-        '<div style="display:flex;justify-content:space-between;align-items:center">' +
-          '<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent-cyan);font-weight:700">' + esc(p.startDate) + ' ~ ' + esc(p.endDate) + '</span>' +
-          '<span class="badge badge-pass" style="font-size:9px;padding:2px 6px">Studio CSV</span>' +
-        '</div>' +
-        '<div style="font-size:13px;margin-top:3px">노출 <b style="color:var(--text-bright)">' + fmt.format(p.impressions||0) + '회</b> · CTR <b style="color:var(--accent-magenta);font-size:14px">' + Number(p.ctr||0).toFixed(2) + '%</b></div>' +
-      '</div>'
-    );
-    if (hiddenPeriodCount > 0) {
+    const latestPeriod = sortedPeriods[0];
+    const previousPeriod = sortedPeriods[1];
+    const olderCount = sortedPeriods.length - (previousPeriod ? 2 : 1);
+
+    const periodPills = [];
+    if (latestPeriod) {
+      const ctrDelta = previousPeriod ? Number((latestPeriod.ctr - previousPeriod.ctr).toFixed(2)) : null;
+      const trendHtml = ctrDelta == null ? '' :
+        (Math.abs(ctrDelta) < 0.01
+          ? '<span class="card-subtext" style="margin-left:6px">· 직전 구간과 동일</span>'
+          : '<span style="margin-left:6px;font-size:12px;font-weight:700;color:' + (ctrDelta > 0 ? 'var(--accent-emerald)' : 'var(--accent-magenta)') + '">' + (ctrDelta > 0 ? '▲' : '▼') + ' ' + Math.abs(ctrDelta).toFixed(2) + '%p</span>');
       periodPills.push(
-        '<div class="card-subtext" style="font-size:11px;padding:4px 2px;opacity:0.7">+ 이전 구간 ' + hiddenPeriodCount + '개 (겹치는 과거 Studio 내보내기, 진단에는 최신 구간만 사용됨)</div>'
+        '<div class="monthly-pill" style="border-left:3px solid var(--accent-cyan);padding:6px 10px;margin-bottom:5px;background:rgba(0,240,255,0.06);border-radius:6px">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center">' +
+            '<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent-cyan);font-weight:700">' + esc(latestPeriod.startDate) + ' ~ ' + esc(latestPeriod.endDate) + '</span>' +
+            '<span class="badge badge-pass" style="font-size:9px;padding:2px 6px">Studio CSV 최신</span>' +
+          '</div>' +
+          '<div style="font-size:13px;margin-top:3px">노출 <b style="color:var(--text-bright)">' + fmt.format(latestPeriod.impressions||0) + '회</b> · CTR <b style="color:var(--accent-magenta);font-size:14px">' + Number(latestPeriod.ctr||0).toFixed(2) + '%</b>' + trendHtml + '</div>' +
+          (previousPeriod ? '<div class="card-subtext" style="font-size:10px;margin-top:2px">직전 구간(' + esc(previousPeriod.startDate) + '~' + esc(previousPeriod.endDate) + ') CTR ' + Number(previousPeriod.ctr||0).toFixed(2) + '% 대비</div>' : '') +
+        '</div>'
+      );
+    }
+    if (olderCount > 0) {
+      periodPills.push(
+        '<div class="card-subtext" style="font-size:11px;padding:4px 2px;opacity:0.7">+ 겹치는 과거 구간 ' + olderCount + '개 더 있음 (표시·진단에는 미사용)</div>'
       );
     }
 

@@ -75,10 +75,15 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
       impressions = Number(windows['first_48h'].impressions || 0);
       hasRealCtr = true;
     } else {
-      const periodEntries = Object.values(periods);
-      if (periodEntries.length > 0 && periodEntries[0].ctr != null) {
-        ctr = Number(periodEntries[0].ctr);
-        impressions = Number(periodEntries[0].impressions || 0);
+      // 겹치는 Studio 폴더를 계속 가져오면 같은 영상에 periods 항목이 여러 개 쌓인다 —
+      // Object.values()[0]은 삽입 순서(=가장 먼저 수집된, 즉 가장 오래된 구간)를 집어서
+      // 데이터를 새로 가져와도 진단이 안 바뀌는 버그였다. endDate가 가장 최신인 구간을 쓴다.
+      const latestPeriod = Object.values(periods)
+        .filter((p) => p && p.ctr != null)
+        .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')))[0];
+      if (latestPeriod) {
+        ctr = Number(latestPeriod.ctr);
+        impressions = Number(latestPeriod.impressions || 0);
         hasRealCtr = true;
       }
     }

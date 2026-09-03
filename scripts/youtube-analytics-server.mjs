@@ -1,5 +1,5 @@
 import {createServer} from 'node:http';
-import {readFile, writeFile, unlink, mkdir, readdir} from 'node:fs/promises';
+import {readFile, writeFile, unlink, mkdir, readdir, rename} from 'node:fs/promises';
 import {existsSync} from 'node:fs';
 import {randomBytes} from 'node:crypto';
 import {dirname, join, resolve} from 'node:path';
@@ -48,6 +48,10 @@ const AUDIENCE_DNA_MAX_ENTRIES = 300;
 const SUCCESS_PATTERNS_MAX_ENTRIES = 300;
 const contentDir = join(projectDir, 'content');
 const studioExportDir = resolve(process.env.YOUTUBE_STUDIO_EXPORT_DIR || join(projectDir, 'imports', 'youtube-studio'));
+// 스캔이 끝난 Studio 폴더는 여기로 옮긴다. studioExportDir "안"이 아니라 형제 폴더인 이유:
+// studio-auto-ingest.mjs가 studioExportDir을 재귀 감시하고 있어서, 그 안에서 폴더를 옮기면
+// 매번 change 이벤트가 다시 발생한다(무해하긴 하지만 불필요한 노이즈). 감시 범위 밖에 둔다.
+const studioArchiveDir = join(dirname(studioExportDir), 'youtube-studio-archive');
 const downloadsDir = resolve(process.env.YOUTUBE_STUDIO_DOWNLOADS_DIR || join(process.env.USERPROFILE || process.env.HOME || '', 'Downloads'));
 const port = Number(process.env.YOUTUBE_ANALYTICS_PORT || 3001);
 const redirectUri = `http://localhost:${port}/oauth2callback`;
@@ -499,6 +503,9 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
   const reach = await loadJson(videoReachManualPath) || {schemaVersion: 1, videos: {}};
   const skipped = [], waiting = [];
   let imported = 0, unchanged = 0;
+  // 데이터를 reach에 무사히 반영한(=더 이상 원본 CSV가 필요 없는) 폴더만 모아뒀다가,
+  // 스캔이 다 끝나고 JSON 저장까지 성공한 뒤에 archive로 옮긴다.
+  const capturedFolders = [];
 
   for (const folder of folders) {
     const match = folder.match(/^콘텐츠\s+([0-9]{4}-[0-9]{2}-[0-9]{2})_([0-9]{4}-[0-9]{2}-[0-9]{2})\s+(.+)$/);
@@ -577,6 +584,7 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
           imported++;
           folderImported++;
         }
+        capturedFolders.push(folder);
         continue;
       }
 
@@ -600,6 +608,7 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
       const current = reach.videos[videoId].periods[periodKey];
       if (current && current.impressions === Math.round(impressions) && current.ctr === ctr) {
         unchanged++;
+        capturedFolders.push(folder);
         continue;
       }
       reach.videos[videoId].periods[periodKey] = {
@@ -613,6 +622,7 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
         importedAt: new Date().toISOString(),
       };
       imported++;
+      capturedFolders.push(folder);
     } catch (err) {
       skipped.push({folder, reason: `CSV 읽기 오류: ${err.message}`});
     }
@@ -633,7 +643,26 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
     await saveJson(videoReachManualPath, reach);
   }
 
-  return {imported, unchanged, skipped, waiting, directory: studioExportDir, autoProcessed: true, totalScanned: folders.length};
+  // reach에 이미 반영된(새로 가져왔든, 예전에 가져와서 unchanged든) 폴더는 원본 CSV로서 더 이상
+  // 필요 없다 — JSON 저장이 끝난 뒤에만 옮겨서, 저장 도중 문제가 생겨도 원본이 남아있게 한다.
+  let archived = 0;
+  if (capturedFolders.length > 0) {
+    await mkdir(studioArchiveDir, {recursive: true});
+    for (const folder of capturedFolders) {
+      try {
+        const from = join(studioExportDir, folder);
+        let to = join(studioArchiveDir, folder);
+        if (existsSync(to)) to = join(studioArchiveDir, `${folder}_${Date.now()}`);
+        await rename(from, to);
+        archived++;
+      } catch (err) {
+        console.error(`[Studio Scan] 폴더 보관 실패 (${folder}):`, err.message);
+      }
+    }
+  }
+  reach.lastFolderScan.archived = archived;
+
+  return {imported, unchanged, skipped, waiting, archived, directory: studioExportDir, autoProcessed: true, totalScanned: folders.length};
 };
 
 const getDashboard = async (accessToken) => {
@@ -3959,7 +3988,12 @@ function renderStudioTab() {
       '</div>'
     );
 
-    const periodPills = periodList.sort((a, b) => String(b.endDate).localeCompare(String(a.endDate))).map(p => 
+    // Studio 폴더를 겹치는 날짜로 계속 가져오면 periods가 영상당 수십 개까지 쌓인다 — 전부 알약으로
+    // 그리면 카드가 무한정 길어지므로 최신 2개만 펼쳐 보여주고 나머지는 개수만 알려준다.
+    const sortedPeriods = periodList.sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')));
+    const visiblePeriods = sortedPeriods.slice(0, 2);
+    const hiddenPeriodCount = sortedPeriods.length - visiblePeriods.length;
+    const periodPills = visiblePeriods.map(p =>
       '<div class="monthly-pill" style="border-left:3px solid var(--accent-cyan);padding:6px 10px;margin-bottom:5px;background:rgba(0,240,255,0.06);border-radius:6px">' +
         '<div style="display:flex;justify-content:space-between;align-items:center">' +
           '<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent-cyan);font-weight:700">' + esc(p.startDate) + ' ~ ' + esc(p.endDate) + '</span>' +
@@ -3968,6 +4002,11 @@ function renderStudioTab() {
         '<div style="font-size:13px;margin-top:3px">노출 <b style="color:var(--text-bright)">' + fmt.format(p.impressions||0) + '회</b> · CTR <b style="color:var(--accent-magenta);font-size:14px">' + Number(p.ctr||0).toFixed(2) + '%</b></div>' +
       '</div>'
     );
+    if (hiddenPeriodCount > 0) {
+      periodPills.push(
+        '<div class="card-subtext" style="font-size:11px;padding:4px 2px;opacity:0.7">+ 이전 구간 ' + hiddenPeriodCount + '개 (겹치는 과거 Studio 내보내기, 진단에는 최신 구간만 사용됨)</div>'
+      );
+    }
 
     const pills = [...periodPills, ...windowPills].join('');
 
@@ -4030,6 +4069,7 @@ function renderStudioTab() {
         '<span class="badge badge-strong-pass">총 CTR 연결 완료: ' + totalWithDataCount + '개 영상</span>' +
         '<span class="badge badge-pass">신규 수집: ' + (scan.imported || 0) + '개</span>' +
         '<span class="badge badge-pass">기존 유지: ' + (scan.unchanged || 0) + '개</span>' +
+        (scan.archived ? '<span class="badge badge-pass" title="반영 완료된 원본 CSV 폴더를 imports/youtube-studio-archive로 자동 이동">📦 폴더 정리: ' + scan.archived + '개</span>' : '') +
         (scan.skipped && scan.skipped.length > 0 ? '<span class="badge badge-hold">스킵/미연결: ' + scan.skipped.length + '개</span>' : '') +
       '</div>' +
       '<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">' +
@@ -4144,10 +4184,15 @@ function computeMatrixDataset() {
       impressions = Number(windows['first_48h'].impressions || 0);
       hasRealCtr = true;
     } else {
-      const periodEntries = Object.values(periods);
-      if (periodEntries.length > 0 && periodEntries[0].ctr != null) {
-        ctr = Number(periodEntries[0].ctr);
-        impressions = Number(periodEntries[0].impressions || 0);
+      // periods는 겹치는 Studio 폴더를 계속 가져올 때마다 항목이 쌓인다 — Object.values()[0]은
+      // 삽입 순서(=가장 먼저 수집된 오래된 구간)라서 새 데이터를 넣어도 진단이 안 바뀌는 버그였다.
+      // endDate가 가장 최신인 구간을 쓴다.
+      const latestPeriod = Object.values(periods)
+        .filter((p) => p && p.ctr != null)
+        .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')))[0];
+      if (latestPeriod) {
+        ctr = Number(latestPeriod.ctr);
+        impressions = Number(latestPeriod.impressions || 0);
         hasRealCtr = true;
       }
     }

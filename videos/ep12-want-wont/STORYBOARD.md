@@ -1,6 +1,8 @@
 ---
 format: 1920x1080
-duration: ~2:36 (estimate — SCRIPT.md 나레이션 길이 기준, 실제 TTS 생성 후 갱신)
+duration: 3:14 (194.12초 — Gemini Charon 실제 생성 오디오 기준 확정, 씬마다 +0.5초 버퍼 포함,
+  2026-09-03 갱신. 아래 각 프레임 duration도 이 실측값. 프레임 내부 "Scene N (a–bs)" 세부 구간은
+  비율상 안내용이며, 실제 빌드 시 각 프레임 오디오의 진짜 타임스탬프로 확정한다.)
 message: "Want와 Won't는 단어가 아니라 턱의 움직임 하나로 구분해서 듣는다"
 arc: concept-explainer with practice
 audience: "원트와 우언트의 소리 차이를 구별하지 못해 듣기와 말하기에서 늘 헷갈리는 왕초보 학습자"
@@ -11,7 +13,7 @@ music: calm minimal ambient underscore, very low presence — educational, never
 ## Video direction
 
 **Palette·모션 문법·리듬 배분 원칙은 EP11(`videos/ep11-longform-faceless/STORYBOARD.md` Video
-direction)과 100% 동일** — 시즌2 시각적 일관성이 이 프로젝트의 명시적 요구사항. 다크 네이비 그라운드,
+direction)과 100% 동일** — EP11과의 시각적 일관성이 이 프로젝트의 명시적 요구사항. 다크 네이비 그라운드,
 세 기능색(노랑=강세/정답, 파랑=발음, 빨강=예외), power3 롱테일 감속 진입, 나레이션 발화 시점에만
 등장, subtle jitter 외 정지 시 생동감 없음.
 
@@ -19,9 +21,9 @@ direction)과 100% 동일** — 시즌2 시각적 일관성이 이 프로젝트�
 대신 신규 컴포넌트 `mouth-shape-diagram`(Frame 3)이 이 편의 시각적 클라이맥스 — GONNA 텍스트
 리빌이 아니라 **도형의 벌어짐 차이 자체**가 반전이다.
 
-**Rhythm / held-frame allocation**: 3곳이 의도적 홀드 — Frame 3(메커니즘 반전 공개, 클라이맥스),
-Frame 6(퀴즈 정답 공개), Frame 10(마무리+Rehook, 의도적으로 안 닫힌 채 정지). 나머지 프레임은
-능동적으로 전개된다.
+**Rhythm / held-frame allocation**: 2곳이 의도적 홀드 — Frame 3(메커니즘 반전 공개, 클라이맥스),
+Frame 6(퀴즈 정답 공개). Frame 10은 2026-09-03 내용 변경으로 더 이상 "안 닫힌 결말"이 아니라
+자연스럽게 정착하며 닫힌다(상세: Frame 10 절 참고). 나머지 프레임은 능동적으로 전개된다.
 
 **Negative list**: EP11과 동일(그림자 없음, 빨강 배경 채우기 금지, 검은고딕은 헤드라인 전용,
 `repeat`/`yoyo`/`Math.random`/`Date.now` 금지) + 같은 프레이밍 연속 두 번 금지: 1 centered →
@@ -32,7 +34,7 @@ Frame 6(퀴즈 정답 공개), Frame 10(마무리+Rehook, 의도적으로 안 �
 
 - scene: 다크 네이비 화면, 공감형 도입 문장 → "그런데" 이후 문제 제기 문장이 순차 등장
 - voiceover: "미드나 영화 보다가 '아이 원트 잇'이랑 '아이 워운트 두 잇', 이 두 개가 똑같이 들려서 자막 없이는 포기하신 적 있으시죠? 오늘 그 이유를 보여드리겠습니다."
-- duration: 10s
+- duration: 13.7s (오디오 13.2s + 0.5s)
 - transition_in: cut
 - status: outline
 - src: compositions/frames/01-stakes.html
@@ -57,7 +59,7 @@ Scene 3 (8.0–10.0s): 정지, subtle jitter만. progress-rail 첫 구간 채워
 
 - scene: "Want vs Won't" 대비 문구 등장 → 질문 → 짧은 정지 → "정답은 발음 기호가 아닙니다" 반전 착지
 - voiceover: "Want랑 Won't, 스펠링도 다르고 뜻도 정반대인데 왜 소리는 비슷하게 들릴까요? 정답은 발음 기호가 아닙니다. 입을 얼마나 크게 벌리느냐, 그 차이 하나예요."
-- duration: 12s
+- duration: 15.98s (오디오 15.48s + 0.5s)
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/02-headfake.html
@@ -82,7 +84,7 @@ Scene 3 (10.0–12.0s): 정지, progress-rail 갱신.
 
 - scene: 화면 좌우 분할 — 좌측 도형이 크게 벌어지며 "Want" 텍스트 등장, 우측 도형이 오므라들며 "Won't" 텍스트 등장
 - voiceover: "Want는요, 턱을 아래로 뚝 떨어뜨리면서 입을 크게 벌려요. '아.' 이 소리입니다. Won't는 반대로 입술을 동그랗게 오므리면서 짧게 냅니다. '오.' 이 소리예요. 턱이 크게 벌어지면 Want, 입술이 오므라들면 Won't. 이거 하나만 기억하시면 됩니다."
-- duration: 20s
+- duration: 26.86s (오디오 26.36s + 0.5s)
 - transition_in: cut
 - status: outline
 - src: compositions/frames/03-mechanism.html
@@ -111,7 +113,7 @@ Scene 3 (14.0–20.0s): "턱이 크게 벌어지면 Want, 입술이 오므라들
 
 - scene: anchor+list 존 — 좌측에 Want/Won't 미니 앵커, 우측에 예문 카드 6개가 순차 스택
 - voiceover: "문장으로 볼까요. '아이 원트 잇.' 아이 원트, 턱을 벌리죠. '아이 워운트 두 잇.' 아이 워운트, 입술을 오므립니다. 주어를 바꿔도 똑같아요. '쉬 원츠 모어.' '쉬 워운트 스탑.' '데이 원트 헬프.' '데이 워운트 헬프.' 뜻은 반대인데, 입 모양만 보면 헷갈릴 이유가 없습니다."
-- duration: 26s
+- duration: 29.62s (오디오 29.12s + 0.5s)
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/04-examples.html
@@ -138,7 +140,7 @@ Scene 3 (20.0–26.0s): "뜻은 반대인데, 입 모양만 보면 헷갈릴 이
 
 - scene: "Want to"가 흐릿하게 페이드되며 사라지고, "Won't"만 또렷하게 남아 확대
 - voiceover: "그런데 재밌는 게 하나 있어요. Want to는 원어민이 빠르게 말할 때 워너로 훅 줄어드는데, Won't는 거의 그렇게 안 줄어듭니다. 부정의 뜻이 중요하니까, 오히려 또박또박 발음하려는 거예요. 그러니까 소리가 흐릿하게 뭉개졌다면, 그건 대부분 Want 쪽입니다."
-- duration: 18s
+- duration: 22.58s (오디오 22.08s + 0.5s)
 - transition_in: cut
 - status: outline
 - src: compositions/frames/05-twist.html
@@ -165,7 +167,7 @@ Scene 3 (13.0–18.0s): "그러니까 소리가 흐릿하게 뭉개졌다면, �
 
 - scene: 질문 문장 등장 → 짧은 정지(생각 시간) → 정답 hero-word-block 공개
 - voiceover: "직접 맞혀보세요. '아이 워운트 비 데어.' 이 문장, 입술이 오므라들었을까요 벌어졌을까요? 잠깐 생각해 보시고... 정답은 오므라든 겁니다. Won't니까요."
-- duration: 14s
+- duration: 16.62s (오디오 16.12s + 0.5s)
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/06-quiz.html
@@ -192,7 +194,7 @@ mouth-shape-diagram(오므라든 쪽)이 동시 공개, 노랑 강조.
 - scene: anchor+list 존(Frame 4와 동일 패턴) — 좌측 Want/Won't 앵커, 우측에 영어 문장 4개가
   순차 등장
 - voiceover: "이제 실제 속도로 들어보고 Want인지 Won't인지 직접 구분해 보세요. 첫 번째. I want it so bad. 두 번째. She won't listen. 세 번째. They want more time. 네 번째. We won't give up. 입 모양이 보이시나요? 벌어지면 Want, 오므라들면 Won't입니다."
-- duration: 24s
+- duration: 28.3s (오디오 27.8s + 0.5s)
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/07-listening.html
@@ -209,9 +211,10 @@ narrativeRole: 한글 발음 표기가 아니라 진짜 원어민 소리로 직�
 "0.1초 만에 귀가 열린다"는 썸네일 카피를 실제로 체감시킨다.
 keyMessage: 진짜 속도로 들어도 입모양 원리를 알면 구분된다.
 
-**⚠️ SCRIPT.md Line 7과 동일 — 이 프레임 오디오는 2단계 조립(한국어 부분은 이 씬 나레이터,
-영어 예문 4개는 순수 영어 TTS로 별도 생성 후 concat).** 캡션 타이밍도 조립된 오디오 기준으로
-재추출.
+~~⚠️ SCRIPT.md Line 7과 동일 — 이 프레임 오디오는 2단계 조립...~~ **철회(2026-09-03)**: HeyGen
+Starfish 엔진에선 이 분할+concat이 필요했지만, 최종 채택한 Gemini(Charon)는 영어 예문 4개가 섞인
+전체 문장을 한 번에 자연스럽게 읽어서 이 프레임도 다른 프레임과 동일하게 단일 오디오 파일
+(`assets/voice/07.wav`)로 생성됨 — 조각 분할 불필요.
 
 Scene 1 (0.0–4.0s): "이제 실제 속도로 들어보고..." 인트로 문장, 좌측 앵커 정착(고정, 이후 안 움직임).
 Scene 2 (4.0–18.0s): "첫 번째... 네 번째..." — 문장 4개가 하나씩 우측에 등장, 순서 숫자(1-4)
@@ -223,7 +226,7 @@ Frame 3의 mouth-shape-diagram 미니 버전이 앵커 옆에 재등장(회수).
 
 - scene: 프롬프트 텍스트 + hero-word-block(축소판)이 3회 반복 펄스
 - voiceover: "이제 직접 소리 내보세요. 원트. 아이 원트. 아이 원트 잇. 세 번만 따라 하시면 입이 기억합니다."
-- duration: 8s
+- duration: 12.98s (오디오 12.48s + 0.5s)
 - transition_in: cut
 - status: outline
 - src: compositions/frames/08-practice.html
@@ -249,7 +252,7 @@ Scene 3 (7.0–8.0s): "세 번만 따라 하시면 입이 기억합니다" — �
 
 - scene: h2 톤의 저밀도 홀드, "노, 아이 워운트" 예시 문구가 짧게 강조
 - voiceover: "그래서 미드에서 '노, 아이 워운트'라고 할 때, 자막 없이도 이제 입 모양만 보면 딱 들리실 겁니다. 뜻이 정반대인 두 단어가, 사실 이렇게 간단한 차이였어요."
-- duration: 10s
+- duration: 15.66s (오디오 15.16s + 0.5s)
 - transition_in: crossfade
 - status: outline
 - src: compositions/frames/09-payoff.html
@@ -269,28 +272,30 @@ Scene 1 (0.0–5.0s): "그래서 미드에서 '노, 아이 워운트'라고 할 
 pron-caption 스타일).
 Scene 2 (5.0–10.0s): "뜻이 정반대인 두 단어가, 사실 이렇게 간단한 차이였어요" — 정지, 옅은 만족감.
 
-## Frame 10 — 요약 + Rehook
+## Frame 10 — 요약 + 마무리
 
-- scene: 요약 문장 정착 → "WANT TO" 텍스트가 짧게 강조되며 등장, 화면이 완전히 닫히지 않은 채 정지
-- voiceover: "오늘은 Want와 Won't를 입 모양 하나로 구분하는 법을 봤습니다. 그리고 지난 편에서 약속드렸던 WANT TO 축약, 그거 다음 영상에서 바로 보여드릴게요."
-- duration: 14s
+- scene: 요약 문장 정착 → 채널 브랜드 마무리 톤(따뜻한 다음 약속, 특정 소재 지목 없음)
+- voiceover: "오늘은 Want와 Won't를 입 모양 하나로 구분하는 법을 봤습니다. 다음에도 여러분이 자주 헷갈리는 발음, 또 풀어드릴게요."
+- duration: 11.82s (오디오 11.32s + 0.5s)
 - transition_in: cut
 - status: outline
 - src: compositions/frames/10-summary-rehook.html
 - type: branding
-- persuasion: Recap + forward hook
-- beat: 정리 + 다음 편 예고(안 닫힌 결말)
-- blueprint: titlecard-reveal (Reproduce — 차분한 2줄 가치-타이틀 랜딩, 2번째 줄(WANT TO)이
-  옅은 채 안 닫히는 게 Rehook, EP11 Frame 13과 동일 패턴)
-- focal: "WANT TO" 텍스트 — 옅게, 완전히 해소되지 않은 채 유지
-- roles: 요약 문장 = supporting, 정착 · "WANT TO" = 미해결로 남는 forward hook
-- sfx: 없음(의도적으로 열린 결말, 효과음으로 닫아버리지 않음)
+- persuasion: Recap + warm close
+- beat: 정리 + 따뜻한 다음 기약(특정 예고 없음)
+- blueprint: titlecard-reveal (Reproduce — 차분한 2줄 랜딩. **2026-09-03 내용 변경**: 2번째
+  줄이 더 이상 "WANT TO"라는 구체적 미해결 텍스트가 아니라, 채널 시그니처 톤의 마무리 문구로
+  바뀜 — 특정 소재를 못 박지 않는 "단편" 방침 때문. 상세: SCRIPT.md "Rehook 연속성 메모 — 철회함")
+- focal: "다음에도... 또 풀어드릴게요" — 따뜻하게 닫히는 문장
+- roles: 요약 문장 = supporting, 정착 · 마무리 문장 = foreground subject, 완전히 정착
+- sfx: 없음(차분하게 완결)
 
-narrativeRole: 이 편의 배움을 요약해서 완결감을 주는 동시에, EP11이 예고했던 WANT TO 약속을
-명시적으로 재확인해서 다음 편(EP13)으로 연속성을 잇는다 — 2026-09-03 확정(SCRIPT.md "Rehook
-연속성 메모" 참고).
-keyMessage: 오늘의 배움은 끝났지만, WANT TO 이야기는 아직 남아있다.
+narrativeRole: 이 편의 배움을 요약해서 완결감을 주고, 특정 소재를 예고하지 않은 채(단편 방침)
+채널에 대한 신뢰만 따뜻하게 남긴다 — "다음에도 헷갈리는 걸 풀어준다"는 채널 차원의 약속으로
+닫는다. EP11이 예고했던 "WANT TO" 약속은 여기서 회수하지 않는다(2026-09-03 정정 — 아래 참고).
+keyMessage: 오늘의 배움은 여기서 완결된다. 다음에 또 다른 헷갈림을 풀어줄 거라는 믿음만 남긴다.
 
 Scene 1 (0.0–7.0s): "오늘은 Want와 Won't를... 봤습니다" — 요약 문장, progress-rail 100% 채워짐.
-Scene 2 (7.0–14.0s): "그리고 지난 편에서 약속드렸던 WANT TO 축약, 그거 다음 영상에서..." —
-"WANT TO" 텍스트가 옅게(text-muted, 아직 안 풀린 색) 등장, 화면은 완전히 안 닫힌 채 정지.
+Scene 2 (7.0–11.32s): "다음에도 여러분이 자주 헷갈리는 발음, 또 풀어드릴게요" — 완전히 정착해서
+읽히고, 화면도 자연스럽게 닫힘(이전 안처럼 일부러 안 닫힌 채 두지 않음 — 특정 텍스트를 미해결로
+남길 이유가 없어졌기 때문).

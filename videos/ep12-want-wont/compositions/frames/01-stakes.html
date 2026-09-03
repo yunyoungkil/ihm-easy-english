@@ -1,0 +1,206 @@
+<template>
+<style>
+  /* 01-stakes — Frame 1 "Stakes" (kinetic-type-beats blueprint, Hook/escalation shape).
+     Mirrors EP11's 01-stakes.html structure exactly (frame.md/STORYBOARD.md require
+     100% visual-grammar parity). Line 1 (long, empathy setup) settles and holds while
+     narration reads through it; Line 2 (short, the promise) snaps in as the dominant
+     element near the end of the VO, then both hold with a subtle jitter. */
+
+  @font-face {
+    font-family: 'Black Han Sans';
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0A1526;
+    color: #FFFFFF;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  #root .stakes-bg {
+    background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%);
+  }
+
+  #root .stakes-glow {
+    background: radial-gradient(circle at 50% 46%, rgba(245, 197, 24, 0.10) 0%, rgba(245, 197, 24, 0) 55%);
+    opacity: 0.2;
+  }
+
+  #root .stakes-progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 4px;
+    background: rgba(245, 197, 24, 0.15);
+  }
+
+  #root .stakes-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 4px;
+    background: #F5C518;
+  }
+
+  #root .stakes-textblock {
+    position: absolute;
+    left: 160px;
+    top: 360px;
+    width: 1600px;
+  }
+
+  #root .stakes-line1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #A9B4C4;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  #root .stakes-line2 {
+    font-size: 60px;
+    font-weight: 900;
+    color: #F5C518;
+    line-height: 1.2;
+    text-shadow: 0 0 28px rgba(245, 197, 24, 0.30);
+  }
+
+  #root .stakes-word {
+    display: inline-block;
+    opacity: 0;
+  }
+
+  #root .stakes-eyebrow {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #A9B4C4;
+    margin-bottom: 22px;
+    opacity: 0;
+  }
+</style>
+
+<div data-hf-id="hf-ndi1" id="root" data-composition-id="01-stakes" data-start="0" data-duration="13.7" data-width="1920" data-height="1080">
+
+  <div data-hf-id="hf-y77e" id="stakes-bg-clip" class="clip stakes-bg" data-start="0" data-duration="13.7" data-track-index="0"></div>
+  <div data-hf-id="hf-glwc" class="clip stakes-glow" id="stakes-glow" data-start="0" data-duration="13.7" data-track-index="1"></div>
+
+  <div data-hf-id="hf-q6ol" class="stakes-progress-track">
+    <div data-hf-id="hf-7aza" class="stakes-progress-fill" id="stakes-progress-fill"></div>
+  </div>
+
+  <div data-hf-id="hf-y32a" class="stakes-textblock" id="stakes-textblock">
+    <div data-hf-id="hf-w77b" class="stakes-eyebrow" id="stakes-eyebrow">이해하면 쉬운영어</div>
+    <div data-hf-id="hf-hm0e" class="stakes-line1" id="stakes-line1"></div>
+    <div data-hf-id="hf-9vg2" class="stakes-line2" id="stakes-line2"></div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["01-stakes"] = tl;
+
+  var line1Words = ["미드나", "영화", "보다가", "“아이", "원트", "잇”이랑", "“아이", "워운트", "두", "잇”,", "이", "두", "개가", "똑같이", "들려서", "자막", "없이는", "포기하신", "적", "있으시죠?"];
+  var line2Words = ["오늘", "그", "이유를", "보여드리겠습니다"];
+
+  var line1El = document.getElementById("stakes-line1");
+  var line2El = document.getElementById("stakes-line2");
+  var glowEl = document.getElementById("stakes-glow");
+  var textBlockEl = document.getElementById("stakes-textblock");
+  var progressFillEl = document.getElementById("stakes-progress-fill");
+
+  var WORD_BASE = 0.10;
+  var WORD_SEC_PER_CHAR = 0.028;
+  var ENTRANCE_DUR = 0.38;
+  var Y_OFFSET = 18;
+
+  function layWords(container, words, startAt, ease) {
+    var cumulative = startAt;
+    var spans = [];
+    for (var i = 0; i < words.length; i++) {
+      var span = document.createElement("span");
+      span.className = "stakes-word";
+      span.textContent = words[i];
+      container.appendChild(span);
+      if (i < words.length - 1) container.appendChild(document.createTextNode(" "));
+      var dur = WORD_BASE + words[i].length * WORD_SEC_PER_CHAR;
+      spans.push({ el: span, start: cumulative });
+      cumulative += dur;
+    }
+    spans.forEach(function (w) {
+      tl.fromTo(
+        w.el,
+        { opacity: 0, y: Y_OFFSET },
+        { opacity: 1, y: 0, duration: ENTRANCE_DUR, ease: ease },
+        w.start
+      );
+    });
+    return cumulative;
+  }
+
+  tl.fromTo(
+    document.getElementById("stakes-eyebrow"),
+    { opacity: 0, y: 8 },
+    { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+    0.05,
+  );
+
+  // Scene 1 (~0.3s–11.0s VO): the long empathy setup. The per-word reveal itself is
+  // quick (content-aware stagger, ~3.8s to finish popping in); the line then simply
+  // holds fully visible while the narrator keeps reading through it — real audio is
+  // 13.2s total and this clause is by far the longer of the two (character-count
+  // estimate: ~11.0s in). Refine against real word timestamps once transcribed.
+  layWords(line1El, line1Words, 0.3, "power2.out");
+
+  // Scene 2 (~11.0s VO, "오늘 그 이유를 보여드리겠습니다"): the promise, this frame's
+  // dominant element, snaps in with a touch of overshoot right as narration reaches it.
+  layWords(line2El, line2Words, 11.0, "back.out(1.5)");
+
+  // Scene 3 (~11.9s -> 13.2s, brief hold — audio is almost out of runway here, so this
+  // is short compared to EP11's): settled jitter, no exit tween (buffer tail only).
+  tl.to(textBlockEl, { x: 2, y: -1, duration: 0.45, ease: "sine.inOut" }, 12.0)
+    .to(textBlockEl, { x: -1, y: 1, duration: 0.45, ease: "sine.inOut" }, 12.45)
+    .to(textBlockEl, { x: 0, y: 0, duration: 0.45, ease: "sine.inOut" }, 12.9);
+
+  // Ambient center glow — single bounded breathe across the whole shot, no loop.
+  tl.fromTo(glowEl, { opacity: 0.2 }, { opacity: 0.42, duration: 6.6, ease: "sine.inOut" }, 0).to(
+    glowEl,
+    { opacity: 0.3, duration: 6.6, ease: "sine.inOut" },
+    6.6
+  );
+
+  // progress-rail: first of 10 segments fills as Scene 2 lands, then holds flat.
+  tl.fromTo(
+    progressFillEl,
+    { width: "0%" },
+    { width: (100 / 10).toFixed(3) + "%", duration: 1.1, ease: "power1.inOut" },
+    11.0
+  );
+})();
+</script>
+</template>

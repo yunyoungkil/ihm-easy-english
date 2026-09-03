@@ -36,14 +36,15 @@
 - [브랜드 & 대시보드 디자인 시스템](brand-dashboard-design-system.md) — 컬러 토큰, 폰트 스케일, Faceless Explainer 비주얼 일체화 표준 가이드
 - [대시보드 1-Click AI 썸네일 생성기의 제작 프로세스 이탈](decisions/2026-08-31-ai-thumbnail-generator-process-gap.md) — `generateAiThumbnailImage`가 "이미지는 사용자가 직접 생성" 규칙을 건너뜀 → 문구 5안 진단 전엔 이미지 생성 버튼 잠그는 승인 게이트로 해결
 - [채널 아바타 인트로 클립 제작 전 결정 사항](decisions/2026-09-03-avatar-intro-clip-setup.md) — 아바타·목소리·대사는 확정, 화면비/배경/해상도/고지문구는 아직 미정
+- [단편/시즌 분류 정리](decisions/2026-09-03-standalone-vs-season-episodes.md) — 아이디어 보드로 고른 영상은 "시즌"이 아니라 "단편"으로 분류, EP11/EP12 라벨 정정
 
 
 ## 에피소드
 
 - [시즌1 EP9 — -CIAL](episodes/season1-ep09.md) — 제작 결과, YouTube 예약, 공개 후 확인
 - [시즌1 EP10 — 시즌1 총정리](episodes/season1-ep10.md) — 완성된 롱폼과 미제작 쇼츠 A·B
-- [시즌2 EP11 — GONNA](episodes/season2-ep11.md) — 시즌2 첫 편, **렌더링까지 완료, 업로드만 남음**(2026-09-03 재발견)
-- [시즌2 EP12 — Want vs Won't](episodes/season2-ep12.md) — 시즌2 두 번째 편, 제목·썸네일 확정 완료(2단계), 대본 작성 전(EP11 번호였던 걸 정정)
+- [단편 EP11 — GONNA](episodes/ep11-gonna.md) — **렌더링까지 완료, 업로드만 남음**(2026-09-03 재발견)
+- [단편 EP12 — Want vs Won't](episodes/ep12-want-wont.md) — 제목·썸네일·대본·스토리보드 확정 완료, 다음은 남성 음성 TTS 나레이션
 
 ## 이전 기록
 

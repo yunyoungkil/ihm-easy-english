@@ -13,9 +13,10 @@ angle: narrative
 
 ## Intent
 
-시즌2 EP1(전체 에피소드 번호로는 EP11). 시즌1은 -TION/-SION/-TURE/-CIAL 등 **단어 자체의 발음 규칙**을
-다뤘고, 시즌2는 **문장 속에서 소리가 연결·축약되는 원리**(연음)를 다룬다. 이 첫 편은 시즌2에서 가장
-유명하고 인지도 높은 축약(GOING TO → GONNA)으로 시즌을 연다.
+단편 EP11(아이디어 보드 데이터 기반 선정 — 시즌 기획 아님, 상세:
+[단편/시즌 분류 정리](../../knowledge/decisions/2026-09-03-standalone-vs-season-episodes.md)).
+시즌1은 -TION/-SION/-TURE/-CIAL 등 **단어 자체의 발음 규칙**을 다뤘고, 이 편은 시즌1 종료 이후
+가장 유명하고 인지도 높은 축약(GOING TO → GONNA)을 다룬 첫 문장 단위 소재다.
 
 **이 저장소의 첫 HyperFrames 롱폼 프로젝트다.** 기존 롱폼(EP6~EP10)은 전부 Remotion `CardScene`으로
 만들었고, HyperFrames 쪽엔 롱폼용 카드 템플릿이 아직 없다
@@ -33,7 +34,7 @@ angle: narrative
 
 ## 확정된 제목·썸네일
 
-- **제목**: `GOING TO를 원어민처럼 읽으면 GONNA가 됩니다 — 그럼 WANT TO는요? | 시즌2 EP1`
+- **제목**: `GOING TO를 원어민처럼 읽으면 GONNA가 됩니다 — 그럼 WANT TO는요?`
 
 ### 좌측 — 고정 템플릿 (앞으로 이 시즌 다른 편에도 재사용 가능한 베이스)
 

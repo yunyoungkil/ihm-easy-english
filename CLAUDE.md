@@ -1,6 +1,6 @@
 # 이해하면 쉬운영어 — Remotion 파이프라인 (레거시, EP6~EP10 전용)
 
-> ⚠️ **2026-08-26부터 새 제작은 전부 HyperFrames로 한다** (롱폼·쇼츠·썸네일 전부, 시즌2 EP11 포함).
+> ⚠️ **2026-08-26부터 새 제작은 전부 HyperFrames로 한다** (롱폼·쇼츠·썸네일 전부, EP11 포함).
 > 이 파일이 문서화하는 Remotion 파이프라인은 **EP6~EP10을 재렌더할 때만** 참고하는 보존 문서다.
 > 새 영상을 만들 때 이 파일의 지시(예: 아래 "다음 편 만들 때")를 따르지 말 것 — `/hyperframes` 스킬
 > 진입점부터 시작한다. 근거: [HyperFrames 전면 전환 결정](knowledge/decisions/2026-08-26-hyperframes-full-migration.md).
@@ -38,7 +38,8 @@
 > 기준이다. 여기 남기는 건 코드 작업에 바로 필요한 참조 정보뿐.
 
 이 저장소가 렌더링한 롱폼은 EP6~EP10(컴포지션 `EP06-card`~`EP10-card`, 각각 -TION/-SION/-TURE/-CIAL
-강세와 시즌1 총정리)이다. EP1~5는 이 파이프라인 이전에 제작됐다. 시즌2 EP11부터는 이 Remotion
+강세와 시즌1 총정리)이다. EP1~5는 이 파이프라인 이전에 제작됐다. EP11부터는(단편, 시즌 아님 —
+`knowledge/decisions/2026-09-03-standalone-vs-season-episodes.md` 참고) 이 Remotion
 파이프라인을 확장하지 않고 HyperFrames로 새로 만든다(`knowledge/content-formats.md` 참고).
 
 유튜브 영어 발음 교육 채널용 영상을 Remotion으로 만드는 프로젝트.

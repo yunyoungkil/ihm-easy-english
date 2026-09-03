@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1526;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      #bg {
+        background: radial-gradient(circle at 50% 50%, #12203a 0%, #0a1526 100%);
+      }
+      .avatar-video {
+        width: 1920px;
+        height: 1080px;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="4.03"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="bg" class="clip" data-start="0" data-duration="4.03" data-track-index="0"></div>
+
+      <video
+        id="beat1"
+        class="avatar-video clip"
+        src="assets/beat1.webm"
+        data-start="0"
+        data-duration="2.88"
+        data-track-index="1"
+        data-has-audio="true"
+      ></video>
+
+      <video
+        id="beat2"
+        class="avatar-video clip"
+        src="assets/beat2.webm"
+        data-start="2.88"
+        data-duration="1.15"
+        data-track-index="1"
+        data-has-audio="true"
+      ></video>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

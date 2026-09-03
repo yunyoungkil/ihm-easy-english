@@ -1,8 +1,8 @@
 ---
 version: alpha
-name: Understand-English Season2 — Frame (video / frame layer)
+name: Understand-English EP12 — Frame (video / frame layer)
 description: >
-  EP11(GONNA)에서 만든 frame.md를 그대로 재사용 — 시즌2 내 시각적 일관성을 위해 채널 브랜드 토큰
+  EP11(GONNA)에서 만든 frame.md를 그대로 재사용 — EP11과의 시각적 일관성을 위해 채널 브랜드 토큰
   (다크 네이비 그라운드, 세 기능색 강조 시스템, Black Han Sans 디스플레이)을 바꾸지 않는다. 팔레트·
   타이포·컴포넌트는 EP11과 100% 동일. "Frame Treatments"의 씬 매핑만 이 편(10프레임)에 맞게
   다시 배정했다.
@@ -51,10 +51,23 @@ components:
     typography: "{typography.pron-sub}"
     description: "hero-word-block 바로 아래 한글 발음 표기, 항상 {colors.accent-pronunciation}."
   mouth-shape-diagram:
-    backgroundColor: "{colors.card-bg}"
-    border: "2px solid {colors.border}"
-    rounded: "{radii.card-lg}"
-    description: "이 편 전용 컴포넌트 — Want(턱 벌어짐)와 Won't(입술 오므림)의 입모양 차이를 보여주는 단순 라인아트 다이어그램. 사진/일러스트가 아니라 도형(원/타원의 벌어짐 정도)으로 추상화 — EP11의 '메커니즘 칩 스트립'과 같은 원리(그 씬의 실제 내용이 아니면 존재할 수 없는 그림)."
+    backgroundColor: "#050b16"
+    border: "6px solid {colors.accent-*}"
+    rounded: "24px"
+    description: "이 편 전용 컴포넌트 — Want(턱 벌어짐)와 Won't(입술 오므림)의 실제 입모양 차이를
+      보여주는 정사각형 영상 창(둥근 테두리, Want=노랑/Won't=파랑 accent). **2026-09-03 변경**:
+      처음엔 '사진/일러스트가 아니라 도형으로 추상화'로 설계했으나, 이미 이 목적으로 촬영해둔 실사
+      B롤(`assets/broll/want-jaw-drop.mp4`, `wont-lip-round.mp4` — 입 클로즈업, 얼굴 비노출,
+      각 10초)이 있다는 걸 뒤늦게 반영 — 실제 입모양을 직접 보여주는 게 도형 근사보다 강하다는
+      판단(사용자 지적으로 발견). Frame 3에서 구현 완료(`compositions/frames/03-mechanism.html`).
+      ⚠️ **화면 노출 시간(16~26초)이 원본 길이(10초)보다 길 때 주의**: 영상을 한 번만
+      자연 재생(~8.6초)한 뒤, 같은 크롭·위치의 **CSS `background-image`**(정지 이미지 하나)로
+      넘겨서 나머지 시간을 채운다. 시도했다가 버린 방법 둘: (1) 같은 영상을 여러 개 이어 붙여
+      반복처럼 보이게 하기 — 렌더 중 디코더가 가끔 검은 화면을 냄. (2) `<img>` 태그로 정지 이미지
+      전환 — 타임라인 중간에 등장하는 `<img>`가 가끔 로딩이 안 된 채로 캡처됨(둘 다 이 프로젝트의
+      단일 워커 렌더 환경에서 확인, `.transcode-cache/`도 새 인코딩 후 지워야 반영됨). CSS
+      배경 이미지는 8회 반복 검증 전부 안정적으로 통과. Frame 6·7의 '미니 버전 회수'도 같은 영상을
+      작게 재사용하는 쪽으로 통일하는 게 자연스러움 — 아직 미반영(다음에 처리)."
   sentence-card:
     backgroundColor: "{colors.card-bg}"
     border: "2px solid {colors.border}"
@@ -84,7 +97,7 @@ components:
 ## Overview — EP11과 다른 점만 기록
 
 팔레트·타이포·기본 컴포넌트(hero-word-block, pron-caption, sentence-card, progress-rail,
-caption-pill)는 EP11 `frame.md`와 **완전히 동일**하다 — 시즌2 내 시각적 일관성이 이 편의 명시적
+caption-pill)는 EP11 `frame.md`와 **완전히 동일**하다 — EP11과의 시각적 일관성이 이 편의 명시적
 요구사항(`BRIEF.md`)이기 때문이다. 아래만 이 편 고유의 확장:
 
 1. **`mouth-shape-diagram`(신규 컴포넌트)** — 이 편의 핵심 메커니즘("턱을 얼마나 벌리는지")은

@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, height=1080" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * {
@@ -26,34 +26,1924 @@
       .monospace {
         font-family: "JetBrains Mono", monospace;
       }
+      @font-face {
+        font-family: "Noto Sans KR";
+        font-weight: 700;
+        font-style: normal;
+        src: url("https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Noto Sans KR";
+        font-weight: 900;
+        font-style: normal;
+        src: url("https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf") format("truetype");
+      }
+      
+  .caption-layer-N { position: absolute; inset: 0; z-index: 20; pointer-events: none; transform: translateZ(0); }
+  .caption-safe-zone-N { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); width: 1500px; height: 200px; display: flex; align-items: center; justify-content: center; }
+  .caption-group-N { position: absolute; left: 0; top: 0; width: 1500px; height: 200px; display: flex; align-items: center; justify-content: center; opacity: 0; transform-origin: 50% 50%; will-change: transform; backface-visibility: hidden; }
+  .caption-copy-N { display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 1500px; text-align: center; }
+  .caption-line-N {
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: max-content; max-width: 1500px;
+    line-height: 1.25; white-space: nowrap; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700; font-size: 46px; text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    background: rgba(10,21,38,0.82); padding: 10px 28px; border-radius: 999px;
+  }
+
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="10"
-      data-width="1920"
-      data-height="1080"
-    >
-      
-      
+    <div data-hf-id="hf-qz3f" id="root" data-composition-id="main" data-start="0" data-duration="194.12" data-width="1920" data-height="1080">
 
-      <!--
-        Add your clips here. Example:
-        <div id="title" class="clip" data-start="0" data-duration="5" data-track-index="1"
-             style="font-size: 64px; color: #fff; padding: 40px">
-          Hello World
-        </div>
-      -->
-    </div>
+      <div data-hf-id="hf-dmzh" id="el-01-stakes" class="scene" data-composition-id="01-stakes" data-composition-src="compositions/frames/01-stakes.html" data-start="0" data-duration="13.7" data-track-index="0"></div>
+      <audio data-hf-id="hf-av15" id="el-01-stakes-voice" src="assets/voice/01.wav" data-start="0" data-duration="13.2" data-track-index="10" data-volume="1"></audio>
 
+      <div data-hf-id="hf-bj1w" id="el-02-headfake" class="scene" data-composition-id="02-headfake" data-composition-src="compositions/frames/02-headfake.html" data-start="13.7" data-duration="15.98" data-track-index="1"></div>
+      <audio data-hf-id="hf-8duq" id="el-02-headfake-voice" src="assets/voice/02.wav" data-start="13.7" data-duration="15.48" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-zvf3" id="el-03-mechanism" class="scene" data-composition-id="03-mechanism" data-composition-src="compositions/frames/03-mechanism.html" data-start="29.68" data-duration="26.86" data-track-index="0"></div>
+      <audio data-hf-id="hf-zgd1" id="el-03-mechanism-voice" src="assets/voice/03.wav" data-start="29.68" data-duration="26.36" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-0etv" id="el-04-examples" class="scene" data-composition-id="04-examples" data-composition-src="compositions/frames/04-examples.html" data-start="56.54" data-duration="29.62" data-track-index="1"></div>
+      <audio data-hf-id="hf-t29z" id="el-04-examples-voice" src="assets/voice/04.wav" data-start="56.54" data-duration="29.12" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-hgso" id="el-05-twist" class="scene" data-composition-id="05-twist" data-composition-src="compositions/frames/05-twist.html" data-start="86.16" data-duration="22.58" data-track-index="0"></div>
+      <audio data-hf-id="hf-yqmg" id="el-05-twist-voice" src="assets/voice/05.wav" data-start="86.16" data-duration="22.08" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-xwmb" id="el-06-quiz" class="scene" data-composition-id="06-quiz" data-composition-src="compositions/frames/06-quiz.html" data-start="108.74" data-duration="16.62" data-track-index="1"></div>
+      <audio data-hf-id="hf-jfrh" id="el-06-quiz-voice" src="assets/voice/06.wav" data-start="108.74" data-duration="16.12" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-4m52" id="el-07-listening" class="scene" data-composition-id="07-listening" data-composition-src="compositions/frames/07-listening.html" data-start="125.36" data-duration="28.3" data-track-index="0"></div>
+      <audio data-hf-id="hf-p0db" id="el-07-listening-voice" src="assets/voice/07.wav" data-start="125.36" data-duration="27.8" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-cc3b" id="el-08-practice" class="scene" data-composition-id="08-practice" data-composition-src="compositions/frames/08-practice.html" data-start="153.66" data-duration="12.98" data-track-index="1"></div>
+      <audio data-hf-id="hf-l8u9" id="el-08-practice-voice" src="assets/voice/08.wav" data-start="153.66" data-duration="12.48" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-ekpx" id="el-09-payoff" class="scene" data-composition-id="09-payoff" data-composition-src="compositions/frames/09-payoff.html" data-start="166.64" data-duration="15.66" data-track-index="0"></div>
+      <audio data-hf-id="hf-8in7" id="el-09-payoff-voice" src="assets/voice/09.wav" data-start="166.64" data-duration="15.16" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-n49j" id="el-10-summary-rehook" class="scene" data-composition-id="10-summary-rehook" data-composition-src="compositions/frames/10-summary-rehook.html" data-start="182.3" data-duration="11.82" data-track-index="1"></div>
+      <audio data-hf-id="hf-dx9g" id="el-10-summary-rehook-voice" src="assets/voice/10.wav" data-start="182.3" data-duration="11.32" data-track-index="10" data-volume="1"></audio>
+
+      <!-- Caption bar for Frame 01 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-k90b" id="cap01" class="clip caption-layer-N" data-start="0" data-duration="13.45" data-track-index="20"></div>
     <script>
+    (function () {
+      var WRAP_ID = "cap01";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 13.45;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"미드나","start":0.15,"end":0.784},{"text":"영화","start":0.784,"end":1.207},{"text":"보다가","start":1.207,"end":1.842},{"text":"\"아이","start":1.842,"end":2.265},{"text":"원트","start":2.265,"end":2.688},{"text":"잇\"이랑","start":2.688,"end":3.534},{"text":"\"아이","start":3.534,"end":3.957},{"text":"워운트","start":3.957,"end":4.591},{"text":"두","start":4.591,"end":4.802},{"text":"잇\",","start":4.802,"end":5.014},{"text":"이","start":5.014,"end":5.225},{"text":"두","start":5.225,"end":5.437},{"text":"개가","start":5.437,"end":5.86},{"text":"똑같이","start":5.86,"end":6.494},{"text":"들려서","start":6.494,"end":7.129},{"text":"자막","start":7.129,"end":7.552},{"text":"없이는","start":7.552,"end":8.186},{"text":"포기하신","start":8.186,"end":9.032},{"text":"적","start":9.032,"end":9.243},{"text":"있으시죠?","start":9.243,"end":10.089},{"text":"오늘","start":10.089,"end":10.512},{"text":"그","start":10.512,"end":10.724},{"text":"이유를","start":10.724,"end":11.358},{"text":"보여드리겠습니다.","start":11.358,"end":13.05}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
       window.__timelines = window.__timelines || {};
-      const tl = gsap.timeline({ paused: true });
-      // Example: tl.from("#title", { opacity: 0, y: -50, duration: 1 }, 0);
-      window.__timelines["main"] = tl;
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
     </script>
+
+    <!-- Caption bar for Frame 02 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-9bu1" id="cap02" class="clip caption-layer-N" data-start="13.7" data-duration="15.7" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap02";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 15.7;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"Want랑","start":0.15,"end":0.285},{"text":"Won't,","start":0.3,"end":0.435},{"text":"스펠링도","start":0,"end":3.19},{"text":"다르고","start":3.33,"end":3.88},{"text":"뜻도","start":4.08,"end":4.3},{"text":"정반대인데","start":4.42,"end":5.246},{"text":"왜","start":5.39,"end":5.44},{"text":"소리는","start":5.94,"end":6.237},{"text":"비슷하게","start":6.31,"end":6.907},{"text":"들릴까요?","start":7.04,"end":8.086},{"text":"정답은","start":8.368,"end":9.403},{"text":"발음","start":9.68,"end":9.84},{"text":"기호가","start":9.68,"end":10.37},{"text":"아닙니다.","start":10.55,"end":11.356},{"text":"입을","start":11.558,"end":12.035},{"text":"얼마나","start":12.16,"end":12.597},{"text":"크게","start":12.74,"end":13.005},{"text":"벌리느냐,","start":13.17,"end":13.838},{"text":"그","start":13.994,"end":14.25},{"text":"차이","start":14.51,"end":14.86},{"text":"하나예요.","start":15.11,"end":16.126}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 03 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-mvrc" id="cap03" class="clip caption-layer-N" data-start="29.68" data-duration="26.61" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap03";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 26.61;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"Want는요,","start":0.15,"end":1.683},{"text":"턱을","start":1.683,"end":2.194},{"text":"아래로","start":2.194,"end":2.96},{"text":"뚝","start":2.96,"end":3.216},{"text":"떨어뜨리면서","start":3.216,"end":4.749},{"text":"입을","start":4.749,"end":5.26},{"text":"크게","start":5.26,"end":5.771},{"text":"벌려요.","start":5.771,"end":6.537},{"text":"\"아.\"","start":6.537,"end":6.793},{"text":"이","start":6.793,"end":7.048},{"text":"소리입니다.","start":7.048,"end":8.326},{"text":"Won't는","start":8.326,"end":9.859},{"text":"반대로","start":9.859,"end":10.625},{"text":"입술을","start":10.625,"end":11.392},{"text":"동그랗게","start":11.392,"end":12.414},{"text":"오므리면서","start":12.414,"end":13.691},{"text":"짧게","start":13.691,"end":14.202},{"text":"냅니다.","start":14.202,"end":14.968},{"text":"\"오.\"","start":14.968,"end":15.224},{"text":"이","start":15.224,"end":15.479},{"text":"소리예요.","start":15.479,"end":16.501},{"text":"턱이","start":16.501,"end":17.012},{"text":"크게","start":17.012,"end":17.523},{"text":"벌어지면","start":17.523,"end":18.545},{"text":"Want,","start":18.545,"end":19.567},{"text":"입술이","start":19.567,"end":20.334},{"text":"오므라들면","start":20.334,"end":21.611},{"text":"Won't.","start":21.611,"end":22.889},{"text":"이거","start":22.889,"end":23.4},{"text":"하나만","start":23.4,"end":24.166},{"text":"기억하시면","start":24.166,"end":25.444},{"text":"됩니다.","start":25.444,"end":26.21}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 04 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-qavm" id="cap04" class="clip caption-layer-N" data-start="56.54" data-duration="29.37" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap04";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 29.37;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"문장으로","start":0.15,"end":1.338},{"text":"볼까요.","start":1.338,"end":2.23},{"text":"\"아이","start":2.23,"end":2.824},{"text":"원트","start":2.824,"end":3.418},{"text":"잇.\"","start":3.418,"end":3.715},{"text":"아이","start":3.715,"end":4.31},{"text":"원트,","start":4.31,"end":4.904},{"text":"턱을","start":4.904,"end":5.498},{"text":"벌리죠.","start":5.498,"end":6.389},{"text":"\"아이","start":6.389,"end":6.984},{"text":"워운트","start":6.984,"end":7.875},{"text":"두","start":7.875,"end":8.172},{"text":"잇.\"","start":8.172,"end":8.469},{"text":"아이","start":8.469,"end":9.063},{"text":"워운트,","start":9.063,"end":9.955},{"text":"입술을","start":9.955,"end":10.846},{"text":"오므립니다.","start":10.846,"end":12.332},{"text":"주어를","start":12.332,"end":13.223},{"text":"바꿔도","start":13.223,"end":14.114},{"text":"똑같아요.","start":14.114,"end":15.303},{"text":"\"쉬","start":15.303,"end":15.6},{"text":"원츠","start":15.6,"end":16.194},{"text":"모어.\"","start":16.194,"end":16.788},{"text":"\"쉬","start":16.788,"end":17.085},{"text":"워운트","start":17.085,"end":17.977},{"text":"스탑.\"","start":17.977,"end":18.571},{"text":"\"데이","start":18.571,"end":19.165},{"text":"원트","start":19.165,"end":19.759},{"text":"헬프.\"","start":19.759,"end":20.354},{"text":"\"데이","start":20.354,"end":20.948},{"text":"워운트","start":20.948,"end":21.839},{"text":"헬프.\"","start":21.839,"end":22.434},{"text":"뜻은","start":22.434,"end":23.028},{"text":"반대인데,","start":23.028,"end":24.216},{"text":"입","start":24.216,"end":24.513},{"text":"모양만","start":24.513,"end":25.405},{"text":"보면","start":25.405,"end":25.999},{"text":"헷갈릴","start":25.999,"end":26.89},{"text":"이유가","start":26.89,"end":27.782},{"text":"없습니다.","start":27.782,"end":28.97}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 05 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-cofx" id="cap05" class="clip caption-layer-N" data-start="86.16" data-duration="21.92" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap05";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 21.92;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"그런데","start":0.3,"end":0.603},{"text":"재밌는","start":0.68,"end":1.177},{"text":"게","start":1.35,"end":1.4},{"text":"하나","start":1.57,"end":1.845},{"text":"있어요.","start":2.02,"end":2.54},{"text":"Want","start":2.54,"end":2.675},{"text":"to는","start":2.69,"end":2.825},{"text":"원어민이","start":2.725,"end":4.322},{"text":"빠르게","start":4.49,"end":4.98},{"text":"말할","start":5.15,"end":5.565},{"text":"때","start":5.88,"end":5.93},{"text":"워너로","start":6,"end":6.24},{"text":"훅","start":6,"end":6.72},{"text":"줄어드는데,","start":7.05,"end":8.02},{"text":"Won't는","start":8.02,"end":8.182},{"text":"거의","start":8.2,"end":9.165},{"text":"그렇게","start":9.33,"end":9.813},{"text":"안","start":9.98,"end":10.03},{"text":"줄어듭니다.","start":10.23,"end":11.033},{"text":"부정의","start":11.172,"end":11.757},{"text":"뜻이","start":11.88,"end":12.105},{"text":"중요하니까,","start":12.23,"end":13.16},{"text":"오히려","start":13.33,"end":13.64},{"text":"또박또박","start":13.72,"end":14.385},{"text":"발음하려는","start":14.54,"end":15.262},{"text":"거예요.","start":15.38,"end":15.77},{"text":"그러니까","start":15.89,"end":16.718},{"text":"소리가","start":16.87,"end":17.34},{"text":"흐릿하게","start":17.5,"end":18.12},{"text":"뭉개졌다면,","start":18.26,"end":19.142},{"text":"그건","start":19.3,"end":19.565},{"text":"대부분","start":19.73,"end":20.353},{"text":"Want","start":20.353,"end":20.566},{"text":"쪽입니다.","start":20.59,"end":21.522}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 06 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-5e7k" id="cap06" class="clip caption-layer-N" data-start="108.74" data-duration="16.37" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap06";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 16.37;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"직접","start":0.15,"end":0.669},{"text":"맞혀보세요.","start":0.669,"end":1.965},{"text":"\"아이","start":1.965,"end":2.484},{"text":"워운트","start":2.484,"end":3.262},{"text":"비","start":3.262,"end":3.521},{"text":"데어.\"","start":3.521,"end":4.04},{"text":"이","start":4.04,"end":4.3},{"text":"문장,","start":4.3,"end":4.818},{"text":"입술이","start":4.818,"end":5.596},{"text":"오므라들었을까요","start":5.596,"end":7.671},{"text":"벌어졌을까요?","start":7.671,"end":9.227},{"text":"잠깐","start":9.227,"end":9.746},{"text":"생각해","start":9.746,"end":10.524},{"text":"보시고...","start":10.524,"end":11.302},{"text":"정답은","start":11.302,"end":12.08},{"text":"오므라든","start":12.08,"end":13.117},{"text":"겁니다.","start":13.117,"end":13.895},{"text":"Won't니까요.","start":13.895,"end":15.97}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 07 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-3v8r" id="cap07" class="clip caption-layer-N" data-start="125.36" data-duration="27.03" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap07";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 27.03;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"이제","start":0.28,"end":0.44},{"text":"실제","start":0.5,"end":0.875},{"text":"속도로","start":1.15,"end":1.673},{"text":"들어보고","start":1.86,"end":2.728},{"text":"Want인지","start":2.728,"end":2.863},{"text":"Won't인지","start":2.878,"end":3.013},{"text":"직접","start":2.95,"end":5.555},{"text":"구분해","start":5.63,"end":6.033},{"text":"보세요.","start":6.16,"end":6.76},{"text":"첫","start":6.985,"end":7.31},{"text":"번째.","start":7.79,"end":8.335},{"text":"I","start":8.335,"end":8.47},{"text":"want","start":8.485,"end":8.62},{"text":"it","start":8.635,"end":8.77},{"text":"so","start":8.785,"end":8.92},{"text":"bad.","start":8.935,"end":9.07},{"text":"두","start":8.78,"end":11.29},{"text":"번째.","start":11.67,"end":12.155},{"text":"She","start":12.155,"end":12.29},{"text":"won't","start":12.305,"end":12.44},{"text":"listen.","start":12.455,"end":12.59},{"text":"세","start":12.54,"end":14.63},{"text":"번째.","start":15.04,"end":15.56},{"text":"They","start":15.56,"end":15.695},{"text":"want","start":15.71,"end":15.845},{"text":"more","start":15.86,"end":15.995},{"text":"time.","start":16.01,"end":16.145},{"text":"네","start":15.98,"end":17.99},{"text":"번째.","start":18.38,"end":18.87},{"text":"We","start":18.87,"end":19.005},{"text":"won't","start":19.02,"end":19.155},{"text":"give","start":19.17,"end":19.305},{"text":"up.","start":19.32,"end":19.455},{"text":"입","start":19.26,"end":21.37},{"text":"모양이","start":21.55,"end":22.007},{"text":"보이시나요?","start":22.16,"end":22.997},{"text":"벌어지면","start":23.143,"end":24.215},{"text":"Want,","start":24.215,"end":24.418},{"text":"오므라들면","start":24.44,"end":26.266},{"text":"Won't입니다.","start":26.266,"end":26.626}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 08 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-uq6h" id="cap08" class="clip caption-layer-N" data-start="153.66" data-duration="12.73" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap08";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 12.73;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"이제","start":0.15,"end":0.827},{"text":"직접","start":0.827,"end":1.503},{"text":"소리","start":1.503,"end":2.18},{"text":"내보세요.","start":2.18,"end":3.533},{"text":"원트.","start":3.533,"end":4.21},{"text":"아이","start":4.21,"end":4.887},{"text":"원트.","start":4.887,"end":5.563},{"text":"아이","start":5.563,"end":6.24},{"text":"원트","start":6.24,"end":6.917},{"text":"잇.","start":6.917,"end":7.255},{"text":"세","start":7.255,"end":7.593},{"text":"번만","start":7.593,"end":8.27},{"text":"따라","start":8.27,"end":8.947},{"text":"하시면","start":8.947,"end":9.962},{"text":"입이","start":9.962,"end":10.638},{"text":"기억합니다.","start":10.638,"end":12.33}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 09 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-g2fw" id="cap09" class="clip caption-layer-N" data-start="166.64" data-duration="15.41" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap09";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 15.41;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"그래서","start":0.15,"end":0.881},{"text":"미드에서","start":0.881,"end":1.855},{"text":"\"노,","start":1.855,"end":2.099},{"text":"아이","start":2.099,"end":2.586},{"text":"워운트\"라고","start":2.586,"end":4.048},{"text":"할","start":4.048,"end":4.291},{"text":"때,","start":4.291,"end":4.535},{"text":"자막","start":4.535,"end":5.022},{"text":"없이도","start":5.022,"end":5.753},{"text":"이제","start":5.753,"end":6.24},{"text":"입","start":6.24,"end":6.484},{"text":"모양만","start":6.484,"end":7.215},{"text":"보면","start":7.215,"end":7.702},{"text":"딱","start":7.702,"end":7.945},{"text":"들리실","start":7.945,"end":8.676},{"text":"겁니다.","start":8.676,"end":9.407},{"text":"뜻이","start":9.407,"end":9.894},{"text":"정반대인","start":9.894,"end":10.869},{"text":"두","start":10.869,"end":11.112},{"text":"단어가,","start":11.112,"end":11.843},{"text":"사실","start":11.843,"end":12.33},{"text":"이렇게","start":12.33,"end":13.061},{"text":"간단한","start":13.061,"end":13.792},{"text":"차이였어요.","start":13.792,"end":15.01}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+
+    <!-- Caption bar for Frame 10 (caption-weight-shift, HyperFrames catalog component,
+         adapted: unique IDs so 10 instances can share the host timeline; pill background
+         + smaller font vs. the catalog default so it doesn't compete with the frame's own
+         headline typography; real per-word timestamps via whisper.cpp + LCS-ish alignment
+         against SCRIPT.md's known-correct text, since whisper's own Korean transcript can
+         garble/misrecognize words (documented project-wide quirk). -->
+    <div data-hf-id="hf-msk7" id="cap10" class="clip caption-layer-N" data-start="182.3" data-duration="11.58" data-track-index="20"></div>
+    <script>
+    (function () {
+      var WRAP_ID = "cap10";
+      var wrapEl = document.getElementById(WRAP_ID);
+      var safeZone = document.createElement("div");
+      safeZone.className = "caption-safe-zone-N";
+      safeZone.id = WRAP_ID + "-stage";
+      wrapEl.appendChild(safeZone);
+
+      var DURATION = 11.58;
+      var MAX_LINE_WIDTH = 1460;
+      var CAPTION_FONT_SIZE = 46;
+      var MAX_WORDS_PER_GROUP = 5;
+      var WORD_SPACING = 10;
+      var PAUSE_THRESHOLD = 0.12;
+      var ENTRY_DURATION = 0.12;
+      var WEIGHT_TRANSITION = 0.12;
+      var FONT_WIDTH_SAFETY = 1.12;
+      var FONT_WEIGHT_LIGHT = 700;
+      var FONT_WEIGHT_BOLD = 900;
+
+      var WORDS = [{"text":"오늘은","start":0.34,"end":0.983},{"text":"Want와","start":0.983,"end":1.118},{"text":"Won't를","start":1.133,"end":1.268},{"text":"입","start":1.23,"end":3.47},{"text":"모양","start":3.567,"end":3.763},{"text":"하나로","start":3.86,"end":4.437},{"text":"구분하는","start":4.65,"end":5.263},{"text":"법을","start":5.4,"end":5.66},{"text":"봤습니다.","start":5.82,"end":6.482},{"text":"다음에도","start":6.636,"end":7.452},{"text":"여러분이","start":7.59,"end":8.203},{"text":"자주","start":8.34,"end":8.58},{"text":"헷갈리는","start":8.72,"end":9.31},{"text":"발음,","start":9.44,"end":9.673},{"text":"또","start":9.807,"end":10.04},{"text":"풀어드릴게요.","start":10.26,"end":11.181}];
+
+      var _fitCanvas = document.createElement("canvas");
+      var _fitCtx = _fitCanvas.getContext("2d");
+      function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+        var size = baseFontSize;
+        var minSize = Math.floor(baseFontSize * 0.55);
+        while (size > minSize) {
+          _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+          if (_fitCtx.measureText(text).width <= maxWidth) return size;
+          size -= 2;
+        }
+        return minSize;
+      }
+
+      var measureCanvas = document.createElement("canvas");
+      var measureContext = measureCanvas.getContext("2d");
+      measureContext.font = "900 " + CAPTION_FONT_SIZE + "px 'Noto Sans KR'";
+      function measureWord(word) {
+        return measureContext.measureText(word.text).width * FONT_WIDTH_SAFETY;
+      }
+      function measureLineWidth(words) {
+        return words.reduce(function (total, word, index) {
+          return total + measureWord(word) + (index ? WORD_SPACING : 0);
+        }, 0);
+      }
+      function fitsInTwoLines(words) {
+        return measureLineWidth(words) <= MAX_LINE_WIDTH * 1.8;
+      }
+      function splitLines(words) {
+        if (words.length < 2) return [{ words: words, startIndex: 0 }];
+        var bestSplit = Math.ceil(words.length / 2);
+        var bestDiff = Infinity;
+        for (var s = 1; s < words.length; s++) {
+          var w1 = measureLineWidth(words.slice(0, s));
+          var w2 = measureLineWidth(words.slice(s));
+          if (w1 <= MAX_LINE_WIDTH && w2 <= MAX_LINE_WIDTH) {
+            var diff = Math.abs(w1 - w2);
+            if (diff < bestDiff) { bestDiff = diff; bestSplit = s; }
+          }
+        }
+        var result = [];
+        var line1 = words.slice(0, bestSplit);
+        var line2 = words.slice(bestSplit);
+        if (line1.length) result.push({ words: line1, startIndex: 0 });
+        if (line2.length) result.push({ words: line2, startIndex: line1.length });
+        return result;
+      }
+      function makeGroup(words) {
+        return { words: words.slice(), lines: splitLines(words), start: words[0].start, end: words[words.length - 1].end };
+      }
+      function avoidSingleWordGroups(groups) {
+        var out = [];
+        groups.forEach(function (group) {
+          if (group.words.length === 1 && out.length > 0 && out[out.length - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[out.length - 1] = makeGroup(out[out.length - 1].words.concat(group.words));
+          } else { out.push(group); }
+        });
+        for (var i = 0; i < out.length; i++) {
+          if (out[i].words.length !== 1) continue;
+          if (i + 1 < out.length && out[i + 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i] = makeGroup(out[i].words.concat(out[i + 1].words));
+            out.splice(i + 1, 1);
+          } else if (i > 0 && out[i - 1].words.length < MAX_WORDS_PER_GROUP) {
+            out[i - 1] = makeGroup(out[i - 1].words.concat(out[i].words));
+            out.splice(i, 1); i--;
+          }
+        }
+        return out;
+      }
+      function makeGroups(words) {
+        var groups = [], current = [];
+        words.forEach(function (word, index) {
+          var nextWord = words[index + 1];
+          var testGroup = current.concat([word]);
+          if (testGroup.length > MAX_WORDS_PER_GROUP || !fitsInTwoLines(testGroup)) {
+            if (current.length) groups.push(makeGroup(current));
+            current = [word];
+            return;
+          }
+          current.push(word);
+          var punctuation = /[,.:!?]$/.test(word.text);
+          var pause = nextWord ? nextWord.start - word.end : 0;
+          if (!nextWord || punctuation || pause >= PAUSE_THRESHOLD || current.length >= MAX_WORDS_PER_GROUP) {
+            groups.push(makeGroup(current)); current = [];
+          }
+        });
+        if (current.length) groups.push(makeGroup(current));
+        return avoidSingleWordGroups(groups);
+      }
+      function buildCaptions(groups) {
+        groups.forEach(function (group, groupIndex) {
+          var groupText = group.words.map(function (w) { return w.text; }).join(" ");
+          var computedSize = fitFontSize(groupText, CAPTION_FONT_SIZE, "900", "Noto Sans KR", MAX_LINE_WIDTH);
+          var groupEl = document.createElement("div");
+          var copyEl = document.createElement("div");
+          groupEl.id = WRAP_ID + "-group-" + groupIndex;
+          groupEl.className = "caption-group-N";
+          copyEl.className = "caption-copy-N";
+          group.lines.forEach(function (line, lineIndex) {
+            var lineEl = document.createElement("div");
+            lineEl.className = "caption-line-N";
+            lineEl.id = WRAP_ID + "-group-" + groupIndex + "-line-" + lineIndex;
+            lineEl.style.fontWeight = lineIndex === 0 ? FONT_WEIGHT_BOLD : FONT_WEIGHT_LIGHT;
+            lineEl.style.fontSize = computedSize + "px";
+            line.words.forEach(function (word) {
+              var wordEl = document.createElement("span");
+              wordEl.textContent = word.text;
+              wordEl.style.display = "inline-block";
+              lineEl.appendChild(wordEl);
+            });
+            copyEl.appendChild(lineEl);
+          });
+          groupEl.appendChild(copyEl);
+          safeZone.appendChild(groupEl);
+        });
+      }
+
+      var GROUPS = makeGroups(WORDS);
+      buildCaptions(GROUPS);
+
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+      var tl = window.__mainTl;
+      var GLOBAL_START = parseFloat(wrapEl.getAttribute("data-start")) || 0;
+
+      var visibleStarts = GROUPS.map(function (group, groupIndex) {
+        var prev = GROUPS[groupIndex - 1];
+        var availableGap = prev ? Math.max(0, group.start - prev.end) : ENTRY_DURATION;
+        var entryLead = Math.min(ENTRY_DURATION, availableGap);
+        return Math.max(0, group.start - entryLead) + GLOBAL_START;
+      });
+      var allGroupEls = GROUPS.map(function (_, i) { return document.getElementById(WRAP_ID + "-group-" + i); });
+
+      GROUPS.forEach(function (group, groupIndex) {
+        var groupEl = allGroupEls[groupIndex];
+        var visibleStart = visibleStarts[groupIndex];
+        var visibleEnd = groupIndex < GROUPS.length - 1 ? visibleStarts[groupIndex + 1] : (DURATION + GLOBAL_START);
+
+        allGroupEls.forEach(function (otherEl, otherIndex) {
+          if (otherIndex !== groupIndex) tl.set(otherEl, { opacity: 0 }, visibleStart);
+        });
+        tl.set(groupEl, { opacity: 0, scale: 0.9 }, visibleStart);
+        tl.to(groupEl, { opacity: 1, scale: 1, duration: ENTRY_DURATION, ease: "power3.out", force3D: true }, visibleStart);
+
+        if (group.lines.length === 2) {
+          var line1El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-0");
+          var line2El = document.getElementById(WRAP_ID + "-group-" + groupIndex + "-line-1");
+          var switchTime = group.lines[1].words[0].start + GLOBAL_START;
+          tl.to(line1El, { fontWeight: FONT_WEIGHT_LIGHT, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+          tl.to(line2El, { fontWeight: FONT_WEIGHT_BOLD, duration: WEIGHT_TRANSITION, ease: "power2.out" }, switchTime);
+        }
+        tl.set(groupEl, { opacity: 0 }, visibleEnd);
+      });
+    })();
+    </script>
+    </div>
   </body>
 </html>

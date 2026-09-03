@@ -1,0 +1,90 @@
+<template>
+<style>
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f06-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f06-glow { background: radial-gradient(circle at 50% 46%, rgba(245, 197, 24, 0.10) 0%, rgba(245, 197, 24, 0) 55%); opacity: 0.2; }
+  .f06-progress-track { position: absolute; left: 0; top: 0; width: 1920px; height: 4px; background: rgba(245, 197, 24, 0.15); }
+  .f06-progress-fill { position: absolute; left: 0; top: 0; width: 50%; height: 4px; background: #F5C518; }
+
+  .f06-eyebrow {
+    position: absolute; left: 0; top: 300px; width: 1920px; text-align: center;
+    font-size: 26px; font-weight: 900; letter-spacing: 0.14em; color: #A9B4C4; opacity: 0;
+  }
+  .f06-question {
+    position: absolute; left: 0; top: 380px; width: 1920px; text-align: center;
+    font-size: 46px; font-weight: 700; color: #FFFFFF; line-height: 1.6; padding: 0 260px; opacity: 0;
+  }
+
+  .f06-answer-wrap { position: absolute; left: 0; top: 480px; width: 1920px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 60px; }
+  .f06-mini-shape { width: 90px; height: 90px; border-radius: 50%; border: 5px solid #5B9BD5; background: rgba(18,32,58,0.6); opacity: 0; }
+  .f06-answer { font-size: 84px; font-weight: 900; color: #5B9BD5; text-shadow: 0 0 30px rgba(91,155,213,0.32); opacity: 0; }
+  .f06-answer-sub { position: absolute; left: 0; top: 620px; width: 1920px; text-align: center; font-size: 32px; font-weight: 700; color: #A9B4C4; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-eiia" id="root" data-composition-id="06-quiz" data-start="0" data-duration="16.62" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-t5ew" id="f06-bg-clip" class="clip f06-bg" data-start="0" data-duration="16.62" data-track-index="0"></div>
+  <div data-hf-id="hf-teh0" class="clip f06-glow" id="f06-glow" data-start="0" data-duration="16.62" data-track-index="1"></div>
+  <div data-hf-id="hf-sg82" class="f06-progress-track"><div data-hf-id="hf-ft42" class="f06-progress-fill" id="f06-progress-fill"></div></div>
+
+  <div data-hf-id="hf-8coa" class="f06-eyebrow" id="f06-eyebrow">직접 맞혀보세요</div>
+  <div data-hf-id="hf-z28h" class="f06-question" id="f06-question">“아이 워운트 비 데어.” 입술이 오므라들었을까요, 벌어졌을까요?</div>
+
+  <div data-hf-id="hf-ifeg" class="f06-answer-wrap">
+    <div data-hf-id="hf-ijke" class="f06-mini-shape" id="f06-mini-shape"></div>
+    <div data-hf-id="hf-kgdp" class="f06-answer" id="f06-answer">Won't</div>
+  </div>
+  <div data-hf-id="hf-vvw7" class="f06-answer-sub" id="f06-answer-sub">정답은 오므라든 겁니다</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["06-quiz"] = tl;
+
+  var eyebrow = document.getElementById("f06-eyebrow");
+  var question = document.getElementById("f06-question");
+  var miniShape = document.getElementById("f06-mini-shape");
+  var answer = document.getElementById("f06-answer");
+  var answerSub = document.getElementById("f06-answer-sub");
+  var glowEl = document.getElementById("f06-glow");
+  var progressFillEl = document.getElementById("f06-progress-fill");
+
+  gsap.set(miniShape, { scale: 1 });
+
+  // Scene 1 (0.0-7.0s VO, "직접 맞혀보세요. '아이 워운트 비 데어.' ...벌어졌을까요?"): question lands.
+  tl.fromTo(eyebrow, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.3);
+  tl.fromTo(question, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.7);
+
+  // Scene 2 (~7.0-10.0s VO, "잠깐 생각해 보시고..."): deliberate pause — nothing new appears,
+  // question just sits (real thinking room, matches the actual silence in the audio).
+
+  // Scene 3 (~10.0s VO -> end, "정답은 오므라든 겁니다. Won't니까요."): answer reveals with the
+  // mini mouth-shape (puckered, recalling Frame 3) landing alongside it.
+  var REVEAL = 10.0;
+  tl.to(question, { opacity: 0.35, duration: 0.4, ease: "power1.inOut" }, REVEAL);
+  tl.fromTo(miniShape, { opacity: 0, scale: 1 }, { opacity: 1, scale: 0.55, duration: 0.4, ease: "power3.out" }, REVEAL + 0.1);
+  tl.fromTo(answer, { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.6)" }, REVEAL + 0.15);
+  tl.fromTo(answerSub, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, REVEAL + 0.5);
+  tl.fromTo(glowEl, { opacity: 0.2 }, { opacity: 0.46, duration: 0.6, ease: "power2.out" }, REVEAL + 0.1);
+
+  tl.fromTo(progressFillEl, { width: "50%" }, { width: "60%", duration: 1.0, ease: "power1.inOut" }, REVEAL + 0.1);
+})();
+</script>
+</template>

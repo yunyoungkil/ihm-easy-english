@@ -104,7 +104,7 @@
     <span data-hf-id="hf-ozbt" class="f13-summary-rehook-word" id="f13-summary-rehook-w1">GOING</span> <span data-hf-id="hf-nswh" class="f13-summary-rehook-word" id="f13-summary-rehook-w2">TO는</span> <span data-hf-id="hf-rclg" class="f13-summary-rehook-word" id="f13-summary-rehook-w3">문장</span> <span data-hf-id="hf-3eiv" class="f13-summary-rehook-word" id="f13-summary-rehook-w4">속에서</span> <span data-hf-id="hf-9s1v" class="f13-summary-rehook-word" id="f13-summary-rehook-w5"><span data-hf-id="hf-hxma" class="f13-summary-rehook-gonna">GONNA</span>로</span> <span data-hf-id="hf-eqxo" class="f13-summary-rehook-word" id="f13-summary-rehook-w6">압축된다</span>
   </div>
 
-  <div data-hf-id="hf-blnq" class="f13-summary-rehook-line2" id="f13-summary-rehook-line2">그럼 WANT TO는요?</div>
+  <div data-hf-id="hf-blnq" class="f13-summary-rehook-line2" id="f13-summary-rehook-line2">다음에도 여러분이 자주 헷갈리는 발음, 또 풀어드릴게요</div>
 
 </div>
 
@@ -156,13 +156,14 @@ var tl = gsap.timeline({ paused: true });
   tl.set(w6, { opacity: 1, y: 34 }, t5);
   tl.to(w6, { y: 0, duration: 0.125, ease: "power4.out" }, t5);
 
-  // Scene 2 (3.5-5.5s): the Rehook line hard-cuts in at 70% opacity — a deliberate
-  // tl.set swap, no transition, no glow, no sound. The incompleteness IS the point.
-  tl.set(line2, { opacity: 0.7 }, 3.5);
+  // Scene 2 (3.5-5.5s): closing line settles in fully (2026-09-04: no longer a
+  // dimmed, deliberately-unresolved Rehook — 단편 방침, 특정 소재를 예고하지 않는
+  // 따뜻한 마무리로 정착. EP12 Frame 10과 동일한 정정 패턴).
+  tl.fromTo(line2, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 3.5);
 
-  // Scene 3 (5.5-7.811s): full hold, no new visual elements. The only remaining life
-  // is a subtle sine-driven jitter (rules/sine-wave-loop.md) on the open question —
-  // the summary has settled; the question deliberately has not.
+  // Scene 3 (5.5-7.811s): full hold, no new visual elements. Subtle sine-driven
+  // jitter (rules/sine-wave-loop.md) keeps the held frame from reading as static —
+  // this is the project-wide idle-life convention, not a cliffhanger signal.
   var phase = { p: 0 };
   tl.to(
     phase,

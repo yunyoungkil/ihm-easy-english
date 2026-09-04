@@ -1,0 +1,14 @@
+업로드 체크리스트 — EP12 (Want vs Won't) 롱폼
+예약: 2026-09-05(토) 20:00 KST
+
+1. 영상 파일: videos/ep12-want-wont/renders/ep12-want-wont_2026-09-04_18-05-02.mp4 (3:14, BGM/효과음 포함, 자막 없음)
+2. 제목: title.txt (그대로 붙여넣기)
+3. 설명: description.txt (그대로 붙여넣기)
+4. 태그: tags.txt (쉼표로 이미 구분됨)
+5. 썸네일: A/B/C 3종 전부 사용 — 유튜브 Studio "Test & compare" 기능으로 등록할 것 (시안 하나만 올리지 말 것)
+   - public/images/ep12-thumbnails/variant-a.jpg
+   - public/images/ep12-thumbnails/variant-b.jpg
+   - public/images/ep12-thumbnails/variant-c.jpg
+6. 공개 예약: 2026-09-05(토) 20:00 KST로 설정
+7. 업로드 완료 후: pinned-comment.txt 내용을 댓글로 달고 고정
+8. 업로드 승인 게이트를 knowledge/episodes/ep12-want-wont.md에서 true로 갱신, 실제 공개 후 videoId 확인

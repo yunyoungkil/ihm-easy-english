@@ -23,8 +23,9 @@ subtle jitter(`sine-wave-loop`, 낮은 진폭)뿐 — 카드 호흡, 느린 팬/
 
 **Rhythm / held-frame allocation**: 대부분의 프레임은 VO에 맞춰 능동적으로 공개되고, 4곳만
 의도적으로 "정지해서 읽히는" 홀드다 — Frame 3(GONNA 반전 공개, 이 영상의 클라이맥스),
-Frame 7(퀴즈 정답 공개), Frame 8("아닙니다" 착지), Frame 13(마무리+Rehook, 의도적으로 안 닫힌 채
-정지). 이 넷 사이에 능동적 전개 프레임들을 배치해 에너지 기복을 만든다.
+Frame 7(퀴즈 정답 공개), Frame 8("아닙니다" 착지), Frame 13(마무리, 2026-09-04부터 특정 예고 없이
+자연스럽게 정착하며 닫힘 — 위 Frame 13 절 참고). 이 넷 사이에 능동적 전개 프레임들을 배치해 에너지
+기복을 만든다.
 
 **Negative list**: 그림자 없음(테두리 글로우로만 부양감), 빨강 배경 채우기 금지, 검은고딕은
 헤드라인/히어로 단어 전용(캡션엔 안 씀), 진부한 보라·파랑 "AI" 그라디언트나 떠다니는 보케 금지,
@@ -37,7 +38,7 @@ Frame 7(퀴즈 정답 공개), Frame 8("아닙니다" 착지), Frame 13(마무�
 
 - scene: 다크 네이비 화면, Black Han Sans 헤드라인이 두 문장으로 순차 등장(질문에서 멈춤)
 - voiceover: "시즌1 배우셨으니 단어는 이제 읽으실 겁니다. 근데 문장으로 말하면 왜 다르게 들릴까요? 오늘 그 이유, 하나 보여드리겠습니다."
-- duration: 10.475s
+- duration: 11.48s
 - transition_in: cut
 - status: animated
 - src: compositions/frames/01-stakes.html
@@ -49,7 +50,7 @@ Frame 7(퀴즈 정답 공개), Frame 8("아닙니다" 착지), Frame 13(마무�
 - roles: line 1(안심 문장) = supporting · line 2(질문) = foreground subject · center glow = background
 - sfx: soft-whoosh on line 2 entrance
 
-narrativeRole: 이미 아는 것(단어는 읽는다)을 인정해서 안심시킨 뒤, 바로 그 위에 새 균열(문장은 다르게 들린다)을 낸다 — 시즌1 졸업생을 시즌2로 끌어들이는 다리.
+narrativeRole: 이미 아는 것(단어는 읽는다)을 인정해서 안심시킨 뒤, 바로 그 위에 새 균열(문장은 다르게 들린다)을 낸다 — 시즌1에서 확장된 문장 단위 원리로 끌어들이는 다리.
 keyMessage: 단어를 읽을 줄 아는 것과 문장을 알아듣는 것은 다른 문제다.
 
 Layout: rule-of-thirds, 텍스트 좌측 상단부.
@@ -59,9 +60,10 @@ Scene 3 (7.5–9.0s): "오늘 그 이유, 하나 보여드리겠습니다" — �
 
 ## Frame 2 — 채널 인트로
 
-- scene: Frame 1과 같은 그라운드 유지, 채널명 워드마크 + "시즌2" 라벨이 짧게 자리잡음
-- voiceover: "안녕하세요, 「이해하면 쉬운영어」입니다. 오늘부터 시즌2 — 문장 속에서 소리가 어떻게 연결되고 줄어드는지, 함께 봅니다."
-- duration: 9.195s
+- scene: Frame 1과 같은 그라운드 유지, 채널명 워드마크가 중앙에 자리잡음(2026-09-04: 시즌2·EP1
+  pill 제거 — 단편 방침)
+- voiceover: "안녕하세요, 「이해하면 쉬운영어」입니다. 오늘은 문장 속에서 소리가 어떻게 연결되고 줄어드는지, 함께 봅니다."
+- duration: 8.88s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/02-intro.html
@@ -70,21 +72,21 @@ Scene 3 (7.5–9.0s): "오늘 그 이유, 하나 보여드리겠습니다" — �
 - beat: orientation
 - blueprint: titlecard-reveal (Adapt — 채널 워드마크가 이 프레임의 "브랜드 마크"; 단일 절제된 무브의 랜딩만 계승)
 - focal: 채널 워드마크 "이해하면 쉬운영어"
-- roles: 워드마크 = foreground subject · "시즌2·EP1" pill = supporting · 라디얼 글로우 = background
+- roles: 워드마크 = foreground subject · 라디얼 글로우 = background
 - sfx: soft-chime on wordmark settle
 
-narrativeRole: 채널 정체성과 시즌2의 새 범위(문장 속 소리 연결·축약)를 한 호흡에 못박아, 이후 13씬 전체가 이 틀 안에 있다는 걸 알린다.
-keyMessage: 시즌2는 단어가 아니라 문장 속 소리 연결을 다룬다.
+narrativeRole: 채널 정체성과 오늘의 범위(문장 속 소리 연결·축약)를 한 호흡에 못박아, 이후 13씬 전체가 이 틀 안에 있다는 걸 알린다.
+keyMessage: 오늘은 단어가 아니라 문장 속 소리 연결을 다룬다.
 
 Layout: layered-depth, 화면 중앙 (분위기 있는 오프닝).
 Scene 1 (0.0–3.5s): VO가 채널명을 말하는 순간 워드마크가 spring-pop entrance(`spring-pop-entrance`, 스무스 착지)로 중앙에 등장, 배경에 ambient glow bloom(`ambient-glow-bloom`)이 뒤에서 퍼짐.
-Scene 2 (3.5–8.0s): "오늘부터 시즌2 —"에서 "시즌2·EP1" pill이 워드마크 아래로 reveal, 이후 "문장 속에서... 함께 봅니다"까지 정지해 읽힘 — subtle jitter만.
+Scene 2 (3.5–9.195s): 워드마크가 정착한 채 은은한 글로우가 계속 숨 쉬며 "문장 속에서... 함께 봅니다"까지 정지해 읽힘 — subtle jitter만(2026-09-04: 시즌2·EP1 pill 제거 — 단편 방침).
 
 ## Frame 3 — Big Question + Head Fake
 
 - scene: "GOING TO" 등장 → 질문 문구 → 짧은 정지 → hero-word-block으로 "GONNA" 컷 전환
 - voiceover: "GOING TO, 미래 말할 때 쓰죠. 근데 영화에서 이렇게 말하는 거, 들어보신 적 있으세요? 거의 없으실 겁니다. 그럼 뭐라고 할까요? 정답, GONNA."
-- duration: 11.703s
+- duration: 14s
 - transition_in: cut
 - status: animated
 - src: compositions/frames/03-reveal.html
@@ -108,7 +110,7 @@ Scene 3 (7.5–11.0s): "정답, GONNA"에서 hard-cut word-swap(`discrete-text-s
 
 - scene: step-badge 1·2가 순서대로 등장, 각자 옆에 한 줄 설명. 마지막에 두 원이 겹쳐지며 hero-word-block "GONNA"로 합쳐짐
 - voiceover: "왜 이렇게 바뀔까요? 두 가지 때문입니다. 하나, GOING의 끝소리 NG는 원래 여려서 뒤 소리랑 쉽게 붙어요. 둘, TO의 T는 문장 안에서 힘을 거의 잃습니다. 이 둘이 겹치면, GOING TO는 GONNA라는 한 소리가 됩니다."
-- duration: 20.193s
+- duration: 23.28s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/04-mechanism.html
@@ -133,7 +135,7 @@ Scene 4 (13.0–18.0s): "이 둘이 겹치면"에서 두 배지가 scale-swap(`s
 
 - scene: sentence-card가 한 번에 하나씩 쌓임(6개 — I'm/She's/He's/We're/부정문/의문문), 매번 영문+한글 발음 두 줄, "gonna/거너" 부분만 노랑
 - voiceover: "문장으로 볼까요. \"아임 거너 고 홈.\" 아임 고잉 투 고 홈이 아니라 거너입니다. 주어를 바꿔도 마찬가지죠. \"쉬즈 거너 콜 유.\" \"히즈 거너 비 레이트.\" \"위아 거너 스타트 나우.\" 부정문도 같아요. \"아임 낫 거너 두 댓.\" 의문문도요. \"아 유 거너 컴?\" 주어가 뭐든, 형태가 뭐든 — GOING TO 자리는 항상 GONNA로 들립니다."
-- duration: 26.41s
+- duration: 32s
 - transition_in: push-slide LEFT
 - status: animated
 - src: compositions/frames/05-examples.html
@@ -159,7 +161,7 @@ Scene 5 (24.0–28.0s): "GOING TO 자리는 항상 GONNA로 들립니다"에서 
 
 - scene: comparison-split — 왼쪽 "고잉 투 콜"(동사, 노랑 rule) vs 오른쪽 "고잉 투 더 스토어"(장소, 빨강 rule + X), 두 카드 높이 동일(flex stretch)
 - voiceover: "근데 조심할 게 하나 있습니다. GOING TO 뒤에 항상 GONNA가 오는 건 아니에요. 동사가 올 때만 그렇습니다. \"아임 고잉 투 콜\"은 거너로 줄지만, \"아임 고잉 투 더 스토어\"처럼 장소가 오면 안 줄어요. 동사로 갈 때만 압축되는 거죠."
-- duration: 16.98s
+- duration: 20.52s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/06-exception.html
@@ -184,7 +186,7 @@ Scene 4 (14.0–16.0s): 두 카드 동일 높이로 나란히 정지, subtle jit
 
 - scene: 질문 문구(영문+한글) 등장 → 짧은 정지(생각할 시간) → hard-cut으로 정답 문구(영문+한글)로 전환
 - voiceover: "직접 맞혀보세요. \"아이 워즈 거너 콜 유.\" 원래 뭐였을까요? 잠깐 생각해 보시고... 정답은 \"아이 워즈 고잉 투 콜 유\"입니다. 과거형도 원리는 같아요."
-- duration: 12.983s
+- duration: 15.92s
 - transition_in: cut
 - status: animated
 - src: compositions/frames/07-quiz.html
@@ -209,7 +211,7 @@ Scene 4 (12.0–13.0s): "과거형도 원리는 같아요" — 정답 문장 정
 
 - scene: "GONNA는 틀린 영어다?" 취소선과 함께 사라지고 "아닙니다" 문구로 교체
 - voiceover: "GONNA, 틀린 영어 아니냐고요? 아닙니다. 격식 있는 자리가 아니면, 원어민도 실제 대화에선 거의 항상 이렇게 말해요. 문법이 틀린 게 아니라, 발음이 자연스럽게 압축된 것뿐입니다."
-- duration: 14.315s
+- duration: 15.52s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/08-myth.html
@@ -234,7 +236,7 @@ Scene 4 (9.0–12.0s): "문법이 틀린 게 아니라..." 마지막 문장 reve
 
 - scene: comparison-split — 왼쪽 "말할 때"(GONNA, 파랑) vs 오른쪽 "쓸 때"(GOING TO, 흰색)
 - voiceover: "그럼 언제 GOING TO를 그대로 쓸까요? 이메일이나 면접처럼 격식 있는 자리에서죠. GONNA는 말할 때 자연스럽게 줄어드는 소리일 뿐, 글로 쓸 땐 여전히 GOING TO입니다."
-- duration: 13.793s
+- duration: 15.84s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/09-register.html
@@ -259,7 +261,7 @@ Scene 4 (9.0–12.0s): 둘 다 정지, subtle jitter만.
 
 - scene: hero-word "gonna"가 화면 좌측에 고정(fixed-anchor), 예문 4개(영문+한글)가 우측에 하나씩 쌓임
 - voiceover: "이제 실제 속도로 들어보고 GONNA를 직접 찾아보세요. 하나, \"왓 아 유 거너 두 디스 위켄드?\" 둘, \"쉬즈 프라바블리 거너 비 레이트.\" 셋, \"잇츠 거너 비 오케이.\" 넷, \"데이아 거너 미스 더 트레인.\" 다 찾으셨나요? 매번 같은 자리, 같은 소리였습니다."
-- duration: 23.436s
+- duration: 24.12s
 - transition_in: push-slide LEFT
 - status: animated
 - src: compositions/frames/10-listening.html
@@ -286,7 +288,7 @@ Scene 6 (17.5–22.0s): "다 찾으셨나요? 매번 같은 자리..."에서 4�
 
 - scene: 화면 중앙 구문이 "gonna → I'm gonna → I'm gonna go"(영문, 노랑) / "거너 → 아임 거너 → 아임 거너 고"(한글, 파랑)로 3단 확장, 매번 펄스
 - voiceover: "이제 직접 소리 내보세요. 거너. 아임 거너. 아임 거너 고. 세 번만 따라 하시면 입에 붙습니다."
-- duration: 8.411s
+- duration: 11.96s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/11-practice.html
@@ -312,7 +314,7 @@ Scene 5 (6.0–8.0s): "세 번만 따라 하시면 입에 붙습니다" — 최�
 
 - scene: 영화(필름 스트립)·노래(음표) 아이콘 사이에 hero-word "GONNA"가 채워지는 트립틱
 - voiceover: "그래서 영화에서도, 노래 가사에서도 GOING TO보다 GONNA를 훨씬 자주 듣게 되는 겁니다. 사실 이미 수없이 들으셨던 거고요."
-- duration: 9.953s
+- duration: 11.8s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/12-recognition.html
@@ -332,26 +334,31 @@ Scene 1 (0.0–3.0s): "영화에서도"에서 좌측 필름 스트립 아이콘�
 Scene 2 (3.0–7.0s): "GONNA를 훨씬 자주 듣게 되는 겁니다"에서 중앙 슬롯에 "GONNA"가 per-word reveal로 채워지며 트립틱 완성.
 Scene 3 (7.0–10.0s): "사실 이미 수없이 들으셨던 거고요" — 캡션이 하단에 reveal, 이후 정지. 아이콘은 sanctioned live-SVG internals(`svg-icon-enrichment` — 필름에 옅은 dash-flow, 음표에 약한 pulse)만 유지, 카드 호흡 없음.
 
-## Frame 13 — 요약 + Rehook
+## Frame 13 — 요약 + 마무리
 
-- scene: 오늘 배운 것 한 줄 요약이 자리잡고, 그 아래 "그럼 WANT TO는요?"가 옅은 톤으로 등장(답 없이 정지)
-- voiceover: "오늘은 GOING TO가 GONNA로 압축되는 이유를 봤습니다. 그럼 WANT TO는요? 다음 영상에서 확인하세요."
-- duration: 8.307s
+> **2026-09-04 내용 변경**: 2번째 줄이 더 이상 "WANT TO"라는 구체적 미해결 텍스트가 아니라, 채널
+> 시그니처 톤의 마무리 문구로 바뀜 — 특정 소재를 못 박지 않는 "단편" 방침 때문(EP12 Frame 10과
+> 동일한 정정 패턴). 상세: `episodes/ep11-gonna.md`.
+
+- scene: 오늘 배운 것 한 줄 요약이 자리잡고, 그 아래 따뜻한 마무리 문장이 완전히 정착
+- voiceover: "오늘은 GOING TO가 GONNA로 압축되는 이유를 봤습니다. 다음에도 여러분이 자주 헷갈리는 발음, 또 풀어드릴게요."
+- duration: 8.92s
 - transition_in: crossfade
 - status: animated
 - src: compositions/frames/13-summary-rehook.html
 - type: branding
-- persuasion: Distillation (compress to one line) + Callback
-- beat: resolution + a final spark of curiosity
-- blueprint: titlecard-reveal (Reproduce — 차분한 2줄 가치-타이틀 랜딩 그대로; 2번째 줄이 옅은 채 안 닫히는 게 Rehook)
+- persuasion: Distillation (compress to one line) + warm close
+- beat: resolution
+- blueprint: titlecard-reveal (Reproduce — 차분한 2줄 가치-타이틀 랜딩, 2번째 줄도 완전히 정착)
 - focal: 요약 문장 속 "GONNA"
-- roles: 요약 문장 = foreground subject · Rehook 문장 = supporting(의도적으로 옅고 안 닫힘)
-- sfx: soft-chime(요약 착지), Rehook 문장엔 사운드 없음(미완결 자체가 포인트)
+- roles: 요약 문장 = foreground subject · 마무리 문장 = supporting, 완전히 정착
+- sfx: soft-chime(요약 착지), 마무리 문장은 사운드 없이 차분하게
 
-narrativeRole: 오늘 배운 핵심을 한 문장으로 압축해 착지시키고, 동시에 다음 편(WANT TO→WANNA)으로 문을 열어둔 채 끝낸다 — 결말을 닫지 않는다.
-keyMessage: GOING TO→GONNA는 오늘로 끝. WANT TO는 다음 편의 질문으로 남는다.
+narrativeRole: 오늘 배운 핵심을 한 문장으로 압축해 착지시키고, 특정 소재를 예고하지 않은 채(단편
+방침) 채널에 대한 신뢰만 따뜻하게 남긴다 — "다음에도 헷갈리는 걸 풀어준다"는 채널 차원의 약속으로
+닫는다.
+keyMessage: 오늘의 배움은 여기서 완결된다. 다음에 또 다른 헷갈림을 풀어줄 거라는 믿음만 남긴다.
 
 Layout: centered — 마지막 홀드.
 Scene 1 (0.0–3.5s): "오늘은 GOING TO가 GONNA로 압축되는 이유를 봤습니다"가 중앙에 per-word reveal, "GONNA"만 노랑.
-Scene 2 (3.5–5.5s): "그럼 WANT TO는요?"에서 두 번째 줄이 hard-cut으로 그 아래 등장, opacity ~70%로 옅게 — 의도적으로 미해결.
-Scene 3 (5.5–8.0s): "다음 영상에서 확인하세요" — 새 시각 요소 없이 전체 정지, subtle jitter만. 열린 질문이 화면에 남은 마지막 것.
+Scene 2 (3.5–8.307s): "다음에도 여러분이 자주 헷갈리는 발음, 또 풀어드릴게요" — 두 번째 줄이 완전히 정착해서 읽히고, 화면도 자연스럽게 닫힘(이전 안처럼 일부러 안 닫힌 채 두지 않음).

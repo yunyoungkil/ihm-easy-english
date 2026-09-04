@@ -67,19 +67,7 @@
     will-change: transform, opacity;
   }
 
-  .f02intro-pill {
-    padding: 1.4cqh 2.2cqw;
-    border-radius: 100px;
-    background: rgba(245, 197, 24, 0.15);
-    border: 2px solid #F5C518;
-    color: #F5C518;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 700;
-    font-size: 1.7cqw;
-    letter-spacing: 0.02em;
-    transform-origin: 50% 50%;
-    will-change: transform, opacity;
-  }
+
 </style>
 
 <div data-hf-id="hf-xhlm" id="root" data-composition-id="02-intro" data-start="0" data-duration="9.195" data-width="1920" data-height="1080">
@@ -93,7 +81,6 @@
 
   <div data-hf-id="hf-ylfd" class="f02intro-stack">
     <div data-hf-id="hf-blev" class="f02intro-wordmark" id="f02intro-wordmark">이해하면 쉬운영어</div>
-    <div data-hf-id="hf-ozap" class="f02intro-pill" id="f02intro-pill">시즌2 · EP1</div>
   </div>
 </div>
 
@@ -107,11 +94,12 @@
   window.__timelines["02-intro"] = tl;
 
   var wordmark = document.getElementById('f02intro-wordmark');
-  var pill = document.getElementById('f02intro-pill');
   var glow = document.getElementById('f02intro-glow');
 
-  // ── Scene 1 (0.0-3.5s): wordmark spring-pop entrance (power3, no overshoot),
-  //    ambient glow bloom lands as ONE beat with the wordmark's settle. ──
+  // ── wordmark spring-pop entrance (power3, no overshoot), ambient glow bloom
+  //    lands as ONE beat with the wordmark's settle, then holds with a subtle
+  //    breathing glow through the full line — no season/episode pill (단편
+  //    방침, 2026-09-04: 시즌2·EP1 표기 제거). ──
   var POP_START = 0.15;
   var POP_DUR = 0.6;
   tl.fromTo(wordmark, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: POP_DUR, ease: 'power3.out' }, POP_START);
@@ -121,39 +109,20 @@
   var GLOW_PEAK = 0.28;
   tl.fromTo(glow, { opacity: 0, scale: 0.85 }, { opacity: GLOW_PEAK, scale: 1, duration: BLOOM_DUR, ease: 'power2.out' }, BLOOM_START);
 
-  // bounded idle breathe on the glow through the rest of Scene 1's quiet
-  var BREATHE1_START = BLOOM_START + BLOOM_DUR;
-  var BREATHE1_DUR = 3.5 - BREATHE1_START;
-  var phase1 = { p: 0 };
-  tl.to(phase1, {
-    p: Math.PI * 2 * (BREATHE1_DUR / 2.8),
-    duration: BREATHE1_DUR,
+  // bounded idle breathe on the glow through the rest of the line
+  var BREATHE_START = BLOOM_START + BLOOM_DUR;
+  var BREATHE_DUR = TOTAL_DURATION - BREATHE_START;
+  var phase = { p: 0 };
+  tl.to(phase, {
+    p: Math.PI * 2 * (BREATHE_DUR / 2.8),
+    duration: BREATHE_DUR,
     ease: 'none',
     onUpdate: function () {
-      var s = Math.sin(phase1.p);
+      var s = Math.sin(phase.p);
       glow.style.opacity = String(GLOW_PEAK + s * 0.03);
       glow.style.transform = 'scale(' + (1 + s * 0.015).toFixed(4) + ')';
     }
-  }, BREATHE1_START);
-
-  // ── Scene 2 (3.5-9.195s): pill reveals beneath the wordmark on "오늘부터 시즌2 —",
-  //    then everything holds through the rest of the line — subtle jitter only. ──
-  var PILL_START = 3.5;
-  tl.fromTo(pill, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.42, ease: 'power3.out' }, PILL_START);
-
-  var HOLD_START = PILL_START + 0.6;
-  var HOLD_DUR = TOTAL_DURATION - HOLD_START;
-  var phase2 = { p: 0 };
-  tl.to(phase2, {
-    p: Math.PI * 2 * (HOLD_DUR / 2.8),
-    duration: HOLD_DUR,
-    ease: 'none',
-    onUpdate: function () {
-      var s = Math.sin(phase2.p);
-      glow.style.opacity = String(GLOW_PEAK + s * 0.03);
-      glow.style.transform = 'scale(' + (1 + s * 0.015).toFixed(4) + ')';
-    }
-  }, HOLD_START);
+  }, BREATHE_START);
 })();
 </script>
 </template>

@@ -1,7 +1,10 @@
-# SCRIPT — ep11-longform-faceless (시즌2 EP1 — GOING TO → GONNA)
+# SCRIPT — ep11-longform-faceless (단편 EP11 — GOING TO → GONNA)
 
-**Voice:** HyperFrames pipeline default (Marcia, HeyGen) — season2의 첫 HyperFrames 나레이터. 시즌1의
-Google Gemini TTS(Charon)와는 다른 시스템이라 목소리가 달라진다(BRIEF.md Notes 참고).
+**Voice (2026-09-04 교체):** 구글 Gemini `Charon` — EP6~10 및 EP12와 동일한 채널 나레이터.
+~~원래 HyperFrames 기본값(Marcia, HeyGen)을 썼으나, 나레이션이 여성 목소리로 나와 채널 기준 인물
+(남성)과 성별이 안 맞는 문제가 발견됨(2026-09-03) — EP12에서 HeyGen 남성 목소리 3종도 동일한
+발음 뭉개짐 문제를 못 잡고 결국 Gemini(Charon)로 완전히 전환했던 것과 같은 기준을 적용해 이 편도
+Gemini로 교체.~~ 상세: `episodes/ep11-gonna.md`, [단편 EP12](../../knowledge/episodes/ep12-want-wont.md).
 **Voice settings:** 기본값 사용, 시험 청취 후 필요시 조정.
 **Voice direction:** 존댓말 유지 + 직설적/효율적 에너지. 차분한 선생님 톤, 과장 없음. 종결어미
 다양화(습니다/입니다/죠/요 혼합).
@@ -18,9 +21,9 @@ Google Gemini TTS(Charon)와는 다른 시스템이라 목소리가 달라진다
 ## Line 2 — 채널 인트로 (Frame 2)
 
 **Time:** 9.0 – 17.5s
-**Delivery:** 밝고 짧게, 시즌2의 시작을 알린다.
+**Delivery:** 밝고 짧게, 오늘 다룰 범위를 알린다.
 
-    안녕하세요, 「이해하면 쉬운영어」입니다. 오늘부터 시즌2 — 문장 속에서 소리가 어떻게 연결되고 줄어드는지, 함께 봅니다.
+    안녕하세요, 「이해하면 쉬운영어」입니다. 오늘은 문장 속에서 소리가 어떻게 연결되고 줄어드는지, 함께 봅니다.
 
 ## Line 3 — Big Question + Head Fake (Frame 3)
 
@@ -112,9 +115,9 @@ Google Gemini TTS(Charon)와는 다른 시스템이라 목소리가 달라진다
 ## Line 13 — 요약 + Rehook (Frame 13)
 
 **Time:** 167.5 – 175.5s
-**Delivery:** 요약은 확신 있게, "그럼 WANT TO는요?"는 가볍게 띄우며 마무리.
+**Delivery:** 요약은 확신 있게, 마무리는 따뜻하게 정착.
 
-    오늘은 고잉 투가 GONNA로 압축되는 이유를 봤습니다. 그럼 WANT TO는요? 다음 영상에서 확인하세요.
+    오늘은 고잉 투가 GONNA로 압축되는 이유를 봤습니다. 다음에도 여러분이 자주 헷갈리는 발음, 또 풀어드릴게요.
 
 ---
 

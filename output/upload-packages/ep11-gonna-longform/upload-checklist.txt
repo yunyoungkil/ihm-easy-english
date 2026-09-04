@@ -1,0 +1,14 @@
+업로드 체크리스트 — EP11 (GONNA) 롱폼
+예약: 2026-09-08(화) 20:00 KST
+
+1. 영상 파일: videos/ep11-longform-faceless/renders/ep11-longform-faceless_2026-09-04_20-26-16.mp4 (3:34, Gemini 남성 목소리, 시즌2 표기 제거)
+2. 제목: title.txt (그대로 붙여넣기) — 시안 A
+3. 설명: description.txt (그대로 붙여넣기)
+4. 태그: tags.txt (쉼표로 이미 구분됨)
+5. 썸네일: A/B/C 3종 전부 사용 — 유튜브 Studio "Test & compare" 기능으로 등록할 것 (시안 하나만 올리지 말 것)
+   - thumbnail-a.jpg — "원어민은 왜 GOING TO를 교과서처럼 읽지 않을까?" (AI 진단 최고점, B+)
+   - thumbnail-b.jpg — "미드에서 GOING TO가 0.1초 만에 증발하는 이유"
+   - thumbnail-c.jpg — "GOING TO 아는데도 미드만 틀면 안 들렸던 왕초보 필독"
+6. 공개 예약: 2026-09-08(화) 20:00 KST로 설정
+7. 업로드 완료 후: pinned-comment.txt 내용을 댓글로 달고 고정
+8. 업로드 승인 게이트를 knowledge/episodes/ep11-gonna.md에서 갱신, 실제 공개 후 videoId 확인

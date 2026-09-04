@@ -1,6 +1,6 @@
-# 환경 설정 — HeyGen/WSL 브리지
+# 환경 설정 — HeyGen/WSL 브리지, HyperFrames 콘솔 창 숨기기
 
-마지막 갱신: 2026-08-25
+마지막 갱신: 2026-09-04
 
 `media-use` 스킬(HyperFrames 프로젝트의 BGM/이미지/보이스 무료 카탈로그)은 `heygen` CLI를 쓴다.
 HeyGen CLI는 **Windows를 아직 정식 지원하지 않아서**(공식 문서: "Windows support is coming soon —
@@ -93,6 +93,29 @@ node "C:/Users/yunyo/.claude/skills/media-use/scripts/resolve.mjs" --doctor
 
 `heygen found on PATH` / `authenticated as ...`가 전부 ✓로 나오면 정상. 이후 `resolve.mjs --type
 bgm/image/voice/...`로 무료 카탈로그를 바로 쓸 수 있다.
+
+## 5. HyperFrames `preview --background` 실행 시 뜨는 콘솔 창 숨기기
+
+`npx hyperframes preview --background`(각 `videos/*/CLAUDE.md`가 에이전트에게 요구하는 표준
+Studio 핸드오프 방법)를 이 컴퓨터에서 그냥 실행하면 **화면에 검은 콘솔 창이 하나 뜬다.**
+`npx hyperframes preview --help`로 전체 플래그를 확인했지만 이걸 끄는 옵션은 없다
+(`--browser-*` 계열은 자동으로 열리는 브라우저 창에만 적용된다) — Windows에서 Node가 백그라운드
+(detached) 프로세스를 새로 띄울 때 기본적으로 콘솔을 할당하는 동작으로 보이고, hyperframes 쪽
+CLI 플래그로는 제어할 수 없다.
+
+**해결**: `scripts/run-hidden.vbs`로 감싸서 실행한다. Windows의 표준 트릭
+(`WScript.Shell.Run(cmd, 0, False)` — 창 스타일 0 = 숨김)을 쓴 아주 작은 래퍼다.
+
+```powershell
+wscript scripts\run-hidden.vbs "<프로젝트 폴더>" "npx --yes hyperframes@<버전> preview --background"
+```
+
+예: `wscript scripts\run-hidden.vbs "videos\ep12-want-wont" "npx --yes hyperframes@0.8.26 preview --background"`
+
+2026-09-04에 EP12에서 실측 확인함 — 이 래퍼로 띄운 뒤 `preview --status`로 정상 기동 확인,
+사용자가 화면에서 직접 콘솔 창이 안 뜨는 것도 확인("확인 정상 작동한다"). 다른 프로젝트에서 쓸 때는
+버전 번호(`hyperframes@X.Y.Z`)를 그 프로젝트 `package.json`의 `scripts.dev`에 적힌 핀 버전과
+맞출 것 — 프로젝트마다 다르다(EP11은 0.8.16, EP12는 0.8.26).
 
 ## 관련 문서
 

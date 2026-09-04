@@ -44,6 +44,9 @@
   .f07-item-text { font-size: 34px; font-weight: 700; color: #FFFFFF; }
 
   .f07-caption { position: absolute; left: 120px; bottom: 230px; width: 1680px; font-size: 34px; font-weight: 700; color: #A9B4C4; opacity: 0; }
+
+  .f07-nb-wrap { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; opacity: 0; pointer-events: none; }
+  .f07-nb-svg { position: absolute; inset: 0; display: block; }
 </style>
 
 <div data-hf-id="hf-xczp" id="root" data-composition-id="07-listening" data-start="0" data-duration="28.3" data-width="1920" data-height="1080">
@@ -59,10 +62,26 @@
   </div>
 
   <div data-hf-id="hf-5lmq" class="f07-list">
-    <div data-hf-id="hf-5vxj" class="f07-item" id="f07-item1"><div data-hf-id="hf-t8ta" class="f07-badge">1</div><div data-hf-id="hf-in9n" class="f07-item-text">“I want it so bad.”</div></div>
-    <div data-hf-id="hf-v0fw" class="f07-item" id="f07-item2"><div data-hf-id="hf-tn4b" class="f07-badge">2</div><div data-hf-id="hf-a35i" class="f07-item-text">“She won't listen.”</div></div>
-    <div data-hf-id="hf-vs3p" class="f07-item" id="f07-item3"><div data-hf-id="hf-u1fc" class="f07-badge">3</div><div data-hf-id="hf-52ay" class="f07-item-text">“They want more time.”</div></div>
-    <div data-hf-id="hf-ejte" class="f07-item" id="f07-item4"><div data-hf-id="hf-r9a5" class="f07-badge">4</div><div data-hf-id="hf-plcj" class="f07-item-text">“We won't give up.”</div></div>
+    <div data-hf-id="hf-5vxj" class="f07-item f07-item--want" id="f07-item1"><div data-hf-id="hf-t8ta" class="f07-badge">1</div><div data-hf-id="hf-in9n" class="f07-item-text">“I want it so bad.”</div></div>
+    <div data-hf-id="hf-v0fw" class="f07-item f07-item--wont" id="f07-item2"><div data-hf-id="hf-tn4b" class="f07-badge">2</div><div data-hf-id="hf-a35i" class="f07-item-text">“She won't listen.”</div></div>
+    <div data-hf-id="hf-vs3p" class="f07-item f07-item--want" id="f07-item3"><div data-hf-id="hf-u1fc" class="f07-badge">3</div><div data-hf-id="hf-52ay" class="f07-item-text">“They want more time.”</div></div>
+    <div data-hf-id="hf-ejte" class="f07-item f07-item--wont" id="f07-item4"><div data-hf-id="hf-r9a5" class="f07-badge">4</div><div data-hf-id="hf-plcj" class="f07-item-text">“We won't give up.”</div></div>
+  </div>
+
+  <!-- Neon border highlight on the item narration is currently reading — same adaptation as
+       Frame 04 (see that file for the source-of-truth explanation). -->
+  <div data-hf-id="hf-nb01" class="f07-nb-wrap" id="f07-nb-wrap">
+    <svg data-hf-id="hf-nb02" id="f07-nb-svg" class="f07-nb-svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" aria-hidden="true">
+      <defs data-hf-id="hf-nb03">
+        <g data-hf-id="hf-nb04" id="f07-nb-seg-a-glow"></g>
+        <g data-hf-id="hf-nb05" id="f07-nb-seg-a-core"></g>
+        <g data-hf-id="hf-nb06" id="f07-nb-seg-b-glow"></g>
+        <g data-hf-id="hf-nb07" id="f07-nb-seg-b-core"></g>
+      </defs>
+      <g data-hf-id="hf-nb08" id="f07-nb-group" transform="translate(0,0)">
+        <path data-hf-id="hf-nb09" id="f07-nb-rail" d="" fill="none" stroke-linejoin="round"></path>
+      </g>
+    </svg>
   </div>
 
 </div>
@@ -99,6 +118,194 @@
   tl.fromTo("#f07-mini-shape", { opacity: 0, scale: 1 }, { opacity: 1, scale: 0.55, duration: 0.4, ease: "power3.out" }, SCENE3);
 
   tl.fromTo(progressFillEl, { width: "60%" }, { width: "70%", duration: 1.0, ease: "power1.inOut" }, 5.0);
+
+  (function () {
+    var SVG_NS = "http://www.w3.org/2000/svg";
+    var CARDS_LEFT = 520, CARDS_TOP = 250; // matches .f07-list left/top
+    var MARGIN = 14, CORNER_R = 18, THICKNESS = 4, ARC_FRAC = 0.24, GLOW_MULT = 0.85, SPEED = 1.1;
+    var BEAT = 1 / SPEED;
+
+    var wrap = document.getElementById("f07-nb-wrap");
+    var railEl = document.getElementById("f07-nb-rail");
+    var groupEl = document.getElementById("f07-nb-group");
+
+    function towardWhite(hex, amount) {
+      var v = parseInt(hex.slice(1), 16);
+      var out = "#";
+      for (var s = 16; s >= 0; s -= 8) {
+        var c = (v >> s) & 255;
+        var m = Math.round(c + (255 - c) * amount);
+        out += (m < 16 ? "0" : "") + m.toString(16);
+      }
+      return out;
+    }
+
+    function buildPath(w, h, r) {
+      var arc = "A " + r + " " + r + " 0 0 1 ";
+      return [
+        "M " + r + " 0", "H " + (w - r), arc + w + " " + r,
+        "V " + (h - r), arc + (w - r) + " " + h,
+        "H " + r, arc + "0 " + (h - r),
+        "V " + r, arc + r + " 0", "Z",
+      ].join(" ");
+    }
+
+    function buildSegments(groupId, count, falloff) {
+      var g = document.getElementById(groupId);
+      var segs = [];
+      for (var i = 0; i < count; i++) {
+        var p = document.createElementNS(SVG_NS, "path");
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke-linecap", i === 0 ? "round" : "butt");
+        p.setAttribute("opacity", String(Math.pow(1 - i / count, falloff)));
+        g.appendChild(p);
+        segs.push(p);
+      }
+      return segs;
+    }
+
+    var arcs = [
+      { offset: 0, glow: buildSegments("f07-nb-seg-a-glow", 18, 2.6), core: buildSegments("f07-nb-seg-a-core", 22, 1.4) },
+      { offset: 2, glow: buildSegments("f07-nb-seg-b-glow", 18, 2.6), core: buildSegments("f07-nb-seg-b-core", 22, 1.4) },
+    ];
+
+    var MAX_REACH = 20;
+    var LAYER_DEFS = [
+      { blur: 22, spread: 1, opacity: 0.16, deep: true },
+      { blur: 12, spread: 0.6, opacity: 0.26, deep: true },
+      { blur: 6, spread: 0.3, opacity: 0.42, deep: true },
+      { blur: 3, spread: 0.05, opacity: 0.85, core: true },
+      { blur: 0, spread: -0.012, opacity: 1, core: true, white: true },
+    ];
+    var layerEls = [];
+    ["a", "b"].forEach(function (tag) {
+      LAYER_DEFS.forEach(function (layer) {
+        var u = document.createElementNS(SVG_NS, "use");
+        u.setAttribute("href", "#f07-nb-seg-" + tag + "-" + (layer.core ? "core" : "glow"));
+        u.setAttribute("stroke-width", String(Math.max(0.5, THICKNESS + 2 * layer.spread * MAX_REACH * GLOW_MULT)));
+        u.setAttribute("opacity", String(Math.min(1, layer.opacity * GLOW_MULT)));
+        if (layer.blur > 0) u.style.filter = "blur(" + layer.blur + "px)";
+        groupEl.appendChild(u);
+        layerEls.push({ el: u, core: !!layer.core, white: !!layer.white });
+      });
+    });
+
+    // Measure every item's box and derive its traced-rect geometry once, synchronously, before
+    // the timeline runs (see Frame 04's identical block for why: a tl.call() mid-seek would read
+    // whatever DOM state a non-linear render-worker seek order happened to produce).
+    var CARD_GEOM = {};
+    [1, 2, 3, 4].forEach(function (n) {
+      var cardEl = item(n);
+      var w = cardEl.offsetWidth + MARGIN * 2;
+      var h = cardEl.offsetHeight + MARGIN * 2;
+      var x = CARDS_LEFT + cardEl.offsetLeft - MARGIN;
+      var y = CARDS_TOP + cardEl.offsetTop - MARGIN;
+      var d = buildPath(w, h, CORNER_R);
+      railEl.setAttribute("d", d);
+      var SW = w - 2 * CORNER_R, SH = h - 2 * CORNER_R, AC = (Math.PI * CORNER_R) / 2;
+      var pAnalytic = 2 * SW + 2 * SH + 4 * AC;
+      var p = railEl.getTotalLength() || pAnalytic;
+      var k = p / pAnalytic;
+      var accent = cardEl.classList.contains("f07-item--want") ? "#F5C518" : "#5B9BD5";
+      CARD_GEOM[n] = {
+        x: x, y: y, d: d, P: p,
+        CORNERS: [(SW + AC / 2) * k, (SW + SH + 1.5 * AC) * k, (2 * SW + SH + 2.5 * AC) * k, (2 * SW + 2 * SH + 3.5 * AC) * k],
+        accent: accent, hot: towardWhite(accent, 0.78),
+        glowLen: ARC_FRAC * p, coreLen: 0.34 * ARC_FRAC * p,
+      };
+    });
+
+    function cornerPos(geom, k) {
+      var lap = Math.floor(k / 4);
+      var i = k - lap * 4;
+      return geom.CORNERS[i] + lap * geom.P;
+    }
+
+    function cubicBezier(x1, y1, x2, y2) {
+      function axis(t, a, b) {
+        var u = 1 - t;
+        return 3 * u * u * t * a + 3 * u * t * t * b + t * t * t;
+      }
+      return function (x) {
+        if (x <= 0) return 0;
+        if (x >= 1) return 1;
+        var lo = 0, hi = 1, t = x;
+        for (var i = 0; i < 24; i++) {
+          t = (lo + hi) / 2;
+          if (axis(t, x1, x2) < x) lo = t; else hi = t;
+        }
+        return axis(t, y1, y2);
+      };
+    }
+    var ease = cubicBezier(0.65, 0, 0.35, 1); // glide (smooth) movement
+
+    function headAt(geom, t) {
+      var total = t / BEAT;
+      var k = Math.floor(total);
+      var u = total - k;
+      var a = cornerPos(geom, k);
+      var b = cornerPos(geom, k + 1);
+      return a + (b - a) * ease(u);
+    }
+
+    function layout(geom, segs, head, length) {
+      var step = length / segs.length;
+      for (var i = 0; i < segs.length; i++) {
+        var start = head - (i + 1) * step;
+        start = ((start % geom.P) + geom.P) % geom.P;
+        segs[i].setAttribute("stroke-dasharray", step + " " + (geom.P - step));
+        segs[i].setAttribute("stroke-dashoffset", String(-start));
+      }
+    }
+
+    // Active window per item = its own land() time -> the next item's land() time (or the
+    // Scene 3 boundary for item 4, since nothing lands after it).
+    var WINDOWS = [
+      { n: 1, start: 5.0, end: 9.5 },
+      { n: 2, start: 9.5, end: 14.5 },
+      { n: 3, start: 14.5, end: 19.0 },
+      { n: 4, start: 19.0, end: 21.5 },
+    ];
+    var BORDER_DELAY = 0.25; // let the item's own land() settle first
+    var FADE = 0.2;
+
+    function activeCardForTime(t) {
+      for (var i = 0; i < WINDOWS.length; i++) {
+        var w = WINDOWS[i];
+        if (t >= w.start + BORDER_DELAY && t < w.end) return w.n;
+      }
+      return null;
+    }
+
+    function render(t) {
+      var n = activeCardForTime(t);
+      if (n === null) return;
+      var geom = CARD_GEOM[n];
+      groupEl.setAttribute("transform", "translate(" + geom.x + "," + geom.y + ")");
+      railEl.setAttribute("d", geom.d);
+      railEl.setAttribute("stroke", geom.accent);
+      railEl.setAttribute("stroke-width", String(THICKNESS));
+      railEl.setAttribute("stroke-opacity", "0.12");
+      layerEls.forEach(function (layer) {
+        layer.el.setAttribute("stroke", layer.white ? "#ffffff" : layer.core ? geom.hot : geom.accent);
+      });
+      arcs.forEach(function (a) {
+        a.glow.concat(a.core).forEach(function (seg) { seg.setAttribute("d", geom.d); });
+        var head = headAt(geom, t + a.offset * BEAT);
+        layout(geom, a.glow, head, geom.glowLen);
+        layout(geom, a.core, head, geom.coreLen);
+      });
+    }
+
+    var driver = { t: 0 };
+    tl.to(driver, { t: 28.3, duration: 28.3, ease: "none", onUpdate: function () { render(driver.t); } }, 0);
+
+    WINDOWS.forEach(function (win) {
+      var bStart = win.start + BORDER_DELAY;
+      tl.fromTo(wrap, { opacity: 0 }, { opacity: 1, duration: FADE }, bStart);
+      tl.to(wrap, { opacity: 0, duration: FADE }, Math.max(bStart, win.end - FADE));
+    });
+  })();
 })();
 </script>
 </template>

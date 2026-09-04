@@ -46,6 +46,9 @@
     position: absolute; left: 120px; bottom: 230px; width: 1680px;
     font-size: 36px; font-weight: 700; color: #A9B4C4; opacity: 0;
   }
+
+  .f04-nb-wrap { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; opacity: 0; pointer-events: none; }
+  .f04-nb-svg { position: absolute; inset: 0; display: block; }
 </style>
 
 <div data-hf-id="hf-b188" id="root" data-composition-id="04-examples" data-start="0" data-duration="29.62" data-width="1920" data-height="1080">
@@ -64,6 +67,23 @@
     <div data-hf-id="hf-o9jq" class="f04-card f04-card--wont" id="f04-card4">“She <span data-hf-id="hf-4ilj" class="accent-wont">won't</span> stop.”</div>
     <div data-hf-id="hf-3tu2" class="f04-card f04-card--want" id="f04-card5">“They <span data-hf-id="hf-kkt4" class="accent-want">want</span> help.”</div>
     <div data-hf-id="hf-hew1" class="f04-card f04-card--wont" id="f04-card6">“They <span data-hf-id="hf-44ai" class="accent-wont">won't</span> help.”</div>
+  </div>
+
+  <!-- Neon border highlight on the card narration is currently reading, adapted from the
+       HyperFrames catalog block "lt-neon-border" (traveling glow arcs around a rounded rect) —
+       generalized here to retrace the active card's own box instead of a fixed lower-third panel. -->
+  <div data-hf-id="hf-nb01" class="f04-nb-wrap" id="f04-nb-wrap">
+    <svg data-hf-id="hf-nb02" id="f04-nb-svg" class="f04-nb-svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" aria-hidden="true">
+      <defs data-hf-id="hf-mh0t">
+        <g data-hf-id="hf-j4ww" id="f04-nb-seg-a-glow" />
+        <g data-hf-id="hf-8dc6" id="f04-nb-seg-a-core" />
+        <g data-hf-id="hf-068l" id="f04-nb-seg-b-glow" />
+        <g data-hf-id="hf-4m9j" id="f04-nb-seg-b-core" />
+      </defs>
+      <g data-hf-id="hf-v5zw" id="f04-nb-group" transform="translate(0,0)">
+        <path data-hf-id="hf-8b2c" id="f04-nb-rail" d="" fill="none" stroke-linejoin="round" />
+      </g>
+    </svg>
   </div>
 
 </div>
@@ -97,6 +117,199 @@
   // stack holds — the line itself is carried by the global caption bar now.
 
   tl.fromTo(progressFillEl, { width: "30%" }, { width: "40%", duration: 1.0, ease: "power1.inOut" }, 1.2);
+
+  (function () {
+    var SVG_NS = "http://www.w3.org/2000/svg";
+    var CARDS_LEFT = 540, CARDS_TOP = 100; // matches .f04-cards left/top
+    var MARGIN = 14, CORNER_R = 18, THICKNESS = 4, ARC_FRAC = 0.24, GLOW_MULT = 0.85, SPEED = 1.1;
+    var BEAT = 1 / SPEED;
+
+    var wrap = document.getElementById("f04-nb-wrap");
+    var railEl = document.getElementById("f04-nb-rail");
+    var groupEl = document.getElementById("f04-nb-group");
+
+    function towardWhite(hex, amount) {
+      var v = parseInt(hex.slice(1), 16);
+      var out = "#";
+      for (var s = 16; s >= 0; s -= 8) {
+        var c = (v >> s) & 255;
+        var m = Math.round(c + (255 - c) * amount);
+        out += (m < 16 ? "0" : "") + m.toString(16);
+      }
+      return out;
+    }
+
+    function buildPath(w, h, r) {
+      var arc = "A " + r + " " + r + " 0 0 1 ";
+      return [
+        "M " + r + " 0", "H " + (w - r), arc + w + " " + r,
+        "V " + (h - r), arc + (w - r) + " " + h,
+        "H " + r, arc + "0 " + (h - r),
+        "V " + r, arc + r + " 0", "Z",
+      ].join(" ");
+    }
+
+    function buildSegments(groupId, count, falloff) {
+      var g = document.getElementById(groupId);
+      var segs = [];
+      for (var i = 0; i < count; i++) {
+        var p = document.createElementNS(SVG_NS, "path");
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke-linecap", i === 0 ? "round" : "butt");
+        p.setAttribute("opacity", String(Math.pow(1 - i / count, falloff)));
+        g.appendChild(p);
+        segs.push(p);
+      }
+      return segs;
+    }
+
+    var arcs = [
+      { offset: 0, glow: buildSegments("f04-nb-seg-a-glow", 18, 2.6), core: buildSegments("f04-nb-seg-a-core", 22, 1.4) },
+      { offset: 2, glow: buildSegments("f04-nb-seg-b-glow", 18, 2.6), core: buildSegments("f04-nb-seg-b-core", 22, 1.4) },
+    ];
+
+    var MAX_REACH = 20;
+    var LAYER_DEFS = [
+      { blur: 22, spread: 1, opacity: 0.16, deep: true },
+      { blur: 12, spread: 0.6, opacity: 0.26, deep: true },
+      { blur: 6, spread: 0.3, opacity: 0.42, deep: true },
+      { blur: 3, spread: 0.05, opacity: 0.85, core: true },
+      { blur: 0, spread: -0.012, opacity: 1, core: true, white: true },
+    ];
+    var layerEls = [];
+    ["a", "b"].forEach(function (tag) {
+      LAYER_DEFS.forEach(function (layer) {
+        var u = document.createElementNS(SVG_NS, "use");
+        u.setAttribute("href", "#f04-nb-seg-" + tag + "-" + (layer.core ? "core" : "glow"));
+        u.setAttribute("stroke-width", String(Math.max(0.5, THICKNESS + 2 * layer.spread * MAX_REACH * GLOW_MULT)));
+        u.setAttribute("opacity", String(Math.min(1, layer.opacity * GLOW_MULT)));
+        if (layer.blur > 0) u.style.filter = "blur(" + layer.blur + "px)";
+        groupEl.appendChild(u);
+        layerEls.push({ el: u, core: !!layer.core, white: !!layer.white });
+      });
+    });
+
+    // Measure every card's box and derive its traced-rect geometry once, synchronously, before
+    // the timeline runs (lint: gsap_callback_dom_measurement — a tl.call() mid-seek would read
+    // whatever DOM state a non-linear render-worker seek order happened to produce; layout here
+    // never changes after this point, so build-time measurement is safe).
+    var CARD_GEOM = {};
+    [1, 2, 3, 4, 5, 6].forEach(function (n) {
+      var cardEl = card(n);
+      var w = cardEl.offsetWidth + MARGIN * 2;
+      var h = cardEl.offsetHeight + MARGIN * 2;
+      var x = CARDS_LEFT + cardEl.offsetLeft - MARGIN;
+      var y = CARDS_TOP + cardEl.offsetTop - MARGIN;
+      var d = buildPath(w, h, CORNER_R);
+      railEl.setAttribute("d", d);
+      var SW = w - 2 * CORNER_R, SH = h - 2 * CORNER_R, AC = (Math.PI * CORNER_R) / 2;
+      var pAnalytic = 2 * SW + 2 * SH + 4 * AC;
+      var p = railEl.getTotalLength() || pAnalytic;
+      var k = p / pAnalytic;
+      var accent = cardEl.classList.contains("f04-card--want") ? "#F5C518" : "#5B9BD5";
+      CARD_GEOM[n] = {
+        x: x, y: y, d: d, P: p,
+        CORNERS: [(SW + AC / 2) * k, (SW + SH + 1.5 * AC) * k, (2 * SW + SH + 2.5 * AC) * k, (2 * SW + 2 * SH + 3.5 * AC) * k],
+        accent: accent, hot: towardWhite(accent, 0.78),
+        glowLen: ARC_FRAC * p, coreLen: 0.34 * ARC_FRAC * p,
+      };
+    });
+
+    function cornerPos(geom, k) {
+      var lap = Math.floor(k / 4);
+      var i = k - lap * 4;
+      return geom.CORNERS[i] + lap * geom.P;
+    }
+
+    function cubicBezier(x1, y1, x2, y2) {
+      function axis(t, a, b) {
+        var u = 1 - t;
+        return 3 * u * u * t * a + 3 * u * t * t * b + t * t * t;
+      }
+      return function (x) {
+        if (x <= 0) return 0;
+        if (x >= 1) return 1;
+        var lo = 0, hi = 1, t = x;
+        for (var i = 0; i < 24; i++) {
+          t = (lo + hi) / 2;
+          if (axis(t, x1, x2) < x) lo = t; else hi = t;
+        }
+        return axis(t, y1, y2);
+      };
+    }
+    var ease = cubicBezier(0.65, 0, 0.35, 1); // glide (smooth) movement
+
+    function headAt(geom, t) {
+      var total = t / BEAT;
+      var k = Math.floor(total);
+      var u = total - k;
+      var a = cornerPos(geom, k);
+      var b = cornerPos(geom, k + 1);
+      return a + (b - a) * ease(u);
+    }
+
+    function layout(geom, segs, head, length) {
+      var step = length / segs.length;
+      for (var i = 0; i < segs.length; i++) {
+        var start = head - (i + 1) * step;
+        start = ((start % geom.P) + geom.P) % geom.P;
+        segs[i].setAttribute("stroke-dasharray", step + " " + (geom.P - step));
+        segs[i].setAttribute("stroke-dashoffset", String(-start));
+      }
+    }
+
+    // Active window per card = its own land() time -> the next card's land() time (or a fixed
+    // end for card 6, since nothing lands after it — Scene 3 is general commentary, not a card).
+    var WINDOWS = [
+      { n: 1, start: 1.2, end: 5.4 },
+      { n: 2, start: 5.4, end: 11.0 },
+      { n: 3, start: 11.0, end: 13.2 },
+      { n: 4, start: 13.2, end: 15.6 },
+      { n: 5, start: 15.6, end: 17.8 },
+      { n: 6, start: 17.8, end: 19.4 },
+    ];
+    var BORDER_DELAY = 0.25; // let the card's own land() settle first
+    var FADE = 0.2;
+
+    // Pure function of t, matching the fade windows below — no shared mutable "current card"
+    // state, so a render(t) call gives the same result no matter what order seeks arrive in.
+    function activeCardForTime(t) {
+      for (var i = 0; i < WINDOWS.length; i++) {
+        var w = WINDOWS[i];
+        if (t >= w.start + BORDER_DELAY && t < w.end) return w.n;
+      }
+      return null;
+    }
+
+    function render(t) {
+      var n = activeCardForTime(t);
+      if (n === null) return;
+      var geom = CARD_GEOM[n];
+      groupEl.setAttribute("transform", "translate(" + geom.x + "," + geom.y + ")");
+      railEl.setAttribute("d", geom.d);
+      railEl.setAttribute("stroke", geom.accent);
+      railEl.setAttribute("stroke-width", String(THICKNESS));
+      railEl.setAttribute("stroke-opacity", "0.12");
+      layerEls.forEach(function (layer) {
+        layer.el.setAttribute("stroke", layer.white ? "#ffffff" : layer.core ? geom.hot : geom.accent);
+      });
+      arcs.forEach(function (a) {
+        a.glow.concat(a.core).forEach(function (seg) { seg.setAttribute("d", geom.d); });
+        var head = headAt(geom, t + a.offset * BEAT);
+        layout(geom, a.glow, head, geom.glowLen);
+        layout(geom, a.core, head, geom.coreLen);
+      });
+    }
+
+    var driver = { t: 0 };
+    tl.to(driver, { t: 29.62, duration: 29.62, ease: "none", onUpdate: function () { render(driver.t); } }, 0);
+
+    WINDOWS.forEach(function (win) {
+      var bStart = win.start + BORDER_DELAY;
+      tl.fromTo(wrap, { opacity: 0 }, { opacity: 1, duration: FADE }, bStart);
+      tl.to(wrap, { opacity: 0, duration: FADE }, Math.max(bStart, win.end - FADE));
+    });
+  })();
 })();
 </script>
 </template>

@@ -34,6 +34,16 @@
   .f06-mini-shape { width: 90px; height: 90px; border-radius: 50%; border: 5px solid #5B9BD5; background: rgba(18,32,58,0.6); opacity: 0; }
   .f06-answer { font-size: 84px; font-weight: 900; color: #5B9BD5; text-shadow: 0 0 30px rgba(91,155,213,0.32); opacity: 0; }
   .f06-answer-sub { position: absolute; left: 0; top: 620px; width: 1920px; text-align: center; font-size: 32px; font-weight: 700; color: #A9B4C4; opacity: 0; }
+
+  /* HyperFrames catalog component "inline-highlight", CSS only (no per-instance
+     variable panel needed — color/thickness are set inline per span below). */
+  .hf-inline-highlight { --hf-highlight-scale: 0; position: relative; display: inline; z-index: 0; }
+  .hf-inline-highlight::after {
+    content: ""; position: absolute; left: -0.08em; right: -0.08em; bottom: var(--hf-highlight-bottom, 0.05em);
+    height: var(--hf-highlight-height, 0.38em); background: var(--hf-highlight-color, #fff06a);
+    transform: scaleX(var(--hf-highlight-scale)); transform-origin: var(--hf-highlight-origin, left center);
+    z-index: -1;
+  }
 </style>
 
 <div data-hf-id="hf-eiia" id="root" data-composition-id="06-quiz" data-start="0" data-duration="16.62" data-width="1920" data-height="1080">
@@ -48,7 +58,7 @@
     <div data-hf-id="hf-ijke" class="f06-mini-shape" id="f06-mini-shape"></div>
     <div data-hf-id="hf-kgdp" class="f06-answer" id="f06-answer">Won't</div>
   </div>
-  <div data-hf-id="hf-vvw7" class="f06-answer-sub" id="f06-answer-sub">정답은 오므라든 겁니다</div>
+  <div data-hf-id="hf-vvw7" class="f06-answer-sub" id="f06-answer-sub">정답은 <span data-hf-id="hf-hl06" class="hf-inline-highlight" id="f06-hl" style="--hf-highlight-color:rgba(91,155,213,0.42); --hf-highlight-height:0.38em;">오므라든</span> 겁니다</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -82,6 +92,7 @@
   tl.fromTo(miniShape, { opacity: 0, scale: 1 }, { opacity: 1, scale: 0.55, duration: 0.4, ease: "power3.out" }, REVEAL + 0.1);
   tl.fromTo(answer, { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.6)" }, REVEAL + 0.15);
   tl.fromTo(answerSub, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, REVEAL + 0.5);
+  tl.to("#f06-hl", { "--hf-highlight-scale": 1, duration: 0.4, ease: "power2.out" }, REVEAL + 0.9);
   tl.fromTo(glowEl, { opacity: 0.2 }, { opacity: 0.46, duration: 0.6, ease: "power2.out" }, REVEAL + 0.1);
 
   tl.fromTo(progressFillEl, { width: "50%" }, { width: "60%", duration: 1.0, ease: "power1.inOut" }, REVEAL + 0.1);

@@ -33,6 +33,16 @@
     position: absolute; left: 0; top: 640px; width: 1920px; text-align: center;
     font-size: 36px; font-weight: 700; color: #A9B4C4; opacity: 0;
   }
+
+  /* HyperFrames catalog component "inline-highlight", CSS only (no per-instance
+     variable panel needed — color/thickness are set inline per span below). */
+  .hf-inline-highlight { --hf-highlight-scale: 0; position: relative; display: inline; z-index: 0; }
+  .hf-inline-highlight::after {
+    content: ""; position: absolute; left: -0.08em; right: -0.08em; bottom: 0.05em;
+    height: var(--hf-highlight-height, 0.38em); background: var(--hf-highlight-color, #fff06a);
+    transform: scaleX(var(--hf-highlight-scale)); transform-origin: var(--hf-highlight-origin, left center);
+    z-index: -1;
+  }
 </style>
 
 <div data-hf-id="hf-yxzs" id="root" data-composition-id="09-payoff" data-start="0" data-duration="15.66" data-width="1920" data-height="1080">
@@ -41,7 +51,7 @@
 
   <div data-hf-id="hf-wtw3" class="f09-example-wrap"><div data-hf-id="hf-sgwy" class="f09-example" id="f09-example">“No, I won't.”</div></div>
   <div data-hf-id="hf-4msp" class="f09-line" id="f09-line">자막 없이도 이제 입 모양만 보면 딱 들리실 겁니다.</div>
-  <div data-hf-id="hf-x5en" class="f09-closing" id="f09-closing">뜻이 정반대인 두 단어가, 사실 이렇게 간단한 차이였어요.</div>
+  <div data-hf-id="hf-x5en" class="f09-closing" id="f09-closing">뜻이 정반대인 두 단어가, 사실 <span data-hf-id="hf-hl09" class="hf-inline-highlight" id="f09-hl" style="color:#FFFFFF; --hf-highlight-color:#E84545; --hf-highlight-height:0.22em;">이렇게 간단한 차이였어요</span>.</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -65,6 +75,7 @@
   // Scene 2 (~5.5s VO -> end, "뜻이 정반대인 두 단어가, 사실 이렇게 간단한 차이였어요"): quiet,
   // satisfied close — settles and holds.
   tl.fromTo(closing, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 6.0);
+  tl.to("#f09-hl", { "--hf-highlight-scale": 1, duration: 0.5, ease: "power2.out" }, 6.5);
 
   tl.fromTo(progressFillEl, { width: "80%" }, { width: "90%", duration: 1.0, ease: "power1.inOut" }, 0.3);
 })();

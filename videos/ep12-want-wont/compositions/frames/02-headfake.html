@@ -50,6 +50,16 @@
     position: absolute; left: 0; top: 700px; width: 1920px; text-align: center;
     font-size: 34px; font-weight: 700; color: #A9B4C4; opacity: 0;
   }
+
+  /* HyperFrames catalog component "inline-highlight", CSS only (no per-instance
+     variable panel needed — color/thickness are set inline per span below). */
+  .hf-inline-highlight { --hf-highlight-scale: 0; position: relative; display: inline; z-index: 0; }
+  .hf-inline-highlight::after {
+    content: ""; position: absolute; left: -0.08em; right: -0.08em; bottom: var(--hf-highlight-bottom, 0.05em);
+    height: var(--hf-highlight-height, 0.38em); background: var(--hf-highlight-color, #fff06a);
+    transform: scaleX(var(--hf-highlight-scale)); transform-origin: var(--hf-highlight-origin, left center);
+    z-index: -1;
+  }
 </style>
 
 <div data-hf-id="hf-29qm" id="root" data-composition-id="02-headfake" data-start="0" data-duration="15.98" data-width="1920" data-height="1080">
@@ -60,7 +70,7 @@
 
   <div data-hf-id="hf-xr5a" class="f02-question" id="f02-question"></div>
   <div data-hf-id="hf-gxby" class="f02-hero-wrap"><div data-hf-id="hf-ox8n" class="f02-hero" id="f02-hero">정답은 발음 기호가 아닙니다</div></div>
-  <div data-hf-id="hf-g6l5" class="f02-follow" id="f02-follow">입을 얼마나 크게 벌리느냐, 그 차이 하나예요</div>
+  <div data-hf-id="hf-g6l5" class="f02-follow" id="f02-follow"><span data-hf-id="hf-hl02" class="hf-inline-highlight" id="f02-hl" style="--hf-highlight-color:rgba(245,197,24,0.4); --hf-highlight-height:0.62em;">입을 얼마나 크게 벌리느냐</span>, 그 차이 하나예요</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -111,6 +121,7 @@
   // Scene 3 (~11.4s VO, "입을 얼마나 크게 벌리느냐, 그 차이 하나예요"): supporting follow-up
   // line settles below, then everything holds to the end.
   tl.fromTo(followEl, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 11.4);
+  tl.to("#f02-hl", { "--hf-highlight-scale": 1, duration: 0.5, ease: "power2.out" }, 11.85);
 
   tl.fromTo(glowEl, { opacity: 0.5 }, { opacity: 0.36, duration: 4.0, ease: "sine.inOut" }, HARD_CUT + 0.65);
 

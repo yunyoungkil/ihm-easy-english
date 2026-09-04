@@ -15,6 +15,11 @@
       "name": "caption-weight-shift",
       "type": "hyperframes:component",
       "target": "compositions/components/caption-weight-shift.html"
+    },
+    {
+      "name": "inline-highlight",
+      "type": "hyperframes:component",
+      "target": "compositions/components/inline-highlight.html"
     }
   ]
 }

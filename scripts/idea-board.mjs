@@ -11,6 +11,7 @@ export async function generateTopicCandidates({
   contentOpportunity,
   audienceDna = [],
   successPatterns = [],
+  producedTopics = [],
 }) {
   if (!geminiKey) {
     throw new Error('Gemini API 키(GEMINI_API_KEY)가 설정되지 않았습니다.');
@@ -65,6 +66,12 @@ ${successPatterns.slice(0, 8).map((p) => `- (${p.title}, CTR ${p.ctr}%) 후킹: 
 `
     : '';
 
+  const producedTopicsBlock = producedTopics.length
+    ? `[이미 실제로 제작·예약/공개된 소재 — 절대 다시 추천하지 말 것]:
+${producedTopics.map((t) => `- "${t.topic}"${t.episodeLabel ? ` (${t.episodeLabel})` : ''}`).join('\n')}
+`
+    : '';
+
   const prompt = `당신은 대한민국 최고 수준의 유튜브 콘텐츠 기획 & 데이터 전략가입니다.
 영어 교육 채널 '이해하면 쉬운영어'(3060 성인 & 왕초보 영어 타겟)의 **다음 영상 소재**를 아래 데이터에 근거해서만 추천합니다.
 
@@ -75,11 +82,12 @@ ${successPatterns.slice(0, 8).map((p) => `- (${p.title}, CTR ${p.ctr}%) 후킹: 
 
 ${marketDemandBlock}
 ${contentOpportunityBlock}
-${audienceDnaBlock}${successPatternsBlock}
+${audienceDnaBlock}${successPatternsBlock}${producedTopicsBlock}
 [중요한 판단 원칙]:
 - market-demand(경쟁사 검색 키워드)와 content-opportunity(우리 채널 내부 포맷/규칙)는 축이 다르다 — 점수를 곱하지 말고, 후보마다 어느 쪽이 근거인지 각각 판단할 것.
 - 감으로 소재를 정하지 말 것. 모든 후보의 rationale은 dataSourceRefs에 인용한 구체적 수치/문구에서 나와야 한다.
 - 위 데이터 중 없는 축이 있으면 해당 축은 근거로 쓰지 말 것(지어내지 말 것).
+- 이미 제작된 소재와 완전히 같거나 핵심 소재(다루는 단어/표현)가 겹치는 후보는 절대 내지 말 것 — 같은 시장 수요 키워드에서 나오더라도 아직 안 다룬 각도로 새로 뽑을 것.
 
 정확히 5개의 소재 후보를 아래 JSON 스키마로만 응답하세요. 백틱(\`\`\`json)으로 감싸서 출력하세요.
 

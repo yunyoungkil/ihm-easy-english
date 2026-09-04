@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-04T00:00:00.000Z",
+  "entries": [
+    {
+      "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
+      "angleOrHook": "가장 유명하고 인지도 높은 축약(GOING TO→GONNA)을 원리로 설명",
+      "episodeSlug": "ep11-gonna",
+      "episodeLabel": "단편 EP11",
+      "status": "scheduled",
+      "producedAt": "2026-08-27"
+    },
+    {
+      "topic": "Want vs Won't 턱 움직임 구분법과 실전 문장 완성",
+      "angleOrHook": "시청자 고통점 DB에 직접 기록된 미해결 질문(Want/Won't 소리 구분)을 해결",
+      "episodeSlug": "ep12-want-wont",
+      "episodeLabel": "단편 EP12",
+      "status": "scheduled",
+      "producedAt": "2026-09-02"
+    }
+  ]
+}

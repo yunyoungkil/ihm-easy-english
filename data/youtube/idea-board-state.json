@@ -107,24 +107,24 @@
     "generatedAt": "2026-09-02T11:34:01.366Z"
   },
   "selected": {
-    "rank": 1,
-    "topic": "Want vs Won't 턱 움직임 구분법과 실전 문장 완성",
-    "angleOrHook": "어려운 장모음 용어 없이 턱의 움직임 하나로 '원트'와 '워운트'를 구별하고 I want it / I won't do it 실전 문장까지 한 번에 뚫어드립니다.",
-    "targetAudience": "원트와 우언트의 소리 차이를 구별하지 못해 듣기와 말하기에서 늘 헷갈리는 왕초보 학습자",
-    "suggestedBadge": "💡 턱 하나로 끝",
-    "rationale": "시청자 DB에서 지적된 'Want vs Won't 직관적 비교 부재' 및 '전문용어 인지부담' 고통점을 직접 해결하며, 검색 수요 'WANT TO 축약(opportunityScore 13.7)'과 결합한 최우선 개선 소재입니다.",
+    "rank": 2,
+    "topic": "영어 노베이스 왕초보가 가장 먼저 알아야 할 소리 원리",
+    "angleOrHook": "무작정 알파벳만 외우다 지친 분들을 위해, 혀가 가장 편하게 움직이는 글자 결합 소리 지름길을 알려드립니다.",
+    "targetAudience": "영어 공부를 다시 시작하고 싶지만 어디서부터 손대야 할지 막막한 노베이스 알파벳 입문자",
+    "suggestedBadge": "🌱 노베이스 첫걸음",
+    "rationale": "시장 검색 수요 1위인 '영어 왕초보, 어디서부터 시작하죠?(opportunityScore 86.6)'와 채널 내 최고 유지율 포맷인 'LEGACY(fitScore 57)'를 결합하여 대중성과 안정성을 모두 확보할 수 있는 소재입니다.",
     "dataSourceRefs": [
       {
-        "source": "audienceDna",
-        "detail": "제목은 Want vs Won't 비교였으나 실제 본문 직관적 비교 부족, long 오운 장모음 등 전문 용어 부담, 실전 문장 확장 부족 고통점"
+        "source": "marketDemand",
+        "detail": "영어 왕초보, 어디서부터 시작하죠? (opportunityScore 86.6), 왕초보 영어 발음 (opportunityScore 41.8)"
       },
       {
-        "source": "marketDemand",
-        "detail": "WANT TO 축약 (opportunityScore 13.7)"
+        "source": "contentOpportunity",
+        "detail": "포맷/역할 LEGACY (fitScore 57, 영상 41개)"
       }
     ],
     "suggestedFormat": "LONGFORM",
-    "score": 88
+    "score": 85
   },
   "generatedAt": "2026-09-02T11:34:01.366Z"
 }

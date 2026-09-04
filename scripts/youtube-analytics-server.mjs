@@ -43,6 +43,11 @@ const contentOpportunityPath = join(youtubeDataDir, 'content-opportunity.json');
 const audienceDnaPath = join(youtubeDataDir, 'audience-dna.json');
 const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
 const ideaBoardStatePath = join(youtubeDataDir, 'idea-board-state.json');
+// 아이디어 보드가 고른 소재가 실제로 에피소드까지 이어졌는지 기록하는 영구 이력 — idea-board-state.json은
+// "지금 화면에 뭐가 떠 있나"만 담는 임시 상태라 새 후보 5개를 생성하면 이전 선택이 흔적 없이 사라진다
+// (2026-09-04, 사용자 지적: "선택해서 공개 예약까지 했으면 뭔가 표시가 있어야 하지 않냐"). 이 파일은
+// 별도로 두고 덮어쓰지 않는다 — 실제 제작이 확정된 소재만 수동으로 기록한다.
+const ideaBoardHistoryPath = join(youtubeDataDir, 'idea-board-history.json');
 const abSimulatorStatePath = join(youtubeDataDir, 'ab-simulator-state.json');
 const AUDIENCE_DNA_MAX_ENTRIES = 300;
 const SUCCESS_PATTERNS_MAX_ENTRIES = 300;
@@ -973,6 +978,89 @@ const getEpisodesSummary = async (forceReload = false) => {
       }
     }
   }
+
+  // HyperFrames-era 단편 에피소드는 content/<season>/<episode>/*.json 스키마를 안 쓰므로
+  // 위 스캔에 안 잡힌다 — output/upload-packages/<slug>/{title,description,tags,pinned-comment}.txt를
+  // 대신 읽어서 같은 모양(epData)으로 합성한다. (2026-09-04, 대시보드에 EP12가 안 보이던 문제 수정)
+  const uploadPackagesDir = join(projectDir, 'output', 'upload-packages');
+  if (existsSync(uploadPackagesDir)) {
+    const coveredContentIds = new Set(
+      episodes.flatMap((e) => Object.values(e.tracks).map((t) => t.contentId).filter(Boolean))
+    );
+    const pkgFolders = await readdir(uploadPackagesDir, {withFileTypes: true});
+    for (const folder of pkgFolders) {
+      if (!folder.isDirectory() || coveredContentIds.has(folder.name)) continue;
+      const pkgPath = join(uploadPackagesDir, folder.name);
+      const titlePath = join(pkgPath, 'title.txt');
+      if (!existsSync(titlePath)) continue;
+      const readTextIfExists = async (name) => {
+        const p = join(pkgPath, name);
+        return existsSync(p) ? (await readFile(p, 'utf8')).trim() : '';
+      };
+      try {
+        const title = await readTextIfExists('title.txt');
+        if (!title) continue;
+        const description = await readTextIfExists('description.txt');
+        const tagsRaw = await readTextIfExists('tags.txt');
+        const pinnedComment = await readTextIfExists('pinned-comment.txt');
+        const epMatch = folder.name.match(/ep(\d+)/i);
+
+        // 이 폴더 안에 실제로 있는 썸네일 후보(thumbnail-*.jpg/png)와 영상 파일(video*.mp4)을
+        // 찾아서 /api/upload-package-asset/로 서빙 가능한 URL로 노출한다 — 패키지 인스펙터가
+        // 텍스트뿐 아니라 실제 썸네일·영상도 보여줄 수 있게(2026-09-04, 사용자 지적으로 추가).
+        const assetFiles = await readdir(pkgPath).catch(() => []);
+        const thumbnailCandidates = assetFiles
+          .filter((f) => /^thumbnail.*\.(jpg|jpeg|png)$/i.test(f))
+          .sort()
+          .map((f) => `/api/upload-package-asset/${encodeURIComponent(folder.name)}/${encodeURIComponent(f)}`);
+        const videoFile = assetFiles.find((f) => /^video.*\.mp4$/i.test(f));
+        const videoAssetUrl = videoFile
+          ? `/api/upload-package-asset/${encodeURIComponent(folder.name)}/${encodeURIComponent(videoFile)}`
+          : null;
+
+        // status.json이 있으면 예약/공개 상태를 반영한다 — 없으면 "패키지만 준비됨" 기본값.
+        // 실제 업로드·예약은 유튜브 Studio에서 사용자가 직접 하므로, 여기 상태는 우리가 알게 된
+        // 시점에 수동으로(또는 다음에 자동 동기화가 붙으면 그때) 갱신하는 값이다.
+        const statusData = await loadJson(join(pkgPath, 'status.json')) || {};
+        let statusLabel = '패키징 완료';
+        if (statusData.status === 'scheduled' && statusData.scheduledFor) {
+          const d = new Date(statusData.scheduledFor);
+          statusLabel = Number.isNaN(d.getTime())
+            ? '예약됨'
+            : `예약 · ${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+        } else if (statusData.status === 'published') {
+          statusLabel = '공개됨';
+        }
+
+        episodes.push({
+          season: '단편',
+          episode: epMatch ? `EP${epMatch[1]}` : folder.name,
+          tracks: {
+            longform: {
+              file: 'title.txt',
+              contentId: folder.name,
+              status: statusData.status || 'packaged',
+              statusLabel,
+              classification: null,
+              youtube: {
+                title,
+                description,
+                tags: tagsRaw ? tagsRaw.split(',').map((s) => s.trim()).filter(Boolean) : [],
+                pinnedComment,
+                thumbnailText: [],
+                thumbnailCandidates,
+                videoAssetUrl,
+                videoId: statusData.videoId || null,
+                url: statusData.videoId ? `https://youtu.be/${statusData.videoId}` : null,
+              },
+              evaluation: null,
+            },
+          },
+        });
+      } catch {}
+    }
+  }
+
   const sorted = episodes.sort((a, b) => {
     const numA = parseInt(a.episode.replace(/\D/g, ''), 10) || 0;
     const numB = parseInt(b.episode.replace(/\D/g, ''), 10) || 0;
@@ -2217,6 +2305,7 @@ loadAbSimulatorState();
 let gIdeaBoardCandidates = null;
 let gIdeaBoardSelected = null;
 let gIdeaBoardGeneratedAt = null;
+let gIdeaBoardHistory = [];
 
 function saveIdeaBoardState() {
   try {
@@ -2251,6 +2340,15 @@ async function hydrateIdeaBoardFromServer() {
     }
   } catch (err) {
     console.warn('Failed to hydrate idea board state from server:', err);
+  }
+  try {
+    const histRes = await fetch('/api/idea-board/history');
+    if (histRes.ok) {
+      const hist = await histRes.json();
+      gIdeaBoardHistory = hist.entries || [];
+    }
+  } catch (err) {
+    console.warn('Failed to load idea board history:', err);
   }
 }
 
@@ -3771,13 +3869,21 @@ function renderEpisodesTab() {
     const long = ep.tracks?.longform?.youtube || {};
     const shortsA = ep.tracks?.['shorts-a']?.youtube || {};
     const shortsB = ep.tracks?.['shorts-b']?.youtube || {};
-    const thumbUrl = long.videoId ? 'https://i.ytimg.com/vi/' + long.videoId + '/mqdefault.jpg' : '';
+    // videoId가 아직 없으면(업로드 전) 실제 후보 썸네일을, 있으면(공개 후) 유튜브 CDN 썸네일을 쓴다.
+    const thumbUrl = long.videoId
+      ? 'https://i.ytimg.com/vi/' + long.videoId + '/mqdefault.jpg'
+      : (long.thumbnailCandidates?.[0] || '');
+    const isCandidateThumb = !long.videoId && !!long.thumbnailCandidates?.[0];
+    const statusText = ep.tracks?.longform?.statusLabel || ep.tracks?.longform?.status || 'READY';
 
     html += '<div class="bento-card col-6">' +
-      (thumbUrl ? '<img class="thumb-img" style="margin-bottom:14px" src="' + esc(thumbUrl) + '" alt="">' : '') +
+      (thumbUrl ? '<div style="position:relative;margin-bottom:14px">' +
+        '<img class="thumb-img" src="' + esc(thumbUrl) + '" alt="">' +
+        (isCandidateThumb ? '<span style="position:absolute;top:8px;left:8px;background:rgba(5,7,12,0.85);color:var(--text-bright);font-size:11px;padding:3px 8px;border-radius:6px">시안 후보</span>' : '') +
+      '</div>' : '') +
       '<div class="card-header">' +
         '<span style="font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--text-bright)">' + esc(ep.season.toUpperCase()) + ' · ' + esc(ep.episode.toUpperCase()) + '</span>' +
-        '<span class="badge badge-pass">' + (ep.tracks?.longform?.status || 'READY') + '</span>' +
+        '<span class="badge badge-pass">' + esc(statusText) + '</span>' +
       '</div>' +
       '<div style="font-weight:700;font-size:15px;color:var(--text-normal);margin-bottom:10px;line-height:1.4">' + esc(long.title || '(제목 미지정)') + '</div>' +
       '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">' +
@@ -3822,10 +3928,23 @@ function openEpisodeInspectorModal(epData) {
     const data = tracks[trackKey] || {};
     const yt = data.youtube || {};
     const thumbUrl = yt.videoId ? 'https://i.ytimg.com/vi/' + yt.videoId + '/mqdefault.jpg' : '';
+    const candidates = yt.thumbnailCandidates || [];
 
-    const content = 
+    const content =
       '<div style="display:grid;gap:14px">' +
         (thumbUrl ? '<img class="thumb-img" style="max-height:220px;margin-bottom:8px" src="' + esc(thumbUrl) + '" alt="">' : '') +
+        (!thumbUrl && candidates.length ?
+          '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
+            '<div class="card-title" style="margin-bottom:8px">🖼️ 썸네일 후보 (' + candidates.length + '종 · 아직 업로드 전)</div>' +
+            '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
+              candidates.map((c) => '<img src="' + esc(c) + '" style="width:180px;border-radius:8px;border:1px solid var(--border-subtle)" alt="">').join('') +
+            '</div>' +
+          '</div>' : '') +
+        (yt.videoAssetUrl ?
+          '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
+            '<div class="card-title" style="margin-bottom:8px">🎬 영상 미리보기</div>' +
+            '<video src="' + esc(yt.videoAssetUrl) + '" controls style="width:100%;max-height:360px;border-radius:8px;background:#000"></video>' +
+          '</div>' : '') +
         '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">' +
             '<span class="card-title">📌 영상 제목</span>' +
@@ -6671,6 +6790,18 @@ function renderIdeaBoardTab() {
       '⏳ Gemini AI가 4개 데이터 소스를 근거로 소재 후보를 뽑는 중입니다... (약 5~10초 소요)' +
     '</div>';
 
+  if (gIdeaBoardHistory.length) {
+    html += '<div class="bento-card col-12" style="background:rgba(16,185,129,0.08);border:1px solid var(--accent-emerald)">' +
+      '<div class="card-title" style="color:var(--accent-emerald)">✅ 이미 만든 소재(' + gIdeaBoardHistory.length + '건) — 아래 후보 생성 시 자동으로 제외됨</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
+      gIdeaBoardHistory.map((h) =>
+        '<span class="tag-chip" style="font-size:12px">' + esc(h.episodeLabel || h.episodeSlug || '') + ' · ' + esc(h.topic || '') +
+        (h.status ? ' (' + esc(h.status) + ')' : '') + '</span>'
+      ).join('') +
+      '</div>' +
+    '</div>';
+  }
+
   if (!candidates.length) {
     html += '<div class="bento-card col-12" style="padding:30px;text-align:center"><p class="card-subtext" style="justify-content:center">위 버튼을 눌러 데이터 기반 소재 후보 5개를 생성하세요.</p></div>';
   } else {
@@ -7055,6 +7186,26 @@ const server = createServer(async (req, res) => {
       const contentType = filename.endsWith('.png') ? 'image/png' : filename.endsWith('.svg') ? 'image/svg+xml' : 'image/jpeg';
       res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
       res.end(image);
+      return;
+    }
+    if (url.pathname.startsWith('/api/upload-package-asset/')) {
+      // 에피소드 패키지 인스펙터가 output/upload-packages/<폴더>/ 안의 썸네일 후보·영상 파일을
+      // 서빙하기 위한 라우트(2026-09-04 추가). 폴더명·파일명 둘 다 사용자 입력이 아니라 서버가
+      // readdir로 찾은 실제 파일명만 URL로 내보내지만, 공개 라우트인 만큼 경로 이탈은 방어적으로
+      // 한 번 더 막는다 — 폴더명은 output/upload-packages 바로 아래 한 단계로 고정.
+      const rest = decodeURIComponent(url.pathname.slice('/api/upload-package-asset/'.length));
+      const parts = rest.split('/');
+      if (parts.length !== 2 || parts.some((p) => !p || p.includes('..') || p.includes('\\'))) {
+        return json(res, 400, {error: '잘못된 경로입니다.'});
+      }
+      const [pkgFolder, filename] = parts;
+      const filePath = join(projectDir, 'output', 'upload-packages', pkgFolder, filename);
+      if (!existsSync(filePath)) return json(res, 404, {error: '파일을 찾지 못했습니다.'});
+      const ext = filename.split('.').pop().toLowerCase();
+      const contentType = {jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', mp4: 'video/mp4'}[ext] || 'application/octet-stream';
+      const data = await readFile(filePath);
+      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
+      res.end(data);
       return;
     }
     if (url.pathname === '/api/presenter-reference') {
@@ -7497,16 +7648,18 @@ const server = createServer(async (req, res) => {
         return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
       }
       try {
-        const [marketDemand, contentOpportunity, dnaStore, patternsStore] = await Promise.all([
+        const [marketDemand, contentOpportunity, dnaStore, patternsStore, historyStore] = await Promise.all([
           loadJson(marketDemandPath),
           loadJson(contentOpportunityPath),
           loadJson(audienceDnaPath, {entries: []}),
           loadJson(successPatternsPath, {entries: []}),
+          loadJson(ideaBoardHistoryPath, {entries: []}),
         ]);
         const result = await generateTopicCandidates({
           geminiKey, marketDemand, contentOpportunity,
           audienceDna: dnaStore.entries || [],
           successPatterns: patternsStore.entries || [],
+          producedTopics: historyStore.entries || [],
         });
         return json(res, 200, {ok: true, ...result});
       } catch (err) {
@@ -7519,6 +7672,16 @@ const server = createServer(async (req, res) => {
       try {
         const state = await loadJson(ideaBoardStatePath, {});
         return json(res, 200, state || {});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // 읽기 전용 — 실제 제작으로 이어진 소재의 영구 이력. state와 별도 파일이라 "🔄 후보 5개 생성"이
+    // 새 후보를 뽑아도 지워지지 않는다.
+    if (url.pathname === '/api/idea-board/history' && req.method === 'GET') {
+      try {
+        const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
+        return json(res, 200, history || {schemaVersion: 1, entries: []});
       } catch (err) {
         return json(res, 500, {error: err.message});
       }

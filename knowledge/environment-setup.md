@@ -97,25 +97,55 @@ bgm/image/voice/...`로 무료 카탈로그를 바로 쓸 수 있다.
 ## 5. HyperFrames `preview --background` 실행 시 뜨는 콘솔 창 숨기기
 
 `npx hyperframes preview --background`(각 `videos/*/CLAUDE.md`가 에이전트에게 요구하는 표준
-Studio 핸드오프 방법)를 이 컴퓨터에서 그냥 실행하면 **화면에 검은 콘솔 창이 하나 뜬다.**
-`npx hyperframes preview --help`로 전체 플래그를 확인했지만 이걸 끄는 옵션은 없다
-(`--browser-*` 계열은 자동으로 열리는 브라우저 창에만 적용된다) — Windows에서 Node가 백그라운드
-(detached) 프로세스를 새로 띄울 때 기본적으로 콘솔을 할당하는 동작으로 보이고, hyperframes 쪽
-CLI 플래그로는 제어할 수 없다.
+Studio 핸드오프 방법)를 이 컴퓨터에서 그냥 실행하면 **화면에 검은 콘솔 창이 뜬다.** 원인이
+하나가 아니라 **최소 두 가지**가 겹쳐 있었다(2026-09-04, EP12에서 실측) — 하나만 고치면 계속
+재발한다.
 
-**해결**: `scripts/run-hidden.vbs`로 감싸서 실행한다. Windows의 표준 트릭
-(`WScript.Shell.Run(cmd, 0, False)` — 창 스타일 0 = 숨김)을 쓴 아주 작은 래퍼다.
+### 원인 1: hyperframes 자체가 내부적으로 창 숨김 옵션을 빼먹은 재실행(자체 버그)
+
+`preview --background`는 겉보기엔 프로세스 하나가 아니라 **두 단계**로 백그라운드 프로세스를
+만든다. 바깥쪽(사용자가 친 `npx ...` 명령) 자체는 평범하지만, 그 안에서 hyperframes가
+`spawnDetachedPreview()`로 **자기 자신(`node.exe`)을 다시 한 번 detached로 재실행**해서
+진짜 서버를 띄운다. 그런데 이 재실행 호출에 Windows용 창 숨김 옵션(`windowsHide: true`)이
+빠져 있다 — hyperframes 0.8.10~0.8.27(확인한 범위 전부)에 공통된 버그다. 그래서 바깥쪽을
+아무리 숨겨도 안쪽 재실행이 새 콘솔 창을 띄운다.
+
+**임시 해결**: 캐시된 hyperframes CLI 파일(`dist/cli.js`)의 `spawnDetachedPreview` 함수 안,
+`detached: true,` 바로 뒤에 `windowsHide: true,`를 직접 추가했다. 캐시 위치:
+`%LOCALAPPDATA%\npm-cache\_npx\<해시>\node_modules\hyperframes\dist\cli.js` — 프로젝트별
+핀 버전(`hyperframes@X.Y.Z`)마다 해시가 다르므로, 새 버전을 처음 쓰거나 npm 캐시를 지우면
+**이 패치가 사라져서 다시 나타난다.** 증상이 재발하면 그 버전의 `dist/cli.js`에서
+`spawnDetachedPreview` 함수를 찾아 같은 자리에 다시 추가할 것(공식 수정 아님 — hyperframes에
+버그 리포트할 만한 사안).
+
+### 원인 2: 이 컴퓨터의 AMD GPU가 하드웨어 캡처 모드에서 진짜 에러를 냄
+
+`windowsHide` 패치 후에도 창이 남아 있었다 — 이번엔 **hyperframes가 아니라 Chromium
+(`chrome-headless-shell`) 자체**가 문제였다. 이 컴퓨터의 AMD Radeon RX 580 GPU로 하드웨어
+가속 캡처(`browserGpuMode: hardware`, 로그에 `AMD VideoProcessorGetOutputExtension failed`
+DirectComposition 에러로 찍힘)를 시도하다가, 그 진단 출력을 내보내려고 Chromium이 콘솔 창을
+새로 만드는 것으로 추정된다(원인이 확정된 건 아니고, **하드웨어 GPU 모드를 꺼서 우회**한 것만
+확인함). `preview --no-browser-gpu` **CLI 플래그는 background 서버 실행 시엔 안 먹었다**
+(로그에 여전히 `browserGpuMode probe → hardware`로 찍힘) — 대신 환경변수
+`PRODUCER_BROWSER_GPU_MODE=software`를 줘야 실제로 소프트웨어(SwiftShader) 모드로 뜬다.
+
+**해결**: `scripts/run-hidden.vbs`로 감싸되, 그 안의 명령 앞에 환경변수를 같이 넣는다.
 
 ```powershell
-wscript scripts\run-hidden.vbs "<프로젝트 폴더>" "npx --yes hyperframes@<버전> preview --background"
+wscript scripts\run-hidden.vbs "<프로젝트 폴더>" "set PRODUCER_BROWSER_GPU_MODE=software && npx --yes hyperframes@<버전> preview --background"
 ```
 
-예: `wscript scripts\run-hidden.vbs "videos\ep12-want-wont" "npx --yes hyperframes@0.8.26 preview --background"`
+예: `wscript scripts\run-hidden.vbs "videos\ep12-want-wont" "set PRODUCER_BROWSER_GPU_MODE=software && npx --yes hyperframes@0.8.26 preview --background"`
 
-2026-09-04에 EP12에서 실측 확인함 — 이 래퍼로 띄운 뒤 `preview --status`로 정상 기동 확인,
-사용자가 화면에서 직접 콘솔 창이 안 뜨는 것도 확인("확인 정상 작동한다"). 다른 프로젝트에서 쓸 때는
-버전 번호(`hyperframes@X.Y.Z`)를 그 프로젝트 `package.json`의 `scripts.dev`에 적힌 핀 버전과
+두 원인을 다 해결한 뒤(cli.js 패치 + 이 환경변수) `preview --status`로 정상 기동은 확인했다.
+버전 번호(`hyperframes@X.Y.Z`)는 그 프로젝트 `package.json`의 `scripts.dev`에 적힌 핀 버전과
 맞출 것 — 프로젝트마다 다르다(EP11은 0.8.16, EP12는 0.8.26).
+
+**주의**: `PRODUCER_BROWSER_GPU_MODE=software`는 미리보기(Studio)만 느려질 뿐, 정확도엔
+영향 없다(SwiftShader는 결정론적 소프트웨어 렌더러로 이 프로젝트가 실제 렌더·스냅샷에서도
+기본으로 기대하는 경로다). `npm run render`/`npm run check`/`npx hyperframes snapshot`처럼
+매번 새로 뜨는 명령에는 이 문제가 보고되지 않았으므로 이 환경변수를 강제할 필요 없음 —
+**`preview --background`(계속 켜져 있는 서버)에만 적용.**
 
 ## 관련 문서
 

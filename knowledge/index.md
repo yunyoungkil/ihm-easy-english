@@ -1,6 +1,6 @@
 # Knowledge Index
 
-마지막 갱신: 2026-09-03
+마지막 갱신: 2026-09-04
 
 ## 항상 읽기
 
@@ -37,6 +37,7 @@
 - [대시보드 1-Click AI 썸네일 생성기의 제작 프로세스 이탈](decisions/2026-08-31-ai-thumbnail-generator-process-gap.md) — `generateAiThumbnailImage`가 "이미지는 사용자가 직접 생성" 규칙을 건너뜀 → 문구 5안 진단 전엔 이미지 생성 버튼 잠그는 승인 게이트로 해결
 - [채널 아바타 인트로 클립 제작 전 결정 사항](decisions/2026-09-03-avatar-intro-clip-setup.md) — 아바타·목소리·대사는 확정, 화면비/배경/해상도/고지문구는 아직 미정
 - [단편/시즌 분류 정리](decisions/2026-09-03-standalone-vs-season-episodes.md) — 아이디어 보드로 고른 영상은 "시즌"이 아니라 "단편"으로 분류, EP11/EP12 라벨 정정
+- [HyperFrames + Gemini TTS는 하단 단어별 자막 기본 off](decisions/2026-09-04-no-word-level-captions-with-gemini-tts.md) — Gemini TTS는 단어 타임스탬프를 안 줘서 whisper 재정렬이 필요한데, 한글 속 영어 단어(Want/Won't 등)를 잘못 인식해 EP12 10줄 중 6줄이 근사치로 대체됨. 포커스 문구(구 단위)는 계속 유지, HeyGen TTS로 돌아가면 재검토
 
 
 ## 에피소드

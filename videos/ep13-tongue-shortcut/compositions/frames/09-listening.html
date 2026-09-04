@@ -1,0 +1,120 @@
+<template>
+<style>
+  /* 09-listening — Frame 9 "리스닝 트레이닝" (Sentence Stack / anchor+list, frame.md §7 + Do rule).
+     Left: fixed anchor reminding the one tricky rule (C's 크/스 split). Right: 4 sentence-cards
+     (English + Korean phonetic transcription) stagger in one at a time, target word highlighted.
+     No TTS in this sketch pass — the 4 English example lines exist as text only. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f09-bg { background: radial-gradient(circle at 30% 50%, #12203A 0%, #0A1526 62%); }
+  .f09-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f09-progress-fill { position: absolute; left: 0; top: 0; width: 66.667%; height: 3px; background: #F5C518; }
+
+  .f09-row { position: absolute; left: 6cqw; right: 6cqw; top: 18cqh; bottom: 18cqh; display: flex; align-items: flex-start; gap: 3.4cqw; }
+
+  .f09-anchor {
+    width: 22cqw; border: 2px solid #F5C518; border-radius: 20px; background: rgba(18,32,58,0.85);
+    padding: 3cqh 1.6cqw; display: flex; flex-direction: column; align-items: center; gap: 1.4cqh; opacity: 0;
+  }
+  .f09-anchor-word { font-family: 'Archivo Black', sans-serif; font-size: 4.6cqw; color: #FFFFFF; }
+  .f09-anchor-pron { font-size: 1.6cqw; font-weight: 700; color: #A9B4C4; }
+  .f09-anchor-caption { font-size: 1.3cqw; font-weight: 700; color: #A9B4C4; text-align: center; line-height: 1.6; }
+
+  .f09-list { flex: 1; display: flex; flex-direction: column; gap: 1.6cqh; }
+  .f09-card {
+    background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); border-radius: 14px;
+    padding: 1.6cqh 1.8cqw; opacity: 0;
+  }
+  .f09-card-en { font-size: 1.8cqw; font-weight: 700; color: #FFFFFF; margin-bottom: 0.6cqh; }
+  .f09-card-kr { font-size: 1.4cqw; font-weight: 700; color: #008EFF; }
+  .hl { color: #F5C518; font-weight: 900; }
+  .hl-ok { color: #008EFF; font-weight: 900; }
+  .hl-exc { color: #FF0000; font-weight: 900; }
+
+  .f09-closing { position: absolute; left: 6cqw; right: 6cqw; bottom: 8cqh; text-align: center; font-size: 1.9cqw; font-weight: 700; color: #A9B4C4; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-e9s1" id="root" data-composition-id="09-listening" data-start="0" data-duration="16.0" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e9s2" id="f09-bg-clip" class="clip f09-bg" data-start="0" data-duration="16.0" data-track-index="0"></div>
+  <div data-hf-id="hf-e9s3" class="f09-progress-track"><div data-hf-id="hf-e9s4" class="f09-progress-fill" id="f09-progress-fill"></div></div>
+
+  <div data-hf-id="hf-e9s5" class="f09-row">
+    <div data-hf-id="hf-e9s6" class="f09-anchor" id="f09-anchor">
+      <div data-hf-id="hf-e9s7" class="f09-anchor-word">C</div>
+      <div data-hf-id="hf-e9s8" class="f09-anchor-pron">크 / 스</div>
+      <div data-hf-id="hf-e9s9" class="f09-anchor-caption">뒤에 오는 글자에 따라 소리가 바뀌어요</div>
+    </div>
+
+    <div data-hf-id="hf-e9sa" class="f09-list">
+      <div data-hf-id="hf-e9sb" class="f09-card" id="f09-card-1">
+        <div data-hf-id="hf-e9sc" class="f09-card-en">There's a <span data-hf-id="hf-e9sd" class="hl">gap</span>.</div>
+        <div data-hf-id="hf-e9se" class="f09-card-kr">데얼즈 어 갭</div>
+      </div>
+      <div data-hf-id="hf-e9sf" class="f09-card" id="f09-card-2">
+        <div data-hf-id="hf-e9sg" class="f09-card-en"><span data-hf-id="hf-e9sh" class="hl">Pat</span> the dog.</div>
+        <div data-hf-id="hf-e9si" class="f09-card-kr">팻 더 도그</div>
+      </div>
+      <div data-hf-id="hf-e9sj" class="f09-card" id="f09-card-3">
+        <div data-hf-id="hf-e9sk" class="f09-card-en">Give me a <span data-hf-id="hf-e9sl" class="hl-ok">c</span>up.</div>
+        <div data-hf-id="hf-e9sm" class="f09-card-kr">기브 미 어 컵</div>
+      </div>
+      <div data-hf-id="hf-e9sn" class="f09-card" id="f09-card-4">
+        <div data-hf-id="hf-e9so" class="f09-card-en">Check your <span data-hf-id="hf-e9sp" class="hl-exc">c</span>ell phone.</div>
+        <div data-hf-id="hf-e9sq" class="f09-card-kr">체크 유어 셀 폰</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-e9sr" class="f09-closing" id="f09-closing">오늘 배운 소리들, 실제 문장 속에서도 다 들리시죠?</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["09-listening"] = tl;
+
+  var anchor = document.getElementById("f09-anchor");
+  var closing = document.getElementById("f09-closing");
+  var progressFillEl = document.getElementById("f09-progress-fill");
+
+  function land(id, t) {
+    tl.fromTo(document.getElementById(id), { opacity: 0, y: 16, x: -8 }, { opacity: 1, y: 0, x: 0, duration: 0.4, ease: "power3.out" }, t);
+  }
+
+  // Scene 1 (0.0-3.0s VO, "이제 실제 속도로 들어보세요"): anchor settles first, fixed reference.
+  tl.fromTo(anchor, { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 0.2);
+
+  // Scene 2 (3.0-13.0s VO, "첫 번째... 네 번째..."): 4 sentence cards stagger in.
+  land("f09-card-1", 3.2);
+  land("f09-card-2", 5.7);
+  land("f09-card-3", 8.2);
+  land("f09-card-4", 10.7);
+
+  // Scene 3 (13.0-16.0s VO, "오늘 배운 소리들... 다 들리시죠?"): full stop, closing line.
+  tl.fromTo(closing, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 13.2);
+
+  tl.fromTo(progressFillEl, { width: "66.667%" }, { width: "75%", duration: 1.0, ease: "power1.inOut" }, 0.2);
+})();
+</script>
+</template>

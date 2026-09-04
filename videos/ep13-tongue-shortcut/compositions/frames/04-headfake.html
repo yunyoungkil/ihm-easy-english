@@ -1,0 +1,87 @@
+<template>
+<style>
+  /* 04-headfake — Frame 4 "반전 공개" (kinetic-type-beats / word-reveal, frame.md §2).
+     Scene 1 (0-6s): "다 외우실 필요 없습니다" lands yellow. Scene 2 (6-16s): warm-tone shift,
+     "힘을 빼세요" hero reveal. Scene 3 (16-24.3s): personal anecdote, static hold. */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f04-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f04-warm { background: radial-gradient(circle at 50% 46%, rgba(245,197,24,0.16) 0%, rgba(245,197,24,0) 60%); opacity: 0; }
+  .f04-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f04-progress-fill { position: absolute; left: 0; top: 0; width: 25%; height: 3px; background: #F5C518; }
+
+  .f04-stage { position: absolute; left: 6cqw; right: 6cqw; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.6cqh; }
+
+  .f04-lede { font-size: 1.8cqw; font-weight: 700; color: #A9B4C4; text-align: center; opacity: 0; }
+  .f04-verdict { font-size: 4.4cqw; font-weight: 900; color: #F5C518; text-align: center; max-width: 80cqw; line-height: 1.25; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.3); opacity: 0; }
+
+  .f04-hero { font-family: 'Black Han Sans', sans-serif; font-size: 5.5cqw; color: #F5C518; text-align: center; text-shadow: 0 0 1.6cqw rgba(245,197,24,0.35); opacity: 0; }
+
+  .f04-anecdote { font-size: 1.8cqw; font-weight: 700; color: #FFFFFF; text-align: center; max-width: 74cqw; line-height: 1.7; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-e4s1" id="root" data-composition-id="04-headfake" data-start="0" data-duration="24.3" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e4s2" id="f04-bg-clip" class="clip f04-bg" data-start="0" data-duration="24.3" data-track-index="0"></div>
+  <div data-hf-id="hf-e4s3" id="f04-warm-clip" class="clip f04-warm" data-start="0" data-duration="24.3" data-track-index="1"></div>
+  <div data-hf-id="hf-e4s4" class="f04-progress-track"><div data-hf-id="hf-e4s5" class="f04-progress-fill" id="f04-progress-fill"></div></div>
+
+  <div data-hf-id="hf-e4s6" class="f04-stage">
+    <div data-hf-id="hf-e4s7" class="f04-lede" id="f04-lede">결론부터 말씀드릴게요</div>
+    <div data-hf-id="hf-e4s8" class="f04-verdict" id="f04-verdict">다 외우실 필요 없습니다</div>
+    <div data-hf-id="hf-e4s9" class="f04-hero" id="f04-hero">힘을 빼세요</div>
+    <div data-hf-id="hf-e4sa" class="f04-anecdote" id="f04-anecdote">저도 예전엔 하나하나 외우려다 지쳤었어요<br />근데 알고 보니, 힘을 빼는 원리 하나면 끝나는 거였습니다</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["04-headfake"] = tl;
+
+  var lede = document.getElementById("f04-lede");
+  var verdict = document.getElementById("f04-verdict");
+  var hero = document.getElementById("f04-hero");
+  var anecdote = document.getElementById("f04-anecdote");
+  var warmEl = document.getElementById("f04-warm-clip");
+  var progressFillEl = document.getElementById("f04-progress-fill");
+
+  // Scene 1 (0.0-6.0s VO, "결론부터 말씀드릴게요. 다 외우실 필요 없습니다"): verdict lands yellow.
+  tl.fromTo(lede, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+  tl.fromTo(verdict, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 1.1);
+
+  // Scene 2 (6.0-16.0s VO, "원어민들이... 저절로 저렇게 되는 겁니다"): warm tone shift, hero reveal.
+  var SCENE2 = 6.0;
+  tl.to(warmEl, { opacity: 1, duration: 1.4, ease: "sine.inOut" }, SCENE2);
+  tl.to(verdict, { opacity: 0.35, scale: 0.85, duration: 0.6, ease: "power2.inOut" }, SCENE2 + 0.2);
+  tl.fromTo(hero, { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, SCENE2 + 1.0);
+
+  // Scene 3 (16.0-24.3s VO, "저도 예전엔... 힘을 빼는 원리 하나면 끝나는"): anecdote, static hold.
+  var SCENE3 = 16.0;
+  tl.to(hero, { opacity: 0.5, scale: 0.9, duration: 0.5, ease: "power2.inOut" }, SCENE3);
+  tl.fromTo(anecdote, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, SCENE3 + 0.3);
+
+  tl.fromTo(progressFillEl, { width: "25%" }, { width: "33.333%", duration: 1.0, ease: "power1.inOut" }, SCENE2);
+})();
+</script>
+</template>

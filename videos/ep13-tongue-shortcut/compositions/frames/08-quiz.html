@@ -1,0 +1,187 @@
+<template>
+<style>
+  /* 08-quiz — Frame 8 "미니 퀴즈" (Quiz Sequence, EP13-new, frame.md §6, step-badge component).
+     4 rounds cycle through one shared stage (badge + question + answer), swapping content like
+     a pulse-cycle rather than building 4 full diagrams — density rises round to round per
+     frame.md Frame Treatment 6 ("첫 문항 60%, 이후 문항은 빠르게 35%").
+     Round 1 GAP / Round 2 PAT: mini chip reassembly. Round 3 CUP (blue label) / Round 4 CELL
+     (red label): reuse Frame 7's C-exception color coding, no chip diagram — faster beat. */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f08-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f08-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f08-progress-fill { position: absolute; left: 0; top: 0; width: 58.333%; height: 3px; background: #F5C518; }
+
+  .f08-stage { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.6cqh; }
+
+  .f08-badge {
+    width: 3.75cqw; height: 3.75cqw; border-radius: 50%; background: #F5C518; color: #0A1526;
+    display: flex; align-items: center; justify-content: center; font-family: 'Black Han Sans', sans-serif;
+    font-size: 1.9cqw; opacity: 0;
+  }
+  .f08-question { font-size: 2.2cqw; font-weight: 700; color: #FFFFFF; text-align: center; max-width: 70cqw; opacity: 0; }
+
+  .f08-mini-chip-row { display: flex; align-items: center; justify-content: center; gap: 1.4cqw; }
+  .f08-mini-chip {
+    display: flex; flex-direction: column; align-items: center; gap: 0.6cqh; width: 5.6cqw; padding: 1cqh 0;
+    border-radius: 12px; border: 2px solid rgba(245,197,24,0.25); background: rgba(18,32,58,0.85); opacity: 0;
+  }
+  .f08-mini-chip-letter { font-family: 'Archivo Black', sans-serif; font-size: 2.4cqw; color: #FFFFFF; }
+  .f08-mini-chip-sound { font-size: 1.0cqw; font-weight: 700; color: #008EFF; }
+
+  .f08-answer-wrap { display: flex; align-items: center; gap: 1.4cqw; opacity: 0; }
+  .f08-answer-word { font-family: 'Archivo Black', sans-serif; font-size: 4.2cqw; color: #F5C518; }
+  .f08-answer-pron { font-size: 2.0cqw; font-weight: 900; color: #F5C518; }
+  .f08-answer-label {
+    font-size: 1.3cqw; font-weight: 700; padding: 0.6cqh 1.2cqw; border-radius: 100px; border: 2px solid #008EFF; color: #008EFF;
+  }
+  .f08-answer-label--exc { border-color: #FF0000; color: #FF0000; }
+</style>
+
+<div data-hf-id="hf-e8s1" id="root" data-composition-id="08-quiz" data-start="0" data-duration="23.4" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e8s2" id="f08-bg-clip" class="clip f08-bg" data-start="0" data-duration="23.4" data-track-index="0"></div>
+  <div data-hf-id="hf-e8s3" class="f08-progress-track"><div data-hf-id="hf-e8s4" class="f08-progress-fill" id="f08-progress-fill"></div></div>
+
+  <div data-hf-id="hf-e8s5" class="f08-stage">
+    <div data-hf-id="hf-e8s6" class="f08-badge" id="f08-badge">1</div>
+    <div data-hf-id="hf-e8s7" class="f08-question" id="f08-question">GAP이라는 단어, 어떻게 소리가 이어질까요?</div>
+
+    <div data-hf-id="hf-e8s8" class="f08-mini-chip-row" id="f08-mini-chip-row">
+      <div data-hf-id="hf-e8s9" class="f08-mini-chip" id="f08-mc1"><div data-hf-id="hf-e8sa" class="f08-mini-chip-letter" id="f08-mc1-letter">G</div><div data-hf-id="hf-e8sb" class="f08-mini-chip-sound" id="f08-mc1-sound">그</div></div>
+      <div data-hf-id="hf-e8sc" class="f08-mini-chip" id="f08-mc2"><div data-hf-id="hf-e8sd" class="f08-mini-chip-letter" id="f08-mc2-letter">A</div><div data-hf-id="hf-e8se" class="f08-mini-chip-sound" id="f08-mc2-sound">애</div></div>
+      <div data-hf-id="hf-e8sf" class="f08-mini-chip" id="f08-mc3"><div data-hf-id="hf-e8sg" class="f08-mini-chip-letter" id="f08-mc3-letter">P</div><div data-hf-id="hf-e8sh" class="f08-mini-chip-sound" id="f08-mc3-sound">프</div></div>
+    </div>
+
+    <div data-hf-id="hf-e8si" class="f08-answer-wrap" id="f08-answer-wrap">
+      <div data-hf-id="hf-e8sj" class="f08-answer-word" id="f08-answer-word">GAP</div>
+      <div data-hf-id="hf-e8sk" class="f08-answer-pron" id="f08-answer-pron">갭</div>
+      <div data-hf-id="hf-e8sl" class="f08-answer-label" id="f08-answer-label" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["08-quiz"] = tl;
+
+  var badge = document.getElementById("f08-badge");
+  var question = document.getElementById("f08-question");
+  var chipRow = document.getElementById("f08-mini-chip-row");
+  var mc1 = document.getElementById("f08-mc1"), mc1L = document.getElementById("f08-mc1-letter"), mc1S = document.getElementById("f08-mc1-sound");
+  var mc2 = document.getElementById("f08-mc2"), mc2L = document.getElementById("f08-mc2-letter"), mc2S = document.getElementById("f08-mc2-sound");
+  var mc3 = document.getElementById("f08-mc3"), mc3L = document.getElementById("f08-mc3-letter"), mc3S = document.getElementById("f08-mc3-sound");
+  var answerWrap = document.getElementById("f08-answer-wrap");
+  var answerWord = document.getElementById("f08-answer-word");
+  var answerPron = document.getElementById("f08-answer-pron");
+  var answerLabel = document.getElementById("f08-answer-label");
+  var progressFillEl = document.getElementById("f08-progress-fill");
+
+  // Initial hidden state lives entirely in static HTML/CSS (style="display:none" on the
+  // label, opacity:0 in CSS on the chips/answer) — a tl.set(...) at t=0 wouldn't render at
+  // the exact playhead-0 frame, so nothing re-establishes it inside the timeline here.
+
+  function clearRound(t) {
+    tl.set(badge, { opacity: 0 }, t)
+      .set(question, { opacity: 0 }, t)
+      .set([mc1, mc2, mc3], { opacity: 0 }, t)
+      .set(answerWrap, { opacity: 0 }, t)
+      .set(answerLabel, { display: "none" }, t);
+  }
+
+  function askWithChips(t, num, q, letters, sounds) {
+    clearRound(t);
+    tl.call(function () {
+      mc1L.textContent = letters[0]; mc1S.textContent = sounds[0];
+      mc2L.textContent = letters[1]; mc2S.textContent = sounds[1];
+      mc3L.textContent = letters[2]; mc3S.textContent = sounds[2];
+      badge.textContent = num; question.textContent = q;
+    }, null, t);
+    tl.fromTo(badge, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, t);
+    tl.fromTo(question, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, t + 0.15);
+  }
+
+  function revealChips(t) {
+    tl.fromTo(mc1, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "back.out(1.4)" }, t)
+      .fromTo(mc2, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "back.out(1.4)" }, t + 0.25)
+      .fromTo(mc3, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "back.out(1.4)" }, t + 0.5);
+  }
+
+  function revealAnswer(t, word, pron, labelText, labelType, dimChips) {
+    tl.call(function () {
+      answerWord.textContent = word;
+      answerPron.textContent = pron;
+      if (labelText) {
+        answerLabel.textContent = labelText;
+        answerLabel.className = "f08-answer-label" + (labelType === "exc" ? " f08-answer-label--exc" : "");
+        answerLabel.style.display = "inline-block";
+      } else {
+        answerLabel.style.display = "none";
+      }
+    }, null, t);
+    // Only dim the mini-chips down (rather than leaving them at their already-hidden
+    // opacity:0) when this round actually populated and revealed them — otherwise this
+    // would resurrect stale text left over from an earlier round's chips (CUP/CELL never
+    // call revealChips(), so mc1-3 still hold whatever the last chip round wrote into them).
+    if (dimChips) tl.to([mc1, mc2, mc3], { opacity: 0.25, duration: 0.2 }, t);
+    tl.fromTo(answerWrap, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(1.5)" }, t + 0.05);
+  }
+
+  // Round 1 (0.0-6.0s VO, "GAP이라는 단어... 잠깐 생각해 보시고"): question + pause.
+  askWithChips(0.2, "1", "GAP이라는 단어, 어떻게 소리가 이어질까요?", ["G", "A", "P"], ["그", "애", "프"]);
+  revealChips(0.8);
+  // (6.0-9.0s VO, "G, A, P를 힘 빼고 이어 붙이면 갭입니다"): answer reveals.
+  revealAnswer(6.0, "GAP", "갭", null, null, true);
+
+  // Round 2 (9.0-13.0s VO, "하나 더요. PAT은요?... 팻이죠"): faster repeat.
+  var R2 = 9.0;
+  askWithChips(R2, "2", "PAT은요?", ["P", "A", "T"], ["프", "애", "트"]);
+  revealChips(R2 + 0.4);
+  revealAnswer(R2 + 2.0, "PAT", "팻", null, null, true);
+
+  // Round 3 (13.0-18.0s VO, "CUP, C가 크일까요 스일까요?... 정답은 크"): no chip diagram —
+  // reuses Frame 7's blue/red color coding, faster beat.
+  var R3 = 13.0;
+  clearRound(R3);
+  tl.call(function () { badge.textContent = "3"; question.textContent = "CUP, C가 크일까요 스일까요?"; }, null, R3);
+  tl.fromTo(badge, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, R3);
+  tl.fromTo(question, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, R3 + 0.15);
+  revealAnswer(R3 + 2.6, "CUP", "컵", "정답: 크 (규칙)", "ok", false);
+
+  // Round 4 (18.0-23.4s VO, "마지막으로 CELL은요?... 정답은 스"): exception color.
+  var R4 = 18.0;
+  clearRound(R4);
+  tl.call(function () { badge.textContent = "4"; question.textContent = "마지막으로 CELL은요?"; }, null, R4);
+  tl.fromTo(badge, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, R4);
+  tl.fromTo(question, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, R4 + 0.15);
+  revealAnswer(R4 + 2.0, "CELL", "셀", "정답: 스 (예외)", "exc", false);
+
+  tl.fromTo(progressFillEl, { width: "58.333%" }, { width: "66.667%", duration: 1.0, ease: "power1.inOut" }, R4 + 2.0);
+})();
+</script>
+</template>

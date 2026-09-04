@@ -1,0 +1,143 @@
+<template>
+<style>
+  /* 10-practice — Frame 10 "따라 말해보기" (Sound Blend, practice variant, frame.md §4/§8).
+     One shared stage (chip row -> assembled result -> 2x repeat pulse) cycles through
+     BAG -> CAT -> MAP -> CELL, reusing Frame 5's chip-assembly mechanism at a faster clip.
+     CELL (round 4) switches the C chip + first hero letter to the exception color. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f10-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f10-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f10-progress-fill { position: absolute; left: 0; top: 0; width: 75%; height: 3px; background: #F5C518; }
+
+  .f10-prompt { position: absolute; left: 0; right: 0; top: 12cqh; text-align: center; font-size: 1.9cqw; font-weight: 700; color: #A9B4C4; opacity: 0; }
+
+  .f10-stage { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqh; }
+
+  .f10-chip-row { position: relative; display: flex; align-items: center; justify-content: center; gap: 2.2cqw; }
+  .f10-connector { position: absolute; left: 6cqw; right: 6cqw; top: 50%; height: 3px; background: rgba(245,197,24,0.15); transform: translateY(-50%); z-index: 0; }
+  .f10-connector-fill { position: absolute; left: 0; top: 0; width: 0%; height: 100%; background: #F5C518; }
+  .f10-chip {
+    position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1cqh;
+    width: 7.5cqw; padding: 1.4cqh 0; border-radius: 14px; border: 2px solid rgba(245,197,24,0.25);
+    background: rgba(18,32,58,0.85); opacity: 0;
+  }
+  .f10-chip-letter { font-family: 'Archivo Black', sans-serif; font-size: 3.4cqw; color: #FFFFFF; line-height: 1; }
+  .f10-chip-sound { font-size: 1.3cqw; font-weight: 700; color: #008EFF; }
+  .f10-chip--exc { border-color: rgba(255,0,0,0.5); }
+  .f10-chip--exc .f10-chip-sound { color: #FF0000; }
+
+  .f10-result { display: flex; flex-direction: column; align-items: center; gap: 1.4cqh; opacity: 0; }
+  .f10-result-word { font-family: 'Archivo Black', sans-serif; font-size: 7cqw; color: #FFFFFF; line-height: 1; }
+  .f10-result-word .exc-letter { color: #FF0000; }
+  .f10-result-pron { font-size: 2.4cqw; font-weight: 900; color: #F5C518; }
+</style>
+
+<div data-hf-id="hf-e10s1" id="root" data-composition-id="10-practice" data-start="0" data-duration="29.9" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e10s2" id="f10-bg-clip" class="clip f10-bg" data-start="0" data-duration="29.9" data-track-index="0"></div>
+  <div data-hf-id="hf-e10s3" class="f10-progress-track"><div data-hf-id="hf-e10s4" class="f10-progress-fill" id="f10-progress-fill"></div></div>
+  <div data-hf-id="hf-e10s5" class="f10-prompt" id="f10-prompt">이번엔 직접 해보세요 — 소리 하나씩 힘 빼고 이어볼게요</div>
+
+  <div data-hf-id="hf-e10s6" class="f10-stage">
+    <div data-hf-id="hf-e10s7" class="f10-chip-row" id="f10-chip-row">
+      <div data-hf-id="hf-e10s8" class="f10-connector"><div data-hf-id="hf-e10s9" class="f10-connector-fill" id="f10-connector-fill"></div></div>
+      <div data-hf-id="hf-e10sa" class="f10-chip" id="f10-c1"><div data-hf-id="hf-e10sb" class="f10-chip-letter" id="f10-c1-l"></div><div data-hf-id="hf-e10sc" class="f10-chip-sound" id="f10-c1-s"></div></div>
+      <div data-hf-id="hf-e10sd" class="f10-chip" id="f10-c2"><div data-hf-id="hf-e10se" class="f10-chip-letter" id="f10-c2-l"></div><div data-hf-id="hf-e10sf" class="f10-chip-sound" id="f10-c2-s"></div></div>
+      <div data-hf-id="hf-e10sg" class="f10-chip" id="f10-c3"><div data-hf-id="hf-e10sh" class="f10-chip-letter" id="f10-c3-l"></div><div data-hf-id="hf-e10si" class="f10-chip-sound" id="f10-c3-s"></div></div>
+    </div>
+    <div data-hf-id="hf-e10sj" class="f10-result" id="f10-result">
+      <div data-hf-id="hf-e10sk" class="f10-result-word" id="f10-result-word"></div>
+      <div data-hf-id="hf-e10sl" class="f10-result-pron" id="f10-result-pron"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["10-practice"] = tl;
+
+  var chipRow = document.getElementById("f10-chip-row");
+  var connectorFill = document.getElementById("f10-connector-fill");
+  var c1 = document.getElementById("f10-c1"), c1l = document.getElementById("f10-c1-l"), c1s = document.getElementById("f10-c1-s");
+  var c2 = document.getElementById("f10-c2"), c2l = document.getElementById("f10-c2-l"), c2s = document.getElementById("f10-c2-s");
+  var c3 = document.getElementById("f10-c3"), c3l = document.getElementById("f10-c3-l"), c3s = document.getElementById("f10-c3-s");
+  var result = document.getElementById("f10-result");
+  var resultWord = document.getElementById("f10-result-word");
+  var resultPron = document.getElementById("f10-result-pron");
+  var progressFillEl = document.getElementById("f10-progress-fill");
+
+  tl.fromTo(document.getElementById("f10-prompt"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.1);
+
+  function round(t, letters, sounds, wordHtml, pron, exceptionFirst) {
+    // Reset stage.
+    tl.set([c1, c2, c3], { opacity: 0 }, t)
+      .set(chipRow, { opacity: 1 }, t)
+      .set(connectorFill, { width: "0%" }, t)
+      .set(result, { opacity: 0, scale: 1 }, t)
+      .set(c1, { className: "f10-chip" + (exceptionFirst ? " f10-chip--exc" : "") }, t);
+    tl.call(function () {
+      c1l.textContent = letters[0]; c1s.textContent = sounds[0];
+      c2l.textContent = letters[1]; c2s.textContent = sounds[1];
+      c3l.textContent = letters[2]; c3s.textContent = sounds[2];
+      resultWord.innerHTML = wordHtml;
+      resultPron.textContent = pron;
+    }, null, t);
+
+    // Chips appear left to right with the connector filling behind them.
+    tl.fromTo(c1, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "back.out(1.4)" }, t + 0.1);
+    tl.to(connectorFill, { width: "33%", duration: 0.25 }, t + 0.3);
+    tl.fromTo(c2, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "back.out(1.4)" }, t + 1.0);
+    tl.to(connectorFill, { width: "66%", duration: 0.25 }, t + 1.2);
+    tl.fromTo(c3, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "back.out(1.4)" }, t + 1.9);
+    tl.to(connectorFill, { width: "100%", duration: 0.25 }, t + 2.1);
+
+    // Converge into the assembled result — "이어 붙이면, ○○!"
+    tl.to(chipRow, { opacity: 0, scale: 0.94, duration: 0.35, ease: "power2.inOut" }, t + 2.9);
+    tl.fromTo(result, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, t + 3.2);
+
+    // "다시 한 번, 좀 더 빠르게" — 2x repeat pulse on the landed word.
+    tl.to(resultWord, { scale: 1.1, duration: 0.14, ease: "power1.out" }, t + 4.2)
+      .to(resultWord, { scale: 1, duration: 0.18, ease: "power1.in" }, t + 4.34);
+    tl.to(resultWord, { scale: 1.1, duration: 0.14, ease: "power1.out" }, t + 4.7)
+      .to(resultWord, { scale: 1, duration: 0.18, ease: "power1.in" }, t + 4.84);
+  }
+
+  // Scene 1 (0.0-7.0s VO, "브, 애, 그... 백! ...백, 백"): BAG.
+  round(0.3, ["B", "A", "G"], ["브", "애", "그"], "BAG", "백", false);
+
+  // Scene 2 (7.0-14.0s VO, "크, 애, 트... 캣! ...캣, 캣"): CAT.
+  round(7.0, ["C", "A", "T"], ["크", "애", "트"], "CAT", "캣", false);
+
+  // Scene 3 (14.0-21.0s VO, "흠, 애, 프... 맵! ...맵, 맵"): MAP.
+  round(14.0, ["M", "A", "P"], ["흠", "애", "프"], "MAP", "맵", false);
+
+  // Scene 4 (21.0-29.9s VO, "셀이에요... 스, 에, 을... 셀! ...셀, 셀"): CELL — exception color
+  // (the C chip and the hero word's leading letter switch to red, matching Frame 7/8).
+  round(21.0, ["C", "E", "LL"], ["스", "에", "을"], "<span class='exc-letter'>C</span>ELL", "셀", true);
+
+  tl.fromTo(progressFillEl, { width: "75%" }, { width: "83.333%", duration: 1.0, ease: "power1.inOut" }, 0.3);
+})();
+</script>
+</template>

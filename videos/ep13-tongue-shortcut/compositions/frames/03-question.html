@@ -1,0 +1,102 @@
+<template>
+<style>
+  /* 03-question — Frame 3 "질문 던지기" (Number Contrast, EP13-new, frame.md §3).
+     Scene 1 (0-6s): question reveal. Scene 2 (6-16s): "21" vs "5" pure-typography contrast.
+     Scene 3 (16-26s): screen dims, closing question holds. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f03-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f03-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f03-progress-fill { position: absolute; left: 0; top: 0; width: 16.667%; height: 3px; background: #F5C518; }
+
+  .f03-dim { background: #000000; opacity: 0; }
+
+  .f03-question {
+    position: absolute; left: 6cqw; right: 6cqw; top: 20cqh; text-align: center;
+    font-size: 2.6cqw; font-weight: 900; color: #FFFFFF; line-height: 1.5; opacity: 0;
+  }
+
+  .f03-contrast { position: absolute; left: 0; right: 0; top: 38cqh; display: flex; align-items: flex-start; justify-content: center; gap: 10cqw; }
+  .f03-col { display: flex; flex-direction: column; align-items: center; gap: 2cqh; opacity: 0; }
+  .f03-num { font-family: 'Archivo Black', sans-serif; font-size: 9cqw; line-height: 1; color: #FFFFFF; }
+  .f03-num-label { font-size: 1.3cqw; font-weight: 700; letter-spacing: 0.04em; color: #A9B4C4; }
+
+  .f03-closing {
+    position: absolute; left: 6cqw; right: 6cqw; top: 72cqh; text-align: center;
+    font-size: 2.0cqw; font-weight: 700; color: #FFFFFF; line-height: 1.6; opacity: 0;
+  }
+</style>
+
+<div data-hf-id="hf-e3s1" id="root" data-composition-id="03-question" data-start="0" data-duration="26.0" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e3s2" id="f03-bg-clip" class="clip f03-bg" data-start="0" data-duration="26.0" data-track-index="0"></div>
+  <div data-hf-id="hf-e3s3" id="f03-dim-clip" class="clip f03-dim" data-start="0" data-duration="26.0" data-track-index="1"></div>
+  <div data-hf-id="hf-e3s4" class="f03-progress-track"><div data-hf-id="hf-e3s5" class="f03-progress-fill" id="f03-progress-fill"></div></div>
+
+  <div data-hf-id="hf-e3s6" class="f03-question" id="f03-question">그런데 궁금하지 않으세요? 왜 유독 영어는 같은 알파벳인데 단어마다 소리가 다 다를까요?</div>
+
+  <div data-hf-id="hf-e3s7" class="f03-contrast">
+    <div data-hf-id="hf-e3s8" class="f03-col" id="f03-col-kr">
+      <div data-hf-id="hf-e3s9" class="f03-num">21</div>
+      <div data-hf-id="hf-e3sa" class="f03-num-label">한국어 모음</div>
+    </div>
+    <div data-hf-id="hf-e3sb" class="f03-col" id="f03-col-en">
+      <div data-hf-id="hf-e3sc" class="f03-num">5</div>
+      <div data-hf-id="hf-e3sd" class="f03-num-label">영어 모음</div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-e3se" class="f03-closing" id="f03-closing">그럼 결국 이 많은 경우의 수, 우리가 하나하나 다 외워야만 읽을 수 있는 걸까요?</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["03-question"] = tl;
+
+  var question = document.getElementById("f03-question");
+  var colKr = document.getElementById("f03-col-kr");
+  var colEn = document.getElementById("f03-col-en");
+  var closing = document.getElementById("f03-closing");
+  var dimEl = document.getElementById("f03-dim-clip");
+  var progressFillEl = document.getElementById("f03-progress-fill");
+
+  // Scene 1 (0.0-6.0s VO, "그런데 궁금하지... 소리가 다 다를까요?"): question reveal.
+  tl.fromTo(question, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.3);
+  tl.to(question, { opacity: 0.4, duration: 0.4, ease: "power2.inOut" }, 5.6);
+
+  // Scene 2 (6.0-16.0s VO, "한국어는 모음이 21개나... 여러 소리를 돌아가면서"): 21 vs 5 contrast.
+  tl.fromTo(colKr, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 6.3);
+  tl.fromTo(colEn, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 7.6);
+
+  // Scene 3 (16.0-26.0s VO, "그럼 결국... 읽을 수 있는 걸까요?"): screen dims, closing question holds.
+  var SCENE3 = 16.0;
+  tl.to(dimEl, { opacity: 0.4, duration: 1.2, ease: "power2.inOut" }, SCENE3);
+  tl.to(colKr, { opacity: 0.5, duration: 0.6, ease: "power2.inOut" }, SCENE3);
+  tl.to(colEn, { opacity: 0.5, duration: 0.6, ease: "power2.inOut" }, SCENE3);
+  tl.fromTo(closing, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, SCENE3 + 0.5);
+
+  tl.fromTo(progressFillEl, { width: "16.667%" }, { width: "25%", duration: 1.0, ease: "power1.inOut" }, 6.3);
+})();
+</script>
+</template>

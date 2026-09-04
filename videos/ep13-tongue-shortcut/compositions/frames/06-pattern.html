@@ -1,0 +1,150 @@
+<template>
+<style>
+  /* 06-pattern — Frame 6 "실제 단어로 확인" (Sound Blend, reproduced x2, frame.md §4).
+     Three fixed columns (BAG recap / CAT live / MAP live) instead of moving-and-docking cards —
+     smallest mechanism that still proves "the same 'A' keeps working across different words".
+     Scene 1 (0-12s): CAT assembles. Scene 2 (12-22s): MAP assembles. Scene 3 (22-31.6s): the
+     shared "A" letter in all three completed words pulses yellow together. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f06-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f06-progress-fill { position: absolute; left: 0; top: 0; width: 41.667%; height: 3px; background: #F5C518; }
+
+  .f06-eyebrow { position: absolute; left: 0; right: 0; top: 8cqh; text-align: center; font-size: 1.6cqw; font-weight: 700; color: #A9B4C4; opacity: 0; }
+
+  .f06-cols { position: absolute; left: 6cqw; right: 6cqw; top: 30cqh; display: flex; align-items: flex-start; justify-content: center; gap: 4cqw; }
+  .f06-col { width: 24cqw; display: flex; flex-direction: column; align-items: center; gap: 2cqh; }
+
+  .f06-chip-row { position: relative; display: flex; align-items: center; justify-content: center; gap: 1.4cqw; }
+  .f06-chip {
+    display: flex; flex-direction: column; align-items: center; gap: 0.8cqh; width: 6.4cqw; padding: 1.2cqh 0;
+    border-radius: 14px; border: 2px solid rgba(245,197,24,0.25); background: rgba(18,32,58,0.85); opacity: 0;
+  }
+  .f06-chip-letter { font-family: 'Archivo Black', sans-serif; font-size: 2.8cqw; color: #FFFFFF; line-height: 1; }
+  .f06-chip-sound { font-size: 1.1cqw; font-weight: 700; color: #008EFF; }
+
+  .f06-result { display: flex; flex-direction: column; align-items: center; gap: 1cqh; opacity: 0; }
+  .f06-result-word { font-family: 'Archivo Black', sans-serif; font-size: 5.4cqw; color: #FFFFFF; line-height: 1; }
+  .f06-result-word .accent-a { display: inline-block; color: #FFFFFF; }
+  .f06-result-pron { font-size: 1.5cqw; font-weight: 700; color: #008EFF; }
+
+  .f06-catharsis { position: absolute; left: 0; right: 0; bottom: 12cqh; text-align: center; font-size: 2.0cqw; font-weight: 900; color: #F5C518; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-e6s1" id="root" data-composition-id="06-pattern" data-start="0" data-duration="31.6" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e6s2" id="f06-bg-clip" class="clip f06-bg" data-start="0" data-duration="31.6" data-track-index="0"></div>
+  <div data-hf-id="hf-e6s3" class="f06-progress-track"><div data-hf-id="hf-e6s4" class="f06-progress-fill" id="f06-progress-fill"></div></div>
+  <div data-hf-id="hf-e6s5" class="f06-eyebrow" id="f06-eyebrow">그럼 이게 진짜 다른 단어에도 통할까요?</div>
+
+  <div data-hf-id="hf-e6s6" class="f06-cols">
+    <div data-hf-id="hf-e6s7" class="f06-col">
+      <!-- Invisible spacer matching the other columns' chip-row height, so BAG's already-
+           complete result sits at the same baseline as CAT/MAP's result (which still reserve
+           their chip-row's layout space above them even after it fades to opacity:0). -->
+      <div data-hf-id="hf-e6s7b" class="f06-chip-row" style="visibility: hidden">
+        <div data-hf-id="hf-e6s7c" class="f06-chip"><div data-hf-id="hf-e6s7d" class="f06-chip-letter">X</div><div data-hf-id="hf-e6s7e" class="f06-chip-sound">x</div></div>
+      </div>
+      <div data-hf-id="hf-e6s8" class="f06-result" id="f06-result-bag">
+        <div data-hf-id="hf-e6s9" class="f06-result-word">B<span data-hf-id="hf-e6sa" class="accent-a" id="f06-a-bag">A</span>G</div>
+        <div data-hf-id="hf-e6sb" class="f06-result-pron">백</div>
+      </div>
+    </div>
+    <div data-hf-id="hf-e6sc" class="f06-col">
+      <div data-hf-id="hf-e6sd" class="f06-chip-row" id="f06-chips-cat">
+        <div data-hf-id="hf-e6se" class="f06-chip" id="f06-chip-c1"><div data-hf-id="hf-e6sf" class="f06-chip-letter">C</div><div data-hf-id="hf-e6sg" class="f06-chip-sound">크</div></div>
+        <div data-hf-id="hf-e6sh" class="f06-chip" id="f06-chip-a1"><div data-hf-id="hf-e6si" class="f06-chip-letter">A</div><div data-hf-id="hf-e6sj" class="f06-chip-sound">애</div></div>
+        <div data-hf-id="hf-e6sk" class="f06-chip" id="f06-chip-t1"><div data-hf-id="hf-e6sl" class="f06-chip-letter">T</div><div data-hf-id="hf-e6sm" class="f06-chip-sound">트</div></div>
+      </div>
+      <div data-hf-id="hf-e6sn" class="f06-result" id="f06-result-cat">
+        <div data-hf-id="hf-e6so" class="f06-result-word">C<span data-hf-id="hf-e6sp" class="accent-a" id="f06-a-cat">A</span>T</div>
+        <div data-hf-id="hf-e6sq" class="f06-result-pron">캣</div>
+      </div>
+    </div>
+    <div data-hf-id="hf-e6sr" class="f06-col">
+      <div data-hf-id="hf-e6ss" class="f06-chip-row" id="f06-chips-map">
+        <div data-hf-id="hf-e6st" class="f06-chip" id="f06-chip-m1"><div data-hf-id="hf-e6su" class="f06-chip-letter">M</div><div data-hf-id="hf-e6sv" class="f06-chip-sound">흠</div></div>
+        <div data-hf-id="hf-e6sw" class="f06-chip" id="f06-chip-a2"><div data-hf-id="hf-e6sx" class="f06-chip-letter">A</div><div data-hf-id="hf-e6sy" class="f06-chip-sound">애</div></div>
+        <div data-hf-id="hf-e6sz" class="f06-chip" id="f06-chip-p1"><div data-hf-id="hf-e6t0" class="f06-chip-letter">P</div><div data-hf-id="hf-e6t1" class="f06-chip-sound">프</div></div>
+      </div>
+      <div data-hf-id="hf-e6t2" class="f06-result" id="f06-result-map">
+        <div data-hf-id="hf-e6t3" class="f06-result-word">M<span data-hf-id="hf-e6t4" class="accent-a" id="f06-a-map">A</span>P</div>
+        <div data-hf-id="hf-e6t5" class="f06-result-pron">맵</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-e6t6" class="f06-catharsis" id="f06-catharsis">BAG · CAT · MAP — '애' 소리, 계속 통하죠?</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["06-pattern"] = tl;
+
+  var eyebrow = document.getElementById("f06-eyebrow");
+  var resultBag = document.getElementById("f06-result-bag");
+  var chipsCat = document.getElementById("f06-chips-cat");
+  var resultCat = document.getElementById("f06-result-cat");
+  var chipsMap = document.getElementById("f06-chips-map");
+  var resultMap = document.getElementById("f06-result-map");
+  var catharsis = document.getElementById("f06-catharsis");
+  var progressFillEl = document.getElementById("f06-progress-fill");
+
+  function chip(id) { return document.getElementById(id); }
+  function popIn(el, t) { tl.fromTo(el, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.4)" }, t); }
+
+  tl.fromTo(eyebrow, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.2);
+  tl.fromTo(resultBag, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.4);
+
+  // Scene 1 (0.0-12.0s VO, "CAT, 볼게요. C는... A는... T는... 캣이에요"): CAT chips assemble,
+  // then cross-dissolve into the small result card.
+  popIn(chip("f06-chip-c1"), 0.8);
+  popIn(chip("f06-chip-a1"), 2.6);
+  popIn(chip("f06-chip-t1"), 4.4);
+  tl.to(chipsCat, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 8.8);
+  tl.fromTo(resultCat, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 9.2);
+
+  // Scene 2 (12.0-22.0s VO, "MAP도 똑같아요... 맵"): MAP chips assemble, same pattern.
+  var SCENE2 = 12.0;
+  popIn(chip("f06-chip-m1"), SCENE2 + 0.4);
+  popIn(chip("f06-chip-a2"), SCENE2 + 2.2);
+  popIn(chip("f06-chip-p1"), SCENE2 + 4.0);
+  tl.to(chipsMap, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, SCENE2 + 8.4);
+  tl.fromTo(resultMap, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, SCENE2 + 8.8);
+
+  // Scene 3 (22.0-31.6s VO, "어때요?... 힘 빼는 원리 하나가 계속 통하는 겁니다"): the shared "A"
+  // in all three completed words pulses yellow together — the pattern-expansion catharsis.
+  var SCENE3 = 22.0;
+  ["f06-a-bag", "f06-a-cat", "f06-a-map"].forEach(function (id) {
+    var el = document.getElementById(id);
+    tl.to(el, { color: "#F5C518", scale: 1.15, duration: 0.3, ease: "power2.out" }, SCENE3 + 0.3)
+      .to(el, { scale: 1, duration: 0.3, ease: "power2.inOut" }, SCENE3 + 0.6);
+  });
+  tl.fromTo(catharsis, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, SCENE3 + 1.0);
+
+  tl.fromTo(progressFillEl, { width: "41.667%" }, { width: "50%", duration: 1.0, ease: "power1.inOut" }, 0.8);
+})();
+</script>
+</template>

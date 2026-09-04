@@ -1,0 +1,188 @@
+<template>
+<style>
+  /* 01-stakes — Frame 1 "Stakes" (kinetic-type-beats, Hook/Cover treatment, frame.md §1).
+     Scene 1 (0-8s): long empathy line, per-word stagger, holds.
+     Scene 2 (8-14s): A/B letter chips + pron-caption fade in blue (sound, not name).
+     Scene 3 (14-22s): confusing word (CITY) zooms in and shakes with a "?" — foreshadows Frame 7.
+     Scene 4 (22-27.4s): closing line settles, subtle jitter only. */
+
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f01-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f01-glow { background: radial-gradient(circle at 50% 46%, rgba(245,197,24,0.10) 0%, rgba(245,197,24,0) 55%); opacity: 0.2; }
+
+  .f01-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f01-progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 3px; background: #F5C518; }
+
+  .f01-eyebrow {
+    position: absolute; left: 6cqw; top: 8cqh; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.0cqw; font-weight: 700; letter-spacing: 0.14em; color: #A9B4C4; opacity: 0;
+  }
+
+  .f01-stage { position: absolute; left: 6cqw; right: 6cqw; top: 0; bottom: 12cqh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  .f01-line1 {
+    font-size: 2.2cqw; font-weight: 700; line-height: 1.5; color: #FFFFFF; text-align: center; max-width: 82cqw;
+  }
+  .f01-word { display: inline-block; opacity: 0; }
+
+  .f01-chipzone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 6cqw; opacity: 0; }
+  .f01-chip { display: flex; flex-direction: column; align-items: center; gap: 1.2cqh; }
+  .f01-chip-letter {
+    font-family: 'Archivo Black', 'Noto Sans KR', sans-serif; font-size: 6.5cqw; color: #FFFFFF; line-height: 1;
+  }
+  .f01-chip-pron { font-family: 'Noto Sans KR', sans-serif; font-size: 1.8cqw; font-weight: 700; color: #008EFF; }
+  .f01-chip-sub { position: absolute; left: 0; right: 0; bottom: -6cqh; text-align: center; font-size: 1.4cqw; font-weight: 700; color: #A9B4C4; }
+
+  .f01-confuse-zone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqh; opacity: 0; }
+  .f01-confuse-caption { font-size: 2.6cqw; font-weight: 900; color: #FFFFFF; }
+  .f01-confuse-word-wrap { position: relative; display: inline-block; }
+  .f01-confuse-word {
+    font-family: 'Archivo Black', 'Noto Sans KR', sans-serif; font-size: 8cqw; color: #FFFFFF; line-height: 1;
+  }
+  .f01-confuse-mark {
+    position: absolute; right: -1.6cqw; top: -2.2cqh; font-family: 'Black Han Sans', sans-serif;
+    font-size: 3.4cqw; color: #F5C518; text-shadow: 0 0 1.2cqw rgba(245,197,24,0.35); opacity: 0;
+  }
+
+  .f01-close-zone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2cqh; opacity: 0; }
+  .f01-close-1 { font-size: 3.2cqw; font-weight: 900; color: #F5C518; text-align: center; max-width: 78cqw; line-height: 1.3; text-shadow: 0 0 1.2cqw rgba(245,197,24,0.28); }
+  .f01-close-2 { font-size: 1.8cqw; font-weight: 700; color: #A9B4C4; text-align: center; max-width: 70cqw; line-height: 1.6; }
+</style>
+
+<div data-hf-id="hf-e1s1" id="root" data-composition-id="01-stakes" data-start="0" data-duration="27.4" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e1s2" id="f01-bg-clip" class="clip f01-bg" data-start="0" data-duration="27.4" data-track-index="0"></div>
+  <div data-hf-id="hf-e1s3" id="f01-glow-clip" class="clip f01-glow" data-start="0" data-duration="27.4" data-track-index="1"></div>
+
+  <div data-hf-id="hf-e1s4" class="f01-progress-track"><div data-hf-id="hf-e1s5" class="f01-progress-fill" id="f01-progress-fill"></div></div>
+  <div data-hf-id="hf-e1s6" class="f01-eyebrow" id="f01-eyebrow">이해하면 쉬운영어</div>
+
+  <div data-hf-id="hf-e1s7" class="f01-stage">
+    <div data-hf-id="hf-e1s8" class="f01-line1" id="f01-line1"></div>
+
+    <div data-hf-id="hf-e1s9" class="f01-chipzone" id="f01-chipzone">
+      <div data-hf-id="hf-e1sa" class="f01-chip">
+        <div data-hf-id="hf-e1sb" class="f01-chip-letter">A</div>
+        <div data-hf-id="hf-e1sc" class="f01-chip-pron">애</div>
+      </div>
+      <div data-hf-id="hf-e1sd" class="f01-chip">
+        <div data-hf-id="hf-e1se" class="f01-chip-letter">B</div>
+        <div data-hf-id="hf-e1sf" class="f01-chip-pron">브</div>
+      </div>
+      <div data-hf-id="hf-e1sg" class="f01-chip-sub">이건 이름이 아니라, 소리예요</div>
+    </div>
+
+    <div data-hf-id="hf-e1sh" class="f01-confuse-zone" id="f01-confuse-zone">
+      <div data-hf-id="hf-e1si" class="f01-confuse-caption">"이건 또 왜 이렇게 읽지?"</div>
+      <div data-hf-id="hf-e1sj" class="f01-confuse-word-wrap">
+        <div data-hf-id="hf-e1sk" class="f01-confuse-word" id="f01-confuse-word">CITY</div>
+        <div data-hf-id="hf-e1sl" class="f01-confuse-mark" id="f01-confuse-mark">?</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-e1sm" class="f01-close-zone" id="f01-close-zone">
+      <div data-hf-id="hf-e1sn" class="f01-close-1">그거, 이해력이 부족해서가 아닙니다</div>
+      <div data-hf-id="hf-e1so" class="f01-close-2">지금까지 아무도 진짜 이유를 제대로 안 알려줬을 뿐이에요</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["01-stakes"] = tl;
+
+  var line1El = document.getElementById("f01-line1");
+  var chipzone = document.getElementById("f01-chipzone");
+  var confuseZone = document.getElementById("f01-confuse-zone");
+  var confuseWord = document.getElementById("f01-confuse-word");
+  var confuseMark = document.getElementById("f01-confuse-mark");
+  var closeZone = document.getElementById("f01-close-zone");
+  var progressFillEl = document.getElementById("f01-progress-fill");
+
+  var line1Words = ["알파벳도", "다", "알고,", "발음", "규칙도", "나름", "공부하셨는데…", "막상", "처음", "보는", "단어", "앞에서", "딱", "멈추신", "적", "있으시죠?"];
+
+  var WORD_BASE = 0.10;
+  var WORD_SEC_PER_CHAR = 0.026;
+  var ENTRANCE_DUR = 0.36;
+
+  function layWords(container, words, startAt) {
+    var cumulative = startAt;
+    for (var i = 0; i < words.length; i++) {
+      (function (word, start) {
+        var span = document.createElement("span");
+        span.className = "f01-word";
+        span.textContent = word;
+        container.appendChild(span);
+        if (i < words.length - 1) container.appendChild(document.createTextNode(" "));
+        tl.fromTo(span, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: ENTRANCE_DUR, ease: "power2.out" }, start);
+      })(words[i], cumulative);
+      cumulative += WORD_BASE + words[i].length * WORD_SEC_PER_CHAR;
+    }
+    return cumulative;
+  }
+
+  tl.fromTo(document.getElementById("f01-eyebrow"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.1);
+
+  // Scene 1 (0.0-8.0s VO): long empathy line staggers in, then holds.
+  layWords(line1El, line1Words, 0.3);
+  tl.to(line1El, { opacity: 0, y: -14, duration: 0.5, ease: "power2.inOut" }, 7.6);
+
+  // Scene 2 (8.0-14.0s VO, "A는 '애' 소리, B는 '브' 소리"): letter chips + pron fade in.
+  tl.fromTo(chipzone, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 8.0);
+  tl.to(chipzone, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 13.4);
+
+  // Scene 3 (14.0-22.0s VO, "이건 또 왜 이렇게 읽지"): confusing word zooms in and shakes.
+  tl.fromTo(confuseZone, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 14.0);
+  tl.fromTo(confuseWord, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 14.2);
+  tl.fromTo(confuseMark, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 14.7);
+  // shake — finite, small, settles
+  tl.to(confuseWord, { x: 10, duration: 0.09, ease: "sine.inOut" }, 15.2)
+    .to(confuseWord, { x: -10, duration: 0.09, ease: "sine.inOut" }, 15.29)
+    .to(confuseWord, { x: 7, duration: 0.09, ease: "sine.inOut" }, 15.38)
+    .to(confuseWord, { x: -7, duration: 0.09, ease: "sine.inOut" }, 15.47)
+    .to(confuseWord, { x: 0, duration: 0.09, ease: "sine.inOut" }, 15.56);
+  tl.to(confuseZone, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 21.4);
+
+  // Scene 4 (22.0-27.4s VO, "그거... 안 알려줬을 뿐이에요"): closing line settles, subtle jitter.
+  tl.fromTo(closeZone, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 22.0);
+  tl.to(closeZone, { x: 2, y: -1, duration: 0.5, ease: "sine.inOut" }, 25.4)
+    .to(closeZone, { x: -1, y: 1, duration: 0.5, ease: "sine.inOut" }, 25.9)
+    .to(closeZone, { x: 0, y: 0, duration: 0.5, ease: "sine.inOut" }, 26.4);
+
+  // Ambient glow breathe.
+  var glowEl = document.getElementById("f01-glow-clip");
+  tl.fromTo(glowEl, { opacity: 0.2 }, { opacity: 0.4, duration: 6.6, ease: "sine.inOut" }, 0)
+    .to(glowEl, { opacity: 0.28, duration: 6.6, ease: "sine.inOut" }, 6.6)
+    .to(glowEl, { opacity: 0.4, duration: 6.6, ease: "sine.inOut" }, 13.2)
+    .to(glowEl, { opacity: 0.28, duration: 6.6, ease: "sine.inOut" }, 19.8);
+
+  tl.fromTo(progressFillEl, { width: "0%" }, { width: (100 / 12).toFixed(3) + "%", duration: 1.0, ease: "power1.inOut" }, 22.0);
+})();
+</script>
+</template>

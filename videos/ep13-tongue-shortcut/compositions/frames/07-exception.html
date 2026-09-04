@@ -1,0 +1,130 @@
+<template>
+<style>
+  /* 07-exception — Frame 7 "반전 꿀팁" (Compare Pair, frame.md §5, compare-pair component).
+     Scene 1 (0-8s): CAT (yellow rule, 크) vs CITY (red rule + X, 스) compare-pair. Scene 2
+     (8-12s): pause. Scene 3 (12-26s): tongue-position cross-section dot travels back->front.
+     Scene 4 (26-35.4s): rule summary settles. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f07-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f07-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f07-progress-fill { position: absolute; left: 0; top: 0; width: 50%; height: 3px; background: #F5C518; }
+
+  .f07-pair { position: absolute; left: 0; right: 0; top: 12cqh; display: flex; align-items: stretch; justify-content: center; gap: 3cqw; }
+  .f07-card {
+    position: relative; width: 30cqw; padding: 2.4cqh 2.4cqw; border-radius: 20px;
+    background: rgba(18,32,58,0.85); opacity: 0;
+  }
+  .f07-card--ok { border-left: 5px solid #F5C518; }
+  .f07-card--exc { border-left: 5px solid #FF0000; }
+  .f07-card-x { position: absolute; top: 1.4cqh; right: 1.6cqw; font-size: 1.8cqw; font-weight: 900; color: #FF0000; }
+  .f07-card-word { font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; color: #FFFFFF; text-align: center; margin-bottom: 1.4cqh; }
+  .f07-card-word .c-ok { color: #F5C518; }
+  .f07-card-word .c-exc { color: #FF0000; }
+  .f07-card-sound { font-size: 1.6cqw; font-weight: 700; color: #A9B4C4; text-align: center; }
+  .f07-card-sound .s-ok { color: #F5C518; font-weight: 900; }
+  .f07-card-sound .s-exc { color: #FF0000; font-weight: 900; }
+
+  .f07-pause-caption { position: absolute; left: 0; right: 0; top: 46cqh; text-align: center; font-size: 2.0cqw; font-weight: 700; color: #A9B4C4; opacity: 0; }
+
+  .f07-diagram-zone { position: absolute; left: 0; right: 0; top: 40cqh; display: flex; flex-direction: column; align-items: center; gap: 2.2cqh; opacity: 0; }
+  .f07-mouth { width: 40cqw; height: 12cqh; }
+  .f07-mouth-labels { display: flex; width: 40cqw; justify-content: space-between; font-size: 1.4cqw; font-weight: 700; }
+  .f07-mouth-labels .back { color: #F5C518; }
+  .f07-mouth-labels .front { color: #FF0000; }
+  .f07-diagram-caption { font-size: 1.7cqw; font-weight: 700; color: #FFFFFF; text-align: center; max-width: 60cqw; line-height: 1.6; }
+
+  .f07-rule { position: absolute; left: 0; right: 0; top: 46cqh; text-align: center; font-size: 2.4cqw; font-weight: 900; color: #FFFFFF; opacity: 0; }
+  .f07-rule .hot { color: #FF0000; }
+</style>
+
+<div data-hf-id="hf-e7s1" id="root" data-composition-id="07-exception" data-start="0" data-duration="35.4" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e7s2" id="f07-bg-clip" class="clip f07-bg" data-start="0" data-duration="35.4" data-track-index="0"></div>
+  <div data-hf-id="hf-e7s3" class="f07-progress-track"><div data-hf-id="hf-e7s4" class="f07-progress-fill" id="f07-progress-fill"></div></div>
+
+  <div data-hf-id="hf-e7s5" class="f07-pair">
+    <div data-hf-id="hf-e7s6" class="f07-card f07-card--ok" id="f07-card-cat">
+      <div data-hf-id="hf-e7s7" class="f07-card-word"><span data-hf-id="hf-e7s8" class="c-ok">C</span>AT</div>
+      <div data-hf-id="hf-e7s9" class="f07-card-sound">C → <span data-hf-id="hf-e7sa" class="s-ok">크</span></div>
+    </div>
+    <div data-hf-id="hf-e7sb" class="f07-card f07-card--exc" id="f07-card-city">
+      <div data-hf-id="hf-e7sc" class="f07-card-x">✕</div>
+      <div data-hf-id="hf-e7sd" class="f07-card-word"><span data-hf-id="hf-e7se" class="c-exc">C</span>ITY</div>
+      <div data-hf-id="hf-e7sf" class="f07-card-sound">C → <span data-hf-id="hf-e7sg" class="s-exc">스</span></div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-e7sh" class="f07-pause-caption" id="f07-pause-caption">이것도 그냥 외워야 하는 예외일까요?</div>
+
+  <div data-hf-id="hf-e7si" class="f07-diagram-zone" id="f07-diagram-zone">
+    <svg data-hf-id="hf-e7sj" class="f07-mouth" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path data-hf-id="hf-e7sk" d="M20 60 Q60 10 200 10 Q340 10 380 60 Q340 110 200 110 Q60 110 20 60 Z" stroke="#A9B4C4" stroke-width="3" />
+      <circle data-hf-id="hf-e7sl" id="f07-tongue-dot" cx="300" cy="60" r="16" fill="#F5C518" />
+    </svg>
+    <div data-hf-id="hf-e7sm" class="f07-mouth-labels"><span data-hf-id="hf-e7sn" class="front">입 앞쪽 (스)</span><span data-hf-id="hf-e7so" class="back">목 안쪽 (크)</span></div>
+    <div data-hf-id="hf-e7sp" class="f07-diagram-caption">C 뒤에 E나 I처럼 입 앞쪽 소리가 오면, 혀가 목 안쪽까지 갈 필요가 없어져요</div>
+  </div>
+
+  <div data-hf-id="hf-e7sq" class="f07-rule" id="f07-rule">뒤에 <span data-hf-id="hf-e7sr" class="hot">E, I, Y</span>가 오면 혀가 귀찮아서 <span data-hf-id="hf-e7ss" class="hot">'스'</span>로 바뀐다</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["07-exception"] = tl;
+
+  var cardCat = document.getElementById("f07-card-cat");
+  var cardCity = document.getElementById("f07-card-city");
+  var pauseCaption = document.getElementById("f07-pause-caption");
+  var diagramZone = document.getElementById("f07-diagram-zone");
+  var tongueDot = document.getElementById("f07-tongue-dot");
+  var rule = document.getElementById("f07-rule");
+  var progressFillEl = document.getElementById("f07-progress-fill");
+
+  // Scene 1 (0.0-8.0s VO, "방금 CAT에서 C는... C가 갑자기 스 소리로 바뀌어요"): CAT then CITY.
+  tl.fromTo(cardCat, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.3);
+  tl.fromTo(cardCity, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 3.2);
+
+  // Scene 2 (8.0-12.0s VO, "이것도 그냥 외워야 하는 예외일까요?"): pause, question sits.
+  tl.fromTo(pauseCaption, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 8.2);
+
+  // Scene 3 (12.0-26.0s VO, "아니요, 여기도... 편하게 스로 끝내버리는 거죠"): tongue position
+  // travels from back-of-mouth (크) to front-of-mouth (스) — the mechanism itself.
+  var SCENE3 = 12.0;
+  tl.to(cardCat, { opacity: 0.4, duration: 0.4, ease: "power2.inOut" }, SCENE3);
+  tl.to(cardCity, { opacity: 0.4, duration: 0.4, ease: "power2.inOut" }, SCENE3);
+  tl.to(pauseCaption, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, SCENE3);
+  tl.fromTo(diagramZone, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, SCENE3 + 0.3);
+  tl.to(tongueDot, { attr: { cx: 100 }, fill: "#FF0000", duration: 1.6, ease: "power2.inOut" }, SCENE3 + 2.0);
+
+  // Scene 4 (26.0-35.4s VO, "그러니까 외우실 건 딱 하나예요... 이거 하나만 기억하시면 됩니다"):
+  // rule summary settles.
+  var SCENE4 = 26.0;
+  tl.to(diagramZone, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, SCENE4);
+  tl.fromTo(rule, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, SCENE4 + 0.4);
+
+  tl.fromTo(progressFillEl, { width: "50%" }, { width: "58.333%", duration: 1.0, ease: "power1.inOut" }, 0.3);
+})();
+</script>
+</template>

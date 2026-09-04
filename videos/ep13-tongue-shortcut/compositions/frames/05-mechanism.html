@@ -1,0 +1,142 @@
+<template>
+<style>
+  /* 05-mechanism — Frame 5 "원리 설명" (Sound Blend, EP13-new, frame.md §4). THE CLIMAX.
+     Scene 1 (0-10s): abstract intro, lone "애" pron-caption. Scene 2 (10-20s): B/A/G chips
+     appear left-to-right with a growing connector line. Scene 3 (20-26s): chips cross-dissolve
+     into the assembled hero-word-block "BAG" + pron-caption — this frame's held climax.
+     Scene 4 (26-37.7s): B-roll cutaway (placeholder — no real footage in the sketch pass). */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f05-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f05-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f05-progress-fill { position: absolute; left: 0; top: 0; width: 33.333%; height: 3px; background: #F5C518; }
+
+  .f05-intro-zone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqh; opacity: 0; }
+  .f05-intro-caption { font-size: 2.0cqw; font-weight: 700; color: #FFFFFF; text-align: center; max-width: 60cqw; line-height: 1.6; }
+  .f05-intro-pron { font-family: 'Noto Sans KR', sans-serif; font-size: 6cqw; font-weight: 700; color: #008EFF; }
+
+  .f05-chip-zone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f05-chip-row { position: relative; display: flex; align-items: center; justify-content: center; gap: 4cqw; }
+  .f05-connector { position: absolute; left: 8cqw; right: 8cqw; top: 50%; height: 3px; background: rgba(245,197,24,0.15); transform: translateY(-50%); z-index: 0; }
+  .f05-connector-fill { position: absolute; left: 0; top: 0; width: 0%; height: 100%; background: #F5C518; }
+  .f05-chip {
+    position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1cqh;
+    width: 8.5cqw; padding: 1.6cqh 0; border-radius: 14px; border: 2px solid rgba(245,197,24,0.25);
+    background: rgba(18,32,58,0.85); opacity: 0;
+  }
+  .f05-chip-letter { font-family: 'Archivo Black', sans-serif; font-size: 4.2cqw; color: #FFFFFF; line-height: 1; }
+  .f05-chip-sound { font-size: 1.5cqw; font-weight: 700; color: #008EFF; }
+
+  .f05-hero-zone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2cqh; opacity: 0; }
+  .f05-hero-word { font-family: 'Archivo Black', sans-serif; font-size: 9cqw; color: #FFFFFF; line-height: 1; }
+  .f05-hero-pron { font-family: 'Noto Sans KR', sans-serif; font-size: 1.8cqw; font-weight: 700; color: #008EFF; }
+
+  .f05-broll-zone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.6cqh; opacity: 0; }
+  .f05-broll-box {
+    width: 34cqw; height: 34cqw; border-radius: 20px; border: 2px dashed rgba(245,197,24,0.4);
+    background: rgba(18,32,58,0.6); display: flex; align-items: center; justify-content: center;
+    text-align: center; font-size: 1.6cqw; font-weight: 700; color: #A9B4C4; padding: 0 2cqw;
+  }
+  .f05-broll-caption { font-size: 1.7cqw; font-weight: 700; color: #FFFFFF; text-align: center; max-width: 60cqw; line-height: 1.6; }
+</style>
+
+<div data-hf-id="hf-e5s1" id="root" data-composition-id="05-mechanism" data-start="0" data-duration="37.7" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e5s2" id="f05-bg-clip" class="clip f05-bg" data-start="0" data-duration="37.7" data-track-index="0"></div>
+  <div data-hf-id="hf-e5s3" class="f05-progress-track"><div data-hf-id="hf-e5s4" class="f05-progress-fill" id="f05-progress-fill"></div></div>
+
+  <div data-hf-id="hf-e5s5" class="f05-intro-zone" id="f05-intro-zone">
+    <div data-hf-id="hf-e5s6" class="f05-intro-caption">혀에 힘을 딱 빼고 턱을 편하게 아래로 툭 떨어뜨리면, 자연스럽게 이 소리가 나요</div>
+    <div data-hf-id="hf-e5s7" class="f05-intro-pron">애</div>
+  </div>
+
+  <div data-hf-id="hf-e5s8" class="f05-chip-zone" id="f05-chip-zone">
+    <div data-hf-id="hf-e5s9" class="f05-chip-row">
+      <div data-hf-id="hf-e5sa" class="f05-connector"><div data-hf-id="hf-e5sb" class="f05-connector-fill" id="f05-connector-fill"></div></div>
+      <div data-hf-id="hf-e5sc" class="f05-chip" id="f05-chip-b"><div data-hf-id="hf-e5sd" class="f05-chip-letter">B</div><div data-hf-id="hf-e5se" class="f05-chip-sound">브</div></div>
+      <div data-hf-id="hf-e5sf" class="f05-chip" id="f05-chip-a"><div data-hf-id="hf-e5sg" class="f05-chip-letter">A</div><div data-hf-id="hf-e5sh" class="f05-chip-sound">애</div></div>
+      <div data-hf-id="hf-e5si" class="f05-chip" id="f05-chip-g"><div data-hf-id="hf-e5sj" class="f05-chip-letter">G</div><div data-hf-id="hf-e5sk" class="f05-chip-sound">그</div></div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-e5sl" class="f05-hero-zone" id="f05-hero-zone">
+    <div data-hf-id="hf-e5sm" class="f05-hero-word">BAG</div>
+    <div data-hf-id="hf-e5sn" class="f05-hero-pron">백</div>
+  </div>
+
+  <div data-hf-id="hf-e5so" class="f05-broll-zone" id="f05-broll-zone">
+    <div data-hf-id="hf-e5sp" class="f05-broll-box">[B-ROLL: 입모양 클로즈업 — 얼굴 비노출, 턱 내려가는 A / 입술 붙었다 떨어지는 B]</div>
+    <div data-hf-id="hf-e5sq" class="f05-broll-caption">턱이 얼마나 편하게 내려가는지, 입술이 얼마나 힘 없이 움직이는지 — 이게 핵심입니다</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["05-mechanism"] = tl;
+
+  var introZone = document.getElementById("f05-intro-zone");
+  var chipZone = document.getElementById("f05-chip-zone");
+  var connectorFill = document.getElementById("f05-connector-fill");
+  var chipB = document.getElementById("f05-chip-b");
+  var chipA = document.getElementById("f05-chip-a");
+  var chipG = document.getElementById("f05-chip-g");
+  var heroZone = document.getElementById("f05-hero-zone");
+  var brollZone = document.getElementById("f05-broll-zone");
+  var progressFillEl = document.getElementById("f05-progress-fill");
+
+  // Scene 1 (0.0-10.0s VO, "원리는 이렇습니다... 애 소리가 나요"): abstract intro, lone "애".
+  tl.fromTo(introZone, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+  tl.to(introZone, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 9.4);
+
+  // Scene 2 (10.0-20.0s VO, "예를 들어 BAG... B는... A는... G는..."): chips appear left-to-right.
+  var SCENE2 = 10.0;
+  tl.fromTo(chipZone, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, SCENE2);
+  tl.fromTo(chipB, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.4)" }, SCENE2 + 0.3);
+  tl.to(connectorFill, { width: "33%", duration: 0.4, ease: "power1.out" }, SCENE2 + 0.5);
+  tl.fromTo(chipA, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.4)" }, SCENE2 + 3.6);
+  tl.to(connectorFill, { width: "66%", duration: 0.4, ease: "power1.out" }, SCENE2 + 3.8);
+  tl.fromTo(chipG, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.4)" }, SCENE2 + 6.8);
+  tl.to(connectorFill, { width: "100%", duration: 0.4, ease: "power1.out" }, SCENE2 + 7.0);
+
+  // Scene 3 (20.0-26.0s VO, "이 세 개를 힘 빼고... 백이 됩니다"): chips cross-dissolve into the
+  // assembled hero-word-block — this frame's held climax (Rhythm allocation: EP13's only other
+  // deliberate hold besides Frame 8's quiz reveals).
+  var SCENE3 = 20.0;
+  tl.to(chipZone, { opacity: 0, scale: 0.94, duration: 0.5, ease: "power2.inOut" }, SCENE3);
+  tl.fromTo(heroZone, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.3)" }, SCENE3 + 0.35);
+  // held here through ~26.0
+
+  // Scene 4 (26.0-37.7s VO, "지금 제 입모양 한번 잘 보세요... 감이 잡히실 거예요"): B-roll cutaway.
+  var SCENE4 = 26.0;
+  tl.to(heroZone, { opacity: 0, scale: 0.7, y: -14, duration: 0.5, ease: "power2.inOut" }, SCENE4);
+  tl.fromTo(brollZone, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, SCENE4 + 0.3);
+
+  tl.fromTo(progressFillEl, { width: "33.333%" }, { width: "41.667%", duration: 1.0, ease: "power1.inOut" }, SCENE2);
+})();
+</script>
+</template>

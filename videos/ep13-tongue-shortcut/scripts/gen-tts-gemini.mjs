@@ -105,7 +105,8 @@ if (dryRun) {
 }
 
 const { key: apiKey } = loadApiKey();
-const results = {}; // id -> { path, duration_s }
+const resultsPath = join(PROJECT_DIR, ".tts-results.json");
+const results = existsSync(resultsPath) ? JSON.parse(readFileSync(resultsPath, "utf8")) : {}; // id -> { path, duration_s }
 let totalUsd = 0;
 
 async function generateOne(id, text) {
@@ -153,5 +154,5 @@ if (!only || only === "09") {
 }
 
 console.log(`\nTotal spend this run: ${won(totalUsd * PRICING.krwPerUsd)} (${totalUsd.toFixed(4)} USD)`);
-writeFileSync(join(PROJECT_DIR, ".tts-results.json"), JSON.stringify(results, null, 2));
+writeFileSync(resultsPath, JSON.stringify(results, null, 2));
 console.log("Wrote .tts-results.json with real durations per scene.");

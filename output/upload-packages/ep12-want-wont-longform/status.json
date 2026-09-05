@@ -1,6 +1,8 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "scheduledFor": "2026-09-05T20:00:00+09:00",
-  "videoId": null,
-  "updatedAt": "2026-09-04T00:00:00.000Z"
+  "videoId": "a2VrFQVjImI",
+  "updatedAt": "2026-09-04T00:00:00.000Z",
+  "lastSyncedAt": "2026-09-05T14:14:36.241Z",
+  "publishedAt": "2026-09-05T14:14:36.241Z"
 }

@@ -937,6 +937,58 @@ const getDashboard = async (accessToken) => {
 let memoryEpisodesSummary = null;
 let lastEpisodesSummaryTime = 0;
 
+// status.json은 업로드 패키지를 만든 시점에 한 번 적어둔 값이라, 예약 시각이 지나도 실제로
+// 공개됐는지 아무도 다시 확인하지 않으면 영원히 "예약됨"으로 멈춰 있다(2026-09-05, 사용자가
+// EP12가 실제로는 공개됐는데 대시보드는 계속 예약으로 표시하는 걸 발견). 예약 시각이 지난
+// 패키지에 한해 유튜브 실제 상태를 확인해서 status.json을 갱신한다 — videoId를 이미 알면
+// videos.list(1 unit)만 호출하고, 모르면 제목으로 한 번 검색(search.list, 100 unit)해서 찾아낸
+// 뒤로는 videoId를 저장해 다음부터는 싼 호출만 하게 한다. 5분에 한 번 이상은 확인하지 않는다.
+const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title) => {
+  if (!statusData || statusData.status === 'published') return statusData;
+  if (!statusData.scheduledFor) return statusData;
+  const scheduledTime = new Date(statusData.scheduledFor).getTime();
+  if (Number.isNaN(scheduledTime) || scheduledTime > Date.now()) return statusData;
+  const lastSyncedAt = statusData.lastSyncedAt ? new Date(statusData.lastSyncedAt).getTime() : 0;
+  if (Date.now() - lastSyncedAt < 5 * 60 * 1000) return statusData;
+
+  const accessToken = await getAccessToken();
+  if (!accessToken) return statusData;
+
+  try {
+    let videoId = statusData.videoId || null;
+    let ytStatus = null;
+    if (videoId) {
+      const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}`, accessToken);
+      ytStatus = data.items?.[0]?.status || null;
+    } else {
+      const searchData = await googleGet('https://www.googleapis.com/youtube/v3/search?part=snippet&forMine=true&type=video&maxResults=25&order=date', accessToken);
+      const match = (searchData.items || []).find((it) => it.snippet.title === title);
+      if (match) {
+        videoId = match.id.videoId;
+        const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}`, accessToken);
+        ytStatus = data.items?.[0]?.status || null;
+      }
+    }
+
+    const updated = {...statusData, lastSyncedAt: new Date().toISOString()};
+    if (videoId) updated.videoId = videoId;
+    if (ytStatus) {
+      if (ytStatus.privacyStatus === 'public') {
+        updated.status = 'published';
+        updated.publishedAt = updated.publishedAt || new Date().toISOString();
+      } else if (ytStatus.privacyStatus === 'private' && ytStatus.publishAt) {
+        updated.status = 'scheduled';
+        updated.scheduledFor = ytStatus.publishAt;
+      }
+    }
+    await saveJson(join(pkgPath, 'status.json'), updated);
+    return updated;
+  } catch (err) {
+    console.warn('[upload-package] YouTube 상태 동기화 실패:', err.message);
+    return {...statusData, lastSyncedAt: new Date().toISOString()};
+  }
+};
+
 const getEpisodesSummary = async (forceReload = false) => {
   if (!forceReload && memoryEpisodesSummary && (Date.now() - lastEpisodesSummaryTime < 60_000)) {
     return memoryEpisodesSummary;
@@ -1019,9 +1071,11 @@ const getEpisodesSummary = async (forceReload = false) => {
           : null;
 
         // status.json이 있으면 예약/공개 상태를 반영한다 — 없으면 "패키지만 준비됨" 기본값.
-        // 실제 업로드·예약은 유튜브 Studio에서 사용자가 직접 하므로, 여기 상태는 우리가 알게 된
-        // 시점에 수동으로(또는 다음에 자동 동기화가 붙으면 그때) 갱신하는 값이다.
-        const statusData = await loadJson(join(pkgPath, 'status.json')) || {};
+        // 예약 시각이 지난 건에 한해 실제 유튜브 상태로 자동 동기화한다(2026-09-05 추가,
+        // syncUploadPackageStatusFromYouTube 참고 — 그 전엔 예약 시각이 지나도 계속 "예약됨"으로
+        // 멈춰 있는 진짜 버그였다).
+        let statusData = await loadJson(join(pkgPath, 'status.json')) || {};
+        statusData = await syncUploadPackageStatusFromYouTube(pkgPath, statusData, title);
         let statusLabel = '패키징 완료';
         if (statusData.status === 'scheduled' && statusData.scheduledFor) {
           const d = new Date(statusData.scheduledFor);

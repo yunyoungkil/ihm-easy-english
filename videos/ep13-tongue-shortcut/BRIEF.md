@@ -52,6 +52,11 @@ A/B 시뮬레이터에서 3개 시안(A/B/C) 생성 후 Gemini AI CTR 진단으�
   반드시 직접 청취 확인할 것.
 - 씬5·씬10의 입모양 클로즈업은 EP12의 `assets/broll/`(입 크게 벌림/오므림, 얼굴 비노출)을 그대로
   재사용하거나 필요 시 같은 방식으로 신규 촬영/생성.
+- **EP12에서 검증되어 이제 기본 적용 항목(2026-09-05, `CLAUDE.md`/`AGENTS.md` 공통 규칙 참고)**:
+  나레이션·BGM 실제 합성 시 `hyperframes-audio` 더킹(voiceover 그룹 + carve)을 반드시 적용할 것.
+  `inline-highlight` 컴포넌트는 이미 설치해둠(`compositions/components/inline-highlight.html`) —
+  본 빌드 패스에서 씬4(반전 공개)·씬7(반전 꿀팁)·씬12(마무리)에 적용할 것. `lt-neon-border`는
+  카탈로그 데이터 버그로 설치 자체가 안 되니 시도하지 말 것(같은 문서에 원인 기록됨).
 - 씬9(리스닝 트레이닝)의 영어 예문 4개는 한글 발음 표기가 아니라 **진짜 영어 텍스트를 같은 보이스
   엔진에 별도로 보내 원어민 발음으로 생성**한 뒤 `ffmpeg concat`으로 이어붙임(EP11/EP12와 동일
   절차 — SCRIPT.md의 해당 씬 경고 참고).

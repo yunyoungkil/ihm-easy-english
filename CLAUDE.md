@@ -88,6 +88,28 @@ git으로 동기화되는 유일한 자동 로드 파일이 이 파일(과 `AGEN
 "방금까지 정한 것 중에 다른 PC도 알아야 하는 게 더 있었나?"를 스스로 되돌아보고, 있으면 그때
 바로 넣는다 — 사용자가 지적할 때까지 기다리지 않는다.
 
+### HyperFrames 영상 제작 시 기본 적용 요소 (2026-09-05)
+
+EP12에서 검증된 뒤로 **새 영상(EP13부터)에도 기본으로 적용한다** — 시청 경험을 실제로 개선하는
+게 확인됐고, 특별한 이유 없이 빼지 않는다:
+
+- **`hyperframes-audio` 나레이션 더킹**: 모든 나레이션 오디오 트랙을 `data-audio-group="voiceover"`
+  로 묶고, BGM 트랙에 carve(voiceover가 나올 때 자동으로 볼륨을 낮췄다 다시 올리는 것)를 적용한다.
+  나레이션이 배경음악에 묻히지 않으면서도 BGM이 계속 자연스럽게 들린다.
+- **`inline-highlight` 컴포넌트**: 핵심 반전·정답 공개·마무리 같은 "이 순간이 중요하다"는 지점에
+  본문 강조로 적용한다(EP12에서는 반전 공개/퀴즈 정답/마무리 3곳에 사용).
+
+**⚠️ `lt-neon-border`는 지금 설치가 안 된다 — 우리 프로젝트가 아니라 카탈로그 데이터 자체의
+버그다.** `hyperframes add lt-neon-border`를 실행하면 CLI 버전(0.8.27~0.8.29 확인)과 무관하게
+`Cannot read properties of undefined (reading 'replace')` 에러로 즉시 실패한다. 원인: 이 블록의
+레지스트리 명세서(`registry/blocks/lt-neon-border/registry-item.json`)의 `files` 배열에
+`target` 필드가 빠져 있다(정상 항목인 `inline-highlight`는 `path`와 `target`이 둘 다 있는데,
+`lt-neon-border`는 `path`만 있음) — CLI의 `remapTarget()`이 없는 `target`에 `.replace()`를
+호출하다 터진다. HeyGen 쪽 카탈로그 데이터가 고쳐지기 전까진 재시도해도 안 되므로, 네온
+테두리류 효과가 필요하면 EP12 Frame 4(`videos/ep12-want-wont/compositions/frames/04-examples.html`)
+처럼 직접 CSS로 흉내 내서 쓸 것 — 나중에 재시도해볼 땐 `hyperframes add lt-neon-border`부터
+먼저 해보고, 그때도 안 되면 이 문단을 그대로 유지한다.
+
 ### 채널 핵심 성장 & 수익화 플라이휠 원칙
 이 채널의 모든 개발·기획·AI 기능은 아래 **'성장 & 자산화 플라이휠'**을 강화하는 방향으로 일관되게
 사고하고 제안한다:

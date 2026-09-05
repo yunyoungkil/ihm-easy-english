@@ -9,5 +9,12 @@
   "media": {
     "autoProxy": true
   },
-  "authoringSkill": "general-video"
+  "authoringSkill": "general-video",
+  "registryItems": [
+    {
+      "name": "inline-highlight",
+      "type": "hyperframes:component",
+      "target": "compositions/components/inline-highlight.html"
+    }
+  ]
 }

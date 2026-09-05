@@ -1,9 +1,12 @@
 <template>
 <style>
   /* 11-payoff — Frame 11 "실생활 재확인" (Sound Blend, payoff variant, frame.md §4/§8).
-     Scene 1 (0-5s): market-shelf placeholder + "JAM" label. Scene 2 (5-14s): JAM assembles
+     Scene 1 (0-5s): market-shelf photo card + "JAM" label. Scene 2 (5-14s): JAM assembles
      SLOWER than Frames 5/6/10 (narration says "천천히" — matches the honest, no-overclaim pacing).
-     Scene 3 (14-21.4s): Frame 1's confused-word callback briefly returns, then confident close. */
+     Scene 3 (14-21.4s): Frame 1's confused-word callback briefly returns, then confident close.
+     Real photo landed 2026-09-05 (assets/images/market-shelf.jpg) — a heavily out-of-focus,
+     straight-on shelf shot (see assets/images/frame11-market-shelf-prompt.md) so no readable
+     text/price-tag competes with the JAM label and chip animation drawn in front of it. */
   @font-face {
     font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
     src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
@@ -35,10 +38,10 @@
 
   .f11-shelf-zone { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqh; }
   .f11-shelf-box {
-    width: 46cqw; height: 22cqh; border-radius: 14px; border: 2px dashed rgba(245,197,24,0.35);
-    background: rgba(18,32,58,0.6); display: flex; align-items: center; justify-content: center;
-    text-align: center; font-size: 1.5cqw; font-weight: 700; color: #A9B4C4; opacity: 0;
+    width: 46cqw; height: 22cqh; border-radius: 14px; border: 2px solid rgba(245,197,24,0.35);
+    background: #0A1526; overflow: hidden; opacity: 0;
   }
+  .f11-shelf-img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .f11-jam-label { font-family: 'Archivo Black', sans-serif; font-size: 5cqw; color: #FFFFFF; opacity: 0; }
 
   .f11-chip-row { position: relative; display: flex; align-items: center; justify-content: center; gap: 3cqw; opacity: 0; }
@@ -67,7 +70,7 @@
   <div data-hf-id="hf-e11s3" class="f11-progress-track"><div data-hf-id="hf-e11s4" class="f11-progress-fill" id="f11-progress-fill"></div></div>
 
   <div data-hf-id="hf-e11s5" class="f11-shelf-zone">
-    <div data-hf-id="hf-e11s6" class="f11-shelf-box" id="f11-shelf-box">[B-ROLL: 마트 진열대 배경]</div>
+    <div data-hf-id="hf-e11s6" class="f11-shelf-box" id="f11-shelf-box"><img data-hf-id="hf-e11s6i" class="f11-shelf-img" src="assets/images/market-shelf.jpg" alt="" /></div>
     <div data-hf-id="hf-e11s7" class="f11-jam-label" id="f11-jam-label">JAM</div>
 
     <div data-hf-id="hf-e11s8" class="f11-chip-row" id="f11-chip-row">

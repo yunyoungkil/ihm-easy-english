@@ -119,8 +119,13 @@
 
 | 콘텐츠 | 공개 시각 | 상태 |
 |---|---|---|
-| 단편 EP12(Want vs Won't) 롱폼 | 2026-09-05(토) 20:00 KST | 패키지 준비, 사용자가 직접 업로드 예정 |
-| 단편 EP11(GONNA) 롱폼 | 2026-09-08(화) 20:00 KST | 패키지 준비, 사용자가 직접 업로드 예정 |
+| 단편 EP12(Want vs Won't) 롱폼 | 2026-09-05(토) 20:00 KST | **예약 등록 확인 완료(2026-09-05)** — YouTube Data API 직접 조회, `privacyStatus: private`, `publishAt` 일치 |
+| 단편 EP11(GONNA) 롱폼 | 2026-09-08(화) 20:00 KST | **예약 등록 확인 완료(2026-09-05)** — 동일 방식으로 확인, `publishAt` 일치 |
+
+> 확인 방법(2026-09-05): vidIQ 크레딧이 0(2026-09-07 리셋)이라 vidIQ MCP 대신 프로젝트 자체
+> OAuth 토큰(`.youtube-oauth-token.json`)으로 YouTube Data API(`search.list`+`videos.list`)를
+> 직접 호출해 두 영상의 `privacyStatus`/`publishAt`을 확인했다. 상세: [단편 EP12](episodes/ep12-want-wont.md),
+> [단편 EP11](episodes/ep11-gonna.md).
 - [단편 EP12 — Want vs Won't](episodes/ep12-want-wont.md) — 위 "최우선" 참고.
 - [시즌1 EP10](episodes/season1-ep10.md) — 완료. 시즌1 자체가 이걸로 마무리됨.
 - 시즌2 EP1 개별 패스 통합 — 아직 착수 전.

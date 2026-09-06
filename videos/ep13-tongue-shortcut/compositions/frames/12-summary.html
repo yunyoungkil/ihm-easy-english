@@ -44,9 +44,10 @@
   .f12-wordmark { font-family: 'Black Han Sans', sans-serif; font-size: 3.4cqw; color: #FFFFFF; text-align: center; opacity: 0; }
 </style>
 
-<div data-hf-id="hf-e12s1" id="root" data-composition-id="12-summary" data-start="0" data-duration="24.5" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e12s2" id="f12-bg-clip" class="clip f12-bg" data-start="0" data-duration="24.5" data-track-index="0"></div>
-  <div data-hf-id="hf-e12s3" id="f12-warm-clip" class="clip f12-warm" data-start="0" data-duration="24.5" data-track-index="1"></div>
+<div data-hf-id="hf-e12s1" id="root" data-composition-id="12-summary" data-start="0" data-duration="30.98" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e12s2" id="f12-bg-clip" class="clip f12-bg" data-start="0" data-duration="30.98" data-track-index="0"></div>
+  <div data-hf-id="hf-e12s3" id="f12-warm-clip" class="clip f12-warm" data-start="0" data-duration="30.98" data-track-index="1"></div>
+  <audio data-hf-id="hf-e12sv" id="f12-voice" src="assets/voice/12.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e12s4" class="f12-progress-track"><div data-hf-id="hf-e12s5" class="f12-progress-fill" id="f12-progress-fill"></div></div>
 
   <div data-hf-id="hf-e12s6" class="f12-stage">
@@ -62,6 +63,15 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["12-summary"] = tl;
+  // Real narration (30.48s) vs. the 24.5s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  var RATIO = 30.48 / 24.5;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var flashWord = document.getElementById("f12-flash-word");
   var tagline = document.getElementById("f12-tagline");

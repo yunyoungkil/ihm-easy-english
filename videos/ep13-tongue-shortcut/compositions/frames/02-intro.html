@@ -33,9 +33,10 @@
   .f02-intro-line { font-size: 1.8cqw; font-weight: 700; color: #A9B4C4; text-align: center; max-width: 70cqw; line-height: 1.6; opacity: 0; }
 </style>
 
-<div data-hf-id="hf-e2s1" id="root" data-composition-id="02-intro" data-start="0" data-duration="8.8" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e2s2" id="f02-bg-clip" class="clip f02-bg" data-start="0" data-duration="8.8" data-track-index="0"></div>
-  <div data-hf-id="hf-e2s3" id="f02-glow-clip" class="clip f02-glow" data-start="0" data-duration="8.8" data-track-index="1"></div>
+<div data-hf-id="hf-e2s1" id="root" data-composition-id="02-intro" data-start="0" data-duration="12.3" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e2s2" id="f02-bg-clip" class="clip f02-bg" data-start="0" data-duration="12.3" data-track-index="0"></div>
+  <div data-hf-id="hf-e2s3" id="f02-glow-clip" class="clip f02-glow" data-start="0" data-duration="12.3" data-track-index="1"></div>
+  <audio data-hf-id="hf-e2sv" id="f02-voice" src="assets/voice/02.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e2s4" class="f02-progress-track"><div data-hf-id="hf-e2s5" class="f02-progress-fill" id="f02-progress-fill"></div></div>
 
   <div data-hf-id="hf-e2s6" class="f02-stage">
@@ -50,6 +51,16 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["02-intro"] = tl;
+  // Real narration (11.8s) is longer than the 8.8s estimate this choreography was
+  // authored against — every scheduled position gets multiplied by RATIO so the
+  // whole sequence stretches proportionally (tl.timeScale() didn't work — see
+  // knowledge/now.md EP13 section).
+  var RATIO = 11.8 / 8.8;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var wordmark = document.getElementById("f02-wordmark");
   var introLine = document.getElementById("f02-intro-line");

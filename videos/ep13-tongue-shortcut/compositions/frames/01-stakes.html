@@ -73,9 +73,10 @@
   .f01-close-2 { font-size: 1.8cqw; font-weight: 700; color: #A9B4C4; text-align: center; max-width: 70cqw; line-height: 1.6; }
 </style>
 
-<div data-hf-id="hf-e1s1" id="root" data-composition-id="01-stakes" data-start="0" data-duration="27.4" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e1s2" id="f01-bg-clip" class="clip f01-bg" data-start="0" data-duration="27.4" data-track-index="0"></div>
-  <div data-hf-id="hf-e1s3" id="f01-glow-clip" class="clip f01-glow" data-start="0" data-duration="27.4" data-track-index="1"></div>
+<div data-hf-id="hf-e1s1" id="root" data-composition-id="01-stakes" data-start="0" data-duration="36.42" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e1s2" id="f01-bg-clip" class="clip f01-bg" data-start="0" data-duration="36.42" data-track-index="0"></div>
+  <div data-hf-id="hf-e1s3" id="f01-glow-clip" class="clip f01-glow" data-start="0" data-duration="36.42" data-track-index="1"></div>
+  <audio data-hf-id="hf-e1sv" id="f01-voice" src="assets/voice/01.wav" data-start="0" data-audio-group="voiceover"></audio>
 
   <div data-hf-id="hf-e1s4" class="f01-progress-track"><div data-hf-id="hf-e1s5" class="f01-progress-fill" id="f01-progress-fill"></div></div>
   <div data-hf-id="hf-e1s6" class="f01-eyebrow" id="f01-eyebrow">이해하면 쉬운영어</div>
@@ -116,6 +117,20 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["01-stakes"] = tl;
+  // Choreography below was authored against the estimated 27.4s narration length;
+  // real TTS came back at 35.92s (2026-09-05). Rather than rewrite every beat's
+  // timestamp, every scheduled position gets multiplied by RATIO below so the whole
+  // authored sequence stretches proportionally to fill the real audio length.
+  // (tl.timeScale() was tried first but HyperFrames' renderer didn't respect it —
+  // it kept playing at native speed and just held the last frame for the extra time.
+  // Wrapping to/fromTo/set/call scales every numeric position directly instead.)
+  // See knowledge/now.md EP13 section for the ratio table across all 12 frames.
+  var RATIO = 35.92 / 27.4;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var line1El = document.getElementById("f01-line1");
   var chipzone = document.getElementById("f01-chipzone");

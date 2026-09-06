@@ -57,8 +57,9 @@
   .f07-rule .hot { color: #FF0000; }
 </style>
 
-<div data-hf-id="hf-e7s1" id="root" data-composition-id="07-exception" data-start="0" data-duration="35.4" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e7s2" id="f07-bg-clip" class="clip f07-bg" data-start="0" data-duration="35.4" data-track-index="0"></div>
+<div data-hf-id="hf-e7s1" id="root" data-composition-id="07-exception" data-start="0" data-duration="48.22" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e7s2" id="f07-bg-clip" class="clip f07-bg" data-start="0" data-duration="48.22" data-track-index="0"></div>
+  <audio data-hf-id="hf-e7sv" id="f07-voice" src="assets/voice/07.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e7s3" class="f07-progress-track"><div data-hf-id="hf-e7s4" class="f07-progress-fill" id="f07-progress-fill"></div></div>
 
   <div data-hf-id="hf-e7s5" class="f07-pair">
@@ -93,6 +94,15 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["07-exception"] = tl;
+  // Real narration (47.72s) vs. the 35.4s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  var RATIO = 47.72 / 35.4;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var cardCat = document.getElementById("f07-card-cat");
   var cardCity = document.getElementById("f07-card-city");

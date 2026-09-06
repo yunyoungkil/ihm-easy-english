@@ -46,9 +46,10 @@
   }
 </style>
 
-<div data-hf-id="hf-e3s1" id="root" data-composition-id="03-question" data-start="0" data-duration="26.0" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e3s2" id="f03-bg-clip" class="clip f03-bg" data-start="0" data-duration="26.0" data-track-index="0"></div>
-  <div data-hf-id="hf-e3s3" id="f03-dim-clip" class="clip f03-dim" data-start="0" data-duration="26.0" data-track-index="1"></div>
+<div data-hf-id="hf-e3s1" id="root" data-composition-id="03-question" data-start="0" data-duration="37.66" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e3s2" id="f03-bg-clip" class="clip f03-bg" data-start="0" data-duration="37.66" data-track-index="0"></div>
+  <div data-hf-id="hf-e3s3" id="f03-dim-clip" class="clip f03-dim" data-start="0" data-duration="37.66" data-track-index="1"></div>
+  <audio data-hf-id="hf-e3sv" id="f03-voice" src="assets/voice/03.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e3s4" class="f03-progress-track"><div data-hf-id="hf-e3s5" class="f03-progress-fill" id="f03-progress-fill"></div></div>
 
   <div data-hf-id="hf-e3s6" class="f03-question" id="f03-question">그런데 궁금하지 않으세요? 왜 유독 영어는 같은 알파벳인데 단어마다 소리가 다 다를까요?</div>
@@ -73,6 +74,15 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["03-question"] = tl;
+  // Real narration (37.16s) vs. the 26.0s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  var RATIO = 37.16 / 26.0;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var question = document.getElementById("f03-question");
   var colKr = document.getElementById("f03-col-kr");

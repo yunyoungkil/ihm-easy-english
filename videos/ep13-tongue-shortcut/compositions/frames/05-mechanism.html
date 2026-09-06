@@ -68,8 +68,9 @@
   .f05-broll-caption { font-size: 1.7cqw; font-weight: 700; color: #FFFFFF; text-align: center; max-width: 60cqw; line-height: 1.6; }
 </style>
 
-<div data-hf-id="hf-e5s1" id="root" data-composition-id="05-mechanism" data-start="0" data-duration="37.7" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e5s2" id="f05-bg-clip" class="clip f05-bg" data-start="0" data-duration="37.7" data-track-index="0"></div>
+<div data-hf-id="hf-e5s1" id="root" data-composition-id="05-mechanism" data-start="0" data-duration="55.3" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e5s2" id="f05-bg-clip" class="clip f05-bg" data-start="0" data-duration="55.3" data-track-index="0"></div>
+  <audio data-hf-id="hf-e5sv" id="f05-voice" src="assets/voice/05.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e5s3" class="f05-progress-track"><div data-hf-id="hf-e5s4" class="f05-progress-fill" id="f05-progress-fill"></div></div>
 
   <div data-hf-id="hf-e5s5" class="f05-intro-zone" id="f05-intro-zone">
@@ -92,7 +93,7 @@
   </div>
 
   <div data-hf-id="hf-e5so" class="f05-broll-zone" id="f05-broll-zone">
-    <video data-hf-id="hf-e5sp" id="f05-broll-video" class="clip f05-broll-video" src="assets/broll/b-pop.mp4" data-start="26.3" data-duration="8" data-track-index="1" muted playsinline></video>
+    <video data-hf-id="hf-e5sp" id="f05-broll-video" class="clip f05-broll-video" src="assets/broll/b-pop.mp4" data-start="38.23" data-duration="8" data-track-index="1" muted playsinline></video>
     <div data-hf-id="hf-e5sq" class="f05-broll-caption">턱이 얼마나 편하게 내려가는지, 입술이 얼마나 힘 없이 움직이는지 — 이게 핵심입니다</div>
   </div>
 </div>
@@ -103,6 +104,17 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["05-mechanism"] = tl;
+  // Real narration (54.8s) vs. the 37.7s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  // The B-roll <video>'s own data-start (a separate, non-GSAP timing system) is
+  // scaled by this same ratio by hand (26.3 -> 38.23) where it's declared above.
+  var RATIO = 54.8 / 37.7;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var introZone = document.getElementById("f05-intro-zone");
   var chipZone = document.getElementById("f05-chip-zone");

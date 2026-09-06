@@ -39,9 +39,10 @@
   .f04-anecdote { font-size: 1.8cqw; font-weight: 700; color: #FFFFFF; text-align: center; max-width: 74cqw; line-height: 1.7; opacity: 0; }
 </style>
 
-<div data-hf-id="hf-e4s1" id="root" data-composition-id="04-headfake" data-start="0" data-duration="24.3" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e4s2" id="f04-bg-clip" class="clip f04-bg" data-start="0" data-duration="24.3" data-track-index="0"></div>
-  <div data-hf-id="hf-e4s3" id="f04-warm-clip" class="clip f04-warm" data-start="0" data-duration="24.3" data-track-index="1"></div>
+<div data-hf-id="hf-e4s1" id="root" data-composition-id="04-headfake" data-start="0" data-duration="33.14" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e4s2" id="f04-bg-clip" class="clip f04-bg" data-start="0" data-duration="33.14" data-track-index="0"></div>
+  <div data-hf-id="hf-e4s3" id="f04-warm-clip" class="clip f04-warm" data-start="0" data-duration="33.14" data-track-index="1"></div>
+  <audio data-hf-id="hf-e4sv" id="f04-voice" src="assets/voice/04.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e4s4" class="f04-progress-track"><div data-hf-id="hf-e4s5" class="f04-progress-fill" id="f04-progress-fill"></div></div>
 
   <div data-hf-id="hf-e4s6" class="f04-stage">
@@ -58,6 +59,15 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["04-headfake"] = tl;
+  // Real narration (32.64s) vs. the 24.3s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  var RATIO = 32.64 / 24.3;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var lede = document.getElementById("f04-lede");
   var verdict = document.getElementById("f04-verdict");

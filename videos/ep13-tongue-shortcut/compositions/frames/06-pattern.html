@@ -51,8 +51,9 @@
   .f06-catharsis { position: absolute; left: 0; right: 0; bottom: 12cqh; text-align: center; font-size: 2.0cqw; font-weight: 900; color: #F5C518; opacity: 0; }
 </style>
 
-<div data-hf-id="hf-e6s1" id="root" data-composition-id="06-pattern" data-start="0" data-duration="31.6" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e6s2" id="f06-bg-clip" class="clip f06-bg" data-start="0" data-duration="31.6" data-track-index="0"></div>
+<div data-hf-id="hf-e6s1" id="root" data-composition-id="06-pattern" data-start="0" data-duration="52.14" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e6s2" id="f06-bg-clip" class="clip f06-bg" data-start="0" data-duration="52.14" data-track-index="0"></div>
+  <audio data-hf-id="hf-e6sv" id="f06-voice" src="assets/voice/06.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e6s3" class="f06-progress-track"><div data-hf-id="hf-e6s4" class="f06-progress-fill" id="f06-progress-fill"></div></div>
   <div data-hf-id="hf-e6s5" class="f06-eyebrow" id="f06-eyebrow">그럼 이게 진짜 다른 단어에도 통할까요?</div>
 
@@ -102,6 +103,15 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["06-pattern"] = tl;
+  // Real narration (51.64s) vs. the 31.6s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  var RATIO = 51.64 / 31.6;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var eyebrow = document.getElementById("f06-eyebrow");
   var resultBag = document.getElementById("f06-result-bag");

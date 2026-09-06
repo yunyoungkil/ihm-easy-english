@@ -61,8 +61,9 @@
   .f08-answer-label--exc { border-color: #FF0000; color: #FF0000; }
 </style>
 
-<div data-hf-id="hf-e8s1" id="root" data-composition-id="08-quiz" data-start="0" data-duration="23.4" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e8s2" id="f08-bg-clip" class="clip f08-bg" data-start="0" data-duration="23.4" data-track-index="0"></div>
+<div data-hf-id="hf-e8s1" id="root" data-composition-id="08-quiz" data-start="0" data-duration="43.54" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e8s2" id="f08-bg-clip" class="clip f08-bg" data-start="0" data-duration="43.54" data-track-index="0"></div>
+  <audio data-hf-id="hf-e8sv" id="f08-voice" src="assets/voice/08.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e8s3" class="f08-progress-track"><div data-hf-id="hf-e8s4" class="f08-progress-fill" id="f08-progress-fill"></div></div>
 
   <div data-hf-id="hf-e8s5" class="f08-stage">
@@ -89,6 +90,15 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["08-quiz"] = tl;
+  // Real narration (43.04s) vs. the 23.4s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  var RATIO = 43.04 / 23.4;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var badge = document.getElementById("f08-badge");
   var question = document.getElementById("f08-question");

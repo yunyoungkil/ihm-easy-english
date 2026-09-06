@@ -65,8 +65,9 @@
   .f11-closing { position: absolute; left: 6cqw; right: 6cqw; bottom: 10cqh; text-align: center; font-size: 2.0cqw; font-weight: 900; color: #F5C518; opacity: 0; }
 </style>
 
-<div data-hf-id="hf-e11s1" id="root" data-composition-id="11-payoff" data-start="0" data-duration="21.4" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e11s2" id="f11-bg-clip" class="clip f11-bg" data-start="0" data-duration="21.4" data-track-index="0"></div>
+<div data-hf-id="hf-e11s1" id="root" data-composition-id="11-payoff" data-start="0" data-duration="35.42" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e11s2" id="f11-bg-clip" class="clip f11-bg" data-start="0" data-duration="35.42" data-track-index="0"></div>
+  <audio data-hf-id="hf-e11sv" id="f11-voice" src="assets/voice/11.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e11s3" class="f11-progress-track"><div data-hf-id="hf-e11s4" class="f11-progress-fill" id="f11-progress-fill"></div></div>
 
   <div data-hf-id="hf-e11s5" class="f11-shelf-zone">
@@ -99,6 +100,15 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["11-payoff"] = tl;
+  // Real narration (34.92s) vs. the 21.4s estimate this was authored against — every
+  // scheduled position gets multiplied by RATIO so the whole sequence stretches
+  // proportionally (tl.timeScale() didn't work — see knowledge/now.md EP13 section).
+  var RATIO = 34.92 / 21.4;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var shelfBox = document.getElementById("f11-shelf-box");
   var jamLabel = document.getElementById("f11-jam-label");

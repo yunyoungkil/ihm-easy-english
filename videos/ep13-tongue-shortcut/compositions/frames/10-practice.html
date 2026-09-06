@@ -52,8 +52,9 @@
   .f10-result-pron { font-size: 2.4cqw; font-weight: 900; color: #F5C518; }
 </style>
 
-<div data-hf-id="hf-e10s1" id="root" data-composition-id="10-practice" data-start="0" data-duration="29.9" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-e10s2" id="f10-bg-clip" class="clip f10-bg" data-start="0" data-duration="29.9" data-track-index="0"></div>
+<div data-hf-id="hf-e10s1" id="root" data-composition-id="10-practice" data-start="0" data-duration="64.86" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-e10s2" id="f10-bg-clip" class="clip f10-bg" data-start="0" data-duration="64.86" data-track-index="0"></div>
+  <audio data-hf-id="hf-e10sv" id="f10-voice" src="assets/voice/10.wav" data-start="0" data-audio-group="voiceover"></audio>
   <div data-hf-id="hf-e10s3" class="f10-progress-track"><div data-hf-id="hf-e10s4" class="f10-progress-fill" id="f10-progress-fill"></div></div>
   <div data-hf-id="hf-e10s5" class="f10-prompt" id="f10-prompt">이번엔 직접 해보세요 — 소리 하나씩 힘 빼고 이어볼게요</div>
 
@@ -77,6 +78,17 @@
   var tl = gsap.timeline({ paused: true });
   window.__timelines = window.__timelines || {};
   window.__timelines["10-practice"] = tl;
+  // Real narration (64.36s) vs. the 29.9s estimate this was authored against (this
+  // scene's slow "다시 한 번, 좀 더 빠르게" repeats came out much slower than the
+  // 6.5-chars/sec estimate assumed) — every scheduled position gets multiplied by
+  // RATIO so the whole sequence stretches proportionally (tl.timeScale() didn't
+  // work — see knowledge/now.md EP13 section).
+  var RATIO = 64.36 / 29.9;
+  var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+  tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+  tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+  tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
 
   var chipRow = document.getElementById("f10-chip-row");
   var connectorFill = document.getElementById("f10-connector-fill");

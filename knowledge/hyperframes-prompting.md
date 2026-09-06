@@ -93,6 +93,39 @@
 - 템플릿은 서로 크게 다른 두 값으로 두 번 렌더해 실제 화면이 바뀌는지 확인한다.
 - 쇼츠·롱폼·썸네일은 같은 브랜드 값을 공유해도 레이아웃 템플릿은 분리한다.
 
+## 9-1. 실제 음성이 추정보다 길 때 — GSAP `timeScale()`은 안 먹는다
+
+TTS를 나중에 생성하면 실제 길이가 대본 단계 추정치보다 훨씬 길어지는 경우가 흔하다(EP13은 12개
+씬 평균 63% 초과, 심한 씬은 +115%). 이때 씬 내부 애니메이션(글자 등장 타이밍 등)을 실제 길이에
+맞춰 늘려야 하는데, **GSAP `tl.timeScale(원래길이/실제길이)`를 타임라인에 걸어도 HyperFrames
+렌더러가 이를 무시한다** — 애니메이션은 원래(짧은) 속도 그대로 다 끝나버리고, 남는 시간은 그냥
+마지막 프레임이 정지해서 채워진다(EP13에서 실측 확인, 2026-09-06). `check`는 이 상태를 에러로
+잡지 않는다 — 반드시 스냅샷을 여러 지점 떠서 눈으로 확인해야 발견된다.
+
+**대신 되는 방법**: 타임라인 생성 직후 `tl.to`/`tl.fromTo`/`tl.set`/`tl.call`을 감싸서, 숫자로
+넘어오는 position 인자를 직접 비율만큼 곱해준다:
+
+```js
+var RATIO = 실제길이 / 원래길이;
+var _to = tl.to.bind(tl), _fromTo = tl.fromTo.bind(tl), _set = tl.set.bind(tl), _call = tl.call.bind(tl);
+tl.to = function (t, v, p) { return _to(t, v, typeof p === "number" ? p * RATIO : p); };
+tl.fromTo = function (t, f, v, p) { return _fromTo(t, f, v, typeof p === "number" ? p * RATIO : p); };
+tl.set = function (t, v, p) { return _set(t, v, typeof p === "number" ? p * RATIO : p); };
+tl.call = function (fn, params, p) { return _call(fn, params, typeof p === "number" ? p * RATIO : p); };
+```
+
+이후 기존 코드의 개별 타임스탬프(`14.0`, `t + 0.3` 등)는 전혀 손댈 필요 없다 — `SCENE2 + 0.3`
+같은 표현도 계산된 숫자 전체가 그대로 스케일된다. 문자열 position(`"+=0.5"`, 라벨 등)은
+`typeof p === "number"` 체크로 자동 제외되므로 안전하다.
+
+**예외**: `<video>`/`<audio>`처럼 `data-start`를 직접 갖는 HyperFrames 자체 타임드 엘리먼트는
+이 JS 타임라인과 별개 시스템이라 위 래퍼가 적용되지 않는다 — `data-start` 값도 같은 RATIO를
+곱해서 손으로 맞출 것(EP13 Frame 5의 B롤 영상 사례).
+
+**더 나은 대안이 있다면**: 나레이션이 여러 조각(한국어+영어 등)으로 나뉘어 실제 각 구간의
+시작·끝 시각을 정확히 알 수 있는 씬(EP13 Frame 9)은 비율 계산 대신 **측정된 실제 시각을 직접
+써서 손으로 맞추는 게 더 정확하다** — 균등 비례 스케일은 근사치일 뿐이다.
+
 ## 10. 렌더 전 필수 검수
 
 1. `npx hyperframes lint`

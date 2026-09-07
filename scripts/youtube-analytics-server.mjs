@@ -1485,7 +1485,7 @@ h1.hero-greeting {
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 12px;
 }
 .card-title {
@@ -1577,6 +1577,9 @@ h1.hero-greeting {
 .badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-shrink: 0;
   gap: 5px;
   padding: 4px 10px;
   border-radius: 99px;
@@ -2103,7 +2106,7 @@ input:disabled, select:disabled {
     <div class="header-right" id="header-right-container">
       <div class="live-clock" id="live-clock">--:--:-- KST</div>
       <button class="btn btn-magenta btn-sm" id="btn-open-studio-rpa" style="font-weight:800;">⚡ Studio 실측 데이터 가져오기</button>
-      <button class="btn btn-cyan btn-sm" id="btn-sync-global">↻ SYNC ANALYTICS</button>
+      <button class="btn btn-cyan btn-sm" id="btn-sync-global">↻ 데이터 동기화</button>
       <a class="btn btn-sm btn-amber" id="btn-reauth" href="/auth" style="display:none">🔗 채널 재연결</a>
       <a class="btn btn-sm" id="btn-logout" href="/logout" style="display:none">⎋ 로그아웃</a>
     </div>
@@ -2155,6 +2158,7 @@ let gMarketDemand = null;
 let gContentOpportunity = null;
 let gEpisodes = null;
 let gKnowledgeDb = null;
+let gKdbSourceFilter = 'ALL'; // 'ALL' | 'outlierComment' | 'competitorScript'
 let gCurrentTab = (function() {
   try { return localStorage.getItem('ihm_active_tab') || 'tab-overview'; } catch (_) { return 'tab-overview'; }
 })();
@@ -2638,6 +2642,16 @@ document.addEventListener('click', (e) => {
     triggerCommentAnalysis(outlierAnalyzeBtn.dataset.vid);
     return;
   }
+  const viewCommentReportBtn = e.target.closest('.btn-outlier-view-comment');
+  if (viewCommentReportBtn && viewCommentReportBtn.dataset.file) {
+    viewSavedReportDetail(viewCommentReportBtn.dataset.file);
+    return;
+  }
+  const viewScriptReportBtn = e.target.closest('.btn-outlier-view-script');
+  if (viewScriptReportBtn && viewScriptReportBtn.dataset.file) {
+    viewSavedScriptReportDetail(viewScriptReportBtn.dataset.file);
+    return;
+  }
 });
 
 async function loadAll() {
@@ -3096,12 +3110,53 @@ function renderMarketDemandTab() {
       '</div>' +
     '</div>';
 
+  // 키워드 카드마다 따로 있던 "제목 반복 패턴"을 하나로 합친다 — 같은 단어가 여러 카드에
+  // 중복으로 뜨면 어느 걸 복사했는지 헷갈리고, 같은 걸 또 수요 분석하게 될 수 있다는 사용자
+  // 지적(2026-09-07)으로 전면 교체. 여러 키워드에서 공통으로 반복된 단어일수록(= 여러 다른
+  // 검색에서도 먹힌 훅) 더 강한 신호이므로, 등장한 키워드 개수 기준으로 정렬한다.
+  const globalPatternMap = {};
   md.byKeyword.forEach(k => {
+    (k.titlePatterns || []).forEach(p => {
+      if (!globalPatternMap[p.word]) globalPatternMap[p.word] = {word: p.word, totalCount: 0, keywords: []};
+      globalPatternMap[p.word].totalCount += (p.titleCount || 0);
+      if (globalPatternMap[p.word].keywords.indexOf(k.keyword) === -1) globalPatternMap[p.word].keywords.push(k.keyword);
+    });
+  });
+  const globalPatterns = Object.keys(globalPatternMap).map(w => globalPatternMap[w])
+    .sort((a, b) => (b.keywords.length - a.keywords.length) || (b.totalCount - a.totalCount))
+    .slice(0, 20);
+
+  if (globalPatterns.length > 0) {
+    html += '<div class="bento-card col-12">' +
+      '<div class="card-header">' +
+        '<span class="card-title" style="color:var(--accent-magenta)">🔥 채널 전체 반복 훅 단어 TOP (클릭 시 복사)</span>' +
+      '</div>' +
+      '<div class="card-subtext" style="margin-bottom:10px">여러 키워드 검색에서 공통으로 반복된 단어일수록(= 다른 주제에서도 먹힌 훅) 위로 정렬됩니다. 마우스를 올리면 어느 키워드에서 나왔는지 볼 수 있습니다.</div>' +
+      '<div>' + globalPatterns.map(p =>
+        '<span class="tag-chip copy-chip" data-copy="' + esc(p.word) + '" title="출처 키워드: ' + esc(p.keywords.join(', ')) + '">#' + esc(p.word) + ' (' + p.keywords.length + '개 키워드 · 총 ' + p.totalCount + '회)</span>'
+      ).join('') + '</div>' +
+    '</div>';
+  }
+
+  // 같은 영상이 여러 키워드 카드에 아웃라이어로 동시에 걸리는 경우, 카드마다 통째로 지우거나
+  // 합치지 않고(그러면 "이 키워드에서도 TOP 3 안에 든다"는 그 키워드 고유의 맥락이 사라짐)
+  // 제자리에 "다른 키워드에서도 TOP" 배지만 붙인다 — 여러 키워드에서 반복 등장하는 건 그만큼
+  // 더 강력한 콘텐츠라는 신호라서 지우기보단 강조하는 쪽이 맞다(2026-09-07, 사용자 확인).
+  const videoKeywordMap = {};
+  md.byKeyword.forEach(k => {
+    (k.topOutliers || []).forEach(o => {
+      if (!o.videoId) return;
+      if (!videoKeywordMap[o.videoId]) videoKeywordMap[o.videoId] = [];
+      if (videoKeywordMap[o.videoId].indexOf(k.keyword) === -1) videoKeywordMap[o.videoId].push(k.keyword);
+    });
+  });
+
+  md.byKeyword.forEach((k, kIdx) => {
     const score = Math.round(k.marketDemandScore || 0);
     const opp = Number(k.opportunityScore || 0).toFixed(1);
     const scoreClass = score >= 150 ? 'badge-strong-pass' : score >= 80 ? 'badge-pass' : 'badge-hold';
 
-    html += '<div class="bento-card col-6">' +
+    html += '<div class="bento-card col-4" id="demand-card-' + kIdx + '">' +
       '<div class="card-header">' +
         '<span style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--text-bright)">' + esc(k.keyword) + '</span>' +
         '<span class="badge ' + scoreClass + '">수요점수 ' + score + '</span>' +
@@ -3112,27 +3167,39 @@ function renderMarketDemandTab() {
         '<div><span class="card-title">표본 영상</span><div style="font-size:20px;font-weight:900;color:var(--accent-amber)">' + (k.videoCount || 0) + '개</div></div>' +
       '</div>';
 
-    if (k.titlePatterns && k.titlePatterns.length > 0) {
-      html += '<div style="margin-top:12px">' +
-        '<div class="card-title" style="margin-bottom:6px">🔥 제목 반복 패턴 (클릭 시 복사):</div>' +
-        '<div>' + k.titlePatterns.map(p => '<span class="tag-chip copy-chip" data-copy="' + esc(p.word) + '">#' + esc(p.word) + ' (' + p.titleCount + '회)</span>').join('') + '</div>' +
-      '</div>';
-    }
-
     if (k.topOutliers && k.topOutliers.length > 0) {
       html += '<div style="margin-top:16px;border-top:1px solid var(--border-subtle);padding-top:12px">' +
         '<div class="card-title" style="margin-bottom:8px">⭐ 대표 아웃라이어 영상 TOP:</div>' +
         k.topOutliers.slice(0, 3).map(o => {
           const thumb = o.thumbnail || (o.videoId ? 'https://i.ytimg.com/vi/' + o.videoId + '/mqdefault.jpg' : '');
-          return '<div style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;gap:12px;align-items:center">' +
-            (thumb ? '<img class="thumb-mini" src="' + esc(thumb) + '" alt="">' : '') +
-            '<div style="flex:1;min-width:0">' +
-              '<div style="font-weight:700;font-size:13px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(o.title) + '</div>' +
-              '<div class="card-subtext">' + esc(o.channelTitle || o.channel) + ' · 조회수 ' + fmt.format(o.viewCount || (o.viewsPerDay ? o.viewsPerDay * (o.ageDays||1) : 0)) + '회 (' + (o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '') + ')</div>' +
+          const watchUrl = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
+          const otherKeywords = (videoKeywordMap[o.videoId] || []).filter(kw => kw !== k.keyword);
+          const crossBadge = otherKeywords.length > 0 ?
+            '<span class="badge badge-pass" style="font-size:10px;margin-left:6px;white-space:nowrap" title="다른 키워드: ' + esc(otherKeywords.join(', ')) + '">🔗 다른 ' + otherKeywords.length + '개 키워드에서도 TOP</span>' : '';
+          return '<div style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;flex-direction:column;gap:8px">' +
+            '<div style="display:flex;gap:12px;align-items:center">' +
+              (thumb ? (watchUrl ?
+                '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" title="유튜브에서 영상 보기"><img class="thumb-mini" style="cursor:pointer" src="' + esc(thumb) + '" alt=""></a>' :
+                '<img class="thumb-mini" src="' + esc(thumb) + '" alt="">') : '') +
+              '<div style="flex:1;min-width:0">' +
+                (watchUrl ?
+                  '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" title="유튜브에서 영상 보기" style="text-decoration:none">' +
+                    '<div style="font-weight:700;font-size:13px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer">▶ ' + esc(o.title) + '</div>' +
+                  '</a>' :
+                  '<div style="font-weight:700;font-size:13px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(o.title) + '</div>') +
+                '<div class="card-subtext">' + esc(o.channelTitle || o.channel) + ' · 조회수 ' + fmt.format(o.viewCount || (o.viewsPerDay ? o.viewsPerDay * (o.ageDays||1) : 0)) + '회 (' + (o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '') + ')</div>' +
+              '</div>' +
             '</div>' +
-            '<div style="display:flex;gap:6px">' +
-              '<button class="btn btn-sm btn-magenta btn-outlier-analyze" data-vid="' + esc(o.videoId) + '">💬 댓글</button>' +
-              '<button class="btn btn-sm btn-cyan btn-outlier-script" data-vid="' + esc(o.videoId) + '">📜 대본</button>' +
+            (crossBadge ? '<div>' + crossBadge + '</div>' : '') +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+              (o.commentReportFile ?
+                '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;white-space:nowrap" data-file="' + esc(o.commentReportFile) + '" title="이미 분석된 리포트가 있습니다 · 클릭하면 바로 봅니다">📄 댓글 리포트</button>' +
+                '<button class="btn btn-sm btn-outlier-analyze" data-vid="' + esc(o.videoId) + '" title="댓글을 새로 다시 분석" style="padding:6px 8px">↻</button>' :
+                '<button class="btn btn-sm btn-magenta btn-outlier-analyze" style="white-space:nowrap" data-vid="' + esc(o.videoId) + '">💬 댓글</button>') +
+              (o.scriptReportFile ?
+                '<button class="btn btn-sm btn-outlier-view-script" style="background:#132032;color:#7dd3fc;border:1px solid #234361;white-space:nowrap" data-file="' + esc(o.scriptReportFile) + '" title="이미 분석된 리포트가 있습니다 · 클릭하면 바로 봅니다">📄 대본 리포트</button>' +
+                '<button class="btn btn-sm btn-outlier-script" data-vid="' + esc(o.videoId) + '" title="대본을 새로 다시 분석" style="padding:6px 8px">↻</button>' :
+                '<button class="btn btn-sm btn-cyan btn-outlier-script" style="white-space:nowrap" data-vid="' + esc(o.videoId) + '">📜 대본</button>') +
             '</div>' +
           '</div>';
         }).join('') +
@@ -3151,6 +3218,25 @@ function bindMarketDemandEvents() {
   if (btnRun) {
     btnRun.onclick = async () => {
       const kw = document.getElementById('input-demand-kw').value.trim();
+      if (!kw) return alert('키워드를 입력하세요.');
+      // 띄어쓰기만 다르게 입력해도 같은 키워드로 인식해야 한다(2026-09-07, 사용자 지적) —
+      // 공백을 전부 제거하고 비교한다. 실제 저장은 입력한 그대로 키(map key)가 되므로, 이 검사는
+      // "신규인 줄 알았는데 사실 있었다"를 막는 화면 안내일 뿐 저장 방식 자체는 안 건드린다.
+      const normalizeKw = (s) => String(s || '').replace(/\s+/g, '');
+      const existingIdx = (gMarketDemand?.byKeyword || []).findIndex((k) => normalizeKw(k.keyword) === normalizeKw(kw));
+      if (existingIdx !== -1) {
+        const existing = gMarketDemand.byKeyword[existingIdx];
+        const lastAnalyzed = existing.analyzedAt ? existing.analyzedAt.slice(0, 10) : '알 수 없음(예전 데이터)';
+        const proceed = confirm(
+          '이미 분석된 키워드입니다: "' + existing.keyword + '" (마지막 분석: ' + lastAnalyzed + '). ' +
+          '다시 분석해서 최신 데이터로 덮어쓸까요? (취소하면 기존 카드로 이동합니다)'
+        );
+        if (!proceed) {
+          const el = document.getElementById('demand-card-' + existingIdx);
+          if (el && el.scrollIntoView) el.scrollIntoView({behavior: 'smooth', block: 'center'});
+          return;
+        }
+      }
       btnRun.disabled = true;
       btnRun.textContent = '분석 진행 중...';
       try {
@@ -3448,6 +3534,109 @@ function renderBrandLinterResults(r) {
 
   html += '</div>';
   return html;
+}
+
+// 댓글/대본 분석이 끝난 직후 그 결과로 갱신되는 두 화면(시장 수요 레이더 / 데이터 자산)의 캐시를
+// 조용히 새로고침한다 — 분석은 보통 시장 수요 카드에서 시작해서 아웃라이어 랩 탭으로 넘어와
+// 진행되는데, 분석 전에 불러온 gMarketDemand/gKnowledgeDb는 새로 생긴 리포트 파일과
+// audience-dna.json 항목을 모르는 상태 그대로라 그 탭들로 돌아가도 안 바뀌는 문제가 있었다
+// (2026-09-07, 시장 수요 쪽은 사용자 지적으로 발견 — 데이터 자산도 gKnowledgeDb가 초기 로드
+// 때와 삭제할 때만 갱신되고 분석 후엔 안 갱신되는 같은 구조라 같이 고침). 지금 보이는 탭을
+// 다시 그리지는 않고 데이터만 갱신 — 다음에 그 탭으로 전환할 때 자동으로 최신 상태로 뜬다.
+async function refreshAnalysisDerivedDataSilently() {
+  try {
+    const [demandRes, kdbRes] = await Promise.all([
+      fetch('/api/market-demand'),
+      fetch('/api/knowledge-db'),
+    ]);
+    if (demandRes.ok) gMarketDemand = await demandRes.json();
+    if (kdbRes.ok) gKnowledgeDb = await kdbRes.json();
+  } catch (err) {
+    console.warn('Failed to refresh market demand / knowledge DB after analysis:', err);
+  }
+}
+
+async function runAiCommentAnalysis(payload) {
+  const statusBox = document.getElementById('ai-lab-status');
+  const statusText = document.getElementById('ai-lab-status-text');
+  const resultsContainer = document.getElementById('ai-results-container');
+
+  if (statusBox) statusBox.style.display = 'block';
+  if (statusText) statusText.textContent = '인기 댓글 100개 수집 및 Gemini AI 심층 분석 중입니다... (약 5~10초 소요)';
+  if (resultsContainer) resultsContainer.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/insights/analyze', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || '분석 중 오류가 발생했습니다.');
+    if (statusBox) statusBox.style.display = 'none';
+    if (resultsContainer) {
+      resultsContainer.style.display = 'block';
+      resultsContainer.innerHTML = data.results?.map(r => renderSingleAiReportCard(r)).join('') || '<div class="card-subtext">분석 결과가 없습니다.</div>';
+    }
+    loadSavedReportsList();
+    refreshAnalysisDerivedDataSilently();
+    showToast('AI 댓글 분석이 완료되었습니다!');
+  } catch (err) {
+    if (statusBox) statusBox.style.display = 'block';
+    if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
+  }
+}
+
+async function runScriptAnalysis(targetUrl) {
+  if (!targetUrl) return alert('유튜브 URL 또는 영상 ID를 입력하세요.');
+  const statusBox = document.getElementById('ai-lab-status');
+  const statusText = document.getElementById('ai-lab-status-text');
+  const resultsContainer = document.getElementById('ai-results-container');
+  const urlInput = document.getElementById('input-script-url');
+  if (urlInput) urlInput.value = targetUrl;
+
+  if (statusBox) statusBox.style.display = 'block';
+  if (statusText) statusText.textContent = 'YouTube 자막을 1-Click 추출하고 Gemini AI로 대본 구조를 역설계 중입니다... (약 5~10초 소요)';
+  if (resultsContainer) resultsContainer.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/scripts/analyze', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({url: targetUrl})
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || '대본 분석에 실패했습니다.');
+    if (statusBox) statusBox.style.display = 'none';
+    if (resultsContainer) {
+      resultsContainer.style.display = 'block';
+      resultsContainer.innerHTML = renderSingleScriptReportCard(data.result);
+    }
+    loadSavedScriptReportsList();
+    refreshAnalysisDerivedDataSilently();
+    showToast('🎉 경쟁사 대본 역설계 및 맞춤 대본 생성이 완료되었습니다!');
+  } catch (err) {
+    if (statusBox) statusBox.style.display = 'block';
+    if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
+  }
+}
+
+function triggerScriptAnalysis(vidOrUrl) {
+  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
+  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
+  gAiLabSubTab = 'scripts';
+  switchTab('tab-outlier');
+  runScriptAnalysis(fullUrl);
+}
+
+function triggerCommentAnalysis(vidOrUrl) {
+  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
+  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
+  gAiLabSubTab = 'comments';
+  switchTab('tab-outlier');
+  const urlInput = document.getElementById('input-ai-url');
+  if (urlInput) urlInput.value = fullUrl;
+  runAiCommentAnalysis({url: fullUrl});
 }
 
 function bindOutlierLabEvents() {
@@ -3930,7 +4119,7 @@ function renderEpisodesTab() {
     const isCandidateThumb = !long.videoId && !!long.thumbnailCandidates?.[0];
     const statusText = ep.tracks?.longform?.statusLabel || ep.tracks?.longform?.status || 'READY';
 
-    html += '<div class="bento-card col-6">' +
+    html += '<div class="bento-card col-3">' +
       (thumbUrl ? '<div style="position:relative;margin-bottom:14px">' +
         '<img class="thumb-img" src="' + esc(thumbUrl) + '" alt="">' +
         (isCandidateThumb ? '<span style="position:absolute;top:8px;left:8px;background:rgba(5,7,12,0.85);color:var(--text-bright);font-size:11px;padding:3px 8px;border-radius:6px">시안 후보</span>' : '') +
@@ -4235,7 +4424,6 @@ function renderStudioTab() {
           '<div class="card-subtext">스튜디오에서 내보낸 노출수·CTR 데이터를 자동 감지하여 채널 영상과 매칭·보존합니다.</div>' +
         '</div>' +
         '<div style="display:flex;gap:10px;align-items:center">' +
-          '<button class="btn btn-magenta btn-sm btn-open-rpa-modal" style="font-weight:800;">⚡ Studio 실측 데이터 가져오기</button>' +
           '<button class="btn btn-cyan btn-sm" id="btn-studio-rescan">↻ 수동 재스캔</button>' +
         '</div>' +
       '</div>' +
@@ -4300,10 +4488,6 @@ function bindStudioEvents() {
       renderCurrentTab();
     };
   });
-
-  document.querySelectorAll('.btn-open-rpa-modal').forEach(btn => {
-    btn.onclick = () => openStudioRpaModal();
-  });
 }
 
 /* TAB: CTR VS RETENTION 4-QUADRANT MATRIX & ACTION HUB */
@@ -4332,9 +4516,16 @@ function computeMatrixDataset() {
 
     // 3. Format Validation (Duration & Role Check)
     const durationSec = Number(v.durationSeconds || perf.durationSeconds || 0);
-    const isShort = (v.format === 'SHORTS') || 
-                    (durationSec > 0 && durationSec <= 60) || 
-                    ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role);
+    // 60초 컷오프만 쓰면 새는 사례가 있다 — 유튜브가 쇼츠 자격 길이를 최대 3분까지 넓혀서,
+    // 제작자가 "#쇼츠"를 붙인 진짜 쇼츠인데 실제 길이가 60초를 넘는 영상이 실제로 있다
+    // (2026-09-07, 4사분면 매트릭스 "롱폼" 필터에 쇼츠가 섞여 나온다는 지적으로 발견 — 86초짜리
+    // "#쇼츠" 영상 2건이 durationSec<=60에 안 걸려서 LONGFORM으로 잘못 분류되고 있었음).
+    // 제목에 명시적으로 쇼츠 표시가 있으면 길이와 무관하게 그걸 우선한다.
+    const titleHasShortsTag = /#(shorts|쇼츠)/i.test(v.title || '');
+    const isShort = (v.format === 'SHORTS') ||
+                    (durationSec > 0 && durationSec <= 60) ||
+                    ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role) ||
+                    titleHasShortsTag;
 
     const views = Number(perf.views || v.statistics?.viewCount || 0);
     const subscribersGained = Number(perf.subscribersGained || 0);
@@ -4633,7 +4824,6 @@ function renderMatrixTab() {
           '<p style="color:var(--text-normal); margin-top:4px; font-size:13px">가짜 추정치를 전면 배제하고, <b>Studio CSV 실측 CTR</b>과 <b>유효 표본(조회수 10회 이상)</b>이 확보된 영상만 엄격하게 사분면에 배치합니다.</p>' +
         '</div>' +
         '<div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">' +
-          '<button class="btn btn-magenta btn-sm btn-open-rpa-modal" style="font-weight:800; font-size:12px; padding:6px 14px;">⚡ Studio 실측 데이터 가져오기</button>' +
           '<span class="badge badge-pass" style="font-size:12px; padding:6px 12px;">🟢 실측 검증 완료 ' + verifiedList.length + '개</span>' +
           (warmupList.length > 0 ? '<span class="badge" style="border-color:var(--accent-amber); color:var(--accent-amber); font-size:12px; padding:6px 12px; background:rgba(255,183,3,0.1);">⏳ 48H 집계중 ' + warmupList.length + '개</span>' : '') +
           (pendingStudioList.length > 0 ? '<span class="badge" style="border-color:var(--accent-violet); color:var(--accent-violet); font-size:12px; padding:6px 12px;">📁 Studio CSV 대기 ' + pendingStudioList.length + '개</span>' : '') +
@@ -4793,10 +4983,6 @@ function renderMatrixTab() {
 
 function bindMatrixEvents() {
   const allItems = computeMatrixDataset();
-
-  document.querySelectorAll('.btn-open-rpa-modal').forEach(btn => {
-    btn.onclick = () => openStudioRpaModal();
-  });
 
   // 1. Format Filter Buttons
   document.querySelectorAll('.btn-matrix-format').forEach(btn => {
@@ -6736,6 +6922,14 @@ function renderKnowledgeDbTab() {
   const dna = gKnowledgeDb?.audienceDna?.entries || [];
   const patterns = gKnowledgeDb?.successPatterns?.entries || [];
   const typeLabel = {painPoint: '😣 고통점', question: '❓ 질문', vocabulary: '🗣️ 어휘'};
+  // 어느 채널의 어느 분석(댓글 VoC vs 경쟁사 대본 역설계)에서 나온 항목인지 한 리스트에 섞여
+  // 보여서 구분이 안 됐다(2026-09-07, 사용자 지적). upsertAudienceDna가 이미 sources[].sourceType에
+  // 'outlierComment'/'competitorScript'를 기록해 두고 있었으므로, 그 값으로 배지와 출처 필터를 만든다.
+  const sourceLabel = {outlierComment: '💬 댓글', competitorScript: '📜 대본'};
+  const entrySourceTypes = (d) => [...new Set((d.sources || []).map((s) => s.sourceType).filter(Boolean))];
+  const dnaByComment = dna.filter((d) => entrySourceTypes(d).includes('outlierComment'));
+  const dnaByScript = dna.filter((d) => entrySourceTypes(d).includes('competitorScript'));
+  const filteredDna = gKdbSourceFilter === 'ALL' ? dna : dna.filter((d) => entrySourceTypes(d).includes(gKdbSourceFilter));
 
   let html = '<div class="bento-grid">' +
     '<div class="bento-card col-12">' +
@@ -6766,12 +6960,23 @@ function renderKnowledgeDbTab() {
 
   html += '<div class="bento-card col-12">' +
     '<div class="card-header"><span class="card-title" style="color:var(--accent-amber)">🎯 시청자 DNA (audience-dna.json) · ' + dna.length + '건</span></div>' +
+    (dna.length === 0 ? '' :
+      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">' +
+        '<span style="font-size:11px;font-weight:700;color:var(--text-muted)">출처 필터:</span>' +
+        '<button class="tab-pill btn-kdb-source-filter' + (gKdbSourceFilter === 'ALL' ? ' active' : '') + '" data-source="ALL">전체 (' + dna.length + ')</button>' +
+        '<button class="tab-pill btn-kdb-source-filter' + (gKdbSourceFilter === 'outlierComment' ? ' active' : '') + '" data-source="outlierComment">💬 댓글 분석 (' + dnaByComment.length + ')</button>' +
+        '<button class="tab-pill btn-kdb-source-filter' + (gKdbSourceFilter === 'competitorScript' ? ' active' : '') + '" data-source="competitorScript">📜 대본 분석 (' + dnaByScript.length + ')</button>' +
+      '</div>'
+    ) +
     (dna.length === 0
       ? '<p class="card-subtext">아직 없습니다. Outlier Lab 탭에서 댓글 분석 또는 대본 역설계를 실행하면 여기 쌓입니다.</p>'
-      : dna.map((d) => (
+      : filteredDna.length === 0
+      ? '<p class="card-subtext">이 출처로는 아직 쌓인 항목이 없습니다.</p>'
+      : filteredDna.map((d) => (
         '<div class="kdb-row" style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;gap:10px;align-items:center">' +
           '<div style="min-width:0;display:flex;gap:10px;align-items:center">' +
             '<span class="badge badge-hold" style="flex-shrink:0">' + (typeLabel[d.type] || d.type) + '</span>' +
+            entrySourceTypes(d).map((st) => '<span class="badge" style="flex-shrink:0;font-size:10px;border-color:var(--accent-violet);color:var(--accent-violet)">' + (sourceLabel[st] || st) + '</span>').join('') +
             '<span style="font-size:13px;color:var(--text-normal);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(d.text) + '</span>' +
             '<span class="card-subtext" style="flex-shrink:0">' + (d.occurrences || 1) + '회 · ' + (d.sources?.length || 0) + '개 영상</span>' +
           '</div>' +
@@ -6785,6 +6990,13 @@ function renderKnowledgeDbTab() {
 }
 
 function bindKnowledgeDbEvents() {
+  document.querySelectorAll('.btn-kdb-source-filter').forEach((btn) => {
+    btn.onclick = () => {
+      gKdbSourceFilter = btn.dataset.source;
+      renderCurrentTab();
+    };
+  });
+
   document.querySelectorAll('.btn-kdb-delete').forEach((btn) => {
     btn.onclick = async () => {
       if (!confirm('이 항목을 영구 삭제할까요?')) return;
@@ -6862,12 +7074,21 @@ function renderIdeaBoardTab() {
     if (gIdeaBoardCandidates.summaryNote) {
       html += '<div class="bento-card col-12" style="font-size:12px;color:var(--text-muted)">📋 ' + esc(gIdeaBoardCandidates.summaryNote) + '</div>';
     }
+    // 후보 목록은 생성된 시점의 스냅샷이라(서버/localStorage에 캐시됨), 생성 이후 실제로 제작이
+    // 끝나 idea-board-history.json에 새로 기록된 소재와 겹쳐도 저절로 안 걸러진다 — 그래서
+    // "이미 만든 소재" 배너에도 있고 후보 카드로도 여전히 뜨는 모순이 생겼다(2026-09-07, 사용자
+    // 지적). 새로 생성할 때만 걸러지는 프롬프트 단계와 별개로, 렌더할 때마다 매번 최신
+    // gIdeaBoardHistory와 대조해서 이미 제작된 후보는 선택 못 하게 표시한다.
+    const normalizeTopic = (s) => String(s || '').trim();
     candidates.forEach((c) => {
       const isSelected = !!(gIdeaBoardSelected && gIdeaBoardSelected.rank === c.rank && gIdeaBoardSelected.topic === c.topic);
-      html += '<div class="bento-card col-6" style="border:' + (isSelected ? '2px solid var(--accent-emerald)' : '1px solid var(--border-subtle)') + '">' +
+      const producedMatch = gIdeaBoardHistory.find((h) => normalizeTopic(h.topic) === normalizeTopic(c.topic));
+      html += '<div class="bento-card col-3" style="border:' + (isSelected ? '2px solid var(--accent-emerald)' : '1px solid var(--border-subtle)') + (producedMatch ? ';opacity:0.6' : '') + '">' +
         '<div class="card-header">' +
           '<span style="font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text-bright)">#' + esc(c.rank) + ' ' + esc(c.topic || '') + '</span>' +
-          '<span class="badge badge-pass">점수 ' + (c.score || 0) + '</span>' +
+          (producedMatch ?
+            '<span class="badge badge-strong-pass" title="' + esc(producedMatch.episodeLabel || '') + (producedMatch.status ? ' · ' + esc(producedMatch.status) : '') + '">✅ 이미 제작됨</span>' :
+            '<span class="badge badge-pass">점수 ' + (c.score || 0) + '</span>') +
         '</div>' +
         '<div style="font-size:13px;color:var(--accent-amber);margin:8px 0">🎣 ' + esc(c.angleOrHook || '') + '</div>' +
         '<div style="font-size:12px;color:var(--text-normal);margin-bottom:10px">' + esc(c.rationale || '') + '</div>' +
@@ -6877,7 +7098,9 @@ function renderIdeaBoardTab() {
           '<div style="margin-bottom:10px">' + c.dataSourceRefs.map((r) => '<span class="tag-chip" style="font-size:10px">' + esc(srcLabel[r.source] || r.source) + ': ' + esc(r.detail || '') + '</span>').join('') + '</div>' : '') +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
           '<span class="tag-chip">' + (c.suggestedFormat === 'SHORTS' ? '📱 쇼츠' : '📺 롱폼') + '</span>' +
-          '<button class="btn btn-sm ' + (isSelected ? 'btn-cyan' : 'btn-outline') + ' btn-idea-board-pick" data-rank="' + esc(c.rank) + '">' + (isSelected ? '✅ 선택됨' : '이 주제로 진행 →') + '</button>' +
+          (producedMatch ?
+            '<span class="badge badge-hold" style="cursor:default" title="' + esc(producedMatch.episodeLabel || '') + '(으)로 이미 제작됨 — 선택 불가">🔒 이미 제작됨</span>' :
+            '<button class="btn btn-sm ' + (isSelected ? 'btn-cyan' : 'btn-outline') + ' btn-idea-board-pick" data-rank="' + esc(c.rank) + '">' + (isSelected ? '✅ 선택됨' : '이 주제로 진행 →') + '</button>') +
         '</div>' +
       '</div>';
     });
@@ -7030,7 +7253,7 @@ document.getElementById('btn-sync-global').onclick = async () => {
     alert('동기화 실패: ' + err.message);
   } finally {
     btn.disabled = false;
-    btn.textContent = '↻ SYNC ANALYTICS';
+    btn.textContent = '↻ 데이터 동기화';
   }
 };
 
@@ -7069,6 +7292,43 @@ let memoryDashboardCache = null;
 let lastDashboardCacheTime = 0;
 let memoryMarketDemand = null;
 let lastMarketDemandTime = 0;
+
+// 시장 수요 레이더의 아웃라이어 카드에 "이미 분석함" 표시를 하기 위해, 저장된 리포트 파일명에서
+// videoId를 역추출해 인덱스를 만든다. 댓글/대본 리포트 둘 다 파일명이 `..._${videoId}.md`로
+// 끝나는 관례를 따른다(analyze-outlier-comments.mjs/analyze-competitor-script.mjs 공통).
+// 재분석 없이 같은 영상을 또 클릭했을 때 Gemini 호출과 audience-dna.json 중복 누적을 막기 위함
+// (2026-09-07, 사용자 지적으로 추가).
+async function buildOutlierReportFileIndex(dir) {
+  const byVideoId = new Map();
+  try {
+    if (existsSync(dir)) {
+      for (const file of await readdir(dir)) {
+        const m = file.match(/_([A-Za-z0-9_-]{11})\.md$/);
+        if (m) byVideoId.set(m[1], file);
+      }
+    }
+  } catch {}
+  return byVideoId;
+}
+
+async function annotateMarketDemandAnalysisStatus(marketDemand) {
+  if (!marketDemand?.byKeyword) return marketDemand;
+  const [commentFileByVid, scriptFileByVid] = await Promise.all([
+    buildOutlierReportFileIndex(outputInsightsDir),
+    buildOutlierReportFileIndex(outputScriptInsightsDir),
+  ]);
+  return {
+    ...marketDemand,
+    byKeyword: marketDemand.byKeyword.map((k) => ({
+      ...k,
+      topOutliers: (k.topOutliers || []).map((o) => ({
+        ...o,
+        commentReportFile: (o.videoId && commentFileByVid.get(o.videoId)) || null,
+        scriptReportFile: (o.videoId && scriptFileByVid.get(o.videoId)) || null,
+      })),
+    })),
+  };
+}
 
 async function getFullDashboardData(forceLiveSync = false) {
   if (forceLiveSync) {
@@ -7275,13 +7535,13 @@ const server = createServer(async (req, res) => {
     }
     if (url.pathname === '/api/market-demand') {
       if (memoryMarketDemand && (Date.now() - lastMarketDemandTime < 60_000)) {
-        return json(res, 200, memoryMarketDemand);
+        return json(res, 200, await annotateMarketDemandAnalysisStatus(memoryMarketDemand));
       }
       const marketDemand = await loadJson(marketDemandPath);
       if (!marketDemand) return json(res, 404, {error: 'market-demand.json 파일이 없습니다.'});
       memoryMarketDemand = marketDemand;
       lastMarketDemandTime = Date.now();
-      return json(res, 200, marketDemand);
+      return json(res, 200, await annotateMarketDemandAnalysisStatus(marketDemand));
     }
     if (url.pathname === '/api/market-demand/run' && req.method === 'POST') {
       const body = await readJsonBody(req);
@@ -7292,7 +7552,7 @@ const server = createServer(async (req, res) => {
         const updated = await loadJson(marketDemandPath);
         memoryMarketDemand = updated;
         lastMarketDemandTime = Date.now();
-        return json(res, 200, {ok: true, data: updated});
+        return json(res, 200, {ok: true, data: await annotateMarketDemandAnalysisStatus(updated)});
       } catch (err) {
         return json(res, 500, {error: `스크립트 실행 오류: ${err.message}`});
       }

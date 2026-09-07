@@ -2506,15 +2506,17 @@
       "category": "SEASON",
       "season": 1,
       "episode": 10,
-      "role": "B",
-      "source": "auto",
-      "reason": "같은 주에 업로드된 시즌 쇼츠"
+      "role": "A",
+      "source": "manual",
+      "updatedAt": "2026-09-07T05:23:49.962Z"
     },
     "nVrCk8IZFGA": {
-      "category": "OTHER",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "검토 필요"
+      "category": "SEASON",
+      "season": 1,
+      "episode": 10,
+      "role": "B",
+      "source": "manual",
+      "updatedAt": "2026-09-07T05:23:50.940Z"
     },
     "OApg8ePbVMA": {
       "category": "LEGACY",
@@ -2584,9 +2586,11 @@
     },
     "a2VrFQVjImI": {
       "category": "OTHER",
+      "season": null,
+      "episode": null,
       "role": "STANDALONE_LONG",
-      "source": "auto",
-      "reason": "검토 필요"
+      "source": "manual",
+      "updatedAt": "2026-09-07T05:23:26.057Z"
     }
   },
   "summary": {

@@ -58,9 +58,11 @@
       "url": "https://youtu.be/a2VrFQVjImI",
       "classification": {
         "category": "OTHER",
+        "season": null,
+        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "검토 필요"
+        "source": "manual",
+        "updatedAt": "2026-09-07T05:23:26.057Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -150,10 +152,12 @@
       },
       "url": "https://youtu.be/nVrCk8IZFGA",
       "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "검토 필요"
+        "category": "SEASON",
+        "season": 1,
+        "episode": 10,
+        "role": "B",
+        "source": "manual",
+        "updatedAt": "2026-09-07T05:23:50.940Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -199,9 +203,9 @@
         "category": "SEASON",
         "season": 1,
         "episode": 10,
-        "role": "B",
-        "source": "auto",
-        "reason": "같은 주에 업로드된 시즌 쇼츠"
+        "role": "A",
+        "source": "manual",
+        "updatedAt": "2026-09-07T05:23:49.962Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -2658,5 +2662,6 @@
       "itemCount": 13,
       "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
     }
-  ]
+  ],
+  "updatedAt": "2026-09-07T05:23:50.943Z"
 }

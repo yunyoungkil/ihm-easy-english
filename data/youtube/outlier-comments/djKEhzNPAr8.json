@@ -1,0 +1,893 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-09-07T07:27:04.716Z",
+  "video": {
+    "videoId": "djKEhzNPAr8",
+    "title": "한국인 98%는 모르는 언어 습득의 비밀",
+    "channelTitle": "외국어 줍는 남자",
+    "channelId": "UCEt5ejbLPJ0Omqd903vZUFg",
+    "publishedAt": "2022-09-09T16:19:21Z",
+    "viewCount": 1437423,
+    "likeCount": 26793,
+    "commentCount": 453,
+    "thumbnailUrl": "https://i.ytimg.com/vi/djKEhzNPAr8/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "painPoint": "영어 공부 자체가 고역인데 '재미있게 하라'는 원론적 조언에 부딪혀 생기는 극심한 현타와 피로감",
+        "evidence": "💬 \"재미있으면 장땡이지. 재미가 없으니 문제지\"(@18google18seki), 💬 \"이 방법이 어려운 이유는 대부분의 사람에게 외국어를 습득하려는 행위 그 자체가 재미없고, 스트레스라는거지\"(@hitorotom6549), 💬 \"재미가 없는데 어떡하냐고ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ\"(@potrela5467)처럼, 재미를 붙이지 못하는 본인을 자책하며 시작조차 못 하고 포기함."
+      },
+      {
+        "painPoint": "원어민의 체감 발화 속도와 뭉개짐을 귀가 따라가지 못해 생기는 청각적 패닉",
+        "evidence": "💬 \"실제 영어권 국가의 말하는 속도를 들어보면 저분 말하는 속도의 2~30배의 속도로 빠르게 말함 뭔소린지 인지조차 못함.....\"(@yunkim9320)처럼, 강의용 천천히 말하는 영어는 들리지만 실제 원어민들의 연음·축약 속도를 물리적으로 처리하지 못함."
+      },
+      {
+        "painPoint": "발음 규칙(철자와 소리의 불일치)을 배울수록 쌓이는 '예외'와 '묵음'에 대한 스트레스",
+        "evidence": "💬 \"딴건 몰라도 이건 하나 있음 예외가 튀어나왔을때 재미있어하는 놈은 와! 이런것도 있어? 재미없어하는 놈은 어... 이건또 뭐야?\"(@캡틴후크-h2v), 💬 \"학창시절땐 영어 묵음 너무싫었는데\"(@ttmg24)처럼, 규칙대로 안 읽히고 소리가 빠져버리는 철자들을 접할 때 학습 의욕이 꺾임."
+      },
+      {
+        "painPoint": "글자·단어는 외웠으나 소리 흉내(체화)로 넘어가지 못하는 '책상 영어'의 벽",
+        "evidence": "💬 \"가장 늦게 깨달은 것이 언어는 흉내라는 것이었음 아이가 처음에는 흉내를 내는거지 단어 외우고 발음 기호 보는게 아니잖음 깨달았을때는 이미 발음이 책으로 배웠어요 된 후 ㅠ\"(@jinli4835), 💬 \"단어공부라는 것에 너무 막혀있어서 줄줄히 포기하는 거임\"(@aaaa-o3c2f)처럼, 뇌로만 암기하고 입술 근육으로 카피하지 못해 소통 불능에 빠짐."
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "그래서 '내가 좋아하는 방식'으로 영어를 시작하려면 기초 발음도 모르는 상태에서 당장 뭐부터 틀어놓고 따라 해야 하나요?",
+        "context": "💬 \"그래서 그게 뭔데요 .. 내가 좋아하는 방법이이이이!!!\"(@SH-fk1jk), 💬 \"미리 단어 문법 한번 공부해놓고 좋아하는방법으로 공부하면 굉장히 가속도가 붙음...\"(@shibuyasky12345)처럼, 막상 취미와 결합하려 해도 왕초보가 당장 실행할 구체적 루틴 가이드를 갈망함."
+      },
+      {
+        "question": "원어민들은 왜 단어를 사전 속 발음보다 20~30배 빠르게 말하는 것처럼 뭉개서 들리나요?",
+        "context": "💬 \"저분 말하는 속도의 2~30배의 속도로 빠르게 말함 뭔소린지 인지조차 못함\"(@yunkim9320)이라는 의문처럼, 원어민이 말을 빨리 하는 게 아니라 소리를 깎아내는 '소리 생략(호흡 지름길)' 규칙을 궁금해함."
+      },
+      {
+        "question": "영어 철자에 소리도 안 나는 '묵음(소리 없는 글자)'은 도대체 왜 자꾸 끼어있는 건가요?",
+        "context": "💬 \"학창시절땐 영어 묵음 너무싫었는데\"(@ttmg24)처럼, doubt의 b, knee의 k, talk의 l 같이 입 밖으로 내지 않을 글자를 왜 굳이 써서 헷갈리게 하는지 원리를 알고 싶어 함."
+      },
+      {
+        "question": "일상적인 생존 단어는 대충 통하는데, 왜 원어민 영상만 틀면 턱 막히는 한계가 올까요?",
+        "context": "💬 \"한계와 벽을 깨기가 넘 힘드네요 .... 이게 일상 생활의 소통은 되는데 그 이상으로 가기가...\"(@goleadorkim8215)처럼, 초급 단계에서 중급 리스닝으로 넘어갈 때 소리가 왜 뭉텅이로 씹히는지 그 벽을 깨는 지름길을 묻고 있음."
+      }
+    ],
+    "audienceVocabulary": [
+      "책으로 배웠어요 (입 근육이 굳은 상태)",
+      "흉내내기 (발음기호 대신 소리를 그대로 카피하는 것)",
+      "뇌빼고 듣기 (스트레스 없이 배경음처럼 흘려듣는 행위)",
+      "소코마데다 현상 (덕질 콘텐츠에서 특정 억양과 통문장 소리가 박혀 튀어나오는 것)",
+      "20~30배 빠른 속도 (원어민의 연음/탈락으로 인해 체감상 너무 빠르게 느껴지는 현상)",
+      "의무감/현타 (공부처럼 느껴져 입을 닫아버리게 되는 심리적 압박)"
+    ],
+    "whatWorked": [
+      {
+        "point": "‘공부’가 아닌 ‘갓난아기의 흉내내기’ 관점으로 뇌의 프레임을 전환해 준 논리",
+        "reason": "문법과 단어 암기라는 시험용 틀을 깨고, 아이가 엄마 소리를 듣고 근육을 비틀어 따라 하듯 접근해야 한다는 설명이 학습자들의 죄책감을 덜어주고 본능적 모방 본능을 자극함."
+      },
+      {
+        "point": "‘예외’를 외워야 할 짐이 아니라 ‘새로운 발견’이라는 멘탈 가이드 제시",
+        "reason": "소리 규칙의 예외나 묵음이 나올 때마다 좌절하던 시청자들에게, '원어민 입술도 편하려고 지름길을 만든 것'이라는 관점을 심어주어 호기심으로 전환시킴."
+      },
+      {
+        "point": "‘완벽한 암기’에 집착하지 않고 좋아하는 콘텐츠를 도구로 삼으라는 현실적 위로",
+        "reason": "단어장을 덮고 미드 한두 문장이라도 내가 꽂히는 대사 하나만 건지는 게 진짜 습득이라는 메시지가 공부 스트레스를 극적으로 낮춰줌."
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "영어는 외우는 게 아닙니다: 원어민이 말을 30배 빠르게 하는 진짜 이유 (소리 지름길)",
+        "영어 단어 외우지 마세요! '입술 흉내' 딱 3번이면 평생 기억되는 소리 원리",
+        "소리도 안 낼 거면서 왜 썼을까? 영어 '묵음'이 생겨난 게으른 혀의 비밀"
+      ],
+      "hookThreeSeconds": "\"원어민들이 우리보다 말을 30배 빨리 하는 게 아닙니다. 혀가 게을러서 소리를 꿀꺽 삼켜버렸을 뿐이에요.\"",
+      "shortsTrackAIdea": {
+        "concept": "원어민이 빠르게 말할 때 모음과 자음을 삼켜버리는 '게으른 혀의 소리 생략' 원리 해부 (Track A - 원리 설명형)",
+        "hookLine": "\"미드 보면 래퍼처럼 빠르게 들리죠? 혀가 일을 안 해서 소리를 깎아 먹은 지름길을 보여드릴게요.\""
+      },
+      "shortsTrackBIdea": {
+        "concept": "단어장 100개 외우고도 한마디 못 하는 사람 vs 좋아하는 대사 1개 뻔뻔하게 흉내 낸 사람의 1년 뒤 결과 비교 (Track B - 상황극/공감형)",
+        "hookLine": "\"영어 시험 100점 맞은 김 대리는 왜 외국인 앞에서 얼어붙고, 넷플릭스만 보던 박 대리는 입이 터졌을까요?\""
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgxMTI0Ma_tePdEDwzd4AaABAg",
+      "text": "딴건 몰라도 이건 하나 있음\n예외가 튀어나왔을때\n재미있어하는 놈은 와! 이런것도 있어?\n재미없어하는 놈은 어... 이건또 뭐야?",
+      "author": "@캡틴후크-h2v",
+      "likeCount": 1168,
+      "publishedAt": "2023-03-11T14:16:15Z",
+      "replyCount": 13
+    },
+    {
+      "commentId": "Ugzy84uiwQMQo9Qzl4B4AaABAg",
+      "text": "갓태어난 애기때 언어 습득이 빠르단걸 생각해보면 어느정도 맞는말인듯. 언어습득 외에도 공부도 재밌을때 집중도가 오르듯이",
+      "author": "@kongzui22",
+      "likeCount": 1091,
+      "publishedAt": "2022-09-10T19:57:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw3QjoY-p1uuwWwSh54AaABAg",
+      "text": "이게 어느 언어든 초급 때는 재미있다 하고 공부하는데 중급 이상으로 가면 점점 어려워서 멘탈 잡으면서 해야됨.",
+      "author": "@금강불괴만근추",
+      "likeCount": 1164,
+      "publishedAt": "2024-03-16T07:25:31Z",
+      "replyCount": 19
+    },
+    {
+      "commentId": "UgwAD1odgLJhhAPZuh14AaABAg",
+      "text": "그래도 애니 좋아하는 오타쿠들은\n\"우체국은 은행 맞은편에 있습니다.\"는 못해도 \n\"동료는 내가 지키겠어\" \"전력으로 와라\" \"넌 내가 쓰러트린다\" 는 술술나옴ㅋㅋㅋ",
+      "author": "@oatg7158",
+      "likeCount": 989,
+      "publishedAt": "2023-12-16T12:48:39Z",
+      "replyCount": 29
+    },
+    {
+      "commentId": "UgxSKpLwJND0pe47oLd4AaABAg",
+      "text": "20년차 영어선생입니다. 이말이 정답입니다. 최고의 지름길은 없습니다.자기가 좋아하는 것을 꾸준히 하면 됩니다.",
+      "author": "@journeypark0213",
+      "likeCount": 56,
+      "publishedAt": "2025-04-15T03:28:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxoTxOKQaKrf6PCrnV4AaABAg",
+      "text": "진짜 ㅈㄴ 맞는말임 나도 학교에서 공부는 개 ㅈ같이 못하고 영어시간에 잠쳐자고 딴짓했는데 게임하면서 번역안된거 걍 읽으면서 하다보니 자연스레 익혀지더라 그러다보니 외국인들이랑 대화는문제없는수준은 됨",
+      "author": "@lIIlIlllIIIll",
+      "likeCount": 568,
+      "publishedAt": "2022-09-10T19:58:28Z",
+      "replyCount": 18
+    },
+    {
+      "commentId": "Ugz7ryFk7KsMKVjbXo94AaABAg",
+      "text": "어떤 일이든 끝까지 하는게 중요한 겁니다. 공부도 연애도 돈 버는 것도 인생을 사는것도요. 우리는 중간에 되네 안되네 하며 쉽게 포기해버리기에 뭐하나 제대로 이룬게 없는겁니다.",
+      "author": "@박정민-t5l",
+      "likeCount": 563,
+      "publishedAt": "2024-03-02T13:08:31Z",
+      "replyCount": 14
+    },
+    {
+      "commentId": "UgzlN28n7ig2Kg7SWI54AaABAg",
+      "text": "언어는 양임. 즐겁게 하면 당연 양이 증가하지",
+      "author": "@이진원-b9e",
+      "likeCount": 37,
+      "publishedAt": "2024-08-12T02:27:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz1Wn0cwW7IqKSNlxN4AaABAg",
+      "text": "이 방법이 어려운 이유는 대부분의 사람에게 외국어를 습득하려는 행위 그 자체가 재미없고, 스트레스라는거지. 그러니까 학습법 같은게 생기는거고",
+      "author": "@hitorotom6549",
+      "likeCount": 19,
+      "publishedAt": "2024-06-11T10:14:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzwD6YO1_ukBdYGON14AaABAg",
+      "text": "언어는 꾸준하게 반복하는게 습득의 키 인데, 사실 재미가 없으면 꾸준하게 반복하기가 여간 고통스러운게 아님. 막 상황이 어쩔수 없이 해야하면 하겠지만 나에게 재미있게 다가오는 뭔가를 찾아서 영어를 접목시키면 빠르고 덜 고통스럽게 습득가능. 처음보는 영화라도 재미가 없으면 끝까지 보는 자체가 고문이지만 재미있는 영화나 드라마 애니 그게 뭐든 본인에게 재미있으면 몇번도 보는게 가능하고 본인이 또 찾아서 다시 봄",
+      "author": "@UP2U_84",
+      "likeCount": 125,
+      "publishedAt": "2023-08-25T19:06:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwHfUfN2wVAiClc-nJ4AaABAg",
+      "text": "드디어 비밀을 알아버렸군. 마음의 준비가 끝나는대로 공부를 시작하겠어.",
+      "author": "@YoutubeKorea_No.1",
+      "likeCount": 21,
+      "publishedAt": "2024-07-17T23:08:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy4k8qWT_QQfDssjs54AaABAg",
+      "text": "20개국어는 진짜 crazy네 언어공부를 너무 좋아하고 인생에서 거기에 엄청 많은 시간을 할애해야만 하는 ㄷㄷㄷ",
+      "author": "@흙수저에서부자의길",
+      "likeCount": 352,
+      "publishedAt": "2023-10-21T13:39:50Z",
+      "replyCount": 21
+    },
+    {
+      "commentId": "UgxQ6SRBsiYUKPkK2w14AaABAg",
+      "text": "이정도면 천기누설이네요 이방법을 알고부터 20여개국어를 배울뻔 했습니다 좋은영상 감사합니다!!",
+      "author": "@집으로-_-a",
+      "likeCount": 185,
+      "publishedAt": "2023-09-04T11:17:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgypKmMWuuZrS1BN3pV4AaABAg",
+      "text": "가장 늦게 깨달은 것이 언어는 흉내라는 것이었음 아이가 처음에는 흉내를 내는거지 단어 외우고 발음 기호 보는게 아니잖음 깨달았을때는 이미 발음이 책으로 배웠어요 된 후 ㅠ",
+      "author": "@jinli4835",
+      "likeCount": 92,
+      "publishedAt": "2024-05-31T07:25:08Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgwwstXT0TxmSAgYHId4AaABAg",
+      "text": "고딩때 쉬는시간이면 영어사전 뒤적거리며 아무 단어나 찾아 보는게 취미, 등하교 버스에선 이런저런 간단 상황 상상하면서 머리속으로 영작해보고 나중에 사전이나 책 찾아봄. 호주 어학연수(1년)땐 등하교길에 라디오 듣고, 누가 버린 고물 티비 주워다 홈쇼핑 채널(계속 같은 얘기 반복하니까) 잘때도 틀어놓고 잠. 대학때 일본 애니 자막으로 미친듯이 그냥 봤었는데 호주학교 개학날 옆에 일본애들이 하는 말이 갑자기 다 들려서 일본어 할 줄 안다는 거 깨달음(?). 현재 프랑스 살며 영국 원전 프로젝트 일하고 있음.(원래 공돌이) 외국어 한두개 해보니 요령이 생긴건지 프랑스어 전혀 못 한 채로 왔다가 따로 학원 안다니고 평소에 듣는 걸로 배워서 1-2년 지나니 일상에 지장없는 정도.(DELF B2정도) 스페인어, 이탈리아어가 섹시해 보여서 요즘 독학해볼까 함. 그냥 언어 배우는게 그냥 막 재밌음.😅",
+      "author": "@파리아재",
+      "likeCount": 534,
+      "publishedAt": "2024-01-19T13:05:56Z",
+      "replyCount": 38
+    },
+    {
+      "commentId": "Ugwp6FmQ-p8onG_vZKR4AaABAg",
+      "text": "진짜 이거... 수능공부때 영어단어 외우기 너무싫었는데 수능끝나고 재미로 영단어 외우는게 너무 재밌음.. 그리고 너무 잘 외워짐 ㅠㅠ",
+      "author": "@식혜-d4f",
+      "likeCount": 69,
+      "publishedAt": "2023-11-19T07:15:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz3io2l2kgcvBABiJZ4AaABAg",
+      "text": "“주입식 , 단기적 목표“ 이것만 생각 하는 한국인 이기에 성장을 못할 수 밖에",
+      "author": "@김치마라와플찌개용고",
+      "likeCount": 8,
+      "publishedAt": "2024-11-22T21:43:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgweGvCNE6-KFAY7tD54AaABAg",
+      "text": "이게 맞음 고등학교때 제2외국어 일본어였는데 그땐 그렇게 싫고 안외워지고 성적도 별로 안좋았는데 2년 뒤에 일본 애니,드라마에 빠져서 보고 듣고 하니 일본어 공부하고 싶어지고 원어민처럼 말해보고 싶어서 독학으로 2급 취득함 언어는 억지로 해서는 잘 안느는 것 같음",
+      "author": "@gosktoen",
+      "likeCount": 18,
+      "publishedAt": "2024-03-28T14:44:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzBX9fLhEqoLEt8jK14AaABAg",
+      "text": "그래서 괜히 외국인이랑 연애하면 언어실력 빨리늘어난다는말이 있는게아님. 궁하고 절박하면 다 하게됨. 그게 언어임.",
+      "author": "@Jr.Samchi-Jorim",
+      "likeCount": 1,
+      "publishedAt": "2026-03-19T07:18:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz2nsNu63lJnIo3Cg14AaABAg",
+      "text": "언어 만큼은 주입식 공부가 아닌\n호기심이거나 생존이거나\n실전적이거나 \n영상에서 말하듯 재미나 흥미이거나.\n\n물론 환경과 문화권이 다르면 특정 노력도 필요하겠지만,\n우리가 모국어를 어떻게 습득했느냐를 생각해 보면 답은 그리 어려운 게 아닐지도",
+      "author": "@WisdomofHumble",
+      "likeCount": 30,
+      "publishedAt": "2023-10-11T08:42:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyUF1pDBGf49gi9Mu14AaABAg",
+      "text": "4개국어 하고 대학교에서도 언어 전공했는데\n내가 느낀 언어는 ‘소통’이 중요했음\n단순히 구사 것이 아닌 그 언어의 문화도 이해하면 더 훌륭하게 활용할 수 있고.",
+      "author": "@seeitfar",
+      "likeCount": 9,
+      "publishedAt": "2024-10-24T15:49:02Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy3g8__hs99laYkyXd4AaABAg",
+      "text": "그래서 그 나라 문화에 취미가 있어야 배워짐",
+      "author": "@qwzzzzz8554",
+      "likeCount": 3,
+      "publishedAt": "2024-03-29T04:50:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_etbbJEI7olj5hMR4AaABAg",
+      "text": "언어습득 전문가님께서 최대한 빠른시간내로 한국말로 부탁드려봅니다.",
+      "author": "@미키목사",
+      "likeCount": 5,
+      "publishedAt": "2024-09-05T16:58:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwc87uNgCl1pjYF5Rp4AaABAg",
+      "text": "재미있으면 장땡이지.\n\n재미가 없으니 문제지.",
+      "author": "@18google18seki",
+      "likeCount": 181,
+      "publishedAt": "2022-10-25T14:04:49Z",
+      "replyCount": 9
+    },
+    {
+      "commentId": "UgxSF2S6LEF73UDekCt4AaABAg",
+      "text": "너무 당연한 말이지만 실제로 하면 사람들이 즐기지를 못하고 단어공부라는 것에 너무 막혀있어서 줄줄히 포기하는 거임",
+      "author": "@aaaa-o3c2f",
+      "likeCount": 5,
+      "publishedAt": "2024-10-02T19:31:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyp08ONMg7x9ZnTPSd4AaABAg",
+      "text": "그렇구나..kpop 좋아서 한국어 배웠다랑 일맥상통인가",
+      "author": "@금보-m6l",
+      "likeCount": 3,
+      "publishedAt": "2024-05-01T01:54:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyCD6LSTJVcIXFJJ114AaABAg",
+      "text": "맞는말..외국에서 공부한 경험 없고 완전 영얼못일때도 쉬운 초급영어만 들은거 아니고 그냥 미드 틀어서 단어 한두개 들려도 듣고..했어요. 다 자기가 하다보면 자신만의 방법이 생기는듯",
+      "author": "@english_self_taught",
+      "likeCount": 8,
+      "publishedAt": "2024-07-17T17:03:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxAq9e1odnkBZJfdBd4AaABAg",
+      "text": "결국 수다떠는거 영화 드라마 에니메이션 잼있어서 보는거  외국인과 연애 친구만들기등등 을 거쳐 기초단계룰 거치면 빡센 공부과정 심화과정 높은 목표를 버티고 다져나가면 엄청난 상승효과를 누림",
+      "author": "@la7547",
+      "likeCount": 8,
+      "publishedAt": "2024-05-17T13:05:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxokAe_YIklmTmxNHJ4AaABAg",
+      "text": "한계와 벽을 깨기가 넘 힘드네요 .... 이게 일상 생활의 소통은 되는데 그 이상으로 가기가...",
+      "author": "@goleadorkim8215",
+      "likeCount": 1,
+      "publishedAt": "2026-01-07T18:12:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyhHnwuRQEbI7CW9Th4AaABAg",
+      "text": "한마디로 내가 관심 있는 외국어를\n꾸준히 할 수 있을 만한 거리를 찾아라 라는 뜻",
+      "author": "@You_Sir_Are_a_Fishh",
+      "likeCount": 5,
+      "publishedAt": "2024-05-12T05:11:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxwVA9SRRlMmB5_a3Z4AaABAg",
+      "text": "즐거움과 끈기가 중요하죠 😊",
+      "author": "@Angiekim7337",
+      "likeCount": 0,
+      "publishedAt": "2026-08-26T09:37:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxqhVsWcqc1Evn_QwV4AaABAg",
+      "text": "이거 ㄹㅇ인게 학교과학 개싫어했는데 내가 그냥 도서관에서 물리에 꽂혀서 하루종일 물리학만 보면서 도서관책 다읽고나니까 과학이 재밌어지더라",
+      "author": "@OwO-lltd",
+      "likeCount": 32,
+      "publishedAt": "2023-05-12T10:59:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzkN0Sh2jHyl6A7pVV4AaABAg",
+      "text": "생활이 되는게 가장 편한 방법임",
+      "author": "@dldeo0587",
+      "likeCount": 1,
+      "publishedAt": "2024-04-12T07:56:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxs3aRuCAO1Mp2YJuh4AaABAg",
+      "text": "1년전에 이거보고 걍 내방식대로 영어공부 꾸준히 해오고 있는데 신기하게 이영어가 들리기시작함 진짜신기하네 언어슥듭은 미지의 영역인듯 걍 매일하다보니 어느순간 조금씩 듣리고 말이 나오기 시작함",
+      "author": "@AriesP-e5i",
+      "likeCount": 1,
+      "publishedAt": "2025-07-02T14:29:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxeOwR08FkjvWqDbCh4AaABAg",
+      "text": "맞아 난 해외 밈 좋아해서 영어공부함",
+      "author": "@Royal44ischinese",
+      "likeCount": 5,
+      "publishedAt": "2023-12-19T15:44:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw9qMQtWnHV4QRYHnh4AaABAg",
+      "text": "저분이 말하는 속도 영알못인 나도 알아듣지만\n실제 영어권 국가의 말하는 속도를 들어보면\n저분 말하는 속도의 2~30배의 속도로 빠르게 말함\n뭔소린지 인지조차 못함.....",
+      "author": "@yunkim9320",
+      "likeCount": 10,
+      "publishedAt": "2023-11-24T15:14:57Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw0R_0H5-tMbJQQtlJ4AaABAg",
+      "text": "애니를 좋아해서 일본어로 잠시만요를 말 하려고 내뱉은 말\"소코마데다!!😎\"",
+      "author": "@sj1875",
+      "likeCount": 0,
+      "publishedAt": "2026-06-14T09:26:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxUl3yfuaDTNVzf_g94AaABAg",
+      "text": "관심을 갖고 꾸준히 하는게 중요하징\n다중언어를 하든 단기간에 높은성장을하든\n언어능력도 운동능력처럼 타고 나는거라\n사람마다 학습속도랑 방법이 다를수밖에없지\n꼭 특정인의 특정방법만 강요하는 사람말은 참고만할뿐 꾸준히 자신만의 방법을 찾는게 중요하죠",
+      "author": "@정채민-z1c",
+      "likeCount": 34,
+      "publishedAt": "2024-04-17T14:38:51Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgwZzWoCHrCHSuMNAId4AaABAg",
+      "text": "너무 정답\n내가 뭘좋아하는지를 구글검색하는 격",
+      "author": "@scharlie6447",
+      "likeCount": 0,
+      "publishedAt": "2026-09-02T23:20:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzXW1OahE5ntAYtMlp4AaABAg",
+      "text": "영어를 시험보기 위한 방법으로 눈으로 보고\n\n외운다면 평생 뒷동네산에 오르는 영어입니다.\n사람을 만나는 커뮤니케이션이 되도록 재미 있게. 공부하여 에베레스트산인 영어를 정복하세요.",
+      "author": "@stepano6371",
+      "likeCount": 44,
+      "publishedAt": "2023-05-25T07:45:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgykUIANocX-pOGcc814AaABAg",
+      "text": "타일러가 외국어는 배우는거라고 하더군요. 공부는 하나는 도구 일 뿐이고 내가 습득해야하는데 이분말씀처럼 내가 재밌어하는 방법을 찾아서 해야 중간에 포기를 안하겠죠..감사합니다.",
+      "author": "@J원-p7t",
+      "likeCount": 2,
+      "publishedAt": "2025-03-16T04:16:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwIjDoOYVVkeeDUtEV4AaABAg",
+      "text": "좀전에 acquisition이란 단어를 외웠었는데 저 분이 말해서 금방 외워짐",
+      "author": "@러뛰드",
+      "likeCount": 2,
+      "publishedAt": "2024-11-13T02:31:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzUnW_FETvhfZ6IfWd4AaABAg",
+      "text": "할줄 아는 언어 한국어 영어 배우고 있는 언어 독일어 일본어인데 아직도 너무 어려움..",
+      "author": "@bIlIlIlIlIlIlq",
+      "likeCount": 0,
+      "publishedAt": "2026-06-21T02:47:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzG1uhjr5xWukgQu754AaABAg",
+      "text": "이게 진짜 꾸준함의 힘이지\n재미가 없으면 꾸준하게 못하거든",
+      "author": "@배병진-v6x",
+      "likeCount": 1,
+      "publishedAt": "2024-07-07T13:52:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz6MXyu3Z_7pSN4x014AaABAg",
+      "text": "정말 공감된다. 진짜 맞는말",
+      "author": "@Smileeie",
+      "likeCount": 0,
+      "publishedAt": "2026-05-08T17:26:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxNtEHRviHAiq1ogHR4AaABAg",
+      "text": "네 맞습니다. 재미가 핵심 이죠 ~ (단어의신)",
+      "author": "@대치기억영어",
+      "likeCount": 6,
+      "publishedAt": "2023-10-23T20:04:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx2TDYxFWLPGTnDbyZ4AaABAg",
+      "text": "맞음 새로운 표현 나오면 이거 써 먹어야지. 친구보다 나는 이런것도 알게 되었네 이런 호기심 흥미 재미가 있어야 함. 뭐 이리 복잡해? 또 외워야 해? 짜증나 이러면 안 됨",
+      "author": "@사과먹는호랑이-u8q",
+      "likeCount": 0,
+      "publishedAt": "2026-06-26T06:16:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgybOwniS8lQkaxP6lp4AaABAg",
+      "text": "재미를 느낀다는 것 자체가 재능이 어느 정도 있다는 거겠지",
+      "author": "@LongAway201",
+      "likeCount": 1,
+      "publishedAt": "2024-04-16T11:42:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyui13twJ4Sx1xwUNB4AaABAg",
+      "text": "전 한국어 대학입학전형 논술공부까지 하고 영어는 직업잡고 클라이언트 대화하고 프레젠테이션 하는거 문제없는 수준이요. 일어 대충 알아듣고 소통하고 이제 스페인에 몇년 살 기회가 생겨서 스페인어 배우는데 아무것도 모르는데서 시작해서 그냥 너무너무 재미있어요. 일상 스트레스는 스페니쉬 공부하면서 풉니다.",
+      "author": "@GreenMonsterBite",
+      "likeCount": 5,
+      "publishedAt": "2023-12-19T10:57:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxCmXOPc89eb8cCISd4AaABAg",
+      "text": "너무너무 공감하고 갑니다!!",
+      "author": "@tangerine_english",
+      "likeCount": 0,
+      "publishedAt": "2026-07-05T02:24:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwgm7nReSWjSqkmywV4AaABAg",
+      "text": "모든 분야가 그럼 처음할땐 재밋음 근데 단계를 넘어갈땐 한계와 벽을 깨야하기때문에 지루해지고 힘들어짐 \n근데 명심할건 이걸 깨면 그때부터 또 재밌어진다는거임 그리고 이게 반복됨\n\n근데 이건 게임이든 골프든 어떤 분야든 마찬가지임 다만 게임이나 골프는 ‘잘할때는 재밌다’라는 개념이 은연 중에 확실히 박혀있는데 비해 공부는 아니라서 포기하는거임\n\n여기서 우리가 명심할건 이거임 \n공부로 단계를 뛰어넘었을때 더 많은 도파민이 쏟아짐",
+      "author": "@쵸니쵸니토파",
+      "likeCount": 1,
+      "publishedAt": "2025-07-25T23:00:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxwiT4xrLo1TsaDOdV4AaABAg",
+      "text": "언어 관련 습득은 아니지만, 관심이 있고 흥미로우면(재미) 스트레스 안받고 어느새 습득이 되어 있는 경험을 합니다",
+      "author": "@leunho._.",
+      "likeCount": 2,
+      "publishedAt": "2024-04-15T06:36:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwZzFDYnYZbslIzOAt4AaABAg",
+      "text": "영어랑 중국어 공부하는데 스티븐 카프만\n영상을 많이 봤죠. 특히\n영어같은 경우는 말하는 속도도 적당해서 뇌빼고 듣기\n연습할때 좋아요.",
+      "author": "@γειαείμαιοεπικεφαλήςτου",
+      "likeCount": 3,
+      "publishedAt": "2023-11-05T10:08:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy53sMSBDOcHbxdYPx4AaABAg",
+      "text": "너무 공감되는 쇼츠~~",
+      "author": "@justdoit-o2b",
+      "likeCount": 2,
+      "publishedAt": "2024-12-01T14:35:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxGEvtFyTuz46AucUR4AaABAg",
+      "text": "언어는 문화가 만들어낸 소산물",
+      "author": "@user-vn4hc123tl2b-harp",
+      "likeCount": 1,
+      "publishedAt": "2023-11-10T11:19:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxwoLCLJTEHyb118jB4AaABAg",
+      "text": "근데 적어도 일본어는 애니로 공부하면 안 됨",
+      "author": "@ae-kv8qn",
+      "likeCount": 2,
+      "publishedAt": "2024-03-08T07:26:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw3xescNB9loGudwWh4AaABAg",
+      "text": "어릴적 영어퀴즈 프로그램 틀어놓고 무작정 봄 나중엔 정답도 맞히고 중학교 올라가니 듣기평가 만점 공부가 아니라 흥미 때문에 봤는데 도움됨 국어와 영어 둘다 잘해야 도움되는 거 같아 국어사전 보고 놀기 여러모로 풍부해짐",
+      "author": "@yyy09876",
+      "likeCount": 1,
+      "publishedAt": "2024-04-05T05:36:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgydxWBkoa_V-N4pqAZ4AaABAg",
+      "text": "즐기는 사람  못이기죠",
+      "author": "@오영-t1y",
+      "likeCount": 2,
+      "publishedAt": "2023-11-24T14:59:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzIROQo10yCYFHf-vB4AaABAg",
+      "text": "좋아하는 방법으로 하라 > 100% 맞음\n하지만 단어공부 해야돼, 영어는 몰라도 일본어 이런거, 미리 단어 문법 한번 공부해놓고 좋아하는방법으로 공부하면 굉장히 가속도가 붙음, 완벽하게 외울필요 없어, 그저 공부했던게 쓰이는것 매체에서 딱 듣잖아?? 그게 머리속에 ㅈㄴ 잘박힘 미리 공부 안하면 효율이 겁나 떨어지고, 시간이 너무 오래걸림. 애초에 따로 공부하는 사람들도, 문법공부, 단어공부만 따로 딱딱 하면 자동으로 회화가 다될거라고 생각하는 사람은 아무도 없지 ㅋㅋ",
+      "author": "@shibuyasky12345",
+      "likeCount": 10,
+      "publishedAt": "2024-01-14T18:48:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxw9ru_iONxj6m5E3l4AaABAg",
+      "text": "하시는 모든 말씀이 인상적이에요. 정말 똑똑하신 게 이 영상 하나로 다 느껴집니다 앞으로는 조언해 주신 대로 무자막으로 영어 컨텐츠를 접해 보도록 할게요!!",
+      "author": "@YouDidaGreatJob",
+      "likeCount": 2,
+      "publishedAt": "2023-12-16T07:47:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwSkxI57xEVXxmrs054AaABAg",
+      "text": "검은사제들보고 라틴어 공부하고 싶어졌어요",
+      "author": "@권수정거울",
+      "likeCount": 2,
+      "publishedAt": "2023-12-15T10:39:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgythBF5hzZ7GpSmZ8N4AaABAg",
+      "text": "이 분 한국어도 했던 걸로 아는데",
+      "author": "@고전게임tv",
+      "likeCount": 1,
+      "publishedAt": "2023-09-16T06:26:02Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxUPw-He9xtKNRGszJ4AaABAg",
+      "text": "므찌다 ... 명강의 ... 힛>< 윽시",
+      "author": "@신슬기-m3u",
+      "likeCount": 1,
+      "publishedAt": "2024-09-26T01:59:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzOdk20Wd4vje3KLNJ4AaABAg",
+      "text": "링큐 개설자 스티브 카프만씨네요, 정말 이분 대단한 사람인데....",
+      "author": "@동양무술하는시인",
+      "likeCount": 1,
+      "publishedAt": "2024-03-09T09:17:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyxgJVKoc0cbhCiaxJ4AaABAg",
+      "text": "학창시절땐 영어  묵음 너무싫었는데\n\n항덕질하다보니까 관심갖고 나도 그 대화 이해하고 듣고싶은걸 너머 겸사 영어권 솔로여행  도전을 목표로 공부하게됨ㅋㅋㅋ 재밌으면 진짜 여련히 알아서 하는동물 ...",
+      "author": "@ttmg24",
+      "likeCount": 5,
+      "publishedAt": "2024-01-08T08:44:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyWQB4o0Ht6bqKFcxl4AaABAg",
+      "text": "언어 습득이 참 어렵네요",
+      "author": "@DevDiDic",
+      "likeCount": 0,
+      "publishedAt": "2025-01-20T07:16:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwcXs1a28natz0HZ3l4AaABAg",
+      "text": "결국에 motivation to learn another language이네요.",
+      "author": "@박정민-t5l",
+      "likeCount": 1,
+      "publishedAt": "2024-03-02T13:06:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwkyFR3wBCMXmwTNyJ4AaABAg",
+      "text": "I agree.",
+      "author": "@bewater5178",
+      "likeCount": 5,
+      "publishedAt": "2023-09-16T09:30:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy6wtAUgU7WPAmvVUR4AaABAg",
+      "text": "자막 안 보고~ㅋㅋㅋㅋ공감도  급상승",
+      "author": "@higher3070",
+      "likeCount": 0,
+      "publishedAt": "2024-07-05T03:05:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwDAsTpAjOcSBfxJFt4AaABAg",
+      "text": "맞아요\n나한테 맞는 내 스타일이 최고여",
+      "author": "@beaut_if_ul",
+      "likeCount": 0,
+      "publishedAt": "2024-04-20T13:51:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzPfEdKhQvaCUwTuRp4AaABAg",
+      "text": "Absolutely empathizing.",
+      "author": "@s.r2889",
+      "likeCount": 2,
+      "publishedAt": "2024-08-17T18:15:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzXMBVDjxGLMhnubjV4AaABAg",
+      "text": "그래서 그게 뭔데요 .. 내가 좋아하는 방법이이이이!!!",
+      "author": "@SH-fk1jk",
+      "likeCount": 0,
+      "publishedAt": "2023-11-11T09:33:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx188JBamuUwK09jgR4AaABAg",
+      "text": "I think strong motivation for language skills is all about. If you are fascinated in languages and have motivation, you can easily acquire your target language in any way",
+      "author": "@eahc8961",
+      "likeCount": 3,
+      "publishedAt": "2023-11-12T03:48:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx5O3oDn0dBczD6gjB4AaABAg",
+      "text": "To summarize, study english with something that motivtes you.",
+      "author": "@s.r2889",
+      "likeCount": 3,
+      "publishedAt": "2024-08-17T18:19:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw0ZwdbSBYi9oh9LSF4AaABAg",
+      "text": "이거 진짜 진리! 저 상대평가 시절 모의고사•수능 외국어(영어) 만년 1등급인데, 저는 영어공부 하는 게 전혀 힘들지 않고 너무 재밌었어요!",
+      "author": "@seungje_singing_fan",
+      "likeCount": 23,
+      "publishedAt": "2023-04-29T09:36:33Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw-4MwqTDtkB1dG_i94AaABAg",
+      "text": "정말좋아하고 즐기고 빠지는거만큼 이길수있는건 없는거같아요 일본어를 그정도로했어서 일본인들도 다들 제가 외국인인지모를정도였는데 근데 요즘 영어공부에서 현타...영어를 일본어정도 해야되는데 하긴싫고  의무감만 자꾸ㅜ",
+      "author": "@nanhjdlxwjdk",
+      "likeCount": 0,
+      "publishedAt": "2024-11-04T01:27:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw6MnY-F1RFn1mlaD14AaABAg",
+      "text": "어 뭐지 노팅힐 하루에 서너번씩 계속 들었는데 갑자기 이 영상 거의 다 들림;;;;",
+      "author": "@serenaa.3512",
+      "likeCount": 0,
+      "publishedAt": "2024-07-26T04:22:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwhkZIm3Ti3ws0O8g94AaABAg",
+      "text": "한국어 재밌었기 떼문에 자연스럽게 10년동안 배우게 됐음❤",
+      "author": "@꽃.디아",
+      "likeCount": 0,
+      "publishedAt": "2024-09-01T22:41:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxn94m_uIwHyGZO-sJ4AaABAg",
+      "text": "못생기고 재미도 없는 영어샘이 가르쳐준 영어는 곤욕이었지만 미국 하이틴 영화 보면서 그들의 언어를 배우는건 꽤나 재밌었음",
+      "author": "@고리들TV시녀들왤테태",
+      "likeCount": 11,
+      "publishedAt": "2023-06-28T08:50:46Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxQ8Kt2o81rPKvFR4t4AaABAg",
+      "text": "재미가 없는데 어떡하냐고ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@potrela5467",
+      "likeCount": 1,
+      "publishedAt": "2024-04-08T13:36:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxs_L0rtX3-MCN5ut54AaABAg",
+      "text": "애니좋아하면 된다는건가...",
+      "author": "@laheand69",
+      "likeCount": 1,
+      "publishedAt": "2023-08-03T16:15:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzrMmnI97bwcTNuJX14AaABAg",
+      "text": "I love reading. So I will continue.",
+      "author": "@bewater5178",
+      "likeCount": 0,
+      "publishedAt": "2024-08-25T16:59:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxzj5p6zhbKjrEn4n94AaABAg",
+      "text": "자존감 높은 모습 너무 보기 좋아요 😎",
+      "author": "@김주완-s9w",
+      "likeCount": 2,
+      "publishedAt": "2023-11-28T14:00:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyyxIm4sO-enskO90t4AaABAg",
+      "text": "덕질이 언어익히는데 최고임 ㅋㅋㅋ 내 밥벌이 일본어는 지브리가 마중물이고 쟈니즈가 완성시킴",
+      "author": "@끄야-z1u",
+      "likeCount": 3,
+      "publishedAt": "2023-12-30T15:33:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgymnmnYYB9Qg3otBjt4AaABAg",
+      "text": "토미 리 존슨인줄 알았네요\n최소 친척분은 아닐까?",
+      "author": "@아이보리-s5z",
+      "likeCount": 1,
+      "publishedAt": "2024-04-29T05:44:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy7xDbDRhG0ZxmfLNR4AaABAg",
+      "text": "그냥 같은 영화 100번씩 반복해서 보면됨. \n스크립트보면서 무슨의미인지도 알아내고\n나오는 단어가 무슨뜻인지도 찾아보세요. \n그리고 100번정도 보면서 속으로 따라읽고 하다보면 적어도 그 영화에 나온 80프로 이상 표현과 단어들을 다 내것으로 만들수 있음. \n그걸 몇년정도 계속하면 나도 모르게 다 알아듣고 나도모르게 입으로 떠들게 됨. \n굳이 따로 단어책보면서 단어를 외울필요가 없음. \n자연스럽게 알아지는거임. \n문법도 100번정도 반복하면서 이게 왜이런뜻이지 이런 호기심만 있으면 저절로 알아짐. \n영어가 로켓사이언스가 아님, 그냥 대화수단임. \n\n근데 그걸 본인께서 할 의지가 있는지가 중요한것같음.",
+      "author": "@tvkimboom5470",
+      "likeCount": 0,
+      "publishedAt": "2025-01-23T10:05:03Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgywDb1KHJLZUOcdfMJ4AaABAg",
+      "text": "Exactly 👏",
+      "author": "@eunjungpark8096",
+      "likeCount": 1,
+      "publishedAt": "2024-02-12T07:16:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzTRyYJ7cMhJAkPpJV4AaABAg",
+      "text": "내가 게임으로 4개국어가되는이유...  대신 욕부터 배움...",
+      "author": "@이호진-k5x9x",
+      "likeCount": 1,
+      "publishedAt": "2024-03-24T01:09:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxcQmlkVVIqZfAmlrV4AaABAg",
+      "text": "왜 자꾸 반복하고 재밌어야 한다는거죠//??",
+      "author": "@HWANGHAESOO",
+      "likeCount": 0,
+      "publishedAt": "2024-09-28T02:30:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxFk9BRw3HfgKoFZbl4AaABAg",
+      "text": "외국어 어느 하나만 잘 학습해도 몇 개국어 학습이\n가능 느낌 왠지 들어 외국어도 일이나 공부 비슷해\n비슷한 계통은 터득이 빠른느낌 들어. 모국어 포함\n영어 스페인어 중국어 인도네시아어 힌디어\n러시아어 아랍어 스와힐리어 하우사어 정도\n10손가락 추천(나이지리아가 중서아프리가의 독일\n프랑스 잠재력). 불어 독어 쯤은 필요따라\n추가학습준비. 동양식학습법이 읽기 적기 위주,\n서방식학습법이 듣기 얘기 위주 같으며 읽기 듣기\n말하기 적기 순으로 쉬운 것 같은데 한국일본등\n동양쪽은 읽기 다음으로 가장 어려운 적기(문법)위주\n하다 자포자기. 읽기 다음으로 얘기 상대없으면 듣기\n지 적기는 아닌 느낌 개인적 들어.",
+      "author": "@지중동",
+      "likeCount": 2,
+      "publishedAt": "2023-12-05T05:48:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyl8pJa08EOVWz7v994AaABAg",
+      "text": "영어라디오 두달? 전부터 시간 나는대로 그냥 흘려듣는 중입니다. 첨엔 하나도 안들렸는데 , 이젠 아는단어 위주로 들립니다. 하지만 아는단어가 중학교2학년 수준이라. 지금부터는 라디오흘려 들으면서. 단어 외우고 있어요",
+      "author": "@srthrr1",
+      "likeCount": 0,
+      "publishedAt": "2026-05-31T03:17:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy-rJwDVq-fnOqs-TJ4AaABAg",
+      "text": "그래서 오타쿠중에서 히라가나도 모르면서 일본인과 대화가 가능한 인간들이 많지",
+      "author": "@superpowerattack",
+      "likeCount": 2,
+      "publishedAt": "2023-09-25T08:19:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgydGJrLTLoDNlNAlc94AaABAg",
+      "text": "넘사벽이넼ㅋ20개국어를할수있는인간이있다니 .",
+      "author": "@lilykim937",
+      "likeCount": 0,
+      "publishedAt": "2023-11-21T05:52:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyZhWwYurWJxia2KPV4AaABAg",
+      "text": "이분이 만든 플랫폼이 LingQ임\n이거 무조건 쓰셔야 됨",
+      "author": "@yhj2790",
+      "likeCount": 0,
+      "publishedAt": "2025-06-30T04:39:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw0FkMMRUIqb6LNvPp4AaABAg",
+      "text": "ㅋㅋㅋ 나만 그런줄...ㅋㅋㅋ",
+      "author": "@elevatorengineering7207",
+      "likeCount": 0,
+      "publishedAt": "2025-04-05T10:31:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzgKViV6HvMgAkdyyl4AaABAg",
+      "text": "우리가 영어에 크~~~~~~게 디어서 그럼. 나두 영어하면 문법부터 생각나고 단어시험 봐서 혼나고 뭐 이런거 생각남. 수능공부할때 그 스트레스랑.",
+      "author": "@놈팽이-z4x",
+      "likeCount": 0,
+      "publishedAt": "2026-04-22T14:04:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwH8NdA79y5uGxXryp4AaABAg",
+      "text": "요약)누가 셰도잉이최고니,단어보지말고 듣기만해도는다니,단어는보고  기초를다지라니 걍 ㅈ까고  니가 재밌는방법으로 즐기면서해라",
+      "author": "@nbct2721",
+      "likeCount": 7,
+      "publishedAt": "2023-09-08T11:46:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw7vQeodd5_mo-yk8t4AaABAg",
+      "text": "동위하지만 문법 단어 공부는 따로 할것은 해야돼ㅎ",
+      "author": "@비호-z7z",
+      "likeCount": 2,
+      "publishedAt": "2023-12-08T19:41:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw9EtG2UEJUHKxcUgZ4AaABAg",
+      "text": "학습능력을 높여주고 반복을 도와주는 \"챌린지100\"어플을 추천드립니다~!",
+      "author": "@앵두-q8z",
+      "likeCount": 0,
+      "publishedAt": "2026-03-27T09:10:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzOBGtAeANz6KblGFJ4AaABAg",
+      "text": "아니 20개 한다길래 한국어로 말해주는줄 알았네",
+      "author": "@댓글용-u3m",
+      "likeCount": 0,
+      "publishedAt": "2025-05-09T12:45:48Z",
+      "replyCount": 0
+    }
+  ]
+}

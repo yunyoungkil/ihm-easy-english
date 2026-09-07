@@ -1,0 +1,884 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-09-07T06:25:40.369Z",
+  "video": {
+    "videoId": "8-3QjaGbMHU",
+    "title": "영어 읽는법 1편 - 자음과 모음, 그리고 파닉스 | 왕초보영어",
+    "channelTitle": "렉스쌤의 왕초보영어훈련소",
+    "channelId": "UCE7K7KI2DVAUxleiclgFukA",
+    "publishedAt": "2021-01-28T15:50:09Z",
+    "viewCount": 340530,
+    "likeCount": 7773,
+    "commentCount": 227,
+    "thumbnailUrl": "https://i.ytimg.com/vi/8-3QjaGbMHU/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "point": "일상의 사소한 순간(길거리 간판, 카페 메뉴판)에서 마주치는 현실적 수치심",
+        "description": "회화나 자격증 이전에, 길거리 영어 간판이나 키오스크 메뉴판을 어린 조카나 가족 앞에서 읽지 못해 얼굴이 화끈거렸던 일상 속 굴욕감이 성인 학습의 가장 절박한 기폭제가 됨.",
+        "quote": "32살에 12살짜리 사촌동생이랑 시내 걸어가다가 영어로 된 간판 보고 못 찾아서 창피해서 공부하고 싶단 생각이 들었습니다."
+      },
+      {
+        "point": "학창 시절 타박과 면박으로 굳어버린 '영어 기피 트라우마'",
+        "description": "과거 학교나 과외 교사에게 '이것도 못 읽냐'며 면박과 인격적 모욕을 당한 상처 때문에 영어 자체를 수십 년간 기피해 왔으며, 성인이 되어서도 글자 앞에만 서면 심리적으로 위축됨.",
+        "quote": "옛날 초등학교 때 영어시간에 선생님이 창피 줘서 기피하다 포기했었습니다... 과외 선생이 나보고 뭐 먹고살 거냐고 화내서 상처받았죠."
+      },
+      {
+        "point": "주변에서 주워들은 '파편화된 대충 발음'으로 수십 년간 굳어진 혼란",
+        "description": "어릴 적 가족이나 지인이 '대충 이건 이렇게 읽는 거야'라며 주먹구구식으로 알려준 왜곡된 발음 기억을 평생 간직하다가, 성인이 되어 그것이 틀렸음을 깨닫고 기초부터 다시 교정하길 갈망함.",
+        "quote": "중학생 때 오빠가 알려줬던 발음 기억으로 지금까지 읽었는데 대충 알려줬던 거였네요... 지금이라도 바로잡아 다행이에요."
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "왜 apple이나 egg처럼 똑같은 알파벳이 두 개(pp, gg) 연속으로 오나요? 소리도 두 번 내나요?",
+        "context": "철자에 자음이 겹쳐 나올 때 한국인 시청자는 된소리(ㅃ)인지, 소리를 두 번 끊어 읽는 것인지, 왜 굳이 두 개를 쓰는지 원리를 알고 싶어 함."
+      },
+      {
+        "question": "단어 뜻은 아예 몰라도 상관없으니, 길거리에서 처음 보는 단어를 대강이라도 입 밖으로 소리 내어 읽으려면 뭐부터 봐야 하나요?",
+        "context": "어휘력 확장이나 문장 해석은 차치하고, 눈앞에 보이는 낯선 철자 조합을 더듬거리지 않고 즉각 소리로 바꿔내는 최소한의 '길거리 생존 독음 기술'을 원함."
+      },
+      {
+        "question": "내 아이 영어 질문에 제대로 답해주고 싶은데, 어른인 제가 기초 소리조차 헷갈릴 때 어떤 순서로 복습해야 하나요?",
+        "context": "아이 교육을 목적으로 다시 영어를 시작한 3050 학부모들이 자신의 빈약한 기초가 아이에게 들통날까 두려워하며, 성인 눈높이에 맞는 단기 소리 재정립 로드맵을 묻고 있음."
+      }
+    ],
+    "audienceVocabulary": [
+      "간판 보고 창피해서",
+      "두리뭉실하게라도 읽기",
+      "귀에 촥촥 박히다",
+      "시간 순삭 (얼마나 지났지 했는데 끝남)",
+      "오빠가 대충 알려준 발음",
+      "아이 가르치려다 멘붕"
+    ],
+    "whatWorked": [
+      {
+        "technique": "소리가 꼬리를 물고 확장되는 '연관 단어 점진적 체인 배열'",
+        "whyItWorked": "새로운 소리 규칙을 설명할 때 무작위 단어를 나열하지 않고, 방금 읽었던 단어의 소리 블록을 80% 유지한 채 한 글자만 바꾸는 방식(예: cat → bat → baby)으로 배치해 초보자의 뇌가 피로감 없이 직관적으로 연결고리를 납득하게 만듦."
+      },
+      {
+        "technique": "평가자가 아닌 다정한 길잡이의 목소리 톤앤매너",
+        "whyItWorked": "위압적인 강사 톤이 아닌, 높낮이가 일정하고 차분하며 '모르는 것이 당연하다'는 정서적 안정감을 주는 목소리로 진행하여 영어 트라우마가 있는 성인들의 진입 장벽을 완전히 허물어줌."
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "30살 넘어서 길거리 간판도 못 읽던 분들이 '이 원리' 하나로 10분 만에 영어 간판 술술 읽습니다",
+        "apple에 p가 왜 2개일까? 외우지 마세요, '게으른 혀' 때문입니다 (파닉스 쌍자음의 비밀)",
+        "아이 영어책 읽어주다 턱 막힌 부모님 필독! 단어 뜻 몰라도 소리부터 터지는 3단계 결합법"
+      ],
+      "hookThreeSeconds": "\"카페 메뉴판이나 길거리 간판 볼 때, 동생이나 아이 몰래 폰으로 검색해보신 적 있으시죠? 당신 탓이 아닙니다. 오늘 3분 만에 처음 보는 영어도 툭 튀어나오게 만들어 드릴게요.\"",
+      "shortsTrackAIdea": {
+        "concept": "원리 설명형: 철자에 똑같은 알파벳이 두 개(pp, tt, ll) 들어가는 진짜 이유를 혀의 쉼표 원리로 45초 만에 종결짓기",
+        "hookOneLiner": "\"apple에 P가 왜 두 개일까요? 소리를 두 번 내라는 게 아니라, 앞 모음을 짧게 끊어 혀를 쉬게 해주는 '브레이크' 신호입니다!\""
+      },
+      "shortsTrackBIdea": {
+        "concept": "상황극형: 조카와 카페에 갔다가 영어 메뉴판을 읽지 못해 당황하는 이모/삼촌의 현실 고증과 1초 해결 팁",
+        "hookOneLiner": "\"이모, 저기 써있는 거 뭐야? 읽어줘! ...순간 등줄기에 식은땀 쫙 흘렀던 분들, 이 3글자만 기억하면 평생 안 당합니다.\""
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgxWSVLOiConNG5Tt2Z4AaABAg",
+      "text": "⭐드디어 공식 웹사이트 오픈 ⭐\r\n　➜ https://lexteacher.com\n\n✅️ *공부 도우미*\n\n*[Tip 1]* 아는 단어가 많아지면 처음 보는 단어도 어떻게 읽어야 할지 감이 생기게 됩니다~! 영어 읽는 법 시리즈에 나오는 단어들만 다 외워도, 영어에 대한 두려움이 줄어들 거예요 ^ㅡ^!!\n\n*[Tip 2]* 영단어의 스펠링, 철자를 외우는 게 너무 힘들다면, 완벽하게 외우지 못해도 괜찮습니다! 원어민들도 어려운 영단어의 스펠링은 잘 쓰지 못한다는 사실~ ^^! 스펠링보다 중요한 것은 영단어를 보거나 들었을 때 그 뜻을 이해할 수 있느냐에요. 공부가 막막하게 느껴지신다면 이 영상을 2~3번 반복해서 듣고 따라해 보는 것도 좋습니다! 화이팅!\n\nLex Kim\r\n왕초보영어훈련소\r\n\r\n🔥『온라인 스터디』 함께 하기\r\n　➜ https://lexteacher.com/Store-Class/?idx=100\r\n\r\n❤ 『멤버십 전용 콘텐츠』 보기\r\n　➜ https://lexteacher.com/Membership-Samples\r\n\r\n양질의 무료 영어 강의를 계속 만들 수 있도록 멤버십으로 응원 부탁드립니다 ❤",
+      "author": "@lexteacher",
+      "likeCount": 24,
+      "publishedAt": "2022-05-25T07:25:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz4dP78aLNw8iytyud4AaABAg",
+      "text": "이런분은 왜 안뜨는 거죠?정말 좋은 유튜버 이신고같어요",
+      "author": "@대구대둥",
+      "likeCount": 136,
+      "publishedAt": "2021-01-29T11:12:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzhpPtxA9LKWR9F6-d4AaABAg",
+      "text": "진작좀 찾아볼걸..32살에 12살짜리 사촌동생이랑  시내걸어가다가 영어로 된간판보고  못찾아서 창피해서 공부하고싶단생각이들었습니다.",
+      "author": "@하품-m2y",
+      "likeCount": 4,
+      "publishedAt": "2026-05-03T13:58:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwEipnuO-TyENQgQN94AaABAg",
+      "text": "옛날 초등학교 때 영어시간에 선생님이 창피줘서 영어를 기피하다가 포기했었습니다\n필요해서 다시 배우고 싶어도 읽는 것부터 막혀서 자꾸 미뤄졌는데 이걸 보면서 읽는 방법 배우네요 감사합니다",
+      "author": "@박박-g9j",
+      "likeCount": 16,
+      "publishedAt": "2023-10-27T11:30:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzYCgIZTbk_qSviu2l4AaABAg",
+      "text": "왕초보영어훈련소님  더분에 한단계 더 성장했써요",
+      "author": "@Oo__11-2",
+      "likeCount": 8,
+      "publishedAt": "2022-11-01T07:47:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzLNMisWfTm9eC10TN4AaABAg",
+      "text": "저도 성인인데 abc만알고 알지 못해서  이 영상 보고 공부할려고요",
+      "author": "@vllo5153",
+      "likeCount": 10,
+      "publishedAt": "2021-08-08T12:02:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwA9R5kHxVSBVNu8wB4AaABAg",
+      "text": "apple 애플 할때 왜 pp연속으로 오는지 궁금합니다..",
+      "author": "@애니-pbs",
+      "likeCount": 17,
+      "publishedAt": "2025-04-06T13:20:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzZvcJ0iFrEXQ7waex4AaABAg",
+      "text": "하나도 안지루하고 재밌어요!! 1일 1영상 보러 매일 오겠습니다 좋은 영상 많이 올려주세요🥰",
+      "author": "@woodi_mom",
+      "likeCount": 24,
+      "publishedAt": "2021-09-01T12:11:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1dDwJz8gpGhae5f14AaABAg",
+      "text": "와 성인인데 에이비씨디등등 이런것만 알고 나머지 다모르는데 이해가요 ㅠㅠ 선생님 꺼보면서 영어 공부해야겠어여",
+      "author": "@내프사는너의미래",
+      "likeCount": 8,
+      "publishedAt": "2021-07-26T13:37:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwWn7_R_Y4CzhrP0xB4AaABAg",
+      "text": "저는 이런분 찾고있었는데ㅠㅠ",
+      "author": "@박라은-k1y",
+      "likeCount": 5,
+      "publishedAt": "2023-04-03T12:59:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxIvzY9eTg5nHkPYnp4AaABAg",
+      "text": "넘 감사합니다! 취준생 처음부터 영어공부하는데 너무 도움 많이 됩니다ㅠ",
+      "author": "@찐이-l7i",
+      "likeCount": 21,
+      "publishedAt": "2021-01-31T12:03:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxc0EMvJwNRrZT_4xp4AaABAg",
+      "text": "이제 28살인데 겉 핡기로 읽을 수있어서 막막 했는데 감사합니다ㅠㅠ",
+      "author": "@힘들당-m5h",
+      "likeCount": 2,
+      "publishedAt": "2025-12-24T08:13:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzCev67YUmUIhgivht4AaABAg",
+      "text": "선생님 저 원래 잘 못했는데 \n선생님 덕분에 잘 돼고\n건강하고 \n목소리도 좋아서\n오랜만에 영어 공부하네요 ㅎㅎㅎㅎㅎ😢",
+      "author": "@은율TV-j1f",
+      "likeCount": 0,
+      "publishedAt": "2023-09-19T07:45:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzfCCehXIcmg90TEGF4AaABAg",
+      "text": "공부한다는 생각이 안들어요... 짖짜 감사합니더...ㅠㅡㅠ😊",
+      "author": "@Yggr3m",
+      "likeCount": 1,
+      "publishedAt": "2022-02-10T17:08:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxz7Zq1f0CAEm_TeOZ4AaABAg",
+      "text": "읽는 법을 잘 몰라서 어쩌다 보니 알게 되었는데, 목소리의 높낮이도 좋으시고 초보자의 맘을 너무 잘 아셔서 좋네용. 꼭 꾸준히 봐서 잘 읽고 싶어요 !~!",
+      "author": "@Mirren0722",
+      "likeCount": 3,
+      "publishedAt": "2023-01-10T06:13:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyMptY-FIWJyLktPPt4AaABAg",
+      "text": "찐짜 너무너무 좋아요 공부를 잘 못하는데 매일 보러와야겠어요",
+      "author": "@리제-y9m",
+      "likeCount": 1,
+      "publishedAt": "2022-04-06T22:52:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzSos7iVYOzkK-Nrfx4AaABAg",
+      "text": "아이 영어 기초 알려줄려고 영상봤는데 영어1도모르는 제가 많이 배우고 갑니다. 최고입니다. 계속올려주세요^^",
+      "author": "@김트니트니",
+      "likeCount": 0,
+      "publishedAt": "2022-12-04T02:37:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxsH0-Jt1aKGqWLA5R4AaABAg",
+      "text": "도움이 많이 돼요 재미있고 쉽게 잘 알려 주시네여! 아기 재우고 듣고 있어요! 😊",
+      "author": "@미미언니-f8s",
+      "likeCount": 0,
+      "publishedAt": "2023-03-03T03:50:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz8gVHmefPv1NM4L9x4AaABAg",
+      "text": "성인인데 영어를 시작할때 원리를 못찾았는데 진도를 나가니까, 흥미가 없어서 안했는데,\n성인이되니 말하는거까진 필요없지만, 처음보는 단어라도 두리뭉실하게 라도 읽을 수있어야되겠더라구요.\n\n단어는몰라도 읽을 수는 있어야합니다.",
+      "author": "@호라-x2q",
+      "likeCount": 1,
+      "publishedAt": "2026-06-23T12:02:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxYUwYE0MUe7MHXakN4AaABAg",
+      "text": "우왕 최고예요ㅠㅠ..\n지금이라도 배워둬야 할 것 같아 보았는데 대박 도움되요",
+      "author": "@구름구름구름",
+      "likeCount": 2,
+      "publishedAt": "2022-08-27T13:51:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugya1E-lAD_hcKDXTR94AaABAg",
+      "text": "대박입니다.👍👍👍",
+      "author": "@방방-d7j",
+      "likeCount": 1,
+      "publishedAt": "2022-04-30T11:01:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw3e7R9lgeeRjC4YYp4AaABAg",
+      "text": "영어공부다시시작하려구 봣는데 짱",
+      "author": "@부엉이모",
+      "likeCount": 0,
+      "publishedAt": "2023-01-12T15:08:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwFKekCjqe8a99xuRZ4AaABAg",
+      "text": "영어 학원 다녀본적도.. 제대로 배워본 적도 없지만, 원어민과 영어로 소통하는 게 어릴 때 부터 꿈이었네요. 부디 올 해는 그 꿈 이룰 수있길 바라며... 열심히 따라가 보겠습니다^^",
+      "author": "@곰곰-h7z",
+      "likeCount": 1,
+      "publishedAt": "2025-01-25T11:47:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzL0X7LgFgstViq_0h4AaABAg",
+      "text": "대박~~!!!\n머리에 쏙쏙..^^\n구독 좋아요 꾹 누르고 갑니다",
+      "author": "@kimgqwm5489",
+      "likeCount": 1,
+      "publishedAt": "2022-04-16T12:59:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzBh-cgJPBjmqIZvpR4AaABAg",
+      "text": "넘 쏙쏙 잘 익혀지네요.^^\n넘 고맙습니다 ㅎㅎ",
+      "author": "@나누리-b6u",
+      "likeCount": 5,
+      "publishedAt": "2021-07-01T13:24:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx7LSsqwH9Au3K3RN94AaABAg",
+      "text": "유익한  내용  감사합니다 🎉🎉❤❤❤❤ㆍ귀에  그냥 와서  박히네요~😢😢😢😢😊😊ㆍ댓글 안다는데   너무 좋아 구독 좋아요  눌렀습니다~ 이영상은  마약입니다🎉🎉🎉❤❤❤❤~^^듣다보니 중독됩니다~~🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉",
+      "author": "@속성보카",
+      "likeCount": 1,
+      "publishedAt": "2024-12-25T07:35:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzvG-kYsRFMG4QHXOx4AaABAg",
+      "text": "선생님 감사해요 선생님 덕분의 잘하고있어요",
+      "author": "@은율TV-j1f",
+      "likeCount": 1,
+      "publishedAt": "2023-06-15T07:35:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzxpWNf8MaCDPjwA2B4AaABAg",
+      "text": "너무 좋네요!! \n쉽고 재밌어요 감사해요",
+      "author": "@Gabriella-1234-t7m",
+      "likeCount": 0,
+      "publishedAt": "2024-01-23T07:14:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzuACNZIP7wr7I32ul4AaABAg",
+      "text": "너무 알기쉽게 잘갈쳐주셔서 감사해요",
+      "author": "@stellar-ru9fv",
+      "likeCount": 1,
+      "publishedAt": "2023-01-27T04:34:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy0kD6-ysN-8eikJJ54AaABAg",
+      "text": "정말 감사합니다!",
+      "author": "@리즈타",
+      "likeCount": 0,
+      "publishedAt": "2022-01-24T02:13:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwlq_LLxzdVoMj9owx4AaABAg",
+      "text": "Thanks!!",
+      "author": "@김재성-p6i",
+      "likeCount": 0,
+      "publishedAt": "2021-11-22T08:24:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwmZ2W9eXDQB5ie_ml4AaABAg",
+      "text": "쏙~들어와요\ngood",
+      "author": "@조현자-m1c",
+      "likeCount": 1,
+      "publishedAt": "2022-10-22T03:57:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwyDlA7tdiJlVFrOIR4AaABAg",
+      "text": "완전 !!대박",
+      "author": "@이밤의끝을잡고-m6k",
+      "likeCount": 0,
+      "publishedAt": "2023-04-12T16:13:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyA2XUdKTpufQZLqOl4AaABAg",
+      "text": "👍",
+      "author": "@울트라캡숑-k8z",
+      "likeCount": 2,
+      "publishedAt": "2023-04-28T10:26:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwURoweQioZL0XZSPx4AaABAg",
+      "text": "서른넘어 파닉스부터 다시 시작하고잇습니다ㅎㅎ영상 도움받고가용",
+      "author": "@동백이-j9g",
+      "likeCount": 0,
+      "publishedAt": "2024-09-25T05:58:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxwnLOxJbuD_A2HRLN4AaABAg",
+      "text": "존경함니다.",
+      "author": "@명란젓코난-s7m",
+      "likeCount": 1,
+      "publishedAt": "2021-10-10T00:34:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxTKYHH7sj_Yx4aYGl4AaABAg",
+      "text": "시작!",
+      "author": "@하어룽뱅",
+      "likeCount": 0,
+      "publishedAt": "2021-11-19T03:28:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy-UAHvJPgDVc75jGJ4AaABAg",
+      "text": "이런분이 진짜 알타강사죠",
+      "author": "@ucc7695",
+      "likeCount": 15,
+      "publishedAt": "2022-01-04T05:15:18Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwjyRVP0UUiw-siVwZ4AaABAg",
+      "text": "목소리 왜케 똘망똘망한거임!!\n초보도 아닌데 계속 보게 되는 이 중독성 ㅠㅠ\n나도 모르게 구독을 누르고있다...",
+      "author": "@감사한오늘-w1y",
+      "likeCount": 0,
+      "publishedAt": "2022-11-15T06:47:57Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzQkNQ7yHzVGnSEWaJ4AaABAg",
+      "text": "예~~~^^😊😊😊",
+      "author": "@金孝貞-q8r",
+      "likeCount": 0,
+      "publishedAt": "2025-07-14T13:30:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz0eqCN2pQPZ_2D7ER4AaABAg",
+      "text": "벌써 자신감이 생긴당 ㅋㅋㅋ",
+      "author": "@Piano_Kick",
+      "likeCount": 0,
+      "publishedAt": "2023-03-22T14:51:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwP70mbg_AYp-ZDAhl4AaABAg",
+      "text": "좋은 영상 감사합니다",
+      "author": "@김맨-mand1o",
+      "likeCount": 4,
+      "publishedAt": "2021-03-17T07:02:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwgfWyT7BKGSXd6v6p4AaABAg",
+      "text": "저 원어민실생활 영어 공부하고싶은데 알파벳밖에 몰라서 어떻게 뭐부터 시작해야될지 어떤책을 사야할지 몰랐는데 너무 감사합니다ㅠㅠ",
+      "author": "@꼬맹-e6n",
+      "likeCount": 7,
+      "publishedAt": "2021-02-07T14:33:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_Wkv3HkxSqvFleqV4AaABAg",
+      "text": "중학생인데 초등학생때 부터 공부를 안하고 학원도 다닌적이 없어서 영어 진짜 심각한데 이제라도 이거 보면서 열심히 공부해야 겠어요! 좋은 영상 너무 감사합니다!!",
+      "author": "@갸루가루쿸",
+      "likeCount": 297,
+      "publishedAt": "2021-09-13T10:24:33Z",
+      "replyCount": 31
+    },
+    {
+      "commentId": "UgxEYhOccP2DpxSUWzF4AaABAg",
+      "text": "와 진짜 바로 구독하고 갑니다 . 일본어와 영어중 영어를 더 배우고싶었지만 , 영어는 너무 어렵게 느껴져서 뒤로 미룰까 했는데 이번기회에 저도 진짜 말도 잘하고 싶네요 ㅠㅠ",
+      "author": "@Daino_sy",
+      "likeCount": 2,
+      "publishedAt": "2023-04-16T07:14:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyfZSQJyIzK8dDa5m54AaABAg",
+      "text": "💯",
+      "author": "@은율TV-j1f",
+      "likeCount": 0,
+      "publishedAt": "2023-04-15T23:46:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx7YTVq51gfWUieMSB4AaABAg",
+      "text": "😭😭😭😭😭 이런 영상을 찾고 있었습니다... 넘 감사해요 영상도 쉽고 넘 재밌어용..열심히 해볼게요!!",
+      "author": "@몰바씨눈깔아",
+      "likeCount": 1,
+      "publishedAt": "2022-06-09T14:56:48Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz-tUqoQac0oZf-Nd14AaABAg",
+      "text": "초보자 마음을 완전 이해해주는 영상이에요 중학생 때 오빠가 알려줬던 발음 기억으로 지금까지 읽었는데 대충 알려줬던 거였네요..지금이라도 바로 잡아 다행이예요 좋은 영상 올려주셔서 감사합니다~ 영어를 다시 배울 용기가 나요~ 👍",
+      "author": "@32956",
+      "likeCount": 17,
+      "publishedAt": "2022-03-23T15:13:04Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzEiyOD8qj9cI5vZcl4AaABAg",
+      "text": "제 롤모델 입니다 선생님,....❤️ 항상 응원합니당 !!! 좋은 강의감사합니다 ㅠㅠㅠㅠ",
+      "author": "@최정원-j6c",
+      "likeCount": 7,
+      "publishedAt": "2021-04-26T06:54:17Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxRPvtdMF3JU7KeW8F4AaABAg",
+      "text": "감사합니다. 2023년 영어공부 시작을 선생님 채널로 해볼려고 합니다. 정말 감사합니다",
+      "author": "@hunitv919",
+      "likeCount": 0,
+      "publishedAt": "2023-01-04T05:43:52Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugxx4JdDKP6UqHxoUhB4AaABAg",
+      "text": "감사합니다 선생님꾸벅",
+      "author": "@별-v2x",
+      "likeCount": 1,
+      "publishedAt": "2023-03-23T19:55:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzclSIy37NILU8_vht4AaABAg",
+      "text": "영상 편집이며 목소리며 위트까지 👍👍",
+      "author": "@banggle",
+      "likeCount": 1,
+      "publishedAt": "2022-06-26T12:59:50Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxhSSjmc8H-3-vnebR4AaABAg",
+      "text": "❤❤❤❤❤",
+      "author": "@천천2",
+      "likeCount": 0,
+      "publishedAt": "2025-02-26T11:32:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxDHd53pQII_McDxf54AaABAg",
+      "text": "와 이런영상천사 적게일하고마니버세유~♡",
+      "author": "@요핑-g6g",
+      "likeCount": 2,
+      "publishedAt": "2021-09-24T14:42:20Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxTckOhDyS89RkzEax4AaABAg",
+      "text": "제가 영어 기피하게 된 계기가 중3때 경희대 3학년생에게 받았는데 물론  처음에는 그럭저럭이였지만 어느날부터인가 심한말부터 제가 읽는걸 못하겠더라고요 엄청답답해하면서 욕도 엄청했죠 부모님 안계시는 날이면요 또언제는 저도 욱해서 한대 맞을뻔한적도있고요 그이후 성이되고나서 외국인들과 자유롭게 영어로 이야기하면서 가이드해주는분들보고 엄청부러웠죠 아름다운 외국여성분들과데이트하시는 분들도 부러웠고요 왜 난 영어가 어렵고 안될까…..그래서 극복하려고 20대 중반에 시도하려고 해봤지만 자격증준비에 취업에 계속미루게 되었죠 그리고 그 과외분 나보고 뭐먹고 살거냐고 물어봤는데 그럼 본인은 얼마나 성공했나요??? 우리 부모님한테 돈은 돈대로 받아가면서 난 그모습 보고 무언가 끓어 올랐죠",
+      "author": "@최현묵-j1b",
+      "likeCount": 1,
+      "publishedAt": "2022-11-29T11:21:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugygb1b49XhJq0YupH94AaABAg",
+      "text": "🎉",
+      "author": "@SookA-xb9jl",
+      "likeCount": 0,
+      "publishedAt": "2023-03-21T16:21:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz92_fSRJ7nORA49Il4AaABAg",
+      "text": "월래 게임하다가 엄마가 이거보라 구했는데 집중 이너무 잘돼고\n재미있어요 그리고 발음도\n점점 잘하게되는것같아여!!^^~~~~~@",
+      "author": "@김지원-k3m9f",
+      "likeCount": 0,
+      "publishedAt": "2021-11-07T00:01:53Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyfF2P4sLj4w23pqW14AaABAg",
+      "text": "이번에 중 2됬는데 영어를 1도 몰라서 초조 했는데 이거 보고 고1때는 시험 잘보겠습니다.",
+      "author": "@빵빵뎅이",
+      "likeCount": 1,
+      "publishedAt": "2022-03-31T10:46:24Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwv-1xZahY2RTITWbJ4AaABAg",
+      "text": "이거 보면 영어시험 💯점",
+      "author": "@nguyenminhtue4654",
+      "likeCount": 0,
+      "publishedAt": "2022-11-13T09:39:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzo6ERvxubjztF0avJ4AaABAg",
+      "text": "저 3학년때부터 영어를 찐짜 못했는데 이제 6학년 올라가니까 공부좀 해야겠다고 마음먹고 공부를 하기 시작했는데 요즘엔  이영상 보면서 공부 하고있어요♡",
+      "author": "@조수빈-n5b3x",
+      "likeCount": 1,
+      "publishedAt": "2023-02-15T05:37:08Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw3Xshe5t6xiaizFox4AaABAg",
+      "text": "나이50되어갑니다 지금부터해도 안늦을것같은  자신감을 심어주시는분!!좋와요 구독꾹~~~",
+      "author": "@Rachel-쭈",
+      "likeCount": 0,
+      "publishedAt": "2022-11-13T22:54:10Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz7NxuH7RF4em2mMC14AaABAg",
+      "text": "얼마나 됐지? 하고 봤더니 1분이 지났는데 그 뒤로 얼마나 지났지? 했는데 끝남",
+      "author": "@쏭쏭-o8w",
+      "likeCount": 1,
+      "publishedAt": "2024-09-04T01:47:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzq9-sZPHopY-ENwIZ4AaABAg",
+      "text": "영어 처음부터 다시 해보려고 독학중인데 \n쉽고 재밌어요. 너무 도움 돼요😭 유용한 영상 감사합니다🙏🏻",
+      "author": "@zzinmango",
+      "likeCount": 14,
+      "publishedAt": "2021-04-03T04:42:36Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyzoHMEVOF-Q6L4ult4AaABAg",
+      "text": "좋아요",
+      "author": "@천천2",
+      "likeCount": 0,
+      "publishedAt": "2025-02-26T11:32:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwIiR7XMaeYvE30KeN4AaABAg",
+      "text": "반에서 영어 못하는 얘 였는데 열심히 영어 해서 읽는 연습 해보겠습니다!",
+      "author": "@닉네임-t9t",
+      "likeCount": 0,
+      "publishedAt": "2022-04-09T14:55:20Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwvv-cx-XEaA5cdNtJ4AaABAg",
+      "text": "초등딸 영어공부에 도움되는 영상 찾다가 우연히 접했는데요\n목소리도 너무 좋으시고 톤 높낮이 조절로 귀에 쏙쏙\n아이대신 저부터 차근차근 보려고 합니다\n제가 공부할때 이런 강의가 있었다면 제 인생이 조금 더 달라지지 않았을까 싶네요\n다시 영어공부 해볼까하는 의지가 생기네요^^",
+      "author": "@은숙김-u2x",
+      "likeCount": 1,
+      "publishedAt": "2023-07-13T14:35:45Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugze8YADCdmIEpS2gNR4AaABAg",
+      "text": "와.. 영포자인데.. 지금영어를 조금씩 읽기시작했어요 너무신기하네요 감사합니다.!!!! 집중이 너무잘되요",
+      "author": "@스마일자동차",
+      "likeCount": 4,
+      "publishedAt": "2022-01-12T17:05:42Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw85vGNghmOPDjAVKp4AaABAg",
+      "text": "6:10 angel의 발음은 앤젤이 아니라 에인젤입니다.. [æ]가 아니라 [ei]에요",
+      "author": "@Hangover-ing",
+      "likeCount": 8,
+      "publishedAt": "2022-11-06T08:12:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw-HZi7Qt2yaIANTv54AaABAg",
+      "text": "아이와 함께 공부하려고 어제부터 듣고있어요.\n영어공부 첫시작에 이런 좋은 영상을 찾아서 행운인 것 같아요.\n목소리도 귀에 촥촥ㅡ들리고 재미있게 영상보고 있어요. 감사합니다♡",
+      "author": "@JJ-yb5br",
+      "likeCount": 2,
+      "publishedAt": "2022-05-23T02:26:38Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyKBuCT3CKd91WwIiR4AaABAg",
+      "text": "영어 시작을 여러 가지 고민하다 이 영상 부터 시작합니다 ~^^\n감사합니다",
+      "author": "@국방지키리",
+      "likeCount": 2,
+      "publishedAt": "2021-06-16T23:05:50Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzBtyTMREWMYlL_JJB4AaABAg",
+      "text": "영어 읽지도 못해서 너무 싫었는데 이 영상을 보니까 조금이라도 읽을수 있게 된거 같아요! 지금 공부 하기에는 좀 늦었지만 그래도 열심히 공부해야 겠어요!",
+      "author": "@민영-h4g",
+      "likeCount": 2,
+      "publishedAt": "2023-01-22T15:22:44Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgyDYkelqi6wpFhZk9d4AaABAg",
+      "text": "이거 처음봤는데 너무 도움되네요ㅠ 제가 애들에 비해 영어를 쉽게 놓는편인데 이번기회에 영어 올리도록할게욤 설명너무너무 잘해주셔서 이해 팍팍됐습니다!ㅎ",
+      "author": "@syu.08",
+      "likeCount": 2,
+      "publishedAt": "2022-11-12T13:06:07Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyI1xc2FtgDgK2W4Xh4AaABAg",
+      "text": "감사합니다. \n다음 영상들도 빨리 만나고 싶습니다.\n2021.02.03. Lv.0",
+      "author": "@nekomoe220",
+      "likeCount": 0,
+      "publishedAt": "2021-02-03T10:02:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx9S0la2Ap0SLkksA14AaABAg",
+      "text": "유투버보며 댓글은 안쓰는 편인데요, 처음 써봅니다.\n특히, '베이비'는 최고예요. \n다른 영상도 모두 최고이십니다.\n최고인 이유는, 이전 발음과 연관있는 단어(발음)를 연속 암기가 될 수 있는 배열과 방식이 너무 뛰어나십니다.",
+      "author": "@스카이블루-z3q",
+      "likeCount": 4,
+      "publishedAt": "2022-03-17T14:26:07Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgxrmsFntj8UxCttBSV4AaABAg",
+      "text": "초등생 자녀를 둔 엄마입니다.\n아이들 가르치려고 다시 영어 공부를 시작합니다.\n재능기부...  가르침 정말 감사합니다",
+      "author": "@임명희-f9c",
+      "likeCount": 1,
+      "publishedAt": "2022-03-17T00:22:03Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgytVUQGx6C59MPOxnJ4AaABAg",
+      "text": "안녕하세요 추천해주신책 구매했는데 영어단어를 외우려고하니 단어를 읽을줄 몰라서요 발음하는법부터 공부하고 암기를 해야할까요",
+      "author": "@김성태-r3k",
+      "likeCount": 0,
+      "publishedAt": "2024-06-24T15:43:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxSRnv-4u3BDRw7n4Z4AaABAg",
+      "text": "💯💯💯💯💯💯💯💯💯💯💯💯",
+      "author": "@조조-j9m",
+      "likeCount": 0,
+      "publishedAt": "2022-01-01T22:14:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwxCaBWwh0eCdoZBvx4AaABAg",
+      "text": "Center, City\n센터, 시티\n이런 것처럼 어쩔때 ㅅ발음이고 어쩔땐 ㅋ발음이고 기준이 뭔가요?",
+      "author": "@biiill12",
+      "likeCount": 3,
+      "publishedAt": "2024-10-07T06:59:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxiayRgR7w36-jXIwN4AaABAg",
+      "text": "렉스쌤 목소리 참 집중 잘되는 목소리예요\n얼굴도 궁금하네요ㅎㅎ",
+      "author": "@김경주-g3g",
+      "likeCount": 3,
+      "publishedAt": "2021-02-09T11:01:48Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgzutzWqBd5A_WkfGJN4AaABAg",
+      "text": "발음 진짜 쩐당..",
+      "author": "@용가링-o_o",
+      "likeCount": 0,
+      "publishedAt": "2021-06-28T14:11:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgydNDudoTXQt_AnMjF4AaABAg",
+      "text": "선생님 감사합니다! 한번에 많이 하면 금방 실증내는 저로썬 하루에 한영상 목표로 하겠습니다\n2021.07.11 (일) 완료",
+      "author": "@포포-c4s",
+      "likeCount": 3,
+      "publishedAt": "2021-07-10T18:09:37Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwdS8pB0qAQ3aQEqbN4AaABAg",
+      "text": "손동작이 현란하시긴 하지만 보기 편하네요",
+      "author": "@fpxjs",
+      "likeCount": 0,
+      "publishedAt": "2022-01-08T10:17:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxJQEqpoXlggAf6fKB4AaABAg",
+      "text": "아리가또고자이마스",
+      "author": "@nguyenminhtue4654",
+      "likeCount": 1,
+      "publishedAt": "2023-04-17T10:40:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz7XJSMHbbBD2YPkLB4AaABAg",
+      "text": "C 소리 낼때 ㅋ 랑 ㅆ 소리 난다 하셨는데\n언제 ㅋ 내고 언제 ㅆ 내는지 알 수 있을까요??",
+      "author": "@원보라-d7q",
+      "likeCount": 0,
+      "publishedAt": "2023-03-20T11:30:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyaxj4-77kqYGrzTVB4AaABAg",
+      "text": "선생님 안녕하세요 오늘도 유익한 영상 감사합니다!!\n문법 이론은 잘잡히는것 같은데\n영어에 있어서 필수적인 어휘암기 부분은\n어떤식으로 암기하는게 좋을까요?",
+      "author": "@만두서기",
+      "likeCount": 10,
+      "publishedAt": "2021-01-29T07:54:57Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwohLrJ7FYSZcihgW14AaABAg",
+      "text": "스터디 참여 1기 오늘 시작햇네요ㅠㅠㅠㅠㅠㅠㅠ 2기는 언제하나요?\n쌤한테 배우고싶어여!!",
+      "author": "@박라은-k1y",
+      "likeCount": 0,
+      "publishedAt": "2023-04-03T13:00:49Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgybUHGHzMnOEIM2TrB4AaABAg",
+      "text": "앤젤이 아니고 에인절",
+      "author": "@kok2358",
+      "likeCount": 1,
+      "publishedAt": "2024-08-28T19:44:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgygsoHWcbQshC6VQ8J4AaABAg",
+      "text": "아빠가 문제로 내준 poison(포이즌)을 포시온으로 읽은 내 인생이 레전드다 ㅋㅋ",
+      "author": "@안녕하세요-556",
+      "likeCount": 0,
+      "publishedAt": "2024-02-06T14:22:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw1hDz21RnGErEPjx94AaABAg",
+      "text": "이어폰으로 듣는데 소리가 왔다갔다 들리는데 설정 어떻게 끄나요 ㅠㅠ",
+      "author": "@RY-nr3vv",
+      "likeCount": 0,
+      "publishedAt": "2025-02-25T00:25:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxMTT2A00PXFp7zEyB4AaABAg",
+      "text": "와",
+      "author": "@은율TV-j1f",
+      "likeCount": 0,
+      "publishedAt": "2023-04-15T23:40:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzgMTZDjYuatNFdNa14AaABAg",
+      "text": "瓦",
+      "author": "@은율TV-j1f",
+      "likeCount": 1,
+      "publishedAt": "2023-04-15T23:41:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy0f2YjRSWI4Q8TFWZ4AaABAg",
+      "text": "영어 읽는법 부터 차례대로 공부 할수있게 순서좀  알려주심 감사 하겠습니다",
+      "author": "@나의원이아저씨",
+      "likeCount": 1,
+      "publishedAt": "2023-04-09T14:19:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwWgtRWBYB9ppRjnSF4AaABAg",
+      "text": "어떤 경우에 발음이 변형이 있는지가 없네요.",
+      "author": "@usuarioexelente",
+      "likeCount": 0,
+      "publishedAt": "2024-11-06T04:53:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwjFjpYBL1-dUTb70B4AaABAg",
+      "text": "구웃 긋",
+      "author": "@지니어-i4n",
+      "likeCount": 1,
+      "publishedAt": "2021-01-29T21:04:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyaSik1hLtyWxQnZT54AaABAg",
+      "text": "😢",
+      "author": "@SookA-xb9jl",
+      "likeCount": 0,
+      "publishedAt": "2023-03-21T16:22:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxZFWIAyHA2Jt3QFvd4AaABAg",
+      "text": "/e dance",
+      "author": "@은율TV-j1f",
+      "likeCount": 0,
+      "publishedAt": "2023-04-15T23:49:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxYSZbYVLQF7QqjXv94AaABAg",
+      "text": "ㅋㅋㅋㅋㅋ",
+      "author": "@은율TV-j1f",
+      "likeCount": 0,
+      "publishedAt": "2023-04-15T23:41:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzcP7SxlJg3mpuPqmd4AaABAg",
+      "text": "家",
+      "author": "@은율TV-j1f",
+      "likeCount": 0,
+      "publishedAt": "2023-04-15T23:43:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgymKECQCpDmj9lE1-V4AaABAg",
+      "text": "😭😭",
+      "author": "@은율TV-j1f",
+      "likeCount": 0,
+      "publishedAt": "2023-04-07T07:58:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzFkqW6pE9TmYn5b494AaABAg",
+      "text": "만약에 베이비 단어를 모른다면 언제 에이가 들어가는지 몰라서 헷갈립니다",
+      "author": "@후드디어레디언트",
+      "likeCount": 0,
+      "publishedAt": "2022-05-23T22:53:30Z",
+      "replyCount": 2
+    }
+  ]
+}

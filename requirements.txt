@@ -1,0 +1,2 @@
+# scripts/extract-transcript.py (대시보드 "대본 역설계" 기능용, scripts/youtube-analytics-server.mjs가 호출)
+youtube_transcript_api

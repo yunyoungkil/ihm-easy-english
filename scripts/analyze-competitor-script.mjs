@@ -76,7 +76,27 @@ export async function extractTranscript(videoId) {
     if (!data.ok) throw new Error(data.error || "Transcript extraction failed");
     return data;
   } catch (err) {
-    throw new Error(`자막 추출 실패 (${videoId}): ${err.message}`);
+    // extract-transcript.py가 실패해도 {ok:false, error} JSON을 stdout에 찍고 exit 1로 끝내는데,
+    // execAsync는 exit 1이면 그 JSON을 파싱해서 보여주지 않고 그냥 "Command failed: ..." 라는
+    // 의미 없는 메시지로 reject한다. 다만 Node는 그 실패한 프로세스의 stdout을 err.stdout에
+    // 그대로 담아주므로, 여기서 다시 파싱해서 실제 원인을 꺼낸다(2026-09-07, 사용자 지적).
+    let reason = err.message;
+    if (err.stdout) {
+      try {
+        const parsed = JSON.parse(String(err.stdout).trim());
+        if (parsed?.error) reason = parsed.error;
+      } catch {
+        // stdout이 JSON이 아니면(예: python 자체가 없거나 문법 오류) 원래 err.message를 그대로 씀
+      }
+    }
+    if (/subtitles are disabled/i.test(reason)) {
+      reason = '업로더가 이 영상의 자막 기능을 꺼놔서 자막을 가져올 수 없습니다.';
+    } else if (/no transcripts? (was|were) found|transcriptsdisabled|could not retrieve a transcript/i.test(reason)) {
+      reason = '이 영상에는 가져올 수 있는 자막이 없습니다.';
+    } else if (/video (is )?unavailable|video unplayable/i.test(reason)) {
+      reason = '이 영상을 찾을 수 없습니다(비공개이거나 삭제됐을 수 있습니다).';
+    }
+    throw new Error(`자막 추출 실패 (${videoId}): ${reason}`);
   }
 }
 

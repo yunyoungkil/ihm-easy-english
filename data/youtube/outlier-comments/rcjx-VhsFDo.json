@@ -1,0 +1,485 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-09-07T07:09:20.469Z",
+  "video": {
+    "videoId": "rcjx-VhsFDo",
+    "title": "'시간' 영어단어4 | 일상생활영어 | 기초영어회화 | 왕초보영어",
+    "channelTitle": "굿럭영어",
+    "channelId": "UCSyomjvhjZ4Qp6Zp3dbXxTA",
+    "publishedAt": "2024-08-05T03:50:00Z",
+    "viewCount": 1010468,
+    "likeCount": 11811,
+    "commentCount": 71,
+    "thumbnailUrl": "https://i.ytimg.com/vi/rcjx-VhsFDo/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      "선물(gift)로만 알던 단어가 왜 '지금/현재'가 되는지 이해 못 해 일상에서 망신당하거나 말문이 막히는 '다의어 충격' (댓글 인용: \"지금을 now 말고 present로 쓰이는 줄 몰랐다가 조카랑 실랑이 했습니다... 초4 아이가 present 써서 선물하다/주다인데 뭐니 했다가 현재로도 쓴다고 했다가 히유\")",
+      "머리로는 오늘(today), 내일(tomorrow)을 아는데 '모레', '그저께', '방학'처럼 하루만 벗어나도 영어 조합이 즉각 튀어나오지 않는 '기초 시간 표현의 사각지대' (댓글 인용: \"또 모레 영어는 우라말\", \"방학은 영어로 뭐에요\", \"The day after를 tomorrow로 번역한 영화 제목이 생각나는군요\")",
+      "뜻은 대충 감이 오는데 철자(스펠링)와 실제 원어민 소리가 따로 놀아 써보거나 발음할 때마다 멈칫거리는 불안감 (댓글 인용: \"Today Tomorrow Now Past future 뜻은 아는데 스펠링 헷갈려서 적음\", \"투데이\", \"몬솔\")",
+      "늦은 나이에 다시 시작하려니 초등학생도 아는 기초 단어 앞에서조차 위축되고 자책감이 드는 심리적 장벽 (댓글 인용: \"저는 67세 멋진인생 첫공부 시작합니다\", \"왕초보ㅋ 나는 왕 초뷰ㅜㅜ\", \"65세 매일 공부하려구요\", \"너무 쉽잖아요? 고모폰인데 저 참고로 11살이에요\")"
+    ],
+    "audienceQuestions": [
+      "'지금'은 now인데 왜 굳이 present라고도 하나요? 둘은 원어민 느낌이 어떻게 다른가요?",
+      "'과거'를 말할 때 past와 ago는 자리가 어떻게 다르고 왜 헷갈리게 따로 쓰나요?",
+      "'내일(tomorrow)'은 쉬운데 '모레'나 '글피', '그저께'는 영어로 단어가 따로 있나요, 아니면 문장으로 만드나요?",
+      "vacation, break, holiday는 다 '쉬는 날/방학' 같은데 원어민들은 일상에서 어떻게 나눠 쓰나요?"
+    ],
+    "audienceVocabulary": [
+      "왕초보",
+      "첫공부",
+      "스펠링 헷갈림",
+      "조카랑 실랑이",
+      "다 잊고 지냈는데",
+      "투데이",
+      "심플하니 가볍게",
+      "몬솔(뭔 소리)"
+    ],
+    "whatWorked": [
+      "복잡한 문법 설명이나 예문 나열 대신 왕초보 시니어 눈높이에 맞춰 하루 단위 시간 어휘를 군더더기 없이 직관적으로 제시한 직진형 구성",
+      "외우라고 강요하지 않고 귀로 편안하게 듣고 따라 할 수 있는 템포를 제공하여 60~70대 늦깎이 학습자의 학습 불안과 진입 장벽을 완전히 낮춘 점"
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "선물(present)이 왜 ‘지금’일까요? 원어민 시간 감각 3분 만에 끝내기",
+        "‘모레’가 영어로 바로 안 나오면 아직 영어가 어려운 게 아닙니다",
+        "now와 present 차이, 평생 헷갈리던 시간 단어 딱 하나로 정리해 드립니다"
+      ],
+      "hookThreeSeconds": "\"선물인 줄만 알았던 present가 왜 '지금'인지, 3초 만에 무릎을 탁 치게 만들어 드릴게요.\"",
+      "shortsTrackAIdea": {
+        "concept": "원리 설명형(Track A): '과거'는 지나갔고 '미래'는 안 왔으니 지금 숨 쉬는 이 순간만이 신이 준 '선물(present)'이라는 원어민의 언어 철학을 혀끝 발음 꿀팁과 함께 40초로 압축 해설",
+        "hook": "\"선물(present)이 왜 '현재'인지, 조카한테 지기 전에 딱 30초만 들어보세요.\""
+      },
+      "shortsTrackBIdea": {
+        "concept": "상황극형(Track B): 한국인이 '모레 만나요'를 영작하려고 머릿속에서 '모레... 애프터 투모로우?' 하고 뇌 정지 올 때, 원어민이 'The day after tomorrow'를 덩어리로 툭 던지며 쉽게 끝내는 대조 상황극",
+        "hook": "\"원어민한테 '모레 보자'고 할 때 설마 머릿속으로 단어 번역기 돌리고 계신가요?\""
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgxL9E6HpPy_OQTVYXd4AaABAg",
+      "text": "유익한 영상 올려 주심\n고맙습니다",
+      "author": "@해순-j3j",
+      "likeCount": 22,
+      "publishedAt": "2025-07-15T01:11:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzh8BHcS8fmJcHMCl54AaABAg",
+      "text": "The  day  after를 tomorrow 로  번역한 영화 제목이 생각나는군요",
+      "author": "@l고맙습니다l",
+      "likeCount": 22,
+      "publishedAt": "2024-08-09T11:33:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxa1Xf_PAU6__iptqJ4AaABAg",
+      "text": "영어 열심히 따라 합니다",
+      "author": "@라울님",
+      "likeCount": 12,
+      "publishedAt": "2024-09-13T09:28:02Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw-TcpgUe8ERTQViBJ4AaABAg",
+      "text": "감사합니다 ❤❤❤",
+      "author": "@이쁜이-z8l",
+      "likeCount": 1,
+      "publishedAt": "2025-10-06T08:08:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxWZSQcBFuuun3xU7h4AaABAg",
+      "text": "감사 합니다 \n 오늘 부터 시작 하겠습니다 \n  저는 67세   멋진인생  첫공부 시작합니다 ❤❤",
+      "author": "@홍봉임-j7r",
+      "likeCount": 8,
+      "publishedAt": "2026-05-10T06:34:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxf9kWOraoa2U5e_Np4AaABAg",
+      "text": "심플하니 가볍게 듣기 좋아요!",
+      "author": "@malmonster",
+      "likeCount": 0,
+      "publishedAt": "2026-07-02T04:07:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyCZ6TTk-5h_SejG5J4AaABAg",
+      "text": "What should I do today, now, tomorrow, the past, and the future?",
+      "author": "@싸우더",
+      "likeCount": 0,
+      "publishedAt": "2026-05-10T09:19:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyguJOLejixDWVUxrd4AaABAg",
+      "text": "재밌어요❤❤❤",
+      "author": "@짱짱-s9e",
+      "likeCount": 7,
+      "publishedAt": "2025-05-04T11:54:14Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwQvEJkDB7GzC3X_pV4AaABAg",
+      "text": "날을 알아야 해서 단어를 외우는 의미같아요 ㅎ❤🎉😂",
+      "author": "@현채이-c2w",
+      "likeCount": 1,
+      "publishedAt": "2026-06-14T11:23:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw4wJmykF_KblOB0EV4AaABAg",
+      "text": "감사합니다~~~^^",
+      "author": "@박순우-i3v",
+      "likeCount": 6,
+      "publishedAt": "2025-03-17T09:06:01Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyMVHggxPvBcpjjxz14AaABAg",
+      "text": "다 잊고 지냈는데 다시 공부하니 좋아요 . 구독맺고  또올게요",
+      "author": "@공주시인의효농장",
+      "likeCount": 4,
+      "publishedAt": "2025-05-10T21:29:05Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwRnzriXodyJxzu1vF4AaABAg",
+      "text": "이지쌤 만나서 넘 잼나게 영어 배우고 있어요 넘넘 감사해요\n늘늘 축복입니다❤",
+      "author": "@동백꽃-r9m",
+      "likeCount": 3,
+      "publishedAt": "2025-11-27T21:43:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw6v4zUbC-6Mypgn7N4AaABAg",
+      "text": "왕초보ㅋ나는 왕 초뷰ㅜㅜ",
+      "author": "@정영옥-v3g",
+      "likeCount": 7,
+      "publishedAt": "2025-04-30T08:28:43Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwB_DtcQ-yiG1H11zB4AaABAg",
+      "text": "❤❤❤",
+      "author": "@최명희-p6m",
+      "likeCount": 5,
+      "publishedAt": "2024-08-26T07:02:38Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzicSOOBioe1oSHcU14AaABAg",
+      "text": "❤❤❤❤❤❤❤❤난 이제 곧",
+      "author": "@김민경-e7y8o",
+      "likeCount": 1,
+      "publishedAt": "2026-05-11T13:58:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxqEKbukkOMB3Tpsf94AaABAg",
+      "text": "감사합니다 감사합니다 감사합니다 감사합니다",
+      "author": "@jihunkim5067",
+      "likeCount": 2,
+      "publishedAt": "2026-05-16T02:54:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzLk2w0pBnhOWmOfqR4AaABAg",
+      "text": "WOW GREAT❤",
+      "author": "@Tom-e7t1i",
+      "likeCount": 2,
+      "publishedAt": "2026-02-16T10:55:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwQ_ke4FdKQmzAxzWt4AaABAg",
+      "text": "과거 past",
+      "author": "@poi-g6l",
+      "likeCount": 2,
+      "publishedAt": "2025-07-16T16:00:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz613ObExCy7HGO1vF4AaABAg",
+      "text": "what day chicken???!!!\n오늘 내일 지금 과거 미래 ???!!!",
+      "author": "@뭉도리-17",
+      "likeCount": 2,
+      "publishedAt": "2025-08-03T08:09:28Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzMKQKziAxFOyoMCyl4AaABAg",
+      "text": "감사합니다",
+      "author": "@신은희-n7l",
+      "likeCount": 15,
+      "publishedAt": "2024-08-13T22:13:19Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzDgnmJ8NBJHl2I4rF4AaABAg",
+      "text": "그게저에요",
+      "author": "@짱짱-q9b",
+      "likeCount": 4,
+      "publishedAt": "2025-05-21T13:26:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxRrCcYqNyd0M6s3qJ4AaABAg",
+      "text": "😊❤ㅋㅋㅋㅋㅋ ㅋㅋㅋㅋ 😆",
+      "author": "@최민서민서-w6r",
+      "likeCount": 1,
+      "publishedAt": "2026-03-14T11:15:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw6JUc0lOMVqG9eJ614AaABAg",
+      "text": "하하하하하하 나 지금 너무 행복해 ❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤",
+      "author": "@최진영-o7e",
+      "likeCount": 0,
+      "publishedAt": "2026-05-15T11:02:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy27vSehYWOxQjCC9F4AaABAg",
+      "text": "지금을 now말고 present로 쓰이는줄 몰랐다가 조카랑 실랑이 했습니다 초4아이에게 다섯개 다 맞추면 기프티콘 사준다고 했다가 지금을 present로 써서 선물하다 주다 인데 뭐니 했더니 현재로도 쓴다고 했다가 ....히유",
+      "author": "@멜론공주-g3d",
+      "likeCount": 0,
+      "publishedAt": "2026-04-07T10:59:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzJlqIw6nMZpkwiDGx4AaABAg",
+      "text": "감사합니다 좋은  세상에서 살고있구나",
+      "author": "@변문숙-j3m",
+      "likeCount": 6,
+      "publishedAt": "2024-09-01T05:43:38Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxPmtALiWXnakUfzI54AaABAg",
+      "text": "열심히 따라하겠습니다. 그런데 마지막 단어가 보이지않습니다 ~",
+      "author": "@리폼선생",
+      "likeCount": 0,
+      "publishedAt": "2026-06-05T09:52:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy4puDiQJpfGSLtnUZ4AaABAg",
+      "text": "감사 합니다 왕초보입니다.",
+      "author": "@김평심-b9h",
+      "likeCount": 9,
+      "publishedAt": "2025-03-14T07:54:10Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgzfolBUL--x-4m4IYp4AaABAg",
+      "text": "너무 감사함니다",
+      "author": "@김혜수-i7x",
+      "likeCount": 2,
+      "publishedAt": "2025-06-13T03:05:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxav074ulxSdGNerAR4AaABAg",
+      "text": "지금을 present라고도합니다!",
+      "author": "@숙제싫어-p7b",
+      "likeCount": 7,
+      "publishedAt": "2025-08-26T15:09:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgySH61Ua5xRnC-ffnJ4AaABAg",
+      "text": "방학은영어로뭐에요",
+      "author": "@young219-t9l",
+      "likeCount": 0,
+      "publishedAt": "2026-04-29T22:43:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzhVyVVMZOYy8ieW4F4AaABAg",
+      "text": "감사드려요.\n65세 매일 공부하려구요.",
+      "author": "@유경옥-r7d",
+      "likeCount": 4,
+      "publishedAt": "2026-02-12T02:40:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy9i5-mthtyQuM_g154AaABAg",
+      "text": "다 외우게 돼내",
+      "author": "@실버-w6z",
+      "likeCount": 0,
+      "publishedAt": "2026-02-08T13:45:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwf8dfo9giAA1Yxmf14AaABAg",
+      "text": "Today Tomorrow Now Past future 뜻은 아는데 스펠링 햇갈려셔 적음",
+      "author": "@peaceP-e1n5x",
+      "likeCount": 0,
+      "publishedAt": "2026-04-12T11:37:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy0JKAltlB0ouevqqx4AaABAg",
+      "text": "요일",
+      "author": "@하봉순-f7g",
+      "likeCount": 0,
+      "publishedAt": "2025-10-11T04:36:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzhrKklWEOs0sLR_YV4AaABAg",
+      "text": "잊어버린 영어 재밌어요",
+      "author": "@김교남-r2d",
+      "likeCount": 4,
+      "publishedAt": "2025-05-26T04:03:51Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxA-j_EHIdnKpJ9-bd4AaABAg",
+      "text": "초딩이영어해요",
+      "author": "@짱짱-q9b",
+      "likeCount": 3,
+      "publishedAt": "2025-05-21T13:26:42Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy1pFGTrfnFLHzdiLF4AaABAg",
+      "text": "투데이",
+      "author": "@상조김-x5s",
+      "likeCount": 0,
+      "publishedAt": "2026-07-02T11:03:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwJPyf1NnVMwIJTN3V4AaABAg",
+      "text": "감사드립니다🎉😂❤",
+      "author": "@조미숙-i1i",
+      "likeCount": 3,
+      "publishedAt": "2025-05-15T02:34:29Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwRbSaYnJbL5W9ePtp4AaABAg",
+      "text": "너무쉽잖아요 ? \n고모폰 인데 저 참고로11살이예요.\n(만으로10 살 임 ㅋㅋ)",
+      "author": "@김인숙-k1r",
+      "likeCount": 9,
+      "publishedAt": "2024-08-09T13:26:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgweFlVb5uqOMxeFQBN4AaABAg",
+      "text": "참고 로 악플은\n아님 아님 다.\n만약 기분나쁘시 면죄송해요",
+      "author": "@김인숙-k1r",
+      "likeCount": 5,
+      "publishedAt": "2024-08-09T13:27:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwG2fv8t7kJqy9Ij-V4AaABAg",
+      "text": "😮?",
+      "author": "@차재길-w2g",
+      "likeCount": 2,
+      "publishedAt": "2025-08-01T12:22:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxA8mqGipupMeZoeyp4AaABAg",
+      "text": "🎉😂",
+      "author": "@조현아-z4s",
+      "likeCount": 0,
+      "publishedAt": "2025-10-17T14:09:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxpVzU7bPsKChsAId14AaABAg",
+      "text": "몬솔",
+      "author": "@뚜인쿠아",
+      "likeCount": 0,
+      "publishedAt": "2026-02-13T12:19:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw1HR4u0BS_eOkuTcR4AaABAg",
+      "text": "😂😂😂😂😂😂😂😂😂😂😂😂😂😂",
+      "author": "@조현아-z4s",
+      "likeCount": 0,
+      "publishedAt": "2025-10-17T14:10:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyfbEyVaPa-kBIh61x4AaABAg",
+      "text": "안내면 이재명 가위바위보",
+      "author": "@미스터블랙-s8b",
+      "likeCount": 0,
+      "publishedAt": "2026-06-30T07:13:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxG6huW1hK_afyh5zp4AaABAg",
+      "text": "또 모레   영어는 우라말",
+      "author": "@나뭇군-v6l",
+      "likeCount": 3,
+      "publishedAt": "2024-10-11T19:24:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgycumMkzgYTFgklOoB4AaABAg",
+      "text": "과거  a  go  過去",
+      "author": "@나뭇군-v6l",
+      "likeCount": 3,
+      "publishedAt": "2024-10-11T19:26:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxlWC8myCd9WvXn63N4AaABAg",
+      "text": "❤❤❤",
+      "author": "@RENSHUZHANG-c3z9n",
+      "likeCount": 0,
+      "publishedAt": "2026-01-09T08:00:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxps3QuBV22ULK8RzJ4AaABAg",
+      "text": "감사합니다",
+      "author": "@군자란-s6s",
+      "likeCount": 4,
+      "publishedAt": "2024-11-05T11:41:23Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugze6xICBmr8Zx9panh4AaABAg",
+      "text": "투데이",
+      "author": "@seoyoon16",
+      "likeCount": 0,
+      "publishedAt": "2026-07-19T07:09:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxSSHsgJghlFbs9rXd4AaABAg",
+      "text": "감사합니다",
+      "author": "@노준래-j8c",
+      "likeCount": 2,
+      "publishedAt": "2025-09-09T23:38:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwicCV23PtPOvbvCMl4AaABAg",
+      "text": "감사합니다",
+      "author": "@이세관-r9b",
+      "likeCount": 0,
+      "publishedAt": "2026-07-24T04:36:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy3knfQbVbu1kImE1p4AaABAg",
+      "text": "고맙습니다",
+      "author": "@윤재희-j7s",
+      "likeCount": 0,
+      "publishedAt": "2026-08-18T21:06:19Z",
+      "replyCount": 0
+    }
+  ]
+}

@@ -147,6 +147,20 @@ wscript scripts\run-hidden.vbs "<프로젝트 폴더>" "set PRODUCER_BROWSER_GPU
 매번 새로 뜨는 명령에는 이 문제가 보고되지 않았으므로 이 환경변수를 강제할 필요 없음 —
 **`preview --background`(계속 켜져 있는 서버)에만 적용.**
 
+## 6. 대시보드 "대본 역설계" 기능에 필요한 파이썬 패키지
+
+`scripts/youtube-analytics-server.mjs`의 `/api/scripts/analyze`가 자막을 가져올 때
+`scripts/extract-transcript.py`를 서브프로세스로 호출하는데, 이 스크립트는 `youtube_transcript_api`
+파이썬 패키지가 있어야 동작한다. 새 PC에서 처음 이 기능(대시보드 "경쟁사 대본 역설계" 버튼,
+시장 수요 레이더의 "📜 대본" 버튼)을 쓸 때 아래 에러가 나면 이게 원인이다:
+
+```
+{"ok": false, "error": "No module named 'youtube_transcript_api'", "videoId": "..."}
+```
+
+해결: `pip install -r requirements.txt` (또는 `python -m pip install youtube_transcript_api`
+직접 실행). Node 쪽 `package.json`엔 안 잡히는 의존성이라 `npm install`만으로는 안 채워진다.
+
 ## 관련 문서
 
 - [지금 할 일](now.md)

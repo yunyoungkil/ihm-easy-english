@@ -348,6 +348,10 @@ async function main() {
           : null;
       return {
         keyword,
+        analyzedAt: new Date().toISOString(), // 이 키워드가 실제로 마지막으로 (재)분석된 시각.
+        // 전체 결과 파일의 generatedAt과는 다르다 — generatedAt은 파일을 마지막으로 쓴 시각이라
+        // ad-hoc으로 키워드 하나만 돌려도 안 건드린 다른 키워드까지 갱신된 것처럼 보인다.
+        // 대시보드가 "이미 분석된 키워드입니다" 중복 경고를 정확한 날짜로 보여주려면 필요하다.
         videoCount: rows.length,
         confidence: lowSample ? "low" : "ok",
         lowSampleWarning: lowSample

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-07T08:24:43.285Z",
+  "updatedAt": "2026-09-07T09:46:46.340Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -36,8 +36,34 @@
       ],
       "episodeSlug": "ep13-tongue-shortcut",
       "episodeLabel": "단편 EP13",
-      "status": "selected",
+      "status": "scheduled",
       "selectedAt": "2026-09-07T08:23:52.578Z",
+      "producedAt": "2026-09-07"
+    },
+    {
+      "topic": "원어민이 지들 멋대로 발음하는 게 아닙니다: 게으른 혀가 만든 연음 소리 원리",
+      "angleOrHook": "원어민이 지들 멋대로 발음을 굴리는 게 아니라 혀를 덜 쓰려고 소리를 잇는 '게으른 혀의 지름길' 원리를 밝혀 무작정 듣기 훈련 없이도 귀가 뚫리는 카타르시스를 제공합니다.",
+      "targetAudience": "단어는 아는데 문장으로 이어지면 전혀 안 들려 답답함을 느끼는 4060 리스닝 정체기 학습자",
+      "rank": 1,
+      "score": 88,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "'영어 듣기 안 들리는 이유' (opportunityScore 45.3) - 아웃라이어 연음발음 법칙 수요"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "포맷 'LEGACY' (fitScore 57, 41개 영상 보유)"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "시청자 어휘 '지들 멋대로 발음', '자주 쓰는 근육'"
+        }
+      ],
+      "episodeSlug": "ep14-connected-speech",
+      "episodeLabel": "단편 EP14",
+      "status": "selected",
+      "selectedAt": "2026-09-07T09:46:46.340Z",
       "producedAt": null
     }
   ]

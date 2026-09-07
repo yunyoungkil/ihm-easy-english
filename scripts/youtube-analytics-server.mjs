@@ -7114,9 +7114,13 @@ function renderIdeaBoardTab() {
     const historyStatusLabel = { selected: '🔄 이미 진행 중', scheduled: '✅ 이미 제작됨', published: '✅ 이미 공개됨' };
     candidates.forEach((c) => {
       const isSelected = !!(gIdeaBoardSelected && gIdeaBoardSelected.rank === c.rank && gIdeaBoardSelected.topic === c.topic);
-      // 지금 화면에서 선택 중인 후보 본인은 "이미 진행 중" 잠금 표시 대상에서 제외한다 — 안 그러면
-      // 선택 즉시 자동 기록되는 이 항목이 스스로를 잠가서 "✅ 선택됨" 표시가 안 뜨게 된다.
-      const producedMatch = !isSelected && gIdeaBoardHistory.find((h) => normalizeTopic(h.topic) === normalizeTopic(c.topic));
+      const historyMatch = gIdeaBoardHistory.find((h) => normalizeTopic(h.topic) === normalizeTopic(c.topic));
+      // 방금 선택해서 history 상태가 아직 'selected'(막 고른 초기 단계)인 자기 자신만 잠금 표시
+      // 대상에서 뺀다 — 안 그러면 선택 즉시 자동 기록되는 이 항목이 스스로를 잠가서 "✅ 선택됨"
+      // 표시가 안 뜬다. 하지만 'scheduled'/'published'처럼 더 진행된 상태면, 지금 화면에서 계속
+      // 선택 중이더라도(업로드 패키지·예약까지 이미 끝났다는 뜻이므로) 그대로 잠금 표시를 보여준다
+      // (2026-09-07, "예약까지 하면 잠겨야 하는거 아님?"이라는 사용자 지적으로 반영).
+      const producedMatch = historyMatch && !(isSelected && historyMatch.status === 'selected') ? historyMatch : null;
       const producedLabel = producedMatch ? (historyStatusLabel[producedMatch.status] || '🔒 이미 진행됨') : '';
       html += '<div class="bento-card col-3" style="border:' + (isSelected ? '2px solid var(--accent-emerald)' : '1px solid var(--border-subtle)') + (producedMatch ? ';opacity:0.6' : '') + '">' +
         '<div class="card-header">' +

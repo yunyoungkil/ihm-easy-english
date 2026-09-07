@@ -4,19 +4,23 @@
     "candidates": [
       {
         "rank": 1,
-        "topic": "Want vs Won't 턱 움직임 구분법과 실전 문장 완성",
-        "angleOrHook": "어려운 장모음 용어 없이 턱의 움직임 하나로 '원트'와 '워운트'를 구별하고 I want it / I won't do it 실전 문장까지 한 번에 뚫어드립니다.",
-        "targetAudience": "원트와 우언트의 소리 차이를 구별하지 못해 듣기와 말하기에서 늘 헷갈리는 왕초보 학습자",
-        "suggestedBadge": "💡 턱 하나로 끝",
-        "rationale": "시청자 DB에서 지적된 'Want vs Won't 직관적 비교 부재' 및 '전문용어 인지부담' 고통점을 직접 해결하며, 검색 수요 'WANT TO 축약(opportunityScore 13.7)'과 결합한 최우선 개선 소재입니다.",
+        "topic": "원어민이 지들 멋대로 발음하는 게 아닙니다: 게으른 혀가 만든 연음 소리 원리",
+        "angleOrHook": "원어민이 지들 멋대로 발음을 굴리는 게 아니라 혀를 덜 쓰려고 소리를 잇는 '게으른 혀의 지름길' 원리를 밝혀 무작정 듣기 훈련 없이도 귀가 뚫리는 카타르시스를 제공합니다.",
+        "targetAudience": "단어는 아는데 문장으로 이어지면 전혀 안 들려 답답함을 느끼는 4060 리스닝 정체기 학습자",
+        "suggestedBadge": "👂 소리 지름길",
+        "rationale": "시장 수요 키워드 '영어 듣기 안 들리는 이유'(opportunityScore 45.3)와 시청자 고통점 '지들 멋대로 발음'을 결합하고, 채널 내 가장 유지율이 검증된 'LEGACY'(fitScore 57) 포맷을 적용할 수 있는 최적 시점입니다.",
         "dataSourceRefs": [
           {
-            "source": "audienceDna",
-            "detail": "제목은 Want vs Won't 비교였으나 실제 본문 직관적 비교 부족, long 오운 장모음 등 전문 용어 부담, 실전 문장 확장 부족 고통점"
+            "source": "marketDemand",
+            "detail": "'영어 듣기 안 들리는 이유' (opportunityScore 45.3) - 아웃라이어 연음발음 법칙 수요"
           },
           {
-            "source": "marketDemand",
-            "detail": "WANT TO 축약 (opportunityScore 13.7)"
+            "source": "contentOpportunity",
+            "detail": "포맷 'LEGACY' (fitScore 57, 41개 영상 보유)"
+          },
+          {
+            "source": "audienceDna",
+            "detail": "시청자 어휘 '지들 멋대로 발음', '자주 쓰는 근육'"
           }
         ],
         "suggestedFormat": "LONGFORM",
@@ -24,107 +28,119 @@
       },
       {
         "rank": 2,
-        "topic": "영어 노베이스 왕초보가 가장 먼저 알아야 할 소리 원리",
-        "angleOrHook": "무작정 알파벳만 외우다 지친 분들을 위해, 혀가 가장 편하게 움직이는 글자 결합 소리 지름길을 알려드립니다.",
-        "targetAudience": "영어 공부를 다시 시작하고 싶지만 어디서부터 손대야 할지 막막한 노베이스 알파벳 입문자",
-        "suggestedBadge": "🌱 노베이스 첫걸음",
-        "rationale": "시장 검색 수요 1위인 '영어 왕초보, 어디서부터 시작하죠?(opportunityScore 86.6)'와 채널 내 최고 유지율 포맷인 'LEGACY(fitScore 57)'를 결합하여 대중성과 안정성을 모두 확보할 수 있는 소재입니다.",
+        "topic": "단어 끝 -SION 소리 원리 하나로 100단어 소리 언어팩 체득하기",
+        "angleOrHook": "복잡한 발음 기호 없이 혀 위치 하나만 살짝 바꾸어 decision, vision 같은 수십 개 단어가 단숨에 입에 붙고 구별되는 소리 확장 카타르시스를 전달합니다.",
+        "targetAudience": "비슷하게 생긴 긴 영어 단어만 보면 읽기가 두려워 말문이 막히는 왕초보 리딩 입문자",
+        "suggestedBadge": "🎯 1초 원리 체득",
+        "rationale": "채널 규칙 데이터 중 가장 성과가 높은 '-SION'(fitScore 45) 규칙을 활용하고, '왕초보 영어 발음'(opportunityScore 43.3) 수요와 시청자 핵심 어휘 '언어팩', '체득'을 직접 반영했습니다.",
         "dataSourceRefs": [
           {
             "source": "marketDemand",
-            "detail": "영어 왕초보, 어디서부터 시작하죠? (opportunityScore 86.6), 왕초보 영어 발음 (opportunityScore 41.8)"
+            "detail": "'왕초보 영어 발음' (opportunityScore 43.3, 신뢰도 ok)"
           },
           {
             "source": "contentOpportunity",
-            "detail": "포맷/역할 LEGACY (fitScore 57, 영상 41개)"
+            "detail": "시즌1 규칙 '-SION' (fitScore 45, 채널 규칙 중 1위)"
+          },
+          {
+            "source": "audienceDna",
+            "detail": "시청자 어휘 '언어팩', '체득'"
           }
         ],
         "suggestedFormat": "LONGFORM",
-        "score": 85
+        "score": 84
       },
       {
         "rank": 3,
-        "topic": "끝소리 T 바람만 퉤- 뱉는 원리와 단어 확장",
-        "angleOrHook": "목소리를 섞지 않고 바람만 가볍게 '퉤-' 뱉는 게으른 혀의 원리만 알면 끝소리 T 발음과 듣기가 단번에 풀립니다.",
-        "targetAudience": "단어 끝 T 소리를 '트'하고 또박또박 발음하다가 원어민 소리가 안 들리는 초급 학습자",
-        "suggestedBadge": "💨 바람 퉤 비법",
-        "rationale": "시청자 언어 DB의 검증된 표현('바람만 퉤- 나가는 소리')을 활용하고, 검색 수요가 높은 '영어 발음 규칙(29.6)' 및 '영어 발음 원리(27)' 수요를 직접 공략합니다.",
+        "topic": "버터발음 흉내 내지 마세요: 한국인이 목구멍 소리만 열면 끝나는 발음 원리",
+        "angleOrHook": "자위적인 버터발음이나 과도한 혀 굴리기를 멈추고, 한국어와 다른 '목구멍 소리'와 숨 쉬는 위치만 가볍게 바꿔도 즉각 원어민 소리로 바뀌는 반전 꿀팁을 전합니다.",
+        "targetAudience": "발음을 굴리려다 콩글리시 억양에 갇혀 입 떼기가 부끄러운 5060 성인 학습자",
+        "suggestedBadge": "💡 버터발음 탈피",
+        "rationale": "시장의 꾸준한 '영어기초배우기 발음'(opportunityScore 43.3) 수요에 시청자 누적 키워드 '버터발음', '목구멍 소리', '복식호흡'을 결합하여 과장된 어그로 없는 솔직 담백한 원리 해결책을 제시합니다.",
         "dataSourceRefs": [
           {
-            "source": "audienceDna",
-            "detail": "끝소리 T의 파열음: 목소리를 빼고 '바람만 퉤- 나가는 소리'"
+            "source": "marketDemand",
+            "detail": "'영어기초배우기 발음' (opportunityScore 43.3, 반복 훅: 왕초보영어, 기초)"
           },
           {
-            "source": "marketDemand",
-            "detail": "영어 발음 규칙 (opportunityScore 29.6), 영어 발음 원리 (opportunityScore 27)"
+            "source": "audienceDna",
+            "detail": "시청자 어휘 '버터발음', '목구멍 소리', '복식호흡'"
           }
         ],
         "suggestedFormat": "SHORTS",
-        "score": 78
+        "score": 81
       },
       {
         "rank": 4,
-        "topic": "빠른 영어가 안 들리는 이유, 게으른 혀의 연음과 축약 원리",
-        "angleOrHook": "원어민이 말을 빨리 하는 게 아니라 혀의 움직임을 줄여서 그렇습니다. 귀가 저절로 뚫리는 소리 생략 원리를 보여드립니다.",
-        "targetAudience": "단어는 다 아는데 문장으로 빠르게 이어지면 하나도 들리지 않아 답답한 리스닝 정체기 학습자",
-        "suggestedBadge": "👂 귀 뚫리는 원리",
-        "rationale": "시장 수요 키워드 '영어 듣기 안 들리는 이유(13.3)'와 '미국식 발음 규칙(20)'을 채널 검증 포맷인 'EXPERIMENT(fitScore 45)' 구조로 풀어내어 도파민 공식을 전달할 수 있습니다.",
+        "topic": "-TION vs -SION: 왜 같은 '션' 소리가 다를까? 입안 자주 쓰는 근육의 비밀",
+        "angleOrHook": "한국인은 똑같이 '션'으로 읽지만 원어민은 다르게 소리 내는 원리를 통해, 입안에서 자주 쓰는 근육의 미세한 마찰 차이를 짚어주는 반전 비교 족보를 공개합니다.",
+        "targetAudience": "파닉스는 뗐지만 단어마다 미묘하게 다른 끝소리 구분이 헷갈리는 기초 독해 학습자",
+        "suggestedBadge": "🔍 소리 미세 차이",
+        "rationale": "채널 내부 검증 규칙인 '-SION'(fitScore 45)과 '-TION'(fitScore 38)을 대조하는 구조로 확장성과 이해도를 극대화하며, '자주 쓰는 근육'이라는 시청자 체감 언어를 사용합니다.",
         "dataSourceRefs": [
           {
             "source": "marketDemand",
-            "detail": "영어 듣기 안 들리는 이유 (opportunityScore 13.3), 미국식 발음 규칙 (opportunityScore 20), 영어 연음 축약 (opportunityScore 11.6)"
+            "detail": "'왕초보 영어 발음' (opportunityScore 43.3) - 아웃라이어 파닉스/읽는법 수요"
           },
           {
             "source": "contentOpportunity",
-            "detail": "포맷/역할 EXPERIMENT (fitScore 45, 영상 4개)"
+            "detail": "시즌1 규칙 '-SION' (fitScore 45) 및 '-TION' (fitScore 38)"
+          },
+          {
+            "source": "audienceDna",
+            "detail": "시청자 어휘 '자주 쓰는 근육'"
           }
         ],
         "suggestedFormat": "LONGFORM",
-        "score": 72
+        "score": 79
       },
       {
         "rank": 5,
-        "topic": "헷갈리는 영어 단어 꼬리 -SION vs -TION 발음 법칙",
-        "angleOrHook": "단어 끝에 붙는 -sion과 -tion을 무작정 외우지 않고 혀 위치 차이 하나로 카타르시스를 느끼는 규칙 확장법을 공개합니다.",
-        "targetAudience": "비슷하게 생긴 단어 꼬리 스펠링 때문에 읽을 때마다 망설여지는 기초 파닉스/단어 학습자",
-        "suggestedBadge": "🎯 꼬리 규칙 완정복",
-        "rationale": "채널 규칙 데이터 중 가장 높은 성과를 낸 '-SION(fitScore 45)'과 '-TION(fitScore 38)'을 엮고, '영어 발음 규칙(opportunityScore 29.6)' 수요를 타겟팅한 안정적 후속작입니다.",
+        "topic": "영어 노베이스는 이것부터: 무작정 외우기 전에 입 근육부터 세팅하는 3단계 공부법",
+        "angleOrHook": "어그로성 앱 추천이나 무조건적인 단어 암기 대신, 매일 3분씩 혀와 턱 근육을 길들여 소리 감각을 먼저 깨우는 현실적인 솔직 담백 시작법을 제시합니다.",
+        "targetAudience": "작심삼일 단어 암기에 번번이 실패하고 이제 막 영어를 다시 시작하려는 노베이스 성인",
+        "suggestedBadge": "🌱 노베이스 로드맵",
+        "rationale": "시장 기회 지수가 가장 높은 '영어 왕초보, 어디서부터 시작하죠?'(opportunityScore 86.6)와 채널 브랜드 철학(무작정 외우지 마세요)을 연결하고, '어그로'에 지친 시청자 반응을 겨냥합니다.",
         "dataSourceRefs": [
           {
-            "source": "contentOpportunity",
-            "detail": "시즌1 규칙 -SION (fitScore 45), -TION (fitScore 38)"
+            "source": "marketDemand",
+            "detail": "'영어 왕초보, 어디서부터 시작하죠?' (opportunityScore 86.6, 신뢰도 ok) - 대표 아웃라이어: '영어 노베이스는 이것부터 하세요'"
           },
           {
-            "source": "marketDemand",
-            "detail": "영어 발음 규칙 (opportunityScore 29.6)"
+            "source": "audienceDna",
+            "detail": "시청자 어휘 '어그로', '자주 쓰는 근육'"
           }
         ],
         "suggestedFormat": "LONGFORM",
-        "score": 68
+        "score": 76
       }
     ],
-    "summaryNote": "market-demand(시장 수요), content-opportunity(내부 규칙/포맷 성과), audience-dna(시청자 미해결 고통점)를 상호 보완적으로 교차 검증하여 5개 소재를 선출했습니다.",
-    "generatedAt": "2026-09-02T11:34:01.366Z"
+    "summaryNote": "5개 후보 모두 marketDemand와 audienceDna의 실제 수치 및 언어를 직접 반영하였으며, contentOpportunity는 검증된 상위 규칙(-SION, -TION)과 포맷(LEGACY) 위주로 결합하고 제공 데이터셋에 없는 successPatterns 항목은 배제하여 구성했습니다.",
+    "generatedAt": "2026-09-07T09:43:16.844Z"
   },
   "selected": {
-    "rank": 2,
-    "topic": "영어 노베이스 왕초보가 가장 먼저 알아야 할 소리 원리",
-    "angleOrHook": "무작정 알파벳만 외우다 지친 분들을 위해, 혀가 가장 편하게 움직이는 글자 결합 소리 지름길을 알려드립니다.",
-    "targetAudience": "영어 공부를 다시 시작하고 싶지만 어디서부터 손대야 할지 막막한 노베이스 알파벳 입문자",
-    "suggestedBadge": "🌱 노베이스 첫걸음",
-    "rationale": "시장 검색 수요 1위인 '영어 왕초보, 어디서부터 시작하죠?(opportunityScore 86.6)'와 채널 내 최고 유지율 포맷인 'LEGACY(fitScore 57)'를 결합하여 대중성과 안정성을 모두 확보할 수 있는 소재입니다.",
+    "rank": 1,
+    "topic": "원어민이 지들 멋대로 발음하는 게 아닙니다: 게으른 혀가 만든 연음 소리 원리",
+    "angleOrHook": "원어민이 지들 멋대로 발음을 굴리는 게 아니라 혀를 덜 쓰려고 소리를 잇는 '게으른 혀의 지름길' 원리를 밝혀 무작정 듣기 훈련 없이도 귀가 뚫리는 카타르시스를 제공합니다.",
+    "targetAudience": "단어는 아는데 문장으로 이어지면 전혀 안 들려 답답함을 느끼는 4060 리스닝 정체기 학습자",
+    "suggestedBadge": "👂 소리 지름길",
+    "rationale": "시장 수요 키워드 '영어 듣기 안 들리는 이유'(opportunityScore 45.3)와 시청자 고통점 '지들 멋대로 발음'을 결합하고, 채널 내 가장 유지율이 검증된 'LEGACY'(fitScore 57) 포맷을 적용할 수 있는 최적 시점입니다.",
     "dataSourceRefs": [
       {
         "source": "marketDemand",
-        "detail": "영어 왕초보, 어디서부터 시작하죠? (opportunityScore 86.6), 왕초보 영어 발음 (opportunityScore 41.8)"
+        "detail": "'영어 듣기 안 들리는 이유' (opportunityScore 45.3) - 아웃라이어 연음발음 법칙 수요"
       },
       {
         "source": "contentOpportunity",
-        "detail": "포맷/역할 LEGACY (fitScore 57, 영상 41개)"
+        "detail": "포맷 'LEGACY' (fitScore 57, 41개 영상 보유)"
+      },
+      {
+        "source": "audienceDna",
+        "detail": "시청자 어휘 '지들 멋대로 발음', '자주 쓰는 근육'"
       }
     ],
     "suggestedFormat": "LONGFORM",
-    "score": 85
+    "score": 88
   },
-  "generatedAt": "2026-09-02T11:34:01.366Z"
+  "generatedAt": "2026-09-07T09:43:16.844Z"
 }

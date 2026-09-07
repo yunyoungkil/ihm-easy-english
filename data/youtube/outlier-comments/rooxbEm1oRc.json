@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-09-07T09:39:14.418Z",
+  "video": {
+    "videoId": "rooxbEm1oRc",
+    "title": "World 발음 함께 연습해요 ! #dailyconversations #english #konglish #dailyenglish #발음연습 #영어공부",
+    "channelTitle": "Just do English",
+    "channelId": "UC-oiPen1gjMeyPDGuDgjtfw",
+    "publishedAt": "2023-08-06T23:16:35Z",
+    "viewCount": 182661,
+    "likeCount": 1885,
+    "commentCount": 33,
+    "thumbnailUrl": "https://i.ytimg.com/vi/rooxbEm1oRc/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "point": "R과 L이 연속으로 겹칠 때 혀가 물리적으로 꼬여 발음이 'Old(올드)'나 기괴한 외계어로 망가지는 좌절감",
+        "evidence": "Old가 되버리는데 쉽지않네 / 우어어럴드요? / 거의 워를드같은 느낌인데 를을 ㅈㄴ짧게해야하는...?"
+      },
+      {
+        "point": "단어(Word)와 세계(World)의 소리 차이를 뇌와 입이 명확히 인지하지 못해 잘못 발음할까 봐 입을 닫게 됨",
+        "evidence": "사실 다 커서 영어를 배우는 한국인한테 진짜 어려운 건 world, talk 같은 단어의 L임 소리를 구분하는 것부터가 난관 / word는 r사운드 묵음 아님?"
+      },
+      {
+        "point": "음성학적 규칙(혀를 뒤로 말았다가 윗니 뒤를 치라는 설명)은 알겠으나 실전 발화 속도에서 전혀 구현되지 않는 인지 과부하",
+        "evidence": "R에서는 혀를 뒤로 서서히 말고, l에서는 혀를 윗니에 갖다 댄다고 생각하세요 / Dark L, 음소 조합 설명처럼 머리로는 알아도 0.1초 만에 혀가 움직여주지 않음"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "'Word'와 'World'는 둘 다 한글로 쓰면 '월드' 같은데, 원어민은 도대체 어떤 소리 차이로 귀신같이 알아듣나요?"
+      },
+      {
+        "question": "World, Cold, Will처럼 단어 중간이나 끝에 L이 올 때 혀끝을 천장에 꼭 붙여야 하나요, 아니면 삼키듯이 소리만 내도 되나요?"
+      },
+      {
+        "question": "Girl, Curl, World처럼 '알(R)' 다음에 '엘(L)'이 연달아 붙는 까다로운 단어들은 어떤 소리 징검다리를 써야 혀가 안 꼬이나요?"
+      },
+      {
+        "question": "Talk나 Walk의 L은 묵음이라면서 World의 L은 왜 발음해야 하고, 도대체 묵음 기준이 뭔가요?"
+      }
+    ],
+    "audienceVocabulary": [
+      "워을드 / 코을드 / 위을 ('을' 끼워넣기 치트키)",
+      "were + old (두 단어로 쪼개기)",
+      "우어어럴드 (혀 꼬였을 때 나는 소리)",
+      "Old가 돼버림",
+      "를을 ㅈㄴ 짧게",
+      "소리 구분 난관",
+      "단어 중간 L 대처법"
+    ],
+    "whatWorked": [
+      {
+        "highlight": "받침 'L' 자리에 한국어 모음 '을'을 징검다리처럼 툭 던져 넣는 직관적 치트키 (좋아요 390개 기록)",
+        "takeaway": "복잡한 혀 위치 설명 대신 '워-을-드', '코-을-드', '위-을'처럼 한국인에게 가장 익숙한 음절로 쪼개주는 설명 방식이 시청자들에게 폭발적인 안도감과 실천력을 줌"
+      },
+      {
+        "highlight": "하나의 거대한 단어를 이미 아는 2개의 쉬운 단어로 분해해 합치는 '쪼개기 청킹' 접근법",
+        "takeaway": "'were' 소리를 내고 뒤에 'old'를 얹으라는(were-old / war-old) 식의 덩어리 접근이 혀의 동선을 획기적으로 줄여주어 큰 호응을 얻음"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "World 발음할 때 제발 혀 굴리지 마세요 (한국인 99%가 모르는 '워-을-드'의 비밀)",
+        "'월드'라고 하면 백날 가도 못 알아듣습니다: 혀 안 꼬이고 원어민 귀 뚫어주는 딱 1글자",
+        "Word와 World 소리 구분 못 하는 이유? '게으른 혀'의 지름길만 알면 3초 만에 끝납니다"
+      ],
+      "hookThreeSeconds": "World 발음하려고 혀 억지로 말다가 '올드(Old)'나 '우어럴드' 되신 적 있죠? 딱 한 글자만 끼워 넣으면 혀 안 꼬이고 원어민이 바로 알아듣습니다.",
+      "shortsTrackAIdea": {
+        "concept": "원어민의 'Dark L' 원리를 복잡한 용어 없이 '게으른 혀의 소리 지름길'과 '을' 치트키로 30초 만에 교정해 주는 원리 영상",
+        "hookLine": "원어민도 World 발음할 때 혀를 뒤로 말았다가 윗니 뒤로 번개처럼 못 움직입니다. 대신 '이 꼼수'를 써요."
+      },
+      "shortsTrackBIdea": {
+        "concept": "카페나 여행지에서 'Word'와 'World'를 잘못 발음해 전혀 다른 의미로 전달되어 동문서답하는 콩트 및 해결책 제시",
+        "hookLine": "외국인이 'Give me your word(약속해줘)'라고 했는데, 세상(World)을 떠올리며 당황하셨나요?"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgybWL8oSXoH88yWTsh4AaABAg",
+      "text": "저는 그냥 단어 중간에 l이 오면 \"을\"을 끼워넣는 식으로 대처해요. world는 월드 대신 워을드, cold는 콜드 아니고 코을드, will 은 윌 아니고 위을 I'll be back은 아윌비백 아니고 아을비백\n\n그냥 대충 인토네이션만 맞춰도 알아듣긴 하는데 저렇게 하니까 그나마 잘 알아먹더라고요. 일관성있게 밀어부치면 아예 컨셉이구나 하고 찰떡같이 알아먹어줍니다.",
+      "author": "@GooksanGom",
+      "likeCount": 390,
+      "publishedAt": "2025-04-22T11:01:17Z",
+      "replyCount": 11
+    },
+    {
+      "commentId": "UgwZAAEHmLZQ9tbBVep4AaABAg",
+      "text": "구독❤좋아요는\n영상제작에 힘이 됩니다🎉",
+      "author": "@travelerJade",
+      "likeCount": 11,
+      "publishedAt": "2023-08-06T23:43:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzBn-88q-Oe8sVgLGl4AaABAg",
+      "text": "War-old가 발음입니다. girl은 Gir-ul.",
+      "author": "@Amel-r5f7p",
+      "likeCount": 7,
+      "publishedAt": "2026-06-18T14:25:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzyc47H2KpELECu4Rl4AaABAg",
+      "text": "자연스럽게 대화하는 모습이 넘 멋져보여요! 자막도 있으면 좀더 공부하는데 도움이 될 것 같습니다! 😊",
+      "author": "@Staria147",
+      "likeCount": 9,
+      "publishedAt": "2025-09-05T05:31:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzc3OZZS7LWdOe6LXV4AaABAg",
+      "text": "were와 old를 발음한다고 해보세요. 훨씬 쉬워집니다^^",
+      "author": "@4mandaTV",
+      "likeCount": 37,
+      "publishedAt": "2025-12-15T17:09:39Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxREqf9sGzHqtU8ZuR4AaABAg",
+      "text": "사실 다 커서 영어를 배우는 한국인한테 진짜 어려운 건 world, talk 같은 단어의 L임 소리를 구분하는 것부터가 난관",
+      "author": "@skatan11",
+      "likeCount": 3,
+      "publishedAt": "2026-05-03T00:01:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxrYmnokcaHwQT4KnN4AaABAg",
+      "text": "Old가 되버리는데 쉽지않네",
+      "author": "@Warforged07",
+      "likeCount": 11,
+      "publishedAt": "2025-09-16T07:54:22Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxMevSHSb5SkifsEKp4AaABAg",
+      "text": "word [월드]\nworld [워을드]",
+      "author": "@sccsccsccscc",
+      "likeCount": 15,
+      "publishedAt": "2026-03-21T06:43:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxC5AYOoYK_h2rwKQV4AaABAg",
+      "text": "girl curl 발음하듯 worl발음하고 거기에 d만 붙이면 됩니다",
+      "author": "@캡틴아프리카1",
+      "likeCount": 1,
+      "publishedAt": "2026-06-03T16:58:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwXFHrwdmn72EDLeOd4AaABAg",
+      "text": "우어어럴드요?",
+      "author": "@빰빰-x6b",
+      "likeCount": 2,
+      "publishedAt": "2025-08-15T07:21:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzWEE3Y-K-M7gT1Ed94AaABAg",
+      "text": "거의 워를드같은 느낌인데 를을 ㅈㄴ짧게해야하는...?",
+      "author": "@mooneored1478",
+      "likeCount": 1,
+      "publishedAt": "2026-06-11T08:17:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzsSwT06iN_QtYLBZ94AaABAg",
+      "text": "음소 - 단어 - 덩어리 - 문장으로 넘어가는 순서로 익혀보세요~\nword 는 w - r - d 소리의 조합이고\nworld 는 w - r - l - d 소리의 조합이예요.\nL 소리를 내는 방법은 총 3가지가 있어요.\n혀를 밖으로 내밀면서 내는 첫번째 소리\n혀를 윗니 뒤에 붙여서 밀어주는 두번째 소리\n마지막으로 Dark L(Heavy L)이라고 부르는 소리\n여기서는 첫번째 또는 두번째 L 소리를 사용하면\n어렵지 않게 w - r - l - d 소리를 만들 수 있어요.\nL 소리를 만들었다면 이제 w 소리와 r 소리 d 소리를 만들어요.\nw 소리는 우~ 소리를 내다가 워~! 하면서 강하게 밀어내세요.\nr 소리는 두가지가 있어요. 혀를 말아올리는 첫번째\n혀를 끌어 당기는 두번째. 꾸워~하는 듯한 소리예요.\n꾸워~하다가 꾸 소리를 빼고 워~하면 느낌이 올거예요.\nd 소리를 쉬워요. 읃ㄷ 처럼 소리내어 보세요.\n그러면 word 소리는 w(우~워!) r(꾸워의 R) d(읃ㄷ)\nworld 소리는 w(우~워!) r(꾸워의 R) l(혀를 윗니뒤에 L) d(읃ㄷ)",
+      "author": "@제대로단디",
+      "likeCount": 4,
+      "publishedAt": "2026-03-22T12:53:15Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugyz5PSL1IrIdcOuWL14AaABAg",
+      "text": "word는 r사운드 묵음 아님?",
+      "author": "@이쿠쿠-z8b",
+      "likeCount": 14,
+      "publishedAt": "2025-04-29T06:11:59Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgzCe8vASiYrSLPMVNp4AaABAg",
+      "text": "R에서는 혀를 뒤로 서서히 말고, l에서는 혀를 윗니에 갖다 댄다고 상각하세요",
+      "author": "@동틀녘-s2h",
+      "likeCount": 1,
+      "publishedAt": "2026-03-19T10:33:53Z",
+      "replyCount": 1
+    }
+  ]
+}

@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "snapshotId": "2026-09-05T14-35-41-580Z",
-  "syncedAt": "2026-09-05T14:35:41.580Z",
+  "snapshotId": "2026-09-07T09-14-30-301Z",
+  "syncedAt": "2026-09-07T09:14:30.301Z",
   "range": {
-    "startDate": "2026-06-06",
-    "endDate": "2026-09-03"
+    "startDate": "2026-06-08",
+    "endDate": "2026-09-05"
   },
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/1Oo6_AfJXNpD3im1GJ6pdxVvlFw7-Nm8Be6PPzHGWS74k12n6xgdhUYHbFQLNO_1H1fWu1bv=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 108,
-    "totalViews": 50302,
+    "totalViews": 50304,
     "videos": 66,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
@@ -53,7 +53,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "0",
+        "viewCount": "5",
         "likeCount": "0",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -65,7 +65,7 @@
       "videoId": "W7toujk6ER8",
       "title": "원어민은 왜 GOING TO를 교과서처럼 읽지 않을까?",
       "publishedAt": "2026-09-04T11:45:10Z",
-      "thumbnail": "https://i9.ytimg.com/vi/W7toujk6ER8/maxresdefault.jpg?sqp=CJTR8NQG&rs=AOn4CLBhrthfWXPm806DW6VxnWGtBtAHMg",
+      "thumbnail": "https://i9.ytimg.com/vi/W7toujk6ER8/maxresdefault.jpg?sqp=COj--dQG&rs=AOn4CLCQ5pHSvXdfwRvhx5y4Yfb_ZvhFSw",
       "description": "원어민은 왜 GOING TO를 교과서처럼 읽지 않을까요?\n미드 볼 때마다 GOING TO가 하나도 안 들려서 답답하셨던 적 있으시죠?\n\n「이해하면 쉬운 영어」입니다. 왕초보도 이해할 수 있게, 원리로 설명합니다.\n\n📌 오늘 배우는 내용\n・GOING TO가 문장 속에서 다르게 들리는 진짜 이유\n・소리가 압축되는 2가지 원리\n・주어·시제가 바뀌어도 똑같이 적용되는 패턴\n・예외 상황(동사 vs 장소) 구분법\n・격식 있는 자리에서는 어떻게 쓸까\n・진짜 원어민 속도로 듣고 직접 찾아보는 리스닝 훈련\n\n⏱️ 영상 순서\n0:00 GOING TO, 문장에서는 다르게 들리는 이유\n0:11 오늘 함께 볼 것\n0:20 원어민은 GOING TO를 이렇게 안 읽는다\n0:34 GONNA로 바뀌는 진짜 이유\n0:57 실제 문장으로 확인하기\n1:29 예외도 있다\n1:50 직접 맞혀보기\n2:06 GONNA는 틀린 영어일까?\n2:21 격식 있는 자리에서는?\n2:37 진짜 속도로 리스닝 테스트\n3:01 소리 내서 따라 말하기\n3:13 실생활에서 다시 확인\n3:25 오늘의 정리\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어리스닝 #왕초보영어 #영어공부 #미드영어 #GONNA #고잉투거너 #영어듣기",
       "tags": [
         "영어 발음",
@@ -130,7 +130,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1157",
+        "viewCount": "1156",
         "likeCount": "4",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -481,7 +481,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "33",
+        "viewCount": "35",
         "likeCount": "0",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -608,7 +608,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "454",
+        "viewCount": "455",
         "likeCount": "1",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1335,7 +1335,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CJTR8NQG&rs=AOn4CLCpwv17N1O7JQzrQg-LUorkB4dSSQ",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=COj--dQG&rs=AOn4CLCiQhxbWYrJhAhIS4SIQKnvR4M98w",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -1543,7 +1543,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1739",
+        "viewCount": "1741",
         "likeCount": "2",
         "dislikeCount": "1",
         "favoriteCount": "0",
@@ -2594,27 +2594,13 @@
     }
   },
   "summary": {
-    "views": 52668,
+    "views": 52673,
     "estimatedMinutesWatched": 8095,
     "averageViewDuration": 29,
     "subscribersGained": 112,
     "subscribersLost": 4
   },
   "daily": [
-    {
-      "day": "2026-06-06",
-      "views": 0,
-      "estimatedMinutesWatched": 0,
-      "subscribersGained": 0,
-      "subscribersLost": 0
-    },
-    {
-      "day": "2026-06-07",
-      "views": 0,
-      "estimatedMinutesWatched": 0,
-      "subscribersGained": 0,
-      "subscribersLost": 0
-    },
     {
       "day": "2026-06-08",
       "views": 0,
@@ -3223,19 +3209,33 @@
       "estimatedMinutesWatched": 135,
       "subscribersGained": 1,
       "subscribersLost": 0
+    },
+    {
+      "day": "2026-09-03",
+      "views": 3,
+      "estimatedMinutesWatched": 0,
+      "subscribersGained": 0,
+      "subscribersLost": 0
+    },
+    {
+      "day": "2026-09-04",
+      "views": 2,
+      "estimatedMinutesWatched": 0,
+      "subscribersGained": 0,
+      "subscribersLost": 0
     }
   ],
   "contentTypes": [
     {
       "creatorContentType": "shorts",
-      "views": 52408,
+      "views": 52411,
       "estimatedMinutesWatched": 7618,
       "subscribersGained": 90,
       "subscribersLost": 0
     },
     {
       "creatorContentType": "videoOnDemand",
-      "views": 220,
+      "views": 222,
       "estimatedMinutesWatched": 473,
       "subscribersGained": 3,
       "subscribersLost": 0
@@ -3258,17 +3258,17 @@
   "trafficSources": [
     {
       "insightTrafficSourceType": "SHORTS",
-      "views": 50411,
-      "estimatedMinutesWatched": 7188
+      "views": 50405,
+      "estimatedMinutesWatched": 7189
     },
     {
       "insightTrafficSourceType": "YT_OTHER_PAGE",
-      "views": 833,
-      "estimatedMinutesWatched": 164
+      "views": 832,
+      "estimatedMinutesWatched": 163
     },
     {
       "insightTrafficSourceType": "YT_SEARCH",
-      "views": 705,
+      "views": 706,
       "estimatedMinutesWatched": 135
     },
     {
@@ -3364,22 +3364,12 @@
       "estimatedMinutesWatched": 0
     },
     {
-      "insightTrafficSourceDetail": "intp 여자",
-      "views": 2,
-      "estimatedMinutesWatched": 0
-    },
-    {
       "insightTrafficSourceDetail": "jyp 식당",
       "views": 2,
       "estimatedMinutesWatched": 0
     },
     {
       "insightTrafficSourceDetail": "고양이",
-      "views": 2,
-      "estimatedMinutesWatched": 0
-    },
-    {
-      "insightTrafficSourceDetail": "김부장",
       "views": 2,
       "estimatedMinutesWatched": 0
     },
@@ -3400,6 +3390,16 @@
     },
     {
       "insightTrafficSourceDetail": "먼치킨 고양이",
+      "views": 2,
+      "estimatedMinutesWatched": 0
+    },
+    {
+      "insightTrafficSourceDetail": "미나미 서장훈",
+      "views": 2,
+      "estimatedMinutesWatched": 0
+    },
+    {
+      "insightTrafficSourceDetail": "미라큘러스: 레이디버그와 블랙캣",
       "views": 2,
       "estimatedMinutesWatched": 0
     }
@@ -3507,7 +3507,7 @@
     },
     {
       "video": "IfK4Itzgt6o",
-      "views": 2181,
+      "views": 2182,
       "estimatedMinutesWatched": 355,
       "averageViewDuration": 37,
       "averageViewPercentage": 71.4,
@@ -3521,7 +3521,7 @@
       "durationSeconds": 53,
       "creatorContentType": "SHORTS",
       "subscriberNet": 5,
-      "subscribersPerThousandViews": 2.2925263640531863,
+      "subscribersPerThousandViews": 2.2914757103574703,
       "classification": {
         "category": "OTHER",
         "role": "STANDALONE_SHORT",
@@ -3923,10 +3923,10 @@
     },
     {
       "video": "nVrCk8IZFGA",
-      "views": 1184,
+      "views": 1186,
       "estimatedMinutesWatched": 135,
       "averageViewDuration": 18,
-      "averageViewPercentage": 85.89,
+      "averageViewPercentage": 85.74,
       "subscribersGained": 1,
       "subscribersLost": 0,
       "likes": 4,
@@ -3937,12 +3937,14 @@
       "durationSeconds": 21,
       "creatorContentType": "SHORTS",
       "subscriberNet": 1,
-      "subscribersPerThousandViews": 0.8445945945945946,
+      "subscribersPerThousandViews": 0.8431703204047217,
       "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "검토 필요"
+        "category": "SEASON",
+        "season": 1,
+        "episode": 10,
+        "role": "B",
+        "source": "manual",
+        "updatedAt": "2026-09-07T05:23:50.940Z"
       },
       "url": "https://youtu.be/nVrCk8IZFGA"
     },
@@ -3992,9 +3994,9 @@
         "category": "SEASON",
         "season": 1,
         "episode": 10,
-        "role": "B",
-        "source": "auto",
-        "reason": "같은 주에 업로드된 시즌 쇼츠"
+        "role": "A",
+        "source": "manual",
+        "updatedAt": "2026-09-07T05:23:49.962Z"
       },
       "url": "https://youtu.be/LdiZKCzKf0c"
     },
@@ -4606,7 +4608,7 @@
     },
     {
       "video": "YoaCRYCWpws",
-      "views": 32,
+      "views": 33,
       "estimatedMinutesWatched": 29,
       "averageViewDuration": 54,
       "averageViewPercentage": 14.92,
@@ -4813,7 +4815,7 @@
       "comments": 1,
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CJTR8NQG&rs=AOn4CLCpwv17N1O7JQzrQg-LUorkB4dSSQ",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=COj--dQG&rs=AOn4CLCiQhxbWYrJhAhIS4SIQKnvR4M98w",
       "durationSeconds": 353,
       "creatorContentType": "VIDEO_ON_DEMAND",
       "subscriberNet": 0,
@@ -4847,33 +4849,8 @@
       "url": "https://youtu.be/7QpRKp_1UcI"
     },
     {
-      "video": "cu3EB5OJdMM",
-      "views": 15,
-      "estimatedMinutesWatched": 34,
-      "averageViewDuration": 159,
-      "averageViewPercentage": 27.71,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 1,
-      "title": "왜 GO는 '고'인데 GENTLE은 '젠틀'일까? 알파벳 G의 두 가지 소리 | 영어 읽기 잘하는법  #파닉스규칙,#영어단어읽는법,,#영어기초발음,#영어발음,#영어공부",
-      "publishedAt": "2026-07-10T17:00:46Z",
-      "thumbnail": "https://i.ytimg.com/vi/cu3EB5OJdMM/maxresdefault.jpg",
-      "durationSeconds": 575,
-      "creatorContentType": "VIDEO_ON_DEMAND",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/cu3EB5OJdMM"
-    },
-    {
       "video": "tFe-cB__uns",
-      "views": 14,
+      "views": 15,
       "estimatedMinutesWatched": 22,
       "averageViewDuration": 96,
       "averageViewPercentage": 23.83,
@@ -4897,6 +4874,31 @@
         "source": "manual"
       },
       "url": "https://youtu.be/tFe-cB__uns"
+    },
+    {
+      "video": "cu3EB5OJdMM",
+      "views": 15,
+      "estimatedMinutesWatched": 34,
+      "averageViewDuration": 159,
+      "averageViewPercentage": 27.71,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 1,
+      "title": "왜 GO는 '고'인데 GENTLE은 '젠틀'일까? 알파벳 G의 두 가지 소리 | 영어 읽기 잘하는법  #파닉스규칙,#영어단어읽는법,,#영어기초발음,#영어발음,#영어공부",
+      "publishedAt": "2026-07-10T17:00:46Z",
+      "thumbnail": "https://i.ytimg.com/vi/cu3EB5OJdMM/maxresdefault.jpg",
+      "durationSeconds": 575,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/cu3EB5OJdMM"
     },
     {
       "video": "BsyRH8GWYJ4",
@@ -5237,7 +5239,7 @@
     },
     {
       "video": "IfK4Itzgt6o",
-      "views": 2181,
+      "views": 2182,
       "estimatedMinutesWatched": 355,
       "averageViewDuration": 37,
       "averageViewPercentage": 71.4,
@@ -5251,7 +5253,7 @@
       "durationSeconds": 53,
       "creatorContentType": "SHORTS",
       "subscriberNet": 5,
-      "subscribersPerThousandViews": 2.2925263640531863,
+      "subscribersPerThousandViews": 2.2914757103574703,
       "classification": {
         "category": "OTHER",
         "role": "STANDALONE_SHORT",
@@ -5663,16 +5665,16 @@
       },
       "confidence": "high",
       "metrics": {
-        "views": 32,
+        "views": 33,
         "averageViewPercentage": 14.92,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 3428,
-        "weightedRetention": 61.196242707117854,
+        "evidenceViews": 3429,
+        "weightedRetention": 61.18274715660543,
         "evidenceSubscribers": 2,
-        "evidenceSubscriberRate": 0.5834305717619602
+        "evidenceSubscriberRate": 0.5832604257801108
       },
-      "reason": "근거 조회수 3,428 · 가중 시청률 61.2% · 연결 쇼츠 2개 반영"
+      "reason": "근거 조회수 3,429 · 가중 시청률 61.2% · 연결 쇼츠 2개 반영"
     },
     {
       "rank": 6,
@@ -5693,20 +5695,20 @@
       },
       "confidence": "high",
       "metrics": {
-        "views": 14,
+        "views": 15,
         "averageViewPercentage": 23.83,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 897,
-        "weightedRetention": 76.53109253065774,
+        "evidenceViews": 898,
+        "weightedRetention": 76.47240534521158,
         "evidenceSubscribers": 1,
-        "evidenceSubscriberRate": 1.1148272017837235
+        "evidenceSubscriberRate": 1.1135857461024499
       },
-      "reason": "근거 조회수 897 · 가중 시청률 76.5% · 연결 쇼츠 2개 반영"
+      "reason": "근거 조회수 898 · 가중 시청률 76.5% · 연결 쇼츠 2개 반영"
     },
     {
       "rank": 7,
-      "score": 52,
+      "score": 64,
       "videoId": "3PkSwrFIcRE",
       "title": "익-션-전-천-처-저-셜, 사실 한 규칙이었습니다 | 시즌1 총정리",
       "url": "https://youtu.be/3PkSwrFIcRE",
@@ -5727,12 +5729,12 @@
         "averageViewPercentage": 0,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 1164,
-        "weightedRetention": 36.938238831615124,
-        "evidenceSubscribers": 0,
-        "evidenceSubscriberRate": 0
+        "evidenceViews": 2350,
+        "weightedRetention": 61.56755319148936,
+        "evidenceSubscribers": 1,
+        "evidenceSubscriberRate": 0.425531914893617
       },
-      "reason": "근거 조회수 1,164 · 가중 시청률 36.9% · 연결 쇼츠 1개 반영"
+      "reason": "근거 조회수 2,350 · 가중 시청률 61.6% · 연결 쇼츠 2개 반영"
     },
     {
       "rank": 8,
@@ -10397,8 +10399,8 @@
   },
   "evaluations48h": {
     "schemaVersion": 1,
-    "generatedAt": "2026-09-05T14:35:40.879Z",
-    "reportEndDate": "2026-09-03",
+    "generatedAt": "2026-09-07T09:14:29.597Z",
+    "reportEndDate": "2026-09-05",
     "evaluations": [
       {
         "contentId": "s1-ep08-shorts-b",
@@ -10414,7 +10416,7 @@
         "decisionStatus": "pass",
         "label": "통과",
         "reason": "평균 시청률 65.7%로 최소 기준 통과",
-        "evaluatedAt": "2026-09-05T14:35:40.879Z",
+        "evaluatedAt": "2026-09-07T09:14:29.597Z",
         "metrics": {
           "views": 1578,
           "estimatedMinutesWatched": 243,

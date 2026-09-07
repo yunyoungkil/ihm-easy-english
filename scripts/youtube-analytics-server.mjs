@@ -41,6 +41,7 @@ const outputScriptInsightsDir = join(projectDir, 'output', 'script-insights');
 const marketDemandPath = join(youtubeDataDir, 'market-demand.json');
 const contentOpportunityPath = join(youtubeDataDir, 'content-opportunity.json');
 const audienceDnaPath = join(youtubeDataDir, 'audience-dna.json');
+const analysisFailuresPath = join(youtubeDataDir, 'analysis-failures.json');
 const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
 const ideaBoardStatePath = join(youtubeDataDir, 'idea-board-state.json');
 // 아이디어 보드가 고른 소재가 실제로 에피소드까지 이어졌는지 기록하는 영구 이력 — idea-board-state.json은
@@ -275,6 +276,29 @@ const upsertAudienceDna = async (newEntries) => {
     .slice(0, AUDIENCE_DNA_MAX_ENTRIES);
 
   await saveJson(audienceDnaPath, { schemaVersion: 1, updatedAt: now, entries });
+};
+
+// 댓글/대본 분석이 실패해도 그 사실이 어디에도 안 남아서, 시장 수요 레이더로 돌아가면 버튼이
+// 분석 전과 똑같아 보여 사용자가 (예: 자막이 꺼진 영상인 줄 모르고) 같은 영상을 또 눌러보게
+// 되는 문제가 있었다(2026-09-07, 사용자 지적). 성공 리포트 파일 유무만 보던 것과 별개로,
+// 마지막 실패 사유도 videoId 기준으로 기록해 카드에 경고로 보여준다. 실패가 영구적인지
+// (자막 꺼짐) 일시적인지(API 오류 등) 우리가 단정할 수 없으므로 버튼 자체를 막지는 않고,
+// "이전에 실패했다"는 경고만 얹어서 재시도 여부는 사용자가 판단하게 한다.
+const recordAnalysisFailure = async (videoId, kind, message) => {
+  if (!videoId || !message) return;
+  const store = await loadJson(analysisFailuresPath, { schemaVersion: 1, entries: {} });
+  store.entries[videoId] = { ...store.entries[videoId], [kind]: { message, failedAt: new Date().toISOString() } };
+  await saveJson(analysisFailuresPath, store);
+};
+
+const clearAnalysisFailure = async (videoId, kind) => {
+  if (!videoId) return;
+  const store = await loadJson(analysisFailuresPath, { schemaVersion: 1, entries: {} });
+  if (store.entries[videoId]?.[kind]) {
+    delete store.entries[videoId][kind];
+    if (Object.keys(store.entries[videoId]).length === 0) delete store.entries[videoId];
+    await saveJson(analysisFailuresPath, store);
+  }
 };
 
 // entry: {videoId, title, ctr, retentionRate, coreSuccessFactor, reusableHook, reusableAnalogy}
@@ -3195,10 +3219,14 @@ function renderMarketDemandTab() {
               (o.commentReportFile ?
                 '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;white-space:nowrap" data-file="' + esc(o.commentReportFile) + '" title="이미 분석된 리포트가 있습니다 · 클릭하면 바로 봅니다">📄 댓글 리포트</button>' +
                 '<button class="btn btn-sm btn-outlier-analyze" data-vid="' + esc(o.videoId) + '" title="댓글을 새로 다시 분석" style="padding:6px 8px">↻</button>' :
+                o.commentError ?
+                '<button class="btn btn-sm btn-outlier-analyze" style="white-space:nowrap;background:rgba(255,183,3,0.12);color:var(--accent-amber);border:1px solid var(--accent-amber)" data-vid="' + esc(o.videoId) + '" title="이전 시도 실패 · 클릭하면 다시 시도합니다 — ' + esc(o.commentError) + '">⚠️ 댓글 (이전 실패)</button>' :
                 '<button class="btn btn-sm btn-magenta btn-outlier-analyze" style="white-space:nowrap" data-vid="' + esc(o.videoId) + '">💬 댓글</button>') +
               (o.scriptReportFile ?
                 '<button class="btn btn-sm btn-outlier-view-script" style="background:#132032;color:#7dd3fc;border:1px solid #234361;white-space:nowrap" data-file="' + esc(o.scriptReportFile) + '" title="이미 분석된 리포트가 있습니다 · 클릭하면 바로 봅니다">📄 대본 리포트</button>' +
                 '<button class="btn btn-sm btn-outlier-script" data-vid="' + esc(o.videoId) + '" title="대본을 새로 다시 분석" style="padding:6px 8px">↻</button>' :
+                o.scriptError ?
+                '<button class="btn btn-sm btn-outlier-script" style="white-space:nowrap;background:rgba(255,183,3,0.12);color:var(--accent-amber);border:1px solid var(--accent-amber)" data-vid="' + esc(o.videoId) + '" title="이전 시도 실패 · 클릭하면 다시 시도합니다 — ' + esc(o.scriptError) + '">⚠️ 대본 (이전 실패)</button>' :
                 '<button class="btn btn-sm btn-cyan btn-outlier-script" style="white-space:nowrap" data-vid="' + esc(o.videoId) + '">📜 대본</button>') +
             '</div>' +
           '</div>';
@@ -7080,14 +7108,21 @@ function renderIdeaBoardTab() {
     // 지적). 새로 생성할 때만 걸러지는 프롬프트 단계와 별개로, 렌더할 때마다 매번 최신
     // gIdeaBoardHistory와 대조해서 이미 제작된 후보는 선택 못 하게 표시한다.
     const normalizeTopic = (s) => String(s || '').trim();
+    // status별로 라벨을 다르게 보여준다 — 'selected'는 "이 주제로 진행" 누른 직후 자동 기록된
+    // 상태(아직 대본/렌더 전이라 "제작됨"이라고 하면 거짓말)이고, 'scheduled'/'published'는 실제로
+    // 끝난 것. (2026-09-07, 선택 즉시 자동 기록 기능 추가하면서 상태 구분도 같이 반영.)
+    const historyStatusLabel = { selected: '🔄 이미 진행 중', scheduled: '✅ 이미 제작됨', published: '✅ 이미 공개됨' };
     candidates.forEach((c) => {
       const isSelected = !!(gIdeaBoardSelected && gIdeaBoardSelected.rank === c.rank && gIdeaBoardSelected.topic === c.topic);
-      const producedMatch = gIdeaBoardHistory.find((h) => normalizeTopic(h.topic) === normalizeTopic(c.topic));
+      // 지금 화면에서 선택 중인 후보 본인은 "이미 진행 중" 잠금 표시 대상에서 제외한다 — 안 그러면
+      // 선택 즉시 자동 기록되는 이 항목이 스스로를 잠가서 "✅ 선택됨" 표시가 안 뜨게 된다.
+      const producedMatch = !isSelected && gIdeaBoardHistory.find((h) => normalizeTopic(h.topic) === normalizeTopic(c.topic));
+      const producedLabel = producedMatch ? (historyStatusLabel[producedMatch.status] || '🔒 이미 진행됨') : '';
       html += '<div class="bento-card col-3" style="border:' + (isSelected ? '2px solid var(--accent-emerald)' : '1px solid var(--border-subtle)') + (producedMatch ? ';opacity:0.6' : '') + '">' +
         '<div class="card-header">' +
           '<span style="font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text-bright)">#' + esc(c.rank) + ' ' + esc(c.topic || '') + '</span>' +
           (producedMatch ?
-            '<span class="badge badge-strong-pass" title="' + esc(producedMatch.episodeLabel || '') + (producedMatch.status ? ' · ' + esc(producedMatch.status) : '') + '">✅ 이미 제작됨</span>' :
+            '<span class="badge badge-strong-pass" title="' + esc(producedMatch.episodeLabel || '') + (producedMatch.status ? ' · ' + esc(producedMatch.status) : '') + '">' + producedLabel + '</span>' :
             '<span class="badge badge-pass">점수 ' + (c.score || 0) + '</span>') +
         '</div>' +
         '<div style="font-size:13px;color:var(--accent-amber);margin:8px 0">🎣 ' + esc(c.angleOrHook || '') + '</div>' +
@@ -7099,7 +7134,7 @@ function renderIdeaBoardTab() {
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
           '<span class="tag-chip">' + (c.suggestedFormat === 'SHORTS' ? '📱 쇼츠' : '📺 롱폼') + '</span>' +
           (producedMatch ?
-            '<span class="badge badge-hold" style="cursor:default" title="' + esc(producedMatch.episodeLabel || '') + '(으)로 이미 제작됨 — 선택 불가">🔒 이미 제작됨</span>' :
+            '<span class="badge badge-hold" style="cursor:default" title="' + esc(producedMatch.episodeLabel || '') + '(으)로 ' + esc(producedMatch.status || '') + ' — 선택 불가">' + producedLabel + '</span>' :
             '<button class="btn btn-sm ' + (isSelected ? 'btn-cyan' : 'btn-outline') + ' btn-idea-board-pick" data-rank="' + esc(c.rank) + '">' + (isSelected ? '✅ 선택됨' : '이 주제로 진행 →') + '</button>') +
         '</div>' +
       '</div>';
@@ -7154,7 +7189,7 @@ function bindIdeaBoardEvents() {
   }
 
   document.querySelectorAll('.btn-idea-board-pick').forEach((btn) => {
-    btn.onclick = () => {
+    btn.onclick = async () => {
       const rank = Number(btn.dataset.rank);
       const cand = ((gIdeaBoardCandidates && gIdeaBoardCandidates.candidates) || []).find((c) => c.rank === rank);
       if (!cand) return;
@@ -7162,6 +7197,25 @@ function bindIdeaBoardEvents() {
       saveIdeaBoardState();
       renderCurrentTab();
       showToast('✅ "' + cand.topic + '" 소재를 선택했습니다.');
+      // "이 주제로 진행" 누른 그 순간 바로 idea-board-history.json에 기록한다 — 전에는 영상이
+      // 완전히 제작·예약될 때까지 기록이 안 남아서, 그 며칠 사이에 후보를 다시 생성하면 같은
+      // 소재가 또 추천될 수 있었다(2026-09-07, EP13이 실제로 며칠 동안 미등록 상태였던 걸
+      // 사용자가 발견). 선택 즉시 기록해서 그 공백을 없앤다 — 이후 대본 확정/렌더/예약 단계는
+      // production-rules.md에 적어둔 대로 각 단계 끝날 때 이 기록을 계속 갱신한다.
+      try {
+        const res = await fetch('/api/idea-board/history/register', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(cand),
+        });
+        const data = await res.json();
+        if (res.ok && data.entries) {
+          gIdeaBoardHistory = data.entries;
+          renderCurrentTab();
+        }
+      } catch (err) {
+        console.warn('Failed to register idea-board history:', err);
+      }
     };
   });
 
@@ -7313,10 +7367,12 @@ async function buildOutlierReportFileIndex(dir) {
 
 async function annotateMarketDemandAnalysisStatus(marketDemand) {
   if (!marketDemand?.byKeyword) return marketDemand;
-  const [commentFileByVid, scriptFileByVid] = await Promise.all([
+  const [commentFileByVid, scriptFileByVid, failuresStore] = await Promise.all([
     buildOutlierReportFileIndex(outputInsightsDir),
     buildOutlierReportFileIndex(outputScriptInsightsDir),
+    loadJson(analysisFailuresPath, { schemaVersion: 1, entries: {} }),
   ]);
+  const failures = failuresStore.entries || {};
   return {
     ...marketDemand,
     byKeyword: marketDemand.byKeyword.map((k) => ({
@@ -7325,6 +7381,11 @@ async function annotateMarketDemandAnalysisStatus(marketDemand) {
         ...o,
         commentReportFile: (o.videoId && commentFileByVid.get(o.videoId)) || null,
         scriptReportFile: (o.videoId && scriptFileByVid.get(o.videoId)) || null,
+        // 성공 리포트가 없는데 마지막 시도가 실패로 끝난 적 있으면 그 사유를 같이 실어 보낸다 —
+        // 버튼은 그대로 눌러서 재시도할 수 있게 두되(자막 꺼짐처럼 영구적인지, API 일시 오류처럼
+        // 다음엔 될지 우리가 단정할 수 없음), 눌러보기 전에 왜 실패했었는지 미리 알려준다.
+        commentError: (!commentFileByVid.get(o.videoId) && o.videoId && failures[o.videoId]?.comment?.message) || null,
+        scriptError: (!scriptFileByVid.get(o.videoId) && o.videoId && failures[o.videoId]?.script?.message) || null,
       })),
     })),
   };
@@ -7522,6 +7583,29 @@ const server = createServer(async (req, res) => {
       res.end(data);
       return;
     }
+    if (url.pathname.startsWith('/api/video-project-asset/')) {
+      // 업로드 패키지가 아직 안 만들어진 영상 프로젝트(videos/<프로젝트>/)의 썸네일을 서빙한다
+      // (2026-09-07 추가). A/B 시뮬레이터가 생성 직후엔 output/temp-thumbnails/를 가리키는데,
+      // 그 폴더는 .gitignore 대상이라 다른 PC에는 그 파일이 없다 — VIDEO_WORKFLOW.md 규칙대로
+      // videos/<프로젝트>/thumbnail-*.jpg로 옮긴 뒤에는 이 라우트로 바꿔 가리켜야 다른 PC에서도
+      // 똑같이 보인다. 공개 라우트라 경로 이탈 방어 + 썸네일 파일명 패턴으로 노출 범위를 좁힌다.
+      const rest = decodeURIComponent(url.pathname.slice('/api/video-project-asset/'.length));
+      const parts = rest.split('/');
+      if (parts.length !== 2 || parts.some((p) => !p || p.includes('..') || p.includes('\\'))) {
+        return json(res, 400, {error: '잘못된 경로입니다.'});
+      }
+      const [project, filename] = parts;
+      if (!/^thumbnail(-[a-z0-9]+)?\.(jpg|jpeg|png)$/i.test(filename)) {
+        return json(res, 400, {error: '허용되지 않은 파일명입니다.'});
+      }
+      const filePath = join(projectDir, 'videos', project, filename);
+      if (!existsSync(filePath)) return json(res, 404, {error: '파일을 찾지 못했습니다.'});
+      const contentType = filename.toLowerCase().endsWith('.png') ? 'image/png' : 'image/jpeg';
+      const data = await readFile(filePath);
+      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
+      res.end(data);
+      return;
+    }
     if (url.pathname === '/api/presenter-reference') {
       // 채널 기준 인물(public/brand/thumbnail-presenter-reference.jpg)을 대시보드에서 직접
       // 보고 복사할 수 있게 서빙 — 제미나이 웹에서 수동 생성할 때 이 이미지를 같이 첨부해야
@@ -7692,6 +7776,7 @@ const server = createServer(async (req, res) => {
             ].map((e) => ({ ...e, videoId: vid, channelTitle: meta.channelTitle, sourceType: 'outlierComment' }));
             await upsertAudienceDna(dnaEntries);
           }
+          await clearAnalysisFailure(vid, 'comment');
           results.push({
             videoId: vid,
             video: meta,
@@ -7702,6 +7787,7 @@ const server = createServer(async (req, res) => {
           });
         } catch (err) {
           console.error(`Error analyzing video ${vid}:`, err.message);
+          await recordAnalysisFailure(vid, 'comment', err.message);
         }
       }
 
@@ -7755,9 +7841,14 @@ const server = createServer(async (req, res) => {
       if (!vid) return json(res, 400, {error: '올바른 유튜브 URL 또는 영상 ID가 필요합니다.'});
       try {
         const result = await analyzeSingleScript(vid);
-        if (!result) return json(res, 500, {error: '대본 분석에 실패했습니다.'});
+        if (!result) {
+          await recordAnalysisFailure(vid, 'script', '대본 분석에 실패했습니다.');
+          return json(res, 500, {error: '대본 분석에 실패했습니다.'});
+        }
+        await clearAnalysisFailure(vid, 'script');
         return json(res, 200, {ok: true, result});
       } catch (err) {
+        await recordAnalysisFailure(vid, 'script', err.message);
         return json(res, 500, {error: err.message});
       }
     }
@@ -7990,12 +8081,50 @@ const server = createServer(async (req, res) => {
         return json(res, 500, {error: err.message});
       }
     }
-    // 읽기 전용 — 실제 제작으로 이어진 소재의 영구 이력. state와 별도 파일이라 "🔄 후보 5개 생성"이
-    // 새 후보를 뽑아도 지워지지 않는다.
+    // 이 GET 자체는 읽기 전용 — 실제 제작으로 이어진 소재의 영구 이력. state와 별도 파일이라
+    // "🔄 후보 5개 생성"이 새 후보를 뽑아도 지워지지 않는다. 기록을 쓰는 쪽은 바로 아래
+    // /history/register.
     if (url.pathname === '/api/idea-board/history' && req.method === 'GET') {
       try {
         const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
         return json(res, 200, history || {schemaVersion: 1, entries: []});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // "이 주제로 진행 →" 버튼을 누르는 즉시 호출된다(2026-09-07) — 예전엔 영상이 완전히
+    // 제작·예약된 뒤에야 사람이 수동으로 이 파일을 채워서, 선택 시점과 기록 시점 사이(길면
+    // 며칠)에 후보를 다시 생성하면 같은 소재가 또 추천될 수 있었다. topic 문자열을 키로
+    // upsert하므로, 이후 대본/렌더/예약 단계에서 같은 topic으로 다시 이 엔드포인트나 파일을
+    // 직접 갱신하면(episodeSlug/episodeLabel/status/producedAt 채우기) 새로 안 늘어나고
+    // 같은 항목이 업데이트된다.
+    if (url.pathname === '/api/idea-board/history/register' && req.method === 'POST') {
+      try {
+        const body = await readJsonBody(req);
+        const topic = String(body.topic || '').trim();
+        if (!topic) return json(res, 400, {error: 'topic이 필요합니다.'});
+        const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
+        const now = new Date().toISOString();
+        const idx = history.entries.findIndex((e) => String(e.topic || '').trim() === topic);
+        const prev = idx !== -1 ? history.entries[idx] : null;
+        const entry = {
+          topic,
+          angleOrHook: body.angleOrHook || prev?.angleOrHook || '',
+          targetAudience: body.targetAudience || prev?.targetAudience || '',
+          rank: body.rank ?? prev?.rank ?? null,
+          score: body.score ?? prev?.score ?? null,
+          dataSourceRefs: body.dataSourceRefs || prev?.dataSourceRefs || [],
+          episodeSlug: prev?.episodeSlug || null,
+          episodeLabel: prev?.episodeLabel || null,
+          status: prev?.status || 'selected',
+          selectedAt: prev?.selectedAt || now,
+          producedAt: prev?.producedAt || null,
+        };
+        if (idx !== -1) history.entries[idx] = entry; else history.entries.push(entry);
+        history.schemaVersion = history.schemaVersion || 1;
+        history.updatedAt = now;
+        await saveJson(ideaBoardHistoryPath, history);
+        return json(res, 200, {ok: true, entries: history.entries});
       } catch (err) {
         return json(res, 500, {error: err.message});
       }

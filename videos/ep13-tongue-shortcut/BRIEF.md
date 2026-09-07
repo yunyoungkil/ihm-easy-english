@@ -43,6 +43,11 @@ A/B 시뮬레이터에서 3개 시안(A/B/C) 생성 후 Gemini AI CTR 진단으�
 - **제목(시안 A)**: 영어 노베이스도 첫날부터 단어가 술술 읽히는 혀의 지름길
 - **썸네일 카피**: 힘 빼면 소리가 먼저 납니다
 - **포인트 뱃지**: 🌱 소리 지름길
+- **썸네일 파일 저장 위치**: `videos/ep13-tongue-shortcut/thumbnail-a.jpg`(채택본)·`thumbnail-b.jpg`·
+  `thumbnail-c.jpg`(3종 전부 보존 — 업로드 시 유튜브 Test & Compare로 같이 올릴 예정, EP11/EP12와
+  동일 관례). 2026-09-04 생성 후 `output/temp-thumbnails/`(gitignore 대상 스크래치 폴더)에만
+  있던 걸 2026-09-07에 여기로 옮김 — 업로드 패키지ID가 아직 없어 `VIDEO_WORKFLOW.md` 2단계 규칙대로
+  프로젝트 폴더에 보관, 10단계에서 `output/upload-packages/ep13-tongue-shortcut-longform/`로 이동 예정.
 - Head Fake·요약 대사는 위 문구("힘을 빼면")와 표현을 동일하게 맞춤(`VIDEO_WORKFLOW.md` 3단계 규칙).
 
 ## Assets

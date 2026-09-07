@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-04T00:00:00.000Z",
+  "updatedAt": "2026-09-07T08:24:43.285Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -17,6 +17,28 @@
       "episodeLabel": "단편 EP12",
       "status": "scheduled",
       "producedAt": "2026-09-02"
+    },
+    {
+      "topic": "영어 노베이스 왕초보가 가장 먼저 알아야 할 소리 원리",
+      "angleOrHook": "무작정 알파벳만 외우다 지친 분들을 위해, 혀가 가장 편하게 움직이는 글자 결합 소리 지름길을 알려드립니다.",
+      "targetAudience": "영어 공부를 다시 시작하고 싶지만 어디서부터 손대야 할지 막막한 노베이스 알파벳 입문자",
+      "rank": 2,
+      "score": 85,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "영어 왕초보, 어디서부터 시작하죠? (opportunityScore 86.6), 왕초보 영어 발음 (opportunityScore 41.8)"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "포맷/역할 LEGACY (fitScore 57, 영상 41개)"
+        }
+      ],
+      "episodeSlug": "ep13-tongue-shortcut",
+      "episodeLabel": "단편 EP13",
+      "status": "selected",
+      "selectedAt": "2026-09-07T08:23:52.578Z",
+      "producedAt": null
     }
   ]
 }

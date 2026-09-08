@@ -164,8 +164,10 @@ EP11~13과 동일.
 
 ### 1 · Hook / Cover (open · move: 문장이 흐려지는 모션)
 
-**Ground** 네이비 + 중앙 라디얼 글로우. **Composes** "Where were we?" 문장(흐려짐), 물음표.
-**Focal** 문장이 또렷했다가 뭉개지는 순간. **Chrome** progress-rail(0%). **Accent** 텍스트 흰색.
+**Ground** 네이비 + 중앙 라디얼 글로우. **Composes** "Where were we?" 문장(흐려짐), 물음표,
+"영화나 유튜브에서 들으면"(12.9-16.2s VO) 구간에 짧게 뜨는 스트리밍 그리드 배경(opacity 0.28
+피크, 가상 카드 8개 — 실제 로고·포스터·배우 얼굴 없음, `Approved Entities` 준수). **Focal** 문장이
+또렷했다가 뭉개지는 순간. **Chrome** progress-rail(0%). **Accent** 텍스트 흰색.
 **Silence** 65%. **Density** low. → Frame 1(Stakes — Frame 11과 대칭 페이오프 예정).
 
 ### 2 · Word Reveal (open · move: 로고 페이드인)
@@ -267,6 +269,10 @@ OUT/GET IT/PUT IT 카드 스택(EP13처럼 전부 화면에 남김) + "힘을 �
 
 실제 로고·상표 없음. 채널명 "이해하면 쉬운영어"는 텍스트 워드마크로만 등장(엔드스크린/클로징
 씬). 실사 없음 — faceless.
+
+**워드마크 배색(2026-09-08 확정)**: "이해하면 "은 흰색, "쉬운영어"만 브랜드 강조색(`#F5C518`)으로
+칠한다. 워드마크가 등장하는 모든 자리(Frame 1의 좌상단 상시 태그, Frame 2의 대형 리빌, Frame
+12의 클로징 로고)에 동일하게 적용.
 
 ## Numerals & Claims
 

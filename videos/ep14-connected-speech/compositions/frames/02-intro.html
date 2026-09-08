@@ -1,0 +1,96 @@
+<template>
+<style>
+  /* 02-intro — Frame 2 "채널 인트로" (frame.md Treatment #2: Word Reveal, move: 로고 페이드인).
+     Built from real per-word timestamps in assets/voice/02.words.json (2026-09-08) —
+     no estimates, no RATIO scaling (see knowledge/hyperframes-prompting.md §7-1/9-1).
+     Beats:
+       0.47–4.1s  (VO "안녕하세요, 「이해하면 쉬운영어」입니다"): wordmark settles, timed to the
+       moment the channel name itself starts being spoken.
+       4.26–10.48s (VO "오늘은...함께 보시죠"): intro line lands underneath, progress-rail
+       advances from 1/12 to 2/12 as this frame's beat completes. */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f02-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f02-glow { background: radial-gradient(circle at 50% 46%, rgba(245,197,24,0.10) 0%, rgba(245,197,24,0) 55%); opacity: 0.24; }
+
+  .f02-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f02-progress-fill { position: absolute; left: 0; top: 0; width: 8.333%; height: 3px; background: #F5C518; }
+
+  .f02-stage { position: absolute; left: 6cqw; right: 6cqw; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3.2cqh; }
+  .f02-wordmark { font-family: 'Black Han Sans', sans-serif; font-size: 5.5cqw; color: #FFFFFF; text-align: center; opacity: 0; }
+  .f02-wordmark-accent { color: #F5C518; }
+  .f02-intro-line { font-size: 1.8cqw; font-weight: 700; color: #A9B4C4; text-align: center; max-width: 70cqw; line-height: 1.6; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-f14e2s1" id="root" data-composition-id="02-intro" data-start="0" data-duration="10.98" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e2s2" id="f02-bg-clip" class="clip f02-bg" data-start="0" data-duration="10.98" data-track-index="0"></div>
+  <div data-hf-id="hf-f14e2s3" id="f02-glow-clip" class="clip f02-glow" data-start="0" data-duration="10.98" data-track-index="1"></div>
+  <audio data-hf-id="hf-f14e2sv" id="f02-voice" src="assets/voice/02.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e2s4" class="f02-progress-track"><div data-hf-id="hf-f14e2s5" class="f02-progress-fill" id="f02-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e2s6" class="f02-stage">
+    <div data-hf-id="hf-f14e2s7" class="f02-wordmark" id="f02-wordmark">이해하면 <span data-hf-id="hf-f14e2s7a" class="f02-wordmark-accent">쉬운영어</span></div>
+    <div data-hf-id="hf-f14e2s8" class="f02-intro-line" id="f02-intro-line">오늘은 원어민 말이 왜 한 덩어리로 들리는지, 그 진짜 원리를 함께 보시죠</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["02-intro"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/02.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"안녕하세요,","from":0.473,"to":1.452},{"word":"「이해하면","from":1.567,"to":2.373},
+    {"word":"쉬운영어」입니다.","from":2.545,"to":4.1},{"word":"오늘은","from":4.262,"to":4.75},
+    {"word":"원어민","from":4.912,"to":5.4},{"word":"말이","from":5.562,"to":5.887},
+    {"word":"왜","from":6.049,"to":6.212},{"word":"한","from":6.374,"to":6.537},
+    {"word":"덩어리로","from":6.537,"to":7.186},{"word":"들리는지,","from":7.349,"to":8.08},
+    {"word":"그","from":8.161,"to":8.323},{"word":"진짜","from":8.486,"to":8.811},
+    {"word":"원리를","from":8.973,"to":9.46},{"word":"함께","from":9.623,"to":9.948},
+    {"word":"보시죠.","from":10.11,"to":10.76}
+  ];
+  // Last word's whisper-measured "to" (10.76) runs past the real audio file (10.48s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 10.48;
+
+  var wordmark = document.getElementById("f02-wordmark");
+  var introLine = document.getElementById("f02-intro-line");
+  var progressFillEl = document.getElementById("f02-progress-fill");
+
+  // Beat 1 (0.47-4.1s VO, "안녕하세요, 「이해하면 쉬운영어」입니다"): wordmark settles right as
+  // the channel name itself starts being spoken, so it's already on screen by the time the
+  // name finishes — heard and seen together.
+  tl.fromTo(wordmark, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.473);
+
+  // Beat 2 (4.26-10.48s VO, "오늘은...함께 보시죠"): intro sentence lands underneath, and the
+  // progress-rail advances to this frame's share (2/12) as the beat completes.
+  tl.fromTo(introLine, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 4.262);
+  tl.fromTo(progressFillEl, { width: "8.333%" }, { width: "16.667%", duration: 1.0, ease: "power1.inOut" }, 4.262);
+})();
+</script>
+</template>

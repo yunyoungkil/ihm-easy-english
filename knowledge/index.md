@@ -1,6 +1,6 @@
 # Knowledge Index
 
-마지막 갱신: 2026-09-04
+마지막 갱신: 2026-09-08
 
 ## 항상 읽기
 
@@ -47,8 +47,13 @@
 
 - [시즌1 EP9 — -CIAL](episodes/season1-ep09.md) — 제작 결과, YouTube 예약, 공개 후 확인
 - [시즌1 EP10 — 시즌1 총정리](episodes/season1-ep10.md) — 완성된 롱폼과 미제작 쇼츠 A·B
-- [단편 EP11 — GONNA](episodes/ep11-gonna.md) — **렌더링까지 완료, 업로드만 남음**(2026-09-03 재발견)
-- [단편 EP12 — Want vs Won't](episodes/ep12-want-wont.md) — 10프레임 제작·TTS·렌더 완료, 사용자 최종 확인 대기 중(상세: [지금 할 일](now.md))
+- [단편 EP11 — GONNA](episodes/ep11-gonna.md) — 렌더·패키징 완료, 업로드 예약 2026-09-08(화) 20:00 KST
+- [단편 EP12 — Want vs Won't](episodes/ep12-want-wont.md) — 렌더·패키징 완료, 업로드 예약 완료(상세: [지금 할 일](now.md))
+- 단편 EP13 — 알파벳 소리 지름길 — 전용 episodes/ 문서 없음(2026-09-06부터 `TASKS.md` 패턴으로
+  대체, `videos/VIDEO_WORKFLOW.md` "수정 사항 기록" 절 참고). 렌더·BGM/SFX·업로드 패키지 완료,
+  업로드 예약 2026-09-11(금) 20:00 KST. 상세: `videos/ep13-tongue-shortcut/TASKS.md`, [지금 할 일](now.md)
+- 단편 EP14 — 연음(linking sounds) — 대본·디자인·스토리보드·나레이션 12씬 생성 완료, 화면
+  제작 착수 전. 상세: `videos/ep14-connected-speech/BRIEF.md`, [지금 할 일](now.md)
 
 ## 이전 기록
 

@@ -1,6 +1,6 @@
 # 지금 할 일
 
-마지막 확인: 2026-09-07
+마지막 확인: 2026-09-08
 
 ## 진행 중 — 단편 EP14(연음/linking sounds)
 
@@ -13,9 +13,15 @@
 WE는 AN APPLE과 다른 메커니즘인 약화 현상) 발견·정정, 시청자 시나리오 현실성(원어민과 대화가
 아니라 영화·유튜브 시청) 원칙 신규 확립 → `brand-persona.md`/`VIDEO_WORKFLOW.md`에 일반 규칙으로
 반영. **2026-09-07 완료**: `frame.md`(신규 컴포넌트 `linking-diagram`/`letter-tag`, 3가지 모션
-변형 slide/shrink/bounce)·`STORYBOARD.md`(12프레임) 작성 완료. **다음 행동**: TTS 나레이션
-생성(남성 보이스, Gemini Charon) → 실제 음성 길이로 씬 타이밍 재확정 → HyperFrames 컴포지션
-제작. 상세: `videos/ep14-connected-speech/BRIEF.md`.
+변형 slide/shrink/bounce)·`STORYBOARD.md`(12프레임) 작성 완료. **2026-09-08 완료**: 나레이션
+12씬 전부 생성, 전체 스크립트 단어별 whisper 실측 타임스탬프 추출(`scripts/word-timeline.mjs`
+신규 작성, `assets/voice/*.words.json`), 프로젝트 스캐폴딩(package.json/hyperframes.json),
+**Frame 1~4 제작 완료**(실측 타임스탬프 기반, 추정·RATIO 스케일링 없이 처음부터 정확하게 —
+`knowledge/hyperframes-prompting.md` §7-1). Frame 2는 대사 수정("함께 봅니다"→"함께 보시죠")으로
+음성 재생성 후 제작. 채널 워드마크 배색 규칙("이해하면 "은 흰색, "쉬운영어"만 브랜드 노랑) 신설해
+`CLAUDE.md`/`AGENTS.md`에 반영. 상세 기록: `videos/ep14-connected-speech/TASKS.md`.
+**다음 행동**: Frame 5(원리 설명) — `linking-diagram`/`letter-tag` 컴포넌트를 여기서 처음
+구현(3가지 모션 slide/shrink/bounce 중 slide부터). 상세: `videos/ep14-connected-speech/BRIEF.md`.
 
 ## 진행 중 — 단편 EP13(알파벳 소리 지름길)
 

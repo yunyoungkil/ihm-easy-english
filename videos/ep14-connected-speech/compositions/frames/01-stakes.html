@@ -1,0 +1,202 @@
+<template>
+<style>
+  /* 01-stakes — Frame 1 "Stakes" (frame.md Treatment #1: Hook/Cover, move: 문장이 흐려지는 모션).
+     Built from real per-word timestamps in assets/voice/01.words.json (2026-09-08) —
+     no estimates, no RATIO scaling (see knowledge/hyperframes-prompting.md §7-1/9-1).
+     Beats (revised 2026-09-08: the "Where were we?" demo sentence no longer appears before the
+     "영화나 유튜브" line — until then the screen shows the actual narration as a big caption, so
+     the setup plays as plain spoken text, not a mystery sentence with no context yet):
+       0.0–12.55s (VO "단어는...단어인데,"): eyebrow settles; big caption shows these two clauses
+       verbatim (swaps text once, at the clause boundary).
+       12.55–16.2s (VO "막상 영화나 유튜브에서 들으면"): caption fades out, streaming-grid flashes
+       to ground the movie/YouTube scenario.
+       13.6–19.71s (VO "완전히...당황하신 적..."): "Where were we?" appears crisp, then wobbles and
+       blurs as the sentence itself demonstrates the garbled-speech experience, "?" lands.
+       19.7–24.3s (VO "이거...아닙니다"): held blurred and silent on screen (no caption here —
+       the same line lands big in Beat 4 instead of repeating twice back to back).
+       24.3–31.0s (VO "원어민이...뿐이에요"): closing Korean line settles, symmetric setup for
+       Frame 11's payoff (same "Where were we?" sentence, sharpens instead of blurring). */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f01-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  /* "영화나 유튜브에서 들으면" (13.0-15.0s VO) — a brief, low-opacity streaming-grid flash behind
+     the sentence to ground the scenario. assets/images/streaming-grid-mock.jpg is a user-made
+     image (invented titles/posters, not a real streaming service's screenshot — see frame.md
+     "Approved Entities": 실사 없음, 실제 로고·상표 없음). A dark overlay keeps the center text
+     readable at the flash's peak opacity. Fades out well before the blur beat intensifies so it
+     never competes with the sentence as the focal. */
+  .f01-grid-img { position: absolute; inset: 3cqh 6cqw; width: calc(100% - 12cqw); height: calc(100% - 6cqh); object-fit: cover; border-radius: 0.6cqw; }
+  .f01-grid-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 50% 46%, rgba(10,21,38,0.55) 0%, rgba(10,21,38,0.85) 70%); }
+
+  .f01-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f01-progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 3px; background: #F5C518; }
+
+  .f01-eyebrow {
+    position: absolute; left: 6cqw; top: 8cqh; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.1cqw; font-weight: 900; letter-spacing: 0.04em; color: #FFFFFF; opacity: 0;
+    text-transform: uppercase;
+  }
+  .f01-eyebrow-accent { color: #F5C518; }
+
+  .f01-stage { position: absolute; left: 6cqw; right: 6cqw; top: 0; bottom: 12cqh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqh; }
+
+  .f01-caption {
+    position: absolute; left: 10cqw; right: 10cqw; top: 0; bottom: 12cqh; display: flex;
+    align-items: center; justify-content: center; opacity: 0;
+  }
+  .f01-caption-text { font-size: 2.7cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 80cqw; line-height: 1.55; }
+
+  .f01-sentence-wrap { position: relative; opacity: 0; }
+  .f01-sentence {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; color: #FFFFFF; line-height: 1.1;
+    text-align: center;
+  }
+  .f01-qmark {
+    position: absolute; right: -1.4cqw; top: -3.2cqh; font-family: 'Black Han Sans', sans-serif;
+    font-size: 3.2cqw; color: #F5C518; opacity: 0; text-shadow: 0 0 1.2cqw rgba(245,197,24,0.35);
+  }
+
+  .f01-closing {
+    position: absolute; left: 8cqw; right: 8cqw; top: 0; bottom: 12cqh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2cqh; opacity: 0;
+  }
+  .f01-closing-1 { font-size: 2.6cqw; font-weight: 900; color: #F5C518; text-align: center; max-width: 78cqw; line-height: 1.4; text-shadow: 0 0 1.2cqw rgba(245,197,24,0.28); }
+  .f01-closing-2 { font-size: 1.7cqw; font-weight: 700; color: #A9B4C4; text-align: center; max-width: 70cqw; line-height: 1.6; }
+</style>
+
+<div data-hf-id="hf-f14e1s1" id="root" data-composition-id="01-stakes" data-start="0" data-duration="30.74" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e1s2" id="f01-bg-clip" class="clip f01-bg" data-start="0" data-duration="30.74" data-track-index="0"></div>
+  <div data-hf-id="hf-f14e1sg" id="f01-grid" style="opacity: 0;">
+    <img data-hf-id="hf-f14e1sgi" class="f01-grid-img" src="assets/images/streaming-grid-mock.jpg" alt="">
+    <div data-hf-id="hf-f14e1sgo" class="f01-grid-overlay"></div>
+  </div>
+  <audio data-hf-id="hf-f14e1sv" id="f01-voice" src="assets/voice/01.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e1s3" class="f01-progress-track"><div data-hf-id="hf-f14e1s4" class="f01-progress-fill" id="f01-progress-fill"></div></div>
+  <div data-hf-id="hf-f14e1s5" class="f01-eyebrow" id="f01-eyebrow">이해하면 <span data-hf-id="hf-f14e1s5a" class="f01-eyebrow-accent">쉬운영어</span></div>
+
+  <div data-hf-id="hf-f14e1s6" class="f01-stage">
+    <div data-hf-id="hf-f14e1sd" class="f01-caption" id="f01-caption">
+      <div data-hf-id="hf-f14e1sd1" class="f01-caption-text" id="f01-caption-text">단어는 분명 다 아는 건데, 원어민이 문장으로 말하면 하나도 안 들리신 적 있으시죠?</div>
+    </div>
+    <div data-hf-id="hf-f14e1s7" class="f01-sentence-wrap" id="f01-sentence-wrap">
+      <div data-hf-id="hf-f14e1s8" class="f01-sentence" id="f01-sentence">Where were we?</div>
+      <div data-hf-id="hf-f14e1s9" class="f01-qmark" id="f01-qmark">?</div>
+    </div>
+    <div data-hf-id="hf-f14e1sa" class="f01-closing" id="f01-closing">
+      <div data-hf-id="hf-f14e1sb" class="f01-closing-1">그거, 여러분 리스닝 실력이 부족해서가 아닙니다</div>
+      <div data-hf-id="hf-f14e1sc" class="f01-closing-2">원어민이 진짜로 무슨 소리를 내고 있는지, 그 원리를 아직 안 배우셨을 뿐이에요</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["01-stakes"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/01.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"단어는","from":0.753,"to":1.273},{"word":"분명","from":1.446,"to":1.792},{"word":"다","from":1.966,"to":2.139},
+    {"word":"아는","from":2.312,"to":2.658},{"word":"건데,","from":2.831,"to":3.264},{"word":"원어민이","from":3.351,"to":4.044},
+    {"word":"문장으로","from":4.217,"to":4.91},{"word":"말하면","from":5.083,"to":5.603},{"word":"하나도","from":5.776,"to":6.295},
+    {"word":"안","from":6.469,"to":6.642},{"word":"들리신","from":6.815,"to":7.334},{"word":"적","from":7.508,"to":7.681},
+    {"word":"있으시죠?","from":7.854,"to":8.72},{"word":"분명","from":8.88,"to":9.2},{"word":"하나하나","from":9.36,"to":10},
+    {"word":"뜯어보면","from":10.16,"to":10.8},{"word":"다","from":10.96,"to":11.12},{"word":"아는","from":11.28,"to":11.6},
+    {"word":"단어인데,","from":11.76,"to":12.476},{"word":"막상","from":12.552,"to":12.857},{"word":"영화나","from":13.009,"to":13.466},
+    {"word":"유튜브에서","from":13.618,"to":14.38},{"word":"들으면","from":14.532,"to":14.989},{"word":"완전히","from":15.142,"to":15.598},
+    {"word":"다른","from":15.751,"to":16.055},{"word":"소리처럼","from":16.208,"to":16.817},{"word":"들려서","from":16.969,"to":17.426},
+    {"word":"당황하신","from":17.578,"to":18.188},{"word":"적,","from":18.34,"to":18.568},{"word":"다들","from":18.645,"to":18.949},
+    {"word":"있으실","from":19.102,"to":19.558},{"word":"거예요.","from":19.711,"to":20.32},{"word":"이거,","from":20.469,"to":20.84},
+    {"word":"여러분","from":20.914,"to":21.36},{"word":"리스닝","from":21.509,"to":21.955},{"word":"실력이","from":22.103,"to":22.549},
+    {"word":"부족해서가","from":22.698,"to":23.441},{"word":"아닙니다.","from":23.589,"to":24.332},{"word":"원어민이","from":24.481,"to":25.076},
+    {"word":"진짜로","from":25.224,"to":25.67},{"word":"무슨","from":25.819,"to":26.116},{"word":"소리를","from":26.264,"to":26.71},
+    {"word":"내고","from":26.859,"to":27.156},{"word":"있는지,","from":27.305,"to":27.825},{"word":"그","from":27.899,"to":28.048},
+    {"word":"원리를","from":28.196,"to":28.642},{"word":"아직","from":28.791,"to":29.088},{"word":"안","from":29.237,"to":29.385},
+    {"word":"배우셨을","from":29.534,"to":30.128},{"word":"뿐이에요.","from":30.277,"to":30.24}
+  ];
+  // Last word's whisper-measured "to" (31.02) runs past the real audio file (30.24s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 30.24;
+
+  var eyebrow = document.getElementById("f01-eyebrow");
+  var sentenceWrap = document.getElementById("f01-sentence-wrap");
+  var sentence = document.getElementById("f01-sentence");
+  var qmark = document.getElementById("f01-qmark");
+  var closing = document.getElementById("f01-closing");
+  var progressFillEl = document.getElementById("f01-progress-fill");
+  var grid = document.getElementById("f01-grid");
+  var caption = document.getElementById("f01-caption");
+  var captionText = document.getElementById("f01-caption-text");
+
+  tl.fromTo(eyebrow, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+
+  // Beat 0 (0.75-12.55s VO, "단어는...단어인데,"): before the sentence demo ever shows up, the
+  // screen just plays the actual narration as a big caption — nothing mysterious yet.
+  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.8);
+  // Clause boundary (8.72-8.88s, contiguous in VO): quick dip-and-swap rather than a hard cut.
+  tl.to(caption, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, 8.68)
+    .call(function () { captionText.textContent = "분명 하나하나 뜯어보면 다 아는 단어인데,"; }, null, 8.82)
+    .to(caption, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 8.82);
+  tl.to(caption, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 12.4);
+
+  // "막상 영화나 유튜브에서 들으면" (12.55-14.99s VO): brief streaming-grid flash grounds the
+  // scenario — this is the first visual on screen once the caption clears.
+  tl.fromTo(grid, { opacity: 0 }, { opacity: 0.28, duration: 0.4, ease: "power2.out" }, 12.9)
+    .to(grid, { opacity: 0, duration: 0.6, ease: "power2.in" }, 15.6);
+
+  // Beat 1 (13.6s): "Where were we?" appears crisp, while the grid is still holding — the demo
+  // sentence and the "movie/YouTube" scenario land together.
+  tl.fromTo(sentenceWrap, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.3)" }, 13.6);
+
+  // Beat 2 (14.4-19.71s VO, "완전히 다른 소리처럼...당황하신 적..."): the sentence wobbles and
+  // blurs across this span, landing fully blurred + "?" exactly as "다들 있으실 거예요." ends.
+  var BLUR_START = 14.4;
+  var BLUR_END = 19.71;
+  tl.to(sentence, { filter: "blur(14px)", duration: BLUR_END - BLUR_START, ease: "power1.in" }, BLUR_START);
+  // Small sub-beat jitters synced to the "당황하신" (confusion) word itself.
+  tl.to(sentenceWrap, { x: 6, duration: 0.08, ease: "sine.inOut" }, 17.578)
+    .to(sentenceWrap, { x: -6, duration: 0.08, ease: "sine.inOut" }, 17.66)
+    .to(sentenceWrap, { x: 3, duration: 0.08, ease: "sine.inOut" }, 17.74)
+    .to(sentenceWrap, { x: 0, duration: 0.08, ease: "sine.inOut" }, 17.82);
+  tl.fromTo(qmark, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 19.4);
+
+  // Beat 3 (19.71-24.33s VO, "이거...아닙니다"): held blurred and silent on screen — the
+  // reassurance line lands once, big, in Beat 4 rather than repeating here in a small caption.
+  tl.to(sentenceWrap, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 24.0);
+
+  // Beat 4 (24.48-30.24s VO, "원어민이...뿐이에요"): closing reassurance settles as on-screen text.
+  tl.fromTo(closing, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 24.4);
+
+  tl.fromTo(progressFillEl, { width: "0%" }, { width: (100 / 12).toFixed(3) + "%", duration: 1.0, ease: "power1.inOut" }, 24.4);
+})();
+</script>
+</template>

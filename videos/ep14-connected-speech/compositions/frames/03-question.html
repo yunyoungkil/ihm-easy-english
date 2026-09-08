@@ -1,0 +1,138 @@
+<template>
+<style>
+  /* 03-question — Frame 3 "Big Question" (frame.md Treatment #3: Question Cards,
+     move: 단어 카드가 딱딱 끊어져 나열). Built from real per-word timestamps in
+     assets/voice/03.words.json (2026-09-08) — no estimates, no RATIO scaling
+     (see knowledge/hyperframes-prompting.md §7-1/9-1).
+     Beats:
+       0.5–10.6s  (VO "그런데...뭉쳐서 들릴까요?"): 8 short English word cards (all words the
+       viewer already knows — a visual callback to Frame 1's "단어는 분명 다 아는 건데") pop in
+       one at a time with a hard, staccato snap — never a smooth fade — to sell "끊어진 느낌"
+       before the episode reveals how these words actually connect (Frames 5/7/8/10).
+       11.17–16.58s (VO "교과서에서...왜 이렇게 다를까요?"): cards hold static, no new motion.
+       16.75–20.9s (VO "혹시...대충 하는 걸까요?"): screen dims and the final question itself
+       lands as on-screen text — the frame's one focal beat. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f03-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f03-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f03-progress-fill { position: absolute; left: 0; top: 0; width: 16.667%; height: 3px; background: #F5C518; }
+
+  .f03-card {
+    position: absolute; padding: 1.1cqh 1.8cqw; border-radius: 0.5cqw;
+    background: #12203A; border: 1px solid rgba(245,197,24,0.30);
+    box-shadow: 0 0 1.4cqw rgba(245,197,24,0.14);
+    font-family: 'Archivo Black', sans-serif; font-size: 2.1cqw; color: #FFFFFF;
+    opacity: 0; white-space: nowrap;
+  }
+
+  .f03-dim { background: #05090F; opacity: 0; }
+
+  .f03-question {
+    position: absolute; left: 10cqw; right: 10cqw; top: 0; bottom: 0; display: flex;
+    align-items: center; justify-content: center; opacity: 0;
+  }
+  .f03-question-text { font-size: 3.2cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.5; }
+</style>
+
+<div data-hf-id="hf-f14e3s1" id="root" data-composition-id="03-question" data-start="0" data-duration="20.9" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e3s2" id="f03-bg-clip" class="clip f03-bg" data-start="0" data-duration="20.9" data-track-index="0"></div>
+  <audio data-hf-id="hf-f14e3sv" id="f03-voice" src="assets/voice/03.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e3s3" class="f03-progress-track"><div data-hf-id="hf-f14e3s4" class="f03-progress-fill" id="f03-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e3sc1" class="f03-card" id="f03-card-1" style="left:10cqw; top:18cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">AN</div>
+  <div data-hf-id="hf-f14e3sc2" class="f03-card" id="f03-card-2" style="left:62cqw; top:12cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">APPLE</div>
+  <div data-hf-id="hf-f14e3sc3" class="f03-card" id="f03-card-3" style="left:20cqw; top:68cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">WHERE</div>
+  <div data-hf-id="hf-f14e3sc4" class="f03-card" id="f03-card-4" style="left:68cqw; top:64cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">MADE</div>
+  <div data-hf-id="hf-f14e3sc5" class="f03-card" id="f03-card-5" style="left:6cqw; top:45cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">TURN</div>
+  <div data-hf-id="hf-f14e3sc6" class="f03-card" id="f03-card-6" style="left:74cqw; top:42cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">CHECK</div>
+  <div data-hf-id="hf-f14e3sc7" class="f03-card" id="f03-card-7" style="left:40cqw; top:8cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">GET</div>
+  <div data-hf-id="hf-f14e3sc8" class="f03-card" id="f03-card-8" style="left:44cqw; top:80cqh;" data-layout-allow-occlusion="intentional dim beat, see Beat 3 comment">PUT</div>
+
+  <div data-hf-id="hf-f14e3sd" id="f03-dim" class="clip f03-dim" data-start="0" data-duration="20.9" data-track-index="1"></div>
+
+  <div data-hf-id="hf-f14e3sq" class="f03-question" id="f03-question">
+    <div data-hf-id="hf-f14e3sq1" class="f03-question-text">혹시 원어민들이 그냥<br data-hf-id="hf-x5px">발음을 대충 하는 걸까요?</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["03-question"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/03.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"그런데","from":0.479,"to":1.075},{"word":"궁금하지","from":1.273,"to":2.068},
+    {"word":"않으세요?","from":2.267,"to":3.26},{"word":"왜","from":3.425,"to":3.59},
+    {"word":"유독","from":3.755,"to":4.086},{"word":"원어민이","from":4.251,"to":4.911},
+    {"word":"말할","from":5.076,"to":5.406},{"word":"때는","from":5.571,"to":5.902},
+    {"word":"단어와","from":6.067,"to":6.562},{"word":"단어","from":6.727,"to":7.057},
+    {"word":"사이가","from":7.057,"to":7.553},{"word":"딱딱","from":7.718,"to":8.048},
+    {"word":"끊어지지","from":8.213,"to":8.874},{"word":"않고","from":9.039,"to":9.369},
+    {"word":"뭉쳐서","from":9.534,"to":10.029},{"word":"들릴까요?","from":10.194,"to":11.02},
+    {"word":"교과서에서","from":11.17,"to":11.922},{"word":"배운","from":12.072,"to":12.372},
+    {"word":"발음이랑,","from":12.523,"to":13.199},{"word":"실제로","from":13.274,"to":13.725},
+    {"word":"듣는","from":13.875,"to":14.176},{"word":"소리가","from":14.326,"to":14.777},
+    {"word":"왜","from":14.927,"to":15.077},{"word":"이렇게","from":15.228,"to":15.678},
+    {"word":"다를까요?","from":15.829,"to":16.58},{"word":"혹시","from":16.752,"to":17.097},
+    {"word":"원어민들이","from":17.269,"to":18.131},{"word":"그냥","from":18.303,"to":18.648},
+    {"word":"발음을","from":18.82,"to":19.337},{"word":"대충","from":19.509,"to":19.854},
+    {"word":"하는","from":19.854,"to":20.198},{"word":"걸까요?","from":20.371,"to":21.06}
+  ];
+  // Last word's whisper-measured "to" (21.06) runs past the real audio file (20.4s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 20.4;
+
+  var progressFillEl = document.getElementById("f03-progress-fill");
+  var dim = document.getElementById("f03-dim");
+  var question = document.getElementById("f03-question");
+  var cardIds = ["f03-card-1", "f03-card-2", "f03-card-3", "f03-card-4", "f03-card-5", "f03-card-6", "f03-card-7", "f03-card-8"];
+  var cardRotations = [-6, 4, 3, -4, 5, -3, -5, 6];
+
+  // Beat 1 (0.5-9.7s): 8 word cards snap on one at a time — hard cuts (near-zero duration,
+  // no smoothing), never a fade, to read as "끊어진" rather than "이어지는".
+  var CARD_START = 0.5;
+  var CARD_STEP = 1.3;
+  for (var i = 0; i < cardIds.length; i++) {
+    var el = document.getElementById(cardIds[i]);
+    var rot = cardRotations[i];
+    tl.fromTo(el, { opacity: 0, scale: 1.15, rotation: rot }, { opacity: 1, scale: 1, rotation: rot, duration: 0.12, ease: "power4.out" }, CARD_START + i * CARD_STEP);
+  }
+
+  // Beat 2 (11.17-16.58s VO): cards hold static — intentionally no motion here.
+
+  // Beat 3 (16.75-20.4s VO, "혹시...대충 하는 걸까요?"): the screen dims as the final question
+  // is spoken, landing as on-screen text right as the narration itself finishes asking it.
+  tl.fromTo(dim, { opacity: 0 }, { opacity: 0.62, duration: 2.0, ease: "power2.inOut" }, 16.752);
+  tl.fromTo(question, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 19.5);
+
+  tl.fromTo(progressFillEl, { width: "16.667%" }, { width: "25%", duration: 1.0, ease: "power1.inOut" }, 16.752);
+})();
+</script>
+</template>

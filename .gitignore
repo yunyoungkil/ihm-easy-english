@@ -20,6 +20,13 @@ out
 # style; nothing renders from it, so it stays out of history. Keep locally.
 public/reference
 
+# Real screenshots/photos used only as mood-board reference (never rendered
+# directly — frame.md "Approved Entities" bans real logos/photos/faces in any
+# output). EP14: a real Netflix browse-grid screenshot, kept as the visual
+# reference behind Frame 1's invented placeholder grid; must stay out of
+# history (real actors' faces + copyrighted poster art + Netflix branding).
+videos/*/compositions/images/
+
 # Rendered video files (tens of MB each, grows every episode) — keep locally,
 # never commit. Text/metadata/thumbnails in the same folders stay tracked.
 output/upload-packages/**/*.mp4

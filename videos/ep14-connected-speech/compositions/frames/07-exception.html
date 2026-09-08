@@ -1,0 +1,238 @@
+<template>
+<style>
+  /* 07-exception — Frame 7 "반전 꿀팁 (예외)" (frame.md Treatment #7: Linking Diagram — Bounce,
+     `linking-diagram--bounce`, first use). Built from real per-word timestamps in
+     assets/voice/07.words.json (2026-09-08) — no estimates, no RATIO scaling
+     (knowledge/hyperframes-prompting.md §7-1/9-1).
+
+     Component notes: MADE/IT has a clean consonant/vowel boundary (unlike Frame 6's WHERE
+     WERE WE), so this reuses Frame 5's fixed-width letter-column + letter-tag structure, not
+     Frame 6's whole-word cards. The key difference from Frame 5's slide: D does NOT travel to
+     IT's card — frame.md is explicit that bounce is "제자리에서 튕기며 성질이 바뀐다" (bounces
+     IN PLACE, changes character, not position) so slide and bounce read as visually distinct
+     mechanisms. D bounces via `y`/`scale` only (compositor channels), while I highlights in
+     sync to show the pair that creates the effect. Accent color for the diagram highlight is
+     accent-exception red (frame.md) — the result pron-caption itself stays accent-pronunciation
+     blue throughout the episode ("this is how it sounds", Frame 5/6 precedent), only the
+     diagram highlighting differs per pattern type. "릿" gets its own span (same technique as
+     Frame 6's "루") for a later targeted pulse when the ㄹ-sound is named explicitly.
+
+     Beats:
+       0.5–7.32s (VO "그럼 예외는 없을까요?...옆으로 넘어가서 붙는 거였잖아요."): intro caption,
+       the direct question opening Beat's 3-stage formula + callback to Frame 5's slide.
+       7.46–14.82s (VO "근데 MADE IT처럼...한번 들어보세요."): caption swaps to name the
+       exception before the concrete demo.
+       15.09–20.82s (VO "MADE IT...'메이릿'처럼 들립니다."): cards appear with full letter-tags,
+       D+I highlight red, D bounces in place — landing exactly as "메이릿" is spoken, pron-
+       caption reveals below.
+       21.16–27.39s (VO "MADE 끝소리 D가...앞 모음 사이에 끼면,"): D and I each get a secondary
+       pulse as they're individually named, reinforcing which two letters are responsible.
+       27.47–34.32s (VO "혀가...톡 튕기듯이 살짝 스치고 지나가요."): a smaller echo bounce on D,
+       timed to "톡 튕기듯이" — this line literally describes the articulation in words.
+       34.45–38.82s (VO "그래서 D가...'ㄹ' 소리처럼 들리는 거죠."): "릿" pulses in the result
+       label right as the ㄹ-sound is named.
+       38.95s–end (VO "이것도 대충 하는 게 아니라...표준적으로 쓰이는 방식이에요."): held on the
+       landed state, closing settle pulse only. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f07-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f07-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f07-progress-fill { position: absolute; left: 0; top: 0; width: 50%; height: 3px; background: #F5C518; }
+
+  .f07-caption { position: absolute; left: 10cqw; right: 10cqw; top: 16cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f07-caption-text { font-size: 2.3cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.55; }
+
+  /* linking-diagram--bounce: two fixed-geometry word cards (same technique as Frame 5). */
+  .f07-diagram { position: absolute; left: 30.2cqw; top: 38cqh; display: flex; align-items: flex-start; gap: 2cqw; opacity: 0; }
+  .f07-card { position: relative; display: flex; align-items: flex-start; background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); border-radius: 0.9cqw; padding: 2.4cqh 1.6cqw; box-shadow: 0 0 1.4cqw rgba(245,197,24,0.14); }
+  .f07-letters-row { display: flex; gap: 0.4cqw; }
+  .f07-letter-col { position: relative; z-index: 1; width: 4.6cqw; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5cqh; }
+  .f07-letter { font-family: 'Archivo Black', sans-serif; font-size: 4.2cqw; line-height: 1; color: #FFFFFF; }
+  .f07-letter-silent { opacity: 0.35; }
+  .f07-tag { font-size: 0.95cqw; font-weight: 700; color: #A9B4C4; letter-spacing: 0.02em; }
+
+  .f07-boundary { align-self: stretch; width: 2px; margin: 0.6cqh 0; background-image: repeating-linear-gradient(to bottom, #F5C518 0 8px, transparent 8px 16px); opacity: 0.5; }
+
+  .f07-pron { position: absolute; left: 0; right: 0; top: 58cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f07-pron-text { font-family: 'Noto Sans KR', sans-serif; font-size: 2.8cqw; font-weight: 900; color: #008EFF; text-align: center; text-shadow: 0 0 1cqw rgba(0,142,255,0.3); }
+</style>
+
+<div data-hf-id="hf-f14e7s1" id="root" data-composition-id="07-exception" data-start="0" data-duration="44.5" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e7s2" id="f07-bg-clip" class="clip f07-bg" data-start="0" data-duration="44.5" data-track-index="0"></div>
+  <audio data-hf-id="hf-f14e7sv" id="f07-voice" src="assets/voice/07.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e7s3" class="f07-progress-track"><div data-hf-id="hf-f14e7s4" class="f07-progress-fill" id="f07-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e7sc" class="f07-caption" id="f07-caption">
+    <div data-hf-id="hf-f14e7sct" class="f07-caption-text" id="f07-caption-text">그럼 예외는 없을까요? 방금 건 소리가 그냥 옆으로 넘어가서 붙는 거였잖아요.</div>
+  </div>
+
+  <div data-hf-id="hf-f14e7sd" class="f07-diagram" id="f07-diagram">
+    <div data-hf-id="hf-f14e7sma" id="f07-made-card" class="f07-card">
+      <div data-hf-id="hf-f14e7smar" class="f07-letters-row">
+        <div data-hf-id="hf-f14e7smam" class="f07-letter-col"><div data-hf-id="hf-f14e7smaml" class="f07-letter">M</div><div data-hf-id="hf-f14e7smamt" class="f07-tag">자</div></div>
+        <div data-hf-id="hf-f14e7smaa" class="f07-letter-col"><div data-hf-id="hf-f14e7smaal" class="f07-letter">A</div><div data-hf-id="hf-f14e7smaat" class="f07-tag">모</div></div>
+        <div data-hf-id="hf-f14e7smad" class="f07-letter-col" id="f07-made-d-col">
+          <div data-hf-id="hf-f14e7smadl" class="f07-letter" id="f07-made-d-letter">D</div>
+          <div data-hf-id="hf-f14e7smadt" class="f07-tag" id="f07-made-d-tag">자</div>
+        </div>
+        <div data-hf-id="hf-f14e7smae" class="f07-letter-col"><div data-hf-id="hf-f14e7smael" class="f07-letter f07-letter-silent">E</div><div data-hf-id="hf-f14e7smaet" class="f07-tag">무음</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e7sb" class="f07-boundary"></div>
+    <div data-hf-id="hf-f14e7sit" id="f07-it-card" class="f07-card">
+      <div data-hf-id="hf-f14e7sitr" class="f07-letters-row">
+        <div data-hf-id="hf-f14e7siti" class="f07-letter-col" id="f07-it-i-col">
+          <div data-hf-id="hf-f14e7sitil" class="f07-letter" id="f07-it-i-letter">I</div>
+          <div data-hf-id="hf-f14e7sitit" class="f07-tag" id="f07-it-i-tag">모</div>
+        </div>
+        <div data-hf-id="hf-f14e7sitt" class="f07-letter-col"><div data-hf-id="hf-f14e7sittl" class="f07-letter">T</div><div data-hf-id="hf-f14e7sittt" class="f07-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-f14e7spr" class="f07-pron" id="f07-pron">
+    <div data-hf-id="hf-f14e7sprt" class="f07-pron-text">메이<span data-hf-id="hf-f14e7sprrit" id="f07-pron-rit">릿</span></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["07-exception"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/07.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"그럼","from":0.479,"to":0.797},{"word":"예외는","from":0.956,"to":1.434},
+    {"word":"없을까요?","from":1.593,"to":2.388},{"word":"방금","from":2.547,"to":2.865},
+    {"word":"건","from":3.025,"to":3.184},{"word":"소리가","from":3.343,"to":3.82},
+    {"word":"그냥","from":3.979,"to":4.297},{"word":"옆으로","from":4.456,"to":4.934},
+    {"word":"넘어가서","from":5.093,"to":5.729},{"word":"붙는","from":5.888,"to":6.206},
+    {"word":"거였잖아요.","from":6.365,"to":7.32},{"word":"근데","from":7.455,"to":7.725},
+    {"word":"MADE","from":7.994,"to":8.534},{"word":"IT처럼","from":8.669,"to":9.343},
+    {"word":"T나","from":9.613,"to":10.018},{"word":"D가","from":10.287,"to":10.692},
+    {"word":"낄","from":10.827,"to":10.962},{"word":"때는","from":11.097,"to":11.367},
+    {"word":"조금","from":11.501,"to":11.771},{"word":"다르게","from":11.906,"to":12.311},
+    {"word":"움직여요.","from":12.446,"to":13.12},{"word":"한번","from":13.29,"to":13.63},
+    {"word":"들어보세요.","from":13.8,"to":14.82},{"word":"MADE","from":15.093,"to":15.638},
+    {"word":"IT,","from":15.775,"to":16.184},{"word":"이걸","from":16.32,"to":16.593},
+    {"word":"원어민이","from":16.729,"to":17.275},{"word":"편하게","from":17.411,"to":17.82},
+    {"word":"말하면","from":17.956,"to":18.365},{"word":"'메이릿'처럼","from":18.502,"to":20.002},
+    {"word":"들립니다.","from":20.138,"to":20.82},{"word":"MADE","from":21.162,"to":21.975},
+    {"word":"끝소리","from":22.188,"to":22.702},{"word":"D가","from":23.044,"to":23.557},
+    {"word":"바로","from":23.728,"to":24.07},{"word":"뒤","from":24.241,"to":24.412},
+    {"word":"IT의","from":24.469,"to":24.754},{"word":"모음과","from":24.925,"to":25.438},
+    {"word":"앞","from":25.552,"to":25.666},{"word":"모음","from":25.781,"to":26.123},
+    {"word":"사이에","from":26.294,"to":26.807},{"word":"끼면,","from":26.978,"to":27.394},
+    {"word":"혀가","from":27.469,"to":27.767},{"word":"그","from":27.916,"to":28.065},
+    {"word":"D","from":28.164,"to":28.263},{"word":"소리를","from":28.363,"to":28.809},
+    {"word":"정확하게","from":28.958,"to":29.554},{"word":"내는","from":29.703,"to":30.001},
+    {"word":"대신,","from":30.15,"to":30.522},{"word":"혀끝으로","from":30.597,"to":31.341},
+    {"word":"톡","from":31.49,"to":31.639},{"word":"튕기듯이","from":31.788,"to":32.384},
+    {"word":"살짝","from":32.533,"to":32.831},{"word":"스치고","from":32.98,"to":33.426},
+    {"word":"지나가요.","from":33.575,"to":34.32},{"word":"그래서","from":34.449,"to":34.834},
+    {"word":"D가","from":35.091,"to":35.477},{"word":"우리","from":35.606,"to":35.863},
+    {"word":"귀에는","from":35.991,"to":36.377},{"word":"마치","from":36.506,"to":36.763},
+    {"word":"'ㄹ'","from":36.866,"to":37.174},{"word":"소리처럼","from":37.277,"to":37.791},
+    {"word":"들리는","from":37.92,"to":38.306},{"word":"거죠.","from":38.434,"to":38.82},
+    {"word":"이것도","from":38.948,"to":39.332},{"word":"대충","from":39.46,"to":39.715},
+    {"word":"하는","from":39.715,"to":39.971},{"word":"게","from":40.099,"to":40.227},
+    {"word":"아니라,","from":40.355,"to":40.803},{"word":"미국","from":40.867,"to":41.122},
+    {"word":"영어에서","from":41.25,"to":41.762},{"word":"아주","from":41.89,"to":42.146},
+    {"word":"표준적으로","from":42.273,"to":42.913},{"word":"쓰이는","from":43.041,"to":43.425},
+    {"word":"방식이에요.","from":43.553,"to":44.32}
+  ];
+  // Last word's whisper-measured "to" (44.32) runs past the real audio file (44.0s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 44.0;
+
+  var progressFillEl = document.getElementById("f07-progress-fill");
+  var caption = document.getElementById("f07-caption");
+  var captionText = document.getElementById("f07-caption-text");
+  var diagram = document.getElementById("f07-diagram");
+  var madeCard = document.getElementById("f07-made-card");
+  var itCard = document.getElementById("f07-it-card");
+  var dCol = document.getElementById("f07-made-d-col");
+  var dLetter = document.getElementById("f07-made-d-letter");
+  var dTag = document.getElementById("f07-made-d-tag");
+  var iLetter = document.getElementById("f07-it-i-letter");
+  var iTag = document.getElementById("f07-it-i-tag");
+  var pron = document.getElementById("f07-pron");
+  var pronRit = document.getElementById("f07-pron-rit");
+
+  // Beat 0 (0.5-7.32s VO, "그럼 예외는 없을까요?...옆으로 넘어가서 붙는 거였잖아요."): intro
+  // caption — direct question + Frame 5 callback.
+  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.6);
+  // Beat 1 (7.46-14.82s VO, "근데 MADE IT처럼...한번 들어보세요."): caption swaps to name the
+  // exception before the concrete demo.
+  tl.to(caption, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, 7.3)
+    .call(function () { captionText.textContent = "근데 MADE IT처럼 T나 D가 낄 때는 조금 다르게 움직여요"; }, null, 7.46)
+    .to(caption, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 7.46);
+  tl.to(caption, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 14.4);
+
+  // Beat 2 (15.09-20.82s VO, "MADE IT...'메이릿'처럼 들립니다."): cards appear with full
+  // letter-tags, D+I highlight red (accent-exception, frame.md), D bounces IN PLACE (y/scale
+  // only — no x travel, unlike Frame 5's slide) — landing exactly as "메이릿" is spoken.
+  tl.fromTo(diagram, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 15.093);
+  tl.fromTo(madeCard, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.4)" }, 15.093);
+  tl.fromTo(itCard, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.4)" }, 15.775);
+  tl.to([dLetter, dTag], { color: "#FF3333", duration: 0.25, ease: "power2.out" }, 16.9)
+    .to([iLetter, iTag], { color: "#FF3333", duration: 0.25, ease: "power2.out" }, 16.9);
+  tl.fromTo(progressFillEl, { width: "50%" }, { width: "58.333%", duration: 1.0, ease: "power1.inOut" }, 15.093);
+
+  // The bounce itself: D hops up then lands with GSAP's built-in bounce ease — a physically
+  // distinct motion from Frame 5's slide (compositor channels only: y + scale).
+  tl.to(dCol, { y: "-2.2cqh", scale: 1.1, duration: 0.18, ease: "power2.out" }, 18.502)
+    .to(dCol, { y: "0cqh", scale: 1, duration: 0.55, ease: "bounce.out" }, "+=0");
+  tl.fromTo(pron, { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, 19.2);
+
+  // Beat 3 (21.16-27.39s VO, "MADE 끝소리 D가...앞 모음 사이에 끼면,"): D and I each get a
+  // secondary pulse as they're individually named, reinforcing which two letters are
+  // responsible (D and I were already red from Beat 2 — this is a brightness pulse, not a
+  // color-state change).
+  tl.to(dCol, { scale: 1.12, duration: 0.2, ease: "power2.out" }, 23.044)
+    .to(dCol, { scale: 1, duration: 0.3, ease: "power2.inOut" }, 23.557);
+  tl.to(itCard, { scale: 1.04, duration: 0.2, ease: "power2.out" }, 24.469)
+    .to(itCard, { scale: 1, duration: 0.3, ease: "power2.inOut" }, 24.9);
+
+  // Beat 4 (27.47-34.32s VO, "혀가...톡 튕기듯이 살짝 스치고 지나가요."): a smaller echo bounce
+  // on D, timed to "톡 튕기듯이" — this line literally describes the articulation in words.
+  tl.to(dCol, { y: "-1cqh", scale: 1.05, duration: 0.12, ease: "power2.out" }, 31.49)
+    .to(dCol, { y: "0cqh", scale: 1, duration: 0.4, ease: "bounce.out" }, "+=0");
+
+  // Beat 5 (34.45-38.82s VO, "그래서 D가...'ㄹ' 소리처럼 들리는 거죠."): "릿" pulses in the
+  // result label right as the ㄹ-sound is named (same technique as Frame 6's "루" pulse).
+  tl.to(pronRit, { scale: 1.2, color: "#FF3333", duration: 0.2, ease: "power2.out" }, 36.866)
+    .to(pronRit, { scale: 1, color: "#008EFF", duration: 0.35, ease: "power2.inOut" }, 37.4);
+
+  // Beat 6 (38.95s onward, "이것도 대충 하는 게 아니라...표준적으로 쓰이는 방식이에요."): held on
+  // the landed state — a gentle closing settle pulse only, no new competing visual.
+  tl.to(pron, { scale: 1.04, duration: 0.8, ease: "sine.inOut" }, 41.0)
+    .to(pron, { scale: 1, duration: 0.8, ease: "sine.inOut" }, 41.8);
+})();
+</script>
+</template>

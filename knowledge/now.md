@@ -19,9 +19,31 @@ WE는 AN APPLE과 다른 메커니즘인 약화 현상) 발견·정정, 시청�
 **Frame 1~4 제작 완료**(실측 타임스탬프 기반, 추정·RATIO 스케일링 없이 처음부터 정확하게 —
 `knowledge/hyperframes-prompting.md` §7-1). Frame 2는 대사 수정("함께 봅니다"→"함께 보시죠")으로
 음성 재생성 후 제작. 채널 워드마크 배색 규칙("이해하면 "은 흰색, "쉬운영어"만 브랜드 노랑) 신설해
-`CLAUDE.md`/`AGENTS.md`에 반영. 상세 기록: `videos/ep14-connected-speech/TASKS.md`.
-**다음 행동**: Frame 5(원리 설명) — `linking-diagram`/`letter-tag` 컴포넌트를 여기서 처음
-구현(3가지 모션 slide/shrink/bounce 중 slide부터). 상세: `videos/ep14-connected-speech/BRIEF.md`.
+`CLAUDE.md`/`AGENTS.md`에 반영. **이어서 Frame 1·3·4 빈 구간 보강**(사용자가 프리뷰로 직접 확인
+후 "씬이 너무 적다" 지적 — Frame 4는 28.6초, Frame 3은 5.4초 완전 정지 구간이 있었음, 단어별
+실측 타임스탬프에 맞춰 강조 펄스·보조 캡션·카드 플리커 추가로 해결). **Frame 5~12 전부 제작
+완료 — EP14 12개 프레임 첫 풀드래프트 완성**(2026-09-08). `linking-diagram`/`letter-tag` 신규
+컴포넌트를 Frame 5(slide, AN APPLE)에서 처음 구현하며 사용자 피드백으로 2차 수정(도착 카드는
+처음부터 도착할 글자 수까지 폭 확보, 발음 라벨은 카드별 정렬), Frame 6(shrink, WHERE WERE WE),
+Frame 7(bounce, MADE IT — GSAP 연속 트윈 겹침·색상 대비 버그 발견·수정), Frame 8(퀴즈 4문항 —
+Frame 5·7 축소판 재사용), Frame 9(리스닝, 9조각 concat 오디오), Frame 10(따라 말하기, 가장 긴
+프레임 64.94초), Frame 11(페이오프 — Frame 1과 블러→선명 대칭), Frame 12(요약 — 엔드스크린
+키프아웃 구간에서 상단 진행바가 화면 전체 폭이라 키프아웃 영역을 침범하는 버그 발견·수정,
+`production-rules.md`에 일반 교훈 기록)까지 전부 완성. `npm run check` 전체 통과. 총 실측 길이
+428.07초(≈7:08). 상세 기록: `videos/ep14-connected-speech/TASKS.md`.
+**이어서 Frame 5 B롤·레이아웃·라벨 수정(2026-09-08, 같은 날 계속)**: 사용자가 "an apple" 자연
+발화 B롤 생성 → 워터마크 발견·제거(픽셀 바운딩박스 측정 + drawbox/gblur, 절차
+`production-rules.md`에 기록) → Frame 5 Beat 3(N이 APPLE로 이동)에 B롤 인셋 카드로 통합 →
+사용자 지적으로 레이아웃 무게중심 재조정(다이어그램+라벨 그룹이 B롤 등장 시점에 함께 위로
+이동) → 발음 라벨 스크럽(되감기) 버그 발견·수정(`.call()` 텍스트 변경 대신 트윈 기반
+크로스페이드로, 일반 규칙으로 `production-rules.md`에 기록) → 사용자 요청으로 좌측 라벨
+"어"→"앤" 텍스트 변경.
+**⚠️ 미해결 — 다음 세션 최우선 확인 사항**: 위 라벨 수정 직후 사용자가 "틀렸는데 오늘은 여기까지
+하자"며 "앤/내플 표기 자체가 틀림"이라고만 확인하고 세션 종료. 정확히 뭐가 틀렸는지 다음 세션에서
+바로 다시 물어볼 것 — 유력한 가설은 `SCRIPT.md` 나레이션 원문("어 내플")과 화면 표기(사용자
+요청으로 "앤"으로 변경됨)의 불일치. 상세: `videos/ep14-connected-speech/TASKS.md` 맨 끝.
+**그 다음 행동**: 위 항목 해결 → 사용자 전체 프리뷰 검수 → BGM/SFX/inline-highlight/네온보더
+채널 공통 규칙 적용 → 렌더. 상세: `videos/ep14-connected-speech/BRIEF.md`.
 
 ## 진행 중 — 단편 EP13(알파벳 소리 지름길)
 

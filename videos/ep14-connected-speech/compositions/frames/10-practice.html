@@ -1,0 +1,304 @@
+<template>
+<style>
+  /* 10-practice — Frame 10 "따라 말해보기" (frame.md Treatment #10: Practice Repeat). Built
+     from real per-word timestamps in assets/voice/10.words.json (2026-09-08) — no estimates,
+     no RATIO scaling (knowledge/hyperframes-prompting.md §7-1/9-1).
+
+     Component notes: reuses Frame 8's exact card geometry for all 4 word pairs (same words,
+     same hand-computed positions — TURN+ON @ left 27.7cqw, CHECK+OUT @ left 22.7cqw, GET+IT/
+     PUT+IT @ left 32.7cqw). Unlike Frame 8's single reveal per question, SCRIPT.md's narration
+     explicitly does each pair TWICE — "천천히" (slowly) once, then "다시 한 번, 좀 더 빠르게"
+     (again, faster) — so each word gets its full slide/bounce assembly ONCE (matching the slow
+     narration pace), then TWO quick reinforcement pulses on the already-landed result (matching
+     the fast "터논, 터논" repeats), rather than replaying the whole travel animation twice
+     (which the fast-paced repeated narration doesn't leave room for anyway).
+
+     Beats: intro prompt (0.4-6.9s) → TURN ON (7.12-20.51s, yellow slide + 2 fast pulses) →
+     CHECK OUT (21.38-34.59s, yellow slide + 2 fast pulses) → GET IT (37.48-52.8s, red bounce +
+     2 fast pulses) → PUT IT (54.25-63.48s, red bounce + 2 fast pulses, held to the end). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f10-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f10-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f10-progress-fill { position: absolute; left: 0; top: 0; width: 75%; height: 3px; background: #F5C518; }
+
+  .f10-caption { position: absolute; left: 10cqw; right: 10cqw; top: 16cqh; display: flex; flex-direction: column; align-items: center; gap: 1.2cqh; opacity: 0; }
+  .f10-caption-text { font-size: 2.3cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.55; }
+
+  .f10-prompt { position: absolute; left: 10cqw; right: 10cqw; top: 22cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f10-prompt-text { font-size: 2.1cqw; font-weight: 900; color: #A9B4C4; text-align: center; }
+
+  .f10-diagram { position: absolute; top: 42cqh; opacity: 0; display: flex; align-items: flex-start; gap: 2cqw; }
+  .f10-card { position: relative; display: flex; align-items: flex-start; background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); border-radius: 0.9cqw; padding: 2.2cqh 1.5cqw; box-shadow: 0 0 1.4cqw rgba(245,197,24,0.14); }
+  .f10-letters-row { display: flex; gap: 0.4cqw; }
+  .f10-letter-col { position: relative; z-index: 1; width: 4.6cqw; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.4cqh; }
+  .f10-letter { font-family: 'Archivo Black', sans-serif; font-size: 3.8cqw; line-height: 1; color: #FFFFFF; }
+  .f10-tag { font-size: 0.9cqw; font-weight: 700; color: #A9B4C4; letter-spacing: 0.02em; }
+  .f10-boundary { align-self: stretch; width: 2px; margin: 0.5cqh 0; background-image: repeating-linear-gradient(to bottom, #F5C518 0 8px, transparent 8px 16px); opacity: 0.5; }
+
+  .f10-pron { position: absolute; left: 0; right: 0; top: 66cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f10-pron-text { font-family: 'Noto Sans KR', sans-serif; font-size: 2.7cqw; font-weight: 900; color: #008EFF; text-align: center; text-shadow: 0 0 1cqw rgba(0,142,255,0.3); }
+</style>
+
+<div data-hf-id="hf-f14e10s1" id="root" data-composition-id="10-practice" data-start="0" data-duration="64.94" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e10s2" id="f10-bg-clip" class="clip f10-bg" data-start="0" data-duration="64.94" data-track-index="0"></div>
+  <audio data-hf-id="hf-f14e10sv" id="f10-voice" src="assets/voice/10.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e10s3" class="f10-progress-track"><div data-hf-id="hf-f14e10s4" class="f10-progress-fill" id="f10-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e10sc" class="f10-caption" id="f10-caption">
+    <div data-hf-id="hf-f14e10sct" class="f10-caption-text">자, 이제 직접해보세요.</div>
+    <div data-hf-id="hf-f14e10sct2" class="f10-caption-text" style="font-size:1.7cqw; color:#A9B4C4; font-weight:700;">따라하다 보면 자연스럽게 늘어 있을 거예요</div>
+  </div>
+
+  <div data-hf-id="hf-f14e10sp" class="f10-prompt" id="f10-prompt"><div data-hf-id="hf-f14e10spt" class="f10-prompt-text" id="f10-prompt-text">TURN ON, 천천히</div></div>
+
+  <!-- TURN ON (slide, yellow) — same geometry as Frame 8 Q1. -->
+  <div data-hf-id="hf-f14e10d1" class="f10-diagram" id="f10-d1" style="left:27.7cqw;">
+    <div data-hf-id="hf-f14e10d1t" class="f10-card">
+      <div data-hf-id="hf-f14e10d1tr" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d1tc1" class="f10-letter-col"><div data-hf-id="hf-f14e10d1tc1l" class="f10-letter">T</div><div data-hf-id="hf-f14e10d1tc1t" class="f10-tag">자</div></div>
+        <div data-hf-id="hf-f14e10d1tc2" class="f10-letter-col"><div data-hf-id="hf-f14e10d1tc2l" class="f10-letter">U</div><div data-hf-id="hf-f14e10d1tc2t" class="f10-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d1tc3" class="f10-letter-col"><div data-hf-id="hf-f14e10d1tc3l" class="f10-letter">R</div><div data-hf-id="hf-f14e10d1tc3t" class="f10-tag">자</div></div>
+        <div data-hf-id="hf-f14e10d1tc4" class="f10-letter-col" id="f10-d1-n-col"><div data-hf-id="hf-f14e10d1tc4l" class="f10-letter" id="f10-d1-n-letter">N</div><div data-hf-id="hf-f14e10d1tc4t" class="f10-tag" id="f10-d1-n-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e10d1b" class="f10-boundary"></div>
+    <div data-hf-id="hf-f14e10d1o" class="f10-card">
+      <div data-hf-id="hf-f14e10d1or" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d1on0" class="f10-letter-col" aria-hidden="true"></div>
+        <div data-hf-id="hf-f14e10d1oo" class="f10-letter-col" id="f10-d1-o-col"><div data-hf-id="hf-f14e10d1ool" class="f10-letter" id="f10-d1-o-letter">O</div><div data-hf-id="hf-f14e10d1oot" class="f10-tag" id="f10-d1-o-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d1on" class="f10-letter-col"><div data-hf-id="hf-f14e10d1onl" class="f10-letter">N</div><div data-hf-id="hf-f14e10d1ont" class="f10-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e10p1" class="f10-pron" id="f10-p1"><div data-hf-id="hf-f14e10p1t" class="f10-pron-text">터논</div></div>
+
+  <!-- CHECK OUT (slide, yellow) — same geometry as Frame 8 Q2. -->
+  <div data-hf-id="hf-f14e10d2" class="f10-diagram" id="f10-d2" style="left:22.7cqw;">
+    <div data-hf-id="hf-f14e10d2c" class="f10-card">
+      <div data-hf-id="hf-f14e10d2cr" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d2cc1" class="f10-letter-col"><div data-hf-id="hf-f14e10d2cc1l" class="f10-letter">C</div><div data-hf-id="hf-f14e10d2cc1t" class="f10-tag">자</div></div>
+        <div data-hf-id="hf-f14e10d2cc2" class="f10-letter-col"><div data-hf-id="hf-f14e10d2cc2l" class="f10-letter">H</div><div data-hf-id="hf-f14e10d2cc2t" class="f10-tag">자</div></div>
+        <div data-hf-id="hf-f14e10d2cc3" class="f10-letter-col"><div data-hf-id="hf-f14e10d2cc3l" class="f10-letter">E</div><div data-hf-id="hf-f14e10d2cc3t" class="f10-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d2cc4" class="f10-letter-col"><div data-hf-id="hf-f14e10d2cc4l" class="f10-letter">C</div><div data-hf-id="hf-f14e10d2cc4t" class="f10-tag">자</div></div>
+        <div data-hf-id="hf-f14e10d2cc5" class="f10-letter-col" id="f10-d2-k-col"><div data-hf-id="hf-f14e10d2cc5l" class="f10-letter" id="f10-d2-k-letter">K</div><div data-hf-id="hf-f14e10d2cc5t" class="f10-tag" id="f10-d2-k-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e10d2b" class="f10-boundary"></div>
+    <div data-hf-id="hf-f14e10d2o" class="f10-card">
+      <div data-hf-id="hf-f14e10d2or" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d2on0" class="f10-letter-col" aria-hidden="true"></div>
+        <div data-hf-id="hf-f14e10d2oo" class="f10-letter-col" id="f10-d2-o-col"><div data-hf-id="hf-f14e10d2ool" class="f10-letter" id="f10-d2-o-letter">O</div><div data-hf-id="hf-f14e10d2oot" class="f10-tag" id="f10-d2-o-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d2ou" class="f10-letter-col"><div data-hf-id="hf-f14e10d2oul" class="f10-letter">U</div><div data-hf-id="hf-f14e10d2out" class="f10-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d2ot" class="f10-letter-col"><div data-hf-id="hf-f14e10d2otl" class="f10-letter">T</div><div data-hf-id="hf-f14e10d2ott" class="f10-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e10p2" class="f10-pron" id="f10-p2"><div data-hf-id="hf-f14e10p2t" class="f10-pron-text">체카웃</div></div>
+
+  <!-- GET IT (bounce, red) — same geometry as Frame 8 Q3. -->
+  <div data-hf-id="hf-f14e10d3" class="f10-diagram" id="f10-d3" style="left:32.7cqw;">
+    <div data-hf-id="hf-f14e10d3g" class="f10-card">
+      <div data-hf-id="hf-f14e10d3gr" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d3gc1" class="f10-letter-col"><div data-hf-id="hf-f14e10d3gc1l" class="f10-letter">G</div><div data-hf-id="hf-f14e10d3gc1t" class="f10-tag">자</div></div>
+        <div data-hf-id="hf-f14e10d3gc2" class="f10-letter-col"><div data-hf-id="hf-f14e10d3gc2l" class="f10-letter">E</div><div data-hf-id="hf-f14e10d3gc2t" class="f10-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d3gc3" class="f10-letter-col" id="f10-d3-t-col"><div data-hf-id="hf-f14e10d3gc3l" class="f10-letter" id="f10-d3-t-letter">T</div><div data-hf-id="hf-f14e10d3gc3t" class="f10-tag" id="f10-d3-t-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e10d3b" class="f10-boundary"></div>
+    <div data-hf-id="hf-f14e10d3i" class="f10-card">
+      <div data-hf-id="hf-f14e10d3ir" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d3ii" class="f10-letter-col" id="f10-d3-i-col"><div data-hf-id="hf-f14e10d3iil" class="f10-letter" id="f10-d3-i-letter">I</div><div data-hf-id="hf-f14e10d3iit" class="f10-tag" id="f10-d3-i-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d3it" class="f10-letter-col"><div data-hf-id="hf-f14e10d3itl" class="f10-letter">T</div><div data-hf-id="hf-f14e10d3itt" class="f10-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e10p3" class="f10-pron" id="f10-p3"><div data-hf-id="hf-f14e10p3t" class="f10-pron-text">게릿</div></div>
+
+  <!-- PUT IT (bounce, red) — same geometry as Frame 8 Q4. -->
+  <div data-hf-id="hf-f14e10d4" class="f10-diagram" id="f10-d4" style="left:32.7cqw;">
+    <div data-hf-id="hf-f14e10d4p" class="f10-card">
+      <div data-hf-id="hf-f14e10d4pr" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d4pc1" class="f10-letter-col"><div data-hf-id="hf-f14e10d4pc1l" class="f10-letter">P</div><div data-hf-id="hf-f14e10d4pc1t" class="f10-tag">자</div></div>
+        <div data-hf-id="hf-f14e10d4pc2" class="f10-letter-col"><div data-hf-id="hf-f14e10d4pc2l" class="f10-letter">U</div><div data-hf-id="hf-f14e10d4pc2t" class="f10-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d4pc3" class="f10-letter-col" id="f10-d4-t-col"><div data-hf-id="hf-f14e10d4pc3l" class="f10-letter" id="f10-d4-t-letter">T</div><div data-hf-id="hf-f14e10d4pc3t" class="f10-tag" id="f10-d4-t-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e10d4b" class="f10-boundary"></div>
+    <div data-hf-id="hf-f14e10d4i" class="f10-card">
+      <div data-hf-id="hf-f14e10d4ir" class="f10-letters-row">
+        <div data-hf-id="hf-f14e10d4ii" class="f10-letter-col" id="f10-d4-i-col"><div data-hf-id="hf-f14e10d4iil" class="f10-letter" id="f10-d4-i-letter">I</div><div data-hf-id="hf-f14e10d4iit" class="f10-tag" id="f10-d4-i-tag">모</div></div>
+        <div data-hf-id="hf-f14e10d4it" class="f10-letter-col"><div data-hf-id="hf-f14e10d4itl" class="f10-letter">T</div><div data-hf-id="hf-f14e10d4itt" class="f10-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e10p4" class="f10-pron" id="f10-p4"><div data-hf-id="hf-f14e10p4t" class="f10-pron-text">푸릿</div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["10-practice"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/10.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"자,","from":0.442,"to":0.766},{"word":"이제","from":0.928,"to":1.252},
+    {"word":"직접해보세요.","from":1.414,"to":2.709},{"word":"따라하다","from":2.871,"to":3.681},
+    {"word":"보면","from":3.843,"to":4.167},{"word":"자연스럽게","from":4.329,"to":5.139},
+    {"word":"늘어","from":5.3,"to":5.624},{"word":"있을","from":5.786,"to":6.11},
+    {"word":"거예요.","from":6.272,"to":6.92},{"word":"TURN","from":7.12,"to":7.92},
+    {"word":"ON,","from":8.12,"to":8.72},{"word":"천천히.","from":8.92,"to":10.053},
+    {"word":"터,","from":10.587,"to":11.32},{"word":"논","from":11.36,"to":11.4},
+    {"word":"—","from":11.44,"to":11.48},{"word":"이어","from":11.52,"to":11.92},
+    {"word":"붙이면,","from":12.12,"to":14.52},{"word":"터논!","from":14.56,"to":14.68},
+    {"word":"다시","from":14.72,"to":15.12},{"word":"한","from":15.32,"to":15.52},
+    {"word":"번,","from":15.72,"to":16.02},{"word":"좀","from":16.12,"to":16.32},
+    {"word":"더","from":16.52,"to":16.72},{"word":"빠르게.","from":16.92,"to":17.72},
+    {"word":"터논,","from":18.158,"to":19.199},{"word":"터논.","from":19.528,"to":20.514},
+    {"word":"이번엔","from":20.842,"to":21.335},{"word":"CHECK","from":21.376,"to":21.96},
+    {"word":"OUT이에요.","from":22.255,"to":23.8},{"word":"체,","from":24.644,"to":25.658},
+    {"word":"카웃","from":25.686,"to":25.742},{"word":"—","from":25.77,"to":25.799},
+    {"word":"이어","from":25.827,"to":26.164},{"word":"붙이면,","from":26.333,"to":28.698},
+    {"word":"체카웃!","from":28.726,"to":28.839},{"word":"다시","from":28.867,"to":29.204},
+    {"word":"한","from":29.373,"to":29.542},{"word":"번,","from":29.711,"to":29.964},
+    {"word":"좀","from":30.049,"to":30.218},{"word":"더","from":30.387,"to":30.556},
+    {"word":"빠르게.","from":30.724,"to":31.4},{"word":"체카웃,","from":31.779,"to":33.07},
+    {"word":"체카웃.","from":33.373,"to":34.588},{"word":"이번엔","from":34.891,"to":35.347},
+    {"word":"예외도","from":35.498,"to":35.954},{"word":"같이","from":36.106,"to":36.409},
+    {"word":"해볼까요?","from":36.561,"to":37.32},{"word":"GET","from":37.478,"to":38.014},
+    {"word":"IT이에요.","from":38.203,"to":39.212},{"word":"T가","from":39.369,"to":39.685},
+    {"word":"모음","from":39.842,"to":40.158},{"word":"사이에","from":40.315,"to":40.788},
+    {"word":"있으니까","from":40.946,"to":41.576},{"word":"톡","from":41.734,"to":41.892},
+    {"word":"튕기죠.","from":42.049,"to":42.68},{"word":"게,","from":43.408,"to":44.318},
+    {"word":"릿","from":44.354,"to":44.391},{"word":"—","from":44.427,"to":44.464},
+    {"word":"이어","from":44.5,"to":44.864},{"word":"붙이면,","from":45.046,"to":47.048},
+    {"word":"게릿!","from":47.084,"to":47.194},{"word":"다시","from":47.23,"to":47.594},
+    {"word":"한","from":47.776,"to":47.958},{"word":"번,","from":48.14,"to":48.413},
+    {"word":"좀","from":48.504,"to":48.686},{"word":"더","from":48.868,"to":49.05},
+    {"word":"빠르게.","from":49.232,"to":49.96},{"word":"게릿,","from":50.396,"to":51.453},
+    {"word":"게릿.","from":51.789,"to":52.797},{"word":"마지막으로","from":53.133,"to":54.067},
+    {"word":"PUT","from":54.253,"to":54.673},{"word":"IT.","from":54.79,"to":55.14},
+    {"word":"푸,","from":55.257,"to":55.56},{"word":"릿","from":55.896,"to":56.232},
+    {"word":"—","from":56.568,"to":56.904},{"word":"이어","from":57.24,"to":57.613},
+    {"word":"붙이면,","from":57.8,"to":59.853},{"word":"푸릿!","from":59.891,"to":60.003},
+    {"word":"다시","from":60.04,"to":60.413},{"word":"한","from":60.6,"to":60.787},
+    {"word":"번,","from":60.973,"to":61.253},{"word":"좀","from":61.347,"to":61.533},
+    {"word":"더","from":61.72,"to":61.907},{"word":"빠르게.","from":62.093,"to":62.84},
+    {"word":"푸릿,","from":62.872,"to":62.968},{"word":"푸릿.","from":63,"to":63.48}
+  ];
+
+  var progressFillEl = document.getElementById("f10-progress-fill");
+  var caption = document.getElementById("f10-caption");
+  var prompt = document.getElementById("f10-prompt");
+  var promptText = document.getElementById("f10-prompt-text");
+
+  function fadeIn(el, delay, opts) {
+    opts = opts || {};
+    tl.fromTo(el, { opacity: 0, y: opts.y || 8, scale: opts.scale || 1 }, { opacity: 1, y: 0, scale: 1, duration: opts.duration || 0.35, ease: opts.ease || "power2.out" }, delay);
+  }
+  function fadeOut(el, delay, duration) {
+    tl.to(el, { opacity: 0, duration: duration || 0.3, ease: "power2.inOut" }, delay);
+  }
+  function doublePulse(el, at1, at2) {
+    tl.to(el, { scale: 1.12, duration: 0.15, ease: "power2.out" }, at1)
+      .to(el, { scale: 1, duration: 0.25, ease: "power2.inOut" }, "+=0");
+    tl.to(el, { scale: 1.12, duration: 0.15, ease: "power2.out" }, at2)
+      .to(el, { scale: 1, duration: 0.25, ease: "power2.inOut" }, "+=0");
+  }
+
+  // Intro (0.4-6.9s VO, "자, 이제...늘어 있을 거예요."): prompt caption before the first word.
+  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
+  tl.to(caption, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 6.6);
+
+  // ---- TURN ON (slide, yellow) ----
+  var d1 = document.getElementById("f10-d1"), n1Col = document.getElementById("f10-d1-n-col");
+  var n1L = document.getElementById("f10-d1-n-letter"), n1T = document.getElementById("f10-d1-n-tag");
+  var o1L = document.getElementById("f10-d1-o-letter"), o1T = document.getElementById("f10-d1-o-tag");
+  var p1 = document.getElementById("f10-p1");
+
+  fadeIn(prompt, 7.12);
+  fadeIn(d1, 7.12, { scale: 0.92 });
+  tl.to([n1L, n1T, o1L, o1T], { color: "#F5C518", duration: 0.3, ease: "power2.out" }, 10.587);
+  tl.to(n1Col, { x: "11.8cqw", duration: 1.4, ease: "power2.inOut" }, 11.52); // slow slide, matches "천천히"
+  fadeIn(p1, 14.56, { scale: 0.9 });
+  doublePulse(p1, 18.158, 19.528); // "터논, 터논." fast repeats
+
+  tl.fromTo(progressFillEl, { width: "75%" }, { width: "83.333%", duration: 1.0, ease: "power1.inOut" }, 7.12);
+
+  fadeOut(prompt, 20.6, 0.2); fadeOut(d1, 20.6, 0.2); fadeOut(p1, 20.6, 0.2);
+
+  // ---- CHECK OUT (slide, yellow) ----
+  var d2 = document.getElementById("f10-d2"), k2Col = document.getElementById("f10-d2-k-col");
+  var k2L = document.getElementById("f10-d2-k-letter"), k2T = document.getElementById("f10-d2-k-tag");
+  var o2L = document.getElementById("f10-d2-o-letter"), o2T = document.getElementById("f10-d2-o-tag");
+  var p2 = document.getElementById("f10-p2");
+
+  tl.call(function () { promptText.textContent = "CHECK OUT"; }, null, 20.9);
+  fadeIn(prompt, 21.376, { duration: 0.3 });
+  fadeIn(d2, 21.376, { scale: 0.92, duration: 0.3 });
+  tl.to([k2L, k2T, o2L, o2T], { color: "#F5C518", duration: 0.3, ease: "power2.out" }, 24.644);
+  tl.to(k2Col, { x: "11.8cqw", duration: 1.4, ease: "power2.inOut" }, 25.827);
+  fadeIn(p2, 28.726, { scale: 0.9 });
+  doublePulse(p2, 31.779, 33.373);
+
+  fadeOut(prompt, 34.3, 0.2); fadeOut(d2, 34.3, 0.2); fadeOut(p2, 34.3, 0.2);
+
+  // ---- GET IT (bounce, red) — "이번엔 예외도 같이 해볼까요?" callback to Frame 7. ----
+  var d3 = document.getElementById("f10-d3"), t3Col = document.getElementById("f10-d3-t-col");
+  var t3L = document.getElementById("f10-d3-t-letter"), t3T = document.getElementById("f10-d3-t-tag");
+  var i3L = document.getElementById("f10-d3-i-letter"), i3T = document.getElementById("f10-d3-i-tag");
+  var p3 = document.getElementById("f10-p3");
+
+  tl.call(function () { promptText.textContent = "GET IT (예외)"; }, null, 36.9);
+  fadeIn(prompt, 37.478, { duration: 0.3 });
+  fadeIn(d3, 37.478, { scale: 0.92, duration: 0.3 });
+  tl.to([t3L, t3T, i3L, i3T], { color: "#FF3535", duration: 0.3, ease: "power2.out" }, 43.408);
+  tl.to(t3Col, { y: "-2.2cqh", scale: 1.1, duration: 0.2, ease: "power2.out" }, 44.5)
+    .to(t3Col, { y: "0cqh", scale: 1, duration: 0.65, ease: "bounce.out" }, "+=0");
+  fadeIn(p3, 47.084, { scale: 0.9 });
+  doublePulse(p3, 50.396, 51.789);
+
+  fadeOut(prompt, 52.6, 0.2); fadeOut(d3, 52.6, 0.2); fadeOut(p3, 52.6, 0.2);
+
+  // ---- PUT IT (bounce, red) — final word, held to the end. ----
+  var d4 = document.getElementById("f10-d4"), t4Col = document.getElementById("f10-d4-t-col");
+  var t4L = document.getElementById("f10-d4-t-letter"), t4T = document.getElementById("f10-d4-t-tag");
+  var i4L = document.getElementById("f10-d4-i-letter"), i4T = document.getElementById("f10-d4-i-tag");
+  var p4 = document.getElementById("f10-p4");
+
+  tl.call(function () { promptText.textContent = "PUT IT"; }, null, 53.9);
+  fadeIn(prompt, 54.253, { duration: 0.3 });
+  fadeIn(d4, 54.253, { scale: 0.92, duration: 0.3 });
+  tl.to([t4L, t4T, i4L, i4T], { color: "#FF3535", duration: 0.3, ease: "power2.out" }, 55.257);
+  tl.to(t4Col, { y: "-2.2cqh", scale: 1.1, duration: 0.2, ease: "power2.out" }, 57.24)
+    .to(t4Col, { y: "0cqh", scale: 1, duration: 0.65, ease: "bounce.out" }, "+=0");
+  fadeIn(p4, 59.891, { scale: 0.9 });
+  doublePulse(p4, 62.872, 63.0);
+})();
+</script>
+</template>

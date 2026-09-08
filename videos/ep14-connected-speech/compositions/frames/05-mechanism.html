@@ -1,0 +1,327 @@
+<template>
+<style>
+  /* 05-mechanism — Frame 5 "원리 설명" (frame.md Treatment #5: Linking Diagram — Slide,
+     first use of the episode's bespoke `linking-diagram`/`letter-tag` component). Built from
+     real per-word timestamps in assets/voice/05.words.json (2026-09-08) — no estimates, no
+     RATIO scaling (knowledge/hyperframes-prompting.md §7-1/9-1).
+
+     Component notes (frame.md "linking-diagram--slide"): AN/APPLE cards use FIXED-width letter
+     columns (4.6cqw each) so every position is hand-computed from the card geometry, not
+     measured at runtime — Frame 5 runs long before this project has any established pattern
+     for synchronous getBoundingClientRect() FLIP measurement under font-loading uncertainty,
+     so fixed-width columns make N's travel distance a plain constant instead. N is the SAME
+     element throughout (identity-continuous per hyperframes-keyframes "shared element" rule,
+     not a duplicate/ghost) — it stays in AN's card in normal flow (so AN visibly keeps an empty
+     slot once N leaves) and travels via `x` transform only (compositor channel, no layout
+     channels). **2026-09-08 revision (user review of the first build)**: APPLE's card is sized
+     for SIX columns from the start (an empty reserved spacer + A,P,P,L,E), not five — the first
+     build let N's landing spot straddle the card border, which read as unresolved/half-finished
+     rather than "docked." Now N lands fully inside the card, on top of the reserved spacer.
+     Color/glow highlight also animates element properties directly, never a CSS class toggle
+     (knowledge/logs 2026-09 EP12 note: className toggling silently failed to animate
+     font-size/color in this render pipeline once before).
+
+     Beats:
+       0.5–15.88s (VO "원리는 이렇습니다...붙여버려요"): abstract rule stated as a small caption
+       (two clauses, dip-swapped at the boundary) — no concrete example on screen yet.
+       16.03–24.58s (VO "예를 들어 AN APPLE...모음으로 시작하죠"): the linking-diagram itself
+       appears (AN card, then APPLE card, timed to when each word is actually spoken), then the
+       two boundary letters (N in AN, first A in APPLE) highlight in turn as the narration
+       explicitly calls each one out.
+       24.72–31.62s (VO "이걸 따로따로 말하면...이어 붙이면"): two small pronunciation labels
+       appear directly under each card ("앤" under AN, "애플" under APPLE — 2026-09-08 revision:
+       the first build centered one combined "앤 / 애플" block under the whole diagram instead of
+       aligning each syllable with its own card, which read as ungrounded/floating).
+       31.76–37.8s (VO "그 N이 APPLE 앞으로 넘어가서...들리게 됩니다"): the frame's hold/proof
+       beat — N travels from AN into APPLE (identity-continuous transform), lands fully inside
+       the card with a small overshoot settle. The under-card labels flip to the merged-reading
+       style: AN's label stays "앤" (text unchanged, only color/size/weight flip to the merged
+       "proof" blue — 2026-09-08 revision, user call, so a schwa-only third reading doesn't
+       compete with 내플 for attention) while APPLE's label swaps to "내플" via a second stacked
+       element crossfading in over the first, not a textContent mutation on the same node (a
+       one-shot script mutation doesn't revert when the timeline is scrubbed backward; a GSAP
+       opacity tween does).
+       37.97s–end (VO "억지로 붙이는 게 아니라...되는 거예요"): held on the landed state — no
+       new visual competing with the just-proven mechanism. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f05-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f05-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f05-progress-fill { position: absolute; left: 0; top: 0; width: 33.333%; height: 3px; background: #F5C518; }
+
+  /* Beat 0: abstract-rule caption, dip-swapped at the clause boundary (same treatment as
+     Frame 1/4's caption swap). */
+  .f05-caption { position: absolute; left: 10cqw; right: 10cqw; top: 13cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f05-caption-text { font-size: 2.3cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.55; }
+
+  /* Beat 3 wraps the diagram + both labels in one positioning stage so they can rise together
+     as a group (see f05-stage below) once the B-roll card needs the space beneath them —
+     without this, top/left values on each element would need independent re-tuning to stay
+     aligned to each other during the shift. */
+  .f05-stage { position: absolute; inset: 0; }
+
+  /* linking-diagram--slide: two fixed-geometry word cards + boundary divider. APPLE's card
+     reserves a 6th (empty) leading column for N so the landed state reads as fully docked
+     inside the card, not straddling its border. */
+  .f05-diagram { position: absolute; left: 25.2cqw; top: 38cqh; display: flex; align-items: flex-start; gap: 2cqw; opacity: 0; }
+  .f05-card { position: relative; display: flex; align-items: flex-start; background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); border-radius: 0.9cqw; padding: 2.4cqh 1.6cqw; box-shadow: 0 0 1.4cqw rgba(245,197,24,0.14); }
+  .f05-letters-row { display: flex; gap: 0.4cqw; }
+  .f05-letter-col { position: relative; z-index: 1; width: 4.6cqw; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5cqh; }
+  .f05-letter { font-family: 'Archivo Black', sans-serif; font-size: 4.2cqw; line-height: 1; color: #FFFFFF; }
+  .f05-letter-silent { opacity: 0.35; }
+  .f05-tag { font-size: 0.95cqw; font-weight: 700; color: #A9B4C4; letter-spacing: 0.02em; }
+
+  .f05-boundary { align-self: stretch; width: 2px; margin: 0.6cqh 0; background-image: repeating-linear-gradient(to bottom, #F5C518 0 8px, transparent 8px 16px); opacity: 0.5; }
+
+  /* Beats 2 & 3: one label per card, positioned under that card's own horizontal center
+     (31.6cqw = AN-card center, 58.4cqw = APPLE-card center — same geometry basis as the
+     diagram above) and reused across both beats by swapping text + inline style. Centering
+     lives on a static outer wrapper (never touched by GSAP) so the inner element is free to
+     animate x/y/scale without GSAP's own transform composition overwriting the CSS
+     translateX(-50%) centering offset. */
+  .f05-label-wrap { position: absolute; top: 58cqh; transform: translateX(-50%); }
+  .f05-label-wrap.f05-label-left { left: 31.6cqw; }
+  .f05-label-wrap.f05-label-right { left: 58.4cqw; }
+  .f05-label { display: inline-block; text-align: center; opacity: 0; font-weight: 700; color: #A9B4C4; font-size: 1.9cqw; white-space: nowrap; }
+  /* Beat 3's right label is a second, separate element stacked on the first (not a textContent
+     swap on the same node) so the "애플"→"내플" change is a plain opacity crossfade — a GSAP
+     tween, unlike a one-shot script mutation, is scrub-safe: it re-evaluates correctly no matter
+     which direction the timeline is seeked. left:50%+translateX(-50%) self-centers regardless of
+     this element's own text width, matching how the wrapper centers the first (in-flow) label. */
+  .f05-label-stacked { position: absolute; left: 50%; top: 0; transform: translateX(-50%); color: #008EFF; font-size: 2.6cqw; font-weight: 900; text-shadow: 0 0 1cqw rgba(0,142,255,0.3); }
+
+  /* Beat 3 proof reinforcement: real mouth footage (assets/broll/an-apple-natural.mp4,
+     2026-09-08) showing "an apple" actually articulated as connected speech — appears in the
+     open space below the diagram/labels right as the labels swap to the merged reading (내플),
+     so the narration's claim and the real mouth doing it land in the same beat. Blue accent
+     matches the landed-state label color (the "merged/proof" color in this frame, vs. yellow
+     for per-letter highlighting) rather than the diagram cards' yellow, to visually tie it to
+     the proof rather than the setup. Sized as a modest inset (not full-bleed like EP13 Frame 5's
+     closing B-roll) because this frame's own diagram animation is the primary payoff — the
+     footage reinforces it without displacing it.
+     2026-09-08 revision (user review): the first cut left this at top:68cqh with the diagram
+     still at its original top:38cqh, which packed diagram+labels+video into the bottom
+     two-thirds of the frame while the whole top third sat empty (the opening caption is long
+     gone by this beat) — a real bottom-heavy imbalance, not just a preview-viewport artifact.
+     Fixed by having the diagram+labels group (f05-stage) rise as a unit right as this beat
+     starts (see the stage tween below), and lowering this card's own top so the three-element
+     stack lands centered in the frame once everything has settled. */
+  .f05-broll-wrap { position: absolute; left: 50%; top: 50cqh; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 1cqh; opacity: 0; }
+  .f05-broll-eyebrow { font-size: 1cqw; font-weight: 700; color: #6FB6FF; letter-spacing: 0.08em; text-transform: uppercase; }
+  .f05-broll-video { width: 26cqw; height: 26cqh; border-radius: 16px; border: 2px solid rgba(0,142,255,0.4); box-shadow: 0 0 1.4cqw rgba(0,142,255,0.18); object-fit: cover; object-position: 50% 38%; background: #0A1526; }
+</style>
+
+<div data-hf-id="hf-f14e5s1" id="root" data-composition-id="05-mechanism" data-start="0" data-duration="42.46" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e5s2" id="f05-bg-clip" class="clip f05-bg" data-start="0" data-duration="42.46" data-track-index="0"></div>
+  <audio data-hf-id="hf-f14e5sv" id="f05-voice" src="assets/voice/05.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e5s3" class="f05-progress-track"><div data-hf-id="hf-f14e5s4" class="f05-progress-fill" id="f05-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e5sc" class="f05-caption" id="f05-caption">
+    <div data-hf-id="hf-f14e5sct" class="f05-caption-text" id="f05-caption-text">앞 단어가 자음으로 끝나고 뒤 단어가 모음으로 시작하면,</div>
+  </div>
+
+  <div data-hf-id="hf-f14e5stg" class="f05-stage" id="f05-stage">
+  <div data-hf-id="hf-f14e5sd" class="f05-diagram" id="f05-diagram">
+    <div data-hf-id="hf-f14e5san" id="f05-an-card" class="f05-card">
+      <div data-hf-id="hf-f14e5sanr" class="f05-letters-row">
+        <div data-hf-id="hf-f14e5sana" class="f05-letter-col"><div data-hf-id="hf-f14e5sanal" class="f05-letter">A</div><div data-hf-id="hf-f14e5sanat" class="f05-tag">모</div></div>
+        <div data-hf-id="hf-f14e5sann" class="f05-letter-col" id="f05-an-n-col" data-layout-allow-occlusion="N intentionally travels out of AN's card and docks inside APPLE's — see Beat 3 comment">
+          <div data-hf-id="hf-f14e5sannl" class="f05-letter" id="f05-an-n-letter">N</div>
+          <div data-hf-id="hf-f14e5sannt" class="f05-tag" id="f05-an-n-tag">자</div>
+        </div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e5sb" class="f05-boundary"></div>
+    <div data-hf-id="hf-f14e5sap" id="f05-apple-card" class="f05-card">
+      <div data-hf-id="hf-f14e5sapr" class="f05-letters-row">
+        <div data-hf-id="hf-f14e5sapn0" class="f05-letter-col" aria-hidden="true"></div>
+        <div data-hf-id="hf-f14e5sapa1" class="f05-letter-col" id="f05-apple-a1-col">
+          <div data-hf-id="hf-f14e5sapa1l" class="f05-letter" id="f05-apple-a1-letter">A</div>
+          <div data-hf-id="hf-f14e5sapa1t" class="f05-tag" id="f05-apple-a1-tag">모</div>
+        </div>
+        <div data-hf-id="hf-f14e5sapp1" class="f05-letter-col"><div data-hf-id="hf-f14e5sapp1l" class="f05-letter">P</div><div data-hf-id="hf-f14e5sapp1t" class="f05-tag">자</div></div>
+        <div data-hf-id="hf-f14e5sapp2" class="f05-letter-col"><div data-hf-id="hf-f14e5sapp2l" class="f05-letter">P</div><div data-hf-id="hf-f14e5sapp2t" class="f05-tag">자</div></div>
+        <div data-hf-id="hf-f14e5sapl" class="f05-letter-col"><div data-hf-id="hf-f14e5sapll" class="f05-letter">L</div><div data-hf-id="hf-f14e5saplt" class="f05-tag">자</div></div>
+        <div data-hf-id="hf-f14e5sape" class="f05-letter-col"><div data-hf-id="hf-f14e5sapel" class="f05-letter f05-letter-silent">E</div><div data-hf-id="hf-f14e5sapet" class="f05-tag">무음</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-f14e5llfw" class="f05-label-wrap f05-label-left"><div data-hf-id="hf-f14e5llf" class="f05-label" id="f05-label-left">앤</div></div>
+  <div data-hf-id="hf-f14e5llrw" class="f05-label-wrap f05-label-right">
+    <div data-hf-id="hf-f14e5llr" class="f05-label" id="f05-label-right-a">애플</div>
+    <div data-hf-id="hf-f14e5llrb" class="f05-label f05-label-stacked" id="f05-label-right-b">내플</div>
+  </div>
+  </div>
+
+  <div data-hf-id="hf-f14e5brw" class="f05-broll-wrap" id="f05-broll-wrap">
+    <div data-hf-id="hf-f14e5bre" class="f05-broll-eyebrow">실제 입모양</div>
+    <video data-hf-id="hf-f14e5brv" id="f05-broll-video" class="f05-broll-video" src="assets/broll/an-apple-natural.mp4" data-start="34.9" data-duration="7.56" data-track-index="1" muted playsinline></video>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["05-mechanism"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/05.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"원리는","from":0.537,"to":1.069},{"word":"이렇습니다.","from":1.246,"to":2.309},
+    {"word":"앞","from":2.486,"to":2.663},{"word":"단어가","from":2.84,"to":3.371},
+    {"word":"자음으로","from":3.549,"to":4.257},{"word":"끝나고","from":4.434,"to":4.966},
+    {"word":"뒤","from":5.143,"to":5.32},{"word":"단어가","from":5.497,"to":6.029},
+    {"word":"모음으로","from":6.206,"to":6.914},{"word":"시작하면,","from":7.091,"to":7.878},
+    {"word":"혀가","from":7.955,"to":8.266},{"word":"그","from":8.422,"to":8.577},
+    {"word":"자음","from":8.732,"to":9.043},{"word":"소리를","from":9.198,"to":9.665},
+    {"word":"굳이","from":9.82,"to":10.131},{"word":"앞","from":10.286,"to":10.442},
+    {"word":"단어에","from":10.597,"to":11.063},{"word":"남겨두지","from":11.218,"to":11.84},
+    {"word":"않고","from":11.995,"to":12.306},{"word":"뒤","from":12.462,"to":12.617},
+    {"word":"단어","from":12.772,"to":13.083},{"word":"쪽으로","from":13.238,"to":13.705},
+    {"word":"슬쩍","from":13.86,"to":14.171},{"word":"넘겨서","from":14.326,"to":14.792},
+    {"word":"붙여버려요.","from":14.948,"to":15.88},{"word":"예를","from":16.034,"to":16.341},
+    {"word":"들어","from":16.495,"to":16.802},{"word":"AN","from":16.969,"to":17.305},
+    {"word":"APPLE,","from":17.472,"to":18.478},{"word":"볼게요.","from":18.645,"to":19.26},
+    {"word":"AN은","from":19.5,"to":20.218},{"word":"N으로","from":20.458,"to":20.985},
+    {"word":"끝나고,","from":21.128,"to":21.621},{"word":"APPLE은","from":21.683,"to":22.134},
+    {"word":"A라는","from":22.422,"to":22.997},{"word":"모음으로","from":23.14,"to":23.715},
+    {"word":"시작하죠.","from":23.859,"to":24.578},{"word":"이걸","from":24.721,"to":25.009},
+    {"word":"따로따로","from":25.153,"to":25.727},{"word":"말하면","from":25.871,"to":26.302},
+    {"word":"'앤,","from":26.446,"to":27.069},{"word":"애플'이","from":27.308,"to":27.883},
+    {"word":"되는데,","from":28.027,"to":28.53},{"word":"혀에","from":28.602,"to":28.889},
+    {"word":"힘을","from":29.033,"to":29.32},{"word":"빼고","from":29.464,"to":29.752},
+    {"word":"자연스럽게","from":29.895,"to":30.614},{"word":"이어","from":30.758,"to":31.045},
+    {"word":"붙이면","from":31.189,"to":31.62},{"word":"그","from":31.764,"to":31.907},
+    {"word":"N이","from":32.339,"to":32.913},{"word":"APPLE","from":32.996,"to":33.406},
+    {"word":"앞으로","from":33.488,"to":33.92},{"word":"넘어가서","from":34.063,"to":34.638},
+    {"word":"'어","from":34.782,"to":35.357},{"word":"내플'처럼","from":35.644,"to":36.507},
+    {"word":"들리게","from":36.65,"to":37.081},{"word":"됩니다.","from":37.225,"to":37.8},
+    {"word":"억지로","from":37.971,"to":38.484},{"word":"붙이는","from":38.656,"to":39.169},
+    {"word":"게","from":39.34,"to":39.511},{"word":"아니라,","from":39.682,"to":40.281},
+    {"word":"힘을","from":40.367,"to":40.709},{"word":"빼면","from":40.88,"to":41.222},
+    {"word":"저절로","from":41.393,"to":41.907},{"word":"이렇게","from":42.078,"to":42.591},
+    {"word":"되는","from":42.762,"to":43.104},{"word":"거예요.","from":43.276,"to":43.96}
+  ];
+  // Last word's whisper-measured "to" (43.96) runs past the real audio file (41.96s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 41.96;
+
+  var progressFillEl = document.getElementById("f05-progress-fill");
+  var caption = document.getElementById("f05-caption");
+  var captionText = document.getElementById("f05-caption-text");
+  var diagram = document.getElementById("f05-diagram");
+  var anCard = document.getElementById("f05-an-card");
+  var appleCard = document.getElementById("f05-apple-card");
+  var nCol = document.getElementById("f05-an-n-col");
+  var nLetter = document.getElementById("f05-an-n-letter");
+  var nTag = document.getElementById("f05-an-n-tag");
+  var a1Letter = document.getElementById("f05-apple-a1-letter");
+  var a1Tag = document.getElementById("f05-apple-a1-tag");
+  var labelLeft = document.getElementById("f05-label-left");
+  var labelRightA = document.getElementById("f05-label-right-a");
+  var labelRightB = document.getElementById("f05-label-right-b");
+  var stage = document.getElementById("f05-stage");
+  var brollWrap = document.getElementById("f05-broll-wrap");
+
+  // Beat 0 (0.5-15.88s VO, "원리는...붙여버려요"): abstract rule as a caption, dip-swapped at
+  // the clause boundary (7.878s "시작하면," ends / 7.955s "혀가" starts) — same treatment as
+  // Frame 1/4's caption swap.
+  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.8);
+  tl.to(caption, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, 7.82)
+    .call(function () { captionText.textContent = "혀가 그 소리를 뒤 단어 쪽으로 슬쩍 넘겨서 붙여버려요"; }, null, 7.96)
+    .to(caption, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 7.96);
+  tl.to(caption, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 15.5);
+
+  // Beat 1 (16.03-24.58s VO, "예를 들어 AN APPLE...모음으로 시작하죠"): the diagram appears,
+  // timed to when each word is actually spoken, then the two boundary letters highlight in
+  // turn as the narration explicitly calls each one out.
+  tl.fromTo(diagram, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 16.6);
+  tl.fromTo(anCard, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.4)" }, 16.969);
+  tl.fromTo(appleCard, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.4)" }, 17.472);
+
+  // "AN은 N으로 끝나고," (19.5-21.621s): N highlights first.
+  tl.to([nLetter, nTag], { color: "#F5C518", duration: 0.3, ease: "power2.out" }, 20.458)
+    .to(nLetter, { textShadow: "0 0 1cqw rgba(245,197,24,0.35)", duration: 0.3, ease: "power2.out" }, 20.458);
+  // "APPLE은 A라는 모음으로 시작하죠." (21.683-24.578s): APPLE's first A highlights.
+  tl.to([a1Letter, a1Tag], { color: "#F5C518", duration: 0.3, ease: "power2.out" }, 22.422)
+    .to(a1Letter, { textShadow: "0 0 1cqw rgba(245,197,24,0.35)", duration: 0.3, ease: "power2.out" }, 22.422);
+
+  // Beat 2 (24.72-31.62s VO, "이걸 따로따로 말하면...이어 붙이면"): each card's own pronunciation
+  // label fades in directly under it (앤 under AN, 애플 under APPLE) — grounded to its card's
+  // own horizontal center rather than one combined block under the whole diagram.
+  tl.fromTo([labelLeft, labelRightA], { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 26.446);
+  tl.to([labelLeft, labelRightA], { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 28.9);
+
+  // Beat 3 (31.76-37.8s VO, "그 N이 APPLE 앞으로 넘어가서...들리게 됩니다"): the proof beat — N
+  // travels via `x` only (compositor channel, same element throughout — hyperframes-keyframes
+  // "shared element" rule). Geometry is hand-computed from the fixed 4.6cqw letter-column
+  // width, not measured at runtime (see file-header note): AN's N sits at col left 31.8cqw; it
+  // lands on APPLE's reserved leading spacer column at col left 43.6cqw — an 11.8cqw travel
+  // distance, landing fully inside the card (2026-09-08 revision — see file-header note).
+  // The diagram+labels group rises together to open up room below for the B-roll card that
+  // lands at 34.9s — without this the frame stays bottom-heavy (top third empty, everything
+  // packed under the labels) once the video is added. Starts with the "그" anticipation beat
+  // and settles well before N lands (33.99s) or the video fades in.
+  tl.to(stage, { y: "-18cqh", duration: 0.6, ease: "power2.inOut" }, 31.764);
+
+  tl.to(nCol, { scale: 1.08, duration: 0.25, ease: "power2.out" }, 31.764); // anticipation, "그"
+  tl.set(nCol, { zIndex: 10 }, 32.3); // lift above APPLE card's opaque background before travel starts
+  tl.to(nCol, { x: "11.8cqw", duration: 1.3, ease: "power2.inOut" }, 32.339) // "N이" travel starts
+    .to(nCol, { scale: 1.18, duration: 0.65, ease: "power2.inOut" }, 32.339);
+  tl.to(nCol, { scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 33.64); // lands + settles as "넘어가서" finishes
+  tl.to(anCard, { opacity: 0.55, duration: 0.6, ease: "power2.inOut" }, 32.4); // AN dims once N departs
+
+  // Right label swaps to the merged reading (내플) via a second stacked element (labelRightB,
+  // see CSS comment) rather than mutating labelRightA's text — a GSAP tween is scrub-safe in
+  // both directions, a one-shot .call() mutation is not (2026-09-08, found via user report:
+  // scrubbing backward in Studio past this point left the text stuck on the merged reading even
+  // after N had visibly returned to AN's card, since nothing tells a plain script mutation to
+  // "undo" itself on reverse seek). Left label's text stays "앤" through this beat too — only its
+  // color/size/weight flip to the merged "proof" styling (2026-09-08 revision, user call: AN
+  // losing its N isn't given its own new syllable label, since that would introduce a third
+  // reading competing with 내플 for attention; the schwa-only reading is implied, not labeled).
+  // Only labelLeft needs a property tween here (not a second stacked element) because its text
+  // never changes — color/scale/fontWeight/textShadow are all natively GSAP-tweenable and revert
+  // correctly on their own when scrubbed. Uses scale (not fontSize) to reach the larger merged
+  // size — animating fontSize reflows text and snaps to integer device pixels under the seek
+  // engine (npm run check caught this); scale is a transform, so it stays smooth at any seek
+  // speed and reads identically. 1.37 ≈ 2.6cqw / 1.9cqw, this label's base-to-merged size ratio.
+  tl.fromTo(labelLeft, { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1.37, color: "#008EFF", fontWeight: 900, textShadow: "0 0 1cqw rgba(0,142,255,0.3)", duration: 0.5, ease: "back.out(1.3)" }, 34.9);
+  tl.fromTo(labelRightB, { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, 34.9);
+
+  // Real mouth footage lands in the same beat as the merged-reading labels — the narration's
+  // claim ("내플'처럼 들리게 됩니다") and the actual articulation proving it arrive together.
+  tl.fromTo(brollWrap, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 34.9);
+
+  tl.fromTo(progressFillEl, { width: "33.333%" }, { width: "41.667%", duration: 1.0, ease: "power1.inOut" }, 16.6);
+
+  // Beat 4 (37.97s onward, "억지로 붙이는 게 아니라...되는 거예요"): held on the landed state —
+  // no new caption competing with the just-proven mechanism.
+})();
+</script>
+</template>

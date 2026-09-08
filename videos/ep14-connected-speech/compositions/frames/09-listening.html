@@ -1,0 +1,148 @@
+<template>
+<style>
+  /* 09-listening — Frame 9 "리스닝 트레이닝" (frame.md Treatment #9: Sentence Stack). Audio is
+     NOT a single TTS call like Frames 1-8 — assets/voice/09.wav is 9 pieces (Korean carrier +
+     4 English sentences, real native pronunciation) concatenated with silence gaps, same
+     procedure as EP11 Line 10/EP12 Line 7/EP13 Line 9 (SCRIPT.md Line 9 warning). Segment
+     timestamps (assets/voice/09.words.json) are per-PIECE, not per-word — English sentences
+     were generated as pure English text, so there's no word-level Korean transcript to align
+     word-by-word; each sentence's timing below uses its whole-piece from/to.
+
+     Unlike Frames 5-8, this frame doesn't teach a new mechanism — it tests recall against real
+     native audio, so the visual stays simple: 4 sentence-cards accumulate in a vertical stack
+     (frame.md "세로 스택", not replace-in-place) with the target phrase pre-colored (yellow for
+     slide-type turn on/check out, red #FF3333 for bounce-type get it/put it — same color coding
+     as Frames 5-8) and the Korean pronunciation revealing directly under each sentence right
+     after its audio finishes.
+
+     Beats: intro caption (0.3-4.0s) → Card 1 "Please turn on the light" (turn on, yellow) at
+     3.2s, audio 4.46-6.7s, pron "터논" at 6.9s → Card 2 "Let's check out the menu" (check out,
+     yellow) at 7.4s, audio 9.01-10.93s, pron "체카웃" at 11.1s → Card 3 "Can you get it for me?"
+     (get it, red) at 11.6s, audio 13.04-14.68s, pron "게릿" at 14.85s → Card 4 "Just put it
+     there" (put it, red) at 15.35s, audio 16.87-19.03s, pron "푸릿" at 19.2s → closing caption
+     (19.63-26.03s, "어려우시죠?" — honest, not "다 들리시죠?", per brand-persona.md 2026-09-07
+     rule), held to the end. */
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f09-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f09-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f09-progress-fill { position: absolute; left: 0; top: 0; width: 66.667%; height: 3px; background: #F5C518; }
+
+  .f09-caption { position: absolute; left: 10cqw; right: 10cqw; top: 8cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f09-caption-text { font-size: 2.1cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.5; }
+
+  .f09-badge { position: absolute; left: 10cqw; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.5cqw; opacity: 0; }
+  .f09-card { position: absolute; left: 15.5cqw; width: 66cqw; display: flex; flex-direction: column; gap: 0.8cqh; background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); border-radius: 0.9cqw; padding: 1.8cqh 2cqw; box-shadow: 0 0 1.4cqw rgba(245,197,24,0.14); opacity: 0; }
+  .f09-card-en { font-size: 2cqw; font-weight: 700; color: #FFFFFF; line-height: 1.3; }
+  .f09-card-target { color: #F5C518; }
+  .f09-card-target.f09-bounce { color: #FF3333; }
+  .f09-card-pron { font-size: 1.5cqw; font-weight: 900; color: #008EFF; text-shadow: 0 0 0.8cqw rgba(0,142,255,0.3); opacity: 0; }
+</style>
+
+<div data-hf-id="hf-f14e9s1" id="root" data-composition-id="09-listening" data-start="0" data-duration="26.53" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e9s2" id="f09-bg-clip" class="clip f09-bg" data-start="0" data-duration="26.53" data-track-index="0"></div>
+  <audio data-hf-id="hf-f14e9sv" id="f09-voice" src="assets/voice/09.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e9s3" class="f09-progress-track"><div data-hf-id="hf-f14e9s4" class="f09-progress-fill" id="f09-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e9sc" class="f09-caption" id="f09-caption">
+    <div data-hf-id="hf-f14e9sct" class="f09-caption-text" id="f09-caption-text">이제 실제 속도로 들어보세요</div>
+  </div>
+
+  <div data-hf-id="hf-f14e9b1" class="f09-badge" id="f09-badge-1" style="top:15cqh; background:#F5C518; color:#0A1526;">1</div>
+  <div data-hf-id="hf-f14e9c1" class="f09-card" id="f09-card-1" style="top:14cqh;">
+    <div data-hf-id="hf-f14e9c1e" class="f09-card-en">Please <span data-hf-id="hf-f14e9c1t" class="f09-card-target">turn on</span> the light.</div>
+    <div data-hf-id="hf-f14e9c1p" class="f09-card-pron" id="f09-pron-1">터논</div>
+  </div>
+
+  <div data-hf-id="hf-f14e9b2" class="f09-badge" id="f09-badge-2" style="top:34cqh; background:#F5C518; color:#0A1526;">2</div>
+  <div data-hf-id="hf-f14e9c2" class="f09-card" id="f09-card-2" style="top:33cqh;">
+    <div data-hf-id="hf-f14e9c2e" class="f09-card-en">Let's <span data-hf-id="hf-f14e9c2t" class="f09-card-target">check out</span> the menu.</div>
+    <div data-hf-id="hf-f14e9c2p" class="f09-card-pron" id="f09-pron-2">체카웃</div>
+  </div>
+
+  <div data-hf-id="hf-f14e9b3" class="f09-badge" id="f09-badge-3" style="top:53cqh; background:#FF3333; color:#0A1526;">3</div>
+  <div data-hf-id="hf-f14e9c3" class="f09-card" id="f09-card-3" style="top:52cqh;">
+    <div data-hf-id="hf-f14e9c3e" class="f09-card-en">Can you <span data-hf-id="hf-f14e9c3t" class="f09-card-target f09-bounce">get it</span> for me?</div>
+    <div data-hf-id="hf-f14e9c3p" class="f09-card-pron" id="f09-pron-3">게릿</div>
+  </div>
+
+  <div data-hf-id="hf-f14e9b4" class="f09-badge" id="f09-badge-4" style="top:72cqh; background:#FF3333; color:#0A1526;">4</div>
+  <div data-hf-id="hf-f14e9c4" class="f09-card" id="f09-card-4" style="top:71cqh;">
+    <div data-hf-id="hf-f14e9c4e" class="f09-card-en">Just <span data-hf-id="hf-f14e9c4t" class="f09-card-target f09-bounce">put it</span> there.</div>
+    <div data-hf-id="hf-f14e9c4p" class="f09-card-pron" id="f09-pron-4">푸릿</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["09-listening"] = tl;
+
+  // Per-piece segment timestamps (assets/voice/09.words.json) — this frame's audio is 9
+  // concatenated pieces (Korean carrier + 4 real-English sentences), not a single TTS call, so
+  // there's no word-level transcript to align against (determinism-rules.md still bans
+  // render-time network calls, hence embedding this rather than fetching it).
+  var SEGMENTS = [
+    { text: "이제 실제 속도로 들어보세요. 첫 번째.", from: 0.0, to: 4.16 },
+    { text: "Please turn on the light.", from: 4.46, to: 6.7 },
+    { text: "두 번째.", from: 7.2, to: 8.76 },
+    { text: "Let's check out the menu.", from: 9.01, to: 10.93 },
+    { text: "세 번째.", from: 11.43, to: 12.79 },
+    { text: "Can you get it for me?", from: 13.04, to: 14.68 },
+    { text: "네 번째.", from: 15.18, to: 16.62 },
+    { text: "Just put it there.", from: 16.87, to: 19.03 },
+    { text: "오늘 배운 소리들, 실제로 들어보니 어떠셨나요? 어려우시죠?", from: 19.63, to: 26.03 }
+  ];
+
+  var progressFillEl = document.getElementById("f09-progress-fill");
+  var caption = document.getElementById("f09-caption");
+
+  function revealCard(n, cardAt, pronAt) {
+    var badge = document.getElementById("f09-badge-" + n);
+    var card = document.getElementById("f09-card-" + n);
+    var pron = document.getElementById("f09-pron-" + n);
+    tl.fromTo([badge, card], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, cardAt);
+    tl.fromTo(pron, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.4)" }, pronAt);
+  }
+
+  // Intro (0.3-4.0s VO, "이제 실제 속도로 들어보세요. 첫 번째."): small caption before the stack
+  // starts accumulating.
+  tl.fromTo(caption, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.3);
+  tl.to(caption, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 3.7);
+
+  // Card 1 (audio 4.46-6.7s "Please turn on the light."): appears just ahead of its own audio,
+  // pron reveals right after.
+  revealCard(1, 3.2, 6.9);
+  // Card 2 (audio 9.01-10.93s "Let's check out the menu.").
+  revealCard(2, 7.4, 11.1);
+  tl.fromTo(progressFillEl, { width: "66.667%" }, { width: "75%", duration: 1.0, ease: "power1.inOut" }, 3.2);
+  // Card 3 (audio 13.04-14.68s "Can you get it for me?").
+  revealCard(3, 11.6, 14.85);
+  // Card 4 (audio 16.87-19.03s "Just put it there.").
+  revealCard(4, 15.35, 19.2);
+
+  // Closing (19.63-26.03s VO, "오늘 배운 소리들...어려우시죠?"): held on the full stack, no new
+  // caption needed — the question is honest-empathy audio only (brand-persona.md rule), not a
+  // confirmation caption that would overclaim comprehension.
+})();
+</script>
+</template>

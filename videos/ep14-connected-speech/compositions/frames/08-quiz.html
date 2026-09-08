@@ -1,0 +1,330 @@
+<template>
+<style>
+  /* 08-quiz — Frame 8 "미니 퀴즈" (frame.md Treatment #8: Quiz Sequence, 4 questions). Built
+     from real per-word timestamps in assets/voice/08.words.json (2026-09-08) — no estimates,
+     no RATIO scaling (knowledge/hyperframes-prompting.md §7-1/9-1).
+
+     Component notes: reuses the Frame 5 (slide)/Frame 7 (bounce) linking-diagram techniques at
+     quiz pace — Q1 TURN ON + Q2 CHECK OUT are slide-type (yellow #F5C518 highlight, boundary
+     consonant travels via `x` into a reserved leading slot in the next card, same fixed-width
+     letter-column geometry as Frame 5); Q3 GET IT + Q4 PUT IT are bounce-type (red #FF3333
+     highlight, boundary T bounces in place via `y`/`scale`, same as Frame 7 — no reserved slot
+     needed since nothing travels). One shared step-badge + question-text pair is reused across
+     all 4 questions (text swapped, not rebuilt); each question's own diagram+result-label block
+     is a separate pre-positioned element shown one at a time (structures differ too much
+     letter-count-wise to safely reuse via textContent alone). All four diagrams' hand-computed
+     geometries center at the same 50cqw regardless of word length (verified by construction —
+     see inline comments per question), so the quiz reads as visually stable across questions.
+
+     Beats: each question follows the same 3-part rhythm — question lands → brief pause (real
+     silence in the narration, not padding) → answer reveals with the boundary letter's motion.
+     Q1 2.24–11.32s · Q2 11.47–18.86s · Q3 19.01–31.52s (adds a short reinforcement echo bounce,
+     mirroring Frame 7's Beat 4, since ~4s of "why" narration follows the reveal) · Q4
+     31.72–38.68s (final question, held to the end — no exit fade needed). */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f08-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f08-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f08-progress-fill { position: absolute; left: 0; top: 0; width: 58.333%; height: 3px; background: #F5C518; }
+
+  .f08-badge { position: absolute; left: 50%; top: 12cqh; transform: translateX(-50%); width: 72px; height: 72px; border-radius: 50%; background: #F5C518; color: #0A1526; display: flex; align-items: center; justify-content: center; font-family: 'Black Han Sans', sans-serif; font-size: 2.2cqw; opacity: 0; }
+
+  .f08-question { position: absolute; left: 10cqw; right: 10cqw; top: 22cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f08-question-text { font-size: 2.4cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 78cqw; line-height: 1.5; }
+
+  .f08-diagram { position: absolute; top: 44cqh; opacity: 0; display: flex; align-items: flex-start; gap: 2cqw; }
+  .f08-card { position: relative; display: flex; align-items: flex-start; background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); border-radius: 0.9cqw; padding: 2cqh 1.4cqw; box-shadow: 0 0 1.4cqw rgba(245,197,24,0.14); }
+  .f08-letters-row { display: flex; gap: 0.4cqw; }
+  .f08-letter-col { position: relative; z-index: 1; width: 4.6cqw; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.4cqh; }
+  .f08-letter { font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; line-height: 1; color: #FFFFFF; }
+  .f08-tag { font-size: 0.85cqw; font-weight: 700; color: #A9B4C4; letter-spacing: 0.02em; }
+  .f08-boundary { align-self: stretch; width: 2px; margin: 0.5cqh 0; background-image: repeating-linear-gradient(to bottom, #F5C518 0 8px, transparent 8px 16px); opacity: 0.5; }
+
+  .f08-pron { position: absolute; left: 0; right: 0; top: 68cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f08-pron-text { font-family: 'Noto Sans KR', sans-serif; font-size: 2.6cqw; font-weight: 900; color: #008EFF; text-align: center; text-shadow: 0 0 1cqw rgba(0,142,255,0.3); }
+</style>
+
+<div data-hf-id="hf-f14e8s1" id="root" data-composition-id="08-quiz" data-start="0" data-duration="39.18" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e8s2" id="f08-bg-clip" class="clip f08-bg" data-start="0" data-duration="39.18" data-track-index="0"></div>
+  <audio data-hf-id="hf-f14e8sv" id="f08-voice" src="assets/voice/08.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e8s3" class="f08-progress-track"><div data-hf-id="hf-f14e8s4" class="f08-progress-fill" id="f08-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e8sb" class="f08-badge" id="f08-badge">1</div>
+  <div data-hf-id="hf-f14e8sq" class="f08-question" id="f08-question">
+    <div data-hf-id="hf-f14e8sqt" class="f08-question-text" id="f08-question-text">TURN ON, 어떻게 이어질까요?</div>
+  </div>
+
+  <!-- Q1: TURN ON (slide, yellow). Geometry: TURN card 22.8cqw @ left 27.7cqw; ON card
+       (reserved leading slot for N + O + N) 17.8cqw @ left 54.5cqw. N travels x:11.8cqw. -->
+  <div data-hf-id="hf-f14e8q1d" class="f08-diagram" id="f08-q1-diagram" style="left:27.7cqw;">
+    <div data-hf-id="hf-f14e8q1t" class="f08-card">
+      <div data-hf-id="hf-f14e8q1tr" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q1tc1" class="f08-letter-col"><div data-hf-id="hf-f14e8q1tc1l" class="f08-letter">T</div><div data-hf-id="hf-f14e8q1tc1t" class="f08-tag">자</div></div>
+        <div data-hf-id="hf-f14e8q1tc2" class="f08-letter-col"><div data-hf-id="hf-f14e8q1tc2l" class="f08-letter">U</div><div data-hf-id="hf-f14e8q1tc2t" class="f08-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q1tc3" class="f08-letter-col"><div data-hf-id="hf-f14e8q1tc3l" class="f08-letter">R</div><div data-hf-id="hf-f14e8q1tc3t" class="f08-tag">자</div></div>
+        <div data-hf-id="hf-f14e8q1tc4" class="f08-letter-col" id="f08-q1-n-col"><div data-hf-id="hf-f14e8q1tc4l" class="f08-letter" id="f08-q1-n-letter">N</div><div data-hf-id="hf-f14e8q1tc4t" class="f08-tag" id="f08-q1-n-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e8q1b" class="f08-boundary"></div>
+    <div data-hf-id="hf-f14e8q1o" class="f08-card">
+      <div data-hf-id="hf-f14e8q1or" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q1on0" class="f08-letter-col" aria-hidden="true"></div>
+        <div data-hf-id="hf-f14e8q1oo" class="f08-letter-col" id="f08-q1-o-col"><div data-hf-id="hf-f14e8q1ool" class="f08-letter" id="f08-q1-o-letter">O</div><div data-hf-id="hf-f14e8q1oot" class="f08-tag" id="f08-q1-o-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q1on" class="f08-letter-col"><div data-hf-id="hf-f14e8q1onl" class="f08-letter">N</div><div data-hf-id="hf-f14e8q1ont" class="f08-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e8q1p" class="f08-pron" id="f08-q1-pron"><div data-hf-id="hf-f14e8q1pt" class="f08-pron-text">터논</div></div>
+
+  <!-- Q2: CHECK OUT (slide, yellow). Geometry: CHECK card 27.8cqw @ left 22.7cqw; OUT card
+       (reserved + O + U + T) 22.8cqw @ left 54.5cqw. K travels x:11.8cqw. -->
+  <div data-hf-id="hf-f14e8q2d" class="f08-diagram" id="f08-q2-diagram" style="left:22.7cqw;">
+    <div data-hf-id="hf-f14e8q2c" class="f08-card">
+      <div data-hf-id="hf-f14e8q2cr" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q2cc1" class="f08-letter-col"><div data-hf-id="hf-f14e8q2cc1l" class="f08-letter">C</div><div data-hf-id="hf-f14e8q2cc1t" class="f08-tag">자</div></div>
+        <div data-hf-id="hf-f14e8q2cc2" class="f08-letter-col"><div data-hf-id="hf-f14e8q2cc2l" class="f08-letter">H</div><div data-hf-id="hf-f14e8q2cc2t" class="f08-tag">자</div></div>
+        <div data-hf-id="hf-f14e8q2cc3" class="f08-letter-col"><div data-hf-id="hf-f14e8q2cc3l" class="f08-letter">E</div><div data-hf-id="hf-f14e8q2cc3t" class="f08-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q2cc4" class="f08-letter-col"><div data-hf-id="hf-f14e8q2cc4l" class="f08-letter">C</div><div data-hf-id="hf-f14e8q2cc4t" class="f08-tag">자</div></div>
+        <div data-hf-id="hf-f14e8q2cc5" class="f08-letter-col" id="f08-q2-k-col"><div data-hf-id="hf-f14e8q2cc5l" class="f08-letter" id="f08-q2-k-letter">K</div><div data-hf-id="hf-f14e8q2cc5t" class="f08-tag" id="f08-q2-k-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e8q2b" class="f08-boundary"></div>
+    <div data-hf-id="hf-f14e8q2o" class="f08-card">
+      <div data-hf-id="hf-f14e8q2or" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q2on0" class="f08-letter-col" aria-hidden="true"></div>
+        <div data-hf-id="hf-f14e8q2oo" class="f08-letter-col" id="f08-q2-o-col"><div data-hf-id="hf-f14e8q2ool" class="f08-letter" id="f08-q2-o-letter">O</div><div data-hf-id="hf-f14e8q2oot" class="f08-tag" id="f08-q2-o-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q2ou" class="f08-letter-col"><div data-hf-id="hf-f14e8q2oul" class="f08-letter">U</div><div data-hf-id="hf-f14e8q2out" class="f08-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q2ot" class="f08-letter-col"><div data-hf-id="hf-f14e8q2otl" class="f08-letter">T</div><div data-hf-id="hf-f14e8q2ott" class="f08-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e8q2p" class="f08-pron" id="f08-q2-pron"><div data-hf-id="hf-f14e8q2pt" class="f08-pron-text">체카웃</div></div>
+
+  <!-- Q3: GET IT (bounce, red). Geometry: GET card 17.8cqw @ left 32.7cqw; IT card (no
+       reserve — bounce doesn't travel) 12.8cqw @ left 54.5cqw. -->
+  <div data-hf-id="hf-f14e8q3d" class="f08-diagram" id="f08-q3-diagram" style="left:32.7cqw;">
+    <div data-hf-id="hf-f14e8q3g" class="f08-card">
+      <div data-hf-id="hf-f14e8q3gr" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q3gc1" class="f08-letter-col"><div data-hf-id="hf-f14e8q3gc1l" class="f08-letter">G</div><div data-hf-id="hf-f14e8q3gc1t" class="f08-tag">자</div></div>
+        <div data-hf-id="hf-f14e8q3gc2" class="f08-letter-col"><div data-hf-id="hf-f14e8q3gc2l" class="f08-letter">E</div><div data-hf-id="hf-f14e8q3gc2t" class="f08-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q3gc3" class="f08-letter-col" id="f08-q3-t-col"><div data-hf-id="hf-f14e8q3gc3l" class="f08-letter" id="f08-q3-t-letter">T</div><div data-hf-id="hf-f14e8q3gc3t" class="f08-tag" id="f08-q3-t-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e8q3b" class="f08-boundary"></div>
+    <div data-hf-id="hf-f14e8q3i" class="f08-card">
+      <div data-hf-id="hf-f14e8q3ir" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q3ii" class="f08-letter-col" id="f08-q3-i-col"><div data-hf-id="hf-f14e8q3iil" class="f08-letter" id="f08-q3-i-letter">I</div><div data-hf-id="hf-f14e8q3iit" class="f08-tag" id="f08-q3-i-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q3it" class="f08-letter-col"><div data-hf-id="hf-f14e8q3itl" class="f08-letter">T</div><div data-hf-id="hf-f14e8q3itt" class="f08-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e8q3p" class="f08-pron" id="f08-q3-pron"><div data-hf-id="hf-f14e8q3pt" class="f08-pron-text">게릿</div></div>
+
+  <!-- Q4: PUT IT (bounce, red). Identical geometry to Q3 (both 3-letter+2-letter bounce pairs). -->
+  <div data-hf-id="hf-f14e8q4d" class="f08-diagram" id="f08-q4-diagram" style="left:32.7cqw;">
+    <div data-hf-id="hf-f14e8q4p" class="f08-card">
+      <div data-hf-id="hf-f14e8q4pr" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q4pc1" class="f08-letter-col"><div data-hf-id="hf-f14e8q4pc1l" class="f08-letter">P</div><div data-hf-id="hf-f14e8q4pc1t" class="f08-tag">자</div></div>
+        <div data-hf-id="hf-f14e8q4pc2" class="f08-letter-col"><div data-hf-id="hf-f14e8q4pc2l" class="f08-letter">U</div><div data-hf-id="hf-f14e8q4pc2t" class="f08-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q4pc3" class="f08-letter-col" id="f08-q4-t-col"><div data-hf-id="hf-f14e8q4pc3l" class="f08-letter" id="f08-q4-t-letter">T</div><div data-hf-id="hf-f14e8q4pc3t" class="f08-tag" id="f08-q4-t-tag">자</div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-f14e8q4b" class="f08-boundary"></div>
+    <div data-hf-id="hf-f14e8q4i" class="f08-card">
+      <div data-hf-id="hf-f14e8q4ir" class="f08-letters-row">
+        <div data-hf-id="hf-f14e8q4ii" class="f08-letter-col" id="f08-q4-i-col"><div data-hf-id="hf-f14e8q4iil" class="f08-letter" id="f08-q4-i-letter">I</div><div data-hf-id="hf-f14e8q4iit" class="f08-tag" id="f08-q4-i-tag">모</div></div>
+        <div data-hf-id="hf-f14e8q4it" class="f08-letter-col"><div data-hf-id="hf-f14e8q4itl" class="f08-letter">T</div><div data-hf-id="hf-f14e8q4itt" class="f08-tag">자</div></div>
+      </div>
+    </div>
+  </div>
+  <div data-hf-id="hf-f14e8q4p" class="f08-pron" id="f08-q4-pron"><div data-hf-id="hf-f14e8q4pt" class="f08-pron-text">푸릿</div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["08-quiz"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/08.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"직접","from":0.606,"to":0.937},{"word":"맞혀보세요.","from":1.102,"to":2.095},
+    {"word":"TURN","from":2.244,"to":2.84},{"word":"ON,","from":2.989,"to":3.436},
+    {"word":"어떻게","from":3.585,"to":4.081},{"word":"이어질까요?","from":4.247,"to":5.24},
+    {"word":"잠깐","from":5.409,"to":5.747},{"word":"생각해","from":5.916,"to":6.422},
+    {"word":"보세요.","from":6.422,"to":7.098},{"word":"N이","from":7.267,"to":7.604},
+    {"word":"ON","from":7.689,"to":7.858},{"word":"쪽으로","from":7.942,"to":8.449},
+    {"word":"넘어가서,","from":8.618,"to":9.519},{"word":"'터논'입니다.","from":9.744,"to":11.32},
+    {"word":"하나","from":11.467,"to":11.762},{"word":"더요.","from":11.909,"to":12.351},
+    {"word":"CHECK","from":12.525,"to":13.395},{"word":"OUT은요?","from":13.569,"to":14.56},
+    {"word":"…","from":14.64,"to":14.719},{"word":"K가","from":14.799,"to":15.038},
+    {"word":"OUT","from":15.133,"to":15.42},{"word":"쪽으로","from":15.516,"to":15.993},
+    {"word":"넘어가서,","from":16.153,"to":17.017},{"word":"'체카웃'이죠.","from":17.245,"to":18.86},
+    {"word":"이번엔","from":19.011,"to":19.541},{"word":"좀","from":19.767,"to":19.919},
+    {"word":"다른","from":20.07,"to":20.372},{"word":"문제예요.","from":20.524,"to":21.28},
+    {"word":"GET","from":21.431,"to":21.883},{"word":"IT,","from":22.034,"to":22.486},
+    {"word":"T가","from":22.637,"to":22.938},{"word":"낄","from":23.089,"to":23.24},
+    {"word":"때는","from":23.391,"to":23.692},{"word":"어떻게","from":23.843,"to":24.295},
+    {"word":"들릴까요?","from":24.446,"to":25.2},{"word":"…","from":25.266,"to":25.332},
+    {"word":"정답은","from":25.398,"to":25.99},{"word":"'게릿',","from":26.267,"to":27.57},
+    {"word":"T가","from":27.767,"to":28.163},{"word":"모음","from":28.36,"to":28.755},
+    {"word":"사이에서","from":28.953,"to":29.742},{"word":"톡","from":29.94,"to":30.137},
+    {"word":"튕기니까요.","from":30.335,"to":31.52},{"word":"마지막으로","from":31.721,"to":32.727},
+    {"word":"PUT","from":32.929,"to":33.532},{"word":"IT은요?","from":33.734,"to":34.74},
+    {"word":"…","from":34.788,"to":34.835},{"word":"정답은","from":34.883,"to":35.311},
+    {"word":"'푸릿',","from":35.54,"to":36.597},{"word":"역시","from":36.74,"to":37.026},
+    {"word":"T가","from":37.169,"to":37.454},{"word":"톡","from":37.597,"to":37.74},
+    {"word":"튕기니까요.","from":37.883,"to":38.74}
+  ];
+  // Last word's whisper-measured "to" (38.74) runs past the real audio file (38.68s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 38.68;
+
+  var progressFillEl = document.getElementById("f08-progress-fill");
+  var badge = document.getElementById("f08-badge");
+  var question = document.getElementById("f08-question");
+  var questionText = document.getElementById("f08-question-text");
+
+  function fadeIn(el, delay, opts) {
+    opts = opts || {};
+    tl.fromTo(el, { opacity: 0, y: opts.y || 8, scale: opts.scale || 1 }, { opacity: 1, y: 0, scale: 1, duration: opts.duration || 0.35, ease: opts.ease || "power2.out" }, delay);
+  }
+  function fadeOut(el, delay, duration) {
+    tl.to(el, { opacity: 0, duration: duration || 0.3, ease: "power2.inOut" }, delay);
+  }
+
+  // Shared badge + question text appear once, then persist/update across all 4 questions.
+  tl.fromTo(badge, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 2.244);
+  fadeIn(question, 2.244);
+
+  // ---- Q1: TURN ON (slide, yellow) ----
+  var q1Diagram = document.getElementById("f08-q1-diagram");
+  var q1NCol = document.getElementById("f08-q1-n-col");
+  var q1NLetter = document.getElementById("f08-q1-n-letter");
+  var q1NTag = document.getElementById("f08-q1-n-tag");
+  var q1OLetter = document.getElementById("f08-q1-o-letter");
+  var q1OTag = document.getElementById("f08-q1-o-tag");
+  var q1Pron = document.getElementById("f08-q1-pron");
+
+  fadeIn(q1Diagram, 2.244, { scale: 0.92 });
+  tl.to([q1NLetter, q1NTag, q1OLetter, q1OTag], { color: "#F5C518", duration: 0.25, ease: "power2.out" }, 7.267);
+  tl.to(q1NCol, { x: "11.8cqw", duration: 0.9, ease: "power2.inOut" }, 7.6);
+  fadeIn(q1Pron, 9.744, { scale: 0.92 });
+
+  // Exit Q1, enter Q2.
+  fadeOut(badge, 11.1, 0.2);
+  fadeOut(question, 11.1, 0.2);
+  fadeOut(q1Diagram, 11.1, 0.2);
+  fadeOut(q1Pron, 11.1, 0.2);
+  tl.call(function () {
+    badge.textContent = "2";
+    questionText.textContent = "CHECK OUT은요?";
+  }, null, 11.35);
+  tl.fromTo(badge, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 11.467);
+  fadeIn(question, 11.467, { duration: 0.3 });
+
+  // ---- Q2: CHECK OUT (slide, yellow) ----
+  var q2Diagram = document.getElementById("f08-q2-diagram");
+  var q2KCol = document.getElementById("f08-q2-k-col");
+  var q2KLetter = document.getElementById("f08-q2-k-letter");
+  var q2KTag = document.getElementById("f08-q2-k-tag");
+  var q2OLetter = document.getElementById("f08-q2-o-letter");
+  var q2OTag = document.getElementById("f08-q2-o-tag");
+  var q2Pron = document.getElementById("f08-q2-pron");
+
+  fadeIn(q2Diagram, 11.467, { scale: 0.92, duration: 0.3 });
+  tl.to([q2KLetter, q2KTag, q2OLetter, q2OTag], { color: "#F5C518", duration: 0.25, ease: "power2.out" }, 14.799);
+  tl.to(q2KCol, { x: "11.8cqw", duration: 0.9, ease: "power2.inOut" }, 15.1);
+  fadeIn(q2Pron, 17.245, { scale: 0.92 });
+
+  // Exit Q2, enter Q3.
+  fadeOut(badge, 18.6, 0.2);
+  fadeOut(question, 18.6, 0.2);
+  fadeOut(q2Diagram, 18.6, 0.2);
+  fadeOut(q2Pron, 18.6, 0.2);
+  tl.call(function () {
+    badge.textContent = "3";
+    questionText.textContent = "GET IT, T가 낄 때는 어떻게 들릴까요?";
+  }, null, 18.85);
+  tl.fromTo(badge, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 19.011);
+  fadeIn(question, 19.011, { duration: 0.3 });
+
+  tl.fromTo(progressFillEl, { width: "58.333%" }, { width: "66.667%", duration: 1.0, ease: "power1.inOut" }, 19.011);
+
+  // ---- Q3: GET IT (bounce, red) ----
+  var q3Diagram = document.getElementById("f08-q3-diagram");
+  var q3TCol = document.getElementById("f08-q3-t-col");
+  var q3TLetter = document.getElementById("f08-q3-t-letter");
+  var q3TTag = document.getElementById("f08-q3-t-tag");
+  var q3ILetter = document.getElementById("f08-q3-i-letter");
+  var q3ITag = document.getElementById("f08-q3-i-tag");
+  var q3Pron = document.getElementById("f08-q3-pron");
+
+  fadeIn(q3Diagram, 19.011, { scale: 0.92, duration: 0.3 });
+  tl.to([q3TLetter, q3TTag, q3ILetter, q3ITag], { color: "#FF3333", duration: 0.25, ease: "power2.out" }, 25.398);
+  tl.to(q3TCol, { y: "-2cqh", scale: 1.1, duration: 0.16, ease: "power2.out" }, 25.65)
+    .to(q3TCol, { y: "0cqh", scale: 1, duration: 0.5, ease: "bounce.out" }, "+=0");
+  fadeIn(q3Pron, 26.267, { scale: 0.92 });
+  // Short reinforcement echo bounce (mirrors Frame 7 Beat 4) — "T가 모음 사이에서 톡 튕기니까요".
+  tl.to(q3TCol, { y: "-0.9cqh", scale: 1.05, duration: 0.12, ease: "power2.out" }, 29.94)
+    .to(q3TCol, { y: "0cqh", scale: 1, duration: 0.35, ease: "bounce.out" }, "+=0");
+
+  // Exit Q3, enter Q4.
+  fadeOut(badge, 31.35, 0.2);
+  fadeOut(question, 31.35, 0.2);
+  fadeOut(q3Diagram, 31.35, 0.2);
+  fadeOut(q3Pron, 31.35, 0.2);
+  tl.call(function () {
+    badge.textContent = "4";
+    questionText.textContent = "PUT IT은요?";
+  }, null, 31.6);
+  tl.fromTo(badge, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 31.721);
+  fadeIn(question, 31.721, { duration: 0.3 });
+
+  // ---- Q4: PUT IT (bounce, red) — final question, held to the end. ----
+  var q4Diagram = document.getElementById("f08-q4-diagram");
+  var q4TCol = document.getElementById("f08-q4-t-col");
+  var q4TLetter = document.getElementById("f08-q4-t-letter");
+  var q4TTag = document.getElementById("f08-q4-t-tag");
+  var q4ILetter = document.getElementById("f08-q4-i-letter");
+  var q4ITag = document.getElementById("f08-q4-i-tag");
+  var q4Pron = document.getElementById("f08-q4-pron");
+
+  fadeIn(q4Diagram, 31.721, { scale: 0.92, duration: 0.3 });
+  tl.to([q4TLetter, q4TTag, q4ILetter, q4ITag], { color: "#FF3333", duration: 0.25, ease: "power2.out" }, 34.883);
+  tl.to(q4TCol, { y: "-2cqh", scale: 1.1, duration: 0.16, ease: "power2.out" }, 35.15)
+    .to(q4TCol, { y: "0cqh", scale: 1, duration: 0.5, ease: "bounce.out" }, "+=0");
+  fadeIn(q4Pron, 35.54, { scale: 0.92 });
+  tl.to(q4TCol, { y: "-0.9cqh", scale: 1.05, duration: 0.12, ease: "power2.out" }, 37.597)
+    .to(q4TCol, { y: "0cqh", scale: 1, duration: 0.35, ease: "bounce.out" }, "+=0");
+})();
+</script>
+</template>

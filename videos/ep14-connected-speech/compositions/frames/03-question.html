@@ -9,7 +9,8 @@
        viewer already knows — a visual callback to Frame 1's "단어는 분명 다 아는 건데") pop in
        one at a time with a hard, staccato snap — never a smooth fade — to sell "끊어진 느낌"
        before the episode reveals how these words actually connect (Frames 5/7/8/10).
-       11.17–16.58s (VO "교과서에서...왜 이렇게 다를까요?"): cards hold static, no new motion.
+       11.17–16.58s (VO "교과서에서...왜 이렇게 다를까요?"): the 8 cards flicker once each,
+       staggered, rather than holding fully static (2026-09-08 addition).
        16.75–20.9s (VO "혹시...대충 하는 걸까요?"): screen dims and the final question itself
        lands as on-screen text — the frame's one focal beat. */
   @font-face {
@@ -125,7 +126,19 @@
     tl.fromTo(el, { opacity: 0, scale: 1.15, rotation: rot }, { opacity: 1, scale: 1, rotation: rot, duration: 0.12, ease: "power4.out" }, CARD_START + i * CARD_STEP);
   }
 
-  // Beat 2 (11.17-16.58s VO): cards hold static — intentionally no motion here.
+  // Beat 2 (11.17-16.58s VO, "교과서에서 배운 발음이랑...왜 이렇게 다를까요?"): 2026-09-08
+  // addition — this hold read as too static on review (5.4s of zero motion). The 8 cards
+  // already on screen flicker once each, staggered, rather than adding new elements —
+  // a low-key "something doesn't line up" unease that builds into Beat 3's dim/question,
+  // without pre-empting the actual reveal (that stays exclusive to Frames 5-7).
+  var FLICKER_START = 11.3;
+  var FLICKER_STEP = 0.65;
+  for (var f = 0; f < cardIds.length; f++) {
+    var flickerEl = document.getElementById(cardIds[f]);
+    var flickerAt = FLICKER_START + f * FLICKER_STEP;
+    tl.to(flickerEl, { opacity: 0.5, duration: 0.15, ease: "power1.inOut" }, flickerAt)
+      .to(flickerEl, { opacity: 1, duration: 0.25, ease: "power1.inOut" }, flickerAt + 0.15);
+  }
 
   // Beat 3 (16.75-20.4s VO, "혹시...대충 하는 걸까요?"): the screen dims as the final question
   // is spoken, landing as on-screen text right as the narration itself finishes asking it.

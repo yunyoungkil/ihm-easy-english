@@ -1,0 +1,182 @@
+<template>
+<style>
+  /* 12-summary — Frame 12 "요약 + 마무리" (frame.md Treatment #12: Summary Cards, final
+     frame). Built from real per-word timestamps in assets/voice/12.words.json (2026-09-08) —
+     no estimates, no RATIO scaling (knowledge/hyperframes-prompting.md §7-1/9-1).
+
+     All 7 expressions from the episode stack up and STAY on screen (EP13 precedent — reviewable,
+     not a quick flash), color-coded by pattern type (yellow slide: AN APPLE/Where were we/
+     TURN ON/CHECK OUT, red bounce: MADE IT/GET IT/PUT IT), timed to the recap narration's own
+     two-part structure (slide principle first, bounce principle second). The thesis line
+     "힘을 빼면, 소리가 이어집니다" — the exact phrase from Frame 4's reveal — returns as a
+     callback once the recap concludes. No next-episode teaser (단편 방침, VIDEO_WORKFLOW.md).
+
+     ⚠️ Endscreen keep-out (production-rules.md 2026-09-07 rule, EP14+): the last ~3s hold ONLY
+     the channel wordmark, dead-center, clear of both YouTube endscreen zones (bottom-right
+     x:1620-1920/y:910-1080, top-center x:810-1110/y:0-170 at 1920x1080 — center placement is
+     safely outside both).
+
+     Beats: 7 cards stagger in (0.6-14.1s, spanning the slide-then-bounce recap) → thesis
+     callback fades in (16.8s), cards dim to recede → closing warmth plays under the held thesis
+     (21.8-32.4s) → endscreen keep-out (29.5s onward): everything fades except the centered
+     wordmark, held to the end. */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f12-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+  .f12-amber-glow { background: radial-gradient(circle at 50% 46%, rgba(245,197,24,0.14) 0%, rgba(245,197,24,0) 60%); opacity: 0; }
+
+  .f12-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f12-progress-fill { position: absolute; left: 0; top: 0; width: 91.667%; height: 3px; background: #F5C518; }
+
+  .f12-card { position: absolute; padding: 1.3cqh 1.6cqw; border-radius: 0.6cqw; background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); box-shadow: 0 0 1.2cqw rgba(245,197,24,0.12); font-family: 'Archivo Black', sans-serif; font-size: 1.5cqw; color: #FFFFFF; opacity: 0; white-space: nowrap; }
+  .f12-card-bounce { border-color: rgba(255,53,53,0.35); }
+
+  .f12-thesis { position: absolute; left: 8cqw; right: 8cqw; top: 35cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f12-thesis-text { font-family: 'Black Han Sans', sans-serif; font-size: 3.6cqw; color: #FFFFFF; text-align: center; line-height: 1.35; }
+  .f12-thesis-accent { color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.3); }
+
+  /* Small corner tag (2026-09-08 revision, user request) — matches Frame 1's persistent
+     eyebrow tag exactly (left:6cqw/top:8cqh/1.1cqw), NOT a big centered lockup. The actual
+     clickable YouTube end-screen elements (video card + subscribe/logo — configured by the
+     user in Studio, not rendered here) go roughly center, so this tag stays small and
+     top-left, out of their way as well as out of both keep-out corners. */
+  .f12-wordmark { position: absolute; left: 6cqw; top: 8cqh; opacity: 0; }
+  .f12-wordmark-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.1cqw; font-weight: 900; letter-spacing: 0.04em; color: #FFFFFF; text-transform: uppercase; }
+  .f12-wordmark-accent { color: #F5C518; }
+</style>
+
+<div data-hf-id="hf-f14e12s1" id="root" data-composition-id="12-summary" data-start="0" data-duration="32.9" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e12s2" id="f12-bg-clip" class="clip f12-bg" data-start="0" data-duration="32.9" data-track-index="0"></div>
+  <div data-hf-id="hf-f14e12s2b" id="f12-amber-clip" class="clip f12-amber-glow" data-start="0" data-duration="32.9" data-track-index="1"></div>
+  <audio data-hf-id="hf-f14e12sv" id="f12-voice" src="assets/voice/12.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e12s3" class="f12-progress-track" id="f12-progress-track"><div data-hf-id="hf-f14e12s4" class="f12-progress-fill" id="f12-progress-fill"></div></div>
+
+  <!-- Top row: slide-type (yellow) — AN APPLE, Where were we, TURN ON, CHECK OUT -->
+  <div data-hf-id="hf-f14e12c1" class="f12-card" id="f12-card-1" style="left:8cqw; top:15cqh;">AN APPLE</div>
+  <div data-hf-id="hf-f14e12c2" class="f12-card" id="f12-card-2" style="left:26cqw; top:18cqh;">WHERE WERE WE</div>
+  <div data-hf-id="hf-f14e12c3" class="f12-card" id="f12-card-3" style="left:54cqw; top:14cqh;">TURN ON</div>
+  <div data-hf-id="hf-f14e12c4" class="f12-card" id="f12-card-4" style="left:71cqw; top:19cqh;">CHECK OUT</div>
+
+  <!-- Bottom row: bounce-type (red) — MADE IT, GET IT, PUT IT -->
+  <div data-hf-id="hf-f14e12c5" class="f12-card f12-card-bounce" id="f12-card-5" style="left:13cqw; top:71cqh;">MADE IT</div>
+  <div data-hf-id="hf-f14e12c6" class="f12-card f12-card-bounce" id="f12-card-6" style="left:41cqw; top:74cqh;">GET IT</div>
+  <div data-hf-id="hf-f14e12c7" class="f12-card f12-card-bounce" id="f12-card-7" style="left:63cqw; top:71cqh;">PUT IT</div>
+
+  <div data-hf-id="hf-f14e12th" class="f12-thesis" id="f12-thesis">
+    <div data-hf-id="hf-f14e12tht" class="f12-thesis-text">힘을 빼면,<br data-hf-id="hf-f14e12thbr">소리가 <span data-hf-id="hf-f14e12thac" class="f12-thesis-accent">이어집니다</span></div>
+  </div>
+
+  <div data-hf-id="hf-f14e12wm" class="f12-wordmark" id="f12-wordmark">
+    <div data-hf-id="hf-f14e12wmt" class="f12-wordmark-text">이해하면 <span data-hf-id="hf-f14e12wmta" class="f12-wordmark-accent">쉬운영어</span></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["12-summary"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/12.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"오늘은","from":0.531,"to":1.043},{"word":"원어민이","from":1.214,"to":1.897},
+    {"word":"대충","from":2.068,"to":2.409},{"word":"뭉개서","from":2.58,"to":3.092},
+    {"word":"말하는","from":3.263,"to":3.775},{"word":"게","from":3.946,"to":4.117},
+    {"word":"아니라,","from":4.288,"to":4.872},{"word":"혀에","from":4.945,"to":5.235},
+    {"word":"힘을","from":5.38,"to":5.67},{"word":"빼고","from":5.815,"to":6.105},
+    {"word":"편하게","from":6.25,"to":6.685},{"word":"소리를","from":6.83,"to":7.265},
+    {"word":"이어","from":7.41,"to":7.7},{"word":"붙인다는","from":7.845,"to":8.425},
+    {"word":"원리,","from":8.57,"to":8.947},{"word":"그리고","from":9.033,"to":9.554},
+    {"word":"T나","from":9.727,"to":10.074},{"word":"D가","from":10.248,"to":10.595},
+    {"word":"낄","from":10.768,"to":10.942},{"word":"때는","from":11.115,"to":11.462},
+    {"word":"톡","from":11.636,"to":11.809},{"word":"튕기는","from":11.983,"to":12.503},
+    {"word":"소리로","from":12.677,"to":13.197},{"word":"바뀐다는","from":13.371,"to":14.065},
+    {"word":"것까지","from":14.238,"to":14.759},{"word":"함께","from":14.932,"to":15.279},
+    {"word":"봤습니다.","from":15.453,"to":16.32},{"word":"이제","from":16.476,"to":16.789},
+    {"word":"문장을","from":16.946,"to":17.415},{"word":"들을","from":17.572,"to":17.885},
+    {"word":"때","from":18.041,"to":18.198},{"word":"예전처럼","from":18.354,"to":18.98},
+    {"word":"막막하지","from":19.136,"to":19.762},{"word":"않으셨으면","from":19.919,"to":20.701},
+    {"word":"좋겠어요.","from":20.858,"to":21.64},{"word":"다음에도","from":21.793,"to":22.405},
+    {"word":"여러분이","from":22.558,"to":23.169},{"word":"자주","from":23.322,"to":23.628},
+    {"word":"답답해하시는","from":23.781,"to":24.852},{"word":"부분,","from":25.005,"to":25.387},
+    {"word":"또","from":25.464,"to":25.616},{"word":"풀어드릴게요.","from":25.769,"to":26.84},
+    {"word":"저와","from":26.974,"to":27.242},{"word":"같이","from":27.376,"to":27.645},
+    {"word":"하나씩","from":27.779,"to":28.181},{"word":"차근차근","from":28.315,"to":28.851},
+    {"word":"익혀","from":28.985,"to":29.254},{"word":"나가시면,","from":29.254,"to":29.857},
+    {"word":"어느새","from":29.924,"to":30.326},{"word":"훨씬","from":30.46,"to":30.729},
+    {"word":"편하게","from":30.863,"to":31.265},{"word":"듣고","from":31.399,"to":31.667},
+    {"word":"계실","from":31.801,"to":32.07},{"word":"거예요.","from":32.204,"to":32.74}
+  ];
+  // Last word's whisper-measured "to" (32.74) runs past the real audio file (32.4s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 32.4;
+
+  var progressFillEl = document.getElementById("f12-progress-fill");
+  var progressTrack = document.getElementById("f12-progress-track");
+  var amberGlow = document.getElementById("f12-amber-clip");
+  var thesis = document.getElementById("f12-thesis");
+  var wordmark = document.getElementById("f12-wordmark");
+  var cardIds = ["f12-card-1", "f12-card-2", "f12-card-3", "f12-card-4", "f12-card-5", "f12-card-6", "f12-card-7"];
+  var cards = cardIds.map(function (id) { return document.getElementById(id); });
+
+  // Beats 0-6 (0.6-14.1s VO, "오늘은...함께 봤습니다."): 7 cards stagger in, timed to the
+  // recap's own two-part structure — slide principle first (0.6-6.9s), bounce principle second
+  // (9.3-14.1s).
+  var CARD_TIMES = [0.6, 2.7, 4.8, 6.9, 9.3, 11.7, 14.1];
+  for (var i = 0; i < cards.length; i++) {
+    tl.fromTo(cards[i], { opacity: 0, y: 10, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.4)" }, CARD_TIMES[i]);
+  }
+  tl.fromTo(progressFillEl, { width: "91.667%" }, { width: "100%", duration: 1.0, ease: "power1.inOut" }, 0.6);
+
+  // Beat 7 (16.8s VO "이제 문장을 들을 때..."): thesis callback (Frame 4's exact phrase)
+  // returns; cards dim to recede rather than compete for attention.
+  tl.fromTo(amberGlow, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "power2.inOut" }, 16.476);
+  tl.to(cards, { opacity: 0.4, duration: 0.8, ease: "power2.inOut" }, 16.476);
+  tl.fromTo(thesis, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.3)" }, 16.8);
+
+  // Beat 8 (21.8-32.4s VO, "다음에도...편하게 듣고 계실 거예요."): closing warmth plays under
+  // the held thesis — no next-episode teaser (단편 방침).
+
+  // Endscreen keep-out (production-rules.md 2026-09-07, last ~3s of this final frame): cards
+  // and thesis fade, only the small top-left wordmark tag remains (2026-09-08 revision — moved
+  // off-center on request, so the actual YouTube video-card + subscribe/logo elements the user
+  // places in Studio have the center clear). The progress-rail also fades here even though it's
+  // persistent chrome in every other frame — it spans the full width at the very top edge
+  // (y:0-3px), which technically clips the top-center keep-out zone (y:0-170px); verified by
+  // zoomed pixel snapshot on the pre-fix build (2026-09-08) — a solid yellow line was visible
+  // inside that zone before this fix.
+  tl.to(cards, { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 29.5);
+  tl.to(thesis, { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 29.5);
+  tl.to(amberGlow, { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 29.5);
+  tl.to(progressTrack, { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 29.5);
+  tl.fromTo(wordmark, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 30.0);
+})();
+</script>
+</template>

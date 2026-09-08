@@ -13,7 +13,9 @@
        13.6–19.71s (VO "완전히...당황하신 적..."): "Where were we?" appears crisp, then wobbles and
        blurs as the sentence itself demonstrates the garbled-speech experience, "?" lands.
        19.7–24.3s (VO "이거...아닙니다"): held blurred and silent on screen (no caption here —
-       the same line lands big in Beat 4 instead of repeating twice back to back).
+       the same line lands big in Beat 4 instead of repeating twice back to back). 2026-09-08
+       addition: a slow breathing opacity pulse on the blurred sentence so the hold doesn't
+       read as frozen.
        24.3–31.0s (VO "원어민이...뿐이에요"): closing Korean line settles, symmetric setup for
        Frame 11's payoff (same "Where were we?" sentence, sharpens instead of blurring). */
   @font-face {
@@ -191,6 +193,12 @@
 
   // Beat 3 (19.71-24.33s VO, "이거...아닙니다"): held blurred and silent on screen — the
   // reassurance line lands once, big, in Beat 4 rather than repeating here in a small caption.
+  // 2026-09-08 addition: this 4.3s hold read as frozen rather than deliberately quiet on
+  // review, so a slow breathing opacity pulse keeps it alive without adding a new element
+  // or contradicting the "held blurred and silent" intent.
+  tl.to(sentenceWrap, { opacity: 0.55, duration: 1.4, ease: "sine.inOut" }, 19.9)
+    .to(sentenceWrap, { opacity: 0.8, duration: 1.4, ease: "sine.inOut" }, 21.3)
+    .to(sentenceWrap, { opacity: 0.6, duration: 1.3, ease: "sine.inOut" }, 22.7);
   tl.to(sentenceWrap, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 24.0);
 
   // Beat 4 (24.48-30.24s VO, "원어민이...뿐이에요"): closing reassurance settles as on-screen text.

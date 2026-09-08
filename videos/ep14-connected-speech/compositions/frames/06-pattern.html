@@ -1,0 +1,222 @@
+<template>
+<style>
+  /* 06-pattern — Frame 6 "패턴 확장" (frame.md Treatment #6: Linking Diagram — Shrink,
+     `linking-diagram--shrink`). Built from real per-word timestamps in
+     assets/voice/06.words.json (2026-09-08) — no estimates, no RATIO scaling
+     (knowledge/hyperframes-prompting.md §7-1/9-1).
+
+     Component notes: unlike Frame 5's slide (WE starting with consonant W means no clean
+     letter-level 자/모 pairing — SCRIPT.md/frame.md both say no letter-tag here), so this is
+     whole-WORD cards, not per-letter columns. All three cards get the SAME fixed width
+     (13cqw, sized to fit WHERE) so positions are hand-computed constants, same reasoning as
+     Frame 5 (no runtime measurement under font-loading uncertainty). WHERE and WE are the
+     SAME elements throughout (identity-continuous, hyperframes-keyframes "shared element"
+     rule) — they travel inward via `x` only as WERE shrinks in place via `scale`, closing the
+     gap so the three read as one sandwiched unit. Per Frame 5's user-review lesson: each
+     pronunciation label sits directly under its own card during the broken-apart beat, not
+     centered under the whole diagram.
+
+     Beats:
+       0.5–5.12s (VO "그럼...통하는지 볼까요?"): small intro caption.
+       5.26–10.12s (VO "Where were we?"...한번 들어보세요"): the target phrase itself, large,
+       read normally/clearly — the concrete example Frame 1's teaser showed blurred.
+       10.29–16.48s (VO "하나하나 또박또박...위'인데,"): three cards appear at wide spacing,
+       each labeled directly beneath with its own broken-apart syllable (웨어/워/위).
+       16.56–21.84s (VO "원어민이 자연스럽게...웨어루이'처럼 들려요."): the labels fade, WERE
+       shrinks+blurs in place while WHERE and WE slide inward to sandwich it — one merged
+       result label "웨어루이" appears centered below (accent-pronunciation blue, "루" gets its
+       own span for a later targeted highlight).
+       22.05–29.22s (VO "WERE는...확 줄어들어요."): WERE settles further toward its weakened
+       resting state as the mechanism is spelled out in words.
+       29.35–37.84s (VO "그러다 보니 WHERE의 R이랑...'루'처럼 들리는 거죠."): WHERE and WE's
+       inner edges glow briefly (the two things sandwiching WERE), and "루" pulses in the
+       result label right as it's named.
+       37.97s–end (VO "아까 AN APPLE 때랑...똑같이 통하는 거예요."): held on the merged state,
+       closing settle pulse only — no new competing visual. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f06-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f06-progress-fill { position: absolute; left: 0; top: 0; width: 41.667%; height: 3px; background: #F5C518; }
+
+  .f06-caption { position: absolute; left: 10cqw; right: 10cqw; top: 16cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f06-caption-text { font-size: 2.3cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.55; }
+
+  .f06-phrase { position: absolute; left: 10cqw; right: 10cqw; top: 16cqh; display: flex; flex-direction: column; align-items: center; gap: 1.6cqh; opacity: 0; }
+  .f06-phrase-text { font-family: 'Archivo Black', sans-serif; font-size: 5.2cqw; color: #FFFFFF; text-align: center; }
+  .f06-phrase-sub { font-size: 1.7cqw; font-weight: 700; color: #A9B4C4; text-align: center; }
+
+  /* linking-diagram--shrink: three fixed-width, fixed-position whole-word cards. */
+  .f06-diagram { position: absolute; left: 27.5cqw; top: 38cqh; display: flex; align-items: center; gap: 3cqw; opacity: 0; }
+  .f06-card { position: relative; z-index: 1; width: 13cqw; display: flex; align-items: center; justify-content: center; background: rgba(18,32,58,0.85); border: 2px solid rgba(245,197,24,0.25); border-radius: 0.9cqw; padding: 2.6cqh 0.8cqw; box-shadow: 0 0 1.4cqw rgba(245,197,24,0.14); }
+  .f06-card-text { font-family: 'Archivo Black', sans-serif; font-size: 2.7cqw; color: #FFFFFF; line-height: 1; white-space: nowrap; }
+
+  .f06-label-wrap { position: absolute; top: 58cqh; transform: translateX(-50%); }
+  .f06-label { display: inline-block; text-align: center; opacity: 0; font-weight: 700; color: #A9B4C4; font-size: 1.9cqw; }
+
+  .f06-pron { position: absolute; left: 0; right: 0; top: 58cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f06-pron-text { font-family: 'Noto Sans KR', sans-serif; font-size: 2.8cqw; font-weight: 900; color: #008EFF; text-align: center; text-shadow: 0 0 1cqw rgba(0,142,255,0.3); }
+</style>
+
+<div data-hf-id="hf-f14e6s1" id="root" data-composition-id="06-pattern" data-start="0" data-duration="47.3" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e6s2" id="f06-bg-clip" class="clip f06-bg" data-start="0" data-duration="47.3" data-track-index="0"></div>
+  <audio data-hf-id="hf-f14e6sv" id="f06-voice" src="assets/voice/06.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e6s3" class="f06-progress-track"><div data-hf-id="hf-f14e6s4" class="f06-progress-fill" id="f06-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e6sc" class="f06-caption" id="f06-caption">
+    <div data-hf-id="hf-f14e6sct" class="f06-caption-text">그럼 이게 문장 전체에서도 통하는지 볼까요?</div>
+  </div>
+
+  <div data-hf-id="hf-f14e6sph" class="f06-phrase" id="f06-phrase">
+    <div data-hf-id="hf-f14e6spht" class="f06-phrase-text">Where were we?</div>
+    <div data-hf-id="hf-f14e6sphs" class="f06-phrase-sub">이 짧은 문장, 한번 들어보세요</div>
+  </div>
+
+  <div data-hf-id="hf-f14e6sd" class="f06-diagram" id="f06-diagram">
+    <div data-hf-id="hf-f14e6swhe" id="f06-where-card" class="f06-card"><div data-hf-id="hf-f14e6swhet" class="f06-card-text">WHERE</div></div>
+    <div data-hf-id="hf-f14e6swer" id="f06-were-card" class="f06-card"><div data-hf-id="hf-f14e6swert" class="f06-card-text">WERE</div></div>
+    <div data-hf-id="hf-f14e6swee" id="f06-we-card" class="f06-card"><div data-hf-id="hf-f14e6sweet" class="f06-card-text">WE</div></div>
+  </div>
+
+  <div data-hf-id="hf-f14e6llww" class="f06-label-wrap" style="left:34cqw;"><div data-hf-id="hf-f14e6llw" class="f06-label" id="f06-label-where">웨어</div></div>
+  <div data-hf-id="hf-f14e6llwrw" class="f06-label-wrap" style="left:50cqw;"><div data-hf-id="hf-f14e6llwr" class="f06-label" id="f06-label-were">워</div></div>
+  <div data-hf-id="hf-f14e6llew" class="f06-label-wrap" style="left:66cqw;"><div data-hf-id="hf-f14e6lle" class="f06-label" id="f06-label-we">위</div></div>
+
+  <div data-hf-id="hf-f14e6spr" class="f06-pron" id="f06-pron">
+    <div data-hf-id="hf-f14e6sprt" class="f06-pron-text">웨어<span data-hf-id="hf-f14e6sprru" id="f06-pron-ru">루</span>이</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["06-pattern"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/06.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"그럼","from":0.512,"to":0.896},{"word":"이게","from":1.088,"to":1.472},
+    {"word":"문장","from":1.664,"to":2.048},{"word":"전체에서도","from":2.24,"to":3.2},
+    {"word":"통하는지","from":3.392,"to":4.16},{"word":"볼까요?","from":4.352,"to":5.12},
+    {"word":"\"Where","from":5.263,"to":6.12},{"word":"were","from":6.263,"to":6.834},
+    {"word":"we?\"","from":6.977,"to":7.549},{"word":"이","from":7.691,"to":7.834},
+    {"word":"짧은","from":7.977,"to":8.263},{"word":"문장,","from":8.406,"to":8.763},
+    {"word":"한번","from":8.834,"to":9.12},{"word":"들어보세요.","from":9.263,"to":10.12},
+    {"word":"하나하나","from":10.294,"to":10.992},{"word":"또박또박","from":11.167,"to":11.864},
+    {"word":"끊어","from":12.039,"to":12.388},{"word":"말하면","from":12.562,"to":13.086},
+    {"word":"'웨어,","from":13.26,"to":14.35},{"word":"워,","from":14.656,"to":15.266},
+    {"word":"위'인데,","from":15.571,"to":16.48},{"word":"원어민이","from":16.56,"to":17.2},
+    {"word":"자연스럽게","from":17.36,"to":18.16},{"word":"말하면","from":18.32,"to":18.8},
+    {"word":"'웨어루이'처럼","from":18.96,"to":21.04},{"word":"들려요.","from":21.2,"to":21.84},
+    {"word":"WERE는","from":22.051,"to":23.025},{"word":"문장에서","from":23.156,"to":23.683},
+    {"word":"그렇게","from":23.814,"to":24.209},{"word":"중요한","from":24.341,"to":24.735},
+    {"word":"단어가","from":24.867,"to":25.262},{"word":"아니라서,","from":25.394,"to":25.999},
+    {"word":"힘이","from":26.077,"to":26.391},{"word":"빠지면서","from":26.549,"to":27.177},
+    {"word":"소리가","from":27.334,"to":27.806},{"word":"확","from":27.963,"to":28.12},
+    {"word":"줄어들어요.","from":28.277,"to":29.22},{"word":"그러다","from":29.345,"to":29.719},
+    {"word":"보니","from":29.844,"to":30.094},{"word":"WHERE의","from":30.26,"to":31.218},
+    {"word":"R이랑","from":31.467,"to":32.092},{"word":"WE","from":32.279,"to":32.653},
+    {"word":"사이에서","from":32.841,"to":33.34},{"word":"뭉개지듯","from":33.507,"to":34.173},
+    {"word":"이어지면서","from":34.34,"to":35.173},{"word":"'루'처럼","from":35.34,"to":36.507},
+    {"word":"들리는","from":36.673,"to":37.173},{"word":"거죠.","from":37.34,"to":37.84},
+    {"word":"아까","from":37.965,"to":38.215},{"word":"AN","from":38.352,"to":38.627},
+    {"word":"APPLE","from":38.765,"to":39.453},{"word":"때랑","from":39.59,"to":39.84},
+    {"word":"방식은","from":39.965,"to":40.34},{"word":"조금","from":40.465,"to":40.715},
+    {"word":"다르지만,","from":40.84,"to":41.411},{"word":"힘을","from":41.482,"to":41.765},
+    {"word":"빼면","from":41.906,"to":42.19},{"word":"소리가","from":42.331,"to":42.756},
+    {"word":"자연스럽게","from":42.898,"to":43.606},{"word":"붙는다는","from":43.747,"to":44.314},
+    {"word":"원리는","from":44.455,"to":44.88},{"word":"여기서도","from":44.993,"to":45.447},
+    {"word":"똑같이","from":45.56,"to":45.9},{"word":"통하는","from":46.013,"to":46.353},
+    {"word":"거예요.","from":46.467,"to":46.92}
+  ];
+  // Last word's whisper-measured "to" (46.92) runs past the real audio file (46.8s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 46.8;
+
+  var progressFillEl = document.getElementById("f06-progress-fill");
+  var caption = document.getElementById("f06-caption");
+  var phrase = document.getElementById("f06-phrase");
+  var diagram = document.getElementById("f06-diagram");
+  var whereCard = document.getElementById("f06-where-card");
+  var wereCard = document.getElementById("f06-were-card");
+  var weCard = document.getElementById("f06-we-card");
+  var labelWhere = document.getElementById("f06-label-where");
+  var labelWere = document.getElementById("f06-label-were");
+  var labelWe = document.getElementById("f06-label-we");
+  var pron = document.getElementById("f06-pron");
+  var pronRu = document.getElementById("f06-pron-ru");
+
+  // Beat 0 (0.5-5.12s VO, "그럼...통하는지 볼까요?"): small intro caption.
+  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.6);
+  tl.to(caption, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 4.9);
+
+  // Beat 1 (5.26-10.12s VO, "Where were we?"...한번 들어보세요"): the target phrase itself,
+  // read normally/clearly — the concrete example Frame 1's teaser showed blurred.
+  tl.fromTo(phrase, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.3)" }, 5.263);
+  tl.to(phrase, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 9.9);
+
+  // Beat 2 (10.29-16.48s VO, "하나하나 또박또박...위'인데,"): three cards appear at wide spacing,
+  // each with its own broken-apart syllable label directly beneath.
+  tl.fromTo(diagram, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 10.294);
+  tl.fromTo(whereCard, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.4)" }, 10.294);
+  tl.fromTo(wereCard, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.4)" }, 10.294, "+=0.15");
+  tl.fromTo(weCard, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.4)" }, 10.294, "+=0.3");
+  tl.fromTo([labelWhere, labelWere, labelWe], { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", stagger: 0.1 }, 13.26);
+  tl.to([labelWhere, labelWere, labelWe], { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 16.2);
+
+  // Beat 3 (16.56-21.84s VO, "원어민이 자연스럽게...웨어루이'처럼 들려요."): WERE shrinks+blurs
+  // in place (scale/opacity/filter only — compositor channels) while WHERE and WE slide inward
+  // via `x` to sandwich it. Geometry (hand-computed from the 13cqw fixed card width + 3cqw gap):
+  // WHERE's right edge (40.5cqw) needs to meet WERE-at-scale-0.3's left edge (~48.05cqw) — a
+  // 7.6cqw inward move; WE mirrors it by -7.6cqw. Same reasoning as Frame 5: fixed geometry,
+  // no runtime measurement.
+  tl.to(wereCard, { scale: 0.3, opacity: 0.4, filter: "blur(2px)", duration: 1.3, ease: "power2.inOut" }, 17.36);
+  tl.to(whereCard, { x: "7.6cqw", duration: 1.3, ease: "power2.inOut" }, 17.36);
+  tl.to(weCard, { x: "-7.6cqw", duration: 1.3, ease: "power2.inOut" }, 17.36);
+  tl.fromTo(pron, { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, 18.96);
+
+  tl.fromTo(progressFillEl, { width: "41.667%" }, { width: "50%", duration: 1.0, ease: "power1.inOut" }, 10.294);
+
+  // Beat 4 (22.05-29.22s VO, "WERE는...확 줄어들어요."): WERE settles further toward its
+  // weakened resting state as the mechanism is spelled out in words.
+  tl.to(wereCard, { scale: 0.22, opacity: 0.25, duration: 1.5, ease: "power2.inOut" }, 26.077);
+
+  // Beat 5 (29.35-37.84s VO, "그러다 보니 WHERE의 R이랑...'루'처럼 들리는 거죠."): the two
+  // cards sandwiching WERE (WHERE, WE) glow briefly as they're named, then "루" pulses in the
+  // result label right as it's spoken.
+  tl.to([whereCard, weCard], { boxShadow: "0 0 2.2cqw rgba(245,197,24,0.4)", duration: 0.4, ease: "power2.out" }, 30.26)
+    .to([whereCard, weCard], { boxShadow: "0 0 1.4cqw rgba(245,197,24,0.14)", duration: 0.6, ease: "power2.inOut" }, 32.9);
+  tl.to(pronRu, { scale: 1.2, color: "#F5C518", duration: 0.2, ease: "power2.out" }, 35.34)
+    .to(pronRu, { scale: 1, color: "#008EFF", duration: 0.35, ease: "power2.inOut" }, 36.1);
+
+  // Beat 6 (37.97s onward, "아까 AN APPLE 때랑...똑같이 통하는 거예요."): held on the merged
+  // state — a gentle closing settle pulse only, no new competing visual.
+  tl.to(pron, { scale: 1.04, duration: 0.8, ease: "sine.inOut" }, 40.5)
+    .to(pron, { scale: 1, duration: 0.8, ease: "sine.inOut" }, 41.3);
+})();
+</script>
+</template>

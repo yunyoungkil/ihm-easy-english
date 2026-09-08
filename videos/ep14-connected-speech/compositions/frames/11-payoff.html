@@ -1,0 +1,185 @@
+<template>
+<style>
+  /* 11-payoff — Frame 11 "실생활 재확인 (페이오프)" (frame.md Treatment #11: Payoff —
+     Symmetric Close). Built from real per-word timestamps in assets/voice/11.words.json
+     (2026-09-08) — no estimates, no RATIO scaling (knowledge/hyperframes-prompting.md
+     §7-1/9-1).
+
+     This is Frame 1's deliberate mirror: same sentence ("Where were we?"), same Archivo Black
+     styling, same peak blur(14px) value, same streaming-grid-mock.jpg context flash — but run
+     in reverse. Frame 1 opened crisp and blurred into confusion; here it opens already blurred
+     and clarifies into a sharp landing exactly as "웨어루이!" is spoken, then yields the screen
+     to the episode's thesis payoff line (which fulfills the confirmed thumbnail copy "이제
+     단어가 아니라 문장이 들립니다" — VIDEO_WORKFLOW.md 2026-09-07 Head-Fake/Rehook rule: promise
+     fulfillment, not verbatim phrase reuse, so this line paraphrases rather than quotes it).
+
+     Beats:
+       0.3–6.6s (VO "이제 영화나 유튜브를...당황하지 않으실 거예요."): setup caption, no sentence
+       on screen yet (mirrors Frame 1 Beat 0's caption-only opening).
+       7.4–10s: streaming-grid flash (same asset/technique as Frame 1) overlaps the sentence's
+       entrance, grounding "영화나 유튜브" context.
+       7.8–14.68s (VO "예를 들어...바로 다 안 들려도 괜찮아요."): "Where were we?" appears
+       already blurred(14px) — Frame 1's peak blur value, held.
+       14.85–20.3s (VO "배운 대로...웨어, 루, 이 —"): blur clears progressively (14px→0px) as
+       the narration walks through relaxing/listening, finishing exactly as the syllable
+       breakdown ends.
+       20.45s (VO "웨어루이!"): fully sharp landing with a glow pop — the frame's climax,
+       Frame 1's blur-lock moment run in reverse.
+       21.2–27.18s (VO "이렇게 시간이...되실 거예요."): held sharp, then yields.
+       27.3s–end (VO "이제 단어 하나하나가...들리기 시작하실 겁니다."): the thesis payoff line
+       takes over as the new hero text. */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f11-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f11-grid-img { position: absolute; inset: 3cqh 6cqw; width: calc(100% - 12cqw); height: calc(100% - 6cqh); object-fit: cover; border-radius: 0.6cqw; }
+  .f11-grid-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 50% 46%, rgba(10,21,38,0.55) 0%, rgba(10,21,38,0.85) 70%); }
+
+  .f11-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f11-progress-fill { position: absolute; left: 0; top: 0; width: 83.333%; height: 3px; background: #F5C518; }
+
+  .f11-caption { position: absolute; left: 10cqw; right: 10cqw; top: 0; bottom: 12cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f11-caption-text { font-size: 2.5cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 78cqw; line-height: 1.55; }
+
+  .f11-sentence-wrap { position: absolute; left: 10cqw; right: 10cqw; top: 0; bottom: 12cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f11-sentence { font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; color: #FFFFFF; line-height: 1.1; text-align: center; }
+
+  .f11-thesis { position: absolute; left: 8cqw; right: 8cqw; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f11-thesis-text { font-family: 'Black Han Sans', sans-serif; font-size: 4.4cqw; color: #FFFFFF; text-align: center; line-height: 1.35; }
+  .f11-thesis-accent { color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.3); }
+</style>
+
+<div data-hf-id="hf-f14e11s1" id="root" data-composition-id="11-payoff" data-start="0" data-duration="31.86" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f14e11s2" id="f11-bg-clip" class="clip f11-bg" data-start="0" data-duration="31.86" data-track-index="0"></div>
+  <div data-hf-id="hf-f14e11sg" id="f11-grid" style="opacity: 0;">
+    <img data-hf-id="hf-f14e11sgi" class="f11-grid-img" src="assets/images/streaming-grid-mock.jpg" alt="">
+    <div data-hf-id="hf-f14e11sgo" class="f11-grid-overlay"></div>
+  </div>
+  <audio data-hf-id="hf-f14e11sv" id="f11-voice" src="assets/voice/11.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-f14e11s3" class="f11-progress-track"><div data-hf-id="hf-f14e11s4" class="f11-progress-fill" id="f11-progress-fill"></div></div>
+
+  <div data-hf-id="hf-f14e11sc" class="f11-caption" id="f11-caption">
+    <div data-hf-id="hf-f14e11sct" class="f11-caption-text">이제 영화나 유튜브를 보다가 게으른 소리가 나와도 당황하지 않으실 거예요</div>
+  </div>
+
+  <div data-hf-id="hf-f14e11ssw" class="f11-sentence-wrap" id="f11-sentence-wrap">
+    <div data-hf-id="hf-f14e11ss" class="f11-sentence" id="f11-sentence">Where were we?</div>
+  </div>
+
+  <div data-hf-id="hf-f14e11sth" class="f11-thesis" id="f11-thesis">
+    <div data-hf-id="hf-f14e11stht" class="f11-thesis-text">이제 단어 하나하나가 아니라,<br data-hf-id="hf-f14e11sthbr">문장으로 <span data-hf-id="hf-f14e11sthac" class="f11-thesis-accent">들리기 시작</span>하실 겁니다</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["11-payoff"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/11.words.json), embedded so the
+  // sub-composition doesn't need a runtime fetch (determinism-rules.md bans render-time
+  // network calls). Source of truth: scripts/word-timeline.mjs output, 2026-09-08.
+  var WORDS = [
+    {"word":"이제","from":0.494,"to":0.803},{"word":"영화나","from":0.957,"to":1.42},
+    {"word":"유튜브를","from":1.574,"to":2.191},{"word":"보다가","from":2.346,"to":2.809},
+    {"word":"게으른","from":2.963,"to":3.426},{"word":"소리가","from":3.58,"to":4.043},
+    {"word":"나와도","from":4.197,"to":4.66},{"word":"당황하지","from":4.814,"to":5.431},
+    {"word":"않으실","from":5.586,"to":6.049},{"word":"거예요.","from":6.203,"to":6.82},
+    {"word":"예를","from":6.96,"to":7.242},{"word":"들어","from":7.382,"to":7.663},
+    {"word":"\"Where","from":7.803,"to":8.646},{"word":"were","from":8.787,"to":9.349},
+    {"word":"we?\"라는","from":9.489,"to":10.332},{"word":"문장도","from":10.473,"to":10.895},
+    {"word":"이렇게","from":11.035,"to":11.457},{"word":"들리거든요.","from":11.597,"to":12.44},
+    {"word":"바로","from":12.572,"to":12.835},{"word":"다","from":12.967,"to":13.099},
+    {"word":"안","from":13.231,"to":13.362},{"word":"들려도","from":13.494,"to":13.889},
+    {"word":"괜찮아요.","from":14.021,"to":14.68},{"word":"배운","from":14.847,"to":15.18},
+    {"word":"대로","from":15.347,"to":15.68},{"word":"소리","from":15.847,"to":16.18},
+    {"word":"하나씩","from":16.347,"to":16.847},{"word":"힘","from":17.013,"to":17.18},
+    {"word":"빼고","from":17.347,"to":17.68},{"word":"들어보면,","from":17.847,"to":18.662},
+    {"word":"웨어,","from":18.812,"to":19.259},{"word":"루,","from":19.408,"to":19.706},
+    {"word":"이","from":19.855,"to":20.005},{"word":"—","from":20.154,"to":20.303},
+    {"word":"웨어루이!","from":20.452,"to":21.198},{"word":"이렇게","from":21.347,"to":21.847},
+    {"word":"시간이","from":22.013,"to":22.513},{"word":"걸리더라도","from":22.68,"to":23.513},
+    {"word":"스스로","from":23.68,"to":24.18},{"word":"알아들을","from":24.347,"to":25.013},
+    {"word":"수","from":25.18,"to":25.347},{"word":"있게","from":25.513,"to":25.847},
+    {"word":"되실","from":26.013,"to":26.347},{"word":"거예요.","from":26.513,"to":27.18},
+    {"word":"이제","from":27.301,"to":27.543},{"word":"단어","from":27.665,"to":27.907},
+    {"word":"하나하나가","from":28.028,"to":28.634},{"word":"아니라,","from":28.755,"to":29.179},
+    {"word":"문장으로","from":29.239,"to":29.724},{"word":"들리기","from":29.845,"to":30.209},
+    {"word":"시작하실","from":30.33,"to":30.814},{"word":"겁니다.","from":30.935,"to":31.42}
+  ];
+  // Last word's whisper-measured "to" (31.42) runs past the real audio file (31.36s,
+  // chunk-boundary padding — see knowledge doc); clamp so nothing schedules past root duration.
+  WORDS[WORDS.length - 1].to = 31.36;
+
+  var progressFillEl = document.getElementById("f11-progress-fill");
+  var caption = document.getElementById("f11-caption");
+  var grid = document.getElementById("f11-grid");
+  var sentenceWrap = document.getElementById("f11-sentence-wrap");
+  var sentence = document.getElementById("f11-sentence");
+  var thesis = document.getElementById("f11-thesis");
+
+  // Beat 0 (0.3-6.6s VO, "이제 영화나 유튜브를...당황하지 않으실 거예요."): setup caption, no
+  // sentence yet — mirrors Frame 1 Beat 0's caption-only opening.
+  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.3);
+  tl.to(caption, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 6.6);
+
+  // "영화나 유튜브" context flash (same asset/technique as Frame 1), overlapping the sentence's
+  // entrance.
+  tl.fromTo(grid, { opacity: 0 }, { opacity: 0.28, duration: 0.4, ease: "power2.out" }, 7.4)
+    .to(grid, { opacity: 0, duration: 0.6, ease: "power2.in" }, 9.6);
+
+  // Beat 1 (7.8-14.68s VO, "예를 들어...괜찮아요."): "Where were we?" appears ALREADY BLURRED
+  // (14px = Frame 1's peak blur value) — the mirror's starting state.
+  tl.fromTo(sentenceWrap, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.3)" }, 7.8);
+  tl.set(sentence, { filter: "blur(14px)" }, 7.8);
+
+  // Beat 2 (14.85-20.3s VO, "배운 대로...웨어, 루, 이 —"): blur clears progressively as the
+  // narration walks through relaxing/listening, finishing exactly as the syllable breakdown
+  // ends — Frame 1's blur-in run backwards.
+  tl.to(sentence, { filter: "blur(0px)", duration: 20.303 - 14.847, ease: "power1.out" }, 14.847);
+
+  // Beat 3 (20.45s VO "웨어루이!"): fully sharp landing with a glow pop — the climax, Frame 1's
+  // blur-lock moment in reverse.
+  tl.to(sentenceWrap, { scale: 1.08, duration: 0.2, ease: "power2.out" }, 20.452)
+    .to(sentenceWrap, { scale: 1, duration: 0.35, ease: "back.out(2)" }, "+=0");
+  tl.to(sentence, { textShadow: "0 0 1.6cqw rgba(245,197,24,0.5)", duration: 0.2, ease: "power2.out" }, 20.452)
+    .to(sentence, { textShadow: "0 0 0cqw rgba(245,197,24,0)", duration: 0.8, ease: "power2.inOut" }, "+=0.3");
+
+  tl.fromTo(progressFillEl, { width: "83.333%" }, { width: "91.667%", duration: 1.0, ease: "power1.inOut" }, 7.8);
+
+  // Beat 4 (21.2-27.18s VO, "이렇게 시간이...되실 거예요."): held sharp, then yields to the
+  // thesis payoff.
+  tl.to(sentenceWrap, { opacity: 0, y: -10, duration: 0.5, ease: "power2.inOut" }, 26.8);
+
+  // Beat 5 (27.3s onward, "이제 단어 하나하나가...들리기 시작하실 겁니다."): the thesis payoff
+  // line — fulfills the confirmed thumbnail copy's promise (paraphrase, not verbatim reuse).
+  tl.fromTo(thesis, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.3)" }, 27.301);
+})();
+</script>
+</template>

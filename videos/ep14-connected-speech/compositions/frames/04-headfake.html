@@ -7,14 +7,16 @@
      Beats:
        0.5–6.78s  (VO "결론부터...오히려 정반대예요"): "대충 하는 게 아닙니다" lands as the hero
        line (STORYBOARD Frame4 roles: foreground subject), "오히려 정반대예요" settles under it.
-       6.95–24.98s (VO "원어민들은...힘이 드는 방식인 거예요"): the frame's one focal beat — tone
+       6.95–24.98s (VO "원어민들은...힘이 드는 방식인 거예요"): the frame's focal beat — tone
        shifts navy→amber and the episode's real thesis, "힘을 빼면, 소리가 이어집니다", replaces
        the hero line and stays on screen for the rest of the frame (this exact phrase returns as
-       a callback in Frame 12's summary — frame.md Treatment #12).
-       24.98s–end (VO "저도 공부하기 전엔...그렇게 되는 거였어요"): personal-anecdote beat plays
-       as audio only — thesis line holds static (STORYBOARD: "정지"), no new caption competing
-       with it (same choice as Frame 1 Beat 3: let one line of narration go by without a
-       matching on-screen line rather than clutter the frame). */
+       a callback in Frame 12's summary — frame.md Treatment #12). 2026-09-08 addition: two
+       word-level pulses on "힘을"/"이어집니다" synced to the closest live narration words, so
+       this long hold isn't dead air (STORYBOARD's "정지" read as too static once actually
+       watched — see TASKS.md).
+       24.98s–end (VO "저도 공부하기 전엔...그렇게 되는 거였어요"): personal-anecdote beat — a
+       small muted caption (2026-09-08 addition, same treatment as Frame 1's caption swap)
+       carries this line beneath the still-held thesis instead of playing audio-only. */
   @font-face {
     font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
     src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
@@ -51,6 +53,12 @@
   .f04-hero-2 { position: absolute; left: 8cqw; right: 8cqw; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
   .f04-hero-2-text { font-family: 'Black Han Sans', sans-serif; font-size: 4.8cqw; color: #FFFFFF; text-align: center; line-height: 1.35; }
   .f04-hero-2-accent { color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.3); }
+  .f04-hero-2-pulse { display: inline-block; margin: 0 0.4cqw; }
+
+  /* Beat 3 (24.98s+, personal-anecdote span) — small muted caption beneath the still-held
+     thesis, same "no new competing hero" treatment as Frame 1's caption swap. */
+  .f04-anecdote { position: absolute; left: 10cqw; right: 10cqw; bottom: 9cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f04-anecdote-text { font-size: 1.7cqw; font-weight: 700; color: #A9B4C4; text-align: center; max-width: 74cqw; line-height: 1.6; }
 </style>
 
 <div data-hf-id="hf-f14e4s1" id="root" data-composition-id="04-headfake" data-start="0" data-duration="35.78" data-width="1920" data-height="1080">
@@ -66,7 +74,11 @@
   </div>
 
   <div data-hf-id="hf-f14e4s9" class="f04-hero-2" id="f04-hero-2">
-    <div data-hf-id="hf-f14e4sa" class="f04-hero-2-text">힘을 빼면,<br data-hf-id="hf-f14e4sbr">소리가 <span data-hf-id="hf-f14e4sac" class="f04-hero-2-accent">이어집니다</span></div>
+    <div data-hf-id="hf-f14e4sa" class="f04-hero-2-text"><span data-hf-id="hf-f14e4spw" class="f04-hero-2-pulse" id="f04-pulse-power">힘을</span> 빼면,<br data-hf-id="hf-f14e4sbr">소리가 <span data-hf-id="hf-f14e4sac" class="f04-hero-2-accent f04-hero-2-pulse" id="f04-pulse-link">이어집니다</span></div>
+  </div>
+
+  <div data-hf-id="hf-f14e4san" class="f04-anecdote" id="f04-anecdote">
+    <div data-hf-id="hf-f14e4sant" class="f04-anecdote-text" id="f04-anecdote-text">저도 공부하기 전엔 무슨 말을 하는지 하나도 몰랐는데</div>
   </div>
 </div>
 
@@ -120,6 +132,10 @@
   var hero1 = document.getElementById("f04-hero-1");
   var hero1Sub = document.getElementById("f04-hero-1-sub");
   var hero2 = document.getElementById("f04-hero-2");
+  var pulsePower = document.getElementById("f04-pulse-power");
+  var pulseLink = document.getElementById("f04-pulse-link");
+  var anecdote = document.getElementById("f04-anecdote");
+  var anecdoteText = document.getElementById("f04-anecdote-text");
 
   // Beat 1 (0.5-6.78s VO, "결론부터...오히려 정반대예요"): the hero line lands immediately and
   // with confidence — "결론부터 말씀드릴게요" means the answer comes up front, no build-up.
@@ -133,8 +149,25 @@
   tl.fromTo(hero2, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.3)" }, 7.2);
   tl.fromTo(progressFillEl, { width: "25%" }, { width: "33.333%", duration: 1.0, ease: "power1.inOut" }, 6.95);
 
-  // Beat 3 (24.98s VO onward, "저도 공부하기 전엔...그렇게 되는 거였어요"): personal anecdote
-  // plays as audio only — the thesis line holds static, intentionally no new caption.
+  // Beat 2b (2026-09-08 addition — the 6.95-24.98s thesis hold read as too static on
+  // review): word-level pulses on the thesis text, synced to the closest-matching live
+  // narration words ("힘을"/"빼고" ~9.9-10.8s, "이어"/"붙는" ~15.15-15.85s). The thesis is a
+  // compressed paraphrase, not a verbatim transcript, so this isn't word-for-word caption
+  // sync — it's a felt link between the still line and the mechanism explanation playing
+  // under it, without adding a second competing text block.
+  tl.to(pulsePower, { scale: 1.08, duration: 0.18, ease: "power2.out" }, 9.919)
+    .to(pulsePower, { scale: 1, duration: 0.3, ease: "power2.inOut" }, 10.791);
+  tl.to(pulseLink, { scale: 1.08, duration: 0.18, ease: "power2.out" }, 15.151)
+    .to(pulseLink, { scale: 1, duration: 0.3, ease: "power2.inOut" }, 15.848);
+
+  // Beat 3 (24.98s VO onward, "저도 공부하기 전엔...그렇게 되는 거였어요"): small muted
+  // caption carries the personal-anecdote line beneath the still-held thesis — same
+  // small-supporting-text treatment as Frame 1's caption, swapped at the clause boundary
+  // ("몰랐는데," ends 30.695 / "알고" starts 30.771) rather than left as audio-only.
+  tl.fromTo(anecdote, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 25.132);
+  tl.to(anecdote, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, 30.55)
+    .call(function () { anecdoteText.textContent = "그냥 힘 안 들이고 편하게 말하다 보니 그렇게 된 거였어요"; }, null, 30.75)
+    .to(anecdote, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 30.75);
 })();
 </script>
 </template>

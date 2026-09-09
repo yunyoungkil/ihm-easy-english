@@ -22,8 +22,11 @@
      font-size/color in this render pipeline once before).
 
      Beats:
-       0.5–15.88s (VO "원리는 이렇습니다...붙여버려요"): abstract rule stated as a small caption
-       (two clauses, dip-swapped at the boundary) — no concrete example on screen yet.
+       0.5–15.88s (VO "원리는 이렇습니다...붙여버려요"): abstract rule stated as a large, centered,
+       word-by-word emphasized caption (two clauses, crossfading at the boundary) — no concrete
+       example on screen yet. 2026-09-09 revision: was a small caption pinned near the top with
+       nothing else on screen for 7+ seconds, which read as broken, not minimal — see the CSS
+       comment on .f05-caption for the full reasoning.
        16.03–24.58s (VO "예를 들어 AN APPLE...모음으로 시작하죠"): the linking-diagram itself
        appears (AN card, then APPLE card, timed to when each word is actually spoken), then the
        two boundary letters (N in AN, first A in APPLE) highlight in turn as the narration
@@ -34,13 +37,11 @@
        aligning each syllable with its own card, which read as ungrounded/floating).
        31.76–37.8s (VO "그 N이 APPLE 앞으로 넘어가서...들리게 됩니다"): the frame's hold/proof
        beat — N travels from AN into APPLE (identity-continuous transform), lands fully inside
-       the card with a small overshoot settle. The under-card labels flip to the merged-reading
-       style: AN's label stays "앤" (text unchanged, only color/size/weight flip to the merged
-       "proof" blue — 2026-09-08 revision, user call, so a schwa-only third reading doesn't
-       compete with 내플 for attention) while APPLE's label swaps to "내플" via a second stacked
-       element crossfading in over the first, not a textContent mutation on the same node (a
-       one-shot script mutation doesn't revert when the timeline is scrubbed backward; a GSAP
-       opacity tween does).
+       the card with a small overshoot settle. The under-card labels flip to the merged reading
+       ("어" under AN, "내플" under APPLE — matches the narration audio exactly, "'어 내플'처럼
+       들리게 됩니다"), each via a second stacked element crossfading in over the Beat-2 one,
+       not a textContent mutation on the same node (a one-shot script mutation doesn't revert
+       when the timeline is scrubbed backward; a GSAP opacity tween does).
        37.97s–end (VO "억지로 붙이는 게 아니라...되는 거예요"): held on the landed state — no
        new visual competing with the just-proven mechanism. */
   @font-face {
@@ -69,10 +70,19 @@
   .f05-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
   .f05-progress-fill { position: absolute; left: 0; top: 0; width: 33.333%; height: 3px; background: #F5C518; }
 
-  /* Beat 0: abstract-rule caption, dip-swapped at the clause boundary (same treatment as
-     Frame 1/4's caption swap). */
-  .f05-caption { position: absolute; left: 10cqw; right: 10cqw; top: 13cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
-  .f05-caption-text { font-size: 2.3cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.55; }
+  /* Beat 0: abstract-rule caption, two clauses crossfading at the boundary.
+     2026-09-09 revision (user review): was a small caption pinned near the top (top:13cqh) so
+     it wouldn't collide with the diagram that appears later in this same frame — but the
+     diagram doesn't start until 16.6s, well after this caption beat fully fades out at 15.85s,
+     so the two never actually overlap and the top-pinning was serving no purpose. Left the
+     screen reading as broken (a single line of text stranded in the upper 13%, ~900px of dead
+     space below it for 7+ seconds). Now centered like Frame 4's hero reveal text, sized up, and
+     each word gets a brief pop as it's said instead of the sentence just sitting static —
+     continuous on-screen motion through the whole hold, not two static text swaps. */
+  .f05-caption { position: absolute; inset: 0; }
+  .f05-caption-clause { position: absolute; left: 8cqw; right: 8cqw; top: 50%; transform: translateY(-50%); text-align: center; opacity: 0; }
+  .f05-cword { display: inline-block; font-size: 3.1cqw; font-weight: 900; color: #FFFFFF; line-height: 1.65; margin-right: 0.55cqw; }
+  .f05-cword-accent { color: #F5C518; text-shadow: 0 0 1cqw rgba(245,197,24,0.3); }
 
   /* Beat 3 wraps the diagram + both labels in one positioning stage so they can rise together
      as a group (see f05-stage below) once the B-roll card needs the space beneath them —
@@ -138,7 +148,27 @@
   <div data-hf-id="hf-f14e5s3" class="f05-progress-track"><div data-hf-id="hf-f14e5s4" class="f05-progress-fill" id="f05-progress-fill"></div></div>
 
   <div data-hf-id="hf-f14e5sc" class="f05-caption" id="f05-caption">
-    <div data-hf-id="hf-f14e5sct" class="f05-caption-text" id="f05-caption-text">앞 단어가 자음으로 끝나고 뒤 단어가 모음으로 시작하면,</div>
+    <div data-hf-id="hf-f14e5sc1" class="f05-caption-clause" id="f05-caption-c1">
+      <span data-hf-id="hf-f14e5c1w0" class="f05-cword" id="f05-c1w0">앞</span>
+      <span data-hf-id="hf-f14e5c1w1" class="f05-cword" id="f05-c1w1">단어가</span>
+      <span data-hf-id="hf-f14e5c1w2" class="f05-cword" id="f05-c1w2">자음으로</span>
+      <span data-hf-id="hf-f14e5c1w3" class="f05-cword" id="f05-c1w3">끝나고</span>
+      <span data-hf-id="hf-f14e5c1w4" class="f05-cword" id="f05-c1w4">뒤</span>
+      <span data-hf-id="hf-f14e5c1w5" class="f05-cword" id="f05-c1w5">단어가</span>
+      <span data-hf-id="hf-f14e5c1w6" class="f05-cword" id="f05-c1w6">모음으로</span>
+      <span data-hf-id="hf-f14e5c1w7" class="f05-cword f05-cword-accent" id="f05-c1w7">시작하면,</span>
+    </div>
+    <div data-hf-id="hf-f14e5sc2" class="f05-caption-clause" id="f05-caption-c2">
+      <span data-hf-id="hf-f14e5c2w0" class="f05-cword" id="f05-c2w0">혀가</span>
+      <span data-hf-id="hf-f14e5c2w1" class="f05-cword" id="f05-c2w1">그</span>
+      <span data-hf-id="hf-f14e5c2w2" class="f05-cword" id="f05-c2w2">소리를</span>
+      <span data-hf-id="hf-f14e5c2w3" class="f05-cword" id="f05-c2w3">뒤</span>
+      <span data-hf-id="hf-f14e5c2w4" class="f05-cword" id="f05-c2w4">단어</span>
+      <span data-hf-id="hf-f14e5c2w5" class="f05-cword" id="f05-c2w5">쪽으로</span>
+      <span data-hf-id="hf-f14e5c2w6" class="f05-cword f05-cword-accent" id="f05-c2w6">슬쩍</span>
+      <span data-hf-id="hf-f14e5c2w7" class="f05-cword f05-cword-accent" id="f05-c2w7">넘겨서</span>
+      <span data-hf-id="hf-f14e5c2w8" class="f05-cword f05-cword-accent" id="f05-c2w8">붙여버려요</span>
+    </div>
   </div>
 
   <div data-hf-id="hf-f14e5stg" class="f05-stage" id="f05-stage">
@@ -168,7 +198,10 @@
     </div>
   </div>
 
-  <div data-hf-id="hf-f14e5llfw" class="f05-label-wrap f05-label-left"><div data-hf-id="hf-f14e5llf" class="f05-label" id="f05-label-left">앤</div></div>
+  <div data-hf-id="hf-f14e5llfw" class="f05-label-wrap f05-label-left">
+    <div data-hf-id="hf-f14e5llf" class="f05-label" id="f05-label-left">앤</div>
+    <div data-hf-id="hf-f14e5llfb" class="f05-label f05-label-stacked" id="f05-label-left-b">어</div>
+  </div>
   <div data-hf-id="hf-f14e5llrw" class="f05-label-wrap f05-label-right">
     <div data-hf-id="hf-f14e5llr" class="f05-label" id="f05-label-right-a">애플</div>
     <div data-hf-id="hf-f14e5llrb" class="f05-label f05-label-stacked" id="f05-label-right-b">내플</div>
@@ -232,8 +265,10 @@
   WORDS[WORDS.length - 1].to = 41.96;
 
   var progressFillEl = document.getElementById("f05-progress-fill");
-  var caption = document.getElementById("f05-caption");
-  var captionText = document.getElementById("f05-caption-text");
+  var c1 = document.getElementById("f05-caption-c1");
+  var c2 = document.getElementById("f05-caption-c2");
+  var c1Words = ["f05-c1w0", "f05-c1w1", "f05-c1w2", "f05-c1w3", "f05-c1w4", "f05-c1w5", "f05-c1w6", "f05-c1w7"].map(function (id) { return document.getElementById(id); });
+  var c2Words = ["f05-c2w0", "f05-c2w1", "f05-c2w2", "f05-c2w3", "f05-c2w4", "f05-c2w5", "f05-c2w6", "f05-c2w7", "f05-c2w8"].map(function (id) { return document.getElementById(id); });
   var diagram = document.getElementById("f05-diagram");
   var anCard = document.getElementById("f05-an-card");
   var appleCard = document.getElementById("f05-apple-card");
@@ -243,19 +278,30 @@
   var a1Letter = document.getElementById("f05-apple-a1-letter");
   var a1Tag = document.getElementById("f05-apple-a1-tag");
   var labelLeft = document.getElementById("f05-label-left");
+  var labelLeftB = document.getElementById("f05-label-left-b");
   var labelRightA = document.getElementById("f05-label-right-a");
   var labelRightB = document.getElementById("f05-label-right-b");
   var stage = document.getElementById("f05-stage");
   var brollWrap = document.getElementById("f05-broll-wrap");
 
-  // Beat 0 (0.5-15.88s VO, "원리는...붙여버려요"): abstract rule as a caption, dip-swapped at
-  // the clause boundary (7.878s "시작하면," ends / 7.955s "혀가" starts) — same treatment as
-  // Frame 1/4's caption swap.
-  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.8);
-  tl.to(caption, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, 7.82)
-    .call(function () { captionText.textContent = "혀가 그 소리를 뒤 단어 쪽으로 슬쩍 넘겨서 붙여버려요"; }, null, 7.96)
-    .to(caption, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 7.96);
-  tl.to(caption, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 15.5);
+  // Beat 0 (0.5-15.88s VO, "원리는...붙여버려요"): abstract rule as a centered, word-by-word
+  // emphasized caption — two clauses as two separate elements crossfading (not a textContent
+  // swap on one node, which doesn't revert on backward scrub — same fix already applied to the
+  // Beat-3 labels below). Clause 1's caption text matches the narration verbatim, so each word's
+  // pop is locked to its real spoken onset from WORDS. Clause 2's caption is a shortened
+  // paraphrase (not a literal transcript), so its pops are evenly staggered across its own
+  // display window instead of claiming a false precision.
+  tl.fromTo(c1, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.8);
+  [2.486, 2.84, 3.549, 4.434, 5.143, 5.497, 6.206, 7.091].forEach(function (t, i) {
+    tl.fromTo(c1Words[i], { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+  });
+  tl.to(c1, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 7.82);
+
+  tl.fromTo(c2, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 7.96);
+  c2Words.forEach(function (w, i) {
+    tl.fromTo(w, { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, 8.3 + i * 0.75);
+  });
+  tl.to(c2, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 15.5);
 
   // Beat 1 (16.03-24.58s VO, "예를 들어 AN APPLE...모음으로 시작하죠"): the diagram appears,
   // timed to when each word is actually spoken, then the two boundary letters highlight in
@@ -296,22 +342,18 @@
   tl.to(nCol, { scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 33.64); // lands + settles as "넘어가서" finishes
   tl.to(anCard, { opacity: 0.55, duration: 0.6, ease: "power2.inOut" }, 32.4); // AN dims once N departs
 
-  // Right label swaps to the merged reading (내플) via a second stacked element (labelRightB,
-  // see CSS comment) rather than mutating labelRightA's text — a GSAP tween is scrub-safe in
-  // both directions, a one-shot .call() mutation is not (2026-09-08, found via user report:
+  // Both labels swap to the merged reading (어 / 내플, matching the narration audio exactly —
+  // "'어 내플'처럼 들리게 됩니다") via a second stacked element per side (labelLeftB/labelRightB,
+  // see CSS comment) rather than mutating the Beat-2 element's text — a GSAP tween is scrub-safe
+  // in both directions, a one-shot .call() mutation is not (2026-09-08, found via user report:
   // scrubbing backward in Studio past this point left the text stuck on the merged reading even
   // after N had visibly returned to AN's card, since nothing tells a plain script mutation to
-  // "undo" itself on reverse seek). Left label's text stays "앤" through this beat too — only its
-  // color/size/weight flip to the merged "proof" styling (2026-09-08 revision, user call: AN
-  // losing its N isn't given its own new syllable label, since that would introduce a third
-  // reading competing with 내플 for attention; the schwa-only reading is implied, not labeled).
-  // Only labelLeft needs a property tween here (not a second stacked element) because its text
-  // never changes — color/scale/fontWeight/textShadow are all natively GSAP-tweenable and revert
-  // correctly on their own when scrubbed. Uses scale (not fontSize) to reach the larger merged
-  // size — animating fontSize reflows text and snaps to integer device pixels under the seek
-  // engine (npm run check caught this); scale is a transform, so it stays smooth at any seek
-  // speed and reads identically. 1.37 ≈ 2.6cqw / 1.9cqw, this label's base-to-merged size ratio.
-  tl.fromTo(labelLeft, { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1.37, color: "#008EFF", fontWeight: 900, textShadow: "0 0 1cqw rgba(0,142,255,0.3)", duration: 0.5, ease: "back.out(1.3)" }, 34.9);
+  // "undo" itself on reverse seek). 2026-09-09 correction: a same-session edit had briefly kept
+  // the left label as "앤" through this beat (text unchanged, only styling flipped) — reverted
+  // after user confirmed the narration audio says "어", not "앤", so the on-screen text must
+  // match what's actually said. Both stacked elements share `.f05-label-stacked`'s styling
+  // (color/size/weight/glow), so no per-property tweening is needed here at all.
+  tl.fromTo(labelLeftB, { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, 34.9);
   tl.fromTo(labelRightB, { opacity: 0, y: 8, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, 34.9);
 
   // Real mouth footage lands in the same beat as the merged-reading labels — the narration's

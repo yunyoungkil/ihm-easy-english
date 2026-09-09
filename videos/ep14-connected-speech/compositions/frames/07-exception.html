@@ -59,8 +59,16 @@
   .f07-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
   .f07-progress-fill { position: absolute; left: 0; top: 0; width: 50%; height: 3px; background: #F5C518; }
 
-  .f07-caption { position: absolute; left: 10cqw; right: 10cqw; top: 16cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
-  .f07-caption-text { font-size: 2.3cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.55; }
+  /* 2026-09-09 fix (same root cause as Frame 5/6, found via user preview review): top:16cqh left
+     each solo caption beat looking like a broken empty screen (nothing else on screen, no
+     overlap risk to justify pinning it high). Centered, enlarged, split into per-word spans with
+     pops timed to real narration onsets (WORDS matches both clauses verbatim). The two clauses
+     are now separate elements crossfading (not one node's textContent mutated via .call(), which
+     doesn't revert on backward scrub — same fix as Frame 5's labels/caption). */
+  .f07-caption { position: absolute; inset: 0; }
+  .f07-caption-clause { position: absolute; left: 8cqw; right: 8cqw; top: 50%; transform: translateY(-50%); text-align: center; opacity: 0; }
+  .f07-cword { display: inline-block; font-size: 3.1cqw; font-weight: 900; color: #FFFFFF; line-height: 1.65; margin-right: 0.55cqw; }
+  .f07-cword-accent { color: #F5C518; text-shadow: 0 0 1cqw rgba(245,197,24,0.3); }
 
   /* linking-diagram--bounce: two fixed-geometry word cards (same technique as Frame 5). */
   .f07-diagram { position: absolute; left: 30.2cqw; top: 38cqh; display: flex; align-items: flex-start; gap: 2cqw; opacity: 0; }
@@ -84,7 +92,31 @@
   <div data-hf-id="hf-f14e7s3" class="f07-progress-track"><div data-hf-id="hf-f14e7s4" class="f07-progress-fill" id="f07-progress-fill"></div></div>
 
   <div data-hf-id="hf-f14e7sc" class="f07-caption" id="f07-caption">
-    <div data-hf-id="hf-f14e7sct" class="f07-caption-text" id="f07-caption-text">그럼 예외는 없을까요? 방금 건 소리가 그냥 옆으로 넘어가서 붙는 거였잖아요.</div>
+    <div data-hf-id="hf-f14e7sc1" class="f07-caption-clause" id="f07-caption-c1">
+      <span data-hf-id="hf-f14e7c1w0" class="f07-cword" id="f07-c1w0">그럼</span>
+      <span data-hf-id="hf-f14e7c1w1" class="f07-cword" id="f07-c1w1">예외는</span>
+      <span data-hf-id="hf-f14e7c1w2" class="f07-cword f07-cword-accent" id="f07-c1w2">없을까요?</span>
+      <span data-hf-id="hf-f14e7c1w3" class="f07-cword" id="f07-c1w3">방금</span>
+      <span data-hf-id="hf-f14e7c1w4" class="f07-cword" id="f07-c1w4">건</span>
+      <span data-hf-id="hf-f14e7c1w5" class="f07-cword" id="f07-c1w5">소리가</span>
+      <span data-hf-id="hf-f14e7c1w6" class="f07-cword" id="f07-c1w6">그냥</span>
+      <span data-hf-id="hf-f14e7c1w7" class="f07-cword" id="f07-c1w7">옆으로</span>
+      <span data-hf-id="hf-f14e7c1w8" class="f07-cword" id="f07-c1w8">넘어가서</span>
+      <span data-hf-id="hf-f14e7c1w9" class="f07-cword" id="f07-c1w9">붙는</span>
+      <span data-hf-id="hf-f14e7c1w10" class="f07-cword" id="f07-c1w10">거였잖아요.</span>
+    </div>
+    <div data-hf-id="hf-f14e7sc2" class="f07-caption-clause" id="f07-caption-c2">
+      <span data-hf-id="hf-f14e7c2w0" class="f07-cword" id="f07-c2w0">근데</span>
+      <span data-hf-id="hf-f14e7c2w1" class="f07-cword" id="f07-c2w1">MADE</span>
+      <span data-hf-id="hf-f14e7c2w2" class="f07-cword" id="f07-c2w2">IT처럼</span>
+      <span data-hf-id="hf-f14e7c2w3" class="f07-cword f07-cword-accent" id="f07-c2w3">T나</span>
+      <span data-hf-id="hf-f14e7c2w4" class="f07-cword f07-cword-accent" id="f07-c2w4">D가</span>
+      <span data-hf-id="hf-f14e7c2w5" class="f07-cword" id="f07-c2w5">낄</span>
+      <span data-hf-id="hf-f14e7c2w6" class="f07-cword" id="f07-c2w6">때는</span>
+      <span data-hf-id="hf-f14e7c2w7" class="f07-cword" id="f07-c2w7">조금</span>
+      <span data-hf-id="hf-f14e7c2w8" class="f07-cword f07-cword-accent" id="f07-c2w8">다르게</span>
+      <span data-hf-id="hf-f14e7c2w9" class="f07-cword f07-cword-accent" id="f07-c2w9">움직여요.</span>
+    </div>
   </div>
 
   <div data-hf-id="hf-f14e7sd" class="f07-diagram" id="f07-diagram">
@@ -171,8 +203,10 @@
   WORDS[WORDS.length - 1].to = 44.0;
 
   var progressFillEl = document.getElementById("f07-progress-fill");
-  var caption = document.getElementById("f07-caption");
-  var captionText = document.getElementById("f07-caption-text");
+  var c1 = document.getElementById("f07-caption-c1");
+  var c2 = document.getElementById("f07-caption-c2");
+  var c1Words = ["f07-c1w0", "f07-c1w1", "f07-c1w2", "f07-c1w3", "f07-c1w4", "f07-c1w5", "f07-c1w6", "f07-c1w7", "f07-c1w8", "f07-c1w9", "f07-c1w10"].map(function (id) { return document.getElementById(id); });
+  var c2Words = ["f07-c2w0", "f07-c2w1", "f07-c2w2", "f07-c2w3", "f07-c2w4", "f07-c2w5", "f07-c2w6", "f07-c2w7", "f07-c2w8", "f07-c2w9"].map(function (id) { return document.getElementById(id); });
   var diagram = document.getElementById("f07-diagram");
   var madeCard = document.getElementById("f07-made-card");
   var itCard = document.getElementById("f07-it-card");
@@ -184,15 +218,25 @@
   var pron = document.getElementById("f07-pron");
   var pronRit = document.getElementById("f07-pron-rit");
 
-  // Beat 0 (0.5-7.32s VO, "그럼 예외는 없을까요?...옆으로 넘어가서 붙는 거였잖아요."): intro
-  // caption — direct question + Frame 5 callback.
-  tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.6);
-  // Beat 1 (7.46-14.82s VO, "근데 MADE IT처럼...한번 들어보세요."): caption swaps to name the
-  // exception before the concrete demo.
-  tl.to(caption, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, 7.3)
-    .call(function () { captionText.textContent = "근데 MADE IT처럼 T나 D가 낄 때는 조금 다르게 움직여요"; }, null, 7.46)
-    .to(caption, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 7.46);
-  tl.to(caption, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 14.4);
+  // Beat 0 (0.5-7.32s VO, "그럼 예외는 없을까요?...옆으로 넘어가서 붙는 거였잖아요."): centered
+  // intro caption — direct question + Frame 5 callback — each word popping exactly as it's
+  // spoken (WORDS matches verbatim). 2026-09-09 fix: was top:16cqh with nothing else on screen
+  // (broken-looking empty center, same root cause as Frame 5) and swapped clause text via
+  // .call() (not scrub-safe) — now centered + split into two crossfading elements, same pattern
+  // as Frame 5's Beat 0.
+  tl.fromTo(c1, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.6);
+  [0.479, 0.956, 1.593, 2.547, 3.025, 3.343, 3.979, 4.456, 5.093, 5.888, 6.365].forEach(function (t, i) {
+    tl.fromTo(c1Words[i], { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+  });
+  tl.to(c1, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 7.3);
+
+  // Beat 1 (7.46-14.82s VO, "근데 MADE IT처럼...한번 들어보세요."): names the exception before
+  // the concrete demo — same verbatim WORDS match, precise per-word pop.
+  tl.fromTo(c2, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 7.46);
+  [7.455, 7.994, 8.669, 9.613, 10.287, 10.827, 11.097, 11.501, 11.906, 12.446].forEach(function (t, i) {
+    tl.fromTo(c2Words[i], { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+  });
+  tl.to(c2, { opacity: 0, duration: 0.35, ease: "power2.inOut" }, 14.4);
 
   // Beat 2 (15.09-20.82s VO, "MADE IT...'메이릿'처럼 들립니다."): cards appear with full
   // letter-tags, D+I highlight red (accent-exception, frame.md), D bounces IN PLACE (y/scale

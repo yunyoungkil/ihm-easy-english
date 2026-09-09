@@ -59,10 +59,18 @@
   .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
   .f06-progress-fill { position: absolute; left: 0; top: 0; width: 41.667%; height: 3px; background: #F5C518; }
 
-  .f06-caption { position: absolute; left: 10cqw; right: 10cqw; top: 16cqh; display: flex; align-items: center; justify-content: center; opacity: 0; }
-  .f06-caption-text { font-size: 2.3cqw; font-weight: 900; color: #FFFFFF; text-align: center; max-width: 76cqw; line-height: 1.55; }
+  /* 2026-09-09 fix (same root cause as Frame 5, found via user preview review): top:16cqh was
+     pinned there to leave room for the diagram appearing later in the frame, but caption/phrase
+     each fully fade out before the next beat starts (confirmed: caption gone by 5.2s, phrase
+     starts 5.263s; phrase gone by 10.25s, diagram starts 10.294s) — no overlap ever happens, so
+     the top-pinning served no purpose and left each solo beat looking like a broken empty
+     screen. Centered instead, caption text enlarged + given per-word pop timed to real
+     narration onsets (WORDS has an exact match for this sentence). */
+  .f06-caption { position: absolute; left: 8cqw; right: 8cqw; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .f06-cword { display: inline-block; font-size: 3.1cqw; font-weight: 900; color: #FFFFFF; line-height: 1.65; margin-right: 0.55cqw; }
+  .f06-cword-accent { color: #F5C518; text-shadow: 0 0 1cqw rgba(245,197,24,0.3); }
 
-  .f06-phrase { position: absolute; left: 10cqw; right: 10cqw; top: 16cqh; display: flex; flex-direction: column; align-items: center; gap: 1.6cqh; opacity: 0; }
+  .f06-phrase { position: absolute; left: 10cqw; right: 10cqw; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6cqh; opacity: 0; }
   .f06-phrase-text { font-family: 'Archivo Black', sans-serif; font-size: 5.2cqw; color: #FFFFFF; text-align: center; }
   .f06-phrase-sub { font-size: 1.7cqw; font-weight: 700; color: #A9B4C4; text-align: center; }
 
@@ -85,7 +93,12 @@
   <div data-hf-id="hf-f14e6s3" class="f06-progress-track"><div data-hf-id="hf-f14e6s4" class="f06-progress-fill" id="f06-progress-fill"></div></div>
 
   <div data-hf-id="hf-f14e6sc" class="f06-caption" id="f06-caption">
-    <div data-hf-id="hf-f14e6sct" class="f06-caption-text">그럼 이게 문장 전체에서도 통하는지 볼까요?</div>
+    <span data-hf-id="hf-f14e6cw0" class="f06-cword" id="f06-cw0">그럼</span>
+    <span data-hf-id="hf-f14e6cw1" class="f06-cword" id="f06-cw1">이게</span>
+    <span data-hf-id="hf-f14e6cw2" class="f06-cword" id="f06-cw2">문장</span>
+    <span data-hf-id="hf-f14e6cw3" class="f06-cword" id="f06-cw3">전체에서도</span>
+    <span data-hf-id="hf-f14e6cw4" class="f06-cword" id="f06-cw4">통하는지</span>
+    <span data-hf-id="hf-f14e6cw5" class="f06-cword f06-cword-accent" id="f06-cw5">볼까요?</span>
   </div>
 
   <div data-hf-id="hf-f14e6sph" class="f06-phrase" id="f06-phrase">
@@ -159,6 +172,7 @@
 
   var progressFillEl = document.getElementById("f06-progress-fill");
   var caption = document.getElementById("f06-caption");
+  var cWords = ["f06-cw0", "f06-cw1", "f06-cw2", "f06-cw3", "f06-cw4", "f06-cw5"].map(function (id) { return document.getElementById(id); });
   var phrase = document.getElementById("f06-phrase");
   var diagram = document.getElementById("f06-diagram");
   var whereCard = document.getElementById("f06-where-card");
@@ -170,8 +184,13 @@
   var pron = document.getElementById("f06-pron");
   var pronRu = document.getElementById("f06-pron-ru");
 
-  // Beat 0 (0.5-5.12s VO, "그럼...통하는지 볼까요?"): small intro caption.
+  // Beat 0 (0.5-5.12s VO, "그럼...통하는지 볼까요?"): centered intro caption, each word popping
+  // exactly as it's spoken (WORDS has an exact match for this sentence) — same fix/pattern as
+  // Frame 5's Beat 0 (2026-09-09).
   tl.fromTo(caption, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.6);
+  [0.512, 1.088, 1.664, 2.24, 3.392, 4.352].forEach(function (t, i) {
+    tl.fromTo(cWords[i], { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+  });
   tl.to(caption, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 4.9);
 
   // Beat 1 (5.26-10.12s VO, "Where were we?"...한번 들어보세요"): the target phrase itself,

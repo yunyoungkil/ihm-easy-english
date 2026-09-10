@@ -1,34 +1,34 @@
 {
   "format": "LONGFORM",
-  "topic": "원어민이 지들 멋대로 발음하는 게 아닙니다: 게으른 혀가 만든 연음 소리 원리",
-  "audience": "단어는 아는데 문장으로 이어지면 전혀 안 들려 답답함을 느끼는 4060 리스닝 정체기 학습자",
+  "topic": "단어 끝 -SION 소리 원리 하나로 100단어 소리 언어팩 체득하기",
+  "audience": "비슷하게 생긴 긴 영어 단어만 보면 읽기가 두려워 말문이 막히는 왕초보 리딩 입문자",
   "variants": [
     {
       "id": "A",
-      "title": "원어민들이 절대로 교과서처럼 똑 부러지게 말하지 않는 진짜 이유",
-      "imageUrl": "/api/video-project-asset/ep14-connected-speech/thumbnail-a.jpg",
-      "thumbnailCopy": "이제 단어가 아니라 문장이 들립니다",
-      "badge": "⚡ 소리 연결 비밀",
-      "visualConcept": "입술과 혀의 힘을 완전히 뺀 편안한 표정의 실루엣과 물처럼 자연스럽게 이어지는 네온 사운드 웨이브 그래픽",
-      "isLocalFile": true
+      "title": "끝소리 ‘-sion’ 하나만 제대로 알면 영단어 100개가 저절로 읽힙니다",
+      "imageUrl": "",
+      "thumbnailCopy": "평생 써먹는 소리 연결 공식",
+      "badge": "📐 1초 확장 언어팩",
+      "visualConcept": "하나의 열쇠가 수많은 문을 동시에 여는 듯한 정돈된 기하학적 네온 블루 라이팅 비주얼",
+      "isLocalFile": false
     },
     {
       "id": "B",
-      "title": "아는 단어인데 문장만 나오면 안 들려 답답했던 분들, 딱 5분만 보세요",
-      "imageUrl": "/api/video-project-asset/ep14-connected-speech/thumbnail-b.jpg",
-      "thumbnailCopy": "답답했던 가슴이 시원하게 풀립니다",
-      "badge": "🤝 4060 맞춤 처방",
-      "visualConcept": "어지럽고 뿌연 안갯속 소리 파형이 맑고 투명한 빛줄기로 선명하게 정돈되는 따뜻한 톤의 감성 그래픽",
-      "isLocalFile": true
+      "title": "긴 단어 끝에 붙은 ‘-sion’, 원어민처럼 소리 내는 1초 규칙",
+      "imageUrl": "",
+      "thumbnailCopy": "이제 긴 단어도 단숨에 읽힙니다",
+      "badge": "⚡ 단어 읽기 혁명",
+      "visualConcept": "어두운 네이비 배경 속 거대한 입체 영단어 블록과 그 끝부분이 빛나는 미니멀 대비 레이아웃",
+      "isLocalFile": false
     },
     {
       "id": "C",
-      "title": "단어는 다 아는데, 왜 미국인 입만 거치면 한 단어로 뭉개질까?",
-      "imageUrl": "/api/video-project-asset/ep14-connected-speech/thumbnail-c.jpg",
-      "thumbnailCopy": "귀가 뻥 뚫리는 신세계가 열립니다",
-      "badge": "👂 리스닝 정체기 탈출",
-      "visualConcept": "좌측엔 분리된 단어 블록이 하나로 녹아내리는 매끄러운 3D 그래픽, 우측엔 강한 시각적 대비의 여백 공간",
-      "isLocalFile": true
+      "title": "비슷하게 생긴 긴 단어만 보면 얼어붙는 분, ‘-sion’부터 보세요",
+      "imageUrl": "",
+      "thumbnailCopy": "긴 단어 울렁증 오늘로 끝납니다",
+      "badge": "🤝 왕초보 리딩 구원",
+      "visualConcept": "복잡한 안개가 걷히며 편안하고 선명한 시야가 열리는 편안한 딥 에메랄드 톤의 안정적 비주얼",
+      "isLocalFile": false
     }
   ],
   "activeFeedView": "A",
@@ -40,101 +40,67 @@
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 89,
-        "legibilityScore": 94,
-        "visualSalienceScore": 91,
-        "contrastRating": "최상(High)",
-        "focalPoint": "중앙 하단 옐로우 하이라이트 박스 '진짜 이유' 및 네온 구강 단면 그래픽",
-        "predictedGrade": "S",
-        "predictedCtrRange": "9.2% ~ 12.8%",
-        "strengths": [
-          "좌측 텍스트와 우측 인물 시선 처리, 중앙 구강/음파 그래픽이 16:9 화면에서 완벽한 시선 흐름 형성",
-          "블랙 아웃라인과 옐로우 포인트 박스를 활용해 4060 타겟 기준 모바일 축소 화면 가독성 극대화"
-        ],
-        "weaknesses": [
-          "메인 텍스트가 4줄로 다소 밀도가 높아 좌측 여백이 살짝 타이트함"
-        ],
-        "visualImprovementTip": "좌측 메인 카피 행간을 5% 줄이고, 우측 하단 영상 길이 태그 공간을 고려해 하단 캡션을 좌측으로 30px 이동 권장"
-      },
-      {
-        "variantKey": "B",
-        "curiosityGapScore": 76,
-        "legibilityScore": 82,
-        "visualSalienceScore": 78,
-        "contrastRating": "우수(Medium-High)",
-        "focalPoint": "우측 하단 옐로우 박스 '딱 5분만 보세요'",
-        "predictedGrade": "B+",
-        "predictedCtrRange": "5.8% ~ 7.4%",
-        "strengths": [
-          "4060 타겟을 직접 명시한 상단 뱃지와 인물의 답답한 호흡 연출로 공감대 형성"
-        ],
-        "weaknesses": [
-          "텍스트가 지나치게 서술형이라 1초 안에 핵심 의도를 파악하기 어려움",
-          "우측 텍스트 배치가 유튜브 타임스탬프 태그와 겹칠 위험이 높음"
-        ],
-        "visualImprovementTip": "우측 텍스트를 2줄로 대폭 축약하고 인물 위치를 우측으로 옮겨 표준적 시선 분할 적용 권장"
-      },
-      {
-        "variantKey": "C",
-        "curiosityGapScore": 84,
-        "legibilityScore": 80,
-        "visualSalienceScore": 83,
+        "curiosityGapScore": 62,
+        "legibilityScore": 41,
+        "visualSalienceScore": 58,
         "contrastRating": "보통(Medium)",
-        "focalPoint": "머리를 감싸 쥔 인물의 고통스러운 표정과 옐로우 박스 '한 단어로 뭉개질까?'",
-        "predictedGrade": "A-",
-        "predictedCtrRange": "7.5% ~ 9.0%",
+        "focalPoint": "모바일 화면에서 3줄 이상 차지하는 과도하게 긴 설명문 텍스트 덩어리",
+        "predictedGrade": "C+",
+        "predictedCtrRange": "3.8% ~ 5.4%",
         "strengths": [
-          "리스닝 정체기를 겪는 시청자의 답답함을 직관적인 바디랭귀지로 강력하게 전달"
+          "제목에 '100단어', '-SION' 등 구체적인 학습 대상과 확장 보상이 명시되어 있어 학습 가치가 분명함",
+          "'🎯 1초 원리 체득' 뱃지는 즉각적인 해결책을 원하는 입문자에게 클릭 매력도가 높음"
         ],
         "weaknesses": [
-          "상단 텍스트가 인물 정수리 부분과 맞닿아 시각적 답답함 유발",
-          "소리 원리 콘텐츠라는 교육적 단서(음파, 입술 등)가 결여되어 단순 브이로그처럼 보일 위험"
+          "썸네일 텍스트 카피가 50자 이상의 줄글(설명문) 형태로 작성되어 모바일 피드(120px)에서 완전히 뭉개져 판독 불가",
+          "비슷하게 생긴 긴 단어를 두려워하는 왕초보 대상임에도 카피가 기획서용 개요처럼 장황하여 첫 1초 시선 집중 실패",
+          "우측 하단 영상 길이 태그(08:24 등)와 텍스트 하단부가 겹쳐 시각적 피로감을 유발할 위험이 매우 높음"
         ],
-        "visualImprovementTip": "인물 크기를 15% 축소해 텍스트와 인물 간 호흡 공간을 확보하고 배경에 미세한 음파 네온 라인 추가 권장"
+        "visualImprovementTip": "썸네일 본문 텍스트를 전면 폐기하고, 화면 좌측에 큼직한 대비(예: 'DECISION' 단어 중 '-SION'만 형광 옐로우 강조)와 함께 '1초면 100단어 해결' 수준의 10자 이내 볼드 폰트(블랙 외곽선 4px 적용)로 극단적 압축 필요"
       }
     ],
     "bestVariant": "A",
-    "overallVerdict": "시안 A는 시각적 완성도와 클릭 유발력의 균형이 가장 뛰어납니다. 4060 학습자의 고통점을 정확히 짚으면서도 네온 구강 그래픽을 통해 '소리 원리'를 다룬다는 지적 기대감을 확실히 심어주어 홈 피드 경쟁에서 압도적 우위를 점합니다.",
+    "overallVerdict": "시안 A는 기획 의도와 교육적 가치(100단어 소리 확장)는 훌륭하나, 썸네일 카피가 읽을 수 없는 기획서 문장으로 들어가 있어 모바일 홈피드에서 심각한 이탈이 발생합니다. 썸네일은 '긴 단어 공포를 한 방에 없애준다'는 결과적 보상만 시각화하고, 제목에서 호기심을 폭발시키는 구조로 전면 재정비해야 클릭률 8% 이상을 달성할 수 있습니다.",
     "aiTitleSuggestions": [
       {
         "type": "⚡ 후킹형 (호기심 극대화)",
-        "title": "단어는 다 아는데 문장만 나오면 안 들리는 진짜 이유",
-        "thumbnailCopy": "귀가 열리는 소리 지름길",
-        "suggestedBadge": "⚡ 소리 연결 비밀",
-        "designConcept": "놀란 표정의 강사와 입에서 뻗어나오는 매끄러운 광원 사운드 웨이브",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, middle-aged Korean instructor pointing at glowing streamlined soundwaves flowing between words, dark navy ambient background, cinematic neon cyan accents, copy space on left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "긴 단어 끝에 붙은 ‘-sion’, 원어민처럼 소리 내는 1초 규칙",
+        "thumbnailCopy": "이제 긴 단어도 단숨에 읽힙니다",
+        "suggestedBadge": "⚡ 단어 읽기 혁명",
+        "designConcept": "어두운 네이비 배경 속 거대한 입체 영단어 블록과 그 끝부분이 빛나는 미니멀 대비 레이아웃",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, glowing typography block structure focusing on the end of a long word, high-contrast cyan and amber lighting, minimalist graphic layout, copy space for Korean text on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "❓ 질문형 (클릭 유도)",
-        "title": "미국인들은 왜 쉬운 단어 3개를 꼭 한 단어로 뭉개서 말할까?",
-        "thumbnailCopy": "이제 단어 분리 끝납니다",
-        "suggestedBadge": "👂 리스닝 병목 해결",
-        "designConcept": "물음표 네온 심볼과 세 개의 단어 블록이 하나로 녹아내리는 3D 비주얼",
-        "midjourneyPrompt": "Clean horizontal visual artwork, three glowing floating sound blocks merging smoothly into one seamless wave, deep studio lighting, dark graphite and indigo background, soft magenta rim lighting, copy space on left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "decision, vision... 왜 끝글자 ‘-sion’만 나오면 멈칫할까?",
+        "thumbnailCopy": "100단어가 한 번에 풀리는 순간",
+        "suggestedBadge": "❓ 읽기 공포 탈출",
+        "designConcept": "물음표가 부드럽게 감도는 칠판 텍스처와 두려움을 해소해주는 따뜻한 앰버 림라이트의 직관적 구도",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English education, deep dark slate classroom aesthetic, soft warm amber spotlight illuminating a central focal point, mysterious intellectual atmosphere, ample negative space for text on left side, modern educational graphic, cinematic lighting, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "💥 반전형 (상식 파괴)",
-        "title": "원어민은 절대로 단어를 하나씩 또박또박 끊어 읽지 않습니다",
-        "thumbnailCopy": "무작정 듣지 마세요",
-        "suggestedBadge": "🚫 교과서 영어 탈피",
-        "designConcept": "뚝뚝 끊긴 벽돌 사운드 바가 부드러운 실크 리본 형태로 전환되는 대비 연출",
-        "midjourneyPrompt": "Clean horizontal visual artwork, high contrast concept of jagged broken sound bars transforming into a smooth glowing fluid wave, dark navy minimalist background, sophisticated studio illumination, copy space on left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "영단어 끝 ‘-sion’은 절대로 써진 그대로 읽는 게 아닙니다",
+        "thumbnailCopy": "철자에 속지 않는 진짜 소리",
+        "suggestedBadge": "💥 엉터리 독음 금지",
+        "designConcept": "강렬한 레드와 쿨그레이의 명도 대비로 기존의 잘못된 읽기 습관을 깨뜨리는 임팩트 비주얼",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English phonics mastery, dramatic high-contrast split composition, deep charcoal and warning crimson accent lighting, visual metaphor of breaking an old confusing barrier, clean negative copy space on left half, sleek modern design, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "📐 원리형 (쉬운 해결책)",
-        "title": "게으른 혀가 만든 지름길 알면, 안 들리던 영어 문장이 들립니다",
-        "thumbnailCopy": "소리 원리 딱 하나",
-        "suggestedBadge": "🔑 발음 지름길 공개",
-        "designConcept": "구강 단면 실루엣 안에서 혀의 움직임이 최소화되며 직선으로 흐르는 빛",
-        "midjourneyPrompt": "Clean horizontal educational visual, minimalist glowing anatomical side profile silhouette showing mouth and effortless vocal flow, modern dark cyberpunk navy background, yellow and cyan subtle glow, copy space on left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "끝소리 ‘-sion’ 하나만 제대로 알면 영단어 100개가 저절로 읽힙니다",
+        "thumbnailCopy": "평생 써먹는 소리 연결 공식",
+        "suggestedBadge": "📐 1초 확장 언어팩",
+        "designConcept": "하나의 열쇠가 수많은 문을 동시에 여는 듯한 정돈된 기하학적 네온 블루 라이팅 비주얼",
+        "midjourneyPrompt": "Clean horizontal visual artwork for phonetic rule mastery, deep midnight blue background with interconnected geometric soundwave network, sleek minimalist master key aesthetic lighting in vivid gold and teal, neat layout with expansive empty copy space on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "🤝 공감형 (타겟 시청자 맞춤)",
-        "title": "아는 단어인데 영화만 틀면 외계어로 들려 답답했던 분들 보세요",
-        "thumbnailCopy": "답답했던 가슴 뻥 뚫림",
-        "suggestedBadge": "🤝 4060 리스닝 처방",
-        "designConcept": "답답한 안개 속에서 맑고 청명한 빛줄기가 귀 쪽으로 관통하는 따뜻한 연출",
-        "midjourneyPrompt": "Clean horizontal visual artwork, warm empathetic atmosphere, dark smoky fog clearing away into sharp luminous crystal clarity, deep navy and warm amber lighting, cinematic depth of field, copy space on left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "비슷하게 생긴 긴 단어만 보면 얼어붙는 분, ‘-sion’부터 보세요",
+        "thumbnailCopy": "긴 단어 울렁증 오늘로 끝납니다",
+        "suggestedBadge": "🤝 왕초보 리딩 구원",
+        "designConcept": "복잡한 안개가 걷히며 편안하고 선명한 시야가 열리는 편안한 딥 에메랄드 톤의 안정적 비주얼",
+        "midjourneyPrompt": "Clean horizontal visual artwork for beginner English learners, calming deep emerald and dark navy backdrop with a soft guiding beam of warm golden light, clear organized path visual metaphor, clutter-free composition with spacious area for large Korean typography, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

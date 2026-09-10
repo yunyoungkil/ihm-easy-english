@@ -1,6 +1,6 @@
 # 지금 할 일
 
-마지막 확인: 2026-09-09
+마지막 확인: 2026-09-10
 
 ## 진행 중 — 단편 EP14(연음/linking sounds)
 
@@ -40,10 +40,18 @@ Frame 5·7 축소판 재사용), Frame 9(리스닝, 9조각 concat 오디오), F
 "어"→"앤" 텍스트 변경.
 **✅ 2026-09-09 해결**: 다음 세션에서 사용자가 확인 — 예상한 가설대로 나레이션 음성("어 내플")과
 화면 표기(전날 "앤"으로 잘못 바꿈)가 어긋나 있었음. 좌측 라벨도 우측과 같은 크로스페이드
-패턴으로 되돌려 병합 상태에서 "어/내플"이 나레이션과 정확히 일치하도록 수정 완료. 상세:
-`videos/ep14-connected-speech/TASKS.md` 맨 끝.
-**다음 행동**: 사용자 전체 프리뷰 검수 → BGM/SFX/inline-highlight/네온보더 채널 공통 규칙 적용
-→ 렌더. 상세: `videos/ep14-connected-speech/BRIEF.md`.
+패턴으로 되돌려 병합 상태에서 "어/내플"이 나레이션과 정확히 일치하도록 수정 완료.
+**2026-09-10: 전체 프리뷰 검수 완료 확인**(Frame 8·11·12도 이미 실측 타이밍 기반, 빈 화면
+버그 없음 확인 — Frame 8 배지/질문 텍스트 스왑만 스크럽 취약성 발견해 같이 수정) →
+**BGM/SFX/inline-highlight/네온보더 채널 공통 규칙 4개 전부 적용 완료**: BGM은 EP13에서
+사용자가 고른 로컬 곡(Snack Time) 재사용해 12프레임 슬라이스+더킹, SFX는 채널 시그니처
+reveal-chime을 "완성/정답 공개" 12곳에, inline-highlight는 테제/카타르시스/마무리 약속
+3곳에, 네온 테두리는 Frame 12(7카드 요약)에 EP13 Frame 9의 traveling-glow-arc 엔진을 이식.
+`npm run check` 전체 통과. 상세: `videos/ep14-connected-speech/TASKS.md` 맨 끝.
+**✅ 2026-09-10 최종 렌더 완료**: `output/upload-packages/ep14-connected-speech-longform/video.mp4`
+(1920x1080, 30fps, 428.1초, 23.7MB) — **EP14 영상 제작 완료.**
+**다음 행동**: 업로드 패키지 작성(제목·설명·태그·고정 댓글, 엔드스크린 연결 영상은 EP13으로
+설정할 것 — BRIEF.md에 메모됨) → 업로드. 상세: `videos/ep14-connected-speech/BRIEF.md`.
 
 ## 진행 중 — 단편 EP13(알파벳 소리 지름길)
 

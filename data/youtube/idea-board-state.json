@@ -119,28 +119,28 @@
     "generatedAt": "2026-09-07T09:43:16.844Z"
   },
   "selected": {
-    "rank": 1,
-    "topic": "원어민이 지들 멋대로 발음하는 게 아닙니다: 게으른 혀가 만든 연음 소리 원리",
-    "angleOrHook": "원어민이 지들 멋대로 발음을 굴리는 게 아니라 혀를 덜 쓰려고 소리를 잇는 '게으른 혀의 지름길' 원리를 밝혀 무작정 듣기 훈련 없이도 귀가 뚫리는 카타르시스를 제공합니다.",
-    "targetAudience": "단어는 아는데 문장으로 이어지면 전혀 안 들려 답답함을 느끼는 4060 리스닝 정체기 학습자",
-    "suggestedBadge": "👂 소리 지름길",
-    "rationale": "시장 수요 키워드 '영어 듣기 안 들리는 이유'(opportunityScore 45.3)와 시청자 고통점 '지들 멋대로 발음'을 결합하고, 채널 내 가장 유지율이 검증된 'LEGACY'(fitScore 57) 포맷을 적용할 수 있는 최적 시점입니다.",
+    "rank": 2,
+    "topic": "단어 끝 -SION 소리 원리 하나로 100단어 소리 언어팩 체득하기",
+    "angleOrHook": "복잡한 발음 기호 없이 혀 위치 하나만 살짝 바꾸어 decision, vision 같은 수십 개 단어가 단숨에 입에 붙고 구별되는 소리 확장 카타르시스를 전달합니다.",
+    "targetAudience": "비슷하게 생긴 긴 영어 단어만 보면 읽기가 두려워 말문이 막히는 왕초보 리딩 입문자",
+    "suggestedBadge": "🎯 1초 원리 체득",
+    "rationale": "채널 규칙 데이터 중 가장 성과가 높은 '-SION'(fitScore 45) 규칙을 활용하고, '왕초보 영어 발음'(opportunityScore 43.3) 수요와 시청자 핵심 어휘 '언어팩', '체득'을 직접 반영했습니다.",
     "dataSourceRefs": [
       {
         "source": "marketDemand",
-        "detail": "'영어 듣기 안 들리는 이유' (opportunityScore 45.3) - 아웃라이어 연음발음 법칙 수요"
+        "detail": "'왕초보 영어 발음' (opportunityScore 43.3, 신뢰도 ok)"
       },
       {
         "source": "contentOpportunity",
-        "detail": "포맷 'LEGACY' (fitScore 57, 41개 영상 보유)"
+        "detail": "시즌1 규칙 '-SION' (fitScore 45, 채널 규칙 중 1위)"
       },
       {
         "source": "audienceDna",
-        "detail": "시청자 어휘 '지들 멋대로 발음', '자주 쓰는 근육'"
+        "detail": "시청자 어휘 '언어팩', '체득'"
       }
     ],
     "suggestedFormat": "LONGFORM",
-    "score": 88
+    "score": 84
   },
   "generatedAt": "2026-09-07T09:43:16.844Z"
 }

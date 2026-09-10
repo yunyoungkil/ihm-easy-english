@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-07T09:46:46.340Z",
+  "updatedAt": "2026-09-10T10:08:23.769Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -64,6 +64,32 @@
       "episodeLabel": "단편 EP14",
       "status": "selected",
       "selectedAt": "2026-09-07T09:46:46.340Z",
+      "producedAt": null
+    },
+    {
+      "topic": "단어 끝 -SION 소리 원리 하나로 100단어 소리 언어팩 체득하기",
+      "angleOrHook": "복잡한 발음 기호 없이 혀 위치 하나만 살짝 바꾸어 decision, vision 같은 수십 개 단어가 단숨에 입에 붙고 구별되는 소리 확장 카타르시스를 전달합니다.",
+      "targetAudience": "비슷하게 생긴 긴 영어 단어만 보면 읽기가 두려워 말문이 막히는 왕초보 리딩 입문자",
+      "rank": 2,
+      "score": 84,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "'왕초보 영어 발음' (opportunityScore 43.3, 신뢰도 ok)"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "시즌1 규칙 '-SION' (fitScore 45, 채널 규칙 중 1위)"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "시청자 어휘 '언어팩', '체득'"
+        }
+      ],
+      "episodeSlug": null,
+      "episodeLabel": null,
+      "status": "selected",
+      "selectedAt": "2026-09-10T10:08:23.769Z",
       "producedAt": null
     }
   ]

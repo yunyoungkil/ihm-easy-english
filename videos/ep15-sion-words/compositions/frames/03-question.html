@@ -1,0 +1,108 @@
+<template>
+<style>
+  /* 03-question — Frame 3 "질문 던지기 (Big Question)". Same three words as Frame 1, but now
+     each row uses a FIXED-width stem column (right-aligned) + a fixed-width SION column
+     (left-aligned) so all three SION spans land at exactly the same x — proving the spelling
+     is identical. A highlight bar grows behind that aligned column as the narration says
+     "완전히 똑같은데", then two question marks land for the two fears (발음 기호 암기 / 단어
+     통째로 암기). Built from assets/voice/03.words.json (2026-09-10). 2026-09-10 revision:
+     first build used CSS Grid with max-content columns, which produced garbled wrapping under
+     this project's container-query setup — replaced with plain fixed-width flex columns,
+     which is more robust and easier to reason about. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f03-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f03-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f03-progress-fill { position: absolute; left: 0; top: 0; width: 16.667%; height: 3px; background: #F5C518; }
+
+  .f03-rows { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); display: flex; flex-direction: column; gap: 2.6cqh; }
+  .f03-row { display: flex; align-items: center; position: relative; }
+  .f03-stem { width: 26cqw; font-family: 'Archivo Black', sans-serif; font-size: 5.6cqw; line-height: 1; color: #FFFFFF; text-align: right; opacity: 0; flex-shrink: 0; }
+  .f03-sion { width: 17cqw; font-family: 'Archivo Black', sans-serif; font-size: 5.6cqw; line-height: 1; color: #FFFFFF; text-align: left; opacity: 0; flex-shrink: 0; }
+
+  /* Positioned to exactly overlap the SION column (left = stem width) across all three rows —
+     proves the three spans share one exact x-position rather than just looking similar. */
+  .f03-highlight { position: absolute; left: 26cqw; top: -6cqh; bottom: -6cqh; width: 17cqw; background: rgba(245,197,24,0.16); border: 2px solid rgba(245,197,24,0.4); border-radius: 0.6cqw; transform: scaleY(0); transform-origin: center; z-index: -1; }
+
+  .f03-marks { position: absolute; right: 6cqw; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 2.4cqh; }
+  .f03-mark { font-family: 'Archivo Black', sans-serif; font-size: 5cqw; color: #F5C518; text-shadow: 0 0 1.2cqw rgba(245,197,24,0.4); opacity: 0; transform: scale(0.6) rotate(-8deg); }
+</style>
+
+<div data-hf-id="hf-tkjs" id="root" data-composition-id="03-question" data-start="0" data-duration="19.32" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-wnvm" id="f03-bg-clip" class="clip f03-bg" data-start="0" data-duration="19.32" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-gwiz" id="f03-voice" src="assets/voice/03.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-gqxk" id="f03-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="19.32" data-media-start="56.6" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-fbly" id="f03-progress-track" class="f03-progress-track"></div>
+  <div data-hf-id="hf-3p84" id="f03-progress-fill" class="f03-progress-fill"></div>
+
+  <div data-hf-id="hf-uvz6" id="f03-content-clip" class="clip" data-start="0" data-duration="19.32" data-track-index="1">
+    <div data-hf-id="hf-awhm" id="f03-rows" class="f03-rows">
+      <div data-hf-id="hf-i2je" id="f03-highlight" class="f03-highlight"></div>
+      <div data-hf-id="hf-893q" class="f03-row"><div data-hf-id="hf-4drk" id="f03-stem1" class="f03-stem">DECI</div><div data-hf-id="hf-w6ve" id="f03-sion1" class="f03-sion">SION</div></div>
+      <div data-hf-id="hf-4f0a" class="f03-row"><div data-hf-id="hf-9su1" id="f03-stem2" class="f03-stem">TELEVI</div><div data-hf-id="hf-4fqd" id="f03-sion2" class="f03-sion">SION</div></div>
+      <div data-hf-id="hf-4tbb" class="f03-row"><div data-hf-id="hf-fqrn" id="f03-stem3" class="f03-stem">EXPAN</div><div data-hf-id="hf-ki7w" id="f03-sion3" class="f03-sion">SION</div></div>
+    </div>
+    <div data-hf-id="hf-feiu" id="f03-marks" class="f03-marks">
+      <div data-hf-id="hf-t3zw" id="f03-mark1" class="f03-mark">?</div>
+      <div data-hf-id="hf-z6y5" id="f03-mark2" class="f03-mark">?</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["03-question"] = tl;
+
+  var stems = [document.getElementById("f03-stem1"), document.getElementById("f03-stem2"), document.getElementById("f03-stem3")];
+  var sions = [document.getElementById("f03-sion1"), document.getElementById("f03-sion2"), document.getElementById("f03-sion3")];
+  var highlight = document.getElementById("f03-highlight");
+  var mark1 = document.getElementById("f03-mark1");
+  var mark2 = document.getElementById("f03-mark2");
+  var fill = document.getElementById("f03-progress-fill");
+
+  // Three words appear together (spoken back-to-back, 2.663-6.313s).
+  [0, 1, 2].forEach(function (i) {
+    var t = [2.663, 3.821, 5.214][i];
+    tl.fromTo([stems[i], sions[i]], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, t);
+  });
+
+  // "완전히 똑같은데" (8.055-9.439s): highlight bar grows behind the aligned SION column,
+  // proving the three spans share one exact x-position.
+  tl.fromTo(highlight, { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.6)" }, 8.4);
+
+  // "왜 발음은 다 다르게 날까요?" (9.833-12.04s): first question mark.
+  tl.fromTo(mark1, { opacity: 0, scale: 0.6, rotate: -8 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.4, ease: "back.out(1.8)" }, 10.4);
+
+  // "아니면 단어를 통째로 외워야 하는 걸까요?" (16.453-19.32s): second question mark, and the
+  // scene dims slightly to build tension going into Frame 4's reveal.
+  tl.fromTo(mark2, { opacity: 0, scale: 0.6, rotate: -8 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.4, ease: "back.out(1.8)" }, 16.8);
+  tl.to("#f03-bg-clip", { filter: "brightness(0.82)", duration: 1.0, ease: "power2.inOut" }, 17.5);
+
+  tl.fromTo(fill, { width: "16.667%" }, { width: "25%", duration: 1.0, ease: "power1.inOut" }, 0);
+})();
+</script>
+</template>

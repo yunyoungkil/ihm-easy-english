@@ -2,56 +2,54 @@
 
 마지막 확인: 2026-09-10
 
-## 진행 중 — 단편 EP14(연음/linking sounds)
+## 진행 중 — 단편 EP15(-sion 리딩)
+
+`videos/ep15-sion-words/` — 아이디어 보드에서 소재 선정(`-SION` 규칙, 채널 보유 규칙 중
+fitScore 1위) → A/B 시뮬레이터로 썸네일 3안 생성·Gemini AI 진단(시안 A: S등급, CTR 8.8~11.5%)
+→ 시안 A 확정(2026-09-10) → `BRIEF.md` 작성 완료. 상세 근거: `videos/ep15-sion-words/BRIEF.md`.
+
+- **제목**: 끝소리 '-sion' 하나만 제대로 알면 영단어 100개가 저절로 읽힙니다
+- season1 EP07과 소재가 겹치지만 각도가 다름(EP07=강세, EP15=읽기 자신감/패턴 확장) — 대본
+  단계에서 명확히 분리할 것.
+- **`SCRIPT.md`·`frame.md`·`STORYBOARD.md` 작성 완료, TTS 나레이션·whisper 실측까지 완료**
+  (2026-09-10). 핵심 규칙(웹 검색 검증 완료): "-sion 앞 글자가 모음 또는 R이면 전(텔레비전·
+  비전·버전·컨버전), 그 밖의 자음이면 션(텐션·맨션)", 진짜 예외는 SSION(이중S)뿐(미션·패션은
+  앞 글자 무관 항상 션). 여러 라운드 코멘트 반영 과정에서 나온 일반 교훈: Frame 1(훅)엔 공감뿐
+  아니라 호기심·이득도 항상 챙긴다는 규칙을 `VIDEO_WORKFLOW.md`에 신설. TTS 12개 전부 생성
+  완료(Gemini Charon, ₩373), 실측 총 길이 409.73초.
+- **Frame 8·11 정답 누설·중복 발화 버그 해결 완료(2026-09-10)**: (1) 질문 단계에서 목표 영어
+  단어를 소리 내어 말해 TTS 발음이 전/션 정답을 누설하던 문제 — 나레이션 수정 + 재생성(₩69,
+  Google AI Studio 월간 지출 한도 초과로 한 번 막혔다가 사용자가 한도 상향 후 해결). (2) 정답
+  공개 문장도 화면에 이미 보이는 영어 단어를 또 말하는 중복이 있어, 처음엔 신규 스크립트
+  `scripts/trim-word.mjs`로 기존 오디오에서 해당 구간만 정밀 삭제했으나(whisper 실측 시각 기준
+  크로스페이드) 사용자가 들어보고 억양이 어색하다고 판단, **최종적으로 TTS 재생성으로 전환**
+  (₩61). 새 교훈을 `production-rules.md`에 추가: 문장 일부만 오디오 편집으로 잘라내면 억양
+  곡선까지는 못 고치므로, 문구 자체를 바꿨다면 재생성 비용이 적을 땐 편집보다 재생성을 먼저
+  시도할 것. 실측 총 길이 401.21초로 재계산 완료.
+- **12프레임 HTML 컴포지션 전체 제작 완료(2026-09-10)** — `hyperframes check` 0 errors,
+  프레임마다 스냅샷으로 픽셀 검증. `sion-card`/`sound-tag`/`sion-cluster`/`syllable-buildup`/
+  `reveal-blur`/`quiz-reveal` 신규 컴포넌트 전부 구현. 아직 안 한 것: BGM 더킹(carve.mjs),
+  inline-highlight, 렌더.
+- **다음 행동**: 사용자 프리뷰 검수 → BGM 더킹·inline-highlight 적용 → 최종 렌더.
+
+## ✅ 완료 — 단편 EP14(연음/linking sounds)
 
 `videos/ep14-connected-speech/` — 데이터 근거(시장 수요 "영어 듣기 안 들리는 이유" + 시청자DNA
-"지들 멋대로 발음"/"자주 쓰는 근육") 기반으로 아이디어 보드에서 선정, BRIEF.md 작성, A/B
-시뮬레이터로 썸네일 3종 생성 후 Gemini 진단으로 시안 A 확정(제목 "원어민들이 절대로 교과서처럼
-똑 부러지게 말하지 않는 진짜 이유", 카피 "이제 단어가 아니라 문장이 들립니다"). 목차 승인 →
-전체 12씬 대본(`SCRIPT.md`, 이번 편부터 채택한 "전체 작성 + 파일 코멘트 검수" 방식) 작성·검수
-완료 — 검수 중 언어학적 사실 오류 2건(MADE IT은 IT의 T가 아니라 MADE의 D가 탄설음화됨, WHERE
-WE는 AN APPLE과 다른 메커니즘인 약화 현상) 발견·정정, 시청자 시나리오 현실성(원어민과 대화가
-아니라 영화·유튜브 시청) 원칙 신규 확립 → `brand-persona.md`/`VIDEO_WORKFLOW.md`에 일반 규칙으로
-반영. **2026-09-07 완료**: `frame.md`(신규 컴포넌트 `linking-diagram`/`letter-tag`, 3가지 모션
-변형 slide/shrink/bounce)·`STORYBOARD.md`(12프레임) 작성 완료. **2026-09-08 완료**: 나레이션
-12씬 전부 생성, 전체 스크립트 단어별 whisper 실측 타임스탬프 추출(`scripts/word-timeline.mjs`
-신규 작성, `assets/voice/*.words.json`), 프로젝트 스캐폴딩(package.json/hyperframes.json),
-**Frame 1~4 제작 완료**(실측 타임스탬프 기반, 추정·RATIO 스케일링 없이 처음부터 정확하게 —
-`knowledge/hyperframes-prompting.md` §7-1). Frame 2는 대사 수정("함께 봅니다"→"함께 보시죠")으로
-음성 재생성 후 제작. 채널 워드마크 배색 규칙("이해하면 "은 흰색, "쉬운영어"만 브랜드 노랑) 신설해
-`CLAUDE.md`/`AGENTS.md`에 반영. **이어서 Frame 1·3·4 빈 구간 보강**(사용자가 프리뷰로 직접 확인
-후 "씬이 너무 적다" 지적 — Frame 4는 28.6초, Frame 3은 5.4초 완전 정지 구간이 있었음, 단어별
-실측 타임스탬프에 맞춰 강조 펄스·보조 캡션·카드 플리커 추가로 해결). **Frame 5~12 전부 제작
-완료 — EP14 12개 프레임 첫 풀드래프트 완성**(2026-09-08). `linking-diagram`/`letter-tag` 신규
-컴포넌트를 Frame 5(slide, AN APPLE)에서 처음 구현하며 사용자 피드백으로 2차 수정(도착 카드는
-처음부터 도착할 글자 수까지 폭 확보, 발음 라벨은 카드별 정렬), Frame 6(shrink, WHERE WERE WE),
-Frame 7(bounce, MADE IT — GSAP 연속 트윈 겹침·색상 대비 버그 발견·수정), Frame 8(퀴즈 4문항 —
-Frame 5·7 축소판 재사용), Frame 9(리스닝, 9조각 concat 오디오), Frame 10(따라 말하기, 가장 긴
-프레임 64.94초), Frame 11(페이오프 — Frame 1과 블러→선명 대칭), Frame 12(요약 — 엔드스크린
-키프아웃 구간에서 상단 진행바가 화면 전체 폭이라 키프아웃 영역을 침범하는 버그 발견·수정,
-`production-rules.md`에 일반 교훈 기록)까지 전부 완성. `npm run check` 전체 통과. 총 실측 길이
-428.07초(≈7:08). 상세 기록: `videos/ep14-connected-speech/TASKS.md`.
-**이어서 Frame 5 B롤·레이아웃·라벨 수정(2026-09-08, 같은 날 계속)**: 사용자가 "an apple" 자연
-발화 B롤 생성 → 워터마크 발견·제거(픽셀 바운딩박스 측정 + drawbox/gblur, 절차
-`production-rules.md`에 기록) → Frame 5 Beat 3(N이 APPLE로 이동)에 B롤 인셋 카드로 통합 →
-사용자 지적으로 레이아웃 무게중심 재조정(다이어그램+라벨 그룹이 B롤 등장 시점에 함께 위로
-이동) → 발음 라벨 스크럽(되감기) 버그 발견·수정(`.call()` 텍스트 변경 대신 트윈 기반
-크로스페이드로, 일반 규칙으로 `production-rules.md`에 기록) → 사용자 요청으로 좌측 라벨
-"어"→"앤" 텍스트 변경.
-**✅ 2026-09-09 해결**: 다음 세션에서 사용자가 확인 — 예상한 가설대로 나레이션 음성("어 내플")과
-화면 표기(전날 "앤"으로 잘못 바꿈)가 어긋나 있었음. 좌측 라벨도 우측과 같은 크로스페이드
-패턴으로 되돌려 병합 상태에서 "어/내플"이 나레이션과 정확히 일치하도록 수정 완료.
-**2026-09-10: 전체 프리뷰 검수 완료 확인**(Frame 8·11·12도 이미 실측 타이밍 기반, 빈 화면
-버그 없음 확인 — Frame 8 배지/질문 텍스트 스왑만 스크럽 취약성 발견해 같이 수정) →
-**BGM/SFX/inline-highlight/네온보더 채널 공통 규칙 4개 전부 적용 완료**: BGM은 EP13에서
-사용자가 고른 로컬 곡(Snack Time) 재사용해 12프레임 슬라이스+더킹, SFX는 채널 시그니처
-reveal-chime을 "완성/정답 공개" 12곳에, inline-highlight는 테제/카타르시스/마무리 약속
-3곳에, 네온 테두리는 Frame 12(7카드 요약)에 EP13 Frame 9의 traveling-glow-arc 엔진을 이식.
-`npm run check` 전체 통과. 상세: `videos/ep14-connected-speech/TASKS.md` 맨 끝.
-**✅ 2026-09-10 최종 렌더 완료**: `output/upload-packages/ep14-connected-speech-longform/video.mp4`
-(1920x1080, 30fps, 428.1초, 23.7MB) — **EP14 영상 제작 완료.**
-**다음 행동**: 업로드 패키지 작성(제목·설명·태그·고정 댓글, 엔드스크린 연결 영상은 EP13으로
-설정할 것 — BRIEF.md에 메모됨) → 업로드. 상세: `videos/ep14-connected-speech/BRIEF.md`.
+"지들 멋대로 발음"/"자주 쓰는 근육") 기반 소재 선정부터 대본·12프레임 제작·BGM/SFX/강조/
+네온보더 적용·최종 렌더·업로드 예약까지 **전체 워크플로 완료**(2026-09-06~10).
+
+- **영상**: `output/upload-packages/ep14-connected-speech-longform/video.mp4`(1920x1080,
+  30fps, 428.1초).
+- **업로드**: videoId `beKA35yvxdk`, 비공개·예약 상태, 실제 공개 2026-09-14 20:00 KST(최초
+  체크리스트 제안값과 동일 — 사용자가 한 번 08:00으로 바꿨다가 채널 고정 발행 시각 20:00으로
+  다시 정정, 2026-09-10 API 재확인 완료), 엔드스크린 연결 EP13.
+- `data/youtube/idea-board-history.json` EP14 항목 `status:"scheduled"` 갱신 완료.
+- 제작 중 나온 일반 교훈(스크럽 안전성, 같은 버그의 다른 프레임 반복 가능성, 렌더 저장 위치
+  2단계 관례 등)은 전부 `production-rules.md`/`CLAUDE.md`/`AGENTS.md`로 승격 완료.
+- 상세 단계별 기록: `videos/ep14-connected-speech/TASKS.md`(처음부터 끝까지 전부 남아있음).
+
+**다음 행동**: 2026-09-14 20:00 KST 공개 후 48시간 성과 확인(`VIDEO_WORKFLOW.md` 10단계
+"분석" 절) — 그전까지는 EP14 관련 후속 작업 없음. 제작 우선순위는 EP15(위 참고)로 이동.
 
 ## 진행 중 — 단편 EP13(알파벳 소리 지름길)
 

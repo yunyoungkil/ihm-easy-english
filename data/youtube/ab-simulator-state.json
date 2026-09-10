@@ -6,29 +6,29 @@
     {
       "id": "A",
       "title": "끝소리 ‘-sion’ 하나만 제대로 알면 영단어 100개가 저절로 읽힙니다",
-      "imageUrl": "",
+      "imageUrl": "/api/video-project-asset/ep15-sion-words/thumbnail-a.jpg",
       "thumbnailCopy": "평생 써먹는 소리 연결 공식",
       "badge": "📐 1초 확장 언어팩",
       "visualConcept": "하나의 열쇠가 수많은 문을 동시에 여는 듯한 정돈된 기하학적 네온 블루 라이팅 비주얼",
-      "isLocalFile": false
+      "isLocalFile": true
     },
     {
       "id": "B",
       "title": "긴 단어 끝에 붙은 ‘-sion’, 원어민처럼 소리 내는 1초 규칙",
-      "imageUrl": "",
+      "imageUrl": "/api/video-project-asset/ep15-sion-words/thumbnail-b.jpg",
       "thumbnailCopy": "이제 긴 단어도 단숨에 읽힙니다",
       "badge": "⚡ 단어 읽기 혁명",
       "visualConcept": "어두운 네이비 배경 속 거대한 입체 영단어 블록과 그 끝부분이 빛나는 미니멀 대비 레이아웃",
-      "isLocalFile": false
+      "isLocalFile": true
     },
     {
       "id": "C",
       "title": "비슷하게 생긴 긴 단어만 보면 얼어붙는 분, ‘-sion’부터 보세요",
-      "imageUrl": "",
+      "imageUrl": "/api/video-project-asset/ep15-sion-words/thumbnail-c.jpg",
       "thumbnailCopy": "긴 단어 울렁증 오늘로 끝납니다",
       "badge": "🤝 왕초보 리딩 구원",
       "visualConcept": "복잡한 안개가 걷히며 편안하고 선명한 시야가 열리는 편안한 딥 에메랄드 톤의 안정적 비주얼",
-      "isLocalFile": false
+      "isLocalFile": true
     }
   ],
   "activeFeedView": "A",
@@ -40,67 +40,103 @@
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 62,
-        "legibilityScore": 41,
-        "visualSalienceScore": 58,
-        "contrastRating": "보통(Medium)",
-        "focalPoint": "모바일 화면에서 3줄 이상 차지하는 과도하게 긴 설명문 텍스트 덩어리",
-        "predictedGrade": "C+",
-        "predictedCtrRange": "3.8% ~ 5.4%",
+        "curiosityGapScore": 86,
+        "legibilityScore": 90,
+        "visualSalienceScore": 88,
+        "contrastRating": "최상(High)",
+        "focalPoint": "손에 든 옐로우 톤의 '-sion' 카드와 인물의 날카로운 아이컨택",
+        "predictedGrade": "A",
+        "predictedCtrRange": "8.8% ~ 11.5%",
         "strengths": [
-          "제목에 '100단어', '-SION' 등 구체적인 학습 대상과 확장 보상이 명시되어 있어 학습 가치가 분명함",
-          "'🎯 1초 원리 체득' 뱃지는 즉각적인 해결책을 원하는 입문자에게 클릭 매력도가 높음"
+          "소품('-sion' 태그)을 손에 쥐고 정면을 응시하는 구도로 시선 집중도가 매우 뛰어남",
+          "좌측 볼드 텍스트와 우측 인물 배치가 롱폼 16:9 비율에 최적화되어 안정적임"
         ],
         "weaknesses": [
-          "썸네일 텍스트 카피가 50자 이상의 줄글(설명문) 형태로 작성되어 모바일 피드(120px)에서 완전히 뭉개져 판독 불가",
-          "비슷하게 생긴 긴 단어를 두려워하는 왕초보 대상임에도 카피가 기획서용 개요처럼 장황하여 첫 1초 시선 집중 실패",
-          "우측 하단 영상 길이 태그(08:24 등)와 텍스트 하단부가 겹쳐 시각적 피로감을 유발할 위험이 매우 높음"
+          "좌측 본문 텍스트가 4줄로 다소 길어 120px 모바일 피드에서 순간 인지 속도가 약간 저하될 수 있음"
         ],
-        "visualImprovementTip": "썸네일 본문 텍스트를 전면 폐기하고, 화면 좌측에 큼직한 대비(예: 'DECISION' 단어 중 '-SION'만 형광 옐로우 강조)와 함께 '1초면 100단어 해결' 수준의 10자 이내 볼드 폰트(블랙 외곽선 4px 적용)로 극단적 압축 필요"
+        "visualImprovementTip": "좌측 카피 행수를 4줄에서 2~3줄로 압축하고, 우측 하단 여백을 확보해 러닝타임 오버레이 간섭을 방지할 것"
+      },
+      {
+        "variantKey": "B",
+        "curiosityGapScore": 82,
+        "legibilityScore": 85,
+        "visualSalienceScore": 81,
+        "contrastRating": "상(Medium-High)",
+        "focalPoint": "인물의 놀란 표정과 우측 중앙의 텍스트 블록",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "7.2% ~ 9.0%",
+        "strengths": [
+          "인물의 시선이 텍스트를 향해 있어 자연스럽게 시청자 시선을 카피로 유도함",
+          "다크 청록 배경과 옐로우 하이라이트 박스의 명도 대비가 우수함"
+        ],
+        "weaknesses": [
+          "배경의 네온 '-sion' 그래픽이 우측 텍스트와 겹쳐 시각적 노이즈를 유발함",
+          "우측 하단 네온 그래픽 영역이 유튜브 타임스탬프에 의해 가려질 위험이 큼"
+        ],
+        "visualImprovementTip": "배경의 3D 입체 글자 오브젝트 투명도를 대폭 낮추고, 텍스트 뒤편의 복잡한 요소를 제거하여 단일 초점을 유지할 것"
+      },
+      {
+        "variantKey": "C",
+        "curiosityGapScore": 75,
+        "legibilityScore": 80,
+        "visualSalienceScore": 72,
+        "contrastRating": "중(Medium)",
+        "focalPoint": "상단 중앙의 거대한 2줄 텍스트 블록",
+        "predictedGrade": "B",
+        "predictedCtrRange": "5.8% ~ 7.5%",
+        "strengths": [
+          "중앙 정렬된 인물의 신뢰감 있는 미소와 깔끔한 단색 연기 배경",
+          "단어 울렁증이라는 명확한 타겟 통증 포인트 자극"
+        ],
+        "weaknesses": [
+          "텍스트가 상단 전체를 가로질러 답답하며, 인물이 하단에 눌려 시각적 긴장감이 떨어짐",
+          "소리 교육 영상 특유의 역동성이나 지적 호기심을 자극하는 오브젝트 부재"
+        ],
+        "visualImprovementTip": "인물을 좌측이나 우측으로 3분할 재배치하고, 상단 텍스트 길이를 절반으로 줄여 시각적 숨통을 틔울 것"
       }
     ],
     "bestVariant": "A",
-    "overallVerdict": "시안 A는 기획 의도와 교육적 가치(100단어 소리 확장)는 훌륭하나, 썸네일 카피가 읽을 수 없는 기획서 문장으로 들어가 있어 모바일 홈피드에서 심각한 이탈이 발생합니다. 썸네일은 '긴 단어 공포를 한 방에 없애준다'는 결과적 보상만 시각화하고, 제목에서 호기심을 폭발시키는 구조로 전면 재정비해야 클릭률 8% 이상을 달성할 수 있습니다.",
+    "overallVerdict": "시안 A는 손에 쥔 키워드 소품('-sion')과 강렬한 아이컨택으로 피드 스크롤 중 시선을 즉시 멈추게 만듭니다. 좌우 2분할 밸런스가 뛰어나며, 호기심과 학습 보상이 한눈에 전달되어 클릭 전환율이 가장 높을 것으로 판단됩니다.",
     "aiTitleSuggestions": [
       {
         "type": "⚡ 후킹형 (호기심 극대화)",
-        "title": "긴 단어 끝에 붙은 ‘-sion’, 원어민처럼 소리 내는 1초 규칙",
-        "thumbnailCopy": "이제 긴 단어도 단숨에 읽힙니다",
-        "suggestedBadge": "⚡ 단어 읽기 혁명",
-        "designConcept": "어두운 네이비 배경 속 거대한 입체 영단어 블록과 그 끝부분이 빛나는 미니멀 대비 레이아웃",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, glowing typography block structure focusing on the end of a long word, high-contrast cyan and amber lighting, minimalist graphic layout, copy space for Korean text on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "단어 끝 ‘-sion’을 만났을 때 원어민 혀에서 일어나는 일",
+        "thumbnailCopy": "100단어가 한 호흡에 뚫린다",
+        "suggestedBadge": "⚡ 소리 뇌새김",
+        "designConcept": "손가락으로 단어 끝을 가리키며 입모양을 클로즈업한 긴장감 있는 2분할 구도",
+        "midjourneyPrompt": "A close-up cinematic shot of an expressive Asian tutor pointing at an glowing golden key icon, deep navy cyber ambient background, studio lighting, hyper-realistic, 8k --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "❓ 질문형 (클릭 유도)",
-        "title": "decision, vision... 왜 끝글자 ‘-sion’만 나오면 멈칫할까?",
-        "thumbnailCopy": "100단어가 한 번에 풀리는 순간",
-        "suggestedBadge": "❓ 읽기 공포 탈출",
-        "designConcept": "물음표가 부드럽게 감도는 칠판 텍스처와 두려움을 해소해주는 따뜻한 앰버 림라이트의 직관적 구도",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English education, deep dark slate classroom aesthetic, soft warm amber spotlight illuminating a central focal point, mysterious intellectual atmosphere, ample negative space for text on left side, modern educational graphic, cinematic lighting, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "Decision, Vision… 왜 긴 단어 끝에선 똑같은 소리가 날까?",
+        "thumbnailCopy": "읽는 순간 말문이 터집니다",
+        "suggestedBadge": "📐 1초 판독법",
+        "designConcept": "물음표 네온 조명 아래에서 비밀스러운 제스처를 취하는 신뢰감 있는 강사",
+        "midjourneyPrompt": "Professional Korean male instructor looking at viewer with an intriguing expression, sleek modern educational studio, soft dramatic cyan backlight, premium atmosphere --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "💥 반전형 (상식 파괴)",
-        "title": "영단어 끝 ‘-sion’은 절대로 써진 그대로 읽는 게 아닙니다",
-        "thumbnailCopy": "철자에 속지 않는 진짜 소리",
-        "suggestedBadge": "💥 엉터리 독음 금지",
-        "designConcept": "강렬한 레드와 쿨그레이의 명도 대비로 기존의 잘못된 읽기 습관을 깨뜨리는 임팩트 비주얼",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English phonics mastery, dramatic high-contrast split composition, deep charcoal and warning crimson accent lighting, visual metaphor of breaking an old confusing barrier, clean negative copy space on left half, sleek modern design, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "단어 끝 ‘-sion’, 파닉스 규칙대로 읽으면 절대 안 되는 이유",
+        "thumbnailCopy": "평생 하던 헛고생 끝",
+        "suggestedBadge": "🚫 글자 암기 금지",
+        "designConcept": "빨간색 경고 라이팅과 함께 기존의 단어 암기 방식을 깨부수는 듯한 대비 연출",
+        "midjourneyPrompt": "A dramatic split lighting scene, half shadow half soft gold light, an engaging Asian teacher holding an open glowing lock, sleek minimalist background --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "📐 원리형 (쉬운 해결책)",
-        "title": "끝소리 ‘-sion’ 하나만 제대로 알면 영단어 100개가 저절로 읽힙니다",
-        "thumbnailCopy": "평생 써먹는 소리 연결 공식",
-        "suggestedBadge": "📐 1초 확장 언어팩",
-        "designConcept": "하나의 열쇠가 수많은 문을 동시에 여는 듯한 정돈된 기하학적 네온 블루 라이팅 비주얼",
-        "midjourneyPrompt": "Clean horizontal visual artwork for phonetic rule mastery, deep midnight blue background with interconnected geometric soundwave network, sleek minimalist master key aesthetic lighting in vivid gold and teal, neat layout with expansive empty copy space on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "아무리 긴 단어도 끝자리 ‘-sion’ 하나면 전부 풀립니다",
+        "thumbnailCopy": "외우지 않고 그냥 읽는 법",
+        "suggestedBadge": "🧩 소리 언어팩",
+        "designConcept": "복잡한 퍼즐 조각이 하나로 결합되는 테크니컬 그래픽 배경과 자신감 넘치는 표정",
+        "midjourneyPrompt": "An Asian instructor holding a bright luminous floating puzzle piece, clean dark blue studio backdrop with subtle volumetric lighting, professional cinematography --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "🤝 공감형 (타겟 시청자 맞춤)",
-        "title": "비슷하게 생긴 긴 단어만 보면 얼어붙는 분, ‘-sion’부터 보세요",
-        "thumbnailCopy": "긴 단어 울렁증 오늘로 끝납니다",
-        "suggestedBadge": "🤝 왕초보 리딩 구원",
-        "designConcept": "복잡한 안개가 걷히며 편안하고 선명한 시야가 열리는 편안한 딥 에메랄드 톤의 안정적 비주얼",
-        "midjourneyPrompt": "Clean horizontal visual artwork for beginner English learners, calming deep emerald and dark navy backdrop with a soft guiding beam of warm golden light, clear organized path visual metaphor, clutter-free composition with spacious area for large Korean typography, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "긴 영단어만 보면 얼어붙던 분들을 위한 ‘-sion’ 탈출구",
+        "thumbnailCopy": "이제 긴 단어도 안 두렵다",
+        "suggestedBadge": "🤝 왕초보 구원",
+        "designConcept": "따뜻하면서도 선명한 조명 아래서 편안하게 손을 내미는 든든한 파트너 구도",
+        "midjourneyPrompt": "Warm and encouraging Korean male tutor smiling warmly at camera, clean modern classroom with soft dark emerald and charcoal background, reassuring atmosphere --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

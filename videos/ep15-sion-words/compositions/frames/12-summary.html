@@ -1,0 +1,113 @@
+<template>
+<style>
+  /* 12-summary — Frame 12 "요약 + 마무리". Built from assets/voice/12.words.json (2026-09-10).
+     17 words from across the episode (전=파랑 8개, 션=주황 9개) appear as a staggered word
+     cloud during the recap sentence (0.52-18.62s), then the hero line "끝소리 하나로, 단어가
+     읽힙니다" lands below it and both hold — echoing Frame 1's "눈부터 피하신 적
+     있으시죠?"/"망설임 없이 읽으실 수 있게" callback (SCRIPT.md Line 12 comment). Last 3s
+     (36.88-39.88s) is the YouTube endscreen keepout: everything fades to just the centered
+     channel wordmark, clearing both the bottom-right and top-center overlay zones
+     (production-rules.md "렌더 마지막 3초"). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f12-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f12-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f12-progress-fill { position: absolute; left: 0; top: 0; width: 91.667%; height: 3px; background: #F5C518; }
+
+  .f12-cloud { position: absolute; left: 7.5cqw; right: 7.5cqw; top: 20cqh; display: flex; flex-wrap: wrap; justify-content: center; gap: 1cqw 1cqw; }
+  .f12-chip { border-radius: 0.5cqw; padding: 1cqh 1cqw; font-family: 'Archivo Black', sans-serif; font-size: 1.6cqw; line-height: 1; opacity: 0; transform: scale(0.85); background: rgba(18,32,58,0.85); border: 1.5px solid; }
+  .f12-voiced { color: #008EFF; border-color: rgba(0,142,255,0.5); }
+  .f12-unvoiced { color: #FF7A3D; border-color: rgba(255,122,61,0.5); }
+
+  .f12-headline { position: absolute; left: 0; right: 0; top: 76cqh; text-align: center; font-family: 'Black Han Sans', sans-serif; font-size: 3.4cqw; color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.4); opacity: 0; }
+
+  .f12-endscreen-wordmark { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-family: 'Black Han Sans', sans-serif; font-size: 4.4cqw; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-jimx" id="root" data-composition-id="12-summary" data-start="0" data-duration="39.88" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-dfvx" id="f12-bg-clip" class="clip f12-bg" data-start="0" data-duration="39.88" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-5i4b" id="f12-voice" src="assets/voice/12.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-m59u" id="f12-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="39.88" data-media-start="361.33" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-0gky" id="f12-progress-track" class="f12-progress-track"></div>
+  <div data-hf-id="hf-b658" id="f12-progress-fill" class="f12-progress-fill"></div>
+
+  <div data-hf-id="hf-ppfw" id="f12-cloud" class="f12-cloud">
+    <div data-hf-id="hf-4z50" class="f12-chip f12-voiced">TELEVISION</div>
+    <div data-hf-id="hf-63qi" class="f12-chip f12-voiced">DECISION</div>
+    <div data-hf-id="hf-38ff" class="f12-chip f12-voiced">EXPLOSION</div>
+    <div data-hf-id="hf-4mr3" class="f12-chip f12-voiced">OCCASION</div>
+    <div data-hf-id="hf-oo54" class="f12-chip f12-voiced">VERSION</div>
+    <div data-hf-id="hf-44gs" class="f12-chip f12-voiced">CONVERSION</div>
+    <div data-hf-id="hf-ohdf" class="f12-chip f12-voiced">SUPERVISION</div>
+    <div data-hf-id="hf-cbvz" class="f12-chip f12-voiced">DIVISION</div>
+    <div data-hf-id="hf-t06y" class="f12-chip f12-unvoiced">EXPANSION</div>
+    <div data-hf-id="hf-z751" class="f12-chip f12-unvoiced">TENSION</div>
+    <div data-hf-id="hf-3uay" class="f12-chip f12-unvoiced">MANSION</div>
+    <div data-hf-id="hf-rk5e" class="f12-chip f12-unvoiced">EXTENSION</div>
+    <div data-hf-id="hf-1v01" class="f12-chip f12-unvoiced">PENSION</div>
+    <div data-hf-id="hf-0k0x" class="f12-chip f12-unvoiced">MISSION</div>
+    <div data-hf-id="hf-oz6u" class="f12-chip f12-unvoiced">PASSION</div>
+    <div data-hf-id="hf-9jx5" class="f12-chip f12-unvoiced">DISCUSSION</div>
+    <div data-hf-id="hf-jinn" class="f12-chip f12-unvoiced">EXPRESSION</div>
+  </div>
+
+  <div data-hf-id="hf-muwb" id="f12-headline" class="f12-headline">끝소리 하나로, 단어가 읽힙니다</div>
+
+  <div data-hf-id="hf-qf6m" id="f12-endscreen-wordmark" class="f12-endscreen-wordmark">
+    <span data-hf-id="hf-wj8g" style="color:#FFFFFF">이해하면 </span><span data-hf-id="hf-ldop" style="color:#F5C518">쉬운영어</span>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["12-summary"] = tl;
+
+  var fill = document.getElementById("f12-progress-fill");
+  var chips = Array.prototype.slice.call(document.querySelectorAll("#f12-cloud .f12-chip"));
+  var headline = document.getElementById("f12-headline");
+  var cloud = document.getElementById("f12-cloud");
+  var endscreenWm = document.getElementById("f12-endscreen-wordmark");
+
+  // 17 chips stagger in across the recap sentence (0.52-18.62s).
+  tl.to(chips, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.4)", stagger: 18 / chips.length }, 0.6);
+
+  // Hero line lands right after the recap finishes, echoing Frame 1's promise resolved.
+  tl.fromTo(headline, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.3)" }, 19.0);
+
+  // Warmest tone shift as the closing encouragement plays (34.196s "저와 같이...").
+  tl.to("#f12-bg-clip", { filter: "brightness(1.12)", duration: 1.5, ease: "power2.out" }, 34.2);
+
+  // Endscreen keepout: last 3s (36.88-39.88s) — fade cloud+headline out, hold just the
+  // centered wordmark (clears both YouTube overlay zones since everything is horizontally
+  // and vertically centered, nowhere near the top-center or bottom-right corners).
+  tl.to([cloud, headline], { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 36.88);
+  tl.fromTo(endscreenWm, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 37.1);
+
+  tl.fromTo(fill, { width: "91.667%" }, { width: "100%", duration: 1.0, ease: "power1.inOut" }, 0.6);
+})();
+</script>
+</template>

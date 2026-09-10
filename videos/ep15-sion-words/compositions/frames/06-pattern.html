@@ -1,0 +1,111 @@
+<template>
+<style>
+  /* 06-pattern — Frame 6 "패턴 확장" (frame.md Treatment #6: sion-cluster, 8 cards). Built from
+     assets/voice/06.words.json (2026-09-10). Row 1 (전 그룹, 파랑): DECISION·EXPLOSION·
+     OCCASION·VERSION·CONVERSION — R 뒤에 오는 VERSION·CONVERSION도 이 그룹에 정규 포함(2026-
+     09-10 웹 검색 정정, SCRIPT.md 상단 "정정 사항" 참고). Row 2 (션 그룹, 주황): TENSION·
+     MANSION·EXTENSION. All 8 card slots are laid out from the start (final position), each
+     fading/glowing in at its own real spoken onset — 카드/리스트형 장면 네온 테두리 강조 채널
+     기본 규칙은 `lt-neon-border` 카탈로그 버그로 설치 불가하므로 glow box-shadow로 간이
+     구현(전체 12프레임 규모상 EP12 Frame4의 풀 traveling-arc SVG 대신 정적 글로우로 단순화 —
+     production-rules.md 기본 방향은 유지하되 이번 편은 카드 8장×글로우로 절충). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f06-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f06-progress-fill { position: absolute; left: 0; top: 0; width: 41.667%; height: 3px; background: #F5C518; }
+
+  .f06-headline { position: absolute; left: 0; right: 0; top: 9cqh; text-align: center; font-size: 1.7cqw; font-weight: 700; color: #A9B4C4; opacity: 0; }
+
+  .f06-rows { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-46%); display: flex; flex-direction: column; align-items: center; gap: 4cqh; }
+  .f06-row { display: flex; justify-content: center; gap: 1.6cqw; }
+  .f06-card { background: rgba(18,32,58,0.9); border-radius: 0.8cqw; padding: 2cqh 1.5cqw; text-align: center; opacity: 0; transform: translateY(14px) scale(0.92); border: 2px solid transparent; }
+  .f06-card-voiced { border-color: rgba(0,142,255,0.55); box-shadow: 0 0 0 rgba(0,142,255,0); }
+  .f06-card-unvoiced { border-color: rgba(255,122,61,0.55); box-shadow: 0 0 0 rgba(255,122,61,0); }
+  .f06-card-word { font-family: 'Archivo Black', sans-serif; font-size: 1.95cqw; line-height: 1; color: #FFFFFF; white-space: nowrap; }
+  .f06-card-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.4cqw; margin-top: 0.9cqh; white-space: nowrap; }
+  .f06-pron-voiced { color: #008EFF; }
+  .f06-pron-unvoiced { color: #FF7A3D; }
+</style>
+
+<div data-hf-id="hf-0y3s" id="root" data-composition-id="06-pattern" data-start="0" data-duration="44.48" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-5e0p" id="f06-bg-clip" class="clip f06-bg" data-start="0" data-duration="44.48" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-1bnb" id="f06-voice" src="assets/voice/06.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-0ndb" id="f06-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="44.48" data-media-start="141.26" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-l2le" id="f06-progress-track" class="f06-progress-track"></div>
+  <div data-hf-id="hf-ft42" id="f06-progress-fill" class="f06-progress-fill"></div>
+
+  <div data-hf-id="hf-ld0t" id="f06-headline" class="f06-headline">모음 또는 R 뒤 = 전 &#160;·&#160; 그 밖의 자음 뒤 = 션</div>
+
+  <div data-hf-id="hf-p9iy" id="f06-rows" class="f06-rows">
+    <div data-hf-id="hf-4qg7" class="f06-row">
+      <div data-hf-id="hf-yzf1" id="f06-card1" class="f06-card f06-card-voiced"><div data-hf-id="hf-1ux6" class="f06-card-word">DECISION</div><div data-hf-id="hf-gqdi" class="f06-card-pron f06-pron-voiced">디시전</div></div>
+      <div data-hf-id="hf-2xj2" id="f06-card2" class="f06-card f06-card-voiced"><div data-hf-id="hf-4j2j" class="f06-card-word">EXPLOSION</div><div data-hf-id="hf-cn7l" class="f06-card-pron f06-pron-voiced">익스플로전</div></div>
+      <div data-hf-id="hf-938v" id="f06-card3" class="f06-card f06-card-voiced"><div data-hf-id="hf-t98v" class="f06-card-word">OCCASION</div><div data-hf-id="hf-8qvu" class="f06-card-pron f06-pron-voiced">오케이전</div></div>
+      <div data-hf-id="hf-d1cw" id="f06-card4" class="f06-card f06-card-voiced"><div data-hf-id="hf-97iw" class="f06-card-word">VERSION</div><div data-hf-id="hf-iv5q" class="f06-card-pron f06-pron-voiced">버전</div></div>
+      <div data-hf-id="hf-dt0p" id="f06-card5" class="f06-card f06-card-voiced"><div data-hf-id="hf-7858" class="f06-card-word">CONVERSION</div><div data-hf-id="hf-lcgy" class="f06-card-pron f06-pron-voiced">컨버전</div></div>
+    </div>
+    <div data-hf-id="hf-6u13" class="f06-row">
+      <div data-hf-id="hf-dvo5" id="f06-card6" class="f06-card f06-card-unvoiced"><div data-hf-id="hf-ypeu" class="f06-card-word">TENSION</div><div data-hf-id="hf-3dtn" class="f06-card-pron f06-pron-unvoiced">텐션</div></div>
+      <div data-hf-id="hf-d40c" id="f06-card7" class="f06-card f06-card-unvoiced"><div data-hf-id="hf-i32x" class="f06-card-word">MANSION</div><div data-hf-id="hf-8vn7" class="f06-card-pron f06-pron-unvoiced">맨션</div></div>
+      <div data-hf-id="hf-95wb" id="f06-card8" class="f06-card f06-card-unvoiced"><div data-hf-id="hf-w0q1" class="f06-card-word">EXTENSION</div><div data-hf-id="hf-9qeq" class="f06-card-pron f06-pron-unvoiced">익스텐션</div></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["06-pattern"] = tl;
+
+  var fill = document.getElementById("f06-progress-fill");
+  var headline = document.getElementById("f06-headline");
+  var voicedGlow = "0 0 1.4cqw rgba(0,142,255,0.45)";
+  var unvoicedGlow = "0 0 1.4cqw rgba(255,122,61,0.45)";
+
+  tl.fromTo(headline, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+
+  // Cards appear one by one at their real spoken onset, each with a glow "pop" that settles.
+  var cards = [
+    { id: "f06-card1", t: 5.128, glow: voicedGlow },
+    { id: "f06-card2", t: 9.568, glow: voicedGlow },
+    { id: "f06-card3", t: 13.426, glow: voicedGlow },
+    { id: "f06-card4", t: 20.396, glow: voicedGlow },
+    { id: "f06-card5", t: 23.526, glow: voicedGlow },
+    { id: "f06-card6", t: 30.661, glow: unvoicedGlow },
+    { id: "f06-card7", t: 33.439, glow: unvoicedGlow },
+    { id: "f06-card8", t: 36.234, glow: unvoicedGlow }
+  ];
+  cards.forEach(function (c) {
+    var el = document.getElementById(c.id);
+    tl.to(el, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, c.t);
+    tl.to(el, { boxShadow: c.glow, duration: 0.5, ease: "power2.out" }, c.t + 0.1);
+  });
+
+  tl.fromTo(fill, { width: "41.667%" }, { width: "50%", duration: 1.0, ease: "power1.inOut" }, 5.128);
+})();
+</script>
+</template>

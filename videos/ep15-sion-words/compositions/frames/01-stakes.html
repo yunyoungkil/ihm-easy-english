@@ -1,0 +1,140 @@
+<template>
+<style>
+  /* 01-stakes — Frame 1 "도입 (Stakes)" (frame.md Treatment #1: reveal-blur).
+     Built from real per-word timestamps in assets/voice/01.words.json (2026-09-10) — no
+     estimates, no RATIO scaling (VIDEO_WORKFLOW.md 4단계).
+
+     Three -sion words appear in quick succession (matching their real spoken onsets, all
+     within the first ~4.2s), each split into a stem span + a "SION" span. Once the VO reaches
+     "막상 소리 내서 읽으려고 하면...확신이 안 서는" (~13.6-21.5s), only the SION spans blur and
+     dim — the stem stays crisp (the viewer knows the word, just not how the ending sounds).
+     Held in that uncertain state through the rest of the stakes, then a soft brighten cues hope
+     as "오늘 그 패턴 하나만 알려드릴게요" lands (~31.7-34.6s). Frame 11 resolves the same three
+     SION spans back to crisp + colored as part of its payoff (symmetric callback).
+
+     Words split as stem+SION by hand (not measured): DECISION=DECI+SION, TELEVISION=TELEVI+SION,
+     EXPANSION=EXPAN+SION — all three real -sion words share the literal 4-letter "SION" tail. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f01-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f01-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f01-progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 3px; background: #F5C518; }
+
+  .f01-stack { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 3.2cqh; }
+  .f01-word { display: flex; align-items: baseline; opacity: 0; transform: translateY(14px); }
+  .f01-stem { font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1; color: #FFFFFF; }
+  .f01-sion { font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1; color: #FFFFFF; margin-left: 0.05em; filter: blur(0px); opacity: 1; }
+  .f01-punct { font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1; color: #A9B4C4; margin-left: 0.05em; }
+</style>
+
+<div data-hf-id="hf-533q" id="root" data-composition-id="01-stakes" data-start="0" data-duration="39.88" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-eoel" id="f01-bg-clip" class="clip f01-bg" data-start="0" data-duration="39.88" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-du7b" id="f01-voice" src="assets/voice/01.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-ifc4" id="f01-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="39.88" data-media-start="0" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-9aqa" id="f01-progress-track" class="f01-progress-track"></div>
+  <div data-hf-id="hf-pilk" id="f01-progress-fill" class="f01-progress-fill"></div>
+
+  <div data-hf-id="hf-6xu1" id="f01-content-clip" class="clip" data-start="0" data-duration="39.88" data-track-index="1">
+    <div data-hf-id="hf-fwbe" id="f01-stack" class="f01-stack">
+      <div data-hf-id="hf-r8le" id="f01-w1" class="f01-word"><span data-hf-id="hf-17ft" class="f01-stem">DECI</span><span data-hf-id="hf-s8wr" id="f01-w1-sion" class="f01-sion">SION</span><span data-hf-id="hf-7hd5" class="f01-punct">,</span></div>
+      <div data-hf-id="hf-l2vl" id="f01-w2" class="f01-word"><span data-hf-id="hf-u1an" class="f01-stem">TELEVI</span><span data-hf-id="hf-7m36" id="f01-w2-sion" class="f01-sion">SION</span><span data-hf-id="hf-nel9" class="f01-punct">,</span></div>
+      <div data-hf-id="hf-kb7s" id="f01-w3" class="f01-word"><span data-hf-id="hf-ty6m" class="f01-stem">EXPAN</span><span data-hf-id="hf-0zex" id="f01-w3-sion" class="f01-sion">SION</span><span data-hf-id="hf-3uvv" class="f01-punct">…</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["01-stakes"] = tl;
+
+  // Real per-word narration timestamps (assets/voice/01.words.json). Source of truth:
+  // scripts/word-timeline.mjs output, 2026-09-10. Last word's whisper "to" (42.02) runs past
+  // the real audio file (39.88s, chunk-boundary padding) — clamped below.
+  var WORDS = [
+    {"word":"DECISION,","from":0.6,"to":1.899},{"word":"TELEVISION,","from":1.983,"to":3.012},
+    {"word":"EXPANSION…","from":3.12,"to":4.202},{"word":"이렇게","from":4.31,"to":4.867},
+    {"word":"좀","from":5.052,"to":5.238},{"word":"긴","from":5.423,"to":5.609},
+    {"word":"영단어","from":5.794,"to":6.351},{"word":"보면,","from":6.537,"to":7},
+    {"word":"나도","from":7.093,"to":7.464},{"word":"모르게","from":7.65,"to":8.206},
+    {"word":"눈부터","from":8.392,"to":8.948},{"word":"피하신","from":9.134,"to":9.69},
+    {"word":"적","from":9.876,"to":10.061},{"word":"있으시죠?","from":10.432,"to":11.36},
+    {"word":"뜻은","from":11.507,"to":11.801},{"word":"대충","from":11.948,"to":12.242},
+    {"word":"아는","from":12.388,"to":12.682},{"word":"단어인데,","from":12.829,"to":13.49},
+    {"word":"막상","from":13.564,"to":13.858},{"word":"소리","from":14.005,"to":14.298},
+    {"word":"내서","from":14.298,"to":14.592},{"word":"읽으려고","from":14.739,"to":15.327},
+    {"word":"하면,","from":15.474,"to":15.841},{"word":"대충","from":15.915,"to":16.208},
+    {"word":"이렇게","from":16.355,"to":16.796},{"word":"읽었는데","from":16.943,"to":17.531},
+    {"word":"이게","from":17.678,"to":17.972},{"word":"진짜","from":18.118,"to":18.412},
+    {"word":"맞게","from":18.559,"to":18.853},{"word":"읽은","from":19,"to":19.294},
+    {"word":"건지","from":19.441,"to":19.735},{"word":"확신이","from":19.882,"to":20.322},
+    {"word":"안","from":20.469,"to":20.616},{"word":"서는","from":20.763,"to":21.057},
+    {"word":"경우","from":21.204,"to":21.498},{"word":"많으실","from":21.645,"to":22.085},
+    {"word":"거예요.","from":22.232,"to":22.82},{"word":"이게","from":22.973,"to":23.278},
+    {"word":"여러분이","from":23.431,"to":24.041},{"word":"영어를","from":24.194,"to":24.652},
+    {"word":"못해서가","from":24.804,"to":25.415},{"word":"아닙니다.","from":25.567,"to":26.331},
+    {"word":"그","from":26.483,"to":26.636},{"word":"단어","from":26.788,"to":27.094},
+    {"word":"끝에","from":27.246,"to":27.552},{"word":"숨어","from":27.704,"to":28.009},
+    {"word":"있는","from":28.009,"to":28.315},{"word":"소리","from":28.467,"to":28.773},
+    {"word":"패턴을,","from":28.925,"to":29.459},{"word":"아직","from":29.536,"to":29.841},
+    {"word":"모르셨을","from":29.994,"to":30.604},{"word":"뿐이에요.","from":30.757,"to":31.52},
+    {"word":"오늘","from":31.676,"to":31.988},{"word":"그","from":32.144,"to":32.3},
+    {"word":"패턴","from":32.456,"to":32.768},{"word":"하나만","from":32.924,"to":33.392},
+    {"word":"알려드릴게요.","from":33.548,"to":34.64},{"word":"그럼","from":34.804,"to":35.132},
+    {"word":"처음","from":35.296,"to":35.624},{"word":"보는","from":35.788,"to":36.116},
+    {"word":"긴","from":36.28,"to":36.444},{"word":"단어도,","from":36.608,"to":37.182},
+    {"word":"이제","from":37.264,"to":37.592},{"word":"망설임","from":37.756,"to":38.248},
+    {"word":"없이","from":38.412,"to":38.74},{"word":"바로","from":38.904,"to":39.232},
+    {"word":"읽으실","from":39.396,"to":39.888},{"word":"수","from":40.052,"to":40.216},
+    {"word":"있게","from":40.38,"to":40.708},{"word":"되실","from":40.872,"to":41.2},
+    {"word":"거예요.","from":41.364,"to":39.88}
+  ];
+
+  var fill = document.getElementById("f01-progress-fill");
+  var w1 = document.getElementById("f01-w1");
+  var w2 = document.getElementById("f01-w2");
+  var w3 = document.getElementById("f01-w3");
+  var sions = [document.getElementById("f01-w1-sion"), document.getElementById("f01-w2-sion"), document.getElementById("f01-w3-sion")];
+  var stack = document.getElementById("f01-stack");
+
+  // Three words appear in quick succession, each timed to its own real spoken onset.
+  tl.fromTo(w1, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.6);
+  tl.fromTo(w2, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.983);
+  tl.fromTo(w3, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.12);
+
+  // "막상 소리 내서 읽으려고 하면...확신이 안 서는 경우" (13.564-21.498s): the SION endings blur
+  // and dim while the stems stay crisp — the viewer knows the word, not how the ending sounds.
+  tl.to(sions, { filter: "blur(7px)", opacity: 0.3, duration: 7.9, ease: "power2.inOut" }, 13.564);
+
+  // "오늘 그 패턴 하나만 알려드릴게요" (31.676-34.64s): a soft brighten cues hope without
+  // resolving the mystery yet (Frame 11 does the actual resolve).
+  tl.to(stack, { filter: "brightness(1.18)", duration: 1.4, ease: "power2.out" }, 31.676);
+
+  tl.fromTo(fill, { width: "0%" }, { width: "8.333%", duration: 1.0, ease: "power1.inOut" }, 0);
+})();
+</script>
+</template>

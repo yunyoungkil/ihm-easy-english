@@ -1,0 +1,86 @@
+{
+  "10": {
+    "path": "assets/voice/10.wav",
+    "duration_s": 47.32
+  },
+  "11": {
+    "path": "assets/voice/11.wav",
+    "duration_s": 36.36
+  },
+  "12": {
+    "path": "assets/voice/12.wav",
+    "duration_s": 39.88
+  },
+  "01": {
+    "path": "assets/voice/01.wav",
+    "duration_s": 39.88
+  },
+  "02": {
+    "path": "assets/voice/02.wav",
+    "duration_s": 15.72
+  },
+  "03": {
+    "path": "assets/voice/03.wav",
+    "duration_s": 19.32
+  },
+  "04": {
+    "path": "assets/voice/04.wav",
+    "duration_s": 26.08
+  },
+  "05": {
+    "path": "assets/voice/05.wav",
+    "duration_s": 37.76
+  },
+  "06": {
+    "path": "assets/voice/06.wav",
+    "duration_s": 44.48
+  },
+  "07": {
+    "path": "assets/voice/07.wav",
+    "duration_s": 27.64
+  },
+  "08": {
+    "path": "assets/voice/08.wav",
+    "duration_s": 29.56
+  },
+  "09a": {
+    "path": "assets/voice/09a.wav",
+    "duration_s": 5.28
+  },
+  "09b": {
+    "path": "assets/voice/09b.wav",
+    "duration_s": 2.72
+  },
+  "09c": {
+    "path": "assets/voice/09c.wav",
+    "duration_s": 1.72
+  },
+  "09d": {
+    "path": "assets/voice/09d.wav",
+    "duration_s": 3.68
+  },
+  "09e": {
+    "path": "assets/voice/09e.wav",
+    "duration_s": 1.36
+  },
+  "09f": {
+    "path": "assets/voice/09f.wav",
+    "duration_s": 2.4
+  },
+  "09g": {
+    "path": "assets/voice/09g.wav",
+    "duration_s": 1.52
+  },
+  "09h": {
+    "path": "assets/voice/09h.wav",
+    "duration_s": 2.96
+  },
+  "09i": {
+    "path": "assets/voice/09i.wav",
+    "duration_s": 6.92
+  },
+  "09": {
+    "path": "assets/voice/09.wav",
+    "duration_s": 31.71
+  }
+}

@@ -1,0 +1,118 @@
+<template>
+<style>
+  /* 10-practice — Frame 10 "소리 내어 읽기 연습" (frame.md Treatment #10: syllable-buildup,
+     reused from Frame 5's assembly motion). Built from assets/voice/10.words.json
+     (2026-09-10). Deliberately all-review words (TELEVISION·EXPANSION·CONVERSION — every one
+     already answered earlier in the episode) — this frame's job is confidence-building
+     repetition, not testing new words (that's Frame 8's job, and Frame 11's job for brand-new
+     words). Three word-groups appear in sequence, each: syllables fade in left-to-right at
+     their real spoken onsets, merge into the full reading with a pop, then pulse twice more
+     for the "다시 한 번, 좀 더 빠르게" repeat. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f10-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f10-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f10-progress-fill { position: absolute; left: 0; top: 0; width: 75%; height: 3px; background: #F5C518; }
+
+  .f10-group { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; }
+  .f10-en { font-family: 'Archivo Black', sans-serif; font-size: 4.6cqw; line-height: 1; color: #FFFFFF; opacity: 0; }
+  .f10-syllables { margin-top: 3.6cqh; display: flex; justify-content: center; gap: 0.5cqw; }
+  .f10-syl { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 4cqw; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-6ezw" id="root" data-composition-id="10-practice" data-start="0" data-duration="47.32" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-357b" id="f10-bg-clip" class="clip f10-bg" data-start="0" data-duration="47.32" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-oz4b" id="f10-voice" src="assets/voice/10.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-zzlo" id="f10-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="47.32" data-media-start="276.65" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-pd16" id="f10-progress-track" class="f10-progress-track"></div>
+  <div data-hf-id="hf-adh8" id="f10-progress-fill" class="f10-progress-fill"></div>
+
+  <div data-hf-id="hf-tg2i" id="f10-groups-clip" class="clip" data-start="0" data-duration="47.32" data-track-index="1">
+    <div data-hf-id="hf-47c7" id="f10-group-tv" class="f10-group">
+      <div data-hf-id="hf-j3fr" class="f10-en">TELEVISION</div>
+      <div data-hf-id="hf-fkv5" class="f10-syllables">
+        <span data-hf-id="hf-8mng" id="f10-tv-s0" class="f10-syl" style="color:#008EFF">텔</span><span data-hf-id="hf-wezr" id="f10-tv-s1" class="f10-syl" style="color:#008EFF">레</span><span data-hf-id="hf-qngm" id="f10-tv-s2" class="f10-syl" style="color:#008EFF">비</span><span data-hf-id="hf-b03x" id="f10-tv-s3" class="f10-syl" style="color:#008EFF">전</span>
+      </div>
+    </div>
+    <div data-hf-id="hf-cmri" id="f10-group-ex" class="f10-group">
+      <div data-hf-id="hf-z6yc" class="f10-en">EXPANSION</div>
+      <div data-hf-id="hf-khv9" class="f10-syllables">
+        <span data-hf-id="hf-ckci" id="f10-ex-s0" class="f10-syl" style="color:#FF7A3D">익스</span><span data-hf-id="hf-i1qu" id="f10-ex-s1" class="f10-syl" style="color:#FF7A3D">팬</span><span data-hf-id="hf-ssc7" id="f10-ex-s2" class="f10-syl" style="color:#FF7A3D">션</span>
+      </div>
+    </div>
+    <div data-hf-id="hf-a82q" id="f10-group-cv" class="f10-group">
+      <div data-hf-id="hf-ot77" class="f10-en">CONVERSION</div>
+      <div data-hf-id="hf-losc" class="f10-syllables">
+        <span data-hf-id="hf-amgt" id="f10-cv-s0" class="f10-syl" style="color:#008EFF">컨</span><span data-hf-id="hf-fb9u" id="f10-cv-s1" class="f10-syl" style="color:#008EFF">버</span><span data-hf-id="hf-gf4v" id="f10-cv-s2" class="f10-syl" style="color:#008EFF">전</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["10-practice"] = tl;
+
+  var fill = document.getElementById("f10-progress-fill");
+
+  function buildWord(groupId, enSelector, sylIds, sylTimes, enAt, mergeAt, pulse1At, pulse2At, groupOutAt) {
+    var group = document.getElementById(groupId);
+    var en = group.querySelector(".f10-en");
+    var syls = sylIds.map(function (id) { return document.getElementById(id); });
+
+    tl.fromTo(group, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, enAt - 0.2);
+    tl.fromTo(en, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, enAt);
+    sylTimes.forEach(function (t, i) {
+      tl.fromTo(syls[i], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, t);
+    });
+    // Merge pop as the exclaimed full reading lands.
+    tl.to(syls, { scale: 1.14, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1 }, mergeAt);
+    // Two more quick pulses for "다시 한 번, 좀 더 빠르게".
+    tl.to(syls, { scale: 1.1, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, pulse1At);
+    tl.to(syls, { scale: 1.1, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, pulse2At);
+    if (groupOutAt) tl.to(group, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, groupOutAt);
+  }
+
+  // TELEVISION: syllables at 12.304/12.833/13.362/13.891, merge-shout at 15.576, repeats at
+  // 19.067/20.431.
+  buildWord("f10-group-tv", ".f10-en", ["f10-tv-s0", "f10-tv-s1", "f10-tv-s2", "f10-tv-s3"],
+    [12.304, 12.833, 13.362, 13.891], 8.316, 15.576, 19.067, 20.431, 21.6);
+
+  // EXPANSION: syllables at 24.213/25.539/26.107, merge-shout at 27.858, repeats at
+  // 31.275/32.643.
+  buildWord("f10-group-ex", ".f10-en", ["f10-ex-s0", "f10-ex-s1", "f10-ex-s2"],
+    [24.213, 25.539, 26.107], 22.171, 27.858, 31.275, 32.643, 33.8);
+
+  // CONVERSION: syllables at 39.73/40.36/40.99, merge-shout at 42.945, repeats at
+  // 46.064/47.087 (last group — no fade-out, holds to end).
+  buildWord("f10-group-cv", ".f10-en", ["f10-cv-s0", "f10-cv-s1", "f10-cv-s2"],
+    [39.73, 40.36, 40.99], 37.433, 42.945, 46.064, 47.087, null);
+
+  tl.fromTo(fill, { width: "75%" }, { width: "83.333%", duration: 1.0, ease: "power1.inOut" }, 8.316);
+})();
+</script>
+</template>

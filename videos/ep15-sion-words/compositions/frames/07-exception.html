@@ -1,0 +1,95 @@
+<template>
+<style>
+  /* 07-exception — Frame 7 "반전 꿀팁 (예외)" (frame.md Treatment #7: sion-cluster--bounce, NO
+     sound-tag). Built from assets/voice/07.words.json (2026-09-10). Deliberately no letter-
+     before highlight anywhere in this frame — the whole point (per SCRIPT.md Line 7, confirmed
+     via two rounds of user correction) is that checking the letter before SSION is unnecessary,
+     so labelling it would send a contradicting signal. Cards bounce in (not the smooth
+     back.out used in Frames 5-6) to read as a different, "twist" beat. All three SSION
+     suffixes light up together at "무조건 '션'입니다" (17.8-19.58s) — one shared reveal, not
+     per-card, since it's the same rule for all three at once. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f07-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f07-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f07-progress-fill { position: absolute; left: 0; top: 0; width: 50%; height: 3px; background: #F5C518; }
+
+  .f07-headline { position: absolute; left: 0; right: 0; top: 12cqh; text-align: center; font-size: 2.2cqw; font-weight: 900; color: #FF7A3D; opacity: 0; }
+
+  .f07-row { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-40%); display: flex; justify-content: center; gap: 2.4cqw; }
+  .f07-card { background: rgba(18,32,58,0.9); border: 2px solid rgba(255,122,61,0.5); border-radius: 0.9cqw; padding: 2.6cqh 2cqw; text-align: center; opacity: 0; transform: translateY(40px) scale(0.85); }
+  .f07-card-word { font-family: 'Archivo Black', sans-serif; font-size: 2.6cqw; line-height: 1; color: #FFFFFF; white-space: nowrap; }
+  .f07-ssion { color: #FFFFFF; }
+  .f07-card-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.7cqw; margin-top: 1.4cqh; color: #FF7A3D; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-xw7h" id="root" data-composition-id="07-exception" data-start="0" data-duration="27.64" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-oy9e" id="f07-bg-clip" class="clip f07-bg" data-start="0" data-duration="27.64" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-27qz" id="f07-voice" src="assets/voice/07.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-6q1c" id="f07-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="27.64" data-media-start="186.24" data-volume="0.06"></audio>
+  <audio data-hf-id="hf-yxb5" id="f07-sfx" src="assets/sfx/reveal-chime.mp3" data-start="17.8" data-duration="0.768" data-volume="0.35"></audio>
+
+  <div data-hf-id="hf-pc12" id="f07-progress-track" class="f07-progress-track"></div>
+  <div data-hf-id="hf-jkak" id="f07-progress-fill" class="f07-progress-fill"></div>
+
+  <div data-hf-id="hf-t4kk" id="f07-headline" class="f07-headline">S가 두 번 겹치면 → 무조건 션</div>
+
+  <div data-hf-id="hf-4iwi" id="f07-row" class="f07-row">
+    <div data-hf-id="hf-romb" id="f07-card1" class="f07-card"><div data-hf-id="hf-ragv" class="f07-card-word">MI<span data-hf-id="hf-spwg" id="f07-ssion1" class="f07-ssion">SSION</span></div><div data-hf-id="hf-jgqq" id="f07-pron1" class="f07-card-pron">미션</div></div>
+    <div data-hf-id="hf-gt4o" id="f07-card2" class="f07-card"><div data-hf-id="hf-dtqm" class="f07-card-word">PA<span data-hf-id="hf-oes1" id="f07-ssion2" class="f07-ssion">SSION</span></div><div data-hf-id="hf-ywe1" id="f07-pron2" class="f07-card-pron">패션</div></div>
+    <div data-hf-id="hf-hksh" id="f07-card3" class="f07-card"><div data-hf-id="hf-osc7" class="f07-card-word">DISCU<span data-hf-id="hf-nxry" id="f07-ssion3" class="f07-ssion">SSION</span></div><div data-hf-id="hf-iuss" id="f07-pron3" class="f07-card-pron">디스커션</div></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["07-exception"] = tl;
+
+  var fill = document.getElementById("f07-progress-fill");
+  var headline = document.getElementById("f07-headline");
+  var cards = [document.getElementById("f07-card1"), document.getElementById("f07-card2"), document.getElementById("f07-card3")];
+  var ssions = [document.getElementById("f07-ssion1"), document.getElementById("f07-ssion2"), document.getElementById("f07-ssion3")];
+  var prons = [document.getElementById("f07-pron1"), document.getElementById("f07-pron2"), document.getElementById("f07-pron3")];
+
+  // "그럼 예외는 없을까요? 딱 한 가지만 조심하면 됩니다." (0.5-5.56s): headline lands first.
+  tl.fromTo(headline, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.9);
+
+  // Three cards bounce in at their real spoken onsets (8.857/9.886/10.936s) — a bouncier ease
+  // than Frames 5-6's back.out to read as a different, "twist" beat.
+  [8.857, 9.886, 10.936].forEach(function (t, i) {
+    tl.to(cards[i], { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "bounce.out" }, t);
+  });
+
+  // "무조건 '션'입니다" (17.8-19.58s): all three SSION suffixes light up together — one shared
+  // reveal, since it's the same rule for all three at once (not per-card).
+  tl.to(ssions, { color: "#FF7A3D", textShadow: "0 0 1.2cqw rgba(255,122,61,0.5)", duration: 0.4, ease: "power2.out" }, 17.9);
+  tl.to(cards, { borderColor: "rgba(255,122,61,0.9)", boxShadow: "0 0 1.6cqw rgba(255,122,61,0.4)", duration: 0.4, ease: "power2.out" }, 17.9);
+  tl.fromTo(prons, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", stagger: 0.08 }, 18.1);
+
+  tl.fromTo(fill, { width: "50%" }, { width: "58.333%", duration: 1.0, ease: "power1.inOut" }, 0);
+})();
+</script>
+</template>

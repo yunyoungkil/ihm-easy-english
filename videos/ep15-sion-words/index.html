@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      code,
+      pre,
+      .monospace {
+        font-family: "JetBrains Mono", monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-lcns" id="root" data-composition-id="main" data-start="0" data-duration="401.21" data-width="1920" data-height="1080">
+      <!-- EP15 "끝소리 -sion 하나로 읽는 법". 12 frames, cumulative timing = real TTS duration +
+           0.5s buffer per scene, built against real whisper-measured timestamps
+           (assets/voice/*.words.json) — see SCRIPT.md "TTS 생성 및 실측 완료" section.
+           All 12 frames built (2026-09-10) — first full draft, pending user preview/sync/render. -->
+
+      <div data-hf-id="hf-g6og" id="el-01-stakes" class="scene" data-composition-id="01-stakes" data-composition-src="compositions/frames/01-stakes.html" data-start="0" data-duration="39.88" data-track-index="0"></div>
+      <div data-hf-id="hf-uci4" id="el-02-intro" class="scene" data-composition-id="02-intro" data-composition-src="compositions/frames/02-intro.html" data-start="40.38" data-duration="15.72" data-track-index="0"></div>
+      <div data-hf-id="hf-x363" id="el-03-question" class="scene" data-composition-id="03-question" data-composition-src="compositions/frames/03-question.html" data-start="56.6" data-duration="19.32" data-track-index="0"></div>
+      <div data-hf-id="hf-90ji" id="el-04-headfake" class="scene" data-composition-id="04-headfake" data-composition-src="compositions/frames/04-headfake.html" data-start="76.42" data-duration="26.08" data-track-index="0"></div>
+      <div data-hf-id="hf-2euz" id="el-05-mechanism" class="scene" data-composition-id="05-mechanism" data-composition-src="compositions/frames/05-mechanism.html" data-start="103" data-duration="37.76" data-track-index="0"></div>
+      <div data-hf-id="hf-emjs" id="el-06-pattern" class="scene" data-composition-id="06-pattern" data-composition-src="compositions/frames/06-pattern.html" data-start="141.26" data-duration="44.48" data-track-index="0"></div>
+      <div data-hf-id="hf-se86" id="el-07-exception" class="scene" data-composition-id="07-exception" data-composition-src="compositions/frames/07-exception.html" data-start="186.24" data-duration="27.64" data-track-index="0"></div>
+      <div data-hf-id="hf-1jhh" id="el-08-quiz" class="scene" data-composition-id="08-quiz" data-composition-src="compositions/frames/08-quiz.html" data-start="214.38" data-duration="29.56" data-track-index="0"></div>
+      <div data-hf-id="hf-c8v0" id="el-09-listening" class="scene" data-composition-id="09-listening" data-composition-src="compositions/frames/09-listening.html" data-start="244.44" data-duration="31.71" data-track-index="0"></div>
+      <div data-hf-id="hf-dlcq" id="el-10-practice" class="scene" data-composition-id="10-practice" data-composition-src="compositions/frames/10-practice.html" data-start="276.65" data-duration="47.32" data-track-index="0"></div>
+      <div data-hf-id="hf-z0nt" id="el-11-payoff" class="scene" data-composition-id="11-payoff" data-composition-src="compositions/frames/11-payoff.html" data-start="324.47" data-duration="36.36" data-track-index="0"></div>
+      <div data-hf-id="hf-6h4r" id="el-12-summary" class="scene" data-composition-id="12-summary" data-composition-src="compositions/frames/12-summary.html" data-start="361.33" data-duration="39.88" data-track-index="0"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__mainTl = window.__mainTl || gsap.timeline({ paused: true });
+      window.__timelines["main"] = window.__mainTl;
+    </script>
+  </body>
+</html>

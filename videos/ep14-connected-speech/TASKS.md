@@ -443,3 +443,37 @@ video.mp4`로 저장(EP11~13과 동일한 출력 경로 관례). 결과: h264, 1
 (계획한 428.07초와 정확히 일치), 23.7MB, 렌더 소요 9분 52초. ffprobe로 스펙·재생 가능 여부
 확인 완료. **EP14 제작 완료 — 다음 단계는 업로드 패키지 작성**(제목·설명·태그·고정 댓글·
 엔드스크린 연결 영상은 EP13으로 설정 — BRIEF.md에 이미 메모해둠).
+
+**업로드 패키지 작성 완료(2026-09-10)**: `output/upload-packages/ep14-connected-speech-longform/`에
+EP13과 동일한 파일 구성으로 생성 — title.txt(확정 제목 그대로), description.txt(썸네일
+약속·시청자 페인포인트 반영한 훅 + 실측 data-start 기준 11개 챕터 타임스탬프 + 해시태그),
+tags.txt(market-demand.json의 실제 기회 키워드 반영 — "영어 연음 축약"·"영어 듣기 안 들리는
+이유" 등), pinned-comment.txt(영상 안 퀴즈/연습과 안 겹치는 새 예문 4개로 추가 연습 유도 —
+TURN OFF/LOOK AT/COME IN/SIT ON), status.json(예약 2026-09-14(월) 20:00 KST, EP13 이후
+3일 간격 관례), upload-checklist.txt(EP13 체크리스트 템플릿 그대로 따르되 **엔드스크린
+항목을 처음부터 포함** — EP13에서 빠졌던 실수를 반복하지 않음, 이번엔 EP13으로 연결).
+video.mp4는 렌더 직후 이미 이 경로에 있었고, thumbnail-a/b/c.jpg는 확정 위치에서 복사.
+**아직 안 한 것(사람이 직접 해야 함)**: 실제 유튜브 Studio 업로드·예약·엔드스크린 요소 등록,
+완료 후 status.json의 videoId 기록과 idea-board-history.json의 EP14 항목을
+status:"scheduled"로 갱신(체크리스트 9-10번).
+
+**렌더 파일 저장 위치 불일치 발견·수정(2026-09-10)**: 사용자가 "왜 EP13이랑 다르게 저장했냐"고
+지적 → 확인해보니 EP11~13은 전부 렌더 시 프로젝트 자체의 `videos/<project>/renders/`
+폴더(기본 출력 경로, `<project>_<타임스탬프>.mp4`)에 먼저 남기고 그중 완성본만
+`output/upload-packages/`로 복사해두는 이중 보관 방식이었는데, EP14는 `-o` 옵션으로 처음부터
+업로드 폴더에 바로 렌더해서 `renders/` 폴더가 비어 있었음(내 실수, 의도한 방향 전환 아님).
+`videos/ep14-connected-speech/renders/ep14-connected-speech_2026-09-10_19-55-42.mp4`로 같은
+파일을 복사해서 다른 에피소드와 동일한 이중 보관 구조로 맞춤(둘 다 `.gitignore`의
+`videos/**/renders/*.mp4` / `output/upload-packages/**/*.mp4` 규칙으로 이미 커밋 제외
+대상이라 구조만 맞추면 됨).
+
+**업로드 예약 완료 확인(2026-09-10)**: 사용자가 "업로드 예약까지 완료"로 확인 → 유튜브
+공식 API 동기화(`/api/sync`)로 실제 videoId·예약 시각 확인(vidIQ 대신 프로젝트 자체 연동
+우선 사용 원칙). 결과: `beKA35yvxdk`, `privacyStatus: private`, 실제 예약 시각
+2026-09-13T23:00:00Z(UTC) = **2026-09-14 08:00 KST**. status.json·idea-board-history.json
+EP14 항목(status: "scheduled", producedAt: "2026-09-10") 전부 실제 값으로 갱신.
+**⚠️ 참고 → ✅ 해결**: upload-checklist.txt에 제안했던 예약 시각(20:00 KST)과 실제 설정된
+시각(08:00 KST)이 달라서 사용자에게 확인 요청 → 사용자가 "14 예약 시간 변경했어"로 응답,
+다시 동기화해보니 실제로 **2026-09-14 20:00 KST**(scheduledPublishAt
+2026-09-14T11:00:00Z UTC)로 바뀌어 있어 채널 관례와 정확히 일치. status.json 재갱신 완료.
+**EP14 전체 워크플로 완료 — 아이디어 선정부터 제작·렌더·업로드 예약까지 전부 끝남.**

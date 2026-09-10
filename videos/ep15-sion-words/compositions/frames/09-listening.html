@@ -1,0 +1,86 @@
+<template>
+<style>
+  /* 09-listening — Frame 9 "실제 문장에서 읽기" (frame.md Treatment #9: sentence-card ×4).
+     Frame 9 has NO whisper words.json — its 9 sub-pieces (Korean carrier + 4 pure-English
+     sentences) were generated separately with exactly-known boundaries and concatenated at the
+     raw-PCM level (scripts/gen-tts-gemini.mjs FRAME9_PIECES), so the timing below is taken
+     directly from .tts-results.json's per-piece durations, not whisper alignment (2026-09-10).
+     Four sentences stack top-to-bottom as each is spoken, -sion word colored inline by group,
+     Korean reading appears right after each sentence's English audio ends. */
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f09-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f09-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f09-progress-fill { position: absolute; left: 0; top: 0; width: 66.667%; height: 3px; background: #F5C518; }
+
+  .f09-rows { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 3.4cqh; }
+  .f09-row { display: flex; align-items: baseline; gap: 1.6cqw; opacity: 0; }
+  .f09-sentence { font-size: 2.4cqw; font-weight: 700; color: #FFFFFF; }
+  .f09-voiced { color: #008EFF; font-weight: 900; }
+  .f09-unvoiced { color: #FF7A3D; font-weight: 900; }
+  .f09-pron { font-size: 1.7cqw; font-weight: 900; opacity: 0; white-space: nowrap; }
+</style>
+
+<div data-hf-id="hf-06pu" id="root" data-composition-id="09-listening" data-start="0" data-duration="31.71" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-9wql" id="f09-bg-clip" class="clip f09-bg" data-start="0" data-duration="31.71" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-xmbr" id="f09-voice" src="assets/voice/09.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-r886" id="f09-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="31.71" data-media-start="244.44" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-mj1e" id="f09-progress-track" class="f09-progress-track"></div>
+  <div data-hf-id="hf-z6zc" id="f09-progress-fill" class="f09-progress-fill"></div>
+
+  <div data-hf-id="hf-dinn" id="f09-rows-clip" class="clip" data-start="0" data-duration="31.71" data-track-index="1">
+    <div data-hf-id="hf-n2lj" class="f09-rows">
+      <div data-hf-id="hf-5pi7" id="f09-row1" class="f09-row"><div data-hf-id="hf-5lkw" class="f09-sentence">I need to make a big <span data-hf-id="hf-vvtp" class="f09-voiced">decision</span>.</div><div data-hf-id="hf-ht8t" id="f09-pron1" class="f09-pron f09-voiced">디시전</div></div>
+      <div data-hf-id="hf-x1mc" id="f09-row2" class="f09-row"><div data-hf-id="hf-6tgv" class="f09-sentence">There was a huge <span data-hf-id="hf-najy" class="f09-voiced">explosion</span> in the news.</div><div data-hf-id="hf-afhz" id="f09-pron2" class="f09-pron f09-voiced">익스플로전</div></div>
+      <div data-hf-id="hf-xta5" id="f09-row3" class="f09-row"><div data-hf-id="hf-4793" class="f09-sentence">Can I get an <span data-hf-id="hf-wdlz" class="f09-unvoiced">extension</span> on this?</div><div data-hf-id="hf-2s87" id="f09-pron3" class="f09-pron f09-unvoiced">익스텐션</div></div>
+      <div data-hf-id="hf-gkzu" id="f09-row4" class="f09-row"><div data-hf-id="hf-uz0b" class="f09-sentence">He gave a great first <span data-hf-id="hf-s0ff" class="f09-unvoiced">impression</span>.</div><div data-hf-id="hf-ly3d" id="f09-pron4" class="f09-pron f09-unvoiced">임프레션</div></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["09-listening"] = tl;
+
+  var fill = document.getElementById("f09-progress-fill");
+
+  // Exact sub-piece boundaries from .tts-results.json (no whisper for this frame — see file
+  // header). Each sentence row appears when its English audio starts, its Korean reading
+  // fades in right after that audio ends.
+  var rounds = [
+    { row: "f09-row1", pron: "f09-pron1", start: 5.58, pronAt: 8.3 },
+    { row: "f09-row2", pron: "f09-pron2", start: 10.77, pronAt: 14.45 },
+    { row: "f09-row3", pron: "f09-pron3", start: 16.56, pronAt: 18.96 },
+    { row: "f09-row4", pron: "f09-pron4", start: 21.23, pronAt: 24.19 }
+  ];
+  rounds.forEach(function (r) {
+    var row = document.getElementById(r.row);
+    var pron = document.getElementById(r.pron);
+    tl.fromTo(row, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, r.start);
+    tl.fromTo(pron, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, r.pronAt);
+  });
+
+  tl.fromTo(fill, { width: "66.667%" }, { width: "75%", duration: 1.0, ease: "power1.inOut" }, 0);
+})();
+</script>
+</template>

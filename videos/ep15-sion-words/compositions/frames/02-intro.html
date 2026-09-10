@@ -1,0 +1,61 @@
+<template>
+<style>
+  /* 02-intro — Frame 2 "채널 인트로". Short branding beat: wordmark fades in and holds through
+     the narration. Wordmark color split (이해하면=흰색, 쉬운영어=브랜드 강조색) per CLAUDE.md
+     "채널 워드마크 배색" rule. No season/episode label (단편 방침). */
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f02-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f02-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f02-progress-fill { position: absolute; left: 0; top: 0; width: 8.333%; height: 3px; background: #F5C518; }
+
+  .f02-wordmark-wrap { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%) scale(0.92); text-align: center; opacity: 0; }
+  .f02-wordmark { font-family: 'Black Han Sans', sans-serif; font-size: 6.4cqw; line-height: 1.15; }
+  .f02-wm-white { color: #FFFFFF; }
+  .f02-wm-accent { color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.35); }
+</style>
+
+<div data-hf-id="hf-643p" id="root" data-composition-id="02-intro" data-start="0" data-duration="15.72" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-gkna" id="f02-bg-clip" class="clip f02-bg" data-start="0" data-duration="15.72" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-him7" id="f02-voice" src="assets/voice/02.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-hfa3" id="f02-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="15.72" data-media-start="40.38" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-x1p6" id="f02-progress-track" class="f02-progress-track"></div>
+  <div data-hf-id="hf-klte" id="f02-progress-fill" class="f02-progress-fill"></div>
+
+  <div data-hf-id="hf-5bvs" id="f02-wordmark-wrap" class="f02-wordmark-wrap">
+    <div data-hf-id="hf-la3y" class="f02-wordmark"><span data-hf-id="hf-eiyg" class="f02-wm-white">이해하면 </span><span data-hf-id="hf-c2w6" class="f02-wm-accent">쉬운영어</span></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["02-intro"] = tl;
+
+  var wm = document.getElementById("f02-wordmark-wrap");
+  var fill = document.getElementById("f02-progress-fill");
+
+  tl.fromTo(wm, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 0.15);
+  tl.fromTo(fill, { width: "8.333%" }, { width: "16.667%", duration: 1.0, ease: "power1.inOut" }, 0);
+})();
+</script>
+</template>

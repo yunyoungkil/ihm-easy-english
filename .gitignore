@@ -37,6 +37,12 @@ videos/**/renders/*.mp4
 .obsidian
 .vscode
 
+# Personal BGM library (~181MB, 35 royalty-free tracks) — source material each
+# episode loops/trims a short slice from into assets/bgm/track.loop.mp3 inside
+# its own videos/<project>/ folder (which IS tracked). The library itself is
+# reusable across episodes but not project content, so it stays local only.
+public/audio/BGM 35
+
 # Scratch/log working files, regenerable.
 tmp
 data/youtube/studio-browser-profile

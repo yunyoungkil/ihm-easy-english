@@ -1,0 +1,164 @@
+<template>
+<style>
+  /* 05-mechanism — Frame 5 "원리 설명 (메커니즘)", this episode's clklimax (frame.md
+     Treatment #5: sion-card + sound-tag). Built from assets/voice/05.words.json (2026-09-10).
+
+     Beat 0 (0.48-16.1s VO "원리는...납니다"): abstract rule as a centered, word-by-word
+     emphasized caption, two clauses crossfading at the boundary (EP14 Frame5 Beat0 pattern) —
+     no concrete example yet.
+     Beat 1 (16.236-19.36s VO "사실 여러분은...알고 계세요"): short transition caption teasing
+     the "you already know this" catharsis.
+     Beat 2 (19.432-28.74s VO "TELEVISION...울리는 거예요"): TELEVISION sion-card — word split
+     stem/key-letter/SION, key letter I gets a 모음 sound-tag + blue highlight, result "전"
+     resolves in blue underneath (Korean reading 텔레비전, 전 colored to match).
+     Beat 3 (28.916-38.02s VO "근데 EXPANSION은...나는 거죠"): EXPANSION sion-card, same
+     structure, key letter N gets a 자음 sound-tag + orange highlight, result "션" in orange. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f05-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f05-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f05-progress-fill { position: absolute; left: 0; top: 0; width: 33.333%; height: 3px; background: #F5C518; }
+
+  /* Beat 0/1: abstract-rule captions, word-by-word pop, centered. */
+  .f05-caption { position: absolute; inset: 0; }
+  .f05-clause { position: absolute; left: 8cqw; right: 8cqw; top: 50%; transform: translateY(-50%); text-align: center; opacity: 0; }
+  .f05-cword { display: inline-block; font-size: 3.0cqw; font-weight: 900; color: #FFFFFF; line-height: 1.65; margin-right: 0.5cqw; }
+  .f05-cword-accent { color: #F5C518; text-shadow: 0 0 1cqw rgba(245,197,24,0.3); }
+
+  /* Beat 2/3: sion-card. */
+  .f05-card { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); text-align: center; opacity: 0; }
+  .f05-word-row { display: flex; align-items: baseline; justify-content: center; }
+  .f05-prefix { font-family: 'Archivo Black', sans-serif; font-size: 5.4cqw; line-height: 1; color: #FFFFFF; }
+  .f05-key { font-family: 'Archivo Black', sans-serif; font-size: 5.4cqw; line-height: 1; color: #FFFFFF; position: relative; padding: 0 0.05em; border-radius: 0.2cqw; }
+  .f05-suffix { font-family: 'Archivo Black', sans-serif; font-size: 5.4cqw; line-height: 1; color: #FFFFFF; }
+  .f05-tag { position: absolute; left: 50%; top: -3.2cqh; transform: translateX(-50%); font-size: 1.1cqw; font-weight: 700; color: #A9B4C4; white-space: nowrap; opacity: 0; }
+  .f05-pron-row { margin-top: 3.2cqh; font-size: 2.6cqw; font-weight: 700; opacity: 0; }
+  .f05-pron-stem { color: #A9B4C4; }
+  .f05-pron-result { font-weight: 900; }
+</style>
+
+<div data-hf-id="hf-c3fr" id="root" data-composition-id="05-mechanism" data-start="0" data-duration="37.76" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-6l3i" id="f05-bg-clip" class="clip f05-bg" data-start="0" data-duration="37.76" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-uzan" id="f05-voice" src="assets/voice/05.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-cyl7" id="f05-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="37.76" data-media-start="103" data-volume="0.06"></audio>
+
+  <div data-hf-id="hf-jq62" id="f05-progress-track" class="f05-progress-track"></div>
+  <div data-hf-id="hf-jnd4" id="f05-progress-fill" class="f05-progress-fill"></div>
+
+  <div data-hf-id="hf-h206" id="f05-caption" class="clip f05-caption" data-start="0" data-duration="37.76" data-track-index="1">
+    <div data-hf-id="hf-ot1d" id="f05-c1" class="f05-clause">
+      <span data-hf-id="hf-kby1" id="f05-c1w0" class="f05-cword">원리는</span><span data-hf-id="hf-as5o" id="f05-c1w1" class="f05-cword">이렇습니다.</span><span data-hf-id="hf-gd3d" id="f05-c1w2" class="f05-cword f05-cword-accent">션</span><span data-hf-id="hf-26kg" id="f05-c1w3" class="f05-cword">바로</span><span data-hf-id="hf-lixv" id="f05-c1w4" class="f05-cword">앞</span><span data-hf-id="hf-e5ay" id="f05-c1w5" class="f05-cword">글자가</span><span data-hf-id="hf-hlfl" id="f05-c1w6" class="f05-cword">모음이거나,</span><span data-hf-id="hf-68xk" id="f05-c1w7" class="f05-cword">또는</span><span data-hf-id="hf-p8bj" id="f05-c1w8" class="f05-cword f05-cword-accent">R이면,</span><span data-hf-id="hf-sftb" id="f05-c1w9" class="f05-cword">목이</span><span data-hf-id="hf-60un" id="f05-c1w10" class="f05-cword">울리듯</span><span data-hf-id="hf-oyia" id="f05-c1w11" class="f05-cword">부드럽게</span><span data-hf-id="hf-azsi" id="f05-c1w12" class="f05-cword f05-cword-accent">'전'</span><span data-hf-id="hf-0ct3" id="f05-c1w13" class="f05-cword">소리가</span><span data-hf-id="hf-2qyc" id="f05-c1w14" class="f05-cword">나고요.</span>
+    </div>
+    <div data-hf-id="hf-sr5e" id="f05-c2" class="f05-clause">
+      <span data-hf-id="hf-vl6c" id="f05-c2w0" class="f05-cword">그</span><span data-hf-id="hf-sml7" id="f05-c2w1" class="f05-cword">밖의</span><span data-hf-id="hf-z8w4" id="f05-c2w2" class="f05-cword f05-cword-accent">자음이면,</span><span data-hf-id="hf-4vx3" id="f05-c2w3" class="f05-cword">바람</span><span data-hf-id="hf-9nzx" id="f05-c2w4" class="f05-cword">빠지듯</span><span data-hf-id="hf-p2u2" id="f05-c2w5" class="f05-cword">가볍게</span><span data-hf-id="hf-io4o" id="f05-c2w6" class="f05-cword f05-cword-accent">'션'</span><span data-hf-id="hf-vkgh" id="f05-c2w7" class="f05-cword">소리가</span><span data-hf-id="hf-4asn" id="f05-c2w8" class="f05-cword">납니다.</span>
+    </div>
+    <div data-hf-id="hf-ywv7" id="f05-c3" class="f05-clause">
+      <span data-hf-id="hf-43h9" id="f05-c3w0" class="f05-cword">사실</span><span data-hf-id="hf-ctm8" id="f05-c3w1" class="f05-cword">여러분은</span><span data-hf-id="hf-dz9l" id="f05-c3w2" class="f05-cword">이</span><span data-hf-id="hf-doam" id="f05-c3w3" class="f05-cword">소리,</span><span data-hf-id="hf-oj6n" id="f05-c3w4" class="f05-cword f05-cword-accent">이미</span><span data-hf-id="hf-ozg6" id="f05-c3w5" class="f05-cword f05-cword-accent">알고</span><span data-hf-id="hf-zu4v" id="f05-c3w6" class="f05-cword f05-cword-accent">계세요.</span>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-h36d" id="f05-cards-clip" class="clip" data-start="0" data-duration="37.76" data-track-index="2">
+    <div data-hf-id="hf-mw0p" id="f05-card-tv" class="f05-card">
+      <div data-hf-id="hf-73rf" class="f05-word-row">
+        <span data-hf-id="hf-76ht" class="f05-prefix">TELEV</span><span data-hf-id="hf-jwoj" id="f05-tv-key" class="f05-key">I<span data-hf-id="hf-l6rs" id="f05-tv-tag" class="f05-tag">모음</span></span><span data-hf-id="hf-0avj" class="f05-suffix">SION</span>
+      </div>
+      <div data-hf-id="hf-4gry" id="f05-tv-pron" class="f05-pron-row"><span data-hf-id="hf-bhwa" class="f05-pron-stem">텔레비</span><span data-hf-id="hf-47xo" id="f05-tv-result" class="f05-pron-result">전</span></div>
+    </div>
+    <div data-hf-id="hf-xx8s" id="f05-card-ex" class="f05-card">
+      <div data-hf-id="hf-3n6z" class="f05-word-row">
+        <span data-hf-id="hf-iosr" class="f05-prefix">EXPA</span><span data-hf-id="hf-uqjt" id="f05-ex-key" class="f05-key">N<span data-hf-id="hf-wq35" id="f05-ex-tag" class="f05-tag">자음</span></span><span data-hf-id="hf-bvvz" class="f05-suffix">SION</span>
+      </div>
+      <div data-hf-id="hf-0vjl" id="f05-ex-pron" class="f05-pron-row"><span data-hf-id="hf-zh5t" class="f05-pron-stem">익스팬</span><span data-hf-id="hf-ck3l" id="f05-ex-result" class="f05-pron-result">션</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["05-mechanism"] = tl;
+
+  var fill = document.getElementById("f05-progress-fill");
+  var c1 = document.getElementById("f05-c1");
+  var c2 = document.getElementById("f05-c2");
+  var c3 = document.getElementById("f05-c3");
+  var c1Words = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14].map(function (i) { return document.getElementById("f05-c1w" + i); });
+  var c2Words = [0,1,2,3,4,5,6,7,8].map(function (i) { return document.getElementById("f05-c2w" + i); });
+  var c3Words = [0,1,2,3,4,5,6].map(function (i) { return document.getElementById("f05-c3w" + i); });
+
+  var cardTv = document.getElementById("f05-card-tv");
+  var cardEx = document.getElementById("f05-card-ex");
+  var tvKey = document.getElementById("f05-tv-key");
+  var tvTag = document.getElementById("f05-tv-tag");
+  var tvResult = document.getElementById("f05-tv-result");
+  var exKey = document.getElementById("f05-ex-key");
+  var exTag = document.getElementById("f05-ex-tag");
+  var exResult = document.getElementById("f05-ex-result");
+
+  var VOICED = "#008EFF";
+  var UNVOICED = "#FF7A3D";
+
+  // Beat 0: clause 1, word-pop synced to real onsets.
+  tl.fromTo(c1, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.3);
+  [0.48, 1.2, 2.601, 3.084, 3.566, 3.727, 4.37, 5.334, 5.977, 6.793, 7.312, 8.004, 8.783, 9.216, 9.908].forEach(function (t, i) {
+    tl.fromTo(c1Words[i], { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+  });
+  tl.to(c1, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 10.5);
+
+  // Beat 0: clause 2.
+  tl.fromTo(c2, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 10.6);
+  [10.767, 11.1, 11.6, 12.433, 12.767, 13.433, 14.1, 14.767, 15.433].forEach(function (t, i) {
+    tl.fromTo(c2Words[i], { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+  });
+  tl.to(c2, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 16.1);
+
+  // Beat 1: transition caption.
+  tl.fromTo(c3, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 16.25);
+  [16.236, 16.643, 17.323, 17.594, 18.002, 18.409, 18.817].forEach(function (t, i) {
+    tl.fromTo(c3Words[i], { scale: 1 }, { scale: 1.14, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 }, t);
+  });
+  tl.to(c3, { opacity: 0, duration: 0.3, ease: "power2.inOut" }, 19.1);
+
+  // Beat 2 (19.432-28.74s): TELEVISION card. Key letter I highlights as "VISION 앞 글자가
+  // 모음 I죠?" lands (23.806s), result 전 resolves at "'전'으로" (26.608s).
+  tl.fromTo(cardTv, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 19.432);
+  tl.to(tvKey, { color: VOICED, textShadow: "0 0 1cqw rgba(0,142,255,0.4)", duration: 0.3, ease: "power2.out" }, 23.806);
+  tl.fromTo(tvTag, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 23.806);
+  tl.fromTo(document.getElementById("f05-tv-pron"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 26.608);
+  tl.fromTo(tvResult, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)", color: VOICED }, 26.608);
+
+  // Beat 3 (28.916-38.02s): EXPANSION card, same structure. Cross-fades from the TV card
+  // rather than mutating its text (scrub-safe — two separate elements).
+  tl.to(cardTv, { opacity: 0, y: -10, duration: 0.35, ease: "power2.inOut" }, 28.916);
+  tl.fromTo(cardEx, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 29.1);
+  tl.to(exKey, { color: UNVOICED, textShadow: "0 0 1cqw rgba(255,122,61,0.4)", duration: 0.3, ease: "power2.out" }, 32.585);
+  tl.fromTo(exTag, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 32.585);
+  tl.fromTo(document.getElementById("f05-ex-pron"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 35.83);
+  tl.fromTo(exResult, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)", color: UNVOICED }, 35.83);
+
+  tl.fromTo(fill, { width: "33.333%" }, { width: "41.667%", duration: 1.0, ease: "power1.inOut" }, 19.432);
+})();
+</script>
+</template>

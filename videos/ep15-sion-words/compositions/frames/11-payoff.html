@@ -1,0 +1,133 @@
+<template>
+<style>
+  /* 11-payoff — Frame 11 "실전 재확인 (페이오프)" (frame.md Treatment #11: reveal-blur ×3,
+     accelerating). Built from assets/voice/11.words.json (2026-09-10, after the "화면에 이미
+     보이는 단어를 나레이션이 또 말하지 않는다" fix — narration never vocalizes SUPERVISION/
+     DIVISION/PENSION until the reveal clause, see SCRIPT.md Line 11 comments). SUPERVISION
+     gets the full held treatment (blur -> sound-tag -> resolve), DIVISION and PENSION repeat
+     the same motion progressively faster — the episode's only "slow to fast" beat. Symmetric
+     callback to Frame 1's blur (there: crisp -> blurred/uncertain; here: blurred -> crisp,
+     resolved). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzkM1eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #0A1526; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+  .f11-bg { background: radial-gradient(circle at 50% 46%, #12203A 0%, #0A1526 62%); }
+
+  .f11-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(245,197,24,0.15); }
+  .f11-progress-fill { position: absolute; left: 0; top: 0; width: 83.333%; height: 3px; background: #F5C518; }
+
+  .f11-eyebrow { position: absolute; left: 0; right: 0; top: 14cqh; text-align: center; font-size: 1.5cqw; font-weight: 700; color: #A9B4C4; opacity: 0; }
+  .f11-word-row { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: baseline; justify-content: center; opacity: 0; }
+  .f11-prefix, .f11-key, .f11-suffix { font-family: 'Archivo Black', sans-serif; font-size: 5cqw; line-height: 1; color: #FFFFFF; filter: blur(9px); }
+  .f11-key { position: relative; }
+  .f11-tag { position: absolute; left: 50%; top: -3.2cqh; transform: translateX(-50%); font-size: 1.1cqw; font-weight: 700; color: #A9B4C4; white-space: nowrap; opacity: 0; }
+  .f11-pron { position: absolute; left: 0; right: 0; top: 66cqh; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 3cqw; opacity: 0; }
+  .f11-closing { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-size: 2.6cqw; font-weight: 900; color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.4); opacity: 0; line-height: 1.5; }
+</style>
+
+<div data-hf-id="hf-jqat" id="root" data-composition-id="11-payoff" data-start="0" data-duration="36.36" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-wk57" id="f11-bg-clip" class="clip f11-bg" data-start="0" data-duration="36.36" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-b17v" id="f11-voice" src="assets/voice/11.wav" data-start="0" data-audio-group="voiceover"></audio>
+  <audio data-hf-id="hf-4yp1" id="f11-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="36.36" data-media-start="324.47" data-volume="0.06"></audio>
+  <audio data-hf-id="hf-24h9" id="f11-sfx1" src="assets/sfx/reveal-chime.mp3" data-start="14.4" data-duration="0.768" data-volume="0.3"></audio>
+  <audio data-hf-id="hf-wjqy" id="f11-sfx2" src="assets/sfx/reveal-chime.mp3" data-start="20.5" data-duration="0.768" data-volume="0.25"></audio>
+  <audio data-hf-id="hf-mav5" id="f11-sfx3" src="assets/sfx/reveal-chime.mp3" data-start="25.55" data-duration="0.768" data-volume="0.25"></audio>
+
+  <div data-hf-id="hf-uoma" id="f11-progress-track" class="f11-progress-track"></div>
+  <div data-hf-id="hf-c0zm" id="f11-progress-fill" class="f11-progress-fill"></div>
+
+  <div data-hf-id="hf-kcuy" id="f11-eyebrow" class="f11-eyebrow">오늘 처음 보는 단어</div>
+
+  <div data-hf-id="hf-qily" id="f11-words-clip" class="clip" data-start="0" data-duration="36.36" data-track-index="1">
+    <div data-hf-id="hf-mxt3" id="f11-row-sv" class="f11-word-row">
+      <span data-hf-id="hf-ia17" class="f11-prefix">SUPERV</span><span data-hf-id="hf-d7sy" id="f11-sv-key" class="f11-key">I<span data-hf-id="hf-5j4n" id="f11-sv-tag" class="f11-tag">모음</span></span><span data-hf-id="hf-zuza" class="f11-suffix">SION</span>
+    </div>
+    <div data-hf-id="hf-ema5" id="f11-pron-sv" class="f11-pron" style="color:#008EFF">수퍼비전</div>
+
+    <div data-hf-id="hf-syjm" id="f11-row-dv" class="f11-word-row">
+      <span data-hf-id="hf-vt5b" class="f11-prefix">DIV</span><span data-hf-id="hf-zox9" id="f11-dv-key" class="f11-key">I<span data-hf-id="hf-fg6u" id="f11-dv-tag" class="f11-tag">모음</span></span><span data-hf-id="hf-h1tm" class="f11-suffix">SION</span>
+    </div>
+    <div data-hf-id="hf-16gw" id="f11-pron-dv" class="f11-pron" style="color:#008EFF">디비전</div>
+
+    <div data-hf-id="hf-0qk6" id="f11-row-pn" class="f11-word-row">
+      <span data-hf-id="hf-l7gj" class="f11-prefix">PE</span><span data-hf-id="hf-yz30" id="f11-pn-key" class="f11-key">N<span data-hf-id="hf-njru" id="f11-pn-tag" class="f11-tag">자음</span></span><span data-hf-id="hf-hg4n" class="f11-suffix">SION</span>
+    </div>
+    <div data-hf-id="hf-ud5o" id="f11-pron-pn" class="f11-pron" style="color:#FF7A3D">펜션</div>
+  </div>
+
+  <div data-hf-id="hf-vu5v" id="f11-closing" class="f11-closing">이게 바로 끝소리 하나로<br data-hf-id="hf-x5px">단어 백 개가 저절로 읽히는 이유예요</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["11-payoff"] = tl;
+
+  var fill = document.getElementById("f11-progress-fill");
+  var eyebrow = document.getElementById("f11-eyebrow");
+  var VOICED = "#008EFF";
+  var UNVOICED = "#FF7A3D";
+
+  function revealWord(rowId, keyId, tagId, pronId, color, opts) {
+    var row = document.getElementById(rowId);
+    var key = document.getElementById(keyId);
+    var tag = document.getElementById(tagId);
+    var pron = document.getElementById(pronId);
+    var parts = row.querySelectorAll(".f11-prefix, .f11-key, .f11-suffix");
+
+    tl.fromTo(row, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, opts.appearAt);
+    tl.to(parts, { filter: "blur(0px)", duration: opts.resolveDur, ease: "power2.out" }, opts.resolveAt);
+    tl.to(key, { color: color, textShadow: "0 0 1cqw rgba(0,0,0,0.3)", duration: opts.resolveDur, ease: "power2.out" }, opts.resolveAt);
+    tl.fromTo(tag, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, opts.tagAt);
+    tl.fromTo(pron, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, opts.pronAt);
+    if (opts.outAt) tl.to([row, pron], { opacity: 0, duration: 0.25, ease: "power2.inOut" }, opts.outAt);
+  }
+
+  tl.fromTo(eyebrow, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 5.9);
+
+  // SUPERVISION: blurred at 5.954s, key resolves+tag at 11.176s ("I 다음이니까"), full
+  // resolve + pron at 14.452s ("그럼 정답은"). Held treatment (slowest).
+  revealWord("f11-row-sv", "f11-sv-key", "f11-sv-tag", "f11-pron-sv", VOICED, {
+    appearAt: 5.954, tagAt: 11.176, resolveAt: 13.978, resolveDur: 0.6, pronAt: 15.083, outAt: 16.9
+  });
+
+  // DIVISION: appears 16.986s, resolves faster (0.4s) at 18.63s ("이것도 모음 뒤니까"), pron at
+  // 20.574s.
+  tl.to(eyebrow, { opacity: 0, duration: 0.2 }, 16.9);
+  revealWord("f11-row-dv", "f11-dv-key", "f11-dv-tag", "f11-pron-dv", VOICED, {
+    appearAt: 16.986, tagAt: 18.63, resolveAt: 18.63, resolveDur: 0.4, pronAt: 20.574, outAt: 22.0
+  });
+
+  // PENSION: appears 22.108s, resolves fastest (0.3s) at 23.588s ("이번엔 N 뒤니까"), pron at
+  // 25.604s — the montage's fastest beat.
+  revealWord("f11-row-pn", "f11-pn-key", "f11-pn-tag", "f11-pron-pn", UNVOICED, {
+    appearAt: 22.108, tagAt: 23.588, resolveAt: 23.588, resolveDur: 0.3, pronAt: 25.604, outAt: 26.9
+  });
+
+  // Closing line, held to end.
+  tl.fromTo("#f11-closing", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.3)" }, 32.033);
+
+  tl.fromTo(fill, { width: "83.333%" }, { width: "91.667%", duration: 1.0, ease: "power1.inOut" }, 0);
+})();
+</script>
+</template>

@@ -1,0 +1,21 @@
+업로드 체크리스트 — EP15 (-sion 끝소리 읽기) 롱폼
+예약: 2026-09-17(목) 20:00 KST — EP14(9/14 월) 이후 관례대로 3일 간격, 채널 고정 발행 시각 20:00
+(아직 유튜브에 실제로 예약 등록된 건 아님 — 아래 6번에서 사람이 직접 유튜브 Studio에 업로드·예약해야 함.)
+
+1. 영상 파일: video.mp4 (6:36, BGM 더킹/inline-highlight/엔드스크린 키프아웃 전부 포함)
+2. 제목: title.txt (그대로 붙여넣기)
+3. 설명: description.txt (그대로 붙여넣기 — 챕터 타임스탬프는 index.html의 실측 data-start 기준)
+4. 태그: tags.txt (쉼표로 이미 구분됨)
+5. 썸네일: A/B/C 3종 전부 사용 — 유튜브 Studio "Test & compare" 기능으로 등록할 것 (시안 하나만 올리지 말 것)
+   - thumbnail-a.jpg (채택본, A/B 시뮬레이터 S등급)
+   - thumbnail-b.jpg
+   - thumbnail-c.jpg
+6. 공개 예약: 2026-09-17(목) 20:00 KST로 유튜브 Studio에서 직접 설정
+7. **엔드스크린 연결 영상: EP14(연음/linking sounds)로 설정** — 유튜브 Studio "요소" 탭에서 직접 추가
+   (production-rules.md "공개 일정과 엔딩 화면 연결 규칙" — 항상 직전 편으로 연결, "다음 편"이
+   아님. 렌더 파일 자체는 이미 마지막 5초 키프아웃 처리가 돼 있어 이 요소가 화면을 가리지 않음 —
+   2026-09-11 확정 규칙: 워드마크가 좌상단에 작게 있고 화면 중앙은 통째로 비어 있음)
+8. 업로드 완료 후: pinned-comment.txt 내용을 댓글로 달고 고정
+9. 업로드 승인 게이트 갱신, 실제 공개 후 videoId를 status.json에 기록
+10. idea-board-history.json의 EP15 항목을 status: "scheduled"로 갱신하고 producedAt 채우기
+    (VIDEO_WORKFLOW.md 10단계 규칙)

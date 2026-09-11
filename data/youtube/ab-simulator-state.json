@@ -1,142 +1,152 @@
 {
   "format": "LONGFORM",
-  "topic": "단어 끝 -SION 소리 원리 하나로 100단어 소리 언어팩 체득하기",
-  "audience": "비슷하게 생긴 긴 영어 단어만 보면 읽기가 두려워 말문이 막히는 왕초보 리딩 입문자",
+  "topic": "영어 소리가 낮고 굵게 들리는 이유: 목구멍 소리와 복식호흡 원리",
+  "audience": "입술 모양만 따라 연습하다 목이 아프고 소리가 붕 떠서 고민인 노베이스 독학자",
   "variants": [
     {
       "id": "A",
-      "title": "끝소리 ‘-sion’ 하나만 제대로 알면 영단어 100개가 저절로 읽힙니다",
-      "imageUrl": "/api/video-project-asset/ep15-sion-words/thumbnail-a.jpg",
-      "thumbnailCopy": "평생 써먹는 소리 연결 공식",
-      "badge": "📐 1초 확장 언어팩",
-      "visualConcept": "하나의 열쇠가 수많은 문을 동시에 여는 듯한 정돈된 기하학적 네온 블루 라이팅 비주얼",
-      "isLocalFile": true
+      "title": "영어 발성 위치, 왜 원어민 목소리는 유독 낮고 굵게 들릴까?",
+      "imageUrl": "",
+      "thumbnailCopy": "오늘부로 붕 뜨는 얇은 소리 완전히 끝납니다",
+      "badge": "❓ 소리 비밀 추적",
+      "visualConcept": "물음표 그래픽과 함께 한국인 구강 조음점과 원어민 인두강 울림 위치를 짚어주는 인포그래픽",
+      "isLocalFile": false,
+      "thumbnailHeadline": "원어민 목구멍 소리 왜 나만 안 날까?"
     },
     {
       "id": "B",
-      "title": "긴 단어 끝에 붙은 ‘-sion’, 원어민처럼 소리 내는 1초 규칙",
-      "imageUrl": "/api/video-project-asset/ep15-sion-words/thumbnail-b.jpg",
-      "thumbnailCopy": "이제 긴 단어도 단숨에 읽힙니다",
-      "badge": "⚡ 단어 읽기 혁명",
-      "visualConcept": "어두운 네이비 배경 속 거대한 입체 영단어 블록과 그 끝부분이 빛나는 미니멀 대비 레이아웃",
-      "isLocalFile": true
+      "title": "영어 목구멍 소리, 입술만 쫑알대면 평생 소리 붕 뜨는 이유",
+      "imageUrl": "",
+      "thumbnailCopy": "소리 위치만 내려도 저음이 바로 터집니다",
+      "badge": "⚠️ 발성 위치 경고",
+      "visualConcept": "입술 앞쪽에 갇힌 얕은 음파와 목 깊은 곳에서 터져 나오는 묵직한 울림 음파의 좌우 대비",
+      "isLocalFile": false,
+      "thumbnailHeadline": "영어 목구멍 소리 안 열면 평생 헛발질",
+      "inUse": false
     },
     {
       "id": "C",
-      "title": "비슷하게 생긴 긴 단어만 보면 얼어붙는 분, ‘-sion’부터 보세요",
-      "imageUrl": "/api/video-project-asset/ep15-sion-words/thumbnail-c.jpg",
-      "thumbnailCopy": "긴 단어 울렁증 오늘로 끝납니다",
-      "badge": "🤝 왕초보 리딩 구원",
-      "visualConcept": "복잡한 안개가 걷히며 편안하고 선명한 시야가 열리는 편안한 딥 에메랄드 톤의 안정적 비주얼",
-      "isLocalFile": true
+      "title": "영어 소리 낼 때 입술 모양 억지로 따라 하지 마세요 (목 찢어집니다)",
+      "imageUrl": "",
+      "thumbnailCopy": "목 안쪽 근육 풀리는 즉시 원어민 굵은 소리 장착",
+      "badge": "💥 상식 파괴",
+      "visualConcept": "입술 모양 클로즈업 사진에 얇은 붉은색 취소선이 그어지고 목 안쪽으로 시선이 유도되는 레이아웃",
+      "isLocalFile": false,
+      "thumbnailHeadline": "영어 소리 입술 모양 그만 따라 하세요"
     }
   ],
-  "activeFeedView": "A",
+  "activeFeedView": "B",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
-  "selectedVariantTab": "A",
+  "selectedVariantTab": "B",
   "visionFilter": "normal",
   "aiReport": {
     "variantsEvaluation": [
       {
         "variantKey": "A",
         "curiosityGapScore": 86,
-        "legibilityScore": 90,
-        "visualSalienceScore": 88,
-        "contrastRating": "최상(High)",
-        "focalPoint": "손에 든 옐로우 톤의 '-sion' 카드와 인물의 날카로운 아이컨택",
-        "predictedGrade": "A",
-        "predictedCtrRange": "8.8% ~ 11.5%",
+        "legibilityScore": 89,
+        "visualSalienceScore": 84,
+        "contrastRating": "상(Medium-High)",
+        "focalPoint": "좌측 목 통증을 호소하는 인물 실루엣과 우측 굵은 경고 문구",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "7.8% ~ 9.5%",
         "strengths": [
-          "소품('-sion' 태그)을 손에 쥐고 정면을 응시하는 구도로 시선 집중도가 매우 뛰어남",
-          "좌측 볼드 텍스트와 우측 인물 배치가 롱폼 16:9 비율에 최적화되어 안정적임"
+          "'목만 찢어지게 아플까'라는 시청자 실제 고통점(Pain Point)을 직관적으로 찔러 즉각적인 공감과 문제 인식을 유발함",
+          "목 통증이라는 물리적 증상을 키워드로 삼아 무작정 혀를 굴리다 지친 타겟의 클릭 장벽을 낮춤"
         ],
         "weaknesses": [
-          "좌측 본문 텍스트가 4줄로 다소 길어 120px 모바일 피드에서 순간 인지 속도가 약간 저하될 수 있음"
+          "썸네일 카피 '목 아픈 헛발질 단번에 끝내기'가 다소 추상적이어서 구체적으로 '영어 소리/발성 위치' 문제인지 한눈에 인지하기 어려움",
+          "호기심 갭 대비 문제 제기 톤이 강해 해법에 대한 긍정적 기대감이 상대적으로 약함"
         ],
-        "visualImprovementTip": "좌측 카피 행수를 4줄에서 2~3줄로 압축하고, 우측 하단 여백을 확보해 러닝타임 오버레이 간섭을 방지할 것"
+        "visualImprovementTip": "목 부위에 붉은색 발광 핑(Ping) 그래픽을 추가하고, '목 아픈 헛발질' 뒤에 '영어 발성' 키워드를 살짝 얹어 시각적 원인 분석 구도를 완성할 것"
       },
       {
         "variantKey": "B",
         "curiosityGapScore": 82,
-        "legibilityScore": 85,
-        "visualSalienceScore": 81,
+        "legibilityScore": 91,
+        "visualSalienceScore": 87,
         "contrastRating": "상(Medium-High)",
-        "focalPoint": "인물의 놀란 표정과 우측 중앙의 텍스트 블록",
-        "predictedGrade": "B+",
-        "predictedCtrRange": "7.2% ~ 9.0%",
+        "focalPoint": "중앙의 '목소리 탓이 아닌 위치 문제' 화이트·옐로우 대비 볼드 텍스트",
+        "predictedGrade": "B",
+        "predictedCtrRange": "6.8% ~ 8.4%",
         "strengths": [
-          "인물의 시선이 텍스트를 향해 있어 자연스럽게 시청자 시선을 카피로 유도함",
-          "다크 청록 배경과 옐로우 하이라이트 박스의 명도 대비가 우수함"
+          "'당신 목소리 탓이 아닌 위치 문제'라는 카피가 자책하던 노베이스 독학자의 죄책감을 즉각 덜어주는 심리적 위로 효과 발휘",
+          "노베이스 독학자를 명시적으로 타겟팅하여 해당 층의 시선을 단번에 붙잡음"
         ],
         "weaknesses": [
-          "배경의 네온 '-sion' 그래픽이 우측 텍스트와 겹쳐 시각적 노이즈를 유발함",
-          "우측 하단 네온 그래픽 영역이 유튜브 타임스탬프에 의해 가려질 위험이 큼"
+          "제목이 '붕 뜨고 목만 아팠던 노베이스 독학자 꼭 보세요'로 다소 서술적이며 전형적인 권유형이라 클릭 긴장감이 떨어짐",
+          "검색 노출 측면에서 핵심 키워드('목구멍 소리', '영어 발성')가 제목 앞단에 배치되지 않아 모바일 피드에서 뒤쪽이 잘릴 위험"
         ],
-        "visualImprovementTip": "배경의 3D 입체 글자 오브젝트 투명도를 대폭 낮추고, 텍스트 뒤편의 복잡한 요소를 제거하여 단일 초점을 유지할 것"
+        "visualImprovementTip": "'위치 문제' 텍스트에만 시안 블루 형광 하이라이트 박스를 씌우고, 화살표 그래픽으로 입술에서 목구멍으로 내려가는 위치 벡터를 단순화해 삽입할 것"
       },
       {
         "variantKey": "C",
-        "curiosityGapScore": 75,
-        "legibilityScore": 80,
-        "visualSalienceScore": 72,
-        "contrastRating": "중(Medium)",
-        "focalPoint": "상단 중앙의 거대한 2줄 텍스트 블록",
-        "predictedGrade": "B",
-        "predictedCtrRange": "5.8% ~ 7.5%",
+        "curiosityGapScore": 92,
+        "legibilityScore": 94,
+        "visualSalienceScore": 90,
+        "contrastRating": "최상(High)",
+        "focalPoint": "입술 위치와 목 안쪽 위치를 대조하는 조음 위치 인포그래픽 박스",
+        "predictedGrade": "A",
+        "predictedCtrRange": "9.2% ~ 12.4%",
         "strengths": [
-          "중앙 정렬된 인물의 신뢰감 있는 미소와 깔끔한 단색 연기 배경",
-          "단어 울렁증이라는 명확한 타겟 통증 포인트 자극"
+          "제목 앞단에 '영어 발성 위치 차이' 핵심 키워드가 15자 이내로 명확히 배치되어 모바일 노출에 최적화됨",
+          "한국어(입술 앞) ↔ 영어(목구멍 뒤)의 구체적 조음점 대비가 명확하여 '소리 지름길' 원리를 기대하게 만듦",
+          "썸네일 카피 '목 안쪽 근육 여는 물리적 훈련법'이 막연한 호흡법이 아닌 신체적 조절법을 갈망하던 시청자 DB 니즈를 정확히 관통함"
         ],
         "weaknesses": [
-          "텍스트가 상단 전체를 가로질러 답답하며, 인물이 하단에 눌려 시각적 긴장감이 떨어짐",
-          "소리 교육 영상 특유의 역동성이나 지적 호기심을 자극하는 오브젝트 부재"
+          "'물리적 훈련법'이라는 어휘가 노베이스 학습자에게 다소 학술적이거나 어렵게 느껴질 수 있어 시각 디자인을 극도로 단순화해야 함"
         ],
-        "visualImprovementTip": "인물을 좌측이나 우측으로 3분할 재배치하고, 상단 텍스트 길이를 절반으로 줄여 시각적 숨통을 틔울 것"
+        "visualImprovementTip": "어두운 딥 네이비 배경에 형광 옐로우로 '목구멍 여는 법'을 강조하고, 우측 하단 영상 길이 태그 영역(16:9 기준)을 완전히 비워 텍스트 간섭을 방지할 것"
       }
     ],
-    "bestVariant": "A",
-    "overallVerdict": "시안 A는 손에 쥔 키워드 소품('-sion')과 강렬한 아이컨택으로 피드 스크롤 중 시선을 즉시 멈추게 만듭니다. 좌우 2분할 밸런스가 뛰어나며, 호기심과 학습 보상이 한눈에 전달되어 클릭 전환율이 가장 높을 것으로 판단됩니다.",
+    "bestVariant": "C",
+    "overallVerdict": "시안 C는 유튜브 롱폼(16:9) 피드에서 학습자가 겪어온 '입술만 아프던 헛발질'을 '구강 앞 vs 목구멍 안'이라는 극명한 대조 구도로 가장 명확하게 시각화했습니다. 검색 키워드가 제목 첫머리에 완벽히 배치되어 있으며, 단순 통증 공감을 넘어 실질적인 '물리적 해결 원리'를 즉각 제시해 클릭 후 시청 지속 시간까지 견인할 파괴력이 가장 높습니다.",
     "aiTitleSuggestions": [
       {
         "type": "⚡ 후킹형 (호기심 극대화)",
-        "title": "단어 끝 ‘-sion’을 만났을 때 원어민 혀에서 일어나는 일",
-        "thumbnailCopy": "100단어가 한 호흡에 뚫린다",
-        "suggestedBadge": "⚡ 소리 뇌새김",
-        "designConcept": "손가락으로 단어 끝을 가리키며 입모양을 클로즈업한 긴장감 있는 2분할 구도",
-        "midjourneyPrompt": "A close-up cinematic shot of an expressive Asian tutor pointing at an glowing golden key icon, deep navy cyber ambient background, studio lighting, hyper-realistic, 8k --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "영어 목구멍 소리, 입술만 쫑알대면 평생 소리 붕 뜨는 이유",
+        "thumbnailHeadline": "영어 목구멍 소리 안 열면 평생 헛발질",
+        "thumbnailCopy": "소리 위치만 내려도 저음이 바로 터집니다",
+        "suggestedBadge": "⚠️ 발성 위치 경고",
+        "designConcept": "입술 앞쪽에 갇힌 얕은 음파와 목 깊은 곳에서 터져 나오는 묵직한 울림 음파의 좌우 대비",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, human vocal tract side profile graphic in minimalist neon line art, bright blue glowing focal point deep in the lower throat, subtle red cross mark near the lips, minimalist graphic layout, copy space on the right for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "❓ 질문형 (클릭 유도)",
-        "title": "Decision, Vision… 왜 긴 단어 끝에선 똑같은 소리가 날까?",
-        "thumbnailCopy": "읽는 순간 말문이 터집니다",
-        "suggestedBadge": "📐 1초 판독법",
-        "designConcept": "물음표 네온 조명 아래에서 비밀스러운 제스처를 취하는 신뢰감 있는 강사",
-        "midjourneyPrompt": "Professional Korean male instructor looking at viewer with an intriguing expression, sleek modern educational studio, soft dramatic cyan backlight, premium atmosphere --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "영어 발성 위치, 왜 원어민 목소리는 유독 낮고 굵게 들릴까?",
+        "thumbnailHeadline": "원어민 목구멍 소리 왜 나만 안 날까?",
+        "thumbnailCopy": "오늘부로 붕 뜨는 얇은 소리 완전히 끝납니다",
+        "suggestedBadge": "❓ 소리 비밀 추적",
+        "designConcept": "물음표 그래픽과 함께 한국인 구강 조음점과 원어민 인두강 울림 위치를 짚어주는 인포그래픽",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark navy and graphite background, high contrast visual metaphor of acoustic resonance chambers, glowing yellow depth wave radiating from deep throat area, sleek scientific education layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "💥 반전형 (상식 파괴)",
-        "title": "단어 끝 ‘-sion’, 파닉스 규칙대로 읽으면 절대 안 되는 이유",
-        "thumbnailCopy": "평생 하던 헛고생 끝",
-        "suggestedBadge": "🚫 글자 암기 금지",
-        "designConcept": "빨간색 경고 라이팅과 함께 기존의 단어 암기 방식을 깨부수는 듯한 대비 연출",
-        "midjourneyPrompt": "A dramatic split lighting scene, half shadow half soft gold light, an engaging Asian teacher holding an open glowing lock, sleek minimalist background --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "영어 소리 낼 때 입술 모양 억지로 따라 하지 마세요 (목 찢어집니다)",
+        "thumbnailHeadline": "영어 소리 입술 모양 그만 따라 하세요",
+        "thumbnailCopy": "목 안쪽 근육 풀리는 즉시 원어민 굵은 소리 장착",
+        "suggestedBadge": "💥 상식 파괴",
+        "designConcept": "입술 모양 클로즈업 사진에 얇은 붉은색 취소선이 그어지고 목 안쪽으로 시선이 유도되는 레이아웃",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, ultra-clean modern studio lighting, dark charcoal background, stylized side view illustration of head and neck with red warning indicator on lip shape and bright emerald pathway opening straight down the throat, dramatic lighting, copy space on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "📐 원리형 (쉬운 해결책)",
-        "title": "아무리 긴 단어도 끝자리 ‘-sion’ 하나면 전부 풀립니다",
-        "thumbnailCopy": "외우지 않고 그냥 읽는 법",
-        "suggestedBadge": "🧩 소리 언어팩",
-        "designConcept": "복잡한 퍼즐 조각이 하나로 결합되는 테크니컬 그래픽 배경과 자신감 넘치는 표정",
-        "midjourneyPrompt": "An Asian instructor holding a bright luminous floating puzzle piece, clean dark blue studio backdrop with subtle volumetric lighting, professional cinematography --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "영어 복식호흡 원리, 목구멍 열고 소리 내리는 가장 단순한 1가지 기준",
+        "thumbnailHeadline": "목구멍 발성 위치 이 기준 하나로 끝",
+        "thumbnailCopy": "입술 앞 쫑알거림이 묵직한 원어민 톤으로 바뀝니다",
+        "suggestedBadge": "📐 소리 지름길",
+        "designConcept": "상단에서 하단(복부 및 인두강)으로 뚝 떨어지는 명쾌한 옐로우 가이드 화살표와 정갈한 2분할 구조",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, deep navy and cyan ambient theme, sleek infographic flow diagram showing sound resonance shifting downward from front mouth to deep pharynx, high contrast glowing lines, spacious copy area for typography, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
         "type": "🤝 공감형 (타겟 시청자 맞춤)",
-        "title": "긴 영단어만 보면 얼어붙던 분들을 위한 ‘-sion’ 탈출구",
-        "thumbnailCopy": "이제 긴 단어도 안 두렵다",
-        "suggestedBadge": "🤝 왕초보 구원",
-        "designConcept": "따뜻하면서도 선명한 조명 아래서 편안하게 손을 내미는 든든한 파트너 구도",
-        "midjourneyPrompt": "Warm and encouraging Korean male tutor smiling warmly at camera, clean modern classroom with soft dark emerald and charcoal background, reassuring atmosphere --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "title": "영어 소리 혼자 연습하다 목만 아팠다면, '이 위치'부터 내리세요",
+        "thumbnailHeadline": "원어민 목구멍 저음 오늘 바로 터집니다",
+        "thumbnailCopy": "목 통증 없이 깊고 굵은 영어 소리가 저절로 나옵니다",
+        "suggestedBadge": "🤝 독학자 해방",
+        "designConcept": "답답하게 목을 만지던 고통스러운 상태에서 시원하게 트인 깊은 울림으로 전환되는 편안한 시각화",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark muted navy background, artistic sound wave transition from scattered harsh jagged red lines near mouth to smooth deep golden resonant waves deep inside throat, warm cinematic contrast, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

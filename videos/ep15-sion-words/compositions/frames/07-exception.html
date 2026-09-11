@@ -40,19 +40,28 @@
   .f07-card-word { font-family: 'Archivo Black', sans-serif; font-size: 2.6cqw; line-height: 1; color: #FFFFFF; white-space: nowrap; }
   .f07-ssion { color: #FFFFFF; }
   .f07-card-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.7cqw; margin-top: 1.4cqh; color: #FF7A3D; opacity: 0; }
+
+  /* HyperFrames catalog component "inline-highlight" (채널 공통 규칙, production-rules.md:
+     자막의 가장 중요한 문장/단어 약 3곳에 적용). CSS only, copied verbatim per frame. */
+  .hf-inline-highlight { --hf-highlight-scale: 0; position: relative; display: inline; z-index: 0; }
+  .hf-inline-highlight::after {
+    content: ""; position: absolute; left: -0.08em; right: -0.08em; bottom: var(--hf-highlight-bottom, 0.05em);
+    height: var(--hf-highlight-height, 0.38em); background: var(--hf-highlight-color, #fff06a);
+    transform: scaleX(var(--hf-highlight-scale)); transform-origin: var(--hf-highlight-origin, left center);
+    z-index: -1;
+  }
 </style>
 
 <div data-hf-id="hf-xw7h" id="root" data-composition-id="07-exception" data-start="0" data-duration="27.64" data-width="1920" data-height="1080">
   <div data-hf-id="hf-oy9e" id="f07-bg-clip" class="clip f07-bg" data-start="0" data-duration="27.64" data-track-index="0"></div>
 
   <audio data-hf-id="hf-27qz" id="f07-voice" src="assets/voice/07.wav" data-start="0" data-audio-group="voiceover"></audio>
-  <audio data-hf-id="hf-6q1c" id="f07-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="27.64" data-media-start="186.24" data-volume="0.06"></audio>
   <audio data-hf-id="hf-yxb5" id="f07-sfx" src="assets/sfx/reveal-chime.mp3" data-start="17.8" data-duration="0.768" data-volume="0.35"></audio>
 
   <div data-hf-id="hf-pc12" id="f07-progress-track" class="f07-progress-track"></div>
   <div data-hf-id="hf-jkak" id="f07-progress-fill" class="f07-progress-fill"></div>
 
-  <div data-hf-id="hf-t4kk" id="f07-headline" class="f07-headline">S가 두 번 겹치면 → 무조건 션</div>
+  <div data-hf-id="hf-t4kk" id="f07-headline" class="f07-headline">S가 두 번 겹치면 → <span data-hf-id="hf-f07hl" id="f07-hl" class="hf-inline-highlight" style="--hf-highlight-color:rgba(255,255,255,0.2); --hf-highlight-height:0.4em;">무조건 션</span></div>
 
   <div data-hf-id="hf-4iwi" id="f07-row" class="f07-row">
     <div data-hf-id="hf-romb" id="f07-card1" class="f07-card"><div data-hf-id="hf-ragv" class="f07-card-word">MI<span data-hf-id="hf-spwg" id="f07-ssion1" class="f07-ssion">SSION</span></div><div data-hf-id="hf-jgqq" id="f07-pron1" class="f07-card-pron">미션</div></div>
@@ -87,6 +96,10 @@
   // reveal, since it's the same rule for all three at once (not per-card).
   tl.to(ssions, { color: "#FF7A3D", textShadow: "0 0 1.2cqw rgba(255,122,61,0.5)", duration: 0.4, ease: "power2.out" }, 17.9);
   tl.to(cards, { borderColor: "rgba(255,122,61,0.9)", boxShadow: "0 0 1.6cqw rgba(255,122,61,0.4)", duration: 0.4, ease: "power2.out" }, 17.9);
+
+  // inline-highlight sweep under "무조건 션" synced to the same reveal beat — the twist
+  // confirmed (channel 기본 규칙, ~3곳 중 두 번째: mid-video 반전/카타르시스).
+  tl.to("#f07-hl", { "--hf-highlight-scale": 1, duration: 0.5, ease: "power2.out" }, 17.9);
   tl.fromTo(prons, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", stagger: 0.08 }, 18.1);
 
   tl.fromTo(fill, { width: "50%" }, { width: "58.333%", duration: 1.0, ease: "power1.inOut" }, 0);

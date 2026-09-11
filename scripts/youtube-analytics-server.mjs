@@ -970,8 +970,10 @@ let lastEpisodesSummaryTime = 0;
 const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title) => {
   if (!statusData || statusData.status === 'published') return statusData;
   if (!statusData.scheduledFor) return statusData;
-  const scheduledTime = new Date(statusData.scheduledFor).getTime();
-  if (Number.isNaN(scheduledTime) || scheduledTime > Date.now()) return statusData;
+  // 예약 시각이 아직 안 지났어도 동기화를 시도한다 — videoId가 없으면(막 업로드했을 수 있음)
+  // 찾아서 기록해야 하고, 있어도 사용자가 유튜브 Studio에서 예약 시각을 바꿨을 수 있다(EP14에서
+  // 실제로 20:00→08:00→20:00으로 바뀐 적 있음). "지난 것만 동기화"였던 예전 조건 때문에 막
+  // 업로드해서 예약을 걸어도 패키징 카드에 반영이 안 되는 버그가 있었다(2026-09-11 확인).
   const lastSyncedAt = statusData.lastSyncedAt ? new Date(statusData.lastSyncedAt).getTime() : 0;
   if (Date.now() - lastSyncedAt < 5 * 60 * 1000) return statusData;
 
@@ -1147,6 +1149,52 @@ const getEpisodesSummary = async (forceReload = false) => {
   memoryEpisodesSummary = sorted;
   lastEpisodesSummaryTime = Date.now();
   return sorted;
+};
+
+// 아이디어 보드의 "🔄 이미 진행 중"/"✅ 이미 제작됨"/"✅ 이미 공개됨" 배지는 idea-board-history.json의
+// status 필드를 그대로 보여준다(historyStatusLabel, 클라이언트 스크립트). 그런데 그 필드는 지금까지
+// 사람이 업로드 체크리스트 마지막 단계에서 수동으로 갱신해야 했다 — 실제로는 이미 예약·공개까지
+// 끝났는데 history 파일엔 "selected"로 남아 있어서 배지가 실제보다 뒤처진 상태를 보여주는 버그가
+// 있었다(2026-09-11, EP15에서 발견: "예약까지 했는데 이미 진행중이라는 배지를 달음"). 업로드
+// 패키지의 status.json(방금 위에서 YouTube로 새로 동기화된 값)이 진짜 최신 상태이므로, 그걸
+// episodeSlug로 대조해서 history 쪽을 자동으로 따라가게 한다 — 뒤로 되돌리지는 않는다(이미
+// published인데 무슨 이유로 package 쪽이 잠깐 이상해져도 history를 downgrade하지 않음).
+const IDEA_BOARD_HISTORY_STATUS_RANK = {selected: 0, scheduled: 1, published: 2};
+
+const syncIdeaBoardHistoryFromPackages = async () => {
+  const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
+  if (!history.entries?.length) return history;
+
+  const uploadPackagesDir = join(projectDir, 'output', 'upload-packages');
+  const now = new Date().toISOString();
+  let changed = false;
+
+  for (const entry of history.entries) {
+    if (!entry.episodeSlug) continue;
+    const pkgStatus = await loadJson(join(uploadPackagesDir, `${entry.episodeSlug}-longform`, 'status.json'));
+    if (!pkgStatus) continue;
+
+    // package.status는 'published'/'scheduled'/그 외(패키징만 됨) — scheduled인데 아직 videoId가
+    // 없으면(패키지 생성 직후, 아직 업로드 전) history를 올리지 않는다.
+    let targetStatus = null;
+    if (pkgStatus.status === 'published') targetStatus = 'published';
+    else if (pkgStatus.status === 'scheduled' && pkgStatus.videoId) targetStatus = 'scheduled';
+    if (!targetStatus) continue;
+
+    const currentRank = IDEA_BOARD_HISTORY_STATUS_RANK[entry.status] ?? -1;
+    const targetRank = IDEA_BOARD_HISTORY_STATUS_RANK[targetStatus];
+    if (targetRank <= currentRank) continue; // 이미 같거나 더 앞서 있음 — 뒤로 안 돌림
+
+    entry.status = targetStatus;
+    if (!entry.producedAt) entry.producedAt = now.slice(0, 10);
+    changed = true;
+  }
+
+  if (changed) {
+    history.updatedAt = now;
+    await saveJson(ideaBoardHistoryPath, history);
+  }
+  return history;
 };
 
 const BRAND_LINTER_SAMPLE_SHORTS_TOPIC = "30초 만에 'Want' vs 'Won\'t' 발음 완벽 구분법";
@@ -2388,6 +2436,13 @@ let gIdeaBoardCandidates = null;
 let gIdeaBoardSelected = null;
 let gIdeaBoardGeneratedAt = null;
 let gIdeaBoardHistory = [];
+// "이미 만든 소재" 배너를 전부 펼쳐서 보여줄지 여부 — 기본은 접힌 상태(최근 N개만).
+// 탭을 벗어났다 돌아와도 유지되게 탭 로컬 상태가 아니라 세션 전역으로 둔다(2026-09-11,
+// 사용자 지적: "많이 늘어나면 어떻게 처리됨?" — 무제한으로 늘어나는 배너가 페이지를
+// 다 차지하는 문제를 막기 위함. AI 추천 생성 시 넘기는 목록 자체는 그대로 전부 다 넘긴다 —
+// 화면 표시만 요약하는 것).
+let gIdeaBoardHistoryExpanded = false;
+const IDEA_BOARD_HISTORY_COLLAPSED_COUNT = 8;
 
 function saveIdeaBoardState() {
   try {
@@ -4140,11 +4195,13 @@ function renderEpisodesTab() {
     const long = ep.tracks?.longform?.youtube || {};
     const shortsA = ep.tracks?.['shorts-a']?.youtube || {};
     const shortsB = ep.tracks?.['shorts-b']?.youtube || {};
-    // videoId가 아직 없으면(업로드 전) 실제 후보 썸네일을, 있으면(공개 후) 유튜브 CDN 썸네일을 쓴다.
-    const thumbUrl = long.videoId
-      ? 'https://i.ytimg.com/vi/' + long.videoId + '/mqdefault.jpg'
-      : (long.thumbnailCandidates?.[0] || '');
-    const isCandidateThumb = !long.videoId && !!long.thumbnailCandidates?.[0];
+    // 로컬 후보 썸네일(우리가 직접 만든 파일, 항상 로드됨)을 우선 쓰고, 없을 때만 유튜브 CDN
+    // 썸네일로 폴백한다. CDN 썸네일(i.ytimg.com)은 videoId가 있어도 영상이 아직 비공개/예약
+    // 상태면 안 나온다 — 2026-09-11 확인: 업로드 직후(공개 전) EP13·EP14가 깨진 이미지로
+    // 보이는 버그였음(videoId 유무만으로 CDN을 쓰던 예전 로직의 문제).
+    const thumbUrl = long.thumbnailCandidates?.[0]
+      || (long.videoId ? 'https://i.ytimg.com/vi/' + long.videoId + '/mqdefault.jpg' : '');
+    const isCandidateThumb = !long.videoId;
     const statusText = ep.tracks?.longform?.statusLabel || ep.tracks?.longform?.status || 'READY';
 
     html += '<div class="bento-card col-3">' +
@@ -4198,15 +4255,19 @@ function openEpisodeInspectorModal(epData) {
   const renderTrackDetail = (trackKey) => {
     const data = tracks[trackKey] || {};
     const yt = data.youtube || {};
-    const thumbUrl = yt.videoId ? 'https://i.ytimg.com/vi/' + yt.videoId + '/mqdefault.jpg' : '';
     const candidates = yt.thumbnailCandidates || [];
+    // 로컬 후보 썸네일이 있으면 항상 그 갤러리를 보여준다 — CDN 썸네일(i.ytimg.com)은 videoId가
+    // 있어도 영상이 비공개/예약 상태면 깨진 이미지로 뜨기 때문(2026-09-11 확인). 로컬 파일이
+    // 없을 때만 CDN 단일 이미지로 폴백.
+    const cdnThumbUrl = yt.videoId ? 'https://i.ytimg.com/vi/' + yt.videoId + '/mqdefault.jpg' : '';
+    const hasLocalCandidates = candidates.length > 0;
 
     const content =
       '<div style="display:grid;gap:14px">' +
-        (thumbUrl ? '<img class="thumb-img" style="max-height:220px;margin-bottom:8px" src="' + esc(thumbUrl) + '" alt="">' : '') +
-        (!thumbUrl && candidates.length ?
+        (!hasLocalCandidates && cdnThumbUrl ? '<img class="thumb-img" style="max-height:220px;margin-bottom:8px" src="' + esc(cdnThumbUrl) + '" alt="">' : '') +
+        (hasLocalCandidates ?
           '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
-            '<div class="card-title" style="margin-bottom:8px">🖼️ 썸네일 후보 (' + candidates.length + '종 · 아직 업로드 전)</div>' +
+            '<div class="card-title" style="margin-bottom:8px">🖼️ 썸네일 후보 (' + candidates.length + '종)</div>' +
             '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
               candidates.map((c) => '<img src="' + esc(c) + '" style="width:180px;border-radius:8px;border:1px solid var(--border-subtle)" alt="">').join('') +
             '</div>' +
@@ -5276,10 +5337,14 @@ function openMatrixDiagnosisModal(video) {
             // 채널 기본값으로 리셋(2026-09-01, 위 .btn-send-to-ab와 동일 이유).
             gAbAudience = '3060 성인 & 왕초보 영어 학습자';
 
-            // badge는 항상 내부 비교용 라벨이라(실제 콘텐츠 아님) 무조건 비운다. thumbnailCopy는
-            // altTitles[i]에서 실제로 뽑아낸 값이면(진짜 AI 추천 문구) 남기고, 그마저도 없을 때만
-            // 내부 placeholder("대안 B 카피" 등) 대신 빈 칸으로 — 둘 다 실제 생성 이미지에 그대로
-            // 그려지므로(buildThumbnailPrompt) 내부 라벨이 새 나가면 안 된다(2026-09-01 수정).
+            // badge는 항상 내부 비교용 라벨이라(실제 콘텐츠 아님) 무조건 비운다. thumbnailCopy도
+            // 마찬가지로 비운다 — altTitles는 그냥 대안 "제목" 문자열 배열이라 별도 카피 문구가
+            // 없는데, 예전엔 title.slice(0, 15)로 제목 앞 15글자를 잘라 카피인 척 채워 넣고
+            // 있었다(2026-09-11, 사용자 지적: "썸네일 카피를 보면 문자 수만이 들어가는 것 같은데"
+            // — 실제로 문장 중간에서 뚝 잘린 의미 없는 조각이었다). 제목과 카피는 서로 다른
+            // 내용이어야 하므로(title=훅, thumbnailCopy=시청 후 보상 문구), 진짜 카피가 없으면
+            // 빈 칸으로 둬서 "🚀 Gemini AI CTR 정밀 진단"이 만들어주는 실제 카피로 채우게 한다.
+            // (badge와 마찬가지로 실제 생성 이미지에 그대로 그려지므로 가짜 값을 넣으면 안 된다.)
             // 1. Variant A (Original Baseline Video)
             gAbVariants[0] = {
               id: 'A',
@@ -5296,7 +5361,7 @@ function openMatrixDiagnosisModal(video) {
               id: 'B',
               title: (altTitles && altTitles[0]) ? altTitles[0] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (개선안 B)' : ' (개선안 B)')),
               imageUrl: '',
-              thumbnailCopy: (altTitles && altTitles[0]) ? altTitles[0].slice(0, 15) : '',
+              thumbnailCopy: '',
               badge: '',
               visualConcept: '',
               isLocalFile: false
@@ -5307,7 +5372,7 @@ function openMatrixDiagnosisModal(video) {
               id: 'C',
               title: (altTitles && altTitles[1]) ? altTitles[1] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts' : ' (완전정복 C)')),
               imageUrl: '',
-              thumbnailCopy: (altTitles && altTitles[1]) ? altTitles[1].slice(0, 15) : '',
+              thumbnailCopy: '',
               badge: '',
               visualConcept: '',
               isLocalFile: false
@@ -5869,7 +5934,8 @@ function renderAbSimulatorTab() {
                   '<span class="badge" style="background:rgba(255,0,85,0.15); color:var(--accent-magenta); border:1px solid rgba(255,0,85,0.3); font-size:11px;">' + esc(s.type) + '</span>' +
                   '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
                 '</div>' +
-                (s.thumbnailCopy ? '<div style="font-size:11px; color:var(--accent-amber); margin-bottom:6px;">✍️ 썸네일 카피(시청 후 보상): ' + esc(s.thumbnailCopy) + '</div>' : '') +
+                (s.thumbnailHeadline ? '<div style="font-size:12px; font-weight:700; color:var(--accent-magenta); margin-bottom:6px;">🔥 썸네일 헤드라인: ' + esc(s.thumbnailHeadline) + '</div>' : '') +
+                (s.thumbnailCopy ? '<div style="font-size:11px; color:var(--accent-amber); margin-bottom:6px;">✍️ 하단 캡션(시청 후 보상): ' + esc(s.thumbnailCopy) + '</div>' : '') +
                 (s.suggestedBadge ? '<div style="font-size:11px; color:var(--accent-cyan); margin-bottom:6px;">🏷️ 추천 뱃지: ' + esc(s.suggestedBadge) + '</div>' : '') +
                 (s.designConcept ? '<div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">🎨 비주얼 컨셉: ' + esc(s.designConcept) + '</div>' : '') +
                 '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
@@ -5991,10 +6057,15 @@ function renderAbSimulatorTab() {
             '</div>' +
           '</div>' +
 
+          '<div style="margin-bottom:10px;">' +
+            '<div style="font-size:11px; font-weight:700; color:var(--accent-amber); margin-bottom:4px;">썸네일 헤드라인 (이미지 안 가장 큰 텍스트 — 3~8자×2줄, title과 다른 감정 훅)</div>' +
+            '<input type="text" id="input-ab-variant-headline" value="' + esc(currentVariant.thumbnailHeadline || '') + '" placeholder="예: 이거 모르면 손해" style="width:100%">' +
+          '</div>' +
+
           '<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">' +
             '<div>' +
-              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">썸네일 텍스트 카피 (진단 근거 + 생성 시 하단 문구)</div>' +
-              '<input type="text" id="input-ab-variant-copy" value="' + esc(currentVariant.thumbnailCopy || '') + '" placeholder="예: WANT vs WONT 입모양" style="width:100%">' +
+              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">썸네일 하단 보조 캡션 (시청 후 보상 문구, 15자 내외)</div>' +
+              '<input type="text" id="input-ab-variant-copy" value="' + esc(currentVariant.thumbnailCopy || '') + '" placeholder="예: 이제 헷갈리지 않는다" style="width:100%">' +
             '</div>' +
             '<div>' +
               '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">포인트 뱃지 태그</div>' +
@@ -6106,11 +6177,17 @@ function bindAbSimulatorEvents() {
     };
   }
 
-  // 4. Variant Copy & Badge input
+  // 4. Variant Headline, Copy & Badge input
+  const headlineInput = document.getElementById('input-ab-variant-headline');
+  if (headlineInput) headlineInput.oninput = (e) => {
+    currentVar.thumbnailHeadline = e.target.value;
+    saveAbSimulatorState();
+  };
+
   const copyInput = document.getElementById('input-ab-variant-copy');
-  if (copyInput) copyInput.oninput = (e) => { 
-    currentVar.thumbnailCopy = e.target.value; 
-    saveAbSimulatorState(); 
+  if (copyInput) copyInput.oninput = (e) => {
+    currentVar.thumbnailCopy = e.target.value;
+    saveAbSimulatorState();
   };
 
   const badgeInput = document.getElementById('input-ab-variant-badge');
@@ -6664,6 +6741,7 @@ function bindAbSimulatorEvents() {
           id: v.id,
           title: v.title,
           imageUrl: v._base64Data || v.imageUrl,
+          thumbnailHeadline: v.thumbnailHeadline,
           thumbnailCopy: v.thumbnailCopy,
           badge: v.badge,
         }));
@@ -6706,6 +6784,7 @@ function bindAbSimulatorEvents() {
       const targetVar = gAbVariants.find(v => v.id === targetVarId);
       if (targetVar && suggestion) {
         targetVar.title = suggestion.title || '';
+        targetVar.thumbnailHeadline = suggestion.thumbnailHeadline || targetVar.thumbnailHeadline;
         targetVar.thumbnailCopy = suggestion.thumbnailCopy || targetVar.thumbnailCopy;
         // designConcept(비주얼 컨셉 한 줄)도 같이 저장 — buildThumbnailPrompt가 이걸 프롬프트에
         // 반영해서, 5종 제안마다 실제로 다른 비주얼이 나오게 한다(2026-09-01, 예전엔 텍스트만
@@ -6758,6 +6837,7 @@ function bindAbSimulatorEvents() {
           prompt: finalPrompt,
           variantKey: vKey,
           title: targetVar.title || gAbTopic || '',
+          thumbnailHeadline: targetVar.thumbnailHeadline || '',
           thumbnailCopy: targetVar.thumbnailCopy || '',
           badge: targetVar.badge || '',
           topic: gAbTopic || targetVar.title || '',
@@ -6812,6 +6892,7 @@ function bindAbSimulatorEvents() {
           body: JSON.stringify({
             variantKey: gAbSelectedVariantTab,
             title: targetVar.title || gAbTopic || '',
+            thumbnailHeadline: targetVar.thumbnailHeadline || '',
             thumbnailCopy: targetVar.thumbnailCopy || '',
             badge: targetVar.badge || '',
             topic: gAbTopic || targetVar.title || '',
@@ -7085,13 +7166,27 @@ function renderIdeaBoardTab() {
     '</div>';
 
   if (gIdeaBoardHistory.length) {
+    // 배너에는 최근 N개만 보여준다 — AI 추천에 넘기는 목록(producedTopics)은 이 화면 표시와
+    // 무관하게 항상 전체를 다 쓴다(2026-09-11, "많이 늘어나면 어떻게 처리됨?" 대응 — 무제한
+    // 칩 목록이 페이지를 다 차지하는 걸 막되, 실제 중복 방지 로직은 그대로 전부 반영).
+    const total = gIdeaBoardHistory.length;
+    const showAll = gIdeaBoardHistoryExpanded || total <= IDEA_BOARD_HISTORY_COLLAPSED_COUNT;
+    const visible = showAll ? gIdeaBoardHistory : gIdeaBoardHistory.slice(-IDEA_BOARD_HISTORY_COLLAPSED_COUNT);
+    const hiddenCount = total - visible.length;
     html += '<div class="bento-card col-12" style="background:rgba(16,185,129,0.08);border:1px solid var(--accent-emerald)">' +
-      '<div class="card-title" style="color:var(--accent-emerald)">✅ 이미 만든 소재(' + gIdeaBoardHistory.length + '건) — 아래 후보 생성 시 자동으로 제외됨</div>' +
+      '<div class="card-title" style="color:var(--accent-emerald)">✅ 이미 만든 소재(' + total + '건) — 아래 후보 생성 시 자동으로 제외됨</div>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
-      gIdeaBoardHistory.map((h) =>
+      visible.map((h) =>
         '<span class="tag-chip" style="font-size:12px">' + esc(h.episodeLabel || h.episodeSlug || '') + ' · ' + esc(h.topic || '') +
-        (h.status ? ' (' + esc(h.status) + ')' : '') + '</span>'
+        (h.status ? ' (' + esc(h.status) + ')' : '') +
+        (h.status === 'selected' ?
+          ' <button class="btn-idea-history-release" data-topic="' + esc(h.topic) + '" title="선택 해지 — 다시 추천 후보로 돌아갈 수 있게 됩니다(프로젝트 파일은 지우지 않음)" style="margin-left:4px;background:none;border:none;color:#ff5577;cursor:pointer;font-weight:800;font-size:13px;line-height:1">✕</button>' : '') +
+        '</span>'
       ).join('') +
+      (hiddenCount > 0 ?
+        '<button class="btn btn-sm" id="btn-idea-history-toggle" style="font-size:12px">+' + hiddenCount + '개 더 있음 · 펼치기</button>' :
+        (total > IDEA_BOARD_HISTORY_COLLAPSED_COUNT ?
+          '<button class="btn btn-sm" id="btn-idea-history-toggle" style="font-size:12px">접기</button>' : '')) +
       '</div>' +
     '</div>';
   }
@@ -7138,7 +7233,9 @@ function renderIdeaBoardTab() {
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
           '<span class="tag-chip">' + (c.suggestedFormat === 'SHORTS' ? '📱 쇼츠' : '📺 롱폼') + '</span>' +
           (producedMatch ?
-            '<span class="badge badge-hold" style="cursor:default" title="' + esc(producedMatch.episodeLabel || '') + '(으)로 ' + esc(producedMatch.status || '') + ' — 선택 불가">' + producedLabel + '</span>' :
+            '<span class="badge badge-hold" style="cursor:default" title="' + esc(producedMatch.episodeLabel || '') + '(으)로 ' + esc(producedMatch.status || '') + ' — 선택 불가">' + producedLabel + '</span>' +
+            (producedMatch.status === 'selected' ?
+              '<button class="btn btn-sm btn-idea-history-release" data-topic="' + esc(producedMatch.topic || c.topic) + '" style="margin-left:6px;color:#ff5577;border-color:#ff5577">해지</button>' : '') :
             '<button class="btn btn-sm ' + (isSelected ? 'btn-cyan' : 'btn-outline') + ' btn-idea-board-pick" data-rank="' + esc(c.rank) + '">' + (isSelected ? '✅ 선택됨' : '이 주제로 진행 →') + '</button>') +
         '</div>' +
       '</div>';
@@ -7160,6 +7257,14 @@ function renderIdeaBoardTab() {
 }
 
 function bindIdeaBoardEvents() {
+  const historyToggleBtn = document.getElementById('btn-idea-history-toggle');
+  if (historyToggleBtn) {
+    historyToggleBtn.onclick = () => {
+      gIdeaBoardHistoryExpanded = !gIdeaBoardHistoryExpanded;
+      renderCurrentTab();
+    };
+  }
+
   const genBtn = document.getElementById('btn-idea-board-generate');
   if (genBtn) {
     genBtn.onclick = async () => {
@@ -7180,6 +7285,9 @@ function bindIdeaBoardEvents() {
         gIdeaBoardGeneratedAt = data.generatedAt || new Date().toISOString();
         gIdeaBoardSelected = null;
         saveIdeaBoardState();
+        // 서버가 생성 직전에 "찜만 하고 제작으로 안 넘어간" 이력을 정리했을 수 있으니
+        // (2026-09-11 확인), 배너에 옛 개수가 남지 않도록 이력도 같이 새로 받아온다.
+        await hydrateIdeaBoardFromServer();
         renderCurrentTab();
         showToast('💡 아이디어 후보 5개가 생성되었습니다!');
       } catch (err) {
@@ -7191,6 +7299,38 @@ function bindIdeaBoardEvents() {
       }
     };
   }
+
+  document.querySelectorAll('.btn-idea-history-release').forEach((btn) => {
+    btn.onclick = async (ev) => {
+      ev.stopPropagation();
+      const topic = btn.dataset.topic;
+      if (!topic) return;
+      if (!confirm('"' + topic + '" 선택을 해지할까요? 다시 추천 후보에 나올 수 있게 됩니다 (이미 만든 프로젝트 파일이 있다면 지우지는 않습니다).')) return;
+      try {
+        const res = await fetch('/api/idea-board/history/release', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({topic}),
+        });
+        const data = await res.json();
+        if (res.ok && data.entries) {
+          gIdeaBoardHistory = data.entries;
+          // 해지한 소재가 현재 화면에 선택된 상태(gIdeaBoardSelected)였다면 선택도 같이 풀어준다
+          // — 안 그러면 해지했는데도 "✅ 선택됨" 표시가 그대로 남아 혼란스럽다.
+          if (gIdeaBoardSelected && gIdeaBoardSelected.topic === topic) {
+            gIdeaBoardSelected = null;
+            saveIdeaBoardState();
+          }
+          renderCurrentTab();
+          showToast('🔓 "' + topic + '" 선택을 해지했습니다.');
+        } else {
+          showToast('⚠️ 해지 실패: ' + (data.error || '알 수 없는 오류'));
+        }
+      } catch (err) {
+        showToast('⚠️ 해지 요청 실패: ' + err.message);
+      }
+    };
+  });
 
   document.querySelectorAll('.btn-idea-board-pick').forEach((btn) => {
     btn.onclick = async () => {
@@ -7861,6 +8001,15 @@ const server = createServer(async (req, res) => {
       if (!accessToken) return json(res, 401, {error: 'YouTube 채널 재연동(로그인)이 필요합니다.'});
       try {
         const dashboard = await getFullDashboardData(true);
+        // 업로드 패키징(에피소드 탭)도 이 자리에서 같이 강제 새로고침한다 — 안 그러면
+        // getEpisodesSummary()의 60초 메모리 캐시가 이 동기화 직후의 /api/episodes/summary
+        // 요청까지 그대로 막아서, 방금 예약 건 영상의 videoId가 패키징 카드에 반영이 안 되는
+        // 버그가 있었다(2026-09-11 확인 — "동기화해도 업로드 패키징에 안 나타남").
+        await getEpisodesSummary(true);
+        // 그 새로고침된 패키지 상태를 아이디어 보드 이력에도 반영한다 — 안 그러면 예약·공개까지
+        // 끝난 에피소드도 "🔄 이미 진행 중" 배지에 계속 머물러 있는 버그가 있었다(2026-09-11
+        // 확인 — "예약까지 했는데 이미 진행중이라는 배지를 달음").
+        await syncIdeaBoardHistoryFromPackages();
         return json(res, 200, {ok: true, sync: dashboard.sync, channel: dashboard.channel});
       } catch (err) {
         return json(res, err.status || 500, {error: err.message});
@@ -7952,6 +8101,7 @@ const server = createServer(async (req, res) => {
           topic: body.topic || '',
           variantKey: body.variantKey || 'A',
           title: body.title || '',
+          thumbnailHeadline: body.thumbnailHeadline || '',
           thumbnailCopy: body.thumbnailCopy || '',
           badge: body.badge || '',
           format: body.format || 'LONGFORM',
@@ -7972,6 +8122,7 @@ const server = createServer(async (req, res) => {
           topic: body.topic || '',
           variantKey: body.variantKey || 'A',
           title: body.title || '',
+          thumbnailHeadline: body.thumbnailHeadline || '',
           thumbnailCopy: body.thumbnailCopy || '',
           badge: body.badge || '',
           format: body.format || 'LONGFORM',
@@ -8057,18 +8208,40 @@ const server = createServer(async (req, res) => {
         return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
       }
       try {
-        const [marketDemand, contentOpportunity, dnaStore, patternsStore, historyStore] = await Promise.all([
+        const [marketDemand, contentOpportunity, dnaStore, patternsStore, historyStore, catalog] = await Promise.all([
           loadJson(marketDemandPath),
           loadJson(contentOpportunityPath),
           loadJson(audienceDnaPath, {entries: []}),
           loadJson(successPatternsPath, {entries: []}),
           loadJson(ideaBoardHistoryPath, {entries: []}),
+          loadJson(catalogPath, {videos: []}),
         ]);
+
+        // "선택됨"(status: 'selected')인데 episodeSlug가 없는 항목 — 즉 "이 주제로 진행"은
+        // 눌렀지만 실제 제작(BRIEF.md·썸네일)으로는 안 넘어간 항목 — 은 새 후보를 다시 생성하는
+        // 이 행동 자체가 "그 선택은 안 쓰겠다"는 의사로 봐야 한다(2026-09-11, 사용자 지적:
+        // "이미 선택한 아이디어는 사용하지 않겠다로 판단되야하는거 아니야? 썸네일 제작으로 안
+        // 넘어갔으니"). 안 그러면 후보를 재생성할 때마다 예전에 찜만 하고 접은 소재가 영영
+        // "이미 제작됨" 취급을 받아 겹침 검사에 계속 걸리고, 실제로 그 소재가 다시 추천돼도
+        // AI가 어중간하게 피하려다 비슷한 각도로 또 내는 부작용도 있었다(예: "노베이스 입 근육
+        // 세팅" 소재가 살짝 다른 문구로 다시 나온 사례). episodeSlug가 있으면(실제 제작 시작)
+        // 절대 안 지운다 — 여기서 지우는 건 "찜만 하고 그친" 것만이다.
+        const abandoned = (historyStore.entries || []).filter((e) => e.status === 'selected' && !e.episodeSlug);
+        if (abandoned.length) {
+          historyStore.entries = (historyStore.entries || []).filter((e) => !(e.status === 'selected' && !e.episodeSlug));
+          historyStore.updatedAt = new Date().toISOString();
+          await saveJson(ideaBoardHistoryPath, historyStore);
+        }
+
         const result = await generateTopicCandidates({
           geminiKey, marketDemand, contentOpportunity,
           audienceDna: dnaStore.entries || [],
           successPatterns: patternsStore.entries || [],
           producedTopics: historyStore.entries || [],
+          // catalog.json은 채널 소유자 권한으로 조회해서 예약/비공개 영상도 포함된다(2026-09-11
+          // 확인 — 방금 올린 EP15도 공개 전인데 이미 들어 있었음). /api/sync를 돌릴 때마다
+          // 최신화되므로 앞으로 올라가는 영상도 별도 작업 없이 계속 반영된다.
+          channelVideos: (catalog.videos || []).map((v) => ({title: v.title})),
         });
         return json(res, 200, {ok: true, ...result});
       } catch (err) {
@@ -8127,6 +8300,32 @@ const server = createServer(async (req, res) => {
         if (idx !== -1) history.entries[idx] = entry; else history.entries.push(entry);
         history.schemaVersion = history.schemaVersion || 1;
         history.updatedAt = now;
+        await saveJson(ideaBoardHistoryPath, history);
+        return json(res, 200, {ok: true, entries: history.entries});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // "🔄 이미 진행 중" 카드를 사용자가 직접 해지하는 엔드포인트(2026-09-11, 사용자 지적: "선택해서
+    // 썸네일 제작까지 갔다가 주제가 맘에 안 들어서 안 할 수도 있잖아"). 기존 자동 정리(위
+    // generate-candidates의 abandoned 필터링)는 "후보를 다시 생성할 때"만 걸려서, 그 전까진 카드가
+    // 계속 잠긴 채로 남아 있었다 — 이건 사용자가 원할 때 바로 풀 수 있게 하는 수동 창구.
+    // status가 'selected'인 것만 해지 가능하다 — 'scheduled'/'published'는 실제로 업로드
+    // 패키지·YouTube 예약까지 끝난 진짜 제작물이라, 여기서 실수로 지워지면 안 된다(그 단계를
+    // 취소하려면 실제 YouTube 예약 자체를 먼저 취소해야 하므로 이 버튼의 책임 범위 밖이다).
+    if (url.pathname === '/api/idea-board/history/release' && req.method === 'POST') {
+      try {
+        const body = await readJsonBody(req);
+        const topic = String(body.topic || '').trim();
+        if (!topic) return json(res, 400, {error: 'topic이 필요합니다.'});
+        const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
+        const idx = history.entries.findIndex((e) => String(e.topic || '').trim() === topic);
+        if (idx === -1) return json(res, 404, {error: '해당 소재를 이력에서 찾을 수 없습니다.'});
+        if (history.entries[idx].status !== 'selected') {
+          return json(res, 400, {error: '이미 예약/공개된 소재는 여기서 해지할 수 없습니다 (status: ' + history.entries[idx].status + ').'});
+        }
+        history.entries.splice(idx, 1);
+        history.updatedAt = new Date().toISOString();
         await saveJson(ideaBoardHistoryPath, history);
         return json(res, 200, {ok: true, entries: history.entries});
       } catch (err) {

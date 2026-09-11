@@ -1,27 +1,70 @@
 {
   "schemaVersion": 1,
-  "snapshotId": "2026-09-10T11-04-59-992Z",
-  "syncedAt": "2026-09-10T11:04:59.992Z",
+  "snapshotId": "2026-09-11T08-44-10-182Z",
+  "syncedAt": "2026-09-11T08:44:10.182Z",
   "range": {
-    "startDate": "2026-06-11",
-    "endDate": "2026-09-08"
+    "startDate": "2026-06-12",
+    "endDate": "2026-09-09"
   },
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/1Oo6_AfJXNpD3im1GJ6pdxVvlFw7-Nm8Be6PPzHGWS74k12n6xgdhUYHbFQLNO_1H1fWu1bv=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 108,
-    "totalViews": 52632,
-    "videos": 67,
+    "totalViews": 52634,
+    "videos": 66,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
   },
   "recentVideos": [
     {
+      "videoId": "uqmVMRhT_1A",
+      "title": "끝소리 '-sion' 하나만 제대로 알면 영단어 100개가 저절로 읽힙니다",
+      "publishedAt": "2026-09-11T08:28:26Z",
+      "thumbnail": "https://i9.ytimg.com/vi/uqmVMRhT_1A/maxresdefault.jpg?sqp=COD8jtUG&rs=AOn4CLCZFPlNqJ7uFJsiJWAa_pJpNzHYnw",
+      "description": "DECISION, TELEVISION, EXPANSION… 이렇게 좀 긴 영단어 보면, 나도 모르게 눈부터 피하신 적 있으시죠?\n뜻은 아는데 소리 내서 읽으려면 확신이 안 서는 거, 여러분이 영어를 못해서가 아닙니다. 그 단어 끝에 숨어 있는 소리 패턴을 아직 모르셨을 뿐이에요.\n\n「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 원리로 설명합니다.\n\n📌 오늘 배우는 내용\n・끝소리 -sion이 '전'과 '션'으로 갈리는 진짜 이유\n・DECISION·TELEVISION부터 VERSION·CONVERSION까지, 규칙 하나로 확장하는 법\n・SSION만 예외인 이유(MISSION·PASSION·DISCUSSION)\n・미니 퀴즈 + 실제 문장 리스닝 + 소리 내어 읽기로 직접 확인해보기\n\n⏱️ 영상 순서\n0:00 긴 영단어만 보면 눈부터 피하게 되는 이유\n0:40 채널 소개\n0:56 왜 철자는 같은데 발음은 다르게 날까\n1:15 정답: 발음 기호 하나도 안 외워도 됩니다\n1:41 끝소리 바로 앞 글자 하나로 정해지는 원리\n2:19 다른 단어에도 그대로 통하는 패턴 확장\n3:03 딱 하나 있는 예외: SSION\n3:31 직접 맞혀보는 미니 퀴즈\n4:00 실제 문장 속에서 들어보기\n4:32 소리 내서 따라 읽어보기\n5:19 처음 보는 단어도 바로 읽어보기\n5:56 오늘의 정리\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어읽기 #왕초보영어 #영어공부 #영단어 #발음규칙 #영어발음원리 #성인영어",
+      "tags": [
+        "영어 발음",
+        "영어 발음 규칙",
+        "영어 발음 원리",
+        "왕초보 영어 발음",
+        "미국식 발음 규칙",
+        "영어 읽는법",
+        "영어 단어 읽기",
+        "긴 영단어",
+        "영단어 암기",
+        "왕초보 영어",
+        "영어 공부",
+        "성인 영어",
+        "영어 독학",
+        "영어 회화",
+        "sion 발음",
+        "decision vision 발음",
+        "English pronunciation rules",
+        "how to read English words",
+        "English for beginners",
+        "English vocabulary"
+      ],
+      "categoryId": "26",
+      "defaultLanguage": null,
+      "duration": "PT6M36S",
+      "durationSeconds": 396,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-09-17T11:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/uqmVMRhT_1A"
+    },
+    {
       "videoId": "beKA35yvxdk",
       "title": "원어민들이 절대로 교과서처럼 똑 부러지게 말하지 않는 진짜 이유",
       "publishedAt": "2026-09-10T10:57:15Z",
-      "thumbnail": "https://i9.ytimg.com/vi/beKA35yvxdk/maxresdefault.jpg?sqp=CLCbitUG&rs=AOn4CLBdAKUZedLs7x9ww5tM1n-D7gtHjg",
+      "thumbnail": "https://i9.ytimg.com/vi/beKA35yvxdk/maxresdefault.jpg?sqp=COD8jtUG&rs=AOn4CLCFffDJqAF6SlFFivHiuKcghBRQbg",
       "description": "단어는 분명 다 아는데, 문장으로 이어지면 하나도 안 들리신 적 있으시죠?\n원어민이 발음을 대충 뭉개는 게 아닙니다. 혀에 힘을 빼고 소리와 소리를 편하게 이어 붙이는 것뿐이에요.\n\n「이해하면 쉬운 영어」입니다. 왕초보도 이해할 수 있게, 원리로 설명합니다.\n\n📌 오늘 배우는 내용\n・원어민 말이 유독 빠르고 뭉쳐 들리는 진짜 이유\n・AN APPLE로 보는 자음+모음 연음 원리\n・Where were we?가 '웨어루이'처럼 들리는 이유\n・MADE IT처럼 T·D가 낄 때 다르게 들리는 반전 규칙\n・4문제 퀴즈 + 리스닝 + 발음 연습으로 직접 확인해보기\n\n⏱️ 영상 순서\n0:00 원어민은 왜 교과서처럼 안 읽을까\n0:42 왜 유독 원어민 말만 뭉쳐 들릴까\n1:03 힘을 빼면 소리가 이어진다\n1:38 AN APPLE로 보는 연음 원리\n2:21 Where were we?도 똑같이 통할까\n3:08 MADE IT은 왜 다르게 들릴까\n3:53 직접 맞혀보는 미니 퀴즈\n4:32 실제 속도로 듣는 리스닝 테스트\n4:58 소리 내서 따라 말해보기\n6:03 이제 단어가 아니라 문장이 들립니다\n6:35 오늘의 정리\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어리스닝 #왕초보영어 #영어공부 #영어듣기 #연음 #영어발음원리 #성인영어",
       "tags": [
         "영어 발음",
@@ -107,7 +150,7 @@
       "videoId": "AcNSDMpkR_A",
       "title": "영어 노베이스도 첫날부터 단어가 술술 읽히는 혀의 지름길",
       "publishedAt": "2026-09-07T09:28:48Z",
-      "thumbnail": "https://i9.ytimg.com/vi/AcNSDMpkR_A/maxresdefault.jpg?sqp=CLCbitUG&rs=AOn4CLBDiZN8xTcQYg8BVxQnJG48sGFDrw",
+      "thumbnail": "https://i9.ytimg.com/vi/AcNSDMpkR_A/maxresdefault.jpg?sqp=COD8jtUG&rs=AOn4CLDGcNJIdSNEJM-PrxGqEqRV8D29dQ",
       "description": "알파벳도 다 알고 발음 규칙도 나름 공부하셨는데, 처음 보는 단어 앞에서 딱 멈추신 적 있으시죠?\n정답은 무작정 암기가 아닙니다. 혀에 힘을 빼는 것, 그 원리 하나예요.\n\n「이해하면 쉬운 영어」입니다. 왕초보도 이해할 수 있게, 원리로 설명합니다.\n\n📌 오늘 배우는 내용\n・알파벳 하나가 단어마다 다르게 소리 나는 진짜 이유\n・혀에 힘을 빼면 저절로 만들어지는 소리 조립 원리 (BAG 예시)\n・CAT・MAP에도 똑같이 통하는 같은 패턴\n・C가 '크'에서 '스'로 바뀌는 반전 규칙 (CITY, CELL)\n・4문제 퀴즈 + 리스닝 + 발음 연습으로 직접 확인해보기\n\n⏱️ 영상 순서\n0:00 알파벳도 아는데 왜 단어는 못 읽을까\n0:36 오늘 다룰 진짜 원리\n0:48 영어 모음은 왜 5개뿐일까\n1:26 다 외울 필요 없다? 힘 빼는 원리\n1:59 BAG으로 보는 소리 조립 원리\n2:54 CAT・MAP에도 통하는 같은 소리\n3:46 C는 왜 크였다가 스로 바뀔까\n4:35 직접 맞혀보는 미니 퀴즈\n5:18 실제 속도로 듣는 리스닝 테스트\n5:42 소리 내서 따라 말해보기\n6:47 마트에서 만난 JAM, 직접 읽어보기\n7:22 오늘의 정리\n\n영어는 외우는 것이 아니라, 이해하는 것입니다.\n구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.\n\n#영어발음 #영어읽기 #왕초보영어 #영어공부 #파닉스 #알파벳소리 #영어발음원리 #성인영어",
       "tags": [
         "영어 발음",
@@ -299,7 +342,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1",
+        "viewCount": "2",
         "likeCount": "0",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -524,7 +567,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1590",
+        "viewCount": "1591",
         "likeCount": "3",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1161,7 +1204,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1149",
+        "viewCount": "1150",
         "likeCount": "1",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1422,7 +1465,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CLCbitUG&rs=AOn4CLBpR-3JGQEHjf5j9FG2QVc9mixW4w",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=COD8jtUG&rs=AOn4CLC4FJijzJUX4F04Gh5uxRPg_MjAkw",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -2164,7 +2207,7 @@
       "playlistId": "PLdTWj5v6v8zE",
       "title": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
       "description": "영어 읽는 법을 기초부터 원리로 배우는 시즌1입니다.  Silent E, C와 K, G의 소리, 슈와, 강세 규칙까지 순서대로 배우며 영어 읽기의 기본 원리를 이해합니다.  영어를 외우는 것이 아니라 이해하고 싶은 분들을 위한 시리즈입니다.",
-      "itemCount": 15,
+      "itemCount": 16,
       "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
     }
   ],
@@ -2690,23 +2733,22 @@
       "role": "STANDALONE_LONG",
       "source": "auto",
       "reason": "검토 필요"
+    },
+    "uqmVMRhT_1A": {
+      "category": "OTHER",
+      "role": "STANDALONE_LONG",
+      "source": "auto",
+      "reason": "검토 필요"
     }
   },
   "summary": {
-    "views": 52700,
-    "estimatedMinutesWatched": 8115,
+    "views": 52705,
+    "estimatedMinutesWatched": 8116,
     "averageViewDuration": 29,
     "subscribersGained": 112,
     "subscribersLost": 4
   },
   "daily": [
-    {
-      "day": "2026-06-11",
-      "views": 0,
-      "estimatedMinutesWatched": 0,
-      "subscribersGained": 0,
-      "subscribersLost": 0
-    },
     {
       "day": "2026-06-12",
       "views": 0,
@@ -3322,13 +3364,20 @@
       "estimatedMinutesWatched": 7,
       "subscribersGained": 0,
       "subscribersLost": 0
+    },
+    {
+      "day": "2026-09-08",
+      "views": 5,
+      "estimatedMinutesWatched": 1,
+      "subscribersGained": 0,
+      "subscribersLost": 0
     }
   ],
   "contentTypes": [
     {
       "creatorContentType": "shorts",
-      "views": 52408,
-      "estimatedMinutesWatched": 7620,
+      "views": 52413,
+      "estimatedMinutesWatched": 7621,
       "subscribersGained": 90,
       "subscribersLost": 0
     },
@@ -3367,8 +3416,8 @@
     },
     {
       "insightTrafficSourceType": "YT_SEARCH",
-      "views": 716,
-      "estimatedMinutesWatched": 140
+      "views": 721,
+      "estimatedMinutesWatched": 141
     },
     {
       "insightTrafficSourceType": "YT_CHANNEL",
@@ -4253,10 +4302,10 @@
     },
     {
       "video": "pghOYvcjpIg",
-      "views": 1022,
-      "estimatedMinutesWatched": 202,
-      "averageViewDuration": 29,
-      "averageViewPercentage": 56.940000000000005,
+      "views": 1026,
+      "estimatedMinutesWatched": 204,
+      "averageViewDuration": 28,
+      "averageViewPercentage": 56.769999999999996,
       "subscribersGained": 2,
       "subscribersLost": 0,
       "likes": 10,
@@ -4267,7 +4316,7 @@
       "durationSeconds": 51,
       "creatorContentType": "SHORTS",
       "subscriberNet": 2,
-      "subscribersPerThousandViews": 1.9569471624266144,
+      "subscribersPerThousandViews": 1.949317738791423,
       "classification": {
         "category": "LEGACY",
         "role": "STANDALONE_SHORT",
@@ -4303,10 +4352,10 @@
     },
     {
       "video": "xVXqGbOHpbM",
-      "views": 813,
+      "views": 814,
       "estimatedMinutesWatched": 67,
       "averageViewDuration": 17,
-      "averageViewPercentage": 36.49,
+      "averageViewPercentage": 36.37,
       "subscribersGained": 0,
       "subscribersLost": 0,
       "likes": 1,
@@ -4934,7 +4983,7 @@
       "comments": 1,
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CLCbitUG&rs=AOn4CLBpR-3JGQEHjf5j9FG2QVc9mixW4w",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=COD8jtUG&rs=AOn4CLC4FJijzJUX4F04Gh5uxRPg_MjAkw",
       "durationSeconds": 353,
       "creatorContentType": "VIDEO_ON_DEMAND",
       "subscriberNet": 0,
@@ -5260,6 +5309,31 @@
         "updatedAt": "2026-08-31T11:09:56.737Z"
       },
       "url": "https://youtu.be/3PkSwrFIcRE"
+    },
+    {
+      "video": "W7toujk6ER8",
+      "views": 0,
+      "estimatedMinutesWatched": 0,
+      "averageViewDuration": 0,
+      "averageViewPercentage": 0,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 1,
+      "title": "원어민은 왜 GOING TO를 교과서처럼 읽지 않을까?",
+      "publishedAt": "2026-09-08T11:00:27Z",
+      "thumbnail": "https://i.ytimg.com/vi/W7toujk6ER8/maxresdefault.jpg",
+      "durationSeconds": 215,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "url": "https://youtu.be/W7toujk6ER8"
     }
   ],
   "topVideos": [
@@ -11927,8 +12001,8 @@
   },
   "evaluations48h": {
     "schemaVersion": 1,
-    "generatedAt": "2026-09-10T11:04:59.163Z",
-    "reportEndDate": "2026-09-08",
+    "generatedAt": "2026-09-11T08:44:09.390Z",
+    "reportEndDate": "2026-09-09",
     "evaluations": [
       {
         "contentId": "s1-ep08-shorts-b",
@@ -11944,7 +12018,7 @@
         "decisionStatus": "pass",
         "label": "통과",
         "reason": "평균 시청률 65.7%로 최소 기준 통과",
-        "evaluatedAt": "2026-09-10T11:04:59.163Z",
+        "evaluatedAt": "2026-09-11T08:44:09.390Z",
         "metrics": {
           "views": 1578,
           "estimatedMinutesWatched": 243,

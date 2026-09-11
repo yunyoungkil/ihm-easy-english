@@ -29,6 +29,16 @@
 
   .f04-hero-wrap { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; opacity: 0; }
   .f04-hero { font-family: 'Black Han Sans', sans-serif; font-size: 5cqw; line-height: 1.3; color: #F5C518; text-shadow: 0 0 1.6cqw rgba(245,197,24,0.4); }
+
+  /* HyperFrames catalog component "inline-highlight" (채널 공통 규칙, production-rules.md:
+     자막의 가장 중요한 문장/단어 약 3곳에 적용). CSS only, copied verbatim per frame. */
+  .hf-inline-highlight { --hf-highlight-scale: 0; position: relative; display: inline; z-index: 0; }
+  .hf-inline-highlight::after {
+    content: ""; position: absolute; left: -0.08em; right: -0.08em; bottom: var(--hf-highlight-bottom, 0.05em);
+    height: var(--hf-highlight-height, 0.38em); background: var(--hf-highlight-color, #fff06a);
+    transform: scaleX(var(--hf-highlight-scale)); transform-origin: var(--hf-highlight-origin, left center);
+    z-index: -1;
+  }
 </style>
 
 <div data-hf-id="hf-ewc9" id="root" data-composition-id="04-headfake" data-start="0" data-duration="26.08" data-width="1920" data-height="1080">
@@ -36,13 +46,12 @@
   <div data-hf-id="hf-zskf" id="f04-amber-wash" class="clip f04-amber-wash" data-start="0" data-duration="26.08" data-track-index="1"></div>
 
   <audio data-hf-id="hf-p6rn" id="f04-voice" src="assets/voice/04.wav" data-start="0" data-audio-group="voiceover"></audio>
-  <audio data-hf-id="hf-pb7e" id="f04-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="26.08" data-media-start="76.42" data-volume="0.06"></audio>
 
   <div data-hf-id="hf-ylzq" id="f04-progress-track" class="f04-progress-track"></div>
   <div data-hf-id="hf-uagy" id="f04-progress-fill" class="f04-progress-fill"></div>
 
   <div data-hf-id="hf-4lws" id="f04-hero-wrap" class="clip f04-hero-wrap" data-start="0" data-duration="26.08" data-track-index="2">
-    <div data-hf-id="hf-sdxw" class="f04-hero">끝소리 하나로,<br data-hf-id="hf-x5px">단어가 읽힙니다</div>
+    <div data-hf-id="hf-sdxw" class="f04-hero">끝소리 하나로,<br data-hf-id="hf-x5px"><span data-hf-id="hf-f04hl" id="f04-hl" class="hf-inline-highlight" style="--hf-highlight-color:rgba(255,255,255,0.2); --hf-highlight-height:0.42em;">단어가 읽힙니다</span></div>
   </div>
 </div>
 
@@ -65,6 +74,10 @@
 
   // "규칙이 딱 하나예요" finishes at 10.9s → hero line rises and holds for the rest of the frame.
   tl.fromTo(hero, { opacity: 0, y: 16, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.3)" }, 10.95);
+
+  // inline-highlight sweep under "단어가 읽힙니다" — the thesis payoff clause — once the hero
+  // line has settled (channel 기본 규칙, ~3곳 중 첫 번째: Head Fake thesis).
+  tl.to("#f04-hl", { "--hf-highlight-scale": 1, duration: 0.5, ease: "power2.out" }, 11.8);
 
   tl.fromTo(fill, { width: "25%" }, { width: "33.333%", duration: 1.0, ease: "power1.inOut" }, 0);
 })();

@@ -48,6 +48,17 @@ tmp
 data/youtube/studio-browser-profile
 data/youtube/*.png
 
+# HyperFrames tool-generated caches inside each project folder — crash-recovery
+# state, timeline preview thumbnails, waveform analysis cache, and the
+# media-use skill's local resolve index. All regenerate automatically and
+# were never meant to be committed (CLAUDE.md already documented .hyperframes
+# as "never committed" but it wasn't actually ignored yet — EP15 alone added
+# 200+ .thumbnails/ preview JPGs to git status, 2026-09-11).
+videos/*/.hyperframes/
+videos/*/.thumbnails/
+videos/*/.waveform-cache/
+videos/*/.media/
+
 # A/B 시뮬레이터 AI 생성 썸네일 — output/temp-thumbnails/에 파일로 저장됨(localStorage
 # base64 용량 문제 회피용, knowledge/now.md 2026-09-01 기록 참고). 재생성 가능하므로 미추적.
 output/temp-thumbnails

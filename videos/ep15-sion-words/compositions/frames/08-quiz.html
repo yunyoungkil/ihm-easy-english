@@ -3,10 +3,18 @@
   /* 08-quiz — Frame 8 "미니 퀴즈" (frame.md Treatment #8: quiz-reveal). Built from
      assets/voice/08.words.json (2026-09-10, after the "정답 누설" fix — narration never
      vocalizes the target English word until the reveal clause, see SCRIPT.md Line 8 comments).
-     Three rounds share one central card slot; each round is its own pair of elements (a "?"
-     question state + an answer state) cross-fading — never a textContent mutation on a shared
-     node (scrub-safety). Round 3 (EXPRESSION) is the "R inside the word, but SSION overrides"
-     trap — its answer card gets the same SSION treatment as Frame 7. */
+     Three rounds share one central card slot; each round is its own pair of elements (a dim
+     "question" state + a bright "answer" state) cross-fading — never a textContent mutation on
+     a shared node (scrub-safety). Round 3 (EXPRESSION) is the "R inside the word, but SSION
+     overrides" trap — its answer card gets the same SSION treatment as Frame 7.
+
+     2026-09-11 fix: the question state used to show a bare "?" with no spelling at all, but the
+     narration's hint clauses ("S 앞이 모음 U니까," / "N 다음이니까,") name a specific letter
+     inside the word — meaningless unless the viewer can already see the spelling. The question
+     state now shows the real spelling (dim/muted, answer still unknown); only the Korean
+     pronunciation is held back for the reveal beat. Showing the spelling early doesn't leak
+     anything — the earlier "정답 누설" bug was about the narration's own AUDIO revealing
+     pronunciation, not the on-screen spelling. */
   @font-face {
     font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
     src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
@@ -38,7 +46,7 @@
 
   .f08-badge { position: absolute; left: 50%; top: 22cqh; transform: translateX(-50%); width: 4.2cqw; height: 4.2cqw; border-radius: 50%; background: #F5C518; color: #0A1526; display: flex; align-items: center; justify-content: center; font-family: 'Black Han Sans', sans-serif; font-size: 2cqw; opacity: 0; }
   .f08-slot { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -46%); text-align: center; }
-  .f08-q { font-family: 'Archivo Black', sans-serif; font-size: 6cqw; color: #4A5A78; opacity: 0; }
+  .f08-q { font-family: 'Archivo Black', sans-serif; font-size: 4.4cqw; line-height: 1; color: #4A5A78; opacity: 0; }
   .f08-answer { opacity: 0; }
   .f08-answer-word { font-family: 'Archivo Black', sans-serif; font-size: 4.4cqw; line-height: 1; color: #FFFFFF; }
   .f08-answer-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2.6cqw; margin-top: 2cqh; }
@@ -50,7 +58,6 @@
   <div data-hf-id="hf-n5b5" id="f08-bg-clip" class="clip f08-bg" data-start="0" data-duration="29.56" data-track-index="0"></div>
 
   <audio data-hf-id="hf-pcgj" id="f08-voice" src="assets/voice/08.wav" data-start="0" data-audio-group="voiceover"></audio>
-  <audio data-hf-id="hf-p1eb" id="f08-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="29.56" data-media-start="214.38" data-volume="0.06"></audio>
   <audio data-hf-id="hf-mrd8" id="f08-sfx1" src="assets/sfx/reveal-chime.mp3" data-start="10.7" data-duration="0.768" data-volume="0.3"></audio>
   <audio data-hf-id="hf-zia7" id="f08-sfx2" src="assets/sfx/reveal-chime.mp3" data-start="17.11" data-duration="0.768" data-volume="0.3"></audio>
   <audio data-hf-id="hf-352z" id="f08-sfx3" src="assets/sfx/reveal-chime.mp3" data-start="25.06" data-duration="0.768" data-volume="0.3"></audio>
@@ -64,15 +71,15 @@
 
   <div data-hf-id="hf-10ou" id="f08-slots-clip" class="clip" data-start="0" data-duration="29.56" data-track-index="1">
     <div data-hf-id="hf-y0tr" id="f08-slot1" class="f08-slot">
-      <div data-hf-id="hf-3tbw" id="f08-q1" class="f08-q">?</div>
+      <div data-hf-id="hf-3tbw" id="f08-q1" class="f08-q">CONFUSION</div>
       <div data-hf-id="hf-wdwm" id="f08-a1" class="f08-answer"><div data-hf-id="hf-w3qe" class="f08-answer-word">CONFUSION</div><div data-hf-id="hf-ga8i" class="f08-answer-pron f08-pron-voiced">컨퓨전</div></div>
     </div>
     <div data-hf-id="hf-n5c4" id="f08-slot2" class="f08-slot">
-      <div data-hf-id="hf-irhp" id="f08-q2" class="f08-q">?</div>
+      <div data-hf-id="hf-irhp" id="f08-q2" class="f08-q">DIMENSION</div>
       <div data-hf-id="hf-sfsl" id="f08-a2" class="f08-answer"><div data-hf-id="hf-uaue" class="f08-answer-word">DIMENSION</div><div data-hf-id="hf-5rd5" class="f08-answer-pron f08-pron-unvoiced">디멘션</div></div>
     </div>
     <div data-hf-id="hf-nwzx" id="f08-slot3" class="f08-slot">
-      <div data-hf-id="hf-yjya" id="f08-q3" class="f08-q">?</div>
+      <div data-hf-id="hf-yjya" id="f08-q3" class="f08-q">EXPRESSION</div>
       <div data-hf-id="hf-ro4s" id="f08-a3" class="f08-answer"><div data-hf-id="hf-we1w" class="f08-answer-word">EXPRESSION</div><div data-hf-id="hf-0b1q" class="f08-answer-pron f08-pron-unvoiced">익스프레션</div></div>
     </div>
   </div>

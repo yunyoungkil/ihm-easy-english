@@ -4,10 +4,17 @@
      17 words from across the episode (전=파랑 8개, 션=주황 9개) appear as a staggered word
      cloud during the recap sentence (0.52-18.62s), then the hero line "끝소리 하나로, 단어가
      읽힙니다" lands below it and both hold — echoing Frame 1's "눈부터 피하신 적
-     있으시죠?"/"망설임 없이 읽으실 수 있게" callback (SCRIPT.md Line 12 comment). Last 3s
-     (36.88-39.88s) is the YouTube endscreen keepout: everything fades to just the centered
-     channel wordmark, clearing both the bottom-right and top-center overlay zones
-     (production-rules.md "렌더 마지막 3초"). */
+     있으시죠?"/"망설임 없이 읽으실 수 있게" callback (SCRIPT.md Line 12 comment).
+
+     2026-09-11 endscreen revision (matches EP14's fixed pattern exactly, now a standing rule —
+     see CLAUDE.md "엔드스크린 키프아웃"): last 5s (34.88-39.88s) is the YouTube endscreen
+     keepout. Everything fades — word cloud, headline, AND the full-width progress rail (easy to
+     forget since it's persistent chrome in every other frame, but it clips the top-center
+     keepout zone at y:0-3px) — leaving the ENTIRE center of the screen empty, not just the two
+     documented overlay rectangles. The channel wordmark survives as a small tag in the top-left
+     corner (not dead-center) specifically so the center stays free for whatever end-screen
+     elements the user places in YouTube Studio (subscribe button, video/playlist cards) —
+     centering our own branding there would compete with those. */
   @font-face {
     font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
     src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
@@ -40,14 +47,14 @@
 
   .f12-headline { position: absolute; left: 0; right: 0; top: 76cqh; text-align: center; font-family: 'Black Han Sans', sans-serif; font-size: 3.4cqw; color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.4); opacity: 0; }
 
-  .f12-endscreen-wordmark { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-family: 'Black Han Sans', sans-serif; font-size: 4.4cqw; opacity: 0; }
+  .f12-endscreen-wordmark { position: absolute; left: 6cqw; top: 8cqh; opacity: 0; }
+  .f12-endscreen-wordmark-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.1cqw; font-weight: 900; letter-spacing: 0.04em; }
 </style>
 
 <div data-hf-id="hf-jimx" id="root" data-composition-id="12-summary" data-start="0" data-duration="39.88" data-width="1920" data-height="1080">
   <div data-hf-id="hf-dfvx" id="f12-bg-clip" class="clip f12-bg" data-start="0" data-duration="39.88" data-track-index="0"></div>
 
   <audio data-hf-id="hf-5i4b" id="f12-voice" src="assets/voice/12.wav" data-start="0" data-audio-group="voiceover"></audio>
-  <audio data-hf-id="hf-m59u" id="f12-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="39.88" data-media-start="361.33" data-volume="0.06"></audio>
 
   <div data-hf-id="hf-0gky" id="f12-progress-track" class="f12-progress-track"></div>
   <div data-hf-id="hf-b658" id="f12-progress-fill" class="f12-progress-fill"></div>
@@ -75,7 +82,7 @@
   <div data-hf-id="hf-muwb" id="f12-headline" class="f12-headline">끝소리 하나로, 단어가 읽힙니다</div>
 
   <div data-hf-id="hf-qf6m" id="f12-endscreen-wordmark" class="f12-endscreen-wordmark">
-    <span data-hf-id="hf-wj8g" style="color:#FFFFFF">이해하면 </span><span data-hf-id="hf-ldop" style="color:#F5C518">쉬운영어</span>
+    <div data-hf-id="hf-qf6t" class="f12-endscreen-wordmark-text"><span data-hf-id="hf-wj8g" style="color:#FFFFFF">이해하면 </span><span data-hf-id="hf-ldop" style="color:#F5C518">쉬운영어</span></div>
   </div>
 </div>
 
@@ -87,6 +94,7 @@
   window.__timelines["12-summary"] = tl;
 
   var fill = document.getElementById("f12-progress-fill");
+  var progressTrack = document.getElementById("f12-progress-track");
   var chips = Array.prototype.slice.call(document.querySelectorAll("#f12-cloud .f12-chip"));
   var headline = document.getElementById("f12-headline");
   var cloud = document.getElementById("f12-cloud");
@@ -101,11 +109,12 @@
   // Warmest tone shift as the closing encouragement plays (34.196s "저와 같이...").
   tl.to("#f12-bg-clip", { filter: "brightness(1.12)", duration: 1.5, ease: "power2.out" }, 34.2);
 
-  // Endscreen keepout: last 3s (36.88-39.88s) — fade cloud+headline out, hold just the
-  // centered wordmark (clears both YouTube overlay zones since everything is horizontally
-  // and vertically centered, nowhere near the top-center or bottom-right corners).
-  tl.to([cloud, headline], { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 36.88);
-  tl.fromTo(endscreenWm, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 37.1);
+  // Endscreen keepout: last 5s (34.88-39.88s) — fade cloud+headline+progress rail out (the
+  // rail is full-width and would otherwise clip the top-center keepout zone at y:0-3px), leaving
+  // the whole center empty. The wordmark reappears as a small top-left corner tag, not dead
+  // center — center stays free for whatever the user places in YouTube Studio.
+  tl.to([cloud, headline, progressTrack, fill], { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 34.88);
+  tl.fromTo(endscreenWm, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 35.1);
 
   tl.fromTo(fill, { width: "91.667%" }, { width: "100%", duration: 1.0, ease: "power1.inOut" }, 0.6);
 })();

@@ -1,6 +1,8 @@
 {
-  "status": "scheduled",
-  "scheduledFor": "2026-09-11T20:00:00+09:00",
+  "status": "published",
+  "scheduledFor": "2026-09-11T11:00:00Z",
   "videoId": "AcNSDMpkR_A",
-  "updatedAt": "2026-09-10T11:01:25.546Z"
+  "updatedAt": "2026-09-10T11:01:25.546Z",
+  "lastSyncedAt": "2026-09-11T12:07:32.815Z",
+  "publishedAt": "2026-09-11T12:07:32.815Z"
 }

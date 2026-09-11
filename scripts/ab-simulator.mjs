@@ -348,16 +348,88 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
 위 각 시안의 ${imageCount > 0 ? "'실제 썸네일 이미지(시각 디자인/색상/폰트/배경)'와 " : ""}'제목/카피'를 엄격하게 정밀 진단하여 아래 JSON 포맷 규격으로만 응답하세요. 백틱(\`\`\`json)으로 감싸서 출력하세요.
 특히 'aiTitleSuggestions'의 'midjourneyPrompt' 종횡비는 반드시 '${arParam}'를 포함해야 합니다.
 
-'aiTitleSuggestions' 5개는 반드시 아래 세 규칙을 지킬 것:
+'aiTitleSuggestions' 5개는 반드시 아래 규칙을 지킬 것:
 1. **정답/핵심 메커니즘 노출 금지** — 특히 '💥 반전형'은 "상식이 틀렸다는 사실"까지만 드러내고 "왜/어떻게 그런지"는 절대 밝히지 말 것.
    제목에서 정답을 다 알려주면 영상을 볼 이유가 없다. (예: "끝소리 T는 소리 내지 마세요, 목소리 빼고 바람만 뱉는 원리"처럼
    메커니즘 자체를 설명하면 안 됨 — "끝소리 T, 원어민은 절대 이렇게 안 읽습니다"처럼 궁금증만 남길 것.)
 2. **5개 전부 [영상 기획 주제]를 구체적으로 반영할 것** — 특히 '🤝 공감형'이 브랜드 톤앤매너 문장을 그대로 재사용하는 슬로건이
    되지 않도록, 이 소재 고유의 키워드(단어/상황)를 반드시 포함할 것.
-3. **'title'과 'thumbnailCopy'는 절대 같은 정보를 반복하지 말 것** — title은 호기심을 유발하는 훅(질문/반전/예고),
-   thumbnailCopy는 그 영상을 시청한 뒤에 얻는 보상/확인 느낌의 짧은 문구(15자 내외)여야 한다. 이 둘이 같은 내용을
-   다른 말로 반복하면 안 됨(예: title="원어민이 0.1초 만에 구분하는 차이" → thumbnailCopy는 그 차이를 재설명하지
-   말고 "이제 헷갈리지 않는다" 류의 확인/보상 톤으로).
+3. **'title'·'thumbnailHeadline'·'thumbnailCopy'는 핵심 키워드를 공유해도 된다 — 진짜 원칙은
+   "같은 정보 금지"가 아니라 "표현 형식(register)을 다르게" 하는 것이다**(2026-09-11, 실제
+   상위 채널 12건 실측으로 재검증 — 처음엔 "절대 반복 금지"로 너무 엄격하게 잡았다가, 실제
+   경쟁 채널 썸네일/제목 쌍을 직접 대조해보니 핵심 키워드·숫자를 그대로 공유하는 게 오히려
+   흔하고 효과적인 패턴이었다. 예: 실측 사례 — 썸네일 "3개월간 '이것'만 하세요" ↔ 제목
+   "영어회화는 '이것'이 핵심입니다! 3개월만 제발 이렇게 하세요" — "이것"·"3개월"을 그대로
+   공유하면서 형식만 다름. 또 다른 사례: 썸네일 "Have been / 1분 30초만 보세요" ↔ 제목
+   "...have been 1분30초 안에 이해 못하면 욕해도 됩니다" — 핵심 단어·시간이 동일).
+   - **title = 서술/스토리 톤**: "~했더니 ~됐어요", "~한다면 꼭 보세요"처럼 맥락과 서사가 있는
+     완전한 문장. 검색 키워드·숫자·맥락이 담긴다.
+   - **thumbnailHeadline = 명령/단정 압축 톤**: 썸네일 이미지 안의 **가장 큰 텍스트**. title과
+     같은 핵심 키워드를 써도 되지만, "~하세요/~만/~됨"처럼 짧고 강렬하게 압축한 명령형·단정형
+     이어야 한다 — title을 그대로 줄인 것처럼 보이면 안 되고, 같은 핵심을 다른 어투로 찍어야
+     한다.
+   - **유일하게 피해야 할 것은 이 영상과 무관한 범용 문구다**(2026-09-11, 사용자 지적: "제목과
+     같으면 안 되지만 제목의 보조 역할이나 제목으로 연관돼서 클릭할 수 있는 걸 추가해야지,
+     지금 문구는 이득만 있는거잖아" — "10초면 충분"처럼 이 소재가 영어 발음인지 다이어트인지
+     전혀 알 수 없는 완전 교체 가능한 문구가 문제였지, 키워드를 title과 공유하는 것 자체는
+     문제가 아니었다). headline만 따로 떼어놔도 "아, 이 영상 얘기구나" 싶은 단서가 남아야 한다.
+   - **thumbnailCopy = 하단 보조 캡션**: 시청 후 보상/확인 느낌의 짧은 문구(15자 내외), headline이
+     만든 긴장을 풀어주는 역할. 이것도 이 소재와 무관한 범용 문구가 되면 안 된다.
+   예: title="'-sion' 끝소리 규칙, 원어민들이 절대 글자 그대로 안 읽는 이유" →
+   - ❌ 실패: "10초면 충분" (이 영상만의 단서가 전혀 없음, 아무 영상에나 붙여도 말이 됨)
+   - ✅ 성공: "-sion 이제 그만 틀리세요" (title의 핵심 키워드 "-sion"을 그대로 공유하되,
+     서술형 title과 다르게 명령형으로 압축 — 실제 상위 채널 패턴과 동일)
+4. **'thumbnailHeadline'은 "무슨 주제를 다루는지"는 명시하고, 궁금증은 오직 "구체적 해법·이유·개수"에만
+   걸 것**(2026-09-11, 실제 상위 채널 6건 실측 — "독학으로 영어 입터지는 법", "영어어순, 이게 전부입니다",
+   "BBC가 한국어처럼 들려요" 등은 전부 헤드라인만 봐도 "이 영상이 스피킹/어순/듣기 중 뭘 다루는지"가 즉시
+   보였고, 궁금증은 오직 "그 방법·이유가 정확히 뭔지"에만 걸려 있었다 — 주제 자체를 숨긴 예는 하나도
+   없었다). 위 규칙 3이 막는 건 "이 영상과 무관한 범용 문구"인데, 그것만으로는 부족하다 — "이 끝소리
+   계속 틀림", "그 규칙 하나로 다 풀림"처럼 무관하진 않지만 **소재 자체가 뭔지 전혀 안 보이는** headline도
+   여전히 실패다.
+   - headline 안에 이 소재의 구체적 영역 키워드(핵심 단어·규칙 이름·발음 현상 — 예: "-sion", "연음",
+     "겹자음")를 최소 하나는 그대로 노출해서, 이 문구만 따로 떼어 봐도 "아 이거 무슨 얘기구나"가 바로
+     잡혀야 한다.
+   - 숨겨도 되는 건 "왜 그런지/어떻게 고치는지/몇 개인지" 같은 **결말·해법**뿐이다. 주제 도메인 자체는
+     절대 숨기지 않는다.
+   - 예(소재: "-sion 끝소리 규칙"): ❌ "그 규칙 하나로 다 풀림"(무슨 규칙인지 전혀 안 보임) →
+     ✅ "-sion 끝소리, 이 규칙 하나면 끝"(주제 "-sion 끝소리"는 명시하고, "이 규칙"이 정확히 뭔지만
+     궁금증으로 남김).
+5. **headline·copy는 궁금증만 만들지 말고, "이 영상을 보면 정확히 뭘 할 수 있게 되는지"라는
+   구체적 약속도 반드시 함께 적을 것**(2026-09-11, 사용자 지적: "썸네일부터 스토리텔링을 시작하는
+   거다, 우리는 썸네일의 약속을 지킨다가 규칙에 있다" — knowledge/thumbnail-strategy.md의 "썸네일은
+   제목과 함께 하나의 약속을 만든다" 원칙, VIDEO_WORKFLOW.md의 "대본은 제목·썸네일이 건 약속을
+   실제로 지켜야 한다" 원칙과 직결된다). 이 채널이 실제로 써 온 좋은 예: EP9 헤드라인 "-CIAL → 셜"
+   + 카피 "처음 보는 단어도 읽힌다"(약속: 읽는 능력이 생긴다), EP13 카피 "이제 단어가 아니라
+   문장이 들립니다"(약속: 듣기 능력이 생긴다) — 전부 궁금증이 아니라 **시청 후 달라지는 구체적
+   상태**를 명시한다. "-sion 왜 계속 틀릴까"처럼 질문만 던지는 문구는 궁금증은 만들어도 약속이
+   없다 — 5개 중 최소 2개는 headline이나 copy 어느 한쪽에 이런 "약속·결과 확정" 문장을 담을 것
+   (아래 심리 공식 ⑥ 참고).
+6. **'thumbnailHeadline' 길이는 글자 수를 억지로 맞추지 말 것**(2026-09-11 정정 — 이전엔 "한글
+   3~8자씩 최대 2줄"로 너무 엄격하게 제한해서, 위 5번의 "약속 문장"을 억지로 쪼개다 보니 뜻이
+   끊기고 부자연스러운 문구만 나왔다. 사용자 지적: "글자 수는 너무 제한을 두지 말고"). 모바일에서
+   한눈에 읽히는 짧고 굵은 문장이면 충분하고, 약속을 온전히 담기 위해 한 줄이 길어져도 된다 —
+   조사('을/를/이/가' 등)를 과감히 생략해 리듬을 압축하는 감각은 유지하되, 글자 수를 맞추려고
+   의미를 끊거나 부자연스럽게 쪼개지 않는다.
+7. **'thumbnailHeadline'은 아래 심리 공식 중 이 소재에 맞는 것을 골라 5개 전체에 다양하게 배분할 것**
+   (2026-09-11, 웹 검색 근거 — 한국어 유튜브 채널 실전 카피 공식). **5개 중 최소 1개는 ①, 최소 1개는
+   ③, 최소 2개는 ⑥을 반드시 포함할 것**. 아래 예시는 전부 "-sion 끝소리 규칙" 소재를 가정한 것이다 —
+   **패턴만 참고하고 이 예시 문구를 그대로 베끼지 말 것**. 패턴을 이번 소재(위 [영상 기획 주제])의
+   실제 단어/상황에 맞게 다시 채워서, headline만 봐도 이 영상 얘기라는 게 드러나야 한다(규칙 3·4
+   참고 — 범용 문구·주제 은폐 금지):
+   ① **손실회피/경고형**: "-sion 끝소리 계속 틀리는 중" — 소재 키워드("-sion")를 직접 지목해 경각심.
+   ② **호기심 유발형**: "-sion, 이제 안 헷갈림" — 소재 키워드는 남기고 결말만 숨김.
+   ③ **초효율성형**: "-sion 규칙 하나로 다 풀림" — 소재 키워드("-sion")를 명시하고 효율만 궁금증으로.
+   ④ **타깃 저격형**: "긴 단어 무서운 사람 여기" — 소재가 다루는 대상(긴 단어)을 직접 지목.
+   ⑤ **상식파괴/도발형**: "-sion 외우지 마세요" — 소재 키워드 + 반전을 한 문장에.
+   ⑥ **약속/결과 확정형**(2026-09-11 신설): "-sion 끝소리, 오늘부로 다시는 안 틀립니다" — 궁금증이
+   아니라 시청 후 달라질 구체적 상태를 단정문으로 확정한다. 질문형(②)과 짝을 이뤄도 좋다(headline이
+   질문을 던지면 copy가 이 약속으로 답하는 식).
+   ⚠️ **'권위·증명형'("전문가가 말하는", "요즘 난리 난")은 쓰지 말 것** — 우리 채널엔 그런 근거가 실제로
+   없는데 있는 척 꾸미는 것은 "가식 없는 솔직 담백" 페르소나 위반이다. 모든 문구는 실제 발음/연음 원리에
+   근거해야 하며, 근거 없는 가짜 통계("99%가 모르는")나 과장된 위협 문구는 ①에서도 절대 쓰지 않는다.
+8. **제목 앞부분(한글 기준 약 30자 이내)에 핵심 검색 키워드를 배치할 것** — 이 소재의 핵심 단어 철자·규칙 이름
+   (예: "-sion", "연음", "GONNA")이 모바일에서 제목이 잘려도 이미 보이는 위치에 오게 한다. 문장 맨 끝에만
+   키워드를 두지 말 것.
 
 {
   "variantsEvaluation": [
@@ -386,14 +458,16 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
     {
       "type": "⚡ 후킹형 (호기심 극대화)",
       "title": "...",
-      "thumbnailCopy": "이 title과 짝을 이루는 시청 후 보상 카피 (15자 내외, title과 내용 겹치지 않게)",
-      "suggestedBadge": "썸네일 상단 포인트 뱃지 문구, 이모지 1개+한글 2~5단어 (예: '⚡ 소리 비밀 반전', '⏱️ 10초 완성') — 이 title/thumbnailCopy 조합 고유의 문구로, 5개가 서로 겹치지 않게 지을 것",
+      "thumbnailHeadline": "썸네일 이미지 안의 가장 큰 텍스트 — 모바일에서 한눈에 읽히는 짧고 굵은 문장이면 충분, 글자 수를 억지로 맞추려 쪼개지 말 것(조사는 과감히 생략). title과 핵심 키워드를 공유해도 되지만 명령/단정형으로 압축할 것(title은 서술형 문장, headline은 '~하세요/~만/~됨' 같은 압축형). 반드시 이 소재의 구체적 영역 키워드를 하나는 그대로 노출해 '무슨 얘기인지'는 명시할 것 — 무관한 범용 문구('10초면 끝')도, 주제 자체가 안 보이는 문구('그 규칙 하나로 끝')도 둘 다 실패. 궁금증만 만들지 말고 '시청 후 뭘 할 수 있게 되는지'라는 구체적 약속도 담을 것(예: '-sion 끝소리, 오늘부로 다시는 안 틀립니다')",
+      "thumbnailCopy": "이 title과 짝을 이루는 시청 후 보상 카피 — headline이 궁금증(질문)이면 copy는 그 약속(결과)으로 답하는 관계가 이상적. title과 내용이 겹치지 않게, 글자 수보다 '이 영상을 보면 정확히 뭘 할 수 있게 되는지'가 명확히 전달되는 걸 우선할 것",
+      "suggestedBadge": "썸네일 상단 포인트 뱃지 문구, 이모지 1개+한글 2~5단어, 이 소재의 단어/규칙이 드러나게 (예: '⚡ 소리 비밀 반전', '🔑 -sion 완전정복') — 이 title/thumbnailCopy 조합 고유의 문구로, 5개가 서로 겹치지 않게 지을 것",
       "designConcept": "이 title/thumbnailCopy 조합에 맞는 비주얼 컨셉 한 줄",
       "midjourneyPrompt": "${isShorts ? 'Clean vertical visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k ultra-high resolution, 9:16 --ar 9:16 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0' : 'Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0'}(이 title 고유의 비주얼 요소로 구체화해서 다시 쓸 것 — 5개 프롬프트가 서로 달라야 함)"
     },
     {
       "type": "❓ 질문형 (클릭 유도)",
       "title": "...",
+      "thumbnailHeadline": "...",
       "thumbnailCopy": "...",
       "suggestedBadge": "...",
       "designConcept": "...",
@@ -402,6 +476,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
     {
       "type": "💥 반전형 (상식 파괴)",
       "title": "...",
+      "thumbnailHeadline": "...",
       "thumbnailCopy": "...",
       "suggestedBadge": "...",
       "designConcept": "...",
@@ -410,6 +485,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
     {
       "type": "📐 원리형 (쉬운 해결책)",
       "title": "...",
+      "thumbnailHeadline": "...",
       "thumbnailCopy": "...",
       "suggestedBadge": "...",
       "designConcept": "...",
@@ -418,6 +494,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
     {
       "type": "🤝 공감형 (타겟 시청자 맞춤)",
       "title": "...",
+      "thumbnailHeadline": "...",
       "thumbnailCopy": "...",
       "suggestedBadge": "...",
       "designConcept": "...",
@@ -596,7 +673,7 @@ export async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }
 // 실제 생성에 쓰는 것과 정확히 같은 프롬프트를 만들어야, 사용자가 "프롬프트만 복사해서 제미나이
 // 웹(유료 구독)에 직접 붙여넣는" 경로와 API 자동 생성 경로가 서로 다른 결과를 내지 않는다 —
 // 그래서 별도로 다시 쓰지 않고 두 경로가 이 함수 하나를 공유한다.
-export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', hasPersonReference = false, visualConcept = '' }) {
+export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', hasPersonReference = false, visualConcept = '' }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
   const rawText = (title || topic || '10초 영어 읽기 테스트').trim();
@@ -644,9 +721,13 @@ export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '',
     subCalloutFallback = '💡 원어민 귀가 뚫리는 공식';
   }
 
-  // 적용된 title이 있으면 한 줄 헤드라인으로 그대로 쓴다(모델이 알아서 자연스럽게 줄바꿈) —
-  // 시안별 고정 2줄 문구는 title이 아예 없을 때만 폴백으로 쓴다.
-  const headlineLines = title.trim() ? [title.trim()] : [hookFallback1, hookFallback2].filter(Boolean);
+  // 헤드라인은 title이 아니라 thumbnailHeadline(썸네일 전용 3~8자×2줄 감정 카피)을 쓴다 — title은
+  // 검색용 완전한 문장이라 그대로 이미지에 박으면 "제목을 썸네일에 복사하는" 흔한 실수가 된다
+  // (2026-09-11 확정, 웹 검색으로 재검증). thumbnailHeadline이 없는 예전 저장값(하위 호환)만
+  // title로 폴백하고, 그마저도 없으면 시안별 고정 2줄 문구로 폴백한다.
+  const headlineLines = thumbnailHeadline.trim()
+    ? [thumbnailHeadline.trim()]
+    : (title.trim() ? [title.trim()] : [hookFallback1, hookFallback2].filter(Boolean));
   const subCallout = thumbnailCopy.trim()
     ? (thumbnailCopy.trim().startsWith('💡') ? thumbnailCopy.trim() : '💡 ' + thumbnailCopy.trim())
     : subCalloutFallback;
@@ -727,7 +808,7 @@ Style: clean, professional, high-contrast studio photography blended with bold g
   return { prompt, expectedTexts, variantKey: vKey, isShorts };
 }
 
-export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', engine = 'flux', geminiKey, visualConcept = '' }) {
+export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', engine = 'flux', geminiKey, visualConcept = '' }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
 
@@ -748,7 +829,7 @@ export async function generateAiThumbnailImage({ prompt, topic = '', variantKey 
   // 1. PRIMARY PATH: 진짜 이미지 생성 모델(나노바나나). 커스텀 프롬프트면 그대로, 아니면 변형별
   //    무드를 자연어 브리프로 번역 — 실제 이미지 모델은 SVG 마크업 작성법을 몰라도 되고 알 필요도 없다.
   if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
-    const built = useCustomPrompt ? null : buildThumbnailPrompt({ topic, variantKey: vKey, title, thumbnailCopy, badge, format, hasPersonReference: !!personReference, visualConcept });
+    const built = useCustomPrompt ? null : buildThumbnailPrompt({ topic, variantKey: vKey, title, thumbnailHeadline, thumbnailCopy, badge, format, hasPersonReference: !!personReference, visualConcept });
     const creativeDirection = useCustomPrompt ? customPrompt : built.prompt;
     // 텍스트 정확도는 diffusion 특성상 매번 다르게 나온다(같은 프롬프트로도 성공/실패가 갈림,
     // 2026-09-01 실측). 그래서 프롬프트 튜닝만으론 신뢰 못 하고, 생성 후 Gemini Vision으로

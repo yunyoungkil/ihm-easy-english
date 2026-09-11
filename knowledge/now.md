@@ -1,6 +1,6 @@
 # 지금 할 일
 
-마지막 확인: 2026-09-10
+마지막 확인: 2026-09-11
 
 ## 진행 중 — 단편 EP15(-sion 리딩)
 
@@ -30,7 +30,98 @@ fitScore 1위) → A/B 시뮬레이터로 썸네일 3안 생성·Gemini AI 진�
   프레임마다 스냅샷으로 픽셀 검증. `sion-card`/`sound-tag`/`sion-cluster`/`syllable-buildup`/
   `reveal-blur`/`quiz-reveal` 신규 컴포넌트 전부 구현. 아직 안 한 것: BGM 더킹(carve.mjs),
   inline-highlight, 렌더.
-- **다음 행동**: 사용자 프리뷰 검수 → BGM 더킹·inline-highlight 적용 → 최종 렌더.
+- **씬 사이 간격 버그 수정 완료(2026-09-11)** — 사용자가 프리뷰에서 "프레임 사이 간격이
+  벌어진 것 같음" 지적. `index.html`의 12개 씬 사이에 옛 Remotion 관례("음성 길이+0.5초
+  버퍼")를 잘못 적용해 매 경계마다 0.5초 암전 구간이 있었던 게 원인(EP13·EP14는 씬이 완전히
+  맞붙어 있는 게 정상 — 대조 확인함). `index.html` 12개 `data-start`와 각 프레임 BGM
+  `data-media-start` 전부 재계산해 간격 제거, 총 길이 401.21→395.71초로 정정.
+  `SCRIPT.md`(Time 필드·누적표·엔드스크린 구간)·`TASKS.md`·`BRIEF.md`도 동일하게 갱신.
+  `hyperframes check` 0 errors 재확인.
+- **Frame 8 스펠링 노출 시점 버그 수정(2026-09-11)** — 힌트("S 앞이 모음 U니까")가 특정
+  글자를 가리키는데 화면엔 "?"만 있어 의미가 안 통했음. "?" 자리에 실제 철자를 흐리게 넣어
+  문제~힌트 구간 내내 보이게 하고, 정답 공개 때만 밝아지며 한글 발음이 추가되도록 수정.
+- **Frame 11 SUPERVISION 흐림 구간 버그 수정(2026-09-11)** — 코드 주석엔 "I" 힌트 시점에
+  흐림이 풀린다고 적혀 있었는데 실제 값은 그보다 2.8초 늦어, 힌트가 가리키는 글자가 여전히
+  안 보였음. 흐림 해소 시점을 힌트 등장 시점과 일치시켜 수정.
+- **BGM 더킹(voiceover carve) 적용 완료(2026-09-11)** — `hyperframes-audio` carve.mjs를
+  12개 프레임 전부에 개별 실행(EP14와 동일 절차), 자동 감지 정상, `hyperframes check`
+  0 errors.
+- **엔드스크린 규칙 확장(2026-09-11)** — EP14가 2026-09-08에 이미 개선해뒀던 "워드마크
+  좌상단 배치 + 화면 중앙 완전 비움" 패턴이 문서로 승격되지 않아 EP15에서 놓쳤던 걸 발견,
+  EP15에 동일 패턴 적용 + 3초→5초로 확장 + `production-rules.md`/`CLAUDE.md`/`AGENTS.md`
+  세 곳에 정식 규칙으로 승격(다음 편부터 자동 적용).
+- **BGM 아키텍처 근본 수정(2026-09-11)** — "프레임마다 BGM 조각+개별 carve" 방식 자체가
+  컷마다 더킹 곡선을 리셋시켜 음량이 튀는 근본 원인이었음(꼬리만 0으로 되돌리는 1차 패치는
+  증상 완화였을 뿐, 사용자가 재질문해서 구조 자체를 재검토). **BGM을 루트에 1개만 두고,
+  12개 나레이션을 임시로 그룹핑해 carve.mjs를 한 번만 실행**하는 방식으로 교체 — 진짜로
+  연속된 하나의 더킹 곡선이 나옴. `production-rules.md`/`CLAUDE.md`/`AGENTS.md` 규칙 전면
+  재작성, 옛 패치 스크립트는 삭제.
+- **inline-highlight 3곳 적용 완료(2026-09-11)** — Frame 4(테제 "단어가 읽힙니다"),
+  Frame 7(반전 "무조건 션"), Frame 11(마무리 약속 "단어 백 개가...이유예요"). 스냅샷 확인 완료.
+- **최종 렌더 완료(2026-09-11)** — `output/upload-packages/ep15-sion-words-longform/video.mp4`
+  (18.5MB, 6분 35.7초). 스틸 2장으로 하이라이트·엔드스크린 실제 반영 확인.
+- **업로드 패키지 작성 완료(2026-09-11)** — `output/upload-packages/ep15-sion-words-longform/`에
+  title/description(`index.html`의 실제 `data-start` 값 기준 챕터 타임스탬프)/tags/
+  pinned-comment/status.json/upload-checklist/thumbnail-a·b·c 전부 생성.
+- **다음 행동**: 사용자가 직접 YouTube Studio에서 업로드·예약 진행 → 예약 확인되면
+  `idea-board-history.json` 상태가 `/api/sync`로 자동 `scheduled`로 갱신됨(아래 대시보드
+  작업 참고).
+
+### 대시보드·기획 도구 개선(2026-09-11, EP15와 별개)
+
+EP15 완료 후, 사용자가 대시보드를 쓰다가 발견한 문제들을 순서대로 수정:
+
+- **비공개/예약 영상 썸네일 미리보기 안 뜨던 버그 수정** — `renderEpisodesTab()`/
+  `openEpisodeInspectorModal()`에서 `videoId ? CDN썸네일 : 로컬후보` 우선순위가 거꾸로였음
+  (YouTube CDN은 비공개 영상 썸네일을 안 내려줌). 로컬 후보 우선으로 반전.
+- **동기화해도 업로드 패키징에 반영 안 되던 버그 수정** — `syncUploadPackageStatusFromYouTube()`의
+  "예약 시각이 미래면 건너뜀" 게이트와 `getEpisodesSummary()`의 60초 캐시가 원인. 게이트 제거,
+  `/api/sync`가 매번 `getEpisodesSummary(true)`로 캐시 무효화하도록 수정.
+- **아이디어 보드 "진행 중" 뱃지가 예약 후에도 안 바뀌던 버그 수정** — 새 함수
+  `syncIdeaBoardHistoryFromPackages()`를 만들어 `/api/sync`에서 업로드 패키지 status.json과
+  `idea-board-history.json`을 대조, 상태를 자동 승격(다운그레이드는 안 함).
+- **아이디어 생성 시 채널 전체 카탈로그(71개 영상, 예약·비공개 포함)와도 안 겹치게 확장** —
+  기존엔 `idea-board-history.json`(아이디어보드 경유분만)만 참고해 season1 레거시 영상과
+  겹칠 위험이 있었음. `catalog.json`(채널 소유자 권한 조회, 비공개도 포함) 기반
+  `channelVideos`를 `generateTopicCandidates()`에 추가 전달.
+- **선택만 하고 제작 안 한 아이디어가 영구히 후보 생성을 막던 문제 해결** — 후보 재생성 시
+  `status==='selected' && !episodeSlug`(찜만 하고 썸네일 제작으로 안 넘어간 것) 항목을
+  자동으로 정리하도록 `/api/idea-board/generate-candidates`에 추가.
+- **"이미 만든 소재" 배너가 무한정 늘어나던 문제 해결** — 최근 8개만 보여주고 "+N개 더
+  있음" 토글로 펼치기.
+- **"진행 중" 카드를 사용자가 직접 해지할 수 있는 기능 추가** — 사용자 지적: "선택해서
+  썸네일 제작까지 갔다가 주제가 맘에 안 들어서 안 할 수도 있잖아." 새 엔드포인트
+  `POST /api/idea-board/history/release`로 status가 `selected`인 항목만 해지 가능(이미
+  예약·공개된 `scheduled`/`published` 항목은 거부 — 실수로 진짜 제작물 기록이 지워지는 걸
+  방지). 배너 칩과 카드 배지 둘 다에 "해지"/"✕" 버튼 추가.
+- **썸네일 문구 아키텍처 핵심 버그 발견·수정: 제목이 그대로 썸네일 헤드라인에 박히고
+  있었음.** 사용자가 실제 썸네일 이미지에 빨간 박스로 "이게 제목이 그대로 들어간 거냐"고
+  물어서 발견 — `buildThumbnailPrompt()`가 `title`을 그대로 최대 크기 헤드라인 텍스트로
+  써 왔음. 새 필드 `thumbnailHeadline`을 스키마·프롬프트·서버 라우트·클라이언트 UI
+  전체에 추가해 `title`(서술/스토리 톤)과 완전히 분리.
+  - 처음엔 "제목과 헤드라인은 같은 정보를 절대 반복하면 안 된다"로 엄격하게 잡았다가,
+    실제 상위 채널 12건의 제목/썸네일 문구 쌍을 사용자와 직접 대조한 뒤 **"핵심 키워드는
+    공유해도 되고, 진짜 원칙은 표현 형식(톤)을 다르게 하는 것"**으로 정정.
+  - 이어서 실제 상위 채널 6건을 다시 보고 **"헤드라인은 주제 도메인은 명시하고, 궁금증은
+    해법·이유·개수에만 걸어야 한다"**는 추가 규칙 발견·반영(우리 헤드라인이 "이 끝소리
+    계속 틀림"처럼 무슨 얘기인지 안 보이는 문제가 있었음).
+  - 마지막으로 사용자가 "우리는 썸네일의 약속을 지킨다는 규칙이 있잖아 — 글자 수는 너무
+    제한 두지 말고" 지적 — `thumbnailHeadline` 3~8자×2줄 강제 포맷을 삭제하고, "궁금증만
+    말고 시청 후 달라질 상태를 약속으로 확정하는 문장도 담을 것"(⑥ 약속/결과 확정형 공식
+    신설)을 추가. 전부 `scripts/ab-simulator.mjs`(CTR 진단 프롬프트) +
+    `knowledge/thumbnail-strategy.md`에 반영, 매번 서버 재시작 + `test-client-syntax.mjs`
+    0 errors + 실제 API 호출로 검증.
+  - 조사 과정에서 AI가 생성하는 `midjourneyPrompt` 필드가 스키마엔 있는데 실제로 어디서도
+    안 쓰이는 걸 발견(낭비) — 아직 미해결, 제거할지 실제 이미지 생성에 연결할지 사용자
+    결정 대기 중.
+  - 썸네일 인물 위치·카메라 거리·배경이 `Math.random()` 기반 고정 선택지라 "AI 자유 판단"
+    철학과 어긋난다는 것도 발견 — 아직 실제 코드(`buildThumbnailPrompt()`)에는 반영 안 함,
+    `test-prompts/`(신설 폴더, 공유 도구 테스트용 프롬프트 저장 관례도 같이 확정)에 테스트
+    프롬프트 3개(v1 충격형/v2 효율형/v3 목구멍·복식호흡 소재)만 만들어 수동 검증 중.
+- **`.gitignore`에 HyperFrames 도구 캐시 제외 추가** — `.hyperframes/`(크래시 복구용)는
+  CLAUDE.md에 "커밋 안 함"이라고 문서화만 돼 있고 실제로는 안 걸려 있었음. EP15 하나에서만
+  `.thumbnails/`(프리뷰 캐시) 200개+ 파일이 git status에 잡힌 걸 계기로
+  `.hyperframes/`·`.thumbnails/`·`.waveform-cache/`·`.media/` 전부 추가.
 
 ## ✅ 완료 — 단편 EP14(연음/linking sounds)
 
@@ -200,10 +291,6 @@ check` 전체 통과, 스냅샷으로 Frame 1/5/9/10/12 여러 지점 육안 확
   설명 장면에 맞는지 별도로 판정할 것.
 - 팟캐스트 형식 콘텐츠 추가 아이디어 브레인스토밍함, 아직 미착수 —
   [결정 기록](decisions/2026-08-25-podcast-format-idea.md) 참고.
-- (작은 미해결) A/B 시뮬레이터: "텍스트 적용" 클릭 시 뱃지(badge)가 안 넘어감 — 5종 추천의
-  "텍스트 적용"은 시안에 `title`/`thumbnailCopy`만 덮어쓰고 `badge`는 안 건드린다. 원하면
-  `.btn-ab-apply-title` 핸들러에 `targetVar.badge = suggestion.badge || targetVar.badge;`
-  한 줄만 추가하면 됨(단, `aiTitleSuggestions` 스키마에 `badge` 필드가 있는지부터 확인할 것).
 - **논의 예정(2026-09-04): 경쟁 채널 데이터 업데이트·삭제 기준.** 현재 `market-demand.json`·
   `content-opportunity.json`·`audience-dna.json` 모두 자동 갱신 주기가 없다(사람이 스크립트를
   수동 실행해야 갱신됨 — 확인 시점 기준 market-demand는 3일 전, content-opportunity는 일주일

@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-10T10:08:23.769Z",
+  "updatedAt": "2026-09-11T12:53:14.270Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
       "angleOrHook": "가장 유명하고 인지도 높은 축약(GOING TO→GONNA)을 원리로 설명",
       "episodeSlug": "ep11-gonna",
       "episodeLabel": "단편 EP11",
-      "status": "scheduled",
+      "status": "published",
       "producedAt": "2026-08-27"
     },
     {
@@ -15,7 +15,7 @@
       "angleOrHook": "시청자 고통점 DB에 직접 기록된 미해결 질문(Want/Won't 소리 구분)을 해결",
       "episodeSlug": "ep12-want-wont",
       "episodeLabel": "단편 EP12",
-      "status": "scheduled",
+      "status": "published",
       "producedAt": "2026-09-02"
     },
     {
@@ -88,8 +88,38 @@
       ],
       "episodeSlug": "ep15-sion-words",
       "episodeLabel": "단편 EP15",
-      "status": "selected",
+      "status": "scheduled",
       "selectedAt": "2026-09-10T10:08:23.769Z",
+      "producedAt": "2026-09-11"
+    },
+    {
+      "topic": "Water가 '워터'가 아닌 '워러'가 되는 플랩 T 소리 원리",
+      "angleOrHook": "버터발음 억지로 흉내 내지 마세요, 혀끝이 입천장에 닿자마자 미끄러지는 게으른 혀의 지름길 하나면 미국식 소리가 저절로 체득됩니다.",
+      "targetAudience": "Water, City 같은 기초 단어가 원어민 대화에서 왜 다르게 들리는지 원리로 풀고 싶은 왕초보",
+      "rank": 2,
+      "score": 88,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "키워드 '왕초보 영어 발음' (opportunityScore 43.3, 신뢰도 ok)"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "포맷/역할 'LEGACY' (fitScore 57)"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "[vocabulary] 버터발음, [vocabulary] 자주 쓰는 근육, [vocabulary] 체득"
+        },
+        {
+          "source": "successPatterns",
+          "detail": "채널 기존 성공 규칙 '원어민이 지들 멋대로 발음하는 게 아닙니다' 연음 해설 패턴"
+        }
+      ],
+      "episodeSlug": null,
+      "episodeLabel": null,
+      "status": "selected",
+      "selectedAt": "2026-09-11T12:44:33.192Z",
       "producedAt": null
     }
   ]

@@ -12,6 +12,7 @@ export async function generateTopicCandidates({
   audienceDna = [],
   successPatterns = [],
   producedTopics = [],
+  channelVideos = [],
 }) {
   if (!geminiKey) {
     throw new Error('Gemini API 키(GEMINI_API_KEY)가 설정되지 않았습니다.');
@@ -72,6 +73,19 @@ ${producedTopics.map((t) => `- "${t.topic}"${t.episodeLabel ? ` (${t.episodeLabe
 `
     : '';
 
+  // 위 producedTopics는 아이디어 보드를 거쳐 만든 것(EP11부터)만 기록되고, 그 이전 시즌1
+  // 영상(EP1~10)이나 쇼츠는 안 들어 있다. 그래서 content-opportunity의 "시즌1 규칙 fitScore"
+  // 같은 집계 수치만으로는 "이미 영상이 몇 개 있다"까지만 알고 "정확히 뭘 다뤘는지"는 몰라서,
+  // 같은 발음 규칙을 다른 시즌1 영상과 겹치는 각도로 또 추천할 위험이 있었다(2026-09-11,
+  // EP15가 시즌1 EP07의 "-sion" 소재와 겹칠 뻔했던 사례로 발견 — 그때는 사람이 직접 확인해서
+  // 피함). catalog.json은 유튜브에 실제로 올라간 영상 전체(예약·비공개 포함, 채널 소유자
+  // 권한으로 조회하므로)를 담고 있어 매번 최신 상태이므로, 제목 전체를 그대로 보여준다.
+  const channelVideosBlock = channelVideos.length
+    ? `[우리 채널에 이미 올라가 있는 영상 전체(${channelVideos.length}개, 시즌1 레거시+예약/비공개 포함) — 제목만 봐도 뭘 다뤘는지 알 수 있으니, 이미 다룬 발음 규칙·단어·표현과 핵심이 겹치는 후보는 절대 내지 말 것]:
+${channelVideos.map((v) => `- "${v.title}"`).join('\n')}
+`
+    : '';
+
   const prompt = `당신은 대한민국 최고 수준의 유튜브 콘텐츠 기획 & 데이터 전략가입니다.
 영어 교육 채널 '이해하면 쉬운영어'(3060 성인 & 왕초보 영어 타겟)의 **다음 영상 소재**를 아래 데이터에 근거해서만 추천합니다.
 
@@ -82,12 +96,15 @@ ${producedTopics.map((t) => `- "${t.topic}"${t.episodeLabel ? ` (${t.episodeLabe
 
 ${marketDemandBlock}
 ${contentOpportunityBlock}
-${audienceDnaBlock}${successPatternsBlock}${producedTopicsBlock}
+${audienceDnaBlock}${successPatternsBlock}${producedTopicsBlock}${channelVideosBlock}
 [중요한 판단 원칙]:
 - market-demand(경쟁사 검색 키워드)와 content-opportunity(우리 채널 내부 포맷/규칙)는 축이 다르다 — 점수를 곱하지 말고, 후보마다 어느 쪽이 근거인지 각각 판단할 것.
 - 감으로 소재를 정하지 말 것. 모든 후보의 rationale은 dataSourceRefs에 인용한 구체적 수치/문구에서 나와야 한다.
 - 위 데이터 중 없는 축이 있으면 해당 축은 근거로 쓰지 말 것(지어내지 말 것).
-- 이미 제작된 소재와 완전히 같거나 핵심 소재(다루는 단어/표현)가 겹치는 후보는 절대 내지 말 것 — 같은 시장 수요 키워드에서 나오더라도 아직 안 다룬 각도로 새로 뽑을 것.
+- 이미 제작된 소재(위 두 목록: 아이디어 보드 이력 + 채널 영상 전체)와 완전히 같거나 핵심 소재
+  (다루는 발음 규칙/단어/표현)가 겹치는 후보는 절대 내지 말 것 — 같은 시장 수요 키워드에서
+  나오더라도 아직 안 다룬 각도로 새로 뽑을 것. 시즌1 레거시 영상(채널 영상 목록에 있지만
+  아이디어 보드 이력엔 없는 것들)도 예외 없이 똑같이 겹침 검사 대상이다.
 
 정확히 5개의 소재 후보를 아래 JSON 스키마로만 응답하세요. 백틱(\`\`\`json)으로 감싸서 출력하세요.
 

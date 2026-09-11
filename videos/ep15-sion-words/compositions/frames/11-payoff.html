@@ -40,13 +40,22 @@
   .f11-tag { position: absolute; left: 50%; top: -3.2cqh; transform: translateX(-50%); font-size: 1.1cqw; font-weight: 700; color: #A9B4C4; white-space: nowrap; opacity: 0; }
   .f11-pron { position: absolute; left: 0; right: 0; top: 66cqh; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 3cqw; opacity: 0; }
   .f11-closing { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-size: 2.6cqw; font-weight: 900; color: #F5C518; text-shadow: 0 0 1.4cqw rgba(245,197,24,0.4); opacity: 0; line-height: 1.5; }
+
+  /* HyperFrames catalog component "inline-highlight" (채널 공통 규칙, production-rules.md:
+     자막의 가장 중요한 문장/단어 약 3곳에 적용). CSS only, copied verbatim per frame. */
+  .hf-inline-highlight { --hf-highlight-scale: 0; position: relative; display: inline; z-index: 0; }
+  .hf-inline-highlight::after {
+    content: ""; position: absolute; left: -0.08em; right: -0.08em; bottom: var(--hf-highlight-bottom, 0.05em);
+    height: var(--hf-highlight-height, 0.38em); background: var(--hf-highlight-color, #fff06a);
+    transform: scaleX(var(--hf-highlight-scale)); transform-origin: var(--hf-highlight-origin, left center);
+    z-index: -1;
+  }
 </style>
 
 <div data-hf-id="hf-jqat" id="root" data-composition-id="11-payoff" data-start="0" data-duration="36.36" data-width="1920" data-height="1080">
   <div data-hf-id="hf-wk57" id="f11-bg-clip" class="clip f11-bg" data-start="0" data-duration="36.36" data-track-index="0"></div>
 
   <audio data-hf-id="hf-b17v" id="f11-voice" src="assets/voice/11.wav" data-start="0" data-audio-group="voiceover"></audio>
-  <audio data-hf-id="hf-4yp1" id="f11-bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="36.36" data-media-start="324.47" data-volume="0.06"></audio>
   <audio data-hf-id="hf-24h9" id="f11-sfx1" src="assets/sfx/reveal-chime.mp3" data-start="14.4" data-duration="0.768" data-volume="0.3"></audio>
   <audio data-hf-id="hf-wjqy" id="f11-sfx2" src="assets/sfx/reveal-chime.mp3" data-start="20.5" data-duration="0.768" data-volume="0.25"></audio>
   <audio data-hf-id="hf-mav5" id="f11-sfx3" src="assets/sfx/reveal-chime.mp3" data-start="25.55" data-duration="0.768" data-volume="0.25"></audio>
@@ -73,7 +82,7 @@
     <div data-hf-id="hf-ud5o" id="f11-pron-pn" class="f11-pron" style="color:#FF7A3D">펜션</div>
   </div>
 
-  <div data-hf-id="hf-vu5v" id="f11-closing" class="f11-closing">이게 바로 끝소리 하나로<br data-hf-id="hf-x5px">단어 백 개가 저절로 읽히는 이유예요</div>
+  <div data-hf-id="hf-vu5v" id="f11-closing" class="f11-closing">이게 바로 끝소리 하나로<br data-hf-id="hf-x5px"><span data-hf-id="hf-f11hl" id="f11-hl" class="hf-inline-highlight" style="--hf-highlight-color:rgba(255,255,255,0.2); --hf-highlight-height:0.42em;">단어 백 개가 저절로 읽히는 이유예요</span></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -105,10 +114,12 @@
 
   tl.fromTo(eyebrow, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 5.9);
 
-  // SUPERVISION: blurred at 5.954s, key resolves+tag at 11.176s ("I 다음이니까"), full
-  // resolve + pron at 14.452s ("그럼 정답은"). Held treatment (slowest).
+  // SUPERVISION: blurred at 5.954s, resolves to sharp right as the "I" tag appears at
+  // 11.176s ("I 다음이니까") — so the letter being pointed at is actually legible, not still
+  // hidden behind blur. Pron reveal held back further, at 15.083s ("그럼 정답은"). Held
+  // treatment (slowest — longest sharp-but-unrevealed hold before pron of the three words).
   revealWord("f11-row-sv", "f11-sv-key", "f11-sv-tag", "f11-pron-sv", VOICED, {
-    appearAt: 5.954, tagAt: 11.176, resolveAt: 13.978, resolveDur: 0.6, pronAt: 15.083, outAt: 16.9
+    appearAt: 5.954, tagAt: 11.176, resolveAt: 11.176, resolveDur: 0.5, pronAt: 15.083, outAt: 16.9
   });
 
   // DIVISION: appears 16.986s, resolves faster (0.4s) at 18.63s ("이것도 모음 뒤니까"), pron at
@@ -126,6 +137,10 @@
 
   // Closing line, held to end.
   tl.fromTo("#f11-closing", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.3)" }, 32.033);
+
+  // inline-highlight sweep under the closing promise clause, once it lands (channel 기본
+  // 규칙, ~3곳 중 세 번째: 마무리 약속 이행 — 확정 썸네일 카피와 일치하는 문장).
+  tl.to("#f11-hl", { "--hf-highlight-scale": 1, duration: 0.5, ease: "power2.out" }, 32.9);
 
   tl.fromTo(fill, { width: "83.333%" }, { width: "91.667%", duration: 1.0, ease: "power1.inOut" }, 0);
 })();

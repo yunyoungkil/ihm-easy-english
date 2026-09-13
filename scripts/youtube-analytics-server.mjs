@@ -4,7 +4,7 @@ import {existsSync} from 'node:fs';
 import {randomBytes} from 'node:crypto';
 import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {exec} from 'node:child_process';
+import {exec, execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {build48hEvaluations} from './evaluate-48h.mjs';
 import {
@@ -23,6 +23,7 @@ import { lintBrandScript } from './brand-script-linter.mjs';
 import { generateTopicCandidates } from './idea-board.mjs';
 
 const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const envPath = join(projectDir, '.env');
 const tokenPath = join(projectDir, '.youtube-oauth-token.json');
@@ -49,6 +50,13 @@ const ideaBoardStatePath = join(youtubeDataDir, 'idea-board-state.json');
 // (2026-09-04, 사용자 지적: "선택해서 공개 예약까지 했으면 뭔가 표시가 있어야 하지 않냐"). 이 파일은
 // 별도로 두고 덮어쓰지 않는다 — 실제 제작이 확정된 소재만 수동으로 기록한다.
 const ideaBoardHistoryPath = join(youtubeDataDir, 'idea-board-history.json');
+// Gemini 호출 없이 대화창에서 직접(Claude가) 작성한 아이디어 초안을 대시보드로 가져오는 창구
+// (2026-09-13, 사용자 요청: "버튼을 만들어 클릭하면 네가 아이디어 화면에 출력할 수 있어?" —
+// Gemini 월간 지출 한도 초과로 API 호출이 막혔을 때를 위함). 대시보드 버튼 자체가 Claude를
+// 호출할 방법은 없으므로, Claude가 대화 중에 이 파일을 직접 써 두면(generateTopicCandidates()와
+// 동일한 candidates 스키마) 대시보드의 "✍️ Claude 초안 불러오기" 버튼이 그 파일을 읽어와서
+// 정상적인 AI 생성 결과와 똑같은 방식으로 화면에 띄운다.
+const ideaBoardManualDraftPath = join(youtubeDataDir, 'idea-board-manual-draft.json');
 const abSimulatorStatePath = join(youtubeDataDir, 'ab-simulator-state.json');
 const AUDIENCE_DNA_MAX_ENTRIES = 300;
 const SUCCESS_PATTERNS_MAX_ENTRIES = 300;
@@ -299,6 +307,69 @@ const clearAnalysisFailure = async (videoId, kind) => {
     if (Object.keys(store.entries[videoId]).length === 0) delete store.entries[videoId];
     await saveJson(analysisFailuresPath, store);
   }
+};
+
+// 시장 수요 레이더에서 키워드 전체(또는 영상 하나)를 지울 때 공통으로 쓰는 "고아 데이터 청소"
+// 로직(2026-09-13). 호출부가 이미 market-demand.json에서 해당 videoId를 뺀 뒤, "이 videoId를
+// 아직도 참조하는 키워드가 남아있는지" 확인해서 orphanedVideoIds만 여기로 넘겨준다 — 이 함수는
+// 그 확인을 하지 않고 넘어온 목록을 그대로 지운다(호출부 책임).
+const cascadeDeleteOrphanedVideoData = async (orphanedVideoIds) => {
+  let deletedReportFiles = 0;
+  let removedDnaEntries = 0;
+  if (!orphanedVideoIds.length) return {deletedReportFiles, removedDnaEntries};
+
+  for (const vid of orphanedVideoIds) {
+    for (const dir of [outputInsightsDir, outputScriptInsightsDir]) {
+      try {
+        if (!existsSync(dir)) continue;
+        const files = await readdir(dir);
+        const match = files.find((f) => f.endsWith(`_${vid}.md`));
+        if (match) {
+          await unlink(join(dir, match));
+          deletedReportFiles++;
+        }
+      } catch {}
+    }
+  }
+
+  const failuresStore = await loadJson(analysisFailuresPath, {schemaVersion: 1, entries: {}});
+  let failuresChanged = false;
+  for (const vid of orphanedVideoIds) {
+    if (failuresStore.entries[vid]) {
+      delete failuresStore.entries[vid];
+      failuresChanged = true;
+    }
+  }
+  if (failuresChanged) await saveJson(analysisFailuresPath, failuresStore);
+
+  // 시청자DNA는 여러 영상에서 뽑힌 문구가 하나의 항목으로 병합돼 있으므로(upsertAudienceDna
+  // 참고), 이번에 지우는 영상이 남긴 출처(sources)만 걷어내고 — 다른 영상도 이 항목의 출처라면
+  // 항목 자체는 채널 전체 지식으로 남긴다. 출처가 완전히 0개가 되면(이 영상들에서만 나온
+  // 문구였다는 뜻) 그때만 항목째로 지운다.
+  const dnaStore = await loadJson(audienceDnaPath, {schemaVersion: 1, entries: []});
+  const orphanSet = new Set(orphanedVideoIds);
+  const keptEntries = [];
+  let dnaChanged = false;
+  for (const entry of dnaStore.entries || []) {
+    const beforeLen = (entry.sources || []).length;
+    const removedCount = (entry.sources || []).filter((s) => orphanSet.has(s.videoId)).length;
+    if (removedCount === 0) { keptEntries.push(entry); continue; }
+    dnaChanged = true;
+    entry.sources = (entry.sources || []).filter((s) => !orphanSet.has(s.videoId));
+    if (entry.sources.length === 0 && beforeLen > 0) {
+      removedDnaEntries++;
+      continue; // 항목째로 제외
+    }
+    entry.occurrences = Math.max(1, (entry.occurrences || 1) - removedCount);
+    keptEntries.push(entry);
+  }
+  if (dnaChanged) {
+    dnaStore.entries = keptEntries;
+    dnaStore.updatedAt = new Date().toISOString();
+    await saveJson(audienceDnaPath, dnaStore);
+  }
+
+  return {deletedReportFiles, removedDnaEntries};
 };
 
 // entry: {videoId, title, ctr, retentionRate, coreSuccessFactor, reusableHook, reusableAnalogy}
@@ -2435,6 +2506,12 @@ loadAbSimulatorState();
 let gIdeaBoardCandidates = null;
 let gIdeaBoardSelected = null;
 let gIdeaBoardGeneratedAt = null;
+// 마지막 생성 때 집중했던 시장 수요 키워드(2026-09-13) — 생성 직후 화면을 다시 그리면
+// <select>가 매번 새로 만들어져서 값이 기본값으로 돌아가 버리는 문제가 있었다(사용자 지적:
+// "완료 단계에서 선택한 개별 키워드가 셀렉터에서 해제되서 어떤 키워드로 생성했는지 모르겠어").
+// generatedAt과 똑같은 방식으로(localStorage + 서버 파일) 저장해서, 다시 렌더링해도 그 셀렉트가
+// 방금 쓴 키워드를 계속 선택된 채로 보여주게 한다. null이면 "전체 데이터 참고" 모드였다는 뜻.
+let gIdeaBoardFocusKeyword = null;
 let gIdeaBoardHistory = [];
 // "이미 만든 소재" 배너를 전부 펼쳐서 보여줄지 여부 — 기본은 접힌 상태(최근 N개만).
 // 탭을 벗어났다 돌아와도 유지되게 탭 로컬 상태가 아니라 세션 전역으로 둔다(2026-09-11,
@@ -2450,6 +2527,7 @@ function saveIdeaBoardState() {
       candidates: gIdeaBoardCandidates,
       selected: gIdeaBoardSelected,
       generatedAt: gIdeaBoardGeneratedAt,
+      focusKeyword: gIdeaBoardFocusKeyword,
     };
     localStorage.setItem('ihm_idea_board_state', JSON.stringify(state));
     // 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서 못 봐서 후보를 다시 생성해야
@@ -2473,6 +2551,7 @@ async function hydrateIdeaBoardFromServer() {
       gIdeaBoardCandidates = state.candidates;
       gIdeaBoardSelected = state.selected || null;
       gIdeaBoardGeneratedAt = state.generatedAt || null;
+      gIdeaBoardFocusKeyword = state.focusKeyword || null;
       try { localStorage.setItem('ihm_idea_board_state', JSON.stringify(state)); } catch (_) {}
     }
   } catch (err) {
@@ -2497,6 +2576,7 @@ function loadIdeaBoardState() {
       if (state.candidates) gIdeaBoardCandidates = state.candidates;
       if (state.selected) gIdeaBoardSelected = state.selected;
       if (state.generatedAt) gIdeaBoardGeneratedAt = state.generatedAt;
+      if (state.focusKeyword) gIdeaBoardFocusKeyword = state.focusKeyword;
     }
   } catch (err) {
     console.warn('Failed to load idea board state:', err);
@@ -3235,11 +3315,18 @@ function renderMarketDemandTab() {
     const opp = Number(k.opportunityScore || 0).toFixed(1);
     const scoreClass = score >= 150 ? 'badge-strong-pass' : score >= 80 ? 'badge-pass' : 'badge-hold';
 
+    const analyzedAtLabel = k.analyzedAt ? k.analyzedAt.slice(0, 10) : '예전 데이터(날짜 미기록)';
+
     html += '<div class="bento-card col-4" id="demand-card-' + kIdx + '">' +
       '<div class="card-header">' +
         '<span style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--text-bright)">' + esc(k.keyword) + '</span>' +
-        '<span class="badge ' + scoreClass + '">수요점수 ' + score + '</span>' +
+        '<div style="display:flex;gap:6px;align-items:center">' +
+          '<span class="badge ' + scoreClass + '">수요점수 ' + score + '</span>' +
+          '<button class="btn btn-sm btn-demand-refresh" data-keyword="' + esc(k.keyword) + '" title="이 키워드만 다시 분석해서 최신 데이터로 덮어쓰기" style="padding:2px 6px">🔄</button>' +
+          '<button class="btn btn-sm btn-demand-delete" data-keyword="' + esc(k.keyword) + '" title="이 키워드와 딸린 리포트·시청자DNA 데이터까지 함께 삭제" style="color:#ff5577;border-color:#ff5577;padding:2px 6px">🗑️</button>' +
+        '</div>' +
       '</div>' +
+      '<div class="card-subtext" style="margin-top:-4px;margin-bottom:8px">마지막 분석: ' + esc(analyzedAtLabel) + '</div>' +
       '<div style="display:flex;gap:16px;margin:12px 0">' +
         '<div><span class="card-title">기회 점수</span><div style="font-size:20px;font-weight:900;color:var(--accent-cyan)">' + opp + '</div></div>' +
         '<div><span class="card-title">검색 결과수</span><div style="font-size:20px;font-weight:900;color:var(--text-normal)">' + fmt.format(k.totalResults || 0) + '</div></div>' +
@@ -3283,6 +3370,7 @@ function renderMarketDemandTab() {
                 o.scriptError ?
                 '<button class="btn btn-sm btn-outlier-script" style="white-space:nowrap;background:rgba(255,183,3,0.12);color:var(--accent-amber);border:1px solid var(--accent-amber)" data-vid="' + esc(o.videoId) + '" title="이전 시도 실패 · 클릭하면 다시 시도합니다 — ' + esc(o.scriptError) + '">⚠️ 대본 (이전 실패)</button>' :
                 '<button class="btn btn-sm btn-cyan btn-outlier-script" style="white-space:nowrap" data-vid="' + esc(o.videoId) + '">📜 대본</button>') +
+              '<button class="btn btn-sm btn-outlier-delete-video" data-keyword="' + esc(k.keyword) + '" data-vid="' + esc(o.videoId) + '" title="이 영상만 이 키워드에서 제외 — 다른 키워드에서 안 쓰이면 리포트·시청자DNA도 같이 정리" style="color:#ff5577;border-color:#ff5577;padding:6px 8px;margin-left:auto">🗑️</button>' +
             '</div>' +
           '</div>';
         }).join('') +
@@ -3344,6 +3432,84 @@ function bindMarketDemandEvents() {
 
   document.querySelectorAll('.copy-chip').forEach(chip => {
     chip.onclick = () => copyToClipboard(chip.dataset.copy, chip);
+  });
+
+  document.querySelectorAll('.btn-demand-refresh').forEach(btn => {
+    btn.onclick = async () => {
+      const keyword = btn.dataset.keyword;
+      if (!keyword) return;
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '⏳';
+      try {
+        const res = await fetch('/api/market-demand/run', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({keyword}),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '업데이트 실패');
+        gMarketDemand = data.data;
+        renderCurrentTab();
+        showToast('🔄 "' + keyword + '" 최신 데이터로 업데이트 완료.');
+      } catch (err) {
+        alert('❌ 업데이트 실패: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    };
+  });
+
+  document.querySelectorAll('.btn-demand-delete').forEach(btn => {
+    btn.onclick = async () => {
+      const keyword = btn.dataset.keyword;
+      if (!keyword) return;
+      if (!confirm('"' + keyword + '" 키워드를 삭제할까요? 다른 키워드에서 더 이상 안 쓰이는 아웃라이어 영상의 댓글/대본 리포트 파일과, 그 영상들에서만 나온 시청자DNA 항목도 함께 정리됩니다(다른 영상에서도 나온 시청자DNA 항목은 남습니다).')) return;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/market-demand/delete', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({keyword}),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '삭제 실패');
+        gMarketDemand = data.data;
+        renderCurrentTab();
+        const c = data.cleaned || {};
+        showToast('🗑️ "' + keyword + '" 삭제 완료 — 리포트 ' + (c.reportFiles || 0) + '개, 시청자DNA ' + (c.dnaEntries || 0) + '개 정리됨.');
+      } catch (err) {
+        alert('❌ 삭제 실패: ' + err.message);
+        btn.disabled = false;
+      }
+    };
+  });
+
+  document.querySelectorAll('.btn-outlier-delete-video').forEach(btn => {
+    btn.onclick = async () => {
+      const keyword = btn.dataset.keyword;
+      const videoId = btn.dataset.vid;
+      if (!keyword || !videoId) return;
+      if (!confirm('이 영상을 "' + keyword + '" 키워드에서 제외할까요? 다른 키워드에서 더 이상 안 쓰이면 댓글/대본 리포트 파일과 시청자DNA 항목도 함께 정리됩니다.')) return;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/market-demand/delete-video', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({keyword, videoId}),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '삭제 실패');
+        gMarketDemand = data.data;
+        renderCurrentTab();
+        const c = data.cleaned || {};
+        const cleanedMsg = c.orphanedVideos ? (' — 리포트 ' + (c.reportFiles || 0) + '개, 시청자DNA ' + (c.dnaEntries || 0) + '개 정리됨.') : ' (다른 키워드에서 계속 쓰여서 리포트·DNA는 남겨둠).';
+        showToast('🗑️ 영상 제외 완료' + cleanedMsg);
+      } catch (err) {
+        alert('❌ 삭제 실패: ' + err.message);
+        btn.disabled = false;
+      }
+    };
   });
 
   document.querySelectorAll('.btn-outlier-analyze').forEach(btn => {
@@ -5181,16 +5347,16 @@ function bindMatrixEvents() {
       // 채널 기본값으로 리셋하는 게 낫다(2026-09-01, 같은 문제가 아이디어 보드 핸드오프에도
       // 있었던 걸 사용자가 지적해서 발견).
       gAbAudience = '3060 성인 & 왕초보 영어 학습자';
-      // badge/thumbnailCopy는 메모가 아니라 실제 생성 이미지에 그대로 그려지는 뱃지·캡션
-      // 문구다(buildThumbnailPrompt) — "현재 시안"/"대안 B" 같은 내부 비교용 라벨을 넣으면
-      // 그게 그대로 썸네일에 박혀 나온다(사용자 지적, 2026-09-01 — 아이디어 보드 핸드오프에서
+      // thumbnailHeadline은 메모가 아니라 실제 생성 이미지에 그대로 그려지는 문구다
+      // (buildThumbnailPrompt) — "현재 시안"/"대안 B" 같은 내부 비교용 라벨을 넣으면 그게
+      // 그대로 썸네일에 박혀 나온다(사용자 지적, 2026-09-01 — 아이디어 보드 핸드오프에서
       // 먼저 발견돼 여기도 같은 패턴으로 수정). 빈 칸으로 둬서 시안별 기본값으로 폴백시킨다.
+      // (하단 캡션·포인트 뱃지는 2026-09-13 폐지.)
       gAbVariants[0] = {
         id: 'A',
         title: videoTitle,
         imageUrl: videoThumb,
-        thumbnailCopy: '',
-        badge: '',
+        thumbnailHeadline: '',
         visualConcept: '',
         isLocalFile: false
       };
@@ -5198,8 +5364,7 @@ function bindMatrixEvents() {
         id: 'B',
         title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (핵심 원리)' : ' (핵심 원리 30초 완성)'),
         imageUrl: '',
-        thumbnailCopy: '',
-        badge: '',
+        thumbnailHeadline: '',
         visualConcept: '',
         isLocalFile: false
       };
@@ -5207,8 +5372,7 @@ function bindMatrixEvents() {
         id: 'C',
         title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts (필수 패턴)' : ' (필수 패턴 총정리)'),
         imageUrl: '',
-        thumbnailCopy: '',
-        badge: '',
+        thumbnailHeadline: '',
         visualConcept: '',
         isLocalFile: false
       };
@@ -5337,21 +5501,20 @@ function openMatrixDiagnosisModal(video) {
             // 채널 기본값으로 리셋(2026-09-01, 위 .btn-send-to-ab와 동일 이유).
             gAbAudience = '3060 성인 & 왕초보 영어 학습자';
 
-            // badge는 항상 내부 비교용 라벨이라(실제 콘텐츠 아님) 무조건 비운다. thumbnailCopy도
-            // 마찬가지로 비운다 — altTitles는 그냥 대안 "제목" 문자열 배열이라 별도 카피 문구가
-            // 없는데, 예전엔 title.slice(0, 15)로 제목 앞 15글자를 잘라 카피인 척 채워 넣고
-            // 있었다(2026-09-11, 사용자 지적: "썸네일 카피를 보면 문자 수만이 들어가는 것 같은데"
-            // — 실제로 문장 중간에서 뚝 잘린 의미 없는 조각이었다). 제목과 카피는 서로 다른
-            // 내용이어야 하므로(title=훅, thumbnailCopy=시청 후 보상 문구), 진짜 카피가 없으면
-            // 빈 칸으로 둬서 "🚀 Gemini AI CTR 정밀 진단"이 만들어주는 실제 카피로 채우게 한다.
-            // (badge와 마찬가지로 실제 생성 이미지에 그대로 그려지므로 가짜 값을 넣으면 안 된다.)
+            // thumbnailHeadline은 항상 빈 칸으로 시작한다 — altTitles는 그냥 대안 "제목" 문자열
+            // 배열이라 헤드라인용 문구가 따로 없는데, 예전엔 title.slice(0, 15)로 제목 앞
+            // 15글자를 잘라 카피인 척 채워 넣고 있었다(2026-09-11, 사용자 지적: "썸네일 카피를
+            // 보면 문자 수만이 들어가는 것 같은데" — 실제로 문장 중간에서 뚝 잘린 의미 없는
+            // 조각이었다). 제목과 헤드라인은 서로 다른 내용이어야 하므로, 진짜 헤드라인이 없으면
+            // 빈 칸으로 둬서 "🚀 Gemini AI CTR 정밀 진단"이 만들어주는 실제 문구로 채우게 한다.
+            // (실제 생성 이미지에 그대로 그려지므로 가짜 값을 넣으면 안 된다. 하단 캡션·포인트
+            // 뱃지는 2026-09-13 폐지.)
             // 1. Variant A (Original Baseline Video)
             gAbVariants[0] = {
               id: 'A',
               title: video.title,
               imageUrl: video.thumbnail,
-              thumbnailCopy: '',
-              badge: '',
+              thumbnailHeadline: '',
               visualConcept: '',
               isLocalFile: false
             };
@@ -5361,8 +5524,7 @@ function openMatrixDiagnosisModal(video) {
               id: 'B',
               title: (altTitles && altTitles[0]) ? altTitles[0] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (개선안 B)' : ' (개선안 B)')),
               imageUrl: '',
-              thumbnailCopy: '',
-              badge: '',
+              thumbnailHeadline: '',
               visualConcept: '',
               isLocalFile: false
             };
@@ -5372,8 +5534,7 @@ function openMatrixDiagnosisModal(video) {
               id: 'C',
               title: (altTitles && altTitles[1]) ? altTitles[1] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts' : ' (완전정복 C)')),
               imageUrl: '',
-              thumbnailCopy: '',
-              badge: '',
+              thumbnailHeadline: '',
               visualConcept: '',
               isLocalFile: false
             };
@@ -5625,7 +5786,6 @@ function renderAbSimulatorTab() {
       (isT ?
         '<div style="background:' + bC + '; color:#000; font-weight:900; font-size:11px; padding:4px 10px; display:flex; justify-content:space-between; align-items:center; cursor:grab;">' +
           '<span>☰ ★ 우리 채널 시안 ' + (testId || chosenVariant.id) + ' (드래그하여 위치 이동)</span>' +
-          (chosenVariant.badge ? '<span style="background:rgba(0,0,0,0.4); color:#fff; padding:1px 6px; border-radius:4px; font-size:10px;">' + esc(chosenVariant.badge) + '</span>' : '') +
         '</div>' : '') +
       '<div class="feed-thumb-wrap">' +
         (realThumb
@@ -5935,8 +6095,6 @@ function renderAbSimulatorTab() {
                   '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
                 '</div>' +
                 (s.thumbnailHeadline ? '<div style="font-size:12px; font-weight:700; color:var(--accent-magenta); margin-bottom:6px;">🔥 썸네일 헤드라인: ' + esc(s.thumbnailHeadline) + '</div>' : '') +
-                (s.thumbnailCopy ? '<div style="font-size:11px; color:var(--accent-amber); margin-bottom:6px;">✍️ 하단 캡션(시청 후 보상): ' + esc(s.thumbnailCopy) + '</div>' : '') +
-                (s.suggestedBadge ? '<div style="font-size:11px; color:var(--accent-cyan); margin-bottom:6px;">🏷️ 추천 뱃지: ' + esc(s.suggestedBadge) + '</div>' : '') +
                 (s.designConcept ? '<div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">🎨 비주얼 컨셉: ' + esc(s.designConcept) + '</div>' : '') +
                 '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
                   '<span style="font-size:10px; color:var(--text-muted); align-self:center;">텍스트 적용:</span>' +
@@ -6058,19 +6216,8 @@ function renderAbSimulatorTab() {
           '</div>' +
 
           '<div style="margin-bottom:10px;">' +
-            '<div style="font-size:11px; font-weight:700; color:var(--accent-amber); margin-bottom:4px;">썸네일 헤드라인 (이미지 안 가장 큰 텍스트 — 3~8자×2줄, title과 다른 감정 훅)</div>' +
-            '<input type="text" id="input-ab-variant-headline" value="' + esc(currentVariant.thumbnailHeadline || '') + '" placeholder="예: 이거 모르면 손해" style="width:100%">' +
-          '</div>' +
-
-          '<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">' +
-            '<div>' +
-              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">썸네일 하단 보조 캡션 (시청 후 보상 문구, 15자 내외)</div>' +
-              '<input type="text" id="input-ab-variant-copy" value="' + esc(currentVariant.thumbnailCopy || '') + '" placeholder="예: 이제 헷갈리지 않는다" style="width:100%">' +
-            '</div>' +
-            '<div>' +
-              '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">포인트 뱃지 태그</div>' +
-              '<input type="text" id="input-ab-variant-badge" value="' + esc(currentVariant.badge || '') + '" placeholder="예: 1초 컷 / 비법 공개" style="width:100%">' +
-            '</div>' +
+            '<div style="font-size:11px; font-weight:700; color:var(--accent-amber); margin-bottom:4px;">썸네일 헤드라인 (이미지 안 유일한 텍스트 — 조사 뺀 핵심 단어 3~4개로 압축, 설득이 아니라 스크롤을 멈추는 시각적 스턴건)</div>' +
+            '<input type="text" id="input-ab-variant-headline" value="' + esc(currentVariant.thumbnailHeadline || '') + '" placeholder="예: 다시는 안 틀림" style="width:100%">' +
           '</div>' +
 
           '<div style="margin-top:10px;">' +
@@ -6182,19 +6329,6 @@ function bindAbSimulatorEvents() {
   if (headlineInput) headlineInput.oninput = (e) => {
     currentVar.thumbnailHeadline = e.target.value;
     saveAbSimulatorState();
-  };
-
-  const copyInput = document.getElementById('input-ab-variant-copy');
-  if (copyInput) copyInput.oninput = (e) => {
-    currentVar.thumbnailCopy = e.target.value;
-    saveAbSimulatorState();
-  };
-
-  const badgeInput = document.getElementById('input-ab-variant-badge');
-  if (badgeInput) badgeInput.oninput = (e) => {
-    currentVar.badge = e.target.value;
-    saveAbSimulatorState();
-    renderAbFeedOnly();
   };
 
   const visualConceptInput = document.getElementById('input-ab-variant-visual');
@@ -6742,8 +6876,6 @@ function bindAbSimulatorEvents() {
           title: v.title,
           imageUrl: v._base64Data || v.imageUrl,
           thumbnailHeadline: v.thumbnailHeadline,
-          thumbnailCopy: v.thumbnailCopy,
-          badge: v.badge,
         }));
 
         const res = await fetch('/api/ab-simulator/evaluate', {
@@ -6785,15 +6917,10 @@ function bindAbSimulatorEvents() {
       if (targetVar && suggestion) {
         targetVar.title = suggestion.title || '';
         targetVar.thumbnailHeadline = suggestion.thumbnailHeadline || targetVar.thumbnailHeadline;
-        targetVar.thumbnailCopy = suggestion.thumbnailCopy || targetVar.thumbnailCopy;
         // designConcept(비주얼 컨셉 한 줄)도 같이 저장 — buildThumbnailPrompt가 이걸 프롬프트에
         // 반영해서, 5종 제안마다 실제로 다른 비주얼이 나오게 한다(2026-09-01, 예전엔 텍스트만
         // 반영되고 이 필드는 화면 표시용으로만 쓰이던 dead data였음 — 사용자 지적으로 발견).
         targetVar.visualConcept = suggestion.designConcept || '';
-        // suggestedBadge도 같이 적용 — B/C에 적용할 때 뱃지 칸이 안 채워지는 걸 사용자가 지적해서
-        // 발견(2026-09-02). 아이디어 보드의 suggestedBadge와 같은 패턴으로 스키마에 추가.
-        // 구버전 캐시(필드 없음)에도 안전하도록 없으면 건드리지 않고 기존 값 유지.
-        if (suggestion.suggestedBadge) targetVar.badge = suggestion.suggestedBadge;
         // 적용한 시안으로 워크벤치 포커스도 같이 옮긴다 — "지금 워크벤치 = 시안 X" 배지와
         // 텍스트 적용 버튼의 강조 표시가 방금 클릭한 시안으로 바로 따라오게.
         gAbSelectedVariantTab = targetVarId;
@@ -6818,7 +6945,7 @@ function bindAbSimulatorEvents() {
   const generateImgForVariant = async (vKey, promptText, btnEl) => {
     const targetVar = gAbVariants.find(v => v.id === vKey) || currentVar;
     // promptText가 비어 있으면 그대로 빈 문자열로 보낸다 — 서버(generateAiThumbnailImage)가
-    // title/topic/thumbnailCopy/badge로 자체 템플릿을 구성하므로 여기서 대충 뭉친 대체
+    // title/topic/thumbnailHeadline으로 자체 템플릿을 구성하므로 여기서 대충 뭉친 대체
     // 프롬프트를 만들면 서버 템플릿을 가로채 버린다(실제로 그랬던 버그였음).
     const finalPrompt = promptText || '';
 
@@ -6838,8 +6965,6 @@ function bindAbSimulatorEvents() {
           variantKey: vKey,
           title: targetVar.title || gAbTopic || '',
           thumbnailHeadline: targetVar.thumbnailHeadline || '',
-          thumbnailCopy: targetVar.thumbnailCopy || '',
-          badge: targetVar.badge || '',
           topic: gAbTopic || targetVar.title || '',
           format: gAbFormat,
           engine: 'gemini',
@@ -6893,8 +7018,6 @@ function bindAbSimulatorEvents() {
             variantKey: gAbSelectedVariantTab,
             title: targetVar.title || gAbTopic || '',
             thumbnailHeadline: targetVar.thumbnailHeadline || '',
-            thumbnailCopy: targetVar.thumbnailCopy || '',
-            badge: targetVar.badge || '',
             topic: gAbTopic || targetVar.title || '',
             format: gAbFormat,
             visualConcept: targetVar.visualConcept || '',
@@ -7151,15 +7274,43 @@ function renderIdeaBoardTab() {
   const srcLabel = {marketDemand: '시장수요', contentOpportunity: '채널성과', audienceDna: '시청자DNA', successPatterns: '성공패턴'};
   const candidates = (gIdeaBoardCandidates && gIdeaBoardCandidates.candidates) || [];
   const genAt = gIdeaBoardGeneratedAt ? esc(gIdeaBoardGeneratedAt.slice(0, 19).replace('T', ' ')) : '';
+  // 마지막 생성에 쓴 집중 키워드를 사람이 읽는 문구로도 보여준다(아래 <select> 복원과 별개로,
+  // 셀렉트를 못 보고 지나쳐도 "마지막 생성" 옆에서 바로 확인 가능하게).
+  const focusLabel = gIdeaBoardFocusKeyword ? ' · 집중 키워드: "' + esc(gIdeaBoardFocusKeyword) + '"' : (genAt ? ' · 전체 데이터 참고' : '');
+  // Claude가 대화창에서 수동으로 써 준 초안을 불러온 결과인지 표시 — Gemini 결과와 구분돼야
+  // 나중에 "이게 AI가 진짜 근거로 뽑은 거 맞나" 헷갈리지 않는다(2026-09-13).
+  const generatedByLabel = gIdeaBoardCandidates?.generatedBy === 'claude' ? ' · ✍️ Claude 수동 생성' : '';
+
+  // 시장 수요 레이더의 특정 키워드 하나에 집중해서 아이디어를 뽑고 싶을 때를 위한 선택지
+  // (2026-09-13, 사용자 제안: "아이디어 보드에 셀렉터 버튼으로 선택하는건 어때?" — 처음엔 시장
+  // 수요 카드마다 "이 키워드로 생성" 버튼을 얹는 안이었는데, 카드 9개마다 버튼을 반복하는 대신
+  // 여기 한 곳에 드롭다운으로 모아두는 게 더 깔끔하다는 제안으로 방향 전환). 기본값은 지금까지의
+  // 동작 그대로(상위 8개 키워드를 두루 참고) — 드롭다운에서 특정 키워드를 고를 때만 그 키워드
+  // 하나에 집중하도록 focusKeyword를 서버에 넘긴다.
+  // 생성 완료 후 화면을 다시 그리면 <select>가 통째로 새로 만들어지는데, 방금 쓴 키워드를
+  // selected로 표시해두지 않으면 매번 기본값("전체 데이터 참고")으로 보여서 "내가 뭘로
+  // 생성했는지 모르겠다"는 문제가 있었다(2026-09-13, 사용자 지적). gIdeaBoardFocusKeyword와
+  // 비교해서 마지막으로 실제 생성에 쓴 키워드를 그대로 selected 처리한다.
+  const focusOptions = (md?.byKeyword || [])
+    .map((k) => '<option value="' + esc(k.keyword) + '"' + (k.keyword === gIdeaBoardFocusKeyword ? ' selected' : '') + '>' + esc(k.keyword) + '</option>')
+    .join('');
 
   let html = '<div class="bento-grid">' +
     '<div class="bento-card highlight-cyan col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
       '<div>' +
         '<div class="card-title" style="color:var(--accent-cyan)">IDEA → THUMBNAIL PIPELINE</div>' +
         '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">💡 아이디어→썸네일 기획 보드</h2>' +
-        '<div class="card-subtext">market-demand · content-opportunity · audience-dna · success-patterns 4개 데이터를 근거로 다음 소재를 추천합니다' + (genAt ? ' · 마지막 생성: ' + genAt : '') + '</div>' +
+        '<div class="card-subtext">market-demand · content-opportunity · audience-dna · success-patterns 4개 데이터를 근거로 다음 소재를 추천합니다' + (genAt ? ' · 마지막 생성: ' + genAt : '') + focusLabel + generatedByLabel + '</div>' +
       '</div>' +
-      '<button class="btn btn-magenta" id="btn-idea-board-generate">🔄 아이디어 후보 5개 생성</button>' +
+      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
+        (focusOptions ?
+          '<select id="select-idea-focus-keyword" title="특정 키워드 하나에 집중해서 생성하고 싶으면 선택" style="max-width:220px">' +
+            '<option value=""' + (gIdeaBoardFocusKeyword ? '' : ' selected') + '>전체 데이터 참고 (기본)</option>' +
+            focusOptions +
+          '</select>' : '') +
+        '<button class="btn btn-magenta" id="btn-idea-board-generate">🔄 아이디어 후보 5개 생성</button>' +
+        '<button class="btn btn-outline" id="btn-idea-board-load-manual" title="Gemini 호출 없이, 대화창에서 Claude에게 직접 요청해 만든 초안을 불러옵니다(월간 지출 한도 초과 등으로 API가 막혔을 때)">✍️ Claude 초안 불러오기</button>' +
+      '</div>' +
     '</div>' +
     '<div id="idea-board-status" style="display:none; margin-top:0; padding:12px 16px; background:rgba(0,240,255,0.12); border:1px solid var(--accent-cyan); border-radius:10px; color:var(--text-bright); font-weight:700;" class="bento-card col-12">' +
       '⏳ Gemini AI가 4개 데이터 소스를 근거로 소재 후보를 뽑는 중입니다... (약 5~10초 소요)' +
@@ -7227,7 +7378,6 @@ function renderIdeaBoardTab() {
         '<div style="font-size:13px;color:var(--accent-amber);margin:8px 0">🎣 ' + esc(c.angleOrHook || '') + '</div>' +
         '<div style="font-size:12px;color:var(--text-normal);margin-bottom:10px">' + esc(c.rationale || '') + '</div>' +
         (c.targetAudience ? '<div style="font-size:11px;color:var(--accent-cyan);margin-bottom:6px">👥 ' + esc(c.targetAudience) + '</div>' : '') +
-        (c.suggestedBadge ? '<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">🏷️ 추천 뱃지: ' + esc(c.suggestedBadge) + '</div>' : '') +
         ((c.dataSourceRefs && c.dataSourceRefs.length) ?
           '<div style="margin-bottom:10px">' + c.dataSourceRefs.map((r) => '<span class="tag-chip" style="font-size:10px">' + esc(srcLabel[r.source] || r.source) + ': ' + esc(r.detail || '') + '</span>').join('') + '</div>' : '') +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
@@ -7273,29 +7423,61 @@ function bindIdeaBoardEvents() {
       genBtn.disabled = true;
       const originalText = genBtn.innerHTML;
       genBtn.innerHTML = '⏳ 생성 중...';
+      const focusSelect = document.getElementById('select-idea-focus-keyword');
+      const focusKeyword = focusSelect ? focusSelect.value : '';
       try {
         const res = await fetch('/api/idea-board/generate-candidates', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({}),
+          body: JSON.stringify(focusKeyword ? {focusKeyword} : {}),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || '아이디어 생성에 실패했습니다.');
         gIdeaBoardCandidates = data;
         gIdeaBoardGeneratedAt = data.generatedAt || new Date().toISOString();
+        gIdeaBoardFocusKeyword = focusKeyword || null;
         gIdeaBoardSelected = null;
         saveIdeaBoardState();
         // 서버가 생성 직전에 "찜만 하고 제작으로 안 넘어간" 이력을 정리했을 수 있으니
         // (2026-09-11 확인), 배너에 옛 개수가 남지 않도록 이력도 같이 새로 받아온다.
         await hydrateIdeaBoardFromServer();
         renderCurrentTab();
-        showToast('💡 아이디어 후보 5개가 생성되었습니다!');
+        showToast(focusKeyword ? '💡 "' + focusKeyword + '" 키워드에 집중한 아이디어 후보 5개가 생성되었습니다!' : '💡 아이디어 후보 5개가 생성되었습니다!');
       } catch (err) {
         showToast('❌ 오류: ' + err.message);
       } finally {
         if (statusBox) statusBox.style.display = 'none';
         genBtn.disabled = false;
         genBtn.innerHTML = originalText;
+      }
+    };
+  }
+
+  const loadManualBtn = document.getElementById('btn-idea-board-load-manual');
+  if (loadManualBtn) {
+    loadManualBtn.onclick = async () => {
+      loadManualBtn.disabled = true;
+      const original = loadManualBtn.innerHTML;
+      loadManualBtn.innerHTML = '⏳ 불러오는 중...';
+      try {
+        const res = await fetch('/api/idea-board/manual-draft');
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '초안을 불러오지 못했습니다.');
+        // 실제 Gemini 생성 성공 흐름과 완전히 동일하게 처리한다 — 화면 입장에서는 출처가
+        // Gemini인지 Claude인지 몰라도 되고, 저장·이력 갱신·핸드오프 전부 똑같이 동작해야 한다.
+        gIdeaBoardCandidates = data;
+        gIdeaBoardGeneratedAt = data.generatedAt || new Date().toISOString();
+        gIdeaBoardFocusKeyword = data.focusKeyword || null;
+        gIdeaBoardSelected = null;
+        saveIdeaBoardState();
+        await hydrateIdeaBoardFromServer();
+        renderCurrentTab();
+        showToast('✍️ Claude가 작성한 초안을 불러왔습니다' + (data.focusKeyword ? ' ("' + data.focusKeyword + '" 집중)' : '') + '.');
+      } catch (err) {
+        showToast('❌ ' + err.message);
+      } finally {
+        loadManualBtn.disabled = false;
+        loadManualBtn.innerHTML = original;
       }
     };
   }
@@ -7378,14 +7560,12 @@ function bindIdeaBoardEvents() {
       // 없는데 진짜 제목처럼 보이면, 여기서 바로 진단을 돌렸을 때 그 가짜 문구를 채점해버린다
       // (2026-09-01, 사용자 지적). 아직 안 정해졌으면 빈 칸으로 둬서 "🚀 진단"으로 받은 5종
       // 추천 중 다른 걸 B/C에 각각 적용하는 게 다음 단계임을 명확히 한다.
-      // badge는 단순 메모가 아니라 실제 생성되는 썸네일 이미지에 그대로 그려지는 네온 뱃지
-      // 문구다(buildThumbnailPrompt) — "기획 보드 선정안"(내부 라벨)을 넣으면 시청자용 썸네일에
-      // 그대로 박혀 나왔던 버그를 빈 칸으로 고쳤었는데, 빈 칸도 최선은 아니다(사용자 지적,
-      // 2026-09-01) — 이 소재에 맞는 진짜 뱃지 문구를 AI가 추천하게(suggestedBadge) 스키마를
-      // 확장해서 자동으로 채운다. 후보에 없으면(구버전 캐시 등) 빈 칸 → 시안별 기본 뱃지로 폴백.
-      gAbVariants[0] = {id: 'A', title: sel.topic, imageUrl: '', thumbnailCopy: sel.angleOrHook || '', badge: sel.suggestedBadge || '', visualConcept: '', isLocalFile: false};
-      gAbVariants[1] = {id: 'B', title: '', imageUrl: '', thumbnailCopy: '', badge: '', visualConcept: '', isLocalFile: false};
-      gAbVariants[2] = {id: 'C', title: '', imageUrl: '', thumbnailCopy: '', badge: '', visualConcept: '', isLocalFile: false};
+      // thumbnailCopy·badge 필드는 2026-09-13 폐지(썸네일 헤드라인 하나만 남기고, 하단 캡션·
+      // 포인트 뱃지는 시각적 스턴건 효과를 흐리는 군더더기로 판단해 제거) — 아이디어 보드의
+      // suggestedBadge 스키마 필드도 같이 폐지했으므로 여기서 더 이상 채울 값이 없다.
+      gAbVariants[0] = {id: 'A', title: sel.topic, imageUrl: '', thumbnailHeadline: '', visualConcept: '', isLocalFile: false};
+      gAbVariants[1] = {id: 'B', title: '', imageUrl: '', thumbnailHeadline: '', visualConcept: '', isLocalFile: false};
+      gAbVariants[2] = {id: 'C', title: '', imageUrl: '', thumbnailHeadline: '', visualConcept: '', isLocalFile: false};
       gAbSelectedVariantTab = 'A';
       gAbActiveFeedView = 'A';
       // 이전 진단(gAbAiReport)은 완전히 다른 소재/시안을 평가한 결과라 그대로 두면 새 소재를 진단한
@@ -7773,16 +7953,102 @@ const server = createServer(async (req, res) => {
     }
     if (url.pathname === '/api/market-demand/run' && req.method === 'POST') {
       const body = await readJsonBody(req);
-      const kw = body.keyword ? `--keyword="${body.keyword}"` : '';
-      const cmd = `node scripts/market-demand.mjs ${kw}`;
+      // 셸 문자열로 명령어를 합치면(구 코드: `--keyword="${body.keyword}"`를 exec()에 문자열로
+      // 넘김) 윈도우 cmd.exe가 한글을 깨뜨려서, 실제로는 "영어 듣기 안 들리는 이유" 같은 정상
+      // 키워드가 아니라 mojibake 문자열로 저장되는 버그가 있었다(2026-09-13, 사용자가 키워드
+      // 삭제 후 재분석했는데 카드가 안 돌아와서 발견 — 실제로 실행은 됐지만 깨진 이름으로
+      // 저장돼 있었음). execFile은 셸을 거치지 않고 인자를 배열로 그대로 넘기므로 인코딩이
+      // 깨지지 않고, 키워드에 따옴표·세미콜론 등이 들어있어도 셸 인젝션 위험이 없다.
+      const args = ['scripts/market-demand.mjs', ...(body.keyword ? [`--keyword=${body.keyword}`] : [])];
       try {
-        await execAsync(cmd, {cwd: projectDir});
+        await execFileAsync('node', args, {cwd: projectDir});
         const updated = await loadJson(marketDemandPath);
         memoryMarketDemand = updated;
         lastMarketDemandTime = Date.now();
         return json(res, 200, {ok: true, data: await annotateMarketDemandAnalysisStatus(updated)});
       } catch (err) {
         return json(res, 500, {error: `스크립트 실행 오류: ${err.message}`});
+      }
+    }
+    // 시장 수요 레이더 키워드 카드 삭제(2026-09-13, 사용자 지적: "필요없는 데이터가 쌓이면
+    // 안되니깐 카드에 딸린 데이터까지 삭제돼야겠지?"). 단순히 market-demand.json의 byKeyword
+    // 배열에서 항목 하나만 지우면, 그 키워드의 아웃라이어 영상들을 분석해 만든 댓글/대본
+    // 리포트 파일(output/insights/, output/script-insights/)과 그 리포트에서 뽑아
+    // audience-dna.json에 누적된 시청자DNA 항목이 "오염된 데이터"로 계속 남는다.
+    // 단, 같은 영상이 여러 키워드에서 동시에 아웃라이어로 걸리는 경우가 실제로 있으므로
+    // (renderMarketDemandTab()의 videoKeywordMap 참고), 삭제 대상 키워드를 뺀 "나머지"
+    // 키워드에서도 여전히 참조되는 영상은 건드리지 않는다 — 그 영상 리포트를 지우면 다른
+    // 키워드 카드의 "📄 리포트 보기" 버튼이 깨지기 때문.
+    if (url.pathname === '/api/market-demand/delete' && req.method === 'POST') {
+      try {
+        const body = await readJsonBody(req);
+        const keyword = String(body.keyword || '').trim();
+        if (!keyword) return json(res, 400, {error: 'keyword가 필요합니다.'});
+
+        const marketDemand = await loadJson(marketDemandPath, {byKeyword: []});
+        const idx = (marketDemand.byKeyword || []).findIndex((k) => k.keyword === keyword);
+        if (idx === -1) return json(res, 404, {error: `키워드 "${keyword}"를 찾을 수 없습니다.`});
+
+        const removed = marketDemand.byKeyword[idx];
+        const removedVideoIds = new Set((removed.topOutliers || []).map((o) => o.videoId).filter(Boolean));
+        marketDemand.byKeyword = marketDemand.byKeyword.filter((_, i) => i !== idx);
+
+        // 남은 키워드들이 아직 참조 중인 videoId는 고아가 아니므로 삭제 대상에서 뺀다.
+        const stillReferenced = new Set();
+        marketDemand.byKeyword.forEach((k) => (k.topOutliers || []).forEach((o) => {
+          if (o.videoId) stillReferenced.add(o.videoId);
+        }));
+        const orphanedVideoIds = [...removedVideoIds].filter((vid) => !stillReferenced.has(vid));
+        const {deletedReportFiles, removedDnaEntries} = await cascadeDeleteOrphanedVideoData(orphanedVideoIds);
+
+        await saveJson(marketDemandPath, marketDemand);
+        memoryMarketDemand = marketDemand;
+        lastMarketDemandTime = Date.now();
+        return json(res, 200, {
+          ok: true,
+          data: await annotateMarketDemandAnalysisStatus(marketDemand),
+          cleaned: {orphanedVideos: orphanedVideoIds.length, reportFiles: deletedReportFiles, dnaEntries: removedDnaEntries},
+        });
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // 키워드 카드 전체가 아니라, 그 안의 아웃라이어 영상 딱 하나만 지우는 기능(2026-09-13,
+    // 사용자 요청: "각 영상의 데이터를 삭제하는 기능이 있어야하지 않겠어?" — 키워드 자체는
+    // 유효한데 그 안의 특정 영상 하나만 잘못 걸렸거나 필요 없어진 경우를 위함). 그 키워드의
+    // topOutliers에서 이 영상만 빼고, 이 영상이 다른 키워드에서도 여전히 쓰이는지 전체를
+    // 다시 확인한 뒤(자기 자신이 수정된 상태 기준) 고아가 됐을 때만 위와 같은 cascade 청소를
+    // 적용한다.
+    if (url.pathname === '/api/market-demand/delete-video' && req.method === 'POST') {
+      try {
+        const body = await readJsonBody(req);
+        const keyword = String(body.keyword || '').trim();
+        const videoId = String(body.videoId || '').trim();
+        if (!keyword || !videoId) return json(res, 400, {error: 'keyword와 videoId가 모두 필요합니다.'});
+
+        const marketDemand = await loadJson(marketDemandPath, {byKeyword: []});
+        const kEntry = (marketDemand.byKeyword || []).find((k) => k.keyword === keyword);
+        if (!kEntry) return json(res, 404, {error: `키워드 "${keyword}"를 찾을 수 없습니다.`});
+        const hadVideo = (kEntry.topOutliers || []).some((o) => o.videoId === videoId);
+        if (!hadVideo) return json(res, 404, {error: `이 키워드에서 영상 "${videoId}"를 찾을 수 없습니다.`});
+        kEntry.topOutliers = (kEntry.topOutliers || []).filter((o) => o.videoId !== videoId);
+
+        const stillReferenced = marketDemand.byKeyword.some((k) =>
+          (k.topOutliers || []).some((o) => o.videoId === videoId)
+        );
+        const orphanedVideoIds = stillReferenced ? [] : [videoId];
+        const {deletedReportFiles, removedDnaEntries} = await cascadeDeleteOrphanedVideoData(orphanedVideoIds);
+
+        await saveJson(marketDemandPath, marketDemand);
+        memoryMarketDemand = marketDemand;
+        lastMarketDemandTime = Date.now();
+        return json(res, 200, {
+          ok: true,
+          data: await annotateMarketDemandAnalysisStatus(marketDemand),
+          cleaned: {orphanedVideos: orphanedVideoIds.length, reportFiles: deletedReportFiles, dnaEntries: removedDnaEntries},
+        });
+      } catch (err) {
+        return json(res, 500, {error: err.message});
       }
     }
     if (url.pathname === '/api/episodes/summary') {
@@ -8102,8 +8368,6 @@ const server = createServer(async (req, res) => {
           variantKey: body.variantKey || 'A',
           title: body.title || '',
           thumbnailHeadline: body.thumbnailHeadline || '',
-          thumbnailCopy: body.thumbnailCopy || '',
-          badge: body.badge || '',
           format: body.format || 'LONGFORM',
           hasPersonReference: await hasPresenterReference(),
           visualConcept: body.visualConcept || '',
@@ -8123,8 +8387,6 @@ const server = createServer(async (req, res) => {
           variantKey: body.variantKey || 'A',
           title: body.title || '',
           thumbnailHeadline: body.thumbnailHeadline || '',
-          thumbnailCopy: body.thumbnailCopy || '',
-          badge: body.badge || '',
           format: body.format || 'LONGFORM',
           engine: body.engine || 'flux',
           geminiKey,
@@ -8208,6 +8470,8 @@ const server = createServer(async (req, res) => {
         return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
       }
       try {
+        const body = await readJsonBody(req);
+        const focusKeyword = String(body.focusKeyword || '').trim();
         const [marketDemand, contentOpportunity, dnaStore, patternsStore, historyStore, catalog] = await Promise.all([
           loadJson(marketDemandPath),
           loadJson(contentOpportunityPath),
@@ -8242,6 +8506,9 @@ const server = createServer(async (req, res) => {
           // 확인 — 방금 올린 EP15도 공개 전인데 이미 들어 있었음). /api/sync를 돌릴 때마다
           // 최신화되므로 앞으로 올라가는 영상도 별도 작업 없이 계속 반영된다.
           channelVideos: (catalog.videos || []).map((v) => ({title: v.title})),
+          // 아이디어 보드의 키워드 셀렉터에서 특정 시장 수요 키워드 하나를 골랐을 때만 채워짐
+          // (2026-09-13). 비어 있으면 기존과 동일하게 상위 8개 키워드를 두루 참고한다.
+          focusKeyword: focusKeyword || undefined,
         });
         return json(res, 200, {ok: true, ...result});
       } catch (err) {
@@ -8265,6 +8532,18 @@ const server = createServer(async (req, res) => {
       try {
         const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
         return json(res, 200, history || {schemaVersion: 1, entries: []});
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // "✍️ Claude 초안 불러오기" 버튼용 — Claude가 대화 중 이 파일을 직접 써 두면(Gemini와 동일한
+    // candidates 스키마), 그걸 그대로 읽어와 화면에 띄운다. 없으면 404로 "아직 초안이 없다"를
+    // 명확히 알린다(빈 성공 응답으로 조용히 넘기면 버튼이 아무 반응 없어 보임).
+    if (url.pathname === '/api/idea-board/manual-draft' && req.method === 'GET') {
+      try {
+        const draft = await loadJson(ideaBoardManualDraftPath);
+        if (!draft) return json(res, 404, {error: '아직 Claude가 작성한 초안이 없습니다. 대화창에서 먼저 요청하세요.'});
+        return json(res, 200, draft);
       } catch (err) {
         return json(res, 500, {error: err.message});
       }

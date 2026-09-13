@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-07T07:50:10.835Z",
+  "generatedAt": "2026-09-13T03:02:48.211Z",
   "note": "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, 채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 이례적으로 잘된 주제. 조회수는 게시 후 경과일로 나눠 비교함 — 오래된 영상이 최근 업로드보다 누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: 정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). 채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 구독자 100,000명 이하 채널만 포함). 표본 3개 미만은 `confidence: \"low\"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 (곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). --keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert). opportunityScore = marketDemandScore / log10(totalResults+10) — 수요가 높아도 이미 포화된(totalResults 큰) 키워드는 할인함. 정밀 계산이 아니라 대략적인 경쟁 밀도 보정이니 참고용으로만 쓸 것. titlePatterns = 그 채널 기준으로 이례적으로(outlierRatio≥1.5) 잘 된 영상들의 제목에서 2회 이상 반복된 단어 — 무슨 주제를 다룰지가 아니라 어떤 각도/후킹으로 제목을 달지에 대한 신호.",
   "keywordPool": [
     "영어 발음 규칙",
@@ -11,9 +11,9 @@
     "미국식 발음 규칙"
   ],
   "lastRunKeywords": [
-    "������� ��"
+    "영어 발음 원리"
   ],
-  "channelsAnalyzed": 0,
+  "channelsAnalyzed": 12,
   "byKeyword": [
     {
       "keyword": "영어 왕초보, 어디서부터 시작하죠?",
@@ -100,26 +100,86 @@
       ]
     },
     {
-      "keyword": "영어 듣기 안 들리는 이유",
-      "videoCount": 1,
-      "confidence": "low",
-      "lowSampleWarning": "표본 1개뿐 — 3개 미만은 median이 사실상 최댓값과 같아 과대평가 위험. 참고용으로만 쓸 것.",
+      "keyword": "영어 발음 원리",
+      "analyzedAt": "2026-09-13T03:02:48.208Z",
+      "videoCount": 14,
+      "confidence": "ok",
+      "lowSampleWarning": null,
       "marketDemandScore": 250,
-      "totalResults": 329604,
-      "opportunityScore": 45.3,
-      "titlePatterns": [],
+      "totalResults": 461876,
+      "opportunityScore": 44.1,
+      "titlePatterns": [
+        {
+          "word": "영어",
+          "titleCount": 3
+        },
+        {
+          "word": "발음",
+          "titleCount": 3
+        },
+        {
+          "word": "파닉스",
+          "titleCount": 2
+        },
+        {
+          "word": "영어의",
+          "titleCount": 2
+        },
+        {
+          "word": "사용법",
+          "titleCount": 2
+        },
+        {
+          "word": "10분만에",
+          "titleCount": 2
+        },
+        {
+          "word": "끝내는",
+          "titleCount": 2
+        },
+        {
+          "word": "모든",
+          "titleCount": 2
+        }
+      ],
       "topOutliers": [
         {
-          "videoId": "9soUtbaZUVE",
-          "title": "영어가 안 들리고 말문 막히는 이유  미국원어민 연음발음 4대법칙 3분만 마스터, Linking , Blending, Elision, Reduction #영어공부 #영어회화 #영어",
-          "channelTitle": "Sorisun English",
-          "viewCount": 13856,
-          "publishedAt": "2025-06-03T16:11:37Z",
-          "ageDays": 461,
-          "viewsPerDay": 30.1,
-          "channelBaselineViewsPerDay": 5.3,
-          "outlierRatio": 5.66,
-          "durationSeconds": 180,
+          "videoId": "Tcjj1ZgHJt4",
+          "title": "[영어발음/심화] 강세의 원리 / 강세는 '모음'에 붙는다 / 영어발음은 자음을 먼저 / the apple is on the table, vivid, benefit (어려움 주의)",
+          "channelTitle": "영어탐험가",
+          "viewCount": 6705,
+          "publishedAt": "2018-11-13T14:56:43Z",
+          "ageDays": 2861,
+          "viewsPerDay": 2.3,
+          "channelBaselineViewsPerDay": 0,
+          "outlierRatio": 255.93,
+          "durationSeconds": 494,
+          "isShort": false
+        },
+        {
+          "videoId": "rooxbEm1oRc",
+          "title": "World 발음 함께 연습해요 ! #dailyconversations #english #konglish #dailyenglish #발음연습 #영어공부",
+          "channelTitle": "Just do English",
+          "viewCount": 184545,
+          "publishedAt": "2023-08-06T23:16:35Z",
+          "ageDays": 1133,
+          "viewsPerDay": 162.9,
+          "channelBaselineViewsPerDay": 2.8,
+          "outlierRatio": 57.42,
+          "durationSeconds": 26,
+          "isShort": true
+        },
+        {
+          "videoId": "qR73bQRt2W4",
+          "title": "파닉스, 알파벳 음가 쉽게 암기하는 비법을 정리한 노래1 (3분 만에 단모음으로 영어단어 쉽게 읽기!)",
+          "channelTitle": "Jimmy class",
+          "viewCount": 325010,
+          "publishedAt": "2023-04-25T05:07:22Z",
+          "ageDays": 1237,
+          "viewsPerDay": 262.8,
+          "channelBaselineViewsPerDay": 6.4,
+          "outlierRatio": 40.74,
+          "durationSeconds": 220,
           "isShort": false
         }
       ]
@@ -274,12 +334,13 @@
     },
     {
       "keyword": "영어기초배우기",
+      "analyzedAt": "2026-09-13T03:02:13.906Z",
       "videoCount": 4,
       "confidence": "ok",
       "lowSampleWarning": null,
       "marketDemandScore": 250,
-      "totalResults": 642092,
-      "opportunityScore": 43,
+      "totalResults": 638716,
+      "opportunityScore": 43.1,
       "titlePatterns": [
         {
           "word": "시간",
@@ -300,32 +361,44 @@
         {
           "word": "생활영어",
           "titleCount": 2
+        },
+        {
+          "word": "매일",
+          "titleCount": 2
+        },
+        {
+          "word": "영어단어",
+          "titleCount": 2
+        },
+        {
+          "word": "5개만",
+          "titleCount": 2
         }
       ],
       "topOutliers": [
         {
-          "videoId": "w6UmzYd7f5U",
-          "title": "자면서 듣는 생활영어 | 미국 7살 수준 영어회화 | 편하게 라디오 처럼 틀어두기만 하세요 | 기초 영어회화",
-          "channelTitle": "패턴영어 회화",
-          "viewCount": 593969,
-          "publishedAt": "2025-09-12T10:16:49Z",
-          "ageDays": 360,
-          "viewsPerDay": 1650.7,
-          "channelBaselineViewsPerDay": 5.2,
-          "outlierRatio": 317.08,
-          "durationSeconds": null,
-          "isShort": null
+          "videoId": "jWhCS0bE7RY",
+          "title": "'소금'부터 '후추'까지 양념 생활영어, 매일 영어단어 5개만 외우세요!",
+          "channelTitle": "기브영어 Give English",
+          "viewCount": 639759,
+          "publishedAt": "2025-04-15T03:55:01Z",
+          "ageDays": 516,
+          "viewsPerDay": 1239.9,
+          "channelBaselineViewsPerDay": 35.2,
+          "outlierRatio": 35.18,
+          "durationSeconds": 37,
+          "isShort": true
         },
         {
           "videoId": "WVtl3kD84Z0",
           "title": "입국부터 출국까지 생활영어, 매일 영어단어 5개만 외우세요!",
           "channelTitle": "기브영어 Give English",
-          "viewCount": 467878,
+          "viewCount": 476930,
           "publishedAt": "2025-01-08T03:55:00Z",
-          "ageDays": 607,
-          "viewsPerDay": 770.7,
-          "channelBaselineViewsPerDay": 35.8,
-          "outlierRatio": 21.52,
+          "ageDays": 613,
+          "viewsPerDay": 778.1,
+          "channelBaselineViewsPerDay": 35.2,
+          "outlierRatio": 22.08,
           "durationSeconds": 40,
           "isShort": true
         },
@@ -333,12 +406,12 @@
           "videoId": "rcjx-VhsFDo",
           "title": "'시간' 영어단어4 | 일상생활영어 | 기초영어회화 | 왕초보영어",
           "channelTitle": "굿럭영어",
-          "viewCount": 1010373,
+          "viewCount": 1022971,
           "publishedAt": "2024-08-05T03:50:00Z",
-          "ageDays": 763,
-          "viewsPerDay": 1324,
-          "channelBaselineViewsPerDay": 77.2,
-          "outlierRatio": 17.14,
+          "ageDays": 769,
+          "viewsPerDay": 1330.3,
+          "channelBaselineViewsPerDay": 73.6,
+          "outlierRatio": 18.06,
           "durationSeconds": 36,
           "isShort": true
         }
@@ -429,74 +502,6 @@
       ]
     },
     {
-      "keyword": "영어",
-      "videoCount": 8,
-      "confidence": "ok",
-      "lowSampleWarning": null,
-      "marketDemandScore": 250,
-      "totalResults": 1000000,
-      "opportunityScore": 41.7,
-      "titlePatterns": [
-        {
-          "word": "영어회화",
-          "titleCount": 3
-        },
-        {
-          "word": "기초영어회화",
-          "titleCount": 2
-        },
-        {
-          "word": "매일",
-          "titleCount": 2
-        },
-        {
-          "word": "생활영어",
-          "titleCount": 2
-        }
-      ],
-      "topOutliers": [
-        {
-          "videoId": "qZJ4hfyLVcs",
-          "title": "시대인재 수능영어 김동하",
-          "channelTitle": "수능영어 김동하",
-          "viewCount": 1981353,
-          "publishedAt": "2025-05-11T12:58:57Z",
-          "ageDays": 484,
-          "viewsPerDay": 4096.1,
-          "channelBaselineViewsPerDay": 97.7,
-          "outlierRatio": 41.91,
-          "durationSeconds": 24,
-          "isShort": true
-        },
-        {
-          "videoId": "WVtl3kD84Z0",
-          "title": "입국부터 출국까지 생활영어, 매일 영어단어 5개만 외우세요!",
-          "channelTitle": "기브영어 Give English",
-          "viewCount": 467877,
-          "publishedAt": "2025-01-08T03:55:00Z",
-          "ageDays": 607,
-          "viewsPerDay": 770.7,
-          "channelBaselineViewsPerDay": 35.8,
-          "outlierRatio": 21.52,
-          "durationSeconds": 40,
-          "isShort": true
-        },
-        {
-          "videoId": "rcjx-VhsFDo",
-          "title": "'시간' 영어단어4 | 일상생활영어 | 기초영어회화 | 왕초보영어",
-          "channelTitle": "굿럭영어",
-          "viewCount": 1010373,
-          "publishedAt": "2024-08-05T03:50:00Z",
-          "ageDays": 763,
-          "viewsPerDay": 1324,
-          "channelBaselineViewsPerDay": 77.2,
-          "outlierRatio": 17.14,
-          "durationSeconds": 36,
-          "isShort": true
-        }
-      ]
-    },
-    {
       "keyword": "영어공부",
       "analyzedAt": "2026-09-07T07:34:05.807Z",
       "videoCount": 16,
@@ -541,19 +546,6 @@
       ],
       "topOutliers": [
         {
-          "videoId": "eGh-AmQzqOc",
-          "title": "지금까지 써본 영어공부 앱/웹 순위 총정리 (내돈내산. 광고X. 고정댓글에 적어둠)",
-          "channelTitle": "engrit = englishstudy + grit",
-          "viewCount": 550340,
-          "publishedAt": "2024-10-01T05:30:43Z",
-          "ageDays": 706,
-          "viewsPerDay": 779.4,
-          "channelBaselineViewsPerDay": 1,
-          "outlierRatio": 806.06,
-          "durationSeconds": 11,
-          "isShort": true
-        },
-        {
           "videoId": "klRk7F5k2TE",
           "title": "영어 노베이스는 이것부터 하세요",
           "channelTitle": "연세대 수능영어 - 데니스",
@@ -577,174 +569,6 @@
           "channelBaselineViewsPerDay": 78.7,
           "outlierRatio": 191.81,
           "durationSeconds": 558,
-          "isShort": false
-        }
-      ]
-    },
-    {
-      "keyword": "영어 발음 원리",
-      "videoCount": 20,
-      "confidence": "ok",
-      "lowSampleWarning": null,
-      "marketDemandScore": 223.8,
-      "totalResults": 459665,
-      "opportunityScore": 39.5,
-      "titlePatterns": [
-        {
-          "word": "영어",
-          "titleCount": 5
-        },
-        {
-          "word": "알파벳",
-          "titleCount": 2
-        },
-        {
-          "word": "소리",
-          "titleCount": 2
-        },
-        {
-          "word": "영어축약발음",
-          "titleCount": 2
-        },
-        {
-          "word": "영어의",
-          "titleCount": 2
-        },
-        {
-          "word": "사용법",
-          "titleCount": 2
-        },
-        {
-          "word": "10분만에",
-          "titleCount": 2
-        },
-        {
-          "word": "끝내는",
-          "titleCount": 2
-        }
-      ],
-      "topOutliers": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "title": "영어 발음이 어려운이유 😭😭 #영어회화 #영어 #영어발음 #영어공부 #영어단어",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "viewCount": 5572822,
-          "publishedAt": "2025-09-24T16:40:03Z",
-          "ageDays": 348,
-          "viewsPerDay": 16035.2,
-          "channelBaselineViewsPerDay": 6.4,
-          "outlierRatio": 2517.38,
-          "durationSeconds": 32,
-          "isShort": true
-        },
-        {
-          "videoId": "qR73bQRt2W4",
-          "title": "파닉스, 알파벳 음가 쉽게 암기하는 비법을 정리한 노래1 (3분 만에 단모음으로 영어단어 쉽게 읽기!)",
-          "channelTitle": "Jimmy class",
-          "viewCount": 323047,
-          "publishedAt": "2023-04-25T05:07:22Z",
-          "ageDays": 1231,
-          "viewsPerDay": 262.4,
-          "channelBaselineViewsPerDay": 6.4,
-          "outlierRatio": 40.69,
-          "durationSeconds": 220,
-          "isShort": false
-        },
-        {
-          "videoId": "kPKP8PA6vxg",
-          "title": "버터발음, 복식호흡이 문제가 아니다 #영어발음꿀팁",
-          "channelTitle": "잉글핏",
-          "viewCount": 137178,
-          "publishedAt": "2024-10-15T05:54:43Z",
-          "ageDays": 692,
-          "viewsPerDay": 198.2,
-          "channelBaselineViewsPerDay": 6.2,
-          "outlierRatio": 31.98,
-          "durationSeconds": 20,
-          "isShort": true
-        }
-      ]
-    },
-    {
-      "keyword": "미국식 발음 규칙",
-      "videoCount": 21,
-      "confidence": "ok",
-      "lowSampleWarning": null,
-      "marketDemandScore": 127.8,
-      "totalResults": 325871,
-      "opportunityScore": 23.2,
-      "titlePatterns": [
-        {
-          "word": "영어",
-          "titleCount": 5
-        },
-        {
-          "word": "이렇게",
-          "titleCount": 3
-        },
-        {
-          "word": "쉽다고",
-          "titleCount": 2
-        },
-        {
-          "word": "읽는",
-          "titleCount": 2
-        },
-        {
-          "word": "규칙",
-          "titleCount": 2
-        },
-        {
-          "word": "영어축약발음",
-          "titleCount": 2
-        },
-        {
-          "word": "영어의",
-          "titleCount": 2
-        },
-        {
-          "word": "사용법",
-          "titleCount": 2
-        }
-      ],
-      "topOutliers": [
-        {
-          "videoId": "rooxbEm1oRc",
-          "title": "World 발음 함께 연습해요 ! #dailyconversations #english #konglish #dailyenglish #발음연습 #영어공부",
-          "channelTitle": "Just do English",
-          "viewCount": 182610,
-          "publishedAt": "2023-08-06T23:16:35Z",
-          "ageDays": 1127,
-          "viewsPerDay": 162,
-          "channelBaselineViewsPerDay": 2.8,
-          "outlierRatio": 57,
-          "durationSeconds": 26,
-          "isShort": true
-        },
-        {
-          "videoId": "FFNfnU_nvHY",
-          "title": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
-          "channelTitle": "MagicEnglish 이근철의 마법영어",
-          "viewCount": 410119,
-          "publishedAt": "2021-01-04T03:00:01Z",
-          "ageDays": 2072,
-          "viewsPerDay": 197.9,
-          "channelBaselineViewsPerDay": 4.8,
-          "outlierRatio": 41.03,
-          "durationSeconds": 3578,
-          "isShort": false
-        },
-        {
-          "videoId": "aQ8XoXQUKkk",
-          "title": "영어의 모음소리 사용법 - 10분만에 끝내는 영어의 모든 음소! [모음편]",
-          "channelTitle": "Sharon Kang",
-          "viewCount": 64507,
-          "publishedAt": "2020-08-01T16:06:30Z",
-          "ageDays": 2228,
-          "viewsPerDay": 29,
-          "channelBaselineViewsPerDay": 1,
-          "outlierRatio": 29.54,
-          "durationSeconds": 764,
           "isShort": false
         }
       ]
@@ -793,19 +617,6 @@
       ],
       "topOutliers": [
         {
-          "videoId": "pvPBD9PLuyk",
-          "title": "영어 발음이 어려운이유 😭😭 #영어회화 #영어 #영어발음 #영어공부 #영어단어",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "viewCount": 5572822,
-          "publishedAt": "2025-09-24T16:40:03Z",
-          "ageDays": 348,
-          "viewsPerDay": 16035.2,
-          "channelBaselineViewsPerDay": 6.4,
-          "outlierRatio": 2517.38,
-          "durationSeconds": 32,
-          "isShort": true
-        },
-        {
           "videoId": "rooxbEm1oRc",
           "title": "World 발음 함께 연습해요 ! #dailyconversations #english #konglish #dailyenglish #발음연습 #영어공부",
           "channelTitle": "Just do English",
@@ -834,84 +645,33 @@
       ]
     },
     {
-      "keyword": "WANT TO 축약",
-      "videoCount": 16,
+      "keyword": "영어 듣기 안 들리는 이유",
+      "analyzedAt": "2026-09-13T02:57:38.890Z",
+      "videoCount": 21,
       "confidence": "ok",
       "lowSampleWarning": null,
-      "marketDemandScore": 63.4,
-      "totalResults": 42834,
-      "opportunityScore": 13.7,
+      "marketDemandScore": 62.6,
+      "totalResults": 331289,
+      "opportunityScore": 11.3,
       "titlePatterns": [
-        {
-          "word": "싶다면",
-          "titleCount": 2
-        },
-        {
-          "word": "축약",
-          "titleCount": 2
-        },
         {
           "word": "영어",
+          "titleCount": 4
+        },
+        {
+          "word": "언어천재",
           "titleCount": 2
         },
         {
-          "word": "발음",
+          "word": "말하는",
           "titleCount": 2
-        }
-      ],
-      "topOutliers": [
-        {
-          "videoId": "p74e7Yt9zWM",
-          "title": "[ 58 ] 그러고 싶었어   i wanted to  [영꿀]",
-          "channelTitle": "영어 꿀팁",
-          "viewCount": 3906,
-          "publishedAt": "2023-09-13T21:00:34Z",
-          "ageDays": 1084,
-          "viewsPerDay": 3.6,
-          "channelBaselineViewsPerDay": 0,
-          "outlierRatio": 239.71,
-          "durationSeconds": 7,
-          "isShort": true
         },
         {
-          "videoId": "WZFLgtzV_80",
-          "title": "영어 수동태 단번에 마스터 하기",
-          "channelTitle": "19asjdklajsdlkj",
-          "viewCount": 11555493,
-          "publishedAt": "2025-08-15T11:38:13Z",
-          "ageDays": 382,
-          "viewsPerDay": 30255.3,
-          "channelBaselineViewsPerDay": 162.3,
-          "outlierRatio": 186.37,
-          "durationSeconds": 43,
-          "isShort": true
+          "word": "되는",
+          "titleCount": 2
         },
         {
-          "videoId": "C8MvYi35DQ8",
-          "title": "👈클릭! 영어 초보 탈출 필수암기 축약형 Wanna Gonna 완벽 정리! #영어회화 #이지리스닝 #영어공부 #영어 #영어회화학원 #koreanlanguage #korean #쇼츠",
-          "channelTitle": "영어페이지",
-          "viewCount": 248663,
-          "publishedAt": "2025-12-16T08:10:35Z",
-          "ageDays": 259,
-          "viewsPerDay": 959.8,
-          "channelBaselineViewsPerDay": 99.4,
-          "outlierRatio": 9.66,
-          "durationSeconds": 6,
-          "isShort": true
-        }
-      ]
-    },
-    {
-      "keyword": "영어 연음 축약",
-      "videoCount": 20,
-      "confidence": "ok",
-      "lowSampleWarning": null,
-      "marketDemandScore": 53,
-      "totalResults": 13485,
-      "opportunityScore": 12.8,
-      "titlePatterns": [
-        {
-          "word": "영어축약발음",
+          "word": "리스닝",
           "titleCount": 2
         },
         {
@@ -919,56 +679,52 @@
           "titleCount": 2
         },
         {
-          "word": "빠른",
+          "word": "안들리는",
           "titleCount": 2
         },
         {
-          "word": "축약",
-          "titleCount": 2
-        },
-        {
-          "word": "표현",
+          "word": "들리는",
           "titleCount": 2
         }
       ],
       "topOutliers": [
         {
-          "videoId": "kPKP8PA6vxg",
-          "title": "버터발음, 복식호흡이 문제가 아니다 #영어발음꿀팁",
-          "channelTitle": "잉글핏",
-          "viewCount": 137178,
-          "publishedAt": "2024-10-15T05:54:43Z",
-          "ageDays": 692,
-          "viewsPerDay": 198.2,
-          "channelBaselineViewsPerDay": 6.2,
-          "outlierRatio": 31.98,
-          "durationSeconds": 20,
-          "isShort": true
-        },
-        {
-          "videoId": "0VjYs9FE8R0",
-          "title": "빠른 영어가 안 들린다면? 이것만 알면 됩니다 - 36가지 축약 표현",
-          "channelTitle": "미국인 션쌤 Sean Teacher",
-          "viewCount": 103219,
-          "publishedAt": "2025-04-21T10:10:12Z",
-          "ageDays": 504,
-          "viewsPerDay": 204.9,
-          "channelBaselineViewsPerDay": 22.8,
-          "outlierRatio": 8.98,
-          "durationSeconds": 933,
+          "videoId": "wgBELecJdjM",
+          "title": "언어천재 타일러가 말하는 영어공부법",
+          "channelTitle": "미쿡영어",
+          "viewCount": 1138099,
+          "publishedAt": "2024-08-05T21:00:43Z",
+          "ageDays": 768,
+          "viewsPerDay": 1481.4,
+          "channelBaselineViewsPerDay": 14.5,
+          "outlierRatio": 102.09,
+          "durationSeconds": 61,
           "isShort": false
         },
         {
-          "videoId": "BuaYhQgsDBc",
-          "title": "축약형 관련 영단어 #shorts",
-          "channelTitle": "습관영어",
-          "viewCount": 9028,
-          "publishedAt": "2024-05-24T22:35:09Z",
-          "ageDays": 835,
-          "viewsPerDay": 10.8,
-          "channelBaselineViewsPerDay": 1.4,
-          "outlierRatio": 7.73,
+          "videoId": "Owsub-jm40o",
+          "title": "무작정 '영어 리스닝' 하면 손해인 이유",
+          "channelTitle": "외국어 줍는 남자",
+          "viewCount": 217565,
+          "publishedAt": "2023-06-06T08:58:05Z",
+          "ageDays": 1195,
+          "viewsPerDay": 182.1,
+          "channelBaselineViewsPerDay": 2.9,
+          "outlierRatio": 63.8,
           "durationSeconds": 23,
+          "isShort": true
+        },
+        {
+          "videoId": "_9qeS-JJsfk",
+          "title": "영어 듣기하며 독해 몇번까지 풀어요? | 찾아가는 동니버스 4화",
+          "channelTitle": "동니버스",
+          "viewCount": 3618128,
+          "publishedAt": "2024-04-15T07:45:01Z",
+          "ageDays": 881,
+          "viewsPerDay": 4107.8,
+          "channelBaselineViewsPerDay": 69.3,
+          "outlierRatio": 59.31,
+          "durationSeconds": 20,
           "isShort": true
         }
       ]

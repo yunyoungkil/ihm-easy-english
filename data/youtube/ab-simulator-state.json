@@ -1,152 +1,98 @@
 {
   "format": "LONGFORM",
-  "topic": "영어 소리가 낮고 굵게 들리는 이유: 목구멍 소리와 복식호흡 원리",
-  "audience": "입술 모양만 따라 연습하다 목이 아프고 소리가 붕 떠서 고민인 노베이스 독학자",
+  "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
+  "audience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
   "variants": [
     {
       "id": "A",
-      "title": "영어 발성 위치, 왜 원어민 목소리는 유독 낮고 굵게 들릴까?",
+      "title": "다 같은 줄 알았네요, 단어 끝 -ate 소리가 매번 바뀌는 이유 | 이해하면 쉬운영어",
       "imageUrl": "",
-      "thumbnailCopy": "오늘부로 붕 뜨는 얇은 소리 완전히 끝납니다",
-      "badge": "❓ 소리 비밀 추적",
-      "visualConcept": "물음표 그래픽과 함께 한국인 구강 조음점과 원어민 인두강 울림 위치를 짚어주는 인포그래픽",
-      "isLocalFile": false,
-      "thumbnailHeadline": "원어민 목구멍 소리 왜 나만 안 날까?"
+      "thumbnailHeadline": "-ate 소리 이제 구분됨",
+      "visualConcept": "깊은 네이비 배경 속 똑같은 철자 '-ate'를 든 채 고개를 갸웃거리는 중년의 모습과 직관적인 소리 파형 그래픽 대비",
+      "isLocalFile": false
     },
     {
       "id": "B",
-      "title": "영어 목구멍 소리, 입술만 쫑알대면 평생 소리 붕 뜨는 이유",
+      "title": "50대에 처음 알았습니다, 똑같은 -ate 철자가 2가지로 들리는 이유 | 영어 왕초보",
       "imageUrl": "",
-      "thumbnailCopy": "소리 위치만 내려도 저음이 바로 터집니다",
-      "badge": "⚠️ 발성 위치 경고",
-      "visualConcept": "입술 앞쪽에 갇힌 얕은 음파와 목 깊은 곳에서 터져 나오는 묵직한 울림 음파의 좌우 대비",
-      "isLocalFile": false,
-      "thumbnailHeadline": "영어 목구멍 소리 안 열면 평생 헛발질",
-      "inUse": false
+      "thumbnailHeadline": "-ate 철자 외우지 마세요",
+      "visualConcept": "노트 필기 속 빽빽한 암기 방식을 과감히 지워내고 편안한 표정으로 원리를 터득한 50대 남녀의 밝은 미소 클로즈업",
+      "isLocalFile": false
     },
     {
       "id": "C",
-      "title": "영어 소리 낼 때 입술 모양 억지로 따라 하지 마세요 (목 찢어집니다)",
+      "title": "Graduate 왜 소리가 둘일까? -ate 끝소리 원어민처럼 읽는 법 | 영어 발음 원리",
       "imageUrl": "",
-      "thumbnailCopy": "목 안쪽 근육 풀리는 즉시 원어민 굵은 소리 장착",
-      "badge": "💥 상식 파괴",
-      "visualConcept": "입술 모양 클로즈업 사진에 얇은 붉은색 취소선이 그어지고 목 안쪽으로 시선이 유도되는 레이아웃",
-      "isLocalFile": false,
-      "thumbnailHeadline": "영어 소리 입술 모양 그만 따라 하세요"
+      "thumbnailHeadline": "-ate 끝소리 완벽 정리",
+      "visualConcept": "대표 단어 'Graduate'를 중심으로 좌측은 답답한 표정, 우측은 막힘없이 발음하는 원어민 입모양의 시각적 1:1 대조",
+      "isLocalFile": false
     }
   ],
-  "activeFeedView": "B",
+  "activeFeedView": "A",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
-  "selectedVariantTab": "B",
+  "selectedVariantTab": "C",
   "visionFilter": "normal",
   "aiReport": {
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 86,
-        "legibilityScore": 89,
-        "visualSalienceScore": 84,
-        "contrastRating": "상(Medium-High)",
-        "focalPoint": "좌측 목 통증을 호소하는 인물 실루엣과 우측 굵은 경고 문구",
-        "predictedGrade": "B+",
-        "predictedCtrRange": "7.8% ~ 9.5%",
+        "curiosityGapScore": 62,
+        "legibilityScore": 70,
+        "visualSalienceScore": 65,
+        "contrastRating": "보통(Medium)",
+        "focalPoint": "제목 텍스트 '-ATE의 두 얼굴' 구문 및 문법적 키워드",
+        "predictedGrade": "B-",
+        "predictedCtrRange": "4.2% ~ 6.0%",
         "strengths": [
-          "'목만 찢어지게 아플까'라는 시청자 실제 고통점(Pain Point)을 직관적으로 찔러 즉각적인 공감과 문제 인식을 유발함",
-          "목 통증이라는 물리적 증상을 키워드로 삼아 무작정 혀를 굴리다 지친 타겟의 클릭 장벽을 낮춤"
+          "소재의 핵심 철자인 '-ATE'를 명확하게 드러내어 특정 단어군에 관심 있는 학습자의 검색 의도에 부합함",
+          "동사와 명사의 발음이 다르다는 문법적 현상을 직관적으로 알 수 있음"
         ],
         "weaknesses": [
-          "썸네일 카피 '목 아픈 헛발질 단번에 끝내기'가 다소 추상적이어서 구체적으로 '영어 소리/발성 위치' 문제인지 한눈에 인지하기 어려움",
-          "호기심 갭 대비 문제 제기 톤이 강해 해법에 대한 긍정적 기대감이 상대적으로 약함"
+          "'동사와 명사를 가르는 영어 축약 발음 규칙'이라는 문구가 지나치게 학술적이고 교과서적이어서 4060 기초 회화 도전층에게 학습 부담과 피로감을 줌",
+          "채널의 핵심 철학인 '가식 없는 동반자 톤'이 결여되어 있으며, 전형적인 강사형 설명조로 호기심 유발력이 낮음",
+          "썸네일 헤드라인이 구체적으로 제시되지 않아 모바일 피드 스크롤 시 엄지손가락을 멈추게 하는 시각적 충격(스턴건 효과)이 부재함"
         ],
-        "visualImprovementTip": "목 부위에 붉은색 발광 핑(Ping) 그래픽을 추가하고, '목 아픈 헛발질' 뒤에 '영어 발성' 키워드를 살짝 얹어 시각적 원인 분석 구도를 완성할 것"
-      },
-      {
-        "variantKey": "B",
-        "curiosityGapScore": 82,
-        "legibilityScore": 91,
-        "visualSalienceScore": 87,
-        "contrastRating": "상(Medium-High)",
-        "focalPoint": "중앙의 '목소리 탓이 아닌 위치 문제' 화이트·옐로우 대비 볼드 텍스트",
-        "predictedGrade": "B",
-        "predictedCtrRange": "6.8% ~ 8.4%",
-        "strengths": [
-          "'당신 목소리 탓이 아닌 위치 문제'라는 카피가 자책하던 노베이스 독학자의 죄책감을 즉각 덜어주는 심리적 위로 효과 발휘",
-          "노베이스 독학자를 명시적으로 타겟팅하여 해당 층의 시선을 단번에 붙잡음"
-        ],
-        "weaknesses": [
-          "제목이 '붕 뜨고 목만 아팠던 노베이스 독학자 꼭 보세요'로 다소 서술적이며 전형적인 권유형이라 클릭 긴장감이 떨어짐",
-          "검색 노출 측면에서 핵심 키워드('목구멍 소리', '영어 발성')가 제목 앞단에 배치되지 않아 모바일 피드에서 뒤쪽이 잘릴 위험"
-        ],
-        "visualImprovementTip": "'위치 문제' 텍스트에만 시안 블루 형광 하이라이트 박스를 씌우고, 화살표 그래픽으로 입술에서 목구멍으로 내려가는 위치 벡터를 단순화해 삽입할 것"
-      },
-      {
-        "variantKey": "C",
-        "curiosityGapScore": 92,
-        "legibilityScore": 94,
-        "visualSalienceScore": 90,
-        "contrastRating": "최상(High)",
-        "focalPoint": "입술 위치와 목 안쪽 위치를 대조하는 조음 위치 인포그래픽 박스",
-        "predictedGrade": "A",
-        "predictedCtrRange": "9.2% ~ 12.4%",
-        "strengths": [
-          "제목 앞단에 '영어 발성 위치 차이' 핵심 키워드가 15자 이내로 명확히 배치되어 모바일 노출에 최적화됨",
-          "한국어(입술 앞) ↔ 영어(목구멍 뒤)의 구체적 조음점 대비가 명확하여 '소리 지름길' 원리를 기대하게 만듦",
-          "썸네일 카피 '목 안쪽 근육 여는 물리적 훈련법'이 막연한 호흡법이 아닌 신체적 조절법을 갈망하던 시청자 DB 니즈를 정확히 관통함"
-        ],
-        "weaknesses": [
-          "'물리적 훈련법'이라는 어휘가 노베이스 학습자에게 다소 학술적이거나 어렵게 느껴질 수 있어 시각 디자인을 극도로 단순화해야 함"
-        ],
-        "visualImprovementTip": "어두운 딥 네이비 배경에 형광 옐로우로 '목구멍 여는 법'을 강조하고, 우측 하단 영상 길이 태그 영역(16:9 기준)을 완전히 비워 텍스트 간섭을 방지할 것"
+        "visualImprovementTip": "어두운 배경에 단어 카드 2장(예: Graduate 동사/명사 형태)을 좌우 2분할 대조로 배치하고, 중앙에 3~4단어로 압축된 옐로우 고대비 텍스트를 배치하여 모바일 120px 환경에서도 0.1초 만에 차이가 인지되도록 개선 필요"
       }
     ],
-    "bestVariant": "C",
-    "overallVerdict": "시안 C는 유튜브 롱폼(16:9) 피드에서 학습자가 겪어온 '입술만 아프던 헛발질'을 '구강 앞 vs 목구멍 안'이라는 극명한 대조 구도로 가장 명확하게 시각화했습니다. 검색 키워드가 제목 첫머리에 완벽히 배치되어 있으며, 단순 통증 공감을 넘어 실질적인 '물리적 해결 원리'를 즉각 제시해 클릭 후 시청 지속 시간까지 견인할 파괴력이 가장 높습니다.",
+    "bestVariant": "A",
+    "overallVerdict": "시안 A는 학습 주제인 '-ATE'를 다루고 있으나 문법 용어 중심의 딱딱한 서술로 인해 4060 왕초보 시청자가 느끼는 발음의 답답함을 건드리지 못합니다. 교과서식 설명 대신 시청자의 입장에 서서 '똑같은 철자인데 왜 소리가 다르게 들렸는지'를 깨닫게 하는 동반자적 스토리텔링과 강렬한 3~4단어 압축 헤드라인으로 전환해야 클릭률을 극대화할 수 있습니다.",
     "aiTitleSuggestions": [
       {
-        "type": "⚡ 후킹형 (호기심 극대화)",
-        "title": "영어 목구멍 소리, 입술만 쫑알대면 평생 소리 붕 뜨는 이유",
-        "thumbnailHeadline": "영어 목구멍 소리 안 열면 평생 헛발질",
-        "thumbnailCopy": "소리 위치만 내려도 저음이 바로 터집니다",
-        "suggestedBadge": "⚠️ 발성 위치 경고",
-        "designConcept": "입술 앞쪽에 갇힌 얕은 음파와 목 깊은 곳에서 터져 나오는 묵직한 울림 음파의 좌우 대비",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, human vocal tract side profile graphic in minimalist neon line art, bright blue glowing focal point deep in the lower throat, subtle red cross mark near the lips, minimalist graphic layout, copy space on the right for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "💡 공감 반전형",
+        "title": "다 같은 줄 알았네요, 단어 끝 -ate 소리가 매번 바뀌는 이유 | 이해하면 쉬운영어",
+        "thumbnailHeadline": "-ate 소리 이제 구분됨",
+        "designConcept": "깊은 네이비 배경 속 똑같은 철자 '-ate'를 든 채 고개를 갸웃거리는 중년의 모습과 직관적인 소리 파형 그래픽 대비",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, split comparative concept of identical English word endings sounding completely different, middle-aged adult experiencing an aha moment, soft volumetric studio lighting, deep navy cyber-hud ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "❓ 질문형 (클릭 유도)",
-        "title": "영어 발성 위치, 왜 원어민 목소리는 유독 낮고 굵게 들릴까?",
-        "thumbnailHeadline": "원어민 목구멍 소리 왜 나만 안 날까?",
-        "thumbnailCopy": "오늘부로 붕 뜨는 얇은 소리 완전히 끝납니다",
-        "suggestedBadge": "❓ 소리 비밀 추적",
-        "designConcept": "물음표 그래픽과 함께 한국인 구강 조음점과 원어민 인두강 울림 위치를 짚어주는 인포그래픽",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark navy and graphite background, high contrast visual metaphor of acoustic resonance chambers, glowing yellow depth wave radiating from deep throat area, sleek scientific education layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🎯 타깃 경험형",
+        "title": "50대에 처음 알았습니다, 똑같은 -ate 철자가 2가지로 들리는 이유 | 영어 왕초보",
+        "thumbnailHeadline": "-ate 철자 외우지 마세요",
+        "designConcept": "노트 필기 속 빽빽한 암기 방식을 과감히 지워내고 편안한 표정으로 원리를 터득한 50대 남녀의 밝은 미소 클로즈업",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, comfortable 50s Korean learner discovering a natural sound pattern, relief and clarity expression, warm cinematic side lighting, modern dark blue minimalist educational backdrop, wide empty copy space on the left side, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "💥 반전형 (상식 파괴)",
-        "title": "영어 소리 낼 때 입술 모양 억지로 따라 하지 마세요 (목 찢어집니다)",
-        "thumbnailHeadline": "영어 소리 입술 모양 그만 따라 하세요",
-        "thumbnailCopy": "목 안쪽 근육 풀리는 즉시 원어민 굵은 소리 장착",
-        "suggestedBadge": "💥 상식 파괴",
-        "designConcept": "입술 모양 클로즈업 사진에 얇은 붉은색 취소선이 그어지고 목 안쪽으로 시선이 유도되는 레이아웃",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, ultra-clean modern studio lighting, dark charcoal background, stylized side view illustration of head and neck with red warning indicator on lip shape and bright emerald pathway opening straight down the throat, dramatic lighting, copy space on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🔍 구체적 의문형",
+        "title": "Graduate 왜 소리가 둘일까? -ate 끝소리 원어민처럼 읽는 법 | 영어 발음 원리",
+        "thumbnailHeadline": "-ate 끝소리 완벽 정리",
+        "designConcept": "대표 단어 'Graduate'를 중심으로 좌측은 답답한 표정, 우측은 막힘없이 발음하는 원어민 입모양의 시각적 1:1 대조",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, split screen contrast of mouth articulation shapes, side view of relaxed oral cavity resonance versus tense vocal effort, sleek dark slate-blue studio lighting, minimalist educational layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "📐 원리형 (쉬운 해결책)",
-        "title": "영어 복식호흡 원리, 목구멍 열고 소리 내리는 가장 단순한 1가지 기준",
-        "thumbnailHeadline": "목구멍 발성 위치 이 기준 하나로 끝",
-        "thumbnailCopy": "입술 앞 쫑알거림이 묵직한 원어민 톤으로 바뀝니다",
-        "suggestedBadge": "📐 소리 지름길",
-        "designConcept": "상단에서 하단(복부 및 인두강)으로 뚝 떨어지는 명쾌한 옐로우 가이드 화살표와 정갈한 2분할 구조",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, deep navy and cyan ambient theme, sleek infographic flow diagram showing sound resonance shifting downward from front mouth to deep pharynx, high contrast glowing lines, spacious copy area for typography, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "⚡ 상식 탈피형",
+        "title": "저도 여태 헛외웠습니다, -ate 단어 하나로 귀가 확 트이는 비결 | 성인 파닉스",
+        "thumbnailHeadline": "-ate 발음 다시는 안막힘",
+        "designConcept": "복잡한 영어 문법책을 덮고 편안하게 소리의 지름길을 깨닫는 손짓과 선명한 네온 컬러의 음파 시각화",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, person setting aside heavy grammar textbooks, vibrant glowing sound wave path symbolizing lazy tongue shortcut, dark navy ambient background, clean composition with generous negative space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🤝 공감형 (타겟 시청자 맞춤)",
-        "title": "영어 소리 혼자 연습하다 목만 아팠다면, '이 위치'부터 내리세요",
-        "thumbnailHeadline": "원어민 목구멍 저음 오늘 바로 터집니다",
-        "thumbnailCopy": "목 통증 없이 깊고 굵은 영어 소리가 저절로 나옵니다",
-        "suggestedBadge": "🤝 독학자 해방",
-        "designConcept": "답답하게 목을 만지던 고통스러운 상태에서 시원하게 트인 깊은 울림으로 전환되는 편안한 시각화",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark muted navy background, artistic sound wave transition from scattered harsh jagged red lines near mouth to smooth deep golden resonant waves deep inside throat, warm cinematic contrast, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🚀 확정 약속형",
+        "title": "1초 만에 귀가 뚫렸습니다, -ate 끝소리 원어민 입모양 차이 | 기초영어회화",
+        "thumbnailHeadline": "-ate 소리 1초 해결",
+        "designConcept": "헤드폰을 착용하고 미세한 소리 차이를 정확히 포착해 환하게 웃는 50대 학습자의 몰입감 넘치는 클로즈업 샷",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, 50s adult wearing modern studio headphones with an ecstatic expression of instant audio clarity, cinematic rim lighting on dark navy background, minimal tech atmosphere, large left-side copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

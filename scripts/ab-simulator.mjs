@@ -321,8 +321,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
     const varKey = String.fromCharCode(65 + i);
     introText += `\n--- [시안 ${varKey} (Variant ${varKey})] ---\n` +
       `- 제목: "${v.title || '(제목 미지정)'}"\n` +
-      `- 썸네일 텍스트 카피: "${v.thumbnailCopy || '(이미지 내 텍스트 분석 필요)'}"\n` +
-      `- 포인트 뱃지 태그: "${v.badge || '(없음)'}"\n`;
+      `- 썸네일 헤드라인: "${v.thumbnailHeadline || '(이미지 내 텍스트 분석 필요)'}"\n`;
   }
 
   parts.push({ text: introText });
@@ -349,12 +348,22 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
 특히 'aiTitleSuggestions'의 'midjourneyPrompt' 종횡비는 반드시 '${arParam}'를 포함해야 합니다.
 
 'aiTitleSuggestions' 5개는 반드시 아래 규칙을 지킬 것:
-1. **정답/핵심 메커니즘 노출 금지** — 특히 '💥 반전형'은 "상식이 틀렸다는 사실"까지만 드러내고 "왜/어떻게 그런지"는 절대 밝히지 말 것.
-   제목에서 정답을 다 알려주면 영상을 볼 이유가 없다. (예: "끝소리 T는 소리 내지 마세요, 목소리 빼고 바람만 뱉는 원리"처럼
-   메커니즘 자체를 설명하면 안 됨 — "끝소리 T, 원어민은 절대 이렇게 안 읽습니다"처럼 궁금증만 남길 것.)
-2. **5개 전부 [영상 기획 주제]를 구체적으로 반영할 것** — 특히 '🤝 공감형'이 브랜드 톤앤매너 문장을 그대로 재사용하는 슬로건이
-   되지 않도록, 이 소재 고유의 키워드(단어/상황)를 반드시 포함할 것.
-3. **'title'·'thumbnailHeadline'·'thumbnailCopy'는 핵심 키워드를 공유해도 된다 — 진짜 원칙은
+1. **정답/핵심 메커니즘 노출 금지 — 'title'뿐 아니라 'thumbnailHeadline'도 똑같이 적용된다**
+   (2026-09-14 강화 — 실제로 "겹모음 뒤는 버리세요"라는 headline이 나온 사례가 있었다: 이건
+   "모음이 겹칠 때 어떻게 읽는지"라는 이 영상의 핵심 정답을 통째로 말해버린 것이다. 사용자
+   지적: "정답의 100% 누설... 영상을 클릭할 이유(결핍)를 없애버린 것"). 특히 상식파괴/반전
+   계열 각도의 후보는 "상식이 틀렸다는 사실"까지만 드러내고 "왜/어떻게 그런지"는 절대 밝히지
+   말 것. title이든 headline이든, 정답을 다 알려주면 영상을 볼 이유가 없다.
+   (예: "끝소리 T는 소리 내지 마세요, 목소리 빼고 바람만 뱉는 원리"·"겹모음 뒤는 버리세요"처럼
+   메커니즘/규칙 자체를 문장으로 설명하면 안 됨 — "끝소리 T, 원어민은 절대 이렇게 안 읽습니다"·
+   "여태 두 글자 다 읽었네요..."처럼 궁금증만 남길 것.)
+   - **어려운 음성학·문법 용어도 피할 것**(브랜드 페르소나 — 어려운 음성학 용어 절대 금지 —
+     원칙을 headline에도 그대로 적용). "겹모음"처럼 정확하지만 딱딱한 용어 대신, 시청자가
+     바로 이해하는 쉬운 말이나 구체적 예시 단어(예: "BOAT", "두 글자")로 표현할 것.
+2. **5개 전부 [영상 기획 주제]를 구체적으로 반영할 것** — 특히 공감/타겟맞춤 계열 각도의 후보가 브랜드
+   톤앤매너 문장을 그대로 재사용하는 슬로건이 되지 않도록, 이 소재 고유의 키워드(단어/상황)를 반드시
+   포함할 것.
+3. **'title'·'thumbnailHeadline'는 핵심 키워드를 공유해도 된다 — 진짜 원칙은
    "같은 정보 금지"가 아니라 "표현 형식(register)을 다르게" 하는 것이다**(2026-09-11, 실제
    상위 채널 12건 실측으로 재검증 — 처음엔 "절대 반복 금지"로 너무 엄격하게 잡았다가, 실제
    경쟁 채널 썸네일/제목 쌍을 직접 대조해보니 핵심 키워드·숫자를 그대로 공유하는 게 오히려
@@ -364,21 +373,19 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
    "...have been 1분30초 안에 이해 못하면 욕해도 됩니다" — 핵심 단어·시간이 동일).
    - **title = 서술/스토리 톤**: "~했더니 ~됐어요", "~한다면 꼭 보세요"처럼 맥락과 서사가 있는
      완전한 문장. 검색 키워드·숫자·맥락이 담긴다.
-   - **thumbnailHeadline = 명령/단정 압축 톤**: 썸네일 이미지 안의 **가장 큰 텍스트**. title과
-     같은 핵심 키워드를 써도 되지만, "~하세요/~만/~됨"처럼 짧고 강렬하게 압축한 명령형·단정형
-     이어야 한다 — title을 그대로 줄인 것처럼 보이면 안 되고, 같은 핵심을 다른 어투로 찍어야
-     한다.
+   - **thumbnailHeadline = 명령/단정 압축 톤**: 썸네일 이미지 안의 **유일한 텍스트**(2026-09-13,
+     하단 보조 캡션·포인트 뱃지 폐지 — 아래 6번 참고). title과 같은 핵심 키워드를 써도 되지만,
+     "~하세요/~만/~됨"처럼 짧고 강렬하게 압축한 명령형·단정형이어야 한다 — title을 그대로
+     줄인 것처럼 보이면 안 되고, 같은 핵심을 다른 어투로 찍어야 한다.
    - **유일하게 피해야 할 것은 이 영상과 무관한 범용 문구다**(2026-09-11, 사용자 지적: "제목과
      같으면 안 되지만 제목의 보조 역할이나 제목으로 연관돼서 클릭할 수 있는 걸 추가해야지,
      지금 문구는 이득만 있는거잖아" — "10초면 충분"처럼 이 소재가 영어 발음인지 다이어트인지
      전혀 알 수 없는 완전 교체 가능한 문구가 문제였지, 키워드를 title과 공유하는 것 자체는
      문제가 아니었다). headline만 따로 떼어놔도 "아, 이 영상 얘기구나" 싶은 단서가 남아야 한다.
-   - **thumbnailCopy = 하단 보조 캡션**: 시청 후 보상/확인 느낌의 짧은 문구(15자 내외), headline이
-     만든 긴장을 풀어주는 역할. 이것도 이 소재와 무관한 범용 문구가 되면 안 된다.
    예: title="'-sion' 끝소리 규칙, 원어민들이 절대 글자 그대로 안 읽는 이유" →
    - ❌ 실패: "10초면 충분" (이 영상만의 단서가 전혀 없음, 아무 영상에나 붙여도 말이 됨)
-   - ✅ 성공: "-sion 이제 그만 틀리세요" (title의 핵심 키워드 "-sion"을 그대로 공유하되,
-     서술형 title과 다르게 명령형으로 압축 — 실제 상위 채널 패턴과 동일)
+   - ✅ 성공: "-sion 이제 그만" (title의 핵심 키워드 "-sion"을 그대로 공유하되, 서술형 title과
+     다르게 명령형으로 압축 — 실제 상위 채널 패턴과 동일, 아래 6번 기준 3단어로 압축까지 반영)
 4. **'thumbnailHeadline'은 "무슨 주제를 다루는지"는 명시하고, 궁금증은 오직 "구체적 해법·이유·개수"에만
    걸 것**(2026-09-11, 실제 상위 채널 6건 실측 — "독학으로 영어 입터지는 법", "영어어순, 이게 전부입니다",
    "BBC가 한국어처럼 들려요" 등은 전부 헤드라인만 봐도 "이 영상이 스피킹/어순/듣기 중 뭘 다루는지"가 즉시
@@ -394,42 +401,116 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
    - 예(소재: "-sion 끝소리 규칙"): ❌ "그 규칙 하나로 다 풀림"(무슨 규칙인지 전혀 안 보임) →
      ✅ "-sion 끝소리, 이 규칙 하나면 끝"(주제 "-sion 끝소리"는 명시하고, "이 규칙"이 정확히 뭔지만
      궁금증으로 남김).
-5. **headline·copy는 궁금증만 만들지 말고, "이 영상을 보면 정확히 뭘 할 수 있게 되는지"라는
-   구체적 약속도 반드시 함께 적을 것**(2026-09-11, 사용자 지적: "썸네일부터 스토리텔링을 시작하는
+5. **headline은 궁금증만 만들지 말고, "이 영상을 보면 정확히 뭘 할 수 있게 되는지"라는
+   구체적 약속도 표현할 수 있어야 한다**(2026-09-11, 사용자 지적: "썸네일부터 스토리텔링을 시작하는
    거다, 우리는 썸네일의 약속을 지킨다가 규칙에 있다" — knowledge/thumbnail-strategy.md의 "썸네일은
    제목과 함께 하나의 약속을 만든다" 원칙, VIDEO_WORKFLOW.md의 "대본은 제목·썸네일이 건 약속을
-   실제로 지켜야 한다" 원칙과 직결된다). 이 채널이 실제로 써 온 좋은 예: EP9 헤드라인 "-CIAL → 셜"
-   + 카피 "처음 보는 단어도 읽힌다"(약속: 읽는 능력이 생긴다), EP13 카피 "이제 단어가 아니라
-   문장이 들립니다"(약속: 듣기 능력이 생긴다) — 전부 궁금증이 아니라 **시청 후 달라지는 구체적
-   상태**를 명시한다. "-sion 왜 계속 틀릴까"처럼 질문만 던지는 문구는 궁금증은 만들어도 약속이
-   없다 — 5개 중 최소 2개는 headline이나 copy 어느 한쪽에 이런 "약속·결과 확정" 문장을 담을 것
-   (아래 심리 공식 ⑥ 참고).
-6. **'thumbnailHeadline' 길이는 글자 수를 억지로 맞추지 말 것**(2026-09-11 정정 — 이전엔 "한글
-   3~8자씩 최대 2줄"로 너무 엄격하게 제한해서, 위 5번의 "약속 문장"을 억지로 쪼개다 보니 뜻이
-   끊기고 부자연스러운 문구만 나왔다. 사용자 지적: "글자 수는 너무 제한을 두지 말고"). 모바일에서
-   한눈에 읽히는 짧고 굵은 문장이면 충분하고, 약속을 온전히 담기 위해 한 줄이 길어져도 된다 —
-   조사('을/를/이/가' 등)를 과감히 생략해 리듬을 압축하는 감각은 유지하되, 글자 수를 맞추려고
-   의미를 끊거나 부자연스럽게 쪼개지 않는다.
-7. **'thumbnailHeadline'은 아래 심리 공식 중 이 소재에 맞는 것을 골라 5개 전체에 다양하게 배분할 것**
-   (2026-09-11, 웹 검색 근거 — 한국어 유튜브 채널 실전 카피 공식). **5개 중 최소 1개는 ①, 최소 1개는
-   ③, 최소 2개는 ⑥을 반드시 포함할 것**. 아래 예시는 전부 "-sion 끝소리 규칙" 소재를 가정한 것이다 —
-   **패턴만 참고하고 이 예시 문구를 그대로 베끼지 말 것**. 패턴을 이번 소재(위 [영상 기획 주제])의
-   실제 단어/상황에 맞게 다시 채워서, headline만 봐도 이 영상 얘기라는 게 드러나야 한다(규칙 3·4
-   참고 — 범용 문구·주제 은폐 금지):
-   ① **손실회피/경고형**: "-sion 끝소리 계속 틀리는 중" — 소재 키워드("-sion")를 직접 지목해 경각심.
-   ② **호기심 유발형**: "-sion, 이제 안 헷갈림" — 소재 키워드는 남기고 결말만 숨김.
-   ③ **초효율성형**: "-sion 규칙 하나로 다 풀림" — 소재 키워드("-sion")를 명시하고 효율만 궁금증으로.
-   ④ **타깃 저격형**: "긴 단어 무서운 사람 여기" — 소재가 다루는 대상(긴 단어)을 직접 지목.
-   ⑤ **상식파괴/도발형**: "-sion 외우지 마세요" — 소재 키워드 + 반전을 한 문장에.
-   ⑥ **약속/결과 확정형**(2026-09-11 신설): "-sion 끝소리, 오늘부로 다시는 안 틀립니다" — 궁금증이
-   아니라 시청 후 달라질 구체적 상태를 단정문으로 확정한다. 질문형(②)과 짝을 이뤄도 좋다(headline이
-   질문을 던지면 copy가 이 약속으로 답하는 식).
+   실제로 지켜야 한다" 원칙과 직결된다. 2026-09-13 정정: 원래는 이 역할을 headline·thumbnailCopy가
+   나눠 맡았는데, thumbnailCopy가 폐지되면서 headline 혼자 감당한다). 이 채널이 실제로 써 온 좋은
+   예: EP9 헤드라인 "-CIAL → 셜"(뒤에 카피로 "처음 보는 단어도 읽힌다"를 붙였던 방식은 이제
+   폐지), EP13 "이제 단어가 아니라 문장이 들립니다" — 전부 궁금증이 아니라 **시청 후 달라지는
+   구체적 상태**를 명시한다. "-sion 왜 계속 틀릴까"처럼 질문만 던지는 문구는 궁금증은 만들어도
+   약속이 없다 — 이 소재에 맞으면 headline 자체가 이런 "약속·결과 확정" 문장이 되도록 할 것
+   (아래 7번의 "약속/결과 확정형" 참고. 2026-09-13: 몇 개를 이 방식으로 써야 하는지는 더 이상
+   고정하지 않는다 — 아래 7번 참고, 소재에 안 맞는데 개수를 채우려고 억지로 끼워 넣지 말 것).
+   쓸 땐 아래 6번의 3~4단어 압축 안에서 표현할 것 — 예: "다시는 안 틀림", "이제 안 막힘"처럼
+   짧게 확정한다.
+6. **'thumbnailHeadline'·'suggestedBadge'·'thumbnailCopy' 중 헤드라인만 남기고 나머지 둘은
+   폐지, 헤드라인은 3~4단어로 극도로 압축해 시각적 "스턴건(Stun Gun)" 역할만 하게 할 것**
+   (2026-09-13 재정정, 사용자 제공 문구 — "썸네일 문구는 시청자를 '설득'하는 용도가 아니라,
+   무의식적으로 스크롤을 내리던 엄지손가락을 '정지'시키는 충격 요법입니다. 텍스트가 짧을수록
+   시청자의 판단이 흐려지는 것이 아니라, 오히려 클릭해야 할 이유가 0.1초 만에 선명하게 꽂힙니다."
+   — 하단 보조 캡션과 포인트 뱃지는 이 스턴건 효과를 흐리는 군더더기라 판단해 폐지함).
+   2026-09-11엔 "한글 3~8자씩 최대 2줄"이라는 글자 수 산수가 5번 규칙의 "약속 문장"을 억지로
+   쪼개서 부자연스러워졌다는 이유로 길이 제한을 아예 없앴는데, 그러자 이번엔 헤드라인이 다시
+   길어지는 반대쪽 문제가 생겼다. **이번엔 "글자 수"가 아니라 "단어(어절) 수"로 압축 기준을
+   바꿔서 같은 실패를 반복하지 않는다** — 단어 단위로 세면 어절이 통째로 남거나 통째로 빠지므로,
+   글자를 어절 중간에서 억지로 잘라 뜻이 끊기는 부자연스러움이 생기지 않는다:
+   - 조사를 뺀 핵심 단어 3~4개로 끝낼 것 — 예: "다시는 안 틀림"(3단어), "-sion 이제 그만"
+     (3단어), "긴 단어 겁나면 여기"(4단어).
+   - 압축의 목적은 정보를 줄이는 게 아니라 "0.1초 안에 클릭할 이유가 꽂히게" 만드는 것이다 —
+     친절하게 설명하려고 단어를 더 넣지 말고, 가장 강력한 단어 3~4개만 남길 것.
+   - 이 압축은 아래 심리 공식 어느 걸 고르든 똑같이 적용된다.
+7. **'thumbnailHeadline'의 심리적 접근법을 고정된 목록·비율로 강제하지 말고, 이 소재에 가장 잘
+   맞는 걸 매번 직접 판단할 것**(2026-09-13 정정 — 사용자 지적: "손실회피/호기심/효율성/타깃저격/
+   상식파괴/약속확정 이것도 확정하지마... 이걸 정해두면 하나만 계속 사용할 수도 있어." 원래는
+   "①은 최소 1개, ③은 최소 1개, ⑥은 최소 2개 반드시 포함"처럼 고정 비율을 강제했는데, 이게
+   바로 위 10번 규칙에서 'type' 라벨에 있었던 것과 같은 문제 — 소재와 무관하게 항상 같은 틀로
+   찍어낼 위험 — 를 심리 공식 쪽에도 똑같이 남겨두고 있었다). 아래는 "이런 접근법도 있다"는
+   참고용 메뉴일 뿐 몇 개를 반드시 써야 한다는 강제가 아니다 — 이 소재엔 이 중 몇 개가 안 맞을
+   수도 있고, 목록에 없는 다른 접근법이 더 잘 맞을 수도 있다. 아래 예시는 전부 "-sion 끝소리
+   규칙" 소재를 가정했고 위 6번 기준 3~4단어로 압축돼 있다 — **패턴만 참고하고 예시 문구를
+   그대로 베끼지 말 것**. 패턴을 이번 소재(위 [영상 기획 주제])의 실제 단어/상황에 맞게 다시
+   채워서, headline만 봐도 이 영상 얘기라는 게 드러나야 한다(규칙 3·4 참고 — 범용 문구·주제
+   은폐 금지):
+   - **손실회피/경고형**: "-sion 계속 틀리는 중"(4단어) — 소재 키워드("-sion")를 직접 지목해 경각심.
+   - **호기심 유발형**: "-sion, 이제 안 헷갈림"(3단어) — 소재 키워드는 남기고 결말만 숨김.
+   - **초효율성형**: "-sion 규칙 하나로 끝"(4단어) — 소재 키워드("-sion")를 명시하고 효율만 궁금증으로.
+   - **타깃 저격형**: "긴 단어 겁나면 여기"(4단어) — 소재가 다루는 대상(긴 단어)을 직접 지목.
+   - **상식파괴/도발형**: "-sion 외우지 마세요"(3단어) — 소재 키워드 + 반전을 한 문장에.
+   - **약속/결과 확정형**: "-sion 다시는 안 틀림"(4단어) — 궁금증이 아니라 시청 후 달라질
+     구체적 상태를 단정문으로 확정한다.
+   **유일하게 강제하는 건 "5개가 서로 다른 접근법이어야 한다"는 것뿐이다** — 5개 전부 같은
+   접근법(예: 전부 손실회피형)으로 쏠리면 안 된다.
    ⚠️ **'권위·증명형'("전문가가 말하는", "요즘 난리 난")은 쓰지 말 것** — 우리 채널엔 그런 근거가 실제로
    없는데 있는 척 꾸미는 것은 "가식 없는 솔직 담백" 페르소나 위반이다. 모든 문구는 실제 발음/연음 원리에
-   근거해야 하며, 근거 없는 가짜 통계("99%가 모르는")나 과장된 위협 문구는 ①에서도 절대 쓰지 않는다.
-8. **제목 앞부분(한글 기준 약 30자 이내)에 핵심 검색 키워드를 배치할 것** — 이 소재의 핵심 단어 철자·규칙 이름
-   (예: "-sion", "연음", "GONNA")이 모바일에서 제목이 잘려도 이미 보이는 위치에 오게 한다. 문장 맨 끝에만
-   키워드를 두지 말 것.
+   근거해야 하며, 근거 없는 가짜 통계("99%가 모르는")나 과장된 위협 문구는 손실회피형에서도 절대 쓰지 않는다.
+8. **'title'은 모바일 3단 배치 구조로 쓸 것**(2026-09-13, 사용자 제공 외부 자료 근거 — 모바일
+   유튜브 앱에서 실제로 안 잘리는/잘리는 글자 수 구간을 기준으로 만든 구조. 기존 "앞 30자 이내에
+   키워드"라는 단순 규칙만으로는 부족했다 — 키워드가 앞에 있어도 그 안에서 뭘 먼저 던지고 뭘
+   나중에 둘지가 고정돼 있으면 초반 타격감이 죽는다):
+   - **1~15자(절대 영역 · Hook)**: 가장 호기심을 자극하거나 뼈를 때리는 핵심 정보를 무조건
+     맨 앞에 배치. 모바일에서 절대 안 잘리고 가장 먼저 시선이 꽂히는 자리다.
+   - **16~25자(정보 영역 · 조건/상황)**: 영상이 다루는 구체적 상황이나 진짜 주제를 설명.
+   - **26자 이후(부가 영역 · 검색 키워드)**: 화면에서 "..."으로 잘려도 무방한 카테고리·기본
+     검색 키워드.
+   - **절대 영역에 정확히 뭘 놓을지는 소재 성격에 맞춰 자유롭게 판단할 것** — 5개 후보를 전부
+     같은 패턴으로 찍어내지 말고, 아래 3가지 배치 유형 중 이 소재에 가장 잘 맞는 걸 후보마다
+     판단해서 다양하게 배분한다(패턴만 참고하고 예시 문구를 그대로 베끼지 말 것):
+     - **A. 해결책 전면 배치형**(핵심 정답 → 상황 → 카테고리): 예) "앞 모음만 소리납니다!
+       모음 2개 겹칠 때 단어 읽는 법" — 결과 자체가 강력한 후킹일 때 적합. 단 규칙 1(정답/
+       메커니즘 노출 금지)과 반드시 같이 지킬 것 — "무엇이 되는지"는 던져도 "왜 그런지"는
+       여전히 숨긴다.
+     - **B. 페인포인트 전면 배치형**(공감/경고 → 상황 → 카테고리): 예) "철자 무작정 외우지
+       마세요, 모음 2개 겹칠 때 '이것'만 알면 끝" — 타겟이 겪는 구체적 고통을 정면에 배치.
+     - **C. 호기심 전면 배치형**(질문/구체적 예시 → 상황·정보): 예) "Boat, Rain 왜 앞 모음만
+       읽힐까? 단숨에 뚫리는 영어 모음 규칙" — 시청자가 이미 아는 구체적 단어·사례를 맨 앞에
+       던져 "아는 건데 왜 이런지는 몰랐네" 인지 부조화를 자극.
+9. **'title' 맨 끝에 "|"로 구분한 타겟 맞춤형 키워드를 붙일 것**(2026-09-13) — 위 8번 구조의
+   "부가 영역"을 구체화한 것. 이 영상의 목적에 따라 아래 중 가장 맞는 종류를 판단해서 붙이고,
+   5개 후보에 다양하게 배분할 것(전부 같은 키워드를 기계적으로 붙이지 말 것):
+   - 검색 유입을 극대화하고 싶은 소재라면: "| 영어 읽는 법", "| 파닉스 기초"처럼 일반 검색어.
+   - 채널 브랜드 인지도를 강화하고 싶은 소재라면: "| 이해하면 쉬운영어"처럼 채널명.
+   - 특정 타겟을 정확히 공략하고 싶은 소재라면: "| 영어 왕초보", "| 성인 파닉스"처럼 타겟 특징.
+   실제로 존재하지 않는 카테고리나 채널명을 지어내지 말 것 — 채널명은 반드시 "이해하면 쉬운영어"
+   그대로 쓴다.
+10. **'type' 라벨은 아래 참고 목록을 고정으로 베끼지 말고, 이 소재에 맞는 심리적 각도를 직접
+    판단해서 지을 것**(2026-09-13, 사용자 지적: "후킹/질문/반전/원리/공감으로 고정되어 있잖아?" —
+    스키마 예시에 이 5개 라벨이 문자 그대로 박혀 있어서, 소재와 무관하게 매번 토씨까지 똑같이
+    복사돼 나오고 있었다). 아래는 "이런 각도도 있다"는 참고용 메뉴일 뿐이다 — 이 소재엔 5개 중
+    일부가 안 맞을 수도 있고, 목록에 없는 더 잘 맞는 각도가 있을 수도 있다:
+    - 후킹형(호기심 극대화), 질문형(클릭 유도), 반전형(상식 파괴), 원리형(쉬운 해결책),
+      공감형(타겟 시청자 맞춤), 손실회피형(경고), 효율성형(시간·숫자로 승부), 타깃저격형(특정
+      대상을 직접 호명)
+    5개 후보는 반드시 서로 다른 각도여야 한다(전부 비슷한 각도로 쏠리면 안 됨). 라벨 문구
+    자체도 이 소재에 맞게 새로 지을 것 — 위 참고 목록의 문구를 토씨까지 그대로 베끼지 말 것.
+11. **'title'은 "전문가 톤"이 아니라 "동반자 톤"을 기본값으로 쓸 것**(2026-09-14, 사용자 지적
+    — 채널 정체성 "이해하면 쉬운영어"는 위에서 가르치는 게 아니라 시청자와 똑같이 경험하고
+    이해하면서 함께 깨닫는 실전 학습 파트너다(knowledge/brand-persona.md 2절 "가식 없이
+    솔직 담백한 실전 학습 파트너" 원칙과 직결). 그런데 지금까지 title 예시는 "~하지 마세요",
+    "~됩니다"처럼 시청자보다 먼저 다 아는 사람이 위에서 알려주는 전문가/명령 톤에 치우쳐
+    있었다. 시청자와 똑같이 헤매다가 "저도 이제야 알았습니다"라고 함께 놀라는 동반자 톤으로
+    바꿀 것):
+    - ❌ 전문가 톤: "절대 다 읽지 마세요" → ✅ 동반자 톤: "여태 두 글자 다 읽었네요..."
+    - ❌ 전문가 톤: "원어민의 1초 꼼수" → ✅ 동반자 톤: "이걸 50살에야 알았습니다"
+    - 실제 좋은 예: "50대인 저도 1초 만에 이해했습니다. 모음 2개 겹칠 때 단어 읽는 법" — 위
+      8번 구조의 절대 영역(맨 앞 15자)에 "저도/제가/이제야/여태" 같은 1인칭 경험담을 놓고,
+      정보 영역에서 구체적 소재를 설명하는 식으로 결합한다.
+    - 이건 8번의 A(해결책 전면)/B(페인포인트 전면)/C(호기심 전면) 배치 유형과는 별개 축이다
+      — 어느 배치 유형을 쓰든 동반자 톤으로 표현할 수 있다. 5개 전부 기본적으로 이 톤을
+      따르되, 실제 채널 시그니처 멘트(brand-persona.md 5절 — "저도 외우는 거 딱
+      질색이었습니다" 등)처럼 자연스러운 범위 안에서 쓸 것, 어색하게 나이·숫자를 끼워 맞추지
+      않는다.
 
 {
   "variantsEvaluation": [
@@ -456,47 +537,37 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
   "overallVerdict": "종합 1위 시안 선정 이유 및 ${isShorts ? '쇼츠 피드 스와이프 중 시선 스턴건 효과' : '홈 피드 스크롤 중 클릭 유발력'} 평가 (2~3문장)",
   "aiTitleSuggestions": [
     {
-      "type": "⚡ 후킹형 (호기심 극대화)",
-      "title": "...",
-      "thumbnailHeadline": "썸네일 이미지 안의 가장 큰 텍스트 — 모바일에서 한눈에 읽히는 짧고 굵은 문장이면 충분, 글자 수를 억지로 맞추려 쪼개지 말 것(조사는 과감히 생략). title과 핵심 키워드를 공유해도 되지만 명령/단정형으로 압축할 것(title은 서술형 문장, headline은 '~하세요/~만/~됨' 같은 압축형). 반드시 이 소재의 구체적 영역 키워드를 하나는 그대로 노출해 '무슨 얘기인지'는 명시할 것 — 무관한 범용 문구('10초면 끝')도, 주제 자체가 안 보이는 문구('그 규칙 하나로 끝')도 둘 다 실패. 궁금증만 만들지 말고 '시청 후 뭘 할 수 있게 되는지'라는 구체적 약속도 담을 것(예: '-sion 끝소리, 오늘부로 다시는 안 틀립니다')",
-      "thumbnailCopy": "이 title과 짝을 이루는 시청 후 보상 카피 — headline이 궁금증(질문)이면 copy는 그 약속(결과)으로 답하는 관계가 이상적. title과 내용이 겹치지 않게, 글자 수보다 '이 영상을 보면 정확히 뭘 할 수 있게 되는지'가 명확히 전달되는 걸 우선할 것",
-      "suggestedBadge": "썸네일 상단 포인트 뱃지 문구, 이모지 1개+한글 2~5단어, 이 소재의 단어/규칙이 드러나게 (예: '⚡ 소리 비밀 반전', '🔑 -sion 완전정복') — 이 title/thumbnailCopy 조합 고유의 문구로, 5개가 서로 겹치지 않게 지을 것",
-      "designConcept": "이 title/thumbnailCopy 조합에 맞는 비주얼 컨셉 한 줄",
+      "type": "이 소재에 맞는 심리적 각도명 — 이모지 1개+한글 2~4단어 라벨 (규칙 10의 참고 목록은 예시일 뿐, 그대로 베끼지 말고 이 소재에 맞게 새로 지을 것. 5개 전부 서로 다른 각도)",
+      "title": "모바일 3단 배치(1~15자 Hook·16~25자 상황·26자~ 키워드) — 해결책/페인포인트/호기심 중 이 소재에 맞는 배치 유형을 판단해서 절대 영역(맨 앞 15자)에 가장 강한 정보를 놓을 것, 맨 끝엔 '|'로 목적에 맞는 키워드(검색용/채널명/타겟명 중 택1) 추가. 톤은 위에서 알려주는 전문가 톤이 아니라 시청자와 똑같이 겪고 이해하며 함께 놀라는 동반자 톤을 기본으로 쓸 것 (예: '절대 다 읽지 마세요'(전문가 톤, 지양) 대신 '50대인 저도 1초 만에 이해했습니다. 모음 2개 겹칠 때 단어 읽는 법'(동반자 톤, 지향))",
+      "thumbnailHeadline": "썸네일 이미지 안의 유일한 텍스트(하단 캡션·뱃지는 폐지) — 조사를 뺀 핵심 단어 3~4개로 극도로 압축(예: '다시는 안 틀림'). 설득하는 문장이 아니라 스크롤을 멈추는 시각적 스턴건이라는 게 목적. title과 핵심 키워드를 공유해도 되지만 명령/단정형으로 압축할 것(title은 서술형 문장, headline은 '~하세요/~만/~됨' 같은 압축형). 반드시 이 소재의 구체적 영역 키워드를 하나는 그대로 노출해 '무슨 얘기인지'는 명시할 것 — 무관한 범용 문구('10초면 끝')도, 주제 자체가 안 보이는 문구('그 규칙 하나로 끝')도 둘 다 실패",
+      "designConcept": "이 title/thumbnailHeadline 조합에 맞는 비주얼 컨셉 한 줄",
       "midjourneyPrompt": "${isShorts ? 'Clean vertical visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k ultra-high resolution, 9:16 --ar 9:16 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0' : 'Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0'}(이 title 고유의 비주얼 요소로 구체화해서 다시 쓸 것 — 5개 프롬프트가 서로 달라야 함)"
     },
     {
-      "type": "❓ 질문형 (클릭 유도)",
+      "type": "...",
       "title": "...",
       "thumbnailHeadline": "...",
-      "thumbnailCopy": "...",
-      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     },
     {
-      "type": "💥 반전형 (상식 파괴)",
+      "type": "...",
       "title": "...",
       "thumbnailHeadline": "...",
-      "thumbnailCopy": "...",
-      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     },
     {
-      "type": "📐 원리형 (쉬운 해결책)",
+      "type": "...",
       "title": "...",
       "thumbnailHeadline": "...",
-      "thumbnailCopy": "...",
-      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     },
     {
-      "type": "🤝 공감형 (타겟 시청자 맞춤)",
+      "type": "...",
       "title": "...",
       "thumbnailHeadline": "...",
-      "thumbnailCopy": "...",
-      "suggestedBadge": "...",
       "designConcept": "...",
       "midjourneyPrompt": "..."
     }
@@ -673,24 +744,24 @@ export async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }
 // 실제 생성에 쓰는 것과 정확히 같은 프롬프트를 만들어야, 사용자가 "프롬프트만 복사해서 제미나이
 // 웹(유료 구독)에 직접 붙여넣는" 경로와 API 자동 생성 경로가 서로 다른 결과를 내지 않는다 —
 // 그래서 별도로 다시 쓰지 않고 두 경로가 이 함수 하나를 공유한다.
-export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', hasPersonReference = false, visualConcept = '' }) {
+export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', format = 'LONGFORM', hasPersonReference = false, visualConcept = '' }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
   const rawText = (title || topic || '10초 영어 읽기 테스트').trim();
 
-  // Variant-Specific Layout Profiles — 제목(title)/카피(thumbnailCopy)가 없을 때만 쓰는 폴백.
+  // Variant-Specific Layout Profiles — 제목(title)이 없을 때만 쓰는 폴백.
   // 2026-09-01: 예전엔 이 값들이 사실상 항상 쓰였다 — "텍스트 적용"으로 시안에 title을 넣어도
   // 실제 생성 프롬프트의 헤드라인은 이 하드코딩된 문구 그대로였다(사용자 피드백으로 발견).
-  // 이제 title/thumbnailCopy가 있으면 그걸 그대로 헤드라인/캡션으로 쓰고, 없을 때만 이 프로필로
-  // 폴백한다. card1~3(보조 예시 단어)은 title이 그 세부 단어까지 담고 있지 않으므로 계속
-  // 시안별 고정값을 쓴다.
+  // 이제 title이 있으면 그걸 그대로 헤드라인으로 쓰고, 없을 때만 이 프로필로 폴백한다.
+  // card1~3(보조 예시 단어)은 title이 그 세부 단어까지 담고 있지 않으므로 계속 시안별 고정값을
+  // 쓴다. badge·하단 캡션은 2026-09-13 폐지(사용자 지적: 헤드라인은 설득이 아니라 스크롤을
+  // 멈추는 '시각적 스턴건' 역할만 해야 하는데, 뱃지·캡션이 계속 남아 있으면 그 압축 효과를
+  // 흐린다) — badgeText/subCalloutFallback 관련 값은 더 이상 만들지 않는다.
   let hookFallback1 = '';
   let hookFallback2 = '';
   let card1 = '';
   let card2 = '';
   let card3 = '';
-  let badgeText = '';
-  let subCalloutFallback = '';
 
   if (vKey === 'A') {
     // VARIANT A: 3-Row Phonics Quiz / Self-Diagnosis (Yellow Gold Theme)
@@ -699,8 +770,6 @@ export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '',
     card1 = 'CAT';
     card2 = 'BOOK';
     card3 = 'ANT';
-    badgeText = badge || '⏱️ 10초 완성';
-    subCalloutFallback = '💡 3문제 다 맞히면 상위 1%';
   } else if (vKey === 'B') {
     // VARIANT B: Phonetic Rule & Shocking Secret (Cyber Cyan Theme)
     hookFallback1 = '한국인 90% 틀리는';
@@ -708,8 +777,6 @@ export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '',
     card1 = 'BANANA';
     card2 = 'ABOUT';
     card3 = 'PENCIL';
-    badgeText = badge || '⚡ 소리 비밀 반전';
-    subCalloutFallback = '💡 게으른 혀의 소리 지름길';
   } else {
     // VARIANT C: Loss Aversion & Key Secret Contrast (Magenta / Red Theme)
     hookFallback1 = '단어가 안 들리는 이유?';
@@ -717,20 +784,15 @@ export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '',
     card1 = 'WANT vs WON\'T';
     card2 = '모음 탈락 법칙';
     card3 = '30초 귀 뚫림 족보';
-    badgeText = badge || '🔥 필수 핵심 족보';
-    subCalloutFallback = '💡 원어민 귀가 뚫리는 공식';
   }
 
-  // 헤드라인은 title이 아니라 thumbnailHeadline(썸네일 전용 3~8자×2줄 감정 카피)을 쓴다 — title은
-  // 검색용 완전한 문장이라 그대로 이미지에 박으면 "제목을 썸네일에 복사하는" 흔한 실수가 된다
-  // (2026-09-11 확정, 웹 검색으로 재검증). thumbnailHeadline이 없는 예전 저장값(하위 호환)만
-  // title로 폴백하고, 그마저도 없으면 시안별 고정 2줄 문구로 폴백한다.
+  // 헤드라인은 title이 아니라 thumbnailHeadline(썸네일 전용, 3~4단어로 압축된 시각적 스턴건
+  // 문구)을 쓴다 — title은 검색용 완전한 문장이라 그대로 이미지에 박으면 "제목을 썸네일에
+  // 복사하는" 흔한 실수가 된다(2026-09-11 확정, 웹 검색으로 재검증). thumbnailHeadline이 없는
+  // 예전 저장값(하위 호환)만 title로 폴백하고, 그마저도 없으면 시안별 고정 2줄 문구로 폴백한다.
   const headlineLines = thumbnailHeadline.trim()
     ? [thumbnailHeadline.trim()]
     : (title.trim() ? [title.trim()] : [hookFallback1, hookFallback2].filter(Boolean));
-  const subCallout = thumbnailCopy.trim()
-    ? (thumbnailCopy.trim().startsWith('💡') ? thumbnailCopy.trim() : '💡 ' + thumbnailCopy.trim())
-    : subCalloutFallback;
 
   // card1/2/3(하단 예시 단어 3개)은 시안별 고정 데모 값(CAT/BOOK/ANT 등)이라 실제 소재와 무관하다.
   // headline과 달리 이 값들은 실제 title이 있어도 대체할 방법이 없어서, 지금까지 A/B/C 어떤
@@ -739,76 +801,51 @@ export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '',
   // 워크벤치 상태(title 없음, 데모 폴백을 쓰는 중)일 때만 보여준다.
   const useCards = !title.trim();
 
-  // 인물을 "항상 둥근 박스+청록 테두리"로 고정하면 매 생성이 똑같아 보인다는 문제가 있었음 —
-  // 이 채널의 "고정 템플릿 지양" 원칙과 어긋남. 매 호출마다 구도 하나를 무작위로 골라서
-  // variant/에피소드와 무관하게 실제로 다양해지게 한다.
-  // 2026-09-02: 카드 프레임 2종(둥근 청록 테두리·각진 흰 테두리)은 완전히 제거 — 하단 정보 카드
-  // (`useCards`)와 시각적으로 겹쳐 "카드가 너무 많아 보이는" 문제, 그리고 사용자가 실제 생성
-  // 이미지에서 "얼굴이 네모 카드에 갇힌 느낌"을 반복적으로 지적해서 결정. 남은 두 방식(EP9/EP10
-  // 에서 실제로 쓴 "찢어진 종이 컷아웃" 기법 포함, CLAUDE.md 기록)만 랜덤으로 고른다.
-  const heroFramingOptions = [
-    'bleeding directly to the frame edge with a soft dark vignette fading into the background, no visible border or frame',
-    'cut out along an irregular torn-paper silhouette following the person\'s head and shoulders, with a slightly rough paper-fiber edge texture (not a smooth sticker outline)',
-  ];
-  const heroFraming = heroFramingOptions[Math.floor(Math.random() * heroFramingOptions.length)];
+  // 2026-09-02엔 "인물 위치·거리·오려내기는 자유롭게 판단하라"고만 시켰더니 실제로는 거의
+  // 항상 같은 기본값(오른쪽·클로즈업)으로 수렴하는 문제가 실측으로 확인돼서, 그때는 코드가
+  // Math.random()으로 고정 목록 중 하나를 강제 배정하는 방식으로 바꿨었다.
+  // 2026-09-14: 배경/장면 자체를 고정 템플릿에서 "이 소재의 상황을 보여주는 구체적 장면을
+  // 직접 판단"으로 바꾼 뒤(이 함수의 BACKGROUND & SCENE 문단), `test-prompts/
+  // thumbnail-test-v5-freeform-hero-placement.md`로 위치·거리·오려내기도 다시 자유 판단으로
+  // 테스트 — 장면 자체가 소재마다 달라지니 인물 배치도 그 장면에 맞춰 자연스럽게 달라지는 걸
+  // 실제 생성으로 확인(사용자 확인 완료). 그래서 이번엔 강제 배열 없이 프롬프트 문장으로만
+  // "이 장면에 맞게 직접 정하라"고 지시한다 — 다시 한쪽으로 쏠리면 이 커밋을 되돌리고 강제
+  // 배정으로 복귀할 것.
 
-  // "인물 위치는 자유롭게 판단"이라고만 지시했더니 실제로는 거의 항상 오른쪽으로 수렴했다
-  // (2026-09-02, 사용자가 여러 장을 보고 지적 — "자유 판단"은 모델이 제일 흔한 관습적 기본값
-  // 하나로 회귀하게 만들 뿐, 강제하지 않으면 실제 다양성이 안 나온다는 걸 확인). heroFraming처럼
-  // 위치·샷 거리도 우리 코드가 미리 랜덤으로 골라 프롬프트에 못박는다 — "선택하라"가 아니라
-  // "이렇게 배치하라"로 바꿔야 매번 실제로 달라진다.
-  const heroPositionOptions = [
-    'positioned on the right side of the frame, with all text content arranged to its left',
-    'positioned on the left side of the frame, with all text content arranged to its right',
-    'positioned centered in the upper half of the frame, with the badge and headline arranged below it',
-    'positioned in the lower third of the frame, with the badge and headline arranged above it',
-  ];
-  const heroPosition = heroPositionOptions[Math.floor(Math.random() * heroPositionOptions.length)];
-  const heroDistanceOptions = [
-    'a tight close-up cropped just above the shoulders',
-    'a medium shot showing head, shoulders, and some of the chest',
-    'a waist-up shot showing more of the body and outfit',
-  ];
-  const heroDistance = heroDistanceOptions[Math.floor(Math.random() * heroDistanceOptions.length)];
-
-  const prompt = `A high-CTR YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), ${isShorts ? '9:16 vertical shorts cover' : '16:9 horizontal'}, on the topic "${rawText}".
+  const prompt = `A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), ${isShorts ? '9:16 vertical shorts cover' : '16:9 horizontal'}, on the topic "${rawText}".
 
 === TEXT CONTENT (render each quoted string below exactly character-for-character — do not substitute, merge, reorder, or invent a single character) ===
-- Badge — ONE small glowing neon pill-shaped label, appears exactly once, centered on itself, single line: "${badgeText}"
-- Headline — ${headlineLines.length === 2 ? 'two separate lines' : 'one line (wrap naturally across 2 lines only if it does not fit on one)'}, massive bold letters: ${headlineLines.map((l) => `"${l}"`).join(' / ')}
-${useCards ? `- Secondary info cards near the bottom, three short items: "${card1}", "${card2}", "${card3}"\n` : ''}- Supporting caption near the bottom, single line: "${subCallout}"
-Do not render any text other than the strings quoted above — no channel name, no logo, no watermark, no UI mockup text, no extra labels, no duplicated copies of any string.
+- Headline — ${headlineLines.length === 2 ? 'two separate lines' : 'one line (wrap naturally across 2 lines only if it does not fit on one)'}, massive bold letters, 3-4 words only — this is the ENTIRE text content of the thumbnail, not a slogan to explain the video: ${headlineLines.map((l) => `"${l}"`).join(' / ')}
+${useCards ? `- Secondary info cards near the bottom, three short items: "${card1}", "${card2}", "${card3}"\n` : ''}Do not render any text other than the strings quoted above — no badge, no bottom caption, no channel name, no logo, no watermark, no UI mockup text, no extra labels, no duplicated copies of any string.
 
-=== VISUAL STYLE ===
-Mood: ${
-    vKey === 'A'
-      ? '충격/뒤통수형 — 평생 맞다고 믿었던 콩글리시 발음을 찌르는 강렬한 시각적 충격'
-      : vKey === 'B'
-      ? '1초 소리 족보/비밀 공식형 — 직관적인 원리 발견의 짜릿함'
-      : '원어민 리얼 뉘앙스 & 대조형 — 상황별 실수와 진짜 정답의 극적 대비'
-  }.
+=== BACKGROUND & SCENE (you decide — no fixed template) ===
+Invent a concrete, specific scene or prop that visually shows the exact "mistake / confusion / realization" moment this topic is about — the viewer should be able to guess the general situation just from the image, before reading any text. Use whatever object, setting, or visual device genuinely fits this specific topic (a notebook page, a chalkboard, a handwritten note, a phone screen, a printed word, a classroom prop, a close-up detail — anything is fair game, old-school or modern). The one hard requirement is that it must look like a genuinely designed, sophisticated photograph — a specific, named lighting technique (e.g., "a single warm practical desk-lamp from camera-left casting a soft pool of light and gentle shadow," "diffused overcast window light from behind," "a three-point studio softbox setup with a cool rim light") and a considered color harmony, not a vague "nice lighting" — never a generic, low-effort AI-generated image (flat even lighting, a random gradient glow for its own sake, a cliché stock-photo arrangement). Infer the emotional register of the headline text above (warm and nostalgic, bright and energetic, cool and modern, urgent, calm — whatever it actually is) and choose a mood and color palette that genuinely fits it — do not default to any single fixed palette regardless of topic (2026-09-14: this replaces a fixed dark-navy-with-cyan/magenta-glow background that was used for every topic and every mood, and a fixed per-variant "mood" label that ignored the actual headline — a warm, personal headline was getting cold neon lighting because the variant slot said so).
 
-${visualConcept.trim() ? `Concept direction for this specific variant (work this into the scene — extra graphic elements, color accents, iconography, framing choices — without breaking any rule stated elsewhere in this brief, especially the Hero identity and text-accuracy rules): ${visualConcept.trim()}\n\n` : ''}Background: dark cinematic studio (near-black navy #060911 to #0F172A) with a soft radial glow of cyan (#00F0FF) and magenta (#FF0077) light emanating from the center.
+CRITICAL — do not let the scene explain the answer: any mark or detail in the scene may show THAT something is wrong or resolved (e.g., a red strikethrough, an X, a circle around one letter, a checkmark) but must NOT spell out the correct pronunciation, a phonetic transcription, or any written explanation of why/how it works. The scene should raise the question, not answer it — exactly like the headline text does.
+
+CRITICAL — anchor the scene to real words/examples, not a generic "knowledge" metaphor (2026-09-14: real generations kept drifting into clichés like an ancient locked book or stack of old paper glowing with mystical light — visually striking but disconnected from the actual topic, physically nonsensical (why would a locked book emit light?), and generic enough to fit literally any educational video). The scene must include an actual word or example this specific topic is about (e.g., real English words relevant to this exact pronunciation rule), written or displayed somewhere in the prop. Avoid abstract "unlocking wisdom" imagery (glowing locked books, magical light bursts, treasure chests, keys/locks with no real-world reason to be there) — these could illustrate any topic and show nothing about what this video actually teaches. Every element in the scene should have a plausible, real-world reason for looking the way it does; if you can't explain why the object would realistically look that way, choose a different, more grounded scene.
+${visualConcept.trim() ? `\nConcept direction for this specific variant (work this into the scene — extra graphic elements, color accents, iconography, framing choices — without breaking any rule stated above, especially the Hero identity, text-accuracy, and no-answer-reveal rules): ${visualConcept.trim()}\n` : ''}
+Before finalizing, briefly commit (in your own internal reasoning, not rendered as text) to: what specific object or scene you chose, why it visually implies the situation without any explanation text, and the exact lighting technique and color treatment you are using (name it specifically, the way a cinematographer would) to make it look intentionally designed rather than generic.
 
 Hero: ${
     hasPersonReference
       ? `the exact same person's face shown in the attached reference image — same facial identity and features, clearly recognizable as this person. Freely vary their hairstyle and facial hair from what is shown in the reference image — only the face must match. Dress them in the EXACT SAME outfit shown in the reference image — the same navy baseball cap and black t-shirt, each printed with the same small colorful vertical-bar sound-wave icon exactly as shown (icon only, no text on the cap or shirt) — this is the channel's fixed signature uniform, do not substitute a different outfit, different colors, or a different logo`
       : 'a photorealistic Korean adult (20s-40s)'
-  }, with a genuine, expressive reaction matching the mood above, their eyes and gaze directed toward the headline text rather than straight at the camera — as if they just reacted to reading it, softly rim-lit in cyan, ${heroFraming}.
+  }, with a genuine, expressive reaction that fits the scene and the headline's emotional register (realization, quiet confidence, warmth, energy — whatever actually fits), their eyes and gaze directed toward the headline text rather than straight at the camera — as if they just reacted to reading it, lit consistently with whatever lighting treatment you chose for the scene above (not a fixed color), freely choosing whichever silhouette treatment suits your chosen composition better: cut out along an irregular torn-paper silhouette following their head and shoulders with a slightly rough paper-fiber edge texture (not a smooth sticker outline), OR bleed directly to the frame edge with a soft dark vignette and no visible border.
 
-Composition: this is a ${isShorts ? '9:16 vertical' : '16:9 horizontal'} frame. Place the hero ${heroPosition}, shot as ${heroDistance}. Arrange the badge, headline${useCards ? ', cards' : ''}, and caption freely within the remaining space — pick whatever exact layout best fits THIS specific headline length${useCards ? ' and card count' : ''}. Treat the hero photo and every text block as separate, non-intersecting regions with a visible gap of empty background between them, the way a clean infographic keeps its photo and its text in distinct zones — never let the hero's head, hair, or shoulders cross in front of or behind any letter. Before finalizing, check every line of text and confirm no part of it is covered, thinned, or interrupted by the hero photo; if it would be, shrink or move the hero instead of the text.
+Composition: this is a ${isShorts ? '9:16 vertical' : '16:9 horizontal'} frame. Freely decide the hero's position (left/right/center/top/bottom — whichever makes THIS headline easiest to read and best complements the scene you invented), camera distance (close-up / medium / waist-up), and camera angle, along with a lens character that fits the scene (e.g., "an 85mm portrait lens with shallow depth of field," "a wide 35mm lens keeping both hero and prop in sharp focus," "a macro lens tight on the prop with the hero softly out of focus behind it") — pick whichever lens best matches the scene you invented. Arrange the headline${useCards ? ' and cards' : ''} freely within the remaining space — pick whatever exact layout best fits THIS specific headline length${useCards ? ' and card count' : ''}. The hero and the background scene/prop should feel like they belong in the same physical space (e.g., the hero is reacting to or near the object, not just floating in front of an unrelated backdrop). Treat the hero photo and every text block as separate, non-intersecting regions with a visible gap of empty background between them, the way a clean infographic keeps its photo and its text in distinct zones — never let the hero's head, hair, or shoulders cross in front of or behind any letter. Before finalizing, check every line of text and confirm no part of it is covered, thinned, or interrupted by the hero photo; if it would be, shrink or move the hero instead of the text.
 
-Typography: use a clean, bold, heavy sans-serif font throughout for maximum legibility, rendered as sharp, stylized, infographic-quality text (not painterly or hand-lettered), with a heavy black outline for contrast. Within the headline, pick the single most important 2-4 word phrase — the core hook of this specific topic — and render just those words with a solid warm-yellow (#F5C518) background chip directly behind the letters (dark navy or black lettering on the yellow chip, not yellow lettering); every other word in the headline stays plain white with the black outline. This highlighted-phrase chip must appear exactly once somewhere in the headline — never skip it and never apply it to more than one phrase.
+Typography: use a clean, bold, heavy sans-serif font throughout for maximum legibility, rendered as sharp, stylized, infographic-quality text (not painterly or hand-lettered), with a heavy black outline for contrast so it stays readable against whatever background scene you chose. The headline itself is already compressed to 3-4 words — a visual "stun gun," not a sentence to persuade with — so treat every word in it as important. Within it, pick the single most important 1-2 word phrase — the sharpest word(s) — and render just those with a solid warm-yellow (#F5C518) background chip directly behind the letters (dark navy or black lettering on the yellow chip, not yellow lettering); every other word stays plain white with the black outline. This highlighted-phrase chip must appear exactly once somewhere in the headline — never skip it and never apply it to more than one phrase.
 
 CRITICAL TEXT ACCURACY: every string in the TEXT CONTENT section must be spelled out exactly, letter by letter, with correct Korean/English characters — do not invent, substitute, or garble any character. If unsure how to render a word clearly, make it larger and simpler rather than risk misspelling it.
 
-Style: clean, professional, high-contrast studio photography blended with bold graphic design elements. No watermark, no fake phone or browser UI, no stock-photo text, no crude cartoon doodles — the human subject must look like a real photograph, not an illustration.`;
+Style: ultra-realistic, sharp focus, high detail — the human subject and the scene/prop must look like a real photograph, not an illustration or 3D render. No watermark, no fake phone or browser UI, no stock-photo text, no crude cartoon doodles.`;
 
-  const expectedTexts = [...headlineLines, badgeText, ...(useCards ? [card1, card2, card3] : []), subCallout].filter(Boolean);
+  const expectedTexts = [...headlineLines, ...(useCards ? [card1, card2, card3] : [])].filter(Boolean);
   return { prompt, expectedTexts, variantKey: vKey, isShorts };
 }
 
-export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', thumbnailCopy = '', badge = '', format = 'LONGFORM', engine = 'flux', geminiKey, visualConcept = '' }) {
+export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', format = 'LONGFORM', engine = 'flux', geminiKey, visualConcept = '' }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
 
@@ -829,7 +866,7 @@ export async function generateAiThumbnailImage({ prompt, topic = '', variantKey 
   // 1. PRIMARY PATH: 진짜 이미지 생성 모델(나노바나나). 커스텀 프롬프트면 그대로, 아니면 변형별
   //    무드를 자연어 브리프로 번역 — 실제 이미지 모델은 SVG 마크업 작성법을 몰라도 되고 알 필요도 없다.
   if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
-    const built = useCustomPrompt ? null : buildThumbnailPrompt({ topic, variantKey: vKey, title, thumbnailHeadline, thumbnailCopy, badge, format, hasPersonReference: !!personReference, visualConcept });
+    const built = useCustomPrompt ? null : buildThumbnailPrompt({ topic, variantKey: vKey, title, thumbnailHeadline, format, hasPersonReference: !!personReference, visualConcept });
     const creativeDirection = useCustomPrompt ? customPrompt : built.prompt;
     // 텍스트 정확도는 diffusion 특성상 매번 다르게 나온다(같은 프롬프트로도 성공/실패가 갈림,
     // 2026-09-01 실측). 그래서 프롬프트 튜닝만으론 신뢰 못 하고, 생성 후 Gemini Vision으로

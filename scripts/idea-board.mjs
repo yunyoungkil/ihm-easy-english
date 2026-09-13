@@ -13,6 +13,7 @@ export async function generateTopicCandidates({
   successPatterns = [],
   producedTopics = [],
   channelVideos = [],
+  focusKeyword,
 }) {
   if (!geminiKey) {
     throw new Error('Gemini API 키(GEMINI_API_KEY)가 설정되지 않았습니다.');
@@ -86,6 +87,20 @@ ${channelVideos.map((v) => `- "${v.title}"`).join('\n')}
 `
     : '';
 
+  // 아이디어 보드의 키워드 셀렉터에서 시장 수요 키워드 하나를 골랐을 때만 채워진다(2026-09-13,
+  // 사용자 제안: "아이디어 보드에 셀렉터 버튼으로 선택하는건 어때?" — 시장 수요 카드마다 버튼을
+  // 반복해서 얹는 대신, 아이디어 보드 한 곳에 드롭다운으로 모음). 지정한 키워드가
+  // market-demand.json에 실제로 없으면(오래돼서 지워졌거나 오타 등) 조용히 무시하고 기존
+  // 전체-참고 방식으로 폴백한다 — 없는 데이터를 근거로 지어내면 안 되기 때문.
+  const focusEntry = focusKeyword ? marketDemand?.byKeyword?.find((k) => k.keyword === focusKeyword) : null;
+  const focusBlock = focusEntry
+    ? `[⭐ 이번 요청은 아래 키워드 하나에 집중하는 모드입니다 — 5개 후보 전부 이 키워드에서 나온 각도여야 합니다]:
+- 키워드: "${focusEntry.keyword}" (opportunityScore ${focusEntry.opportunityScore ?? '?'}, marketDemandScore ${focusEntry.marketDemandScore ?? '?'}, 신뢰도 ${focusEntry.confidence || '?'})
+- 반복 훅 단어: ${(focusEntry.titlePatterns || []).map((p) => `${p.word}(${p.titleCount}회)`).join(', ') || '없음'}
+- 대표 아웃라이어 영상: ${(focusEntry.topOutliers || []).map((o) => `"${o.title}"(${o.channelTitle}, ${o.outlierRatio}배)`).join(' / ') || '없음'}
+`
+    : '';
+
   const prompt = `당신은 대한민국 최고 수준의 유튜브 콘텐츠 기획 & 데이터 전략가입니다.
 영어 교육 채널 '이해하면 쉬운영어'(3060 성인 & 왕초보 영어 타겟)의 **다음 영상 소재**를 아래 데이터에 근거해서만 추천합니다.
 
@@ -94,6 +109,7 @@ ${channelVideos.map((v) => `- "${v.title}"`).join('\n')}
 - 선생님처럼 훈계하는 말투, 자극적인 낚시성 과장, 어려운 음성학 용어 절대 금지.
 - 독점 3단계 도파민 공식: 1) 게으른 혀의 소리 지름길(원리 발견) → 2) 패턴 확장(카타르시스) → 3) 반전 꿀팁(미세한 차이).
 
+${focusBlock}
 ${marketDemandBlock}
 ${contentOpportunityBlock}
 ${audienceDnaBlock}${successPatternsBlock}${producedTopicsBlock}${channelVideosBlock}
@@ -104,7 +120,11 @@ ${audienceDnaBlock}${successPatternsBlock}${producedTopicsBlock}${channelVideosB
 - 이미 제작된 소재(위 두 목록: 아이디어 보드 이력 + 채널 영상 전체)와 완전히 같거나 핵심 소재
   (다루는 발음 규칙/단어/표현)가 겹치는 후보는 절대 내지 말 것 — 같은 시장 수요 키워드에서
   나오더라도 아직 안 다룬 각도로 새로 뽑을 것. 시즌1 레거시 영상(채널 영상 목록에 있지만
-  아이디어 보드 이력엔 없는 것들)도 예외 없이 똑같이 겹침 검사 대상이다.
+  아이디어 보드 이력엔 없는 것들)도 예외 없이 똑같이 겹침 검사 대상이다.${focusBlock ? `
+- **집중 모드 전용 규칙**: 위 [⭐ 집중 키워드] 데이터가 있으므로, 5개 후보 전부 이 키워드의 반복
+  훅 단어·아웃라이어 영상에서 나온 각도여야 한다. 다른 시장 수요 키워드는 참고만 하고
+  dataSourceRefs에 marketDemand로 인용할 땐 반드시 이 집중 키워드를 인용할 것 — 엉뚱한 다른
+  키워드를 근거로 대지 말 것.` : ''}
 
 정확히 5개의 소재 후보를 아래 JSON 스키마로만 응답하세요. 백틱(\`\`\`json)으로 감싸서 출력하세요.
 
@@ -115,7 +135,6 @@ ${audienceDnaBlock}${successPatternsBlock}${producedTopicsBlock}${channelVideosB
       "topic": "짧은 소재 제목",
       "angleOrHook": "이 소재를 어떤 각도/훅으로 풀지 한 문장",
       "targetAudience": "이 소재에 가장 적합한 구체적 타겟 시청자층 한 문장 (채널 기본값 '3060 성인 & 왕초보'를 그대로 반복하지 말고, 이 소재라면 실제로 누가 가장 반응할지 audienceDna/소재 성격에 맞춰 구체화 — 예: '발음 원리를 처음 배우는 알파벳 입문자', '기초는 아는데 듣기만 안 되는 중급 학습자')",
-      "suggestedBadge": "썸네일 상단에 들어갈 짧은 포인트 뱃지 문구, 이모지 1개+한글 2~5단어 (예: '⚡ 소리 비밀 반전', '🔥 필수 핵심 족보', '⏱️ 10초 완성') — 이 소재의 angleOrHook에 맞는 새 문구를 지을 것, 예시를 그대로 복사하지 말 것",
       "rationale": "왜 지금 이 소재인가 — dataSourceRefs를 구체적으로 인용한 한 문장",
       "dataSourceRefs": [
         {"source": "marketDemand", "detail": "인용한 키워드/수치"},

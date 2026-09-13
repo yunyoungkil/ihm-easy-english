@@ -1,0 +1,83 @@
+{
+  "generatedBy": "claude",
+  "focusKeyword": "영어기초배우기",
+  "generatedAt": "2026-09-13T00:00:00.000Z",
+  "summaryNote": "Gemini 월간 지출 한도 초과로 API 호출 없이 market-demand/audience-dna/content-opportunity 데이터를 직접 읽어 수동으로 작성. success-patterns.json은 데이터가 비어 있어 근거로 쓰지 않음.",
+  "candidates": [
+    {
+      "rank": 1,
+      "topic": "하루 종일 뱉는 감정 추임새 5개, 원어민 소리로 1초 만에 바꾸기",
+      "angleOrHook": "'진짜?', '설마', '그냥 그래'처럼 하루에 제일 많이 뱉는 한국어 반응부터, 완벽한 문장이 아니라 소리 원리로 먼저 영어로 바꿔봅니다",
+      "targetAudience": "교과서 문장은 외웠지만 정작 감정 반응은 한마디도 영어로 안 나오는 왕초보 학습자",
+      "suggestedBadge": "😮 감정 반응 5개",
+      "rationale": "market-demand '영어기초배우기' 키워드의 실제 1위 아웃라이어가 '매일 단어 5개' 포맷(outlierRatio 35.18배)이고, audience-dna에 '감정 추임새를 원어민 소리로 못 바꾼다'는 painPoint가 반복 확인됨",
+      "dataSourceRefs": [
+        {"source": "marketDemand", "detail": "'영어기초배우기' 아웃라이어 '양념 생활영어, 매일 영어단어 5개만' outlierRatio 35.18배"},
+        {"source": "contentOpportunity", "detail": "역할 포맷 LEGACY (fitScore 57)"},
+        {"source": "audienceDna", "detail": "감정 감탄사/추임새를 원어민 소리로 전환 못 한다는 painPoint 다수"}
+      ],
+      "suggestedFormat": "SHORTS",
+      "score": 0
+    },
+    {
+      "rank": 2,
+      "topic": "하루 10분, '한국어 언어팩'을 '영어 언어팩'으로 바꾸는 법",
+      "angleOrHook": "문법부터 다시 배우지 않고, 오늘 하루 내가 뱉은 한국말 몇 개만 골라 영어 소리로 갈아 끼우는 최소 루틴",
+      "targetAudience": "여러 번 작심삼일로 끝난 왕초보 독학자, 거창한 커리큘럼 대신 하루 10분짜리를 원하는 사람",
+      "suggestedBadge": "⏱️ 하루 10분 루틴",
+      "rationale": "audience-dna 질문 '초보자가 당장 내일부터 언어팩을 교체하는 1일 10분 최소 루틴은?'을 그대로 제목화, 채널 최고 성과 포맷 LEGACY(fitScore 57)와 부합",
+      "dataSourceRefs": [
+        {"source": "marketDemand", "detail": "'영어기초배우기' (opportunityScore 43.1)"},
+        {"source": "contentOpportunity", "detail": "역할 포맷 LEGACY (fitScore 57)"},
+        {"source": "audienceDna", "detail": "'1일 10분 최소 루틴은?' 질문, '언어팩' 반복 어휘"}
+      ],
+      "suggestedFormat": "LONGFORM",
+      "score": 0
+    },
+    {
+      "rank": 3,
+      "topic": "말할 상대 없이도 입 트이는 혼잣말 5문장 훈련법",
+      "angleOrHook": "원어민 친구도, 학원도 없다는 핑계 대신 - 방구석에서 혼자 중얼거리는 것만으로 입 근육을 트이게 하는 문장 5개",
+      "targetAudience": "대화 상대가 없어 실전 연습을 못 한다고 체념한 국내파 독학자",
+      "suggestedBadge": "🗣️ 혼잣말 5문장",
+      "rationale": "audience-dna에 반복 확인된 '대화 상대가 없어 입을 못 뗀다'는 고립감 painPoint와 '혼잣말 훈련법이 궁금하다'는 질문을 직접 해결",
+      "dataSourceRefs": [
+        {"source": "marketDemand", "detail": "'영어기초배우기' (opportunityScore 43.1)"},
+        {"source": "contentOpportunity", "detail": "역할 포맷 LEGACY (fitScore 57)"},
+        {"source": "audienceDna", "detail": "대화 상대 없음 고립감 painPoint, '혼잣말 훈련법' 질문"}
+      ],
+      "suggestedFormat": "LONGFORM",
+      "score": 0
+    },
+    {
+      "rank": 4,
+      "topic": "매일 쓰는 '시간' 표현 5개, 소리로 먼저 붙이고 시작하기",
+      "angleOrHook": "지금 몇 시야, 5분만 더 잘게, 곧 갈게 - 하루에 제일 많이 쓰는 '시간' 관련 말부터 소리 리듬으로 먼저 익히는 기초",
+      "targetAudience": "단어는 아는데 정작 입에서 시간 표현이 바로 안 나오는 왕초보",
+      "suggestedBadge": "⏰ 시간 표현 5개",
+      "rationale": "market-demand '영어기초배우기'의 대표 아웃라이어('시간' 영어단어4, outlierRatio 18.06배, 조회수 102만)를 그대로 소재로 채택",
+      "dataSourceRefs": [
+        {"source": "marketDemand", "detail": "'영어기초배우기' 아웃라이어 \"'시간' 영어단어4\" outlierRatio 18.06배, 조회수 1,022,971"},
+        {"source": "contentOpportunity", "detail": "역할 포맷 LEGACY (fitScore 57)"},
+        {"source": "audienceDna", "detail": "'체득', '자주 쓰는 근육' 반복 어휘"}
+      ],
+      "suggestedFormat": "SHORTS",
+      "score": 0
+    },
+    {
+      "rank": 5,
+      "topic": "돈도 여친도 없어도 됩니다, 영어 기초의 진짜 시작점",
+      "angleOrHook": "'외국인 여친이 비결', '돈 많으면 됨' 같은 핑계 말고, 진짜 시작점이 뭔지 솔직하게 말씀드립니다",
+      "targetAudience": "특별한 환경 없인 안 된다고 체념한 왕초보",
+      "suggestedBadge": "💪 핑계 없이 시작",
+      "rationale": "audience-dna에 반복된 냉소적 반응('외국인 여친이 진짜 비결', '돈 많고 시간 많아 과외선생 두면 누구나 됨')을 브랜드의 '가식 없는 솔직 담백' 페르소나로 정면 반박",
+      "dataSourceRefs": [
+        {"source": "marketDemand", "detail": "'영어기초배우기' (opportunityScore 43.1)"},
+        {"source": "contentOpportunity", "detail": "역할 포맷 LEGACY (fitScore 57)"},
+        {"source": "audienceDna", "detail": "'외국인 여친이 비결', '돈 많으면 됨' 냉소적 반응 painPoint"}
+      ],
+      "suggestedFormat": "LONGFORM",
+      "score": 0
+    }
+  ]
+}

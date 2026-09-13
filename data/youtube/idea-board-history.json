@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-11T12:53:14.270Z",
+  "updatedAt": "2026-09-13T10:43:00.712Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -93,33 +93,55 @@
       "producedAt": "2026-09-11"
     },
     {
-      "topic": "Water가 '워터'가 아닌 '워러'가 되는 플랩 T 소리 원리",
-      "angleOrHook": "버터발음 억지로 흉내 내지 마세요, 혀끝이 입천장에 닿자마자 미끄러지는 게으른 혀의 지름길 하나면 미국식 소리가 저절로 체득됩니다.",
-      "targetAudience": "Water, City 같은 기초 단어가 원어민 대화에서 왜 다르게 들리는지 원리로 풀고 싶은 왕초보",
+      "topic": "모음이 2개 겹칠 때 앞 모음만 읽는 영어 모음 규칙",
+      "angleOrHook": "무작정 철자 외우지 마세요: 모음이 나란히 붙어 나오면 뒤 모음은 침묵하고 앞 모음 이름만 소리 내는 초간단 지름길 규칙으로 Boat, Rain, Meat를 단번에 뚫어냅니다.",
+      "targetAudience": "단어에 모음이 두 개 이상 연속으로 나오면 어떻게 소리 내야 할지 막막한 알파벳 파닉스 직후 입문자",
       "rank": 2,
       "score": 88,
       "dataSourceRefs": [
         {
           "source": "marketDemand",
-          "detail": "키워드 '왕초보 영어 발음' (opportunityScore 43.3, 신뢰도 ok)"
+          "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 반복 훅 단어 '모음', '읽는', '쉽다고' 활용 및 아웃라이어 '영어 읽는법 1편 - 자음과 모음(50.42배)' 연계"
         },
         {
           "source": "contentOpportunity",
-          "detail": "포맷/역할 'LEGACY' (fitScore 57)"
+          "detail": "기존 레거시 단일 모음(A, E, I, O, U) 영상들의 후속 확장으로 LEGACY 포맷(fitScore 57) 적용"
         },
         {
           "source": "audienceDna",
-          "detail": "[vocabulary] 버터발음, [vocabulary] 자주 쓰는 근육, [vocabulary] 체득"
-        },
-        {
-          "source": "successPatterns",
-          "detail": "채널 기존 성공 규칙 '원어민이 지들 멋대로 발음하는 게 아닙니다' 연음 해설 패턴"
+          "detail": "시청자 언어 '언어팩' 구축 및 직관적 '체득' 니즈 반영"
         }
       ],
       "episodeSlug": null,
       "episodeLabel": null,
       "status": "selected",
-      "selectedAt": "2026-09-11T12:44:33.192Z",
+      "selectedAt": "2026-09-13T03:44:16.464Z",
+      "producedAt": null
+    },
+    {
+      "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
+      "angleOrHook": "똑같은 -ATE인데 왜 동사는 '에이트'고 명사는 힘을 뺀 '엇/잇' 소리로 바뀔까요? 강세에 따라 혀의 힘을 빼버리는 원리를 알면 수십 개 고급 단어가 단번에 귀에 꽂힙니다.",
+      "targetAudience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
+      "rank": 3,
+      "score": 85,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1)의 반복 훅 단어 '영어축약발음', '규칙' 반영"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "새로운 접미사 규칙 테스트를 위한 'EXPERIMENT'(fitScore 45) 포맷 활용"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "복식호흡이나 힘을 주는 대신 힘을 빼는 '목구멍 소리'와 '언어팩' 체득 니즈 충족"
+        }
+      ],
+      "episodeSlug": null,
+      "episodeLabel": null,
+      "status": "selected",
+      "selectedAt": "2026-09-13T10:43:00.712Z",
       "producedAt": null
     }
   ]

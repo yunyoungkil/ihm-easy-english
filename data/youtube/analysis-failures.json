@@ -1,11 +1,4 @@
 {
   "schemaVersion": 1,
-  "entries": {
-    "eGh-AmQzqOc": {
-      "script": {
-        "message": "자막 추출 실패 (eGh-AmQzqOc): 업로더가 이 영상의 자막 기능을 꺼놔서 자막을 가져올 수 없습니다.",
-        "failedAt": "2026-09-07T07:50:00.760Z"
-      }
-    }
-  }
+  "entries": {}
 }

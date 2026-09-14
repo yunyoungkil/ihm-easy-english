@@ -5,94 +5,130 @@
   "variants": [
     {
       "id": "A",
-      "title": "다 같은 줄 알았네요, 단어 끝 -ate 소리가 매번 바뀌는 이유 | 이해하면 쉬운영어",
+      "title": "여태 다 똑같이 읽었네요... 단어 끝 -ate 소리가 2개로 갈리는 이유 | 이해하면 쉬운영어",
       "imageUrl": "",
-      "thumbnailHeadline": "-ate 소리 이제 구분됨",
-      "visualConcept": "깊은 네이비 배경 속 똑같은 철자 '-ate'를 든 채 고개를 갸웃거리는 중년의 모습과 직관적인 소리 파형 그래픽 대비",
+      "thumbnailHeadline": "-ate 철자 외우면 낭패",
+      "visualConcept": "화면 중앙에 굵은 -ate 텍스트가 놓이고 양옆으로 완전히 다른 두 갈래 빛 줄기가 뿜어져 나오는 16:9 대조 구도",
       "isLocalFile": false
     },
     {
       "id": "B",
-      "title": "50대에 처음 알았습니다, 똑같은 -ate 철자가 2가지로 들리는 이유 | 영어 왕초보",
+      "title": "Graduate 왜 소리가 둘일까? 원어민이 혀 힘 빼고 끝소리 축약하는 법 | 영어 발음",
       "imageUrl": "",
-      "thumbnailHeadline": "-ate 철자 외우지 마세요",
-      "visualConcept": "노트 필기 속 빽빽한 암기 방식을 과감히 지워내고 편안한 표정으로 원리를 터득한 50대 남녀의 밝은 미소 클로즈업",
+      "thumbnailHeadline": "-ate 끝소리 절대 다름",
+      "visualConcept": "좌측의 딱딱하고 각진 음파와 우측의 부드럽고 편안하게 흐르는 음파가 좌우 16:9로 극명하게 대비되는 구도",
       "isLocalFile": false
     },
     {
       "id": "C",
-      "title": "Graduate 왜 소리가 둘일까? -ate 끝소리 원어민처럼 읽는 법 | 영어 발음 원리",
+      "title": "단어 끝 -ate 계속 헷갈린다면, 게으른 원어민 혀의 소리 지름길 | 영어 읽는 법",
       "imageUrl": "",
-      "thumbnailHeadline": "-ate 끝소리 완벽 정리",
-      "visualConcept": "대표 단어 'Graduate'를 중심으로 좌측은 답답한 표정, 우측은 막힘없이 발음하는 원어민 입모양의 시각적 1:1 대조",
+      "thumbnailHeadline": "-ate 소리 이제 안막힘",
+      "visualConcept": "복잡하게 꼬여 있던 음성 파형이 중심을 지나며 단 하나의 시원한 일직선 지름길로 뚫리는 메타포",
       "isLocalFile": false
     }
   ],
-  "activeFeedView": "A",
+  "activeFeedView": "B",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
-  "selectedVariantTab": "C",
+  "selectedVariantTab": "B",
   "visionFilter": "normal",
   "aiReport": {
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 62,
-        "legibilityScore": 70,
-        "visualSalienceScore": 65,
-        "contrastRating": "보통(Medium)",
-        "focalPoint": "제목 텍스트 '-ATE의 두 얼굴' 구문 및 문법적 키워드",
-        "predictedGrade": "B-",
-        "predictedCtrRange": "4.2% ~ 6.0%",
+        "curiosityGapScore": 82,
+        "legibilityScore": 90,
+        "visualSalienceScore": 84,
+        "contrastRating": "상(Medium-High)",
+        "focalPoint": "헤드라인 '-ate 소리 이제 구분됨' 텍스트 영역",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "7.2% ~ 8.9%",
         "strengths": [
-          "소재의 핵심 철자인 '-ATE'를 명확하게 드러내어 특정 단어군에 관심 있는 학습자의 검색 의도에 부합함",
-          "동사와 명사의 발음이 다르다는 문법적 현상을 직관적으로 알 수 있음"
+          "제목 서두 '다 같은 줄 알았네요'가 동반자적 솔직한 감정을 건드리며 공감대를 형성함",
+          "헤드라인이 3단어로 간결해 모바일 120px 환경에서도 0.5초 내 판독이 용이함"
         ],
         "weaknesses": [
-          "'동사와 명사를 가르는 영어 축약 발음 규칙'이라는 문구가 지나치게 학술적이고 교과서적이어서 4060 기초 회화 도전층에게 학습 부담과 피로감을 줌",
-          "채널의 핵심 철학인 '가식 없는 동반자 톤'이 결여되어 있으며, 전형적인 강사형 설명조로 호기심 유발력이 낮음",
-          "썸네일 헤드라인이 구체적으로 제시되지 않아 모바일 피드 스크롤 시 엄지손가락을 멈추게 하는 시각적 충격(스턴건 효과)이 부재함"
+          "헤드라인의 '이제 구분됨'이 시각적 충격(스턴건 효과)을 주기에는 다소 평이하고 밋밋함",
+          "제목 앞부분에 타겟 연령층을 훅(Hook)으로 끌어당길 만한 즉각적인 인지 부조화 요소가 약함"
         ],
-        "visualImprovementTip": "어두운 배경에 단어 카드 2장(예: Graduate 동사/명사 형태)을 좌우 2분할 대조로 배치하고, 중앙에 3~4단어로 압축된 옐로우 고대비 텍스트를 배치하여 모바일 120px 환경에서도 0.1초 만에 차이가 인지되도록 개선 필요"
+        "visualImprovementTip": "헤드라인 텍스트 뒤편에 대비되는 딥네이비 박스를 깔고, '-ate' 철자 부분만 형광 옐로우(#FFE600)로 강조하여 피드 스크롤 시 시각적 앵커 역할을 하도록 보강 권장"
+      },
+      {
+        "variantKey": "B",
+        "curiosityGapScore": 91,
+        "legibilityScore": 93,
+        "visualSalienceScore": 89,
+        "contrastRating": "최상(High)",
+        "focalPoint": "좌측 타깃 공감 문구 및 '-ate' 철자 대조 영역",
+        "predictedGrade": "A",
+        "predictedCtrRange": "9.4% ~ 12.1%",
+        "strengths": [
+          "제목 맨 앞 15자 절대 영역에 '50대에 처음 알았습니다'를 배치해 4060 타겟층의 클릭 장벽을 완전히 낮춤",
+          "헤드라인 '-ate 철자 외우지 마세요'가 3단어로 압축되어 기존 암기식 학습에 지친 중장년층의 상식을 단번에 깸"
+        ],
+        "weaknesses": [
+          "썸네일 그래픽에서 두 가지 소리의 차이를 시각적 메타포(화살표, 음파 분할 등)로 직관화하지 않으면 텍스트 의존도가 높아질 위험 있음"
+        ],
+        "visualImprovementTip": "16:9 화면 좌우를 분할하여 왼쪽은 물음표가 뜬 50대 남녀의 표정 실루엣, 오른쪽은 극명한 2분할 사운드 웨이브 그래픽을 배치해 텍스트 가독성을 극대화할 것"
+      },
+      {
+        "variantKey": "C",
+        "curiosityGapScore": 86,
+        "legibilityScore": 88,
+        "visualSalienceScore": 83,
+        "contrastRating": "상(Medium-High)",
+        "focalPoint": "영단어 'Graduate' 및 발음 기호 연출부",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "7.5% ~ 9.2%",
+        "strengths": [
+          "대표적인 예시 단어 'Graduate'를 직접 제시하여 구체적인 인지 부조화를 유발함",
+          "영상에서 무엇을 배울 수 있는지 명확하게 전달되어 이탈률이 적은 진성 시청자 유입에 유리"
+        ],
+        "weaknesses": [
+          "헤드라인 '-ate 끝소리 완벽 정리'가 전형적인 학원 강의식 문구라 채널의 '솔직 담백한 학습 파트너' 톤앤매너와 어긋나며 지루함을 줌",
+          "우측 하단 영상 길이 태그 주변에 텍스트가 배치될 경우 단어가 잘려 보일 위험이 있음"
+        ],
+        "visualImprovementTip": "'완벽 정리' 같은 상투적인 문구를 제거하고, 단어 중간에 쪼개지는 사운드 이펙트 라인을 추가해 시각적 호기심을 유발하도록 수정"
       }
     ],
-    "bestVariant": "A",
-    "overallVerdict": "시안 A는 학습 주제인 '-ATE'를 다루고 있으나 문법 용어 중심의 딱딱한 서술로 인해 4060 왕초보 시청자가 느끼는 발음의 답답함을 건드리지 못합니다. 교과서식 설명 대신 시청자의 입장에 서서 '똑같은 철자인데 왜 소리가 다르게 들렸는지'를 깨닫게 하는 동반자적 스토리텔링과 강렬한 3~4단어 압축 헤드라인으로 전환해야 클릭률을 극대화할 수 있습니다.",
+    "bestVariant": "B",
+    "overallVerdict": "시안 B는 4060 타겟층의 마음을 여는 동반자적 1인칭 고백('50대에 처음 알았습니다')을 모바일 제목 1~15자 절대 영역에 완벽히 배치했습니다. 또한 썸네일 헤드라인 역시 무작정 외우던 과거 방식을 부정하는 3단어 스턴건 문구('-ate 철자 외우지 마세요')로 압축되어 있어 피드 스크롤 중 엄지손가락을 멈추게 만드는 힘이 가장 뛰어납니다.",
     "aiTitleSuggestions": [
       {
-        "type": "💡 공감 반전형",
-        "title": "다 같은 줄 알았네요, 단어 끝 -ate 소리가 매번 바뀌는 이유 | 이해하면 쉬운영어",
+        "type": "💡 상식반전 각도",
+        "title": "여태 다 똑같이 읽었네요... 단어 끝 -ate 소리가 2개로 갈리는 이유 | 이해하면 쉬운영어",
+        "thumbnailHeadline": "-ate 철자 외우면 낭패",
+        "designConcept": "화면 중앙에 굵은 -ate 텍스트가 놓이고 양옆으로 완전히 다른 두 갈래 빛 줄기가 뿜어져 나오는 16:9 대조 구도",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, glowing split pathway diverging into two light beams from the center, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+      },
+      {
+        "type": "🤝 타겟동반 각도",
+        "title": "50대인 저도 이제야 알았습니다, 철자 똑같은 -ate 소리가 2가지인 원리 | 영어 왕초보",
         "thumbnailHeadline": "-ate 소리 이제 구분됨",
-        "designConcept": "깊은 네이비 배경 속 똑같은 철자 '-ate'를 든 채 고개를 갸웃거리는 중년의 모습과 직관적인 소리 파형 그래픽 대비",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, split comparative concept of identical English word endings sounding completely different, middle-aged adult experiencing an aha moment, soft volumetric studio lighting, deep navy cyber-hud ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "designConcept": "깊은 네이비 배경 속에서 물음표가 느낌표로 매끄럽게 변환되는 시각적 깨달음의 파동 그래픽",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English education, deep dark navy background with subtle warm golden sound waves, abstract representation of confusion transforming into sudden clarity, spacious minimalist layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🎯 타깃 경험형",
-        "title": "50대에 처음 알았습니다, 똑같은 -ate 철자가 2가지로 들리는 이유 | 영어 왕초보",
-        "thumbnailHeadline": "-ate 철자 외우지 마세요",
-        "designConcept": "노트 필기 속 빽빽한 암기 방식을 과감히 지워내고 편안한 표정으로 원리를 터득한 50대 남녀의 밝은 미소 클로즈업",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, comfortable 50s Korean learner discovering a natural sound pattern, relief and clarity expression, warm cinematic side lighting, modern dark blue minimalist educational backdrop, wide empty copy space on the left side, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "⚡ 실전비교 각도",
+        "title": "Graduate 왜 소리가 둘일까? 원어민이 혀 힘 빼고 끝소리 축약하는 법 | 영어 발음",
+        "thumbnailHeadline": "-ate 끝소리 절대 다름",
+        "designConcept": "좌측의 딱딱하고 각진 음파와 우측의 부드럽고 편안하게 흐르는 음파가 좌우 16:9로 극명하게 대비되는 구도",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English phonics, split screen composition, left side showing rigid tense sharp neon lines, right side showing smooth relaxed flowing cyan sound curves, dark modern tech navy backdrop, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🔍 구체적 의문형",
-        "title": "Graduate 왜 소리가 둘일까? -ate 끝소리 원어민처럼 읽는 법 | 영어 발음 원리",
-        "thumbnailHeadline": "-ate 끝소리 완벽 정리",
-        "designConcept": "대표 단어 'Graduate'를 중심으로 좌측은 답답한 표정, 우측은 막힘없이 발음하는 원어민 입모양의 시각적 1:1 대조",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, split screen contrast of mouth articulation shapes, side view of relaxed oral cavity resonance versus tense vocal effort, sleek dark slate-blue studio lighting, minimalist educational layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🎯 페인포인트 각도",
+        "title": "단어 끝 -ate 계속 헷갈린다면, 게으른 원어민 혀의 소리 지름길 | 영어 읽는 법",
+        "thumbnailHeadline": "-ate 소리 이제 안막힘",
+        "designConcept": "복잡하게 꼬여 있던 음성 파형이 중심을 지나며 단 하나의 시원한 일직선 지름길로 뚫리는 메타포",
+        "midjourneyPrompt": "Clean horizontal visual artwork for language learning concept, dark deep indigo ambient background, tangled sonic frequencies smoothly straightening into a bright clear streamlined shortcut path, clean vector aesthetics, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "⚡ 상식 탈피형",
-        "title": "저도 여태 헛외웠습니다, -ate 단어 하나로 귀가 확 트이는 비결 | 성인 파닉스",
-        "thumbnailHeadline": "-ate 발음 다시는 안막힘",
-        "designConcept": "복잡한 영어 문법책을 덮고 편안하게 소리의 지름길을 깨닫는 손짓과 선명한 네온 컬러의 음파 시각화",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, person setting aside heavy grammar textbooks, vibrant glowing sound wave path symbolizing lazy tongue shortcut, dark navy ambient background, clean composition with generous negative space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
-      },
-      {
-        "type": "🚀 확정 약속형",
-        "title": "1초 만에 귀가 뚫렸습니다, -ate 끝소리 원어민 입모양 차이 | 기초영어회화",
-        "thumbnailHeadline": "-ate 소리 1초 해결",
-        "designConcept": "헤드폰을 착용하고 미세한 소리 차이를 정확히 포착해 환하게 웃는 50대 학습자의 몰입감 넘치는 클로즈업 샷",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, 50s adult wearing modern studio headphones with an ecstatic expression of instant audio clarity, cinematic rim lighting on dark navy background, minimal tech atmosphere, large left-side copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "✨ 결과확정 각도",
+        "title": "이 원리 하나로 바로 들립니다! 단어 끝 -ate 소리 완벽하게 통일하는 법 | 기초영어회화",
+        "thumbnailHeadline": "-ate 다시는 안헷갈림",
+        "designConcept": "두 개의 닫혀 있던 귀 모양의 파동 링이 하나로 겹쳐지며 시원한 에메랄드빛 섬광을 터뜨리는 직관적 그래픽",
+        "midjourneyPrompt": "Clean horizontal visual artwork for audio clarity education, deep dark studio lighting, navy and cyan gradient background, two overlapping glowing acoustic circular ripples creating a brilliant focal burst in the center, ultra clean composition, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

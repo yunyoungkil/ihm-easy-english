@@ -1,8 +1,37 @@
 # 지금 할 일
 
-마지막 확인: 2026-09-14
+마지막 확인: 2026-09-15
 
-## 진행 중 — 단편 EP15(-sion 리딩)
+## 진행 중 — 단편 EP16(모음 두 개 나란히 올 때 읽는 법)
+
+`videos/ep16-double-vowels/` — 아이디어 보드에서 소재 선정(2026-09-13, "모음이 2개 겹칠 때
+앞 모음만 읽는 규칙", rank 2 / score 88) → A/B 시뮬레이터로 썸네일 3안 생성·Gemini AI 진단
+(사용자 직접 진행, 시안 A: A등급, CTR 8.8~11.5%) → `BRIEF.md` 작성 → 12프레임 목차 구두 승인
+→ **`SCRIPT.md` 12프레임 전체 작성 완료**(씬 단위 검수, 2026-09-15) → **`frame.md`·
+`STORYBOARD.md` 작성 완료**(2026-09-15). 상세 근거: `videos/ep16-double-vowels/BRIEF.md`.
+
+- **제목(시안 A)**: 여태 두 글자 다 읽었네요... 모음 2개 겹친 단어 소리 원리 | 파닉스 기초
+- **썸네일 헤드라인**: 모음 두 개, 여태 헛고생 — **이미지는 사용자가 나중에 별도 생성 예정**
+  (imageUrl 비어있음, 문구만 확정된 상태로 대본 작업 먼저 진행).
+- 핵심 규칙(2026-09-15 웹 검색 검증 완료): "모음 두 개가 나란히 오면 앞 모음은 이름 그대로,
+  뒤 모음은 무음" — AI(~90%)·OA(~95%)·EE(~99%)·AY(~95%)는 신뢰도 높지만 **EA는 약 70%만
+  통하고 나머지는 head/bread/dead처럼 짧은 '에' 소리**(Frame 7에서 정직하게 다룸). 신규
+  컴포넌트: `vowel-pair-card`/`vowel-pair-cluster`/`hesitation-cursor`/`question-flicker`/
+  `lazy-tongue-reveal`.
+- **다음 행동**: 사용자가 SCRIPT.md·STORYBOARD.md 재검토 → TTS 나레이션 생성(Gemini Charon
+  남성 음성, 이번 세션엔 명시적으로 보류) → whisper 실측 → 12프레임 HTML 컴포지션 제작.
+
+### 세션 규칙 변경 2건(2026-09-15, 채널 전역 적용)
+
+- **"당신 탓이 아니에요" 류 반전 reassurance 문구 폐지**: 나레이션에서 "이게 여러분이 영어를
+  못해서가 아니에요" 같은 문구를 더 이상 쓰지 않는다(사용자 지적: "당연히 못해서 이 영상을
+  보는 거잖아" — 이미 아는 전제를 부정하는 문장이 뻔하게 들림). `brand-persona.md`·
+  `CLAUDE.md`·`AGENTS.md` 세 곳의 페르소나 핵심 메시지·인용문 전부 수정 완료.
+- **제목 꼬리 키워드에서 채널명 옵션 폐지**: 제목 끝 "|" 뒤에는 이제 검색어/타겟명만 쓰고
+  채널명("이해하면 쉬운영어")은 넣지 않는다(유튜브 UI가 채널명을 별도로 보여줘서 중복,
+  모바일 훅 잘림 위험만 커짐). `scripts/ab-simulator.mjs`·`thumbnail-strategy.md` 반영 완료.
+
+## ✅ 완료 — 단편 EP15(-sion 리딩)
 
 `videos/ep15-sion-words/` — 아이디어 보드에서 소재 선정(`-SION` 규칙, 채널 보유 규칙 중
 fitScore 1위) → A/B 시뮬레이터로 썸네일 3안 생성·Gemini AI 진단(시안 A: S등급, CTR 8.8~11.5%)
@@ -63,9 +92,10 @@ fitScore 1위) → A/B 시뮬레이터로 썸네일 3안 생성·Gemini AI 진�
 - **업로드 패키지 작성 완료(2026-09-11)** — `output/upload-packages/ep15-sion-words-longform/`에
   title/description(`index.html`의 실제 `data-start` 값 기준 챕터 타임스탬프)/tags/
   pinned-comment/status.json/upload-checklist/thumbnail-a·b·c 전부 생성.
-- **다음 행동**: 사용자가 직접 YouTube Studio에서 업로드·예약 진행 → 예약 확인되면
-  `idea-board-history.json` 상태가 `/api/sync`로 자동 `scheduled`로 갱신됨(아래 대시보드
-  작업 참고).
+- **업로드·예약 완료(2026-09-15 확인)** — videoId `uqmVMRhT_1A`, `status: scheduled`,
+  공개 예정 2026-09-17(목) 20:00 KST. `idea-board-history.json` 상태도 `/api/sync`로 자동
+  `scheduled` 갱신 완료. **다음 행동**: 공개 후 48시간 성과 확인(`VIDEO_WORKFLOW.md` 10단계)
+  — 그전까지 EP15 관련 후속 작업 없음. 제작 우선순위는 EP16(위 참고)로 이동.
 
 ### 대시보드·기획 도구 개선(2026-09-11, EP15와 별개)
 

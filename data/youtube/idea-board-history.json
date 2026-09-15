@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-13T10:43:00.712Z",
+  "updatedAt": "2026-09-15T10:44:43.386Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -115,33 +115,7 @@
       "episodeSlug": null,
       "episodeLabel": null,
       "status": "selected",
-      "selectedAt": "2026-09-13T03:44:16.464Z",
-      "producedAt": null
-    },
-    {
-      "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
-      "angleOrHook": "똑같은 -ATE인데 왜 동사는 '에이트'고 명사는 힘을 뺀 '엇/잇' 소리로 바뀔까요? 강세에 따라 혀의 힘을 빼버리는 원리를 알면 수십 개 고급 단어가 단번에 귀에 꽂힙니다.",
-      "targetAudience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
-      "rank": 3,
-      "score": 85,
-      "dataSourceRefs": [
-        {
-          "source": "marketDemand",
-          "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1)의 반복 훅 단어 '영어축약발음', '규칙' 반영"
-        },
-        {
-          "source": "contentOpportunity",
-          "detail": "새로운 접미사 규칙 테스트를 위한 'EXPERIMENT'(fitScore 45) 포맷 활용"
-        },
-        {
-          "source": "audienceDna",
-          "detail": "복식호흡이나 힘을 주는 대신 힘을 빼는 '목구멍 소리'와 '언어팩' 체득 니즈 충족"
-        }
-      ],
-      "episodeSlug": null,
-      "episodeLabel": null,
-      "status": "selected",
-      "selectedAt": "2026-09-13T10:43:00.712Z",
+      "selectedAt": "2026-09-15T10:44:39.266Z",
       "producedAt": null
     }
   ]

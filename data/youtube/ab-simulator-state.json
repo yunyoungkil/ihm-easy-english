@@ -1,134 +1,133 @@
 {
   "format": "LONGFORM",
-  "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
-  "audience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
+  "topic": "모음이 2개 겹칠 때 앞 모음만 읽는 영어 모음 규칙",
+  "audience": "단어에 모음이 두 개 이상 연속으로 나오면 어떻게 소리 내야 할지 막막한 알파벳 파닉스 직후 입문자",
   "variants": [
     {
       "id": "A",
-      "title": "여태 다 똑같이 읽었네요... 단어 끝 -ate 소리가 2개로 갈리는 이유 | 이해하면 쉬운영어",
+      "title": "여태 두 글자 다 읽었네요... 모음 2개 겹친 단어 소리 원리 | 파닉스 기초",
       "imageUrl": "",
-      "thumbnailHeadline": "-ate 철자 외우면 낭패",
-      "visualConcept": "화면 중앙에 굵은 -ate 텍스트가 놓이고 양옆으로 완전히 다른 두 갈래 빛 줄기가 뿜어져 나오는 16:9 대조 구도",
+      "thumbnailHeadline": "모음 두 개, 여태 헛고생",
+      "visualConcept": "어두운 네이비 배경 속 'BOAT' 단어에서 'OA' 부분에 빨간색 물음표와 돋보기 그래픽이 집중되는 호기심 유발 비주얼",
       "isLocalFile": false
     },
     {
       "id": "B",
-      "title": "Graduate 왜 소리가 둘일까? 원어민이 혀 힘 빼고 끝소리 축약하는 법 | 영어 발음",
+      "title": "파닉스 떼고도 막막했던 제가 모음 2개 겹칠 때 단번에 읽는 법 | 파닉스 영어",
       "imageUrl": "",
-      "thumbnailHeadline": "-ate 끝소리 절대 다름",
-      "visualConcept": "좌측의 딱딱하고 각진 음파와 우측의 부드럽고 편안하게 흐르는 음파가 좌우 16:9로 극명하게 대비되는 구도",
+      "thumbnailHeadline": "모음 두 개, 단번에 읽힘",
+      "visualConcept": "복잡하게 엉켜 있던 회색 실타래가 하나의 깔끔한 형광 시안색 직선으로 명쾌하게 풀려나가는 대비 비주얼",
       "isLocalFile": false
     },
     {
       "id": "C",
-      "title": "단어 끝 -ate 계속 헷갈린다면, 게으른 원어민 혀의 소리 지름길 | 영어 읽는 법",
+      "title": "저도 1초 만에 입 열렸습니다! 모음 2개 붙은 단어 읽는 공식 | 성인 파닉스",
       "imageUrl": "",
-      "thumbnailHeadline": "-ate 소리 이제 안막힘",
-      "visualConcept": "복잡하게 꼬여 있던 음성 파형이 중심을 지나며 단 하나의 시원한 일직선 지름길로 뚫리는 메타포",
+      "thumbnailHeadline": "모음 연속 단어, 1초 해결",
+      "visualConcept": "입체적인 오렌지빛 네온 스톱워치가 1초를 가리키며 단어 블록을 가볍게 통과하는 에너지 넘치는 레이아웃",
       "isLocalFile": false
     }
   ],
-  "activeFeedView": "B",
+  "activeFeedView": "A",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
-  "selectedVariantTab": "B",
+  "selectedVariantTab": "C",
   "visionFilter": "normal",
   "aiReport": {
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 82,
+        "curiosityGapScore": 92,
         "legibilityScore": 90,
-        "visualSalienceScore": 84,
-        "contrastRating": "상(Medium-High)",
-        "focalPoint": "헤드라인 '-ate 소리 이제 구분됨' 텍스트 영역",
-        "predictedGrade": "B+",
-        "predictedCtrRange": "7.2% ~ 8.9%",
+        "visualSalienceScore": 88,
+        "contrastRating": "상(High)",
+        "focalPoint": "헤드라인 '여태 헛고생'의 붉은색 계열 강조와 단어 속 두 모음 대비 그래픽",
+        "predictedGrade": "A",
+        "predictedCtrRange": "8.8% ~ 11.5%",
         "strengths": [
-          "제목 서두 '다 같은 줄 알았네요'가 동반자적 솔직한 감정을 건드리며 공감대를 형성함",
-          "헤드라인이 3단어로 간결해 모바일 120px 환경에서도 0.5초 내 판독이 용이함"
+          "제목 맨 앞의 1인칭 동반자 톤('여태 두 글자 다 읽었네요...')이 타겟의 과거 헛고생 경험과 맞물려 강력한 공감과 정보 공백을 만듦",
+          "썸네일 카피 '모음 두 개, 여태 헛고생'이 3단어로 압축되어 모바일 피드에서 0.1초 만에 눈에 띔"
         ],
         "weaknesses": [
-          "헤드라인의 '이제 구분됨'이 시각적 충격(스턴건 효과)을 주기에는 다소 평이하고 밋밋함",
-          "제목 앞부분에 타겟 연령층을 훅(Hook)으로 끌어당길 만한 즉각적인 인지 부조화 요소가 약함"
+          "'헛고생'이라는 단어가 주는 부정적 피로도가 일부 초보자에게 자책감을 줄 수 있음"
         ],
-        "visualImprovementTip": "헤드라인 텍스트 뒤편에 대비되는 딥네이비 박스를 깔고, '-ate' 철자 부분만 형광 옐로우(#FFE600)로 강조하여 피드 스크롤 시 시각적 앵커 역할을 하도록 보강 권장"
+        "visualImprovementTip": "단어 BOAT나 RAIN 같은 대표 단어를 중앙에 두고 두 번째 모음(A, I)에 옅은 반투명 처리나 빗금 그래픽을 주되 정답을 텍스트로 적지 말고 물음표로 시선을 유도하세요."
       },
       {
         "variantKey": "B",
-        "curiosityGapScore": 91,
-        "legibilityScore": 93,
-        "visualSalienceScore": 89,
-        "contrastRating": "최상(High)",
-        "focalPoint": "좌측 타깃 공감 문구 및 '-ate' 철자 대조 영역",
-        "predictedGrade": "A",
-        "predictedCtrRange": "9.4% ~ 12.1%",
+        "curiosityGapScore": 82,
+        "legibilityScore": 86,
+        "visualSalienceScore": 80,
+        "contrastRating": "중(Medium)",
+        "focalPoint": "썸네일 중앙의 '단번에 읽힘' 텍스트 블록",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "6.8% ~ 8.4%",
         "strengths": [
-          "제목 맨 앞 15자 절대 영역에 '50대에 처음 알았습니다'를 배치해 4060 타겟층의 클릭 장벽을 완전히 낮춤",
-          "헤드라인 '-ate 철자 외우지 마세요'가 3단어로 압축되어 기존 암기식 학습에 지친 중장년층의 상식을 단번에 깸"
+          "'파닉스 떼고도 막막했던 제가'라는 동반자적 타겟 저격으로 진입 장벽을 낮춤",
+          "썸네일 헤드라인이 결과 확정형으로 긍정적인 카타르시스를 예고함"
         ],
         "weaknesses": [
-          "썸네일 그래픽에서 두 가지 소리의 차이를 시각적 메타포(화살표, 음파 분할 등)로 직관화하지 않으면 텍스트 의존도가 높아질 위험 있음"
+          "'단번에 읽힘' 카피는 경쟁 채널에서 다소 흔하게 쓰이는 표현이라 호기심 자극 강도가 시안 A보다 약함",
+          "제목 앞 15자가 약간 길게 느껴져 후킹의 타격감이 분산됨"
         ],
-        "visualImprovementTip": "16:9 화면 좌우를 분할하여 왼쪽은 물음표가 뜬 50대 남녀의 표정 실루엣, 오른쪽은 극명한 2분할 사운드 웨이브 그래픽을 배치해 텍스트 가독성을 극대화할 것"
+        "visualImprovementTip": "배경과 텍스트의 명도 대비를 7:1 이상으로 끌어올리고, 모음 2개가 붙은 영어 철자 카드를 좌우 2분할로 크게 배치해 시각적 직관성을 높이세요."
       },
       {
         "variantKey": "C",
-        "curiosityGapScore": 86,
-        "legibilityScore": 88,
-        "visualSalienceScore": 83,
-        "contrastRating": "상(Medium-High)",
-        "focalPoint": "영단어 'Graduate' 및 발음 기호 연출부",
-        "predictedGrade": "B+",
-        "predictedCtrRange": "7.5% ~ 9.2%",
+        "curiosityGapScore": 79,
+        "legibilityScore": 85,
+        "visualSalienceScore": 82,
+        "contrastRating": "중상(Medium-High)",
+        "focalPoint": "썸네일의 '1초 해결' 키워드와 번개/체크 심볼",
+        "predictedGrade": "B",
+        "predictedCtrRange": "6.2% ~ 7.9%",
         "strengths": [
-          "대표적인 예시 단어 'Graduate'를 직접 제시하여 구체적인 인지 부조화를 유발함",
-          "영상에서 무엇을 배울 수 있는지 명확하게 전달되어 이탈률이 적은 진성 시청자 유입에 유리"
+          "'1초 만에 입 열렸습니다'라는 즉각적 효능감이 바쁜 현대 성인 학습자의 클릭 본능을 자극함",
+          "제목의 구조가 명확하여 성인 파닉스 타겟팅이 확실함"
         ],
         "weaknesses": [
-          "헤드라인 '-ate 끝소리 완벽 정리'가 전형적인 학원 강의식 문구라 채널의 '솔직 담백한 학습 파트너' 톤앤매너와 어긋나며 지루함을 줌",
-          "우측 하단 영상 길이 태그 주변에 텍스트가 배치될 경우 단어가 잘려 보일 위험이 있음"
+          "'1초 해결'은 지나치게 흔한 어그로성 문구로 인식되어 가식 없는 담백한 채널 페르소나와 약간의 이질감이 발생할 위험이 있음"
         ],
-        "visualImprovementTip": "'완벽 정리' 같은 상투적인 문구를 제거하고, 단어 중간에 쪼개지는 사운드 이펙트 라인을 추가해 시각적 호기심을 유발하도록 수정"
+        "visualImprovementTip": "과도한 번개 그래픽이나 자극적인 스티커를 빼고, 알파벳 두 개가 나란히 놓였을 때 첫 모음에만 은은한 네온 글로우를 주는 미니멀한 룩으로 신뢰도를 확보하세요."
       }
     ],
-    "bestVariant": "B",
-    "overallVerdict": "시안 B는 4060 타겟층의 마음을 여는 동반자적 1인칭 고백('50대에 처음 알았습니다')을 모바일 제목 1~15자 절대 영역에 완벽히 배치했습니다. 또한 썸네일 헤드라인 역시 무작정 외우던 과거 방식을 부정하는 3단어 스턴건 문구('-ate 철자 외우지 마세요')로 압축되어 있어 피드 스크롤 중 엄지손가락을 멈추게 만드는 힘이 가장 뛰어납니다.",
+    "bestVariant": "A",
+    "overallVerdict": "시안 A가 압도적인 1위입니다. '여태 두 글자 다 읽었네요...'라는 1인칭 깨달음형 훅은 가르치려 드는 전문가가 아닌 함께 공부하는 동반자 톤을 완벽히 구현하며, '모음 두 개, 여태 헛고생'이라는 압축된 3단어 헤드라인이 정답 누설 없이 시청자의 과거 학습 방식에 대한 강력한 인지부조화를 일으켜 즉각적인 클릭을 유도합니다.",
     "aiTitleSuggestions": [
       {
-        "type": "💡 상식반전 각도",
-        "title": "여태 다 똑같이 읽었네요... 단어 끝 -ate 소리가 2개로 갈리는 이유 | 이해하면 쉬운영어",
-        "thumbnailHeadline": "-ate 철자 외우면 낭패",
-        "designConcept": "화면 중앙에 굵은 -ate 텍스트가 놓이고 양옆으로 완전히 다른 두 갈래 빛 줄기가 뿜어져 나오는 16:9 대조 구도",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, glowing split pathway diverging into two light beams from the center, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "💡 자책공감 반전각",
+        "title": "여태 두 개 다 읽었네요... 모음 2개 붙은 단어 소리 비밀 | 영어 읽는 법",
+        "thumbnailHeadline": "모음 두 개, 여태 헛고생",
+        "designConcept": "어두운 네이비 배경 속 'BOAT' 단어에서 두 번째 모음 'A' 위에 희미한 물음표 엠보싱이 떠 있는 미니멀 대조 그래픽",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English phonics education, dark cyber-hud deep navy ambient background, large glowing white typography spelling 'BOAT' on a sleek podium, a soft glowing cyan question mark floating above the letter 'A', sophisticated studio lighting, copy space on the left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🤝 타겟동반 각도",
-        "title": "50대인 저도 이제야 알았습니다, 철자 똑같은 -ate 소리가 2가지인 원리 | 영어 왕초보",
-        "thumbnailHeadline": "-ate 소리 이제 구분됨",
-        "designConcept": "깊은 네이비 배경 속에서 물음표가 느낌표로 매끄럽게 변환되는 시각적 깨달음의 파동 그래픽",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English education, deep dark navy background with subtle warm golden sound waves, abstract representation of confusion transforming into sudden clarity, spacious minimalist layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🎯 왕초보 경험고백각",
+        "title": "저도 파닉스 떼고 헤맸습니다, 모음 2개 겹칠 때 읽는 요령 | 파닉스 기초",
+        "thumbnailHeadline": "모음 연속, 소리 막힐 때",
+        "designConcept": "모음 철자 두 개가 겹쳐진 투명 유리 큐브 중 앞 모음에만 따뜻한 앰버 조명이 집중되는 정밀 3D 렌더링",
+        "midjourneyPrompt": "Minimalist educational 3D visual, dark slate background with deep blue gradients, two frosted glass cubes representing English vowel letters sitting together on a reflective surface, the first cube illuminated with a warm golden amber light while the second remains in soft shadow, cinematic depth of field, left copy space, 4k, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "⚡ 실전비교 각도",
-        "title": "Graduate 왜 소리가 둘일까? 원어민이 혀 힘 빼고 끝소리 축약하는 법 | 영어 발음",
-        "thumbnailHeadline": "-ate 끝소리 절대 다름",
-        "designConcept": "좌측의 딱딱하고 각진 음파와 우측의 부드럽고 편안하게 흐르는 음파가 좌우 16:9로 극명하게 대비되는 구도",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English phonics, split screen composition, left side showing rigid tense sharp neon lines, right side showing smooth relaxed flowing cyan sound curves, dark modern tech navy backdrop, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🔍 단어단서 호기심각",
+        "title": "Rain, Boat 왜 이렇게 읽힐까? 모음 2개 단어 소리 공식 | 왕초보 파닉스",
+        "thumbnailHeadline": "모음 두 개, 왜 이 소리?",
+        "designConcept": "대비가 뚜렷한 칠판 질감의 딥차콜 배경에 RAIN, BOAT 단어가 나란히 배치되고 두 모음 사이에 미세한 전구 빛줄기가 연결된 비주얼",
+        "midjourneyPrompt": "Clean modern educational visual, deep charcoal matte texture background, floating minimalist wooden letter blocks spelling simple words, soft volumetric spotlight focusing on the front vowel block creating a subtle electrical spark of insight, high visual salience, hyper-detailed, clean empty left area for typography, --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🎯 페인포인트 각도",
-        "title": "단어 끝 -ate 계속 헷갈린다면, 게으른 원어민 혀의 소리 지름길 | 영어 읽는 법",
-        "thumbnailHeadline": "-ate 소리 이제 안막힘",
-        "designConcept": "복잡하게 꼬여 있던 음성 파형이 중심을 지나며 단 하나의 시원한 일직선 지름길로 뚫리는 메타포",
-        "midjourneyPrompt": "Clean horizontal visual artwork for language learning concept, dark deep indigo ambient background, tangled sonic frequencies smoothly straightening into a bright clear streamlined shortcut path, clean vector aesthetics, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "⚡ 구강원리 지름길각",
+        "title": "게으른 혀는 하나만 냅니다! 모음 2개 겹칠 때 터지는 발음 | 성인 영어",
+        "thumbnailHeadline": "모음 두 개, 혀의 꼼수",
+        "designConcept": "입술과 혀의 편안한 이완을 상징하는 유려한 곡선 웨이브와 겹모음 기호가 조화롭게 결합된 3D 추상 아트",
+        "midjourneyPrompt": "Abstract 3D educational concept art, dark indigo and deep obsidian backdrop, smooth fluid ribbon representing airflow and tongue relaxation effortlessly passing through two abstract vowel pillars, neon accent lines in electric cyan, high tech aesthetic, generous copy space on the left, 8k resolution, --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "✨ 결과확정 각도",
-        "title": "이 원리 하나로 바로 들립니다! 단어 끝 -ate 소리 완벽하게 통일하는 법 | 기초영어회화",
-        "thumbnailHeadline": "-ate 다시는 안헷갈림",
-        "designConcept": "두 개의 닫혀 있던 귀 모양의 파동 링이 하나로 겹쳐지며 시원한 에메랄드빛 섬광을 터뜨리는 직관적 그래픽",
-        "midjourneyPrompt": "Clean horizontal visual artwork for audio clarity education, deep dark studio lighting, navy and cyan gradient background, two overlapping glowing acoustic circular ripples creating a brilliant focal burst in the center, ultra clean composition, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🔓 안도확정 결과약속각",
+        "title": "이제 단어가 안 막힙니다, 모음 2개 붙을 때 소리 원리 | 성인 파닉스",
+        "thumbnailHeadline": "모음 겹침, 이제 안 막힘",
+        "designConcept": "단단히 닫혀 있던 자물쇠 형태의 철자 블록이 첫 모음의 빛으로 인해 부드럽게 열리며 환한 빛을 뿜어내는 메타포",
+        "midjourneyPrompt": "Sleek metaphorical visual for learning breakthrough, deep midnight navy studio environment, an elegant metallic puzzle cube smoothly clicking into place and emitting a gentle cyan glow from its core, symbolizing effortless understanding, premium minimalist composition, ample copy space on left half, --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

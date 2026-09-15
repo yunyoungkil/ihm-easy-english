@@ -127,28 +127,28 @@
     "generatedAt": "2026-09-13T03:43:06.116Z"
   },
   "selected": {
-    "rank": 3,
-    "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
-    "angleOrHook": "똑같은 -ATE인데 왜 동사는 '에이트'고 명사는 힘을 뺀 '엇/잇' 소리로 바뀔까요? 강세에 따라 혀의 힘을 빼버리는 원리를 알면 수십 개 고급 단어가 단번에 귀에 꽂힙니다.",
-    "targetAudience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
-    "suggestedBadge": "⚡ 소리 반전 규칙",
-    "rationale": "집중 키워드 '영어 발음 규칙'의 핵심 훅 단어 '영어축약발음(2회)'과 '규칙(2회)'을 접목하고, 기존 접미사 규칙 성공 패턴을 계승하는 EXPERIMENT 포맷(fitScore 45)을 적용했습니다.",
+    "rank": 2,
+    "topic": "모음이 2개 겹칠 때 앞 모음만 읽는 영어 모음 규칙",
+    "angleOrHook": "무작정 철자 외우지 마세요: 모음이 나란히 붙어 나오면 뒤 모음은 침묵하고 앞 모음 이름만 소리 내는 초간단 지름길 규칙으로 Boat, Rain, Meat를 단번에 뚫어냅니다.",
+    "targetAudience": "단어에 모음이 두 개 이상 연속으로 나오면 어떻게 소리 내야 할지 막막한 알파벳 파닉스 직후 입문자",
+    "suggestedBadge": "💡 1초 모음 공식",
+    "rationale": "집중 키워드 '영어 발음 규칙'의 최다 반복 훅 단어 '모음(2회)', '읽는(2회)', '쉽다고(2회)'를 포착하고, 50.42배 아웃라이어 '영어 읽는법 1편 - 자음과 모음' 수요를 직접 공략했습니다.",
     "dataSourceRefs": [
       {
         "source": "marketDemand",
-        "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1)의 반복 훅 단어 '영어축약발음', '규칙' 반영"
+        "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 반복 훅 단어 '모음', '읽는', '쉽다고' 활용 및 아웃라이어 '영어 읽는법 1편 - 자음과 모음(50.42배)' 연계"
       },
       {
         "source": "contentOpportunity",
-        "detail": "새로운 접미사 규칙 테스트를 위한 'EXPERIMENT'(fitScore 45) 포맷 활용"
+        "detail": "기존 레거시 단일 모음(A, E, I, O, U) 영상들의 후속 확장으로 LEGACY 포맷(fitScore 57) 적용"
       },
       {
         "source": "audienceDna",
-        "detail": "복식호흡이나 힘을 주는 대신 힘을 빼는 '목구멍 소리'와 '언어팩' 체득 니즈 충족"
+        "detail": "시청자 언어 '언어팩' 구축 및 직관적 '체득' 니즈 반영"
       }
     ],
     "suggestedFormat": "LONGFORM",
-    "score": 85
+    "score": 88
   },
   "generatedAt": "2026-09-13T03:43:06.116Z",
   "focusKeyword": "영어 발음 규칙"

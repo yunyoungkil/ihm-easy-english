@@ -1,0 +1,110 @@
+<template>
+<style>
+  /* 09-listening — Frame 9 "실제 문장에서 읽기". 4 sentence cards stacked left, each with a
+     mini icon (individual coat.png/rain.png/team.png/head.png files, tightly cropped —
+     switched away from the sentence-icons.png sprite + background-position slicing because
+     re-generating the sprite silently reordered its 2x2 grid and broke the icon↔sentence
+     mapping; per-file <img> has no such ordering to get wrong) beside it. Icon box stretches
+     to the card's own height via flex align-items:stretch + aspect-ratio:1/1, and its border
+     matches the card's exact 3px weight (2026-09-16, user feedback: icon was too small with
+     visible background padding around the art, and its border didn't match the card's).
+     coat/rain/team = regular color, head = exception color. Audio is the concatenated
+     09.wav (Korean carrier + 4 real English sentences, generated separately per
+     gen-tts-gemini.mjs FRAME9_PIECES) — timings below are taken from the piece durations. */
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f09-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f09-progress-fill { position: absolute; left: 0; top: 0; width: 66.667%; height: 3px; background: #E8A93E; }
+
+  .f09-stack { position: absolute; left: 8cqw; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 2.4cqh; }
+  .f09-row { display: flex; align-items: center; gap: 1.6cqw; opacity: 0; transform: translateY(14px); }
+  .f09-card { background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 4px 0 #2B2B2B; padding: 1.4cqw 2cqw; width: 58cqw; }
+  .f09-en { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.7cqw; }
+  .f09-target { font-weight: 900; }
+  .f09-ko { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.4cqw; color: #5C564A; margin-top: 0.6cqh; opacity: 0; }
+  /* Fixed to the card's measured rendered height (padding 2x1.4cqw + .f09-en line +
+     .f09-ko line + its margin ≈ 12.2cqh) rather than flex-stretch + aspect-ratio — that
+     combo hit a circular sizing bug in the renderer (row height depends on icon height,
+     icon height depends on row height) and blew the icon up to fill the whole frame.
+     Border matches the card's exact weight+color. */
+  .f09-icon { width: 12.2cqh; height: 12.2cqh; flex-shrink: 0; background: #FFFFFF; border-radius: 10px; border: 3px solid #2B2B2B; box-shadow: 0 4px 0 #2B2B2B; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .f09-icon img { width: 78%; height: 78%; object-fit: contain; display: block; }
+  .f09-icon.f09-icon-head { border-color: #D64545; box-shadow: 0 4px 0 #D64545; }
+</style>
+
+<div data-hf-id="hf-5lzs" id="root" data-composition-id="09-listening" data-start="0" data-duration="28.39" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-67q8" id="f09-bg-clip" class="clip" data-start="0" data-duration="28.39" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-xmbr" id="f09-voice" src="assets/voice/09.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-mj1e" id="f09-progress-track" class="f09-progress-track"></div>
+  <div data-hf-id="hf-z6zc" id="f09-progress-fill" class="f09-progress-fill"></div>
+
+  <div data-hf-id="hf-0de7" id="f09-content-clip" class="clip" data-start="0" data-duration="28.39" data-track-index="1">
+    <div data-hf-id="hf-rgl6" id="f09-stack" class="f09-stack">
+      <div data-hf-id="hf-5pi7" id="f09-row1" class="f09-row">
+        <div data-hf-id="hf-5v9g" class="f09-icon"><img data-hf-id="hf-lixa" src="assets/illustrations/coat.png" alt=""></div>
+        <div data-hf-id="hf-12ca" class="f09-card"><div data-hf-id="hf-via1" class="f09-en">I need a new <span data-hf-id="hf-v84f" class="f09-target" style="color:#8A5A12">coat</span> for winter.</div><div data-hf-id="hf-jh17" id="f09-ko1" class="f09-ko">코트</div></div>
+      </div>
+      <div data-hf-id="hf-x1mc" id="f09-row2" class="f09-row">
+        <div data-hf-id="hf-fgqr" class="f09-icon"><img data-hf-id="hf-1hh5" src="assets/illustrations/rain.png" alt=""></div>
+        <div data-hf-id="hf-mjb2" class="f09-card"><div data-hf-id="hf-q25e" class="f09-en">It might <span data-hf-id="hf-kio6" class="f09-target" style="color:#8A5A12">rain</span> tomorrow.</div><div data-hf-id="hf-76no" id="f09-ko2" class="f09-ko">레인</div></div>
+      </div>
+      <div data-hf-id="hf-xta5" id="f09-row3" class="f09-row">
+        <div data-hf-id="hf-74oh" class="f09-icon"><img data-hf-id="hf-tiyg" src="assets/illustrations/team.png" alt=""></div>
+        <div data-hf-id="hf-mxm3" class="f09-card"><div data-hf-id="hf-aae9" class="f09-en">We had a <span data-hf-id="hf-vhsx" class="f09-target" style="color:#8A5A12">team</span> meeting today.</div><div data-hf-id="hf-68rb" id="f09-ko3" class="f09-ko">팀</div></div>
+      </div>
+      <div data-hf-id="hf-gkzu" id="f09-row4" class="f09-row">
+        <div data-hf-id="hf-r6tg" class="f09-icon f09-icon-head"><img data-hf-id="hf-y8dx" src="assets/illustrations/head.png" alt=""></div>
+        <div data-hf-id="hf-nbx4" class="f09-card"><div data-hf-id="hf-n57m" class="f09-en">My <span data-hf-id="hf-a18a" class="f09-target" style="color:#D64545">head</span> hurts a little.</div><div data-hf-id="hf-i2vm" id="f09-ko4" class="f09-ko">헤드</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["09-listening"] = tl;
+
+  // Piece durations from gen-tts-gemini.mjs FRAME9_PIECES + gaps (09a..09i), cumulative:
+  // 09a "이제 진짜...첫 번째." (~2.1s+0.3 gap) -> 09b "coat" sentence (~2.3s+0.5) -> 09c "두 번째."
+  // (~0.8+0.25) -> 09d "rain" sentence (~2.2+0.5) -> 09e "세 번째." (~0.9+0.25) -> 09f "team"
+  // sentence (~2.3+0.5) -> 09g "네 번째." (~0.8+0.25) -> 09h "head" sentence (~1.8+0.6) -> 09i
+  // closing line. Row-reveal timed to roughly land on each sentence's spoken onset.
+  var rows = [
+    document.getElementById("f09-row1"),
+    document.getElementById("f09-row2"),
+    document.getElementById("f09-row3"),
+    document.getElementById("f09-row4")
+  ];
+  var kos = [
+    document.getElementById("f09-ko1"),
+    document.getElementById("f09-ko2"),
+    document.getElementById("f09-ko3"),
+    document.getElementById("f09-ko4")
+  ];
+  var starts = [2.8, 8.3, 13.0, 17.8];
+  var koDelay = 2.0;
+
+  rows.forEach(function (row, i) {
+    tl.to(row, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, starts[i]);
+    if (i > 0) tl.to(rows[i - 1], { opacity: 0.4, duration: 0.3 }, starts[i]);
+    tl.to(kos[i], { opacity: 1, duration: 0.3 }, starts[i] + koDelay);
+  });
+})();
+</script>
+</template>

@@ -56,6 +56,27 @@ hesitation-cursor → 2 wordmark → 3 question-flicker → 4 lazy-tongue-reveal
   background
 - sfx: soft-tick on 커서 깜빡임(낮은 볼륨, 3회)
 
+**한눈에 보이는 장면**: 크림색 종이 배경에 단어 3개가 세로로 얌전히 나열돼 있다. 각 단어의
+모음 두 글자 사이에서 연필 커서 같은 게 좌우로 왔다 갔다 머뭇거린다. 색은 전부 무채색 — 아직
+아무것도 강조되지 않은, "고민 중"인 화면.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 최상단 3px `progress-rail`(0→8.3% 채움) 고정. 중앙 세로 스택(`position: absolute;
+  top:50%; transform:translateY(-50%); flex-direction:column; gap:3.2cqh`)에 BOAT·RAIN·MEAT
+  3단어. 배경은 `{colors.bg}` 단색 크림(글로우·그라디언트 없음 — 종이 질감이라 광원 효과가
+  어울리지 않음).
+- 배치: 각 단어는 `hero-word` 축소판(Archivo Black), 모음 두 글자(OA·AI·EA)만 별도 `<span>`
+  으로 분리해 `hesitation-cursor` 타깃으로 지정. 3단어 전부 가로 중앙 정렬. 카드 틀은 없음 —
+  이 프레임은 sketch-card 없이 배경 위에 텍스트만 얹는다(카드는 Frame 5부터 등장).
+- 컬러: 배경 `{colors.bg}`, 단어 기본색 `{colors.ink}`(진한 잉크색). 모음 두 글자는 규칙/예외
+  어느 색도 쓰지 않고 `{colors.text-muted}`만 — 이 프레임에서 정답 색이 먼저 나오면 Frame
+  3~4의 반전이 죽는다.
+- 모션: 세 단어가 각자의 실제 발화 시작 시각에 맞춰 순차 등장(`opacity 0→1, y:14→0, duration
+  0.4, ease power2.out`). "이걸 다 읽어야 하는지..." 구간(대략 7~14s)에서 모음 두 글자 위에
+  `hesitation-cursor`가 좌우로 3~4회 깜빡임(`opacity 0.4↔0.85, duration 0.35 반복 — 무한
+  루프 금지, 정확히 4회에서 정지`). 마지막 문장에서 단어들 주변에 아주 옅은 종이 질감 텍스처가
+  살짝 밝아지며(`opacity 0→0.06, duration 1.0`) 희망적 톤으로 마무리.
+
 narrativeRole: "쉬운 단어인데도 모음 두 개 앞에서 멈칫한다"는 왕초보의 실제 상황을 구체적 단어
 3개로 즉시 보여주고 공감시킨 뒤, "기준 하나만 알면 된다"는 구체적 이득까지 이 프레임 안에서
 약속한다(`VIDEO_WORKFLOW.md` 3단계, "Frame 1 호기심·이득 체크리스트" 규칙 적용). **"당신 탓이
@@ -90,6 +111,21 @@ Scene 3 (14.0–18.0s): "오늘 그 기준 하나만 알면… 바로 읽으실 
 - roles: 채널명 = foreground subject · 소개 문장 = supporting
 - sfx: 없음(차분한 브랜딩 톤)
 
+**한눈에 보이는 장면**: 화면 중앙에 채널 이름만 조용히 나타난다. "쉬운영어" 네 글자 뒤에
+형광펜으로 쓱 칠한 듯한 머스터드색 띠가 깔려 있다.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 배경·progress-rail 유지, 중앙에 채널 워드마크 하나만.
+- 배치: 워드마크는 화면 정중앙, 소개 문장은 워드마크 바로 아래 캡션 라인(`{typography.body}`).
+- 컬러: "이해하면"은 `{colors.ink}`(진한 잉크색), "쉬운영어"도 글자 자체는 `{colors.ink}`이되
+  뒤에 `{colors.accent-rule}` 형광펜 하이라이트 띠가 깔린다(**⚠️ 배경이 밝아졌으니 EP11~15
+  방식대로 글자 자체를 노랑으로 칠하면 크림 배경 위에서 대비가 약해 안 보인다** — 대신
+  썸네일 타이포 규칙에서 이미 검증된 "어두운 글자 + 밝은 칩 배경" 방식을 재사용).
+- 모션: Frame 1의 `hesitation-cursor`가 fade-out(`opacity 1→0, duration 0.3`)되며 동시에
+  워드마크가 `opacity 0→1, scale 0.96→1, duration 0.5, ease power2.out`으로 페이드인, 하이라이트
+  띠는 왼쪽에서 오른쪽으로 쓱 칠해지듯(`scaleX 0→1, transform-origin left, duration 0.35`)
+  뒤늦게 등장.
+
 narrativeRole: 짧고 밝게 채널 정체성만 확인시키고 바로 본론(Big Question)으로 넘어갈 준비를
 한다.
 keyMessage: 오늘 다룰 범위는 "모음 두 개가 붙었을 때의 읽기 기준"이다.
@@ -112,6 +148,20 @@ Scene 1 (0.0–15.0s): 커서 걷힘 → 워드마크 노출 → 소개 문장 �
 - focal: O와 A 위에서 물음표가 번갈아 반짝이는 순간
 - roles: BOAT 확대 = foreground subject · O/A 물음표 = focal thread
 - sfx: 없음
+
+**한눈에 보이는 장면**: 크림 배경 한가운데 BOAT라는 글자만 크게 떠 있고, O와 A 위에 손으로
+낙서하듯 그린 작은 물음표가 번갈아 깜빡인다. 여전히 색은 무채색.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 화면 중앙 단일 `hero-word`(BOAT), 그 위 소형 캡션 영역에 세 선택지 텍스트가 순차 표시.
+- 배치: BOAT를 `{typography.hero-word}`로 화면 중앙 확대, O·A 두 글자 바로 위에
+  `question-flicker` 손그림 물음표(각 글자 폭의 40% 크기) 배치.
+- 컬러: BOAT 전체 `{colors.ink}`, 물음표 낙서도 중립 `{colors.text-muted}` — 여전히 정답 색
+  없음(규칙/예외 어느 쪽도 아직 안 씀).
+- 모션: BOAT 등장(`opacity 0→1, scale 0.9→1, duration 0.4`) 후 "이 둘 중에 어떤 걸..." 구간에서
+  O 위 물음표가 먼저 반짝(`opacity 0↔1, duration 0.3`), 이어서 A 위 물음표가 교대로 반짝 —
+  "O만/A만/둘 다"가 언급될 때마다 해당 글자가 짧게 확대(`scale 1→1.08→1, duration 0.25`)되는
+  마이크로 인터랙션으로 세 선택지를 카운트.
 
 narrativeRole: "둘 중 뭘 읽어야 하는가"라는 구체적 미스터리를 세우고, 세 가지 선택지(O만/A만/
 둘 다)를 명시적으로 나열해 다음 프레임의 반전이 더 선명하게 착지하도록 준비한다.
@@ -137,6 +187,77 @@ Scene 2 (6.0–15.0s): "이 둘 중에 어떤 걸… 둘 다 내야 할까요?" 
 - focal: "앞 모음만, 소리 냅니다" 문구 정착
 - roles: BOAT O/A 강조 대비 = foreground subject · personal anecdote = supporting
 - sfx: soft-chime on 반전 착지
+
+**한눈에 보이는 장면**: 화면 왼쪽엔 입을 옆에서 자른 손그림(혀가 앞쪽에서 힘주다가 뒤쪽은
+편히 눕는 모습)이 등장하고, 오른쪽엔 BOAT의 O가 형광펜처럼 노랗게 칠해지고 A는 흐려지며 그
+위에 작은 "Zzz" 낙서가 뜬다. 이 편에서 손그림이 처음 등장하는 순간.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 화면을 좌우로 나눠, 왼쪽 40%는 `illustration-slot`(입/혀 단면 손그림), 오른쪽 60%는
+  BOAT `hero-word` + "앞 모음만, 소리 냅니다" 문구, 그 아래 personal anecdote 캡션.
+- 배치: O는 그대로 중앙 위치 유지, A는 자리는 유지한 채 스타일만 변화(레이아웃 시프트 없음 —
+  글자가 사라지듯 opacity/blur만 바뀌어야 "그 자리에서 조용해진다"는 느낌이 남).
+- 컬러: O → `{colors.accent-rule}`(형광펜 하이라이트)로 전환, A → `{colors.text-muted}` +
+  `opacity:{colors.dormant-opacity}` + 옆에 Zzz 낙서. "앞 모음만, 소리 냅니다" 문구는
+  `{colors.ink}`. 손그림도 잉크색 선 + 앞쪽(힘주는 부분)만 `{colors.accent-rule}`로 살짝
+  칠함(카드 쪽 색 논리와 통일).
+- 모션: 배경은 시종일관 `{colors.bg}` 고정(밝기 전환 없음 — 종이는 조명이 안 바뀜). 손그림이
+  먼저 `opacity 0→1, x:-20→0, duration 0.5`로 슥 들어오고, 그 다음 O가 `scale 1→1.15→1 pulse
+  + color 전환(duration 0.5, ease power2.out)`, 동시에 A가 `opacity 1→{dormant-opacity},
+  duration 0.5` + Zzz 낙서 페이드인. 문구는 0.3초 뒤 딜레이로 `opacity 0→1, y:10→0` 페이드인해
+  홀드.
+
+**필요 일러스트 프롬프트** (이 자산은 Frame 4에서 처음 쓰이고, Frame 5·10·12에서 그대로
+재등장 — 같은 "혀 역학" 내용을 다루는 장면들이라 자연히 겹치는 것뿐, 재사용을 노리고 미리
+설계한 게 아님):
+
+- **저장 위치**: `videos/ep16-double-vowels/assets/illustrations/tongue-mouth-diagram.png`
+  (배경은 **투명이 아니라 화면 배경색 `{colors.bg}`(#F4EFE6)과 동일한 단색으로 꽉 채워서** 제작 —
+  ⚠️ 2026-09-16 수정: 원래 "투명 배경"으로 요청했으나 실제 생성 결과를 픽셀 단위로 확인해보니
+  알파 채널 값이 전부 255(완전 불투명)였고 배경이 흰색/회백색으로 칠해져 있었음. 생성 도구가
+  진짜 투명 PNG를 만들지 못하는 문제를 프롬프트 단계에서 피하기 위해, 처음부터 화면과 같은
+  크림색을 단색으로 채워 달라고 명시)
+- **🇰🇷 한글 요약**: 입을 옆에서 자른 단면도. 손그림 느낌의 검은 잉크 선(필압이 살짝
+  불균일한, 진짜 펜으로 그린 듯한 느낌), 색은 안 칠하고 순수 라인 아트로. 혀가 입 안에
+  그려져 있는데, **앞쪽(치아/입술 쪽)과 뒤쪽(목 쪽)이 자연스럽게 구분되는 형태**로 그려서,
+  나중에 CSS로 앞쪽만 색칠하고 뒤쪽만 흐리게 처리할 수 있게 해야 함. 너무 의학 교과서처럼
+  정밀하지 않고, 친근하고 단순한 느낌으로. 글자·라벨 없음, **배경은 투명이 아니라 화면
+  배경색과 똑같은 크림색(#F4EFE6) 단색으로 캔버스 전체를 채울 것**(흰색·회색·그라디언트·
+  그림자 없이).
+- **영문 프롬프트**:
+  ```
+  A simple, friendly hand-drawn side-profile cross-section illustration of a human mouth
+  and tongue, sketchnote style. Bold, slightly uneven black ink outlines (varying line
+  weight like a real pen stroke, not perfectly uniform ruler-straight lines). The tongue
+  is drawn as one continuous shape but with a clear natural division between a front
+  section (near the teeth and lips) and a back section (toward the throat), so each half
+  can be colored independently afterward. Pure black ink line art, no color fill, no
+  shading. The background must be a solid, flat, opaque cream color — exact hex #F4EFE6 —
+  filling the entire canvas edge to edge with no gradient, no vignette, no drop shadow,
+  and no transparency (do not use an alpha channel; render the background as a real
+  painted color, not "no background"). Minimal and approachable, not clinical or overly
+  anatomical — think classroom whiteboard sketch, not a medical textbook diagram. No
+  text, no labels, no arrows. Square-ish composition with generous padding around the
+  subject.
+  ```
+- **시도 기록**:
+  - ✅ 2026-09-16 (1차) 사용자가 직접 제작해 `assets/illustrations/tongue-mouth-diagram.png`에
+    추가 완료 — 입을 옆에서 연 단면, 손그림 선 스타일 확인. **⚠️ 빌드 시 참고**: 이 PNG는
+    앞/뒤 혀 영역이 SVG처럼 분리된 경로가 아니라 한 장짜리 평면 이미지라서, "앞쪽만 색이
+    들어오고 뒤쪽은 흐려지는" 효과는 이미지 자체를 재작업하지 않고 **이미지 위에 CSS
+    clip-path로 대략적인 좌표 영역을 잡아 반투명 색 오버레이를 씌우는 방식**으로 구현한다 —
+    정확한 좌표는 실제 컴포지션 HTML을 만들 때 화면에 띄워보면서 잡을 것(지금 단계에서 추측
+    좌표를 박아두지 않는다).
+  - ⚠️ 2026-09-16 (재작업 필요) `hyperframes` Studio 프리뷰에서 확인해보니 배경이 투명하지
+    않고 흰색/회백색 사각형으로 도드라져 보임 — 파이썬으로 알파 채널을 직접 재보니 전
+    픽셀이 alpha=255(완전 불투명)였고 모서리 색은 (255,255,255)~(205,207,206) 근방. 위
+    프롬프트를 "배경 투명" → "화면 배경색과 동일한 크림색(#F4EFE6) 단색"으로 수정했으니,
+    이 프롬프트로 재생성해서 같은 파일 경로에 덮어씌울 것.
+  - ✅ 2026-09-16 (2차, 최종) 새 프롬프트로도 도구가 여전히 흰 배경을 뱉어내서, 사용자가
+    직접 배경을 크림색으로 채운 최종본을 만들어 덮어씀 — 확인 결과 배경이 정확히 크림색
+    근방(픽셀 실측 (237~245, 233~239, 222~230))으로 맞아떨어짐. **일반화된 교훈**은
+    `knowledge/google-ai-studio-prompting.md`의 "손그림 일러스트 프롬프트의 배경·사이즈
+    지침"에 기록해 다음 편부터 프롬프트 작성 단계에서부터 반영한다.
 
 narrativeRole: Frame 3에서 던진 세 선택지 중 정답("앞 모음만")을 확신 있게 공개하고, 곧바로
 사용자가 직접 재구성한 3단계 personal anecdote(예전엔 둘 다 읽는 줄 알았다 → 실제 발음이
@@ -165,6 +286,27 @@ Scene 2 (8.0–20.0s): "저도 공부하기 전엔… 알게 됐어요" — pers
 - focal: COAT의 O가 밝아지고 A에 Zzz 아이콘이 뜨는 순간
 - roles: COAT vowel-pair-card = foreground subject · "게으른 혀" 비유 = supporting
 - sfx: pron-caption 조립 완료 시 soft chime
+
+**한눈에 보이는 장면**: Frame 4의 입/혀 손그림이 왼쪽에 계속 남아있고, 오른쪽에 흰 카드 하나가
+톡 놓인다(종이를 책상에 내려놓는 느낌). 카드 안엔 COAT라는 글자, O는 노랗게, A는 흐리게+Zzz.
+카드 아래 "코트"라는 한글 발음이 한 글자씩 조립되며 완성된다.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 왼쪽 40%는 Frame 4의 입/혀 손그림이 계속 유지(장면이 이어지는 느낌), 오른쪽 60%에
+  `sketch-card`(`{radii.card-lg}`, `{colors.card-bg}` 배경 + `3px solid {colors.ink}`), 카드
+  안에 hero-word 축소판(COAT) + 바로 아래 `pron-caption`("코트").
+- 배치: 카드는 오른쪽 영역 중앙, 고정폭(약 32cqw), 드롭섀도우로 종이가 살짝 떠 있는 느낌
+  (`0 4px 0 {colors.ink}`). O 글자 위엔 작은 "소리 냄" `sound-tag` 라벨, A 글자 위엔 Zzz
+  낙서(글자 폭의 30% 크기, 우측 상단에 살짝 겹쳐 배치).
+- 컬러: O = `{colors.accent-rule}` 형광펜 하이라이트, A = `{colors.text-muted}` +
+  `opacity:{colors.dormant-opacity}`. 카드 테두리는 아직 규칙/예외 그룹 색을 정하지 않은
+  중립 `{colors.ink}`(다음 프레임부터 그룹 색이 테두리에도 반영됨).
+- 모션: 원리 설명 문장이 나오는 동안(0~10s)은 손그림만 있고 카드는 없음. "COAT도 마찬가지예요"
+  부터 카드가 `opacity 0→1, y:20→0, duration 0.5, ease power2.out`으로 톡 놓이듯 등장, O가
+  먼저 `scale 1→1.12→1 + 형광펜 칠해지는 듯한 하이라이트(duration 0.4)`, 0.2초 뒤 A가
+  `opacity 1→0.35 fade + Zzz 낙서 opacity 0→1(duration 0.4)`. pron-caption은 두 모션이 끝난
+  뒤 글자 단위로 조립(`{typography.pron-sub}`, syllable-buildup 스타일) — 이 프레임의 홀드
+  포인트.
 
 **참고**: `SCRIPT.md` Line 5 각주 — "혀가 편한 쪽을 택한다"는 설명은 채널 도파민 3단계 공식
 ①"게으른 혀의 소리 지름길" 컨셉을 재사용(EP14 연음에서도 동일 프레임). 음성학 용어 없이 감각적
@@ -197,6 +339,24 @@ Scene 2 (10.0–24.0s): "COAT도 마찬가지예요… 알고 계셨잖아요" �
 - focal: RAIN·MEAT가 Frame 1의 "멈칫했던" 그 단어와 동일하다는 콜백 순간
 - roles: 6장 카드 = foreground subject(순차) · vowel-pair-cluster 배경 네온 테두리 = chrome
 - sfx: 카드 등장마다 soft tick(6회, 볼륨 낮게)
+
+**한눈에 보이는 장면**: 크림 배경 위에 흰 카드 6장이 책상 위에 카드를 늘어놓듯 3×2로 깔린다.
+전부 같은 구조(단어+O강조+A흐림) — 그림 없이 순수하게 카드·텍스트만으로 "이만큼 통한다"는
+양을 보여주는 장면.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: `sketch-cluster` — 화면을 가로 3열×세로 2행 그리드로 나눠 6장의 축소판
+  `sketch-card`를 배치(각 카드 `{radii.card-md}`, `{colors.card-bg}`, 얇은 오프셋
+  드롭섀도우로 카드가 살짝 겹쳐 쌓인 느낌). gap은 `{spacing.gap-cards}`.
+- 배치: 1행(RAIN·MEAT·PAINT), 2행(TOAST·TEAM·PIE) 순서로 왼쪽부터 순차 등장. 각 카드 안
+  구조는 Frame 5의 COAT 카드와 동일(hero-word 축소판 + O/A 강조·반투명 + pron-caption). 이
+  프레임엔 illustration-slot 없음 — 카드 개수 자체가 "많이 통한다"는 걸 보여주는 역할.
+- 컬러: 6장 전부 규칙 그룹 — 앞 모음 `{colors.accent-rule}`, 뒤 모음 `{colors.text-muted}`
+  + dormant opacity. 카드 테두리는 전부 공통 `{colors.ink}`(구조 요소는 항상 깔끔한 잉크색
+  유지, 그룹 구분은 카드 안 텍스트 색으로만).
+- 모션: 카드가 행 단위로 두 번에 나눠 등장(1행 3장 먼저, 2행 3장 나중) — `opacity 0→1,
+  y:16→0, duration 0.35, stagger 0.12, ease power2.out`. 마지막 문장에서 6장 전체가 살짝
+  확대되며(`scale 1→1.02→1, duration 0.6`) 정지, cluster 전체를 한눈에 조망시킴.
 
 **참고**: Frame 1(Stakes)에서 봤던 RAIN·MEAT를 여기서 다시 불러와 콜백 카타르시스를 줌.
 PAINT·TOAST·TEAM·PIE는 전부 한국어에 이미 정착된 외래어라 Frame 5의 COAT와 같은 "이미 알던
@@ -231,6 +391,25 @@ Scene 3 (26.0–38.0s): "이렇게 앞 모음 이름만 기억하면… 바로 �
 - roles: HEAD/BREAD/DEAD vowel-pair-card = foreground subject · 흐린 규칙 카드들 = background
   비율감
 - sfx: 카드 등장 시 낮은 경고 톤 soft chime(과장 없이 절제)
+
+**한눈에 보이는 장면**: Frame 6의 카드 6장이 뒤로 물러나 흐려지고, 그 앞으로 HEAD·BREAD·DEAD
+3장이 통통 튀어 오르듯 등장한다. 이번엔 카드 안 글자 색이 빨강 — "어, 이건 다르네"가 색만
+봐도 느껴짐. 살짝 놀란 느낌표 낙서가 옆에 곁들여질 수 있음.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 전경 중앙에 `sketch-cluster--exception` 3장(HEAD·BREAD·DEAD) 가로 배열, 배경 뒤쪽
+  (살짝 축소 + blur)에 Frame 6에서 쓴 규칙 카드 몇 장이 흐리게 남아 있는 2-depth 구성.
+- 배치: 3장 카드는 화면 중앙 가로 1열, Frame 5·6과 달리 O/A를 분리하지 않고 EA 두 글자를
+  하나의 붙은 하이라이트 블록으로 강조. 카드 한쪽 모서리에 작은 느낌표 낙서(선택 — 있으면
+  "어?" 느낌을 더 살려줌).
+- 컬러: EA 전체 `{colors.accent-exception}`(빨강)로 통일(분리 강조 없음 — "따로 안 갈리고
+  통째로 다른 소리"라는 구조 차이를 색 처리 방식 자체로 표현). 카드 테두리는 여전히
+  `{colors.ink}` 유지(구조는 안 바뀜, 안의 텍스트 색만 다름). 배경의 규칙 카드들은
+  `opacity 0.25 + blur(4px)`로 비율감만 남김.
+- 모션: 규칙 카드들이 먼저 뒤로 물러나며 흐려지고(`scale 1→0.92, opacity 1→0.25, blur 0→4px,
+  duration 0.5`), 그 뒤 HEAD·BREAD·DEAD 3장이 **bounce 진입**(`y:-30→0, ease "back.out(1.7)",
+  duration 0.45, stagger 0.1` — Frame 5·6의 매끄러운 등장과 의도적으로 다른 모션으로 "이건
+  다르다"를 체감시킴).
 
 **⚠️ 웹 검색 언어학적 검증 완료(2026-09-15)** — `SCRIPT.md` Line 7 상단 근거 참고. 이 규칙은
 모음쌍마다 신뢰도가 다르다(AI~90%·OA~95%·EE~99%·AY~95% 매우 높음, **EA는 약 70%만** 규칙을
@@ -269,6 +448,23 @@ Scene 3 (14.0–20.0s): "이런 단어는… 기억해두시면 됩니다" — �
 - roles: 질문 문구 = supporting · vowel-pair-card 축소판 정답 = foreground subject
 - sfx: 매 정답 공개 시 soft chime(3회, SWEAT만 톤 살짝 다르게)
 
+**한눈에 보이는 장면**: 화면 중앙에 철자만 큰 글씨로 떴다가(SEAT), 잠깐 멈춘 뒤 빨간 펜이 쓱
+동그라미를 그리며 카드로 바뀌면서 정답이 드러난다. 3번 반복, 마지막(SWEAT)만 카드 색이 빨강.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 화면 중앙 단일 카드 슬롯 — `quiz-reveal` 골격 그대로(질문 문구 → 정지 → `sketch-card`
+  축소판 정답으로 in-place 교체, 3회 반복).
+- 배치: 문제 단계엔 철자만 큼직하게(hero-word 축소판) 중앙 표시, 정답 단계엔 같은 자리에서
+  sketch-card로 크로스페이드(레이아웃 시프트 없이 같은 슬롯에서 교체), 동시에
+  `trim-path-annotation`이 정답 단어 전체를 빨간 펜으로 한 번 동그라미 친다.
+- 컬러: SEAT·GOAL 정답 카드는 규칙색(`{colors.accent-rule}`/`{colors.text-muted}`), SWEAT
+  정답 카드는 Frame 7과 동일한 `{colors.accent-exception}` 통일 강조. 트림패스 동그라미는
+  매번 `{colors.accent-exception}`(정답 표시 = 항상 이 색 하나로 통일).
+- 모션: 질문 카드 fade-in → "잠깐 생각해 보세요" 구간 무음 정지(0.6~0.8s) → 정답 카드로
+  crossfade(`duration 0.3`) + 트림패스 원이 `stroke-dashoffset` 애니메이션으로 손그림처럼
+  그려짐(`duration 0.4`). SWEAT 차례만 전환 전 살짝 무게감 있는 딜레이(0.2s 추가)를 둬서
+  "이번엔 다를 수 있다"는 긴장을 시각적으로도 표현.
+
 **⚠️ 정답 누설 방지 원칙 적용(EP15 Frame 8 교훈, `VIDEO_WORKFLOW.md` 3단계 규칙)** — "이 단어를
 소리 내어 말하면 그 자체로 정답이 드러나는가?"를 판별해, 문제 단계에서는 "첫/두/세 번째 단어"로만
 화면 철자를 가리키고 영어 단어 자체를 소리 내지 않는다. 정답 공개 시에만 한글 발음을 준다.
@@ -306,6 +502,70 @@ Scene 5 (18.0–22.0s): "정답은, '스웻'입니다. EA인데, 아까 배운 �
 - roles: sentence-card 4개 = foreground subject · 목표 단어 인라인 색칠 = focal thread
 - sfx: 없음(실제 영어 음성 자체가 콘텐츠라 효과음으로 방해하지 않음)
 
+**한눈에 보이는 장면**: 문장 카드 4개가 왼쪽에 세로로 쌓인다. 각 카드 옆에 그 문장 내용을
+바로 떠올리게 하는 작은 손그림 아이콘(외투·비구름·사람들·머리)이 붙어 있다. coat·rain·team
+글자는 노랗게, head만 빨갛게.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 화면 좌측 정렬 세로 스택(`sentence-card` 4개), 카드 폭은 화면의 약 62cqw, 각 카드
+  오른쪽 옆(바깥)에 `illustration-slot` 미니 아이콘(약 6cqw 정사각형)을 하나씩 배치.
+- 배치: 각 `sentence-card`는 2줄 구조 — 1줄 영어 문장(`{typography.body}`), 2줄 한글 발음
+  (`{typography.pron-sub}`, 문장 재생 종료 후에만 표시). 목표 단어(coat/rain/team/head)만
+  문장 안에서 인라인 색 처리. 옆 아이콘은 손그림 외투(coat)·비구름(rain)·사람 여럿(team)·
+  머리 옆모습(head) — 4개 다 서로 다른 그림이라 자동으로 재사용이 안 되는 자리.
+- 컬러: coat·rain·team = `{colors.accent-rule}`, head = `{colors.accent-exception}` — 카드
+  배경·테두리는 4장 전부 중립(`{colors.card-bg}`/`{colors.ink}`), 색 차이는 목표 단어와 옆
+  아이콘 한 부분(head 아이콘만 빨간 테두리)에만.
+- 모션: 4개 카드가 세로로 하나씩 순차 등장(`opacity 0→1, y:14→0, duration 0.35`)과 동시에
+  옆 아이콘이 `x:8→0, opacity 0→1`로 따라 들어옴. 각 카드의 영어 문장 재생이 끝나는 시점에
+  한글 발음 라인이 뒤이어 페이드인. 카드 간 전환은 이전 카드를 흐리게(`opacity 1→0.4`)
+  남겨두고 다음 카드를 강조해 "지금 몇 번째인지" 시각적으로 유지.
+
+**필요 일러스트 프롬프트**:
+
+- **저장 위치**: `videos/ep16-double-vowels/assets/illustrations/sentence-icons.png`(4개를
+  한 세트로 생성한 뒤 각각 잘라서 개별 파일로 저장 — `coat.png`/`rain.png`/`team.png`/
+  `head.png`) — 배경은 **투명이 아니라 화면 배경색 `{colors.bg}`(#F4EFE6)과 동일한 단색**으로
+  꽉 채워서 제작(⚠️ 2026-09-16 수정, 이유는 tongue-mouth-diagram.png와 동일 — 아래 시도 기록
+  참고). 이 스프라이트는 Frame 9에서 카드 옆, 즉 흰 카드 위가 아니라 화면의 크림 배경 위에
+  바로 놓이므로 배경색이 카드색(흰색)이 아니라 반드시 화면 배경색과 같아야 함.
+- **🇰🇷 한글 요약**: 외투, 비구름, 사람 여럿(팀), 머리 옆모습 — 4개를 2x2 격자로 한 번에
+  생성해서 서로 선 스타일이 통일되게 만드는 프롬프트. Frame 4의 입/혀 그림과 같은 손그림
+  잉크 라인 스타일을 유지해야 함. 색은 안 칠하고 순수 검은 선으로만, **배경은 투명이 아니라
+  화면 배경색과 똑같은 크림색(#F4EFE6) 단색으로 캔버스 전체를 채울 것**(흰색·회색·그라디언트
+  없이).
+- **영문 프롬프트**:
+  ```
+  A set of four simple hand-drawn sketchnote-style icons arranged in a clean 2x2 grid
+  with even spacing, each centered in its own quadrant: (top-left) a simple winter coat
+  hanging on a hook, (top-right) a small rain cloud with a few raindrops falling below
+  it, (bottom-left) three simple stick-figure-style people standing together
+  representing a team, (bottom-right) a side-profile silhouette of a human head and
+  shoulders. All four icons share the exact same visual style: bold, slightly uneven
+  black ink outlines like a real pen stroke, no color fill, no shading. The background
+  must be a solid, flat, opaque cream color — exact hex #F4EFE6 — filling the entire
+  canvas edge to edge behind all four icons, with no gradient, no vignette, no drop
+  shadow, and no transparency (do not use an alpha channel; render the background as a
+  real painted color, not "no background"). Minimal and friendly, no text, no labels.
+  Each icon simple enough to read clearly at a small sticker-like scale.
+  ```
+- **시도 기록**:
+  - ✅ 2026-09-16 (1차) 사용자가 직접 제작해 `assets/illustrations/sentence-icons.png`에
+    추가 완료 — 2x2 격자로 외투·비구름·사람들·머리 4개 전부 확인, 선 스타일 통일감 좋음. 4개로
+    잘라 개별 파일을 만들 필요 없이, 한 장짜리 스프라이트를 CSS `background-position`으로 각
+    분면만 잘라 보여주는 방식으로 컴포지션에서 사용한다(사용자가 직접 자를 필요 없음).
+  - ⚠️ 2026-09-16 (재작업 필요) tongue-mouth-diagram.png와 같은 문제 — 배경이 실제로는
+    불투명(alpha=255)한 흰색/회백색이었음. 위 프롬프트를 "배경 투명" → "화면 배경색과
+    동일한 크림색(#F4EFE6) 단색"으로 수정했으니, 이 프롬프트로 재생성해서 같은 파일
+    경로에 덮어씌울 것.
+  - ✅ 2026-09-16 (2차, 최종) 사용자가 배경을 크림색으로 직접 채운 최종본으로 교체 완료.
+    **⚠️ 빌드 시 참고**: 이 과정에서 파일이 2816×1536(직사각형) → 2048×2048(정사각형)로
+    바뀌면서 **2x2 격자 안 아이콘 순서도 바뀌었다** — 새 배치는 좌상단=team(사람들),
+    우상단=rain(비구름), 좌하단=head(머리), 우하단=coat(외투)(원래는 좌상단=coat였음).
+    `09-listening.html`의 `.f09-icon` 4개 `background-position` 값을 이 새 순서에 맞게
+    다시 매핑함(coat/team은 100%/0% 값이 서로 바뀌고, head/team도 마찬가지) — 스프라이트를
+    다시 교체할 때마다 실제 격자 배치를 눈으로 확인하고 이 값들을 다시 맞출 것.
+
 **⚠️ EP11~15와 동일한 이유로 이 프레임만 단일 TTS 호출이 아니다.** 영어 문장 4개는 진짜 영어
 텍스트를 같은 보이스 엔진에 보내 원어민 발음으로 따로 생성한 뒤 `ffmpeg concat`으로 이어붙인다.
 한국어 조각(오프닝+서수+마무리 확인 문장)은 이 씬의 남성 보이스 그대로, 영어 문장 4개만 순수
@@ -342,6 +602,23 @@ Scene 3 (22.0–28.0s): "어떠세요? 이제 낯선 단어가 나와도… 읽�
 - roles: 프롬프트 문장 = supporting · vowel-pair-card 조립 = foreground subject
 - sfx: 각 조립 완료 시 soft pulse tick(HEAD만 톤 살짝 다르게)
 
+**한눈에 보이는 장면**: Frame 4·5에서 봤던 입/혀 손그림이 다시 등장해서, BOAT·MEAT·HEAD를
+차례로 소리 내는 걸 보여준다. 같은 그림을 다시 쓰는 건 "재사용 전략"이 아니라 이 장면도
+똑같이 "혀가 어떻게 움직이는가"를 다루니까 자연히 같은 그림이 맞는 것뿐.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 화면 중앙 `illustration-slot`(Frame 4·5의 입/혀 손그림 재등장) + 그 옆 `sketch-card`
+  슬롯 하나, 상단에 프롬프트 캡션("천천히"/"다시 한 번, 좀 더 빠르게" 등)이 작게 표시.
+- 배치: 한 단어씩 화면 중앙에서 음절 단위로 분해 표시(예: "보, 트" 두 음절이 갈라져 보였다가
+  합쳐짐), 조립 완료 시 전체 단어가 하나로 붙어 확대. 손그림 속 혀가 음절에 맞춰 살짝 움직임
+  (앞소리=혀가 앞으로, 침묵=혀가 편히 누움).
+- 컬러: BOAT·MEAT = 규칙색(`{colors.accent-rule}`), HEAD = `{colors.accent-exception}`
+  (마지막 단어에서 색이 바뀌는 것 자체가 "여기서는 다르게" 신호).
+- 모션: `lazy-tongue-reveal` 음절 조립 모션을 단어당 2회 반복 — 1회차는 느리게(`duration
+  0.8, ease power1.inOut`, 음절 사이 0.3s 간격), 2회차는 빠르게(`duration 0.35`, 음절
+  동시 조립). 세 단어 사이는 crossfade(`duration 0.3`)로 전환, 카드·그림 위치는 고정해 시선
+  이동을 최소화.
+
 narrativeRole: 이미 배운 세 단어(BOAT·MEAT·HEAD — 전부 정답을 확인한 단어들)를 입으로 직접
 내뱉게 해서 채널의 "반복 낭독" 시그니처를 실현하고, 규칙/예외 두 유형을 몸으로 복습시킨다. 새
 단어 테스트는 Frame 8(퀴즈)과 Frame 11(페이오프)이 전담하므로, 이 프레임은 의도적으로 전부
@@ -374,6 +651,23 @@ Scene 3 (26.0–40.0s): "마지막으로 예외였던 단어도… 헤드, 헤�
 - roles: GRAIN vowel-pair-card = foreground subject(홀드) · FOAM/REACH vowel-pair-card =
   foreground subject(가속, 교대) · Frame 1 회수 = callback
 - sfx: GRAIN 해소 시 soft chime(홀드감 있게), FOAM·REACH는 더 빠른 double-tick
+
+**한눈에 보이는 장면**: Frame 1과 똑같은 자리에, 이번엔 GRAIN이라는 새 단어가 흐릿하게 나왔다가
+또렷해진다(Frame 1의 "머뭇거림"과 정확히 대칭). 이어서 FOAM·REACH가 점점 빠르게 같은 자리에서
+휙휙 바뀐다 — 배경은 시종일관 크림색 그대로, 카드도 없이 순수하게 글자만으로 승부.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 화면 중앙 단일 슬롯, Frame 1과 동일한 자리(대칭 회수를 위해 위치를 의도적으로
+  맞춘다) — GRAIN이 먼저 자세히, 이후 FOAM·REACH가 같은 자리에서 교체. 카드 틀 없이 Frame 1과
+  똑같이 배경 위에 텍스트만(대칭을 시각적으로도 강하게 느끼게).
+- 배치: GRAIN은 hero-word 크기로 화면 중앙, 해소 후 pron-caption("그레인")이 아래 조립.
+  FOAM·REACH는 같은 레이아웃을 재사용하되 애니메이션 속도만 가속.
+- 컬러: 3단어 전부 규칙 그룹(`{colors.accent-rule}`/`{colors.text-muted}`) — 이 프레임은
+  "규칙이 통한다"는 걸 증명하는 자리라 예외색을 쓰지 않는다.
+- 모션: GRAIN이 Frame 1의 `hesitation-cursor`처럼 흐릿하게(`blur(6px), opacity 0.5`)
+  등장했다가, 앞 모음 A가 형광펜으로 칠해지듯 강조되며 `blur 6px→0, opacity 0.5→1, duration
+  0.6, ease power2.out`으로 해소(홀드 포인트, 0.5s 유지). FOAM은 같은 모션을 `duration
+  0.35`로, REACH는 `duration 0.25`로 더 가속 — 몽타주 리듬을 만든다.
 
 **⚠️ 정답 누설 방지 원칙 재적용(EP15 Frame 11 교훈)** — 새 단어 3개(GRAIN·FOAM·REACH)를 영어로
 먼저 소리 내지 않고 "이 단어"로만 지칭, 정답 공개 문장에서만 한글 발음을 준다.
@@ -418,6 +712,26 @@ Scene 5 (26.0–30.0s): "어떠세요, 낯선 단어들인데도… 끝나는 �
 - focal: "저와 같이 하나씩 차근차근 익혀 나가시면" — 따뜻하게 닫히는 문장
 - roles: 요약 카드 스택 = supporting · 마무리 문장 = foreground subject, 완전히 정착
 - sfx: 없음(차분하게 완결)
+
+**한눈에 보이는 장면**: 책상 위에 오늘 쓴 카드 14장이 좌르륵 늘어놓인다(규칙 10장 왼쪽,
+예외 4장 오른쪽 — 테두리 색으로 바로 구분됨). 그 위로 오늘의 핵심 문구가 손글씨로 한 번
+더 강조되고, 마지막엔 Frame 4·5의 입/혀 그림이 살짝 다시 스치듯 지나간 뒤 전부 사라지고
+워드마크만 남는다.
+
+**레이아웃·배치·컬러·모션**:
+- Zone: 화면 전체를 카드 그리드로 채우는 요약 스택(14장, 규칙 그룹 10장 좌측/상단·예외 그룹
+  4장 우측/하단으로 공간 분리) → 중앙 문구(손글씨 강조) → 좌상단 워드마크만 남는 3단계 전환.
+- 배치: 카드는 축소판(각 카드 폭 화면의 약 10cqw)으로 그리드 배열, 쌓이는 순서는 대본 등장
+  순서(BOAT→...→REACH)를 그대로 따른다. 문구("앞 모음만, 소리 냅니다")는 카드 스택 위에
+  겹쳐 화면 중앙에 `hand-emphasis`(손글씨)로 표시 — 이 편 마지막을 장식하는 유일한 대형
+  손글씨 텍스트.
+- 컬러: 규칙 그룹 10장은 `{colors.accent-rule}` 계열 테두리, 예외 그룹 4장은
+  `{colors.accent-exception}` 계열 테두리로 두 그룹이 색으로 한눈에 구분되게. 배경은 시종일관
+  `{colors.bg}` 유지.
+- 모션: 14장이 그룹별로 순차 등장(`opacity 0→1, scale 0.8→1, stagger 0.08`), progress-rail이
+  동시에 100%까지 채워짐. 이후 중앙 손글씨 문구 페이드인(`duration 0.5`) → 마지막 5초는
+  카드·문구 전부 페이드아웃(`opacity 1→0, duration 1.2`)하고 워드마크만 좌상단(`left:6cqw;
+  top:8cqh`)에 축소 배치.
 
 **⚠️ 엔드스크린 구간**(`production-rules.md` "렌더 마지막 5초는 유튜브 엔드스크린을 위해 화면
 중앙을 통째로 비워둔다" 규칙, EP14부터 표준·3초→5초 확장): 마지막 5초는 카드 스택 애니메이션

@@ -1,0 +1,81 @@
+<template>
+<style>
+  /* 03-question — Frame 3 "질문 던지기 (Big Question)". BOAT confused, question-flicker
+     doodles above O and A alternate. Still fully neutral color — no answer hinted. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f03-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f03-progress-fill { position: absolute; left: 0; top: 0; width: 16.667%; height: 3px; background: #E8A93E; }
+
+  .f03-word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%) scale(0.9); text-align: center; opacity: 0; font-family: 'Archivo Black', sans-serif; font-size: 9.5cqw; line-height: 1; }
+  .f03-letter { position: relative; display: inline-block; }
+  .f03-q { position: absolute; left: 50%; top: -0.55em; transform: translateX(-50%) scale(0.9); font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 0.42em; color: #5C564A; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-mod0" id="root" data-composition-id="03-question" data-start="0" data-duration="17.12" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-0ti3" id="f03-bg-clip" class="clip" data-start="0" data-duration="17.12" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-gwiz" id="f03-voice" src="assets/voice/03.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-fbly" id="f03-progress-track" class="f03-progress-track"></div>
+  <div data-hf-id="hf-3p84" id="f03-progress-fill" class="f03-progress-fill"></div>
+
+  <div data-hf-id="hf-z1cu" id="f03-content-clip" class="clip" data-start="0" data-duration="17.12" data-track-index="1">
+    <div data-hf-id="hf-ejf8" id="f03-word" class="f03-word">
+      B<span data-hf-id="hf-omqc" id="f03-letter-o" class="f03-letter">O<span data-hf-id="hf-hv6e" id="f03-q-o" class="f03-q">?</span></span><span data-hf-id="hf-lhqs" id="f03-letter-a" class="f03-letter">A<span data-hf-id="hf-h13o" id="f03-q-a" class="f03-q">?</span></span>T
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["03-question"] = tl;
+
+  var word = document.getElementById("f03-word");
+  var qO = document.getElementById("f03-q-o");
+  var qA = document.getElementById("f03-q-a");
+
+  // "BOAT, 이 단어를 보면..." — word settles in first.
+  tl.to(word, { opacity: 1, scale: 1, duration: 0.45, ease: "power2.out" }, 0.3);
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/03.words.json) — the
+  // old 3.4s start fired the flicker while the narrator was still on "모음이 O랑 A... 붙어
+  // 있습니다" (finishes 6.62s), well before the actual question ("이 둘 중에...") is asked.
+  // "이 둘 중에 어떤 걸 소리를 내야 할까요?" (7.54-10.50s) through "O만... A만..." (11.26-14.13s)
+  // — alternating flicker fills this whole open-question span, four rounds, authored
+  // explicitly (no repeat/yoyo per project negative list).
+  var start = 7.5;
+  var beat = 0.91;
+  for (var i = 0; i < 4; i++) {
+    var t0 = start + i * beat * 2;
+    tl.to(qO, { opacity: 1, duration: beat * 0.35 }, t0);
+    tl.to(qO, { opacity: 0, duration: beat * 0.35 }, t0 + beat * 0.55);
+    tl.to(qA, { opacity: 1, duration: beat * 0.35 }, t0 + beat);
+    tl.to(qA, { opacity: 0, duration: beat * 0.35 }, t0 + beat * 1.55);
+  }
+
+  // "그것도 아니면 둘 다 내야 할까요?" (둘 다 spoken at 14.82s) — both letters pulse together,
+  // holding through the end of the question (16.98s).
+  tl.to([qO, qA], { opacity: 1, duration: 0.3 }, 14.8);
+  tl.to([qO, qA], { opacity: 0, duration: 0.4 }, 16.9);
+})();
+</script>
+</template>

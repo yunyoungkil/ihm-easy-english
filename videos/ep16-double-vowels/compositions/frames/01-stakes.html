@@ -1,0 +1,113 @@
+<template>
+<style>
+  /* 01-stakes — Frame 1 "도입 (Stakes)" (STORYBOARD.md Frame 1: hesitation-cursor).
+     Built from real per-word timestamps in assets/voice/01.words.json (2026-09-16) — no
+     estimates, no RATIO scaling.
+
+     Three double-vowel words appear in quick succession (matching their real spoken onsets),
+     each split into stem + vowel-pair span. Once the VO reaches "이걸 다 읽어야 하는 건지,
+     하나만 읽어야 하는 건지" (~12.05-16.34s), a small cursor blinks under each vowel pair —
+     visualizing "do I read both or just one?" hesitation, entirely in neutral ink color (no
+     answer color yet — Frame 4 resolves it). Frame 11 resolves the same hesitation-cursor
+     motif into a confident, sharp reveal as part of its payoff (symmetric callback). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f01-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f01-progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 3px; background: #E8A93E; }
+
+  .f01-stack { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 3.4cqh; }
+  .f01-word { display: flex; align-items: baseline; opacity: 0; transform: translateY(14px); position: relative; }
+  .f01-stem { font-family: 'Archivo Black', sans-serif; font-size: 6.4cqw; line-height: 1; color: #2B2B2B; }
+  .f01-vp { font-family: 'Archivo Black', sans-serif; font-size: 6.4cqw; line-height: 1; color: #2B2B2B; position: relative; }
+  .f01-punct { font-family: 'Archivo Black', sans-serif; font-size: 6.4cqw; line-height: 1; color: #5C564A; margin-left: 0.05em; }
+
+  .f01-cursor {
+    position: absolute; left: 50%; bottom: -0.18em; width: 62%; height: 5px;
+    background: #8C8577; border-radius: 3px; transform: translateX(-50%);
+    opacity: 0;
+  }
+</style>
+
+<div data-hf-id="hf-uhuv" id="root" data-composition-id="01-stakes" data-start="0" data-duration="25.84" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-my99" id="f01-bg-clip" class="clip" data-start="0" data-duration="25.84" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-du7b" id="f01-voice" src="assets/voice/01.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-9aqa" id="f01-progress-track" class="f01-progress-track"></div>
+  <div data-hf-id="hf-pilk" id="f01-progress-fill" class="f01-progress-fill"></div>
+
+  <div data-hf-id="hf-6cfs" id="f01-content-clip" class="clip" data-start="0" data-duration="25.84" data-track-index="1">
+    <div data-hf-id="hf-fwbe" id="f01-stack" class="f01-stack">
+      <div data-hf-id="hf-r8le" id="f01-w1" class="f01-word">
+        <span data-hf-id="hf-9qgo" class="f01-stem">B</span><span data-hf-id="hf-id20" id="f01-w1-vp" class="f01-vp">OA<span data-hf-id="hf-lwms" id="f01-w1-cursor" class="f01-cursor"></span></span><span data-hf-id="hf-0zq2" class="f01-stem">T</span><span data-hf-id="hf-7hd5" class="f01-punct">,</span>
+      </div>
+      <div data-hf-id="hf-l2vl" id="f01-w2" class="f01-word">
+        <span data-hf-id="hf-3dk8" class="f01-stem">R</span><span data-hf-id="hf-zji7" id="f01-w2-vp" class="f01-vp">AI<span data-hf-id="hf-u93x" id="f01-w2-cursor" class="f01-cursor"></span></span><span data-hf-id="hf-bbos" class="f01-stem">N</span><span data-hf-id="hf-nel9" class="f01-punct">,</span>
+      </div>
+      <div data-hf-id="hf-kb7s" id="f01-w3" class="f01-word">
+        <span data-hf-id="hf-a4rp" class="f01-stem">M</span><span data-hf-id="hf-nqr4" id="f01-w3-vp" class="f01-vp">EA<span data-hf-id="hf-75z2" id="f01-w3-cursor" class="f01-cursor"></span></span><span data-hf-id="hf-k2ri" class="f01-stem">T</span><span data-hf-id="hf-3uvv" class="f01-punct">…</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["01-stakes"] = tl;
+
+  var fill = document.getElementById("f01-progress-fill");
+  var w1 = document.getElementById("f01-w1");
+  var w2 = document.getElementById("f01-w2");
+  var w3 = document.getElementById("f01-w3");
+  var cursors = [
+    document.getElementById("f01-w1-cursor"),
+    document.getElementById("f01-w2-cursor"),
+    document.getElementById("f01-w3-cursor")
+  ];
+
+  // Three words appear in quick succession, each timed to its own real spoken onset
+  // (assets/voice/01.words.json: BOAT=0.26, RAIN=1.216, MEAT=2.016).
+  tl.fromTo(w1, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.26);
+  tl.fromTo(w2, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.216);
+  tl.fromTo(w3, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.016);
+
+  // "이걸 다 읽어야 하는 건지, 하나만 읽어야 하는 건지" (12.054-16.337s, real whisper timing):
+  // hesitation-cursor blinks under each vowel pair, exactly 4 times, no repeat/yoyo (project
+  // negative list) — four explicit beats authored by hand.
+  var blinkStart = 12.054;
+  var beat = 1.07; // (16.337 - 12.054) / 4, four even beats across the hesitation window
+  for (var i = 0; i < 4; i++) {
+    var t0 = blinkStart + i * beat;
+    tl.to(cursors, { opacity: 0.85, duration: beat * 0.45, ease: "power1.inOut" }, t0);
+    tl.to(cursors, { opacity: 0, duration: beat * 0.45, ease: "power1.inOut" }, t0 + beat * 0.5);
+  }
+
+  // "오늘 그 기준 하나만 알면..." (19.5s+): cursors settle fully off, holding the neutral
+  // "still undecided" state through to the end of this frame (no answer color revealed).
+  tl.to(cursors, { opacity: 0, duration: 0.3 }, 19.4);
+
+  tl.fromTo(fill, { width: "0%" }, { width: "8.333%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("01-stakes");
+})();
+</script>
+</template>

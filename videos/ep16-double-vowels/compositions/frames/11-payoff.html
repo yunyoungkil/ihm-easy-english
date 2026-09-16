@@ -1,0 +1,89 @@
+<template>
+<style>
+  /* 11-payoff — Frame 11 "실전 재확인 (페이오프)". Same center slot and blur-to-sharp motif
+     as Frame 1 (symmetric callback), no card frame — background text only. GRAIN gets a full
+     held resolve, FOAM/REACH repeat the motion faster (montage). All three regular-group
+     color, since this frame proves the rule (no exception shown here). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f11-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f11-progress-fill { position: absolute; left: 0; top: 0; width: 83.333%; height: 3px; background: #E8A93E; }
+
+  .f11-prompt { position: absolute; left: 0; right: 0; top: 20cqh; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2cqw; color: #5C564A; opacity: 0; }
+  .f11-word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-family: 'Archivo Black', sans-serif; font-size: 8.5cqw; line-height: 1; opacity: 0; filter: blur(6px); color: #2B2B2B; }
+  .f11-pron { position: absolute; left: 0; right: 0; top: 68cqh; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 2.4cqw; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-tveu" id="root" data-composition-id="11-payoff" data-start="0" data-duration="40.12" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-nc4i" id="f11-bg-clip" class="clip" data-start="0" data-duration="40.12" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-b17v" id="f11-voice" src="assets/voice/11.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-uoma" id="f11-progress-track" class="f11-progress-track"></div>
+  <div data-hf-id="hf-c0zm" id="f11-progress-fill" class="f11-progress-fill"></div>
+
+  <div data-hf-id="hf-kq2l" id="f11-content-clip" class="clip" data-start="0" data-duration="40.12" data-track-index="1">
+    <div data-hf-id="hf-qeny" id="f11-prompt" class="f11-prompt">오늘 처음 보는 단어</div>
+    <div data-hf-id="hf-jd5l" id="f11-word" class="f11-word">GRAIN</div>
+    <div data-hf-id="hf-ba2u" id="f11-pron" class="f11-pron"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["11-payoff"] = tl;
+
+  var prompt = document.getElementById("f11-prompt");
+  var word = document.getElementById("f11-word");
+  var pron = document.getElementById("f11-pron");
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/11.words.json) — the old
+  // blurStart values (0.5/16.0/22.0s) fired the spelling reveal far ahead of "이 단어,"(7.06s)
+  // /"이것도"(17.50s)/"하나만 더요."(21.36s), and pron reveal used a short fixed offset from
+  // blurStart instead of the word's real pronunciation timestamp (e.g. GRAIN's "'그레인'입니다"
+  // is spoken at 14.14s, ~7s after the word itself becomes readable — not blurStart+0.7s).
+  var WORDS = [
+    { spelling: "GRAIN", pron: "그레인", blurStart: 6.9, blurDur: 0.6, pronAt: 14.0 },
+    { spelling: "FOAM", pron: "포움", blurStart: 17.4, blurDur: 0.35, pronAt: 19.8 },
+    { spelling: "REACH", pron: "리치", blurStart: 21.2, blurDur: 0.25, pronAt: 24.4 }
+  ];
+
+  tl.to(prompt, { opacity: 1, duration: 0.4 }, 0.3);
+
+  WORDS.forEach(function (w) {
+    tl.call(function () {
+      word.textContent = w.spelling;
+      pron.textContent = "";
+      word.style.filter = "blur(6px)";
+      word.style.opacity = 0.5;
+      pron.style.opacity = 0;
+    }, null, w.blurStart);
+    tl.to(word, { filter: "blur(0px)", opacity: 1, duration: w.blurDur, ease: "power2.out" }, w.blurStart + 0.1);
+    tl.call(function () { pron.textContent = w.pron; }, null, w.pronAt);
+    tl.to(pron, { opacity: 1, duration: 0.3 }, w.pronAt);
+  });
+
+  // "어떠세요, 낯선 단어들인데도..." (25.67s) — final line lands sharp and settled, mirroring
+  // Frame 1's hesitation-cursor resolved.
+  tl.to(prompt, { opacity: 0, duration: 0.3 }, 25.6);
+})();
+</script>
+</template>

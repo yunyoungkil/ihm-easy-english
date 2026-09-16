@@ -1,0 +1,101 @@
+<template>
+<style>
+  /* 05-mechanism — Frame 5 "원리 설명 (메커니즘)". Left: same tongue/mouth illustration
+     continues (scene feels contiguous with Frame 4). Right: sketch-card with COAT, O
+     highlighted, A dimmed+Zzz, pron-caption assembling letter-by-letter (hold point). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f05-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f05-progress-fill { position: absolute; left: 0; top: 0; width: 33.333%; height: 3px; background: #E8A93E; }
+
+  .f05-illust { position: absolute; left: 6cqw; top: 50%; transform: translateY(-50%); width: 30cqw; opacity: 1; }
+  .f05-illust img { width: 100%; display: block; }
+
+  .f05-card { position: absolute; left: 44cqw; top: 50%; transform: translateY(-50%); width: 32cqw; background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 4px 0 #2B2B2B; padding: 4cqw; opacity: 0; }
+  .f05-word { font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1; text-align: center; position: relative; }
+  .f05-o { color: #2B2B2B; }
+  .f05-a { color: #5C564A; position: relative; }
+  .f05-zzz { position: absolute; right: -0.5em; top: -0.6em; font-family: 'Gaegu', cursive; font-size: 0.3em; color: #5C564A; opacity: 0; }
+  .f05-tag { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 0.9cqw; color: #5C564A; text-align: center; margin-top: 3cqh; opacity: 0; }
+  .f05-caption { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.8cqw; color: #2B2B2B; text-align: center; margin-top: 1.6cqh; min-height: 1.4em; }
+</style>
+
+<div data-hf-id="hf-ui1a" id="root" data-composition-id="05-mechanism" data-start="0" data-duration="37.64" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-s45a" id="f05-bg-clip" class="clip" data-start="0" data-duration="37.64" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-uzan" id="f05-voice" src="assets/voice/05.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-jq62" id="f05-progress-track" class="f05-progress-track"></div>
+  <div data-hf-id="hf-jnd4" id="f05-progress-fill" class="f05-progress-fill"></div>
+
+  <div data-hf-id="hf-ecbt" id="f05-content-clip" class="clip" data-start="0" data-duration="37.64" data-track-index="1">
+    <div data-hf-id="hf-y4tu" id="f05-illust" class="f05-illust"><img data-hf-id="hf-f9gh" src="assets/illustrations/tongue-mouth-diagram.png" alt=""></div>
+    <div data-hf-id="hf-1yz6" id="f05-card" class="f05-card">
+      <div data-hf-id="hf-dy0p" id="f05-word" class="f05-word">C<span data-hf-id="hf-xfxu" id="f05-o" class="f05-o">O</span><span data-hf-id="hf-1a8s" id="f05-a" class="f05-a">A<span data-hf-id="hf-95z7" id="f05-zzz" class="f05-zzz">Zzz</span></span>T</div>
+      <div data-hf-id="hf-3zwm" id="f05-tag" class="f05-tag">소리 냄</div>
+      <div data-hf-id="hf-vqia" id="f05-caption" class="f05-caption"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["05-mechanism"] = tl;
+
+  var card = document.getElementById("f05-card");
+  var o = document.getElementById("f05-o");
+  var a = document.getElementById("f05-a");
+  var zzz = document.getElementById("f05-zzz");
+  var tag = document.getElementById("f05-tag");
+  var caption = document.getElementById("f05-caption");
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/05.words.json) — the
+  // abstract explanation actually runs the full 0-19.8s ("원리는 간단해요..." through "...거예요"),
+  // not just 0-10s as originally guessed, so the card was appearing ~10s before "COAT도" is
+  // even said. Reference-video technique applied (knowledge/visual-reference-analysis.md,
+  // 2026-09-16 entry, "단계별 컷어웨이"): match each beat to the exact word it illustrates.
+  // Principle stated in the abstract first (0-19.8s): card stays hidden.
+  // "COAT도 마찬가지예요..." (19.93s) — card slides on, hold point.
+  tl.fromTo(card, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 19.8);
+  // "O는... '오'라고" (O는 spoken at 24.81s) — O lights up.
+  tl.to(o, { color: "#8A5A12", scale: 1.12, duration: 0.4 }, 24.8);
+  tl.to(tag, { opacity: 1, duration: 0.3 }, 25.1);
+  // "A는... 조용히 쉬어요" (A는 spoken at 28.71s) — A dims + Zzz, a beat after O.
+  tl.to(a, { opacity: 0.35, duration: 0.4 }, 28.7);
+  tl.to(zzz, { opacity: 1, duration: 0.4 }, 29.0);
+
+  // pron-caption assembles letter by letter ("코트") right as "'코트'라고" is said (31.81s).
+  var word = "코트";
+  var letterStart = 31.8;
+  for (var i = 0; i < word.length; i++) {
+    (function (idx) {
+      tl.call(function () {
+        caption.textContent = word.slice(0, idx + 1);
+      }, null, letterStart + idx * 0.18);
+    })(i);
+  }
+})();
+</script>
+</template>

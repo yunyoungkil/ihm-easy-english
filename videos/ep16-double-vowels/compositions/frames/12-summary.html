@@ -1,0 +1,97 @@
+<template>
+<style>
+  /* 12-summary — Frame 12 "요약 + 마무리". 14 mini cards stack (13 regular + 1 exception),
+     then a hand-lettered closing line, then the last 5s clears the whole screen for the
+     YouTube endscreen (wordmark shrinks to top-left corner only). */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Black Han Sans'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/blackhansans/v24/ea8Aad44WunzF9a-dL6toA8r8nqV.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f12-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f12-progress-fill { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: #E8A93E; }
+
+  .f12-grid { position: absolute; left: 6cqw; right: 6cqw; top: 10cqh; height: 40cqh; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1cqw; }
+  .f12-card { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 1.6cqw; opacity: 0; transform: scale(0.8); }
+  .f12-card.exception { border-color: #D64545; }
+
+  .f12-line { position: absolute; left: 0; right: 0; top: 58cqh; text-align: center; font-family: 'Gaegu', cursive; font-size: 4.2cqw; color: #2B2B2B; opacity: 0; }
+
+  .f12-wordmark { position: absolute; left: 6cqw; top: 8cqh; font-family: 'Black Han Sans', sans-serif; font-size: 1.6cqw; display: flex; opacity: 1; }
+  .f12-wm-plain { color: #2B2B2B; }
+  .f12-wm-accent { color: #8A5A12; }
+
+  .f12-everything { transition: none; }
+</style>
+
+<div data-hf-id="hf-hj17" id="root" data-composition-id="12-summary" data-start="0" data-duration="37.48" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-5j6g" id="f12-bg-clip" class="clip" data-start="0" data-duration="37.48" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-5i4b" id="f12-voice" src="assets/voice/12.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-0gky" id="f12-progress-track" class="f12-progress-track"></div>
+  <div data-hf-id="hf-b658" id="f12-progress-fill" class="f12-progress-fill"></div>
+
+  <div data-hf-id="hf-gc0l" id="f12-everything" class="clip f12-everything" data-start="0" data-duration="37.48" data-track-index="1">
+    <div data-hf-id="hf-1e72" id="f12-grid" class="f12-grid">
+      <div data-hf-id="hf-b8tg" class="f12-card">BOAT</div><div data-hf-id="hf-jgfw" class="f12-card">RAIN</div><div data-hf-id="hf-zq1l" class="f12-card">MEAT</div><div data-hf-id="hf-kjr9" class="f12-card">COAT</div><div data-hf-id="hf-vxmi" class="f12-card">PAINT</div><div data-hf-id="hf-m5dl" class="f12-card">TOAST</div><div data-hf-id="hf-11y7" class="f12-card">TEAM</div>
+      <div data-hf-id="hf-mjqk" class="f12-card">PIE</div><div data-hf-id="hf-ibt7" class="f12-card">SEAT</div><div data-hf-id="hf-605l" class="f12-card">GOAL</div><div data-hf-id="hf-mtop" class="f12-card">GRAIN</div><div data-hf-id="hf-wmaz" class="f12-card">FOAM</div><div data-hf-id="hf-kkxp" class="f12-card">REACH</div><div data-hf-id="hf-qh6j" class="f12-card exception">HEAD</div>
+    </div>
+    <div data-hf-id="hf-xb0z" id="f12-line" class="f12-line">앞 모음만, 소리 냅니다</div>
+    <div data-hf-id="hf-g6o2" id="f12-wordmark" class="f12-wordmark"><span data-hf-id="hf-7yvy" class="f12-wm-plain">이해하면&#160;</span><span data-hf-id="hf-7e5l" class="f12-wm-accent">쉬운영어</span></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["12-summary"] = tl;
+
+  var allCards = Array.prototype.slice.call(document.querySelectorAll(".f12-card"));
+  var regularCards = allCards.filter(function (c) { return !c.classList.contains("exception"); });
+  var exceptionCards = allCards.filter(function (c) { return c.classList.contains("exception"); });
+  var line = document.getElementById("f12-line");
+  var wordmark = document.getElementById("f12-wordmark");
+  var grid = document.getElementById("f12-grid");
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/12.words.json) — the old
+  // single stagger group (0.5-1.6s) popped all 14 cards in well before the ~15s summary
+  // sentence finishes. Split into the two groups the sentence itself names: the 13 regular
+  // cards land during "앞 모음은... 소리 내고, 뒤 모음은... 무음"(3.81-8.58s), the HEAD
+  // exception card lands separately on "그리고 EA는... 예외까지"(9.82s).
+  tl.to(regularCards, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.41, ease: "power2.out" }, 3.7);
+  tl.to(exceptionCards, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 9.7);
+
+  // "이제 모음 두 개가 붙은..." (15.87s) — closing line, hand-lettered.
+  tl.fromTo(line, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, 15.8);
+
+  // Endscreen keep-out: last 5s of this frame (32.48 - 37.48) clears the whole center,
+  // wordmark shrinks to a small top-left tag only (production-rules.md).
+  var endscreenStart = 32.48;
+  tl.to([grid, line], { opacity: 0, duration: 1.2, ease: "power1.out" }, endscreenStart);
+  tl.to(wordmark, { scale: 0.85, duration: 0.6 }, endscreenStart);
+})();
+</script>
+</template>

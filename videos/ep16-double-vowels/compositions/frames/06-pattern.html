@@ -1,0 +1,83 @@
+<template>
+<style>
+  /* 06-pattern — Frame 6 "패턴 확장". 6 sketch-cards in a 3x2 grid, all regular-group
+     colors. No illustration in this frame — card count itself carries the "this works a lot"
+     message. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f06-progress-fill { position: absolute; left: 0; top: 0; width: 41.667%; height: 3px; background: #E8A93E; }
+
+  .f06-grid { position: absolute; left: 8cqw; right: 8cqw; top: 20cqh; bottom: 12cqh; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2.2cqw; }
+  .f06-card { background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 4px 0 #2B2B2B; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(16px); }
+  .f06-word { font-family: 'Archivo Black', sans-serif; font-size: 3.2cqw; line-height: 1; }
+  .f06-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.4cqw; margin-top: 1cqh; color: #2B2B2B; }
+</style>
+
+<div data-hf-id="hf-s9ca" id="root" data-composition-id="06-pattern" data-start="0" data-duration="40" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-yrvj" id="f06-bg-clip" class="clip" data-start="0" data-duration="40" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-1bnb" id="f06-voice" src="assets/voice/06.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-l2le" id="f06-progress-track" class="f06-progress-track"></div>
+  <div data-hf-id="hf-ft42" id="f06-progress-fill" class="f06-progress-fill"></div>
+
+  <div data-hf-id="hf-qn2m" id="f06-content-clip" class="clip" data-start="0" data-duration="40" data-track-index="1">
+    <div data-hf-id="hf-ytsu" id="f06-grid" class="f06-grid">
+      <div data-hf-id="hf-etfs" id="f06-c1" class="f06-card"><div data-hf-id="hf-q3d1" class="f06-word">R<span data-hf-id="hf-tuq0" style="color:#8A5A12">AI</span>N</div><div data-hf-id="hf-kua0" class="f06-pron">레인</div></div>
+      <div data-hf-id="hf-nhbn" id="f06-c2" class="f06-card"><div data-hf-id="hf-081c" class="f06-word">M<span data-hf-id="hf-2bf8" style="color:#8A5A12">EA</span>T</div><div data-hf-id="hf-yfyw" class="f06-pron">미트</div></div>
+      <div data-hf-id="hf-jj7m" id="f06-c3" class="f06-card"><div data-hf-id="hf-rjw9" class="f06-word">P<span data-hf-id="hf-h7pc" style="color:#8A5A12">AI</span>NT</div><div data-hf-id="hf-pabk" class="f06-pron">페인트</div></div>
+      <div data-hf-id="hf-0rhx" id="f06-c4" class="f06-card"><div data-hf-id="hf-whcw" class="f06-word">T<span data-hf-id="hf-0rzu" style="color:#8A5A12">OA</span>ST</div><div data-hf-id="hf-d2jo" class="f06-pron">토스트</div></div>
+      <div data-hf-id="hf-zzu4" id="f06-c5" class="f06-card"><div data-hf-id="hf-2ih2" class="f06-word">T<span data-hf-id="hf-umi4" style="color:#8A5A12">EA</span>M</div><div data-hf-id="hf-iooo" class="f06-pron">팀</div></div>
+      <div data-hf-id="hf-avbr" id="f06-c6" class="f06-card"><div data-hf-id="hf-42w3" class="f06-word">P<span data-hf-id="hf-87uc" style="color:#8A5A12">IE</span></div><div data-hf-id="hf-022w" class="f06-pron">파이</div></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["06-pattern"] = tl;
+
+  var c1 = document.getElementById("f06-c1");
+  var c2 = document.getElementById("f06-c2");
+  var c3 = document.getElementById("f06-c3");
+  var c4 = document.getElementById("f06-c4");
+  var c5 = document.getElementById("f06-c5");
+  var c6 = document.getElementById("f06-c6");
+  var all = [c1, c2, c3, c4, c5, c6];
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/06.words.json) — the
+  // old bunched-stagger reveals (row1 at 2.0s, row2 at 13.0s) fired long before each word is
+  // actually named (real: RAIN 8.06s ... PIE 28.62s), so 3 of 4 row1 cards and the pulse were
+  // already on screen well ahead of their own narration. Each card now reveals at its own
+  // word's real spoken onset instead.
+  tl.to(c1, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 8.0);   // "RAIN," 8.06s
+  tl.to(c2, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 12.35); // "MEAT도" 12.40s
+  tl.to(c3, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 16.1);  // "PAINT도" 16.16s
+  tl.to(c4, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 19.4);  // "TOAST도" 19.43s
+  tl.to(c5, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 24.85); // "TEAM도" 24.91s
+  tl.to(c6, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 28.55); // "PIE도" 28.62s
+  // "이렇게 앞 모음 이름만 기억하면..." (32.70s) — whole cluster settles with a light pulse.
+  tl.to(all, { scale: 1.02, duration: 0.3, ease: "power1.out" }, 32.7);
+  tl.to(all, { scale: 1, duration: 0.3, ease: "power1.in" }, 33.0);
+})();
+</script>
+</template>

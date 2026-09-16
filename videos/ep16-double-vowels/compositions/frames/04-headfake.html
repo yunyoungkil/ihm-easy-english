@@ -1,0 +1,104 @@
+<template>
+<style>
+  /* 04-headfake — Frame 4 "반전 공개 (Head Fake)". Left: illustration-slot (tongue/mouth
+     diagram). Right: BOAT with O highlighted (accent-rule) and A dimmed+Zzz doodle, plus the
+     answer line and a personal-anecdote caption. First frame where the illustration and any
+     color appear. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f04-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f04-progress-fill { position: absolute; left: 0; top: 0; width: 25%; height: 3px; background: #E8A93E; }
+
+  .f04-illust { position: absolute; left: 6cqw; top: 50%; transform: translateY(-50%); width: 30cqw; opacity: 0; }
+  .f04-illust img { width: 100%; display: block; }
+
+  .f04-right { position: absolute; left: 42cqw; right: 6cqw; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-start; gap: 2.4cqh; }
+
+  .f04-word { font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1; display: flex; align-items: baseline; position: relative; }
+  .f04-o { color: #2B2B2B; }
+  .f04-a { color: #5C564A; opacity: 1; position: relative; }
+  .f04-zzz { position: absolute; right: -0.55em; top: -0.6em; font-family: 'Gaegu', cursive; font-size: 0.32em; color: #5C564A; opacity: 0; }
+
+  .f04-answer { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2.4cqw; color: #2B2B2B; opacity: 0; }
+  .f04-anecdote { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.5cqw; color: #5C564A; max-width: 44cqw; line-height: 1.6; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-yzci" id="root" data-composition-id="04-headfake" data-start="0" data-duration="41.04" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-y8iu" id="f04-bg-clip" class="clip" data-start="0" data-duration="41.04" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-p6rn" id="f04-voice" src="assets/voice/04.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-ylzq" id="f04-progress-track" class="f04-progress-track"></div>
+  <div data-hf-id="hf-uagy" id="f04-progress-fill" class="f04-progress-fill"></div>
+
+  <div data-hf-id="hf-7045" id="f04-content-clip" class="clip" data-start="0" data-duration="41.04" data-track-index="1">
+    <div data-hf-id="hf-67la" id="f04-illust" class="f04-illust"><img data-hf-id="hf-f9gh" src="assets/illustrations/tongue-mouth-diagram.png" alt=""></div>
+    <div data-hf-id="hf-sq7f" class="f04-right">
+      <div data-hf-id="hf-khh4" id="f04-word" class="f04-word">B<span data-hf-id="hf-hn7o" id="f04-o" class="f04-o">O</span><span data-hf-id="hf-zg86" id="f04-a" class="f04-a">A<span data-hf-id="hf-sbkl" id="f04-zzz" class="f04-zzz">Zzz</span></span>T</div>
+      <div data-hf-id="hf-c38z" id="f04-answer" class="f04-answer">앞 모음만, 소리 냅니다</div>
+      <div data-hf-id="hf-kur3" id="f04-anecdote" class="f04-anecdote">저도 공부하기 전엔 모음 2개를 다 읽는 줄 알았습니다.<br data-hf-id="hf-x5px">근데 공부를 하다 보니, 앞 글자 하나만 신경 쓰면 된다는 걸 알게 됐어요.</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["04-headfake"] = tl;
+
+  var illust = document.getElementById("f04-illust");
+  var o = document.getElementById("f04-o");
+  var a = document.getElementById("f04-a");
+  var zzz = document.getElementById("f04-zzz");
+  var answer = document.getElementById("f04-answer");
+  var anecdote = document.getElementById("f04-anecdote");
+
+  // "결론부터 말씀드릴게요..." — illustration slides in first.
+  tl.fromTo(illust, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 0.3);
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/04.words.json) — the
+  // original 3.2/3.6/4.0/18.0s beats were rough guesses made before the TTS existed, and
+  // landed far ahead of the words they were meant to illustrate (e.g. the O/A highlight fired
+  // while the narrator was still on "모음 두 개가 나란히..." — before "O"/"A" are even said).
+  // Reference-video technique applied here (knowledge/visual-reference-analysis.md,
+  // 2026-09-16 entry, "단계별 컷어웨이"): match each visual beat to the exact word it
+  // illustrates instead of an estimated offset.
+
+  // "BOAT는 O" (O spoken at 17.09s) — O lights up right as its name is said.
+  tl.to(o, { color: "#8A5A12", scale: 1.15, duration: 0.5, ease: "power2.out" }, 17.0);
+
+  // "A는... 소리를 안 내는 거예요" (A는 spoken at 20.72s) — A dims + Zzz right as A is
+  // introduced, a beat after O so the comparison reads in the same order as the narration.
+  tl.to(a, { opacity: 0.35, duration: 0.5 }, 20.6);
+  tl.to(zzz, { opacity: 1, duration: 0.4 }, 21.0);
+
+  // Answer line locks in just after "...거예요." finishes (23.28s) — a confirmed takeaway,
+  // not a preview of a rule not yet explained.
+  tl.fromTo(answer, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, 23.2);
+
+  // Personal anecdote caption starts exactly on "저도" (23.41s).
+  tl.fromTo(anecdote, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, 23.4);
+})();
+</script>
+</template>

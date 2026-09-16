@@ -1,0 +1,79 @@
+<template>
+<style>
+  /* 07-exception — Frame 7 "반전 꿀팁 (예외)". 3 exception cards (HEAD/BREAD/DEAD, EA colored
+     as one red unit, no front/back split) bounce in over Frame 6's cards fading back and
+     blurring. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f07-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f07-progress-fill { position: absolute; left: 0; top: 0; width: 50%; height: 3px; background: #E8A93E; }
+
+  .f07-bg-grid { position: absolute; left: 8cqw; right: 8cqw; top: 12cqh; bottom: 60cqh; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2cqw; opacity: 1; }
+  .f07-bg-card { background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 2.4cqw; }
+
+  .f07-front-row { position: absolute; left: 10cqw; right: 10cqw; top: 55%; transform: translateY(-50%); display: flex; justify-content: center; gap: 3cqw; }
+  .f07-card { background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 4px 0 #2B2B2B; padding: 2.4cqw 2.8cqw; display: flex; flex-direction: column; align-items: center; opacity: 0; transform: translateY(-30px); }
+  .f07-word { font-family: 'Archivo Black', sans-serif; font-size: 4.4cqw; line-height: 1; }
+  .f07-word .f07-ea { color: #D64545; }
+  .f07-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.6cqw; margin-top: 1cqh; }
+</style>
+
+<div data-hf-id="hf-14rt" id="root" data-composition-id="07-exception" data-start="0" data-duration="35.12" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-3ron" id="f07-bg-clip" class="clip" data-start="0" data-duration="35.12" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-27qz" id="f07-voice" src="assets/voice/07.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-pc12" id="f07-progress-track" class="f07-progress-track"></div>
+  <div data-hf-id="hf-jkak" id="f07-progress-fill" class="f07-progress-fill"></div>
+
+  <div data-hf-id="hf-9mmi" id="f07-content-clip" class="clip" data-start="0" data-duration="35.12" data-track-index="1">
+    <div data-hf-id="hf-ne3e" id="f07-bg-grid" class="f07-bg-grid">
+      <div data-hf-id="hf-u9vm" class="f07-bg-card">R<span data-hf-id="hf-tuq0" style="color:#8A5A12">AI</span>N</div>
+      <div data-hf-id="hf-b64z" class="f07-bg-card">M<span data-hf-id="hf-2bf8" style="color:#8A5A12">EA</span>T</div>
+      <div data-hf-id="hf-qxd1" class="f07-bg-card">T<span data-hf-id="hf-umi4" style="color:#8A5A12">EA</span>M</div>
+    </div>
+    <div data-hf-id="hf-qxb0" class="f07-front-row">
+      <div data-hf-id="hf-830c" id="f07-c1" class="f07-card"><div data-hf-id="hf-dx3y" class="f07-word">H<span data-hf-id="hf-mldz" class="f07-ea">EA</span>D</div><div data-hf-id="hf-ldrj" class="f07-pron">헤드</div></div>
+      <div data-hf-id="hf-gqw7" id="f07-c2" class="f07-card"><div data-hf-id="hf-a3ja" class="f07-word">BR<span data-hf-id="hf-0yxz" class="f07-ea">EA</span>D</div><div data-hf-id="hf-gmet" class="f07-pron">브레드</div></div>
+      <div data-hf-id="hf-css6" id="f07-c3" class="f07-card"><div data-hf-id="hf-5geq" class="f07-word">D<span data-hf-id="hf-0kmy" class="f07-ea">EA</span>D</div><div data-hf-id="hf-fwkb" class="f07-pron">데드</div></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["07-exception"] = tl;
+
+  var bgGrid = document.getElementById("f07-bg-grid");
+  var cards = [document.getElementById("f07-c1"), document.getElementById("f07-c2"), document.getElementById("f07-c3")];
+
+  // "딱 하나만 알아두실 게 있습니다..." (0.48s) — background regular-group cards recede and
+  // blur right away, signalling an exception is coming.
+  tl.to(bgGrid, { scale: 0.92, opacity: 0.25, filter: "blur(4px)", duration: 0.5, ease: "power2.out" }, 0.3);
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/07.words.json) — "HEAD는
+  // E랑 A가 붙어 있지만..." is actually spoken at 11.45s, not 3.0s; the ~11s gap before it is
+  // the narrator building up ("오늘 배운 규칙... EA만큼은 가끔 다르게 읽힐 때가 있어요"), during
+  // which the receded background cards intentionally sit alone.
+  tl.to(cards, { opacity: 1, y: 0, duration: 0.45, stagger: 0.1, ease: "back.out(1.7)" }, 11.4);
+})();
+</script>
+</template>

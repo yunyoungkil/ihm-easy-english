@@ -1,0 +1,107 @@
+<template>
+<style>
+  /* 10-practice — Frame 10 "소리 내어 읽기 연습". Tongue/mouth illustration returns (same
+     asset as Frame 4/5 — reused because this scene covers the same "tongue mechanics"
+     content, not because reuse was planned upfront) beside a single sketch-card doing
+     syllable-buildup, 2x per word (slow then fast), BOAT/MEAT regular, HEAD exception. */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f10-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
+  .f10-progress-fill { position: absolute; left: 0; top: 0; width: 75%; height: 3px; background: #E8A93E; }
+
+  .f10-prompt { position: absolute; left: 0; right: 0; top: 14cqh; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2cqw; color: #5C564A; }
+
+  .f10-illust { position: absolute; left: 8cqw; top: 50%; transform: translateY(-50%); width: 26cqw; }
+  .f10-illust img { width: 100%; display: block; }
+
+  .f10-card { position: absolute; left: 44cqw; top: 50%; transform: translateY(-50%); width: 34cqw; text-align: center; }
+  .f10-syllables { font-family: 'Archivo Black', sans-serif; font-size: 6cqw; display: flex; justify-content: center; gap: 0.3em; }
+  .f10-syl { opacity: 0.3; }
+  .f10-full { font-family: 'Archivo Black', sans-serif; font-size: 7cqw; opacity: 0; }
+</style>
+
+<div data-hf-id="hf-d798" id="root" data-composition-id="10-practice" data-start="0" data-duration="48.68" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-nngy" id="f10-bg-clip" class="clip" data-start="0" data-duration="48.68" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-oz4b" id="f10-voice" src="assets/voice/10.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-pd16" id="f10-progress-track" class="f10-progress-track"></div>
+  <div data-hf-id="hf-adh8" id="f10-progress-fill" class="f10-progress-fill"></div>
+
+  <div data-hf-id="hf-j0h5" id="f10-content-clip" class="clip" data-start="0" data-duration="48.68" data-track-index="1">
+    <div data-hf-id="hf-4gyx" id="f10-prompt" class="f10-prompt">따라 읽어보세요</div>
+    <div data-hf-id="hf-3xe9" class="f10-illust"><img data-hf-id="hf-f9gh" src="assets/illustrations/tongue-mouth-diagram.png" alt=""></div>
+    <div data-hf-id="hf-99c0" class="f10-card">
+      <div data-hf-id="hf-skpo" id="f10-syllables" class="f10-syllables">
+        <span data-hf-id="hf-paod" id="f10-syl-1" class="f10-syl"></span><span data-hf-id="hf-t8se" id="f10-syl-2" class="f10-syl"></span>
+      </div>
+      <div data-hf-id="hf-6o8a" id="f10-full" class="f10-full"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["10-practice"] = tl;
+
+  var syl1 = document.getElementById("f10-syl-1");
+  var syl2 = document.getElementById("f10-syl-2");
+  var full = document.getElementById("f10-full");
+  var card = document.querySelector(".f10-card");
+
+  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/10.words.json) — the old
+  // uniform offsets (+0.3/+1.1/+1.9/+3.2s from a single "start") assumed each word's slow-build
+  // + fast-repeat beats were evenly spaced ~1s apart, but the real narration spreads them over
+  // ~12s per word ("BOAT," 8.78s ... 보,11.51s ... 트12.61s ... 보트!15.19s ... 보트,20.17s ...
+  // 보트.21.08s). Each beat now gets its own real timestamp instead of a relative offset.
+  var WORDS = [
+    { syls: ["보", "트"], full: "보트", color: "#8A5A12", reset: 8.6, syl1: 11.5, syl2: 12.6, merge: 15.1, pulse1: 20.1, pulse2: 21.0 },
+    { syls: ["미", "트"], full: "미트", color: "#8A5A12", reset: 22.9, syl1: 24.8, syl2: 25.6, merge: 27.9, pulse1: 33.1, pulse2: 34.0 },
+    { syls: ["헤", "드"], full: "헤드", color: "#D64545", reset: 38.5, syl1: 40.4, syl2: 40.8, merge: 43.4, pulse1: 47.8, pulse2: 48.6 }
+  ];
+
+  WORDS.forEach(function (w) {
+    tl.call(function () {
+      syl1.textContent = w.syls[0];
+      syl2.textContent = w.syls[1];
+      full.textContent = w.full;
+      full.style.color = w.color;
+      syl1.style.opacity = 0.3;
+      syl2.style.opacity = 0.3;
+      full.style.opacity = 0;
+    }, null, w.reset);
+
+    // Slow build: syllables light up one at a time, then merge into the full word.
+    tl.to(syl1, { opacity: 1, duration: 0.5 }, w.syl1);
+    tl.to(syl2, { opacity: 1, duration: 0.5 }, w.syl2);
+    tl.to(card, { scale: 1.05, duration: 0.3 }, w.merge);
+    tl.to(card, { scale: 1, duration: 0.3 }, w.merge + 0.3);
+    tl.to(full, { opacity: 1, duration: 0.3 }, w.merge);
+
+    // Fast repeat: word pulses twice, quickly, on the two real repeated utterances.
+    tl.to(full, { scale: 1.08, duration: 0.15 }, w.pulse1);
+    tl.to(full, { scale: 1, duration: 0.15 }, w.pulse1 + 0.15);
+    tl.to(full, { scale: 1.08, duration: 0.15 }, w.pulse2);
+    tl.to(full, { scale: 1, duration: 0.15 }, w.pulse2 + 0.15);
+  });
+})();
+</script>
+</template>

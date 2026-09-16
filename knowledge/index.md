@@ -19,6 +19,8 @@
 - [HyperFrames 프롬프트 운영 기준](hyperframes-prompting.md) — 워크플로 선택 이후의 지시 구조, 디자인·모션·자막·검수 기준
 - [구글 AI(제미나이·Veo·Imagen) 프롬프트 작성 기준](google-ai-studio-prompting.md) — 영상/이미지 생성·데이터 분석 프롬프트를 구글 모델에 직접 쓸 때마다 참고. `aistudio.google.com/docs` 재조회 없이 바로 쓸 것
 - [썸네일 전략](thumbnail-strategy.md) — 판단 원칙과 에피소드별 선택 맥락
+- [레퍼런스 영상 비주얼 분석 기록](visual-reference-analysis.md) — `/watch` 스킬로 경쟁/레퍼런스
+  영상을 분석해 뽑아낸 화면 구성·모션 기법 누적. 새 영상 만들기 전 참고 소재로 훑어볼 것
 - [영상 STATUS 템플릿](templates/STATUS.template.md) — 영상별 진행 상태와 다음 행동 기록 양식
 - [환경 설정 — HeyGen/WSL 브리지](environment-setup.md) — 이 컴퓨터에서 media-use(BGM/이미지/보이스 무료 카탈로그)를 쓰기 위한 WSL·heygen CLI 설치·연결 절차
 

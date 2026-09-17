@@ -1,8 +1,8 @@
 <template>
 <style>
-  /* 06-pattern — Frame 6 "패턴 확장". 6 sketch-cards in a 3x2 grid, all regular-group
-     colors. No illustration in this frame — card count itself carries the "this works a lot"
-     message. */
+  /* 06-pattern — Frame 6 "패턴 확장". 
+     6 sketch-cards in a 3x2 grid, each upgraded with an illustrated mini-sticker 
+     to transform the grid into an interactive visual vocabulary board! */
   @font-face {
     font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
     src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
@@ -23,10 +23,35 @@
   .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
   .f06-progress-fill { position: absolute; left: 0; top: 0; width: 41.667%; height: 3px; background: #E8A93E; }
 
-  .f06-grid { position: absolute; left: 8cqw; right: 8cqw; top: 20cqh; bottom: 12cqh; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2.2cqw; }
-  .f06-card { background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 4px 0 #2B2B2B; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(16px); }
-  .f06-word { font-family: 'Archivo Black', sans-serif; font-size: 3.2cqw; line-height: 1; }
-  .f06-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.4cqw; margin-top: 1cqh; color: #2B2B2B; }
+  .f06-header { position: absolute; left: 0; right: 0; top: 7.5cqh; display: flex; justify-content: center; }
+  .f06-header-pill { background: #2B2B2B; color: #F5C518; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.3cqw; padding: 0.8cqh 2.4cqw; border-radius: 100px; letter-spacing: 0.5px; box-shadow: 0 4px 0 rgba(0,0,0,0.15); }
+
+  .f06-grid { position: absolute; left: 8cqw; right: 8cqw; top: 16cqh; bottom: 12cqh; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 2.2cqw; }
+  .f06-card { 
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 18px; box-shadow: 0 5px 0 #2B2B2B; 
+    display: flex; flex-direction: column; justify-content: space-between; padding: 1.8cqh 2cqw;
+    opacity: 0; transform: translateY(16px) scale(0.92); 
+  }
+  
+  .f06-card-top { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .f06-badge { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.05cqw; padding: 0.35cqh 1.1cqw; border-radius: 20px; border: 2px solid #2B2B2B; letter-spacing: 0.5px; }
+  .f06-badge-ai { background: #E7F5FF; color: #1864AB; }
+  .f06-badge-ea { background: #E6FCF5; color: #087C59; }
+  .f06-badge-oa { background: #FFF4E6; color: #C2400D; }
+  .f06-badge-ie { background: #F3F0FF; color: #5F3DC4; }
+
+  .f06-sticker { width: 3.8cqw; height: 3.8cqw; object-fit: contain; }
+
+  .f06-card-center { display: flex; flex-direction: column; align-items: center; margin-top: 0.5cqh; }
+  .f06-word { font-family: 'Archivo Black', sans-serif; font-size: 4.4cqw; line-height: 1; }
+  .f06-pron-row { display: flex; align-items: baseline; gap: 0.6cqw; margin-top: 0.6cqh; }
+  .f06-pron { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2.2cqw; color: #2B2B2B; }
+  .f06-meaning { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.4cqw; color: #5C564A; }
+
+  /* caption-pill */
+  .f06-caption-zone { position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh; display: flex; justify-content: center; opacity: 0; }
+  .f06-caption-pill { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 100px; padding: 1.3cqh 3.2cqw; max-width: 86cqw; }
+  .f06-caption-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
 <div data-hf-id="hf-s9ca" id="root" data-composition-id="06-pattern" data-start="0" data-duration="40" data-width="1920" data-height="1080">
@@ -38,13 +63,104 @@
   <div data-hf-id="hf-ft42" id="f06-progress-fill" class="f06-progress-fill"></div>
 
   <div data-hf-id="hf-qn2m" id="f06-content-clip" class="clip" data-start="0" data-duration="40" data-track-index="1">
+    <div data-hf-id="hf-7swi" class="f06-header"><div data-hf-id="hf-3mmz" class="f06-header-pill">패턴 확장 · 자주 쓰는 6개 단어 그림 사전</div></div>
+    
     <div data-hf-id="hf-ytsu" id="f06-grid" class="f06-grid">
-      <div data-hf-id="hf-etfs" id="f06-c1" class="f06-card"><div data-hf-id="hf-q3d1" class="f06-word">R<span data-hf-id="hf-tuq0" style="color:#8A5A12">AI</span>N</div><div data-hf-id="hf-kua0" class="f06-pron">레인</div></div>
-      <div data-hf-id="hf-nhbn" id="f06-c2" class="f06-card"><div data-hf-id="hf-081c" class="f06-word">M<span data-hf-id="hf-2bf8" style="color:#8A5A12">EA</span>T</div><div data-hf-id="hf-yfyw" class="f06-pron">미트</div></div>
-      <div data-hf-id="hf-jj7m" id="f06-c3" class="f06-card"><div data-hf-id="hf-rjw9" class="f06-word">P<span data-hf-id="hf-h7pc" style="color:#8A5A12">AI</span>NT</div><div data-hf-id="hf-pabk" class="f06-pron">페인트</div></div>
-      <div data-hf-id="hf-0rhx" id="f06-c4" class="f06-card"><div data-hf-id="hf-whcw" class="f06-word">T<span data-hf-id="hf-0rzu" style="color:#8A5A12">OA</span>ST</div><div data-hf-id="hf-d2jo" class="f06-pron">토스트</div></div>
-      <div data-hf-id="hf-zzu4" id="f06-c5" class="f06-card"><div data-hf-id="hf-2ih2" class="f06-word">T<span data-hf-id="hf-umi4" style="color:#8A5A12">EA</span>M</div><div data-hf-id="hf-iooo" class="f06-pron">팀</div></div>
-      <div data-hf-id="hf-avbr" id="f06-c6" class="f06-card"><div data-hf-id="hf-42w3" class="f06-word">P<span data-hf-id="hf-87uc" style="color:#8A5A12">IE</span></div><div data-hf-id="hf-022w" class="f06-pron">파이</div></div>
+      <!-- 1. RAIN -->
+      <div data-hf-id="hf-etfs" id="f06-c1" class="f06-card">
+        <div data-hf-id="hf-top1" class="f06-card-top">
+          <div data-hf-id="hf-d7w0" class="f06-badge f06-badge-ai">AI · 에이</div>
+          <img data-hf-id="hf-stk1" src="assets/illustrations/rain.svg" class="f06-sticker" alt="비">
+        </div>
+        <div data-hf-id="hf-cnt1" class="f06-card-center">
+          <div data-hf-id="hf-q3d1" class="f06-word">R<span data-hf-id="hf-tuq0" style="color:#1864AB">AI</span>N</div>
+          <div data-hf-id="hf-prow1" class="f06-pron-row">
+            <span data-hf-id="hf-kua0" class="f06-pron">레인</span>
+            <span data-hf-id="hf-m1" class="f06-meaning">(비)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. MEAT -->
+      <div data-hf-id="hf-nhbn" id="f06-c2" class="f06-card">
+        <div data-hf-id="hf-top2" class="f06-card-top">
+          <div data-hf-id="hf-pc5r" class="f06-badge f06-badge-ea">EA · 이-</div>
+          <img data-hf-id="hf-stk2" src="assets/illustrations/meat.svg" class="f06-sticker" alt="고기">
+        </div>
+        <div data-hf-id="hf-cnt2" class="f06-card-center">
+          <div data-hf-id="hf-081c" class="f06-word">M<span data-hf-id="hf-2bf8" style="color:#087C59">EA</span>T</div>
+          <div data-hf-id="hf-prow2" class="f06-pron-row">
+            <span data-hf-id="hf-yfyw" class="f06-pron">미트</span>
+            <span data-hf-id="hf-m2" class="f06-meaning">(고기)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. PAINT -->
+      <div data-hf-id="hf-jj7m" id="f06-c3" class="f06-card">
+        <div data-hf-id="hf-top3" class="f06-card-top">
+          <div data-hf-id="hf-j9jc" class="f06-badge f06-badge-ai">AI · 에이</div>
+          <img data-hf-id="hf-stk3" src="assets/illustrations/paint.svg" class="f06-sticker" alt="페인트">
+        </div>
+        <div data-hf-id="hf-cnt3" class="f06-card-center">
+          <div data-hf-id="hf-rjw9" class="f06-word">P<span data-hf-id="hf-h7pc" style="color:#1864AB">AI</span>NT</div>
+          <div data-hf-id="hf-prow3" class="f06-pron-row">
+            <span data-hf-id="hf-pabk" class="f06-pron">페인트</span>
+            <span data-hf-id="hf-m3" class="f06-meaning">(물감)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. TOAST -->
+      <div data-hf-id="hf-0rhx" id="f06-c4" class="f06-card">
+        <div data-hf-id="hf-top4" class="f06-card-top">
+          <div data-hf-id="hf-d64s" class="f06-badge f06-badge-oa">OA · 오우</div>
+          <img data-hf-id="hf-stk4" src="assets/illustrations/toast.svg" class="f06-sticker" alt="토스트">
+        </div>
+        <div data-hf-id="hf-cnt4" class="f06-card-center">
+          <div data-hf-id="hf-whcw" class="f06-word">T<span data-hf-id="hf-0rzu" style="color:#C2400D">OA</span>ST</div>
+          <div data-hf-id="hf-prow4" class="f06-pron-row">
+            <span data-hf-id="hf-d2jo" class="f06-pron">토스트</span>
+            <span data-hf-id="hf-m4" class="f06-meaning">(구운 빵)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. TEAM -->
+      <div data-hf-id="hf-zzu4" id="f06-c5" class="f06-card">
+        <div data-hf-id="hf-top5" class="f06-card-top">
+          <div data-hf-id="hf-0iy7" class="f06-badge f06-badge-ea">EA · 이-</div>
+          <img data-hf-id="hf-stk5" src="assets/illustrations/team.svg" class="f06-sticker" alt="팀">
+        </div>
+        <div data-hf-id="hf-cnt5" class="f06-card-center">
+          <div data-hf-id="hf-2ih2" class="f06-word">T<span data-hf-id="hf-umi4" style="color:#087C59">EA</span>M</div>
+          <div data-hf-id="hf-prow5" class="f06-pron-row">
+            <span data-hf-id="hf-iooo" class="f06-pron">팀</span>
+            <span data-hf-id="hf-m5" class="f06-meaning">(팀/무리)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. PIE -->
+      <div data-hf-id="hf-avbr" id="f06-c6" class="f06-card">
+        <div data-hf-id="hf-top6" class="f06-card-top">
+          <div data-hf-id="hf-y0bo" class="f06-badge f06-badge-ie">IE · 아이</div>
+          <img data-hf-id="hf-stk6" src="assets/illustrations/pie.svg" class="f06-sticker" alt="파이">
+        </div>
+        <div data-hf-id="hf-cnt6" class="f06-card-center">
+          <div data-hf-id="hf-42w3" class="f06-word">P<span data-hf-id="hf-87uc" style="color:#5F3DC4">IE</span></div>
+          <div data-hf-id="hf-prow6" class="f06-pron-row">
+            <span data-hf-id="hf-022w" class="f06-pron">파이</span>
+            <span data-hf-id="hf-m6" class="f06-meaning">(파이)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-cap06a" id="f06-caption-zone" class="f06-caption-zone">
+    <div data-hf-id="hf-cap06b" class="f06-caption-pill">
+      <div data-hf-id="hf-cap06c" id="f06-caption-text" class="f06-caption-text"></div>
     </div>
   </div>
 </div>
@@ -64,20 +180,41 @@
   var c6 = document.getElementById("f06-c6");
   var all = [c1, c2, c3, c4, c5, c6];
 
-  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/06.words.json) — the
-  // old bunched-stagger reveals (row1 at 2.0s, row2 at 13.0s) fired long before each word is
-  // actually named (real: RAIN 8.06s ... PIE 28.62s), so 3 of 4 row1 cards and the pulse were
-  // already on screen well ahead of their own narration. Each card now reveals at its own
-  // word's real spoken onset instead.
-  tl.to(c1, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 8.0);   // "RAIN," 8.06s
-  tl.to(c2, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 12.35); // "MEAT도" 12.40s
-  tl.to(c3, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 16.1);  // "PAINT도" 16.16s
-  tl.to(c4, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 19.4);  // "TOAST도" 19.43s
-  tl.to(c5, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 24.85); // "TEAM도" 24.91s
-  tl.to(c6, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 28.55); // "PIE도" 28.62s
-  // "이렇게 앞 모음 이름만 기억하면..." (32.70s) — whole cluster settles with a light pulse.
+  // Card reveals linked to real whisper timestamps
+  tl.to(c1, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 8.0);   // "RAIN," 8.06s
+  tl.to(c2, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 12.35); // "MEAT도" 12.40s
+  tl.to(c3, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 16.1);  // "PAINT도" 16.16s
+  tl.to(c4, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 19.4);  // "TOAST도" 19.43s
+  tl.to(c5, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 24.85); // "TEAM도" 24.91s
+  tl.to(c6, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 28.55); // "PIE도" 28.62s
+
+  // "이렇게 앞 모음 이름만 기억하면..." (32.70s) — pulse
   tl.to(all, { scale: 1.02, duration: 0.3, ease: "power1.out" }, 32.7);
   tl.to(all, { scale: 1, duration: 0.3, ease: "power1.in" }, 33.0);
+
+  // Narration-coverage caption-pill
+  var captionZone = document.getElementById("f06-caption-zone");
+  var captionText = document.getElementById("f06-caption-text");
+  function setCaption6(txt) { captionText.textContent = txt; }
+  tl.set(captionZone, { opacity: 0 }, 0);
+
+  tl.call(setCaption6, ["우리가 이미 자주 쓰고 있는 단어로 이 규칙이 어떻게 통하는지 한 번 볼까요."], 0.937);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.937);
+  tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, 6.88);
+  tl.call(setCaption6, ["아까 봤던"], 6.997);
+  tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 7.02);
+  tl.to(captionZone, { opacity: 0, duration: 0.25, ease: "power2.in" }, 7.9);
+
+  var CLOSING_CAPTIONS = [
+    { at: 32.696, text: "이렇게 앞 모음 이름만 기억하면," },
+    { at: 35.015, text: "이 규칙을 사용해 새 단어를 봐도 망설이지 않고 바로 읽으실 수 있을 거예요." }
+  ];
+  tl.call(setCaption6, [CLOSING_CAPTIONS[0].text], CLOSING_CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CLOSING_CAPTIONS[0].at);
+  tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CLOSING_CAPTIONS[1].at - 0.12);
+  tl.call(setCaption6, [CLOSING_CAPTIONS[1].text], CLOSING_CAPTIONS[1].at);
+  tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CLOSING_CAPTIONS[1].at + 0.02);
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 40.6);
 })();
 </script>
 </template>

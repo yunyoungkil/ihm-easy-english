@@ -32,7 +32,7 @@
   .f09-card { background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 4px 0 #2B2B2B; padding: 1.4cqw 2cqw; width: 58cqw; }
   .f09-en { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.7cqw; }
   .f09-target { font-weight: 900; }
-  .f09-ko { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.4cqw; color: #5C564A; margin-top: 0.6cqh; opacity: 0; }
+  .f09-ko { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.6cqw; color: #5C564A; margin-top: 0.6cqh; opacity: 0; }
   /* Fixed to the card's measured rendered height (padding 2x1.4cqw + .f09-en line +
      .f09-ko line + its margin ≈ 12.2cqh) rather than flex-stretch + aspect-ratio — that
      combo hit a circular sizing bug in the renderer (row height depends on icon height,
@@ -41,6 +41,12 @@
   .f09-icon { width: 12.2cqh; height: 12.2cqh; flex-shrink: 0; background: #FFFFFF; border-radius: 10px; border: 3px solid #2B2B2B; box-shadow: 0 4px 0 #2B2B2B; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .f09-icon img { width: 78%; height: 78%; object-fit: contain; display: block; }
   .f09-icon.f09-icon-head { border-color: #D64545; box-shadow: 0 4px 0 #D64545; }
+
+  /* caption-pill — narration coverage: the 09a intro ("이제 진짜 문장 속에서...") and the 09i
+     closing line (20.95-28.4s VO) have no on-screen text — only the 4 sentence cards do. */
+  .f09-caption-zone { position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh; display: flex; justify-content: center; opacity: 0; }
+  .f09-caption-pill { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 100px; padding: 1.3cqh 3.2cqw; max-width: 86cqw; }
+  .f09-caption-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
 <div data-hf-id="hf-5lzs" id="root" data-composition-id="09-listening" data-start="0" data-duration="28.39" data-width="1920" data-height="1080">
@@ -54,21 +60,27 @@
   <div data-hf-id="hf-0de7" id="f09-content-clip" class="clip" data-start="0" data-duration="28.39" data-track-index="1">
     <div data-hf-id="hf-rgl6" id="f09-stack" class="f09-stack">
       <div data-hf-id="hf-5pi7" id="f09-row1" class="f09-row">
-        <div data-hf-id="hf-5v9g" class="f09-icon"><img data-hf-id="hf-lixa" src="assets/illustrations/coat.png" alt=""></div>
+        <div data-hf-id="hf-5v9g" class="f09-icon"><img data-hf-id="hf-lixa" src="assets/illustrations/coat.svg" alt=""></div>
         <div data-hf-id="hf-12ca" class="f09-card"><div data-hf-id="hf-via1" class="f09-en">I need a new <span data-hf-id="hf-v84f" class="f09-target" style="color:#8A5A12">coat</span> for winter.</div><div data-hf-id="hf-jh17" id="f09-ko1" class="f09-ko">코트</div></div>
       </div>
       <div data-hf-id="hf-x1mc" id="f09-row2" class="f09-row">
-        <div data-hf-id="hf-fgqr" class="f09-icon"><img data-hf-id="hf-1hh5" src="assets/illustrations/rain.png" alt=""></div>
+        <div data-hf-id="hf-fgqr" class="f09-icon"><img data-hf-id="hf-1hh5" src="assets/illustrations/rain.svg" alt=""></div>
         <div data-hf-id="hf-mjb2" class="f09-card"><div data-hf-id="hf-q25e" class="f09-en">It might <span data-hf-id="hf-kio6" class="f09-target" style="color:#8A5A12">rain</span> tomorrow.</div><div data-hf-id="hf-76no" id="f09-ko2" class="f09-ko">레인</div></div>
       </div>
       <div data-hf-id="hf-xta5" id="f09-row3" class="f09-row">
-        <div data-hf-id="hf-74oh" class="f09-icon"><img data-hf-id="hf-tiyg" src="assets/illustrations/team.png" alt=""></div>
+        <div data-hf-id="hf-74oh" class="f09-icon"><img data-hf-id="hf-tiyg" src="assets/illustrations/team.svg" alt=""></div>
         <div data-hf-id="hf-mxm3" class="f09-card"><div data-hf-id="hf-aae9" class="f09-en">We had a <span data-hf-id="hf-vhsx" class="f09-target" style="color:#8A5A12">team</span> meeting today.</div><div data-hf-id="hf-68rb" id="f09-ko3" class="f09-ko">팀</div></div>
       </div>
       <div data-hf-id="hf-gkzu" id="f09-row4" class="f09-row">
-        <div data-hf-id="hf-r6tg" class="f09-icon f09-icon-head"><img data-hf-id="hf-y8dx" src="assets/illustrations/head.png" alt=""></div>
+        <div data-hf-id="hf-r6tg" class="f09-icon f09-icon-head"><img data-hf-id="hf-y8dx" src="assets/illustrations/headache.svg" alt=""></div>
         <div data-hf-id="hf-nbx4" class="f09-card"><div data-hf-id="hf-n57m" class="f09-en">My <span data-hf-id="hf-a18a" class="f09-target" style="color:#D64545">head</span> hurts a little.</div><div data-hf-id="hf-i2vm" id="f09-ko4" class="f09-ko">헤드</div></div>
       </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-cap09a" id="f09-caption-zone" class="f09-caption-zone">
+    <div data-hf-id="hf-cap09b" class="f09-caption-pill">
+      <div data-hf-id="hf-cap09c" id="f09-caption-text" class="f09-caption-text"></div>
     </div>
   </div>
 </div>
@@ -105,6 +117,21 @@
     if (i > 0) tl.to(rows[i - 1], { opacity: 0.4, duration: 0.3 }, starts[i]);
     tl.to(kos[i], { opacity: 1, duration: 0.3 }, starts[i] + koDelay);
   });
+
+  // Narration-coverage caption-pill: the 09a intro ("이제 진짜 문장 속에서 확인해 볼까요? 첫
+  // 번째.") and the 09i closing line have no on-screen text otherwise — only the 4 sentence
+  // cards do (cumulative piece timings from gen-tts-gemini.mjs FRAME9_PIECES + .tts-results.json).
+  var captionZone = document.getElementById("f09-caption-zone");
+  var captionText = document.getElementById("f09-caption-text");
+  function setCaption9(txt) { captionText.textContent = txt; }
+  tl.set(captionZone, { opacity: 0 }, 0);
+
+  tl.call(setCaption9, ["이제 진짜 문장 속에서 확인해 볼까요? 첫 번째."], 0);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+  tl.to(captionZone, { opacity: 0, duration: 0.25, ease: "power2.in" }, 4.4);
+
+  tl.call(setCaption9, ["어떠세요? 이제 낯선 단어가 나와도, 앞 모음 이름만 떠올리면 자신 있게 읽으실 수 있을 거예요."], 20.95);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 20.95);
 })();
 </script>
 </template>

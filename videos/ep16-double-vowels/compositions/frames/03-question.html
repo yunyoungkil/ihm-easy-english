@@ -1,7 +1,14 @@
 <template>
 <style>
-  /* 03-question — Frame 3 "질문 던지기 (Big Question)". BOAT confused, question-flicker
-     doodles above O and A alternate. Still fully neutral color — no answer hinted. */
+  /* 03-question — Frame 3 "질문 던지기 (Big Question / Mini Quiz)".
+     Interactive 3-Choice Quiz Board:
+     - 0.38s: Hero BOAT word card appears with O and A vowel indicators.
+     - 3.6s ~ 4.5s: O and A highlight as narrator names them ("O랑 A").
+     - 7.5s: "이 둘 중에 어떤 걸 소리 내야 할까요?" Quiz board opens.
+     - 11.25s: Option 1 (1️⃣ 앞의 O만 소리 낸다) pops in.
+     - 12.76s: Option 2 (2️⃣ 뒤의 A만 소리 낸다) pops in.
+     - 14.82s: Option 3 (3️⃣ 둘 다 소리 낸다) pops in.
+     - 15.8s: Thinking prompt ("과연 정답은?") pulses into Frame 4. */
   @font-face {
     font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
     src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
@@ -22,9 +29,80 @@
   .f03-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
   .f03-progress-fill { position: absolute; left: 0; top: 0; width: 16.667%; height: 3px; background: #E8A93E; }
 
-  .f03-word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%) scale(0.9); text-align: center; opacity: 0; font-family: 'Archivo Black', sans-serif; font-size: 9.5cqw; line-height: 1; }
-  .f03-letter { position: relative; display: inline-block; }
-  .f03-q { position: absolute; left: 50%; top: -0.55em; transform: translateX(-50%) scale(0.9); font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 0.42em; color: #5C564A; opacity: 0; }
+  /* Top Quiz Header */
+  .f03-header {
+    position: absolute; top: 5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1cqw; opacity: 0;
+  }
+  .f03-badge {
+    background: #2B2B2B; color: #F5C518; font-weight: 900; font-size: 1.15cqw;
+    padding: 0.5cqh 1.2cqw; border-radius: 100px;
+  }
+  .f03-title {
+    font-weight: 900; font-size: 1.6cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Hero BOAT Card */
+  .f03-hero-card {
+    position: absolute; left: 50%; top: 13cqh; transform: translateX(-50%) scale(0.95);
+    width: 68cqw; background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 20px;
+    box-shadow: 0 6px 0 #2B2B2B; padding: 2cqh 3cqw;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1cqh;
+    opacity: 0;
+  }
+  .f03-word-wrap {
+    font-family: 'Archivo Black', sans-serif; font-size: 5.4cqw; line-height: 1; color: #2B2B2B;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f03-stem { color: #2B2B2B; }
+  .f03-char { color: #2B2B2B; padding: 0 0.06em; }
+  .f03-tags-row {
+    display: flex; align-items: center; justify-content: center; gap: 1.5cqw; min-height: 2.5cqh;
+  }
+  .f03-char-tag {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1cqw; font-weight: 900; color: #8A5A12; background: #FFF9DB;
+    border: 1.5px solid #FAB005; border-radius: 6px; padding: 0.2cqh 0.8cqw;
+    white-space: nowrap; opacity: 0; transform: translateY(4px);
+  }
+
+  /* 3-Choice Quiz Options Area */
+  .f03-choices-container {
+    position: absolute; left: 50%; top: 38cqh; transform: translateX(-50%);
+    width: 68cqw; display: flex; flex-direction: column; gap: 1.8cqh;
+  }
+  .f03-choice-card {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 16px;
+    box-shadow: 0 5px 0 #2B2B2B; padding: 1.5cqh 2cqw;
+    display: flex; align-items: center; justify-content: space-between;
+    opacity: 0; transform: translateY(14px);
+  }
+  .f03-choice-left { display: flex; align-items: center; gap: 1.2cqw; }
+  .f03-choice-num {
+    background: #2B2B2B; color: #FFFFFF; font-weight: 900; font-size: 1.15cqw;
+    width: 2.2cqw; height: 2.2cqw; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .f03-choice-text {
+    font-weight: 800; font-size: 1.35cqw; color: #2B2B2B;
+  }
+  .f03-choice-sub {
+    font-weight: 700; font-size: 1.1cqw; color: #8C8577; background: #F4F6F9;
+    padding: 0.4cqh 1cqw; border-radius: 8px; border: 1px solid #CED4DA;
+  }
+
+  /* Prompt banner ("과연 정답은?") */
+  .f03-prompt-banner {
+    position: absolute; bottom: 12cqh; left: 50%; transform: translateX(-50%);
+    background: #2B2B2B; color: #F5C518; border-radius: 100px;
+    padding: 1.1cqh 2.4cqw; font-weight: 900; font-size: 1.25cqw;
+    display: flex; align-items: center; gap: 0.8cqw; opacity: 0;
+  }
+
+  /* caption-pill */
+  .f03-caption-zone { position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh; display: flex; justify-content: center; opacity: 0; }
+  .f03-caption-pill { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 100px; padding: 1.3cqh 3.2cqw; max-width: 86cqw; }
+  .f03-caption-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
 <div data-hf-id="hf-mod0" id="root" data-composition-id="03-question" data-start="0" data-duration="17.12" data-width="1920" data-height="1080">
@@ -36,8 +114,70 @@
   <div data-hf-id="hf-3p84" id="f03-progress-fill" class="f03-progress-fill"></div>
 
   <div data-hf-id="hf-z1cu" id="f03-content-clip" class="clip" data-start="0" data-duration="17.12" data-track-index="1">
-    <div data-hf-id="hf-ejf8" id="f03-word" class="f03-word">
-      B<span data-hf-id="hf-omqc" id="f03-letter-o" class="f03-letter">O<span data-hf-id="hf-hv6e" id="f03-q-o" class="f03-q">?</span></span><span data-hf-id="hf-lhqs" id="f03-letter-a" class="f03-letter">A<span data-hf-id="hf-h13o" id="f03-q-a" class="f03-q">?</span></span>T
+    
+    <!-- Top Header -->
+    <div data-hf-id="hf-h03" id="f03-header" class="f03-header">
+      <span data-hf-id="hf-b03" class="f03-badge">❓ 핵심 질문</span>
+      <span data-hf-id="hf-t03" class="f03-title">모음 2개 중 어떤 소리를 내야 할까요?</span>
+    </div>
+
+    <!-- Hero BOAT Card -->
+    <div data-hf-id="hf-c03" id="f03-hero-card" class="f03-hero-card">
+      <div data-hf-id="hf-w03" class="f03-word-wrap">
+        <span data-hf-id="hf-s01" class="f03-stem">B</span>
+        <span data-hf-id="hf-ch-o" id="f03-char-o" class="f03-char">O</span>
+        <span data-hf-id="hf-ch-a" id="f03-char-a" class="f03-char">A</span>
+        <span data-hf-id="hf-s02" class="f03-stem">T</span>
+      </div>
+      <div data-hf-id="hf-tr03" class="f03-tags-row">
+        <span data-hf-id="hf-tg-o" id="f03-tag-o" class="f03-char-tag">1번 모음: O</span>
+        <span data-hf-id="hf-tg-a" id="f03-tag-a" class="f03-char-tag">2번 모음: A</span>
+      </div>
+    </div>
+
+    <!-- 3-Choice Quiz Options -->
+    <div data-hf-id="hf-cc03" id="f03-choices" class="f03-choices-container">
+      
+      <!-- Option 1 -->
+      <div data-hf-id="hf-op1" id="f03-opt-1" class="f03-choice-card">
+        <div data-hf-id="hf-cl1" class="f03-choice-left">
+          <div data-hf-id="hf-num1" class="f03-choice-num">1</div>
+          <div data-hf-id="hf-txt1" class="f03-choice-text">앞의 O만 소리 낸다</div>
+        </div>
+        <div data-hf-id="hf-sub1" class="f03-choice-sub">"오우" 1개만? 🤔</div>
+      </div>
+
+      <!-- Option 2 -->
+      <div data-hf-id="hf-op2" id="f03-opt-2" class="f03-choice-card">
+        <div data-hf-id="hf-cl2" class="f03-choice-left">
+          <div data-hf-id="hf-num2" class="f03-choice-num">2</div>
+          <div data-hf-id="hf-txt2" class="f03-choice-text">뒤의 A만 소리 낸다</div>
+        </div>
+        <div data-hf-id="hf-sub2" class="f03-choice-sub">"에이" 1개만? 🧐</div>
+      </div>
+
+      <!-- Option 3 -->
+      <div data-hf-id="hf-op3" id="f03-opt-3" class="f03-choice-card">
+        <div data-hf-id="hf-cl3" class="f03-choice-left">
+          <div data-hf-id="hf-num3" class="f03-choice-num">3</div>
+          <div data-hf-id="hf-txt3" class="f03-choice-text">둘 다 사이좋게 소리 낸다</div>
+        </div>
+        <div data-hf-id="hf-sub3" class="f03-choice-sub">"오-아트" 2개 다? 🤯</div>
+      </div>
+
+    </div>
+
+    <!-- Prompt Banner ("과연 정답은?") -->
+    <div data-hf-id="hf-pb03" id="f03-prompt-banner" class="f03-prompt-banner">
+      <span data-hf-id="hf-pbi">🤔</span>
+      <span data-hf-id="hf-pbt">여러분의 선택은 몇 번인가요? (잠시 후 정답 공개!)</span>
+    </div>
+
+  </div>
+
+  <div data-hf-id="hf-cap03a" id="f03-caption-zone" class="f03-caption-zone">
+    <div data-hf-id="hf-cap03b" class="f03-caption-pill">
+      <div data-hf-id="hf-cap03c" id="f03-caption-text" class="f03-caption-text"></div>
     </div>
   </div>
 </div>
@@ -49,33 +189,61 @@
   window.__timelines = window.__timelines || {};
   window.__timelines["03-question"] = tl;
 
-  var word = document.getElementById("f03-word");
-  var qO = document.getElementById("f03-q-o");
-  var qA = document.getElementById("f03-q-a");
+  var header = document.getElementById("f03-header");
+  var heroCard = document.getElementById("f03-hero-card");
+  var charO = document.getElementById("f03-char-o");
+  var charA = document.getElementById("f03-char-a");
+  var tagO = document.getElementById("f03-tag-o");
+  var tagA = document.getElementById("f03-tag-a");
 
-  // "BOAT, 이 단어를 보면..." — word settles in first.
-  tl.to(word, { opacity: 1, scale: 1, duration: 0.45, ease: "power2.out" }, 0.3);
+  var opt1 = document.getElementById("f03-opt-1");
+  var opt2 = document.getElementById("f03-opt-2");
+  var opt3 = document.getElementById("f03-opt-3");
+  var promptBanner = document.getElementById("f03-prompt-banner");
 
-  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/03.words.json) — the
-  // old 3.4s start fired the flicker while the narrator was still on "모음이 O랑 A... 붙어
-  // 있습니다" (finishes 6.62s), well before the actual question ("이 둘 중에...") is asked.
-  // "이 둘 중에 어떤 걸 소리를 내야 할까요?" (7.54-10.50s) through "O만... A만..." (11.26-14.13s)
-  // — alternating flicker fills this whole open-question span, four rounds, authored
-  // explicitly (no repeat/yoyo per project negative list).
-  var start = 7.5;
-  var beat = 0.91;
-  for (var i = 0; i < 4; i++) {
-    var t0 = start + i * beat * 2;
-    tl.to(qO, { opacity: 1, duration: beat * 0.35 }, t0);
-    tl.to(qO, { opacity: 0, duration: beat * 0.35 }, t0 + beat * 0.55);
-    tl.to(qA, { opacity: 1, duration: beat * 0.35 }, t0 + beat);
-    tl.to(qA, { opacity: 0, duration: beat * 0.35 }, t0 + beat * 1.55);
+  // 1. BOAT hero card entry (0.38s, speech onset)
+  tl.fromTo(header, { opacity: 0, y: -15 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.5)" }, 0.2);
+  tl.fromTo(heroCard, { opacity: 0, scale: 0.94, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.5)" }, 0.38);
+
+  // 2. "모음이 O랑 A..." (3.596s & 4.164s, real whisper timestamps)
+  tl.to(charO, { color: "#8A5A12", duration: 0.25 }, 3.596);
+  tl.to(tagO, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.5)" }, 3.65);
+
+  tl.to(charA, { color: "#8A5A12", duration: 0.25 }, 4.164);
+  tl.to(tagA, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.5)" }, 4.22);
+
+  // 3. 3-Choice Quiz Options reveal on spoken lines
+  // "O만 내야 할까요" (11.257s) -> Option 1
+  tl.fromTo(opt1, { opacity: 0, scale: 0.92, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: "back.out(1.6)" }, 11.257);
+
+  // "아님 A만 내야 할까요" (12.763s) -> Option 2
+  tl.fromTo(opt2, { opacity: 0, scale: 0.92, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: "back.out(1.6)" }, 12.763);
+
+  // "그것도 아니면 둘 다 내야 할까요?" (14.824s) -> Option 3
+  tl.fromTo(opt3, { opacity: 0, scale: 0.92, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: "back.out(1.6)" }, 14.824);
+
+  // 4. "과연 정답은?" prompt banner appears (15.8s)
+  tl.fromTo(promptBanner, { opacity: 0, scale: 0.9, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.5)" }, 15.8);
+  tl.to([opt1, opt2, opt3], { borderColor: "#E8A93E", duration: 0.3 }, 15.9);
+
+  // Narration-coverage caption-pill
+  var captionZone = document.getElementById("f03-caption-zone");
+  var captionText = document.getElementById("f03-caption-text");
+  function setCaption3(txt) { captionText.textContent = txt; }
+  var CAPTIONS = [
+    { at: 1.137, text: "이 단어를 보면 모음이 O랑 A, 이렇게 두 개가 붙어 있습니다." },
+    { at: 7.536, text: "이 둘 중에 어떤 걸 소리를 내야 할까요?" },
+    { at: 11.257, text: "O만 내야 할까요, 아님 A만 내야 할까요," },
+    { at: 14.824, text: "그것도 아니면 둘 다 내야 할까요?" }
+  ];
+  tl.call(setCaption3, [CAPTIONS[0].text], CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CAPTIONS[0].at);
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(setCaption3, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
   }
-
-  // "그것도 아니면 둘 다 내야 할까요?" (둘 다 spoken at 14.82s) — both letters pulse together,
-  // holding through the end of the question (16.98s).
-  tl.to([qO, qA], { opacity: 1, duration: 0.3 }, 14.8);
-  tl.to([qO, qA], { opacity: 0, duration: 0.4 }, 16.9);
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 16.85);
 })();
 </script>
 </template>

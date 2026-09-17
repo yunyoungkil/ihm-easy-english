@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <!-- Synergy Sparkle on top -->
+  <path d="M 60 10 L 63 18 L 71 21 L 63 24 L 60 32 L 57 24 L 49 21 L 57 18 Z" fill="#F5C518" stroke="#2B2B2B" stroke-width="2"/>
+
+  <!-- Left Team Member -->
+  <g transform="translate(14, 38)">
+    <circle cx="20" cy="18" r="14" fill="#E7F5FF" stroke="#2B2B2B" stroke-width="3.5"/>
+    <path d="M 14 16 Q 17 12 20 16" fill="none" stroke="#2B2B2B" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 23 16 Q 26 12 29 16" fill="none" stroke="#2B2B2B" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 19 22 Q 21 25 24 22" fill="none" stroke="#2B2B2B" stroke-width="2" stroke-linecap="round"/>
+    <!-- Body -->
+    <path d="M 4 56 C 4 36 36 36 36 56 Z" fill="#D0EBFF" stroke="#2B2B2B" stroke-width="3.5"/>
+  </g>
+
+  <!-- Right Team Member -->
+  <g transform="translate(66, 38)">
+    <circle cx="20" cy="18" r="14" fill="#FFF4E6" stroke="#2B2B2B" stroke-width="3.5"/>
+    <path d="M 14 16 Q 17 12 20 16" fill="none" stroke="#2B2B2B" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 23 16 Q 26 12 29 16" fill="none" stroke="#2B2B2B" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 19 22 Q 21 25 24 22" fill="none" stroke="#2B2B2B" stroke-width="2" stroke-linecap="round"/>
+    <!-- Body -->
+    <path d="M 4 56 C 4 36 36 36 36 56 Z" fill="#FFE8CC" stroke="#2B2B2B" stroke-width="3.5"/>
+  </g>
+
+  <!-- Center Team Member (Front & Center) -->
+  <g transform="translate(38, 28)">
+    <circle cx="22" cy="20" r="18" fill="#E6FCF5" stroke="#2B2B2B" stroke-width="4"/>
+    <!-- Happy Eyes -->
+    <path d="M 14 18 Q 18 12 22 18" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 26 18 Q 30 12 34 18" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
+    <!-- Cheeks -->
+    <circle cx="12" cy="23" r="3" fill="#69DB7C" opacity="0.8"/>
+    <circle cx="34" cy="23" r="3" fill="#69DB7C" opacity="0.8"/>
+    <!-- Big Smile -->
+    <path d="M 19 23 Q 23 29 27 23" fill="none" stroke="#2B2B2B" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Body -->
+    <path d="M 0 66 C 0 42 44 42 44 66 Z" fill="#C3FAE8" stroke="#2B2B2B" stroke-width="4"/>
+    <!-- Tie / Badge -->
+    <polygon points="22,46 25,56 22,60 19,56" fill="#099268" stroke="#2B2B2B" stroke-width="2"/>
+  </g>
+</svg>

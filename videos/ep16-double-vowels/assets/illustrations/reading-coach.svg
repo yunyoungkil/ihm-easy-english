@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 640" width="100%" height="100%">
+  <defs>
+    <filter id="coach-shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="6" dy="8" stdDeviation="0" flood-color="#2B2B2B" flood-opacity="1" />
+    </filter>
+  </defs>
+
+  <!-- Main Card Container with Neo-brutalist shadow -->
+  <g filter="url(#coach-shadow)">
+    <rect x="10" y="10" width="550" height="605" rx="28" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="4.5"/>
+  </g>
+
+  <!-- Top Header Tag -->
+  <g transform="translate(155, -4)">
+    <rect x="0" y="0" width="260" height="48" rx="24" fill="#2B2B2B"/>
+    <text x="130" y="30" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="20" fill="#F5C518" text-anchor="middle" letter-spacing="1">
+      입에 착 붙는 소리 연습
+    </text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="285" y="88" font-family="'Noto Sans KR', sans-serif" font-weight="800" font-size="22" fill="#2B2B2B" text-anchor="middle">
+    "딱 2번만 소리 내어 따라해보세요!"
+  </text>
+
+  <!-- Central Mascot: Cute Speaking Speaker with Headphones -->
+  <g transform="translate(190, 110)">
+    <!-- Headphone Band -->
+    <path d="M 15 80 A 85 85 0 0 1 185 80" fill="none" stroke="#2B2B2B" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- Headphone Ear Cushions -->
+    <rect x="0" y="65" width="28" height="50" rx="14" fill="#E8A93E" stroke="#2B2B2B" stroke-width="3.5"/>
+    <rect x="172" y="65" width="28" height="50" rx="14" fill="#E8A93E" stroke="#2B2B2B" stroke-width="3.5"/>
+
+    <!-- Cute Round Face / Speaker -->
+    <circle cx="100" cy="95" r="72" fill="#FFF9E6" stroke="#2B2B2B" stroke-width="4"/>
+
+    <!-- Cheerful Eyes -->
+    <path d="M 72 85 Q 82 72 92 85" fill="none" stroke="#2B2B2B" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 108 85 Q 118 72 128 85" fill="none" stroke="#2B2B2B" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- Blushing Cheeks -->
+    <circle cx="70" cy="98" r="8" fill="#FF8787" opacity="0.85"/>
+    <circle cx="130" cy="98" r="8" fill="#FF8787" opacity="0.85"/>
+
+    <!-- Big Happy Open Singing Mouth -->
+    <path d="M 86 102 Q 100 132 114 102 Z" fill="#E03131" stroke="#2B2B2B" stroke-width="3.5"/>
+    <!-- Tongue in mouth -->
+    <path d="M 93 118 Q 100 114 107 118 Q 100 128 93 118 Z" fill="#FFA8A8"/>
+
+    <!-- Floating Sound Sparkles and Music Notes -->
+    <path d="M 195 45 Q 205 35 215 45 Q 205 55 195 45 Z" fill="#F5C518"/>
+    <text x="210" y="85" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="28" fill="#E8A93E">🎵</text>
+    <text x="-25" y="65" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="24" fill="#E8A93E">🎶</text>
+  </g>
+
+  <!-- Practice Rhythm Cards (2-Step Rhythm Guide) -->
+  <g transform="translate(36, 305)">
+    <!-- Step 1 Card: Slow Build -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="235" height="185" rx="18" fill="#F8F9FA" stroke="#2B2B2B" stroke-width="3"/>
+      <rect x="18" y="14" width="75" height="28" rx="14" fill="#2B2B2B"/>
+      <text x="55" y="33" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">
+        1단계
+      </text>
+      <text x="18" y="72" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="18" fill="#2B2B2B">
+        천천히 쪼개 읽기
+      </text>
+      <text x="18" y="98" font-family="'Noto Sans KR', sans-serif" font-weight="700" font-size="14" fill="#5C564A">
+        글자 소리를 하나씩
+      </text>
+
+      <rect x="18" y="115" width="198" height="52" rx="12" fill="#FFF3BF" stroke="#2B2B2B" stroke-width="2"/>
+      <text x="117" y="147" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="20" fill="#8A5A12" text-anchor="middle">
+        보 ➔ 트
+      </text>
+    </g>
+
+    <!-- Step 2 Card: Fast Merge -->
+    <g transform="translate(262, 0)">
+      <rect x="0" y="0" width="235" height="185" rx="18" fill="#FFF9DB" stroke="#2B2B2B" stroke-width="3"/>
+      <rect x="18" y="14" width="75" height="28" rx="14" fill="#E8A93E"/>
+      <text x="55" y="33" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">
+        2단계
+      </text>
+      <text x="18" y="72" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="18" fill="#2B2B2B">
+        빠르게 하나로 쏙!
+      </text>
+      <text x="18" y="98" font-family="'Noto Sans KR', sans-serif" font-weight="700" font-size="14" fill="#8A5A12">
+        자연스럽게 한 호흡에
+      </text>
+
+      <rect x="18" y="115" width="198" height="52" rx="12" fill="#E8A93E" stroke="#2B2B2B" stroke-width="2"/>
+      <text x="117" y="148" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="22" fill="#FFFFFF" text-anchor="middle">
+        "보트!" ⚡
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom Encouragement Banner -->
+  <g transform="translate(36, 516)">
+    <rect x="0" y="0" width="497" height="74" rx="18" fill="#F8F9FA" stroke="#2B2B2B" stroke-width="3"/>
+    <circle cx="42" cy="37" r="22" fill="#4dabf7" stroke="#2B2B2B" stroke-width="2.5"/>
+    <text x="42" y="44" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="20" fill="#FFFFFF" text-anchor="middle">🗣️</text>
+    <text x="80" y="34" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="17" fill="#2B2B2B">
+      입으로 직접 소리 내야 뇌가 기억합니다!
+    </text>
+    <text x="80" y="56" font-family="'Noto Sans KR', sans-serif" font-weight="700" font-size="14" fill="#5C564A">
+      화면을 보면서 박자에 맞춰 편안하게 따라 해보세요.
+    </text>
+  </g>
+</svg>

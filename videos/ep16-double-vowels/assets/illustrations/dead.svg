@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <!-- DEAD (depleted battery with cute X_X expression) sticker in Neo-brutalist style -->
+  <g stroke="#2B2B2B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Battery positive terminal -->
+    <path d="M 52 24 L 68 24 L 68 30 L 52 30 Z" fill="#2B2B2B" />
+    
+    <!-- Main Battery Body -->
+    <rect x="30" y="30" width="60" height="74" rx="14" fill="#FFFFFF" />
+    
+    <!-- Red empty charge bar (warning low battery) -->
+    <rect x="36" y="82" width="48" height="16" rx="8" fill="#FF8787" />
+
+    <!-- Cute X_X Face -->
+    <!-- Left X eye -->
+    <line x1="44" y1="50" x2="52" y2="58" stroke-width="3" />
+    <line x1="52" y1="50" x2="44" y2="58" stroke-width="3" />
+    <!-- Right X eye -->
+    <line x1="68" y1="50" x2="76" y2="58" stroke-width="3" />
+    <line x1="76" y1="50" x2="68" y2="58" stroke-width="3" />
+    
+    <!-- Open wavy mouth :O -->
+    <ellipse cx="60" cy="68" rx="5" ry="4" fill="#2B2B2B" />
+
+    <!-- Sweat drop / Warning icon -->
+    <path d="M 88 44 C 94 50, 94 56, 88 58 C 82 56, 82 50, 88 44 Z" fill="#74C0FC" stroke="#2B2B2B" stroke-width="2.5" />
+    
+    <!-- Low battery exclamation spark -->
+    <path d="M 22 42 L 20 48 L 14 50 L 20 52 L 22 58 L 24 52 L 30 50 L 24 48 Z" fill="#D64545" stroke="#D64545" stroke-width="2" />
+  </g>
+</svg>

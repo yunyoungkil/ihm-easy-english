@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- MEAT (Steak / Meat on bone) sticker in Neo-brutalist style -->
+  <g stroke="#2B2B2B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Bone protruding from left -->
+    <path d="M 24 50 L 12 50 C 9 46, 5 46, 4 50 C 5 54, 9 54, 12 50 Z" fill="#FFFFFF" />
+    <circle cx="10" cy="46" r="3.5" fill="#FFFFFF" />
+    <circle cx="10" cy="54" r="3.5" fill="#FFFFFF" />
+
+    <!-- Main Steak Body -->
+    <path d="M 24 38 
+             C 32 25, 60 22, 78 30 
+             C 94 38, 96 62, 85 75 
+             C 74 88, 48 88, 32 80 
+             C 20 74, 18 55, 24 38 Z" fill="#FF8787" />
+
+    <!-- Marble Fat Ring / Border -->
+    <path d="M 30 42 
+             C 36 32, 58 30, 72 36 
+             C 84 42, 86 58, 78 68 
+             C 70 78, 50 78, 38 72 
+             C 28 66, 26 52, 30 42 Z" fill="#E03131" />
+
+    <!-- Center Bone (T-bone style round marrow) -->
+    <ellipse cx="44" cy="54" rx="7" ry="6" fill="#FFFFFF" />
+    <ellipse cx="44" cy="54" rx="3" ry="2.5" fill="#E9ECEF" />
+
+    <!-- Grill Marks -->
+    <line x1="56" y1="38" x2="68" y2="52" stroke="#A61E4D" stroke-width="3" />
+    <line x1="68" y1="46" x2="76" y2="56" stroke="#A61E4D" stroke-width="3" />
+    <line x1="50" y1="56" x2="62" y2="70" stroke="#A61E4D" stroke-width="3" />
+  </g>
+</svg>

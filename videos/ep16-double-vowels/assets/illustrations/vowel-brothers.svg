@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 640" width="100%" height="100%">
+  <defs>
+    <filter id="card-shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="6" dy="8" stdDeviation="0" flood-color="#2B2B2B" flood-opacity="1" />
+    </filter>
+  </defs>
+
+  <!-- Main Card Container with Neo-brutalist shadow -->
+  <g filter="url(#card-shadow)">
+    <rect x="10" y="10" width="550" height="605" rx="28" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="4.5"/>
+  </g>
+
+  <!-- Top Header Tag -->
+  <g transform="translate(140, -4)">
+    <rect x="0" y="0" width="290" height="48" rx="24" fill="#2B2B2B"/>
+    <text x="145" y="30" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="20" fill="#F5C518" text-anchor="middle" letter-spacing="1">
+      모음 두 개 규칙의 비밀
+    </text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="285" y="92" font-family="'Noto Sans KR', sans-serif" font-weight="800" font-size="22" fill="#2B2B2B" text-anchor="middle">
+    "형만 말하고, 동생은 자요!"
+  </text>
+
+  <!-- 1. LEFT CARD: The Big Brother Vowel (형 모음) -->
+  <g transform="translate(36, 120)">
+    <!-- Card Frame -->
+    <rect x="0" y="0" width="235" height="375" rx="20" fill="#FFF9E6" stroke="#2B2B2B" stroke-width="3.5"/>
+    
+    <!-- Role Badge -->
+    <rect x="38" y="18" width="160" height="36" rx="18" fill="#E8A93E" stroke="#2B2B2B" stroke-width="2.5"/>
+    <text x="118" y="42" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="16" fill="#FFFFFF" text-anchor="middle">
+      1번 모음 (형)
+    </text>
+
+    <!-- Cute Character Body -->
+    <circle cx="118" cy="145" r="58" fill="#FFE380" stroke="#2B2B2B" stroke-width="3.5"/>
+
+    <!-- Crown on head -->
+    <path d="M 94 94 L 102 108 L 118 92 L 134 108 L 142 94 L 142 112 L 94 112 Z" fill="#F5C518" stroke="#2B2B2B" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="118" cy="91" r="3.5" fill="#E03131"/>
+
+    <!-- Happy Face -->
+    <!-- Eyes (cheerful curves) -->
+    <path d="M 96 138 Q 104 128 112 138" fill="none" stroke="#2B2B2B" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M 124 138 Q 132 128 140 138" fill="none" stroke="#2B2B2B" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Blushing cheeks -->
+    <ellipse cx="94" cy="148" rx="7" ry="4" fill="#FF8787" opacity="0.8"/>
+    <ellipse cx="142" cy="148" rx="7" ry="4" fill="#FF8787" opacity="0.8"/>
+    <!-- Wide open smiling mouth -->
+    <path d="M 106 150 Q 118 168 130 150 Z" fill="#E03131" stroke="#2B2B2B" stroke-width="2.5"/>
+
+    <!-- Sound waves coming out -->
+    <path d="M 184 132 Q 192 145 184 158" fill="none" stroke="#E8A93E" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M 194 125 Q 206 145 194 165" fill="none" stroke="#E8A93E" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Key rule description -->
+    <rect x="22" y="222" width="190" height="54" rx="14" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="2.5"/>
+    <text x="118" y="247" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="18" fill="#E8A93E" text-anchor="middle">
+      📢 소리 냄!
+    </text>
+    <text x="118" y="267" font-family="'Noto Sans KR', sans-serif" font-weight="700" font-size="13" fill="#5C564A" text-anchor="middle">
+      알파벳 이름 그대로
+    </text>
+
+    <!-- Example Pill -->
+    <g transform="translate(30, 292)">
+      <rect x="0" y="0" width="175" height="64" rx="12" fill="#F8F4EC"/>
+      <text x="88" y="26" font-family="'Archivo Black', sans-serif" font-size="20" fill="#2B2B2B" text-anchor="middle">
+        B <tspan fill="#E8A93E">O</tspan> A T
+      </text>
+      <text x="88" y="50" font-family="'Noto Sans KR', sans-serif" font-weight="800" font-size="14" fill="#E8A93E" text-anchor="middle">
+        "오우" 소리 냄!
+      </text>
+    </g>
+  </g>
+
+  <!-- 2. RIGHT CARD: The Sleeping Little Brother Vowel (동생 모음) -->
+  <g transform="translate(298, 120)">
+    <!-- Card Frame -->
+    <rect x="0" y="0" width="235" height="375" rx="20" fill="#F4F6F9" stroke="#2B2B2B" stroke-width="3.5"/>
+    
+    <!-- Role Badge -->
+    <rect x="38" y="18" width="160" height="36" rx="18" fill="#868E96" stroke="#2B2B2B" stroke-width="2.5"/>
+    <text x="118" y="42" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="16" fill="#FFFFFF" text-anchor="middle">
+      2번 모음 (동생)
+    </text>
+
+    <!-- Cute Character Body -->
+    <circle cx="118" cy="145" r="58" fill="#DCE4EC" stroke="#2B2B2B" stroke-width="3.5"/>
+
+    <!-- Cute Sleeping Mask -->
+    <rect x="88" y="128" width="60" height="22" rx="11" fill="#4dabf7" stroke="#2B2B2B" stroke-width="2.5"/>
+    <path d="M 88 139 L 68 143" stroke="#2B2B2B" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 148 139 L 168 143" stroke="#2B2B2B" stroke-width="2" stroke-linecap="round"/>
+    <!-- Closed eyes on mask -->
+    <path d="M 97 139 Q 103 145 109 139" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 127 139 Q 133 145 139 139" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Peaceful smiling mouth -->
+    <path d="M 112 160 Q 118 166 124 160" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Floating Zzz's -->
+    <text x="175" y="112" font-family="'Gaegu', cursive, sans-serif" font-weight="700" font-size="28" fill="#4dabf7">Z</text>
+    <text x="192" y="96" font-family="'Gaegu', cursive, sans-serif" font-weight="700" font-size="22" fill="#4dabf7">z</text>
+    <text x="204" y="84" font-family="'Gaegu', cursive, sans-serif" font-weight="700" font-size="17" fill="#74c0fc">z</text>
+
+    <!-- Key rule description -->
+    <rect x="22" y="222" width="190" height="54" rx="14" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="2.5"/>
+    <text x="118" y="247" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="18" fill="#495057" text-anchor="middle">
+      💤 조용히 쉼 (무음)
+    </text>
+    <text x="118" y="267" font-family="'Noto Sans KR', sans-serif" font-weight="700" font-size="13" fill="#868E96" text-anchor="middle">
+      소리 내지 않아요
+    </text>
+
+    <!-- Example Pill -->
+    <g transform="translate(30, 292)">
+      <rect x="0" y="0" width="175" height="64" rx="12" fill="#F8F4EC"/>
+      <text x="88" y="26" font-family="'Archivo Black', sans-serif" font-size="20" fill="#2B2B2B" text-anchor="middle">
+        B O <tspan fill="#ADB5BD" text-decoration="line-through">A</tspan> T
+      </text>
+      <text x="88" y="50" font-family="'Noto Sans KR', sans-serif" font-weight="800" font-size="14" fill="#868E96" text-anchor="middle">
+        소리 안 남 (휴식!)
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom Takeaway Banner -->
+  <g transform="translate(36, 516)">
+    <rect x="0" y="0" width="497" height="74" rx="18" fill="#F8F9FA" stroke="#2B2B2B" stroke-width="3"/>
+    <circle cx="42" cy="37" r="22" fill="#F5C518" stroke="#2B2B2B" stroke-width="2.5"/>
+    <text x="42" y="44" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="20" fill="#2B2B2B" text-anchor="middle">💡</text>
+    <text x="80" y="34" font-family="'Noto Sans KR', sans-serif" font-weight="900" font-size="17" fill="#2B2B2B">
+      핵심 요약: 앞 글자 하나만 읽으면 끝!
+    </text>
+    <text x="80" y="56" font-family="'Noto Sans KR', sans-serif" font-weight="700" font-size="14" fill="#5C564A">
+      뒤에 붙은 모음은 신경 쓰지 말고 그냥 넘기세요.
+    </text>
+  </g>
+</svg>

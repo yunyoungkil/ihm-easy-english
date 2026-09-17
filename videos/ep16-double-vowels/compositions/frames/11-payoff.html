@@ -1,9 +1,8 @@
 <template>
 <style>
-  /* 11-payoff — Frame 11 "실전 재확인 (페이오프)". Same center slot and blur-to-sharp motif
-     as Frame 1 (symmetric callback), no card frame — background text only. GRAIN gets a full
-     held resolve, FOAM/REACH repeat the motion faster (montage). All three regular-group
-     color, since this frame proves the rule (no exception shown here). */
+  /* 11-payoff — Frame 11 "실전 재확인 (페이오프)". 
+     Upgraded with Neo-brutalist visual cards + meaning stickers (GRAIN, FOAM, REACH),
+     and a triumphant "Rule Master Stamp" for the final 15-second payoff statement! */
   @font-face {
     font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
     src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
@@ -24,9 +23,88 @@
   .f11-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
   .f11-progress-fill { position: absolute; left: 0; top: 0; width: 83.333%; height: 3px; background: #E8A93E; }
 
-  .f11-prompt { position: absolute; left: 0; right: 0; top: 20cqh; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2cqw; color: #5C564A; opacity: 0; }
-  .f11-word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-family: 'Archivo Black', sans-serif; font-size: 8.5cqw; line-height: 1; opacity: 0; filter: blur(6px); color: #2B2B2B; }
-  .f11-pron { position: absolute; left: 0; right: 0; top: 68cqh; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 2.4cqw; opacity: 0; }
+  /* Top category prompt */
+  .f11-prompt-wrap { position: absolute; left: 0; right: 0; top: 12cqh; display: flex; justify-content: center; opacity: 0; }
+  .f11-prompt-pill { background: #2B2B2B; color: #F5C518; font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.3cqw; padding: 0.8cqh 2.4cqw; border-radius: 100px; letter-spacing: 0.5px; box-shadow: 0 4px 0 rgba(0,0,0,0.15); }
+
+  /* Hero Word & Illustration Card Cluster */
+  .f11-hero-cluster {
+    position: absolute; left: 16cqw; right: 16cqw; top: 48%; transform: translateY(-50%);
+    display: flex; align-items: center; justify-content: center; gap: 4cqw;
+    opacity: 0;
+  }
+
+  /* Left: Illustration Card */
+  .f11-illust-card {
+    width: 20cqw; height: 20cqw;
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 24px;
+    box-shadow: 0 6px 0 #2B2B2B;
+    display: flex; align-items: center; justify-content: center;
+    padding: 2cqw; flex-shrink: 0;
+  }
+  .f11-illust-img { width: 100%; height: 100%; object-fit: contain; }
+
+  /* Right: Word details */
+  .f11-word-box {
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+    min-width: 32cqw;
+  }
+  .f11-vowel-tag {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.1cqw;
+    background: #FFF4E6; color: #D9480F; border: 2px solid #D9480F;
+    padding: 0.4cqh 1.2cqw; border-radius: 12px; margin-bottom: 1.2cqh;
+  }
+  .f11-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 7.2cqw; line-height: 1;
+    color: #2B2B2B; filter: blur(6px); opacity: 0.5;
+  }
+  .f11-pron-row {
+    display: flex; align-items: center; gap: 1.4cqw; margin-top: 1.6cqh; opacity: 0;
+  }
+  .f11-pron {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2.6cqw;
+    color: #1971C2; background: #E7F5FF; border: 2.5px solid #1971C2;
+    padding: 0.4cqh 1.6cqw; border-radius: 16px;
+  }
+  .f11-meaning {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.8cqw;
+    color: #5C564A;
+  }
+
+  /* Triumphant Rule Master Card (Appears at 25.6s) */
+  .f11-master-board {
+    position: absolute; left: 20cqw; right: 20cqw; top: 48%; transform: translateY(-50%) scale(0.9);
+    background: #FFFFFF; border: 4px solid #2B2B2B; border-radius: 28px;
+    box-shadow: 0 8px 0 #2B2B2B; padding: 4cqh 4cqw;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    opacity: 0; pointer-events: none;
+  }
+  .f11-master-badge {
+    background: #F5C518; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; font-weight: 900;
+    font-size: 1.4cqw; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 0.8cqh 2.4cqw; box-shadow: 0 4px 0 #2B2B2B; margin-bottom: 2cqh;
+  }
+  .f11-master-title {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 3.2cqw;
+    color: #2B2B2B; line-height: 1.25; margin-bottom: 1.5cqh;
+  }
+  .f11-master-sub {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.6cqw;
+    color: #5C564A; line-height: 1.5;
+  }
+  .f11-master-pills {
+    display: flex; gap: 1.2cqw; margin-top: 2.5cqh;
+  }
+  .f11-pill-chip {
+    background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 12px;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.2cqw; padding: 0.6cqh 1.4cqw; color: #2B2B2B;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  }
+
+  /* caption-pill */
+  .f11-caption-zone { position: absolute; left: 6cqw; right: 6cqw; bottom: 3.5cqh; display: flex; justify-content: center; opacity: 0; }
+  .f11-caption-pill { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 100px; padding: 1.3cqh 3.2cqw; max-width: 86cqw; }
+  .f11-caption-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
 <div data-hf-id="hf-tveu" id="root" data-composition-id="11-payoff" data-start="0" data-duration="40.12" data-width="1920" data-height="1080">
@@ -38,9 +116,43 @@
   <div data-hf-id="hf-c0zm" id="f11-progress-fill" class="f11-progress-fill"></div>
 
   <div data-hf-id="hf-kq2l" id="f11-content-clip" class="clip" data-start="0" data-duration="40.12" data-track-index="1">
-    <div data-hf-id="hf-qeny" id="f11-prompt" class="f11-prompt">오늘 처음 보는 단어</div>
-    <div data-hf-id="hf-jd5l" id="f11-word" class="f11-word">GRAIN</div>
-    <div data-hf-id="hf-ba2u" id="f11-pron" class="f11-pron"></div>
+    <div data-hf-id="hf-prompt-wrap" id="f11-prompt-wrap" class="f11-prompt-wrap">
+      <div data-hf-id="hf-qeny" class="f11-prompt-pill">실전 테스트 · 처음 보는 단어도 1초 컷!</div>
+    </div>
+
+    <!-- Interactive Word & Illustration Cluster -->
+    <div data-hf-id="hf-hero" id="f11-hero-cluster" class="f11-hero-cluster">
+      <div data-hf-id="hf-card-illust" class="f11-illust-card">
+        <img data-hf-id="hf-img" id="f11-illust-img" class="f11-illust-img" src="assets/illustrations/grain.svg" alt="단어 일러스트">
+      </div>
+      <div data-hf-id="hf-word-box" class="f11-word-box">
+        <div data-hf-id="hf-tag" id="f11-vowel-tag" class="f11-vowel-tag">AI · 앞의 A(에이)만 소리내기</div>
+        <div data-hf-id="hf-jd5l" id="f11-word" class="f11-word">GRAIN</div>
+        <div data-hf-id="hf-pron-row" id="f11-pron-row" class="f11-pron-row">
+          <div data-hf-id="hf-ba2u" id="f11-pron" class="f11-pron">그레인</div>
+          <div data-hf-id="hf-meaning" id="f11-meaning" class="f11-meaning">🌾 곡물, 낟알</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Triumphant Master Board (25.6s onwards) -->
+    <div data-hf-id="hf-master-board" id="f11-master-board" class="f11-master-board">
+      <div data-hf-id="hf-mb-badge" class="f11-master-badge">🏆 모음 2개 법칙 마스터</div>
+      <div data-hf-id="hf-mb-title" class="f11-master-title">처음 보는 영어 단어도<br data-hf-id="hf-x5px"><span data-hf-id="hf-mb-span" style="color: #D9480F">앞 글자 이름</span>만 알면 1초 컷!</div>
+      <div data-hf-id="hf-mb-sub" class="f11-master-sub">더 이상 둘 다 읽어야 하나 망설이지 마세요.<br data-hf-id="hf-rsrt">앞 모음이 당당하게 자기 이름을 외칩니다.</div>
+      <div data-hf-id="hf-mb-pills" class="f11-master-pills">
+        <div data-hf-id="hf-p1" class="f11-pill-chip">R<span data-hf-id="hf-s1" style="color:#1864AB">AI</span>N (에이)</div>
+        <div data-hf-id="hf-p2" class="f11-pill-chip">B<span data-hf-id="hf-s2" style="color:#C2400D">OA</span>T (오우)</div>
+        <div data-hf-id="hf-p3" class="f11-pill-chip">M<span data-hf-id="hf-s3" style="color:#087C59">EA</span>T (이-)</div>
+        <div data-hf-id="hf-p4" class="f11-pill-chip">P<span data-hf-id="hf-s4" style="color:#5F3DC4">IE</span> (아이)</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-cap11a" id="f11-caption-zone" class="f11-caption-zone">
+    <div data-hf-id="hf-cap11b" class="f11-caption-pill">
+      <div data-hf-id="hf-cap11c" id="f11-caption-text" class="f11-caption-text"></div>
+    </div>
   </div>
 </div>
 
@@ -51,39 +163,117 @@
   window.__timelines = window.__timelines || {};
   window.__timelines["11-payoff"] = tl;
 
-  var prompt = document.getElementById("f11-prompt");
+  var promptWrap = document.getElementById("f11-prompt-wrap");
+  var heroCluster = document.getElementById("f11-hero-cluster");
+  var illustImg = document.getElementById("f11-illust-img");
+  var vowelTag = document.getElementById("f11-vowel-tag");
   var word = document.getElementById("f11-word");
+  var pronRow = document.getElementById("f11-pron-row");
   var pron = document.getElementById("f11-pron");
+  var meaning = document.getElementById("f11-meaning");
+  var masterBoard = document.getElementById("f11-master-board");
 
-  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/11.words.json) — the old
-  // blurStart values (0.5/16.0/22.0s) fired the spelling reveal far ahead of "이 단어,"(7.06s)
-  // /"이것도"(17.50s)/"하나만 더요."(21.36s), and pron reveal used a short fixed offset from
-  // blurStart instead of the word's real pronunciation timestamp (e.g. GRAIN's "'그레인'입니다"
-  // is spoken at 14.14s, ~7s after the word itself becomes readable — not blurStart+0.7s).
   var WORDS = [
-    { spelling: "GRAIN", pron: "그레인", blurStart: 6.9, blurDur: 0.6, pronAt: 14.0 },
-    { spelling: "FOAM", pron: "포움", blurStart: 17.4, blurDur: 0.35, pronAt: 19.8 },
-    { spelling: "REACH", pron: "리치", blurStart: 21.2, blurDur: 0.25, pronAt: 24.4 }
+    { 
+      spelling: "GRAIN", 
+      pron: "그레인", 
+      meaning: "🌾 곡물, 낟알", 
+      tag: "AI · 앞의 A(에이)만 소리내기",
+      tagColor: "#1971C2",
+      tagBg: "#E7F5FF",
+      img: "assets/illustrations/grain.svg",
+      blurStart: 6.9, 
+      blurDur: 0.6, 
+      pronAt: 14.0 
+    },
+    { 
+      spelling: "FOAM", 
+      pron: "포움", 
+      meaning: "🫧 거품, 폼", 
+      tag: "OA · 앞의 O(오우)만 소리내기",
+      tagColor: "#D9480F",
+      tagBg: "#FFF4E6",
+      img: "assets/illustrations/foam.svg",
+      blurStart: 17.4, 
+      blurDur: 0.35, 
+      pronAt: 19.8 
+    },
+    { 
+      spelling: "REACH", 
+      pron: "리치", 
+      meaning: "🤝 손을 뻗다, 닿다", 
+      tag: "EA · 앞의 E(이-)만 소리내기",
+      tagColor: "#099268",
+      tagBg: "#E6FCF5",
+      img: "assets/illustrations/reach.svg",
+      blurStart: 21.2, 
+      blurDur: 0.25, 
+      pronAt: 24.4 
+    }
   ];
 
-  tl.to(prompt, { opacity: 1, duration: 0.4 }, 0.3);
+  // Prompt entrance
+  tl.to(promptWrap, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.3);
 
-  WORDS.forEach(function (w) {
+  // Sequence words
+  WORDS.forEach(function (w, idx) {
     tl.call(function () {
+      illustImg.src = w.img;
+      vowelTag.textContent = w.tag;
+      vowelTag.style.color = w.tagColor;
+      vowelTag.style.borderColor = w.tagColor;
+      vowelTag.style.backgroundColor = w.tagBg;
       word.textContent = w.spelling;
-      pron.textContent = "";
+      pron.textContent = w.pron;
+      pron.style.color = w.tagColor;
+      pron.style.borderColor = w.tagColor;
+      pron.style.backgroundColor = w.tagBg;
+      meaning.textContent = w.meaning;
+
       word.style.filter = "blur(6px)";
       word.style.opacity = 0.5;
-      pron.style.opacity = 0;
+      pronRow.style.opacity = 0;
     }, null, w.blurStart);
+
+    if (idx === 0) {
+      tl.to(heroCluster, { opacity: 1, duration: 0.35, ease: "power2.out" }, w.blurStart);
+    }
+
     tl.to(word, { filter: "blur(0px)", opacity: 1, duration: w.blurDur, ease: "power2.out" }, w.blurStart + 0.1);
-    tl.call(function () { pron.textContent = w.pron; }, null, w.pronAt);
-    tl.to(pron, { opacity: 1, duration: 0.3 }, w.pronAt);
+    tl.to(pronRow, { opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, w.pronAt);
   });
 
-  // "어떠세요, 낯선 단어들인데도..." (25.67s) — final line lands sharp and settled, mirroring
-  // Frame 1's hesitation-cursor resolved.
-  tl.to(prompt, { opacity: 0, duration: 0.3 }, 25.6);
+  // 25.6s: Transition from word cards to Triumphant Master Board!
+  tl.to(heroCluster, { opacity: 0, scale: 0.95, duration: 0.4, ease: "power2.in" }, 25.4);
+  tl.to(promptWrap, { opacity: 0, duration: 0.3 }, 25.4);
+
+  // Master board lands with punchy stamp motion (Back.out)
+  tl.to(masterBoard, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 25.8);
+
+  // Narration-coverage caption-pill
+  var captionZone = document.getElementById("f11-caption-zone");
+  var captionText = document.getElementById("f11-caption-text");
+  function setCaption11(txt) { captionText.textContent = txt; }
+  tl.set(captionZone, { opacity: 0 }, 0);
+
+  tl.call(setCaption11, ["이제 정말 이 규칙 하나로, 처음 보는 단어도 바로 읽으실 수 있어요."], 0.487);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.487);
+  tl.to(captionZone, { opacity: 0, duration: 0.25, ease: "power2.in" }, 6.6);
+
+  var PAYOFF_CAPTIONS = [
+    { at: 25.673, text: "어떠세요, 낯선 단어들인데도 계속 바로 읽히시죠?" },
+    { at: 30.174, text: "여태 이걸 다 읽어야 하는지, 하나만 읽어야 하는지," },
+    { at: 34.479, text: "그런 기준이 있는지조차 몰랐던 게," },
+    { at: 37.104, text: "사실 이 기준 하나만 알면 끝나는 일이었던 거예요." }
+  ];
+  tl.call(setCaption11, [PAYOFF_CAPTIONS[0].text], PAYOFF_CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, PAYOFF_CAPTIONS[0].at);
+  for (var c = 1; c < PAYOFF_CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, PAYOFF_CAPTIONS[c].at - 0.12);
+    tl.call(setCaption11, [PAYOFF_CAPTIONS[c].text], PAYOFF_CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, PAYOFF_CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 40.0);
 })();
 </script>
 </template>

@@ -30,13 +30,62 @@
   .f05-illust { position: absolute; left: 6cqw; top: 50%; transform: translateY(-50%); width: 30cqw; opacity: 1; }
   .f05-illust img { width: 100%; display: block; }
 
-  .f05-card { position: absolute; left: 44cqw; top: 50%; transform: translateY(-50%); width: 32cqw; background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 4px 0 #2B2B2B; padding: 4cqw; opacity: 0; }
-  .f05-word { font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1; text-align: center; position: relative; }
+  /* Dynamic Principle Mechanism Board (Active 0s ~ 19.5s) */
+  .f05-mech-board {
+    position: absolute; left: 40cqw; top: 50%; width: 54cqw;
+    background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 20px;
+    box-shadow: 0 6px 0 #2B2B2B; padding: 2.8cqh 2.4cqw;
+    display: flex; flex-direction: column; gap: 1.6cqh; opacity: 0; transform: translateY(-50%) scale(0.96);
+  }
+  .f05-mech-badge {
+    align-self: flex-start; background: #2B2B2B; color: #F5C518;
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 1.1cqw;
+    padding: 0.4cqh 1.2cqw; border-radius: 100px;
+  }
+  .f05-mech-title {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 2cqw;
+    color: #2B2B2B; line-height: 1.2;
+  }
+  .f05-mech-row {
+    border-radius: 14px; border: 2.5px solid #2B2B2B; padding: 1.4cqh 1.6cqw;
+    display: flex; align-items: center; gap: 1.4cqw; opacity: 0; transform: translateY(12px);
+  }
+  .f05-row-hard { background: #FFF5F5; border-color: #FA5252; }
+  .f05-tag-hard {
+    background: #C92A2A; color: #FFFFFF; font-weight: 900; font-size: 1.1cqw;
+    padding: 0.4cqh 1cqw; border-radius: 8px; flex-shrink: 0;
+  }
+  .f05-row-smart { background: #E6FCF5; border-color: #099268; }
+  .f05-tag-smart {
+    background: #087F5B; color: #FFFFFF; font-weight: 900; font-size: 1.1cqw;
+    padding: 0.4cqh 1cqw; border-radius: 8px; flex-shrink: 0;
+  }
+  .f05-mech-desc { display: flex; flex-direction: column; gap: 0.4cqh; }
+  .f05-mech-main { font-weight: 800; font-size: 1.35cqw; color: #2B2B2B; }
+  .f05-mech-sub { font-weight: 700; font-size: 1.2cqw; color: #E03131; }
+  .f05-substep { font-weight: 800; font-size: 1.35cqw; color: #2B2B2B; opacity: 0; transform: translateX(8px); }
+  .f05-substep strong { color: #087F5B; }
+  .f05-mech-footer {
+    background: #FFF9DB; border: 2px dashed #E8A93E; border-radius: 12px;
+    padding: 1.1cqh 1.4cqw; font-weight: 800; font-size: 1.3cqw; color: #8A5A12;
+    display: flex; align-items: center; gap: 0.6cqw; opacity: 0;
+  }
+
+  /* COAT Word Card (Active 19.8s onward) */
+  .f05-card { position: absolute; left: 45cqw; top: 50%; width: 38cqw; background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 16px; box-shadow: 0 6px 0 #2B2B2B; padding: 3cqh 3cqw; opacity: 0; }
+  .f05-word { font-family: 'Archivo Black', sans-serif; font-size: 5.4cqw; line-height: 1; text-align: center; position: relative; }
   .f05-o { color: #2B2B2B; }
   .f05-a { color: #5C564A; position: relative; }
   .f05-zzz { position: absolute; right: -0.5em; top: -0.6em; font-family: 'Gaegu', cursive; font-size: 0.3em; color: #5C564A; opacity: 0; }
-  .f05-tag { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 0.9cqw; color: #5C564A; text-align: center; margin-top: 3cqh; opacity: 0; }
-  .f05-caption { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.8cqw; color: #2B2B2B; text-align: center; margin-top: 1.6cqh; min-height: 1.4em; }
+  .f05-tag { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 1.6cqw; color: #5C564A; text-align: center; margin-top: 2cqh; opacity: 0; }
+  .f05-caption { font-family: 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 2.8cqw; color: #2B2B2B; text-align: center; margin-top: 1.6cqh; min-height: 1.4em; }
+
+  /* caption-pill — narration coverage: the abstract rule explanation (0.5-19.8s VO) has no
+     on-screen text at all before the COAT card slides in, and the closing line after the
+     "코트" letter-assembly (31-37.9s VO) isn't covered by the card either. */
+  .f05-caption-zone { position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh; display: flex; justify-content: center; opacity: 0; }
+  .f05-caption-pill { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 100px; padding: 1.3cqh 3.2cqw; max-width: 86cqw; }
+  .f05-caption-text2 { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
 <div data-hf-id="hf-ui1a" id="root" data-composition-id="05-mechanism" data-start="0" data-duration="37.64" data-width="1920" data-height="1080">
@@ -48,11 +97,49 @@
   <div data-hf-id="hf-jnd4" id="f05-progress-fill" class="f05-progress-fill"></div>
 
   <div data-hf-id="hf-ecbt" id="f05-content-clip" class="clip" data-start="0" data-duration="37.64" data-track-index="1">
-    <div data-hf-id="hf-y4tu" id="f05-illust" class="f05-illust"><img data-hf-id="hf-f9gh" src="assets/illustrations/tongue-mouth-diagram.png" alt=""></div>
+    <div data-hf-id="hf-y4tu" id="f05-illust" class="f05-illust"><img data-hf-id="hf-f9gh" src="assets/illustrations/lazy-tongue-shortcut.svg" alt=""></div>
+
+    <!-- Active during 0.5s ~ 19.5s: Dynamic Principle Mechanism Board -->
+    <div data-hf-id="hf-04s2" id="f05-mech-board" class="f05-mech-board">
+      <div data-hf-id="hf-jz8r" class="f05-mech-badge">🎬 30초 발음 핵심 원리</div>
+      <div data-hf-id="hf-z1c9" class="f05-mech-title">"모음 2개가 나란히 붙어있을 때"</div>
+
+      <div data-hf-id="hf-ij30" id="f05-step-1" class="f05-mech-row f05-row-hard">
+        <div data-hf-id="hf-vb98" class="f05-tag-hard">❌ 힘든 방식</div>
+        <div data-hf-id="hf-1z67" class="f05-mech-desc">
+          <span data-hf-id="hf-9k8d" class="f05-mech-main">모음 2개를 다 읽으려고 하면</span>
+          <span data-hf-id="hf-7r00" class="f05-mech-sub">혀가 2번 바쁘게 꺾여서 금방 지쳐요! 🥵</span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-luhp" id="f05-step-2" class="f05-mech-row f05-row-smart">
+        <div data-hf-id="hf-1ptp" class="f05-tag-smart">⭕ 혀의 지름길</div>
+        <div data-hf-id="hf-pkz3" class="f05-mech-desc">
+          <div data-hf-id="hf-5yn1" id="f05-substep-a" class="f05-substep">
+            1️⃣ 앞 모음: 자기 이름 <strong data-hf-id="hf-mtr4">시원하게 외치기! 📢</strong>
+          </div>
+          <div data-hf-id="hf-1o1a" id="f05-substep-b" class="f05-substep">
+            2️⃣ 뒷 모음: 혀에 힘 빼고 <strong data-hf-id="hf-q78c">조용히 꿀잠 자기 💤</strong>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-merh" id="f05-step-3" class="f05-mech-footer">
+        <span data-hf-id="hf-22p7">✨ <strong data-hf-id="hf-1m97">혀 입장에서 가장 편하고 자연스러운 소리 완성!</strong></span>
+      </div>
+    </div>
+
+    <!-- Active 19.8s onward: COAT practice card -->
     <div data-hf-id="hf-1yz6" id="f05-card" class="f05-card">
       <div data-hf-id="hf-dy0p" id="f05-word" class="f05-word">C<span data-hf-id="hf-xfxu" id="f05-o" class="f05-o">O</span><span data-hf-id="hf-1a8s" id="f05-a" class="f05-a">A<span data-hf-id="hf-95z7" id="f05-zzz" class="f05-zzz">Zzz</span></span>T</div>
       <div data-hf-id="hf-3zwm" id="f05-tag" class="f05-tag">소리 냄</div>
       <div data-hf-id="hf-vqia" id="f05-caption" class="f05-caption"></div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-cap05a" id="f05-caption-zone" class="f05-caption-zone">
+    <div data-hf-id="hf-cap05b" class="f05-caption-pill">
+      <div data-hf-id="hf-cap05c" id="f05-caption-text2" class="f05-caption-text2"></div>
     </div>
   </div>
 </div>
@@ -71,14 +158,61 @@
   var tag = document.getElementById("f05-tag");
   var caption = document.getElementById("f05-caption");
 
-  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/05.words.json) — the
-  // abstract explanation actually runs the full 0-19.8s ("원리는 간단해요..." through "...거예요"),
-  // not just 0-10s as originally guessed, so the card was appearing ~10s before "COAT도" is
-  // even said. Reference-video technique applied (knowledge/visual-reference-analysis.md,
-  // 2026-09-16 entry, "단계별 컷어웨이"): match each beat to the exact word it illustrates.
-  // Principle stated in the abstract first (0-19.8s): card stays hidden.
+  var illust = document.getElementById("f05-illust");
+  var mechBoard = document.getElementById("f05-mech-board");
+  var step1 = document.getElementById("f05-step-1");
+  var step2 = document.getElementById("f05-step-2");
+  var substepA = document.getElementById("f05-substep-a");
+  var substepB = document.getElementById("f05-substep-b");
+  var step3 = document.getElementById("f05-step-3");
+
+  // Principle Mechanism Board Animations (0.45s ~ 19.5s)
+  // "원리는 간단해요" (0.49s) — Board slides in
+  tl.fromTo(mechBoard, { opacity: 0, yPercent: -50, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, 0.45);
+
+  // "혀 입장에서는 두 개를 다 다른 소리로 내는 것보다" (4.50s) — Hard way warning appears
+  tl.to(step1, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.4)" }, 4.45);
+
+  // "앞 모음은 자기 이름 그대로 시원하게 말하고" (8.62s) — Step 2 & Substep A reveal
+  tl.to(step2, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 8.5);
+  tl.to(substepA, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 8.6);
+  tl.to(illust, { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1, ease: "power1.inOut" }, 8.6);
+
+  // "뒤에 있는 모음은 그냥 쉬는 게 훨씬 편하거든요" (12.52s) — Substep B reveals
+  tl.to(substepB, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 12.45);
+  tl.to(illust, { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1, ease: "power1.inOut" }, 12.45);
+
+  // "그래서 뒤 모음은 소리를 안 내는 거예요" (16.43s) — Takeaway highlights
+  tl.to(step3, { opacity: 1, duration: 0.4, ease: "power2.out" }, 16.35);
+
+  // Smooth transition from Mechanism Board to COAT Word Card (19.2s ~ 19.8s)
+  tl.to(mechBoard, { opacity: 0, scale: 0.95, duration: 0.4, ease: "power2.in" }, 19.2);
+
+  // Narration-coverage caption-pill
+  var captionZone = document.getElementById("f05-caption-zone");
+  var captionText2 = document.getElementById("f05-caption-text2");
+  function setCaption5(txt) { captionText2.textContent = txt; }
+  tl.set(captionZone, { opacity: 0 }, 0);
+  var ABSTRACT_CAPTIONS = [
+    { at: 0.49, text: "원리는 간단해요." },
+    { at: 2.545, text: "모음 두 개가 붙으면," },
+    { at: 4.501, text: "혀 입장에서는 두 개를 다 다른 소리로 내는 것보다" },
+    { at: 8.623, text: "앞 모음은 자기 이름 그대로 시원하게 말하고," },
+    { at: 12.519, text: "뒤에 있는 모음은 그냥 쉬는 게 훨씬 편하거든요." },
+    { at: 16.433, text: "그래서 뒤 모음은 소리를 안 내는 거예요." }
+  ];
+  tl.call(setCaption5, [ABSTRACT_CAPTIONS[0].text], ABSTRACT_CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, ABSTRACT_CAPTIONS[0].at);
+  for (var c = 1; c < ABSTRACT_CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, ABSTRACT_CAPTIONS[c].at - 0.12);
+    tl.call(setCaption5, [ABSTRACT_CAPTIONS[c].text], ABSTRACT_CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, ABSTRACT_CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 19.5);
+
   // "COAT도 마찬가지예요..." (19.93s) — card slides on, hold point.
-  tl.fromTo(card, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 19.8);
+  tl.set(card, { yPercent: -50 }, 0);
+  tl.fromTo(card, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 19.7);
   // "O는... '오'라고" (O는 spoken at 24.81s) — O lights up.
   tl.to(o, { color: "#8A5A12", scale: 1.12, duration: 0.4 }, 24.8);
   tl.to(tag, { opacity: 1, duration: 0.3 }, 25.1);
@@ -96,6 +230,19 @@
       }, null, letterStart + idx * 0.18);
     })(i);
   }
+
+  // Narration-coverage caption-pill, part 2: the closing line (31-37.9s VO) isn't covered by
+  // the card's letter-by-letter "코트" spelling, which only shows the isolated word.
+  var CLOSING_CAPTIONS = [
+    { at: 31.018, text: "그래서 '코트'라고 읽는 거죠 —" },
+    { at: 34.522, text: "사실 여러분 이미 이 단어, 알고 계셨잖아요." }
+  ];
+  tl.call(setCaption5, [CLOSING_CAPTIONS[0].text], CLOSING_CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CLOSING_CAPTIONS[0].at);
+  tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CLOSING_CAPTIONS[1].at - 0.12);
+  tl.call(setCaption5, [CLOSING_CAPTIONS[1].text], CLOSING_CAPTIONS[1].at);
+  tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CLOSING_CAPTIONS[1].at + 0.02);
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 37.6);
 })();
 </script>
 </template>

@@ -30,9 +30,16 @@
   .f10-illust img { width: 100%; display: block; }
 
   .f10-card { position: absolute; left: 44cqw; top: 50%; transform: translateY(-50%); width: 34cqw; text-align: center; }
-  .f10-syllables { font-family: 'Archivo Black', sans-serif; font-size: 6cqw; display: flex; justify-content: center; gap: 0.3em; }
+  .f10-en { font-family: 'Archivo Black', sans-serif; font-size: 4.8cqw; line-height: 1; color: #2B2B2B; margin-bottom: 1.6cqh; opacity: 0; }
+  .f10-syllables { font-family: 'Archivo Black', sans-serif; font-size: 7cqw; display: flex; justify-content: center; gap: 0.08em; color: #2B2B2B; }
   .f10-syl { opacity: 0.3; }
-  .f10-full { font-family: 'Archivo Black', sans-serif; font-size: 7cqw; opacity: 0; }
+
+  /* caption-pill — narration coverage: the lead-in instruction (0.5-8.6s VO) and the two short
+     "이번엔 MEAT예요." / "마지막으로...HEAD예요." transitions have no on-screen text — the card
+     only ever shows Korean syllables, never the English word being announced. */
+  .f10-caption-zone { position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh; display: flex; justify-content: center; opacity: 0; }
+  .f10-caption-pill { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 100px; padding: 1.3cqh 3.2cqw; max-width: 86cqw; }
+  .f10-caption-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
 <div data-hf-id="hf-d798" id="root" data-composition-id="10-practice" data-start="0" data-duration="48.68" data-width="1920" data-height="1080">
@@ -45,12 +52,18 @@
 
   <div data-hf-id="hf-j0h5" id="f10-content-clip" class="clip" data-start="0" data-duration="48.68" data-track-index="1">
     <div data-hf-id="hf-4gyx" id="f10-prompt" class="f10-prompt">따라 읽어보세요</div>
-    <div data-hf-id="hf-3xe9" class="f10-illust"><img data-hf-id="hf-f9gh" src="assets/illustrations/tongue-mouth-diagram.png" alt=""></div>
+    <div data-hf-id="hf-3xe9" class="f10-illust"><img data-hf-id="hf-f9gh" src="assets/illustrations/reading-coach.svg" alt=""></div>
     <div data-hf-id="hf-99c0" class="f10-card">
+      <div data-hf-id="hf-en01" id="f10-en" class="f10-en"></div>
       <div data-hf-id="hf-skpo" id="f10-syllables" class="f10-syllables">
         <span data-hf-id="hf-paod" id="f10-syl-1" class="f10-syl"></span><span data-hf-id="hf-t8se" id="f10-syl-2" class="f10-syl"></span>
       </div>
-      <div data-hf-id="hf-6o8a" id="f10-full" class="f10-full"></div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-cap10a" id="f10-caption-zone" class="f10-caption-zone">
+    <div data-hf-id="hf-cap10b" class="f10-caption-pill">
+      <div data-hf-id="hf-cap10c" id="f10-caption-text" class="f10-caption-text"></div>
     </div>
   </div>
 </div>
@@ -62,9 +75,10 @@
   window.__timelines = window.__timelines || {};
   window.__timelines["10-practice"] = tl;
 
+  var enWord = document.getElementById("f10-en");
+  var syllables = document.getElementById("f10-syllables");
   var syl1 = document.getElementById("f10-syl-1");
   var syl2 = document.getElementById("f10-syl-2");
-  var full = document.getElementById("f10-full");
   var card = document.querySelector(".f10-card");
 
   // Retimed 2026-09-16 against real whisper timestamps (assets/voice/10.words.json) — the old
@@ -73,35 +87,63 @@
   // ~12s per word ("BOAT," 8.78s ... 보,11.51s ... 트12.61s ... 보트!15.19s ... 보트,20.17s ...
   // 보트.21.08s). Each beat now gets its own real timestamp instead of a relative offset.
   var WORDS = [
-    { syls: ["보", "트"], full: "보트", color: "#8A5A12", reset: 8.6, syl1: 11.5, syl2: 12.6, merge: 15.1, pulse1: 20.1, pulse2: 21.0 },
-    { syls: ["미", "트"], full: "미트", color: "#8A5A12", reset: 22.9, syl1: 24.8, syl2: 25.6, merge: 27.9, pulse1: 33.1, pulse2: 34.0 },
-    { syls: ["헤", "드"], full: "헤드", color: "#D64545", reset: 38.5, syl1: 40.4, syl2: 40.8, merge: 43.4, pulse1: 47.8, pulse2: 48.6 }
+    { en: 'B<span style="color:#8A5A12">OA</span>T', syls: ["보", "트"], color: "#8A5A12", reset: 8.6, syl1: 11.5, syl2: 12.6, merge: 15.1, pulse1: 20.1, pulse2: 21.0 },
+    { en: 'M<span style="color:#8A5A12">EA</span>T', syls: ["미", "트"], color: "#8A5A12", reset: 22.9, syl1: 24.8, syl2: 25.6, merge: 27.9, pulse1: 33.1, pulse2: 34.0 },
+    { en: 'H<span style="color:#D64545">EA</span>D', syls: ["헤", "드"], color: "#D64545", reset: 38.5, syl1: 40.4, syl2: 40.8, merge: 43.4, pulse1: 47.8, pulse2: 48.6 }
   ];
 
   WORDS.forEach(function (w) {
     tl.call(function () {
+      enWord.innerHTML = w.en;
+      enWord.style.opacity = 0;
       syl1.textContent = w.syls[0];
       syl2.textContent = w.syls[1];
-      full.textContent = w.full;
-      full.style.color = w.color;
+      syllables.style.color = "#2B2B2B";
       syl1.style.opacity = 0.3;
       syl2.style.opacity = 0.3;
-      full.style.opacity = 0;
     }, null, w.reset);
 
-    // Slow build: syllables light up one at a time, then merge into the full word.
+    // English spelling reveals first (this is the word the illustration/syllables below are
+    // sounding out) — the card previously only ever showed Korean syllables, never the English
+    // word itself, so viewers couldn't tell which word was being practiced without the caption.
+    tl.to(enWord, { opacity: 1, duration: 0.4 }, w.reset + 0.1);
+
+    // Slow build: syllables light up one at a time, then a scale+color pop marks the merge —
+    // one Korean text element throughout (previously a separate "full word" element crossfaded
+    // in on top of the syllables, so the same pronunciation briefly showed twice, stacked).
+    // Scale, not font-size/gap, drives the "merge" beat — animating layout properties (font-size,
+    // gap) reflows text and snaps to integer device pixels under the seek-by-frame renderer.
     tl.to(syl1, { opacity: 1, duration: 0.5 }, w.syl1);
     tl.to(syl2, { opacity: 1, duration: 0.5 }, w.syl2);
     tl.to(card, { scale: 1.05, duration: 0.3 }, w.merge);
     tl.to(card, { scale: 1, duration: 0.3 }, w.merge + 0.3);
-    tl.to(full, { opacity: 1, duration: 0.3 }, w.merge);
+    tl.to(syllables, { scale: 1.12, color: w.color, duration: 0.3 }, w.merge);
+    tl.to(syllables, { scale: 1, duration: 0.2 }, w.merge + 0.3);
 
     // Fast repeat: word pulses twice, quickly, on the two real repeated utterances.
-    tl.to(full, { scale: 1.08, duration: 0.15 }, w.pulse1);
-    tl.to(full, { scale: 1, duration: 0.15 }, w.pulse1 + 0.15);
-    tl.to(full, { scale: 1.08, duration: 0.15 }, w.pulse2);
-    tl.to(full, { scale: 1, duration: 0.15 }, w.pulse2 + 0.15);
+    tl.to(syllables, { scale: 1.08, duration: 0.15 }, w.pulse1);
+    tl.to(syllables, { scale: 1, duration: 0.15 }, w.pulse1 + 0.15);
+    tl.to(syllables, { scale: 1.08, duration: 0.15 }, w.pulse2);
+    tl.to(syllables, { scale: 1, duration: 0.15 }, w.pulse2 + 0.15);
   });
+
+  // Narration-coverage caption-pill: the lead-in instruction and the two short English-word
+  // announcements have no on-screen text — the card only ever shows Korean syllables (real
+  // timestamps, assets/voice/10.words.json).
+  var captionZone = document.getElementById("f10-caption-zone");
+  var captionText = document.getElementById("f10-caption-text");
+  function setCaption10(txt) { captionText.textContent = txt; }
+  tl.set(captionZone, { opacity: 0 }, 0);
+
+  function flashCaption10(text, at, outAt) {
+    tl.call(setCaption10, [text], at);
+    tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, at);
+    tl.to(captionZone, { opacity: 0, duration: 0.25, ease: "power2.in" }, outAt);
+  }
+  flashCaption10("자, 이제 직접 소리 내서 읽어보세요.", 0.512, 4.0);
+  flashCaption10("따라 읽다 보면 저절로 자신감이 붙으실 거예요.", 4.284, 8.5);
+  flashCaption10("이번엔 MEAT예요.", 22.038, 24.4);
+  flashCaption10("마지막으로 예외였던 단어도 같이 볼까요. HEAD예요.", 35.038, 40.0);
 })();
 </script>
 </template>

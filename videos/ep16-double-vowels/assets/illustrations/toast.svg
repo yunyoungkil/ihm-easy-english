@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- TOAST (crispy toasted bread with melting butter) sticker in Neo-brutalist style -->
+  <g stroke="#2B2B2B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Toast Slice Crust -->
+    <path d="M 25 85 
+             L 75 85 
+             C 82 85, 85 80, 85 74 
+             L 85 45 
+             C 85 36, 78 30, 68 30 
+             C 60 30, 54 36, 50 36 
+             C 46 36, 40 30, 32 30 
+             C 22 30, 15 36, 15 45 
+             L 15 74 
+             C 15 80, 18 85, 25 85 Z" fill="#D9480F" />
+
+    <!-- Inner Golden Crumb Face -->
+    <path d="M 27 80 
+             L 73 80 
+             C 78 80, 80 76, 80 71 
+             L 80 46 
+             C 80 39, 74 35, 66 35 
+             C 60 35, 54 40, 50 40 
+             C 46 40, 40 35, 34 35 
+             C 26 35, 20 39, 20 46 
+             L 20 71 
+             C 20 76, 22 80, 27 80 Z" fill="#F59F00" />
+
+    <!-- Melting Butter Cube -->
+    <rect x="42" y="50" width="16" height="14" rx="3" fill="#FFF3BF" />
+    <path d="M 40 64 Q 50 68 60 64" fill="none" stroke="#F5C518" stroke-width="3" />
+    <!-- Butter shine -->
+    <circle cx="46" cy="54" r="1.5" fill="#FFFFFF" stroke="none" />
+
+    <!-- Steam swirls -->
+    <path d="M 38 22 Q 36 16 40 12" fill="none" stroke="#E8A93E" stroke-width="2.5" />
+    <path d="M 62 22 Q 60 16 64 12" fill="none" stroke="#E8A93E" stroke-width="2.5" />
+  </g>
+</svg>

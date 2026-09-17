@@ -31,17 +31,32 @@
   .f12-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: rgba(232,169,62,0.18); }
   .f12-progress-fill { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: #E8A93E; }
 
-  .f12-grid { position: absolute; left: 6cqw; right: 6cqw; top: 10cqh; height: 40cqh; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1cqw; }
-  .f12-card { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 1.6cqw; opacity: 0; transform: scale(0.8); }
-  .f12-card.exception { border-color: #D64545; }
+  .f12-grid { position: absolute; left: 6cqw; right: 6cqw; top: 30cqh; height: 40cqh; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1cqw; }
+  .f12-card { 
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 12px; 
+    box-shadow: 0 3px 0 #2B2B2B; display: flex; align-items: center; justify-content: center; 
+    font-family: 'Archivo Black', sans-serif; font-size: 1.6cqw; opacity: 0; transform: scale(0.8); 
+  }
+  .f12-card.exception { 
+    border-color: #D64545; box-shadow: 0 3px 0 #D64545; background: #FFF5F5; 
+  }
 
-  .f12-line { position: absolute; left: 0; right: 0; top: 58cqh; text-align: center; font-family: 'Gaegu', cursive; font-size: 4.2cqw; color: #2B2B2B; opacity: 0; }
+  .f12-line { position: absolute; left: 0; right: 0; top: 74cqh; text-align: center; font-family: 'Gaegu', cursive; font-size: 4.2cqw; color: #2B2B2B; opacity: 0; }
 
   .f12-wordmark { position: absolute; left: 6cqw; top: 8cqh; font-family: 'Black Han Sans', sans-serif; font-size: 1.6cqw; display: flex; opacity: 1; }
   .f12-wm-plain { color: #2B2B2B; }
   .f12-wm-accent { color: #8A5A12; }
 
   .f12-everything { transition: none; }
+
+  /* caption-pill — narration coverage: the closing statement (15.9-32.5s VO) isn't matched by
+     the hand-lettered f12-line, which is a short tagline callback, not the literal sentence.
+     Stops at 32.4s and does NOT resume after — production-rules.md's endscreen keep-out
+     (last 5s, 32.48-37.48s) requires the whole screen clear for YouTube's own UI, so the final
+     ~7s of narration ("저와 같이...읽고 계실 거예요.") is intentionally audio-only here. */
+  .f12-caption-zone { position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh; display: flex; justify-content: center; opacity: 0; }
+  .f12-caption-pill { background: #FFFFFF; border: 2px solid #2B2B2B; border-radius: 100px; padding: 1.3cqh 3.2cqw; max-width: 86cqw; }
+  .f12-caption-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
 <div data-hf-id="hf-hj17" id="root" data-composition-id="12-summary" data-start="0" data-duration="37.48" data-width="1920" data-height="1080">
@@ -54,11 +69,29 @@
 
   <div data-hf-id="hf-gc0l" id="f12-everything" class="clip f12-everything" data-start="0" data-duration="37.48" data-track-index="1">
     <div data-hf-id="hf-1e72" id="f12-grid" class="f12-grid">
-      <div data-hf-id="hf-b8tg" class="f12-card">BOAT</div><div data-hf-id="hf-jgfw" class="f12-card">RAIN</div><div data-hf-id="hf-zq1l" class="f12-card">MEAT</div><div data-hf-id="hf-kjr9" class="f12-card">COAT</div><div data-hf-id="hf-vxmi" class="f12-card">PAINT</div><div data-hf-id="hf-m5dl" class="f12-card">TOAST</div><div data-hf-id="hf-11y7" class="f12-card">TEAM</div>
-      <div data-hf-id="hf-mjqk" class="f12-card">PIE</div><div data-hf-id="hf-ibt7" class="f12-card">SEAT</div><div data-hf-id="hf-605l" class="f12-card">GOAL</div><div data-hf-id="hf-mtop" class="f12-card">GRAIN</div><div data-hf-id="hf-wmaz" class="f12-card">FOAM</div><div data-hf-id="hf-kkxp" class="f12-card">REACH</div><div data-hf-id="hf-qh6j" class="f12-card exception">HEAD</div>
+      <div data-hf-id="hf-b8tg" class="f12-card">B<span data-hf-id="hf-v1" style="color:#C2400D">O</span><span data-hf-id="hf-s1" style="opacity:0.45">A</span>T</div>
+      <div data-hf-id="hf-jgfw" class="f12-card">R<span data-hf-id="hf-v2" style="color:#1864AB">A</span><span data-hf-id="hf-s2" style="opacity:0.45">I</span>N</div>
+      <div data-hf-id="hf-zq1l" class="f12-card">M<span data-hf-id="hf-v3" style="color:#087C59">E</span><span data-hf-id="hf-s3" style="opacity:0.45">A</span>T</div>
+      <div data-hf-id="hf-kjr9" class="f12-card">C<span data-hf-id="hf-v4" style="color:#C2400D">O</span><span data-hf-id="hf-s4" style="opacity:0.45">A</span>T</div>
+      <div data-hf-id="hf-vxmi" class="f12-card">P<span data-hf-id="hf-v5" style="color:#1864AB">A</span><span data-hf-id="hf-s5" style="opacity:0.45">I</span>NT</div>
+      <div data-hf-id="hf-m5dl" class="f12-card">T<span data-hf-id="hf-v6" style="color:#C2400D">O</span><span data-hf-id="hf-s6" style="opacity:0.45">A</span>ST</div>
+      <div data-hf-id="hf-11y7" class="f12-card">T<span data-hf-id="hf-v7" style="color:#087C59">E</span><span data-hf-id="hf-s7" style="opacity:0.45">A</span>M</div>
+      <div data-hf-id="hf-mjqk" class="f12-card">P<span data-hf-id="hf-v8" style="color:#5F3DC4">I</span><span data-hf-id="hf-s8" style="opacity:0.45">E</span></div>
+      <div data-hf-id="hf-ibt7" class="f12-card">S<span data-hf-id="hf-v9" style="color:#087C59">E</span><span data-hf-id="hf-s9" style="opacity:0.45">A</span>T</div>
+      <div data-hf-id="hf-605l" class="f12-card">G<span data-hf-id="hf-v10" style="color:#C2400D">O</span><span data-hf-id="hf-s10" style="opacity:0.45">A</span>L</div>
+      <div data-hf-id="hf-mtop" class="f12-card">GR<span data-hf-id="hf-v11" style="color:#1864AB">A</span><span data-hf-id="hf-s11" style="opacity:0.45">I</span>N</div>
+      <div data-hf-id="hf-wmaz" class="f12-card">F<span data-hf-id="hf-v12" style="color:#C2400D">O</span><span data-hf-id="hf-s12" style="opacity:0.45">A</span>M</div>
+      <div data-hf-id="hf-kkxp" class="f12-card">R<span data-hf-id="hf-v13" style="color:#087C59">E</span><span data-hf-id="hf-s13" style="opacity:0.45">A</span>CH</div>
+      <div data-hf-id="hf-qh6j" class="f12-card exception">H<span data-hf-id="hf-v14" style="color:#D64545">EA</span>D</div>
     </div>
     <div data-hf-id="hf-xb0z" id="f12-line" class="f12-line">앞 모음만, 소리 냅니다</div>
     <div data-hf-id="hf-g6o2" id="f12-wordmark" class="f12-wordmark"><span data-hf-id="hf-7yvy" class="f12-wm-plain">이해하면&#160;</span><span data-hf-id="hf-7e5l" class="f12-wm-accent">쉬운영어</span></div>
+
+    <div data-hf-id="hf-cap12a" id="f12-caption-zone" class="f12-caption-zone">
+      <div data-hf-id="hf-cap12b" class="f12-caption-pill">
+        <div data-hf-id="hf-cap12c" id="f12-caption-text" class="f12-caption-text"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -92,6 +125,29 @@
   var endscreenStart = 32.48;
   tl.to([grid, line], { opacity: 0, duration: 1.2, ease: "power1.out" }, endscreenStart);
   tl.to(wordmark, { scale: 0.85, duration: 0.6 }, endscreenStart);
+
+  // Narration-coverage caption-pill: the closing statement (15.9-32.5s VO) isn't matched by
+  // f12-line, which is a short tagline callback, not the literal sentence (real timestamps,
+  // assets/voice/12.words.json). Stops before the endscreen keep-out zone (32.48s) — see the
+  // CSS comment for why the final ~7s of narration is intentionally left audio-only.
+  var captionZone = document.getElementById("f12-caption-zone");
+  var captionText = document.getElementById("f12-caption-text");
+  function setCaption12(txt) { captionText.textContent = txt; }
+  tl.set(captionZone, { opacity: 0 }, 0);
+
+  var CAPTIONS = [
+    { at: 15.874, text: "이제 모음 두 개가 붙은 낯선 단어를 봐도," },
+    { at: 19.581, text: "예전처럼 멈칫하지 않고 망설임 없이 바로 읽으실 수 있을 거예요." },
+    { at: 25.296, text: "다음에도 여러분이 자주 막막해하시는 부분, 또 풀어드릴게요." }
+  ];
+  tl.call(setCaption12, [CAPTIONS[0].text], CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CAPTIONS[0].at);
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(setCaption12, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 30.4);
 })();
 </script>
 </template>

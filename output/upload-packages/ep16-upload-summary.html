@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP16 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0F17;
+      --card-bg: rgba(22, 27, 41, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #F5C518;
+      --accent-glow: rgba(245, 197, 24, 0.35);
+      --primary: #3B82F6;
+      --success: #10B981;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(245, 197, 24, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.06) 0%, transparent 40%);
+    }
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(245, 197, 24, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 197, 24, 0.3);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .title span { color: var(--accent); }
+    .status-pill {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #34D399;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #34D399;
+    }
+
+    /* Layout Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+    }
+    @media (max-width: 1024px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFFFFF;
+    }
+
+    /* Copy Button */
+    .btn-copy {
+      background: #1F2937;
+      color: #E5E7EB;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-copy:hover {
+      background: var(--accent);
+      color: #000000;
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .btn-copy.copied {
+      background: var(--success);
+      color: #FFFFFF;
+      border-color: var(--success);
+    }
+
+    /* Content Box */
+    .content-box {
+      background: rgba(10, 13, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 14.5px;
+      color: #D1D5DB;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 280px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+    .content-box.single-line {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      white-space: normal;
+    }
+
+    /* Video Player */
+    .video-wrapper {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #000;
+    }
+    video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+    }
+    .video-info-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(15, 20, 30, 0.9);
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+    .video-info-bar strong { color: var(--accent); font-weight: 800; }
+
+    /* Thumbnails */
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .thumb-item {
+      background: rgba(15, 20, 30, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .thumb-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 197, 24, 0.4);
+    }
+    .thumb-item.featured {
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .thumb-item img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-label {
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .thumb-tag {
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Checklist */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(15, 20, 30, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .check-item:hover {
+      background: rgba(30, 40, 60, 0.5);
+    }
+    .check-item input[type="checkbox"] {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .check-text b { color: #FFFFFF; font-weight: 700; }
+    .check-text span { color: var(--text-muted); font-size: 12.5px; display: block; margin-top: 2px; }
+
+    /* Highlights & Tips */
+    .tip-box {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13.5px;
+      color: #93C5FD;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div>
+      <div class="badge">🔥 READY TO UPLOAD · HYPERFRAMES MASTER</div>
+      <h1 class="title">EP16 <span>모음 두 개 나란히 올 때 읽는 법</span></h1>
+      <p style="color: var(--text-muted); margin-top: 6px; font-size: 14px;">
+        10초 단독 엔드스크린 키프아웃 적용 · 4프레임 레이아웃 픽셀 완벽 검증 · 405.23초(6분 45초)
+      </p>
+    </div>
+    <div class="status-pill">
+      업로드 패키지 준비 완료
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <main class="grid">
+
+    <!-- Left Column: Video & Metadata -->
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+
+      <!-- Video Player Card -->
+      <section class="card">
+        <div class="card-title">
+          <span>🎬 최종 렌더 비디오 확인 (6분 45초)</span>
+          <span style="font-size: 13px; color: var(--accent); font-weight: 700;">H.264 1080p · 22.6 MB</span>
+        </div>
+        <div class="video-wrapper">
+          <video controls preload="metadata" poster="thumbnail-a.jpg">
+            <source src="video.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+          <div class="video-info-bar">
+            <span>길이: <strong>6분 45초 (405.23s)</strong></span>
+            <span>4프레임: <strong>중앙 정렬 패치 완료 ✓</strong></span>
+            <span>엔드스크린: <strong>6:35 ~ 6:45 (10초 클린 유지) ✓</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Title Card -->
+      <section class="card">
+        <div class="card-title">
+          <span>🏷️ 영상 제목 (Title)</span>
+          <button class="btn-copy" onclick="copyText('titleText', this)">복사</button>
+        </div>
+        <div id="titleText" class="content-box single-line">여태 두 글자 다 읽었네요... 모음 2개 겹친 단어 소리 원리 | 파닉스 기초</div>
+      </section>
+
+      <!-- Description Card -->
+      <section class="card">
+        <div class="card-title">
+          <span>📝 영상 설명 (Description & 타임스탬프)</span>
+          <button class="btn-copy" onclick="copyText('descText', this)">복사</button>
+        </div>
+        <div id="descText" class="content-box">BOAT, RAIN, MEAT… 이렇게 쉬운 단어 앞에서도 순간 멈칫하신 적 있으시죠?
+모음이 두 개 나란히 붙어 있을 때, 이걸 다 읽어야 하는지 하나만 읽어야 하는지 그 기준 하나를 아직 모르셨을 뿐입니다. 오늘 그 기준 하나만 알면, 이런 단어들 더 이상 망설이지 않고 바로 읽으실 수 있습니다.
+
+「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리 나는 원리로 설명합니다.
+
+📌 오늘 배우는 내용
+・모음이 2개 겹칠 때 앞 모음만 소리 내는 진짜 원리
+・BOAT, RAIN, MEAT, COAT, PAINT, TOAST 등 일상 단어로 확장하는 법
+・딱 하나 주의해야 할 EA 예외 단어 (HEAD, BREAD, DEAD)
+・미니 퀴즈 + 원어민 문장 리스닝 + 입으로 따라 하는 3단계 발음 훈련
+
+⏱️ 영상 순서
+0:00 모음 2개 단어 앞에서 멈칫했던 이유
+0:25 채널 소개
+0:39 모음이 두 개 붙어있으면 어느 쪽을 읽을까?
+0:56 정답: 앞 모음만 당당하게 소리 냅니다
+1:37 혀가 가장 편한 소리 지름길 원리 (COAT)
+2:15 다른 단어에도 그대로 통하는 패턴 확장
+2:55 딱 하나 주의할 예외 (HEAD, BREAD, DEAD)
+3:30 직접 맞혀보는 미니 퀴즈
+4:00 실제 원어민 문장에서 확인하기
+4:28 소리 내어 따라 읽는 낭독 연습
+5:17 처음 보는 단어도 바로 읽기 (GRAIN, FOAM, REACH)
+5:57 오늘 배운 핵심 공식 총정리
+
+영어는 무작정 외우는 것이 아니라, 소리의 원리를 이해하는 것입니다.
+구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.
+
+#영어발음 #파닉스 #영어읽기 #왕초보영어 #영어공부 #영단어 #발음원리 #성인영어 #이중모음</div>
+      </section>
+
+      <!-- Pinned Comment Card -->
+      <section class="card">
+        <div class="card-title">
+          <span>📌 첫 댓글 (고정 댓글 Pinned Comment)</span>
+          <button class="btn-copy" onclick="copyText('pinnedText', this)">복사</button>
+        </div>
+        <div id="pinnedText" class="content-box">오늘 배운 '앞 모음 법칙'으로 직접 읽어보실까요? 영상에는 나오지 않은 새로운 단어들입니다 👀
+
+① BEAT
+② ROAD
+③ MAIN
+④ BREAD (💡 주의: 이건 아까 배운 예외 단어였죠?)
+
+(힌트: 모음 2개가 나란히 오면 앞 모음 이름 그대로 소리 내고, 뒤 모음은 소리를 내지 않는다고 했습니다!)
+
+각 단어의 한글 발음을 댓글로 남겨주세요, 맞았는지 확인해 드릴게요! ✍️</div>
+      </section>
+
+      <!-- Tags Card -->
+      <section class="card">
+        <div class="card-title">
+          <span>🔍 검색 태그 (Tags)</span>
+          <button class="btn-copy" onclick="copyText('tagsText', this)">복사</button>
+        </div>
+        <div id="tagsText" class="content-box">영어 발음, 영어 발음 규칙, 파닉스 기초, 성인 파닉스, 영어 읽는법, 이중모음, 모음 2개, 왕초보 영어, 영어 단어 읽기, 파닉스 발음, 영어 발음 원리, 영어 독학, 기초 영어 회화, 영어 공부 혼자하기, 영어 낭독, English phonics, double vowels, how to read English, English pronunciation, English for beginners</div>
+      </section>
+
+    </div>
+
+    <!-- Right Column: Thumbnails & Upload Checklist -->
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+
+      <!-- Thumbnails (Test & Compare 3종) -->
+      <section class="card">
+        <div class="card-title">
+          <span>🖼️ YouTube Test & Compare 썸네일 3종</span>
+          <span style="font-size: 12px; color: var(--accent);">Studio에서 3종 동시 등록</span>
+        </div>
+        <div class="thumb-grid">
+          <div class="thumb-item featured">
+            <a href="thumbnail-a.jpg" target="_blank"><img src="thumbnail-a.jpg" alt="시안 A"></a>
+            <div class="thumb-label">
+              <span class="thumb-tag">★ 플래그십 (시안 A)</span>
+              <span>본편 캔버스 웜크림 배색</span>
+            </div>
+          </div>
+          <div class="thumb-item">
+            <a href="thumbnail-b.jpg" target="_blank"><img src="thumbnail-b.jpg" alt="시안 B"></a>
+            <div class="thumb-label">
+              <span class="thumb-tag">시안 B</span>
+              <span>단번에 읽힘 (1초 리딩)</span>
+            </div>
+          </div>
+          <div class="thumb-item">
+            <a href="thumbnail-c.jpg" target="_blank"><img src="thumbnail-c.jpg" alt="시안 C"></a>
+            <div class="thumb-label">
+              <span class="thumb-tag">시안 C</span>
+              <span>왕초보 1초 컷 (스톱워치)</span>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box">
+          💡 <strong>Test & Compare 팁:</strong> 유튜브 스튜디오에서 시안 A를 대표로 지정하고, '동영상 썸네일 테스트 및 비교'를 눌러 B와 C를 함께 등록하면 유튜브 AI가 시청자 클릭률을 실시간 비교해 가장 성과 좋은 썸네일을 자동 확정합니다.
+        </div>
+      </section>
+
+      <!-- Key Settings Card -->
+      <section class="card">
+        <div class="card-title">
+          <span>⚙️ 유튜브 Studio 필수 설정 항목</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 12px; color: var(--accent); font-weight: 800; display: block;">권장 예약 일시</span>
+              <strong style="font-size: 16px;">2026-09-20(일) 20:00 KST</strong>
+            </div>
+            <button class="btn-copy" onclick="copyRaw('2026-09-20 20:00 KST', this)">복사</button>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 12px; color: var(--accent); font-weight: 800; display: block;">최종 화면 (엔드스크린) 연결</span>
+              <strong style="font-size: 15px;">직전 편 EP15 (-sion 읽기) 연결</strong>
+            </div>
+            <span style="font-size: 12px; color: var(--text-muted);">끝 10초 비워둠</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Checklist -->
+      <section class="card">
+        <div class="card-title">
+          <span>📋 업로드 실행 체크리스트</span>
+        </div>
+        <div class="checklist">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>1. video.mp4 업로드</b>
+              <span>6분 45초 (4프레임 패치 및 10초 엔드스크린 확인)</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>2. 제목 및 설명 복사 입력</b>
+              <span>12개 챕터 타임스탬프 자동 챕터 분할</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <input type="checkbox" style="display:none;">
+            <div class="check-text">
+              <b>3. 썸네일 Test & Compare 3종 등록</b>
+              <span>thumbnail-a.jpg, thumbnail-b.jpg, thumbnail-c.jpg</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>4. 검색 태그 20종 일괄 붙여넣기</b>
+              <span>콤마로 구분된 전체 태그 복사</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>5. 최종 화면 요소 추가 (엔드스크린)</b>
+              <span>영상 끝 10초(6:35~)에 직전 영상(EP15) 및 구독 버튼 링크</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>6. 공개 상태: [예약] 설정</b>
+              <span>2026-09-20(일) 20:00 KST 선택 후 완료</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>7. 첫 댓글 작성 및 [댓글 고정]</b>
+              <span>시청자 참여 유도용 미니 퀴즈 4문항 게시</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+  function copyText(elementId, btn) {
+    var el = document.getElementById(elementId);
+    if (!el) return;
+    var text = el.innerText || el.textContent;
+    copyRaw(text, btn);
+  }
+
+  function copyRaw(text, btn) {
+    navigator.clipboard.writeText(text).then(function() {
+      var originalText = btn.innerText;
+      btn.innerText = "복사됨! ✓";
+      btn.classList.add("copied");
+      setTimeout(function() {
+        btn.innerText = originalText;
+        btn.classList.remove("copied");
+      }, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

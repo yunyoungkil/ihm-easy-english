@@ -70,6 +70,28 @@ async function main() {
     script.runInContext(vmContext);
     console.log('✅ BROWSER Client JS executed in simulated DOM context without crashing!');
 
+    // Mock realistic dashboard and episode data so renderOverviewTab executes full logic
+    vmContext.gDashboard = {
+      summary: { views: 1000, estimatedMinutesWatched: 600, averageViewDuration: 120, averageViewPercentage: 45, subscribersGained: 50, subscribersLost: 5 },
+      daily: [{ views: 100, estimatedMinutesWatched: 60, subscribersGained: 5, subscribersLost: 1 }],
+      topVideos: [{ videoId: 'v1', title: 'Top Video', subscribersPerThousandViews: 10, views: 1000, url: 'https://youtu.be/v1' }],
+      recentVideos: [{ videoId: 'v1', title: 'Video 1', publishedAt: '2026-09-01T00:00:00Z', durationSeconds: 300 }]
+    };
+    vmContext.gEpisodes = [
+      {
+        season: '단편',
+        episode: 'EP16',
+        tracks: {
+          longform: {
+            contentId: 'ep16-double-vowels-longform',
+            status: 'ready_to_upload',
+            statusLabel: '업로드 대기 · 예약 권장: 9/20(일) 20:00 KST',
+            youtube: { title: 'EP16 Test Title', description: 'Test description', tags: ['tag1'], thumbnailCandidates: ['/thumb.jpg'] }
+          }
+        }
+      }
+    ];
+
     // Test rendering every tab!
     const tabsToTest = [
       'renderOverviewTab',

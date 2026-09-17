@@ -59,15 +59,15 @@
   .f12-caption-text { font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 700; line-height: 1.5; color: #2B2B2B; text-align: center; }
 </style>
 
-<div data-hf-id="hf-hj17" id="root" data-composition-id="12-summary" data-start="0" data-duration="37.48" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-5j6g" id="f12-bg-clip" class="clip" data-start="0" data-duration="37.48" data-track-index="0"></div>
+<div data-hf-id="hf-hj17" id="root" data-composition-id="12-summary" data-start="0" data-duration="47.48" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-5j6g" id="f12-bg-clip" class="clip" data-start="0" data-duration="47.48" data-track-index="0"></div>
 
   <audio data-hf-id="hf-5i4b" id="f12-voice" src="assets/voice/12.wav" data-start="0" data-audio-group="voiceover"></audio>
 
   <div data-hf-id="hf-0gky" id="f12-progress-track" class="f12-progress-track"></div>
   <div data-hf-id="hf-b658" id="f12-progress-fill" class="f12-progress-fill"></div>
 
-  <div data-hf-id="hf-gc0l" id="f12-everything" class="clip f12-everything" data-start="0" data-duration="37.48" data-track-index="1">
+  <div data-hf-id="hf-gc0l" id="f12-everything" class="clip f12-everything" data-start="0" data-duration="47.48" data-track-index="1">
     <div data-hf-id="hf-1e72" id="f12-grid" class="f12-grid">
       <div data-hf-id="hf-b8tg" class="f12-card">B<span data-hf-id="hf-v1" style="color:#C2400D">O</span><span data-hf-id="hf-s1" style="opacity:0.45">A</span>T</div>
       <div data-hf-id="hf-jgfw" class="f12-card">R<span data-hf-id="hf-v2" style="color:#1864AB">A</span><span data-hf-id="hf-s2" style="opacity:0.45">I</span>N</div>
@@ -108,28 +108,17 @@
   var line = document.getElementById("f12-line");
   var wordmark = document.getElementById("f12-wordmark");
   var grid = document.getElementById("f12-grid");
+  var progressTrack = document.getElementById("f12-progress-track");
+  var fill = document.getElementById("f12-progress-fill");
 
-  // Retimed 2026-09-16 against real whisper timestamps (assets/voice/12.words.json) — the old
-  // single stagger group (0.5-1.6s) popped all 14 cards in well before the ~15s summary
-  // sentence finishes. Split into the two groups the sentence itself names: the 13 regular
-  // cards land during "앞 모음은... 소리 내고, 뒤 모음은... 무음"(3.81-8.58s), the HEAD
-  // exception card lands separately on "그리고 EA는... 예외까지"(9.82s).
+  // Retimed against real whisper timestamps (assets/voice/12.words.json)
   tl.to(regularCards, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.41, ease: "power2.out" }, 3.7);
   tl.to(exceptionCards, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 9.7);
 
   // "이제 모음 두 개가 붙은..." (15.87s) — closing line, hand-lettered.
   tl.fromTo(line, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 }, 15.8);
 
-  // Endscreen keep-out: last 5s of this frame (32.48 - 37.48) clears the whole center,
-  // wordmark shrinks to a small top-left tag only (production-rules.md).
-  var endscreenStart = 32.48;
-  tl.to([grid, line], { opacity: 0, duration: 1.2, ease: "power1.out" }, endscreenStart);
-  tl.to(wordmark, { scale: 0.85, duration: 0.6 }, endscreenStart);
-
-  // Narration-coverage caption-pill: the closing statement (15.9-32.5s VO) isn't matched by
-  // f12-line, which is a short tagline callback, not the literal sentence (real timestamps,
-  // assets/voice/12.words.json). Stops before the endscreen keep-out zone (32.48s) — see the
-  // CSS comment for why the final ~7s of narration is intentionally left audio-only.
+  // Narration-coverage caption-pill: covers spoken sentences accurately.
   var captionZone = document.getElementById("f12-caption-zone");
   var captionText = document.getElementById("f12-caption-text");
   function setCaption12(txt) { captionText.textContent = txt; }
@@ -138,7 +127,8 @@
   var CAPTIONS = [
     { at: 15.874, text: "이제 모음 두 개가 붙은 낯선 단어를 봐도," },
     { at: 19.581, text: "예전처럼 멈칫하지 않고 망설임 없이 바로 읽으실 수 있을 거예요." },
-    { at: 25.296, text: "다음에도 여러분이 자주 막막해하시는 부분, 또 풀어드릴게요." }
+    { at: 25.296, text: "다음에도 여러분이 자주 막막해하시는 부분, 또 풀어드릴게요." },
+    { at: 30.596, text: "저와 같이 하나씩 차근차근 익혀 나가시면, 어느새 훨씬 자신 있게 읽고 계실 거예요." }
   ];
   tl.call(setCaption12, [CAPTIONS[0].text], CAPTIONS[0].at);
   tl.fromTo(captionZone, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CAPTIONS[0].at);
@@ -147,7 +137,14 @@
     tl.call(setCaption12, [CAPTIONS[c].text], CAPTIONS[c].at);
     tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
   }
-  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 30.4);
+  tl.to(captionZone, { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.0);
+
+  // Endscreen dedicated 10s: narration finishes at ~37.48s.
+  // At 37.48s, fade out grid, tagline, progress track & fill.
+  // Leave screen center completely clean for YouTube subscribe & recommended video cards until 47.48s (10s).
+  var endscreenStart = 37.48;
+  tl.to([grid, line, captionZone, progressTrack, fill], { opacity: 0, duration: 0.8, ease: "power2.inOut" }, endscreenStart);
+  tl.to(wordmark, { scale: 0.85, duration: 0.6 }, endscreenStart);
 })();
 </script>
 </template>

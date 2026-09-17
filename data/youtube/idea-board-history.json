@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-15T10:44:43.386Z",
+  "updatedAt": "2026-09-17T11:51:18.357Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -112,10 +112,36 @@
           "detail": "시청자 언어 '언어팩' 구축 및 직관적 '체득' 니즈 반영"
         }
       ],
+      "episodeSlug": "ep16-double-vowels",
+      "episodeLabel": "단편 EP16",
+      "status": "scheduled",
+      "selectedAt": "2026-09-15T10:44:39.266Z",
+      "producedAt": "2026-09-17"
+    },
+    {
+      "topic": "모음 뒤에 R이 붙을 때 소리가 통째로 바뀌는 Bossy R 규칙",
+      "angleOrHook": "AR, ER, IR, OR, UR에서 모음 소리를 따지지 마세요: 뒤에 붙은 R이 게으른 혀를 뒤로 끌어당기며 만드는 2가지 소리 길만 익히면 복잡한 단어 읽기가 너무나 쉬워집니다.",
+      "targetAudience": "모음 발음 기호가 단어마다 달라 영어 단어 읽기에 피로감과 두려움을 느끼는 왕초보 독학자",
+      "rank": 4,
+      "score": 84,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 훅 단어 '모음', '이렇게', '쉽다고' 결합"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "채널 내부 최고 성과 포맷 'LEGACY'(fitScore 57) 활용"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "혀의 '자주 쓰는 근육' 원리 설명을 통해 직관적 원리 체득 유도"
+        }
+      ],
       "episodeSlug": null,
       "episodeLabel": null,
       "status": "selected",
-      "selectedAt": "2026-09-15T10:44:39.266Z",
+      "selectedAt": "2026-09-17T11:51:18.357Z",
       "producedAt": null
     }
   ]

@@ -127,28 +127,28 @@
     "generatedAt": "2026-09-13T03:43:06.116Z"
   },
   "selected": {
-    "rank": 2,
-    "topic": "모음이 2개 겹칠 때 앞 모음만 읽는 영어 모음 규칙",
-    "angleOrHook": "무작정 철자 외우지 마세요: 모음이 나란히 붙어 나오면 뒤 모음은 침묵하고 앞 모음 이름만 소리 내는 초간단 지름길 규칙으로 Boat, Rain, Meat를 단번에 뚫어냅니다.",
-    "targetAudience": "단어에 모음이 두 개 이상 연속으로 나오면 어떻게 소리 내야 할지 막막한 알파벳 파닉스 직후 입문자",
-    "suggestedBadge": "💡 1초 모음 공식",
-    "rationale": "집중 키워드 '영어 발음 규칙'의 최다 반복 훅 단어 '모음(2회)', '읽는(2회)', '쉽다고(2회)'를 포착하고, 50.42배 아웃라이어 '영어 읽는법 1편 - 자음과 모음' 수요를 직접 공략했습니다.",
+    "rank": 4,
+    "topic": "모음 뒤에 R이 붙을 때 소리가 통째로 바뀌는 Bossy R 규칙",
+    "angleOrHook": "AR, ER, IR, OR, UR에서 모음 소리를 따지지 마세요: 뒤에 붙은 R이 게으른 혀를 뒤로 끌어당기며 만드는 2가지 소리 길만 익히면 복잡한 단어 읽기가 너무나 쉬워집니다.",
+    "targetAudience": "모음 발음 기호가 단어마다 달라 영어 단어 읽기에 피로감과 두려움을 느끼는 왕초보 독학자",
+    "suggestedBadge": "🎯 읽기 지름길",
+    "rationale": "집중 키워드 '영어 발음 규칙'의 훅 단어 '모음', '이렇게', '쉽다고'와 아웃라이어 영상들의 파닉스 모음 확장 수요를 바탕으로 최고 fitScore 포맷인 LEGACY(57)로 기획했습니다.",
     "dataSourceRefs": [
       {
         "source": "marketDemand",
-        "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 반복 훅 단어 '모음', '읽는', '쉽다고' 활용 및 아웃라이어 '영어 읽는법 1편 - 자음과 모음(50.42배)' 연계"
+        "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 훅 단어 '모음', '이렇게', '쉽다고' 결합"
       },
       {
         "source": "contentOpportunity",
-        "detail": "기존 레거시 단일 모음(A, E, I, O, U) 영상들의 후속 확장으로 LEGACY 포맷(fitScore 57) 적용"
+        "detail": "채널 내부 최고 성과 포맷 'LEGACY'(fitScore 57) 활용"
       },
       {
         "source": "audienceDna",
-        "detail": "시청자 언어 '언어팩' 구축 및 직관적 '체득' 니즈 반영"
+        "detail": "혀의 '자주 쓰는 근육' 원리 설명을 통해 직관적 원리 체득 유도"
       }
     ],
     "suggestedFormat": "LONGFORM",
-    "score": 88
+    "score": 84
   },
   "generatedAt": "2026-09-13T03:43:06.116Z",
   "focusKeyword": "영어 발음 규칙"

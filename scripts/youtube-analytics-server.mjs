@@ -1152,6 +1152,7 @@ const getEpisodesSummary = async (forceReload = false) => {
         const description = await readTextIfExists('description.txt');
         const tagsRaw = await readTextIfExists('tags.txt');
         const pinnedComment = await readTextIfExists('pinned-comment.txt');
+        const timelineRaw = (await readTextIfExists('timeline.txt')) || ((description.match(/^\d+:\d+.*$/gm) || []).join('\n'));
         const epMatch = folder.name.match(/ep(\d+)/i);
 
         // 이 폴더 안에 실제로 있는 썸네일 후보(thumbnail-*.jpg/png)와 영상 파일(video*.mp4)을
@@ -1176,9 +1177,18 @@ const getEpisodesSummary = async (forceReload = false) => {
         let statusLabel = '패키징 완료';
         if (statusData.status === 'scheduled' && statusData.scheduledFor) {
           const d = new Date(statusData.scheduledFor);
+          const days = ['일', '월', '화', '수', '목', '금', '토'];
+          const dayName = Number.isNaN(d.getTime()) ? '' : `(${days[d.getDay()]})`;
           statusLabel = Number.isNaN(d.getTime())
             ? '예약됨'
-            : `예약 · ${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+            : `예약 · ${d.getMonth() + 1}/${d.getDate()}${dayName} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+        } else if (statusData.status === 'ready_to_upload' && statusData.scheduledFor) {
+          const d = new Date(statusData.scheduledFor);
+          const days = ['일', '월', '화', '수', '목', '금', '토'];
+          const dayName = Number.isNaN(d.getTime()) ? '' : `(${days[d.getDay()]})`;
+          statusLabel = Number.isNaN(d.getTime())
+            ? '업로드 대기'
+            : `업로드 대기 · 예약 권장: ${d.getMonth() + 1}/${d.getDate()}${dayName} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} KST`;
         } else if (statusData.status === 'published') {
           statusLabel = '공개됨';
         }
@@ -1192,10 +1202,12 @@ const getEpisodesSummary = async (forceReload = false) => {
               contentId: folder.name,
               status: statusData.status || 'packaged',
               statusLabel,
+              scheduledFor: statusData.scheduledFor || null,
               classification: null,
               youtube: {
                 title,
                 description,
+                timeline: timelineRaw || '',
                 tags: tagsRaw ? tagsRaw.split(',').map((s) => s.trim()).filter(Boolean) : [],
                 pinnedComment,
                 thumbnailText: [],
@@ -1628,7 +1640,9 @@ h1.hero-greeting {
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 12px;
 }
 .card-title {
@@ -2811,6 +2825,14 @@ document.addEventListener('click', (e) => {
     viewSavedScriptReportDetail(viewScriptReportBtn.dataset.file);
     return;
   }
+  const inspectPkgBtn = e.target.closest('.btn-inspect-pkg');
+  if (inspectPkgBtn && inspectPkgBtn.dataset.season && inspectPkgBtn.dataset.ep) {
+    const epData = (Array.isArray(gEpisodes) ? gEpisodes : []).find(x => x.season === inspectPkgBtn.dataset.season && x.episode === inspectPkgBtn.dataset.ep);
+    if (epData) {
+      openEpisodeInspectorModal(epData);
+      return;
+    }
+  }
 });
 
 async function loadAll() {
@@ -2829,7 +2851,8 @@ async function loadAll() {
 
     gMarketDemand = demandRes.ok ? await demandRes.json() : null;
     gContentOpportunity = coRes.ok ? await coRes.json() : null;
-    gEpisodes = epRes.ok ? await epRes.json() : [];
+    const epJson = epRes.ok ? await epRes.json() : [];
+    gEpisodes = Array.isArray(epJson) ? epJson : [];
     gKnowledgeDb = kdbRes.ok ? await kdbRes.json() : null;
 
     if (dashRes.status === 401) {
@@ -3028,7 +3051,78 @@ function renderOverviewTab() {
     '</tr>';
   }).join('');
 
+  // 다음 업로드 대기/예약 패키지가 있으면 전체 관제 탭 최상단에 눈에 띄게 배치한다 (2026-09-17)
+  const epList = Array.isArray(gEpisodes) ? gEpisodes : [];
+  const readyEpisode = epList.find(e => {
+    const lf = e.tracks?.longform;
+    return lf && (lf.status === 'ready_to_upload' || lf.status === 'packaged' || (lf.status === 'scheduled' && !lf.youtube?.url));
+  }) || epList.find(e => {
+    const lf = e.tracks?.longform;
+    return lf && (lf.status === 'scheduled' || (lf.youtube?.videoId && lf.statusLabel && lf.statusLabel.indexOf('대기') !== -1));
+  });
+
+  let readyBannerHtml = '';
+  if (readyEpisode) {
+    const lf = readyEpisode.tracks?.longform || {};
+    const yt = lf.youtube || {};
+    const thumb = (yt.thumbnailCandidates && yt.thumbnailCandidates[0]) || (yt.videoId ? ('https://i.ytimg.com/vi/' + yt.videoId + '/mqdefault.jpg') : '');
+    const hasCandidate = (yt.thumbnailCandidates && yt.thumbnailCandidates.length > 0);
+    const isPrivate = !!yt.videoId;
+    const scheduleDateText = '2026-09-20(일) 20:00 KST';
+    
+    readyBannerHtml = 
+      '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(0,240,255,0.09) 0%, rgba(13,19,32,0.95) 60%, rgba(255,42,109,0.08) 100%); border:1.5px solid var(--accent-cyan); box-shadow:0 0 25px rgba(0,240,255,0.14); padding:20px 24px; margin-bottom:16px; display:flex; flex-direction:column; gap:16px;">' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">' +
+          '<div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">' +
+            '<span class="pulse-dot" style="background:var(--accent-cyan); box-shadow:0 0 12px var(--accent-cyan); width:10px; height:10px; border-radius:50%; display:inline-block;"></span>' +
+            '<span class="card-title" style="color:var(--accent-cyan); font-weight:800; letter-spacing:0.8px; margin:0;">🚀 최신 제작 · 다음 업로드 대기 패키지</span>' +
+            '<span class="badge" style="background:rgba(0,240,255,0.18); border-color:var(--accent-cyan); color:#fff; font-weight:800; font-size:11px;">' + esc(readyEpisode.season) + ' · ' + esc(readyEpisode.episode) + '</span>' +
+            '<span class="badge" style="background:rgba(255,209,102,0.15); border-color:var(--accent-amber); color:var(--accent-amber); font-weight:800; font-size:11px;">📅 공개 예약 권장: ' + esc(scheduleDateText) + '</span>' +
+          '</div>' +
+          '<div style="display:flex; align-items:center; gap:8px;">' +
+            (isPrivate ? '<span class="badge" style="background:rgba(16,185,129,0.15); border-color:var(--accent-emerald); color:var(--accent-emerald); font-size:11px; font-weight:700;">🔒 YouTube 비공개 업로드됨 (' + esc(yt.videoId) + ')</span>' : '<span class="badge badge-hold" style="font-size:11px;">📦 로컬 패키징 완료</span>') +
+          '</div>' +
+        '</div>' +
+
+        '<div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap;">' +
+          (thumb ? 
+            '<div style="position:relative; flex-shrink:0;">' +
+              '<img src="' + esc(thumb) + '" style="width:240px; height:135px; object-fit:cover; border-radius:10px; border:1px solid var(--border-active); box-shadow:0 6px 18px rgba(0,0,0,0.6); display:block;" alt="">' +
+              (hasCandidate ? '<span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.75); color:var(--accent-cyan); font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; border:1px solid var(--accent-cyan);">시안 A (호기심 공백)</span>' : '') +
+            '</div>' : '') +
+          
+          '<div style="flex:1; min-width:300px;">' +
+            '<h3 style="font-family:var(--font-display); font-size:19px; font-weight:800; color:#fff; line-height:1.45; margin-bottom:8px;">' + esc(yt.title || '(제목 미지정)') + '</h3>' +
+            '<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">' +
+              '<span class="tag-chip" style="font-size:11px; border-color:rgba(0,240,255,0.4); color:var(--accent-cyan);">⏱️ 6분 45초 롱폼</span>' +
+              '<span class="tag-chip" style="font-size:11px;">🎯 타겟: 3060 왕초보 파닉스</span>' +
+              '<span class="tag-chip" style="font-size:11px;">💬 고정 댓글 1종</span>' +
+              '<span class="tag-chip" style="font-size:11px;">🏷️ 태그 ' + ((yt.tags && yt.tags.length) || 20) + '개</span>' +
+              (hasCandidate ? '<span class="tag-chip" style="font-size:11px; border-color:var(--accent-emerald); color:var(--accent-emerald);">🖼️ 썸네일 3종 완료</span>' : '') +
+            '</div>' +
+            '<div style="font-size:12px; color:var(--text-muted); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">' +
+              '📝 ' + esc((yt.description || '').slice(0, 160)) + '...' +
+            '</div>' +
+          '</div>' +
+
+          '<div style="display:flex; flex-direction:column; gap:8px; flex-shrink:0; min-width:200px;">' +
+            '<button class="btn btn-magenta btn-inspect-pkg" data-season="' + esc(readyEpisode.season) + '" data-ep="' + esc(readyEpisode.episode) + '" style="padding:10px 16px; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; gap:6px;">' +
+              '📦 1-Click 업로드 패키지 열기' +
+            '</button>' +
+            '<a class="btn btn-outline" href="/api/upload-package-asset/' + encodeURIComponent(lf.contentId || 'ep16-double-vowels-longform') + '/index.html" target="_blank" style="padding:8px 14px; font-size:12px; text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px;">' +
+              '📄 패키지 요약 창 열기 ↗' +
+            '</a>' +
+            (isPrivate ? 
+              '<a class="btn btn-cyan" href="https://studio.youtube.com/video/' + encodeURIComponent(yt.videoId) + '/edit" target="_blank" style="padding:8px 14px; font-size:12px; text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px;">' +
+                '🎬 Studio에서 세부정보 입력 ↗' +
+              '</a>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
   let html = '<div class="bento-grid">' +
+    readyBannerHtml +
     '<div class="bento-card col-3">' +
       '<div class="card-header"><span class="card-title">총 조회수 (Views)</span><span class="badge badge-pass">90D</span></div>' +
       '<div class="card-value">' + fmt.format(summary.views || 0) + '</div>' +
@@ -4376,8 +4470,8 @@ function renderEpisodesTab() {
         (isCandidateThumb ? '<span style="position:absolute;top:8px;left:8px;background:rgba(5,7,12,0.85);color:var(--text-bright);font-size:11px;padding:3px 8px;border-radius:6px">시안 후보</span>' : '') +
       '</div>' : '') +
       '<div class="card-header">' +
-        '<span style="font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--text-bright)">' + esc(ep.season.toUpperCase()) + ' · ' + esc(ep.episode.toUpperCase()) + '</span>' +
-        '<span class="badge badge-pass">' + esc(statusText) + '</span>' +
+        '<span style="font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--text-bright);white-space:nowrap">' + esc(ep.season.toUpperCase()) + ' · ' + esc(ep.episode.toUpperCase()) + '</span>' +
+        '<span class="badge badge-pass" style="white-space:nowrap">' + esc(statusText) + '</span>' +
       '</div>' +
       '<div style="font-weight:700;font-size:15px;color:var(--text-normal);margin-bottom:10px;line-height:1.4">' + esc(long.title || '(제목 미지정)') + '</div>' +
       '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">' +
@@ -4461,11 +4555,23 @@ function openEpisodeInspectorModal(epData) {
 
         '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">' +
-            '<span class="card-title">📝 영상 설명문 (Description)</span>' +
-            '<button class="btn btn-sm btn-copy-text" data-text="' + encodeURIComponent(yt.description || '') + '">복사</button>' +
+            '<span class="card-title">📝 영상 설명문 (Description 전체 복사)</span>' +
+            '<button class="btn btn-sm btn-copy-text" data-text="' + encodeURIComponent(yt.description || '') + '">설명문 전체 복사</button>' +
           '</div>' +
-          '<pre style="white-space:pre-wrap;font-family:inherit;font-size:12px;line-height:1.5;color:var(--text-muted);max-height:200px;overflow-y:auto">' + esc(yt.description || '') + '</pre>' +
+          '<pre style="white-space:pre-wrap;font-family:inherit;font-size:12px;line-height:1.5;color:var(--text-muted);max-height:360px;overflow-y:auto">' + esc(yt.description || '') + '</pre>' +
         '</div>' +
+
+        (yt.timeline ? 
+          '<div style="background:#080d16;padding:14px;border-radius:12px;border:1.5px solid var(--accent-amber);box-shadow:0 0 15px rgba(255,209,102,0.12)">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+              '<div>' +
+                '<span class="card-title" style="color:var(--accent-amber);font-weight:800">⏱️ 영상 순서 / 챕터 타임라인 (Timestamps)</span>' +
+                '<div style="font-size:11px;color:var(--text-muted);margin-top:2px">유튜브 챕터 자동 생성 규격 (0:00부터 12개 씬 분절 완료)</div>' +
+              '</div>' +
+              '<button class="btn btn-sm btn-amber btn-copy-text" data-text="' + encodeURIComponent(yt.timeline) + '">⏱️ 타임라인만 복사</button>' +
+            '</div>' +
+            '<pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.6;color:var(--text-bright);background:rgba(0,0,0,0.4);padding:12px;border-radius:8px;margin:0;border:1px solid rgba(255,209,102,0.2)">' + esc(yt.timeline) + '</pre>' +
+          '</div>' : '') +
 
         '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">' +
@@ -7901,7 +8007,7 @@ const server = createServer(async (req, res) => {
       const filePath = join(projectDir, 'output', 'upload-packages', pkgFolder, filename);
       if (!existsSync(filePath)) return json(res, 404, {error: '파일을 찾지 못했습니다.'});
       const ext = filename.split('.').pop().toLowerCase();
-      const contentType = {jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', mp4: 'video/mp4'}[ext] || 'application/octet-stream';
+      const contentType = {jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', mp4: 'video/mp4', html: 'text/html; charset=utf-8'}[ext] || 'application/octet-stream';
       const data = await readFile(filePath);
       res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
       res.end(data);

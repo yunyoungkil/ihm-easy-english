@@ -316,6 +316,11 @@ COAT 카드가 왼쪽 규칙 카드와 같은 세로 중심선에 정확히 놓�
 9. **유튜브 썸네일 시안 A (채널 공식 아바타 기반 실사)**:
    - 채널 공식 발표자 캐릭터(`public/brand/thumbnail-presenter-reference.jpg`)를 레퍼런스로 사용하여 시안 A 생성 (`videos/ep16-double-vowels/thumbnail-a.jpg`).
    - 파란 볼캡+사운드웨이브 로고, 검정 티셔츠, 칠판의 BOAT 단어(O 골드 발광, A 흐림), 손으로 모자를 잡으며 머리를 짚는 유쾌한 깨달음 표정 및 좌측 카피 배치용 여백 확보.
-10. **검증**:
+10. **유튜브 썸네일 시안 B (레퍼런스 영상 구도 & CTR 기법 접목)**:
+    - 앞서 분석한 레퍼런스 영상(`https://youtu.be/cF0wTWOQE1s`, "your titles are boring" 썸네일 구도)의 모바일 인지 속도 극대화 레이아웃을 전격 접목 (`videos/ep16-double-vowels/thumbnail-b.jpg`).
+    - 채널 공식 발표자 아바타가 빨간색 보드마카를 들고 칠판의 `BOAT` 중 `A`에 선명한 빨간 `X`를 긋는 직관적 행동 연출.
+    - 좌측: 볼드 블랙 폰트 `모음 두 개`, 우측: 강렬한 빨간색 마커 브러시 스트로크 블록 위 화이트 폰트 `뒤는 읽지 마`의 극강 대비로 0.2초 만에 호기심과 원리를 동시 전달.
+11. **검증**:
     - `npx hyperframes check` 전수 검증 통과 (Runtime 0, Layout 0, Motion 0, WCAG AA Contrast 100% PASS).
+
 

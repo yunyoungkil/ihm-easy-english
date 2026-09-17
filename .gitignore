@@ -45,6 +45,7 @@ public/audio/BGM 35
 
 # Scratch/log working files, regenerable.
 tmp
+scratch
 data/youtube/studio-browser-profile
 data/youtube/*.png
 

@@ -313,5 +313,9 @@ COAT 카드가 왼쪽 규칙 카드와 같은 세로 중심선에 정확히 놓�
    - 퀴즈 카드를 Neo-brutalist 스타일로 다듬고, 정답 공개 시 기계적인 원 대신 펜으로 쓱 그리는 듯한 '손글씨 느낌 유기적 루프(hand-drawn organic loop) trim-path 동그라미' 탑재. 정답 발음 옆에 한국어 의미 칩(`🪑 좌석`, `⚽ 목표`, `💦 땀 (예외!)`) 동시 노출.
 8. **Frame 12 (`12-summary.html`)**:
    - 14개 요약 카드의 모든 단어에서 앞 모음은 당당한 전용 규칙 색상으로 칠하고 뒤 모음은 옅은 음영 처리하여 시각적 요약 쾌감 극대화.
-9. **검증**:
-   - `npx hyperframes check` 전수 검증 통과 (Runtime 0, Layout 0, Motion 0, WCAG AA Contrast 100% PASS).
+9. **유튜브 썸네일 시안 A (채널 공식 아바타 기반 실사)**:
+   - 채널 공식 발표자 캐릭터(`public/brand/thumbnail-presenter-reference.jpg`)를 레퍼런스로 사용하여 시안 A 생성 (`videos/ep16-double-vowels/thumbnail-a.jpg`).
+   - 파란 볼캡+사운드웨이브 로고, 검정 티셔츠, 칠판의 BOAT 단어(O 골드 발광, A 흐림), 손으로 모자를 잡으며 머리를 짚는 유쾌한 깨달음 표정 및 좌측 카피 배치용 여백 확보.
+10. **검증**:
+    - `npx hyperframes check` 전수 검증 통과 (Runtime 0, Layout 0, Motion 0, WCAG AA Contrast 100% PASS).
+

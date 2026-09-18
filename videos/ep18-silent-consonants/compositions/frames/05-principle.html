@@ -1,0 +1,234 @@
+<template>
+<style>
+  /* 05-principle — Frame 5 "원리 설명: 소리끼리 부딪히는 걸 피하는 지름길 (Core Principle)".
+     Actual audio duration: 30.16s.
+     - 0.59s ~ 5.92s: 원리는 아주 단순합니다. 소리끼리 서로 부딪히기 때문입니다.
+     - 6.11s ~ 15.31s: 목구멍 깊은 곳의 K 소리를 내자마자 앞니 쪽의 N 소리로 혀가 날아가기엔 거리가 너무 멀고,
+     - 15.40s ~ 24.50s: 입술을 닫아 M 소리를 내놓고 또 억지로 '브!' 하고 입술을 터뜨리는 건 두 번 일하기 귀찮기 때문입니다.
+     - 24.96s ~ 30.16s: 결국 우리 혀와 입술이 가장 편한 지름길을 택한 것이죠.
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f05-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f05-progress-fill { position: absolute; left: 0; top: 0; width: 20.3%; height: 4px; background: #F5C518; }
+
+  /* Header */
+  .f05-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f05-ribbon-badge {
+    background: #FAF7F2; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f05-ribbon-icon { font-size: 1.4cqw; }
+  .f05-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #1E2022;
+  }
+  .f05-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* Dual Illustration Cards Container */
+  .f05-dual-container {
+    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+    width: 82cqw; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5cqw;
+    z-index: 5;
+  }
+  .f05-diagram-card {
+    background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 24px;
+    box-shadow: 6px 6px 0px #1E2022; padding: 3cqh 2.4cqw;
+    display: flex; flex-direction: column; align-items: center;
+    position: relative; opacity: 0; transform: translateY(20px);
+  }
+
+  .f05-card-top {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    margin-bottom: 1.8cqh;
+  }
+  .f05-card-tag {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.6cqw;
+    padding: 0.4cqh 1.2cqw; border-radius: 10px; border: 2.5px solid #1E2022;
+    color: #FFFFFF;
+  }
+  .tag-kn { background: #F5A623; }
+  .tag-mb { background: #E67E22; }
+
+  .f05-card-headline {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.25cqw; font-weight: 900;
+    color: #1E2022;
+  }
+
+  /* Image Box */
+  .f05-img-box {
+    width: 100%; height: 26cqh; border-radius: 16px; border: 2.5px solid #1E2022;
+    overflow: hidden; background: #FAF7F2; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f05-img {
+    width: 100%; height: 100%; object-fit: contain;
+  }
+
+  /* Foot Explanations */
+  .f05-explanation {
+    margin-top: 1.8cqh; width: 100%; background: #FAF7F2; border: 2px solid #1E2022;
+    border-radius: 12px; padding: 1cqh 1.2cqw; text-align: center;
+  }
+  .f05-exp-main {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.25cqw; font-weight: 900;
+    color: #1E2022; margin-bottom: 0.3cqh;
+  }
+  .f05-exp-sub {
+    font-family: 'Gaegu', cursive; font-size: 1.4cqw; font-weight: 700;
+    color: #FF4757;
+  }
+
+  /* Bottom Shortcut Capsule (Payoff) */
+  .f05-shortcut-capsule {
+    position: absolute; left: 50%; bottom: 15cqh; transform: translateX(-50%) scale(0.85);
+    background: #27AE60; border: 3.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 1.1cqh 2.8cqw;
+    display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10;
+  }
+  .f05-capsule-icon { font-size: 1.6cqw; }
+  .f05-capsule-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.4cqw; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.4px;
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-y477" id="root" data-composition-id="05-principle" data-width="1920" data-height="1080" data-start="0" data-duration="30.16">
+  <div data-hf-id="hf-5mn3" class="f05-progress-track">
+    <div data-hf-id="hf-4cfq" class="f05-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-t78e" class="f05-header" id="fHeader">
+    <div data-hf-id="hf-nl8m" class="f05-ribbon-badge">
+      <span data-hf-id="hf-pcjf" class="f05-ribbon-icon">🧠</span>
+      <span data-hf-id="hf-h9s6" class="f05-ribbon-label">입속 원리 들여다보기</span>
+    </div>
+    <span data-hf-id="hf-kq3y" class="f05-title">소리끼리 서로 부딪히는 것을 피하는 지름길</span>
+  </div>
+
+  <!-- Dual Diagram Cards -->
+  <div data-hf-id="hf-928o" class="f05-dual-container">
+    <!-- Left: KN -->
+    <div data-hf-id="hf-ic35" class="f05-diagram-card" id="knCard">
+      <div data-hf-id="hf-xiek" class="f05-card-top">
+        <div data-hf-id="hf-5vsv" class="f05-card-tag tag-kn">KN-</div>
+        <div data-hf-id="hf-47uh" class="f05-card-headline">목구멍(K) ➔ 앞니(N) 거리 너무 멂!</div>
+      </div>
+      <div data-hf-id="hf-k1tp" class="f05-img-box">
+        <img data-hf-id="hf-xamq" class="f05-img" src="assets/images/mouth_kn.jpg" alt="KN mouth cross section">
+      </div>
+      <div data-hf-id="hf-s23x" class="f05-explanation">
+        <div data-hf-id="hf-3hbi" class="f05-exp-main">혀가 목구멍에서 앞니로 널뛰기하기 힘들어요 🏃‍♂️</div>
+        <div data-hf-id="hf-gl39" class="f05-exp-sub">➔ 지름길 선택: 처음부터 K 버리고 N으로 출발!</div>
+      </div>
+    </div>
+
+    <!-- Right: -MB -->
+    <div data-hf-id="hf-omv3" class="f05-diagram-card" id="mbCard">
+      <div data-hf-id="hf-28zo" class="f05-card-top">
+        <div data-hf-id="hf-rgpx" class="f05-card-tag tag-mb">-MB</div>
+        <div data-hf-id="hf-ymzc" class="f05-card-headline">입술 닫기(M) + 또 터뜨리기(B) 중복!</div>
+      </div>
+      <div data-hf-id="hf-fmtt" class="f05-img-box">
+        <img data-hf-id="hf-p82x" class="f05-img" src="assets/images/mouth_mb.jpg" alt="MB mouth lips">
+      </div>
+      <div data-hf-id="hf-cyn5" class="f05-explanation">
+        <div data-hf-id="hf-rs9d" class="f05-exp-main">입술 닫아놓고 또 억지로 '브!' 하기 귀찮아요 👄</div>
+        <div data-hf-id="hf-6tit" class="f05-exp-sub">➔ 지름길 선택: 입술 붙인 채 부드럽게 '음~' 마감!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Shortcut Capsule -->
+  <div data-hf-id="hf-7xqx" class="f05-shortcut-capsule" id="shortcutCapsule">
+    <span data-hf-id="hf-omzz" class="f05-capsule-icon">⚡</span>
+    <span data-hf-id="hf-52gt" class="f05-capsule-text">결국 우리 혀와 입술이 가장 편한 지름길을 택한 것입니다!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-c4b4" id="v05" src="assets/voice/05.wav" data-audio-group="voiceover" data-start="0" data-duration="30.16"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (20.3% -> 27.6%)
+    tl.to("#pfill", { width: "27.6%", duration: 30.16, ease: "none" }, 0);
+
+    // Header in
+    tl.to("#fHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+
+    // Sentence 1 (0.59s ~ 5.92s: 원리는 아주 단순합니다. 소리끼리 서로 부딪히기 때문입니다.)
+    tl.call(function () { setCaption("원리는 아주 단순합니다. 소리끼리 서로 부딪히기 때문입니다."); }, null, 0.59);
+    tl.to(["#knCard", "#mbCard"], { opacity: 1, y: 0, duration: 0.6, stagger: 0.2, ease: "power3.out" }, 1.0);
+
+    // Sentence 2 (6.11s ~ 15.31s: 목구멍 깊은 곳의 K 소리를 내자마자 앞니 쪽의 N 소리로...)
+    tl.call(function () { setCaption("목구멍 깊은 곳의 K 소리를 내자마자 앞니 쪽의 N 소리로 혀가 날아가기엔 거리가 너무 멀고,"); }, null, 6.11);
+    tl.to("#knCard", { scale: 1.03, duration: 0.5, ease: "power2.out" }, 6.5);
+
+    // Sentence 3 (15.40s ~ 24.50s: 입술을 닫아 M 소리를 내놓고 또 억지로 '브!' 하고 입술을 터뜨리는 건...)
+    tl.call(function () { setCaption("입술을 닫아 M 소리를 내놓고 또 억지로 '브!' 하고 입술을 터뜨리는 건 두 번 일하기 귀찮기 때문입니다."); }, null, 15.40);
+    tl.to("#knCard", { scale: 1.0, duration: 0.4 }, 15.40);
+    tl.to("#mbCard", { scale: 1.03, duration: 0.5, ease: "power2.out" }, 15.6);
+
+    // Sentence 4 (24.96s ~ 30.16s: 결국 우리 혀와 입술이 가장 편한 지름길을 택한 것이죠.)
+    tl.call(function () { setCaption("결국 우리 혀와 입술이 가장 편한 지름길을 택한 것이죠."); }, null, 24.96);
+    tl.to("#mbCard", { scale: 1.0, duration: 0.4 }, 24.96);
+    tl.to("#shortcutCapsule", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 25.2);
+
+    // End Fade
+    tl.to(["#knCard", "#mbCard", "#shortcutCapsule", "#fHeader"], { opacity: 0, duration: 0.3 }, 29.86);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["05-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,251 @@
+1
+00:00:00,609 --> 00:00:08,860
+A là 'e', I là 'i', O là 'o'. Chúng ta ai cũng từng học như vậy.
+
+2
+00:00:08,960 --> 00:00:16,535
+Nhưng tại sao trong car, sir, for lại không hề có những âm đó?
+
+3
+00:00:16,635 --> 00:00:21,720
+Đó là vì chữ R đi phía sau đã nuốt trọn hoàn toàn âm nguyên âm ban đầu.
+
+4
+00:00:22,387 --> 00:00:26,402
+Xin chào, đây là 'Hiểu Đúng Thì Tiếng Anh Rất Dễ'.
+
+5
+00:00:26,503 --> 00:00:34,119
+Hôm nay, chúng tôi chia sẻ bí mật nguyên âm biến mất sau R và công thức chỉ 3 âm duy nhất.
+
+6
+00:00:34,780 --> 00:00:46,755
+Các nguyên âm đi với R gồm 5 cặp: AR, ER, IR, OR, UR.
+
+7
+00:00:46,855 --> 00:00:51,484
+Khi tra từ điển, mỗi từ lại có ký hiệu phiên âm khác nhau,
+
+8
+00:00:51,584 --> 00:00:54,039
+khiến bạn tưởng rằng phải học thuộc lòng cả 5 âm.
+
+9
+00:00:54,821 --> 00:00:59,610
+Thực ra, bạn không cần phải ghi nhớ cả 5.
+
+10
+00:00:59,710 --> 00:01:12,773
+Trong đó ER, IR, UR dù viết khác nhau nhưng phát âm hoàn toàn giống hệt: her, bird, fur.
+
+11
+00:01:12,873 --> 00:01:21,920
+Viết là E, I, U, nhưng âm thanh chỉ là một âm 'ơ~ (er)' thả lỏng duy nhất.
+
+12
+00:01:22,020 --> 00:01:31,359
+Vì vậy, âm bạn thực sự cần nhớ chỉ là AR, OR và âm 'ơ~' này — đúng 3 âm!
+
+13
+00:01:32,058 --> 00:01:38,821
+Nguyên lý rất đơn giản: lưỡi chuẩn bị cho âm R quá sớm.
+
+14
+00:01:38,921 --> 00:01:46,104
+Trước khi khẩu hình kịp phát âm nguyên âm, lưỡi đã rụt về sau để đón âm R.
+
+15
+00:01:46,204 --> 00:01:52,719
+Kết quả là âm nguyên âm ban đầu tan biến theo chuyển động của lưỡi và thành âm R.
+
+16
+00:01:53,460 --> 00:02:01,241
+Âm đầu tiên AR là âm 'a~' sảng khoái khi bạn thả lỏng và hạ hàm xuống.
+
+17
+00:02:01,341 --> 00:02:06,845
+Thay vì âm gốc, hãy mở rộng vòm họng và phát âm.
+
+18
+00:02:06,945 --> 00:02:17,734
+Hãy cùng phát âm nhé: car, park, star, farm, card.
+
+19
+00:02:17,834 --> 00:02:22,240
+Chỉ cần thả lỏng hàm và phát âm 'a~', bạn sẽ đọc chuẩn tự nhiên.
+
+20
+00:02:22,993 --> 00:02:30,153
+Âm thứ hai OR là âm 'o~' trầm sâu khi bạn chu tròn môi lại.
+
+21
+00:02:30,253 --> 00:02:35,503
+Khi O đi trước R, khẩu hình tròn lại ở đầu môi và vang lên.
+
+22
+00:02:35,603 --> 00:02:47,366
+Hãy tự mình phát âm thử nhé: for, corn, storm, fork, horse.
+
+23
+00:02:47,466 --> 00:02:52,600
+Chu môi như đang thổi nến và phát âm thật sâu 'o~'.
+
+24
+00:02:53,350 --> 00:03:04,551
+Cụm âm cuối cùng ER, IR, UR là âm 'ơ~' trung tính, thả lỏng toàn bộ cơ miệng.
+
+25
+00:03:04,651 --> 00:03:11,316
+Chữ cái viết là E, I hay U hoàn toàn không quan trọng.
+
+26
+00:03:11,415 --> 00:03:21,279
+person, term, girl, shirt, nurse, burn.
+
+27
+00:03:21,379 --> 00:03:27,160
+Chỉ cần thả lỏng khóe miệng và phát âm 'ơ~' thật tự nhiên.
+
+28
+00:03:27,972 --> 00:03:32,853
+Khoan đã, hãy cùng xem một mẹo cực kỳ quan trọng nhé!
+
+29
+00:03:32,953 --> 00:03:42,879
+Âm R đứng trước nguyên âm (như red) và R đứng sau nguyên âm (như car) hoàn toàn khác nhau.
+
+30
+00:03:42,979 --> 00:03:52,848
+R đi trước thì chu môi đẩy ra 'u~', còn R đi sau thì móc đuôi nguyên âm kéo giật về sau.
+
+31
+00:03:52,948 --> 00:03:56,200
+Chỉ cần hiểu điểm khác biệt này, tiếng Anh sẽ trở nên dễ dàng hơn nhiều.
+
+32
+00:03:56,800 --> 00:03:59,500
+Đã nắm được nguyên lý, bây giờ hãy cùng thử sức đoán nhé!
+
+33
+00:03:59,599 --> 00:04:04,460
+Khi từ xuất hiện, hãy nói to nó thuộc ngăn âm số mấy trong vòng 3 giây.
+
+34
+00:04:04,560 --> 00:04:09,540
+smart!
+
+35
+00:04:09,640 --> 00:04:13,300
+Đó là ngăn 1, âm AR hạ hàm.
+
+36
+00:04:13,400 --> 00:04:17,500
+short!
+
+37
+00:04:17,600 --> 00:04:23,299
+Đó là ngăn 2, âm OR chu tròn môi.
+
+38
+00:04:23,399 --> 00:04:27,699
+turn!
+
+39
+00:04:27,800 --> 00:04:32,220
+Đó là ngăn 3, âm thả lỏng. Bạn làm rất tốt!
+
+40
+00:04:32,819 --> 00:04:36,639
+Bây giờ hãy thử thách vòng 2 với tốc độ nhanh hơn nhé!
+
+41
+00:04:36,740 --> 00:04:39,819
+dark!
+
+42
+00:04:39,920 --> 00:04:42,819
+Âm AR hạ hàm.
+
+43
+00:04:42,920 --> 00:04:46,319
+fork!
+
+44
+00:04:46,420 --> 00:04:50,319
+Âm OR chu môi.
+
+45
+00:04:50,420 --> 00:04:53,319
+first!
+
+46
+00:04:53,420 --> 00:04:55,319
+Âm IR thả lỏng.
+
+47
+00:04:55,420 --> 00:04:59,500
+Nếu bạn trả lời ngay không chút do dự, bạn đã thành công rồi đấy!
+
+48
+00:05:00,115 --> 00:05:02,641
+Bây giờ hãy cùng kiểm tra qua câu hoàn chỉnh nhé.
+
+49
+00:05:02,741 --> 00:05:06,449
+Cả ba âm chúng ta vừa học đều nằm trọn vẹn trong một câu này.
+
+50
+00:05:06,550 --> 00:05:13,099
+The girl in the car is waiting for her turn.
+
+51
+00:05:13,199 --> 00:05:18,099
+girl là 'ơ', car là 'a', for là 'o', turn là 'ơ'.
+
+52
+00:05:18,199 --> 00:05:23,620
+Bây giờ bạn đã tự động phân biệt được từng từ rồi đúng không?
+
+53
+00:05:24,272 --> 00:05:31,041
+Hãy đọc thêm một câu nữa nhé. Câu này chứa những từ chúng ta gặp mỗi ngày.
+
+54
+00:05:31,141 --> 00:05:35,753
+Please order a burger and corn for the party.
+
+55
+00:05:35,853 --> 00:05:43,818
+order và corn là 'o', burger là 'ơ', party là 'a'.
+
+56
+00:05:43,918 --> 00:05:47,620
+Từ giờ, dù nhìn thấy từ mượn bạn cũng sẽ thấy rõ ngay âm thanh nguyên bản của nó.
+
+57
+00:05:48,295 --> 00:05:52,033
+Quy tắc hôm nay, bạn chỉ cần nhớ một bảng tóm tắt này thôi.
+
+58
+00:05:52,134 --> 00:06:04,009
+AR hạ hàm 'a', OR chu môi 'o', còn ER, IR, UR thả lỏng 'ơ'.
+
+59
+00:06:04,110 --> 00:06:07,726
+Năm cách viết nay gói gọn chỉ trong ba âm duy nhất.
+
+60
+00:06:07,826 --> 00:06:11,139
+Hãy chụp màn hình lại và mở ra xem mỗi khi đọc từ mới nhé.
+
+61
+00:06:11,742 --> 00:06:16,652
+Tiếng Anh không phải học vẹt, mà là thấu hiểu đường đi của âm thanh.
+
+62
+00:06:16,752 --> 00:06:21,234
+Xem thêm tập nguyên âm trước của chúng tôi sẽ giúp bạn học dễ dàng hơn nữa.
+
+63
+00:06:21,334 --> 00:06:28,839
+Hôm nay các bạn đã rất nỗ lực. Đây là 'Hiểu Đúng Thì Tiếng Anh Rất Dễ'.

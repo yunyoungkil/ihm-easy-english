@@ -1,0 +1,39 @@
+[EP18 유튜브 롱폼 업로드 체크리스트]
+================================================================================
+예약 권장: 2026-09-24(목) 20:00 KST — EP17(9/22 화) 기준 2일 간격, 채널 고정 발행 시각 20:00
+(아직 유튜브에 실제로 예약 등록된 건 아님 — 사람이 직접 유튜브 Studio에 업로드·예약해야 함.)
+
+1. [영상 파일]
+   - video.mp4 (1920x1080, 30fps, H.264/AAC, 6분 54.02초 / 414.02초)
+2. [썸네일 이미지]
+   - 메인: thumbnail.jpg = thumbnail-b.jpg (시안 B - 3단 서랍과 자신감 있는 미소, 모자&로고 완비)
+   - Test & Compare 보조: thumbnail-a.jpg, thumbnail-c.jpg, thumbnail-close-up.jpg
+3. [제목]
+   - title.txt 복사 붙여넣기 (저도 왜 소리 안 나는지 몰랐습니다, 혀가 편해지는 묵음 원리 | 영어 왕초보)
+   - **제목도 A/B 테스트에 쓸 것**: title-variants.txt에 A/C 시안이 더 있음 — 유튜브 Studio
+     "제목 및 썸네일 테스트" 기능에 썸네일과 함께 등록해 실제 클릭률로 검증
+4. [설명]
+   - description.txt 복사 붙여넣기 (챕터 타임라인 포함)
+5. [고정 댓글]
+   - pinned-comment.txt 복사하여 첫 댓글 등록 후 [고정] 클릭
+6. [태그]
+   - tags.txt 내용 복사 붙여넣기
+7. [자막 (다국어)]
+   - 한국어: subtitles/subtitles-ko.srt 업로드
+   - 영어: subtitles/subtitles-en.srt 업로드 + 영어 제목/설명 적용
+   - 일본어: subtitles/subtitles-ja.srt 업로드 + 일본어 제목/설명 적용
+   - 중국어 번체: subtitles/subtitles-zh-tw.srt 업로드 + 번체 제목/설명 적용
+   - 중국어 간체: subtitles/subtitles-zh-cn.srt 업로드 + 간체 제목/설명 적용
+   - 스페인어: subtitles/subtitles-es.srt 업로드 + 스페인어 제목/설명 적용
+   - 베트남어: subtitles/subtitles-vi.srt 업로드 + 베트남어 제목/설명 적용
+8. [공개 예약]
+   - 2026-09-24(목) 20:00 KST로 유튜브 Studio에서 설정
+9. [엔드스크린 & 카드]
+   - **엔드스크린 연결 영상: 직전 영상인 EP17(모음 뒤 R, Bossy R 규칙, videoId: VwEkIUluszw)로 설정**
+   - 유튜브 Studio "최종 화면" 요소에서 직접 추가
+   - 마지막 5초 (6:49 ~ 6:54, 총 길이 414.02초 기준)는 중앙이 완전히 비워져 있어 유튜브 추천
+     영상/구독 버튼이 화면 요소를 전혀 가리지 않음
+10. [업로드 완료 후]
+   - 실제 공개 후 videoId를 status.json에 기록
+   - idea-board-history.json의 EP18 항목을 status: "scheduled"로 갱신하고 producedAt 채우기
+================================================================================

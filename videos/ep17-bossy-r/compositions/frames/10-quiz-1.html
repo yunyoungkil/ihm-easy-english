@@ -212,7 +212,7 @@
 
   // --- Q1: smart (8.16s ~ 16.5s) ---
   tl.call(function () {
-    wordEl.innerHTML = 'sm<span style="color:#8A5A12; text-decoration:underline;">ar</span>t';
+    wordEl.textContent = "smart";
     meaningEl.textContent = "똑똑한 🧠";
     stamp.textContent = "🎯 1번 AR 정답!";
     stamp.style.borderColor = "#8A5A12";
@@ -226,12 +226,15 @@
 
   // Reveal Answer Q1 at 13.24s ("턱을 내리는 1번 AR 소리죠")
   tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 13.24);
-  tl.call(function () { highlightSlot(0); }, null, 13.24);
+  tl.call(function () {
+    wordEl.innerHTML = 'sm<span style="color:#8A5A12; text-decoration:underline;">ar</span>t';
+    highlightSlot(0);
+  }, null, 13.24);
 
   // --- Q2: short (17.0s ~ 26.5s) ---
   tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.25 }, 16.7);
   tl.call(function () {
-    wordEl.innerHTML = 'sh<span style="color:#963E00; text-decoration:underline;">or</span>t';
+    wordEl.textContent = "short";
     meaningEl.textContent = "짧은 📏";
     stamp.textContent = "🎯 2번 OR 정답!";
     stamp.style.borderColor = "#963E00";
@@ -245,12 +248,15 @@
 
   // Reveal Answer Q2 at 21.2s ("입술을 모으는 2번 OR 소리입니다")
   tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 21.2);
-  tl.call(function () { highlightSlot(1); }, null, 21.2);
+  tl.call(function () {
+    wordEl.innerHTML = 'sh<span style="color:#963E00; text-decoration:underline;">or</span>t';
+    highlightSlot(1);
+  }, null, 21.2);
 
   // --- Q3: turn (27.0s ~ 36.02s) ---
   tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.25 }, 26.7);
   tl.call(function () {
-    wordEl.innerHTML = 't<span style="color:#165069; text-decoration:underline;">ur</span>n';
+    wordEl.textContent = "turn";
     meaningEl.textContent = "돌다/차례 🔄";
     stamp.textContent = "🎯 3번 소리 정답!";
     stamp.style.borderColor = "#165069";
@@ -264,7 +270,10 @@
 
   // Reveal Answer Q3 at 31.4s ("힘을 뺀 3번 소리입니다. 아주 잘하셨습니다!")
   tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 31.4);
-  tl.call(function () { highlightSlot(2); }, null, 31.4);
+  tl.call(function () {
+    wordEl.innerHTML = 't<span style="color:#165069; text-decoration:underline;">ur</span>n';
+    highlightSlot(2);
+  }, null, 31.4);
 
   // 100% Narration-coverage caption-pill
   var captionZone = document.getElementById("f10-caption-zone");
@@ -272,9 +281,12 @@
   var CAPTIONS = [
     { at: 0.4, text: "원리를 배웠으니 직접 맞춰보세요." },
     { at: 3.2, text: "단어가 나오면 몇 번 서랍인지 3초 안에 소리 내보세요." },
-    { at: 8.16, text: "smart! 턱을 내리는 1번 AR 소리죠." },
-    { at: 17.0, text: "short! 입술을 모으는 2번 OR 소리입니다." },
-    { at: 27.0, text: "turn! 힘을 뺀 3번 소리입니다. 아주 잘하셨습니다!" }
+    { at: 8.16, text: "smart!" },
+    { at: 13.24, text: "턱을 내리는 1번 AR 소리죠." },
+    { at: 17.0, text: "short!" },
+    { at: 21.2, text: "입술을 모으는 2번 OR 소리입니다." },
+    { at: 27.0, text: "turn!" },
+    { at: 31.4, text: "힘을 뺀 3번 소리입니다. 아주 잘하셨습니다!" }
   ];
 
   tl.set(captionZone, { opacity: 0 }, 0);

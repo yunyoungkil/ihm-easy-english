@@ -1,0 +1,264 @@
+1
+00:00:00,460 --> 00:00:07,930
+k, n, e, e. Nếu theo đúng bảng chữ cái đã học, chắc chắn phải đọc là 'k-nee'.
+
+2
+00:00:07,980 --> 00:00:13,529
+Climb phải là 'climb-b', và write phải là 'u-rite'.
+
+3
+00:00:13,580 --> 00:00:21,429
+Vậy tại sao người bản xứ lại nuốt trọn chữ cái đầu và cuối được viết rõ ràng như vậy?
+
+4
+00:00:21,480 --> 00:00:29,320
+Lý do cực kỳ đơn giản. Chỉ cần nắm vững quy tắc hôm nay, bạn sẽ đọc vanh vách các từ câm cả đời không cần tra từ điển.
+
+5
+00:00:30,030 --> 00:00:34,150
+Xin chào, chào mừng các bạn đến với 'Hiểu Là Tiếng Anh Dễ Dàng'.
+
+6
+00:00:34,200 --> 00:00:40,280
+Hôm nay, chúng ta cùng giải mã bí mật của các chữ cái câm mà không cần học vẹt.
+
+7
+00:00:40,949 --> 00:00:47,229
+Khi mở từ điển, các chữ cái câm dường như rải rác lộn xộn trong từng từ.
+
+8
+00:00:47,279 --> 00:00:52,429
+knee, climb, write, knock, thumb...
+
+9
+00:00:52,479 --> 00:00:56,479
+Chắc hẳn bạn từng thấy nản lòng vì nghĩ phải học vẹt từng từ như một ngoại lệ đúng không?
+
+10
+00:00:57,210 --> 00:01:05,140
+Thực chất đây không phải ngoại lệ, mà người bản xứ lược bỏ vì lưỡi chuyển động quá mệt.
+
+11
+00:01:05,189 --> 00:01:11,650
+Thật kinh ngạc là trong tiếng Anh cổ, hầu hết các chữ này từng được phát âm thành tiếng.
+
+12
+00:01:11,700 --> 00:01:17,340
+Nhưng khi giao tiếp thấy quá bất tiện, chúng đã tự động rơi rụng theo thời gian.
+
+13
+00:01:17,390 --> 00:01:23,959
+Nắm được nguyên lý này, mớ từ câm phức tạp sẽ thu gọn gàng vào 3 ngăn kéo phát âm.
+
+14
+00:01:24,750 --> 00:01:30,219
+Nguyên lý cực kỳ đơn giản: do các âm va chạm vào nhau.
+
+15
+00:01:30,269 --> 00:01:39,510
+Vừa phát âm 'K' sâu trong cổ họng đã phải phi lưỡi đến răng cửa phát âm 'N' thì quá xa,
+
+16
+00:01:39,560 --> 00:01:49,070
+và khép môi phát âm 'M' rồi lại gượng ép bật môi 'B!' là làm việc thừa thãi hai lần.
+
+17
+00:01:49,120 --> 00:01:54,119
+Rốt cuộc, lưỡi và môi chúng ta đã chọn con đường tắt thoải mái nhất.
+
+18
+00:01:54,739 --> 00:01:59,759
+Ngăn kéo thứ nhất là âm 'KN-' ở ngay đầu từ.
+
+19
+00:01:59,809 --> 00:02:07,869
+Lưỡi lười biếng vứt bỏ hoàn toàn chữ 'K' phía trước và bắt đầu ngay bằng âm 'N'.
+
+20
+00:02:07,919 --> 00:02:16,009
+Đừng cố phát âm chữ K. Hãy đặt lưỡi sau răng cửa trên ngay từ đầu và nói 'ni'.
+
+21
+00:02:16,060 --> 00:02:25,809
+Hãy cùng phát âm nhé: knee, know, knife, knock, knight.
+
+22
+00:02:25,859 --> 00:02:30,840
+Xóa sạch chữ K và chỉ cần bật nhẹ âm N từ sau răng cửa.
+
+23
+00:02:31,509 --> 00:02:35,679
+Ngăn kéo thứ hai là âm '-MB' ở cuối từ.
+
+24
+00:02:35,729 --> 00:02:41,989
+Ngay cả từ quen thuộc như 'honeycomb' hay 'thumb drive' cũng không phát âm B.
+
+25
+00:02:42,039 --> 00:02:50,989
+Hãy thử khép môi lại. Đọc 'climb~' rồi giữ nguyên môi, đừng cố bật môi thành 'b!'.
+
+26
+00:02:51,039 --> 00:02:55,599
+Chỉ cần khép môi thoải mái và kết thúc, đó chính là phát âm chuẩn bản xứ.
+
+27
+00:02:55,649 --> 00:03:06,079
+Hãy tự mình phát âm: climb, comb, thumb, lamb, bomb.
+
+28
+00:03:06,129 --> 00:03:11,080
+Đừng bật âm B, chỉ cần kết thúc bằng âm 'm~' nhẹ nhàng.
+
+29
+00:03:11,819 --> 00:03:17,599
+Ngăn kéo thứ ba là âm 'WR-' ở đầu từ.
+
+30
+00:03:17,650 --> 00:03:22,929
+Đừng chần chừ chu môi để phát âm thêm tiếng 'u'.
+
+31
+00:03:22,979 --> 00:03:30,879
+Hãy quên chữ W đi, kéo lưỡi về sau ngay từ đầu và đọc thẳng thành 'write'.
+
+32
+00:03:30,930 --> 00:03:40,449
+Cùng đọc nhé: write, wrong, wrist, wrap, wreck.
+
+33
+00:03:40,500 --> 00:03:45,720
+Đừng ngập ngừng ở chữ W, hãy kéo lưỡi lại và phát âm R dứt khoát.
+
+34
+00:03:46,399 --> 00:03:52,509
+Chờ một chút: tại sao không phát âm mà người ta vẫn giữ lại những chữ cái này?
+
+35
+00:03:52,559 --> 00:04:02,239
+Dù kỹ thuật in ấn đã cố định chính tả, nhưng vai trò quan trọng là làm thẻ căn cước phân biệt nghĩa từ.
+
+36
+00:04:02,289 --> 00:04:11,839
+Âm giống hệt nhau nhưng knight là hiệp sĩ, night là đêm; knot là nút thắt, not là không.
+
+37
+00:04:11,889 --> 00:04:14,439
+Nhìn vào mặt chữ là hiểu ngay ý nghĩa trong nháy mắt.
+
+38
+00:04:15,139 --> 00:04:21,089
+Hiểu nguyên lý rồi, hãy cùng thử tài nhé! Đây là các từ mới toanh chưa xuất hiện ở phần trước.
+
+39
+00:04:21,139 --> 00:04:24,969
+Hãy gọi tên ngăn kéo phù hợp trong vòng 3 giây.
+
+40
+00:04:25,019 --> 00:04:29,089
+knit!
+
+41
+00:04:29,139 --> 00:04:34,609
+knit! Đó là ngăn kéo 1 KN, nơi chữ K biến mất.
+
+42
+00:04:34,659 --> 00:04:39,009
+crumb!
+
+43
+00:04:39,060 --> 00:04:43,449
+crumb! Đó là ngăn kéo số 2 MB, nơi chữ B biến mất.
+
+44
+00:04:43,500 --> 00:04:47,889
+wreath!
+
+45
+00:04:47,939 --> 00:04:56,899
+wreath! Ngăn kéo 3 WR nơi W biến mất. Từ mới đến mấy cũng đọc được ngay theo nguyên lý đúng không?
+
+46
+00:04:57,500 --> 00:05:01,870
+Bây giờ cùng thử thách hiệp 2 với tốc độ nhanh hơn nhé!
+
+47
+00:05:01,920 --> 00:05:04,689
+numb!
+
+48
+00:05:04,740 --> 00:05:07,790
+numb! Âm MB lược bỏ chữ B.
+
+49
+00:05:07,840 --> 00:05:10,889
+knob!
+
+50
+00:05:10,939 --> 00:05:14,430
+knob! Âm KN lược bỏ chữ K.
+
+51
+00:05:14,480 --> 00:05:17,170
+wrench!
+
+52
+00:05:17,220 --> 00:05:24,300
+wrench! Âm WR lược bỏ chữ W. Trả lời dứt khoát không ngần ngại là bạn đã thành công rồi!
+
+53
+00:05:25,019 --> 00:05:32,229
+Bây giờ cùng ghép vào câu nhé! Tất cả các từ câm đều có trong câu này.
+
+54
+00:05:32,279 --> 00:05:41,819
+The knight with a sharp knife is kneeling down.
+
+55
+00:05:41,870 --> 00:05:42,319
+knight, knife, kneeling.
+
+56
+00:05:42,370 --> 00:05:46,819
+Xóa sạch âm K là câu dài mấy cũng trôi chảy như dòng nước đúng không?
+
+57
+00:05:47,519 --> 00:05:56,839
+Đọc thêm một câu nữa nhé. Lần này có cả âm MB và WR cùng xuất hiện.
+
+58
+00:05:56,889 --> 00:06:03,529
+Please comb your hair and wrap the gift before you write.
+
+59
+00:06:03,579 --> 00:06:09,319
+Lược bỏ B trong comb, lược bỏ W trong wrap và write.
+
+60
+00:06:09,370 --> 00:06:13,019
+Né được các chữ cái câm này, việc phát âm sẽ nhẹ nhàng hơn rất nhiều.
+
+61
+00:06:13,660 --> 00:06:18,030
+Quy tắc chữ câm hôm nay, bạn chỉ cần nhớ một trang tổng kết này.
+
+62
+00:06:18,080 --> 00:06:28,850
+Âm KN bỏ K đọc N, âm MB bỏ B đọc M, âm WR bỏ W đọc R.
+
+63
+00:06:28,900 --> 00:06:32,180
+Hãy chụp màn hình lại và mở ra xem mỗi khi đọc từ mới nhé.
+
+64
+00:06:32,819 --> 00:06:39,430
+Tiếng Anh không phải học vẹt, mà là thấu hiểu cơ chế phát âm thoải mái của chiếc lưỡi.
+
+65
+00:06:39,480 --> 00:06:44,829
+Xem thêm tập trước về 'Nguyên âm theo sau bởi R', tiếng Anh sẽ dễ hơn rất nhiều.
+
+66
+00:06:44,879 --> 00:06:49,019
+Cảm ơn các bạn đã theo dõi. Đây là 'Hiểu Là Tiếng Anh Dễ Dàng'.
+

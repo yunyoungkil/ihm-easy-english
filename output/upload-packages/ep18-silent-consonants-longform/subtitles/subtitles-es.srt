@@ -1,0 +1,264 @@
+1
+00:00:00,460 --> 00:00:07,930
+k, n, e, e. Si siguiéramos las reglas que aprendimos, debería sonar 'k-nee'.
+
+2
+00:00:07,980 --> 00:00:13,529
+Climb debería ser 'climb-b', y write debería ser 'w-rite'.
+
+3
+00:00:13,580 --> 00:00:21,429
+¿Por qué los nativos borran por completo la primera y última letra que están claramente escritas?
+
+4
+00:00:21,480 --> 00:00:29,320
+La razón es muy simple. Con solo esta regla hoy, leerás esas palabras mudas sin dudar y sin diccionario.
+
+5
+00:00:30,030 --> 00:00:34,150
+Hola, bienvenidos a 'Inglés Fácil Cuando se Entiende'.
+
+6
+00:00:34,200 --> 00:00:40,280
+Hoy revelamos el secreto de las letras mudas, comprendidas físicamente sin memorización.
+
+7
+00:00:40,949 --> 00:00:47,229
+Al abrir un diccionario, las letras mudas parecen dispersas al azar en cada palabra.
+
+8
+00:00:47,279 --> 00:00:52,429
+knee, climb, write, knock, thumb...
+
+9
+00:00:52,479 --> 00:00:56,479
+¿Te sentías abrumado pensando que debías memorizar cada una como una excepción?
+
+10
+00:00:57,210 --> 00:01:05,140
+En realidad, no son excepciones: los nativos las eliminaron porque cansan la lengua.
+
+11
+00:01:05,189 --> 00:01:11,650
+Sorprendentemente, en el inglés antiguo, casi todas estas letras se pronunciaban.
+
+12
+00:01:11,700 --> 00:01:17,340
+Pero al hablar, resultaba tan incómodo que se eliminaron de forma natural.
+
+13
+00:01:17,390 --> 00:01:23,959
+Al entender ese principio, las palabras mudas se organizan en solo tres cajones de sonido.
+
+14
+00:01:24,750 --> 00:01:30,219
+El principio es simple: los sonidos chocan entre sí.
+
+15
+00:01:30,269 --> 00:01:39,510
+Hacer una 'K' en la garganta y volar la lengua a los dientes para la 'N' está demasiado lejos,
+
+16
+00:01:39,560 --> 00:01:49,070
+y cerrar los labios para la 'M' y forzarlos a estallar en 'B!' es trabajar el doble.
+
+17
+00:01:49,120 --> 00:01:54,119
+Al final, la lengua y los labios eligieron el atajo más cómodo.
+
+18
+00:01:54,739 --> 00:01:59,759
+El primer cajón es el sonido 'KN-' al principio de las palabras.
+
+19
+00:01:59,809 --> 00:02:07,869
+La lengua descarta la 'K' por pereza y arranca directo con el sonido 'N'.
+
+20
+00:02:07,919 --> 00:02:16,009
+No intentes pronunciar la K. Pon la lengua tras los dientes superiores y di 'nee'.
+
+21
+00:02:16,060 --> 00:02:25,809
+¿Leemos juntos? knee, know, knife, knock, knight.
+
+22
+00:02:25,859 --> 00:02:30,840
+Borra la K y solo emite suavemente la N detrás de los dientes.
+
+23
+00:02:31,509 --> 00:02:35,679
+El segundo cajón es el sonido '-MB' al final de las palabras.
+
+24
+00:02:35,729 --> 00:02:41,989
+Incluso palabras cotidianas como 'honeycomb' o 'thumb drive' nunca dicen la B.
+
+25
+00:02:42,039 --> 00:02:50,989
+Cierra los labios. Di 'climb~' con los labios juntos, sin abrirlos con un 'b!'.
+
+26
+00:02:51,039 --> 00:02:55,599
+Solo déjalos cómodamente cerrados al final: ese es el sonido nativo.
+
+27
+00:02:55,649 --> 00:03:06,079
+Dilo tú mismo: climb, comb, thumb, lamb, bomb.
+
+28
+00:03:06,129 --> 00:03:11,080
+No hagas estallar la B; termina con un suave zumbido de 'm~'.
+
+29
+00:03:11,819 --> 00:03:17,599
+El tercer cajón es el sonido 'WR-' al principio de las palabras.
+
+30
+00:03:17,650 --> 00:03:22,929
+No dudes intentando redondear los labios para un 'u'.
+
+31
+00:03:22,979 --> 00:03:30,879
+Olvida la W, tira la lengua hacia atrás y ve directo a un claro 'write'.
+
+32
+00:03:30,930 --> 00:03:40,449
+Leamos juntos: write, wrong, wrist, wrap, wreck.
+
+33
+00:03:40,500 --> 00:03:45,720
+No te detengas en la W; retrae la lengua y deja fluir el sonido de la R.
+
+34
+00:03:46,399 --> 00:03:52,509
+Un momento: ¿por qué se mantuvieron estas letras si ni siquiera se pronuncian?
+
+35
+00:03:52,559 --> 00:04:02,239
+Aunque la imprenta fijó la ortografía, actúan como un valioso documento de identidad para distinguir significados.
+
+36
+00:04:02,289 --> 00:04:11,839
+Suenan igual, pero knight es caballero y night es noche; knot es nudo y not es no.
+
+37
+00:04:11,889 --> 00:04:14,439
+Al ver las letras, el significado se distingue de inmediato.
+
+38
+00:04:15,139 --> 00:04:21,089
+Ahora que conoces el principio, ¡vamos a adivinar! Son palabras nuevas que no vimos antes.
+
+39
+00:04:21,139 --> 00:04:24,969
+Di en voz alta a qué cajón pertenece en 3 segundos.
+
+40
+00:04:25,019 --> 00:04:29,089
+knit!
+
+41
+00:04:29,139 --> 00:04:34,609
+¡knit! Es el cajón 1, KN, donde desaparece la K.
+
+42
+00:04:34,659 --> 00:04:39,009
+crumb!
+
+43
+00:04:39,060 --> 00:04:43,449
+¡crumb! Es el cajón 2, MB, donde desaparece la B.
+
+44
+00:04:43,500 --> 00:04:47,889
+wreath!
+
+45
+00:04:47,939 --> 00:04:56,899
+¡wreath! Es el cajón 3, WR, donde la W desaparece. Con esta regla, lees palabras nuevas al instante, ¿verdad?
+
+46
+00:04:57,500 --> 00:05:01,870
+¿Nos atrevemos con la ronda 2 a un ritmo más rápido?
+
+47
+00:05:01,920 --> 00:05:04,689
+numb!
+
+48
+00:05:04,740 --> 00:05:07,790
+¡numb! Es el sonido MB sin la B.
+
+49
+00:05:07,840 --> 00:05:10,889
+knob!
+
+50
+00:05:10,939 --> 00:05:14,430
+¡knob! Es el sonido KN sin la K.
+
+51
+00:05:14,480 --> 00:05:17,170
+wrench!
+
+52
+00:05:17,220 --> 00:05:24,300
+¡wrench! Es el sonido WR sin la W. Si respondiste sin dudar, ¡lo lograste!
+
+53
+00:05:25,019 --> 00:05:32,229
+Ahora comprobemos con oraciones completas. Todas estas palabras mudas están reunidas en una sola frase.
+
+54
+00:05:32,279 --> 00:05:41,819
+The knight with a sharp knife is kneeling down.
+
+55
+00:05:41,870 --> 00:05:42,319
+knight, knife, kneeling.
+
+56
+00:05:42,370 --> 00:05:46,819
+Al borrar la K, la frase fluye con total naturalidad, ¿verdad?
+
+57
+00:05:47,519 --> 00:05:56,839
+Leamos una más. Esta vez incluye tanto el sonido MB como el WR.
+
+58
+00:05:56,889 --> 00:06:03,529
+Please comb your hair and wrap the gift before you write.
+
+59
+00:06:03,579 --> 00:06:09,319
+Elimina la B en comb, y la W en wrap y write.
+
+60
+00:06:09,370 --> 00:06:13,019
+Al esquivar las letras mudas, la pronunciación es mucho más cómoda.
+
+61
+00:06:13,660 --> 00:06:18,030
+De las reglas de letras mudas de hoy, recuerda solo esta hoja resumen.
+
+62
+00:06:18,080 --> 00:06:28,850
+Para KN, descarta la K y di N; para MB, descarta la B y di M; para WR, descarta la W y di R.
+
+63
+00:06:28,900 --> 00:06:32,180
+Haz una captura de pantalla y revísala cada vez que leas palabras nuevas.
+
+64
+00:06:32,819 --> 00:06:39,430
+El inglés no se trata de memorizar a ciegas, sino de entender el camino natural de la lengua.
+
+65
+00:06:39,480 --> 00:06:44,829
+Si ves nuestro episodio anterior de 'Vocal + R', el inglés será aún más fácil.
+
+66
+00:06:44,879 --> 00:06:49,019
+¡Muchas gracias por acompañarnos hoy! Esto fue 'Inglés Fácil Cuando se Entiende'.
+

@@ -1,0 +1,241 @@
+<template>
+<style>
+  /* 09-bonus-tip — Frame 9 "💡 반전 꿀팁: 묵음 철자는 단어의 신분증 (Bonus Tip)".
+     Actual audio duration: 28.72s.
+     - 0.48s ~ 6.5s: 여기서 잠깐, 소리도 안 나는 글자를 왜 굳이 남겨뒀을까요?
+     - 6.64s ~ 16.14s: 인쇄술이 발달하면서 철자가 굳어진 것도 있지만, 바로 뜻을 구별해 주는 고마운 신분증 역할을 하기 때문입니다.
+     - 16.37s ~ 25.84s: 소리는 똑같지만 knight는 기사, night는 밤, knot는 매듭, not은 아니다.
+     - 25.97s ~ 28.72s: 글자를 보면 뜻이 한눈에 구별되는 것이죠.
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f09-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f09-progress-fill { position: absolute; left: 0; top: 0; width: 54.5%; height: 4px; background: #F5C518; }
+
+  /* Header */
+  .f09-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f09-ribbon-badge {
+    background: #F5C518; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f09-ribbon-icon { font-size: 1.4cqw; }
+  .f09-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #1E2022;
+  }
+  .f09-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* Center Homophone Comparison Stage */
+  .f09-stage {
+    position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%);
+    width: 82cqw; display: grid; grid-template-columns: 1fr 1fr; gap: 2.8cqw;
+    z-index: 5;
+  }
+  .f09-pair-card {
+    background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 24px;
+    box-shadow: 6px 6px 0px #1E2022; padding: 3.2cqh 2.4cqw;
+    display: flex; flex-direction: column; align-items: center;
+    position: relative; opacity: 0; transform: translateY(20px);
+  }
+
+  .f09-sound-banner {
+    background: #FAF7F2; border: 2px solid #1E2022; border-radius: 100px;
+    padding: 0.5cqh 1.8cqw; margin-bottom: 2cqh; display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f09-sound-label {
+    font-family: 'Gaegu', cursive; font-size: 1.4cqw; font-weight: 700; color: #7A7365;
+  }
+  .f09-sound-val {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.35cqw; font-weight: 900; color: #1E2022;
+  }
+
+  /* Inner 2 Words Row */
+  .f09-words-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.4cqw; width: 100%;
+  }
+  .f09-sub-word {
+    background: #FAF7F2; border: 2.5px solid #1E2022; border-radius: 16px;
+    padding: 2cqh 1cqw; display: flex; flex-direction: column; align-items: center;
+    text-align: center; position: relative;
+  }
+  .f09-sub-word.highlighted {
+    border-color: #F5A623; background: #FFFDF9;
+    box-shadow: 3px 3px 0px #F5A623;
+  }
+  .f09-word-spelling {
+    font-family: 'Archivo Black', sans-serif; font-size: 2.4cqw; line-height: 1;
+    color: #1E2022; margin-bottom: 1cqh; font-variant-ligatures: none;
+  }
+  .f09-k-silent {
+    color: #D97D27; font-weight: 900;
+  }
+  .f09-word-desc {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.2cqw; font-weight: 900;
+    color: #1E2022; display: flex; align-items: center; gap: 0.3cqw;
+  }
+
+  /* Shield ID Badge */
+  .f09-shield-badge {
+    position: absolute; left: 50%; bottom: 14cqh; transform: translateX(-50%) scale(0.85);
+    background: #A3704C; border: 3.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 1cqh 2.8cqw;
+    display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10;
+  }
+  .f09-shield-icon { font-size: 1.6cqw; }
+  .f09-shield-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.4cqw; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.4px;
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-rgdx" id="root" data-composition-id="09-bonus-tip" data-width="1920" data-height="1080" data-start="0" data-duration="28.72">
+  <div data-hf-id="hf-eesj" class="f09-progress-track">
+    <div data-hf-id="hf-pot6" class="f09-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-4yde" class="f09-header" id="fHeader">
+    <div data-hf-id="hf-v9te" class="f09-ribbon-badge">
+      <span data-hf-id="hf-7gmn" class="f09-ribbon-icon">💡</span>
+      <span data-hf-id="hf-pfqm" class="f09-ribbon-label">30초 반전 꿀팁</span>
+    </div>
+    <span data-hf-id="hf-8nkb" class="f09-title">소리도 안 나는데 왜 굳이 남겨뒀을까?</span>
+  </div>
+
+  <!-- Homophone Stage -->
+  <div data-hf-id="hf-qheq" class="f09-stage">
+    <!-- Pair 1: knight vs night -->
+    <div data-hf-id="hf-ip62" class="f09-pair-card" id="pair1">
+      <div data-hf-id="hf-xwwk" class="f09-sound-banner">
+        <span data-hf-id="hf-e5mj" class="f09-sound-label">귀로 들으면:</span>
+        <span data-hf-id="hf-yckx" class="f09-sound-val">똑같이 '나이트'!</span>
+      </div>
+      <div data-hf-id="hf-dfkg" class="f09-words-row">
+        <div data-hf-id="hf-0qy4" class="f09-sub-word" id="sw1">
+          <div data-hf-id="hf-0nv3" class="f09-word-spelling"><span data-hf-id="hf-gs9z" class="f09-k-silent">k</span>night</div>
+          <div data-hf-id="hf-pyzh" class="f09-word-desc">기사 🛡️</div>
+        </div>
+        <div data-hf-id="hf-9etz" class="f09-sub-word" id="sw2">
+          <div data-hf-id="hf-dptb" class="f09-word-spelling">night</div>
+          <div data-hf-id="hf-cd75" class="f09-word-desc">밤 🌙</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pair 2: knot vs not -->
+    <div data-hf-id="hf-er21" class="f09-pair-card" id="pair2">
+      <div data-hf-id="hf-2pyk" class="f09-sound-banner">
+        <span data-hf-id="hf-yzzv" class="f09-sound-label">귀로 들으면:</span>
+        <span data-hf-id="hf-nqbc" class="f09-sound-val">똑같이 '낫'!</span>
+      </div>
+      <div data-hf-id="hf-kkq0" class="f09-words-row">
+        <div data-hf-id="hf-5gpy" class="f09-sub-word" id="sw3">
+          <div data-hf-id="hf-9zzc" class="f09-word-spelling"><span data-hf-id="hf-ysp3" class="f09-k-silent">k</span>not</div>
+          <div data-hf-id="hf-2w1j" class="f09-word-desc">매듭 🪢</div>
+        </div>
+        <div data-hf-id="hf-e4lt" class="f09-sub-word" id="sw4">
+          <div data-hf-id="hf-sh28" class="f09-word-spelling">not</div>
+          <div data-hf-id="hf-7rda" class="f09-word-desc">아니다 ❌</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shield ID Badge -->
+  <div data-hf-id="hf-83m9" class="f09-shield-badge" id="shieldBadge">
+    <span data-hf-id="hf-i0jf" class="f09-shield-icon">🛡️</span>
+    <span data-hf-id="hf-8zbc" class="f09-shield-text">묵음 철자는 단어의 뜻을 지켜주는 고마운 신분증!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-qjo7" id="v09" src="assets/voice/09.wav" data-audio-group="voiceover" data-start="0" data-duration="28.72"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (54.5% -> 61.4%)
+    tl.to("#pfill", { width: "61.4%", duration: 28.72, ease: "none" }, 0);
+
+    // Header in
+    tl.to("#fHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+
+    // Sentence 1 (0.48s ~ 6.5s: 여기서 잠깐, 소리도 안 나는 글자를 왜 굳이 남겨뒀을까요?)
+    tl.call(function () { setCaption("여기서 잠깐, 소리도 안 나는 글자를 왜 굳이 남겨뒀을까요?"); }, null, 0.48);
+    tl.to(["#pair1", "#pair2"], { opacity: 1, y: 0, duration: 0.6, stagger: 0.2, ease: "power3.out" }, 0.8);
+
+    // Sentence 2 (6.64s ~ 16.14s: 인쇄술이 발달하면서 철자가 굳어진 것도 있지만...)
+    tl.call(function () { setCaption("인쇄술이 발달하면서 철자가 굳어진 것도 있지만, 바로 뜻을 구별해 주는 고마운 신분증 역할을 하기 때문입니다."); }, null, 6.64);
+    tl.to("#shieldBadge", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 13.0);
+
+    // Sentence 3 (16.37s ~ 25.84s: 소리는 똑같지만 knight는 기사, night는 밤...)
+    tl.call(function () { setCaption("소리는 똑같지만 knight는 기사, night는 밤, knot는 매듭, not은 아니다."); }, null, 16.37);
+    
+    // Highlight words at word timestamps:
+    // knight (18.35s)
+    tl.to("#sw1", { scale: 1.05, borderColor: "#D97D27", duration: 0.35 }, 18.35);
+    // night (20.45s)
+    tl.to("#sw2", { scale: 1.05, borderColor: "#D97D27", duration: 0.35 }, 20.45);
+    // knot (22.28s)
+    tl.to("#sw3", { scale: 1.05, borderColor: "#D97D27", duration: 0.35 }, 22.28);
+    // not (24.14s)
+    tl.to("#sw4", { scale: 1.05, borderColor: "#D97D27", duration: 0.35 }, 24.14);
+
+    // Sentence 4 (25.97s ~ 28.72s: 글자를 보면 뜻이 한눈에 구별되는 것이죠)
+    tl.call(function () { setCaption("글자를 보면 뜻이 한눈에 구별되는 것이죠."); }, null, 25.97);
+
+    // End Fade
+    tl.to(["#pair1", "#pair2", "#shieldBadge", "#fHeader"], { opacity: 0, duration: 0.3 }, 28.38);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-bonus-tip"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

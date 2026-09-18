@@ -1,0 +1,264 @@
+<template>
+<style>
+  /* 06-practice-kn — Frame 6 "1번 소리 서랍 KN- 실전 낭독 (Practice KN-)".
+     Actual audio duration: 36.72s.
+     - 0.42s ~ 5.34s: 첫 번째 서랍은 단어 맨 앞의 KN 소리입니다.
+     - 5.49s ~ 13.5s: 앞의 K는 혀가 귀찮아서 완전히 버리고, 곧바로 N 소리로 출발합니다.
+     - 13.6s ~ 22.98s: K를 굳이 소리 내려 하지 마세요. 혀를 처음부터 앞니 뒤에 딱 붙이고 그냥 '니' 하고 출발하면 됩니다.
+     - 23.16s ~ 31.27s: 함께 소리 내보실까요? knee, know, knife, knock, knight.
+     - 31.54s ~ 36.72s: K는 깨끗이 지우고 앞니 뒤에서 N 소리만 가볍게 내주시면 됩니다.
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f06-progress-fill { position: absolute; left: 0; top: 0; width: 27.6%; height: 4px; background: #F5C518; }
+
+  /* Header */
+  .f06-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f06-ribbon-badge {
+    background: #F5A623; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f06-ribbon-icon { font-size: 1.4cqw; }
+  .f06-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #1E2022;
+  }
+  .f06-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* Muscle Coaching Tip Banner */
+  .f06-coaching-banner {
+    position: absolute; top: 16cqh; left: 50%; transform: translateX(-50%);
+    background: #FAF7F2; border: 2.5px dashed #8A5A12; border-radius: 100px;
+    padding: 0.8cqh 2.4cqw; display: flex; align-items: center; gap: 0.8cqw;
+    opacity: 0; z-index: 8;
+  }
+  .f06-coach-icon { font-size: 1.3cqw; }
+  .f06-coach-text {
+    font-family: 'Gaegu', cursive; font-size: 1.5cqw; font-weight: 700;
+    color: #8A5A12; letter-spacing: -0.2px;
+  }
+
+  /* 5 Words Showcase Cards */
+  .f06-cards-grid {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.6cqw;
+    z-index: 5;
+  }
+  .f06-word-card {
+    background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 20px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 3cqh 1cqw;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; opacity: 0;
+  }
+
+  .f06-word-icon {
+    font-size: 2.4cqw; margin-bottom: 1cqh;
+  }
+  .f06-word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 2.5cqw; line-height: 1;
+    color: #1E2022; margin-bottom: 1.2cqh; font-variant-ligatures: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f06-silent-k {
+    color: #1E2022; position: relative; display: inline-block;
+  }
+  .f06-silent-k.struck {
+    color: #FF4757; opacity: 0.35;
+  }
+  .f06-silent-k-line {
+    position: absolute; left: -10%; top: 50%; width: 120%; height: 3.5px;
+    background: #FF4757; transform: rotate(-25deg); opacity: 0;
+  }
+
+  .f06-meaning-tag {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #6B655B; background: #FAF7F2; border: 1.5px solid #1E2022;
+    border-radius: 8px; padding: 0.2cqh 0.8cqw;
+  }
+  .f06-sound-glow {
+    font-family: 'Gaegu', cursive; font-size: 1.4cqw; font-weight: 700;
+    color: #8A5A12; margin-top: 0.6cqh; opacity: 0; transform: scale(0.9);
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-r5ef" id="root" data-composition-id="06-practice-kn" data-width="1920" data-height="1080" data-start="0" data-duration="36.72">
+  <div data-hf-id="hf-sg82" class="f06-progress-track">
+    <div data-hf-id="hf-i3c3" class="f06-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-vjrt" class="f06-header" id="fHeader">
+    <div data-hf-id="hf-imx3" class="f06-ribbon-badge">
+      <span data-hf-id="hf-2xdx" class="f06-ribbon-icon">🚪</span>
+      <span data-hf-id="hf-eser" class="f06-ribbon-label">1번 소리 서랍: KN-</span>
+    </div>
+    <span data-hf-id="hf-6lsh" class="f06-title">K를 완전히 버리고 곧바로 N 소리로 출발!</span>
+  </div>
+
+  <!-- Muscle Coaching Banner -->
+  <div data-hf-id="hf-1a88" class="f06-coaching-banner" id="coachBanner">
+    <span data-hf-id="hf-0hre" class="f06-coach-icon">💡</span>
+    <span data-hf-id="hf-79e6" class="f06-coach-text">K는 쳐다보지도 마세요! 혀끝을 앞니 뒤에 대고 곧장 '니'로 출발!</span>
+  </div>
+
+  <!-- 5 Practice Word Cards -->
+  <div data-hf-id="hf-o8sn" class="f06-cards-grid">
+    <!-- knee -->
+    <div data-hf-id="hf-8zyd" class="f06-word-card" id="wc1">
+      <div data-hf-id="hf-qwl8" class="f06-word-icon">🦵</div>
+      <div data-hf-id="hf-hkgj" class="f06-word-text">
+        <span data-hf-id="hf-hqh5" class="f06-silent-k" id="sk1">k<div data-hf-id="hf-0pxs" class="f06-silent-k-line" id="skl1"></div></span><span data-hf-id="hf-vw3b">nee</span>
+      </div>
+      <div data-hf-id="hf-ub9b" class="f06-meaning-tag">무릎</div>
+      <div data-hf-id="hf-vhf3" class="f06-sound-glow" id="sg1">'니'</div>
+    </div>
+
+    <!-- know -->
+    <div data-hf-id="hf-f5o6" class="f06-word-card" id="wc2">
+      <div data-hf-id="hf-hsyz" class="f06-word-icon">💡</div>
+      <div data-hf-id="hf-svn7" class="f06-word-text">
+        <span data-hf-id="hf-9i48" class="f06-silent-k" id="sk2">k<div data-hf-id="hf-9dtn" class="f06-silent-k-line" id="skl2"></div></span><span data-hf-id="hf-9yvn">now</span>
+      </div>
+      <div data-hf-id="hf-sxxh" class="f06-meaning-tag">알다</div>
+      <div data-hf-id="hf-vtkk" class="f06-sound-glow" id="sg2">'노우'</div>
+    </div>
+
+    <!-- knife -->
+    <div data-hf-id="hf-j3s7" class="f06-word-card" id="wc3">
+      <div data-hf-id="hf-7xie" class="f06-word-icon">🔪</div>
+      <div data-hf-id="hf-shc6" class="f06-word-text">
+        <span data-hf-id="hf-zk8r" class="f06-silent-k" id="sk3">k<div data-hf-id="hf-5fpm" class="f06-silent-k-line" id="skl3"></div></span><span data-hf-id="hf-ldf5">nife</span>
+      </div>
+      <div data-hf-id="hf-lcsz" class="f06-meaning-tag">칼</div>
+      <div data-hf-id="hf-jh59" class="f06-sound-glow" id="sg3">'나이프'</div>
+    </div>
+
+    <!-- knock -->
+    <div data-hf-id="hf-n1w8" class="f06-word-card" id="wc4">
+      <div data-hf-id="hf-g5wm" class="f06-word-icon">🚪</div>
+      <div data-hf-id="hf-s315" class="f06-word-text">
+        <span data-hf-id="hf-isdm" class="f06-silent-k" id="sk4">k<div data-hf-id="hf-mnzx" class="f06-silent-k-line" id="skl4"></div></span><span data-hf-id="hf-dlf0">nock</span>
+      </div>
+      <div data-hf-id="hf-3s5l" class="f06-meaning-tag">노크</div>
+      <div data-hf-id="hf-uglu" class="f06-sound-glow" id="sg4">'나크'</div>
+    </div>
+
+    <!-- knight -->
+    <div data-hf-id="hf-ntk1" class="f06-word-card" id="wc5">
+      <div data-hf-id="hf-k33g" class="f06-word-icon">🛡️</div>
+      <div data-hf-id="hf-roq4" class="f06-word-text">
+        <span data-hf-id="hf-f7at" class="f06-silent-k" id="sk5">k<div data-hf-id="hf-lwc4" class="f06-silent-k-line" id="skl5"></div></span><span data-hf-id="hf-c0wd">night</span>
+      </div>
+      <div data-hf-id="hf-l56p" class="f06-meaning-tag">기사</div>
+      <div data-hf-id="hf-496f" class="f06-sound-glow" id="sg5">'나이트'</div>
+    </div>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-kwtg" id="v06" src="assets/voice/06.wav" data-audio-group="voiceover" data-start="0" data-duration="36.72"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (27.6% -> 36.5%)
+    tl.to("#pfill", { width: "36.5%", duration: 36.72, ease: "none" }, 0);
+
+    gsap.set(".f06-word-card", { y: 20 });
+
+    // Header in
+    tl.to("#fHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+
+    // Sentence 1 (0.42s ~ 5.34s)
+    tl.call(function () { setCaption("첫 번째 서랍은 단어 맨 앞의 KN 소리입니다."); }, null, 0.42);
+    tl.to([".f06-word-card"], { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: "power3.out" }, 0.8);
+
+    // Sentence 2 (5.49s ~ 13.5s: 앞의 K는 혀가 귀찮아서 완전히 버리고, 곧바로 N 소리로 출발합니다)
+    tl.call(function () { setCaption("앞의 K는 혀가 귀찮아서 완전히 버리고, 곧바로 N 소리로 출발합니다."); }, null, 5.49);
+    // Strike all 5 K letters!
+    tl.to([".f06-silent-k-line"], { opacity: 1, duration: 0.3, stagger: 0.15 }, 7.5);
+    tl.to([".f06-silent-k"], { color: "#FF4757", opacity: 0.35, duration: 0.3, stagger: 0.15 }, 7.5);
+
+    // Sentence 3 (13.6s ~ 22.98s: K를 굳이 소리 내려 하지 마세요...)
+    tl.call(function () { setCaption("K를 굳이 소리 내려 하지 마세요. 혀를 처음부터 앞니 뒤에 딱 붙이고 그냥 '니' 하고 출발하면 됩니다."); }, null, 13.6);
+    tl.to("#coachBanner", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 14.0);
+
+    // Sentence 4 (23.16s ~ 31.27s: 함께 소리 내보실까요? knee, know, knife, knock, knight)
+    tl.call(function () { setCaption("함께 소리 내보실까요? knee, know, knife, knock, knight."); }, null, 21.74);
+    
+    // Pulse each card precisely at word timestamps:
+    // knee (23.16s)
+    tl.to("#wc1", { scale: 1.08, borderColor: "#F5A623", duration: 0.3, yoyo: true, repeat: 1 }, 23.16);
+    tl.to("#sg1", { opacity: 1, scale: 1, duration: 0.3 }, 23.16);
+    // know (24.25s)
+    tl.to("#wc2", { scale: 1.08, borderColor: "#F5A623", duration: 0.3, yoyo: true, repeat: 1 }, 24.25);
+    tl.to("#sg2", { opacity: 1, scale: 1, duration: 0.3 }, 24.25);
+    // knife (25.65s)
+    tl.to("#wc3", { scale: 1.08, borderColor: "#F5A623", duration: 0.3, yoyo: true, repeat: 1 }, 25.65);
+    tl.to("#sg3", { opacity: 1, scale: 1, duration: 0.3 }, 25.65);
+    // knock (27.59s)
+    tl.to("#wc4", { scale: 1.08, borderColor: "#F5A623", duration: 0.3, yoyo: true, repeat: 1 }, 27.59);
+    tl.to("#sg4", { opacity: 1, scale: 1, duration: 0.3 }, 27.59);
+    // knight (29.53s)
+    tl.to("#wc5", { scale: 1.08, borderColor: "#F5A623", duration: 0.3, yoyo: true, repeat: 1 }, 29.53);
+    tl.to("#sg5", { opacity: 1, scale: 1, duration: 0.3 }, 29.53);
+
+    // Sentence 5 (31.54s ~ 36.72s: K는 깨끗이 지우고 앞니 뒤에서 N 소리만 가볍게 내주시면 됩니다)
+    tl.call(function () { setCaption("K는 깨끗이 지우고 앞니 뒤에서 N 소리만 가볍게 내주시면 됩니다."); }, null, 31.54);
+
+    // End Fade
+    tl.to([".f06-word-card", "#coachBanner", "#fHeader"], { opacity: 0, duration: 0.3 }, 36.4);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-practice-kn"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

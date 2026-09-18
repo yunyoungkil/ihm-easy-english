@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F4EFE6;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F4EFE6;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-yhnr" id="root" data-composition-id="main" data-start="0" data-duration="414.02" data-width="1920" data-height="1080">
+      <!-- EP18 "소리 없는 철자의 비밀, 묵음 자음 3대 규칙 (KN-, -MB, WR-)".
+           15 frames, cumulative timing = real TTS audio duration per scene (.tts-results.json), placed back-to-back.
+           Total duration: 414.02s (6m 54.02s) — 100% narration coverage + Frame 15 5s end-screen keep-out. -->
+      <div data-hf-id="hf-hdld" id="scene-01-stakes" class="scene" data-composition-id="01-stakes" data-composition-src="compositions/frames/01-stakes.html" data-start="0" data-duration="29.52" data-track-index="0"></div>
+      <div data-hf-id="hf-qqjh" id="scene-02-intro" class="scene" data-composition-id="02-intro" data-composition-src="compositions/frames/02-intro.html" data-start="29.52" data-duration="10.96" data-track-index="0"></div>
+      <div data-hf-id="hf-u4gz" id="scene-03-silent-wall" class="scene" data-composition-id="03-silent-wall" data-composition-src="compositions/frames/03-silent-wall.html" data-start="40.48" data-duration="16.2" data-track-index="0"></div>
+      <div data-hf-id="hf-y6mh" id="scene-04-head-fake" class="scene" data-composition-id="04-head-fake" data-composition-src="compositions/frames/04-head-fake.html" data-start="56.68" data-duration="27.48" data-track-index="0"></div>
+      <div data-hf-id="hf-2sx9" id="scene-05-principle" class="scene" data-composition-id="05-principle" data-composition-src="compositions/frames/05-principle.html" data-start="84.16" data-duration="30.16" data-track-index="0"></div>
+      <div data-hf-id="hf-z613" id="scene-06-practice-kn" class="scene" data-composition-id="06-practice-kn" data-composition-src="compositions/frames/06-practice-kn.html" data-start="114.32" data-duration="36.72" data-track-index="0"></div>
+      <div data-hf-id="hf-vy70" id="scene-07-practice-mb" class="scene" data-composition-id="07-practice-mb" data-composition-src="compositions/frames/07-practice-mb.html" data-start="151.04" data-duration="40.24" data-track-index="0"></div>
+      <div data-hf-id="hf-hi1a" id="scene-08-practice-wr" class="scene" data-composition-id="08-practice-wr" data-composition-src="compositions/frames/08-practice-wr.html" data-start="191.28" data-duration="34.64" data-track-index="0"></div>
+      <div data-hf-id="hf-tpuq" id="scene-09-bonus-tip" class="scene" data-composition-id="09-bonus-tip" data-composition-src="compositions/frames/09-bonus-tip.html" data-start="225.92" data-duration="28.72" data-track-index="0"></div>
+      <div data-hf-id="hf-ocge" id="scene-10-quiz-1" class="scene" data-composition-id="10-quiz-1" data-composition-src="compositions/frames/10-quiz-1.html" data-start="254.64" data-duration="42.46" data-track-index="0"></div>
+      <div data-hf-id="hf-dyvv" id="scene-11-quiz-2" class="scene" data-composition-id="11-quiz-2" data-composition-src="compositions/frames/11-quiz-2.html" data-start="297.1" data-duration="27.4" data-track-index="0"></div>
+      <div data-hf-id="hf-ugt4" id="scene-12-sentence-1" class="scene" data-composition-id="12-sentence-1" data-composition-src="compositions/frames/12-sentence-1.html" data-start="324.5" data-duration="22.52" data-track-index="0"></div>
+      <div data-hf-id="hf-7c8r" id="scene-13-sentence-2" class="scene" data-composition-id="13-sentence-2" data-composition-src="compositions/frames/13-sentence-2.html" data-start="347.02" data-duration="26.2" data-track-index="0"></div>
+      <div data-hf-id="hf-ty3g" id="scene-14-summary" class="scene" data-composition-id="14-summary" data-composition-src="compositions/frames/14-summary.html" data-start="373.22" data-duration="19.16" data-track-index="0"></div>
+      <div data-hf-id="hf-5ycg" id="scene-15-closing" class="scene" data-composition-id="15-closing" data-composition-src="compositions/frames/15-closing.html" data-start="392.38" data-duration="21.64" data-track-index="0"></div>
+
+      <!-- Root BGM: ducked by voiceover audio group -->
+      <audio data-hf-id="hf-dgnm" id="bgm" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="405.23" data-media-start="0" data-volume="0.06" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}"></audio>
+    </div>
+    <script>
+      (function () {
+        var tl = gsap.timeline({ paused: true });
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+        tl.seek(0);
+      })();
+    </script>
+  </body>
+</html>

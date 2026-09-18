@@ -1,0 +1,200 @@
+<template>
+<style>
+  /* 03-silent-wall — Frame 3 "질문 던지기: 사전 속 무작위 예외의 벽 (Big Question)".
+     Actual audio duration: 16.20s.
+     - 0.47s ~ 6.70s: 사전을 펴보면 단어마다 소리가 안 나는 철자들이 제각각 흩어져 있습니다.
+     - 6.80s ~ 11.84s: knee, climb, write, knock, thumb...
+     - 12.00s ~ 16.20s: 단어마다 예외로 다 외워야 할 것 같아서 막막하셨죠.
+     - Creates tension & cognitive load — NO grouping/drawers revealed yet!
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f03-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f03-progress-fill { position: absolute; left: 0; top: 0; width: 9.8%; height: 4px; background: #F5C518; }
+
+  /* Header */
+  .f03-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f03-ribbon-badge {
+    background: #FAF7F2; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f03-ribbon-icon { font-size: 1.4cqw; }
+  .f03-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #1E2022;
+  }
+  .f03-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* Disordered Silent Word Wall */
+  .f03-wall-stage {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: 82cqw; height: 56cqh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 5;
+  }
+
+  .f03-word-chip {
+    position: absolute; background: #FFFFFF; border: 3px solid #1E2022;
+    border-radius: 18px; box-shadow: 5px 5px 0px #1E2022; padding: 1.6cqh 2.4cqw;
+    display: flex; align-items: center; gap: 0.8cqw; opacity: 0;
+    font-family: 'Archivo Black', sans-serif; font-size: 2.6cqw; color: #1E2022;
+    font-variant-ligatures: none;
+  }
+  .f03-chip-silent {
+    color: #FF4757; text-decoration: underline wavy #FF4757;
+  }
+
+  /* Specific scattered positions for cognitive load */
+  #chip1 { top: 6%; left: 8%; }
+  #chip2 { top: 12%; right: 12%; }
+  #chip3 { top: 40%; left: 4%; }
+  #chip4 { bottom: 10%; left: 16%; }
+  #chip5 { bottom: 8%; right: 10%; }
+  #chip6 { top: 38%; right: 6%; }
+  #chip7 { top: 3%; left: 44%; }
+
+  /* Center Tension Mark */
+  .f03-center-tension {
+    position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1cqh; z-index: 8; opacity: 0;
+  }
+  .f03-big-q {
+    font-family: 'Gaegu', cursive; font-size: 6.5cqw; font-weight: 700;
+    color: #FF4757; text-shadow: 4px 4px 0px #1E2022; line-height: 1;
+  }
+  .f03-tension-badge {
+    background: #FF4757; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.6cqh 1.8cqw;
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.3cqw; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.3px;
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-i6dq" id="root" data-composition-id="03-silent-wall" data-width="1920" data-height="1080" data-start="0" data-duration="16.20">
+  <div data-hf-id="hf-tf75" class="f03-progress-track">
+    <div data-hf-id="hf-xb5o" class="f03-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-mh5o" class="f03-header" id="fHeader">
+    <div data-hf-id="hf-vvbs" class="f03-ribbon-badge">
+      <span data-hf-id="hf-i1i4" class="f03-ribbon-icon">📖</span>
+      <span data-hf-id="hf-dd3r" class="f03-ribbon-label">사전 속 무작위 예외의 벽</span>
+    </div>
+    <span data-hf-id="hf-55ms" class="f03-title">단어마다 다 따로 외워야 할까?</span>
+  </div>
+
+  <!-- Disordered Wall -->
+  <div data-hf-id="hf-w6sz" class="f03-wall-stage">
+    <div data-hf-id="hf-jvha" class="f03-word-chip" id="chip1"><span data-hf-id="hf-cyd2" class="f03-chip-silent">k</span><span data-hf-id="hf-vw3b">nee</span> <span data-hf-id="hf-jut0" data-contrast-ignore="">🦵</span></div>
+    <div data-hf-id="hf-fxd9" class="f03-word-chip" id="chip2"><span data-hf-id="hf-f808">clim</span><span data-hf-id="hf-9dlt" class="f03-chip-silent">b</span> <span data-hf-id="hf-l7lm" data-contrast-ignore="">🧗</span></div>
+    <div data-hf-id="hf-f5pg" class="f03-word-chip" id="chip3"><span data-hf-id="hf-ejl6" class="f03-chip-silent">w</span><span data-hf-id="hf-khtn">rite</span> <span data-hf-id="hf-ely5" data-contrast-ignore="">✍️</span></div>
+    <div data-hf-id="hf-2n6z" class="f03-word-chip" id="chip4"><span data-hf-id="hf-mt0a" class="f03-chip-silent">k</span><span data-hf-id="hf-dlf0">nock</span> <span data-hf-id="hf-0jm6" data-contrast-ignore="">🚪</span></div>
+    <div data-hf-id="hf-yp2y" class="f03-word-chip" id="chip5"><span data-hf-id="hf-g44n">thum</span><span data-hf-id="hf-5dmd" class="f03-chip-silent">b</span> <span data-hf-id="hf-84x3" data-contrast-ignore="">👍</span></div>
+    <div data-hf-id="hf-uqyx" class="f03-word-chip" id="chip6"><span data-hf-id="hf-n7bb" class="f03-chip-silent">k</span><span data-hf-id="hf-ldf5">nife</span> <span data-hf-id="hf-sb7y" data-contrast-ignore="">🔪</span></div>
+    <div data-hf-id="hf-6xlk" class="f03-word-chip" id="chip7" data-layout-allow-overlap=""><span data-hf-id="hf-ctim" class="f03-chip-silent">w</span><span data-hf-id="hf-fadl">rong</span> <span data-hf-id="hf-odar" data-contrast-ignore="">❌</span></div>
+
+    <!-- Center Tension Question Mark -->
+    <div data-hf-id="hf-vte9" class="f03-center-tension" id="tensionBox" data-layout-allow-overlap="">
+      <div data-hf-id="hf-bbrm" class="f03-big-q" id="bigQ">???</div>
+      <div data-hf-id="hf-8uwt" class="f03-tension-badge">수백 개 단어를 전부 암기?!</div>
+    </div>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-322v" id="v03" src="assets/voice/03.wav" data-audio-group="voiceover" data-start="0" data-duration="16.20"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (9.8% -> 13.7%)
+    tl.to("#pfill", { width: "13.7%", duration: 16.20, ease: "none" }, 0);
+
+    // Initial transforms for chips and tension mark
+    gsap.set(".f03-word-chip", { scale: 0.85 });
+    gsap.set("#chip1", { rotation: -3 });
+    gsap.set("#chip2", { rotation: 4 });
+    gsap.set("#chip3", { rotation: -2 });
+    gsap.set("#chip4", { rotation: 3 });
+    gsap.set("#chip5", { rotation: -4 });
+    gsap.set("#chip6", { rotation: 2 });
+    gsap.set("#chip7", { rotation: -1 });
+    gsap.set("#tensionBox", { scale: 0.8 });
+
+    // Header in
+    tl.to("#fHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+
+    // Sentence 1 (0.47s ~ 6.70s)
+    tl.call(function () { setCaption("사전을 펴보면 단어마다 소리가 안 나는 철자들이 제각각 흩어져 있습니다."); }, null, 0.47);
+    tl.to(["#chip1", "#chip2"], { opacity: 1, scale: 1, duration: 0.4, stagger: 0.2, ease: "back.out(1.5)" }, 1.5);
+    tl.to(["#chip6", "#chip7"], { opacity: 1, scale: 1, duration: 0.4, stagger: 0.2, ease: "back.out(1.5)" }, 3.2);
+
+    // Sentence 2 (6.80s ~ 11.84s: knee, climb, write, knock, thumb...)
+    tl.call(function () { setCaption("knee, climb, write, knock, thumb..."); }, null, 6.80);
+    tl.to(["#chip1", "#chip2", "#chip3", "#chip4", "#chip5"], {
+      opacity: 1, scale: 1, duration: 0.35, stagger: 0.95, ease: "back.out(1.7)"
+    }, 6.8);
+
+    // Sentence 3 (12.00s ~ 16.20s: 단어마다 예외로 다 외워야 할 것 같아서 막막하셨죠)
+    tl.call(function () { setCaption("단어마다 예외로 다 외워야 할 것 같아서 막막하셨죠."); }, null, 12.00);
+    tl.to([".f03-word-chip"], { opacity: 0.2, duration: 0.4 }, 12.3);
+    tl.to("#tensionBox", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 12.5);
+    tl.to("#bigQ", { rotation: 8, yoyo: true, repeat: 4, duration: 0.35, ease: "sine.inOut" }, 13.0);
+
+    // End Fade
+    tl.to([".f03-word-chip", "#tensionBox", "#fHeader"], { opacity: 0, duration: 0.3 }, 15.9);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["03-silent-wall"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

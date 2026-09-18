@@ -32,14 +32,20 @@
   .f06-progress-fill { position: absolute; left: 0; top: 0; width: 33.33%; height: 4px; background: #F5A623; }
 
   /* Header */
+  /* Header */
   .f06-header {
     position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
   }
-  .f06-badge {
-    background: #F5A623; color: #FFFFFF; font-weight: 900; font-size: 1.15cqw;
-    padding: 0.6cqh 1.3cqw; border-radius: 100px; border: 2px solid #2B2B2B;
-    box-shadow: 2px 2px 0px #2B2B2B;
+  .f06-ribbon-badge {
+    background: #F5A623; border: 3px solid #2B2B2B; border-radius: 12px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f06-ribbon-icon { font-size: 1.4cqw; }
+  .f06-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.2cqw; font-weight: 900;
+    color: #2B2B2B; letter-spacing: -0.3px;
   }
   .f06-title {
     font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
@@ -72,15 +78,14 @@
     background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
     box-shadow: 5px 5px 0px #2B2B2B; padding: 3cqh 1.2cqw;
     display: flex; flex-direction: column; align-items: center; gap: 1.2cqh;
-    opacity: 0; transform: translateY(20px);
-    /* 2026-09-18: removed a stray `transition: all 0.2s ease` that was here — it fought GSAP's
-       seek-based rendering. On a hard seek GSAP sets the final opacity/transform instantly, but
-       this CSS transition then re-animated from whatever the DOM's last visual state happened to
-       be, over 200ms of real wall-clock time — so whether the cards appeared in a snapshot/render
-       depended on exact seek timing rather than the video's own timeline (cards were confirmed
-       visible at t=17s but invisible at t=10s and t=20s in the same frame). GSAP already owns
-       every animated property here; a lingering CSS transition on the same properties breaks the
-       "seek-safe, deterministic" contract every composition in this framework relies on. */
+    opacity: 0; transform: translateY(20px); position: relative;
+  }
+  .f06-card-num-badge {
+    position: absolute; top: -1.2cqw; left: 1cqw;
+    width: 2.2cqw; height: 2.2cqw; border-radius: 50%;
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; box-shadow: 2px 2px 0px #2B2B2B;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.1cqw; color: #2B2B2B;
   }
   .f06-word-main {
     font-family: 'Archivo Black', sans-serif; font-size: 3.4cqw; line-height: 1; color: #2B2B2B;
@@ -89,7 +94,10 @@
     color: #8A5A12; background: rgba(245,166,35,0.2); border-radius: 6px; padding: 0 0.1em;
   }
   .f06-word-meaning {
-    font-size: 1.15cqw; font-weight: 900; color: #7A7365;
+    font-size: 1.15cqw; font-weight: 900; color: #5C564A;
+    background: #FAF7F2; border: 2px solid #2B2B2B; border-radius: 100px;
+    padding: 0.35cqh 1.2cqw; box-shadow: 2px 2px 0px #2B2B2B;
+    display: flex; align-items: center; gap: 0.4cqw; margin-top: 0.4cqh;
   }
 
   /* Active highlight card state */
@@ -139,9 +147,12 @@
 
   <div data-hf-id="hf-06-content" id="f06-content" class="clip" data-start="0" data-duration="29.52" data-track-index="1">
     
-    <!-- Header -->
+    <!-- Header with Ribbon Badge -->
     <div data-hf-id="hf-06-head" id="f06-header" class="f06-header">
-      <span data-hf-id="hf-ba6s" class="f06-badge">🚪 1번 소리 서랍</span>
+      <div data-hf-id="hf-ribbon" class="f06-ribbon-badge">
+        <span data-hf-id="hf-ricon" class="f06-ribbon-icon">🚪</span>
+        <span data-hf-id="hf-rlbl" class="f06-ribbon-label">1번 소리 서랍</span>
+      </div>
       <span data-hf-id="hf-t5pp" class="f06-title">AR : 턱을 툭 떨어뜨리는 시원한 '아~'</span>
     </div>
 
@@ -154,35 +165,40 @@
         <div data-hf-id="hf-20xp" class="f06-action-text">턱에 힘을 풀고 툭 떨어뜨리세요 ➔ <span data-hf-id="hf-9pat" style="text-decoration:underline;">[ 아~ r ]</span></div>
       </div>
 
-      <!-- 5 Words Grid -->
+      <!-- 5 Words Grid with Numbering Badges -->
       <div data-hf-id="hf-06-grid" class="f06-words-grid">
         
         <!-- car -->
         <div data-hf-id="hf-06-w1" id="f06-w1" class="f06-word-card">
+          <div data-hf-id="hf-num1" class="f06-card-num-badge">①</div>
           <div data-hf-id="hf-m7py" class="f06-word-main">c<span data-hf-id="hf-h4da" class="f06-ar-part">ar</span></div>
           <div data-hf-id="hf-vszj" class="f06-word-meaning">차 🚗</div>
         </div>
 
         <!-- park -->
         <div data-hf-id="hf-06-w2" id="f06-w2" class="f06-word-card">
+          <div data-hf-id="hf-num2" class="f06-card-num-badge">②</div>
           <div data-hf-id="hf-qyeg" class="f06-word-main">p<span data-hf-id="hf-yreq" class="f06-ar-part">ar</span>k</div>
           <div data-hf-id="hf-0oyb" class="f06-word-meaning">공원 🌳</div>
         </div>
 
         <!-- star -->
         <div data-hf-id="hf-06-w3" id="f06-w3" class="f06-word-card">
+          <div data-hf-id="hf-num3" class="f06-card-num-badge">③</div>
           <div data-hf-id="hf-1npy" class="f06-word-main">st<span data-hf-id="hf-z5pr" class="f06-ar-part">ar</span></div>
           <div data-hf-id="hf-fstx" class="f06-word-meaning">별 ⭐</div>
         </div>
 
         <!-- farm -->
         <div data-hf-id="hf-06-w4" id="f06-w4" class="f06-word-card">
+          <div data-hf-id="hf-num4" class="f06-card-num-badge">④</div>
           <div data-hf-id="hf-u5l4" class="f06-word-main">f<span data-hf-id="hf-zk0s" class="f06-ar-part">ar</span>m</div>
           <div data-hf-id="hf-7boe" class="f06-word-meaning">농장 🚜</div>
         </div>
 
         <!-- card -->
         <div data-hf-id="hf-06-w5" id="f06-w5" class="f06-word-card">
+          <div data-hf-id="hf-num5" class="f06-card-num-badge">⑤</div>
           <div data-hf-id="hf-gdme" class="f06-word-main">c<span data-hf-id="hf-zybt" class="f06-ar-part">ar</span>d</div>
           <div data-hf-id="hf-7qzx" class="f06-word-meaning">카드 💳</div>
         </div>

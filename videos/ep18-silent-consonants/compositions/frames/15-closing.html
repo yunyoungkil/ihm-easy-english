@@ -1,0 +1,173 @@
+<template>
+<style>
+  /* 15-closing — Frame 15 "🎬 클로징 & 엔드스크린 (Closing & End Screen)".
+     Actual audio duration: 16.64s narration + 5.0s end-screen = 21.64s total.
+     - 0.44s ~ 6.94s: 영어는 무작정 외우는 게 아니라, 게으른 혀의 소리 원리를 이해하는 겁니다.
+     - 7.10s ~ 12.36s: 지난 모음 뒤 R 편도 함께 보시면 영어가 훨씬 쉬워집니다.
+     - 12.50s ~ 16.64s: 오늘도 수고 많으셨습니다. 이해하면 쉬운영어였습니다.
+     - 16.64s ~ 21.64s: ENDSCREEN KEEP-OUT ZONE (Center 100% clean and empty).
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f15-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f15-progress-fill { position: absolute; left: 0; top: 0; width: 94.8%; height: 4px; background: #F5C518; }
+
+  /* Safe Top-Left Corner Wordmark (Always safe for YouTube Endscreen) */
+  .f15-corner-wordmark {
+    position: absolute; left: 6cqw; top: 8cqh;
+    display: flex; align-items: center; gap: 0.3cqw;
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.1cqw; font-weight: 900;
+    opacity: 0; z-index: 30;
+  }
+  .f15-cw-white { color: #1E2022; }
+  .f15-cw-yellow { color: #F5C518; }
+
+  /* Center Closing Content Stage (Fades out at 16.64s for YouTube Endscreen) */
+  .f15-closing-stage {
+    position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%);
+    width: 78cqw; display: flex; flex-direction: column; align-items: center;
+    gap: 3cqh; z-index: 10; opacity: 0;
+  }
+
+  /* Encouragement Card */
+  .f15-warm-card {
+    background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 24px;
+    box-shadow: 6px 6px 0px #1E2022; padding: 3.5cqh 3cqw;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    width: 100%;
+  }
+  .f15-sprout-icon { font-size: 2.8cqw; margin-bottom: 1cqh; }
+  .f15-warm-title {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.8cqw; font-weight: 900;
+    color: #1E2022; letter-spacing: -0.4px; line-height: 1.4;
+  }
+  .f15-warm-sub {
+    font-family: 'Gaegu', cursive; font-size: 1.6cqw; font-weight: 700;
+    color: #27AE60; margin-top: 1cqh;
+  }
+
+  /* Next Video Recommendation Card */
+  .f15-recom-banner {
+    background: #FAF7F2; border: 2.5px solid #1E2022; border-radius: 16px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 1.5cqh 2.4cqw;
+    display: flex; align-items: center; gap: 1.2cqw; width: 100%;
+  }
+  .f15-play-icon { font-size: 1.8cqw; }
+  .f15-recom-texts {
+    display: flex; flex-direction: column; text-align: left;
+  }
+  .f15-recom-badge {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 0.95cqw; font-weight: 900;
+    color: #8A5A12;
+  }
+  .f15-recom-title {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.35cqw; font-weight: 900;
+    color: #1E2022;
+  }
+
+  /* Smart Caption Pill (Shown ONLY from 0s to 16.64s) */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-642o" id="root" data-composition-id="15-closing" data-width="1920" data-height="1080" data-start="0" data-duration="21.64">
+  <div data-hf-id="hf-o7b2" class="f15-progress-track">
+    <div data-hf-id="hf-ec5b" class="f15-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Safe Corner Wordmark -->
+  <div data-hf-id="hf-95j6" class="f15-corner-wordmark" id="cornerMark">
+    <span data-hf-id="hf-i4hm" class="f15-cw-white">이해하면 </span>
+    <span data-hf-id="hf-tlpm" class="f15-cw-yellow">쉬운영어</span>
+  </div>
+
+  <!-- Closing Center Stage -->
+  <div data-hf-id="hf-and0" class="f15-closing-stage" id="closingStage">
+    <!-- Warm Encouragement Card -->
+    <div data-hf-id="hf-idn5" class="f15-warm-card">
+      <div data-hf-id="hf-abon" class="f15-sprout-icon">🌱</div>
+      <div data-hf-id="hf-8h4l" class="f15-warm-title">무작정 외우지 마세요.<br data-hf-id="hf-x5px">혀가 편해지는 길을 알면 저절로 읽힙니다.</div>
+      <div data-hf-id="hf-z07y" class="f15-warm-sub">오늘도 한 걸음 더 영어와 친해지셨습니다!</div>
+    </div>
+
+    <!-- Recommendation Banner (EP17 Bossy R) -->
+    <div data-hf-id="hf-kdq8" class="f15-recom-banner">
+      <div data-hf-id="hf-rk2c" class="f15-play-icon">▶️</div>
+      <div data-hf-id="hf-luiq" class="f15-recom-texts">
+        <span data-hf-id="hf-rpdz" class="f15-recom-badge">함께 보면 좋은 다음 추천 영상</span>
+        <span data-hf-id="hf-q0mj" class="f15-recom-title">R 하나로 모음 5개가 정리되는 공식</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-l37z" id="v15" src="assets/voice/15.wav" data-audio-group="voiceover" data-start="0" data-duration="16.64"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (94.8% -> 100%)
+    tl.to("#pfill", { width: "100%", duration: 21.64, ease: "none" }, 0);
+
+    // Corner Mark in
+    tl.to("#cornerMark", { opacity: 1, duration: 0.5 }, 0.2);
+
+    // Sentence 1 (0.44s ~ 6.94s: 영어는 무작정 외우는 게 아니라, 게으른 혀의 소리 원리를 이해하는 겁니다)
+    tl.call(function () { setCaption("영어는 무작정 외우는 게 아니라, 게으른 혀의 소리 원리를 이해하는 겁니다."); }, null, 0.44);
+    tl.to("#closingStage", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.6);
+
+    // Sentence 2 (7.10s ~ 12.36s: 지난 모음 뒤 R 편도 함께 보시면 영어가 훨씬 쉬워집니다)
+    tl.call(function () { setCaption("지난 모음 뒤 R 편도 함께 보시면 영어가 훨씬 쉬워집니다."); }, null, 7.10);
+
+    // Sentence 3 (12.50s ~ 16.64s: 오늘도 수고 많으셨습니다. 이해하면 쉬운영어였습니다)
+    tl.call(function () { setCaption("오늘도 수고 많으셨습니다. 이해하면 쉬운영어였습니다."); }, null, 12.50);
+
+    // =========================================================================
+    // ENDSCREEN KEEP-OUT ZONE: 16.64s ~ 21.64s (Last 5.0 seconds)
+    // Channel Rule: Center 100% COMPLETELY EMPTY for YouTube cards & subscriber button!
+    // =========================================================================
+    tl.to(["#closingStage", "#capPill"], { opacity: 0, duration: 0.5, ease: "power2.out" }, 16.64);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["15-closing"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

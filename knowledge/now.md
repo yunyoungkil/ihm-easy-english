@@ -1,8 +1,34 @@
 # 지금 할 일
 
-마지막 확인: 2026-09-17
+마지막 확인: 2026-09-19
 
-## 진행 중 — 단편 EP17(모음 뒤 R, Bossy R 규칙)
+## ✅ 완료 — 단편 EP18(묵음 자음 규칙, KN/-MB/WR)
+
+`videos/ep18-silent-consonants/` — 아이디어 보드 소재 선정(2026-09-18, rank 5/score 82) →
+A/B 시뮬레이터 3안 생성·Gemini AI CTR 진단(사용자 직접 진행, 시안 B: A등급, CTR 8.7~11.4%) →
+시안 B 확정 → 프로젝트 스캐폴딩(`npx hyperframes init`)·`BRIEF.md` 작성 완료(2026-09-18).
+상세: `videos/ep18-silent-consonants/BRIEF.md`.
+
+- **제목(시안 B)**: 저도 왜 소리 안 나는지 몰랐습니다, 혀가 편해지는 묵음 원리 | 영어 왕초보
+- **썸네일 헤드라인**: 소리 없는 철자의 비밀
+- **핵심 통찰(BRIEF.md에 기록)**: KN-(knee)·-MB(climb)·WR-(write) 세 묵음 패턴이 각자 다른
+  무작위 예외가 아니라, 전부 "연속된 자음의 조음 동작이 충돌해 한쪽이 탈락"한다는 **하나의
+  원리(조음 충돌 회피)**로 묶인다는 게 반전 포인트.
+- **진행 완료 내역(2026-09-19)**:
+  * 대본 15개 프레임 전수 작성 및 웹 검색 음운학적 사실 검증 완료 (`SCRIPT.md`, 414.02초).
+  * Neo-brutalist 스케치노트 시각 시스템 확정 (`frame.md`, `STORYBOARD.md`).
+  * TTS 음성 생성(Gemini Charon) 및 whisper 단어 단위 타임스탬프 실측 완료 (`*.words.json`).
+  * 구강 단면 AI 일러스트 사전 제작 배치 (`mouth_kn.jpg`, `mouth_mb.jpg`).
+  * 15개 프레임 컴포지션 구현 및 린터 전수 검사 100% 무결점 통과 (`npm run check` -> `◇ Check passed`, 0 errors, 0 warnings).
+  * 최고 경험(Peak Experience) 고도화: 퀴즈 2라운드 밀리초 칼싱크 + 문장 낭독 11단어 워드 트래킹 카라오케 하이라이트.
+  * 유튜브 엔드스크린 keep-out 준수 (마지막 5초 중앙 완전 비움).
+  * 공식 캐릭터 썸네일 4종 완성 (시그니처 블루 볼캡 & 좌상단 `[ 이해하면 쉬운영어 ]` 로고 완비).
+  * 글로벌 7개 언어 자막(.srt) 및 다국어 메타데이터/가이드 구축 완료.
+  * 최종 영상 렌더링 완료 (`renders/ep18-silent-consonants_2026-09-19_00-19-49.mp4`, 25.5 MB, 6m 54.0s).
+  * 업로드 원클릭 패키지(`output/upload-packages/ep18-silent-consonants-longform/`)에 비디오(`video.mp4`), 썸네일 4종, 7종 자막, 가이드, 인터랙티브 뷰어(`index.html`) 복사 및 배포 준비 100% 완료.
+- **다음 행동**: 유튜브 업로드 진행 및 시청자 반응 모니터링 / 다음 소재(EP19) 선정.
+
+## ✅ 완료 — 단편 EP17(모음 뒤 R, Bossy R 규칙)
 
 `videos/ep17-bossy-r/` — 아이디어 보드 소재 선정(2026-09-17, rank 4/score 84) → A/B
 시뮬레이터 3안 생성·Gemini AI CTR 진단(사용자 직접 진행, 시안 B: A등급, CTR 8.5~11.4%) →
@@ -43,9 +69,50 @@
   - TTS 생성 스크립트(`gen-tts-gemini.mjs`)의 결과 저장 버그도 발견·수정: 조각 생성 도중
     분당 요청 한도(429)로 죽으면 그때까지 만든 결과가 통째로 날아가던 걸, 조각 하나 성공할
     때마다 바로 저장하도록 수정.
-  - `npm run check` 재검증 0 errors 유지. 일반 교훈 2건은 `CLAUDE.md`/`AGENTS.md`로 승격
-    완료(리게이처 색상 버그, CSS transition seek-비결정성 버그).
-- **다음 행동(집 PC 작업 핸드오프)**: Frame 6, 7, 8 단어 카드에 `①, ②, ③, ④, ⑤` 원형 뱃지와 리본 헤더 적용, Frame 9 방향 화살표 손그림화 후 최종 렌더(`npm run render`) 및 업로드 패키지 준비.
+  - 6. **Frame 5 구강 단면도 AI 생성 고품질 일러스트 교체 & 혀 후퇴 모션 그래픽 완성**:
+    평소 모음 상태 앞쪽 혀(`mouth-vowel-resting.jpg`)와 R 후퇴 혀(`mouth-cross-section.jpg`) 2장을
+    연속 생성하여 10.7초 나레이션에 맞춰 앞 ➔ 뒤로 매끄럽게 페이드 모핑되는 실시간 혀 움직임
+    애니메이션 구현 완료.
+  - 7. **Frame 9 앞 R vs 뒤 R 맞춤 손그림 일러스트 2종 제작 및 시각화**:
+    텍스트 기호 대신 앞 R 입술 내밀기(`f09-front-r-lips.jpg`)와 뒤 R 목구멍 당기기
+    (`f09-back-r-tongue.jpg`) 스케치노트 썸네일 박스 배치 완료.
+  - 8. **Frame 6, 7, 8 단어 카드 넘버링 뱃지(`①~⑤`/`①~⑥`) & 리본 헤더 & 스티커 알약 전면 적용 완료**.
+  - 9. **Frame 10·11 퀴즈 정답 스포일러 버그 전면 해결**: 3초 카운트다운 동안 글자색/자막 해설 선노출 차단, 정답 공개 시 동시 점등 연출 적용.
+  - 10. **유튜브 썸네일 A/B/C 3종 완제작**: 채널 공식 아바타 및 영상 본편 캔버스(`#F4EFE6`) 100% 일치, `thumbnail-a/b/c.jpg` 저장 및 대시보드 A/B 시뮬레이터 연동 완료.
+  - `npm run check` 재검증: 124/124 대비 통과, 0 errors 0 warnings 유지.
+- **2026-09-18 (이어서 3) — 최종 렌더 및 업로드 패키지 조립 완료**:
+  - 마지막 프레임 추천 카드에서 내부 에피소드 번호 `(EP16)` 노출을 사용자 지적으로 제거,
+    "영상 화면에 EPxx 번호를 넣지 않는다"는 규칙을 `production-rules.md`에 승격.
+  - `npm run render` 완료 — `videos/ep17-bossy-r/renders/ep17-bossy-r_2026-09-18_20-21-34.mp4`
+    (24.1 MB, 1920x1080 H.264/AAC, 390.27초, ffprobe로 스펙 재확인).
+  - `output/upload-packages/ep17-bossy-r-longform/` 업로드 패키지 전체 조립: title/description/
+    tags/pinned-comment/timeline/upload-checklist/status.json + video.mp4 + 썸네일 3종
+    (a/b/c.jpg, B가 대표 — 클로즈업 시안은 사용자 결정으로 제외) + 복사 버튼 통합 요약 `index.html`.
+  - 예약 권장일 **2026-09-22(화) 20:00 KST**(EP16 9/20 확정 예약일 기준 2일 간격 — 채널 공개
+    간격을 기존 3일에서 2일로 단축, 아래 참고), 엔드스크린 연결은 직전 편 EP16(`MdLjt4zvg8g`)으로
+    체크리스트에 명시.
+  - **공개 간격 3일→2일 단축 확정(2026-09-18)**: 사용자 판단 — "워크플로우가 이제 왠만큼
+    잡힌 것 같아서 2일로 해도 괜찮을 것 같다". `production-rules.md`의 "공개 일정과 엔딩 화면
+    연결 규칙"과 `CLAUDE.md`/`AGENTS.md`의 채널 플라이휠 목표(주 1~2회→주 2~3회 롱폼)에
+    반영 완료 — 앞으로 모든 에피소드는 특별한 예외 사유가 없는 한 직전 편 기준 2일 간격으로
+    예약한다.
+  - **다국어 자막·번역 메타데이터 7개 언어(한/영/일/스페인어/베트남어/중국어 번체·간체)
+    완비**(사용자 직접 제작) — `subtitles/*.srt` + `multilingual-metadata.json` +
+    `multilingual-guide.txt`, 대시보드 패키지 모달에도 노출되도록 서버 코드 연동 완료.
+    채널 표준 산출물로 `production-rules.md`/`CLAUDE.md`/`AGENTS.md`/`VIDEO_WORKFLOW.md`에
+    승격.
+  - **사용자가 실제로 유튜브 Studio에 업로드·예약 완료** — 제목은 title-variants 중 시안
+    A("저도 이제 안 막힙니다...")로 올라감, 비공개 상태로 `publishAt: 2026-09-22T11:00:00Z`
+    확인(우리가 제안한 날짜와 정확히 일치). `status.json`: `status: "scheduled"`,
+    `videoId: "VwEkIUluszw"`. `idea-board-history.json`의 EP17 항목도
+    `episodeSlug: "ep17-bossy-r"`/`episodeLabel: "단편 EP17"`/`status: "scheduled"`/
+    `producedAt: "2026-09-18"`로 채움(그동안 비어 있어서 아이디어 보드에 "완성" 배지가
+    안 뜨던 문제였음).
+  - **버그 수정**: 제목 A/B 테스트 시안 중 하나로 실제 업로드된 경우를 대시보드 동기화
+    로직이 못 찾던 버그를 발견해 `syncUploadPackageStatusFromYouTube`가 기본 제목뿐 아니라
+    모든 시안 제목을 후보로 매칭하도록 수정(상세: `videos/ep17-bossy-r/TASKS.md` 12번).
+- **다음 행동**: 2026-09-22(화) 20:00 KST 공개 후 5분 뒤 `pinned-comment.txt` 내용으로 첫
+  댓글 작성·고정, 공개 48시간 성과 확인(`VIDEO_WORKFLOW.md` 10단계).
 
 ## ✅ 완료 — 단편 EP16(모음 두 개 나란히 올 때 읽는 법)
 

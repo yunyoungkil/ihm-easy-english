@@ -1,0 +1,275 @@
+<template>
+<style>
+  /* 04-head-fake — Frame 4 "반전 공개: 예외가 아니라 게으른 혀의 선택 (Head Fake)".
+     Actual audio duration: 27.48s.
+     - 0.53s ~ 8.34s: 사실 이 단어들, 예외가 아니라 원어민들도 혀가 너무 힘들어서 뺀 겁니다.
+     - 8.51s ~ 14.84s: 놀랍게도 옛날 영어에서는 이 글자들을 대부분 소리 내서 읽었습니다.
+     - 15.02s ~ 20.54s: 그런데 말하다 보니 너무 불편해서 저절로 탈락한 것이죠.
+     - 20.71s ~ 27.48s: 그 원리만 알면, 복잡해 보이던 묵음 단어들이 딱 세 개의 소리 서랍으로 깔끔하게 정리됩니다.
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f04-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f04-progress-fill { position: absolute; left: 0; top: 0; width: 13.7%; height: 4px; background: #F5C518; }
+
+  /* Header */
+  .f04-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f04-ribbon-badge {
+    background: #F5C518; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f04-ribbon-icon { font-size: 1.4cqw; }
+  .f04-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #1E2022;
+  }
+  .f04-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* Stage 1: Ancient English Time Machine Card (0s ~ 20s) */
+  .f04-history-stage {
+    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+    width: 76cqw; background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 24px;
+    box-shadow: 6px 6px 0px #1E2022; padding: 4cqh 3cqw;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5cqh; opacity: 0; z-index: 6;
+  }
+  .f04-history-badge {
+    background: #FAF7F2; border: 2.5px solid #1E2022; border-radius: 100px;
+    padding: 0.8cqh 2.2cqw; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.4cqw; font-weight: 900; color: #1E2022;
+    display: flex; align-items: center; gap: 0.8cqw;
+  }
+  .f04-history-examples {
+    display: flex; align-items: center; gap: 2.5cqw;
+  }
+  .f04-history-card {
+    background: #FDF3EC; border: 2.5px solid #1E2022; border-radius: 16px;
+    padding: 1.8cqh 2cqw; text-align: center;
+  }
+  .f04-hist-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 2.8cqw; color: #1E2022;
+  }
+  .f04-hist-sound {
+    font-family: 'Gaegu', cursive; font-size: 1.8cqw; font-weight: 700; color: #D97D27;
+    margin-top: 0.4cqh;
+  }
+
+  /* Stage 2: 3 Sound Drawers (20s ~ 27.48s) */
+  .f04-drawers-container {
+    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+    width: 82cqw; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2cqw;
+    opacity: 0; z-index: 8;
+  }
+  .f04-drawer {
+    background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 22px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 3cqh 2cqw;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    position: relative; opacity: 0; transform: translateY(20px);
+  }
+  .f04-drawer-header {
+    display: flex; align-items: center; gap: 0.8cqw; margin-bottom: 2cqh;
+  }
+  .f04-drawer-num {
+    width: 2.4cqw; height: 2.4cqw; border-radius: 50%; border: 2.5px solid #1E2022;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.2cqw; color: #FFFFFF;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f04-drawer-code {
+    font-family: 'Archivo Black', sans-serif; font-size: 2.8cqw; line-height: 1;
+  }
+
+  /* Drawer Colors */
+  .d-kn .f04-drawer-num { background: #F5A623; }
+  .d-kn .f04-drawer-code { color: #8A5A12; }
+  .d-mb .f04-drawer-num { background: #E67E22; }
+  .d-mb .f04-drawer-code { color: #963E00; }
+  .d-wr .f04-drawer-num { background: #2E86AB; }
+  .d-wr .f04-drawer-code { color: #165069; }
+
+  .f04-drawer-rule {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.45cqw; font-weight: 900;
+    color: #1E2022; background: #FAF7F2; border: 2px solid #1E2022;
+    border-radius: 12px; padding: 0.8cqh 1.2cqw; margin-bottom: 1.5cqh;
+    width: 100%;
+  }
+  .f04-drawer-examples {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 700;
+    color: #6B655B;
+  }
+
+  /* Payoff Capsule */
+  .f04-payoff-capsule {
+    position: absolute; left: 50%; bottom: 15cqh; transform: translateX(-50%) scale(0.85);
+    background: #F5C518; border: 3.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 1cqh 2.8cqw;
+    display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10;
+  }
+  .f04-payoff-icon { font-size: 1.6cqw; }
+  .f04-payoff-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.4cqw; font-weight: 900;
+    color: #1E2022; letter-spacing: -0.4px;
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-6fw3" id="root" data-composition-id="04-head-fake" data-width="1920" data-height="1080" data-start="0" data-duration="27.48">
+  <div data-hf-id="hf-g5bg" class="f04-progress-track">
+    <div data-hf-id="hf-1mxd" class="f04-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-7vwn" class="f04-header" id="fHeader">
+    <div data-hf-id="hf-ur01" class="f04-ribbon-badge">
+      <span data-hf-id="hf-q4c0" class="f04-ribbon-icon">✨</span>
+      <span data-hf-id="hf-w6g7" class="f04-ribbon-label">반전의 원리</span>
+    </div>
+    <span data-hf-id="hf-7b1h" class="f04-title">원어민도 혀가 귀찮아서 뺀 겁니다</span>
+  </div>
+
+  <!-- History Time Machine Card (Stage 1) -->
+  <div data-hf-id="hf-llk8" class="f04-history-stage" id="histStage">
+    <div data-hf-id="hf-squr" class="f04-history-badge">
+      <span data-hf-id="hf-haqe">⏳</span>
+      <span data-hf-id="hf-e2rv">옛날 영어에서는 이 글자들을 진짜로 소리 냈습니다!</span>
+    </div>
+    <div data-hf-id="hf-39dz" class="f04-history-examples">
+      <div data-hf-id="hf-eu60" class="f04-history-card">
+        <div data-hf-id="hf-8877" class="f04-hist-word">knee</div>
+        <div data-hf-id="hf-wda8" class="f04-hist-sound">옛날 발음: "크네"</div>
+      </div>
+      <div data-hf-id="hf-vua8" class="f04-history-card">
+        <div data-hf-id="hf-5p7d" class="f04-hist-word">climb</div>
+        <div data-hf-id="hf-u4u0" class="f04-hist-sound">옛날 발음: "클라임브"</div>
+      </div>
+      <div data-hf-id="hf-und5" class="f04-history-card">
+        <div data-hf-id="hf-1tgj" class="f04-hist-word">write</div>
+        <div data-hf-id="hf-fqi0" class="f04-hist-sound">옛날 발음: "우라이트"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Sound Drawers (Stage 2) -->
+  <div data-hf-id="hf-7wj7" class="f04-drawers-container" id="drawersStage">
+    <!-- Drawer 1: KN- -->
+    <div data-hf-id="hf-ymuz" class="f04-drawer d-kn" id="dr1">
+      <div data-hf-id="hf-2pom" class="f04-drawer-header">
+        <div data-hf-id="hf-mmny" class="f04-drawer-num">1</div>
+        <div data-hf-id="hf-pnmi" class="f04-drawer-code">KN-</div>
+      </div>
+      <div data-hf-id="hf-ow5t" class="f04-drawer-rule">K 버리고 N 출발!</div>
+      <div data-hf-id="hf-7kqp" class="f04-drawer-examples">knee · know · knife</div>
+    </div>
+
+    <!-- Drawer 2: -MB -->
+    <div data-hf-id="hf-mr8u" class="f04-drawer d-mb" id="dr2">
+      <div data-hf-id="hf-k0wa" class="f04-drawer-header">
+        <div data-hf-id="hf-n0yz" class="f04-drawer-num">2</div>
+        <div data-hf-id="hf-2jii" class="f04-drawer-code">-MB</div>
+      </div>
+      <div data-hf-id="hf-6jcz" class="f04-drawer-rule">B 버리고 M 마감!</div>
+      <div data-hf-id="hf-sr08" class="f04-drawer-examples">climb · comb · thumb</div>
+    </div>
+
+    <!-- Drawer 3: WR- -->
+    <div data-hf-id="hf-4ptt" class="f04-drawer d-wr" id="dr3">
+      <div data-hf-id="hf-kf7b" class="f04-drawer-header">
+        <div data-hf-id="hf-nfa0" class="f04-drawer-num">3</div>
+        <div data-hf-id="hf-k92a" class="f04-drawer-code">WR-</div>
+      </div>
+      <div data-hf-id="hf-rgiy" class="f04-drawer-rule">W 버리고 R 직진!</div>
+      <div data-hf-id="hf-10z9" class="f04-drawer-examples">write · wrong · wrist</div>
+    </div>
+  </div>
+
+  <!-- Payoff Capsule -->
+  <div data-hf-id="hf-q9xo" class="f04-payoff-capsule" id="payoffCapsule">
+    <span data-hf-id="hf-9iqc" class="f04-payoff-icon">🎉</span>
+    <span data-hf-id="hf-e8d3" class="f04-payoff-text">수백 개 묵음 단어 ➔ 딱 3개 소리 서랍으로 압축!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-tsld" id="v04" src="assets/voice/04.wav" data-audio-group="voiceover" data-start="0" data-duration="27.48"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (13.7% -> 20.3%)
+    tl.to("#pfill", { width: "20.3%", duration: 27.48, ease: "none" }, 0);
+
+    // Header in
+    tl.to("#fHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+
+    // Sentence 1 (0.53s ~ 8.34s)
+    tl.call(function () { setCaption("사실 이 단어들, 예외가 아니라 원어민들도 혀가 너무 힘들어서 뺀 겁니다."); }, null, 0.53);
+    tl.to("#histStage", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 0.6);
+
+    // Sentence 2 (8.51s ~ 14.84s: 놀랍게도 옛날 영어에서는 이 글자들을 대부분 소리 내서 읽었습니다)
+    tl.call(function () { setCaption("놀랍게도 옛날 영어에서는 이 글자들을 대부분 소리 내서 읽었습니다."); }, null, 8.51);
+
+    // Sentence 3 (15.02s ~ 20.54s: 그런데 말하다 보니 너무 불편해서 저절로 탈락한 것이죠)
+    tl.call(function () { setCaption("그런데 말하다 보니 너무 불편해서 저절로 탈락한 것이죠."); }, null, 15.02);
+
+    // Sentence 4 (20.71s ~ 27.48s: 그 원리만 알면, 복잡해 보이던 묵음 단어들이 딱 세 개의 소리 서랍으로 깔끔하게 정리됩니다)
+    tl.call(function () { setCaption("그 원리만 알면, 복잡해 보이던 묵음 단어들이 딱 세 개의 소리 서랍으로 깔끔하게 정리됩니다."); }, null, 20.71);
+    
+    // Transition from history stage to 3 Drawers
+    tl.to("#histStage", { opacity: 0, scale: 0.9, duration: 0.4 }, 20.71);
+    tl.to("#drawersStage", { opacity: 1, duration: 0.1 }, 21.1);
+    tl.to(["#dr1", "#dr2", "#dr3"], { opacity: 1, y: 0, duration: 0.45, stagger: 0.18, ease: "back.out(1.7)" }, 21.2);
+    tl.to("#payoffCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 23.2);
+
+    // End Fade
+    tl.to(["#drawersStage", "#payoffCapsule", "#fHeader"], { opacity: 0, duration: 0.3 }, 27.18);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["04-head-fake"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

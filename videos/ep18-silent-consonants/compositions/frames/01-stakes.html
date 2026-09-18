@@ -1,0 +1,252 @@
+<template>
+<style>
+  /* 01-stakes — Frame 1 "도입 (Stakes)".
+     Actual audio duration: 29.52s.
+     - 0.46s ~ 7.86s: k, n, e, e. 크니?
+     - 7.98s ~ 13.42s: climb도 '클라임브', write도 '우라이트'?
+     - 13.58s ~ 21.34s: 왜 멀쩡한 첫/끝 글자를 지웠을까?
+     - 21.48s ~ 29.52s: 이유는 아주 단순합니다... 사전 없이도 한 번에!
+     - 100% caption-pill coverage
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f01-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f01-progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 4px; background: #F5C518; }
+
+  /* Top Hook Header */
+  .f01-hook-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f01-ribbon-badge {
+    background: #1E2022; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px rgba(30,32,34,0.25); padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f01-ribbon-icon { font-size: 1.4cqw; }
+  .f01-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #F5C518; letter-spacing: -0.3px;
+  }
+  .f01-hook-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* Center 3 Cards */
+  .f01-cards-container {
+    position: absolute; left: 50%; top: 43%; transform: translate(-50%, -50%);
+    width: 82cqw; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2cqw;
+    z-index: 5;
+  }
+  .f01-card {
+    background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 22px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 3.5cqh 2cqw;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; opacity: 0; transform: translateY(24px);
+  }
+
+  .f01-card-num {
+    position: absolute; top: -1.2cqw; left: 1.5cqw;
+    width: 2.4cqw; height: 2.4cqw; border-radius: 50%;
+    border: 2.5px solid #1E2022; box-shadow: 2px 2px 0px #1E2022;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.2cqw;
+    background: #F5A623; color: #1E2022;
+    display: flex; align-items: center; justify-content: center; z-index: 6;
+  }
+  .f01-card:nth-child(2) .f01-card-num { background: #E67E22; color: #1E2022; }
+  .f01-card:nth-child(3) .f01-card-num { background: #226885; color: #FFFFFF; }
+
+  .f01-word-display {
+    font-family: 'Archivo Black', sans-serif; font-size: 4.2cqw; line-height: 1;
+    color: #1E2022; margin-bottom: 2cqh; font-variant-ligatures: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f01-silent-letter {
+    display: inline-block; position: relative; color: #1E2022;
+  }
+  .f01-silent-letter.struck {
+    color: #FF4757; opacity: 0.35;
+  }
+  .f01-silent-strike-line {
+    position: absolute; left: -10%; top: 50%; width: 120%; height: 4.5px;
+    background: #FF4757; transform: rotate(-25deg); opacity: 0; transform-origin: center;
+  }
+
+  .f01-sound-box {
+    display: flex; flex-direction: column; align-items: center; gap: 0.8cqh;
+    width: 100%;
+  }
+  .f01-wrong-sound {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.35cqw; font-weight: 800;
+    color: #FF4757; display: flex; align-items: center; gap: 0.4cqw;
+  }
+  .f01-arrow-down {
+    font-size: 1.1cqw; color: #7A7365; opacity: 0; transform: translateY(-6px);
+  }
+  .f01-correct-sound {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 900;
+    color: #1E2022; background: #FAF7F2; border: 2px solid #1E2022;
+    border-radius: 10px; padding: 0.4cqh 1cqw; box-shadow: 2px 2px 0px #1E2022;
+    opacity: 0; transform: scale(0.9);
+  }
+
+  /* Bottom Gold Anchor Capsule */
+  .f01-gold-capsule {
+    position: absolute; left: 50%; bottom: 15cqh; transform: translateX(-50%) scale(0.9);
+    background: #F5C518; border: 3.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 1.1cqh 2.8cqw;
+    display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10;
+  }
+  .f01-gold-icon { font-size: 1.6cqw; }
+  .f01-gold-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.45cqw; font-weight: 900;
+    color: #1E2022; letter-spacing: -0.4px;
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-vj0e" id="root" data-composition-id="01-stakes" data-width="1920" data-height="1080" data-start="0" data-duration="29.52">
+  <div data-hf-id="hf-t88b" class="f01-progress-track">
+    <div data-hf-id="hf-su02" class="f01-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-b3cx" class="f01-hook-header" id="hookHeader">
+    <div data-hf-id="hf-pqh6" class="f01-ribbon-badge">
+      <span data-hf-id="hf-iuru" class="f01-ribbon-icon" data-contrast-ignore="">💡</span>
+      <span data-hf-id="hf-bxqc" class="f01-ribbon-label">성인 파닉스 실전</span>
+    </div>
+    <span data-hf-id="hf-jtbv" class="f01-hook-title">소리 없는 철자의 비밀</span>
+  </div>
+
+  <!-- 3 Minimal Pair Cards -->
+  <div data-hf-id="hf-1v2v" class="f01-cards-container">
+    <!-- Card 1: knee -->
+    <div data-hf-id="hf-d6m7" class="f01-card" id="card1">
+      <div data-hf-id="hf-orf8" class="f01-card-num">1</div>
+      <div data-hf-id="hf-benh" class="f01-word-display">
+        <span data-hf-id="hf-spkq" class="f01-silent-letter" id="s1">k<div data-hf-id="hf-8xgi" class="f01-silent-strike-line" id="line1"></div></span><span data-hf-id="hf-vw3b">nee</span>
+      </div>
+      <div data-hf-id="hf-8ml5" class="f01-sound-box">
+        <div data-hf-id="hf-yotu" class="f01-wrong-sound" id="w1"><span data-hf-id="hf-yc2f">❌</span> '크니'?</div>
+        <div data-hf-id="hf-o9hq" class="f01-arrow-down" id="arr1">⬇️</div>
+        <div data-hf-id="hf-tp55" class="f01-correct-sound" id="c1">진짜는 '니'!</div>
+      </div>
+    </div>
+
+    <!-- Card 2: climb -->
+    <div data-hf-id="hf-4iqc" class="f01-card" id="card2">
+      <div data-hf-id="hf-nki5" class="f01-card-num">2</div>
+      <div data-hf-id="hf-jd7l" class="f01-word-display">
+        <span data-hf-id="hf-f808">clim</span><span data-hf-id="hf-687g" class="f01-silent-letter" id="s2">b<div data-hf-id="hf-4zch" class="f01-silent-strike-line" id="line2"></div></span>
+      </div>
+      <div data-hf-id="hf-j4ml" class="f01-sound-box">
+        <div data-hf-id="hf-557b" class="f01-wrong-sound" id="w2"><span data-hf-id="hf-sj9z">❌</span> '클라임브'?</div>
+        <div data-hf-id="hf-qbz5" class="f01-arrow-down" id="arr2">⬇️</div>
+        <div data-hf-id="hf-w8o6" class="f01-correct-sound" id="c2">진짜는 '클라임'!</div>
+      </div>
+    </div>
+
+    <!-- Card 3: write -->
+    <div data-hf-id="hf-5ae5" class="f01-card" id="card3">
+      <div data-hf-id="hf-nyt6" class="f01-card-num">3</div>
+      <div data-hf-id="hf-kk4o" class="f01-word-display">
+        <span data-hf-id="hf-ld40" class="f01-silent-letter" id="s3">w<div data-hf-id="hf-47oo" class="f01-silent-strike-line" id="line3"></div></span><span data-hf-id="hf-khtn">rite</span>
+      </div>
+      <div data-hf-id="hf-kbjo" class="f01-sound-box">
+        <div data-hf-id="hf-qg0k" class="f01-wrong-sound" id="w3"><span data-hf-id="hf-s4yy">❌</span> '우라이트'?</div>
+        <div data-hf-id="hf-iii0" class="f01-arrow-down" id="arr3">⬇️</div>
+        <div data-hf-id="hf-opkf" class="f01-correct-sound" id="c3">진짜는 '라이트'!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Gold Anchor Capsule -->
+  <div data-hf-id="hf-fn3p" class="f01-gold-capsule" id="goldCapsule">
+    <span data-hf-id="hf-zcbd" class="f01-gold-icon">✨</span>
+    <span data-hf-id="hf-tt4l" class="f01-gold-text">사전 없이도 한 번에 읽히는 묵음 공식 대공개!</span>
+  </div>
+
+  <!-- Caption Pill (100% Spoken Narration Coverage) -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-arra" id="v01" src="assets/voice/01.wav" data-audio-group="voiceover" data-start="0" data-duration="29.52"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (0% -> 6.8%)
+    tl.to("#pfill", { width: "6.8%", duration: 29.52, ease: "none" }, 0);
+
+    // 0.0s ~ 0.5s: Top Header In
+    tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+
+    // Sentence 1 (0.46s ~ 7.86s)
+    tl.call(function () { setCaption("k, n, e, e. 알파벳을 배운 대로라면 분명 '크니'여야 합니다."); }, null, 0.46);
+    tl.to("#card1", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.46);
+
+    // Sentence 2 (7.98s ~ 13.42s)
+    tl.call(function () { setCaption("climb도 '클라임브', write도 '우라이트'여야 하죠."); }, null, 7.98);
+    tl.to("#card2", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 7.98);
+    tl.to("#card3", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 10.2);
+
+    // Sentence 3 (13.58s ~ 21.34s): Question & Silent Letter Strikethrough
+    tl.call(function () { setCaption("그런데 왜 원어민들은 멀쩡하게 쓰여 있는 첫 글자와 끝 글자를 감쪽같이 지워버렸을까요?"); }, null, 13.58);
+    
+    // Strike K, B, W at t=17.2s
+    tl.to(["#line1", "#line2", "#line3"], { opacity: 1, scaleX: 1, duration: 0.35, stagger: 0.2, ease: "power2.out" }, 17.2);
+    tl.to(["#s1", "#s2", "#s3"], { color: "#FF4757", opacity: 0.6, duration: 0.35, stagger: 0.2 }, 17.2);
+    tl.to(["#arr1", "#arr2", "#arr3"], { opacity: 1, y: 0, duration: 0.3, stagger: 0.15 }, 18.0);
+    tl.to(["#c1", "#c2", "#c3"], { opacity: 1, scale: 1, duration: 0.4, stagger: 0.15, ease: "back.out(1.7)" }, 18.3);
+
+    // Sentence 4 (21.48s ~ 29.52s): Simple Principle & Gold Capsule Reveal
+    tl.call(function () { setCaption("이유는 아주 단순합니다. 오늘 이 기준 하나만 알면, 평생 헷갈리던 묵음 단어가 사전 없이도 한 번에 읽힙니다."); }, null, 21.48);
+    tl.to("#goldCapsule", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 23.5);
+
+    // End Fade
+    tl.to(["#card1", "#card2", "#card3", "#goldCapsule", "#hookHeader"], { opacity: 0, duration: 0.3 }, 29.2);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-stakes"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

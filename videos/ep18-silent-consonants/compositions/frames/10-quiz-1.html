@@ -1,0 +1,335 @@
+<template>
+<style>
+  /* 10-quiz-1 — Frame 10 "⏱️ 실전 퀴즈 1라운드 (신규 단어 도전)".
+     Actual audio duration: 42.46s.
+     - 0.0s ~ 10.08s: 원리를 알았으니 직접 맞춰볼까요? 영상에 나오지 않은 새로운 단어들입니다. 몇 번 서랍인지 3초 안에 소리 내보세요.
+     - 10.08s ~ 19.32s: knit! 3초 카운트다운 ➔ 1번 KN 서랍!
+     - 19.32s ~ 27.76s: crumb! 3초 카운트다운 ➔ 2번 MB 서랍!
+     - 27.76s ~ 42.46s: wreath! 3초 카운트다운 ➔ 3번 WR 서랍!
+     - NO SPOILER during countdown (pure black text until answer reveals).
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f10-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f10-progress-fill { position: absolute; left: 0; top: 0; width: 61.4%; height: 4px; background: #F5C518; }
+
+  /* Header */
+  .f10-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f10-ribbon-badge {
+    background: #FAF7F2; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f10-ribbon-icon { font-size: 1.4cqw; }
+  .f10-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #1E2022;
+  }
+  .f10-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* 3 Mini Drawer Targets at Top-Right */
+  .f10-drawers-hud {
+    position: absolute; top: 15cqh; left: 50%; transform: translateX(-50%);
+    width: 60cqw; display: flex; justify-content: center; gap: 2.5cqw;
+    z-index: 8; opacity: 0;
+  }
+  .f10-hud-drawer {
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 14px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 0.6cqh 1.6cqw;
+    display: flex; align-items: center; gap: 0.8cqw;
+  }
+  .f10-hud-num {
+    width: 1.8cqw; height: 1.8cqw; border-radius: 50%; color: #FFFFFF;
+    font-family: 'Archivo Black', sans-serif; font-size: 1cqw;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hud-1 .f10-hud-num { background: #F5A623; }
+  .hud-2 .f10-hud-num { background: #E67E22; }
+  .hud-3 .f10-hud-num { background: #2E86AB; }
+  .f10-hud-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.2cqw; font-weight: 900; color: #1E2022;
+  }
+
+  /* Main Quiz Card Center */
+  .f10-quiz-stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 58cqw; background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 24px;
+    box-shadow: 6px 6px 0px #1E2022; padding: 4cqh 3cqw;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 6; opacity: 0; transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .f10-round-pill {
+    background: #FAF7F2; border: 2px solid #1E2022; border-radius: 100px;
+    padding: 0.4cqh 1.4cqw; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.15cqw; font-weight: 900; color: #1E2022; margin-bottom: 2cqh;
+  }
+
+  /* The Quiz Word (PURE BLACK TEXT initially) */
+  .f10-word-display {
+    font-family: 'Archivo Black', sans-serif; font-size: 5cqw; line-height: 1;
+    color: #1E2022; margin-bottom: 2.5cqh; font-variant-ligatures: none;
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .f10-silent-part {
+    display: inline-block; position: relative;
+  }
+  .f10-strike-bar {
+    position: absolute; left: -10%; top: 50%; width: 120%; height: 5px;
+    background: #FF4757; transform: rotate(-25deg); opacity: 0;
+  }
+
+  /* 3-Second Gauge Timer Bar */
+  .f10-gauge-track {
+    width: 80%; height: 12px; background: rgba(30,32,34,0.1); border-radius: 10px;
+    border: 2px solid #1E2022; overflow: hidden; margin-bottom: 2cqh; position: relative;
+  }
+  .f10-gauge-fill {
+    position: absolute; left: 0; top: 0; height: 100%; width: 100%;
+    background: #FF4757; transform-origin: left center;
+  }
+  .f10-countdown-sec {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.8cqw; color: #FF4757;
+    margin-bottom: 1cqh;
+  }
+
+  /* Answer Reveal Stamp Badge */
+  .f10-answer-badge {
+    position: absolute; top: -1.5cqw; right: 2cqw;
+    border: 3px solid #1E2022; border-radius: 14px; box-shadow: 4px 4px 0px #1E2022;
+    padding: 0.8cqh 2cqw; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.4cqw; font-weight: 900; color: #FFFFFF;
+    opacity: 0; transform: rotate(8deg) scale(0.6); z-index: 10;
+  }
+  .ans-kn { background: #F5A623; }
+  .ans-mb { background: #E67E22; }
+  .ans-wr { background: #2E86AB; }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-bpw4" id="root" data-composition-id="10-quiz-1" data-width="1920" data-height="1080" data-start="0" data-duration="42.46">
+  <div data-hf-id="hf-mpnp" class="f10-progress-track">
+    <div data-hf-id="hf-731s" class="f10-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-p1ts" class="f10-header" id="fHeader">
+    <div data-hf-id="hf-tlsk" class="f10-ribbon-badge">
+      <span data-hf-id="hf-unhr" class="f10-ribbon-icon">⏱️</span>
+      <span data-hf-id="hf-c3xj" class="f10-ribbon-label">실전 퀴즈 1라운드</span>
+    </div>
+    <span data-hf-id="hf-rhjh" class="f10-title">몇 번 서랍인지 3초 안에 소리 내보세요!</span>
+  </div>
+
+  <!-- Drawers HUD at Top -->
+  <div data-hf-id="hf-clpl" class="f10-drawers-hud" id="hudDrawers">
+    <div data-hf-id="hf-mts8" class="f10-hud-drawer hud-1">
+      <div data-hf-id="hf-ml41" class="f10-hud-num">1</div>
+      <div data-hf-id="hf-agzf" class="f10-hud-label">KN- (K 탈락)</div>
+    </div>
+    <div data-hf-id="hf-xp9v" class="f10-hud-drawer hud-2">
+      <div data-hf-id="hf-ns14" class="f10-hud-num">2</div>
+      <div data-hf-id="hf-b1js" class="f10-hud-label">-MB (B 탈락)</div>
+    </div>
+    <div data-hf-id="hf-tr5u" class="f10-hud-drawer hud-3">
+      <div data-hf-id="hf-ndq3" class="f10-hud-num">3</div>
+      <div data-hf-id="hf-d9cn" class="f10-hud-label">WR- (W 탈락)</div>
+    </div>
+  </div>
+
+  <!-- Main Quiz Stage -->
+  <div data-hf-id="hf-boxd" class="f10-quiz-stage" id="quizStage">
+    <div data-hf-id="hf-93he" class="f10-round-pill" id="roundPill">문제 1 / 3</div>
+    
+    <div data-hf-id="hf-twei" class="f10-word-display" id="qWord">
+      <!-- Injected dynamically -->
+      knit
+    </div>
+
+    <!-- Countdown Timer -->
+    <div data-hf-id="hf-gcqe" class="f10-countdown-sec" id="countSec">3초</div>
+    <div data-hf-id="hf-99dl" class="f10-gauge-track">
+      <div data-hf-id="hf-b76n" class="f10-gauge-fill" id="gFill"></div>
+    </div>
+
+    <!-- Answer Stamp -->
+    <div data-hf-id="hf-1wkh" class="f10-answer-badge ans-kn" id="ansBadge">
+      1번 KN 서랍 골인!
+    </div>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-3v5u" id="v10" src="assets/voice/10.wav" data-audio-group="voiceover" data-start="0" data-duration="42.46"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    var qWord = document.getElementById("qWord");
+    var roundPill = document.getElementById("roundPill");
+    var countSec = document.getElementById("countSec");
+    var ansBadge = document.getElementById("ansBadge");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (61.4% -> 71.7%)
+    tl.to("#pfill", { width: "71.7%", duration: 42.46, ease: "none" }, 0);
+
+    // Header & HUD in
+    tl.to("#fHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+    tl.to("#hudDrawers", { opacity: 1, duration: 0.5 }, 0.5);
+
+    // Intro (0s ~ 10.08s)
+    tl.call(function () { setCaption("원리를 알았으니 직접 맞춰볼까요? 영상에 나오지 않은 새로운 단어들입니다."); }, null, 0.5);
+    tl.call(function () { setCaption("몇 번 서랍인지 3초 안에 소리 내보세요."); }, null, 6.5);
+    tl.to("#quizStage", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 7.5);
+
+    // ==========================================
+    // QUESTION 1: knit (10.08s ~ 19.62s)
+    // 10a ends at 10.08s -> gap 0.3s -> 10b (knit!) 10.38s ~ 11.50s
+    // 3s silence: 11.50s ~ 14.50s
+    // 10c (answer 1): 14.50s ~ 19.62s
+    // ==========================================
+    tl.call(function () {
+      roundPill.textContent = "문제 1 / 3";
+      qWord.innerHTML = '<span id="sp1">k</span><span>nit</span><div class="f10-strike-bar" id="sb1"></div>';
+      countSec.textContent = "3초";
+      gsap.set("#gFill", { scaleX: 1 });
+      ansBadge.className = "f10-answer-badge ans-kn";
+      ansBadge.textContent = "1번 KN 서랍 골인!";
+      gsap.set(ansBadge, { opacity: 0, scale: 0.6 });
+      setCaption("knit!");
+    }, null, 10.38);
+
+    // 3s Countdown: 11.50s to 14.50s
+    tl.to("#gFill", { scaleX: 0, duration: 3.0, ease: "none" }, 11.50);
+    tl.call(function () { countSec.textContent = "2초"; }, null, 12.50);
+    tl.call(function () { countSec.textContent = "1초"; }, null, 13.50);
+    tl.call(function () { countSec.textContent = "땡!"; }, null, 14.50);
+
+    // Answer 1: K가 사라지는 1번 KN 서랍이죠 (14.50s ~ 19.62s)
+    tl.call(function () {
+      setCaption("knit! K가 사라지는 1번 KN 서랍이죠.");
+      var sp1 = document.getElementById("sp1");
+      var sb1 = document.getElementById("sb1");
+      if (sp1) sp1.style.color = "#FF4757";
+      if (sb1) gsap.to(sb1, { opacity: 1, duration: 0.25 });
+    }, null, 14.50);
+    tl.to(ansBadge, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 14.55);
+
+    // ==========================================
+    // QUESTION 2: crumb (19.62s ~ 28.46s)
+    // gap 0.4s -> 10d (crumb!) 20.02s ~ 21.42s
+    // 3s silence: 21.42s ~ 24.42s
+    // 10e (answer 2): 24.42s ~ 28.46s
+    // ==========================================
+    tl.call(function () {
+      roundPill.textContent = "문제 2 / 3";
+      qWord.innerHTML = '<span>crum</span><span id="sp2">b</span><div class="f10-strike-bar" id="sb2"></div>';
+      countSec.textContent = "3초";
+      gsap.set("#gFill", { scaleX: 1 });
+      ansBadge.className = "f10-answer-badge ans-mb";
+      ansBadge.textContent = "2번 MB 서랍 골인!";
+      gsap.set(ansBadge, { opacity: 0, scale: 0.6 });
+      setCaption("crumb!");
+    }, null, 20.02);
+
+    // 3s Countdown: 21.42s to 24.42s
+    tl.to("#gFill", { scaleX: 0, duration: 3.0, ease: "none" }, 21.42);
+    tl.call(function () { countSec.textContent = "2초"; }, null, 22.42);
+    tl.call(function () { countSec.textContent = "1초"; }, null, 23.42);
+    tl.call(function () { countSec.textContent = "땡!"; }, null, 24.42);
+
+    // Answer 2: B가 사라지는 2번 MB 서랍입니다 (24.42s ~ 28.46s)
+    tl.call(function () {
+      setCaption("crumb! B가 사라지는 2번 MB 서랍입니다.");
+      var sp2 = document.getElementById("sp2");
+      var sb2 = document.getElementById("sb2");
+      if (sp2) sp2.style.color = "#FF4757";
+      if (sb2) gsap.to(sb2, { opacity: 1, duration: 0.25 });
+    }, null, 24.42);
+    tl.to(ansBadge, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 24.47);
+
+    // ==========================================
+    // QUESTION 3: wreath (28.46s ~ 42.46s)
+    // gap 0.4s -> 10f (wreath!) 28.86s ~ 30.30s
+    // 3s silence: 30.30s ~ 33.30s
+    // 10g (answer 3): 33.30s ~ 42.46s
+    // ==========================================
+    tl.call(function () {
+      roundPill.textContent = "문제 3 / 3";
+      qWord.innerHTML = '<span id="sp3">w</span><span>reath</span><div class="f10-strike-bar" id="sb3"></div>';
+      countSec.textContent = "3초";
+      gsap.set("#gFill", { scaleX: 1 });
+      ansBadge.className = "f10-answer-badge ans-wr";
+      ansBadge.textContent = "3번 WR 서랍 골인!";
+      gsap.set(ansBadge, { opacity: 0, scale: 0.6 });
+      setCaption("wreath!");
+    }, null, 28.86);
+
+    // 3s Countdown: 30.30s to 33.30s
+    tl.to("#gFill", { scaleX: 0, duration: 3.0, ease: "none" }, 30.30);
+    tl.call(function () { countSec.textContent = "2초"; }, null, 31.30);
+    tl.call(function () { countSec.textContent = "1초"; }, null, 32.30);
+    tl.call(function () { countSec.textContent = "땡!"; }, null, 33.30);
+
+    // Answer 3: W가 사라지는 3번 WR 서랍입니다 (33.30s ~ 42.46s)
+    tl.call(function () {
+      setCaption("wreath! W가 사라지는 3번 WR 서랍입니다. 새로운 단어도 원리로 바로 읽히죠?");
+      var sp3 = document.getElementById("sp3");
+      var sb3 = document.getElementById("sb3");
+      if (sp3) sp3.style.color = "#FF4757";
+      if (sb3) gsap.to(sb3, { opacity: 1, duration: 0.25 });
+    }, null, 33.30);
+    tl.to(ansBadge, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 33.35);
+
+    // End Fade
+    tl.to(["#quizStage", "#hudDrawers", "#fHeader"], { opacity: 0, duration: 0.3 }, 42.16);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-quiz-1"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

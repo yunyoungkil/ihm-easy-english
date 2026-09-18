@@ -1,0 +1,258 @@
+<template>
+<style>
+  /* 11-quiz-2 — Frame 11 "⚡ 실전 퀴즈 2라운드 스피드 (신규 단어)".
+     Actual audio duration: 27.40s.
+     - 0.0s ~ 4.52s: 이번엔 조금 더 빠른 속도로 2라운드에 도전해 볼까요?
+     - 4.52s ~ 10.5s: numb! B를 뺀 MB 소리죠.
+     - 10.5s ~ 16.5s: knob! K를 뺀 KN 소리입니다.
+     - 16.5s ~ 27.40s: wrench! W를 뺀 WR 소리입니다. 망설임 없이 바로 맞추셨다면 성공입니다!
+     - Fast stamp animations with NO pre-revealed spoilers.
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f11-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f11-progress-fill { position: absolute; left: 0; top: 0; width: 71.7%; height: 4px; background: #F5C518; }
+
+  /* Header */
+  .f11-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f11-ribbon-badge {
+    background: #FF4757; border: 3px solid #1E2022; border-radius: 12px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f11-ribbon-icon { font-size: 1.4cqw; }
+  .f11-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.15cqw; font-weight: 900;
+    color: #FFFFFF;
+  }
+  .f11-title {
+    font-weight: 900; font-size: 1.6cqw; color: #1E2022; letter-spacing: -0.5px;
+  }
+
+  /* 3 Speed Cards Side by Side */
+  .f11-cards-container {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: 82cqw; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2cqw;
+    z-index: 5;
+  }
+  .f11-card {
+    background: #FFFFFF; border: 3.5px solid #1E2022; border-radius: 22px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 4cqh 2cqw;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; opacity: 0; transform: translateY(20px);
+  }
+
+  .f11-round-tag {
+    position: absolute; top: -1.1cqw; left: 1.5cqw;
+    background: #FAF7F2; border: 2px solid #1E2022; border-radius: 8px;
+    padding: 0.2cqh 0.8cqw; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1cqw; font-weight: 900; color: #6B655B;
+  }
+
+  /* Pure black word before reveal */
+  .f11-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.8cqw; line-height: 1;
+    color: #1E2022; margin-bottom: 2.5cqh; font-variant-ligatures: none;
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .f11-silent {
+    display: inline-block; position: relative;
+  }
+  .f11-strike {
+    position: absolute; left: -10%; top: 50%; width: 120%; height: 4.5px;
+    background: #FF4757; transform: rotate(-25deg); opacity: 0;
+  }
+
+  /* Stamp Badge */
+  .f11-stamp {
+    border: 3px solid #1E2022; border-radius: 12px;
+    padding: 0.8cqh 1.4cqw; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.3cqw; font-weight: 900; color: #FFFFFF;
+    opacity: 0; transform: rotate(-5deg) scale(0.6);
+    box-shadow: 4px 4px 0px #1E2022;
+  }
+  .stamp-mb { background: #E67E22; }
+  .stamp-kn { background: #F5A623; }
+  .stamp-wr { background: #2E86AB; }
+
+  /* Bottom Success Banner */
+  .f11-success-banner {
+    position: absolute; left: 50%; bottom: 15cqh; transform: translateX(-50%) scale(0.85);
+    background: #27AE60; border: 3.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 5px 5px 0px #1E2022; padding: 1cqh 2.8cqw;
+    display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10;
+  }
+  .f11-success-icon { font-size: 1.6cqw; }
+  .f11-success-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.4cqw; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.4px;
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-10mj" id="root" data-composition-id="11-quiz-2" data-width="1920" data-height="1080" data-start="0" data-duration="27.40">
+  <div data-hf-id="hf-hodu" class="f11-progress-track">
+    <div data-hf-id="hf-ro2b" class="f11-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header -->
+  <div data-hf-id="hf-mqy1" class="f11-header" id="fHeader">
+    <div data-hf-id="hf-8n13" class="f11-ribbon-badge">
+      <span data-hf-id="hf-in2h" class="f11-ribbon-icon">⚡</span>
+      <span data-hf-id="hf-20rd" class="f11-ribbon-label">2라운드 스피드 퀴즈</span>
+    </div>
+    <span data-hf-id="hf-neo0" class="f11-title">망설임 없이 소리 내보세요!</span>
+  </div>
+
+  <!-- 3 Speed Cards -->
+  <div data-hf-id="hf-uff0" class="f11-cards-container">
+    <!-- Card 1: numb -->
+    <div data-hf-id="hf-u5rs" class="f11-card" id="card1">
+      <div data-hf-id="hf-wmpj" class="f11-round-tag">스피드 1</div>
+      <div data-hf-id="hf-25ox" class="f11-word">
+        <span data-hf-id="hf-19xr">num</span><span data-hf-id="hf-yxhi" class="f11-silent" id="sil1">b<div data-hf-id="hf-pdmk" class="f11-strike" id="stk1"></div></span>
+      </div>
+      <div data-hf-id="hf-zl55" class="f11-stamp stamp-mb" id="stmp1">2번 MB 서랍!</div>
+    </div>
+
+    <!-- Card 2: knob -->
+    <div data-hf-id="hf-2tnn" class="f11-card" id="card2">
+      <div data-hf-id="hf-w8ei" class="f11-round-tag">스피드 2</div>
+      <div data-hf-id="hf-lo05" class="f11-word">
+        <span data-hf-id="hf-aekg" class="f11-silent" id="sil2">k<div data-hf-id="hf-y1if" class="f11-strike" id="stk2"></div></span><span data-hf-id="hf-2f24">nob</span>
+      </div>
+      <div data-hf-id="hf-0gq1" class="f11-stamp stamp-kn" id="stmp2">1번 KN 서랍!</div>
+    </div>
+
+    <!-- Card 3: wrench -->
+    <div data-hf-id="hf-yvjm" class="f11-card" id="card3">
+      <div data-hf-id="hf-vu3h" class="f11-round-tag">스피드 3</div>
+      <div data-hf-id="hf-mux8" class="f11-word">
+        <span data-hf-id="hf-21x3" class="f11-silent" id="sil3">w<div data-hf-id="hf-u3ee" class="f11-strike" id="stk3"></div></span><span data-hf-id="hf-vpwd">rench</span>
+      </div>
+      <div data-hf-id="hf-54yk" class="f11-stamp stamp-wr" id="stmp3">3번 WR 서랍!</div>
+    </div>
+  </div>
+
+  <!-- Success Banner -->
+  <div data-hf-id="hf-f35u" class="f11-success-banner" id="successBanner">
+    <span data-hf-id="hf-au53" class="f11-success-icon">🏆</span>
+    <span data-hf-id="hf-4pkg" class="f11-success-text">망설임 없이 바로 맞추셨다면 100% 성공입니다!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-5acx" id="v11" src="assets/voice/11.wav" data-audio-group="voiceover" data-start="0" data-duration="27.40"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (71.7% -> 78.4%)
+    tl.to("#pfill", { width: "78.4%", duration: 27.40, ease: "none" }, 0);
+
+    // Header in
+    tl.to("#fHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+
+    // Intro (0.0s ~ 4.52s)
+    tl.call(function () { setCaption("이번엔 조금 더 빠른 속도로 2라운드에 도전해 볼까요?"); }, null, 0.4);
+    tl.to(["#card1", "#card2", "#card3"], { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: "power3.out" }, 1.5);
+
+    // 1. numb! (4.82s ~ 10.44s)
+    // 11b (numb!) at 4.82s ~ 6.14s
+    // 1.5s silent think-time: 6.14s ~ 7.64s
+    // 11c (answer 1) at 7.64s ~ 10.44s
+    tl.call(function () { setCaption("numb!"); }, null, 4.82);
+    tl.to("#card1", { scale: 1.05, borderColor: "#E67E22", duration: 0.3 }, 4.82);
+
+    // Answer numb! B를 뺀 MB 소리죠 (7.64s ~ 10.44s)
+    tl.call(function () {
+      setCaption("numb! B를 뺀 MB 소리죠.");
+      document.getElementById("sil1").style.color = "#FF4757";
+      gsap.to("#stk1", { opacity: 1, duration: 0.2 });
+    }, null, 7.64);
+    tl.to("#stmp1", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 7.70);
+
+    // 2. knob! (10.74s ~ 17.08s)
+    // 11d (knob!) at 10.74s ~ 12.34s
+    // 1.5s silent think-time: 12.34s ~ 13.84s
+    // 11e (answer 2) at 13.84s ~ 17.08s
+    tl.call(function () { setCaption("knob!"); }, null, 10.74);
+    tl.to("#card2", { scale: 1.05, borderColor: "#F5A623", duration: 0.3 }, 10.74);
+
+    // Answer knob! K를 뺀 KN 소리입니다 (13.84s ~ 17.08s)
+    tl.call(function () {
+      setCaption("knob! K를 뺀 KN 소리입니다.");
+      document.getElementById("sil2").style.color = "#FF4757";
+      gsap.to("#stk2", { opacity: 1, duration: 0.2 });
+    }, null, 13.84);
+    tl.to("#stmp2", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 13.90);
+
+    // 3. wrench! (17.38s ~ 27.40s)
+    // 11f (wrench!) at 17.38s ~ 18.62s
+    // 1.5s silent think-time: 18.62s ~ 20.12s
+    // 11g (answer 3) at 20.12s ~ 27.40s
+    tl.call(function () { setCaption("wrench!"); }, null, 17.38);
+    tl.to("#card3", { scale: 1.05, borderColor: "#2E86AB", duration: 0.3 }, 17.38);
+
+    // Answer wrench! W를 뺀 WR 소리입니다 (20.12s ~ 27.40s)
+    tl.call(function () {
+      setCaption("wrench! W를 뺀 WR 소리입니다. 망설임 없이 바로 맞추셨다면 성공입니다!");
+      document.getElementById("sil3").style.color = "#FF4757";
+      gsap.to("#stk3", { opacity: 1, duration: 0.2 });
+    }, null, 20.12);
+    tl.to("#stmp3", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 20.18);
+
+    // Success Banner reveal at 23.5s (after sentence "망설임 없이 바로 맞추셨다면")
+    tl.to("#successBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 23.5);
+
+    // End Fade
+    tl.to(["#card1", "#card2", "#card3", "#successBanner", "#fHeader"], { opacity: 0, duration: 0.3 }, 27.1);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["11-quiz-2"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

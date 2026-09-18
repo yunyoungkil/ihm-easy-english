@@ -32,14 +32,20 @@
   .f07-progress-fill { position: absolute; left: 0; top: 0; width: 40.0%; height: 4px; background: #F5A623; }
 
   /* Header */
+  /* Header */
   .f07-header {
     position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
   }
-  .f07-badge {
-    background: #E67E22; color: #FFFFFF; font-weight: 900; font-size: 1.15cqw;
-    padding: 0.6cqh 1.3cqw; border-radius: 100px; border: 2px solid #2B2B2B;
-    box-shadow: 2px 2px 0px #2B2B2B;
+  .f07-ribbon-badge {
+    background: #E67E22; border: 3px solid #2B2B2B; border-radius: 12px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f07-ribbon-icon { font-size: 1.4cqw; }
+  .f07-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.2cqw; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.3px;
   }
   .f07-title {
     font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
@@ -72,7 +78,14 @@
     background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
     box-shadow: 5px 5px 0px #2B2B2B; padding: 3cqh 1.2cqw;
     display: flex; flex-direction: column; align-items: center; gap: 1.2cqh;
-    opacity: 0; transform: translateY(20px);
+    opacity: 0; transform: translateY(20px); position: relative;
+  }
+  .f07-card-num-badge {
+    position: absolute; top: -1.2cqw; left: 1cqw;
+    width: 2.2cqw; height: 2.2cqw; border-radius: 50%;
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; box-shadow: 2px 2px 0px #2B2B2B;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.1cqw; color: #2B2B2B;
   }
   .f07-word-main {
     font-family: 'Archivo Black', sans-serif; font-size: 3.4cqw; line-height: 1; color: #2B2B2B;
@@ -81,7 +94,10 @@
     color: #963E00; background: rgba(230,126,34,0.2); border-radius: 6px; padding: 0 0.1em;
   }
   .f07-word-meaning {
-    font-size: 1.15cqw; font-weight: 900; color: #7A7365;
+    font-size: 1.15cqw; font-weight: 900; color: #5C564A;
+    background: #FAF7F2; border: 2px solid #2B2B2B; border-radius: 100px;
+    padding: 0.35cqh 1.2cqw; box-shadow: 2px 2px 0px #2B2B2B;
+    display: flex; align-items: center; gap: 0.4cqw; margin-top: 0.4cqh;
   }
 
   /* Active highlight card state */
@@ -131,9 +147,12 @@
 
   <div data-hf-id="hf-07-content" id="f07-content" class="clip" data-start="0" data-duration="30.36" data-track-index="1">
     
-    <!-- Header -->
+    <!-- Header with Ribbon Badge -->
     <div data-hf-id="hf-07-head" id="f07-header" class="f07-header">
-      <span data-hf-id="hf-3m84" class="f07-badge">🚪 2번 소리 서랍</span>
+      <div data-hf-id="hf-ribbon" class="f07-ribbon-badge">
+        <span data-hf-id="hf-ricon" class="f07-ribbon-icon">🚪</span>
+        <span data-hf-id="hf-rlbl" class="f07-ribbon-label">2번 소리 서랍</span>
+      </div>
       <span data-hf-id="hf-bgf9" class="f07-title">OR : 입술을 동그랗게 모으는 깊은 '오~'</span>
     </div>
 
@@ -146,35 +165,40 @@
         <div data-hf-id="hf-12qu" class="f07-action-text">촛불을 불듯이 입술을 둥글게 모으세요 ➔ <span data-hf-id="hf-7mlx" style="text-decoration:underline;">[ 오~ r ]</span></div>
       </div>
 
-      <!-- 5 Words Grid -->
+      <!-- 5 Words Grid with Numbering Badges -->
       <div data-hf-id="hf-07-grid" class="f07-words-grid">
         
         <!-- for -->
         <div data-hf-id="hf-07-w1" id="f07-w1" class="f07-word-card">
+          <div data-hf-id="hf-num1" class="f07-card-num-badge">①</div>
           <div data-hf-id="hf-zk5a" class="f07-word-main">f<span data-hf-id="hf-53nb" class="f07-or-part">or</span></div>
           <div data-hf-id="hf-a1ml" class="f07-word-meaning">~위해 🎁</div>
         </div>
 
         <!-- corn -->
         <div data-hf-id="hf-07-w2" id="f07-w2" class="f07-word-card">
+          <div data-hf-id="hf-num2" class="f07-card-num-badge">②</div>
           <div data-hf-id="hf-lksp" class="f07-word-main">c<span data-hf-id="hf-069j" class="f07-or-part">or</span>n</div>
           <div data-hf-id="hf-1b56" class="f07-word-meaning">옥수수 🌽</div>
         </div>
 
         <!-- storm -->
         <div data-hf-id="hf-07-w3" id="f07-w3" class="f07-word-card">
+          <div data-hf-id="hf-num3" class="f07-card-num-badge">③</div>
           <div data-hf-id="hf-9b36" class="f07-word-main">st<span data-hf-id="hf-zryi" class="f07-or-part">or</span>m</div>
           <div data-hf-id="hf-351l" class="f07-word-meaning">폭풍 ⚡</div>
         </div>
 
         <!-- fork -->
         <div data-hf-id="hf-07-w4" id="f07-w4" class="f07-word-card">
+          <div data-hf-id="hf-num4" class="f07-card-num-badge">④</div>
           <div data-hf-id="hf-2erz" class="f07-word-main">f<span data-hf-id="hf-zdnh" class="f07-or-part">or</span>k</div>
           <div data-hf-id="hf-e4r4" class="f07-word-meaning">포크 🍴</div>
         </div>
 
         <!-- horse -->
         <div data-hf-id="hf-07-w5" id="f07-w5" class="f07-word-card">
+          <div data-hf-id="hf-num5" class="f07-card-num-badge">⑤</div>
           <div data-hf-id="hf-c4ew" class="f07-word-main">h<span data-hf-id="hf-25so" class="f07-or-part">or</span>se</div>
           <div data-hf-id="hf-ez6b" class="f07-word-meaning">말 🐎</div>
         </div>

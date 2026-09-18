@@ -27,8 +27,6 @@
     container-type: size;
   }
   #root * { box-sizing: border-box; }
-  .clip { position: absolute; inset: 0; }
-
   .f08-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
   .f08-progress-fill { position: absolute; left: 0; top: 0; width: 46.66%; height: 4px; background: #F5A623; }
 
@@ -37,10 +35,15 @@
     position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
   }
-  .f08-badge {
-    background: #2E86AB; color: #FFFFFF; font-weight: 900; font-size: 1.15cqw;
-    padding: 0.6cqh 1.3cqw; border-radius: 100px; border: 2px solid #2B2B2B;
-    box-shadow: 2px 2px 0px #2B2B2B;
+  .f08-ribbon-badge {
+    background: #2E86AB; border: 3px solid #2B2B2B; border-radius: 12px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f08-ribbon-icon { font-size: 1.4cqw; }
+  .f08-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.2cqw; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.3px;
   }
   .f08-title {
     font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
@@ -73,7 +76,14 @@
     background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
     box-shadow: 5px 5px 0px #2B2B2B; padding: 2.4cqh 1.5cqw;
     display: flex; flex-direction: column; align-items: center; gap: 0.8cqh;
-    opacity: 0; transform: translateY(20px);
+    opacity: 0; transform: translateY(20px); position: relative;
+  }
+  .f08-card-num-badge {
+    position: absolute; top: -1.2cqw; left: 1cqw;
+    width: 2.2cqw; height: 2.2cqw; border-radius: 50%;
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; box-shadow: 2px 2px 0px #2B2B2B;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.1cqw; color: #2B2B2B;
   }
   .f08-card-spelling-tag {
     font-size: 1cqw; font-weight: 900; padding: 0.2cqh 0.8cqw; border-radius: 6px;
@@ -86,7 +96,10 @@
     color: #165069; background: rgba(46,134,171,0.2); border-radius: 6px; padding: 0 0.1em;
   }
   .f08-word-meaning {
-    font-size: 1.15cqw; font-weight: 900; color: #7A7365;
+    font-size: 1.15cqw; font-weight: 900; color: #5C564A;
+    background: #FAF7F2; border: 2px solid #2B2B2B; border-radius: 100px;
+    padding: 0.35cqh 1.2cqw; box-shadow: 2px 2px 0px #2B2B2B;
+    display: flex; align-items: center; gap: 0.4cqw; margin-top: 0.3cqh;
   }
 
   /* Active highlight card state */
@@ -103,7 +116,7 @@
     box-shadow: 3px 3px 0px #2B2B2B; opacity: 0; z-index: 10;
   }
   .f08-relief-text {
-    font-size: 1.2cqw; font-weight: 900; color: #165069;
+    font-size: 1.25cqw; font-weight: 900; color: #2B2B2B;
   }
 
   /* Caption pill */
@@ -131,9 +144,12 @@
 
   <div data-hf-id="hf-08-content" id="f08-content" class="clip" data-start="0" data-duration="34.56" data-track-index="1">
     
-    <!-- Header -->
+    <!-- Header with Ribbon Badge -->
     <div data-hf-id="hf-08-head" id="f08-header" class="f08-header">
-      <span data-hf-id="hf-iz3k" class="f08-badge">🚪 3번 소리 서랍</span>
+      <div data-hf-id="hf-ribbon" class="f08-ribbon-badge">
+        <span data-hf-id="hf-ricon" class="f08-ribbon-icon">🚪</span>
+        <span data-hf-id="hf-rlbl" class="f08-ribbon-label">3번 소리 서랍</span>
+      </div>
       <span data-hf-id="hf-74ft" class="f08-title">ER · IR · UR : 입에 힘을 툭 뺀 중립의 '어~'</span>
     </div>
 
@@ -146,11 +162,12 @@
         <div data-hf-id="hf-xeo3" class="f08-action-text">E, I, U 철자 달라도 100% 동일 ➔ <span data-hf-id="hf-q2q9" style="text-decoration:underline;">편안한 [ 어~ r ]</span></div>
       </div>
 
-      <!-- 2x3 Words Matrix -->
+      <!-- 2x3 Words Matrix with Numbering Badges -->
       <div data-hf-id="hf-08-matrix" class="f08-matrix">
         
         <!-- person -->
         <div data-hf-id="hf-08-w1" id="f08-w1" class="f08-word-card">
+          <div data-hf-id="hf-num1" class="f08-card-num-badge">①</div>
           <div data-hf-id="hf-bqjw" class="f08-card-spelling-tag">ER 철자</div>
           <div data-hf-id="hf-2ymj" class="f08-word-main">p<span data-hf-id="hf-oc10" class="f08-er-part">er</span>son</div>
           <div data-hf-id="hf-a6u6" class="f08-word-meaning">사람 👤</div>
@@ -158,6 +175,7 @@
 
         <!-- term -->
         <div data-hf-id="hf-08-w2" id="f08-w2" class="f08-word-card">
+          <div data-hf-id="hf-num2" class="f08-card-num-badge">②</div>
           <div data-hf-id="hf-7sg4" class="f08-card-spelling-tag">ER 철자</div>
           <div data-hf-id="hf-9j70" class="f08-word-main">t<span data-hf-id="hf-2nbw" class="f08-er-part">er</span>m</div>
           <div data-hf-id="hf-3auz" class="f08-word-meaning">기간/학기 📅</div>
@@ -165,6 +183,7 @@
 
         <!-- girl -->
         <div data-hf-id="hf-08-w3" id="f08-w3" class="f08-word-card">
+          <div data-hf-id="hf-num3" class="f08-card-num-badge">③</div>
           <div data-hf-id="hf-0l9c" class="f08-card-spelling-tag">IR 철자</div>
           <div data-hf-id="hf-fe78" class="f08-word-main">g<span data-hf-id="hf-l9ds" class="f08-er-part">ir</span>l</div>
           <div data-hf-id="hf-pr4f" class="f08-word-meaning">소녀 👧</div>
@@ -172,6 +191,7 @@
 
         <!-- shirt -->
         <div data-hf-id="hf-08-w4" id="f08-w4" class="f08-word-card">
+          <div data-hf-id="hf-num4" class="f08-card-num-badge">④</div>
           <div data-hf-id="hf-wn14" class="f08-card-spelling-tag">IR 철자</div>
           <div data-hf-id="hf-6yt4" class="f08-word-main">sh<span data-hf-id="hf-6sag" class="f08-er-part">ir</span>t</div>
           <div data-hf-id="hf-fki2" class="f08-word-meaning">셔츠 👔</div>
@@ -179,6 +199,7 @@
 
         <!-- nurse -->
         <div data-hf-id="hf-08-w5" id="f08-w5" class="f08-word-card">
+          <div data-hf-id="hf-num5" class="f08-card-num-badge">⑤</div>
           <div data-hf-id="hf-yuws" class="f08-card-spelling-tag">UR 철자</div>
           <div data-hf-id="hf-u81j" class="f08-word-main">n<span data-hf-id="hf-9etw" class="f08-er-part">ur</span>se</div>
           <div data-hf-id="hf-74ah" class="f08-word-meaning">간호사 🩺</div>
@@ -186,6 +207,7 @@
 
         <!-- burn -->
         <div data-hf-id="hf-08-w6" id="f08-w6" class="f08-word-card">
+          <div data-hf-id="hf-num6" class="f08-card-num-badge">⑥</div>
           <div data-hf-id="hf-wc50" class="f08-card-spelling-tag">UR 철자</div>
           <div data-hf-id="hf-guo3" class="f08-word-main">b<span data-hf-id="hf-rm98" class="f08-er-part">ur</span>n</div>
           <div data-hf-id="hf-wc83" class="f08-word-meaning">불타다 🔥</div>

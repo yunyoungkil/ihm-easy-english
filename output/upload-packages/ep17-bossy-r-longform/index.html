@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP17 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0F17;
+      --card-bg: rgba(22, 27, 41, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #F5C518;
+      --accent-glow: rgba(245, 197, 24, 0.35);
+      --primary: #3B82F6;
+      --success: #10B981;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(245, 197, 24, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.06) 0%, transparent 40%);
+    }
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(245, 197, 24, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 197, 24, 0.3);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .title span { color: var(--accent); }
+    .status-pill {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #34D399;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #34D399;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+    }
+    @media (max-width: 1024px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFFFFF;
+    }
+    .btn-copy {
+      background: #1F2937;
+      color: #E5E7EB;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-copy:hover {
+      background: var(--accent);
+      color: #000000;
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .btn-copy.copied {
+      background: var(--success);
+      color: #FFFFFF;
+      border-color: var(--success);
+    }
+    .content-box {
+      background: rgba(10, 13, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 14.5px;
+      color: #D1D5DB;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 280px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+    .content-box.single-line {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      white-space: normal;
+    }
+    .video-wrapper {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #000;
+    }
+    video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+    }
+    .video-info-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(15, 20, 30, 0.9);
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .video-info-bar strong { color: var(--accent); font-weight: 800; }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .thumb-item {
+      background: rgba(15, 20, 30, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .thumb-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245, 197, 24, 0.4);
+    }
+    .thumb-item.featured {
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .thumb-item img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-label {
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .thumb-tag {
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(15, 20, 30, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .check-item:hover {
+      background: rgba(30, 40, 60, 0.5);
+    }
+    .check-item input[type="checkbox"] {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .check-text b { color: #FFFFFF; font-weight: 700; }
+    .check-text span { color: var(--text-muted); font-size: 12.5px; display: block; margin-top: 2px; }
+    .tip-box {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13.5px;
+      color: #93C5FD;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .lang-tab {
+      background: #1A2234;
+      color: #9CA3AF;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .lang-tab:hover {
+      background: #23304A;
+      color: #FFF;
+    }
+    .lang-tab.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .lang-panel {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .lang-panel.active {
+      display: flex;
+    }
+    .srt-download-btn {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFF;
+      font-weight: 800;
+      font-size: 13.5px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+      transition: all 0.15s;
+    }
+    .srt-download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    }
+  
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="header">
+    <div>
+      <div class="badge">🔥 READY TO UPLOAD · HYPERFRAMES MASTER</div>
+      <h1 class="title">EP17 <span>모음 뒤 R, Bossy R 규칙</span></h1>
+      <p style="color: var(--text-muted); margin-top: 6px; font-size: 14px;">
+        5초 단독 엔드스크린 키프아웃 적용 · 15프레임 캡션 100% 커버리지 · npm run check 0 errors · 390.27초(6분 30초)
+      </p>
+    </div>
+    <div class="status-pill">
+      업로드 패키지 준비 완료
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+
+      <section class="card">
+        <div class="card-title">
+          <span>🎬 최종 렌더 비디오 확인 (6분 30초)</span>
+          <span style="font-size: 13px; color: var(--accent); font-weight: 700;">H.264 1080p · 24.1 MB</span>
+        </div>
+        <div class="video-wrapper">
+          <video controls preload="metadata" poster="thumbnail-b.jpg">
+            <source src="video.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+          <div class="video-info-bar">
+            <span>길이: <strong>6분 30초 (390.27s)</strong></span>
+            <span>캡션: <strong>15프레임 전체 나레이션 100% 커버 ✓</strong></span>
+            <span>엔드스크린: <strong>6:25 ~ 6:30 (5초 중앙 완전 비움) ✓</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>🏷️ 영상 제목 (Title)</span>
+          <button class="btn-copy" onclick="copyText('titleText', this)">복사</button>
+        </div>
+        <div id="titleText" class="content-box single-line">발음기호 외우다 지쳤는데, R 하나로 모음 5개가 한 번에 정리됩니다 | 성인 파닉스</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>🔤 제목 A/B 테스트 후보 (3종)</span>
+          <span style="font-size: 12px; color: var(--accent);">Studio "제목 및 썸네일 테스트"에 등록</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; background: rgba(245,197,24,0.08); border: 1.5px solid rgba(245,197,24,0.35); border-radius: 10px;">
+            <div>
+              <span style="font-size: 11px; color: var(--accent); font-weight: 800; display: block; margin-bottom: 3px;">★ 시안 B (기본 게시 · CTR A등급 8.5~11.4%)</span>
+              <span id="titleVariantB" style="font-size: 14px; font-weight: 700; color: #FFFFFF;">발음기호 외우다 지쳤는데, R 하나로 모음 5개가 한 번에 정리됩니다 | 성인 파닉스</span>
+            </div>
+            <button class="btn-copy" onclick="copyText('titleVariantB', this)">복사</button>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 10px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 800; display: block; margin-bottom: 3px;">시안 A (CTR A-등급 7.8~10.2%)</span>
+              <span id="titleVariantA" style="font-size: 14px; color: #D1D5DB;">저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기</span>
+            </div>
+            <button class="btn-copy" onclick="copyText('titleVariantA', this)">복사</button>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 10px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 800; display: block; margin-bottom: 3px;">시안 C (CTR A-등급 8.0~10.6%)</span>
+              <span id="titleVariantC" style="font-size: 14px; color: #D1D5DB;">Car, Bird 왜 다를까 했는데... 모음 뒤 R만 보면 바로 읽힙니다 | 파닉스 기초</span>
+            </div>
+            <button class="btn-copy" onclick="copyText('titleVariantC', this)">복사</button>
+          </div>
+        </div>
+        <div class="tip-box">
+          💡 <strong>제목도 A/B 테스트 대상입니다:</strong> 유튜브 Studio의 "제목 및 썸네일 테스트"는 썸네일뿐 아니라 제목도 같이 실험할 수 있습니다. B를 기본으로 게시하고, 이 3개 제목을 테스트 후보로 등록하면 실제 시청자 클릭률로 검증할 수 있습니다 — 대시보드에서 CTR 진단만 받고 버리기엔 아까운 시안이라 그대로 남겨둡니다.
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>📝 영상 설명 (Description & 타임스탬프)</span>
+          <button class="btn-copy" onclick="copyText('descText', this)">복사</button>
+        </div>
+        <div id="descText" class="content-box">CAR, HER, BIRD, FOR, FUR — 다 아는 쉬운 단어인데, 왜 A는 '애'가 아니라 '아'로, E·I·U는 전부 똑같이 '어'로 읽히는지 생각해 보신 적 있으신가요?
+그 답을 모른 채 다섯 개 발음기호부터 외우려니 지치는 겁니다. 사실 외울 건 다섯 개가 아니라 딱 세 가지 소리뿐입니다. 오늘 그 기준 하나만 알면, 모음 뒤에 R이 오는 단어는 더 이상 헷갈리지 않고 바로 읽으실 수 있습니다.
+
+「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리 나는 원리로 설명합니다.
+
+📌 오늘 배우는 내용
+・모음 뒤에 R이 붙으면 원래 모음 소리가 통째로 사라지고 R 소리로 바뀌는 원리
+・AR(car)과 OR(for)은 각자 독자적인 소리
+・ER·IR·UR(her, bird, fur)은 철자만 다를 뿐 완전히 똑같은 소리
+・다섯 개 철자를 세 개의 소리 서랍으로 정리하는 법
+・앞에 오는 R과 뒤에 오는 R, 혀가 반대로 움직이는 이유
+・미니 퀴즈 2라운드 + 문장 리딩 훈련
+
+⏱️ 영상 순서
+0:00 CAR, SIR, FOR — 왜 이렇게 읽힐까
+0:22 채널 소개
+0:34 사전 발음기호 다섯 개, 복잡해 보이는 이유
+0:54 반전: 사실은 소리 서랍 세 개뿐입니다
+1:32 혀가 뒤로 물러나는 원리 (구강 단면도)
+1:53 1번 서랍 AR 소리 실전 낭독
+2:22 2번 서랍 OR 소리 실전 낭독
+2:53 3번 서랍 ER·IR·UR 소리 실전 낭독
+3:27 반전 꿀팁: 앞에 오는 R과 뒤에 오는 R은 방향이 다르다
+3:56 실전 퀴즈 1라운드
+4:32 실전 퀴즈 2라운드 (스피드)
+5:00 문장으로 자연스럽게 읽기 ①
+5:24 문장으로 자연스럽게 읽기 ②
+5:48 오늘 배운 세 가지 소리 서랍 총정리
+6:11 마무리
+
+영어는 무작정 외우는 것이 아니라, 소리의 원리를 이해하는 것입니다.
+구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.
+
+#영어발음 #파닉스 #영어읽기 #왕초보영어 #영어공부 #영단어 #발음원리 #성인영어 #BossyR</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>📌 첫 댓글 (고정 댓글 Pinned Comment)</span>
+          <button class="btn-copy" onclick="copyText('pinnedText', this)">복사</button>
+        </div>
+        <div id="pinnedText" class="content-box">오늘 배운 '소리 서랍 3개'로 직접 읽어보실까요? 영상에는 나오지 않은 새로운 단어들입니다 👀
+
+① BARN
+② PORCH
+③ SHIRT
+④ NURSE (💡 힌트: ③번과 같은 서랍이에요!)
+
+(힌트: AR은 '아~', OR은 '오~', ER·IR·UR은 전부 편안한 '어~' 소리라고 했습니다!)
+
+각 단어의 한글 발음을 댓글로 남겨주세요, 맞았는지 확인해 드릴게요! ✍️</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>🔍 검색 태그 (Tags)</span>
+          <button class="btn-copy" onclick="copyText('tagsText', this)">복사</button>
+        </div>
+        <div id="tagsText" class="content-box">영어 발음, 영어 발음 규칙, 파닉스 기초, 성인 파닉스, Bossy R, 영어 모음 발음, R 발음 규칙, 영어 단어 읽는법, 왕초보 영어, 영어 읽는법, 파닉스 발음, 영어 발음 원리, 영어 독학, 기초 영어 회화, 영어 공부 혼자하기, 영어 낭독, English phonics, bossy r sound, English pronunciation rules, English for beginners</div>
+      </section>
+
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+
+      <section class="card">
+        <div class="card-title">
+          <span>🖼️ YouTube Test & Compare 썸네일 3종</span>
+          <span style="font-size: 12px; color: var(--accent);">Studio에서 3종 동시 등록</span>
+        </div>
+        <div class="thumb-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="thumb-item featured">
+            <a href="thumbnail-b.jpg" target="_blank"><img src="thumbnail-b.jpg" alt="시안 B"></a>
+            <div class="thumb-label">
+              <span class="thumb-tag">★ 플래그십 (시안 B)</span>
+              <span>좌측 대형 클로즈업 + 클린 타이포 ("아하!" 표정)</span>
+            </div>
+          </div>
+          <div class="thumb-item">
+            <a href="thumbnail-a.jpg" target="_blank"><img src="thumbnail-a.jpg" alt="시안 A"></a>
+            <div class="thumb-label">
+              <span class="thumb-tag">시안 A</span>
+              <span>우측 턱 괴기 지적 탐구 포즈</span>
+            </div>
+          </div>
+          <div class="thumb-item">
+            <a href="thumbnail-c.jpg" target="_blank"><img src="thumbnail-c.jpg" alt="시안 C"></a>
+            <div class="thumb-label">
+              <span class="thumb-tag">시안 C</span>
+              <span>우측 상체 전진 호기심 유발 포즈</span>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box">
+          💡 <strong>Test & Compare 팁:</strong> 유튜브 스튜디오에서 시안 B를 대표로 지정하고, '동영상 썸네일 테스트 및 비교'를 눌러 나머지 2종을 함께 등록하면 유튜브 AI가 시청자 클릭률을 실시간 비교해 가장 성과 좋은 썸네일을 자동 확정합니다.
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>⚙️ 유튜브 Studio 필수 설정 항목</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 12px; color: var(--accent); font-weight: 800; display: block;">권장 예약 일시</span>
+              <strong style="font-size: 16px;">2026-09-22(화) 20:00 KST</strong>
+            </div>
+            <button class="btn-copy" onclick="copyRaw('2026-09-22 20:00 KST', this)">복사</button>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 12px; color: var(--accent); font-weight: 800; display: block;">최종 화면 (엔드스크린) 연결</span>
+              <strong style="font-size: 15px;">직전 편 EP16 (모음 2개 나란히) 연결</strong>
+            </div>
+            <span style="font-size: 12px; color: var(--text-muted);">끝 5초 비워둠</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>📋 업로드 실행 체크리스트</span>
+        </div>
+        <div class="checklist">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>1. video.mp4 업로드</b>
+              <span>6분 30초 · 1920x1080 · 엔드스크린 5초 키프아웃 확인</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>2. 제목(B) 및 설명 복사 입력</b>
+              <span>15프레임 실측 타임스탬프로 챕터 분할 · 제목 A/C는 아래 A/B 테스트에 사용</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>3. 제목+썸네일 Test & Compare 3종 페어 등록</b>
+              <span>B(대표)+A+C, 각 제목·썸네일 짝 맞춰 등록</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>4. 검색 태그 20종 일괄 붙여넣기</b>
+              <span>콤마로 구분된 전체 태그 복사</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>5. 최종 화면 요소 추가 (엔드스크린)</b>
+              <span>영상 끝 5초(6:25~)에 직전 영상(EP16) 및 구독 버튼 링크</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>6. 공개 상태: [예약] 설정</b>
+              <span>2026-09-22(화) 20:00 KST 선택 후 완료</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-text">
+              <b>7. 첫 댓글 작성 및 [댓글 고정]</b>
+              <span>시청자 참여 유도용 미니 퀴즈 4문항 게시</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+    </div>
+
+  
+      
+  
+      
+  
+      <!-- GLOBAL MULTILINGUAL PACKAGE -->
+      <section class="card" style="margin-top: 28px; border: 1px solid rgba(245, 197, 24, 0.4); box-shadow: 0 0 25px rgba(245, 197, 24, 0.08);">
+        <div class="card-title" style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">🌍</span>
+            <div>
+              <span style="font-size: 18px; font-weight: 800; color: #FFF;">글로벌 다국어 노출 패키지 (자막 파일 & 번역 메타데이터)</span>
+              <span style="font-size: 12.5px; color: var(--text-muted); display: block; margin-top: 2px;">미국·일본·남미·동남아 등 전 세계 시청자 및 알고리즘 추천을 위한 원스톱 세팅 자료</span>
+            </div>
+          </div>
+          <a href="multilingual-guide.txt" target="_blank" class="btn-copy" style="text-decoration: none;">📄 가이드 전문 보기</a>
+        </div>
+
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;">
+          <button class="lang-tab active" onclick="switchLang('en', this)">🇺🇸 English (미국/글로벌)</button>
+          <button class="lang-tab" onclick="switchLang('ja', this)">🇯🇵 日本語 (일본)</button>
+          <button class="lang-tab" onclick="switchLang('zh-tw', this)">🇹🇼 繁體中文 (대만/홍콩)</button>
+          <button class="lang-tab" onclick="switchLang('zh-cn', this)">🇨🇳 简体中文 (싱가포르/글로벌)</button>
+          <button class="lang-tab" onclick="switchLang('es', this)">🇪🇸 Español (스페인어/남미)</button>
+          <button class="lang-tab" onclick="switchLang('vi', this)">🇻🇳 Tiếng Việt (베트남)</button>
+          <button class="lang-tab" onclick="switchLang('ko', this)">🇰🇷 한국어 (기본 원본)</button>
+        </div>
+
+        <!-- EN Panel -->
+        <div id="panel-en" class="lang-panel active">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <strong style="color: #FFF; font-size: 15px;">🇺🇸 English 자막 파일 (.srt)</strong>
+              <span style="color: var(--text-muted); font-size: 12.5px; display: block;">63개 구간 정밀 싱크 완료 · 전 세계 공용 및 유튜브 글로벌 검색 인덱싱용</span>
+            </div>
+            <a href="subtitles/subtitles-en.srt" download="subtitles-en.srt" class="srt-download-btn">⬇️ subtitles-en.srt 다운로드</a>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 영어 번역 제목</span>
+              <button class="btn-copy" onclick="copyText('title-en', this)">제목 복사</button>
+            </div>
+            <div id="title-en" class="content-box single-line">Tired of Pronunciation Symbols? How 'R' Explains All 5 Vowels at Once | Phonics Rules</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 영어 번역 설명 (타임스탬프 챕터 포함)</span>
+              <button class="btn-copy" onclick="copyText('desc-en', this)">설명 복사</button>
+            </div>
+            <div id="desc-en" class="content-box">CAR, HER, BIRD, FOR, FUR — simple words we all know, but have you ever wondered why A sounds like 'ah' instead of 'æ', and why E, I, and U all sound identical as 'er'?
+Trying to memorize 5 different phonetic symbols without knowing the principle is exhausting. In reality, you don't need to learn 5 sounds—there are only THREE! Once you learn this single standard, you will never get confused by vowels followed by R.
+
+Welcome to "Easy English When Understood". We explain English by the physical principles of sound so anyone can master it.
+
+⏱️ Timestamps
+0:00 CAR, SIR, FOR — Why do they sound this way?
+0:22 Welcome & Channel Intro
+0:34 Why 5 dictionary symbols look overwhelming
+0:54 The Twist: There are only 3 sound drawers!
+1:32 Why the tongue pulls back (Mouth diagram)
+1:53 Drawer 1: The open AR sound practice
+2:22 Drawer 2: The rounded OR sound practice
+2:53 Drawer 3: The unified ER/IR/UR sound practice
+3:27 Pro Tip: Front R vs Back R direction difference
+3:56 3-Second Quiz Round 1
+4:32 3-Second Quiz Round 2 (Speed)
+5:00 Sentence Reading ①
+5:24 Sentence Reading ②
+5:48 One-Sheet Summary Map
+6:11 Closing
+
+#EnglishPronunciation #Phonics #BossyR #ESL #LearnEnglish #EnglishReading</div>
+          </div>
+        </div>
+
+        <!-- JA Panel -->
+        <div id="panel-ja" class="lang-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <strong style="color: #FFF; font-size: 15px;">🇯🇵 日本語 자막 파일 (.srt)</strong>
+              <span style="color: var(--text-muted); font-size: 12.5px; display: block;">63개 구간 정밀 싱크 완료 · 일본 영어 학습자 타겟 (가타카나 발음 한계 극복)</span>
+            </div>
+            <a href="subtitles/subtitles-ja.srt" download="subtitles-ja.srt" class="srt-download-btn">⬇️ subtitles-ja.srt 다운로드</a>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 일본어 번역 제목</span>
+              <button class="btn-copy" onclick="copyText('title-ja', this)">제목 복사</button>
+            </div>
+            <div id="title-ja" class="content-box single-line">発音記号の暗記に疲れた方へ！R一つで母音5つが一気に整理される法則 | 大人のフォニックス</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 일본어 번역 설명 (타임스탬프 챕터 포함)</span>
+              <button class="btn-copy" onclick="copyText('desc-ja', this)">설명 복사</button>
+            </div>
+            <div id="desc-ja" class="content-box">CAR, HER, BIRD, FOR, FUR — 誰もが知っている簡単な単語なのに、なぜ A は「エ」ではなく「アー」になり、E・I・U はすべて同じ「アー(er)」と発音されるのか疑問に思ったことはありませんか？
+その仕組みを知らないまま辞書の発音記号を丸暗記しようとするから疲れてしまうのです。実は覚えるべき音は5つではなく、たったの「3つ」だけ！今日のルールを一つ知るだけで、母音＋Rの単語で迷うことはもう二度となくなります。
+
+「理解すれば簡単な英語」へようこそ。初心者でも納得できるよう、発音の原理から分かりやすく解説します。
+
+⏱️ タイムスタンプ
+0:00 CAR, SIR, FOR — なぜこう読まれるのか？
+0:22 チャンネル紹介
+0:34 辞書の発音記号が複雑に見える理由
+0:54 大反転：実は「3つの音の引き出し」だけ！
+1:32 舌が後ろへ引っ込む原理（口内断面図）
+1:53 1番の引き出し：AR音の実践音読
+2:22 2番の引き出し：OR音の実践音読
+2:53 3番の引き出し：ER・IR・UR音の実践音読
+3:27 ワンポイント解説：前Rと後Rは舌の向きが違う！
+3:56 3秒クイズ 第1ラウンド
+4:32 3秒クイズ 第2ラウンド（スピード）
+5:00 例文で自然に読む ①
+5:24 例文で自然に読む ②
+5:48 まとめシート
+6:11 エンディング
+
+#英語発音 #フォニックス #大人のやり直し英語 #英語の読み方 #BossyR #英語独学</div>
+          </div>
+        </div>
+
+        <!-- ZH-TW Panel -->
+        <div id="panel-zh-tw" class="lang-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <strong style="color: #FFF; font-size: 15px;">🇹🇼 繁體中文 자막 파일 (.srt)</strong>
+              <span style="color: var(--text-muted); font-size: 12.5px; display: block;">63개 구간 정밀 싱크 완료 · 대만·홍콩 영어 학습자 타겟 (유튜브 시청률 1위 권역)</span>
+            </div>
+            <a href="subtitles/subtitles-zh-tw.srt" download="subtitles-zh-tw.srt" class="srt-download-btn">⬇️ subtitles-zh-tw.srt 다운로드</a>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 번체자 번역 제목</span>
+              <button class="btn-copy" onclick="copyText('title-zh-tw', this)">제목 복사</button>
+            </div>
+            <div id="title-zh-tw" class="content-box single-line">別再死記音標了！只要一個 R，5個母音發音一次全搞定 | 成人自然拼讀</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 번체자 번역 설명 (타임스탬프 챕터 포함)</span>
+              <button class="btn-copy" onclick="copyText('desc-zh-tw', this)">설명 복사</button>
+            </div>
+            <div id="desc-zh-tw" class="content-box">CAR, HER, BIRD, FOR, FUR — 明明都是最簡單的單字，但你有沒有想過，為什麼 A 不唸「æ」而是唸「ah」，為什麼 E、I、U 拼字全都不一樣，發音卻一模一樣全是「er」？
+在不知道發音原理的情況下，光看字典裡 5 個不同的音標死記硬背，當然會覺得非常挫折。其實需要記的不是 5 個音，而是只有「3 個聲音」而已！只要掌握今天這套標準，以後遇到任何母音後面帶 R 的單字，你都能毫不猶豫、一眼唸對。
+
+歡迎來到「理解就變簡單的英語」。我們用最直觀的發音生理原理，讓初學者也能徹底理解。
+
+⏱️ 時間軸
+0:00 CAR, SIR, FOR — 為什麼會這樣發音？
+0:22 頻道介紹
+0:34 字典裡的 5 個音標為什麼讓人頭痛
+0:54 驚人反轉：其實只有「3 個聲音抽屜」！
+1:32 舌頭往後縮的物理原理（口腔剖面圖）
+1:53 1號抽屜：AR 掉下巴發音實戰朗讀
+2:22 2號抽屜：OR 圓唇發音實戰朗讀
+2:53 3號抽屜：ER·IR·UR 統一發音實戰朗讀
+3:27 核心秘訣：前 R 與後 R 舌頭方向完全相反！
+3:56 3秒實戰測驗 第1回合
+4:32 3秒實戰測驗 第2回合（極速）
+5:00 句子自然朗讀練習 ①
+5:24 句子自然朗讀練習 ②
+5:48 一張圖總結精華複習
+6:11 結語
+
+#英語發音 #自然拼讀 #Phonics #BossyR #零基礎英語 #成人學英語</div>
+          </div>
+        </div>
+
+        <!-- ZH-CN Panel -->
+        <div id="panel-zh-cn" class="lang-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <strong style="color: #FFF; font-size: 15px;">🇨🇳 简体中文 자막 파일 (.srt)</strong>
+              <span style="color: var(--text-muted); font-size: 12.5px; display: block;">63개 구간 정밀 싱크 완료 · 싱가포르·말레이시아 및 글로벌 화교 타겟</span>
+            </div>
+            <a href="subtitles/subtitles-zh-cn.srt" download="subtitles-zh-cn.srt" class="srt-download-btn">⬇️ subtitles-zh-cn.srt 다운로드</a>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 간체자 번역 제목</span>
+              <button class="btn-copy" onclick="copyText('title-zh-cn', this)">제목 복사</button>
+            </div>
+            <div id="title-zh-cn" class="content-box single-line">别再死记音标了！只要一个 R，5个元音发音一次全搞定 | 成人自然拼读</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 간체자 번역 설명 (타임스탬프 챕터 포함)</span>
+              <button class="btn-copy" onclick="copyText('desc-zh-cn', this)">설명 복사</button>
+            </div>
+            <div id="desc-zh-cn" class="content-box">CAR, HER, BIRD, FOR, FUR — 明明都是最简单的单词，但你有没有想过，为什么 A 不念“æ”而是念“ah”，为什么 E、I、U 拼写完全不同，发音却一模一样全是“er”？
+在不知道发音原理的情况下，光看字典里 5 个不同的音标死记硬背，当然会觉得非常受挫。其实需要记的不是 5 个音，而是只有“3 个声音”而已！只要掌握今天这套标准，以后遇到任何元音后面带 R 的单词，你都能毫不犹豫、一眼读对。
+
+欢迎来到“理解就变简单的英语”。我们用最直观的发音生理原理，让初学者也能彻底理解。
+
+⏱️ 时间戳
+0:00 CAR, SIR, FOR — 为什么会这样发音？
+0:22 频道介绍
+0:34 字典里的 5 个音标为什么让人头痛
+0:54 惊人反转：其实只有“3 个声音抽屉”！
+1:32 舌头往后缩的物理原理（口腔剖面图）
+1:53 1号抽屉：AR 掉下巴发音实战朗读
+2:22 2号抽屉：OR 圆唇发音实战朗读
+2:53 3号抽屉：ER·IR·UR 统一发音实战朗读
+3:27 核心秘诀：前 R 与后 R 舌头方向完全相反！
+3:56 3秒实战测验 第1回合
+4:32 3秒实战测验 第2回合（极速）
+5:00 句子自然朗读练习 ①
+5:24 句子自然朗读练习 ②
+5:48 一张图总结精华复习
+6:11 结语
+
+#英语发音 #自然拼读 #Phonics #BossyR #零基础英语 #成人学英语</div>
+          </div>
+        </div>
+
+        <!-- ES Panel -->
+        <div id="panel-es" class="lang-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <strong style="color: #FFF; font-size: 15px;">🇪🇸 Español 자막 파일 (.srt)</strong>
+              <span style="color: var(--text-muted); font-size: 12.5px; display: block;">63개 구간 정밀 싱크 완료 · 미국 히스패닉 & 중남미 영어 초보자 타겟</span>
+            </div>
+            <a href="subtitles/subtitles-es.srt" download="subtitles-es.srt" class="srt-download-btn">⬇️ subtitles-es.srt 다운로드</a>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 스페인어 번역 제목</span>
+              <button class="btn-copy" onclick="copyText('title-es', this)">제목 복사</button>
+            </div>
+            <div id="title-es" class="content-box single-line">¿Cansado de los símbolos fonéticos? Cómo la 'R' explica las 5 vocales en solo 3 sonidos | Fonética</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 스페인어 번역 설명 (타임스탬프 챕터 포함)</span>
+              <button class="btn-copy" onclick="copyText('desc-es', this)">설명 복사</button>
+            </div>
+            <div id="desc-es" class="content-box">CAR, HER, BIRD, FOR, FUR — palabras sencillas que todos conocemos, pero ¿te has preguntado por qué A suena 'ah' y por qué E, I, U suenan exactamente igual como 'er'?
+Tratar de memorizar 5 símbolos fonéticos sin entender el principio es agotador. En realidad, no son 5 sonidos: ¡son solo TRES! Al dominar este criterio, nunca más dudarás al leer vocales seguidas de R.
+
+Bienvenidos a "Inglés Fácil Si Lo Entiendes". Explicamos las reglas mediante los principios físicos del sonido.
+
+⏱️ Marcas de tiempo
+0:00 CAR, SIR, FOR —¿Por qué se leen así?
+0:22 Introducción
+0:34 Por qué 5 símbolos de diccionario parecen difíciles
+0:54 El gran giro: ¡Solo hay 3 cajones de sonido!
+1:32 Por qué la lengua retrocede (diagrama de la boca)
+1:53 Cajón 1: Práctica del sonido AR abierto
+2:22 Cajón 2: Práctica del sonido OR redondeado
+2:53 Cajón 3: Práctica del sonido unificado ER/IR/UR
+3:27 Consejo clave: R inicial vs R final
+3:56 Mini Quiz Ronda 1
+4:32 Mini Quiz Ronda 2 (Velocidad)
+5:00 Lectura en oraciones ①
+5:24 Lectura en oraciones ②
+5:48 Hoja de resumen final
+6:11 Cierre
+
+#PronunciacionIngles #FoneticaIngles #AprenderIngles #InglesBasico #BossyR</div>
+          </div>
+        </div>
+
+        <!-- VI Panel -->
+        <div id="panel-vi" class="lang-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <strong style="color: #FFF; font-size: 15px;">🇻🇳 Tiếng Việt 자막 파일 (.srt)</strong>
+              <span style="color: var(--text-muted); font-size: 12.5px; display: block;">63개 구간 정밀 싱크 완료 · 동남아 1위 영어 교육 수요국 베트남 타겟</span>
+            </div>
+            <a href="subtitles/subtitles-vi.srt" download="subtitles-vi.srt" class="srt-download-btn">⬇️ subtitles-vi.srt 다운로드</a>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 베트남어 번역 제목</span>
+              <button class="btn-copy" onclick="copyText('title-vi', this)">제목 복사</button>
+            </div>
+            <div id="title-vi" class="content-box single-line">Hết sợ ký hiệu phiên âm! Chỉ với chữ R, 5 nguyên âm tiếng Anh được giải quyết gọn gàng</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 베트남어 번역 설명 (타임스탬프 챕터 포함)</span>
+              <button class="btn-copy" onclick="copyText('desc-vi', this)">설명 복사</button>
+            </div>
+            <div id="desc-vi" class="content-box">CAR, HER, BIRD, FOR, FUR — những từ quen thuộc ai cũng biết, nhưng bạn có từng thắc mắc vì sao A đọc là 'a' và vì sao E, I, U lại đọc y hệt nhau là 'ơ (er)'?
+Cố học thuộc 5 ký hiệu phiên âm mà không hiểu nguyên lý khiến bạn nhanh nản. Thực tế, bạn không cần nhớ 5 âm — chỉ có ĐÚNG 3 ÂM! Nắm được quy tắc này, bạn sẽ tự tin đọc chuẩn mọi từ có nguyên âm đi với R.
+
+Chào mừng bạn đến với "Hiểu Đúng Thì Tiếng Anh Rất Dễ". Học tiếng Anh qua nguyên lý tự nhiên của âm thanh.
+
+⏱️ Mốc thời gian
+0:00 CAR, SIR, FOR — Vì sao lại đọc như vậy?
+0:22 Giới thiệu
+0:34 Vì sao 5 ký hiệu từ điển trông phức tạp
+0:54 Bất ngờ: Thực ra chỉ có 3 ngăn âm!
+1:32 Vì sao lưỡi rụt về sau (sơ đồ khoang miệng)
+1:53 Ngăn 1: Luyện đọc âm AR hạ hàm
+2:22 Ngăn 2: Luyện đọc âm OR chu môi
+2:53 Ngăn 3: Luyện đọc âm hợp nhất ER/IR/UR
+3:27 Mẹo quan trọng: R đi trước vs R đi sau
+3:56 Câu đố 3 giây Vòng 1
+4:32 Câu đố 3 giây Vòng 2
+5:00 Luyện đọc trong câu ①
+5:24 Luyện đọc trong câu ②
+5:48 Bảng tóm tắt
+6:11 Lời kết
+
+#PhatAmTiengAnh #HocTiengAnh #TiengAnhGiaoTiep #Phonics #BossyR</div>
+          </div>
+        </div>
+
+        <!-- KO Panel -->
+        <div id="panel-ko" class="lang-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <strong style="color: #FFF; font-size: 15px;">🇰🇷 한국어 자막 파일 (.srt)</strong>
+              <span style="color: var(--text-muted); font-size: 12.5px; display: block;">63개 구간 정밀 싱크 완료 · 한국어 음성 100% 일치 기본 자막</span>
+            </div>
+            <a href="subtitles/subtitles-ko.srt" download="subtitles-ko.srt" class="srt-download-btn">⬇️ subtitles-ko.srt 다운로드</a>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 한국어 원본 제목</span>
+              <button class="btn-copy" onclick="copyText('titleText', this)">제목 복사</button>
+            </div>
+            <div class="content-box single-line">발음기호 외우다 지쳤는데, R 하나로 모음 5개가 한 번에 정리됩니다 | 성인 파닉스</div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 한국어 원본 설명</span>
+              <button class="btn-copy" onclick="copyText('descText', this)">설명 복사</button>
+            </div>
+            <div class="content-box">CAR, HER, BIRD, FOR, FUR — 다 아는 쉬운 단어인데, 왜 A는 '애'가 아니라 '아'로, E·I·U는 전부 똑같이 '어'로 읽히는지 생각해 보신 적 있으신가요?
+그 답을 모른 채 다섯 개 발음기호부터 외우려니 지치는 겁니다. 사실 외울 건 다섯 개가 아니라 딱 세 가지 소리뿐입니다. 오늘 그 기준 하나만 알면, 모음 뒤에 R이 오는 단어는 더 이상 헷갈리지 않고 바로 읽으실 수 있습니다.
+
+「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리 나는 원리로 설명합니다.
+
+⏱️ 영상 순서
+0:00 CAR, SIR, FOR — 왜 이렇게 읽힐까
+0:22 채널 소개
+0:34 사전 발음기호 다섯 개, 복잡해 보이는 이유
+0:54 반전: 사실은 소리 서랍 세 개뿐입니다
+1:32 혀가 뒤로 물러나는 원리 (구강 단면도)
+1:53 1번 서랍 AR 소리 실전 낭독
+2:22 2번 서랍 OR 소리 실전 낭독
+2:53 3번 서랍 ER·IR·UR 소리 실전 낭독
+3:27 반전 꿀팁: 앞에 오는 R과 뒤에 오는 R은 방향이 다르다
+3:56 실전 퀴즈 1라운드
+4:32 실전 퀴즈 2라운드 (스피드)
+5:00 문장으로 자연스럽게 읽기 ①
+5:24 문장으로 자연스럽게 읽기 ②
+5:48 오늘 배운 세 가지 소리 서랍 총정리
+6:11 마무리
+
+#영어발음 #파닉스 #영어읽기 #왕초보영어 #BossyR</div>
+          </div>
+        </div>
+
+        <!-- Quick How-To -->
+        <div class="tip-box" style="margin-top: 14px;">
+          💡 <strong>YouTube Studio 3분 등록법:</strong><br>
+          1. 유튜브 스튜디오 영상 수정 ➔ 왼쪽 <strong>[자막]</strong> 메뉴 클릭<br>
+          2. <strong>[언어 추가]</strong> 클릭 후 위 4개 언어(영어, 일본어, 스페인어, 베트남어) 추가<br>
+          3. 각 언어의 <strong>[제목 및 설명]</strong>에 위 번역문을 복사 붙여넣고, <strong>[자막]</strong>에 위 다운로드한 <code>.srt</code> 파일을 업로드하면 즉시 완료됩니다!
+        </div>
+      </section>
+  
+    <!-- /GLOBAL MULTILINGUAL PACKAGE -->
+  </main>
+
+</div>
+
+<script>
+  function copyText(elementId, btn) {
+    var el = document.getElementById(elementId);
+    if (!el) return;
+    var text = el.innerText || el.textContent;
+    copyRaw(text, btn);
+  }
+
+  function copyRaw(text, btn) {
+    navigator.clipboard.writeText(text).then(function() {
+      var originalText = btn.innerText;
+      btn.innerText = "복사됨! ✓";
+      btn.classList.add("copied");
+      setTimeout(function() {
+        btn.innerText = originalText;
+        btn.classList.remove("copied");
+      }, 1500);
+    });
+  }
+
+  function switchLang(lang, btn) {
+    document.querySelectorAll('.lang-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.lang-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    var p = document.getElementById('panel-' + lang);
+    if (p) p.classList.add('active');
+  }
+  
+</script>
+
+</body>
+</html>

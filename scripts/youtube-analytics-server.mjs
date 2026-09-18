@@ -1038,7 +1038,7 @@ let lastEpisodesSummaryTime = 0;
 // 패키지에 한해 유튜브 실제 상태를 확인해서 status.json을 갱신한다 — videoId를 이미 알면
 // videos.list(1 unit)만 호출하고, 모르면 제목으로 한 번 검색(search.list, 100 unit)해서 찾아낸
 // 뒤로는 videoId를 저장해 다음부터는 싼 호출만 하게 한다. 5분에 한 번 이상은 확인하지 않는다.
-const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title) => {
+const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, titleCandidates) => {
   if (!statusData || statusData.status === 'published') return statusData;
   if (!statusData.scheduledFor) return statusData;
   // 예약 시각이 아직 안 지났어도 동기화를 시도한다 — videoId가 없으면(막 업로드했을 수 있음)
@@ -1058,8 +1058,13 @@ const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title) =>
       const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}`, accessToken);
       ytStatus = data.items?.[0]?.status || null;
     } else {
+      // 제목 A/B 테스트 시안(title-variants.txt) 중 하나로 실제 업로드했을 수 있다 —
+      // 기본 title.txt 하나만 정확히 일치시키면 그 경우 영영 못 찾는다(2026-09-18 확인,
+      // EP17에서 실제로 title.txt=B인데 유튜브엔 시안 A로 올려서 동기화가 계속 실패했음).
+      // 기본 제목 + 모든 시안 제목을 후보로 모아 하나라도 정확히 일치하면 매칭한다.
+      const candidateTitles = [title, ...(titleCandidates || []).map((v) => v.title)].filter(Boolean);
       const searchData = await googleGet('https://www.googleapis.com/youtube/v3/search?part=snippet&forMine=true&type=video&maxResults=25&order=date', accessToken);
-      const match = (searchData.items || []).find((it) => it.snippet.title === title);
+      const match = (searchData.items || []).find((it) => candidateTitles.includes(it.snippet.title));
       if (match) {
         videoId = match.id.videoId;
         const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}`, accessToken);
@@ -1155,6 +1160,20 @@ const getEpisodesSummary = async (forceReload = false) => {
         const timelineRaw = (await readTextIfExists('timeline.txt')) || ((description.match(/^\d+:\d+.*$/gm) || []).join('\n'));
         const epMatch = folder.name.match(/ep(\d+)/i);
 
+        // 대시보드 A/B 시뮬레이터에서 CTR 진단까지 받은 제목 시안을 채택된 것 하나만 남기고
+        // 버리지 않기 위해 title-variants.txt(있으면)를 읽어 노출한다 — 유튜브 Studio의
+        // "제목 및 썸네일 테스트"는 썸네일뿐 아니라 제목도 같이 실험 대상이기 때문
+        // (2026-09-18 확정, production-rules.md "업로드 패키지 변경 완료 조건" 참고).
+        // 형식: "[시안ID] (메모) 제목 텍스트" 한 줄씩 — 이 패턴에 안 맞는 줄(안내 문구 등)은 무시.
+        const titleVariantsRaw = await readTextIfExists('title-variants.txt');
+        const titleVariants = titleVariantsRaw
+          ? titleVariantsRaw
+              .split('\n')
+              .map((line) => line.match(/^\[([A-Za-z0-9]+)\]\s*(?:\(([^)]*)\)\s*)?(.+)$/))
+              .filter(Boolean)
+              .map((m) => ({id: m[1], note: m[2] || '', title: m[3].trim()}))
+          : [];
+
         // 이 폴더 안에 실제로 있는 썸네일 후보(thumbnail-*.jpg/png)와 영상 파일(video*.mp4)을
         // 찾아서 /api/upload-package-asset/로 서빙 가능한 URL로 노출한다 — 패키지 인스펙터가
         // 텍스트뿐 아니라 실제 썸네일·영상도 보여줄 수 있게(2026-09-04, 사용자 지적으로 추가).
@@ -1168,12 +1187,41 @@ const getEpisodesSummary = async (forceReload = false) => {
           ? `/api/upload-package-asset/${encodeURIComponent(folder.name)}/${encodeURIComponent(videoFile)}`
           : null;
 
+        // 다국어 자막·번역 메타데이터(있으면) 노출 — multilingual-metadata.json의 언어 코드별
+        // {lang, title, desc}와 subtitles/subtitles-<코드>.srt 파일을 코드로 짝지어
+        // 패키지 인스펙터에서 언어별 제목·설명 복사 + 자막 다운로드가 가능하게 한다
+        // (2026-09-18 확정, EP17에서 사용자 지적: "자막 파일이 안 보이고 자막 나라에 적용할
+        // 제목도 같이 나오게 해줘" — title-variants와 같은 이유로 파일만 있고 대시보드엔
+        // 안 보이던 반쪽 완료를 막기 위해 production-rules.md에 "두 군데 다 나와야 완료"로
+        // 명시해둔 규칙의 연장).
+        let multilingualVariants = [];
+        try {
+          const metaRaw = await readTextIfExists('multilingual-metadata.json');
+          if (metaRaw) {
+            const meta = JSON.parse(metaRaw);
+            const subtitlesDir = join(pkgPath, 'subtitles');
+            const subtitleFiles = existsSync(subtitlesDir) ? await readdir(subtitlesDir).catch(() => []) : [];
+            multilingualVariants = Object.entries(meta).map(([code, v]) => {
+              const srtFile = subtitleFiles.find((f) => f.toLowerCase() === `subtitles-${code}.srt`.toLowerCase());
+              return {
+                code,
+                lang: v.lang || code,
+                title: v.title || '',
+                desc: v.desc || '',
+                srtUrl: srtFile
+                  ? `/api/upload-package-asset/${encodeURIComponent(folder.name)}/subtitles/${encodeURIComponent(srtFile)}`
+                  : null,
+              };
+            });
+          }
+        } catch {}
+
         // status.json이 있으면 예약/공개 상태를 반영한다 — 없으면 "패키지만 준비됨" 기본값.
         // 예약 시각이 지난 건에 한해 실제 유튜브 상태로 자동 동기화한다(2026-09-05 추가,
         // syncUploadPackageStatusFromYouTube 참고 — 그 전엔 예약 시각이 지나도 계속 "예약됨"으로
         // 멈춰 있는 진짜 버그였다).
         let statusData = await loadJson(join(pkgPath, 'status.json')) || {};
-        statusData = await syncUploadPackageStatusFromYouTube(pkgPath, statusData, title);
+        statusData = await syncUploadPackageStatusFromYouTube(pkgPath, statusData, title, titleVariants);
         let statusLabel = '패키징 완료';
         if (statusData.status === 'scheduled' && statusData.scheduledFor) {
           const d = new Date(statusData.scheduledFor);
@@ -1206,12 +1254,14 @@ const getEpisodesSummary = async (forceReload = false) => {
               classification: null,
               youtube: {
                 title,
+                titleVariants,
                 description,
                 timeline: timelineRaw || '',
                 tags: tagsRaw ? tagsRaw.split(',').map((s) => s.trim()).filter(Boolean) : [],
                 pinnedComment,
                 thumbnailText: [],
                 thumbnailCandidates,
+                multilingualVariants,
                 videoAssetUrl,
                 videoId: statusData.videoId || null,
                 url: statusData.videoId ? `https://youtu.be/${statusData.videoId}` : null,
@@ -4544,6 +4594,55 @@ function openEpisodeInspectorModal(epData) {
           '</div>' +
           '<div style="font-weight:700;font-size:15px;color:var(--text-bright)">' + esc(yt.title || '') + '</div>' +
         '</div>' +
+
+        ((yt.titleVariants && yt.titleVariants.length > 0) ?
+          '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+              '<span class="card-title">🔤 제목 A/B 테스트 후보 (' + yt.titleVariants.length + '종)</span>' +
+              '<span style="font-size:11px;color:var(--text-muted)">Studio "제목 및 썸네일 테스트"에 등록</span>' +
+            '</div>' +
+            '<div style="display:flex;flex-direction:column;gap:8px">' +
+              yt.titleVariants.map((v) =>
+                '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:rgba(15,20,30,0.6);border-radius:8px;border:1px solid var(--border-subtle)">' +
+                  '<div>' +
+                    '<span style="font-size:11px;color:var(--accent-amber);font-weight:800;display:block;margin-bottom:2px">[' + esc(v.id) + ']' + (v.note ? ' ' + esc(v.note) : '') + '</span>' +
+                    '<span style="font-size:13px;color:var(--text-normal)">' + esc(v.title) + '</span>' +
+                  '</div>' +
+                  '<button class="btn btn-sm btn-copy-text" data-text="' + encodeURIComponent(v.title) + '">복사</button>' +
+                '</div>'
+              ).join('') +
+            '</div>' +
+          '</div>' : '') +
+
+        ((yt.multilingualVariants && yt.multilingualVariants.length > 0) ?
+          '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+              '<span class="card-title">🌍 다국어 자막 & 번역 메타데이터 (' + yt.multilingualVariants.length + '개 언어)</span>' +
+              '<span style="font-size:11px;color:var(--text-muted)">Studio [자막] 메뉴에 언어별 등록</span>' +
+            '</div>' +
+            '<div style="display:flex;flex-direction:column;gap:10px">' +
+              yt.multilingualVariants.map((v) => {
+                const flag = {ko: '🇰🇷', en: '🇺🇸', ja: '🇯🇵', es: '🇪🇸', vi: '🇻🇳', 'zh-cn': '🇨🇳', 'zh-tw': '🇹🇼'}[v.code] || '🌐';
+                return '<div style="padding:12px;background:rgba(15,20,30,0.6);border-radius:8px;border:1px solid var(--border-subtle)">' +
+                  '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">' +
+                    '<span style="font-size:12px;color:var(--accent-amber);font-weight:800">' + flag + ' ' + esc(v.lang) + '</span>' +
+                    (v.srtUrl ? '<a class="btn btn-sm" href="' + esc(v.srtUrl) + '" download style="text-decoration:none">⬇ .srt 다운로드</a>' : '<span style="font-size:11px;color:var(--text-muted)">.srt 없음</span>') +
+                  '</div>' +
+                  '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">' +
+                    '<span style="font-size:13px;font-weight:700;color:var(--text-bright)">' + esc(v.title) + '</span>' +
+                    '<button class="btn btn-sm btn-copy-text" data-text="' + encodeURIComponent(v.title) + '" style="flex-shrink:0">제목 복사</button>' +
+                  '</div>' +
+                  '<details>' +
+                    '<summary style="cursor:pointer;font-size:11px;color:var(--text-muted)">설명문 보기</summary>' +
+                    '<div style="display:flex;justify-content:flex-end;margin:6px 0">' +
+                      '<button class="btn btn-sm btn-copy-text" data-text="' + encodeURIComponent(v.desc) + '">설명문 복사</button>' +
+                    '</div>' +
+                    '<pre style="white-space:pre-wrap;font-family:inherit;font-size:12px;line-height:1.5;color:var(--text-muted);max-height:200px;overflow-y:auto;margin:0">' + esc(v.desc) + '</pre>' +
+                  '</details>' +
+                '</div>';
+              }).join('') +
+            '</div>' +
+          '</div>' : '') +
 
         '<div style="background:#080d16;padding:14px;border-radius:12px;border:1px solid var(--border-subtle)">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">' +
@@ -7998,16 +8097,21 @@ const server = createServer(async (req, res) => {
       // 서빙하기 위한 라우트(2026-09-04 추가). 폴더명·파일명 둘 다 사용자 입력이 아니라 서버가
       // readdir로 찾은 실제 파일명만 URL로 내보내지만, 공개 라우트인 만큼 경로 이탈은 방어적으로
       // 한 번 더 막는다 — 폴더명은 output/upload-packages 바로 아래 한 단계로 고정.
+      // 폴더명 다음에 오는 나머지 구간은 전부 파일 경로로 합친다(2026-09-18 확장) —
+      // subtitles/subtitles-en.srt처럼 패키지 안에 한 단계 하위 폴더(예: 다국어 자막)가
+      // 생기면서 기존의 "정확히 2구간(폴더/파일)만 허용" 제약이 막아버려서 넓힘. 각 구간마다
+      // '..'·'\\' 금지는 그대로 유지해 경로 이탈을 막는다.
       const rest = decodeURIComponent(url.pathname.slice('/api/upload-package-asset/'.length));
       const parts = rest.split('/');
-      if (parts.length !== 2 || parts.some((p) => !p || p.includes('..') || p.includes('\\'))) {
+      if (parts.length < 2 || parts.some((p) => !p || p.includes('..') || p.includes('\\'))) {
         return json(res, 400, {error: '잘못된 경로입니다.'});
       }
-      const [pkgFolder, filename] = parts;
-      const filePath = join(projectDir, 'output', 'upload-packages', pkgFolder, filename);
+      const [pkgFolder, ...fileParts] = parts;
+      const filename = fileParts.join('/');
+      const filePath = join(projectDir, 'output', 'upload-packages', pkgFolder, ...fileParts);
       if (!existsSync(filePath)) return json(res, 404, {error: '파일을 찾지 못했습니다.'});
       const ext = filename.split('.').pop().toLowerCase();
-      const contentType = {jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', mp4: 'video/mp4', html: 'text/html; charset=utf-8'}[ext] || 'application/octet-stream';
+      const contentType = {jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', mp4: 'video/mp4', html: 'text/html; charset=utf-8', srt: 'application/x-subrip; charset=utf-8'}[ext] || 'application/octet-stream';
       const data = await readFile(filePath);
       res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
       res.end(data);

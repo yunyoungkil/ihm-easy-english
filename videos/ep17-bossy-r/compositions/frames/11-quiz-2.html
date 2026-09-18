@@ -217,7 +217,7 @@
 
   // --- Q1: dark (4.32s ~ 10.4s) ---
   tl.call(function () {
-    wordEl.innerHTML = 'd<span style="color:#8A5A12; text-decoration:underline;">ar</span>k';
+    wordEl.textContent = "dark";
     meaningEl.textContent = "어두운 🌙";
     stamp.textContent = "🎯 1번 AR 정답!";
     stamp.style.borderColor = "#8A5A12";
@@ -230,12 +230,15 @@
 
   // Reveal Answer Q1 at 7.5s ("턱을 내리는 AR 소리죠")
   tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 7.5);
-  tl.call(function () { highlightSlot(0); }, null, 7.5);
+  tl.call(function () {
+    wordEl.innerHTML = 'd<span style="color:#8A5A12; text-decoration:underline;">ar</span>k';
+    highlightSlot(0);
+  }, null, 7.5);
 
   // --- Q2: fork (10.5s ~ 17.9s) ---
   tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.2 }, 10.2);
   tl.call(function () {
-    wordEl.innerHTML = 'f<span style="color:#963E00; text-decoration:underline;">or</span>k';
+    wordEl.textContent = "fork";
     meaningEl.textContent = "포크 🍴";
     stamp.textContent = "🎯 2번 OR 정답!";
     stamp.style.borderColor = "#963E00";
@@ -248,12 +251,15 @@
 
   // Reveal Answer Q2 at 14.0s ("입술을 모으는 OR 소리입니다")
   tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 14.0);
-  tl.call(function () { highlightSlot(1); }, null, 14.0);
+  tl.call(function () {
+    wordEl.innerHTML = 'f<span style="color:#963E00; text-decoration:underline;">or</span>k';
+    highlightSlot(1);
+  }, null, 14.0);
 
   // --- Q3: first (18.0s ~ 27.28s) ---
   tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.2 }, 17.6);
   tl.call(function () {
-    wordEl.innerHTML = 'f<span style="color:#165069; text-decoration:underline;">ir</span>st';
+    wordEl.textContent = "first";
     meaningEl.textContent = "첫 번째 🥇";
     stamp.textContent = "🎯 3번 IR 정답!";
     stamp.style.borderColor = "#165069";
@@ -266,17 +272,23 @@
 
   // Reveal Answer Q3 at 21.0s ("힘을 뺀 IR 소리입니다. 망설임 없이 바로 맞추셨다면 성공입니다!")
   tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 21.0);
-  tl.call(function () { highlightSlot(2); }, null, 21.0);
+  tl.call(function () {
+    wordEl.innerHTML = 'f<span style="color:#165069; text-decoration:underline;">ir</span>st';
+    highlightSlot(2);
+  }, null, 21.0);
 
   // 100% Narration-coverage caption-pill
   var captionZone = document.getElementById("f11-caption-zone");
   var captionText = document.getElementById("f11-caption-text");
   var CAPTIONS = [
     { at: 0.4, text: "이번엔 조금 더 빠른 속도로 2라운드에 도전해 볼까요?" },
-    { at: 4.32, text: "dark! 턱을 내리는 AR 소리죠." },
-    { at: 10.5, text: "fork! 입술을 모으는 OR 소리입니다." },
-    { at: 18.0, text: "first! 힘을 뺀 IR 소리입니다." },
-    { at: 22.0, text: "망설임 없이 바로 맞추셨다면 성공입니다!" }
+    { at: 4.32, text: "dark!" },
+    { at: 7.5, text: "턱을 내리는 AR 소리죠." },
+    { at: 10.5, text: "fork!" },
+    { at: 14.0, text: "입술을 모으는 OR 소리입니다." },
+    { at: 18.0, text: "first!" },
+    { at: 21.0, text: "힘을 뺀 IR 소리입니다." },
+    { at: 23.0, text: "망설임 없이 바로 맞추셨다면 성공입니다!" }
   ];
 
   tl.set(captionZone, { opacity: 0 }, 0);

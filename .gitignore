@@ -59,6 +59,7 @@ data/youtube/*.png
 videos/*/.hyperframes/
 videos/*/.thumbnails/
 videos/*/.waveform-cache/
+videos/*/.whisper-scratch/
 videos/*/.media/
 
 # A/B 시뮬레이터 AI 생성 썸네일 — output/temp-thumbnails/에 파일로 저장됨(localStorage

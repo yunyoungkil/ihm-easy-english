@@ -1,0 +1,132 @@
+<template>
+<style>
+  /* 02-intro — Frame 2 "채널 인트로 (Intro)".
+     Actual audio duration: 10.96s.
+     - 0.51s ~ 4.52s: 안녕하세요, 「이해하면 쉬운영어」입니다.
+     - 4.68s ~ 10.96s: 오늘은 외우지 않고 몸으로 이해하는 소리 없는 철자의 비밀을 공개합니다.
+     - Center reveal -> moves up via transform (y: -340)
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #1E2022; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f02-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(30,32,34,0.08); }
+  .f02-progress-fill { position: absolute; left: 0; top: 0; width: 6.8%; height: 4px; background: #F5C518; }
+
+  /* Center Brand Wordmark Stage */
+  .f02-brand-stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.2cqh; z-index: 10;
+  }
+  .f02-wordmark-box {
+    background: #FFFFFF; border: 4px solid #1E2022; border-radius: 28px;
+    box-shadow: 6px 6px 0px #1E2022; padding: 2.5cqh 4cqw;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(0.85);
+  }
+  .f02-brand-white {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 4.8cqw; font-weight: 900;
+    color: #1E2022; letter-spacing: -1px;
+  }
+  .f02-brand-yellow {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 4.8cqw; font-weight: 900;
+    color: #1E2022; background: #F5C518; padding: 0.2cqh 1.2cqw;
+    border-radius: 14px; border: 3px solid #1E2022; box-shadow: 3px 3px 0px #1E2022;
+    margin-left: 0.6cqw; letter-spacing: -1px;
+  }
+
+  /* Sub Topic Banner */
+  .f02-topic-banner {
+    background: #FAF7F2; border: 3px solid #1E2022; border-radius: 16px;
+    box-shadow: 4px 4px 0px #1E2022; padding: 1.2cqh 2.8cqw;
+    display: flex; align-items: center; gap: 1cqw; opacity: 0; transform: translateY(16px);
+  }
+  .f02-topic-icon { font-size: 1.8cqw; }
+  .f02-topic-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.8cqw; font-weight: 900;
+    color: #1E2022; letter-spacing: -0.4px;
+  }
+
+  /* Smart Caption Pill */
+  .caption-pill {
+    position: absolute; left: 50%; bottom: 5cqh; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #1E2022; border-radius: 100px;
+    box-shadow: 3px 3px 0px #1E2022; padding: 1cqh 2.4cqw;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 700; color: #1E2022;
+    letter-spacing: -0.4px; z-index: 20; opacity: 0;
+    white-space: nowrap; max-width: 88cqw;
+  }
+</style>
+
+<div data-hf-id="hf-yakk" id="root" data-composition-id="02-intro" data-width="1920" data-height="1080" data-start="0" data-duration="10.96">
+  <div data-hf-id="hf-ttim" class="f02-progress-track">
+    <div data-hf-id="hf-upan" class="f02-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Brand Wordmark -->
+  <div data-hf-id="hf-5s28" class="f02-brand-stage" id="brandStage">
+    <div data-hf-id="hf-c3sf" class="f02-wordmark-box" id="wordmark">
+      <span data-hf-id="hf-zgyf" class="f02-brand-white">이해하면 </span>
+      <span data-hf-id="hf-doz5" class="f02-brand-yellow">쉬운영어</span>
+    </div>
+    <div data-hf-id="hf-bvx6" class="f02-topic-banner" id="topicBanner">
+      <span data-hf-id="hf-1fk4" class="f02-topic-icon">👄</span>
+      <span data-hf-id="hf-2jxw" class="f02-topic-text">혀가 편해지는 묵음 자음 공식</span>
+    </div>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-5gte" id="v02" src="assets/voice/02.wav" data-audio-group="voiceover" data-start="0" data-duration="10.96"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1, scale: 1 });
+    }
+
+    // Progress Bar (6.8% -> 9.8%)
+    tl.to("#pfill", { width: "9.8%", duration: 10.96, ease: "none" }, 0);
+
+    // 0.0s ~ 4.52s: Center Wordmark In & Pulsing Glow
+    tl.to("#wordmark", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 0.2);
+    tl.call(function () { setCaption("안녕하세요, 「이해하면 쉬운영어」입니다."); }, null, 0.51);
+
+    // 4.68s ~ 10.96s: Topic Banner Reveal and Stage Morphing
+    tl.call(function () { setCaption("오늘은 외우지 않고 몸으로 이해하는 소리 없는 철자의 비밀을 공개합니다."); }, null, 4.68);
+    tl.to("#topicBanner", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.8);
+
+    // 6.5s: Wordmark shrinks slightly and stays prominent
+    tl.to("#brandStage", { y: -30, scale: 0.96, duration: 0.8, ease: "power2.out" }, 6.5);
+
+    // End Fade
+    tl.to("#brandStage", { opacity: 0, duration: 0.3 }, 10.66);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-intro"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -210,6 +210,23 @@ EP12에서 검증된 뒤로 **새 영상(EP13부터)에도 기본으로 적용�
   `output/upload-packages/<project>-longform/video.mp4`로 복사하는 2단계로 한다(EP11~13은
   전부 이 방식이었는데 EP14에서 처음 건너뛰어 사용자가 지적한 뒤 정정함). 상세:
   `knowledge/production-rules.md`의 "출력 폴더" 절.
+- **GSAP로 애니메이션하는 요소에는 CSS `transition`을 같이 걸지 말 것**(2026-09-18 확정,
+  EP17 Frame 6·7·8 사례) — HyperFrames는 "단일 paused 타임라인을 seek해서 렌더링"하는
+  게 핵심 전제인데, 같은 속성(예: opacity/transform)에 CSS `transition`이 남아있으면
+  GSAP가 seek 시 즉시 계산해 넣은 최종값을 그 트랜지션이 다시 가로채 "직전 DOM 상태 →
+  새 값"으로 실제 시간(wall-clock) 기준 0.2초짜리 트랜지션을 새로 시작해버린다 — 그 결과
+  화면을 정확히 언제 캡처/렌더하느냐에 따라 요소가 보이거나 안 보이거나 하는, 영상
+  타임라인과 무관한 비결정성 버그가 생긴다(EP17에서 5개 단어 카드가 t=10s·20s엔 안
+  보이고 t=17s에만 보이는 식으로 나타남 — 실제 렌더 파이프라인이 프레임마다 seek하는
+  방식이라 최종 영상에도 영향 줬을 수 있음). 새 프레임 작성 후
+  `grep -n "transition:" compositions/frames/*.html`로 GSAP 대상 요소에 CSS transition이
+  남아있지 않은지 훑어볼 것.
+- **영문 알파벳 일부를 색깔 `<span>`으로 강조할 때, span이 "f"로 끝나는 글자 바로 뒤에서
+  시작하면("fi", "fl" 등 리게이처 조합) 브라우저가 리게이처 글리프를 span 경계 너머로
+  합성해 전체를 span 밖(앞쪽) 색으로 칠해버릴 수 있다**(2026-09-18 확정, EP17 Frame 11
+  "first" 사례 — `f<span style="color:...">ir</span>st`로 "ir"을 묶었는데 실제로는 "i"까지
+  검정으로 나옴, 픽셀 직접 샘플링으로 확인). 이런 단어 강조 텍스트 요소에는 기본적으로
+  `font-variant-ligatures: none`을 걸어 리게이처 자체를 꺼둘 것.
 
 **⚠️ `lt-neon-border`는 지금 설치가 안 된다 — 우리 프로젝트가 아니라 카탈로그 데이터 자체의
 버그다.** `hyperframes add lt-neon-border`를 실행하면 CLI 버전(0.8.27~0.8.29 확인)과 무관하게

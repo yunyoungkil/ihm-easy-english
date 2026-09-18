@@ -1,0 +1,291 @@
+<template>
+<style>
+  /* 11-quiz-2 — Frame 11 "실전 훈련 1-2 (3초 퀴즈 2라운드 스피드)".
+     Actual audio duration: 27.28s.
+     - 0.0s ~ 4.32s: "이번엔 조금 더 빠른 속도로 2라운드에 도전해 볼까요?"
+     - 4.32s ~ 10.4s: Q1 "dark" (빠른 카운트다운 ➔ 1번 AR 도장 쾅!)
+     - 10.5s ~ 17.9s: Q2 "fork" (빠른 카운트다운 ➔ 2번 OR 도장 쾅!)
+     - 18.0s ~ 27.28s: Q3 "first" (빠른 카운트다운 ➔ 3번 IR 도장 쾅! "성공입니다!")
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f11-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f11-progress-fill { position: absolute; left: 0; top: 0; width: 66.66%; height: 4px; background: #F5A623; }
+
+  /* Top 3 Mini Slots */
+  .f11-slots-row {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 2cqw; z-index: 10;
+  }
+  .f11-mini-slot {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 14px;
+    box-shadow: 3px 3px 0px #2B2B2B; padding: 1cqh 2cqw; display: flex;
+    align-items: center; gap: 0.8cqw; opacity: 0.9;
+  }
+  .f11-slot-num {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.1cqw; color: #FFFFFF;
+    background: #2B2B2B; border-radius: 50%; width: 2cqw; height: 2cqw;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f11-slot-title {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.3cqw;
+  }
+  .f11-s1 { border-color: #8A5A12; } .f11-s1 .f11-slot-title { color: #8A5A12; }
+  .f11-s2 { border-color: #963E00; } .f11-s2 .f11-slot-title { color: #963E00; }
+  .f11-s3 { border-color: #165069; } .f11-s3 .f11-slot-title { color: #165069; }
+
+  .f11-mini-slot.active {
+    transform: scale(1.1); box-shadow: 0 0 0 4px #F5A623, 4px 4px 0px #2B2B2B;
+    opacity: 1;
+  }
+
+  /* Center Quiz Card */
+  .f11-quiz-center {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh; z-index: 5;
+  }
+  .f11-round-tag {
+    background: #FF4757; color: #FFFFFF; font-size: 1.2cqw; font-weight: 900;
+    padding: 0.5cqh 1.5cqw; border-radius: 100px; border: 2px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .f11-card {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B; padding: 4cqh 6cqw; min-width: 44cqw;
+    display: flex; flex-direction: column; align-items: center; gap: 1.8cqh;
+    opacity: 0; transform: scale(0.92);
+  }
+  .f11-quiz-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1; color: #2B2B2B;
+  }
+  .f11-quiz-meaning {
+    font-size: 1.5cqw; font-weight: 900; color: #7A7365;
+  }
+
+  /* Gauge */
+  .f11-gauge-box {
+    width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.8cqh;
+  }
+  .f11-gauge-label {
+    font-size: 1.1cqw; font-weight: 900; color: #524C40;
+  }
+  .f11-gauge-track {
+    width: 24cqw; height: 10px; background: rgba(43,43,43,0.1); border-radius: 100px;
+    border: 1.5px solid #2B2B2B; overflow: hidden;
+  }
+  .f11-gauge-fill {
+    width: 100%; height: 100%; background: #FF4757; transform-origin: left center;
+  }
+
+  /* Stamp */
+  .f11-answer-stamp {
+    position: absolute; right: -4cqw; top: -2cqh;
+    background: #FFF5F5; border: 3px solid #FA5252; border-radius: 16px;
+    box-shadow: 4px 4px 0px #FA5252; padding: 1.2cqh 2cqw;
+    font-size: 1.6cqw; font-weight: 900; color: #C92A2A;
+    opacity: 0; transform: rotate(8deg) scale(0);
+  }
+
+  /* Caption pill */
+  .f11-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f11-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f11-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-11-root" id="root" data-composition-id="11-quiz-2" data-start="0" data-duration="27.28" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-11-bg" id="f11-bg" class="clip" data-start="0" data-duration="27.28" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-11-voice" id="f11-voice" src="assets/voice/11.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-11-track" class="f11-progress-track"></div>
+  <div data-hf-id="hf-11-fill" id="f11-progress-fill" class="f11-progress-fill"></div>
+
+  <div data-hf-id="hf-11-content" id="f11-content" class="clip" data-start="0" data-duration="27.28" data-track-index="1">
+    
+    <!-- Top 3 Mini Slots -->
+    <div data-hf-id="hf-11-slots" class="f11-slots-row">
+      <div id="f11-s1" class="f11-mini-slot f11-s1">
+        <span class="f11-slot-num">1</span>
+        <span class="f11-slot-title">AR [아~]</span>
+      </div>
+      <div id="f11-s2" class="f11-mini-slot f11-s2">
+        <span class="f11-slot-num">2</span>
+        <span class="f11-slot-title">OR [오~]</span>
+      </div>
+      <div id="f11-s3" class="f11-mini-slot f11-s3">
+        <span class="f11-slot-num">3</span>
+        <span class="f11-slot-title">ER·IR·UR [어~]</span>
+      </div>
+    </div>
+
+    <!-- Center Quiz Card -->
+    <div data-hf-id="hf-11-center" class="f11-quiz-center">
+      <div id="f11-tag" class="f11-round-tag">⚡ 2라운드 스피드 퀴즈</div>
+
+      <div data-hf-id="hf-11-card" id="f11-card" class="f11-card">
+        <div id="f11-stamp" class="f11-answer-stamp">🎯 1번 AR 정답!</div>
+
+        <div id="f11-word" class="f11-quiz-word">dark</div>
+        <div id="f11-meaning" class="f11-quiz-meaning">어두운 🌙</div>
+
+        <div id="f11-gauge" class="f11-gauge-box">
+          <div class="f11-gauge-label">망설임 없이 소리 내보세요!</div>
+          <div class="f11-gauge-track">
+            <div id="f11-gauge-fill" class="f11-gauge-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-11-capzone" id="f11-caption-zone" class="f11-caption-zone">
+    <div class="f11-caption-pill">
+      <div id="f11-caption-text" class="f11-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["11-quiz-2"] = tl;
+
+  var fill = document.getElementById("f11-progress-fill");
+  var card = document.getElementById("f11-card");
+  var wordEl = document.getElementById("f11-word");
+  var meaningEl = document.getElementById("f11-meaning");
+  var stamp = document.getElementById("f11-stamp");
+  var gaugeFill = document.getElementById("f11-gauge-fill");
+
+  var s1 = document.getElementById("f11-s1");
+  var s2 = document.getElementById("f11-s2");
+  var s3 = document.getElementById("f11-s3");
+  var slots = [s1, s2, s3];
+
+  // Baselines for repeated elements
+  tl.set(gaugeFill, { scaleX: 1 }, 0);
+  tl.set(stamp, { opacity: 0, scale: 0 }, 0);
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "66.66%" }, { width: "73.33%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  function highlightSlot(idx) {
+    slots.forEach(function (slot, i) {
+      if (i === idx) slot.classList.add("active");
+      else slot.classList.remove("active");
+    });
+  }
+
+  // --- Q1: dark (4.32s ~ 10.4s) ---
+  tl.call(function () {
+    wordEl.innerHTML = 'd<span style="color:#8A5A12; text-decoration:underline;">ar</span>k';
+    meaningEl.textContent = "어두운 🌙";
+    stamp.textContent = "🎯 1번 AR 정답!";
+    stamp.style.borderColor = "#8A5A12";
+    stamp.style.color = "#8A5A12";
+    highlightSlot(-1);
+  }, null, 4.32);
+
+  tl.fromTo(card, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 4.32);
+  tl.fromTo(gaugeFill, { scaleX: 1 }, { scaleX: 0, duration: 2.5, ease: "none", immediateRender: false }, 4.9);
+
+  // Reveal Answer Q1 at 7.5s ("턱을 내리는 AR 소리죠")
+  tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 7.5);
+  tl.call(function () { highlightSlot(0); }, null, 7.5);
+
+  // --- Q2: fork (10.5s ~ 17.9s) ---
+  tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.2 }, 10.2);
+  tl.call(function () {
+    wordEl.innerHTML = 'f<span style="color:#963E00; text-decoration:underline;">or</span>k';
+    meaningEl.textContent = "포크 🍴";
+    stamp.textContent = "🎯 2번 OR 정답!";
+    stamp.style.borderColor = "#963E00";
+    stamp.style.color = "#963E00";
+    highlightSlot(-1);
+  }, null, 10.5);
+
+  tl.to(card, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 10.5);
+  tl.fromTo(gaugeFill, { scaleX: 1 }, { scaleX: 0, duration: 2.5, ease: "none", immediateRender: false }, 11.2);
+
+  // Reveal Answer Q2 at 14.0s ("입술을 모으는 OR 소리입니다")
+  tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 14.0);
+  tl.call(function () { highlightSlot(1); }, null, 14.0);
+
+  // --- Q3: first (18.0s ~ 27.28s) ---
+  tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.2 }, 17.6);
+  tl.call(function () {
+    wordEl.innerHTML = 'f<span style="color:#165069; text-decoration:underline;">ir</span>st';
+    meaningEl.textContent = "첫 번째 🥇";
+    stamp.textContent = "🎯 3번 IR 정답!";
+    stamp.style.borderColor = "#165069";
+    stamp.style.color = "#165069";
+    highlightSlot(-1);
+  }, null, 18.0);
+
+  tl.to(card, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 18.0);
+  tl.fromTo(gaugeFill, { scaleX: 1 }, { scaleX: 0, duration: 2.5, ease: "none", immediateRender: false }, 18.6);
+
+  // Reveal Answer Q3 at 21.0s ("힘을 뺀 IR 소리입니다. 망설임 없이 바로 맞추셨다면 성공입니다!")
+  tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 21.0);
+  tl.call(function () { highlightSlot(2); }, null, 21.0);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f11-caption-zone");
+  var captionText = document.getElementById("f11-caption-text");
+  var CAPTIONS = [
+    { at: 0.4, text: "이번엔 조금 더 빠른 속도로 2라운드에 도전해 볼까요?" },
+    { at: 4.32, text: "dark! 턱을 내리는 AR 소리죠." },
+    { at: 10.5, text: "fork! 입술을 모으는 OR 소리입니다." },
+    { at: 18.0, text: "first! 힘을 뺀 IR 소리입니다." },
+    { at: 22.0, text: "망설임 없이 바로 맞추셨다면 성공입니다!" }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 26.8);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("11-quiz-2");
+})();
+</script>
+</template>

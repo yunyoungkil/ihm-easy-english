@@ -1,0 +1,295 @@
+<template>
+<style>
+  /* 10-quiz-1 — Frame 10 "실전 훈련 1-1 (3초 퀴즈 1라운드)".
+     Actual audio duration: 36.02s.
+     - 0.0s ~ 8.16s: Intro to 3-second quiz
+     - 8.16s ~ 16.5s: Q1 "smart" (3s countdown -> 1번 서랍 AR 골인)
+     - 17.0s ~ 26.5s: Q2 "short" (3s countdown -> 2번 서랍 OR 골인)
+     - 27.0s ~ 36.02s: Q3 "turn" (3s countdown -> 3번 서랍 ER/IR/UR 골인)
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f10-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f10-progress-fill { position: absolute; left: 0; top: 0; width: 60.0%; height: 4px; background: #F5A623; }
+
+  /* Top 3 Mini Drawers Slots */
+  .f10-slots-row {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 2cqw; z-index: 10;
+  }
+  .f10-mini-slot {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 14px;
+    box-shadow: 3px 3px 0px #2B2B2B; padding: 1cqh 2cqw; display: flex;
+    align-items: center; gap: 0.8cqw; opacity: 0.9;
+  }
+  .f10-slot-num {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.1cqw; color: #FFFFFF;
+    background: #2B2B2B; border-radius: 50%; width: 2cqw; height: 2cqw;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f10-slot-title {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.3cqw;
+  }
+  .f10-s1 { border-color: #8A5A12; } .f10-s1 .f10-slot-title { color: #8A5A12; }
+  .f10-s2 { border-color: #963E00; } .f10-s2 .f10-slot-title { color: #963E00; }
+  .f10-s3 { border-color: #165069; } .f10-s3 .f10-slot-title { color: #165069; }
+
+  /* Active highlight on slot */
+  .f10-mini-slot.active {
+    transform: scale(1.1); box-shadow: 0 0 0 4px #F5A623, 4px 4px 0px #2B2B2B;
+    opacity: 1;
+  }
+
+  /* Center Quiz Card */
+  .f10-quiz-center {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh; z-index: 5;
+  }
+  .f10-round-tag {
+    background: #2B2B2B; color: #F5C518; font-size: 1.2cqw; font-weight: 900;
+    padding: 0.5cqh 1.5cqw; border-radius: 100px;
+  }
+  .f10-card {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B; padding: 4cqh 6cqw; min-width: 44cqw;
+    display: flex; flex-direction: column; align-items: center; gap: 1.8cqh;
+    opacity: 0; transform: scale(0.92);
+  }
+  .f10-quiz-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1; color: #2B2B2B;
+  }
+  .f10-quiz-meaning {
+    font-size: 1.5cqw; font-weight: 900; color: #7A7365;
+  }
+
+  /* 3s Countdown Gauge */
+  .f10-gauge-box {
+    width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.8cqh;
+  }
+  .f10-gauge-label {
+    font-size: 1.1cqw; font-weight: 900; color: #524C40;
+  }
+  .f10-gauge-track {
+    width: 24cqw; height: 10px; background: rgba(43,43,43,0.1); border-radius: 100px;
+    border: 1.5px solid #2B2B2B; overflow: hidden;
+  }
+  .f10-gauge-fill {
+    width: 100%; height: 100%; background: #F5A623; transform-origin: left center;
+  }
+
+  /* Answer Stamp */
+  .f10-answer-stamp {
+    position: absolute; right: -4cqw; top: -2cqh;
+    background: #FFF5F5; border: 3px solid #FA5252; border-radius: 16px;
+    box-shadow: 4px 4px 0px #FA5252; padding: 1.2cqh 2cqw;
+    font-size: 1.6cqw; font-weight: 900; color: #C92A2A;
+    opacity: 0; transform: rotate(8deg) scale(0);
+  }
+
+  /* Caption pill */
+  .f10-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f10-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f10-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-10-root" id="root" data-composition-id="10-quiz-1" data-start="0" data-duration="36.02" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-10-bg" id="f10-bg" class="clip" data-start="0" data-duration="36.02" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-10-voice" id="f10-voice" src="assets/voice/10.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-10-track" class="f10-progress-track"></div>
+  <div data-hf-id="hf-10-fill" id="f10-progress-fill" class="f10-progress-fill"></div>
+
+  <div data-hf-id="hf-10-content" id="f10-content" class="clip" data-start="0" data-duration="36.02" data-track-index="1">
+    
+    <!-- Top 3 Mini Slots -->
+    <div data-hf-id="hf-10-slots" class="f10-slots-row">
+      <div id="f10-s1" class="f10-mini-slot f10-s1">
+        <span class="f10-slot-num">1</span>
+        <span class="f10-slot-title">AR [아~]</span>
+      </div>
+      <div id="f10-s2" class="f10-mini-slot f10-s2">
+        <span class="f10-slot-num">2</span>
+        <span class="f10-slot-title">OR [오~]</span>
+      </div>
+      <div id="f10-s3" class="f10-mini-slot f10-s3">
+        <span class="f10-slot-num">3</span>
+        <span class="f10-slot-title">ER·IR·UR [어~]</span>
+      </div>
+    </div>
+
+    <!-- Center Quiz Card -->
+    <div data-hf-id="hf-10-center" class="f10-quiz-center">
+      <div id="f10-tag" class="f10-round-tag">⏱️ 3초 퀴즈 · 1라운드</div>
+
+      <div data-hf-id="hf-10-card" id="f10-card" class="f10-card">
+        <div id="f10-stamp" class="f10-answer-stamp">🎯 1번 AR 정답!</div>
+
+        <div id="f10-word" class="f10-quiz-word">smart</div>
+        <div id="f10-meaning" class="f10-quiz-meaning">똑똑한 🧠</div>
+
+        <!-- 3s Countdown Gauge -->
+        <div id="f10-gauge" class="f10-gauge-box">
+          <div class="f10-gauge-label">3초 안에 몇 번 서랍인지 소리 내보세요!</div>
+          <div class="f10-gauge-track">
+            <div id="f10-gauge-fill" class="f10-gauge-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-10-capzone" id="f10-caption-zone" class="f10-caption-zone">
+    <div class="f10-caption-pill">
+      <div id="f10-caption-text" class="f10-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["10-quiz-1"] = tl;
+
+  var fill = document.getElementById("f10-progress-fill");
+  var card = document.getElementById("f10-card");
+  var wordEl = document.getElementById("f10-word");
+  var meaningEl = document.getElementById("f10-meaning");
+  var stamp = document.getElementById("f10-stamp");
+  var gaugeFill = document.getElementById("f10-gauge-fill");
+
+  var s1 = document.getElementById("f10-s1");
+  var s2 = document.getElementById("f10-s2");
+  var s3 = document.getElementById("f10-s3");
+  var slots = [s1, s2, s3];
+
+  // Baselines for repeated elements
+  tl.set(gaugeFill, { scaleX: 1 }, 0);
+  tl.set(stamp, { opacity: 0, scale: 0 }, 0);
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "60.0%" }, { width: "66.66%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  function highlightSlot(idx) {
+    slots.forEach(function (slot, i) {
+      if (i === idx) slot.classList.add("active");
+      else slot.classList.remove("active");
+    });
+  }
+
+  // --- Q1: smart (8.16s ~ 16.5s) ---
+  tl.call(function () {
+    wordEl.innerHTML = 'sm<span style="color:#8A5A12; text-decoration:underline;">ar</span>t';
+    meaningEl.textContent = "똑똑한 🧠";
+    stamp.textContent = "🎯 1번 AR 정답!";
+    stamp.style.borderColor = "#8A5A12";
+    stamp.style.color = "#8A5A12";
+    highlightSlot(-1);
+  }, null, 8.16);
+
+  tl.fromTo(card, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 8.16);
+  // 3-second countdown gauge (10.2s ~ 13.2s)
+  tl.fromTo(gaugeFill, { scaleX: 1 }, { scaleX: 0, duration: 3.0, ease: "none", immediateRender: false }, 10.2);
+
+  // Reveal Answer Q1 at 13.24s ("턱을 내리는 1번 AR 소리죠")
+  tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 13.24);
+  tl.call(function () { highlightSlot(0); }, null, 13.24);
+
+  // --- Q2: short (17.0s ~ 26.5s) ---
+  tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.25 }, 16.7);
+  tl.call(function () {
+    wordEl.innerHTML = 'sh<span style="color:#963E00; text-decoration:underline;">or</span>t';
+    meaningEl.textContent = "짧은 📏";
+    stamp.textContent = "🎯 2번 OR 정답!";
+    stamp.style.borderColor = "#963E00";
+    stamp.style.color = "#963E00";
+    highlightSlot(-1);
+  }, null, 17.0);
+
+  tl.to(card, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 17.0);
+  // 3-second countdown gauge (18.2s ~ 21.2s)
+  tl.fromTo(gaugeFill, { scaleX: 1 }, { scaleX: 0, duration: 3.0, ease: "none", immediateRender: false }, 18.2);
+
+  // Reveal Answer Q2 at 21.2s ("입술을 모으는 2번 OR 소리입니다")
+  tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 21.2);
+  tl.call(function () { highlightSlot(1); }, null, 21.2);
+
+  // --- Q3: turn (27.0s ~ 36.02s) ---
+  tl.to([card, stamp], { opacity: 0, scale: 0.9, duration: 0.25 }, 26.7);
+  tl.call(function () {
+    wordEl.innerHTML = 't<span style="color:#165069; text-decoration:underline;">ur</span>n';
+    meaningEl.textContent = "돌다/차례 🔄";
+    stamp.textContent = "🎯 3번 소리 정답!";
+    stamp.style.borderColor = "#165069";
+    stamp.style.color = "#165069";
+    highlightSlot(-1);
+  }, null, 27.0);
+
+  tl.to(card, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 27.0);
+  // 3-second countdown gauge (28.4s ~ 31.4s)
+  tl.fromTo(gaugeFill, { scaleX: 1 }, { scaleX: 0, duration: 3.0, ease: "none", immediateRender: false }, 28.4);
+
+  // Reveal Answer Q3 at 31.4s ("힘을 뺀 3번 소리입니다. 아주 잘하셨습니다!")
+  tl.fromTo(stamp, { opacity: 0, scale: 0, rotation: -12 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 31.4);
+  tl.call(function () { highlightSlot(2); }, null, 31.4);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f10-caption-zone");
+  var captionText = document.getElementById("f10-caption-text");
+  var CAPTIONS = [
+    { at: 0.4, text: "원리를 배웠으니 직접 맞춰보세요." },
+    { at: 3.2, text: "단어가 나오면 몇 번 서랍인지 3초 안에 소리 내보세요." },
+    { at: 8.16, text: "smart! 턱을 내리는 1번 AR 소리죠." },
+    { at: 17.0, text: "short! 입술을 모으는 2번 OR 소리입니다." },
+    { at: 27.0, text: "turn! 힘을 뺀 3번 소리입니다. 아주 잘하셨습니다!" }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 35.5);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("10-quiz-1");
+})();
+</script>
+</template>

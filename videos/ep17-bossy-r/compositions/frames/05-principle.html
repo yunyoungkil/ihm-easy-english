@@ -1,0 +1,276 @@
+<template>
+<style>
+  /* 05-principle — Frame 5 "원리 설명 (Core Principle)".
+     Actual audio duration: 21.36s.
+     - 0.498s ~ 7.18s: Intro to tongue mechanism card
+     - 7.361s ~ 14.42s: Vowel starts to form, but tongue retracts early towards R
+     - 14.644s ~ 21.36s: Vowel sound is swallowed/absorbed by R's backward movement
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f05-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f05-progress-fill { position: absolute; left: 0; top: 0; width: 26.66%; height: 4px; background: #F5A623; }
+
+  /* Header */
+  .f05-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f05-badge {
+    background: #2B2B2B; color: #F5C518; font-weight: 900; font-size: 1.15cqw;
+    padding: 0.6cqh 1.3cqw; border-radius: 100px;
+  }
+  .f05-title {
+    font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Center Stage: Sketchnote Mouth Diagram */
+  .f05-diagram-card {
+    position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%);
+    width: 76cqw; height: 52cqh; background: #FFFFFF; border: 3.5px solid #2B2B2B;
+    border-radius: 24px; box-shadow: 6px 6px 0px #2B2B2B; padding: 3cqh 3cqw;
+    display: flex; align-items: center; justify-content: space-between;
+    opacity: 0; transform: translate(-50%, -50%) scale(0.95); z-index: 5;
+  }
+
+  /* Left: 2D Mouth Cutaway SVG */
+  .f05-svg-wrap {
+    width: 48%; height: 100%; display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .f05-mouth-svg {
+    width: 100%; height: 100%; overflow: visible;
+  }
+
+  /* Right: Explanation Steps */
+  .f05-steps-wrap {
+    width: 48%; display: flex; flex-direction: column; gap: 2cqh;
+  }
+  .f05-step-box {
+    background: #FAF7F2; border: 2.5px solid #2B2B2B; border-radius: 16px;
+    padding: 1.8cqh 2cqw; display: flex; align-items: center; gap: 1.2cqw;
+    box-shadow: 3px 3px 0px #2B2B2B; opacity: 0; transform: translateX(20px);
+  }
+  .f05-step-num {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.4cqw; color: #FFFFFF;
+    background: #2B2B2B; border-radius: 50%; width: 2.4cqw; height: 2.4cqw;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .f05-step-title {
+    font-size: 1.3cqw; font-weight: 900; color: #2B2B2B; line-height: 1.3;
+  }
+  .f05-step-desc {
+    font-size: 1.05cqw; font-weight: 700; color: #7A7365; margin-top: 0.3cqh;
+  }
+
+  /* Vowel bubble */
+  .f05-vowel-bubble {
+    position: absolute; left: 16%; top: 46%; transform: translate(-50%, -50%);
+    background: #EBF4F8; border: 2.5px solid #2E86AB; border-radius: 100px;
+    padding: 0.6cqh 1.4cqw; font-size: 1.2cqw; font-weight: 900; color: #165069;
+    box-shadow: 2px 2px 0px #2E86AB; opacity: 0;
+  }
+
+  /* Caption pill */
+  .f05-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f05-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f05-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-05-root" id="root" data-composition-id="05-principle" data-start="0" data-duration="21.36" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-05-bg" id="f05-bg" class="clip" data-start="0" data-duration="21.36" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-05-voice" id="f05-voice" src="assets/voice/05.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-05-track" class="f05-progress-track"></div>
+  <div data-hf-id="hf-05-fill" id="f05-progress-fill" class="f05-progress-fill"></div>
+
+  <div data-hf-id="hf-05-content" id="f05-content" class="clip" data-start="0" data-duration="21.36" data-track-index="1">
+    
+    <!-- Header -->
+    <div data-hf-id="hf-05-head" id="f05-header" class="f05-header">
+      <span class="f05-badge">🧠 소리의 원리</span>
+      <span class="f05-title">혀가 너무 일찍 뒤로 물러나기 때문입니다!</span>
+    </div>
+
+    <!-- Diagram Card -->
+    <div data-hf-id="hf-05-card" id="f05-diagram" class="f05-diagram-card">
+      
+      <!-- Left: SVG Mouth Diagram -->
+      <div class="f05-svg-wrap">
+        <svg class="f05-mouth-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Palate / Roof of Mouth (Bold Ink Line) -->
+          <path d="M 50 110 Q 150 40 320 80" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+          <text x="70" y="70" font-family="Noto Sans KR" font-size="14" font-weight="900" fill="#7A7365">입천장</text>
+
+          <!-- Upper Teeth / Lip -->
+          <path d="M 50 110 Q 40 140 45 160" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+          <rect x="42" y="115" width="12" height="18" rx="3" fill="#FFFFFF" stroke="#2B2B2B" stroke-width="3"/>
+
+          <!-- Lower Lip -->
+          <path d="M 45 200 Q 55 240 100 245" stroke="#2B2B2B" stroke-width="6" stroke-linecap="round"/>
+
+          <!-- Tongue Resting Base -->
+          <path id="f05-tongue-base" d="M 100 240 Q 160 230 260 240" stroke="#E5E0D5" stroke-width="4" stroke-dasharray="6 6"/>
+
+          <!-- Dynamic Agile Tongue (moves back) -->
+          <path id="f05-tongue" d="M 70 210 Q 130 150 220 180 Q 280 200 300 240" stroke="#2B2B2B" stroke-width="8" stroke-linecap="round" fill="rgba(245,166,35,0.18)"/>
+
+          <!-- R Absorption Zone in back -->
+          <circle id="f05-r-zone" cx="290" cy="140" r="38" fill="rgba(245,166,35,0.25)" stroke="#F5A623" stroke-width="3" stroke-dasharray="4 4"/>
+          <text x="290" y="146" font-family="Archivo Black" font-size="22" fill="#8A5A12" text-anchor="middle">R</text>
+
+          <!-- Arrow showing retraction -->
+          <path id="f05-pull-arrow" d="M 120 160 Q 190 120 260 140" stroke="#FA5252" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 6" marker-end="url(#arrowhead)"/>
+          <defs>
+            <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <polygon points="0 0, 8 4, 0 8" fill="#FA5252" />
+            </marker>
+          </defs>
+        </svg>
+
+        <!-- Floating Vowel Bubble -->
+        <div id="f05-vowel" class="f05-vowel-bubble">모음 입모양</div>
+      </div>
+
+      <!-- Right: Step Explainers -->
+      <div class="f05-steps-wrap">
+        <div id="f05-step1" class="f05-step-box">
+          <div class="f05-step-num">1</div>
+          <div>
+            <div class="f05-step-title">모음 소리를 채 만들기도 전에…</div>
+            <div class="f05-step-desc">A, E, I, O, U 입 모양을 완성할 틈이 없습니다.</div>
+          </div>
+        </div>
+
+        <div id="f05-step2" class="f05-step-box">
+          <div class="f05-step-num" style="background:#F5A623;">2</div>
+          <div>
+            <div class="f05-step-title">혀가 R을 내려고 뒤로 쑥 후퇴!</div>
+            <div class="f05-step-desc">더 큰 소리인 R을 발음하기 위해 혀가 먼저 당겨집니다.</div>
+          </div>
+        </div>
+
+        <div id="f05-step3" class="f05-step-box">
+          <div class="f05-step-num" style="background:#2E86AB;">3</div>
+          <div>
+            <div class="f05-step-title">모음 소리가 R 속으로 흡수 ➔ 완벽 변신</div>
+            <div class="f05-step-desc">원래 소리는 혀의 큰 움직임에 녹아 사라집니다.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-05-capzone" id="f05-caption-zone" class="f05-caption-zone">
+    <div class="f05-caption-pill">
+      <div id="f05-caption-text" class="f05-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["05-principle"] = tl;
+
+  var fill = document.getElementById("f05-progress-fill");
+  var header = document.getElementById("f05-header");
+  var diagram = document.getElementById("f05-diagram");
+
+  var tongue = document.getElementById("f05-tongue");
+  var rZone = document.getElementById("f05-r-zone");
+  var arrow = document.getElementById("f05-pull-arrow");
+  var vowel = document.getElementById("f05-vowel");
+
+  var s1 = document.getElementById("f05-step1");
+  var s2 = document.getElementById("f05-step2");
+  var s3 = document.getElementById("f05-step3");
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "26.66%" }, { width: "33.33%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  // Header & Diagram Card Entry
+  tl.fromTo(header, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.2);
+  tl.fromTo(diagram, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 0.35);
+
+  // Step 1: "원리는 간단합니다. 혀가 R을 발음하기 위해 너무 일찍 움직이기 때문입니다." (0.498s)
+  tl.fromTo(s1, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 0.5);
+
+  // Step 2: "모음의 입 모양을 채 만들기도 전에, 혀가 R 소리를 내려고 뒤로 쑥 물러나 버립니다." (7.361s)
+  tl.fromTo(vowel, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3 }, 7.361);
+  tl.fromTo(s2, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 8.2);
+
+  // Tongue retracts at 10.751s ("뒤로 쑥 물러나 버립니다")
+  tl.fromTo(arrow, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 10.5);
+  tl.to(tongue, {
+    attr: { d: "M 90 220 Q 180 170 250 160 Q 290 180 310 240" },
+    duration: 0.8,
+    ease: "power2.inOut"
+  }, 10.751);
+  tl.to(vowel, { x: 140, y: -20, opacity: 0.6, scale: 0.85, duration: 0.8, ease: "power2.inOut" }, 10.751);
+
+  // Step 3: "결국 모음의 원래 소리는 혀의 큰 움직임에 녹아서 R 소리로 바뀌는 겁니다." (14.644s)
+  tl.fromTo(s3, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: "back.out(1.5)" }, 14.644);
+  tl.to(vowel, { opacity: 0, scale: 0.4, duration: 0.4, ease: "power2.in" }, 15.0);
+  tl.fromTo(rZone, { scale: 1 }, { scale: 1.25, transformOrigin: "center", duration: 0.3, yoyo: true, repeat: 3, ease: "power1.inOut" }, 15.2);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f05-caption-zone");
+  var captionText = document.getElementById("f05-caption-text");
+  var CAPTIONS = [
+    { at: 0.498, text: "원리는 간단합니다. 혀가 R을 발음하기 위해 너무 일찍 움직이기 때문입니다." },
+    { at: 7.361, text: "모음의 입 모양을 채 만들기도 전에, 혀가 R 소리를 내려고 뒤로 쑥 물러나 버립니다." },
+    { at: 14.644, text: "결국 모음의 원래 소리는 혀의 큰 움직임에 녹아서 R 소리로 바뀌는 겁니다." }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 21.0);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("05-principle");
+})();
+</script>
+</template>

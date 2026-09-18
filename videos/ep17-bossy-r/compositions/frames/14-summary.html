@@ -1,0 +1,297 @@
+<template>
+<style>
+  /* 14-summary — Frame 14 "체득 요약 (Summary Map)".
+     Actual audio duration: 23.52s.
+     - 0.47s ~ 4.06s: "오늘 배운 규칙, 이 한 장만 기억하세요"
+     - 4.31s ~ 16.14s: 3-row Master Cheat-sheet table highlights:
+       Row 1 AR [아~], Row 2 OR [오~], Row 3 ER/IR/UR [어~]
+     - 16.29s ~ 19.88s: "다섯 개 철자가 단 세 개 소리로 끝납니다"
+     - 20.00s ~ 23.52s: "화면을 캡처해 두고 단어를 읽을 때마다 꺼내보세요" (카메라 셔터 깜빡임)
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f14-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f14-progress-fill { position: absolute; left: 0; top: 0; width: 86.66%; height: 4px; background: #F5A623; }
+
+  /* Header */
+  .f14-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f14-badge {
+    background: #2B2B2B; color: #F5C518; font-weight: 900; font-size: 1.15cqw;
+    padding: 0.6cqh 1.3cqw; border-radius: 100px;
+  }
+  .f14-title {
+    font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Center Master Cheat Sheet Table */
+  .f14-table-card {
+    position: absolute; left: 50%; top: 43%; transform: translate(-50%, -50%);
+    width: 86cqw; background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B; padding: 3cqh 3cqw;
+    display: flex; flex-direction: column; gap: 1.6cqh;
+    opacity: 0; transform: translate(-50%, -50%) scale(0.95); z-index: 5;
+  }
+
+  .f14-row {
+    display: grid; grid-template-columns: 1.8fr 2.5fr 3.2fr; align-items: center;
+    padding: 1.4cqh 2cqw; border-radius: 16px; border: 2.5px solid #2B2B2B;
+    background: #FAF7F2; box-shadow: 2px 2px 0px #2B2B2B; opacity: 0;
+  }
+  .f14-row-letters {
+    font-family: 'Archivo Black', sans-serif; font-size: 2.8cqw; line-height: 1;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f14-row-formula {
+    font-size: 1.5cqw; font-weight: 900; display: flex; align-items: center; gap: 0.8cqw;
+  }
+  .f14-row-words {
+    font-size: 1.25cqw; font-weight: 800; color: #524C40; text-align: right;
+  }
+
+  /* Row 1: AR */
+  .f14-r1 { border-color: #8A5A12; background: #FFFDF5; }
+  .f14-r1 .f14-row-letters { color: #8A5A12; }
+  .f14-r1 .f14-sound-tag { background: #F5A623; color: #FFFFFF; }
+
+  /* Row 2: OR */
+  .f14-r2 { border-color: #963E00; background: #FFF9F2; }
+  .f14-r2 .f14-row-letters { color: #963E00; }
+  .f14-r2 .f14-sound-tag { background: #E67E22; color: #FFFFFF; }
+
+  /* Row 3: ER/IR/UR */
+  .f14-r3 { border-color: #165069; background: #F2F8FB; }
+  .f14-r3 .f14-row-letters { color: #165069; font-size: 2.3cqw; }
+  .f14-r3 .f14-sound-tag { background: #2E86AB; color: #FFFFFF; }
+
+  .f14-sound-tag {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.1cqw; font-weight: 900;
+    padding: 0.3cqh 0.8cqw; border-radius: 8px; border: 2px solid #2B2B2B;
+  }
+
+  /* Active highlight on row */
+  .f14-row.active {
+    box-shadow: 0 0 0 4px #F5C518, 4px 4px 0px #2B2B2B;
+    transform: scale(1.02);
+  }
+
+  /* Capture Button Badge (bottom) */
+  .f14-capture-badge {
+    position: absolute; bottom: 12.5cqh; left: 50%; transform: translateX(-50%) scale(0.92);
+    background: #2B2B2B; border: 3px solid #F5C518; border-radius: 100px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.3); padding: 1.2cqh 3cqw;
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 15;
+  }
+  .f14-capture-icon { font-size: 2.2cqw; }
+  .f14-capture-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.5cqw; font-weight: 900;
+    color: #F5C518; letter-spacing: -0.3px;
+  }
+
+  /* Caption pill */
+  .f14-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f14-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f14-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-14-root" id="root" data-composition-id="14-summary" data-start="0" data-duration="23.52" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-14-bg" id="f14-bg" class="clip" data-start="0" data-duration="23.52" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-14-voice" id="f14-voice" src="assets/voice/14.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-14-track" class="f14-progress-track"></div>
+  <div data-hf-id="hf-14-fill" id="f14-progress-fill" class="f14-progress-fill"></div>
+
+  <div data-hf-id="hf-14-content" id="f14-content" class="clip" data-start="0" data-duration="23.52" data-track-index="1">
+    
+    <!-- Header -->
+    <div data-hf-id="hf-14-head" id="f14-header" class="f14-header">
+      <span class="f14-badge">📌 오늘 배운 규칙 총정리</span>
+      <span class="f14-title">다섯 개 철자 ➔ 딱 세 개 소리로 끝!</span>
+    </div>
+
+    <!-- Master Table Card -->
+    <div data-hf-id="hf-14-card" id="f14-card" class="f14-table-card">
+      
+      <!-- Row 1: AR -->
+      <div data-hf-id="hf-14-r1" id="f14-r1" class="f14-row f14-r1">
+        <div class="f14-row-letters">
+          <span>AR</span>
+        </div>
+        <div class="f14-row-formula">
+          <span class="f14-sound-tag">1번 소리</span>
+          <span>턱 내리고 시원한 '아~'</span>
+        </div>
+        <div class="f14-row-words">
+          car · park · star · farm · card
+        </div>
+      </div>
+
+      <!-- Row 2: OR -->
+      <div data-hf-id="hf-14-r2" id="f14-r2" class="f14-row f14-r2">
+        <div class="f14-row-letters">
+          <span>OR</span>
+        </div>
+        <div class="f14-row-formula">
+          <span class="f14-sound-tag">2번 소리</span>
+          <span>입술 모아 깊은 '오~'</span>
+        </div>
+        <div class="f14-row-words">
+          for · corn · storm · fork · horse
+        </div>
+      </div>
+
+      <!-- Row 3: ER/IR/UR -->
+      <div data-hf-id="hf-14-r3" id="f14-r3" class="f14-row f14-r3">
+        <div class="f14-row-letters">
+          <span>ER · IR · UR</span>
+        </div>
+        <div class="f14-row-formula">
+          <span class="f14-sound-tag">3번 소리</span>
+          <span>힘을 툭 뺀 편안한 '어~'</span>
+        </div>
+        <div class="f14-row-words">
+          person · term · girl · nurse · burn
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Capture Trigger Badge -->
+    <div data-hf-id="hf-14-capture" id="f14-capture" class="f14-capture-badge">
+      <span id="f14-cam-icon" class="f14-capture-icon">📸</span>
+      <div class="f14-capture-text">지금 화면을 캡처해 두고 단어를 읽을 때마다 꺼내보세요!</div>
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-14-capzone" id="f14-caption-zone" class="f14-caption-zone">
+    <div class="f14-caption-pill">
+      <div id="f14-caption-text" class="f14-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["14-summary"] = tl;
+
+  var fill = document.getElementById("f14-progress-fill");
+  var header = document.getElementById("f14-header");
+  var card = document.getElementById("f14-card");
+  var r1 = document.getElementById("f14-r1");
+  var r2 = document.getElementById("f14-r2");
+  var r3 = document.getElementById("f14-r3");
+  var rows = [r1, r2, r3];
+
+  var capture = document.getElementById("f14-capture");
+  var camIcon = document.getElementById("f14-cam-icon");
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "86.66%" }, { width: "93.33%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  // Header & Card Entry
+  tl.fromTo(header, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.2);
+  tl.fromTo(card, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 0.35);
+
+  // 3 Rows pop in (0.47s ~ 3.5s)
+  tl.fromTo(rows, 
+    { opacity: 0, y: 15 }, 
+    { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, ease: "back.out(1.5)" }, 
+    0.6
+  );
+
+  // Row highlights as spoken:
+  // AR (4.314s)
+  tl.call(function () {
+    r1.classList.add("active");
+    r2.classList.remove("active");
+    r3.classList.remove("active");
+  }, null, 4.314);
+
+  // OR (7.728s)
+  tl.call(function () {
+    r1.classList.remove("active");
+    r2.classList.add("active");
+    r3.classList.remove("active");
+  }, null, 7.728);
+
+  // ER/IR/UR (11.311s)
+  tl.call(function () {
+    r1.classList.remove("active");
+    r2.classList.remove("active");
+    r3.classList.add("active");
+  }, null, 11.311);
+
+  // All rows glow at 16.29s ("다섯 개 철자가 단 세 개 소리로 끝납니다")
+  tl.call(function () {
+    r1.classList.add("active");
+    r2.classList.add("active");
+    r3.classList.add("active");
+  }, null, 16.29);
+
+  // Capture banner appears at 20.0s
+  tl.fromTo(capture, { opacity: 0, scale: 0.88, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 20.0);
+  tl.fromTo(camIcon, { scale: 1 }, { scale: 1.35, duration: 0.25, yoyo: true, repeat: 5, ease: "power1.inOut" }, 20.4);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f14-caption-zone");
+  var captionText = document.getElementById("f14-caption-text");
+  var CAPTIONS = [
+    { at: 0.476, text: "오늘 배운 규칙, 이 한 장만 기억하세요." },
+    { at: 4.314, text: "AR 소리는 턱 내리는 '아', OR 소리는 입술 모으는 '오', ER, IR, UR 소리는 힘 뺀 '어'." },
+    { at: 16.29, text: "다섯 개 철자가 단 세 개 소리로 끝납니다." },
+    { at: 20.007, text: "화면을 캡처해 두고 단어를 읽을 때마다 꺼내보세요." }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 23.2);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("14-summary");
+})();
+</script>
+</template>

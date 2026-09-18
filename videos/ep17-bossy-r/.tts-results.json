@@ -1,0 +1,118 @@
+{
+  "10": {
+    "path": "assets/voice/10.wav",
+    "duration_s": 36.02
+  },
+  "11": {
+    "path": "assets/voice/11.wav",
+    "duration_s": 27.28
+  },
+  "12": {
+    "path": "assets/voice/12.wav",
+    "duration_s": 24.12
+  },
+  "13": {
+    "path": "assets/voice/13.wav",
+    "duration_s": 24
+  },
+  "14": {
+    "path": "assets/voice/14.wav",
+    "duration_s": 23.52
+  },
+  "15": {
+    "path": "assets/voice/15.wav",
+    "duration_s": 13.92
+  },
+  "01": {
+    "path": "assets/voice/01.wav",
+    "duration_s": 21.92
+  },
+  "02": {
+    "path": "assets/voice/02.wav",
+    "duration_s": 12.4
+  },
+  "03": {
+    "path": "assets/voice/03.wav",
+    "duration_s": 19.92
+  },
+  "04": {
+    "path": "assets/voice/04.wav",
+    "duration_s": 37.32
+  },
+  "05": {
+    "path": "assets/voice/05.wav",
+    "duration_s": 21.36
+  },
+  "06": {
+    "path": "assets/voice/06.wav",
+    "duration_s": 29.52
+  },
+  "07": {
+    "path": "assets/voice/07.wav",
+    "duration_s": 30.36
+  },
+  "08": {
+    "path": "assets/voice/08.wav",
+    "duration_s": 34.56
+  },
+  "09": {
+    "path": "assets/voice/09.wav",
+    "duration_s": 28.24
+  },
+  "11a": {
+    "path": "assets/voice/11a.wav",
+    "duration_s": 4.32
+  },
+  "11b": {
+    "path": "assets/voice/11b.wav",
+    "duration_s": 1.2
+  },
+  "11c": {
+    "path": "assets/voice/11c.wav",
+    "duration_s": 2.92
+  },
+  "11d": {
+    "path": "assets/voice/11d.wav",
+    "duration_s": 1.64
+  },
+  "11e": {
+    "path": "assets/voice/11e.wav",
+    "duration_s": 3.96
+  },
+  "11f": {
+    "path": "assets/voice/11f.wav",
+    "duration_s": 1.2
+  },
+  "11g": {
+    "path": "assets/voice/11g.wav",
+    "duration_s": 6.64
+  },
+  "10a": {
+    "path": "assets/voice/10a.wav",
+    "duration_s": 8.16
+  },
+  "10b": {
+    "path": "assets/voice/10b.wav",
+    "duration_s": 2.08
+  },
+  "10c": {
+    "path": "assets/voice/10c.wav",
+    "duration_s": 3.24
+  },
+  "10d": {
+    "path": "assets/voice/10d.wav",
+    "duration_s": 1.12
+  },
+  "10e": {
+    "path": "assets/voice/10e.wav",
+    "duration_s": 5.32
+  },
+  "10f": {
+    "path": "assets/voice/10f.wav",
+    "duration_s": 1.36
+  },
+  "10g": {
+    "path": "assets/voice/10g.wav",
+    "duration_s": 4.64
+  }
+}

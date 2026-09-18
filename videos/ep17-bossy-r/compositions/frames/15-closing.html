@@ -1,0 +1,214 @@
+<template>
+<style>
+  /* 15-closing — Frame 15 "클로징 (Closing & End Screen)".
+     Audio duration: 13.92s.
+     Total frame duration: 18.92s (Audio 13.92s + End Screen Keep-Out 5.0s).
+     - 0.0s ~ 13.8s:
+       * Warm closing card ("무작정 외우지 마세요. 소리의 길을 이해하는 겁니다.")
+       * Recommended next video card (EP16 "모음 2개 나란히 올 때")
+       * Caption-pill covering narration 100%
+     - 13.92s ~ 18.92s (FINAL 5.0 SECONDS):
+       * ABSOLUTE YOUTUBE ENDSCREEN KEEP-OUT RULE:
+         Center of the screen is 100% COMPLETELY EMPTY!
+         All center cards, texts, and captions fade out to opacity 0.
+       * ONLY the small safe-corner brand wordmark at left: 6cqw; top: 8cqh remains.
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f15-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f15-progress-fill { position: absolute; left: 0; top: 0; width: 93.33%; height: 4px; background: #F5A623; }
+
+  /* Safe Corner Wordmark (left: 6cqw, top: 8cqh) — Never collides with Youtube UI */
+  .f15-corner-wordmark {
+    position: absolute; left: 6cqw; top: 8cqh; display: flex; align-items: baseline;
+    gap: 0.5cqw; opacity: 0; z-index: 30;
+  }
+  .f15-wm-part1 {
+    font-size: 1.35cqw; font-weight: 900; color: #1E2022; letter-spacing: -0.5px;
+  }
+  .f15-wm-part2 {
+    font-size: 1.35cqw; font-weight: 900; color: #F5C518; -webkit-text-stroke: 1px #1E2022;
+    letter-spacing: -0.5px;
+  }
+
+  /* Center Content Group (fades to 0 at 13.8s) */
+  .f15-center-group {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: 78cqw; display: flex; flex-direction: column; align-items: center;
+    gap: 3cqh; z-index: 10;
+  }
+
+  /* Main Encouragement Card */
+  .f15-card {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B; padding: 3.5cqh 4cqw; width: 100%;
+    display: flex; flex-direction: column; align-items: center; gap: 1.5cqh;
+    opacity: 0; transform: translateY(20px);
+  }
+  .f15-card-badge {
+    background: #2B2B2B; color: #F5C518; font-size: 1.15cqw; font-weight: 900;
+    padding: 0.5cqh 1.4cqw; border-radius: 100px;
+  }
+  .f15-card-title {
+    font-size: 2.2cqw; font-weight: 900; color: #2B2B2B; text-align: center;
+    letter-spacing: -0.5px; line-height: 1.35;
+  }
+  .f15-card-title span {
+    color: #F5A623; text-decoration: underline; text-decoration-color: #2B2B2B; text-underline-offset: 4px;
+  }
+
+  /* Recommendation Card */
+  .f15-rec-card {
+    background: #FAF7F2; border: 2.5px solid #2B2B2B; border-radius: 18px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 2cqh 3cqw; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    opacity: 0; transform: translateY(15px);
+  }
+  .f15-rec-left {
+    display: flex; align-items: center; gap: 1cqw;
+  }
+  .f15-rec-icon { font-size: 1.8cqw; }
+  .f15-rec-title {
+    font-size: 1.3cqw; font-weight: 900; color: #2B2B2B;
+  }
+  .f15-rec-badge {
+    background: #F5A623; color: #FFFFFF; font-size: 1cqw; font-weight: 900;
+    padding: 0.4cqh 1cqw; border-radius: 100px; border: 1.5px solid #2B2B2B;
+  }
+
+  /* Caption pill */
+  .f15-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f15-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f15-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-15-root" id="root" data-composition-id="15-closing" data-start="0" data-duration="18.92" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-15-bg" id="f15-bg" class="clip" data-start="0" data-duration="18.92" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-15-voice" id="f15-voice" src="assets/voice/15.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-15-track" class="f15-progress-track"></div>
+  <div data-hf-id="hf-15-fill" id="f15-progress-fill" class="f15-progress-fill"></div>
+
+  <!-- Safe Corner Wordmark (stays visible even during keep-out) -->
+  <div data-hf-id="hf-15-wm" id="f15-wordmark" class="f15-corner-wordmark">
+    <span class="f15-wm-part1">이해하면</span>
+    <span class="f15-wm-part2">쉬운영어</span>
+  </div>
+
+  <div data-hf-id="hf-15-content" id="f15-content" class="clip" data-start="0" data-duration="18.92" data-track-index="1">
+    
+    <!-- Center Group (fades to complete 0 before final 5 seconds) -->
+    <div data-hf-id="hf-15-center" id="f15-center" class="f15-center-group">
+      
+      <!-- Encouragement Card -->
+      <div data-hf-id="hf-15-card" id="f15-card" class="f15-card">
+        <div class="f15-card-badge">🌱 실전 학습 파트너</div>
+        <div class="f15-card-title">
+          단어는 무작정 외우는 게 아니라,<br>
+          <span>소리의 길을 이해하는 것</span>입니다.
+        </div>
+      </div>
+
+      <!-- Recommendation Card -->
+      <div data-hf-id="hf-15-rec" id="f15-rec" class="f15-rec-card">
+        <div class="f15-rec-left">
+          <span class="f15-rec-icon">▶️</span>
+          <div class="f15-rec-title">함께 보면 좋은 영상: 모음이 나란히 2개 올 때 읽는 법 (EP16)</div>
+        </div>
+        <span class="f15-rec-badge">추천 영상</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone (fades out at 13.8s) -->
+  <div data-hf-id="hf-15-capzone" id="f15-caption-zone" class="f15-caption-zone">
+    <div class="f15-caption-pill">
+      <div id="f15-caption-text" class="f15-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["15-closing"] = tl;
+
+  var fill = document.getElementById("f15-progress-fill");
+  var wm = document.getElementById("f15-wordmark");
+  var centerGroup = document.getElementById("f15-center");
+  var card = document.getElementById("f15-card");
+  var rec = document.getElementById("f15-rec");
+  var captionZone = document.getElementById("f15-caption-zone");
+  var captionText = document.getElementById("f15-caption-text");
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "93.33%" }, { width: "100%", duration: 1.2, ease: "power1.inOut" }, 0);
+
+  // Safe Corner Wordmark enters at 0.3s and stays anchored
+  tl.fromTo(wm, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.3);
+
+  // Center Encouragement Card enters at 0.4s
+  tl.fromTo(card, { opacity: 0, y: 20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 0.4);
+
+  // Recommendation Card enters at 5.4s
+  tl.fromTo(rec, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 5.4);
+
+  // =========================================================================
+  // ⚠️ CRITICAL CHANNEL RULE: FINAL 5.0 SECONDS ENDSCREEN KEEP-OUT ZONE
+  // Audio ends at 13.92s. Total frame duration = 18.92s.
+  // From 13.8s to 18.92s, the center of the screen MUST BE 100% COMPLETELY EMPTY!
+  // =========================================================================
+  tl.to(centerGroup, { opacity: 0, scale: 0.9, duration: 0.45, ease: "power2.in" }, 13.4);
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 13.4);
+
+  // 100% Narration-coverage caption-pill (plays only until 13.4s)
+  var CAPTIONS = [
+    { at: 0.403, text: "단어는 무작정 외우는 게 아니라 소리의 길을 이해하는 겁니다." },
+    { at: 5.413, text: "지난 모음 편도 함께 보시면 영어가 훨씬 쉬워집니다." },
+    { at: 9.995, text: "오늘도 수고 많으셨습니다. 이해하면 쉬운영어였습니다." }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("15-closing");
+})();
+</script>
+</template>

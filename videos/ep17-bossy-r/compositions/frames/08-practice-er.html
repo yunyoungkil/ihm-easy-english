@@ -1,0 +1,295 @@
+<template>
+<style>
+  /* 08-practice-er — Frame 8 "3번 서랍 ER·IR·UR 실전 낭독".
+     Actual audio duration: 34.56s.
+     - 0.551s ~ 11.58s: 3번 서랍 ER·IR·UR 개방 (힘 뺀 편안한 '어~')
+     - 11.85s ~ 18.36s: "철자가 E든, I든, U든 전혀 상관없습니다" 통일 선언
+     - 18.61s ~ 28.46s: 6대 단어 2x3 매트릭스 순차 낭독 (person, term, girl, shirt, nurse, burn)
+     - 28.57s ~ 34.56s: "입꼬리에 힘을 풀고 멍하니 '어~' 소리만 내시면 됩니다"
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f08-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f08-progress-fill { position: absolute; left: 0; top: 0; width: 46.66%; height: 4px; background: #F5A623; }
+
+  /* Header */
+  .f08-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f08-badge {
+    background: #2E86AB; color: #FFFFFF; font-weight: 900; font-size: 1.15cqw;
+    padding: 0.6cqh 1.3cqw; border-radius: 100px; border: 2px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .f08-title {
+    font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Center Stage: 6 Words 2x3 Matrix */
+  .f08-center-stage {
+    position: absolute; left: 50%; top: 43%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; flex-direction: column; align-items: center; gap: 2.5cqh;
+    z-index: 5;
+  }
+
+  /* Action Banner */
+  .f08-action-banner {
+    background: #EBF4F8; border: 3px solid #165069; border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 1.2cqh 3cqw;
+    display: flex; align-items: center; gap: 1.5cqw; opacity: 0; transform: translateY(-10px);
+  }
+  .f08-action-icon { font-size: 2cqw; }
+  .f08-action-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 900;
+    color: #165069; letter-spacing: -0.3px;
+  }
+
+  /* 2x3 Matrix */
+  .f08-matrix {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8cqw; width: 100%;
+  }
+  .f08-word-card {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
+    box-shadow: 5px 5px 0px #2B2B2B; padding: 2.4cqh 1.5cqw;
+    display: flex; flex-direction: column; align-items: center; gap: 0.8cqh;
+    opacity: 0; transform: translateY(20px); transition: all 0.2s ease;
+  }
+  .f08-card-spelling-tag {
+    font-size: 1cqw; font-weight: 900; padding: 0.2cqh 0.8cqw; border-radius: 6px;
+    background: #EBF4F8; color: #165069; border: 1.5px solid #165069;
+  }
+  .f08-word-main {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.2cqw; line-height: 1; color: #2B2B2B;
+  }
+  .f08-er-part {
+    color: #165069; background: rgba(46,134,171,0.2); border-radius: 6px; padding: 0 0.1em;
+  }
+  .f08-word-meaning {
+    font-size: 1.15cqw; font-weight: 900; color: #7A7365;
+  }
+
+  /* Active highlight card state */
+  .f08-word-card.active {
+    border-color: #165069; background: #F2F8FB; box-shadow: 0 0 0 4px #2E86AB, 6px 6px 0px #2B2B2B;
+    transform: translateY(-8px) scale(1.05);
+  }
+
+  /* Bottom Relief Banner */
+  .f08-relief-bar {
+    position: absolute; bottom: 12.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; background: #FFFFFF;
+    border: 2.5px solid #2B2B2B; border-radius: 100px; padding: 0.8cqh 2.4cqw;
+    box-shadow: 3px 3px 0px #2B2B2B; opacity: 0; z-index: 10;
+  }
+  .f08-relief-text {
+    font-size: 1.2cqw; font-weight: 900; color: #165069;
+  }
+
+  /* Caption pill */
+  .f08-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f08-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f08-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-08-root" id="root" data-composition-id="08-practice-er" data-start="0" data-duration="34.56" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-08-bg" id="f08-bg" class="clip" data-start="0" data-duration="34.56" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-08-voice" id="f08-voice" src="assets/voice/08.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-08-track" class="f08-progress-track"></div>
+  <div data-hf-id="hf-08-fill" id="f08-progress-fill" class="f08-progress-fill"></div>
+
+  <div data-hf-id="hf-08-content" id="f08-content" class="clip" data-start="0" data-duration="34.56" data-track-index="1">
+    
+    <!-- Header -->
+    <div data-hf-id="hf-08-head" id="f08-header" class="f08-header">
+      <span class="f08-badge">🚪 3번 소리 서랍</span>
+      <span class="f08-title">ER · IR · UR : 입에 힘을 툭 뺀 중립의 '어~'</span>
+    </div>
+
+    <!-- Center Stage -->
+    <div data-hf-id="hf-08-stage" class="f08-center-stage">
+      
+      <!-- Action Banner -->
+      <div data-hf-id="hf-08-action" id="f08-action" class="f08-action-banner">
+        <span class="f08-action-icon">😌</span>
+        <div class="f08-action-text">E, I, U 철자 달라도 100% 동일 ➔ <span style="text-decoration:underline;">편안한 [ 어~ r ]</span></div>
+      </div>
+
+      <!-- 2x3 Words Matrix -->
+      <div data-hf-id="hf-08-matrix" class="f08-matrix">
+        
+        <!-- person -->
+        <div data-hf-id="hf-08-w1" id="f08-w1" class="f08-word-card">
+          <div class="f08-card-spelling-tag">ER 철자</div>
+          <div class="f08-word-main">p<span class="f08-er-part">er</span>son</div>
+          <div class="f08-word-meaning">사람 👤</div>
+        </div>
+
+        <!-- term -->
+        <div data-hf-id="hf-08-w2" id="f08-w2" class="f08-word-card">
+          <div class="f08-card-spelling-tag">ER 철자</div>
+          <div class="f08-word-main">t<span class="f08-er-part">er</span>m</div>
+          <div class="f08-word-meaning">기간/학기 📅</div>
+        </div>
+
+        <!-- girl -->
+        <div data-hf-id="hf-08-w3" id="f08-w3" class="f08-word-card">
+          <div class="f08-card-spelling-tag">IR 철자</div>
+          <div class="f08-word-main">g<span class="f08-er-part">ir</span>l</div>
+          <div class="f08-word-meaning">소녀 👧</div>
+        </div>
+
+        <!-- shirt -->
+        <div data-hf-id="hf-08-w4" id="f08-w4" class="f08-word-card">
+          <div class="f08-card-spelling-tag">IR 철자</div>
+          <div class="f08-word-main">sh<span class="f08-er-part">ir</span>t</div>
+          <div class="f08-word-meaning">셔츠 👔</div>
+        </div>
+
+        <!-- nurse -->
+        <div data-hf-id="hf-08-w5" id="f08-w5" class="f08-word-card">
+          <div class="f08-card-spelling-tag">UR 철자</div>
+          <div class="f08-word-main">n<span class="f08-er-part">ur</span>se</div>
+          <div class="f08-word-meaning">간호사 🩺</div>
+        </div>
+
+        <!-- burn -->
+        <div data-hf-id="hf-08-w6" id="f08-w6" class="f08-word-card">
+          <div class="f08-card-spelling-tag">UR 철자</div>
+          <div class="f08-word-main">b<span class="f08-er-part">ur</span>n</div>
+          <div class="f08-word-meaning">불타다 🔥</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Relief Banner -->
+    <div data-hf-id="hf-08-relief" id="f08-relief" class="f08-relief-bar">
+      <span style="font-size:1.4cqw;">✨</span>
+      <div class="f08-relief-text">입꼬리에 힘을 풀고 멍하니 '어~' 소리만 내면 완성!</div>
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-08-capzone" id="f08-caption-zone" class="f08-caption-zone">
+    <div class="f08-caption-pill">
+      <div id="f08-caption-text" class="f08-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["08-practice-er"] = tl;
+
+  var fill = document.getElementById("f08-progress-fill");
+  var header = document.getElementById("f08-header");
+  var action = document.getElementById("f08-action");
+  var relief = document.getElementById("f08-relief");
+
+  var w1 = document.getElementById("f08-w1");
+  var w2 = document.getElementById("f08-w2");
+  var w3 = document.getElementById("f08-w3");
+  var w4 = document.getElementById("f08-w4");
+  var w5 = document.getElementById("f08-w5");
+  var w6 = document.getElementById("f08-w6");
+  var words = [w1, w2, w3, w4, w5, w6];
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "46.66%" }, { width: "53.33%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  // Header & Action banner
+  tl.fromTo(header, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.2);
+  tl.fromTo(action, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.5);
+
+  // 6 Word cards pop in matrix at 11.8s
+  tl.fromTo(words, 
+    { opacity: 0, y: 20, scale: 0.92 }, 
+    { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.08, ease: "back.out(1.5)" }, 
+    11.85
+  );
+  tl.fromTo(relief, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35 }, 13.5);
+
+  // Speech onsets for 6 words:
+  // person (18.616s), term (20.668s), girl (22.206s), shirt (23.745s), nurse (25.539s), burn (27.334s)
+  function setActive(index) {
+    words.forEach(function (card, i) {
+      if (i === index) {
+        card.classList.add("active");
+      } else {
+        card.classList.remove("active");
+      }
+    });
+  }
+
+  tl.call(function () { setActive(0); }, null, 18.616);
+  tl.call(function () { setActive(1); }, null, 20.668);
+  tl.call(function () { setActive(2); }, null, 22.206);
+  tl.call(function () { setActive(3); }, null, 23.745);
+  tl.call(function () { setActive(4); }, null, 25.539);
+  tl.call(function () { setActive(5); }, null, 27.334);
+  tl.call(function () { setActive(-1); }, null, 28.5);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f08-caption-zone");
+  var captionText = document.getElementById("f08-caption-text");
+  var CAPTIONS = [
+    { at: 0.551, text: "마지막 ER, IR, UR 소리는 입에 힘을 툭 뺀 중립의 '어~' 소리입니다." },
+    { at: 11.851, text: "철자가 E든, I든, U든 전혀 상관없습니다." },
+    { at: 18.616, text: "person, term, girl, shirt, nurse, burn." },
+    { at: 28.579, text: "입꼬리에 힘을 풀고 멍하니 '어~' 소리만 내시면 됩니다." }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 34.0);
+  tl.to("#f08-content", { opacity: 0, duration: 0.2 }, 34.3);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("08-practice-er");
+})();
+</script>
+</template>

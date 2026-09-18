@@ -1,0 +1,340 @@
+<template>
+<style>
+  /* 04-head-fake — Frame 4 "반전 공개 (Head Fake)".
+     Actual audio duration: 37.32s.
+     The climax dopamine reveal of the entire video:
+     - 0.58s ~ 5.3s: "다 외울 필요 없습니다!" bold relief banner
+     - 5.47s ~ 18.5s: 3 word cards (her, bird, fur) appear with E, I, U colored tags
+     - 18.6s ~ 27.6s: E, I, U morph and merge into single golden capsule: [ 편안한 '어~ r' ]!
+     - 27.78s ~ 37.32s: 3 Sound Drawers (sound-drawer) make grand debut!
+       1번 서랍 AR (골드), 2번 서랍 OR (오렌지), 3번 서랍 ER/IR/UR (틸)
+       "5개 철자 ➔ 딱 3개 소리로 끝!"
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f04-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f04-progress-fill { position: absolute; left: 0; top: 0; width: 20.0%; height: 4px; background: #F5A623; }
+
+  /* Top Header */
+  .f04-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f04-badge {
+    background: #2B2B2B; color: #F5C518; font-weight: 900; font-size: 1.15cqw;
+    padding: 0.6cqh 1.3cqw; border-radius: 100px;
+  }
+  .f04-title {
+    font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Stage 1: 3 Word Cards (her, bird, fur) */
+  .f04-stage1-wrap {
+    position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+    width: 78cqw; display: flex; flex-direction: column; align-items: center; gap: 2.5cqh;
+    z-index: 5;
+  }
+  .f04-cards-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2cqw; width: 100%;
+  }
+  .f04-word-card {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
+    box-shadow: 5px 5px 0px #2B2B2B; padding: 2.8cqh 2cqw;
+    display: flex; flex-direction: column; align-items: center; gap: 1cqh;
+    opacity: 0; transform: translateY(20px);
+  }
+  .f04-word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 4cqw; line-height: 1; color: #2B2B2B;
+  }
+  .f04-v-er { color: #2E86AB; }
+  .f04-v-ir { color: #2E86AB; }
+  .f04-v-ur { color: #2E86AB; }
+  .f04-sub-tag {
+    font-size: 1.1cqw; font-weight: 800; padding: 0.4cqh 1cqw; border-radius: 8px;
+    border: 2px solid #2B2B2B; background: #FAF7F2; color: #524C40;
+  }
+
+  /* Merged Golden Capsule */
+  .f04-merged-capsule {
+    background: #2E86AB; border: 3.5px solid #2B2B2B; border-radius: 100px;
+    box-shadow: 6px 6px 0px #2B2B2B; padding: 1.6cqh 3.6cqw;
+    display: flex; align-items: center; gap: 1.5cqw; opacity: 0; transform: scale(0.85);
+  }
+  .f04-capsule-icon { font-size: 2cqw; }
+  .f04-capsule-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 2.2cqw; font-weight: 900;
+    color: #FFFFFF; letter-spacing: -0.5px;
+  }
+  .f04-capsule-badge {
+    background: #F5C518; color: #2B2B2B; font-weight: 900; font-size: 1.1cqw;
+    padding: 0.4cqh 1cqw; border-radius: 100px; border: 2px solid #2B2B2B;
+  }
+
+  /* Stage 2: 3 Sound Drawers (sound-drawer) */
+  .f04-drawers-container {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: 86cqw; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2cqw;
+    opacity: 0; z-index: 6; pointer-events: none;
+  }
+  .f04-drawer {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 22px;
+    box-shadow: 6px 6px 0px #2B2B2B; padding: 3.2cqh 2.2cqw;
+    display: flex; flex-direction: column; align-items: center; gap: 1.8cqh;
+    opacity: 0; transform: translateY(30px); position: relative;
+  }
+  .f04-drawer-badge {
+    position: absolute; top: -1.6cqh; left: 50%; transform: translateX(-50%);
+    border: 2.5px solid #2B2B2B; border-radius: 100px; padding: 0.4cqh 1.4cqw;
+    font-size: 1.1cqw; font-weight: 900; box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .f04-drawer-title {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.8cqw; line-height: 1;
+    margin-top: 1cqh;
+  }
+  .f04-drawer-formula {
+    font-size: 1.8cqw; font-weight: 900; text-align: center; line-height: 1.2;
+  }
+  .f04-drawer-desc {
+    font-size: 1.2cqw; font-weight: 800; color: #7A7365; text-align: center;
+  }
+
+  /* Drawer 1: AR */
+  .f04-d1 { border-color: #8A5A12; background: #FFFDF5; }
+  .f04-d1 .f04-drawer-badge { background: #F5A623; color: #FFFFFF; }
+  .f04-d1 .f04-drawer-title { color: #8A5A12; }
+  .f04-d1 .f04-drawer-formula { color: #8A5A12; }
+
+  /* Drawer 2: OR */
+  .f04-d2 { border-color: #963E00; background: #FFF9F2; }
+  .f04-d2 .f04-drawer-badge { background: #E67E22; color: #FFFFFF; }
+  .f04-d2 .f04-drawer-title { color: #963E00; }
+  .f04-d2 .f04-drawer-formula { color: #963E00; }
+
+  /* Drawer 3: ER/IR/UR */
+  .f04-d3 { border-color: #165069; background: #F2F8FB; }
+  .f04-d3 .f04-drawer-badge { background: #2E86AB; color: #FFFFFF; }
+  .f04-d3 .f04-drawer-title { color: #165069; font-size: 2.8cqw; }
+  .f04-d3 .f04-drawer-formula { color: #165069; }
+
+  /* Bottom Dopamine Victory Banner (35s) */
+  .f04-victory-banner {
+    position: absolute; bottom: 12.5cqh; left: 50%; transform: translateX(-50%) scale(0.92);
+    background: #2B2B2B; border: 3px solid #F5C518; border-radius: 18px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.3); padding: 1.4cqh 3cqw;
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 15;
+  }
+  .f04-victory-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 900;
+    color: #F5C518; letter-spacing: -0.5px;
+  }
+
+  /* Caption pill */
+  .f04-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f04-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f04-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-04-root" id="root" data-composition-id="04-head-fake" data-start="0" data-duration="37.32" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-04-bg" id="f04-bg" class="clip" data-start="0" data-duration="37.32" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-04-voice" id="f04-voice" src="assets/voice/04.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-04-track" class="f04-progress-track"></div>
+  <div data-hf-id="hf-04-fill" id="f04-progress-fill" class="f04-progress-fill"></div>
+
+  <div data-hf-id="hf-04-content" id="f04-content" class="clip" data-start="0" data-duration="37.32" data-track-index="1">
+    
+    <!-- Header -->
+    <div data-hf-id="hf-04-head" id="f04-header" class="f04-header">
+      <span class="f04-badge">✨ 첫 번째 반전</span>
+      <span class="f04-title">다섯 가지 전부 외울 필요 없습니다!</span>
+    </div>
+
+    <!-- Stage 1: her, bird, fur & Merged Capsule -->
+    <div data-hf-id="hf-04-st1" id="f04-stage1" class="f04-stage1-wrap">
+      
+      <div class="f04-cards-row">
+        <!-- her -->
+        <div data-hf-id="hf-04-c1" id="f04-c1" class="f04-word-card">
+          <div class="f04-word-text">h<span class="f04-v-er">er</span></div>
+          <div class="f04-sub-tag">철자 E</div>
+        </div>
+
+        <!-- bird -->
+        <div data-hf-id="hf-04-c2" id="f04-c2" class="f04-word-card">
+          <div class="f04-word-text">b<span class="f04-v-ir">ir</span>d</div>
+          <div class="f04-sub-tag">철자 I</div>
+        </div>
+
+        <!-- fur -->
+        <div data-hf-id="hf-04-c3" id="f04-c3" class="f04-word-card">
+          <div class="f04-word-text">f<span class="f04-v-ur">ur</span></div>
+          <div class="f04-sub-tag">철자 U</div>
+        </div>
+      </div>
+
+      <!-- Merged Capsule -->
+      <div data-hf-id="hf-04-capsule" id="f04-capsule" class="f04-merged-capsule">
+        <span class="f04-capsule-icon">💡</span>
+        <div class="f04-capsule-text">소리는 셋 다 똑같은 편안한 <span style="color:#F5C518;">[ 어~ r ]</span></div>
+        <span class="f04-capsule-badge">소리 100% 일치</span>
+      </div>
+
+    </div>
+
+    <!-- Stage 2: 3 Sound Drawers (sound-drawer) -->
+    <div data-hf-id="hf-04-drawers" id="f04-drawers" class="f04-drawers-container">
+      
+      <!-- Drawer 1: AR -->
+      <div data-hf-id="hf-04-d1" id="f04-d1" class="f04-drawer f04-d1">
+        <div class="f04-drawer-badge">① 1번 서랍</div>
+        <div class="f04-drawer-title">AR</div>
+        <div class="f04-drawer-formula">시원한 '아~'</div>
+        <div class="f04-drawer-desc">턱을 툭 떨어뜨리는 소리</div>
+      </div>
+
+      <!-- Drawer 2: OR -->
+      <div data-hf-id="hf-04-d2" id="f04-d2" class="f04-drawer f04-d2">
+        <div class="f04-drawer-badge">② 2번 서랍</div>
+        <div class="f04-drawer-title">OR</div>
+        <div class="f04-drawer-formula">깊은 '오~'</div>
+        <div class="f04-drawer-desc">입술을 둥글게 모으는 소리</div>
+      </div>
+
+      <!-- Drawer 3: ER·IR·UR -->
+      <div data-hf-id="hf-04-d3" id="f04-d3" class="f04-drawer f04-d3">
+        <div class="f04-drawer-badge">③ 3번 서랍</div>
+        <div class="f04-drawer-title">ER · IR · UR</div>
+        <div class="f04-drawer-formula">편안한 '어~'</div>
+        <div class="f04-drawer-desc">입에 힘을 툭 뺀 소리</div>
+      </div>
+
+    </div>
+
+    <!-- Victory Banner -->
+    <div data-hf-id="hf-04-vic" id="f04-victory" class="f04-victory-banner">
+      <span style="font-size:2cqw;">🎉</span>
+      <div class="f04-victory-text">진짜 외워야 할 소리는 딱 3가지뿐입니다!</div>
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-04-capzone" id="f04-caption-zone" class="f04-caption-zone">
+    <div class="f04-caption-pill">
+      <div id="f04-caption-text" class="f04-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["04-head-fake"] = tl;
+
+  var fill = document.getElementById("f04-progress-fill");
+  var header = document.getElementById("f04-header");
+
+  var stage1 = document.getElementById("f04-stage1");
+  var c1 = document.getElementById("f04-c1");
+  var c2 = document.getElementById("f04-c2");
+  var c3 = document.getElementById("f04-c3");
+  var capsule = document.getElementById("f04-capsule");
+
+  var drawersWrap = document.getElementById("f04-drawers");
+  var d1 = document.getElementById("f04-d1");
+  var d2 = document.getElementById("f04-d2");
+  var d3 = document.getElementById("f04-d3");
+
+  var victory = document.getElementById("f04-victory");
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "20.0%" }, { width: "26.66%", duration: 1.2, ease: "power1.inOut" }, 0);
+
+  // Header
+  tl.fromTo(header, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.2);
+
+  // 1. "사실 이 다섯 가지, 전부 외울 필요 없습니다." (0.581s)
+  // 2. "그중 ER, IR, UR 이 세 가지는..."
+  // her (15.236s), bird (16.13s), fur (17.739s)
+  tl.fromTo(c1, { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 15.2);
+  tl.fromTo(c2, { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 16.1);
+  tl.fromTo(c3, { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 17.7);
+
+  // 3. "소리는 셋 다 편안한 '어~' 하나입니다." (24.9s)
+  // Merged capsule bursts in
+  tl.fromTo(capsule, { opacity: 0, scale: 0.8, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 24.5);
+  tl.to([c1, c2, c3], { borderColor: "#2E86AB", boxShadow: "5px 5px 0px #2E86AB", duration: 0.35 }, 24.8);
+
+  // 4. "그러니까 진짜 외워야 할 소리는 AR, OR, 그리고 이 '어~'까지, 딱 세 가지뿐입니다." (27.78s)
+  // Fade out Stage 1, bring in 3 Sound Drawers
+  tl.to(stage1, { opacity: 0, scale: 0.9, y: -20, duration: 0.4, ease: "power2.in" }, 27.2);
+
+  tl.set(drawersWrap, { opacity: 1, pointerEvents: "auto" }, 27.6);
+  // AR (30.99s)
+  tl.fromTo(d1, { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 30.8);
+  // OR (31.61s)
+  tl.fromTo(d2, { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 31.5);
+  // ER/IR/UR (34.44s)
+  tl.fromTo(d3, { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 34.2);
+
+  // "딱 세 가지뿐입니다" Victory banner at 35.7s
+  tl.fromTo(victory, { opacity: 0, scale: 0.88, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, 35.7);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f04-caption-zone");
+  var captionText = document.getElementById("f04-caption-text");
+  var CAPTIONS = [
+    { at: 0.581, text: "사실 이 다섯 가지, 전부 외울 필요 없습니다." },
+    { at: 5.471, text: "그중 ER, IR, UR 이 세 가지는 철자만 다를 뿐 소리가 완전히 똑같거든요. her, bird, fur." },
+    { at: 18.633, text: "철자는 E, I, U로 다르지만, 소리는 셋 다 편안한 '어~' 하나입니다." },
+    { at: 27.78, text: "그러니까 진짜 외워야 할 소리는 AR, OR, 그리고 이 '어~'까지, 딱 세 가지뿐입니다." }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 37.0);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("04-head-fake");
+})();
+</script>
+</template>

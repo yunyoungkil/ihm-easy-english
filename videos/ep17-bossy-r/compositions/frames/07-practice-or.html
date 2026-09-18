@@ -1,0 +1,283 @@
+<template>
+<style>
+  /* 07-practice-or — Frame 7 "2번 서랍 OR 실전 낭독".
+     Actual audio duration: 30.36s.
+     - 0.554s ~ 13.0s: 2번 서랍 OR 개방 (입술 모으는 깊은 '오~')
+     - 13.16s ~ 24.7s: 5대 단어 (for, corn, storm, fork, horse) 순차 낭독
+     - 25.02s ~ 30.36s: "촛불을 불듯이 입술을 모으고 깊게 '오~'"
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Gaegu'; font-weight: 700; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/gaegu/v23/TuGSUVB6Up9NU573jvw7.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f07-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f07-progress-fill { position: absolute; left: 0; top: 0; width: 40.0%; height: 4px; background: #F5A623; }
+
+  /* Header */
+  .f07-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
+  }
+  .f07-badge {
+    background: #E67E22; color: #FFFFFF; font-weight: 900; font-size: 1.15cqw;
+    padding: 0.6cqh 1.3cqw; border-radius: 100px; border: 2px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .f07-title {
+    font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Center Stage */
+  .f07-center-stage {
+    position: absolute; left: 50%; top: 43%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; flex-direction: column; align-items: center; gap: 3cqh;
+    z-index: 5;
+  }
+
+  /* Action Banner */
+  .f07-action-banner {
+    background: #FFF3E6; border: 3px solid #963E00; border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 1.2cqh 3cqw;
+    display: flex; align-items: center; gap: 1.5cqw; opacity: 0; transform: translateY(-10px);
+  }
+  .f07-action-icon { font-size: 2cqw; }
+  .f07-action-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.6cqw; font-weight: 900;
+    color: #963E00; letter-spacing: -0.3px;
+  }
+
+  /* 5 Words Grid */
+  .f07-words-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.8cqw; width: 100%;
+  }
+  .f07-word-card {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
+    box-shadow: 5px 5px 0px #2B2B2B; padding: 3cqh 1.2cqw;
+    display: flex; flex-direction: column; align-items: center; gap: 1.2cqh;
+    opacity: 0; transform: translateY(20px); transition: all 0.2s ease;
+  }
+  .f07-word-main {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.4cqw; line-height: 1; color: #2B2B2B;
+  }
+  .f07-or-part {
+    color: #963E00; background: rgba(230,126,34,0.2); border-radius: 6px; padding: 0 0.1em;
+  }
+  .f07-word-meaning {
+    font-size: 1.15cqw; font-weight: 900; color: #7A7365;
+  }
+
+  /* Active highlight card state */
+  .f07-word-card.active {
+    border-color: #963E00; background: #FFF9F2; box-shadow: 0 0 0 4px #E67E22, 6px 6px 0px #2B2B2B;
+    transform: translateY(-8px) scale(1.05);
+  }
+
+  /* Bottom Rhythm Guide */
+  .f07-rhythm-bar {
+    position: absolute; bottom: 12.5cqh; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 1.5cqw; background: #FFFFFF;
+    border: 2.5px solid #2B2B2B; border-radius: 100px; padding: 0.8cqh 2.4cqw;
+    box-shadow: 3px 3px 0px #2B2B2B; opacity: 0; z-index: 10;
+  }
+  .f07-step {
+    font-size: 1.1cqw; font-weight: 900; color: #2B2B2B; display: flex; align-items: center; gap: 0.5cqw;
+  }
+  .f07-step-badge {
+    background: #2B2B2B; color: #F5C518; border-radius: 50%; width: 1.6cqw; height: 1.6cqw;
+    font-size: 0.9cqw; display: flex; align-items: center; justify-content: center;
+  }
+  .f07-step-arrow { color: #7A7365; font-weight: 900; }
+
+  /* Caption pill */
+  .f07-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f07-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f07-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-07-root" id="root" data-composition-id="07-practice-or" data-start="0" data-duration="30.36" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-07-bg" id="f07-bg" class="clip" data-start="0" data-duration="30.36" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-07-voice" id="f07-voice" src="assets/voice/07.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-07-track" class="f07-progress-track"></div>
+  <div data-hf-id="hf-07-fill" id="f07-progress-fill" class="f07-progress-fill"></div>
+
+  <div data-hf-id="hf-07-content" id="f07-content" class="clip" data-start="0" data-duration="30.36" data-track-index="1">
+    
+    <!-- Header -->
+    <div data-hf-id="hf-07-head" id="f07-header" class="f07-header">
+      <span class="f07-badge">🚪 2번 소리 서랍</span>
+      <span class="f07-title">OR : 입술을 동그랗게 모으는 깊은 '오~'</span>
+    </div>
+
+    <!-- Center Stage -->
+    <div data-hf-id="hf-07-stage" class="f07-center-stage">
+      
+      <!-- Action Banner -->
+      <div data-hf-id="hf-07-action" id="f07-action" class="f07-action-banner">
+        <span class="f07-action-icon">🕯️</span>
+        <div class="f07-action-text">촛불을 불듯이 입술을 둥글게 모으세요 ➔ <span style="text-decoration:underline;">[ 오~ r ]</span></div>
+      </div>
+
+      <!-- 5 Words Grid -->
+      <div data-hf-id="hf-07-grid" class="f07-words-grid">
+        
+        <!-- for -->
+        <div data-hf-id="hf-07-w1" id="f07-w1" class="f07-word-card">
+          <div class="f07-word-main">f<span class="f07-or-part">or</span></div>
+          <div class="f07-word-meaning">~위해 🎁</div>
+        </div>
+
+        <!-- corn -->
+        <div data-hf-id="hf-07-w2" id="f07-w2" class="f07-word-card">
+          <div class="f07-word-main">c<span class="f07-or-part">or</span>n</div>
+          <div class="f07-word-meaning">옥수수 🌽</div>
+        </div>
+
+        <!-- storm -->
+        <div data-hf-id="hf-07-w3" id="f07-w3" class="f07-word-card">
+          <div class="f07-word-main">st<span class="f07-or-part">or</span>m</div>
+          <div class="f07-word-meaning">폭풍 ⚡</div>
+        </div>
+
+        <!-- fork -->
+        <div data-hf-id="hf-07-w4" id="f07-w4" class="f07-word-card">
+          <div class="f07-word-main">f<span class="f07-or-part">or</span>k</div>
+          <div class="f07-word-meaning">포크 🍴</div>
+        </div>
+
+        <!-- horse -->
+        <div data-hf-id="hf-07-w5" id="f07-w5" class="f07-word-card">
+          <div class="f07-word-main">h<span class="f07-or-part">or</span>se</div>
+          <div class="f07-word-meaning">말 🐎</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Rhythm Guide -->
+    <div data-hf-id="hf-07-rhythm" id="f07-rhythm" class="f07-rhythm-bar">
+      <div class="f07-step"><span class="f07-step-badge">1</span> 귀로 듣고</div>
+      <span class="f07-step-arrow">➔</span>
+      <div class="f07-step"><span class="f07-step-badge">2</span> 입술을 둥글게 모으고</div>
+      <span class="f07-step-arrow">➔</span>
+      <div class="f07-step"><span class="f07-step-badge">3</span> 깊게 '오~' 소리 내기</div>
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-07-capzone" id="f07-caption-zone" class="f07-caption-zone">
+    <div class="f07-caption-pill">
+      <div id="f07-caption-text" class="f07-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["07-practice-or"] = tl;
+
+  var fill = document.getElementById("f07-progress-fill");
+  var header = document.getElementById("f07-header");
+  var action = document.getElementById("f07-action");
+  var rhythm = document.getElementById("f07-rhythm");
+
+  var w1 = document.getElementById("f07-w1");
+  var w2 = document.getElementById("f07-w2");
+  var w3 = document.getElementById("f07-w3");
+  var w4 = document.getElementById("f07-w4");
+  var w5 = document.getElementById("f07-w5");
+  var words = [w1, w2, w3, w4, w5];
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "40.0%" }, { width: "46.66%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  // Header & Action banner
+  tl.fromTo(header, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.2);
+  tl.fromTo(action, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.5);
+
+  // 5 Word cards pop in grid at 7.8s
+  tl.fromTo(words, 
+    { opacity: 0, y: 20, scale: 0.92 }, 
+    { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.1, ease: "back.out(1.5)" }, 
+    7.8
+  );
+  tl.fromTo(rhythm, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35 }, 9.0);
+
+  // Speech onsets for 5 words:
+  // for (15.275s), corn (16.847s), storm (18.735s), fork (20.937s), horse (22.824s)
+  function setActive(index) {
+    words.forEach(function (card, i) {
+      if (i === index) {
+        card.classList.add("active");
+      } else {
+        card.classList.remove("active");
+      }
+    });
+  }
+
+  tl.call(function () { setActive(0); }, null, 15.275);
+  tl.call(function () { setActive(1); }, null, 16.847);
+  tl.call(function () { setActive(2); }, null, 18.735);
+  tl.call(function () { setActive(3); }, null, 20.937);
+  tl.call(function () { setActive(4); }, null, 22.824);
+  tl.call(function () { setActive(-1); }, null, 24.8);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f07-caption-zone");
+  var captionText = document.getElementById("f07-caption-text");
+  var CAPTIONS = [
+    { at: 0.554, text: "두 번째 OR 소리는 입술을 동그랗게 모으는 깊은 '오~' 소리입니다." },
+    { at: 7.814, text: "O 뒤에 R이 오면 입술 끝으로 둥글게 모여 울립니다." },
+    { at: 13.163, text: "직접 소리 내보세요. for, corn, storm, fork, horse." },
+    { at: 25.026, text: "촛불을 불듯이 입술을 모으고 깊게 '오~' 하고 소리 냅니다." }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 30.0);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("07-practice-or");
+})();
+</script>
+</template>

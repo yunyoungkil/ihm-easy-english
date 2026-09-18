@@ -1,0 +1,237 @@
+<template>
+<style>
+  /* 02-intro — Frame 2 "채널 인트로 (Intro)".
+     Actual audio duration: 12.40s.
+     - 0.467s: "안녕하세요," greeting tag pop-in
+     - 1.653s: "이해하면 쉬운영어" brand wordmark reveal in center
+     - 4.583s: Wordmark scales and docks to top header; Topic card bursts into center:
+       "모음 5개 ➔ 소리 3개로 끝나는 R의 비밀"
+     - 8.948s: 3 mini sound preview chips pop in (AR, OR, ER/IR/UR)
+     - 100% spoken text covered by caption-pill
+  */
+  @font-face {
+    font-family: 'Archivo Black'; font-weight: 400; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans KR'; font-weight: 900; font-style: normal;
+    src: url('https://fonts.gstatic.com/s/notosanskr/v39/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzg01eLQ.ttf') format('truetype');
+  }
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+  .clip { position: absolute; inset: 0; }
+
+  .f02-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 4px; background: rgba(43,43,43,0.08); }
+  .f02-progress-fill { position: absolute; left: 0; top: 0; width: 6.66%; height: 4px; background: #F5A623; }
+
+  /* Hero Wordmark Container */
+  .f02-wordmark-wrap {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 1.5cqh;
+    opacity: 0; z-index: 10;
+  }
+  .f02-greeting-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 0.6cqh 1.8cqw; font-size: 1.2cqw; font-weight: 900; color: #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B; opacity: 0; transform: translateY(-10px);
+  }
+  .f02-brand-row {
+    display: flex; align-items: baseline; gap: 0.8cqw;
+  }
+  .f02-brand-part1 {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 5.5cqw; font-weight: 900;
+    color: #2B2B2B; letter-spacing: -2px; line-height: 1.1;
+  }
+  .f02-brand-part2 {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 5.5cqw; font-weight: 900;
+    color: #F5A623; -webkit-text-stroke: 3px #2B2B2B; paint-order: stroke fill;
+    letter-spacing: -2px; line-height: 1.1;
+    filter: drop-shadow(4px 4px 0px #2B2B2B);
+  }
+
+  /* Topic Reveal Card (enters at 4.6s) */
+  .f02-topic-card {
+    position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%) scale(0.92);
+    width: 74cqw; background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B; padding: 4cqh 3cqw;
+    display: flex; flex-direction: column; align-items: center; gap: 2.5cqh;
+    opacity: 0; z-index: 5;
+  }
+  .f02-topic-eyebrow {
+    background: #2B2B2B; color: #F5C518; font-weight: 900; font-size: 1.1cqw;
+    padding: 0.5cqh 1.3cqw; border-radius: 100px;
+  }
+  .f02-topic-title {
+    font-size: 2.6cqw; font-weight: 900; color: #2B2B2B; text-align: center;
+    letter-spacing: -0.5px; line-height: 1.3;
+  }
+  .f02-topic-highlight {
+    color: #F5A623; text-decoration: underline; text-decoration-color: #2B2B2B; text-underline-offset: 6px;
+  }
+
+  /* 3 Preview Chips */
+  .f02-chips-row {
+    display: flex; align-items: center; gap: 1.5cqw; margin-top: 1cqh;
+  }
+  .f02-chip {
+    display: flex; align-items: center; gap: 0.8cqw; padding: 1.2cqh 1.8cqw;
+    border: 2.5px solid #2B2B2B; border-radius: 14px; box-shadow: 3px 3px 0px #2B2B2B;
+    background: #FAF7F2; opacity: 0; transform: translateY(12px);
+  }
+  .f02-chip-num {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.2cqw; color: #FFFFFF;
+    background: #2B2B2B; border-radius: 50%; width: 2.2cqw; height: 2.2cqw;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .f02-chip-label {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.4cqw;
+  }
+  .f02-chip-desc {
+    font-weight: 900; font-size: 1.1cqw; color: #2B2B2B;
+  }
+
+  .f02-chip-1 { border-color: #8A5A12; background: #FFF9DB; }
+  .f02-chip-1 .f02-chip-label { color: #8A5A12; }
+  .f02-chip-2 { border-color: #963E00; background: #FFF3E6; }
+  .f02-chip-2 .f02-chip-label { color: #963E00; }
+  .f02-chip-3 { border-color: #165069; background: #EBF4F8; }
+  .f02-chip-3 .f02-chip-label { color: #165069; }
+
+  /* Caption pill */
+  .f02-caption-zone {
+    position: absolute; left: 6cqw; right: 6cqw; bottom: 3cqh;
+    display: flex; justify-content: center; opacity: 0; z-index: 20;
+  }
+  .f02-caption-pill {
+    background: #FFFFFF; border: 2.5px solid #2B2B2B; border-radius: 100px;
+    padding: 1.2cqh 3.2cqw; box-shadow: 3px 3px 0px #2B2B2B; max-width: 86cqw;
+  }
+  .f02-caption-text {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 800;
+    line-height: 1.45; color: #2B2B2B; text-align: center;
+  }
+</style>
+
+<div data-hf-id="hf-02-root" id="root" data-composition-id="02-intro" data-start="0" data-duration="12.4" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-02-bg" id="f02-bg" class="clip" data-start="0" data-duration="12.4" data-track-index="0"></div>
+
+  <audio data-hf-id="hf-02-voice" id="f02-voice" src="assets/voice/02.wav" data-start="0" data-audio-group="voiceover"></audio>
+
+  <div data-hf-id="hf-02-track" class="f02-progress-track"></div>
+  <div data-hf-id="hf-02-fill" id="f02-progress-fill" class="f02-progress-fill"></div>
+
+  <div data-hf-id="hf-02-content" id="f02-content" class="clip" data-start="0" data-duration="12.4" data-track-index="1">
+    
+    <!-- Hero Wordmark -->
+    <div data-hf-id="hf-02-wm" id="f02-wordmark" class="f02-wordmark-wrap">
+      <div id="f02-greeting" class="f02-greeting-pill">👋 안녕하세요!</div>
+      <div class="f02-brand-row">
+        <span class="f02-brand-part1">이해하면</span>
+        <span class="f02-brand-part2">쉬운영어</span>
+      </div>
+    </div>
+
+    <!-- Topic Reveal Card -->
+    <div data-hf-id="hf-02-topic" id="f02-topic" class="f02-topic-card">
+      <span class="f02-topic-eyebrow">오늘의 핵심 비밀</span>
+      <div class="f02-topic-title">
+        R 뒤에서 사라진 모음의 비밀과<br>
+        <span class="f02-topic-highlight">딱 3가지로 끝나는 소리 공식</span>
+      </div>
+
+      <div class="f02-chips-row">
+        <div id="f02-chip1" class="f02-chip f02-chip-1">
+          <span class="f02-chip-num">1</span>
+          <span class="f02-chip-label">AR</span>
+          <span class="f02-chip-desc">시원한 '아~'</span>
+        </div>
+        <div id="f02-chip2" class="f02-chip f02-chip-2">
+          <span class="f02-chip-num">2</span>
+          <span class="f02-chip-label">OR</span>
+          <span class="f02-chip-desc">깊은 '오~'</span>
+        </div>
+        <div id="f02-chip3" class="f02-chip f02-chip-3">
+          <span class="f02-chip-num">3</span>
+          <span class="f02-chip-label">ER·IR·UR</span>
+          <span class="f02-chip-desc">힘 뺀 '어~'</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Caption Pill Zone -->
+  <div data-hf-id="hf-02-capzone" id="f02-caption-zone" class="f02-caption-zone">
+    <div class="f02-caption-pill">
+      <div id="f02-caption-text" class="f02-caption-text"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  window.__timelines = window.__timelines || {};
+  window.__timelines["02-intro"] = tl;
+
+  var fill = document.getElementById("f02-progress-fill");
+  var wm = document.getElementById("f02-wordmark");
+  var greeting = document.getElementById("f02-greeting");
+  var topic = document.getElementById("f02-topic");
+
+  var chip1 = document.getElementById("f02-chip1");
+  var chip2 = document.getElementById("f02-chip2");
+  var chip3 = document.getElementById("f02-chip3");
+
+  // Progress Bar
+  tl.fromTo(fill, { width: "6.66%" }, { width: "13.33%", duration: 1.0, ease: "power1.inOut" }, 0);
+
+  // 1. "안녕하세요," (0.467s)
+  tl.fromTo(greeting, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.5)" }, 0.467);
+
+  // 2. "「이해하면 쉬운영어」입니다." (1.653s)
+  tl.fromTo(wm, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 1.653);
+
+  // 3. "오늘은 R 뒤에서 사라진 모음의 비밀과..." (4.583s)
+  // Wordmark shrinks and moves up towards top using transform y
+  tl.to(greeting, { opacity: 0, duration: 0.2 }, 4.3);
+  tl.to(wm, { y: -340, scale: 0.55, duration: 0.5, ease: "power2.inOut" }, 4.5);
+
+  // Topic card pops in
+  tl.fromTo(topic, { opacity: 0, scale: 0.9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 4.65);
+
+  // 4. "딱 세 가지로 끝나는 소리 공식을 공개합니다." (8.948s)
+  tl.fromTo(chip1, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)" }, 8.948);
+  tl.fromTo(chip2, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)" }, 9.5);
+  tl.fromTo(chip3, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)" }, 10.1);
+
+  // 100% Narration-coverage caption-pill
+  var captionZone = document.getElementById("f02-caption-zone");
+  var captionText = document.getElementById("f02-caption-text");
+  var CAPTIONS = [
+    { at: 0.467, text: "안녕하세요, 「이해하면 쉬운영어」입니다." },
+    { at: 4.583, text: "오늘은 R 뒤에서 사라진 모음의 비밀과, 딱 세 가지로 끝나는 소리 공식을 공개합니다." }
+  ];
+
+  tl.set(captionZone, { opacity: 0 }, 0);
+  tl.call(function () { captionText.textContent = CAPTIONS[0].text; }, null, CAPTIONS[0].at);
+  tl.fromTo(captionZone, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, CAPTIONS[0].at);
+
+  for (var c = 1; c < CAPTIONS.length; c++) {
+    tl.to(captionZone, { opacity: 0.15, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at - 0.12);
+    tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
+    tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
+  }
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 12.1);
+
+  window.__hfReady = window.__hfReady || [];
+  window.__hfReady.push("02-intro");
+})();
+</script>
+</template>

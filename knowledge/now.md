@@ -13,8 +13,14 @@
 - **핵심 통찰(BRIEF.md에 기록)**: "모음 5개"라는 제목 문구를 곧이곧대로 받아들이면 안 됨 —
   AR·OR은 각자 독자적인 소리지만 **ER·IR·UR 셋은 철자만 다를 뿐 완전히 같은 소리**(schwa-r).
   즉 진짜 반전은 "다섯 철자 → 세 소리 그룹"이라는 것. 대본 목차 단계에서 이 구조를 정면으로
-  활용할 것을 제안해둠.
-- **다음 행동**: 12프레임 목차 작성·제시 → 사용자 승인 → `SCRIPT.md` 씬 단위 작성.
+- **진행 상태(2026-09-18)**: 15프레임 완성형 대본(`videos/ep17-bossy-r/SCRIPT.md`), 시각 시스템 명세(`videos/ep17-bossy-r/frame.md`), 전체 스토리보드(`videos/ep17-bossy-r/STORYBOARD.md`) 기반 TTS 실측 및 HyperFrames 15개 프레임 전편 완제작.
+  * TTS 음성 생성 및 whisper 단어 단위 실측 타임스탬프 동기화 완료 (총 389.46초 / 6분 29.46초).
+  * 15개 전체 프레임 컴포지션 구현 완료 (`compositions/frames/01-stakes.html` ~ `15-closing.html`).
+  * Frame 1 최소 대립쌍, Frame 3/4 스포일러 방지 및 3-서랍 반전 극대화, Frame 5 구강 단면도 SVG, Frame 6~8 3대 서랍 실전 낭독, Frame 9 앞 R vs 뒤 R 반전 꿀팁, Frame 10~11 2라운드 퀴즈 카운트다운, Frame 12~13 실전 문장, Frame 14 마스터 치트시트 요약표 & 캡처 연출, Frame 15 엔드스크린 5초 중앙 완벽 비움 keep-out 준수.
+  * 전 프레임 `caption-pill` 나레이션 100% 무누락 자막 연동.
+  * `npm run check` 검증: 린트(클립 ID 12건 부여), 런타임(Gaegu v23 TTF 교체로 404 해결), 레이아웃(Frame 8 페이드아웃 및 `.scene` CSS로 오버랩 7건 해결) 전수 완료하여 **0 errors, 0 warnings (Check passed)** 통과.
+  * `videos/ep17-bossy-r/TASKS.md` 제작 및 감사 이력 문서화 완료.
+- **다음 행동**: 사용자 컨펌 후 최종 비디오 렌더(`npm run render`) 및 업로드 패키지 준비.
 
 ## ✅ 완료 — 단편 EP16(모음 두 개 나란히 올 때 읽는 법)
 

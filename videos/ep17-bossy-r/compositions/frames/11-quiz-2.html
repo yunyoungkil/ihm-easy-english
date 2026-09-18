@@ -77,6 +77,12 @@
   }
   .f11-quiz-word {
     font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1; color: #2B2B2B;
+    /* "first" splits color across a span boundary right at "f|ir" — without this, the browser's
+       "fi" ligature glyph spans that boundary and gets colored by the outer "f" node, silently
+       rendering "i" in black instead of the intended IR highlight color (pixel-checked: "fi" both
+       came back rgb(43,43,43) with only "r" teal). Disabling ligatures makes every letter its own
+       independently colorable glyph. */
+    font-variant-ligatures: none;
   }
   .f11-quiz-meaning {
     font-size: 1.5cqw; font-weight: 900; color: #7A7365;
@@ -133,34 +139,34 @@
     
     <!-- Top 3 Mini Slots -->
     <div data-hf-id="hf-11-slots" class="f11-slots-row">
-      <div id="f11-s1" class="f11-mini-slot f11-s1">
-        <span class="f11-slot-num">1</span>
-        <span class="f11-slot-title">AR [아~]</span>
+      <div data-hf-id="hf-x8o1" id="f11-s1" class="f11-mini-slot f11-s1">
+        <span data-hf-id="hf-s226" class="f11-slot-num">1</span>
+        <span data-hf-id="hf-odes" class="f11-slot-title">AR [아~]</span>
       </div>
-      <div id="f11-s2" class="f11-mini-slot f11-s2">
-        <span class="f11-slot-num">2</span>
-        <span class="f11-slot-title">OR [오~]</span>
+      <div data-hf-id="hf-nzxd" id="f11-s2" class="f11-mini-slot f11-s2">
+        <span data-hf-id="hf-sgd7" class="f11-slot-num">2</span>
+        <span data-hf-id="hf-e2ui" class="f11-slot-title">OR [오~]</span>
       </div>
-      <div id="f11-s3" class="f11-mini-slot f11-s3">
-        <span class="f11-slot-num">3</span>
-        <span class="f11-slot-title">ER·IR·UR [어~]</span>
+      <div data-hf-id="hf-3qhh" id="f11-s3" class="f11-mini-slot f11-s3">
+        <span data-hf-id="hf-suo8" class="f11-slot-num">3</span>
+        <span data-hf-id="hf-zsek" class="f11-slot-title">ER·IR·UR [어~]</span>
       </div>
     </div>
 
     <!-- Center Quiz Card -->
     <div data-hf-id="hf-11-center" class="f11-quiz-center">
-      <div id="f11-tag" class="f11-round-tag">⚡ 2라운드 스피드 퀴즈</div>
+      <div data-hf-id="hf-zw0y" id="f11-tag" class="f11-round-tag">⚡ 2라운드 스피드 퀴즈</div>
 
       <div data-hf-id="hf-11-card" id="f11-card" class="f11-card">
-        <div id="f11-stamp" class="f11-answer-stamp">🎯 1번 AR 정답!</div>
+        <div data-hf-id="hf-3llr" id="f11-stamp" class="f11-answer-stamp">🎯 1번 AR 정답!</div>
 
-        <div id="f11-word" class="f11-quiz-word">dark</div>
-        <div id="f11-meaning" class="f11-quiz-meaning">어두운 🌙</div>
+        <div data-hf-id="hf-fpxc" id="f11-word" class="f11-quiz-word">dark</div>
+        <div data-hf-id="hf-5li7" id="f11-meaning" class="f11-quiz-meaning">어두운 🌙</div>
 
-        <div id="f11-gauge" class="f11-gauge-box">
-          <div class="f11-gauge-label">망설임 없이 소리 내보세요!</div>
-          <div class="f11-gauge-track">
-            <div id="f11-gauge-fill" class="f11-gauge-fill"></div>
+        <div data-hf-id="hf-oq2i" id="f11-gauge" class="f11-gauge-box">
+          <div data-hf-id="hf-m143" class="f11-gauge-label">망설임 없이 소리 내보세요!</div>
+          <div data-hf-id="hf-sqts" class="f11-gauge-track">
+            <div data-hf-id="hf-95zy" id="f11-gauge-fill" class="f11-gauge-fill"></div>
           </div>
         </div>
       </div>
@@ -170,8 +176,8 @@
 
   <!-- Caption Pill Zone -->
   <div data-hf-id="hf-11-capzone" id="f11-caption-zone" class="f11-caption-zone">
-    <div class="f11-caption-pill">
-      <div id="f11-caption-text" class="f11-caption-text"></div>
+    <div data-hf-id="hf-8omb" class="f11-caption-pill">
+      <div data-hf-id="hf-705a" id="f11-caption-text" class="f11-caption-text"></div>
     </div>
   </div>
 </div>

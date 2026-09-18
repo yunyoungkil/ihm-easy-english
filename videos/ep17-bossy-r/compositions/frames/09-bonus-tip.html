@@ -1,11 +1,14 @@
 <template>
 <style>
   /* 09-bonus-tip — Frame 9 "반전 꿀팁 코너 (Bonus Tip)".
-     Actual audio duration: 28.24s.
-     - 0.541s ~ 5.42s: "여기서 잠깐, 중요한 꿀팁!" 전구 뱃지 pop-in
-     - 5.605s ~ 14.68s: 좌우 듀얼 카드: red (앞 R) vs car (뒤 R)
-     - 14.88s ~ 25.12s: 화살표 방향 모션 (밖으로 밀어내는 '우~' vs 안으로 당기는 흡수)
-     - 25.30s ~ 28.24s: "이 차이만 알아도 영어 소리가 훨씬 쉬워집니다"
+     Actual audio duration: 29.04s (2026-09-18 regenerated — original take came back in an
+     off-model female-sounding voice, a known Gemini Charon pitch-drift issue; re-ran
+     gen-tts-gemini.mjs --only=09 and re-whisper-aligned, which shifted every cue below by
+     roughly +0.1~0.7s and pushed every later frame's index.html start by +0.80s).
+     - 0.612s ~ 5.44s: "여기서 잠깐, 중요한 꿀팁!" 전구 뱃지 pop-in
+     - 5.593s ~ 15.44s: 좌우 듀얼 카드: red (앞 R) vs car (뒤 R)
+     - 15.62s ~ 25.44s: 화살표 방향 모션 (밖으로 밀어내는 '우~' vs 안으로 당기는 흡수)
+     - 25.59s ~ 29.04s: "이 차이만 알아도 영어 소리가 훨씬 쉬워집니다"
      - 100% spoken text covered by caption-pill
   */
   @font-face {
@@ -126,20 +129,20 @@
   }
 </style>
 
-<div data-hf-id="hf-09-root" id="root" data-composition-id="09-bonus-tip" data-start="0" data-duration="28.24" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-09-bg" id="f09-bg" class="clip" data-start="0" data-duration="28.24" data-track-index="0"></div>
+<div data-hf-id="hf-09-root" id="root" data-composition-id="09-bonus-tip" data-start="0" data-duration="29.04" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-09-bg" id="f09-bg" class="clip" data-start="0" data-duration="29.04" data-track-index="0"></div>
 
   <audio data-hf-id="hf-09-voice" id="f09-voice" src="assets/voice/09.wav" data-start="0" data-audio-group="voiceover"></audio>
 
   <div data-hf-id="hf-09-track" class="f09-progress-track"></div>
   <div data-hf-id="hf-09-fill" id="f09-progress-fill" class="f09-progress-fill"></div>
 
-  <div data-hf-id="hf-09-content" id="f09-content" class="clip" data-start="0" data-duration="28.24" data-track-index="1">
+  <div data-hf-id="hf-09-content" id="f09-content" class="clip" data-start="0" data-duration="29.04" data-track-index="1">
     
     <!-- Header -->
     <div data-hf-id="hf-09-head" id="f09-header" class="f09-header">
-      <span class="f09-badge">💡 30초 반전 꿀팁</span>
-      <span class="f09-title">앞에 오는 R과 뒤에 오는 R은 소리가 완전히 다릅니다!</span>
+      <span data-hf-id="hf-6oly" class="f09-badge">💡 30초 반전 꿀팁</span>
+      <span data-hf-id="hf-xf5j" class="f09-title">앞에 오는 R과 뒤에 오는 R은 소리가 완전히 다릅니다!</span>
     </div>
 
     <!-- Dual Cards Wrap -->
@@ -147,25 +150,25 @@
       
       <!-- Left: red (모음 앞 R) -->
       <div data-hf-id="hf-09-c1" id="f09-card-left" class="f09-card f09-card-left">
-        <div class="f09-card-header-badge">모음 앞 R</div>
-        <div class="f09-word-text"><span class="f09-r-letter">[ R ]</span>ed</div>
+        <div data-hf-id="hf-nw8u" class="f09-card-header-badge">모음 앞 R</div>
+        <div data-hf-id="hf-715t" class="f09-word-text"><span data-hf-id="hf-185i" class="f09-r-letter">[ R ]</span>ed</div>
         
-        <div id="f09-action-left" class="f09-action-box">
-          <div id="f09-arr-left" class="f09-arrow-icon">➔ ➔ ➔</div>
-          <div class="f09-action-title">혀를 둥글게 '우~'로 밀어내기</div>
-          <div class="f09-action-desc">입술을 내밀며 밖으로 뻗어나가는 발음</div>
+        <div data-hf-id="hf-z22c" id="f09-action-left" class="f09-action-box">
+          <div data-hf-id="hf-dzuk" id="f09-arr-left" class="f09-arrow-icon">➔ ➔ ➔</div>
+          <div data-hf-id="hf-zpsk" class="f09-action-title">혀를 둥글게 '우~'로 밀어내기</div>
+          <div data-hf-id="hf-jr6k" class="f09-action-desc">입술을 내밀며 밖으로 뻗어나가는 발음</div>
         </div>
       </div>
 
       <!-- Right: car (모음 뒤 R) -->
       <div data-hf-id="hf-09-c2" id="f09-card-right" class="f09-card f09-card-right">
-        <div class="f09-card-header-badge">모음 뒤 R (오늘의 주인공)</div>
-        <div class="f09-word-text">ca<span class="f09-r-letter">[ R ]</span></div>
+        <div data-hf-id="hf-sk5m" class="f09-card-header-badge">모음 뒤 R (오늘의 주인공)</div>
+        <div data-hf-id="hf-23bc" class="f09-word-text">ca<span data-hf-id="hf-qr2i" class="f09-r-letter">[ R ]</span></div>
         
-        <div id="f09-action-right" class="f09-action-box">
-          <div id="f09-arr-right" class="f09-arrow-icon">🧲 🧲 🧲</div>
-          <div class="f09-action-title">모음 꼬리를 잡고 뒤로 쏙 당기기</div>
-          <div class="f09-action-desc">앞 모음을 집어삼키며 안으로 끌어당기는 발음</div>
+        <div data-hf-id="hf-38iz" id="f09-action-right" class="f09-action-box">
+          <div data-hf-id="hf-ettv" id="f09-arr-right" class="f09-arrow-icon">🧲 🧲 🧲</div>
+          <div data-hf-id="hf-d53k" class="f09-action-title">모음 꼬리를 잡고 뒤로 쏙 당기기</div>
+          <div data-hf-id="hf-2jie" class="f09-action-desc">앞 모음을 집어삼키며 안으로 끌어당기는 발음</div>
         </div>
       </div>
 
@@ -173,16 +176,16 @@
 
     <!-- Bottom Insight Bar -->
     <div data-hf-id="hf-09-insight" id="f09-insight" class="f09-insight-bar">
-      <span style="font-size:1.8cqw;">🎯</span>
-      <div class="f09-insight-text">이 방향 차이 하나만 알면, 영어 R 소리의 지도가 완성됩니다!</div>
+      <span data-hf-id="hf-sgup" style="font-size:1.8cqw;">🎯</span>
+      <div data-hf-id="hf-bshm" class="f09-insight-text">이 방향 차이 하나만 알면, 영어 R 소리의 지도가 완성됩니다!</div>
     </div>
 
   </div>
 
   <!-- Caption Pill Zone -->
   <div data-hf-id="hf-09-capzone" id="f09-caption-zone" class="f09-caption-zone">
-    <div class="f09-caption-pill">
-      <div id="f09-caption-text" class="f09-caption-text"></div>
+    <div data-hf-id="hf-uo3i" class="f09-caption-pill">
+      <div data-hf-id="hf-gwbm" id="f09-caption-text" class="f09-caption-text"></div>
     </div>
   </div>
 </div>
@@ -210,31 +213,31 @@
   // Header Entry
   tl.fromTo(header, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.2);
 
-  // Left card: red (5.605s)
-  tl.fromTo(cLeft, { opacity: 0, y: 24, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 5.605);
+  // Left card: red (5.593s, re-whisper-measured after 09.wav regen)
+  tl.fromTo(cLeft, { opacity: 0, y: 24, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 5.593);
 
-  // Right card: car (8.939s)
-  tl.fromTo(cRight, { opacity: 0, y: 24, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 8.939);
+  // Right card: car (9.236s)
+  tl.fromTo(cRight, { opacity: 0, y: 24, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 9.236);
 
-  // Left action: "우~ 로 밀어내고" (14.883s)
-  tl.fromTo(actLeft, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 14.883);
-  tl.fromTo(arrLeft, { x: -10 }, { x: 10, duration: 0.5, yoyo: true, repeat: 3, ease: "power1.inOut" }, 15.5);
+  // Left action: "앞에 오는 R은... '우~'로 밀어내고" (15.619s)
+  tl.fromTo(actLeft, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 15.619);
+  tl.fromTo(arrLeft, { x: -10 }, { x: 10, duration: 0.5, yoyo: true, repeat: 3, ease: "power1.inOut" }, 16.236);
 
-  // Right action: "뒤로 당깁니다" (20.126s)
-  tl.fromTo(actRight, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 20.126);
-  tl.fromTo(arrRight, { scale: 1.3 }, { scale: 0.9, duration: 0.5, yoyo: true, repeat: 3, ease: "power1.inOut" }, 20.7);
+  // Right action: "뒤에 오는 R은... 뒤로 당깁니다" (20.083s)
+  tl.fromTo(actRight, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 20.083);
+  tl.fromTo(arrRight, { scale: 1.3 }, { scale: 0.9, duration: 0.5, yoyo: true, repeat: 3, ease: "power1.inOut" }, 20.657);
 
-  // Insight bar at 25.305s
-  tl.fromTo(insight, { opacity: 0, scale: 0.88, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 25.305);
+  // Insight bar at 25.588s ("이 차이만 알아도...")
+  tl.fromTo(insight, { opacity: 0, scale: 0.88, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 25.588);
 
   // 100% Narration-coverage caption-pill
   var captionZone = document.getElementById("f09-caption-zone");
   var captionText = document.getElementById("f09-caption-text");
   var CAPTIONS = [
-    { at: 0.541, text: "여기서 잠깐, 정말 중요한 꿀팁 하나 짚고 갈까요?" },
-    { at: 5.605, text: "red처럼 모음 앞에 오는 R과, car처럼 모음 뒤에 오는 R은 소리가 완전히 다릅니다." },
-    { at: 14.883, text: "앞에 오는 R은 혀를 둥글게 '우~'로 밀어내고, 뒤에 오는 R은 모음의 꼬리를 낚아채서 뒤로 당깁니다." },
-    { at: 25.305, text: "이 차이만 알아도 영어 소리가 훨씬 쉬워집니다." }
+    { at: 0.612, text: "여기서 잠깐, 정말 중요한 꿀팁 하나 짚고 갈까요?" },
+    { at: 5.593, text: "red처럼 모음 앞에 오는 R과, car처럼 모음 뒤에 오는 R은 소리가 완전히 다릅니다." },
+    { at: 15.619, text: "앞에 오는 R은 혀를 둥글게 '우~'로 밀어내고, 뒤에 오는 R은 모음의 꼬리를 낚아채서 뒤로 당깁니다." },
+    { at: 25.588, text: "이 차이만 알아도 영어 소리가 훨씬 쉬워집니다." }
   ];
 
   tl.set(captionZone, { opacity: 0 }, 0);
@@ -246,7 +249,7 @@
     tl.call(function (txt) { captionText.textContent = txt; }, [CAPTIONS[c].text], CAPTIONS[c].at);
     tl.to(captionZone, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, CAPTIONS[c].at + 0.02);
   }
-  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 27.8);
+  tl.to(captionZone, { opacity: 0, duration: 0.3, ease: "power2.in" }, 28.6);
 
   window.__hfReady = window.__hfReady || [];
   window.__hfReady.push("09-bonus-tip");

@@ -38,12 +38,31 @@
     position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
   }
-  .f01-hook-badge {
-    background: #2B2B2B; color: #F5C518; font-weight: 900; font-size: 1.15cqw;
-    padding: 0.6cqh 1.3cqw; border-radius: 100px; box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+  .f01-ribbon-badge {
+    background: #F5A623; border: 3px solid #2B2B2B; border-radius: 12px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f01-ribbon-icon { font-size: 1.4cqw; }
+  .f01-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.2cqw; font-weight: 900;
+    color: #2B2B2B; letter-spacing: -0.3px;
   }
   .f01-hook-title {
     font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Numbered Circle Badge on Card (Sketchnote Style) */
+  .f01-card-num-badge {
+    position: absolute; top: -1.2cqw; left: 1.5cqw;
+    width: 2.4cqw; height: 2.4cqw; border-radius: 50%;
+    border: 2.5px solid #2B2B2B; box-shadow: 2px 2px 0px #2B2B2B;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.3cqw;
+    color: #FFFFFF; display: flex; align-items: center; justify-content: center;
+    z-index: 6;
+  }
+  .f01-icon-chip {
+    font-size: 1.6cqw; margin-bottom: 0.2cqh;
   }
 
   /* Center 3 Minimal Pair Cards */
@@ -150,8 +169,11 @@
     
     <!-- Hook Header -->
     <div data-hf-id="hf-01-head" id="f01-hook-header" class="f01-hook-header">
-      <span class="f01-hook-badge">💡 성인 파닉스 실전</span>
-      <span class="f01-hook-title">분명 이렇게 배웠는데… 소리가 어디로 갔을까요?</span>
+      <div data-hf-id="hf-pqh6" class="f01-ribbon-badge">
+        <span data-hf-id="hf-2c1z" class="f01-ribbon-icon">💡</span>
+        <span data-hf-id="hf-bxqc" class="f01-ribbon-label">성인 파닉스 실전</span>
+      </div>
+      <span data-hf-id="hf-ff9m" class="f01-hook-title">분명 이렇게 배웠는데… 소리가 어디로 갔을까요?</span>
     </div>
 
     <!-- 3 Minimal Pair Cards -->
@@ -159,45 +181,54 @@
       
       <!-- Card 1: cat -> car -->
       <div data-hf-id="hf-01-c1" id="f01-card-1" class="f01-card">
-        <div class="f01-pair-row">
-          <div class="f01-word-box">
-            <div class="f01-word-text">c<span id="f01-v1" class="f01-vowel-highlight">a<span id="f01-strike1" class="f01-strike-line"></span></span>t</div>
-            <div id="f01-tag1" class="f01-sound-tag">A는 '애'</div>
+        <div data-hf-id="hf-7izp" class="f01-card-num-badge" style="background:#2E86AB;">①</div>
+        <div data-hf-id="hf-2kxv" class="f01-pair-row">
+          <div data-hf-id="hf-fdlk" class="f01-word-box">
+            <span data-hf-id="hf-8p27" class="f01-icon-chip">🐱</span>
+            <div data-hf-id="hf-z5vz" class="f01-word-text">c<span data-hf-id="hf-12ad" id="f01-v1" class="f01-vowel-highlight">a<span data-hf-id="hf-gtef" id="f01-strike1" class="f01-strike-line"></span></span>t</div>
+            <div data-hf-id="hf-8oes" id="f01-tag1" class="f01-sound-tag">A는 '애'</div>
           </div>
-          <div id="f01-arr1" class="f01-arrow">➔</div>
-          <div id="f01-bossy1" class="f01-bossy-word">
-            <div class="f01-bossy-text">c<span class="f01-r-vowel">ar</span></div>
-            <div class="f01-strike-badge">❌ '애' 실종</div>
+          <div data-hf-id="hf-85o1" id="f01-arr1" class="f01-arrow">➔</div>
+          <div data-hf-id="hf-08q6" id="f01-bossy1" class="f01-bossy-word">
+            <span data-hf-id="hf-mbvd" class="f01-icon-chip">🚗</span>
+            <div data-hf-id="hf-2ntt" class="f01-bossy-text">c<span data-hf-id="hf-8kdm" class="f01-r-vowel">ar</span></div>
+            <div data-hf-id="hf-r2cf" class="f01-strike-badge">❌ '애' 실종</div>
           </div>
         </div>
       </div>
 
       <!-- Card 2: sit -> sir -->
       <div data-hf-id="hf-01-c2" id="f01-card-2" class="f01-card">
-        <div class="f01-pair-row">
-          <div class="f01-word-box">
-            <div class="f01-word-text">s<span id="f01-v2" class="f01-vowel-highlight">i<span id="f01-strike2" class="f01-strike-line"></span></span>t</div>
-            <div id="f01-tag2" class="f01-sound-tag">I는 '이'</div>
+        <div data-hf-id="hf-jblb" class="f01-card-num-badge" style="background:#E67E22;">②</div>
+        <div data-hf-id="hf-b11f" class="f01-pair-row">
+          <div data-hf-id="hf-yk8g" class="f01-word-box">
+            <span data-hf-id="hf-oaic" class="f01-icon-chip">🪑</span>
+            <div data-hf-id="hf-gaov" class="f01-word-text">s<span data-hf-id="hf-eysk" id="f01-v2" class="f01-vowel-highlight">i<span data-hf-id="hf-85ik" id="f01-strike2" class="f01-strike-line"></span></span>t</div>
+            <div data-hf-id="hf-cm4b" id="f01-tag2" class="f01-sound-tag">I는 '이'</div>
           </div>
-          <div id="f01-arr2" class="f01-arrow">➔</div>
-          <div id="f01-bossy2" class="f01-bossy-word">
-            <div class="f01-bossy-text">s<span class="f01-r-vowel">ir</span></div>
-            <div class="f01-strike-badge">❌ '이' 실종</div>
+          <div data-hf-id="hf-7zr4" id="f01-arr2" class="f01-arrow">➔</div>
+          <div data-hf-id="hf-wam5" id="f01-bossy2" class="f01-bossy-word">
+            <span data-hf-id="hf-b86i" class="f01-icon-chip">🎩</span>
+            <div data-hf-id="hf-90q9" class="f01-bossy-text">s<span data-hf-id="hf-6cvm" class="f01-r-vowel">ir</span></div>
+            <div data-hf-id="hf-vtyb" class="f01-strike-badge">❌ '이' 실종</div>
           </div>
         </div>
       </div>
 
       <!-- Card 3: fox -> for -->
       <div data-hf-id="hf-01-c3" id="f01-card-3" class="f01-card">
-        <div class="f01-pair-row">
-          <div class="f01-word-box">
-            <div class="f01-word-text">f<span id="f01-v3" class="f01-vowel-highlight">o<span id="f01-strike3" class="f01-strike-line"></span></span>x</div>
-            <div id="f01-tag3" class="f01-sound-tag">O는 '아'</div>
+        <div data-hf-id="hf-elel" class="f01-card-num-badge" style="background:#F5A623; color:#2B2B2B;">③</div>
+        <div data-hf-id="hf-amqe" class="f01-pair-row">
+          <div data-hf-id="hf-xdbd" class="f01-word-box">
+            <span data-hf-id="hf-q04l" class="f01-icon-chip">🦊</span>
+            <div data-hf-id="hf-8g5i" class="f01-word-text">f<span data-hf-id="hf-ifwp" id="f01-v3" class="f01-vowel-highlight">o<span data-hf-id="hf-8x6d" id="f01-strike3" class="f01-strike-line"></span></span>x</div>
+            <div data-hf-id="hf-45r0" id="f01-tag3" class="f01-sound-tag">O는 '아'</div>
           </div>
-          <div id="f01-arr3" class="f01-arrow">➔</div>
-          <div id="f01-bossy3" class="f01-bossy-word">
-            <div class="f01-bossy-text">f<span class="f01-r-vowel">or</span></div>
-            <div class="f01-strike-badge">❌ '아' 실종</div>
+          <div data-hf-id="hf-phwr" id="f01-arr3" class="f01-arrow">➔</div>
+          <div data-hf-id="hf-viyc" id="f01-bossy3" class="f01-bossy-word">
+            <span data-hf-id="hf-r4fm" class="f01-icon-chip">🎁</span>
+            <div data-hf-id="hf-1gwq" class="f01-bossy-text">f<span data-hf-id="hf-toz8" class="f01-r-vowel">or</span></div>
+            <div data-hf-id="hf-mu5v" class="f01-strike-badge">❌ '아' 실종</div>
           </div>
         </div>
       </div>
@@ -206,10 +237,10 @@
 
     <!-- Bossy R Banner (swallows vowels) -->
     <div data-hf-id="hf-01-banner" id="f01-bossy-banner" class="f01-bossy-banner">
-      <span class="f01-bossy-icon">👑</span>
-      <div>
-        <div class="f01-bossy-title">모음의 소리를 지배하는 Bossy R!</div>
-        <div class="f01-bossy-desc">뒤에 붙은 R 하나가 앞 모음 소리를 완전히 집어삼켰습니다.</div>
+      <span data-hf-id="hf-tmvt" class="f01-bossy-icon">👑</span>
+      <div data-hf-id="hf-yeow">
+        <div data-hf-id="hf-zr4u" class="f01-bossy-title">모음의 소리를 지배하는 Bossy R!</div>
+        <div data-hf-id="hf-jur1" class="f01-bossy-desc">뒤에 붙은 R 하나가 앞 모음 소리를 완전히 집어삼켰습니다.</div>
       </div>
     </div>
 
@@ -217,8 +248,8 @@
 
   <!-- Caption Pill Zone -->
   <div data-hf-id="hf-01-capzone" id="f01-caption-zone" class="f01-caption-zone">
-    <div class="f01-caption-pill">
-      <div id="f01-caption-text" class="f01-caption-text"></div>
+    <div data-hf-id="hf-0tra" class="f01-caption-pill">
+      <div data-hf-id="hf-qxpe" id="f01-caption-text" class="f01-caption-text"></div>
     </div>
   </div>
 </div>

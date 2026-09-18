@@ -26,6 +26,7 @@ public/reference
 # reference behind Frame 1's invented placeholder grid; must stay out of
 # history (real actors' faces + copyrighted poster art + Netflix branding).
 videos/*/compositions/images/
+videos/**/디자인*/
 
 # Rendered video files (tens of MB each, grows every episode) — keep locally,
 # never commit. Text/metadata/thumbnails in the same folders stay tracked.

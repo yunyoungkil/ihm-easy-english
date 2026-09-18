@@ -40,12 +40,36 @@
     position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10;
   }
-  .f04-badge {
-    background: #2B2B2B; color: #F5C518; font-weight: 900; font-size: 1.15cqw;
-    padding: 0.6cqh 1.3cqw; border-radius: 100px;
+  .f04-ribbon-badge {
+    background: #F5A623; border: 3px solid #2B2B2B; border-radius: 12px;
+    box-shadow: 4px 4px 0px #2B2B2B; padding: 0.7cqh 1.5cqw;
+    display: flex; align-items: center; gap: 0.6cqw;
+  }
+  .f04-ribbon-icon { font-size: 1.4cqw; }
+  .f04-ribbon-label {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.2cqw; font-weight: 900;
+    color: #2B2B2B; letter-spacing: -0.3px;
   }
   .f04-title {
     font-weight: 900; font-size: 1.7cqw; color: #2B2B2B; letter-spacing: -0.5px;
+  }
+
+  /* Numbered Circle Badge on Card (Sketchnote Style) */
+  .f04-card-num-badge {
+    position: absolute; top: -1.2cqw; left: 1.5cqw;
+    width: 2.4cqw; height: 2.4cqw; border-radius: 50%;
+    border: 2.5px solid #2B2B2B; box-shadow: 2px 2px 0px #2B2B2B;
+    font-family: 'Archivo Black', sans-serif; font-size: 1.3cqw;
+    color: #FFFFFF; display: flex; align-items: center; justify-content: center;
+    z-index: 6;
+  }
+  .f04-icon-chip {
+    font-size: 1.8cqw; margin-bottom: 0.3cqh;
+  }
+  .f04-drawer-handle {
+    width: 4.5cqw; height: 1.1cqh; background: #EAE6DF;
+    border: 2.5px solid #2B2B2B; border-radius: 6px;
+    margin: 1.5cqh auto 0 auto; box-shadow: 1.5px 1.5px 0px #2B2B2B;
   }
 
   /* Stage 1: 3 Word Cards (her, bird, fur) */
@@ -175,38 +199,47 @@
     
     <!-- Header -->
     <div data-hf-id="hf-04-head" id="f04-header" class="f04-header">
-      <span class="f04-badge">✨ 첫 번째 반전</span>
-      <span class="f04-title">다섯 가지 전부 외울 필요 없습니다!</span>
+      <div data-hf-id="hf-ur01" class="f04-ribbon-badge">
+        <span data-hf-id="hf-q4c0" class="f04-ribbon-icon">✨</span>
+        <span data-hf-id="hf-eo4w" class="f04-ribbon-label">첫 번째 반전</span>
+      </div>
+      <span data-hf-id="hf-ecqd" class="f04-title">다섯 가지 전부 외울 필요 없습니다!</span>
     </div>
 
     <!-- Stage 1: her, bird, fur & Merged Capsule -->
     <div data-hf-id="hf-04-st1" id="f04-stage1" class="f04-stage1-wrap">
       
-      <div class="f04-cards-row">
+      <div data-hf-id="hf-qcrr" class="f04-cards-row">
         <!-- her -->
-        <div data-hf-id="hf-04-c1" id="f04-c1" class="f04-word-card">
-          <div class="f04-word-text">h<span class="f04-v-er">er</span></div>
-          <div class="f04-sub-tag">철자 E</div>
+        <div data-hf-id="hf-04-c1" id="f04-c1" class="f04-word-card" style="position:relative;">
+          <div data-hf-id="hf-7ye4" class="f04-card-num-badge" style="background:#2E86AB;">①</div>
+          <span data-hf-id="hf-6geq" class="f04-icon-chip">👩</span>
+          <div data-hf-id="hf-h7qz" class="f04-word-text">h<span data-hf-id="hf-89h7" class="f04-v-er">er</span></div>
+          <div data-hf-id="hf-1xf7" class="f04-sub-tag">철자 E</div>
         </div>
 
         <!-- bird -->
-        <div data-hf-id="hf-04-c2" id="f04-c2" class="f04-word-card">
-          <div class="f04-word-text">b<span class="f04-v-ir">ir</span>d</div>
-          <div class="f04-sub-tag">철자 I</div>
+        <div data-hf-id="hf-04-c2" id="f04-c2" class="f04-word-card" style="position:relative;">
+          <div data-hf-id="hf-7k33" class="f04-card-num-badge" style="background:#2E86AB;">②</div>
+          <span data-hf-id="hf-up3f" class="f04-icon-chip">🐦</span>
+          <div data-hf-id="hf-qjrr" class="f04-word-text">b<span data-hf-id="hf-7s4r" class="f04-v-ir">ir</span>d</div>
+          <div data-hf-id="hf-x5qv" class="f04-sub-tag">철자 I</div>
         </div>
 
         <!-- fur -->
-        <div data-hf-id="hf-04-c3" id="f04-c3" class="f04-word-card">
-          <div class="f04-word-text">f<span class="f04-v-ur">ur</span></div>
-          <div class="f04-sub-tag">철자 U</div>
+        <div data-hf-id="hf-04-c3" id="f04-c3" class="f04-word-card" style="position:relative;">
+          <div data-hf-id="hf-75s2" class="f04-card-num-badge" style="background:#2E86AB;">③</div>
+          <span data-hf-id="hf-xu8j" class="f04-icon-chip">🧣</span>
+          <div data-hf-id="hf-i0d1" class="f04-word-text">f<span data-hf-id="hf-kkzf" class="f04-v-ur">ur</span></div>
+          <div data-hf-id="hf-vkir" class="f04-sub-tag">철자 U</div>
         </div>
       </div>
 
       <!-- Merged Capsule -->
       <div data-hf-id="hf-04-capsule" id="f04-capsule" class="f04-merged-capsule">
-        <span class="f04-capsule-icon">💡</span>
-        <div class="f04-capsule-text">소리는 셋 다 똑같은 편안한 <span style="color:#F5C518;">[ 어~ r ]</span></div>
-        <span class="f04-capsule-badge">소리 100% 일치</span>
+        <span data-hf-id="hf-ttdx" class="f04-capsule-icon">💡</span>
+        <div data-hf-id="hf-ztm3" class="f04-capsule-text">소리는 셋 다 똑같은 편안한 <span data-hf-id="hf-pls3" style="color:#F5C518;">[ 어~ r ]</span></div>
+        <span data-hf-id="hf-6w77" class="f04-capsule-badge">소리 100% 일치</span>
       </div>
 
     </div>
@@ -216,42 +249,45 @@
       
       <!-- Drawer 1: AR -->
       <div data-hf-id="hf-04-d1" id="f04-d1" class="f04-drawer f04-d1">
-        <div class="f04-drawer-badge">① 1번 서랍</div>
-        <div class="f04-drawer-title">AR</div>
-        <div class="f04-drawer-formula">시원한 '아~'</div>
-        <div class="f04-drawer-desc">턱을 툭 떨어뜨리는 소리</div>
+        <div data-hf-id="hf-o76y" class="f04-drawer-badge">① 1번 서랍</div>
+        <div data-hf-id="hf-yei6" class="f04-drawer-title">AR</div>
+        <div data-hf-id="hf-zes9" class="f04-drawer-formula">시원한 '아~'</div>
+        <div data-hf-id="hf-nek4" class="f04-drawer-desc">턱을 툭 떨어뜨리는 소리</div>
+        <div data-hf-id="hf-vetb" class="f04-drawer-handle"></div>
       </div>
 
       <!-- Drawer 2: OR -->
       <div data-hf-id="hf-04-d2" id="f04-d2" class="f04-drawer f04-d2">
-        <div class="f04-drawer-badge">② 2번 서랍</div>
-        <div class="f04-drawer-title">OR</div>
-        <div class="f04-drawer-formula">깊은 '오~'</div>
-        <div class="f04-drawer-desc">입술을 둥글게 모으는 소리</div>
+        <div data-hf-id="hf-ooek" class="f04-drawer-badge">② 2번 서랍</div>
+        <div data-hf-id="hf-90sw" class="f04-drawer-title">OR</div>
+        <div data-hf-id="hf-b1pt" class="f04-drawer-formula">깊은 '오~'</div>
+        <div data-hf-id="hf-s6he" class="f04-drawer-desc">입술을 둥글게 모으는 소리</div>
+        <div data-hf-id="hf-0h4v" class="f04-drawer-handle"></div>
       </div>
 
       <!-- Drawer 3: ER·IR·UR -->
       <div data-hf-id="hf-04-d3" id="f04-d3" class="f04-drawer f04-d3">
-        <div class="f04-drawer-badge">③ 3번 서랍</div>
-        <div class="f04-drawer-title">ER · IR · UR</div>
-        <div class="f04-drawer-formula">편안한 '어~'</div>
-        <div class="f04-drawer-desc">입에 힘을 툭 뺀 소리</div>
+        <div data-hf-id="hf-h8e2" class="f04-drawer-badge">③ 3번 서랍</div>
+        <div data-hf-id="hf-ovq6" class="f04-drawer-title">ER · IR · UR</div>
+        <div data-hf-id="hf-gsph" class="f04-drawer-formula">편안한 '어~'</div>
+        <div data-hf-id="hf-g0x2" class="f04-drawer-desc">입에 힘을 툭 뺀 소리</div>
+        <div data-hf-id="hf-02tu" class="f04-drawer-handle"></div>
       </div>
 
     </div>
 
     <!-- Victory Banner -->
     <div data-hf-id="hf-04-vic" id="f04-victory" class="f04-victory-banner">
-      <span style="font-size:2cqw;">🎉</span>
-      <div class="f04-victory-text">진짜 외워야 할 소리는 딱 3가지뿐입니다!</div>
+      <span data-hf-id="hf-7zru" style="font-size:2cqw;">🎉</span>
+      <div data-hf-id="hf-9yxb" class="f04-victory-text">진짜 외워야 할 소리는 딱 3가지뿐입니다!</div>
     </div>
 
   </div>
 
   <!-- Caption Pill Zone -->
   <div data-hf-id="hf-04-capzone" id="f04-caption-zone" class="f04-caption-zone">
-    <div class="f04-caption-pill">
-      <div id="f04-caption-text" class="f04-caption-text"></div>
+    <div data-hf-id="hf-l3gd" class="f04-caption-pill">
+      <div data-hf-id="hf-jhv2" id="f04-caption-text" class="f04-caption-text"></div>
     </div>
   </div>
 </div>

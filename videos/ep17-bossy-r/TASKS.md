@@ -69,3 +69,26 @@
    - Frame 8 끝단(34.3s)에 `#f08-content` 페이드아웃 트윈을 명시적으로 추가하여 Frame 9 시작 시점과의 레이아웃 중첩 100% 제거.
 7. **검증 결과**:
    - `npx hyperframes check --timeout=35000` (및 `npm run check`): **0 errors, 0 warnings (Check passed)** 달성!
+
+---
+
+### 5. 레퍼런스 이미지(손그림 스케치노트) 분석 및 디자인 고도화
+1. **레퍼런스 이미지 핵심 분석 (`videos/ep17-bossy-r/디자인 차고/` 5종)**:
+   - `image copy.png`: 접힌 리본 배너 헤더 (`< AI IS NO LONGER EXPERIMENTAL. >`)
+   - `image copy 2.png`, `image copy 4.png`: 볼드한 잉크 테두리(`2.5px solid #2B2B2B`) + 하드 섀도우(`2px 2px 0px #2B2B2B`) 원형 넘버링 뱃지 (`①, ②, ③, ④, ⑤`)
+   - `image copy 2.png` 19번('COGNITIVE DRIFT'): 친근하고 인간미 넘치는 사람 옆얼굴 스케치노트 실루엣
+   - `image.png`, `image copy 3.png`: 손그림 별가루/반짝이(🌟 ✨), 부드러운 파스텔 원형 배경 아이콘 칩, 서랍 손잡이 등 가구 디테일
+2. **Frame 5 (`05-principle.html`) 구강 단면도 손그림풍(Sketchnote) 전면 개편**:
+   - 딱딱한 의학 도표에서 탈피하여 따뜻한 살구빛 피부(`#FFF8F0`)와 유기적 잉크 외곽선(`4.5px`)을 가진 사람 옆얼굴 캐리커처 실루엣 구현.
+   - 구강 내부 웜톤 음영(`#FDEFE7`), 상하 치클릿 앞니, 둥근 입천장 아치와 달랑거리는 목젖(uvula), 목구멍 기도 손그림화.
+   - 통통하고 사랑스러운 핑크빛 혀(`#FFA8A8`, 5px 잉크 테두리, `#FF6B6B` 주름선) 및 평소 모음 위치 점선 가이드.
+   - 10.751s 발화 타이밍("뒤로 쑥 물러나 버립니다")에 혀끝이 뒤로 빠지며 몸통통이 R 영역으로 솟구치는 GSAP 형상 모핑(`attr: { d: ... }`) 및 주름선 애니메이션 연동.
+   - 황금빛 R 소리 흡수 영역(`cx="305", cy="135"`)에 손그림 별가루/반짝이(🌟 ✨)와 "뒤로 쑥!" 손글씨 콜아웃 뱃지 완비.
+   - `Gaegu` 폰트 손글씨 지시선("입천장 (닿지 않음!)", "앞니", "평소 모음 혀 (앞쪽)") 완비.
+3. **Frame 1, 4 등 주요 프레임 스케치노트 스타일 적용**:
+   - Frame 1: 접힌 리본 뱃지 헤더(`.f01-ribbon-badge`), `①, ②, ③` 원형 잉크 넘버링 뱃지, 미니 단어 손그림 칩(`cat 🐱`, `car 🚗`, `sit 🪑`, `sir 🎩`, `fox 🦊`, `for 🎁`).
+   - Frame 4: 접힌 리본 뱃지 헤더(`.f04-ribbon-badge`), 1단계 3단어 카드 `①, ②, ③` 뱃지 및 아이콘(`her 👩`, `bird 🐦`, `fur 🧣`), 3단 소리 서랍장 손잡이(`.f04-drawer-handle`) 디테일.
+4. **검증 결과**:
+   - `npm run check`: 0 errors, 0 runtime errors, 0 motion errors (Check passed).
+5. **집 PC 작업 재개 가이드**:
+   - Frame 6, 7, 8 단어 카드에 `①, ②, ③, ④, ⑤` 원형 뱃지와 리본 헤더 적용, Frame 9 방향 화살표 손그림화 후 최종 렌더 진행 예정.

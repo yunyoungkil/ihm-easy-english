@@ -72,7 +72,15 @@
     background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
     box-shadow: 5px 5px 0px #2B2B2B; padding: 3cqh 1.2cqw;
     display: flex; flex-direction: column; align-items: center; gap: 1.2cqh;
-    opacity: 0; transform: translateY(20px); transition: all 0.2s ease;
+    opacity: 0; transform: translateY(20px);
+    /* 2026-09-18: removed a stray `transition: all 0.2s ease` that was here — it fought GSAP's
+       seek-based rendering. On a hard seek GSAP sets the final opacity/transform instantly, but
+       this CSS transition then re-animated from whatever the DOM's last visual state happened to
+       be, over 200ms of real wall-clock time — so whether the cards appeared in a snapshot/render
+       depended on exact seek timing rather than the video's own timeline (cards were confirmed
+       visible at t=17s but invisible at t=10s and t=20s in the same frame). GSAP already owns
+       every animated property here; a lingering CSS transition on the same properties breaks the
+       "seek-safe, deterministic" contract every composition in this framework relies on. */
   }
   .f06-word-main {
     font-family: 'Archivo Black', sans-serif; font-size: 3.4cqw; line-height: 1; color: #2B2B2B;
@@ -133,8 +141,8 @@
     
     <!-- Header -->
     <div data-hf-id="hf-06-head" id="f06-header" class="f06-header">
-      <span class="f06-badge">🚪 1번 소리 서랍</span>
-      <span class="f06-title">AR : 턱을 툭 떨어뜨리는 시원한 '아~'</span>
+      <span data-hf-id="hf-ba6s" class="f06-badge">🚪 1번 소리 서랍</span>
+      <span data-hf-id="hf-t5pp" class="f06-title">AR : 턱을 툭 떨어뜨리는 시원한 '아~'</span>
     </div>
 
     <!-- Center Stage -->
@@ -142,8 +150,8 @@
       
       <!-- Action Banner -->
       <div data-hf-id="hf-06-action" id="f06-action" class="f06-action-banner">
-        <span class="f06-action-icon">🗣️</span>
-        <div class="f06-action-text">턱에 힘을 풀고 툭 떨어뜨리세요 ➔ <span style="text-decoration:underline;">[ 아~ r ]</span></div>
+        <span data-hf-id="hf-wn2p" class="f06-action-icon">🗣️</span>
+        <div data-hf-id="hf-20xp" class="f06-action-text">턱에 힘을 풀고 툭 떨어뜨리세요 ➔ <span data-hf-id="hf-9pat" style="text-decoration:underline;">[ 아~ r ]</span></div>
       </div>
 
       <!-- 5 Words Grid -->
@@ -151,32 +159,32 @@
         
         <!-- car -->
         <div data-hf-id="hf-06-w1" id="f06-w1" class="f06-word-card">
-          <div class="f06-word-main">c<span class="f06-ar-part">ar</span></div>
-          <div class="f06-word-meaning">차 🚗</div>
+          <div data-hf-id="hf-m7py" class="f06-word-main">c<span data-hf-id="hf-h4da" class="f06-ar-part">ar</span></div>
+          <div data-hf-id="hf-vszj" class="f06-word-meaning">차 🚗</div>
         </div>
 
         <!-- park -->
         <div data-hf-id="hf-06-w2" id="f06-w2" class="f06-word-card">
-          <div class="f06-word-main">p<span class="f06-ar-part">ar</span>k</div>
-          <div class="f06-word-meaning">공원 🌳</div>
+          <div data-hf-id="hf-qyeg" class="f06-word-main">p<span data-hf-id="hf-yreq" class="f06-ar-part">ar</span>k</div>
+          <div data-hf-id="hf-0oyb" class="f06-word-meaning">공원 🌳</div>
         </div>
 
         <!-- star -->
         <div data-hf-id="hf-06-w3" id="f06-w3" class="f06-word-card">
-          <div class="f06-word-main">st<span class="f06-ar-part">ar</span></div>
-          <div class="f06-word-meaning">별 ⭐</div>
+          <div data-hf-id="hf-1npy" class="f06-word-main">st<span data-hf-id="hf-z5pr" class="f06-ar-part">ar</span></div>
+          <div data-hf-id="hf-fstx" class="f06-word-meaning">별 ⭐</div>
         </div>
 
         <!-- farm -->
         <div data-hf-id="hf-06-w4" id="f06-w4" class="f06-word-card">
-          <div class="f06-word-main">f<span class="f06-ar-part">ar</span>m</div>
-          <div class="f06-word-meaning">농장 🚜</div>
+          <div data-hf-id="hf-u5l4" class="f06-word-main">f<span data-hf-id="hf-zk0s" class="f06-ar-part">ar</span>m</div>
+          <div data-hf-id="hf-7boe" class="f06-word-meaning">농장 🚜</div>
         </div>
 
         <!-- card -->
         <div data-hf-id="hf-06-w5" id="f06-w5" class="f06-word-card">
-          <div class="f06-word-main">c<span class="f06-ar-part">ar</span>d</div>
-          <div class="f06-word-meaning">카드 💳</div>
+          <div data-hf-id="hf-gdme" class="f06-word-main">c<span data-hf-id="hf-zybt" class="f06-ar-part">ar</span>d</div>
+          <div data-hf-id="hf-7qzx" class="f06-word-meaning">카드 💳</div>
         </div>
 
       </div>
@@ -185,19 +193,19 @@
 
     <!-- Rhythm Guide -->
     <div data-hf-id="hf-06-rhythm" id="f06-rhythm" class="f06-rhythm-bar">
-      <div class="f06-step"><span class="f06-step-badge">1</span> 귀로 듣고</div>
-      <span class="f06-step-arrow">➔</span>
-      <div class="f06-step"><span class="f06-step-badge">2</span> 턱을 툭 내리고</div>
-      <span class="f06-step-arrow">➔</span>
-      <div class="f06-step"><span class="f06-step-badge">3</span> 시원하게 '아~' 소리 내기</div>
+      <div data-hf-id="hf-zene" class="f06-step"><span data-hf-id="hf-1h0z" class="f06-step-badge">1</span> 귀로 듣고</div>
+      <span data-hf-id="hf-swje" class="f06-step-arrow">➔</span>
+      <div data-hf-id="hf-taax" class="f06-step"><span data-hf-id="hf-12py" class="f06-step-badge">2</span> 턱을 툭 내리고</div>
+      <span data-hf-id="hf-fl26" class="f06-step-arrow">➔</span>
+      <div data-hf-id="hf-vt35" class="f06-step"><span data-hf-id="hf-0oex" class="f06-step-badge">3</span> 시원하게 '아~' 소리 내기</div>
     </div>
 
   </div>
 
   <!-- Caption Pill Zone -->
   <div data-hf-id="hf-06-capzone" id="f06-caption-zone" class="f06-caption-zone">
-    <div class="f06-caption-pill">
-      <div id="f06-caption-text" class="f06-caption-text"></div>
+    <div data-hf-id="hf-08wj" class="f06-caption-pill">
+      <div data-hf-id="hf-kn5y" id="f06-caption-text" class="f06-caption-text"></div>
     </div>
   </div>
 </div>

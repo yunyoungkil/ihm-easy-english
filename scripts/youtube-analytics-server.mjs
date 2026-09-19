@@ -1166,9 +1166,16 @@ const getEpisodesSummary = async (forceReload = false) => {
         // (2026-09-18 확정, production-rules.md "업로드 패키지 변경 완료 조건" 참고).
         // 형식: "[시안ID] (메모) 제목 텍스트" 한 줄씩 — 이 패턴에 안 맞는 줄(안내 문구 등)은 무시.
         const titleVariantsRaw = await readTextIfExists('title-variants.txt');
+        // ⚠️ Windows에서 저장된 파일은 줄바꿈이 \r\n이다. readTextIfExists가 파일 "전체"
+        // 앞뒤 공백만 trim()하므로 마지막 줄만 우연히 trailing \r이 없어져 매칭되고, 그 앞의
+        // 모든 줄(헤더는 물론 [A]/[B] 시안까지)은 줄 끝에 \r이 남아 있어 정규식의 `$`와
+        // `.`(둘 다 \r을 못 건너뛴다)가 매칭에 실패해 통째로 버려지는 버그가 있었다
+        // (2026-09-19 확인 — EP18에서 실제 유튜브에 올라간 제목은 [A] 시안이었는데
+        // titleVariants에 [C]만 잡혀서 예약 동기화가 계속 실패했음). '\n' 대신 /\r?\n/으로
+        // 쪼개 각 줄의 trailing \r을 먼저 제거해야 모든 시안이 매칭된다.
         const titleVariants = titleVariantsRaw
           ? titleVariantsRaw
-              .split('\n')
+              .split(/\r?\n/)
               .map((line) => line.match(/^\[([A-Za-z0-9]+)\]\s*(?:\(([^)]*)\)\s*)?(.+)$/))
               .filter(Boolean)
               .map((m) => ({id: m[1], note: m[2] || '', title: m[3].trim()}))
@@ -3102,13 +3109,15 @@ function renderOverviewTab() {
   }).join('');
 
   // 다음 업로드 대기/예약 패키지가 있으면 전체 관제 탭 최상단에 눈에 띄게 배치한다 (2026-09-17)
+  // ⚠️ 예전엔 두 번째 fallback이 lf.status === 'scheduled'이기만 하면(이미 실제로 예약
+  // 완료돼 videoId까지 있어도) 무조건 "업로드 대기"로 잡아버리는 버그가 있었다(2026-09-19
+  // 확인 — EP16을 실제로 예약해도 동기화 후에도 계속 "업로드 대기"로 보이는 원인이었음).
+  // "대기"는 정말 로컬 패키징만 끝나고 아직 유튜브에 아무것도 안 올라간 상태(ready_to_upload/
+  // packaged, 또는 scheduled인데 videoId가 없는 경우)에만 해당해야 하므로 fallback을 없앴다.
   const epList = Array.isArray(gEpisodes) ? gEpisodes : [];
   const readyEpisode = epList.find(e => {
     const lf = e.tracks?.longform;
     return lf && (lf.status === 'ready_to_upload' || lf.status === 'packaged' || (lf.status === 'scheduled' && !lf.youtube?.url));
-  }) || epList.find(e => {
-    const lf = e.tracks?.longform;
-    return lf && (lf.status === 'scheduled' || (lf.youtube?.videoId && lf.statusLabel && lf.statusLabel.indexOf('대기') !== -1));
   });
 
   let readyBannerHtml = '';
@@ -3118,8 +3127,13 @@ function renderOverviewTab() {
     const thumb = (yt.thumbnailCandidates && yt.thumbnailCandidates[0]) || (yt.videoId ? ('https://i.ytimg.com/vi/' + yt.videoId + '/mqdefault.jpg') : '');
     const hasCandidate = (yt.thumbnailCandidates && yt.thumbnailCandidates.length > 0);
     const isPrivate = !!yt.videoId;
-    const scheduleDateText = '2026-09-20(일) 20:00 KST';
-    
+    // 예전엔 이 배너가 EP16 하나를 염두에 두고 만들어져서 날짜·길이·썸네일 시안 설명이
+    // 전부 EP16 값으로 하드코딩돼 있었다 — 그래서 실제로는 다른 에피소드(예: EP18)가 이
+    // 배너에 뜨는데도 "2026-09-20", "6분 45초", "시안 A" 같은 EP16 문구가 그대로 나오는
+    // 버그가 있었다(2026-09-19 확인). lf.statusLabel(서버가 이미 계산해 둔 "예약 권장:
+    // MM/DD(요일) HH:MM KST" 문자열)을 그대로 재사용해 항상 그 에피소드 실제 값과 맞게 한다.
+    const scheduleDateText = (lf.statusLabel && lf.statusLabel.split('예약 권장: ')[1]) || '미정';
+
     readyBannerHtml = 
       '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(0,240,255,0.09) 0%, rgba(13,19,32,0.95) 60%, rgba(255,42,109,0.08) 100%); border:1.5px solid var(--accent-cyan); box-shadow:0 0 25px rgba(0,240,255,0.14); padding:20px 24px; margin-bottom:16px; display:flex; flex-direction:column; gap:16px;">' +
         '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">' +
@@ -3138,13 +3152,13 @@ function renderOverviewTab() {
           (thumb ? 
             '<div style="position:relative; flex-shrink:0;">' +
               '<img src="' + esc(thumb) + '" style="width:240px; height:135px; object-fit:cover; border-radius:10px; border:1px solid var(--border-active); box-shadow:0 6px 18px rgba(0,0,0,0.6); display:block;" alt="">' +
-              (hasCandidate ? '<span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.75); color:var(--accent-cyan); font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; border:1px solid var(--accent-cyan);">시안 A (호기심 공백)</span>' : '') +
+              (hasCandidate ? '<span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.75); color:var(--accent-cyan); font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; border:1px solid var(--accent-cyan);">썸네일 시안 A</span>' : '') +
             '</div>' : '') +
-          
+
           '<div style="flex:1; min-width:300px;">' +
             '<h3 style="font-family:var(--font-display); font-size:19px; font-weight:800; color:#fff; line-height:1.45; margin-bottom:8px;">' + esc(yt.title || '(제목 미지정)') + '</h3>' +
             '<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">' +
-              '<span class="tag-chip" style="font-size:11px; border-color:rgba(0,240,255,0.4); color:var(--accent-cyan);">⏱️ 6분 45초 롱폼</span>' +
+              '<span class="tag-chip" style="font-size:11px; border-color:rgba(0,240,255,0.4); color:var(--accent-cyan);">🎬 롱폼</span>' +
               '<span class="tag-chip" style="font-size:11px;">🎯 타겟: 3060 왕초보 파닉스</span>' +
               '<span class="tag-chip" style="font-size:11px;">💬 고정 댓글 1종</span>' +
               '<span class="tag-chip" style="font-size:11px;">🏷️ 태그 ' + ((yt.tags && yt.tags.length) || 20) + '개</span>' +
@@ -3159,7 +3173,7 @@ function renderOverviewTab() {
             '<button class="btn btn-magenta btn-inspect-pkg" data-season="' + esc(readyEpisode.season) + '" data-ep="' + esc(readyEpisode.episode) + '" style="padding:10px 16px; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; gap:6px;">' +
               '📦 1-Click 업로드 패키지 열기' +
             '</button>' +
-            '<a class="btn btn-outline" href="/api/upload-package-asset/' + encodeURIComponent(lf.contentId || 'ep16-double-vowels-longform') + '/index.html" target="_blank" style="padding:8px 14px; font-size:12px; text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px;">' +
+            '<a class="btn btn-outline" href="/api/upload-package-asset/' + encodeURIComponent(lf.contentId || '') + '/index.html" target="_blank" style="padding:8px 14px; font-size:12px; text-align:center; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px;">' +
               '📄 패키지 요약 창 열기 ↗' +
             '</a>' +
             (isPrivate ? 

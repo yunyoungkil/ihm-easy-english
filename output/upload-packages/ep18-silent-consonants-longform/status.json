@@ -1,7 +1,7 @@
 {
-  "status": "ready_to_upload",
+  "status": "scheduled",
   "scheduledFor": "2026-09-24T11:00:00Z",
-  "videoId": null,
+  "videoId": "ROks87qezuU",
   "updatedAt": "2026-09-19T00:41:00.000Z",
-  "lastSyncedAt": "2026-09-18T15:42:06.111Z"
+  "lastSyncedAt": "2026-09-19T08:30:37.288Z"
 }

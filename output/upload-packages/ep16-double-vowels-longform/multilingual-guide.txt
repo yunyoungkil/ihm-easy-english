@@ -1,0 +1,285 @@
+================================================================================
+🌍 이해하면 쉬운영어 EP16 - 글로벌 다국어 유튜브 세팅 가이드
+================================================================================
+유튜브 스튜디오 [자막] 및 [세부정보]에서 복사해서 바로 붙여넣으실 수 있도록
+핵심 6대 글로벌 언어(영어, 일본어, 중국어 번체, 중국어 간체, 스페인어, 베트남어)와 한국어 자막/메타데이터를 완비했습니다.
+
+📁 생성된 자막 파일 (output/upload-packages/ep16-double-vowels-longform/subtitles/):
+1. subtitles-ko.srt     -> 한국어 (기본 자막)
+2. subtitles-en.srt     -> English (전 세계 공용 & 유튜브 알고리즘 인덱싱)
+3. subtitles-ja.srt     -> 日本語 (일본 시청자 타겟)
+4. subtitles-zh-tw.srt  -> 繁體中文 (대만·홍콩 유튜브 시청자 1위 타겟)
+5. subtitles-zh-cn.srt  -> 简体中文 (싱가포르·말레이시아 및 글로벌 화교 타겟)
+6. subtitles-es.srt     -> Español (스페인어권 / 미국 히스패닉 / 중남미)
+7. subtitles-vi.srt     -> Tiếng Việt (동남아 영어 학습 1위 베트남)
+
+--------------------------------------------------------------------------------
+[1] YouTube Studio 등록 순서 (3분 완성)
+--------------------------------------------------------------------------------
+1. 유튜브 스튜디오 -> 동영상 수정 -> 왼쪽 [자막] 메뉴 클릭
+2. [언어 추가] 클릭 -> '영어', '일본어', '중국어(번체)', '스페인어' 등 원하는 언어 추가
+3. 각 언어별로:
+   - [제목 및 설명] 수정 클릭 -> 아래 각 언어별 제목/설명 복사 붙여넣기
+   - [자막] 추가 클릭 -> [파일 업로드] -> [타이밍 포함] -> 해당 .srt 파일 업로드
+4. 우측 상단 [게시] 누르면 완료!
+
+
+
+================================================================================
+[언어: 한국어 (한국)]
+================================================================================
+[제목]
+여태 두 글자 다 읽었네요... 모음 2개 겹친 단어 소리 원리 | 파닉스 기초
+
+[설명]
+BOAT, RAIN, MEAT… 이렇게 쉬운 단어 앞에서도 순간 멈칫하신 적 있으시죠?
+모음이 두 개 나란히 붙어 있을 때, 이걸 다 읽어야 하는지 하나만 읽어야 하는지 그 기준 하나를 아직 모르셨을 뿐입니다. 오늘 그 기준 하나만 알면, 이런 단어들 더 이상 망설이지 않고 바로 읽으실 수 있습니다.
+
+「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리 나는 원리로 설명합니다.
+
+📌 오늘 배우는 내용
+・모음이 2개 겹칠 때 앞 모음만 소리 내는 진짜 원리
+・BOAT, RAIN, MEAT, COAT, PAINT, TOAST 등 일상 단어로 확장하는 법
+・딱 하나 주의해야 할 EA 예외 단어 (HEAD, BREAD, DEAD)
+・미니 퀴즈 + 원어민 문장 리스닝 + 입으로 따라 하는 3단계 발음 훈련
+
+⏱️ 영상 순서
+0:00 모음 2개 단어 앞에서 멈칫했던 이유
+0:25 채널 소개
+0:39 모음이 두 개 붙어있으면 어느 쪽을 읽을까?
+0:56 정답: 앞 모음만 당당하게 소리 냅니다
+1:37 혀가 가장 편한 소리 지름길 원리 (COAT)
+2:15 다른 단어에도 그대로 통하는 패턴 확장
+2:55 딱 하나 주의할 예외 (HEAD, BREAD, DEAD)
+3:30 직접 맞혀보는 미니 퀴즈
+4:00 실제 원어민 문장에서 확인하기
+4:28 소리 내어 따라 읽는 낭독 연습
+5:17 처음 보는 단어도 바로 읽기 (GRAIN, FOAM, REACH)
+5:57 오늘 배운 핵심 공식 총정리
+
+영어는 무작정 외우는 것이 아니라, 소리의 원리를 이해하는 것입니다.
+구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.
+
+#영어발음 #파닉스 #영어읽기 #왕초보영어 #영어공부 #영단어 #발음원리 #성인영어 #이중모음
+
+================================================================================
+[언어: English (영어 · 미국)]
+================================================================================
+[제목]
+You've Been Reading Both Letters Wrong This Whole Time... The Real Rule for Double Vowels | Phonics Basics
+
+[설명]
+BOAT, RAIN, MEAT… Have you ever hesitated even in front of such simple words?
+When two vowels sit side by side, you just didn't know the one rule for whether to read both or just one. Once you learn that single rule today, you'll read words like these instantly, without hesitating.
+
+Welcome to "Easy English When Understood". We explain English by the physical principles of sound so anyone can master it.
+
+📌 What you'll learn today
+・The real principle behind why only the first vowel is pronounced when two vowels overlap
+・How to extend this to everyday words like BOAT, RAIN, MEAT, COAT, PAINT, TOAST
+・The one EA exception you need to watch for (HEAD, BREAD, DEAD)
+・A mini quiz + native speaker sentence listening + 3-step read-aloud practice
+
+⏱️ Timestamps
+0:00 Why you hesitated in front of double-vowel words
+0:25 Channel Intro
+0:39 Two vowels together — which one do you read?
+0:56 The Answer: Only the first vowel speaks up
+1:37 The lazy-tongue shortcut principle (COAT)
+2:15 Extending the pattern to other words
+2:55 The one exception to watch for (HEAD, BREAD, DEAD)
+3:30 Mini quiz — try it yourself
+4:00 Checking it in real native sentences
+4:28 Read-aloud practice
+5:17 Reading unfamiliar words instantly (GRAIN, FOAM, REACH)
+5:57 Today's key rule, summarized
+
+English isn't about blind memorization — it's about understanding the principle behind the sound.
+Subscribing and liking helps power the next video.
+
+#EnglishPronunciation #Phonics #EnglishReading #LearnEnglish #ESL #EnglishVocabulary #PronunciationRules #AdultEnglish #DoubleVowels
+
+================================================================================
+[언어: 日本語 (일본어)]
+================================================================================
+[제목]
+今まで両方読んでました…？母音2つが重なる単語の発音原理 | フォニックス基礎
+
+[설명]
+BOAT, RAIN, MEAT… こんな簡単な単語の前で、一瞬止まってしまったことはありませんか?
+母音が2つ並んでいるとき、両方読むのか1つだけ読むのか、その基準を知らなかっただけです。今日その基準を一つ知れば、こういう単語でもう迷わずすぐ読めるようになります。
+
+「理解すれば簡単な英語」へようこそ。初心者でも納得できるよう、発音の原理から分かりやすく解説します。
+
+📌 今日学ぶ内容
+・母音が2つ重なるとき、前の母音だけ発音する本当の原理
+・BOAT, RAIN, MEAT, COAT, PAINT, TOASTなど日常単語への応用法
+・唯一注意すべきEAの例外単語(HEAD, BREAD, DEAD)
+・ミニクイズ+ネイティブ文章リスニング+声に出す3段階発音トレーニング
+
+⏱️ タイムスタンプ
+0:00 母音2つの単語の前で止まってしまった理由
+0:25 チャンネル紹介
+0:39 母音が2つ並んでいたら、どちらを読む?
+0:56 正解:前の母音だけ堂々と発音します
+1:37 舌が一番楽なショートカット原理(COAT)
+2:15 他の単語にもそのまま通じるパターン拡張
+2:55 唯一注意すべき例外(HEAD, BREAD, DEAD)
+3:30 直接当ててみるミニクイズ
+4:00 実際のネイティブ文で確認
+4:28 声に出して読む練習
+5:17 初めて見る単語もすぐ読む(GRAIN, FOAM, REACH)
+5:57 今日学んだ核心公式のまとめ
+
+英語は闇雲に暗記するものではなく、音の原理を理解するものです。
+チャンネル登録といいねは次の動画制作の大きな力になります。
+
+#英語発音 #フォニックス #英語の読み方 #大人のやり直し英語 #英語独学 #英単語 #発音原理 #成人英語 #二重母音
+
+================================================================================
+[언어: Español (스페인어)]
+================================================================================
+[제목]
+Has estado leyendo las dos letras todo este tiempo... El principio real de las vocales dobles | Fonética básica
+
+[설명]
+BOAT, RAIN, MEAT… ¿Alguna vez dudaste incluso frente a palabras tan simples como estas?
+Cuando dos vocales están juntas, simplemente no conocías la única regla para saber si hay que leer ambas o solo una. Hoy, con solo conocer esa regla, podrás leer este tipo de palabras al instante, sin titubear.
+
+Bienvenidos a "Inglés Fácil de Entender". Explicamos el inglés a través de los principios físicos del sonido para que cualquiera pueda dominarlo.
+
+📌 Lo que aprenderás hoy
+・El verdadero principio de por qué solo se pronuncia la primera vocal cuando hay dos juntas
+・Cómo aplicarlo a palabras cotidianas como BOAT, RAIN, MEAT, COAT, PAINT, TOAST
+・La única excepción que debes vigilar: EA (HEAD, BREAD, DEAD)
+・Mini quiz + oraciones reales de hablantes nativos + práctica de lectura en voz alta en 3 pasos
+
+⏱️ Marcas de tiempo
+0:00 Por qué dudabas frente a palabras con vocales dobles
+0:25 Introducción al canal
+0:39 Dos vocales juntas — ¿cuál se lee?
+0:56 La respuesta: solo la primera vocal habla
+1:37 El principio del atajo de la lengua perezosa (COAT)
+2:15 Extendiendo el patrón a otras palabras
+2:55 La única excepción a vigilar (HEAD, BREAD, DEAD)
+3:30 Mini quiz — inténtalo tú mismo
+4:00 Comprobándolo en oraciones reales
+4:28 Práctica de lectura en voz alta
+5:17 Leyendo palabras desconocidas al instante (GRAIN, FOAM, REACH)
+5:57 Resumen de la regla clave de hoy
+
+El inglés no se trata de memorizar a ciegas, sino de entender el principio detrás del sonido.
+Suscribirte y darle like ayuda mucho a hacer el próximo video.
+
+#PronunciacionIngles #FoneticaIngles #AprenderIngles #InglesBasico #InglesParaAdultos #VocabularioIngles #ReglasDePronunciacion #VocalesDobles
+
+================================================================================
+[언어: Tiếng Việt (베트남어)]
+================================================================================
+[제목]
+Hóa ra bấy lâu nay đọc cả hai chữ... Nguyên lý thật sự của nguyên âm đôi | Ngữ âm cơ bản
+
+[설명]
+BOAT, RAIN, MEAT… Bạn đã từng khựng lại trước những từ đơn giản như thế này chưa?
+Khi hai nguyên âm đứng cạnh nhau, bạn chỉ đơn giản là chưa biết quy tắc duy nhất để biết phải đọc cả hai hay chỉ một. Hôm nay, chỉ cần biết quy tắc đó, bạn sẽ đọc được những từ như thế này ngay lập tức, không còn do dự.
+
+Chào mừng bạn đến với "Hiểu Đúng Thì Tiếng Anh Rất Dễ". Chúng tôi giải thích tiếng Anh qua nguyên lý vật lý của âm thanh để ai cũng có thể nắm vững.
+
+📌 Hôm nay bạn sẽ học
+・Nguyên lý thật sự vì sao chỉ nguyên âm đầu được phát âm khi hai nguyên âm chồng nhau
+・Cách áp dụng vào các từ quen thuộc như BOAT, RAIN, MEAT, COAT, PAINT, TOAST
+・Trường hợp ngoại lệ EA duy nhất cần lưu ý (HEAD, BREAD, DEAD)
+・Mini quiz + nghe câu của người bản xứ + luyện đọc to theo 3 bước
+
+⏱️ Mốc thời gian
+0:00 Vì sao bạn từng khựng lại trước từ có nguyên âm đôi
+0:25 Giới thiệu kênh
+0:39 Hai nguyên âm đứng cạnh nhau — đọc âm nào?
+0:56 Đáp án: Chỉ nguyên âm đầu tiên lên tiếng
+1:37 Nguyên lý đường tắt của chiếc lưỡi lười (COAT)
+2:15 Mở rộng quy tắc sang các từ khác
+2:55 Ngoại lệ duy nhất cần lưu ý (HEAD, BREAD, DEAD)
+3:30 Mini quiz — tự thử xem
+4:00 Kiểm tra trong câu thực tế của người bản xứ
+4:28 Luyện đọc to
+5:17 Đọc được ngay cả từ chưa từng thấy (GRAIN, FOAM, REACH)
+5:57 Tổng kết công thức chính hôm nay
+
+Tiếng Anh không phải là học thuộc lòng mù quáng, mà là hiểu nguyên lý đằng sau âm thanh.
+Đăng ký và thả tim giúp ích rất nhiều cho video tiếp theo.
+
+#PhatAmTiengAnh #HocTiengAnh #TiengAnhGiaoTiep #Phonics #TiengAnhCoBan #TuVungTiengAnh #NguyenAmDoi
+
+================================================================================
+[언어: 繁體中文 (번체 중국어 · 대만/홍콩)]
+================================================================================
+[제목]
+原來這麼久以來都唸錯了...雙母音發音的真正原理 | 自然拼讀基礎
+
+[설명]
+BOAT, RAIN, MEAT… 你是否也曾在這種簡單的單字面前愣住過?
+當兩個母音挨在一起時,你只是還不知道到底該兩個都唸還是只唸一個的那個規則而已。今天只要掌握這一個規則,遇到這類單字就能立刻唸出來,不再猶豫。
+
+歡迎來到「理解就變簡單的英語」。我們用最直觀的發音生理原理,讓初學者也能徹底理解。
+
+📌 今天你會學到
+・兩個母音重疊時,為什麼只唸前面那個母音的真正原理
+・如何把這個原理套用到BOAT, RAIN, MEAT, COAT, PAINT, TOAST等日常單字
+・唯一要注意的EA例外單字(HEAD, BREAD, DEAD)
+・迷你測驗+母語人士例句聽力+開口朗讀三階段訓練
+
+⏱️ 時間軸
+0:00 為什麼你曾在雙母音單字前愣住
+0:25 頻道介紹
+0:39 兩個母音挨在一起,該唸哪一個?
+0:56 答案:只有前面的母音會發聲
+1:37 舌頭最省力的發音捷徑原理(COAT)
+2:15 套用到其他單字的規則延伸
+2:55 唯一要注意的例外(HEAD, BREAD, DEAD)
+3:30 親自挑戰的迷你測驗
+4:00 在真實母語例句中確認
+4:28 開口朗讀練習
+5:17 連沒見過的單字也能立刻唸出來(GRAIN, FOAM, REACH)
+5:57 今天學到的核心公式總整理
+
+英語不是死記硬背,而是理解聲音背後的原理。
+訂閱和按讚是製作下一支影片最大的動力。
+
+#英語發音 #自然拼讀 #英語閱讀 #零基礎英語 #成人學英語 #英語單字 #發音原理 #雙母音
+
+================================================================================
+[언어: 简体中文 (간체 중국어 · 싱가포르/전 세계 화교)]
+================================================================================
+[제목]
+原来这么久以来都读错了...双元音发音的真正原理 | 自然拼读基础
+
+[설명]
+BOAT, RAIN, MEAT… 你是否也曾在这种简单的单词面前愣住过?
+当两个元音挨在一起时,你只是还不知道到底该两个都读还是只读一个的那个规则而已。今天只要掌握这一个规则,遇到这类单词就能立刻读出来,不再犹豫。
+
+欢迎来到"理解就变简单的英语"。我们用最直观的发音生理原理,让初学者也能彻底理解。
+
+📌 今天你会学到
+・两个元音重叠时,为什么只读前面那个元音的真正原理
+・如何把这个原理套用到BOAT, RAIN, MEAT, COAT, PAINT, TOAST等日常单词
+・唯一要注意的EA例外单词(HEAD, BREAD, DEAD)
+・迷你测验+母语人士例句听力+开口朗读三阶段训练
+
+⏱️ 时间戳
+0:00 为什么你曾在双元音单词前愣住
+0:25 频道介绍
+0:39 两个元音挨在一起,该读哪一个?
+0:56 答案:只有前面的元音会发声
+1:37 舌头最省力的发音捷径原理(COAT)
+2:15 套用到其他单词的规则延伸
+2:55 唯一要注意的例外(HEAD, BREAD, DEAD)
+3:30 亲自挑战的迷你测验
+4:00 在真实母语例句中确认
+4:28 开口朗读练习
+5:17 连没见过的单词也能立刻读出来(GRAIN, FOAM, REACH)
+5:57 今天学到的核心公式总整理
+
+英语不是死记硬背,而是理解声音背后的原理。
+订阅和点赞是制作下一支视频最大的动力。
+
+#英语发音 #自然拼读 #英语阅读 #零基础英语 #成人学英语 #英语单词 #发音原理 #双元音

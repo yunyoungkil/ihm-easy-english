@@ -1,34 +1,34 @@
 {
   "format": "LONGFORM",
-  "topic": "소리 안 나는 자음의 비밀: 혀의 충돌을 피하는 묵음 탈락 규칙 (KN, MB, WR)",
-  "audience": "스펠링 그대로 읽으려다 원어민 발음과 달라 좌절했던 파닉스 정체기 성인 학습자",
+  "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
+  "audience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
   "variants": [
     {
       "id": "A",
-      "title": "여태 스펠링 다 읽었네요... 소리 없는 자음 한 번에 끝내는 법 | 성인 파닉스",
+      "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
       "imageUrl": "",
-      "thumbnailHeadline": "묵음 철자 이제 그만",
-      "visualConcept": "어두운 네이비 배경에 KN, WR 스펠링 단어 카드가 놓여 있고 앞 글자만 부드럽게 흐려지는 미니멀 대조 그래픽",
+      "thumbnailHeadline": "-ate 왜 다르게 들릴까",
+      "visualConcept": "물음표 형상의 미니멀한 네온 라이트와 부드럽게 흐려지는 소리 파동의 조화",
       "isLocalFile": false
     },
     {
       "id": "B",
-      "title": "저도 왜 소리 안 나는지 몰랐습니다, 혀가 편해지는 묵음 원리 | 영어 왕초보",
+      "title": "단어마다 -ate 끝소리 달라서 매번 멈칫했는데 소리 나는 길이 따로 있네요 | 영어 끝소리 발음",
       "imageUrl": "",
-      "thumbnailHeadline": "소리 없는 철자의 비밀",
-      "visualConcept": "신비로운 다크 블루 룸에 알파벳 블록들이 떠 있고 특정 자음만 빛이 꺼져 있는 감각적 미니멀 연출",
+      "thumbnailHeadline": "-ate 끝소리 고민 끝",
+      "visualConcept": "사전 속 빽빽한 단어들 사이에서 선명하게 빛나는 단 하나의 심플한 소리 가이드라인",
       "isLocalFile": false
     },
     {
       "id": "C",
-      "title": "외우지 않아도 저절로 읽힙니다, 원어민이 묵음 그냥 넘기는 이유 | 파닉스 기초",
+      "title": "헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이",
       "imageUrl": "",
-      "thumbnailHeadline": "묵음 단어 이제 안막힘",
-      "visualConcept": "막혀 있던 도로 표지판이 시원한 그린 라이트로 바뀌듯 정체된 발음이 술술 풀리는 느낌을 시각화한 모던 그래픽",
+      "thumbnailHeadline": "-ate 다시는 안 헷갈림",
+      "visualConcept": "좌우 2분할 대조 구조로 한쪽은 닫힌 입술 실루엣, 다른 쪽은 편안하게 이완된 입술 그래픽 대조",
       "isLocalFile": false
     }
   ],
-  "activeFeedView": "C",
+  "activeFeedView": "B",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
   "selectedVariantTab": "C",
@@ -37,96 +37,98 @@
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 86,
-        "legibilityScore": 90,
-        "visualSalienceScore": 84,
-        "contrastRating": "우수(Medium-High)",
-        "focalPoint": "좌측 상단 '여태 스펠링 다 읽었네요' 자조적 말풍선과 중앙의 빗금 친 묵음 알파벳",
-        "predictedGrade": "A-",
-        "predictedCtrRange": "7.8% ~ 9.5%",
+        "curiosityGapScore": 72,
+        "legibilityScore": 85,
+        "visualSalienceScore": 78,
+        "contrastRating": "중상(Medium-High)",
+        "focalPoint": "중앙의 '-ate 소리 이제 정복' 헤드라인 텍스트 영역",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "5.4% ~ 7.2%",
         "strengths": [
-          "제목 전반부 '여태 스펠링 다 읽었네요...'가 성인 학습자의 오랜 낭패감과 공감을 즉각 건드려 1초 정지를 유발함",
-          "썸네일 헤드라인 '묵음 철자 이제 그만'이 군더더기 없이 간결하여 120px 모바일 피드에서도 판독성이 뛰어남"
+          "4060 타겟 시청자가 겪는 '단어마다 다르게 읽혀 답답했던' 감정선에 공감대를 형성함",
+          "썸네일 텍스트가 간결하여 모바일 120px 환경에서도 가독성이 무너지지 않음"
         ],
         "weaknesses": [
-          "헤드라인 '이제 그만'이 다소 추상적이라 이 영상을 시청했을 때 얻는 명확한 이득이나 쾌감이 시각적으로 즉각 전달되지 않음"
+          "제목 앞부분에 핵심 철자(-ate)가 빠져 있어 모바일 피드 스크롤 시 정확히 어떤 단어를 다루는지 직관적으로 와닿지 않음",
+          "헤드라인의 '이제 정복'이라는 표현이 일반 학원 강의처럼 평이하여 호기심이나 스턴건 효과가 다소 밋밋함"
         ],
-        "visualImprovementTip": "헤드라인 뒷배경에 다크 네이비 딤 처리를 강화하고, '이제 그만' 텍스트에 형광 옐로우(#FFE600)와 4px 블랙 스트로크를 적용하여 명도 대비를 극대화할 것"
+        "visualImprovementTip": "단어 끝 스펠링 '-ATE'를 옐로우 볼드 폰트로 분리 강조하고, 뒤 배경에 회색빛 단어 카드(예: climate / celebrate)를 흐릿하게 대조 배치해 시각적 호기심을 유발하세요."
       },
       {
         "variantKey": "B",
-        "curiosityGapScore": 89,
-        "legibilityScore": 86,
-        "visualSalienceScore": 88,
-        "contrastRating": "최상(High)",
-        "focalPoint": "원어민 구강 내부의 혀 위치를 단순화한 3D 그래픽과 '비밀' 키워드 강조 영역",
-        "predictedGrade": "A",
-        "predictedCtrRange": "8.7% ~ 11.4%",
+        "curiosityGapScore": 79,
+        "legibilityScore": 88,
+        "visualSalienceScore": 82,
+        "contrastRating": "상(High)",
+        "focalPoint": "'-ate' 강조 텍스트 및 '소리 길은 딱 하나' 카피",
+        "predictedGrade": "A-",
+        "predictedCtrRange": "7.3% ~ 9.1%",
         "strengths": [
-          "제목 전반부 '저도 왜 소리 안 나는지 몰랐습니다'가 가식 없는 동반자 톤앤매너를 100% 충족하며 심리적 진입 장벽을 완전히 낮춤",
-          "'혀가 편해지는 원리'라는 표현이 채널 고유의 철학(게으른 혀의 지름길)을 직관적으로 연상시켜 신뢰도와 호기심을 동시에 끌어올림"
+          "제목 전면에 '-ate' 철자를 명시하여 타겟층이 과거에 겪었던 암기 고통을 정확히 건드림",
+          "헤드라인 '다시는 안헷갈림'은 시청 후 얻게 될 구체적 상태 변화를 명확히 제시하여 클릭 장벽을 낮춤"
         ],
         "weaknesses": [
-          "썸네일 헤드라인 '소리 없는 철자의 비밀'은 유튜브 교육 피드에서 자주 쓰이는 전형적인 클리셰라 시각적 충격(스턴건)이 약함"
+          "제목 문장이 다소 늘어져 모바일 작은 화면에서 '소리 길은 딱 하나였네요' 뒷부분이 조기 절단될 위험이 있음",
+          "썸네일 헤드라인에 띄어쓰기 결손('안헷갈림' -> '안 헷갈림')으로 완성도가 떨어져 보일 수 있음"
         ],
-        "visualImprovementTip": "우측 하단 영상 길이 태그(16:9 타임스탬프)에 그래픽이 침범당하지 않도록 시각적 초점을 정중앙에서 좌측 1/3 지점으로 이동 배치할 것"
+        "visualImprovementTip": "헤드라인 좌측에 원어민 입모양 클로즈업 또는 소리 파형 그래픽을 은은하게 깔아 '소리 원리'를 다룬다는 직관성을 높이세요."
       },
       {
         "variantKey": "C",
-        "curiosityGapScore": 82,
-        "legibilityScore": 84,
-        "visualSalienceScore": 81,
-        "contrastRating": "보통(Medium)",
-        "focalPoint": "중앙 단어 카드(KNEE, COMB)와 우측 녹색 체크 아이콘",
-        "predictedGrade": "B+",
-        "predictedCtrRange": "6.8% ~ 8.4%",
+        "curiosityGapScore": 86,
+        "legibilityScore": 86,
+        "visualSalienceScore": 84,
+        "contrastRating": "상(High)",
+        "focalPoint": "대조를 암시하는 '-ate 소리'와 '2개로 갈릴까' 텍스트",
+        "predictedGrade": "A",
+        "predictedCtrRange": "8.8% ~ 10.9%",
         "strengths": [
-          "'외우지 않아도 저절로 읽힙니다'라는 직관적 약속이 규칙 암기에 지친 성인 학습자의 피로도를 정확히 겨냥함",
-          "헤드라인 '묵음 단어 이제 안막힘'이 시청 후 얻게 될 구체적 상태 변화를 명쾌하게 확정해 줌"
+          "'철자 똑같은데 소리가 왜 2개로 갈릴까'라는 인지 부조화를 정면으로 찔러 클릭 유발력이 가장 강함",
+          "헤드라인 '-ate 소리 외우지마세요'는 무작정 암기에 지친 4060 세대의 피로감을 완벽히 해소해 주는 도발적 훅으로 작용함"
         ],
         "weaknesses": [
-          "제목이 다소 설명적이고 밋밋하여 모바일 1~15자 절대 영역에서 손가락을 멈추게 하는 강력한 훅이 부족함"
+          "제목 뒷부분 '단숨에 풀리는 비밀'이 다소 상투적인 유튜브 어조로 느껴져 브랜드의 담백한 신뢰감을 소폭 저해할 수 있음"
         ],
-        "visualImprovementTip": "배경과 텍스트 박스 간의 채도 차이가 적어 피드 축소 시 텍스트가 묻힐 수 있으므로, 텍스트 하단에 솔리드 블랙 언더바를 추가해 시각적 분리감을 줄 것"
+        "visualImprovementTip": "동일한 '-ate' 스펠링에서 화살표 두 개가 서로 다른 음표 기호(강한 소리 vs 힘 빠진 소리)로 갈라지는 미니멀 인포그래픽을 좌우 대조로 배치하세요."
       }
     ],
-    "bestVariant": "B",
-    "overallVerdict": "시안 B가 채널 특유의 솔직 담백한 동반자 톤앤매너('저도 몰랐습니다')와 고유 발음 메커니즘('혀가 편해지는 원리')을 가장 균형 있게 결합하여 홈 피드 클릭률을 견인할 최적의 시안입니다. 다만 썸네일 헤드라인이 다소 진부하므로, AI 제안의 3~4단어 압축 스턴건 카피로 교체할 때 CTR이 최대 12%대까지 상승할 것으로 판단됩니다.",
+    "bestVariant": "C",
+    "overallVerdict": "시안 C는 '철자는 같은데 왜 소리가 둘로 쪼개지는가'라는 구체적 인지 부조화를 15자 이내에 강력하게 던져 스크롤을 즉시 멈추게 만듭니다. 썸네일 헤드라인 역시 기존의 암기 방식을 정면 거부하는 상식 파괴로 호기심을 극대화하여 4060 기초 학습자에게 가장 높은 클릭 전환율을 끌어낼 시안입니다.",
     "aiTitleSuggestions": [
       {
-        "type": "💡 낭패공감형",
-        "title": "여태 철자 다 읽었네요, 소리 없는 자음 걸러내는 법 | 성인 파닉스",
-        "thumbnailHeadline": "묵음 철자 이제 통과",
-        "designConcept": "어두운 네이비 배경 속 알파벳 단어 'KNIFE'에서 'K' 글자만 반투명하게 페이드아웃 처리되며 혀가 편안해지는 아이콘 대비",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, glowing typography layout showing the word KNIFE with letter K dissolving into soft glowing dust particles, minimalist graphic layout, copy space for Korean text on left side, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "💡 상식파괴 발견형",
+        "title": "철자 같은 -ate 소리가 왜 둘로 쪼개질까 신기했는데 입술 힘 때문이네요 | 영어 단어 읽는 법",
+        "thumbnailHeadline": "-ate 외우면 손해",
+        "designConcept": "어두운 네이비 배경에 굵은 네온 옐로우 '-ate' 텍스트와 두 갈래로 갈라지는 직관적인 사운드 웨이브 라인",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, minimalist dark navy background, large split glow path graphic, subtle soundwave visual metaphor, copy space for Korean text on left side, cinematic lighting, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "⚡ 상식파괴형",
-        "title": "스펠링 다 읽으면 낭패, 혀가 편해지는 묵음 글자 비밀 | 영어 왕초보",
-        "thumbnailHeadline": "묵음 철자 전부 버림",
-        "designConcept": "단어 카드 속 묵음 철자에 붉은 빗금(X) 대신 부드러운 네온 블러 처리를 가미하여 버려야 할 소리임을 직관적으로 보여주는 화면",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English phonics lesson, high-contrast dark slate background, side-by-side minimalist flashcards with glowing neon cross-out accents, elegant modern pedagogical graphic, copy space for bold text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🎯 고통공감 전환형",
+        "title": "단어마다 -ate 끝소리 달라서 매번 멈칫했는데 소리 나는 길이 따로 있네요 | 영어 끝소리 발음",
+        "thumbnailHeadline": "-ate 끝소리 고민 끝",
+        "designConcept": "사전 속 빽빽한 단어들 사이에서 선명하게 빛나는 단 하나의 심플한 소리 가이드라인",
+        "midjourneyPrompt": "Educational horizontal YouTube thumbnail background, deep slate blue ambient, soft bokeh of faded dictionary pages in background, single bright glowing cyan path leading forward, copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🎯 결과확정형",
-        "title": "저도 이제 안 막힙니다, 묵음 자음 저절로 거르는 법 | 영어 읽는 법",
-        "thumbnailHeadline": "묵음 단어 바로 통과",
-        "designConcept": "복잡한 파닉스 기호 없이 단어 속 묵음이 스무스하게 건너뛰어지는 고속도로 형태의 네온 패스 시각화",
-        "midjourneyPrompt": "Clean horizontal visual artwork for adult English learner channel, dark studio navy background, sleek glowing smooth pathway bypassing a barrier icon, sophisticated educational diagram aesthetic, spacious negative copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "⚡ 즉각해결 확정형",
+        "title": "헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이",
+        "thumbnailHeadline": "-ate 다시는 안 헷갈림",
+        "designConcept": "좌우 2분할 대조 구조로 한쪽은 닫힌 입술 실루엣, 다른 쪽은 편안하게 이완된 입술 그래픽 대조",
+        "midjourneyPrompt": "Horizontal 16:9 comparison visual for language study, split contrast composition, left side muted charcoal tone, right side warm amber spotlight, minimalist acoustic wave vectors, empty copy space for text overlay, photorealistic studio lighting --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🔍 구체단어호기심형",
-        "title": "Knee Comb 왜 안 읽힐까? 혀 충돌 피하는 묵음 규칙 | 파닉스 기초",
-        "thumbnailHeadline": "소리 없는 자음 반전",
-        "designConcept": "Knee와 Comb 단어 그래픽 사이에서 혀가 걸리지 않고 매끄럽게 통과하는 3D 유선형 공기 흐름 다이어그램",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation rules, deep indigo and dark charcoal backdrop, elegant 3D aerodynamic airflow streamline illustrating vocal effortless flow, sharp lighting focus, ample copy space on upper left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🔍 인지부조화 호기심형",
+        "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
+        "thumbnailHeadline": "-ate 왜 다르게 들릴까",
+        "designConcept": "물음표 형상의 미니멀한 네온 라이트와 부드럽게 흐려지는 소리 파동의 조화",
+        "midjourneyPrompt": "Minimalist educational YouTube graphic layout, deep midnight blue backdrop, subtle neon question mark curve glowing faintly in the center right, wide negative space on the left for Korean typography, premium clean aesthetics, 8k --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "👅 발음원리발견형",
-        "title": "혀 꼬이던 이유 풀렸네요, 소리 안 나는 자음 숨은 규칙 | 성인 파닉스",
-        "thumbnailHeadline": "묵음 자음 혀 편함",
-        "designConcept": "답답하게 엉켜 있던 매듭 그래픽이 하나의 유려한 직선으로 부드럽게 풀려나가는 미니멀 아트워크",
-        "midjourneyPrompt": "Clean horizontal visual artwork for adult phonics learning, deep dark navy background, minimalist abstract 3D visual of a tangled glowing knot smoothly unraveling into a relaxed straight ribbon, high contrast salience, ample left copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🚀 초간결 정리형",
+        "title": "복잡하게 외우던 -ate 발음 규칙 하나로 정리되니 단어 읽기가 훨씬 편해지네요 | 단어 읽는 법",
+        "thumbnailHeadline": "-ate 소리 딱 하나로",
+        "designConcept": "복잡하게 엉킨 실타래 그래픽이 오른쪽으로 가며 매끄러운 단 한 줄의 직선으로 풀리는 미니멀 비주얼",
+        "midjourneyPrompt": "Sleek modern YouTube thumbnail artwork, dark luxury indigo background, complex tangled wire on the far left unraveling into a smooth clean glowing straight gold line toward the right, high contrast, elegant educational backdrop, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

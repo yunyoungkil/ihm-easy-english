@@ -2,6 +2,25 @@
 
 마지막 확인: 2026-09-19
 
+## 🚧 진행 중 — 단편 EP19(-ATE 동사/명사 발음 차이)
+
+`videos/ep19-ate-suffix/` — 아이디어 보드 소재 선정(2026-09-19, rank 3/score 85) → A/B
+시뮬레이터 3안 생성·Gemini AI CTR 진단(사용자 직접 진행, 시안 C: A등급, CTR 8.8~10.9%) →
+시안 C 확정 → `BRIEF.md` 작성 완료(2026-09-19) → 공식 썸네일 4종 풀세트(`thumbnail-a.jpg`~`thumbnail-close-up.jpg`) 완제작 및 저장 완료 → `TASKS.md` 착수 완료(2026-09-19, 현재 단계). 상세: `videos/ep19-ate-suffix/BRIEF.md`, `videos/ep19-ate-suffix/TASKS.md`.
+
+- **제목(시안 C)**: 헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이
+- **썸네일 헤드라인**: -ate 외우면 손해 / -ate 다시는 안 헷갈림
+- **핵심 통찰(BRIEF.md에 기록)**: 같은 -ATE 철자라도 동사형은 강세가 그대로 남아 "에이트"로
+  또렷하게 소리 나고, 명사·형용사형은 강세가 앞으로 옮겨가면서 -ate가 힘 빠진 "엇/잇"으로
+  축약된다는 강세-모음축약(vowel reduction) 원리 하나로 estimate/graduate/separate 같은
+  단어들의 두 얼굴을 설명한다.
+- **썸네일 4종 구축 완료(2026-09-19)**:
+  * `thumbnail-a.jpg` / `thumbnail.jpg`: 웜 크림 시그니처 룩 + `"-ate"` 볼드 + `외우면 손해` 뱃지 + `동사 [-에이트]` vs `명사 [-엇/잇]` 두 갈래 분기 화살표 + 멘붕 캐릭터 & `[ 여태 헛고생한 사람 ]` 콜아웃.
+  * `thumbnail-b.jpg`: 상식붕괴 직격형 (`"-ate" 아니었어?` + `[ 여태 다 읽었던 사람 ]`).
+  * `thumbnail-c.jpg`: 안심/확신 해결형 (`헷갈리던 -ate` + `다시는 안 헷갈림`).
+  * `thumbnail-close-up.jpg`: 모바일 초근접 익스트림 클로즈업 (쉿! 비밀 포즈 + 초대형 2줄 문구).
+- **다음 행동**: `SCRIPT.md`/`STORYBOARD.md`/`frame.md` 작성(웹 검색으로 -ATE 동사/명사 발음·강세 패턴 사실관계 확인 포함) ➔ TTS 음성 생성 및 프레임 구현.
+
 ## ✅ 완료 — 단편 EP18(묵음 자음 규칙, KN/-MB/WR)
 
 `videos/ep18-silent-consonants/` — 아이디어 보드 소재 선정(2026-09-18, rank 5/score 82) →

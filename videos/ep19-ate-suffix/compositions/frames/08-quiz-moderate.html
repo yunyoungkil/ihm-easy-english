@@ -1,0 +1,365 @@
+<template>
+<style>
+  /* 08-quiz-moderate — Frame 8 "실전 훈련 1: 3초 퀴즈 1라운드 [신규 단어 moderate] ⭐️".
+     Actual audio duration: 35.52s (08a 23.08s + 침묵 3.0s + 08b 9.44s).
+     - 0.00s ~ 5.20s: 이제 원리를 완전히 이해하셨으니 직접 맞춰보실 시간입니다.
+     - 5.20s ~ 9.80s: 한 번도 배운 적 없는 새로운 단어로 도전해 볼까요?
+     - 9.80s ~ 13.50s: 화면에 나오는 이 단어 보이시죠?
+     - 13.50s ~ 20.80s: '조절하다', '완화하다'라는 움직임, 즉 동사로 쓰일 땐 이 단어를 어떻게 읽어야 할까요?
+     - 20.80s ~ 23.08s: 잠깐 생각해 보세요.
+     - 23.08s ~ 26.08s: (3초 침묵 및 타이머 카운트다운 — 정답 스포일러 일체 차단)
+     - 26.08s ~ 31.80s: 네, 행동을 나타내는 동사니까 끝까지 에너지를 밀어붙여야겠죠.
+     - 31.80s ~ 35.52s: 정답은 바로 '모더레이트'입니다.
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f08-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f08-progress-fill { position: absolute; left: 0; top: 0; width: 66.81%; height: 5px; background: #F5C518; }
+
+  /* Top Badge */
+  .f08-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 5cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 0.8cqh 1.6cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    z-index: 10;
+  }
+
+  /* Quiz Question Card */
+  .f08-quiz-card {
+    position: absolute;
+    left: 50%;
+    top: 36%;
+    transform: translate(-50%, -50%);
+    width: 82cqw;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3.5cqh 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    z-index: 5;
+  }
+
+  .f08-quiz-round {
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #FF5E57;
+    background: rgba(255,94,87,0.12);
+    padding: 0.3cqh 1.2cqw;
+    border-radius: 8px;
+    margin-bottom: 1cqh;
+  }
+
+  .f08-quiz-word {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 5.2cqw;
+    color: #2B2B2B;
+    font-variant-ligatures: none;
+    line-height: 1.1;
+  }
+
+  .f08-quiz-hint {
+    margin-top: 1cqh;
+    font-size: 1.6cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+  }
+  .f08-hint-tag {
+    background: #FF5E57;
+    color: #FFF;
+    padding: 0.2cqh 0.8cqw;
+    border-radius: 6px;
+    font-size: 1.2cqw;
+  }
+
+  /* Timer Circle Ring */
+  .f08-timer-box {
+    position: absolute;
+    right: 5cqw;
+    top: 4.5cqh;
+    width: 90px;
+    height: 90px;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 50%;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.2cqw;
+    color: #FF5E57;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Options Grid */
+  .f08-options-grid {
+    position: absolute;
+    left: 50%;
+    top: 66%;
+    transform: translate(-50%, -50%);
+    width: 82cqw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5cqw;
+    z-index: 5;
+  }
+
+  .f08-option-btn {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 2.8cqh 2cqw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1cqw;
+    font-size: 2.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .f08-option-num {
+    width: 2.2cqw;
+    height: 2.2cqw;
+    border-radius: 50%;
+    background: #FAF7F2;
+    border: 2px solid #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.2cqw;
+  }
+
+  /* Celebrate Character (Revealed on Answer) */
+  .f08-char-celebrate {
+    position: absolute;
+    right: 4cqw;
+    bottom: 12cqh;
+    width: 200px;
+    height: 200px;
+    border-radius: 24px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.8) rotate(4deg);
+    z-index: 20;
+    background: #FFF;
+  }
+  .f08-char-celebrate img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Correct Banner */
+  .f08-answer-banner {
+    position: absolute;
+    left: 50%;
+    bottom: 12cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-crof" id="root" data-composition-id="08-quiz-moderate" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-quzk" class="f08-progress-track">
+    <div data-hf-id="hf-0x2t" class="f08-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header Badge -->
+  <div data-hf-id="hf-0owo" class="f08-badge">
+    <span data-hf-id="hf-617c">🎯</span>
+    <span data-hf-id="hf-f6np">실전 퀴즈 1라운드: 처음 보는 단어 도전!</span>
+  </div>
+
+  <!-- Timer Box -->
+  <div data-hf-id="hf-0vkf" class="f08-timer-box" id="timerBox">3</div>
+
+  <!-- Quiz Card -->
+  <div data-hf-id="hf-9egs" class="f08-quiz-card" id="quizCard">
+    <div data-hf-id="hf-kfd9" class="f08-quiz-round">QUIZ 01</div>
+    <div data-hf-id="hf-acag" class="f08-quiz-word">moderate</div>
+    <div data-hf-id="hf-yp7a" class="f08-quiz-hint">
+      <span data-hf-id="hf-uh1z" class="f08-hint-tag">역할</span>
+      <span data-hf-id="hf-ct0r">'조절하다', '완화하다' (움직이는 행동 = 동사)</span>
+    </div>
+  </div>
+
+  <!-- Options Grid -->
+  <div data-hf-id="hf-o4nk" class="f08-options-grid">
+    <div data-hf-id="hf-ooml" class="f08-option-btn" id="opt1">
+      <div data-hf-id="hf-7j3i" class="f08-option-num">1</div>
+      <span data-hf-id="hf-ekv9">모더레이트 [-eɪt]</span>
+    </div>
+    <div data-hf-id="hf-smqm" class="f08-option-btn" id="opt2">
+      <div data-hf-id="hf-7xej" class="f08-option-num">2</div>
+      <span data-hf-id="hf-i2b4">모더럿 [-rət]</span>
+    </div>
+  </div>
+
+  <!-- Celebrate Character -->
+  <div data-hf-id="hf-5ezk" class="f08-char-celebrate" id="charCelebrate">
+    <img data-hf-id="hf-b0ok" src="assets/images/char_celebrate.jpg" alt="Celebrate Character">
+  </div>
+
+  <!-- Answer Banner -->
+  <div data-hf-id="hf-91ve" class="f08-answer-banner" id="answerBanner">
+    <span data-hf-id="hf-qxka">🎉</span>
+    <span data-hf-id="hf-rp9r">정답! 움직이는 동사니까 당당하게 '모더레이트'!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-x7nb" id="v08" src="assets/voice/08.wav" data-audio-group="voiceover" data-start="0" data-duration="35.52"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    var timer = document.getElementById("timerBox");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (66.81% -> 74.62%)
+    tl.to("#pfill", { width: "74.62%", duration: 35.52, ease: "none" }, 0);
+
+    // Sentence 1 (0.00s ~ 5.20s): Quiz time
+    tl.call(function () { setCaption("이제 원리를 완전히 이해하셨으니 직접 맞춰보실 시간입니다."); }, null, 0.00);
+    tl.to("#quizCard", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 0.3);
+
+    // Sentence 2 (5.20s ~ 9.80s): Challenge new word
+    tl.call(function () { setCaption("한 번도 배운 적 없는 새로운 단어로 도전해 볼까요?"); }, null, 5.20);
+
+    // Sentence 3 (9.80s ~ 13.50s): Word moderate on screen
+    tl.call(function () { setCaption("화면에 나오는 이 단어 보이시죠?"); }, null, 9.80);
+    tl.to("#opt1", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 10.5);
+    tl.to("#opt2", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 11.2);
+
+    // Sentence 4 (13.50s ~ 20.80s): To moderate action
+    tl.call(function () { setCaption("'조절하다', '완화하다'라는 움직임, 즉 동사로 쓰일 땐 이 단어를 어떻게 읽어야 할까요?"); }, null, 13.50);
+
+    // Sentence 5 (20.80s ~ 23.08s): Think for a moment
+    tl.call(function () { setCaption("잠깐 생각해 보세요."); }, null, 20.80);
+    tl.to("#timerBox", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 22.5);
+
+    // ⭐️ 3-Second Silence Countdown (23.08s ~ 26.08s) — NO SPOILERS!
+    tl.call(function () { timer.textContent = "3"; }, null, 23.08);
+    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 23.1);
+
+    tl.call(function () { timer.textContent = "2"; }, null, 24.08);
+    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 24.1);
+
+    tl.call(function () { timer.textContent = "1"; }, null, 25.08);
+    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 25.1);
+
+    // Sentence 6 (26.08s ~ 31.80s): 08b Reveal! Verb needs full push
+    tl.call(function () { setCaption("네, 행동을 나타내는 동사니까 끝까지 에너지를 밀어붙여야겠죠."); }, null, 26.08);
+    tl.to("#timerBox", { opacity: 0, scale: 0.5, duration: 0.3 }, 26.08);
+    // Correct Option 1 Glows Golden Neon!
+    tl.to("#opt1", {
+      background: "#FFF",
+      border: "3.5px solid #FF5E57",
+      boxShadow: "0 0 35px rgba(255,94,87,0.7), 6px 6px 0px #2B2B2B",
+      scale: 1.05,
+      duration: 0.4,
+      ease: "back.out(1.7)"
+    }, 26.3);
+    tl.to("#opt2", { opacity: 0.4, scale: 0.95, duration: 0.3 }, 26.3);
+
+    // Character Celebrate Popup!
+    tl.to("#charCelebrate", { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.8)" }, 26.5);
+
+    // Sentence 7 (31.80s ~ 35.52s): Answer is moderate!
+    tl.call(function () { setCaption("정답은 바로 '모더레이트'입니다."); }, null, 31.80);
+    tl.to("#answerBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 32.0);
+
+    // Outro transition
+    tl.to(["#quizCard", "#opt1", "#opt2", "#charCelebrate", "#answerBanner"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 35.10);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-quiz-moderate"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

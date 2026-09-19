@@ -1,0 +1,356 @@
+<template>
+<style>
+  /* 04-practice-estimate — Frame 4 "1번 실전 낭독: estimate [견적서 맥락] ⭐️ [3회 낭독]".
+     Actual audio duration: 43.68s.
+     - 0.00s ~ 5.40s: 저도 예전에 해외 직구나 이메일에서 estimate를 볼 때마다 '에스티메이트'로만 읽었었는데,
+     - 5.40s ~ 9.80s: 원어민들은 자꾸 '에스티멋'이라고 하더라고요. 이제 이유를 아시겠죠?
+     - 9.80s ~ 14.80s: '견적을 내다'라는 행동일 땐 뒤를 힘차게 밀어서 to estimate.
+     - 14.80s ~ 22.80s: 반대로 '견적서'라는 명사 서류일 땐 첫 글자만 세게 치고 뒤는 턱의 힘을 툭 빼서 an estimate.
+     - 22.80s ~ 28.50s: 입술과 턱에 힘을 완전히 빼고 가볍게 3번 소리 내보실까요?
+     - 28.50s ~ 38.80s: an estimate, an estimate, an estimate. (3회 리듬 낭독)
+     - 38.80s ~ 43.68s: 턱이 툭 떨어지며 편안해지는 게 느껴지시죠?
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f04-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f04-progress-fill { position: absolute; left: 0; top: 0; width: 22.73%; height: 5px; background: #F5C518; }
+
+  /* Top Badge */
+  .f04-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 5cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 0.8cqh 1.6cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    z-index: 10;
+  }
+
+  /* Invoice Visual Illustration (Top-Right Stamp) */
+  .f04-invoice-art {
+    position: absolute;
+    right: 5cqw;
+    top: 4.5cqh;
+    width: 220px;
+    height: 220px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    opacity: 0;
+    transform: rotate(4deg) scale(0.8);
+    z-index: 8;
+    background: #FFF;
+  }
+  .f04-invoice-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .f04-invoice-korean-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #2E86AB;
+    color: #FFF;
+    font-size: 1.05cqw;
+    font-weight: 900;
+    text-align: center;
+    padding: 0.5cqh 0;
+    border-top: 2.5px solid #2B2B2B;
+    letter-spacing: -0.3px;
+  }
+
+  /* Dual Card Grid */
+  .f04-grid {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 86cqw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5cqw;
+    z-index: 5;
+  }
+
+  .f04-card {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 22px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3.8cqh 2.4cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .f04-card-type {
+    position: absolute;
+    top: -1.2cqw;
+    left: 2cqw;
+    border-radius: 10px;
+    border: 2.5px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
+    font-size: 1.15cqw;
+    font-weight: 900;
+    padding: 0.3cqh 1.2cqw;
+    z-index: 6;
+  }
+  .f04-type-verb { background: #FF5E57; color: #FFFFFF; }
+  .f04-type-noun { background: #2E86AB; color: #FFFFFF; }
+
+  .f04-word-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 4cqw;
+    line-height: 1.1;
+    color: #2B2B2B;
+    font-variant-ligatures: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5cqw;
+  }
+  .f04-prefix { font-family: 'Noto Sans KR', sans-serif; font-size: 2.4cqw; font-weight: 800; color: #7A7365; }
+  .f04-ate-verb { color: #FF5E57; text-decoration: underline 6px #FFD32A; }
+  .f04-ate-noun { color: #2E86AB; background: rgba(46, 134, 171, 0.18); border-radius: 8px; padding: 0 6px; }
+
+  .f04-meaning {
+    font-size: 1.4cqw;
+    font-weight: 800;
+    color: #7A7365;
+    margin: 1.2cqh 0;
+  }
+
+  .f04-pron-badge {
+    background: #FAF7F2;
+    border: 2.5px solid #2B2B2B;
+    border-radius: 12px;
+    padding: 0.8cqh 1.8cqw;
+    font-size: 2cqw;
+    font-weight: 900;
+  }
+  .f04-pron-badge.verb { color: #C0392B; }
+  .f04-pron-badge.noun { color: #165069; }
+
+  /* 3-Repeat Pulse Counter */
+  .f04-repeat-counter {
+    position: absolute;
+    bottom: -1.5cqw;
+    right: 2cqw;
+    display: flex;
+    gap: 0.4cqw;
+    opacity: 0;
+  }
+  .f04-dot {
+    width: 1.5cqw;
+    height: 1.5cqw;
+    border-radius: 50%;
+    background: #FAF7F2;
+    border: 2px solid #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8cqw;
+    font-weight: 900;
+  }
+  .f04-dot.active {
+    background: #F5C518;
+    box-shadow: 0 0 10px rgba(245,197,24,0.8);
+  }
+
+  /* Coach Tip Bar */
+  .f04-coach-bar {
+    position: absolute;
+    left: 50%;
+    bottom: 12.5cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-xr20" id="root" data-composition-id="04-practice-estimate" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-g5bg" class="f04-progress-track">
+    <div data-hf-id="hf-1mxd" class="f04-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header Badge -->
+  <div data-hf-id="hf-0yos" class="f04-badge">
+    <span data-hf-id="hf-en0o">📌</span>
+    <span data-hf-id="hf-xgmi">실전 단어 1: estimate (견적)</span>
+  </div>
+
+  <!-- Invoice Illustration -->
+  <div data-hf-id="hf-qu2q" class="f04-invoice-art" id="invoiceArt">
+    <img data-hf-id="hf-957p" src="assets/images/estimate_invoice.jpg" alt="Invoice">
+    <div data-hf-id="hf-eikt" class="f04-invoice-korean-tag">📄 공식 견적서 (명사)</div>
+  </div>
+
+  <!-- Grid -->
+  <div data-hf-id="hf-r90n" class="f04-grid">
+    <!-- Verb Card -->
+    <div data-hf-id="hf-neh2" class="f04-card" id="cardVerb">
+      <div data-hf-id="hf-lye9" class="f04-card-type f04-type-verb">동사 (행동)</div>
+      <div data-hf-id="hf-y2v2" class="f04-word-title">
+        <span data-hf-id="hf-bgaz" class="f04-prefix">to</span>
+        <span data-hf-id="hf-6x4m">esti<span data-hf-id="hf-b331" class="f04-ate-verb">mate</span></span>
+      </div>
+      <div data-hf-id="hf-syt9" class="f04-meaning">견적을 내다 / 추정하다</div>
+      <div data-hf-id="hf-xqnd" class="f04-pron-badge verb">"에스티메이트" [-eɪt]</div>
+    </div>
+
+    <!-- Noun Card -->
+    <div data-hf-id="hf-s3xt" class="f04-card" id="cardNoun">
+      <div data-hf-id="hf-6jm2" class="f04-card-type f04-type-noun">명사 (서류)</div>
+      <div data-hf-id="hf-34yq" class="f04-word-title">
+        <span data-hf-id="hf-z6ht" class="f04-prefix">an</span>
+        <span data-hf-id="hf-l9cq">esti<span data-hf-id="hf-6wse" class="f04-ate-noun">mate</span></span>
+      </div>
+      <div data-hf-id="hf-de8k" class="f04-meaning">견적서 (공식 서류)</div>
+      <div data-hf-id="hf-ngdk" class="f04-pron-badge noun" id="nounPron">"에스티멋" [-mət / -mɪt]</div>
+
+      <!-- 3-Repeat Dots -->
+      <div data-hf-id="hf-gvna" class="f04-repeat-counter" id="repeatCounter">
+        <div data-hf-id="hf-osyn" class="f04-dot" id="dot1">1</div>
+        <div data-hf-id="hf-s907" class="f04-dot" id="dot2">2</div>
+        <div data-hf-id="hf-zh7r" class="f04-dot" id="dot3">3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coach Bar -->
+  <div data-hf-id="hf-ruc8" class="f04-coach-bar" id="coachBar">
+    <span data-hf-id="hf-woog">👄</span>
+    <span data-hf-id="hf-jrzm">입술과 턱에 힘을 완전히 빼고 '멋' 하고 툭 떨어뜨리세요!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-fdrp" id="v04" src="assets/voice/04.wav" data-audio-group="voiceover" data-start="0" data-duration="43.68"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (22.73% -> 32.33%)
+    tl.to("#pfill", { width: "32.33%", duration: 43.68, ease: "none" }, 0);
+
+    // Sentence 1 (0.41s ~ 11.68s): Empathy & Invoice Art
+    tl.call(function () { setCaption("저도 예전에 해외 직구나 이메일에서 estimate를 볼 때마다 '에스티메이트'로만 읽었었는데, 원어민들은 자꾸 '에스티멋'이라고 하더라고요."); }, null, 0.41);
+    tl.to("#invoiceArt", { opacity: 1, scale: 1, rotation: 2, duration: 0.6, ease: "back.out(1.6)" }, 0.41);
+
+    // Sentence 2 (11.70s ~ 13.88s): Now you know the reason?
+    tl.call(function () { setCaption("이제 이유를 아시겠죠?"); }, null, 11.70);
+
+    // Sentence 3 (13.90s ~ 20.64s): Verb is to estimate
+    tl.call(function () { setCaption("'견적을 내다'라는 행동일 땐 뒤를 힘차게 밀어서 to estimate."); }, null, 13.90);
+    tl.to("#cardVerb", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 14.2);
+
+    // Sentence 4 (20.70s ~ 30.20s): Noun is an estimate
+    tl.call(function () { setCaption("반대로 '견적서'라는 명사 서류일 땐 첫 글자만 세게 치고 뒤는 턱의 힘을 툭 빼서 an estimate."); }, null, 20.70);
+    tl.to("#cardNoun", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 21.0);
+
+    // Sentence 5 (30.25s ~ 35.68s): Let's repeat 3 times
+    tl.call(function () { setCaption("입술과 턱에 힘을 완전히 빼고 가볍게 3번 소리 내보실까요?"); }, null, 30.25);
+    tl.to("#coachBar", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 30.5);
+    tl.to("#repeatCounter", { opacity: 1, duration: 0.3 }, 31.0);
+
+    // Sentence 6 (35.70s ~ 40.65s): 3-Repeat Rhythm
+    tl.call(function () { setCaption("an estimate, an estimate, an estimate."); }, null, 35.70);
+    // Pulse 1
+    tl.to("#cardNoun", { scale: 1.05, boxShadow: "0 0 30px rgba(46,134,171,0.6)", duration: 0.3, ease: "power2.out" }, 36.2);
+    tl.to("#dot1", { className: "f04-dot active", duration: 0.1 }, 36.2);
+    tl.to("#cardNoun", { scale: 1.0, boxShadow: "6px 6px 0px #2B2B2B", duration: 0.3 }, 36.8);
+    // Pulse 2
+    tl.to("#cardNoun", { scale: 1.05, boxShadow: "0 0 30px rgba(46,134,171,0.6)", duration: 0.3, ease: "power2.out" }, 37.8);
+    tl.to("#dot2", { className: "f04-dot active", duration: 0.1 }, 37.8);
+    tl.to("#cardNoun", { scale: 1.0, boxShadow: "6px 6px 0px #2B2B2B", duration: 0.3 }, 38.4);
+    // Pulse 3
+    tl.to("#cardNoun", { scale: 1.05, boxShadow: "0 0 30px rgba(46,134,171,0.6)", duration: 0.3, ease: "power2.out" }, 39.4);
+    tl.to("#dot3", { className: "f04-dot active", duration: 0.1 }, 39.4);
+    tl.to("#cardNoun", { scale: 1.0, boxShadow: "6px 6px 0px #2B2B2B", duration: 0.3 }, 40.0);
+
+    // Sentence 7 (40.70s ~ 43.68s): Comfortable jaw
+    tl.call(function () { setCaption("턱이 툭 떨어지며 편안해지는 게 느껴지시죠?"); }, null, 40.70);
+
+    // Outro transition
+    tl.to(["#cardVerb", "#cardNoun", "#coachBar", "#invoiceArt"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 43.30);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["04-practice-estimate"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+:root {
+  /* 배경 시스템 */
+  --bg: #F4EFE6;
+  --bg-texture: #EFE8D8;
+  --card-bg: #FFFFFF;
+  --card-bg-warm: #FAF7F2;
+
+  /* 잉크 & 텍스트 */
+  --ink: #2B2B2B;
+  --text: #2B2B2B;
+  --text-muted: #7A7365;
+
+  /* 2대 소리 컬러 코딩 */
+  --verb-coral: #FF5E57;
+  --verb-glyph: #C0392B;
+  --verb-soft: rgba(255, 94, 87, 0.15);
+  --verb-highlight: #FFD32A;
+  --verb-neon: rgba(255, 94, 87, 0.6);
+
+  --noun-blue: #2E86AB;
+  --noun-glyph: #165069;
+  --noun-soft: rgba(46, 134, 171, 0.15);
+  --noun-highlight: rgba(46, 134, 171, 0.25);
+  --noun-neon: rgba(46, 134, 171, 0.6);
+
+  /* 포인트 & 브랜드 */
+  --brand-yellow: #F5C518;
+  --accent-check: #2ED573;
+  --accent-strike: #FF4757;
+
+  /* 네오브루탈리즘 규격 */
+  --card-border: 3.5px solid #2B2B2B;
+  --card-shadow: 5px 5px 0px #2B2B2B;
+  --card-radius: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background-color: var(--bg);
+  font-family: "Noto Sans KR", -apple-system, sans-serif;
+  color: var(--text);
+  user-select: none;
+}
+
+/* ligatures 버그 방지 (EP17 교훈) */
+.no-ligature, .word-title, .syllable-span {
+  font-variant-ligatures: none;
+}
+
+/* 루트 프레임 뷰포트 */
+.frame-root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 5cqw;
+}
+
+/* 상단 토픽 뱃지 */
+.header-badge {
+  position: absolute;
+  top: 4.5cqh;
+  left: 5cqw;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8cqw;
+  padding: 0.8cqh 1.6cqw;
+  background: #FFFFFF;
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0px var(--ink);
+  border-radius: 999px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1.15cqw;
+  font-weight: 900;
+  color: var(--ink);
+  z-index: 10;
+}
+
+/* 네오브루탈리즘 카드 기본형 */
+.sketchnote-card {
+  background: var(--card-bg);
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--card-radius);
+  position: relative;
+}
+
+/* 1:1 대칭 대조 카드 */
+.contrast-container {
+  display: flex;
+  gap: 2.8cqw;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70cqh;
+  margin-top: 10cqh;
+}
+
+.contrast-card {
+  width: 42cqw;
+  height: 62cqh;
+  background: #FFFFFF;
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--card-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2cqw;
+  position: relative;
+  will-change: transform, box-shadow;
+}
+
+.contrast-card.verb-side {
+  border-color: #2B2B2B;
+}
+
+.contrast-card.noun-side {
+  border-color: #2B2B2B;
+}
+
+/* 단어 헤드라인 */
+.hero-word {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 6.2cqw;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5cqh;
+}
+
+.hero-word .highlight-verb {
+  color: var(--verb-glyph);
+  background: var(--verb-highlight);
+  padding: 0 0.15em;
+  border-radius: 8px;
+}
+
+.hero-word .reduced-noun {
+  color: #8C827A;
+  background: var(--noun-soft);
+  padding: 0 0.15em;
+  border-radius: 8px;
+}
+
+/* 발음 표기 뱃지 */
+.sound-tag {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 3.0cqw;
+  font-weight: 900;
+  padding: 0.8cqh 2cqw;
+  border-radius: 14px;
+  border: 3px solid var(--ink);
+  margin-bottom: 1.5cqh;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5cqw;
+}
+
+.sound-tag.verb {
+  background: var(--verb-coral);
+  color: #FFFFFF;
+}
+
+.sound-tag.noun {
+  background: var(--noun-blue);
+  color: #FFFFFF;
+}
+
+/* 손글씨 팁 */
+.hand-tip {
+  font-family: "Gaegu", cursive;
+  font-size: 2.4cqw;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* 펄스 글로우 애니메이션 클래스 (GSAP에서 클래스 토글) */
+.pulse-verb-neon {
+  box-shadow: 0 0 35px var(--verb-neon), 5px 5px 0px var(--ink) !important;
+}
+
+.pulse-noun-neon {
+  box-shadow: 0 0 35px var(--noun-neon), 5px 5px 0px var(--ink) !important;
+}
+
+/* 나레이션 자막 캡슐 (caption-pill) */
+.caption-pill-container {
+  position: absolute;
+  bottom: 4cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: 82cqw;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.caption-pill {
+  background: #FFFFFF;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0px var(--ink);
+  border-radius: 999px;
+  padding: 1.2cqh 2.8cqw;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1.85cqw;
+  font-weight: 800;
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  opacity: 0;
+}

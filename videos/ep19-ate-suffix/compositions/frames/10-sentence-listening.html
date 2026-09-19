@@ -1,0 +1,332 @@
+<template>
+<style>
+  /* 10-sentence-listening — Frame 10 "실전 훈련 3: 미드 속 2단 콤보 실전 문장 리스닝 ⭐️".
+     Actual audio duration: 33.40s.
+     - 0.00s ~ 3.50s: 그럼 실제 문장 속에서는 원어민 소리가 어떻게 날아올까요?
+     - 3.50s ~ 5.40s: 두 문장을 연달아 들어보겠습니다.
+     - 5.40s ~ 16.80s: 첫 번째, "Can you estimate the cost?"에서는 '추정하다'라는 동사라 estimate, '에스티메이트'가 또렷하게 꽂힙니다.
+     - 16.80s ~ 28.20s: 반대로 두 번째, "Send me the estimate."에서는 '견적서'라는 명사라 estimate, 힘이 쑥 빠진 '에스티멋'으로 툭 떨어집니다.
+     - 28.20s ~ 33.40s: 문장 속에서도 두 소리의 자리가 선명하게 갈라지죠?
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f10-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f10-progress-fill { position: absolute; left: 0; top: 0; width: 81.85%; height: 5px; background: #F5C518; }
+
+  /* Top Badge */
+  .f10-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 5cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 0.8cqh 1.6cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    z-index: 10;
+  }
+
+  /* Celebrate Listening Character Card */
+  .f10-char-card {
+    position: absolute;
+    right: 5cqw;
+    top: 4.5cqh;
+    width: 210px;
+    height: 210px;
+    border-radius: 24px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    background: #FAF7F2;
+    opacity: 0;
+    transform: rotate(2deg) scale(0.85);
+    z-index: 8;
+  }
+  .f10-char-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .f10-char-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #F5C518;
+    color: #2B2B2B;
+    font-size: 1cqw;
+    font-weight: 900;
+    text-align: center;
+    padding: 0.4cqh 0;
+    border-top: 2.5px solid #2B2B2B;
+    letter-spacing: -0.3px;
+  }
+
+  /* Sentence Container */
+  .f10-sentences-box {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    width: 86cqw;
+    display: flex;
+    flex-direction: column;
+    gap: 2.8cqh;
+    z-index: 5;
+  }
+
+  .f10-sentence-card {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 22px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  .f10-sentence-card.verb { border-left: 14px solid #FF5E57; }
+  .f10-sentence-card.noun { border-left: 14px solid #2E86AB; }
+
+  .f10-sent-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6cqh;
+  }
+
+  .f10-sent-num {
+    font-size: 1.1cqw;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5cqw;
+  }
+  .f10-sent-num.verb { color: #C0392B; }
+  .f10-sent-num.noun { color: #165069; }
+
+  .f10-sent-text {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3cqw;
+    color: #2B2B2B;
+    font-variant-ligatures: none;
+    line-height: 1.2;
+  }
+
+  .f10-highlight-word {
+    padding: 0.1cqh 0.6cqw;
+    border-radius: 8px;
+    transition: none;
+  }
+  .f10-highlight-word.verb {
+    color: #FF5E57;
+    text-decoration: underline 5px #FFD32A;
+  }
+  .f10-highlight-word.noun {
+    color: #2E86AB;
+    background: rgba(46,134,171,0.18);
+  }
+
+  .f10-sent-meaning {
+    font-size: 1.3cqw;
+    font-weight: 700;
+    color: #7A7365;
+  }
+
+  .f10-sent-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5cqh;
+    background: #FAF7F2;
+    border: 2.5px solid #2B2B2B;
+    border-radius: 14px;
+    padding: 1cqh 1.8cqw;
+    box-shadow: 3px 3px 0px #2B2B2B;
+  }
+  .f10-tag { font-size: 1.05cqw; font-weight: 800; color: #7A7365; }
+  .f10-pron { font-size: 1.8cqw; font-weight: 900; }
+  .f10-pron.verb { color: #C0392B; }
+  .f10-pron.noun { color: #165069; }
+
+  /* Bottom Listening Master Banner */
+  .f10-bottom-banner {
+    position: absolute;
+    left: 50%;
+    bottom: 12cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-gbqk" id="root" data-composition-id="10-sentence-listening" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-mpnp" class="f10-progress-track">
+    <div data-hf-id="hf-731s" class="f10-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header Badge -->
+  <div data-hf-id="hf-1dyj" class="f10-badge">
+    <span data-hf-id="hf-97nk">🎧</span>
+    <span data-hf-id="hf-pe3p">실전 문장 리스닝: 실제 미드 속 2단 콤보!</span>
+  </div>
+
+  <!-- Celebrate Listening Character Card -->
+  <div data-hf-id="hf-xfw3" class="f10-char-card" id="charCard">
+    <img data-hf-id="hf-cb01" src="assets/images/char_celebrate.jpg" alt="Celebrate Listening Character">
+    <div data-hf-id="hf-cb02" class="f10-char-badge">🎧 귀에 쏙 꽂히는 쾌감!</div>
+  </div>
+
+  <!-- Sentences Box -->
+  <div data-hf-id="hf-rp6c" class="f10-sentences-box">
+    <!-- Sentence 1 (Verb) -->
+    <div data-hf-id="hf-d8xm" class="f10-sentence-card verb" id="cardSent1">
+      <div data-hf-id="hf-h7qi" class="f10-sent-left">
+        <div data-hf-id="hf-ibjx" class="f10-sent-num verb">⚡️ 문장 1 (동사 행동: 추정하다)</div>
+        <div data-hf-id="hf-g400" class="f10-sent-text">
+          <span data-hf-id="hf-brpu">Can you </span>
+          <span data-hf-id="hf-cwdi" class="f10-highlight-word verb" id="verbWord">estimate</span>
+          <span data-hf-id="hf-jjtq"> the cost?</span>
+        </div>
+        <div data-hf-id="hf-985y" class="f10-sent-meaning">"비용을 추정해(계산해) 줄 수 있나요?"</div>
+      </div>
+      <div data-hf-id="hf-ulkp" class="f10-sent-right">
+        <div data-hf-id="hf-lr0k" class="f10-tag">귀에 꽂히는 소리</div>
+        <div data-hf-id="hf-6eiq" class="f10-pron verb">"에스티메이트"</div>
+      </div>
+    </div>
+
+    <!-- Sentence 2 (Noun) -->
+    <div data-hf-id="hf-h7vk" class="f10-sentence-card noun" id="cardSent2">
+      <div data-hf-id="hf-8apa" class="f10-sent-left">
+        <div data-hf-id="hf-h2un" class="f10-sent-num noun">🪶 문장 2 (명사 이름: 견적서)</div>
+        <div data-hf-id="hf-652w" class="f10-sent-text">
+          <span data-hf-id="hf-4k28">Send me the </span>
+          <span data-hf-id="hf-ehuq" class="f10-highlight-word noun" id="nounWord">estimate</span>
+          <span data-hf-id="hf-iyzh">.</span>
+        </div>
+        <div data-hf-id="hf-l10y" class="f10-sent-meaning">"그 견적서(서류)를 보내주세요."</div>
+      </div>
+      <div data-hf-id="hf-z9fx" class="f10-sent-right">
+        <div data-hf-id="hf-bebg" class="f10-tag">귀에 꽂히는 소리</div>
+        <div data-hf-id="hf-w4wu" class="f10-pron noun">"에스티멋"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Banner -->
+  <div data-hf-id="hf-e6cb" class="f10-bottom-banner" id="bottomBanner">
+    <span data-hf-id="hf-sjqn">💡</span>
+    <span data-hf-id="hf-skzv">문장 속에서도 단어의 역할에 따라 소리가 완벽하게 갈라집니다!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-2p44" id="v10" src="assets/voice/10.wav" data-audio-group="voiceover" data-start="0" data-duration="33.40"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (81.85% -> 89.19%)
+    tl.to("#pfill", { width: "89.19%", duration: 33.40, ease: "none" }, 0);
+
+    // Sentence 1 (0.45s ~ 5.10s): Sentences in drama
+    tl.call(function () { setCaption("그럼 실제 문장 속에서는 원어민 소리가 어떻게 날아올까요?"); }, null, 0.45);
+    tl.to("#charCard", { opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.6)" }, 0.45);
+
+    // Sentence 2 (5.15s ~ 7.70s): Listen to 2 sentences
+    tl.call(function () { setCaption("두 문장을 연달아 들어보겠습니다."); }, null, 5.15);
+
+    // Sentence 3 (7.75s ~ 18.30s): Sentence 1 Can you estimate the cost?
+    tl.call(function () { setCaption("첫 번째, \"Can you estimate the cost?\"에서는 '추정하다'라는 동사라 estimate, '에스티메이트'가 또렷하게 꽂힙니다."); }, null, 7.75);
+    tl.to("#cardSent1", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 8.0);
+    tl.to("#verbWord", { scale: 1.15, duration: 0.3, yoyo: true, repeat: 1 }, 14.2);
+    tl.to("#charCard", { y: -8, duration: 0.25, repeat: 1, yoyo: true }, 14.2);
+
+    // Sentence 4 (18.35s ~ 29.86s): Sentence 2 Send me the estimate.
+    tl.call(function () { setCaption("반대로 두 번째, \"Send me the estimate.\"에서는 '견적서'라는 명사라 estimate, 힘이 쑥 빠진 '에스티멋'으로 툭 떨어집니다."); }, null, 18.35);
+    tl.to("#cardSent2", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 18.7);
+    tl.to("#nounWord", { scale: 1.15, duration: 0.3, yoyo: true, repeat: 1 }, 25.5);
+    tl.to("#charCard", { y: -8, duration: 0.25, repeat: 1, yoyo: true }, 25.5);
+
+    // Sentence 5 (29.90s ~ 33.40s): Both sounds clearly divided
+    tl.call(function () { setCaption("문장 속에서도 두 소리의 자리가 선명하게 갈라지죠?"); }, null, 29.90);
+    tl.to("#bottomBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 30.2);
+
+    // Outro transition
+    tl.to(["#cardSent1", "#cardSent2", "#bottomBanner", "#charCard"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 33.00);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-sentence-listening"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

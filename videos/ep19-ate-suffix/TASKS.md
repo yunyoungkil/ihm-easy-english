@@ -47,9 +47,42 @@ TTS 실측, 프레임 구현, 자막 100% 검증, 최종 렌더까지의 전체 
 
 ---
 
-### 3. 다음 진행 예정 작업
-- [ ] `SCRIPT.md`: 15개 프레임 대본 작성 (도파민 3단계, 쉬운 비유, 퀴즈 100% 신규 단어, 엔드스크린 5초 비움 준수).
-- [ ] 웹 검색 사실 검증: -ATE 동사/명사 발음 및 음성학적 강세 규칙 교차 검증.
-- [ ] `STORYBOARD.md` & `frame.md`: 시각 명세 수립.
-- [ ] TTS(Gemini Charon) 및 whisper.cpp 타임스탬프 실측 분석.
-- [ ] HyperFrames 컴포지션 구현 및 린트 검사 (`npm run check`).
+### 3. 진행 상황 (2026-09-19)
+- [x] 웹 검색 사실 검증: -ATE 동사(/eɪt/) vs 명사·형용사(/ət/, /ɪt/) 발음 및 모음 축약(Vowel Reduction) 규칙 교차 검증 완료.
+- [x] `SCRIPT.md`: 초반 15초 이탈 방지 콜드 오픈, 30초 내 공식 선언, 1음절 제1강세 공통 속 끝소리 에너지 차이(제2강세 vs 슈와 완전 이완) 음성학적 정밀 검증 반영, 현실 맥락(견적서/식당/자격증 콩글리시 탈출) 결합 3회 반복 낭독(Listen & Repeat) & 근육 코칭, 초콜릿 유레카 반전, 신규 단어 퀴즈 2라운드(moderate/delegate), 2단 콤보 실전 문장, 엔드스크린 5초 keep-out을 완벽 반영한 12개 프레임 대본 확정 완료.
+- [x] 사용자 대본 검수 및 확정 완료.
+- [x] TTS(Gemini Charon) 12개 프레임 음성 생성 완료 (`assets/voice/01.wav` ~ `12.wav`, 퀴즈 3초 무음 구간 완비).
+- [x] whisper 단어 단위 타임스탬프 실측 분석 완료 (`*.words.json`) 및 SCRIPT.md 누적 타임라인 동기화 (총 455.04초 / 7분 35.04초).
+- [x] 5대 고품질 맞춤형 스케치노트 AI 일러스트 에셋 생성 및 배치 완료 (`assets/images/vocal_energy_flow.jpg`, `estimate_invoice.jpg`, `restaurant_check.jpg`, `gold_certificate.jpg`, `chocolate_break.jpg`).
+- [x] `frame.md`: 모바일 퍼스트 가독성 표준(Archivo Black 6.8cqw), 5대 시각 에셋 라이브러리, 2대 소리 네온 글로우 스펙 정립 완료.
+- [x] `STORYBOARD.md`: whisper 실측(455.04초) 기반 밀리초 단위 5단계 마이크로 비트(Micro-Beats), 5대 일러스트 연출, 3회 낭독 네온 펄스, 퀴즈 3초 타이머 무음 연출, 엔드스크린 keep-out 명세 완성.
+- [x] HyperFrames 12개 프레임 컴포지션 전체 스캐폴딩 및 0.01초 단위 싱크 정밀 구현 완료 (`index.html`, `compositions/frames/01-cold-open.html` ~ `12-closing.html`, 총 455.04초).
+- [x] **사용자 피드백 전면 반영 (2026-09-19)**:
+  * **Frame 01 스피커 충돌 시퀀스 & 브랜드 컬러 정렬**: 기존 어두운 네이비 배경 폐기 ➔ 채널 시그니처 웜 크림(`#F4EFE6`) 페이퍼 캔버스, 빈티지 우드 스피커(`speaker_clash_base.jpg`)로 전면 교체. 단순 이동이 아닌 3단계 파동 순차 확장(Wave 1 ➔ Wave 2 ➔ Wave 3) 및 중앙 스파크/번개 충돌(`⚡️ 쾅! (소리 정면 충돌)`) 스톱모션/셀 프레임 시퀀스 애니메이션 구축.
+  * **Frame 03 구강 단면도 100% 한글화 & 애니메이션 효과**:
+    - 영어 원문 텍스트(`full energy`, `vowel reduction` 등)를 네오브루탈리즘 스타일의 직관적 한글 카드 3종(⚡️ 맨 앞머리 제1강세 공통 / 🔥 동사 100% 폭발 / 🍃 명사 0% 힘 빼기)으로 덮어서 대체.
+    - 구강 단면도 내부 발성 기관을 따라 움직이는 다단계 인터랙티브 애니메이션 레이어 구축 (동사: 성대 불꽃 코어 점화 ➔ 4단계 구강 에너지 도트 빔 발사 ➔ 입술 밖 `💥 에이트! (100%)` 폭발 / 명사: 성대 코어 블루 전환 축소 ➔ `⬇️ 턱 힘 툭!` 화살표 드롭 ➔ 입술 밖 `💨 엇... (0%)` 이완 퍼프).
+  * **Frame 02 & Frame 10 브랜드 공식 캐릭터 일러스트로 교체 (2026-09-20 사용자 승인)**:
+    - 2프레임: 어두운 네온 그래픽 폐기 ➔ 공식 강사 캐릭터(`char_closing.jpg`) 및 `💡 시소 원리 하나로 끝!` 뱃지로 교체하여 신뢰감 부여.
+    - 10프레임: 어두운 네온 헤드폰 그래픽 폐기 ➔ 공식 유레카 환호 캐릭터(`char_celebrate.jpg`, "Eureka! I got it!") 및 `🎧 귀에 쏙 꽂히는 쾌감!` 뱃지로 교체.
+  * **AGENTS.md / CLAUDE.md 공통 영구 규칙 신설**: AI 이미지 쿼터 소진 시 코드로 억지 대체하지 않고 사용자에게 먼저 보고 및 상의 원칙 확정.
+- [x] `npx hyperframes check`: **통과 완료** (0 errors, 0 warnings, 0 layout issues, 모션/런타임 무결성 통과).
+- [x] HyperFrames 스튜디오 실시간 프리뷰 가동 중 (`http://localhost:3002/#project/ep19-ate-suffix`).
+- [x] **SCRIPT.md 검수 반영분이 실측 타임스탬프 동기화 과정에서 도로 원상복구됐던 문제 재발견·복구
+  (2026-09-19)**: SCRIPT.md/STORYBOARD.md/`compositions/frames/03-principle.html`·
+  `07-secret-tip.html`·`11-summary.html`에서 맨몸 `-ate`+조사 결합 5곳(`-ate에`/`-ate에도`/
+  `-ate에는`/`-ate로`×2 → `-ate 소리에`/`-ate 철자로`)과 Frame 3의 "에스-" 과잉일반화(estimate에만
+  맞고 graduate엔 안 맞음 → "맨 앞 음절"로 일반화)가 다시 나타나 있었음. narration 문단·
+  `caption-pill` 불릿·프레임 HTML의 주석/`setCaption()`/화면 텍스트(`f03-kc-stress-text`,
+  `f03-fact-ipa`, `f03-flow-desc`)까지 전부 대조해서 재수정. 실제 TTS 음성은 영향 없음
+  (`gen-tts-gemini.mjs`의 `LINES`가 이미 고친 텍스트로 생성됨). 일반화한 교훈:
+  `knowledge/production-rules.md`의 TTS 절 참고.
+- [ ] Frame 12 클로징에 이전 편 추천 카드(`▶️ 함께 보면 좋은 영상: 소리 없는 철자의 비밀 (묵음 자음)`)
+  아직 `12-closing.html`에는 구현 안 됨 — SCRIPT.md에는 명세돼 있으니 다음 세션에서 반영할 것.
+- [ ] `hyperframes check`에서 발견된 기존 WCAG 대비 경고 6곳(Frame 1/8/11, `need 3:1` 미달) —
+  이번 세션의 텍스트 수정과 무관한 기존 이슈. EP17에서 확립된 색상 교체 패턴으로 다음 세션에 수정.
+- [ ] 최종 로컬 렌더링 (`renders/` 폴더).
+- [ ] 업로드 패키지 빌드 (`output/upload-packages/ep19-ate-suffix-longform/`).
+
+
+

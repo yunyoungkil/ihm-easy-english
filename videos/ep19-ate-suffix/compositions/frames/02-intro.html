@@ -1,0 +1,321 @@
+<template>
+<style>
+  /* 02-intro — Frame 2 "3초 미니 인트로 & 황금 공식 선언 (Hook & Rule)".
+     Actual audio duration: 23.32s.
+     - 0.00s ~ 3.20s: 안녕하세요, 「이해하면 쉬운영어」입니다.
+     - 3.20s ~ 7.80s: 단어마다 따로 외우지 마세요.
+     - 7.80s ~ 14.50s: 움직이는 행동, 즉 동사일 땐 '에이트'로 당당하게 소리 나고,
+     - 14.50s ~ 20.20s: 이름이나 상태, 즉 명사나 형용사일 땐 힘 빠진 '엇'으로 소리가 바뀝니다.
+     - 20.20s ~ 23.32s: 단어의 자리가 소리를 결정합니다.
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f02-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f02-progress-fill { position: absolute; left: 0; top: 0; width: 6.65%; height: 5px; background: #F5C518; }
+
+  /* Channel Wordmark */
+  .f02-wordmark {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 3.8cqw;
+    font-weight: 900;
+    z-index: 20;
+  }
+  .f02-wm-white { color: #2B2B2B; }
+  .f02-wm-gold {
+    color: #2B2B2B;
+    background: #F5C518;
+    padding: 0.2cqh 0.8cqw;
+    border-radius: 12px;
+    border: 3px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+  }
+
+  /* Presenter Character Card */
+  .f02-char-card {
+    position: absolute;
+    left: 50%;
+    top: 36%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 240px;
+    height: 240px;
+    border-radius: 28px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    background: #FAF7F2;
+    opacity: 0;
+    z-index: 4;
+  }
+  .f02-char-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .f02-char-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #F5C518;
+    color: #2B2B2B;
+    font-size: 1.05cqw;
+    font-weight: 900;
+    text-align: center;
+    padding: 0.5cqh 0;
+    border-top: 2.5px solid #2B2B2B;
+    letter-spacing: -0.3px;
+  }
+
+  /* Don't Memorize Badge */
+  .f02-no-memorize {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: #FFFFFF;
+    border: 3px solid #FF4757;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px rgba(255,71,87,0.3);
+    padding: 0.8cqh 2.2cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.5cqw;
+    font-weight: 900;
+    color: #FF4757;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Formula Dual Board */
+  .f02-board-grid {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 82cqw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5cqw;
+    z-index: 5;
+  }
+
+  .f02-formula-card {
+    border-radius: 22px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3.2cqh 2.4cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  .f02-formula-card.verb { background: #FFF; border-top: 10px solid #FF5E57; }
+  .f02-formula-card.noun { background: #FFF; border-top: 10px solid #2E86AB; }
+
+  .f02-card-role {
+    font-size: 1.3cqw;
+    font-weight: 900;
+    margin-bottom: 1cqh;
+    display: flex;
+    align-items: center;
+    gap: 0.5cqw;
+  }
+  .f02-card-role.verb { color: #C0392B; }
+  .f02-card-role.noun { color: #165069; }
+
+  .f02-formula-sound {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 4cqw;
+    line-height: 1.1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5cqw;
+  }
+  .f02-formula-sound.verb { color: #FF5E57; text-shadow: 2px 2px 0px rgba(255,94,87,0.2); }
+  .f02-formula-sound.noun { color: #2E86AB; text-shadow: 2px 2px 0px rgba(46,134,171,0.2); }
+
+  .f02-formula-desc {
+    font-size: 1.3cqw;
+    font-weight: 700;
+    color: #7A7365;
+    margin-top: 1cqh;
+  }
+
+  /* Golden Bottom Banner */
+  .f02-bottom-banner {
+    position: absolute;
+    left: 50%;
+    bottom: 12.5cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.45cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-cbnm" id="root" data-composition-id="02-intro" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-ttim" class="f02-progress-track">
+    <div data-hf-id="hf-upan" class="f02-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Channel Wordmark (Center -> Top-Left) -->
+  <div data-hf-id="hf-lign" class="f02-wordmark" id="wordmark">
+    <span data-hf-id="hf-eiyg" class="f02-wm-white">이해하면</span>
+    <span data-hf-id="hf-3qnq" class="f02-wm-gold">쉬운영어</span>
+  </div>
+
+  <!-- Don't Memorize Badge -->
+  <div data-hf-id="hf-er2a" class="f02-no-memorize" id="noMemorize">
+    <span data-hf-id="hf-yc2f">❌</span>
+    <span data-hf-id="hf-gb0u">단어마다 따로 외우지 마세요!</span>
+  </div>
+
+  <!-- Presenter Character Card -->
+  <div data-hf-id="hf-mth6" class="f02-char-card" id="charCard">
+    <img data-hf-id="hf-ch01" src="assets/images/char_closing.jpg" alt="Presenter Character">
+    <div data-hf-id="hf-ch02" class="f02-char-badge">💡 시소 원리 하나로 끝!</div>
+  </div>
+
+  <!-- Formula Board Grid -->
+  <div data-hf-id="hf-thf8" class="f02-board-grid">
+    <!-- Verb Formula Card -->
+    <div data-hf-id="hf-bsow" class="f02-formula-card verb" id="cardVerb">
+      <div data-hf-id="hf-xym8" class="f02-card-role verb">⚡️ 움직이는 행동 (동사)</div>
+      <div data-hf-id="hf-bgdu" class="f02-formula-sound verb">"-에이트!"</div>
+      <div data-hf-id="hf-hugf" class="f02-formula-desc">당당하게 끝까지 에너지를 밀어붙임 [-eɪt]</div>
+    </div>
+
+    <!-- Noun Formula Card -->
+    <div data-hf-id="hf-fssw" class="f02-formula-card noun" id="cardNoun">
+      <div data-hf-id="hf-jfjs" class="f02-card-role noun">🪶 이름 또는 상태 (명사/형용사)</div>
+      <div data-hf-id="hf-14x6" class="f02-formula-sound noun">"-엇 / -잇"</div>
+      <div data-hf-id="hf-9i9m" class="f02-formula-desc">턱 힘을 툭 빼고 가볍게 쪼그라듦 [-ət / -ɪt]</div>
+    </div>
+  </div>
+
+  <!-- Bottom Principle Rule Banner -->
+  <div data-hf-id="hf-rlqm" class="f02-bottom-banner" id="bottomBanner">
+    <span data-hf-id="hf-sjqn">💡</span>
+    <span data-hf-id="hf-sro0">단어의 자리가 소리를 결정합니다!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-vhw2" id="v02" src="assets/voice/02.wav" data-audio-group="voiceover" data-start="0" data-duration="23.32"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress
+    tl.to("#pfill", { width: "11.78%", duration: 23.32, ease: "none" }, 0);
+
+    // Sentence 1 (0.45s ~ 4.06s): Wordmark Reveal & Move to Top Left
+    tl.call(function () { setCaption("안녕하세요, 「이해하면 쉬운영어」입니다."); }, null, 0.45);
+    tl.fromTo("#wordmark", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.8)" }, 0.45);
+    // 4.06s: move to top-left via transform
+    tl.to("#wordmark", {
+      x: -700,
+      y: -430,
+      scale: 0.55,
+      duration: 0.6,
+      ease: "power3.inOut"
+    }, 4.06);
+
+    // Sentence 2 (4.15s ~ 6.82s): Don't memorize
+    tl.call(function () { setCaption("단어마다 따로 외우지 마세요."); }, null, 4.15);
+    tl.to("#noMemorize", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 4.3);
+    tl.to("#charCard", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.5);
+
+    // Sentence 3 (6.90s ~ 14.20s): Verb is -ate
+    tl.call(function () { setCaption("움직이는 행동, 즉 동사일 땐 '에이트'로 당당하게 소리 나고,"); }, null, 6.90);
+    tl.to("#cardVerb", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 7.2);
+    tl.to("#charCard", { rotation: -5, duration: 0.4, ease: "power2.out" }, 7.3);
+
+    // Sentence 4 (14.30s ~ 20.56s): Noun is -ut
+    tl.call(function () { setCaption("이름이나 상태, 즉 명사나 형용사일 땐 힘 빠진 '엇'으로 소리가 바뀝니다."); }, null, 14.30);
+    tl.to("#cardNoun", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 14.5);
+    tl.to("#charCard", { rotation: 5, duration: 0.5, ease: "power2.inOut" }, 14.8);
+
+    // Sentence 5 (20.60s ~ 23.32s): Position decides sound
+    tl.call(function () { setCaption("단어의 자리가 소리를 결정합니다."); }, null, 20.60);
+    tl.to("#charCard", { rotation: 0, duration: 0.4, ease: "power2.out" }, 20.6);
+    tl.to("#bottomBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 20.8);
+
+    // Outro transition
+    tl.to(["#cardVerb", "#cardNoun", "#bottomBanner", "#noMemorize", "#charCard", "#wordmark"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 22.95);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-intro"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

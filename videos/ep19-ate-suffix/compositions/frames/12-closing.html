@@ -1,0 +1,242 @@
+<template>
+<style>
+  /* 12-closing — Frame 12 "따뜻한 클로징 & 엔딩 (End Screen Keep-out)".
+     Actual audio duration: 20.60s.
+     - 0.00s ~ 6.20s: 이제 미드나 일상에서 -ate 단어를 만나도 전혀 멈칫하실 필요가 없습니다.
+     - 6.20s ~ 11.50s: 소리의 원리를 이해한 여러분의 귀는 이미 한 걸음 더 앞서가고 있으니까요.
+     - 11.50s ~ 15.60s: 오늘 내용이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 오늘도 함께해 주셔서 감사합니다.
+     - ⭐️ 15.60s ~ 20.60s (끝 5초): 유튜브 엔드스크린 UI를 위해 화면 중앙 전체를 100% 비워둠!
+     - 100% caption-pill coverage during speech, intentional silence in keep-out zone
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f12-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f12-progress-fill { position: absolute; left: 0; top: 0; width: 95.47%; height: 5px; background: #F5C518; }
+
+  /* Corner Wordmark (Always Safe in Top-Left Corner) */
+  .f12-corner-wordmark {
+    position: absolute;
+    left: 6cqw;
+    top: 8cqh;
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+    font-size: 1.5cqw;
+    font-weight: 900;
+    opacity: 0;
+    z-index: 50;
+  }
+  .f12-cwm-white { color: #2B2B2B; }
+  .f12-cwm-gold {
+    color: #2B2B2B;
+    background: #F5C518;
+    padding: 0.2cqh 0.6cqw;
+    border-radius: 8px;
+    border: 2px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+
+  /* Center Farewell Container (Fades out completely at 15.6s) */
+  .f12-center-farewell {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%);
+    width: 82cqw;
+    background: #FFFFFF;
+    border: 4px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 8px 8px 0px #2B2B2B;
+    padding: 4cqh 3cqw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3cqw;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  .f12-farewell-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5cqh;
+    flex: 1;
+  }
+
+  .f12-farewell-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3.2cqw;
+    color: #2B2B2B;
+    line-height: 1.2;
+  }
+  .f12-farewell-sub {
+    font-size: 1.5cqw;
+    font-weight: 800;
+    color: #7A7365;
+    line-height: 1.4;
+  }
+
+  .f12-sub-badges {
+    display: flex;
+    gap: 1cqw;
+    margin-top: 1cqh;
+  }
+  .f12-sub-btn {
+    background: #FF4757;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 14px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 1.8cqw;
+    font-size: 1.3cqw;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+  }
+  .f12-like-btn {
+    background: #F5C518;
+    color: #2B2B2B;
+    border: 3px solid #2B2B2B;
+    border-radius: 14px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 1.8cqw;
+    font-size: 1.3cqw;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+  }
+
+  /* Closing Character */
+  .f12-char-box {
+    width: 260px;
+    height: 260px;
+    border-radius: 24px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    background: #FFF;
+  }
+  .f12-char-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-eifa" id="root" data-composition-id="12-closing" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-1ui7" class="f12-progress-track">
+    <div data-hf-id="hf-jwdi" class="f12-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Safe Corner Wordmark (Left 6cqw, Top 8cqh) -->
+  <div data-hf-id="hf-bbfh" class="f12-corner-wordmark" id="cornerWordmark">
+    <span data-hf-id="hf-3nl0" class="f12-cwm-white">이해하면</span>
+    <span data-hf-id="hf-9f8i" class="f12-cwm-gold">쉬운영어</span>
+  </div>
+
+  <!-- Center Farewell Card (Completely Cleared for End Screen) -->
+  <div data-hf-id="hf-huut" class="f12-center-farewell" id="centerFarewell">
+    <div data-hf-id="hf-gn7h" class="f12-farewell-text-col">
+      <div data-hf-id="hf-wkj0" class="f12-farewell-title">외우지 않아도 소리가 들리는 쉬운 영어</div>
+      <div data-hf-id="hf-8ifq" class="f12-farewell-sub">소리의 원리를 이해한 여러분의 귀는<br data-hf-id="hf-x5px">이미 한 걸음 더 앞서가고 있습니다.</div>
+      <div data-hf-id="hf-vahr" class="f12-sub-badges">
+        <div data-hf-id="hf-mdkp" class="f12-sub-btn">
+          <span data-hf-id="hf-uosg">🔔</span>
+          <span data-hf-id="hf-ccvi">구독하기</span>
+        </div>
+        <div data-hf-id="hf-bmly" class="f12-like-btn">
+          <span data-hf-id="hf-t3x7">👍</span>
+          <span data-hf-id="hf-zr2m">좋아요</span>
+        </div>
+      </div>
+    </div>
+    <div data-hf-id="hf-4dvc" class="f12-char-box">
+      <img data-hf-id="hf-yif5" src="assets/images/char_closing.jpg" alt="Closing Thumbs Up">
+    </div>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-6pmu" id="v12" src="assets/voice/12.wav" data-audio-group="voiceover" data-start="0" data-duration="20.60"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (95.47% -> 100%)
+    tl.to("#pfill", { width: "100%", duration: 20.60, ease: "none" }, 0);
+
+    // Sentence 1 (0.46s ~ 7.02s): No hesitation in dramas
+    tl.call(function () { setCaption("이제 미드나 일상에서 -ate 단어를 만나도 전혀 멈칫하실 필요가 없습니다."); }, null, 0.46);
+    tl.to("#cornerWordmark", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.46);
+    tl.to("#centerFarewell", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 0.46);
+
+    // Sentence 2 (7.05s ~ 13.08s): Your ears ahead
+    tl.call(function () { setCaption("소리의 원리를 이해한 여러분의 귀는 이미 한 걸음 더 앞서가고 있으니까요."); }, null, 7.05);
+    tl.to("#centerFarewell", { scale: 1.02, duration: 0.3, yoyo: true, repeat: 1 }, 8.0);
+
+    // Sentence 3 (13.10s ~ 15.60s): Subscribe & Thank you
+    tl.call(function () { setCaption("오늘 내용이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 오늘도 함께해 주셔서 감사합니다."); }, null, 13.10);
+
+    // ⭐️ 15.60s ~ 20.60s (Last 5s YouTube End Screen Keep-out Zone):
+    // CLEAR THE ENTIRE CENTER 100%! Only Corner Wordmark remains.
+    tl.call(function () {
+      pill.textContent = "";
+      gsap.set(pill, { opacity: 0 });
+    }, null, 15.60);
+    tl.to("#centerFarewell", { opacity: 0, scale: 0.9, duration: 0.5, ease: "power2.in" }, 15.50);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["12-closing"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

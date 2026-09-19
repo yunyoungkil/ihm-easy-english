@@ -1,0 +1,407 @@
+<template>
+<style>
+  /* 06-practice-certificate — Frame 6 "3번 실전 낭독: graduate & certificate [자격증 콩글리시 탈출] ⭐️ [3회 낭독]".
+     Actual audio duration: 53.72s.
+     - 0.00s ~ 3.50s: 세 번째는 학교와 자격증에 나오는 단어들입니다.
+     - 3.50s ~ 8.80s: '졸업하다'라는 행동일 땐 to graduate, 당당하게 '에이트'로 소리 냅니다.
+     - 8.80s ~ 13.50s: 하지만 '졸업생'이라는 명사가 되면 a graduate, '그래듀엇'으로 힘이 빠집니다.
+     - 13.50s ~ 19.80s: 우리가 자격증이나 호텔 예약할 때 보는 certificate도 마찬가지입니다.
+     - 19.80s ~ 24.80s: 스펠링만 보고 습관적으로 '서티피케이트'라고 읽으셨을 텐데요.
+     - 24.80s ~ 33.20s: 증명서라는 이름표니까 끝에 힘을 툭 빼서 certificate, '서티피킷' 하고 줄여 읽어야 원어민이 한 번에 알아듣습니다.
+     - 33.20s ~ 36.20s: 소리 내어 3번 연습해 볼까요?
+     - 36.20s ~ 47.00s: certificate, certificate, certificate. (3회 리듬 낭독)
+     - 47.00s ~ 53.72s: 이제 어려운 고급 단어들도 원리가 한 손에 잡히실 겁니다.
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f06-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f06-progress-fill { position: absolute; left: 0; top: 0; width: 43.31%; height: 5px; background: #F5C518; }
+
+  /* Top Badge */
+  .f06-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 5cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 0.8cqh 1.6cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    z-index: 10;
+  }
+
+  /* Gold Certificate Art */
+  .f06-cert-art {
+    position: absolute;
+    right: 5cqw;
+    top: 4.5cqh;
+    width: 230px;
+    height: 230px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    opacity: 0;
+    transform: rotate(3deg) scale(0.85);
+    z-index: 8;
+    background: #FFF;
+  }
+  .f06-cert-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .f06-cert-korean-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #2E86AB;
+    color: #FFF;
+    font-size: 1.05cqw;
+    font-weight: 900;
+    text-align: center;
+    padding: 0.5cqh 0;
+    border-top: 2.5px solid #2B2B2B;
+    letter-spacing: -0.3px;
+  }
+
+  /* Main Split Layout */
+  .f06-layout {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 86cqw;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5cqh;
+    z-index: 5;
+  }
+
+  /* Top Row: graduate mini pair */
+  .f06-mini-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.2cqw;
+  }
+  .f06-mini-card {
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 1.8cqh 1.8cqw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .f06-mini-card.verb { border-left: 10px solid #FF5E57; }
+  .f06-mini-card.noun { border-left: 10px solid #2E86AB; }
+
+  .f06-mini-word {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.2cqw;
+    color: #2B2B2B;
+  }
+  .f06-mini-pron {
+    font-size: 1.4cqw;
+    font-weight: 900;
+  }
+  .f06-mini-pron.verb { color: #C0392B; }
+  .f06-mini-pron.noun { color: #165069; }
+
+  /* Bottom Row: certificate Hero Card */
+  .f06-hero-card {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 22px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3.5cqh 2.5cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .f06-hero-type {
+    position: absolute;
+    top: -1.2cqw;
+    left: 2.5cqw;
+    background: #2E86AB;
+    color: #FFF;
+    border-radius: 10px;
+    border: 2.5px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
+    font-size: 1.15cqw;
+    font-weight: 900;
+    padding: 0.3cqh 1.2cqw;
+  }
+
+  .f06-hero-word {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 4.8cqw;
+    color: #2B2B2B;
+    font-variant-ligatures: none;
+    line-height: 1.1;
+  }
+  .f06-hero-ate {
+    color: #2E86AB;
+    background: rgba(46, 134, 171, 0.18);
+    border-radius: 8px;
+    padding: 0 8px;
+  }
+
+  .f06-hero-compare {
+    display: flex;
+    align-items: center;
+    gap: 1.5cqw;
+    margin: 1.5cqh 0;
+  }
+  .f06-wrong-pron {
+    font-size: 1.8cqw;
+    font-weight: 800;
+    color: #FF4757;
+    text-decoration: line-through 3px #FF4757;
+    opacity: 0.5;
+  }
+  .f06-arrow { font-size: 1.5cqw; color: #7A7365; }
+  .f06-right-pron {
+    background: #FAF7F2;
+    border: 3px solid #2B2B2B;
+    border-radius: 14px;
+    padding: 0.6cqh 1.6cqw;
+    font-size: 2.4cqw;
+    font-weight: 900;
+    color: #165069;
+    box-shadow: 3px 3px 0px #2B2B2B;
+  }
+
+  /* Repeat Counter */
+  .f06-repeat-counter {
+    display: flex;
+    gap: 0.5cqw;
+    margin-top: 0.8cqh;
+    opacity: 0;
+  }
+  .f06-dot {
+    width: 1.8cqw;
+    height: 1.8cqw;
+    border-radius: 50%;
+    background: #FAF7F2;
+    border: 2px solid #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9cqw;
+    font-weight: 900;
+  }
+  .f06-dot.active {
+    background: #F5C518;
+    box-shadow: 0 0 12px rgba(245,197,24,0.9);
+  }
+
+  /* Bottom Achievement Banner */
+  .f06-bottom-banner {
+    position: absolute;
+    left: 50%;
+    bottom: 12cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-nkhf" id="root" data-composition-id="06-practice-certificate" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-sg82" class="f06-progress-track">
+    <div data-hf-id="hf-i3c3" class="f06-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header Badge -->
+  <div data-hf-id="hf-wcaa" class="f06-badge">
+    <span data-hf-id="hf-ojq4">🎓</span>
+    <span data-hf-id="hf-ak7g">실전 단어 3: graduate &amp; certificate</span>
+  </div>
+
+  <!-- Gold Certificate Illustration -->
+  <div data-hf-id="hf-ohde" class="f06-cert-art" id="certArt">
+    <img data-hf-id="hf-bdit" src="assets/images/gold_certificate.jpg" alt="Certificate">
+    <div data-hf-id="hf-y1km" class="f06-cert-korean-tag">🏆 공식 수료증 (명사)</div>
+  </div>
+
+  <!-- Main Layout -->
+  <div data-hf-id="hf-1b87" class="f06-layout">
+    <!-- Top Row: graduate pair -->
+    <div data-hf-id="hf-764d" class="f06-mini-pair">
+      <div data-hf-id="hf-y59l" class="f06-mini-card verb" id="cardGradVerb">
+        <div data-hf-id="hf-hwej" class="f06-mini-word">to graduate (동사)</div>
+        <div data-hf-id="hf-w08t" class="f06-mini-pron verb">"그래듀에이트" [-eɪt]</div>
+      </div>
+      <div data-hf-id="hf-utmt" class="f06-mini-card noun" id="cardGradNoun">
+        <div data-hf-id="hf-9jnj" class="f06-mini-word">a graduate (명사)</div>
+        <div data-hf-id="hf-yndr" class="f06-mini-pron noun">"그래듀엇" [-ət]</div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: certificate Hero Card -->
+    <div data-hf-id="hf-7im8" class="f06-hero-card" id="heroCard">
+      <div data-hf-id="hf-u3ez" class="f06-hero-type">명사 (증명서 / 자격증)</div>
+      <div data-hf-id="hf-sw8y" class="f06-hero-word">
+        <span data-hf-id="hf-kge7">certifi<span data-hf-id="hf-jlng" class="f06-hero-ate">cate</span></span>
+      </div>
+      <div data-hf-id="hf-qoob" class="f06-hero-compare">
+        <span data-hf-id="hf-7rnx" class="f06-wrong-pron">서티피케이트 ❌</span>
+        <span data-hf-id="hf-9r11" class="f06-arrow">➔</span>
+        <span data-hf-id="hf-m61t" class="f06-right-pron" id="rightPron">"서티피킷" [-kɪt] ⭕</span>
+      </div>
+
+      <!-- 3-Repeat Dots -->
+      <div data-hf-id="hf-klzg" class="f06-repeat-counter" id="repeatCounter">
+        <div data-hf-id="hf-gc35" class="f06-dot" id="dot1">1</div>
+        <div data-hf-id="hf-jibl" class="f06-dot" id="dot2">2</div>
+        <div data-hf-id="hf-5nu1" class="f06-dot" id="dot3">3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Achievement Banner -->
+  <div data-hf-id="hf-n5le" class="f06-bottom-banner" id="bottomBanner">
+    <span data-hf-id="hf-6nxv">🏆</span>
+    <span data-hf-id="hf-oni9">이제 어려운 고급 단어들도 원리가 한 손에 잡힙니다!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-slwh" id="v06" src="assets/voice/06.wav" data-audio-group="voiceover" data-start="0" data-duration="53.72"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (43.31% -> 55.11%)
+    tl.to("#pfill", { width: "55.11%", duration: 53.72, ease: "none" }, 0);
+
+    // Sentence 1 (0.46s ~ 5.14s): Intro school & certificates
+    tl.call(function () { setCaption("세 번째는 학교와 자격증에 나오는 단어들입니다."); }, null, 0.46);
+
+    // Sentence 2 (5.20s ~ 12.92s): to graduate
+    tl.call(function () { setCaption("'졸업하다'라는 행동일 땐 to graduate, 당당하게 '에이트'로 소리 냅니다."); }, null, 5.20);
+    tl.to("#cardGradVerb", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 5.5);
+
+    // Sentence 3 (12.95s ~ 20.76s): a graduate
+    tl.call(function () { setCaption("하지만 '졸업생'이라는 명사가 되면 a graduate, '그래듀엇'으로 힘이 빠집니다."); }, null, 12.95);
+    tl.to("#cardGradNoun", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 13.2);
+
+    // Sentence 4 (20.80s ~ 26.44s): certificate art in
+    tl.call(function () { setCaption("우리가 자격증이나 호텔 예약할 때 보는 certificate도 마찬가지입니다."); }, null, 20.80);
+    tl.to("#certArt", { opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.6)" }, 21.0);
+    tl.to("#heroCard", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 21.5);
+
+    // Sentence 5 (26.50s ~ 31.68s): Habitual certificate
+    tl.call(function () { setCaption("스펠링만 보고 습관적으로 '서티피케이트'라고 읽으셨을 텐데요."); }, null, 26.50);
+
+    // Sentence 6 (31.70s ~ 42.28s): Name badge, certificut
+    tl.call(function () { setCaption("증명서라는 이름표니까 끝에 힘을 툭 빼서 certificate, '서티피킷' 하고 줄여 읽어야 원어민이 한 번에 알아듣습니다."); }, null, 31.70);
+    tl.to("#rightPron", { scale: 1.1, boxShadow: "0 0 25px rgba(245,197,24,0.6)", duration: 0.4 }, 37.0);
+
+    // Sentence 7 (42.30s ~ 44.82s): Let's repeat 3 times
+    tl.call(function () { setCaption("소리 내어 3번 연습해 볼까요?"); }, null, 42.30);
+    tl.to("#repeatCounter", { opacity: 1, duration: 0.3 }, 42.5);
+
+    // Sentence 8 (44.85s ~ 49.79s): 3-Repeat Pulses
+    tl.call(function () { setCaption("certificate, certificate, certificate."); }, null, 44.85);
+    // Pulse 1
+    tl.to("#heroCard", { scale: 1.03, boxShadow: "0 0 30px rgba(46,134,171,0.6)", duration: 0.3, ease: "power2.out" }, 45.2);
+    tl.to("#dot1", { className: "f06-dot active", duration: 0.1 }, 45.2);
+    tl.to("#heroCard", { scale: 1.0, boxShadow: "6px 6px 0px #2B2B2B", duration: 0.3 }, 45.8);
+    // Pulse 2
+    tl.to("#heroCard", { scale: 1.03, boxShadow: "0 0 30px rgba(46,134,171,0.6)", duration: 0.3, ease: "power2.out" }, 46.8);
+    tl.to("#dot2", { className: "f06-dot active", duration: 0.1 }, 46.8);
+    tl.to("#heroCard", { scale: 1.0, boxShadow: "6px 6px 0px #2B2B2B", duration: 0.3 }, 47.4);
+    // Pulse 3
+    tl.to("#heroCard", { scale: 1.03, boxShadow: "0 0 30px rgba(46,134,171,0.6)", duration: 0.3, ease: "power2.out" }, 48.5);
+    tl.to("#dot3", { className: "f06-dot active", duration: 0.1 }, 48.5);
+    tl.to("#heroCard", { scale: 1.0, boxShadow: "6px 6px 0px #2B2B2B", duration: 0.3 }, 49.1);
+
+    // Sentence 9 (49.85s ~ 53.72s): Mastered advanced words
+    tl.call(function () { setCaption("이제 어려운 고급 단어들도 원리가 한 손에 잡히실 겁니다."); }, null, 49.85);
+    tl.to("#bottomBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 50.0);
+
+    // Outro transition
+    tl.to(["#cardGradVerb", "#cardGradNoun", "#heroCard", "#bottomBanner", "#certArt"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 53.30);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-practice-certificate"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

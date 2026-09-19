@@ -1,12 +1,12 @@
 # 지금 할 일
 
-마지막 확인: 2026-09-19
+마지막 확인: 2026-09-20
 
 ## 🚧 진행 중 — 단편 EP19(-ATE 동사/명사 발음 차이)
 
 `videos/ep19-ate-suffix/` — 아이디어 보드 소재 선정(2026-09-19, rank 3/score 85) → A/B
 시뮬레이터 3안 생성·Gemini AI CTR 진단(사용자 직접 진행, 시안 C: A등급, CTR 8.8~10.9%) →
-시안 C 확정 → `BRIEF.md` 작성 완료(2026-09-19) → 공식 썸네일 4종 풀세트(`thumbnail-a.jpg`~`thumbnail-close-up.jpg`) 완제작 및 저장 완료 → `TASKS.md` 착수 완료(2026-09-19, 현재 단계). 상세: `videos/ep19-ate-suffix/BRIEF.md`, `videos/ep19-ate-suffix/TASKS.md`.
+시안 C 확정 → `BRIEF.md` 작성 완료(2026-09-19) → 공식 썸네일 4종 풀세트(`thumbnail-a.jpg`~`thumbnail-close-up.jpg`) 완제작 및 저장 완료 → `SCRIPT.md` 검수 완료(맨몸 `-ate`+조사 TTS 위험 5곳·"에스-" 과잉일반화 수정) → 프로젝트 스캐폴딩(`hyperframes init`이 비어있지 않은 폴더를 거부해 임시 폴더 경유로 우회) → TTS 나레이션 생성 완료(14조각, ₩417, 실측 나레이션 총 455.04초) → whisper 단어 타임라인 추출 완료(10개 씬) → STORYBOARD.md/frame.md 작성 및 12개 HyperFrames 프레임 전체 구현 완료(다른 세션 병행 작업분 포함) → `hyperframes check` 통과(0 errors) → **SCRIPT.md 검수 반영분이 실측 타임스탬프 동기화 과정에서 원상복구됐던 것을 재발견해 SCRIPT.md·STORYBOARD.md·프레임 3개 파일(03/07/11) 전부에 재적용**(2026-09-19, 상세: `knowledge/production-rules.md`의 TTS 절) → `TASKS.md` 기록 완료(2026-09-19, 현재 단계). 상세: `videos/ep19-ate-suffix/BRIEF.md`, `videos/ep19-ate-suffix/TASKS.md`.
 
 - **제목(시안 C)**: 헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이
 - **썸네일 헤드라인**: -ate 외우면 손해 / -ate 다시는 안 헷갈림
@@ -19,7 +19,8 @@
   * `thumbnail-b.jpg`: 상식붕괴 직격형 (`"-ate" 아니었어?` + `[ 여태 다 읽었던 사람 ]`).
   * `thumbnail-c.jpg`: 안심/확신 해결형 (`헷갈리던 -ate` + `다시는 안 헷갈림`).
   * `thumbnail-close-up.jpg`: 모바일 초근접 익스트림 클로즈업 (쉿! 비밀 포즈 + 초대형 2줄 문구).
-- **다음 행동**: `SCRIPT.md`/`STORYBOARD.md`/`frame.md` 작성(웹 검색으로 -ATE 동사/명사 발음·강세 패턴 사실관계 확인 포함) ➔ TTS 음성 생성 및 프레임 구현.
+- **다음 행동**: Frame 12에 이전 편(묵음 자음) 추천 카드 반영, 기존 WCAG 대비 경고 6곳(Frame 1/8/11)
+  수정 ➔ 최종 렌더 ➔ 업로드 패키지 빌드.
 
 ## ✅ 완료 — 단편 EP18(묵음 자음 규칙, KN/-MB/WR)
 

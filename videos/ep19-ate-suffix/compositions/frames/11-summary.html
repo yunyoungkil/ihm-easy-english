@@ -1,0 +1,334 @@
+<template>
+<style>
+  /* 11-summary — Frame 11 "한 장 요약 공식 맵 (Summary Map) ⭐️".
+     Actual audio duration: 28.56s.
+     - 0.00s ~ 4.50s: 오늘 배운 핵심, 딱 이 한 장만 기억하시면 됩니다.
+     - 4.50s ~ 12.80s: -ate 철자로 끝나는 단어를 만났을 때, 행동하는 동사라면 끝까지 힘을 살려 '에이트'!
+     - 12.80s ~ 21.40s: 사람이나 사물의 이름, 상태를 나타낸다면 앞을 누르고 뒤를 툭 떨어뜨려 '엇' 또는 '잇'!
+     - 21.40s ~ 28.56s: 이 소리 공식 하나만 마음에 품으시면 수십 개의 고급 단어가 저절로 정복됩니다.
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f11-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f11-progress-fill { position: absolute; left: 0; top: 0; width: 89.19%; height: 5px; background: #F5C518; }
+
+  /* Top Capture Badge */
+  .f11-capture-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 0.8cqh 2.2cqw;
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.35cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Brand Caution Badge */
+  .f11-caution-badge {
+    position: absolute;
+    right: 5cqw;
+    top: 4.5cqh;
+    width: 140px;
+    height: 140px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    background: #F5C518;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3cqh;
+    opacity: 0;
+    transform: rotate(4deg) scale(0.8);
+    z-index: 8;
+  }
+  .f11-cb-icon { font-size: 2cqw; line-height: 1; }
+  .f11-cb-title { font-size: 1.05cqw; font-weight: 900; color: #2B2B2B; letter-spacing: -0.3px; }
+  .f11-cb-tag {
+    font-size: 0.8cqw;
+    font-weight: 800;
+    color: #FFF;
+    background: #2B2B2B;
+    padding: 0.2cqh 0.6cqw;
+    border-radius: 6px;
+  }
+
+  /* Master Summary Board */
+  .f11-board {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 86cqw;
+    background: #FFFFFF;
+    border: 4px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 8px 8px 0px #2B2B2B;
+    padding: 3.5cqh 3cqw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3cqw;
+    opacity: 0;
+    z-index: 5;
+  }
+
+  /* Verb Column */
+  .f11-col-verb {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5cqh;
+    border-right: 2px dashed rgba(43,43,43,0.2);
+    padding-right: 2cqw;
+  }
+  .f11-col-noun {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5cqh;
+    padding-left: 1cqw;
+  }
+
+  .f11-col-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1cqh;
+    border-bottom: 2.5px solid #2B2B2B;
+  }
+  .f11-header-title { font-size: 1.4cqw; font-weight: 900; }
+  .f11-header-title.verb { color: #FF5E57; }
+  .f11-header-title.noun { color: #2E86AB; }
+
+  .f11-header-sound {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.2cqw;
+    padding: 0.2cqh 1cqw;
+    border-radius: 8px;
+  }
+  .f11-header-sound.verb { background: rgba(255,94,87,0.15); color: #C0392B; }
+  .f11-header-sound.noun { background: rgba(46,134,171,0.15); color: #165069; }
+
+  .f11-word-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1cqh;
+  }
+  .f11-word-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAF7F2;
+    border: 2px solid #2B2B2B;
+    border-radius: 12px;
+    padding: 0.9cqh 1.4cqw;
+  }
+  .f11-word-item-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.5cqw;
+    color: #2B2B2B;
+  }
+  .f11-word-item-pron {
+    font-size: 1.25cqw;
+    font-weight: 800;
+  }
+  .f11-word-item-pron.verb { color: #FF5E57; }
+  .f11-word-item-pron.noun { color: #2E86AB; }
+
+  /* Bottom Gold Anchor */
+  .f11-bottom-banner {
+    position: absolute;
+    left: 50%;
+    bottom: 12cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-zm44" id="root" data-composition-id="11-summary" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-hodu" class="f11-progress-track">
+    <div data-hf-id="hf-ro2b" class="f11-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Capture Badge -->
+  <div data-hf-id="hf-5egs" class="f11-capture-badge" id="capBadge">
+    <span data-hf-id="hf-6ow4">📸</span>
+    <span data-hf-id="hf-tyyr">지금 화면을 캡처해 두세요! 평생 써먹는 끝소리 공식</span>
+  </div>
+
+  <!-- Caution Badge -->
+  <div data-hf-id="hf-0j6s" class="f11-caution-badge" id="cautionArt">
+    <span data-hf-id="hf-cb01" class="f11-cb-icon">⚠️</span>
+    <span data-hf-id="hf-cb02" class="f11-cb-title">핵심 요약</span>
+    <span data-hf-id="hf-cb03" class="f11-cb-tag">절대 규칙</span>
+  </div>
+
+  <!-- Master Board -->
+  <div data-hf-id="hf-rsfh" class="f11-board" id="masterBoard">
+    <!-- Verb Column -->
+    <div data-hf-id="hf-n5x8" class="f11-col-verb" id="colVerb">
+      <div data-hf-id="hf-q8zp" class="f11-col-header">
+        <span data-hf-id="hf-mdkl" class="f11-header-title verb">⚡️ 행동하는 동사 (보조 에너지)</span>
+        <span data-hf-id="hf-9njt" class="f11-header-sound verb">"-에이트" [-eɪt]</span>
+      </div>
+      <div data-hf-id="hf-sfoy" class="f11-word-list">
+        <div data-hf-id="hf-lmxv" class="f11-word-item">
+          <span data-hf-id="hf-m5yt" class="f11-word-item-name">to estimate</span>
+          <span data-hf-id="hf-hntf" class="f11-word-item-pron verb">"에스티메이트"</span>
+        </div>
+        <div data-hf-id="hf-0odf" class="f11-word-item">
+          <span data-hf-id="hf-jn8a" class="f11-word-item-name">to separate</span>
+          <span data-hf-id="hf-nwcl" class="f11-word-item-pron verb">"세퍼레이트"</span>
+        </div>
+        <div data-hf-id="hf-0a2e" class="f11-word-item">
+          <span data-hf-id="hf-cxfi" class="f11-word-item-name">to graduate</span>
+          <span data-hf-id="hf-wf37" class="f11-word-item-pron verb">"그래듀에이트"</span>
+        </div>
+        <div data-hf-id="hf-zvrd" class="f11-word-item">
+          <span data-hf-id="hf-szje" class="f11-word-item-name">to moderate</span>
+          <span data-hf-id="hf-upsd" class="f11-word-item-pron verb">"모더레이트"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Noun Column -->
+    <div data-hf-id="hf-8p2e" class="f11-col-noun" id="colNoun">
+      <div data-hf-id="hf-rrkp" class="f11-col-header">
+        <span data-hf-id="hf-66ld" class="f11-header-title noun">🪶 이름표 / 상태 (슈와 축약)</span>
+        <span data-hf-id="hf-tcjh" class="f11-header-sound noun">"-엇 / -잇" [-ət, -ɪt]</span>
+      </div>
+      <div data-hf-id="hf-kkl2" class="f11-word-list">
+        <div data-hf-id="hf-zhgc" class="f11-word-item">
+          <span data-hf-id="hf-xggb" class="f11-word-item-name">an estimate (견적서)</span>
+          <span data-hf-id="hf-ui5j" class="f11-word-item-pron noun">"에스티멋"</span>
+        </div>
+        <div data-hf-id="hf-z35b" class="f11-word-item">
+          <span data-hf-id="hf-f1jr" class="f11-word-item-name">separate check (각자)</span>
+          <span data-hf-id="hf-uh1z" class="f11-word-item-pron noun">"세퍼럿"</span>
+        </div>
+        <div data-hf-id="hf-youa" class="f11-word-item">
+          <span data-hf-id="hf-ig7e" class="f11-word-item-name">certificate (자격증)</span>
+          <span data-hf-id="hf-suxb" class="f11-word-item-pron noun">"서티피킷"</span>
+        </div>
+        <div data-hf-id="hf-yaj9" class="f11-word-item">
+          <span data-hf-id="hf-8lei" class="f11-word-item-name">chocolate (초콜릿)</span>
+          <span data-hf-id="hf-87hj" class="f11-word-item-pron noun">"초콜릿"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Master Banner -->
+  <div data-hf-id="hf-9joi" class="f11-bottom-banner" id="bottomBanner">
+    <span data-hf-id="hf-22p7">✨</span>
+    <span data-hf-id="hf-c2bx">이 소리 공식 하나면 수십 개의 고급 단어가 저절로 정복됩니다!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-bxkl" id="v11" src="assets/voice/11.wav" data-audio-group="voiceover" data-start="0" data-duration="28.56"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (89.19% -> 95.47%)
+    tl.to("#pfill", { width: "95.47%", duration: 28.56, ease: "none" }, 0);
+
+    // Sentence 1 (0.51s ~ 5.50s): Remember this one sheet
+    tl.call(function () { setCaption("오늘 배운 핵심, 딱 이 한 장만 기억하시면 됩니다."); }, null, 0.51);
+    tl.to("#capBadge", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, 0.51);
+    tl.to("#cautionArt", { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.6);
+    tl.to("#masterBoard", { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 0.7);
+
+    // Sentence 2 (5.55s ~ 14.28s): Verb -ate
+    tl.call(function () { setCaption("-ate 철자로 끝나는 단어를 만났을 때, 행동하는 동사라면 끝까지 힘을 살려 '에이트'!"); }, null, 5.55);
+    tl.to("#colVerb", { scale: 1.02, duration: 0.4, yoyo: true, repeat: 1 }, 7.5);
+
+    // Sentence 3 (14.30s ~ 22.57s): Noun -ut / -it
+    tl.call(function () { setCaption("사람이나 사물의 이름, 상태를 나타낸다면 앞을 누르고 뒤를 툭 떨어뜨려 '엇' 또는 '잇'!"); }, null, 14.30);
+    tl.to("#colNoun", { scale: 1.02, duration: 0.4, yoyo: true, repeat: 1 }, 16.0);
+
+    // Sentence 4 (22.60s ~ 28.56s): Master dozens of words
+    tl.call(function () { setCaption("이 소리 공식 하나만 마음에 품으시면 수십 개의 고급 단어가 저절로 정복됩니다."); }, null, 22.60);
+    tl.to("#bottomBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 23.0);
+
+    // Outro transition
+    tl.to(["#masterBoard", "#capBadge", "#bottomBanner", "#cautionArt"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 28.20);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["11-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

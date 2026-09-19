@@ -1,0 +1,558 @@
+<template>
+<style>
+  /* 03-principle — Frame 3 "소리의 진짜 비밀: 끝소리 에너지 법칙 (The Deep Principle)".
+     Actual audio duration: 49.88s.
+     - 0.00s ~ 10.20s: 왜 이런 차이가 생길까요? 사전을 찾아보면 두 단어 모두 맨 앞 음절에 가장 센 제1강세가 있습니다.
+     - 10.20s ~ 18.50s: 진짜 차이는 맨 끝의 -ate 소리에 힘을 주느냐, 완전히 빼버리느냐에 있습니다.
+     - 18.50s ~ 24.20s: 무언가를 행동하는 동사는 동작을 확실하게 끝맺어야 하니까,
+     - 24.20s ~ 28.60s: 맨 끝의 -ate 소리에도 보조 에너지를 살려서 '에이트!' 하고 또렷하게 발음합니다.
+     - 28.60s ~ 35.80s: 반대로 사물의 이름이나 상태는 첫머리만 들려주면 무슨 단어인지 다 알기 때문에,
+     - 35.80s ~ 41.20s: 끝에 있는 -ate 소리에는 아무런 힘도 주지 않고 목구멍의 힘을 툭 빼버립니다.
+     - 41.20s ~ 49.88s: 에너지를 0%로 완전히 빼버리니 힘 빠진 '엇' 하고 자연스럽게 쪼그라드는 것이죠.
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f03-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f03-progress-fill { position: absolute; left: 0; top: 0; width: 11.78%; height: 5px; background: #F5C518; }
+
+  /* Header Badge */
+  .f03-header {
+    position: absolute;
+    top: 4.5cqh;
+    left: 5cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 0.8cqh 1.6cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    z-index: 10;
+  }
+
+  /* Main Stage Container */
+  .f03-stage {
+    position: absolute;
+    left: 50%;
+    top: 47%;
+    transform: translate(-50%, -50%);
+    width: 86cqw;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3.5cqw;
+    align-items: center;
+    z-index: 5;
+  }
+
+  /* Left: Vocal Anatomy Diagram */
+  .f03-vocal-card {
+    background: #FAF7F2;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    position: relative;
+    height: 620px;
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  .f03-vocal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #F7F3E9;
+  }
+
+  /* SVG Vocal Tract Animation Overlay */
+  .f03-vocal-svg-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Throat Pulse Core */
+  .f03-throat-core {
+    position: absolute;
+    left: 45%;
+    top: 74%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 3px solid #2B2B2B;
+    background: #FF5E57;
+    box-shadow: 0 0 16px rgba(255, 94, 87, 0.9);
+    z-index: 12;
+  }
+  .f03-throat-core.blue {
+    background: #2E86AB;
+    box-shadow: 0 0 16px rgba(46, 134, 171, 0.9);
+  }
+
+  /* Animated Vocal Energy Beam (Dotted Stream) */
+  .f03-beam-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #2B2B2B;
+    background: #F5C518;
+    box-shadow: 0 0 10px #F5C518;
+    opacity: 0;
+    z-index: 12;
+  }
+  #beamDot1 { left: 43%; top: 62%; }
+  #beamDot2 { left: 39%; top: 53%; }
+  #beamDot3 { left: 32%; top: 52%; }
+  #beamDot4 { left: 24%; top: 52%; }
+
+  /* Mouth Burst Badges */
+  .f03-mouth-burst-verb {
+    position: absolute;
+    left: 1%;
+    top: 45%;
+    background: #FF5E57;
+    color: #FFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 14px;
+    padding: 0.8cqh 1.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    opacity: 0;
+    transform: scale(0.6);
+    z-index: 20;
+    white-space: nowrap;
+  }
+
+  .f03-mouth-burst-noun {
+    position: absolute;
+    left: 1%;
+    top: 46%;
+    background: #2E86AB;
+    color: #FFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 14px;
+    padding: 0.8cqh 1.2cqw;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    opacity: 0;
+    transform: scale(0.6);
+    z-index: 20;
+    white-space: nowrap;
+  }
+
+  /* Jaw Drop Indicator Arrow */
+  .f03-jaw-arrow {
+    position: absolute;
+    left: 31%;
+    top: 67%;
+    background: #FFFFFF;
+    border: 2.5px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 10px;
+    padding: 0.4cqh 0.8cqw;
+    font-size: 1.05cqw;
+    font-weight: 900;
+    color: #165069;
+    opacity: 0;
+    transform: translateY(-8px);
+    z-index: 15;
+  }
+
+  /* 100% Korean Overlay Cards (Covering English Image Text) */
+  .f03-kcard {
+    position: absolute;
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 16px;
+    background: #FFFFFF;
+    padding: 1.4cqh 1.4cqw;
+    z-index: 15;
+    opacity: 0;
+  }
+
+  /* Stress Card (Top Left) */
+  .f03-kcard-stress {
+    top: 3cqh;
+    left: 2cqw;
+    background: #F5C518;
+    transform: translateY(-10px);
+  }
+  .f03-kc-stress-text {
+    font-size: 1.15cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+  }
+
+  /* Verb Card (Top Right, Covers "full energy [-ate]") */
+  .f03-kcard-verb {
+    top: 8cqh;
+    right: 3cqw;
+    width: 250px;
+    border-left: 8px solid #FF5E57;
+    transform: translateX(15px);
+  }
+
+  /* Noun Card (Bottom Right, Covers "relaxed zero-energy...") */
+  .f03-kcard-noun {
+    bottom: 6cqh;
+    right: 3cqw;
+    width: 250px;
+    border-left: 8px solid #2E86AB;
+    transform: translateX(15px);
+  }
+
+  .f03-kc-badge {
+    display: inline-block;
+    padding: 0.2cqh 0.8cqw;
+    border-radius: 6px;
+    font-size: 0.95cqw;
+    font-weight: 900;
+    color: #FFF;
+    margin-bottom: 0.6cqh;
+  }
+  .f03-kc-badge.verb { background: #FF5E57; }
+  .f03-kc-badge.noun { background: #2E86AB; }
+
+  .f03-kc-main {
+    font-size: 1.25cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    line-height: 1.2;
+    margin-bottom: 0.4cqh;
+  }
+  .f03-kc-sub {
+    font-size: 1.05cqw;
+    font-weight: 700;
+    color: #635E54;
+    line-height: 1.3;
+  }
+  .f03-kc-sub b {
+    color: #2B2B2B;
+  }
+
+  /* Right: Energy Comparison Column */
+  .f03-energy-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2cqh;
+  }
+
+  .f03-common-fact {
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 1.5cqh 1.8cqw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .f03-fact-title { font-size: 1.2cqw; font-weight: 800; color: #7A7365; }
+  .f03-fact-ipa {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    background: #FAF7F2;
+    padding: 0.3cqh 0.8cqw;
+    border-radius: 8px;
+    border: 2px solid #2B2B2B;
+  }
+
+  .f03-flow-card {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 2.5cqh 2cqw;
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  .f03-flow-card.verb { border-left: 12px solid #FF5E57; }
+  .f03-flow-card.noun { border-left: 12px solid #2E86AB; }
+
+  .f03-flow-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1cqh;
+  }
+  .f03-flow-tag {
+    font-size: 1.15cqw;
+    font-weight: 900;
+    padding: 0.3cqh 1cqw;
+    border-radius: 8px;
+    color: #FFF;
+  }
+  .f03-flow-tag.verb { background: #FF5E57; }
+  .f03-flow-tag.noun { background: #2E86AB; }
+
+  .f03-flow-level { font-size: 1.1cqw; font-weight: 800; color: #7A7365; }
+
+  .f03-flow-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1cqw;
+  }
+  .f03-flow-sound {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.8cqw;
+  }
+  .f03-flow-sound.verb { color: #FF5E57; }
+  .f03-flow-sound.noun { color: #2E86AB; }
+
+  .f03-flow-desc {
+    font-size: 1.15cqw;
+    font-weight: 700;
+    color: #2B2B2B;
+    line-height: 1.4;
+  }
+
+  /* Bottom Energy Rule Capsule */
+  .f03-rule-capsule {
+    position: absolute;
+    left: 50%;
+    bottom: 12cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-sjg7" id="root" data-composition-id="03-principle" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-tf75" class="f03-progress-track">
+    <div data-hf-id="hf-xb5o" class="f03-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header Badge -->
+  <div data-hf-id="hf-d4f9" class="f03-header">
+    <span data-hf-id="hf-8fmw">🔬</span>
+    <span data-hf-id="hf-gsn0">음성학의 비밀: 끝소리 에너지 법칙</span>
+  </div>
+
+  <!-- Main Stage -->
+  <div data-hf-id="hf-s41c" class="f03-stage">
+    <!-- Left Vocal Diagram -->
+    <div data-hf-id="hf-zg0j" class="f03-vocal-card" id="vocalCard">
+      <img data-hf-id="hf-2avw" class="f03-vocal-img" src="assets/images/vocal_energy_flow.jpg" alt="Vocal Energy Flow">
+
+      <!-- Throat Core Pulse -->
+      <div data-hf-id="hf-f3tc" class="f03-throat-core" id="throatCore"></div>
+
+      <!-- Energy Beam Dots flowing through vocal tract -->
+      <div data-hf-id="hf-f3b1" class="f03-beam-dot" id="beamDot1"></div>
+      <div data-hf-id="hf-f3b2" class="f03-beam-dot" id="beamDot2"></div>
+      <div data-hf-id="hf-f3b3" class="f03-beam-dot" id="beamDot3"></div>
+      <div data-hf-id="hf-f3b4" class="f03-beam-dot" id="beamDot4"></div>
+
+      <!-- Mouth Bursts -->
+      <div data-hf-id="hf-f3mv" class="f03-mouth-burst-verb" id="mouthBurstVerb">💥 에이트! (100%)</div>
+      <div data-hf-id="hf-f3mn" class="f03-mouth-burst-noun" id="mouthBurstNoun">💨 엇... (0%)</div>
+
+      <!-- Jaw Drop Arrow -->
+      <div data-hf-id="hf-f3ja" class="f03-jaw-arrow" id="jawArrow">⬇️ 턱 힘 툭!</div>
+
+      <!-- 100% Korean Overlay Cards covering English diagram text -->
+      <!-- 1. Stress Point (Top Left) -->
+      <div data-hf-id="hf-f3ks" class="f03-kcard f03-kcard-stress" id="kcardStress">
+        <div data-hf-id="hf-f3st" class="f03-kc-stress-text">⚡️ 맨 앞머리 공통: 첫 음절 제1강세 쾅!</div>
+      </div>
+
+      <!-- 2. Verb Card (Top Right, covers 'full energy [-ate]') -->
+      <div data-hf-id="hf-f3kv" class="f03-kcard f03-kcard-verb" id="kcardVerb">
+        <div data-hf-id="hf-f3vb" class="f03-kc-badge verb">🔥 동사 (행동)</div>
+        <div data-hf-id="hf-f3vm" class="f03-kc-main">에너지 100% 폭발!</div>
+        <div data-hf-id="hf-f3vs" class="f03-kc-sub">목구멍에서 입술까지 힘을 주어<br data-hf-id="hf-f3br"><b data-hf-id="hf-gbxm">'에이트!' [-eɪt]</b> 확실하게 전달</div>
+      </div>
+
+      <!-- 3. Noun Card (Bottom Right, covers 'relaxed zero-energy...') -->
+      <div data-hf-id="hf-f3kn" class="f03-kcard f03-kcard-noun" id="kcardNoun">
+        <div data-hf-id="hf-f3nb" class="f03-kc-badge noun">🍃 명사·형용사 (이름/상태)</div>
+        <div data-hf-id="hf-f3nm" class="f03-kc-main">에너지 0% 완전 방전!</div>
+        <div data-hf-id="hf-f3ns" class="f03-kc-sub">턱 힘을 아래로 툭 빼버리고<br data-hf-id="hf-f3nr">힘 빠진 <b data-hf-id="hf-5t2o">'엇' [-ət]</b>으로 축약</div>
+      </div>
+    </div>
+
+    <!-- Right Energy Column -->
+    <div data-hf-id="hf-vcm9" class="f03-energy-column">
+      <!-- Fact 1 -->
+      <div data-hf-id="hf-s04r" class="f03-common-fact" id="commonFact">
+        <span data-hf-id="hf-17ha" class="f03-fact-title">사전 발음기호 공통점</span>
+        <span data-hf-id="hf-8div" class="f03-fact-ipa">맨 앞 음절 제1강세 공통</span>
+      </div>
+
+      <!-- Verb Flow Card -->
+      <div data-hf-id="hf-70f1" class="f03-flow-card verb" id="flowVerb">
+        <div data-hf-id="hf-dsyo" class="f03-flow-header">
+          <span data-hf-id="hf-64rj" class="f03-flow-tag verb">동사 (행동)</span>
+          <span data-hf-id="hf-qzc2" class="f03-flow-level">보조 에너지 100% 잔류 🔥</span>
+        </div>
+        <div data-hf-id="hf-bjcv" class="f03-flow-body">
+          <div data-hf-id="hf-s8mc" class="f03-flow-sound verb">"-eɪt" (에이트)</div>
+          <div data-hf-id="hf-lk3h" class="f03-flow-desc">동작을 확실하게 끝맺기 위해<br data-hf-id="hf-x5px">맨 끝 -ate 소리에도 강한 에너지 전달</div>
+        </div>
+      </div>
+
+      <!-- Noun Flow Card -->
+      <div data-hf-id="hf-8mu9" class="f03-flow-card noun" id="flowNoun">
+        <div data-hf-id="hf-8ic8" class="f03-flow-header">
+          <span data-hf-id="hf-atn3" class="f03-flow-tag noun">명사·형용사 (이름/상태)</span>
+          <span data-hf-id="hf-phia" class="f03-flow-level">에너지 0% 완전 이완 💨</span>
+        </div>
+        <div data-hf-id="hf-2mrj" class="f03-flow-body">
+          <div data-hf-id="hf-ju6w" class="f03-flow-sound noun">"-ət / -ɪt" (엇/잇)</div>
+          <div data-hf-id="hf-vd2x" class="f03-flow-desc">첫머리만으로 뜻 파악 완료!<br data-hf-id="hf-rsrt">목구멍 힘을 툭 빼 슈와 모음으로 축약</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Rule Capsule -->
+  <div data-hf-id="hf-ejrb" class="f03-rule-capsule" id="ruleCapsule">
+    <span data-hf-id="hf-22p7">✨</span>
+    <span data-hf-id="hf-uv7j">에너지를 빼버리니 자연스럽게 '엇'으로 쪼그라듭니다!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-rr9t" id="v03" src="assets/voice/03.wav" data-audio-group="voiceover" data-start="0" data-duration="49.88"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (11.78% -> 22.73%)
+    tl.to("#pfill", { width: "22.73%", duration: 49.88, ease: "none" }, 0);
+
+    // Sentence 1 (0.43s ~ 10.06s): Vocal diagram in + Stress tag
+    tl.call(function () { setCaption("왜 이런 차이가 생길까요? 사전을 찾아보면 두 단어 모두 맨 앞 음절에 가장 센 제1강세가 있습니다."); }, null, 0.43);
+    tl.to("#vocalCard", { opacity: 1, x: 0, duration: 0.6, ease: "back.out(1.4)" }, 0.43);
+    tl.to("#commonFact", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.5);
+    tl.to("#kcardStress", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 3.5);
+
+    // Sentence 2 (10.10s ~ 18.10s): Difference is at the end -ate
+    tl.call(function () { setCaption("진짜 차이는 맨 끝의 -ate 소리에 힘을 주느냐, 완전히 빼버리느냐에 있습니다."); }, null, 10.10);
+    tl.to("#vocalCard", { scale: 1.02, duration: 0.4, yoyo: true, repeat: 1 }, 11.0);
+
+    // Sentence 3 (18.15s ~ 23.80s): Verb action needs completion
+    tl.call(function () { setCaption("무언가를 행동하는 동사는 동작을 확실하게 끝맺어야 하니까,"); }, null, 18.15);
+    tl.to("#flowVerb", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 18.5);
+
+    // Sentence 4 (23.85s ~ 30.10s): Secondary energy for verb -> Vocal Tract Beam Animation
+    tl.call(function () { setCaption("맨 끝의 -ate 소리에도 보조 에너지를 살려서 '에이트!' 하고 또렷하게 발음합니다."); }, null, 23.85);
+    // Step 1: Throat ignition (red core)
+    tl.to("#throatCore", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 24.0);
+    // Step 2: Energy travels forward along vocal tract in stepped pulses
+    tl.to("#beamDot1", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.35);
+    tl.to("#beamDot2", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.55);
+    tl.to("#beamDot3", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.75);
+    tl.to("#beamDot4", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.95);
+    // Step 3: Mouth burst & Korean Verb card popup
+    tl.to("#mouthBurstVerb", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 25.15);
+    tl.to("#kcardVerb", { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.4)" }, 25.35);
+    tl.to("#flowVerb", { boxShadow: "0 0 25px rgba(255,94,87,0.5)", duration: 0.4 }, 25.8);
+
+    // Sentence 5 (30.15s ~ 37.20s): Noun already identified by head
+    tl.call(function () { setCaption("반대로 사물의 이름이나 상태는 첫머리만 들려주면 무슨 단어인지 다 알기 때문에,"); }, null, 30.15);
+    tl.to("#flowNoun", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 30.5);
+    // Fade out verb beam to prepare for noun relaxation
+    tl.to(["#beamDot1", "#beamDot2", "#beamDot3", "#beamDot4", "#mouthBurstVerb"], { opacity: 0, duration: 0.3 }, 31.0);
+
+    // Sentence 6 (37.25s ~ 43.14s): Release throat tension -> Noun relaxation animation
+    tl.call(function () { setCaption("끝에 있는 -ate 소리에는 아무런 힘도 주지 않고 목구멍의 힘을 툭 빼버립니다."); }, null, 37.25);
+    // Step 1: Throat core turns blue and shrinks
+    tl.set("#throatCore", { className: "f03-throat-core blue" }, 37.4);
+    tl.to("#throatCore", { scale: 0.6, duration: 0.3 }, 37.5);
+    // Step 2: Jaw arrow points down
+    tl.to("#jawArrow", { opacity: 1, y: 6, duration: 0.35, ease: "power2.out" }, 37.8);
+    // Step 3: Gentle mouth puff and Korean Noun card popup
+    tl.to("#mouthBurstNoun", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 38.3);
+    tl.to("#kcardNoun", { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.4)" }, 38.6);
+    tl.to("#flowNoun", { boxShadow: "0 0 25px rgba(46,134,171,0.5)", duration: 0.4 }, 39.0);
+
+    // Sentence 7 (43.20s ~ 49.88s): Zero energy shrinks to ut
+    tl.call(function () { setCaption("에너지를 0%로 완전히 빼버리니 힘 빠진 '엇' 하고 자연스럽게 쪼그라드는 것이죠."); }, null, 43.20);
+    tl.to("#ruleCapsule", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 44.0);
+
+    // Outro transition
+    tl.to(["#vocalCard", "#commonFact", "#flowVerb", "#flowNoun", "#ruleCapsule"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 49.50);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["03-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

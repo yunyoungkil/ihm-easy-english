@@ -1,0 +1,361 @@
+<template>
+<style>
+  /* 09-quiz-delegate — Frame 9 "실전 훈련 2: 3초 퀴즈 2라운드 [신규 단어 delegate] ⭐️".
+     Actual audio duration: 32.92s (09a 16.60s + 침묵 3.0s + 09b 13.32s).
+     - 0.00s ~ 4.80s: 하나 더 도전해 보시죠. 이번에도 처음 만나는 단어입니다.
+     - 4.80s ~ 13.80s: 화면의 이 단어가 회사의 '대표자'나 '대리인'이라는 사람의 이름, 즉 명사로 쓰일 땐 뒤 소리가 어떻게 바뀔까요?
+     - 13.80s ~ 16.60s: 3초 동안 생각해 보세요.
+     - 16.60s ~ 19.60s: (3초 침묵 및 타이머 카운트다운 — 정답 스포일러 일체 차단)
+     - 19.60s ~ 25.50s: 맞습니다! 이름표를 달았으니 앞머리에 힘을 주고 뒤는 툭 떨어뜨려야 하죠.
+     - 25.50s ~ 29.20s: 정답은 바로 '델리것'입니다.
+     - 29.20s ~ 32.92s: 두 문제 다 맞히셨나요?
+     - 100% caption-pill coverage
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Bar */
+  .f09-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .f09-progress-fill { position: absolute; left: 0; top: 0; width: 74.62%; height: 5px; background: #F5C518; }
+
+  /* Top Badge */
+  .f09-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 5cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 0.8cqh 1.6cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    z-index: 10;
+  }
+
+  /* Quiz Question Card */
+  .f09-quiz-card {
+    position: absolute;
+    left: 50%;
+    top: 36%;
+    transform: translate(-50%, -50%);
+    width: 82cqw;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3.5cqh 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    z-index: 5;
+  }
+
+  .f09-quiz-round {
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #2E86AB;
+    background: rgba(46,134,171,0.12);
+    padding: 0.3cqh 1.2cqw;
+    border-radius: 8px;
+    margin-bottom: 1cqh;
+  }
+
+  .f09-quiz-word {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 5.2cqw;
+    color: #2B2B2B;
+    font-variant-ligatures: none;
+    line-height: 1.1;
+  }
+
+  .f09-quiz-hint {
+    margin-top: 1cqh;
+    font-size: 1.6cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+  }
+  .f09-hint-tag {
+    background: #2E86AB;
+    color: #FFF;
+    padding: 0.2cqh 0.8cqw;
+    border-radius: 6px;
+    font-size: 1.2cqw;
+  }
+
+  /* Timer Circle Ring */
+  .f09-timer-box {
+    position: absolute;
+    right: 5cqw;
+    top: 4.5cqh;
+    width: 90px;
+    height: 90px;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 50%;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.2cqw;
+    color: #2E86AB;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Options Grid */
+  .f09-options-grid {
+    position: absolute;
+    left: 50%;
+    top: 66%;
+    transform: translate(-50%, -50%);
+    width: 82cqw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5cqw;
+    z-index: 5;
+  }
+
+  .f09-option-btn {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 2.8cqh 2cqw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1cqw;
+    font-size: 2.2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .f09-option-num {
+    width: 2.2cqw;
+    height: 2.2cqw;
+    border-radius: 50%;
+    background: #FAF7F2;
+    border: 2px solid #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.2cqw;
+  }
+
+  /* Celebrate Character (Revealed on Answer) */
+  .f09-char-celebrate {
+    position: absolute;
+    right: 4cqw;
+    bottom: 12cqh;
+    width: 200px;
+    height: 200px;
+    border-radius: 24px;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.8) rotate(-4deg);
+    z-index: 20;
+    background: #FFF;
+  }
+  .f09-char-celebrate img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Correct Banner */
+  .f09-answer-banner {
+    position: absolute;
+    left: 50%;
+    bottom: 12cqh;
+    transform: translateX(-50%) scale(0.95);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.8cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Caption Pill */
+  .caption-pill {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 30;
+    letter-spacing: -0.4px;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-bog6" id="root" data-composition-id="09-quiz-delegate" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-eesj" class="f09-progress-track">
+    <div data-hf-id="hf-pot6" class="f09-progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Header Badge -->
+  <div data-hf-id="hf-b0td" class="f09-badge">
+    <span data-hf-id="hf-617c">🎯</span>
+    <span data-hf-id="hf-p99a">실전 퀴즈 2라운드: 신규 단어 정복!</span>
+  </div>
+
+  <!-- Timer Box -->
+  <div data-hf-id="hf-vd9c" class="f09-timer-box" id="timerBox">3</div>
+
+  <!-- Quiz Card -->
+  <div data-hf-id="hf-hjgd" class="f09-quiz-card" id="quizCard">
+    <div data-hf-id="hf-avp1" class="f09-quiz-round">QUIZ 02</div>
+    <div data-hf-id="hf-99l7" class="f09-quiz-word">delegate</div>
+    <div data-hf-id="hf-mm3b" class="f09-quiz-hint">
+      <span data-hf-id="hf-sk3k" class="f09-hint-tag">역할</span>
+      <span data-hf-id="hf-upp0">회사의 '대표자', '대리인' (사람의 이름표 = 명사)</span>
+    </div>
+  </div>
+
+  <!-- Options Grid -->
+  <div data-hf-id="hf-3vyn" class="f09-options-grid">
+    <div data-hf-id="hf-w9qu" class="f09-option-btn" id="opt1">
+      <div data-hf-id="hf-virr" class="f09-option-num">1</div>
+      <span data-hf-id="hf-xjld">델리게이트 [-eɪt]</span>
+    </div>
+    <div data-hf-id="hf-sbmt" class="f09-option-btn" id="opt2">
+      <div data-hf-id="hf-v4gq" class="f09-option-num">2</div>
+      <span data-hf-id="hf-tybj">델리것 [-ɡət]</span>
+    </div>
+  </div>
+
+  <!-- Celebrate Character -->
+  <div data-hf-id="hf-t4ah" class="f09-char-celebrate" id="charCelebrate">
+    <img data-hf-id="hf-b0ok" src="assets/images/char_celebrate.jpg" alt="Celebrate Character">
+  </div>
+
+  <!-- Answer Banner -->
+  <div data-hf-id="hf-rw1v" class="f09-answer-banner" id="answerBanner">
+    <span data-hf-id="hf-6nxv">🏆</span>
+    <span data-hf-id="hf-gcpm">정답! 이름표(명사)니까 뒤 힘을 툭 뺀 '델리것'! 2문제 올패스!</span>
+  </div>
+
+  <!-- Caption Pill -->
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <!-- Audio -->
+  <audio data-hf-id="hf-8y4u" id="v09" src="assets/voice/09.wav" data-audio-group="voiceover" data-start="0" data-duration="32.92"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    var timer = document.getElementById("timerBox");
+
+    function setCaption(text) {
+      pill.textContent = text;
+      gsap.set(pill, { opacity: 1 });
+    }
+
+    // Progress (74.62% -> 81.85%)
+    tl.to("#pfill", { width: "81.85%", duration: 32.92, ease: "none" }, 0);
+
+    // Sentence 1 (0.00s ~ 4.80s): One more challenge
+    tl.call(function () { setCaption("하나 더 도전해 보시죠. 이번에도 처음 만나는 단어입니다."); }, null, 0.00);
+    tl.to("#quizCard", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 0.3);
+
+    // Sentence 2 (4.80s ~ 13.80s): Delegate as company representative
+    tl.call(function () { setCaption("화면의 이 단어가 회사의 '대표자'나 '대리인'이라는 사람의 이름, 즉 명사로 쓰일 땐 뒤 소리가 어떻게 바뀔까요?"); }, null, 4.80);
+    tl.to("#opt1", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 6.5);
+    tl.to("#opt2", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 7.2);
+
+    // Sentence 3 (13.80s ~ 16.60s): Think for 3 seconds
+    tl.call(function () { setCaption("3초 동안 생각해 보세요."); }, null, 13.80);
+    tl.to("#timerBox", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 15.5);
+
+    // ⭐️ 3-Second Silence Countdown (16.60s ~ 19.60s) — NO SPOILERS!
+    tl.call(function () { timer.textContent = "3"; }, null, 16.60);
+    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 16.65);
+
+    tl.call(function () { timer.textContent = "2"; }, null, 17.60);
+    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 17.65);
+
+    tl.call(function () { timer.textContent = "1"; }, null, 18.60);
+    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 18.65);
+
+    // Sentence 4 (19.60s ~ 25.50s): 09b Reveal! Name badge, drop tail
+    tl.call(function () { setCaption("맞습니다! 이름표를 달았으니 앞머리에 힘을 주고 뒤는 툭 떨어뜨려야 하죠."); }, null, 19.60);
+    tl.to("#timerBox", { opacity: 0, scale: 0.5, duration: 0.3 }, 19.60);
+    // Correct Option 2 Glows Blue Neon!
+    tl.to("#opt2", {
+      background: "#FFF",
+      border: "3.5px solid #2E86AB",
+      boxShadow: "0 0 35px rgba(46,134,171,0.7), 6px 6px 0px #2B2B2B",
+      scale: 1.05,
+      duration: 0.4,
+      ease: "back.out(1.7)"
+    }, 19.8);
+    tl.to("#opt1", { opacity: 0.4, scale: 0.95, duration: 0.3 }, 19.8);
+
+    // Character Celebrate Popup!
+    tl.to("#charCelebrate", { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.8)" }, 20.0);
+
+    // Sentence 5 (25.50s ~ 29.20s): Answer is delegut
+    tl.call(function () { setCaption("정답은 바로 '델리것'입니다."); }, null, 25.50);
+    tl.to("#answerBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 26.0);
+
+    // Sentence 6 (29.20s ~ 32.92s): Got both right?
+    tl.call(function () { setCaption("두 문제 다 맞히셨나요?"); }, null, 29.20);
+
+    // Outro transition
+    tl.to(["#quizCard", "#opt1", "#opt2", "#charCelebrate", "#answerBanner"], {
+      opacity: 0, duration: 0.35, ease: "power2.in"
+    }, 32.50);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-quiz-delegate"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

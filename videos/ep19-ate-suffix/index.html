@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F4EFE6;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F4EFE6;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-zhiq" id="root" data-composition-id="main" data-start="0" data-duration="455.04" data-width="1920" data-height="1080">
+      <!-- EP19 "헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이".
+           12 frames, cumulative timing = real TTS audio duration per scene (.tts-results.json), placed back-to-back.
+           Total duration: 455.04s (7m 35.04s) — 100% narration coverage + Frame 12 5s end-screen keep-out. -->
+      <div data-hf-id="hf-1j0k" id="scene-01-cold-open" class="scene" data-composition-id="01-cold-open" data-composition-src="compositions/frames/01-cold-open.html" data-start="0" data-duration="30.24" data-track-index="0"></div>
+      <div data-hf-id="hf-ohzm" id="scene-02-intro" class="scene" data-composition-id="02-intro" data-composition-src="compositions/frames/02-intro.html" data-start="30.24" data-duration="23.32" data-track-index="0"></div>
+      <div data-hf-id="hf-0fg2" id="scene-03-principle" class="scene" data-composition-id="03-principle" data-composition-src="compositions/frames/03-principle.html" data-start="53.56" data-duration="49.88" data-track-index="0"></div>
+      <div data-hf-id="hf-0wgq" id="scene-04-practice-estimate" class="scene" data-composition-id="04-practice-estimate" data-composition-src="compositions/frames/04-practice-estimate.html" data-start="103.44" data-duration="43.68" data-track-index="0"></div>
+      <div data-hf-id="hf-7kgu" id="scene-05-practice-separate" class="scene" data-composition-id="05-practice-separate" data-composition-src="compositions/frames/05-practice-separate.html" data-start="147.12" data-duration="49.96" data-track-index="0"></div>
+      <div data-hf-id="hf-3ppm" id="scene-06-practice-certificate" class="scene" data-composition-id="06-practice-certificate" data-composition-src="compositions/frames/06-practice-certificate.html" data-start="197.08" data-duration="53.72" data-track-index="0"></div>
+      <div data-hf-id="hf-fmkx" id="scene-07-secret-tip" class="scene" data-composition-id="07-secret-tip" data-composition-src="compositions/frames/07-secret-tip.html" data-start="250.80" data-duration="53.24" data-track-index="0"></div>
+      <div data-hf-id="hf-cm6c" id="scene-08-quiz-moderate" class="scene" data-composition-id="08-quiz-moderate" data-composition-src="compositions/frames/08-quiz-moderate.html" data-start="304.04" data-duration="35.52" data-track-index="0"></div>
+      <div data-hf-id="hf-usw7" id="scene-09-quiz-delegate" class="scene" data-composition-id="09-quiz-delegate" data-composition-src="compositions/frames/09-quiz-delegate.html" data-start="339.56" data-duration="32.92" data-track-index="0"></div>
+      <div data-hf-id="hf-h8wr" id="scene-10-sentence-listening" class="scene" data-composition-id="10-sentence-listening" data-composition-src="compositions/frames/10-sentence-listening.html" data-start="372.48" data-duration="33.40" data-track-index="0"></div>
+      <div data-hf-id="hf-sa35" id="scene-11-summary" class="scene" data-composition-id="11-summary" data-composition-src="compositions/frames/11-summary.html" data-start="405.88" data-duration="28.56" data-track-index="0"></div>
+      <div data-hf-id="hf-bdam" id="scene-12-closing" class="scene" data-composition-id="12-closing" data-composition-src="compositions/frames/12-closing.html" data-start="434.44" data-duration="20.60" data-track-index="0"></div>
+
+      <!-- Root BGM: continuous track looped to cover full 455.04s with ducking -->
+      <audio data-hf-id="hf-ownx" id="bgm1" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="405.23" data-media-start="0" data-volume="0.06" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}"></audio>
+      <audio data-hf-id="hf-yrgs" id="bgm2" src="assets/bgm/track.loop.mp3" data-start="405.23" data-duration="49.81" data-media-start="0" data-volume="0.06" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

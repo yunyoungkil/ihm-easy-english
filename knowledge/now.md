@@ -19,8 +19,7 @@
   * `thumbnail-b.jpg`: 상식붕괴 직격형 (`"-ate" 아니었어?` + `[ 여태 다 읽었던 사람 ]`).
   * `thumbnail-c.jpg`: 안심/확신 해결형 (`헷갈리던 -ate` + `다시는 안 헷갈림`).
   * `thumbnail-close-up.jpg`: 모바일 초근접 익스트림 클로즈업 (쉿! 비밀 포즈 + 초대형 2줄 문구).
-- **다음 행동**: Frame 12에 이전 편(묵음 자음) 추천 카드 반영, 기존 WCAG 대비 경고 6곳(Frame 1/8/11)
-  수정 ➔ 최종 렌더 ➔ 업로드 패키지 빌드.
+- **다음 행동**: 사용자 승인된 브랜드 에셋 교체(Frame 1 우드 스피커 파동, Frame 2 강사 캐릭터, Frame 3 구강 단면 한글화/애니메이션, Frame 10 유레카 환호) 및 `hyperframes check` 0 errors 완료 ➔ Frame 12 이전 편(묵음 자음) 추천 카드 반영 ➔ 최종 로컬 렌더 (`renders/`) ➔ 업로드 패키지 빌드 (`output/upload-packages/ep19-ate-suffix-longform/`).
 
 ## ✅ 완료 — 단편 EP18(묵음 자음 규칙, KN/-MB/WR)
 

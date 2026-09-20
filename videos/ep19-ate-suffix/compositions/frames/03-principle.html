@@ -74,58 +74,25 @@
     opacity: 0;
     transform: translateX(-30px);
   }
-  .f03-vocal-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #F7F3E9;
-  }
-
-  /* SVG Vocal Tract Animation Overlay */
-  .f03-vocal-svg-layer {
+  .f03-vocal-img-stack {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
-    z-index: 10;
   }
-
-  /* Throat Pulse Core */
-  .f03-throat-core {
+  .f03-vocal-frame {
     position: absolute;
-    left: 45%;
-    top: 74%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 3px solid #2B2B2B;
-    background: #FF5E57;
-    box-shadow: 0 0 16px rgba(255, 94, 87, 0.9);
-    z-index: 12;
-  }
-  .f03-throat-core.blue {
-    background: #2E86AB;
-    box-shadow: 0 0 16px rgba(46, 134, 171, 0.9);
-  }
-
-  /* Animated Vocal Energy Beam (Dotted Stream) */
-  .f03-beam-dot {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #2B2B2B;
-    background: #F5C518;
-    box-shadow: 0 0 10px #F5C518;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #F7F3E9;
     opacity: 0;
-    z-index: 12;
+    pointer-events: none;
   }
-  #beamDot1 { left: 43%; top: 62%; }
-  #beamDot2 { left: 39%; top: 53%; }
-  #beamDot3 { left: 32%; top: 52%; }
-  #beamDot4 { left: 24%; top: 52%; }
+  .f03-vocal-frame.active-base {
+    opacity: 1;
+  }
 
   /* Mouth Burst Badges */
   .f03-mouth-burst-verb {
@@ -187,65 +154,67 @@
     position: absolute;
     border: 3px solid #2B2B2B;
     box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 16px;
+    border-radius: 14px;
     background: #FFFFFF;
-    padding: 1.4cqh 1.4cqw;
+    padding: 0.8cqh 1cqw;
     z-index: 15;
     opacity: 0;
   }
 
   /* Stress Card (Top Left) */
   .f03-kcard-stress {
-    top: 3cqh;
+    top: 2cqh;
     left: 2cqw;
     background: #F5C518;
     transform: translateY(-10px);
   }
   .f03-kc-stress-text {
-    font-size: 1.15cqw;
+    font-size: 1.05cqw;
     font-weight: 900;
     color: #2B2B2B;
   }
 
-  /* Verb Card (Top Right, Covers "full energy [-ate]") */
+  /* Verb Card (Top Right) */
   .f03-kcard-verb {
-    top: 8cqh;
-    right: 3cqw;
-    width: 250px;
+    top: 2cqh;
+    right: 2cqw;
+    width: 285px;
     border-left: 8px solid #FF5E57;
     transform: translateX(15px);
   }
 
-  /* Noun Card (Bottom Right, Covers "relaxed zero-energy...") */
+  /* Noun Card (Bottom Right) */
   .f03-kcard-noun {
-    bottom: 6cqh;
-    right: 3cqw;
-    width: 250px;
+    bottom: 2cqh;
+    right: 2cqw;
+    width: 285px;
     border-left: 8px solid #2E86AB;
     transform: translateX(15px);
   }
 
   .f03-kc-badge {
     display: inline-block;
-    padding: 0.2cqh 0.8cqw;
+    padding: 0.2cqh 0.7cqw;
     border-radius: 6px;
-    font-size: 0.95cqw;
+    font-size: 0.82cqw;
     font-weight: 900;
     color: #FFF;
-    margin-bottom: 0.6cqh;
+    margin-bottom: 0.3cqh;
+    white-space: nowrap;
   }
   .f03-kc-badge.verb { background: #FF5E57; }
   .f03-kc-badge.noun { background: #2E86AB; }
 
   .f03-kc-main {
-    font-size: 1.25cqw;
+    font-size: 1.15cqw;
     font-weight: 900;
     color: #2B2B2B;
     line-height: 1.2;
     margin-bottom: 0.4cqh;
+    white-space: nowrap;
   }
   .f03-kc-sub {
-    font-size: 1.05cqw;
+    font-size: 0.9cqw;
     font-weight: 700;
     color: #635E54;
     line-height: 1.3;
@@ -396,16 +365,15 @@
   <div data-hf-id="hf-s41c" class="f03-stage">
     <!-- Left Vocal Diagram -->
     <div data-hf-id="hf-zg0j" class="f03-vocal-card" id="vocalCard">
-      <img data-hf-id="hf-2avw" class="f03-vocal-img" src="assets/images/vocal_energy_flow.jpg" alt="Vocal Energy Flow">
-
-      <!-- Throat Core Pulse -->
-      <div data-hf-id="hf-f3tc" class="f03-throat-core" id="throatCore"></div>
-
-      <!-- Energy Beam Dots flowing through vocal tract -->
-      <div data-hf-id="hf-f3b1" class="f03-beam-dot" id="beamDot1"></div>
-      <div data-hf-id="hf-f3b2" class="f03-beam-dot" id="beamDot2"></div>
-      <div data-hf-id="hf-f3b3" class="f03-beam-dot" id="beamDot3"></div>
-      <div data-hf-id="hf-f3b4" class="f03-beam-dot" id="beamDot4"></div>
+      <!-- 6-Step Dynamic Stop-Motion Illustration Stack -->
+      <div data-hf-id="hf-stk0" class="f03-vocal-img-stack">
+        <img data-hf-id="hf-vb01" class="f03-vocal-frame active-base" id="vFrameVerb1" src="assets/images/vocal_verb_step1.jpg" alt="Verb Step 1: Throat Ignition">
+        <img data-hf-id="hf-vb02" class="f03-vocal-frame" id="vFrameVerb2" src="assets/images/vocal_verb_step2.jpg" alt="Verb Step 2: Oral Energy Beam">
+        <img data-hf-id="hf-vb03" class="f03-vocal-frame" id="vFrameVerb3" src="assets/images/vocal_verb_step3.jpg" alt="Verb Step 3: Sound Explosion">
+        <img data-hf-id="hf-nn01" class="f03-vocal-frame" id="vFrameNoun1" src="assets/images/vocal_noun_step1.jpg" alt="Noun Step 1: Throat Cooled">
+        <img data-hf-id="hf-nn02" class="f03-vocal-frame" id="vFrameNoun2" src="assets/images/vocal_noun_step2.jpg" alt="Noun Step 2: Jaw Relaxed">
+        <img data-hf-id="hf-nn03" class="f03-vocal-frame" id="vFrameNoun3" src="assets/images/vocal_noun_step3.jpg" alt="Noun Step 3: Soft Schwa Puff">
+      </div>
 
       <!-- Mouth Bursts -->
       <div data-hf-id="hf-f3mv" class="f03-mouth-burst-verb" id="mouthBurstVerb">💥 에이트! (100%)</div>
@@ -509,16 +477,16 @@
     tl.call(function () { setCaption("무언가를 행동하는 동사는 동작을 확실하게 끝맺어야 하니까,"); }, null, 18.15);
     tl.to("#flowVerb", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 18.5);
 
-    // Sentence 4 (23.85s ~ 30.10s): Secondary energy for verb -> Vocal Tract Beam Animation
+    // Sentence 4 (23.85s ~ 30.10s): Secondary energy for verb -> Vocal Tract Step-Motion
     tl.call(function () { setCaption("맨 끝의 -ate 소리에도 보조 에너지를 살려서 '에이트!' 하고 또렷하게 발음합니다."); }, null, 23.85);
-    // Step 1: Throat ignition (red core)
-    tl.to("#throatCore", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 24.0);
-    // Step 2: Energy travels forward along vocal tract in stepped pulses
-    tl.to("#beamDot1", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.35);
-    tl.to("#beamDot2", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.55);
-    tl.to("#beamDot3", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.75);
-    tl.to("#beamDot4", { opacity: 1, scale: 1.2, duration: 0.15 }, 24.95);
-    // Step 3: Mouth burst & Korean Verb card popup
+    // Step 1: Throat ignition
+    tl.to("#vFrameVerb1", { opacity: 1, duration: 0.1 }, 24.0);
+    // Step 2: Energy travels forward along oral cavity
+    tl.to("#vFrameVerb2", { opacity: 1, duration: 0.15 }, 24.6);
+    tl.set("#vFrameVerb1", { opacity: 0 }, 24.65);
+    // Step 3: Sound explosion outside lips
+    tl.to("#vFrameVerb3", { opacity: 1, duration: 0.15 }, 25.15);
+    tl.set("#vFrameVerb2", { opacity: 0 }, 25.2);
     tl.to("#mouthBurstVerb", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 25.15);
     tl.to("#kcardVerb", { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.4)" }, 25.35);
     tl.to("#flowVerb", { boxShadow: "0 0 25px rgba(255,94,87,0.5)", duration: 0.4 }, 25.8);
@@ -526,18 +494,22 @@
     // Sentence 5 (30.15s ~ 37.20s): Noun already identified by head
     tl.call(function () { setCaption("반대로 사물의 이름이나 상태는 첫머리만 들려주면 무슨 단어인지 다 알기 때문에,"); }, null, 30.15);
     tl.to("#flowNoun", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 30.5);
-    // Fade out verb beam to prepare for noun relaxation
-    tl.to(["#beamDot1", "#beamDot2", "#beamDot3", "#beamDot4", "#mouthBurstVerb"], { opacity: 0, duration: 0.3 }, 31.0);
+    tl.to("#mouthBurstVerb", { opacity: 0, duration: 0.3 }, 31.0);
 
-    // Sentence 6 (37.25s ~ 43.14s): Release throat tension -> Noun relaxation animation
+    // Sentence 6 (37.25s ~ 43.14s): Release throat tension -> Noun relaxation Step-Motion
     tl.call(function () { setCaption("끝에 있는 -ate 소리에는 아무런 힘도 주지 않고 목구멍의 힘을 툭 빼버립니다."); }, null, 37.25);
-    // Step 1: Throat core turns blue and shrinks
-    tl.set("#throatCore", { className: "f03-throat-core blue" }, 37.4);
-    tl.to("#throatCore", { scale: 0.6, duration: 0.3 }, 37.5);
-    // Step 2: Jaw arrow points down
-    tl.to("#jawArrow", { opacity: 1, y: 6, duration: 0.35, ease: "power2.out" }, 37.8);
-    // Step 3: Gentle mouth puff and Korean Noun card popup
-    tl.to("#mouthBurstNoun", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 38.3);
+    // Step 1: Throat cooled, flame extinguished
+    tl.to("#vFrameNoun1", { opacity: 1, duration: 0.15 }, 37.35);
+    tl.set("#vFrameVerb3", { opacity: 0 }, 37.4);
+    tl.to("#kcardVerb", { opacity: 0.35, duration: 0.4 }, 37.35);
+    // Step 2: Jaw relaxed, gentle breath path
+    tl.to("#vFrameNoun2", { opacity: 1, duration: 0.15 }, 37.85);
+    tl.set("#vFrameNoun1", { opacity: 0 }, 37.9);
+    tl.to("#jawArrow", { opacity: 1, y: 6, duration: 0.35, ease: "power2.out" }, 37.85);
+    // Step 3: Gentle schwa cloud puff
+    tl.to("#vFrameNoun3", { opacity: 1, duration: 0.15 }, 38.35);
+    tl.set("#vFrameNoun2", { opacity: 0 }, 38.4);
+    tl.to("#mouthBurstNoun", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 38.35);
     tl.to("#kcardNoun", { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.4)" }, 38.6);
     tl.to("#flowNoun", { boxShadow: "0 0 25px rgba(46,134,171,0.5)", duration: 0.4 }, 39.0);
 

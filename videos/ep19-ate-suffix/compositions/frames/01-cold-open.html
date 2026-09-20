@@ -27,13 +27,13 @@
   .f01-progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
   .f01-progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 5px; background: #F5C518; }
 
-  /* Sound Clash Visual Intro (Warm Cream Tone) */
+  /* Sound Clash Visual Intro (Warm Cream Tone & 4:3 Ratio) */
   .f01-sound-clash-box {
     position: absolute;
     left: 50%;
     top: 48%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 640px;
     height: 480px;
     border-radius: 28px;
     border: 3.5px solid #2B2B2B;
@@ -43,71 +43,17 @@
     z-index: 2;
     background: #F4EFE6;
   }
-  .f01-speaker-img {
+  .f01-speaker-frame {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    position: absolute;
-    inset: 0;
-  }
-
-  /* Step-by-Step Frame Animation Wave Overlay */
-  .f01-wave-overlay {
-    position: absolute;
-    inset: 0;
+    object-fit: cover;
+    opacity: 0;
     pointer-events: none;
   }
-  .f01-wave-arc {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    border-style: solid;
-    opacity: 0;
-  }
-  /* Left Verb Waves (Coral Red) */
-  .f01-verb-wave-1 {
-    left: 32%;
-    width: 60px;
-    height: 90px;
-    border-width: 0 5px 0 0;
-    border-color: #FF5E57;
-  }
-  .f01-verb-wave-2 {
-    left: 36%;
-    width: 90px;
-    height: 140px;
-    border-width: 0 6px 0 0;
-    border-color: #FF5E57;
-  }
-  .f01-verb-wave-3 {
-    left: 41%;
-    width: 120px;
-    height: 190px;
-    border-width: 0 7px 0 0;
-    border-color: #FF5E57;
-  }
-  /* Right Noun Waves (Teal Blue) */
-  .f01-noun-wave-1 {
-    right: 32%;
-    width: 60px;
-    height: 90px;
-    border-width: 0 0 0 5px;
-    border-color: #2E86AB;
-  }
-  .f01-noun-wave-2 {
-    right: 36%;
-    width: 90px;
-    height: 140px;
-    border-width: 0 0 0 6px;
-    border-color: #2E86AB;
-  }
-  .f01-noun-wave-3 {
-    right: 41%;
-    width: 120px;
-    height: 190px;
-    border-width: 0 0 0 7px;
-    border-color: #2E86AB;
+  .f01-speaker-frame.active-base {
+    opacity: 1;
   }
 
   /* Central Clash Spark Explosion Frame */
@@ -153,10 +99,18 @@
     z-index: 20;
     background: #FFF;
   }
-  .f01-char-confused img {
+  .f01-char-confused img,
+  .f01-char-frame {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .f01-char-frame.active-base {
+    opacity: 1;
   }
 
   /* Top Hook Header */
@@ -339,24 +293,19 @@
     <div data-hf-id="hf-su02" class="f01-progress-fill" id="pfill"></div>
   </div>
 
-  <!-- Sound Clash Vector Art (Warm Cream Tone & Frame-by-Frame Sound Wave Sequence) -->
+  <!-- Sound Clash Vector Art (Warm Cream Tone & Stop-Motion Illustration Stack) -->
   <div data-hf-id="hf-pe2n" class="f01-sound-clash-box" id="soundClash">
-    <img data-hf-id="hf-7xs3" class="f01-speaker-img" src="assets/images/speaker_clash_base.jpg" alt="Sound Clash Speakers">
-    <div data-hf-id="hf-d5qs" class="f01-wave-overlay">
-      <div data-hf-id="hf-aoh9" class="f01-wave-arc f01-verb-wave-1" id="vWave1"></div>
-      <div data-hf-id="hf-7ov4" class="f01-wave-arc f01-noun-wave-1" id="nWave1"></div>
-      <div data-hf-id="hf-batt" class="f01-wave-arc f01-verb-wave-2" id="vWave2"></div>
-      <div data-hf-id="hf-7904" class="f01-wave-arc f01-noun-wave-2" id="nWave2"></div>
-      <div data-hf-id="hf-reqh" class="f01-wave-arc f01-verb-wave-3" id="vWave3"></div>
-      <div data-hf-id="hf-y5po" class="f01-wave-arc f01-noun-wave-3" id="nWave3"></div>
-      <div data-hf-id="hf-w88h" class="f01-clash-spark" id="clashSpark">💥</div>
-      <div data-hf-id="hf-w88t" class="f01-clash-text-burst" id="clashTextBurst">⚡️ 쾅! (소리 정면 충돌)</div>
-    </div>
+    <img data-hf-id="hf-cf01" class="f01-speaker-frame active-base" id="cFrame1" src="assets/images/clash_step1.jpg" alt="Clash Step 1">
+    <img data-hf-id="hf-cf02" class="f01-speaker-frame" id="cFrame2" src="assets/images/clash_step2.jpg" alt="Clash Step 2">
+    <img data-hf-id="hf-cf03" class="f01-speaker-frame" id="cFrame3" src="assets/images/clash_step3.jpg" alt="Clash Step 3" onerror="this.style.display='none'">
+    <div data-hf-id="hf-w88h" class="f01-clash-spark" id="clashSpark">💥</div>
+    <div data-hf-id="hf-w88t" class="f01-clash-text-burst" id="clashTextBurst">⚡️ 쾅! (소리 정면 충돌)</div>
   </div>
 
-  <!-- Confused Presenter Character -->
+  <!-- Confused Presenter Character (Stop-Motion Frame Stack) -->
   <div data-hf-id="hf-tukz" class="f01-char-confused" id="charConfused">
-    <img data-hf-id="hf-5nqq" src="assets/images/char_confused.jpg" alt="Confused Character">
+    <img data-hf-id="hf-5nqq" id="charConfusedImg1" class="f01-char-frame active-base" src="assets/images/char_confused.jpg" alt="Confused Pose 1 (Base)">
+    <img data-hf-id="hf-5nqr" id="charConfusedImg2" class="f01-char-frame" src="assets/images/char_confused_step1_locked.jpg" alt="Confused Pose 2 (Panic Shake)">
   </div>
 
   <!-- Top Hook Header -->
@@ -372,10 +321,10 @@
   <div data-hf-id="hf-hbzc" class="f01-grid">
     <!-- Card 1: to estimate -->
     <div data-hf-id="hf-kgvr" class="f01-card" id="cardEstimateVerb">
-      <div data-hf-id="hf-9tg9" class="f01-card-type f01-type-verb">동사 (행동)</div>
-      <div data-hf-id="hf-75f1" class="f01-word-title">
-        <span data-hf-id="hf-91v4" class="f01-prefix">to</span>
-        <span data-hf-id="hf-6x4m">esti<span data-hf-id="hf-86rj" class="f01-highlight-ate-verb">mate</span></span>
+      <div data-hf-id="hf-e02l" class="f01-card-type f01-type-verb">동사 (행동하다)</div>
+      <div data-hf-id="hf-5x54" class="f01-word-title">
+        <span data-hf-id="hf-r30q" class="f01-prefix">to</span>
+        <span data-hf-id="hf-z89t">esti<span data-hf-id="hf-k7k6" class="f01-highlight-ate-verb">mate</span></span>
       </div>
       <div data-hf-id="hf-8ml5" class="f01-sound-box">
         <span data-hf-id="hf-4usr" class="f01-sound-label">발음</span>
@@ -456,18 +405,17 @@
     tl.to("#soundClash", { opacity: 0.95, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 0.1);
     tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
 
-    // Frame 1: Wave 1 bursts
-    tl.to(["#vWave1", "#nWave1"], { opacity: 1, duration: 0.15 }, 0.4);
-    // Frame 2: Wave 2 bursts (Wave 1 fades)
-    tl.to(["#vWave1", "#nWave1"], { opacity: 0, duration: 0.1 }, 0.6);
-    tl.to(["#vWave2", "#nWave2"], { opacity: 1, duration: 0.15 }, 0.6);
-    // Frame 3: Wave 3 bursts (Wave 2 fades)
-    tl.to(["#vWave2", "#nWave2"], { opacity: 0, duration: 0.1 }, 0.85);
-    tl.to(["#vWave3", "#nWave3"], { opacity: 1, duration: 0.15 }, 0.85);
-    // Frame 4: Central Spark Collision!
-    tl.to("#clashSpark", { opacity: 1, scale: 1.5, duration: 0.2, ease: "back.out(2)" }, 1.05);
-    tl.to("#clashTextBurst", { opacity: 1, scale: 1.1, duration: 0.25, ease: "back.out(1.8)" }, 1.05);
-    tl.to(["#vWave3", "#nWave3", "#clashSpark", "#clashTextBurst"], { opacity: 0, scale: 0.8, duration: 0.3 }, 1.4);
+    // Step 1: Initial waves from speakers
+    tl.to("#cFrame1", { opacity: 1, duration: 0.1 }, 0.2);
+    // Step 2: Waves surge toward center
+    tl.to("#cFrame2", { opacity: 1, duration: 0.15 }, 0.6);
+    tl.set("#cFrame1", { opacity: 0 }, 0.65);
+    // Step 3: Collision impact (cFrame3 if present, plus central spark/burst)
+    tl.to("#cFrame3", { opacity: 1, duration: 0.15 }, 1.0);
+    tl.set("#cFrame2", { opacity: 0 }, 1.05);
+    tl.to("#clashSpark", { opacity: 1, scale: 1.5, duration: 0.2, ease: "back.out(2)" }, 1.0);
+    tl.to("#clashTextBurst", { opacity: 1, scale: 1.1, duration: 0.25, ease: "back.out(1.8)" }, 1.0);
+    tl.to(["#clashSpark", "#clashTextBurst"], { opacity: 0, scale: 0.8, duration: 0.3 }, 1.4);
 
     // Sentence 1 (0.59s ~ 5.55s): to estimate
     tl.call(function () { setCaption("동사로 움직일 때 to estimate는 '에스티메이트'인데,"); }, null, 0.59);
@@ -489,6 +437,13 @@
     tl.call(function () { setCaption("스펠링은 분명 100% 똑같은데, 방금 끝소리가 완전히 다르게 끝나는 것 들으셨나요?"); }, null, 17.54);
     tl.to("#qMark", { opacity: 1, scale: 1.2, duration: 0.4, ease: "back.out(2)" }, 18.5);
     tl.to("#qMark", { scale: 1.0, duration: 0.3 }, 18.9);
+    // Character Stop-Motion Animation (Pose 1 <-> Pose 2 shaking)
+    tl.to("#charConfusedImg2", { opacity: 1, duration: 0.1 }, 19.2);
+    tl.set("#charConfusedImg1", { opacity: 0 }, 19.25);
+    tl.to("#charConfusedImg1", { opacity: 1, duration: 0.1 }, 19.8);
+    tl.set("#charConfusedImg2", { opacity: 0 }, 19.85);
+    tl.to("#charConfusedImg2", { opacity: 1, duration: 0.1 }, 20.4);
+    tl.set("#charConfusedImg1", { opacity: 0 }, 20.45);
     tl.to("#charConfused", { rotation: -8, y: -10, duration: 0.4, yoyo: true, repeat: 3 }, 19.5);
 
     // Sentence 5 (24.40s ~ 30.24s): 사전 없이 바로 구분

@@ -6,32 +6,35 @@
     {
       "id": "A",
       "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
-      "imageUrl": "",
+      "imageUrl": "/api/temp-thumbnail/A-1789892873254-f2814c.jpg",
       "thumbnailHeadline": "-ate 왜 다르게 들릴까",
       "visualConcept": "물음표 형상의 미니멀한 네온 라이트와 부드럽게 흐려지는 소리 파동의 조화",
-      "isLocalFile": false
+      "isLocalFile": true,
+      "inUse": true
     },
     {
       "id": "B",
       "title": "단어마다 -ate 끝소리 달라서 매번 멈칫했는데 소리 나는 길이 따로 있네요 | 영어 끝소리 발음",
-      "imageUrl": "",
+      "imageUrl": "/api/temp-thumbnail/B-1789894697842-e9e9e6.jpg",
       "thumbnailHeadline": "-ate 끝소리 고민 끝",
       "visualConcept": "사전 속 빽빽한 단어들 사이에서 선명하게 빛나는 단 하나의 심플한 소리 가이드라인",
-      "isLocalFile": false
+      "isLocalFile": true,
+      "inUse": true
     },
     {
       "id": "C",
       "title": "헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이",
-      "imageUrl": "",
+      "imageUrl": "/api/temp-thumbnail/C-1789894703846-04f603.jpg",
       "thumbnailHeadline": "-ate 다시는 안 헷갈림",
       "visualConcept": "좌우 2분할 대조 구조로 한쪽은 닫힌 입술 실루엣, 다른 쪽은 편안하게 이완된 입술 그래픽 대조",
-      "isLocalFile": false
+      "isLocalFile": true,
+      "inUse": true
     }
   ],
   "activeFeedView": "B",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
-  "selectedVariantTab": "C",
+  "selectedVariantTab": "B",
   "visionFilter": "normal",
   "aiReport": {
     "variantsEvaluation": [

@@ -84,6 +84,170 @@
     letter-spacing: -0.3px;
   }
 
+  /* Story Stage (0.0s ~ 13.8s Empathy Intro) */
+  .f04-story-stage {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    width: 86cqw;
+    height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5cqw;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .f04-story-invoice {
+    width: 360px;
+    height: 460px;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  .f04-story-invoice img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+  }
+  .f04-story-badge-korean {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #F5C518;
+    color: #2B2B2B;
+    border: 2.5px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.05cqw;
+    font-weight: 900;
+    padding: 0.5cqh 1.2cqw;
+  }
+  .f04-story-word-callout {
+    position: absolute;
+    bottom: 20px;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 14px;
+    padding: 0.8cqh 1.4cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.6cqw;
+    color: #FF5E57;
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  /* Center Clash Bubbles */
+  .f04-story-clash {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5cqh;
+    align-items: center;
+    width: 320px;
+  }
+  .f04-speech-bubble-korean {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 18px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1.5cqh 1.6cqw;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(-20px);
+    width: 100%;
+    border-left: 10px solid #FF5E57;
+  }
+  .f04-speech-bubble-native {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 18px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1.5cqh 1.6cqw;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(20px);
+    width: 100%;
+    border-left: 10px solid #2E86AB;
+  }
+  .f04-bubble-label {
+    font-size: 0.95cqw;
+    font-weight: 900;
+    color: #7A7365;
+    margin-bottom: 0.3cqh;
+  }
+  .f04-bubble-text {
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+  }
+  .f04-speech-bubble-korean .f04-bubble-text { color: #C0392B; }
+  .f04-speech-bubble-native .f04-bubble-text { color: #165069; }
+
+  /* Story Character (Stop-Motion Stack) */
+  .f04-story-char {
+    position: relative;
+    width: 400px;
+    height: 460px;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .f04-story-char-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+  }
+  .f04-story-char-frame.active {
+    opacity: 1;
+  }
+  .f04-story-qmark {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    font-size: 3cqw;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  /* Eureka Banner */
+  .f04-story-eureka {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 999px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.4cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 30;
+    white-space: nowrap;
+  }
+
   /* Dual Card Grid */
   .f04-grid {
     position: absolute;
@@ -241,10 +405,45 @@
     <span data-hf-id="hf-xgmi">실전 단어 1: estimate (견적)</span>
   </div>
 
-  <!-- Invoice Illustration -->
-  <div data-hf-id="hf-qu2q" class="f04-invoice-art" id="invoiceArt">
-    <img data-hf-id="hf-957p" src="assets/images/estimate_invoice.jpg" alt="Invoice">
-    <div data-hf-id="hf-eikt" class="f04-invoice-korean-tag">📄 공식 견적서 (명사)</div>
+  <!-- Story Stage (0.0s ~ 13.8s: Overseas shopping & Pronunciation Clash) -->
+  <div data-hf-id="hf-s04s" class="f04-story-stage" id="storyStage">
+    <!-- Left: Invoice / Direct Purchase Card -->
+    <div data-hf-id="hf-s04i" class="f04-story-invoice" id="storyInvoice">
+      <img data-hf-id="hf-s04m" src="assets/images/estimate_invoice.jpg" alt="Overseas Order Invoice">
+      <div data-hf-id="hf-s04b" class="f04-story-badge-korean">📦 해외 직구 이메일 견적서</div>
+      <!-- Magnifier / Highlight on 'estimate' -->
+      <div data-hf-id="hf-s04w" class="f04-story-word-callout" id="storyWordCallout">
+        <span data-hf-id="hf-s04l">🔍</span>
+        <span data-hf-id="hf-s04r">estimate</span>
+      </div>
+    </div>
+
+    <!-- Center Clash: Korean Speaker vs Native Speaker Speech Bubbles -->
+    <div data-hf-id="hf-s04c" class="f04-story-clash" id="storyClash">
+      <!-- Korean Bubble: "에스티메이트!" -->
+      <div data-hf-id="hf-s04k" class="f04-speech-bubble-korean" id="bubbleKorean">
+        <div data-hf-id="hf-s04a" class="f04-bubble-label">나의 예전 발음</div>
+        <div data-hf-id="hf-s04t" class="f04-bubble-text">"에스티메이트!" 🗣️</div>
+      </div>
+      <!-- Native Bubble: "에스티멋!" -->
+      <div data-hf-id="hf-s04n" class="f04-speech-bubble-native" id="bubbleNative">
+        <div data-hf-id="hf-s04u" class="f04-bubble-label">🇺🇸 원어민 발음</div>
+        <div data-hf-id="hf-s04v" class="f04-bubble-text">"에스티멋 [ -mət ]" ⚡️</div>
+      </div>
+    </div>
+
+    <!-- Right: Confused Presenter Character (Stop-Motion Frame Stack) -->
+    <div data-hf-id="hf-s04p" class="f04-story-char" id="storyChar">
+      <img data-hf-id="hf-s041" class="f04-story-char-frame active" id="storyChar1" src="assets/images/char_confused.jpg" alt="Confused Pose 1">
+      <img data-hf-id="hf-s042" class="f04-story-char-frame" id="storyChar2" src="assets/images/char_confused_step1_locked.jpg" alt="Confused Pose 2">
+      <div data-hf-id="hf-s04q" class="f04-story-qmark" id="storyQMark">❓❓</div>
+    </div>
+
+    <!-- Eureka Lightbulb Banner (at 11.7s: 이제 이유를 아시겠죠?) -->
+    <div data-hf-id="hf-s04e" class="f04-story-eureka" id="storyEureka">
+      <span data-hf-id="hf-s04g">💡</span>
+      <span data-hf-id="hf-s04h">이제 그 진짜 이유를 아시겠죠?!</span>
+    </div>
   </div>
 
   <!-- Grid -->
@@ -305,12 +504,34 @@
     // Progress (22.73% -> 32.33%)
     tl.to("#pfill", { width: "32.33%", duration: 43.68, ease: "none" }, 0);
 
-    // Sentence 1 (0.41s ~ 11.68s): Empathy & Invoice Art
+    // Sentence 1 (0.41s ~ 11.68s): Empathy & Story Stage (Overseas Shopping & Confusion)
     tl.call(function () { setCaption("저도 예전에 해외 직구나 이메일에서 estimate를 볼 때마다 '에스티메이트'로만 읽었었는데, 원어민들은 자꾸 '에스티멋'이라고 하더라고요."); }, null, 0.41);
-    tl.to("#invoiceArt", { opacity: 1, scale: 1, rotation: 2, duration: 0.6, ease: "back.out(1.6)" }, 0.41);
+    tl.to("#storyStage", { opacity: 1, duration: 0.35 }, 0.41);
+    tl.to("#storyInvoice", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.5);
+    tl.to("#storyWordCallout", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 1.3);
+    // Korean pronunciation bubble appears
+    tl.to("#bubbleKorean", { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 2.2);
 
-    // Sentence 2 (11.70s ~ 13.88s): Now you know the reason?
+    // Native pronunciation shock (5.4s ~ 9.8s)
+    tl.to("#bubbleNative", { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 5.6);
+    tl.to("#storyChar", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 5.8);
+    // Stop-motion character panic shake (Pose 1 <-> Pose 2)
+    tl.to("#storyChar2", { opacity: 1, duration: 0.1 }, 6.5);
+    tl.set("#storyChar1", { opacity: 0 }, 6.55);
+    tl.to("#storyQMark", { opacity: 1, scale: 1.2, duration: 0.3, ease: "back.out(2)" }, 6.6);
+    tl.to("#storyChar1", { opacity: 1, duration: 0.1 }, 7.3);
+    tl.set("#storyChar2", { opacity: 0 }, 7.35);
+    tl.to("#storyChar2", { opacity: 1, duration: 0.1 }, 8.1);
+    tl.set("#storyChar1", { opacity: 0 }, 8.15);
+    tl.to("#storyChar", { rotation: -6, y: -8, duration: 0.35, yoyo: true, repeat: 3 }, 6.8);
+
+    // Sentence 2 (11.70s ~ 13.88s): Now you know the reason? Eureka!
     tl.call(function () { setCaption("이제 이유를 아시겠죠?"); }, null, 11.70);
+    tl.to("#storyEureka", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 11.75);
+
+    // Transition out of story stage (13.2s ~ 13.8s) -> Main Practice Cards in
+    tl.to("#storyStage", { opacity: 0, scale: 0.9, duration: 0.35, ease: "power2.in" }, 13.3);
+    tl.to("#invoiceArt", { opacity: 1, scale: 1, rotation: 2, duration: 0.4, ease: "back.out(1.5)" }, 13.7);
 
     // Sentence 3 (13.90s ~ 20.64s): Verb is to estimate
     tl.call(function () { setCaption("'견적을 내다'라는 행동일 땐 뒤를 힘차게 밀어서 to estimate."); }, null, 13.90);

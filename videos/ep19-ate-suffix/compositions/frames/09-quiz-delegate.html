@@ -5,11 +5,11 @@
      - 0.00s ~ 4.80s: 하나 더 도전해 보시죠. 이번에도 처음 만나는 단어입니다.
      - 4.80s ~ 13.80s: 화면의 이 단어가 회사의 '대표자'나 '대리인'이라는 사람의 이름, 즉 명사로 쓰일 땐 뒤 소리가 어떻게 바뀔까요?
      - 13.80s ~ 16.60s: 3초 동안 생각해 보세요.
-     - 16.60s ~ 19.60s: (3초 침묵 및 타이머 카운트다운 — 정답 스포일러 일체 차단)
+     - 16.60s ~ 19.60s: (3초 침묵 및 타이머 카운트다운 — 정답 스포일러 일체 차단, 긴장감 극대화)
      - 19.60s ~ 25.50s: 맞습니다! 이름표를 달았으니 앞머리에 힘을 주고 뒤는 툭 떨어뜨려야 하죠.
      - 25.50s ~ 29.20s: 정답은 바로 '델리것'입니다.
      - 29.20s ~ 32.92s: 두 문제 다 맞히셨나요?
-     - 100% caption-pill coverage
+     - 100% caption-pill coverage + High Dopamine SFX & Visuals!
   */
   @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
 
@@ -32,8 +32,8 @@
   /* Top Badge */
   .f09-badge {
     position: absolute;
-    top: 4.5cqh;
-    left: 5cqw;
+    top: 4cqh;
+    left: 4.5cqw;
     display: flex;
     align-items: center;
     gap: 0.8cqw;
@@ -52,14 +52,14 @@
   .f09-quiz-card {
     position: absolute;
     left: 50%;
-    top: 36%;
+    top: 34%;
     transform: translate(-50%, -50%);
     width: 82cqw;
     background: #FFFFFF;
     border: 3.5px solid #2B2B2B;
     border-radius: 24px;
     box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 3.5cqh 3cqw;
+    padding: 3.2cqh 3cqw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,12 +74,15 @@
     background: rgba(46,134,171,0.12);
     padding: 0.3cqh 1.2cqw;
     border-radius: 8px;
-    margin-bottom: 1cqh;
+    margin-bottom: 0.8cqh;
+    display: flex;
+    align-items: center;
+    gap: 0.5cqw;
   }
 
   .f09-quiz-word {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 5.2cqw;
+    font-size: 5.4cqw;
     color: #2B2B2B;
     font-variant-ligatures: none;
     line-height: 1.1;
@@ -87,28 +90,49 @@
 
   .f09-quiz-hint {
     margin-top: 1cqh;
-    font-size: 1.6cqw;
+    font-size: 1.65cqw;
     font-weight: 800;
     color: #2B2B2B;
     display: flex;
     align-items: center;
-    gap: 0.6cqw;
+    gap: 0.8cqw;
   }
   .f09-hint-tag {
     background: #2E86AB;
     color: #FFF;
-    padding: 0.2cqh 0.8cqw;
-    border-radius: 6px;
+    padding: 0.3cqh 1cqw;
+    border-radius: 8px;
     font-size: 1.2cqw;
+    font-weight: 900;
+    border: 2px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
   }
 
-  /* Timer Circle Ring */
-  .f09-timer-box {
+  /* High-Tension Timer Circle Box */
+  .f09-timer-container {
     position: absolute;
-    right: 5cqw;
-    top: 4.5cqh;
-    width: 90px;
-    height: 90px;
+    right: 4.5cqw;
+    top: 4cqh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5cqh;
+    opacity: 0;
+    z-index: 20;
+  }
+  .f09-timer-label {
+    font-size: 0.95cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    background: #FFF;
+    padding: 0.2cqh 0.8cqw;
+    border: 2px solid #2B2B2B;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .f09-timer-box {
+    width: 92px;
+    height: 92px;
     background: #FFFFFF;
     border: 3.5px solid #2B2B2B;
     border-radius: 50%;
@@ -117,17 +141,16 @@
     align-items: center;
     justify-content: center;
     font-family: 'Archivo Black', sans-serif;
-    font-size: 2.2cqw;
-    color: #2E86AB;
-    opacity: 0;
-    z-index: 10;
+    font-size: 2.5cqw;
+    color: #F5C518;
+    transition: transform 0.15s, background 0.2s, color 0.2s;
   }
 
   /* Options Grid */
   .f09-options-grid {
     position: absolute;
     left: 50%;
-    top: 66%;
+    top: 64%;
     transform: translate(-50%, -50%);
     width: 82cqw;
     display: grid;
@@ -139,37 +162,54 @@
   .f09-option-btn {
     background: #FFFFFF;
     border: 3.5px solid #2B2B2B;
-    border-radius: 20px;
+    border-radius: 22px;
     box-shadow: 5px 5px 0px #2B2B2B;
     padding: 2.8cqh 2cqw;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1cqw;
+    justify-content: space-between;
     font-size: 2.2cqw;
     font-weight: 900;
     color: #2B2B2B;
     opacity: 0;
     transform: translateY(20px);
+    position: relative;
+  }
+  .f09-option-left {
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
   }
   .f09-option-num {
-    width: 2.2cqw;
-    height: 2.2cqw;
+    width: 2.4cqw;
+    height: 2.4cqw;
     border-radius: 50%;
     background: #FAF7F2;
-    border: 2px solid #2B2B2B;
+    border: 2.5px solid #2B2B2B;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Archivo Black', sans-serif;
     font-size: 1.2cqw;
   }
+  .f09-option-badge {
+    font-size: 1.1cqw;
+    font-weight: 900;
+    padding: 0.3cqh 0.8cqw;
+    border-radius: 8px;
+    border: 2px solid #2B2B2B;
+    box-shadow: 2px 2px 0px #2B2B2B;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  .f09-option-badge.correct { background: #2ED573; color: #FFF; }
+  .f09-option-badge.wrong { background: #FF4757; color: #FFF; }
 
   /* Celebrate Character (Revealed on Answer) */
   .f09-char-celebrate {
     position: absolute;
     right: 4cqw;
-    bottom: 12cqh;
+    bottom: 10cqh;
     width: 200px;
     height: 200px;
     border-radius: 24px;
@@ -187,7 +227,7 @@
     object-fit: cover;
   }
 
-  /* Correct Banner */
+  /* Correct Answer Banner */
   .f09-answer-banner {
     position: absolute;
     left: 50%;
@@ -197,7 +237,7 @@
     border: 3.5px solid #2B2B2B;
     border-radius: 100px;
     box-shadow: 5px 5px 0px #2B2B2B;
-    padding: 1cqh 2.8cqw;
+    padding: 1.1cqh 2.8cqw;
     display: flex;
     align-items: center;
     gap: 0.8cqw;
@@ -244,15 +284,21 @@
     <span data-hf-id="hf-p99a">실전 퀴즈 2라운드: 신규 단어 정복!</span>
   </div>
 
-  <!-- Timer Box -->
-  <div data-hf-id="hf-vd9c" class="f09-timer-box" id="timerBox">3</div>
+  <!-- Timer Container -->
+  <div data-hf-id="hf-iyfj" class="f09-timer-container" id="timerContainer">
+    <div data-hf-id="hf-gfa1" class="f09-timer-label">생각 시간 ⏳</div>
+    <div data-hf-id="hf-vd9c" class="f09-timer-box" id="timerBox">3</div>
+  </div>
 
   <!-- Quiz Card -->
   <div data-hf-id="hf-hjgd" class="f09-quiz-card" id="quizCard">
-    <div data-hf-id="hf-avp1" class="f09-quiz-round">QUIZ 02</div>
+    <div data-hf-id="hf-avp1" class="f09-quiz-round">
+      <span data-hf-id="hf-b7s3">🔥</span>
+      <span data-hf-id="hf-sgx3">QUIZ 02 — 다음 단어의 올바른 발음은?</span>
+    </div>
     <div data-hf-id="hf-99l7" class="f09-quiz-word">delegate</div>
     <div data-hf-id="hf-mm3b" class="f09-quiz-hint">
-      <span data-hf-id="hf-sk3k" class="f09-hint-tag">역할</span>
+      <span data-hf-id="hf-sk3k" class="f09-hint-tag">품사 힌트</span>
       <span data-hf-id="hf-upp0">회사의 '대표자', '대리인' (사람의 이름표 = 명사)</span>
     </div>
   </div>
@@ -260,12 +306,18 @@
   <!-- Options Grid -->
   <div data-hf-id="hf-3vyn" class="f09-options-grid">
     <div data-hf-id="hf-w9qu" class="f09-option-btn" id="opt1">
-      <div data-hf-id="hf-virr" class="f09-option-num">1</div>
-      <span data-hf-id="hf-xjld">델리게이트 [-eɪt]</span>
+      <div data-hf-id="hf-ahdr" class="f09-option-left">
+        <div data-hf-id="hf-virr" class="f09-option-num" id="optNum1">1</div>
+        <span data-hf-id="hf-xjld">델리게이트 [-eɪt]</span>
+      </div>
+      <div data-hf-id="hf-e9d2" class="f09-option-badge wrong" id="badge1">❌ 오답 (동사형)</div>
     </div>
     <div data-hf-id="hf-sbmt" class="f09-option-btn" id="opt2">
-      <div data-hf-id="hf-v4gq" class="f09-option-num">2</div>
-      <span data-hf-id="hf-tybj">델리것 [-ɡət]</span>
+      <div data-hf-id="hf-uuf3" class="f09-option-left">
+        <div data-hf-id="hf-v4gq" class="f09-option-num" id="optNum2">2</div>
+        <span data-hf-id="hf-tybj">델리것 [-ɡət]</span>
+      </div>
+      <div data-hf-id="hf-hr8q" class="f09-option-badge correct" id="badge2">⭕ 정답! (명사 축약)</div>
     </div>
   </div>
 
@@ -283,8 +335,12 @@
   <!-- Caption Pill -->
   <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
 
-  <!-- Audio -->
+  <!-- Audio: Voiceover + SFX -->
   <audio data-hf-id="hf-8y4u" id="v09" src="assets/voice/09.wav" data-audio-group="voiceover" data-start="0" data-duration="32.92"></audio>
+  <audio data-hf-id="hf-ffe1" id="sfx-tick1" src="assets/audio/core-pass-tick.wav" data-hf-media-start-basis="local" data-start="16.60" data-duration="0.08" data-volume="0.5"></audio>
+  <audio data-hf-id="hf-ld47" id="sfx-tick2" src="assets/audio/core-pass-tick.wav" data-hf-media-start-basis="local" data-start="17.60" data-duration="0.08" data-volume="0.5"></audio>
+  <audio data-hf-id="hf-kabg" id="sfx-tick3" src="assets/audio/core-pass-tick.wav" data-hf-media-start-basis="local" data-start="18.60" data-duration="0.08" data-volume="0.6"></audio>
+  <audio data-hf-id="hf-8ivq" id="sfx-ding" src="assets/audio/core-pass-ding.wav" data-hf-media-start-basis="local" data-start="19.80" data-duration="0.58" data-volume="0.7"></audio>
 </div>
 
 <script>
@@ -312,41 +368,65 @@
 
     // Sentence 3 (13.80s ~ 16.60s): Think for 3 seconds
     tl.call(function () { setCaption("3초 동안 생각해 보세요."); }, null, 13.80);
-    tl.to("#timerBox", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }, 15.5);
+    tl.to("#timerContainer", { opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 15.0);
 
-    // ⭐️ 3-Second Silence Countdown (16.60s ~ 19.60s) — NO SPOILERS!
-    tl.call(function () { timer.textContent = "3"; }, null, 16.60);
-    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 16.65);
+    // ⭐️ 3-Second High-Tension Silence Countdown (16.60s ~ 19.60s)
+    // Count 3: Golden Amber pulse
+    tl.call(function () {
+      timer.textContent = "3";
+      timer.style.color = "#F5C518";
+      timer.style.borderColor = "#F5C518";
+      timer.style.boxShadow = "0 0 20px rgba(245,197,24,0.6)";
+    }, null, 16.60);
+    tl.to("#timerBox", { scale: 1.25, duration: 0.25, yoyo: true, repeat: 1 }, 16.65);
 
-    tl.call(function () { timer.textContent = "2"; }, null, 17.60);
-    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 17.65);
+    // Count 2: Warning Orange pulse
+    tl.call(function () {
+      timer.textContent = "2";
+      timer.style.color = "#FF793F";
+      timer.style.borderColor = "#FF793F";
+      timer.style.boxShadow = "0 0 25px rgba(255,121,63,0.75)";
+    }, null, 17.60);
+    tl.to("#timerBox", { scale: 1.3, duration: 0.25, yoyo: true, repeat: 1 }, 17.65);
 
-    tl.call(function () { timer.textContent = "1"; }, null, 18.60);
-    tl.to("#timerBox", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1 }, 18.65);
+    // Count 1: Urgent Crimson Alert pulse!
+    tl.call(function () {
+      timer.textContent = "1";
+      timer.style.color = "#FF3838";
+      timer.style.borderColor = "#FF3838";
+      timer.style.boxShadow = "0 0 35px rgba(255,56,56,0.9)";
+    }, null, 18.60);
+    tl.to("#timerBox", { scale: 1.38, duration: 0.25, yoyo: true, repeat: 1 }, 18.65);
 
-    // Sentence 4 (19.60s ~ 25.50s): 09b Reveal! Name badge, drop tail
+    // Sentence 4 (19.60s ~ 25.50s): 09b Reveal! Dopamine Explosion!
     tl.call(function () { setCaption("맞습니다! 이름표를 달았으니 앞머리에 힘을 주고 뒤는 툭 떨어뜨려야 하죠."); }, null, 19.60);
-    tl.to("#timerBox", { opacity: 0, scale: 0.5, duration: 0.3 }, 19.60);
-    // Correct Option 2 Glows Blue Neon!
+    tl.to("#timerContainer", { opacity: 0, scale: 0.5, duration: 0.3 }, 19.60);
+
+    // Correct Option 2 Glows Blue Neon + Green Check Badge!
     tl.to("#opt2", {
-      background: "#FFF",
+      background: "#F0F8FF",
       border: "3.5px solid #2E86AB",
-      boxShadow: "0 0 35px rgba(46,134,171,0.7), 6px 6px 0px #2B2B2B",
+      boxShadow: "0 0 35px rgba(46,134,171,0.75), 6px 6px 0px #2B2B2B",
       scale: 1.05,
       duration: 0.4,
       ease: "back.out(1.7)"
-    }, 19.8);
-    tl.to("#opt1", { opacity: 0.4, scale: 0.95, duration: 0.3 }, 19.8);
+    }, 19.80);
+    tl.to("#badge2", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 19.85);
 
-    // Character Celebrate Popup!
+    // Wrong Option 1 Dimmed & Marked with ❌
+    tl.to("#opt1", { opacity: 0.28, scale: 0.95, duration: 0.3 }, 19.80);
+    tl.to("#badge1", { opacity: 1, scale: 1, duration: 0.3 }, 19.85);
+
+    // Celebrate Character leaps in!
     tl.to("#charCelebrate", { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.8)" }, 20.0);
 
-    // Sentence 5 (25.50s ~ 29.20s): Answer is delegut
+    // Sentence 5 (25.50s ~ 29.20s): Answer is delegut!
     tl.call(function () { setCaption("정답은 바로 '델리것'입니다."); }, null, 25.50);
     tl.to("#answerBanner", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 26.0);
 
     // Sentence 6 (29.20s ~ 32.92s): Got both right?
     tl.call(function () { setCaption("두 문제 다 맞히셨나요?"); }, null, 29.20);
+    tl.to("#answerBanner", { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1 }, 29.5);
 
     // Outro transition
     tl.to(["#quizCard", "#opt1", "#opt2", "#charCelebrate", "#answerBanner"], {

@@ -85,6 +85,170 @@
     letter-spacing: -0.3px;
   }
 
+  /* Story Stage (0.0s ~ 13.5s Restaurant Empathy Intro) */
+  .f05-story-stage {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    width: 86cqw;
+    height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5cqw;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .f05-story-receipt {
+    width: 360px;
+    height: 460px;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  .f05-story-receipt img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+  }
+  .f05-story-badge-korean {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #F5C518;
+    color: #2B2B2B;
+    border: 2.5px solid #2B2B2B;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    border-radius: 999px;
+    font-size: 1.05cqw;
+    font-weight: 900;
+    padding: 0.5cqh 1.2cqw;
+  }
+  .f05-story-word-callout {
+    position: absolute;
+    bottom: 20px;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 14px;
+    padding: 0.8cqh 1.4cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.5cqw;
+    color: #2E86AB;
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  /* Center Clash Bubbles */
+  .f05-story-clash {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5cqh;
+    align-items: center;
+    width: 320px;
+  }
+  .f05-speech-bubble-wrong {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 18px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1.5cqh 1.6cqw;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(-20px);
+    width: 100%;
+    border-left: 10px solid #FF5E57;
+  }
+  .f05-speech-bubble-correct {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 18px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1.5cqh 1.6cqw;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(20px);
+    width: 100%;
+    border-left: 10px solid #2E86AB;
+  }
+  .f05-bubble-label {
+    font-size: 0.95cqw;
+    font-weight: 900;
+    color: #7A7365;
+    margin-bottom: 0.3cqh;
+  }
+  .f05-bubble-text {
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+  }
+  .f05-speech-bubble-wrong .f05-bubble-text { color: #C0392B; text-decoration: line-through 3px #FF4757; }
+  .f05-speech-bubble-correct .f05-bubble-text { color: #165069; }
+
+  /* Story Character (Stop-Motion Stack) */
+  .f05-story-char {
+    position: relative;
+    width: 400px;
+    height: 460px;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .f05-story-char-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+  }
+  .f05-story-char-frame.active {
+    opacity: 1;
+  }
+  .f05-story-qmark {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    font-size: 3cqw;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  /* Question Banner */
+  .f05-story-banner {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: #F5C518;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 999px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    padding: 1cqh 2.4cqw;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    opacity: 0;
+    z-index: 30;
+    white-space: nowrap;
+  }
+
   /* Dual Card Grid */
   .f05-grid {
     position: absolute;
@@ -246,10 +410,45 @@
     <span data-hf-id="hf-ckdy">실전 단어 2: separate (분리·계산)</span>
   </div>
 
-  <!-- Receipt Illustration -->
-  <div data-hf-id="hf-jl9l" class="f05-receipt-art" id="receiptArt">
-    <img data-hf-id="hf-2prt" src="assets/images/restaurant_check.jpg" alt="Restaurant Check">
-    <div data-hf-id="hf-m7kd" class="f05-receipt-korean-tag">🧾 각자 계산서 (형용사)</div>
+  <!-- Story Stage (0.0s ~ 13.5s: Restaurant Dutch Pay & Pronunciation Clash) -->
+  <div data-hf-id="hf-s05s" class="f05-story-stage" id="storyStage">
+    <!-- Left: Restaurant Bill / Check -->
+    <div data-hf-id="hf-s05r" class="f05-story-receipt" id="storyReceipt">
+      <img data-hf-id="hf-s05m" src="assets/images/restaurant_check.jpg" alt="Restaurant Check">
+      <div data-hf-id="hf-s05b" class="f05-story-badge-korean">🍽️ 해외 식당 더치페이 상황</div>
+      <!-- Magnifier / Callout on 'separate check' -->
+      <div data-hf-id="hf-s05w" class="f05-story-word-callout" id="storyWordCallout">
+        <span data-hf-id="hf-s05l">🔍</span>
+        <span data-hf-id="hf-s05t">separate check</span>
+      </div>
+    </div>
+
+    <!-- Center Clash: Wrong vs Correct Speech Bubbles -->
+    <div data-hf-id="hf-s05c" class="f05-story-clash" id="storyClash">
+      <!-- Wrong Bubble: "세퍼레이트 체크?!" -->
+      <div data-hf-id="hf-s05w" class="f05-speech-bubble-wrong" id="bubbleWrong">
+        <div data-hf-id="hf-s05k" class="f05-bubble-label">흔한 오답 발음</div>
+        <div data-hf-id="hf-s05x" class="f05-bubble-text">"세퍼레이트 체크?" ❌</div>
+      </div>
+      <!-- Correct Bubble: "세퍼럿 체크!" -->
+      <div data-hf-id="hf-s05a" class="f05-speech-bubble-correct" id="bubbleCorrect">
+        <div data-hf-id="hf-s05u" class="f05-bubble-label">🇺🇸 원어민 정답 발음</div>
+        <div data-hf-id="hf-s05v" class="f05-bubble-text">"세퍼럿 체크! [ -rət ]" ⭕️</div>
+      </div>
+    </div>
+
+    <!-- Right: Confused Presenter Character (Stop-Motion Frame Stack) -->
+    <div data-hf-id="hf-s05p" class="f05-story-char" id="storyChar">
+      <img data-hf-id="hf-s051" class="f05-story-char-frame active" id="storyChar1" src="assets/images/char_confused.jpg" alt="Confused Pose 1">
+      <img data-hf-id="hf-s052" class="f05-story-char-frame" id="storyChar2" src="assets/images/char_confused_step1_locked.jpg" alt="Confused Pose 2">
+      <div data-hf-id="hf-s05q" class="f05-story-qmark" id="storyQMark">❓❓</div>
+    </div>
+
+    <!-- Question Banner (at 7.3s: 계산 따로따로 해주세요 할 때?) -->
+    <div data-hf-id="hf-s05e" class="f05-story-banner" id="storyBanner">
+      <span data-hf-id="hf-s05g">🗣️</span>
+      <span data-hf-id="hf-s05h">"계산 따로따로 해주세요" 원어민은 뭐라고 할까요?</span>
+    </div>
   </div>
 
   <!-- Grid -->
@@ -313,15 +512,35 @@
     // Progress (32.33% -> 43.31%)
     tl.to("#pfill", { width: "43.31%", duration: 49.96, ease: "none" }, 0);
 
-    // Sentence 1 (0.45s ~ 7.28s): Intro separate & Receipt
+    // Sentence 1 (0.45s ~ 7.28s): Intro separate & Restaurant Story Stage
     tl.call(function () { setCaption("두 번째는 해외 식당에서 계산할 때 무조건 쓰는 separate입니다."); }, null, 0.45);
-    tl.to("#receiptArt", { opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.6)" }, 0.45);
+    tl.to("#storyStage", { opacity: 1, duration: 0.35 }, 0.45);
+    tl.to("#storyReceipt", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.5);
+    tl.to("#storyWordCallout", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 1.2);
+    tl.to("#storyChar", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 2.0);
 
-    // Sentence 2 (7.30s ~ 13.28s): Separate check question
+    // Sentence 2 (7.30s ~ 13.28s): Separate check question & Pronunciation Clash
     tl.call(function () { setCaption("식당에서 \"계산 따로따로 해주세요\" 할 때 원어민들은 뭐라고 할까요?"); }, null, 7.30);
+    tl.to("#storyBanner", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 7.35);
+    tl.to("#bubbleWrong", { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 7.8);
+    tl.to("#bubbleCorrect", { opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)" }, 8.4);
+    // Stop-motion character shake (Pose 1 <-> Pose 2)
+    tl.to("#storyChar2", { opacity: 1, duration: 0.1 }, 8.6);
+    tl.set("#storyChar1", { opacity: 0 }, 8.65);
+    tl.to("#storyQMark", { opacity: 1, scale: 1.2, duration: 0.3, ease: "back.out(2)" }, 8.7);
+    tl.to("#storyChar1", { opacity: 1, duration: 0.1 }, 9.4);
+    tl.set("#storyChar2", { opacity: 0 }, 9.45);
+    tl.to("#storyChar2", { opacity: 1, duration: 0.1 }, 10.2);
+    tl.set("#storyChar1", { opacity: 0 }, 10.25);
+    tl.to("#storyChar", { rotation: -6, y: -8, duration: 0.35, yoyo: true, repeat: 3 }, 8.8);
+
+    // Transition out of story stage (12.8s ~ 13.3s) -> Main Practice Cards in
+    tl.to("#storyStage", { opacity: 0, scale: 0.9, duration: 0.35, ease: "power2.in" }, 12.8);
+    tl.to("#receiptArt", { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.5)" }, 13.2);
 
     // Sentence 3 (13.30s ~ 22.61s): State of being separate
     tl.call(function () { setCaption("'따로따로의'라는 상태를 나타내니까 앞만 쾅 치고 뒤는 힘을 뺍니다. separate check!"); }, null, 13.30);
+    tl.to("#cardVerb", { opacity: 0.35, y: 0, duration: 0.5 }, 13.6);
     tl.to("#cardAdj", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 13.6);
 
     // Sentence 4 (22.65s ~ 29.38s): Not separate, but separut
@@ -330,7 +549,9 @@
 
     // Sentence 5 (29.40s ~ 36.68s): Verb action to separate
     tl.call(function () { setCaption("반대로 무언가를 '나누다'라는 행동일 땐 뒤를 살려 to separate."); }, null, 29.40);
-    tl.to("#cardVerb", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 29.8);
+    tl.to("#cardAdj", { opacity: 0.4, duration: 0.4 }, 29.4);
+    tl.to("#cardVerb", { opacity: 1, scale: 1.03, duration: 0.5, ease: "back.out(1.5)" }, 29.8);
+    tl.to("#cardVerb", { scale: 1.0, duration: 0.3 }, 30.3);
 
     // Sentence 6 (36.70s ~ 41.88s): Let's repeat 3 times
     tl.call(function () { setCaption("자, 식당에서 주문하듯 형용사 소리를 3번 따라 해보겠습니다."); }, null, 36.70);

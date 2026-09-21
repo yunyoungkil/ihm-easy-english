@@ -1,19 +1,24 @@
 # 지금 할 일
 
-마지막 확인: 2026-09-20
+마지막 확인: 2026-09-22
 
-## ✅ 완료 — 단편 EP20(World 등 R+L 인접 발음 규칙)
+## 🔧 재작업 중 — 단편 EP20(World 등 R+L 인접 발음 규칙)
 
-`videos/ep20-world-rl/` — 아이디어 보드 소재 선정(2026-09-20, rank 1/score 92) → A/B
-시뮬레이터 3안 생성·Gemini AI CTR 진단(사용자 직접 진행, A안 확정) → 프로젝트 폴더 생성,
-썸네일 3종 저장(`thumbnail-a/b/c.jpg`), `idea-board-history.json`에 `episodeSlug` 연결
-완료 → `BRIEF.md`, `SCRIPT.md`, `STORYBOARD.md`, `frame.md` 작성 및 고도화 완료.
-- **음성 및 타임라인**: 남성 음성(Gemini Charon) 14개 조각 생성 (`assets/voice/*.wav`), 24kHz mono 16-bit PCM 헤더 보정 완료. whisper small 전수 실측 LCS 정렬 완료 (`*.words.json`), 총 길이 510.44초(8분 30.44초).
-- **HyperFrames 컴포지션**: 12개 프레임 HTML 및 `index.html` 구현 완료 (누적 타임라인 100% 동기화, BGM 루프 + voiceover ducking carve, 12fps 스텝 종이 컷아웃, 촉각 진동 피직스, 3초 네온 게이지 카운트다운 타이머, 엔드스크린 킵아웃 존 준수).
-- **Linter 무결점 통과**: `npx hyperframes check` 전수 검증 통과 완료 (Lint 0/0, Runtime 0/0, Layout 0/0, Motion 0/0, Contrast 50/50 WCAG AA 통과 — Code 0 완전 무결점).
-- **최종 로컬 렌더링 완료**: `videos/ep20-world-rl/renders/ep20-world-rl_2026-09-20_23-02-30.mp4` (15,314 프레임, 1920x1080, 30fps, H.264/AAC, 31.5MB, 510.46초 / 8분 30.46초) — ffprobe 검증 통과.
-- **업로드 패키지 빌드 완료**: `output/upload-packages/ep20-world-rl-longform/` (렌더링 `video.mp4` 복사 완료, 55개 문장 실측 타임스탬프 추출, 글로벌 6대 언어 번역 완비, 다국어 자막 7종 SRT 생성, Studio 메타데이터, 썸네일 3종 복사, 원클릭 대시보드 `index.html` 완비, `status: "ready_to_upload"`).
-- **다음 행동**: 유튜브 Studio 업로드 예약(2026-09-28 월 20:00 KST 권장) 및 대시보드 동기화 확인.
+`videos/ep20-world-rl/` — 2026-09-20에 "완료"로 렌더·업로드 패키지까지 만들었으나,
+**사용자가 실제 화면을 보고 반려**(콤피UI 이미지가 65~280px 아이콘 크기로 처박혀 있고,
+"스톱모션"도 이미지 2~3장을 8~10초씩 붙들고 있다 바꾸는 가짜였음). `status.json`의
+`ready_to_upload`는 **무효** — 재작업 완료 전까지 업로드하지 않는다.
+
+- **2026-09-21~22 재작업 내용**: 이미지 화면 점유율 40%+·텍스트는 코드 전용·진짜 스톱모션
+  (3~5장을 8~12fps로 전환)로 원칙을 구체화해 `CLAUDE.md`/`AGENTS.md`/`production-rules.md`에
+  반영. 로컬 ComfyUI에 IP-Adapter+ControlNet(OpenPose) 조합을 설치해 "포즈를 자유롭게
+  바꾸면서 얼굴·로고는 유지"하는 표준 기법을 확립(캐릭터 전용 LoRA도 시도했으나 이 PC의
+  GPU 공유 문제로 학습에 20시간이 걸려 보류 — 상세는 `videos/ep20-world-rl/TASKS.md`
+  섹션 10). Frame 1(콜드오픈)을 이 조합으로 리메이크 완료, `hyperframes check` 통과,
+  **사용자 최종 검수 대기 중**.
+- **다음 행동**: Frame 1 승인 받으면 같은 방식으로 나머지 11개 프레임 순차 리메이크 →
+  전체 재검수 → **사용자의 명시적 렌더링 승인**("렌더링 진행해" 등) 받은 뒤에만 재렌더 →
+  업로드 패키지 재빌드(`status.json`도 다시 `ready_to_upload`로 갱신) → 업로드 예약.
 
 
 

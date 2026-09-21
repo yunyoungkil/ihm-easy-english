@@ -1,0 +1,66 @@
+{
+  "10": {
+    "path": "assets/voice/10.wav",
+    "duration_s": 47.88
+  },
+  "11": {
+    "path": "assets/voice/11.wav",
+    "duration_s": 37.88
+  },
+  "12": {
+    "path": "assets/voice/12.wav",
+    "duration_s": 26.6
+  },
+  "01": {
+    "path": "assets/voice/01.wav",
+    "duration_s": 59.04
+  },
+  "02": {
+    "path": "assets/voice/02.wav",
+    "duration_s": 33.96
+  },
+  "03": {
+    "path": "assets/voice/03.wav",
+    "duration_s": 40.8
+  },
+  "04": {
+    "path": "assets/voice/04.wav",
+    "duration_s": 38.2
+  },
+  "05": {
+    "path": "assets/voice/05.wav",
+    "duration_s": 39.24
+  },
+  "06": {
+    "path": "assets/voice/06.wav",
+    "duration_s": 39.76
+  },
+  "07": {
+    "path": "assets/voice/07.wav",
+    "duration_s": 39.92
+  },
+  "08": {
+    "path": "assets/voice/08.wav",
+    "duration_s": 36
+  },
+  "09a": {
+    "path": "assets/voice/09a.wav",
+    "duration_s": 47.4
+  },
+  "09b": {
+    "path": "assets/voice/09b.wav",
+    "duration_s": 15.76
+  },
+  "09": {
+    "path": "assets/voice/09.wav",
+    "duration_s": 66.16
+  },
+  "10a": {
+    "path": "assets/voice/10a.wav",
+    "duration_s": 29.32
+  },
+  "10b": {
+    "path": "assets/voice/10b.wav",
+    "duration_s": 15.56
+  }
+}

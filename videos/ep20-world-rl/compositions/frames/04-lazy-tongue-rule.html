@@ -1,0 +1,333 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 26.21%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Badge */
+  .frame-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00E5A3;
+    color: #2B2B2B;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Dual Contrast Stage */
+  .contrast-stage {
+    position: absolute;
+    top: 15cqh;
+    left: 8cqw;
+    right: 8cqw;
+    height: 72cqh;
+    display: flex;
+    gap: 4cqw;
+  }
+
+  /* Card Bad (Red) */
+  .card-bad {
+    flex: 1;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    opacity: 0.6;
+  }
+  .card-bad-tag {
+    background: #B71515;
+    color: #FFFFFF;
+    border: 2.5px solid #2B2B2B;
+    border-radius: 10px;
+    padding: 0.4cqh 1.2cqw;
+    font-size: 1.1cqw;
+    font-weight: 900;
+  }
+  .tongue-straining {
+    font-size: 5cqw;
+    position: relative;
+  }
+  .straining-desc {
+    font-size: 1.35cqw;
+    font-weight: 800;
+    color: #555045;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .bad-cross-line {
+    position: absolute;
+    inset: 15% 10%;
+    border-top: 6px solid #FF4757;
+    transform: rotate(25deg);
+    opacity: 0;
+  }
+
+  /* Card Good (Mint / Gold Highlight) */
+  .card-good {
+    flex: 1.2;
+    background: #FFFFFF;
+    border: 4px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 8px 8px 0px #2B2B2B;
+    padding: 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .card-good-tag {
+    background: #00E5A3;
+    color: #2B2B2B;
+    border: 2.5px solid #2B2B2B;
+    border-radius: 10px;
+    padding: 0.4cqh 1.4cqw;
+    font-size: 1.2cqw;
+    font-weight: 900;
+  }
+  .relax-illustration-box {
+    width: 280px;
+    height: 220px;
+    background: #F0FFF9;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    overflow: hidden;
+    position: relative;
+  }
+  .relax-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Soundwave Rings Container */
+  .soundwave-box {
+    position: absolute;
+    right: 3cqw;
+    bottom: 3cqw;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sw-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #2E86AB;
+    opacity: 0;
+  }
+
+  /* Mint Pass Rubber Stamp */
+  .mint-stamp {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-8deg) scale(2);
+    background: #00E5A3;
+    color: #2B2B2B;
+    border: 5px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 1.8cqh 2.8cqw;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.6cqw;
+    white-space: nowrap;
+    opacity: 0;
+    z-index: 25;
+    pointer-events: none;
+  }
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1600px;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-04" id="root" data-composition-id="04-lazy-tongue-rule" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-04" class="progress-track">
+    <div data-hf-id="hf-pfill-04" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <div data-hf-id="hf-badge-04" class="frame-badge" id="frameBadge">
+    <span data-hf-id="hf-2izu">💡 반전 공개</span>
+    <span data-hf-id="hf-cf0d">원어민의 비밀: '게으른 혀'의 법칙</span>
+  </div>
+
+  <div data-hf-id="hf-stage-04" class="contrast-stage">
+    <!-- Bad: Straining to touch roof -->
+    <div data-hf-id="hf-cbad-04" class="card-bad" id="cardBad">
+      <div data-hf-id="hf-btag-04" class="card-bad-tag">❌ 우리가 배운 피곤한 방법</div>
+      <div data-hf-id="hf-bicon-04" class="tongue-straining">👅💦</div>
+      <div data-hf-id="hf-bdesc-04" class="straining-desc">
+        혀끝을 억지로 입천장에 붙이려고<br data-hf-id="hf-x5px">
+        용을 쓰다가 턱에 경련 발생!
+      </div>
+      <div data-hf-id="hf-bline-04" class="bad-cross-line" id="badCross"></div>
+    </div>
+
+    <!-- Good: Relaxed Slime Tongue with 2 Illustrations -->
+    <div data-hf-id="hf-cgood-04" class="card-good" id="cardGood">
+      <div data-hf-id="hf-gtag-04" class="card-good-tag">✔ 원어민의 진짜 소리 비법</div>
+      <div data-hf-id="hf-slime-04" class="relax-illustration-box" id="relaxBox" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+        <img data-hf-id="hf-img-sofa" id="imgSofa" class="relax-img" src="assets/images/f04_lazy_sofa.jpg" alt="Lazy Sofa Analogy">
+        <img data-hf-id="hf-img-relax" id="imgTongueRelax" class="relax-img" src="assets/images/f04_tongue_relax.jpg" alt="Relaxed Tongue Diagram" style="display: none;">
+      </div>
+      <div data-hf-id="hf-gdesc-04" style="font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; line-height: 1.4;">
+        R 자세 그대로 둔 채,<br data-hf-id="hf-rsrt">
+        목구멍에서 게으르게 '을' 흘려보내기!
+      </div>
+
+      <!-- Soundwave Rings -->
+      <div data-hf-id="hf-swb-04" class="soundwave-box">
+        <div data-hf-id="hf-r1-04" class="sw-ring" id="ring1" style="width: 30px; height: 30px;"></div>
+        <div data-hf-id="hf-r2-04" class="sw-ring" id="ring2" style="width: 60px; height: 60px;"></div>
+        <div data-hf-id="hf-r3-04" class="sw-ring" id="ring3" style="width: 90px; height: 90px;"></div>
+      </div>
+
+      <!-- Stamp -->
+      <div data-hf-id="hf-mstamp-04" class="mint-stamp" id="mintStamp" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+        ✔ 혀끝 닿지 마세요!
+      </div>
+    </div>
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-04" class="caption-container">
+    <div data-hf-id="hf-c1-04" class="caption-line" id="cap1">그렇다면 원어민은 이 끔찍한 충돌을 어떻게 피할까요?</div>
+    <div data-hf-id="hf-c2-04" class="caption-line" id="cap2">비밀은 바로 '게으른 혀'에 있습니다.</div>
+    <div data-hf-id="hf-c3-04" class="caption-line" id="cap3">놀랍게도 단어 끝이나 자음 앞에 붙는 L은, 혀끝을 부지런히 천장에 붙일 필요가 전혀 없습니다.</div>
+    <div data-hf-id="hf-c4-04" class="caption-line" id="cap4">R을 소리 내면서 이미 뒤로 당겨둔 그 편안한 자세를 그대로 둔 채, 목구멍 안쪽에서 '을' 하고 게으르게 소리만 흘려보내면 끝나거든요.</div>
+    <div data-hf-id="hf-c5-04" class="caption-line" id="cap5">원어민은 혀끝으로 힘들게 소리를 만드는 게 아니라, 힘을 쏙 뺀 게으른 울림으로 소리를 냅니다.</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-04" id="vo-04" src="assets/voice/04.wav" data-start="0" data-duration="38.20" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative: 172.00 / 510.44 = 33.70%)
+    tl.fromTo("#pfill", { width: "26.21%" }, { width: "33.70%", duration: 38.20, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#cardBad", { x: -40, opacity: 0 }, { x: 0, opacity: 0.6, duration: 0.5, ease: "power2.out" }, 0.3);
+    tl.fromTo("#cardGood", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+
+    // Sentence 1 (0.5s ~ 4.2s)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+
+    // Sentence 2 (4.5s ~ 8.8s)
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 4.3);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 4.5);
+
+    // Bad Cross Slash at 7.0s
+    tl.to("#badCross", { opacity: 1, duration: 0.3 }, 7.0);
+
+    // Sentence 3 (9.0s ~ 18.2s)
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 8.8);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 9.0);
+
+    // Mint Stamp drops at 14.0s
+    tl.to("#mintStamp", { opacity: 1, scale: 1, duration: 0.35, ease: "power4.in" }, 14.0);
+    tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 14.35); // 2px screen shake
+
+    // Sentence 4 (18.5s ~ 30.5s): Stepped cut from sofa to relaxed tongue diagram
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 18.3);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 18.5);
+    tl.set("#imgSofa", { display: "none" }, 18.5);
+    tl.set("#imgTongueRelax", { display: "block" }, 18.5);
+    tl.to("#relaxBox", { y: "-=4", yoyo: true, repeat: 2, duration: 0.08, ease: "steps(4)" }, 18.5);
+
+    // Soundwave pulse rings (20.0s ~ 30.0s)
+    tl.fromTo("#ring1", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 7 }, 20.0);
+    tl.fromTo("#ring2", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 7 }, 20.4);
+    tl.fromTo("#ring3", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 7 }, 20.8);
+
+    // Sentence 5 (30.8s ~ 37.8s)
+    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 30.6);
+    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 30.8);
+
+    // Frame exit
+    tl.to(["#cardBad", "#cardGood", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.8);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["04-lazy-tongue-rule"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

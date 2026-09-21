@@ -1,0 +1,475 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Top Progress Bar */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Header Ribbon */
+  .hook-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    background: #FF4757;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Layout: Left Host + Right Smartphone Mockup */
+  .main-stage {
+    position: absolute;
+    top: 15cqh;
+    left: 6cqw;
+    right: 6cqw;
+    height: 72cqh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4cqw;
+  }
+
+  /* Left: Host Avatar Card — illustration is the scene's protagonist (2026-09-21 rule:
+     images must be the dominant visual, not a small icon next to a big code card). */
+  .host-card {
+    position: relative;
+    width: 46cqw;
+    height: 100%;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 2cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .host-illustration-box {
+    position: relative;
+    width: 100%;
+    height: 52cqh;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    background: #FAF7F2;
+  }
+  .host-illustration-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .host-sweat {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-size: 3.5cqw;
+    opacity: 0;
+    transform: scale(0);
+    z-index: 10;
+  }
+  .host-bubble {
+    margin-top: 2.5cqh;
+    background: #FAF7F2;
+    border: 3px solid #2B2B2B;
+    border-radius: 16px;
+    padding: 1.2cqh 1.8cqw;
+    font-size: 1.35cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    box-shadow: 3px 3px 0px #2B2B2B;
+  }
+
+  /* Right: Smartphone App Screen Mockup — secondary/supporting element now, not the
+     dominant visual (2026-09-21 rule). Data/text display stays code-rendered. */
+  .phone-mockup {
+    position: relative;
+    width: 36cqw;
+    height: 100%;
+    background: #FFFFFF;
+    border: 4px solid #2B2B2B;
+    border-radius: 36px;
+    box-shadow: 8px 8px 0px #2B2B2B;
+    padding: 3cqh 2.8cqw;
+    display: flex;
+    flex-direction: column;
+    gap: 2cqh;
+    overflow: hidden;
+  }
+  .phone-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1cqw;
+    font-weight: 800;
+    color: #7A7365;
+    border-bottom: 2px dashed #2B2B2B;
+    padding-bottom: 1cqh;
+  }
+  .phone-app-title {
+    font-family: 'Archivo Black', sans-serif;
+    color: #2B2B2B;
+  }
+
+  /* Word recognition item row */
+  .word-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAF7F2;
+    border: 3px solid #2B2B2B;
+    border-radius: 16px;
+    padding: 1.4cqh 1.8cqw;
+    box-shadow: 3px 3px 0px #2B2B2B;
+  }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2cqw;
+    color: #2B2B2B;
+  }
+  .word-status {
+    display: flex;
+    align-items: center;
+    gap: 0.6cqw;
+    font-size: 1.2cqw;
+    font-weight: 900;
+  }
+  .status-pass { color: #00875A; }
+  .status-fail { color: #FF4757; }
+
+  /* Red Alert Box for WORLD */
+  .error-callout {
+    background: #FFF5F5;
+    border: 3.5px solid #FF4757;
+    border-radius: 20px;
+    padding: 1.8cqh 2cqw;
+    box-shadow: 4px 4px 0px #FF4757;
+    display: flex;
+    flex-direction: column;
+    gap: 1cqh;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .error-img-box {
+    width: 100%;
+    height: 150px;
+    border-radius: 12px;
+    border: 2.5px solid #FF4757;
+    overflow: hidden;
+    background: #FFFFFF;
+  }
+  .error-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .error-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #FF4757;
+  }
+  .error-recognized-box {
+    display: flex;
+    gap: 1.2cqw;
+  }
+  .recognized-card {
+    flex: 1;
+    background: #FFFFFF;
+    border: 2.5px solid #2B2B2B;
+    border-radius: 12px;
+    padding: 1cqh;
+    text-align: center;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .rec-label { font-size: 0.95cqw; font-weight: 700; color: #7A7365; }
+  .rec-word { font-family: 'Archivo Black', sans-serif; font-size: 1.8cqw; color: #FF4757; }
+
+  /* Gold Solution Card (pops at 45s) */
+  .solution-banner {
+    position: absolute;
+    inset: 4cqh 3cqw;
+    background: #FFE500;
+    border: 4px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 8px 8px 0px #2B2B2B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2cqh;
+    opacity: 0;
+    transform: scale(0.85);
+    z-index: 25;
+  }
+  .sol-tag {
+    background: #2B2B2B;
+    color: #FFE500;
+    padding: 0.6cqh 1.8cqw;
+    border-radius: 100px;
+    font-size: 1.3cqw;
+    font-weight: 900;
+  }
+  .sol-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.8cqw;
+    color: #2B2B2B;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .sol-formula {
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 1.2cqh 2.4cqw;
+    font-size: 2cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+  }
+
+  /* Captions Container & Lines (Cross-fade scrubber safe) */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1750px;
+    font-size: 1.4cqw;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-01" id="root" data-composition-id="01-cold-open" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-01" class="progress-track">
+    <div data-hf-id="hf-pfill-01" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Top Badge -->
+  <div data-hf-id="hf-badge-01" class="hook-badge" id="hookBadge">
+    <span data-hf-id="hf-clkx">⚠️ 망신의 순간</span>
+    <span data-hf-id="hf-udge">스마트폰 영어 앱의 붉은 오답창</span>
+  </div>
+
+  <!-- Main Stage -->
+  <div data-hf-id="hf-stage-01" class="main-stage">
+    <!-- Left: Host with 12fps stepped stop-motion cutouts -->
+    <div data-hf-id="hf-host-01" class="host-card" id="hostCard">
+      <div data-hf-id="hf-avatar-01" class="host-illustration-box" data-layout-allow-overflow="true">
+        <img data-hf-id="hf-img-01-f0" id="hostImgF0" class="host-illustration-img" src="assets/images/f01_react_00_neutral.jpg" alt="Neutral Host">
+        <img data-hf-id="hf-img-01-f1" id="hostImgF1" class="host-illustration-img" src="assets/images/f01_react_01_confused.jpg" alt="Confused Host" style="display: none; position: absolute; inset: 0;">
+        <img data-hf-id="hf-img-01-f2" id="hostImgF2" class="host-illustration-img" src="assets/images/f01_react_02_surprised.jpg" alt="Surprised Host" style="display: none; position: absolute; inset: 0;">
+        <img data-hf-id="hf-img-01-f3" id="hostImgF3" class="host-illustration-img" src="assets/images/f01_react_03_shocked.jpg" alt="Shocked Host" style="display: none; position: absolute; inset: 0;">
+        <span data-hf-id="hf-sweat-01" class="host-sweat" id="hostSweat" data-layout-allow-overflow="true">💦</span>
+      </div>
+      <div data-hf-id="hf-bubble-01" class="host-bubble" id="hostBubble">
+        "턱이 빠져라 혀를 굴렸는데...<br data-hf-id="hf-x5px">왜 자꾸 오답이 뜨지?!"
+      </div>
+    </div>
+
+    <!-- Right: Smartphone Screen -->
+    <div data-hf-id="hf-phone-01" class="phone-mockup" id="phoneMockup">
+      <div data-hf-id="hf-pbar-01" class="phone-top-bar">
+        <span data-hf-id="hf-ptt-01" class="phone-app-title">AI PRONUNCIATION TEST</span>
+        <span data-hf-id="hf-dr9d">LEVEL: BEGINNER</span>
+      </div>
+
+      <!-- Word 1 Pass -->
+      <div data-hf-id="hf-w1-01" class="word-row" id="rowApple">
+        <span data-hf-id="hf-w1t-01" class="word-text">Apple</span>
+        <span data-hf-id="hf-w1s-01" class="word-status status-pass">✔ PASS 100%</span>
+      </div>
+
+      <!-- Word 2 Pass -->
+      <div data-hf-id="hf-w2-01" class="word-row" id="rowWater">
+        <span data-hf-id="hf-w2t-01" class="word-text">Water</span>
+        <span data-hf-id="hf-w2s-01" class="word-status status-pass">✔ PASS 98%</span>
+      </div>
+
+      <!-- Word 3 Fail (World) -->
+      <div data-hf-id="hf-w3-01" class="word-row" id="rowWorld">
+        <span data-hf-id="hf-w3t-01" class="word-text" style="color: #FF4757;">WORLD</span>
+        <span data-hf-id="hf-w3s-01" class="word-status status-fail" id="worldStatus">❌ FAIL (오답)</span>
+      </div>
+
+      <!-- Error Detail Callout with AI-generated screen display -->
+      <div data-hf-id="hf-err-01" class="error-callout" id="errorCallout" data-layout-allow-overflow="true">
+        <div data-hf-id="hf-err-imgbox-01" class="error-img-box">
+          <img data-hf-id="hf-err-img-01" class="error-img" src="assets/images/f01_phone_error.jpg" alt="OLD Error Card">
+        </div>
+        <div data-hf-id="hf-errh-01" class="error-header">
+          <span data-hf-id="hf-rvrp">인식 실패! AI가 들은 엉뚱한 단어:</span>
+          <span data-hf-id="hf-rhqn">정확도 12%</span>
+        </div>
+        <div data-hf-id="hf-errb-01" class="error-recognized-box">
+          <div data-hf-id="hf-rc1-01" class="recognized-card">
+            <div data-hf-id="hf-rcl1-01" class="rec-label">오인식 1</div>
+            <div data-hf-id="hf-rcw1-01" class="rec-word">Old (늙은)</div>
+          </div>
+          <div data-hf-id="hf-rc2-01" class="recognized-card">
+            <div data-hf-id="hf-rcl2-01" class="rec-label">오인식 2</div>
+            <div data-hf-id="hf-rcw2-01" class="rec-word">Word (단어)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Solution Banner (45s ~) -->
+      <div data-hf-id="hf-sol-01" class="solution-banner" id="solutionBanner">
+        <div data-hf-id="hf-solt-01" class="sol-tag">💡 초등학생도 1초 해결!</div>
+        <div data-hf-id="hf-solh-01" class="sol-title">혀 굴리지 마세요!<br data-hf-id="hf-rsrt">딱 4글자 소리 공식</div>
+        <div data-hf-id="hf-solf-01" class="sol-formula">[ 우 - 어 - 을 - 드 ]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Captions Container -->
+  <div data-hf-id="hf-caps-01" class="caption-container">
+    <div data-hf-id="hf-c1-01" class="caption-line" id="cap1">스마트폰 영어 학습 앱이나 번역기 켜놓고 혼자 발음 연습해 보신 적 있으시죠?</div>
+    <div data-hf-id="hf-c2-01" class="caption-line" id="cap2">다른 단어는 척척 넘어가는데, 유독 'World'나 'Girl'만 나오면 죽어도 인식이 안 되고 시뻘건 오답 창이 떴던 답답한 경험, 한 번쯤 있으실 겁니다.</div>
+    <div data-hf-id="hf-c3-01" class="caption-line" id="cap3">마이크에 입을 바짝 대고 턱이 빠져라 혀를 굴려가며 '워얼ㄹ드!'를 외쳐봐도, 화면에는 엉뚱하게 'Old'나 'Word'로 찍히며 속을 뒤집어 놓죠.</div>
+    <div data-hf-id="hf-c4-01" class="caption-line" id="cap4">분명히 버터 발음으로 열심히 굴렸는데, 도대체 왜 내 입에서는 외계어 소리가 났을까요?</div>
+    <div data-hf-id="hf-c5-01" class="caption-line" id="cap5">여러분의 혀가 굳어서가 절대 아닙니다. 혀를 굴릴수록 망가지는 치명적인 착각 때문입니다.</div>
+    <div data-hf-id="hf-c6-01" class="caption-line" id="cap6">오늘 딱 7분만 투자해 보세요. 어려운 문법이나 발음 기호 싹 다 빼고, 초등학생도 1초 만에 따라 하는 비밀 공식으로 여러분의 굳었던 입을 시원하게 뚫어드립니다.</div>
+  </div>
+
+  <!-- Narration Audio -->
+  <audio data-hf-id="hf-audio-01" id="vo-01" src="assets/voice/01.wav" data-start="0" data-duration="59.04" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative for frame 01: 59.04 / 510.44 = 11.57%)
+    tl.to("#pfill", { width: "11.57%", duration: 59.04, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#hookBadge", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#hostCard", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.3);
+    tl.fromTo("#phoneMockup", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.3);
+
+    // Sentence 1 (0.47s ~ 5.3s)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.47);
+    tl.fromTo("#rowApple", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 1.5);
+    tl.fromTo("#rowWater", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 3.2);
+
+    // Sentence 2 (5.5s ~ 17.2s)
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 5.4);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 5.55);
+
+    // World Fail trigger around 9.5s
+    tl.fromTo("#rowWorld", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" }, 9.0);
+    tl.to("#phoneMockup", { x: "-=4", yoyo: true, repeat: 6, duration: 0.04 }, 10.2); // 2px screen shake
+    tl.to("#errorCallout", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 10.3);
+
+    // Real frame-by-frame stop-motion (2026-09-21 rule): 4 distinct illustrated poses
+    // swapped at ~8fps (0.125s each), not a single instant 2-image cut. The motion itself
+    // comes from the image sequence; GSAP only decides which frame is showing right now.
+    tl.set("#hostImgF0", { display: "none" }, 10.2);
+    tl.set("#hostImgF1", { display: "block" }, 10.2);
+    tl.set("#hostImgF1", { display: "none" }, 10.325);
+    tl.set("#hostImgF2", { display: "block" }, 10.325);
+    tl.set("#hostImgF2", { display: "none" }, 10.45);
+    tl.set("#hostImgF3", { display: "block" }, 10.45);
+    tl.to("#hostCard", { y: "-=6", yoyo: true, repeat: 3, duration: 0.08, ease: "steps(4)" }, 10.2);
+    tl.to("#hostSweat", { opacity: 1, scale: 1.2, duration: 0.3, ease: "back.out(2)" }, 10.5);
+
+    // Sentence 3 (17.5s ~ 28.3s)
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 17.3);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 17.5);
+    tl.to("#hostBubble", { scale: 1.06, yoyo: true, repeat: 3, duration: 0.3 }, 18.5);
+
+    // Sentence 4 (28.6s ~ 35.8s)
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 28.4);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 28.6);
+
+    // Sentence 5 (36.0s ~ 44.2s)
+    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 35.8);
+    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 36.0);
+
+    // Sentence 6 (44.5s ~ 58.5s)
+    tl.to("#cap5", { opacity: 0, duration: 0.15 }, 44.3);
+    tl.to("#cap6", { opacity: 1, duration: 0.2 }, 44.5);
+
+    // Solution Gold Banner appears at 45.0s — it covers the whole phone card
+    // (inset: 4cqh 3cqw), so the word rows/error callout underneath must fade
+    // out first or the linter (correctly) flags a text overlap with the
+    // still-visible "WORLD ❌ FAIL" row.
+    tl.to(["#rowApple", "#rowWater", "#rowWorld", "#errorCallout"], { opacity: 0, duration: 0.3 }, 44.7);
+    tl.to("#solutionBanner", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 45.0);
+
+    // Frame exit
+    tl.to(["#hostCard", "#phoneMockup", "#hookBadge", "#cap6"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 58.6);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-cold-open"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

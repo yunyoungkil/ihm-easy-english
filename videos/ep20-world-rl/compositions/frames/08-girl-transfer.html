@@ -1,0 +1,320 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 57.00%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Badge */
+  .frame-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FF9F43;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Stage */
+  .transfer-stage {
+    position: absolute;
+    top: 15cqh;
+    left: 8cqw;
+    right: 8cqw;
+    height: 72cqh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4cqh;
+  }
+
+  .girl-top-row {
+    display: flex;
+    align-items: center;
+    gap: 2.5cqw;
+  }
+  .girl-art-box {
+    width: 140px;
+    height: 140px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    background: #FAF7F2;
+  }
+  .girl-art-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cool-host-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    background: #FAF7F2;
+  }
+  .cool-host-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Original Girl Card */
+  .original-girl-card {
+    background: #FFFFFF;
+    border: 4px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 2cqh 4cqw;
+    display: flex;
+    align-items: center;
+    gap: 2cqw;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 4cqw;
+    color: #2B2B2B;
+  }
+
+  /* 2-Block Split Container */
+  .split-row {
+    display: flex;
+    gap: 3cqw;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .split-card {
+    width: 32cqw;
+    height: 25cqh;
+    border: 4px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1cqh;
+  }
+  .sc-geo { background: #FF9F43; color: #2B2B2B; }
+  .sc-eul { background: #2E86AB; color: #FFFFFF; }
+
+  .sc-title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 4.8cqw;
+    font-weight: 900;
+  }
+  .sc-sub {
+    font-size: 1.2cqw;
+    font-weight: 800;
+    background: rgba(255,255,255,0.8);
+    border: 2px solid #2B2B2B;
+    border-radius: 10px;
+    padding: 0.3cqh 1.2cqw;
+    color: #2B2B2B;
+  }
+
+  /* Tension Zero Gauge Bar */
+  .tension-gauge-box {
+    width: 65cqw;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 18px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 1.2cqh 2cqw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.8cqw;
+    opacity: 0;
+  }
+  .gauge-track {
+    flex: 1;
+    height: 18px;
+    background: #EFE8D8;
+    border: 2px solid #2B2B2B;
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .gauge-fill {
+    width: 0%;
+    height: 100%;
+    background: #00E5A3;
+  }
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1750px;
+    font-size: 1.36cqw;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-08" id="root" data-composition-id="08-girl-transfer" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-08" class="progress-track">
+    <div data-hf-id="hf-pfill-08" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <div data-hf-id="hf-badge-08" class="frame-badge" id="frameBadge">
+    <span data-hf-id="hf-kl7f">👧 실전 확장</span>
+    <span data-hf-id="hf-ws54">성인 90%가 포기하던 'Girl'도 딱 2글자!</span>
+  </div>
+
+  <div data-hf-id="hf-stage-08" class="transfer-stage">
+    <!-- Original Girl Word with Skater Girl Art -->
+    <div data-hf-id="hf-toprow-08" class="girl-top-row">
+      <div data-hf-id="hf-girl-art-08" class="girl-art-box" id="girlArtBox">
+        <img data-hf-id="hf-girl-img-08" class="girl-art-img" src="assets/images/f08_girl_skater.jpg" alt="Cool Skater Girl">
+      </div>
+      <div data-hf-id="hf-ogirl-08" class="original-girl-card" id="origGirl">
+        <span data-hf-id="hf-iybj">GIRL</span>
+        <span data-hf-id="hf-jhb4" style="font-size: 1.8cqw; font-weight: 800; color: #7A7365;">➔ 복잡한 혀 굴리기 X!</span>
+      </div>
+    </div>
+
+    <!-- 2 Split Blocks -->
+    <div data-hf-id="hf-split-08" class="split-row" id="splitRow">
+      <div data-hf-id="hf-szb7" class="split-card sc-geo">
+        <div data-hf-id="hf-zaod" class="sc-title">[ 거~ ]</div>
+        <div data-hf-id="hf-09bk" class="sc-sub">1단계: 턱 힘 빼고 한숨 쉬듯</div>
+      </div>
+      <div data-hf-id="hf-ou7i" class="split-card sc-eul">
+        <div data-hf-id="hf-tmqf" class="sc-title">[ 을 ]</div>
+        <div data-hf-id="hf-ifse" class="sc-sub">2단계: 목구멍 게으른 소리 얹기</div>
+      </div>
+    </div>
+
+    <!-- Tension Zero Gauge with Cool Relaxed Host -->
+    <div data-hf-id="hf-tzero-08" class="tension-gauge-box" id="tensionBox">
+      <span data-hf-id="hf-llsw" style="font-size: 1.3cqw; font-weight: 900; color: #2B2B2B;">턱 근육 긴장도: 0%</span>
+      <div data-hf-id="hf-go6r" class="gauge-track">
+        <div data-hf-id="hf-ibpv" class="gauge-fill" id="gaugeFill"></div>
+      </div>
+      <div data-hf-id="hf-cool-host-08" class="cool-host-box" id="coolHostBox">
+        <img data-hf-id="hf-cool-img-08" class="cool-host-img" src="assets/images/f08_char_cool.jpg" alt="Cool Relaxed Host">
+      </div>
+      <span data-hf-id="hf-uvhj" style="font-size: 1.3cqw; font-weight: 900; color: #008855;">✔ 초세련된 발음!</span>
+    </div>
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-08" class="caption-container">
+    <div data-hf-id="hf-c1-08" class="caption-line" id="cap1">이 게으른 혀의 원리를 알면, 성인 학습자 열에 아홉이 포기하던 단어 'Girl'도 딱 1초 만에 뚫립니다.</div>
+    <div data-hf-id="hf-c2-08" class="caption-line" id="cap2">Girl 역시 똑같은 쌍둥이 원리거든요.</div>
+    <div data-hf-id="hf-c3-08" class="caption-line" id="cap3">혀를 굴리며 '그어얼ㄹ' 하고 애쓰지 마시고, 1단계로 턱 힘 빼고 한숨 쉬듯 '거~'. 그리고 그 뒤에 방금 배운 게으른 소리 '을'을 얹어주는 겁니다. '거~을'.</div>
+    <div data-hf-id="hf-c4-08" class="caption-line" id="cap4">턱 근육이 전혀 아프지 않은데, 듣는 사람 귀에는 가장 세련된 Girl 소리가 완성됩니다.</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-08" id="vo-08" src="assets/voice/08.wav" data-start="0" data-duration="36.00" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative: 326.92 / 510.44 = 64.05%)
+    tl.fromTo("#pfill", { width: "57.00%" }, { width: "64.05%", duration: 36.00, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#origGirl", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.4);
+
+    // Sentence 1 (0.5s ~ 8.8s)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+
+    // Sentence 2 (9.0s ~ 12.5s)
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 8.8);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 9.0);
+
+    // Sentence 3 (12.8s ~ 26.2s): Split into [ 거~ ] + [ 을 ]
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 12.6);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 12.8);
+
+    tl.to("#origGirl", { y: -20, opacity: 0.7, duration: 0.4 }, 13.5);
+    tl.to("#splitRow", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, 14.0);
+
+    // Sentence 4 (26.5s ~ 35.5s): Tension 0% gauge bar + Cool Host
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 26.2);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 26.5);
+
+    tl.to("#tensionBox", { opacity: 1, duration: 0.4 }, 27.5);
+    tl.to("#gaugeFill", { width: "100%", duration: 1.2, ease: "power2.out" }, 28.0);
+    tl.fromTo("#coolHostBox", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 28.5);
+
+    // Frame exit
+    tl.to(["#origGirl", "#girlArtBox", "#splitRow", "#tensionBox", "#frameBadge", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 35.6);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-girl-transfer"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F4EFE6;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F4EFE6;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-root" id="root" data-composition-id="main" data-start="0" data-duration="510.44" data-width="1920" data-height="1080">
+      <!-- EP20 "World 발음이 유독 꼬였던 이유: R과 L이 만날 때 게으른 혀의 소리 규칙".
+           12 frames, cumulative timing = real TTS audio duration (.tts-results.json), placed back-to-back.
+           Total duration: 510.44s (8m 30.44s) — 100% narration coverage + Frame 12 5s end-screen keep-out. -->
+      <div data-hf-id="hf-s01" id="scene-01-cold-open" class="scene" data-composition-id="01-cold-open" data-composition-src="compositions/frames/01-cold-open.html" data-start="0" data-duration="59.04" data-track-index="0"></div>
+      <div data-hf-id="hf-s02" id="scene-02-broken-common-sense" class="scene" data-composition-id="02-broken-common-sense" data-composition-src="compositions/frames/02-broken-common-sense.html" data-start="59.04" data-duration="33.96" data-track-index="0"></div>
+      <div data-hf-id="hf-s03" id="scene-03-physics-crash" class="scene" data-composition-id="03-physics-crash" data-composition-src="compositions/frames/03-physics-crash.html" data-start="93.00" data-duration="40.80" data-track-index="0"></div>
+      <div data-hf-id="hf-s04" id="scene-04-lazy-tongue-rule" class="scene" data-composition-id="04-lazy-tongue-rule" data-composition-src="compositions/frames/04-lazy-tongue-rule.html" data-start="133.80" data-duration="38.20" data-track-index="0"></div>
+      <div data-hf-id="hf-s05" id="scene-05-step1-woo-eo" class="scene" data-composition-id="05-step1-woo-eo" data-composition-src="compositions/frames/05-step1-woo-eo.html" data-start="172.00" data-duration="39.24" data-track-index="0"></div>
+      <div data-hf-id="hf-s06" id="scene-06-step2-eul-resonance" class="scene" data-composition-id="06-step2-eul-resonance" data-composition-src="compositions/frames/06-step2-eul-resonance.html" data-start="211.24" data-duration="39.76" data-track-index="0"></div>
+      <div data-hf-id="hf-s07" id="scene-07-world-payoff" class="scene" data-composition-id="07-world-payoff" data-composition-src="compositions/frames/07-world-payoff.html" data-start="251.00" data-duration="39.92" data-track-index="0"></div>
+      <div data-hf-id="hf-s08" id="scene-08-girl-transfer" class="scene" data-composition-id="08-girl-transfer" data-composition-src="compositions/frames/08-girl-transfer.html" data-start="290.92" data-duration="36.00" data-track-index="0"></div>
+      <div data-hf-id="hf-s09" id="scene-09-quiz-word-vs-world" class="scene" data-composition-id="09-quiz-word-vs-world" data-composition-src="compositions/frames/09-quiz-word-vs-world.html" data-start="326.92" data-duration="66.16" data-track-index="0"></div>
+      <div data-hf-id="hf-s10" id="scene-10-quiz-pearl-curl" class="scene" data-composition-id="10-quiz-pearl-curl" data-composition-src="compositions/frames/10-quiz-pearl-curl.html" data-start="393.08" data-duration="47.88" data-track-index="0"></div>
+      <div data-hf-id="hf-s11" id="scene-11-cheatsheet-summary" class="scene" data-composition-id="11-cheatsheet-summary" data-composition-src="compositions/frames/11-cheatsheet-summary.html" data-start="440.96" data-duration="37.88" data-track-index="0"></div>
+      <div data-hf-id="hf-s12" id="scene-12-closing" class="scene" data-composition-id="12-closing" data-composition-src="compositions/frames/12-closing.html" data-start="478.84" data-duration="31.60" data-track-index="0"></div>
+
+      <!-- Root BGM: continuous track looped to cover full 510.44s with ducking -->
+      <audio data-hf-id="hf-bgm1" id="bgm1" src="assets/bgm/track.loop.mp3" data-start="0" data-duration="405.23" data-media-start="0" data-volume="0.06" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}"></audio>
+      <audio data-hf-id="hf-bgm2" id="bgm2" src="assets/bgm/track.loop.mp3" data-start="405.23" data-duration="105.21" data-media-start="0" data-volume="0.06" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

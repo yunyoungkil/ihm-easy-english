@@ -1,0 +1,398 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 64.05%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Badge */
+  .frame-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFD32A;
+    color: #2B2B2B;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Stage */
+  .quiz-stage {
+    position: absolute;
+    top: 14cqh;
+    left: 8cqw;
+    right: 8cqw;
+    height: 73cqh;
+    display: flex;
+    flex-direction: column;
+    gap: 3cqh;
+  }
+
+  /* 1-Sec Formula Contrast Box */
+  .formula-box {
+    width: 100%;
+    height: 20cqh;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1cqw;
+  }
+  .f-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
+  }
+  .f-word {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.5cqw;
+    color: #2B2B2B;
+  }
+  .f-pill {
+    padding: 0.8cqh 1.8cqw;
+    border: 2.5px solid #2B2B2B;
+    border-radius: 12px;
+    font-size: 1.4cqw;
+    font-weight: 900;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .fp-straight { background: #FAF7F2; color: #7A7365; }
+  .fp-cushion  { background: #2E86AB; color: #FFFFFF; }
+
+  /* Countdown Neon Gauge Bar */
+  .gauge-box {
+    width: 100%;
+    height: 22px;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+  }
+  .gauge-bar {
+    width: 100%;
+    height: 100%;
+    background: #FFE500;
+    transform-origin: left;
+  }
+
+  /* Blind Cards Arena */
+  .cards-arena {
+    width: 100%;
+    height: 42cqh;
+    display: flex;
+    gap: 4cqw;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .choice-card {
+    flex: 1;
+    height: 100%;
+    background: #FFFFFF;
+    border: 4px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5cqh;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .choice-tag {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3.5cqw;
+    color: #2B2B2B;
+    background: #FAF7F2;
+    border: 3px solid #2B2B2B;
+    border-radius: 16px;
+    padding: 0.5cqh 2cqw;
+  }
+  .choice-hidden {
+    font-size: 2cqw;
+    font-weight: 900;
+    color: #7A7365;
+  }
+  .choice-reveal {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3.8cqw;
+    color: #2B2B2B;
+    opacity: 0;
+  }
+
+  .choice-obj-box {
+    width: 130px;
+    height: 130px;
+    border-radius: 16px;
+    border: 3px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    background: #FAF7F2;
+    opacity: 0;
+    transform: scale(0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .choice-obj-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .quiz-host-listening {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    background: #FAF7F2;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  .quiz-host-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Loser / Winner State */
+  .card-loser {
+    filter: grayscale(100%);
+    opacity: 0.45;
+    transform: scale(0.95);
+  }
+  .card-winner {
+    border: 5px solid #00E5A3 !important;
+    background: #F0FFF9 !important;
+    box-shadow: 0px 0px 25px rgba(0, 229, 163, 0.7), 6px 6px 0px #2B2B2B !important;
+    transform: scale(1.06);
+  }
+
+  /* Big 3s Countdown Number */
+  .countdown-num {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 7cqw;
+    color: #FF4757;
+    text-shadow: 4px 4px 0px #2B2B2B;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1600px;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-09" id="root" data-composition-id="09-quiz-word-vs-world" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-09" class="progress-track">
+    <div data-hf-id="hf-pfill-09" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <div data-hf-id="hf-badge-09" class="frame-badge" id="frameBadge">
+    <span data-hf-id="hf-fh97">🎯 도파민 퀴즈 1R</span>
+    <span data-hf-id="hf-d1k5">Word vs World 귀로 1초 구분법!</span>
+  </div>
+
+  <div data-hf-id="hf-stage-09" class="quiz-stage">
+    <!-- 1-Sec Formula -->
+    <div data-hf-id="hf-fbox-09" class="formula-box" id="formulaBox">
+      <div data-hf-id="hf-2g2i" class="f-item">
+        <div data-hf-id="hf-et2r" class="f-word">WORD</div>
+        <div data-hf-id="hf-9zns" class="f-pill fp-straight">L 없음 ➔ "워어-드" 직진!</div>
+      </div>
+      <div data-hf-id="hf-g9wp" style="font-size: 2cqw; font-weight: 900; color: #7A7365;">VS</div>
+      <div data-hf-id="hf-y2ny" class="f-item">
+        <div data-hf-id="hf-d199" class="f-word">WORLD</div>
+        <div data-hf-id="hf-9nf5" class="f-pill fp-cushion">L 장착 ➔ "워어-을-드" 쿠션 묵직!</div>
+      </div>
+    </div>
+
+    <!-- Countdown Gauge Bar Row with Listening Host -->
+    <div data-hf-id="hf-v8ai" style="display: flex; align-items: center; gap: 2cqw; width: 100%;">
+      <div data-hf-id="hf-gbox-09" class="gauge-box" id="gaugeBox" style="flex: 1;">
+        <div data-hf-id="hf-gbar-09" class="gauge-bar" id="gaugeBar"></div>
+      </div>
+      <div data-hf-id="hf-listen-host-09" class="quiz-host-listening" id="hostListenBox">
+        <img data-hf-id="hf-listen-img-09" class="quiz-host-img" src="assets/images/f09_char_listening.jpg" alt="Listening Host">
+      </div>
+    </div>
+
+    <!-- Blind Choice Cards -->
+    <div data-hf-id="hf-carena-09" class="cards-arena">
+      <div data-hf-id="hf-carda-09" class="choice-card" id="cardA">
+        <div data-hf-id="hf-w80i" class="choice-tag">선택 A</div>
+        <div data-hf-id="hf-rfu7" class="choice-hidden" id="hiddenA">❓ 과연 어떤 단어?</div>
+        <div data-hf-id="hf-obj-word-box-09" class="choice-obj-box" id="objWordBox">
+          <img data-hf-id="hf-obj-word-img-09" class="choice-obj-img" src="assets/images/f09_obj_word.jpg" alt="Word Document">
+        </div>
+        <div data-hf-id="hf-w8oz" class="choice-reveal" id="revealA" style="color: #7A7365;">WORD</div>
+      </div>
+
+      <div data-hf-id="hf-cardb-09" class="choice-card" id="cardB">
+        <div data-hf-id="hf-wmbj" class="choice-tag">선택 B</div>
+        <div data-hf-id="hf-oxiy" class="choice-hidden" id="hiddenB">❓ 과연 어떤 단어?</div>
+        <div data-hf-id="hf-obj-world-box-09" class="choice-obj-box" id="objWorldBox">
+          <img data-hf-id="hf-obj-world-img-09" class="choice-obj-img" src="assets/images/f09_obj_world.jpg" alt="World Globe">
+        </div>
+        <div data-hf-id="hf-j2v2" class="choice-reveal" id="revealB" style="color: #008855;">✔ WORLD!</div>
+      </div>
+
+      <!-- Center Countdown Number -->
+      <div data-hf-id="hf-cnt-09" class="countdown-num" id="cntNum">3</div>
+    </div>
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-09" class="caption-container">
+    <div data-hf-id="hf-c1-09" class="caption-line" id="cap1">자, 퀴즈 들어가기 전에 딱 1초만 집중해 보세요! 도대체 Word와 World는 귀로 어떻게 구분할까요?</div>
+    <div data-hf-id="hf-c2-09" class="caption-line" id="cap2">Word는 L이 없으니까 중간 멈춤 없이 '워어-드'로 직진하고, World는 중간에 방금 배운 게으른 '을' 쿠션이 들어가서 '워어-을-드'로 묵직해집니다.</div>
+    <div data-hf-id="hf-c3-09" class="caption-line" id="cap3">제가 들려드리는 소리가 과연 A일까요, B일까요? 3초 안에 골라보세요!</div>
+    <div data-hf-id="hf-c4-09" class="caption-line" id="cap4">정답은 바로 B였습니다! 소리 중간에 묵직하게 밟히는 '을' 쿠션 소리가 확실하게 들리셨죠?</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-09" id="vo-09" src="assets/voice/09.wav" data-start="0" data-duration="66.16" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative: 393.08 / 510.44 = 77.01%)
+    tl.fromTo("#pfill", { width: "64.05%" }, { width: "77.01%", duration: 66.16, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#formulaBox", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.4);
+
+    // Sentence 1 (0.5s ~ 8.2s)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+
+    // Sentence 2 (8.5s ~ 24.5s)
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 8.3);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 8.5);
+
+    // Sentence 3 (24.8s ~ 47.4s): Present A & B
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 24.6);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 24.8);
+
+    tl.fromTo("#cardA", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 25.5);
+    tl.fromTo("#cardB", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 26.0);
+
+    // 3-Sec Countdown Timer (47.4s ~ 50.4s) + Listening Host appearance
+    tl.to("#gaugeBox", { opacity: 1, duration: 0.2 }, 47.2);
+    tl.fromTo("#hostListenBox", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 47.2);
+    tl.fromTo("#gaugeBar", { scaleX: 1, backgroundColor: "#FFE500" }, { scaleX: 0, backgroundColor: "#FF4757", duration: 3.0, ease: "none" }, 47.4);
+
+    // 3.. 2.. 1.. numbers pulse
+    tl.set("#cntNum", { textContent: "3" }, 47.4);
+    tl.to("#cntNum", { opacity: 1, scale: 1.5, duration: 0.3, ease: "back.out(2)" }, 47.4);
+    tl.to("#cntNum", { opacity: 0, scale: 0.8, duration: 0.15 }, 48.2);
+
+    tl.set("#cntNum", { textContent: "2" }, 48.4);
+    tl.to("#cntNum", { opacity: 1, scale: 1.5, duration: 0.3, ease: "back.out(2)" }, 48.4);
+    tl.to("#cntNum", { opacity: 0, scale: 0.8, duration: 0.15 }, 49.2);
+
+    tl.set("#cntNum", { textContent: "1" }, 49.4);
+    tl.to("#cntNum", { opacity: 1, scale: 1.5, duration: 0.3, ease: "back.out(2)" }, 49.4);
+    tl.to("#cntNum", { opacity: 0, scale: 0.8, duration: 0.2 }, 50.2);
+
+    // Reveal at 50.4s (Sentence 4)
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 50.2);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 50.4);
+
+    // A fails (grayscale), B wins (neon punch zoom) + Objects reveal
+    tl.to("#hiddenA", { opacity: 0, duration: 0.2 }, 50.4);
+    tl.to("#hiddenB", { opacity: 0, duration: 0.2 }, 50.4);
+    tl.to(["#objWordBox", "#objWorldBox"], { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 50.4);
+    tl.to("#revealA", { opacity: 1, duration: 0.3 }, 50.5);
+    tl.to("#revealB", { opacity: 1, duration: 0.3 }, 50.5);
+
+    tl.to("#cardA", { className: "+=card-loser", duration: 0.4 }, 50.5);
+    tl.to("#cardB", { className: "+=card-winner", duration: 0.4 }, 50.5);
+
+    // Frame exit
+    tl.to(["#formulaBox", "#gaugeBox", "#hostListenBox", "#cardA", "#cardB", "#frameBadge", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 65.6);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-quiz-word-vs-world"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

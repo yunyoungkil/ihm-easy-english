@@ -127,28 +127,28 @@
     "generatedAt": "2026-09-13T03:43:06.116Z"
   },
   "selected": {
-    "rank": 3,
-    "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
-    "angleOrHook": "똑같은 -ATE인데 왜 동사는 '에이트'고 명사는 힘을 뺀 '엇/잇' 소리로 바뀔까요? 강세에 따라 혀의 힘을 빼버리는 원리를 알면 수십 개 고급 단어가 단번에 귀에 꽂힙니다.",
-    "targetAudience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
-    "suggestedBadge": "⚡ 소리 반전 규칙",
-    "rationale": "집중 키워드 '영어 발음 규칙'의 핵심 훅 단어 '영어축약발음(2회)'과 '규칙(2회)'을 접목하고, 기존 접미사 규칙 성공 패턴을 계승하는 EXPERIMENT 포맷(fitScore 45)을 적용했습니다.",
+    "rank": 1,
+    "topic": "World 발음이 유독 꼬였던 이유: R과 L이 만날 때 게으른 혀의 소리 규칙",
+    "angleOrHook": "복잡한 혀 꼬임 없이 '우-어' 뒤에 혀끝만 가볍게 멈추면 저절로 풀리는 게으른 혀의 지름길을 확인하고 World, Girl, Pearl까지 한 번에 체득합니다.",
+    "targetAudience": "버터발음을 흉내 내다 혀가 굳어 '월드', '걸' 발음에서 매번 멈칫하는 왕초보 학습자",
+    "suggestedBadge": "👅 혀 꼬임 해결",
+    "rationale": "집중 키워드 '영어 발음 규칙'의 대표 57배 아웃라이어 'World 발음 함께 연습해요'의 폭발적 수요와 채널 최고 유지율인 LEGACY 포맷(fitScore 57)을 결합하여 검증된 흥행 공식을 적용했습니다.",
     "dataSourceRefs": [
       {
         "source": "marketDemand",
-        "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1)의 반복 훅 단어 '영어축약발음', '규칙' 반영"
+        "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 및 아웃라이어 영상 'World 발음 함께 연습해요 !(57배)' 반영"
       },
       {
         "source": "contentOpportunity",
-        "detail": "새로운 접미사 규칙 테스트를 위한 'EXPERIMENT'(fitScore 45) 포맷 활용"
+        "detail": "검증된 고유지율 포맷 'LEGACY'(fitScore 57) 구조 채택"
       },
       {
         "source": "audienceDna",
-        "detail": "복식호흡이나 힘을 주는 대신 힘을 빼는 '목구멍 소리'와 '언어팩' 체득 니즈 충족"
+        "detail": "시청자 반복 언급 키워드 '버터발음', '자주 쓰는 근육' 해결"
       }
     ],
     "suggestedFormat": "LONGFORM",
-    "score": 85
+    "score": 92
   },
   "generatedAt": "2026-09-13T03:43:06.116Z",
   "focusKeyword": "영어 발음 규칙"

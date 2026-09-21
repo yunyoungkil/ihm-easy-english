@@ -21,10 +21,13 @@ function parseArgs() {
   const args = process.argv.slice(2);
   const options = {
     prompt: '',
-    negative: 'ugly, blurry, bad anatomy, deformed, disfigured, poor details, low quality, dark background, text, watermark, signature, different character, different person, realistic photo',
+    negative: 'ugly, blurry, bad anatomy, deformed, disfigured, poor details, low quality, dark background, text, watermark, signature, different character, different person, realistic photo, chinese characters, foreign text, kanji, hanzi, letters, words, writing, typo, font, typography, speech bubble, thought bubble',
     output: '',
     image: '',
-    denoise: 0.58,
+    // 0.45 = 얼굴/표정 변화용 안전값(권장 0.40~0.55). 전신 포즈·사물 상호작용은
+    // 호출 시 --denoise 0.30~0.40으로 낮춰서 넘길 것 (CLAUDE.md 2026-09-20 규칙).
+    // 0.58 이상은 실측 결과 브랜드 로고·문구까지 다시 그려버려 깨졌음(EP19 char_confused 테스트).
+    denoise: 0.45,
     aspect: '1:1',
     steps: 25,
     cfg: 7.0,
@@ -60,6 +63,39 @@ function getDimensions(aspect) {
     case '1:1':
     default:     return { width: 640, height: 640 };
   }
+}
+
+// Reads pixel width/height straight from PNG/JPEG headers, no dependency needed.
+function getImageSize(filePath) {
+  const buf = fs.readFileSync(filePath);
+  // PNG: 8-byte signature, then IHDR chunk with width/height as big-endian uint32 at offset 16/20.
+  if (buf.length > 24 && buf.readUInt32BE(0) === 0x89504e47) {
+    return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+  }
+  // JPEG: walk markers until an SOFn segment (0xC0-0xCF, excluding 0xC4/0xC8/0xCC) which holds height/width.
+  if (buf.length > 4 && buf[0] === 0xff && buf[1] === 0xd8) {
+    let offset = 2;
+    while (offset < buf.length - 9) {
+      if (buf[offset] !== 0xff) { offset++; continue; }
+      const marker = buf[offset + 1];
+      if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+        return { height: buf.readUInt16BE(offset + 5), width: buf.readUInt16BE(offset + 7) };
+      }
+      const segmentLength = buf.readUInt16BE(offset + 2);
+      offset += 2 + segmentLength;
+    }
+  }
+  throw new Error(`Could not read image dimensions from ${filePath} (only PNG/JPEG supported)`);
+}
+
+// Scales to fit within maxEdge while preserving aspect ratio, rounded to a
+// multiple of 8 (Stable Diffusion's latent grid requirement). Forcing every
+// reference into a fixed square (the previous behavior) distorted non-square
+// inputs before they ever reached the model.
+function fitWithinPreservingAspect(width, height, maxEdge = 640) {
+  const scale = Math.min(1, maxEdge / Math.max(width, height));
+  const round8 = (n) => Math.max(8, Math.round((n * scale) / 8) * 8);
+  return { width: round8(width), height: round8(height) };
 }
 
 function makeTxt2ImgWorkflow(prompt, negative, width, height, seed, steps, cfg) {
@@ -109,7 +145,7 @@ function makeTxt2ImgWorkflow(prompt, negative, width, height, seed, steps, cfg) 
   };
 }
 
-function makeImg2ImgWorkflow(prompt, negative, inputImageFilename, seed, steps, cfg, denoise) {
+function makeImg2ImgWorkflow(prompt, negative, inputImageFilename, seed, steps, cfg, denoise, scaleWidth, scaleHeight) {
   return {
     "3": {
       "inputs": {
@@ -157,9 +193,9 @@ function makeImg2ImgWorkflow(prompt, negative, inputImageFilename, seed, steps, 
       "inputs": {
         "image": ["10", 0],
         "upscale_method": "bilinear",
-        "width": 640,
-        "height": 640,
-        "crop": "center"
+        "width": scaleWidth,
+        "height": scaleHeight,
+        "crop": "disabled"
       },
       "class_type": "ImageScale"
     },
@@ -230,9 +266,11 @@ async function main() {
     const destPath = path.join(COMFY_INPUT_DIR, inputFilename);
     fs.copyFileSync(opts.image, destPath);
 
-    console.log(`[Local AI - Img2Img] Reference image loaded: ${opts.image} -> ${inputFilename} (Denoise: ${opts.denoise})`);
+    const srcSize = getImageSize(opts.image);
+    const { width: scaleWidth, height: scaleHeight } = fitWithinPreservingAspect(srcSize.width, srcSize.height);
+    console.log(`[Local AI - Img2Img] Reference image loaded: ${opts.image} (${srcSize.width}x${srcSize.height} -> ${scaleWidth}x${scaleHeight}, aspect preserved) -> ${inputFilename} (Denoise: ${opts.denoise})`);
     console.log(`[Local AI] Prompt: "${opts.prompt}"...`);
-    workflow = makeImg2ImgWorkflow(opts.prompt, opts.negative, inputFilename, opts.seed, opts.steps, opts.cfg, opts.denoise);
+    workflow = makeImg2ImgWorkflow(opts.prompt, opts.negative, inputFilename, opts.seed, opts.steps, opts.cfg, opts.denoise, scaleWidth, scaleHeight);
   } else {
     const { width, height } = getDimensions(opts.aspect);
     console.log(`[Local AI - Txt2Img] Generating: "${opts.prompt}" (${width}x${height})...`);

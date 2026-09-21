@@ -1,0 +1,19 @@
+{
+  "episode": "ep20-world-rl",
+  "status": "ready_to_upload",
+  "rendered_at": "2026-09-20T14:05:32.878Z",
+  "scheduled_publish_date": "2026-09-28T11:00:00Z",
+  "total_duration_seconds": 510.44,
+  "endscreen_keep_out": {
+    "start_seconds": 505.44,
+    "end_seconds": 510.44,
+    "duration_seconds": 5
+  },
+  "files": {
+    "video": "video.mp4",
+    "thumbnail_main": "thumbnail.jpg",
+    "thumbnail_a": "thumbnail-a.jpg",
+    "thumbnail_b": "thumbnail-b.jpg",
+    "thumbnail_c": "thumbnail-c.jpg"
+  }
+}

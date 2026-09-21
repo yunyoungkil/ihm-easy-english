@@ -1,137 +1,135 @@
 {
   "format": "LONGFORM",
-  "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
-  "audience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
+  "topic": "World 발음이 유독 꼬였던 이유: R과 L이 만날 때 게으른 혀의 소리 규칙",
+  "audience": "버터발음을 흉내 내다 혀가 굳어 '월드', '걸' 발음에서 매번 멈칫하는 왕초보 학습자",
   "variants": [
     {
       "id": "A",
-      "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
-      "imageUrl": "/api/temp-thumbnail/A-1789892873254-f2814c.jpg",
-      "thumbnailHeadline": "-ate 왜 다르게 들릴까",
-      "visualConcept": "물음표 형상의 미니멀한 네온 라이트와 부드럽게 흐려지는 소리 파동의 조화",
+      "title": "외국인이 왜 못 알아듣나 했더니... World 할 때마다 '올드'로 굳는 이유 | 영어 단어 발음법",
+      "imageUrl": "/api/temp-thumbnail/A-1789905813107-bf4012.jpg",
+      "thumbnailHeadline": "'월드' 했더니 '올드'로 들림?",
+      "visualConcept": "화면 좌우 2분할 대조. 좌측엔 버터 발음 흉내 내다 턱에 쥐가 난 학습자, 우측엔 'Old?'라고 되물으며 갸우뚱하는 원어민의 당황스러운 반응을 극명한 명도 대비로 연출",
       "isLocalFile": true,
       "inUse": true
     },
     {
       "id": "B",
-      "title": "단어마다 -ate 끝소리 달라서 매번 멈칫했는데 소리 나는 길이 따로 있네요 | 영어 끝소리 발음",
-      "imageUrl": "/api/temp-thumbnail/B-1789894697842-e9e9e6.jpg",
-      "thumbnailHeadline": "-ate 끝소리 고민 끝",
-      "visualConcept": "사전 속 빽빽한 단어들 사이에서 선명하게 빛나는 단 하나의 심플한 소리 가이드라인",
+      "title": "설마 혀끝 천장에 붙이셨나요? World, Girl 소리가 유독 망가지는 이유 | 원어민 영어 발음 꿀팁",
+      "imageUrl": "/api/temp-thumbnail/B-1789905817650-6496d5.jpg",
+      "thumbnailHeadline": "World 혀끝 닿으면 망함",
+      "visualConcept": "입 모양 단면도 실루엣 그래픽 위로 입천장에 닿으려는 혀끝에 강렬한 붉은색 엑스(X) 마크가 번쩍이고, 그 옆에서 아바타가 머리를 감싸 쥐며 경악하는 장면",
       "isLocalFile": true,
       "inUse": true
     },
     {
       "id": "C",
-      "title": "헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이",
-      "imageUrl": "/api/temp-thumbnail/C-1789894703846-04f603.jpg",
-      "thumbnailHeadline": "-ate 다시는 안 헷갈림",
-      "visualConcept": "좌우 2분할 대조 구조로 한쪽은 닫힌 입술 실루엣, 다른 쪽은 편안하게 이완된 입술 그래픽 대조",
+      "title": "버터 발음 흉내 내다 턱만 빠졌습니다, World 소리가 매번 외계어가 되는 이유 | 영어 R L 발음",
+      "imageUrl": "/api/temp-thumbnail/C-1789905879243-03b036.jpg",
+      "thumbnailHeadline": "World 혀 굴리다 망함",
+      "visualConcept": "화면 좌측에 과하게 입술을 내밀고 턱에 쥐가 난 채 당황하는 호스트 아바타 실루엣, 우측에 꼬불꼬불 엉킨 붉은 네온 와이어와 'World' 단어 배치",
       "isLocalFile": true,
       "inUse": true
     }
   ],
-  "activeFeedView": "B",
+  "activeFeedView": "C",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
-  "selectedVariantTab": "B",
+  "selectedVariantTab": "C",
   "visionFilter": "normal",
   "aiReport": {
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 72,
-        "legibilityScore": 85,
-        "visualSalienceScore": 78,
-        "contrastRating": "중상(Medium-High)",
-        "focalPoint": "중앙의 '-ate 소리 이제 정복' 헤드라인 텍스트 영역",
-        "predictedGrade": "B+",
-        "predictedCtrRange": "5.4% ~ 7.2%",
+        "curiosityGapScore": 91,
+        "legibilityScore": 93,
+        "visualSalienceScore": 88,
+        "contrastRating": "최상(High)",
+        "focalPoint": "좌측의 큰 따옴표로 강조된 ''월드' 했더니 '올드'로 들림?' 텍스트와 억울한 표정의 화자",
+        "predictedGrade": "A",
+        "predictedCtrRange": "9.2% ~ 12.4%",
         "strengths": [
-          "4060 타겟 시청자가 겪는 '단어마다 다르게 읽혀 답답했던' 감정선에 공감대를 형성함",
-          "썸네일 텍스트가 간결하여 모바일 120px 환경에서도 가독성이 무너지지 않음"
+          "시청자 실제 고통점 DB에 누적된 'World가 Old로 변질되는 좌절감'을 4단어 구어체로 완벽히 직격함",
+          "모바일 16:9 피드 첫 15자('외국인이 왜 못 알아듣나 했더니...')에서 과거 실패 경험의 망신살을 강하게 자극함"
         ],
         "weaknesses": [
-          "제목 앞부분에 핵심 철자(-ate)가 빠져 있어 모바일 피드 스크롤 시 정확히 어떤 단어를 다루는지 직관적으로 와닿지 않음",
-          "헤드라인의 '이제 정복'이라는 표현이 일반 학원 강의처럼 평이하여 호기심이나 스턴건 효과가 다소 밋밋함"
+          "제목 뒤편 '영어 단어 발음법' 키워드가 다소 범용적이어서 R과 L의 구체적 소리 결합 문제를 완전히 대변하지는 못함"
         ],
-        "visualImprovementTip": "단어 끝 스펠링 '-ATE'를 옐로우 볼드 폰트로 분리 강조하고, 뒤 배경에 회색빛 단어 카드(예: climate / celebrate)를 흐릿하게 대조 배치해 시각적 호기심을 유발하세요."
+        "visualImprovementTip": "헤드라인 중 '올드' 텍스트에 강렬한 네온 레드/코랄 컬러 박스를 씌우고 취소선(Slash) 그래픽을 얹어 시각적 대비를 200% 끌어올릴 것"
       },
       {
         "variantKey": "B",
-        "curiosityGapScore": 79,
-        "legibilityScore": 88,
-        "visualSalienceScore": 82,
+        "curiosityGapScore": 94,
+        "legibilityScore": 89,
+        "visualSalienceScore": 87,
         "contrastRating": "상(High)",
-        "focalPoint": "'-ate' 강조 텍스트 및 '소리 길은 딱 하나' 카피",
+        "focalPoint": "헤드라인 'World 혀끝 닿으면 망함'의 붉은색 경고 텍스트",
         "predictedGrade": "A-",
-        "predictedCtrRange": "7.3% ~ 9.1%",
+        "predictedCtrRange": "8.8% ~ 11.5%",
         "strengths": [
-          "제목 전면에 '-ate' 철자를 명시하여 타겟층이 과거에 겪었던 암기 고통을 정확히 건드림",
-          "헤드라인 '다시는 안헷갈림'은 시청 후 얻게 될 구체적 상태 변화를 명확히 제시하여 클릭 장벽을 낮춤"
+          "시청자가 당연하게 여겼던 '혀끝을 천장에 대는 행동'을 금기시하며 0.1초 만에 인지부조화를 일으킴",
+          "World뿐 아니라 함께 묶이는 고통 단어인 'Girl'을 제목에 노출해 타겟 클릭 범위를 확장함"
         ],
         "weaknesses": [
-          "제목 문장이 다소 늘어져 모바일 작은 화면에서 '소리 길은 딱 하나였네요' 뒷부분이 조기 절단될 위험이 있음",
-          "썸네일 헤드라인에 띄어쓰기 결손('안헷갈림' -> '안 헷갈림')으로 완성도가 떨어져 보일 수 있음"
+          "'망함'이라는 자극적 단어가 채널의 '가식 없고 따뜻한 실전 동반자' 페르소나와 미세하게 충돌할 위험이 있음"
         ],
-        "visualImprovementTip": "헤드라인 좌측에 원어민 입모양 클로즈업 또는 소리 파형 그래픽을 은은하게 깔아 '소리 원리'를 다룬다는 직관성을 높이세요."
+        "visualImprovementTip": "입안 단면도 그래픽에 혀끝이 천장에 닿는 순간 붉은색 엑스(X) 마크를 쳐서 시각적 금지 경고를 한눈에 각인시킬 것"
       },
       {
         "variantKey": "C",
         "curiosityGapScore": 86,
-        "legibilityScore": 86,
+        "legibilityScore": 90,
         "visualSalienceScore": 84,
-        "contrastRating": "상(High)",
-        "focalPoint": "대조를 암시하는 '-ate 소리'와 '2개로 갈릴까' 텍스트",
-        "predictedGrade": "A",
-        "predictedCtrRange": "8.8% ~ 10.9%",
+        "contrastRating": "중상(Medium-High)",
+        "focalPoint": "턱을 감싸 쥐고 괴로워하는 캐릭터와 '외계어' 연상 텍스트",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "7.5% ~ 9.8%",
         "strengths": [
-          "'철자 똑같은데 소리가 왜 2개로 갈릴까'라는 인지 부조화를 정면으로 찔러 클릭 유발력이 가장 강함",
-          "헤드라인 '-ate 소리 외우지마세요'는 무작정 암기에 지친 4060 세대의 피로감을 완벽히 해소해 주는 도발적 훅으로 작용함"
+          "'버터 발음 흉내 내다 턱만 빠졌습니다'라는 동반자적 솔직 고백이 타겟의 웃픈 공감을 이끌어냄",
+          "R과 L 발음이라는 검색 핵심 롱테일 키워드가 직관적으로 연결됨"
         ],
         "weaknesses": [
-          "제목 뒷부분 '단숨에 풀리는 비밀'이 다소 상투적인 유튜브 어조로 느껴져 브랜드의 담백한 신뢰감을 소폭 저해할 수 있음"
+          "'혀 굴리다 망함'이라는 헤드라인은 유튜브에 흔한 표현이라 다른 영어 채널과의 변별력이 다소 떨어짐"
         ],
-        "visualImprovementTip": "동일한 '-ate' 스펠링에서 화살표 두 개가 서로 다른 음표 기호(강한 소리 vs 힘 빠진 소리)로 갈라지는 미니멀 인포그래픽을 좌우 대조로 배치하세요."
+        "visualImprovementTip": "배경에 복잡한 장식을 제거하고 딥 네이비 단색 톤으로 정리하여 텍스트의 120px 모바일 가독성을 확보할 것"
       }
     ],
-    "bestVariant": "C",
-    "overallVerdict": "시안 C는 '철자는 같은데 왜 소리가 둘로 쪼개지는가'라는 구체적 인지 부조화를 15자 이내에 강력하게 던져 스크롤을 즉시 멈추게 만듭니다. 썸네일 헤드라인 역시 기존의 암기 방식을 정면 거부하는 상식 파괴로 호기심을 극대화하여 4060 기초 학습자에게 가장 높은 클릭 전환율을 끌어낼 시안입니다.",
+    "bestVariant": "A",
+    "overallVerdict": "시안 A는 시청자 DB에서 가장 뼈아프게 반복 확인된 'World 발음이 자꾸 Old(올드)로 변질되는 실제 고통'을 완벽하게 수면 위로 끌어올렸습니다. 0.1초 만에 지나가는 모바일 피드에서 '내가 겪었던 바로 그 망신'을 즉각 연상시키며 클릭을 멈추게 만드는 타격감이 세 시안 중 가장 압도적입니다.",
     "aiTitleSuggestions": [
       {
-        "type": "💡 상식파괴 발견형",
-        "title": "철자 같은 -ate 소리가 왜 둘로 쪼개질까 신기했는데 입술 힘 때문이네요 | 영어 단어 읽는 법",
-        "thumbnailHeadline": "-ate 외우면 손해",
-        "designConcept": "어두운 네이비 배경에 굵은 네온 옐로우 '-ate' 텍스트와 두 갈래로 갈라지는 직관적인 사운드 웨이브 라인",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, minimalist dark navy background, large split glow path graphic, subtle soundwave visual metaphor, copy space for Korean text on left side, cinematic lighting, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "💥 과거 망신살 소환",
+        "title": "외국인이 왜 못 알아듣나 했더니... World 할 때마다 혀 굳던 이유 | 영어 발음 꿀팁",
+        "thumbnailHeadline": "World 했는데 '올드'로 들림?",
+        "designConcept": "화자가 민망한 표정으로 귀를 긁적이고 있고, 머리 위에 'WORLD' 단어가 'OLD?' 말풍선으로 찌그러져 튕겨 나가는 시각적 충돌 연출",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, an embarrassed adult learner looking flustered with hand on back of head, dark cyber-hud deep navy ambient background, glowing typography contrast elements, minimalist graphic layout, copy space for Korean text on left side, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🎯 고통공감 전환형",
-        "title": "단어마다 -ate 끝소리 달라서 매번 멈칫했는데 소리 나는 길이 따로 있네요 | 영어 끝소리 발음",
-        "thumbnailHeadline": "-ate 끝소리 고민 끝",
-        "designConcept": "사전 속 빽빽한 단어들 사이에서 선명하게 빛나는 단 하나의 심플한 소리 가이드라인",
-        "midjourneyPrompt": "Educational horizontal YouTube thumbnail background, deep slate blue ambient, soft bokeh of faded dictionary pages in background, single bright glowing cyan path leading forward, copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "⚡ 상식 붕괴 경고",
+        "title": "설마 혀끝 천장에 붙이셨나요? World 소리가 매번 외계어로 꼬이는 이유 | 영어 단어 발음법",
+        "thumbnailHeadline": "World 혀끝 닿으면 망함",
+        "designConcept": "입술과 입 모양 그래픽 옆에서 화자가 기겁하며 손사래를 치는 모습, 입 천장 접촉 부위에 붉은색 경고 네온 스파크가 튀는 미니멀 그래픽",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English education, side profile silhouette of mouth and tongue anatomy stylized in modern minimal neon lines, a shocked friendly host gesturing stop with hands, dark deep navy background with glowing red alert accent, copy space on left, cinematic lighting, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "⚡ 즉각해결 확정형",
-        "title": "헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이",
-        "thumbnailHeadline": "-ate 다시는 안 헷갈림",
-        "designConcept": "좌우 2분할 대조 구조로 한쪽은 닫힌 입술 실루엣, 다른 쪽은 편안하게 이완된 입술 그래픽 대조",
-        "midjourneyPrompt": "Horizontal 16:9 comparison visual for language study, split contrast composition, left side muted charcoal tone, right side warm amber spotlight, minimalist acoustic wave vectors, empty copy space for text overlay, photorealistic studio lighting --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "😨 착각 소환 자극",
+        "title": "열심히 굴렸는데 왜 이상할까... World, Girl 소리가 유독 막히는 이유 | 원어민 영어 소리 원리",
+        "thumbnailHeadline": "World 굴릴수록 외계어 됨",
+        "designConcept": "버터 발음을 흉내 내다 턱 근육이 굳어버린 듯 볼을 감싸 쥔 채 억울해하는 인물 클로즈업 + 물음표 네온이 턱 주변에 맺히는 대비",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English learners, a relatable adult holding their jaw with a puzzled and tired expression after trying hard to pronounce words, dramatic studio rim lighting on dark navy backdrop, high salience focal composition, wide copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🔍 인지부조화 호기심형",
-        "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
-        "thumbnailHeadline": "-ate 왜 다르게 들릴까",
-        "designConcept": "물음표 형상의 미니멀한 네온 라이트와 부드럽게 흐려지는 소리 파동의 조화",
-        "midjourneyPrompt": "Minimalist educational YouTube graphic layout, deep midnight blue backdrop, subtle neon question mark curve glowing faintly in the center right, wide negative space on the left for Korean typography, premium clean aesthetics, 8k --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "😲 허탈한 반전 자각",
+        "title": "사전 찾아보고 배신감 느꼈습니다, World 발음할 때 혀 힘부터 뺐더니... | 영어 R L 소리",
+        "thumbnailHeadline": "World 여태 헛고생했네",
+        "designConcept": "머리를 탁 치며 '아, 이 원리였어?' 하고 유쾌하게 허탈해하는 표정의 호스트 + 꼬여 있던 실타래가 스르륵 풀려나가는 은유적 3D 라인 그래픽",
+        "midjourneyPrompt": "Clean horizontal visual artwork for adult English learning, a cheerful friendly person touching forehead in a sudden eureka realization moment, glowing smooth untangled ribbon light trail floating in air, dark elegant deep navy studio background, ultra-clean commercial look, copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🚀 초간결 정리형",
-        "title": "복잡하게 외우던 -ate 발음 규칙 하나로 정리되니 단어 읽기가 훨씬 편해지네요 | 단어 읽는 법",
-        "thumbnailHeadline": "-ate 소리 딱 하나로",
-        "designConcept": "복잡하게 엉킨 실타래 그래픽이 오른쪽으로 가며 매끄러운 단 한 줄의 직선으로 풀리는 미니멀 비주얼",
-        "midjourneyPrompt": "Sleek modern YouTube thumbnail artwork, dark luxury indigo background, complex tangled wire on the far left unraveling into a smooth clean glowing straight gold line toward the right, high contrast, elegant educational backdrop, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🎯 체증 해소 약속",
+        "title": "평생 흉내 내다 혀만 마비됐는데... World 소리 이제 안 막힙니다 | 영어 연음 읽는 법",
+        "thumbnailHeadline": "World 혀 꼬임 끝",
+        "designConcept": "자신감 넘치는 미소로 편안하게 입술에 힘을 뺀 채 정면을 응시하는 호스트 + 시원하게 뚫린 일직선 민트빛 네온 웨이브로 해방감을 표현",
+        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation breakthrough, a confident and relaxed adult smiling warmly at camera, smooth glowing mint-cyan straight soundwave light passing cleanly across deep dark navy background, minimal modern educational aesthetic, left side copy space, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
   }

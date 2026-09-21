@@ -1,0 +1,343 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 49.17%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Badge */
+  .frame-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFD700;
+    color: #2B2B2B;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Stage */
+  .payoff-stage {
+    position: absolute;
+    top: 15cqh;
+    left: 6cqw;
+    right: 6cqw;
+    height: 72cqh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5cqh;
+    position: relative;
+  }
+
+  /* 4 Blocks Row */
+  .blocks-grid {
+    display: flex;
+    gap: 1.8cqw;
+    align-items: center;
+    justify-content: center;
+    height: 28cqh;
+    position: relative;
+    width: 100%;
+  }
+
+  .lego-block {
+    width: 17cqw;
+    height: 100%;
+    border: 4px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1cqh;
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  .lego-char {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 4.5cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    line-height: 1;
+  }
+  .lego-sub {
+    font-size: 1.1cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+  }
+
+  .b-woo { background: #FFE500; }
+  .b-eo  { background: #FF9F43; }
+  .b-eul { background: #2E86AB; color: #FFFFFF; }
+  .b-eul .lego-char, .b-eul .lego-sub { color: #FFFFFF; }
+  .b-deu { background: #00E5A3; }
+
+  /* Giant Golden Transform Card */
+  .golden-world-card {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%) scale(0.6);
+    width: 55cqw;
+    height: 32cqh;
+    background: #FFD700;
+    border: 5px solid #2B2B2B;
+    border-radius: 32px;
+    box-shadow: 10px 10px 0px #2B2B2B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5cqh;
+    opacity: 0;
+    z-index: 25;
+  }
+  .golden-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 6.5cqw;
+    color: #2B2B2B;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .golden-sub {
+    font-size: 1.8cqw;
+    font-weight: 900;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 14px;
+    padding: 0.6cqh 2.2cqw;
+    box-shadow: 3px 3px 0px #2B2B2B;
+  }
+
+  /* Bottom Row: App 100pt + Celebrate Host with AI illustrations */
+  .payoff-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3cqw;
+    width: 100%;
+    height: 28cqh;
+  }
+  .app-success-imgbox {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    background: #FFFFFF;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .app-pass-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00E5A3;
+    color: #2B2B2B;
+    font-weight: 900;
+    font-size: 1.1cqw;
+    padding: 0.6cqh 1.4cqw;
+    border: 2.5px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    white-space: nowrap;
+    z-index: 5;
+  }
+  .host-success-imgbox {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    background: #FAF7F2;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .payoff-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1600px;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-07" id="root" data-composition-id="07-world-payoff" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-07" class="progress-track">
+    <div data-hf-id="hf-pfill-07" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <div data-hf-id="hf-badge-07" class="frame-badge" id="frameBadge">
+    <span data-hf-id="hf-e6xm">✨ 완성</span>
+    <span data-hf-id="hf-of3k">[우-어-을-드] 4글자의 기적!</span>
+  </div>
+
+  <div data-hf-id="hf-stage-07" class="payoff-stage" data-layout-allow-overflow="true">
+    <!-- 4 Blocks Grid -->
+    <div data-hf-id="hf-bgrid-07" class="blocks-grid" id="blocksGrid">
+      <div data-hf-id="hf-b1-07" class="lego-block b-woo" id="b1">
+        <div data-hf-id="hf-j9l4" class="lego-char">우</div>
+        <div data-hf-id="hf-f54b" class="lego-sub">입술 모으기</div>
+      </div>
+      <div data-hf-id="hf-b2-07" class="lego-block b-eo" id="b2">
+        <div data-hf-id="hf-jvys" class="lego-char">어</div>
+        <div data-hf-id="hf-soyn" class="lego-sub">턱 힘 빼기</div>
+      </div>
+      <div data-hf-id="hf-b3-07" class="lego-block b-eul" id="b3">
+        <div data-hf-id="hf-yjgk" class="lego-char">을</div>
+        <div data-hf-id="hf-rw26" class="lego-sub">목구멍 울림</div>
+      </div>
+      <div data-hf-id="hf-b4-07" class="lego-block b-deu" id="b4">
+        <div data-hf-id="hf-l9ng" class="lego-char">드</div>
+        <div data-hf-id="hf-ygqd" class="lego-sub">가벼운 끝소리</div>
+      </div>
+    </div>
+
+    <!-- Golden Transform Card -->
+    <div data-hf-id="hf-gcard-07" class="golden-world-card" id="goldCard">
+      <div data-hf-id="hf-gtit-07" class="golden-title">WORLD</div>
+      <div data-hf-id="hf-gsub-07" class="golden-sub">"워~을드" ➔ 완벽한 원어민 발음!</div>
+    </div>
+
+    <!-- Bottom Result Row with AI illustrations -->
+    <div data-hf-id="hf-pbrow-07" class="payoff-bottom">
+      <div data-hf-id="hf-appbox-07" class="app-success-imgbox" id="appPassBox">
+        <img data-hf-id="hf-app-img-07" class="payoff-img" src="assets/images/f07_phone_success.jpg" alt="100% App Pass">
+        <div data-hf-id="hf-pass-badge-07" class="app-pass-badge">🎉 AI 발음 100점 통과!</div>
+      </div>
+
+      <div data-hf-id="hf-chost-07" class="host-success-imgbox" id="celebrateHost">
+        <img data-hf-id="hf-chost-img-07" class="payoff-img" src="assets/images/f07_char_success.jpg" alt="Celebrating Host">
+      </div>
+    </div>
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-07" class="caption-container">
+    <div data-hf-id="hf-c1-07" class="caption-line" id="cap1">이제 이 소리들을 하나로 이어 붙여보겠습니다. 딱 네 글자만 기억하세요. 우, 어, 을, 드.</div>
+    <div data-hf-id="hf-c2-07" class="caption-line" id="cap2">자, 천천히 소리 내볼까요? '우-어-을-드'.</div>
+    <div data-hf-id="hf-c3-07" class="caption-line" id="cap3">이제 조금만 빠르게 연결해 보세요. '워~을드', 더 자연스럽게 이으면 '워~얼드'.</div>
+    <div data-hf-id="hf-c4-07" class="caption-line" id="cap4">어떠세요? 턱에 힘주고 혀를 쥐어짜지 않았는데도, 놀라울 정도로 묵직하고 자연스러운 원어민의 World 소리가 내 입에서 그대로 터져 나오죠?</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-07" id="vo-07" src="assets/voice/07.wav" data-start="0" data-duration="39.92" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative: 290.92 / 510.44 = 57.00%)
+    tl.fromTo("#pfill", { width: "49.17%" }, { width: "57.00%", duration: 39.92, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+
+    // Sentence 1 (0.5s ~ 9.2s): 4 blocks drop in sequence (12fps stepped rhythm)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+    tl.to("#b1", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 3.5);
+    tl.to("#b2", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 4.8);
+    tl.to("#b3", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 6.2);
+    tl.to("#b4", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 7.5);
+
+    // Sentence 2 (9.5s ~ 15.2s): Blocks pulse in rhythm
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 9.3);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 9.5);
+    tl.to(["#b1", "#b2", "#b3", "#b4"], { scale: 1.08, stagger: 0.3, yoyo: true, repeat: 1, duration: 0.25 }, 10.5);
+
+    // Sentence 3 (15.5s ~ 25.8s): Merge into Giant Gold WORLD Card
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 15.3);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 15.5);
+
+    tl.to("#blocksGrid", { scale: 0.8, opacity: 0, duration: 0.4, ease: "power2.in" }, 17.5);
+    tl.to("#goldCard", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 17.8);
+
+    // Sentence 4 (26.0s ~ 39.2s): App 100pt + Celebrate Host
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 25.8);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 26.0);
+
+    tl.to("#appPassBox", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 27.5);
+    tl.to("#celebrateHost", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 28.5);
+
+    // Frame exit
+    tl.to(["#goldCard", "#appPassBox", "#celebrateHost", "#frameBadge", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 39.5);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-world-payoff"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

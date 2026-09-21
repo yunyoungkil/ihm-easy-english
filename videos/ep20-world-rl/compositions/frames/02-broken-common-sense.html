@@ -1,0 +1,344 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Track */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 11.57%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Badge */
+  .frame-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FF9F43;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Stage Grid */
+  .stage-grid {
+    position: absolute;
+    top: 15cqh;
+    left: 6cqw;
+    right: 6cqw;
+    height: 72cqh;
+    display: flex;
+    gap: 3.5cqw;
+  }
+
+  /* Left Card: Twisted Tongue */
+  .twisted-card {
+    flex: 1;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2cqh;
+    position: relative;
+  }
+  .host-stopmotion-box {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    background: #FFF5F5;
+  }
+  .stopmotion-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .twisted-label {
+    font-size: 1.8cqw;
+    font-weight: 900;
+    color: #FF4757;
+  }
+  .twisted-desc {
+    font-size: 1.3cqw;
+    font-weight: 700;
+    color: #7A7365;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* Right Card: Pop song brake */
+  .pop-song-card {
+    flex: 1.2;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3.5cqh 3cqw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .song-header {
+    font-size: 1.2cqw;
+    font-weight: 800;
+    color: #7A7365;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+  }
+  .song-lyrics-box {
+    background: #FAF7F2;
+    border: 3px solid #2B2B2B;
+    border-radius: 18px;
+    padding: 2.5cqh 2cqw;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    display: flex;
+    flex-direction: column;
+    gap: 1cqh;
+  }
+  .lyrics-line-1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.2cqw;
+    color: #7A7365;
+  }
+  .lyrics-line-2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3.2cqw;
+    color: #2B2B2B;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8cqw;
+  }
+  .highlight-world {
+    color: #FF4757;
+    position: relative;
+  }
+
+  /* Caution Tape */
+  .caution-tape {
+    position: absolute;
+    left: -10%;
+    right: -10%;
+    top: 52%;
+    background: #FFE500;
+    color: #2B2B2B;
+    border-top: 3px solid #2B2B2B;
+    border-bottom: 3px solid #2B2B2B;
+    transform: rotate(-5deg) scale(0);
+    padding: 0.8cqh 0;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.4cqw;
+    text-align: center;
+    letter-spacing: 2px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    z-index: 15;
+  }
+
+  /* Giant Rubber Stamp [ 혀 굴리면 끝장! ] */
+  .stamp-box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-12deg) scale(2.5);
+    background: #FF4757;
+    color: #FFFFFF;
+    border: 5px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 8px 8px 0px #2B2B2B;
+    padding: 2cqh 3cqw;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3.2cqw;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    opacity: 0;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1600px;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-02" id="root" data-composition-id="02-broken-common-sense" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-02" class="progress-track">
+    <div data-hf-id="hf-pfill-02" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <div data-hf-id="hf-badge-02" class="frame-badge" id="frameBadge">
+    <span data-hf-id="hf-mi8y">🧠 상식의 붕괴</span>
+    <span data-hf-id="hf-xew7">버터 발음 굴릴수록 망하는 이유</span>
+  </div>
+
+  <div data-hf-id="hf-grid-02" class="stage-grid">
+    <!-- Twisted Tongue / Host 3-Step Stop-Motion -->
+    <div data-hf-id="hf-tcard-02" class="twisted-card" id="twistedCard" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+      <div data-hf-id="hf-art-02" class="host-stopmotion-box" id="hostStopmotion">
+        <img data-hf-id="hf-img-sing-02" id="imgSing" class="stopmotion-img" src="assets/images/f02_singing_headphones.jpg" alt="Singing">
+        <img data-hf-id="hf-img-freeze-02" id="imgFreeze" class="stopmotion-img" src="assets/images/f02_jaw_freeze.jpg" alt="Jaw Freeze" style="display: none;">
+        <img data-hf-id="hf-img-pain-02" id="imgPain" class="stopmotion-img" src="assets/images/f02_jaw_pain.jpg" alt="Jaw Pain" style="display: none;">
+      </div>
+      <div data-hf-id="hf-tl-02" class="twisted-label">꽈배기 혀의 참사</div>
+      <div data-hf-id="hf-td-02" class="twisted-desc">
+        R 소리 낸다고 목구멍 안으로 말고,<br data-hf-id="hf-x5px">
+        L 소리 낸다고 천장에 닿으려다 마비!
+      </div>
+    </div>
+
+    <!-- Pop Song Aladdin Brake -->
+    <div data-hf-id="hf-scard-02" class="pop-song-card" id="popCard" data-layout-allow-overflow="true">
+      <div data-hf-id="hf-sh-02" class="song-header">
+        <span data-hf-id="hf-3x0o">🎵 팝송 알라딘 OST 따라 부를 때:</span>
+      </div>
+      <div data-hf-id="hf-sb-02" class="song-lyrics-box">
+        <div data-hf-id="hf-sl1-02" class="lyrics-line-1" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">A whole new...</div>
+        <div data-hf-id="hf-sl2-02" class="lyrics-line-2" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+          <span data-hf-id="hf-y7xz">WORLD</span>
+          <span data-hf-id="hf-sll-02" class="highlight-world" id="worldBrake">💥 [급브레이크!]</span>
+        </div>
+      </div>
+      <div data-hf-id="hf-ct-02" class="caution-tape" id="cautionTape" data-layout-allow-overflow="true" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+        ⛔ CAUTION! 혀 꼬임 급브레이크 발생! ⛔
+      </div>
+      <div data-hf-id="hf-sc-02" style="font-size: 1.25cqw; font-weight: 700; color: #7A7365;">
+        원어민은 절대로 혀를 이렇게 피곤하게 쓰지 않습니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- Big Rubber Stamp -->
+  <div data-hf-id="hf-stamp-02" class="stamp-box" id="rubberStamp" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+    🚫 혀 굴리면 끝장!
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-02" class="caption-container">
+    <div data-hf-id="hf-c1-02" class="caption-line" id="cap1">많은 분들이 영어에 'R'이 들어가면 본능적으로 혀를 목구멍 안쪽으로 잔뜩 말아 올립니다.</div>
+    <div data-hf-id="hf-c2-02" class="caption-line" id="cap2">노래를 따라 부르거나 혼자 단어를 읽을 때도, 혀를 잔뜩 굴리다가 바로 뒤에 'L'이 나오니까 그 말려있던 혀끝을 입천장에 억지로 갖다 붙이려고 용을 쓰죠.</div>
+    <div data-hf-id="hf-c3-02" class="caption-line" id="cap3">그런데 결론부터 말씀드리면, 이 동작을 시도하는 순간 여러분의 발음은 이미 끝난 겁니다.</div>
+    <div data-hf-id="hf-c4-02" class="caption-line" id="cap4">원어민들은 World를 소리 낼 때, 절대로 이런 피곤한 동작을 하지 않거든요.</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-02" id="vo-02" src="assets/voice/02.wav" data-start="0" data-duration="33.96" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative: 93.00 / 510.44 = 18.22%)
+    tl.fromTo("#pfill", { width: "11.57%" }, { width: "18.22%", duration: 33.96, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#twistedCard", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+    tl.fromTo("#popCard", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+
+    // Sentence 1 (0.5s ~ 7.2s): Singing happily
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+
+    // Sentence 2 (7.4s ~ 18.5s): Jaw freezes with electric spark
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 7.2);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 7.4);
+    tl.set("#imgSing", { display: "none" }, 8.5);
+    tl.set("#imgFreeze", { display: "block" }, 8.5);
+    tl.to("#twistedCard", { x: "-=4", yoyo: true, repeat: 3, duration: 0.06, ease: "steps(4)" }, 8.5);
+
+    // Aladdin song caution tape snaps at 12.0s
+    tl.to("#cautionTape", { scale: 1, duration: 0.3, ease: "back.out(2)" }, 12.0);
+    tl.to("#worldBrake", { scale: 1.2, duration: 0.2, yoyo: true, repeat: 3 }, 12.2);
+
+    // Sentence 3 (18.8s ~ 26.2s): Jaw pain agony
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 18.6);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 18.8);
+    tl.set("#imgFreeze", { display: "none" }, 19.0);
+    tl.set("#imgPain", { display: "block" }, 19.0);
+    tl.to("#twistedCard", { y: "-=5", yoyo: true, repeat: 3, duration: 0.08, ease: "steps(4)" }, 19.0);
+
+    // Rubber stamp 쾅! at 19.5s with screen shake
+    tl.to("#rubberStamp", { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in" }, 19.5);
+    tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 19.8); // 2px screen shake
+
+    // Sentence 4 (26.5s ~ 33.5s)
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 26.3);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 26.5);
+
+    // Frame exit
+    tl.to(["#twistedCard", "#popCard", "#frameBadge", "#rubberStamp", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 33.5);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-broken-common-sense"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

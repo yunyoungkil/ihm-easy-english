@@ -1,0 +1,335 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 41.38%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Badge */
+  .frame-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2E86AB;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Main Stage */
+  .eul-stage {
+    position: absolute;
+    top: 15cqh;
+    left: 8cqw;
+    right: 8cqw;
+    height: 72cqh;
+    display: flex;
+    gap: 4cqw;
+  }
+
+  /* Left: Sound Card [ 을 ] */
+  .eul-card {
+    flex: 1;
+    background: #2E86AB;
+    color: #FFFFFF;
+    border: 4px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 8px 8px 0px #2B2B2B;
+    padding: 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .eul-char {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 7cqw;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .eul-metaphor {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid #FFFFFF;
+    border-radius: 14px;
+    padding: 1cqh 1.8cqw;
+    font-size: 1.4cqw;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  /* Right: Stop Sign & Resonance Visual */
+  .resonance-card {
+    flex: 1.2;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  /* Stop Sign Drop Box */
+  .stop-barrier-box {
+    width: 100%;
+    background: #FFF5F5;
+    border: 3px solid #2B2B2B;
+    border-radius: 18px;
+    padding: 1.5cqh 2cqw;
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    position: relative;
+  }
+  .stop-icon { font-size: 3cqw; }
+  .stop-text {
+    font-size: 1.3cqw;
+    font-weight: 900;
+    color: #FF4757;
+  }
+
+  /* Throat Resonance Display */
+  .throat-box {
+    width: 100%;
+    height: 28cqh;
+    background: #FAF7F2;
+    border: 3px solid #2B2B2B;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1cqh;
+    position: relative;
+    overflow: hidden;
+  }
+  .throat-title {
+    font-size: 1.1cqw;
+    font-weight: 800;
+    color: #7A7365;
+  }
+  .throat-illustration-box {
+    width: 220px;
+    height: 150px;
+    border-radius: 14px;
+    border: 2.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    background: #FFFFFF;
+  }
+  .throat-illustration-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .confident-host-box {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 3px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    background: #FFFFFF;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  .confident-host-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Success Check Badge */
+  .success-badge {
+    background: #00E5A3;
+    color: #2B2B2B;
+    border: 3px solid #2B2B2B;
+    border-radius: 14px;
+    box-shadow: 3px 3px 0px #2B2B2B;
+    padding: 0.8cqh 2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1600px;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-06" id="root" data-composition-id="06-step2-eul-resonance" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-06" class="progress-track">
+    <div data-hf-id="hf-pfill-06" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <div data-hf-id="hf-badge-06" class="frame-badge" id="frameBadge">
+    <span data-hf-id="hf-py1d">🔵 2단계 치트키</span>
+    <span data-hf-id="hf-fu1e">침 삼키듯 게으른 소리: [을]</span>
+  </div>
+
+  <div data-hf-id="hf-stage-06" class="eul-stage">
+    <!-- Left Card -->
+    <div data-hf-id="hf-ecard-06" class="eul-card" id="eulCard">
+      <div data-hf-id="hf-oxwd" style="font-size: 1.3cqw; font-weight: 900; background: rgba(0,0,0,0.2); padding: 0.5cqh 1.5cqw; border-radius: 10px;">비밀 소리 2</div>
+      <div data-hf-id="hf-echar-06" class="eul-char">[ 을 ]</div>
+      <div data-hf-id="hf-emeta-06" class="eul-metaphor">
+        "워~ 뒤에 숨어있는 그림자처럼<br data-hf-id="hf-x5px">게으르게 얹어주는 울림!"
+      </div>
+    </div>
+
+    <!-- Right Card -->
+    <div data-hf-id="hf-rcard-06" class="resonance-card" id="resCard">
+      <!-- Stop Sign -->
+      <div data-hf-id="hf-sbox-06" class="stop-barrier-box" id="stopBox">
+        <span data-hf-id="hf-sicon-06" class="stop-icon">⛔</span>
+        <span data-hf-id="hf-stext-06" class="stop-text">혀끝 돌진 금지! 입천장에 붙이지 마세요!</span>
+      </div>
+
+      <!-- Throat Soundwaves with AI comic illustration -->
+      <div data-hf-id="hf-tbox-06" class="throat-box">
+        <div data-hf-id="hf-tt-06" class="throat-title">목구멍 뒤쪽 게으른 공명 (Dark L Resonance)</div>
+        <div data-hf-id="hf-timgbox-06" class="throat-illustration-box">
+          <img data-hf-id="hf-timg-06" class="throat-illustration-img" src="assets/images/f06_throat_dark_l.jpg" alt="Throat Dark L Resonance">
+        </div>
+      </div>
+
+      <!-- Confident Host & Success Badge row -->
+      <div data-hf-id="hf-u02z" style="display: flex; align-items: center; gap: 1.5cqw;">
+        <div data-hf-id="hf-conf-box-06" class="confident-host-box" id="confBox">
+          <img data-hf-id="hf-conf-img-06" class="confident-host-img" src="assets/images/f06_char_confident.jpg" alt="Confident Host">
+        </div>
+        <div data-hf-id="hf-sbadge-06" class="success-badge" id="successBadge">
+          ✔ 혀끝을 대지 않아도 AI와 원어민에게는 100점 소리!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-06" class="caption-container">
+    <div data-hf-id="hf-c1-06" class="caption-line" id="cap1">자, 이제 두 번째 비밀 소리입니다.</div>
+    <div data-hf-id="hf-c2-06" class="caption-line" id="cap2">여기서 절대 혀끝으로 천장을 치려고 달려들지 마세요.</div>
+    <div data-hf-id="hf-c3-06" class="caption-line" id="cap3">방금 전 '워~' 하고 턱 힘을 뺀 그 상태 그대로, 침을 삼키듯 목구멍 뒤쪽에서 게으르게 '을' 소리를 내는 겁니다.</div>
+    <div data-hf-id="hf-c4-06" class="caption-line" id="cap4">혀끝이 천장에 닿을락 말락 힘을 뺀 채로, 목구멍 근처만 묵직해지는 느낌이죠. 워~ 뒤에 숨어있는 그림자처럼 '을'.</div>
+    <div data-hf-id="hf-c5-06" class="caption-line" id="cap5">혀끝을 억지로 천장에 딱 붙이지 않아도, 이 게으른 울림만으로 스마트폰 AI나 원어민 귀에는 가장 완벽한 소리로 들립니다.</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-06" id="vo-06" src="assets/voice/06.wav" data-start="0" data-duration="39.76" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative: 251.00 / 510.44 = 49.17%)
+    tl.fromTo("#pfill", { width: "41.38%" }, { width: "49.17%", duration: 39.76, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#eulCard", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+    tl.fromTo("#resCard", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+
+    // Sentence 1 (0.5s ~ 3.5s)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+
+    // Sentence 2 (3.8s ~ 8.2s): Stop sign warning
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 3.6);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 3.8);
+    tl.fromTo("#stopBox", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.8)" }, 4.2);
+
+    // Sentence 3 (8.5s ~ 19.8s): Resonance illustration zoom & pulse
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 8.3);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 8.5);
+    tl.fromTo(".throat-illustration-box", { scale: 0.95 }, { scale: 1.05, yoyo: true, repeat: 5, duration: 0.8, ease: "sine.inOut" }, 9.0);
+
+    // Sentence 4 (20.0s ~ 31.0s)
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 19.8);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 20.0);
+
+    // Sentence 5 (31.2s ~ 39.2s): Confident Host & Success badge appear
+    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 31.0);
+    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 31.2);
+    tl.to("#confBox", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 31.8);
+    tl.to("#successBadge", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 32.2);
+
+    // Frame exit
+    tl.to(["#eulCard", "#resCard", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 39.3);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-step2-eul-resonance"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

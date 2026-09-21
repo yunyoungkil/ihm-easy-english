@@ -20,14 +20,17 @@ def main():
     face_512 = face_crop.resize((512, 512), Image.Resampling.LANCZOS)
     
     # 크롭된 얼굴 내에서 눈과 입 부분만 마스크 (모자 챙과 턱 아래 수염 제외)
-    # 512x512 기준:
+    # 512x512 기준. 입 마스크는 원래 y:280에서 시작했는데, blur(radius=8)의 번짐이
+    # 콧수염 자리(입 바로 위)까지 새어 들어가 콧수염이 통째로 사라지는 버그가 실측으로
+    # 확인됨 — 입 마스크를 아래로 내리고(y:300) blur 반경도 줄여서 번짐이 콧수염 자리를
+    # 침범하지 않게 함.
     # 눈/눈썹 영역: x: 70~440, y: 60~240
-    # 입 영역: x: 150~360, y: 280~380
+    # 입 영역: x: 150~360, y: 300~385 (콧수염 보호를 위해 위쪽 여백 확보)
     mask_crop = Image.new("L", (512, 512), 0)
     draw = ImageDraw.Draw(mask_crop)
     draw.ellipse([80, 70, 430, 240], fill=255)
-    draw.ellipse([150, 280, 360, 380], fill=255)
-    mask_blurred = mask_crop.filter(ImageFilter.GaussianBlur(radius=8))
+    draw.ellipse([150, 300, 360, 385], fill=255)
+    mask_blurred = mask_crop.filter(ImageFilter.GaussianBlur(radius=5))
     
     mask_rgb = Image.merge("RGB", (mask_blurred, mask_blurred, mask_blurred))
     
@@ -39,22 +42,35 @@ def main():
     mask_rgb.save(os.path.join(COMFY_INPUT_DIR, mask_fn))
     
     prompt_text = (
-        "close-up 2D cartoon face portrait, funny expression, eyes tightly closed blinking with cute trembling eyebrows, "
+        "close-up 2D cartoon face portrait, funny expression, both eyes completely shut scrunched closed, "
+        "two simple curved closed-eye lines, both eyes perfectly symmetric and matching each other, "
+        "simple flat black cartoon eyes with thick black outline and minimal shading, "
+        "warm skin tone matching original, full mustache connecting to beard above upper lip, "
         "sweat drop on cheek, surprised mouth, clean vector line art, flat bright colors, cute comic style"
     )
     negative_text = (
-        "dark shadows, realistic, photo, 3d render, ugly, messy, distorted, extra hair, beard covering eyes"
+        "dark shadows, realistic, photo, 3d render, ugly, messy, distorted, extra hair, beard covering eyes, "
+        "blue eyes, green eyes, different eye color, pale skin, photorealistic eyes, detailed iris, glossy eyes, "
+        "painterly shading, missing mustache, clean-shaven upper lip, bare skin above lip, "
+        "asymmetric eyes, mismatched eyes, one eye open one eye closed, one eye more open than the other, "
+        "wall-eyed, cross-eyed, uneven eyebrows, winking, half-closed eyes"
     )
     
     workflow = {
         "3": {
             "inputs": {
                 "seed": 555888,
-                "steps": 20,
+                "steps": 28,
                 "cfg": 7.0,
                 "sampler_name": "dpmpp_2m",
                 "scheduler": "karras",
-                "denoise": 0.55,
+                # dreamshaper_8 is a plain (non-inpainting-specialized) checkpoint, so
+                # VAEEncodeForInpaint blanks the masked area to flat grey before sampling —
+                # at denoise 0.55 there isn't enough noise added to actually repaint that
+                # blank fill, so it comes back as a grey smudge (confirmed by test render).
+                # Needs to be high (~0.9) so the sampler treats the masked region as
+                # near-fresh noise instead of "lightly refine this already-grey patch".
+                "denoise": 0.8,
                 "model": ["4", 0],
                 "positive": ["6", 0],
                 "negative": ["7", 0],

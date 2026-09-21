@@ -1,0 +1,42 @@
+[EP19 유튜브 롱폼 업로드 체크리스트]
+================================================================================
+예약 권장: 2026-09-26(토) 20:00 KST — EP18(9/24 목) 기준 2일 간격, 채널 고정 발행 시각 20:00
+(아직 유튜브에 실제로 예약 등록된 건 아님 — 사람이 직접 유튜브 Studio에 업로드·예약해야 함.)
+
+1. [영상 파일]
+   - video.mp4 (1920x1080, 30fps, H.264/AAC, 7분 35.0초 / 455.04초)
+2. [썸네일 이미지]
+   - 메인: thumbnail.jpg = thumbnail-a.jpg (충격/멘붕형 — 머리 감싸쥔 표정 + 동사/명사 분기 화살표)
+   - Test & Compare 보조: thumbnail-b.jpg(실사형 — "사전 찢으세요!" + ESTIMATE 카드 + 동사/명사 에너지 비교),
+     thumbnail-c.jpg(안심/확신 해결형, CTR A등급 8.8~10.9% 1위), thumbnail-close-up.jpg(모바일 익스트림 클로즈업)
+3. [제목]
+   - title.txt 복사 붙여넣기 (헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이)
+   - **제목도 A/B 테스트에 쓸 것**: title-variants.txt에 A/B 시안이 더 있음(단, 전체 원문 텍스트는
+     BRIEF.md에 훅 문구만 보존돼 있어 CTR 등급 참고용으로만 사용) — 유튜브 Studio "제목 및
+     썸네일 테스트" 기능에 썸네일과 함께 등록해 실제 클릭률로 검증
+4. [설명]
+   - description.txt 복사 붙여넣기 (챕터 타임라인 포함)
+5. [고정 댓글]
+   - pinned-comment.txt 복사하여 첫 댓글 등록 후 [고정] 클릭
+6. [태그]
+   - tags.txt 내용 복사 붙여넣기
+7. [자막 (다국어)]
+   - 한국어: subtitles/subtitles-ko.srt 업로드
+   - 영어: subtitles/subtitles-en.srt 업로드 + 영어 제목/설명 적용
+   - 일본어: subtitles/subtitles-ja.srt 업로드 + 일본어 제목/설명 적용
+   - 중국어 번체: subtitles/subtitles-zh-tw.srt 업로드 + 번체 제목/설명 적용
+   - 중국어 간체: subtitles/subtitles-zh-cn.srt 업로드 + 간체 제목/설명 적용
+   - 스페인어: subtitles/subtitles-es.srt 업로드 + 스페인어 제목/설명 적용
+   - 베트남어: subtitles/subtitles-vi.srt 업로드 + 베트남어 제목/설명 적용
+8. [공개 예약]
+   - 2026-09-26(토) 20:00 KST로 유튜브 Studio에서 설정
+9. [엔드스크린 & 카드]
+   - **엔드스크린 연결 영상: 직전 영상인 EP18(묵음 자음 KN-/-MB/WR-, videoId: ROks87qezuU)로 설정**
+   - 유튜브 Studio "최종 화면" 요소에서 직접 추가
+   - 마지막 5초(7:30 ~ 7:35, 총 길이 455.04초 기준)는 중앙이 완전히 비워져 있어 유튜브 추천
+     영상/구독 버튼이 화면 요소를 전혀 가리지 않음 — Frame 12에 추가한 "함께 보면 좋은 영상"
+     추천 배너도 이 keep-out 구간 이전에 같이 페이드아웃되도록 구현됨
+10. [업로드 완료 후]
+   - 실제 공개 후 videoId를 status.json에 기록
+   - idea-board-history.json의 EP19 항목을 status: "scheduled"로 갱신하고 producedAt 채우기
+================================================================================

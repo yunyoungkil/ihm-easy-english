@@ -142,8 +142,7 @@
     justify-content: center;
     font-family: 'Archivo Black', sans-serif;
     font-size: 2.5cqw;
-    color: #F5C518;
-    transition: transform 0.15s, background 0.2s, color 0.2s;
+    color: #B49012;
   }
 
   /* Options Grid */
@@ -372,30 +371,18 @@
 
     // ⭐️ 3-Second High-Tension Silence Countdown (16.60s ~ 19.60s)
     // Count 3: Golden Amber pulse
-    tl.call(function () {
-      timer.textContent = "3";
-      timer.style.color = "#F5C518";
-      timer.style.borderColor = "#F5C518";
-      timer.style.boxShadow = "0 0 20px rgba(245,197,24,0.6)";
-    }, null, 16.60);
+    tl.call(function () { timer.textContent = "3"; }, null, 16.60);
+    tl.set("#timerBox", { color: "#B49012", borderColor: "#B49012", boxShadow: "0 0 20px rgba(180,144,18,0.6)" }, 16.60);
     tl.to("#timerBox", { scale: 1.25, duration: 0.25, yoyo: true, repeat: 1 }, 16.65);
 
     // Count 2: Warning Orange pulse
-    tl.call(function () {
-      timer.textContent = "2";
-      timer.style.color = "#FF793F";
-      timer.style.borderColor = "#FF793F";
-      timer.style.boxShadow = "0 0 25px rgba(255,121,63,0.75)";
-    }, null, 17.60);
+    tl.call(function () { timer.textContent = "2"; }, null, 17.60);
+    tl.set("#timerBox", { color: "#ED703B", borderColor: "#ED703B", boxShadow: "0 0 25px rgba(237,112,59,0.75)" }, 17.60);
     tl.to("#timerBox", { scale: 1.3, duration: 0.25, yoyo: true, repeat: 1 }, 17.65);
 
     // Count 1: Urgent Crimson Alert pulse!
-    tl.call(function () {
-      timer.textContent = "1";
-      timer.style.color = "#FF3838";
-      timer.style.borderColor = "#FF3838";
-      timer.style.boxShadow = "0 0 35px rgba(255,56,56,0.9)";
-    }, null, 18.60);
+    tl.call(function () { timer.textContent = "1"; }, null, 18.60);
+    tl.set("#timerBox", { color: "#FF3838", borderColor: "#FF3838", boxShadow: "0 0 35px rgba(255,56,56,0.9)" }, 18.60);
     tl.to("#timerBox", { scale: 1.38, duration: 0.25, yoyo: true, repeat: 1 }, 18.65);
 
     // Sentence 4 (19.60s ~ 25.50s): 09b Reveal! Dopamine Explosion!

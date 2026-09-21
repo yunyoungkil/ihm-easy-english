@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-19T04:57:16.242Z",
+  "updatedAt": "2026-09-20T12:26:58.890Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -114,7 +114,7 @@
       ],
       "episodeSlug": "ep16-double-vowels",
       "episodeLabel": "단편 EP16",
-      "status": "scheduled",
+      "status": "published",
       "selectedAt": "2026-09-15T10:44:39.266Z",
       "producedAt": "2026-09-17"
     },
@@ -190,10 +190,36 @@
           "detail": "복식호흡이나 힘을 주는 대신 힘을 빼는 '목구멍 소리'와 '언어팩' 체득 니즈 충족"
         }
       ],
-      "episodeSlug": null,
-      "episodeLabel": null,
-      "status": "selected",
+      "episodeSlug": "ep19-ate-suffix",
+      "episodeLabel": "단편 EP19",
+      "status": "scheduled",
       "selectedAt": "2026-09-19T04:57:16.242Z",
+      "producedAt": "2026-09-20"
+    },
+    {
+      "topic": "World 발음이 유독 꼬였던 이유: R과 L이 만날 때 게으른 혀의 소리 규칙",
+      "angleOrHook": "복잡한 혀 꼬임 없이 '우-어' 뒤에 혀끝만 가볍게 멈추면 저절로 풀리는 게으른 혀의 지름길을 확인하고 World, Girl, Pearl까지 한 번에 체득합니다.",
+      "targetAudience": "버터발음을 흉내 내다 혀가 굳어 '월드', '걸' 발음에서 매번 멈칫하는 왕초보 학습자",
+      "rank": 1,
+      "score": 92,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 및 아웃라이어 영상 'World 발음 함께 연습해요 !(57배)' 반영"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "검증된 고유지율 포맷 'LEGACY'(fitScore 57) 구조 채택"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "시청자 반복 언급 키워드 '버터발음', '자주 쓰는 근육' 해결"
+        }
+      ],
+      "episodeSlug": "ep20-world-rl",
+      "episodeLabel": "단편 EP20",
+      "status": "selected",
+      "selectedAt": "2026-09-20T11:12:42.030Z",
       "producedAt": null
     }
   ]

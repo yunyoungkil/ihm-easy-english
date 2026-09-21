@@ -2,24 +2,53 @@
 
 마지막 확인: 2026-09-20
 
-## 🚧 진행 중 — 단편 EP19(-ATE 동사/명사 발음 차이)
+## ✅ 완료 — 단편 EP20(World 등 R+L 인접 발음 규칙)
+
+`videos/ep20-world-rl/` — 아이디어 보드 소재 선정(2026-09-20, rank 1/score 92) → A/B
+시뮬레이터 3안 생성·Gemini AI CTR 진단(사용자 직접 진행, A안 확정) → 프로젝트 폴더 생성,
+썸네일 3종 저장(`thumbnail-a/b/c.jpg`), `idea-board-history.json`에 `episodeSlug` 연결
+완료 → `BRIEF.md`, `SCRIPT.md`, `STORYBOARD.md`, `frame.md` 작성 및 고도화 완료.
+- **음성 및 타임라인**: 남성 음성(Gemini Charon) 14개 조각 생성 (`assets/voice/*.wav`), 24kHz mono 16-bit PCM 헤더 보정 완료. whisper small 전수 실측 LCS 정렬 완료 (`*.words.json`), 총 길이 510.44초(8분 30.44초).
+- **HyperFrames 컴포지션**: 12개 프레임 HTML 및 `index.html` 구현 완료 (누적 타임라인 100% 동기화, BGM 루프 + voiceover ducking carve, 12fps 스텝 종이 컷아웃, 촉각 진동 피직스, 3초 네온 게이지 카운트다운 타이머, 엔드스크린 킵아웃 존 준수).
+- **Linter 무결점 통과**: `npx hyperframes check` 전수 검증 통과 완료 (Lint 0/0, Runtime 0/0, Layout 0/0, Motion 0/0, Contrast 50/50 WCAG AA 통과 — Code 0 완전 무결점).
+- **최종 로컬 렌더링 완료**: `videos/ep20-world-rl/renders/ep20-world-rl_2026-09-20_23-02-30.mp4` (15,314 프레임, 1920x1080, 30fps, H.264/AAC, 31.5MB, 510.46초 / 8분 30.46초) — ffprobe 검증 통과.
+- **업로드 패키지 빌드 완료**: `output/upload-packages/ep20-world-rl-longform/` (렌더링 `video.mp4` 복사 완료, 55개 문장 실측 타임스탬프 추출, 글로벌 6대 언어 번역 완비, 다국어 자막 7종 SRT 생성, Studio 메타데이터, 썸네일 3종 복사, 원클릭 대시보드 `index.html` 완비, `status: "ready_to_upload"`).
+- **다음 행동**: 유튜브 Studio 업로드 예약(2026-09-28 월 20:00 KST 권장) 및 대시보드 동기화 확인.
+
+
+
+## ✅ 완료 — 단편 EP19(-ATE 동사/명사 발음 차이)
 
 `videos/ep19-ate-suffix/` — 아이디어 보드 소재 선정(2026-09-19, rank 3/score 85) → A/B
 시뮬레이터 3안 생성·Gemini AI CTR 진단(사용자 직접 진행, 시안 C: A등급, CTR 8.8~10.9%) →
-시안 C 확정 → `BRIEF.md` 작성 완료(2026-09-19) → 공식 썸네일 4종 풀세트(`thumbnail-a.jpg`~`thumbnail-close-up.jpg`) 완제작 및 저장 완료 → `SCRIPT.md` 검수 완료(맨몸 `-ate`+조사 TTS 위험 5곳·"에스-" 과잉일반화 수정) → 프로젝트 스캐폴딩(`hyperframes init`이 비어있지 않은 폴더를 거부해 임시 폴더 경유로 우회) → TTS 나레이션 생성 완료(14조각, ₩417, 실측 나레이션 총 455.04초) → whisper 단어 타임라인 추출 완료(10개 씬) → STORYBOARD.md/frame.md 작성 및 12개 HyperFrames 프레임 전체 구현 완료(다른 세션 병행 작업분 포함) → `hyperframes check` 통과(0 errors) → **SCRIPT.md 검수 반영분이 실측 타임스탬프 동기화 과정에서 원상복구됐던 것을 재발견해 SCRIPT.md·STORYBOARD.md·프레임 3개 파일(03/07/11) 전부에 재적용**(2026-09-19, 상세: `knowledge/production-rules.md`의 TTS 절) → `TASKS.md` 기록 완료(2026-09-19, 현재 단계). 상세: `videos/ep19-ate-suffix/BRIEF.md`, `videos/ep19-ate-suffix/TASKS.md`.
+시안 C 확정 → `BRIEF.md` 작성 완료(2026-09-19) → 공식 썸네일 4종(`thumbnail-a.jpg`=메인,
+`thumbnail-b.jpg`=실사형 신규 제작, `thumbnail-c.jpg`, `thumbnail-close-up.jpg` — 기존
+구도 중복이던 옛 B는 삭제됐고 사용자가 실사 스타일로 새로 제작) 완제작 →
+`SCRIPT.md` 검수 완료(맨몸 `-ate`+조사 TTS 위험 5곳·"에스-" 과잉일반화 수정) → 12개
+HyperFrames 프레임 전체 구현(다른 세션 병행 작업분 포함, Frame 6/8/9 도파민 텐션 고도화) →
+`hyperframes check` 통과(0 errors, contrast 105/105) → Frame 12 이전 편(EP18) 추천 카드
+추가 → **최종 로컬 렌더링 완료**(`renders/ep19-ate-suffix_2026-09-20_18-32-11.mp4`,
+1920x1080/30fps, 7분 35.0초, 40.4MB) → **업로드 패키지 빌드 완료**
+(`output/upload-packages/ep19-ate-suffix-longform/` — 다국어 자막 7종, 메타데이터, 썸네일,
+체크리스트 전체 포함). 상세: `videos/ep19-ate-suffix/BRIEF.md`, `videos/ep19-ate-suffix/TASKS.md`.
 
 - **제목(시안 C)**: 헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이
-- **썸네일 헤드라인**: -ate 외우면 손해 / -ate 다시는 안 헷갈림
 - **핵심 통찰(BRIEF.md에 기록)**: 같은 -ATE 철자라도 동사형은 강세가 그대로 남아 "에이트"로
   또렷하게 소리 나고, 명사·형용사형은 강세가 앞으로 옮겨가면서 -ate가 힘 빠진 "엇/잇"으로
   축약된다는 강세-모음축약(vowel reduction) 원리 하나로 estimate/graduate/separate 같은
   단어들의 두 얼굴을 설명한다.
-- **썸네일 4종 구축 완료(2026-09-19)**:
-  * `thumbnail-a.jpg` / `thumbnail.jpg`: 웜 크림 시그니처 룩 + `"-ate"` 볼드 + `외우면 손해` 뱃지 + `동사 [-에이트]` vs `명사 [-엇/잇]` 두 갈래 분기 화살표 + 멘붕 캐릭터 & `[ 여태 헛고생한 사람 ]` 콜아웃.
-  * `thumbnail-b.jpg`: 상식붕괴 직격형 (`"-ate" 아니었어?` + `[ 여태 다 읽었던 사람 ]`).
-  * `thumbnail-c.jpg`: 안심/확신 해결형 (`헷갈리던 -ate` + `다시는 안 헷갈림`).
-  * `thumbnail-close-up.jpg`: 모바일 초근접 익스트림 클로즈업 (쉿! 비밀 포즈 + 초대형 2줄 문구).
-- **다음 행동**: 영상 12개 프레임 전면 고도화 및 무결점 검증 완료(`hyperframes check` 0 errors, 0 warnings, 18/18 contrast 통과) ➔ Claude에게 최종 렌더링(`npm run render`) 및 업로드 패키지 빌드(`output/upload-packages/ep19-ate-suffix-longform/`) 인계.
+- **✅ 실제 유튜브 업로드·예약 완료 확인**(2026-09-20): `videoId 4of_mgeLazQ`, private +
+  `publishAt 2026-09-26T11:00:00Z`(KST 20:00) — 유튜브 API로 직접 확인. 실제 게시 제목은
+  시안 C가 아니라 **시안 A**("분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까
+  궁금했습니다 | 영어 발음 원리")였음 — `title-variants.txt`에 실제 게시 표시로 정정 완료.
+  `status.json`/`idea-board-history.json` 둘 다 대시보드 동기화로 자동 반영 확인됨(아래 참고).
+- **대시보드 동기화 근본 원인 3건 발견·수정**(2026-09-20, 상세는
+  `knowledge/production-rules.md`의 "업로드 후 대시보드 자동 동기화가 안 될 때" 절과
+  `knowledge/logs/2026-09.md` 참고): (1) `search.list`가 비공개·예약 영상을 못 찾는 구글
+  API 자체 한계 → 채널 업로드 재생목록 조회로 교체, (2) 같은 파일명 자산 교체 시 브라우저가
+  최대 1시간 캐시된 옛 파일을 보여주던 버그 → `Last-Modified` 검증으로 교체, (3)
+  `/api/idea-board/history/register`가 `episodeSlug` 등을 실제로는 저장하지 않던 코드 버그
+  → body 값을 반영하도록 수정. 세 가지 다 고치고 실제 동기화 성공까지 확인 완료.
 
 ## ✅ 완료 — 단편 EP18(묵음 자음 규칙, KN/-MB/WR)
 

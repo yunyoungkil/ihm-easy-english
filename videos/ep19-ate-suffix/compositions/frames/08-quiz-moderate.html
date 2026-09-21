@@ -71,7 +71,7 @@
   .f08-quiz-round {
     font-size: 1.2cqw;
     font-weight: 900;
-    color: #FF5E57;
+    color: #ED5751;
     background: rgba(255,94,87,0.12);
     padding: 0.3cqh 1.2cqw;
     border-radius: 8px;
@@ -143,8 +143,7 @@
     justify-content: center;
     font-family: 'Archivo Black', sans-serif;
     font-size: 2.5cqw;
-    color: #F5C518;
-    transition: transform 0.15s, background 0.2s, color 0.2s;
+    color: #B49012;
   }
 
   /* Options Grid */
@@ -380,30 +379,18 @@
 
     // ⭐️ 3-Second High-Tension Silence Countdown (23.08s ~ 26.08s)
     // Count 3: Golden Amber pulse
-    tl.call(function () {
-      timer.textContent = "3";
-      timer.style.color = "#F5C518";
-      timer.style.borderColor = "#F5C518";
-      timer.style.boxShadow = "0 0 20px rgba(245,197,24,0.6)";
-    }, null, 23.08);
+    tl.call(function () { timer.textContent = "3"; }, null, 23.08);
+    tl.set("#timerBox", { color: "#B49012", borderColor: "#B49012", boxShadow: "0 0 20px rgba(180,144,18,0.6)" }, 23.08);
     tl.to("#timerBox", { scale: 1.25, duration: 0.25, yoyo: true, repeat: 1 }, 23.10);
 
     // Count 2: Warning Orange pulse
-    tl.call(function () {
-      timer.textContent = "2";
-      timer.style.color = "#FF793F";
-      timer.style.borderColor = "#FF793F";
-      timer.style.boxShadow = "0 0 25px rgba(255,121,63,0.75)";
-    }, null, 24.08);
+    tl.call(function () { timer.textContent = "2"; }, null, 24.08);
+    tl.set("#timerBox", { color: "#ED703B", borderColor: "#ED703B", boxShadow: "0 0 25px rgba(237,112,59,0.75)" }, 24.08);
     tl.to("#timerBox", { scale: 1.3, duration: 0.25, yoyo: true, repeat: 1 }, 24.10);
 
     // Count 1: Urgent Crimson Alert pulse!
-    tl.call(function () {
-      timer.textContent = "1";
-      timer.style.color = "#FF3838";
-      timer.style.borderColor = "#FF3838";
-      timer.style.boxShadow = "0 0 35px rgba(255,56,56,0.9)";
-    }, null, 25.08);
+    tl.call(function () { timer.textContent = "1"; }, null, 25.08);
+    tl.set("#timerBox", { color: "#FF3838", borderColor: "#FF3838", boxShadow: "0 0 35px rgba(255,56,56,0.9)" }, 25.08);
     tl.to("#timerBox", { scale: 1.38, duration: 0.25, yoyo: true, repeat: 1 }, 25.10);
 
     // Sentence 6 (26.08s ~ 31.80s): 08b Reveal! Dopamine Explosion!

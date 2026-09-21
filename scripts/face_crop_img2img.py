@@ -134,7 +134,10 @@ def main():
     final_image.paste(orig_im.crop([340, 770, 680, 890]), (340, 770))
     final_image.paste(orig_im.crop([150, 80, 870, 390]), (150, 80))
     
-    out_path = "videos/ep19-ate-suffix/assets/images/char_confused_step1_locked.jpg"
+    # Separate filename from face_crop_inpaint.py's output — this script pastes the
+    # whole regenerated crop with no mask blend (harder seam), so it's a comparison
+    # test, not the canonical result. Don't let it silently overwrite the masked version.
+    out_path = "videos/ep19-ate-suffix/assets/images/char_confused_step1_locked_nomask_test.jpg"
     final_image.convert("RGB").save(out_path, quality=95)
     print(f"[Face Img2Img] Saved to {out_path}")
 

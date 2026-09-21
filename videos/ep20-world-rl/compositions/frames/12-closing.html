@@ -1,0 +1,285 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* Progress Track (100%) */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 93.81%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Left: Host Avatar Card */
+  .closing-host-card {
+    position: absolute;
+    top: 15cqh;
+    left: 8cqw;
+    width: 25cqw;
+    height: 68cqh;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 3cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2cqh;
+    z-index: 10;
+  }
+  .closing-host-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    background: #FAF7F2;
+  }
+  .closing-host-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .closing-host-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.8cqw;
+    color: #2B2B2B;
+  }
+  .closing-host-sub {
+    font-size: 1.2cqw;
+    font-weight: 800;
+    color: #7A7365;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* Right Top: Recommended Next Video (EP19) */
+  .rec-video-card {
+    position: absolute;
+    top: 15cqh;
+    right: 8cqw;
+    width: 25cqw;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 24px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    padding: 1.8cqh 1.8cqw;
+    display: flex;
+    flex-direction: column;
+    gap: 1cqh;
+    z-index: 10;
+  }
+  .rec-tag {
+    font-size: 1cqw;
+    font-weight: 900;
+    color: #FF5E57;
+  }
+  .rec-title {
+    font-size: 1.3cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+    line-height: 1.3;
+  }
+  .rec-thumb-box {
+    width: 100%;
+    height: 130px;
+    background: #FAF7F2;
+    border: 2px solid #2B2B2B;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 2px 2px 0px #2B2B2B;
+  }
+  .rec-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Right Bottom: Subscribe / Like Buttons */
+  .cta-box {
+    position: absolute;
+    bottom: 17cqh;
+    right: 8cqw;
+    width: 25cqw;
+    display: flex;
+    gap: 1.5cqw;
+    z-index: 10;
+  }
+  .cta-sub-btn {
+    flex: 1.2;
+    background: #FF4757;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 1.4cqh;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.3cqw;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6cqw;
+  }
+  .cta-like-btn {
+    flex: 1;
+    background: #FFE500;
+    color: #2B2B2B;
+    border: 3px solid #2B2B2B;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 1.4cqh;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.3cqw;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6cqw;
+  }
+
+  /* CENTER KEEP-OUT ZONE (600px x 350px) 100% BLANK FOR YOUTUBE OVERLAY */
+  /* Left: 8cqw + 25cqw = 33cqw (~633px), Right: ~633px, Center is 100% vacant! */
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 1600px;
+    overflow: visible;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-12" id="root" data-composition-id="12-closing" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-prog-12" class="progress-track">
+    <div data-hf-id="hf-pfill-12" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <!-- Left: Presenter -->
+  <div data-hf-id="hf-lhost-12" class="closing-host-card" id="hostCard">
+    <div data-hf-id="hf-lavatar-12" class="closing-host-avatar">
+      <img data-hf-id="hf-2eb2" class="closing-host-img" src="assets/images/f12_char_goodbye.jpg" alt="Goodbye Host">
+    </div>
+    <div data-hf-id="hf-4cb2" class="closing-host-title">이해하면 쉬운영어</div>
+    <div data-hf-id="hf-jyii" class="closing-host-sub">
+      "영어는 혀를 쥐어짜는 게 아니라<br data-hf-id="hf-x5px">
+      소리의 길을 아는 것입니다."
+    </div>
+  </div>
+
+  <!-- Right Top: Recommended Video -->
+  <div data-hf-id="hf-rec-12" class="rec-video-card" id="recVideo">
+    <div data-hf-id="hf-jfx9" class="rec-tag">▶ 다음 추천 영상</div>
+    <div data-hf-id="hf-410u" class="rec-title">EP19: 헷갈리던 -ATE 발음의 비밀</div>
+    <div data-hf-id="hf-rthumb-12" class="rec-thumb-box">
+      <img data-hf-id="hf-sq3x" class="rec-thumb-img" src="assets/images/ep19_thumb.jpg" alt="EP19 Thumbnail">
+    </div>
+  </div>
+
+  <!-- Right Bottom: CTA -->
+  <div data-hf-id="hf-cta-12" class="cta-box" id="ctaBox">
+    <div data-hf-id="hf-qfq0" class="cta-sub-btn" id="subBtn">🔔 구독하기</div>
+    <div data-hf-id="hf-93a9" class="cta-like-btn" id="likeBtn">👍 좋아요</div>
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-12" class="caption-container">
+    <div data-hf-id="hf-c1-12" class="caption-line" id="cap1">영어는 혀를 혹사시키며 무작정 굴리는 게 아니라, 소리가 지나가는 진짜 길을 이해하는 것입니다.</div>
+    <div data-hf-id="hf-c2-12" class="caption-line" id="cap2">오늘 영상이 여러분의 오랜 발음 답답함을 시원하게 뚫어드렸다면, 구독과 좋아요로 함께해 주세요.</div>
+    <div data-hf-id="hf-c3-12" class="caption-line" id="cap3">다음 시간에도 여러분의 귀와 입을 단숨에 열어주는 명쾌한 소리 공식으로 찾아뵙겠습니다.</div>
+    <div data-hf-id="hf-c4-12" class="caption-line" id="cap4">오늘도 끝까지 함께해 주셔서 진심으로 감사합니다!</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-12" id="vo-12" src="assets/voice/12.wav" data-start="0" data-duration="26.60" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill to 100% over full 31.60s (26.60s audio + 5s keepout)
+    tl.fromTo("#pfill", { width: "93.81%" }, { width: "100%", duration: 31.60, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#hostCard", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.fromTo("#recVideo", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.4);
+    tl.fromTo("#ctaBox", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0.5);
+
+    // Sentence 1 (0.5s ~ 8.2s)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+
+    // Sentence 2 (8.5s ~ 15.5s): CTA Pulse
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 8.3);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 8.5);
+    tl.to("#subBtn", { scale: 1.08, yoyo: true, repeat: 3, duration: 0.35 }, 9.5);
+    tl.to("#likeBtn", { scale: 1.08, yoyo: true, repeat: 3, duration: 0.35 }, 11.0);
+
+    // Sentence 3 (15.8s ~ 21.8s)
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 15.6);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 15.8);
+
+    // Sentence 4 (22.0s ~ 26.2s)
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 21.8);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 22.0);
+
+    // End-screen 5s keepout (26.60s ~ 31.60s): Captions fade out, center remains completely blank
+    tl.to("#cap4", { opacity: 0, duration: 0.4 }, 26.4);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["12-closing"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

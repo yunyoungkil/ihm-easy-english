@@ -89,10 +89,55 @@ TTS 실측, 프레임 구현, 자막 100% 검증, 최종 렌더까지의 전체 
   * 정답 발표 시 정답 옵션 네온 글로우 확대 & `⭕ 정답!` 뱃지 바운스, 오답 옵션 디밍 & `❌ 오답` 뱃지 팝업.
   * 공식 유레카 환호 캐릭터(`char_celebrate.jpg`) 다이내믹 리프인 등장 (자체 'Eureka! I got it!' 일러스트 및 하단 대형 정답 배너와 중복되고 `overflow: hidden` 클리핑으로 노란 띠 아티팩트를 유발하던 카드 상단 말풍선 `#celebrateSpeech` 완전 제거하여 무결점 룩앤필 확보).
   * HyperFrames 중첩 미디어 표준 준수: SFX 오디오 태그에 `data-hf-media-start-basis="local"` 완벽 부여.
-- [ ] Frame 12 클로징에 이전 편 추천 카드(`▶️ 함께 보면 좋은 영상: 소리 없는 철자의 비밀 (묵음 자음)`)
-  아직 `12-closing.html`에는 구현 안 됨 — SCRIPT.md에는 명세돼 있으니 다음 세션에서 반영할 것.
-- [ ] 최종 로컬 렌더링 (`renders/` 폴더).
-- [ ] 업로드 패키지 빌드 (`output/upload-packages/ep19-ate-suffix-longform/`).
+- [x] **Frame 12 클로징 이전 편 추천 카드 및 WCAG 대비 경고 전량 해소 완료 (2026-09-20)**:
+  * `12-closing.html`에 `▶️ 함께 보면 좋은 영상: 소리 없는 철자의 비밀 (묵음 자음)` 배너 추가 —
+    센터 카드 아래·자막 위 빈 공간(`top: 75%`)에 배치, 센터 카드와 같은 타이밍(0.9s 인·15.5s 아웃)으로
+    끝 5초 keep-out 구간에선 함께 페이드아웃되어 화면 중앙을 비우는 규칙을 그대로 지킴.
+  * `hyperframes check`의 WCAG 대비 경고 8곳(Frame 1 번개 아이콘이 어두운 배지 배경과 같은 색으로
+    묻힘, Frame 8/9 퀴즈 라벨·타이머 숫자, Frame 11 단어 카드 발음 라벨) 전부 제안 색상으로 교체해
+    105/105 통과로 해소.
+  * Frame 8/9 타이머(`#timerBox`)에서 진짜 렌더링 버그도 함께 발견·수정: CSS
+    `transition: transform 0.15s, ...`가 GSAP `tl.to({scale:...})`와 같은 `transform` 속성을
+    동시에 건드리고 있었음(EP17 Frame 6~8에서 확립된 "GSAP 대상 요소에 CSS transition 금지"
+    규칙과 동일 패턴) — transition 자체를 제거. 색상 변경도 `tl.call()`로 직접
+    `style.color`를 건드리던 것(스크럽 시 되돌아가지 않는 비결정성 패턴, EP14 Frame 5 교훈과 동일
+    계열)을 `tl.set()` GSAP 트윈으로 교체해 타임라인에 완전히 편입시킴.
+  * `npx hyperframes check` 최종 재검증: **0 errors, contrast 105/105 pass**. 남은 경고 2건은
+    루트 `index.html`의 BGM carve 관련 "GSAP target not found"로, 내 수정과 무관한 기존
+    프레임워크 레벨 경고이자 렌더링에 영향 없음(check 자체는 여전히 통과).
+- [x] **최종 로컬 렌더링 완료 (2026-09-20)**: `npx hyperframes@0.8.50 render`를 프로젝트 자체
+  `renders/` 폴더에 기본 경로로 실행(2단계 출력 규칙 준수) — 13,652프레임, 20분 53초 소요.
+  결과: `videos/ep19-ate-suffix/renders/ep19-ate-suffix_2026-09-20_18-32-11.mp4`
+  (1920x1080, 30fps, H.264/AAC, 7분 35.0초/455.07초, 40.4MB) — ffprobe로 스펙 확인 완료.
+- [x] **업로드 패키지 빌드 완료 (2026-09-20)**: `output/upload-packages/ep19-ate-suffix-longform/`에
+  전체 산출물 완성.
+  * 다국어 자막 7종(`subtitles/subtitles-{ko,en,ja,zh-tw,zh-cn,es,vi}.srt`) — 12개 프레임 HTML의
+    `setCaption()` 호출을 실측 타임라인(누적 프레임 시작 + 로컬 호출 시각) 기준으로 71개 문장
+    추출(`scripts/extract-ep19-captions.mjs`) 후 6개 언어로 번역(`scripts/ep19-translations.json`)
+    하여 SRT 생성(`scripts/build-ep19-subtitles.mjs`). 각 자막 종료 시각은 다음 문장 시작 시각으로
+    체이닝, 마지막 문장은 영상 총 길이(455.04초)까지 유지.
+  * `multilingual-metadata.json`/`multilingual-guide.txt` — 7개 언어별 제목/설명/챕터 타임라인
+    (lang 필드는 "원어 표기 (한국어 설명)" 형식 준수).
+  * `title.txt`/`description.txt`/`tags.txt`/`pinned-comment.txt`/`timeline.txt` — 확정 시안(C) 기준.
+  * `title-variants.txt` — C(채택)/B/A 3개 시안 CTR 등급과 함께 보존. **A/B는 BRIEF.md에 훅
+    문구만 남아있고 전체 제목 원문이 보존되지 않아, 훅 문구만 기록하고 그 사실을 파일에 명시**
+    (사실관계 불확실한 내용을 지어내지 않음).
+  * `status.json` — `status: "ready_to_upload"`, 권장 예약일 2026-09-26(토) 20:00 KST
+    (`2026-09-26T11:00:00Z`), EP18(9/24 목) 기준 2일 간격.
+  * `upload-checklist.txt` — 엔드스크린 연결 EP18(묵음 자음, videoId `ROks87qezuU`), 끝 5초
+    keep-out 구간(7:30~7:35, 총 길이 455.04초 기준)을 정확히 계산해 반영.
+  * `index.html` — EP18 패키지의 CSS/JS 셸을 그대로 재사용하되, 콘텐츠는 손으로 다시 타이핑하지
+    않고 이미 생성해 둔 `title.txt`/`description.txt`/`multilingual-metadata.json` 등을
+    `scripts/build-ep19-index-html.mjs`가 직접 읽어 주입하는 방식으로 제작(전사 오류 방지).
+  * **⚠️ 썸네일 B 처리 정정(2026-09-20)**: 최초 패키지 빌드 시엔 이 문서 2026-09-19 절의
+    "B는 A와 중복이라 영구 삭제" 기록만 보고 3종(a/c/close-up)으로 빌드했는데, 사용자가 그
+    사이 실사 스타일의 새 B("사전 찢으세요!" + ESTIMATE 카드, `.png`)를 직접 제작해 프로젝트에
+    저장해 둔 상태였다 — 파일이 `thumbnail-b.jpg`가 아니라 `thumbnail-b.png`라서 `*.jpg` 검색에
+    걸리지 않아 처음엔 놓쳤다(사용자가 "썸네일 b가 없음"으로 지적한 뒤 재검색해서 발견).
+    `.jpg`로 변환해 프로젝트·패키지 양쪽에 저장하고 4종 그리드로 재조정. 이후 사용자가 같은
+    구도의 더 고해상도 개선판(`thumbnail-b.jpg`, 5504x3072 — 따옴표 제거 등 디자인 다듬음)으로
+    직접 교체해 프로젝트 폴더에 저장 → 패키지 폴더에도 재복사해 동기화 완료.
+  * 영상·썸네일 파일도 패키지 폴더로 복사 완료(`video.mp4`, `thumbnail.jpg`/`-a`/`-b`/`-c`/`-close-up.jpg`).
 
 
 

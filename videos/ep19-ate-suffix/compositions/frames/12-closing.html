@@ -137,6 +137,35 @@
     object-fit: cover;
   }
 
+  /* Next Video Recommendation Banner */
+  .f12-recommend-banner {
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 0.9cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 5px 5px 0px #2B2B2B;
+    border-radius: 999px;
+    padding: 1.1cqh 2.2cqw;
+    opacity: 0;
+    z-index: 12;
+  }
+  .f12-recommend-icon { font-size: 1.5cqw; }
+  .f12-recommend-label {
+    font-size: 1.1cqw;
+    font-weight: 700;
+    color: #7A7365;
+  }
+  .f12-recommend-title {
+    font-size: 1.35cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+  }
+
   /* Caption Pill */
   .caption-pill {
     position: absolute;
@@ -194,6 +223,13 @@
     </div>
   </div>
 
+  <!-- Next Video Recommendation Banner (fades out with everything else in the 5s keep-out) -->
+  <div data-hf-id="hf-rec1" class="f12-recommend-banner" id="recommendBanner">
+    <span data-hf-id="hf-rec2" class="f12-recommend-icon">▶️</span>
+    <span data-hf-id="hf-rec3" class="f12-recommend-label">함께 보면 좋은 영상</span>
+    <span data-hf-id="hf-rec4" class="f12-recommend-title">소리 없는 철자의 비밀 (묵음 자음)</span>
+  </div>
+
   <!-- Caption Pill -->
   <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
 
@@ -218,6 +254,7 @@
     tl.call(function () { setCaption("이제 미드나 일상에서 -ate 단어를 만나도 전혀 멈칫하실 필요가 없습니다."); }, null, 0.46);
     tl.to("#cornerWordmark", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.46);
     tl.to("#centerFarewell", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 0.46);
+    tl.to("#recommendBanner", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.9);
 
     // Sentence 2 (7.05s ~ 13.08s): Your ears ahead
     tl.call(function () { setCaption("소리의 원리를 이해한 여러분의 귀는 이미 한 걸음 더 앞서가고 있으니까요."); }, null, 7.05);
@@ -233,6 +270,7 @@
       gsap.set(pill, { opacity: 0 });
     }, null, 15.60);
     tl.to("#centerFarewell", { opacity: 0, scale: 0.9, duration: 0.5, ease: "power2.in" }, 15.50);
+    tl.to("#recommendBanner", { opacity: 0, duration: 0.4, ease: "power2.in" }, 15.50);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["12-closing"] = tl;

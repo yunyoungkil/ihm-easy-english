@@ -1,0 +1,359 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  /* White Flash Overlay */
+  .flash-overlay {
+    position: absolute;
+    inset: 0;
+    background: #FFFFFF;
+    opacity: 0;
+    z-index: 99;
+    pointer-events: none;
+  }
+
+  /* Progress */
+  .progress-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(43,43,43,0.08);
+    z-index: 100;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18.22%;
+    height: 100%;
+    background: #FFE500;
+  }
+
+  /* Badge */
+  .frame-badge {
+    position: absolute;
+    top: 4.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FF4757;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 0.8cqh 2.2cqw;
+    font-size: 1.25cqw;
+    font-weight: 900;
+    z-index: 10;
+  }
+
+  /* Main Visual Stage */
+  .crash-stage {
+    position: absolute;
+    top: 15cqh;
+    left: 8cqw;
+    right: 8cqw;
+    height: 72cqh;
+    display: flex;
+    flex-direction: column;
+    gap: 3cqh;
+  }
+
+  /* Collision Arena Box */
+  .arena-box {
+    width: 100%;
+    height: 40cqh;
+    background: #FFFFFF;
+    border: 3.5px solid #2B2B2B;
+    border-radius: 28px;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .arena-title {
+    position: absolute;
+    top: 2cqh;
+    left: 2.5cqw;
+    font-size: 1.1cqw;
+    font-weight: 800;
+    color: #7A7365;
+  }
+  .crash-img-box {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 20px;
+    border: 3.5px solid #2B2B2B;
+    overflow: hidden;
+    box-shadow: 6px 6px 0px #2B2B2B;
+    background: #FFFFFF;
+    transform: scale(0);
+    opacity: 0;
+    z-index: 15;
+  }
+  .crash-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Arrow R (Pulls Back) */
+  .arrow-r {
+    position: absolute;
+    left: 10cqw;
+    background: #2E86AB;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 16px;
+    padding: 1.8cqh 2.2cqw;
+    font-size: 1.6cqw;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+  }
+
+  /* Arrow L (Shoots Forward) */
+  .arrow-l {
+    position: absolute;
+    right: 10cqw;
+    background: #FF4757;
+    color: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 16px;
+    padding: 1.8cqh 2.2cqw;
+    font-size: 1.6cqw;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+  }
+
+  /* Impact Spark */
+  .spark-burst {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 6cqw;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .crash-banner {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%, -50%) scale(0) rotate(-4deg);
+    background: #FFE500;
+    color: #2B2B2B;
+    border: 3.5px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 14px;
+    padding: 0.8cqh 2cqw;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.8cqw;
+    white-space: nowrap;
+    z-index: 22;
+  }
+
+  /* Bottom Dual Pitfall Cards */
+  .pitfall-row {
+    width: 100%;
+    height: 26cqh;
+    display: flex;
+    gap: 3cqw;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .pitfall-card {
+    flex: 1;
+    background: #FAF7F2;
+    border: 3px solid #2B2B2B;
+    border-radius: 20px;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    padding: 1.8cqh 2cqw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .pf-tag {
+    font-size: 1cqw;
+    font-weight: 800;
+    color: #FF4757;
+  }
+  .pf-title {
+    font-size: 1.5cqw;
+    font-weight: 900;
+    color: #2B2B2B;
+  }
+  .pf-result {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2cqw;
+    color: #FF4757;
+  }
+
+  /* Captions */
+  .caption-container {
+    position: absolute;
+    bottom: 3.5cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80cqw;
+    height: 7cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .caption-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 100px;
+    padding: 1cqh 2.6cqw;
+    font-size: 1.45cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    white-space: nowrap;
+    letter-spacing: -0.4px;
+    opacity: 0;
+    pointer-events: none;
+      max-width: 1600px;
+    overflow: visible;
+}
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-root-03" id="root" data-composition-id="03-physics-crash" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-fl-03" class="flash-overlay" id="flashOverlay"></div>
+
+  <div data-hf-id="hf-prog-03" class="progress-track">
+    <div data-hf-id="hf-pfill-03" class="progress-fill" id="pfill"></div>
+  </div>
+
+  <div data-hf-id="hf-badge-03" class="frame-badge" id="frameBadge">
+    <span data-hf-id="hf-5gsx">⚡ 물리적 원인</span>
+    <span data-hf-id="hf-73av">입안에서 벌어진 양방향 교통사고!</span>
+  </div>
+
+  <div data-hf-id="hf-stage-03" class="crash-stage">
+    <!-- Collision Arena -->
+    <div data-hf-id="hf-ar-03" class="arena-box" id="arenaBox" data-layout-allow-overlap="true">
+      <div data-hf-id="hf-at-03" class="arena-title">입안 구강 내부 (소리의 이동 방향)</div>
+
+      <div data-hf-id="hf-crash-imgbox-03" id="crashImgBox" class="crash-img-box" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+        <img data-hf-id="hf-crash-img-03" class="crash-img" src="assets/images/f03_car_crash.jpg" alt="Car Crash Collision">
+      </div>
+
+      <div data-hf-id="hf-ar-r-03" class="arrow-r" id="arrowR" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+        <span data-hf-id="hf-0f42" data-layout-allow-overlap="true">⬅️ R: 혀를 뒤로 당김!</span>
+      </div>
+
+      <div data-hf-id="hf-ar-l-03" class="arrow-l" id="arrowL" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
+        <span data-hf-id="hf-2vva" data-layout-allow-overlap="true">L: 천장 치러 돌진! ➡️</span>
+      </div>
+
+      <div data-hf-id="hf-sp-03" class="spark-burst" id="sparkBurst" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">💥</div>
+      <div data-hf-id="hf-cb-03" class="crash-banner" id="crashBanner" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">🚨 정면충돌! 턱 마비! 🚨</div>
+    </div>
+
+    <!-- Pitfall Dual Cards -->
+    <div data-hf-id="hf-pfr-03" class="pitfall-row" id="pitfallRow">
+      <div data-hf-id="hf-pfc1-03" class="pitfall-card">
+        <div data-hf-id="hf-pft1-03" class="pf-tag">함정 1: 급해서 L을 생략함</div>
+        <div data-hf-id="hf-pfti1-03" class="pf-title">소리가 뭉개져 단어로 인식!</div>
+        <div data-hf-id="hf-pfr1-03" class="pf-result">➔ Word (단어)</div>
+      </div>
+      <div data-hf-id="hf-pfc2-03" class="pitfall-card">
+        <div data-hf-id="hf-pft2-03" class="pf-tag">함정 2: 혀에 힘이 풀려버림</div>
+        <div data-hf-id="hf-pfti2-03" class="pf-title">엉뚱한 노인 단어로 둔갑!</div>
+        <div data-hf-id="hf-pfr2-03" class="pf-result">➔ Old (늙은)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Captions -->
+  <div data-hf-id="hf-caps-03" class="caption-container">
+    <div data-hf-id="hf-c1-03" class="caption-line" id="cap1">소리의 원리를 알면 아주 단순합니다.</div>
+    <div data-hf-id="hf-c2-03" class="caption-line" id="cap2">R은 혀를 목구멍 쪽으로 쑥 당기는 소리인데, 우리가 배운 보통의 L은 혀끝으로 앞쪽 입천장을 치는 소리입니다.</div>
+    <div data-hf-id="hf-c3-03" class="caption-line" id="cap3">뒤로 가려는 힘과 앞으로 튀어나가려는 힘이 입안에서 정면충돌하니, 턱에 쥐가 나고 혀가 마비되는 건 당연한 일이죠.</div>
+    <div data-hf-id="hf-c4-03" class="caption-line" id="cap4">스마트폰 앱이 내 발음을 못 알아들었던 이유도 여기에 있습니다.</div>
+    <div data-hf-id="hf-c5-03" class="caption-line" id="cap5">급해진 입이 L을 아예 건너뛰고 '워드'로 뭉개버리거나, 반대로 혀에 힘이 풀리면서 '올드'라는 엉뚱한 소리가 튀어나왔던 것입니다.</div>
+  </div>
+
+  <audio data-hf-id="hf-audio-03" id="vo-03" src="assets/voice/03.wav" data-start="0" data-duration="40.80" data-audio-group="voiceover"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    // Progress bar fill (cumulative: 133.80 / 510.44 = 26.21%)
+    tl.fromTo("#pfill", { width: "18.22%" }, { width: "26.21%", duration: 40.80, ease: "none" }, 0);
+
+    // Initial Appearance
+    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#arenaBox", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+
+    // Sentence 1 (0.5s ~ 3.5s)
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+
+    // Sentence 2 (3.8s ~ 13.8s): Arrows glide towards center
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 3.6);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 3.8);
+    tl.fromTo("#arrowR", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 4.5);
+    tl.fromTo("#arrowL", { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 8.0);
+
+    // Sentence 3 (14.0s ~ 24.2s): High-speed collision & 0.05s flash + 3px screen shake!
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 13.8);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 14.0);
+
+    tl.to("#arrowR", { x: "22cqw", duration: 0.8, ease: "power3.in" }, 15.0);
+    tl.to("#arrowL", { x: "-22cqw", duration: 0.8, ease: "power3.in" }, 15.0);
+
+    // Flash & Shake impact at 15.8s + Car Crash illustration burst!
+    tl.to("#flashOverlay", { opacity: 0.9, duration: 0.05, yoyo: true, repeat: 1 }, 15.8);
+    tl.to("#root", { y: "-=4", x: "+=3", yoyo: true, repeat: 6, duration: 0.04 }, 15.8);
+    tl.to("#crashImgBox", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 15.8);
+    tl.to("#sparkBurst", { opacity: 1, scale: 1.8, duration: 0.2, ease: "back.out(2)" }, 15.8);
+    tl.to("#crashBanner", { opacity: 1, scale: 1.1, duration: 0.3, ease: "back.out(1.8)" }, 16.0);
+
+    // Sentence 4 (24.5s ~ 29.5s)
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 24.3);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 24.5);
+
+    // Sentence 5 (29.8s ~ 40.2s): Pitfall Dual cards appear
+    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 29.6);
+    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 29.8);
+    tl.to("#pitfallRow", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 30.2);
+
+    // Frame exit
+    tl.to(["#arenaBox", "#pitfallRow", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 40.4);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["03-physics-crash"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

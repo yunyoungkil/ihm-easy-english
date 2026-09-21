@@ -1,5 +1,5 @@
 import {createServer} from 'node:http';
-import {readFile, writeFile, unlink, mkdir, readdir, rename} from 'node:fs/promises';
+import {readFile, writeFile, unlink, mkdir, readdir, rename, stat} from 'node:fs/promises';
 import {existsSync} from 'node:fs';
 import {randomBytes} from 'node:crypto';
 import {dirname, join, resolve} from 'node:path';
@@ -1032,12 +1032,44 @@ const getDashboard = async (accessToken) => {
 let memoryEpisodesSummary = null;
 let lastEpisodesSummaryTime = 0;
 
+let memoryUploadsForMatching = null;
+let lastUploadsForMatchingTime = 0;
+
+// 업로드 패키지의 videoId를 아직 모를 때, 제목으로 찾아 매칭하기 위한 채널 영상 목록.
+// ⚠️ search.list(forMine=true)는 쓰지 않는다 — 여러 차례("몇 번이나 수정했는데 왜 같은 문제가
+// 발생하지") 이 동기화가 실패한 진짜 원인이 여기 있었다(2026-09-20 근본 원인 확인). 그동안의
+// 수정은 전부 제목 매칭 로직(제목 시안 A/B/C 누락, \r\n 버그)만 고쳤는데, search.list 자체가
+// **비공개·예약 영상을 채널 소유자가 조회해도 색인 지연·누락으로 못 찾는 경우가 흔한**
+// 구글 문서화된 한계가 있어 — 막 업로드해서 아직 "예약" 상태인 영상은 애초에 검색 결과에
+// 안 잡힐 수 있다. 반면 채널 자신의 "업로드" 재생목록(playlistItems.list)은 소유자가 보면
+// 공개 여부와 무관하게 전부 나온다 — 대시보드 메인 화면(getDashboard)이 이미 이 방식을 쓰고
+// 있어서 신뢰성이 검증돼 있다. 비용도 오히려 더 싸다(search.list 100 unit vs
+// playlistItems.list 1 unit). 5분 캐시로 여러 패키지를 동기화할 때 재호출을 피한다.
+const getRecentUploadsForMatching = async (accessToken) => {
+  if (memoryUploadsForMatching && (Date.now() - lastUploadsForMatchingTime < 5 * 60 * 1000)) {
+    return memoryUploadsForMatching;
+  }
+  const channelData = await googleGet('https://www.googleapis.com/youtube/v3/channels?part=contentDetails&mine=true', accessToken);
+  const uploadsPlaylist = channelData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+  if (!uploadsPlaylist) return [];
+  const items = await googleGetAllPages(
+    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${encodeURIComponent(uploadsPlaylist)}&maxResults=50`,
+    accessToken,
+  );
+  const result = items
+    .map((item) => ({videoId: item.contentDetails?.videoId, title: item.snippet?.title}))
+    .filter((v) => v.videoId);
+  memoryUploadsForMatching = result;
+  lastUploadsForMatchingTime = Date.now();
+  return result;
+};
+
 // status.json은 업로드 패키지를 만든 시점에 한 번 적어둔 값이라, 예약 시각이 지나도 실제로
 // 공개됐는지 아무도 다시 확인하지 않으면 영원히 "예약됨"으로 멈춰 있다(2026-09-05, 사용자가
 // EP12가 실제로는 공개됐는데 대시보드는 계속 예약으로 표시하는 걸 발견). 예약 시각이 지난
 // 패키지에 한해 유튜브 실제 상태를 확인해서 status.json을 갱신한다 — videoId를 이미 알면
-// videos.list(1 unit)만 호출하고, 모르면 제목으로 한 번 검색(search.list, 100 unit)해서 찾아낸
-// 뒤로는 videoId를 저장해 다음부터는 싼 호출만 하게 한다. 5분에 한 번 이상은 확인하지 않는다.
+// videos.list(1 unit)만 호출하고, 모르면 채널 업로드 목록에서 제목으로 찾아낸 뒤로는 videoId를
+// 저장해 다음부터는 그 조회만 하게 한다. 5분에 한 번 이상은 확인하지 않는다.
 const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, titleCandidates) => {
   if (!statusData || statusData.status === 'published') return statusData;
   if (!statusData.scheduledFor) return statusData;
@@ -1061,12 +1093,26 @@ const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, ti
       // 제목 A/B 테스트 시안(title-variants.txt) 중 하나로 실제 업로드했을 수 있다 —
       // 기본 title.txt 하나만 정확히 일치시키면 그 경우 영영 못 찾는다(2026-09-18 확인,
       // EP17에서 실제로 title.txt=B인데 유튜브엔 시안 A로 올려서 동기화가 계속 실패했음).
-      // 기본 제목 + 모든 시안 제목을 후보로 모아 하나라도 정확히 일치하면 매칭한다.
-      const candidateTitles = [title, ...(titleCandidates || []).map((v) => v.title)].filter(Boolean);
-      const searchData = await googleGet('https://www.googleapis.com/youtube/v3/search?part=snippet&forMine=true&type=video&maxResults=25&order=date', accessToken);
-      const match = (searchData.items || []).find((it) => candidateTitles.includes(it.snippet.title));
+      // 기본 제목 + 모든 시안 제목을 후보로 모아 하나라도 일치하면 매칭한다. 앞뒤 공백과
+      // 연속 공백 차이는 무시한다(유튜브 Studio에서 붙여넣을 때 흔히 생김).
+      const normalize = (s) => (s || '').trim().replace(/\s+/g, ' ');
+      const candidateTitles = [title, ...(titleCandidates || []).map((v) => v.title)].filter(Boolean).map(normalize);
+      const uploads = await getRecentUploadsForMatching(accessToken);
+      let match = uploads.find((v) => candidateTitles.includes(normalize(v.title)));
+      // BRIEF.md 등에 시안의 전체 제목 원문이 아니라 훅 문구 일부만 남아있는 경우가 실제로
+      // 있었다(EP19, 2026-09-20 확인 — title-variants.txt에 A안이 "왜 다르게 흘릴까
+      // 궁금했습니다"라는 짧은 조각으로만 적혀 있어서, 실제 업로드된 전체 제목과 정확히 일치하지
+      // 않아 못 찾았다). 그런 조각도 실제 제목의 부분 문자열로는 남아있으므로, 정확히 일치하는
+      // 게 없으면 길이 6자 이상인 후보에 한해 부분 문자열 포함 여부로 한 번 더 시도한다(너무
+      // 짧은 후보로 느슨하게 매칭하면 엉뚱한 영상에 잘못 걸릴 수 있어 하한을 둔다).
+      if (!match) {
+        match = uploads.find((v) => {
+          const t = normalize(v.title);
+          return candidateTitles.some((c) => c.length >= 6 && t.includes(c));
+        });
+      }
       if (match) {
-        videoId = match.id.videoId;
+        videoId = match.videoId;
         const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}`, accessToken);
         ytStatus = data.items?.[0]?.status || null;
       }
@@ -8126,8 +8172,21 @@ const server = createServer(async (req, res) => {
       if (!existsSync(filePath)) return json(res, 404, {error: '파일을 찾지 못했습니다.'});
       const ext = filename.split('.').pop().toLowerCase();
       const contentType = {jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', mp4: 'video/mp4', html: 'text/html; charset=utf-8', srt: 'application/x-subrip; charset=utf-8'}[ext] || 'application/octet-stream';
+      //썸네일 등은 같은 파일명으로 내용만 교체되는 경우가 흔하다(예: thumbnail-b.jpg 재생성).
+      // 예전엔 'max-age=3600'으로 무조건 캐시해서, 파일을 갈아 끼워도 브라우저가 최대 1시간
+      // 동안 옛 이미지를 계속 보여주는 버그가 있었다(2026-09-20 확인). Last-Modified 기반
+      // 검증으로 바꿔 파일이 실제로 바뀌었으면 즉시 새로 받아오고, 안 바뀌었으면 304로 여전히
+      // 가볍게 응답한다.
+      const stats = await stat(filePath);
+      const lastModified = stats.mtime.toUTCString();
+      const ifModifiedSince = req.headers['if-modified-since'];
+      if (ifModifiedSince && new Date(ifModifiedSince).getTime() >= stats.mtime.getTime()) {
+        res.writeHead(304, {'Cache-Control': 'no-cache', 'Last-Modified': lastModified});
+        res.end();
+        return;
+      }
       const data = await readFile(filePath);
-      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
+      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'no-cache', 'Last-Modified': lastModified});
       res.end(data);
       return;
     }
@@ -8149,8 +8208,17 @@ const server = createServer(async (req, res) => {
       const filePath = join(projectDir, 'videos', project, filename);
       if (!existsSync(filePath)) return json(res, 404, {error: '파일을 찾지 못했습니다.'});
       const contentType = filename.toLowerCase().endsWith('.png') ? 'image/png' : 'image/jpeg';
+      // 같은 이유로 no-cache + Last-Modified 검증으로 변경 (위 /api/upload-package-asset/ 참고).
+      const projStats = await stat(filePath);
+      const projLastModified = projStats.mtime.toUTCString();
+      const projIfModifiedSince = req.headers['if-modified-since'];
+      if (projIfModifiedSince && new Date(projIfModifiedSince).getTime() >= projStats.mtime.getTime()) {
+        res.writeHead(304, {'Cache-Control': 'no-cache', 'Last-Modified': projLastModified});
+        res.end();
+        return;
+      }
       const data = await readFile(filePath);
-      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
+      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'no-cache', 'Last-Modified': projLastModified});
       res.end(data);
       return;
     }
@@ -8787,6 +8855,12 @@ const server = createServer(async (req, res) => {
         const now = new Date().toISOString();
         const idx = history.entries.findIndex((e) => String(e.topic || '').trim() === topic);
         const prev = idx !== -1 ? history.entries[idx] : null;
+        // ⚠️ episodeSlug/episodeLabel/status/producedAt는 예전엔 body 값을 읽지 않고 무조건
+        // prev(이전 저장값) 또는 null만 넣었다 — 바로 위 주석은 "대본/렌더/예약 단계에서 이
+        // 엔드포인트를 다시 호출하면 갱신된다"고 적혀 있었지만 실제 코드는 그걸 절대 반영하지
+        // 못하는 상태였다(2026-09-20 확인 — EP19가 실제로 업로드·예약까지 끝났는데도 이 값들이
+        // 전부 비어 있어서, status.json 동기화를 아무리 고쳐도 아이디어 카드까지는 못 이어졌다).
+        // body에 값이 오면 그걸 우선하고, 없을 때만 이전 값을 유지하도록 고침.
         const entry = {
           topic,
           angleOrHook: body.angleOrHook || prev?.angleOrHook || '',
@@ -8794,11 +8868,11 @@ const server = createServer(async (req, res) => {
           rank: body.rank ?? prev?.rank ?? null,
           score: body.score ?? prev?.score ?? null,
           dataSourceRefs: body.dataSourceRefs || prev?.dataSourceRefs || [],
-          episodeSlug: prev?.episodeSlug || null,
-          episodeLabel: prev?.episodeLabel || null,
-          status: prev?.status || 'selected',
+          episodeSlug: body.episodeSlug || prev?.episodeSlug || null,
+          episodeLabel: body.episodeLabel || prev?.episodeLabel || null,
+          status: body.status || prev?.status || 'selected',
           selectedAt: prev?.selectedAt || now,
-          producedAt: prev?.producedAt || null,
+          producedAt: body.producedAt || prev?.producedAt || null,
         };
         if (idx !== -1) history.entries[idx] = entry; else history.entries.push(entry);
         history.schemaVersion = history.schemaVersion || 1;

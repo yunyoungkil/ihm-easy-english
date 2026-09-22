@@ -98,15 +98,28 @@
     object-fit: cover;
     display: block;
   }
-  .host-sweat {
+  /* Code-driven "shock" reaction (2026-09-22 rework) — one stable AI illustration
+     stays on screen the whole scene; the reaction itself comes from GSAP punching
+     that same image (shake + rotation + scale) plus these motion-line accents, not
+     from swapping between several independently-generated character images. The
+     swap approach broke character identity (hat logo, hoodie patch, face shape and
+     background style all drifted between the 4 generations) — see TASKS.md 2026-09-22. */
+  .host-shock-lines {
     position: absolute;
-    top: -10px;
-    right: 10px;
-    font-size: 3.5cqw;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9;
     opacity: 0;
-    transform: scale(0);
-    z-index: 10;
   }
+  .host-shock-lines span {
+    position: absolute;
+    font-size: 2.4cqw;
+    color: #FF4757;
+    text-shadow: 0 0 6px rgba(255,71,87,0.6);
+  }
+  .host-shock-lines span:nth-child(1) { top: 8%; left: 6%; }
+  .host-shock-lines span:nth-child(2) { top: 4%; right: 10%; font-size: 1.8cqw; }
+  .host-shock-lines span:nth-child(3) { bottom: 12%; left: 12%; font-size: 1.6cqw; }
   .host-bubble {
     margin-top: 2.5cqh;
     background: #FAF7F2;
@@ -326,7 +339,9 @@
         <img data-hf-id="hf-img-01-f1" id="hostImgF1" class="host-illustration-img" src="assets/images/f01_react_01_confused.jpg" alt="Confused Host" style="display: none; position: absolute; inset: 0;">
         <img data-hf-id="hf-img-01-f2" id="hostImgF2" class="host-illustration-img" src="assets/images/f01_react_02_surprised.jpg" alt="Surprised Host" style="display: none; position: absolute; inset: 0;">
         <img data-hf-id="hf-img-01-f3" id="hostImgF3" class="host-illustration-img" src="assets/images/f01_react_03_shocked.jpg" alt="Shocked Host" style="display: none; position: absolute; inset: 0;">
-        <span data-hf-id="hf-sweat-01" class="host-sweat" id="hostSweat" data-layout-allow-overflow="true">💦</span>
+        <div data-hf-id="hf-shock-lines-01" class="host-shock-lines" id="hostShockLines" data-layout-allow-overflow="true">
+          <span data-hf-id="hf-sl-1">✦</span><span data-hf-id="hf-sl-2">✦</span><span data-hf-id="hf-sl-3">✦</span>
+        </div>
       </div>
       <div data-hf-id="hf-bubble-01" class="host-bubble" id="hostBubble">
         "턱이 빠져라 혀를 굴렸는데...<br data-hf-id="hf-x5px">왜 자꾸 오답이 뜨지?!"
@@ -428,17 +443,52 @@
     tl.to("#phoneMockup", { x: "-=4", yoyo: true, repeat: 6, duration: 0.04 }, 10.2); // 2px screen shake
     tl.to("#errorCallout", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 10.3);
 
-    // Real frame-by-frame stop-motion (2026-09-21 rule): 4 distinct illustrated poses
-    // swapped at ~8fps (0.125s each), not a single instant 2-image cut. The motion itself
-    // comes from the image sequence; GSAP only decides which frame is showing right now.
-    tl.set("#hostImgF0", { display: "none" }, 10.2);
+    // Real frame-by-frame stop-motion (2026-09-22 restored, 2026-09-22 re-timed for weight —
+    // see below) — 4 distinct illustrated poses swapped at ~8fps. Restored after Google
+    // Flow's "Ingredients" reference-image feature produced genuinely consistent cap logo /
+    // hoodie patch / face / hair length across all 4 shots (the ComfyUI attempt in
+    // TASKS.md's earlier section failed this same check, which is why this had been
+    // temporarily replaced with a single-image + code-punch fallback). Visually re-verified
+    // before restoring.
+    //
+    // ⚠️ First pass at this restore felt "stiff" (사용자 지적) — every swap held for an
+    // identical 125ms with a generic continuous card wobble that wasn't synced to the swap
+    // instants at all, so the impacts didn't read as connected to the pose changes. Fixed
+    // timing with (a) a small anticipation squash before the first swap, (b) an impact
+    // "punch" landing exactly on each swap instant, and (c) uneven hold times.
+    //
+    // ⚠️ 2026-09-22 second pass (사용자 지적 — 참고: hyperframes.heygen.com/catalog/blocks/
+    // cosmic-orb): that block's whole technique is "never hard-cut a property, always tween
+    // it continuously, even for something that reads as instant." We were doing the opposite
+    // — hard `display:none/block` swaps with zero transition between poses, which is what
+    // actually read as "stiff" (a jump-cut, not stepped motion). Switched every pose change
+    // from a display toggle to a short opacity crossfade (~60-80ms) so one pose visibly
+    // blends into the next instead of popping — still fast enough to keep the stop-motion
+    // snap, but no longer a dead instant swap. The scale/position punches from the first
+    // pass are kept, now timed to land in the middle of each crossfade.
+    tl.to("#hostCard", { scaleX: 1.03, scaleY: 0.94, duration: 0.08, ease: "power1.out" }, 10.1); // anticipation squash
+    tl.to("#hostCard", { scaleX: 1, scaleY: 1, duration: 0.06, ease: "power1.in" }, 10.18); // release right into the first swap
+
     tl.set("#hostImgF1", { display: "block" }, 10.2);
-    tl.set("#hostImgF1", { display: "none" }, 10.325);
-    tl.set("#hostImgF2", { display: "block" }, 10.325);
-    tl.set("#hostImgF2", { display: "none" }, 10.45);
-    tl.set("#hostImgF3", { display: "block" }, 10.45);
-    tl.to("#hostCard", { y: "-=6", yoyo: true, repeat: 3, duration: 0.08, ease: "steps(4)" }, 10.2);
-    tl.to("#hostSweat", { opacity: 1, scale: 1.2, duration: 0.3, ease: "back.out(2)" }, 10.5);
+    tl.to("#hostImgF0", { opacity: 0, duration: 0.07, ease: "power1.inOut" }, 10.2);
+    tl.fromTo("#hostImgF1", { opacity: 0 }, { opacity: 1, duration: 0.07, ease: "power1.inOut" }, 10.2);
+    tl.to("#hostCard", { scale: 1.05, duration: 0.04 }, 10.2); // punch lands mid-crossfade
+    tl.to("#hostCard", { scale: 1, duration: 0.12, ease: "back.out(3)" }, 10.24); // settles by 10.36
+
+    tl.set("#hostImgF2", { display: "block" }, 10.37);
+    tl.to("#hostImgF1", { opacity: 0, duration: 0.07, ease: "power1.inOut" }, 10.37);
+    tl.fromTo("#hostImgF2", { opacity: 0 }, { opacity: 1, duration: 0.07, ease: "power1.inOut" }, 10.37);
+    tl.to("#hostCard", { scale: 1.06, duration: 0.04 }, 10.37);
+    tl.to("#hostCard", { scale: 1, duration: 0.13, ease: "back.out(3)" }, 10.41); // settles by 10.54
+
+    tl.set("#hostImgF3", { display: "block" }, 10.56);
+    tl.to("#hostImgF2", { opacity: 0, duration: 0.08, ease: "power1.inOut" }, 10.56);
+    tl.fromTo("#hostImgF3", { opacity: 0 }, { opacity: 1, duration: 0.08, ease: "power1.inOut" }, 10.56);
+    tl.to("#hostCard", { scale: 1.1, y: -14, duration: 0.05 }, 10.56); // biggest impact — the actual "shock" lands here, settles by 10.61
+    tl.to("#hostCard", { scale: 1, y: 0, duration: 0.2, ease: "back.out(2.5)" }, 10.62);
+
+    tl.to("#hostShockLines", { opacity: 1, duration: 0.05 }, 10.56);
+    tl.to("#hostShockLines", { opacity: 0, duration: 0.25 }, 10.9);
 
     // Sentence 3 (17.5s ~ 28.3s)
     tl.to("#cap2", { opacity: 0, duration: 0.15 }, 17.3);

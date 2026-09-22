@@ -50,130 +50,75 @@
     z-index: 10;
   }
 
-  /* Stage Grid */
-  .stage-grid {
+  /* 2026-09-22 rework: replaced the old two-column layout (a 260px-tall character image
+     box on the left + a 100%-code text/lyrics card on the right, zero illustration) with
+     one large hero illustration scene — the image is now the dominant visual (~58cqh of
+     a 76cqh stage, well over the 40% floor), and every piece of text (lyric bubble, rubber
+     stamp, captions) is a small code-rendered accent layered on top of it, not a card of
+     its own. See TASKS.md 2026-09-22 and prompts/frame02-image-prompts.md. */
+  .hero-stage {
     position: absolute;
-    top: 15cqh;
-    left: 6cqw;
-    right: 6cqw;
-    height: 72cqh;
-    display: flex;
-    gap: 3.5cqw;
-  }
-
-  /* Left Card: Twisted Tongue */
-  .twisted-card {
-    flex: 1;
+    top: 13cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58cqw;
+    height: 76cqh;
     background: #FFFFFF;
     border: 3.5px solid #2B2B2B;
     border-radius: 28px;
     box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 3cqw;
+    padding: 2.2cqw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 2cqh;
-    position: relative;
+    gap: 1.6cqh;
   }
-  .host-stopmotion-box {
+  .hero-illustration-box {
     position: relative;
-    width: 260px;
-    height: 260px;
+    width: 100%;
+    height: 69cqh;
     border-radius: 20px;
     border: 3.5px solid #2B2B2B;
     overflow: hidden;
     box-shadow: 4px 4px 0px #2B2B2B;
     background: #FFF5F5;
   }
-  .stopmotion-img {
+  .hero-illustration-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .twisted-label {
-    font-size: 1.8cqw;
+  .hero-label {
+    display: none; /* 2026-09-22 제거 — 하단 caption이 나레이션 전체를 이미 담고 있어
+       중복이었고, 이 문구는 실제로는 cap4(28.8s~) 내용이라 그 전까지는 지금 자막과
+       안 맞는 문장이 계속 떠 있는 상태였다. 빈 공간은 이미지 박스에 더 배분. */
+    font-size: 1.7cqw;
     font-weight: 900;
     color: #FF4757;
-  }
-  .twisted-desc {
-    font-size: 1.3cqw;
-    font-weight: 700;
-    color: #7A7365;
     text-align: center;
-    line-height: 1.4;
   }
 
-  /* Right Card: Pop song brake */
-  .pop-song-card {
-    flex: 1.2;
-    background: #FFFFFF;
-    border: 3.5px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 3.5cqh 3cqw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-  }
-  .song-header {
-    font-size: 1.2cqw;
-    font-weight: 800;
-    color: #7A7365;
-    display: flex;
-    align-items: center;
-    gap: 0.8cqw;
-  }
-  .song-lyrics-box {
-    background: #FAF7F2;
-    border: 3px solid #2B2B2B;
-    border-radius: 18px;
-    padding: 2.5cqh 2cqw;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    display: flex;
-    flex-direction: column;
-    gap: 1cqh;
-  }
-  .lyrics-line-1 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 2.2cqw;
-    color: #7A7365;
-  }
-  .lyrics-line-2 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 3.2cqw;
-    color: #2B2B2B;
-    display: flex;
-    align-items: baseline;
-    gap: 0.8cqw;
-  }
-  .highlight-world {
-    color: #FF4757;
-    position: relative;
-  }
-
-  /* Caution Tape */
-  .caution-tape {
+  /* Small song-lyric speech bubble accent — replaces the old full lyrics card. Only
+     appears during the "singing along" beat. */
+  .song-bubble {
     position: absolute;
-    left: -10%;
-    right: -10%;
-    top: 52%;
-    background: #FFE500;
-    color: #2B2B2B;
-    border-top: 3px solid #2B2B2B;
-    border-bottom: 3px solid #2B2B2B;
-    transform: rotate(-5deg) scale(0);
-    padding: 0.8cqh 0;
+    top: 2.2cqh;
+    right: 2.4cqw;
+    background: #FFFFFF;
+    border: 3px solid #2B2B2B;
+    border-radius: 100px;
+    padding: 0.9cqh 1.8cqw;
+    box-shadow: 4px 4px 0px #2B2B2B;
     font-family: 'Archivo Black', sans-serif;
-    font-size: 1.4cqw;
-    text-align: center;
-    letter-spacing: 2px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
-    z-index: 15;
+    font-size: 1.25cqw;
+    color: #2B2B2B;
+    opacity: 0;
+    transform: scale(0.85);
+    z-index: 20;
+    white-space: nowrap;
   }
+  .song-bubble .highlight-world { color: #FF4757; }
 
   /* Giant Rubber Stamp [ 혀 굴리면 끝장! ] */
   .stamp-box {
@@ -205,7 +150,7 @@
     width: 80cqw;
     height: 7cqh;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     z-index: 50;
   }
@@ -214,12 +159,11 @@
     background: rgba(255, 255, 255, 0.96);
     border: 3px solid #2B2B2B;
     box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 100px;
+    border-radius: 36px;
     padding: 1cqh 2.6cqw;
     font-size: 1.45cqw;
     font-weight: 800;
     color: #2B2B2B;
-    white-space: nowrap;
     letter-spacing: -0.4px;
     opacity: 0;
     pointer-events: none;
@@ -240,40 +184,21 @@
     <span data-hf-id="hf-xew7">버터 발음 굴릴수록 망하는 이유</span>
   </div>
 
-  <div data-hf-id="hf-grid-02" class="stage-grid">
-    <!-- Twisted Tongue / Host 3-Step Stop-Motion -->
-    <div data-hf-id="hf-tcard-02" class="twisted-card" id="twistedCard" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
-      <div data-hf-id="hf-art-02" class="host-stopmotion-box" id="hostStopmotion">
-        <img data-hf-id="hf-img-sing-02" id="imgSing" class="stopmotion-img" src="assets/images/f02_singing_headphones.jpg" alt="Singing">
-        <img data-hf-id="hf-img-freeze-02" id="imgFreeze" class="stopmotion-img" src="assets/images/f02_jaw_freeze.jpg" alt="Jaw Freeze" style="display: none;">
-        <img data-hf-id="hf-img-pain-02" id="imgPain" class="stopmotion-img" src="assets/images/f02_jaw_pain.jpg" alt="Jaw Pain" style="display: none;">
-      </div>
-      <div data-hf-id="hf-tl-02" class="twisted-label">꽈배기 혀의 참사</div>
-      <div data-hf-id="hf-td-02" class="twisted-desc">
-        R 소리 낸다고 목구멍 안으로 말고,<br data-hf-id="hf-x5px">
-        L 소리 낸다고 천장에 닿으려다 마비!
-      </div>
-    </div>
+  <!-- One large hero scene: 6-pose narration-synced illustration sequence -->
+  <div data-hf-id="hf-hero-02" class="hero-stage" id="heroStage">
+    <div data-hf-id="hf-art-02" class="hero-illustration-box" id="heroIllustrationBox" data-layout-allow-overflow="true">
+      <img data-hf-id="hf-img-00-02" id="heroImgF0" class="hero-illustration-img" src="assets/images/f02_react_00_singing.jpg" alt="Singing happily">
+      <img data-hf-id="hf-img-01-02" id="heroImgF1" class="hero-illustration-img" src="assets/images/f02_react_01_curling_r.jpg" alt="Curling tongue for R" style="display: none; position: absolute; inset: 0; opacity: 0;">
+      <img data-hf-id="hf-img-02-02" id="heroImgF2" class="hero-illustration-img" src="assets/images/f02_react_02_reaching_l.jpg" alt="Straining to reach L" style="display: none; position: absolute; inset: 0; opacity: 0;">
+      <img data-hf-id="hf-img-03-02" id="heroImgF3" class="hero-illustration-img" src="assets/images/f02_react_03_jaw_freeze.jpg" alt="Jaw freezing" style="display: none; position: absolute; inset: 0; opacity: 0;">
+      <img data-hf-id="hf-img-04-02" id="heroImgF4" class="hero-illustration-img" src="assets/images/f02_react_04_jaw_pain.jpg" alt="Jaw pain" style="display: none; position: absolute; inset: 0; opacity: 0;">
+      <img data-hf-id="hf-img-05-02" id="heroImgF5" class="hero-illustration-img" src="assets/images/f02_react_05_defeated.jpg" alt="Exhausted and defeated" style="display: none; position: absolute; inset: 0; opacity: 0;">
 
-    <!-- Pop Song Aladdin Brake -->
-    <div data-hf-id="hf-scard-02" class="pop-song-card" id="popCard" data-layout-allow-overflow="true">
-      <div data-hf-id="hf-sh-02" class="song-header">
-        <span data-hf-id="hf-3x0o">🎵 팝송 알라딘 OST 따라 부를 때:</span>
-      </div>
-      <div data-hf-id="hf-sb-02" class="song-lyrics-box">
-        <div data-hf-id="hf-sl1-02" class="lyrics-line-1" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">A whole new...</div>
-        <div data-hf-id="hf-sl2-02" class="lyrics-line-2" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
-          <span data-hf-id="hf-y7xz">WORLD</span>
-          <span data-hf-id="hf-sll-02" class="highlight-world" id="worldBrake">💥 [급브레이크!]</span>
-        </div>
-      </div>
-      <div data-hf-id="hf-ct-02" class="caution-tape" id="cautionTape" data-layout-allow-overflow="true" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
-        ⛔ CAUTION! 혀 꼬임 급브레이크 발생! ⛔
-      </div>
-      <div data-hf-id="hf-sc-02" style="font-size: 1.25cqw; font-weight: 700; color: #7A7365;">
-        원어민은 절대로 혀를 이렇게 피곤하게 쓰지 않습니다.
+      <div data-hf-id="hf-song-02" class="song-bubble" id="songBubble" data-layout-allow-overflow="true">
+        🎵 A whole new... <span data-hf-id="hf-sw-02" class="highlight-world">WORLD</span>
       </div>
     </div>
+    <div data-hf-id="hf-hl-02" class="hero-label">원어민은 절대로 혀를 이렇게 피곤하게 쓰지 않습니다.</div>
   </div>
 
   <!-- Big Rubber Stamp -->
@@ -301,40 +226,70 @@
 
     // Initial Appearance
     tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
-    tl.fromTo("#twistedCard", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
-    tl.fromTo("#popCard", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+    tl.fromTo("#heroStage", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
 
-    // Sentence 1 (0.5s ~ 7.2s): Singing happily
+    // Captions retimed against assets/voice/02.words.json actual word timestamps
+    // (the previous version's cue points — 7.4s/18.8s/26.5s — no longer matched the real
+    // audio; measured word onsets are 8.32s/21.26s/28.84s).
     tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 8.1);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 8.3);
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 21.1);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 21.3);
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 28.6);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 28.8);
 
-    // Sentence 2 (7.4s ~ 18.5s): Jaw freezes with electric spark
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 7.2);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 7.4);
-    tl.set("#imgSing", { display: "none" }, 8.5);
-    tl.set("#imgFreeze", { display: "block" }, 8.5);
-    tl.to("#twistedCard", { x: "-=4", yoyo: true, repeat: 3, duration: 0.06, ease: "steps(4)" }, 8.5);
+    // 6-pose hero sequence, each swap timed to land on the narration word that describes
+    // it (not an arbitrary stop-motion cadence — see TASKS.md 2026-09-22 "나레이션에 맞게
+    // 이미지를 교체" direction).
+    //
+    // f0 singing (0.3-4.7s): intro beat, before the R-curl is described in words.
+    tl.to("#songBubble", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.6);
+    tl.to("#songBubble", { opacity: 0, duration: 0.2 }, 4.3);
 
-    // Aladdin song caution tape snaps at 12.0s
-    tl.to("#cautionTape", { scale: 1, duration: 0.3, ease: "back.out(2)" }, 12.0);
-    tl.to("#worldBrake", { scale: 1.2, duration: 0.2, yoyo: true, repeat: 3 }, 12.2);
+    // f1 curling_r (4.7-13.8s): lands exactly on "혀를 목구멍 안쪽으로 잔뜩 말아 올립니다"
+    // (4.71-8.18s) and holds through cap2's "노래를 따라... 혀를 잔뜩 굴리다가" — both
+    // describe the same R-curl action.
+    tl.set("#heroImgF1", { display: "block" }, 4.7);
+    tl.to("#heroImgF0", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 4.7);
+    tl.fromTo("#heroImgF1", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 4.7);
+    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 4.7);
+    tl.to("#heroStage", { scale: 1, duration: 0.15, ease: "back.out(2)" }, 4.76);
 
-    // Sentence 3 (18.8s ~ 26.2s): Jaw pain agony
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 18.6);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 18.8);
-    tl.set("#imgFreeze", { display: "none" }, 19.0);
-    tl.set("#imgPain", { display: "block" }, 19.0);
-    tl.to("#twistedCard", { y: "-=5", yoyo: true, repeat: 3, duration: 0.08, ease: "steps(4)" }, 19.0);
+    // f2 reaching_l (13.8-21.3s): lands on "바로 뒤에 'L'이 나오니까... 용을 쓰죠"
+    // (13.81-21.1s, forcing the curled tongue up to the palate).
+    tl.set("#heroImgF2", { display: "block" }, 13.8);
+    tl.to("#heroImgF1", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 13.8);
+    tl.fromTo("#heroImgF2", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 13.8);
+    tl.to("#heroStage", { scale: 1.03, duration: 0.06 }, 13.8);
+    tl.to("#heroStage", { scale: 1, duration: 0.18, ease: "back.out(2.5)" }, 13.87);
 
-    // Rubber stamp 쾅! at 19.5s with screen shake
-    tl.to("#rubberStamp", { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in" }, 19.5);
-    tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 19.8); // 2px screen shake
+    // f3 jaw_freeze (21.3-28.7s): the biggest impact — lands on "이 동작을 시도하는 순간
+    // 여러분의 발음은 이미 끝난 겁니다" (the moment you try this, it's already over).
+    // Rubber stamp + screen shake land here.
+    tl.set("#heroImgF3", { display: "block" }, 21.3);
+    tl.to("#heroImgF2", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 21.3);
+    tl.fromTo("#heroImgF3", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 21.3);
+    tl.to("#heroStage", { scale: 1.06, y: -8, duration: 0.06 }, 21.3);
+    tl.to("#heroStage", { scale: 1, y: 0, duration: 0.2, ease: "back.out(2.5)" }, 21.36);
 
-    // Sentence 4 (26.5s ~ 33.5s)
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 26.3);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 26.5);
+    tl.to("#rubberStamp", { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in" }, 25.3);
+    tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 25.6); // 2px screen shake
+    tl.to("#rubberStamp", { opacity: 0, duration: 0.3 }, 28.3); // clear before the pain/defeated poses so it doesn't cover the face
+
+    // f4 jaw_pain (28.7-31.1s): brief painful aftermath as sentence 4 begins.
+    tl.set("#heroImgF4", { display: "block" }, 28.7);
+    tl.to("#heroImgF3", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 28.7);
+    tl.fromTo("#heroImgF4", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 28.7);
+
+    // f5 defeated (31.1s ~ frame end): lands on "절대로 이런 피곤한 동작을 하지 않거든요"
+    // ("피곤한" = tiring, matches the exhausted pose exactly).
+    tl.set("#heroImgF5", { display: "block" }, 31.1);
+    tl.to("#heroImgF4", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 31.1);
+    tl.fromTo("#heroImgF5", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 31.1);
 
     // Frame exit
-    tl.to(["#twistedCard", "#popCard", "#frameBadge", "#rubberStamp", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 33.5);
+    tl.to(["#heroStage", "#frameBadge", "#rubberStamp", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 33.5);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["02-broken-common-sense"] = tl;

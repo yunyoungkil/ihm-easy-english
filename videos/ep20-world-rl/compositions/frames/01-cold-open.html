@@ -146,7 +146,7 @@
     padding: 3cqh 2.8cqw;
     display: flex;
     flex-direction: column;
-    gap: 2cqh;
+    gap: 1.3cqh;
     overflow: hidden;
   }
   .phone-top-bar {
@@ -172,7 +172,7 @@
     background: #FAF7F2;
     border: 3px solid #2B2B2B;
     border-radius: 16px;
-    padding: 1.4cqh 1.8cqw;
+    padding: 1cqh 1.8cqw;
     box-shadow: 3px 3px 0px #2B2B2B;
   }
   .word-text {
@@ -195,17 +195,17 @@
     background: #FFF5F5;
     border: 3.5px solid #FF4757;
     border-radius: 20px;
-    padding: 1.8cqh 2cqw;
+    padding: 1.2cqh 2cqw;
     box-shadow: 4px 4px 0px #FF4757;
     display: flex;
     flex-direction: column;
-    gap: 1cqh;
+    gap: 0.7cqh;
     opacity: 0;
     transform: scale(0.9);
   }
   .error-img-box {
     width: 100%;
-    height: 150px;
+    height: 110px;
     border-radius: 12px;
     border: 2.5px solid #FF4757;
     overflow: hidden;
@@ -234,7 +234,7 @@
     background: #FFFFFF;
     border: 2.5px solid #2B2B2B;
     border-radius: 12px;
-    padding: 1cqh;
+    padding: 0.6cqh;
     text-align: center;
     box-shadow: 2px 2px 0px #2B2B2B;
   }
@@ -290,10 +290,10 @@
     bottom: 3.5cqh;
     left: 50%;
     transform: translateX(-50%);
-    width: 92cqw;
+    width: 80cqw;
     height: 7cqh;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     z-index: 50;
   }
@@ -302,17 +302,15 @@
     background: rgba(255, 255, 255, 0.96);
     border: 3px solid #2B2B2B;
     box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 100px;
+    border-radius: 36px;
     padding: 1cqh 2.6cqw;
     font-size: 1.45cqw;
     font-weight: 800;
     color: #2B2B2B;
-    white-space: nowrap;
     letter-spacing: -0.4px;
     opacity: 0;
     pointer-events: none;
-    max-width: 1750px;
-    font-size: 1.4cqw;
+    max-width: 1600px;
     overflow: visible;
   }
 
@@ -336,9 +334,13 @@
     <div data-hf-id="hf-host-01" class="host-card" id="hostCard">
       <div data-hf-id="hf-avatar-01" class="host-illustration-box" data-layout-allow-overflow="true">
         <img data-hf-id="hf-img-01-f0" id="hostImgF0" class="host-illustration-img" src="assets/images/f01_react_00_neutral.jpg" alt="Neutral Host">
-        <img data-hf-id="hf-img-01-f1" id="hostImgF1" class="host-illustration-img" src="assets/images/f01_react_01_confused.jpg" alt="Confused Host" style="display: none; position: absolute; inset: 0;">
-        <img data-hf-id="hf-img-01-f2" id="hostImgF2" class="host-illustration-img" src="assets/images/f01_react_02_surprised.jpg" alt="Surprised Host" style="display: none; position: absolute; inset: 0;">
-        <img data-hf-id="hf-img-01-f3" id="hostImgF3" class="host-illustration-img" src="assets/images/f01_react_03_shocked.jpg" alt="Shocked Host" style="display: none; position: absolute; inset: 0;">
+        <img data-hf-id="hf-img-01-f1" id="hostImgF1" class="host-illustration-img" src="assets/images/f01_react_00b_neutral_confused.jpg" alt="Neutral to Confused Host" style="display: none; position: absolute; inset: 0; opacity: 0;">
+        <img data-hf-id="hf-img-01-f2" id="hostImgF2" class="host-illustration-img" src="assets/images/f01_react_01_confused.jpg" alt="Confused Host" style="display: none; position: absolute; inset: 0; opacity: 0;">
+        <img data-hf-id="hf-img-01-f3" id="hostImgF3" class="host-illustration-img" src="assets/images/f01_react_01b_confused_surprised.jpg" alt="Confused to Surprised Host" style="display: none; position: absolute; inset: 0; opacity: 0;">
+        <img data-hf-id="hf-img-01-f4" id="hostImgF4" class="host-illustration-img" src="assets/images/f01_react_02_surprised.jpg" alt="Surprised Host" style="display: none; position: absolute; inset: 0; opacity: 0;">
+        <img data-hf-id="hf-img-01-f5" id="hostImgF5" class="host-illustration-img" src="assets/images/f01_react_02b_surprised_shocked.jpg" alt="Surprised to Shocked Host" style="display: none; position: absolute; inset: 0; opacity: 0;">
+        <img data-hf-id="hf-img-01-f6" id="hostImgF6" class="host-illustration-img" src="assets/images/f01_react_03_shocked.jpg" alt="Shocked Host" style="display: none; position: absolute; inset: 0; opacity: 0;">
+        <img data-hf-id="hf-img-01-f7" id="hostImgF7" class="host-illustration-img" src="assets/images/f01_react_03b_shocked_peak.jpg" alt="Shocked Peak Host" style="display: none; position: absolute; inset: 0; opacity: 0;">
         <div data-hf-id="hf-shock-lines-01" class="host-shock-lines" id="hostShockLines" data-layout-allow-overflow="true">
           <span data-hf-id="hf-sl-1">✦</span><span data-hf-id="hf-sl-2">✦</span><span data-hf-id="hf-sl-3">✦</span>
         </div>
@@ -376,7 +378,7 @@
       <!-- Error Detail Callout with AI-generated screen display -->
       <div data-hf-id="hf-err-01" class="error-callout" id="errorCallout" data-layout-allow-overflow="true">
         <div data-hf-id="hf-err-imgbox-01" class="error-img-box">
-          <img data-hf-id="hf-err-img-01" class="error-img" src="assets/images/f01_phone_error.jpg" alt="OLD Error Card">
+          <img data-hf-id="hf-err-img-01" id="errorImg" class="error-img" src="assets/images/f01_phone_error.jpg" alt="OLD Error Card">
         </div>
         <div data-hf-id="hf-errh-01" class="error-header">
           <span data-hf-id="hf-rvrp">인식 실패! AI가 들은 엉뚱한 단어:</span>
@@ -438,57 +440,78 @@
     tl.to("#cap1", { opacity: 0, duration: 0.15 }, 5.4);
     tl.to("#cap2", { opacity: 1, duration: 0.2 }, 5.55);
 
-    // World Fail trigger around 9.5s
+    // World Fail trigger — WORLD row previews early (before the word is even said, at 9.0s)
     tl.fromTo("#rowWorld", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" }, 9.0);
-    tl.to("#phoneMockup", { x: "-=4", yoyo: true, repeat: 6, duration: 0.04 }, 10.2); // 2px screen shake
-    tl.to("#errorCallout", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 10.3);
 
-    // Real frame-by-frame stop-motion (2026-09-22 restored, 2026-09-22 re-timed for weight —
-    // see below) — 4 distinct illustrated poses swapped at ~8fps. Restored after Google
-    // Flow's "Ingredients" reference-image feature produced genuinely consistent cap logo /
-    // hoodie patch / face / hair length across all 4 shots (the ComfyUI attempt in
-    // TASKS.md's earlier section failed this same check, which is why this had been
-    // temporarily replaced with a single-image + code-punch fallback). Visually re-verified
-    // before restoring.
-    //
-    // ⚠️ First pass at this restore felt "stiff" (사용자 지적) — every swap held for an
-    // identical 125ms with a generic continuous card wobble that wasn't synced to the swap
-    // instants at all, so the impacts didn't read as connected to the pose changes. Fixed
-    // timing with (a) a small anticipation squash before the first swap, (b) an impact
-    // "punch" landing exactly on each swap instant, and (c) uneven hold times.
-    //
-    // ⚠️ 2026-09-22 second pass (사용자 지적 — 참고: hyperframes.heygen.com/catalog/blocks/
-    // cosmic-orb): that block's whole technique is "never hard-cut a property, always tween
-    // it continuously, even for something that reads as instant." We were doing the opposite
-    // — hard `display:none/block` swaps with zero transition between poses, which is what
-    // actually read as "stiff" (a jump-cut, not stepped motion). Switched every pose change
-    // from a display toggle to a short opacity crossfade (~60-80ms) so one pose visibly
-    // blends into the next instead of popping — still fast enough to keep the stop-motion
-    // snap, but no longer a dead instant swap. The scale/position punches from the first
-    // pass are kept, now timed to land in the middle of each crossfade.
-    tl.to("#hostCard", { scaleX: 1.03, scaleY: 0.94, duration: 0.08, ease: "power1.out" }, 10.1); // anticipation squash
-    tl.to("#hostCard", { scaleX: 1, scaleY: 1, duration: 0.06, ease: "power1.in" }, 10.18); // release right into the first swap
+    // ⚠️ 2026-09-22 fourth pass — abandoned the "stop-motion" framing entirely (사용자 지적:
+    // "스톱모션이라고 생각하지 말고 나레이션에 맞게 이미지를 교체하는 걸로 해보자, 지금은 너무
+    // 빨리 지나감"). Three prior passes (uneven holds, crossfade tuning, doubling to 8 frames)
+    // all tried to make an 8-12fps burst read as smooth — but the real problem was that the
+    // whole reaction was compressed into ~0.6-0.8s starting right as "World" is first said,
+    // which is too early: the narration doesn't actually describe the red error screen until
+    // "시뻘건 오답 창이 떴던" much later in the same sentence (assets/voice/01.words.json,
+    // words at 14.65-16.48s). Retimed so each of the 8 poses holds for as long as the words it
+    // matches take to say (checked against 01.words.json, see timestamps below), with the
+    // phone's screen-shake + error-card reveal moved from 10.2-10.3s to land with "오답"
+    // (15.3-15.7s) instead of arriving 5 seconds before the narration mentions it.
+    tl.to("#hostCard", { scaleX: 1.03, scaleY: 0.94, duration: 0.1, ease: "power1.out" }, 9.75); // anticipation squash
+    tl.to("#hostCard", { scaleX: 1, scaleY: 1, duration: 0.1, ease: "power1.in" }, 9.85); // release into the first swap
 
-    tl.set("#hostImgF1", { display: "block" }, 10.2);
-    tl.to("#hostImgF0", { opacity: 0, duration: 0.07, ease: "power1.inOut" }, 10.2);
-    tl.fromTo("#hostImgF1", { opacity: 0 }, { opacity: 1, duration: 0.07, ease: "power1.inOut" }, 10.2);
-    tl.to("#hostCard", { scale: 1.05, duration: 0.04 }, 10.2); // punch lands mid-crossfade
-    tl.to("#hostCard", { scale: 1, duration: 0.12, ease: "back.out(3)" }, 10.24); // settles by 10.36
+    // f1 — neutral → confused, starts as "유독" (especially) begins (10.13s)
+    tl.set("#hostImgF1", { display: "block" }, 10.0);
+    tl.to("#hostImgF0", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 10.0);
+    tl.fromTo("#hostImgF1", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 10.0);
 
-    tl.set("#hostImgF2", { display: "block" }, 10.37);
-    tl.to("#hostImgF1", { opacity: 0, duration: 0.07, ease: "power1.inOut" }, 10.37);
-    tl.fromTo("#hostImgF2", { opacity: 0 }, { opacity: 1, duration: 0.07, ease: "power1.inOut" }, 10.37);
-    tl.to("#hostCard", { scale: 1.06, duration: 0.04 }, 10.37);
-    tl.to("#hostCard", { scale: 1, duration: 0.13, ease: "back.out(3)" }, 10.41); // settles by 10.54
+    // f2 — confused, lands as "'World'나" is said (10.54s) — holds through "'Girl'만 나오면"
+    tl.set("#hostImgF2", { display: "block" }, 10.5);
+    tl.to("#hostImgF1", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 10.5);
+    tl.fromTo("#hostImgF2", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 10.5);
+    tl.to("#hostCard", { scale: 1.03, duration: 0.06 }, 10.5);
+    tl.to("#hostCard", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 10.56);
 
-    tl.set("#hostImgF3", { display: "block" }, 10.56);
-    tl.to("#hostImgF2", { opacity: 0, duration: 0.08, ease: "power1.inOut" }, 10.56);
-    tl.fromTo("#hostImgF3", { opacity: 0 }, { opacity: 1, duration: 0.08, ease: "power1.inOut" }, 10.56);
-    tl.to("#hostCard", { scale: 1.1, y: -14, duration: 0.05 }, 10.56); // biggest impact — the actual "shock" lands here, settles by 10.61
-    tl.to("#hostCard", { scale: 1, y: 0, duration: 0.2, ease: "back.out(2.5)" }, 10.62);
+    // f3 — confused → surprised, starts as "죽어도" (no matter what) begins (12.56s)
+    tl.set("#hostImgF3", { display: "block" }, 12.2);
+    tl.to("#hostImgF2", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 12.2);
+    tl.fromTo("#hostImgF3", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 12.2);
 
-    tl.to("#hostShockLines", { opacity: 1, duration: 0.05 }, 10.56);
-    tl.to("#hostShockLines", { opacity: 0, duration: 0.25 }, 10.9);
+    // f4 — surprised, holds through "인식이 안 되고" (recognition doesn't happen, 13.19-14.44s)
+    tl.set("#hostImgF4", { display: "block" }, 13.0);
+    tl.to("#hostImgF3", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 13.0);
+    tl.fromTo("#hostImgF4", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 13.0);
+    tl.to("#hostCard", { scale: 1.05, duration: 0.06 }, 13.0);
+    tl.to("#hostCard", { scale: 1, duration: 0.18, ease: "back.out(2.5)" }, 13.06);
+
+    // f5 — surprised → shocked, starts right as "시뻘건" (bright red) begins (14.65s)
+    tl.set("#hostImgF5", { display: "block" }, 14.6);
+    tl.to("#hostImgF4", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 14.6);
+    tl.fromTo("#hostImgF5", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 14.6);
+
+    // f6 — shocked, lands with "오답" (wrong answer, 15.38s) — this is where the phone's error
+    // card and screen-shake now land too, so the host's shock and the visual cause appear together
+    tl.set("#hostImgF6", { display: "block" }, 15.3);
+    tl.to("#hostImgF5", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 15.3);
+    tl.fromTo("#hostImgF6", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 15.3);
+    tl.to("#hostCard", { scale: 1.08, y: -10, duration: 0.08 }, 15.3);
+    tl.to("#hostCard", { scale: 1.03, y: -3, duration: 0.1, ease: "power1.out" }, 15.38); // don't fully settle — keep bouncing into the peak frame
+
+    tl.to("#phoneMockup", { x: "-=4", yoyo: true, repeat: 6, duration: 0.04 }, 15.3); // 2px screen shake
+    tl.to("#errorCallout", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 15.35);
+    tl.to("#hostShockLines", { opacity: 1, duration: 0.15 }, 15.3);
+
+    // Error screen photo — same "avatar motion" language as the host swaps (crossfade +
+    // punch-then-settle), not a generic box pop-in, so the phone's reveal reads as part of
+    // the same narration-synced system instead of a separate UI animation (사용자 요청).
+    tl.fromTo("#errorImg", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1.06, duration: 0.3, ease: "power1.inOut" }, 15.35);
+    tl.to("#errorImg", { scale: 1, duration: 0.18, ease: "back.out(2.5)" }, 15.65);
+
+    // f7 — shocked peak, lands with "떴던" (had popped up, 16.17s) — holds through "답답한 경험"
+    // before settling as sentence 3 begins at 17.5s
+    tl.set("#hostImgF7", { display: "block" }, 16.15);
+    tl.to("#hostImgF6", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 16.15);
+    tl.fromTo("#hostImgF7", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 16.15);
+    tl.to("#hostCard", { scale: 1, y: 0, duration: 0.25, ease: "back.out(2.5)" }, 16.15);
+
+    tl.to("#hostShockLines", { opacity: 0, duration: 0.3 }, 16.8);
 
     // Sentence 3 (17.5s ~ 28.3s)
     tl.to("#cap2", { opacity: 0, duration: 0.15 }, 17.3);

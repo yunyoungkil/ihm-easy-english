@@ -50,110 +50,58 @@
     z-index: 10;
   }
 
-  /* Dual Contrast Stage */
-  .contrast-stage {
+  /* 2026-09-22 rework: one large hero scene replaces the old dual-card layout (left card had
+     no image at all, just an emoji; right card used two off-brand images unrelated to the
+     channel character in a 280x220px box, hard-cut with display:none/block). Same character
+     established in Frames 1-3 now carries the whole beat: recap the jaw-pain reaction (reused
+     from Frame 2), then release into the relaxed "lazy tongue" solution across 4 new poses,
+     narration-synced and crossfaded. See prompts/frame04-image-prompts.md and TASKS.md
+     2026-09-22. */
+  .hero-stage {
     position: absolute;
-    top: 15cqh;
-    left: 8cqw;
-    right: 8cqw;
-    height: 72cqh;
-    display: flex;
-    gap: 4cqw;
-  }
-
-  /* Card Bad (Red) */
-  .card-bad {
-    flex: 1;
+    top: 13cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58cqw;
+    height: 76cqh;
     background: #FFFFFF;
     border: 3.5px solid #2B2B2B;
     border-radius: 28px;
     box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 3cqw;
+    padding: 2.2cqw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    gap: 1.6cqh;
+  }
+  .hero-illustration-box {
     position: relative;
-    opacity: 0.6;
-  }
-  .card-bad-tag {
-    background: #B71515;
-    color: #FFFFFF;
-    border: 2.5px solid #2B2B2B;
-    border-radius: 10px;
-    padding: 0.4cqh 1.2cqw;
-    font-size: 1.1cqw;
-    font-weight: 900;
-  }
-  .tongue-straining {
-    font-size: 5cqw;
-    position: relative;
-  }
-  .straining-desc {
-    font-size: 1.35cqw;
-    font-weight: 800;
-    color: #555045;
-    text-align: center;
-    line-height: 1.4;
-  }
-  .bad-cross-line {
-    position: absolute;
-    inset: 15% 10%;
-    border-top: 6px solid #FF4757;
-    transform: rotate(25deg);
-    opacity: 0;
-  }
-
-  /* Card Good (Mint / Gold Highlight) */
-  .card-good {
-    flex: 1.2;
-    background: #FFFFFF;
-    border: 4px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 8px 8px 0px #2B2B2B;
-    padding: 3cqw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-  }
-  .card-good-tag {
-    background: #00E5A3;
-    color: #2B2B2B;
-    border: 2.5px solid #2B2B2B;
-    border-radius: 10px;
-    padding: 0.4cqh 1.4cqw;
-    font-size: 1.2cqw;
-    font-weight: 900;
-  }
-  .relax-illustration-box {
-    width: 280px;
-    height: 220px;
-    background: #F0FFF9;
-    border: 3.5px solid #2B2B2B;
+    width: 100%;
+    height: 69cqh;
     border-radius: 20px;
-    box-shadow: 4px 4px 0px #2B2B2B;
+    border: 3.5px solid #2B2B2B;
     overflow: hidden;
-    position: relative;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    background: #F0FFF9;
   }
-  .relax-img {
+  .hero-illustration-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  /* Soundwave Rings Container */
+  /* Soundwave Rings — quiet throat resonance motif, code-driven motion over the relaxed poses */
   .soundwave-box {
     position: absolute;
-    right: 3cqw;
-    bottom: 3cqw;
+    right: 4cqw;
+    bottom: 4cqw;
     width: 90px;
     height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 6;
   }
   .sw-ring {
     position: absolute;
@@ -191,7 +139,7 @@
     width: 80cqw;
     height: 7cqh;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     z-index: 50;
   }
@@ -200,12 +148,11 @@
     background: rgba(255, 255, 255, 0.96);
     border: 3px solid #2B2B2B;
     box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 100px;
+    border-radius: 36px;
     padding: 1cqh 2.6cqw;
     font-size: 1.45cqw;
     font-weight: 800;
     color: #2B2B2B;
-    white-space: nowrap;
     letter-spacing: -0.4px;
     opacity: 0;
     pointer-events: none;
@@ -226,29 +173,15 @@
     <span data-hf-id="hf-cf0d">원어민의 비밀: '게으른 혀'의 법칙</span>
   </div>
 
-  <div data-hf-id="hf-stage-04" class="contrast-stage">
-    <!-- Bad: Straining to touch roof -->
-    <div data-hf-id="hf-cbad-04" class="card-bad" id="cardBad">
-      <div data-hf-id="hf-btag-04" class="card-bad-tag">❌ 우리가 배운 피곤한 방법</div>
-      <div data-hf-id="hf-bicon-04" class="tongue-straining">👅💦</div>
-      <div data-hf-id="hf-bdesc-04" class="straining-desc">
-        혀끝을 억지로 입천장에 붙이려고<br data-hf-id="hf-x5px">
-        용을 쓰다가 턱에 경련 발생!
-      </div>
-      <div data-hf-id="hf-bline-04" class="bad-cross-line" id="badCross"></div>
-    </div>
-
-    <!-- Good: Relaxed Slime Tongue with 2 Illustrations -->
-    <div data-hf-id="hf-cgood-04" class="card-good" id="cardGood">
-      <div data-hf-id="hf-gtag-04" class="card-good-tag">✔ 원어민의 진짜 소리 비법</div>
-      <div data-hf-id="hf-slime-04" class="relax-illustration-box" id="relaxBox" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
-        <img data-hf-id="hf-img-sofa" id="imgSofa" class="relax-img" src="assets/images/f04_lazy_sofa.jpg" alt="Lazy Sofa Analogy">
-        <img data-hf-id="hf-img-relax" id="imgTongueRelax" class="relax-img" src="assets/images/f04_tongue_relax.jpg" alt="Relaxed Tongue Diagram" style="display: none;">
-      </div>
-      <div data-hf-id="hf-gdesc-04" style="font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; line-height: 1.4;">
-        R 자세 그대로 둔 채,<br data-hf-id="hf-rsrt">
-        목구멍에서 게으르게 '을' 흘려보내기!
-      </div>
+  <!-- One large hero scene: recap the jaw-pain reaction (reused from Frame 2) -> release ->
+       resolved -> hold -> confirm, all the same channel character, narration-synced -->
+  <div data-hf-id="hf-hero-04" class="hero-stage" id="heroStage">
+    <div data-hf-id="hf-art-04" class="hero-illustration-box" id="heroIllustrationBox" data-layout-allow-overflow="true">
+      <img data-hf-id="hf-img-pain-04" id="heroImgPain" class="hero-illustration-img" src="assets/images/f02_react_04_jaw_pain.jpg" alt="Recap: straining and jaw pain from the old method" style="position: absolute; inset: 0; opacity: 1;">
+      <img data-hf-id="hf-img-a-04" id="heroImgRelease" class="hero-illustration-img" src="assets/images/f04_relax_a_release.jpg" alt="Tension releasing" style="display: none; position: absolute; inset: 0; opacity: 0;">
+      <img data-hf-id="hf-img-b-04" id="heroImgResolved" class="hero-illustration-img" src="assets/images/f04_relax_b_resolved.jpg" alt="Fully relaxed, lazy resonance" style="display: none; position: absolute; inset: 0; opacity: 0;">
+      <img data-hf-id="hf-img-c-04" id="heroImgHold" class="hero-illustration-img" src="assets/images/f04_relax_c_hold.jpg" alt="Holding the relaxed position with quiet confidence" style="display: none; position: absolute; inset: 0; opacity: 0;">
+      <img data-hf-id="hf-img-d-04" id="heroImgConfirm" class="hero-illustration-img" src="assets/images/f04_relax_d_confirm.jpg" alt="Calm confirmation, that's all it takes" style="display: none; position: absolute; inset: 0; opacity: 0;">
 
       <!-- Soundwave Rings -->
       <div data-hf-id="hf-swb-04" class="soundwave-box">
@@ -264,7 +197,7 @@
     </div>
   </div>
 
-  <!-- Captions -->
+  <!-- Captions retimed against assets/voice/04.words.json actual word timestamps -->
   <div data-hf-id="hf-caps-04" class="caption-container">
     <div data-hf-id="hf-c1-04" class="caption-line" id="cap1">그렇다면 원어민은 이 끔찍한 충돌을 어떻게 피할까요?</div>
     <div data-hf-id="hf-c2-04" class="caption-line" id="cap2">비밀은 바로 '게으른 혀'에 있습니다.</div>
@@ -285,45 +218,61 @@
 
     // Initial Appearance
     tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
-    tl.fromTo("#cardBad", { x: -40, opacity: 0 }, { x: 0, opacity: 0.6, duration: 0.5, ease: "power2.out" }, 0.3);
-    tl.fromTo("#cardGood", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+    tl.fromTo("#heroStage", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
 
-    // Sentence 1 (0.5s ~ 4.2s)
-    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+    // Captions retimed against 04.words.json (word onsets): cap1 0.46, cap2 5.86, cap3 9.88,
+    // cap4 18.78, cap5 31.06.
+    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.4);
+    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 5.6);
+    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 5.86);
+    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 9.5);
+    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 9.88);
+    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 18.4);
+    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 18.78);
+    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 30.7);
+    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 31.06);
 
-    // Sentence 2 (4.5s ~ 8.8s)
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 4.3);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 4.5);
+    // Image 1 -> 2: tension releasing, right as "비밀은 바로 게으른 혀에 있습니다" (the reveal) begins (5.86s)
+    tl.set("#heroImgRelease", { display: "block" }, 5.86);
+    tl.to("#heroImgPain", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 5.86);
+    tl.fromTo("#heroImgRelease", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 5.86);
+    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 5.86);
+    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 5.92);
 
-    // Bad Cross Slash at 7.0s
-    tl.to("#badCross", { opacity: 1, duration: 0.3 }, 7.0);
+    // Image 2 -> 3: fully resolved, right as "놀랍게도 단어 끝이나... L은" explanation begins (9.88s)
+    tl.set("#heroImgResolved", { display: "block" }, 9.88);
+    tl.to("#heroImgRelease", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 9.88);
+    tl.fromTo("#heroImgResolved", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 9.88);
+    tl.to("#heroStage", { scale: 1.02, duration: 0.05 }, 9.88);
+    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 9.94);
 
-    // Sentence 3 (9.0s ~ 18.2s)
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 8.8);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 9.0);
-
-    // Mint Stamp drops at 14.0s
+    // Mint stamp drops mid-explanation (14.0s: "혀끝을 부지런히 천장에 붙일 필요가 전혀 없습니다")
     tl.to("#mintStamp", { opacity: 1, scale: 1, duration: 0.35, ease: "power4.in" }, 14.0);
     tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 14.35); // 2px screen shake
+    tl.to("#mintStamp", { opacity: 0, duration: 0.3 }, 18.4); // clear before the next pose lands
 
-    // Sentence 4 (18.5s ~ 30.5s): Stepped cut from sofa to relaxed tongue diagram
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 18.3);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 18.5);
-    tl.set("#imgSofa", { display: "none" }, 18.5);
-    tl.set("#imgTongueRelax", { display: "block" }, 18.5);
-    tl.to("#relaxBox", { y: "-=4", yoyo: true, repeat: 2, duration: 0.08, ease: "steps(4)" }, 18.5);
+    // Image 3 -> 4: holding the relaxed position, right as "R을 소리 내면서..." begins (18.78s)
+    tl.set("#heroImgHold", { display: "block" }, 18.78);
+    tl.to("#heroImgResolved", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 18.78);
+    tl.fromTo("#heroImgHold", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 18.78);
+    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 18.78);
+    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 18.84);
 
-    // Soundwave pulse rings (20.0s ~ 30.0s)
-    tl.fromTo("#ring1", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 7 }, 20.0);
-    tl.fromTo("#ring2", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 7 }, 20.4);
-    tl.fromTo("#ring3", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 7 }, 20.8);
+    // Soundwave pulse rings start with the throat/lazy-sound explanation and keep pulsing
+    // through the rest of the relaxed sequence.
+    tl.fromTo("#ring1", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 15 }, 20.0);
+    tl.fromTo("#ring2", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 15 }, 20.4);
+    tl.fromTo("#ring3", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 14 }, 20.8);
 
-    // Sentence 5 (30.8s ~ 37.8s)
-    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 30.6);
-    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 30.8);
+    // Image 4 -> 5: calm confirmation, right as "게으르게 소리만 흘려보내면 끝나거든요" (that's all it takes) begins (27.21s)
+    tl.set("#heroImgConfirm", { display: "block" }, 27.21);
+    tl.to("#heroImgHold", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 27.21);
+    tl.fromTo("#heroImgConfirm", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 27.21);
+    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 27.21);
+    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 27.27);
 
     // Frame exit
-    tl.to(["#cardBad", "#cardGood", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.8);
+    tl.to(["#heroStage", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.8);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["04-lazy-tongue-rule"] = tl;

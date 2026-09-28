@@ -1,278 +1,79 @@
 <template>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
-
-  #root {
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: #F4EFE6;
-    color: #2B2B2B;
-    font-family: 'Noto Sans KR', sans-serif;
-    container-type: size;
-  }
+  /* 04-lazy-tongue-rule — EP19 규칙 기준 재제작(2026-09-27). 정적 이미지 2장 크로스페이드
+     (기존 검증된 relax 포즈 재사용, 신규 생성 없음) + 민트 스탬프. Actual audio duration: 38.20s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
   #root * { box-sizing: border-box; }
-
-  /* Progress */
-  .progress-track {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 6px;
-    background: rgba(43,43,43,0.08);
-    z-index: 100;
-  }
-  .progress-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 26.21%;
-    height: 100%;
-    background: #FFE500;
-  }
-
-  /* Badge */
-  .frame-badge {
-    position: absolute;
-    top: 4.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #00E5A3;
-    color: #2B2B2B;
-    border: 3px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 0.8cqh 2.2cqw;
-    font-size: 1.25cqw;
-    font-weight: 900;
-    z-index: 10;
-  }
-
-  /* 2026-09-22 rework: one large hero scene replaces the old dual-card layout (left card had
-     no image at all, just an emoji; right card used two off-brand images unrelated to the
-     channel character in a 280x220px box, hard-cut with display:none/block). Same character
-     established in Frames 1-3 now carries the whole beat: recap the jaw-pain reaction (reused
-     from Frame 2), then release into the relaxed "lazy tongue" solution across 4 new poses,
-     narration-synced and crossfaded. See prompts/frame04-image-prompts.md and TASKS.md
-     2026-09-22. */
-  .hero-stage {
-    position: absolute;
-    top: 13cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 58cqw;
-    height: 76cqh;
-    background: #FFFFFF;
-    border: 3.5px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 2.2cqw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.6cqh;
-  }
-  .hero-illustration-box {
-    position: relative;
-    width: 100%;
-    height: 69cqh;
-    border-radius: 20px;
-    border: 3.5px solid #2B2B2B;
-    overflow: hidden;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    background: #F0FFF9;
-  }
-  .hero-illustration-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Soundwave Rings — quiet throat resonance motif, code-driven motion over the relaxed poses */
-  .soundwave-box {
-    position: absolute;
-    right: 4cqw;
-    bottom: 4cqw;
-    width: 90px;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 6;
-  }
-  .sw-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 3px solid #2E86AB;
-    opacity: 0;
-  }
-
-  /* Mint Pass Rubber Stamp */
-  .mint-stamp {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(-8deg) scale(2);
-    background: #00E5A3;
-    color: #2B2B2B;
-    border: 5px solid #2B2B2B;
-    border-radius: 20px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 1.8cqh 2.8cqw;
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 2.6cqw;
-    white-space: nowrap;
-    opacity: 0;
-    z-index: 25;
-    pointer-events: none;
-  }
-
-  /* Captions */
-  .caption-container {
-    position: absolute;
-    bottom: 3.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80cqw;
-    height: 7cqh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 50;
-  }
-  .caption-line {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.96);
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 36px;
-    padding: 1cqh 2.6cqw;
-    font-size: 1.45cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    letter-spacing: -0.4px;
-    opacity: 0;
-    pointer-events: none;
-    max-width: 1600px;
-    overflow: visible;
-  }
-
+  .progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 5px; background: #F5C518; }
+  .hook-header { position: absolute; top: 4.5cqh; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10; }
+  .ribbon-badge { background: #00E5A3; border: 3px solid #2B2B2B; border-radius: 12px; box-shadow: 4px 4px 0px rgba(43,43,43,0.25); padding: 0.7cqh 1.6cqw; display: flex; align-items: center; gap: 0.6cqw; }
+  .ribbon-icon { font-size: 1.3cqw; }
+  .ribbon-label { font-size: 1.2cqw; font-weight: 900; color: #2B2B2B; letter-spacing: -0.3px; }
+  .hook-title { font-weight: 900; font-size: 1.65cqw; color: #2B2B2B; letter-spacing: -0.5px; }
+  .main-box { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 52cqw; height: 62cqh; border-radius: 28px; border: 3.5px solid #2B2B2B; box-shadow: 6px 6px 0px #2B2B2B; overflow: hidden; opacity: 0; z-index: 2; background: #F0FFF9; }
+  .main-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .mint-stamp { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-8deg) scale(2); background: #00E5A3; color: #2B2B2B; border: 5px solid #2B2B2B; border-radius: 20px; box-shadow: 6px 6px 0px #2B2B2B; padding: 1.6cqh 2.6cqw; font-family: 'Archivo Black', sans-serif; font-size: 2.2cqw; white-space: nowrap; opacity: 0; z-index: 25; pointer-events: none; }
+  .gold-capsule { position: absolute; left: 50%; bottom: 12.5cqh; transform: translateX(-50%) scale(0.9); background: #F5C518; border: 3.5px solid #2B2B2B; border-radius: 100px; box-shadow: 5px 5px 0px #2B2B2B; padding: 1.1cqh 2.8cqw; display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10; }
+  .gold-icon { font-size: 1.5cqw; }
+  .gold-text { font-size: 1.4cqw; font-weight: 900; color: #2B2B2B; letter-spacing: -0.4px; }
+  .caption-pill { position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.96); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0px #2B2B2B; border-radius: 36px; padding: 0.9cqh 2.4cqw; font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; z-index: 30; letter-spacing: -0.4px; opacity: 0; max-width: 84cqw; text-wrap: pretty; }
   audio { display: none; }
 </style>
-
 <div data-hf-id="hf-root-04" id="root" data-composition-id="04-lazy-tongue-rule" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-prog-04" class="progress-track">
-    <div data-hf-id="hf-pfill-04" class="progress-fill" id="pfill"></div>
-  </div>
-
-  <div data-hf-id="hf-badge-04" class="frame-badge" id="frameBadge">
-    <span data-hf-id="hf-2izu">💡 반전 공개</span>
-    <span data-hf-id="hf-cf0d">원어민의 비밀: '게으른 혀'의 법칙</span>
-  </div>
-
-  <!-- One large hero scene: recap the jaw-pain reaction (reused from Frame 2) -> release ->
-       resolved -> hold -> confirm, all the same channel character, narration-synced -->
-  <div data-hf-id="hf-hero-04" class="hero-stage" id="heroStage">
-    <div data-hf-id="hf-art-04" class="hero-illustration-box" id="heroIllustrationBox" data-layout-allow-overflow="true">
-      <img data-hf-id="hf-img-pain-04" id="heroImgPain" class="hero-illustration-img" src="assets/images/f02_react_04_jaw_pain.jpg" alt="Recap: straining and jaw pain from the old method" style="position: absolute; inset: 0; opacity: 1;">
-      <img data-hf-id="hf-img-a-04" id="heroImgRelease" class="hero-illustration-img" src="assets/images/f04_relax_a_release.jpg" alt="Tension releasing" style="display: none; position: absolute; inset: 0; opacity: 0;">
-      <img data-hf-id="hf-img-b-04" id="heroImgResolved" class="hero-illustration-img" src="assets/images/f04_relax_b_resolved.jpg" alt="Fully relaxed, lazy resonance" style="display: none; position: absolute; inset: 0; opacity: 0;">
-      <img data-hf-id="hf-img-c-04" id="heroImgHold" class="hero-illustration-img" src="assets/images/f04_relax_c_hold.jpg" alt="Holding the relaxed position with quiet confidence" style="display: none; position: absolute; inset: 0; opacity: 0;">
-      <img data-hf-id="hf-img-d-04" id="heroImgConfirm" class="hero-illustration-img" src="assets/images/f04_relax_d_confirm.jpg" alt="Calm confirmation, that's all it takes" style="display: none; position: absolute; inset: 0; opacity: 0;">
-
-      <!-- Soundwave Rings -->
-      <div data-hf-id="hf-swb-04" class="soundwave-box">
-        <div data-hf-id="hf-r1-04" class="sw-ring" id="ring1" style="width: 30px; height: 30px;"></div>
-        <div data-hf-id="hf-r2-04" class="sw-ring" id="ring2" style="width: 60px; height: 60px;"></div>
-        <div data-hf-id="hf-r3-04" class="sw-ring" id="ring3" style="width: 90px; height: 90px;"></div>
-      </div>
-
-      <!-- Stamp -->
-      <div data-hf-id="hf-mstamp-04" class="mint-stamp" id="mintStamp" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
-        ✔ 혀끝 닿지 마세요!
-      </div>
+  <div data-hf-id="hf-prog-04" class="progress-track"><div data-hf-id="hf-pfill-04" class="progress-fill" id="pfill"></div></div>
+  <div data-hf-id="hf-hdr-04" class="hook-header" id="hookHeader">
+    <div data-hf-id="hf-rb-04" class="ribbon-badge">
+      <span data-hf-id="hf-ri-04" class="ribbon-icon">💡</span>
+      <span data-hf-id="hf-rl-04" class="ribbon-label">반전 공개</span>
     </div>
+    <span data-hf-id="hf-tt-04" class="hook-title">원어민의 비밀: '게으른 혀'의 법칙</span>
   </div>
-
-  <!-- Captions retimed against assets/voice/04.words.json actual word timestamps -->
-  <div data-hf-id="hf-caps-04" class="caption-container">
-    <div data-hf-id="hf-c1-04" class="caption-line" id="cap1">그렇다면 원어민은 이 끔찍한 충돌을 어떻게 피할까요?</div>
-    <div data-hf-id="hf-c2-04" class="caption-line" id="cap2">비밀은 바로 '게으른 혀'에 있습니다.</div>
-    <div data-hf-id="hf-c3-04" class="caption-line" id="cap3">놀랍게도 단어 끝이나 자음 앞에 붙는 L은, 혀끝을 부지런히 천장에 붙일 필요가 전혀 없습니다.</div>
-    <div data-hf-id="hf-c4-04" class="caption-line" id="cap4">R을 소리 내면서 이미 뒤로 당겨둔 그 편안한 자세를 그대로 둔 채, 목구멍 안쪽에서 '을' 하고 게으르게 소리만 흘려보내면 끝나거든요.</div>
-    <div data-hf-id="hf-c5-04" class="caption-line" id="cap5">원어민은 혀끝으로 힘들게 소리를 만드는 게 아니라, 힘을 쏙 뺀 게으른 울림으로 소리를 냅니다.</div>
+  <div data-hf-id="hf-main-04" class="main-box" id="mainBox">
+    <img data-hf-id="hf-img1-04" class="main-img" id="img1" src="assets/images/f04_relax_b_resolved.jpg" alt="Relaxed, lazy resonance" style="opacity: 1;">
+    <img data-hf-id="hf-img2-04" class="main-img" id="img2" src="assets/images/f04_relax_d_confirm.jpg" alt="Calm confident confirmation">
+    <div data-hf-id="hf-mstamp-04" class="mint-stamp" id="mintStamp">혀끝 닿지 마세요!</div>
   </div>
-
-  <audio data-hf-id="hf-audio-04" id="vo-04" src="assets/voice/04.wav" data-start="0" data-duration="38.20" data-audio-group="voiceover"></audio>
+  <div data-hf-id="hf-gold-04" class="gold-capsule" id="goldCapsule">
+    <span data-hf-id="hf-gi-04" class="gold-icon">😌</span>
+    <span data-hf-id="hf-gt-04" class="gold-text">힘을 쏙 뺀 게으른 울림으로 소리를 냅니다</span>
+  </div>
+  <div data-hf-id="hf-cap-04" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-au-04" id="v04" src="assets/voice/04.wav" data-audio-group="voiceover" data-start="0" data-duration="38.20"></audio>
+  <audio data-hf-id="hf-sfx-04-pop" id="sfxPop04" src="assets/sfx/pop.mp3" data-start="14.12" data-volume="0.35"></audio>
 </div>
-
 <script>
   (function () {
     var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function setCaption(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    // Progress bar fill (cumulative: 172.00 / 510.44 = 33.70%)
-    tl.fromTo("#pfill", { width: "26.21%" }, { width: "33.70%", duration: 38.20, ease: "none" }, 0);
+    tl.to("#pfill", { width: "33.7%", duration: 38.20, ease: "none" }, 0);
+    tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+    tl.to("#mainBox", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.5);
 
-    // Initial Appearance
-    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
-    tl.fromTo("#heroStage", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+    // Sentence 1 (0.46s ~ 5.66s): 그렇다면 원어민은... 피할까요?
+    tl.call(function () { setCaption("그렇다면 원어민은 이 끔찍한 충돌을 어떻게 피할까요?"); }, null, 0.46);
+    // Sentence 2 (5.86s ~ 9.70s): 비밀은 바로 '게으른 혀'에 있습니다.
+    tl.call(function () { setCaption("비밀은 바로 '게으른 혀'에 있습니다."); }, null, 5.86);
 
-    // Captions retimed against 04.words.json (word onsets): cap1 0.46, cap2 5.86, cap3 9.88,
-    // cap4 18.78, cap5 31.06.
-    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.4);
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 5.6);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 5.86);
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 9.5);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 9.88);
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 18.4);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 18.78);
-    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 30.7);
-    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 31.06);
+    // Sentence 3 (9.88s ~ 18.62s): 놀랍게도... 없습니다.
+    tl.call(function () { setCaption("놀랍게도 단어 끝이나 자음 앞에 붙는 L은, 혀끝을 부지런히 천장에 붙일 필요가 전혀 없습니다."); }, null, 9.88);
+    tl.to("#mintStamp", { opacity: 1, scale: 1, duration: 0.35, ease: "power4.in" }, 14.12);
+    tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 14.47);
+    tl.to("#mintStamp", { opacity: 0, duration: 0.3 }, 18.0);
 
-    // Image 1 -> 2: tension releasing, right as "비밀은 바로 게으른 혀에 있습니다" (the reveal) begins (5.86s)
-    tl.set("#heroImgRelease", { display: "block" }, 5.86);
-    tl.to("#heroImgPain", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 5.86);
-    tl.fromTo("#heroImgRelease", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 5.86);
-    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 5.86);
-    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 5.92);
+    // Sentence 4 (18.78s ~ 30.90s): R을 소리 내면서... 끝나거든요.
+    tl.call(function () { setCaption("R을 소리 내면서 이미 뒤로 당겨둔 그 편안한 자세를 그대로 둔 채, 목구멍 안쪽에서 '을' 하고 게으르게 소리만 흘려보내면 끝나거든요."); }, null, 18.78);
 
-    // Image 2 -> 3: fully resolved, right as "놀랍게도 단어 끝이나... L은" explanation begins (9.88s)
-    tl.set("#heroImgResolved", { display: "block" }, 9.88);
-    tl.to("#heroImgRelease", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 9.88);
-    tl.fromTo("#heroImgResolved", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 9.88);
-    tl.to("#heroStage", { scale: 1.02, duration: 0.05 }, 9.88);
-    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 9.94);
+    // Sentence 5 (31.06s ~ 39.86s): 원어민은... 냅니다. -> crossfade to confirm pose + gold capsule
+    tl.call(function () { setCaption("원어민은 혀끝으로 힘들게 소리를 만드는 게 아니라, 힘을 쏙 뺀 게으른 울림으로 소리를 냅니다."); }, null, 31.06);
+    tl.to("#img1", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 31.06);
+    tl.to("#img2", { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 31.06);
+    tl.to("#goldCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 32.5);
 
-    // Mint stamp drops mid-explanation (14.0s: "혀끝을 부지런히 천장에 붙일 필요가 전혀 없습니다")
-    tl.to("#mintStamp", { opacity: 1, scale: 1, duration: 0.35, ease: "power4.in" }, 14.0);
-    tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 14.35); // 2px screen shake
-    tl.to("#mintStamp", { opacity: 0, duration: 0.3 }, 18.4); // clear before the next pose lands
-
-    // Image 3 -> 4: holding the relaxed position, right as "R을 소리 내면서..." begins (18.78s)
-    tl.set("#heroImgHold", { display: "block" }, 18.78);
-    tl.to("#heroImgResolved", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 18.78);
-    tl.fromTo("#heroImgHold", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 18.78);
-    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 18.78);
-    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 18.84);
-
-    // Soundwave pulse rings start with the throat/lazy-sound explanation and keep pulsing
-    // through the rest of the relaxed sequence.
-    tl.fromTo("#ring1", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 15 }, 20.0);
-    tl.fromTo("#ring2", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 15 }, 20.4);
-    tl.fromTo("#ring3", { scale: 0.5, opacity: 0.8 }, { scale: 1.5, opacity: 0, duration: 1.2, repeat: 14 }, 20.8);
-
-    // Image 4 -> 5: calm confirmation, right as "게으르게 소리만 흘려보내면 끝나거든요" (that's all it takes) begins (27.21s)
-    tl.set("#heroImgConfirm", { display: "block" }, 27.21);
-    tl.to("#heroImgHold", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 27.21);
-    tl.fromTo("#heroImgConfirm", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 27.21);
-    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 27.21);
-    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 27.27);
-
-    // Frame exit
-    tl.to(["#heroStage", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.8);
+    tl.to(["#hookHeader", "#mainBox", "#goldCapsule", "#capPill"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.8);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["04-lazy-tongue-rule"] = tl;

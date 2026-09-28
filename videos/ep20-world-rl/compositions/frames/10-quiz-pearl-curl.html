@@ -1,400 +1,174 @@
 <template>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
-
-  #root {
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: #F4EFE6;
-    color: #2B2B2B;
-    font-family: 'Noto Sans KR', sans-serif;
-    container-type: size;
-  }
+  /* 10-quiz-pearl-curl — 2026-09-27 재제작. 단어 소개 구간을 실제 캐릭터 영상/사진으로
+     교체: Pearl은 캐릭터가 버블티를 마시는 영상(f10_char_pearl.mp4, 컵을 들어 한 모금
+     마시고 내리는 3단계 동작 확인됨), Curl은 캐릭터가 고데기를 들고 엄지척하는 영상
+     (f10_char_curl.mp4)을 순서대로 재생 — 각 4초 실제 길이를 그대로 보여준 뒤 정지
+     사진으로 넘어간다. 퀴즈 A/B 카드·정답 공개·분해 공식 부분은 원래도 텍스트가 적절한
+     구간이라 그대로 유지. Actual audio duration: 47.88s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
   #root * { box-sizing: border-box; }
+  .progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 5px; background: #F5C518; }
+  .hook-header { position: absolute; top: 4.5cqh; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10; }
+  .ribbon-badge { background: #2B2B2B; border: 3px solid #2B2B2B; border-radius: 12px; box-shadow: 4px 4px 0px rgba(43,43,43,0.25); padding: 0.7cqh 1.6cqw; display: flex; align-items: center; gap: 0.6cqw; }
+  .ribbon-icon { font-size: 1.3cqw; color: #FFFFFF; }
+  .ribbon-label { font-size: 1.2cqw; font-weight: 900; color: #F5C518; letter-spacing: -0.3px; }
+  .hook-title { font-weight: 900; font-size: 1.65cqw; color: #2B2B2B; letter-spacing: -0.5px; }
 
-  /* Progress */
-  .progress-track {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 6px;
-    background: rgba(43,43,43,0.08);
-    z-index: 100;
-  }
-  .progress-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 77.01%;
-    height: 100%;
-    background: #FFE500;
-  }
+  .stage { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 66cqw; height: 48cqh; z-index: 2; }
 
-  /* Badge */
-  .frame-badge {
-    position: absolute;
-    top: 4.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #00E5A3;
-    color: #2B2B2B;
-    border: 3px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 0.8cqh 2.2cqw;
-    font-size: 1.25cqw;
-    font-weight: 900;
-    z-index: 10;
-  }
+  .intro-box { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 46cqw; height: 100%; border-radius: 28px; border: 3.5px solid #2B2B2B; box-shadow: 6px 6px 0px #2B2B2B; overflow: hidden; opacity: 0; background: #FFF5F5; }
+  .intro-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .intro-tag { position: absolute; left: 50%; bottom: 3cqh; transform: translateX(-50%) scale(0.8); background: #F5C518; border: 3px solid #2B2B2B; border-radius: 100px; box-shadow: 4px 4px 0px #2B2B2B; padding: 0.7cqh 2cqw; opacity: 0; z-index: 6; }
+  .intro-tag-en { font-family: 'Archivo Black', sans-serif; font-size: 1.8cqw; color: #2B2B2B; }
+  .intro-tag-ko { font-size: 1.4cqw; font-weight: 900; color: #2B2B2B; margin-left: 0.5cqw; }
 
-  /* Stage */
-  .quiz2-stage {
-    position: absolute;
-    top: 14cqh;
-    left: 8cqw;
-    right: 8cqw;
-    height: 73cqh;
-    display: flex;
-    flex-direction: column;
-    gap: 3cqh;
-  }
+  .quiz-row { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 2.4cqw; opacity: 0; }
+  .quiz-card { width: 27cqw; height: 42cqh; border-radius: 26px; border: 3.5px solid #2B2B2B; box-shadow: 6px 6px 0px #2B2B2B; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6cqh; padding: 2cqw; opacity: 0; transform: scale(0.7); position: relative; }
+  .quiz-tag { font-family: 'Archivo Black', sans-serif; font-size: 3.2cqw; color: #2B2B2B; }
+  .quiz-desc { font-size: 1.35cqw; font-weight: 800; color: #2B2B2B; text-align: center; line-height: 1.4; }
+  .quiz-check { position: absolute; top: -2.2cqh; left: 50%; transform: translateX(-50%) scale(0); background: #2B2B2B; color: #F5C518; border-radius: 100px; padding: 0.5cqh 1.4cqw; font-size: 1.2cqw; font-weight: 900; opacity: 0; }
 
-  /* Words Preview Bar */
-  .words-bar {
-    width: 100%;
-    height: 18cqh;
-    background: #FFFFFF;
-    border: 3.5px solid #2B2B2B;
-    border-radius: 20px;
-    box-shadow: 5px 5px 0px #2B2B2B;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 1cqw;
-  }
-  .wb-item {
-    display: flex;
-    align-items: center;
-    gap: 1.2cqw;
-  }
-  .wb-obj-box {
-    width: 65px;
-    height: 65px;
-    border-radius: 12px;
-    border: 2.5px solid #2B2B2B;
-    overflow: hidden;
-    box-shadow: 2px 2px 0px #2B2B2B;
-    background: #FFFFFF;
-    flex-shrink: 0;
-  }
-  .wb-obj-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .wb-word {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 2.5cqw;
-    color: #2B2B2B;
-  }
-  .wb-desc {
-    font-size: 1.25cqw;
-    font-weight: 800;
-    color: #7A7365;
-  }
+  .countdown-badge { position: absolute; left: 50%; top: 4%; transform: translate(-50%, 0) scale(0); background: #2B2B2B; border: 3px solid #2B2B2B; border-radius: 50%; width: 6cqw; height: 6cqw; display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 8; }
+  .countdown-num { font-family: 'Archivo Black', sans-serif; font-size: 2.8cqw; color: #F5C518; }
 
-  /* Countdown Gauge */
-  .gauge-box {
-    width: 100%;
-    height: 22px;
-    background: #FFFFFF;
-    border: 3px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 3px 3px 0px #2B2B2B;
-    overflow: hidden;
-    position: relative;
-    opacity: 0;
-  }
-  .gauge-bar {
-    width: 100%;
-    height: 100%;
-    background: #FFE500;
-    transform-origin: left;
-  }
+  .breakdown-row { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 3cqw; opacity: 0; }
+  .formula-card { width: 26cqw; height: 34cqh; border-radius: 24px; border: 3.5px solid #2B2B2B; box-shadow: 6px 6px 0px #2B2B2B; background: #F5C518; display: flex; align-items: center; justify-content: center; gap: 0.8cqw; padding: 1cqw; opacity: 0; transform: scale(0.7); }
+  .formula-text { font-size: 1.9cqw; font-weight: 900; color: #2B2B2B; }
+  .formula-result { font-family: 'Archivo Black', sans-serif; font-size: 2.3cqw; color: #2B2B2B; }
 
-  /* 2-Choice Balance Arena */
-  .balance-arena {
-    width: 100%;
-    height: 44cqh;
-    display: flex;
-    gap: 4cqw;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .bcard {
-    flex: 1;
-    height: 100%;
-    background: #FFFFFF;
-    border: 4px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 2.5cqh 2cqw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    transition: all 0.3s ease;
-  }
-  .bcard-badge {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 2cqw;
-    color: #2B2B2B;
-    background: #FAF7F2;
-    border: 3px solid #2B2B2B;
-    border-radius: 12px;
-    padding: 0.4cqh 1.8cqw;
-  }
-  .bcard-text {
-    font-size: 1.7cqw;
-    font-weight: 900;
-    color: #2B2B2B;
-    text-align: center;
-    line-height: 1.4;
-  }
-
-  /* Red Reject Stamp */
-  .red-reject-stamp {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(-12deg) scale(2);
-    background: #FF4757;
-    color: #FFFFFF;
-    border: 5px solid #2B2B2B;
-    border-radius: 18px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 1.5cqh 2.5cqw;
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 2.6cqw;
-    opacity: 0;
-    z-index: 20;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-
-  /* Winner Trophy Box */
-  .winner-box {
-    position: absolute;
-    inset: 0;
-    background: #F0FFF9;
-    border-radius: 24px;
-    border: 5px solid #00E5A3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5cqh;
-    opacity: 0;
-    transform: scale(0.9);
-    z-index: 22;
-  }
-  .winner-trophy { font-size: 4cqw; }
-  .winner-formula {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 2.2cqw;
-    font-weight: 900;
-    color: #008855;
-  }
-
-  /* 3s Number */
-  .countdown-num {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 7cqw;
-    color: #FF4757;
-    text-shadow: 4px 4px 0px #2B2B2B;
-    z-index: 30;
-    pointer-events: none;
-  }
-
-  /* Captions */
-  .caption-container {
-    position: absolute;
-    bottom: 3.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80cqw;
-    height: 7cqh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 50;
-  }
-  .caption-line {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.96);
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 36px;
-    padding: 1cqh 2.6cqw;
-    font-size: 1.45cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    letter-spacing: -0.4px;
-    opacity: 0;
-    pointer-events: none;
-      max-width: 1600px;
-    overflow: visible;
-}
-
+  .gold-capsule { position: absolute; left: 50%; bottom: 12.5cqh; transform: translateX(-50%) scale(0.9); background: #F5C518; border: 3.5px solid #2B2B2B; border-radius: 100px; box-shadow: 5px 5px 0px #2B2B2B; padding: 1.1cqh 2.8cqw; display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10; }
+  .gold-icon { font-size: 1.5cqw; }
+  .gold-text { font-size: 1.4cqw; font-weight: 900; color: #2B2B2B; letter-spacing: -0.4px; }
+  .caption-pill { position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.96); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0px #2B2B2B; border-radius: 36px; padding: 0.9cqh 2.4cqw; font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; z-index: 30; letter-spacing: -0.4px; opacity: 0; max-width: 84cqw; text-wrap: pretty; }
   audio { display: none; }
 </style>
-
 <div data-hf-id="hf-root-10" id="root" data-composition-id="10-quiz-pearl-curl" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-prog-10" class="progress-track">
-    <div data-hf-id="hf-pfill-10" class="progress-fill" id="pfill"></div>
+  <div data-hf-id="hf-prog-10" class="progress-track"><div data-hf-id="hf-pfill-10" class="progress-fill" id="pfill"></div></div>
+  <div data-hf-id="hf-hdr-10" class="hook-header" id="hookHeader">
+    <div data-hf-id="hf-rb-10" class="ribbon-badge">
+      <span data-hf-id="hf-ri-10" class="ribbon-icon">🎯</span>
+      <span data-hf-id="hf-rl-10" class="ribbon-label">마지막 퀴즈</span>
+    </div>
+    <span data-hf-id="hf-tt-10" class="hook-title">Pearl과 Curl, 진짜 발음법은?</span>
   </div>
 
-  <div data-hf-id="hf-badge-10" class="frame-badge" id="frameBadge">
-    <span data-hf-id="hf-wgsj">🏆 도파민 퀴즈 2R</span>
-    <span data-hf-id="hf-6ong">Pearl &amp; Curl 실전 밸런스 게임!</span>
-  </div>
-
-  <div data-hf-id="hf-stage-10" class="quiz2-stage">
-    <!-- Words Preview with Object Illustrations -->
-    <div data-hf-id="hf-wbar-10" class="words-bar" id="wordsBar">
-      <div data-hf-id="hf-ys4d" class="wb-item">
-        <div data-hf-id="hf-pearl-art-10" class="wb-obj-box">
-          <img data-hf-id="hf-pearl-img-10" class="wb-obj-img" src="assets/images/f10_obj_pearl.jpg" alt="Pearl">
-        </div>
-        <div data-hf-id="hf-yeow">
-          <div data-hf-id="hf-u5ms" class="wb-word">PEARL</div>
-          <div data-hf-id="hf-xg7w" class="wb-desc">버블티 마실 때 '펄 추가' ➔ [퍼~] + [을]</div>
-        </div>
-      </div>
-      <div data-hf-id="hf-xuxc" style="font-size: 2cqw; font-weight: 900; color: #7A7365;">&amp;</div>
-      <div data-hf-id="hf-6pdd" class="wb-item">
-        <div data-hf-id="hf-curl-art-10" class="wb-obj-box">
-          <img data-hf-id="hf-curl-img-10" class="wb-obj-img" src="assets/images/f10_obj_curl.jpg" alt="Curl">
-        </div>
-        <div data-hf-id="hf-y7yw">
-          <div data-hf-id="hf-t7si" class="wb-word">CURL</div>
-          <div data-hf-id="hf-k8xg" class="wb-desc">미용실에서 '컬 넣어주세요' ➔ [커~] + [을]</div>
-        </div>
+  <div data-hf-id="hf-stage-10" class="stage">
+    <div data-hf-id="hf-introbox-10" class="intro-box" id="introBox">
+      <video data-hf-id="hf-vpearl-10" class="intro-media" id="pearlVideo" src="assets/images/f10_char_pearl.mp4" data-start="4.35" data-duration="4" data-track-index="1" muted playsinline></video>
+      <video data-hf-id="hf-vcurl-10" class="intro-media" id="curlVideo" src="assets/images/f10_char_curl.mp4" data-start="8.35" data-duration="4" data-track-index="2" muted playsinline></video>
+      <img data-hf-id="hf-icurl-10" class="intro-media" id="curlImg" src="assets/images/f10_char_curl.jpg" alt="Curl">
+      <div data-hf-id="hf-itag-10" class="intro-tag" id="introTag">
+        <span data-hf-id="hf-itagen-10" class="intro-tag-en" id="introTagEn">Pearl</span>
+        <span data-hf-id="hf-itagko-10" class="intro-tag-ko" id="introTagKo">펄</span>
       </div>
     </div>
 
-    <!-- Gauge -->
-    <div data-hf-id="hf-gbox-10" class="gauge-box" id="gaugeBox">
-      <div data-hf-id="hf-gbar-10" class="gauge-bar" id="gaugeBar"></div>
+    <div data-hf-id="hf-qrow-10" class="quiz-row" id="quizRow">
+      <div data-hf-id="hf-qa-10" class="quiz-card" id="quizA">
+        <div data-hf-id="hf-qatag-10" class="quiz-tag">A</div>
+        <div data-hf-id="hf-qadesc-10" class="quiz-desc">혀끝을 입천장에<br data-hf-id="hf-x5px">힘껏 튕긴다!</div>
+      </div>
+      <div data-hf-id="hf-qb-10" class="quiz-card" id="quizB">
+        <div data-hf-id="hf-qbtag-10" class="quiz-tag">B</div>
+        <div data-hf-id="hf-qbdesc-10" class="quiz-desc">턱 힘 툭 빼고<br data-hf-id="hf-rsrt">게으른 '을'만 얹어준다!</div>
+        <div data-hf-id="hf-qcheck-10" class="quiz-check" id="quizCheck">✅ 정답!</div>
+      </div>
+    </div>
+    <div data-hf-id="hf-cd-10" class="countdown-badge" id="countdownBadge">
+      <span data-hf-id="hf-cdnum-10" class="countdown-num" id="countdownNum">3</span>
     </div>
 
-    <!-- Arena -->
-    <div data-hf-id="hf-barena-10" class="balance-arena">
-      <!-- Card A -->
-      <div data-hf-id="hf-carda-10" class="bcard" id="cardA">
-        <div data-hf-id="hf-e7kq" class="bcard-badge">선택 A</div>
-        <div data-hf-id="hf-vgcy" class="bcard-text" data-layout-allow-overlap="true">혀끝을 입천장에<br data-hf-id="hf-x5px">힘껏 튕긴다!</div>
-        <div data-hf-id="hf-uhr3" style="font-size: 1.1cqw; font-weight: 700; color: #7A7365;">(기존의 힘든 버터 발음)</div>
-
-        <div data-hf-id="hf-rstamp-10" class="red-reject-stamp" id="rejectStamp" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
-          ❌ 오답! 혀 꼬임!
-        </div>
+    <div data-hf-id="hf-brow-10" class="breakdown-row" id="breakdownRow">
+      <div data-hf-id="hf-fpearl-10" class="formula-card" id="formulaPearl">
+        <span data-hf-id="hf-fptxt-10" class="formula-text">'퍼~' + '을' =</span>
+        <span data-hf-id="hf-fpres-10" class="formula-result">Pearl</span>
       </div>
-
-      <!-- Card B -->
-      <div data-hf-id="hf-cardb-10" class="bcard" id="cardB">
-        <div data-hf-id="hf-elvr" class="bcard-badge">선택 B</div>
-        <div data-hf-id="hf-vkem" class="bcard-text" data-layout-allow-overlap="true">턱 힘 툭 빼고<br data-hf-id="hf-rsrt">게으른 '을'만 얹어준다!</div>
-        <div data-hf-id="hf-s3co" style="font-size: 1.1cqw; font-weight: 700; color: #008855;">(게으른 혀의 소리 공식)</div>
-
-        <!-- Winner Overlay -->
-        <div data-hf-id="hf-win-10" class="winner-box" id="winnerBox" data-layout-allow-overlap="true" data-layout-allow-occlusion="true">
-          <div data-hf-id="hf-kkxc" class="winner-trophy" data-layout-allow-overlap="true">🏆 정답 B 승리!</div>
-          <div data-hf-id="hf-06lc" class="winner-formula" data-layout-allow-overlap="true">퍼~ + 을 = Pearl<br data-hf-id="hf-szow">커~ + 을 = Curl</div>
-        </div>
+      <div data-hf-id="hf-fcurl-10" class="formula-card" id="formulaCurl">
+        <span data-hf-id="hf-fctxt-10" class="formula-text">'커~' + '을' =</span>
+        <span data-hf-id="hf-fcres-10" class="formula-result">Curl</span>
       </div>
-
-      <div data-hf-id="hf-cnt-10" class="countdown-num" id="cntNum">3</div>
     </div>
   </div>
 
-  <!-- Captions -->
-  <div data-hf-id="hf-caps-10" class="caption-container">
-    <div data-hf-id="hf-c1-10" class="caption-line" id="cap1">마지막 2라운드 실전 밸런스 퀴즈입니다!</div>
-    <div data-hf-id="hf-c2-10" class="caption-line" id="cap2">버블티 마실 때 '펄'을 추가하거나, 미용실에서 '컬'을 넣어달라고 할 때 일상에서 정말 자주 쓰는 단어들인데요.</div>
-    <div data-hf-id="hf-c3-10" class="caption-line" id="cap3">원어민처럼 혀 안 꼬이고 소리 내는 진짜 방법은 둘 중 무엇일까요? A! 혀끝을 입천장에 힘껏 튕긴다! B! 턱 힘 툭 빼고 게으른 '을'만 얹어준다! 3초 안에 선택해 보세요!</div>
-    <div data-hf-id="hf-c4-10" class="caption-line" id="cap4">정답은 당연히 B입니다! '퍼~' 뒤에 게으른 '을'을 얹으면 Pearl, '커~' 뒤에 얹으면 Curl. 원리를 알고 나니 정말 싱거울 정도로 쉽게 풀리죠?</div>
+  <div data-hf-id="hf-gold-10" class="gold-capsule" id="goldCapsule">
+    <span data-hf-id="hf-gi-10" class="gold-icon">🎉</span>
+    <span data-hf-id="hf-gt-10" class="gold-text">원리를 알면 정말 싱거울 정도로 쉽습니다</span>
   </div>
-
-  <audio data-hf-id="hf-audio-10" id="vo-10" src="assets/voice/10.wav" data-start="0" data-duration="47.88" data-audio-group="voiceover"></audio>
+  <div data-hf-id="hf-cap-10" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-au-10" id="v10" src="assets/voice/10.wav" data-audio-group="voiceover" data-start="0" data-duration="47.88"></audio>
+  <audio data-hf-id="hf-sfx-10-tick1" id="sfxTick10a" src="assets/sfx/click-soft.mp3" data-start="29.0" data-volume="0.3"></audio>
+  <audio data-hf-id="hf-sfx-10-tick2" id="sfxTick10b" src="assets/sfx/click-soft.mp3" data-start="30.0" data-volume="0.3"></audio>
+  <audio data-hf-id="hf-sfx-10-tick3" id="sfxTick10c" src="assets/sfx/click-soft.mp3" data-start="31.0" data-volume="0.3"></audio>
+  <audio data-hf-id="hf-sfx-10-chime" id="sfxChime10" src="assets/sfx/chime.mp3" data-start="34.80" data-volume="0.35"></audio>
 </div>
-
 <script>
   (function () {
     var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function setCaption(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    // Progress bar fill (cumulative: 440.96 / 510.44 = 86.39%)
-    tl.fromTo("#pfill", { width: "77.01%" }, { width: "86.39%", duration: 47.88, ease: "none" }, 0);
+    tl.to("#pfill", { width: "87.2%", duration: 47.88, ease: "none" }, 0);
+    tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
 
-    // Initial Appearance
-    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
-    tl.fromTo("#wordsBar", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.3);
+    // Sentence 1 (0.43s ~ 4.35s)
+    tl.call(function () { setCaption("마지막 2라운드 실전 밸런스 퀴즈입니다!"); }, null, 0.43);
 
-    // Sentence 1 (0.5s ~ 3.8s)
-    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+    // Sentence 2 (4.35s ~ 13.30s): 펄/컬 소개 -> Pearl 영상(4.35~8.35) -> Curl 영상(8.35~12.35) -> Curl 정지사진
+    tl.call(function () { setCaption("버블티 마실 때 '펄(Pearl)'을 추가하거나, 미용실에서 '컬(Curl)'을 넣어달라고 할 때 일상에서 정말 자주 쓰는 단어들인데요."); }, null, 4.35);
+    tl.to("#introBox", { opacity: 1, duration: 0.4, ease: "power2.out" }, 4.35);
+    tl.to("#pearlVideo", { opacity: 1, duration: 0.4, ease: "power2.out" }, 4.35);
+    tl.fromTo("#introTag", { scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 4.55);
+    // 8.20~8.50: Pearl -> Curl 영상 크로스페이드 (영상 실제 길이 4초에 맞춤)
+    tl.to("#pearlVideo", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 8.2);
+    tl.to("#curlVideo", { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 8.2);
+    tl.call(function () { document.getElementById("introTagEn").textContent = "Curl"; document.getElementById("introTagKo").textContent = "컬"; }, null, 8.2);
+    tl.fromTo("#introTag", { scale: 0.85 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 8.2);
+    // 12.05~12.35: Curl 영상 실제 길이(4초) 종료 -> 정지 사진으로 크로스페이드
+    tl.to("#curlVideo", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 12.05);
+    tl.to("#curlImg", { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 12.05);
 
-    // Sentence 2 (4.0s ~ 12.8s)
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 3.8);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 4.0);
+    // Sentence 3 (13.30s ~ 19.23s): 원어민처럼 ... 무엇일까요? -> intro fades out, quiz row fades in
+    tl.call(function () { setCaption("원어민처럼 혀 안 꼬이고 소리 내는 진짜 방법은 둘 중 무엇일까요?"); }, null, 13.30);
+    tl.to("#introBox", { opacity: 0, duration: 0.4, ease: "power2.in" }, 17.9);
+    tl.to("#quizRow", { opacity: 1, duration: 0.3, ease: "power2.out" }, 18.7);
 
-    // Sentence 3 (13.0s ~ 29.32s): Present Cards A & B
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 12.8);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 13.0);
+    // Sentence 4a (19.23s ~ 23.25s): A! 혀끝을 입천장에 힘껏 튕긴다! -> option A pops in
+    tl.call(function () { setCaption("A! 혀끝을 입천장에 힘껏 튕긴다!"); }, null, 19.23);
+    tl.to("#quizA", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 19.23);
 
-    tl.fromTo("#cardA", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 14.5);
-    tl.fromTo("#cardB", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 15.0);
+    // Sentence 4b (23.25s ~ 28.17s): B! 턱 힘 툭 빼고 게으른 '을'만 얹어준다! -> option B pops in
+    tl.call(function () { setCaption("B! 턱 힘 툭 빼고 게으른 '을'만 얹어준다!"); }, null, 23.25);
+    tl.to("#quizB", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 23.25);
 
-    // 3-Sec Countdown Timer (29.32s ~ 32.32s)
-    tl.to("#gaugeBox", { opacity: 1, duration: 0.2 }, 29.1);
-    tl.fromTo("#gaugeBar", { scaleX: 1, backgroundColor: "#FFE500" }, { scaleX: 0, backgroundColor: "#FF4757", duration: 3.0, ease: "none" }, 29.32);
+    // Sentence 5 (28.17s ~ 33.00s): 3초 안에 선택해 보세요! -> countdown 3-2-1
+    tl.call(function () { setCaption("3초 안에 선택해 보세요!"); }, null, 28.17);
+    tl.to("#countdownBadge", { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 29.0);
+    tl.call(function () { document.getElementById("countdownNum").textContent = "3"; }, null, 29.0);
+    tl.call(function () { document.getElementById("countdownNum").textContent = "2"; }, null, 30.0);
+    tl.call(function () { document.getElementById("countdownNum").textContent = "1"; }, null, 31.0);
+    tl.to("#countdownBadge", { opacity: 0, scale: 0.6, duration: 0.25, ease: "power2.in" }, 32.5);
 
-    // 3.. 2.. 1.. numbers pulse
-    tl.set("#cntNum", { textContent: "3" }, 29.32);
-    tl.to("#cntNum", { opacity: 1, scale: 1.5, duration: 0.3, ease: "back.out(2)" }, 29.32);
-    tl.to("#cntNum", { opacity: 0, scale: 0.8, duration: 0.2 }, 30.1);
+    // Sentence 6 (33.00s ~ 36.02s): 정답은 당연히 B입니다! -> reveal
+    tl.call(function () { setCaption("정답은 당연히 B입니다!"); }, null, 33.00);
+    tl.to("#quizA", { opacity: 0.35, duration: 0.3 }, 34.80);
+    tl.to("#quizB", { backgroundColor: "#F5C518", scale: 1.06, duration: 0.35, ease: "back.out(1.6)" }, 34.80);
+    tl.to("#quizCheck", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 35.05);
 
-    tl.set("#cntNum", { textContent: "2" }, 30.32);
-    tl.to("#cntNum", { opacity: 1, scale: 1.5, duration: 0.3, ease: "back.out(2)" }, 30.32);
-    tl.to("#cntNum", { opacity: 0, scale: 0.8, duration: 0.2 }, 31.1);
+    // Sentence 7 (36.02s ~ 44.44s): '퍼~' 뒤에 게으른 '을'을 얹으면 Pearl, '커~' 뒤에 얹으면 Curl.
+    tl.call(function () { setCaption("'퍼~' 뒤에 게으른 '을'을 얹으면 Pearl, '커~' 뒤에 얹으면 Curl."); }, null, 36.02);
+    tl.to("#quizRow", { opacity: 0, duration: 0.35, ease: "power2.in" }, 36.02);
+    tl.to("#breakdownRow", { opacity: 1, duration: 0.3, ease: "power2.out" }, 36.3);
+    tl.to("#formulaPearl", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 39.94);
+    tl.to("#formulaCurl", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 43.30);
 
-    tl.set("#cntNum", { textContent: "1" }, 31.32);
-    tl.to("#cntNum", { opacity: 1, scale: 1.5, duration: 0.3, ease: "back.out(2)" }, 31.32);
-    tl.to("#cntNum", { opacity: 0, scale: 0.8, duration: 0.2 }, 32.1);
+    // Sentence 8 (44.44s ~ end)
+    tl.call(function () { setCaption("원리를 알고 나니 정말 싱거울 정도로 쉽게 풀리죠?"); }, null, 44.44);
+    tl.to("#goldCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 45.3);
 
-    // Reveal at 32.32s (Sentence 4)
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 32.1);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 32.32);
-
-    // Red Reject Stamp drops on Card A with 2px screen shake!
-    tl.to("#rejectStamp", { opacity: 1, scale: 1, duration: 0.35, ease: "power4.in" }, 32.32);
-    tl.to("#root", { y: "-=3", yoyo: true, repeat: 4, duration: 0.05 }, 32.67);
-    tl.to("#cardA", { filter: "grayscale(100%)", opacity: 0.5, duration: 0.3 }, 32.7);
-
-    // Winner Box on Card B pops in!
-    tl.to("#winnerBox", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 32.8);
-
-    // Frame exit
-    tl.to(["#wordsBar", "#gaugeBox", "#cardA", "#cardB", "#frameBadge", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 47.4);
+    tl.to(["#hookHeader", "#breakdownRow", "#goldCapsule", "#capPill"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 47.48);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["10-quiz-pearl-curl"] = tl;

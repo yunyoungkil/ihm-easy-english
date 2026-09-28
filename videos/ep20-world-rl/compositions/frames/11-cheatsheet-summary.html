@@ -1,303 +1,116 @@
 <template>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
-
-  #root {
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: #F4EFE6;
-    color: #2B2B2B;
-    font-family: 'Noto Sans KR', sans-serif;
-    container-type: size;
-  }
+  /* 11-cheatsheet-summary — EP19 규칙 기준 재제작(2026-09-27). 단일 치트시트 카드(3원칙
+     순차 등장) + 코너 캐릭터(f11_char_teacher.jpg, 기존 검증된 채널 캐릭터 재사용, 신규
+     생성 없음). Actual audio duration: 37.88s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
   #root * { box-sizing: border-box; }
+  .progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 5px; background: #F5C518; }
+  .hook-header { position: absolute; top: 4.5cqh; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10; }
+  .ribbon-badge { background: #2B2B2B; border: 3px solid #2B2B2B; border-radius: 12px; box-shadow: 4px 4px 0px rgba(43,43,43,0.25); padding: 0.7cqh 1.6cqw; display: flex; align-items: center; gap: 0.6cqw; }
+  .ribbon-icon { font-size: 1.3cqw; color: #FFFFFF; }
+  .ribbon-label { font-size: 1.2cqw; font-weight: 900; color: #F5C518; letter-spacing: -0.3px; }
+  .hook-title { font-weight: 900; font-size: 1.65cqw; color: #2B2B2B; letter-spacing: -0.5px; }
 
-  /* Camera Flash */
-  .camera-flash {
-    position: absolute;
-    inset: 0;
-    background: #FFFFFF;
-    opacity: 0;
-    z-index: 99;
-    pointer-events: none;
-  }
+  .capture-badge { position: absolute; left: 50%; top: 15%; transform: translateX(-50%) scale(0.7); background: #F5C518; border: 3px solid #2B2B2B; border-radius: 100px; box-shadow: 4px 4px 0px #2B2B2B; padding: 0.9cqh 2.2cqw; display: flex; align-items: center; gap: 0.7cqw; opacity: 0; z-index: 9; }
+  .capture-text { font-weight: 900; font-size: 1.4cqw; color: #2B2B2B; }
 
-  /* Progress */
-  .progress-track {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 6px;
-    background: rgba(43,43,43,0.08);
-    z-index: 100;
-  }
-  .progress-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 86.39%;
-    height: 100%;
-    background: #FFE500;
-  }
+  .sheet-card { position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%); width: 56cqw; height: 54cqh; border-radius: 30px; border: 4px solid #2B2B2B; box-shadow: 8px 8px 0px #2B2B2B; background: #FFFFFF; opacity: 0; padding: 3cqh 3cqw; display: flex; flex-direction: column; gap: 2.2cqh; z-index: 2; }
+  .sheet-title { font-family: 'Archivo Black', 'Noto Sans KR', sans-serif; font-size: 2cqw; color: #2B2B2B; text-align: center; }
+  .rule-row { display: flex; align-items: center; gap: 1.4cqw; opacity: 0; transform: translateX(-3cqw); }
+  .rule-num { width: 3.2cqw; height: 3.2cqw; min-width: 3.2cqw; border-radius: 50%; background: #F5C518; border: 3px solid #2B2B2B; display: flex; align-items: center; justify-content: center; font-family: 'Archivo Black', sans-serif; font-size: 1.5cqw; color: #2B2B2B; }
+  .rule-text { font-size: 1.55cqw; font-weight: 800; color: #2B2B2B; line-height: 1.4; }
 
-  /* Top Capture Guide */
-  .capture-badge {
-    position: absolute;
-    top: 4.5cqh;
-    right: 8cqw;
-    background: #FFE500;
-    color: #2B2B2B;
-    border: 3px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 0.8cqh 2.2cqw;
-    font-size: 1.3cqw;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    gap: 0.8cqw;
-    z-index: 20;
-  }
+  .char-box { position: absolute; right: 6cqw; bottom: 6cqh; width: 220px; height: 220px; border-radius: 24px; border: 3.5px solid #2B2B2B; box-shadow: 5px 5px 0px #2B2B2B; overflow: hidden; opacity: 0; z-index: 5; background: #FFF5F5; }
+  .char-img { width: 100%; height: 100%; object-fit: cover; }
 
-  /* Title Header */
-  .poster-header {
-    position: absolute;
-    top: 3.5cqh;
-    left: 8cqw;
-    display: flex;
-    align-items: center;
-    gap: 1.5cqw;
-  }
-  .teacher-box {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #2B2B2B;
-    overflow: hidden;
-    box-shadow: 3px 3px 0px #2B2B2B;
-    background: #FAF7F2;
-    flex-shrink: 0;
-  }
-  .teacher-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .poster-title {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 2.3cqw;
-    color: #2B2B2B;
-  }
-
-  /* Poster Box (1-Page Cheatsheet) */
-  .poster-card {
-    position: absolute;
-    top: 15cqh;
-    left: 8cqw;
-    right: 8cqw;
-    height: 72cqh;
-    background: #FFFFFF;
-    border: 4px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 8px 8px 0px #2B2B2B;
-    padding: 3cqh 3cqw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  /* 3 Rule Items */
-  .rule-item {
-    display: flex;
-    align-items: center;
-    background: #FAF7F2;
-    border: 3px solid #2B2B2B;
-    border-radius: 20px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 1.8cqh 2.5cqw;
-    gap: 2cqw;
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  .rule-num {
-    background: #FFE500;
-    color: #2B2B2B;
-    border: 2.5px solid #2B2B2B;
-    border-radius: 12px;
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 2.2cqw;
-    padding: 0.4cqh 1.4cqw;
-  }
-  .rule-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5cqh;
-  }
-  .rule-main {
-    font-size: 1.75cqw;
-    font-weight: 900;
-    color: #2B2B2B;
-  }
-  .rule-sub {
-    font-size: 1.25cqw;
-    font-weight: 700;
-    color: #7A7365;
-  }
-  .rule-stamp {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 1.6cqw;
-    padding: 0.6cqh 1.8cqw;
-    border: 2.5px solid #2B2B2B;
-    border-radius: 12px;
-    box-shadow: 2px 2px 0px #2B2B2B;
-    white-space: nowrap;
-  }
-  .rst-red  { background: #FF4757; color: #FFFFFF; }
-  .rst-gold { background: #FFE500; color: #2B2B2B; }
-  .rst-blue { background: #2E86AB; color: #FFFFFF; }
-
-  /* Captions */
-  .caption-container {
-    position: absolute;
-    bottom: 3.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80cqw;
-    height: 7cqh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 50;
-  }
-  .caption-line {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.96);
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 36px;
-    padding: 1cqh 2.6cqw;
-    font-size: 1.45cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    letter-spacing: -0.4px;
-    opacity: 0;
-    pointer-events: none;
-    max-width: 1600px;
-    overflow: visible;
-  }
-
+  .gold-capsule { position: absolute; left: 50%; bottom: 12.5cqh; transform: translateX(-50%) scale(0.9); background: #F5C518; border: 3.5px solid #2B2B2B; border-radius: 100px; box-shadow: 5px 5px 0px #2B2B2B; padding: 1.1cqh 2.8cqw; display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10; }
+  .gold-icon { font-size: 1.5cqw; }
+  .gold-text { font-size: 1.4cqw; font-weight: 900; color: #2B2B2B; letter-spacing: -0.4px; }
+  .caption-pill { position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.96); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0px #2B2B2B; border-radius: 36px; padding: 0.9cqh 2.4cqw; font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; z-index: 30; letter-spacing: -0.4px; opacity: 0; max-width: 84cqw; text-wrap: pretty; }
   audio { display: none; }
 </style>
-
 <div data-hf-id="hf-root-11" id="root" data-composition-id="11-cheatsheet-summary" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-fl-11" class="camera-flash" id="camFlash"></div>
-
-  <div data-hf-id="hf-prog-11" class="progress-track">
-    <div data-hf-id="hf-pfill-11" class="progress-fill" id="pfill"></div>
+  <div data-hf-id="hf-prog-11" class="progress-track"><div data-hf-id="hf-pfill-11" class="progress-fill" id="pfill"></div></div>
+  <div data-hf-id="hf-hdr-11" class="hook-header" id="hookHeader">
+    <div data-hf-id="hf-rb-11" class="ribbon-badge">
+      <span data-hf-id="hf-ri-11" class="ribbon-icon">📋</span>
+      <span data-hf-id="hf-rl-11" class="ribbon-label">정리</span>
+    </div>
+    <span data-hf-id="hf-tt-11" class="hook-title">한 장으로 끝내는 '게으른 혀' 공식</span>
   </div>
 
-  <!-- Header with Teacher Host -->
-  <div data-hf-id="hf-phead-11" class="poster-header" id="posterHeader">
-    <div data-hf-id="hf-teacher-box-11" class="teacher-box" id="teacherBox">
-      <img data-hf-id="hf-teacher-img-11" class="teacher-img" src="assets/images/f11_char_teacher.jpg" alt="Teacher Host">
-    </div>
-    <span data-hf-id="hf-dkz9" class="poster-title">한 장 소리 치트시트 (Summary)</span>
+  <div data-hf-id="hf-cap-badge-11" class="capture-badge" id="captureBadge">
+    <span data-hf-id="hf-cap-icon-11" class="capture-text">📸 지금 화면 캡처하세요!</span>
   </div>
 
-  <div data-hf-id="hf-cbadge-11" class="capture-badge" id="captureBadge">
-    <span data-hf-id="hf-3ica">📸 지금 캡처해 두세요!</span>
-  </div>
-
-  <!-- Poster Card -->
-  <div data-hf-id="hf-pcard-11" class="poster-card" id="posterCard">
-    <!-- Item 1 -->
-    <div data-hf-id="hf-ritem1-11" class="rule-item" id="rule1">
-      <div data-hf-id="hf-r0y4" class="rule-num">1</div>
-      <div data-hf-id="hf-qt2a" class="rule-content">
-        <div data-hf-id="hf-1hkr" class="rule-main">혀끝을 억지로 입천장에 대지 않는다!</div>
-        <div data-hf-id="hf-wveh" class="rule-sub">R의 뒤로 당긴 편안한 자세를 그대로 유지할 것</div>
-      </div>
-      <div data-hf-id="hf-kgk5" class="rule-stamp rst-red">🚫 닿으면 끝장!</div>
+  <div data-hf-id="hf-sheet-11" class="sheet-card" id="sheetCard">
+    <div data-hf-id="hf-sttl-11" class="sheet-title">게으른 혀 공식 3원칙</div>
+    <div data-hf-id="hf-r1-11" class="rule-row" id="rule1">
+      <div data-hf-id="hf-r1n-11" class="rule-num">1</div>
+      <div data-hf-id="hf-r1t-11" class="rule-text">혀끝을 억지로 입천장에 붙이려고 용쓰지 않는다</div>
     </div>
-
-    <!-- Item 2 -->
-    <div data-hf-id="hf-ritem2-11" class="rule-item" id="rule2">
-      <div data-hf-id="hf-pu11" class="rule-num">2</div>
-      <div data-hf-id="hf-ee12" class="rule-content">
-        <div data-hf-id="hf-q4qx" class="rule-main">입술 모으고 턱 힘 빼기: [우-어] ➔ [워~]</div>
-        <div data-hf-id="hf-sn1f" class="rule-sub">붕어 입술 + 하품 턱 드롭으로 힘 안 들이고 시작</div>
-      </div>
-      <div data-hf-id="hf-szr5" class="rule-stamp rst-gold">🟡 입술 + 턱 힘 빼기</div>
+    <div data-hf-id="hf-r2-11" class="rule-row" id="rule2">
+      <div data-hf-id="hf-r2n-11" class="rule-num">2</div>
+      <div data-hf-id="hf-r2t-11" class="rule-text">입술을 모았다가 턱 힘을 툭 빼며 '우-어'를 먼저 만든다</div>
     </div>
-
-    <!-- Item 3 -->
-    <div data-hf-id="hf-ritem3-11" class="rule-item" id="rule3">
-      <div data-hf-id="hf-q8c2" class="rule-num">3</div>
-      <div data-hf-id="hf-esc3" class="rule-content">
-        <div data-hf-id="hf-wch8" class="rule-main">목구멍 뒤쪽에서 침 삼키듯 게으른 [을] 얹기!</div>
-        <div data-hf-id="hf-s6pu" class="rule-sub">[워~] 뒤에 숨은 그림자 소리 ➔ 완벽한 "World", "Girl" 완성!</div>
-      </div>
-      <div data-hf-id="hf-alhi" class="rule-stamp rst-blue">🔵 게으른 울림</div>
+    <div data-hf-id="hf-r3-11" class="rule-row" id="rule3">
+      <div data-hf-id="hf-r3n-11" class="rule-num">3</div>
+      <div data-hf-id="hf-r3t-11" class="rule-text">목구멍 뒤쪽에서 게으르게 침 삼키듯 '을' 소리를 얹어준다</div>
     </div>
   </div>
 
-  <!-- Captions -->
-  <div data-hf-id="hf-caps-11" class="caption-container">
-    <div data-hf-id="hf-c1-11" class="caption-line" id="cap1">오늘 배운 핵심을 딱 한 장으로 정리해 드립니다. 지금 이 화면을 스마트폰으로 꼭 캡처해 두세요!</div>
-    <div data-hf-id="hf-c2-11" class="caption-line" id="cap2">첫째, 혀끝을 억지로 입천장에 붙이려고 용쓰지 않는다.</div>
-    <div data-hf-id="hf-c3-11" class="caption-line" id="cap3">둘째, 입술을 모았다가 턱 힘을 툭 빼며 '우-어'를 먼저 만든다.</div>
-    <div data-hf-id="hf-c4-11" class="caption-line" id="cap4">셋째, 목구멍 뒤쪽에서 게으르게 침 삼키듯 '을' 소리를 얹어준다.</div>
-    <div data-hf-id="hf-c5-11" class="caption-line" id="cap5">이 세 가지만 기억하시면, 앞으로 어떤 영어 단어를 만나도 턱이 아프거나 혀가 꼬일 일은 영원히 없습니다.</div>
+  <div data-hf-id="hf-char-11" class="char-box" id="charBox">
+    <img data-hf-id="hf-charimg-11" class="char-img" src="assets/images/f11_char_teacher.jpg" alt="Teacher pose">
   </div>
 
-  <audio data-hf-id="hf-audio-11" id="vo-11" src="assets/voice/11.wav" data-start="0" data-duration="37.88" data-audio-group="voiceover"></audio>
+  <div data-hf-id="hf-gold-11" class="gold-capsule" id="goldCapsule">
+    <span data-hf-id="hf-gi-11" class="gold-icon">🔑</span>
+    <span data-hf-id="hf-gt-11" class="gold-text">이 세 가지면 턱도 안 아프고 완벽한 발음!</span>
+  </div>
+  <div data-hf-id="hf-cappill-11" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-au-11" id="v11" src="assets/voice/11.wav" data-audio-group="voiceover" data-start="0" data-duration="37.88"></audio>
+  <audio data-hf-id="hf-sfx-11-pop" id="sfxPop11" src="assets/sfx/pop.mp3" data-start="4.9" data-volume="0.35"></audio>
 </div>
-
 <script>
   (function () {
     var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function setCaption(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    // Progress bar fill (cumulative: 478.84 / 510.44 = 93.81%)
-    tl.fromTo("#pfill", { width: "86.39%" }, { width: "93.81%", duration: 37.88, ease: "none" }, 0);
+    tl.to("#pfill", { width: "94.7%", duration: 37.88, ease: "none" }, 0);
+    tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+    tl.to("#charBox", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.5);
 
-    // 0.1s Camera Shutter Flash at start!
-    tl.to("#camFlash", { opacity: 0.95, duration: 0.08, yoyo: true, repeat: 1 }, 0.1);
+    // Sentence 1 (0.66s ~ 4.73s)
+    tl.call(function () { setCaption("오늘 배운 핵심을 딱 한 장으로 정리해 드립니다."); }, null, 0.66);
+    tl.to("#sheetCard", { opacity: 1, duration: 0.5, ease: "power2.out" }, 1.0);
 
-    // Initial Appearance
-    tl.fromTo("#posterHeader", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.3);
-    tl.fromTo("#captureBadge", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }, 0.4);
-    tl.fromTo("#posterCard", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.5);
+    // Sentence 2 (4.73s ~ 9.25s): 캡처해 두세요! -> capture badge pulse
+    tl.call(function () { setCaption("지금 이 화면을 스마트폰으로 꼭 캡처해 두세요!"); }, null, 4.73);
+    tl.to("#captureBadge", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.9);
+    tl.to("#captureBadge", { scale: 1.08, duration: 0.35, yoyo: true, repeat: 3 }, 5.3);
+    tl.to("#captureBadge", { opacity: 0, duration: 0.3 }, 8.7);
 
-    // Sentence 1 (0.5s ~ 7.5s)
-    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
-    tl.to("#captureBadge", { scale: 1.08, yoyo: true, repeat: 5, duration: 0.4 }, 2.0);
+    // Sentence 3 (9.25s ~ 15.33s): 첫째, ... -> rule 1
+    tl.call(function () { setCaption("첫째, 혀끝을 억지로 입천장에 붙이려고 용쓰지 않는다."); }, null, 9.25);
+    tl.to("#rule1", { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 9.25);
 
-    // Sentence 2 (7.8s ~ 14.8s): Rule 1 stamps in
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 7.5);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 7.8);
-    tl.to("#rule1", { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.6)" }, 8.2);
+    // Sentence 4 (15.33s ~ 22.46s): 둘째, ... -> rule 2
+    tl.call(function () { setCaption("둘째, 입술을 모았다가 턱 힘을 툭 빼며 '우-어'를 먼저 만든다."); }, null, 15.33);
+    tl.to("#rule2", { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 15.33);
 
-    // Sentence 3 (15.0s ~ 22.8s): Rule 2 stamps in
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 14.8);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 15.0);
-    tl.to("#rule2", { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.6)" }, 15.5);
+    // Sentence 5 (22.46s ~ 29.61s): 셋째, ... -> rule 3
+    tl.call(function () { setCaption("셋째, 목구멍 뒤쪽에서 게으르게 침 삼키듯 '을' 소리를 얹어준다."); }, null, 22.46);
+    tl.to("#rule3", { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 22.46);
 
-    // Sentence 4 (23.0s ~ 30.5s): Rule 3 stamps in
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 22.8);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 23.0);
-    tl.to("#rule3", { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.6)" }, 23.5);
+    // Sentence 6 (29.61s ~ end)
+    tl.call(function () { setCaption("이 세 가지만 기억하시면, 앞으로 어떤 영어 단어를 만나도 턱이 아프거나 혀가 꼬일 일은 영원히 없습니다."); }, null, 29.61);
+    tl.to("#goldCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 30.8);
 
-    // Sentence 5 (30.8s ~ 37.2s)
-    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 30.5);
-    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 30.8);
-
-    // Frame exit
-    tl.to(["#posterCard", "#posterHeader", "#captureBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.4);
+    tl.to(["#hookHeader", "#sheetCard", "#charBox", "#goldCapsule", "#capPill"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 37.48);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["11-cheatsheet-summary"] = tl;

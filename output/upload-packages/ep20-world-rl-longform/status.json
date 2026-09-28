@@ -1,12 +1,14 @@
 {
   "episode": "ep20-world-rl",
-  "status": "in_revision",
-  "rendered_at": "2026-09-20T14:05:32.878Z",
-  "scheduled_publish_date": "2026-09-28T11:00:00Z",
-  "total_duration_seconds": 510.44,
+  "status": "scheduled",
+  "rendered_at": "2026-09-28T21:36:44+09:00",
+  "videoId": "-UHrFcMRsEY",
+  "scheduledFor": "2026-09-28T14:00:00Z",
+  "lastSyncedAt": "2026-09-28T13:45:48.240Z",
+  "total_duration_seconds": 505.44,
   "endscreen_keep_out": {
-    "start_seconds": 505.44,
-    "end_seconds": 510.44,
+    "start_seconds": 500.44,
+    "end_seconds": 505.44,
     "duration_seconds": 5
   },
   "files": {

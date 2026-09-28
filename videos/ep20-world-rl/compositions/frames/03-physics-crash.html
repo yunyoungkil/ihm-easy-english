@@ -1,263 +1,91 @@
 <template>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
-
-  #root {
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: #F4EFE6;
-    color: #2B2B2B;
-    font-family: 'Noto Sans KR', sans-serif;
-    container-type: size;
-  }
+  /* 03-physics-crash — EP19 규칙 기준 재제작(2026-09-27). 단일 정적 이미지(f03_collision.jpg,
+     "쾅!!" 텍스트 이미 내장, 신규 생성 없음) + 코드로 R/L 배지 슬라이드·충돌·화면 흔들림만
+     추가(EP19의 "쾅! 충돌" 방식과 동일 원리). Actual audio duration: 40.80s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
   #root * { box-sizing: border-box; }
-
-  /* White Flash Overlay */
-  .flash-overlay {
-    position: absolute;
-    inset: 0;
-    background: #FFFFFF;
-    opacity: 0;
-    z-index: 99;
-    pointer-events: none;
-  }
-
-  /* Progress */
-  .progress-track {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 6px;
-    background: rgba(43,43,43,0.08);
-    z-index: 100;
-  }
-  .progress-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 18.22%;
-    height: 100%;
-    background: #FFE500;
-  }
-
-  /* Badge */
-  .frame-badge {
-    position: absolute;
-    top: 4.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #FF4757;
-    color: #FFFFFF;
-    border: 3px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 0.8cqh 2.2cqw;
-    font-size: 1.25cqw;
-    font-weight: 900;
-    z-index: 10;
-  }
-
-  /* 2026-09-22 rework: one large hero scene replaces the old 280px collision-image box +
-     fully-text pitfall cards (0% image). The R/L slide-and-collide motion stays code-driven
-     (motion is code's strength), but the impact payoff and both pitfall outcomes are now
-     large illustrations generated via Google Flow — including baked-in text ("쾅!!", "Word",
-     "Old") now that the model renders text reliably, unlike local ComfyUI. See
-     prompts/frame03-image-prompts.md and TASKS.md 2026-09-22. */
-  .hero-stage {
-    position: absolute;
-    top: 13cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 58cqw;
-    height: 76cqh;
-    background: #FFFFFF;
-    border: 3.5px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    padding: 2.2cqw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.6cqh;
-  }
-  .hero-illustration-box {
-    position: relative;
-    width: 100%;
-    height: 69cqh;
-    border-radius: 20px;
-    border: 3.5px solid #2B2B2B;
-    overflow: hidden;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    background: #FFF5F5;
-  }
-  .hero-illustration-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* R/L force badges — slide toward center during the "R vs L" description, collide at the
-     impact moment, then fade out as the collision illustration takes over. */
-  .arrow-r {
-    position: absolute;
-    top: 50%;
-    left: 6%;
-    transform: translateY(-50%);
-    background: #2E86AB;
-    color: #FFFFFF;
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 16px;
-    padding: 1.6cqh 1.8cqw;
-    font-size: 1.4cqw;
-    font-weight: 900;
-    z-index: 5;
-    opacity: 0;
-  }
-  .arrow-l {
-    position: absolute;
-    top: 50%;
-    right: 6%;
-    transform: translateY(-50%);
-    background: #FF4757;
-    color: #FFFFFF;
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 16px;
-    padding: 1.6cqh 1.8cqw;
-    font-size: 1.4cqw;
-    font-weight: 900;
-    z-index: 5;
-    opacity: 0;
-  }
-
-  /* Captions */
-  .caption-container {
-    position: absolute;
-    bottom: 3.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80cqw;
-    height: 7cqh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 50;
-  }
-  .caption-line {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.96);
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 36px;
-    padding: 1cqh 2.6cqw;
-    font-size: 1.45cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    letter-spacing: -0.4px;
-    opacity: 0;
-    pointer-events: none;
-    max-width: 1600px;
-    overflow: visible;
-  }
-
+  .progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 5px; background: #F5C518; }
+  .hook-header { position: absolute; top: 4.5cqh; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10; }
+  .ribbon-badge { background: #2B2B2B; border: 3px solid #2B2B2B; border-radius: 12px; box-shadow: 4px 4px 0px rgba(43,43,43,0.25); padding: 0.7cqh 1.6cqw; display: flex; align-items: center; gap: 0.6cqw; }
+  .ribbon-icon { font-size: 1.3cqw; color: #FFFFFF; }
+  .ribbon-label { font-size: 1.2cqw; font-weight: 900; color: #F5C518; letter-spacing: -0.3px; }
+  .hook-title { font-weight: 900; font-size: 1.65cqw; color: #2B2B2B; letter-spacing: -0.5px; }
+  .main-box { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 52cqw; height: 58cqh; border-radius: 28px; border: 3.5px solid #2B2B2B; box-shadow: 6px 6px 0px #2B2B2B; overflow: hidden; opacity: 0; z-index: 2; background: #FFF5F5; }
+  .main-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .flash-overlay { position: absolute; inset: 0; background: #FFFFFF; opacity: 0; z-index: 50; pointer-events: none; }
+  .force-badge { position: absolute; top: 50%; transform: translateY(-50%); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0px #2B2B2B; border-radius: 16px; padding: 1.6cqh 1.8cqw; font-family: 'Archivo Black', sans-serif; font-size: 1.6cqw; color: #FFFFFF; z-index: 6; opacity: 0; }
+  .force-r { left: 6cqw; background: #2E86AB; }
+  .force-l { right: 6cqw; background: #FF4757; }
+  .pitfall-row { position: absolute; left: 50%; bottom: 12.5cqh; transform: translateX(-50%); display: flex; gap: 1.2cqw; z-index: 10; }
+  .pitfall-badge { background: #FFFFFF; border: 3px solid #2B2B2B; border-radius: 100px; box-shadow: 4px 4px 0px #2B2B2B; padding: 0.9cqh 2cqw; font-weight: 900; font-size: 1.3cqw; color: #2B2B2B; opacity: 0; transform: scale(0.8); }
+  .caption-pill { position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.96); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0px #2B2B2B; border-radius: 36px; padding: 0.9cqh 2.4cqw; font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; z-index: 30; letter-spacing: -0.4px; opacity: 0; max-width: 84cqw; text-wrap: pretty; }
   audio { display: none; }
 </style>
-
 <div data-hf-id="hf-root-03" id="root" data-composition-id="03-physics-crash" data-width="1920" data-height="1080">
   <div data-hf-id="hf-fl-03" class="flash-overlay" id="flashOverlay"></div>
-
-  <div data-hf-id="hf-prog-03" class="progress-track">
-    <div data-hf-id="hf-pfill-03" class="progress-fill" id="pfill"></div>
-  </div>
-
-  <div data-hf-id="hf-badge-03" class="frame-badge" id="frameBadge">
-    <span data-hf-id="hf-5gsx">⚡ 물리적 원인</span>
-    <span data-hf-id="hf-73av">입안에서 벌어진 양방향 교통사고!</span>
-  </div>
-
-  <!-- One large hero scene: R/L collide (code motion) -> collision impact illustration ->
-       two pitfall-outcome illustrations, all narration-synced -->
-  <div data-hf-id="hf-hero-03" class="hero-stage" id="heroStage">
-    <div data-hf-id="hf-art-03" class="hero-illustration-box" id="heroIllustrationBox" data-layout-allow-overflow="true">
-      <div data-hf-id="hf-ar-r-03" class="arrow-r" id="arrowR" data-layout-allow-overlap="true">⬅️ R: 혀를 뒤로 당김!</div>
-      <div data-hf-id="hf-ar-l-03" class="arrow-l" id="arrowL" data-layout-allow-overlap="true">L: 천장 치러 돌진! ➡️</div>
-
-      <img data-hf-id="hf-img-collision-03" id="heroImgCollision" class="hero-illustration-img" src="assets/images/f03_collision.jpg" alt="R and L colliding" style="display: none; position: absolute; inset: 0; opacity: 0;">
-      <img data-hf-id="hf-img-word-03" id="heroImgWord" class="hero-illustration-img" src="assets/images/f03_pitfall_word.jpg" alt="Rushing and skipping L, sounds like Word" style="display: none; position: absolute; inset: 0; opacity: 0;">
-      <img data-hf-id="hf-img-old-03" id="heroImgOld" class="hero-illustration-img" src="assets/images/f03_pitfall_old.jpg" alt="Losing tongue tension, sounds like Old" style="display: none; position: absolute; inset: 0; opacity: 0;">
+  <div data-hf-id="hf-prog-03" class="progress-track"><div data-hf-id="hf-pfill-03" class="progress-fill" id="pfill"></div></div>
+  <div data-hf-id="hf-hdr-03" class="hook-header" id="hookHeader">
+    <div data-hf-id="hf-rb-03" class="ribbon-badge">
+      <span data-hf-id="hf-ri-03" class="ribbon-icon">⚡️</span>
+      <span data-hf-id="hf-rl-03" class="ribbon-label">물리적 원인</span>
     </div>
+    <span data-hf-id="hf-tt-03" class="hook-title">입안에서 벌어진 양방향 교통사고</span>
   </div>
-
-  <!-- Captions -->
-  <div data-hf-id="hf-caps-03" class="caption-container">
-    <div data-hf-id="hf-c1-03" class="caption-line" id="cap1">소리의 원리를 알면 아주 단순합니다.</div>
-    <div data-hf-id="hf-c2-03" class="caption-line" id="cap2">R은 혀를 목구멍 쪽으로 쑥 당기는 소리인데, 우리가 배운 보통의 L은 혀끝으로 앞쪽 입천장을 치는 소리입니다.</div>
-    <div data-hf-id="hf-c3-03" class="caption-line" id="cap3">뒤로 가려는 힘과 앞으로 튀어나가려는 힘이 입안에서 정면충돌하니, 턱에 쥐가 나고 혀가 마비되는 건 당연한 일이죠.</div>
-    <div data-hf-id="hf-c4-03" class="caption-line" id="cap4">스마트폰 앱이 내 발음을 못 알아들었던 이유도 여기에 있습니다.</div>
-    <div data-hf-id="hf-c5-03" class="caption-line" id="cap5">급해진 입이 L을 아예 건너뛰고 '워드'로 뭉개버리거나, 반대로 혀에 힘이 풀리면서 '올드'라는 엉뚱한 소리가 튀어나왔던 것입니다.</div>
+  <div data-hf-id="hf-main-03" class="main-box" id="mainBox">
+    <img data-hf-id="hf-img-03" class="main-img" id="collisionImg" src="assets/images/f03_collision.jpg" alt="R and L colliding" style="opacity: 1;">
+    <div data-hf-id="hf-fr-03" class="force-badge force-r" id="forceR">R: 뒤로!</div>
+    <div data-hf-id="hf-fl2-03" class="force-badge force-l" id="forceL">L: 앞으로!</div>
   </div>
-
-  <audio data-hf-id="hf-audio-03" id="vo-03" src="assets/voice/03.wav" data-start="0" data-duration="40.80" data-audio-group="voiceover"></audio>
+  <div data-hf-id="hf-pit-03" class="pitfall-row" id="pitfallRow">
+    <div data-hf-id="hf-p1-03" class="pitfall-badge" id="pitfallWord">L 빼먹으면 → Word</div>
+    <div data-hf-id="hf-p2-03" class="pitfall-badge" id="pitfallOld">R 풀리면 → Old</div>
+  </div>
+  <div data-hf-id="hf-cap-03" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-au-03" id="v03" src="assets/voice/03.wav" data-audio-group="voiceover" data-start="0" data-duration="40.80"></audio>
+  <audio data-hf-id="hf-sfx-03-impact" id="sfxImpact03" src="assets/sfx/impact-bass-1.mp3" data-start="19.40" data-volume="0.35"></audio>
 </div>
-
 <script>
   (function () {
     var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function setCaption(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    // Progress bar fill (cumulative: 133.80 / 510.44 = 26.21%)
-    tl.fromTo("#pfill", { width: "18.22%" }, { width: "26.21%", duration: 40.80, ease: "none" }, 0);
+    tl.to("#pfill", { width: "26.2%", duration: 40.80, ease: "none" }, 0);
+    tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+    tl.to("#mainBox", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.5);
+    // Collision image is baked with "쾅!!" already, so dim it slightly until the impact moment
+    tl.set("#collisionImg", { opacity: 0.35 }, 0.5);
 
-    // Initial Appearance
-    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
-    tl.fromTo("#heroStage", { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+    // Sentence 1 (0.52s ~ 4.18s): 소리의 원리를 알면 아주 단순합니다.
+    tl.call(function () { setCaption("소리의 원리를 알면 아주 단순합니다."); }, null, 0.52);
 
-    // Captions retimed against assets/voice/03.words.json actual word timestamps.
-    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 4.2);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 4.4);
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 14.7);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 15.0);
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 24.8);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 25.2);
-    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 29.8);
-    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 30.2);
+    // Sentence 2 (4.36s ~ 14.86s): R은... L은... 소리입니다. -> R/L force badges slide in
+    tl.call(function () { setCaption("R은 혀를 목구멍 쪽으로 쑥 당기는 소리인데, 우리가 배운 보통의 L은 혀끝으로 앞쪽 입천장을 치는 소리입니다."); }, null, 4.36);
+    tl.fromTo("#forceR", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 4.89);
+    tl.fromTo("#forceL", { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 11.15);
 
-    // R/L badges appear as each is individually described (cap2, 4.4-14.9s), then rush to
-    // collide right on "정면충돌하니" (19.40-20.50s).
-    tl.fromTo("#arrowR", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 4.6);
-    tl.fromTo("#arrowL", { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 10.6);
-    tl.to("#arrowR", { x: "22cqw", duration: 0.9, ease: "power3.in" }, 18.5);
-    tl.to("#arrowL", { x: "-22cqw", duration: 0.9, ease: "power3.in" }, 18.5);
+    // Sentence 3 (15.01s ~ 25.06s): 정면충돌하니 -> impact at 19.40s
+    tl.call(function () { setCaption("뒤로 가려는 힘과 앞으로 튀어나가려는 힘이 입안에서 정면충돌하니, 턱에 쥐가 나고 혀가 마비되는 건 당연한 일이죠."); }, null, 15.01);
+    tl.to("#forceR", { x: "16cqw", duration: 0.5, ease: "power3.in" }, 18.9);
+    tl.to("#forceL", { x: "-16cqw", duration: 0.5, ease: "power3.in" }, 18.9);
+    tl.to("#flashOverlay", { opacity: 0.9, duration: 0.05, yoyo: true, repeat: 1 }, 19.40);
+    tl.to("#root", { y: "-=4", x: "+=3", yoyo: true, repeat: 6, duration: 0.04 }, 19.40);
+    tl.to(["#forceR", "#forceL"], { opacity: 0, duration: 0.15 }, 19.40);
+    tl.to("#collisionImg", { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 19.40);
 
-    // Impact at 19.4s: flash + 3px screen shake + badges fade out as the big collision
-    // illustration (with "쾅!!" already baked into the image) takes over.
-    tl.to("#flashOverlay", { opacity: 0.9, duration: 0.05, yoyo: true, repeat: 1 }, 19.4);
-    tl.to("#root", { y: "-=4", x: "+=3", yoyo: true, repeat: 6, duration: 0.04 }, 19.4);
-    tl.to(["#arrowR", "#arrowL"], { opacity: 0, duration: 0.15 }, 19.4);
-    tl.set("#heroImgCollision", { display: "block" }, 19.4);
-    tl.fromTo("#heroImgCollision", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 19.4);
+    // Sentence 4 (25.20s ~ 29.98s): 스마트폰 앱이... 있습니다.
+    tl.call(function () { setCaption("스마트폰 앱이 내 발음을 못 알아들었던 이유도 여기에 있습니다."); }, null, 25.20);
 
-    // Pitfall 1 — "워드" (30.16-35.41s: "급해진 입이 L을 아예 건너뛰고 '워드'로 뭉개버리거나")
-    tl.set("#heroImgWord", { display: "block" }, 30.2);
-    tl.to("#heroImgCollision", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 30.2);
-    tl.fromTo("#heroImgWord", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 30.2);
-    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 30.2);
-    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 30.26);
+    // Sentence 5 (30.16s ~ 41.02s): 급해진 입이... 것입니다. -> pitfall badges
+    tl.call(function () { setCaption("급해진 입이 L을 아예 건너뛰고 '워드'로 뭉개버리거나, 반대로 혀에 힘이 풀리면서 '올드'라는 엉뚱한 소리가 튀어나왔던 것입니다."); }, null, 30.16);
+    tl.to("#pitfallRow", { opacity: 1, duration: 0.01 }, 30.16);
+    tl.fromTo("#pitfallWord", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 33.28);
+    tl.fromTo("#pitfallOld", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 37.54);
 
-    // Pitfall 2 — "올드" (35.48-41.02s: "반대로 혀에 힘이 풀리면서 '올드'라는 엉뚱한 소리")
-    tl.set("#heroImgOld", { display: "block" }, 35.5);
-    tl.to("#heroImgWord", { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 35.5);
-    tl.fromTo("#heroImgOld", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 35.5);
-    tl.to("#heroStage", { scale: 1.02, duration: 0.06 }, 35.5);
-    tl.to("#heroStage", { scale: 1, duration: 0.16, ease: "back.out(2)" }, 35.56);
-
-    // Frame exit
-    tl.to(["#heroStage", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 40.4);
+    tl.to(["#hookHeader", "#mainBox", "#pitfallRow", "#capPill"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 40.40);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["03-physics-crash"] = tl;

@@ -1,332 +1,106 @@
 <template>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
-
-  #root {
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: #F4EFE6;
-    color: #2B2B2B;
-    font-family: 'Noto Sans KR', sans-serif;
-    container-type: size;
-  }
+  /* 05-step1-woo-eo — 2026-09-27 재제작: 카드 텍스트 대신 실제 캐릭터 입모양 사진
+     (f05_mouth_oo.jpg/f05_mouth_uh.jpg, Google Flow로 신규 생성, 품질 확인 완료)을
+     메인 비주얼로 사용. 영상(Character_lips_rounding.../drops_jaw_open...)은 4초 내내
+     이미 완성된 입모양 그대로 거의 안 움직여 정지 이미지 대비 이점이 없어 정지 이미지로
+     확정(TASKS.md 참고). Actual audio duration: 39.24s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
   #root * { box-sizing: border-box; }
+  .progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 5px; background: #F5C518; }
+  .hook-header { position: absolute; top: 4.5cqh; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10; }
+  .ribbon-badge { background: #2B2B2B; border: 3px solid #2B2B2B; border-radius: 12px; box-shadow: 4px 4px 0px rgba(43,43,43,0.25); padding: 0.7cqh 1.6cqw; display: flex; align-items: center; gap: 0.6cqw; }
+  .ribbon-icon { font-size: 1.3cqw; color: #FFFFFF; }
+  .ribbon-label { font-size: 1.2cqw; font-weight: 900; color: #F5C518; letter-spacing: -0.3px; }
+  .hook-title { font-weight: 900; font-size: 1.65cqw; color: #2B2B2B; letter-spacing: -0.5px; }
 
-  /* Progress */
-  .progress-track {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 6px;
-    background: rgba(43,43,43,0.08);
-    z-index: 100;
-  }
-  .progress-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 33.70%;
-    height: 100%;
-    background: #FFE500;
-  }
+  .main-box { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); width: 54cqw; height: 64cqh; border-radius: 28px; border: 3.5px solid #2B2B2B; box-shadow: 6px 6px 0px #2B2B2B; overflow: hidden; opacity: 0; z-index: 2; background: #FFF5F5; }
+  .main-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .shape-tag { position: absolute; left: 50%; bottom: 3cqh; transform: translateX(-50%) scale(0.8); background: #F5C518; border: 3px solid #2B2B2B; border-radius: 100px; box-shadow: 4px 4px 0px #2B2B2B; padding: 0.7cqh 2cqw; opacity: 0; z-index: 6; }
+  .shape-tag-text { font-family: 'Archivo Black', 'Noto Sans KR', sans-serif; font-size: 2cqw; color: #2B2B2B; }
 
-  /* Badge */
-  .frame-badge {
-    position: absolute;
-    top: 4.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #FFE500;
-    color: #2B2B2B;
-    border: 3px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 0.8cqh 2.2cqw;
-    font-size: 1.25cqw;
-    font-weight: 900;
-    z-index: 10;
-  }
+  .merged-card { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%) scale(0); width: 42cqw; height: 50cqh; border-radius: 32px; border: 4px solid #2B2B2B; box-shadow: 8px 8px 0px #2B2B2B; background: #F5C518; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6cqh; opacity: 0; z-index: 3; }
+  .merged-big { font-family: 'Archivo Black', 'Noto Sans KR', sans-serif; font-size: 9.5cqw; font-weight: 900; color: #2B2B2B; line-height: 1; }
+  .merged-sub { font-size: 1.35cqw; font-weight: 800; color: #2B2B2B; text-align: center; }
 
-  /* Drill Stage */
-  .drill-stage {
-    position: absolute;
-    top: 15cqh;
-    left: 8cqw;
-    right: 8cqw;
-    height: 72cqh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4cqh;
-  }
-
-  /* Two Blocks Container */
-  .blocks-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4cqw;
-    position: relative;
-    width: 100%;
-    height: 38cqh;
-  }
-
-  /* Block 1: [ 우 ] */
-  .block-woo {
-    width: 28cqw;
-    height: 100%;
-    background: #FFE500;
-    border: 4px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2cqh;
-    opacity: 0;
-    transform: translateY(-40px);
-    position: absolute;
-    left: 18cqw;
-  }
-
-  /* Block 2: [ 어~ ] */
-  .block-eo {
-    width: 28cqw;
-    height: 100%;
-    background: #FF9F43;
-    border: 4px solid #2B2B2B;
-    border-radius: 28px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2cqh;
-    opacity: 0;
-    transform: translateY(-40px);
-    position: absolute;
-    right: 18cqw;
-  }
-
-  .block-thumb-box {
-    width: 140px;
-    height: 140px;
-    border-radius: 16px;
-    border: 3px solid #2B2B2B;
-    overflow: hidden;
-    box-shadow: 3px 3px 0px #2B2B2B;
-    background: #FFFFFF;
-  }
-  .block-thumb-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .block-char {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 5.5cqw;
-    font-weight: 900;
-    color: #2B2B2B;
-    line-height: 1;
-  }
-  .block-tip {
-    font-size: 1.2cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    background: rgba(255,255,255,0.8);
-    border: 2px solid #2B2B2B;
-    border-radius: 10px;
-    padding: 0.4cqh 1.2cqw;
-  }
-
-  /* Merged Big Block: [ 워~ ] */
-  .block-merged {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.6);
-    width: 45cqw;
-    height: 100%;
-    background: #FFE500;
-    border: 5px solid #2B2B2B;
-    border-radius: 32px;
-    box-shadow: 8px 8px 0px #2B2B2B;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5cqh;
-    opacity: 0;
-    z-index: 20;
-  }
-  .merged-char {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 7cqw;
-    font-weight: 900;
-    color: #2B2B2B;
-    letter-spacing: -2px;
-  }
-  .merged-desc {
-    font-size: 1.5cqw;
-    font-weight: 900;
-    color: #2B2B2B;
-    background: #FFFFFF;
-    border: 3px solid #2B2B2B;
-    border-radius: 14px;
-    padding: 0.6cqh 2cqw;
-    box-shadow: 3px 3px 0px #2B2B2B;
-  }
-
-  /* Bottom Coach Banner */
-  .coach-banner {
-    background: #FAF7F2;
-    border: 3px solid #2B2B2B;
-    border-radius: 18px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 1.6cqh 3cqw;
-    font-size: 1.4cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  /* Captions */
-  .caption-container {
-    position: absolute;
-    bottom: 3.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80cqw;
-    height: 7cqh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 50;
-  }
-  .caption-line {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.96);
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 36px;
-    padding: 1cqh 2.6cqw;
-    font-size: 1.45cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    letter-spacing: -0.4px;
-    opacity: 0;
-    pointer-events: none;
-    max-width: 1600px;
-    overflow: visible;
-  }
-
+  .gold-capsule { position: absolute; left: 50%; bottom: 12.5cqh; transform: translateX(-50%) scale(0.9); background: #F5C518; border: 3.5px solid #2B2B2B; border-radius: 100px; box-shadow: 5px 5px 0px #2B2B2B; padding: 1.1cqh 2.8cqw; display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10; }
+  .gold-icon { font-size: 1.5cqw; }
+  .gold-text { font-size: 1.4cqw; font-weight: 900; color: #2B2B2B; letter-spacing: -0.4px; }
+  .caption-pill { position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.96); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0px #2B2B2B; border-radius: 36px; padding: 0.9cqh 2.4cqw; font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; z-index: 30; letter-spacing: -0.4px; opacity: 0; max-width: 84cqw; text-wrap: pretty; }
   audio { display: none; }
 </style>
-
 <div data-hf-id="hf-root-05" id="root" data-composition-id="05-step1-woo-eo" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-prog-05" class="progress-track">
-    <div data-hf-id="hf-pfill-05" class="progress-fill" id="pfill"></div>
-  </div>
-
-  <div data-hf-id="hf-badge-05" class="frame-badge" id="frameBadge">
-    <span data-hf-id="hf-h1to">🟡 1단계 치트키</span>
-    <span data-hf-id="hf-a66v">입술 모으고 턱 힘 툭 빼기: [우-어]</span>
-  </div>
-
-  <div data-hf-id="hf-stage-05" class="drill-stage">
-    <!-- Two Blocks Row -->
-    <div data-hf-id="hf-row-05" class="blocks-row">
-      <!-- Block [ 우 ] with OO mouth illustration -->
-      <div data-hf-id="hf-bwoo-05" class="block-woo" id="blockWoo" data-layout-allow-overlap="true">
-        <div data-hf-id="hf-bwt-img-05" class="block-thumb-box">
-          <img data-hf-id="hf-img-oo-05" class="block-thumb-img" src="assets/images/f05_mouth_oo.jpg" alt="Puckered Lips OO">
-        </div>
-        <div data-hf-id="hf-bwc-05" class="block-char">[ 우 ]</div>
-        <div data-hf-id="hf-bwt-05" class="block-tip">🐟 붕어처럼 입술 모으기</div>
-      </div>
-
-      <!-- Block [ 어~ ] with UH mouth illustration -->
-      <div data-hf-id="hf-beo-05" class="block-eo" id="blockEo" data-layout-allow-overlap="true">
-        <div data-hf-id="hf-bet-img-05" class="block-thumb-box">
-          <img data-hf-id="hf-img-uh-05" class="block-thumb-img" src="assets/images/f05_mouth_uh.jpg" alt="Relaxed Jaw UH">
-        </div>
-        <div data-hf-id="hf-bec-05" class="block-char">[ 어~ ]</div>
-        <div data-hf-id="hf-bet-05" class="block-tip">🥱 하품하듯 턱 힘 툭 빼기</div>
-      </div>
-
-      <!-- Merged [ 워~ ] -->
-      <div data-hf-id="hf-bmerged-05" class="block-merged" id="blockMerged" data-layout-allow-overlap="true">
-        <div data-hf-id="hf-bmc-05" class="merged-char">[ 워~ ]</div>
-        <div data-hf-id="hf-bmd-05" class="merged-desc">✨ 한 호흡으로 부드럽게 이으면 완성!</div>
-      </div>
+  <div data-hf-id="hf-prog-05" class="progress-track"><div data-hf-id="hf-pfill-05" class="progress-fill" id="pfill"></div></div>
+  <div data-hf-id="hf-hdr-05" class="hook-header" id="hookHeader">
+    <div data-hf-id="hf-rb-05" class="ribbon-badge">
+      <span data-hf-id="hf-ri-05" class="ribbon-icon">1️⃣</span>
+      <span data-hf-id="hf-rl-05" class="ribbon-label">1단계</span>
     </div>
+    <span data-hf-id="hf-tt-05" class="hook-title">입 모양 버튼 두 개로 완성하는 '워' 소리</span>
+  </div>
 
-    <!-- Coach Banner -->
-    <div data-hf-id="hf-coach-05" class="coach-banner" id="coachBanner">
-      "혀를 억지로 굴리지 마세요! 입술을 모았다가 턱 힘만 빼면 끝납니다!"
+  <div data-hf-id="hf-main-05" class="main-box" id="mainBox">
+    <img data-hf-id="hf-img1-05" class="main-img" id="img1" src="assets/images/f05_mouth_oo.jpg" alt="Mouth shape for 우">
+    <img data-hf-id="hf-img2-05" class="main-img" id="img2" src="assets/images/f05_mouth_uh.jpg" alt="Mouth shape for 어">
+    <div data-hf-id="hf-tag-05" class="shape-tag" id="shapeTag">
+      <span data-hf-id="hf-tagtxt-05" class="shape-tag-text" id="shapeTagText">우</span>
     </div>
   </div>
 
-  <!-- Captions -->
-  <div data-hf-id="hf-caps-05" class="caption-container">
-    <div data-hf-id="hf-c1-05" class="caption-line" id="cap1">자, 이제 어려운 영어 철자는 싹 잊으시고 딱 두 가지만 입으로 따라 해보세요.</div>
-    <div data-hf-id="hf-c2-05" class="caption-line" id="cap2">첫 번째! 붕어처럼 입술을 동그랗게 앞으로 쭉 내밀면서 '우'.</div>
-    <div data-hf-id="hf-c3-05" class="caption-line" id="cap3">두 번째! 하품할 때처럼 턱에 힘을 툭 빼면서 '어~'.</div>
-    <div data-hf-id="hf-c4-05" class="caption-line" id="cap4">이 두 소리를 자연스럽게 이어볼까요? '우~ 어~', 한 호흡으로 부드럽게 이으면 '워~'.</div>
-    <div data-hf-id="hf-c5-05" class="caption-line" id="cap5">어떠세요? 혀를 억지로 굴리지 않았는데도 입술을 모았다가 턱 힘만 빼니까 아주 편안하게 '워~' 소리가 나오죠?</div>
+  <div data-hf-id="hf-merged-05" class="merged-card" id="mergedCard">
+    <div data-hf-id="hf-mbig-05" class="merged-big">워~</div>
+    <div data-hf-id="hf-msub-05" class="merged-sub">두 소리를 자연스럽게 이었어요!</div>
   </div>
 
-  <audio data-hf-id="hf-audio-05" id="vo-05" src="assets/voice/05.wav" data-start="0" data-duration="39.24" data-audio-group="voiceover"></audio>
+  <div data-hf-id="hf-gold-05" class="gold-capsule" id="goldCapsule">
+    <span data-hf-id="hf-gi-05" class="gold-icon">💧</span>
+    <span data-hf-id="hf-gt-05" class="gold-text">입술 쭉 + 턱 힘 빼기 = 편안한 '워~'</span>
+  </div>
+  <div data-hf-id="hf-cap-05" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-au-05" id="v05" src="assets/voice/05.wav" data-audio-group="voiceover" data-start="0" data-duration="39.24"></audio>
+  <audio data-hf-id="hf-sfx-05-chime" id="sfxChime05" src="assets/sfx/chime.mp3" data-start="29.05" data-volume="0.35"></audio>
 </div>
-
 <script>
   (function () {
     var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function setCaption(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    // Progress bar fill (cumulative: 211.24 / 510.44 = 41.38%)
-    tl.fromTo("#pfill", { width: "33.70%" }, { width: "41.38%", duration: 39.24, ease: "none" }, 0);
+    tl.to("#pfill", { width: "41.8%", duration: 39.24, ease: "none" }, 0);
+    tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
 
-    // Initial Appearance
-    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    // Sentence 1 (0.46s ~ 7.12s)
+    tl.call(function () { setCaption("자, 이제 어려운 영어 철자는 싹 잊으시고 딱 두 가지만 입으로 따라 해보세요."); }, null, 0.46);
 
-    // Sentence 1 (0.5s ~ 5.8s)
-    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
+    // Sentence 2 (7.12s ~ 14.43s): 첫 번째 '우' -> main-box + img1 pop in
+    tl.call(function () { setCaption("첫 번째! 붕어처럼 입술을 동그랗게 앞으로 쭉 내밀면서 '우'."); }, null, 7.12);
+    tl.to("#mainBox", { opacity: 1, duration: 0.5, ease: "power2.out" }, 7.12);
+    tl.to("#img1", { opacity: 1, duration: 0.5, ease: "power2.out" }, 7.12);
+    tl.fromTo("#shapeTag", { scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 7.3);
 
-    // Sentence 2 (6.0s ~ 11.8s): Block [우] drops in
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 5.8);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 6.0);
-    tl.to("#blockWoo", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, 6.5);
+    // Sentence 3 (14.43s ~ 20.48s): 두 번째 '어~' -> crossfade to img2
+    tl.call(function () { setCaption("두 번째! 하품할 때처럼 턱에 힘을 툭 빼면서 '어~'."); }, null, 14.43);
+    tl.to("#img1", { opacity: 0, duration: 0.35, ease: "power1.inOut" }, 15.68);
+    tl.to("#img2", { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 15.68);
+    tl.call(function () { document.getElementById("shapeTagText").textContent = "어~"; }, null, 15.68);
+    tl.fromTo("#shapeTag", { scale: 0.85 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 15.68);
 
-    // Sentence 3 (12.0s ~ 17.5s): Block [어~] drops in
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 11.8);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 12.0);
-    tl.to("#blockEo", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, 12.5);
+    // Sentence 4 (20.48s ~ 24.97s): 이어볼까요? -> gentle pulse on the current shot
+    tl.call(function () { setCaption("이 두 소리를 자연스럽게 이어볼까요?"); }, null, 20.48);
+    tl.to("#mainBox", { scale: 1.03, duration: 0.4, yoyo: true, repeat: 1 }, 21.32);
 
-    // Sentence 4 (17.8s ~ 28.5s): Magnetic snap to [ 워~ ]
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 17.6);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 17.8);
+    // Sentence 5 (24.97s ~ 29.87s): '우~ 어~' 이으면 '워~' -> merge into gold card at word onset 29.25s
+    tl.call(function () { setCaption("'우~ 어~', 한 호흡으로 부드럽게 이으면 '워~'."); }, null, 24.97);
+    tl.to(["#mainBox", "#shapeTag"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 28.85);
+    tl.to("#mergedCard", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 29.05);
 
-    // Slide together and merge into [ 워~ ] at 22.0s
-    tl.to("#blockWoo", { x: "14cqw", duration: 0.4, ease: "power2.in" }, 22.0);
-    tl.to("#blockEo", { x: "-14cqw", duration: 0.4, ease: "power2.in" }, 22.0);
-    tl.to(["#blockWoo", "#blockEo"], { opacity: 0, duration: 0.1 }, 22.4);
-    tl.to("#blockMerged", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 22.4);
+    // Sentence 6 (29.87s ~ end): 어떠세요?...나오죠?
+    tl.call(function () { setCaption("어떠세요? 혀를 억지로 굴리지 않았는데도, 입술을 모았다가 턱 힘만 빼니까 아주 편안하게 '워~' 소리가 나오죠?"); }, null, 29.87);
+    tl.to("#goldCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 31.0);
 
-    // Sentence 5 (28.8s ~ 38.8s): Coach banner
-    tl.to("#cap4", { opacity: 0, duration: 0.15 }, 28.6);
-    tl.to("#cap5", { opacity: 1, duration: 0.2 }, 28.8);
-    tl.to("#coachBanner", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 29.5);
-
-    // Frame exit
-    tl.to(["#blockMerged", "#coachBanner", "#frameBadge", "#cap5"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 38.8);
+    tl.to(["#hookHeader", "#mergedCard", "#goldCapsule", "#capPill"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 38.84);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["05-step1-woo-eo"] = tl;

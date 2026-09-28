@@ -427,6 +427,39 @@ Scene 규칙")에 있던 개념을 HyperFrames 영상(EP11부터)에도 적용�
 `node scripts/test-client-syntax.mjs` → 실제 `/api/sync` 호출로 상태가 바뀌는지까지
 검증할 것(코드가 고쳐졌다고 끝이 아니라, 실제 데이터가 갱신되는 것까지 봐야 진짜 완료다).
 
+### 4번째 원인 — status.json을 에이전트가 손으로 고칠 때 (2026-09-28, EP20에서 재발)
+
+같은 증상("동기화했는데 안 됨")이 EP20에서 또 나왔는데, 이번엔 위 1~3번 코드 버그가 아니라
+**에이전트가 `status.json`을 직접 `Edit`으로 고치면서 실제 코드가 읽는 필드명을 안 쓴 것**이
+원인이었다. `getEpisodesSummary()`(`scripts/youtube-analytics-server.mjs`
+`syncUploadPackageStatusFromYouTube` 주변)가 실제로 읽는 필드는 **`scheduledFor`**
+(camelCase, ISO 문자열)인데, 렌더 완료 직후 "예약 시각 갱신"을 `scheduled_publish_date`
+(snake_case)라는 **존재하지 않는 필드명**으로 두 번이나 써넣었다 — 코드는 조용히 그 값을
+무시하고(`if (!statusData.scheduledFor) return statusData;`) 동기화 시도 자체를 건너뛰었다.
+
+또 하나, **유튜브 Studio에 실제로 올릴 때 `title.txt`/`title-variants.txt`에 있는 제목이
+아니라 그 자리에서 새로 입력한 제목을 쓰면, 제목 매칭이 원천적으로 실패한다** — 이건
+버그가 아니라 매칭 로직의 근본 한계(제목이 후보 목록에 아예 없으면 못 찾음)다. 이 경우
+`videoId`를 실제 유튜브 영상 목록(`getFullDashboardData`가 이미 불러온
+`recentVideos[]`)에서 직접 찾아 `status.json`에 다음 필드로 손으로 써넣을 것 —
+**아래 스키마 그대로**(필드명이 틀리면 이번처럼 조용히 무시된다):
+
+```json
+{
+  "status": "scheduled",     // 또는 "ready_to_upload" / "published"
+  "videoId": "<실제 videoId>",
+  "scheduledFor": "<ISO 문자열, 예: 2026-09-29T14:00:00Z>",
+  "lastSyncedAt": "<과거 시각으로 두면 다음 /api/sync가 즉시 재검증함>"
+}
+```
+
+수정 후에는 `curl http://localhost:3001/api/sync`로 강제 동기화하고,
+`/api/episodes/summary`·`/api/idea-board/history`를 직접 호출해 실제 값이 바뀌었는지
+확인할 것 — 화면(브라우저)만 보고 "안 바뀐다"고 판단하지 말고, 서버 응답 → (그래도 이상하면)
+Playwright 등 헤드리스 브라우저로 실제 렌더된 DOM까지 직접 확인해서 "서버 데이터 문제"와
+"브라우저/캐시 문제"를 구분할 것(EP20에서 이 둘을 구분 못 해 캐시를 의심하다 실제 원인을
+늦게 찾음).
+
 ## 출력 폴더
 
 **⚠️ `output/00-VIDEOS`(`READY_TO_UPLOAD`/`PUBLISHED`)는 시즌1 Remotion 시절 관례이고

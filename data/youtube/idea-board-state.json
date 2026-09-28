@@ -4,152 +4,170 @@
     "candidates": [
       {
         "rank": 1,
-        "topic": "World 발음이 유독 꼬였던 이유: R과 L이 만날 때 게으른 혀의 소리 규칙",
-        "angleOrHook": "복잡한 혀 꼬임 없이 '우-어' 뒤에 혀끝만 가볍게 멈추면 저절로 풀리는 게으른 혀의 지름길을 확인하고 World, Girl, Pearl까지 한 번에 체득합니다.",
-        "targetAudience": "버터발음을 흉내 내다 혀가 굳어 '월드', '걸' 발음에서 매번 멈칫하는 왕초보 학습자",
-        "suggestedBadge": "👅 혀 꼬임 해결",
-        "rationale": "집중 키워드 '영어 발음 규칙'의 대표 57배 아웃라이어 'World 발음 함께 연습해요'의 폭발적 수요와 채널 최고 유지율인 LEGACY 포맷(fitScore 57)을 결합하여 검증된 흥행 공식을 적용했습니다.",
+        "topic": "모음 사이에 끼인 T가 'ㄹ'로 바뀌는 영어 발음 규칙 (Flap T)",
+        "angleOrHook": "버터발음 굴리려고 애쓰지 않아도, 모음 사이에서 게으른 혀가 스치듯 지나가는 소리 지름길 원리 하나면 water와 city가 저절로 터집니다.",
+        "targetAudience": "원어민 특유의 부드러운 굴림 소리를 내고 싶지만 혀에 힘이 들어가 어색하게 굳어버리는 4060 성인 학습자",
+        "rationale": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1)의 반복 훅 '모음', '이렇게', '쉽다고'와 audience-dna의 핵심 미해결 키워드 '버터발음', '자주 쓰는 근육'을 정밀 타격하여 채널 최고 유지율 포맷 LEGACY(fitScore 57) 형태로 검증된 성과를 노릴 수 있습니다.",
         "dataSourceRefs": [
           {
             "source": "marketDemand",
-            "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 및 아웃라이어 영상 'World 발음 함께 연습해요 !(57배)' 반영"
+            "detail": "집중 키워드 '영어 발음 규칙' (marketDemandScore 88.1, opportunityScore 15.2, 훅 단어: 모음, 이렇게, 쉽다고)"
           },
           {
             "source": "contentOpportunity",
-            "detail": "검증된 고유지율 포맷 'LEGACY'(fitScore 57) 구조 채택"
+            "detail": "포맷/역할 'LEGACY' fitScore 57 (채널 내 41개 영상 보유 최고 효율 포맷)"
           },
           {
             "source": "audienceDna",
-            "detail": "시청자 반복 언급 키워드 '버터발음', '자주 쓰는 근육' 해결"
+            "detail": "[vocabulary] 버터발음 (2회 확인), 자주 쓰는 근육 (2회 확인)"
+          },
+          {
+            "source": "successPatterns",
+            "detail": "아웃라이어 'World 발음 함께 연습해요 ! #발음연습 #영어공부' (57배 성과 후킹 구조)"
           }
         ],
         "suggestedFormat": "LONGFORM",
-        "score": 92
+        "score": 94
       },
       {
         "rank": 2,
-        "topic": "모음이 2개 겹칠 때 앞 모음만 읽는 영어 모음 규칙",
-        "angleOrHook": "무작정 철자 외우지 마세요: 모음이 나란히 붙어 나오면 뒤 모음은 침묵하고 앞 모음 이름만 소리 내는 초간단 지름길 규칙으로 Boat, Rain, Meat를 단번에 뚫어냅니다.",
-        "targetAudience": "단어에 모음이 두 개 이상 연속으로 나오면 어떻게 소리 내야 할지 막막한 알파벳 파닉스 직후 입문자",
-        "suggestedBadge": "💡 1초 모음 공식",
-        "rationale": "집중 키워드 '영어 발음 규칙'의 최다 반복 훅 단어 '모음(2회)', '읽는(2회)', '쉽다고(2회)'를 포착하고, 50.42배 아웃라이어 '영어 읽는법 1편 - 자음과 모음' 수요를 직접 공략했습니다.",
+        "topic": "강세 없는 모음이 맥없이 풀려버리는 영어축약발음 규칙",
+        "angleOrHook": "스펠링 a, e, o를 정직하게 다 읽으려니 혀가 꼬였던 것입니다: 힘 빠진 모음이 한 소리로 통일되는 영어축약발음 언어팩을 장착해 드립니다.",
+        "targetAudience": "단어 철자는 다 알지만 소리 내어 읽을 때마다 속도감이 안 나고 뚝뚝 끊기는 왕초보 리딩 정체자",
+        "rationale": "집중 키워드 '영어 발음 규칙' 내 핵심 훅 단어인 '영어축약발음'(2회)과 '모음'(2회)을 정면으로 다루며, 누적 audience-dna의 '언어팩', '속도감' 갈증을 해소해 높은 완독 카타르시스를 형성합니다.",
         "dataSourceRefs": [
           {
             "source": "marketDemand",
-            "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 반복 훅 단어 '모음', '읽는', '쉽다고' 활용 및 아웃라이어 '영어 읽는법 1편 - 자음과 모음(50.42배)' 연계"
+            "detail": "집중 키워드 '영어 발음 규칙' (훅 단어: 영어축약발음 2회, 모음 2회, 읽는 2회)"
           },
           {
             "source": "contentOpportunity",
-            "detail": "기존 레거시 단일 모음(A, E, I, O, U) 영상들의 후속 확장으로 LEGACY 포맷(fitScore 57) 적용"
+            "detail": "포맷/역할 'LEGACY' fitScore 57"
           },
           {
             "source": "audienceDna",
-            "detail": "시청자 언어 '언어팩' 구축 및 직관적 '체득' 니즈 반영"
+            "detail": "[vocabulary] 언어팩 (2회 확인), 속도감 (2회 확인)"
+          },
+          {
+            "source": "successPatterns",
+            "detail": "아웃라이어 '영어 읽는법 1편 - 자음과 모음, 그리고 파닉스 | 왕초보영어' (50.42배 아웃라이어 파닉스 분해)"
+          }
+        ],
+        "suggestedFormat": "LONGFORM",
+        "score": 91
+      },
+      {
+        "rank": 3,
+        "topic": "단어 끝 -ed가 '트/드/이드'로 갈라지는 목구멍 울림 규칙",
+        "angleOrHook": "과거형 -ed 발음 규칙을 달달 외울 필요 없습니다: 목구멍에 손을 얹고 성대가 울리는지 딱 하나만 확인하면 평생 틀릴 일이 사라집니다.",
+        "targetAudience": "문법으로 배운 -ed 규칙이 실제 입 밖으로 나올 땐 1초 만에 떠오르지 않는 성인 회화 입문자",
+        "rationale": "집중 키워드 '영어 발음 규칙'의 훅 단어 '영어', '규칙', '이렇게'를 반영하고 audience-dna에서 추출된 '목구멍 소리'와 '체득' 키워드를 3단계 도파민 공식(원리 발견→패턴 확장)과 결합했습니다.",
+        "dataSourceRefs": [
+          {
+            "source": "marketDemand",
+            "detail": "집중 키워드 '영어 발음 규칙' (marketDemandScore 88.1, 훅 단어: 규칙 2회, 영어공부 3회)"
+          },
+          {
+            "source": "contentOpportunity",
+            "detail": "포맷/역할 'LEGACY' fitScore 57"
+          },
+          {
+            "source": "audienceDna",
+            "detail": "[vocabulary] 목구멍 소리 (2회 확인), 체득 (2회 확인)"
+          },
+          {
+            "source": "successPatterns",
+            "detail": "게으른 혀의 소리 지름길(성대 울림 유지로 혀 피로도 최소화) 3단계 도파민 구조"
           }
         ],
         "suggestedFormat": "LONGFORM",
         "score": 88
       },
       {
-        "rank": 3,
-        "topic": "단어 끝 -ATE의 두 얼굴: 동사와 명사를 가르는 영어 축약 발음 규칙",
-        "angleOrHook": "똑같은 -ATE인데 왜 동사는 '에이트'고 명사는 힘을 뺀 '엇/잇' 소리로 바뀔까요? 강세에 따라 혀의 힘을 빼버리는 원리를 알면 수십 개 고급 단어가 단번에 귀에 꽂힙니다.",
-        "targetAudience": "단어 끝 스펠링은 같은데 원어민 음성이 다르게 들려 헷갈렸던 4060 기초 영어 회화 도전층",
-        "suggestedBadge": "⚡ 소리 반전 규칙",
-        "rationale": "집중 키워드 '영어 발음 규칙'의 핵심 훅 단어 '영어축약발음(2회)'과 '규칙(2회)'을 접목하고, 기존 접미사 규칙 성공 패턴을 계승하는 EXPERIMENT 포맷(fitScore 45)을 적용했습니다.",
+        "rank": 4,
+        "topic": "자음 사이에 갇힌 모음 vs 꼬리가 열린 모음의 소리 규칙",
+        "angleOrHook": "왜 NO는 '노우'인데 NOT은 '낫'일까요? 자음 철창에 갇힌 모음과 자유로운 모음이 내는 소리 규칙 하나로 영단어 읽기가 한 번에 체득됩니다.",
+        "targetAudience": "파닉스 단계를 건너뛰고 단어 암기만 하다 보니 3~4글자 기초 단어조차 읽기가 버거운 5060 늦깎이 학습자",
+        "rationale": "경쟁사 아웃라이어 50.4배를 기록한 '영어 읽는법 자음과 모음' 패턴과 집중 키워드 '영어 발음 규칙'의 최다 빈도 훅 '읽는', '모음', '쉽다고'를 직접적으로 만족시키는 직관적 파닉스 확장 소재입니다.",
         "dataSourceRefs": [
           {
             "source": "marketDemand",
-            "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1)의 반복 훅 단어 '영어축약발음', '규칙' 반영"
+            "detail": "집중 키워드 '영어 발음 규칙' (훅 단어: 읽는 2회, 모음 2회, 쉽다고 2회)"
           },
           {
             "source": "contentOpportunity",
-            "detail": "새로운 접미사 규칙 테스트를 위한 'EXPERIMENT'(fitScore 45) 포맷 활용"
+            "detail": "포맷/역할 'LEGACY' fitScore 57"
           },
           {
             "source": "audienceDna",
-            "detail": "복식호흡이나 힘을 주는 대신 힘을 빼는 '목구멍 소리'와 '언어팩' 체득 니즈 충족"
+            "detail": "[vocabulary] 체득 (2회 확인), 언어팩 (2회 확인)"
+          },
+          {
+            "source": "successPatterns",
+            "detail": "아웃라이어 '영어 읽는법 1편 - 자음과 모음, 그리고 파닉스 | 왕초보영어' (50.42배)"
           }
         ],
         "suggestedFormat": "LONGFORM",
         "score": 85
       },
       {
-        "rank": 4,
-        "topic": "모음 뒤에 R이 붙을 때 소리가 통째로 바뀌는 Bossy R 규칙",
-        "angleOrHook": "AR, ER, IR, OR, UR에서 모음 소리를 따지지 마세요: 뒤에 붙은 R이 게으른 혀를 뒤로 끌어당기며 만드는 2가지 소리 길만 익히면 복잡한 단어 읽기가 너무나 쉬워집니다.",
-        "targetAudience": "모음 발음 기호가 단어마다 달라 영어 단어 읽기에 피로감과 두려움을 느끼는 왕초보 독학자",
-        "suggestedBadge": "🎯 읽기 지름길",
-        "rationale": "집중 키워드 '영어 발음 규칙'의 훅 단어 '모음', '이렇게', '쉽다고'와 아웃라이어 영상들의 파닉스 모음 확장 수요를 바탕으로 최고 fitScore 포맷인 LEGACY(57)로 기획했습니다.",
-        "dataSourceRefs": [
-          {
-            "source": "marketDemand",
-            "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 훅 단어 '모음', '이렇게', '쉽다고' 결합"
-          },
-          {
-            "source": "contentOpportunity",
-            "detail": "채널 내부 최고 성과 포맷 'LEGACY'(fitScore 57) 활용"
-          },
-          {
-            "source": "audienceDna",
-            "detail": "혀의 '자주 쓰는 근육' 원리 설명을 통해 직관적 원리 체득 유도"
-          }
-        ],
-        "suggestedFormat": "LONGFORM",
-        "score": 84
-      },
-      {
         "rank": 5,
-        "topic": "소리 안 나는 자음의 비밀: 혀의 충돌을 피하는 묵음 탈락 규칙 (KN, MB, WR)",
-        "angleOrHook": "Knee에서 K는 왜 사라졌고 Climb의 B는 왜 안 읽을까요? 원어민의 게으른 혀가 자음이 연속으로 부딪히는 수고를 덜어낸 지름길 원리를 알면 영어 읽기가 마법처럼 편해집니다.",
-        "targetAudience": "스펠링 그대로 읽으려다 원어민 발음과 달라 좌절했던 파닉스 정체기 성인 학습자",
-        "suggestedBadge": "🤫 묵음 소리 비밀",
-        "rationale": "집중 키워드 '영어 발음 규칙'의 훅 단어 '읽는(2회)', '영어공부(3회)', '규칙(2회)'에 기반하여, 복잡한 암기 없이 소리 탈락 원리를 설명하는 시청자 친화형 소재입니다.",
+        "topic": "단어 끝 P·T·K를 터뜨리지 않고 삼키는 받침소리 멈춤 규칙",
+        "angleOrHook": "원어민이 Good morning을 '굿모닝'이 아니라 '군모닝'처럼 말하는 건 실력이 뛰어나서가 아니라 입술과 혀 근육을 아끼는 멈춤 규칙 때문입니다.",
+        "targetAudience": "영어 단어를 소리 내어 읽을 때마다 한국어 받침처럼 딱딱하게 끊겨 원어민 발음처럼 매끄럽게 이어지지 않는 왕초보",
+        "rationale": "집중 키워드 '영어 발음 규칙'의 '영어공부', '이렇게' 훅과 채널 독점 공식인 '게으른 혀의 소리 지름길' 원리를 audience-dna의 '자주 쓰는 근육' 관점에서 실전 적용한 콘텐츠입니다.",
         "dataSourceRefs": [
           {
             "source": "marketDemand",
-            "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 훅 단어 '읽는', '영어공부', '규칙' 반영"
+            "detail": "집중 키워드 '영어 발음 규칙' (marketDemandScore 88.1, opportunityScore 15.2, 훅 단어: 이렇게, 영어공부)"
           },
           {
             "source": "contentOpportunity",
-            "detail": "신규 규칙 발굴을 위한 'EXPERIMENT'(fitScore 45) 및 LEGACY(57) 설명 방식 융합"
+            "detail": "포맷/역할 'EXPERIMENT' fitScore 45 (신규 소리 규칙 검증)"
           },
           {
             "source": "audienceDna",
-            "detail": "외우지 않고 몸으로 익히는 '자주 쓰는 근육'과 '체득' 관점 적용"
+            "detail": "[vocabulary] 자주 쓰는 근육 (2회 확인), 복식호흡 (2회 확인)"
+          },
+          {
+            "source": "successPatterns",
+            "detail": "아웃라이어 'World 발음 함께 연습해요 ! #발음연습 #영어공부' (57배 성과 혀 근육 훈련 패턴)"
           }
         ],
-        "suggestedFormat": "LONGFORM",
+        "suggestedFormat": "SHORTS",
         "score": 82
       }
     ],
-    "summaryNote": "집중 키워드 '영어 발음 규칙'의 반복 훅 단어(모음, 읽는, 쉽다고, 축약발음)와 57배 아웃라이어를 전 후보에 100% 반영하고, 채널 내부 LEGACY/EXPERIMENT fitScore 및 시청자 DNA(버터발음, 근육, 체득)를 빈틈없이 결합해 기획했습니다.",
-    "generatedAt": "2026-09-13T03:43:06.116Z"
+    "summaryNote": "집중 모드 키워드 '영어 발음 규칙'의 훅 단어(모음, 영어축약발음, 읽는 등)와 아웃라이어 패턴을 기반으로 5개 후보를 전원 추출했으며, 채널 내 최고 성과 포맷인 LEGACY(fitScore 57) 및 audience-dna 누적 어휘(버터발음, 언어팩, 체득, 목구멍 소리, 자주 쓰는 근육)를 전 후보에 충실히 분배해 반영했습니다.",
+    "generatedAt": "2026-09-28T13:47:36.538Z"
   },
   "selected": {
     "rank": 1,
-    "topic": "World 발음이 유독 꼬였던 이유: R과 L이 만날 때 게으른 혀의 소리 규칙",
-    "angleOrHook": "복잡한 혀 꼬임 없이 '우-어' 뒤에 혀끝만 가볍게 멈추면 저절로 풀리는 게으른 혀의 지름길을 확인하고 World, Girl, Pearl까지 한 번에 체득합니다.",
-    "targetAudience": "버터발음을 흉내 내다 혀가 굳어 '월드', '걸' 발음에서 매번 멈칫하는 왕초보 학습자",
-    "suggestedBadge": "👅 혀 꼬임 해결",
-    "rationale": "집중 키워드 '영어 발음 규칙'의 대표 57배 아웃라이어 'World 발음 함께 연습해요'의 폭발적 수요와 채널 최고 유지율인 LEGACY 포맷(fitScore 57)을 결합하여 검증된 흥행 공식을 적용했습니다.",
+    "topic": "모음 사이에 끼인 T가 'ㄹ'로 바뀌는 영어 발음 규칙 (Flap T)",
+    "angleOrHook": "버터발음 굴리려고 애쓰지 않아도, 모음 사이에서 게으른 혀가 스치듯 지나가는 소리 지름길 원리 하나면 water와 city가 저절로 터집니다.",
+    "targetAudience": "원어민 특유의 부드러운 굴림 소리를 내고 싶지만 혀에 힘이 들어가 어색하게 굳어버리는 4060 성인 학습자",
+    "rationale": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1)의 반복 훅 '모음', '이렇게', '쉽다고'와 audience-dna의 핵심 미해결 키워드 '버터발음', '자주 쓰는 근육'을 정밀 타격하여 채널 최고 유지율 포맷 LEGACY(fitScore 57) 형태로 검증된 성과를 노릴 수 있습니다.",
     "dataSourceRefs": [
       {
         "source": "marketDemand",
-        "detail": "집중 키워드 '영어 발음 규칙'(marketDemandScore 88.1) 및 아웃라이어 영상 'World 발음 함께 연습해요 !(57배)' 반영"
+        "detail": "집중 키워드 '영어 발음 규칙' (marketDemandScore 88.1, opportunityScore 15.2, 훅 단어: 모음, 이렇게, 쉽다고)"
       },
       {
         "source": "contentOpportunity",
-        "detail": "검증된 고유지율 포맷 'LEGACY'(fitScore 57) 구조 채택"
+        "detail": "포맷/역할 'LEGACY' fitScore 57 (채널 내 41개 영상 보유 최고 효율 포맷)"
       },
       {
         "source": "audienceDna",
-        "detail": "시청자 반복 언급 키워드 '버터발음', '자주 쓰는 근육' 해결"
+        "detail": "[vocabulary] 버터발음 (2회 확인), 자주 쓰는 근육 (2회 확인)"
+      },
+      {
+        "source": "successPatterns",
+        "detail": "아웃라이어 'World 발음 함께 연습해요 ! #발음연습 #영어공부' (57배 성과 후킹 구조)"
       }
     ],
     "suggestedFormat": "LONGFORM",
-    "score": 92
+    "score": 94
   },
-  "generatedAt": "2026-09-13T03:43:06.116Z",
+  "generatedAt": "2026-09-28T13:47:36.538Z",
   "focusKeyword": "영어 발음 규칙"
 }

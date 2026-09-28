@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-20T12:26:58.890Z",
+  "updatedAt": "2026-09-28T13:48:09.188Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -140,7 +140,7 @@
       ],
       "episodeSlug": "ep17-bossy-r",
       "episodeLabel": "단편 EP17",
-      "status": "scheduled",
+      "status": "published",
       "selectedAt": "2026-09-17T11:51:18.357Z",
       "producedAt": "2026-09-18"
     },
@@ -166,7 +166,7 @@
       ],
       "episodeSlug": "ep18-silent-consonants",
       "episodeLabel": "단편 EP18",
-      "status": "scheduled",
+      "status": "published",
       "selectedAt": "2026-09-18T13:38:08.726Z",
       "producedAt": "2026-09-19"
     },
@@ -192,7 +192,7 @@
       ],
       "episodeSlug": "ep19-ate-suffix",
       "episodeLabel": "단편 EP19",
-      "status": "scheduled",
+      "status": "published",
       "selectedAt": "2026-09-19T04:57:16.242Z",
       "producedAt": "2026-09-20"
     },
@@ -218,8 +218,38 @@
       ],
       "episodeSlug": "ep20-world-rl",
       "episodeLabel": "단편 EP20",
-      "status": "selected",
+      "status": "scheduled",
       "selectedAt": "2026-09-20T11:12:42.030Z",
+      "producedAt": "2026-09-28"
+    },
+    {
+      "topic": "모음 사이에 끼인 T가 'ㄹ'로 바뀌는 영어 발음 규칙 (Flap T)",
+      "angleOrHook": "버터발음 굴리려고 애쓰지 않아도, 모음 사이에서 게으른 혀가 스치듯 지나가는 소리 지름길 원리 하나면 water와 city가 저절로 터집니다.",
+      "targetAudience": "원어민 특유의 부드러운 굴림 소리를 내고 싶지만 혀에 힘이 들어가 어색하게 굳어버리는 4060 성인 학습자",
+      "rank": 1,
+      "score": 94,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "집중 키워드 '영어 발음 규칙' (marketDemandScore 88.1, opportunityScore 15.2, 훅 단어: 모음, 이렇게, 쉽다고)"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "포맷/역할 'LEGACY' fitScore 57 (채널 내 41개 영상 보유 최고 효율 포맷)"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "[vocabulary] 버터발음 (2회 확인), 자주 쓰는 근육 (2회 확인)"
+        },
+        {
+          "source": "successPatterns",
+          "detail": "아웃라이어 'World 발음 함께 연습해요 ! #발음연습 #영어공부' (57배 성과 후킹 구조)"
+        }
+      ],
+      "episodeSlug": null,
+      "episodeLabel": null,
+      "status": "selected",
+      "selectedAt": "2026-09-28T13:48:09.188Z",
       "producedAt": null
     }
   ]

@@ -1,338 +1,102 @@
 <template>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
-
-  #root {
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    overflow: hidden;
-    background: #F4EFE6;
-    color: #2B2B2B;
-    font-family: 'Noto Sans KR', sans-serif;
-    container-type: size;
-  }
+  /* 07-world-payoff — EP19 규칙 기준 재제작(2026-09-27). 텍스트/카드형(우/어/을/드 4조각 →
+     WORLD 통합 카드). 신규 이미지 없음. Actual audio duration: 39.92s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
   #root * { box-sizing: border-box; }
+  .progress-track { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: rgba(43,43,43,0.08); z-index: 100; }
+  .progress-fill { position: absolute; left: 0; top: 0; width: 0%; height: 5px; background: #F5C518; }
+  .hook-header { position: absolute; top: 4.5cqh; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1.2cqw; opacity: 0; z-index: 10; }
+  .ribbon-badge { background: #2B2B2B; border: 3px solid #2B2B2B; border-radius: 12px; box-shadow: 4px 4px 0px rgba(43,43,43,0.25); padding: 0.7cqh 1.6cqw; display: flex; align-items: center; gap: 0.6cqw; }
+  .ribbon-icon { font-size: 1.3cqw; color: #FFFFFF; }
+  .ribbon-label { font-size: 1.2cqw; font-weight: 900; color: #F5C518; letter-spacing: -0.3px; }
+  .hook-title { font-weight: 900; font-size: 1.65cqw; color: #2B2B2B; letter-spacing: -0.5px; }
 
-  /* Progress */
-  .progress-track {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 6px;
-    background: rgba(43,43,43,0.08);
-    z-index: 100;
-  }
-  .progress-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 49.17%;
-    height: 100%;
-    background: #FFE500;
-  }
+  .stage { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); width: 64cqw; height: 48cqh; z-index: 2; }
+  .card-row { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 2cqw; }
+  .piece-card { width: 12cqw; height: 42cqh; border-radius: 22px; border: 3px solid #2B2B2B; box-shadow: 5px 5px 0px #2B2B2B; background: #FFFFFF; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.6); }
+  .piece-letter { font-family: 'Archivo Black', 'Noto Sans KR', sans-serif; font-size: 4.4cqw; font-weight: 900; color: #2B2B2B; }
+  .merged-card { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0); width: 48cqw; height: 46cqh; border-radius: 32px; border: 4px solid #2B2B2B; box-shadow: 8px 8px 0px #2B2B2B; background: #F5C518; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4cqh; opacity: 0; z-index: 3; }
+  .merged-en { font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; font-weight: 900; color: #2B2B2B; letter-spacing: 0.2cqw; }
+  .merged-ko { font-size: 2cqw; font-weight: 900; color: #2B2B2B; }
+  .merged-tag { font-size: 1.3cqw; font-weight: 800; color: #2B2B2B; background: rgba(255,255,255,0.55); border: 2.5px solid #2B2B2B; border-radius: 100px; padding: 0.5cqh 1.6cqw; }
 
-  /* Badge */
-  .frame-badge {
-    position: absolute;
-    top: 4.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #FFD700;
-    color: #2B2B2B;
-    border: 3px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    padding: 0.8cqh 2.2cqw;
-    font-size: 1.25cqw;
-    font-weight: 900;
-    z-index: 10;
-  }
-
-  /* Stage */
-  .payoff-stage {
-    position: absolute;
-    top: 15cqh;
-    left: 6cqw;
-    right: 6cqw;
-    height: 72cqh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3.5cqh;
-    position: relative;
-  }
-
-  /* 4 Blocks Row */
-  .blocks-grid {
-    display: flex;
-    gap: 1.8cqw;
-    align-items: center;
-    justify-content: center;
-    height: 28cqh;
-    position: relative;
-    width: 100%;
-  }
-
-  .lego-block {
-    width: 17cqw;
-    height: 100%;
-    border: 4px solid #2B2B2B;
-    border-radius: 24px;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1cqh;
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  .lego-char {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 4.5cqw;
-    font-weight: 900;
-    color: #2B2B2B;
-    line-height: 1;
-  }
-  .lego-sub {
-    font-size: 1.1cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-  }
-
-  .b-woo { background: #FFE500; }
-  .b-eo  { background: #FF9F43; }
-  .b-eul { background: #2E86AB; color: #FFFFFF; }
-  .b-eul .lego-char, .b-eul .lego-sub { color: #FFFFFF; }
-  .b-deu { background: #00E5A3; }
-
-  /* Giant Golden Transform Card */
-  .golden-world-card {
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    transform: translate(-50%, -50%) scale(0.6);
-    width: 55cqw;
-    height: 32cqh;
-    background: #FFD700;
-    border: 5px solid #2B2B2B;
-    border-radius: 32px;
-    box-shadow: 10px 10px 0px #2B2B2B;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5cqh;
-    opacity: 0;
-    z-index: 25;
-  }
-  .golden-title {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 6.5cqw;
-    color: #2B2B2B;
-    letter-spacing: 2px;
-    line-height: 1;
-  }
-  .golden-sub {
-    font-size: 1.8cqw;
-    font-weight: 900;
-    background: #FFFFFF;
-    border: 3px solid #2B2B2B;
-    border-radius: 14px;
-    padding: 0.6cqh 2.2cqw;
-    box-shadow: 3px 3px 0px #2B2B2B;
-  }
-
-  /* Bottom Row: App 100pt + Celebrate Host with AI illustrations */
-  .payoff-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3cqw;
-    width: 100%;
-    height: 28cqh;
-  }
-  .app-success-imgbox {
-    position: relative;
-    width: 320px;
-    height: 200px;
-    border-radius: 20px;
-    border: 3.5px solid #2B2B2B;
-    overflow: hidden;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    background: #FFFFFF;
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  .app-pass-badge {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #00E5A3;
-    color: #2B2B2B;
-    font-weight: 900;
-    font-size: 1.1cqw;
-    padding: 0.6cqh 1.4cqw;
-    border: 2.5px solid #2B2B2B;
-    border-radius: 100px;
-    box-shadow: 3px 3px 0px #2B2B2B;
-    white-space: nowrap;
-    z-index: 5;
-  }
-  .host-success-imgbox {
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
-    border: 3.5px solid #2B2B2B;
-    overflow: hidden;
-    box-shadow: 6px 6px 0px #2B2B2B;
-    background: #FAF7F2;
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  .payoff-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Captions */
-  .caption-container {
-    position: absolute;
-    bottom: 3.5cqh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80cqw;
-    height: 7cqh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    z-index: 50;
-  }
-  .caption-line {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.96);
-    border: 3px solid #2B2B2B;
-    box-shadow: 4px 4px 0px #2B2B2B;
-    border-radius: 36px;
-    padding: 1cqh 2.6cqw;
-    font-size: 1.45cqw;
-    font-weight: 800;
-    color: #2B2B2B;
-    letter-spacing: -0.4px;
-    opacity: 0;
-    pointer-events: none;
-    max-width: 1600px;
-    overflow: visible;
-  }
-
+  .gold-capsule { position: absolute; left: 50%; bottom: 12.5cqh; transform: translateX(-50%) scale(0.9); background: #F5C518; border: 3.5px solid #2B2B2B; border-radius: 100px; box-shadow: 5px 5px 0px #2B2B2B; padding: 1.1cqh 2.8cqw; display: flex; align-items: center; gap: 0.8cqw; opacity: 0; z-index: 10; }
+  .gold-icon { font-size: 1.5cqw; }
+  .gold-text { font-size: 1.4cqw; font-weight: 900; color: #2B2B2B; letter-spacing: -0.4px; }
+  .caption-pill { position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.96); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0px #2B2B2B; border-radius: 36px; padding: 0.9cqh 2.4cqw; font-size: 1.4cqw; font-weight: 800; color: #2B2B2B; text-align: center; z-index: 30; letter-spacing: -0.4px; opacity: 0; max-width: 84cqw; text-wrap: pretty; }
   audio { display: none; }
 </style>
-
 <div data-hf-id="hf-root-07" id="root" data-composition-id="07-world-payoff" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-prog-07" class="progress-track">
-    <div data-hf-id="hf-pfill-07" class="progress-fill" id="pfill"></div>
+  <div data-hf-id="hf-prog-07" class="progress-track"><div data-hf-id="hf-pfill-07" class="progress-fill" id="pfill"></div></div>
+  <div data-hf-id="hf-hdr-07" class="hook-header" id="hookHeader">
+    <div data-hf-id="hf-rb-07" class="ribbon-badge">
+      <span data-hf-id="hf-ri-07" class="ribbon-icon">3️⃣</span>
+      <span data-hf-id="hf-rl-07" class="ribbon-label">3단계</span>
+    </div>
+    <span data-hf-id="hf-tt-07" class="hook-title">네 조각을 이어 붙이면 완성되는 World</span>
   </div>
 
-  <div data-hf-id="hf-badge-07" class="frame-badge" id="frameBadge">
-    <span data-hf-id="hf-e6xm">✨ 완성</span>
-    <span data-hf-id="hf-of3k">[우-어-을-드] 4글자의 기적!</span>
-  </div>
-
-  <div data-hf-id="hf-stage-07" class="payoff-stage" data-layout-allow-overflow="true">
-    <!-- 4 Blocks Grid -->
-    <div data-hf-id="hf-bgrid-07" class="blocks-grid" id="blocksGrid">
-      <div data-hf-id="hf-b1-07" class="lego-block b-woo" id="b1">
-        <div data-hf-id="hf-j9l4" class="lego-char">우</div>
-        <div data-hf-id="hf-f54b" class="lego-sub">입술 모으기</div>
-      </div>
-      <div data-hf-id="hf-b2-07" class="lego-block b-eo" id="b2">
-        <div data-hf-id="hf-jvys" class="lego-char">어</div>
-        <div data-hf-id="hf-soyn" class="lego-sub">턱 힘 빼기</div>
-      </div>
-      <div data-hf-id="hf-b3-07" class="lego-block b-eul" id="b3">
-        <div data-hf-id="hf-yjgk" class="lego-char">을</div>
-        <div data-hf-id="hf-rw26" class="lego-sub">목구멍 울림</div>
-      </div>
-      <div data-hf-id="hf-b4-07" class="lego-block b-deu" id="b4">
-        <div data-hf-id="hf-l9ng" class="lego-char">드</div>
-        <div data-hf-id="hf-ygqd" class="lego-sub">가벼운 끝소리</div>
-      </div>
+  <div data-hf-id="hf-stage-07" class="stage">
+    <div data-hf-id="hf-crow-07" class="card-row">
+      <div data-hf-id="hf-p1-07" class="piece-card" id="piece1"><div data-hf-id="hf-p1l-07" class="piece-letter">우</div></div>
+      <div data-hf-id="hf-p2-07" class="piece-card" id="piece2"><div data-hf-id="hf-p2l-07" class="piece-letter">어</div></div>
+      <div data-hf-id="hf-p3-07" class="piece-card" id="piece3"><div data-hf-id="hf-p3l-07" class="piece-letter">을</div></div>
+      <div data-hf-id="hf-p4-07" class="piece-card" id="piece4"><div data-hf-id="hf-p4l-07" class="piece-letter">드</div></div>
     </div>
-
-    <!-- Golden Transform Card -->
-    <div data-hf-id="hf-gcard-07" class="golden-world-card" id="goldCard">
-      <div data-hf-id="hf-gtit-07" class="golden-title">WORLD</div>
-      <div data-hf-id="hf-gsub-07" class="golden-sub">"워~을드" ➔ 완벽한 원어민 발음!</div>
-    </div>
-
-    <!-- Bottom Result Row with AI illustrations -->
-    <div data-hf-id="hf-pbrow-07" class="payoff-bottom">
-      <div data-hf-id="hf-appbox-07" class="app-success-imgbox" id="appPassBox">
-        <img data-hf-id="hf-app-img-07" class="payoff-img" src="assets/images/f07_phone_success.jpg" alt="100% App Pass">
-        <div data-hf-id="hf-pass-badge-07" class="app-pass-badge">🎉 AI 발음 100점 통과!</div>
-      </div>
-
-      <div data-hf-id="hf-chost-07" class="host-success-imgbox" id="celebrateHost">
-        <img data-hf-id="hf-chost-img-07" class="payoff-img" src="assets/images/f07_char_success.jpg" alt="Celebrating Host">
-      </div>
+    <div data-hf-id="hf-merged-07" class="merged-card" id="mergedCard">
+      <div data-hf-id="hf-men-07" class="merged-en">WORLD</div>
+      <div data-hf-id="hf-mko-07" class="merged-ko">워얼드</div>
+      <div data-hf-id="hf-mtag-07" class="merged-tag">✅ 완벽한 원어민 발음</div>
     </div>
   </div>
 
-  <!-- Captions -->
-  <div data-hf-id="hf-caps-07" class="caption-container">
-    <div data-hf-id="hf-c1-07" class="caption-line" id="cap1">이제 이 소리들을 하나로 이어 붙여보겠습니다. 딱 네 글자만 기억하세요. 우, 어, 을, 드.</div>
-    <div data-hf-id="hf-c2-07" class="caption-line" id="cap2">자, 천천히 소리 내볼까요? '우-어-을-드'.</div>
-    <div data-hf-id="hf-c3-07" class="caption-line" id="cap3">이제 조금만 빠르게 연결해 보세요. '워~을드', 더 자연스럽게 이으면 '워~얼드'.</div>
-    <div data-hf-id="hf-c4-07" class="caption-line" id="cap4">어떠세요? 턱에 힘주고 혀를 쥐어짜지 않았는데도, 놀라울 정도로 묵직하고 자연스러운 원어민의 World 소리가 내 입에서 그대로 터져 나오죠?</div>
+  <div data-hf-id="hf-gold-07" class="gold-capsule" id="goldCapsule">
+    <span data-hf-id="hf-gi-07" class="gold-icon">🧩</span>
+    <span data-hf-id="hf-gt-07" class="gold-text">네 조각을 자연스럽게 이으면 = World</span>
   </div>
-
-  <audio data-hf-id="hf-audio-07" id="vo-07" src="assets/voice/07.wav" data-start="0" data-duration="39.92" data-audio-group="voiceover"></audio>
+  <div data-hf-id="hf-cap-07" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-au-07" id="v07" src="assets/voice/07.wav" data-audio-group="voiceover" data-start="0" data-duration="39.92"></audio>
+  <audio data-hf-id="hf-sfx-07-chime" id="sfxChime07" src="assets/sfx/chime.mp3" data-start="26.05" data-volume="0.35"></audio>
 </div>
-
 <script>
   (function () {
     var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function setCaption(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    // Progress bar fill (cumulative: 290.92 / 510.44 = 57.00%)
-    tl.fromTo("#pfill", { width: "49.17%" }, { width: "57.00%", duration: 39.92, ease: "none" }, 0);
+    tl.to("#pfill", { width: "57.6%", duration: 39.92, ease: "none" }, 0);
+    tl.to("#hookHeader", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.3);
 
-    // Initial Appearance
-    tl.fromTo("#frameBadge", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    // Sentence 1 (0.48s ~ 7.47s)
+    tl.call(function () { setCaption("이제 이 소리들을 하나로 이어 붙여보겠습니다. 딱 네 글자만 기억하세요."); }, null, 0.48);
 
-    // Sentence 1 (0.5s ~ 9.2s): 4 blocks drop in sequence (12fps stepped rhythm)
-    tl.to("#cap1", { opacity: 1, duration: 0.2 }, 0.5);
-    tl.to("#b1", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 3.5);
-    tl.to("#b2", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 4.8);
-    tl.to("#b3", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 6.2);
-    tl.to("#b4", { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" }, 7.5);
+    // Sentence 2 (7.47s ~ 11.69s): 우, 어, 을, 드 -> cards pop in sequentially at each word onset
+    tl.call(function () { setCaption("우, 어, 을, 드."); }, null, 7.47);
+    tl.to("#piece1", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.9)" }, 7.47);
+    tl.to("#piece2", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.9)" }, 8.57);
+    tl.to("#piece3", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.9)" }, 9.68);
+    tl.to("#piece4", { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.9)" }, 10.78);
 
-    // Sentence 2 (9.5s ~ 15.2s): Blocks pulse in rhythm
-    tl.to("#cap1", { opacity: 0, duration: 0.15 }, 9.3);
-    tl.to("#cap2", { opacity: 1, duration: 0.2 }, 9.5);
-    tl.to(["#b1", "#b2", "#b3", "#b4"], { scale: 1.08, stagger: 0.3, yoyo: true, repeat: 1, duration: 0.25 }, 10.5);
+    // Sentence 3 (11.69s ~ 17.69s): 천천히 소리 내볼까요? '우-어-을-드'. -> rolling pulse across the 4 cards
+    tl.call(function () { setCaption("자, 천천히 소리 내볼까요? '우-어-을-드'."); }, null, 11.69);
+    tl.to(["#piece1", "#piece2", "#piece3", "#piece4"], { scale: 1.15, duration: 0.22, yoyo: true, repeat: 1, stagger: 0.6 }, 14.38);
 
-    // Sentence 3 (15.5s ~ 25.8s): Merge into Giant Gold WORLD Card
-    tl.to("#cap2", { opacity: 0, duration: 0.15 }, 15.3);
-    tl.to("#cap3", { opacity: 1, duration: 0.2 }, 15.5);
+    // Sentence 4 (17.69s ~ 28.07s): 빠르게 연결 -> 워~을드 -> 워~얼드 (cards compress, then merge)
+    tl.call(function () { setCaption("이제 조금만 빠르게 연결해 보세요. '워~을드', 더 자연스럽게 이으면 '워~얼드'."); }, null, 17.69);
+    tl.to("#piece1", { x: "2.5cqw", duration: 0.5, ease: "power2.out" }, 21.14);
+    tl.to("#piece2", { x: "0.8cqw", duration: 0.5, ease: "power2.out" }, 21.14);
+    tl.to("#piece3", { x: "-0.8cqw", duration: 0.5, ease: "power2.out" }, 21.14);
+    tl.to("#piece4", { x: "-2.5cqw", duration: 0.5, ease: "power2.out" }, 21.14);
+    tl.to(["#piece1", "#piece2", "#piece3", "#piece4"], { opacity: 0, scale: 0.5, duration: 0.3, ease: "power2.in" }, 25.9);
+    tl.to("#mergedCard", { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 26.05);
 
-    tl.to("#blocksGrid", { scale: 0.8, opacity: 0, duration: 0.4, ease: "power2.in" }, 17.5);
-    tl.to("#goldCard", { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 17.8);
+    // Sentence 5 (28.07s ~ end)
+    tl.call(function () { setCaption("어떠세요? 턱에 힘주고 혀를 쥐어짜지 않았는데도, 놀라울 정도로 묵직하고 자연스러운 원어민의 World 소리가 내 입에서 그대로 터져 나오죠?"); }, null, 28.07);
+    tl.to("#goldCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 29.3);
 
-    // Sentence 4 (26.0s ~ 39.2s): App 100pt + Celebrate Host
-    tl.to("#cap3", { opacity: 0, duration: 0.15 }, 25.8);
-    tl.to("#cap4", { opacity: 1, duration: 0.2 }, 26.0);
-
-    tl.to("#appPassBox", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, 27.5);
-    tl.to("#celebrateHost", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 28.5);
-
-    // Frame exit
-    tl.to(["#goldCard", "#appPassBox", "#celebrateHost", "#frameBadge", "#cap4"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 39.5);
+    tl.to(["#hookHeader", "#mergedCard", "#goldCapsule", "#capPill"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 39.52);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["07-world-payoff"] = tl;

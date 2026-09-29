@@ -359,6 +359,17 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
 위 각 시안의 ${imageCount > 0 ? "'실제 썸네일 이미지(시각 디자인/색상/폰트/배경)'와 " : ""}'제목/카피'를 엄격하게 정밀 진단하여 아래 JSON 포맷 규격으로만 응답하세요. 백틱(\`\`\`json)으로 감싸서 출력하세요.
 특히 'aiTitleSuggestions'의 'midjourneyPrompt' 종횡비는 반드시 '${arParam}'를 포함해야 합니다.
 
+'curiosityGapScore'를 매길 때 이 시안이 어떤 종류의 호기심 격차를 쓰고 있는지 먼저 직접
+판단할 것 — 아래는 고정된 필수 카테고리가 아니라 참고용 예시일 뿐이다(2026-09-29 확정,
+사용자 지적 — "정해진 게 없고 제미나이가 알아서 결정하는 걸로 했다": 이 5개 중 하나를
+반드시 골라야 한다고 강제하면 안 된다. 이 소재에 더 잘 맞는, 아래 목록에 없는 유형이면
+그걸 그대로 판단에 쓸 것):
+- 예시: 순간형(발음이 꼬이거나 표정이 굳기 직전의 찰나), 스토리형(서사의 긴장 지점),
+  결과형(원리를 터득해 술술 읽히는 이상적 상태), 변화형(엉터리 발음 → 원어민 발음 도달 과정),
+  참신형(당연하게 믿던 발음 상식이 깨지는 충격) 등.
+여러 시안을 함께 진단할 때 전부 비슷한 유형으로 쏠려 있으면 weaknesses에 "다른 시안과
+유형이 겹친다"고 자유롭게 지적해도 좋다(1개 시안만 진단할 때는 해당 없음).
+
 'aiTitleSuggestions' 5개는 반드시 아래 규칙을 지킬 것:
 1. **정답/핵심 메커니즘 노출 금지 — 'title'뿐 아니라 'thumbnailHeadline'도 똑같이 적용된다**
    (2026-09-14 강화 — 실제로 "겹모음 뒤는 버리세요"라는 headline이 나온 사례가 있었다: 이건
@@ -585,7 +596,7 @@ ${isShorts ? `- **쇼츠 9:16 세로형 특화**:
       "type": "이 소재에 맞는 심리적 각도명 — 이모지 1개+한글 2~4단어 라벨 (규칙 10의 참고 목록은 예시일 뿐, 그대로 베끼지 말고 이 소재에 맞게 새로 지을 것. 5개 전부 서로 다른 각도)",
       "title": "모바일 맨 앞 10~15자는 점잖은 모범생 설명 금지! 시청자의 과거 망신살·배신감·상식 붕괴를 팍 찌르는 감정 타격감 훅으로 시작하고, 이어서 25자 부근까지 구체적 상황(이번 소재의 핵심 단어/철자)을 자연스러운 한 문장으로 연결. 맨 끝엔 '|'로 [검증된 자동완성 키워드 + 이번 소재 구체어] 1타 4피 융합 롱테일 검색어 추가 (전문용어 금지, 시청자 입말 사용).",
       "thumbnailHeadline": "공부책/강의 냄새 절대 금지! 시청자가 당연하게 믿던 상식이 박살 나는 순간의 혼잣말·배신감·충격 의문문(예: '\"-ate\" 아니었어?', '철자 같은데 전혀 딴판', '설마 다 읽었나요?')으로 조사를 뺀 3~4단어로 극도로 압축해 0.1초 만에 스크롤을 멈추는 시각적 스턴건. title과 핵심 키워드를 공유해도 되지만 압축형이어야 함.",
-      "designConcept": "추상적 3D 오브젝트(열쇠, 자물쇠 등) 클리셰 절대 금지! 채널 공식 아바타 호스트의 '헐...! 진짜?' 충격 표정 또는 머리를 짚는 제스처 + 핵심 단어(예: ESTIM[ATE])에서 소리가 갈라지거나 충돌하는 직관적 비주얼 대조(붉은 물음표 '?' 등)로 0.1초 만에 궁금증을 폭발시키는 시각적 드라마 컨셉 한 줄",
+      "designConcept": "2026-09-29 확정 — 이 필드는 오직 채널 공식 아바타 호스트의 표정·제스처만 묘사한다(예: '입술에 검지를 대는 쉿 포즈로 눈웃음', '두 손을 번쩍 들며 아하! 하는 표정'). 앵커 단어(예: -ATE, City) 자체나 그 주변에 겹치는 그 어떤 추가 그래픽도 절대 금지 — 3D 오브젝트(열쇠·자물쇠 등)뿐 아니라 돋보기·번개·물음표·충돌 이펙트·글자를 감싸는 도형·글자가 휘거나 찌그러지는 연출 전부 금지다. 이 채널의 실제 확정 썸네일(-ate, City 등)은 앵커 단어가 흰 글자+검은 테두리로 배경 위에 평평하게 있을 뿐, 그 위에 아무것도 얹지 않는다 — 이 필드가 프롬프트에 그대로 주입돼 이미지 생성을 좌우하므로, 여기 장면/소품을 적으면 그대로 화면에 나타난다(실측 확인됨: '붉은 물음표'류 예시 때문에 돋보기+번개, 3D 샌드위치 블록 등이 실제로 생성됨).",
       "midjourneyPrompt": "${isShorts ? 'Clean vertical visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k ultra-high resolution, 9:16 --ar 9:16 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0' : 'Clean horizontal visual artwork for English pronunciation education, dark cyber-hud deep navy ambient background, minimalist graphic layout, copy space for Korean text, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0'}(이 title 고유의 비주얼 요소로 구체화해서 다시 쓸 것 — 5개 프롬프트가 서로 달라야 함)"
     },
     {
@@ -789,7 +800,7 @@ export async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }
 // 실제 생성에 쓰는 것과 정확히 같은 프롬프트를 만들어야, 사용자가 "프롬프트만 복사해서 제미나이
 // 웹(유료 구독)에 직접 붙여넣는" 경로와 API 자동 생성 경로가 서로 다른 결과를 내지 않는다 —
 // 그래서 별도로 다시 쓰지 않고 두 경로가 이 함수 하나를 공유한다.
-export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', format = 'LONGFORM', hasPersonReference = false, visualConcept = '' }) {
+export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', format = 'LONGFORM', hasPersonReference = false, visualConcept = '', closeUp = false }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
   const rawText = (title || topic || '10초 영어 읽기 테스트').trim();
@@ -846,65 +857,54 @@ export function buildThumbnailPrompt({ topic = '', variantKey = 'A', title = '',
   // 워크벤치 상태(title 없음, 데모 폴백을 쓰는 중)일 때만 보여준다.
   const useCards = !title.trim();
 
-  // 2026-09-14: 사용자가 호스트를 가리키는 화살표+정체성 라벨(채널 정체성 장치)을 요청 —
-  // 처음엔 후보 3개를 전부 항상 보여주는 안으로 갔다가, 실제 생성 이미지 2장(나노바나나·챗GPT
-  // 둘 다)을 직접 비교해보니 작은 썸네일 크기에서 라벨 3개가 다 읽히기 힘들고 헤드라인과 시선을
-  // 두고 경쟁하는 문제가 확인돼, 후보 3개 중 소재에 맞는 2개만 AI가 골라 쓰는 방식으로 확정.
-  // 화살표 스타일도 "손그림+찢어진 종이"로 지시했지만 두 엔진 다 깔끔한 인쇄 태그+심플한 벡터
-  // 화살표로 수렴했고, 그 결과가 신뢰형 톤(3060 성인 타깃)에 오히려 더 잘 맞아서 그대로 밀고
-  // 가기로 확정(사용자 확인 완료) — "손그림/찢어진 종이"를 강제하는 문구는 더 이상 안 쓴다.
-  const heroLabelCandidates = [
-    '영어 기초 1도 없이 시작한 사람',
-    '영상 만들면서 공부하는 사람',
-    '외우기 싫어하고 외워도 금방 까먹는 사람',
-  ];
+  // 2026-09-29: 위의 "인물 정체성 화살표 태그(hero identity callout)"와 "AI가 매번 새 장면/소품을
+  // 지어내는 배경" 두 아이디어는 전부 폐기한다. EP18~20에서 실제로 제작·CTR 테스트까지 거쳐 채택된
+  // 최종 썸네일(`videos/ep19-ate-suffix/thumbnail-c.jpg`, `thumbnail-close-up.jpg` 등)을 직접
+  // 픽셀로 열어 대조해보니 이 두 요소가 전혀 없었다 — 화살표 태그도, 지어낸 배경/소품 장면도
+  // 없이 (1) 무지 크림색 배경, (2) 앵커 단어(예: "-ate")를 흰 글자+검은 테두리로 한 줄,
+  // (3) 그 아래 나머지 문구 전체를 담은 골드색 알약(pill) 캡슐 한 개, (4) 실사 인물이 그 옆에서
+  // 표정으로 반응하는 구도, 이 4개뿐이었다. 대시보드 자동 생성 코드가 실제 채널 표준 디자인과
+  // 계속 어긋나 있었던 것(사용자가 2026-09-29 직접 지적) — 이제 이 4요소로 통일한다.
+  //
+  // 텍스트도 하나의 headline 안에서 "1~2단어만 칩 배경"이 아니라, 완전히 분리된 두 줄이다:
+  // 위쪽 줄(anchor)은 이 소재의 핵심 단어/패턴(예: "-ate", "World", "KN-")만 담아 배경 없이
+  // 흰 글자+검은 테두리로 크게, 아래쪽 줄(pill)은 thumbnailHeadline 문구 전체를 골드 알약
+  // 안에 검은 글자로 담는다. 어느 게 anchor인지는 AI가 topic/title에서 직접 골라야 한다 —
+  // 코드로 문자열을 잘라내는 건 언어적 판단(어떤 단어가 이 영상의 핵심 패턴인지)이 필요해서
+  // 규칙 기반으로는 못 한다.
+  const anchorSource = (title || topic || '').trim();
 
-  // 2026-09-02엔 "인물 위치·거리·오려내기는 자유롭게 판단하라"고만 시켰더니 실제로는 거의
-  // 항상 같은 기본값(오른쪽·클로즈업)으로 수렴하는 문제가 실측으로 확인돼서, 그때는 코드가
-  // Math.random()으로 고정 목록 중 하나를 강제 배정하는 방식으로 바꿨었다.
-  // 2026-09-14: 배경/장면 자체를 고정 템플릿에서 "이 소재의 상황을 보여주는 구체적 장면을
-  // 직접 판단"으로 바꾼 뒤(이 함수의 BACKGROUND & SCENE 문단), `test-prompts/
-  // thumbnail-test-v5-freeform-hero-placement.md`로 위치·거리·오려내기도 다시 자유 판단으로
-  // 테스트 — 장면 자체가 소재마다 달라지니 인물 배치도 그 장면에 맞춰 자연스럽게 달라지는 걸
-  // 실제 생성으로 확인(사용자 확인 완료). 그래서 이번엔 강제 배열 없이 프롬프트 문장으로만
-  // "이 장면에 맞게 직접 정하라"고 지시한다 — 다시 한쪽으로 쏠리면 이 커밋을 되돌리고 강제
-  // 배정으로 복귀할 것.
-
-  const prompt = `A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), ${isShorts ? '9:16 vertical shorts cover' : '16:9 horizontal'}, on the topic "${rawText}".
+  const prompt = `A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), ${isShorts ? '9:16 vertical shorts cover' : '16:9 horizontal'}, on the topic "${rawText}". This must match the channel's established, CTR-tested house style exactly — do not invent a different look.
 
 === TEXT CONTENT (render each quoted string below exactly character-for-character — do not substitute, merge, reorder, or invent a single character) ===
-- Headline — ${headlineLines.length === 2 ? 'two separate lines' : 'one line (wrap naturally across 2 lines only if it does not fit on one)'}, massive bold letters, 3-4 words only — this is the ENTIRE text content of the thumbnail, not a slogan to explain the video: ${headlineLines.map((l) => `"${l}"`).join(' / ')}
-- Hero identity callout — TWO small paper-note tag labels placed near the hero, each connected to the hero by a simple, bold red arrow (a clean, printed style — not a loose hand sketch) pointing at a different point on the hero (e.g., their cap, shoulder) so the two arrows never cross or overlap. Each tag holds one short line of dark text on a light background, clearly smaller than the headline — a supporting identity note, not a second headline. From the three identity labels below, pick exactly TWO that fit this specific topic best — one per arrow — do not invent a different line and do not use all three: ${heroLabelCandidates.map((l) => `"${l}"`).join(', ')} (pick the first when in doubt — it fits almost any topic — and pick the third whenever the topic is about a rule or shortcut that replaces rote memorization; pick the second only for topics with a behind-the-scenes, process-sharing feel).
-${useCards ? `- Secondary info cards near the bottom, three short items: "${card1}", "${card2}", "${card3}"\n` : ''}Do not render any text other than the strings quoted above — no badge, no bottom caption, no channel name, no logo, no watermark, no UI mockup text, no extra labels, no duplicated copies of any string.
+- Anchor line — a very short (1-3 word) anchor for this topic's specific pattern/word/rule, inferred from this context: "${anchorSource || rawText}". Pick the single most recognizable word, suffix, or short rule name this whole video is about (e.g., a specific English suffix like "-ate", a specific tricky word like "World", or a short pattern label like "KN-") — not a sentence, not the full title. Render it standalone, massive, on its own line.
+- Pill phrase — a short reaction/hook phrase (3-6 words), rendered as the ENTIRE content of a single solid-colored rounded pill/capsule shape directly below the anchor line: ${headlineLines.map((l) => `"${l}"`).join(' / ')}
+${useCards ? `- Secondary info cards near the bottom, three short items: "${card1}", "${card2}", "${card3}"\n` : ''}Do not render any text other than the strings quoted above — no badge, no bottom caption, no channel name, no logo, no watermark, no UI mockup text, no extra labels, no duplicated copies of any string, and no hero identity tags or arrow callouts of any kind.
 
-=== BACKGROUND & SCENE (you decide — no fixed template) ===
-Invent a concrete, specific scene or prop that visually shows the exact "mistake / confusion / realization" moment this topic is about — the viewer should be able to guess the general situation just from the image, before reading any text. Use whatever object, setting, or visual device genuinely fits this specific topic (a notebook page, a chalkboard, a handwritten note, a phone screen, a printed word, a classroom prop, a close-up detail — anything is fair game, old-school or modern). The one hard requirement is that it must look like a genuinely designed, sophisticated photograph — a specific, named lighting technique (e.g., "a single warm practical desk-lamp from camera-left casting a soft pool of light and gentle shadow," "diffused overcast window light from behind," "a three-point studio softbox setup with a cool rim light") and a considered color harmony, not a vague "nice lighting" — never a generic, low-effort AI-generated image (flat even lighting, a random gradient glow for its own sake, a cliché stock-photo arrangement). Infer the emotional register of the headline text above (warm and nostalgic, bright and energetic, cool and modern, urgent, calm — whatever it actually is) and choose a mood and color palette that genuinely fits it — do not default to any single fixed palette regardless of topic (2026-09-14: this replaces a fixed dark-navy-with-cyan/magenta-glow background that was used for every topic and every mood, and a fixed per-variant "mood" label that ignored the actual headline — a warm, personal headline was getting cold neon lighting because the variant slot said so).
-
-CRITICAL — do not let the scene explain the answer: any mark or detail in the scene may show THAT something is wrong or resolved (e.g., a red strikethrough, an X, a circle around one letter, a checkmark) but must NOT spell out the correct pronunciation, a phonetic transcription, or any written explanation of why/how it works. The scene should raise the question, not answer it — exactly like the headline text does.
-
-CRITICAL — anchor the scene to real words/examples, not a generic "knowledge" metaphor (2026-09-14: real generations kept drifting into clichés like an ancient locked book or stack of old paper glowing with mystical light — visually striking but disconnected from the actual topic, physically nonsensical (why would a locked book emit light?), and generic enough to fit literally any educational video). The scene must include an actual word or example this specific topic is about (e.g., real English words relevant to this exact pronunciation rule), written or displayed somewhere in the prop. Avoid abstract "unlocking wisdom" imagery (glowing locked books, magical light bursts, treasure chests, keys/locks with no real-world reason to be there) — these could illustrate any topic and show nothing about what this video actually teaches. Every element in the scene should have a plausible, real-world reason for looking the way it does; if you can't explain why the object would realistically look that way, choose a different, more grounded scene.
-${visualConcept.trim() ? `\nConcept direction for this specific variant (work this into the scene — extra graphic elements, color accents, iconography, framing choices — without breaking any rule stated above, especially the Hero identity, text-accuracy, and no-answer-reveal rules): ${visualConcept.trim()}\n` : ''}
-Before finalizing, briefly commit (in your own internal reasoning, not rendered as text) to: what specific object or scene you chose, why it visually implies the situation without any explanation text, and the exact lighting technique and color treatment you are using (name it specifically, the way a cinematographer would) to make it look intentionally designed rather than generic.
-
+=== BACKGROUND (fixed — do not invent a scene, do not add props) ===
+Use a plain, evenly and softly lit single warm cream/beige backdrop (like a clean seamless photo-studio background) across the ENTIRE frame — this is the channel's actual established look, confirmed across its real published thumbnails. Do NOT invent a scene, a prop, a classroom object, a phone mockup, a chalkboard, or any set dressing — the only things in the frame are the plain backdrop, the two text elements above, and the hero. All visual attention must stay on the anchor word, the pill phrase, and the hero's genuine expression.
+${visualConcept.trim() ? `\nConcept direction for this specific variant (apply only through the hero's expression/gesture or minor color choices — never by adding a background scene, prop, or extra text): ${visualConcept.trim()}\n` : ''}
 Hero: ${
     hasPersonReference
       ? `the exact same person's face shown in the attached reference image — same facial identity and features, clearly recognizable as this person. Freely vary their hairstyle and facial hair from what is shown in the reference image — only the face must match. Dress them in the EXACT SAME outfit shown in the reference image — the same navy baseball cap and black t-shirt, each printed with the same small colorful vertical-bar sound-wave icon exactly as shown (icon only, no text on the cap or shirt) — this is the channel's fixed signature uniform, do not substitute a different outfit, different colors, or a different logo`
       : 'a photorealistic Korean adult (20s-40s)'
-  }, with a genuine, expressive reaction that fits the scene and the headline's emotional register (realization, quiet confidence, warmth, energy — whatever actually fits), their eyes and gaze directed toward the headline text rather than straight at the camera — as if they just reacted to reading it, lit consistently with whatever lighting treatment you chose for the scene above (not a fixed color), freely choosing whichever silhouette treatment suits your chosen composition better: cut out along an irregular torn-paper silhouette following their head and shoulders with a slightly rough paper-fiber edge texture (not a smooth sticker outline), OR bleed directly to the frame edge with a soft dark vignette and no visible border.
+  }, photographed naturally against the plain backdrop (no cutout sticker border, no torn-paper silhouette, no vignette) — a normal photographic crop that can bleed off the frame edge, with a genuine, expressive reaction/gesture that fits the pill phrase's emotional register (realization, playful warning, quiet confidence, amusement — whatever actually fits this specific phrase), eyes and gaze directed toward the text rather than straight at the camera, as if they just reacted to reading it.
 
-Composition: this is a ${isShorts ? '9:16 vertical' : '16:9 horizontal'} frame. Freely decide the hero's position (left/right/center/top/bottom — whichever makes THIS headline easiest to read and best complements the scene you invented), camera distance (close-up / medium / waist-up), and camera angle, along with a lens character that fits the scene (e.g., "an 85mm portrait lens with shallow depth of field," "a wide 35mm lens keeping both hero and prop in sharp focus," "a macro lens tight on the prop with the hero softly out of focus behind it") — pick whichever lens best matches the scene you invented. Arrange the headline${useCards ? ' and cards' : ''} freely within the remaining space — pick whatever exact layout best fits THIS specific headline length${useCards ? ' and card count' : ''}. The hero and the background scene/prop should feel like they belong in the same physical space (e.g., the hero is reacting to or near the object, not just floating in front of an unrelated backdrop). Treat the hero photo and every text block as separate, non-intersecting regions with a visible gap of empty background between them, the way a clean infographic keeps its photo and its text in distinct zones — never let the hero's head, hair, or shoulders cross in front of or behind any letter. Position the two hero identity callouts (tag + red arrow, each) near the hero without overlapping the hero, the headline, the highlighted chip, or each other — small supporting zones, not a wall of text. Before finalizing, check every line of text and confirm no part of it is covered, thinned, or interrupted by the hero photo; if it would be, shrink or move the hero instead of the text.
+Composition: this is a ${isShorts ? '9:16 vertical' : '16:9 horizontal'} frame. ${closeUp ? `This is the dedicated MOBILE CLOSE-UP variant (thumbnail-close-up.jpg) — camera distance and hero size are NOT free choices here: render an extreme close-up where the hero's face and shoulders fill at least 40-50% of the frame width, positioned to one side (left or right, whichever leaves the anchor/pill text more room), with their expression (eyes and mouth) exaggerated and instantly readable even when this image is shrunk to ~100px wide in a mobile feed. Use a tight portrait lens look (shallow depth of field, face in sharp focus).` : `The hero sits to one side (left or right, whichever fits better) at a medium-to-close, waist-up-or-tighter distance — this channel's real thumbnails keep the hero large and clearly readable, not a small figure in a big scene. Pick a natural portrait lens look (shallow depth of field).`} The anchor line and pill phrase stack vertically on the open side, each sized to fill the available width. Treat the hero photo and the text block as separate, non-intersecting regions with a visible gap of empty background between them — never let the hero's head, hair, or shoulders cross in front of or behind any letter. Before finalizing, check every line of text and confirm no part of it is covered, thinned, or interrupted by the hero photo; if it would be, shrink or move the hero instead of the text.
 
-Typography: use a clean, bold, heavy sans-serif font throughout for maximum legibility, rendered as sharp, stylized, infographic-quality text (not painterly or hand-lettered), with a heavy black outline for contrast so it stays readable against whatever background scene you chose. The headline itself is already compressed to 3-4 words — a visual "stun gun," not a sentence to persuade with — so treat every word in it as important. Within it, pick the single most important 1-2 word phrase — the sharpest word(s) — and render just those with a solid warm-yellow (#F5C518) background chip directly behind the letters (dark navy or black lettering on the yellow chip, not yellow lettering); every other word stays plain white with the black outline. This highlighted-phrase chip must appear exactly once somewhere in the headline — never skip it and never apply it to more than one phrase. Each hero identity callout's single line uses the same clean sans-serif family but noticeably smaller and without the yellow highlight chip — it reads as a supporting aside near the hero, not a second headline.
+Typography: use a clean, bold, heavy sans-serif font throughout for maximum legibility, rendered as sharp, stylized, infographic-quality text (not painterly or hand-lettered), with a heavy black outline. The anchor line is FLAT plain white lettering with the black outline ONLY — nothing else is added to it. The pill phrase is different: render it entirely inside one solid warm-yellow (#F5C518) rounded capsule/pill shape (black or dark navy bold lettering on the yellow pill, not yellow lettering, with a black outline around the pill itself) — the whole phrase sits inside the pill, not just 1-2 words of it.
+
+NEGATIVE for the anchor line (2026-09-29 — a real generation via this exact prompt came back with a glowing neon sign treatment and circuit-board lines behind the letters, which is not this channel's style at all): do NOT put the anchor line inside a box, panel, or chip of any color. Do NOT add a glow, neon light, drop shadow, backlight, or halo around the letters. Do NOT add circuit-board lines, tech/HUD patterns, sparkles, or any decorative background motif behind or around the letters. Do NOT render the letters with a 3D, embossed, chrome, or metallic look, or a gradient fill. The anchor line must look exactly as flat and plain as text printed directly on paper — white fill, black outline, nothing behind it but the plain cream backdrop.
 
 CRITICAL TEXT ACCURACY: every string in the TEXT CONTENT section must be spelled out exactly, letter by letter, with correct Korean/English characters — do not invent, substitute, or garble any character. If unsure how to render a word clearly, make it larger and simpler rather than risk misspelling it.
 
-Style: ultra-realistic, sharp focus, high detail — the human subject and the scene/prop must look like a real photograph, not an illustration or 3D render. No watermark, no fake phone or browser UI, no stock-photo text, no crude cartoon doodles.`;
+Style: ultra-realistic, sharp focus, high detail — the human subject must look like a real photograph, not an illustration or 3D render. No watermark, no fake phone or browser UI, no stock-photo text, no crude cartoon doodles.`;
 
   const expectedTexts = [...headlineLines, ...(useCards ? [card1, card2, card3] : [])].filter(Boolean);
   return { prompt, expectedTexts, variantKey: vKey, isShorts };
 }
 
-export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', format = 'LONGFORM', engine = 'flux', geminiKey, visualConcept = '' }) {
+export async function generateAiThumbnailImage({ prompt, topic = '', variantKey = 'A', title = '', thumbnailHeadline = '', format = 'LONGFORM', engine = 'flux', geminiKey, visualConcept = '', closeUp = false }) {
   const isShorts = format === 'SHORTS' || String(format).toLowerCase().includes('short');
   const vKey = String(variantKey || 'A').toUpperCase();
 
@@ -925,7 +925,7 @@ export async function generateAiThumbnailImage({ prompt, topic = '', variantKey 
   // 1. PRIMARY PATH: 진짜 이미지 생성 모델(나노바나나). 커스텀 프롬프트면 그대로, 아니면 변형별
   //    무드를 자연어 브리프로 번역 — 실제 이미지 모델은 SVG 마크업 작성법을 몰라도 되고 알 필요도 없다.
   if (geminiKey && geminiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
-    const built = useCustomPrompt ? null : buildThumbnailPrompt({ topic, variantKey: vKey, title, thumbnailHeadline, format, hasPersonReference: !!personReference, visualConcept });
+    const built = useCustomPrompt ? null : buildThumbnailPrompt({ topic, variantKey: vKey, title, thumbnailHeadline, format, hasPersonReference: !!personReference, visualConcept, closeUp });
     const creativeDirection = useCustomPrompt ? customPrompt : built.prompt;
     // 텍스트 정확도는 diffusion 특성상 매번 다르게 나온다(같은 프롬프트로도 성공/실패가 갈림,
     // 2026-09-01 실측). 그래서 프롬프트 튜닝만으론 신뢰 못 하고, 생성 후 Gemini Vision으로
@@ -965,7 +965,7 @@ export async function generateAiThumbnailImage({ prompt, topic = '', variantKey 
 
     if (lastResult) {
       return await persistGeneratedImage({
-        engineLabel: useCustomPrompt ? `Nano Banana Custom Prompt (${lastResult.model}, Variant ${vKey})` : `Nano Banana Studio (${lastResult.model}, Variant ${vKey})`,
+        engineLabel: useCustomPrompt ? `Nano Banana Custom Prompt (${lastResult.model}, Variant ${vKey})` : `Nano Banana Studio (${lastResult.model}, Variant ${vKey}${closeUp ? ', Close-up' : ''})`,
         dataUrl: `data:${lastResult.mimeType};base64,${lastResult.base64}`,
         variantKey: vKey,
       });

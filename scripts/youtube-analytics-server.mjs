@@ -2506,6 +2506,13 @@ let gAbFeedSlotIndex = 0; // 0 to 6 (Exact slot position in mobile feed)
 let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale'
 let gAbAiReport = null;
 let gAbSelectedVariantTab = 'A'; // 'A' | 'B' | 'C'
+// 클로즈업 전용 4번째 썸네일(thumbnail-close-up.jpg) — A/B/C 시안과 별개로 저장한다.
+// knowledge/thumbnail-strategy.md의 "클로즈업 썸네일은 대시보드 예상 CTR %가 가장 높은
+// 시안을 선택해 제작한다"(2026-09-20 확정) 규칙이 그동안 코드로는 강제되지 않고 사람이
+// 매번 화면의 %를 손으로 읽어 옮기는 방식이었다 — 이제 버튼 하나로 bestVariant의 문구를
+// 그대로 가져다 클로즈업 전용 구도로 생성한다(2026-09-29).
+let gAbCloseUpImageUrl = '';
+let gAbCloseUpSourceVariant = ''; // 이 클로즈업이 어느 시안 문구로 만들어졌는지 기록
 
 let gAbStateSyncTimer = null;
 let gAbStateSyncFailedNotified = false;
@@ -2521,6 +2528,8 @@ function saveAbSimulatorState() {
     selectedVariantTab: gAbSelectedVariantTab,
     visionFilter: gAbVisionFilter,
     aiReport: gAbAiReport,
+    closeUpImageUrl: gAbCloseUpImageUrl,
+    closeUpSourceVariant: gAbCloseUpSourceVariant,
   };
   // localStorage는 같은 탭에서만 쓰는 빠른 캐시일 뿐, 진짜 저장소는 서버 파일이다 — 이 저장이
   // 실패해도(예: 용량 초과) 서버 동기화는 반드시 계속 시도해야 한다. 예전엔 이 둘이 같은 try
@@ -2575,6 +2584,8 @@ async function hydrateAbSimulatorFromServer() {
       if (state.selectedVariantTab) gAbSelectedVariantTab = state.selectedVariantTab;
       if (state.visionFilter) gAbVisionFilter = state.visionFilter;
       if (state.aiReport) gAbAiReport = state.aiReport;
+      if (state.closeUpImageUrl) gAbCloseUpImageUrl = state.closeUpImageUrl;
+      if (state.closeUpSourceVariant) gAbCloseUpSourceVariant = state.closeUpSourceVariant;
       try { localStorage.setItem('ihm_ab_simulator_state', JSON.stringify(state)); } catch (_) {}
     }
   } catch (err) {
@@ -2612,6 +2623,8 @@ function loadAbSimulatorState() {
       if (state.selectedVariantTab) gAbSelectedVariantTab = state.selectedVariantTab;
       if (state.visionFilter) gAbVisionFilter = state.visionFilter;
       if (state.aiReport) gAbAiReport = state.aiReport;
+      if (state.closeUpImageUrl) gAbCloseUpImageUrl = state.closeUpImageUrl;
+      if (state.closeUpSourceVariant) gAbCloseUpSourceVariant = state.closeUpSourceVariant;
     }
   } catch (err) {
     console.warn('Failed to load A/B simulator state:', err);
@@ -6489,6 +6502,27 @@ function renderAbSimulatorTab() {
             '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">🎨 비주얼 컨셉 힌트 (AI 5종의 "텍스트 적용" 시 자동 채워짐 — 생성 프롬프트에 실제로 반영됨)</div>' +
             '<input type="text" id="input-ab-variant-visual" value="' + esc(currentVariant.visualConcept || '') + '" placeholder="예: 상단에 큰 X표시로 오답 강조, 좌우 대비 구도" style="width:100%">' +
           '</div>' +
+
+          /* 모바일 클로즈업 전용 4번째 썸네일 — knowledge/thumbnail-strategy.md의 "클로즈업
+             썸네일은 대시보드 예상 CTR %가 가장 높은 시안을 선택해 제작한다"(2026-09-20 확정)
+             규칙을 코드로 강제한다. 예전엔 이 규칙이 문서에만 있고, 사람이 CTR 진단 화면을 보고
+             1위 시안 문구를 손으로 옮겨 별도 생성해야 했다(2026-09-29 사용자 확인으로 발견) —
+             이제 report.bestVariant를 그대로 읽어 그 시안의 title/headline/visualConcept로
+             클로즈업 전용 구도(얼굴 40~50%, 배경 장면 없음)를 자동 생성한다. */
+          '<div style="margin-top:14px; padding-top:14px; border-top:1px dashed var(--border-subtle);">' +
+            '<div style="font-size:11px; font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">📱 모바일 전용 클로즈업 (thumbnail-close-up.jpg)</div>' +
+            '<div class="card-subtext" style="margin-bottom:8px;">' + (report && report.bestVariant ? ('CTR 진단 1위 시안(<b>' + esc(report.bestVariant) + '</b>)의 문구를 그대로 가져다 얼굴 클로즈업 전용 구도로 생성합니다 — 채널 규칙(2026-09-20)이 코드로 강제 적용됩니다.') : '먼저 🚀 Gemini AI CTR 정밀 진단을 실행해 1위 시안을 확정하세요.') + '</div>' +
+            '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
+              '<button class="btn btn-sm btn-cyan" id="btn-ab-generate-closeup"' + (report && report.bestVariant ? '' : ' disabled') + ' style="' + (report && report.bestVariant ? '' : 'opacity:0.4; cursor:not-allowed;') + '">🔎 1위 시안(' + esc(report && report.bestVariant ? report.bestVariant : '?') + ')로 클로즈업 생성</button>' +
+              '<button class="btn btn-sm btn-cyan" id="btn-ab-copy-closeup-prompt"' + (report && report.bestVariant ? '' : ' disabled') + ' style="' + (report && report.bestVariant ? '' : 'opacity:0.4; cursor:not-allowed;') + '" title="API 비용 없이 클로즈업 전용 프롬프트를 복사해서 gemini.google.com(제미나이 유료 구독)에 직접 붙여넣어 생성할 수 있습니다">📋 클로즈업 프롬프트만 복사</button>' +
+            '</div>' +
+            (gAbCloseUpImageUrl ?
+              '<div style="margin-top:8px; display:flex; gap:10px; align-items:flex-start;">' +
+                '<img src="' + esc(gAbCloseUpImageUrl) + '" style="width:120px; aspect-ratio:16/9; object-fit:cover; border-radius:6px; background:#000;">' +
+                '<div style="font-size:10px; color:var(--text-muted);">시안 ' + esc(gAbCloseUpSourceVariant || '?') + ' 문구로 생성됨.<br><a href="' + esc(gAbCloseUpImageUrl) + '" download="thumbnail-close-up.jpg" style="color:var(--accent-cyan);">⬇️ thumbnail-close-up.jpg로 다운로드</a></div>' +
+              '</div>'
+              : '') +
+          '</div>' +
         '</div>' +
       '</div>' +
     '</div>' +
@@ -7266,6 +7300,57 @@ function bindAbSimulatorEvents() {
     };
   }
 
+  // 모바일 클로즈업(thumbnail-close-up.jpg) 1-Click 생성 — CTR 1위 시안(report.bestVariant)의
+  // title/thumbnailHeadline/visualConcept를 그대로 가져다 closeUp:true로 생성한다. A/B/C 탭의
+  // imageUrl은 건드리지 않고 별도의 gAbCloseUpImageUrl에만 저장한다(2026-09-29).
+  const closeUpBtn = document.getElementById('btn-ab-generate-closeup');
+  if (closeUpBtn) {
+    closeUpBtn.onclick = async () => {
+      const bestKey = gAbAiReport && gAbAiReport.bestVariant;
+      if (!bestKey) return;
+      const bestVar = gAbVariants.find(v => v.id === bestKey);
+      if (!bestVar) {
+        showToast('❌ 1위 시안(' + bestKey + ')의 시안 데이터를 찾을 수 없습니다.');
+        return;
+      }
+      const originalText = closeUpBtn.innerHTML;
+      closeUpBtn.disabled = true;
+      closeUpBtn.innerHTML = '⏳ 클로즈업 렌더링 중...';
+      try {
+        showToast('🔎 CTR 1위 시안(' + bestKey + ') 문구로 모바일 클로즈업을 생성 중입니다... (약 10~15초)');
+        const res = await fetch('/api/ab-simulator/generate-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: '',
+            variantKey: bestKey,
+            title: bestVar.title || gAbTopic || '',
+            thumbnailHeadline: bestVar.thumbnailHeadline || '',
+            topic: gAbTopic || bestVar.title || '',
+            format: gAbFormat,
+            engine: 'gemini',
+            visualConcept: bestVar.visualConcept || '',
+            closeUp: true,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '클로즈업 생성 실패');
+        gAbCloseUpImageUrl = data.imageUrl;
+        gAbCloseUpSourceVariant = bestKey;
+        saveAbSimulatorState();
+        renderAbSimulatorTabDirect();
+        showToast('🎉 1위 시안(' + bestKey + ') 문구로 thumbnail-close-up.jpg가 생성되었습니다!');
+      } catch (err) {
+        showToast('❌ 클로즈업 생성 오류: ' + err.message);
+      } finally {
+        if (closeUpBtn) {
+          closeUpBtn.disabled = false;
+          closeUpBtn.innerHTML = originalText;
+        }
+      }
+    };
+  }
+
   // 제미나이 유료 구독으로 직접(API 비용 없이) 생성하고 싶을 때 — 실제 자동 생성과 똑같은
   // 프롬프트를 서버에서 받아와 복사만 해준다(이미지 생성 자체는 안 함).
   const wbCopyPromptBtn = document.getElementById('btn-ab-copy-workbench-prompt');
@@ -7320,6 +7405,73 @@ function bindAbSimulatorEvents() {
       } finally {
         wbCopyPromptBtn.disabled = false;
         wbCopyPromptBtn.innerHTML = originalText;
+      }
+    };
+  }
+
+  // 클로즈업(thumbnail-close-up.jpg) 전용 프롬프트만 복사 — 위 wbCopyPromptBtn과 똑같은
+  // "API 비용 없이 gemini.google.com에 직접 붙여넣기" 경로인데, closeUp:true를 안 보내면
+  // 일반 A/B/C용 프롬프트(배경 장면 + 정체성 태그 2개)가 그대로 나가버린다(2026-09-29,
+  // 사용자가 이 버튼으로 만든 결과물에서 실제로 확인 — 클로즈업 강제 구도가 전혀 반영 안 됨).
+  const closeUpCopyBtn = document.getElementById('btn-ab-copy-closeup-prompt');
+  if (closeUpCopyBtn) {
+    closeUpCopyBtn.onclick = async () => {
+      const bestKey = gAbAiReport && gAbAiReport.bestVariant;
+      if (!bestKey) return;
+      const bestVar = gAbVariants.find(v => v.id === bestKey);
+      if (!bestVar) {
+        showToast('❌ 1위 시안(' + bestKey + ')의 시안 데이터를 찾을 수 없습니다.');
+        return;
+      }
+      const originalText = closeUpCopyBtn.innerHTML;
+      closeUpCopyBtn.disabled = true;
+      closeUpCopyBtn.innerHTML = '⏳ 준비 중...';
+      try {
+        const res = await fetch('/api/ab-simulator/thumbnail-prompt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            variantKey: bestKey,
+            title: bestVar.title || gAbTopic || '',
+            thumbnailHeadline: bestVar.thumbnailHeadline || '',
+            topic: gAbTopic || bestVar.title || '',
+            format: gAbFormat,
+            visualConcept: bestVar.visualConcept || '',
+            closeUp: true,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '프롬프트 생성 실패');
+
+        const promptText = data.prompt || '';
+        const copyViaExecCommand = () => {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = promptText;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            const ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(ok ? '📋 클로즈업 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.' : '❌ 복사에 실패했습니다.');
+          } catch (err) {
+            showToast('❌ 복사에 실패했습니다.');
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(promptText)
+            .then(() => showToast('📋 클로즈업 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.'))
+            .catch(() => copyViaExecCommand());
+        } else {
+          copyViaExecCommand();
+        }
+      } catch (err) {
+        showToast('❌ 프롬프트 준비 오류: ' + err.message);
+      } finally {
+        closeUpCopyBtn.disabled = false;
+        closeUpCopyBtn.innerHTML = originalText;
       }
     };
   }
@@ -8663,6 +8815,7 @@ const server = createServer(async (req, res) => {
           format: body.format || 'LONGFORM',
           hasPersonReference: await hasPresenterReference(),
           visualConcept: body.visualConcept || '',
+          closeUp: !!body.closeUp,
         });
         return json(res, 200, {ok: true, prompt: built.prompt});
       } catch (err) {
@@ -8683,6 +8836,7 @@ const server = createServer(async (req, res) => {
           engine: body.engine || 'flux',
           geminiKey,
           visualConcept: body.visualConcept || '',
+          closeUp: !!body.closeUp,
         });
         return json(res, 200, {ok: true, ...result});
       } catch (err) {

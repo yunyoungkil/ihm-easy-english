@@ -5,134 +5,137 @@
   "variants": [
     {
       "id": "A",
-      "title": "설마 아직도 티 소리 다 내시나요? 미국인이 단어 중간 T를 흘려버리는 까닭 | 영어 소리 원리",
-      "imageUrl": "",
-      "thumbnailHeadline": "설마 다 소리 냈나요?",
-      "visualConcept": "단어 'WATER'가 입체적인 유리 블록으로 부서지듯 희미해지는 시각 효과와 함께, 경고등 같은 차분한 앰버 오렌지 조명이 호스트의 진지한 시선에 떨어지는 비주얼",
-      "isLocalFile": false,
+      "title": "사전 찾아보고 배신감 느꼈습니다, City를 '시티'로 읽으면 절대 못 알아듣는 이유 | 영어 T 발음 원리",
+      "imageUrl": "/api/temp-thumbnail/A-1790667959038-55d777.jpg",
+      "thumbnailHeadline": "City의 T, 완벽하게 속았네",
+      "visualConcept": "화면 좌측에 대형 'City' 텍스트를 배치하고 중간 't'에 돋보기를 들이대며, 강사가 믿을 수 없다는 듯 안경을 살짝 내리며 눈을 크게 뜬 충격 표정 연출",
+      "isLocalFile": true,
       "inUse": true
     },
     {
       "id": "B",
-      "title": "평생 힘주던 발음이 단숨에 풀립니다, 미국식 부드러운 소리 나는 진짜 지름길 | 영어 파닉스 발음",
-      "imageUrl": "",
-      "thumbnailHeadline": "단숨에 원어민 소리",
-      "visualConcept": "답답했던 표정에서 180도 바뀌어 1초 만에 개운함을 느끼며 활짝 웃는 호스트의 환한 표정과 시원한 민트-에메랄드 톤의 입체 빛줄기가 터져 나오는 레이아웃",
-      "isLocalFile": false,
+      "title": "설마 이것도 또박또박 다 읽으셨나요? 원어민들이 중간 T 소리 낼 때 쓰는 지름길 | 영어 단어 읽는 법",
+      "imageUrl": "/api/temp-thumbnail/B-1790667399995-9b46c7.jpg",
+      "thumbnailHeadline": "설마 T 소리 다 냈나요?",
+      "visualConcept": "강사가 비밀스러운 표정으로 입술에 검지를 대는 '쉿' 포즈를 취하고, 옆에 큼직한 알파벳 T가 미끄러지듯 휘어져 있는 부드러운 곡선 실루엣 대조",
+      "isLocalFile": true,
       "inUse": true
     },
     {
       "id": "C",
-      "title": "사전 찾아보고 배신감 느꼈습니다, 버터 워터 속 T의 기막힌 비밀 | 영어 단어 읽는 법",
-      "imageUrl": "",
-      "thumbnailHeadline": "버터? T 어디 갔어?",
-      "visualConcept": "채널 아바타 호스트가 버터(BUTTER) 단어를 보며 턱이 빠질 듯 경악하는 표정, 단어 속 알파벳 'TT' 위에 거대한 네온 옐로우 물음표가 박힌 채 대비되는 비주얼",
-      "isLocalFile": false,
+      "title": "평생 '베터'인 줄 알고 살았습니다, 양 모음 사이에 갇힌 T가 완전히 둔갑하네요 | 단어 읽는 법",
+      "imageUrl": "/api/temp-thumbnail/C-1790667926838-90326c.jpg",
+      "thumbnailHeadline": "Better의 T, 정체 알고 소름",
+      "visualConcept": "강사가 두 손을 번쩍 들며 '아하!' 하고 전구가 켜진 듯 유쾌하게 깨달음을 얻는 표정, 좌측에 샌드위치처럼 양쪽 모음 사이에 꽉 끼어 있는 T의 드라마틱한 대비",
+      "isLocalFile": true,
       "inUse": true
     }
   ],
   "activeFeedView": "A",
   "feedPosition": "TOP",
   "feedSlotIndex": 1,
-  "selectedVariantTab": "C",
+  "selectedVariantTab": "A",
   "visionFilter": "normal",
   "aiReport": {
     "variantsEvaluation": [
       {
         "variantKey": "A",
-        "curiosityGapScore": 86,
-        "legibilityScore": 90,
-        "visualSalienceScore": 84,
-        "contrastRating": "상(High)",
-        "focalPoint": "헤드라인의 굵은 물음표와 대조를 이루는 중간 철자 T 강조 영역",
-        "predictedGrade": "A-",
-        "predictedCtrRange": "7.8% ~ 10.2%",
+        "curiosityGapScore": 91,
+        "legibilityScore": 95,
+        "visualSalienceScore": 92,
+        "contrastRating": "최상(High)",
+        "focalPoint": "좌측 상단의 초대형 화이트 앵커 단어 'CITY'와 우측 머리를 짚고 경악하는 인물 표정",
+        "predictedGrade": "A+",
+        "predictedCtrRange": "9.2% ~ 12.8%",
         "strengths": [
-          "헤드라인 '설마 다 소리 냈나요?'가 시청자의 과거 발음 습관을 즉각 의심하게 만들며 높은 심리적 스턴건 효과 발휘",
-          "제목 앞부분에서 '티 소리 다 내시나요?'로 4060 학습자의 굳은 혀 습관을 직격하여 공감대 형성"
+          "모바일 홈 피드 120px 축소 화면에서도 0.1초 만에 뇌리에 박히는 'CITY' 볼드 텍스트의 압도적 시인성",
+          "옐로우 라운드 박스와 블랙 굵은 고딕 폰트의 명도 대비가 완벽하여 4060 타겟층의 노안 환경에서도 즉각 판독 가능",
+          "제목의 '사전 찾아보고 배신감'이라는 감정 타격 훅과 썸네일의 '완벽하게 속았네'가 유기적으로 맞물려 강력한 상식 붕괴형 호기심 격차 유발"
         ],
         "weaknesses": [
-          "헤드라인만 따로 떼어놓았을 때 '무슨 소리인지(소재 단서)'가 다소 모호하여 T 발음이라는 도메인 인식이 0.2초 지연될 위험",
-          "제목 후반부 '까닭'이라는 종결 어미가 약간의 교과서적/강의식 인상을 줌"
+          "노란색 캡션 박스가 우측 하단 영상 길이 태그(타임스탬프) 영역과 아슬아슬하게 맞닿아 있어 모바일 기종에 따라 글자 끝부분이 살짝 겹칠 위험 존재"
         ],
-        "visualImprovementTip": "헤드라인 좌측 상단에 옅은 반투명 박스로 'WATER / BUTTER' 실물 단어를 배치하고 중간 T에만 붉은색 스트로크를 주어 무엇을 다 소리 냈는지 시각적 단서를 0.1초 만에 제공할 것"
+        "visualImprovementTip": "하단 옐로우 캡션 박스의 우측 여백을 5% 정도 안쪽으로 당겨 모바일 우측 하단 재생 시간 태그와 완전히 간섭되지 않도록 안전 영역을 확보하세요."
       },
       {
         "variantKey": "B",
-        "curiosityGapScore": 68,
-        "legibilityScore": 88,
-        "visualSalienceScore": 76,
-        "contrastRating": "중(Medium)",
-        "focalPoint": "노란색 헤드라인 '단숨에 원어민 소리'",
-        "predictedGrade": "B-",
-        "predictedCtrRange": "5.2% ~ 7.1%",
+        "curiosityGapScore": 84,
+        "legibilityScore": 86,
+        "visualSalienceScore": 82,
+        "contrastRating": "중상(Medium-High)",
+        "focalPoint": "좌측 인물의 입술에 손가락을 얹은 '쉿' 제스처와 우측 상단의 '중간 T' 타이포그래피",
+        "predictedGrade": "B+",
+        "predictedCtrRange": "7.0% ~ 8.9%",
         "strengths": [
-          "4060 세대의 고질적 고민인 '혀에 힘들어가는 문제'를 '단숨에 풀립니다'라는 이득으로 정면 제시",
-          "명도 대비가 뚜렷하여 모바일 120px 환경에서도 텍스트 자체는 선명하게 판독됨"
+          "조용히 비밀을 털어놓는 듯한 '쉿' 포즈가 자극적인 낚시 없이 실전 꿀팁을 전수하는 채널 특유의 페르소나와 잘 부합함",
+          "'설마 T 소리 다 냈나요?'라는 질문이 또박또박 발음하려 애쓰던 4060 학습자의 뼈아픈 습관을 정확히 타격함"
         ],
         "weaknesses": [
-          "헤드라인 '단숨에 원어민 소리'는 전형적인 어학원 광고식 문구로 유튜브 피드에서 무의식적으로 스크롤을 넘기게 만듦 (호기심 공백 부재)",
-          "T 발음(Flap T)이라는 구체적 소재가 제목과 썸네일 모두에서 흐려져 클릭할 구체적 명분이 약함"
+          "앵커 텍스트인 '중간 T'의 'T' 글자 내부에 알 수 없는 이미지 잔상(텍스처 글리치)이 남아 있어 시각적 완성도를 떨어뜨림",
+          "구체적인 영어 단어(예: City, Water)가 아닌 추상적인 설명 문구('중간 T')를 메인으로 사용하여 직관적인 연상 작용이 시안 A보다 느림"
         ],
-        "visualImprovementTip": "단순 추상 문구를 버리고, 경직되어 굳은 입술 모양과 힘이 툭 빠진 편안한 입술 모양의 좌우 분할 실사 컷을 넣어 물리적 변화를 가시화할 것"
+        "visualImprovementTip": "우측 상단 'T' 알파벳 내부의 지저분한 아티팩트를 단색 화이트(#FFFFFF)로 깨끗하게 정리하고, 글자 크기 대비를 주어 가독성을 높이세요."
       },
       {
         "variantKey": "C",
-        "curiosityGapScore": 92,
-        "legibilityScore": 93,
+        "curiosityGapScore": 87,
+        "legibilityScore": 90,
         "visualSalienceScore": 89,
-        "contrastRating": "최상(High)",
-        "focalPoint": "'버터? T 어디 갔어?'의 강렬한 옐로우/화이트 타이포와 혼란스러워하는 호스트 표정",
-        "predictedGrade": "A+",
-        "predictedCtrRange": "9.5% ~ 12.8%",
+        "contrastRating": "상(High)",
+        "focalPoint": "좌측 인물의 두 손을 펼치며 크게 환호·경악하는 표정과 중앙 상단의 'BETTER'",
+        "predictedGrade": "A-",
+        "predictedCtrRange": "8.3% ~ 10.5%",
         "strengths": [
-          "헤드라인 '버터? T 어디 갔어?'가 3단어로 압축되면서도 '버터 속 T'라는 구체적 소재와 상식 파괴 의문을 완벽하게 결합",
-          "제목 앞부분 '사전 찾아보고 배신감 느꼈습니다'가 강력한 감정적 타격감을 형성하며 클릭하지 않고는 못 배기게 유도"
+          "누구나 아는 일상 단어 'BETTER'를 전면에 배치하여 기초가 부족한 왕초보 시청자도 심리적 장벽 없이 즉각 몰입 가능",
+          "인물의 시선이 우측 텍스트를 향하고 있어 시청자의 시선 흐름을 자연스럽게 헤드라인으로 유도하는 시각적 앵커링 효과 탁월"
         ],
         "weaknesses": [
-          "우측 하단 타임코드 영역에 단어 철자 그래픽이 침범하지 않도록 16:9 우측 여백 안전지대 확보 필요"
+          "헤드라인의 '정체 알고 소름'이라는 문구가 4060 성인 학습자에게는 다소 가벼운 인터넷 유행어처럼 느껴져 채널의 진중하고 솔직 담백한 신뢰감을 소폭 저해할 수 있음",
+          "좌측 인물의 양손 제스처가 화면 양옆을 차지하면서 텍스트 영역이 우측으로 다소 좁게 밀려 답답한 인상을 줌"
         ],
-        "visualImprovementTip": "BUTTER 단어 표기에서 붉은 물음표(?)가 T 두 개를 튕겨 날려버리는 듯한 모션 그래픽 효과를 정적 썸네일에 동적 잔상으로 연출할 것"
+        "visualImprovementTip": "헤드라인 문구를 '정체 알고 소름' 대신 '여태 헛고생했네' 또는 '정체 알고 깜짝'처럼 4060 세대의 자연스러운 입말 탄식으로 교체하는 것을 권장합니다."
       }
     ],
-    "bestVariant": "C",
-    "overallVerdict": "시안 C가 홈 피드 스크롤 중 클릭 유발력에서 압도적 1위입니다. '버터? T 어디 갔어?'라는 헤드라인은 학원 강의 냄새를 완벽히 지우고 시청자의 혼잣말을 그대로 대변하며, 제목의 '사전 찾아보고 느낀 배신감'과 맞물려 4060 학습자가 평생 믿었던 알파벳 표기에 대한 강렬한 인지부조화를 일으킵니다.",
+    "bestVariant": "A",
+    "overallVerdict": "시안 A가 0.1초 만에 인지되는 초대형 앵커 단어 'CITY'의 시각적 위압감과 '완벽하게 속았네'라는 배신감 훅의 결합으로 홈 피드 스크롤을 가장 강력하게 정지시킵니다. 4060 세대가 평생 '시티'라고 철자 그대로 믿어왔던 상식을 단숨에 무너뜨리며, 자극적인 과장 없이도 원어민 발음 원리에 대한 폭발적인 호기심을 이끌어냅니다.",
     "aiTitleSuggestions": [
       {
-        "type": "🤯 상식붕괴 직격",
-        "title": "사전 찾아보고 배신감 느꼈습니다, 버터 워터 속 T 발음의 충격 반전 | 영어 소리 원리",
-        "thumbnailHeadline": "버터? T 어디 갔어?",
-        "designConcept": "화면 우측에 뒷목을 잡으며 황당해하는 한국인 50대 남성 호스트, 좌측엔 대형 'BU[TT]ER' 텍스트 중 TT 자리에 큼직한 붉은 물음표가 박혀 있는 16:9 대조 구도",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark navy studio background with dramatic side lighting, a middle-aged Korean man looking utterly bewildered and touching his forehead in shock on the right, large glowing typography layout on the left, copy space for Korean text, 4k resolution, cinematic lighting, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "⚡ 상식 붕괴 충격",
+        "title": "사전 찾아보고 배신감 느꼈습니다, City를 '시티'로 읽으면 절대 안 들리는 이유 | 영어 모음 단어 읽는 법",
+        "thumbnailHeadline": "City의 T? 여태 속았음",
+        "designConcept": "모자를 살짝 들어 올리며 머리를 긁적이는 황당함과 허탈함이 섞인 리얼한 표정",
+        "midjourneyPrompt": "Ultra-clean horizontal YouTube thumbnail visual background for English pronunciation study, warm creamy beige wall studio setting, cinematic soft lighting, ample negative space on the left, 4k resolution --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🤦 실패소환 배신감",
-        "title": "열심히 읽었는데 외국인이 못 알아듣는 이유, 단어 중간 T 소리의 비밀 | 영어 발음 차이",
-        "thumbnailHeadline": "설마 T 다 읽었나요?",
-        "designConcept": "커피숍 카운터에서 당황한 표정으로 굳어버린 학습자의 1인칭 시점 느낌과 함께, 'WATER' 단어에서 억지로 힘준 혀 그래픽에 X 표시가 그어지는 비주얼",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, cinematic shallow depth of field, an awkward moment at an American cafe counter setting blurred in background, high contrast lighting, focused minimalist modern graphic layout, copy space for Korean text on left side, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🔍 실패 경험 소환",
+        "title": "열심히 발음했는데 왜 못 알아듣나 했더니... 중간 T 소리 낼 때 쓰는 지름길 | 영어 단어 부드럽게 읽기",
+        "thumbnailHeadline": "설마 T 소리 다 냈나요?",
+        "designConcept": "입술에 검지손가락을 살짝 갖다 대며 비밀을 알려주려는 장난기 어린 눈빛",
+        "midjourneyPrompt": "Clean bright educational YouTube thumbnail background, minimal beige modern studio background, shallow depth of field, professional studio fill light, 8k resolution --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "👀 불안자극 확인형",
-        "title": "평생 '워터'로 알고 살았는데... 미국인은 절대 이렇게 안 읽는 단어들 | 영어 단어 읽는 법",
-        "thumbnailHeadline": "철자 보고 읽다 망함",
-        "designConcept": "화면 중앙에 'WA[T]ER' 텍스트가 깨져나가는 듯한 크랙 이펙트와 함께, 안경을 살짝 내리며 깜짝 놀라는 친근한 인상의 호스트 아바타 바스트샷",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, deep charcoal modern studio ambient, a friendly 40s Korean instructor with glasses looking closely at camera with shocked wide eyes, clean asymmetrical composition, high-end editorial lighting, copy space on right side, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "💡 혀 힘빼기 깨달음",
+        "title": "평생 혀에 힘주고 '베터'로 읽었습니다, 원어민이 힘 싹 빼고 굴리는 소리 원리 | 원어민 영어 발음 차이",
+        "thumbnailHeadline": "Better 여태 딴소리 냄",
+        "designConcept": "두 손으로 목이나 턱 주변을 가볍게 짚으며 혀의 힘이 빠진 편안한 미소를 짓는 모습",
+        "midjourneyPrompt": "Modern YouTube thumbnail background for educational channel, warm oatmeal colored clean aesthetic studio, subtle directional soft light, balanced negative copy space, 4k --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "💡 원리발견 사이다",
-        "title": "혀에 힘 빼니까 단숨에 굴러가네요, 모음 사이에 낀 T 소리 지름길 | 미국식 영어 발음",
-        "thumbnailHeadline": "힘주면 바로 굳어버림",
-        "designConcept": "좌측에는 잔뜩 긴장해 붉어진 굳은 입술 형태, 우측에는 편안하고 부드러운 미소의 입 모양이 네온 컬러 분할선으로 1:1 극명하게 대비되는 구도",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, modern dark navy background, clean two-tone split comparison layout showing tense jaw expression versus relaxed soft mouth expression, sharp studio lighting, vibrant accent colors, copy space on top left, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🎯 불안감 즉각 확인",
+        "title": "Water, Better 또박또박 다 읽으셨나요? 소리가 저절로 굴러가는 소리 지름길 | 영어 발음 꿀팁",
+        "thumbnailHeadline": "알파벳에 제대로 속음",
+        "designConcept": "눈을 동그랗게 뜨고 정면을 응시하며 턱을 살짝 괴고 놀라움을 감추지 못하는 표정",
+        "midjourneyPrompt": "Minimalist YouTube horizontal background, warm neutral studio aesthetic, soft ambient golden hour indoor light, ample copy space for graphic text overlay, high definition --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       },
       {
-        "type": "🎯 과거망신 타깃저격",
-        "title": "원어민 앞에서 또 혀가 꼬였습니다, 버터 워터 발음할 때 생기는 일 | 영어 파닉스 발음",
-        "thumbnailHeadline": "여태 나만 딴소리 냄",
-        "designConcept": "자신 있게 말하려다 혀가 굳어 어색한 헛웃음을 짓는 학습자의 리얼한 표정과 함께, 'CITY / WA[T]ER' 단어 중간이 물방울처럼 스르륵 흘러내리는 은유적 그래픽",
-        "midjourneyPrompt": "Clean horizontal visual artwork for English pronunciation education, dark minimalist gradient background, a relatable mature adult feeling sheepish with an awkward hand on the back of neck, expressive cinematic portrait lighting, sleek layout ready for typography, 4k resolution, 16:9 --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
+        "type": "🔓 통쾌한 카타르시스",
+        "title": "외국인 앞에서 혀가 굳던 이유를 찾았습니다, 모음 사이 T가 부드러워지는 이유 | 미국식 영어 소리 원리",
+        "thumbnailHeadline": "중간 T? 이젠 술술 풀림",
+        "designConcept": "주먹을 가볍게 쥐고 가슴께로 당기며 '아하!' 하고 막힌 속이 뻥 뚫린 듯한 상쾌한 웃음",
+        "midjourneyPrompt": "Bright minimalist studio background for YouTube thumbnail, warm beige textured backdrop, crisp commercial lighting, balanced 16:9 composition, wide open negative space, 8k --ar 16:9 --no text font letters words watermark phone mockup device frame icons UI buttons --v 6.0"
       }
     ]
-  }
+  },
+  "closeUpImageUrl": "",
+  "closeUpSourceVariant": ""
 }

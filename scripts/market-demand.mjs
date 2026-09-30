@@ -29,6 +29,17 @@
 //   node scripts/market-demand.mjs --keyword="A" --keyword="B"  # of the fixed pool (repeatable flag).
 //                                                          # Upserts into the existing byKeyword array —
 //                                                          # other keywords already in the file are kept.
+//   node scripts/market-demand.mjs --channel="https://www.youtube.com/@handle"  # 2026-09-30 추가 —
+//                                                          # 사용자가 직접 지목한 특정 경쟁 채널 하나를
+//                                                          # 깊이 분석한다(키워드 검색으로는 우연히
+//                                                          # 걸리지 않을 수 있는 채널 대응 — 채널 이름
+//                                                          # 검색은 search.list 100단위+오검색 위험이
+//                                                          # 있어 의도적으로 안 씀, channels.list
+//                                                          # forHandle=은 1단위+100% 정확). URL/@핸들/
+//                                                          # 순수 채널ID(UC...) 아무거나 받는다. 이
+//                                                          # 모드는 키워드 풀 검색을 완전히 건너뛰고
+//                                                          # (search.list 비용 없음) trackedChannels
+//                                                          # 배열에만 upsert한다 — byKeyword는 안 건드림.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -61,6 +72,10 @@ const adHocKeywords = process.argv
   .filter(Boolean);
 const KEYWORD_POOL = adHocKeywords.length > 0 ? adHocKeywords : DEFAULT_KEYWORD_POOL;
 
+// --channel="..." — 특정 채널 하나 지목 분석 모드. 키워드 풀 검색을 완전히 스킵한다.
+const channelArg = process.argv.find((a) => a.startsWith("--channel="));
+const CHANNEL_INPUT = channelArg ? channelArg.slice("--channel=".length) : null;
+
 // Below this many observed videos, a keyword's score is one or two data
 // points wearing a median's clothes — channel-strategy.md's "작은 표본은
 // 성공으로 과장하지 않는다" applies to reporting the number, not just to
@@ -80,6 +95,12 @@ function estimateQuota() {
   const playlistItems = MAX_CHANNELS; // 1 call per channel
   const videosList = Math.ceil((MAX_CHANNELS * VIDEOS_PER_CHANNEL_BASELINE) / 50) + 1;
   return { search, channelsList, playlistItems, videosList, total: search + channelsList + playlistItems + videosList };
+}
+
+if (dryRun && CHANNEL_INPUT) {
+  console.log(`채널 지목 분석 모드: "${CHANNEL_INPUT}"`);
+  console.log(`예상 쿼터: channels.list 1 + playlistItems.list 1 + videos.list ~2 ≈ 4 units (search.list 없음)`);
+  process.exit(0);
 }
 
 if (dryRun) {
@@ -168,7 +189,170 @@ function extractTitlePatterns(rows, minOutlierRatio = 1.5) {
     .map(([word, count]) => ({ word, titleCount: count }));
 }
 
+// 채널 URL/@핸들/순수 채널ID 어느 형태로 넣어도 받는다 — 사용자가 브라우저 주소창에서
+// 그대로 복붙하는 게 제일 흔한 입력 방식이라, 파싱을 이쪽에서 흡수하고 그 뒤 로직은
+// "handle 문자열" 또는 "channelId 문자열" 둘 중 하나만 알면 되게 정리한다.
+// 이름으로 검색(search.list type=channel)하는 방식은 의도적으로 안 만든다 — 100단위 비용에
+// 동명이인 채널을 잘못 짚어도 티가 안 나는 위험까지 있어서(2026-09-30 사용자와 논의 후 결정).
+function resolveChannelInput(raw) {
+  const s = String(raw || "").trim();
+  if (!s) return null;
+  // /channel/UCxxxxxxxx 형태 — 채널ID 그대로 쓸 수 있는 유일한 URL 패턴
+  const channelIdMatch = s.match(/\/channel\/(UC[\w-]{10,})/);
+  if (channelIdMatch) return { type: "id", value: channelIdMatch[1] };
+  // 순수 채널ID를 직접 붙여넣은 경우
+  if (/^UC[\w-]{10,}$/.test(s)) return { type: "id", value: s };
+  // /@handle 형태(URL 안에 있든, "@handle"만 붙여넣었든)
+  const handleMatch = s.match(/@([^/?#\s]+)/);
+  if (handleMatch) return { type: "handle", value: `@${handleMatch[1]}` };
+  // /c/이름, /user/이름 같은 레거시 URL — 핸들이 아니라 커스텀 URL이라 이 API로는 못 찾는다.
+  if (/\/(c|user)\//.test(s)) return null;
+  // 아무 기호 없이 이름만 온 경우, "@"를 붙여 핸들로 추정 시도(안 맞으면 channels.list가
+  // 빈 결과를 주므로 아래 analyzeChannel()에서 명확한 에러로 처리된다 — 조용히 엉뚱한
+  // 채널을 잡는 일은 없다).
+  return { type: "handle", value: s.startsWith("@") ? s : `@${s}` };
+}
+
+// 특정 채널 하나를 깊이 분석한다 — 그 채널 자신의 최근 업로드 대비 어떤 영상이
+// 유독 잘 됐는지(outlierRatio)를 같은 방법론(채널 자체 기준선 대비 비율)으로 계산한다.
+// 키워드 검색 경로와 다른 점: 대상이 이미 확정돼 있으므로 search.list(100단위)가 전혀
+// 필요 없고, MAX_SUBSCRIBERS 필터도 적용하지 않는다 — 사용자가 의도적으로 지목한
+// 벤치마크 채널이면 우리보다 훨씬 크더라도(참고용으로) 그대로 보여준다. 다만 구독자
+// 수는 결과에 그대로 실어서, 규모가 다르면 "수요 점수"가 아니라 "패턴 참고용"으로
+// 읽어야 한다는 걸 화면에서 판단할 수 있게 한다.
+async function analyzeChannel(rawInput) {
+  const resolved = resolveChannelInput(rawInput);
+  if (!resolved) {
+    throw new Error(
+      `채널을 인식할 수 없습니다: "${rawInput}". /channel/UC..., /@핸들, 또는 순수 핸들만 지원합니다` +
+      `(/c/이름, /user/이름 같은 레거시 커스텀 URL은 API가 직접 못 찾습니다 — 채널 홈에서 "공유" ` +
+      `버튼으로 정식 @핸들 링크를 다시 복사해 주세요).`
+    );
+  }
+
+  const channelsData = await apiGet("channels", {
+    [resolved.type === "id" ? "id" : "forHandle"]: resolved.value,
+    part: "snippet,statistics,contentDetails",
+  });
+  const channelItem = channelsData.items?.[0];
+  if (!channelItem) {
+    throw new Error(`채널을 찾지 못했습니다: "${rawInput}" (${resolved.type}=${resolved.value}). 핸들 철자를 확인해 주세요.`);
+  }
+
+  const channelId = channelItem.id;
+  const channelTitle = channelItem.snippet?.title;
+  const subscriberCount = Number(channelItem.statistics?.subscriberCount ?? NaN);
+  const uploadsPlaylistId = channelItem.contentDetails?.relatedPlaylists?.uploads;
+  if (!uploadsPlaylistId) {
+    throw new Error(`"${channelTitle}" 채널의 업로드 목록을 가져올 수 없습니다.`);
+  }
+
+  // 한 번의 playlistItems.list 호출로 최대 50개까지 가져온다(추가 페이지네이션 없음 —
+  // 채널 자체 기준선 산출엔 최근 50개면 충분하고, 더 받으려면 비용이 콜당 늘어난다).
+  const CHANNEL_VIDEOS_SAMPLE = 50;
+  const playlistData = await apiGet("playlistItems", {
+    playlistId: uploadsPlaylistId,
+    part: "contentDetails",
+    maxResults: String(CHANNEL_VIDEOS_SAMPLE),
+  });
+  const videoIds = (playlistData.items ?? []).map((i) => i.contentDetails?.videoId).filter(Boolean);
+  if (videoIds.length === 0) {
+    throw new Error(`"${channelTitle}" 채널에 분석할 영상이 없습니다.`);
+  }
+
+  const MS_PER_DAY = 86_400_000;
+  const now = Date.now();
+  const rows = [];
+  for (const batch of chunk(videoIds, 50)) {
+    const data = await apiGet("videos", { id: batch.join(","), part: "snippet,statistics,contentDetails" });
+    for (const item of data.items ?? []) {
+      const viewCount = Number(item.statistics?.viewCount ?? NaN);
+      const publishedAt = item.snippet?.publishedAt;
+      const ageDays = publishedAt ? Math.max(1, (now - new Date(publishedAt).getTime()) / MS_PER_DAY) : null;
+      const durationSeconds = durationSecondsFromIso(item.contentDetails?.duration);
+      const viewsPerDay = ageDays ? viewCount / ageDays : null;
+      rows.push({
+        videoId: item.id,
+        title: item.snippet?.title,
+        viewCount,
+        publishedAt,
+        ageDays: ageDays ? Math.round(ageDays) : null,
+        viewsPerDay,
+        durationSeconds,
+        isShort: durationSeconds != null ? durationSeconds <= 60 : null,
+      });
+    }
+  }
+
+  const baseline = median(rows.map((r) => r.viewsPerDay).filter((v) => Number.isFinite(v)));
+  const RATIO_CAP = 5;
+  const withRatio = rows
+    .filter((r) => Number.isFinite(r.viewsPerDay) && baseline)
+    .map((r) => ({ ...r, outlierRatio: Math.min(RATIO_CAP, r.viewsPerDay / baseline), rawOutlierRatio: r.viewsPerDay / baseline }));
+
+  const topOutliers = withRatio
+    .sort((a, b) => b.rawOutlierRatio - a.rawOutlierRatio)
+    .slice(0, 5)
+    .map((r) => ({
+      videoId: r.videoId,
+      title: r.title,
+      channelTitle,
+      viewCount: r.viewCount,
+      publishedAt: r.publishedAt,
+      ageDays: r.ageDays,
+      viewsPerDay: Math.round(r.viewsPerDay * 10) / 10,
+      channelBaselineViewsPerDay: Math.round(baseline * 10) / 10,
+      outlierRatio: Math.round(r.rawOutlierRatio * 100) / 100,
+      durationSeconds: r.durationSeconds,
+      isShort: r.isShort,
+    }));
+
+  // extractTitlePatterns는 "이 채널 기준 이례적으로 잘 된 영상들"(전체 rows 중 outlierRatio≥1.5)의
+  // 제목에서 반복 단어를 뽑는다 — topOutliers(상위 5개)보다 더 넓은 표본으로 패턴을 잡기 위해
+  // withRatio 전체를 넘긴다.
+  const titlePatterns = extractTitlePatterns(withRatio.map((r) => ({ title: r.title, outlierRatio: r.rawOutlierRatio })));
+
+  return {
+    channelId,
+    channelTitle,
+    handle: resolved.type === "handle" ? resolved.value : null,
+    channelUrl: `https://www.youtube.com/channel/${channelId}`,
+    subscriberCount: Number.isFinite(subscriberCount) ? subscriberCount : null,
+    analyzedAt: new Date().toISOString(),
+    videoCount: rows.length,
+    channelBaselineViewsPerDay: baseline ? Math.round(baseline * 10) / 10 : null,
+    titlePatterns,
+    topOutliers,
+  };
+}
+
 async function main() {
+  // 채널 지목 분석 모드 — 키워드 풀 검색(search.list, 100단위/키워드)을 완전히 건너뛰고
+  // trackedChannels 배열에만 upsert한다. byKeyword는 안 건드리므로 기존 데이터 보존됨.
+  if (CHANNEL_INPUT) {
+    console.log(`채널 분석 중: "${CHANNEL_INPUT}"`);
+    const channelResult = await analyzeChannel(CHANNEL_INPUT);
+    const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
+    const mergedChannels = new Map((existing?.trackedChannels ?? []).map((c) => [c.channelId, c]));
+    mergedChannels.set(channelResult.channelId, channelResult);
+    const result = {
+      ...(existing ?? { schemaVersion: 1, keywordPool: DEFAULT_KEYWORD_POOL, lastRunKeywords: [], channelsAnalyzed: 0, byKeyword: [] }),
+      generatedAt: new Date().toISOString(),
+      trackedChannels: [...mergedChannels.values()],
+    };
+    writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf8");
+    console.log(`\n✓ ${outputPath}`);
+    console.log(JSON.stringify({
+      channelTitle: channelResult.channelTitle,
+      subscriberCount: channelResult.subscriberCount,
+      videoCount: channelResult.videoCount,
+      channelBaselineViewsPerDay: channelResult.channelBaselineViewsPerDay,
+      titlePatterns: channelResult.titlePatterns.map((p) => p.word),
+      topOutliers: channelResult.topOutliers.map((o) => ({ title: o.title, outlierRatio: o.outlierRatio })),
+    }, null, 2));
+    return;
+  }
+
   console.log(`쿼터 예상: ~${estimateQuota().total} units\n`);
 
   // 1. search.list per keyword (type=video, Korean region/language bias) —
@@ -410,6 +594,9 @@ async function main() {
     lastRunKeywords: KEYWORD_POOL,
     channelsAnalyzed: smallChannels.length,
     byKeyword: allByKeyword,
+    // 채널 지목 분석 모드(--channel=)가 이 파일에 이미 써둔 trackedChannels를 키워드 풀
+    // 재실행이 지워버리면 안 된다 — 두 모드는 서로 다른 배열을 쓰는 독립된 데이터다.
+    trackedChannels: existing?.trackedChannels ?? [],
   };
 
   writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf8");

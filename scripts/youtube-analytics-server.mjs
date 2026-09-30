@@ -3486,6 +3486,66 @@ function renderMarketDemandTab() {
       '</div>' +
     '</div>';
 
+  // 특정 경쟁 채널 지목 분석(2026-09-30 추가) — 키워드 검색으로는 우연히 못 걸릴 수 있는
+  // 채널을 사용자가 직접 지목해 깊이 파본다(market-demand.mjs --channel= 참고). 이름 검색이
+  // 아니라 URL/@핸들만 받는다 — channels.list forHandle=은 1단위+100% 정확이지만, 이름
+  // 검색(search.list)은 100단위인데 동명이인 채널을 잘못 짚어도 티가 안 나는 위험이 있어서
+  // 사용자와 논의 후 의도적으로 뺐다.
+  html += '<div class="bento-card col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;background:#0d0a16;border:1px solid rgba(217,70,239,0.25)">' +
+    '<div>' +
+      '<div class="card-title" style="color:var(--accent-cyan)">CHANNEL DEEP-DIVE</div>' +
+      '<h3 style="font-family:var(--font-display);font-size:16px;color:var(--text-bright);margin-top:2px">🔗 특정 채널 추적 분석</h3>' +
+      '<div class="card-subtext">키워드 검색에 안 걸리는 채널도 URL/@핸들만 있으면 직접 분석 — 채널 자체 기준선 대비 어떤 영상이 유독 잘 됐는지(같은 방법론)</div>' +
+    '</div>' +
+    '<div style="display:flex;gap:10px;align-items:center">' +
+      '<input type="text" id="input-demand-channel" placeholder="채널 URL 또는 @핸들 (이름 검색은 지원 안 함)" style="width:320px">' +
+      '<button class="btn btn-cyan" id="btn-run-demand-channel">🔎 채널 분석 실행</button>' +
+    '</div>' +
+  '</div>';
+
+  const trackedChannels = md.trackedChannels || [];
+  if (trackedChannels.length > 0) {
+    html += '<div class="bento-card col-12">' +
+      '<div class="card-header"><span class="card-title" style="color:var(--accent-cyan)">🔗 추적 중인 채널 (' + trackedChannels.length + '개)</span></div>' +
+      '<div class="bento-grid" style="padding:0">' +
+      trackedChannels.map((c) => {
+        const subLabel = c.subscriberCount != null ? fmt.format(c.subscriberCount) + '명' : '비공개';
+        const sizeWarning = (c.subscriberCount != null && c.subscriberCount > 100000)
+          ? '<div class="card-subtext" style="color:var(--accent-amber);margin-top:2px">⚠️ 우리 채널보다 훨씬 큼 — 패턴 참고용으로만 볼 것, 수요 점수처럼 직접 비교하지 말 것</div>' : '';
+        return '<div class="bento-card col-4" style="background:#090e18">' +
+          '<div class="card-header">' +
+            '<span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text-bright)">' + esc(c.channelTitle) + '</span>' +
+            '<div style="display:flex;gap:6px;align-items:center">' +
+              '<button class="btn btn-sm btn-channel-refresh" data-input="' + esc(c.handle || c.channelUrl || c.channelId) + '" title="이 채널만 다시 분석해서 최신 데이터로 덮어쓰기" style="padding:2px 6px">🔄</button>' +
+              '<button class="btn btn-sm btn-channel-delete" data-channel-id="' + esc(c.channelId) + '" title="추적 목록에서 제거" style="color:#ff5577;border-color:#ff5577;padding:2px 6px">🗑️</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card-subtext" style="margin-top:-4px">구독자 ' + subLabel + ' · 영상 ' + (c.videoCount || 0) + '개 분석 · ' + esc((c.analyzedAt || '').slice(0, 10)) + '</div>' +
+          sizeWarning +
+          (c.titlePatterns && c.titlePatterns.length > 0 ?
+            '<div style="margin-top:10px">' + c.titlePatterns.slice(0, 6).map(p =>
+              '<span class="tag-chip copy-chip" data-copy="' + esc(p.word) + '">#' + esc(p.word) + '</span>'
+            ).join('') + '</div>' : '') +
+          (c.topOutliers && c.topOutliers.length > 0 ?
+            '<div style="margin-top:12px;border-top:1px solid var(--border-subtle);padding-top:10px">' +
+              '<div class="card-title" style="margin-bottom:6px">⭐ 이 채널 기준 이례적으로 잘 된 영상:</div>' +
+              c.topOutliers.slice(0, 3).map(o => {
+                const watchUrl = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
+                return '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:8px;padding:8px 10px;margin-bottom:6px">' +
+                  (watchUrl ?
+                    '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" style="text-decoration:none"><div style="font-weight:700;font-size:12px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">▶ ' + esc(o.title) + '</div></a>' :
+                    '<div style="font-weight:700;font-size:12px;color:var(--text-bright)">' + esc(o.title) + '</div>') +
+                  '<div class="card-subtext">' + (o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '') + ' · 일평균 ' + fmt.format(Math.round(o.viewsPerDay || 0)) + '회' +
+                  '</div>' +
+                '</div>';
+              }).join('') +
+            '</div>' : '') +
+        '</div>';
+      }).join('') +
+      '</div>' +
+    '</div>';
+  }
+
   // 키워드 카드마다 따로 있던 "제목 반복 패턴"을 하나로 합친다 — 같은 단어가 여러 카드에
   // 중복으로 뜨면 어느 걸 복사했는지 헷갈리고, 같은 걸 또 수요 분석하게 될 수 있다는 사용자
   // 지적(2026-09-07)으로 전면 교체. 여러 키워드에서 공통으로 반복된 단어일수록(= 여러 다른
@@ -3695,6 +3755,67 @@ function bindMarketDemandEvents() {
         renderCurrentTab();
         const c = data.cleaned || {};
         showToast('🗑️ "' + keyword + '" 삭제 완료 — 리포트 ' + (c.reportFiles || 0) + '개, 시청자DNA ' + (c.dnaEntries || 0) + '개 정리됨.');
+      } catch (err) {
+        alert('❌ 삭제 실패: ' + err.message);
+        btn.disabled = false;
+      }
+    };
+  });
+
+  // 특정 채널 지목 분석(2026-09-30) — 키워드 실행 버튼과 같은 /api/market-demand/run
+  // 엔드포인트를 쓰되 body.channel로 채널 모드임을 알린다.
+  const runChannelInput = async (rawInput, btnEl) => {
+    const channel = String(rawInput || '').trim();
+    if (!channel) return alert('채널 URL 또는 @핸들을 입력하세요.');
+    const originalText = btnEl ? btnEl.innerHTML : '';
+    if (btnEl) { btnEl.disabled = true; btnEl.innerHTML = '⏳ 분석 중...'; }
+    try {
+      const res = await fetch('/api/market-demand/run', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({channel}),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || '채널 분석 실패');
+      gMarketDemand = data.data;
+      renderCurrentTab();
+      showToast('🔎 채널 분석 완료.');
+    } catch (err) {
+      alert('❌ 채널 분석 오류: ' + err.message);
+    } finally {
+      if (btnEl) { btnEl.disabled = false; btnEl.innerHTML = originalText; }
+    }
+  };
+
+  const btnRunChannel = document.getElementById('btn-run-demand-channel');
+  if (btnRunChannel) {
+    btnRunChannel.onclick = () => {
+      const input = document.getElementById('input-demand-channel');
+      runChannelInput(input ? input.value : '', btnRunChannel);
+    };
+  }
+
+  document.querySelectorAll('.btn-channel-refresh').forEach(btn => {
+    btn.onclick = () => runChannelInput(btn.dataset.input, btn);
+  });
+
+  document.querySelectorAll('.btn-channel-delete').forEach(btn => {
+    btn.onclick = async () => {
+      const channelId = btn.dataset.channelId;
+      if (!channelId) return;
+      if (!confirm('이 채널을 추적 목록에서 제거할까요?')) return;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/market-demand/delete-channel', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({channelId}),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '삭제 실패');
+        gMarketDemand = data.data;
+        renderCurrentTab();
+        showToast('🗑️ 채널 추적 목록에서 제거됨.');
       } catch (err) {
         alert('❌ 삭제 실패: ' + err.message);
         btn.disabled = false;
@@ -8114,20 +8235,28 @@ async function annotateMarketDemandAnalysisStatus(marketDemand) {
     loadJson(analysisFailuresPath, { schemaVersion: 1, entries: {} }),
   ]);
   const failures = failuresStore.entries || {};
+  // 아웃라이어 영상 하나에 댓글/대본 리포트·실패 사유를 붙이는 로직 — byKeyword의
+  // topOutliers와 trackedChannels(2026-09-30 추가)의 topOutliers가 구조가 완전히
+  // 같으므로 함수로 뽑아 양쪽에 재사용한다.
+  const annotateOutlier = (o) => ({
+    ...o,
+    commentReportFile: (o.videoId && commentFileByVid.get(o.videoId)) || null,
+    scriptReportFile: (o.videoId && scriptFileByVid.get(o.videoId)) || null,
+    // 성공 리포트가 없는데 마지막 시도가 실패로 끝난 적 있으면 그 사유를 같이 실어 보낸다 —
+    // 버튼은 그대로 눌러서 재시도할 수 있게 두되(자막 꺼짐처럼 영구적인지, API 일시 오류처럼
+    // 다음엔 될지 우리가 단정할 수 없음), 눌러보기 전에 왜 실패했었는지 미리 알려준다.
+    commentError: (!commentFileByVid.get(o.videoId) && o.videoId && failures[o.videoId]?.comment?.message) || null,
+    scriptError: (!scriptFileByVid.get(o.videoId) && o.videoId && failures[o.videoId]?.script?.message) || null,
+  });
   return {
     ...marketDemand,
     byKeyword: marketDemand.byKeyword.map((k) => ({
       ...k,
-      topOutliers: (k.topOutliers || []).map((o) => ({
-        ...o,
-        commentReportFile: (o.videoId && commentFileByVid.get(o.videoId)) || null,
-        scriptReportFile: (o.videoId && scriptFileByVid.get(o.videoId)) || null,
-        // 성공 리포트가 없는데 마지막 시도가 실패로 끝난 적 있으면 그 사유를 같이 실어 보낸다 —
-        // 버튼은 그대로 눌러서 재시도할 수 있게 두되(자막 꺼짐처럼 영구적인지, API 일시 오류처럼
-        // 다음엔 될지 우리가 단정할 수 없음), 눌러보기 전에 왜 실패했었는지 미리 알려준다.
-        commentError: (!commentFileByVid.get(o.videoId) && o.videoId && failures[o.videoId]?.comment?.message) || null,
-        scriptError: (!scriptFileByVid.get(o.videoId) && o.videoId && failures[o.videoId]?.script?.message) || null,
-      })),
+      topOutliers: (k.topOutliers || []).map(annotateOutlier),
+    })),
+    trackedChannels: (marketDemand.trackedChannels || []).map((c) => ({
+      ...c,
+      topOutliers: (c.topOutliers || []).map(annotateOutlier),
     })),
   };
 }
@@ -8403,7 +8532,11 @@ const server = createServer(async (req, res) => {
       // 삭제 후 재분석했는데 카드가 안 돌아와서 발견 — 실제로 실행은 됐지만 깨진 이름으로
       // 저장돼 있었음). execFile은 셸을 거치지 않고 인자를 배열로 그대로 넘기므로 인코딩이
       // 깨지지 않고, 키워드에 따옴표·세미콜론 등이 들어있어도 셸 인젝션 위험이 없다.
-      const args = ['scripts/market-demand.mjs', ...(body.keyword ? [`--keyword=${body.keyword}`] : [])];
+      // channel과 keyword는 서로 다른 모드다(market-demand.mjs --channel= 참고, 2026-09-30
+      // 추가) — 둘 다 오면 channel을 우선한다(UI가 두 입력을 동시에 못 보내게 만들 것이므로
+      // 실제로는 안 겹치지만, 서버는 방어적으로 우선순위를 명시해둔다).
+      const args = ['scripts/market-demand.mjs',
+        ...(body.channel ? [`--channel=${body.channel}`] : (body.keyword ? [`--keyword=${body.keyword}`] : []))];
       try {
         await execFileAsync('node', args, {cwd: projectDir});
         const updated = await loadJson(marketDemandPath);
@@ -8453,6 +8586,32 @@ const server = createServer(async (req, res) => {
           data: await annotateMarketDemandAnalysisStatus(marketDemand),
           cleaned: {orphanedVideos: orphanedVideoIds.length, reportFiles: deletedReportFiles, dnaEntries: removedDnaEntries},
         });
+      } catch (err) {
+        return json(res, 500, {error: err.message});
+      }
+    }
+    // 추적 채널 카드 삭제(2026-09-30) — 키워드 삭제와 달리 videoId cascade 청소는 하지 않는다.
+    // 추적 채널의 topOutliers 영상은 byKeyword 쪽 아웃라이어와 겹칠 수도 있어(같은 영상이
+    // 양쪽에 다 걸리는 경우) 소유권이 애매하고, 댓글/대본 리포트는 videoId 기준으로 어느
+    // 쪽에서 봐도 재사용되는 게 맞으므로(annotateMarketDemandAnalysisStatus가 파일 인덱스로
+    // 매번 다시 찾음) 그냥 남겨둬도 무해하다 — trackedChannels 배열에서 항목만 뺀다.
+    if (url.pathname === '/api/market-demand/delete-channel' && req.method === 'POST') {
+      try {
+        const body = await readJsonBody(req);
+        const channelId = String(body.channelId || '').trim();
+        if (!channelId) return json(res, 400, {error: 'channelId가 필요합니다.'});
+
+        const marketDemand = await loadJson(marketDemandPath, {byKeyword: [], trackedChannels: []});
+        const before = (marketDemand.trackedChannels || []).length;
+        marketDemand.trackedChannels = (marketDemand.trackedChannels || []).filter((c) => c.channelId !== channelId);
+        if (marketDemand.trackedChannels.length === before) {
+          return json(res, 404, {error: `채널 ID "${channelId}"를 찾을 수 없습니다.`});
+        }
+
+        await saveJson(marketDemandPath, marketDemand);
+        memoryMarketDemand = marketDemand;
+        lastMarketDemandTime = Date.now();
+        return json(res, 200, {ok: true, data: await annotateMarketDemandAnalysisStatus(marketDemand)});
       } catch (err) {
         return json(res, 500, {error: err.message});
       }

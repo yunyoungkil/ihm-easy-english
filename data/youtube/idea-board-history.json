@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-29T07:52:18.994Z",
+  "updatedAt": "2026-09-30T02:18:27.705Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -218,7 +218,7 @@
       ],
       "episodeSlug": "ep20-world-rl",
       "episodeLabel": "단편 EP20",
-      "status": "scheduled",
+      "status": "published",
       "selectedAt": "2026-09-20T11:12:42.030Z",
       "producedAt": "2026-09-28"
     },

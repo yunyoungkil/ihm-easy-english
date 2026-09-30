@@ -58,8 +58,15 @@ angle: narrative
 
 ## Assets
 
-- 나레이션은 신규 생성 필요 — EP11~20과 동일하게 **남성 음성**(`scripts/tts-config.mjs`의
-  `VOICE`, Gemini Charon) 사용.
+- **나레이션은 Voicebox(로컬 TTS, 사용자 본인 목소리로 학습된 프로필 "2")로 생성**
+  (2026-09-29 확정, EP11~20의 Gemini Charon에서 전환 — 이 프로젝트에서 Voicebox로
+  에피소드 전체를 생성하는 첫 사례). 서버는 `http://127.0.0.1:17493`(GUI 앱이 백엔드를
+  기동), 스크립트는 `scripts/gen-tts-voicebox.mjs` — `SCRIPT.md`에서 나레이션을 직접
+  파싱해 생성하므로 이중 하드코딩 없음. 로컬 GPU라 비용 없음(Gemini의 `confirmSpend()`류
+  게이트 불필요). Voicebox 특유의 "문장 끝 뚝 끊김" 현상은 두 겹으로 방지 — (1) 문장 끝
+  온점을 말줄임표+공백으로 치환해 모델 스스로 자연스럽게 흘리도록 유도, (2) 생성된 모든
+  클립의 마지막 200ms를 PCM 레벨에서 직접 무음으로 페이드아웃(모델이 뭘 하든 상관없이
+  끊김을 물리적으로 차단하는 확정적 방법). 상세: `TASKS.md`.
 - **채널 표준 적용 대상**(모두 `CLAUDE.md`/`AGENTS.md`의 "HyperFrames 영상 제작 시 기본 적용
   요소" 확정 규칙):
   - `hyperframes-audio` 나레이션 더킹(voiceover 그룹 + carve, BGM 루트에 1개만).
@@ -107,9 +114,12 @@ angle: narrative
 - **공개 간격은 직전 편(EP20, 2026-09-28(월) 23:00 KST 예약) 기준 2일** — EP21 권장 예약일은
   **2026-09-30(수) 20:00 KST**(추정 — 제작 완료 시점에 재확인).
 - **진행 상태(2026-09-29)**: 아이디어 보드에서 소재 선정 → A/B 시뮬레이터로 썸네일 3안
-  생성·Gemini AI CTR 진단(사용자 직접 진행) → 시안 A 확정 → 프로젝트 폴더·`BRIEF.md` 생성(현재
-  단계).
-- **다음 단계**: `SCRIPT.md`/`STORYBOARD.md` 작성(웹 검색으로 Flap T 조음 원리·water/city/better
-  실제 발음 표기 사실관계 확인 포함) → TTS 나레이션 생성(남성 음성, Gemini Charon, 비용 발생 —
-  사전 견적·승인 필요) → whisper 실측 타임스탬프 동기화 → HyperFrames 컴포지션 제작 →
-  `hyperframes check` 통과 → **사용자 검수 및 명시적 승인 후에만** 렌더링.
+  생성·Gemini AI CTR 진단(사용자 직접 진행) → 시안 A 확정 → 프로젝트 폴더·`BRIEF.md` 생성 →
+  `SCRIPT.md` 11프레임 전체 작성·수차례 자체 재검토(콘텐츠 버그·구조·자연스러움 수정)·분량
+  확장 → `frame.md`(디자인 시스템)·`STORYBOARD.md`(11프레임 스토리보드) 작성 →
+  **Voicebox TTS 나레이션 11개 전부 생성 완료**(실측 총 7분 26.6초 — 사전 추정치 9분 32초는
+  폐기) → `SCRIPT.md`/`STORYBOARD.md` 실측 시간 반영 완료(현재 단계).
+- **다음 단계**: 단어 단위 whisper 타임스탬프 추출(`assets/voice/NN.words.json`, `highlightAt`용)
+  → Line 3용 `mouth_full_stop`/`mouth_flap` AI 일러스트 2장 생성(비용 발생, 사전 승인 필요)
+  → HyperFrames 컴포지션 제작 → `hyperframes check` 통과 → **사용자 검수 및 명시적 승인
+  후에만** 렌더링.

@@ -1,0 +1,13 @@
+{
+  "01": { "path": "assets/voice/01.wav", "duration_s": 42.56 },
+  "02": { "path": "assets/voice/02.wav", "duration_s": 16.08 },
+  "03": { "path": "assets/voice/03.wav", "duration_s": 38.56 },
+  "04": { "path": "assets/voice/04.wav", "duration_s": 46.08 },
+  "05": { "path": "assets/voice/05.wav", "duration_s": 92.92 },
+  "06": { "path": "assets/voice/06.wav", "duration_s": 103.92 },
+  "07": { "path": "assets/voice/07.wav", "duration_s": 49.68 },
+  "08": { "path": "assets/voice/08.wav", "duration_s": 25.92 },
+  "09": { "path": "assets/voice/09.wav", "duration_s": 41.46 },
+  "10": { "path": "assets/voice/10.wav", "duration_s": 15.0 },
+  "11": { "path": "assets/voice/11.wav", "duration_s": 34.0 }
+}

@@ -53,10 +53,16 @@
   직접 분석 후 정확히 3.0초로 스플라이스 보정함. 총 길이 506.18초(8분 26초), 파일명
   0-패딩(`01.wav`~`11.wav`) 통일, `.tts-results.json`·SCRIPT.md 각 Line 타임코드 실측
   반영 완료.
-- **다음 행동**: STORYBOARD.md의 `voiceover:` 텍스트·타이밍을 이번 톤 재작성/실측값으로
-  동기화 → 단어 단위 whisper 타임스탬프 추출(`assets/voice/NN.words.json`, `highlightAt`용)
-  → Line 3 AI 일러스트 2장 생성(비용 발생, 사전 승인 필요) → HyperFrames 프레임 제작 →
-  `hyperframes check` → 사용자 검수·승인 후 렌더링.
+- **STORYBOARD.md·BRIEF.md 실측값 동기화 완료(2026-10-01)**: `STORYBOARD.md` 11프레임의
+  `voiceover:`·`caption-pill:`·`duration:`을 전부 현재 `SCRIPT.md`(Gemini 실측 기준) 문자
+  그대로로 교체, frontmatter 총 길이도 446.60s(구 Voicebox 실측, 폐기)→506.18s로 갱신,
+  11개 프레임 duration 합계가 506.18s와 정확히 일치함을 직접 합산해 검증. `BRIEF.md`의
+  Assets/Notes도 Voicebox→Gemini 전환 경위와 현재 진행 상태로 갱신. 프레임 1·9·11에서
+  STORYBOARD의 말풍선 인용문/문구가 톤 재작성 전 구버전 그대로 남아있던 것도 함께 발견해
+  SCRIPT.md 기준으로 바로잡음(단순 텍스트 교체가 아니라 실제 내용 불일치였음).
+- **다음 행동**: 단어 단위 whisper 타임스탬프 추출(`assets/voice/NN.words.json`,
+  `highlightAt`용) → Line 3 AI 일러스트 2장 생성(비용 발생, 사전 승인 필요) → HyperFrames
+  프레임 제작 → `hyperframes check` → 사용자 검수·승인 후 렌더링.
 
 ## ✅ 완료 — 단편 EP20(World 등 R+L 인접 발음 규칙), 업로드·예약까지 끝남
 

@@ -10,7 +10,7 @@ async function main() {
       console.error('No <script> tag found in HTTP response');
       process.exit(1);
     }
-    
+
     const clientJs = html.slice(scriptStart + '<script>'.length, scriptEnd);
     console.log('HTTP Response Client JS length:', clientJs.length, 'bytes');
 
@@ -70,27 +70,175 @@ async function main() {
     script.runInContext(vmContext);
     console.log('✅ BROWSER Client JS executed in simulated DOM context without crashing!');
 
-    // Mock realistic dashboard and episode data so renderOverviewTab executes full logic
-    vmContext.gDashboard = {
-      summary: { views: 1000, estimatedMinutesWatched: 600, averageViewDuration: 120, averageViewPercentage: 45, subscribersGained: 50, subscribersLost: 5 },
-      daily: [{ views: 100, estimatedMinutesWatched: 60, subscribersGained: 5, subscribersLost: 1 }],
-      topVideos: [{ videoId: 'v1', title: 'Top Video', subscribersPerThousandViews: 10, views: 1000, url: 'https://youtu.be/v1' }],
-      recentVideos: [{ videoId: 'v1', title: 'Video 1', publishedAt: '2026-09-01T00:00:00Z', durationSeconds: 300 }]
+    // ⚠️ IMPORTANT: the client script declares its tab-level state with top-level `let`
+    // (e.g. `let gDashboard = null;`). In Node's vm module, top-level `let`/`const` create
+    // bindings in the context's lexical environment but do NOT become own properties of the
+    // context object — unlike `var`, which does. So a post-hoc `vmContext.gDashboard = {...}`
+    // (the old approach, still fine for `var`) silently does nothing here: it just adds an
+    // unused property to the context object, while every render function keeps reading the
+    // original `null` binding. This was discovered 2026-10-02 while verifying the Market
+    // Demand per-channel deep-dive feature — the test reported "rendered 325 chars" for
+    // renderMarketDemandTab() no matter what was assigned to vmContext.gMarketDemand, because
+    // it was always silently falling through to the empty-state branch. The same was true for
+    // every other `let`-declared global (gDashboard, gEpisodes, gKnowledgeDb, ...), meaning
+    // this test has likely NEVER exercised the real-data branch of any tab's render function,
+    // only ever the null/empty-state default — a false sense of coverage.
+    //
+    // Fix: compile the fixture assignments as a SECOND vm.Script and run it in the SAME
+    // vmContext as plain (non-`let`/`const`/`var`) assignments. A context's lexical
+    // environment persists across multiple Script.runInContext() calls, so a bare
+    // `gDashboard = {...};` here reaches the exact binding the original script's `let
+    // gDashboard` created — this is how the fixtures below actually take effect.
+    const fixtures = {
+      // renderOverviewTab, renderEvaluationsTab, renderStudioTab
+      gDashboard: {
+        summary: { views: 1000, estimatedMinutesWatched: 600, averageViewDuration: 120, averageViewPercentage: 45, subscribersGained: 50, subscribersLost: 5 },
+        daily: [{ views: 100, estimatedMinutesWatched: 60, subscribersGained: 5, subscribersLost: 1 }],
+        topVideos: [{ videoId: 'v1', title: 'Top Video', subscribersPerThousandViews: 10, views: 1000, url: 'https://youtu.be/v1' }],
+        recentVideos: [{ videoId: 'v1', title: 'Video 1', publishedAt: '2026-09-01T00:00:00Z', durationSeconds: 300 }],
+        // renderEvaluationsTab
+        evaluations48h: {
+          evaluations: [
+            {
+              contentId: 'TEST_EVAL_CONTENT_ID',
+              decisionStatus: 'pass',
+              label: 'TEST_EVAL_LABEL',
+              reason: 'TEST_EVAL_REASON',
+              videoId: 'v1',
+              metrics: { views: 500, averageViewPercentage: 40, subscribersGained: 3 },
+            },
+          ],
+        },
+      },
+      // renderOverviewTab, renderEpisodesTab
+      gEpisodes: [
+        {
+          season: '단편',
+          episode: 'EP16',
+          tracks: {
+            longform: {
+              contentId: 'ep16-double-vowels-longform',
+              status: 'ready_to_upload',
+              statusLabel: '업로드 대기 · 예약 권장: 9/20(일) 20:00 KST',
+              youtube: { title: 'EP16 Test Title', description: 'Test description', tags: ['tag1'], thumbnailCandidates: ['/thumb.jpg'] },
+            },
+          },
+        },
+      ],
+      // renderMarketDemandTab — shape matches data/youtube/market-demand.json
+      // (byKeyword[] + trackedChannels[], see scripts/market-demand.mjs)
+      gMarketDemand: {
+        schemaVersion: 1,
+        generatedAt: '2026-10-02T00:00:00.000Z',
+        channelsAnalyzed: 30,
+        byKeyword: [
+          {
+            keyword: 'TEST_KEYWORD_영어 발음 규칙',
+            analyzedAt: '2026-10-02T00:00:00.000Z',
+            videoCount: 12,
+            confidence: 'ok',
+            lowSampleWarning: null,
+            marketDemandScore: 88.1,
+            totalResults: 614621,
+            opportunityScore: 15.2,
+            titlePatterns: [{ word: '영어', titleCount: 5 }],
+            topOutliers: [
+              {
+                videoId: 'TESTVID001',
+                title: 'TEST_OUTLIER_TITLE 발음 함께 연습해요',
+                channelTitle: 'TEST_CHANNEL',
+                viewCount: 182610,
+                publishedAt: '2023-08-06T23:16:35Z',
+                ageDays: 1127,
+                viewsPerDay: 162,
+                channelBaselineViewsPerDay: 2.8,
+                outlierRatio: 57,
+                durationSeconds: 26,
+                isShort: true,
+              },
+            ],
+          },
+        ],
+        trackedChannels: [
+          {
+            channelId: 'UCTEST0000000000000000',
+            channelTitle: 'TEST_TRACKED_CHANNEL',
+            handle: '@test핸들',
+            channelUrl: 'https://www.youtube.com/channel/UCTEST0000000000000000',
+            subscriberCount: 284000,
+            analyzedAt: '2026-10-02T00:00:00.000Z',
+            videoCount: 50,
+            channelBaselineViewsPerDay: 438.9,
+            titlePatterns: [{ word: '기초', titleCount: 17 }],
+            topOutliers: [
+              {
+                videoId: 'TESTVID002',
+                title: 'TEST_TRACKED_OUTLIER 읽는 법',
+                channelTitle: 'TEST_TRACKED_CHANNEL',
+                viewCount: 37394,
+                publishedAt: '2026-09-29T03:00:32Z',
+                ageDays: 3,
+                viewsPerDay: 11120.2,
+                channelBaselineViewsPerDay: 438.9,
+                outlierRatio: 25.33,
+                durationSeconds: 1870,
+                isShort: false,
+              },
+            ],
+          },
+        ],
+      },
+      // renderKnowledgeDbTab — shape matches data/youtube/audience-dna.json +
+      // data/youtube/success-patterns.json (see upsertAudienceDna / renderKnowledgeDbTab)
+      gKnowledgeDb: {
+        audienceDna: {
+          entries: [
+            {
+              id: 'vocabulary:TEST_WORD',
+              type: 'vocabulary',
+              text: 'TEST_DNA_VOCAB_항목',
+              occurrences: 2,
+              sources: [{ videoId: 'TESTVID001', channelTitle: 'TEST_CHANNEL', sourceType: 'outlierComment' }],
+              firstSeenAt: '2026-10-02T00:00:00.000Z',
+              lastSeenAt: '2026-10-02T00:00:00.000Z',
+            },
+          ],
+        },
+        successPatterns: {
+          entries: [
+            {
+              id: 'TESTVID003',
+              videoId: 'TESTVID003',
+              title: 'TEST_SUCCESS_PATTERN_제목',
+              ctr: 8.5,
+              retentionRate: 55.2,
+              diagnosedAt: '2026-10-02T00:00:00.000Z',
+              reusableHook: 'TEST_REUSABLE_HOOK',
+              reusableAnalogy: 'TEST_REUSABLE_ANALOGY',
+            },
+          ],
+        },
+      },
     };
-    vmContext.gEpisodes = [
-      {
-        season: '단편',
-        episode: 'EP16',
-        tracks: {
-          longform: {
-            contentId: 'ep16-double-vowels-longform',
-            status: 'ready_to_upload',
-            statusLabel: '업로드 대기 · 예약 권장: 9/20(일) 20:00 KST',
-            youtube: { title: 'EP16 Test Title', description: 'Test description', tags: ['tag1'], thumbnailCandidates: ['/thumb.jpg'] }
-          }
-        }
-      }
-    ];
+
+    const assignments = Object.keys(fixtures)
+      .map((key) => `${key} = ${JSON.stringify(fixtures[key])};`)
+      .join('\n');
+    new vm.Script(assignments, { filename: 'fixture-injection.js' }).runInContext(vmContext);
+    console.log('✅ Fixture data injected via same-context plain assignment (reaches `let` bindings)');
+
+    // Per-tab: which fixture-only marker string MUST appear in the render output to prove the
+    // fixture actually flowed through (not just "output non-empty", which the empty-state
+    // branch would also satisfy). Tabs not listed here don't depend on any of the fixtures
+    // above (e.g. renderDesignSystemTab is self-contained).
+    const expectedMarkers = {
+      renderOverviewTab: ['Top Video'],
+      renderMarketDemandTab: ['TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER'],
+      renderEpisodesTab: ['EP16 Test Title'],
+      renderEvaluationsTab: ['TEST_EVAL_LABEL'],
+      renderStudioTab: ['Video 1'],
+      renderKnowledgeDbTab: ['TEST_DNA_VOCAB_항목', 'TEST_SUCCESS_PATTERN_제목'],
+    };
 
     // Test rendering every tab!
     const tabsToTest = [
@@ -104,15 +252,24 @@ async function main() {
       'renderStudioTab',
       'renderDesignSystemTab',
       'renderBrandLinterResults',
-      'renderKnowledgeDbTab'
+      'renderKnowledgeDbTab',
     ];
 
+    let anyMarkerFailed = false;
     for (const tabFnName of tabsToTest) {
       const fn = vmContext[tabFnName];
       if (typeof fn === 'function') {
         const out = fn({ score: 90, grade: 'A+', dopamineStages: {}, readabilityCheck: {}, violations: [], hyperFramesScenes: [] });
         if (typeof out === 'string' && out.length > 0) {
           console.log(`  ✓ ${tabFnName}() rendered HTML successfully (${out.length} chars)`);
+          const markers = expectedMarkers[tabFnName] || [];
+          const missing = markers.filter((m) => !out.includes(m));
+          if (missing.length > 0) {
+            anyMarkerFailed = true;
+            console.error(`    ✗ MISSING fixture markers (real-data branch not reached): ${missing.join(', ')}`);
+          } else if (markers.length > 0) {
+            console.log(`    ✓ real-data fixture markers present: ${markers.join(', ')}`);
+          }
         } else {
           console.warn(`  ? ${tabFnName}() returned empty output`);
         }
@@ -121,7 +278,12 @@ async function main() {
       }
     }
 
-    console.log('\n🎉 ALL CLIENT TABS AND FUNCTIONS VERIFIED 100% OPERATIONAL!');
+    if (anyMarkerFailed) {
+      console.error('\n❌ One or more tabs rendered without reaching their real-data branch — fixture injection regressed.');
+      process.exit(1);
+    }
+
+    console.log('\n🎉 ALL CLIENT TABS AND FUNCTIONS VERIFIED 100% OPERATIONAL (with real-data branches confirmed reached)!');
   } catch (err) {
     console.error('❌ Error during simulated browser test:');
     console.error(err.stack || err);

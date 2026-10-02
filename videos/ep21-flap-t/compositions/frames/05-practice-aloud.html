@@ -1,0 +1,166 @@
+<template>
+<style>
+  /* 05-practice-aloud — Frame 5, 3 rounds. Audio: 92.92s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
+  #root * { box-sizing: border-box; }
+
+  .f05-eyebrow { position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%); background: #2B2B2B; border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.2cqw; font-weight: 900; color: #F5C518; opacity: 0; z-index: 10; }
+
+  .f05-round { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); display: flex; gap: 1.8cqw; opacity: 0; z-index: 5; }
+  .f05-round.r1 { }
+  .f05-round.r2 { left: 50%; }
+  .f05-round.r3 { gap: 3cqw; }
+  .f05-card { background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 18px; box-shadow: 5px 5px 0 #2B2B2B; padding: 2.4cqh 1.6cqw; display: flex; flex-direction: column; align-items: center; gap: 0.6cqh; }
+  .f05-card-en { font-family: 'Archivo Black', sans-serif; font-size: 1.3cqw; color: #7A7365; font-variant-ligatures: none; }
+  .f05-card-sound { font-family: 'Archivo Black', sans-serif; font-size: 2.6cqw; color: #8A6D00; margin-top: 0.6cqh; }
+  .f05-dots { display: flex; gap: 0.6cqw; }
+  .f05-dot { width: 0.9cqw; height: 0.9cqw; border-radius: 50%; border: 2px solid #2B2B2B; background: transparent; }
+  .f05-dot.on { background: #F5C518; }
+
+  .f05-mini { position: absolute; left: 4cqw; top: 46%; transform: translate(0, -50%) scale(0.55); display: flex; gap: 1cqw; opacity: 0; z-index: 4; }
+  .f05-mini .f05-card { padding: 1.4cqh 1cqw; }
+  .f05-mini .f05-card-en { font-size: 1cqw; }
+  .f05-mini .f05-card-sound { font-size: 1.8cqw; }
+
+  .f05-converge { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); display: flex; gap: 2.4cqw; opacity: 0; z-index: 6; align-items: center; }
+  .f05-converge .f05-card-sound { color: #8A6D00; }
+
+  /* No card is on screen while this shows (rounds 1-3 have all faded) — center it
+     in the same slot the rounds used, well clear of a 2-line caption-pill below. */
+  .f05-speed-note { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); background: #F5C518; border: 3px solid #2B2B2B; border-radius: 100px; box-shadow: 4px 4px 0 #2B2B2B; padding: 1.4cqh 3.2cqw; font-weight: 900; font-size: 1.8cqw; opacity: 0; }
+
+  .caption-pill { position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B; border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800; color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0; }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-3m6s" id="root" data-composition-id="05-practice-aloud" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-ppe3" class="f05-eyebrow" id="eyebrow">🎤 3번 따라 하기</div>
+
+  <div data-hf-id="hf-ksbo" class="f05-round r1" id="round1">
+    <div data-hf-id="hf-2n7q" class="f05-card"><div class="f05-card-en">water</div><div data-hf-id="hf-4924" class="f05-card-sound">워러</div><div data-hf-id="hf-casw" class="f05-dots"><span data-hf-id="hf-t3i6" class="f05-dot" id="d1a"></span><span data-hf-id="hf-p5e5" class="f05-dot" id="d1b"></span><span data-hf-id="hf-odqc" class="f05-dot" id="d1c"></span></div></div>
+    <div data-hf-id="hf-tpu2" class="f05-card"><div class="f05-card-en">city</div><div data-hf-id="hf-wbvw" class="f05-card-sound">시리</div><div data-hf-id="hf-h2tk" class="f05-dots"><span data-hf-id="hf-j2ez" class="f05-dot" id="d2a"></span><span data-hf-id="hf-86xc" class="f05-dot" id="d2b"></span><span data-hf-id="hf-8yl5" class="f05-dot" id="d2c"></span></div></div>
+    <div data-hf-id="hf-u453" class="f05-card"><div class="f05-card-en">better</div><div data-hf-id="hf-zm0w" class="f05-card-sound">베러</div><div data-hf-id="hf-fvwh" class="f05-dots"><span data-hf-id="hf-3y3g" class="f05-dot" id="d3a"></span><span data-hf-id="hf-etl3" class="f05-dot" id="d3b"></span><span data-hf-id="hf-8nva" class="f05-dot" id="d3c"></span></div></div>
+  </div>
+
+  <div data-hf-id="hf-7lzz" class="f05-mini" id="round1mini">
+    <div data-hf-id="hf-uig4" class="f05-card"><div class="f05-card-en">water</div><div data-hf-id="hf-a5lg" class="f05-card-sound">워러</div></div>
+    <div data-hf-id="hf-uwr5" class="f05-card"><div class="f05-card-en">city</div><div data-hf-id="hf-q30k" class="f05-card-sound">시리</div></div>
+    <div data-hf-id="hf-vb26" class="f05-card"><div class="f05-card-en">better</div><div data-hf-id="hf-1um0" class="f05-card-sound">베러</div></div>
+  </div>
+
+  <div data-hf-id="hf-1354" class="f05-round r2" id="round2">
+    <div data-hf-id="hf-vpd7" class="f05-card"><div class="f05-card-en">matter</div><div data-hf-id="hf-us2s" class="f05-card-sound">매러</div><div data-hf-id="hf-ga7i" class="f05-dots"><span data-hf-id="hf-hvch" class="f05-dot" id="d4a"></span><span data-hf-id="hf-ltgi" class="f05-dot" id="d4b"></span><span data-hf-id="hf-prkj" class="f05-dot" id="d4c"></span></div></div>
+    <div data-hf-id="hf-w3o8" class="f05-card"><div class="f05-card-en">pretty</div><div data-hf-id="hf-j6nk" class="f05-card-sound">프리디</div><div data-hf-id="hf-f3af" class="f05-dots"><span data-hf-id="hf-2r0y" class="f05-dot" id="d5a"></span><span data-hf-id="hf-yswx" class="f05-dot" id="d5b"></span><span data-hf-id="hf-y194" class="f05-dot" id="d5c"></span></div></div>
+    <div data-hf-id="hf-whz9" class="f05-card"><div class="f05-card-en">thirty</div><div data-hf-id="hf-g6m0" class="f05-card-sound">써리</div><div data-hf-id="hf-fhlg" class="f05-dots"><span data-hf-id="hf-wrwv" class="f05-dot" id="d6a"></span><span data-hf-id="hf-lwf8" class="f05-dot" id="d6b"></span><span data-hf-id="hf-ktpp" class="f05-dot" id="d6c"></span></div></div>
+    <div data-hf-id="hf-wwaa" class="f05-card"><div class="f05-card-en">letter</div><div data-hf-id="hf-civs" class="f05-card-sound">레러</div><div data-hf-id="hf-eaod" class="f05-dots"><span data-hf-id="hf-7x80" class="f05-dot" id="d7a"></span><span data-hf-id="hf-gl3v" class="f05-dot" id="d7b"></span><span data-hf-id="hf-cmzu" class="f05-dot" id="d7c"></span></div></div>
+  </div>
+
+  <div data-hf-id="hf-vv1y" class="f05-converge" id="round3">
+    <div data-hf-id="hf-v1hq" class="f05-card"><div class="f05-card-en">writer</div><div data-hf-id="hf-n9pk" class="f05-card-sound">라이러</div></div>
+    <div data-hf-id="hf-un6p" class="f05-card"><div class="f05-card-en">rider</div><div data-hf-id="hf-y7z4" class="f05-card-sound">라이러</div></div>
+  </div>
+
+  <div data-hf-id="hf-mljs" class="f05-speed-note" id="speedNote">⚡ 속도 업! 워러 · 시리 · 베러 · 매러</div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-76qc" id="v05" src="assets/voice/05.wav" data-audio-group="voiceover" data-start="0" data-duration="92.92"></audio>
+  <audio id="sfxTick05_1" src="assets/sfx/click-soft.mp3" data-start="11.3" data-volume="0.18"></audio>
+  <audio id="sfxTick05_2" src="assets/sfx/click-soft.mp3" data-start="12.4" data-volume="0.18"></audio>
+  <audio id="sfxTick05_3" src="assets/sfx/click-soft.mp3" data-start="13.5" data-volume="0.18"></audio>
+  <audio id="sfxTick05_4" src="assets/sfx/click-soft.mp3" data-start="14.8" data-volume="0.18"></audio>
+  <audio id="sfxTick05_5" src="assets/sfx/click-soft.mp3" data-start="15.9" data-volume="0.18"></audio>
+  <audio id="sfxTick05_6" src="assets/sfx/click-soft.mp3" data-start="17" data-volume="0.18"></audio>
+  <audio id="sfxTick05_7" src="assets/sfx/click-soft.mp3" data-start="18.2" data-volume="0.18"></audio>
+  <audio id="sfxTick05_8" src="assets/sfx/click-soft.mp3" data-start="19.3" data-volume="0.18"></audio>
+  <audio id="sfxTick05_9" src="assets/sfx/click-soft.mp3" data-start="20.4" data-volume="0.18"></audio>
+  <audio id="sfxTick05_10" src="assets/sfx/click-soft.mp3" data-start="34.8" data-volume="0.18"></audio>
+  <audio id="sfxTick05_11" src="assets/sfx/click-soft.mp3" data-start="35.8" data-volume="0.18"></audio>
+  <audio id="sfxTick05_12" src="assets/sfx/click-soft.mp3" data-start="36.8" data-volume="0.18"></audio>
+  <audio id="sfxTick05_13" src="assets/sfx/click-soft.mp3" data-start="38" data-volume="0.18"></audio>
+  <audio id="sfxTick05_14" src="assets/sfx/click-soft.mp3" data-start="39" data-volume="0.18"></audio>
+  <audio id="sfxTick05_15" src="assets/sfx/click-soft.mp3" data-start="40" data-volume="0.18"></audio>
+  <audio id="sfxTick05_16" src="assets/sfx/click-soft.mp3" data-start="41.2" data-volume="0.18"></audio>
+  <audio id="sfxTick05_17" src="assets/sfx/click-soft.mp3" data-start="42.2" data-volume="0.18"></audio>
+  <audio id="sfxTick05_18" src="assets/sfx/click-soft.mp3" data-start="43.2" data-volume="0.18"></audio>
+  <audio id="sfxTick05_19" src="assets/sfx/click-soft.mp3" data-start="44.4" data-volume="0.18"></audio>
+  <audio id="sfxTick05_20" src="assets/sfx/click-soft.mp3" data-start="45.4" data-volume="0.18"></audio>
+  <audio id="sfxTick05_21" src="assets/sfx/click-soft.mp3" data-start="46.4" data-volume="0.18"></audio>
+  <audio id="sfxTick05_22" src="assets/sfx/click-soft.mp3" data-start="63.3" data-volume="0.18"></audio>
+  <audio id="sfxTick05_23" src="assets/sfx/click-soft.mp3" data-start="65.4" data-volume="0.18"></audio>
+  <audio id="sfxTick05_24" src="assets/sfx/click-soft.mp3" data-start="67.5" data-volume="0.18"></audio>
+  <audio id="sfxTick05_25" src="assets/sfx/click-soft.mp3" data-start="69.6" data-volume="0.18"></audio>
+  <audio id="sfxTick05_26" src="assets/sfx/click-soft.mp3" data-start="78" data-volume="0.18"></audio>
+  <audio id="sfxTick05_27" src="assets/sfx/click-soft.mp3" data-start="78.5" data-volume="0.18"></audio>
+  <audio id="sfxTick05_28" src="assets/sfx/click-soft.mp3" data-start="79" data-volume="0.18"></audio>
+  <audio id="sfxTick05_29" src="assets/sfx/click-soft.mp3" data-start="79.5" data-volume="0.18"></audio>
+  <audio id="sfxTick05_30" src="assets/sfx/click-soft.mp3" data-start="82.5" data-volume="0.18"></audio>
+  <audio id="sfxTick05_31" src="assets/sfx/click-soft.mp3" data-start="83" data-volume="0.18"></audio>
+  <audio id="sfxTick05_32" src="assets/sfx/click-soft.mp3" data-start="83.5" data-volume="0.18"></audio>
+  <audio id="sfxTick05_33" src="assets/sfx/click-soft.mp3" data-start="84" data-volume="0.18"></audio>
+  <audio id="sfxPop05a" src="assets/sfx/pop.mp3" data-start="34.1" data-volume="0.3"></audio>
+  <audio id="sfxPop05b" src="assets/sfx/pop.mp3" data-start="62.7" data-volume="0.3"></audio>
+  <audio id="sfxPop05c" src="assets/sfx/pop.mp3" data-start="77.0" data-volume="0.3"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+    function pulse(sel, t) { tl.to(sel, { scale: 1.05, duration: 0.15, yoyo: true, repeat: 1 }, t); }
+    function dotsOn(ids, t0, gap) { ids.forEach(function (id, i) { tl.set("#" + id, { className: "f05-dot on" }, t0 + i * gap); }); }
+
+    tl.to("#eyebrow", { opacity: 1, duration: 0.4 }, 0.1);
+    tl.call(function () { cap("자, 이렇게 눈으로 보고 신기해하는 것만으론 입에서 안 나옵니다."); }, null, 0.37);
+    tl.call(function () { cap("직접 소리를 내봐야 진짜 제 것이 되거든요. 자, 저랑 딱 3번만 뱉어보세요."); }, null, 4.97);
+    tl.to("#round1", { opacity: 1, duration: 0.4 }, 10.6);
+
+    tl.call(function () { cap("워러, 워러, 워러. 시리, 시리, 시리. 베러, 베러, 베러."); }, null, 11.29);
+    dotsOn(["d1a", "d1b", "d1c"], 11.3, 1.1);
+    dotsOn(["d2a", "d2b", "d2c"], 14.8, 1.1);
+    dotsOn(["d3a", "d3b", "d3c"], 18.2, 1.1);
+    pulse("#round1", 11.3); pulse("#round1", 14.8); pulse("#round1", 18.2);
+
+    tl.call(function () { cap("혀에 힘을 딱 빼고, 톡 튕기듯 가볍게요."); }, null, 21.32);
+    tl.call(function () { cap("어떠세요, 느낌이 좀 오시나요? 아직 입에 안 붙으셨어도 전혀 괜찮습니다."); }, null, 25.45);
+    tl.call(function () { cap("방금 배운 다른 단어들로 한 번 더 연습해볼게요."); }, null, 30.91);
+
+    tl.to("#round1", { opacity: 0, duration: 0.4 }, 33.8);
+    tl.to("#round1mini", { opacity: 1, duration: 0.4 }, 33.9);
+    tl.to("#round2", { opacity: 1, duration: 0.4 }, 34.1);
+
+    tl.call(function () { cap("매러, 매러, 매러. 프리디, 프리디, 프리디. 써리, 써리, 써리. 레러, 레러, 레러."); }, null, 34.71);
+    dotsOn(["d4a", "d4b", "d4c"], 34.8, 1.0);
+    dotsOn(["d5a", "d5b", "d5c"], 38.0, 1.0);
+    dotsOn(["d6a", "d6b", "d6c"], 41.2, 1.0);
+    dotsOn(["d7a", "d7b", "d7c"], 44.4, 1.0);
+    pulse("#round2", 34.8); pulse("#round2", 38.0); pulse("#round2", 41.2); pulse("#round2", 44.4);
+
+    tl.call(function () { cap("처음엔 다들 혀가 뻣뻣하게 느껴지실 거예요."); }, null, 48.47);
+    tl.call(function () { cap("그런데 며칠만 이렇게 반복하시면, 어느새 입이 저절로 그렇게 움직이고 있을 겁니다."); }, null, 51.14);
+    tl.call(function () { cap("자, 하나만 더 해볼게요. 아까 write랑 ride가 거의 똑같이 들린다고 말씀드렸었죠?"); }, null, 56.63);
+
+    tl.to("#round2", { opacity: 0, duration: 0.4 }, 62.5);
+    tl.to("#round3", { opacity: 1, duration: 0.4 }, 62.7);
+
+    tl.call(function () { cap("직접 소리 내보시면 그 이유를 몸으로 느끼실 수 있어요. 라이러, 라이러. 라이러, 라이러."); }, null, 63.23);
+    pulse("#round3", 63.3); pulse("#round3", 65.4); pulse("#round3", 67.5); pulse("#round3", 69.6);
+
+    tl.call(function () { cap("거의 차이가 안 느껴지시죠? 이번엔 속도를 조금 올려서, 실제 대화하듯 빠르게 가볼게요."); }, null, 71.42);
+    tl.to("#round3", { opacity: 0, duration: 0.3 }, 76.5);
+    tl.to("#round1mini", { opacity: 0, duration: 0.3 }, 76.5);
+    tl.to("#speedNote", { opacity: 1, scale: 1.05, duration: 0.4, ease: "back.out(1.6)" }, 77.0);
+
+    tl.call(function () { cap("워러, 시리, 베러, 매러. 한 번 더, 더 빠르게. 워러, 시리, 베러, 매러."); }, null, 77.88);
+    pulse("#speedNote", 78.0); pulse("#speedNote", 78.5); pulse("#speedNote", 79.0); pulse("#speedNote", 79.5);
+    pulse("#speedNote", 82.5); pulse("#speedNote", 83.0); pulse("#speedNote", 83.5); pulse("#speedNote", 84.0);
+
+    tl.call(function () { cap("처음엔 어색해도, 입에 붙을 때까지 이 구간만 몇 번이고 다시 돌려 보셔도 좋습니다."); }, null, 87.64);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["05-practice-aloud"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,75 @@
+<template>
+<style>
+  /* 07-exception-atomic — Frame 7. Audio: 49.68s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
+  #root * { box-sizing: border-box; }
+
+  .f07-eyebrow { position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%); background: #2B2B2B; border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.2cqw; font-weight: 900; color: #F5C518; opacity: 0; z-index: 10; }
+
+  /* Pair + rule-capsule share one flex-column stage, so the capsule always sits
+     a fixed gap below the cards — never collides with a 2-line caption-pill,
+     whose height isn't known ahead of time. */
+  .f07-stage { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 2.6cqh; }
+  .f07-pair { display: flex; gap: 3cqw; }
+  .f07-card { width: 24cqw; background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px; box-shadow: 5px 5px 0 #2B2B2B; padding: 3cqh 2cqw; display: flex; flex-direction: column; align-items: center; gap: 1.4cqh; opacity: 0; transform: translateY(24px); }
+  .f07-card.exception { border-color: #E84545; }
+  .f07-card-en { font-family: 'Archivo Black', sans-serif; font-size: 2.8cqw; font-variant-ligatures: none; }
+  .f07-card-sound { font-size: 2.2cqw; font-weight: 900; }
+  .f07-card.flap .f07-card-sound { color: #8A6D00; }
+  .f07-card.exception .f07-card-sound { color: #E84545; }
+  .f07-card-icon { font-size: 2.4cqw; }
+
+  .f07-rule-capsule { transform: scale(0.9); background: #F5C518; border: 3.5px solid #2B2B2B; border-radius: 100px; box-shadow: 5px 5px 0 #2B2B2B; padding: 1.2cqh 2.8cqw; font-weight: 900; font-size: 1.3cqw; opacity: 0; }
+
+  .caption-pill { position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B; border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800; color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0; }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-q8l0" id="root" data-composition-id="07-exception-atomic" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-x1fw" class="f07-eyebrow" id="eyebrow">⚠️ 딱 하나의 예외</div>
+
+  <div class="f07-stage">
+    <div data-hf-id="hf-vvli" class="f07-pair">
+      <div data-hf-id="hf-4sue" class="f07-card flap" id="cardAtom"><div data-hf-id="hf-oq28" class="f07-card-icon">👅</div><div data-hf-id="hf-q7ld" class="f07-card-en">atom</div><div data-hf-id="hf-6m6e" class="f07-card-sound">애럼</div></div>
+      <div data-hf-id="hf-ikk4" class="f07-card exception" id="cardAtomic"><div data-hf-id="hf-a7bg" class="f07-card-icon">🛑</div><div data-hf-id="hf-1rch" class="f07-card-en">atomic</div><div data-hf-id="hf-ygqd" class="f07-card-sound">어타믹</div></div>
+    </div>
+    <div data-hf-id="hf-s1yk" class="f07-rule-capsule" id="ruleCapsule">T 뒤 음절에 강세 O = 안 변함</div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-9psb" id="v07" src="assets/voice/07.wav" data-audio-group="voiceover" data-start="0" data-duration="49.68"></audio>
+  <audio id="sfxPop07a" src="assets/sfx/pop.mp3" data-start="3.2" data-volume="0.35"></audio>
+  <audio id="sfxChime07" src="assets/sfx/chime.mp3" data-start="3.7" data-volume="0.35"></audio>
+  <audio id="sfxPop07b" src="assets/sfx/pop.mp3" data-start="8.0" data-volume="0.35"></audio>
+  <audio id="sfxClick07" src="assets/sfx/click-soft.mp3" data-start="8.3" data-volume="0.3"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.to("#eyebrow", { opacity: 1, duration: 0.4 }, 0.1);
+    tl.call(function () { cap("아니요, 딱 하나 안 통하는 경우가 있습니다."); }, null, 0.36);
+
+    tl.call(function () { cap('원자를 뜻하는 atom은 애텀이 아니라 애럼이 되는데, "원자의"라는 뜻의 atomic은 왜 그대로 어타믹일까요?'); }, null, 3.08);
+    tl.to("#cardAtom", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 3.2);
+    tl.to("#cardAtomic", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 8.0);
+
+    tl.call(function () { cap("이유는 하나예요. T 바로 뒤 음절에 강세가 오면, 혀가 절대 스치고 지나가지 않거든요."); }, null, 14.17);
+    tl.call(function () { cap("atom은 T 뒤가 힘 빠진 음절이라 스치지만, atomic은 T 바로 뒤 tom 음절에 강세가 딱 실려 있어서 혀가 거기서 제대로 멈춰야 합니다."); }, null, 20.78);
+    tl.call(function () { cap("강세가 실린 음절은 또렷하게 힘줘서 말해야 하니까, 아무리 게으른 혀라도 거기서만큼은 지름길을 못 타는 거예요."); }, null, 27.92);
+
+    tl.call(function () { cap("그러니까 기준은 딱 하나, 모음 사이인지가 아니라 T 뒤에 힘이 있는지 없는지입니다."); }, null, 39.98);
+    tl.to("#ruleCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 40.1);
+
+    tl.call(function () { cap("그런데 이 T, 아예 소리째로 사라져버리는 경우도 있다는 거 아세요?"); }, null, 46.12);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-exception-atomic"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-30T02:18:27.705Z",
+  "updatedAt": "2026-10-02T12:03:57.962Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -248,8 +248,38 @@
       ],
       "episodeSlug": "ep21-flap-t",
       "episodeLabel": "단편 EP21",
-      "status": "selected",
+      "status": "scheduled",
       "selectedAt": "2026-09-28T13:48:09.188Z",
+      "producedAt": "2026-10-02"
+    },
+    {
+      "topic": "자음 벽 유무로 갈리는 단모음 vs 장모음 소리 원리",
+      "angleOrHook": "NO는 '노'인데 NOT은 왜 '낫'일까요? 모음 뒤에 자음 벽이 있느냐 없느냐에 따라 소리가 닫히고 열리는 알파벳 모음의 결정적 차이를 밝힙니다.",
+      "targetAudience": "단어마다 알파벳 모음 소리가 제각각 바뀌어 단어 읽기를 포기했던 노베이스 왕초보 학습자",
+      "rank": 3,
+      "score": 88,
+      "dataSourceRefs": [
+        {
+          "source": "marketDemand",
+          "detail": "집중 키워드 '영어기초배우기 발음' (opportunityScore 43.3) 및 반복 훅 단어 '알파벳', '파닉스', '영어기초배우기'"
+        },
+        {
+          "source": "contentOpportunity",
+          "detail": "포맷/역할 'LEGACY' fitScore 57"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "누적 고통점 [vocabulary] '언어팩', '체득'"
+        },
+        {
+          "source": "successPatterns",
+          "detail": "아웃라이어 '영어 읽는법 1편 - 자음과 모음, 그리고 파닉스 | 왕초보영어'(렉스쌤의 왕초보영어훈련소, 50.42배)"
+        }
+      ],
+      "episodeSlug": null,
+      "episodeLabel": null,
+      "status": "selected",
+      "selectedAt": "2026-10-02T12:03:57.962Z",
       "producedAt": null
     }
   ]

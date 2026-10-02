@@ -1,0 +1,205 @@
+<template>
+<style>
+  /* 01-cold-open — Frame 1 "콜드 오픈: 친구의 배신감 스토리".
+     Actual audio duration: 42.56s. Caption timing from assets/voice/01.words.json.
+     - 0.22s: City, 사전에서 배운 대로... 완벽하게 속으신 겁니다.
+     - 8.13s: 저도 얼마 전에 친구한테 이 얘기를 들었어요.
+     - 10.82s: 여행 갔다가... 씨티은행이 어디냐고... 한 번에 못 알아듣더래요.
+     - 16.69s: 그래서 제가 물어봤죠, 혹시 시, 티...
+     - 21.86s: 친구는 당연하다는 듯... 스펠링이 C,I,T,Y인데...
+     - 26.04s: 그 말을 듣고 나서... 슬로모션 영상만 수십 개를 뜯어봤습니다.
+     - 36.21s: 결과는 저도 충격이었어요. 열에 아홉은 "시티"가 아니라 "시리"...
+     100% caption-pill coverage.
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #F4EFE6;
+    color: #2B2B2B;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  .f01-eyebrow {
+    position: absolute;
+    top: 6cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2B2B2B;
+    border-radius: 999px;
+    padding: 0.9cqh 2.4cqw;
+    font-size: 1.2cqw;
+    font-weight: 900;
+    color: #F5C518;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  /* Dialogue bubbles */
+  .f01-dialogue-stage {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%);
+    width: 70cqw;
+    z-index: 5;
+  }
+  .f01-bubble-row { display: flex; margin-bottom: 1.6cqh; opacity: 0; transform: translateY(16px); }
+  .f01-bubble-row.friend { justify-content: flex-start; }
+  .f01-bubble-row.speaker { justify-content: flex-end; }
+  .f01-bubble {
+    max-width: 62%;
+    border-radius: 24px;
+    padding: 1.6cqh 2.2cqw;
+    font-size: 1.9cqw;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+  .f01-bubble.friend { background: #EFEAE0; border: 3px solid #2B2B2B; border-bottom-left-radius: 6px; }
+  .f01-bubble.speaker { background: #FFFFFF; border: 3.5px solid #F5C518; box-shadow: 4px 4px 0 #2B2B2B; border-bottom-right-radius: 6px; }
+
+  /* CITY reveal */
+  .f01-reveal-stage {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    z-index: 6;
+  }
+  .f01-reveal-word {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 8cqw;
+    letter-spacing: 0.02em;
+    color: #2B2B2B;
+    font-variant-ligatures: none;
+  }
+  .f01-reveal-sounds {
+    margin-top: 2.4cqh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2cqw;
+  }
+  .f01-sound-wrong {
+    font-size: 3.6cqw;
+    font-weight: 900;
+    color: #B7AFA0;
+    text-decoration: line-through 6px #E84545;
+    font-family: 'Gaegu', sans-serif;
+  }
+  .f01-sound-arrow { font-size: 2.4cqw; color: #7A7365; }
+  .f01-sound-right {
+    font-size: 4.2cqw;
+    font-weight: 900;
+    color: #8A6D00;
+    opacity: 0;
+    transform: scale(0.7);
+    font-family: 'Gaegu', sans-serif;
+  }
+
+  .caption-pill {
+    position: absolute;
+    bottom: 4cqh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.97);
+    border: 3px solid #2B2B2B;
+    box-shadow: 4px 4px 0px #2B2B2B;
+    border-radius: 36px;
+    padding: 1.1cqh 2.6cqw;
+    font-size: 1.5cqw;
+    font-weight: 800;
+    color: #2B2B2B;
+    text-align: center;
+    max-width: 84cqw;
+    z-index: 30;
+    opacity: 0;
+  }
+
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-vy7c" id="root" data-composition-id="01-cold-open" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-hx7j" class="f01-eyebrow" id="eyebrow">😳 친구가 못 알아들은 진짜 이유</div>
+
+  <div data-hf-id="hf-d6b3" class="f01-dialogue-stage" id="dialogueStage">
+    <div data-hf-id="hf-sjy0" class="f01-bubble-row friend" id="bubbleFriend1">
+      <div data-hf-id="hf-li2c" class="f01-bubble friend">씨티은행 어디예요?</div>
+    </div>
+    <div data-hf-id="hf-3fmx" class="f01-bubble-row speaker" id="bubbleSpeaker">
+      <div data-hf-id="hf-zl9o" class="f01-bubble speaker">시, 티, 이렇게 읽었어?</div>
+    </div>
+    <div data-hf-id="hf-3ffn" class="f01-bubble-row friend" id="bubbleFriend2">
+      <div data-hf-id="hf-0100" class="f01-bubble friend">스펠링이 C-I-T-Y인데?</div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-qgov" class="f01-reveal-stage" id="revealStage">
+    <div data-hf-id="hf-1ryv" class="f01-reveal-word">CITY</div>
+    <div data-hf-id="hf-1c44" class="f01-reveal-sounds">
+      <span data-hf-id="hf-69tm" class="f01-sound-wrong">시티</span>
+      <span data-hf-id="hf-cz4s" class="f01-sound-arrow">→</span>
+      <span data-hf-id="hf-if38" class="f01-sound-right" id="soundRight">시리</span>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-kqd1" id="v01" src="assets/voice/01.wav" data-audio-group="voiceover" data-start="0" data-duration="42.56"></audio>
+  <audio id="sfxPop01a" src="assets/sfx/pop.mp3" data-start="11.1" data-volume="0.35"></audio>
+  <audio id="sfxPop01b" src="assets/sfx/pop.mp3" data-start="16.9" data-volume="0.35"></audio>
+  <audio id="sfxPop01c" src="assets/sfx/pop.mp3" data-start="22.1" data-volume="0.35"></audio>
+  <audio id="sfxClick01" src="assets/sfx/click-soft.mp3" data-start="35.8" data-volume="0.3"></audio>
+  <audio id="sfxChime01" src="assets/sfx/chime.mp3" data-start="38.0" data-volume="0.35"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.to("#eyebrow", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.1);
+
+    // 0.22s - thumbnail promise
+    tl.call(function () { cap('City, 사전에서 배운 대로 또박또박 "시티"라고 읽으셨다면, 사실 완벽하게 속으신 겁니다.'); }, null, 0.22);
+
+    // 8.13s - friend episode begins
+    tl.call(function () { cap("저도 얼마 전에 친구한테 이 얘기를 들었어요."); }, null, 8.13);
+    tl.to("#dialogueStage", { opacity: 1, duration: 0.4 }, 8.3);
+
+    // 10.82s - friend bubble "씨티은행 어디예요?"
+    tl.call(function () { cap("여행 갔다가 미국인한테 씨티은행이 어디냐고 물어봤는데, 한 번에 못 알아듣더래요."); }, null, 10.82);
+    tl.to("#bubbleFriend1", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 11.1);
+
+    // 16.69s - speaker bubble
+    tl.call(function () { cap("그래서 제가 물어봤죠, 혹시 시, 티, 이렇게 또박또박 읽었냐고요."); }, null, 16.69);
+    tl.to("#bubbleSpeaker", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 16.9);
+
+    // 21.86s - friend bubble 2 "C-I-T-Y"
+    tl.call(function () { cap("친구는 당연하다는 듯 말하더라고요, 스펠링이 C, I, T, Y인데 그럼 어떻게 읽냐고요."); }, null, 21.86);
+    tl.to("#bubbleFriend2", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 22.1);
+
+    // 26.04s - transition to reveal
+    tl.call(function () { cap("그 말을 듣고 나서 저는 원어민들이 이 단어를 실제로 말할 때 입을 어떻게 움직이는지, 슬로모션 영상만 수십 개를 뜯어봤습니다."); }, null, 26.04);
+    tl.to("#dialogueStage", { opacity: 0, y: -16, duration: 0.6, ease: "power2.in" }, 34.8);
+
+    // 36.21s - CITY reveal, 시티 struck, 시리 gold
+    tl.call(function () { cap('결과는 저도 충격이었어요. 열에 아홉은 "시티"가 아니라 "시리"에 가깝게 말하고 있더라고요.'); }, null, 36.21);
+    tl.to("#revealStage", { opacity: 1, duration: 0.5 }, 35.8);
+    tl.to("#soundRight", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 38.0);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-cold-open"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,88 @@
+<template>
+<style>
+  /* 04-pattern-expansion — Frame 4. Audio: 46.08s.
+     0.45 / 5.89 / 19.96 / 27.46 / 30.77 / 37.55
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
+  #root * { box-sizing: border-box; }
+
+  .f04-eyebrow { position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%); background: #2B2B2B; border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.2cqw; font-weight: 900; color: #F5C518; opacity: 0; z-index: 10; }
+
+  .f04-grid { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqw; width: 84cqw; z-index: 5; }
+  .f04-card { background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 18px; box-shadow: 5px 5px 0 #2B2B2B; padding: 2.4cqh 1cqw; display: flex; flex-direction: column; align-items: center; gap: 1cqh; opacity: 0; transform: translateY(24px) scale(0.9); }
+  .f04-card-en { font-family: 'Archivo Black', sans-serif; font-size: 2.4cqw; color: #2B2B2B; font-variant-ligatures: none; }
+  .f04-card-wrong { font-size: 1.3cqw; font-weight: 700; color: #B7AFA0; text-decoration: line-through 3px #E84545; }
+  .f04-card-right { font-size: 1.9cqw; font-weight: 900; color: #8A6D00; opacity: 0; }
+
+  .f04-converge-stage { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 4cqw; opacity: 0; z-index: 6; }
+  .f04-converge-word { font-family: 'Archivo Black', sans-serif; font-size: 5cqw; color: #2B2B2B; font-variant-ligatures: none; }
+  .f04-converge-sound { margin-top: 1cqh; font-size: 2.2cqw; font-weight: 900; color: #8A6D00; text-align: center; opacity: 0; }
+
+  .caption-pill { position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B; border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800; color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0; }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-nnns" id="root" data-composition-id="04-pattern-expansion" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-oic6" class="f04-eyebrow" id="eyebrow">✅ 어? 이것도 통하네!</div>
+
+  <div data-hf-id="hf-vvit" class="f04-grid" id="grid">
+    <div data-hf-id="hf-cfet" class="f04-card" id="cMatter"><div data-hf-id="hf-ybaa" class="f04-card-en">matter</div><div data-hf-id="hf-5wgp" class="f04-card-wrong">매터</div><div data-hf-id="hf-s7se" class="f04-card-right" id="sMatter">매러</div></div>
+    <div data-hf-id="hf-qnlq" class="f04-card" id="cPretty"><div data-hf-id="hf-ac5r" class="f04-card-en">pretty</div><div data-hf-id="hf-kwhz" class="f04-card-wrong">프리티</div><div data-hf-id="hf-l55f" class="f04-card-right" id="sPretty">프리디</div></div>
+    <div data-hf-id="hf-q4au" class="f04-card" id="cThirty"><div data-hf-id="hf-chyn" class="f04-card-en">thirty</div><div data-hf-id="hf-xkhx" class="f04-card-wrong">써티</div><div data-hf-id="hf-0wo1" class="f04-card-right" id="sThirty">써리</div></div>
+    <div data-hf-id="hf-vvhy" class="f04-card" id="cLetter"><div data-hf-id="hf-wpkf" class="f04-card-en">letter</div><div data-hf-id="hf-rq05" class="f04-card-wrong">레터</div><div data-hf-id="hf-k9nd" class="f04-card-right" id="sLetter">레러</div></div>
+  </div>
+
+  <div data-hf-id="hf-e2wy" class="f04-converge-stage" id="convergeStage">
+    <div data-hf-id="hf-5lcv" class="f04-converge-side left"><div data-hf-id="hf-taza" class="f04-converge-word">writer</div><div data-hf-id="hf-6baq" class="f04-converge-sound" id="sWriter">라이러</div></div>
+    <div data-hf-id="hf-2ggi" class="f04-converge-side right"><div data-hf-id="hf-uglv" class="f04-converge-word">rider</div><div data-hf-id="hf-35bb" class="f04-converge-sound" id="sRider">라이더</div></div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-j3n8" id="v04" src="assets/voice/04.wav" data-audio-group="voiceover" data-start="0" data-duration="46.08"></audio>
+  <audio id="sfxPop04a" src="assets/sfx/pop.mp3" data-start="6.0" data-volume="0.35"></audio>
+  <audio id="sfxPop04b" src="assets/sfx/pop.mp3" data-start="9.3" data-volume="0.35"></audio>
+  <audio id="sfxPop04c" src="assets/sfx/pop.mp3" data-start="13.6" data-volume="0.35"></audio>
+  <audio id="sfxPop04d" src="assets/sfx/pop.mp3" data-start="17.5" data-volume="0.35"></audio>
+  <audio id="sfxWhoosh04" src="assets/sfx/whoosh.mp3" data-start="31.2" data-volume="0.35"></audio>
+  <audio id="sfxChime04" src="assets/sfx/chime.mp3" data-start="37.8" data-volume="0.35"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.to("#eyebrow", { opacity: 1, duration: 0.4 }, 0.1);
+    tl.call(function () { cap("그럼 편지 쓸 때 자주 쓰는 letter처럼, 다른 단어에도 이 지름길이 통할까요?"); }, null, 0.45);
+
+    tl.call(function () { cap("matter는 매터가 아니라 매러, pretty는 프리티가 아니라 프리디, thirty는 써티가 아니라 써리, letter는 레터가 아니라 레러가 됩니다."); }, null, 5.89);
+    tl.to("#cMatter", { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 6.0);
+    tl.to("#sMatter", { opacity: 1, duration: 0.3 }, 6.5);
+    tl.to("#cPretty", { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 9.3);
+    tl.to("#sPretty", { opacity: 1, duration: 0.3 }, 9.8);
+    tl.to("#cThirty", { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 13.6);
+    tl.to("#sThirty", { opacity: 1, duration: 0.3 }, 14.1);
+    tl.to("#cLetter", { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 17.5);
+    tl.to("#sLetter", { opacity: 1, duration: 0.3 }, 18.0);
+
+    tl.call(function () { cap("전부 같은 이유예요. 모음 사이에 낀 T 뒤에 힘 빠진 모음이 오면, 혀가 스치고 지나가는 것뿐이거든요."); }, null, 19.96);
+    tl.to("#grid", { opacity: 0, duration: 0.5 }, 26.0);
+
+    tl.call(function () { cap("그런데 여기서 진짜 놀라운 사실이 하나 있습니다."); }, null, 27.46);
+
+    tl.call(function () { cap("write의 T도, ride의 D도 모음 사이에서는 똑같이 이 혀 스치는 소리로 바뀌어요."); }, null, 30.77);
+    tl.to("#convergeStage", { opacity: 1, duration: 0.4 }, 30.9);
+    tl.fromTo(".f04-converge-side.left", { x: 115 }, { x: 0, duration: 1.2, ease: "power2.inOut" }, 31.2);
+    tl.fromTo(".f04-converge-side.right", { x: -115 }, { x: 0, duration: 1.2, ease: "power2.inOut" }, 31.2);
+
+    tl.call(function () { cap("그래서 글 쓰는 사람 writer와 자전거 타는 사람 rider는, 실제 원어민 발음에서는 거의 구분이 안 될 정도로 비슷하게 들립니다."); }, null, 37.55);
+    tl.to(["#sWriter", "#sRider"], { opacity: 1, duration: 0.5 }, 37.8);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["04-pattern-expansion"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

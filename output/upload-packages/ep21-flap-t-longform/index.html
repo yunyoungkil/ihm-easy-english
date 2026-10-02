@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP21 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0F17;
+      --card-bg: rgba(22, 27, 41, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #FFE500;
+      --accent-glow: rgba(255, 229, 0, 0.35);
+      --primary: #2E86AB;
+      --success: #00E5A3;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(255, 229, 0, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(46, 134, 171, 0.08) 0%, transparent 40%);
+    }
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(255, 229, 0, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(255, 229, 0, 0.3);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .title span { color: var(--accent); }
+    .status-pill {
+      background: rgba(0, 229, 163, 0.12);
+      color: #00E5A3;
+      border: 1px solid rgba(0, 229, 163, 0.25);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #00E5A3;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00E5A3;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+    }
+    @media (max-width: 1024px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFFFFF;
+    }
+    .btn-copy {
+      background: #1F2937;
+      color: #E5E7EB;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-copy:hover {
+      background: var(--accent);
+      color: #000000;
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .btn-copy.copied {
+      background: var(--success);
+      color: #000000;
+      font-weight: 900;
+      border-color: var(--success);
+    }
+    .content-box {
+      background: rgba(10, 13, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 14.5px;
+      color: #D1D5DB;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 280px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+    .content-box.single-line {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      white-space: normal;
+    }
+    .video-wrapper {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #000;
+    }
+    video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+    }
+    .video-info-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(15, 20, 30, 0.9);
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .video-info-bar strong { color: var(--accent); font-weight: 800; }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .thumb-item {
+      background: rgba(15, 20, 30, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .thumb-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .thumb-item.selected {
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .thumb-item img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-info {
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(20, 25, 38, 0.9);
+      font-size: 13px;
+    }
+    .thumb-tag {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+    }
+    .thumb-dl {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      transition: background 0.15s;
+    }
+    .thumb-dl:hover {
+      background: var(--accent);
+      color: #000;
+    }
+    .lang-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+    }
+    .lang-tab {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .lang-tab:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFF;
+    }
+    .lang-tab.active {
+      background: var(--primary);
+      color: #FFF;
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(46, 134, 171, 0.4);
+    }
+    .lang-panel { display: none; flex-direction: column; gap: 14px; }
+    .lang-panel.active { display: flex; }
+    .srt-download-btn {
+      background: var(--primary);
+      color: #FFF;
+      padding: 7px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .srt-download-btn:hover {
+      background: #3B82F6;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+    }
+    .tip-box {
+      background: rgba(255, 229, 0, 0.08);
+      border: 1px solid rgba(255, 229, 0, 0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: #FFF3A8;
+      line-height: 1.6;
+    }
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(10, 13, 20, 0.6);
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      user-select: none;
+      font-size: 14px;
+    }
+    .check-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .check-item input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div>
+        <div class="badge">🔥 READY TO UPLOAD PACKAGE</div>
+        <h1 class="title">EP21 <span>City/water/better Flap T</span> 원클릭 업로드 패키지</h1>
+      </div>
+      <div class="status-pill">렌더링 &amp; 7개국 자막 완비</div>
+    </header>
+
+    <div class="grid">
+      <!-- Left Column: Video & Thumbnails -->
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <section class="card">
+          <div class="card-title">
+            <span>🎬 최종 렌더 영상 (1080p 30fps)</span>
+            <span class="badge" style="margin: 0; background: rgba(0, 229, 163, 0.15); color: #00E5A3; border-color: rgba(0, 229, 163, 0.3);">FULL RESOLUTION</span>
+          </div>
+          <div class="video-wrapper">
+            <video controls preload="metadata" poster="thumbnail.jpg">
+              <source src="English Pronunciation_Flap T_T Sound_Pronunciation Tips_Learn English.mp4" type="video/mp4">
+              브라우저가 비디오 태그를 지원하지 않습니다.
+            </video>
+            <div class="video-info-bar">
+              <div>길이: <strong>8분 26.18초</strong> (506.18s)</div>
+              <div>해상도: <strong>1920x1080</strong> (16:9)</div>
+              <div>엔드스크린 킵아웃: <strong>8:21 ~ 8:26</strong> (완전 비움)</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Thumbnail Selection -->
+        <section class="card">
+          <div class="card-title">
+            <span>🖼️ 썸네일 A/B/C 시안 (3종 라인업)</span>
+            <span style="font-size: 13px; color: var(--text-muted);">A안(메인) 최고 CTR 선정</span>
+          </div>
+          <div class="thumb-grid">
+            <div class="thumb-item selected">
+              <img src="thumbnail-a.jpg" alt="시안 A (메인 채택)">
+              <div class="thumb-info">
+                <span class="thumb-tag">A안 (메인 채택 · A+)</span>
+                <a href="thumbnail-a.jpg" download="thumbnail-a.jpg" class="thumb-dl">다운로드</a>
+              </div>
+            </div>
+            <div class="thumb-item">
+              <img src="thumbnail-b.jpg" alt="시안 B (보류, 재생성 필요)">
+              <div class="thumb-info">
+                <span class="thumb-tag">B안 (보류 · B+)</span>
+                <a href="thumbnail-b.jpg" download="thumbnail-b.jpg" class="thumb-dl">다운로드</a>
+              </div>
+            </div>
+            <div class="thumb-item">
+              <img src="thumbnail-c.jpg" alt="시안 C (보류)">
+              <div class="thumb-info">
+                <span class="thumb-tag">C안 (보류 · A-)</span>
+                <a href="thumbnail-c.jpg" download="thumbnail-c.jpg" class="thumb-dl">다운로드</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Metadata & Copy Elements -->
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <!-- Title -->
+        <section class="card">
+          <div class="card-title">
+            <span>🏷️ 유튜브 영상 제목</span>
+            <button class="btn-copy" onclick="copyText('titleText', this)">제목 복사</button>
+          </div>
+          <div id="titleText" class="content-box single-line">사전 찾아보고 배신감 느꼈습니다, City를 '시티'로 읽으면 절대 못 알아듣는 이유 | 영어 T 발음 원리</div>
+        </section>
+
+        <!-- Pinned Comment -->
+        <section class="card">
+          <div class="card-title">
+            <span>📌 고정 댓글 (시청자 반응 유도)</span>
+            <button class="btn-copy" onclick="copyText('pinnedText', this)">댓글 복사</button>
+          </div>
+          <div id="pinnedText" class="content-box">📌 여러분은 City, water, better... 지금까지 어떻게 읽어오셨나요?
+1번 또박또박 "시티", "워터", "베터" (사전 그대로 📖)
+2번 왠지 모르게 "시리", "워러", "베러"에 가깝게 (감으로 😅)
+3번 아예 신경 써본 적 없음 (오늘 처음 알았어요 😳)
+
+댓글로 여러분의 답을 남겨주시면, 오늘 배운 '게으른 혀의 소리 지름길'로 바로 확인시켜 드립니다!
+오늘 영상이 도움 되셨다면 [구독 &amp; 좋아요] 부탁드립니다! ✨</div>
+        </section>
+
+        <!-- Tags -->
+        <section class="card">
+          <div class="card-title">
+            <span>🏷️ 검색 최적화 태그</span>
+            <button class="btn-copy" onclick="copyText('tagsText', this)">태그 전체 복사</button>
+          </div>
+          <div id="tagsText" class="content-box single-line" style="font-size: 13px; color: var(--text-muted);">영어발음,영어T발음,FlapT,영어발음꿀팁,발음교정,왕초보영어,영어스피킹,영어공부,기초영어,성인영어,버터발음,City발음,water발음,원어민발음,쉬운영어</div>
+        </section>
+
+        <!-- Korean Description -->
+        <section class="card">
+          <div class="card-title">
+            <span>📝 영상 설명란 전문 (타임라인 포함)</span>
+            <button class="btn-copy" onclick="copyText('descText', this)">설명 복사</button>
+          </div>
+          <div id="descText" class="content-box">City를 사전에서 배운 대로 "시티"라고 또박또박 읽어오셨다면, 사실 완벽하게 속으신 겁니다.
+얼마 전 친구가 여행 중에 미국인한테 씨티은행이 어디냐고 물었는데, 한 번에 못 알아듣더래요. 스펠링이 C, I, T, Y인데 그럼 어떻게 읽냐고 당연하다는 듯 되묻는 친구 말을 듣고, 원어민 슬로모션 영상만 수십 개를 뜯어봤습니다.
+결과는 저도 충격이었어요. 열에 아홉은 "시티"가 아니라 "시리"에 가깝게 말하고 있더라고요.
+
+스펠링은 분명 T인데 왜 소리는 자꾸 리을처럼 들릴까요? 흔히 "버터발음"이라고 부르는 그 느낌, 사실 혀에 힘을 더 주는 게 아니라 오히려 힘을 쫙 빼고 혀를 톡 튕기듯 스쳐 지나가는 지름길 하나로 설명됩니다.
+오늘 이 원리 하나만 알아두시면, water도 better도, 처음 보는 단어까지 사전 찾아볼 필요 없이 입에서 바로 자연스럽게 나오게 됩니다.
+
+「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리의 물리적 원리로 설명합니다.
+
+📌 오늘 배우는 내용
+・친구가 "City"를 못 알아들은 진짜 이유
+・원어민의 비밀: 혀가 스치듯 지나가는 '게으른 혀'의 소리 지름길
+・water·city·better 3단어로 원리 증명 (워러·시리·베러)
+・matter·pretty·thirty·letter까지 패턴 확장
+・반전: writer와 rider가 거의 똑같이 들리는 이유
+・직접 소리내보기 3라운드 + 속도 업 실전 훈련
+・실전 문장 리스닝 + 빈칸 맞히기로 귀 훈련
+・유일한 예외: atom은 되는데 atomic은 왜 안 될까 (강세의 비밀)
+・보너스: winter가 winner처럼 들리는 완전히 다른 현상
+・실전 퀴즈: meeting·daughter·computer·hotel 중 예외 찾기
+・스마트폰 캡처용 1장 요약 치트시트
+
+⏱️ 챕터 타임라인
+0:00 City를 "시티"라고 읽으면 안 통하는 진짜 이유
+0:42 스펠링은 T인데 왜 리을처럼 들릴까
+0:58 혀가 스치듯 지나가는 소리 지름길의 원리
+1:37 matter·pretty·thirty·letter로 패턴 확장 + writer=rider 반전
+2:23 직접 소리내서 3번씩 따라 하기
+3:56 실전 문장으로 리스닝 확인 + 빈칸 맞히기
+5:40 유일한 예외: atom vs atomic (강세의 비밀)
+6:29 보너스: winter가 winner처럼 들리는 이유
+6:55 실전 퀴즈: 예외 단어를 스스로 찾아보기
+7:37 오늘 배운 내용 한 장 치트시트 정리
+7:52 엔딩
+
+사전이 가르쳐준 발음과 실제 원어민이 말하는 소리는 다릅니다. 혀를 혹사시키며 무작정 또박또박 읽는 게 아니라, 소리가 지나가는 진짜 길을 이해하는 것입니다.
+구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.
+
+#영어발음 #영어T발음 #FlapT #영어발음꿀팁 #발음교정 #왕초보영어 #영어스피킹 #영어공부 #기초영어 #성인영어</div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Multilingual Subtitles & Metadata Section -->
+    <section class="card" style="border: 2px solid rgba(46, 134, 171, 0.4); box-shadow: 0 0 25px rgba(46, 134, 171, 0.15);">
+      <div class="card-title">
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 22px;">🌍</span>
+          <span>글로벌 7개국 다국어 자막 &amp; 메타데이터 원클릭 패키지</span>
+        </span>
+        <span class="badge" style="background: rgba(46,134,171,0.2); color: #60A5FA; border-color: rgba(46,134,171,0.4); margin: 0;">GLOBAL EXPANSION</span>
+      </div>
+      <p style="font-size: 13.5px; color: var(--text-muted);">
+        유튜브 알고리즘이 전 세계 시청자에게 추천할 수 있도록 한국어 음성에 맞춘 <strong>영어, 일본어, 중국어 번체, 중국어 간체, 스페인어, 베트남어</strong> 자막(.srt) 및 번역 제목/설명을 준비했습니다.
+      </p>
+
+      <div class="lang-tabs">
+        <button class="lang-tab active" onclick="switchLang('en', this)">🇺🇸 English</button>
+        <button class="lang-tab" onclick="switchLang('ja', this)">🇯🇵 日本語</button>
+        <button class="lang-tab" onclick="switchLang('zh-tw', this)">🇹🇼 繁體中文</button>
+        <button class="lang-tab" onclick="switchLang('zh-cn', this)">🇨🇳 简体中文</button>
+        <button class="lang-tab" onclick="switchLang('es', this)">🇪🇸 Español</button>
+        <button class="lang-tab" onclick="switchLang('vi', this)">🇻🇳 Tiếng Việt</button>
+        <button class="lang-tab" onclick="switchLang('ko', this)">🇰🇷 한국어</button>
+      </div>
+
+      <div id="panel-en" class="lang-panel active">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <div>
+            <strong style="color: #FFF; font-size: 15px;">🇺🇸 English Subtitle File (.srt)</strong>
+            <span style="color: var(--text-muted); font-size: 12.5px; display: block;">81개 전체 문장 정밀 싱크 완료 · 전 세계 공용 & 유튜브 SEO 인덱싱용</span>
+          </div>
+          <a href="subtitles/subtitles-en.srt" download="subtitles-en.srt" class="srt-download-btn">⬇️ subtitles-en.srt download</a>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ English 번역 제목</span>
+            <button class="btn-copy" onclick="copyText('title-en', this)">제목 복사</button>
+          </div>
+          <div id="title-en" class="content-box single-line">I Was Fooled by the Dictionary: Why "City" Isn't Said "Si-Ti" | The English Flap T Rule</div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 English 번역 설명 (타임스탬프 챕터 포함)</span>
+            <button class="btn-copy" onclick="copyText('desc-en', this)">설명 복사</button>
+          </div>
+          <div id="desc-en" class="content-box">If you've been pronouncing City exactly as the dictionary says — clearly, letter by letter — you've actually been completely fooled.
+A friend of mine once asked an American where Citibank was, pronouncing every letter carefully, and the American couldn't understand her at all. That's when I pulled apart dozens of slow-motion native-speaker videos to find out why.
+The result shocked me too: nine times out of ten, native speakers aren't saying "City," they're saying something much closer to "Siri."
+
+The spelling clearly has a T — so why does it sound like an R? It's not about pressing your tongue harder. It's the opposite: relax your tongue completely and let it flick past, like a lazy shortcut.
+Learn this one principle today, and water, better, even brand-new words will come out of your mouth naturally — no dictionary required.
+
+Welcome to "Easy English When You Understand It." We explain English through the physical mechanics of sound, so anyone can master it.
+
+⏱️ Chapters
+0:00 The real reason my friend couldn't understand "City"
+0:42 The spelling says T — so why does it sound like an R?
+0:58 The lazy-tongue shortcut: how the flick actually works
+1:37 Expanding the pattern to matter, pretty, thirty, letter — plus the writer = rider twist
+2:23 Say it out loud with me — 3 rounds of practice
+3:56 Real-sentence listening check + fill-in-the-blank drills
+5:40 The one exception: atom vs. atomic (it's all about stress)
+6:29 Bonus: why winter can sound like winner (a totally different rule)
+6:55 Quiz: find the exception yourself
+7:37 Everything today, summed up on one cheat-sheet card
+7:52 Closing
+
+#EnglishPronunciation #FlapT #TSound #PronunciationTips #LearnEnglish #EnglishSpeaking #AmericanAccent #BeginnerEnglish</div>
+        </div>
+      </div>
+
+      <div id="panel-ja" class="lang-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <div>
+            <strong style="color: #FFF; font-size: 15px;">🇯🇵 日本語 Subtitle File (.srt)</strong>
+            <span style="color: var(--text-muted); font-size: 12.5px; display: block;">81개 전체 문장 정밀 싱크 완료 · 일본 영어 학습 시청자 타겟</span>
+          </div>
+          <a href="subtitles/subtitles-ja.srt" download="subtitles-ja.srt" class="srt-download-btn">⬇️ subtitles-ja.srt ダウンロード</a>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 日本語 번역 제목</span>
+            <button class="btn-copy" onclick="copyText('title-ja', this)">제목 복사</button>
+          </div>
+          <div id="title-ja" class="content-box single-line">辞書通りに読んだら実はまんまと騙されていた：Cityの「T」が別の音に変わる理由 | 英語T発音の法則</div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 日本語 번역 설명 (타임스탬프 챕터 포함)</span>
+            <button class="btn-copy" onclick="copyText('desc-ja', this)">설명 복사</button>
+          </div>
+          <div id="desc-ja" class="content-box">辞書に書いてある通り、一字一字はっきり「シティ」と発音していたなら、実はまんまと騙されていたんです。
+友人が旅行中にアメリカ人に「シティ銀行」の場所を尋ねたとき、はっきり発音したのに全く通じなかったそうです。その話を聞いてから、ネイティブのスローモーション映像を何十本も分析しました。
+結果は私自身も衝撃でした。十人中九人は「シティ」ではなく「シリ」に近い音で話していたのです。
+
+綴りには確かにTがあるのに、なぜRのように聞こえるのでしょうか？舌にもっと力を入れるのではなく、逆に力を完全に抜いて軽く弾くように流す「怠け者の近道」がその理由です。
+今日この一つの原理を学べば、water も better も、初めて見る単語まで辞書なしで自然に口から出てくるようになります。
+
+「理解すれば簡単な英語」へようこそ。発声の物理的な仕組みから英語を解説します。
+
+⏱️ チャプター
+0:00 友人が「City」を聞き取れなかった本当の理由
+0:42 綴りはTなのに、なぜRのように聞こえるのか
+0:58 舌がかすめる「怠け者の近道」の原理
+1:37 matter・pretty・thirty・letterへの応用＋writer＝riderの衝撃の一致
+2:23 一緒に声に出す3ラウンド練習
+3:56 実践文リスニング＋穴埋めクイズ
+5:40 唯一の例外：atom と atomic（アクセントの秘密）
+6:29 ボーナス：winterがwinnerに聞こえる別の現象
+6:55 クイズ：自分で例外を見つけよう
+7:37 今日の内容を1枚のカードにまとめ
+7:52 エンディング
+
+#英語発音 #TheFlapT #英語発音のコツ #フォニックス #大人のやり直し英語 #英会話初心者 #英語学習 #ネイティブ発音</div>
+        </div>
+      </div>
+
+      <div id="panel-zh-tw" class="lang-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <div>
+            <strong style="color: #FFF; font-size: 15px;">🇹🇼 繁體中文 Subtitle File (.srt)</strong>
+            <span style="color: var(--text-muted); font-size: 12.5px; display: block;">81개 전체 문장 정밀 싱크 완료 · 대만/홍콩 시청자 타겟</span>
+          </div>
+          <a href="subtitles/subtitles-zh-tw.srt" download="subtitles-zh-tw.srt" class="srt-download-btn">⬇️ subtitles-zh-tw.srt 下載</a>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 繁體中文 번역 제목</span>
+            <button class="btn-copy" onclick="copyText('title-zh-tw', this)">제목 복사</button>
+          </div>
+          <div id="title-zh-tw" class="content-box single-line">照著字典念才發現被騙了：City 的 T 為什麼會變成另一個音？| 英文 T 發音法則</div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 繁體中文 번역 설명 (타임스탬프 챕터 포함)</span>
+            <button class="btn-copy" onclick="copyText('desc-zh-tw', this)">설명 복사</button>
+          </div>
+          <div id="desc-zh-tw" class="content-box">如果你一直照著字典念得字正腔圓，把 City 念成「西踢」，那你其實完全被騙了。
+我朋友去旅行時問美國人 Citibank 在哪裡，字正腔圓地念，結果對方完全聽不懂。聽完這件事之後，我拆解了幾十部母語人士的慢動作影片，想找出真正的原因。
+結果連我自己都嚇一跳——十個人裡有九個，說的根本不是「西踢」，而是更接近「西裡」。
+
+拼法明明就是 T，為什麼聽起來卻像 R？答案不是舌頭更用力，而是完全相反：讓舌頭徹底放鬆，輕輕掠過，就像抄了一條懶惰的捷徑。
+只要今天學會這一個原理，water、better，甚至是你從沒見過的單字，都能自然而然地從嘴裡說出來，完全不用查字典。
+
+歡迎來到「理解就變簡單的英語」。我們用聲音的物理原理，帶你輕鬆攻克英語發音。
+
+⏱️ 時間戳記
+0:00 朋友聽不懂 City 的真正原因
+0:42 拼法明明是 T，為什麼聽起來像 R
+0:58 舌頭輕輕掠過的「懶惰捷徑」原理
+1:37 延伸到 matter、pretty、thirty、letter，加上 writer = rider 的驚人反轉
+2:23 跟著一起念出聲，三輪練習
+3:56 實戰句子聽力練習＋填空挑戰
+5:40 唯一的例外：atom 與 atomic（重音的秘密）
+6:29 加碼：winter 聽起來像 winner 的另一個現象
+6:55 小測驗：自己找出例外單字
+7:37 把今天學的內容整理成一張卡片
+7:52 結語
+
+#英語發音 #FlapT #英文發音技巧 #自然拼讀 #零基礎英語 #美式發音 #英語學習 #Phonics</div>
+        </div>
+      </div>
+
+      <div id="panel-zh-cn" class="lang-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <div>
+            <strong style="color: #FFF; font-size: 15px;">🇨🇳 简体中文 Subtitle File (.srt)</strong>
+            <span style="color: var(--text-muted); font-size: 12.5px; display: block;">81개 전체 문장 정밀 싱크 완료 · 싱가포르/화교권 시청자 타겟</span>
+          </div>
+          <a href="subtitles/subtitles-zh-cn.srt" download="subtitles-zh-cn.srt" class="srt-download-btn">⬇️ subtitles-zh-cn.srt 下载</a>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 简体中文 번역 제목</span>
+            <button class="btn-copy" onclick="copyText('title-zh-cn', this)">제목 복사</button>
+          </div>
+          <div id="title-zh-cn" class="content-box single-line">照着字典念才发现被骗了：City 的 T 为什么会变成另一个音？| 英语 T 发音法则</div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 简体中文 번역 설명 (타임스탬프 챕터 포함)</span>
+            <button class="btn-copy" onclick="copyText('desc-zh-cn', this)">설명 복사</button>
+          </div>
+          <div id="desc-zh-cn" class="content-box">如果你一直照着字典念得字正腔圆，把 City 念成“西踢”，那你其实完全被骗了。
+我朋友去旅行时问美国人 Citibank 在哪里，字正腔圆地念，结果对方完全听不懂。听完这件事之后，我拆解了几十部母语人士的慢动作视频，想找出真正的原因。
+结果连我自己都吓一跳——十个人里有九个，说的根本不是“西踢”，而是更接近“西里”。
+
+拼法明明就是 T，为什么听起来却像 R？答案不是舌头更用力，而是完全相反：让舌头彻底放松，轻轻掠过，就像抄了一条懒惰的捷径。
+只要今天学会这一个原理，water、better，甚至是你从没见过的单词，都能自然而然地从嘴里说出来，完全不用查字典。
+
+欢迎来到“理解就变简单的英语”。我们用声音的物理原理，带你轻松攻克英语发音。
+
+⏱️ 时间戳
+0:00 朋友听不懂 City 的真正原因
+0:42 拼法明明是 T，为什么听起来像 R
+0:58 舌头轻轻掠过的“懒惰捷径”原理
+1:37 延伸到 matter、pretty、thirty、letter，加上 writer = rider 的惊人反转
+2:23 跟着一起念出声，三轮练习
+3:56 实战句子听力练习＋填空挑战
+5:40 唯一的例外：atom 与 atomic（重音的秘密）
+6:29 加码：winter 听起来像 winner 的另一个现象
+6:55 小测验：自己找出例外单词
+7:37 把今天学的内容整理成一张卡片
+7:52 结语
+
+#英语发音 #FlapT #英语发音技巧 #自然拼读 #零基础英语 #美式发音 #英语学习 #Phonics</div>
+        </div>
+      </div>
+
+      <div id="panel-es" class="lang-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <div>
+            <strong style="color: #FFF; font-size: 15px;">🇪🇸 Español Subtitle File (.srt)</strong>
+            <span style="color: var(--text-muted); font-size: 12.5px; display: block;">81개 전체 문장 정밀 싱크 완료 · 스페인어권 & 미국 히스패닉 타겟</span>
+          </div>
+          <a href="subtitles/subtitles-es.srt" download="subtitles-es.srt" class="srt-download-btn">⬇️ subtitles-es.srt descargar</a>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ Español 번역 제목</span>
+            <button class="btn-copy" onclick="copyText('title-es', this)">제목 복사</button>
+          </div>
+          <div id="title-es" class="content-box single-line">Me engañó el diccionario: por qué "City" no se dice "si-ti" | La regla de la T suave en inglés</div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 Español 번역 설명 (타임스탬프 챕터 포함)</span>
+            <button class="btn-copy" onclick="copyText('desc-es', this)">설명 복사</button>
+          </div>
+          <div id="desc-es" class="content-box">Si has estado pronunciando City tal como dice el diccionario, bien marcado, letra por letra, en realidad te han engañado por completo.
+Una amiga mía le preguntó a un estadounidense dónde quedaba Citibank, pronunciando cada letra con cuidado, y él no logró entenderla para nada. Después de escuchar eso, analicé decenas de videos en cámara lenta de hablantes nativos para descubrir la verdadera razón.
+El resultado me sorprendió hasta a mí: nueve de cada diez no decían "City", sino algo mucho más parecido a "Siri".
+
+La ortografía claramente tiene una T, entonces ¿por qué suena como una R? No se trata de presionar más la lengua, sino todo lo contrario: relájala por completo y déjala rozar ligeramente, como tomando un atajo perezoso.
+Aprende hoy este único principio, y water, better, e incluso palabras totalmente nuevas saldrán de tu boca de forma natural, sin necesidad de diccionario.
+
+Bienvenidos a "Inglés Fácil Cuando se Entiende". Explicamos el inglés a través de la mecánica física del sonido.
+
+⏱️ Capítulos
+0:00 La verdadera razón por la que mi amiga no entendía "City"
+0:42 La ortografía dice T, entonces ¿por qué suena como R?
+0:58 El atajo de la lengua perezosa: cómo funciona realmente
+1:37 Ampliando el patrón a matter, pretty, thirty, letter, más el giro de writer = rider
+2:23 Dilo en voz alta conmigo — 3 rondas de práctica
+3:56 Comprobación de escucha con frases reales + ejercicios de completar
+5:40 La única excepción: atom vs. atomic (todo depende del acento)
+6:29 Bonus: por qué winter puede sonar como winner (una regla totalmente distinta)
+6:55 Quiz: encuentra tú mismo la excepción
+7:37 Todo lo de hoy, resumido en una sola tarjeta
+7:52 Despedida
+
+#PronunciacionIngles #FlapT #InglesDesdeCero #AprenderIngles #InglesAmericano #FoneticaIngles</div>
+        </div>
+      </div>
+
+      <div id="panel-vi" class="lang-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <div>
+            <strong style="color: #FFF; font-size: 15px;">🇻🇳 Tiếng Việt Subtitle File (.srt)</strong>
+            <span style="color: var(--text-muted); font-size: 12.5px; display: block;">81개 전체 문장 정밀 싱크 완료 · 베트남 영어 학습 시청자 타겟</span>
+          </div>
+          <a href="subtitles/subtitles-vi.srt" download="subtitles-vi.srt" class="srt-download-btn">⬇️ subtitles-vi.srt tải xuống</a>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ Tiếng Việt 번역 제목</span>
+            <button class="btn-copy" onclick="copyText('title-vi', this)">제목 복사</button>
+          </div>
+          <div id="title-vi" class="content-box single-line">Tôi đã bị từ điển lừa: vì sao "City" không đọc là "xi-ti" | Quy tắc âm T mềm tiếng Anh</div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 Tiếng Việt 번역 설명 (타임스탬프 챕터 포함)</span>
+            <button class="btn-copy" onclick="copyText('desc-vi', this)">설명 복사</button>
+          </div>
+          <div id="desc-vi" class="content-box">Nếu bạn vẫn phát âm City thật rõ ràng, từng chữ một theo đúng từ điển, thì thực ra bạn đã bị đánh lừa hoàn toàn rồi đấy.
+Một người bạn của tôi hỏi một người Mỹ Citibank ở đâu, phát âm rất rõ ràng từng chữ, nhưng người đó hoàn toàn không hiểu. Sau khi nghe chuyện đó, tôi đã phân tích hàng chục video quay chậm của người bản xứ để tìm ra lý do thật sự.
+Kết quả khiến chính tôi cũng sốc — chín trên mười người không nói "City", mà nói gần giống "Siri" hơn.
+
+Chữ viết rõ ràng có chữ T, vậy tại sao lại nghe như chữ R? Không phải vì cần đẩy lưỡi mạnh hơn, mà ngược lại: thả lỏng lưỡi hoàn toàn và để nó lướt nhẹ qua, như đi một đường tắt lười biếng.
+Chỉ cần học đúng một nguyên tắc này hôm nay, water, better, và cả những từ hoàn toàn mới cũng sẽ tự nhiên bật ra khỏi miệng bạn mà không cần tra từ điển.
+
+Chào mừng bạn đến với "Hiểu Là Tiếng Anh Dễ Dàng". Chúng tôi giải thích tiếng Anh qua cơ chế vật lý của âm thanh.
+
+⏱️ Dấu mốc thời gian
+0:00 Lý do thật sự bạn tôi không hiểu được "City"
+0:42 Chữ viết là T, vậy sao lại nghe như R?
+0:58 Đường tắt lưỡi lười biếng: cách nó thực sự hoạt động
+1:37 Mở rộng sang matter, pretty, thirty, letter, cùng cú twist writer = rider
+2:23 Cùng tôi nói to lên — 3 vòng luyện tập
+3:56 Kiểm tra nghe với câu thực tế + bài tập điền từ
+5:40 Ngoại lệ duy nhất: atom và atomic (tất cả nằm ở trọng âm)
+6:29 Thêm: vì sao winter có thể nghe như winner (một quy tắc hoàn toàn khác)
+6:55 Đố vui: tự tìm ra ngoại lệ
+7:37 Tất cả nội dung hôm nay, tóm gọn trong một tấm thẻ
+7:52 Lời kết
+
+#PhatAmTiengAnh #FlapT #HocTiengAnh #TiengAnhGiaoTiep #TuHocTiengAnh #PhatAmChuan</div>
+        </div>
+      </div>
+
+      <div id="panel-ko" class="lang-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15,20,30,0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--card-border);">
+          <div>
+            <strong style="color: #FFF; font-size: 15px;">🇰🇷 한국어 자막 파일 (.srt)</strong>
+            <span style="color: var(--text-muted); font-size: 12.5px; display: block;">원본 자막 · caption-pill GSAP 큐 타임(Gemini TTS 실측 whisper 정렬) 기준</span>
+          </div>
+          <a href="subtitles/subtitles-ko.srt" download="subtitles-ko.srt" class="srt-download-btn">⬇️ subtitles-ko.srt 다운로드</a>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">🏷️ 한국어 원본 제목</span>
+            <button class="btn-copy" onclick="copyText('titleText', this)">제목 복사</button>
+          </div>
+          <div class="content-box single-line">사전 찾아보고 배신감 느꼈습니다, City를 '시티'로 읽으면 절대 못 알아듣는 이유 | 영어 T 발음 원리</div>
+        </div>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: #FFF; font-size: 14px;">📝 한국어 원본 설명</span>
+            <button class="btn-copy" onclick="copyText('descText', this)">설명 복사</button>
+          </div>
+          <div class="content-box">City를 사전에서 배운 대로 "시티"라고 또박또박 읽어오셨다면, 사실 완벽하게 속으신 겁니다.
+얼마 전 친구가 여행 중에 미국인한테 씨티은행이 어디냐고 물었는데, 한 번에 못 알아듣더래요. 스펠링이 C, I, T, Y인데 그럼 어떻게 읽냐고 당연하다는 듯 되묻는 친구 말을 듣고, 원어민 슬로모션 영상만 수십 개를 뜯어봤습니다.
+결과는 저도 충격이었어요. 열에 아홉은 "시티"가 아니라 "시리"에 가깝게 말하고 있더라고요.
+
+스펠링은 분명 T인데 왜 소리는 자꾸 리을처럼 들릴까요? 흔히 "버터발음"이라고 부르는 그 느낌, 사실 혀에 힘을 더 주는 게 아니라 오히려 힘을 쫙 빼고 혀를 톡 튕기듯 스쳐 지나가는 지름길 하나로 설명됩니다.
+오늘 이 원리 하나만 알아두시면, water도 better도, 처음 보는 단어까지 사전 찾아볼 필요 없이 입에서 바로 자연스럽게 나오게 됩니다.
+
+「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리의 물리적 원리로 설명합니다.
+
+📌 오늘 배우는 내용
+・친구가 "City"를 못 알아들은 진짜 이유
+・원어민의 비밀: 혀가 스치듯 지나가는 '게으른 혀'의 소리 지름길
+・water·city·better 3단어로 원리 증명 (워러·시리·베러)
+・matter·pretty·thirty·letter까지 패턴 확장
+・반전: writer와 rider가 거의 똑같이 들리는 이유
+・직접 소리내보기 3라운드 + 속도 업 실전 훈련
+・실전 문장 리스닝 + 빈칸 맞히기로 귀 훈련
+・유일한 예외: atom은 되는데 atomic은 왜 안 될까 (강세의 비밀)
+・보너스: winter가 winner처럼 들리는 완전히 다른 현상
+・실전 퀴즈: meeting·daughter·computer·hotel 중 예외 찾기
+・스마트폰 캡처용 1장 요약 치트시트
+
+⏱️ 챕터 타임라인
+0:00 City를 "시티"라고 읽으면 안 통하는 진짜 이유
+0:42 스펠링은 T인데 왜 리을처럼 들릴까
+0:58 혀가 스치듯 지나가는 소리 지름길의 원리
+1:37 matter·pretty·thirty·letter로 패턴 확장 + writer=rider 반전
+2:23 직접 소리내서 3번씩 따라 하기
+3:56 실전 문장으로 리스닝 확인 + 빈칸 맞히기
+5:40 유일한 예외: atom vs atomic (강세의 비밀)
+6:29 보너스: winter가 winner처럼 들리는 이유
+6:55 실전 퀴즈: 예외 단어를 스스로 찾아보기
+7:37 오늘 배운 내용 한 장 치트시트 정리
+7:52 엔딩
+
+사전이 가르쳐준 발음과 실제 원어민이 말하는 소리는 다릅니다. 혀를 혹사시키며 무작정 또박또박 읽는 게 아니라, 소리가 지나가는 진짜 길을 이해하는 것입니다.
+구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다.
+
+#영어발음 #영어T발음 #FlapT #영어발음꿀팁 #발음교정 #왕초보영어 #영어스피킹 #영어공부 #기초영어 #성인영어</div>
+        </div>
+      </div>
+
+      <!-- Quick How-To -->
+      <div class="tip-box" style="margin-top: 14px;">
+        💡 <strong>YouTube Studio 3분 등록법:</strong><br>
+        1. 유튜브 스튜디오 영상 수정 ➔ 왼쪽 <strong>[자막]</strong> 메뉴 클릭<br>
+        2. <strong>[언어 추가]</strong> 클릭 후 원하는 언어(영어, 일본어, 중국어 번체, 스페인어 등) 추가<br>
+        3. 각 언어의 <strong>[제목 및 설명]</strong>에 위 번역문을 복사 붙여넣고, <strong>[자막]</strong>에 위 다운로드한 <code>.srt</code> 파일을 업로드하면 즉시 완료됩니다!
+      </div>
+    </section>
+
+    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 28px;">
+      <section class="card">
+        <div class="card-title">
+          <span>⚙️ 유튜브 Studio 필수 설정 항목</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 12px; color: var(--accent); font-weight: 800; display: block;">권장 예약 일시 (확정 전, 업로드 직전 재확인)</span>
+              <strong style="font-size: 16px;">2026-10-02(금) 23:00 KST</strong>
+            </div>
+            <button class="btn-copy" onclick="copyText('scheduleText', this)">복사</button>
+            <span id="scheduleText" style="display:none">2026-10-02 23:00 KST</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(15,20,30,0.6); border-radius: 8px; border: 1px solid var(--card-border);">
+            <div>
+              <span style="font-size: 12px; color: var(--accent); font-weight: 800; display: block;">최종 화면 (엔드스크린) 연결</span>
+              <strong style="font-size: 15px;">직전 편 (World &amp; R/L 게으른 혀, videoId -UHrFcMRsEY) 연결</strong>
+            </div>
+            <span style="font-size: 12px; color: var(--text-muted);">끝 5초(8:21~8:26) 비워둠</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <span>📋 업로드 실행 체크리스트</span>
+        </div>
+        <div class="checklist">
+          <label class="check-item">
+            <input type="checkbox">
+            <span>1. "English Pronunciation_Flap T_T Sound_Pronunciation Tips_Learn English.mp4" 업로드 (1920x1080, 30fps, 8분 26.18초)</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <span>2. 제목(A) 및 설명 복사 입력 — 제목 B/C는 Test &amp; Compare용</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <span>3. 썸네일 Test &amp; Compare 3종 등록 (a=대표, b, c) — b안은 텍스처 아티팩트 재확인</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <span>4. 태그 전체 붙여넣기</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <span>5. 다국어 자막 7종 + 번역 제목/설명 등록</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <span>6. 최종 화면 요소 추가 — 직전 편(World R/L) 연결</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <span>7. 공개 상태: [예약] 발행일시 재확인 후 설정</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <span>8. 첫 댓글 작성 및 [댓글 고정]</span>
+          </label>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    function copyText(elementId, btn) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText || el.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✓ 복사완료!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove('copied');
+        }, 1800);
+      });
+    }
+
+    function switchLang(lang, btn) {
+      document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const p = document.getElementById('panel-' + lang);
+      if (p) p.classList.add('active');
+    }
+  </script>
+</body>
+</html>

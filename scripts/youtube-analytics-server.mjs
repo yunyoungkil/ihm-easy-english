@@ -2464,9 +2464,17 @@ loadBrandLinterState();
 /* 4-QUADRANT MATRIX STATE */
 let gMatrixFormatFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gMatrixQuadrantFilter = 'ALL'; // 'ALL' | 'Q1' | 'Q2' | 'Q3' | 'Q4'
-let gMatrixCtrThreshold = 6.0;
-let gMatrixRetThresholdLong = 42.0;
-let gMatrixRetThresholdShorts = 70.0;
+// null = not manually overridden yet, so computeMatrixDataset() falls back to this channel's
+// own dynamic (5%-trimmed, weighted-average) threshold instead of a hardcoded one-size-fits-all
+// number (2026-10-02 fix — see the long comment inside computeMatrixDataset() for why).
+let gMatrixCtrThreshold = null;
+let gMatrixRetThresholdLong = null;
+let gMatrixRetThresholdShorts = null;
+// Side-channel for computeMatrixDataset() to publish the thresholds it actually resolved
+// (user override if set, else the dynamic channel-relative value) so renderMatrixTab() can
+// display/plot the real line without recomputing or threading a changed return shape through
+// every call site.
+let gMatrixResolvedThresholds = { ctr: 6.0, retLong: 42.0, retShorts: 70.0 };
 
 /* A/B SIMULATOR STATE */
 let gAbVariants = [
@@ -5154,8 +5162,90 @@ function computeMatrixDataset() {
   const packageMap = new Map(packages.map(pkg => [pkg.videoId, pkg]));
 
   // 1. Minimum Sample Size Parameters (Configurable)
-  const minImpressions = 100;
+  // 2026-10-02 parity fix: this was 100 while scripts/matrix-diagnosis.mjs (the server-side
+  // twin of this function, used by /api/matrix/data) has always used 30 — "default 30 for
+  // early growth channels" per its own comment. The mismatch meant videos the server
+  // confidently classified into a quadrant were instead stuck in LOW_SAMPLE on the client,
+  // found via a same-snapshot parity check (feeding identical gDashboard data to both
+  // functions and diffing the output) while fixing the separate dynamic-CTR-threshold bug.
+  const minImpressions = 30;
   const minViews = 10;
+
+  // Dynamic (channel-relative) Q1/Q2/Q3/Q4 thresholds — mirrors scripts/matrix-diagnosis.mjs
+  // calcTrimmedWeightedStats() exactly (2026-10-02 fix). Before this, the Matrix tab always
+  // used hardcoded 6.0%/42%/70% regardless of channel size, which silently hid every real Q1
+  // video on a small channel (this channel's own 5%-trimmed, impression/view-weighted average
+  // is far below 6.0% CTR) — found when a user couldn't see Q1 videos onscreen that the
+  // server's own /api/matrix/data endpoint (which already did this calculation, but was never
+  // wired to the UI) reported. A lightweight pre-scan computes the same stats the main loop
+  // below would derive anyway, just early enough to resolve the threshold before quadrant
+  // assignment needs it.
+  const preScan = [];
+  for (const v of allVideos) {
+    const perf = performanceMap.get(v.videoId) || {};
+    const reach = reachManual[v.videoId] || {};
+    const pkg = packageMap.get(v.videoId) || {};
+    const cls = v.classification || pkg.classification || {};
+    const durationSec = Number(v.durationSeconds || perf.durationSeconds || 0);
+    const titleHasShortsTag = /#(shorts|쇼츠)/i.test(v.title || '');
+    const isShort = (v.format === 'SHORTS') ||
+                    (durationSec > 0 && durationSec <= 60) ||
+                    ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role) ||
+                    titleHasShortsTag;
+    const views = Number(perf.views || v.statistics?.viewCount || 0);
+    let retentionRate = 0;
+    let hasValidRetention = (views >= minViews);
+    if (perf.averageViewPercentage != null && Number(perf.averageViewPercentage) > 0) {
+      retentionRate = Number(perf.averageViewPercentage);
+    } else if (perf.averageViewDuration != null && durationSec > 0) {
+      retentionRate = Math.min(100, Math.round((Number(perf.averageViewDuration) / durationSec) * 1000) / 10);
+    } else {
+      hasValidRetention = false;
+    }
+    let ctr = null, impressions = 0, hasRealCtr = false;
+    const windows = reach.windows || {};
+    const periods = reach.periods || {};
+    if (windows['28d'] && windows['28d'].ctr != null) {
+      ctr = Number(windows['28d'].ctr); impressions = Number(windows['28d'].impressions || 0); hasRealCtr = true;
+    } else if (windows['lifetime'] && windows['lifetime'].ctr != null) {
+      ctr = Number(windows['lifetime'].ctr); impressions = Number(windows['lifetime'].impressions || 0); hasRealCtr = true;
+    } else if (windows['first_48h'] && windows['first_48h'].ctr != null) {
+      ctr = Number(windows['first_48h'].ctr); impressions = Number(windows['first_48h'].impressions || 0); hasRealCtr = true;
+    } else {
+      const latestPeriod = Object.values(periods)
+        .filter((p) => p && p.ctr != null)
+        .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')))[0];
+      if (latestPeriod) { ctr = Number(latestPeriod.ctr); impressions = Number(latestPeriod.impressions || 0); hasRealCtr = true; }
+    }
+    preScan.push({ format: isShort ? 'SHORTS' : 'LONGFORM', views, impressions, ctr, hasRealCtr, retentionRate, hasValidRetention });
+  }
+
+  function calcTrimmedWeightedStats(statItems) {
+    if (!statItems.length) return { weightedCtr: 5.5, weightedRet: 42.0 };
+    const sorted = [...statItems].sort((a, b) => a.views - b.views);
+    const trimCount = Math.floor(sorted.length * 0.05);
+    const trimmed = sorted.slice(trimCount, sorted.length - trimCount || sorted.length);
+    const totalImpressions = trimmed.reduce((acc, x) => acc + (x.impressions || 0), 0);
+    const totalClicks = trimmed.reduce((acc, x) => acc + ((x.impressions || 0) * (x.ctr || 0) / 100), 0);
+    const weightedCtr = totalImpressions > 0 ? (totalClicks / totalImpressions) * 100 : 5.5;
+    const totalViews = trimmed.reduce((acc, x) => acc + x.views, 0);
+    const totalRetWeight = trimmed.reduce((acc, x) => acc + (x.views * x.retentionRate), 0);
+    const weightedRet = totalViews > 0 ? totalRetWeight / totalViews : 42.0;
+    return { weightedCtr: Math.round(weightedCtr * 10) / 10, weightedRet: Math.round(weightedRet * 10) / 10 };
+  }
+
+  const verifiedLongPreScan = preScan.filter(x => x.format === 'LONGFORM' && x.hasRealCtr && x.hasValidRetention);
+  const verifiedShortsPreScan = preScan.filter(x => x.format === 'SHORTS' && x.hasRealCtr && x.hasValidRetention);
+  const dynamicStatsLong = calcTrimmedWeightedStats(verifiedLongPreScan);
+  const dynamicStatsShorts = calcTrimmedWeightedStats(verifiedShortsPreScan);
+
+  // A non-null gMatrixCtrThreshold/etc. means the user explicitly moved the slider — that
+  // always wins (matches matrix-diagnosis.mjs's customThresholds override precedence). Only
+  // fall back to the dynamic channel-relative value when the user hasn't touched it yet.
+  const resolvedCtrThreshold = gMatrixCtrThreshold != null ? gMatrixCtrThreshold : (dynamicStatsLong.weightedCtr || 5.5);
+  const resolvedRetThresholdLong = gMatrixRetThresholdLong != null ? gMatrixRetThresholdLong : (dynamicStatsLong.weightedRet || 42.0);
+  const resolvedRetThresholdShorts = gMatrixRetThresholdShorts != null ? gMatrixRetThresholdShorts : (dynamicStatsShorts.weightedRet || 70.0);
+  gMatrixResolvedThresholds = { ctr: resolvedCtrThreshold, retLong: resolvedRetThresholdLong, retShorts: resolvedRetThresholdShorts };
 
   const items = [];
 
@@ -5240,7 +5330,7 @@ function computeMatrixDataset() {
     const is48hWarmup = ageHours >= 0 && ageHours < 48;
     const hasStatisticalSignificance = hasRealCtr && !is48hWarmup && impressions >= minImpressions && views >= minViews;
 
-    const retThresh = isShort ? gMatrixRetThresholdShorts : gMatrixRetThresholdLong;
+    const retThresh = isShort ? resolvedRetThresholdShorts : resolvedRetThresholdLong;
 
     if (!hasRealCtr) {
       items.push({
@@ -5329,7 +5419,7 @@ function computeMatrixDataset() {
       continue;
     }
 
-    const highCtr = (ctr || 0) >= gMatrixCtrThreshold;
+    const highCtr = (ctr || 0) >= resolvedCtrThreshold;
     const highRet = retentionRate >= retThresh;
 
     let quadrant = 'Q4';
@@ -5426,8 +5516,8 @@ function renderMatrixTab() {
   const getX = (ctrVal) => padLeft + (Math.min(maxCtr, Math.max(0, ctrVal || 0)) / maxCtr) * chartW;
   const getY = (retVal) => (padTop + chartH) - (Math.min(maxRet, Math.max(0, retVal || 0)) / maxRet) * chartH;
 
-  const threshX = getX(gMatrixCtrThreshold);
-  const activeRetThresh = gMatrixFormatFilter === 'SHORTS' ? gMatrixRetThresholdShorts : gMatrixRetThresholdLong;
+  const threshX = getX(gMatrixResolvedThresholds.ctr);
+  const activeRetThresh = gMatrixFormatFilter === 'SHORTS' ? gMatrixResolvedThresholds.retShorts : gMatrixResolvedThresholds.retLong;
   const threshY = getY(activeRetThresh);
 
   // SVG Bubbles (verified + warmup with real CTR)
@@ -5506,7 +5596,7 @@ function renderMatrixTab() {
         '</div>' +
 
         '<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; font-size:12px;">' +
-          '<label style="display:flex; align-items:center; gap:4px; color:var(--accent-cyan);">CTR 기준: <input type="number" id="input-matrix-ctr-thresh" value="' + gMatrixCtrThreshold + '" step="0.5" min="1" max="20" style="width:55px; padding:3px 6px; font-size:12px;">%</label>' +
+          '<label style="display:flex; align-items:center; gap:4px; color:var(--accent-cyan);">CTR 기준: <input type="number" id="input-matrix-ctr-thresh" value="' + gMatrixResolvedThresholds.ctr + '" step="0.5" min="1" max="20" style="width:55px; padding:3px 6px; font-size:12px;">%</label>' +
           '<label style="display:flex; align-items:center; gap:4px; color:var(--accent-magenta);">지속률 기준: <input type="number" id="input-matrix-ret-thresh" value="' + activeRetThresh + '" step="5" min="10" max="95" style="width:55px; padding:3px 6px; font-size:12px;">%</label>' +
         '</div>' +
       '</div>' +

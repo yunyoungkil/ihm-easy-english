@@ -1,0 +1,129 @@
+<template>
+<style>
+  /* 06-sentence-listening — Frame 6. Audio: 103.92s. */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
+  #root * { box-sizing: border-box; }
+
+  .f06-eyebrow { position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%); background: #2B2B2B; border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.2cqw; font-weight: 900; color: #F5C518; opacity: 0; z-index: 10; }
+
+  /* Each sentence card shares the same centered anchor (left:50%,top:50%) and is
+     positioned purely via a GSAP-owned y offset + scale — never flex, so a hidden
+     (opacity:0) card never pushes the others and never overlaps a visible one. */
+  .f06-sentence-stage { position: absolute; inset: 0; }
+  .f06-sentence { position: absolute; left: 50%; top: 50%; width: 70cqw; background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px; box-shadow: 5px 5px 0 #2B2B2B; padding: 2.6cqh 3cqw; opacity: 0; transform: translate(-50%, -50%) translateY(40px); text-align: center; }
+  .f06-sentence-en { font-family: 'Archivo Black', sans-serif; font-size: 2.6cqw; line-height: 1.5; font-variant-ligatures: none; }
+  .f06-sentence-en .underline { text-decoration: underline 6px #F5C518; text-decoration-skip-ink: none; }
+  .f06-sentence-en .blank { display: inline-block; background: #2B2B2B; color: #2B2B2B; border-radius: 8px; padding: 0 0.6cqw; }
+  .f06-sentence-pron { margin-top: 1cqh; font-size: 1.4cqw; font-weight: 800; color: #8A6D00; opacity: 0; }
+
+  .f06-flip-answer { display: inline-block; font-weight: 900; color: #F5C518; -webkit-text-stroke: 1px #2B2B2B; opacity: 0; transform: rotateY(90deg); }
+
+  .caption-pill { position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B; border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800; color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0; }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-8p95" id="root" data-composition-id="06-sentence-listening" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-l2p8" class="f06-eyebrow" id="eyebrow">🎧 실전 문장으로 확인하기</div>
+
+  <div data-hf-id="hf-1ci3" class="f06-sentence-stage">
+    <div data-hf-id="hf-v6s7" class="f06-sentence" id="sent1">
+      <div data-hf-id="hf-hlxv" class="f06-sentence-en">The <span data-hf-id="hf-5u3q" class="underline" id="u1">water</span> in this <span data-hf-id="hf-zm0z" class="underline" id="u2">city</span> gets <span data-hf-id="hf-qfjj" class="underline" id="u3">better</span> every year.</div>
+      <div data-hf-id="hf-j8m7" class="f06-sentence-pron" id="p1">워러 · 시리 · 베러</div>
+    </div>
+    <div data-hf-id="hf-kbak" class="f06-sentence" id="sent2">
+      <div data-hf-id="hf-l4d7" class="f06-sentence-en">This <span data-hf-id="hf-q7n2" class="underline" id="u4">letter</span> looks <span data-hf-id="hf-bj1z" class="underline" id="u5">pretty</span> good.</div>
+      <div data-hf-id="hf-z6rf" class="f06-sentence-pron" id="p2">레러 · 프리디</div>
+    </div>
+    <div data-hf-id="hf-l2yd" class="f06-sentence" id="sent3">
+      <div data-hf-id="hf-ayy0" class="f06-sentence-en">It doesn't <span data-hf-id="hf-fesd" class="underline" id="u6">matter</span>, we still have <span data-hf-id="hf-lsip" class="underline" id="u7">thirty</span> minutes.</div>
+      <div data-hf-id="hf-nyve" class="f06-sentence-pron" id="p3">매러 · 써리</div>
+    </div>
+    <div data-hf-id="hf-0i7x" class="f06-sentence" id="sentBlank1">
+      <div data-hf-id="hf-jdz2" class="f06-sentence-en">The <span data-hf-id="hf-koa3" class="blank" id="blank1">water</span> in this city gets better every year.</div>
+      <div data-hf-id="hf-755d" class="f06-sentence-pron" id="pb1">정답: <span data-hf-id="hf-49a6" class="f06-flip-answer" id="ans1">water</span></div>
+    </div>
+    <div data-hf-id="hf-4gby" class="f06-sentence" id="sentBlank2">
+      <div data-hf-id="hf-nebr" class="f06-sentence-en">This letter looks <span data-hf-id="hf-hyn7" class="blank" id="blank2">pretty</span> good.</div>
+      <div data-hf-id="hf-srug" class="f06-sentence-pron" id="pb2">정답: <span data-hf-id="hf-tlp8" class="f06-flip-answer" id="ans2">pretty</span></div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-nqn5" id="v06" src="assets/voice/06.wav" data-audio-group="voiceover" data-start="0" data-duration="103.92"></audio>
+  <audio id="sfxWhoosh06a" src="assets/sfx/whoosh.mp3" data-start="14.5" data-volume="0.35"></audio>
+  <audio id="sfxWhoosh06b" src="assets/sfx/whoosh.mp3" data-start="36.1" data-volume="0.35"></audio>
+  <audio id="sfxWhoosh06c" src="assets/sfx/whoosh.mp3" data-start="38.6" data-volume="0.35"></audio>
+  <audio id="sfxWhoosh06d" src="assets/sfx/whoosh.mp3" data-start="61.5" data-volume="0.35"></audio>
+  <audio id="sfxWhoosh06e" src="assets/sfx/whoosh.mp3" data-start="78.7" data-volume="0.35"></audio>
+  <audio id="sfxClick06a" src="assets/sfx/click-soft.mp3" data-start="27.0" data-volume="0.3"></audio>
+  <audio id="sfxClick06b" src="assets/sfx/click-soft.mp3" data-start="28.4" data-volume="0.3"></audio>
+  <audio id="sfxClick06c" src="assets/sfx/click-soft.mp3" data-start="29.8" data-volume="0.3"></audio>
+  <audio id="sfxClick06d" src="assets/sfx/click-soft.mp3" data-start="66.0" data-volume="0.3"></audio>
+  <audio id="sfxClick06e" src="assets/sfx/click-soft.mp3" data-start="66.8" data-volume="0.3"></audio>
+  <audio id="sfxClick06f" src="assets/sfx/click-soft.mp3" data-start="67.6" data-volume="0.3"></audio>
+  <audio id="sfxClick06g" src="assets/sfx/click-soft.mp3" data-start="80.5" data-volume="0.3"></audio>
+  <audio id="sfxClick06h" src="assets/sfx/click-soft.mp3" data-start="81.3" data-volume="0.3"></audio>
+  <audio id="sfxClick06i" src="assets/sfx/click-soft.mp3" data-start="82.0" data-volume="0.3"></audio>
+  <audio id="sfxChime06a" src="assets/sfx/chime.mp3" data-start="68.0" data-volume="0.35"></audio>
+  <audio id="sfxChime06b" src="assets/sfx/chime.mp3" data-start="82.5" data-volume="0.35"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+    function pulseUnderline(id, t) { tl.fromTo("#" + id, { color: "#2B2B2B" }, { color: "#8A6D00", duration: 0.3, yoyo: true, repeat: 1 }, t); }
+
+    tl.to("#eyebrow", { opacity: 1, duration: 0.4 }, 0.1);
+    tl.call(function () { cap("문제는, 실제 대화에서는 이 소리들이 단어 하나씩 따로 나오지 않는다는 거예요."); }, null, 0.47);
+    tl.call(function () { cap("문장 속에 섞여서 순식간에 지나가버리거든요. 그래서 문장 하나로 진짜 실전 감각을 확인해보겠습니다."); }, null, 6.74);
+
+    tl.call(function () { cap('"The water in this city gets better every year."'); }, null, 14.36);
+    tl.fromTo("#sent1", { xPercent: -50, yPercent: -50, y: 40 }, { opacity: 1, xPercent: -50, yPercent: -50, y: 0, duration: 0.5, ease: "back.out(1.3)" }, 14.5);
+
+    tl.call(function () { cap("이 한 문장 안에 오늘 배운 지름길이 세 번이나 숨어 있어요. water는 워러, city는 시리, better는 베러."); }, null, 17.43);
+    tl.to("#p1", { opacity: 1, duration: 0.4 }, 17.6);
+
+    tl.call(function () { cap("다시 한번 천천히, 이번엔 이 세 소리에만 집중해서 들어보세요."); }, null, 26.86);
+    pulseUnderline("u1", 27.0); pulseUnderline("u2", 28.4); pulseUnderline("u3", 29.8);
+
+    tl.call(function () { cap("문장 속에서 들으니 느낌이 또 다르시죠? 문장 하나 더 해볼까요."); }, null, 31.66);
+    tl.to("#sent1", { opacity: 0.4, scale: 0.6, y: -340, duration: 0.5 }, 35.3);
+
+    tl.call(function () { cap('"This letter looks pretty good." 그리고 "It doesn\'t matter, we still have thirty minutes."'); }, null, 35.96);
+    tl.fromTo("#sent2", { xPercent: -50, yPercent: -50, y: 40 }, { opacity: 1, xPercent: -50, yPercent: -50, y: -100, duration: 0.5, ease: "back.out(1.3)" }, 36.1);
+    tl.fromTo("#sent3", { xPercent: -50, yPercent: -50, y: 40 }, { opacity: 1, xPercent: -50, yPercent: -50, y: 100, duration: 0.5, ease: "back.out(1.3)" }, 38.6);
+
+    tl.call(function () { cap("이 두 문장에도 레러, 프리디, 매러, 써리가 전부 자연스럽게 섞여 있습니다."); }, null, 41.3);
+    tl.to(["#p2", "#p3"], { opacity: 1, duration: 0.4 }, 41.5);
+
+    tl.call(function () { cap("이렇게 문장 단위로 계속 듣고 따라 하시다 보면, 어느 순간 귀가 먼저 그 소리를 잡아내기 시작하실 거예요."); }, null, 47.63);
+
+    tl.call(function () { cap("이번엔 거꾸로 가볼게요. 아까 그 첫 문장에서 딱 한 단어만 쏙 빼고 다시 읽어보겠습니다."); }, null, 54.81);
+    tl.to(["#sent1", "#sent2", "#sent3"], { opacity: 0, duration: 0.4 }, 60.0);
+
+    tl.call(function () { cap("그 자리에 무슨 단어가 있었을지, 소리의 리듬만으로 맞혀보세요."); }, null, 61.24);
+    tl.fromTo("#sentBlank1", { xPercent: -50, yPercent: -50, y: 40 }, { opacity: 1, xPercent: -50, yPercent: -50, y: 0, duration: 0.5, ease: "back.out(1.3)" }, 61.5);
+
+    tl.call(function () { cap('"The... in this city gets better every year." 정답이 뭐였을까요? 네, water입니다.'); }, null, 65.38);
+    tl.to("#ans1", { opacity: 1, rotateY: 0, duration: 0.5, ease: "back.out(1.6)" }, 68.0);
+
+    tl.call(function () { cap("스펠링을 몰라도 문장의 리듬과 톡 튕기는 그 느낌만 잡으시면 충분히 맞히실 수 있어요."); }, null, 71.94);
+    tl.to("#sentBlank1", { opacity: 0, duration: 0.4 }, 77.5);
+
+    tl.call(function () { cap('하나만 더요. "This letter looks... good." 이번엔 무슨 단어였을까요? 네, pretty입니다.'); }, null, 78.47);
+    tl.fromTo("#sentBlank2", { xPercent: -50, yPercent: -50, y: 40 }, { opacity: 1, xPercent: -50, yPercent: -50, y: 0, duration: 0.5, ease: "back.out(1.3)" }, 78.7);
+    tl.to("#ans2", { opacity: 1, rotateY: 0, duration: 0.5, ease: "back.out(1.6)" }, 82.5);
+
+    tl.call(function () { cap("두 개 다 맞히셨다면, 이제 진짜 그 소리가 귀에 걸리기 시작하신 겁니다."); }, null, 85.48);
+    tl.call(function () { cap("처음엔 단어 하나하나가 낯설게 들려도, 이렇게 문장과 리듬으로 반복해서 들으시다 보면 어느새 문장 전체가 자연스럽게 귀에 익으실 거예요."); }, null, 90.45);
+    tl.call(function () { cap("그런데 이 지름길, 정말 모든 단어에 다 통할까요?"); }, null, 100.3);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-sentence-listening"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

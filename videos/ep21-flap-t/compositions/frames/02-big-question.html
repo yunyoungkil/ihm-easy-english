@@ -1,0 +1,100 @@
+<template>
+<style>
+  /* 02-big-question — Frame 2. Audio duration: 16.08s.
+     - 0.45s: 스펠링은 분명 T인데, 왜 소리는 자꾸 리을처럼 들릴까요?
+     - 6.08s: 오늘 이 원리 하나만 알아두시면,
+     - 8.65s: water도 better도... 자연스럽게 나오게 됩니다.
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  .f02-wordmark {
+    position: absolute; left: 50%; top: 5cqh; transform: translate(-50%, 54px) scale(1.3);
+    font-size: 2.4cqw; font-weight: 900; letter-spacing: -0.01em; opacity: 0; z-index: 10;
+  }
+  .f02-wordmark .w1 { color: #2B2B2B; }
+  .f02-wordmark .w2 { color: #8A6D00; }
+
+  /* T/? stage + gold-capsule share one flex-column anchor, so the capsule always
+     sits a fixed gap below — never collides with a 2-line caption-pill below it. */
+  .f02-stage {
+    position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 3cqh; z-index: 5;
+  }
+  .f02-t-stage { position: relative; }
+  .f02-big-t {
+    font-family: 'Archivo Black', sans-serif; font-size: 16cqw; color: #2B2B2B;
+    line-height: 1; text-align: center;
+  }
+  .f02-big-q {
+    font-family: 'Archivo Black', sans-serif; font-size: 16cqw; color: #E84545;
+    line-height: 1; text-align: center; position: absolute; left: 0; top: 0; width: 100%;
+    opacity: 0; transform: scale(0.6) rotate(-8deg);
+  }
+
+  .f02-gold-capsule {
+    transform: scale(0.9);
+    background: #F5C518; border: 3.5px solid #2B2B2B; border-radius: 100px;
+    box-shadow: 5px 5px 0 #2B2B2B; padding: 1.3cqh 3cqw; font-size: 1.5cqw; font-weight: 900;
+    text-align: center; opacity: 0; max-width: 70cqw;
+  }
+
+  .caption-pill {
+    position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-yihh" id="root" data-composition-id="02-big-question" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-lign" class="f02-wordmark" id="wordmark"><span data-hf-id="hf-1qrp" class="w1">이해하면 </span><span data-hf-id="hf-r13b" class="w2">쉬운영어</span></div>
+
+  <div class="f02-stage">
+    <div data-hf-id="hf-51vq" class="f02-t-stage" id="tStage">
+      <div data-hf-id="hf-bbzy" class="f02-big-t" id="bigT">T</div>
+      <div data-hf-id="hf-gdmr" class="f02-big-q" id="bigQ">?</div>
+    </div>
+    <div data-hf-id="hf-9eyf" class="f02-gold-capsule" id="goldCapsule">water · better · 처음 보는 단어까지 한 번에</div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-ljk9" id="v02" src="assets/voice/02.wav" data-audio-group="voiceover" data-start="0" data-duration="16.08"></audio>
+  <audio id="sfxChime02" src="assets/sfx/chime.mp3" data-start="0.2" data-volume="0.35"></audio>
+  <audio id="sfxClick02" src="assets/sfx/click-soft.mp3" data-start="4.35" data-volume="0.3"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.fromTo("#wordmark", { xPercent: -50, y: 54, scale: 1.3 }, { opacity: 1, xPercent: -50, y: 54, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.1);
+    tl.to("#wordmark", { xPercent: -50, y: 0, scale: 0.6, duration: 0.6, ease: "power2.inOut" }, 3.0);
+
+    tl.call(function () { cap("스펠링은 분명 T인데, 왜 소리는 자꾸 리을처럼 들릴까요?"); }, null, 0.45);
+    tl.to("#bigT", { opacity: 1, duration: 0.4 }, 0.5);
+    tl.fromTo("#tStage", { rotation: 0 }, { rotation: -6, duration: 0.15, yoyo: true, repeat: 5, ease: "none" }, 3.6);
+    tl.to("#bigT", { opacity: 0, duration: 0.3 }, 4.3);
+    tl.to("#bigQ", { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" }, 4.35);
+
+    tl.call(function () { cap("오늘 이 원리 하나만 알아두시면,"); }, null, 6.08);
+
+    tl.call(function () { cap("water도 better도, 처음 보는 단어까지 사전 찾아볼 필요 없이 입에서 바로 자연스럽게 나오게 됩니다."); }, null, 8.65);
+    tl.to("#goldCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 9.0);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-big-question"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,189 @@
+<template>
+<style>
+  /* 03-lazy-tongue-principle — Frame 3 (Head Fake, 제목 약속 증명). Audio: 38.56s.
+     - 0.38s: 원어민 혀도 원래는 T를 낼 때... "탁" 하고 끊어야 합니다.
+     - 6.81s: 그런데 이 T가 모음과 모음 사이에... 멈추질 않거든요.
+     - 15.02s: 입천장을 톡 스치듯 지나가버리는 거죠.
+     - 17.73s: 그 스치는 소리가... 리을이나 약한 디귿처럼 들리는 겁니다.
+     - 22.82s: 그래서 water는... 베러가 됩니다.
+     - 31.55s: 저도 이 원리를 알기 전에는... 똑같은 이유 하나였더라고요.
+
+     구강 단면 영상(mouth_flap_transition.mp4, Google Flow image-to-video, 8초) 적용 완료
+     (2026-10-02, 사용자 승인). 영상 자체 구성: 0~2s 완전히 막힌 포즈 정지 → 2.3~2.8s
+     혀가 톡 튕기며 빠지는 순간(+짧은 "훅" 효과음 포함 — muted라 안 들림, 문제없음) →
+     2.8~8s 스치고 지나간 끝 포즈 정지.
+
+     ⚠️ data-start="4.3"(플릭 순간을 6.81s 내레이션과 정확히 겹치려는 의도)로 처음 걸었다가,
+     스냅샷으로 직접 확인해보니 **그 전 0~4.3s 동안 일러스트 박스가 완전히 비어 보이는**
+     더 큰 문제가 발견돼 폐기 — 나레이션이 이미 입 모양을 설명하는데 그림이 없는 쪽이
+     타이밍 핑 포인트 정확도보다 훨씬 나쁜 결함이라 판단. **data-start="0.3"**(나레이션
+     시작과 거의 동시)로 수정 — 플릭은 0.3+2.3~2.8=2.6~3.1s에 일어나 "멈추질
+     않거든요"(6.81s)보다 조금 이르지만, 빈 화면 없이 처음부터 그림이 보이고 "톡 스치듯
+     지나가버리는 거죠"(15.02s, 이미 끝난 일을 말하는 완료 어감)에는 끝 포즈가 오래
+     정착돼 있어 오히려 자연스럽다.
+
+     영상 자체 콘텐츠는 0.3+8=8.3s에 끝나지만 data-duration은 프레임 끝까지 연장 —
+     HTML5 video가 자기 길이를 넘는 seek를 마지막 프레임에서 클램프하는 동작에 기대어
+     "스치고 지나간" 끝 포즈가 그 뒤로도(local 25s·35s까지 스냅샷 직접 확인) 깨지지 않고
+     유지되는 것을 확인했다 — 정적 폴백 이미지 없이도 문제없음.
+
+     ⚠️ 2026-10-02 사용자 지적: "구강 단면 영상만 나오는 건 부족할 것 같아. 워러/시리/베러
+     카드 나오기 전까지 설명 요소들을 추가해야겠어" — 0~22.82s 동안 우측 칼럼이 비어있던
+     문제. `.f03-rule-card`를 추가해 우측 상단에 4단계 규칙 카드(🔒일반 T → ➕조건(모음
+     사이+뒷모음 힘빠짐, 골드 강조) → 👉결과(스치고 지나감) → 👂들리는 소리(ㄹ/약한 ㄷ))를
+     나레이션 4박자에 맞춰 순차 표시 — 영상이 "보여주는" 동안 카드가 "말로 정리"해서 서로
+     보완하게 함. 마지막 단계(들리는 소리)는 22.82s 이후 단어 카드가 그 아래 나타날 때도
+     안 사라지고 요약 라벨로 계속 남아있음.
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  #root * { box-sizing: border-box; }
+
+  .f03-layout {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    gap: 4cqw; padding: 10cqh 6cqw 16cqh;
+  }
+
+  /* Mouth cross-section illustration video — >=40% width rule (role-split: illustration
+     is the visual lead, code only adds the entrance fade). */
+  .f03-illustration-slot {
+    width: 42cqw; height: 62cqh; border-radius: 22px; overflow: hidden;
+    opacity: 0; flex-shrink: 0; background: #FAF7F2;
+  }
+  .f03-illustration-slot video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Rule-building card — fills the right column before the word cards arrive
+     (0~22.82s), stepping through 4 labeled stages in sync with the narration so the
+     mouth video isn't carrying the explanation alone. Stays visible (final stage)
+     once word cards appear below it, as a running summary of the rule just proven. */
+  .f03-rule-card {
+    width: 32cqw; background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
+    box-shadow: 5px 5px 0 #2B2B2B; padding: 2.2cqh 2cqw; display: flex; align-items: center;
+    gap: 1.4cqw; opacity: 0; transform: translateY(-20px); margin-bottom: 2cqh;
+  }
+  .f03-rule-card.is-condition { background: #FFFBEF; border-color: #F5C518; }
+  .f03-rule-icon { font-size: 2.6cqw; flex-shrink: 0; }
+  .f03-rule-text { font-size: 1.65cqw; font-weight: 800; line-height: 1.35; }
+  .f03-rule-card.is-condition .f03-rule-text { color: #8A6D00; }
+
+  .f03-right-col { display: flex; flex-direction: column; width: 32cqw; }
+  .f03-cards { display: flex; flex-direction: column; gap: 2cqh; width: 32cqw; }
+  .f03-card {
+    background: #FFFFFF; border: 3.5px solid #2B2B2B; border-radius: 20px;
+    box-shadow: 5px 5px 0 #2B2B2B; padding: 2cqh 2.2cqw; display: flex; align-items: center;
+    justify-content: space-between; opacity: 0; transform: translateX(30px);
+  }
+  .f03-card-word { font-family: 'Archivo Black', sans-serif; font-size: 3cqw; color: #2B2B2B; font-variant-ligatures: none; position: relative; }
+  .f03-card-word .t-mark { color: #E84545; }
+  .f03-card-sound { display: flex; align-items: center; gap: 0.8cqw; }
+  .f03-sound-wrong { font-size: 1.8cqw; font-weight: 800; color: #B7AFA0; text-decoration: line-through 4px #E84545; }
+  .f03-sound-right { font-size: 2.4cqw; font-weight: 900; color: #8A6D00; opacity: 0; }
+
+  .caption-pill {
+    position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-lz37" id="root" data-composition-id="03-lazy-tongue-principle" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-tb8g" class="f03-layout">
+    <div class="f03-illustration-slot" id="illuSlot">
+      <video id="mouthVideo" src="assets/images/mouth_flap_transition.mp4" muted playsinline preload="auto" data-start="0.3" data-duration="38.26"></video>
+    </div>
+
+    <div class="f03-right-col">
+      <div class="f03-rule-card" id="ruleCard">
+        <div class="f03-rule-icon" id="ruleIcon">🔒</div>
+        <div class="f03-rule-text" id="ruleText">일반 T: 입천장에 딱 붙임</div>
+      </div>
+
+      <div data-hf-id="hf-qve6" class="f03-cards" id="cards">
+        <div data-hf-id="hf-i0xd" class="f03-card" id="cardWater">
+          <div data-hf-id="hf-2lpq" class="f03-card-word">wa<span data-hf-id="hf-gv09" class="t-mark flagged" id="tMarkWater">t</span>er</div>
+          <div data-hf-id="hf-gse6" class="f03-card-sound"><span data-hf-id="hf-s14c" class="f03-sound-wrong">워터</span><span data-hf-id="hf-4xxx" class="f03-sound-right" id="soundWater">워러</span></div>
+        </div>
+        <div data-hf-id="hf-bwdd" class="f03-card" id="cardCity">
+          <div data-hf-id="hf-prs0" class="f03-card-word">ci<span data-hf-id="hf-l4bd" class="t-mark flagged" id="tMarkCity">t</span>y</div>
+          <div data-hf-id="hf-cqea" class="f03-card-sound"><span data-hf-id="hf-4sjg" class="f03-sound-wrong">시티</span><span data-hf-id="hf-gmml" class="f03-sound-right" id="soundCity">시리</span></div>
+        </div>
+        <div data-hf-id="hf-7ima" class="f03-card" id="cardBetter">
+          <div data-hf-id="hf-r6mb" class="f03-card-word">be<span data-hf-id="hf-7jco" class="t-mark flagged" id="tMarkBetter">t</span>ter</div>
+          <div data-hf-id="hf-d4pb" class="f03-card-sound"><span data-hf-id="hf-7i1s" class="f03-sound-wrong">베터</span><span data-hf-id="hf-t37e" class="f03-sound-right" id="soundBetter">베러</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-4h30" id="v03" src="assets/voice/03.wav" data-audio-group="voiceover" data-start="0" data-duration="38.56"></audio>
+  <audio id="sfxClick03a" src="assets/sfx/click-soft.mp3" data-start="0.5" data-volume="0.3"></audio>
+  <audio id="sfxClick03b" src="assets/sfx/click-soft.mp3" data-start="6.9" data-volume="0.3"></audio>
+  <audio id="sfxClick03c" src="assets/sfx/click-soft.mp3" data-start="15.1" data-volume="0.3"></audio>
+  <audio id="sfxClick03d" src="assets/sfx/click-soft.mp3" data-start="17.85" data-volume="0.3"></audio>
+  <audio id="sfxPop03a" src="assets/sfx/pop.mp3" data-start="22.9" data-volume="0.35"></audio>
+  <audio id="sfxChime03a" src="assets/sfx/chime.mp3" data-start="23.6" data-volume="0.35"></audio>
+  <audio id="sfxPop03b" src="assets/sfx/pop.mp3" data-start="25.4" data-volume="0.35"></audio>
+  <audio id="sfxChime03b" src="assets/sfx/chime.mp3" data-start="26.1" data-volume="0.35"></audio>
+  <audio id="sfxPop03c" src="assets/sfx/pop.mp3" data-start="27.9" data-volume="0.35"></audio>
+  <audio id="sfxChime03c" src="assets/sfx/chime.mp3" data-start="28.6" data-volume="0.35"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.to("#illuSlot", { opacity: 1, duration: 0.5 }, 0.2);
+
+    // Rule-building card — steps through 4 labeled stages so the right column explains
+    // the mechanism in words while the video on the left shows it physically. Final
+    // stage (the perceived sound) stays on screen as a running summary once word
+    // cards start appearing below it at 22.82s.
+    var ruleIcon = document.getElementById("ruleIcon");
+    var ruleText = document.getElementById("ruleText");
+    var ruleCard = document.getElementById("ruleCard");
+    function setRule(icon, text, isCondition) {
+      ruleIcon.textContent = icon;
+      ruleText.textContent = text;
+      ruleCard.className = "f03-rule-card" + (isCondition ? " is-condition" : "");
+    }
+    tl.to("#ruleCard", { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.3)" }, 0.3);
+
+    tl.call(function () { cap('원어민 혀도 원래는 T를 낼 때 입천장에 딱 붙였다가 떼면서 "탁" 하고 끊어야 합니다.'); }, null, 0.38);
+    tl.call(function () { setRule("🔒", "일반 T: 입천장에 딱 붙임", false); }, null, 0.5);
+
+    tl.call(function () { cap("그런데 이 T가 모음과 모음 사이에 딱 끼고, 뒤에 오는 모음에 힘까지 빠져 있으면, 혀가 굳이 거기서 멈추질 않거든요."); }, null, 6.81);
+    tl.call(function () { setRule("➕", "조건: 모음 사이 + 뒷모음 힘 빠짐", true); }, null, 6.9);
+
+    tl.call(function () { cap("입천장을 톡 스치듯 지나가버리는 거죠."); }, null, 15.02);
+    tl.call(function () { setRule("👉", "결과: 혀가 스치고 지나감", false); }, null, 15.1);
+
+    tl.call(function () { cap("그 스치는 소리가 우리 귀에는 리을이나 약한 디귿처럼 들리는 겁니다."); }, null, 17.73);
+    tl.call(function () { setRule("👂", "들리는 소리: ㄹ 또는 약한 ㄷ", false); }, null, 17.85);
+
+    tl.call(function () { cap("그래서 water는 워터가 아니라 워러, city는 시티가 아니라 시리, better는 베터가 아니라 베러가 됩니다."); }, null, 22.82);
+    tl.to("#cardWater", { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.4)" }, 22.9);
+    tl.to("#soundWater", { opacity: 1, duration: 0.4 }, 23.6);
+    tl.to("#cardCity", { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.4)" }, 25.4);
+    tl.to("#soundCity", { opacity: 1, duration: 0.4 }, 26.1);
+    tl.to("#cardBetter", { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.4)" }, 27.9);
+    tl.to("#soundBetter", { opacity: 1, duration: 0.4 }, 28.6);
+
+    tl.call(function () { cap("저도 이 원리를 알기 전에는 이 세 단어를 각각 따로 외우고 있었는데, 알고 보니까 셋 다 똑같은 이유 하나였더라고요."); }, null, 31.55);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["03-lazy-tongue-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

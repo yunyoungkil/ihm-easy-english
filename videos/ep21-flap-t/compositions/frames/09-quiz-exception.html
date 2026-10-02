@@ -1,0 +1,94 @@
+<template>
+<style>
+  /* 09-quiz-exception — Frame 9. Audio: 41.46s (RMS-verified 3.0s silence spliced
+     23.02s-24.84s/26.04s region — see TASKS.md 2026-10-01 §4: words.json's own
+     23.91s estimate for "정답은" is NOT trustworthy near long silence; countdown
+     gauge below runs 23.0s -> 26.04s per direct RMS measurement, not words.json). */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
+  #root * { box-sizing: border-box; }
+
+  .f09-eyebrow { position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%); background: #2B2B2B; border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.2cqw; font-weight: 900; color: #F5C518; opacity: 0; z-index: 10; }
+
+  .f09-grid { position: absolute; left: 50%; top: 44%; transform: translate(-50%, -50%); display: grid; grid-template-columns: repeat(2, 1fr); gap: 2cqw; width: 54cqw; opacity: 0; }
+  .f09-card { background: #FFFFFF; border: 3.5px solid #B7AFA0; border-radius: 18px; box-shadow: 5px 5px 0 #B7AFA0; padding: 2.6cqh 1.6cqw; text-align: center; transition: none; }
+  .f09-card-en { font-family: 'Archivo Black', sans-serif; font-size: 2.4cqw; color: #2B2B2B; font-variant-ligatures: none; }
+  .f09-card-sound { margin-top: 0.8cqh; font-size: 1.6cqw; font-weight: 900; opacity: 0; }
+  .f09-card.flap { border-color: #2B2B2B; }
+  .f09-card.flap .f09-card-sound { color: #8A6D00; }
+  .f09-card.exception { border-color: #2B2B2B; }
+  .f09-card.exception .f09-card-sound { color: #E84545; }
+  .f09-card.flap.revealed { border-color: #F5C518; box-shadow: 5px 5px 0 #2B2B2B; }
+  .f09-card.exception.revealed { border-color: #E84545; box-shadow: 5px 5px 0 #2B2B2B; }
+
+  .f09-countdown { position: absolute; left: 50%; top: 14cqh; transform: translateX(-50%); font-family: 'Archivo Black', sans-serif; font-size: 5cqw; color: #F5C518; -webkit-text-stroke: 2px #2B2B2B; opacity: 0; }
+
+  .caption-pill { position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B; border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800; color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0; }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-uc26" id="root" data-composition-id="09-quiz-exception" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-gxjs" class="f09-eyebrow" id="eyebrow">🔍 예외를 찾아라</div>
+
+  <div data-hf-id="hf-t4c4" class="f09-countdown" id="countdown"></div>
+
+  <div data-hf-id="hf-m0b2" class="f09-grid" id="grid">
+    <div data-hf-id="hf-f58f" class="f09-card flap" id="cMeeting"><div data-hf-id="hf-u20f" class="f09-card-en">meeting</div><div data-hf-id="hf-llcb" class="f09-card-sound">미링</div></div>
+    <div data-hf-id="hf-bvsw" class="f09-card flap" id="cDaughter"><div data-hf-id="hf-ftxq" class="f09-card-en">daughter</div><div data-hf-id="hf-4rq8" class="f09-card-sound">도러</div></div>
+    <div data-hf-id="hf-v5bj" class="f09-card flap" id="cComputer"><div data-hf-id="hf-kg93" class="f09-card-en">computer</div><div data-hf-id="hf-pfyo" class="f09-card-sound">컴퓨러</div></div>
+    <div data-hf-id="hf-6348" class="f09-card exception" id="cHotel"><div data-hf-id="hf-mit8" class="f09-card-en">hotel</div><div data-hf-id="hf-nnck" class="f09-card-sound">호텔</div></div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-4467" id="v09" src="assets/voice/09.wav" data-audio-group="voiceover" data-start="0" data-duration="41.46"></audio>
+  <audio id="sfxClick09a" src="assets/sfx/click-soft.mp3" data-start="23.0" data-volume="0.3"></audio>
+  <audio id="sfxClick09b" src="assets/sfx/click-soft.mp3" data-start="24.0" data-volume="0.3"></audio>
+  <audio id="sfxClick09c" src="assets/sfx/click-soft.mp3" data-start="25.0" data-volume="0.3"></audio>
+  <audio id="sfxChime09" src="assets/sfx/chime.mp3" data-start="26.1" data-volume="0.35"></audio>
+  <audio id="sfxClick09d" src="assets/sfx/click-soft.mp3" data-start="35.9" data-volume="0.3"></audio>
+  <audio id="sfxClick09e" src="assets/sfx/click-soft.mp3" data-start="36.9" data-volume="0.3"></audio>
+  <audio id="sfxClick09f" src="assets/sfx/click-soft.mp3" data-start="37.9" data-volume="0.3"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.to("#eyebrow", { opacity: 1, duration: 0.4 }, 0.1);
+    tl.call(function () { cap("그럼 오늘 배운 걸 진짜 이해하셨는지, 딱 하나만 확인해보겠습니다."); }, null, 0.42);
+    tl.to("#grid", { opacity: 1, duration: 0.4 }, 0.5);
+
+    tl.call(function () { cap("방금 배운 예외를 스스로 찾아내실 수 있을까요? 다들 한 번쯤 써보셨을 단어 네 개를 보여드릴게요. meeting, daughter, computer, hotel."); }, null, 5.62);
+
+    tl.call(function () { cap("이 중에 딱 하나만 오늘 배운 지름길을 안 따릅니다. 어떤 단어일까요? 3초 드릴게요."); }, null, 17.65);
+
+    // 3-2-1 countdown over the RMS-verified silence window (23.0s -> 26.04s).
+    var cd = document.getElementById("countdown");
+    tl.to("#countdown", { opacity: 1, duration: 0.1 }, 23.0);
+    tl.call(function () { cd.textContent = "3"; }, null, 23.0);
+    tl.call(function () { cd.textContent = "2"; }, null, 24.0);
+    tl.call(function () { cd.textContent = "1"; }, null, 25.0);
+    tl.to("#countdown", { opacity: 0, duration: 0.2 }, 25.9);
+
+    tl.call(function () { cap("정답은 hotel입니다."); }, null, 26.04);
+    tl.set("#cHotel", { className: "f09-card exception revealed" }, 26.1);
+    tl.to("#cHotel .f09-card-sound", { opacity: 1, duration: 0.4 }, 26.2);
+
+    tl.call(function () { cap("T 바로 뒤 음절 텔에 강세가 딱 실려 있어서, 지름길을 안 타고 그대로 호텔로 남아요."); }, null, 28.73);
+
+    tl.call(function () { cap("나머지 셋은 전부 뒤가 힘 빠진 음절이라 미링, 도러, 컴퓨러가 됩니다."); }, null, 35.8);
+    tl.set("#cMeeting", { className: "f09-card flap revealed" }, 35.9);
+    tl.to("#cMeeting .f09-card-sound", { opacity: 1, duration: 0.3 }, 36.0);
+    tl.set("#cDaughter", { className: "f09-card flap revealed" }, 36.9);
+    tl.to("#cDaughter .f09-card-sound", { opacity: 1, duration: 0.3 }, 37.0);
+    tl.set("#cComputer", { className: "f09-card flap revealed" }, 37.9);
+    tl.to("#cComputer .f09-card-sound", { opacity: 1, duration: 0.3 }, 38.0);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-quiz-exception"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

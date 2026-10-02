@@ -1,0 +1,65 @@
+<template>
+<style>
+  /* 08-bonus-nt-cluster — Frame 8. Audio: 25.92s. Intentionally toned down (gray, no gold/red). */
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F4EFE6; color: #2B2B2B; font-family: 'Noto Sans KR', sans-serif; container-type: size; }
+  #root * { box-sizing: border-box; }
+
+  .f08-eyebrow { position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%); background: #9B9384; border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.2cqw; font-weight: 900; color: #FFFFFF; opacity: 0; z-index: 10; }
+
+  /* Card + gray-capsule share one flex-column stage, so the capsule always sits
+     a fixed gap below the card — never collides with a 2-line caption-pill. */
+  .f08-stage { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 2.6cqh; }
+  .f08-card { background: #FFFFFF; border: 3.5px solid #9B9384; border-radius: 20px; box-shadow: 5px 5px 0 #9B9384; padding: 4cqh 5cqw; opacity: 0; }
+  .f08-word { font-family: 'Archivo Black', sans-serif; font-size: 6cqw; font-variant-ligatures: none; text-align: center; }
+  .f08-word .t-letter { transition: none; }
+  .f08-sound { margin-top: 1.4cqh; text-align: center; font-size: 2cqw; font-weight: 800; color: #7A7365; }
+
+  .f08-gray-capsule { transform: scale(0.9); background: #9B9384; border: 3px solid #7A7365; border-radius: 100px; padding: 1.1cqh 2.6cqw; font-weight: 800; font-size: 1.2cqw; color: #FFFFFF; opacity: 0; }
+
+  .caption-pill { position: absolute; bottom: 4cqh; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.97); border: 3px solid #2B2B2B; box-shadow: 4px 4px 0 #2B2B2B; border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800; color: #2B2B2B; text-align: center; max-width: 84cqw; z-index: 30; opacity: 0; }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-vpf9" id="root" data-composition-id="08-bonus-nt-cluster" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-gxzs" class="f08-eyebrow" id="eyebrow">💡 보너스: 이건 별개 현상</div>
+
+  <div class="f08-stage">
+    <div data-hf-id="hf-eobx" class="f08-card" id="card">
+      <div data-hf-id="hf-7o10" class="f08-word">win<span data-hf-id="hf-jtni" class="t-letter" id="tLetter">t</span>er</div>
+      <div data-hf-id="hf-ugqu" class="f08-sound" id="soundLabel">→ winner처럼 들림</div>
+    </div>
+    <div data-hf-id="hf-96z6" class="f08-gray-capsule" id="grayCapsule">오늘 규칙과는 별개 · 선택적</div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <audio data-hf-id="hf-22d2" id="v08" src="assets/voice/08.wav" data-audio-group="voiceover" data-start="0" data-duration="25.92"></audio>
+  <audio id="sfxClick08" src="assets/sfx/click-soft.mp3" data-start="3.5" data-volume="0.3"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.to("#eyebrow", { opacity: 1, duration: 0.4 }, 0.1);
+    tl.to("#card", { opacity: 1, duration: 0.4 }, 0.2);
+
+    tl.call(function () { cap("맞습니다. winter나 center처럼 T 앞에 N이 붙으면, 아예 T 소리 자체가 사라져버리기도 해요."); }, null, 0.47);
+    tl.to("#tLetter", { opacity: 0, duration: 1.0 }, 3.5);
+
+    tl.call(function () { cap("그래서 winter가 winner처럼 들릴 때가 있습니다."); }, null, 8.84);
+
+    tl.call(function () { cap("다만 이건 오늘 배운 모음 사이 T와는 결이 다른 별개의 현상이에요."); }, null, 12.93);
+    tl.to("#grayCapsule", { opacity: 1, duration: 0.5 }, 13.1);
+
+    tl.call(function () { cap("사람마다 쓰기도 하고 안 쓰기도 하는 선택적인 습관이라,"); }, null, 18.55);
+    tl.call(function () { cap("오늘 배운 원리에 억지로 끼워 넣지는 않으셔도 됩니다."); }, null, 22.5);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-bonus-nt-cluster"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

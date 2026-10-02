@@ -41,6 +41,28 @@ ${[...marketDemand.byKeyword]
 `
     : '[경쟁사 시장 수요 데이터 없음 — market-demand.json 없음, 이 축은 반영되지 않았습니다]\n';
 
+  // 사용자가 키워드 검색과 별개로 URL/@핸들로 직접 지목해 깊이 판 경쟁 채널(market-demand.json의
+  // trackedChannels, scripts/market-demand.mjs --channel= 참고, 2026-09-30 추가) — 그 채널
+  // 자체 기준선 대비 이례적으로 잘 된 영상/반복 훅 단어까지 계산해뒀지만, 2026-10-02까지는
+  // 대시보드 카드로만 보여줄 뿐 이 프롬프트에 전혀 안 들어가고 있었다(사용자 지적으로 발견) —
+  // byKeyword와 같은 방법론으로 계산된 동일 축의 데이터인데 AI 추천에는 빠져 있던 것. byKeyword
+  // 블록과 같은 형식으로 추가한다. dataSourceRefs의 source 태그는 같은 market-demand.json
+  // 파일이므로 "marketDemand"를 그대로 재사용하되, detail에 "(추적 채널)"을 명시해 키워드
+  // 검색발 인용과 구분한다.
+  const trackedChannelsBlock = marketDemand?.trackedChannels?.length
+    ? `[사용자가 직접 지목해 추적 중인 경쟁 채널 — market-demand.json trackedChannels, 그 채널 자체 기준선 대비 분석]:
+${marketDemand.trackedChannels
+  .map((c) => {
+    const patterns = (c.titlePatterns || []).slice(0, 4).map((p) => p.word).join(', ');
+    const topOutlier = (c.topOutliers || [])[0];
+    return `- "${c.channelTitle}" (구독자 ${c.subscriberCount != null ? c.subscriberCount.toLocaleString('ko-KR') : '?'}명)` +
+      (patterns ? ` — 반복 훅 단어: ${patterns}` : '') +
+      (topOutlier ? ` — 대표 아웃라이어: "${topOutlier.title}" (${topOutlier.outlierRatio}배)` : '');
+  })
+  .join('\n')}
+`
+    : '';
+
   const contentOpportunityBlock = contentOpportunity?.byRule?.length || contentOpportunity?.byRole?.length
     ? `[우리 채널 자체 성과 데이터 — content-opportunity.json, fitScore 50=평균, 높을수록 유지율 좋음]:
 ${(contentOpportunity.byRule || [])
@@ -111,6 +133,7 @@ ${channelVideos.map((v) => `- "${v.title}"`).join('\n')}
 
 ${focusBlock}
 ${marketDemandBlock}
+${trackedChannelsBlock}
 ${contentOpportunityBlock}
 ${audienceDnaBlock}${successPatternsBlock}${producedTopicsBlock}${channelVideosBlock}
 [중요한 판단 원칙]:

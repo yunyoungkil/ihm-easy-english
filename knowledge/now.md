@@ -1,19 +1,49 @@
 # 지금 할 일
 
-마지막 확인: 2026-10-02
+마지막 확인: 2026-10-03
 
-## ✅ 완료 — 단편 EP21(Flap T, 모음 사이 T가 'ㄹ'로 바뀌는 규칙), 업로드까지 끝남
+## 🔜 진행 중 — 단편 EP22(영어 과거형 -ED 끝소리 규칙, t/d/id)
+
+**새 워크플로우로 처음 기획한 에피소드**: 대시보드 아이디어 보드 대신 신설된
+`.claude/skills/episode-planning` 스킬(2026-10-03 신설, 라이브 데이터 재조회+웹 검색
+기반, 대시보드 캐시 비신뢰)로 Phase 1(라이브 데이터 분석)~Phase 6(전체 내레이션 스크립트
+초안)까지 진행. 프로젝트 스캐폴딩 완료(`videos/ep22-ed-ending/`, `BRIEF.md`/
+`prompts/thumbnail-prompts.md` 작성 완료). 상세 경위·사용자 피드백 3라운드(훅 현실성→
+예문 현실성→구어체 vs 문어체)는 `knowledge/logs/2026-10.md` 2026-10-03 절과
+`videos/ep22-ed-ending/TASKS.md` 참고.
+
+- **소재**: wanted/walked/played처럼 과거형 -ED 끝소리가 t/d/id 세 가지로 갈리는 이유
+  (유무성 동화) + naked/wicked/blessed 같은 옛 영어 발음을 간직한 화석형 예외.
+- **제목(A안 채택)**: Wanted, Walked, Played — 끝소리 세 개가 다 다릅니다, 영어 과거형
+  -ED 발음 규칙. 썸네일 A/B/C 3종+클로즈업 1종 프롬프트까지 작성 완료
+  (`prompts/thumbnail-prompts.md`).
+- **스크립트 8프레임 초안 완성, 단 사용자 최종 승인 전**: 3라운드에 걸쳐 수정 —
+  ① 특정 친구 일화 훅 → "학교에서 드로 배운 공통 기억+리스닝 실패 경험" 훅으로 교체
+  ② 프레임마다 따로 지어낸 문법책식 예문("He wanted some coffee") → 미드 이별 장면
+  하나("I called him. I waited. I watched him walk away.")로 전체 예문을 통일
+  ③ "~되는 겁니다/~한 거죠" 같은 명사형 반복 종결 어미(문어체 티) 제거, 구어체로 재작성.
+  이 과정에서 CLAUDE.md/AGENTS.md에 신규 규칙 3건(②예시는 일반 한국인의 실제 경험에서,
+  ③모든 예문은 하나의 구체적 장면에 묶기, ④나레이션은 글이 아니라 말) 추가 완료 —
+  다음 에피소드부터 자동 적용됨.
+- **다음 행동**: 사용자가 Frame 1~8 스크립트 최종 확인(아직 "좋다" 승인 안 받음) →
+  `SCRIPT.md` 확정 → whisper 타임스탬프 추출 → HyperFrames 프레임 구현 →
+  `hyperframes check` → 렌더링 승인 요청.
+
+## ✅ 완료 — 단편 EP21(Flap T, 모음 사이 T가 'ㄹ'로 바뀌는 규칙), 업로드까지 끝남 — **실제
+공개 확인됨(2026-10-03)**
 
 2026-10-02: 11프레임 전부 구현 + SFX/BGM 완료 → `hyperframes check` 0 errors → 사용자 검수·
 "진행" 승인 후 렌더링(`renders/ep21-flap-t_2026-10-01_21-08-40.mp4`, 506.18초) →
 `output/upload-packages/ep21-flap-t-longform/`에 제목/설명/태그/고정댓글/썸네일 A·B·C/
 7개국 자막+다국어 메타데이터까지 전부 완성 → **사용자가 실제 유튜브 업로드·예약 완료
-확인**(videoId `EDjmQmvGA1o`, private, `publishAt 2026-10-02T14:00:00Z` = 오늘 밤 11시 KST,
-유튜브 API 직접 재조회로 확인). 상세 경위·이 세션에서 발견한 버그 3건(다국어 제목 100자
-초과, 대시보드 동기화가 `status.json` 없으면 아예 안 도는 문제, `test-client-syntax.mjs`의
-vm `let` 스코핑 버그, `trackedChannels`가 AI 추천 프롬프트에 안 들어가던 문제)은
-`knowledge/logs/2026-10.md` 2026-10-02 절 참고. **다음 행동**: 오늘 밤 공개 후 5분 뒤
-`pinned-comment.txt`로 고정 댓글 작성, 48시간 성과 확인 후 다음 소재(EP22) 선정.
+확인**(videoId `EDjmQmvGA1o`, `publishAt 2026-10-02T14:00:00Z` = 2026-10-02 밤 11시 KST).
+**2026-10-03 세션 시작 시 `/api/sync` 라이브 재조회로 실제 `status: published` 전환 확인**
+(`output/upload-packages/ep21-flap-t-longform/status.json` 자동 갱신). 상세 경위·이전 세션에서
+발견한 버그 3건(다국어 제목 100자 초과, 대시보드 동기화가 `status.json` 없으면 아예 안 도는
+문제, `test-client-syntax.mjs`의 vm `let` 스코핑 버그, `trackedChannels`가 AI 추천 프롬프트에
+안 들어가던 문제)은 `knowledge/logs/2026-10.md` 2026-10-02 절 참고. **다음 행동**: 고정 댓글
+작성 여부 확인(공개 후 바로 달았는지 미확인 — 다음 세션에서 사용자에게 확인), 48시간 성과
+확인 후 EP22 제작 이어가기.
 
 ## ✅ 완료(제작 단계) — 단편 EP21 제작 경위, 업로드 전 상태 (2026-10-01 이전 기록, 보존용)
 

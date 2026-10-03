@@ -1,8 +1,9 @@
 {
   "episode": "ep21-flap-t",
-  "status": "scheduled",
+  "status": "published",
   "scheduledFor": "2026-10-02T14:00:00Z",
   "videoId": "EDjmQmvGA1o",
   "updatedAt": "2026-10-02T00:00:00.000Z",
-  "lastSyncedAt": "2026-10-02T12:45:01.083Z"
+  "lastSyncedAt": "2026-10-03T02:57:38.461Z",
+  "publishedAt": "2026-10-03T02:57:38.461Z"
 }

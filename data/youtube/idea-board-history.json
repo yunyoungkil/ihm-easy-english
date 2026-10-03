@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-02T12:03:57.962Z",
+  "updatedAt": "2026-10-03T05:47:18.170Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -248,7 +248,7 @@
       ],
       "episodeSlug": "ep21-flap-t",
       "episodeLabel": "단편 EP21",
-      "status": "scheduled",
+      "status": "published",
       "selectedAt": "2026-09-28T13:48:09.188Z",
       "producedAt": "2026-10-02"
     },

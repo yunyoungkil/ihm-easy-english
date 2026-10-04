@@ -1,8 +1,20 @@
 # 지금 할 일
 
-마지막 확인: 2026-10-03
+마지막 확인: 2026-10-04
 
-## 🔜 진행 중 — 단편 EP22(영어 과거형 -ED 끝소리 규칙, t/d/id)
+## 🔜 진행 중 — 단편 EP23(같은 자음 두 개는 한 번만 소리 난다, 첫 듣기 롱폼 25~30분)
+
+- 폴더: `videos/ep23-double-consonant/` (BRIEF·REVIEW·SCRIPT·썸네일 프롬프트 4종 완료)
+- 음성: 나레이션 12개 + `male_all.wav`/`female_all.wav` + 단어 8개가 `assets/voice/`에 있음.
+- **다음 행동**: `node videos/ep23-double-consonant/scripts/split-batch-voice.mjs`로 묶음 파일을
+  37개 단어/문장으로 분할 → 실제 길이 측정 → 타임라인 확정 → HyperFrames 프레임 구현.
+  ⚠️ 분할하면 이미 있는 단어 8개(en_coffee 등)를 덮어쓸 수 있으니 실행 전에 확인할 것.
+- 썸네일 학습 유형 칩은 아직 프롬프트에 미반영. ⚠️ CLAUDE.md 10번 규칙("드릴" 용어를 시청자
+  화면에 쓰지 않음)에 따라 칩 문구는 `듣기 드릴`이 아니라 `30분 반복 듣기` 같은 일상어로 할 것.
+  `episode-planning` SKILL.md의 칩 예시(`듣기 드릴`)도 같이 고쳐야 함.
+- 공개 후 7일·28일에 `REVIEW.md`로 예측 대비 리뷰(episode-planning Phase 9).
+
+## ⏸ 보류 — 단편 EP22(영어 과거형 -ED 끝소리 규칙, t/d/id)
 
 **새 워크플로우로 처음 기획한 에피소드**: 대시보드 아이디어 보드 대신 신설된
 `.claude/skills/episode-planning` 스킬(2026-10-03 신설, 라이브 데이터 재조회+웹 검색

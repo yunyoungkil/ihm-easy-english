@@ -290,22 +290,37 @@ async function analyzeChannel(rawInput) {
     .filter((r) => Number.isFinite(r.viewsPerDay) && baseline)
     .map((r) => ({ ...r, outlierRatio: Math.min(RATIO_CAP, r.viewsPerDay / baseline), rawOutlierRatio: r.viewsPerDay / baseline }));
 
-  const topOutliers = withRatio
+  const toOutlierRow = (r) => ({
+    videoId: r.videoId,
+    title: r.title,
+    channelTitle,
+    viewCount: r.viewCount,
+    publishedAt: r.publishedAt,
+    ageDays: r.ageDays,
+    viewsPerDay: Math.round(r.viewsPerDay * 10) / 10,
+    channelBaselineViewsPerDay: Math.round(baseline * 10) / 10,
+    outlierRatio: Math.round(r.rawOutlierRatio * 100) / 100,
+    durationSeconds: r.durationSeconds,
+    isShort: r.isShort,
+  });
+  const rankTopOutliers = (list) => [...list]
     .sort((a, b) => b.rawOutlierRatio - a.rawOutlierRatio)
     .slice(0, 5)
-    .map((r) => ({
-      videoId: r.videoId,
-      title: r.title,
-      channelTitle,
-      viewCount: r.viewCount,
-      publishedAt: r.publishedAt,
-      ageDays: r.ageDays,
-      viewsPerDay: Math.round(r.viewsPerDay * 10) / 10,
-      channelBaselineViewsPerDay: Math.round(baseline * 10) / 10,
-      outlierRatio: Math.round(r.rawOutlierRatio * 100) / 100,
-      durationSeconds: r.durationSeconds,
-      isShort: r.isShort,
-    }));
+    .map(toOutlierRow);
+
+  // 기존 호환용: 형식을 섞은 상위 5개 (idea-board.mjs가 읽는다)
+  const topOutliers = rankTopOutliers(withRatio);
+  // 형식별 상위 5개 — 쇼츠가 롱폼에 밀려 한 번도 안 뽑히는 문제를 막는다.
+  // 쇼츠 여부는 길이 60초 이하로 판정한다(유튜브 Data API는 분류값을 주지 않음).
+  const topOutliersByFormat = {
+    long: rankTopOutliers(withRatio.filter((r) => r.isShort === false)),
+    short: rankTopOutliers(withRatio.filter((r) => r.isShort === true)),
+  };
+  const formatCounts = {
+    long: withRatio.filter((r) => r.isShort === false).length,
+    short: withRatio.filter((r) => r.isShort === true).length,
+    unknown: withRatio.filter((r) => r.isShort === null).length,
+  };
 
   // extractTitlePatterns는 "이 채널 기준 이례적으로 잘 된 영상들"(전체 rows 중 outlierRatio≥1.5)의
   // 제목에서 반복 단어를 뽑는다 — topOutliers(상위 5개)보다 더 넓은 표본으로 패턴을 잡기 위해
@@ -323,6 +338,8 @@ async function analyzeChannel(rawInput) {
     channelBaselineViewsPerDay: baseline ? Math.round(baseline * 10) / 10 : null,
     titlePatterns,
     topOutliers,
+    topOutliersByFormat,
+    formatCounts,
   };
 }
 
@@ -349,6 +366,11 @@ async function main() {
       channelBaselineViewsPerDay: channelResult.channelBaselineViewsPerDay,
       titlePatterns: channelResult.titlePatterns.map((p) => p.word),
       topOutliers: channelResult.topOutliers.map((o) => ({ title: o.title, outlierRatio: o.outlierRatio })),
+      formatCounts: channelResult.formatCounts,
+      topOutliersByFormat: {
+        long: channelResult.topOutliersByFormat.long.map((o) => ({ title: o.title, outlierRatio: o.outlierRatio, ageDays: o.ageDays })),
+        short: channelResult.topOutliersByFormat.short.map((o) => ({ title: o.title, outlierRatio: o.outlierRatio, ageDays: o.ageDays })),
+      },
     }, null, 2));
     return;
   }

@@ -18,7 +18,7 @@ export const projectRoot = path.resolve(__dirname, "..");
 /** The voice. Fixed for every episode — do not parameterise. */
 export const VOICE = Object.freeze({
   name: "Charon",
-  style: "empathetic",
+  style: "warm, sophisticated, and captivating podcast host tone, speaking naturally with nuanced cadence and engaging rhythm",
   pace: "natural",
   languageCode: "ko-KR",
   model: "gemini-3.1-flash-tts-preview",
@@ -32,11 +32,10 @@ export const VOICE = Object.freeze({
  */
 export const styleDirective = (delivery = {}) => {
   const style = delivery.style ?? VOICE.style;
-  const pace = delivery.pace ?? VOICE.pace;
   const pronunciation = delivery.pronunciationDirective
     ? ` ${delivery.pronunciationDirective} 이 지시문은 소리 내어 읽지 말고, 콜론 뒤의 나레이션만 읽으세요.`
     : "";
-  return `Say only the narration after the colon in an ${style}, ${pace} pace tone.${pronunciation}:`;
+  return `Say only the narration after the colon in a ${style}.${pronunciation}:`;
 };
 
 export const buildPrompt = (narration, delivery) =>

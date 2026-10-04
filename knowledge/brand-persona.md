@@ -35,6 +35,11 @@
   * *"선생님인 척 어려운 문법 용어 쓰지 않습니다."*
   * *"저도 외우는 거 딱 질색이었습니다. 무작정 외우지 마세요."*
   * *"저와 함께 딱 3분만 가볍게 입 열어보시죠!"*
+* **보이스 시그니처 톤: '심야 팟캐스트 진행자 (Warm & Sophisticated)' (2026-10-04 확정)**:
+  - 밋밋하고 평이한 'AI 교재 낭독조'를 완전히 배제한다.
+  - 퇴근 후 지친 성인(3060) 학습자에게 '지적 힐링과 깊은 몰입감'을 주는 고급 심야 라디오 DJ/팟캐스트 호스트의 목소리.
+  - 억양의 미세한 뉘앙스(nuanced cadence)와 쫄깃한 구어 리듬(engaging rhythm)이 살아있어, 듣는 내내 지루하지 않고 귀에 감기는 따뜻하고 세련된 보이스를 지향한다.
+  - Gemini TTS 프롬프트 표준 지시문: `Say only the narration after the colon in a warm, sophisticated, and captivating podcast host tone, speaking naturally with nuanced cadence and engaging rhythm:`
 * **나레이션도 "전문가 톤"이 아니라 "동반자 톤"으로 일관되게 쓸 것**(2026-09-14 확정, 사용자
   질문 "스크립트 작성 방식도 위 톤으로 바꿔야겠지?"에 대한 답 — 위 제목·썸네일 문구에 적용한
   것과 같은 원칙이 원래 이 채널 페르소나의 출발점이다. 실제 점검 결과: EP15 Frame 4가 이미

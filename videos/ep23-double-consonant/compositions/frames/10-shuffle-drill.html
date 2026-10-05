@@ -1,0 +1,254 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.25cqw; font-weight: 900;
+    color: #111111; z-index: 10;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 70cqw; display: flex; flex-direction: column; align-items: center; z-index: 5;
+  }
+  .deck-card {
+    background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 5cqh 6cqw; width: 100%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+  }
+  .badge-counter {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.5cqh 1.8cqw; font-size: 1.1cqw; font-weight: 900; color: #7A7365;
+  }
+  .word-display {
+    font-family: 'Archivo Black', sans-serif; font-size: 7.5cqw; line-height: 1; letter-spacing: 0.03em;
+  }
+  .repeat-dots { display: flex; gap: 1cqw; justify-content: center; }
+  .dot {
+    width: 1.4cqw; height: 1.4cqw; border-radius: 50%; background: #E5E0D8;
+    border: 2.5px solid #111111;
+  }
+  .dot.active { background: #F59E0B; transform: scale(1.3); }
+
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-bgge" id="root" data-composition-id="10-shuffle-drill" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-aaak" class="eyebrow-pill" id="eyebrow">
+    ⚡ 섞어 듣기: 무작위 29개 단어 귀로 즉각 반응하기!
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-1i6d" class="deck-card" id="deckCard">
+      <div data-hf-id="hf-r86w" class="badge-counter" id="badgeCounter">단어 01 / 29</div>
+      <div data-hf-id="hf-y25n" class="word-display" id="wordDisplay">COFFEE</div>
+      <div data-hf-id="hf-jlri" class="repeat-dots">
+        <span data-hf-id="hf-tla3" class="dot" id="dot0"></span>
+        <span data-hf-id="hf-nfka" class="dot" id="dot1"></span>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-oh7e" id="v_intro" src="assets/voice/10_f10_intro_shuffle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="8.96"></audio>
+  <audio data-hf-id="hf-ydvp" id="v_shuf_0_0" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.46" data-duration="0.85"></audio>
+  <audio data-hf-id="hf-7pgw" id="v_shuf_0_1" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.31" data-duration="0.85"></audio>
+  <audio data-hf-id="hf-inmy" id="v_shuf_1_0" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.16" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-4vzh" id="v_shuf_1_1" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.76" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-c7g1" id="v_shuf_2_0" src="assets/voice/en_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.36" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-06k7" id="v_shuf_2_1" src="assets/voice/en_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.04" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-iqqy" id="v_shuf_3_0" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.72" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-6jb1" id="v_shuf_3_1" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.32" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-elzk" id="v_shuf_4_0" src="assets/voice/en_hello.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.92" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-36bm" id="v_shuf_4_1" src="assets/voice/en_hello.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.43" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-m7oy" id="v_shuf_5_0" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.94" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-smpo" id="v_shuf_5_1" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.54" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-o6c6" id="v_shuf_6_0" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="54.14" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-pzfj" id="v_shuf_6_1" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="57.57" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-tylw" id="v_shuf_7_0" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="61.00" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-arld" id="v_shuf_7_1" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="64.43" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-81qc" id="v_shuf_8_0" src="assets/voice/en_yellow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="67.86" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-5es6" id="v_shuf_8_1" src="assets/voice/en_yellow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="71.37" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-hiq6" id="v_shuf_9_0" src="assets/voice/en_dress.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="74.88" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-v8i6" id="v_shuf_9_1" src="assets/voice/en_dress.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="78.56" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-q4i0" id="v_shuf_10_0" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="82.24" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-u7rw" id="v_shuf_10_1" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="85.84" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-u90j" id="v_shuf_11_0" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="89.44" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-jgjv" id="v_shuf_11_1" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="92.87" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-fa8m" id="v_shuf_12_0" src="assets/voice/en_call.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="96.30" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-a3wi" id="v_shuf_12_1" src="assets/voice/en_call.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="99.90" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-v23q" id="v_shuf_13_0" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="103.50" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-2wnz" id="v_shuf_13_1" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="107.27" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-5odh" id="v_shuf_14_0" src="assets/voice/en_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="111.04" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-2f9s" id="v_shuf_14_1" src="assets/voice/en_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="114.72" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-06oj" id="v_shuf_15_0" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="118.40" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-qp3p" id="v_shuf_15_1" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="122.08" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-1qm0" id="v_shuf_16_0" src="assets/voice/en_really.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="125.76" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-cwdh" id="v_shuf_16_1" src="assets/voice/en_really.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="129.27" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-zofy" id="v_shuf_17_0" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="132.78" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-udgl" id="v_shuf_17_1" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="136.38" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-y2mj" id="v_shuf_18_0" src="assets/voice/en_press.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="139.98" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-vmwo" id="v_shuf_18_1" src="assets/voice/en_press.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="143.66" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-7qwj" id="v_shuf_19_0" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="147.34" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-7hzv" id="v_shuf_19_1" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="150.77" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-q9nw" id="v_shuf_20_0" src="assets/voice/en_tall.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="154.20" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-rkl0" id="v_shuf_20_1" src="assets/voice/en_tall.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="157.80" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-2gcu" id="v_shuf_21_0" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="161.40" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-mnvb" id="v_shuf_21_1" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="165.08" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-lap5" id="v_shuf_22_0" src="assets/voice/en_lesson.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="168.76" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-wk93" id="v_shuf_22_1" src="assets/voice/en_lesson.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="172.27" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-7b0n" id="v_shuf_23_0" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="175.78" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-082b" id="v_shuf_23_1" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="179.46" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-d9ky" id="v_shuf_24_0" src="assets/voice/en_all.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="183.14" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-gikb" id="v_shuf_24_1" src="assets/voice/en_all.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="186.57" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-64gm" id="v_shuf_25_0" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="190.00" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-4emp" id="v_shuf_25_1" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="193.94" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-1z1c" id="v_shuf_26_0" src="assets/voice/en_miss.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="197.88" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-w6m4" id="v_shuf_26_1" src="assets/voice/en_miss.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="201.56" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-rcpo" id="v_shuf_27_0" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="205.24" data-duration="0.85"></audio>
+  <audio data-hf-id="hf-ry18" id="v_shuf_27_1" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="209.09" data-duration="0.85"></audio>
+  <audio data-hf-id="hf-64vv" id="v_shuf_28_0" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="212.94" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-5f8b" id="v_shuf_28_1" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="216.62" data-duration="0.68"></audio>
+
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    var words = [{"label":"coffee","num":1},{"label":"happy","num":2},{"label":"class","num":3},{"label":"butter","num":4},{"label":"hello","num":5},{"label":"different","num":6},{"label":"letter","num":7},{"label":"apple","num":8},{"label":"yellow","num":9},{"label":"dress","num":10},{"label":"offer","num":11},{"label":"better","num":12},{"label":"call","num":13},{"label":"office","num":14},{"label":"glass","num":15},{"label":"happen","num":16},{"label":"really","num":17},{"label":"effort","num":18},{"label":"press","num":19},{"label":"little","num":20},{"label":"tall","num":21},{"label":"staff","num":22},{"label":"lesson","num":23},{"label":"supply","num":24},{"label":"all","num":25},{"label":"hopping","num":26},{"label":"miss","num":27},{"label":"unnamed","num":28},{"label":"midday","num":29}];
+
+    function showShuffleWord(idx) {
+      var item = words[idx];
+      document.getElementById("badgeCounter").textContent = "단어 " + (item.num < 10 ? "0" + item.num : item.num) + " / 29";
+      document.getElementById("wordDisplay").textContent = item.label;
+      document.getElementById("dot0").className = "dot";
+      document.getElementById("dot1").className = "dot";
+      gsap.fromTo("#deckCard", { scale: 0.95, rotation: (idx % 2 === 0 ? 1 : -1) }, { scale: 1, rotation: 0, duration: 0.25, ease: "back.out(1.5)" });
+    }
+
+    function activateShufDot(repIdx) {
+      if (repIdx === 0) document.getElementById("dot0").classList.add("active");
+      if (repIdx === 1) document.getElementById("dot1").classList.add("active");
+    }
+
+    function pulseShuf() {
+      gsap.fromTo("#deckCard", { scale: 1 }, { scale: 1.03, duration: 0.16, yoyo: true, repeat: 1 });
+    }
+
+    tl.fromTo("#eyebrow", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 0.2);
+
+    tl.call(function() { cap("이제 지금까지 익힌 단어들을 무작위로 섞어서 들려드립니다."); }, null, 0.38);
+    tl.call(function() { cap("자음이 두 개라도 한 번에 소리 나는지"); }, null, 4.52);
+    tl.call(function() { cap("귀로 확인해 보세요."); }, null, 7.63);
+
+    tl.call(function() { showShuffleWord(0); }, null, 10.46);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("coffee"); }, null, 10.46);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("coffee"); }, null, 14.31);
+    tl.call(function() { showShuffleWord(1); }, null, 18.16);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("happy"); }, null, 18.16);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("happy"); }, null, 21.76);
+    tl.call(function() { showShuffleWord(2); }, null, 25.36);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("class"); }, null, 25.36);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("class"); }, null, 29.04);
+    tl.call(function() { showShuffleWord(3); }, null, 32.72);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("butter"); }, null, 32.72);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("butter"); }, null, 36.32);
+    tl.call(function() { showShuffleWord(4); }, null, 39.92);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("hello"); }, null, 39.92);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("hello"); }, null, 43.43);
+    tl.call(function() { showShuffleWord(5); }, null, 46.94);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("different"); }, null, 46.94);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("different"); }, null, 50.54);
+    tl.call(function() { showShuffleWord(6); }, null, 54.14);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("letter"); }, null, 54.14);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("letter"); }, null, 57.57);
+    tl.call(function() { showShuffleWord(7); }, null, 61.00);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("apple"); }, null, 61.00);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("apple"); }, null, 64.43);
+    tl.call(function() { showShuffleWord(8); }, null, 67.86);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("yellow"); }, null, 67.86);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("yellow"); }, null, 71.37);
+    tl.call(function() { showShuffleWord(9); }, null, 74.88);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("dress"); }, null, 74.88);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("dress"); }, null, 78.56);
+    tl.call(function() { showShuffleWord(10); }, null, 82.24);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("offer"); }, null, 82.24);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("offer"); }, null, 85.84);
+    tl.call(function() { showShuffleWord(11); }, null, 89.44);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("better"); }, null, 89.44);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("better"); }, null, 92.87);
+    tl.call(function() { showShuffleWord(12); }, null, 96.30);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("call"); }, null, 96.30);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("call"); }, null, 99.90);
+    tl.call(function() { showShuffleWord(13); }, null, 103.50);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("office"); }, null, 103.50);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("office"); }, null, 107.27);
+    tl.call(function() { showShuffleWord(14); }, null, 111.04);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("glass"); }, null, 111.04);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("glass"); }, null, 114.72);
+    tl.call(function() { showShuffleWord(15); }, null, 118.40);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("happen"); }, null, 118.40);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("happen"); }, null, 122.08);
+    tl.call(function() { showShuffleWord(16); }, null, 125.76);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("really"); }, null, 125.76);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("really"); }, null, 129.27);
+    tl.call(function() { showShuffleWord(17); }, null, 132.78);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("effort"); }, null, 132.78);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("effort"); }, null, 136.38);
+    tl.call(function() { showShuffleWord(18); }, null, 139.98);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("press"); }, null, 139.98);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("press"); }, null, 143.66);
+    tl.call(function() { showShuffleWord(19); }, null, 147.34);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("little"); }, null, 147.34);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("little"); }, null, 150.77);
+    tl.call(function() { showShuffleWord(20); }, null, 154.20);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("tall"); }, null, 154.20);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("tall"); }, null, 157.80);
+    tl.call(function() { showShuffleWord(21); }, null, 161.40);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("staff"); }, null, 161.40);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("staff"); }, null, 165.08);
+    tl.call(function() { showShuffleWord(22); }, null, 168.76);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("lesson"); }, null, 168.76);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("lesson"); }, null, 172.27);
+    tl.call(function() { showShuffleWord(23); }, null, 175.78);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("supply"); }, null, 175.78);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("supply"); }, null, 179.46);
+    tl.call(function() { showShuffleWord(24); }, null, 183.14);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("all"); }, null, 183.14);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("all"); }, null, 186.57);
+    tl.call(function() { showShuffleWord(25); }, null, 190.00);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("hopping"); }, null, 190.00);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("hopping"); }, null, 193.94);
+    tl.call(function() { showShuffleWord(26); }, null, 197.88);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("miss"); }, null, 197.88);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("miss"); }, null, 201.56);
+    tl.call(function() { showShuffleWord(27); }, null, 205.24);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("unnamed"); }, null, 205.24);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("unnamed"); }, null, 209.09);
+    tl.call(function() { showShuffleWord(28); }, null, 212.94);
+    tl.call(function() { activateShufDot(0); pulseShuf(); cap("midday"); }, null, 212.94);
+    tl.call(function() { activateShufDot(1); pulseShuf(); cap("midday"); }, null, 216.62);
+
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-shuffle-drill"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

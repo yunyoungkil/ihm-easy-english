@@ -6,7 +6,7 @@
 // Usage:
 //   node videos/ep23-double-consonant/scripts/split-batch-voice.mjs
 
-import { execSync } from "node:child_process";
+import { execSync, spawnSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -89,15 +89,18 @@ function getAudioDuration(filePath) {
   }
 }
 
-function detectSilenceIntervals(filePath, noiseDb = -32, minSilenceSec = 0.6) {
-  const cmd = `ffmpeg -i "${filePath}" -af silencedetect=noise=${noiseDb}dB:d=${minSilenceSec} -f null -`;
-  let stderr = "";
-  try {
-    execSync(cmd, { stdio: ["ignore", "ignore", "pipe"] });
-  } catch (err) {
-    stderr = err.stderr ? err.stderr.toString("utf8") : "";
-  }
+function detectSilenceIntervals(filePath, noiseDb = -30, minSilenceSec = 0.4) {
+  const res = spawnSync(
+    "ffmpeg",
+    [
+      "-i", filePath,
+      "-af", `silencedetect=noise=${noiseDb}dB:d=${minSilenceSec}`,
+      "-f", "null", "-"
+    ],
+    { encoding: "utf8" }
+  );
 
+  const stderr = res.stderr || "";
   const silences = [];
   const lines = stderr.split("\n");
   let currentStart = null;
@@ -248,6 +251,30 @@ if (splitBatchFile("female_all.wav", FEMALE_ITEMS)) {
     FEMALE_ITEMS.filter((i) => i.id.includes("_s0"))
   );
 }
+
+// 3. Scan & record Korean narration files
+console.log("\n==================================================");
+console.log("Measuring Korean Host Narration files...");
+const resultsPath = join(PROJECT_DIR, ".tts-results.json");
+const results = existsSync(resultsPath) ? JSON.parse(readFileSync(resultsPath, "utf8")) : {};
+
+let narrationCount = 0;
+const allVoiceFiles = readdirSync(VOICE_DIR);
+for (const file of allVoiceFiles) {
+  if (file.match(/^\d{2}_f\d{2}_.*\.wav$/)) {
+    const id = file.replace(/\.wav$/, "");
+    const fullPath = join(VOICE_DIR, file);
+    const dur = getAudioDuration(fullPath);
+    results[id] = {
+      path: `assets/voice/${file}`,
+      duration_s: Math.round(dur * 100) / 100,
+    };
+    console.log(`  ${file} (${dur.toFixed(2)}s)`);
+    narrationCount++;
+  }
+}
+writeFileSync(resultsPath, JSON.stringify(results, null, 2), "utf8");
+console.log(`✓ Recorded ${narrationCount} Korean narration files to .tts-results.json`);
 
 if (!foundAny) {
   console.log("\nNo batch audio files found in assets/voice/ yet.");

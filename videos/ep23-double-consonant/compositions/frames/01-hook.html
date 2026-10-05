@@ -1,0 +1,95 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 7cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 3.5cqh; z-index: 5;
+  }
+  .word-card {
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 4cqh 6cqw; text-align: center;
+  }
+  .hero-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 8.5cqw; line-height: 1; letter-spacing: 0.04em;
+  }
+  .highlight-red {
+    color: #EF4444; border-bottom: 8px solid #EF4444; padding-bottom: 2px;
+  }
+  .rule-capsule {
+    background: #F59E0B; border: 3px solid #111111; box-shadow: 5px 5px 0px #111111;
+    border-radius: 999px; padding: 1.4cqh 3.6cqw; font-size: 2.2cqw; font-weight: 900;
+    color: #111111; opacity: 0; transform: scale(0.85);
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-lutg" id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-bpai" class="eyebrow-pill" id="eyebrow">
+    <span data-hf-id="hf-heg5">😳</span>
+    <span data-hf-id="hf-qclh">스펠링은 2개인데, 소리도 2번일까?</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-0yg7" class="word-card" id="wordCard">
+      <div data-hf-id="hf-9vs5" class="hero-word">CO<span data-hf-id="hf-fkkl" class="highlight-red">FF</span>EE</div>
+    </div>
+    <div data-hf-id="hf-9iys" class="rule-capsule" id="ruleCapsule">
+      ✨ 같은 자음 두 개는 딱 한 번만 소리 난다!
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-8cgp" id="v01" src="assets/voice/01_f01_hook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="21.04"></audio>
+  <audio data-hf-id="hf-lnol" id="v01_word" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.04" data-duration="0.85"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    tl.fromTo("#eyebrow", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.fromTo("#wordCard", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.4)" }, 0.5);
+
+    tl.call(function() { cap("coffee나 hello처럼 같은 자음이 두 개씩 적힌"); }, null, 0.44);
+    tl.call(function() { cap("단어들, 소리도 두 번 내야 할까요?"); }, null, 4.36);
+    tl.call(function() { cap("아닙니다."); }, null, 7.52);
+    tl.call(function() { cap("철자가 몇 개든 원어민은 딱 한 번만"); }, null, 8.37);
+    tl.call(function() { cap("소리 냅니다."); }, null, 11.47);
+    tl.call(function() { cap("오늘 영상은 이 규칙을 귀에 완전히 새겨"); }, null, 12.47);
+    tl.call(function() { cap("넣는 30분 반복 듣기 영상입니다."); }, null, 15.67);
+    tl.call(function() { cap("틀어두고 편안하게 귀로 익혀보세요."); }, null, 18.59);
+
+
+    // Reveal rule capsule at 7.6s ("아닙니다. 원어민은 딱 한 번만 소리 냅니다")
+    tl.to("#ruleCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 7.6);
+    // Pulse coffee card when word plays at 22.04s
+    tl.to("#wordCard", { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1 }, 22.04);
+    tl.call(function() { cap("Coffee. (한 번만 툭!)"); }, null, 22.04);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-hook"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

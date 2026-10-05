@@ -1,0 +1,879 @@
+{
+  "totalDuration": 1467.01,
+  "frames": [
+    {
+      "id": "01-hook",
+      "title": "F01 훅: coffee와 hello, 소리는 딱 한 번",
+      "start": 0,
+      "duration": 26.39,
+      "introDur": 21.04,
+      "itemsCount": 1
+    },
+    {
+      "id": "02-principle",
+      "title": "F02 핵심 원리: 자음 조음과 앞 모음 단축 신호",
+      "start": 26.39,
+      "duration": 72.32,
+      "introDur": 26.12,
+      "itemsCount": 2
+    },
+    {
+      "id": "03-ff-words",
+      "title": "F03 ff 단어 반복 듣기: 입술은 한 번만",
+      "start": 98.71,
+      "duration": 158.3,
+      "introDur": 7.76,
+      "itemsCount": 7
+    },
+    {
+      "id": "04-ll-words",
+      "title": "F04 ll 단어 반복 듣기: 혀끝은 한 번만",
+      "start": 257.01,
+      "duration": 152.98,
+      "introDur": 8.08,
+      "itemsCount": 7
+    },
+    {
+      "id": "05-ss-words",
+      "title": "F05 ss 단어 반복 듣기: 길게 끌지 말고 한 번에",
+      "start": 409.99,
+      "duration": 157.64,
+      "introDur": 7.56,
+      "itemsCount": 7
+    },
+    {
+      "id": "06-pp-words",
+      "title": "F06 pp 단어 반복 듣기: 가볍게 한 번만 툭",
+      "start": 567.63,
+      "duration": 135.84,
+      "introDur": 8.28,
+      "itemsCount": 6
+    },
+    {
+      "id": "07-boundary-exceptions",
+      "title": "F07 예외 ① 단어 경계: 두 단어가 만날 때",
+      "start": 703.47,
+      "duration": 69.88,
+      "introDur": 23.2,
+      "itemsCount": 2
+    },
+    {
+      "id": "08-flap-tt-exceptions",
+      "title": "F08 예외 ② 모음 사이 tt: 부드러운 'ㄹ' (Flap T)",
+      "start": 773.35,
+      "duration": 100.44,
+      "introDur": 15.6,
+      "itemsCount": 4
+    },
+    {
+      "id": "09-cafe-dialogue",
+      "title": "F09 카페 실전 대화 7문장",
+      "start": 873.79,
+      "duration": 129.46,
+      "introDur": 7.04,
+      "itemsCount": 7
+    },
+    {
+      "id": "10-shuffle-drill",
+      "title": "F10 무작위 셔플 섞어 듣기 (29개 단어)",
+      "start": 1003.25,
+      "duration": 220.3,
+      "introDur": 8.96,
+      "itemsCount": 29
+    },
+    {
+      "id": "11-summary",
+      "title": "F11 오늘 규칙 한 장 정리 & 댓글 질문",
+      "start": 1223.55,
+      "duration": 24.2,
+      "introDur": 19.2,
+      "itemsCount": 0
+    },
+    {
+      "id": "12-encore-review",
+      "title": "F12 처음부터 끝까지 한 번 더 앵콜",
+      "start": 1247.75,
+      "duration": 219.26,
+      "introDur": 5.92,
+      "itemsCount": 29
+    }
+  ],
+  "config": [
+    {
+      "id": "01-hook",
+      "title": "F01 훅: coffee와 hello, 소리는 딱 한 번",
+      "intro": "01_f01_hook",
+      "items": [
+        {
+          "key": "en_coffee",
+          "reps": 1,
+          "label": "coffee",
+          "type": "word",
+          "voice": "male"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "02-principle",
+      "title": "F02 핵심 원리: 자음 조음과 앞 모음 단축 신호",
+      "intro": "02_f02_principle",
+      "items": [
+        {
+          "key": "en_hoping",
+          "reps": 6,
+          "label": "hoping",
+          "sub": "장모음 (p 1개)",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_hopping",
+          "reps": 6,
+          "label": "hopping",
+          "sub": "단모음 (p 2개)",
+          "type": "word",
+          "voice": "female"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "03-ff-words",
+      "title": "F03 ff 단어 반복 듣기: 입술은 한 번만",
+      "intro": "03_f03_intro_ff",
+      "items": [
+        {
+          "key": "en_coffee",
+          "reps": 6,
+          "label": "coffee",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_offer",
+          "reps": 6,
+          "label": "offer",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_office",
+          "reps": 6,
+          "label": "office",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_different",
+          "reps": 6,
+          "label": "different",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_effort",
+          "reps": 6,
+          "label": "effort",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_staff",
+          "reps": 6,
+          "label": "staff",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_s01_two_coffees",
+          "reps": 4,
+          "label": "Two coffees, please.",
+          "type": "sentence",
+          "voice": "female"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "04-ll-words",
+      "title": "F04 ll 단어 반복 듣기: 혀끝은 한 번만",
+      "intro": "04_f04_intro_ll",
+      "items": [
+        {
+          "key": "en_hello",
+          "reps": 6,
+          "label": "hello",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_yellow",
+          "reps": 6,
+          "label": "yellow",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_call",
+          "reps": 6,
+          "label": "call",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_really",
+          "reps": 6,
+          "label": "really",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_tall",
+          "reps": 6,
+          "label": "tall",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_all",
+          "reps": 6,
+          "label": "all",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_s02_hows_it_going",
+          "reps": 4,
+          "label": "Hello, how's it going?",
+          "type": "sentence",
+          "voice": "female"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "05-ss-words",
+      "title": "F05 ss 단어 반복 듣기: 길게 끌지 말고 한 번에",
+      "intro": "05_f05_intro_ss",
+      "items": [
+        {
+          "key": "en_class",
+          "reps": 6,
+          "label": "class",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_dress",
+          "reps": 6,
+          "label": "dress",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_glass",
+          "reps": 6,
+          "label": "glass",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_press",
+          "reps": 6,
+          "label": "press",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_lesson",
+          "reps": 6,
+          "label": "lesson",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_miss",
+          "reps": 6,
+          "label": "miss",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_s03_class_at_ten",
+          "reps": 4,
+          "label": "I have class at ten.",
+          "type": "sentence",
+          "voice": "male"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "06-pp-words",
+      "title": "F06 pp 단어 반복 듣기: 가볍게 한 번만 툭",
+      "intro": "06_f06_intro_pp",
+      "items": [
+        {
+          "key": "en_happy",
+          "reps": 6,
+          "label": "happy",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_apple",
+          "reps": 6,
+          "label": "apple",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_happen",
+          "reps": 6,
+          "label": "happen",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_supply",
+          "reps": 6,
+          "label": "supply",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_hopping",
+          "reps": 6,
+          "label": "hopping",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_s04_happy_birthday",
+          "reps": 4,
+          "label": "Happy birthday!",
+          "type": "sentence",
+          "voice": "female"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "07-boundary-exceptions",
+      "title": "F07 예외 ① 단어 경계: 두 단어가 만날 때",
+      "intro": "07_f07_exception_boundary",
+      "items": [
+        {
+          "key": "en_unnamed",
+          "reps": 6,
+          "label": "unnamed",
+          "sub": "un + named (자음 연장)",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_midday",
+          "reps": 6,
+          "label": "midday",
+          "sub": "mid + day (자음 연장)",
+          "type": "word",
+          "voice": "female"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "08-flap-tt-exceptions",
+      "title": "F08 예외 ② 모음 사이 tt: 부드러운 'ㄹ' (Flap T)",
+      "intro": "08_f08_exception_flap_tt",
+      "items": [
+        {
+          "key": "en_letter",
+          "reps": 6,
+          "label": "letter",
+          "sub": "레러 (Flap T)",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_butter",
+          "reps": 6,
+          "label": "butter",
+          "sub": "버러 (Flap T)",
+          "type": "word",
+          "voice": "female"
+        },
+        {
+          "key": "en_better",
+          "reps": 6,
+          "label": "better",
+          "sub": "베러 (Flap T)",
+          "type": "word",
+          "voice": "male"
+        },
+        {
+          "key": "en_little",
+          "reps": 6,
+          "label": "little",
+          "sub": "리를 (Flap T)",
+          "type": "word",
+          "voice": "female"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "09-cafe-dialogue",
+      "title": "F09 카페 실전 대화 7문장",
+      "intro": "09_f09_intro_scene",
+      "items": [
+        {
+          "key": "en_s02_hows_it_going",
+          "reps": 4,
+          "label": "Hello, how's it going?",
+          "type": "sentence",
+          "voice": "female"
+        },
+        {
+          "key": "en_s01_two_coffees",
+          "reps": 4,
+          "label": "Two coffees, please.",
+          "type": "sentence",
+          "voice": "female"
+        },
+        {
+          "key": "en_s05_want_coffee",
+          "reps": 4,
+          "label": "Do you want a coffee?",
+          "type": "sentence",
+          "voice": "female"
+        },
+        {
+          "key": "en_s06_office_close",
+          "reps": 4,
+          "label": "The office is close to the cafe.",
+          "type": "sentence",
+          "voice": "male"
+        },
+        {
+          "key": "en_s03_class_at_ten",
+          "reps": 4,
+          "label": "I have class at ten.",
+          "type": "sentence",
+          "voice": "male"
+        },
+        {
+          "key": "en_s07_coffee_after_class",
+          "reps": 4,
+          "label": "Let's get coffee after class.",
+          "type": "sentence",
+          "voice": "male"
+        },
+        {
+          "key": "en_s04_happy_birthday",
+          "reps": 4,
+          "label": "Happy birthday!",
+          "type": "sentence",
+          "voice": "female"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "10-shuffle-drill",
+      "title": "F10 무작위 셔플 섞어 듣기 (29개 단어)",
+      "intro": "10_f10_intro_shuffle",
+      "items": [
+        {
+          "key": "en_coffee",
+          "reps": 2,
+          "label": "coffee",
+          "type": "word"
+        },
+        {
+          "key": "en_happy",
+          "reps": 2,
+          "label": "happy",
+          "type": "word"
+        },
+        {
+          "key": "en_class",
+          "reps": 2,
+          "label": "class",
+          "type": "word"
+        },
+        {
+          "key": "en_butter",
+          "reps": 2,
+          "label": "butter",
+          "type": "word"
+        },
+        {
+          "key": "en_hello",
+          "reps": 2,
+          "label": "hello",
+          "type": "word"
+        },
+        {
+          "key": "en_different",
+          "reps": 2,
+          "label": "different",
+          "type": "word"
+        },
+        {
+          "key": "en_letter",
+          "reps": 2,
+          "label": "letter",
+          "type": "word"
+        },
+        {
+          "key": "en_apple",
+          "reps": 2,
+          "label": "apple",
+          "type": "word"
+        },
+        {
+          "key": "en_yellow",
+          "reps": 2,
+          "label": "yellow",
+          "type": "word"
+        },
+        {
+          "key": "en_dress",
+          "reps": 2,
+          "label": "dress",
+          "type": "word"
+        },
+        {
+          "key": "en_offer",
+          "reps": 2,
+          "label": "offer",
+          "type": "word"
+        },
+        {
+          "key": "en_better",
+          "reps": 2,
+          "label": "better",
+          "type": "word"
+        },
+        {
+          "key": "en_call",
+          "reps": 2,
+          "label": "call",
+          "type": "word"
+        },
+        {
+          "key": "en_office",
+          "reps": 2,
+          "label": "office",
+          "type": "word"
+        },
+        {
+          "key": "en_glass",
+          "reps": 2,
+          "label": "glass",
+          "type": "word"
+        },
+        {
+          "key": "en_happen",
+          "reps": 2,
+          "label": "happen",
+          "type": "word"
+        },
+        {
+          "key": "en_really",
+          "reps": 2,
+          "label": "really",
+          "type": "word"
+        },
+        {
+          "key": "en_effort",
+          "reps": 2,
+          "label": "effort",
+          "type": "word"
+        },
+        {
+          "key": "en_press",
+          "reps": 2,
+          "label": "press",
+          "type": "word"
+        },
+        {
+          "key": "en_little",
+          "reps": 2,
+          "label": "little",
+          "type": "word"
+        },
+        {
+          "key": "en_tall",
+          "reps": 2,
+          "label": "tall",
+          "type": "word"
+        },
+        {
+          "key": "en_staff",
+          "reps": 2,
+          "label": "staff",
+          "type": "word"
+        },
+        {
+          "key": "en_lesson",
+          "reps": 2,
+          "label": "lesson",
+          "type": "word"
+        },
+        {
+          "key": "en_supply",
+          "reps": 2,
+          "label": "supply",
+          "type": "word"
+        },
+        {
+          "key": "en_all",
+          "reps": 2,
+          "label": "all",
+          "type": "word"
+        },
+        {
+          "key": "en_hopping",
+          "reps": 2,
+          "label": "hopping",
+          "type": "word"
+        },
+        {
+          "key": "en_miss",
+          "reps": 2,
+          "label": "miss",
+          "type": "word"
+        },
+        {
+          "key": "en_unnamed",
+          "reps": 2,
+          "label": "unnamed",
+          "type": "word"
+        },
+        {
+          "key": "en_midday",
+          "reps": 2,
+          "label": "midday",
+          "type": "word"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 3
+    },
+    {
+      "id": "11-summary",
+      "title": "F11 오늘 규칙 한 장 정리 & 댓글 질문",
+      "intro": "11_f11_summary",
+      "items": [],
+      "repInterval": 0,
+      "itemInterval": 0,
+      "endPad": 5
+    },
+    {
+      "id": "12-encore-review",
+      "title": "F12 처음부터 끝까지 한 번 더 앵콜",
+      "intro": "12_f12_intro_encore",
+      "items": [
+        {
+          "key": "en_coffee",
+          "reps": 2,
+          "label": "coffee",
+          "type": "word"
+        },
+        {
+          "key": "en_offer",
+          "reps": 2,
+          "label": "offer",
+          "type": "word"
+        },
+        {
+          "key": "en_office",
+          "reps": 2,
+          "label": "office",
+          "type": "word"
+        },
+        {
+          "key": "en_different",
+          "reps": 2,
+          "label": "different",
+          "type": "word"
+        },
+        {
+          "key": "en_effort",
+          "reps": 2,
+          "label": "effort",
+          "type": "word"
+        },
+        {
+          "key": "en_staff",
+          "reps": 2,
+          "label": "staff",
+          "type": "word"
+        },
+        {
+          "key": "en_hello",
+          "reps": 2,
+          "label": "hello",
+          "type": "word"
+        },
+        {
+          "key": "en_yellow",
+          "reps": 2,
+          "label": "yellow",
+          "type": "word"
+        },
+        {
+          "key": "en_call",
+          "reps": 2,
+          "label": "call",
+          "type": "word"
+        },
+        {
+          "key": "en_really",
+          "reps": 2,
+          "label": "really",
+          "type": "word"
+        },
+        {
+          "key": "en_tall",
+          "reps": 2,
+          "label": "tall",
+          "type": "word"
+        },
+        {
+          "key": "en_all",
+          "reps": 2,
+          "label": "all",
+          "type": "word"
+        },
+        {
+          "key": "en_class",
+          "reps": 2,
+          "label": "class",
+          "type": "word"
+        },
+        {
+          "key": "en_dress",
+          "reps": 2,
+          "label": "dress",
+          "type": "word"
+        },
+        {
+          "key": "en_glass",
+          "reps": 2,
+          "label": "glass",
+          "type": "word"
+        },
+        {
+          "key": "en_press",
+          "reps": 2,
+          "label": "press",
+          "type": "word"
+        },
+        {
+          "key": "en_lesson",
+          "reps": 2,
+          "label": "lesson",
+          "type": "word"
+        },
+        {
+          "key": "en_miss",
+          "reps": 2,
+          "label": "miss",
+          "type": "word"
+        },
+        {
+          "key": "en_happy",
+          "reps": 2,
+          "label": "happy",
+          "type": "word"
+        },
+        {
+          "key": "en_apple",
+          "reps": 2,
+          "label": "apple",
+          "type": "word"
+        },
+        {
+          "key": "en_happen",
+          "reps": 2,
+          "label": "happen",
+          "type": "word"
+        },
+        {
+          "key": "en_supply",
+          "reps": 2,
+          "label": "supply",
+          "type": "word"
+        },
+        {
+          "key": "en_hopping",
+          "reps": 2,
+          "label": "hopping",
+          "type": "word"
+        },
+        {
+          "key": "en_unnamed",
+          "reps": 2,
+          "label": "unnamed",
+          "type": "word"
+        },
+        {
+          "key": "en_midday",
+          "reps": 2,
+          "label": "midday",
+          "type": "word"
+        },
+        {
+          "key": "en_letter",
+          "reps": 2,
+          "label": "letter",
+          "type": "word"
+        },
+        {
+          "key": "en_butter",
+          "reps": 2,
+          "label": "butter",
+          "type": "word"
+        },
+        {
+          "key": "en_better",
+          "reps": 2,
+          "label": "better",
+          "type": "word"
+        },
+        {
+          "key": "en_little",
+          "reps": 2,
+          "label": "little",
+          "type": "word"
+        }
+      ],
+      "repInterval": 3,
+      "itemInterval": 3,
+      "endPad": 5
+    }
+  ]
+}

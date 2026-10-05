@@ -1,0 +1,227 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.25cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #F59E0B; border: 1.5px solid #111111; border-radius: 999px;
+    padding: 0.2cqh 0.8cqw; font-size: 0.95cqw; font-weight: 900;
+  }
+
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 82cqw; display: flex; flex-direction: column; align-items: center; z-index: 5;
+  }
+  .hero-card {
+    background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 5cqw; width: 100%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2cqh;
+  }
+  .voice-pill {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.6cqh 1.8cqw; font-size: 1.1cqw; font-weight: 900; color: #7A7365;
+  }
+  .main-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1.1;
+    letter-spacing: 0.02em; color: #111111;
+  }
+  .main-text.sentence {
+    font-size: 3.8cqw; line-height: 1.25;
+  }
+  .sub-note {
+    font-size: 1.5cqw; font-weight: 800; color: #7A7365;
+  }
+  .highlight-letter {
+    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px;
+  }
+
+  .repeat-dots {
+    display: flex; gap: 0.8cqw; justify-content: center; align-items: center; margin-top: 1cqh;
+  }
+  .repeat-dot {
+    width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: #E5E0D8;
+    border: 2.5px solid #111111; 
+  }
+  .repeat-dot.active {
+    background: #F59E0B; transform: scale(1.3); box-shadow: 2px 2px 0px #111111;
+  }
+
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-z50s" id="root" data-composition-id="06-pp-words" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-bpai" class="eyebrow-pill" id="eyebrow">
+    <span data-hf-id="hf-r0ee" class="tip-badge">PP 사운드</span>
+    <span data-hf-id="hf-jevw">두 번 터뜨리지 말고 가볍게 한 번만 닫았다 열기!</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-0i73" class="hero-card" id="heroCard">
+      <div data-hf-id="hf-rx6d" class="voice-pill" id="voicePill">👦 Puck (남성)</div>
+      <div data-hf-id="hf-ely1" class="main-text" id="mainText">CO<span data-hf-id="hf-n5uk" class="highlight-letter">FF</span>EE</div>
+      <div data-hf-id="hf-l8fz" class="sub-note" id="subNote">소리는 딱 한 번!</div>
+      <div data-hf-id="hf-h0st" class="repeat-dots" id="dotsContainer"></div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-mqp6" id="v_intro" src="assets/voice/06_f06_intro_pp.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="8.28"></audio>
+  <audio data-hf-id="hf-pxt6" id="v_en_happy_0" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.78" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-7g9c" id="v_en_happy_1" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.38" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-ruya" id="v_en_happy_2" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.98" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-4i8u" id="v_en_happy_3" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.58" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-fly1" id="v_en_happy_4" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.18" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-l5fn" id="v_en_happy_5" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.78" data-duration="0.60"></audio>
+  <audio data-hf-id="hf-w2sq" id="v_en_apple_0" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.38" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-bmzo" id="v_en_apple_1" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.81" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-03ck" id="v_en_apple_2" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.24" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-qd8i" id="v_en_apple_3" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.67" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-2n9v" id="v_en_apple_4" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.10" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-u5ii" id="v_en_apple_5" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.53" data-duration="0.43"></audio>
+  <audio data-hf-id="hf-7xad" id="v_en_happen_0" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.96" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-caox" id="v_en_happen_1" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.64" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-qc15" id="v_en_happen_2" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="59.32" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-yvv0" id="v_en_happen_3" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="63.00" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-t6f4" id="v_en_happen_4" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="66.68" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-g8zh" id="v_en_happen_5" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="70.36" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-wm2j" id="v_en_supply_0" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="74.04" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-rgrq" id="v_en_supply_1" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="77.72" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-80ix" id="v_en_supply_2" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="81.40" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-i512" id="v_en_supply_3" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="85.08" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-hp2z" id="v_en_supply_4" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="88.76" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-tcls" id="v_en_supply_5" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="92.44" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-hyuh" id="v_en_hopping_0" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="96.12" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-soth" id="v_en_hopping_1" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="100.06" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-ys80" id="v_en_hopping_2" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="104.00" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-no9v" id="v_en_hopping_3" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="107.94" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-qum8" id="v_en_hopping_4" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="111.88" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-q6vf" id="v_en_hopping_5" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="115.82" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-bvbj" id="v_en_s04_happy_birthday_0" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="119.76" data-duration="1.02"></audio>
+  <audio data-hf-id="hf-396n" id="v_en_s04_happy_birthday_1" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="123.78" data-duration="1.02"></audio>
+  <audio data-hf-id="hf-o77b" id="v_en_s04_happy_birthday_2" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="127.80" data-duration="1.02"></audio>
+  <audio data-hf-id="hf-330p" id="v_en_s04_happy_birthday_3" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="131.82" data-duration="1.02"></audio>
+
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    var items = [{"label":"happy","type":"word","sub":"PP 단어","reps":6,"voice":"👧 Kore (여성)"},{"label":"apple","type":"word","sub":"PP 단어","reps":6,"voice":"👦 Puck (남성)"},{"label":"happen","type":"word","sub":"PP 단어","reps":6,"voice":"👧 Kore (여성)"},{"label":"supply","type":"word","sub":"PP 단어","reps":6,"voice":"👦 Puck (남성)"},{"label":"hopping","type":"word","sub":"PP 단어","reps":6,"voice":"👧 Kore (여성)"},{"label":"Happy birthday!","type":"sentence","sub":"실전 대화 문장","reps":4,"voice":"👧 Kore (여성)"}];
+    var target = "pp";
+
+    function highlightText(label, type) {
+      if (type === "sentence") return label;
+      var regex = new RegExp("(" + target + target + ")", "gi");
+      return label.replace(regex, '<span class="highlight-letter">$1</span>');
+    }
+
+    function showItem(idx) {
+      var item = items[idx];
+      var voiceEl = document.getElementById("voicePill");
+      var textEl = document.getElementById("mainText");
+      var subEl = document.getElementById("subNote");
+      var dotsEl = document.getElementById("dotsContainer");
+
+      voiceEl.textContent = item.voice;
+      textEl.innerHTML = highlightText(item.label, item.type);
+      if (item.type === "sentence") {
+        textEl.className = "main-text sentence";
+      } else {
+        textEl.className = "main-text";
+      }
+      subEl.textContent = item.sub;
+
+      dotsEl.innerHTML = "";
+      for (var r = 0; r < item.reps; r++) {
+        var d = document.createElement("div");
+        d.className = "repeat-dot";
+        dotsEl.appendChild(d);
+      }
+      gsap.fromTo("#heroCard", { scale: 0.96 }, { scale: 1, duration: 0.35, ease: "back.out(1.5)" });
+    }
+
+    function activateRepDot(repIndex) {
+      var dots = document.querySelectorAll("#dotsContainer .repeat-dot");
+      dots.forEach(function(d, i) {
+        if (i <= repIndex) d.classList.add("active");
+      });
+    }
+
+    function pulseCard() {
+      gsap.fromTo("#heroCard", { scale: 1 }, { scale: 1.03, duration: 0.18, yoyo: true, repeat: 1 });
+    }
+
+    tl.fromTo("#eyebrow", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 0.2);
+
+    tl.call(function() { cap("p가 나란히 적힌 단어들입니다."); }, null, 0.26);
+    tl.call(function() { cap("입술을 두 번 터뜨리지 말고 가볍게 한"); }, null, 2.84);
+    tl.call(function() { cap("번만 닫았다 엽니다."); }, null, 6.31);
+
+    tl.call(function() { showItem(0); }, null, 9.78);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("happy"); }, null, 9.78);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("happy"); }, null, 13.38);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("happy"); }, null, 16.98);
+    tl.call(function() { activateRepDot(3); pulseCard(); cap("happy"); }, null, 20.58);
+    tl.call(function() { activateRepDot(4); pulseCard(); cap("happy"); }, null, 24.18);
+    tl.call(function() { activateRepDot(5); pulseCard(); cap("happy"); }, null, 27.78);
+    tl.call(function() { showItem(1); }, null, 31.38);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("apple"); }, null, 31.38);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("apple"); }, null, 34.81);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("apple"); }, null, 38.24);
+    tl.call(function() { activateRepDot(3); pulseCard(); cap("apple"); }, null, 41.67);
+    tl.call(function() { activateRepDot(4); pulseCard(); cap("apple"); }, null, 45.10);
+    tl.call(function() { activateRepDot(5); pulseCard(); cap("apple"); }, null, 48.53);
+    tl.call(function() { showItem(2); }, null, 51.96);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("happen"); }, null, 51.96);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("happen"); }, null, 55.64);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("happen"); }, null, 59.32);
+    tl.call(function() { activateRepDot(3); pulseCard(); cap("happen"); }, null, 63.00);
+    tl.call(function() { activateRepDot(4); pulseCard(); cap("happen"); }, null, 66.68);
+    tl.call(function() { activateRepDot(5); pulseCard(); cap("happen"); }, null, 70.36);
+    tl.call(function() { showItem(3); }, null, 74.04);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("supply"); }, null, 74.04);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("supply"); }, null, 77.72);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("supply"); }, null, 81.40);
+    tl.call(function() { activateRepDot(3); pulseCard(); cap("supply"); }, null, 85.08);
+    tl.call(function() { activateRepDot(4); pulseCard(); cap("supply"); }, null, 88.76);
+    tl.call(function() { activateRepDot(5); pulseCard(); cap("supply"); }, null, 92.44);
+    tl.call(function() { showItem(4); }, null, 96.12);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("hopping"); }, null, 96.12);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("hopping"); }, null, 100.06);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("hopping"); }, null, 104.00);
+    tl.call(function() { activateRepDot(3); pulseCard(); cap("hopping"); }, null, 107.94);
+    tl.call(function() { activateRepDot(4); pulseCard(); cap("hopping"); }, null, 111.88);
+    tl.call(function() { activateRepDot(5); pulseCard(); cap("hopping"); }, null, 115.82);
+    tl.call(function() { showItem(5); }, null, 119.76);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("Happy birthday!"); }, null, 119.76);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("Happy birthday!"); }, null, 123.78);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("Happy birthday!"); }, null, 127.80);
+    tl.call(function() { activateRepDot(3); pulseCard(); cap("Happy birthday!"); }, null, 131.82);
+
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-pp-words"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

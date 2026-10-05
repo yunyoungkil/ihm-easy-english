@@ -1,0 +1,178 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.25cqw; font-weight: 900;
+    color: #111111; z-index: 10;
+  }
+  .grid-stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; z-index: 5;
+  }
+  .panel-card {
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 22px; padding: 3cqh 3cqw; display: flex; flex-direction: column; align-items: center;
+  }
+  .img-box {
+    width: 100%; height: 42cqh; border: 2.5px solid #111111; border-radius: 14px;
+    overflow: hidden; background: #FAF7F2; margin-bottom: 2cqh;
+  }
+  .img-box img { width: 100%; height: 100%; object-fit: contain; }
+  .diagram-desc {
+    font-size: 1.4cqw; font-weight: 800; text-align: center; color: #111111; line-height: 1.4;
+  }
+  .compare-box {
+    width: 100%; display: flex; flex-direction: column; gap: 2.2cqh; justify-content: center; height: 100%;
+  }
+  .word-row {
+    background: #FAF7F2; border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 16px; padding: 2cqh 2.4cqw; text-align: center;
+  }
+  .word-row.active {
+    border-color: #F59E0B; box-shadow: 4px 4px 0px #F59E0B; background: #FFFFFF;
+  }
+  .word-row .en {
+    font-family: 'Archivo Black', sans-serif; font-size: 4cqw; line-height: 1; letter-spacing: 0.02em;
+  }
+  .word-row .kr {
+    font-size: 1.35cqw; font-weight: 800; color: #7A7365; margin-top: 1cqh;
+  }
+  .highlight-p { color: #EF4444; }
+  .repeat-dots { display: flex; gap: 0.7cqw; justify-content: center; margin-top: 1.4cqh; }
+  .dot {
+    width: 1.1cqw; height: 1.1cqw; border-radius: 50%; background: #E5E0D8;
+    border: 2px solid #111111;
+  }
+  .dot.active { background: #F59E0B; transform: scale(1.2); }
+
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-cvx8" id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-kpsf" class="eyebrow-pill" id="eyebrow">
+    💡 원리: 두 번째 자음은 소리가 아니라 앞 모음을 짧게 읽으라는 신호!
+  </div>
+
+  <div data-hf-id="hf-b6bt" class="grid-stage">
+    <!-- Left: Vocal Tract Anatomical Diagram -->
+    <div data-hf-id="hf-umvq" class="panel-card" id="leftPanel">
+      <div data-hf-id="hf-7dox" class="img-box">
+        <img data-hf-id="hf-x8ds" src="assets/images/f02_vocal_tract.jpg" alt="구강 조음 단면도">
+      </div>
+      <div data-hf-id="hf-g6je" class="diagram-desc">
+        자음 = 공기를 <span data-hf-id="hf-mugc" style="color:#EF4444;">한 번</span> 막았다 여는 소리<br data-hf-id="hf-x5px">
+        <span data-hf-id="hf-8vaz" style="font-size:1.15cqw; color:#7A7365;">두 번 움직일 필요 없이 한 번만 툭!</span>
+      </div>
+    </div>
+
+    <!-- Right: Hoping vs Hopping -->
+    <div data-hf-id="hf-u40b" class="panel-card" id="rightPanel">
+      <div data-hf-id="hf-53a1" class="compare-box">
+        <div data-hf-id="hf-4iwk" class="word-row" id="rowHoping">
+          <div data-hf-id="hf-gr9w" class="en">ho<span data-hf-id="hf-oxm8" class="highlight-p">p</span>ing</div>
+          <div data-hf-id="hf-10lv" class="kr">장모음 [호우핑] (p 1개 ➔ 모음 길게)</div>
+          <div data-hf-id="hf-f9jf" class="repeat-dots" id="hopingDots">
+            <span data-hf-id="hf-9gry" class="dot"></span><span data-hf-id="hf-zcc2" class="dot"></span><span data-hf-id="hf-zqn3" class="dot"></span>
+            <span data-hf-id="hf-04y4" class="dot"></span><span data-hf-id="hf-0j95" class="dot"></span><span data-hf-id="hf-0xk6" class="dot"></span>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-3b84" class="word-row" id="rowHopping">
+          <div data-hf-id="hf-jrcc" class="en">ho<span data-hf-id="hf-g62o" class="highlight-p">pp</span>ing</div>
+          <div data-hf-id="hf-y9sz" class="kr">단모음 [하핑] (p 2개 ➔ 앞 모음 짧게!)</div>
+          <div data-hf-id="hf-79zl" class="repeat-dots" id="hoppingDots">
+            <span data-hf-id="hf-1bv7" class="dot"></span><span data-hf-id="hf-1q68" class="dot"></span><span data-hf-id="hf-vrkt" class="dot"></span>
+            <span data-hf-id="hf-w5vu" class="dot"></span><span data-hf-id="hf-mnty" class="dot"></span><span data-hf-id="hf-m9ix" class="dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-h8u7" id="v02" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="26.12"></audio>
+  <audio data-hf-id="hf-q107" id="v_hoping_0" src="assets/voice/en_hoping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.62" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-jtrh" id="v_hoping_1" src="assets/voice/en_hoping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.13" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-ktvn" id="v_hoping_2" src="assets/voice/en_hoping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.64" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-7dn0" id="v_hoping_3" src="assets/voice/en_hoping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.15" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-2toj" id="v_hoping_4" src="assets/voice/en_hoping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.66" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-hnk4" id="v_hoping_5" src="assets/voice/en_hoping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.17" data-duration="0.51"></audio>
+  <audio data-hf-id="hf-pd62" id="v_hopping_0" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.68" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-qico" id="v_hopping_1" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.62" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-wi4s" id="v_hopping_2" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.56" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-b3bv" id="v_hopping_3" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="59.50" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-0zgm" id="v_hopping_4" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="63.44" data-duration="0.94"></audio>
+  <audio data-hf-id="hf-vbu0" id="v_hopping_5" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="67.38" data-duration="0.94"></audio>
+
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
+
+    function activateDot(containerId, index) {
+      var dots = document.querySelectorAll("#" + containerId + " .dot");
+      dots.forEach(function(d, i) {
+        if (i <= index) d.classList.add("active");
+      });
+      if (containerId === "hopingDots") {
+        document.getElementById("rowHoping").classList.add("active");
+        document.getElementById("rowHopping").classList.remove("active");
+      } else {
+        document.getElementById("rowHopping").classList.add("active");
+        document.getElementById("rowHoping").classList.remove("active");
+      }
+    }
+
+    tl.fromTo("#eyebrow", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, 0.2);
+    tl.fromTo("#leftPanel", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "back.out(1.4)" }, 0.4);
+    tl.fromTo("#rightPanel", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "back.out(1.4)" }, 0.6);
+
+    tl.call(function() { cap("자음은 입술이나 혀가 공기를 한 번 막았다가"); }, null, 0.35);
+    tl.call(function() { cap("여는 소리입니다."); }, null, 3.73);
+    tl.call(function() { cap("같은 자음이 두 개 적혀 있어도, 입이"); }, null, 5.05);
+    tl.call(function() { cap("두 번 움직일 필요 없이 한 번만"); }, null, 7.38);
+    tl.call(function() { cap("툭 소리 내면 끝납니다."); }, null, 9.69);
+    tl.call(function() { cap("그럼 두 번째 자음은 왜 적었을까요?"); }, null, 11.72);
+    tl.call(function() { cap("바로 앞 모음을 짧게 읽으라는 신호입니다."); }, null, 14.61);
+    tl.call(function() { cap("hoping과 hopping."); }, null, 18.11);
+    tl.call(function() { cap("철자 p가 하나 더 붙으면서 앞 모음"); }, null, 20.30);
+    tl.call(function() { cap("소리가 어떻게 달라지는지, 소리로 직접 비교해 보세요."); }, null, 22.82);
+
+    tl.call(function() { activateDot('hopingDots', 0); cap('hoping (P 1개 = 앞 모음 길게 / 장모음)'); }, null, 27.62);
+    tl.call(function() { activateDot('hopingDots', 1); cap('hoping (P 1개 = 앞 모음 길게 / 장모음)'); }, null, 31.13);
+    tl.call(function() { activateDot('hopingDots', 2); cap('hoping (P 1개 = 앞 모음 길게 / 장모음)'); }, null, 34.64);
+    tl.call(function() { activateDot('hopingDots', 3); cap('hoping (P 1개 = 앞 모음 길게 / 장모음)'); }, null, 38.15);
+    tl.call(function() { activateDot('hopingDots', 4); cap('hoping (P 1개 = 앞 모음 길게 / 장모음)'); }, null, 41.66);
+    tl.call(function() { activateDot('hopingDots', 5); cap('hoping (P 1개 = 앞 모음 길게 / 장모음)'); }, null, 45.17);
+    tl.call(function() { activateDot('hoppingDots', 0); cap('hopping (P 2개 = 앞 모음 짧게 / 단모음)'); }, null, 47.68);
+    tl.call(function() { activateDot('hoppingDots', 1); cap('hopping (P 2개 = 앞 모음 짧게 / 단모음)'); }, null, 51.62);
+    tl.call(function() { activateDot('hoppingDots', 2); cap('hopping (P 2개 = 앞 모음 짧게 / 단모음)'); }, null, 55.56);
+    tl.call(function() { activateDot('hoppingDots', 3); cap('hopping (P 2개 = 앞 모음 짧게 / 단모음)'); }, null, 59.50);
+    tl.call(function() { activateDot('hoppingDots', 4); cap('hopping (P 2개 = 앞 모음 짧게 / 단모음)'); }, null, 63.44);
+    tl.call(function() { activateDot('hoppingDots', 5); cap('hopping (P 2개 = 앞 모음 짧게 / 단모음)'); }, null, 67.38);
+
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

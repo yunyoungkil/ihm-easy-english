@@ -1,0 +1,198 @@
+{
+  "en_coffee": {
+    "path": "assets/voice/en_coffee.wav",
+    "duration_s": 0.85
+  },
+  "en_hopping": {
+    "path": "assets/voice/en_hopping.wav",
+    "duration_s": 0.94
+  },
+  "01_f01_hook": {
+    "path": "assets/voice/01_f01_hook.wav",
+    "duration_s": 21.04
+  },
+  "02_f02_principle": {
+    "path": "assets/voice/02_f02_principle.wav",
+    "duration_s": 26.12
+  },
+  "03_f03_intro_ff": {
+    "path": "assets/voice/03_f03_intro_ff.wav",
+    "duration_s": 7.76
+  },
+  "04_f04_intro_ll": {
+    "path": "assets/voice/04_f04_intro_ll.wav",
+    "duration_s": 8.08
+  },
+  "05_f05_intro_ss": {
+    "path": "assets/voice/05_f05_intro_ss.wav",
+    "duration_s": 7.56
+  },
+  "06_f06_intro_pp": {
+    "path": "assets/voice/06_f06_intro_pp.wav",
+    "duration_s": 8.28
+  },
+  "07_f07_exception_boundary": {
+    "path": "assets/voice/07_f07_exception_boundary.wav",
+    "duration_s": 23.2
+  },
+  "08_f08_exception_flap_tt": {
+    "path": "assets/voice/08_f08_exception_flap_tt.wav",
+    "duration_s": 15.6
+  },
+  "09_f09_intro_scene": {
+    "path": "assets/voice/09_f09_intro_scene.wav",
+    "duration_s": 7.04
+  },
+  "10_f10_intro_shuffle": {
+    "path": "assets/voice/10_f10_intro_shuffle.wav",
+    "duration_s": 8.96
+  },
+  "11_f11_summary": {
+    "path": "assets/voice/11_f11_summary.wav",
+    "duration_s": 19.2
+  },
+  "12_f12_intro_encore": {
+    "path": "assets/voice/12_f12_intro_encore.wav",
+    "duration_s": 5.92
+  },
+  "en_hoping": {
+    "path": "assets/voice/en_hoping.wav",
+    "duration_s": 0.51
+  },
+  "en_offer": {
+    "path": "assets/voice/en_offer.wav",
+    "duration_s": 0.6
+  },
+  "en_different": {
+    "path": "assets/voice/en_different.wav",
+    "duration_s": 0.6
+  },
+  "en_staff": {
+    "path": "assets/voice/en_staff.wav",
+    "duration_s": 0.68
+  },
+  "en_yellow": {
+    "path": "assets/voice/en_yellow.wav",
+    "duration_s": 0.51
+  },
+  "en_really": {
+    "path": "assets/voice/en_really.wav",
+    "duration_s": 0.51
+  },
+  "en_all": {
+    "path": "assets/voice/en_all.wav",
+    "duration_s": 0.43
+  },
+  "en_class": {
+    "path": "assets/voice/en_class.wav",
+    "duration_s": 0.68
+  },
+  "en_glass": {
+    "path": "assets/voice/en_glass.wav",
+    "duration_s": 0.68
+  },
+  "en_lesson": {
+    "path": "assets/voice/en_lesson.wav",
+    "duration_s": 0.51
+  },
+  "en_apple": {
+    "path": "assets/voice/en_apple.wav",
+    "duration_s": 0.43
+  },
+  "en_supply": {
+    "path": "assets/voice/en_supply.wav",
+    "duration_s": 0.68
+  },
+  "en_unnamed": {
+    "path": "assets/voice/en_unnamed.wav",
+    "duration_s": 0.85
+  },
+  "en_letter": {
+    "path": "assets/voice/en_letter.wav",
+    "duration_s": 0.43
+  },
+  "en_better": {
+    "path": "assets/voice/en_better.wav",
+    "duration_s": 0.43
+  },
+  "en_s03_class_at_ten": {
+    "path": "assets/voice/en_s03_class_at_ten.wav",
+    "duration_s": 1.28
+  },
+  "en_s06_office_close": {
+    "path": "assets/voice/en_s06_office_close.wav",
+    "duration_s": 1.88
+  },
+  "en_s07_coffee_after_class": {
+    "path": "assets/voice/en_s07_coffee_after_class.wav",
+    "duration_s": 1.74
+  },
+  "en_office": {
+    "path": "assets/voice/en_office.wav",
+    "duration_s": 0.77
+  },
+  "en_effort": {
+    "path": "assets/voice/en_effort.wav",
+    "duration_s": 0.6
+  },
+  "en_hello": {
+    "path": "assets/voice/en_hello.wav",
+    "duration_s": 0.51
+  },
+  "en_call": {
+    "path": "assets/voice/en_call.wav",
+    "duration_s": 0.6
+  },
+  "en_tall": {
+    "path": "assets/voice/en_tall.wav",
+    "duration_s": 0.6
+  },
+  "en_dress": {
+    "path": "assets/voice/en_dress.wav",
+    "duration_s": 0.68
+  },
+  "en_press": {
+    "path": "assets/voice/en_press.wav",
+    "duration_s": 0.68
+  },
+  "en_miss": {
+    "path": "assets/voice/en_miss.wav",
+    "duration_s": 0.68
+  },
+  "en_happy": {
+    "path": "assets/voice/en_happy.wav",
+    "duration_s": 0.6
+  },
+  "en_happen": {
+    "path": "assets/voice/en_happen.wav",
+    "duration_s": 0.68
+  },
+  "en_midday": {
+    "path": "assets/voice/en_midday.wav",
+    "duration_s": 0.68
+  },
+  "en_butter": {
+    "path": "assets/voice/en_butter.wav",
+    "duration_s": 0.6
+  },
+  "en_little": {
+    "path": "assets/voice/en_little.wav",
+    "duration_s": 0.43
+  },
+  "en_s01_two_coffees": {
+    "path": "assets/voice/en_s01_two_coffees.wav",
+    "duration_s": 1.11
+  },
+  "en_s02_hows_it_going": {
+    "path": "assets/voice/en_s02_hows_it_going.wav",
+    "duration_s": 1.11
+  },
+  "en_s04_happy_birthday": {
+    "path": "assets/voice/en_s04_happy_birthday.wav",
+    "duration_s": 1.02
+  },
+  "en_s05_want_coffee": {
+    "path": "assets/voice/en_s05_want_coffee.wav",
+    "duration_s": 1.09
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "word": "Let's",
+    "from": 0.087,
+    "to": 0.32
+  },
+  {
+    "word": "get",
+    "from": 0.367,
+    "to": 0.507
+  },
+  {
+    "word": "coffee",
+    "from": 0.553,
+    "to": 0.833
+  },
+  {
+    "word": "after",
+    "from": 0.88,
+    "to": 1.113
+  },
+  {
+    "word": "class.",
+    "from": 1.16,
+    "to": 1.44
+  }
+]

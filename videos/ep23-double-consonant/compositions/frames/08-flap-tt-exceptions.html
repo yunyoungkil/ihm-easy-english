@@ -24,25 +24,26 @@
   }
   .hero-card {
     background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
-    border-radius: 28px; padding: 4.5cqh 5cqw; width: 100%; text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 2cqh;
-  }
-  .voice-pill {
-    background: #FAF7F2; border: 2px solid #111111; border-radius: 999px;
-    padding: 0.6cqh 1.8cqw; font-size: 1.1cqw; font-weight: 900; color: #7A7365;
+    border-radius: 28px; padding: 4.8cqh 5cqw; width: 100%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4cqh;
   }
   .main-text {
-    font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1.1;
-    letter-spacing: 0.02em; color: #111111;
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.15;
+    letter-spacing: 0.02em; color: #111111; padding-bottom: 1.2cqh; margin-bottom: 0.5cqh;
   }
   .main-text.sentence {
-    font-size: 3.8cqw; line-height: 1.25;
+    font-size: 3.8cqw; line-height: 1.25; padding-bottom: 0.8cqh; margin-bottom: 0.3cqh;
+  }
+  .meaning-badge {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; background: #FAF7F2;
+    border: 2.5px solid #111111; border-radius: 14px; padding: 0.7cqh 2.4cqw;
+    box-shadow: 3px 3px 0px #111111;
   }
   .sub-note {
-    font-size: 1.5cqw; font-weight: 800; color: #7A7365;
+    font-size: 1.35cqw; font-weight: 800; color: #7A7365;
   }
   .highlight-letter {
-    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px;
+    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px; display: inline-block;
   }
 
   .repeat-dots {
@@ -50,7 +51,7 @@
   }
   .repeat-dot {
     width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: #E5E0D8;
-    border: 2.5px solid #111111; 
+    border: 2.5px solid #111111;
   }
   .repeat-dot.active {
     background: #F59E0B; transform: scale(1.3); box-shadow: 2px 2px 0px #111111;
@@ -65,48 +66,37 @@
   audio { display: none; }
 </style>
 
-<div data-hf-id="hf-y9g1" id="root" data-composition-id="08-flap-tt-exceptions" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-bpai" class="eyebrow-pill" id="eyebrow">
-    <span data-hf-id="hf-h3o6" class="tip-badge">TT 사운드</span>
-    <span data-hf-id="hf-sdtk">모음 사이 tt는 트가 아니라 부드러운 'ㄹ' (Flap T)</span>
+<div id="root" data-composition-id="08-flap-tt-exceptions" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrow">
+    <span class="tip-badge">FLAP T</span>
+    <span>모음 사이 tt는 트가 아니라 부드러운 'ㄹ' (Flap T)</span>
   </div>
 
-  <div data-hf-id="hf-tan6" class="stage">
-    <div data-hf-id="hf-0i73" class="hero-card" id="heroCard">
-      <div data-hf-id="hf-rx6d" class="voice-pill" id="voicePill">👦 Puck (남성)</div>
-      <div data-hf-id="hf-ely1" class="main-text" id="mainText">CO<span data-hf-id="hf-n5uk" class="highlight-letter">FF</span>EE</div>
-      <div data-hf-id="hf-l8fz" class="sub-note" id="subNote">소리는 딱 한 번!</div>
-      <div data-hf-id="hf-h0st" class="repeat-dots" id="dotsContainer"></div>
+  <div class="stage">
+    <!-- Clean Elevated Card: No voice badge, generous spacing for underline and meaning -->
+    <div class="hero-card" id="heroCard">
+      <div class="main-text" id="mainText">예외 ② 모음 사이 TT</div>
+      <div class="meaning-badge" id="meaningBadge">미국 영어에서는 '트' 대신 부드러운 'ㄹ' (Flap T)</div>
+      <div class="sub-note" id="subNote">letter, butter, better, little 4개 단어 반복 듣기</div>
+      <div class="repeat-dots" id="dotsContainer"></div>
     </div>
   </div>
 
-  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <div class="caption-pill" id="capPill"></div>
 
-  <audio data-hf-id="hf-kb9p" id="v_intro" src="assets/voice/08_f08_exception_flap_tt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="15.60"></audio>
-  <audio data-hf-id="hf-qiku" id="v_en_letter_0" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.10" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-xhfk" id="v_en_letter_1" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.53" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-xq2h" id="v_en_letter_2" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.96" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-8n0v" id="v_en_letter_3" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.39" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-nqtg" id="v_en_letter_4" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.82" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-lgpq" id="v_en_letter_5" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.25" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-796u" id="v_en_butter_0" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.68" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-04r8" id="v_en_butter_1" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.28" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-gymc" id="v_en_butter_2" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.88" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-sl87" id="v_en_butter_3" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.48" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-tl3h" id="v_en_butter_4" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="52.08" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-zf41" id="v_en_butter_5" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.68" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-9tyh" id="v_en_better_0" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="59.28" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-men2" id="v_en_better_1" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="62.71" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-q91k" id="v_en_better_2" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="66.14" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-n8td" id="v_en_better_3" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="69.57" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-wqir" id="v_en_better_4" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="73.00" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-2ogo" id="v_en_better_5" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="76.43" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-dgtf" id="v_en_little_0" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="79.86" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-tnfs" id="v_en_little_1" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="83.29" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-pyqa" id="v_en_little_2" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="86.72" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-8qdf" id="v_en_little_3" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="90.15" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-v1lu" id="v_en_little_4" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="93.58" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-0hr7" id="v_en_little_5" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="97.01" data-duration="0.43"></audio>
+  <audio id="v_intro" src="assets/voice/08_f08_exception_flap_tt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="15.60"></audio>
+  <audio id="v_en_letter_0" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.10" data-duration="0.43"></audio>
+  <audio id="v_en_letter_1" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.53" data-duration="0.43"></audio>
+  <audio id="v_en_letter_2" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.96" data-duration="0.43"></audio>
+  <audio id="v_en_butter_0" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.39" data-duration="0.60"></audio>
+  <audio id="v_en_butter_1" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.99" data-duration="0.60"></audio>
+  <audio id="v_en_butter_2" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.59" data-duration="0.60"></audio>
+  <audio id="v_en_better_0" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.19" data-duration="0.43"></audio>
+  <audio id="v_en_better_1" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.62" data-duration="0.43"></audio>
+  <audio id="v_en_better_2" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.05" data-duration="0.43"></audio>
+  <audio id="v_en_little_0" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.48" data-duration="0.43"></audio>
+  <audio id="v_en_little_1" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.91" data-duration="0.43"></audio>
+  <audio id="v_en_little_2" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.34" data-duration="0.43"></audio>
 
 </div>
 
@@ -116,30 +106,45 @@
     var pill = document.getElementById("capPill");
     function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    var items = [{"label":"letter","type":"word","sub":"레러 (Flap T)","reps":6,"voice":"👦 Puck (남성)"},{"label":"butter","type":"word","sub":"버러 (Flap T)","reps":6,"voice":"👧 Kore (여성)"},{"label":"better","type":"word","sub":"베러 (Flap T)","reps":6,"voice":"👦 Puck (남성)"},{"label":"little","type":"word","sub":"리를 (Flap T)","reps":6,"voice":"👧 Kore (여성)"}];
+    var items = [{"label":"letter","syllables":"let · ter","pron":"레 · 러","meaning":"편지, 글자","tip":"💡 모음 사이 tt ➔ 부드러운 'ㄹ' (Flap T)","type":"word","reps":3},{"label":"butter","syllables":"but · ter","pron":"버 · 러","meaning":"버터","tip":"💡 모음 사이 tt ➔ 부드러운 'ㄹ' (Flap T)","type":"word","reps":3},{"label":"better","syllables":"bet · ter","pron":"베 · 러","meaning":"더 좋은","tip":"💡 모음 사이 tt ➔ 부드러운 'ㄹ' (Flap T)","type":"word","reps":3},{"label":"little","syllables":"lit · tle","pron":"리 · 를","meaning":"작은, 어린","tip":"💡 모음 사이 tt ➔ 부드러운 'ㄹ' (Flap T)","type":"word","reps":3}];
     var target = "tt";
 
-    function highlightText(label, type) {
-      if (type === "sentence") return label;
-      var regex = new RegExp("(" + target + target + ")", "gi");
+    function highlightText(label) {
+      var targets = target.split('|');
+      var patterns = [];
+      targets.forEach(function(t) {
+        if (t.length >= 2) {
+          patterns.push(t[0] + "\\s*·\\s*" + t[1]);
+          patterns.push(t);
+        } else {
+          patterns.push(t);
+        }
+      });
+      var regex = new RegExp("(" + patterns.join("|") + ")", "gi");
       return label.replace(regex, '<span class="highlight-letter">$1</span>');
     }
 
     function showItem(idx) {
       var item = items[idx];
-      var voiceEl = document.getElementById("voicePill");
       var textEl = document.getElementById("mainText");
+      var meaningEl = document.getElementById("meaningBadge");
       var subEl = document.getElementById("subNote");
       var dotsEl = document.getElementById("dotsContainer");
 
-      voiceEl.textContent = item.voice;
-      textEl.innerHTML = highlightText(item.label, item.type);
       if (item.type === "sentence") {
+        textEl.innerHTML = highlightText(item.label);
         textEl.className = "main-text sentence";
+        meaningEl.textContent = item.meaning;
       } else {
+        textEl.innerHTML = highlightText(item.syllables || item.label);
         textEl.className = "main-text";
+        if (item.pron) {
+          meaningEl.textContent = "[" + item.pron + "] · " + item.meaning;
+        } else {
+          meaningEl.textContent = item.meaning;
+        }
       }
-      subEl.textContent = item.sub;
+      subEl.textContent = item.tip;
 
       dotsEl.innerHTML = "";
       for (var r = 0; r < item.reps; r++) {
@@ -171,33 +176,21 @@
     tl.call(function() { cap("혀가 편안하게 굴러가는 소리를 들어보세요."); }, null, 13.60);
 
     tl.call(function() { showItem(0); }, null, 17.10);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("letter"); }, null, 17.10);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("letter"); }, null, 20.53);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("letter"); }, null, 23.96);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("letter"); }, null, 27.39);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("letter"); }, null, 30.82);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("letter"); }, null, 34.25);
-    tl.call(function() { showItem(1); }, null, 37.68);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("butter"); }, null, 37.68);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("butter"); }, null, 41.28);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("butter"); }, null, 44.88);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("butter"); }, null, 48.48);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("butter"); }, null, 52.08);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("butter"); }, null, 55.68);
-    tl.call(function() { showItem(2); }, null, 59.28);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("better"); }, null, 59.28);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("better"); }, null, 62.71);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("better"); }, null, 66.14);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("better"); }, null, 69.57);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("better"); }, null, 73.00);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("better"); }, null, 76.43);
-    tl.call(function() { showItem(3); }, null, 79.86);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("little"); }, null, 79.86);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("little"); }, null, 83.29);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("little"); }, null, 86.72);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("little"); }, null, 90.15);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("little"); }, null, 93.58);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("little"); }, null, 97.01);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("let · ter [레 · 러]"); }, null, 17.10);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("let · ter [레 · 러]"); }, null, 20.53);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("let · ter [레 · 러]"); }, null, 23.96);
+    tl.call(function() { showItem(1); }, null, 27.39);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("but · ter [버 · 러]"); }, null, 27.39);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("but · ter [버 · 러]"); }, null, 30.99);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("but · ter [버 · 러]"); }, null, 34.59);
+    tl.call(function() { showItem(2); }, null, 38.19);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("bet · ter [베 · 러]"); }, null, 38.19);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("bet · ter [베 · 러]"); }, null, 41.62);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("bet · ter [베 · 러]"); }, null, 45.05);
+    tl.call(function() { showItem(3); }, null, 48.48);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("lit · tle [리 · 를]"); }, null, 48.48);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("lit · tle [리 · 를]"); }, null, 51.91);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("lit · tle [리 · 를]"); }, null, 55.34);
 
 
     window.__timelines = window.__timelines || {};

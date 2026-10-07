@@ -18,14 +18,21 @@
     display: flex; flex-direction: column; align-items: center; gap: 3.5cqh; z-index: 5;
   }
   .word-card {
-    background: #FFFFFF; border: 3px solid #111111; box-shadow: 6px 6px 0px #111111;
-    border-radius: 24px; padding: 4cqh 6cqw; text-align: center;
+    background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 6cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.4cqh;
   }
   .hero-word {
-    font-family: 'Archivo Black', sans-serif; font-size: 8.5cqw; line-height: 1; letter-spacing: 0.04em;
+    font-family: 'Archivo Black', sans-serif; font-size: 8.5cqw; line-height: 1.15; letter-spacing: 0.04em;
+    padding-bottom: 0.8cqh;
+  }
+  .meaning-box {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; background: #FAF7F2;
+    border: 2px solid #111111; border-radius: 12px; padding: 0.6cqh 2.2cqw;
+    box-shadow: 2px 2px 0px #111111;
   }
   .highlight-red {
-    color: #EF4444; border-bottom: 8px solid #EF4444; padding-bottom: 2px;
+    color: #EF4444; border-bottom: 8px solid #EF4444; padding-bottom: 4px;
   }
   .rule-capsule {
     background: #F59E0B; border: 3px solid #111111; box-shadow: 5px 5px 0px #111111;
@@ -41,25 +48,25 @@
   audio { display: none; }
 </style>
 
-<div data-hf-id="hf-lutg" id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-bpai" class="eyebrow-pill" id="eyebrow">
-    <span data-hf-id="hf-heg5">😳</span>
-    <span data-hf-id="hf-qclh">스펠링은 2개인데, 소리도 2번일까?</span>
+<div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrow">
+    <span>😳</span>
+    <span>스펠링은 2개인데, 소리도 2번일까?</span>
   </div>
 
-  <div data-hf-id="hf-tan6" class="stage">
-    <div data-hf-id="hf-0yg7" class="word-card" id="wordCard">
-      <div data-hf-id="hf-9vs5" class="hero-word">CO<span data-hf-id="hf-fkkl" class="highlight-red">FF</span>EE</div>
+  <div class="stage">
+    <div class="word-card" id="wordCard">
+      <div class="hero-word">CO<span class="highlight-red">FF</span>EE</div>
+      <div class="meaning-box">커피</div>
     </div>
-    <div data-hf-id="hf-9iys" class="rule-capsule" id="ruleCapsule">
+    <div class="rule-capsule" id="ruleCapsule">
       ✨ 같은 자음 두 개는 딱 한 번만 소리 난다!
     </div>
   </div>
 
-  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <div class="caption-pill" id="capPill"></div>
 
-  <audio data-hf-id="hf-8cgp" id="v01" src="assets/voice/01_f01_hook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="21.04"></audio>
-  <audio data-hf-id="hf-lnol" id="v01_word" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.04" data-duration="0.85"></audio>
+  <audio id="v01" src="assets/voice/01_f01_hook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="21.04"></audio>
 </div>
 
 <script>
@@ -83,9 +90,6 @@
 
     // Reveal rule capsule at 7.6s ("아닙니다. 원어민은 딱 한 번만 소리 냅니다")
     tl.to("#ruleCapsule", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 7.6);
-    // Pulse coffee card when word plays at 22.04s
-    tl.to("#wordCard", { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1 }, 22.04);
-    tl.call(function() { cap("Coffee. (한 번만 툭!)"); }, null, 22.04);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["01-hook"] = tl;

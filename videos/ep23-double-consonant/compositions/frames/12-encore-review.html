@@ -15,26 +15,36 @@
   }
   .stage {
     position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
-    width: 70cqw; display: flex; flex-direction: column; align-items: center; z-index: 5;
+    width: 72cqw; display: flex; flex-direction: column; align-items: center; z-index: 5;
   }
   .encore-card {
     background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
-    border-radius: 28px; padding: 5cqh 6cqw; width: 100%; text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+    border-radius: 28px; padding: 4.8cqh 5cqw; width: 100%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4cqh;
   }
   .badge-counter {
     background: #FAF7F2; border: 2px solid #111111; border-radius: 999px;
-    padding: 0.5cqh 1.8cqw; font-size: 1.1cqw; font-weight: 900; color: #7A7365;
+    padding: 0.5cqh 1.8cqw; font-size: 1.15cqw; font-weight: 900; color: #7A7365;
   }
   .word-display {
-    font-family: 'Archivo Black', sans-serif; font-size: 7.5cqw; line-height: 1; letter-spacing: 0.03em;
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.15; letter-spacing: 0.02em;
+    padding-bottom: 1.2cqh; margin-bottom: 0.6cqh;
   }
-  .repeat-dots { display: flex; gap: 1cqw; justify-content: center; }
+  .meaning-display {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; background: #FAF7F2;
+    border: 2.5px solid #111111; border-radius: 14px; padding: 0.7cqh 2.4cqw;
+    box-shadow: 3px 3px 0px #111111;
+  }
+  .repeat-dots { display: flex; gap: 1cqw; justify-content: center; margin-top: 0.5cqh; }
   .dot {
     width: 1.4cqw; height: 1.4cqw; border-radius: 50%; background: #E5E0D8;
     border: 2.5px solid #111111;
   }
   .dot.active { background: #F59E0B; transform: scale(1.3); }
+
+  .highlight-letter {
+    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px; display: inline-block;
+  }
 
   .caption-pill {
     position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
@@ -42,86 +52,175 @@
     border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
     color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
   }
+
+  /* YouTube End Screen (10.0s Dedicated Stage) */
+  .endscreen-stage {
+    position: absolute; inset: 0; z-index: 30; opacity: 0; pointer-events: none;
+  }
+  .end-brand {
+    position: absolute; left: 5cqw; top: 5.5cqh; display: flex; align-items: center; gap: 1cqw;
+  }
+  .end-brand-pill {
+    background: #111111; color: #FFFFFF; font-weight: 900; font-size: 1.15cqw;
+    padding: 0.6cqh 1.8cqw; border-radius: 999px;
+  }
+  .end-brand-sub {
+    font-size: 1.1cqw; font-weight: 800; color: #7A7365;
+  }
+  .end-header {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8cqh;
+  }
+  .end-header-badge {
+    background: #F59E0B; border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+    border-radius: 999px; padding: 0.6cqh 2.2cqw; font-size: 1.2cqw; font-weight: 900; color: #111111;
+  }
+  .end-header-title {
+    font-family: 'Archivo Black', sans-serif; font-size: 2.2cqw; color: #111111; letter-spacing: 0.01em;
+  }
+  .end-cards-grid {
+    position: absolute; top: 22cqh; left: 50%; transform: translateX(-50%);
+    width: 82cqw; display: grid; grid-template-columns: 1fr 1fr; gap: 3.5cqw;
+  }
+  .end-card-box {
+    background: #FFFFFF; border: 3px dashed #111111; border-radius: 24px;
+    box-shadow: 6px 6px 0px #111111; height: 50cqh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1.8cqh; text-align: center; padding: 2cqh 3cqw;
+  }
+  .end-card-badge {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.5cqh 1.8cqw; font-size: 1.1cqw; font-weight: 900; color: #7A7365;
+  }
+  .end-card-title {
+    font-size: 1.8cqw; font-weight: 900; color: #111111; line-height: 1.3;
+  }
+  .end-card-cta {
+    font-size: 1.2cqw; font-weight: 800; color: #EF4444; background: #FFF5F5;
+    border: 1.5px solid #EF4444; border-radius: 8px; padding: 0.4cqh 1.2cqw;
+  }
+  .end-bottom-bar {
+    position: absolute; bottom: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 3cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw;
+  }
   audio { display: none; }
 </style>
 
-<div data-hf-id="hf-cjjq" id="root" data-composition-id="12-encore-review" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-jnz9" class="eyebrow-pill" id="eyebrow">
+<div id="root" data-composition-id="12-encore-review" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrow">
     ☕ 앵콜 총복습: 편안하게 틀어두고 귀에 새겨보세요
   </div>
 
-  <div data-hf-id="hf-tan6" class="stage">
-    <div data-hf-id="hf-ln8j" class="encore-card" id="encoreCard">
-      <div data-hf-id="hf-r86w" class="badge-counter" id="badgeCounter">단어 01 / 29</div>
-      <div data-hf-id="hf-y25n" class="word-display" id="wordDisplay">COFFEE</div>
-      <div data-hf-id="hf-jlri" class="repeat-dots">
-        <span data-hf-id="hf-tla3" class="dot" id="dot0"></span>
-        <span data-hf-id="hf-nfka" class="dot" id="dot1"></span>
+  <div class="stage">
+    <!-- Intro State during narration, NO hardcoded 'COFFEE' -->
+    <div class="encore-card" id="encoreCard">
+      <div class="badge-counter" id="badgeCounter">☕ 총복습 앵콜</div>
+      <div class="word-display" id="wordDisplay">29단어 총정리</div>
+      <div class="meaning-display" id="meaningDisplay">틀어두고 편안하게 귀로 새겨보세요</div>
+      <div class="repeat-dots">
+        <span class="dot" id="dot0"></span>
+        <span class="dot" id="dot1"></span>
       </div>
     </div>
   </div>
 
-  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <div class="caption-pill" id="capPill"></div>
 
-  <audio data-hf-id="hf-e7dy" id="v_intro" src="assets/voice/12_f12_intro_encore.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="5.92"></audio>
-  <audio data-hf-id="hf-g66t" id="v_enc_0_0" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.42" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-40kk" id="v_enc_0_1" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.27" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-kjup" id="v_enc_1_0" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.12" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-jjh7" id="v_enc_1_1" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.72" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-iuh8" id="v_enc_2_0" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.32" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-uxll" id="v_enc_2_1" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.09" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-9i4y" id="v_enc_3_0" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.86" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-u372" id="v_enc_3_1" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.46" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-9xzv" id="v_enc_4_0" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.06" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-94rg" id="v_enc_4_1" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.66" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-m83w" id="v_enc_5_0" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.26" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-81a3" id="v_enc_5_1" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.94" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-73hf" id="v_enc_6_0" src="assets/voice/en_hello.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.62" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-c6re" id="v_enc_6_1" src="assets/voice/en_hello.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.13" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-0zar" id="v_enc_7_0" src="assets/voice/en_yellow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="58.64" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-5ttl" id="v_enc_7_1" src="assets/voice/en_yellow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="62.15" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-uyig" id="v_enc_8_0" src="assets/voice/en_call.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="65.66" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-p2t3" id="v_enc_8_1" src="assets/voice/en_call.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="69.26" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-mdl8" id="v_enc_9_0" src="assets/voice/en_really.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="72.86" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-h5fn" id="v_enc_9_1" src="assets/voice/en_really.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="76.37" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-5wy1" id="v_enc_10_0" src="assets/voice/en_tall.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="79.88" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-9anl" id="v_enc_10_1" src="assets/voice/en_tall.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="83.48" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-hnha" id="v_enc_11_0" src="assets/voice/en_all.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="87.08" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-lgbx" id="v_enc_11_1" src="assets/voice/en_all.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="90.51" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-5tw9" id="v_enc_12_0" src="assets/voice/en_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="93.94" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-rb4n" id="v_enc_12_1" src="assets/voice/en_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="97.62" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-y5qf" id="v_enc_13_0" src="assets/voice/en_dress.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="101.30" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-dm13" id="v_enc_13_1" src="assets/voice/en_dress.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="104.98" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-maof" id="v_enc_14_0" src="assets/voice/en_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="108.66" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-edsk" id="v_enc_14_1" src="assets/voice/en_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="112.34" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-6j0y" id="v_enc_15_0" src="assets/voice/en_press.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="116.02" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-e1q1" id="v_enc_15_1" src="assets/voice/en_press.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="119.70" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-rqhl" id="v_enc_16_0" src="assets/voice/en_lesson.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="123.38" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-28u3" id="v_enc_16_1" src="assets/voice/en_lesson.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="126.89" data-duration="0.51"></audio>
-  <audio data-hf-id="hf-f069" id="v_enc_17_0" src="assets/voice/en_miss.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="130.40" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-fz22" id="v_enc_17_1" src="assets/voice/en_miss.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="134.08" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-vius" id="v_enc_18_0" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="137.76" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-sanc" id="v_enc_18_1" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="141.36" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-xytq" id="v_enc_19_0" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="144.96" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-892u" id="v_enc_19_1" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="148.39" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-to7y" id="v_enc_20_0" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="151.82" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-3unu" id="v_enc_20_1" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="155.50" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-35vr" id="v_enc_21_0" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="159.18" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-17z5" id="v_enc_21_1" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="162.86" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-1axf" id="v_enc_22_0" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="166.54" data-duration="0.94"></audio>
-  <audio data-hf-id="hf-9oay" id="v_enc_22_1" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="170.48" data-duration="0.94"></audio>
-  <audio data-hf-id="hf-0vh7" id="v_enc_23_0" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="174.42" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-akk1" id="v_enc_23_1" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="178.27" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-bdg3" id="v_enc_24_0" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="182.12" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-4dos" id="v_enc_24_1" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="185.80" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-9kaz" id="v_enc_25_0" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="189.48" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-1zxa" id="v_enc_25_1" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="192.91" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-f1a8" id="v_enc_26_0" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="196.34" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-7y9e" id="v_enc_26_1" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="199.94" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-h9r7" id="v_enc_27_0" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="203.54" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-5dy0" id="v_enc_27_1" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="206.97" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-m4hh" id="v_enc_28_0" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="210.40" data-duration="0.43"></audio>
-  <audio data-hf-id="hf-f3c4" id="v_enc_28_1" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="213.83" data-duration="0.43"></audio>
+  <!-- YouTube End Screen (10.0s Dedicated Stage) -->
+  <div class="endscreen-stage" id="endscreenStage">
+    <!-- Safe Top-Left Brand Wordmark -->
+    <div class="end-brand" id="endBrand">
+      <span class="end-brand-pill">이해하면 쉬운영어</span>
+      <span class="end-brand-sub">원리를 알면 영어가 들립니다</span>
+    </div>
+
+    <!-- Top Message Banner -->
+    <div class="end-header" id="endHeader">
+      <div class="end-header-badge">✨ 29개 단어 집중 훈련 완주를 축하합니다!</div>
+      <div class="end-header-title">함께 들으면 귀가 더 빨리 열리는 추천 영상</div>
+    </div>
+
+    <!-- YouTube Endscreen Guide Zones (16:9 Aspect Ratio) -->
+    <div class="end-cards-grid">
+      <div class="end-card-box">
+        <div class="end-card-badge">🎬 추천 영상</div>
+        <div class="end-card-title">모음 뒤 R 소리의 비밀</div>
+        <div class="end-card-cta">▶️ 클릭하여 바로 시청하기</div>
+      </div>
+
+      <div class="end-card-box">
+        <div class="end-card-badge">📺 지난 강의 몰아보기</div>
+        <div class="end-card-title">왕초보 필수 파닉스 재생목록</div>
+        <div class="end-card-cta">▶️ 전체 영상 이어보기</div>
+      </div>
+    </div>
+
+    <!-- Bottom Subscribe Bar -->
+    <div class="end-bottom-bar">
+      <span>🔔 도움이 되셨다면 구독과 좋아요 부탁드립니다!</span>
+    </div>
+  </div>
+
+  <audio id="v_intro" src="assets/voice/12_f12_intro_encore.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="5.92"></audio>
+  <audio id="v_enc_0_0" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.42" data-duration="0.85"></audio>
+  <audio id="v_enc_0_1" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.27" data-duration="0.85"></audio>
+  <audio id="v_enc_1_0" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.12" data-duration="0.60"></audio>
+  <audio id="v_enc_1_1" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.72" data-duration="0.60"></audio>
+  <audio id="v_enc_2_0" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.32" data-duration="0.77"></audio>
+  <audio id="v_enc_2_1" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.09" data-duration="0.77"></audio>
+  <audio id="v_enc_3_0" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.86" data-duration="0.60"></audio>
+  <audio id="v_enc_3_1" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.46" data-duration="0.60"></audio>
+  <audio id="v_enc_4_0" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.06" data-duration="0.60"></audio>
+  <audio id="v_enc_4_1" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.66" data-duration="0.60"></audio>
+  <audio id="v_enc_5_0" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.26" data-duration="0.68"></audio>
+  <audio id="v_enc_5_1" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.94" data-duration="0.68"></audio>
+  <audio id="v_enc_6_0" src="assets/voice/en_hello.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.62" data-duration="0.51"></audio>
+  <audio id="v_enc_6_1" src="assets/voice/en_hello.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.13" data-duration="0.51"></audio>
+  <audio id="v_enc_7_0" src="assets/voice/en_yellow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="58.64" data-duration="0.51"></audio>
+  <audio id="v_enc_7_1" src="assets/voice/en_yellow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="62.15" data-duration="0.51"></audio>
+  <audio id="v_enc_8_0" src="assets/voice/en_call.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="65.66" data-duration="0.60"></audio>
+  <audio id="v_enc_8_1" src="assets/voice/en_call.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="69.26" data-duration="0.60"></audio>
+  <audio id="v_enc_9_0" src="assets/voice/en_really.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="72.86" data-duration="0.51"></audio>
+  <audio id="v_enc_9_1" src="assets/voice/en_really.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="76.37" data-duration="0.51"></audio>
+  <audio id="v_enc_10_0" src="assets/voice/en_tall.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="79.88" data-duration="0.60"></audio>
+  <audio id="v_enc_10_1" src="assets/voice/en_tall.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="83.48" data-duration="0.60"></audio>
+  <audio id="v_enc_11_0" src="assets/voice/en_all.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="87.08" data-duration="0.43"></audio>
+  <audio id="v_enc_11_1" src="assets/voice/en_all.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="90.51" data-duration="0.43"></audio>
+  <audio id="v_enc_12_0" src="assets/voice/en_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="93.94" data-duration="0.68"></audio>
+  <audio id="v_enc_12_1" src="assets/voice/en_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="97.62" data-duration="0.68"></audio>
+  <audio id="v_enc_13_0" src="assets/voice/en_dress.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="101.30" data-duration="0.68"></audio>
+  <audio id="v_enc_13_1" src="assets/voice/en_dress.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="104.98" data-duration="0.68"></audio>
+  <audio id="v_enc_14_0" src="assets/voice/en_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="108.66" data-duration="0.68"></audio>
+  <audio id="v_enc_14_1" src="assets/voice/en_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="112.34" data-duration="0.68"></audio>
+  <audio id="v_enc_15_0" src="assets/voice/en_press.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="116.02" data-duration="0.68"></audio>
+  <audio id="v_enc_15_1" src="assets/voice/en_press.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="119.70" data-duration="0.68"></audio>
+  <audio id="v_enc_16_0" src="assets/voice/en_lesson.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="123.38" data-duration="0.51"></audio>
+  <audio id="v_enc_16_1" src="assets/voice/en_lesson.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="126.89" data-duration="0.51"></audio>
+  <audio id="v_enc_17_0" src="assets/voice/en_miss.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="130.40" data-duration="0.68"></audio>
+  <audio id="v_enc_17_1" src="assets/voice/en_miss.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="134.08" data-duration="0.68"></audio>
+  <audio id="v_enc_18_0" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="137.76" data-duration="0.60"></audio>
+  <audio id="v_enc_18_1" src="assets/voice/en_happy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="141.36" data-duration="0.60"></audio>
+  <audio id="v_enc_19_0" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="144.96" data-duration="0.43"></audio>
+  <audio id="v_enc_19_1" src="assets/voice/en_apple.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="148.39" data-duration="0.43"></audio>
+  <audio id="v_enc_20_0" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="151.82" data-duration="0.68"></audio>
+  <audio id="v_enc_20_1" src="assets/voice/en_happen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="155.50" data-duration="0.68"></audio>
+  <audio id="v_enc_21_0" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="159.18" data-duration="0.68"></audio>
+  <audio id="v_enc_21_1" src="assets/voice/en_supply.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="162.86" data-duration="0.68"></audio>
+  <audio id="v_enc_22_0" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="166.54" data-duration="0.94"></audio>
+  <audio id="v_enc_22_1" src="assets/voice/en_hopping.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="170.48" data-duration="0.94"></audio>
+  <audio id="v_enc_23_0" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="174.42" data-duration="0.85"></audio>
+  <audio id="v_enc_23_1" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="178.27" data-duration="0.85"></audio>
+  <audio id="v_enc_24_0" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="182.12" data-duration="0.68"></audio>
+  <audio id="v_enc_24_1" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="185.80" data-duration="0.68"></audio>
+  <audio id="v_enc_25_0" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="189.48" data-duration="0.43"></audio>
+  <audio id="v_enc_25_1" src="assets/voice/en_letter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="192.91" data-duration="0.43"></audio>
+  <audio id="v_enc_26_0" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="196.34" data-duration="0.60"></audio>
+  <audio id="v_enc_26_1" src="assets/voice/en_butter.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="199.94" data-duration="0.60"></audio>
+  <audio id="v_enc_27_0" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="203.54" data-duration="0.43"></audio>
+  <audio id="v_enc_27_1" src="assets/voice/en_better.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="206.97" data-duration="0.43"></audio>
+  <audio id="v_enc_28_0" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="210.40" data-duration="0.43"></audio>
+  <audio id="v_enc_28_1" src="assets/voice/en_little.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="213.83" data-duration="0.43"></audio>
 
 </div>
 
@@ -131,12 +230,28 @@
     var pill = document.getElementById("capPill");
     function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    var words = [{"label":"coffee","num":1},{"label":"offer","num":2},{"label":"office","num":3},{"label":"different","num":4},{"label":"effort","num":5},{"label":"staff","num":6},{"label":"hello","num":7},{"label":"yellow","num":8},{"label":"call","num":9},{"label":"really","num":10},{"label":"tall","num":11},{"label":"all","num":12},{"label":"class","num":13},{"label":"dress","num":14},{"label":"glass","num":15},{"label":"press","num":16},{"label":"lesson","num":17},{"label":"miss","num":18},{"label":"happy","num":19},{"label":"apple","num":20},{"label":"happen","num":21},{"label":"supply","num":22},{"label":"hopping","num":23},{"label":"unnamed","num":24},{"label":"midday","num":25},{"label":"letter","num":26},{"label":"butter","num":27},{"label":"better","num":28},{"label":"little","num":29}];
+    var words = [{"label":"coffee","syllables":"cof · fee","pron":"커 · 피","meaning":"커피","num":1},{"label":"offer","syllables":"of · fer","pron":"오 · 퍼","meaning":"제안하다, 권하다","num":2},{"label":"office","syllables":"of · fice","pron":"오 · 피스","meaning":"사무실","num":3},{"label":"different","syllables":"dif · fer · ent","pron":"디 · 퍼 · 런트","meaning":"다른, 차이가 나는","num":4},{"label":"effort","syllables":"ef · fort","pron":"에 · 포트","meaning":"노력, 수고","num":5},{"label":"staff","syllables":"staff","pron":"스태프","meaning":"직원, 스테프","num":6},{"label":"hello","syllables":"hel · lo","pron":"헬 · 로우","meaning":"안녕하세요, 안녕","num":7},{"label":"yellow","syllables":"yel · low","pron":"옐 · 로우","meaning":"노란색","num":8},{"label":"call","syllables":"call","pron":"콜","meaning":"부르다, 전화하다","num":9},{"label":"really","syllables":"real · ly","pron":"리 · 얼리","meaning":"정말로, 진짜로","num":10},{"label":"tall","syllables":"tall","pron":"톨","meaning":"키가 큰","num":11},{"label":"all","syllables":"all","pron":"올","meaning":"모든, 전부","num":12},{"label":"class","syllables":"class","pron":"클래스","meaning":"수업, 학급","num":13},{"label":"dress","syllables":"dress","pron":"드레스","meaning":"드레스, 원피스","num":14},{"label":"glass","syllables":"glass","pron":"글래스","meaning":"유리잔, 컵","num":15},{"label":"press","syllables":"press","pron":"프레스","meaning":"누르다, 언론","num":16},{"label":"lesson","syllables":"les · son","pron":"레 · 슨","meaning":"수업, 교훈","num":17},{"label":"miss","syllables":"miss","pron":"미스","meaning":"놓치다, 그리워하다","num":18},{"label":"happy","syllables":"hap · py","pron":"해 · 피","meaning":"행복한, 기쁜","num":19},{"label":"apple","syllables":"ap · ple","pron":"애 · 플","meaning":"사과","num":20},{"label":"happen","syllables":"hap · pen","pron":"해 · 픈","meaning":"일어나다, 생기다","num":21},{"label":"supply","syllables":"sup · ply","pron":"서 · 플라이","meaning":"공급하다, 보급품","num":22},{"label":"hopping","syllables":"hop · ping","pron":"하 · 핑","meaning":"깡충깡충 뛰는","num":23},{"label":"unnamed","syllables":"un · named","pron":"언 · 네임드","meaning":"이름 없는, 미상의","num":24},{"label":"midday","syllables":"mid · day","pron":"미드 · 데이","meaning":"정오, 한낮","num":25},{"label":"letter","syllables":"let · ter","pron":"레 · 러","meaning":"편지, 글자","num":26},{"label":"butter","syllables":"but · ter","pron":"버 · 러","meaning":"버터","num":27},{"label":"better","syllables":"bet · ter","pron":"베 · 러","meaning":"더 좋은","num":28},{"label":"little","syllables":"lit · tle","pron":"리 · 를","meaning":"작은, 어린","num":29}];
+
+    function highlightWord(label) {
+      var targets = ["ff", "ll", "ss", "pp", "tt", "nn", "dd"];
+      var patterns = [];
+      targets.forEach(function(t) {
+        patterns.push(t[0] + "\\s*·\\s*" + t[1]);
+        patterns.push(t);
+      });
+      var re = new RegExp("(" + patterns.join("|") + ")", "gi");
+      return label.replace(re, '<span class="highlight-letter">$1</span>');
+    }
 
     function showEncoreWord(idx) {
       var item = words[idx];
       document.getElementById("badgeCounter").textContent = "단어 " + (item.num < 10 ? "0" + item.num : item.num) + " / 29";
-      document.getElementById("wordDisplay").textContent = item.label;
+      document.getElementById("wordDisplay").innerHTML = highlightWord(item.syllables || item.label);
+      if (item.pron) {
+        document.getElementById("meaningDisplay").textContent = "[" + item.pron + "] · " + item.meaning;
+      } else {
+        document.getElementById("meaningDisplay").textContent = item.meaning;
+      }
       document.getElementById("dot0").className = "dot";
       document.getElementById("dot1").className = "dot";
       gsap.fromTo("#encoreCard", { scale: 0.95 }, { scale: 1, duration: 0.25, ease: "back.out(1.5)" });
@@ -157,93 +272,98 @@
     tl.call(function() { cap("틀어두고 편안하게 귀에 익혀보세요."); }, null, 3.72);
 
     tl.call(function() { showEncoreWord(0); }, null, 7.42);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("coffee"); }, null, 7.42);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("coffee"); }, null, 11.27);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("cof · fee [커 · 피]"); }, null, 7.42);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("cof · fee [커 · 피]"); }, null, 11.27);
     tl.call(function() { showEncoreWord(1); }, null, 15.12);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("offer"); }, null, 15.12);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("offer"); }, null, 18.72);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("of · fer [오 · 퍼]"); }, null, 15.12);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("of · fer [오 · 퍼]"); }, null, 18.72);
     tl.call(function() { showEncoreWord(2); }, null, 22.32);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("office"); }, null, 22.32);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("office"); }, null, 26.09);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("of · fice [오 · 피스]"); }, null, 22.32);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("of · fice [오 · 피스]"); }, null, 26.09);
     tl.call(function() { showEncoreWord(3); }, null, 29.86);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("different"); }, null, 29.86);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("different"); }, null, 33.46);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("dif · fer · ent [디 · 퍼 · 런트]"); }, null, 29.86);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("dif · fer · ent [디 · 퍼 · 런트]"); }, null, 33.46);
     tl.call(function() { showEncoreWord(4); }, null, 37.06);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("effort"); }, null, 37.06);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("effort"); }, null, 40.66);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("ef · fort [에 · 포트]"); }, null, 37.06);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("ef · fort [에 · 포트]"); }, null, 40.66);
     tl.call(function() { showEncoreWord(5); }, null, 44.26);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("staff"); }, null, 44.26);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("staff"); }, null, 47.94);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("staff [스태프]"); }, null, 44.26);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("staff [스태프]"); }, null, 47.94);
     tl.call(function() { showEncoreWord(6); }, null, 51.62);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("hello"); }, null, 51.62);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("hello"); }, null, 55.13);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("hel · lo [헬 · 로우]"); }, null, 51.62);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("hel · lo [헬 · 로우]"); }, null, 55.13);
     tl.call(function() { showEncoreWord(7); }, null, 58.64);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("yellow"); }, null, 58.64);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("yellow"); }, null, 62.15);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("yel · low [옐 · 로우]"); }, null, 58.64);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("yel · low [옐 · 로우]"); }, null, 62.15);
     tl.call(function() { showEncoreWord(8); }, null, 65.66);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("call"); }, null, 65.66);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("call"); }, null, 69.26);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("call [콜]"); }, null, 65.66);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("call [콜]"); }, null, 69.26);
     tl.call(function() { showEncoreWord(9); }, null, 72.86);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("really"); }, null, 72.86);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("really"); }, null, 76.37);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("real · ly [리 · 얼리]"); }, null, 72.86);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("real · ly [리 · 얼리]"); }, null, 76.37);
     tl.call(function() { showEncoreWord(10); }, null, 79.88);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("tall"); }, null, 79.88);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("tall"); }, null, 83.48);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("tall [톨]"); }, null, 79.88);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("tall [톨]"); }, null, 83.48);
     tl.call(function() { showEncoreWord(11); }, null, 87.08);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("all"); }, null, 87.08);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("all"); }, null, 90.51);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("all [올]"); }, null, 87.08);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("all [올]"); }, null, 90.51);
     tl.call(function() { showEncoreWord(12); }, null, 93.94);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("class"); }, null, 93.94);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("class"); }, null, 97.62);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("class [클래스]"); }, null, 93.94);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("class [클래스]"); }, null, 97.62);
     tl.call(function() { showEncoreWord(13); }, null, 101.30);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("dress"); }, null, 101.30);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("dress"); }, null, 104.98);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("dress [드레스]"); }, null, 101.30);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("dress [드레스]"); }, null, 104.98);
     tl.call(function() { showEncoreWord(14); }, null, 108.66);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("glass"); }, null, 108.66);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("glass"); }, null, 112.34);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("glass [글래스]"); }, null, 108.66);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("glass [글래스]"); }, null, 112.34);
     tl.call(function() { showEncoreWord(15); }, null, 116.02);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("press"); }, null, 116.02);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("press"); }, null, 119.70);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("press [프레스]"); }, null, 116.02);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("press [프레스]"); }, null, 119.70);
     tl.call(function() { showEncoreWord(16); }, null, 123.38);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("lesson"); }, null, 123.38);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("lesson"); }, null, 126.89);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("les · son [레 · 슨]"); }, null, 123.38);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("les · son [레 · 슨]"); }, null, 126.89);
     tl.call(function() { showEncoreWord(17); }, null, 130.40);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("miss"); }, null, 130.40);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("miss"); }, null, 134.08);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("miss [미스]"); }, null, 130.40);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("miss [미스]"); }, null, 134.08);
     tl.call(function() { showEncoreWord(18); }, null, 137.76);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("happy"); }, null, 137.76);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("happy"); }, null, 141.36);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("hap · py [해 · 피]"); }, null, 137.76);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("hap · py [해 · 피]"); }, null, 141.36);
     tl.call(function() { showEncoreWord(19); }, null, 144.96);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("apple"); }, null, 144.96);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("apple"); }, null, 148.39);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("ap · ple [애 · 플]"); }, null, 144.96);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("ap · ple [애 · 플]"); }, null, 148.39);
     tl.call(function() { showEncoreWord(20); }, null, 151.82);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("happen"); }, null, 151.82);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("happen"); }, null, 155.50);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("hap · pen [해 · 픈]"); }, null, 151.82);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("hap · pen [해 · 픈]"); }, null, 155.50);
     tl.call(function() { showEncoreWord(21); }, null, 159.18);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("supply"); }, null, 159.18);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("supply"); }, null, 162.86);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("sup · ply [서 · 플라이]"); }, null, 159.18);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("sup · ply [서 · 플라이]"); }, null, 162.86);
     tl.call(function() { showEncoreWord(22); }, null, 166.54);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("hopping"); }, null, 166.54);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("hopping"); }, null, 170.48);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("hop · ping [하 · 핑]"); }, null, 166.54);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("hop · ping [하 · 핑]"); }, null, 170.48);
     tl.call(function() { showEncoreWord(23); }, null, 174.42);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("unnamed"); }, null, 174.42);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("unnamed"); }, null, 178.27);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("un · named [언 · 네임드]"); }, null, 174.42);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("un · named [언 · 네임드]"); }, null, 178.27);
     tl.call(function() { showEncoreWord(24); }, null, 182.12);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("midday"); }, null, 182.12);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("midday"); }, null, 185.80);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("mid · day [미드 · 데이]"); }, null, 182.12);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("mid · day [미드 · 데이]"); }, null, 185.80);
     tl.call(function() { showEncoreWord(25); }, null, 189.48);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("letter"); }, null, 189.48);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("letter"); }, null, 192.91);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("let · ter [레 · 러]"); }, null, 189.48);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("let · ter [레 · 러]"); }, null, 192.91);
     tl.call(function() { showEncoreWord(26); }, null, 196.34);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("butter"); }, null, 196.34);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("butter"); }, null, 199.94);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("but · ter [버 · 러]"); }, null, 196.34);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("but · ter [버 · 러]"); }, null, 199.94);
     tl.call(function() { showEncoreWord(27); }, null, 203.54);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("better"); }, null, 203.54);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("better"); }, null, 206.97);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("bet · ter [베 · 러]"); }, null, 203.54);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("bet · ter [베 · 러]"); }, null, 206.97);
     tl.call(function() { showEncoreWord(28); }, null, 210.40);
-    tl.call(function() { activateEncDot(0); pulseEnc(); cap("little"); }, null, 210.40);
-    tl.call(function() { activateEncDot(1); pulseEnc(); cap("little"); }, null, 213.83);
+    tl.call(function() { activateEncDot(0); pulseEnc(); cap("lit · tle [리 · 를]"); }, null, 210.40);
+    tl.call(function() { activateEncDot(1); pulseEnc(); cap("lit · tle [리 · 를]"); }, null, 213.83);
 
+
+    // YouTube Endscreen 10.0s: starts at 214.26s, runs for 10s until frame end (224.26s)
+    var endStart = 214.26;
+    tl.to(["#eyebrow", "#encoreCard", "#capPill"], { opacity: 0, duration: 0.5, ease: "power2.in" }, endStart);
+    tl.fromTo("#endscreenStage", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, endStart + 0.3);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["12-encore-review"] = tl;

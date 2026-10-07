@@ -45,41 +45,41 @@
   audio { display: none; }
 </style>
 
-<div data-hf-id="hf-zm44" id="root" data-composition-id="11-summary" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-zhk0" class="eyebrow-pill" id="eyebrow">
+<div id="root" data-composition-id="11-summary" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrow">
     📋 오늘 배운 핵심 원리 1장 요약
   </div>
 
-  <div data-hf-id="hf-g3e1" class="board-stage" id="boardStage">
-    <div data-hf-id="hf-zbxf" class="summary-card">
-      <div data-hf-id="hf-1f4l" class="card-tag">원칙 1</div>
-      <div data-hf-id="hf-i1dm" class="card-title">같은 자음 둘 ➔ 소리 하나</div>
-      <div data-hf-id="hf-xp4n" class="card-desc">coffee, hello, happy 대부분의 단어는 딱 한 번만 툭!</div>
+  <div class="board-stage" id="boardStage">
+    <div class="summary-card">
+      <div class="card-tag">원칙 1</div>
+      <div class="card-title">같은 자음 둘 ➔ 소리 하나</div>
+      <div class="card-desc">coffee, hello, happy 대부분의 단어는 딱 한 번만 툭!</div>
     </div>
-    <div data-hf-id="hf-w8ir" class="summary-card">
-      <div data-hf-id="hf-2m1o" class="card-tag">원칙 2</div>
-      <div data-hf-id="hf-rp8r" class="card-title">두 번째 자음 = 앞 모음 단축</div>
-      <div data-hf-id="hf-xttl" class="card-desc">hoping [호우핑] vs hopping [하핑] 모음 길이 신호</div>
+    <div class="summary-card">
+      <div class="card-tag">원칙 2</div>
+      <div class="card-title">두 번째 자음 = 앞 모음 단축</div>
+      <div class="card-desc">hoping [호우핑] vs hopping [하핑] 모음 길이 신호</div>
     </div>
-    <div data-hf-id="hf-vu7q" class="summary-card">
-      <div data-hf-id="hf-tvxe" class="card-tag">예외 1</div>
-      <div data-hf-id="hf-87ar" class="card-title">단어 경계의 결합</div>
-      <div data-hf-id="hf-7p1n" class="card-desc">un+named, mid+day 두 단어가 만날 땐 자음 연장</div>
+    <div class="summary-card">
+      <div class="card-tag">예외 1</div>
+      <div class="card-title">단어 경계의 결합</div>
+      <div class="card-desc">un+named, mid+day 두 단어가 만날 땐 자음 연장</div>
     </div>
-    <div data-hf-id="hf-vfwp" class="summary-card">
-      <div data-hf-id="hf-ua8f" class="card-tag">예외 2</div>
-      <div data-hf-id="hf-ozyr" class="card-title">모음 사이 tt = Flap T</div>
-      <div data-hf-id="hf-vnkj" class="card-desc">better, letter, butter 부드러운 'ㄹ' 소리로 전환</div>
+    <div class="summary-card">
+      <div class="card-tag">예외 2</div>
+      <div class="card-title">모음 사이 tt = Flap T</div>
+      <div class="card-desc">better, letter, butter 부드러운 'ㄹ' 소리로 전환</div>
     </div>
   </div>
 
-  <div data-hf-id="hf-jwfu" class="comment-box" id="commentBox">
+  <div class="comment-box" id="commentBox">
     💬 오늘 들었던 단어 중 가장 의외였던 발음은 무엇이었나요? 댓글로 남겨주세요!
   </div>
 
-  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <div class="caption-pill" id="capPill"></div>
 
-  <audio data-hf-id="hf-kwm6" id="v11" src="assets/voice/11_f11_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="19.20"></audio>
+  <audio id="v11" src="assets/voice/11_f11_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="19.20"></audio>
 </div>
 
 <script>
@@ -102,9 +102,8 @@
     tl.call(function() { cap("댓글로 편하게 남겨주세요."); }, null, 17.91);
 
 
-    // YouTube Endscreen keep-out: Clear center at 19.2s
-    tl.to("#boardStage", { opacity: 0, duration: 0.5 }, 19.2);
-    tl.to("#commentBox", { y: 50, duration: 0.5 }, 19.2);
+    // Keep summary board visible throughout F11 until transition
+    tl.to(["#boardStage", "#commentBox"], { opacity: 0, duration: 0.5 }, 23.5);
 
     window.__timelines = window.__timelines || {};
     window.__timelines["11-summary"] = tl;

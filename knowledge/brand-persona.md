@@ -39,7 +39,8 @@
   - 밋밋하고 평이한 'AI 교재 낭독조'를 완전히 배제한다.
   - 퇴근 후 지친 성인(3060) 학습자에게 '지적 힐링과 깊은 몰입감'을 주는 고급 심야 라디오 DJ/팟캐스트 호스트의 목소리.
   - 억양의 미세한 뉘앙스(nuanced cadence)와 쫄깃한 구어 리듬(engaging rhythm)이 살아있어, 듣는 내내 지루하지 않고 귀에 감기는 따뜻하고 세련된 보이스를 지향한다.
-  - Gemini TTS 프롬프트 표준 지시문: `Say only the narration after the colon in a warm, sophisticated, and captivating podcast host tone, speaking naturally with nuanced cadence and engaging rhythm:`
+  - Gemini TTS 프롬프트 표준 지시문(가이드/시스템 프롬프트 전용): `Say only the narration after the colon in a warm, sophisticated, and captivating podcast host tone, speaking naturally with nuanced cadence and engaging rhythm:`
+    *(⚠️ 주의: 텍스트 복사용 코드 블록(` ```text `) 본문 안에 직접 지시문을 넣으면 TTS 엔진이 지시문까지 그대로 읽어버리므로, 복사 블록 내부에는 순수 대본 텍스트만 100% 분리 제공한다)*
 * **나레이션도 "전문가 톤"이 아니라 "동반자 톤"으로 일관되게 쓸 것**(2026-09-14 확정, 사용자
   질문 "스크립트 작성 방식도 위 톤으로 바꿔야겠지?"에 대한 답 — 위 제목·썸네일 문구에 적용한
   것과 같은 원칙이 원래 이 채널 페르소나의 출발점이다. 실제 점검 결과: EP15 Frame 4가 이미

@@ -24,25 +24,26 @@
   }
   .hero-card {
     background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
-    border-radius: 28px; padding: 4.5cqh 5cqw; width: 100%; text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 2cqh;
-  }
-  .voice-pill {
-    background: #FAF7F2; border: 2px solid #111111; border-radius: 999px;
-    padding: 0.6cqh 1.8cqw; font-size: 1.1cqw; font-weight: 900; color: #7A7365;
+    border-radius: 28px; padding: 4.8cqh 5cqw; width: 100%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4cqh;
   }
   .main-text {
-    font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1.1;
-    letter-spacing: 0.02em; color: #111111;
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.15;
+    letter-spacing: 0.02em; color: #111111; padding-bottom: 1.2cqh; margin-bottom: 0.5cqh;
   }
   .main-text.sentence {
-    font-size: 3.8cqw; line-height: 1.25;
+    font-size: 3.8cqw; line-height: 1.25; padding-bottom: 0.8cqh; margin-bottom: 0.3cqh;
+  }
+  .meaning-badge {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; background: #FAF7F2;
+    border: 2.5px solid #111111; border-radius: 14px; padding: 0.7cqh 2.4cqw;
+    box-shadow: 3px 3px 0px #111111;
   }
   .sub-note {
-    font-size: 1.5cqw; font-weight: 800; color: #7A7365;
+    font-size: 1.35cqw; font-weight: 800; color: #7A7365;
   }
   .highlight-letter {
-    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px;
+    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px; display: inline-block;
   }
 
   .repeat-dots {
@@ -50,7 +51,7 @@
   }
   .repeat-dot {
     width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: #E5E0D8;
-    border: 2.5px solid #111111; 
+    border: 2.5px solid #111111;
   }
   .repeat-dot.active {
     background: #F59E0B; transform: scale(1.3); box-shadow: 2px 2px 0px #111111;
@@ -65,64 +66,46 @@
   audio { display: none; }
 </style>
 
-<div data-hf-id="hf-jp4h" id="root" data-composition-id="03-ff-words" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-bpai" class="eyebrow-pill" id="eyebrow">
-    <span data-hf-id="hf-wjpm" class="tip-badge">FF 사운드</span>
-    <span data-hf-id="hf-jxma">아랫입술을 두 번 물지 않고 바람을 한 번만!</span>
+<div id="root" data-composition-id="03-ff-words" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrow">
+    <span class="tip-badge">FF 사운드</span>
+    <span>아랫입술을 두 번 물지 않고 바람을 한 번만!</span>
   </div>
 
-  <div data-hf-id="hf-tan6" class="stage">
-    <div data-hf-id="hf-0i73" class="hero-card" id="heroCard">
-      <div data-hf-id="hf-rx6d" class="voice-pill" id="voicePill">👦 Puck (남성)</div>
-      <div data-hf-id="hf-ely1" class="main-text" id="mainText">CO<span data-hf-id="hf-n5uk" class="highlight-letter">FF</span>EE</div>
-      <div data-hf-id="hf-l8fz" class="sub-note" id="subNote">소리는 딱 한 번!</div>
-      <div data-hf-id="hf-h0st" class="repeat-dots" id="dotsContainer"></div>
+  <div class="stage">
+    <!-- Clean Elevated Card: No voice badge, generous spacing for underline and meaning -->
+    <div class="hero-card" id="heroCard">
+      <div class="main-text" id="mainText"><span style="color:#EF4444;">FF</span> [f] 사운드</div>
+      <div class="meaning-badge" id="meaningBadge">f가 두 개여도 소리는 딱 한 번!</div>
+      <div class="sub-note" id="subNote">잠시 후 단어 6개 + 실전 문장 집중 반복 듣기가 시작됩니다</div>
+      <div class="repeat-dots" id="dotsContainer"></div>
     </div>
   </div>
 
-  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <div class="caption-pill" id="capPill"></div>
 
-  <audio data-hf-id="hf-qp3e" id="v_intro" src="assets/voice/03_f03_intro_ff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="7.76"></audio>
-  <audio data-hf-id="hf-n2my" id="v_en_coffee_0" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.26" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-vspi" id="v_en_coffee_1" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.11" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-1c8f" id="v_en_coffee_2" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.96" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-rzwp" id="v_en_coffee_3" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.81" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-5nb5" id="v_en_coffee_4" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.66" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-bik8" id="v_en_coffee_5" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.51" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-atca" id="v_en_offer_0" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.36" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-klq8" id="v_en_offer_1" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.96" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-pqvb" id="v_en_offer_2" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.56" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-xqfz" id="v_en_offer_3" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.16" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-jvut" id="v_en_offer_4" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.76" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-tqev" id="v_en_offer_5" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.36" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-ulnn" id="v_en_office_0" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="53.96" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-e85b" id="v_en_office_1" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="57.73" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-zs6u" id="v_en_office_2" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="61.50" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-bmjn" id="v_en_office_3" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="65.27" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-8xyr" id="v_en_office_4" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="69.04" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-if0h" id="v_en_office_5" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="72.81" data-duration="0.77"></audio>
-  <audio data-hf-id="hf-eko2" id="v_en_different_0" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="76.58" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-sgty" id="v_en_different_1" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="80.18" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-6h4m" id="v_en_different_2" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="83.78" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-hdb7" id="v_en_different_3" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="87.38" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-fhne" id="v_en_different_4" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="90.98" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-j2ov" id="v_en_different_5" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="94.58" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-trv4" id="v_en_effort_0" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="98.18" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-d5l0" id="v_en_effort_1" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="101.78" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-g3j5" id="v_en_effort_2" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="105.38" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-9ru7" id="v_en_effort_3" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="108.98" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-84vx" id="v_en_effort_4" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="112.58" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-tgue" id="v_en_effort_5" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="116.18" data-duration="0.60"></audio>
-  <audio data-hf-id="hf-2yrc" id="v_en_staff_0" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="119.78" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-1ien" id="v_en_staff_1" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="123.46" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-3h2h" id="v_en_staff_2" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="127.14" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-lfyl" id="v_en_staff_3" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="130.82" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-brun" id="v_en_staff_4" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="134.50" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-txj2" id="v_en_staff_5" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="138.18" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-sd0x" id="v_en_s01_two_coffees_0" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="141.86" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-na92" id="v_en_s01_two_coffees_1" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="145.97" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-baj7" id="v_en_s01_two_coffees_2" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="150.08" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-47aw" id="v_en_s01_two_coffees_3" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="154.19" data-duration="1.11"></audio>
+  <audio id="v_intro" src="assets/voice/03_f03_intro_ff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="7.76"></audio>
+  <audio id="v_en_coffee_0" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.26" data-duration="0.85"></audio>
+  <audio id="v_en_coffee_1" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.11" data-duration="0.85"></audio>
+  <audio id="v_en_coffee_2" src="assets/voice/en_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.96" data-duration="0.85"></audio>
+  <audio id="v_en_offer_0" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.81" data-duration="0.60"></audio>
+  <audio id="v_en_offer_1" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.41" data-duration="0.60"></audio>
+  <audio id="v_en_offer_2" src="assets/voice/en_offer.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.01" data-duration="0.60"></audio>
+  <audio id="v_en_office_0" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.61" data-duration="0.77"></audio>
+  <audio id="v_en_office_1" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.38" data-duration="0.77"></audio>
+  <audio id="v_en_office_2" src="assets/voice/en_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.15" data-duration="0.77"></audio>
+  <audio id="v_en_different_0" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.92" data-duration="0.60"></audio>
+  <audio id="v_en_different_1" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.52" data-duration="0.60"></audio>
+  <audio id="v_en_different_2" src="assets/voice/en_different.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.12" data-duration="0.60"></audio>
+  <audio id="v_en_effort_0" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="53.72" data-duration="0.60"></audio>
+  <audio id="v_en_effort_1" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="57.32" data-duration="0.60"></audio>
+  <audio id="v_en_effort_2" src="assets/voice/en_effort.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="60.92" data-duration="0.60"></audio>
+  <audio id="v_en_staff_0" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="64.52" data-duration="0.68"></audio>
+  <audio id="v_en_staff_1" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="68.20" data-duration="0.68"></audio>
+  <audio id="v_en_staff_2" src="assets/voice/en_staff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="71.88" data-duration="0.68"></audio>
+  <audio id="v_en_s01_two_coffees_0" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="75.56" data-duration="1.11"></audio>
+  <audio id="v_en_s01_two_coffees_1" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="79.67" data-duration="1.11"></audio>
+  <audio id="v_en_s01_two_coffees_2" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="83.78" data-duration="1.11"></audio>
 
 </div>
 
@@ -132,30 +115,45 @@
     var pill = document.getElementById("capPill");
     function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    var items = [{"label":"coffee","type":"word","sub":"FF 단어","reps":6,"voice":"👦 Puck (남성)"},{"label":"offer","type":"word","sub":"FF 단어","reps":6,"voice":"👦 Puck (남성)"},{"label":"office","type":"word","sub":"FF 단어","reps":6,"voice":"👧 Kore (여성)"},{"label":"different","type":"word","sub":"FF 단어","reps":6,"voice":"👦 Puck (남성)"},{"label":"effort","type":"word","sub":"FF 단어","reps":6,"voice":"👧 Kore (여성)"},{"label":"staff","type":"word","sub":"FF 단어","reps":6,"voice":"👦 Puck (남성)"},{"label":"Two coffees, please.","type":"sentence","sub":"실전 대화 문장","reps":4,"voice":"👧 Kore (여성)"}];
+    var items = [{"label":"coffee","syllables":"cof · fee","pron":"커 · 피","meaning":"커피","tip":"💡 f가 두 개여도 소리는 [f] 딱 한 번!","type":"word","reps":3},{"label":"offer","syllables":"of · fer","pron":"오 · 퍼","meaning":"제안하다, 권하다","tip":"💡 아랫입술 한 번 물고 바람 툭 빼기","type":"word","reps":3},{"label":"office","syllables":"of · fice","pron":"오 · 피스","meaning":"사무실","tip":"💡 f 소리는 길게 끌지 않고 한 번에","type":"word","reps":3},{"label":"different","syllables":"dif · fer · ent","pron":"디 · 퍼 · 런트","meaning":"다른, 차이가 나는","tip":"💡 f 두 개를 한 번만 깔끔하게","type":"word","reps":3},{"label":"effort","syllables":"ef · fort","pron":"에 · 포트","meaning":"노력, 수고","tip":"💡 입술 두 번 움직이지 않고 한 번만","type":"word","reps":3},{"label":"staff","syllables":"staff","pron":"스태프","meaning":"직원, 스테프","tip":"💡 끝에 ff가 와도 소리는 딱 한 번","type":"word","reps":3},{"label":"Two coffees, please.","syllables":"Two coffees, please.","pron":"","meaning":"커피 두 잔 주세요.","tip":"💡 cof · fee [커 · 피] ➔ f 소리는 딱 한 번!","type":"sentence","reps":3}];
     var target = "ff";
 
-    function highlightText(label, type) {
-      if (type === "sentence") return label;
-      var regex = new RegExp("(" + target + target + ")", "gi");
+    function highlightText(label) {
+      var targets = target.split('|');
+      var patterns = [];
+      targets.forEach(function(t) {
+        if (t.length >= 2) {
+          patterns.push(t[0] + "\\s*·\\s*" + t[1]);
+          patterns.push(t);
+        } else {
+          patterns.push(t);
+        }
+      });
+      var regex = new RegExp("(" + patterns.join("|") + ")", "gi");
       return label.replace(regex, '<span class="highlight-letter">$1</span>');
     }
 
     function showItem(idx) {
       var item = items[idx];
-      var voiceEl = document.getElementById("voicePill");
       var textEl = document.getElementById("mainText");
+      var meaningEl = document.getElementById("meaningBadge");
       var subEl = document.getElementById("subNote");
       var dotsEl = document.getElementById("dotsContainer");
 
-      voiceEl.textContent = item.voice;
-      textEl.innerHTML = highlightText(item.label, item.type);
       if (item.type === "sentence") {
+        textEl.innerHTML = highlightText(item.label);
         textEl.className = "main-text sentence";
+        meaningEl.textContent = item.meaning;
       } else {
+        textEl.innerHTML = highlightText(item.syllables || item.label);
         textEl.className = "main-text";
+        if (item.pron) {
+          meaningEl.textContent = "[" + item.pron + "] · " + item.meaning;
+        } else {
+          meaningEl.textContent = item.meaning;
+        }
       }
-      subEl.textContent = item.sub;
+      subEl.textContent = item.tip;
 
       dotsEl.innerHTML = "";
       for (var r = 0; r < item.reps; r++) {
@@ -184,52 +182,33 @@
     tl.call(function() { cap("한 번만 빼주세요."); }, null, 6.56);
 
     tl.call(function() { showItem(0); }, null, 9.26);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("coffee"); }, null, 9.26);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("coffee"); }, null, 13.11);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("coffee"); }, null, 16.96);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("coffee"); }, null, 20.81);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("coffee"); }, null, 24.66);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("coffee"); }, null, 28.51);
-    tl.call(function() { showItem(1); }, null, 32.36);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("offer"); }, null, 32.36);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("offer"); }, null, 35.96);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("offer"); }, null, 39.56);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("offer"); }, null, 43.16);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("offer"); }, null, 46.76);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("offer"); }, null, 50.36);
-    tl.call(function() { showItem(2); }, null, 53.96);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("office"); }, null, 53.96);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("office"); }, null, 57.73);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("office"); }, null, 61.50);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("office"); }, null, 65.27);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("office"); }, null, 69.04);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("office"); }, null, 72.81);
-    tl.call(function() { showItem(3); }, null, 76.58);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("different"); }, null, 76.58);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("different"); }, null, 80.18);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("different"); }, null, 83.78);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("different"); }, null, 87.38);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("different"); }, null, 90.98);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("different"); }, null, 94.58);
-    tl.call(function() { showItem(4); }, null, 98.18);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("effort"); }, null, 98.18);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("effort"); }, null, 101.78);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("effort"); }, null, 105.38);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("effort"); }, null, 108.98);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("effort"); }, null, 112.58);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("effort"); }, null, 116.18);
-    tl.call(function() { showItem(5); }, null, 119.78);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("staff"); }, null, 119.78);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("staff"); }, null, 123.46);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("staff"); }, null, 127.14);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("staff"); }, null, 130.82);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("staff"); }, null, 134.50);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("staff"); }, null, 138.18);
-    tl.call(function() { showItem(6); }, null, 141.86);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("Two coffees, please."); }, null, 141.86);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("Two coffees, please."); }, null, 145.97);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("Two coffees, please."); }, null, 150.08);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("Two coffees, please."); }, null, 154.19);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("cof · fee [커 · 피]"); }, null, 9.26);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("cof · fee [커 · 피]"); }, null, 13.11);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("cof · fee [커 · 피]"); }, null, 16.96);
+    tl.call(function() { showItem(1); }, null, 20.81);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("of · fer [오 · 퍼]"); }, null, 20.81);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("of · fer [오 · 퍼]"); }, null, 24.41);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("of · fer [오 · 퍼]"); }, null, 28.01);
+    tl.call(function() { showItem(2); }, null, 31.61);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("of · fice [오 · 피스]"); }, null, 31.61);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("of · fice [오 · 피스]"); }, null, 35.38);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("of · fice [오 · 피스]"); }, null, 39.15);
+    tl.call(function() { showItem(3); }, null, 42.92);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("dif · fer · ent [디 · 퍼 · 런트]"); }, null, 42.92);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("dif · fer · ent [디 · 퍼 · 런트]"); }, null, 46.52);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("dif · fer · ent [디 · 퍼 · 런트]"); }, null, 50.12);
+    tl.call(function() { showItem(4); }, null, 53.72);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("ef · fort [에 · 포트]"); }, null, 53.72);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("ef · fort [에 · 포트]"); }, null, 57.32);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("ef · fort [에 · 포트]"); }, null, 60.92);
+    tl.call(function() { showItem(5); }, null, 64.52);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("staff [스태프]"); }, null, 64.52);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("staff [스태프]"); }, null, 68.20);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("staff [스태프]"); }, null, 71.88);
+    tl.call(function() { showItem(6); }, null, 75.56);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("Two coffees, please. (커피 두 잔 주세요.)"); }, null, 75.56);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("Two coffees, please. (커피 두 잔 주세요.)"); }, null, 79.67);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("Two coffees, please. (커피 두 잔 주세요.)"); }, null, 83.78);
 
 
     window.__timelines = window.__timelines || {};

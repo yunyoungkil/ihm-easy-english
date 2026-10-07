@@ -1,0 +1,32 @@
+[
+  {
+    "word": "We",
+    "from": 0.089,
+    "to": 0.186
+  },
+  {
+    "word": "can",
+    "from": 0.235,
+    "to": 0.381
+  },
+  {
+    "word": "reach",
+    "from": 0.429,
+    "to": 0.672
+  },
+  {
+    "word": "that",
+    "from": 0.721,
+    "to": 0.916
+  },
+  {
+    "word": "rich",
+    "from": 0.964,
+    "to": 1.159
+  },
+  {
+    "word": "neighborhood.",
+    "from": 1.208,
+    "to": 1.84
+  }
+]

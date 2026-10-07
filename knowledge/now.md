@@ -1,18 +1,25 @@
 # 지금 할 일
 
-마지막 확인: 2026-10-05
+마지막 확인: 2026-10-08
 
-## 🔜 진행 중 — 단편 EP23(같은 자음 두 개는 한 번만 소리 난다, 첫 듣기 롱폼 25~30분)
+## 🔜 진행 중 — 단편 EP24(Sheep vs Ship 장모음 [iː] vs 단모음 [ɪ] 20쌍 반복 듣기 롱폼)
 
-- 폴더: `videos/ep23-double-consonant/` (BRIEF·REVIEW·SCRIPT·썸네일 프롬프트 4종 완료)
-- 음성: 나레이션 12개 + `male_all.wav`/`female_all.wav` ➔ `split-batch-voice.mjs`로 37개 단어/문장 분할 완료, 총 49개 파일 실측 길이 `.tts-results.json` 기록 완료.
-- 자막 싱크: `word-timeline.mjs`로 한국어 12개 나레이션 + 영어 7개 문장 전체 whisper 단어별 타임스탬프(`*.words.json`) 추출 완료.
-- 시각 자산: 다운로드 폴더에서 `f02_vocal_tract.jpg`(조음 단면도) 및 `f09_cafe_scene.mp4`(카페 모션 영상) 반입 완료.
-- 컴포지션 & 검수: HyperFrames 12개 프레임 구현 완료 및 `npx hyperframes check` 무결점 통과(0 errors, 31/31 WCAG AA, 총 1467.01초 / 24분 27초).
-- **다음 행동**: **렌더링 승인 게이트** — 사용자에게 전체 타임라인 보고 후 명시적 렌더링 승인 요청. 승인 확인 후 `npx hyperframes render` 착수.
-- 썸네일 학습 유형 칩은 아직 프롬프트에 미반영. ⚠️ CLAUDE.md 10번 규칙("드릴" 용어를 시청자
-  화면에 쓰지 않음)에 따라 칩 문구는 `듣기 드릴`이 아니라 `30분 반복 듣기` 같은 일상어로 할 것.
-- 공개 후 7일·28일에 `REVIEW.md`로 예측 대비 리뷰(episode-planning Phase 9).
+- 폴더: `videos/ep24-long-short-i/`
+- 기획 상태: Phase 1~10 마스터 워크플로우 완료 (`BRIEF.md`, `REVIEW.md`, `TASKS.md`, `frame.md`, `STORYBOARD.md`, `SCRIPT.md`, 썸네일 4종 프롬프트, 시각 자산 2종 프롬프트)
+- 미디어 자산 반입: `f02_vocal_tract_comparison.jpg`, `f07_coffee_ambience.mp4` 반입 완료.
+- 오디오 전처리 완료:
+  - 한국어 호스트 3개 반입
+  - 남/여 40쌍 단어 및 7개 문장 분할 완료 (`split-batch-voice.mjs`, 250ms 여운 패딩 + 50ms 페이드아웃 적용)
+  - 93개 오디오 파일 실측 길이 `.tts-results.json` 기록 완료
+  - 한국어 3개 + 영어 7개 문장 Whisper 단어별 타임스탬프(`*.words.json`) 추출 100% 완료
+- **다음 행동**: **HyperFrames 컴포지션 구현** — 10개 프레임 HTML/CSS 구현 및 실측 오디오 타임라인 연결 ➔ `npx hyperframes check` 자동 검수 ➔ 사용자 승인 게이트.
+
+## 렌더링 완료 대기 — 단편 EP23(같은 자음 두 개는 한 번만 소리 난다, 첫 듣기 롱폼 24분 27초)
+
+- 폴더: `videos/ep23-double-consonant/`
+- 렌더링: 사용자 승인 하에 `npx --yes hyperframes render .` (32,544 프레임) 인코딩 완료 단계.
+- 업로드 패키지 완비: `output/upload-packages/ep23-double-consonant/`에 썸네일 2종(`thumbnail.jpg`, `thumbnail-close-up.jpg`), 12개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `upload-checklist.txt`, 원클릭 HTML 대시보드 완비.
+- **다음 행동**: 렌더링 파일(`video.mp4`) 최종 무결성 확인 및 사용자 유튜브 업로드.
 
 ## ⏸ 보류 — 단편 EP22(영어 과거형 -ED 끝소리 규칙, t/d/id)
 

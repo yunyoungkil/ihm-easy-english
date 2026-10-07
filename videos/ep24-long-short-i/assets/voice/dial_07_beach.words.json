@@ -1,0 +1,32 @@
+[
+  {
+    "word": "Let's",
+    "from": 0.081,
+    "to": 0.283
+  },
+  {
+    "word": "walk",
+    "from": 0.324,
+    "to": 0.486
+  },
+  {
+    "word": "along",
+    "from": 0.526,
+    "to": 0.729
+  },
+  {
+    "word": "the",
+    "from": 0.77,
+    "to": 0.891
+  },
+  {
+    "word": "beach",
+    "from": 0.932,
+    "to": 1.135
+  },
+  {
+    "word": "together.",
+    "from": 1.175,
+    "to": 1.54
+  }
+]

@@ -24,25 +24,26 @@
   }
   .hero-card {
     background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
-    border-radius: 28px; padding: 4.5cqh 5cqw; width: 100%; text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 2cqh;
-  }
-  .voice-pill {
-    background: #FAF7F2; border: 2px solid #111111; border-radius: 999px;
-    padding: 0.6cqh 1.8cqw; font-size: 1.1cqw; font-weight: 900; color: #7A7365;
+    border-radius: 28px; padding: 4.8cqh 5cqw; width: 100%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4cqh;
   }
   .main-text {
-    font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1.1;
-    letter-spacing: 0.02em; color: #111111;
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.15;
+    letter-spacing: 0.02em; color: #111111; padding-bottom: 1.2cqh; margin-bottom: 0.5cqh;
   }
   .main-text.sentence {
-    font-size: 3.8cqw; line-height: 1.25;
+    font-size: 3.8cqw; line-height: 1.25; padding-bottom: 0.8cqh; margin-bottom: 0.3cqh;
+  }
+  .meaning-badge {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; background: #FAF7F2;
+    border: 2.5px solid #111111; border-radius: 14px; padding: 0.7cqh 2.4cqw;
+    box-shadow: 3px 3px 0px #111111;
   }
   .sub-note {
-    font-size: 1.5cqw; font-weight: 800; color: #7A7365;
+    font-size: 1.35cqw; font-weight: 800; color: #7A7365;
   }
   .highlight-letter {
-    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px;
+    color: #EF4444; border-bottom: 6px solid #EF4444; padding-bottom: 2px; display: inline-block;
   }
 
   .repeat-dots {
@@ -50,7 +51,7 @@
   }
   .repeat-dot {
     width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: #E5E0D8;
-    border: 2.5px solid #111111; 
+    border: 2.5px solid #111111;
   }
   .repeat-dot.active {
     background: #F59E0B; transform: scale(1.3); box-shadow: 2px 2px 0px #111111;
@@ -65,36 +66,31 @@
   audio { display: none; }
 </style>
 
-<div data-hf-id="hf-arsc" id="root" data-composition-id="07-boundary-exceptions" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-bpai" class="eyebrow-pill" id="eyebrow">
-    <span data-hf-id="hf-nqlm" class="tip-badge">NN 사운드</span>
-    <span data-hf-id="hf-kmwo">두 단어가 만나는 경계에서는 소리가 이어져 살짝 깁니다</span>
+<div id="root" data-composition-id="07-boundary-exceptions" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrow">
+    <span class="tip-badge">경계 결합</span>
+    <span>두 단어가 만나는 경계에서는 소리가 이어져 살짝 깁니다</span>
   </div>
 
-  <div data-hf-id="hf-tan6" class="stage">
-    <div data-hf-id="hf-0i73" class="hero-card" id="heroCard">
-      <div data-hf-id="hf-rx6d" class="voice-pill" id="voicePill">👦 Puck (남성)</div>
-      <div data-hf-id="hf-ely1" class="main-text" id="mainText">CO<span data-hf-id="hf-n5uk" class="highlight-letter">FF</span>EE</div>
-      <div data-hf-id="hf-l8fz" class="sub-note" id="subNote">소리는 딱 한 번!</div>
-      <div data-hf-id="hf-h0st" class="repeat-dots" id="dotsContainer"></div>
+  <div class="stage">
+    <!-- Clean Elevated Card: No voice badge, generous spacing for underline and meaning -->
+    <div class="hero-card" id="heroCard">
+      <div class="main-text" id="mainText">예외 ① 단어 경계의 결합</div>
+      <div class="meaning-badge" id="meaningBadge">앞뒤 단어가 만나 자음이 겹치면 소리가 살짝 연장</div>
+      <div class="sub-note" id="subNote">un + named / mid + day 두 단어 비교 듣기</div>
+      <div class="repeat-dots" id="dotsContainer"></div>
     </div>
   </div>
 
-  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <div class="caption-pill" id="capPill"></div>
 
-  <audio data-hf-id="hf-1efi" id="v_intro" src="assets/voice/07_f07_exception_boundary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="23.20"></audio>
-  <audio data-hf-id="hf-f9na" id="v_en_unnamed_0" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.70" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-7eq4" id="v_en_unnamed_1" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.55" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-plqy" id="v_en_unnamed_2" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.40" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-b84s" id="v_en_unnamed_3" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.25" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-qbny" id="v_en_unnamed_4" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.10" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-z3hn" id="v_en_unnamed_5" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.95" data-duration="0.85"></audio>
-  <audio data-hf-id="hf-n6l7" id="v_en_midday_0" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.80" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-4hs3" id="v_en_midday_1" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.48" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-lw17" id="v_en_midday_2" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.16" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-dwpy" id="v_en_midday_3" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="58.84" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-aiyf" id="v_en_midday_4" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="62.52" data-duration="0.68"></audio>
-  <audio data-hf-id="hf-kj5r" id="v_en_midday_5" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="66.20" data-duration="0.68"></audio>
+  <audio id="v_intro" src="assets/voice/07_f07_exception_boundary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="23.20"></audio>
+  <audio id="v_en_unnamed_0" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.70" data-duration="0.85"></audio>
+  <audio id="v_en_unnamed_1" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.55" data-duration="0.85"></audio>
+  <audio id="v_en_unnamed_2" src="assets/voice/en_unnamed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.40" data-duration="0.85"></audio>
+  <audio id="v_en_midday_0" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.25" data-duration="0.68"></audio>
+  <audio id="v_en_midday_1" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.93" data-duration="0.68"></audio>
+  <audio id="v_en_midday_2" src="assets/voice/en_midday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.61" data-duration="0.68"></audio>
 
 </div>
 
@@ -104,30 +100,45 @@
     var pill = document.getElementById("capPill");
     function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    var items = [{"label":"unnamed","type":"word","sub":"un + named (자음 연장)","reps":6,"voice":"👦 Puck (남성)"},{"label":"midday","type":"word","sub":"mid + day (자음 연장)","reps":6,"voice":"👧 Kore (여성)"}];
-    var target = "nn";
+    var items = [{"label":"unnamed","syllables":"un · named","pron":"언 · 네임드","meaning":"이름 없는, 미상의","tip":"💡 un + named ➔ 두 단어가 만나 소리 연장","type":"word","reps":3},{"label":"midday","syllables":"mid · day","pron":"미드 · 데이","meaning":"정오, 한낮","tip":"💡 mid + day ➔ 두 단어가 만나 소리 연장","type":"word","reps":3}];
+    var target = "nn|dd";
 
-    function highlightText(label, type) {
-      if (type === "sentence") return label;
-      var regex = new RegExp("(" + target + target + ")", "gi");
+    function highlightText(label) {
+      var targets = target.split('|');
+      var patterns = [];
+      targets.forEach(function(t) {
+        if (t.length >= 2) {
+          patterns.push(t[0] + "\\s*·\\s*" + t[1]);
+          patterns.push(t);
+        } else {
+          patterns.push(t);
+        }
+      });
+      var regex = new RegExp("(" + patterns.join("|") + ")", "gi");
       return label.replace(regex, '<span class="highlight-letter">$1</span>');
     }
 
     function showItem(idx) {
       var item = items[idx];
-      var voiceEl = document.getElementById("voicePill");
       var textEl = document.getElementById("mainText");
+      var meaningEl = document.getElementById("meaningBadge");
       var subEl = document.getElementById("subNote");
       var dotsEl = document.getElementById("dotsContainer");
 
-      voiceEl.textContent = item.voice;
-      textEl.innerHTML = highlightText(item.label, item.type);
       if (item.type === "sentence") {
+        textEl.innerHTML = highlightText(item.label);
         textEl.className = "main-text sentence";
+        meaningEl.textContent = item.meaning;
       } else {
+        textEl.innerHTML = highlightText(item.syllables || item.label);
         textEl.className = "main-text";
+        if (item.pron) {
+          meaningEl.textContent = "[" + item.pron + "] · " + item.meaning;
+        } else {
+          meaningEl.textContent = item.meaning;
+        }
       }
-      subEl.textContent = item.sub;
+      subEl.textContent = item.tip;
 
       dotsEl.innerHTML = "";
       for (var r = 0; r < item.reps; r++) {
@@ -160,19 +171,13 @@
     tl.call(function() { cap("차이를 귀로 느껴보세요."); }, null, 21.44);
 
     tl.call(function() { showItem(0); }, null, 24.70);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("unnamed"); }, null, 24.70);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("unnamed"); }, null, 28.55);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("unnamed"); }, null, 32.40);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("unnamed"); }, null, 36.25);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("unnamed"); }, null, 40.10);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("unnamed"); }, null, 43.95);
-    tl.call(function() { showItem(1); }, null, 47.80);
-    tl.call(function() { activateRepDot(0); pulseCard(); cap("midday"); }, null, 47.80);
-    tl.call(function() { activateRepDot(1); pulseCard(); cap("midday"); }, null, 51.48);
-    tl.call(function() { activateRepDot(2); pulseCard(); cap("midday"); }, null, 55.16);
-    tl.call(function() { activateRepDot(3); pulseCard(); cap("midday"); }, null, 58.84);
-    tl.call(function() { activateRepDot(4); pulseCard(); cap("midday"); }, null, 62.52);
-    tl.call(function() { activateRepDot(5); pulseCard(); cap("midday"); }, null, 66.20);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("un · named [언 · 네임드]"); }, null, 24.70);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("un · named [언 · 네임드]"); }, null, 28.55);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("un · named [언 · 네임드]"); }, null, 32.40);
+    tl.call(function() { showItem(1); }, null, 36.25);
+    tl.call(function() { activateRepDot(0); pulseCard(); cap("mid · day [미드 · 데이]"); }, null, 36.25);
+    tl.call(function() { activateRepDot(1); pulseCard(); cap("mid · day [미드 · 데이]"); }, null, 39.93);
+    tl.call(function() { activateRepDot(2); pulseCard(); cap("mid · day [미드 · 데이]"); }, null, 43.61);
 
 
     window.__timelines = window.__timelines || {};

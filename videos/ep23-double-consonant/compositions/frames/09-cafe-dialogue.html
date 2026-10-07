@@ -13,7 +13,6 @@
     border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.25cqw; font-weight: 900;
     color: #111111; z-index: 20;
   }
-  /* Background Video Frame */
   .video-stage {
     position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
     width: 86cqw; height: 68cqh; border: 3.5px solid #111111; box-shadow: 7px 7px 0px #111111;
@@ -21,25 +20,35 @@
   }
   .video-stage video {
     width: 100%; height: 100%; object-fit: cover; opacity: 0.75;
+    transform: scale(1.15); transform-origin: 15% 15%;
   }
   .dialogue-overlay {
     position: absolute; inset: 0; display: flex; flex-direction: column;
     justify-content: center; align-items: center; padding: 4cqh 5cqw; z-index: 10;
   }
   .dialogue-card {
-    background: rgba(255, 255, 255, 0.96); border: 3px solid #111111; box-shadow: 5px 5px 0px #111111;
-    border-radius: 22px; padding: 3.5cqh 4.5cqw; max-width: 90%; text-align: center;
-    display: flex; flex-direction: column; align-items: center; gap: 1.8cqh;
+    background: rgba(255, 255, 255, 0.97); border: 3px solid #111111; box-shadow: 5px 5px 0px #111111;
+    border-radius: 24px; padding: 3.8cqh 4.5cqw; max-width: 90%; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2cqh;
   }
   .speaker-badge {
     background: #F59E0B; border: 2px solid #111111; border-radius: 999px;
-    padding: 0.6cqh 1.8cqw; font-size: 1.15cqw; font-weight: 900; color: #111111;
+    padding: 0.6cqh 1.8cqw; font-size: 1.2cqw; font-weight: 900; color: #111111;
   }
   .sentence-text {
     font-family: 'Archivo Black', sans-serif; font-size: 3.8cqw; line-height: 1.25; color: #111111;
+    padding-bottom: 0.4cqh;
+  }
+  .sentence-meaning {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; background: #FAF7F2;
+    border: 2px solid #111111; border-radius: 12px; padding: 0.6cqh 2.2cqw;
+    box-shadow: 2.5px 2.5px 0px #111111;
+  }
+  .sentence-tip {
+    font-size: 1.3cqw; font-weight: 800; color: #7A7365;
   }
   .repeat-dots {
-    display: flex; gap: 0.8cqw; justify-content: center; align-items: center;
+    display: flex; gap: 0.8cqw; justify-content: center; align-items: center; margin-top: 0.5cqh;
   }
   .repeat-dot {
     width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: #E5E0D8;
@@ -47,6 +56,9 @@
   }
   .repeat-dot.active {
     background: #F59E0B; transform: scale(1.3); box-shadow: 2px 2px 0px #111111;
+  }
+  .highlight-letter {
+    color: #EF4444; border-bottom: 5px solid #EF4444; padding-bottom: 2px;
   }
   .caption-pill {
     position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
@@ -57,53 +69,49 @@
   audio { display: none; }
 </style>
 
-<div data-hf-id="hf-gswv" id="root" data-composition-id="09-cafe-dialogue" data-width="1920" data-height="1080">
-  <div data-hf-id="hf-hn09" class="eyebrow-pill" id="eyebrow">
+<div id="root" data-composition-id="09-cafe-dialogue" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrow">
     ☕ 카페 실전 회화: 일상 대화 속 겹자음 소리 듣기
   </div>
 
-  <div data-hf-id="hf-t7po" class="video-stage">
-    <video data-hf-id="hf-kpxo" id="cafeVideo" src="assets/videos/f09_cafe_scene.mp4" data-start="0" data-duration="129.46" data-hf-media-start-basis="local" autoplay loop muted playsinline></video>
-    <div data-hf-id="hf-do4d" class="dialogue-overlay">
-      <div data-hf-id="hf-63dn" class="dialogue-card" id="dialogueCard">
-        <div data-hf-id="hf-rckb" class="speaker-badge" id="speakerBadge">👩 손님 (Kore)</div>
-        <div data-hf-id="hf-sjh8" class="sentence-text" id="sentenceText">Two coffees, please.</div>
-        <div data-hf-id="hf-28i2" class="repeat-dots" id="dialogueDots"></div>
+  <div class="video-stage">
+    <video id="cafeVideo" src="assets/videos/f09_cafe_scene.mp4" data-start="0" data-duration="99.23" data-hf-media-start-basis="local" data-layout-allow-overflow autoplay loop muted playsinline></video>
+    <div class="dialogue-overlay">
+      <!-- Intro State during narration, NO hardcoded 'Two coffees' -->
+      <div class="dialogue-card" id="dialogueCard">
+        <div class="speaker-badge" id="speakerBadge">☕ 실전 카페 대화</div>
+        <div class="sentence-text" id="sentenceText">친구와의 2인 실전 대화</div>
+        <div class="sentence-meaning" id="sentenceMeaning">문장 속에서 자연스럽게 흘러가는 소리를 들어보세요</div>
+        <div class="sentence-tip" id="sentenceTip">잠시 후 손님과 바리스타의 대화가 시작됩니다 (문장당 3회 반복)</div>
+        <div class="repeat-dots" id="dialogueDots"></div>
       </div>
     </div>
   </div>
 
-  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+  <div class="caption-pill" id="capPill"></div>
 
-  <audio data-hf-id="hf-upcp" id="v_intro" src="assets/voice/09_f09_intro_scene.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="7.04"></audio>
-  <audio data-hf-id="hf-gqpu" id="v_cafe_0_0" src="assets/voice/en_s02_hows_it_going.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.54" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-d8zi" id="v_cafe_0_1" src="assets/voice/en_s02_hows_it_going.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.65" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-djq1" id="v_cafe_0_2" src="assets/voice/en_s02_hows_it_going.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.76" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-gyot" id="v_cafe_0_3" src="assets/voice/en_s02_hows_it_going.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.87" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-h1xk" id="v_cafe_1_0" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.98" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-36tg" id="v_cafe_1_1" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.09" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-msyf" id="v_cafe_1_2" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.20" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-ek2w" id="v_cafe_1_3" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.31" data-duration="1.11"></audio>
-  <audio data-hf-id="hf-wk9n" id="v_cafe_2_0" src="assets/voice/en_s05_want_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.42" data-duration="1.09"></audio>
-  <audio data-hf-id="hf-qfc6" id="v_cafe_2_1" src="assets/voice/en_s05_want_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.51" data-duration="1.09"></audio>
-  <audio data-hf-id="hf-a8ct" id="v_cafe_2_2" src="assets/voice/en_s05_want_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.60" data-duration="1.09"></audio>
-  <audio data-hf-id="hf-m2ee" id="v_cafe_2_3" src="assets/voice/en_s05_want_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="53.69" data-duration="1.09"></audio>
-  <audio data-hf-id="hf-9qok" id="v_cafe_3_0" src="assets/voice/en_s06_office_close.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="57.78" data-duration="1.88"></audio>
-  <audio data-hf-id="hf-5f78" id="v_cafe_3_1" src="assets/voice/en_s06_office_close.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="62.66" data-duration="1.88"></audio>
-  <audio data-hf-id="hf-ittl" id="v_cafe_3_2" src="assets/voice/en_s06_office_close.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="67.54" data-duration="1.88"></audio>
-  <audio data-hf-id="hf-c8df" id="v_cafe_3_3" src="assets/voice/en_s06_office_close.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="72.42" data-duration="1.88"></audio>
-  <audio data-hf-id="hf-bp9n" id="v_cafe_4_0" src="assets/voice/en_s03_class_at_ten.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="77.30" data-duration="1.28"></audio>
-  <audio data-hf-id="hf-qkqx" id="v_cafe_4_1" src="assets/voice/en_s03_class_at_ten.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="81.58" data-duration="1.28"></audio>
-  <audio data-hf-id="hf-86mf" id="v_cafe_4_2" src="assets/voice/en_s03_class_at_ten.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="85.86" data-duration="1.28"></audio>
-  <audio data-hf-id="hf-9le5" id="v_cafe_4_3" src="assets/voice/en_s03_class_at_ten.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="90.14" data-duration="1.28"></audio>
-  <audio data-hf-id="hf-1f4h" id="v_cafe_5_0" src="assets/voice/en_s07_coffee_after_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="94.42" data-duration="1.74"></audio>
-  <audio data-hf-id="hf-nzki" id="v_cafe_5_1" src="assets/voice/en_s07_coffee_after_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="99.16" data-duration="1.74"></audio>
-  <audio data-hf-id="hf-r88d" id="v_cafe_5_2" src="assets/voice/en_s07_coffee_after_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="103.90" data-duration="1.74"></audio>
-  <audio data-hf-id="hf-giv6" id="v_cafe_5_3" src="assets/voice/en_s07_coffee_after_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="108.64" data-duration="1.74"></audio>
-  <audio data-hf-id="hf-afkv" id="v_cafe_6_0" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="113.38" data-duration="1.02"></audio>
-  <audio data-hf-id="hf-gzvn" id="v_cafe_6_1" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="117.40" data-duration="1.02"></audio>
-  <audio data-hf-id="hf-18hz" id="v_cafe_6_2" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="121.42" data-duration="1.02"></audio>
-  <audio data-hf-id="hf-2xni" id="v_cafe_6_3" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="125.44" data-duration="1.02"></audio>
+  <audio id="v_intro" src="assets/voice/09_f09_intro_scene.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="7.04"></audio>
+  <audio id="v_cafe_0_0" src="assets/voice/en_s02_hows_it_going.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.54" data-duration="1.11"></audio>
+  <audio id="v_cafe_0_1" src="assets/voice/en_s02_hows_it_going.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.65" data-duration="1.11"></audio>
+  <audio id="v_cafe_0_2" src="assets/voice/en_s02_hows_it_going.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.76" data-duration="1.11"></audio>
+  <audio id="v_cafe_1_0" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.87" data-duration="1.11"></audio>
+  <audio id="v_cafe_1_1" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.98" data-duration="1.11"></audio>
+  <audio id="v_cafe_1_2" src="assets/voice/en_s01_two_coffees.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.09" data-duration="1.11"></audio>
+  <audio id="v_cafe_2_0" src="assets/voice/en_s05_want_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.20" data-duration="1.09"></audio>
+  <audio id="v_cafe_2_1" src="assets/voice/en_s05_want_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.29" data-duration="1.09"></audio>
+  <audio id="v_cafe_2_2" src="assets/voice/en_s05_want_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.38" data-duration="1.09"></audio>
+  <audio id="v_cafe_3_0" src="assets/voice/en_s06_office_close.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.47" data-duration="1.88"></audio>
+  <audio id="v_cafe_3_1" src="assets/voice/en_s06_office_close.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.35" data-duration="1.88"></audio>
+  <audio id="v_cafe_3_2" src="assets/voice/en_s06_office_close.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.23" data-duration="1.88"></audio>
+  <audio id="v_cafe_4_0" src="assets/voice/en_s03_class_at_ten.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="60.11" data-duration="1.28"></audio>
+  <audio id="v_cafe_4_1" src="assets/voice/en_s03_class_at_ten.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="64.39" data-duration="1.28"></audio>
+  <audio id="v_cafe_4_2" src="assets/voice/en_s03_class_at_ten.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="68.67" data-duration="1.28"></audio>
+  <audio id="v_cafe_5_0" src="assets/voice/en_s07_coffee_after_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="72.95" data-duration="1.74"></audio>
+  <audio id="v_cafe_5_1" src="assets/voice/en_s07_coffee_after_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="77.69" data-duration="1.74"></audio>
+  <audio id="v_cafe_5_2" src="assets/voice/en_s07_coffee_after_class.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="82.43" data-duration="1.74"></audio>
+  <audio id="v_cafe_6_0" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="87.17" data-duration="1.02"></audio>
+  <audio id="v_cafe_6_1" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="91.19" data-duration="1.02"></audio>
+  <audio id="v_cafe_6_2" src="assets/voice/en_s04_happy_birthday.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="95.21" data-duration="1.02"></audio>
 
 </div>
 
@@ -113,12 +121,18 @@
     var pill = document.getElementById("capPill");
     function cap(text) { pill.textContent = text; gsap.set(pill, { opacity: 1 }); }
 
-    var dialogues = [{"text":"Hello, how's it going?","reps":4,"speaker":"👩 손님 (Kore)","side":"left"},{"text":"Two coffees, please.","reps":4,"speaker":"👩 손님 (Kore)","side":"left"},{"text":"Do you want a coffee?","reps":4,"speaker":"👩 손님 (Kore)","side":"left"},{"text":"The office is close to the cafe.","reps":4,"speaker":"👦 바리스타 (Puck)","side":"right"},{"text":"I have class at ten.","reps":4,"speaker":"👦 바리스타 (Puck)","side":"right"},{"text":"Let's get coffee after class.","reps":4,"speaker":"👦 바리스타 (Puck)","side":"right"},{"text":"Happy birthday!","reps":4,"speaker":"👩 손님 (Kore)","side":"left"}];
+    var dialogues = [{"text":"Hello, how's it going?","meaning":"안녕, 어떻게 지내?","tip":"💡 hel · lo [헬 · 로우] ➔ l 소리는 딱 한 번!","reps":3,"speaker":"👩 손님"},{"text":"Two coffees, please.","meaning":"커피 두 잔 주세요.","tip":"💡 cof · fee [커 · 피] ➔ f 소리는 딱 한 번!","reps":3,"speaker":"👩 손님"},{"text":"Do you want a coffee?","meaning":"커피 한잔할래?","tip":"💡 cof · fee [커 · 피] ➔ f 소리는 딱 한 번!","reps":3,"speaker":"👩 손님"},{"text":"The office is close to the cafe.","meaning":"사무실이 카페랑 가까워.","tip":"💡 of · fice [오 · 피스] ➔ f 소리는 딱 한 번!","reps":3,"speaker":"👦 바리스타"},{"text":"I have class at ten.","meaning":"나 10시에 수업 있어.","tip":"💡 class [클래스] ➔ s 소리는 끌지 않고 한 번에!","reps":3,"speaker":"👦 바리스타"},{"text":"Let's get coffee after class.","meaning":"수업 끝나고 커피 마시자.","tip":"💡 cof · fee · class ➔ ff · ss 한 번씩!","reps":3,"speaker":"👦 바리스타"},{"text":"Happy birthday!","meaning":"생일 축하해!","tip":"💡 hap · py [해 · 피] ➔ p 소리는 딱 한 번!","reps":3,"speaker":"👩 손님"}];
+
+    function highlightDialogue(text) {
+      return text.replace(/(ff|ll|ss|pp|tt|dd|nn)/gi, '<span class="highlight-letter">$1</span>');
+    }
 
     function showDialogue(idx) {
       var item = dialogues[idx];
       document.getElementById("speakerBadge").textContent = item.speaker;
-      document.getElementById("sentenceText").textContent = item.text;
+      document.getElementById("sentenceText").innerHTML = highlightDialogue(item.text);
+      document.getElementById("sentenceMeaning").textContent = item.meaning;
+      document.getElementById("sentenceTip").textContent = item.tip;
 
       var dotsEl = document.getElementById("dialogueDots");
       dotsEl.innerHTML = "";
@@ -148,40 +162,33 @@
     tl.call(function() { cap("들어보세요."); }, null, 6.42);
 
     tl.call(function() { showDialogue(0); }, null, 8.54);
-    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Hello, how's it going?"); }, null, 8.54);
-    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Hello, how's it going?"); }, null, 12.65);
-    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Hello, how's it going?"); }, null, 16.76);
-    tl.call(function() { activateDialogueDot(3); pulseDialogue(); cap("Hello, how's it going?"); }, null, 20.87);
-    tl.call(function() { showDialogue(1); }, null, 24.98);
-    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Two coffees, please."); }, null, 24.98);
-    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Two coffees, please."); }, null, 29.09);
-    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Two coffees, please."); }, null, 33.20);
-    tl.call(function() { activateDialogueDot(3); pulseDialogue(); cap("Two coffees, please."); }, null, 37.31);
-    tl.call(function() { showDialogue(2); }, null, 41.42);
-    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Do you want a coffee?"); }, null, 41.42);
-    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Do you want a coffee?"); }, null, 45.51);
-    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Do you want a coffee?"); }, null, 49.60);
-    tl.call(function() { activateDialogueDot(3); pulseDialogue(); cap("Do you want a coffee?"); }, null, 53.69);
-    tl.call(function() { showDialogue(3); }, null, 57.78);
-    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("The office is close to the cafe."); }, null, 57.78);
-    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("The office is close to the cafe."); }, null, 62.66);
-    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("The office is close to the cafe."); }, null, 67.54);
-    tl.call(function() { activateDialogueDot(3); pulseDialogue(); cap("The office is close to the cafe."); }, null, 72.42);
-    tl.call(function() { showDialogue(4); }, null, 77.30);
-    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("I have class at ten."); }, null, 77.30);
-    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("I have class at ten."); }, null, 81.58);
-    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("I have class at ten."); }, null, 85.86);
-    tl.call(function() { activateDialogueDot(3); pulseDialogue(); cap("I have class at ten."); }, null, 90.14);
-    tl.call(function() { showDialogue(5); }, null, 94.42);
-    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Let's get coffee after class."); }, null, 94.42);
-    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Let's get coffee after class."); }, null, 99.16);
-    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Let's get coffee after class."); }, null, 103.90);
-    tl.call(function() { activateDialogueDot(3); pulseDialogue(); cap("Let's get coffee after class."); }, null, 108.64);
-    tl.call(function() { showDialogue(6); }, null, 113.38);
-    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Happy birthday!"); }, null, 113.38);
-    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Happy birthday!"); }, null, 117.40);
-    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Happy birthday!"); }, null, 121.42);
-    tl.call(function() { activateDialogueDot(3); pulseDialogue(); cap("Happy birthday!"); }, null, 125.44);
+    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Hello, how's it going? (안녕, 어떻게 지내?)"); }, null, 8.54);
+    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Hello, how's it going? (안녕, 어떻게 지내?)"); }, null, 12.65);
+    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Hello, how's it going? (안녕, 어떻게 지내?)"); }, null, 16.76);
+    tl.call(function() { showDialogue(1); }, null, 20.87);
+    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Two coffees, please. (커피 두 잔 주세요.)"); }, null, 20.87);
+    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Two coffees, please. (커피 두 잔 주세요.)"); }, null, 24.98);
+    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Two coffees, please. (커피 두 잔 주세요.)"); }, null, 29.09);
+    tl.call(function() { showDialogue(2); }, null, 33.20);
+    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Do you want a coffee? (커피 한잔할래?)"); }, null, 33.20);
+    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Do you want a coffee? (커피 한잔할래?)"); }, null, 37.29);
+    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Do you want a coffee? (커피 한잔할래?)"); }, null, 41.38);
+    tl.call(function() { showDialogue(3); }, null, 45.47);
+    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("The office is close to the cafe. (사무실이 카페랑 가까워.)"); }, null, 45.47);
+    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("The office is close to the cafe. (사무실이 카페랑 가까워.)"); }, null, 50.35);
+    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("The office is close to the cafe. (사무실이 카페랑 가까워.)"); }, null, 55.23);
+    tl.call(function() { showDialogue(4); }, null, 60.11);
+    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("I have class at ten. (나 10시에 수업 있어.)"); }, null, 60.11);
+    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("I have class at ten. (나 10시에 수업 있어.)"); }, null, 64.39);
+    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("I have class at ten. (나 10시에 수업 있어.)"); }, null, 68.67);
+    tl.call(function() { showDialogue(5); }, null, 72.95);
+    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Let's get coffee after class. (수업 끝나고 커피 마시자.)"); }, null, 72.95);
+    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Let's get coffee after class. (수업 끝나고 커피 마시자.)"); }, null, 77.69);
+    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Let's get coffee after class. (수업 끝나고 커피 마시자.)"); }, null, 82.43);
+    tl.call(function() { showDialogue(6); }, null, 87.17);
+    tl.call(function() { activateDialogueDot(0); pulseDialogue(); cap("Happy birthday! (생일 축하해!)"); }, null, 87.17);
+    tl.call(function() { activateDialogueDot(1); pulseDialogue(); cap("Happy birthday! (생일 축하해!)"); }, null, 91.19);
+    tl.call(function() { activateDialogueDot(2); pulseDialogue(); cap("Happy birthday! (생일 축하해!)"); }, null, 95.21);
 
 
     window.__timelines = window.__timelines || {};

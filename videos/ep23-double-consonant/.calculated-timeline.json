@@ -1,82 +1,82 @@
 {
-  "totalDuration": 1467.01,
+  "totalDuration": 1084.8,
   "frames": [
     {
       "id": "01-hook",
       "title": "F01 훅: coffee와 hello, 소리는 딱 한 번",
       "start": 0,
-      "duration": 26.39,
+      "duration": 23.04,
       "introDur": 21.04,
-      "itemsCount": 1
+      "itemsCount": 0
     },
     {
       "id": "02-principle",
       "title": "F02 핵심 원리: 자음 조음과 앞 모음 단축 신호",
-      "start": 26.39,
-      "duration": 72.32,
+      "start": 23.04,
+      "duration": 49.97,
       "introDur": 26.12,
       "itemsCount": 2
     },
     {
       "id": "03-ff-words",
       "title": "F03 ff 단어 반복 듣기: 입술은 한 번만",
-      "start": 98.71,
-      "duration": 158.3,
+      "start": 73.01,
+      "duration": 87.89,
       "introDur": 7.76,
       "itemsCount": 7
     },
     {
       "id": "04-ll-words",
       "title": "F04 ll 단어 반복 듣기: 혀끝은 한 번만",
-      "start": 257.01,
-      "duration": 152.98,
+      "start": 160.9,
+      "duration": 85.39,
       "introDur": 8.08,
       "itemsCount": 7
     },
     {
       "id": "05-ss-words",
       "title": "F05 ss 단어 반복 듣기: 길게 끌지 말고 한 번에",
-      "start": 409.99,
-      "duration": 157.64,
+      "start": 246.29,
+      "duration": 87.63,
       "introDur": 7.56,
       "itemsCount": 7
     },
     {
       "id": "06-pp-words",
       "title": "F06 pp 단어 반복 듣기: 가볍게 한 번만 툭",
-      "start": 567.63,
-      "duration": 135.84,
+      "start": 333.92,
+      "duration": 76.83,
       "introDur": 8.28,
       "itemsCount": 6
     },
     {
       "id": "07-boundary-exceptions",
       "title": "F07 예외 ① 단어 경계: 두 단어가 만날 때",
-      "start": 703.47,
-      "duration": 69.88,
+      "start": 410.75,
+      "duration": 47.29,
       "introDur": 23.2,
       "itemsCount": 2
     },
     {
       "id": "08-flap-tt-exceptions",
       "title": "F08 예외 ② 모음 사이 tt: 부드러운 'ㄹ' (Flap T)",
-      "start": 773.35,
-      "duration": 100.44,
+      "start": 458.04,
+      "duration": 58.77,
       "introDur": 15.6,
       "itemsCount": 4
     },
     {
       "id": "09-cafe-dialogue",
       "title": "F09 카페 실전 대화 7문장",
-      "start": 873.79,
-      "duration": 129.46,
+      "start": 516.81,
+      "duration": 99.23,
       "introDur": 7.04,
       "itemsCount": 7
     },
     {
       "id": "10-shuffle-drill",
       "title": "F10 무작위 셔플 섞어 듣기 (29개 단어)",
-      "start": 1003.25,
+      "start": 616.04,
       "duration": 220.3,
       "introDur": 8.96,
       "itemsCount": 29
@@ -84,7 +84,7 @@
     {
       "id": "11-summary",
       "title": "F11 오늘 규칙 한 장 정리 & 댓글 질문",
-      "start": 1223.55,
+      "start": 836.34,
       "duration": 24.2,
       "introDur": 19.2,
       "itemsCount": 0
@@ -92,8 +92,8 @@
     {
       "id": "12-encore-review",
       "title": "F12 처음부터 끝까지 한 번 더 앵콜",
-      "start": 1247.75,
-      "duration": 219.26,
+      "start": 860.54,
+      "duration": 224.26,
       "introDur": 5.92,
       "itemsCount": 29
     }
@@ -103,18 +103,10 @@
       "id": "01-hook",
       "title": "F01 훅: coffee와 hello, 소리는 딱 한 번",
       "intro": "01_f01_hook",
-      "items": [
-        {
-          "key": "en_coffee",
-          "reps": 1,
-          "label": "coffee",
-          "type": "word",
-          "voice": "male"
-        }
-      ],
+      "items": [],
       "repInterval": 3,
       "itemInterval": 3,
-      "endPad": 3
+      "endPad": 2
     },
     {
       "id": "02-principle",
@@ -123,7 +115,7 @@
       "items": [
         {
           "key": "en_hoping",
-          "reps": 6,
+          "reps": 3,
           "label": "hoping",
           "sub": "장모음 (p 1개)",
           "type": "word",
@@ -131,7 +123,7 @@
         },
         {
           "key": "en_hopping",
-          "reps": 6,
+          "reps": 3,
           "label": "hopping",
           "sub": "단모음 (p 2개)",
           "type": "word",
@@ -149,49 +141,49 @@
       "items": [
         {
           "key": "en_coffee",
-          "reps": 6,
+          "reps": 3,
           "label": "coffee",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_offer",
-          "reps": 6,
+          "reps": 3,
           "label": "offer",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_office",
-          "reps": 6,
+          "reps": 3,
           "label": "office",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_different",
-          "reps": 6,
+          "reps": 3,
           "label": "different",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_effort",
-          "reps": 6,
+          "reps": 3,
           "label": "effort",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_staff",
-          "reps": 6,
+          "reps": 3,
           "label": "staff",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_s01_two_coffees",
-          "reps": 4,
+          "reps": 3,
           "label": "Two coffees, please.",
           "type": "sentence",
           "voice": "female"
@@ -208,49 +200,49 @@
       "items": [
         {
           "key": "en_hello",
-          "reps": 6,
+          "reps": 3,
           "label": "hello",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_yellow",
-          "reps": 6,
+          "reps": 3,
           "label": "yellow",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_call",
-          "reps": 6,
+          "reps": 3,
           "label": "call",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_really",
-          "reps": 6,
+          "reps": 3,
           "label": "really",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_tall",
-          "reps": 6,
+          "reps": 3,
           "label": "tall",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_all",
-          "reps": 6,
+          "reps": 3,
           "label": "all",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_s02_hows_it_going",
-          "reps": 4,
+          "reps": 3,
           "label": "Hello, how's it going?",
           "type": "sentence",
           "voice": "female"
@@ -267,49 +259,49 @@
       "items": [
         {
           "key": "en_class",
-          "reps": 6,
+          "reps": 3,
           "label": "class",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_dress",
-          "reps": 6,
+          "reps": 3,
           "label": "dress",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_glass",
-          "reps": 6,
+          "reps": 3,
           "label": "glass",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_press",
-          "reps": 6,
+          "reps": 3,
           "label": "press",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_lesson",
-          "reps": 6,
+          "reps": 3,
           "label": "lesson",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_miss",
-          "reps": 6,
+          "reps": 3,
           "label": "miss",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_s03_class_at_ten",
-          "reps": 4,
+          "reps": 3,
           "label": "I have class at ten.",
           "type": "sentence",
           "voice": "male"
@@ -326,42 +318,42 @@
       "items": [
         {
           "key": "en_happy",
-          "reps": 6,
+          "reps": 3,
           "label": "happy",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_apple",
-          "reps": 6,
+          "reps": 3,
           "label": "apple",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_happen",
-          "reps": 6,
+          "reps": 3,
           "label": "happen",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_supply",
-          "reps": 6,
+          "reps": 3,
           "label": "supply",
           "type": "word",
           "voice": "male"
         },
         {
           "key": "en_hopping",
-          "reps": 6,
+          "reps": 3,
           "label": "hopping",
           "type": "word",
           "voice": "female"
         },
         {
           "key": "en_s04_happy_birthday",
-          "reps": 4,
+          "reps": 3,
           "label": "Happy birthday!",
           "type": "sentence",
           "voice": "female"
@@ -378,7 +370,7 @@
       "items": [
         {
           "key": "en_unnamed",
-          "reps": 6,
+          "reps": 3,
           "label": "unnamed",
           "sub": "un + named (자음 연장)",
           "type": "word",
@@ -386,7 +378,7 @@
         },
         {
           "key": "en_midday",
-          "reps": 6,
+          "reps": 3,
           "label": "midday",
           "sub": "mid + day (자음 연장)",
           "type": "word",
@@ -404,7 +396,7 @@
       "items": [
         {
           "key": "en_letter",
-          "reps": 6,
+          "reps": 3,
           "label": "letter",
           "sub": "레러 (Flap T)",
           "type": "word",
@@ -412,7 +404,7 @@
         },
         {
           "key": "en_butter",
-          "reps": 6,
+          "reps": 3,
           "label": "butter",
           "sub": "버러 (Flap T)",
           "type": "word",
@@ -420,7 +412,7 @@
         },
         {
           "key": "en_better",
-          "reps": 6,
+          "reps": 3,
           "label": "better",
           "sub": "베러 (Flap T)",
           "type": "word",
@@ -428,7 +420,7 @@
         },
         {
           "key": "en_little",
-          "reps": 6,
+          "reps": 3,
           "label": "little",
           "sub": "리를 (Flap T)",
           "type": "word",
@@ -446,49 +438,49 @@
       "items": [
         {
           "key": "en_s02_hows_it_going",
-          "reps": 4,
+          "reps": 3,
           "label": "Hello, how's it going?",
           "type": "sentence",
           "voice": "female"
         },
         {
           "key": "en_s01_two_coffees",
-          "reps": 4,
+          "reps": 3,
           "label": "Two coffees, please.",
           "type": "sentence",
           "voice": "female"
         },
         {
           "key": "en_s05_want_coffee",
-          "reps": 4,
+          "reps": 3,
           "label": "Do you want a coffee?",
           "type": "sentence",
           "voice": "female"
         },
         {
           "key": "en_s06_office_close",
-          "reps": 4,
+          "reps": 3,
           "label": "The office is close to the cafe.",
           "type": "sentence",
           "voice": "male"
         },
         {
           "key": "en_s03_class_at_ten",
-          "reps": 4,
+          "reps": 3,
           "label": "I have class at ten.",
           "type": "sentence",
           "voice": "male"
         },
         {
           "key": "en_s07_coffee_after_class",
-          "reps": 4,
+          "reps": 3,
           "label": "Let's get coffee after class.",
           "type": "sentence",
           "voice": "male"
         },
         {
           "key": "en_s04_happy_birthday",
-          "reps": 4,
+          "reps": 3,
           "label": "Happy birthday!",
           "type": "sentence",
           "voice": "female"
@@ -873,7 +865,7 @@
       ],
       "repInterval": 3,
       "itemInterval": 3,
-      "endPad": 5
+      "endPad": 10
     }
   ]
 }

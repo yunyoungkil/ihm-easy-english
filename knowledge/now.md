@@ -14,12 +14,12 @@
   - 한국어 3개 + 영어 7개 문장 Whisper 단어별 타임스탬프(`*.words.json`) 추출 100% 완료
 - **다음 행동**: **HyperFrames 컴포지션 구현** — 10개 프레임 HTML/CSS 구현 및 실측 오디오 타임라인 연결 ➔ `npx hyperframes check` 자동 검수 ➔ 사용자 승인 게이트.
 
-## 렌더링 완료 대기 — 단편 EP23(같은 자음 두 개는 한 번만 소리 난다, 첫 듣기 롱폼 24분 27초)
+## ✅ 제작 완료 (업로드 대기) — 단편 EP23(hello·class·happy, 같은 자음 두 개는 한 번만 소리 난다, 첫 듣기 롱폼 18분 05초)
 
 - 폴더: `videos/ep23-double-consonant/`
-- 렌더링: 사용자 승인 하에 `npx --yes hyperframes render .` (32,544 프레임) 인코딩 완료 단계.
-- 업로드 패키지 완비: `output/upload-packages/ep23-double-consonant/`에 썸네일 2종(`thumbnail.jpg`, `thumbnail-close-up.jpg`), 12개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `upload-checklist.txt`, 원클릭 HTML 대시보드 완비.
-- **다음 행동**: 렌더링 파일(`video.mp4`) 최종 무결성 확인 및 사용자 유튜브 업로드.
+- 렌더링 완료: `renders/ep23-double-consonant_2026-10-07_21-22-54.mp4` (Full HD 1920x1080, 41.4MB, 1084.80초 / 18분 04.8초, 32,544 프레임 전량 무결점 렌더 완료).
+- 업로드 패키지 완비: `output/upload-packages/ep23-double-consonant/`에 `video.mp4`, 썸네일 2종(`thumbnail.jpg`, `thumbnail-close-up.jpg`), 12개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `upload-checklist.txt`, 원클릭 복사 HTML 대시보드 완비.
+- **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행.
 
 ## ⏸ 보류 — 단편 EP22(영어 과거형 -ED 끝소리 규칙, t/d/id)
 

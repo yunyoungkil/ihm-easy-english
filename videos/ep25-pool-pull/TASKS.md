@@ -21,16 +21,32 @@
 
 ---
 
-### 다음 단계 (기술적 제작 워크플로우)
-1. **[Step 1] 음성 자산 생성 (사용자 직접 제작 또는 생성 지원)**:
-   - 한국어 호스트 나레이션 3개 (`01_f01_hook.wav`, `02_f02_principle.wav`, `03_f09_summary.wav`)
-   - 남/여 40단어 배치 파일 2개 (`male_words_all.wav`, `female_words_all.wav`)
-   - 실전 7문장 배치 파일 1개 (`en_dialogue_all.wav`)
-2. **[Step 2] 시각 미디어 2종 생성 및 반입**:
-   - `f02_vocal_tract_comparison.jpg`
-   - `f07_dialogue_ambience.mp4`
-3. **[Step 3] 오디오 전처리 및 Whisper 타임스탬프 추출**:
-   - `split-batch-voice.mjs` (250ms 여운 패딩 + 50ms 페이드아웃 적용)
-   - `word-timeline.mjs`
-4. **[Step 4] HyperFrames 컴포지션 구현 및 검수 (`check`)**
-5. **[Step 5] 절대적 승인 게이트 및 렌더링 착수**
+### 2단계: 기술적 제작 및 컴포지션 빌드 (완료)
+- **[Step 1 & 2] 음성 및 시각 자산 8종 반입 완료**:
+  - 한국어 호스트 나레이션 3개 + 배치 오디오 3개 반입 완료.
+  - `f02_vocal_tract_comparison.jpg` 및 `f07_dialogue_ambience.mp4` 반입 완료.
+- **[Step 3] 오디오 전처리 및 Whisper 타임스탬프 정렬 완료**:
+  - `split-batch-voice.mjs`: 250ms 여운 패딩 + 50ms 페이드아웃 적용하여 40단어 최소대립쌍 남/여 총 80개 WAV + 실전 대화 7문장 남/여 총 14개 WAV 분할 완료.
+  - Whisper `small` 모델 기반 한국어 3개 + 영어 대화 14개 총 17개 오디오 단어 타임스탬프(`*.words.json`) 추출 완료.
+- **[Step 4] 10개 프레임 컴포지션 완성 및 사용자 피드백 긴급 반영 (`generate-frames.mjs`)**:
+  - **F07 대화 문장 단어 강조**: `<span class="hl-tense">`, `<span class="hl-lax">` 컬러/배경/밑줄 하이라이트 + 발화 시 1.18배 펄스 바운스 애니메이션 + 하단 `💡 pull [풀] · push [푸쉬]` 음절 팁 뱃지 탑재.
+  - **전 프레임 20쌍 40단어 한글 음절 분리 표기 탑재**: `[푸 · 울]` vs `[풀]` 가운뎃점(`·`) 음절 표기를 F01~F10 전 프레임에 완벽 적용.
+  - **영구 규칙 전역 명문화**: `.claude/skills/episode-planning/SKILL.md`, `knowledge/production-rules.md`, `AGENTS.md`, `CLAUDE.md`에 음절 표기 및 대화 단어 강조 필수 항목 반영 완료.
+- **[Step 5] 자동 검수 100% 무결점 통과**:
+  - `npx hyperframes check`: Lint 0 errors, Runtime 0 errors, Layout 0 issues, Contrast 54/54 WCAG AA 통과 (`Check passed`).
+  - 프리뷰 스튜디오 기동 중: `http://localhost:3002/#project/ep25-pool-pull`.
+
+---
+
+### 3단계: 절대적 승인 게이트 통과, 고화질 렌더링 완주 및 업로드 패키지 빌드 (완료)
+- **[Step 6] 사용자 프리뷰 검수 및 렌더링 명시적 승인 획득**:
+  - 사용자 지시("25 다음 작업 진행해") 수령 후 렌더링 착수.
+- **[Step 7] 고화질 렌더링 100% 무결점 완주**:
+  - `npx --yes hyperframes render .` (총 23,408 프레임, 780.25초 / 13분 00.3초) 완주 완료.
+  - 렌더 파일: `renders/ep25-pool-pull_2026-10-08_22-18-10.mp4` (40.3MB).
+- **[Step 8] 썸네일 4종 제작 및 업로드 패키지 완비**:
+  - `thumbnail-close-up.jpg`(모바일 1위), `thumbnail.jpg`(A안 메인), `thumbnail-b.jpg`(B안 경고), `thumbnail-c.jpg`(C안 원리) 4종 생성 및 배치.
+  - SEO 파일명 복사: `English_Pronunciation_Pool_vs_Pull_Minimal_Pairs_Listening_Drill.mp4`.
+  - 메타데이터 및 원클릭 대시보드 `index.html` 구축 완료.
+
+

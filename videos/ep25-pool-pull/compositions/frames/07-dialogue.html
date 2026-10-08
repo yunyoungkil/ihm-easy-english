@@ -1,0 +1,144 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.35; z-index: 1; filter: saturate(1.2);
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; z-index: 10;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 84cqw; z-index: 5;
+  }
+  .dialogue-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 5cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+  }
+  .tag-pill {
+    display: inline-block; background: #FEF3C7; border: 2px solid #111111;
+    padding: 0.5cqh 1.8cqw; border-radius: 999px; font-size: 1.25cqw; font-weight: 900; color: #92400E;
+  }
+  .sentence-en {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; line-height: 1.35;
+    color: #111111;
+  }
+  .hl-tense {
+    color: #065F46; border-bottom: 5px solid #059669; padding-bottom: 2px;
+    display: inline-block; background: #D1FAE5; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .hl-lax {
+    color: #92400E; border-bottom: 5px solid #D97706; padding-bottom: 2px;
+    display: inline-block; background: #FEF3C7; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .sentence-kr {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563;
+  }
+  .syl-tip-box {
+    background: #FAF7F2; border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+    border-radius: 14px; padding: 1cqh 2.4cqw; font-size: 1.4cqw; font-weight: 900;
+    color: #111111; margin-top: 0.5cqh;
+  }
+</style>
+<div id="root" data-composition-id="07-dialogue" data-width="1920" data-height="1080">
+  <video id="bgVideo" class="bg-video" src="assets/videos/f07_dialogue_ambience.mp4" autoplay loop muted data-start="0" data-duration="45.71" data-hf-media-start-basis="local"></video>
+
+  <div class="eyebrow-pill">
+    <span>☕ 실전 짝단어 문장 리스닝 (7문장 2회 반복 훈련)</span>
+  </div>
+
+  <div class="stage">
+    <div class="dialogue-card" id="dialCard">
+      <div id="dialTag" class="tag-pill">pull vs push</div>
+      <div id="dialEn" class="sentence-en"><span class="hl-lax">Pull</span> the door, don't <span class="hl-lax">push</span> it.</div>
+      <div id="dialKr" class="sentence-kr">문을 당기세요, 밀지 말고요.</div>
+      <div id="dialSylTip" class="syl-tip-box">💡 pull [풀] · push [푸쉬] ➔ 둘 다 턱에 힘 빼고 가볍게!</div>
+    </div>
+  </div>
+
+  <audio id="dial_01_m" src="assets/voice/m_dial_01_pull_push.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="1.84"></audio>
+  <audio id="dial_01_f" src="assets/voice/f_dial_01_pull_push.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.14" data-duration="1.93"></audio>
+  <audio id="dial_02_m" src="assets/voice/m_dial_02_full_fool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="6.27" data-duration="2.23"></audio>
+  <audio id="dial_02_f" src="assets/voice/f_dial_02_full_fool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.30" data-duration="2.99"></audio>
+  <audio id="dial_03_m" src="assets/voice/m_dial_03_look_Luke.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.49" data-duration="2.39"></audio>
+  <audio id="dial_03_f" src="assets/voice/f_dial_03_look_Luke.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.68" data-duration="2.26"></audio>
+  <audio id="dial_04_m" src="assets/voice/m_dial_04_stood_stewed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.14" data-duration="2.31"></audio>
+  <audio id="dial_04_f" src="assets/voice/f_dial_04_stood_stewed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.25" data-duration="2.57"></audio>
+  <audio id="dial_05_m" src="assets/voice/m_dial_05_whod_hood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.02" data-duration="1.78"></audio>
+  <audio id="dial_05_f" src="assets/voice/f_dial_05_whod_hood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.60" data-duration="1.79"></audio>
+  <audio id="dial_06_m" src="assets/voice/m_dial_06_boots_shook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.59" data-duration="1.88"></audio>
+  <audio id="dial_06_f" src="assets/voice/f_dial_06_boots_shook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.27" data-duration="2.16"></audio>
+  <audio id="dial_07_m" src="assets/voice/m_dial_07_food_mood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.63" data-duration="2.13"></audio>
+  <audio id="dial_07_f" src="assets/voice/f_dial_07_food_mood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.56" data-duration="2.45"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var dialTag = document.getElementById("dialTag");
+    var dialEn = document.getElementById("dialEn");
+    var dialKr = document.getElementById("dialKr");
+    var dialSylTip = document.getElementById("dialSylTip");
+    var dialCard = document.getElementById("dialCard");
+
+    function showDialogue(d) {
+      dialTag.textContent = d.pairBadge;
+      dialEn.innerHTML = d.enHtml;
+      dialKr.textContent = d.kr;
+      dialSylTip.textContent = d.sylTip;
+      gsap.fromTo(dialCard, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: "back.out(1.5)" });
+    }
+
+  tl.call(function() {
+    showDialogue({"id":"01","en":"Pull the door, don't push it.","enHtml":"<span class=\"hl-lax\">Pull</span> the door, don't <span class=\"hl-lax\">push</span> it.","kr":"문을 당기세요, 밀지 말고요.","pairBadge":"pull vs push","sylTip":"💡 pull [풀] · push [푸쉬] ➔ 둘 다 턱에 힘 빼고 가볍게!","m":"m_dial_01_pull_push","f":"f_dial_01_pull_push"});
+  }, null, 0.50);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 0.50);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 3.14);
+  tl.call(function() {
+    showDialogue({"id":"02","en":"Don't be a fool, I'm already full.","enHtml":"Don't be a <span class=\"hl-tense\">fool</span>, I'm already <span class=\"hl-lax\">full</span>.","kr":"바보같이 굴지 마, 나 이미 배불러.","pairBadge":"fool vs full","sylTip":"💡 fool [푸 · 울] (입술 모음) vs full [풀] (힘 빼기)","m":"m_dial_02_full_fool","f":"f_dial_02_full_fool"});
+  }, null, 6.27);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 6.27);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 9.30);
+  tl.call(function() {
+    showDialogue({"id":"03","en":"Look at Luke over there by the window.","enHtml":"<span class=\"hl-lax\">Look</span> at <span class=\"hl-tense\">Luke</span> over there by the window.","kr":"창가 쪽에 있는 루크 좀 봐봐.","pairBadge":"look vs Luke","sylTip":"💡 Look [룩] (툭 떨어짐) vs Luke [루 · 크] (입술 모음)","m":"m_dial_03_look_Luke","f":"f_dial_03_look_Luke"});
+  }, null, 13.49);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 13.49);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 16.68);
+  tl.call(function() {
+    showDialogue({"id":"04","en":"He stood there in the kitchen and stewed.","enHtml":"He <span class=\"hl-lax\">stood</span> there in the kitchen and <span class=\"hl-tense\">stewed</span>.","kr":"그는 부엌에 서서 스튜를 끓였다.","pairBadge":"stood vs stewed","sylTip":"💡 stood [스툳] (가볍게) vs stewed [스튜 · 드] (입술 모음)","m":"m_dial_04_stood_stewed","f":"f_dial_04_stood_stewed"});
+  }, null, 20.14);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 20.14);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 23.25);
+  tl.call(function() {
+    showDialogue({"id":"05","en":"Who'd wear a heavy hood today?","enHtml":"<span class=\"hl-tense\">Who'd</span> wear a heavy <span class=\"hl-lax\">hood</span> today?","kr":"누가 오늘같이 더운 날 무거운 후드를 입겠어?","pairBadge":"Who'd vs hood","sylTip":"💡 Who'd [후 · 드] (단단하게) vs hood [흗] (가볍게)","m":"m_dial_05_whod_hood","f":"f_dial_05_whod_hood"});
+  }, null, 27.02);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 27.02);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 29.60);
+  tl.call(function() {
+    showDialogue({"id":"06","en":"He took off his boots and shook his head.","enHtml":"He <span class=\"hl-lax\">took</span> off his <span class=\"hl-tense\">boots</span> and <span class=\"hl-lax\">shook</span> his head.","kr":"그는 부츠를 벗고 고개를 절레절레 흔들었다.","pairBadge":"took / boots / shook","sylTip":"💡 took [툮] · shook [슠] (단모음) vs boots [부 · 트] (장모음)","m":"m_dial_06_boots_shook","f":"f_dial_06_boots_shook"});
+  }, null, 32.59);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 32.59);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 35.27);
+  tl.call(function() {
+    showDialogue({"id":"07","en":"Good food always puts me in a good mood.","enHtml":"<span class=\"hl-lax\">Good</span> <span class=\"hl-tense\">food</span> always puts me in a <span class=\"hl-lax\">good</span> <span class=\"hl-tense\">mood</span>.","kr":"좋은 음식은 언제나 기분을 좋게 만들어 줘.","pairBadge":"food vs mood vs good","sylTip":"💡 Good [굳] (이완) vs food [푸 · 드] · mood [무 · 드] (긴장)","m":"m_dial_07_food_mood","f":"f_dial_07_food_mood"});
+  }, null, 38.63);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 38.63);
+  tl.fromTo(".hl-tense, .hl-lax", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 41.56);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-dialogue"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

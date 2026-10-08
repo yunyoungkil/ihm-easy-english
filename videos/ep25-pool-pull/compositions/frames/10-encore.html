@@ -1,0 +1,221 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; z-index: 10;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .encore-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2cqh;
+  }
+  .card-label {
+    font-size: 1.25cqw; font-weight: 900; padding: 0.6cqh 1.8cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .label-tense { background: #D1FAE5; color: #065F46; }
+  .label-lax { background: #FEF3C7; color: #92400E; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.0;
+    color: #111111; letter-spacing: -0.02em;
+  }
+  .ipa-text {
+    font-size: 2.2cqw; font-weight: 900; color: #4B5563;
+  }
+  .end-screen-overlay {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    background: rgba(244, 239, 230, 0.98); z-index: 40;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+  }
+  .end-header {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; color: #111111; margin-bottom: 4cqh;
+  }
+  .end-boxes {
+    display: flex; gap: 4cqw; align-items: center; justify-content: center;
+  }
+  .guide-box {
+    width: 25cqw; height: 14cqw; border: 3.5px dashed #111111; border-radius: 20px;
+    background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 900; color: #4B5563; gap: 1cqh;
+  }
+  .sub-circle {
+    width: 14cqw; height: 14cqw; border: 3.5px dashed #EF4444; border-radius: 50%;
+    background: #FFFFFF; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 900; color: #EF4444;
+  }
+</style>
+<div id="root" data-composition-id="10-encore" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span>🔁 20쌍 무한 앵콜 총복습</span>
+  </div>
+
+  <div id="encoreStage" class="stage">
+    <div class="encore-card">
+      <div class="card-label label-tense">[uː] TENSE</div>
+      <div id="encW1" class="word-text">pool</div>
+      <div id="encIpa1" class="ipa-text">[puːl] · [푸 · 울] 수영장</div>
+    </div>
+    <div class="encore-card">
+      <div class="card-label label-lax">[ʊ] LAX</div>
+      <div id="encW2" class="word-text">pull</div>
+      <div id="encIpa2" class="ipa-text">[pʊl] · [풀] 당기다</div>
+    </div>
+  </div>
+
+  <div id="endOverlay" class="end-screen-overlay" data-layout-allow-overlap>
+    <div class="end-header">오늘도 20쌍 완주를 축하합니다! 👏</div>
+    <div class="end-boxes">
+      <div class="guide-box">
+        <span>🎬 추천 영상</span>
+        <span style="font-size: 1cqw;">(EP24 Sheep vs Ship)</span>
+      </div>
+      <div class="sub-circle">
+        <span>구독하기</span>
+      </div>
+      <div class="guide-box">
+        <span>📋 재생목록</span>
+        <span style="font-size: 1cqw;">([이해하면 쉬운영어] 정주행)</span>
+      </div>
+    </div>
+  </div>
+
+  <audio id="enc_w01" src="assets/voice/m_w01_pool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="1.11"></audio>
+  <audio id="enc_w02" src="assets/voice/f_w02_pull.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="2.01" data-duration="0.67"></audio>
+  <audio id="enc_w03" src="assets/voice/m_w03_fool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.28" data-duration="0.98"></audio>
+  <audio id="enc_w04" src="assets/voice/f_w04_full.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.66" data-duration="0.67"></audio>
+  <audio id="enc_w05" src="assets/voice/m_w05_Luke.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.93" data-duration="0.74"></audio>
+  <audio id="enc_w06" src="assets/voice/f_w06_look.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.07" data-duration="0.63"></audio>
+  <audio id="enc_w07" src="assets/voice/m_w07_suit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.30" data-duration="0.77"></audio>
+  <audio id="enc_w08" src="assets/voice/f_w08_soot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.47" data-duration="0.70"></audio>
+  <audio id="enc_w09" src="assets/voice/m_w09_kook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.77" data-duration="0.70"></audio>
+  <audio id="enc_w10" src="assets/voice/f_w10_cook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.87" data-duration="0.60"></audio>
+  <audio id="enc_w11" src="assets/voice/m_w11_cooed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.07" data-duration="0.90"></audio>
+  <audio id="enc_w12" src="assets/voice/f_w12_could.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.37" data-duration="0.67"></audio>
+  <audio id="enc_w13" src="assets/voice/m_w13_shooed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.64" data-duration="1.02"></audio>
+  <audio id="enc_w14" src="assets/voice/f_w14_should.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.06" data-duration="0.71"></audio>
+  <audio id="enc_w15" src="assets/voice/m_w15_wooed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.37" data-duration="0.94"></audio>
+  <audio id="enc_w16" src="assets/voice/f_w16_wood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.71" data-duration="0.68"></audio>
+  <audio id="enc_w17" src="assets/voice/m_w17_stewed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.99" data-duration="1.02"></audio>
+  <audio id="enc_w18" src="assets/voice/f_w18_stood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.41" data-duration="0.80"></audio>
+  <audio id="enc_w19" src="assets/voice/m_w19_whod.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.81" data-duration="0.86"></audio>
+  <audio id="enc_w20" src="assets/voice/f_w20_hood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.07" data-duration="0.65"></audio>
+  <audio id="enc_w21" src="assets/voice/m_w21_shoot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.32" data-duration="0.76"></audio>
+  <audio id="enc_w22" src="assets/voice/f_w22_shook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.48" data-duration="0.70"></audio>
+  <audio id="enc_w23" src="assets/voice/m_w23_toot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.78" data-duration="0.63"></audio>
+  <audio id="enc_w24" src="assets/voice/f_w24_took.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.81" data-duration="0.64"></audio>
+  <audio id="enc_w25" src="assets/voice/m_w25_booed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.05" data-duration="0.96"></audio>
+  <audio id="enc_w26" src="assets/voice/f_w26_bull.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.41" data-duration="0.75"></audio>
+  <audio id="enc_w27" src="assets/voice/m_w27_rood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.76" data-duration="1.00"></audio>
+  <audio id="enc_w28" src="assets/voice/f_w28_rook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.16" data-duration="0.69"></audio>
+  <audio id="enc_w29" src="assets/voice/m_w29_coop.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.45" data-duration="0.67"></audio>
+  <audio id="enc_w30" src="assets/voice/f_w30_crook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.52" data-duration="0.66"></audio>
+  <audio id="enc_w31" src="assets/voice/m_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.78" data-duration="0.93"></audio>
+  <audio id="enc_w32" src="assets/voice/f_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.11" data-duration="0.64"></audio>
+  <audio id="enc_w33" src="assets/voice/m_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.35" data-duration="0.80"></audio>
+  <audio id="enc_w34" src="assets/voice/f_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.55" data-duration="0.63"></audio>
+  <audio id="enc_w35" src="assets/voice/m_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.78" data-duration="0.96"></audio>
+  <audio id="enc_w36" src="assets/voice/f_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.14" data-duration="0.70"></audio>
+  <audio id="enc_w37" src="assets/voice/m_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.44" data-duration="0.89"></audio>
+  <audio id="enc_w38" src="assets/voice/f_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.73" data-duration="0.76"></audio>
+  <audio id="enc_w39" src="assets/voice/m_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.09" data-duration="0.98"></audio>
+  <audio id="enc_w40" src="assets/voice/f_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.47" data-duration="0.69"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var encW1 = document.getElementById("encW1");
+    var encIpa1 = document.getElementById("encIpa1");
+    var encW2 = document.getElementById("encW2");
+    var encIpa2 = document.getElementById("encIpa2");
+
+    function setEncorePair(p) {
+      encW1.textContent = p.w1.word;
+      encIpa1.textContent = p.w1.ipa + " · [" + p.w1.syl + "] " + p.w1.kr;
+      encW2.textContent = p.w2.word;
+      encIpa2.textContent = p.w2.ipa + " · [" + p.w2.syl + "] " + p.w2.kr;
+    }
+
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w01","word":"pool","ipa":"[puːl]","syl":"푸 · 울","kr":"수영장","tip":"촛불 불듯 입술을 둥글게 모으기!","m":"m_w01_pool","f":"f_w01_pool"},"w2":{"id":"w02","word":"pull","ipa":"[pʊl]","syl":"풀","kr":"당기다","tip":"멍때리듯 입술에 힘 툭 빼고 가볍게!","m":"m_w02_pull","f":"f_w02_pull"}});
+  }, null, 0.50);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w03","word":"fool","ipa":"[fuːl]","syl":"푸 · 울","kr":"바보","tip":"입술을 팽팽하게 모아 '푸-울'","m":"m_w03_fool","f":"f_w03_fool"},"w2":{"id":"w04","word":"full","ipa":"[fʊl]","syl":"풀","kr":"가득 찬/배부른","tip":"턱에 힘 풀고 가볍게 '풀'","m":"m_w04_full","f":"f_w04_full"}});
+  }, null, 3.28);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w05","word":"Luke","ipa":"[luːk]","syl":"루 · 크","kr":"루크(이름)","tip":"입술을 둥글게 앞으로 '루-크'","m":"m_w05_Luke","f":"f_w05_Luke"},"w2":{"id":"w06","word":"look","ipa":"[lʊk]","syl":"룩","kr":"보다","tip":"힘 빼고 편안하게 툭 '룩'","m":"m_w06_look","f":"f_w06_look"}});
+  }, null, 5.93);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w07","word":"suit","ipa":"[suːt]","syl":"수 · 트","kr":"정장/어울리다","tip":"입술을 모으며 팽팽하게 '수-트'","m":"m_w07_suit","f":"f_w07_suit"},"w2":{"id":"w08","word":"soot","ipa":"[sʊt]","syl":"숫","kr":"그을음","tip":"턱에 힘 풀고 가볍게 '숫'","m":"m_w08_soot","f":"f_w08_soot"}});
+  }, null, 8.30);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w09","word":"kook","ipa":"[kuːk]","syl":"쿠 · 크","kr":"괴짜","tip":"입술을 좁게 모아 '쿠-크'","m":"m_w09_kook","f":"f_w09_kook"},"w2":{"id":"w10","word":"cook","ipa":"[kʊk]","syl":"쿡","kr":"요리사/요리하다","tip":"힘 빼고 툭 떨어뜨리며 '쿡'","m":"m_w10_cook","f":"f_w10_cook"}});
+  }, null, 10.77);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w11","word":"cooed","ipa":"[kuːd]","syl":"쿠 · 드","kr":"속삭였다","tip":"입술 모아 부드럽게 '쿠-드'","m":"m_w11_cooed","f":"f_w11_cooed"},"w2":{"id":"w12","word":"could","ipa":"[kʊd]","syl":"쿧","kr":"할 수 있었다","tip":"힘 빼고 편안하게 '쿧'","m":"m_w12_could","f":"f_w12_could"}});
+  }, null, 13.07);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w13","word":"shooed","ipa":"[ʃuːd]","syl":"슈 · 드","kr":"쫓아냈다","tip":"입술을 앞으로 쭉 '슈-드'","m":"m_w13_shooed","f":"f_w13_shooed"},"w2":{"id":"w14","word":"should","ipa":"[ʃʊd]","syl":"슏","kr":"해야 한다","tip":"턱 힘 빼고 가볍게 '슏'","m":"m_w14_should","f":"f_w14_should"}});
+  }, null, 15.64);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w15","word":"wooed","ipa":"[wuːd]","syl":"우 · 드","kr":"마음을 얻었다","tip":"입술 둥글게 모아 '우-드'","m":"m_w15_wooed","f":"f_w15_wooed"},"w2":{"id":"w16","word":"wood","ipa":"[wʊd]","syl":"욷","kr":"나무","tip":"입술 힘 풀고 툭 '욷'","m":"m_w16_wood","f":"f_w16_wood"}});
+  }, null, 18.37);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w17","word":"stewed","ipa":"[stuːd]","syl":"스튜 · 드","kr":"스튜를 끓였다","tip":"입술 모아 단단하게 '스튜-드'","m":"m_w17_stewed","f":"f_w17_stewed"},"w2":{"id":"w18","word":"stood","ipa":"[stʊd]","syl":"스툳","kr":"일어섰다","tip":"힘 빼고 툭 '스툳'","m":"m_w18_stood","f":"f_w18_stood"}});
+  }, null, 20.99);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w19","word":"who'd","ipa":"[huːd]","syl":"후 · 드","kr":"누가 하겠어","tip":"입술 모아 숨 뱉으며 '후-드'","m":"m_w19_whod","f":"f_w19_whod"},"w2":{"id":"w20","word":"hood","ipa":"[hʊd]","syl":"흗","kr":"모자/후드","tip":"입에 힘 빼고 가볍게 '흗'","m":"m_w20_hood","f":"f_w20_hood"}});
+  }, null, 23.81);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w21","word":"shoot","ipa":"[ʃuːt]","syl":"슈 · 트","kr":"쏘다/슛","tip":"입술을 앞으로 모아 '슈-트'","m":"m_w21_shoot","f":"f_w21_shoot"},"w2":{"id":"w22","word":"shook","ipa":"[ʃʊk]","syl":"슠","kr":"흔들었다","tip":"턱 힘 빼고 짧게 툭 '슠'","m":"m_w22_shook","f":"f_w22_shook"}});
+  }, null, 26.32);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w23","word":"toot","ipa":"[tuːt]","syl":"투 · 트","kr":"경적을 울리다","tip":"입술 좁게 모아 '투-트'","m":"m_w23_toot","f":"f_w23_toot"},"w2":{"id":"w24","word":"took","ipa":"[tʊk]","syl":"툮","kr":"가져갔다/걸렸다","tip":"힘 빼고 가볍게 '툮'","m":"m_w24_took","f":"f_w24_took"}});
+  }, null, 28.78);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w25","word":"booed","ipa":"[buːd]","syl":"부 · 드","kr":"야유했다","tip":"입술 모아 둥글게 '부-드'","m":"m_w25_booed","f":"f_w25_booed"},"w2":{"id":"w26","word":"bull","ipa":"[bʊl]","syl":"불","kr":"황소","tip":"입술 힘 풀고 '불'","m":"m_w26_bull","f":"f_w26_bull"}});
+  }, null, 31.05);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w27","word":"rood","ipa":"[ruːd]","syl":"루 · 드","kr":"십자가","tip":"혀 말며 입술 모아 '루-드'","m":"m_w27_rood","f":"f_w27_rood"},"w2":{"id":"w28","word":"rook","ipa":"[rʊk]","syl":"룩","kr":"체스 말","tip":"힘 빼고 툭 '룩'","m":"m_w28_rook","f":"f_w28_rook"}});
+  }, null, 33.76);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w29","word":"coop","ipa":"[kuːp]","syl":"쿠 · 프","kr":"가두다/닭장","tip":"입술 모아 앞으로 '쿠-프'","m":"m_w29_coop","f":"f_w29_coop"},"w2":{"id":"w30","word":"crook","ipa":"[krʊk]","syl":"크룩","kr":"사기꾼/구부러진 것","tip":"힘 빼고 가볍게 '크룩'","m":"m_w30_crook","f":"f_w30_crook"}});
+  }, null, 36.45);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w31","word":"food","ipa":"[fuːd]","syl":"푸 · 드","kr":"음식","tip":"입술을 앞으로 모아 '푸-드'","m":"m_w31_food","f":"f_w31_food"},"w2":{"id":"w32","word":"foot","ipa":"[fʊt]","syl":"풋","kr":"발","tip":"턱 힘 빼고 가볍게 툭 '풋'","m":"m_w32_foot","f":"f_w32_foot"}});
+  }, null, 38.78);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w33","word":"boot","ipa":"[buːt]","syl":"부 · 트","kr":"부츠","tip":"입술 모아 단단하게 '부-트'","m":"m_w33_boot","f":"f_w33_boot"},"w2":{"id":"w34","word":"book","ipa":"[bʊk]","syl":"북","kr":"책","tip":"힘 풀고 편안하게 '북'","m":"m_w34_book","f":"f_w34_book"}});
+  }, null, 41.35);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w35","word":"goose","ipa":"[guːs]","syl":"구 · 스","kr":"거위","tip":"목구멍 열고 모으며 '구-스'","m":"m_w35_goose","f":"f_w35_goose"},"w2":{"id":"w36","word":"good","ipa":"[gʊd]","syl":"굳","kr":"좋은","tip":"힘 빼고 가볍게 '굳'","m":"m_w36_good","f":"f_w36_good"}});
+  }, null, 43.78);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w37","word":"cool","ipa":"[kuːl]","syl":"쿠 · 얼","kr":"시원한/멋진","tip":"입술 둥글게 '쿠-얼'","m":"m_w37_cool","f":"f_w37_cool"},"w2":{"id":"w38","word":"wool","ipa":"[wʊl]","syl":"울","kr":"양모/울","tip":"힘 빼고 편안하게 '울'","m":"m_w38_wool","f":"f_w38_wool"}});
+  }, null, 46.44);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w39","word":"room","ipa":"[ruːm]","syl":"루 · 음","kr":"방/공간","tip":"입술 모아 깊게 '루-음'","m":"m_w39_room","f":"f_w39_room"},"w2":{"id":"w40","word":"rook","ipa":"[rʊk]","syl":"룩","kr":"체스 룩/성채","tip":"턱 힘 빼고 툭 '룩'","m":"m_w40_rook2","f":"f_w40_rook2"}});
+  }, null, 49.09);
+  tl.to("#encoreStage", { opacity: 0, duration: 0.4 }, 51.76);
+  tl.to("#endOverlay", { opacity: 1, duration: 0.5 }, 51.76);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-encore"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

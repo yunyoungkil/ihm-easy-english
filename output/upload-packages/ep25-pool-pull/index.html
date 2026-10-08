@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP25 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0F17;
+      --card-bg: rgba(22, 27, 41, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #F59E0B;
+      --accent-glow: rgba(245, 158, 11, 0.35);
+      --primary: #3B82F6;
+      --success: #10B981;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
+    }
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .meta-pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+    }
+    .meta-pill strong {
+      color: var(--text);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFF;
+    }
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .copy-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    .copy-btn.copied {
+      background: var(--success) !important;
+      border-color: var(--success) !important;
+      color: #FFF !important;
+    }
+    .preview-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 14px;
+      color: #D1D5DB;
+      white-space: pre-wrap;
+      max-height: 260px;
+      overflow-y: auto;
+      font-family: inherit;
+    }
+    .preview-box::-webkit-scrollbar {
+      width: 6px;
+    }
+    .preview-box::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+    .thumbs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .thumb-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s;
+    }
+    .thumb-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .thumb-card.highlight {
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .thumb-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+    .thumb-info {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .thumb-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .thumb-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FFF;
+    }
+    .thumb-tag {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .tag-main {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    .tag-close {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--primary);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+    }
+    .tag-alt {
+      background: rgba(255, 255, 255, 0.1);
+      color: #9CA3AF;
+    }
+    .thumb-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .download-btn {
+      margin-top: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #FFF;
+      padding: 6px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .download-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .seo-banner {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 16px 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .seo-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .seo-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .seo-code {
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFF;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <div class="badge">EP25 듣기 드릴 롱폼 · 제작 완료</div>
+        <h1>Pool vs Pull (장단모음 [uː] vs [ʊ]) 업로드 패키지</h1>
+      </div>
+      <div class="meta-pills">
+        <div class="meta-pill">러닝타임: <strong>13분 00초 (780.25s)</strong></div>
+        <div class="meta-pill">프레임 수: <strong>23,408 Frames</strong></div>
+        <div class="meta-pill">포맷: <strong>1080p 30fps Full HD</strong></div>
+        <div class="meta-pill">오디오: <strong>94개 실측 음성</strong></div>
+      </div>
+    </header>
+
+    <!-- SEO File Banner -->
+    <div class="seo-banner">
+      <div class="seo-info">
+        <div class="seo-label">🎯 유튜브 알고리즘 검색 최적화(SEO) 원본 파일명</div>
+        <div class="seo-code">English_Pronunciation_Pool_vs_Pull_Minimal_Pairs_Listening_Drill.mp4</div>
+      </div>
+      <button class="copy-btn" onclick="copyText('English_Pronunciation_Pool_vs_Pull_Minimal_Pairs_Listening_Drill.mp4', this)">
+        파일명 복사
+      </button>
+    </div>
+
+    <!-- Thumbnails Grid -->
+    <section class="card">
+      <div class="card-title">
+        <span>🖼️ 썸네일 시안 4종 (A/B/C + 모바일 전용 클로즈업)</span>
+        <span style="font-size: 13px; font-weight: normal; color: var(--text-muted);">
+          권장: 모바일 피드 1위 <strong>Variant A Close-Up</strong>
+        </span>
+      </div>
+      <div class="thumbs-grid">
+        <!-- Close-up (1위) -->
+        <div class="thumb-card highlight">
+          <img class="thumb-img" src="thumbnail-close-up.jpg" alt="Variant A Close-Up">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">Variant A Close-Up</span>
+              <span class="thumb-tag tag-close">모바일 1위 추천</span>
+            </div>
+            <p class="thumb-desc">모바일 피드 100px 축소 시에도 인물 표정과 POOL vs PULL 글자가 0.1초 만에 각인되는 극강의 클로즈업</p>
+            <a href="thumbnail-close-up.jpg" download="thumbnail-close-up.jpg" class="download-btn">이미지 다운로드</a>
+          </div>
+        </div>
+
+        <!-- Variant A (메인 와이드) -->
+        <div class="thumb-card">
+          <img class="thumb-img" src="thumbnail.jpg" alt="Variant A Main">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">Variant A (Main)</span>
+              <span class="thumb-tag tag-main">메인 바스트샷</span>
+            </div>
+            <p class="thumb-desc">호기심 유발 검지 손가락 제스처 + 웜크림 네오브루탈리즘 골드 캡슐 "입술 모으면 끝"</p>
+            <a href="thumbnail.jpg" download="thumbnail.jpg" class="download-btn">이미지 다운로드</a>
+          </div>
+        </div>
+
+        <!-- Variant B (실수 경고형) -->
+        <div class="thumb-card">
+          <img class="thumb-img" src="thumbnail-b.jpg" alt="Variant B">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">Variant B</span>
+              <span class="thumb-tag tag-alt">실수 경고형</span>
+            </div>
+            <p class="thumb-desc">손바닥 경고 제스처 + "바보 소리 듣습니다" 손실 회피 도파민 훅 카피</p>
+            <a href="thumbnail-b.jpg" download="thumbnail-b.jpg" class="download-btn">이미지 다운로드</a>
+          </div>
+        </div>
+
+        <!-- Variant C (원리 성취형) -->
+        <div class="thumb-card">
+          <img class="thumb-img" src="thumbnail-c.jpg" alt="Variant C">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">Variant C</span>
+              <span class="thumb-tag tag-alt">원리/성취형</span>
+            </div>
+            <p class="thumb-desc">턱 제스처 + "턱에 힘 빼면 끝" 직관적 음성학 조음 원리 강조</p>
+            <a href="thumbnail-c.jpg" download="thumbnail-c.jpg" class="download-btn">이미지 다운로드</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Metadata Grid -->
+    <div class="grid">
+      <!-- Left Column -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Title Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>🏷️ 메인 채택 유튜브 제목</span>
+            <button class="copy-btn" onclick="copyId('title-content', this)">복사</button>
+          </div>
+          <div id="title-content" class="preview-box" style="font-weight: 700; color: #FFF; font-size: 15px;">[30분 듣기] Pool과 Pull, 둘 다 똑같이 '풀'로 발음하셨나요? 20단어 귀 뚫림 | 영어 모음 발음</div>
+        </section>
+
+        <!-- Description Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>📝 영상 설명란 (Description + 타임라인 포함)</span>
+            <button class="copy-btn" onclick="copyId('desc-content', this)">복사</button>
+          </div>
+          <div id="desc-content" class="preview-box">수영장 Pool과 당기다 Pull, 아직도 둘 다 똑같이 '풀'로 발음하고 계신가요?
+Fool과 Full을 구분 못 해서 민망했던 적 있으신가요?
+
+한국인이 가장 많이 틀리는 모음 쌍, 장모음 [uː]와 단모음 [ʊ]!
+단순히 "길게 끈다/짧게 끊는다"의 차이가 아닙니다. 
+입술을 촛불 끄듯 둥글게 모으느냐(Tense), 멍때리듯 턱에 힘을 툭 빼느냐(Lax)의 근육 긴장도 차이입니다.
+
+원어민 남녀 음성으로 20쌍의 핵심 단어를 6회 집중 반복하고,
+실전 대화와 무작위 셔플 퀴즈까지 한 편으로 완벽하게 마스터하세요!
+
+📌 타임라인 (챕터 바로가기)
+00:00 Pool과 Pull, 둘 다 똑같이 '풀'? (도입부)
+00:49 [uː] vs [ʊ] 입술 모양 1초 차이 조음 원리
+01:35 Group 1: 핵심 명사 & 동사 5쌍 (pool vs pull, fool vs full...)
+03:00 Group 2: 조동사 & 과거형 5쌍 (cooed vs could, shooed vs should...)
+04:30 Group 3: 불규칙 과거 & 동작 5쌍 (shoot vs shook, toot vs took...)
+05:53 Group 4: 일상 최다 혼동 실생활 5쌍 (food vs foot, boot vs book...)
+07:20 실전 대화 속 짝단어 구분 7문장
+08:06 40단어 무작위 덱 셔플 귀 훈련 (실전 퀴즈)
+11:28 1장 요약 치트시트 (스마트폰 캡처용)
+11:58 20쌍 무한 앵콜 총복습 & 다음 영상 추천
+
+💡 학습 꿀팁:
+1. 이어폰을 착용하고 소리의 미세한 입술 긴장도 차이에 집중해 보세요.
+2. 1장 요약 치트시트(11:28) 화면을 캡처해서 스마트폰 배경화면으로 두고 틈틈이 복습하세요.
+
+#영어발음 #영어듣기 #영어리스닝 #영어회화 #모음발음 #이해하면쉬운영어</div>
+        </section>
+
+        <!-- Pinned Comment Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>📌 고정 댓글 (시청자 인게이지먼트 유도)</span>
+            <button class="copy-btn" onclick="copyId('pinned-content', this)">복사</button>
+          </div>
+          <div id="pinned-content" class="preview-box">🏊‍♂️ 여러분은 Pool과 Pull 중에 어떤 단어가 더 헷갈리셨나요?
+댓글로 헷갈렸던 단어나 오늘 새롭게 귀가 뚫린 단어를 남겨주세요!
+
+📱 11분 28초의 [1장 요약 치트시트]를 캡처해서 스마트폰 앨범에 넣어두고 틈틈이 소리 내어 연습해 보세요. 
+영상이 도움 되셨다면 '구독'과 '좋아요'로 응원 부탁드립니다! 👍</div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Tags Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>🏷️ 검색 키워드 태그 (Tags)</span>
+            <button class="copy-btn" onclick="copyId('tags-content', this)">복사</button>
+          </div>
+          <div id="tags-content" class="preview-box" style="line-height: 1.8;">영어발음, 영어듣기, 영어리스닝, 모음발음, 장모음단모음, pool pull, fool full, look luke, 영어 발음 꿀팁, 영어 쉐도잉, 영어 리스닝 훈련, 기초영어회화, 원어민 발음, 영어소리, 영어공부혼자하기, 이해하면 쉬운영어</div>
+        </section>
+
+        <!-- Title Variants Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>💡 A/B 테스트 대조군 제목 모음</span>
+            <button class="copy-btn" onclick="copyId('variants-content', this)">복사</button>
+          </div>
+          <div id="variants-content" class="preview-box">[메인 채택 A안]
+[30분 듣기] Pool과 Pull, 둘 다 똑같이 '풀'로 발음하셨나요? 20단어 귀 뚫림 | 영어 모음 발음
+
+[대조군 B안 - 실수 경고형]
+[실수 주의] Fool과 Full, 잘못 발음하면 외국인이 바보로 듣습니다 | 모음 20쌍 완벽 구분
+
+[대조군 C안 - 원리/성취형]
+[30분 완성] 모음 [uː]와 [ʊ], 턱에 힘 빼면 1초 만에 구분됩니다 | 영어 모음 발음 듣기 드릴
+
+[대조군 D안 - 직관 요약형]
+Pool vs Pull 아직도 헷갈리시나요? 입술 모양 딱 하나로 끝내는 20단어 귀 뚫림 드릴</div>
+        </section>
+
+        <!-- Checklist Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>📋 업로드 필수 점검 체크리스트</span>
+            <button class="copy-btn" onclick="copyId('check-content', this)">복사</button>
+          </div>
+          <div id="check-content" class="preview-box">[EP25 Pool vs Pull 업로드 체크리스트]
+
+1. 동영상 파일:
+   - 파일명: English_Pronunciation_Pool_vs_Pull_Minimal_Pairs_Listening_Drill.mp4
+   - 경로: output/upload-packages/ep25-pool-pull/
+
+2. 썸네일 파일 (권장: 모바일 피드 1위 클로즈업):
+   - 1순위 (모바일 최적화): thumbnail-close-up.jpg
+   - 메인 와이드: thumbnail.jpg
+   - 대조군 B안: thumbnail-b.jpg
+   - 대조군 C안: thumbnail-c.jpg
+
+3. 기본 정보 입력:
+   - 제목: title.txt 복사 붙여넣기
+   - 설명: description.txt 복사 붙여넣기
+   - 태그: tags.txt 복사 붙여넣기
+
+4. 업로드 후 설정:
+   - 고정 댓글: pinned-comment.txt 복사 후 댓글 작성 및 고정
+   - 최종 화면: 비디오 끝 20초 구간에 추천 동영상 및 구독 버튼 배치
+   - 재생목록: '영어 발음 원리 & 리스닝 드릴' 재생목록에 추가
+
+5. 권장 업로드 및 예약 시간:
+   - 평일 저녁 퇴근 시간대 (19:00 ~ 21:00 KST) 또는 주말 오전 (09:00 ~ 11:00 KST)</div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerText;
+        btn.innerText = '복사 완료!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerText = original;
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    }
+
+    function copyId(elementId, btn) {
+      const text = document.getElementById(elementId).innerText;
+      copyText(text, btn);
+    }
+  </script>
+</body>
+</html>

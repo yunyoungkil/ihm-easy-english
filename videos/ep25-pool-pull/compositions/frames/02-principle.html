@@ -1,0 +1,160 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #10B981; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 88cqw; display: flex; gap: 3.5cqw; align-items: center; justify-content: center; z-index: 5;
+  }
+  .visual-box {
+    flex: 1.1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 2cqh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .visual-img {
+    width: 100%; height: auto; max-height: 52cqh; object-fit: contain; border-radius: 18px;
+    border: 2px solid #111111;
+  }
+  .desc-box {
+    flex: 1; display: flex; flex-direction: column; gap: 2cqh;
+  }
+  .rule-card {
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 20px; padding: 2.4cqh 2.2cqw; display: flex; flex-direction: column; gap: 0.8cqh;
+  }
+  .rule-card.active-tense { border-color: #059669; background: #F0FDF4; }
+  .rule-card.active-lax { border-color: #D97706; background: #FFFBEB; }
+  .rule-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .rule-title {
+    font-size: 1.8cqw; font-weight: 900; color: #111111;
+  }
+  .rule-badge {
+    font-size: 1.1cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .rule-desc {
+    font-size: 1.25cqw; font-weight: 700; color: #4B5563; line-height: 1.45;
+  }
+  .syl-example {
+    margin-top: 0.5cqh; font-size: 1.2cqw; font-weight: 900; color: #111111;
+    background: #FFFFFF; padding: 0.4cqh 1cqw; border-radius: 8px; border: 1.5px solid #111111;
+    display: inline-block;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">핵심 원리</span>
+    <span>길이가 아니라 '입술 모양과 근육 긴장도'가 결정합니다</span>
+  </div>
+
+  <div class="stage">
+    <div class="visual-box" id="visualBox">
+      <img src="assets/images/f02_vocal_tract_comparison.jpg" alt="구강 조음 단면도 비교" class="visual-img">
+    </div>
+
+    <div class="desc-box">
+      <!-- Rule 1: Tense [u:] -->
+      <div class="rule-card" id="cardTense">
+        <div class="rule-header">
+          <span class="rule-title" style="color:#059669;">① [uː] 촛불 불듯 입술 모으기</span>
+          <span class="rule-badge" style="background:#D1FAE5; color:#065F46;">TENSE 긴장모음</span>
+        </div>
+        <div class="rule-desc">
+          입술을 좁고 둥글게 앞으로 모아 2박자 호흡으로 울리는 소리.<br>
+          <span class="syl-example">예: pool [puːl] ➔ <b>[푸 · 울]</b> · fool [fuːl] ➔ <b>[푸 · 울]</b></span>
+        </div>
+      </div>
+
+      <!-- Rule 2: Lax [I] -->
+      <div class="rule-card" id="cardLax">
+        <div class="rule-header">
+          <span class="rule-title" style="color:#D97706;">② [ʊ] 멍때리듯 힘 빼기</span>
+          <span class="rule-badge" style="background:#FEF3C7; color:#92400E;">LAX 이완모음</span>
+        </div>
+        <div class="rule-desc">
+          입술과 턱에 힘을 풀고 1박자로 가볍게 툭 떨어지는 소리.<br>
+          <span class="syl-example">예: pull [pʊl] ➔ <b>[풀]</b> · full [fʊl] ➔ <b>[풀]</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_host" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="45.16"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.from("#visualBox", { x: -30, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.from("#cardTense", { x: 30, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+    tl.from("#cardLax", { x: 30, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.6);
+
+    tl.call(function() {
+      document.getElementById("cardTense").classList.add("active-tense");
+    }, null, 2.5);
+
+    tl.call(function() {
+      document.getElementById("cardTense").classList.remove("active-tense");
+      document.getElementById("cardLax").classList.add("active-lax");
+    }, null, 10.5);
+
+  tl.call(function() { cap("화면의 구강 단면도를 한번 보세요."); }, null, 0.34);
+  tl.call(function() { cap("먼저 초록색 긴장모음 유 땡땡 소리는 촛불을 후"); }, null, 2.98);
+  tl.call(function() { cap("불듯이 입술을 좁고 둥글게 앞으로 쭉 모으면서 내는"); }, null, 7.00);
+  tl.call(function() { cap("소리입니다."); }, null, 11.36);
+  tl.call(function() { cap("입술 주변 근육이 팽팽하게 긴장되면서 단단한 소리가 납니다."); }, null, 12.39);
+  tl.call(function() { cap("푸울, 푸울."); }, null, 17.00);
+  tl.call(function() { cap("반면에 노란색 이완모음 말발굽 소리는 그냥 멍때리듯이 입술과"); }, null, 19.23);
+  tl.call(function() { cap("턱에 힘을 툭 빼고 내는 소리입니다."); }, null, 24.06);
+  tl.call(function() { cap("우리말 으와 어의 중간처럼 턱을 편안하게 떨어뜨리면서 소리를"); }, null, 26.88);
+  tl.call(function() { cap("뱉습니다."); }, null, 31.46);
+  tl.call(function() { cap("풀, 풀."); }, null, 32.49);
+  tl.call(function() { cap("소리를 억지로 늘이지 마시고, 입술을 모으느냐 힘을 빼느냐만"); }, null, 34.35);
+  tl.call(function() { cap("기억하시면 됩니다."); }, null, 38.70);
+  tl.call(function() { cap("이제 1번 그룹부터 남녀 원어민 소리로 세 번씩"); }, null, 40.15);
+  tl.call(function() { cap("집중해서 들어보겠습니다."); }, null, 43.53);
+
+    tl.call(function() { cap(""); }, null, 45.16);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

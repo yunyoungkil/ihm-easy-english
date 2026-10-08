@@ -1,0 +1,473 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #F59E0B; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .drill-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+    position: relative;
+  }
+  .drill-card.active {
+    box-shadow: 10px 10px 0px #111111;
+  }
+  .drill-card.active-left { border-color: #059669; }
+  .drill-card.active-right { border-color: #D97706; }
+  .card-label {
+    font-size: 1.25cqw; font-weight: 900; padding: 0.6cqh 1.8cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .label-tense { background: #D1FAE5; color: #065F46; }
+  .label-lax { background: #FEF3C7; color: #92400E; }
+  .word-en {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.0;
+    color: #111111; letter-spacing: -0.02em; margin-top: 0.5cqh;
+  }
+  .ipa-box {
+    display: flex; align-items: center; gap: 0.8cqw; margin-top: 0.3cqh;
+  }
+  .ipa-text {
+    font-size: 2cqw; font-weight: 900; color: #4B5563;
+  }
+  .syl-pill {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.7cqw; font-weight: 900;
+    padding: 0.4cqh 1.3cqw; border-radius: 12px; border: 2px solid #111111;
+    box-shadow: 2px 2px 0px #111111;
+  }
+  .syl-pill.tense { background: #A7F3D0; color: #064E3B; }
+  .syl-pill.lax { background: #FEF08A; color: #78350F; }
+  .kr-pill {
+    background: #F3F4F6; border: 2px solid #111111; border-radius: 12px;
+    padding: 0.4cqh 1.3cqw; font-size: 1.4cqw; font-weight: 800; color: #111111;
+  }
+  .action-tip {
+    font-size: 1.25cqw; font-weight: 800; color: #374151; min-height: 2.5cqh;
+  }
+  .dots-row {
+    display: flex; gap: 0.8cqw; margin-top: 0.8cqh;
+  }
+  .dot {
+    width: 1.2cqw; height: 1.2cqw; border-radius: 50%;
+    background: #E5E7EB; border: 2px solid #111111;
+  }
+  .dot.active-tense { background: #10B981; }
+  .dot.active-lax { background: #F59E0B; }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 1;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="06-group4" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span>Group 4: 일상 최다 혼동 실생활 5쌍</span>
+    <span class="tip-badge">일상 최다 빈출 6회 집중 드릴</span>
+  </div>
+
+  <div class="stage">
+    <!-- Left Card: Tense [uː] -->
+    <div id="cardLeft" class="drill-card active-left">
+      <div class="card-label label-tense">[uː] 촛불 불듯 입술 모으기</div>
+      <div id="w1_word" class="word-en">pool</div>
+      <div class="ipa-box">
+        <span id="w1_ipa" class="ipa-text">[puːl]</span>
+        <span id="w1_syl" class="syl-pill tense">[푸 · 울]</span>
+        <span id="w1_kr" class="kr-pill">수영장</span>
+      </div>
+      <div id="w1_tip" class="action-tip">촛불 불듯 입술을 둥글게 모으기!</div>
+      <div class="dots-row">
+        <div id="dot_l_1" class="dot"></div>
+        <div id="dot_l_2" class="dot"></div>
+        <div id="dot_l_3" class="dot"></div>
+        <div id="dot_l_4" class="dot"></div>
+        <div id="dot_l_5" class="dot"></div>
+        <div id="dot_l_6" class="dot"></div>
+      </div>
+    </div>
+
+    <!-- Right Card: Lax [ʊ] -->
+    <div id="cardRight" class="drill-card">
+      <div class="card-label label-lax">[ʊ] 멍때리듯 턱 힘 빼기</div>
+      <div id="w2_word" class="word-en">pull</div>
+      <div class="ipa-box">
+        <span id="w2_ipa" class="ipa-text">[pʊl]</span>
+        <span id="w2_syl" class="syl-pill lax">[풀]</span>
+        <span id="w2_kr" class="kr-pill">당기다</span>
+      </div>
+      <div id="w2_tip" class="action-tip">멍때리듯 입술에 힘 툭 빼고 가볍게!</div>
+      <div class="dots-row">
+        <div id="dot_r_1" class="dot"></div>
+        <div id="dot_r_2" class="dot"></div>
+        <div id="dot_r_3" class="dot"></div>
+        <div id="dot_r_4" class="dot"></div>
+        <div id="dot_r_5" class="dot"></div>
+        <div id="dot_r_6" class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill">📢 [uː] 입술 모으기 vs [ʊ] 턱 힘 빼기 6회 반복 듣기</div>
+
+  <!-- Audio elements -->
+  <audio id="a_w31_0" src="assets/voice/m_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.93"></audio>
+  <audio id="a_w31_1" src="assets/voice/f_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.98" data-duration="0.93"></audio>
+  <audio id="a_w31_2" src="assets/voice/m_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.46" data-duration="0.93"></audio>
+  <audio id="a_w31_3" src="assets/voice/f_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.94" data-duration="0.93"></audio>
+  <audio id="a_w31_4" src="assets/voice/m_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="6.42" data-duration="0.93"></audio>
+  <audio id="a_w31_5" src="assets/voice/f_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.90" data-duration="0.93"></audio>
+  <audio id="a_w32_0" src="assets/voice/m_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.68" data-duration="0.62"></audio>
+  <audio id="a_w32_1" src="assets/voice/f_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.85" data-duration="0.64"></audio>
+  <audio id="a_w32_2" src="assets/voice/m_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.04" data-duration="0.62"></audio>
+  <audio id="a_w32_3" src="assets/voice/f_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.21" data-duration="0.64"></audio>
+  <audio id="a_w32_4" src="assets/voice/m_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.40" data-duration="0.62"></audio>
+  <audio id="a_w32_5" src="assets/voice/f_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.57" data-duration="0.64"></audio>
+  <audio id="a_w33_0" src="assets/voice/m_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.31" data-duration="0.80"></audio>
+  <audio id="a_w33_1" src="assets/voice/f_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.66" data-duration="0.81"></audio>
+  <audio id="a_w33_2" src="assets/voice/m_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.02" data-duration="0.80"></audio>
+  <audio id="a_w33_3" src="assets/voice/f_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.37" data-duration="0.81"></audio>
+  <audio id="a_w33_4" src="assets/voice/m_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.73" data-duration="0.80"></audio>
+  <audio id="a_w33_5" src="assets/voice/f_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.08" data-duration="0.81"></audio>
+  <audio id="a_w34_0" src="assets/voice/m_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.74" data-duration="0.74"></audio>
+  <audio id="a_w34_1" src="assets/voice/f_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.03" data-duration="0.63"></audio>
+  <audio id="a_w34_2" src="assets/voice/m_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.21" data-duration="0.74"></audio>
+  <audio id="a_w34_3" src="assets/voice/f_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.50" data-duration="0.63"></audio>
+  <audio id="a_w34_4" src="assets/voice/m_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.68" data-duration="0.74"></audio>
+  <audio id="a_w34_5" src="assets/voice/f_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.97" data-duration="0.63"></audio>
+  <audio id="a_w35_0" src="assets/voice/m_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.70" data-duration="0.96"></audio>
+  <audio id="a_w35_1" src="assets/voice/f_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.21" data-duration="0.90"></audio>
+  <audio id="a_w35_2" src="assets/voice/m_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.66" data-duration="0.96"></audio>
+  <audio id="a_w35_3" src="assets/voice/f_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.17" data-duration="0.90"></audio>
+  <audio id="a_w35_4" src="assets/voice/m_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.62" data-duration="0.96"></audio>
+  <audio id="a_w35_5" src="assets/voice/f_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.13" data-duration="0.90"></audio>
+  <audio id="a_w36_0" src="assets/voice/m_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.88" data-duration="0.89"></audio>
+  <audio id="a_w36_1" src="assets/voice/f_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.32" data-duration="0.70"></audio>
+  <audio id="a_w36_2" src="assets/voice/m_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.57" data-duration="0.89"></audio>
+  <audio id="a_w36_3" src="assets/voice/f_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.01" data-duration="0.70"></audio>
+  <audio id="a_w36_4" src="assets/voice/m_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.26" data-duration="0.89"></audio>
+  <audio id="a_w36_5" src="assets/voice/f_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.70" data-duration="0.70"></audio>
+  <audio id="a_w37_0" src="assets/voice/m_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.50" data-duration="0.89"></audio>
+  <audio id="a_w37_1" src="assets/voice/f_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="52.94" data-duration="0.84"></audio>
+  <audio id="a_w37_2" src="assets/voice/m_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="54.33" data-duration="0.89"></audio>
+  <audio id="a_w37_3" src="assets/voice/f_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.77" data-duration="0.84"></audio>
+  <audio id="a_w37_4" src="assets/voice/m_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="57.16" data-duration="0.89"></audio>
+  <audio id="a_w37_5" src="assets/voice/f_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="58.60" data-duration="0.84"></audio>
+  <audio id="a_w38_0" src="assets/voice/m_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="60.29" data-duration="0.92"></audio>
+  <audio id="a_w38_1" src="assets/voice/f_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="61.76" data-duration="0.76"></audio>
+  <audio id="a_w38_2" src="assets/voice/m_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="63.07" data-duration="0.92"></audio>
+  <audio id="a_w38_3" src="assets/voice/f_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="64.54" data-duration="0.76"></audio>
+  <audio id="a_w38_4" src="assets/voice/m_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="65.85" data-duration="0.92"></audio>
+  <audio id="a_w38_5" src="assets/voice/f_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="67.32" data-duration="0.76"></audio>
+  <audio id="a_w39_0" src="assets/voice/m_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="69.18" data-duration="0.98"></audio>
+  <audio id="a_w39_1" src="assets/voice/f_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="70.71" data-duration="0.89"></audio>
+  <audio id="a_w39_2" src="assets/voice/m_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="72.15" data-duration="0.98"></audio>
+  <audio id="a_w39_3" src="assets/voice/f_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="73.68" data-duration="0.89"></audio>
+  <audio id="a_w39_4" src="assets/voice/m_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="75.12" data-duration="0.98"></audio>
+  <audio id="a_w39_5" src="assets/voice/f_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="76.65" data-duration="0.89"></audio>
+  <audio id="a_w40_0" src="assets/voice/m_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="78.39" data-duration="0.70"></audio>
+  <audio id="a_w40_1" src="assets/voice/f_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="79.64" data-duration="0.69"></audio>
+  <audio id="a_w40_2" src="assets/voice/m_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="80.88" data-duration="0.70"></audio>
+  <audio id="a_w40_3" src="assets/voice/f_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="82.13" data-duration="0.69"></audio>
+  <audio id="a_w40_4" src="assets/voice/m_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="83.37" data-duration="0.70"></audio>
+  <audio id="a_w40_5" src="assets/voice/f_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="84.62" data-duration="0.69"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var cardLeft = document.getElementById("cardLeft");
+    var cardRight = document.getElementById("cardRight");
+    var w1_word = document.getElementById("w1_word");
+    var w1_ipa = document.getElementById("w1_ipa");
+    var w1_syl = document.getElementById("w1_syl");
+    var w1_kr = document.getElementById("w1_kr");
+    var w1_tip = document.getElementById("w1_tip");
+    var w2_word = document.getElementById("w2_word");
+    var w2_ipa = document.getElementById("w2_ipa");
+    var w2_syl = document.getElementById("w2_syl");
+    var w2_kr = document.getElementById("w2_kr");
+    var w2_tip = document.getElementById("w2_tip");
+    var capPill = document.getElementById("capPill");
+
+    function setPair(p, side) {
+      w1_word.textContent = p.w1.word;
+      w1_ipa.textContent = p.w1.ipa;
+      w1_syl.textContent = "[" + p.w1.syl + "]";
+      w1_kr.textContent = p.w1.kr;
+      w1_tip.textContent = p.w1.tip;
+
+      w2_word.textContent = p.w2.word;
+      w2_ipa.textContent = p.w2.ipa;
+      w2_syl.textContent = "[" + p.w2.syl + "]";
+      w2_kr.textContent = p.w2.kr;
+      w2_tip.textContent = p.w2.tip;
+
+      cardLeft.className = "drill-card";
+      cardRight.className = "drill-card";
+
+      if (side === "left") {
+        cardLeft.className = "drill-card active active-left";
+        capPill.innerText = "📢 [uː] 촛불 불듯 입술 모으기! " + p.w1.word + " [" + p.w1.syl + "]";
+      } else {
+        cardRight.className = "drill-card active active-right";
+        capPill.innerText = "📢 [ʊ] 멍때리듯 입술 힘 툭 빼기! " + p.w2.word + " [" + p.w2.syl + "]";
+      }
+
+      for (var i = 1; i <= 6; i++) {
+        document.getElementById("dot_l_" + i).className = "dot";
+        document.getElementById("dot_r_" + i).className = "dot";
+      }
+    }
+
+    function setDot(side, dotIdx) {
+      var prefix = side === "left" ? "dot_l_" : "dot_r_";
+      var activeClass = side === "left" ? "dot active-tense" : "dot active-lax";
+      for (var i = 1; i <= 6; i++) {
+        var el = document.getElementById(prefix + i);
+        if (i <= dotIdx) {
+          el.className = activeClass;
+        } else {
+          el.className = "dot";
+        }
+      }
+    }
+
+  tl.call(function() {
+    setPair({"w1":{"id":"w31","word":"food","ipa":"[fuːd]","syl":"푸 · 드","kr":"음식","tip":"입술을 앞으로 모아 '푸-드'","m":"m_w31_food","f":"f_w31_food"},"w2":{"id":"w32","word":"foot","ipa":"[fʊt]","syl":"풋","kr":"발","tip":"턱 힘 빼고 가볍게 툭 '풋'","m":"m_w32_foot","f":"f_w32_foot"}}, "left");
+  }, null, 0.50);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 0.50);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 1.98);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 3.46);
+  tl.call(function() {
+    setDot("left", 4);
+  }, null, 4.94);
+  tl.call(function() {
+    setDot("left", 5);
+  }, null, 6.42);
+  tl.call(function() {
+    setDot("left", 6);
+  }, null, 7.90);
+  tl.call(function() {
+    setPair({"w1":{"id":"w31","word":"food","ipa":"[fuːd]","syl":"푸 · 드","kr":"음식","tip":"입술을 앞으로 모아 '푸-드'","m":"m_w31_food","f":"f_w31_food"},"w2":{"id":"w32","word":"foot","ipa":"[fʊt]","syl":"풋","kr":"발","tip":"턱 힘 빼고 가볍게 툭 '풋'","m":"m_w32_foot","f":"f_w32_foot"}}, "right");
+  }, null, 9.68);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 9.68);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 10.85);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 12.04);
+  tl.call(function() {
+    setDot("right", 4);
+  }, null, 13.21);
+  tl.call(function() {
+    setDot("right", 5);
+  }, null, 14.40);
+  tl.call(function() {
+    setDot("right", 6);
+  }, null, 15.57);
+  tl.call(function() {
+    setPair({"w1":{"id":"w33","word":"boot","ipa":"[buːt]","syl":"부 · 트","kr":"부츠","tip":"입술 모아 단단하게 '부-트'","m":"m_w33_boot","f":"f_w33_boot"},"w2":{"id":"w34","word":"book","ipa":"[bʊk]","syl":"북","kr":"책","tip":"힘 풀고 편안하게 '북'","m":"m_w34_book","f":"f_w34_book"}}, "left");
+  }, null, 17.31);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 17.31);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 18.66);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 20.02);
+  tl.call(function() {
+    setDot("left", 4);
+  }, null, 21.37);
+  tl.call(function() {
+    setDot("left", 5);
+  }, null, 22.73);
+  tl.call(function() {
+    setDot("left", 6);
+  }, null, 24.08);
+  tl.call(function() {
+    setPair({"w1":{"id":"w33","word":"boot","ipa":"[buːt]","syl":"부 · 트","kr":"부츠","tip":"입술 모아 단단하게 '부-트'","m":"m_w33_boot","f":"f_w33_boot"},"w2":{"id":"w34","word":"book","ipa":"[bʊk]","syl":"북","kr":"책","tip":"힘 풀고 편안하게 '북'","m":"m_w34_book","f":"f_w34_book"}}, "right");
+  }, null, 25.74);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 25.74);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 27.03);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 28.21);
+  tl.call(function() {
+    setDot("right", 4);
+  }, null, 29.50);
+  tl.call(function() {
+    setDot("right", 5);
+  }, null, 30.68);
+  tl.call(function() {
+    setDot("right", 6);
+  }, null, 31.97);
+  tl.call(function() {
+    setPair({"w1":{"id":"w35","word":"goose","ipa":"[guːs]","syl":"구 · 스","kr":"거위","tip":"목구멍 열고 모으며 '구-스'","m":"m_w35_goose","f":"f_w35_goose"},"w2":{"id":"w36","word":"good","ipa":"[gʊd]","syl":"굳","kr":"좋은","tip":"힘 빼고 가볍게 '굳'","m":"m_w36_good","f":"f_w36_good"}}, "left");
+  }, null, 33.70);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 33.70);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 35.21);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 36.66);
+  tl.call(function() {
+    setDot("left", 4);
+  }, null, 38.17);
+  tl.call(function() {
+    setDot("left", 5);
+  }, null, 39.62);
+  tl.call(function() {
+    setDot("left", 6);
+  }, null, 41.13);
+  tl.call(function() {
+    setPair({"w1":{"id":"w35","word":"goose","ipa":"[guːs]","syl":"구 · 스","kr":"거위","tip":"목구멍 열고 모으며 '구-스'","m":"m_w35_goose","f":"f_w35_goose"},"w2":{"id":"w36","word":"good","ipa":"[gʊd]","syl":"굳","kr":"좋은","tip":"힘 빼고 가볍게 '굳'","m":"m_w36_good","f":"f_w36_good"}}, "right");
+  }, null, 42.88);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 42.88);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 44.32);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 45.57);
+  tl.call(function() {
+    setDot("right", 4);
+  }, null, 47.01);
+  tl.call(function() {
+    setDot("right", 5);
+  }, null, 48.26);
+  tl.call(function() {
+    setDot("right", 6);
+  }, null, 49.70);
+  tl.call(function() {
+    setPair({"w1":{"id":"w37","word":"cool","ipa":"[kuːl]","syl":"쿠 · 얼","kr":"시원한/멋진","tip":"입술 둥글게 '쿠-얼'","m":"m_w37_cool","f":"f_w37_cool"},"w2":{"id":"w38","word":"wool","ipa":"[wʊl]","syl":"울","kr":"양모/울","tip":"힘 빼고 편안하게 '울'","m":"m_w38_wool","f":"f_w38_wool"}}, "left");
+  }, null, 51.50);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 51.50);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 52.94);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 54.33);
+  tl.call(function() {
+    setDot("left", 4);
+  }, null, 55.77);
+  tl.call(function() {
+    setDot("left", 5);
+  }, null, 57.16);
+  tl.call(function() {
+    setDot("left", 6);
+  }, null, 58.60);
+  tl.call(function() {
+    setPair({"w1":{"id":"w37","word":"cool","ipa":"[kuːl]","syl":"쿠 · 얼","kr":"시원한/멋진","tip":"입술 둥글게 '쿠-얼'","m":"m_w37_cool","f":"f_w37_cool"},"w2":{"id":"w38","word":"wool","ipa":"[wʊl]","syl":"울","kr":"양모/울","tip":"힘 빼고 편안하게 '울'","m":"m_w38_wool","f":"f_w38_wool"}}, "right");
+  }, null, 60.29);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 60.29);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 61.76);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 63.07);
+  tl.call(function() {
+    setDot("right", 4);
+  }, null, 64.54);
+  tl.call(function() {
+    setDot("right", 5);
+  }, null, 65.85);
+  tl.call(function() {
+    setDot("right", 6);
+  }, null, 67.32);
+  tl.call(function() {
+    setPair({"w1":{"id":"w39","word":"room","ipa":"[ruːm]","syl":"루 · 음","kr":"방/공간","tip":"입술 모아 깊게 '루-음'","m":"m_w39_room","f":"f_w39_room"},"w2":{"id":"w40","word":"rook","ipa":"[rʊk]","syl":"룩","kr":"체스 룩/성채","tip":"턱 힘 빼고 툭 '룩'","m":"m_w40_rook2","f":"f_w40_rook2"}}, "left");
+  }, null, 69.18);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 69.18);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 70.71);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 72.15);
+  tl.call(function() {
+    setDot("left", 4);
+  }, null, 73.68);
+  tl.call(function() {
+    setDot("left", 5);
+  }, null, 75.12);
+  tl.call(function() {
+    setDot("left", 6);
+  }, null, 76.65);
+  tl.call(function() {
+    setPair({"w1":{"id":"w39","word":"room","ipa":"[ruːm]","syl":"루 · 음","kr":"방/공간","tip":"입술 모아 깊게 '루-음'","m":"m_w39_room","f":"f_w39_room"},"w2":{"id":"w40","word":"rook","ipa":"[rʊk]","syl":"룩","kr":"체스 룩/성채","tip":"턱 힘 빼고 툭 '룩'","m":"m_w40_rook2","f":"f_w40_rook2"}}, "right");
+  }, null, 78.39);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 78.39);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 79.64);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 80.88);
+  tl.call(function() {
+    setDot("right", 4);
+  }, null, 82.13);
+  tl.call(function() {
+    setDot("right", 5);
+  }, null, 83.37);
+  tl.call(function() {
+    setDot("right", 6);
+  }, null, 84.62);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-group4"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

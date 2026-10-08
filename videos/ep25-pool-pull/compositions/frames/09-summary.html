@@ -1,0 +1,130 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.8cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: flex; align-items: center; gap: 0.8cqw;
+  }
+  .capture-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 88cqw; display: flex; gap: 3cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .summary-col {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 3cqh 2.5cqw; display: flex; flex-direction: column; gap: 1.5cqh;
+  }
+  .col-header {
+    padding: 1cqh 1.8cqw; border-radius: 14px; border: 2.5px solid #111111; text-align: center;
+  }
+  .header-tense { background: #D1FAE5; color: #065F46; }
+  .header-lax { background: #FEF3C7; color: #92400E; }
+  .col-title { font-size: 2cqw; font-weight: 900; }
+  .col-sub { font-size: 1.2cqw; font-weight: 800; margin-top: 0.4cqh; }
+  .word-list {
+    display: flex; flex-direction: column; gap: 0.8cqh; font-size: 1.3cqw; font-weight: 800;
+  }
+  .word-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 0.6cqh 1.2cqw;
+    background: #F9FAFB; border-radius: 8px; border: 1px solid #E5E7EB;
+  }
+  .word-name { font-weight: 900; }
+  .syl-tag {
+    font-weight: 900; color: #065F46; background: #E6F4EA; padding: 0.2cqh 0.8cqw;
+    border-radius: 6px; font-size: 1.15cqw;
+  }
+  .syl-tag.lax { color: #92400E; background: #FEF3C7; }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+<div id="root" data-composition-id="09-summary" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="capture-badge">📱 캡처 추천</span>
+    <span>스마트폰 저장용 1장 요약 치트시트</span>
+  </div>
+
+  <div class="stage">
+    <!-- Tense [uː] -->
+    <div class="summary-col">
+      <div class="col-header header-tense">
+        <div class="col-title">[uː] TENSE 긴장모음</div>
+        <div class="col-sub">촛불 불듯 입술 모아 2박자 호흡</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name">pool (수영장)</span><span class="syl-tag">[puːl] [푸 · 울]</span></div>
+        <div class="word-row"><span class="word-name">fool (바보)</span><span class="syl-tag">[fuːl] [푸 · 울]</span></div>
+        <div class="word-row"><span class="word-name">Luke (루크)</span><span class="syl-tag">[luːk] [루 · 크]</span></div>
+        <div class="word-row"><span class="word-name">suit (정장)</span><span class="syl-tag">[suːt] [수 · 트]</span></div>
+        <div class="word-row"><span class="word-name">food (음식)</span><span class="syl-tag">[fuːd] [푸 · 드]</span></div>
+      </div>
+    </div>
+
+    <!-- Lax [ʊ] -->
+    <div class="summary-col">
+      <div class="col-header header-lax">
+        <div class="col-title">[ʊ] LAX 이완모음</div>
+        <div class="col-sub">멍때리듯 입술·턱 힘 빼고 1박자</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name">pull (당기다)</span><span class="syl-tag lax">[pʊl] [풀]</span></div>
+        <div class="word-row"><span class="word-name">full (배부른)</span><span class="syl-tag lax">[fʊl] [풀]</span></div>
+        <div class="word-row"><span class="word-name">look (보다)</span><span class="syl-tag lax">[lʊk] [룩]</span></div>
+        <div class="word-row"><span class="word-name">soot (그을음)</span><span class="syl-tag lax">[sʊt] [숫]</span></div>
+        <div class="word-row"><span class="word-name">foot (발)</span><span class="syl-tag lax">[fʊt] [풋]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="audioSummary" src="assets/voice/03_f09_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="28.88"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("오늘 배운 핵심 원리 딱 한 장으로 정리해"); }, null, 0.36);
+  tl.call(function() { cap("드릴게요."); }, null, 3.22);
+  tl.call(function() { cap("지금 화면을 스마트폰으로 캡처해 두시고, 단어가 헷갈릴 때마다"); }, null, 3.94);
+  tl.call(function() { cap("꺼내보세요."); }, null, 7.99);
+  tl.call(function() { cap("초록색 긴장모음 유 땡땡은 촛불 불듯이 입술을 앞으로"); }, null, 8.85);
+  tl.call(function() { cap("둥글게 모으기."); }, null, 13.20);
+  tl.call(function() { cap("노란색 이완모음 말발굽은 멍때리듯이 턱에 힘 툭 빼기."); }, null, 14.54);
+  tl.call(function() { cap("이 두 가지만 기억하시면 평생 헷갈리던 단어들이 완벽하게"); }, null, 19.10);
+  tl.call(function() { cap("구분됩니다."); }, null, 23.01);
+  tl.call(function() { cap("마지막으로 20쌍 전체를 빠르게 복습하고 마무리하겠습니다."); }, null, 23.86);
+  tl.call(function() { cap("수고 많으셨습니다."); }, null, 27.84);
+
+    tl.call(function() { cap(""); }, null, 28.88);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

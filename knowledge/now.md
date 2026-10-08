@@ -2,12 +2,23 @@
 
 마지막 확인: 2026-10-08
 
-## 🔜 진행 중 — 단편 EP25(Pool vs Pull 장모음 [uː] vs 단모음 [ʊ] 20쌍 반복 듣기 롱폼)
+## 🔜 진행 중 — 단편 EP26(Right vs Light R vs L 자음 20쌍 반복 듣기 롱폼)
+
+- 폴더: `videos/ep26-r-vs-l/`
+- 기획 상태: Phase 1~10 마스터 워크플로우 100% 완료 (`BRIEF.md`, `REVIEW.md`, `TASKS.md`, `SCRIPT.md`, `frame.md`, 썸네일 4종 프롬프트, 핵심 미디어 2종 프롬프트 완비).
+- 비주얼 스타일: [옵션 1] 웜크림 네오브루탈리즘 (채널 시그니처 표준).
+- 핵심 차별화: "혀를 굴리지 마세요!" (R은 혀끝 허공 0% 접촉 숟가락 모양 vs L은 윗니 뒤 잇몸 100% 접촉 타격).
+- **다음 행동**: 사용자가 음성 에셋(호스트 3개, 남/여 단어 2개, 문장 1개) 및 미디어 2종(구강 단면도 이미지, 앰비언스 비디오) 생성 ➔ 다운로드 폴더 반입 후 오디오 전처리 분할 착수.
+
+## ✅ 제작 완료 (업로드 대기) — 단편 EP25(Pool vs Pull 장모음 [uː] vs 단모음 [ʊ] 20쌍 반복 듣기 롱폼)
 
 - 폴더: `videos/ep25-pool-pull/`
-- 기획 상태: Phase 1~10 마스터 워크플로우 100% 완료 (`BRIEF.md`, `REVIEW.md`, `TASKS.md`, `SCRIPT.md`, 썸네일 4종 프롬프트, 핵심 미디어 2종 프롬프트 완비).
-- 비주얼 스타일: [옵션 1] 웜크림 네오브루탈리즘 (채널 시그니처 표준).
-- **다음 행동**: 사용자가 음성 에셋(호스트 3개, 남/여 단어 2개, 문장 1개) 및 미디어 2종(단면도 이미지, 앰비언스 비디오) 생성 ➔ 다운로드 폴더 반입 후 오디오 전처리 분할 착수.
+- 렌더링 완료: `renders/ep25-pool-pull_2026-10-08_22-18-10.mp4` (Full HD 1920x1080, 40.3MB, 780.25초 / 13분 00.3초, 23,408 프레임 전량 무결점 렌더 완료).
+- 업로드 패키지 완비: `output/upload-packages/ep25-pool-pull/`
+  - 최종 비디오: `English_Pronunciation_Pool_vs_Pull_Minimal_Pairs_Listening_Drill.mp4`
+  - 썸네일 4종: `thumbnail-close-up.jpg`(모바일 1위), `thumbnail.jpg`(A안 메인), `thumbnail-b.jpg`(B안 경고), `thumbnail-c.jpg`(C안 원리)
+  - 메타데이터: 10개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json`, 원클릭 HTML 대시보드(`index.html`) 완비.
+- **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행.
 
 ## ✅ 제작 완료 (업로드 대기) — 단편 EP24(Sheep vs Ship 장모음 [iː] vs 단모음 [ɪ] 20쌍 반복 듣기 롱폼)
 

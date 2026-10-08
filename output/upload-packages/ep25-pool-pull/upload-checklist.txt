@@ -1,0 +1,24 @@
+[EP25 Pool vs Pull 업로드 체크리스트]
+
+1. 동영상 파일:
+   - 파일명: English_Pronunciation_Pool_vs_Pull_Minimal_Pairs_Listening_Drill.mp4
+   - 경로: output/upload-packages/ep25-pool-pull/
+
+2. 썸네일 파일 (권장: 모바일 피드 1위 클로즈업):
+   - 1순위 (모바일 최적화): thumbnail-close-up.jpg
+   - 메인 와이드: thumbnail.jpg
+   - 대조군 B안: thumbnail-b.jpg
+   - 대조군 C안: thumbnail-c.jpg
+
+3. 기본 정보 입력:
+   - 제목: title.txt 복사 붙여넣기
+   - 설명: description.txt 복사 붙여넣기
+   - 태그: tags.txt 복사 붙여넣기
+
+4. 업로드 후 설정:
+   - 고정 댓글: pinned-comment.txt 복사 후 댓글 작성 및 고정
+   - 최종 화면: 비디오 끝 20초 구간에 추천 동영상 및 구독 버튼 배치
+   - 재생목록: '영어 발음 원리 & 리스닝 드릴' 재생목록에 추가
+
+5. 권장 업로드 및 예약 시간:
+   - 평일 저녁 퇴근 시간대 (19:00 ~ 21:00 KST) 또는 주말 오전 (09:00 ~ 11:00 KST)

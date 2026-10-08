@@ -1,0 +1,139 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .compare-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2cqh;
+  }
+  .card-label {
+    font-size: 1.2cqw; font-weight: 900; padding: 0.5cqh 1.6cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .label-tense { background: #D1FAE5; color: #065F46; }
+  .label-lax { background: #FEF3C7; color: #92400E; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; letter-spacing: 0.02em;
+    color: #111111; line-height: 1.1;
+  }
+  .syl-pill {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.8cqw; font-weight: 900;
+    padding: 0.4cqh 1.4cqw; border-radius: 12px; border: 2px solid #111111;
+    box-shadow: 2px 2px 0px #111111; display: inline-flex; align-items: center; gap: 0.4cqw;
+  }
+  .syl-pill.tense { background: #A7F3D0; color: #064E3B; }
+  .syl-pill.lax { background: #FEF08A; color: #78350F; }
+  .meaning-text {
+    font-size: 2cqw; font-weight: 800; color: #4B5563;
+  }
+  .status-badge {
+    font-size: 1.5cqw; font-weight: 900; padding: 0.7cqh 1.8cqw; border-radius: 16px;
+    border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+  }
+  .badge-error { background: #FEE2E2; color: #991B1B; }
+  .badge-key { background: #FEF08A; color: #854D0E; }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">핵심 딜레마</span>
+    <span>Pool vs Pull, 둘 다 똑같이 '풀'로 읽으셨나요?</span>
+  </div>
+
+  <div class="stage">
+    <!-- Left Card: POOL -->
+    <div class="compare-card" id="cardLeft">
+      <div class="card-label label-tense">[uː] 장모음 · TENSE</div>
+      <div class="word-text" style="color:#059669;">POOL</div>
+      <div class="syl-pill tense">[puːl] · [푸 · 울]</div>
+      <div class="meaning-text">수영장 🏊</div>
+      <div class="status-badge badge-key" id="leftBadge">촛불 불듯 입술 둥글게 모으기!</div>
+    </div>
+
+    <!-- Right Card: PULL -->
+    <div class="compare-card" id="cardRight">
+      <div class="card-label label-lax">[ʊ] 단모음 · LAX</div>
+      <div class="word-text" style="color:#D97706;">PULL</div>
+      <div class="syl-pill lax">[pʊl] · [풀]</div>
+      <div class="meaning-text">당기다 🚪</div>
+      <div class="status-badge badge-error" id="rightBadge">둘 다 '풀'? ❌ 소리가 다릅니다</div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_host" src="assets/voice/01_f01_hook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="48.12"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.from("#cardLeft", { y: 40, opacity: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.2);
+    tl.from("#cardRight", { y: 40, opacity: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.4);
+
+    tl.to("#rightBadge", { scale: 1.1, repeat: 1, yoyo: true, duration: 0.3 }, 2.5);
+    tl.call(function() {
+      document.getElementById("rightBadge").className = "status-badge badge-key";
+      document.getElementById("rightBadge").innerText = "멍때리듯 입술 힘 툭 빼기!";
+    }, null, 14.5);
+
+  tl.call(function() { cap("솔직히 수영장 푸울이랑 잡아당기다 풀, 둘 다 그냥"); }, null, 0.42);
+  tl.call(function() { cap("똑같이 풀이라고 읽고 계셨죠?"); }, null, 5.46);
+  tl.call(function() { cap("학창 시절에 장모음은 길게 끌고 단모음은 짧게 끊으라고"); }, null, 8.13);
+  tl.call(function() { cap("배웠지만, 실제로 미드를 보면 원어민들은 길게 끄는 것"); }, null, 12.78);
+  tl.call(function() { cap("같지도 않은데 기가 막히게 구분합니다."); }, null, 16.96);
+  tl.call(function() { cap("원어민들이 두 소리를 완벽하게 구별하는 진짜 이유는 소리의"); }, null, 20.01);
+  tl.call(function() { cap("길이가 아닙니다."); }, null, 24.81);
+  tl.call(function() { cap("바로 입술을 모으느냐, 힘을 빼느냐, 그 입 모양"); }, null, 26.27);
+  tl.call(function() { cap("하나가 완전히 다르기 때문입니다."); }, null, 30.08);
+  tl.call(function() { cap("오늘 딱 20쌍 40개 단어를 남녀 원어민 목소리로"); }, null, 32.87);
+  tl.call(function() { cap("반복해서 듣고, 실전 대화와 무작위 퀴즈까지 귀로 훈련해"); }, null, 37.21);
+  tl.call(function() { cap("보세요."); }, null, 41.84);
+  tl.call(function() { cap("영상이 끝날 때쯤엔 푸울과 풀이 완전히 다른 소리로"); }, null, 42.58);
+  tl.call(function() { cap("또렷하게 들리실 겁니다."); }, null, 46.42);
+
+    tl.call(function() { cap(""); }, null, 48.12);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-hook"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

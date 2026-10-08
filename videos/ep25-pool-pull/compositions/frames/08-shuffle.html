@@ -1,0 +1,377 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; z-index: 10;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 60cqw; z-index: 5;
+  }
+  .quiz-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 6cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2cqh;
+  }
+  .quiz-counter {
+    font-size: 1.3cqw; font-weight: 900; color: #6B7280; background: #F3F4F6;
+    padding: 0.4cqh 1.4cqw; border-radius: 999px; border: 2px solid #111111;
+  }
+  .quiz-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 7cqw; line-height: 1.0;
+    color: #111111; letter-spacing: -0.02em; min-height: 8cqh;
+  }
+  .quiz-word.blind { color: #6B7280; }
+  .quiz-badge {
+    font-size: 2cqw; font-weight: 900; padding: 0.8cqh 2.2cqw; border-radius: 999px;
+    border: 2.5px solid #111111;
+  }
+  .badge-tense { background: #D1FAE5; color: #065F46; }
+  .badge-lax { background: #FEF3C7; color: #92400E; }
+  .badge-blind { background: #E5E7EB; color: #374151; }
+  .quiz-kr {
+    font-size: 2.2cqw; font-weight: 800; color: #4B5563; min-height: 3cqh;
+  }
+</style>
+<div id="root" data-composition-id="08-shuffle" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span>⚡ 40단어 무작위 덱 셔플 귀 훈련 (실전 반응 퀴즈)</span>
+  </div>
+
+  <div class="stage">
+    <div id="quizCard" class="quiz-card">
+      <div id="quizCounter" class="quiz-counter">Q 1 / 40</div>
+      <div id="quizWord" class="quiz-word blind">???</div>
+      <div id="quizBadge" class="quiz-badge badge-blind">소리를 듣고 맞춰보세요</div>
+      <div id="quizKr" class="quiz-kr"></div>
+    </div>
+  </div>
+
+  <audio id="sq_0" src="assets/voice/m_w05_Luke.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.74"></audio>
+  <audio id="sq_1" src="assets/voice/m_w04_full.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.44" data-duration="0.85"></audio>
+  <audio id="sq_2" src="assets/voice/m_w06_look.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.49" data-duration="0.69"></audio>
+  <audio id="sq_3" src="assets/voice/m_w03_fool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.38" data-duration="0.98"></audio>
+  <audio id="sq_4" src="assets/voice/m_w02_pull.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.56" data-duration="0.85"></audio>
+  <audio id="sq_5" src="assets/voice/m_w01_pool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.61" data-duration="1.11"></audio>
+  <audio id="sq_6" src="assets/voice/m_w08_soot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.92" data-duration="0.73"></audio>
+  <audio id="sq_7" src="assets/voice/m_w09_kook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.85" data-duration="0.70"></audio>
+  <audio id="sq_8" src="assets/voice/m_w10_cook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.75" data-duration="0.65"></audio>
+  <audio id="sq_9" src="assets/voice/m_w11_cooed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.60" data-duration="0.90"></audio>
+  <audio id="sq_10" src="assets/voice/m_w12_could.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.70" data-duration="0.77"></audio>
+  <audio id="sq_11" src="assets/voice/m_w13_shooed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.67" data-duration="1.02"></audio>
+  <audio id="sq_12" src="assets/voice/m_w14_should.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="60.89" data-duration="0.92"></audio>
+  <audio id="sq_13" src="assets/voice/m_w15_wooed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="66.01" data-duration="0.94"></audio>
+  <audio id="sq_14" src="assets/voice/m_w16_wood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="71.15" data-duration="0.81"></audio>
+  <audio id="sq_15" src="assets/voice/m_w17_stewed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="76.16" data-duration="1.02"></audio>
+  <audio id="sq_16" src="assets/voice/m_w18_stood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="81.38" data-duration="0.91"></audio>
+  <audio id="sq_17" src="assets/voice/m_w19_whod.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="86.49" data-duration="0.86"></audio>
+  <audio id="sq_18" src="assets/voice/m_w20_hood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="91.55" data-duration="0.73"></audio>
+  <audio id="sq_19" src="assets/voice/m_w21_shoot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="96.48" data-duration="0.76"></audio>
+  <audio id="sq_20" src="assets/voice/m_w22_shook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="101.44" data-duration="0.83"></audio>
+  <audio id="sq_21" src="assets/voice/m_w23_toot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="106.47" data-duration="0.63"></audio>
+  <audio id="sq_22" src="assets/voice/m_w24_took.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="111.30" data-duration="0.64"></audio>
+  <audio id="sq_23" src="assets/voice/m_w25_booed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="116.14" data-duration="0.96"></audio>
+  <audio id="sq_24" src="assets/voice/m_w26_bull.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="121.30" data-duration="0.85"></audio>
+  <audio id="sq_25" src="assets/voice/m_w27_rood.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="126.35" data-duration="1.00"></audio>
+  <audio id="sq_26" src="assets/voice/m_w28_rook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="131.55" data-duration="0.73"></audio>
+  <audio id="sq_27" src="assets/voice/m_w29_coop.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="136.48" data-duration="0.67"></audio>
+  <audio id="sq_28" src="assets/voice/m_w30_crook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="141.35" data-duration="0.69"></audio>
+  <audio id="sq_29" src="assets/voice/m_w31_food.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="146.24" data-duration="0.93"></audio>
+  <audio id="sq_30" src="assets/voice/m_w32_foot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="151.37" data-duration="0.62"></audio>
+  <audio id="sq_31" src="assets/voice/m_w33_boot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="156.19" data-duration="0.80"></audio>
+  <audio id="sq_32" src="assets/voice/m_w34_book.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="161.19" data-duration="0.74"></audio>
+  <audio id="sq_33" src="assets/voice/m_w35_goose.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="166.13" data-duration="0.96"></audio>
+  <audio id="sq_34" src="assets/voice/m_w36_good.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="171.29" data-duration="0.89"></audio>
+  <audio id="sq_35" src="assets/voice/m_w37_cool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="176.38" data-duration="0.89"></audio>
+  <audio id="sq_36" src="assets/voice/m_w38_wool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="181.47" data-duration="0.92"></audio>
+  <audio id="sq_37" src="assets/voice/m_w39_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="186.59" data-duration="0.98"></audio>
+  <audio id="sq_38" src="assets/voice/m_w40_rook2.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="191.77" data-duration="0.70"></audio>
+  <audio id="sq_39" src="assets/voice/m_w07_suit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="196.67" data-duration="0.77"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var quizCounter = document.getElementById("quizCounter");
+    var quizWord = document.getElementById("quizWord");
+    var quizBadge = document.getElementById("quizBadge");
+    var quizKr = document.getElementById("quizKr");
+
+    function setBlind(idx, total) {
+      quizCounter.textContent = "Q " + idx + " / " + total;
+      quizWord.textContent = "???";
+      quizWord.className = "quiz-word blind";
+      quizBadge.textContent = "소리를 듣고 맞춰보세요 👂";
+      quizBadge.className = "quiz-badge badge-blind";
+      quizKr.textContent = "";
+    }
+
+    function revealAnswer(w) {
+      quizWord.textContent = w.word;
+      quizWord.className = "quiz-word";
+      quizKr.textContent = w.ipa + " · [" + w.syl + "] · " + w.kr;
+      if (w.type === "tense") {
+        quizBadge.textContent = w.label;
+        quizBadge.className = "quiz-badge badge-tense";
+      } else {
+        quizBadge.textContent = w.label;
+        quizBadge.className = "quiz-badge badge-lax";
+      }
+    }
+
+  tl.call(function() {
+    setBlind(1, 40);
+  }, null, 0.50);
+  tl.call(function() {
+    revealAnswer({"id":"w05","word":"Luke","ipa":"[luːk]","syl":"루 · 크","kr":"루크(이름)","tip":"입술을 둥글게 앞으로 '루-크'","m":"m_w05_Luke","f":"f_w05_Luke","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 3.04);
+  tl.call(function() {
+    setBlind(2, 40);
+  }, null, 5.44);
+  tl.call(function() {
+    revealAnswer({"id":"w04","word":"full","ipa":"[fʊl]","syl":"풀","kr":"가득 찬/배부른","tip":"턱에 힘 풀고 가볍게 '풀'","m":"m_w04_full","f":"f_w04_full","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 8.09);
+  tl.call(function() {
+    setBlind(3, 40);
+  }, null, 10.49);
+  tl.call(function() {
+    revealAnswer({"id":"w06","word":"look","ipa":"[lʊk]","syl":"룩","kr":"보다","tip":"힘 빼고 편안하게 툭 '룩'","m":"m_w06_look","f":"f_w06_look","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 12.98);
+  tl.call(function() {
+    setBlind(4, 40);
+  }, null, 15.38);
+  tl.call(function() {
+    revealAnswer({"id":"w03","word":"fool","ipa":"[fuːl]","syl":"푸 · 울","kr":"바보","tip":"입술을 팽팽하게 모아 '푸-울'","m":"m_w03_fool","f":"f_w03_fool","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 18.16);
+  tl.call(function() {
+    setBlind(5, 40);
+  }, null, 20.56);
+  tl.call(function() {
+    revealAnswer({"id":"w02","word":"pull","ipa":"[pʊl]","syl":"풀","kr":"당기다","tip":"멍때리듯 입술에 힘 툭 빼고 가볍게!","m":"m_w02_pull","f":"f_w02_pull","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 23.21);
+  tl.call(function() {
+    setBlind(6, 40);
+  }, null, 25.61);
+  tl.call(function() {
+    revealAnswer({"id":"w01","word":"pool","ipa":"[puːl]","syl":"푸 · 울","kr":"수영장","tip":"촛불 불듯 입술을 둥글게 모으기!","m":"m_w01_pool","f":"f_w01_pool","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 28.52);
+  tl.call(function() {
+    setBlind(7, 40);
+  }, null, 30.92);
+  tl.call(function() {
+    revealAnswer({"id":"w08","word":"soot","ipa":"[sʊt]","syl":"숫","kr":"그을음","tip":"턱에 힘 풀고 가볍게 '숫'","m":"m_w08_soot","f":"f_w08_soot","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 33.45);
+  tl.call(function() {
+    setBlind(8, 40);
+  }, null, 35.85);
+  tl.call(function() {
+    revealAnswer({"id":"w09","word":"kook","ipa":"[kuːk]","syl":"쿠 · 크","kr":"괴짜","tip":"입술을 좁게 모아 '쿠-크'","m":"m_w09_kook","f":"f_w09_kook","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 38.35);
+  tl.call(function() {
+    setBlind(9, 40);
+  }, null, 40.75);
+  tl.call(function() {
+    revealAnswer({"id":"w10","word":"cook","ipa":"[kʊk]","syl":"쿡","kr":"요리사/요리하다","tip":"힘 빼고 툭 떨어뜨리며 '쿡'","m":"m_w10_cook","f":"f_w10_cook","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 43.20);
+  tl.call(function() {
+    setBlind(10, 40);
+  }, null, 45.60);
+  tl.call(function() {
+    revealAnswer({"id":"w11","word":"cooed","ipa":"[kuːd]","syl":"쿠 · 드","kr":"속삭였다","tip":"입술 모아 부드럽게 '쿠-드'","m":"m_w11_cooed","f":"f_w11_cooed","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 48.30);
+  tl.call(function() {
+    setBlind(11, 40);
+  }, null, 50.70);
+  tl.call(function() {
+    revealAnswer({"id":"w12","word":"could","ipa":"[kʊd]","syl":"쿧","kr":"할 수 있었다","tip":"힘 빼고 편안하게 '쿧'","m":"m_w12_could","f":"f_w12_could","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 53.27);
+  tl.call(function() {
+    setBlind(12, 40);
+  }, null, 55.67);
+  tl.call(function() {
+    revealAnswer({"id":"w13","word":"shooed","ipa":"[ʃuːd]","syl":"슈 · 드","kr":"쫓아냈다","tip":"입술을 앞으로 쭉 '슈-드'","m":"m_w13_shooed","f":"f_w13_shooed","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 58.49);
+  tl.call(function() {
+    setBlind(13, 40);
+  }, null, 60.89);
+  tl.call(function() {
+    revealAnswer({"id":"w14","word":"should","ipa":"[ʃʊd]","syl":"슏","kr":"해야 한다","tip":"턱 힘 빼고 가볍게 '슏'","m":"m_w14_should","f":"f_w14_should","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 63.61);
+  tl.call(function() {
+    setBlind(14, 40);
+  }, null, 66.01);
+  tl.call(function() {
+    revealAnswer({"id":"w15","word":"wooed","ipa":"[wuːd]","syl":"우 · 드","kr":"마음을 얻었다","tip":"입술 둥글게 모아 '우-드'","m":"m_w15_wooed","f":"f_w15_wooed","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 68.75);
+  tl.call(function() {
+    setBlind(15, 40);
+  }, null, 71.15);
+  tl.call(function() {
+    revealAnswer({"id":"w16","word":"wood","ipa":"[wʊd]","syl":"욷","kr":"나무","tip":"입술 힘 풀고 툭 '욷'","m":"m_w16_wood","f":"f_w16_wood","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 73.76);
+  tl.call(function() {
+    setBlind(16, 40);
+  }, null, 76.16);
+  tl.call(function() {
+    revealAnswer({"id":"w17","word":"stewed","ipa":"[stuːd]","syl":"스튜 · 드","kr":"스튜를 끓였다","tip":"입술 모아 단단하게 '스튜-드'","m":"m_w17_stewed","f":"f_w17_stewed","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 78.98);
+  tl.call(function() {
+    setBlind(17, 40);
+  }, null, 81.38);
+  tl.call(function() {
+    revealAnswer({"id":"w18","word":"stood","ipa":"[stʊd]","syl":"스툳","kr":"일어섰다","tip":"힘 빼고 툭 '스툳'","m":"m_w18_stood","f":"f_w18_stood","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 84.09);
+  tl.call(function() {
+    setBlind(18, 40);
+  }, null, 86.49);
+  tl.call(function() {
+    revealAnswer({"id":"w19","word":"who'd","ipa":"[huːd]","syl":"후 · 드","kr":"누가 하겠어","tip":"입술 모아 숨 뱉으며 '후-드'","m":"m_w19_whod","f":"f_w19_whod","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 89.15);
+  tl.call(function() {
+    setBlind(19, 40);
+  }, null, 91.55);
+  tl.call(function() {
+    revealAnswer({"id":"w20","word":"hood","ipa":"[hʊd]","syl":"흗","kr":"모자/후드","tip":"입에 힘 빼고 가볍게 '흗'","m":"m_w20_hood","f":"f_w20_hood","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 94.08);
+  tl.call(function() {
+    setBlind(20, 40);
+  }, null, 96.48);
+  tl.call(function() {
+    revealAnswer({"id":"w21","word":"shoot","ipa":"[ʃuːt]","syl":"슈 · 트","kr":"쏘다/슛","tip":"입술을 앞으로 모아 '슈-트'","m":"m_w21_shoot","f":"f_w21_shoot","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 99.04);
+  tl.call(function() {
+    setBlind(21, 40);
+  }, null, 101.44);
+  tl.call(function() {
+    revealAnswer({"id":"w22","word":"shook","ipa":"[ʃʊk]","syl":"슠","kr":"흔들었다","tip":"턱 힘 빼고 짧게 툭 '슠'","m":"m_w22_shook","f":"f_w22_shook","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 104.07);
+  tl.call(function() {
+    setBlind(22, 40);
+  }, null, 106.47);
+  tl.call(function() {
+    revealAnswer({"id":"w23","word":"toot","ipa":"[tuːt]","syl":"투 · 트","kr":"경적을 울리다","tip":"입술 좁게 모아 '투-트'","m":"m_w23_toot","f":"f_w23_toot","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 108.90);
+  tl.call(function() {
+    setBlind(23, 40);
+  }, null, 111.30);
+  tl.call(function() {
+    revealAnswer({"id":"w24","word":"took","ipa":"[tʊk]","syl":"툮","kr":"가져갔다/걸렸다","tip":"힘 빼고 가볍게 '툮'","m":"m_w24_took","f":"f_w24_took","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 113.74);
+  tl.call(function() {
+    setBlind(24, 40);
+  }, null, 116.14);
+  tl.call(function() {
+    revealAnswer({"id":"w25","word":"booed","ipa":"[buːd]","syl":"부 · 드","kr":"야유했다","tip":"입술 모아 둥글게 '부-드'","m":"m_w25_booed","f":"f_w25_booed","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 118.90);
+  tl.call(function() {
+    setBlind(25, 40);
+  }, null, 121.30);
+  tl.call(function() {
+    revealAnswer({"id":"w26","word":"bull","ipa":"[bʊl]","syl":"불","kr":"황소","tip":"입술 힘 풀고 '불'","m":"m_w26_bull","f":"f_w26_bull","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 123.95);
+  tl.call(function() {
+    setBlind(26, 40);
+  }, null, 126.35);
+  tl.call(function() {
+    revealAnswer({"id":"w27","word":"rood","ipa":"[ruːd]","syl":"루 · 드","kr":"십자가","tip":"혀 말며 입술 모아 '루-드'","m":"m_w27_rood","f":"f_w27_rood","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 129.15);
+  tl.call(function() {
+    setBlind(27, 40);
+  }, null, 131.55);
+  tl.call(function() {
+    revealAnswer({"id":"w28","word":"rook","ipa":"[rʊk]","syl":"룩","kr":"체스 말","tip":"힘 빼고 툭 '룩'","m":"m_w28_rook","f":"f_w28_rook","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 134.08);
+  tl.call(function() {
+    setBlind(28, 40);
+  }, null, 136.48);
+  tl.call(function() {
+    revealAnswer({"id":"w29","word":"coop","ipa":"[kuːp]","syl":"쿠 · 프","kr":"가두다/닭장","tip":"입술 모아 앞으로 '쿠-프'","m":"m_w29_coop","f":"f_w29_coop","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 138.95);
+  tl.call(function() {
+    setBlind(29, 40);
+  }, null, 141.35);
+  tl.call(function() {
+    revealAnswer({"id":"w30","word":"crook","ipa":"[krʊk]","syl":"크룩","kr":"사기꾼/구부러진 것","tip":"힘 빼고 가볍게 '크룩'","m":"m_w30_crook","f":"f_w30_crook","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 143.84);
+  tl.call(function() {
+    setBlind(30, 40);
+  }, null, 146.24);
+  tl.call(function() {
+    revealAnswer({"id":"w31","word":"food","ipa":"[fuːd]","syl":"푸 · 드","kr":"음식","tip":"입술을 앞으로 모아 '푸-드'","m":"m_w31_food","f":"f_w31_food","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 148.97);
+  tl.call(function() {
+    setBlind(31, 40);
+  }, null, 151.37);
+  tl.call(function() {
+    revealAnswer({"id":"w32","word":"foot","ipa":"[fʊt]","syl":"풋","kr":"발","tip":"턱 힘 빼고 가볍게 툭 '풋'","m":"m_w32_foot","f":"f_w32_foot","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 153.79);
+  tl.call(function() {
+    setBlind(32, 40);
+  }, null, 156.19);
+  tl.call(function() {
+    revealAnswer({"id":"w33","word":"boot","ipa":"[buːt]","syl":"부 · 트","kr":"부츠","tip":"입술 모아 단단하게 '부-트'","m":"m_w33_boot","f":"f_w33_boot","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 158.79);
+  tl.call(function() {
+    setBlind(33, 40);
+  }, null, 161.19);
+  tl.call(function() {
+    revealAnswer({"id":"w34","word":"book","ipa":"[bʊk]","syl":"북","kr":"책","tip":"힘 풀고 편안하게 '북'","m":"m_w34_book","f":"f_w34_book","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 163.73);
+  tl.call(function() {
+    setBlind(34, 40);
+  }, null, 166.13);
+  tl.call(function() {
+    revealAnswer({"id":"w35","word":"goose","ipa":"[guːs]","syl":"구 · 스","kr":"거위","tip":"목구멍 열고 모으며 '구-스'","m":"m_w35_goose","f":"f_w35_goose","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 168.89);
+  tl.call(function() {
+    setBlind(35, 40);
+  }, null, 171.29);
+  tl.call(function() {
+    revealAnswer({"id":"w36","word":"good","ipa":"[gʊd]","syl":"굳","kr":"좋은","tip":"힘 빼고 가볍게 '굳'","m":"m_w36_good","f":"f_w36_good","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 173.98);
+  tl.call(function() {
+    setBlind(36, 40);
+  }, null, 176.38);
+  tl.call(function() {
+    revealAnswer({"id":"w37","word":"cool","ipa":"[kuːl]","syl":"쿠 · 얼","kr":"시원한/멋진","tip":"입술 둥글게 '쿠-얼'","m":"m_w37_cool","f":"f_w37_cool","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 179.07);
+  tl.call(function() {
+    setBlind(37, 40);
+  }, null, 181.47);
+  tl.call(function() {
+    revealAnswer({"id":"w38","word":"wool","ipa":"[wʊl]","syl":"울","kr":"양모/울","tip":"힘 빼고 편안하게 '울'","m":"m_w38_wool","f":"f_w38_wool","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 184.19);
+  tl.call(function() {
+    setBlind(38, 40);
+  }, null, 186.59);
+  tl.call(function() {
+    revealAnswer({"id":"w39","word":"room","ipa":"[ruːm]","syl":"루 · 음","kr":"방/공간","tip":"입술 모아 깊게 '루-음'","m":"m_w39_room","f":"f_w39_room","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 189.37);
+  tl.call(function() {
+    setBlind(39, 40);
+  }, null, 191.77);
+  tl.call(function() {
+    revealAnswer({"id":"w40","word":"rook","ipa":"[rʊk]","syl":"룩","kr":"체스 룩/성채","tip":"턱 힘 빼고 툭 '룩'","m":"m_w40_rook2","f":"f_w40_rook2","type":"lax","label":"[ʊ] 멍때리듯 턱 힘 빼기"});
+  }, null, 194.27);
+  tl.call(function() {
+    setBlind(40, 40);
+  }, null, 196.67);
+  tl.call(function() {
+    revealAnswer({"id":"w07","word":"suit","ipa":"[suːt]","syl":"수 · 트","kr":"정장/어울리다","tip":"입술을 모으며 팽팽하게 '수-트'","m":"m_w07_suit","f":"f_w07_suit","type":"tense","label":"[uː] 촛불 입술 모으기"});
+  }, null, 199.24);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-shuffle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

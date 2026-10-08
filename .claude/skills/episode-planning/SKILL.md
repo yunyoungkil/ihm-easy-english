@@ -530,6 +530,23 @@ Phase 9에서 확정된 스타일에 따라 프롬프트의 재질/색상/조명
 
 ---
 
+## 기술적 제작 및 업로드 패키지 빌드 시 영상 파일명 검색 키워드(SEO Tags) 명명 규칙 (2026-10-08 확정)
+
+이 스킬로 기획한 영상이 컴포지션 구현 후 렌더링되어 업로드 패키지(`output/upload-packages/<project>/`)로 빌드될 때, **영상 파일명은 반드시 타겟 검색 키워드(SEO Tags)를 사용하여 저장**한다:
+
+1. **배경**: 유튜브 알고리즘은 사용자가 업로드하는 원본 동영상 파일명(Raw Video Filename)도 초기 검색 색인(Indexing) 및 영상 주제 분류의 중요한 메타데이터 신호로 읽는다.
+2. **원칙**:
+   - `video.mp4` 같은 단순/추상적 파일명 저장 **엄격 금지**.
+   - 해당 에피소드의 **타겟 핵심 검색 키워드(영문 SEO 키워드 또는 한글/영문 검색어 조합)**를 언더스코어(`_`) 또는 하이픈(`-`)으로 연결하여 명확하게 명명한다.
+   - 예시:
+     - EP23 (같은 자음 두 개 발음): `English_Pronunciation_Double_Consonants_Listening_Practice.mp4`
+     - EP24 (장모음 [iː] vs 단모음 [ɪ]): `English_Pronunciation_Long_Short_I_Vowel_Pairs_Listening_Drill.mp4`
+3. **업로드 패키지 연동**:
+   - `output/upload-packages/<project>/` 내 최종 영상 파일을 해당 키워드 파일명으로 배치한다.
+   - 업로드 대시보드(`index.html`), `upload-checklist.txt`에도 동일한 파일명을 연동하여, 사용자가 유튜브 스튜디오에 업로드할 때 검색 키워드가 포함된 파일 그대로 드래그 앤 드롭할 수 있도록 지원한다.
+
+---
+
 ## PHASE 11 — 공개 후 성과 리뷰 & 다음 기획에 되먹임
 
 이 스킬로 만든 영상이 공개된 뒤, **Phase 4에서 적어 둔 예측과 실제 결과를 나란히 비교해서

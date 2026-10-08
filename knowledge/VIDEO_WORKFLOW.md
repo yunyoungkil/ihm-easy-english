@@ -408,9 +408,9 @@
 - 렌더 후 파일 존재, 크기, 길이, 재생 가능 여부를 확인한다.
 - **렌더 저장 위치는 `production-rules.md`의 "출력 폴더" 절 관례를 따른다** — `-o`로
   `output/upload-packages/`에 바로 렌더하지 말고, 먼저 프로젝트 자체의 `renders/` 폴더에
-  기본 경로로 렌더한 뒤 최종본만 `output/upload-packages/<project>-longform/video.mp4`로
-  복사하는 2단계로 할 것(2026-09-10 확정 — EP14에서 이 순서를 건너뛰어 사용자가 지적한 뒤
-  정정함).
+  기본 경로로 렌더한 뒤 최종본만 `output/upload-packages/<project>/[핵심_검색_키워드].mp4`
+  (예: `English_Pronunciation_Double_Consonants_Listening_Practice.mp4`)로
+  복사하는 2단계로 할 것(2026-09-10 확정, 2026-10-08 파일명 검색 키워드 SEO 규칙 반영 — 유튜브 알고리즘의 초기 가중치 색인을 위해 `video.mp4` 고정 파일명 대신 타겟 검색 키워드 명명).
 
 ## 10. 업로드·성과 분석
 

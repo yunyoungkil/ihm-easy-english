@@ -480,7 +480,7 @@ EP11부터의 HyperFrames 체제에는 적용되지 않는다**(2026-09-10 정�
 폴더엔 8월 이전 파일만 있고 EP11~14는 하나도 안 들어가 있었음). HyperFrames 영상은 아래
 **렌더 저장 위치 관례**만 따른다.
 
-### 렌더 저장 위치 관례 (EP11부터 확립, 2026-09-10 명문화)
+### 렌더 저장 위치 관례 (EP11부터 확립, 2026-09-10 명문화, 2026-10-08 파일명 검색 키워드 SEO 규칙 확정)
 
 **항상 두 곳에 남긴다 — 하나만 쓰지 말 것:**
 
@@ -489,10 +489,10 @@ EP11부터의 HyperFrames 체제에는 적용되지 않는다**(2026-09-10 정�
    패턴으로 저장된다(`renders/<name>.mp4` 기본값의 `<name>`이 `<프로젝트>_<타임스탬프>`로
    채워짐). 재렌더할 때마다 새 타임스탬프 파일이 쌓이므로, 여러 버전을 비교하거나 나중에
    원본을 다시 찾아야 할 때의 작업 이력 역할을 한다.
-2. **`output/upload-packages/<project>-longform/video.mp4`** — 최종 완성본. 1번에서 나온
-   파일 중 실제로 쓸 것을 이 고정 파일명으로 복사해 둔다. 제목·설명·태그·썸네일·고정 댓글
-   (`title.txt`/`description.txt`/`tags.txt`/`thumbnail-*.jpg`/`pinned-comment.txt`)도
-   같은 폴더에 함께 둔다 — 업로드할 때 필요한 모든 파일이 한자리에 모여 있어야 한다.
+2. **`output/upload-packages/<project>/[핵심_검색_키워드].mp4`** — 최종 완성본 (SEO 검색 키워드 파일명).
+   1번에서 나온 파일 중 실제로 쓸 것을 단순 `video.mp4`가 아닌 **"해당 영상의 핵심 타겟 검색 키워드를 하이픈/언더스코어로 연결한 파일명"**(예: `English_Pronunciation_Double_Consonants_Listening_Practice.mp4`)으로 복사해 둔다.
+   유튜브 알고리즘은 업로드되는 원본 동영상 파일명(Raw Video Filename)도 초기 카테고리 및 검색어 가중치에 반영하므로, `video.mp4` 고정 파일명을 쓰지 않는다.
+   제목·설명·태그·썸네일·고정 댓글(`title.txt`/`description.txt`/`tags.txt`/`thumbnail-*.jpg`/`pinned-comment.txt`/`index.html`)도 같은 폴더에 함께 두며, `index.html` 내 `<video>` 태그 및 `upload-checklist.txt`도 해당 키워드 파일명과 정확히 일치시킨다.
 
 **렌더 명령은 `-o`로 업로드 폴더에 바로 쏘지 말고, 항상 1번(프로젝트 renders/)부터 실행한 뒤
 2번(upload-packages)으로 복사하는 2단계로 할 것** — EP14에서 처음 이 규칙을 어기고 `-o`로

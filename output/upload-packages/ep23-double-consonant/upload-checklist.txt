@@ -7,8 +7,9 @@
 - 권장 예약 발행일: 사용자 일정 확인 후 설정 (주말 저녁 골든타임 권장)
 
 [업로드 단계 체크]
-1. [ ] 동영상 파일 업로드:
-       videos/ep23-double-consonant/output/video.mp4 (렌더 완료 후 확인)
+1. [ ] 동영상 파일 업로드 (유튜브 검색 키워드 SEO 파일명):
+       English_Pronunciation_Double_Consonants_Listening_Practice.mp4
+       (경로: output/upload-packages/ep23-double-consonant/English_Pronunciation_Double_Consonants_Listening_Practice.mp4)
 2. [ ] 썸네일 업로드:
        A안 (메인 추천) 또는 사용자 선택 시안 (thumbnail.jpg)
        - A/B 테스트 대조군: thumbnail-b.jpg, thumbnail-c.jpg, thumbnail-close-up.jpg

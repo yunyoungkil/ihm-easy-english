@@ -1,0 +1,149 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #10B981; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 88cqw; display: flex; gap: 3.5cqw; align-items: center; justify-content: center; z-index: 5;
+  }
+  .visual-box {
+    flex: 1.1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 2cqh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .visual-img {
+    width: 100%; height: auto; max-height: 52cqh; object-fit: contain; border-radius: 18px;
+    border: 2px solid #111111;
+  }
+  .desc-box {
+    flex: 1; display: flex; flex-direction: column; gap: 2cqh;
+  }
+  .rule-card {
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 20px; padding: 2.4cqh 2.2cqw; display: flex; flex-direction: column; gap: 0.8cqh;
+  }
+  .rule-card.active-tense { border-color: #059669; background: #F0FDF4; }
+  .rule-card.active-lax { border-color: #D97706; background: #FFFBEB; }
+  .rule-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .rule-title {
+    font-size: 1.8cqw; font-weight: 900; color: #111111;
+  }
+  .rule-badge {
+    padding: 0.4cqh 1.2cqw; border-radius: 999px; font-size: 1.1cqw; font-weight: 900;
+    border: 1.5px solid #111111;
+  }
+  .rule-desc {
+    font-size: 1.3cqw; font-weight: 700; color: #4B5563; line-height: 1.5;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">핵심 원리</span>
+    <span>길이가 아니라 '입술과 턱의 긴장도'가 결정합니다</span>
+  </div>
+
+  <div class="stage">
+    <div class="visual-box" id="visualBox">
+      <img src="assets/images/f02_vocal_tract_comparison.jpg" alt="구강 조음 단면도 비교" class="visual-img">
+    </div>
+
+    <div class="desc-box">
+      <!-- Rule 1: Tense [i:] -->
+      <div class="rule-card" id="cardTense">
+        <div class="rule-header">
+          <span class="rule-title" style="color:#059669;">① [iː] 웃듯이 입꼬리 당김</span>
+          <span class="rule-badge" style="background:#D1FAE5; color:#065F46;">TENSE 긴장모음</span>
+        </div>
+        <div class="rule-desc">
+          입꼬리를 양옆으로 팽팽하게 당기며 내는 소리입니다.<br>
+          소리에 단단한 텐션이 들어가 선명하게 울립니다.
+        </div>
+      </div>
+
+      <!-- Rule 2: Lax [I] -->
+      <div class="rule-card" id="cardLax">
+        <div class="rule-header">
+          <span class="rule-title" style="color:#D97706;">② [ɪ] 멍때리듯 힘 빼기</span>
+          <span class="rule-badge" style="background:#FEF3C7; color:#92400E;">LAX 이완모음</span>
+        </div>
+        <div class="rule-desc">
+          턱과 입술에 힘을 툭 풀고 내는 소리입니다.<br>
+          살짝 '에' 소리가 섞인 듯 가볍고 편안하게 흘러나옵니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_host" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="24.40"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.from("#visualBox", { x: -30, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.from("#cardTense", { x: 30, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+    tl.from("#cardLax", { x: 30, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.6);
+
+    tl.call(function() {
+      document.getElementById("cardTense").classList.add("active-tense");
+    }, null, 2.5);
+
+    tl.call(function() {
+      document.getElementById("cardTense").classList.remove("active-tense");
+      document.getElementById("cardLax").classList.add("active-lax");
+    }, null, 10.5);
+
+  tl.call(function() { cap("원리는 정말 간단합니다."); }, null, 0.31);
+  tl.call(function() { cap("첫 번째 쉬잎은 웃듯이 입꼬리를 옆으로 싹 당기면서"); }, null, 2.32);
+  tl.call(function() { cap("내는 소리예요."); }, null, 6.94);
+  tl.call(function() { cap("그래서 소리가 팽팽하게 나옵니다."); }, null, 8.19);
+  tl.call(function() { cap("반면에 두 번째 쉽은 그냥 멍때리듯이 입에 힘을"); }, null, 10.51);
+  tl.call(function() { cap("툭 빼고 내는 소리예요."); }, null, 14.58);
+  tl.call(function() { cap("살짝 에 소리가 섞인 느낌이죠."); }, null, 16.21);
+  tl.call(function() { cap("그럼 남녀 원어민 목소리로 세 번씩 들려드릴 테니까,"); }, null, 18.98);
+  tl.call(function() { cap("편하게 귀로 한번 따라가 보세요."); }, null, 22.38);
+
+    tl.call(function() { cap(""); }, null, 24.40);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -33,13 +33,31 @@
 - **[완료] Whisper 단어별 타임스탬프 정렬 (`word-timeline.mjs`)**:
   - 한국어 3개 씬 + 영어 7개 문장 전체 Whisper `small` 모델 기반 단어 타임스탬프(`*.words.json`) 추출 100% 완료.
 
+- **[완료] HyperFrames 10개 프레임 컴포지션 구현 & 마스터 타임라인 조립 (`generate-frames.mjs`)**:
+  - `compositions/frames/01-hook.html` ~ `10-encore.html` 10개 프레임 전체 구현 완료.
+  - 웜크림 네오브루탈리즘 스타일 적용: [iː] 초록 Tense vs [ɪ] 골드 Lax 테마 대조, ●●● 3회 점등 애니메이션, 구강 단면도 이미지(F02), 카페 루프 비디오(F07), 40단어 무작위 셔플(F08), 1장 요약 치트시트(F09), 20쌍 앵콜 및 10초 엔드스크린 안전영역(F10).
+  - 총 러닝타임: **569.32초 (9분 29.3초)** (F08 셔플 퀴즈: 소리 후 1.8초 생각 시간 + 2.4초 정답 체화 시간으로 여유 있게 확장).
+- **[완료] HyperFrames 자동 검수 (`npx hyperframes check`) 100% 무결점 통과**:
+  - Lint: 0 errors, Runtime: 0 errors, Layout: 0 issues, Motion: 0 errors, Contrast: 44/44 text checks pass WCAG AA.
+  - 최종 검수 통과 (`Check passed`).
+
 ---
 
-### 다음 단계
-1. **[Step 4] HyperFrames 컴포지션 구현 & 자동 검수 (`check`)**:
-   - 10개 프레임 HTML/CSS 구현 + 실측 오디오 기반 타임라인 자동 연동
-   - `npx hyperframes check` 린트/런타임/대비 무결점 통과
-2. **[Step 5] 절대적 승인 게이트 (Approval Gate)**:
-   - 사용자 검수 후 명시적 승인 하에 `npx hyperframes render` 착수
-3. **[Step 6] 썸네일 생성 & 업로드 패키지 빌드**:
-   - 썸네일 4종 제작 및 메타데이터 원클릭 패키지 배포
+- **[완료] 썸네일 4종 생성 및 업로드 패키지 배치**:
+  - `prompts/thumbnail-prompts.md` 기반 4종 썸네일 이미지 생성 완료:
+    - Variant A (메인 채택 바스트샷 와이드): `thumbnail.jpg` (537KB)
+    - Variant A Close-Up (모바일 피드 1위 전용 클로즈업): `thumbnail-close-up.jpg` (524KB)
+    - Variant B (손실회피/경고형 대조군): `thumbnail-b.jpg` (545KB)
+    - Variant C (원리/성취형 대조군): `thumbnail-c.jpg` (493KB)
+  - `output/upload-packages/ep24-long-short-i/` 및 `videos/ep24-long-short-i/assets/thumbnails/`에 양방향 동기화 완료.
+  - 업로드 패키지 원클릭 HTML 대시보드(`index.html`)에 4종 썸네일 그리드 뷰 및 개별 다운로드 버튼 구축 완료.
+
+- **[완료] 고화질 영상 렌더링 (`npx hyperframes render .`)**:
+  - 사용자 명시적 승인 게이트 통과 후 렌더링 착수 (`task-2378`).
+  - 총 17,080 프레임 (569.32초 / 9분 29.3초) 17분 56초 만에 100% 무결점 렌더 완주.
+  - 출력: `videos/ep24-long-short-i/renders/ep24-long-short-i_2026-10-08_20-13-06.mp4` (43.8MB, Full HD 1920x1080 30fps h264/aac).
+
+- **[완료] 업로드 패키지 최종 배치 (SEO 검색 키워드 파일명 규칙 적용)**:
+  - 전역 규칙에 따라 최종 영상 파일명을 `English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4`로 `output/upload-packages/ep24-long-short-i/`에 복사 배치.
+  - 썸네일 4종(`thumbnail.jpg`, `thumbnail-close-up.jpg`, `thumbnail-b.jpg`, `thumbnail-c.jpg`) 및 원클릭 대시보드(`index.html`), `status.json` 시드 완료.
+  - EP24 전체 제작 워크플로우 100% 완료.

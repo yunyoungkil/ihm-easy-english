@@ -1,0 +1,126 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #F59E0B; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .compare-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2cqh;
+  }
+  .card-label {
+    font-size: 1.2cqw; font-weight: 900; padding: 0.5cqh 1.6cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .label-tense { background: #D1FAE5; color: #065F46; }
+  .label-lax { background: #FEF3C7; color: #92400E; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; letter-spacing: 0.02em;
+    color: #111111; line-height: 1.1;
+  }
+  .meaning-text {
+    font-size: 2.2cqw; font-weight: 800; color: #4B5563;
+  }
+  .status-badge {
+    font-size: 1.6cqw; font-weight: 900; padding: 0.8cqh 2cqw; border-radius: 16px;
+    border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+  }
+  .badge-error { background: #FEE2E2; color: #991B1B; }
+  .badge-key { background: #FEF08A; color: #854D0E; }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">핵심 딜레마</span>
+    <span>Sheep vs Ship, 둘 다 똑같이 '쉽'으로 읽으셨나요?</span>
+  </div>
+
+  <div class="stage">
+    <!-- Left Card: SHEEP -->
+    <div class="compare-card" id="cardLeft">
+      <div class="card-label label-tense">[iː] 장모음 · TENSE</div>
+      <div class="word-text" style="color:#059669;">SHEEP</div>
+      <div class="meaning-text">양 🐑 · [ʃiːp]</div>
+      <div class="status-badge badge-key" id="leftBadge">웃듯이 입꼬리 팽팽하게!</div>
+    </div>
+
+    <!-- Right Card: SHIP -->
+    <div class="compare-card" id="cardRight">
+      <div class="card-label label-lax">[ɪ] 단모음 · LAX</div>
+      <div class="word-text" style="color:#D97706;">SHIP</div>
+      <div class="meaning-text">배 🚢 · [ʃɪp]</div>
+      <div class="status-badge badge-error" id="rightBadge">둘 다 '쉽'? ❌ 소리가 다릅니다</div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_host" src="assets/voice/01_f01_hook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="30.84"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.from("#cardLeft", { y: 40, opacity: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.2);
+    tl.from("#cardRight", { y: 40, opacity: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.4);
+
+    tl.to("#rightBadge", { scale: 1.1, repeat: 1, yoyo: true, duration: 0.3 }, 2.5);
+    tl.call(function() {
+      document.getElementById("rightBadge").className = "status-badge badge-key";
+      document.getElementById("rightBadge").innerText = "멍때리듯 입에 힘 툭 빼기!";
+    }, null, 14.5);
+
+  tl.call(function() { cap("솔직히 쉬잎이랑 쉽, 둘 다 그냥 똑같이 '쉽'으로"); }, null, 0.47);
+  tl.call(function() { cap("읽고 계셨죠?"); }, null, 5.28);
+  tl.call(function() { cap("학교 다닐 때 장모음은 길게 끌고, 단모음은 짧게"); }, null, 6.50);
+  tl.call(function() { cap("끊으라고 배웠잖아요."); }, null, 10.45);
+  tl.call(function() { cap("근데 막상 미드나 영화를 보면, 원어민들은 길게 끄는"); }, null, 12.12);
+  tl.call(function() { cap("것 같지도 않은데 기가 막히게 구분해서 말하거든요."); }, null, 15.62);
+  tl.call(function() { cap("이게 왜 그러냐면, 소리의 길이가 아니라 입술을 쓰는"); }, null, 18.89);
+  tl.call(function() { cap("방법이 아예 달라서 그렇습니다."); }, null, 22.73);
+  tl.call(function() { cap("오늘 딱 스무 쌍만 귀로 확인해 보시면, 아"); }, null, 25.10);
+  tl.call(function() { cap("이래서 다르게 들렸구나 바로 감이 오실 거예요."); }, null, 28.15);
+
+    tl.call(function() { cap(""); }, null, 30.84);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-hook"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

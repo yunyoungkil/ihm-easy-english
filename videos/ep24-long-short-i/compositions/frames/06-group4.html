@@ -1,0 +1,307 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #F59E0B; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .drill-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2cqh;
+    position: relative;
+  }
+  .drill-card.active {
+    box-shadow: 10px 10px 0px #111111;
+  }
+  .drill-card.active-left { border-color: #059669; }
+  .drill-card.active-right { border-color: #D97706; }
+  .card-label {
+    font-size: 1.25cqw; font-weight: 900; padding: 0.6cqh 1.8cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .label-tense { background: #D1FAE5; color: #065F46; }
+  .label-lax { background: #FEF3C7; color: #92400E; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; letter-spacing: 0.02em;
+    color: #111111; line-height: 1.1;
+  }
+  .meaning-badge {
+    font-size: 2cqw; font-weight: 900; color: #111111; background: #FAF7F2;
+    border: 2px solid #111111; border-radius: 14px; padding: 0.6cqh 2cqw;
+    box-shadow: 2px 2px 0px #111111;
+  }
+  .tip-pill {
+    font-size: 1.25cqw; font-weight: 800; color: #4B5563;
+  }
+  .repeat-dots {
+    display: flex; gap: 0.8cqw; justify-content: center; align-items: center; margin-top: 0.5cqh;
+  }
+  .repeat-dot {
+    width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: #E5E0D8;
+    border: 2px solid #111111;
+  }
+  .repeat-dot.active {
+    background: #F59E0B; box-shadow: 2px 2px 0px #111111;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 1;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="06-group4" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">Group 4: 추상 & 주의 단어</span>
+    <span>lead vs lid, teen vs tin, beach vs bitch (주의!) 등 5쌍 3회 반복 듣기</span>
+  </div>
+
+  <div class="stage">
+    <!-- Left: Tense [i:] -->
+    <div class="drill-card" id="cardLeft">
+      <div class="card-label label-tense">[iː] TENSE · 입꼬리 당김</div>
+      <div class="word-text" id="leftWord" style="color:#059669;">-</div>
+      <div class="meaning-badge" id="leftMeaning">-</div>
+      <div class="tip-pill" id="leftTip">-</div>
+      <div class="repeat-dots">
+        <div class="repeat-dot" id="dot_l_1"></div>
+        <div class="repeat-dot" id="dot_l_2"></div>
+        <div class="repeat-dot" id="dot_l_3"></div>
+      </div>
+    </div>
+
+    <!-- Right: Lax [I] -->
+    <div class="drill-card" id="cardRight">
+      <div class="card-label label-lax">[ɪ] LAX · 입에 힘 뺌</div>
+      <div class="word-text" id="rightWord" style="color:#D97706;">-</div>
+      <div class="meaning-badge" id="rightMeaning">-</div>
+      <div class="tip-pill" id="rightTip">-</div>
+      <div class="repeat-dots">
+        <div class="repeat-dot" id="dot_r_1"></div>
+        <div class="repeat-dot" id="dot_r_2"></div>
+        <div class="repeat-dot" id="dot_r_3"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill">남녀 원어민 3회 반복 듣기 드릴 (●●● 순차 점등)</div>
+
+  <audio id="a_w31_0" src="assets/voice/m_w31_lead.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.63"></audio>
+  <audio id="a_w31_1" src="assets/voice/f_w31_lead.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.78" data-duration="0.76"></audio>
+  <audio id="a_w31_2" src="assets/voice/m_w31_lead.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.19" data-duration="0.63"></audio>
+  <audio id="a_w32_0" src="assets/voice/m_w32_lid.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.72" data-duration="0.55"></audio>
+  <audio id="a_w32_1" src="assets/voice/f_w32_lid.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.92" data-duration="0.68"></audio>
+  <audio id="a_w32_2" src="assets/voice/m_w32_lid.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.25" data-duration="0.55"></audio>
+  <audio id="a_w33_0" src="assets/voice/m_w33_teen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.90" data-duration="0.63"></audio>
+  <audio id="a_w33_1" src="assets/voice/f_w33_teen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.18" data-duration="0.72"></audio>
+  <audio id="a_w33_2" src="assets/voice/m_w33_teen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.55" data-duration="0.63"></audio>
+  <audio id="a_w34_0" src="assets/voice/m_w34_tin.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.08" data-duration="0.58"></audio>
+  <audio id="a_w34_1" src="assets/voice/f_w34_tin.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.31" data-duration="0.65"></audio>
+  <audio id="a_w34_2" src="assets/voice/m_w34_tin.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.61" data-duration="0.58"></audio>
+  <audio id="a_w35_0" src="assets/voice/m_w35_deed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.29" data-duration="0.57"></audio>
+  <audio id="a_w35_1" src="assets/voice/f_w35_deed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.51" data-duration="0.73"></audio>
+  <audio id="a_w35_2" src="assets/voice/m_w35_deed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.89" data-duration="0.57"></audio>
+  <audio id="a_w36_0" src="assets/voice/m_w36_did.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.36" data-duration="0.53"></audio>
+  <audio id="a_w36_1" src="assets/voice/f_w36_did.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.54" data-duration="0.68"></audio>
+  <audio id="a_w36_2" src="assets/voice/m_w36_did.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.87" data-duration="0.53"></audio>
+  <audio id="a_w37_0" src="assets/voice/m_w37_steel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.50" data-duration="0.73"></audio>
+  <audio id="a_w37_1" src="assets/voice/f_w37_steel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.88" data-duration="0.88"></audio>
+  <audio id="a_w37_2" src="assets/voice/m_w37_steel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.41" data-duration="0.73"></audio>
+  <audio id="a_w38_0" src="assets/voice/m_w38_still.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.04" data-duration="0.65"></audio>
+  <audio id="a_w38_1" src="assets/voice/f_w38_still.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.34" data-duration="0.75"></audio>
+  <audio id="a_w38_2" src="assets/voice/m_w38_still.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.74" data-duration="0.65"></audio>
+  <audio id="a_w39_0" src="assets/voice/m_w39_beach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.49" data-duration="0.63"></audio>
+  <audio id="a_w39_1" src="assets/voice/f_w39_beach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.77" data-duration="0.76"></audio>
+  <audio id="a_w39_2" src="assets/voice/m_w39_beach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.18" data-duration="0.63"></audio>
+  <audio id="a_w40_0" src="assets/voice/m_w40_bitch.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.71" data-duration="0.61"></audio>
+  <audio id="a_w40_1" src="assets/voice/f_w40_bitch.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.97" data-duration="0.67"></audio>
+  <audio id="a_w40_2" src="assets/voice/m_w40_bitch.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.29" data-duration="0.61"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    function setPair(p, activeSide) {
+      document.getElementById("leftWord").innerText = p.w1.word;
+      document.getElementById("leftMeaning").innerText = p.w1.kr + " · " + p.w1.ipa;
+      document.getElementById("leftTip").innerText = p.w1.tip;
+
+      document.getElementById("rightWord").innerText = p.w2.word;
+      document.getElementById("rightMeaning").innerText = p.w2.kr + " · " + p.w2.ipa;
+      document.getElementById("rightTip").innerText = p.w2.tip;
+
+      var cardL = document.getElementById("cardLeft");
+      var cardR = document.getElementById("cardRight");
+      cardL.classList.remove("active", "active-left");
+      cardR.classList.remove("active", "active-right");
+
+      if (activeSide === "left") {
+        cardL.classList.add("active", "active-left");
+        document.getElementById("capPill").innerText = "📢 [iː] 웃듯이 입꼬리 팽팽하게! " + p.w1.word;
+      } else {
+        cardR.classList.add("active", "active-right");
+        document.getElementById("capPill").innerText = "📢 [ɪ] 멍때리듯 입에 힘 빼고 툭! " + p.w2.word;
+      }
+
+      for (var i = 1; i <= 3; i++) {
+        document.getElementById("dot_l_" + i).classList.remove("active");
+        document.getElementById("dot_r_" + i).classList.remove("active");
+      }
+    }
+
+    function setDot(target, dotIdx) {
+      var prefix = target === "left" ? "dot_l_" : "dot_r_";
+      for (var i = 1; i <= 3; i++) {
+        var d = document.getElementById(prefix + i);
+        if (i <= dotIdx) d.classList.add("active");
+        else d.classList.remove("active");
+      }
+    }
+
+  tl.call(function() {
+    setPair({"w1":{"id":"w31","word":"lead","ipa":"[liːd]","kr":"이끌다/선도하다","tip":"입꼬리 당겨 시원하게 '리-드'","sound":"이-","m":"m_w31_lead","f":"f_w31_lead"},"w2":{"id":"w32","word":"lid","ipa":"[lɪd]","kr":"뚜껑","tip":"힘 빼고 툭 '릿'","sound":"이/에","m":"m_w32_lid","f":"f_w32_lid"}}, "left");
+  }, null, 0.50);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 0.50);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 1.78);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 3.19);
+  tl.call(function() {
+    setPair({"w1":{"id":"w31","word":"lead","ipa":"[liːd]","kr":"이끌다/선도하다","tip":"입꼬리 당겨 시원하게 '리-드'","sound":"이-","m":"m_w31_lead","f":"f_w31_lead"},"w2":{"id":"w32","word":"lid","ipa":"[lɪd]","kr":"뚜껑","tip":"힘 빼고 툭 '릿'","sound":"이/에","m":"m_w32_lid","f":"f_w32_lid"}}, "right");
+  }, null, 4.72);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 4.72);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 5.92);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 7.25);
+  tl.call(function() {
+    setPair({"w1":{"id":"w33","word":"teen","ipa":"[tiːn]","kr":"십대","tip":"입꼬리를 팽팽히 '티-인'","sound":"이-","m":"m_w33_teen","f":"f_w33_teen"},"w2":{"id":"w34","word":"tin","ipa":"[tɪn]","kr":"양철/캔","tip":"입술 힘 풀고 '틴'","sound":"이/에","m":"m_w34_tin","f":"f_w34_tin"}}, "left");
+  }, null, 8.90);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 8.90);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 10.18);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 11.55);
+  tl.call(function() {
+    setPair({"w1":{"id":"w33","word":"teen","ipa":"[tiːn]","kr":"십대","tip":"입꼬리를 팽팽히 '티-인'","sound":"이-","m":"m_w33_teen","f":"f_w33_teen"},"w2":{"id":"w34","word":"tin","ipa":"[tɪn]","kr":"양철/캔","tip":"입술 힘 풀고 '틴'","sound":"이/에","m":"m_w34_tin","f":"f_w34_tin"}}, "right");
+  }, null, 13.08);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 13.08);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 14.31);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 15.61);
+  tl.call(function() {
+    setPair({"w1":{"id":"w35","word":"deed","ipa":"[diːd]","kr":"행위/업적","tip":"입꼬리를 팽팽하게 '디-드'","sound":"이-","m":"m_w35_deed","f":"f_w35_deed"},"w2":{"id":"w36","word":"did","ipa":"[dɪd]","kr":"했다 (do 과거)","tip":"힘 빼고 가볍게 '딧'","sound":"이/에","m":"m_w36_did","f":"f_w36_did"}}, "left");
+  }, null, 17.29);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 17.29);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 18.51);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 19.89);
+  tl.call(function() {
+    setPair({"w1":{"id":"w35","word":"deed","ipa":"[diːd]","kr":"행위/업적","tip":"입꼬리를 팽팽하게 '디-드'","sound":"이-","m":"m_w35_deed","f":"f_w35_deed"},"w2":{"id":"w36","word":"did","ipa":"[dɪd]","kr":"했다 (do 과거)","tip":"힘 빼고 가볍게 '딧'","sound":"이/에","m":"m_w36_did","f":"f_w36_did"}}, "right");
+  }, null, 21.36);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 21.36);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 22.54);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 23.87);
+  tl.call(function() {
+    setPair({"w1":{"id":"w37","word":"steel","ipa":"[stiːl]","kr":"강철","tip":"입꼬리를 단단히 '스티-얼'","sound":"이-","m":"m_w37_steel","f":"f_w37_steel"},"w2":{"id":"w38","word":"still","ipa":"[stɪl]","kr":"여전히/가만히","tip":"입술 힘 풀고 '스틸'","sound":"이/에","m":"m_w38_still","f":"f_w38_still"}}, "left");
+  }, null, 25.50);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 25.50);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 26.88);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 28.41);
+  tl.call(function() {
+    setPair({"w1":{"id":"w37","word":"steel","ipa":"[stiːl]","kr":"강철","tip":"입꼬리를 단단히 '스티-얼'","sound":"이-","m":"m_w37_steel","f":"f_w37_steel"},"w2":{"id":"w38","word":"still","ipa":"[stɪl]","kr":"여전히/가만히","tip":"입술 힘 풀고 '스틸'","sound":"이/에","m":"m_w38_still","f":"f_w38_still"}}, "right");
+  }, null, 30.04);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 30.04);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 31.34);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 32.74);
+  tl.call(function() {
+    setPair({"w1":{"id":"w39","word":"beach","ipa":"[biːtʃ]","kr":"해변","tip":"입꼬리를 환하게 '비-치' (주의!)","sound":"이-","m":"m_w39_beach","f":"f_w39_beach"},"w2":{"id":"w40","word":"bitch","ipa":"[bɪtʃ]","kr":"암캐 (비속어 주의)","tip":"⚠️ 욕으로 오해받지 않게 짧고 툭!","sound":"이/에","m":"m_w40_bitch","f":"f_w40_bitch"}}, "left");
+  }, null, 34.49);
+  tl.call(function() {
+    setDot("left", 1);
+  }, null, 34.49);
+  tl.call(function() {
+    setDot("left", 2);
+  }, null, 35.77);
+  tl.call(function() {
+    setDot("left", 3);
+  }, null, 37.18);
+  tl.call(function() {
+    setPair({"w1":{"id":"w39","word":"beach","ipa":"[biːtʃ]","kr":"해변","tip":"입꼬리를 환하게 '비-치' (주의!)","sound":"이-","m":"m_w39_beach","f":"f_w39_beach"},"w2":{"id":"w40","word":"bitch","ipa":"[bɪtʃ]","kr":"암캐 (비속어 주의)","tip":"⚠️ 욕으로 오해받지 않게 짧고 툭!","sound":"이/에","m":"m_w40_bitch","f":"f_w40_bitch"}}, "right");
+  }, null, 38.71);
+  tl.call(function() {
+    setDot("right", 1);
+  }, null, 38.71);
+  tl.call(function() {
+    setDot("right", 2);
+  }, null, 39.97);
+  tl.call(function() {
+    setDot("right", 3);
+  }, null, 41.29);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-group4"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

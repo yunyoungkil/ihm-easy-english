@@ -1,0 +1,125 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #10B981; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .cheat-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 4cqh 3cqw; display: flex; flex-direction: column; gap: 2cqh;
+  }
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E5E7EB;
+    padding-bottom: 1.5cqh;
+  }
+  .header-title { font-size: 2cqw; font-weight: 900; }
+  .badge-pill {
+    font-size: 1.1cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 1.5px solid #111111;
+  }
+  .point-list {
+    display: flex; flex-direction: column; gap: 1.2cqh; font-size: 1.35cqw; font-weight: 700; color: #374151;
+  }
+  .point-item { display: flex; gap: 0.8cqw; align-items: flex-start; }
+  .sample-words {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 14px; padding: 1.5cqh;
+    font-size: 1.3cqw; font-weight: 800; color: #111111; text-align: center;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="09-summary" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">📸 치트시트</span>
+    <span>스마트폰 캡처용 1장 요약: 입꼬리 당김 vs 입에 힘 뺌</span>
+  </div>
+
+  <div class="stage">
+    <!-- Left Cheat Card: Tense [i:] -->
+    <div class="cheat-card" style="border-color:#059669; background:#F0FDF4;">
+      <div class="card-header">
+        <span class="header-title" style="color:#059669;">[iː] 장모음 · TENSE</span>
+        <span class="badge-pill" style="background:#D1FAE5; color:#065F46;">웃듯이 입꼬리 당김</span>
+      </div>
+      <div class="point-list">
+        <div class="point-item"><span>✨</span><span>입술을 양옆으로 활짝 팽팽하게 당기기</span></div>
+        <div class="point-item"><span>✨</span><span>소리가 단단하고 텐션 있게 뿜어져 나옴</span></div>
+        <div class="point-item"><span>✨</span><span>직관 발음: '이-' (길이가 아닌 긴장감)</span></div>
+      </div>
+      <div class="sample-words">
+        대표 짝단어: <strong>sheep · feet · seat · feel · peach</strong>
+      </div>
+    </div>
+
+    <!-- Right Cheat Card: Lax [I] -->
+    <div class="cheat-card" style="border-color:#D97706; background:#FFFBEB;">
+      <div class="card-header">
+        <span class="header-title" style="color:#D97706;">[ɪ] 단모음 · LAX</span>
+        <span class="badge-pill" style="background:#FEF3C7; color:#92400E;">멍때리듯 힘 빼기</span>
+      </div>
+      <div class="point-list">
+        <div class="point-item"><span>✨</span><span>턱과 입술의 힘을 툭 빼고 편안하게</span></div>
+        <div class="point-item"><span>✨</span><span>살짝 '에' 소리가 섞인 듯 툭 떨어짐</span></div>
+        <div class="point-item"><span>✨</span><span>직관 발음: '이/에' (가볍고 편안하게)</span></div>
+      </div>
+      <div class="sample-words">
+        대표 짝단어: <strong>ship · fit · sit · fill · pitch</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_host" src="assets/voice/03_f09_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="16.12"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("오늘 배운 내용, 딱 이것만 챙겨가시면 됩니다."); }, null, 0.40);
+  tl.call(function() { cap("웃듯이 입꼬리를 당기면 쉬잎, 힘 툭 빼고 편하게"); }, null, 4.01);
+  tl.call(function() { cap("소리 내면 쉽입니다."); }, null, 9.44);
+  tl.call(function() { cap("지금 이 화면 딱 캡처해 두시고, 나중에 헷갈릴"); }, null, 11.62);
+  tl.call(function() { cap("때 한 번씩 꺼내보세요."); }, null, 14.85);
+
+    tl.call(function() { cap(""); }, null, 16.12);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

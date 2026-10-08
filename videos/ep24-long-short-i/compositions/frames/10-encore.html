@@ -1,0 +1,315 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #3B82F6; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 84cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .encore-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2cqh;
+  }
+  .encore-card.active-left { border-color: #059669; box-shadow: 10px 10px 0px #111111; }
+  .encore-card.active-right { border-color: #D97706; box-shadow: 10px 10px 0px #111111; }
+  .card-label {
+    font-size: 1.2cqw; font-weight: 900; padding: 0.5cqh 1.6cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.1; letter-spacing: 0.02em;
+  }
+  .meaning-text {
+    font-size: 2.2cqw; font-weight: 900; color: #4B5563;
+  }
+
+  .endscreen-container {
+    position: absolute; inset: 0; background: #F4EFE6; display: none; z-index: 100;
+    flex-direction: column; justify-content: space-between; padding: 6cqh 6cqw;
+  }
+  .endscreen-header {
+    text-align: center; font-size: 2.2cqw; font-weight: 900; color: #111111;
+  }
+  .endscreen-guides {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+  }
+  .guide-card {
+    width: 44cqw; height: 46cqh; border: 3px dashed #9CA3AF; border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1.5cqh; color: #6B7280; font-size: 1.4cqw; font-weight: 800;
+  }
+  .endscreen-sub {
+    width: 100%; text-align: center; font-size: 1.4cqw; font-weight: 800; color: #4B5563;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 1;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="10-encore" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill" id="eyebrowPill">
+    <span class="tip-badge">앵콜 총복습</span>
+    <span id="encoreCounter">20쌍 연속 총복습 (1 / 20)</span>
+  </div>
+
+  <div class="stage" id="stageDrill">
+    <div class="encore-card" id="cardL">
+      <div class="card-label" style="background:#D1FAE5; color:#065F46;">[iː] 입꼬리 당김</div>
+      <div class="word-text" id="wL" style="color:#059669;">-</div>
+      <div class="meaning-text" id="mL">-</div>
+    </div>
+
+    <div class="encore-card" id="cardR">
+      <div class="card-label" style="background:#FEF3C7; color:#92400E;">[ɪ] 입에 힘 뺌</div>
+      <div class="word-text" id="wR" style="color:#D97706;">-</div>
+      <div class="meaning-text" id="mR">-</div>
+    </div>
+  </div>
+
+  <div class="endscreen-container" id="endScreen">
+    <div class="endscreen-header">
+      오늘 20쌍 완주를 축하합니다! 다음 추천 영상으로 계속 훈련해 보세요.
+    </div>
+    <div class="endscreen-guides">
+      <div class="guide-card">
+        <span style="font-size:2.5cqw;">📺</span>
+        <span>추천 영상 (EP23 자음 규칙 / 발음 원리)</span>
+      </div>
+      <div class="guide-card">
+        <span style="font-size:2.5cqw;">📋</span>
+        <span>[이해하면 쉬운영어] 전체 재생목록</span>
+      </div>
+    </div>
+    <div class="endscreen-sub">
+      채널 구독과 좋아요는 다음 영상 제작에 큰 힘이 됩니다. 😊
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill">20쌍 무한 앵콜 총복습이 진행 중입니다</div>
+
+  <audio id="a_enc_1_1" src="assets/voice/m_w01_sheep.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="1.06"></audio>
+  <audio id="a_enc_1_2" src="assets/voice/f_w02_ship.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="2.01" data-duration="0.69"></audio>
+  <audio id="a_enc_2_1" src="assets/voice/m_w03_feet.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.35" data-duration="0.62"></audio>
+  <audio id="a_enc_2_2" src="assets/voice/f_w04_fit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.42" data-duration="0.76"></audio>
+  <audio id="a_enc_3_1" src="assets/voice/m_w05_seat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.83" data-duration="0.63"></audio>
+  <audio id="a_enc_3_2" src="assets/voice/f_w06_sit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="6.91" data-duration="0.71"></audio>
+  <audio id="a_enc_4_1" src="assets/voice/m_w07_heel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.27" data-duration="0.64"></audio>
+  <audio id="a_enc_4_2" src="assets/voice/f_w08_hill.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.36" data-duration="0.62"></audio>
+  <audio id="a_enc_5_1" src="assets/voice/m_w09_peel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.63" data-duration="0.64"></audio>
+  <audio id="a_enc_5_2" src="assets/voice/f_w10_pill.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.72" data-duration="0.62"></audio>
+  <audio id="a_enc_6_1" src="assets/voice/m_w11_meat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.99" data-duration="0.57"></audio>
+  <audio id="a_enc_6_2" src="assets/voice/f_w12_mitt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.01" data-duration="0.72"></audio>
+  <audio id="a_enc_7_1" src="assets/voice/m_w13_peach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.38" data-duration="0.67"></audio>
+  <audio id="a_enc_7_2" src="assets/voice/f_w14_pitch.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.50" data-duration="0.74"></audio>
+  <audio id="a_enc_8_1" src="assets/voice/m_w15_beat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.89" data-duration="0.55"></audio>
+  <audio id="a_enc_8_2" src="assets/voice/f_w16_bit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.89" data-duration="0.74"></audio>
+  <audio id="a_enc_9_1" src="assets/voice/m_w17_heat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.28" data-duration="0.56"></audio>
+  <audio id="a_enc_9_2" src="assets/voice/f_w18_hit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.29" data-duration="0.62"></audio>
+  <audio id="a_enc_10_1" src="assets/voice/m_w19_cheap.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.56" data-duration="0.62"></audio>
+  <audio id="a_enc_10_2" src="assets/voice/f_w20_chip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.63" data-duration="0.60"></audio>
+  <audio id="a_enc_11_1" src="assets/voice/m_w21_sleep.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.88" data-duration="0.68"></audio>
+  <audio id="a_enc_11_2" src="assets/voice/f_w22_slip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.01" data-duration="0.67"></audio>
+  <audio id="a_enc_12_1" src="assets/voice/m_w23_feel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.33" data-duration="0.66"></audio>
+  <audio id="a_enc_12_2" src="assets/voice/f_w24_fill.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.44" data-duration="0.67"></audio>
+  <audio id="a_enc_13_1" src="assets/voice/m_w25_reach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.76" data-duration="0.70"></audio>
+  <audio id="a_enc_13_2" src="assets/voice/f_w26_rich.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.91" data-duration="0.75"></audio>
+  <audio id="a_enc_14_1" src="assets/voice/m_w27_leave.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.31" data-duration="0.71"></audio>
+  <audio id="a_enc_14_2" src="assets/voice/f_w28_live.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.47" data-duration="0.76"></audio>
+  <audio id="a_enc_15_1" src="assets/voice/m_w29_seek.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.88" data-duration="0.66"></audio>
+  <audio id="a_enc_15_2" src="assets/voice/f_w30_sick.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.99" data-duration="0.67"></audio>
+  <audio id="a_enc_16_1" src="assets/voice/m_w31_lead.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.31" data-duration="0.63"></audio>
+  <audio id="a_enc_16_2" src="assets/voice/f_w32_lid.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.39" data-duration="0.68"></audio>
+  <audio id="a_enc_17_1" src="assets/voice/m_w33_teen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.72" data-duration="0.63"></audio>
+  <audio id="a_enc_17_2" src="assets/voice/f_w34_tin.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.80" data-duration="0.65"></audio>
+  <audio id="a_enc_18_1" src="assets/voice/m_w35_deed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.10" data-duration="0.57"></audio>
+  <audio id="a_enc_18_2" src="assets/voice/f_w36_did.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.12" data-duration="0.68"></audio>
+  <audio id="a_enc_19_1" src="assets/voice/m_w37_steel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.45" data-duration="0.73"></audio>
+  <audio id="a_enc_19_2" src="assets/voice/f_w38_still.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.63" data-duration="0.75"></audio>
+  <audio id="a_enc_20_1" src="assets/voice/m_w39_beach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.03" data-duration="0.63"></audio>
+  <audio id="a_enc_20_2" src="assets/voice/f_w40_bitch.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.11" data-duration="0.67"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    function setEncorePair(p, side, num) {
+      document.getElementById("encoreCounter").innerText = "20쌍 연속 총복습 (" + num + " / 20)";
+      document.getElementById("wL").innerText = p.w1.word;
+      document.getElementById("mL").innerText = p.w1.kr;
+      document.getElementById("wR").innerText = p.w2.word;
+      document.getElementById("mR").innerText = p.w2.kr;
+
+      var cardL = document.getElementById("cardL");
+      var cardR = document.getElementById("cardR");
+      cardL.classList.remove("active-left", "active-right");
+      cardR.classList.remove("active-left", "active-right");
+
+      if (side === "left") {
+        cardL.classList.add("active-left");
+        document.getElementById("capPill").innerText = "🎧 [iː] " + p.w1.word + " (" + p.w1.kr + ")";
+      } else {
+        cardR.classList.add("active-right");
+        document.getElementById("capPill").innerText = "🎧 [ɪ] " + p.w2.word + " (" + p.w2.kr + ")";
+      }
+    }
+
+    function showEndScreen() {
+      document.getElementById("eyebrowPill").style.display = "none";
+      document.getElementById("stageDrill").style.display = "none";
+      document.getElementById("capPill").style.display = "none";
+      var es = document.getElementById("endScreen");
+      es.style.display = "flex";
+      gsap.from(es, { opacity: 0, duration: 0.5 });
+    }
+
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w01","word":"sheep","ipa":"[ʃiːp]","kr":"양","tip":"웃듯이 입꼬리를 팽팽하게!","sound":"이-","m":"m_w01_sheep","f":"f_w01_sheep"},"w2":{"id":"w02","word":"ship","ipa":"[ʃɪp]","kr":"배","tip":"멍때리듯 입에 힘을 툭 빼고 짧게!","sound":"이/에","m":"m_w02_ship","f":"f_w02_ship"}}, "left", 1);
+  }, null, 0.50);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w01","word":"sheep","ipa":"[ʃiːp]","kr":"양","tip":"웃듯이 입꼬리를 팽팽하게!","sound":"이-","m":"m_w01_sheep","f":"f_w01_sheep"},"w2":{"id":"w02","word":"ship","ipa":"[ʃɪp]","kr":"배","tip":"멍때리듯 입에 힘을 툭 빼고 짧게!","sound":"이/에","m":"m_w02_ship","f":"f_w02_ship"}}, "right", 1);
+  }, null, 2.01);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w03","word":"feet","ipa":"[fiːt]","kr":"발들","tip":"입꼬리를 당기며 팽팽하게 '피-트'","sound":"이-","m":"m_w03_feet","f":"f_w03_feet"},"w2":{"id":"w04","word":"fit","ipa":"[fɪt]","kr":"딱 맞는","tip":"힘 빼고 가볍게 툭 '핏'","sound":"이/에","m":"m_w04_fit","f":"f_w04_fit"}}, "left", 2);
+  }, null, 3.35);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w03","word":"feet","ipa":"[fiːt]","kr":"발들","tip":"입꼬리를 당기며 팽팽하게 '피-트'","sound":"이-","m":"m_w03_feet","f":"f_w03_feet"},"w2":{"id":"w04","word":"fit","ipa":"[fɪt]","kr":"딱 맞는","tip":"힘 빼고 가볍게 툭 '핏'","sound":"이/에","m":"m_w04_fit","f":"f_w04_fit"}}, "right", 2);
+  }, null, 4.42);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w05","word":"seat","ipa":"[siːt]","kr":"좌석","tip":"입꼬리를 길게 당기며 '시-트'","sound":"이-","m":"m_w05_seat","f":"f_w05_seat"},"w2":{"id":"w06","word":"sit","ipa":"[sɪt]","kr":"앉다","tip":"턱에 힘을 풀고 가볍게 '싯'","sound":"이/에","m":"m_w06_sit","f":"f_w06_sit"}}, "left", 3);
+  }, null, 5.83);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w05","word":"seat","ipa":"[siːt]","kr":"좌석","tip":"입꼬리를 길게 당기며 '시-트'","sound":"이-","m":"m_w05_seat","f":"f_w05_seat"},"w2":{"id":"w06","word":"sit","ipa":"[sɪt]","kr":"앉다","tip":"턱에 힘을 풀고 가볍게 '싯'","sound":"이/에","m":"m_w06_sit","f":"f_w06_sit"}}, "right", 3);
+  }, null, 6.91);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w07","word":"heel","ipa":"[hiːl]","kr":"발뒤꿈치","tip":"입꼬리를 팽팽하게 '히-얼'","sound":"이-","m":"m_w07_heel","f":"f_w07_heel"},"w2":{"id":"w08","word":"hill","ipa":"[hɪl]","kr":"언덕","tip":"입술에 힘 풀고 '힐'","sound":"이/에","m":"m_w08_hill","f":"f_w08_hill"}}, "left", 4);
+  }, null, 8.27);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w07","word":"heel","ipa":"[hiːl]","kr":"발뒤꿈치","tip":"입꼬리를 팽팽하게 '히-얼'","sound":"이-","m":"m_w07_heel","f":"f_w07_heel"},"w2":{"id":"w08","word":"hill","ipa":"[hɪl]","kr":"언덕","tip":"입술에 힘 풀고 '힐'","sound":"이/에","m":"m_w08_hill","f":"f_w08_hill"}}, "right", 4);
+  }, null, 9.36);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w09","word":"peel","ipa":"[piːl]","kr":"껍질을 벗기다","tip":"입꼬리를 시원하게 '피-얼'","sound":"이-","m":"m_w09_peel","f":"f_w09_peel"},"w2":{"id":"w10","word":"pill","ipa":"[pɪl]","kr":"알약","tip":"힘 빼고 툭 떨어뜨리며 '필'","sound":"이/에","m":"m_w10_pill","f":"f_w10_pill"}}, "left", 5);
+  }, null, 10.63);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w09","word":"peel","ipa":"[piːl]","kr":"껍질을 벗기다","tip":"입꼬리를 시원하게 '피-얼'","sound":"이-","m":"m_w09_peel","f":"f_w09_peel"},"w2":{"id":"w10","word":"pill","ipa":"[pɪl]","kr":"알약","tip":"힘 빼고 툭 떨어뜨리며 '필'","sound":"이/에","m":"m_w10_pill","f":"f_w10_pill"}}, "right", 5);
+  }, null, 11.72);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w11","word":"meat","ipa":"[miːt]","kr":"고기","tip":"입꼬리를 팽팽하게 당겨 '미-트'","sound":"이-","m":"m_w11_meat","f":"f_w11_meat"},"w2":{"id":"w12","word":"mitt","ipa":"[mɪt]","kr":"글러브/장갑","tip":"입술 힘 풀고 툭 '밋'","sound":"이/에","m":"m_w12_mitt","f":"f_w12_mitt"}}, "left", 6);
+  }, null, 12.99);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w11","word":"meat","ipa":"[miːt]","kr":"고기","tip":"입꼬리를 팽팽하게 당겨 '미-트'","sound":"이-","m":"m_w11_meat","f":"f_w11_meat"},"w2":{"id":"w12","word":"mitt","ipa":"[mɪt]","kr":"글러브/장갑","tip":"입술 힘 풀고 툭 '밋'","sound":"이/에","m":"m_w12_mitt","f":"f_w12_mitt"}}, "right", 6);
+  }, null, 14.01);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w13","word":"peach","ipa":"[piːtʃ]","kr":"복숭아","tip":"입꼬리를 활짝 당기며 '피-치'","sound":"이-","m":"m_w13_peach","f":"f_w13_peach"},"w2":{"id":"w14","word":"pitch","ipa":"[pɪtʃ]","kr":"던지다/음높이","tip":"힘 빼고 짧게 끊어 '핏치'","sound":"이/에","m":"m_w14_pitch","f":"f_w14_pitch"}}, "left", 7);
+  }, null, 15.38);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w13","word":"peach","ipa":"[piːtʃ]","kr":"복숭아","tip":"입꼬리를 활짝 당기며 '피-치'","sound":"이-","m":"m_w13_peach","f":"f_w13_peach"},"w2":{"id":"w14","word":"pitch","ipa":"[pɪtʃ]","kr":"던지다/음높이","tip":"힘 빼고 짧게 끊어 '핏치'","sound":"이/에","m":"m_w14_pitch","f":"f_w14_pitch"}}, "right", 7);
+  }, null, 16.50);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w15","word":"beat","ipa":"[biːt]","kr":"때리다/비트","tip":"입꼬리를 단단히 당겨 '비-트'","sound":"이-","m":"m_w15_beat","f":"f_w15_beat"},"w2":{"id":"w16","word":"bit","ipa":"[bɪt]","kr":"조각/약간","tip":"입에 힘 빼고 가볍게 '빗'","sound":"이/에","m":"m_w16_bit","f":"f_w16_bit"}}, "left", 8);
+  }, null, 17.89);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w15","word":"beat","ipa":"[biːt]","kr":"때리다/비트","tip":"입꼬리를 단단히 당겨 '비-트'","sound":"이-","m":"m_w15_beat","f":"f_w15_beat"},"w2":{"id":"w16","word":"bit","ipa":"[bɪt]","kr":"조각/약간","tip":"입에 힘 빼고 가볍게 '빗'","sound":"이/에","m":"m_w16_bit","f":"f_w16_bit"}}, "right", 8);
+  }, null, 18.89);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w17","word":"heat","ipa":"[hiːt]","kr":"열기/더위","tip":"입꼬리를 팽팽히 '히-트'","sound":"이-","m":"m_w17_heat","f":"f_w17_heat"},"w2":{"id":"w18","word":"hit","ipa":"[hɪt]","kr":"치다/타격","tip":"힘 빼고 툭 '힛'","sound":"이/에","m":"m_w18_hit","f":"f_w18_hit"}}, "left", 9);
+  }, null, 20.28);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w17","word":"heat","ipa":"[hiːt]","kr":"열기/더위","tip":"입꼬리를 팽팽히 '히-트'","sound":"이-","m":"m_w17_heat","f":"f_w17_heat"},"w2":{"id":"w18","word":"hit","ipa":"[hɪt]","kr":"치다/타격","tip":"힘 빼고 툭 '힛'","sound":"이/에","m":"m_w18_hit","f":"f_w18_hit"}}, "right", 9);
+  }, null, 21.29);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w19","word":"cheap","ipa":"[tʃiːp]","kr":"저렴한/싼","tip":"입꼬리를 옆으로 '치-프'","sound":"이-","m":"m_w19_cheap","f":"f_w19_cheap"},"w2":{"id":"w20","word":"chip","ipa":"[tʃɪp]","kr":"조각/칩","tip":"입술 힘 풀고 툭 '칩'","sound":"이/에","m":"m_w20_chip","f":"f_w20_chip"}}, "left", 10);
+  }, null, 22.56);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w19","word":"cheap","ipa":"[tʃiːp]","kr":"저렴한/싼","tip":"입꼬리를 옆으로 '치-프'","sound":"이-","m":"m_w19_cheap","f":"f_w19_cheap"},"w2":{"id":"w20","word":"chip","ipa":"[tʃɪp]","kr":"조각/칩","tip":"입술 힘 풀고 툭 '칩'","sound":"이/에","m":"m_w20_chip","f":"f_w20_chip"}}, "right", 10);
+  }, null, 23.63);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w21","word":"sleep","ipa":"[sliːp]","kr":"자다/수면","tip":"입꼬리 당겨 편안하게 '슬리-프'","sound":"이-","m":"m_w21_sleep","f":"f_w21_sleep"},"w2":{"id":"w22","word":"slip","ipa":"[slɪp]","kr":"미끄러지다","tip":"힘 빼고 가볍게 툭 '슬립'","sound":"이/에","m":"m_w22_slip","f":"f_w22_slip"}}, "left", 11);
+  }, null, 24.88);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w21","word":"sleep","ipa":"[sliːp]","kr":"자다/수면","tip":"입꼬리 당겨 편안하게 '슬리-프'","sound":"이-","m":"m_w21_sleep","f":"f_w21_sleep"},"w2":{"id":"w22","word":"slip","ipa":"[slɪp]","kr":"미끄러지다","tip":"힘 빼고 가볍게 툭 '슬립'","sound":"이/에","m":"m_w22_slip","f":"f_w22_slip"}}, "right", 11);
+  }, null, 26.01);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w23","word":"feel","ipa":"[fiːl]","kr":"느끼다/기분","tip":"입꼬리를 팽팽하게 '피-얼'","sound":"이-","m":"m_w23_feel","f":"f_w23_feel"},"w2":{"id":"w24","word":"fill","ipa":"[fɪl]","kr":"채우다","tip":"입술 힘 풀고 '필'","sound":"이/에","m":"m_w24_fill","f":"f_w24_fill"}}, "left", 12);
+  }, null, 27.33);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w23","word":"feel","ipa":"[fiːl]","kr":"느끼다/기분","tip":"입꼬리를 팽팽하게 '피-얼'","sound":"이-","m":"m_w23_feel","f":"f_w23_feel"},"w2":{"id":"w24","word":"fill","ipa":"[fɪl]","kr":"채우다","tip":"입술 힘 풀고 '필'","sound":"이/에","m":"m_w24_fill","f":"f_w24_fill"}}, "right", 12);
+  }, null, 28.44);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w25","word":"reach","ipa":"[riːtʃ]","kr":"도달하다/닿다","tip":"입꼬리를 길게 '리-치'","sound":"이-","m":"m_w25_reach","f":"f_w25_reach"},"w2":{"id":"w26","word":"rich","ipa":"[rɪtʃ]","kr":"부유한","tip":"입에 힘 빼고 '릿치'","sound":"이/에","m":"m_w26_rich","f":"f_w26_rich"}}, "left", 13);
+  }, null, 29.76);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w25","word":"reach","ipa":"[riːtʃ]","kr":"도달하다/닿다","tip":"입꼬리를 길게 '리-치'","sound":"이-","m":"m_w25_reach","f":"f_w25_reach"},"w2":{"id":"w26","word":"rich","ipa":"[rɪtʃ]","kr":"부유한","tip":"입에 힘 빼고 '릿치'","sound":"이/에","m":"m_w26_rich","f":"f_w26_rich"}}, "right", 13);
+  }, null, 30.91);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w27","word":"leave","ipa":"[liːv]","kr":"떠나다/남기다","tip":"입꼬리를 팽팽하게 '리-브'","sound":"이-","m":"m_w27_leave","f":"f_w27_leave"},"w2":{"id":"w28","word":"live","ipa":"[lɪv]","kr":"살다/거주하다","tip":"힘 빼고 툭 '립'","sound":"이/에","m":"m_w28_live","f":"f_w28_live"}}, "left", 14);
+  }, null, 32.31);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w27","word":"leave","ipa":"[liːv]","kr":"떠나다/남기다","tip":"입꼬리를 팽팽하게 '리-브'","sound":"이-","m":"m_w27_leave","f":"f_w27_leave"},"w2":{"id":"w28","word":"live","ipa":"[lɪv]","kr":"살다/거주하다","tip":"힘 빼고 툭 '립'","sound":"이/에","m":"m_w28_live","f":"f_w28_live"}}, "right", 14);
+  }, null, 33.47);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w29","word":"seek","ipa":"[siːk]","kr":"찾다/추구하다","tip":"입꼬리를 팽팽히 '시-크'","sound":"이-","m":"m_w29_seek","f":"f_w29_seek"},"w2":{"id":"w30","word":"sick","ipa":"[sɪk]","kr":"아픈/병든","tip":"입술 힘 풀고 '식'","sound":"이/에","m":"m_w30_sick","f":"f_w30_sick"}}, "left", 15);
+  }, null, 34.88);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w29","word":"seek","ipa":"[siːk]","kr":"찾다/추구하다","tip":"입꼬리를 팽팽히 '시-크'","sound":"이-","m":"m_w29_seek","f":"f_w29_seek"},"w2":{"id":"w30","word":"sick","ipa":"[sɪk]","kr":"아픈/병든","tip":"입술 힘 풀고 '식'","sound":"이/에","m":"m_w30_sick","f":"f_w30_sick"}}, "right", 15);
+  }, null, 35.99);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w31","word":"lead","ipa":"[liːd]","kr":"이끌다/선도하다","tip":"입꼬리 당겨 시원하게 '리-드'","sound":"이-","m":"m_w31_lead","f":"f_w31_lead"},"w2":{"id":"w32","word":"lid","ipa":"[lɪd]","kr":"뚜껑","tip":"힘 빼고 툭 '릿'","sound":"이/에","m":"m_w32_lid","f":"f_w32_lid"}}, "left", 16);
+  }, null, 37.31);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w31","word":"lead","ipa":"[liːd]","kr":"이끌다/선도하다","tip":"입꼬리 당겨 시원하게 '리-드'","sound":"이-","m":"m_w31_lead","f":"f_w31_lead"},"w2":{"id":"w32","word":"lid","ipa":"[lɪd]","kr":"뚜껑","tip":"힘 빼고 툭 '릿'","sound":"이/에","m":"m_w32_lid","f":"f_w32_lid"}}, "right", 16);
+  }, null, 38.39);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w33","word":"teen","ipa":"[tiːn]","kr":"십대","tip":"입꼬리를 팽팽히 '티-인'","sound":"이-","m":"m_w33_teen","f":"f_w33_teen"},"w2":{"id":"w34","word":"tin","ipa":"[tɪn]","kr":"양철/캔","tip":"입술 힘 풀고 '틴'","sound":"이/에","m":"m_w34_tin","f":"f_w34_tin"}}, "left", 17);
+  }, null, 39.72);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w33","word":"teen","ipa":"[tiːn]","kr":"십대","tip":"입꼬리를 팽팽히 '티-인'","sound":"이-","m":"m_w33_teen","f":"f_w33_teen"},"w2":{"id":"w34","word":"tin","ipa":"[tɪn]","kr":"양철/캔","tip":"입술 힘 풀고 '틴'","sound":"이/에","m":"m_w34_tin","f":"f_w34_tin"}}, "right", 17);
+  }, null, 40.80);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w35","word":"deed","ipa":"[diːd]","kr":"행위/업적","tip":"입꼬리를 팽팽하게 '디-드'","sound":"이-","m":"m_w35_deed","f":"f_w35_deed"},"w2":{"id":"w36","word":"did","ipa":"[dɪd]","kr":"했다 (do 과거)","tip":"힘 빼고 가볍게 '딧'","sound":"이/에","m":"m_w36_did","f":"f_w36_did"}}, "left", 18);
+  }, null, 42.10);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w35","word":"deed","ipa":"[diːd]","kr":"행위/업적","tip":"입꼬리를 팽팽하게 '디-드'","sound":"이-","m":"m_w35_deed","f":"f_w35_deed"},"w2":{"id":"w36","word":"did","ipa":"[dɪd]","kr":"했다 (do 과거)","tip":"힘 빼고 가볍게 '딧'","sound":"이/에","m":"m_w36_did","f":"f_w36_did"}}, "right", 18);
+  }, null, 43.12);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w37","word":"steel","ipa":"[stiːl]","kr":"강철","tip":"입꼬리를 단단히 '스티-얼'","sound":"이-","m":"m_w37_steel","f":"f_w37_steel"},"w2":{"id":"w38","word":"still","ipa":"[stɪl]","kr":"여전히/가만히","tip":"입술 힘 풀고 '스틸'","sound":"이/에","m":"m_w38_still","f":"f_w38_still"}}, "left", 19);
+  }, null, 44.45);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w37","word":"steel","ipa":"[stiːl]","kr":"강철","tip":"입꼬리를 단단히 '스티-얼'","sound":"이-","m":"m_w37_steel","f":"f_w37_steel"},"w2":{"id":"w38","word":"still","ipa":"[stɪl]","kr":"여전히/가만히","tip":"입술 힘 풀고 '스틸'","sound":"이/에","m":"m_w38_still","f":"f_w38_still"}}, "right", 19);
+  }, null, 45.63);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w39","word":"beach","ipa":"[biːtʃ]","kr":"해변","tip":"입꼬리를 환하게 '비-치' (주의!)","sound":"이-","m":"m_w39_beach","f":"f_w39_beach"},"w2":{"id":"w40","word":"bitch","ipa":"[bɪtʃ]","kr":"암캐 (비속어 주의)","tip":"⚠️ 욕으로 오해받지 않게 짧고 툭!","sound":"이/에","m":"m_w40_bitch","f":"f_w40_bitch"}}, "left", 20);
+  }, null, 47.03);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w39","word":"beach","ipa":"[biːtʃ]","kr":"해변","tip":"입꼬리를 환하게 '비-치' (주의!)","sound":"이-","m":"m_w39_beach","f":"f_w39_beach"},"w2":{"id":"w40","word":"bitch","ipa":"[bɪtʃ]","kr":"암캐 (비속어 주의)","tip":"⚠️ 욕으로 오해받지 않게 짧고 툭!","sound":"이/에","m":"m_w40_bitch","f":"f_w40_bitch"}}, "right", 20);
+  }, null, 48.11);
+  tl.call(function() {
+    showEndScreen();
+  }, null, 49.93);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-encore"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

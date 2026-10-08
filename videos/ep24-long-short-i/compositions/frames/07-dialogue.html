@@ -1,0 +1,215 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #1E232A; color: #FFFFFF; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .video-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.45;
+    filter: saturate(1.2) contrast(1.1);
+  }
+  .overlay-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at center, rgba(14, 18, 27, 0.4) 0%, rgba(14, 18, 27, 0.85) 100%);
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 82cqw; display: flex; flex-direction: column; align-items: center; z-index: 5;
+  }
+  .dialogue-card {
+    background: rgba(255, 255, 255, 0.96); color: #111111; border: 4px solid #111111;
+    box-shadow: 8px 8px 0px #111111; border-radius: 28px; padding: 5cqh 4cqw;
+    width: 100%; text-align: center; display: flex; flex-direction: column; gap: 2.5cqh;
+  }
+  .sentence-en {
+    font-size: 3.2cqw; font-weight: 900; line-height: 1.35; letter-spacing: -0.01em;
+  }
+  .sentence-kr {
+    font-size: 2cqw; font-weight: 800; color: #4B5563;
+  }
+  .key-tip {
+    font-size: 1.4cqw; font-weight: 900; color: #1E232A; background: #FEF08A;
+    border: 2px solid #111111; border-radius: 14px; padding: 0.8cqh 2cqw;
+    display: inline-block; box-shadow: 3px 3px 0px #111111;
+  }
+  .repeat-dots {
+    display: flex; gap: 0.8cqw; justify-content: center; align-items: center; margin-top: 1cqh;
+  }
+  .repeat-dot {
+    width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: #E5E0D8;
+    border: 2px solid #111111;
+  }
+  .repeat-dot.active {
+    background: #F59E0B; box-shadow: 2px 2px 0px #111111;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 1;
+  }
+  .hl-tense { color: #059669; border-bottom: 5px solid #059669; }
+  .hl-lax { color: #B45309; border-bottom: 5px solid #B45309; }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="07-dialogue" data-width="1920" data-height="1080">
+  <video id="cafeVideo" class="video-bg" src="assets/videos/f07_coffee_ambience.mp4" autoplay loop muted playsinline data-start="0" data-duration="64.88" data-hf-media-start-basis="local"></video>
+  <div class="overlay-vignette"></div>
+
+  <div class="eyebrow-pill">
+    <span class="tip-badge">실전 문장 대화</span>
+    <span>한 문장 속에 담긴 짝단어 동시 구별 훈련 (3회 청취)</span>
+  </div>
+
+  <div class="stage">
+    <div class="dialogue-card" id="dialogueCard">
+      <div class="sentence-en" id="sentenceEn">-</div>
+      <div class="sentence-kr" id="sentenceKr">-</div>
+      <div>
+        <span class="key-tip" id="keyTip">-</span>
+      </div>
+      <div class="repeat-dots">
+        <div class="repeat-dot" id="dot_1"></div>
+        <div class="repeat-dot" id="dot_2"></div>
+        <div class="repeat-dot" id="dot_3"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill">실전 카페 대화 7문장 집중 청취</div>
+
+  <audio id="a_dial_01_1" src="assets/voice/dial_01_seat_sit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="2.42"></audio>
+  <audio id="a_dial_01_2" src="assets/voice/dial_01_seat_sit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.77" data-duration="2.42"></audio>
+  <audio id="a_dial_01_3" src="assets/voice/dial_01_seat_sit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.04" data-duration="2.42"></audio>
+  <audio id="a_dial_02_1" src="assets/voice/dial_02_feel_fill.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.86" data-duration="1.89"></audio>
+  <audio id="a_dial_02_2" src="assets/voice/dial_02_feel_fill.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.60" data-duration="1.89"></audio>
+  <audio id="a_dial_02_3" src="assets/voice/dial_02_feel_fill.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.34" data-duration="1.89"></audio>
+  <audio id="a_dial_03_1" src="assets/voice/dial_03_sleep_slip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.63" data-duration="2.50"></audio>
+  <audio id="a_dial_03_2" src="assets/voice/dial_03_sleep_slip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.98" data-duration="2.50"></audio>
+  <audio id="a_dial_03_3" src="assets/voice/dial_03_sleep_slip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.33" data-duration="2.50"></audio>
+  <audio id="a_dial_04_1" src="assets/voice/dial_04_reach_rich.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.23" data-duration="1.96"></audio>
+  <audio id="a_dial_04_2" src="assets/voice/dial_04_reach_rich.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.04" data-duration="1.96"></audio>
+  <audio id="a_dial_04_3" src="assets/voice/dial_04_reach_rich.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.85" data-duration="1.96"></audio>
+  <audio id="a_dial_05_1" src="assets/voice/dial_05_leave_live.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.21" data-duration="1.70"></audio>
+  <audio id="a_dial_05_2" src="assets/voice/dial_05_leave_live.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.76" data-duration="1.70"></audio>
+  <audio id="a_dial_05_3" src="assets/voice/dial_05_leave_live.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.31" data-duration="1.70"></audio>
+  <audio id="a_dial_06_1" src="assets/voice/dial_06_meat_mitt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.41" data-duration="1.92"></audio>
+  <audio id="a_dial_06_2" src="assets/voice/dial_06_meat_mitt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.18" data-duration="1.92"></audio>
+  <audio id="a_dial_06_3" src="assets/voice/dial_06_meat_mitt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="52.95" data-duration="1.92"></audio>
+  <audio id="a_dial_07_1" src="assets/voice/dial_07_beach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="56.27" data-duration="1.67"></audio>
+  <audio id="a_dial_07_2" src="assets/voice/dial_07_beach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="58.79" data-duration="1.67"></audio>
+  <audio id="a_dial_07_3" src="assets/voice/dial_07_beach.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="61.31" data-duration="1.67"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    function setDialogue(d, rep) {
+      var formattedEn = d.en;
+      if (d.pair && d.pair.length >= 2) {
+        var reTense = new RegExp("\\b(" + d.pair[0] + ")\\b", "gi");
+        var reLax = new RegExp("\\b(" + d.pair[1] + ")\\b", "gi");
+        formattedEn = formattedEn.replace(reTense, '<span class="hl-tense">$1</span>');
+        formattedEn = formattedEn.replace(reLax, '<span class="hl-lax">$1</span>');
+      } else if (d.pair && d.pair.length === 1) {
+        var reTense = new RegExp("\\b(" + d.pair[0] + ")\\b", "gi");
+        formattedEn = formattedEn.replace(reTense, '<span class="hl-tense">$1</span>');
+      }
+
+      document.getElementById("sentenceEn").innerHTML = formattedEn;
+      document.getElementById("sentenceKr").innerText = d.kr;
+      document.getElementById("keyTip").innerText = d.tips;
+      document.getElementById("capPill").innerText = "🎧 " + rep + "회차 청취: " + d.en;
+
+      for (var i = 1; i <= 3; i++) {
+        var dot = document.getElementById("dot_" + i);
+        if (i <= rep) dot.classList.add("active");
+        else dot.classList.remove("active");
+      }
+    }
+
+  tl.call(function() {
+    setDialogue({"id":"dial_01","en":"Please take a seat and sit down.","kr":"좌석에 앉아 주세요.","audio":"dial_01_seat_sit","pair":["seat","sit"],"tips":"seat [siːt] ➔ 입꼬리 당김 | sit [sɪt] ➔ 힘 빼고 툭"}, 1);
+  }, null, 0.50);
+  tl.call(function() {
+    setDialogue({"id":"dial_01","en":"Please take a seat and sit down.","kr":"좌석에 앉아 주세요.","audio":"dial_01_seat_sit","pair":["seat","sit"],"tips":"seat [siːt] ➔ 입꼬리 당김 | sit [sɪt] ➔ 힘 빼고 툭"}, 2);
+  }, null, 3.77);
+  tl.call(function() {
+    setDialogue({"id":"dial_01","en":"Please take a seat and sit down.","kr":"좌석에 앉아 주세요.","audio":"dial_01_seat_sit","pair":["seat","sit"],"tips":"seat [siːt] ➔ 입꼬리 당김 | sit [sɪt] ➔ 힘 빼고 툭"}, 3);
+  }, null, 7.04);
+  tl.call(function() {
+    setDialogue({"id":"dial_02","en":"I feel like I should fill the cup.","kr":"컵을 채워야 할 것 같아요.","audio":"dial_02_feel_fill","pair":["feel","fill"],"tips":"feel [fiːl] ➔ 팽팽하게 | fill [fɪl] ➔ 턱 힘 빼기"}, 1);
+  }, null, 10.86);
+  tl.call(function() {
+    setDialogue({"id":"dial_02","en":"I feel like I should fill the cup.","kr":"컵을 채워야 할 것 같아요.","audio":"dial_02_feel_fill","pair":["feel","fill"],"tips":"feel [fiːl] ➔ 팽팽하게 | fill [fɪl] ➔ 턱 힘 빼기"}, 2);
+  }, null, 13.60);
+  tl.call(function() {
+    setDialogue({"id":"dial_02","en":"I feel like I should fill the cup.","kr":"컵을 채워야 할 것 같아요.","audio":"dial_02_feel_fill","pair":["feel","fill"],"tips":"feel [fiːl] ➔ 팽팽하게 | fill [fɪl] ➔ 턱 힘 빼기"}, 3);
+  }, null, 16.34);
+  tl.call(function() {
+    setDialogue({"id":"dial_03","en":"Did you sleep well, or did you slip?","kr":"잘 잤어요, 아니면 미끄러졌나요?","audio":"dial_03_sleep_slip","pair":["sleep","slip"],"tips":"sleep [sliːp] ➔ 입꼬리 팽팽 | slip [slɪp] ➔ 가볍게 툭"}, 1);
+  }, null, 19.63);
+  tl.call(function() {
+    setDialogue({"id":"dial_03","en":"Did you sleep well, or did you slip?","kr":"잘 잤어요, 아니면 미끄러졌나요?","audio":"dial_03_sleep_slip","pair":["sleep","slip"],"tips":"sleep [sliːp] ➔ 입꼬리 팽팽 | slip [slɪp] ➔ 가볍게 툭"}, 2);
+  }, null, 22.98);
+  tl.call(function() {
+    setDialogue({"id":"dial_03","en":"Did you sleep well, or did you slip?","kr":"잘 잤어요, 아니면 미끄러졌나요?","audio":"dial_03_sleep_slip","pair":["sleep","slip"],"tips":"sleep [sliːp] ➔ 입꼬리 팽팽 | slip [slɪp] ➔ 가볍게 툭"}, 3);
+  }, null, 26.33);
+  tl.call(function() {
+    setDialogue({"id":"dial_04","en":"We can reach that rich neighborhood.","kr":"우리는 그 부유한 동네에 갈 수 있어요.","audio":"dial_04_reach_rich","pair":["reach","rich"],"tips":"reach [riːtʃ] ➔ 입꼬리 당김 | rich [rɪtʃ] ➔ 힘 풀고 짧게"}, 1);
+  }, null, 30.23);
+  tl.call(function() {
+    setDialogue({"id":"dial_04","en":"We can reach that rich neighborhood.","kr":"우리는 그 부유한 동네에 갈 수 있어요.","audio":"dial_04_reach_rich","pair":["reach","rich"],"tips":"reach [riːtʃ] ➔ 입꼬리 당김 | rich [rɪtʃ] ➔ 힘 풀고 짧게"}, 2);
+  }, null, 33.04);
+  tl.call(function() {
+    setDialogue({"id":"dial_04","en":"We can reach that rich neighborhood.","kr":"우리는 그 부유한 동네에 갈 수 있어요.","audio":"dial_04_reach_rich","pair":["reach","rich"],"tips":"reach [riːtʃ] ➔ 입꼬리 당김 | rich [rɪtʃ] ➔ 힘 풀고 짧게"}, 3);
+  }, null, 35.85);
+  tl.call(function() {
+    setDialogue({"id":"dial_05","en":"Don't leave the house where you live.","kr":"당신이 살고 있는 집을 떠나지 마세요.","audio":"dial_05_leave_live","pair":["leave","live"],"tips":"leave [liːv] ➔ 팽팽하게 | live [lɪv] ➔ 멍때리듯 가볍게"}, 1);
+  }, null, 39.21);
+  tl.call(function() {
+    setDialogue({"id":"dial_05","en":"Don't leave the house where you live.","kr":"당신이 살고 있는 집을 떠나지 마세요.","audio":"dial_05_leave_live","pair":["leave","live"],"tips":"leave [liːv] ➔ 팽팽하게 | live [lɪv] ➔ 멍때리듯 가볍게"}, 2);
+  }, null, 41.76);
+  tl.call(function() {
+    setDialogue({"id":"dial_05","en":"Don't leave the house where you live.","kr":"당신이 살고 있는 집을 떠나지 마세요.","audio":"dial_05_leave_live","pair":["leave","live"],"tips":"leave [liːv] ➔ 팽팽하게 | live [lɪv] ➔ 멍때리듯 가볍게"}, 3);
+  }, null, 44.31);
+  tl.call(function() {
+    setDialogue({"id":"dial_06","en":"I ate some meat with a baseball mitt.","kr":"야구 글러브를 끼고 고기를 먹었어요.","audio":"dial_06_meat_mitt","pair":["meat","mitt"],"tips":"meat [miːt] ➔ 팽팽한 '미-트' | mitt [mɪt] ➔ 짧은 '밋'"}, 1);
+  }, null, 47.41);
+  tl.call(function() {
+    setDialogue({"id":"dial_06","en":"I ate some meat with a baseball mitt.","kr":"야구 글러브를 끼고 고기를 먹었어요.","audio":"dial_06_meat_mitt","pair":["meat","mitt"],"tips":"meat [miːt] ➔ 팽팽한 '미-트' | mitt [mɪt] ➔ 짧은 '밋'"}, 2);
+  }, null, 50.18);
+  tl.call(function() {
+    setDialogue({"id":"dial_06","en":"I ate some meat with a baseball mitt.","kr":"야구 글러브를 끼고 고기를 먹었어요.","audio":"dial_06_meat_mitt","pair":["meat","mitt"],"tips":"meat [miːt] ➔ 팽팽한 '미-트' | mitt [mɪt] ➔ 짧은 '밋'"}, 3);
+  }, null, 52.95);
+  tl.call(function() {
+    setDialogue({"id":"dial_07","en":"Let's walk along the beach together.","kr":"우리 함께 해변을 따라 걸어요.","audio":"dial_07_beach","pair":["beach"],"tips":"beach [biːtʃ] ➔ 입꼬리 활짝 당겨야 오해 없음!"}, 1);
+  }, null, 56.27);
+  tl.call(function() {
+    setDialogue({"id":"dial_07","en":"Let's walk along the beach together.","kr":"우리 함께 해변을 따라 걸어요.","audio":"dial_07_beach","pair":["beach"],"tips":"beach [biːtʃ] ➔ 입꼬리 활짝 당겨야 오해 없음!"}, 2);
+  }, null, 58.79);
+  tl.call(function() {
+    setDialogue({"id":"dial_07","en":"Let's walk along the beach together.","kr":"우리 함께 해변을 따라 걸어요.","audio":"dial_07_beach","pair":["beach"],"tips":"beach [biːtʃ] ➔ 입꼬리 활짝 당겨야 오해 없음!"}, 3);
+  }, null, 61.31);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-dialogue"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

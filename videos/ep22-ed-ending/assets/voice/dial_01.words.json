@@ -1,0 +1,42 @@
+[
+  {
+    "word": "I",
+    "from": 0.315,
+    "to": 0.39
+  },
+  {
+    "word": "walked",
+    "from": 0.465,
+    "to": 0.915
+  },
+  {
+    "word": "home",
+    "from": 0.99,
+    "to": 1.29
+  },
+  {
+    "word": "and",
+    "from": 1.365,
+    "to": 1.59
+  },
+  {
+    "word": "stopped",
+    "from": 1.665,
+    "to": 2.19
+  },
+  {
+    "word": "by",
+    "from": 2.265,
+    "to": 2.415
+  },
+  {
+    "word": "the",
+    "from": 2.49,
+    "to": 2.715
+  },
+  {
+    "word": "store.",
+    "from": 2.79,
+    "to": 3.24
+  }
+]

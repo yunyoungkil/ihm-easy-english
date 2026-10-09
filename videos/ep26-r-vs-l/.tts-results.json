@@ -1,0 +1,362 @@
+{
+  "01_f01_hook": {
+    "path": "assets/voice/01_f01_hook.wav",
+    "duration_s": 27.52
+  },
+  "02_f02_principle": {
+    "path": "assets/voice/02_f02_principle.wav",
+    "duration_s": 36.16
+  },
+  "03_f09_summary": {
+    "path": "assets/voice/03_f09_summary.wav",
+    "duration_s": 20.88
+  },
+  "dial_01_right_light": {
+    "path": "assets/voice/dial_01_right_light.wav",
+    "duration_s": 2.45
+  },
+  "dial_02_pray_play": {
+    "path": "assets/voice/dial_02_pray_play.wav",
+    "duration_s": 2.74
+  },
+  "dial_03_road_load": {
+    "path": "assets/voice/dial_03_road_load.wav",
+    "duration_s": 2.89
+  },
+  "dial_04_read_lead": {
+    "path": "assets/voice/dial_04_read_lead.wav",
+    "duration_s": 2.44
+  },
+  "dial_05_lock_rock": {
+    "path": "assets/voice/dial_05_lock_rock.wav",
+    "duration_s": 2.72
+  },
+  "dial_06_clown_crown": {
+    "path": "assets/voice/dial_06_clown_crown.wav",
+    "duration_s": 2.53
+  },
+  "dial_07_grass_glass": {
+    "path": "assets/voice/dial_07_grass_glass.wav",
+    "duration_s": 2.87
+  },
+  "f_w01_right": {
+    "path": "assets/voice/f_w01_right.wav",
+    "duration_s": 1.08
+  },
+  "f_w02_light": {
+    "path": "assets/voice/f_w02_light.wav",
+    "duration_s": 0.81
+  },
+  "f_w03_red": {
+    "path": "assets/voice/f_w03_red.wav",
+    "duration_s": 0.79
+  },
+  "f_w04_led": {
+    "path": "assets/voice/f_w04_led.wav",
+    "duration_s": 0.82
+  },
+  "f_w05_rain": {
+    "path": "assets/voice/f_w05_rain.wav",
+    "duration_s": 0.86
+  },
+  "f_w06_lane": {
+    "path": "assets/voice/f_w06_lane.wav",
+    "duration_s": 0.84
+  },
+  "f_w07_row": {
+    "path": "assets/voice/f_w07_row.wav",
+    "duration_s": 0.78
+  },
+  "f_w08_low": {
+    "path": "assets/voice/f_w08_low.wav",
+    "duration_s": 0.75
+  },
+  "f_w09_raw": {
+    "path": "assets/voice/f_w09_raw.wav",
+    "duration_s": 0.87
+  },
+  "f_w10_law": {
+    "path": "assets/voice/f_w10_law.wav",
+    "duration_s": 0.87
+  },
+  "f_w11_run": {
+    "path": "assets/voice/f_w11_run.wav",
+    "duration_s": 0.82
+  },
+  "f_w12_learn": {
+    "path": "assets/voice/f_w12_learn.wav",
+    "duration_s": 0.83
+  },
+  "f_w13_read": {
+    "path": "assets/voice/f_w13_read.wav",
+    "duration_s": 0.84
+  },
+  "f_w14_lead": {
+    "path": "assets/voice/f_w14_lead.wav",
+    "duration_s": 0.82
+  },
+  "f_w15_ride": {
+    "path": "assets/voice/f_w15_ride.wav",
+    "duration_s": 0.91
+  },
+  "f_w16_lied": {
+    "path": "assets/voice/f_w16_lied.wav",
+    "duration_s": 0.85
+  },
+  "f_w17_race": {
+    "path": "assets/voice/f_w17_race.wav",
+    "duration_s": 0.91
+  },
+  "f_w18_lace": {
+    "path": "assets/voice/f_w18_lace.wav",
+    "duration_s": 0.9
+  },
+  "f_w19_ring": {
+    "path": "assets/voice/f_w19_ring.wav",
+    "duration_s": 0.82
+  },
+  "f_w20_ling": {
+    "path": "assets/voice/f_w20_ling.wav",
+    "duration_s": 0.76
+  },
+  "f_w21_river": {
+    "path": "assets/voice/f_w21_river.wav",
+    "duration_s": 0.81
+  },
+  "f_w22_liver": {
+    "path": "assets/voice/f_w22_liver.wav",
+    "duration_s": 0.75
+  },
+  "f_w23_rock": {
+    "path": "assets/voice/f_w23_rock.wav",
+    "duration_s": 0.79
+  },
+  "f_w24_lock": {
+    "path": "assets/voice/f_w24_lock.wav",
+    "duration_s": 0.75
+  },
+  "f_w25_road": {
+    "path": "assets/voice/f_w25_road.wav",
+    "duration_s": 0.86
+  },
+  "f_w26_load": {
+    "path": "assets/voice/f_w26_load.wav",
+    "duration_s": 0.88
+  },
+  "f_w27_room": {
+    "path": "assets/voice/f_w27_room.wav",
+    "duration_s": 0.89
+  },
+  "f_w28_loom": {
+    "path": "assets/voice/f_w28_loom.wav",
+    "duration_s": 0.84
+  },
+  "f_w29_root": {
+    "path": "assets/voice/f_w29_root.wav",
+    "duration_s": 0.75
+  },
+  "f_w30_loot": {
+    "path": "assets/voice/f_w30_loot.wav",
+    "duration_s": 0.73
+  },
+  "f_w31_pray": {
+    "path": "assets/voice/f_w31_pray.wav",
+    "duration_s": 0.8
+  },
+  "f_w32_play": {
+    "path": "assets/voice/f_w32_play.wav",
+    "duration_s": 0.69
+  },
+  "f_w33_crown": {
+    "path": "assets/voice/f_w33_crown.wav",
+    "duration_s": 0.87
+  },
+  "f_w34_clown": {
+    "path": "assets/voice/f_w34_clown.wav",
+    "duration_s": 0.8
+  },
+  "f_w35_grow": {
+    "path": "assets/voice/f_w35_grow.wav",
+    "duration_s": 0.83
+  },
+  "f_w36_glow": {
+    "path": "assets/voice/f_w36_glow.wav",
+    "duration_s": 0.82
+  },
+  "f_w37_fry": {
+    "path": "assets/voice/f_w37_fry.wav",
+    "duration_s": 0.89
+  },
+  "f_w38_fly": {
+    "path": "assets/voice/f_w38_fly.wav",
+    "duration_s": 0.82
+  },
+  "f_w39_grass": {
+    "path": "assets/voice/f_w39_grass.wav",
+    "duration_s": 0.91
+  },
+  "f_w40_glass": {
+    "path": "assets/voice/f_w40_glass.wav",
+    "duration_s": 0.99
+  },
+  "m_w01_right": {
+    "path": "assets/voice/m_w01_right.wav",
+    "duration_s": 0.92
+  },
+  "m_w02_light": {
+    "path": "assets/voice/m_w02_light.wav",
+    "duration_s": 0.72
+  },
+  "m_w03_red": {
+    "path": "assets/voice/m_w03_red.wav",
+    "duration_s": 0.72
+  },
+  "m_w04_led": {
+    "path": "assets/voice/m_w04_led.wav",
+    "duration_s": 0.68
+  },
+  "m_w05_rain": {
+    "path": "assets/voice/m_w05_rain.wav",
+    "duration_s": 0.85
+  },
+  "m_w06_lane": {
+    "path": "assets/voice/m_w06_lane.wav",
+    "duration_s": 0.69
+  },
+  "m_w07_row": {
+    "path": "assets/voice/m_w07_row.wav",
+    "duration_s": 0.73
+  },
+  "m_w08_low": {
+    "path": "assets/voice/m_w08_low.wav",
+    "duration_s": 0.72
+  },
+  "m_w09_raw": {
+    "path": "assets/voice/m_w09_raw.wav",
+    "duration_s": 0.73
+  },
+  "m_w10_law": {
+    "path": "assets/voice/m_w10_law.wav",
+    "duration_s": 0.71
+  },
+  "m_w11_run": {
+    "path": "assets/voice/m_w11_run.wav",
+    "duration_s": 0.75
+  },
+  "m_w12_learn": {
+    "path": "assets/voice/m_w12_learn.wav",
+    "duration_s": 0.79
+  },
+  "m_w13_read": {
+    "path": "assets/voice/m_w13_read.wav",
+    "duration_s": 0.69
+  },
+  "m_w14_lead": {
+    "path": "assets/voice/m_w14_lead.wav",
+    "duration_s": 0.74
+  },
+  "m_w15_ride": {
+    "path": "assets/voice/m_w15_ride.wav",
+    "duration_s": 0.75
+  },
+  "m_w16_lied": {
+    "path": "assets/voice/m_w16_lied.wav",
+    "duration_s": 0.76
+  },
+  "m_w17_race": {
+    "path": "assets/voice/m_w17_race.wav",
+    "duration_s": 0.77
+  },
+  "m_w18_lace": {
+    "path": "assets/voice/m_w18_lace.wav",
+    "duration_s": 0.78
+  },
+  "m_w19_ring": {
+    "path": "assets/voice/m_w19_ring.wav",
+    "duration_s": 0.74
+  },
+  "m_w20_ling": {
+    "path": "assets/voice/m_w20_ling.wav",
+    "duration_s": 0.67
+  },
+  "m_w21_river": {
+    "path": "assets/voice/m_w21_river.wav",
+    "duration_s": 0.71
+  },
+  "m_w22_liver": {
+    "path": "assets/voice/m_w22_liver.wav",
+    "duration_s": 0.62
+  },
+  "m_w23_rock": {
+    "path": "assets/voice/m_w23_rock.wav",
+    "duration_s": 0.7
+  },
+  "m_w24_lock": {
+    "path": "assets/voice/m_w24_lock.wav",
+    "duration_s": 0.71
+  },
+  "m_w25_road": {
+    "path": "assets/voice/m_w25_road.wav",
+    "duration_s": 0.72
+  },
+  "m_w26_load": {
+    "path": "assets/voice/m_w26_load.wav",
+    "duration_s": 0.74
+  },
+  "m_w27_room": {
+    "path": "assets/voice/m_w27_room.wav",
+    "duration_s": 0.81
+  },
+  "m_w28_loom": {
+    "path": "assets/voice/m_w28_loom.wav",
+    "duration_s": 0.74
+  },
+  "m_w29_root": {
+    "path": "assets/voice/m_w29_root.wav",
+    "duration_s": 0.66
+  },
+  "m_w30_loot": {
+    "path": "assets/voice/m_w30_loot.wav",
+    "duration_s": 0.65
+  },
+  "m_w31_pray": {
+    "path": "assets/voice/m_w31_pray.wav",
+    "duration_s": 0.7
+  },
+  "m_w32_play": {
+    "path": "assets/voice/m_w32_play.wav",
+    "duration_s": 0.67
+  },
+  "m_w33_crown": {
+    "path": "assets/voice/m_w33_crown.wav",
+    "duration_s": 0.81
+  },
+  "m_w34_clown": {
+    "path": "assets/voice/m_w34_clown.wav",
+    "duration_s": 0.78
+  },
+  "m_w35_grow": {
+    "path": "assets/voice/m_w35_grow.wav",
+    "duration_s": 0.81
+  },
+  "m_w36_glow": {
+    "path": "assets/voice/m_w36_glow.wav",
+    "duration_s": 0.7
+  },
+  "m_w37_fry": {
+    "path": "assets/voice/m_w37_fry.wav",
+    "duration_s": 0.82
+  },
+  "m_w38_fly": {
+    "path": "assets/voice/m_w38_fly.wav",
+    "duration_s": 0.75
+  },
+  "m_w39_grass": {
+    "path": "assets/voice/m_w39_grass.wav",
+    "duration_s": 0.79
+  },
+  "m_w40_glass": {
+    "path": "assets/voice/m_w40_glass.wav",
+    "duration_s": 0.83
+  }
+}

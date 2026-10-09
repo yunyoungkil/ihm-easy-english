@@ -1,0 +1,37 @@
+[
+  {
+    "word": "He",
+    "from": 0.101,
+    "to": 0.183
+  },
+  {
+    "word": "laughed",
+    "from": 0.224,
+    "to": 0.512
+  },
+  {
+    "word": "when",
+    "from": 0.553,
+    "to": 0.717
+  },
+  {
+    "word": "he",
+    "from": 0.758,
+    "to": 0.84
+  },
+  {
+    "word": "watched",
+    "from": 0.881,
+    "to": 1.168
+  },
+  {
+    "word": "the",
+    "from": 1.209,
+    "to": 1.333
+  },
+  {
+    "word": "movie.",
+    "from": 1.374,
+    "to": 1.62
+  }
+]

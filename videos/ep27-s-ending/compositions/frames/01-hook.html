@@ -1,0 +1,146 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap;
+  }
+  .tip-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 90cqw; display: flex; gap: 2.4cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .compare-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 26px; padding: 3.5cqh 1.6cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .card-label {
+    font-size: 1.1cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .label-s { background: #FEE2E2; color: #991B1B; }
+  .label-z { background: #DBEAFE; color: #1E40AF; }
+  .label-iz { background: #D1FAE5; color: #065F46; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 4.1cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap;
+  }
+  .word-stem { color: #111111; }
+  .word-s {
+    display: inline-block;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    padding-bottom: 2px;
+  }
+  .word-s.s-s { color: #DC2626; border-color: #DC2626; }
+  .word-s.s-z { color: #2563EB; border-color: #2563EB; }
+  .word-s.s-iz { color: #059669; border-color: #059669; }
+  .syl-pill {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 900;
+    padding: 0.4cqh 1.2cqw; border-radius: 12px; border: 2px solid #111111;
+    box-shadow: 2px 2px 0px #111111; white-space: nowrap;
+  }
+  .pill-s { background: #FEE2E2; color: #991B1B; }
+  .pill-z { background: #DBEAFE; color: #1E40AF; }
+  .pill-iz { background: #D1FAE5; color: #065F46; }
+  .meaning-text {
+    font-size: 1.8cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .status-badge {
+    font-size: 1.15cqw; font-weight: 900; padding: 0.6cqh 1.4cqw; border-radius: 12px;
+    border: 2px solid #111111; white-space: nowrap;
+  }
+  .badge-warn { background: #FEF3C7; color: #92400E; }
+  .badge-correct { background: #D1FAE5; color: #065F46; }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-lutg" id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-5lj4" class="tip-badge">충격 진실</span>
+    <span data-hf-id="hf-66h8">단어 끝 S, 전부 '스'로 읽으면 원어민은 전혀 못 알아듣습니다!</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <!-- Card 1: cats [s] -->
+    <div data-hf-id="hf-kf9o" class="compare-card">
+      <div data-hf-id="hf-q0ll" class="card-label label-s">[s] 무성음 (떨림 0%)</div>
+      <div data-hf-id="hf-gbvk" class="word-text"><span data-hf-id="hf-dliv" class="word-stem">cat</span><span data-hf-id="hf-wacj" class="word-s s-s">s</span></div>
+      <div data-hf-id="hf-jjem" class="syl-pill pill-s">캣츠 [kæts]</div>
+      <div data-hf-id="hf-u87g" class="meaning-text">고양이들</div>
+      <div data-hf-id="hf-ycud" class="status-badge badge-correct">✓ 가볍게 새는 [s]</div>
+    </div>
+
+    <!-- Card 2: dogs [z] -->
+    <div data-hf-id="hf-jxwk" class="compare-card">
+      <div data-hf-id="hf-e7ro" class="card-label label-z">[z] 유성음 (떨림 100%)</div>
+      <div data-hf-id="hf-p0k8" class="word-text"><span data-hf-id="hf-i66x" class="word-stem">dog</span><span data-hf-id="hf-bivs" class="word-s s-z">s</span></div>
+      <div data-hf-id="hf-tjdz" class="syl-pill pill-z">도그즈 [dɔːɡz]</div>
+      <div data-hf-id="hf-t0zr" class="meaning-text">개들</div>
+      <div data-hf-id="hf-kcyc" class="status-badge badge-warn">⚠️ 독스 ➔ [도그즈] 성대 울림!</div>
+    </div>
+
+    <!-- Card 3: bu · ses [ɪz] -->
+    <div data-hf-id="hf-iqzh" class="compare-card">
+      <div data-hf-id="hf-tu7i" class="card-label label-iz">[ɪz] 쿠션 모음 (+1음절)</div>
+      <div data-hf-id="hf-ntn5" class="word-text"><span data-hf-id="hf-0lf9" class="word-stem">bu · </span><span data-hf-id="hf-ge5n" class="word-s s-iz">ses</span></div>
+      <div data-hf-id="hf-snv2" class="syl-pill pill-iz">버시즈 [ˈbʌsɪz]</div>
+      <div data-hf-id="hf-tlwh" class="meaning-text">버스들</div>
+      <div data-hf-id="hf-7jzt" class="status-badge badge-correct">✓ 혀 꼬임 방지 [버시즈]!</div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-zoze" id="audioHook" src="assets/voice/01_f01_hook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="28.68"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("고양이들은 캣츠, 개들은 독스, 버스들은 버시스."); }, null, 0.49);
+  tl.call(function() { cap("단어 끝에 붙은 S, 지금까지 전부 스로 읽으셨나요?"); }, null, 7.34);
+  tl.call(function() { cap("원어민에게 이렇게 발음하면 순간 다른 단어로 오해받기 쉽습니다."); }, null, 13.00);
+  tl.call(function() { cap("사실 영어의 S 끝소리는 딱 세 가지 물리"); }, null, 18.00);
+  tl.call(function() { cap("법칙에 따라 완전히 다르게 소리 납니다."); }, null, 21.45);
+  tl.call(function() { cap("오늘 딱 10분 만에 여러분의 귀를 확실하게 뚫어"); }, null, 24.73);
+  tl.call(function() { cap("드리겠습니다."); }, null, 28.25);
+
+    tl.call(function() { cap(""); }, null, 28.68);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-hook"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

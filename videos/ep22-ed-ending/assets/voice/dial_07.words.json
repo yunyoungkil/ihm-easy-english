@@ -1,0 +1,32 @@
+[
+  {
+    "word": "The",
+    "from": 0.089,
+    "to": 0.238
+  },
+  {
+    "word": "movie",
+    "from": 0.287,
+    "to": 0.535
+  },
+  {
+    "word": "ended",
+    "from": 0.584,
+    "to": 0.832
+  },
+  {
+    "word": "and",
+    "from": 0.881,
+    "to": 1.029
+  },
+  {
+    "word": "everyone",
+    "from": 1.079,
+    "to": 1.475
+  },
+  {
+    "word": "cheered.",
+    "from": 1.524,
+    "to": 1.92
+  }
+]

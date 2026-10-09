@@ -1,0 +1,179 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 4.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; gap: 0.8cqw;
+    white-space: nowrap;
+  }
+  .capture-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 92cqw; display: flex; gap: 1.8cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .summary-col {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 5px 5px 0px #111111;
+    border-radius: 22px; padding: 2.5cqh 1.8cqw; display: flex; flex-direction: column; gap: 1.2cqh;
+  }
+  .col-header {
+    padding: 0.8cqh 1.2cqw; border-radius: 12px; border: 2px solid #111111; text-align: center;
+  }
+  .header-t { background: #FEE2E2; color: #991B1B; }
+  .header-d { background: #DBEAFE; color: #1E40AF; }
+  .header-id { background: #D1FAE5; color: #065F46; }
+  .header-ex { background: #FEF3C7; color: #92400E; }
+  .col-title { font-size: 1.5cqw; font-weight: 900; }
+  .col-sub { font-size: 1.05cqw; font-weight: 800; margin-top: 0.3cqh; }
+  .word-list {
+    display: flex; flex-direction: column; gap: 0.6cqh; font-size: 1.1cqw; font-weight: 800;
+  }
+  .word-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 0.5cqh 1cqw;
+    background: #F9FAFB; border-radius: 8px; border: 1px solid #E5E7EB; white-space: nowrap;
+  }
+  .word-name { font-weight: 900; white-space: nowrap; }
+  .word-stem { color: #111111; }
+  .word-ed {
+    display: inline-block;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    padding-bottom: 1px;
+    font-weight: 900;
+  }
+  .word-ed.ed-t { color: #DC2626; border-color: #DC2626; }
+  .word-ed.ed-d { color: #2563EB; border-color: #2563EB; }
+  .word-ed.ed-id { color: #059669; border-color: #059669; }
+  .word-ed.ed-ex { color: #D97706; border-color: #D97706; }
+  .syl-tag {
+    font-weight: 900; padding: 0.2cqh 0.6cqw; border-radius: 6px; font-size: 1cqw; white-space: nowrap; flex-shrink: 0;
+  }
+  .tag-t { background: #FEE2E2; color: #991B1B; }
+  .tag-d { background: #DBEAFE; color: #1E40AF; }
+  .tag-id { background: #D1FAE5; color: #065F46; }
+  .tag-ex { background: #FEF3C7; color: #92400E; }
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+<div id="root" data-composition-id="09-summary" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="capture-badge">📱 캡처 추천</span>
+    <span>스마트폰 저장용 1장 요약 치트시트 (-ED 발음 완전정복)</span>
+  </div>
+
+  <div class="stage">
+    <!-- Col 1: [t] -->
+    <div class="summary-col">
+      <div class="col-header header-t">
+        <div class="col-title">[t] 무성음 뒤</div>
+        <div class="col-sub">목청 떨림 0% · 터지는 소리</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name"><span class="word-stem">walk</span><span class="word-ed ed-t">ed</span></span><span class="syl-tag tag-t">[웍트]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">stop</span><span class="word-ed ed-t">ped</span></span><span class="syl-tag tag-t">[스탑트]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">laugh</span><span class="word-ed ed-t">ed</span></span><span class="syl-tag tag-t">[래프트]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">wash</span><span class="word-ed ed-t">ed</span></span><span class="syl-tag tag-t">[와쉬트]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">watch</span><span class="word-ed ed-t">ed</span></span><span class="syl-tag tag-t">[와취트]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">kiss</span><span class="word-ed ed-t">ed</span></span><span class="syl-tag tag-t">[키스트]</span></div>
+      </div>
+    </div>
+
+    <!-- Col 2: [d] -->
+    <div class="summary-col">
+      <div class="col-header header-d">
+        <div class="col-title">[d] 유성음 뒤</div>
+        <div class="col-sub">목청 떨림 100% · 울리는 소리</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name"><span class="word-stem">play</span><span class="word-ed ed-d">ed</span></span><span class="syl-tag tag-d">[플레이드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">call</span><span class="word-ed ed-d">ed</span></span><span class="syl-tag tag-d">[콜드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">lov</span><span class="word-ed ed-d">ed</span></span><span class="syl-tag tag-d">[러브드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">o · pen</span><span class="word-ed ed-d">ed</span></span><span class="syl-tag tag-d">[오픈드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">clean</span><span class="word-ed ed-d">ed</span></span><span class="syl-tag tag-d">[클린드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">liv</span><span class="word-ed ed-d">ed</span></span><span class="syl-tag tag-d">[리브드]</span></div>
+      </div>
+    </div>
+
+    <!-- Col 3: [ɪd] -->
+    <div class="summary-col">
+      <div class="col-header header-id">
+        <div class="col-title">[ɪd] t / d 뒤</div>
+        <div class="col-sub">쿠션 모음 투입 · 음절 +1</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name"><span class="word-stem">wan · </span><span class="word-ed ed-id">ted</span></span><span class="syl-tag tag-id">[원티드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">star · </span><span class="word-ed ed-id">ted</span></span><span class="syl-tag tag-id">[스타티드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">wai · </span><span class="word-ed ed-id">ted</span></span><span class="syl-tag tag-id">[웨이티드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">nee · </span><span class="word-ed ed-id">ded</span></span><span class="syl-tag tag-id">[니디드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">de · ci · </span><span class="word-ed ed-id">ded</span></span><span class="syl-tag tag-id">[디사이디드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">en · </span><span class="word-ed ed-id">ded</span></span><span class="syl-tag tag-id">[엔디드]</span></div>
+      </div>
+    </div>
+
+    <!-- Col 4: Adjective Exceptions -->
+    <div class="summary-col">
+      <div class="col-header header-ex">
+        <div class="col-title">[ɪd] 형용사 예외</div>
+        <div class="col-sub">순수 형용사일 때 2음절</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name"><span class="word-stem">na · </span><span class="word-ed ed-ex">ked</span></span><span class="syl-tag tag-ex">[네이키드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">wic · </span><span class="word-ed ed-ex">ked</span></span><span class="syl-tag tag-ex">[위키드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">bles · </span><span class="word-ed ed-ex">sed</span></span><span class="syl-tag tag-ex">[블레시드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">croo · </span><span class="word-ed ed-ex">ked</span></span><span class="syl-tag tag-ex">[크루키드]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">help</span><span class="word-ed ed-t">ed</span></span><span class="syl-tag tag-t">[헬프트]</span></div>
+        <div class="word-row"><span class="word-name"><span class="word-stem">clos</span><span class="word-ed ed-d">ed</span></span><span class="syl-tag tag-d">[클로즈드]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="audioSummary" src="assets/voice/03_f09_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="20.44"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("수고하셨습니다."); }, null, 0.33);
+  tl.call(function() { cap("오늘 연습한 과거형 이디의 핵심 요약표입니다."); }, null, 1.50);
+  tl.call(function() { cap("목청이 안 떨리면 트, 목청이 떨리면 드, 트나"); }, null, 4.88);
+  tl.call(function() { cap("드 뒤에서는 음절이 늘어나는 이디입니다."); }, null, 9.50);
+  tl.call(function() { cap("여기에 형용사로 쓰이는 특수 단어들까지, 지금 화면을 스마트폰으로"); }, null, 12.65);
+  tl.call(function() { cap("캡처해 두시고 헷갈릴 때마다 꺼내서 소리 내어 확인해"); }, null, 16.98);
+  tl.call(function() { cap("보세요."); }, null, 20.11);
+
+    tl.call(function() { cap(""); }, null, 20.44);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

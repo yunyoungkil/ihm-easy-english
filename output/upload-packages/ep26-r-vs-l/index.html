@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP26 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0F17;
+      --card-bg: rgba(22, 27, 41, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #F59E0B;
+      --accent-glow: rgba(245, 158, 11, 0.35);
+      --primary: #3B82F6;
+      --success: #10B981;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
+    }
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .meta-pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+    }
+    .meta-pill strong {
+      color: var(--text);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFF;
+    }
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .copy-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+    .copy-btn.copied {
+      background: var(--success);
+      border-color: var(--success);
+    }
+    .preview-box {
+      background: rgba(10, 13, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 14px;
+      color: #D1D5DB;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 280px;
+      overflow-y: auto;
+      font-family: inherit;
+    }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .thumb-card {
+      background: rgba(10, 13, 20, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .thumb-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .thumb-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: #111;
+    }
+    .thumb-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .thumb-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .thumb-name {
+      font-weight: 800;
+      font-size: 15px;
+      color: #FFF;
+    }
+    .thumb-tag {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .tag-main { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .tag-alt { background: rgba(59, 130, 246, 0.2); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .thumb-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .download-btn {
+      margin-top: auto;
+      text-align: center;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #FFF;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .download-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div>
+        <div class="badge">🔥 EP26 UPLOAD PACKAGE</div>
+        <h1>Right vs Light [r] vs [l] 최소대립쌍 듣기 드릴</h1>
+      </div>
+      <div class="meta-pills">
+        <div class="meta-pill">러닝타임: <strong>12분 25초</strong></div>
+        <div class="meta-pill">해상도: <strong>1080p FHD (30fps)</strong></div>
+        <div class="meta-pill">단어수: <strong>20쌍 (총 40단어)</strong></div>
+      </div>
+    </header>
+
+    <!-- Thumbnail Section -->
+    <section class="card">
+      <div class="card-title">
+        <span>🖼️ 썸네일 시안 4종 (A/B/C + 모바일 전용 클로즈업)</span>
+        <span style="font-size: 13px; color: var(--text-muted); font-weight: normal;">*모바일 1위 전용 클로즈업 우선 사용 권장</span>
+      </div>
+      <div class="thumb-grid">
+        <!-- Close-up -->
+        <div class="thumb-card" style="border: 2px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow);">
+          <img class="thumb-img" src="thumbnail-close-up.jpg" alt="Mobile Close-Up">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">모바일 1위 클로즈업</span>
+              <span class="thumb-tag tag-main">★ 1위 강력 추천</span>
+            </div>
+            <p class="thumb-desc">모바일 피드 최적화 익스트림 클로즈업 + 유레카 미소 + 초고대비 텍스트</p>
+            <a href="thumbnail-close-up.jpg" download="thumbnail-close-up.jpg" class="download-btn" style="background: var(--accent); color: #000; font-weight: 900;">이미지 다운로드</a>
+          </div>
+        </div>
+
+        <!-- Variant A (메인 바스트샷) -->
+        <div class="thumb-card">
+          <img class="thumb-img" src="thumbnail.jpg" alt="Variant A">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">Variant A (기본형)</span>
+              <span class="thumb-tag tag-alt">메인 바스트샷</span>
+            </div>
+            <p class="thumb-desc">지목 제스처 + 호기심 표정 + 웜크림 네오브루탈리즘 표준 구도</p>
+            <a href="thumbnail.jpg" download="thumbnail.jpg" class="download-btn">이미지 다운로드</a>
+          </div>
+        </div>
+
+        <!-- Variant B (실수 경고형) -->
+        <div class="thumb-card">
+          <img class="thumb-img" src="thumbnail-b.jpg" alt="Variant B">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">Variant B</span>
+              <span class="thumb-tag tag-alt">실수/경고형</span>
+            </div>
+            <p class="thumb-desc">손바닥 경고 제스처 + "기도하다 놉니다" PRAY vs PLAY 손실 회피 도파민 훅</p>
+            <a href="thumbnail-b.jpg" download="thumbnail-b.jpg" class="download-btn">이미지 다운로드</a>
+          </div>
+        </div>
+
+        <!-- Variant C (원리 성취형) -->
+        <div class="thumb-card">
+          <img class="thumb-img" src="thumbnail-c.jpg" alt="Variant C">
+          <div class="thumb-info">
+            <div class="thumb-header">
+              <span class="thumb-name">Variant C</span>
+              <span class="thumb-tag tag-alt">원리/성취형</span>
+            </div>
+            <p class="thumb-desc">입술 제스처 + "혀 굴리면 망함" R vs L 직관적 1초 조음 물리법칙 강조</p>
+            <a href="thumbnail-c.jpg" download="thumbnail-c.jpg" class="download-btn">이미지 다운로드</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Metadata Grid -->
+    <div class="grid">
+      <!-- Left Column -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Title Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>🏷️ 메인 채택 유튜브 제목</span>
+            <button class="copy-btn" onclick="copyId('title-content', this)">복사</button>
+          </div>
+          <div id="title-content" class="preview-box" style="font-weight: 700; color: #FFF; font-size: 15px;">[30분 듣기] Right와 Light, 아직도 둘 다 '라이트'로 발음하시나요? 20단어 귀 뚫림 | 영어 R L 발음</div>
+        </section>
+
+        <!-- Description Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>📝 영상 설명란 (Description + 타임라인 포함)</span>
+            <button class="copy-btn" onclick="copyId('desc-content', this)">복사</button>
+          </div>
+          <div id="desc-content" class="preview-box">오른쪽 Right와 전등 Light, 아직도 둘 다 똑같이 '라이트'로 발음하고 계신가요?
+기도하다 Pray와 놀다 Play를 헷갈려서 당황했던 적 있으신가요?
+
+한국인이 가장 오랫동안 고생하는 자음 쌍, R과 L 소리!
+절대로 "버터 바르듯 혀를 마구 굴리는 것"이 아닙니다.
+R은 혀끝이 입천장에 절대 닿지 않는 허공 숟가락 소리(0% 접촉),
+L은 혀끝이 윗니 바로 뒤 잇몸을 확실하게 때리는 타격 소리(100% 접촉)입니다.
+
+원어민 남녀 음성으로 20쌍(총 40단어)의 핵심 짝단어를 집중 반복하고,
+실전 대화 문장과 40단어 무작위 셔플 퀴즈까지 한 편으로 완벽하게 마스터하세요!
+
+📌 타임라인 (챕터 바로가기)
+00:00 Right와 Light, 아직도 둘 다 '라이트'? (도입부)
+00:28 혀 굴리지 마세요! [r] 혀끝 허공 0% vs [l] 잇몸 접촉 100% 원리
+01:05 Group 1: 핵심 빈출 5쌍 (Right/Light, Red/Led, Rain/Lane...)
+02:31 Group 2: 필수 동사 5쌍 (Run/Learn, Read/Lead, Ride/Lied...)
+03:57 Group 3: 일상 명사 5쌍 (River/Liver, Rock/Lock, Road/Load...)
+05:21 Group 4: 자음군 고난도 5쌍 (Pray/Play, Crown/Clown, Grass/Glass...)
+06:47 실전 대화 문장 속 짝단어 듣기 7문장
+07:42 40단어 무작위 덱 셔플 귀 훈련 (실전 반응 퀴즈)
+11:00 1장 요약 치트시트 (스마트폰 캡처용)
+11:22 20쌍 무한 앵콜 총복습 & 다음 영상 추천
+
+💡 학습 꿀팁:
+1. 이어폰을 착용하고 혀끝의 미세한 허공 vs 접촉 차이에 집중해 보세요.
+2. 1장 요약 치트시트(11:00) 화면을 캡처해서 스마트폰 앨범에 두고 틈틈이 소리 내어 연습해 보세요.
+
+#영어발음 #영어듣기 #영어리스닝 #RL발음 #영어회화 #자음발음 #이해하면쉬운영어</div>
+        </section>
+
+        <!-- Pinned Comment Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>📌 고정 댓글 (시청자 인게이지먼트 유도)</span>
+            <button class="copy-btn" onclick="copyId('pinned-content', this)">복사</button>
+          </div>
+          <div id="pinned-content" class="preview-box">☕ 여러분은 Right vs Light, Pray vs Play 중에 어떤 단어가 가장 헷갈리셨나요?
+댓글로 헷갈렸던 단어나 오늘 새롭게 귀가 뚫린 단어를 남겨주세요!
+
+📱 11분 00초의 [1장 요약 치트시트]를 캡처해서 스마트폰 앨범에 넣어두고 틈틈이 소리 내어 연습해 보세요. 
+영상이 도움 되셨다면 '구독'과 '좋아요'로 응원 부탁드립니다! 👍</div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Tags Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>🏷️ 검색 키워드 태그 (Tags)</span>
+            <button class="copy-btn" onclick="copyId('tags-content', this)">복사</button>
+          </div>
+          <div id="tags-content" class="preview-box" style="line-height: 1.8;">영어발음, 영어듣기, 영어리스닝, R발음, L발음, RL구분, Right Light, Pray Play, 영어 발음 꿀팁, 영어 쉐도잉, 영어 리스닝 훈련, 기초영어회화, 원어민 발음, 파닉스, 영어공부혼자하기, 이해하면 쉬운영어</div>
+        </section>
+
+        <!-- Title Variants Card -->
+        <section class="card">
+          <div class="card-title">
+            <span>💡 A/B 테스트 대조군 제목 모음</span>
+            <button class="copy-btn" onclick="copyId('variants-content', this)">복사</button>
+          </div>
+          <div id="variants-content" class="preview-box">[메인 채택 A안]
+[30분 듣기] Right와 Light, 아직도 둘 다 '라이트'로 발음하시나요? 20단어 귀 뚫림 | 영어 R L 발음
+
+[대조군 B안 (실수경고형)]
+Pray와 Play 발음 잘못하면 '기도하다 놉니다'가 됩니다 | 영어 R L 발음 원리
+
+[대조군 C안 (원리성취형)]
+혀 굴리지 마세요! 외국인이 단번에 알아듣는 R과 L 1초 구분법 (20쌍 듣기 훈련)
+
+[대조군 D안 (호기심형)]
+미드에서 Right가 '롸이트'가 아니라 '와이트'로 들렸던 진짜 이유</div>
+        </section>
+
+        <!-- SEO Video Filename -->
+        <section class="card">
+          <div class="card-title">
+            <span>🎬 SEO 영상 권장 파일명</span>
+            <button class="copy-btn" onclick="copyId('seo-file-content', this)">복사</button>
+          </div>
+          <div id="seo-file-content" class="preview-box" style="font-family: monospace; font-size: 13px; color: var(--accent);">English_Pronunciation_Right_vs_Light_Minimal_Pairs_Listening_Drill.mp4</div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyId(id, btn) {
+      const el = document.getElementById(id);
+      const text = el.innerText || el.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = '✓ 복사완료!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        alert('복사에 실패했습니다. 수동으로 복사해 주세요.');
+      });
+    }
+  </script>
+</body>
+</html>

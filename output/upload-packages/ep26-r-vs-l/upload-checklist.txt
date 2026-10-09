@@ -1,0 +1,21 @@
+EP26 업로드 패키지 체크리스트 (Right vs Light R vs L Minimal Pairs)
+
+[✓] 1. 영상 파일 규격
+    - SEO 권장 파일명: English_Pronunciation_Right_vs_Light_Minimal_Pairs_Listening_Drill.mp4
+    - 해상도: 1920x1080 Full HD (30fps)
+    - 총 길이: 12분 24.7초 (744.66s)
+[✓] 2. 썸네일 4종 완비
+    - thumbnail-close-up.jpg (모바일 피드 CTR 1위 전용 클로즈업)
+    - thumbnail.jpg (A안 메인 바스트샷)
+    - thumbnail-b.jpg (B안 실수 경고형)
+    - thumbnail-c.jpg (C안 원리 성취형)
+    - 모서리 4방 워터마크 0% 무결점 검수 통과
+[✓] 3. 메타데이터 파일
+    - title.txt (메인 제목)
+    - title-variants.txt (A/B/C/D 변형 후보)
+    - timeline.txt (10개 챕터 타임라인)
+    - description.txt (타임라인 포함 설명란)
+    - tags.txt (SEO 검색 태그)
+    - pinned-comment.txt (고정 댓글)
+[✓] 4. 원클릭 대시보드
+    - index.html (클릭 시 자동 클립보드 복사)

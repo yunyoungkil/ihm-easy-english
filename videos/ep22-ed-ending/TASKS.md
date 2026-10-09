@@ -96,3 +96,50 @@
   문장은 화자가 실제로 한 행동을 확인한 뒤 확정한다(예: 유튜브·웹 검색으로 찾아봤다면 그
   사실 그대로 쓸 것). 확인 전에는 어떤 경험 문장도 확정하지 않는다.
 - **다음 세션 시작 시**: 이 항목부터 사용자에게 확인 → 승인 → `SCRIPT.md` 저장.
+
+## 2026-10-09 — EP22 공식 재개, 30분 듣기 드릴형 롱폼으로 전면 전환 (EP23~EP26 성공 체계 계승)
+
+- **배경**: EP26 렌더 완료 및 패키지 완비 후 사용자의 명시적 지시("22 스킬 적용해서 만드는 거 맞지? 진행하자")에 따라 EP22 공식 재개.
+- **Phase 2 콘텐츠 유형 선택**: 사용자가 "30분 듣기 드릴형 롱폼 (EP23~EP26 동일 체계: 24단어 6회 반복 체화 + 실전 대화 + 퀴즈)"을 공식 선택 및 확정.
+- **Phase 5~8 산출물 완비**:
+  - `BRIEF.md`: 듣기 드릴 포맷(24단어 6회 집중 반복, 4개 그룹, 실전 대화 7문장, 셔플 퀴즈)으로 전면 갱신.
+  - `prompts/thumbnail-prompts.md`: 썸네일 좌측 상단 `[30분 듣기]` 카테고리 칩 및 Zero Watermark 원칙 반영 4종 프롬프트 완비.
+  - `frame.md`: 10개 프레임 디자인 명세 및 사운드 타입별 컬러 팔레트([t] 코랄 레드, [d] 블루, [ɪd] 그린), 영어 철자 음절 분리(`wan · ted`, `na · ked`) 표준화.
+  - `SCRIPT.md`: AI Studio 원클릭 복사용 6개 텍스트 블록(한국어 3개 + 원어민 배치 3개) 분리 작성 완료. 화자 경험 날조 0%, 문어체 배제, 쉼표(`,`) 스태카토 방지 적용.
+- **다음 단계**: 사용자 대본 최종 검수 및 승인 후 음성 파일 생성(사용자 직접 AI Studio 제작 or 에이전트 생성) ➔ 음성 분할 및 Whisper 타임스탬프 추출 ➔ HyperFrames 프레임 구현 착수.
+
+## 2026-10-09 (야간) — 음성 반입, Whisper 정렬, 10개 프레임 구현 및 무결점 check 통과
+
+1. **전역 규칙 개정 및 영구 반영**:
+   - 도입부 첫 단어 상투적 클리셰(`솔직히`) 남발 금지 및 첫머리 변주 원칙 명문화 (`AGENTS.md`, `CLAUDE.md`, `.claude/skills/episode-planning/SKILL.md`, `knowledge/production-rules.md`).
+   - 실시간 청취 명확성을 위한 핵심 목적격 조사(`을/를`) 누락 금지 원칙 반영 (`귀 뚫어` ➔ `귀를 뚫어 드리겠습니다`).
+2. **음성 에셋 반입 및 분할 완료**:
+   - `C:\Users\yunyo\Downloads\`의 6개 음성 파일(`01_f01_hook.wav`, `02_f02_principle.wav`, `03_f09_summary.wav`, `male_words_all.wav`, `female_words_all.wav`, `en_dialogue_all.wav`)을 `assets/voice/`로 반입.
+   - `scripts/split-batch-voice.mjs`로 남성 24단어, 여성 24단어, 실전 대화 7문장 완벽 분할 완료.
+   - `scripts/measure-all-voice.mjs`로 58개 오디오 실측 완료 및 `.tts-results.json` 갱신.
+3. **Whisper 단어 타임스탬프 추출 완료**:
+   - `scripts/word-timeline.mjs` 실행으로 한국어 3개 파일 및 대화 7문장 전량 `.words.json` 추출 완료.
+4. **10개 프레임 구현 및 무결점 자동 검수 통과**:
+   - `scripts/generate-frames.mjs` 실행으로 F01~F10 10개 프레임 및 `index.html` 생성.
+   - 총 영상 길이: 502.87초 (8분 22.9초).
+   - `npx hyperframes check` 실행:
+     - Lint: 0 errors, 0 warnings
+     - Runtime: 0 errors, 0 warnings
+     - Layout: 0 issues across 9 samples
+     - Motion: 0 errors, 0 warnings
+     - Contrast: 48/48 text checks pass WCAG AA (100% Pass)
+     - 최종 결과: ◇ Check passed (100% 무결점 통과)
+5. **프리뷰 서버 가동**:
+   - `http://localhost:3003`에서 Studio 구동 중.
+6. **승인 게이트 정지 (Approval Gate)**:
+   - 렌더링 임의 실행 절대 금지 원칙 준수 ➔ 사용자에게 검수 보고 및 렌더링 승인 대기.
+7. **사용자 피드백 반영 및 규칙 전역 영구화**:
+   - 컴포지션 UI 텍스트 자동 줄바꿈 절대 방지 (`white-space: nowrap`) 강제.
+   - 단어 어간 뉴트럴(#111111) + 타겟 접미사(-ed) 사운드별 컬러/밑줄 분리 하이라이트 적용.
+   - 불필요한 메타 설명 문구("남·여 교차 6회 반복") UI 라벨 완전 제거.
+8. **영상 본 렌더링 및 업로드 패키지 완비 (2026-10-09 완료)**:
+   - 사용자 명시적 승인 후 `npx hyperframes render videos/ep22-ed-ending` 실행 (15,087 프레임 전량 캡처, 8분 22.9초 / 502.87s, 28.2MB, 무결점 완료).
+   - `prompts/thumbnail-prompts.md` 기반 썸네일 4종 고화질 생성 완료 (A안 와이드, 모바일 클로즈업, B안, C안 — Zero Watermark 검수 100% 통과).
+   - `output/upload-packages/ep22-ed-ending/`에 영상(`English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4`), 썸네일 4종, 메타데이터(제목, 챕터 타임라인, 설명란, 고정댓글, 태그, 체크리스트, status.json, 원클릭 index.html) 완비 완료 (`status: "ready_to_upload"`).
+
+

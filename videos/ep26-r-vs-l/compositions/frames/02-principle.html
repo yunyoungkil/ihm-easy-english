@@ -1,0 +1,160 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; display: flex; align-items: center; gap: 0.8cqw; z-index: 10;
+  }
+  .tip-badge {
+    background: #2563EB; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 88cqw; display: flex; gap: 3.5cqw; align-items: center; justify-content: center; z-index: 5;
+  }
+  .visual-box {
+    flex: 1.15; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 2cqh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .visual-img {
+    width: 100%; height: auto; max-height: 52cqh; object-fit: contain; border-radius: 18px;
+    border: 2px solid #111111;
+  }
+  .desc-box {
+    flex: 1; display: flex; flex-direction: column; gap: 2cqh;
+  }
+  .rule-card {
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 20px; padding: 2.4cqh 2.2cqw; display: flex; flex-direction: column; gap: 0.8cqh;
+  }
+  .rule-card.active-r { border-color: #2563EB; background: #EFF6FF; }
+  .rule-card.active-l { border-color: #059669; background: #F0FDF4; }
+  .rule-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .rule-title {
+    font-size: 1.7cqw; font-weight: 900; color: #111111;
+  }
+  .rule-badge {
+    font-size: 1.05cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .rule-desc {
+    font-size: 1.2cqw; font-weight: 700; color: #4B5563; line-height: 1.45;
+  }
+  .syl-example {
+    margin-top: 0.5cqh; font-size: 1.15cqw; font-weight: 900; color: #111111;
+    background: #FFFFFF; padding: 0.4cqh 1cqw; border-radius: 8px; border: 1.5px solid #111111;
+    display: inline-block;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">핵심 원리</span>
+    <span>혀를 굴리지 마세요! '혀끝의 접촉 여부'가 결정합니다</span>
+  </div>
+
+  <div class="stage">
+    <div class="visual-box" id="visualBox">
+      <img src="assets/images/f02_vocal_tract_rl.jpg" alt="구강 조음 단면도 비교" class="visual-img">
+    </div>
+
+    <div class="desc-box">
+      <!-- Rule 1: [r] sound -->
+      <div class="rule-card" id="cardR">
+        <div class="rule-header">
+          <span class="rule-title" style="color:#2563EB;">① [r] 혀끝 허공 숟가락</span>
+          <span class="rule-badge" style="background:#DBEAFE; color:#1E40AF;">접촉 0% · 허공 울림</span>
+        </div>
+        <div class="rule-desc">
+          혀 양옆을 윗어금니에 대고, 혀끝은 허공에 띄워 입천장에 절대 닿지 않게 소리냅니다.
+        </div>
+        <div>
+          <span class="syl-example">💡 right [롸이트] · red [뤠드] · rain [뤠인]</span>
+        </div>
+      </div>
+
+      <!-- Rule 2: [l] sound -->
+      <div class="rule-card" id="cardL">
+        <div class="rule-header">
+          <span class="rule-title" style="color:#059669;">② [l] 윗니 뒤 잇몸 접촉</span>
+          <span class="rule-badge" style="background:#D1FAE5; color:#065F46;">접촉 100% · '탁' 튕김</span>
+        </div>
+        <div class="rule-desc">
+          혀끝으로 윗니 바로 뒤 딱딱한 잇몸을 강하게 누른 뒤 '탁' 튕기며 소리냅니다.
+        </div>
+        <div>
+          <span class="syl-example">💡 light [라이트] · led [레드] · lane [레인]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_host" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="36.16"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.from("#visualBox", { x: -40, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.from("#cardR", { x: 40, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+    tl.from("#cardL", { x: 40, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.6);
+
+    tl.call(function() {
+      document.getElementById("cardR").className = "rule-card active-r";
+      document.getElementById("cardL").className = "rule-card";
+    }, null, 6.0);
+
+    tl.call(function() {
+      document.getElementById("cardR").className = "rule-card";
+      document.getElementById("cardL").className = "rule-card active-l";
+    }, null, 21.0);
+
+  tl.call(function() { cap("알 발음할 때 혀를 심하게 뒤로 굴리라는 말"); }, null, 0.20);
+  tl.call(function() { cap("많이 들어보셨죠."); }, null, 3.99);
+  tl.call(function() { cap("사실 혀를 굴릴 필요가 전혀 없습니다."); }, null, 5.44);
+  tl.call(function() { cap("원리는 딱 하나, 혀끝이 닿느냐 닿지 않느냐의 차이입니다."); }, null, 8.52);
+  tl.call(function() { cap("알 소리는 혀 양옆을 윗어금니에 대고 혀끝을 허공에"); }, null, 13.75);
+  tl.call(function() { cap("띄워 입천장에 절대 닿지 않게 소리 냅니다."); }, null, 18.79);
+  tl.call(function() { cap("반대로 엘 소리는 혀끝으로 윗니 바로 뒤 잇몸을"); }, null, 22.06);
+  tl.call(function() { cap("강하게 탁 때리며 냅니다."); }, null, 25.73);
+  tl.call(function() { cap("혀끝이 닿지 않는 허공의 알, 닿아서 튕기는 엘,"); }, null, 27.81);
+  tl.call(function() { cap("이 물리법칙 하나만 기억하고 바로 귀 훈련 시작하겠습니다."); }, null, 32.52);
+
+    tl.call(function() { cap(""); }, null, 36.16);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

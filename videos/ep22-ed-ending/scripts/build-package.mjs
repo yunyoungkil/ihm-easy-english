@@ -1,0 +1,469 @@
+import fs from 'fs';
+import path from 'path';
+
+const projectDir = path.resolve('videos/ep22-ed-ending');
+const outputDir = path.resolve('output/upload-packages/ep22-ed-ending');
+fs.mkdirSync(outputDir, { recursive: true });
+
+// 1. Parse timeline from index.html
+const indexHtml = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
+const sceneMatches = [...indexHtml.matchAll(/data-composition-id="([^"]+)" data-composition-src="([^"]+)" data-start="([^"]+)" data-duration="([^"]+)"/g)];
+
+const frameTitles = {
+  '01-hook': "-ED, 다 '드'로 읽으셨죠? 3가지 끝소리 차이 (도입부)",
+  '02-principle': "조음 물리법칙 ([t] vs [d] vs [ɪd] 쿠션 원리)",
+  '03-group1': "Group 1: [t] 무성음 6단어 (walked, stopped, laughed...)",
+  '04-group2': "Group 2: [d] 유성음 6단어 (played, called, loved...)",
+  '05-group3': "Group 3: [ɪd] 쿠션 모음 6단어 (wan · ted, star · ted...)",
+  '06-group4': "Group 4: [ɪd] 형용사 예외 & 보너스 (na · ked, wic · ked...)",
+  '07-dialogue': "실전 대화 7문장 (-ED 문맥 청취 & 타겟 단어 바운스)",
+  '08-shuffle': "24단어 무작위 덱 셔플 귀 훈련 (실전 반응 퀴즈)",
+  '09-summary': "스마트폰 캡처용 1장 요약 치트시트",
+  '10-encore': "24단어 무한 앵콜 총복습 & 다음 영상 추천"
+};
+
+const timelineLines = sceneMatches.map(m => {
+  const compId = m[1];
+  const sec = parseFloat(m[3]);
+  const min = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  const timeStr = String(min).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  const title = frameTitles[compId] || compId;
+  return `${timeStr} ${title}`;
+});
+
+const timelineText = timelineLines.join('\n') + '\n';
+fs.writeFileSync(path.join(outputDir, 'timeline.txt'), timelineText, 'utf8');
+
+// 2. Titles
+const mainTitle = "[30분 듣기] Wanted, Walked, Played — 끝소리 3개가 다 다릅니다 | 영어 과거형 -ED 발음 규칙";
+fs.writeFileSync(path.join(outputDir, 'title.txt'), mainTitle + '\n', 'utf8');
+
+const titleVariants = `Variant A (메인 채택 · 바스트샷 와이드):
+[30분 듣기] Wanted, Walked, Played — 끝소리 3개가 다 다릅니다 | 영어 과거형 -ED 발음 규칙
+
+Variant B (대조군 · 실수경고형):
+[30분 듣기] 원어민은 -ED를 절대 '드'로 안 읽습니다! 24단어 귀 뚫림 | 영어 과거형 발음
+
+Variant C (대조군 · 원리/성취형):
+[30분 듣기] 영어 과거형 끝소리 3가지 비밀, 이것만 알면 귀가 뚫립니다 | -ED 발음 규칙
+`;
+fs.writeFileSync(path.join(outputDir, 'title-variants.txt'), titleVariants, 'utf8');
+
+// 3. Description
+const description = `학창 시절 영어 시간에 "-ED는 과거형이니까 그냥 '드'라고 읽으면 돼"라고 배우셨나요?
+원어민에게 "I wanted"를 "원티드"라고 하거나 "I walked"를 "워크드"라고 발음하면 왜 어색하게 들릴까요?
+
+영어 과거형 -ED 끝소리는 사실 딱 3가지 물리 법칙에 의해 완전히 다른 소리로 결정됩니다.
+이 영상 하나로 24개 필수 단어의 -ED 끝소리를 원어민 남녀 음성으로 6회 반복 체화해 보세요! 🎧
+
+[타임라인 챕터]
+${timelineText}
+━━━━━━━━━━━━━━━━━━━
+💡 -ED 발음의 3가지 물리 법칙 완전 정복:
+① [t] 무성음 뒤: 성대 떨림 0% 뒤에서는 똑같이 안 떨리는 [t] (walked, stopped, laughed)
+② [d] 유성음 뒤: 성대가 울리는 소리 뒤에서는 부드러운 [d] (played, called, loved)
+③ [ɪd] t / d 뒤: 이미 혀끝이 닿았으니 쿠션 모음 투입! 음절 +1 (wan · ted, star · ted)
+★ 특수 형용사 예외: na · ked, wic · ked, bles · sed, croo · ked (2음절 [ɪd] 고정)
+
+━━━━━━━━━━━━━━━━━━━
+📌 학습 팁:
+단어만 보지 마시고, 07:00부터 시작되는 실전 대화 문장과 24단어 무작위 셔플 퀴즈를 통해 귀가 먼저 반응할 때까지 반복 청취해 보세요!
+
+#영어발음 #ED발음 #과거형발음 #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어
+`;
+fs.writeFileSync(path.join(outputDir, 'description.txt'), description, 'utf8');
+
+// 4. Pinned comment
+const pinnedComment = `오늘도 24단어 -ED 과거형 발음 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
+
+💬 여러분은 그동안 24개 단어 중 어떤 단어의 -ED 발음이 가장 헷갈리셨나요?
+댓글로 남겨주시면 발음 교정 팁을 함께 나눠드리겠습니다!
+
+📱 08:00 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!
+구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️
+`;
+fs.writeFileSync(path.join(outputDir, 'pinned-comment.txt'), pinnedComment, 'utf8');
+
+// 5. Tags
+const tags = "영어발음, ED발음, 영어과거형, 과거형발음, 영어리스닝, 영어듣기, 영어회화, 기초영어, 파닉스, 발음규칙, 영어공부, 원어민발음, 이해하면쉬운영어, English pronunciation, past tense ed, regular verbs";
+fs.writeFileSync(path.join(outputDir, 'tags.txt'), tags + '\n', 'utf8');
+
+// 6. Status JSON
+const statusJson = {
+  status: "ready_to_upload",
+  episodeId: "ep22-ed-ending",
+  title: mainTitle,
+  recommendedPublishAt: "2026-10-10T14:00:00Z",
+  videoFile: "English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4",
+  thumbnailsCount: 4,
+  generatedAt: new Date().toISOString()
+};
+fs.writeFileSync(path.join(outputDir, 'status.json'), JSON.stringify(statusJson, null, 2), 'utf8');
+
+// 7. Checklist
+const checklist = `[EP22 유튜브 업로드 체크리스트]
+- 에피소드: ep22-ed-ending (-ED 과거형 끝소리 3가지 규칙)
+- 영상 파일: English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4
+- 썸네일:
+  [A안 메인] thumbnail.jpg / thumbnail-variant-a.jpg (와이드)
+  [A안 모바일] thumbnail-close-up.jpg (모바일 피드 100px 특화)
+  [B안] thumbnail-b.jpg (실수경고형)
+  [C안] thumbnail-c.jpg (원리형)
+- 카테고리: 교육 (Education)
+- 재생목록: [이해하면 쉬운영어] 30분 집중 듣기 드릴 정주행
+- 최종 태그: 15개 키워드 탑재 완료
+- 자막: 한국어 오디오 내장 + Whisper 타임라인 완비
+`;
+fs.writeFileSync(path.join(outputDir, 'upload-checklist.txt'), checklist, 'utf8');
+
+// 8. Copy thumbnails
+const thumbDir = path.join(projectDir, '.thumbnails');
+if (fs.existsSync(thumbDir)) {
+  const thumbFiles = fs.readdirSync(thumbDir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+  thumbFiles.forEach(f => {
+    fs.copyFileSync(path.join(thumbDir, f), path.join(outputDir, f));
+  });
+  console.log(`✓ Copied ${thumbFiles.length} thumbnail files to upload package`);
+}
+
+// 9. Copy rendered MP4 if available
+const candidateRendersDirs = [path.resolve('renders'), path.join(projectDir, 'renders')];
+let foundMp4 = null;
+
+for (const rDir of candidateRendersDirs) {
+  if (fs.existsSync(rDir)) {
+    const mp4Files = fs.readdirSync(rDir).filter(f => f.startsWith('ep22') && f.endsWith('.mp4')).sort((a, b) => {
+      return fs.statSync(path.join(rDir, b)).mtimeMs - fs.statSync(path.join(rDir, a)).mtimeMs;
+    });
+    if (mp4Files.length > 0) {
+      foundMp4 = path.join(rDir, mp4Files[0]);
+      break;
+    }
+  }
+}
+
+if (foundMp4) {
+  const targetMp4Name = "English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4";
+  fs.copyFileSync(foundMp4, path.join(outputDir, targetMp4Name));
+  console.log(`✓ Copied rendered video: ${foundMp4} -> ${path.join(outputDir, targetMp4Name)}`);
+}
+
+// 10. Generate index.html preview page
+const indexHtmlContent = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP22 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0F17;
+      --card-bg: rgba(22, 27, 41, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #F59E0B;
+      --accent-glow: rgba(245, 158, 11, 0.35);
+      --primary: #3B82F6;
+      --success: #10B981;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
+    }
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .meta-pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+    }
+    .meta-pill strong {
+      color: var(--text);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFF;
+    }
+    .copy-btn {
+      background: var(--primary);
+      color: #FFF;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      background: #2563EB;
+      transform: translateY(-1px);
+    }
+    .copy-btn.copied {
+      background: var(--success);
+    }
+    .text-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #E5E7EB;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .thumb-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+    .thumb-card.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .thumb-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .video-preview {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <div class="badge">EP22 · 과거형 -ED 발음 규칙</div>
+        <h1>유튜브 업로드 원클릭 패키지</h1>
+      </div>
+      <div class="meta-pills">
+        <div class="meta-pill">시간: <strong>8분 23초 (502.87s)</strong></div>
+        <div class="meta-pill">포맷: <strong>30분 집중 듣기 드릴</strong></div>
+        <div class="meta-pill">상태: <strong>업로드 대기 (Ready)</strong></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left Column: Video & Thumbnails -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="card">
+          <div class="card-title">
+            <span>🎬 렌더링 완성 비디오 미리보기</span>
+          </div>
+          <div class="video-preview">
+            <video controls src="English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4" poster="thumbnail.jpg"></video>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>🖼️ 썸네일 4종 A/B 테스트 세트</span>
+          </div>
+          <div class="thumb-grid">
+            <div class="thumb-card active">
+              <span class="thumb-tag">1위 권장 · 모바일 클로즈업</span>
+              <img src="thumbnail-close-up.jpg" alt="모바일 클로즈업">
+            </div>
+            <div class="thumb-card">
+              <span class="thumb-tag">A안 메인 · 바스트샷</span>
+              <img src="thumbnail-variant-a.jpg" alt="A안 메인">
+            </div>
+            <div class="thumb-card">
+              <span class="thumb-tag">B안 · 실수경고형</span>
+              <img src="thumbnail-variant-b.jpg" alt="B안 실수경고형">
+            </div>
+            <div class="thumb-card">
+              <span class="thumb-tag">C안 · 원리성취형</span>
+              <img src="thumbnail-variant-c.jpg" alt="C안 원리성취형">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Metadata & Copy Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="card">
+          <div class="card-title">
+            <span>📌 유튜브 영상 제목</span>
+            <button class="copy-btn" onclick="copyText('titleText', this)">복사하기</button>
+          </div>
+          <div class="text-box" id="titleText">${mainTitle}</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>⏱️ 챕터 타임라인 (더보기란용)</span>
+            <button class="copy-btn" onclick="copyText('timelineBox', this)">복사하기</button>
+          </div>
+          <div class="text-box" id="timelineBox">${timelineText.trim()}</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>📝 설명란 (Description)</span>
+            <button class="copy-btn" onclick="copyText('descBox', this)">복사하기</button>
+          </div>
+          <div class="text-box" id="descBox">${description.trim()}</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>💬 고정 댓글 (Pinned Comment)</span>
+            <button class="copy-btn" onclick="copyText('commentBox', this)">복사하기</button>
+          </div>
+          <div class="text-box" id="commentBox">${pinnedComment.trim()}</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>🏷️ 검색 태그 (Tags)</span>
+            <button class="copy-btn" onclick="copyText('tagBox', this)">복사하기</button>
+          </div>
+          <div class="text-box" id="tagBox">${tags}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const el = document.getElementById(id);
+      const text = el.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerText;
+        btn.innerText = "✓ 복사완료!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.classList.remove("copied");
+        }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>
+`;
+fs.writeFileSync(path.join(outputDir, 'index.html'), indexHtmlContent, 'utf8');
+
+console.log("✓ Upload package built successfully in: " + outputDir);

@@ -1,0 +1,187 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap;
+  }
+  .tip-badge {
+    background: #2563EB; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 90cqw; display: flex; gap: 2.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .rule-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 3.5cqh 2.2cqw; display: flex; flex-direction: column; gap: 1.6cqh;
+  }
+  .rule-card.active-s { border-color: #DC2626; background: #FEF2F2; box-shadow: 8px 8px 0px #DC2626; }
+  .rule-card.active-z { border-color: #2563EB; background: #EFF6FF; box-shadow: 8px 8px 0px #2563EB; }
+  .rule-card.active-iz { border-color: #059669; background: #F0FDF4; box-shadow: 8px 8px 0px #059669; }
+  .rule-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .rule-title {
+    font-size: 1.6cqw; font-weight: 900;
+  }
+  .rule-badge {
+    font-size: 1cqw; font-weight: 900; padding: 0.4cqh 1.1cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .badge-s { background: #FEE2E2; color: #991B1B; }
+  .badge-z { background: #DBEAFE; color: #1E40AF; }
+  .badge-iz { background: #D1FAE5; color: #065F46; }
+  .rule-desc {
+    font-size: 1.25cqw; font-weight: 700; color: #374151; line-height: 1.5;
+  }
+  .rule-formula {
+    background: #FFFFFF; border: 2px solid #111111; border-radius: 14px;
+    padding: 1.2cqh 1.4cqw; display: flex; flex-direction: column; gap: 0.6cqh;
+  }
+  .formula-label {
+    font-size: 1.05cqw; font-weight: 900; color: #6B7280;
+  }
+  .formula-content {
+    font-size: 1.3cqw; font-weight: 900; color: #111111;
+  }
+  .example-pill {
+    background: #F3F4F6; border: 1.5px solid #111111; border-radius: 8px;
+    padding: 0.3cqh 0.8cqw; font-size: 1.1cqw; font-weight: 900; display: inline-block;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-cvx8" id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-e1cc" class="tip-badge">조음 물리법칙</span>
+    <span data-hf-id="hf-162b">목청에 손을 대보세요! 떨림 유무가 끝소리를 결정합니다</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <!-- Rule 1: [s] sound -->
+    <div data-hf-id="hf-262o" class="rule-card" id="cardS">
+      <div data-hf-id="hf-7az0" class="rule-header">
+        <span data-hf-id="hf-77ks" class="rule-title" style="color:#DC2626;">① [s] 무성음</span>
+        <span data-hf-id="hf-t1a9" class="rule-badge badge-s">목청 떨림 0%</span>
+      </div>
+      <div data-hf-id="hf-swsj" class="rule-desc">
+        목청이 안 떨리는 가벼운 소리 뒤에서는 똑같이 성대가 안 떨리는 <strong data-hf-id="hf-s9re">'스'</strong>로 끝납니다.
+      </div>
+      <div data-hf-id="hf-lie3" class="rule-formula">
+        <span data-hf-id="hf-c4zx" class="formula-label">끝소리 조건</span>
+        <span data-hf-id="hf-92ho" class="formula-content">p, t, k, f, θ 뒤</span>
+      </div>
+      <div data-hf-id="hf-1qdz" style="margin-top:auto;">
+        <span data-hf-id="hf-nz0o" class="example-pill">cats [캣츠] · cups [컵스] · books [북스]</span>
+      </div>
+    </div>
+
+    <!-- Rule 2: [z] sound -->
+    <div data-hf-id="hf-udc1" class="rule-card" id="cardZ">
+      <div data-hf-id="hf-zujo" class="rule-header">
+        <span data-hf-id="hf-t21q" class="rule-title" style="color:#2563EB;">② [z] 유성음</span>
+        <span data-hf-id="hf-8hzx" class="rule-badge badge-z">목청 떨림 100%</span>
+      </div>
+      <div data-hf-id="hf-h533" class="rule-desc">
+        목청이 부르르 울리는 유성음 뒤에서는 부드러운 <strong data-hf-id="hf-2dum">'즈'</strong> 소리가 자연스럽게 납니다.
+      </div>
+      <div data-hf-id="hf-v9uj" class="rule-formula">
+        <span data-hf-id="hf-rtz5" class="formula-label">끝소리 조건</span>
+        <span data-hf-id="hf-goa6" class="formula-content">모음 및 b, d, g, v, m, n, l, r 뒤</span>
+      </div>
+      <div data-hf-id="hf-7ydz" style="margin-top:auto;">
+        <span data-hf-id="hf-mrxl" class="example-pill">dogs [도그즈] · plays [플레이즈] · pens [펜즈]</span>
+      </div>
+    </div>
+
+    <!-- Rule 3: [ɪz] sound -->
+    <div data-hf-id="hf-ugec" class="rule-card" id="cardIz">
+      <div data-hf-id="hf-ynml" class="rule-header">
+        <span data-hf-id="hf-kzsa" class="rule-title" style="color:#059669;">③ [ɪz] 치찰음 쿠션</span>
+        <span data-hf-id="hf-1nzl" class="rule-badge badge-iz">음절 +1 증가</span>
+      </div>
+      <div data-hf-id="hf-zk9b" class="rule-desc">
+        이미 입안에서 바람 소리가 나는 단어는 혀가 꼬이지 않게 쿠션 모음을 넣어 <strong data-hf-id="hf-5hik">'이즈'</strong>로 늘어납니다.
+      </div>
+      <div data-hf-id="hf-uvji" class="rule-formula">
+        <span data-hf-id="hf-t0w8" class="formula-label">끝소리 조건</span>
+        <span data-hf-id="hf-q7tk" class="formula-content">s, z, sh, ch, x, ge 뒤</span>
+      </div>
+      <div data-hf-id="hf-7k2y" style="margin-top:auto;">
+        <span data-hf-id="hf-xb3d" class="example-pill">bu · ses [버시즈] · wat · ches [와치즈]</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-cbd1" id="audioPrinciple" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="45.48"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.call(function() {
+      document.getElementById("cardS").className = "rule-card active-s";
+    }, null, 5.0);
+
+    tl.call(function() {
+      document.getElementById("cardS").className = "rule-card";
+      document.getElementById("cardZ").className = "rule-card active-z";
+    }, null, 16.0);
+
+    tl.call(function() {
+      document.getElementById("cardZ").className = "rule-card";
+      document.getElementById("cardIz").className = "rule-card active-iz";
+    }, null, 27.5);
+
+  tl.call(function() { cap("비밀은 바로 목청의 떨림에 있습니다."); }, null, 0.41);
+  tl.call(function() { cap("손을 목에 살짝 대보세요."); }, null, 3.60);
+  tl.call(function() { cap("첫째, 목청이 안 떨리는 가벼운 소리 뒤에서는 똑같이"); }, null, 5.91);
+  tl.call(function() { cap("안 떨리는 스로 끝납니다."); }, null, 10.24);
+  tl.call(function() { cap("캣츠, 컵스, 북스가 여기에 해당합니다."); }, null, 12.81);
+  tl.call(function() { cap("둘째, 성대가 부르르 울리는 유성음 뒤에서는 부드러운 즈"); }, null, 16.59);
+  tl.call(function() { cap("소리로 바뀝니다."); }, null, 21.55);
+  tl.call(function() { cap("도그즈, 플레이즈, 펜즈처럼 성대 울림이 그대로 이어집니다."); }, null, 23.07);
+  tl.call(function() { cap("셋째, 이미 입안에서 바람 소리가 나는 단어는 혀가"); }, null, 28.16);
+  tl.call(function() { cap("꼬이지 않게 쿠션 모음을 넣어 이즈로 음절이 하나"); }, null, 32.21);
+  tl.call(function() { cap("늘어납니다."); }, null, 36.03);
+  tl.call(function() { cap("버시즈, 와치즈, 박시스가 바로 그 원리입니다."); }, null, 37.06);
+  tl.call(function() { cap("이제 스물네 개 필수 단어로 귀에 확실하게 새겨보겠습니다."); }, null, 41.37);
+
+    tl.call(function() { cap(""); }, null, 45.48);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

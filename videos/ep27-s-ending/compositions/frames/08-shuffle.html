@@ -1,0 +1,311 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 65cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;
+  }
+  .quiz-card {
+    width: 100%; background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .quiz-counter {
+    font-size: 1.25cqw; font-weight: 900; color: #6B7280; background: #F3F4F6;
+    padding: 0.3cqh 1.3cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .question-badge {
+    background: #FEF3C7; color: #92400E; border: 2px solid #111111;
+    padding: 0.5cqh 1.6cqw; border-radius: 999px; font-size: 1.3cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .blind-box {
+    width: 22cqw; height: 10cqh; background: #111111; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-family: 'Archivo Black', sans-serif; font-size: 3.8cqw;
+    letter-spacing: 0.1em;
+  }
+  .answer-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1.0;
+    white-space: nowrap; display: none;
+  }
+  .word-stem { color: #111111; }
+  .word-s {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .word-s.s-s { color: #DC2626; border-color: #DC2626; }
+  .word-s.s-z { color: #2563EB; border-color: #2563EB; }
+  .word-s.s-iz { color: #059669; border-color: #059669; }
+  .word-s.s-ex { color: #D97706; border-color: #D97706; }
+  .answer-meta {
+    display: none; flex-direction: column; align-items: center; gap: 0.8cqh;
+  }
+  .answer-ipa {
+    font-size: 2cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .answer-rule {
+    font-size: 1.35cqw; font-weight: 900; padding: 0.5cqh 1.8cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-w3dv" id="root" data-composition-id="08-shuffle" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-vbl4">🎧 24단어 무작위 덱 셔플 귀 훈련 (끝소리가 [s], [z], [ɪz] 중 무엇일까요?)</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-i6gt" class="quiz-card" id="quizCard">
+      <div data-hf-id="hf-iwr9" id="quizCounter" class="quiz-counter">퀴즈 1 / 24</div>
+      <div data-hf-id="hf-t44b" id="quizBadge" class="question-badge">❓ 원어민 발음을 듣고 끝소리를 맞혀보세요</div>
+      <div data-hf-id="hf-oetm" id="blindBox" class="blind-box">???</div>
+      <div data-hf-id="hf-8mie" id="answerWord" class="answer-word">cats</div>
+      <div data-hf-id="hf-i4pn" id="answerMeta" class="answer-meta">
+        <div data-hf-id="hf-psx8" id="answerIpa" class="answer-ipa">캣츠 [kæts]</div>
+        <div data-hf-id="hf-oaz2" id="answerRule" class="answer-rule">[s] 무성음 종결</div>
+      </div>
+    </div>
+  </div>
+
+  <audio data-hf-id="hf-ypsk" id="sq_0" src="assets/voice/m_w03_books.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.67"></audio>
+  <audio data-hf-id="hf-y999" id="sq_1" src="assets/voice/m_w04_laughs.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.37" data-duration="0.86"></audio>
+  <audio data-hf-id="hf-rcqi" id="sq_2" src="assets/voice/m_w02_cups.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.43" data-duration="0.73"></audio>
+  <audio data-hf-id="hf-dng3" id="sq_3" src="assets/voice/m_w01_cats.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.36" data-duration="0.97"></audio>
+  <audio data-hf-id="hf-aep4" id="sq_4" src="assets/voice/m_w06_sleeps.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.53" data-duration="0.83"></audio>
+  <audio data-hf-id="hf-x24u" id="sq_5" src="assets/voice/m_w07_dogs.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.56" data-duration="0.86"></audio>
+  <audio data-hf-id="hf-hk3l" id="sq_6" src="assets/voice/m_w08_plays.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.62" data-duration="0.75"></audio>
+  <audio data-hf-id="hf-8kak" id="sq_7" src="assets/voice/m_w09_pens.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.57" data-duration="0.72"></audio>
+  <audio data-hf-id="hf-n85h" id="sq_8" src="assets/voice/m_w10_calls.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.49" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-74td" id="sq_9" src="assets/voice/m_w11_loves.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.47" data-duration="0.75"></audio>
+  <audio data-hf-id="hf-7lbs" id="sq_10" src="assets/voice/m_w12_dreams.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.42" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-5gsi" id="sq_11" src="assets/voice/m_w13_buses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.39" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-7334" id="sq_12" src="assets/voice/m_w14_watches.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="60.28" data-duration="0.80"></audio>
+  <audio data-hf-id="hf-2n0s" id="sq_13" src="assets/voice/m_w15_boxes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="65.28" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-5chy" id="sq_14" src="assets/voice/m_w16_classes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="70.22" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-ty5y" id="sq_15" src="assets/voice/m_w17_changes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="75.26" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-yu85" id="sq_16" src="assets/voice/m_w18_wishes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="80.23" data-duration="0.75"></audio>
+  <audio data-hf-id="hf-hjmq" id="sq_17" src="assets/voice/m_w19_houses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="85.18" data-duration="0.79"></audio>
+  <audio data-hf-id="hf-utv8" id="sq_18" src="assets/voice/m_w20_prizes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="90.17" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-wmui" id="sq_19" src="assets/voice/m_w21_is.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="95.14" data-duration="0.70"></audio>
+  <audio data-hf-id="hf-nl97" id="sq_20" src="assets/voice/m_w22_was.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="100.04" data-duration="0.71"></audio>
+  <audio data-hf-id="hf-8p3l" id="sq_21" src="assets/voice/m_w23_has.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="104.95" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-8cxk" id="sq_22" src="assets/voice/m_w24_does.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="109.89" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-h9hm" id="sq_23" src="assets/voice/m_w05_stops.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="114.78" data-duration="0.85"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var quizCounter = document.getElementById("quizCounter");
+    var quizBadge = document.getElementById("quizBadge");
+    var blindBox = document.getElementById("blindBox");
+    var answerWord = document.getElementById("answerWord");
+    var answerMeta = document.getElementById("answerMeta");
+    var answerIpa = document.getElementById("answerIpa");
+    var answerRule = document.getElementById("answerRule");
+    var quizCard = document.getElementById("quizCard");
+
+    function setBlind(idx, total) {
+      quizCounter.textContent = "퀴즈 " + idx + " / " + total;
+      quizBadge.textContent = "❓ 원어민 발음을 듣고 끝소리를 맞혀보세요";
+      quizBadge.style.background = "#FEF3C7";
+      quizBadge.style.color = "#92400E";
+      blindBox.style.display = "flex";
+      answerWord.style.display = "none";
+      answerMeta.style.display = "none";
+      gsap.fromTo(quizCard, { scale: 0.96 }, { scale: 1, duration: 0.25, ease: "back.out(1.5)" });
+    }
+
+    function revealAnswer(w) {
+      blindBox.style.display = "none";
+      answerWord.style.display = "block";
+      answerMeta.style.display = "flex";
+
+      var cls = w.sound === "s" ? "s-s" : (w.sound === "z" ? "s-z" : (w.sound === "iz" ? "s-iz" : "s-ex"));
+      answerWord.innerHTML = '<span class="word-stem">' + w.stem + '</span><span class="word-s ' + cls + '">' + w.s + '</span>';
+      answerIpa.textContent = w.krSyl + " " + w.ipa + " · " + w.kr;
+      answerRule.textContent = w.soundName;
+
+      var bg = "#FEE2E2", textCol = "#991B1B";
+      if (w.sound === "z") { bg = "#DBEAFE"; textCol = "#1E40AF"; }
+      else if (w.sound === "iz") { bg = "#D1FAE5"; textCol = "#065F46"; }
+      else if (w.sound === "iz-ex") { bg = "#FEF3C7"; textCol = "#92400E"; }
+      answerRule.style.background = bg;
+      answerRule.style.color = textCol;
+
+      quizBadge.textContent = "💡 " + w.tip;
+      quizBadge.style.background = "#D1FAE5";
+      quizBadge.style.color = "#065F46";
+
+      gsap.fromTo(answerWord, { scale: 0.85 }, { scale: 1, duration: 0.35, ease: "back.out(2)" });
+    }
+
+  tl.call(function() {
+    setBlind(1, 24);
+  }, null, 0.50);
+  tl.call(function() {
+    revealAnswer({"id":"w03","word":"books","stem":"book","s":"s","syl":"books","krSyl":"북스","ipa":"[bʊks]","kr":"책들","group":"g1","sound":"s","soundName":"[s] 무성음 (떨림 0%)","tip":"k(무성음) 뒤: 혀 뒤쪽 막았다 터지는 [s]","m":"m_w03_books","f":"f_w03_books"});
+  }, null, 2.97);
+  tl.call(function() {
+    setBlind(2, 24);
+  }, null, 5.37);
+  tl.call(function() {
+    revealAnswer({"id":"w04","word":"laughs","stem":"laugh","s":"s","syl":"laughs","krSyl":"래프스","ipa":"[læfs]","kr":"웃는다","group":"g1","sound":"s","soundName":"[s] 무성음 (떨림 0%)","tip":"gh=[f](무성음) 뒤: 윗니+입술 마찰 [s]","m":"m_w04_laughs","f":"f_w04_laughs"});
+  }, null, 8.03);
+  tl.call(function() {
+    setBlind(3, 24);
+  }, null, 10.43);
+  tl.call(function() {
+    revealAnswer({"id":"w02","word":"cups","stem":"cup","s":"s","syl":"cups","krSyl":"컵스","ipa":"[kʌps]","kr":"컵들","group":"g1","sound":"s","soundName":"[s] 무성음 (떨림 0%)","tip":"p(무성음) 뒤: 입술 닫았다 터지는 [s]","m":"m_w02_cups","f":"f_w02_cups"});
+  }, null, 12.96);
+  tl.call(function() {
+    setBlind(4, 24);
+  }, null, 15.36);
+  tl.call(function() {
+    revealAnswer({"id":"w01","word":"cats","stem":"cat","s":"s","syl":"cats","krSyl":"캣츠","ipa":"[kæts]","kr":"고양이들","group":"g1","sound":"s","soundName":"[s] 무성음 (떨림 0%)","tip":"t(무성음) 뒤: 성대 안 떨리는 가벼운 [s]","m":"m_w01_cats","f":"f_w01_cats"});
+  }, null, 18.13);
+  tl.call(function() {
+    setBlind(5, 24);
+  }, null, 20.53);
+  tl.call(function() {
+    revealAnswer({"id":"w06","word":"sleeps","stem":"sleep","s":"s","syl":"sleeps","krSyl":"슬립스","ipa":"[sliːps]","kr":"잔다","group":"g1","sound":"s","soundName":"[s] 무성음 (떨림 0%)","tip":"p(무성음) 뒤: 깔끔하게 새는 [s]","m":"m_w06_sleeps","f":"f_w06_sleeps"});
+  }, null, 23.16);
+  tl.call(function() {
+    setBlind(6, 24);
+  }, null, 25.56);
+  tl.call(function() {
+    revealAnswer({"id":"w07","word":"dogs","stem":"dog","s":"s","syl":"dogs","krSyl":"도그즈","ipa":"[dɔːɡz]","kr":"개들","group":"g2","sound":"z","soundName":"[z] 유성음 (떨림 100%)","tip":"g(유성음) 뒤: 성대가 울리며 부드러운 [z]","m":"m_w07_dogs","f":"f_w07_dogs"});
+  }, null, 28.22);
+  tl.call(function() {
+    setBlind(7, 24);
+  }, null, 30.62);
+  tl.call(function() {
+    revealAnswer({"id":"w08","word":"plays","stem":"play","s":"s","syl":"plays","krSyl":"플레이즈","ipa":"[pleɪz]","kr":"논다 / 연주한다","group":"g2","sound":"z","soundName":"[z] 유성음 (떨림 100%)","tip":"모음(유성음) 뒤: 성대 진동 100% 이어지는 [z]","m":"m_w08_plays","f":"f_w08_plays"});
+  }, null, 33.17);
+  tl.call(function() {
+    setBlind(8, 24);
+  }, null, 35.57);
+  tl.call(function() {
+    revealAnswer({"id":"w09","word":"pens","stem":"pen","s":"s","syl":"pens","krSyl":"펜즈","ipa":"[pɛnz]","kr":"펜들","group":"g2","sound":"z","soundName":"[z] 유성음 (떨림 100%)","tip":"n(비음/유성음) 콧소리 울림 그대로 [z]","m":"m_w09_pens","f":"f_w09_pens"});
+  }, null, 38.09);
+  tl.call(function() {
+    setBlind(9, 24);
+  }, null, 40.49);
+  tl.call(function() {
+    revealAnswer({"id":"w10","word":"calls","stem":"call","s":"s","syl":"calls","krSyl":"콜즈","ipa":"[kɔːlz]","kr":"부른다 / 전화한다","group":"g2","sound":"z","soundName":"[z] 유성음 (떨림 100%)","tip":"l(유성음) 잇몸 울림 타고 나오는 [z]","m":"m_w10_calls","f":"f_w10_calls"});
+  }, null, 43.07);
+  tl.call(function() {
+    setBlind(10, 24);
+  }, null, 45.47);
+  tl.call(function() {
+    revealAnswer({"id":"w11","word":"loves","stem":"love","s":"s","syl":"loves","krSyl":"러브즈","ipa":"[lʌvz]","kr":"사랑한다","group":"g2","sound":"z","soundName":"[z] 유성음 (떨림 100%)","tip":"v(유성음) 입술 진동과 함께 울리는 [z]","m":"m_w11_loves","f":"f_w11_loves"});
+  }, null, 48.02);
+  tl.call(function() {
+    setBlind(11, 24);
+  }, null, 50.42);
+  tl.call(function() {
+    revealAnswer({"id":"w12","word":"dreams","stem":"dream","s":"s","syl":"dreams","krSyl":"드림즈","ipa":"[driːmz]","kr":"꿈꾼다 / 꿈들","group":"g2","sound":"z","soundName":"[z] 유성음 (떨림 100%)","tip":"m(비음/유성음) 입술 닫고 울리는 [z]","m":"m_w12_dreams","f":"f_w12_dreams"});
+  }, null, 52.99);
+  tl.call(function() {
+    setBlind(12, 24);
+  }, null, 55.39);
+  tl.call(function() {
+    revealAnswer({"id":"w13","word":"bu · ses","stem":"bu · ","s":"ses","syl":"bu · ses","krSyl":"버시즈","ipa":"[ˈbʌsɪz]","kr":"버스들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"s 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w13_buses","f":"f_w13_buses"});
+  }, null, 57.88);
+  tl.call(function() {
+    setBlind(13, 24);
+  }, null, 60.28);
+  tl.call(function() {
+    revealAnswer({"id":"w14","word":"wat · ches","stem":"wat · ","s":"ches","syl":"wat · ches","krSyl":"와치즈","ipa":"[ˈwɑːtʃɪz]","kr":"지켜본다 / 시계들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"ch 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w14_watches","f":"f_w14_watches"});
+  }, null, 62.88);
+  tl.call(function() {
+    setBlind(14, 24);
+  }, null, 65.28);
+  tl.call(function() {
+    revealAnswer({"id":"w15","word":"box · es","stem":"box · ","s":"es","syl":"box · es","krSyl":"박시즈","ipa":"[ˈbɑːksɪz]","kr":"상자들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"x([ks]) 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w15_boxes","f":"f_w15_boxes"});
+  }, null, 67.82);
+  tl.call(function() {
+    setBlind(15, 24);
+  }, null, 70.22);
+  tl.call(function() {
+    revealAnswer({"id":"w16","word":"clas · ses","stem":"clas · ","s":"ses","syl":"clas · ses","krSyl":"클래시즈","ipa":"[ˈklæsɪz]","kr":"수업들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"ss 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w16_classes","f":"f_w16_classes"});
+  }, null, 72.86);
+  tl.call(function() {
+    setBlind(16, 24);
+  }, null, 75.26);
+  tl.call(function() {
+    revealAnswer({"id":"w17","word":"chan · ges","stem":"chan · ","s":"ges","syl":"chan · ges","krSyl":"체인지즈","ipa":"[ˈtʃeɪndʒɪz]","kr":"변화들 / 바꾼다","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"ge([dʒ]) 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w17_changes","f":"f_w17_changes"});
+  }, null, 77.83);
+  tl.call(function() {
+    setBlind(17, 24);
+  }, null, 80.23);
+  tl.call(function() {
+    revealAnswer({"id":"w18","word":"wish · es","stem":"wish · ","s":"es","syl":"wish · es","krSyl":"위시즈","ipa":"[ˈwɪʃɪz]","kr":"소원들 / 바란다","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"sh 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w18_wishes","f":"f_w18_wishes"});
+  }, null, 82.78);
+  tl.call(function() {
+    setBlind(18, 24);
+  }, null, 85.18);
+  tl.call(function() {
+    revealAnswer({"id":"w19","word":"hou · ses","stem":"hou · ","s":"ses","syl":"hou · ses","krSyl":"하우지즈","ipa":"[ˈhaʊzɪz]","kr":"집들 (특수 예외!)","group":"g4","sound":"iz-ex","soundName":"[ɪz] 어간 유성음화 특수 예외","tip":"단수 house[s] ➔ 복수형은 어간까지 유성음화 [zɪz]!","m":"m_w19_houses","f":"f_w19_houses"});
+  }, null, 87.77);
+  tl.call(function() {
+    setBlind(19, 24);
+  }, null, 90.17);
+  tl.call(function() {
+    revealAnswer({"id":"w20","word":"pri · zes","stem":"pri · ","s":"zes","syl":"pri · zes","krSyl":"프라이즈즈","ipa":"[ˈpraɪzɪz]","kr":"상들","group":"g4","sound":"iz-ex","soundName":"[ɪz] 치찰음 쿠션","tip":"z 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w20_prizes","f":"f_w20_prizes"});
+  }, null, 92.74);
+  tl.call(function() {
+    setBlind(20, 24);
+  }, null, 95.14);
+  tl.call(function() {
+    revealAnswer({"id":"w21","word":"is","stem":"i","s":"s","syl":"is","krSyl":"이즈","ipa":"[ɪz]","kr":"~이다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"is의 s는 무조건 성대 울리는 [z]!","m":"m_w21_is","f":"f_w21_is"});
+  }, null, 97.64);
+  tl.call(function() {
+    setBlind(21, 24);
+  }, null, 100.04);
+  tl.call(function() {
+    revealAnswer({"id":"w22","word":"was","stem":"wa","s":"s","syl":"was","krSyl":"워즈","ipa":"[wɑːz]","kr":"~였다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"was의 s도 모음 뒤 유성음 [z]!","m":"m_w22_was","f":"f_w22_was"});
+  }, null, 102.55);
+  tl.call(function() {
+    setBlind(22, 24);
+  }, null, 104.95);
+  tl.call(function() {
+    revealAnswer({"id":"w23","word":"has","stem":"ha","s":"s","syl":"has","krSyl":"해즈","ipa":"[hæz]","kr":"가지고 있다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"has의 s도 성대 울리는 [z]!","m":"m_w23_has","f":"f_w23_has"});
+  }, null, 107.49);
+  tl.call(function() {
+    setBlind(23, 24);
+  }, null, 109.89);
+  tl.call(function() {
+    revealAnswer({"id":"w24","word":"does","stem":"doe","s":"s","syl":"does","krSyl":"더즈","ipa":"[dʌz]","kr":"한다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"does의 s도 부드러운 유성음 [z]!","m":"m_w24_does","f":"f_w24_does"});
+  }, null, 112.38);
+  tl.call(function() {
+    setBlind(24, 24);
+  }, null, 114.78);
+  tl.call(function() {
+    revealAnswer({"id":"w05","word":"stops","stem":"stop","s":"s","syl":"stops","krSyl":"스탑스","ipa":"[stɑːps]","kr":"멈춘다","group":"g1","sound":"s","soundName":"[s] 무성음 (떨림 0%)","tip":"p(무성음) 뒤: 단단하게 끊기는 [s]","m":"m_w05_stops","f":"f_w05_stops"});
+  }, null, 117.43);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-shuffle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

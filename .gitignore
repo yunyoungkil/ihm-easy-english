@@ -32,6 +32,8 @@ videos/**/디자인*/
 # never commit. Text/metadata/thumbnails in the same folders stay tracked.
 output/upload-packages/**/*.mp4
 videos/**/renders/*.mp4
+renders/
+*.log
 
 # Personal tool config — this folder doubles as an Obsidian vault and VS Code
 # workspace; app state/settings aren't project content.

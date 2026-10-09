@@ -1,0 +1,42 @@
+[
+  {
+    "word": "They",
+    "from": 0.086,
+    "to": 0.272
+  },
+  {
+    "word": "decided",
+    "from": 0.318,
+    "to": 0.642
+  },
+  {
+    "word": "to",
+    "from": 0.689,
+    "to": 0.781
+  },
+  {
+    "word": "stay",
+    "from": 0.828,
+    "to": 1.013
+  },
+  {
+    "word": "and",
+    "from": 1.06,
+    "to": 1.199
+  },
+  {
+    "word": "cleaned",
+    "from": 1.245,
+    "to": 1.507
+  },
+  {
+    "word": "the",
+    "from": 1.523,
+    "to": 1.662
+  },
+  {
+    "word": "room.",
+    "from": 1.708,
+    "to": 1.94
+  }
+]

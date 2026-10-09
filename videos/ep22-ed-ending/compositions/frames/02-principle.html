@@ -1,0 +1,189 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap;
+  }
+  .tip-badge {
+    background: #2563EB; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 90cqw; display: flex; gap: 2.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .rule-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 3.5cqh 2.2cqw; display: flex; flex-direction: column; gap: 1.6cqh;
+  }
+  .rule-card.active-t { border-color: #DC2626; background: #FEF2F2; box-shadow: 8px 8px 0px #DC2626; }
+  .rule-card.active-d { border-color: #2563EB; background: #EFF6FF; box-shadow: 8px 8px 0px #2563EB; }
+  .rule-card.active-id { border-color: #059669; background: #F0FDF4; box-shadow: 8px 8px 0px #059669; }
+  .rule-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .rule-title {
+    font-size: 1.6cqw; font-weight: 900;
+  }
+  .rule-badge {
+    font-size: 1cqw; font-weight: 900; padding: 0.4cqh 1.1cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .badge-t { background: #FEE2E2; color: #991B1B; }
+  .badge-d { background: #DBEAFE; color: #1E40AF; }
+  .badge-id { background: #D1FAE5; color: #065F46; }
+  .rule-desc {
+    font-size: 1.25cqw; font-weight: 700; color: #374151; line-height: 1.5;
+  }
+  .rule-formula {
+    background: #FFFFFF; border: 2px solid #111111; border-radius: 14px;
+    padding: 1.2cqh 1.4cqw; display: flex; flex-direction: column; gap: 0.6cqh;
+  }
+  .formula-label {
+    font-size: 1.05cqw; font-weight: 900; color: #6B7280;
+  }
+  .formula-content {
+    font-size: 1.3cqw; font-weight: 900; color: #111111;
+  }
+  .example-pill {
+    background: #F3F4F6; border: 1.5px solid #111111; border-radius: 8px;
+    padding: 0.3cqh 0.8cqw; font-size: 1.1cqw; font-weight: 900; display: inline-block;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">조음 물리법칙</span>
+    <span>목청에 손을 대보세요! 떨림 유무가 소리를 결정합니다</span>
+  </div>
+
+  <div class="stage">
+    <!-- Rule 1: [t] sound -->
+    <div class="rule-card" id="cardT">
+      <div class="rule-header">
+        <span class="rule-title" style="color:#DC2626;">① [t] 무성음</span>
+        <span class="rule-badge badge-t">목청 떨림 0%</span>
+      </div>
+      <div class="rule-desc">
+        목청이 안 떨리는 가벼운 소리 뒤에서는 똑같이 성대가 안 떨리는 <strong>'트'</strong>로 끝납니다.
+      </div>
+      <div class="rule-formula">
+        <span class="formula-label">끝소리 조건</span>
+        <span class="formula-content">p, k, f, s, sh, ch 뒤</span>
+      </div>
+      <div style="margin-top:auto;">
+        <span class="example-pill">walked [웍트] · stopped [스탑트]</span>
+      </div>
+    </div>
+
+    <!-- Rule 2: [d] sound -->
+    <div class="rule-card" id="cardD">
+      <div class="rule-header">
+        <span class="rule-title" style="color:#2563EB;">② [d] 유성음</span>
+        <span class="rule-badge badge-d">목청 떨림 100%</span>
+      </div>
+      <div class="rule-desc">
+        목청이 부르르 울리는 유성음 뒤에서는 부드러운 <strong>'드'</strong> 소리가 자연스럽게 납니다.
+      </div>
+      <div class="rule-formula">
+        <span class="formula-label">끝소리 조건</span>
+        <span class="formula-content">모음 및 b, g, v, z, m, n, l, r 뒤</span>
+      </div>
+      <div style="margin-top:auto;">
+        <span class="example-pill">played [플레이드] · loved [러브드]</span>
+      </div>
+    </div>
+
+    <!-- Rule 3: [ɪd] sound -->
+    <div class="rule-card" id="cardId">
+      <div class="rule-header">
+        <span class="rule-title" style="color:#059669;">③ [ɪd] 쿠션 모음</span>
+        <span class="rule-badge badge-id">혀 꼬임 방지 (+1음절)</span>
+      </div>
+      <div class="rule-desc">
+        이미 트나 드로 끝나는 단어는 혀가 꼬이지 않게 쿠션 모음을 넣어 <strong>'이디'</strong>로 음절이 늘어납니다.
+      </div>
+      <div class="rule-formula">
+        <span class="formula-label">끝소리 조건</span>
+        <span class="formula-content">t 또는 d로 끝나는 단어 뒤</span>
+      </div>
+      <div style="margin-top:auto;">
+        <span class="example-pill">wan · ted [원티드] · nee · ded [니디드]</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_principle" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="32.80"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.from("#cardT", { y: 40, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.from("#cardD", { y: 40, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.4);
+    tl.from("#cardId", { y: 40, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.6);
+
+    tl.call(function() {
+      document.getElementById("cardT").className = "rule-card active-t";
+    }, null, 5.0);
+
+    tl.call(function() {
+      document.getElementById("cardT").className = "rule-card";
+      document.getElementById("cardD").className = "rule-card active-d";
+    }, null, 12.0);
+
+    tl.call(function() {
+      document.getElementById("cardD").className = "rule-card";
+      document.getElementById("cardId").className = "rule-card active-id";
+    }, null, 19.5);
+
+  tl.call(function() { cap("이디 발음의 비밀은 딱 하나, 목청에 손을 대보면"); }, null, 0.47);
+  tl.call(function() { cap("바로 알 수 있습니다."); }, null, 4.55);
+  tl.call(function() { cap("목청이 떨리지 않는 가벼운 소리 뒤에서는 똑같이 목이"); }, null, 6.43);
+  tl.call(function() { cap("안 떨리는 '트' 소리로 끝납니다."); }, null, 10.43);
+  tl.call(function() { cap("반대로 목청이 부르르 울리는 유성음 뒤에서는 부드러운 '드'"); }, null, 13.09);
+  tl.call(function() { cap("소리가 납니다."); }, null, 17.52);
+  tl.call(function() { cap("그리고 이미 트나 드로 끝나는 단어는 혀가 꼬이지"); }, null, 18.68);
+  tl.call(function() { cap("않게 쿠션 모음을 넣어서 '이디'로 음절을 하나 늘려줍니다."); }, null, 22.53);
+  tl.call(function() { cap("트, 드, 이디, 이 세 가지 소리 규칙을"); }, null, 26.60);
+  tl.call(function() { cap("기억하고 바로 소리 연습 시작하겠습니다."); }, null, 30.39);
+
+    tl.call(function() { cap(""); }, null, 32.80);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

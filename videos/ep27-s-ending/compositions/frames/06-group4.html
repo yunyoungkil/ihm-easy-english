@@ -1,0 +1,331 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap;
+  }
+  .tip-badge {
+    background:#D97706; color:#FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 65cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;
+  }
+  .drill-card {
+    width: 100%; background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 4cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .card-top {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+  }
+  .word-counter {
+    font-size: 1.2cqw; font-weight: 900; color: #6B7280; background: #F3F4F6;
+    padding: 0.3cqh 1.2cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .card-label {
+    font-size: 1.25cqw; font-weight: 900; padding: 0.5cqh 1.5cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap;
+  }
+  .word-stem { color: #111111; }
+  .word-s {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .word-s.s-s { color: #DC2626; border-color: #DC2626; }
+  .word-s.s-z { color: #2563EB; border-color: #2563EB; }
+  .word-s.s-iz { color: #059669; border-color: #059669; }
+  .word-s.s-ex { color: #D97706; border-color: #D97706; }
+  .ipa-text {
+    font-size: 2.2cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .meaning-text {
+    font-size: 2.8cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .tip-box {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 14px;
+    padding: 0.8cqh 2cqw; font-size: 1.35cqw; font-weight: 800; color: #111111;
+    white-space: nowrap;
+  }
+  /* Indicator Dots only - clean, no extra meta text */
+  .dots-wrapper {
+    display: flex; gap: 0.8cqw; justify-content: center; align-items: center; margin-top: 0.8cqh;
+  }
+  .dot {
+    width: 1.2cqw; height: 1.2cqw; border-radius: 50%;
+    border: 2.5px solid #111111; background: #E5E7EB;
+  }
+  .dot.active {
+    background: #10B981; transform: scale(1.35); box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-wdc5" id="root" data-composition-id="06-group4" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-hcu6" class="tip-badge">Group 4: [ɪz] 예외 &amp; 기능어</span>
+    <span data-hf-id="hf-f09a">어간 유성음화 특수 예외 &amp; 필수 기능어 울림 [z]</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-jkid" class="drill-card" id="drillCard">
+      <div data-hf-id="hf-ub2w" class="card-top">
+        <div data-hf-id="hf-9n0b" id="wordCounter" class="word-counter">단어 1 / 6</div>
+        <div data-hf-id="hf-ppbz" id="cardLabel" class="card-label">로딩 중</div>
+      </div>
+      <div data-hf-id="hf-tuoe" id="wordText" class="word-text">cats</div>
+      <div data-hf-id="hf-o3jv" id="ipaText" class="ipa-text">[kæts]</div>
+      <div data-hf-id="hf-ity8" id="meaningText" class="meaning-text">고양이들</div>
+      <div data-hf-id="hf-mauo" id="tipBox" class="tip-box">조음 팁 안내</div>
+      <div data-hf-id="hf-eoja" class="dots-wrapper">
+        <div data-hf-id="hf-klg1" class="dot" id="dot1"></div>
+        <div data-hf-id="hf-ojk2" class="dot" id="dot2"></div>
+        <div data-hf-id="hf-sho3" class="dot" id="dot3"></div>
+        <div data-hf-id="hf-506k" class="dot" id="dot4"></div>
+        <div data-hf-id="hf-5rud" class="dot" id="dot5"></div>
+        <div data-hf-id="hf-9pye" class="dot" id="dot6"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio data-hf-id="hf-76f4" id="a_w19_0" src="assets/voice/m_w19_houses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.79"></audio>
+  <audio data-hf-id="hf-wfcb" id="a_w19_1" src="assets/voice/f_w19_houses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.84" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-61zu" id="a_w19_2" src="assets/voice/m_w19_houses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.20" data-duration="0.79"></audio>
+  <audio data-hf-id="hf-vi15" id="a_w19_3" src="assets/voice/f_w19_houses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.54" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-5d29" id="a_w19_4" src="assets/voice/m_w19_houses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.90" data-duration="0.79"></audio>
+  <audio data-hf-id="hf-tfaz" id="a_w19_5" src="assets/voice/f_w19_houses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.24" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-3xne" id="a_w20_0" src="assets/voice/m_w20_prizes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.00" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-mgwb" id="a_w20_1" src="assets/voice/f_w20_prizes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.32" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-zy8f" id="a_w20_2" src="assets/voice/m_w20_prizes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.71" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-f7fi" id="a_w20_3" src="assets/voice/f_w20_prizes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.03" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-o5ie" id="a_w20_4" src="assets/voice/m_w20_prizes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.42" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-y9kw" id="a_w20_5" src="assets/voice/f_w20_prizes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.74" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-frdl" id="a_w21_0" src="assets/voice/m_w21_is.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.53" data-duration="0.70"></audio>
+  <audio data-hf-id="hf-w1d3" id="a_w21_1" src="assets/voice/f_w21_is.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.78" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-yqnz" id="a_w21_2" src="assets/voice/m_w21_is.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.02" data-duration="0.70"></audio>
+  <audio data-hf-id="hf-aj9p" id="a_w21_3" src="assets/voice/f_w21_is.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.27" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-tiin" id="a_w21_4" src="assets/voice/m_w21_is.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.51" data-duration="0.70"></audio>
+  <audio data-hf-id="hf-e587" id="a_w21_5" src="assets/voice/f_w21_is.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.76" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-i3lc" id="a_w22_0" src="assets/voice/m_w22_was.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.40" data-duration="0.71"></audio>
+  <audio data-hf-id="hf-3hx4" id="a_w22_1" src="assets/voice/f_w22_was.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.66" data-duration="0.72"></audio>
+  <audio data-hf-id="hf-nzv8" id="a_w22_2" src="assets/voice/m_w22_was.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.93" data-duration="0.71"></audio>
+  <audio data-hf-id="hf-iou5" id="a_w22_3" src="assets/voice/f_w22_was.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.19" data-duration="0.72"></audio>
+  <audio data-hf-id="hf-wp7c" id="a_w22_4" src="assets/voice/m_w22_was.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.46" data-duration="0.71"></audio>
+  <audio data-hf-id="hf-fonf" id="a_w22_5" src="assets/voice/f_w22_was.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.72" data-duration="0.72"></audio>
+  <audio data-hf-id="hf-bsp1" id="a_w23_0" src="assets/voice/m_w23_has.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.39" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-llv2" id="a_w23_1" src="assets/voice/f_w23_has.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.68" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-xdll" id="a_w23_2" src="assets/voice/m_w23_has.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.97" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-ple7" id="a_w23_3" src="assets/voice/f_w23_has.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.26" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-lr6e" id="a_w23_4" src="assets/voice/m_w23_has.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.55" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-s4wb" id="a_w23_5" src="assets/voice/f_w23_has.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.84" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-cpkn" id="a_w24_0" src="assets/voice/m_w24_does.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.53" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-f4ky" id="a_w24_1" src="assets/voice/f_w24_does.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.77" data-duration="0.76"></audio>
+  <audio data-hf-id="hf-n6cg" id="a_w24_2" src="assets/voice/m_w24_does.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.08" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-pf3w" id="a_w24_3" src="assets/voice/f_w24_does.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.32" data-duration="0.76"></audio>
+  <audio data-hf-id="hf-mjr7" id="a_w24_4" src="assets/voice/m_w24_does.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.63" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-q7w4" id="a_w24_5" src="assets/voice/f_w24_does.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.87" data-duration="0.76"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var wordCounter = document.getElementById("wordCounter");
+    var cardLabel = document.getElementById("cardLabel");
+    var wordText = document.getElementById("wordText");
+    var ipaText = document.getElementById("ipaText");
+    var meaningText = document.getElementById("meaningText");
+    var tipBox = document.getElementById("tipBox");
+    var drillCard = document.getElementById("drillCard");
+    var dots = [
+      document.getElementById("dot1"),
+      document.getElementById("dot2"),
+      document.getElementById("dot3"),
+      document.getElementById("dot4"),
+      document.getElementById("dot5"),
+      document.getElementById("dot6")
+    ];
+
+    function setWord(w, idx, total) {
+      wordCounter.textContent = "단어 " + idx + " / " + total;
+      cardLabel.textContent = w.soundName;
+      var bg = "#FEE2E2", textCol = "#991B1B";
+      if (w.sound === "z") { bg = "#DBEAFE"; textCol = "#1E40AF"; }
+      else if (w.sound === "iz") { bg = "#D1FAE5"; textCol = "#065F46"; }
+      else if (w.sound === "iz-ex") { bg = "#FEF3C7"; textCol = "#92400E"; }
+      cardLabel.style.background = bg;
+      cardLabel.style.color = textCol;
+
+      var cls = w.sound === "s" ? "s-s" : (w.sound === "z" ? "s-z" : (w.sound === "iz" ? "s-iz" : "s-ex"));
+      wordText.innerHTML = '<span class="word-stem">' + w.stem + '</span><span class="word-s ' + cls + '">' + w.s + '</span>';
+      ipaText.textContent = w.krSyl + " " + w.ipa;
+      meaningText.textContent = w.kr;
+      tipBox.textContent = "💡 " + w.tip;
+
+      dots.forEach(function(d) { d.className = "dot"; });
+      gsap.fromTo(drillCard, { scale: 0.97 }, { scale: 1, duration: 0.25, ease: "back.out(1.5)" });
+    }
+
+    function setDot(dotIdx) {
+      dots.forEach(function(d, i) {
+        if (i < dotIdx) {
+          d.className = "dot active";
+        } else {
+          d.className = "dot";
+        }
+      });
+      gsap.fromTo(wordText, { scale: 1.05 }, { scale: 1, duration: 0.18, ease: "power1.out" });
+    }
+
+  tl.call(function() {
+    setWord({"id":"w19","word":"hou · ses","stem":"hou · ","s":"ses","syl":"hou · ses","krSyl":"하우지즈","ipa":"[ˈhaʊzɪz]","kr":"집들 (특수 예외!)","group":"g4","sound":"iz-ex","soundName":"[ɪz] 어간 유성음화 특수 예외","tip":"단수 house[s] ➔ 복수형은 어간까지 유성음화 [zɪz]!","m":"m_w19_houses","f":"f_w19_houses"}, 1, 6);
+  }, null, 0.50);
+  tl.call(function() {
+    setDot(1);
+  }, null, 0.50);
+  tl.call(function() {
+    setDot(2);
+  }, null, 1.84);
+  tl.call(function() {
+    setDot(3);
+  }, null, 3.20);
+  tl.call(function() {
+    setDot(4);
+  }, null, 4.54);
+  tl.call(function() {
+    setDot(5);
+  }, null, 5.90);
+  tl.call(function() {
+    setDot(6);
+  }, null, 7.24);
+  tl.call(function() {
+    setWord({"id":"w20","word":"pri · zes","stem":"pri · ","s":"zes","syl":"pri · zes","krSyl":"프라이즈즈","ipa":"[ˈpraɪzɪz]","kr":"상들","group":"g4","sound":"iz-ex","soundName":"[ɪz] 치찰음 쿠션","tip":"z 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w20_prizes","f":"f_w20_prizes"}, 2, 6);
+  }, null, 9.00);
+  tl.call(function() {
+    setDot(1);
+  }, null, 9.00);
+  tl.call(function() {
+    setDot(2);
+  }, null, 10.32);
+  tl.call(function() {
+    setDot(3);
+  }, null, 11.71);
+  tl.call(function() {
+    setDot(4);
+  }, null, 13.03);
+  tl.call(function() {
+    setDot(5);
+  }, null, 14.42);
+  tl.call(function() {
+    setDot(6);
+  }, null, 15.74);
+  tl.call(function() {
+    setWord({"id":"w21","word":"is","stem":"i","s":"s","syl":"is","krSyl":"이즈","ipa":"[ɪz]","kr":"~이다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"is의 s는 무조건 성대 울리는 [z]!","m":"m_w21_is","f":"f_w21_is"}, 3, 6);
+  }, null, 17.53);
+  tl.call(function() {
+    setDot(1);
+  }, null, 17.53);
+  tl.call(function() {
+    setDot(2);
+  }, null, 18.78);
+  tl.call(function() {
+    setDot(3);
+  }, null, 20.02);
+  tl.call(function() {
+    setDot(4);
+  }, null, 21.27);
+  tl.call(function() {
+    setDot(5);
+  }, null, 22.51);
+  tl.call(function() {
+    setDot(6);
+  }, null, 23.76);
+  tl.call(function() {
+    setWord({"id":"w22","word":"was","stem":"wa","s":"s","syl":"was","krSyl":"워즈","ipa":"[wɑːz]","kr":"~였다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"was의 s도 모음 뒤 유성음 [z]!","m":"m_w22_was","f":"f_w22_was"}, 4, 6);
+  }, null, 25.40);
+  tl.call(function() {
+    setDot(1);
+  }, null, 25.40);
+  tl.call(function() {
+    setDot(2);
+  }, null, 26.66);
+  tl.call(function() {
+    setDot(3);
+  }, null, 27.93);
+  tl.call(function() {
+    setDot(4);
+  }, null, 29.19);
+  tl.call(function() {
+    setDot(5);
+  }, null, 30.46);
+  tl.call(function() {
+    setDot(6);
+  }, null, 31.72);
+  tl.call(function() {
+    setWord({"id":"w23","word":"has","stem":"ha","s":"s","syl":"has","krSyl":"해즈","ipa":"[hæz]","kr":"가지고 있다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"has의 s도 성대 울리는 [z]!","m":"m_w23_has","f":"f_w23_has"}, 5, 6);
+  }, null, 33.39);
+  tl.call(function() {
+    setDot(1);
+  }, null, 33.39);
+  tl.call(function() {
+    setDot(2);
+  }, null, 34.68);
+  tl.call(function() {
+    setDot(3);
+  }, null, 35.97);
+  tl.call(function() {
+    setDot(4);
+  }, null, 37.26);
+  tl.call(function() {
+    setDot(5);
+  }, null, 38.55);
+  tl.call(function() {
+    setDot(6);
+  }, null, 39.84);
+  tl.call(function() {
+    setWord({"id":"w24","word":"does","stem":"doe","s":"s","syl":"does","krSyl":"더즈","ipa":"[dʌz]","kr":"한다 (기능어)","group":"g4","sound":"z","soundName":"[z] 기능어 필수 울림","tip":"does의 s도 부드러운 유성음 [z]!","m":"m_w24_does","f":"f_w24_does"}, 6, 6);
+  }, null, 41.53);
+  tl.call(function() {
+    setDot(1);
+  }, null, 41.53);
+  tl.call(function() {
+    setDot(2);
+  }, null, 42.77);
+  tl.call(function() {
+    setDot(3);
+  }, null, 44.08);
+  tl.call(function() {
+    setDot(4);
+  }, null, 45.32);
+  tl.call(function() {
+    setDot(5);
+  }, null, 46.63);
+  tl.call(function() {
+    setDot(6);
+  }, null, 47.87);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-group4"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

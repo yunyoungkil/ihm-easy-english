@@ -1,0 +1,164 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.28; z-index: 1; filter: saturate(1.2);
+    transform: scale(1.05); transform-origin: center center;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 84cqw; z-index: 5;
+  }
+  .dialogue-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 5cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+  }
+  .tag-pill {
+    display: inline-block; background: #DBEAFE; border: 2px solid #111111;
+    padding: 0.5cqh 1.8cqw; border-radius: 999px; font-size: 1.25cqw; font-weight: 900; color: #1E40AF;
+  }
+  .sentence-en {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; line-height: 1.35;
+    color: #111111;
+  }
+  .hl-t {
+    color: #991B1B; border-bottom: 5px solid #DC2626; padding-bottom: 2px;
+    display: inline-block; background: #FEE2E2; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .hl-d {
+    color: #1E40AF; border-bottom: 5px solid #2563EB; padding-bottom: 2px;
+    display: inline-block; background: #DBEAFE; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .hl-id {
+    color: #065F46; border-bottom: 5px solid #059669; padding-bottom: 2px;
+    display: inline-block; background: #D1FAE5; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .sentence-kr {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563;
+  }
+  .syl-tip-box {
+    background: #FAF7F2; border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+    border-radius: 14px; padding: 1cqh 2.4cqw; font-size: 1.4cqw; font-weight: 900;
+    color: #111111; margin-top: 0.5cqh;
+  }
+</style>
+<div id="root" data-composition-id="07-dialogue" data-width="1920" data-height="1080">
+  <video id="bgVideo" class="bg-video" src="assets/videos/f07_dialogue_ambience.mp4" autoplay loop muted data-start="0" data-duration="45.35" data-hf-media-start-basis="local" data-layout-allow-overflow></video>
+
+  <div class="eyebrow-pill">
+    <span>💬 실전 회화 문맥 속 -ED 발음 청취 (7문장 집중 훈련)</span>
+  </div>
+
+  <div class="stage">
+    <div class="dialogue-card" id="dialCard">
+      <div id="dialTag" class="tag-pill">walked [t] & stopped [t]</div>
+      <div id="dialEn" class="sentence-en">I <span class="hl-t">walked</span> home and <span class="hl-t">stopped</span> by the store.</div>
+      <div id="dialKr" class="sentence-kr">집에 걸어가다가 가게에 들렀어요.</div>
+      <div id="dialSylTip" class="syl-tip-box">💡 둘 다 무성음 뒤라 목청 안 떨리는 [t]!</div>
+    </div>
+  </div>
+
+  <audio id="dial_01_1" src="assets/voice/dial_01.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="2.56"></audio>
+  <audio id="dial_01_2" src="assets/voice/dial_01.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.91" data-duration="2.56"></audio>
+  <audio id="dial_02_1" src="assets/voice/dial_02.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.77" data-duration="1.84"></audio>
+  <audio id="dial_02_2" src="assets/voice/dial_02.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.46" data-duration="1.84"></audio>
+  <audio id="dial_03_1" src="assets/voice/dial_03.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.60" data-duration="2.02"></audio>
+  <audio id="dial_03_2" src="assets/voice/dial_03.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.47" data-duration="2.02"></audio>
+  <audio id="dial_04_1" src="assets/voice/dial_04.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.79" data-duration="2.24"></audio>
+  <audio id="dial_04_2" src="assets/voice/dial_04.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.88" data-duration="2.24"></audio>
+  <audio id="dial_05_1" src="assets/voice/dial_05.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.42" data-duration="1.71"></audio>
+  <audio id="dial_05_2" src="assets/voice/dial_05.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.98" data-duration="1.71"></audio>
+  <audio id="dial_06_1" src="assets/voice/dial_06.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.99" data-duration="2.14"></audio>
+  <audio id="dial_06_2" src="assets/voice/dial_06.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.98" data-duration="2.14"></audio>
+  <audio id="dial_07_1" src="assets/voice/dial_07.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.42" data-duration="2.14"></audio>
+  <audio id="dial_07_2" src="assets/voice/dial_07.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.41" data-duration="2.14"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var dialTag = document.getElementById("dialTag");
+    var dialEn = document.getElementById("dialEn");
+    var dialKr = document.getElementById("dialKr");
+    var dialSylTip = document.getElementById("dialSylTip");
+    var dialCard = document.getElementById("dialCard");
+
+    function showDialogue(d) {
+      dialTag.textContent = d.pairBadge;
+      dialEn.innerHTML = d.enHtml;
+      dialKr.textContent = d.kr;
+      dialSylTip.textContent = d.sylTip;
+      gsap.fromTo(dialCard, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: "back.out(1.5)" });
+    }
+
+  tl.call(function() {
+    showDialogue({"id":"01","en":"I walked home and stopped by the store.","enHtml":"I <span class=\"hl-t\">walked</span> home and <span class=\"hl-t\">stopped</span> by the store.","kr":"집에 걸어가다가 가게에 들렀어요.","pairBadge":"walked [t] & stopped [t]","sylTip":"💡 둘 다 무성음(k, p) 뒤라 목청 안 떨리는 [t]!","audio":"dial_01","targetWords":["walked","stopped"]});
+  }, null, 0.50);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 0.97);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 2.17);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 4.38);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 5.58);
+  tl.call(function() {
+    showDialogue({"id":"02","en":"She called me and played the song.","enHtml":"She <span class=\"hl-d\">called</span> me and <span class=\"hl-d\">played</span> the song.","kr":"그녀는 내게 전화해서 노래를 틀어주었다.","pairBadge":"called [d] & played [d]","sylTip":"💡 l과 모음(유성음) 뒤라 부드러운 [d] 울림!","audio":"dial_02","targetWords":["called","played"]});
+  }, null, 7.77);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 8.05);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 8.72);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 10.74);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 11.41);
+  tl.call(function() {
+    showDialogue({"id":"03","en":"We waited because we wanted to see him.","enHtml":"We <span class=\"hl-id\">waited</span> because we <span class=\"hl-id\">wanted</span> to see him.","kr":"우리는 그를 보고 싶어서 기다렸다.","pairBadge":"wai · ted [ɪd] & wan · ted [ɪd]","sylTip":"💡 t 뒤라 쿠션 모음 투입! 2음절 [ɪd]!","audio":"dial_03","targetWords":["waited","wanted"]});
+  }, null, 13.60);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 13.90);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 15.08);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 16.77);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 17.95);
+  tl.call(function() {
+    showDialogue({"id":"04","en":"They decided to stay and cleaned the room.","enHtml":"They <span class=\"hl-id\">decided</span> to stay and <span class=\"hl-d\">cleaned</span> the room.","kr":"그들은 머물기로 결심하고 방을 청소했다.","pairBadge":"de · ci · ded [ɪd] vs cleaned [d]","sylTip":"💡 d 뒤 [ɪd](3음절) vs n 뒤 [d](1음절) 대조!","audio":"dial_04","targetWords":["decided","cleaned"]});
+  }, null, 19.79);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 20.11);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 21.04);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 23.20);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 24.13);
+  tl.call(function() {
+    showDialogue({"id":"05","en":"He laughed when he watched the movie.","enHtml":"He <span class=\"hl-t\">laughed</span> when he <span class=\"hl-t\">watched</span> the movie.","kr":"그는 영화를 보며 웃었다.","pairBadge":"laughed [t] & watched [t]","sylTip":"💡 f 소리와 ch 뒤라 똑같이 가벼운 [t] 종결!","audio":"dial_05","targetWords":["laughed","watched"]});
+  }, null, 26.42);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 26.64);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 27.30);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 29.20);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 29.86);
+  tl.call(function() {
+    showDialogue({"id":"06","en":"I needed help, so she opened the door.","enHtml":"I <span class=\"hl-id\">needed</span> help, so she <span class=\"hl-d\">opened</span> the door.","kr":"내가 도움이 필요해서 그녀가 문을 열어주었다.","pairBadge":"nee · ded [ɪd] vs o · pened [d]","sylTip":"💡 d 뒤 [ɪd](2음절) vs n 뒤 [d](2음절) 대조!","audio":"dial_06","targetWords":["needed","opened"]});
+  }, null, 31.99);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 32.18);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 33.16);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 35.17);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 36.15);
+  tl.call(function() {
+    showDialogue({"id":"07","en":"The movie ended and everyone cheered.","enHtml":"The movie <span class=\"hl-id\">ended</span> and everyone <span class=\"hl-d\">cheered</span>.","kr":"영화가 끝나자 모두가 환호했다.","pairBadge":"en · ded [ɪd] vs cheered [d]","sylTip":"💡 d 뒤 [ɪd](2음절) vs r(유성음) 뒤 [d] 울림!","audio":"dial_07","targetWords":["ended","cheered"]});
+  }, null, 38.42);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 39.00);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 39.94);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 41.99);
+  tl.fromTo(".hl-t, .hl-d, .hl-id", { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 42.93);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-dialogue"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

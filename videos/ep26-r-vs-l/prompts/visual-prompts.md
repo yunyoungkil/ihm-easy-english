@@ -39,5 +39,8 @@ Clean vector medical infographic aesthetics on a solid warm cream (#F4EFE6) back
 - **도구**: Sora / Runway Gen-3 / Pika / Kling
 
 ```text
-A cozy, cinematic, high-end cafe and bookstore atmosphere at evening. Warm ambient lighting, soft golden bokeh lights in the deep background, wooden bookshelves with neatly arranged books, a steaming cup of tea or flat white coffee on a rustic oak table in the foreground corner. Subtle gentle steam rising smoothly, faint dust motes dancing slowly in warm golden lamp light rays. Camera is locked-off static or with very subtle breathing motion. Perfectly seamless looping video, calming and focused aesthetic suitable for an educational dialogue background, warm cream and deep amber tones. 1080p 30fps.
+A cozy, cinematic, high-end cafe and bookstore atmosphere at evening. Warm ambient lighting, soft golden bokeh lights in the deep background, wooden bookshelves with neatly arranged books, a steaming cup of tea or flat white coffee on a rustic oak table in the foreground corner. Subtle gentle steam rising smoothly, faint dust motes dancing slowly in warm golden lamp light rays. Camera is locked-off static or with very subtle breathing motion. Perfectly seamless looping video, calming and focused aesthetic suitable for an educational dialogue background, warm cream and deep amber tones. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges. 1080p 30fps.
 ```
+
+- **에셋 반입 및 검수 기준**: 모서리 4방(우측 하단/상단)에 플랫폼 로고(Gemini 별 등)가 찍힌 경우, ffmpeg `crop=1696:954:0:0,scale=1920:1080:flags=lanczos`로 무손실 크롭/스케일 후처리하여 0.1픽셀도 워터마크가 없는 클린 영상으로 반입 필수.
+

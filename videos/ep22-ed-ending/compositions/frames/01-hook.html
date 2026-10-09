@@ -1,0 +1,156 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap;
+  }
+  .tip-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 90cqw; display: flex; gap: 2.4cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .compare-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 26px; padding: 3.5cqh 1.6cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .card-label {
+    font-size: 1.1cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .label-t { background: #FEE2E2; color: #991B1B; }
+  .label-d { background: #DBEAFE; color: #1E40AF; }
+  .label-id { background: #D1FAE5; color: #065F46; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 4.1cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap;
+  }
+  .word-stem { color: #111111; }
+  .word-ed {
+    display: inline-block;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    padding-bottom: 2px;
+  }
+  .word-ed.ed-t { color: #DC2626; border-color: #DC2626; }
+  .word-ed.ed-d { color: #2563EB; border-color: #2563EB; }
+  .word-ed.ed-id { color: #059669; border-color: #059669; }
+  .syl-pill {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 1.55cqw; font-weight: 900;
+    padding: 0.4cqh 1.2cqw; border-radius: 12px; border: 2px solid #111111;
+    box-shadow: 2px 2px 0px #111111; white-space: nowrap;
+  }
+  .pill-t { background: #FEE2E2; color: #991B1B; }
+  .pill-d { background: #DBEAFE; color: #1E40AF; }
+  .pill-id { background: #D1FAE5; color: #065F46; }
+  .meaning-text {
+    font-size: 1.8cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .status-badge {
+    font-size: 1.15cqw; font-weight: 900; padding: 0.6cqh 1.4cqw; border-radius: 12px;
+    border: 2px solid #111111; white-space: nowrap;
+  }
+  .badge-warn { background: #FEF3C7; color: #92400E; }
+  .badge-correct { background: #D1FAE5; color: #065F46; }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">오답 경고</span>
+    <span>-ED, 다 '드'로 읽으셨죠? 끝소리 3개가 완전히 다릅니다!</span>
+  </div>
+
+  <div class="stage">
+    <!-- Card 1: WALKED [t] -->
+    <div class="compare-card" id="cardWalked">
+      <div class="card-label label-t">규칙 ① 무성음 뒤 [t]</div>
+      <div class="word-text"><span class="word-stem">WALK</span><span class="word-ed ed-t">ED</span></div>
+      <div class="syl-pill pill-t">[wɔːkt] · [웍트]</div>
+      <div class="meaning-text">걸었다 🚶</div>
+      <div class="status-badge badge-warn" id="badgeWalked">워크드? ❌ 1음절 [웍트]</div>
+    </div>
+
+    <!-- Card 2: PLAYED [d] -->
+    <div class="compare-card" id="cardPlayed">
+      <div class="card-label label-d">규칙 ② 유성음 뒤 [d]</div>
+      <div class="word-text"><span class="word-stem">PLAY</span><span class="word-ed ed-d">ED</span></div>
+      <div class="syl-pill pill-d">[pleɪd] · [플레이드]</div>
+      <div class="meaning-text">놀았다 🎮</div>
+      <div class="status-badge badge-warn" id="badgePlayed">플레-이-드? ❌ 1음절 [d]</div>
+    </div>
+
+    <!-- Card 3: WANTED [ɪd] -->
+    <div class="compare-card" id="cardWanted">
+      <div class="card-label label-id">규칙 ③ t/d 뒤 쿠션 [ɪd]</div>
+      <div class="word-text"><span class="word-stem">WAN · </span><span class="word-ed ed-id">TED</span></div>
+      <div class="syl-pill pill-id">[ˈwɑːntɪd] · [원티드]</div>
+      <div class="meaning-text">원했다 🎯</div>
+      <div class="status-badge badge-correct" id="badgeWanted">쿠션 모음으로 +1음절 추가!</div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="v_host" src="assets/voice/01_f01_hook.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="30.24"></audio>
+</div>
+
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+    tl.from("#cardWalked", { y: 40, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.2);
+    tl.from("#cardPlayed", { y: 40, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.4);
+    tl.from("#cardWanted", { y: 40, opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, 0.6);
+
+    tl.to("#badgeWalked", { scale: 1.1, repeat: 1, yoyo: true, duration: 0.3 }, 5.5);
+    tl.to("#badgePlayed", { scale: 1.1, repeat: 1, yoyo: true, duration: 0.3 }, 8.5);
+    tl.to("#badgeWanted", { scale: 1.1, repeat: 1, yoyo: true, duration: 0.3 }, 15.0);
+
+  tl.call(function() { cap("솔직히 과거형 단어 뒤에 붙은 이디, 우리 다"); }, null, 0.37);
+  tl.call(function() { cap("그냥 '드'로 읽고 있었잖아요."); }, null, 4.21);
+  tl.call(function() { cap("그런데 외국인 앞에서 워크드, 원티드라고 발음하면 왜 어색하게"); }, null, 6.58);
+  tl.call(function() { cap("들리고, 미드에서는 왜 이디 소리가 거의 안 들릴까요?"); }, null, 13.27);
+  tl.call(function() { cap("이디의 끝소리는 하나가 아니라 세 가지 완전히 다른"); }, null, 17.51);
+  tl.call(function() { cap("소리로 갈리기 때문입니다."); }, null, 21.43);
+  tl.call(function() { cap("오늘 딱 스물네 개 단어로 평생 헷갈리던 과거형"); }, null, 23.43);
+  tl.call(function() { cap("발음의 원리를 완벽하게 귀 뚫어 드리겠습니다."); }, null, 27.67);
+
+    tl.call(function() { cap(""); }, null, 30.24);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-hook"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

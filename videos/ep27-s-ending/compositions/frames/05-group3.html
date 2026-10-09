@@ -1,0 +1,331 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap;
+  }
+  .tip-badge {
+    background:#059669; color:#FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 65cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;
+  }
+  .drill-card {
+    width: 100%; background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 4cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .card-top {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+  }
+  .word-counter {
+    font-size: 1.2cqw; font-weight: 900; color: #6B7280; background: #F3F4F6;
+    padding: 0.3cqh 1.2cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .card-label {
+    font-size: 1.25cqw; font-weight: 900; padding: 0.5cqh 1.5cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap;
+  }
+  .word-stem { color: #111111; }
+  .word-s {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .word-s.s-s { color: #DC2626; border-color: #DC2626; }
+  .word-s.s-z { color: #2563EB; border-color: #2563EB; }
+  .word-s.s-iz { color: #059669; border-color: #059669; }
+  .word-s.s-ex { color: #D97706; border-color: #D97706; }
+  .ipa-text {
+    font-size: 2.2cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .meaning-text {
+    font-size: 2.8cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .tip-box {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 14px;
+    padding: 0.8cqh 2cqw; font-size: 1.35cqw; font-weight: 800; color: #111111;
+    white-space: nowrap;
+  }
+  /* Indicator Dots only - clean, no extra meta text */
+  .dots-wrapper {
+    display: flex; gap: 0.8cqw; justify-content: center; align-items: center; margin-top: 0.8cqh;
+  }
+  .dot {
+    width: 1.2cqw; height: 1.2cqw; border-radius: 50%;
+    border: 2.5px solid #111111; background: #E5E7EB;
+  }
+  .dot.active {
+    background: #10B981; transform: scale(1.35); box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-m2cr" id="root" data-composition-id="05-group3" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-r99e" class="tip-badge">Group 3: [ɪz] 사운드</span>
+    <span data-hf-id="hf-dnd8">치찰음 뒤: 혀 꼬임 방지 쿠션 모음 투입 · 음절 +1</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-jkid" class="drill-card" id="drillCard">
+      <div data-hf-id="hf-ub2w" class="card-top">
+        <div data-hf-id="hf-9n0b" id="wordCounter" class="word-counter">단어 1 / 6</div>
+        <div data-hf-id="hf-ppbz" id="cardLabel" class="card-label">로딩 중</div>
+      </div>
+      <div data-hf-id="hf-tuoe" id="wordText" class="word-text">cats</div>
+      <div data-hf-id="hf-o3jv" id="ipaText" class="ipa-text">[kæts]</div>
+      <div data-hf-id="hf-ity8" id="meaningText" class="meaning-text">고양이들</div>
+      <div data-hf-id="hf-mauo" id="tipBox" class="tip-box">조음 팁 안내</div>
+      <div data-hf-id="hf-eoja" class="dots-wrapper">
+        <div data-hf-id="hf-klg1" class="dot" id="dot1"></div>
+        <div data-hf-id="hf-ojk2" class="dot" id="dot2"></div>
+        <div data-hf-id="hf-sho3" class="dot" id="dot3"></div>
+        <div data-hf-id="hf-506k" class="dot" id="dot4"></div>
+        <div data-hf-id="hf-5rud" class="dot" id="dot5"></div>
+        <div data-hf-id="hf-9pye" class="dot" id="dot6"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio data-hf-id="hf-2ro0" id="a_w13_0" src="assets/voice/m_w13_buses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-l5k7" id="a_w13_1" src="assets/voice/f_w13_buses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.74" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-ipuv" id="a_w13_2" src="assets/voice/m_w13_buses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.03" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-93tm" id="a_w13_3" src="assets/voice/f_w13_buses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.27" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-xt0t" id="a_w13_4" src="assets/voice/m_w13_buses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.56" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-krcr" id="a_w13_5" src="assets/voice/f_w13_buses.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="6.80" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-ngn8" id="a_w14_0" src="assets/voice/m_w14_watches.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.49" data-duration="0.80"></audio>
+  <audio data-hf-id="hf-4dyj" id="a_w14_1" src="assets/voice/f_w14_watches.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.84" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-ih13" id="a_w14_2" src="assets/voice/m_w14_watches.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.20" data-duration="0.80"></audio>
+  <audio data-hf-id="hf-jsg9" id="a_w14_3" src="assets/voice/f_w14_watches.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.55" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-dyhv" id="a_w14_4" src="assets/voice/m_w14_watches.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.91" data-duration="0.80"></audio>
+  <audio data-hf-id="hf-4lnc" id="a_w14_5" src="assets/voice/f_w14_watches.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.26" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-5ib0" id="a_w15_0" src="assets/voice/m_w15_boxes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.02" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-o7h7" id="a_w15_1" src="assets/voice/f_w15_boxes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.31" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-msrs" id="a_w15_2" src="assets/voice/m_w15_boxes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.64" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-1ys6" id="a_w15_3" src="assets/voice/f_w15_boxes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.93" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-avta" id="a_w15_4" src="assets/voice/m_w15_boxes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.26" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-g0oz" id="a_w15_5" src="assets/voice/f_w15_boxes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.55" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-vi97" id="a_w16_0" src="assets/voice/m_w16_classes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.28" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-ig6q" id="a_w16_1" src="assets/voice/f_w16_classes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.67" data-duration="0.92"></audio>
+  <audio data-hf-id="hf-ch47" id="a_w16_2" src="assets/voice/m_w16_classes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.14" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-r7yg" id="a_w16_3" src="assets/voice/f_w16_classes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.53" data-duration="0.92"></audio>
+  <audio data-hf-id="hf-88sg" id="a_w16_4" src="assets/voice/m_w16_classes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.00" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-4x66" id="a_w16_5" src="assets/voice/f_w16_classes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.39" data-duration="0.92"></audio>
+  <audio data-hf-id="hf-6ut0" id="a_w17_0" src="assets/voice/m_w17_changes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.26" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-jjzr" id="a_w17_1" src="assets/voice/f_w17_changes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.58" data-duration="0.87"></audio>
+  <audio data-hf-id="hf-fc2b" id="a_w17_2" src="assets/voice/m_w17_changes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.00" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-s0xy" id="a_w17_3" src="assets/voice/f_w17_changes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.32" data-duration="0.87"></audio>
+  <audio data-hf-id="hf-aoka" id="a_w17_4" src="assets/voice/m_w17_changes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.74" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-ix2h" id="a_w17_5" src="assets/voice/f_w17_changes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.06" data-duration="0.87"></audio>
+  <audio data-hf-id="hf-78cv" id="a_w18_0" src="assets/voice/m_w18_wishes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.88" data-duration="0.75"></audio>
+  <audio data-hf-id="hf-d3su" id="a_w18_1" src="assets/voice/f_w18_wishes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.18" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-6uaj" id="a_w18_2" src="assets/voice/m_w18_wishes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.50" data-duration="0.75"></audio>
+  <audio data-hf-id="hf-6srb" id="a_w18_3" src="assets/voice/f_w18_wishes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.80" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-qqai" id="a_w18_4" src="assets/voice/m_w18_wishes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.12" data-duration="0.75"></audio>
+  <audio data-hf-id="hf-ec28" id="a_w18_5" src="assets/voice/f_w18_wishes.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.42" data-duration="0.77"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var wordCounter = document.getElementById("wordCounter");
+    var cardLabel = document.getElementById("cardLabel");
+    var wordText = document.getElementById("wordText");
+    var ipaText = document.getElementById("ipaText");
+    var meaningText = document.getElementById("meaningText");
+    var tipBox = document.getElementById("tipBox");
+    var drillCard = document.getElementById("drillCard");
+    var dots = [
+      document.getElementById("dot1"),
+      document.getElementById("dot2"),
+      document.getElementById("dot3"),
+      document.getElementById("dot4"),
+      document.getElementById("dot5"),
+      document.getElementById("dot6")
+    ];
+
+    function setWord(w, idx, total) {
+      wordCounter.textContent = "단어 " + idx + " / " + total;
+      cardLabel.textContent = w.soundName;
+      var bg = "#FEE2E2", textCol = "#991B1B";
+      if (w.sound === "z") { bg = "#DBEAFE"; textCol = "#1E40AF"; }
+      else if (w.sound === "iz") { bg = "#D1FAE5"; textCol = "#065F46"; }
+      else if (w.sound === "iz-ex") { bg = "#FEF3C7"; textCol = "#92400E"; }
+      cardLabel.style.background = bg;
+      cardLabel.style.color = textCol;
+
+      var cls = w.sound === "s" ? "s-s" : (w.sound === "z" ? "s-z" : (w.sound === "iz" ? "s-iz" : "s-ex"));
+      wordText.innerHTML = '<span class="word-stem">' + w.stem + '</span><span class="word-s ' + cls + '">' + w.s + '</span>';
+      ipaText.textContent = w.krSyl + " " + w.ipa;
+      meaningText.textContent = w.kr;
+      tipBox.textContent = "💡 " + w.tip;
+
+      dots.forEach(function(d) { d.className = "dot"; });
+      gsap.fromTo(drillCard, { scale: 0.97 }, { scale: 1, duration: 0.25, ease: "back.out(1.5)" });
+    }
+
+    function setDot(dotIdx) {
+      dots.forEach(function(d, i) {
+        if (i < dotIdx) {
+          d.className = "dot active";
+        } else {
+          d.className = "dot";
+        }
+      });
+      gsap.fromTo(wordText, { scale: 1.05 }, { scale: 1, duration: 0.18, ease: "power1.out" });
+    }
+
+  tl.call(function() {
+    setWord({"id":"w13","word":"bu · ses","stem":"bu · ","s":"ses","syl":"bu · ses","krSyl":"버시즈","ipa":"[ˈbʌsɪz]","kr":"버스들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"s 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w13_buses","f":"f_w13_buses"}, 1, 6);
+  }, null, 0.50);
+  tl.call(function() {
+    setDot(1);
+  }, null, 0.50);
+  tl.call(function() {
+    setDot(2);
+  }, null, 1.74);
+  tl.call(function() {
+    setDot(3);
+  }, null, 3.03);
+  tl.call(function() {
+    setDot(4);
+  }, null, 4.27);
+  tl.call(function() {
+    setDot(5);
+  }, null, 5.56);
+  tl.call(function() {
+    setDot(6);
+  }, null, 6.80);
+  tl.call(function() {
+    setWord({"id":"w14","word":"wat · ches","stem":"wat · ","s":"ches","syl":"wat · ches","krSyl":"와치즈","ipa":"[ˈwɑːtʃɪz]","kr":"지켜본다 / 시계들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"ch 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w14_watches","f":"f_w14_watches"}, 2, 6);
+  }, null, 8.49);
+  tl.call(function() {
+    setDot(1);
+  }, null, 8.49);
+  tl.call(function() {
+    setDot(2);
+  }, null, 9.84);
+  tl.call(function() {
+    setDot(3);
+  }, null, 11.20);
+  tl.call(function() {
+    setDot(4);
+  }, null, 12.55);
+  tl.call(function() {
+    setDot(5);
+  }, null, 13.91);
+  tl.call(function() {
+    setDot(6);
+  }, null, 15.26);
+  tl.call(function() {
+    setWord({"id":"w15","word":"box · es","stem":"box · ","s":"es","syl":"box · es","krSyl":"박시즈","ipa":"[ˈbɑːksɪz]","kr":"상자들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"x([ks]) 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w15_boxes","f":"f_w15_boxes"}, 3, 6);
+  }, null, 17.02);
+  tl.call(function() {
+    setDot(1);
+  }, null, 17.02);
+  tl.call(function() {
+    setDot(2);
+  }, null, 18.31);
+  tl.call(function() {
+    setDot(3);
+  }, null, 19.64);
+  tl.call(function() {
+    setDot(4);
+  }, null, 20.93);
+  tl.call(function() {
+    setDot(5);
+  }, null, 22.26);
+  tl.call(function() {
+    setDot(6);
+  }, null, 23.55);
+  tl.call(function() {
+    setWord({"id":"w16","word":"clas · ses","stem":"clas · ","s":"ses","syl":"clas · ses","krSyl":"클래시즈","ipa":"[ˈklæsɪz]","kr":"수업들","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"ss 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w16_classes","f":"f_w16_classes"}, 4, 6);
+  }, null, 25.28);
+  tl.call(function() {
+    setDot(1);
+  }, null, 25.28);
+  tl.call(function() {
+    setDot(2);
+  }, null, 26.67);
+  tl.call(function() {
+    setDot(3);
+  }, null, 28.14);
+  tl.call(function() {
+    setDot(4);
+  }, null, 29.53);
+  tl.call(function() {
+    setDot(5);
+  }, null, 31.00);
+  tl.call(function() {
+    setDot(6);
+  }, null, 32.39);
+  tl.call(function() {
+    setWord({"id":"w17","word":"chan · ges","stem":"chan · ","s":"ges","syl":"chan · ges","krSyl":"체인지즈","ipa":"[ˈtʃeɪndʒɪz]","kr":"변화들 / 바꾼다","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"ge([dʒ]) 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w17_changes","f":"f_w17_changes"}, 5, 6);
+  }, null, 34.26);
+  tl.call(function() {
+    setDot(1);
+  }, null, 34.26);
+  tl.call(function() {
+    setDot(2);
+  }, null, 35.58);
+  tl.call(function() {
+    setDot(3);
+  }, null, 37.00);
+  tl.call(function() {
+    setDot(4);
+  }, null, 38.32);
+  tl.call(function() {
+    setDot(5);
+  }, null, 39.74);
+  tl.call(function() {
+    setDot(6);
+  }, null, 41.06);
+  tl.call(function() {
+    setWord({"id":"w18","word":"wish · es","stem":"wish · ","s":"es","syl":"wish · es","krSyl":"위시즈","ipa":"[ˈwɪʃɪz]","kr":"소원들 / 바란다","group":"g3","sound":"iz","soundName":"[ɪz] 쿠션 모음 (+1음절)","tip":"sh 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w18_wishes","f":"f_w18_wishes"}, 6, 6);
+  }, null, 42.88);
+  tl.call(function() {
+    setDot(1);
+  }, null, 42.88);
+  tl.call(function() {
+    setDot(2);
+  }, null, 44.18);
+  tl.call(function() {
+    setDot(3);
+  }, null, 45.50);
+  tl.call(function() {
+    setDot(4);
+  }, null, 46.80);
+  tl.call(function() {
+    setDot(5);
+  }, null, 48.12);
+  tl.call(function() {
+    setDot(6);
+  }, null, 49.42);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["05-group3"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

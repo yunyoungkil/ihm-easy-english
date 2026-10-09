@@ -1,0 +1,12 @@
+[EP27 유튜브 업로드 체크리스트]
+- 에피소드: ep27-s-ending (-S · -ES 끝소리 3가지 물리법칙)
+- 영상 파일: English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4
+- 썸네일:
+  [C안 메인] thumbnail.jpg (와이드 바스트샷)
+  [C안 모바일] thumbnail-close-up.jpg (모바일 피드 100px 특화 1위 권장)
+  [A안] thumbnail-variant-a.jpg (반전형: "다 '스'로 읽으셨죠?")
+  [B안] thumbnail-variant-b.jpg (실수경고형: "80%가 '즈' 소리입니다")
+- 카테고리: 교육 (Education)
+- 재생목록: [이해하면 쉬운영어] 30분 집중 듣기 드릴 정주행
+- 최종 태그: 15개 키워드 탑재 완료
+- 자막: 한국어 오디오 내장 + Whisper 타임라인 완비

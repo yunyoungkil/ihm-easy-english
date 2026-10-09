@@ -1,0 +1,145 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.32; z-index: 1; filter: saturate(1.2);
+    transform: scale(1.05); transform-origin: center center;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; z-index: 10;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 84cqw; z-index: 5;
+  }
+  .dialogue-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 5cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+  }
+  .tag-pill {
+    display: inline-block; background: #DBEAFE; border: 2px solid #111111;
+    padding: 0.5cqh 1.8cqw; border-radius: 999px; font-size: 1.25cqw; font-weight: 900; color: #1E40AF;
+  }
+  .sentence-en {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; line-height: 1.35;
+    color: #111111;
+  }
+  .hl-r {
+    color: #1E40AF; border-bottom: 5px solid #2563EB; padding-bottom: 2px;
+    display: inline-block; background: #DBEAFE; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .hl-l {
+    color: #065F46; border-bottom: 5px solid #059669; padding-bottom: 2px;
+    display: inline-block; background: #D1FAE5; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .sentence-kr {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563;
+  }
+  .syl-tip-box {
+    background: #FAF7F2; border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+    border-radius: 14px; padding: 1cqh 2.4cqw; font-size: 1.4cqw; font-weight: 900;
+    color: #111111; margin-top: 0.5cqh;
+  }
+</style>
+<div id="root" data-composition-id="07-dialogue" data-width="1920" data-height="1080">
+  <video id="bgVideo" class="bg-video" src="assets/videos/f07_dialogue_ambience.mp4" autoplay loop muted data-start="0" data-duration="54.38" data-hf-media-start-basis="local" data-layout-allow-overflow></video>
+
+  <div class="eyebrow-pill">
+    <span>☕ 실전 짝단어 문장 리스닝 (7문장 집중 훈련)</span>
+  </div>
+
+  <div class="stage">
+    <div class="dialogue-card" id="dialCard">
+      <div id="dialTag" class="tag-pill">right vs light</div>
+      <div id="dialEn" class="sentence-en">Turn <span class="hl-r">right</span> at the traffic <span class="hl-l">light</span>.</div>
+      <div id="dialKr" class="sentence-kr">신호등에서 오른쪽으로 도세요.</div>
+      <div id="dialSylTip" class="syl-tip-box">💡 right (허공 0%) vs light (잇몸 접촉 100%)</div>
+    </div>
+  </div>
+
+  <audio id="dial_01_1" src="assets/voice/dial_01_right_light.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="2.45"></audio>
+  <audio id="dial_01_2" src="assets/voice/dial_01_right_light.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.85" data-duration="2.45"></audio>
+  <audio id="dial_02_1" src="assets/voice/dial_02_pray_play.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.70" data-duration="2.74"></audio>
+  <audio id="dial_02_2" src="assets/voice/dial_02_pray_play.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.34" data-duration="2.74"></audio>
+  <audio id="dial_03_1" src="assets/voice/dial_03_road_load.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.48" data-duration="2.89"></audio>
+  <audio id="dial_03_2" src="assets/voice/dial_03_road_load.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.27" data-duration="2.89"></audio>
+  <audio id="dial_04_1" src="assets/voice/dial_04_read_lead.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.56" data-duration="2.44"></audio>
+  <audio id="dial_04_2" src="assets/voice/dial_04_read_lead.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.90" data-duration="2.44"></audio>
+  <audio id="dial_05_1" src="assets/voice/dial_05_lock_rock.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.74" data-duration="2.72"></audio>
+  <audio id="dial_05_2" src="assets/voice/dial_05_lock_rock.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.36" data-duration="2.72"></audio>
+  <audio id="dial_06_1" src="assets/voice/dial_06_clown_crown.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.48" data-duration="2.53"></audio>
+  <audio id="dial_06_2" src="assets/voice/dial_06_clown_crown.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.91" data-duration="2.53"></audio>
+  <audio id="dial_07_1" src="assets/voice/dial_07_grass_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.84" data-duration="2.87"></audio>
+  <audio id="dial_07_2" src="assets/voice/dial_07_grass_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.61" data-duration="2.87"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var dialTag = document.getElementById("dialTag");
+    var dialEn = document.getElementById("dialEn");
+    var dialKr = document.getElementById("dialKr");
+    var dialSylTip = document.getElementById("dialSylTip");
+    var dialCard = document.getElementById("dialCard");
+
+    function showDialogue(d) {
+      dialTag.textContent = d.pairBadge;
+      dialEn.innerHTML = d.enHtml;
+      dialKr.textContent = d.kr;
+      dialSylTip.textContent = d.sylTip;
+      gsap.fromTo(dialCard, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: "back.out(1.5)" });
+    }
+
+  tl.call(function() {
+    showDialogue({"id":"01","en":"Turn right at the traffic light.","enHtml":"Turn <span class=\"hl-r\">right</span> at the traffic <span class=\"hl-l\">light</span>.","kr":"신호등에서 오른쪽으로 도세요.","pairBadge":"right vs light","sylTip":"💡 right (허공 0%) vs light (잇몸 접촉 100%)","audio":"dial_01_right_light"});
+  }, null, 0.50);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 0.50);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 3.85);
+  tl.call(function() {
+    showDialogue({"id":"02","en":"He prays every night before he plays.","enHtml":"He <span class=\"hl-r\">prays</span> every night before he <span class=\"hl-l\">plays</span>.","kr":"그는 놀기 전에 매일 밤 기도한다.","pairBadge":"prays vs plays","sylTip":"💡 pray (허공 울림) vs play (잇몸 밀착)","audio":"dial_02_pray_play"});
+  }, null, 7.70);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 7.70);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 11.34);
+  tl.call(function() {
+    showDialogue({"id":"03","en":"We ran across the road with a heavy load.","enHtml":"We ran across the <span class=\"hl-r\">road</span> with a heavy <span class=\"hl-l\">load</span>.","kr":"우리는 무거운 짐을 지고 도로를 건넜다.","pairBadge":"road vs load","sylTip":"💡 road (허공) vs load (잇몸 접촉)","audio":"dial_03_road_load"});
+  }, null, 15.48);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 15.48);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 19.27);
+  tl.call(function() {
+    showDialogue({"id":"04","en":"Did you read about who will lead the team?","enHtml":"Did you <span class=\"hl-r\">read</span> about who will <span class=\"hl-l\">lead</span> the team?","kr":"누가 팀을 이끌지 읽어보셨나요?","pairBadge":"read vs lead","sylTip":"💡 read (허공 0%) vs lead (잇몸 탁!)","audio":"dial_04_read_lead"});
+  }, null, 23.56);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 23.56);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 26.90);
+  tl.call(function() {
+    showDialogue({"id":"05","en":"Please lock the door behind that big rock.","enHtml":"Please <span class=\"hl-l\">lock</span> the door behind that big <span class=\"hl-r\">rock</span>.","kr":"저 큰 바위 뒤에 있는 문을 잠가주세요.","pairBadge":"lock vs rock","sylTip":"💡 rock (허공 숟가락) vs lock (잇몸 때리기)","audio":"dial_05_lock_rock"});
+  }, null, 30.74);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 30.74);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 34.36);
+  tl.call(function() {
+    showDialogue({"id":"06","en":"The clown wore a shiny gold crown.","enHtml":"The <span class=\"hl-l\">clown</span> wore a shiny gold <span class=\"hl-r\">crown</span>.","kr":"광대는 반짝이는 금관을 쓰고 있었다.","pairBadge":"clown vs crown","sylTip":"💡 crown (허공 유지) vs clown (잇몸 접촉)","audio":"dial_06_clown_crown"});
+  }, null, 38.48);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 38.48);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 41.91);
+  tl.call(function() {
+    showDialogue({"id":"07","en":"Look at the green grass through the clean glass.","enHtml":"Look at the green <span class=\"hl-r\">grass</span> through the clean <span class=\"hl-l\">glass</span>.","kr":"깨끗한 유리창 너머로 초록 잔디를 보세요.","pairBadge":"grass vs glass","sylTip":"💡 grass (허공) vs glass (잇몸 완벽 접촉)","audio":"dial_07_grass_glass"});
+  }, null, 45.84);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 45.84);
+  tl.fromTo(".hl-r, .hl-l", { scale: 1.18 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 49.61);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-dialogue"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,234 @@
+{
+  "01_f01_hook": {
+    "path": "assets/voice/01_f01_hook.wav",
+    "duration_s": 28.68
+  },
+  "02_f02_principle": {
+    "path": "assets/voice/02_f02_principle.wav",
+    "duration_s": 45.48
+  },
+  "03_f09_summary": {
+    "path": "assets/voice/03_f09_summary.wav",
+    "duration_s": 25.64
+  },
+  "m_w01_cats": {
+    "path": "assets/voice/m_w01_cats.wav",
+    "duration_s": 0.97
+  },
+  "m_w02_cups": {
+    "path": "assets/voice/m_w02_cups.wav",
+    "duration_s": 0.73
+  },
+  "m_w03_books": {
+    "path": "assets/voice/m_w03_books.wav",
+    "duration_s": 0.67
+  },
+  "m_w04_laughs": {
+    "path": "assets/voice/m_w04_laughs.wav",
+    "duration_s": 0.86
+  },
+  "m_w05_stops": {
+    "path": "assets/voice/m_w05_stops.wav",
+    "duration_s": 0.85
+  },
+  "m_w06_sleeps": {
+    "path": "assets/voice/m_w06_sleeps.wav",
+    "duration_s": 0.83
+  },
+  "m_w07_dogs": {
+    "path": "assets/voice/m_w07_dogs.wav",
+    "duration_s": 0.86
+  },
+  "m_w08_plays": {
+    "path": "assets/voice/m_w08_plays.wav",
+    "duration_s": 0.75
+  },
+  "m_w09_pens": {
+    "path": "assets/voice/m_w09_pens.wav",
+    "duration_s": 0.72
+  },
+  "m_w10_calls": {
+    "path": "assets/voice/m_w10_calls.wav",
+    "duration_s": 0.78
+  },
+  "m_w11_loves": {
+    "path": "assets/voice/m_w11_loves.wav",
+    "duration_s": 0.75
+  },
+  "m_w12_dreams": {
+    "path": "assets/voice/m_w12_dreams.wav",
+    "duration_s": 0.77
+  },
+  "m_w13_buses": {
+    "path": "assets/voice/m_w13_buses.wav",
+    "duration_s": 0.69
+  },
+  "m_w14_watches": {
+    "path": "assets/voice/m_w14_watches.wav",
+    "duration_s": 0.8
+  },
+  "m_w15_boxes": {
+    "path": "assets/voice/m_w15_boxes.wav",
+    "duration_s": 0.74
+  },
+  "m_w16_classes": {
+    "path": "assets/voice/m_w16_classes.wav",
+    "duration_s": 0.84
+  },
+  "m_w17_changes": {
+    "path": "assets/voice/m_w17_changes.wav",
+    "duration_s": 0.77
+  },
+  "m_w18_wishes": {
+    "path": "assets/voice/m_w18_wishes.wav",
+    "duration_s": 0.75
+  },
+  "m_w19_houses": {
+    "path": "assets/voice/m_w19_houses.wav",
+    "duration_s": 0.79
+  },
+  "m_w20_prizes": {
+    "path": "assets/voice/m_w20_prizes.wav",
+    "duration_s": 0.77
+  },
+  "m_w21_is": {
+    "path": "assets/voice/m_w21_is.wav",
+    "duration_s": 0.7
+  },
+  "m_w22_was": {
+    "path": "assets/voice/m_w22_was.wav",
+    "duration_s": 0.71
+  },
+  "m_w23_has": {
+    "path": "assets/voice/m_w23_has.wav",
+    "duration_s": 0.74
+  },
+  "m_w24_does": {
+    "path": "assets/voice/m_w24_does.wav",
+    "duration_s": 0.69
+  },
+  "f_w01_cats": {
+    "path": "assets/voice/f_w01_cats.wav",
+    "duration_s": 1.13
+  },
+  "f_w02_cups": {
+    "path": "assets/voice/f_w02_cups.wav",
+    "duration_s": 0.91
+  },
+  "f_w03_books": {
+    "path": "assets/voice/f_w03_books.wav",
+    "duration_s": 0.82
+  },
+  "f_w04_laughs": {
+    "path": "assets/voice/f_w04_laughs.wav",
+    "duration_s": 0.86
+  },
+  "f_w05_stops": {
+    "path": "assets/voice/f_w05_stops.wav",
+    "duration_s": 0.82
+  },
+  "f_w06_sleeps": {
+    "path": "assets/voice/f_w06_sleeps.wav",
+    "duration_s": 0.77
+  },
+  "f_w07_dogs": {
+    "path": "assets/voice/f_w07_dogs.wav",
+    "duration_s": 0.82
+  },
+  "f_w08_plays": {
+    "path": "assets/voice/f_w08_plays.wav",
+    "duration_s": 0.81
+  },
+  "f_w09_pens": {
+    "path": "assets/voice/f_w09_pens.wav",
+    "duration_s": 0.8
+  },
+  "f_w10_calls": {
+    "path": "assets/voice/f_w10_calls.wav",
+    "duration_s": 0.9
+  },
+  "f_w11_loves": {
+    "path": "assets/voice/f_w11_loves.wav",
+    "duration_s": 0.91
+  },
+  "f_w12_dreams": {
+    "path": "assets/voice/f_w12_dreams.wav",
+    "duration_s": 0.89
+  },
+  "f_w13_buses": {
+    "path": "assets/voice/f_w13_buses.wav",
+    "duration_s": 0.74
+  },
+  "f_w14_watches": {
+    "path": "assets/voice/f_w14_watches.wav",
+    "duration_s": 0.81
+  },
+  "f_w15_boxes": {
+    "path": "assets/voice/f_w15_boxes.wav",
+    "duration_s": 0.78
+  },
+  "f_w16_classes": {
+    "path": "assets/voice/f_w16_classes.wav",
+    "duration_s": 0.92
+  },
+  "f_w17_changes": {
+    "path": "assets/voice/f_w17_changes.wav",
+    "duration_s": 0.87
+  },
+  "f_w18_wishes": {
+    "path": "assets/voice/f_w18_wishes.wav",
+    "duration_s": 0.77
+  },
+  "f_w19_houses": {
+    "path": "assets/voice/f_w19_houses.wav",
+    "duration_s": 0.81
+  },
+  "f_w20_prizes": {
+    "path": "assets/voice/f_w20_prizes.wav",
+    "duration_s": 0.84
+  },
+  "f_w21_is": {
+    "path": "assets/voice/f_w21_is.wav",
+    "duration_s": 0.69
+  },
+  "f_w22_was": {
+    "path": "assets/voice/f_w22_was.wav",
+    "duration_s": 0.72
+  },
+  "f_w23_has": {
+    "path": "assets/voice/f_w23_has.wav",
+    "duration_s": 0.74
+  },
+  "f_w24_does": {
+    "path": "assets/voice/f_w24_does.wav",
+    "duration_s": 0.76
+  },
+  "dial_01": {
+    "path": "assets/voice/dial_01.wav",
+    "duration_s": 2.59
+  },
+  "dial_02": {
+    "path": "assets/voice/dial_02.wav",
+    "duration_s": 2.23
+  },
+  "dial_03": {
+    "path": "assets/voice/dial_03.wav",
+    "duration_s": 1.77
+  },
+  "dial_04": {
+    "path": "assets/voice/dial_04.wav",
+    "duration_s": 2.45
+  },
+  "dial_05": {
+    "path": "assets/voice/dial_05.wav",
+    "duration_s": 2.35
+  },
+  "dial_06": {
+    "path": "assets/voice/dial_06.wav",
+    "duration_s": 2.23
+  },
+  "dial_07": {
+    "path": "assets/voice/dial_07.wav",
+    "duration_s": 2.5
+  }
+}

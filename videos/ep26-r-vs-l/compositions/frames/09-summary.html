@@ -1,0 +1,136 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.8cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: flex; align-items: center; gap: 0.8cqw;
+  }
+  .capture-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1cqw; font-weight: 900;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 88cqw; display: flex; gap: 3cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .summary-col {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 3cqh 2.5cqw; display: flex; flex-direction: column; gap: 1.5cqh;
+  }
+  .col-header {
+    padding: 1cqh 1.8cqw; border-radius: 14px; border: 2.5px solid #111111; text-align: center;
+  }
+  .header-r { background: #DBEAFE; color: #1E40AF; }
+  .header-l { background: #D1FAE5; color: #065F46; }
+  .col-title { font-size: 2cqw; font-weight: 900; }
+  .col-sub { font-size: 1.2cqw; font-weight: 800; margin-top: 0.4cqh; }
+  .word-list {
+    display: flex; flex-direction: column; gap: 0.8cqh; font-size: 1.3cqw; font-weight: 800;
+  }
+  .word-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 0.6cqh 1.2cqw;
+    background: #F9FAFB; border-radius: 8px; border: 1px solid #E5E7EB;
+  }
+  .word-name { font-weight: 900; }
+  .syl-tag {
+    font-weight: 900; color: #1E40AF; background: #DBEAFE; padding: 0.2cqh 0.8cqw;
+    border-radius: 6px; font-size: 1.15cqw;
+  }
+  .syl-tag.l-tag { color: #065F46; background: #D1FAE5; }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+<div id="root" data-composition-id="09-summary" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="capture-badge">📱 캡처 추천</span>
+    <span>스마트폰 저장용 1장 요약 치트시트</span>
+  </div>
+
+  <div class="stage">
+    <!-- [r] Col -->
+    <div class="summary-col">
+      <div class="col-header header-r">
+        <div class="col-title">[r] 허공 숟가락 소리</div>
+        <div class="col-sub">혀끝 입천장 접촉 0%! 오목한 허공 울림</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name">right (오른쪽)</span><span class="syl-tag">[raɪt] [롸이트]</span></div>
+        <div class="word-row"><span class="word-name">red (빨간색)</span><span class="syl-tag">[rɛd] [뤠드]</span></div>
+        <div class="word-row"><span class="word-name">rain (비)</span><span class="syl-tag">[reɪn] [뤠인]</span></div>
+        <div class="word-row"><span class="word-name">run (달리다)</span><span class="syl-tag">[rʌn] [뤈]</span></div>
+        <div class="word-row"><span class="word-name">read (읽다)</span><span class="syl-tag">[riːd] [뤼드]</span></div>
+        <div class="word-row"><span class="word-name">ri · ver (강)</span><span class="syl-tag">[ˈrɪvər] [리버]</span></div>
+        <div class="word-row"><span class="word-name">rock (바위)</span><span class="syl-tag">[rɑːk] [롹]</span></div>
+        <div class="word-row"><span class="word-name">pray (기도하다)</span><span class="syl-tag">[preɪ] [프레이]</span></div>
+        <div class="word-row"><span class="word-name">crown (왕관)</span><span class="syl-tag">[kraʊn] [크라운]</span></div>
+        <div class="word-row"><span class="word-name">grass (잔디)</span><span class="syl-tag">[ɡræs] [그래스]</span></div>
+      </div>
+    </div>
+
+    <!-- [l] Col -->
+    <div class="summary-col">
+      <div class="col-header header-l">
+        <div class="col-title">[l] 윗니 뒤 잇몸 접촉 소리</div>
+        <div class="col-sub">혀끝으로 윗니 뒤 잇몸을 강하게 '탁!'</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name">light (빛/전등)</span><span class="syl-tag l-tag">[laɪt] [라이트]</span></div>
+        <div class="word-row"><span class="word-name">led (이끌었다)</span><span class="syl-tag l-tag">[lɛd] [레드]</span></div>
+        <div class="word-row"><span class="word-name">lane (차선)</span><span class="syl-tag l-tag">[leɪn] [레인]</span></div>
+        <div class="word-row"><span class="word-name">learn (배우다)</span><span class="syl-tag l-tag">[lɜːrn] [런]</span></div>
+        <div class="word-row"><span class="word-name">lead (이끌다)</span><span class="syl-tag l-tag">[liːd] [리드]</span></div>
+        <div class="word-row"><span class="word-name">li · ver (간)</span><span class="syl-tag l-tag">[ˈlɪvər] [리버]</span></div>
+        <div class="word-row"><span class="word-name">lock (자물쇠)</span><span class="syl-tag l-tag">[lɑːk] [락]</span></div>
+        <div class="word-row"><span class="word-name">play (놀다)</span><span class="syl-tag l-tag">[pleɪ] [플레이]</span></div>
+        <div class="word-row"><span class="word-name">clown (광대)</span><span class="syl-tag l-tag">[klaʊn] [클라운]</span></div>
+        <div class="word-row"><span class="word-name">glass (유리)</span><span class="syl-tag l-tag">[ɡlæs] [글래스]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="audioSummary" src="assets/voice/03_f09_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="20.88"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("수고하셨습니다."); }, null, 0.53);
+  tl.call(function() { cap("오늘 훈련한 스무 쌍의 핵심 요약표입니다."); }, null, 1.71);
+  tl.call(function() { cap("알은 혀끝이 입천장에 절대 닿지 않는 오목한 허공"); }, null, 4.76);
+  tl.call(function() { cap("소리, 엘은 혀끝이 윗니 뒤 잇몸을 확실하게 탁"); }, null, 9.35);
+  tl.call(function() { cap("때리는 접촉 소리입니다."); }, null, 13.42);
+  tl.call(function() { cap("지금 화면을 스마트폰으로 캡처해 두시고, 헷갈릴 때마다 꺼내서"); }, null, 15.47);
+  tl.call(function() { cap("소리 내어 연습해 보세요."); }, null, 19.42);
+
+    tl.call(function() { cap(""); }, null, 20.88);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

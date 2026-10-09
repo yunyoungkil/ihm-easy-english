@@ -81,11 +81,11 @@ right, light, red, led, rain, lane, row, low, raw, law, run, learn, read, lead, 
 *TTS 설정: 남녀 교차 또는 자연스러운 대화 톤, 각 문장 사이 1.5~2.0초 간격.*
 
 ```text
-Turn right at the traffic light,
-He prays every night before he plays,
-We ran across the road with a heavy load,
-Did you read about who will lead the team,
-Please lock the door behind that big rock,
-The clown wore a shiny gold crown,
-Look at the green grass through the clean glass,
+Turn right at the traffic light.
+He prays every night before he plays.
+We ran across the road with a heavy load.
+Did you read about who will lead the team?
+Please lock the door behind that big rock.
+The clown wore a shiny gold crown.
+Look at the green grass through the clean glass.
 ```

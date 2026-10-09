@@ -1,0 +1,32 @@
+[
+  {
+    "word": "Cats",
+    "from": 0.42,
+    "to": 0.82
+  },
+  {
+    "word": "and",
+    "from": 0.92,
+    "to": 1.22
+  },
+  {
+    "word": "dogs",
+    "from": 1.32,
+    "to": 1.72
+  },
+  {
+    "word": "are",
+    "from": 1.82,
+    "to": 2.12
+  },
+  {
+    "word": "great",
+    "from": 2.22,
+    "to": 2.72
+  },
+  {
+    "word": "pets.",
+    "from": 2.82,
+    "to": 3.32
+  }
+]

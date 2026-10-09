@@ -1,0 +1,186 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 4.8cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.8cqh 2.2cqw; font-size: 1.25cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .capture-badge {
+    background: #10B981; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 49%; transform: translate(-50%, -50%);
+    width: 92cqw; display: flex; gap: 1.6cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .summary-col {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 5px 5px 0px #111111;
+    border-radius: 20px; padding: 2.2cqh 1.3cqw; display: flex; flex-direction: column; gap: 1.2cqh;
+  }
+  .col-header {
+    padding: 1.2cqh 1cqw; border-radius: 12px; border: 2px solid #111111; text-align: center;
+  }
+  .header-s { background: #FEE2E2; }
+  .header-z { background: #DBEAFE; }
+  .header-iz { background: #D1FAE5; }
+  .header-ex { background: #FEF3C7; }
+  .col-title {
+    font-size: 1.35cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .col-sub {
+    font-size: 0.95cqw; font-weight: 800; color: #4B5563; margin-top: 0.2cqh; white-space: nowrap;
+  }
+  .word-list {
+    display: flex; flex-direction: column; gap: 0.9cqh; margin-top: 0.5cqh;
+  }
+  .word-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #FAF7F2; border: 1.5px solid #111111; border-radius: 10px;
+    padding: 0.8cqh 1cqw;
+  }
+  .word-name {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.45cqw; color: #111111; white-space: nowrap;
+  }
+  .word-stem { color: #111111; }
+  .word-s {
+    display: inline-block;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    padding-bottom: 1px;
+  }
+  .word-s.s-s { color: #DC2626; border-color: #DC2626; }
+  .word-s.s-z { color: #2563EB; border-color: #2563EB; }
+  .word-s.s-iz { color: #059669; border-color: #059669; }
+  .word-s.s-ex { color: #D97706; border-color: #D97706; }
+  .syl-tag {
+    font-size: 1.05cqw; font-weight: 900; padding: 0.2cqh 0.7cqw; border-radius: 6px;
+    border: 1.5px solid #111111; white-space: nowrap;
+  }
+  .tag-s { background: #FEE2E2; color: #991B1B; }
+  .tag-z { background: #DBEAFE; color: #1E40AF; }
+  .tag-iz { background: #D1FAE5; color: #065F46; }
+  .tag-ex { background: #FEF3C7; color: #92400E; }
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+<div data-hf-id="hf-a8wd" id="root" data-composition-id="09-summary" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-760y" class="capture-badge">📱 캡처 추천</span>
+    <span data-hf-id="hf-9h45">스마트폰 저장용 1장 요약 치트시트 (-S · -ES 발음 완전정복)</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <!-- Col 1: [s] -->
+    <div data-hf-id="hf-c1rp" class="summary-col">
+      <div data-hf-id="hf-qq23" class="col-header header-s">
+        <div data-hf-id="hf-zx49" class="col-title">[s] 무성음 뒤</div>
+        <div data-hf-id="hf-72ed" class="col-sub">목청 떨림 0% · 터지는 소리</div>
+      </div>
+      <div data-hf-id="hf-wa71" class="word-list">
+        <div data-hf-id="hf-wkvr" class="word-row"><span data-hf-id="hf-63vn" class="word-name"><span data-hf-id="hf-dliv" class="word-stem">cat</span><span data-hf-id="hf-wacj" class="word-s s-s">s</span></span><span data-hf-id="hf-cmm5" class="syl-tag tag-s">[캣츠]</span></div>
+        <div data-hf-id="hf-aq47" class="word-row"><span data-hf-id="hf-jrxf" class="word-name"><span data-hf-id="hf-g1zz" class="word-stem">cup</span><span data-hf-id="hf-304j" class="word-s s-s">s</span></span><span data-hf-id="hf-cmtr" class="syl-tag tag-s">[컵스]</span></div>
+        <div data-hf-id="hf-abt6" class="word-row"><span data-hf-id="hf-jdme" class="word-name"><span data-hf-id="hf-k8a0" class="word-stem">book</span><span data-hf-id="hf-2lti" class="word-s s-s">s</span></span><span data-hf-id="hf-qjyb" class="syl-tag tag-s">[북스]</span></div>
+        <div data-hf-id="hf-9xi5" class="word-row"><span data-hf-id="hf-izbd" class="word-name"><span data-hf-id="hf-6zse" class="word-stem">laugh</span><span data-hf-id="hf-27ih" class="word-s s-s">s</span></span><span data-hf-id="hf-py6a" class="syl-tag tag-s">[래프스]</span></div>
+        <div data-hf-id="hf-cpnc" class="word-row"><span data-hf-id="hf-il0c" class="word-name"><span data-hf-id="hf-p5th" class="word-stem">stop</span><span data-hf-id="hf-1t7g" class="word-s s-s">s</span></span><span data-hf-id="hf-x9qt" class="syl-tag tag-s">[스탑스]</span></div>
+        <div data-hf-id="hf-cbcb" class="word-row"><span data-hf-id="hf-i6pb" class="word-name"><span data-hf-id="hf-62zc" class="word-stem">sleep</span><span data-hf-id="hf-1ewf" class="word-s s-s">s</span></span><span data-hf-id="hf-zxmx" class="syl-tag tag-s">[슬립스]</span></div>
+      </div>
+    </div>
+
+    <!-- Col 2: [z] -->
+    <div data-hf-id="hf-xstl" class="summary-col">
+      <div data-hf-id="hf-e7jm" class="col-header header-z">
+        <div data-hf-id="hf-mb7s" class="col-title">[z] 유성음 뒤</div>
+        <div data-hf-id="hf-c3pu" class="col-sub">목청 떨림 100% · 울리는 소리</div>
+      </div>
+      <div data-hf-id="hf-kkvl" class="word-list">
+        <div data-hf-id="hf-bx1a" class="word-row"><span data-hf-id="hf-hsea" class="word-name"><span data-hf-id="hf-i66x" class="word-stem">dog</span><span data-hf-id="hf-bivs" class="word-s s-z">s</span></span><span data-hf-id="hf-n5d5" class="syl-tag tag-z">[도그즈]</span></div>
+        <div data-hf-id="hf-biq9" class="word-row"><span data-hf-id="hf-he39" class="word-name"><span data-hf-id="hf-e0gj" class="word-stem">play</span><span data-hf-id="hf-yncg" class="word-s s-z">s</span></span><span data-hf-id="hf-14q9" class="syl-tag tag-z">[플레이즈]</span></div>
+        <div data-hf-id="hf-eavg" class="word-row"><span data-hf-id="hf-gzs8" class="word-name"><span data-hf-id="hf-8aw0" class="word-stem">pen</span><span data-hf-id="hf-xgfd" class="word-s s-z">s</span></span><span data-hf-id="hf-ixph" class="syl-tag tag-z">[펜즈]</span></div>
+        <div data-hf-id="hf-dwkf" class="word-row"><span data-hf-id="hf-glh7" class="word-name"><span data-hf-id="hf-iopl" class="word-stem">call</span><span data-hf-id="hf-xuqe" class="word-s s-z">s</span></span><span data-hf-id="hf-nucl" class="syl-tag tag-z">[콜즈]</span></div>
+        <div data-hf-id="hf-9ked" class="word-row"><span data-hf-id="hf-irc9" class="word-name"><span data-hf-id="hf-y4ip" class="word-stem">love</span><span data-hf-id="hf-wntb" class="word-s s-z">s</span></span><span data-hf-id="hf-xkel" class="syl-tag tag-z">[러브즈]</span></div>
+        <div data-hf-id="hf-9ype" class="word-row"><span data-hf-id="hf-j5na" class="word-name"><span data-hf-id="hf-iamk" class="word-stem">dream</span><span data-hf-id="hf-x24c" class="word-s s-z">s</span></span><span data-hf-id="hf-p6b1" class="syl-tag tag-z">[드림즈]</span></div>
+      </div>
+    </div>
+
+    <!-- Col 3: [ɪz] -->
+    <div data-hf-id="hf-yzqo" class="summary-col">
+      <div data-hf-id="hf-f5qp" class="col-header header-iz">
+        <div data-hf-id="hf-5acr" class="col-title">[ɪz] 치찰음 뒤</div>
+        <div data-hf-id="hf-wf9h" class="col-sub">쿠션 모음 투입 · 음절 +1</div>
+      </div>
+      <div data-hf-id="hf-lrso" class="word-list">
+        <div data-hf-id="hf-ad0f" class="word-row"><span data-hf-id="hf-jjyb" class="word-name"><span data-hf-id="hf-0lf9" class="word-stem">bu · </span><span data-hf-id="hf-ge5n" class="word-s s-iz">ses</span></span><span data-hf-id="hf-x626" class="syl-tag tag-iz">[버시즈]</span></div>
+        <div data-hf-id="hf-arbg" class="word-row"><span data-hf-id="hf-jy9c" class="word-name"><span data-hf-id="hf-8z4a" class="word-stem">wat · </span><span data-hf-id="hf-anb9" class="word-s s-iz">ches</span></span><span data-hf-id="hf-hb6e" class="syl-tag tag-iz">[와치즈]</span></div>
+        <div data-hf-id="hf-b5mh" class="word-row"><span data-hf-id="hf-h645" class="word-name"><span data-hf-id="hf-7zur" class="word-stem">box · </span><span data-hf-id="hf-9ma2" class="word-s s-iz">es</span></span><span data-hf-id="hf-wayb" class="syl-tag tag-iz">[박시즈]</span></div>
+        <div data-hf-id="hf-bjxi" class="word-row"><span data-hf-id="hf-hkf6" class="word-name"><span data-hf-id="hf-5v33" class="word-stem">clas · </span><span data-hf-id="hf-a9hn" class="word-s s-iz">ses</span></span><span data-hf-id="hf-hdzs" class="syl-tag tag-iz">[클래시즈]</span></div>
+        <div data-hf-id="hf-by8j" class="word-row"><span data-hf-id="hf-hyq7" class="word-name"><span data-hf-id="hf-oyzo" class="word-stem">chan · </span><span data-hf-id="hf-vzmn" class="word-s s-iz">ges</span></span><span data-hf-id="hf-0998" class="syl-tag tag-iz">[체인지즈]</span></div>
+        <div data-hf-id="hf-ccjk" class="word-row"><span data-hf-id="hf-id18" class="word-name"><span data-hf-id="hf-hobj" class="word-stem">wish · </span><span data-hf-id="hf-q9xq" class="word-s s-iz">es</span></span><span data-hf-id="hf-p4z2" class="syl-tag tag-iz">[위시즈]</span></div>
+      </div>
+    </div>
+
+    <!-- Col 4: Special Exceptions & Function Words -->
+    <div data-hf-id="hf-ylfn" class="summary-col">
+      <div data-hf-id="hf-dzef" class="col-header header-ex">
+        <div data-hf-id="hf-37ee" class="col-title">[ɪz] 예외 &amp; 기능어</div>
+        <div data-hf-id="hf-gpo3" class="col-sub">어간 유성음화 / 필수 울림</div>
+      </div>
+      <div data-hf-id="hf-ldhn" class="word-list">
+        <div data-hf-id="hf-6dy5" class="word-row"><span data-hf-id="hf-fkw1" class="word-name"><span data-hf-id="hf-670m" class="word-stem">hou · </span><span data-hf-id="hf-tfdl" class="word-s s-ex">ses</span></span><span data-hf-id="hf-cg0y" class="syl-tag tag-ex">[하우지즈]</span></div>
+        <div data-hf-id="hf-6s96" class="word-row"><span data-hf-id="hf-fz72" class="word-name"><span data-hf-id="hf-8ipn" class="word-stem">pri · </span><span data-hf-id="hf-ngsa" class="word-s s-ex">zes</span></span><span data-hf-id="hf-oegg" class="syl-tag tag-ex">[프라이즈즈]</span></div>
+        <div data-hf-id="hf-vgum" class="word-row"><span data-hf-id="hf-jj02" class="word-name"><span data-hf-id="hf-7j9w" class="word-stem">i</span><span data-hf-id="hf-vv79" class="word-s s-z">s</span></span><span data-hf-id="hf-og8t" class="syl-tag tag-z">[이즈]</span></div>
+        <div data-hf-id="hf-v2jl" class="word-row"><span data-hf-id="hf-j4p1" class="word-name"><span data-hf-id="hf-3zet" class="word-stem">wa</span><span data-hf-id="hf-w9ia" class="word-s s-z">s</span></span><span data-hf-id="hf-rjbp" class="syl-tag tag-z">[워즈]</span></div>
+        <div data-hf-id="hf-w9go" class="word-row"><span data-hf-id="hf-kbm4" class="word-name"><span data-hf-id="hf-pyb6" class="word-stem">ha</span><span data-hf-id="hf-v2l7" class="word-s s-z">s</span></span><span data-hf-id="hf-ncxp" class="syl-tag tag-z">[해즈]</span></div>
+        <div data-hf-id="hf-vv5n" class="word-row"><span data-hf-id="hf-jxb3" class="word-name"><span data-hf-id="hf-iysz" class="word-stem">doe</span><span data-hf-id="hf-vgw8" class="word-s s-z">s</span></span><span data-hf-id="hf-lwpp" class="syl-tag tag-z">[더즈]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-wswj" id="audioSummary" src="assets/voice/03_f09_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="25.64"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("오늘 배운 세 가지 물리 법칙, 화면을 캡처해서"); }, null, 0.39);
+  tl.call(function() { cap("스마트폰에 저장해 두세요."); }, null, 3.82);
+  tl.call(function() { cap("무성음 뒤는 가벼운 스, 유성음 뒤는 울리는 즈,"); }, null, 5.81);
+  tl.call(function() { cap("치찰음 뒤는 쿠션 모음 이즈."); }, null, 10.58);
+  tl.call(function() { cap("그리고 하우스의 복수형은 어간까지 유성음화되어 하우지즈로 소리 난다는"); }, null, 13.40);
+  tl.call(function() { cap("점까지 기억하시면 완벽합니다."); }, null, 18.97);
+  tl.call(function() { cap("매일 반복해서 들으시면 원어민의 끝소리가 저절로 들리실 겁니다."); }, null, 21.40);
+
+    tl.call(function() { cap(""); }, null, 25.64);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

@@ -1,0 +1,221 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 6cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 1cqh 2.6cqw; font-size: 1.35cqw; font-weight: 900;
+    color: #111111; z-index: 10;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .encore-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 28px; padding: 5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2cqh;
+  }
+  .card-label {
+    font-size: 1.25cqw; font-weight: 900; padding: 0.6cqh 1.8cqw; border-radius: 999px;
+    border: 2px solid #111111;
+  }
+  .label-r { background: #DBEAFE; color: #1E40AF; }
+  .label-l { background: #D1FAE5; color: #065F46; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.0;
+    color: #111111; letter-spacing: -0.02em;
+  }
+  .ipa-text {
+    font-size: 2.2cqw; font-weight: 900; color: #4B5563;
+  }
+  .end-screen-overlay {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    background: rgba(244, 239, 230, 0.98); z-index: 40;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+  }
+  .end-header {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; color: #111111; margin-bottom: 4cqh;
+  }
+  .end-boxes {
+    display: flex; gap: 4cqw; align-items: center; justify-content: center;
+  }
+  .guide-box {
+    width: 25cqw; height: 14cqw; border: 3.5px dashed #111111; border-radius: 20px;
+    background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 900; color: #4B5563; gap: 1cqh;
+  }
+  .sub-circle {
+    width: 14cqw; height: 14cqw; border: 3.5px dashed #EF4444; border-radius: 50%;
+    background: #FFFFFF; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4cqw; font-weight: 900; color: #EF4444;
+  }
+</style>
+<div id="root" data-composition-id="10-encore" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span>🔁 20쌍 무한 앵콜 총복습</span>
+  </div>
+
+  <div id="encoreStage" class="stage">
+    <div class="encore-card">
+      <div class="card-label label-r">[r] 허공 0%</div>
+      <div id="encW1" class="word-text" style="color:#2563EB;">right</div>
+      <div id="encIpa1" class="ipa-text">[raɪt] · [롸이트] 오른쪽</div>
+    </div>
+    <div class="encore-card">
+      <div class="card-label label-l">[l] 잇몸 100%</div>
+      <div id="encW2" class="word-text" style="color:#059669;">light</div>
+      <div id="encIpa2" class="ipa-text">[laɪt] · [라이트] 빛/전등</div>
+    </div>
+  </div>
+
+  <div id="endOverlay" class="end-screen-overlay" data-layout-allow-overlap>
+    <div class="end-header">오늘도 20쌍 완주를 축하합니다! 👏</div>
+    <div class="end-boxes">
+      <div class="guide-box">
+        <span>🎬 추천 영상</span>
+        <span style="font-size: 1cqw;">(EP25 Pool vs Pull)</span>
+      </div>
+      <div class="sub-circle">
+        <span>구독하기</span>
+      </div>
+      <div class="guide-box">
+        <span>📋 재생목록</span>
+        <span style="font-size: 1cqw;">([이해하면 쉬운영어] 정주행)</span>
+      </div>
+    </div>
+  </div>
+
+  <audio id="enc_w01" src="assets/voice/m_w01_right.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.92"></audio>
+  <audio id="enc_w02" src="assets/voice/f_w02_light.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.82" data-duration="0.81"></audio>
+  <audio id="enc_w03" src="assets/voice/m_w03_red.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.23" data-duration="0.72"></audio>
+  <audio id="enc_w04" src="assets/voice/f_w04_led.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.35" data-duration="0.82"></audio>
+  <audio id="enc_w05" src="assets/voice/m_w05_rain.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.77" data-duration="0.85"></audio>
+  <audio id="enc_w06" src="assets/voice/f_w06_lane.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.02" data-duration="0.84"></audio>
+  <audio id="enc_w07" src="assets/voice/m_w07_row.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.46" data-duration="0.73"></audio>
+  <audio id="enc_w08" src="assets/voice/f_w08_low.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.59" data-duration="0.75"></audio>
+  <audio id="enc_w09" src="assets/voice/m_w09_raw.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.94" data-duration="0.73"></audio>
+  <audio id="enc_w10" src="assets/voice/f_w10_law.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.07" data-duration="0.87"></audio>
+  <audio id="enc_w11" src="assets/voice/m_w11_run.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.54" data-duration="0.75"></audio>
+  <audio id="enc_w12" src="assets/voice/f_w12_learn.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.69" data-duration="0.83"></audio>
+  <audio id="enc_w13" src="assets/voice/m_w13_read.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.12" data-duration="0.69"></audio>
+  <audio id="enc_w14" src="assets/voice/f_w14_lead.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.21" data-duration="0.82"></audio>
+  <audio id="enc_w15" src="assets/voice/m_w15_ride.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.63" data-duration="0.75"></audio>
+  <audio id="enc_w16" src="assets/voice/f_w16_lied.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.78" data-duration="0.85"></audio>
+  <audio id="enc_w17" src="assets/voice/m_w17_race.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.23" data-duration="0.77"></audio>
+  <audio id="enc_w18" src="assets/voice/f_w18_lace.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.40" data-duration="0.90"></audio>
+  <audio id="enc_w19" src="assets/voice/m_w19_ring.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.90" data-duration="0.74"></audio>
+  <audio id="enc_w20" src="assets/voice/f_w20_ling.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.04" data-duration="0.76"></audio>
+  <audio id="enc_w21" src="assets/voice/m_w21_river.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.40" data-duration="0.71"></audio>
+  <audio id="enc_w22" src="assets/voice/f_w22_liver.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.51" data-duration="0.75"></audio>
+  <audio id="enc_w23" src="assets/voice/m_w23_rock.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.86" data-duration="0.70"></audio>
+  <audio id="enc_w24" src="assets/voice/f_w24_lock.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.96" data-duration="0.75"></audio>
+  <audio id="enc_w25" src="assets/voice/m_w25_road.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.31" data-duration="0.72"></audio>
+  <audio id="enc_w26" src="assets/voice/f_w26_load.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.43" data-duration="0.88"></audio>
+  <audio id="enc_w27" src="assets/voice/m_w27_room.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.91" data-duration="0.81"></audio>
+  <audio id="enc_w28" src="assets/voice/f_w28_loom.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.12" data-duration="0.84"></audio>
+  <audio id="enc_w29" src="assets/voice/m_w29_root.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.56" data-duration="0.66"></audio>
+  <audio id="enc_w30" src="assets/voice/f_w30_loot.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.62" data-duration="0.73"></audio>
+  <audio id="enc_w31" src="assets/voice/m_w31_pray.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.95" data-duration="0.70"></audio>
+  <audio id="enc_w32" src="assets/voice/f_w32_play.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.05" data-duration="0.69"></audio>
+  <audio id="enc_w33" src="assets/voice/m_w33_crown.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.34" data-duration="0.81"></audio>
+  <audio id="enc_w34" src="assets/voice/f_w34_clown.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.55" data-duration="0.80"></audio>
+  <audio id="enc_w35" src="assets/voice/m_w35_grow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.95" data-duration="0.81"></audio>
+  <audio id="enc_w36" src="assets/voice/f_w36_glow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.16" data-duration="0.82"></audio>
+  <audio id="enc_w37" src="assets/voice/m_w37_fry.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.58" data-duration="0.82"></audio>
+  <audio id="enc_w38" src="assets/voice/f_w38_fly.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.80" data-duration="0.82"></audio>
+  <audio id="enc_w39" src="assets/voice/m_w39_grass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.22" data-duration="0.79"></audio>
+  <audio id="enc_w40" src="assets/voice/f_w40_glass.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.41" data-duration="0.99"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var encW1 = document.getElementById("encW1");
+    var encIpa1 = document.getElementById("encIpa1");
+    var encW2 = document.getElementById("encW2");
+    var encIpa2 = document.getElementById("encIpa2");
+
+    function setEncorePair(p) {
+      encW1.textContent = p.w1.word;
+      encIpa1.textContent = p.w1.ipa + " · [" + p.w1.syl + "] " + p.w1.kr;
+      encW2.textContent = p.w2.word;
+      encIpa2.textContent = p.w2.ipa + " · [" + p.w2.syl + "] " + p.w2.kr;
+    }
+
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w01","word":"right","ipa":"[raɪt]","syl":"롸이트","kr":"오른쪽 / 알맞은","tip":"혀 양옆 어금니 밀착! 혀끝 허공 0%","m":"m_w01_right","f":"f_w01_right"},"w2":{"id":"w02","word":"light","ipa":"[laɪt]","syl":"라이트","kr":"빛 / 전등 / 가벼운","tip":"윗니 바로 뒤 잇몸을 강하게 '탁!'","m":"m_w02_light","f":"f_w02_light"}});
+  }, null, 0.50);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w03","word":"red","ipa":"[rɛd]","syl":"뤠드","kr":"빨간색","tip":"입술 약간 모으며 혀끝 허공 유지","m":"m_w03_red","f":"f_w03_red"},"w2":{"id":"w04","word":"led","ipa":"[lɛd]","syl":"레드","kr":"이끌었다 (lead 과거)","tip":"잇몸을 확실하게 튕겨내며 '레드'","m":"m_w04_led","f":"f_w04_led"}});
+  }, null, 3.23);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w05","word":"rain","ipa":"[reɪn]","syl":"뤠인","kr":"비 / 비가 오다","tip":"혀끝 입천장 접촉 절대 금지!","m":"m_w05_rain","f":"f_w05_rain"},"w2":{"id":"w06","word":"lane","ipa":"[leɪn]","syl":"레인","kr":"차선 / 골목길","tip":"혀끝을 잇몸에 꾹 눌렀다 떼기","m":"m_w06_lane","f":"f_w06_lane"}});
+  }, null, 5.77);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w07","word":"row","ipa":"[roʊ]","syl":"로우","kr":"줄 / 노를 젓다","tip":"허공에서 울리는 깊은 소리","m":"m_w07_row","f":"f_w07_row"},"w2":{"id":"w08","word":"low","ipa":"[loʊ]","syl":"로우","kr":"낮은","tip":"잇몸 튕기며 시원하게 '로우'","m":"m_w08_low","f":"f_w08_low"}});
+  }, null, 8.46);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w09","word":"raw","ipa":"[rɔː]","syl":"롸","kr":"날것의 / 가공 안 된","tip":"혀끝 띄우고 턱 열며 '롸'","m":"m_w09_raw","f":"f_w09_raw"},"w2":{"id":"w10","word":"law","ipa":"[lɔː]","syl":"라","kr":"법 / 법칙","tip":"잇몸 찍고 입 열며 '라'","m":"m_w10_law","f":"f_w10_law"}});
+  }, null, 10.94);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w11","word":"run","ipa":"[rʌn]","syl":"뤈","kr":"달리다","tip":"혀끝 허공 띄우고 깊게 '뤈'","m":"m_w11_run","f":"f_w11_run"},"w2":{"id":"w12","word":"learn","ipa":"[lɜːrn]","syl":"런","kr":"배우다","tip":"잇몸 접촉 후 혀 굴려 마무리","m":"m_w12_learn","f":"f_w12_learn"}});
+  }, null, 13.54);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w13","word":"read","ipa":"[riːd]","syl":"뤼드","kr":"읽다","tip":"입천장 닿지 않고 길게 '뤼드'","m":"m_w13_read","f":"f_w13_read"},"w2":{"id":"w14","word":"lead","ipa":"[liːd]","syl":"리드","kr":"이끌다 / 안내하다","tip":"윗니 뒤 잇몸을 확실하게 탁!","m":"m_w14_lead","f":"f_w14_lead"}});
+  }, null, 16.12);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w15","word":"ride","ipa":"[raɪd]","syl":"롸이드","kr":"타다 / 타기","tip":"허공에 뜬 혀끝으로 '롸이드'","m":"m_w15_ride","f":"f_w15_ride"},"w2":{"id":"w16","word":"lied","ipa":"[laɪd]","syl":"라이드","kr":"거짓말했다 (lie 과거)","tip":"잇몸 치며 시원하게 '라이드'","m":"m_w16_lied","f":"f_w16_lied"}});
+  }, null, 18.63);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w17","word":"race","ipa":"[reɪs]","syl":"뤠이스","kr":"경주 / 달리기","tip":"허공 유지하며 팽팽하게 '뤠이스'","m":"m_w17_race","f":"f_w17_race"},"w2":{"id":"w18","word":"lace","ipa":"[leɪs]","syl":"레이스","kr":"끈 / 레이스","tip":"잇몸 딱 찍고 출발하는 '레이스'","m":"m_w18_lace","f":"f_w18_lace"}});
+  }, null, 21.23);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w19","word":"ring","ipa":"[rɪŋ]","syl":"륑","kr":"반지 / 울리다","tip":"혀끝 닿지 않고 울리는 '륑'","m":"m_w19_ring","f":"f_w19_ring"},"w2":{"id":"w20","word":"ling","ipa":"[lɪŋ]","syl":"링","kr":"물고기 링 / 링","tip":"잇몸 튕기며 또렷하게 '링'","m":"m_w20_ling","f":"f_w20_ling"}});
+  }, null, 23.90);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w21","word":"ri · ver","ipa":"[ˈrɪvər]","syl":"리버","kr":"강","tip":"2음절: 입천장 닿지 않는 허공 시작!","m":"m_w21_river","f":"f_w21_river"},"w2":{"id":"w22","word":"li · ver","ipa":"[ˈlɪvər]","syl":"리버","kr":"간 (신체 장기)","tip":"2음절: 윗니 뒤 잇몸 확실한 접촉!","m":"m_w22_liver","f":"f_w22_liver"}});
+  }, null, 26.40);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w23","word":"rock","ipa":"[rɑːk]","syl":"롹","kr":"바위 / 록음악","tip":"혀 굴리지 말고 허공 숟가락!","m":"m_w23_rock","f":"f_w23_rock"},"w2":{"id":"w24","word":"lock","ipa":"[lɑːk]","syl":"락","kr":"자물쇠 / 잠그다","tip":"잇몸 딱 때리는 선명한 락!","m":"m_w24_lock","f":"f_w24_lock"}});
+  }, null, 28.86);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w25","word":"road","ipa":"[roʊd]","syl":"로드","kr":"도로 / 길","tip":"입술 모으고 혀끝 허공!","m":"m_w25_road","f":"f_w25_road"},"w2":{"id":"w26","word":"load","ipa":"[loʊd]","syl":"로드","kr":"짐 / 싣다","tip":"윗니 뒤 잇몸 치고 출발!","m":"m_w26_load","f":"f_w26_load"}});
+  }, null, 31.31);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w27","word":"room","ipa":"[ruːm]","syl":"룸","kr":"방 / 공간","tip":"입술 둥글게 모으고 혀끝 허공!","m":"m_w27_room","f":"f_w27_room"},"w2":{"id":"w28","word":"loom","ipa":"[luːm]","syl":"룸","kr":"베틀 / 나타나다","tip":"잇몸을 강하게 누르고 떼기!","m":"m_w28_loom","f":"f_w28_loom"}});
+  }, null, 33.91);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w29","word":"root","ipa":"[ruːt]","syl":"루트","kr":"뿌리 / 근원","tip":"허공에서 뿜는 깊은 울림!","m":"m_w29_root","f":"f_w29_root"},"w2":{"id":"w30","word":"loot","ipa":"[luːt]","syl":"루트","kr":"전리품 / 약탈품","tip":"잇몸 찍고 터뜨리기!","m":"m_w30_loot","f":"f_w30_loot"}});
+  }, null, 36.56);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w31","word":"pray","ipa":"[preɪ]","syl":"프레이","kr":"기도하다","tip":"P 다음 혀끝이 허공에 뜸!","m":"m_w31_pray","f":"f_w31_pray"},"w2":{"id":"w32","word":"play","ipa":"[pleɪ]","syl":"플레이","kr":"놀다 / 연주하다","tip":"P 다음 혀끝이 잇몸에 바로 닿음!","m":"m_w32_play","f":"f_w32_play"}});
+  }, null, 38.95);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w33","word":"crown","ipa":"[kraʊn]","syl":"크라운","kr":"왕관","tip":"K 터지고 혀끝 허공 유지!","m":"m_w33_crown","f":"f_w33_crown"},"w2":{"id":"w34","word":"clown","ipa":"[klaʊn]","syl":"클라운","kr":"광대","tip":"K 터지자마자 잇몸 접촉!","m":"m_w34_clown","f":"f_w34_clown"}});
+  }, null, 41.34);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w35","word":"grow","ipa":"[ɡroʊ]","syl":"그로우","kr":"자라다 / 기르다","tip":"G 소리 후 혀끝 허공 울림!","m":"m_w35_grow","f":"f_w35_grow"},"w2":{"id":"w36","word":"glow","ipa":"[ɡloʊ]","syl":"글로우","kr":"빛나다 / 열기","tip":"G 소리 후 잇몸 밀착!","m":"m_w36_glow","f":"f_w36_glow"}});
+  }, null, 43.95);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w37","word":"fry","ipa":"[fraɪ]","syl":"프라이","kr":"튀기다 / 프라이","tip":"F 입술 마찰 후 혀끝 허공!","m":"m_w37_fry","f":"f_w37_fry"},"w2":{"id":"w38","word":"fly","ipa":"[flaɪ]","syl":"플라이","kr":"날다 / 파리","tip":"F 마찰 후 혀끝 잇몸 밀착!","m":"m_w38_fly","f":"f_w38_fly"}});
+  }, null, 46.58);
+  tl.call(function() {
+    setEncorePair({"w1":{"id":"w39","word":"grass","ipa":"[ɡræs]","syl":"그래스","kr":"잔디 / 풀","tip":"G 뒤에 혀끝 닿지 않는 허공!","m":"m_w39_grass","f":"f_w39_grass"},"w2":{"id":"w40","word":"glass","ipa":"[ɡlæs]","syl":"글래스","kr":"유리 / 잔","tip":"G 뒤에 혀끝 잇몸 완벽 접촉!","m":"m_w40_glass","f":"f_w40_glass"}});
+  }, null, 49.22);
+  tl.to("#encoreStage", { opacity: 0, duration: 0.4 }, 52.00);
+  tl.to("#endOverlay", { opacity: 1, duration: 0.5 }, 52.00);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-encore"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

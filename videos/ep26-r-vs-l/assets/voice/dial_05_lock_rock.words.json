@@ -1,0 +1,42 @@
+[
+  {
+    "word": "Please",
+    "from": 0.11,
+    "to": 0.528
+  },
+  {
+    "word": "lock",
+    "from": 0.598,
+    "to": 0.877
+  },
+  {
+    "word": "the",
+    "from": 0.947,
+    "to": 1.156
+  },
+  {
+    "word": "door",
+    "from": 1.226,
+    "to": 1.505
+  },
+  {
+    "word": "behind",
+    "from": 1.575,
+    "to": 1.993
+  },
+  {
+    "word": "that",
+    "from": 2.063,
+    "to": 2.342
+  },
+  {
+    "word": "big",
+    "from": 2.412,
+    "to": 2.621
+  },
+  {
+    "word": "rock,",
+    "from": 2.691,
+    "to": 3.04
+  }
+]

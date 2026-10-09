@@ -21,18 +21,25 @@
 
 ---
 
-### 다음 단계 (기술적 제작 워크플로우)
-1. **[Step 1] 음성 자산 생성 (사용자 직접 제작 또는 생성 지원)**:
-   - 한국어 호스트 나레이션 3개 (`01_f01_hook.wav`, `02_f02_principle.wav`, `03_f09_summary.wav`)
-   - 남/여 40단어 배치 파일 2개 (`male_words_all.wav`, `female_words_all.wav`)
-   - 실전 7문장 배치 파일 1개 (`en_dialogue_all.wav`)
-2. **[Step 2] 시각 미디어 2종 생성 및 반입**:
-   - `f02_vocal_tract_rl.jpg`
-   - `f07_dialogue_ambience.mp4`
-3. **[Step 3] 오디오 전처리 및 Whisper 타임스탬프 추출**:
-   - `split-batch-voice.mjs` (250ms 여운 패딩 + 50ms 페이드아웃 적용)
-   - `word-timeline.mjs`
-4. **[Step 4] HyperFrames 컴포지션 구현 및 검수 (`check`)**:
-   - 한글 음절 분리 표기(`·`) 상시 표출 (`[롸 · 이트]` vs `[라 · 이트]`)
-   - F07 실전 대화 타겟 단어 하이라이트 및 발화 싱크 연동 펄스 바운스
-5. **[Step 5] 절대적 승인 게이트 및 렌더링 착수**
+### 다음 단계 (기술적 제작 워크플로우 진행 현황)
+1. **[Step 1] 음성 자산 반입 (완료)**:
+   - 한국어 호스트 나레이션 3개 (`01_f01_hook.wav`, `02_f02_principle.wav`, `03_f09_summary.wav`) 반입 완료.
+   - 남/여 40단어 및 실전 7문장 배치 파일 반입 완료.
+2. **[Step 2] 시각 미디어 2종 완비 (완료)**:
+   - F02 조음 원리: Imagen 3 생성 `f02_vocal_tract_rl.jpg` 배치 완료.
+   - F07 실전 대화: 서재/카페 앰비언스 루프 비디오 `f07_dialogue_ambience.mp4` 배치 완료.
+3. **[Step 3] 오디오 전처리 및 Whisper 타임스탬프 추출 (완료)**:
+   - `split-batch-voice.mjs`: 250ms 여운 패딩 + 50ms 페이드아웃 적용, 87개 오디오 무결점 분할 완료.
+   - `measure-all-voice.mjs`: 90개 오디오 지속시간 실측 및 `.tts-results.json` 등록 완료.
+   - `word-timeline.mjs`: 한국어 3종 + 영어 대화 7종 100% Whisper 단어별 타임스탬프(`*.words.json`) 추출 완료.
+4. **[Step 4] HyperFrames 컴포지션 구현 및 정정 검수 완료**:
+   - 2음절 단어 영어 음절 분리(`ri · ver` vs `li · ver`) + 1음절 단어 자연스러운 한글 독음(`[롸이트]`, `[라이트]`) 100% 반영.
+   - F07 실전 대화 7문장 끝 쉼표(`,`) 오류 ➔ 마침표(`.`) 및 물음표(`?`) 정정 완료.
+   - F07 배경 비디오(`f07_dialogue_ambience.mp4`) 우측 하단 제미나이(Gemini) 워터마크 ffmpeg 크롭/스케일 무손실 재인코딩으로 100% 제거 완료.
+   - 프로젝트 전역 규칙 및 스킬에 AI 생성 미디어 워터마크 무관용 원칙(Zero Watermark Rule) 영구 명문화 완료 (`AGENTS.md`, `CLAUDE.md`, `production-rules.md`, `episode-planning/SKILL.md`).
+   - `npx hyperframes check` 자동 검수 통과 (Lint 0 errors, Runtime 0 errors, Contrast 50/50 WCAG AA Pass).
+5. **[Step 5] 절대적 승인 게이트 (현재 단계 · 사용자 검수 대기)**:
+   - 프리뷰 스튜디오 기동 중 (`http://localhost:3002/#project/ep26-r-vs-l`).
+   - 총 영상 길이: 12분 24.7초 (744.66s).
+   - 사용자 명시적 렌더링 지시 대기 중.
+

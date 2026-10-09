@@ -1,0 +1,47 @@
+[
+  {
+    "word": "Look",
+    "from": 0.095,
+    "to": 0.313
+  },
+  {
+    "word": "at",
+    "from": 0.368,
+    "to": 0.478
+  },
+  {
+    "word": "the",
+    "from": 0.532,
+    "to": 0.696
+  },
+  {
+    "word": "green",
+    "from": 0.751,
+    "to": 1.024
+  },
+  {
+    "word": "grass",
+    "from": 1.079,
+    "to": 1.353
+  },
+  {
+    "word": "through",
+    "from": 1.407,
+    "to": 1.79
+  },
+  {
+    "word": "the",
+    "from": 1.845,
+    "to": 2.009
+  },
+  {
+    "word": "clean",
+    "from": 2.064,
+    "to": 2.337
+  },
+  {
+    "word": "glass,",
+    "from": 2.392,
+    "to": 2.72
+  }
+]

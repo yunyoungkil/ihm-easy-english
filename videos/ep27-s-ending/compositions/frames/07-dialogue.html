@@ -1,0 +1,134 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.28; z-index: 1; filter: saturate(1.2);
+    transform: scale(1.05); transform-origin: center center;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 84cqw; z-index: 5;
+  }
+  .dialogue-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 5cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+  }
+  .tag-pill {
+    display: inline-block; background: #DBEAFE; border: 2px solid #111111;
+    padding: 0.5cqh 1.8cqw; border-radius: 999px; font-size: 1.25cqw; font-weight: 900; color: #1E40AF;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .sentence-en {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; line-height: 1.35;
+    color: #111111;
+  }
+  .hl-s {
+    color: #991B1B; border-bottom: 5px solid #DC2626; padding-bottom: 2px;
+    display: inline-block; background: #FEE2E2; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .hl-z {
+    color: #1E40AF; border-bottom: 5px solid #2563EB; padding-bottom: 2px;
+    display: inline-block; background: #DBEAFE; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .hl-iz {
+    color: #065F46; border-bottom: 5px solid #059669; padding-bottom: 2px;
+    display: inline-block; background: #D1FAE5; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .hl-ex {
+    color: #92400E; border-bottom: 5px solid #D97706; padding-bottom: 2px;
+    display: inline-block; background: #FEF3C7; padding-left: 6px; padding-right: 6px; border-radius: 6px;
+  }
+  .sentence-kr {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563;
+  }
+  .syl-tip-box {
+    background: #FAF7F2; border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+    border-radius: 14px; padding: 1cqh 2.4cqw; font-size: 1.4cqw; font-weight: 900;
+    color: #111111; margin-top: 0.5cqh;
+  }
+</style>
+<div data-hf-id="hf-ytef" id="root" data-composition-id="07-dialogue" data-width="1920" data-height="1080">
+  <video data-hf-id="hf-7saf" id="bgVideo" class="bg-video" src="assets/videos/f07_dialogue_ambience.mp4" autoplay loop muted data-start="0" data-duration="25.52" data-hf-media-start-basis="local" data-layout-allow-overflow=""></video>
+
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-nyy4">💬 실전 회화 문맥 속 -S · -ES 발음 청취 (7문장 집중 훈련)</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-b74b" class="dialogue-card" id="dialCard">
+      <div data-hf-id="hf-8ar2" id="dialTag" class="tag-pill">Cats [s] vs dogs [z]</div>
+      <div data-hf-id="hf-lx6y" id="dialEn" class="sentence-en"><span data-hf-id="hf-3w1k" class="hl-s">Cats</span> and <span data-hf-id="hf-cflf" class="hl-z">dogs</span> are great <span data-hf-id="hf-ep0b" class="hl-s">pets</span>.</div>
+      <div data-hf-id="hf-wd8y" id="dialKr" class="sentence-kr">고양이와 개는 훌륭한 반려동물입니다.</div>
+      <div data-hf-id="hf-0jdf" id="dialSylTip" class="syl-tip-box">💡 무성음 t 뒤 [s] vs 유성음 g 뒤 [z] 대비!</div>
+    </div>
+  </div>
+
+  <audio data-hf-id="hf-z5d3" id="dia_01" src="assets/voice/dial_01.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="2.59"></audio>
+  <audio data-hf-id="hf-fykg" id="dia_02" src="assets/voice/dial_02.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.29" data-duration="2.23"></audio>
+  <audio data-hf-id="hf-mmvb" id="dia_03" src="assets/voice/dial_03.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.72" data-duration="1.77"></audio>
+  <audio data-hf-id="hf-ixpl" id="dia_04" src="assets/voice/dial_04.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.69" data-duration="2.45"></audio>
+  <audio data-hf-id="hf-g4ow" id="dia_05" src="assets/voice/dial_05.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.34" data-duration="2.35"></audio>
+  <audio data-hf-id="hf-yizc" id="dia_06" src="assets/voice/dial_06.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.89" data-duration="2.23"></audio>
+  <audio data-hf-id="hf-wu0t" id="dia_07" src="assets/voice/dial_07.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.32" data-duration="2.50"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var dialTag = document.getElementById("dialTag");
+    var dialEn = document.getElementById("dialEn");
+    var dialKr = document.getElementById("dialKr");
+    var dialSylTip = document.getElementById("dialSylTip");
+    var dialCard = document.getElementById("dialCard");
+
+    function showDialogue(d) {
+      dialTag.textContent = d.pairBadge;
+      dialEn.innerHTML = d.enHtml;
+      dialKr.textContent = d.kr;
+      dialSylTip.textContent = d.sylTip;
+      gsap.fromTo(dialCard, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: "back.out(1.5)" });
+    }
+
+  tl.call(function() {
+    showDialogue({"id":"01","en":"Cats and dogs are great pets.","enHtml":"<span class=\"hl-s\">Cats</span> and <span class=\"hl-z\">dogs</span> are great <span class=\"hl-s\">pets</span>.","kr":"고양이와 개는 훌륭한 반려동물입니다.","pairBadge":"Cats [s] vs dogs [z] vs pets [s]","sylTip":"💡 무성음 t 뒤 [s] vs 유성음 g 뒤 [z] 대비!","audio":"dial_01","targetWords":["Cats","dogs","pets"]});
+  }, null, 0.50);
+  tl.call(function() {
+    showDialogue({"id":"02","en":"She plays games and calls him.","enHtml":"She <span class=\"hl-z\">plays</span> games and <span class=\"hl-z\">calls</span> him.","kr":"그녀는 게임을 하고 그에게 전화를 건다.","pairBadge":"plays [z] & calls [z]","sylTip":"💡 모음과 l(유성음) 뒤 부드러운 [z] 울림!","audio":"dial_02","targetWords":["plays","calls"]});
+  }, null, 4.29);
+  tl.call(function() {
+    showDialogue({"id":"03","en":"He watches the buses stop.","enHtml":"He <span class=\"hl-iz\">watches</span> the <span class=\"hl-iz\">buses</span> stop.","kr":"그는 버스들이 멈추는 것을 본다.","pairBadge":"watches [ɪz] & buses [ɪz]","sylTip":"💡 ch, s 치찰음 뒤 쿠션 모음 [ɪz]로 음절 증가!","audio":"dial_03","targetWords":["watches","buses"]});
+  }, null, 7.72);
+  tl.call(function() {
+    showDialogue({"id":"04","en":"Open the boxes and see the changes.","enHtml":"Open the <span class=\"hl-iz\">boxes</span> and see the <span class=\"hl-iz\">changes</span>.","kr":"상자들을 열고 변화들을 살펴보세요.","pairBadge":"boxes [ɪz] & changes [ɪz]","sylTip":"💡 x와 ge 치찰음 뒤 쿠션 모음 [ɪz]!","audio":"dial_04","targetWords":["boxes","changes"]});
+  }, null, 10.69);
+  tl.call(function() {
+    showDialogue({"id":"05","en":"She loves books and laughs a lot.","enHtml":"She <span class=\"hl-z\">loves</span> <span class=\"hl-s\">books</span> and <span class=\"hl-s\">laughs</span> a lot.","kr":"그녀는 책을 좋아하고 많이 웃는다.","pairBadge":"loves [z] vs books [s] & laughs [s]","sylTip":"💡 v(유성음) 뒤 [z] vs k, gh(무성음) 뒤 [s]!","audio":"dial_05","targetWords":["loves","books","laughs"]});
+  }, null, 14.34);
+  tl.call(function() {
+    showDialogue({"id":"06","en":"The old houses had many rooms.","enHtml":"The old <span class=\"hl-ex\">houses</span> had many <span class=\"hl-z\">rooms</span>.","kr":"그 오래된 집들은 방이 많았다.","pairBadge":"houses [zɪz] 특수 예외 & rooms [z]","sylTip":"💡 house[s] 복수형은 어간까지 울려 [haʊzɪz]!","audio":"dial_06","targetWords":["houses","rooms"]});
+  }, null, 17.89);
+  tl.call(function() {
+    showDialogue({"id":"07","en":"He has two pens and does his best.","enHtml":"He <span class=\"hl-z\">has</span> two <span class=\"hl-z\">pens</span> and <span class=\"hl-z\">does</span> his best.","kr":"그는 펜 두 자루를 가지고 최선을 다한다.","pairBadge":"has [z] & pens [z] & does [z]","sylTip":"💡 필수 기능어 has, does의 S는 무조건 [z] 울림!","audio":"dial_07","targetWords":["has","pens","does"]});
+  }, null, 21.32);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-dialogue"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

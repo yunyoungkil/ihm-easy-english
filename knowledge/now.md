@@ -1,14 +1,36 @@
 # 지금 할 일
 
-마지막 확인: 2026-10-08
+마지막 확인: 2026-10-09
 
-## 🔜 진행 중 — 단편 EP26(Right vs Light R vs L 자음 20쌍 반복 듣기 롱폼)
+## ✅ 제작 완료 (업로드 대기) — 단편 EP27(영어 -S · -ES 끝소리 3가지 물리법칙 24단어 반복 듣기 롱폼)
+
+- 폴더: `videos/ep27-s-ending/`
+- 렌더링 완료: `renders/ep27-s-ending_2026-10-09_21-40-16.mp4` (Full HD 1920x1080, 23.1MB, 499.62초 / 8분 19.6초, 14,989 프레임 전량 무결점 렌더 완료).
+- 업로드 패키지 완비: `output/upload-packages/ep27-s-ending/`
+  - 최종 비디오: `English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4` (23.1MB)
+  - 썸네일 4종: `thumbnail-close-up.jpg`(모바일 1위 권장), `thumbnail.jpg`(C안 메인), `thumbnail-variant-a.jpg`(A안 반전), `thumbnail-variant-b.jpg`(B안 실수경고) — Zero Watermark 검수 100% 통과
+  - 메타데이터: 10개 챕터 타임스탬프 `description.txt`, `title.txt`, `title-variants.txt`, `tags.txt`, `pinned-comment.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json` (`ready_to_upload`), 원클릭 HTML 대시보드(`index.html`) 완비.
+- **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행 ➔ 차기 에피소드(EP28) 기획 착수.
+
+## ✅ 제작 완료 (업로드 대기) — 단편 EP22(과거형 -ED 끝소리 3가지 규칙 24단어 반복 듣기 롱폼)
+
+- 폴더: `videos/ep22-ed-ending/`
+- 렌더링 완료: `renders/ep22-ed-ending_2026-10-09_20-44-19.mp4` (Full HD 1920x1080, 28.2MB, 502.87초 / 8분 22.9초, 15,087 프레임 전량 무결점 렌더 완료).
+- 업로드 패키지 완비: `output/upload-packages/ep22-ed-ending/`
+  - 최종 비디오: `English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4`
+  - 썸네일 4종: `thumbnail-close-up.jpg`(모바일 1위 권장), `thumbnail.jpg`(A안 메인), `thumbnail-b.jpg`(B안 실수경고), `thumbnail-c.jpg`(C안 원리성취) — Zero Watermark 검수 100% 통과
+  - 메타데이터: 10개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json` (`ready_to_upload`), 원클릭 HTML 대시보드(`index.html`) 완비.
+- **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행 ➔ 차기 에피소드(EP27) 기획 착수.
+
+## ✅ 제작 완료 (업로드 대기) — 단편 EP26(Right vs Light R vs L 자음 20쌍 반복 듣기 롱폼)
 
 - 폴더: `videos/ep26-r-vs-l/`
-- 기획 상태: Phase 1~10 마스터 워크플로우 100% 완료 (`BRIEF.md`, `REVIEW.md`, `TASKS.md`, `SCRIPT.md`, `frame.md`, 썸네일 4종 프롬프트, 핵심 미디어 2종 프롬프트 완비).
-- 비주얼 스타일: [옵션 1] 웜크림 네오브루탈리즘 (채널 시그니처 표준).
-- 핵심 차별화: "혀를 굴리지 마세요!" (R은 혀끝 허공 0% 접촉 숟가락 모양 vs L은 윗니 뒤 잇몸 100% 접촉 타격).
-- **다음 행동**: 사용자가 음성 에셋(호스트 3개, 남/여 단어 2개, 문장 1개) 및 미디어 2종(구강 단면도 이미지, 앰비언스 비디오) 생성 ➔ 다운로드 폴더 반입 후 오디오 전처리 분할 착수.
+- 렌더링 완료: `renders/ep26-r-vs-l_2026-10-09_18-57-49.mp4` (Full HD 1920x1080, 39.5MB, 744.66초 / 12분 24.7초, 22,340 프레임 전량 무결점 렌더 완료).
+- 업로드 패키지 완비: `output/upload-packages/ep26-r-vs-l/`
+  - 최종 비디오: `English_Pronunciation_Right_vs_Light_Minimal_Pairs_Listening_Drill.mp4`
+  - 썸네일 4종: `thumbnail-close-up.jpg`(모바일 1위), `thumbnail.jpg`(A안 메인), `thumbnail-b.jpg`(B안 경고), `thumbnail-c.jpg`(C안 원리) — 워터마크 0% 무결점 통과
+  - 메타데이터: 10개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json` (`ready_to_upload`), 원클릭 HTML 대시보드(`index.html`) 완비.
+- **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행.
 
 ## ✅ 제작 완료 (업로드 대기) — 단편 EP25(Pool vs Pull 장모음 [uː] vs 단모음 [ʊ] 20쌍 반복 듣기 롱폼)
 
@@ -37,32 +59,6 @@
 - 업로드 패키지 완비: `output/upload-packages/ep23-double-consonant/`에 `video.mp4`, 썸네일 2종(`thumbnail.jpg`, `thumbnail-close-up.jpg`), 12개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `upload-checklist.txt`, 원클릭 복사 HTML 대시보드 완비.
 - **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행.
 
-## ⏸ 보류 — 단편 EP22(영어 과거형 -ED 끝소리 규칙, t/d/id)
-
-**새 워크플로우로 처음 기획한 에피소드**: 대시보드 아이디어 보드 대신 신설된
-`.claude/skills/episode-planning` 스킬(2026-10-03 신설, 라이브 데이터 재조회+웹 검색
-기반, 대시보드 캐시 비신뢰)로 Phase 1(라이브 데이터 분석)~Phase 6(전체 내레이션 스크립트
-초안)까지 진행. 프로젝트 스캐폴딩 완료(`videos/ep22-ed-ending/`, `BRIEF.md`/
-`prompts/thumbnail-prompts.md` 작성 완료). 상세 경위·사용자 피드백 3라운드(훅 현실성→
-예문 현실성→구어체 vs 문어체)는 `knowledge/logs/2026-10.md` 2026-10-03 절과
-`videos/ep22-ed-ending/TASKS.md` 참고.
-
-- **소재**: wanted/walked/played처럼 과거형 -ED 끝소리가 t/d/id 세 가지로 갈리는 이유
-  (유무성 동화) + naked/wicked/blessed 같은 옛 영어 발음을 간직한 화석형 예외.
-- **제목(A안 채택)**: Wanted, Walked, Played — 끝소리 세 개가 다 다릅니다, 영어 과거형
-  -ED 발음 규칙. 썸네일 A/B/C 3종+클로즈업 1종 프롬프트까지 작성 완료
-  (`prompts/thumbnail-prompts.md`).
-- **스크립트 8프레임 초안 완성, 단 사용자 최종 승인 전**: 3라운드에 걸쳐 수정 —
-  ① 특정 친구 일화 훅 → "학교에서 드로 배운 공통 기억+리스닝 실패 경험" 훅으로 교체
-  ② 프레임마다 따로 지어낸 문법책식 예문("He wanted some coffee") → 미드 이별 장면
-  하나("I called him. I waited. I watched him walk away.")로 전체 예문을 통일
-  ③ "~되는 겁니다/~한 거죠" 같은 명사형 반복 종결 어미(문어체 티) 제거, 구어체로 재작성.
-  이 과정에서 CLAUDE.md/AGENTS.md에 신규 규칙 3건(②예시는 일반 한국인의 실제 경험에서,
-  ③모든 예문은 하나의 구체적 장면에 묶기, ④나레이션은 글이 아니라 말) 추가 완료 —
-  다음 에피소드부터 자동 적용됨.
-- **다음 행동**: 사용자가 Frame 1~8 스크립트 최종 확인(아직 "좋다" 승인 안 받음) →
-  `SCRIPT.md` 확정 → whisper 타임스탬프 추출 → HyperFrames 프레임 구현 →
-  `hyperframes check` → 렌더링 승인 요청.
 
 ## ✅ 완료 — 단편 EP21(Flap T, 모음 사이 T가 'ㄹ'로 바뀌는 규칙), 업로드까지 끝남 — **실제
 공개 확인됨(2026-10-03)**

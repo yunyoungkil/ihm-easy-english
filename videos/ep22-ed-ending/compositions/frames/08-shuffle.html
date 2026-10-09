@@ -1,0 +1,291 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F4EFE6; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 64cqw; z-index: 5;
+  }
+  .quiz-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 6cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2cqh;
+  }
+  .quiz-counter {
+    font-size: 1.3cqw; font-weight: 900; color: #6B7280; background: #F3F4F6;
+    padding: 0.4cqh 1.4cqw; border-radius: 999px; border: 2px solid #111111;
+  }
+  .quiz-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.8cqw; line-height: 1.0;
+    letter-spacing: -0.02em; min-height: 8cqh; white-space: nowrap;
+  }
+  .word-stem { color: #111111; }
+  .word-ed {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .word-ed.ed-t { color: #DC2626; border-color: #DC2626; }
+  .word-ed.ed-d { color: #2563EB; border-color: #2563EB; }
+  .word-ed.ed-id { color: #059669; border-color: #059669; }
+  .word-ed.ed-ex { color: #D97706; border-color: #D97706; }
+  .quiz-word.blind { color: #6B7280; }
+  .quiz-badge {
+    font-size: 1.8cqw; font-weight: 900; padding: 0.8cqh 2.2cqw; border-radius: 999px;
+    border: 2.5px solid #111111;
+  }
+  .badge-t { background: #FEE2E2; color: #991B1B; }
+  .badge-d { background: #DBEAFE; color: #1E40AF; }
+  .badge-id { background: #D1FAE5; color: #065F46; }
+  .badge-id-ex { background: #FEF3C7; color: #92400E; }
+  .badge-blind { background: #E5E7EB; color: #374151; }
+  .quiz-kr {
+    font-size: 2.2cqw; font-weight: 800; color: #4B5563; min-height: 3cqh;
+  }
+</style>
+<div id="root" data-composition-id="08-shuffle" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span>⚡ 24단어 무작위 덱 셔플 귀 훈련 (실전 반응 퀴즈)</span>
+  </div>
+
+  <div class="stage">
+    <div id="quizCard" class="quiz-card">
+      <div id="quizCounter" class="quiz-counter">Q 1 / 24</div>
+      <div id="quizWord" class="quiz-word blind">???</div>
+      <div id="quizBadge" class="quiz-badge badge-blind">소리를 듣고 맞춰보세요 [t] vs [d] vs [ɪd]?</div>
+      <div id="quizKr" class="quiz-kr"></div>
+    </div>
+  </div>
+
+  <audio id="sq_0" src="assets/voice/m_w03_laughed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.80"></audio>
+  <audio id="sq_1" src="assets/voice/m_w04_washed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.50" data-duration="0.80"></audio>
+  <audio id="sq_2" src="assets/voice/m_w02_stopped.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.50" data-duration="0.80"></audio>
+  <audio id="sq_3" src="assets/voice/m_w01_walked.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.50" data-duration="0.90"></audio>
+  <audio id="sq_4" src="assets/voice/m_w06_kissed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.60" data-duration="0.71"></audio>
+  <audio id="sq_5" src="assets/voice/m_w07_played.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.51" data-duration="0.77"></audio>
+  <audio id="sq_6" src="assets/voice/m_w08_called.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.48" data-duration="0.78"></audio>
+  <audio id="sq_7" src="assets/voice/m_w09_loved.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.46" data-duration="0.80"></audio>
+  <audio id="sq_8" src="assets/voice/m_w10_opened.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.46" data-duration="0.67"></audio>
+  <audio id="sq_9" src="assets/voice/m_w11_cleaned.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.33" data-duration="0.72"></audio>
+  <audio id="sq_10" src="assets/voice/m_w12_lived.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.25" data-duration="0.83"></audio>
+  <audio id="sq_11" src="assets/voice/m_w13_wanted.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.28" data-duration="0.81"></audio>
+  <audio id="sq_12" src="assets/voice/m_w14_started.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="60.29" data-duration="0.79"></audio>
+  <audio id="sq_13" src="assets/voice/m_w15_waited.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="65.28" data-duration="0.74"></audio>
+  <audio id="sq_14" src="assets/voice/m_w16_needed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="70.22" data-duration="0.69"></audio>
+  <audio id="sq_15" src="assets/voice/m_w17_decided.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="75.11" data-duration="0.83"></audio>
+  <audio id="sq_16" src="assets/voice/m_w18_ended.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="80.14" data-duration="0.67"></audio>
+  <audio id="sq_17" src="assets/voice/m_w19_naked.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="85.01" data-duration="0.73"></audio>
+  <audio id="sq_18" src="assets/voice/m_w20_wicked.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="89.94" data-duration="0.71"></audio>
+  <audio id="sq_19" src="assets/voice/m_w21_blessed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="94.85" data-duration="0.85"></audio>
+  <audio id="sq_20" src="assets/voice/m_w22_crooked.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="99.90" data-duration="0.66"></audio>
+  <audio id="sq_21" src="assets/voice/m_w23_helped.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="104.76" data-duration="0.60"></audio>
+  <audio id="sq_22" src="assets/voice/m_w24_closed.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="109.56" data-duration="0.82"></audio>
+  <audio id="sq_23" src="assets/voice/m_w05_watched.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="114.58" data-duration="0.79"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var quizCounter = document.getElementById("quizCounter");
+    var quizWord = document.getElementById("quizWord");
+    var quizBadge = document.getElementById("quizBadge");
+    var quizKr = document.getElementById("quizKr");
+
+    function formatWord(w) {
+      var cls = w.sound === 't' ? 'ed-t' : (w.sound === 'd' ? 'ed-d' : (w.sound === 'id' ? 'ed-id' : 'ed-ex'));
+      return '<span class="word-stem">' + w.stem + '</span><span class="word-ed ' + cls + '">' + w.ed + '</span>';
+    }
+
+    function setBlind(idx, total) {
+      quizCounter.textContent = "Q " + idx + " / " + total;
+      quizWord.textContent = "???";
+      quizWord.className = "quiz-word blind";
+      quizBadge.textContent = "소리를 듣고 맞춰보세요 👂 [t] vs [d] vs [ɪd]?";
+      quizBadge.className = "quiz-badge badge-blind";
+      quizKr.textContent = "";
+    }
+
+    function revealAnswer(w) {
+      quizWord.innerHTML = formatWord(w);
+      quizWord.className = "quiz-word";
+      quizKr.textContent = w.ipa + " · [" + w.krSyl + "] · " + w.kr;
+
+      if (w.sound === "t") {
+        quizBadge.textContent = "정답: " + w.soundName;
+        quizBadge.className = "quiz-badge badge-t";
+      } else if (w.sound === "d") {
+        quizBadge.textContent = "정답: " + w.soundName;
+        quizBadge.className = "quiz-badge badge-d";
+      } else if (w.sound === "id") {
+        quizBadge.textContent = "정답: " + w.soundName;
+        quizBadge.className = "quiz-badge badge-id";
+      } else {
+        quizBadge.textContent = "정답: " + w.soundName;
+        quizBadge.className = "quiz-badge badge-id-ex";
+      }
+    }
+
+  tl.call(function() {
+    setBlind(1, 24);
+  }, null, 0.50);
+  tl.call(function() {
+    revealAnswer({"id":"w03","word":"laughed","stem":"laugh","ed":"ed","syl":"laughed","krSyl":"래프트","ipa":"[læft]","kr":"웃었다","group":"g1","sound":"t","soundName":"[t] 무성음 (떨림 0%)","tip":"gh가 [f] 소리라 무성음 [t]로 종결","m":"m_w03_laughed","f":"f_w03_laughed"});
+  }, null, 3.10);
+  tl.call(function() {
+    setBlind(2, 24);
+  }, null, 5.50);
+  tl.call(function() {
+    revealAnswer({"id":"w04","word":"washed","stem":"wash","ed":"ed","syl":"washed","krSyl":"와쉬트","ipa":"[wɑːʃt]","kr":"씻었다","group":"g1","sound":"t","soundName":"[t] 무성음 (떨림 0%)","tip":"sh(무성음) 뒤: 바람 새듯 깔끔한 [t]","m":"m_w04_washed","f":"f_w04_washed"});
+  }, null, 8.10);
+  tl.call(function() {
+    setBlind(3, 24);
+  }, null, 10.50);
+  tl.call(function() {
+    revealAnswer({"id":"w02","word":"stopped","stem":"stop","ed":"ped","syl":"stopped","krSyl":"스탑트","ipa":"[stɑːpt]","kr":"멈췄다","group":"g1","sound":"t","soundName":"[t] 무성음 (떨림 0%)","tip":"p(무성음) 뒤: 입술 닫았다 터뜨리는 [t]","m":"m_w02_stopped","f":"f_w02_stopped"});
+  }, null, 13.10);
+  tl.call(function() {
+    setBlind(4, 24);
+  }, null, 15.50);
+  tl.call(function() {
+    revealAnswer({"id":"w01","word":"walked","stem":"walk","ed":"ed","syl":"walked","krSyl":"웍트","ipa":"[wɔːkt]","kr":"걸었다","group":"g1","sound":"t","soundName":"[t] 무성음 (떨림 0%)","tip":"k(무성음) 뒤: 목청 떨림 없이 가볍게 [t]","m":"m_w01_walked","f":"f_w01_walked"});
+  }, null, 18.20);
+  tl.call(function() {
+    setBlind(5, 24);
+  }, null, 20.60);
+  tl.call(function() {
+    revealAnswer({"id":"w06","word":"kissed","stem":"kiss","ed":"ed","syl":"kissed","krSyl":"키스트","ipa":"[kɪst]","kr":"입맞췄다","group":"g1","sound":"t","soundName":"[t] 무성음 (떨림 0%)","tip":"s(무성음) 마찰 후 혀끝 가볍게 [t]","m":"m_w06_kissed","f":"f_w06_kissed"});
+  }, null, 23.11);
+  tl.call(function() {
+    setBlind(6, 24);
+  }, null, 25.51);
+  tl.call(function() {
+    revealAnswer({"id":"w07","word":"played","stem":"play","ed":"ed","syl":"played","krSyl":"플레이드","ipa":"[pleɪd]","kr":"놀았다 / 연주했다","group":"g2","sound":"d","soundName":"[d] 유성음 (떨림 100%)","tip":"모음(유성음) 뒤: 성대가 울리며 부드러운 [d]","m":"m_w07_played","f":"f_w07_played"});
+  }, null, 28.08);
+  tl.call(function() {
+    setBlind(7, 24);
+  }, null, 30.48);
+  tl.call(function() {
+    revealAnswer({"id":"w08","word":"called","stem":"call","ed":"ed","syl":"called","krSyl":"콜드","ipa":"[kɔːld]","kr":"불렀다 / 전화했다","group":"g2","sound":"d","soundName":"[d] 유성음 (떨림 100%)","tip":"l(유성음) 잇몸 울림 후 이어지는 [d]","m":"m_w08_called","f":"f_w08_called"});
+  }, null, 33.06);
+  tl.call(function() {
+    setBlind(8, 24);
+  }, null, 35.46);
+  tl.call(function() {
+    revealAnswer({"id":"w09","word":"loved","stem":"lov","ed":"ed","syl":"loved","krSyl":"러브드","ipa":"[lʌvd]","kr":"사랑했다","group":"g2","sound":"d","soundName":"[d] 유성음 (떨림 100%)","tip":"v(유성음) 목청 떨림 그대로 [d]","m":"m_w09_loved","f":"f_w09_loved"});
+  }, null, 38.06);
+  tl.call(function() {
+    setBlind(9, 24);
+  }, null, 40.46);
+  tl.call(function() {
+    revealAnswer({"id":"w10","word":"o · pened","stem":"o · pen","ed":"ed","syl":"o · pened","krSyl":"오픈드","ipa":"[ˈoʊpənd]","kr":"열었다","group":"g2","sound":"d","soundName":"[d] 유성음 (떨림 100%)","tip":"2음절: n(비음/유성음) 울림과 함께 [d]","m":"m_w10_opened","f":"f_w10_opened"});
+  }, null, 42.93);
+  tl.call(function() {
+    setBlind(10, 24);
+  }, null, 45.33);
+  tl.call(function() {
+    revealAnswer({"id":"w11","word":"cleaned","stem":"clean","ed":"ed","syl":"cleaned","krSyl":"클린드","ipa":"[kliːnd]","kr":"청소했다","group":"g2","sound":"d","soundName":"[d] 유성음 (떨림 100%)","tip":"n(비음/유성음) 뒤 부드럽게 감기는 [d]","m":"m_w11_cleaned","f":"f_w11_cleaned"});
+  }, null, 47.85);
+  tl.call(function() {
+    setBlind(11, 24);
+  }, null, 50.25);
+  tl.call(function() {
+    revealAnswer({"id":"w12","word":"lived","stem":"liv","ed":"ed","syl":"lived","krSyl":"리브드","ipa":"[lɪvd]","kr":"살았다","group":"g2","sound":"d","soundName":"[d] 유성음 (떨림 100%)","tip":"v(유성음) 입술 마찰과 성대 울림 [d]","m":"m_w12_lived","f":"f_w12_lived"});
+  }, null, 52.88);
+  tl.call(function() {
+    setBlind(12, 24);
+  }, null, 55.28);
+  tl.call(function() {
+    revealAnswer({"id":"w13","word":"wan · ted","stem":"wan · ","ed":"ted","syl":"wan · ted","krSyl":"원티드","ipa":"[ˈwɑːntɪd]","kr":"원했다","group":"g3","sound":"id","soundName":"[ɪd] 쿠션 모음 (+1음절)","tip":"t 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w13_wanted","f":"f_w13_wanted"});
+  }, null, 57.89);
+  tl.call(function() {
+    setBlind(13, 24);
+  }, null, 60.29);
+  tl.call(function() {
+    revealAnswer({"id":"w14","word":"star · ted","stem":"star · ","ed":"ted","syl":"star · ted","krSyl":"스타티드","ipa":"[ˈstɑːrtɪd]","kr":"시작했다","group":"g3","sound":"id","soundName":"[ɪd] 쿠션 모음 (+1음절)","tip":"t 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w14_started","f":"f_w14_started"});
+  }, null, 62.88);
+  tl.call(function() {
+    setBlind(14, 24);
+  }, null, 65.28);
+  tl.call(function() {
+    revealAnswer({"id":"w15","word":"wai · ted","stem":"wai · ","ed":"ted","syl":"wai · ted","krSyl":"웨이티드","ipa":"[ˈweɪtɪd]","kr":"기다렸다","group":"g3","sound":"id","soundName":"[ɪd] 쿠션 모음 (+1음절)","tip":"t 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w15_waited","f":"f_w15_waited"});
+  }, null, 67.82);
+  tl.call(function() {
+    setBlind(15, 24);
+  }, null, 70.22);
+  tl.call(function() {
+    revealAnswer({"id":"w16","word":"nee · ded","stem":"nee · ","ed":"ded","syl":"nee · ded","krSyl":"니디드","ipa":"[ˈniːdɪd]","kr":"필요했다","group":"g3","sound":"id","soundName":"[ɪd] 쿠션 모음 (+1음절)","tip":"d 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w16_needed","f":"f_w16_needed"});
+  }, null, 72.71);
+  tl.call(function() {
+    setBlind(16, 24);
+  }, null, 75.11);
+  tl.call(function() {
+    revealAnswer({"id":"w17","word":"de · ci · ded","stem":"de · ci · ","ed":"ded","syl":"de · ci · ded","krSyl":"디사이디드","ipa":"[dɪˈsaɪdɪd]","kr":"결심했다","group":"g3","sound":"id","soundName":"[ɪd] 쿠션 모음 (+1음절)","tip":"d 뒤 쿠션 모음 [ɪ] 투입! (2음절 ➔ 3음절)","m":"m_w17_decided","f":"f_w17_decided"});
+  }, null, 77.74);
+  tl.call(function() {
+    setBlind(17, 24);
+  }, null, 80.14);
+  tl.call(function() {
+    revealAnswer({"id":"w18","word":"en · ded","stem":"en · ","ed":"ded","syl":"en · ded","krSyl":"엔디드","ipa":"[ˈɛndɪd]","kr":"끝났다","group":"g3","sound":"id","soundName":"[ɪd] 쿠션 모음 (+1음절)","tip":"d 뒤 쿠션 모음 [ɪ] 투입! (1음절 ➔ 2음절)","m":"m_w18_ended","f":"f_w18_ended"});
+  }, null, 82.61);
+  tl.call(function() {
+    setBlind(18, 24);
+  }, null, 85.01);
+  tl.call(function() {
+    revealAnswer({"id":"w19","word":"na · ked","stem":"na · ","ed":"ked","syl":"na · ked","krSyl":"네이키드","ipa":"[ˈneɪkɪd]","kr":"벌거벗은 (형용사)","group":"g4","sound":"id-ex","soundName":"[ɪd] 형용사 특수 예외","tip":"동사 과거형이 아닌 형용사로 [ɪd] 고정!","m":"m_w19_naked","f":"f_w19_naked"});
+  }, null, 87.54);
+  tl.call(function() {
+    setBlind(19, 24);
+  }, null, 89.94);
+  tl.call(function() {
+    revealAnswer({"id":"w20","word":"wic · ked","stem":"wic · ","ed":"ked","syl":"wic · ked","krSyl":"위키드","ipa":"[ˈwɪkɪd]","kr":"사악한 (형용사)","group":"g4","sound":"id-ex","soundName":"[ɪd] 형용사 특수 예외","tip":"k 뒤지만 순수 형용사 예외로 [ɪd] 발음!","m":"m_w20_wicked","f":"f_w20_wicked"});
+  }, null, 92.45);
+  tl.call(function() {
+    setBlind(20, 24);
+  }, null, 94.85);
+  tl.call(function() {
+    revealAnswer({"id":"w21","word":"bles · sed","stem":"bles · ","ed":"sed","syl":"bles · sed","krSyl":"블레시드","ipa":"[ˈblɛsɪd]","kr":"축복받은 (형용사)","group":"g4","sound":"id-ex","soundName":"[ɪd] 형용사 특수 예외","tip":"형용사일 때 2음절 [블레시드]로 발음!","m":"m_w21_blessed","f":"f_w21_blessed"});
+  }, null, 97.50);
+  tl.call(function() {
+    setBlind(21, 24);
+  }, null, 99.90);
+  tl.call(function() {
+    revealAnswer({"id":"w22","word":"croo · ked","stem":"croo · ","ed":"ked","syl":"croo · ked","krSyl":"크루키드","ipa":"[ˈkrʊkɪd]","kr":"비뚤어진 (형용사)","group":"g4","sound":"id-ex","soundName":"[ɪd] 형용사 특수 예외","tip":"k 뒤지만 순수 형용사 예외로 [ɪd] 발음!","m":"m_w22_crooked","f":"f_w22_crooked"});
+  }, null, 102.36);
+  tl.call(function() {
+    setBlind(22, 24);
+  }, null, 104.76);
+  tl.call(function() {
+    revealAnswer({"id":"w23","word":"helped","stem":"help","ed":"ed","syl":"helped","krSyl":"헬프트","ipa":"[hɛlpt]","kr":"도왔다 (보너스 복습)","group":"g4","sound":"t","soundName":"[t] 무성음 복습","tip":"p(무성음) 뒤 단단하게 끝나는 [t] 복습","m":"m_w23_helped","f":"f_w23_helped"});
+  }, null, 107.16);
+  tl.call(function() {
+    setBlind(23, 24);
+  }, null, 109.56);
+  tl.call(function() {
+    revealAnswer({"id":"w24","word":"closed","stem":"clos","ed":"ed","syl":"closed","krSyl":"클로즈드","ipa":"[kloʊzd]","kr":"닫았다 (보너스 복습)","group":"g4","sound":"d","soundName":"[d] 유성음 복습","tip":"z(유성음) 뒤 부드럽게 이어지는 [d] 복습","m":"m_w24_closed","f":"f_w24_closed"});
+  }, null, 112.18);
+  tl.call(function() {
+    setBlind(24, 24);
+  }, null, 114.58);
+  tl.call(function() {
+    revealAnswer({"id":"w05","word":"watched","stem":"watch","ed":"ed","syl":"watched","krSyl":"와취트","ipa":"[wɑːtʃt]","kr":"지켜봤다","group":"g1","sound":"t","soundName":"[t] 무성음 (떨림 0%)","tip":"ch(무성음) 뒤: 딱 끊어지는 단단한 [t]","m":"m_w05_watched","f":"f_w05_watched"});
+  }, null, 117.17);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-shuffle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

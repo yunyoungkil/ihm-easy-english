@@ -1,0 +1,37 @@
+[
+  {
+    "word": "He",
+    "from": 0.113,
+    "to": 0.258
+  },
+  {
+    "word": "prays",
+    "from": 0.331,
+    "to": 0.694
+  },
+  {
+    "word": "every",
+    "from": 0.766,
+    "to": 1.129
+  },
+  {
+    "word": "night",
+    "from": 1.202,
+    "to": 1.565
+  },
+  {
+    "word": "before",
+    "from": 1.638,
+    "to": 2.074
+  },
+  {
+    "word": "he",
+    "from": 2.146,
+    "to": 2.292
+  },
+  {
+    "word": "plays,",
+    "from": 2.364,
+    "to": 2.8
+  }
+]

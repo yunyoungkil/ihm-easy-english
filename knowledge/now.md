@@ -11,9 +11,9 @@
   - 렌더 명령어: `npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4`
 - 업로드 패키지 빌드 완료: `output/upload-packages/ep28-f-vs-p/`
   - 메타데이터: `title.txt`, `title-variants.txt`, `timeline.txt` (10개 챕터 + 10초 엔드스크린), `description.txt`, `pinned-comment.txt`, `tags.txt`, `status.json`, `upload-checklist.txt`
-  - 원클릭 대시보드: `index.html` (타 PC 렌더링 명령어 원클릭 복사, 유튜브 스튜디오 메타데이터 원클릭 복사, 썸네일 프롬프트 가이드 완비)
-  - 썸네일 프롬프트: `prompts/thumbnail-prompts.md` (모바일 1위 클로즈업 C안, 메인 와이드 C안, A안 반전, B안 직격)
-- **다음 행동**: 사용자가 다른 PC에서 `npx hyperframes render` 실행 후 패키지 폴더(`output/upload-packages/ep28-f-vs-p/index.html`) 열람하여 유튜브 스튜디오 업로드 및 예약 설정.
+  - 원클릭 대시보드: `index.html` (타 PC 렌더링 명령어 원클릭 복사, 유튜브 스튜디오 메타데이터 원클릭 복사, 썸네일 4종 뷰어 완비)
+  - 썸네일 4종 탑재 완료: `thumbnail-close-up.jpg`(모바일 1위 권장), `thumbnail.jpg`(메인 와이드), `thumbnail-variant-a.jpg`(A안 상식파괴), `thumbnail-variant-b.jpg`(B안 직격형) — Zero Watermark 검수 100% 통과 완료
+- **다음 행동**: 사용자가 다른 PC에서 `npx hyperframes render` 실행 후 패키지 폴더(`output/upload-packages/ep28-f-vs-p/index.html`) 열람하여 유튜브 스튜디오 업로드 및 예약 설정 ➔ 차기 에피소드(EP29) 기획 착수.
 
 ## ✅ 제작 완료 (업로드 대기) — 단편 EP27(영어 -S · -ES 끝소리 3가지 물리법칙 24단어 반복 듣기 롱폼)
 

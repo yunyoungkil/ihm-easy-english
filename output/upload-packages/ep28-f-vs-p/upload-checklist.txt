@@ -1,5 +1,5 @@
 [EP28 유튜브 업로드 체크리스트]
-- 에피소드: ep28-f-vs-p (F vs P 0.1초 조음 물리법칙 24쌍 듣기 드릴)
+- 에피소드: ep28-f-vs-p (F vs P 0.1초 소리 물리법칙 24쌍 반복 듣기)
 - 영상 길이: 6분 55.6초 (415.61s) / 엔드스크린 10초 탑재
 - 최종 영상 파일명: English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4
 - 타 PC 렌더링 명령어:
@@ -10,6 +10,6 @@
   [A안 상식파괴] thumbnail-variant-a.jpg ("입술 물면 틀립니다")
   [B안 직격형] thumbnail-variant-b.jpg ("Coffee와 Copy, 입술 닿는 순간 탈락")
 - 카테고리: 교육 (Education)
-- 재생목록: [이해하면 쉬운영어] 집중 듣기 드릴 정주행
+- 재생목록: [이해하면 쉬운영어] 반복 듣기 정주행
 - 최종 태그: 19개 핵심 키워드 탑재 완료
 - 자막: 한국어 오디오 내장 + Whisper 타임라인 완비

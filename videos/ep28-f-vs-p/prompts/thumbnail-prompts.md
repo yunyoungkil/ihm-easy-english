@@ -1,8 +1,8 @@
-# EP28 (F vs P 자음 짝단어 24쌍 반복 청취 드릴) 썸네일 생성 프롬프트 (4종 세트)
+# EP28 (F vs P 자음 짝단어 24쌍 반복 듣기 훈련) 썸네일 생성 프롬프트 (4종 세트)
 
 - **에피소드 ID**: `ep28-f-vs-p`
-- **주제**: F vs P 0.1초 조음 물리법칙 (윗니 0% 파열 vs 윗니 100% 아랫입술 안쪽 마찰) 24쌍 집중 반복 듣기 드릴
-- **메인 채택**: **4안 (물리법칙형)** (`원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기 드릴`)
+- **주제**: F vs P 0.1초 조음 물리법칙 (윗니 0% vs 100%) 24쌍 집중 반복 듣기 훈련
+- **메인 채택**: **4안 (물리법칙형)** (`원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기`)
 - **디자인 스타일**: 웜크림 네오브루탈리즘 (단색 웜크림 배경 `#F7F4EE`, 플랫 화이트 앵커 텍스트, 골드 알약 캡슐 `#F5C518`, 채널 공식 아바타)
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Main Variant (메인 채택 · 바스트샷 와이드, thumbnail.jpg)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "F vs P 0.1초 조음 물리법칙 짝단어 듣기 드릴". This must match the channel's established house style exactly — do not invent a different look.
+A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "F vs P 0.1초 소리 물리법칙 짝단어 반복 듣기". This must match the channel's established house style exactly — do not invent a different look.
 
 === TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[듣기 드릴]" in a compact dark navy pill with white text.
+- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
 - Anchor line: "F vs P" — massive, on its own line, crisp white flat lettering with heavy black outline.
 - Pill phrase: "윗니 0% vs 100%" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
 Do not render any extra text, no channel name, no logo watermark, no UI mockup text.
@@ -38,7 +38,7 @@ NEGATIVE: Do NOT put the anchor line inside a colored box. Do NOT add neon glow,
 A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "F vs P 발음 구별 원리". Mobile extreme close-up variant.
 
 === TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[듣기 드릴]" in a compact dark navy pill with white text.
+- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
 - Anchor line: "F vs P" — massive, on its own line, crisp white flat lettering with heavy black outline.
 - Pill phrase: "윗니 0% vs 100%" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
 Do not render any extra text, no channel name, no logo watermark.
@@ -63,7 +63,7 @@ NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No wat
 A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "F 발음할 때 입술 물면 틀립니다". This must match the channel's established house style exactly.
 
 === TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[듣기 드릴]" in a compact dark navy pill with white text.
+- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
 - Anchor line: "F 발음할 때" — massive, on its own line, crisp flat white lettering with heavy black outline.
 - Pill phrase: "입술 물면 틀립니다" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
 Do not render any extra text, no channel name, no logo watermark.

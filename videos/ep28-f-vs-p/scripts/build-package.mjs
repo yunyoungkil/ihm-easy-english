@@ -39,17 +39,17 @@ const timelineText = timelineLines.join('\n') + '\n';
 fs.writeFileSync(path.join(outputDir, 'timeline.txt'), timelineText, 'utf8');
 
 // 2. Titles
-const mainTitle = "원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기 드릴";
+const mainTitle = "원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기";
 fs.writeFileSync(path.join(outputDir, 'title.txt'), mainTitle + '\n', 'utf8');
 
 const titleVariants = `Variant 1 (메인 채택 · 물리법칙형):
-원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기 드릴
+원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기
 
 Variant 2 (대조군 · 실수경고형):
-Coffee와 Copy, 입술 닿는 순간 갈립니다 | F vs P 24쌍 반복 듣기 드릴
+Coffee와 Copy, 입술 닿는 순간 갈립니다 | F vs P 24쌍 반복 듣기
 
 Variant 3 (대조군 · 상식파괴형):
-F 발음할 때 아랫입술 물면 틀립니다! 원어민의 0.1초 비밀 | F vs P 청취 드릴
+F 발음할 때 아랫입술 물면 틀립니다! 원어민의 0.1초 비밀 | F vs P 소리 훈련
 
 Variant 4 (간결 집중형):
 [30분 듣기] F와 P가 죽어도 안 들렸던 진짜 이유 | 윗니 0% vs 100% 물리법칙
@@ -92,7 +92,7 @@ ${timelineText}
 fs.writeFileSync(path.join(outputDir, 'description.txt'), description, 'utf8');
 
 // 4. Pinned comment
-const pinnedComment = `오늘도 F vs P 24쌍 반복 듣기 드릴 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
+const pinnedComment = `오늘도 F vs P 24쌍 반복 듣기 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
 
 💬 여러분은 24개 짝단어 중 어떤 단어가 귀로 가장 구분하기 어려우셨나요?
 (예: Coffee vs Copy? Leaf vs Leap? Fool vs Pool?)
@@ -125,7 +125,7 @@ fs.writeFileSync(path.join(outputDir, 'status.json'), JSON.stringify(statusJson,
 
 // 7. Checklist
 const checklist = `[EP28 유튜브 업로드 체크리스트]
-- 에피소드: ep28-f-vs-p (F vs P 0.1초 조음 물리법칙 24쌍 듣기 드릴)
+- 에피소드: ep28-f-vs-p (F vs P 0.1초 소리 물리법칙 24쌍 반복 듣기)
 - 영상 길이: 6분 55.6초 (415.61s) / 엔드스크린 10초 탑재
 - 최종 영상 파일명: English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4
 - 타 PC 렌더링 명령어:
@@ -136,7 +136,7 @@ const checklist = `[EP28 유튜브 업로드 체크리스트]
   [A안 상식파괴] thumbnail-variant-a.jpg ("입술 물면 틀립니다")
   [B안 직격형] thumbnail-variant-b.jpg ("Coffee와 Copy, 입술 닿는 순간 탈락")
 - 카테고리: 교육 (Education)
-- 재생목록: [이해하면 쉬운영어] 집중 듣기 드릴 정주행
+- 재생목록: [이해하면 쉬운영어] 반복 듣기 정주행
 - 최종 태그: 19개 핵심 키워드 탑재 완료
 - 자막: 한국어 오디오 내장 + Whisper 타임라인 완비
 `;
@@ -400,7 +400,7 @@ const indexHtmlContent = `<!DOCTYPE html>
       <div>
         <div class="badge">🚀 UPLOAD PACKAGE READY</div>
         <h1>EP28 유튜브 업로드 원클릭 패키지</h1>
-        <div class="subtitle">F vs P 0.1초 조음 물리법칙 (윗니 0% vs 100%) 24쌍 반복 듣기 드릴 | 타 PC 렌더링 지원</div>
+        <div class="subtitle">F vs P 0.1초 소리 물리법칙 (윗니 0% vs 100%) 24쌍 반복 듣기 | 타 PC 렌더링 지원</div>
       </div>
       <div>
         <span class="rec-tag" style="padding: 8px 16px; font-size: 14px;">타임라인 총 6분 55초 (415.61s)</span>
@@ -471,7 +471,7 @@ const indexHtmlContent = `<!DOCTYPE html>
             </div>
             <div class="prompt-box">
               <strong>파일명:</strong> thumbnail-close-up.jpg<br>
-              <strong>카피:</strong> [듣기 드릴] F vs P 윗니 0% vs 100%
+              <strong>카피:</strong> [반복 듣기] F vs P 윗니 0% vs 100%
             </div>
           </div>
           <div class="thumb-card">
@@ -485,7 +485,7 @@ const indexHtmlContent = `<!DOCTYPE html>
             </div>
             <div class="prompt-box">
               <strong>파일명:</strong> thumbnail.jpg<br>
-              <strong>카피:</strong> [듣기 드릴] F vs P 윗니 0% vs 100%
+              <strong>카피:</strong> [반복 듣기] F vs P 윗니 0% vs 100%
             </div>
           </div>
           <div class="thumb-card">
@@ -498,7 +498,7 @@ const indexHtmlContent = `<!DOCTYPE html>
             </div>
             <div class="prompt-box">
               <strong>파일명:</strong> thumbnail-variant-a.jpg<br>
-              <strong>카피:</strong> [듣기 드릴] F 발음할 때 입술 물면 틀립니다
+              <strong>카피:</strong> [반복 듣기] F 발음할 때 입술 물면 틀립니다
             </div>
           </div>
           <div class="thumb-card">

@@ -1,0 +1,79 @@
+# Phase 9~10: 비주얼 스타일, 에셋 프롬프트 및 SEO 파일명 규격
+
+이 문서는 영상 화면에 적용할 시각적 디자인 스타일 선택(Phase 9), HyperFrames 골든룰 필터링을 거친 이미지/비디오 프롬프트 생성(Phase 10), 그리고 워터마크 원천 차단 및 SEO 비디오 파일명 규격을 규정합니다.
+
+---
+
+## 1. ⚠️ 핵심 금지 및 대체 표준 원칙
+
+| 구분 | ❌ 절대 금지 | ⭕ 대체 표준 규격 |
+|---|---|---|
+| **HyperFrames 대체 에셋** | 텍스트 카드, 알약 뱃지, 표, CSS 도형, 텍스트 모션을 이미지/영상으로 생성 | **HyperFrames(HTML/CSS/GSAP) 코드로 100% 직접 구현** (텍스트 오타 0%, 완벽한 타이포) |
+| **프롬프트 생성 대상** | 단순 자막 화면, 단어 카드 | **실물 컷아웃(커피잔, 인물 표정), 해부학적 구강 구조, 찢어진 종이 질감, 5초 실사 동작만 엄선 (1~3개)** |
+| **AI 워터마크/로고** | 제미나이 4각 별 스파클, 런웨이 로고 노출 | **네거티브 키워드 필수 주입 + 반입 전 모서리 4방 시각 검수 + ffmpeg 고화질 크롭 후처리** |
+| **최종 영상 파일명** | `video.mp4`, `ep28.mp4` 등 단순 파일명 | **타겟 영문 SEO 키워드 결합 파일명 (`English_Pronunciation_F_vs_P_Listening_Practice.mp4`)** |
+
+---
+
+## 2. PHASE 9 — 시각적 디자인 (비주얼 스타일) 5대 옵션
+
+대본 및 오디오 타임라인이 준비되면 사용자에게 아래 5가지 옵션을 제시하고 선택을 요청합니다:
+
+1. **[옵션 1] 웜크림 네오브루탈리즘 (채널 시그니처 표준)**:
+   - 웜크림(`#F4EFE6`) 배경 + 2.5px 블랙 볼드 외곽선 + 선명한 하드 섀도우 + 골드/레드 알약 캡슐 뱃지 + 현대적 플랫 타이포그래피.
+   - 추천: 가독성이 최우선인 규칙 설명, 파닉스 강의 및 30분 집중 반복 듣기 영상.
+2. **[옵션 2] 컬러풀 VOX 에디토리얼 페이퍼 콜라주 (프리미엄 다큐 스타일)**:
+   - 아카이브 종이, 흑백/컬러 하프톤 사진 컷아웃, 코발트 블루/틸/앰버 시네마틱 컬러 블로킹, 마스킹 테이프, 브라스 핀.
+   - 추천: 일상 생활 스토리텔링, 실전 회화 맥락, 고급스러운 몰입감을 주는 에디토리얼 콘텐츠.
+3. **[옵션 3] 모노크롬 에디토리얼 (다큐멘터리 수사물 스타일)**:
+   - 타자기 활자, 낡은 신문/사전 스크랩, 거친 크림슨 레드 마커 원형 표시 및 머스타드 악센트, 아날로그 증거물 질감.
+   - 추천: 훅(Hook)에서의 오답 고발, 발음 비밀 파헤치기, 충격적 반전 규명.
+4. **[옵션 4] 빈티지 스케치노트 & 다이어그램 (조음 메커니즘 특화)**:
+   - 구강 단면도, 혀의 이동 경로, 소리 파형 손그림 다이어그램 및 크래프트지 메모 패드.
+   - 추천: 발음 조음 위치(혀, 입술, 성대) 및 소리 충돌/탈락 메커니즘 시각화.
+5. **[옵션 5] 자동 선택 (Auto Select)**:
+   - 주제와 프레임 구성에 가장 어울리는 비주얼 스타일을 에이전트가 자동 판단하여 적용.
+
+> **멈춤 규칙**: "어떤 시각적 디자인 스타일로 진행할까요? 1~5번 중 번호를 선택하시거나, 원하시는 스타일 방향을 말씀해 주세요." 질문 후 사용자 답변까지 대기.
+
+---
+
+## 3. PHASE 10 — 일러스트 & 5초 스톱모션 영상 프롬프트
+
+### 1. HyperFrames 필터링 골든 룰 (2026-10-05 확정)
+- **생성 금지**: 모든 텍스트 카드, 알약 뱃지, 2개 카드 좌우 비교 다이어그램, 퀴즈 박스, 요약표, GSAP 모션, 음절 뱃지(`.syl-pill`).
+- **생성 대상 (1~3개 엄선)**: 실제 테이크아웃 커피잔, 빈티지 배경, 인물 표정 컷아웃, 구강 단면도, 손으로 찢은 종이/황동 핀 오브젝트, 5초 연속 동작 비디오.
+
+### 2. 플랫폼 워터마크 원천 차단 및 무결점 검수
+1. **프롬프트 네거티브 지침 강제 주입**:
+   `No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.`
+2. **반입 시 4방 모서리 전수 시각 검수 (`view_file`)**:
+   `assets/` 폴더에 반입하기 전 에이전트가 직접 모서리 4방(특히 우측 하단/상단)에 스파클이나 로고가 있는지 프레임 캡처 후 확인.
+3. **워터마크 발견 시 ffmpeg 고화질 크롭/스케일 후처리**:
+   `ffmpeg -i input.mp4 -vf "crop=1696:954:0:0,scale=1920:1080:flags=lanczos" -c:v libx264 -crf 18 -preset slow -an output_clean.mp4`
+
+### 3. 이미지 프롬프트 표준 템플릿
+- 화면비: `16:9`
+- 구도: 60~75% 차지하는 지배적 히어로 피사체 1개 + 보조 요소 최대 3개
+- 표준 엔딩 문구:
+  > `Everything must look physically assembled from real paper pieces rather than digitally illustrated. No cartoon appearance, no glossy CGI, no 3D-rendered look, no gradients, no clutter, no watermark, no unnecessary logos, and no text other than the specifically requested label. Premium editorial documentary aesthetic, 16:9, ultra-detailed, 8K.`
+- 복사용 ` ```text ` 코드 블록 제공.
+
+### 4. 5초 스톱모션 영상(Image-to-Video) 프롬프트
+- **카메라**: 5초 내내 **완전 고정(Locked static shot)**.
+- **0.0~3.5초 (Assembly Phase)**: 종이 조각 안착 ➔ 메인 히어로 컷아웃 슬라이드 안착 ➔ 라벨/테이프/스탬프 촉각적 결합 ➔ 3.5초에 원본과 100% 동일하게 완성.
+- **3.5~5.0초 (Living Poster Phase)**: 완성된 상태 고정 유지(Living poster), 종이 모서리 미세한 들림 등 절제된 호흡만 허용.
+- **오디오**: 나레이션/음악 없음, 종이 마찰·테이프 등 아날로그 폴리 효과음만.
+
+---
+
+## 4. 업로드 패키지 빌드 시 SEO 비디오 파일명 명명 규격
+
+업로드 패키지(`output/upload-packages/<project>/`) 내 최종 렌더링 파일명은 검색 엔진 최적화(SEO)를 위해 타겟 키워드로 명명합니다:
+
+- ❌ `video.mp4`, `ep28.mp4` (단순 명칭 금지)
+- ⭕ `English_Pronunciation_Double_Consonants_Listening_Practice.mp4`
+- ⭕ `English_Pronunciation_F_vs_P_Sound_Pairs_Listening_Practice.mp4`
+- 업로드 대시보드(`index.html`) 및 체크리스트(`upload-checklist.txt`)에도 동일한 파일명을 연동.
+
+산출물 저장 위치: `videos/<프로젝트>/prompts/visual-prompts.md`

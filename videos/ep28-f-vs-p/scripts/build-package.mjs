@@ -117,6 +117,7 @@ const statusJson = {
   durationSeconds: 415.61,
   durationFormatted: "6분 55초",
   endScreenDuration: "10초 (405.61s ~ 415.61s)",
+  thumbnailsCount: 4,
   renderCommand: "npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4",
   generatedAt: new Date().toISOString()
 };
@@ -334,6 +335,13 @@ const indexHtmlContent = `<!DOCTYPE html>
       display: flex;
       flex-direction: column;
     }
+    .thumb-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
     .thumb-meta {
       padding: 16px;
       display: flex;
@@ -453,6 +461,7 @@ const indexHtmlContent = `<!DOCTYPE html>
         </div>
         <div class="thumbs-grid">
           <div class="thumb-card">
+            <img src="thumbnail-close-up.jpg" alt="모바일 1위">
             <div class="thumb-meta">
               <div>
                 <div class="thumb-label">[권장 1위] 모바일 전용 클로즈업 (C안)</div>
@@ -461,10 +470,12 @@ const indexHtmlContent = `<!DOCTYPE html>
               <span class="rec-tag">추천 1위</span>
             </div>
             <div class="prompt-box">
-              <strong>Prompt:</strong> A high-CTR YouTube thumbnail for Korean English channel... Topic: F vs P 0.1초 조음 물리법칙. Mobile extreme close-up. Pill: "윗니 0% vs 100%"
+              <strong>파일명:</strong> thumbnail-close-up.jpg<br>
+              <strong>카피:</strong> [듣기 드릴] F vs P 윗니 0% vs 100%
             </div>
           </div>
           <div class="thumb-card">
+            <img src="thumbnail.jpg" alt="메인 와이드">
             <div class="thumb-meta">
               <div>
                 <div class="thumb-label">[메인] Variant C (바스트샷 와이드)</div>
@@ -473,10 +484,12 @@ const indexHtmlContent = `<!DOCTYPE html>
               <span class="rec-tag">메인</span>
             </div>
             <div class="prompt-box">
-              <strong>Prompt:</strong> A high-CTR YouTube thumbnail... Topic: F vs P 짝단어 드릴. Waist-up distance pointing to upper teeth/lip.
+              <strong>파일명:</strong> thumbnail.jpg<br>
+              <strong>카피:</strong> [듣기 드릴] F vs P 윗니 0% vs 100%
             </div>
           </div>
           <div class="thumb-card">
+            <img src="thumbnail-variant-a.jpg" alt="A안 상식파괴">
             <div class="thumb-meta">
               <div>
                 <div class="thumb-label">[A안] 대조군 · 상식 파괴형</div>
@@ -484,10 +497,12 @@ const indexHtmlContent = `<!DOCTYPE html>
               </div>
             </div>
             <div class="prompt-box">
-              <strong>Prompt:</strong> Topic: "F 발음할 때 입술 물면 틀립니다". Stop gesture with friendly warning smile.
+              <strong>파일명:</strong> thumbnail-variant-a.jpg<br>
+              <strong>카피:</strong> [듣기 드릴] F 발음할 때 입술 물면 틀립니다
             </div>
           </div>
           <div class="thumb-card">
+            <img src="thumbnail-variant-b.jpg" alt="B안 직격형">
             <div class="thumb-meta">
               <div>
                 <div class="thumb-label">[B안] 대조군 · 단어 대조 직격형</div>
@@ -495,7 +510,8 @@ const indexHtmlContent = `<!DOCTYPE html>
               </div>
             </div>
             <div class="prompt-box">
-              <strong>Prompt:</strong> Topic: "Coffee와 Copy 입술 닿는 순간 갈립니다". Two lips touching distinction.
+              <strong>파일명:</strong> thumbnail-variant-b.jpg<br>
+              <strong>카피:</strong> [실수 주의] Coffee와 Copy 두 입술 닿으면 탈락
             </div>
           </div>
         </div>

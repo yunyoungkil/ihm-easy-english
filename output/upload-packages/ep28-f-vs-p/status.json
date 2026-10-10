@@ -7,6 +7,7 @@
   "durationSeconds": 415.61,
   "durationFormatted": "6분 55초",
   "endScreenDuration": "10초 (405.61s ~ 415.61s)",
+  "thumbnailsCount": 4,
   "renderCommand": "npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4",
-  "generatedAt": "2026-10-10T07:54:00.535Z"
+  "generatedAt": "2026-10-10T08:12:19.115Z"
 }

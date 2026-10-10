@@ -1,0 +1,180 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.25; z-index: 1; filter: saturate(1.1);
+    transform: scale(1.05); transform-origin: center center;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 86cqw; z-index: 5;
+  }
+  .dialogue-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 5cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+  }
+  .tag-pill {
+    display: inline-block; background: #FAF7F2; border: 2px solid #111111;
+    padding: 0.5cqh 1.8cqw; border-radius: 999px; font-size: 1.25cqw; font-weight: 900; color: #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .sentence-en {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.5cqw; line-height: 1.35;
+    color: #111111;
+  }
+  .hl-f {
+    color: #DC2626; border-bottom: 5px solid #DC2626; padding-bottom: 2px;
+    display: inline-block; background: #FEE2E2; padding-left: 8px; padding-right: 8px; border-radius: 8px;
+    transform-origin: center bottom;
+  }
+  .hl-p {
+    color: #2563EB; border-bottom: 5px solid #2563EB; padding-bottom: 2px;
+    display: inline-block; background: #DBEAFE; padding-left: 8px; padding-right: 8px; border-radius: 8px;
+    transform-origin: center bottom;
+  }
+  .sentence-kr {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563;
+  }
+  .syl-tip-box {
+    background: #FAF7F2; border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+    border-radius: 14px; padding: 1cqh 2.4cqw; font-size: 1.4cqw; font-weight: 900;
+    color: #111111; margin-top: 0.5cqh; white-space: nowrap;
+  }
+</style>
+<div id="root" data-composition-id="07-dialogue" data-width="1920" data-height="1080">
+  <video id="bgVideoF07" class="bg-video" src="assets/videos/f07_cafe_ambience.mp4" autoplay loop muted data-start="0" data-duration="34.29" data-hf-media-start-basis="local" data-layout-allow-overflow></video>
+
+  <div class="eyebrow-pill">
+    <span>💬 실전 회화 문맥 속 F vs P 청취 훈련 (7문장 집중 훈련)</span>
+  </div>
+
+  <div class="stage">
+    <div class="dialogue-card" id="dialCard">
+      <div id="dialTag" class="tag-pill">coffee [f] vs copy [p]</div>
+      <div id="dialEn" class="sentence-en">I need a cup of hot coffee, not a copy.</div>
+      <div id="dialKr" class="sentence-kr">복사본이 아니라 따뜻한 커피 한 잔이 필요해요.</div>
+      <div id="dialSylTip" class="syl-tip-box">💡 coffee (윗니 100% 바람) vs copy (두 입술 100% 터짐)</div>
+    </div>
+  </div>
+
+  <audio id="dia_01" src="assets/voice/dial_01.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="4.23"></audio>
+  <audio id="dia_02" src="assets/voice/dial_02.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.93" data-duration="3.23"></audio>
+  <audio id="dia_03" src="assets/voice/dial_03.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.36" data-duration="3.47"></audio>
+  <audio id="dia_04" src="assets/voice/dial_04.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.03" data-duration="3.73"></audio>
+  <audio id="dia_05" src="assets/voice/dial_05.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.96" data-duration="3.56"></audio>
+  <audio id="dia_06" src="assets/voice/dial_06.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.72" data-duration="3.68"></audio>
+  <audio id="dia_07" src="assets/voice/dial_07.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.60" data-duration="2.99"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var dialTag = document.getElementById("dialTag");
+    var dialEn = document.getElementById("dialEn");
+    var dialKr = document.getElementById("dialKr");
+    var dialSylTip = document.getElementById("dialSylTip");
+    var dialCard = document.getElementById("dialCard");
+
+    function showDialogue(d) {
+      dialTag.textContent = d.pairBadge;
+      dialEn.innerHTML = d.enHtml;
+      dialKr.textContent = d.kr;
+      dialSylTip.textContent = d.sylTip;
+      gsap.fromTo(dialCard, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: "back.out(1.5)" });
+    }
+
+    function bounceWord(targetId) {
+      var el = document.getElementById(targetId);
+      if (el) {
+        gsap.fromTo(el, { scale: 1.2, y: -4 }, { scale: 1, y: 0, duration: 0.35, ease: "elastic.out(1.2, 0.4)" });
+      }
+    }
+
+  tl.call(function() {
+    showDialogue({"id":"01","en":"I need a cup of hot coffee, not a copy.","enHtml":"I need a cup of hot <span class=\"hl-f\" id=\"dw_coffee\">coffee</span>, not a <span class=\"hl-p\" id=\"dw_copy\">copy</span>.","kr":"복사본이 아니라 따뜻한 커피 한 잔이 필요해요.","pairBadge":"coffee [f] vs copy [p]","sylTip":"💡 coffee (윗니 100% 바람) vs copy (두 입술 100% 터짐)","audio":"dial_01","targets":[{"word":"coffee","id":"dw_coffee"},{"word":"copy","id":"dw_copy"}]});
+  }, null, 0.50);
+  tl.call(function() {
+    bounceWord("dw_coffee");
+  }, null, 2.75);
+  tl.call(function() {
+    bounceWord("dw_copy");
+  }, null, 4.21);
+  tl.call(function() {
+    showDialogue({"id":"02","en":"Please turn on the fan and wash the pan.","enHtml":"Please turn on the <span class=\"hl-f\" id=\"dw_fan\">fan</span> and wash the <span class=\"hl-p\" id=\"dw_pan\">pan</span>.","kr":"선풍기를 켜고 프라이팬을 씻어 주세요.","pairBadge":"fan [f] vs pan [p]","sylTip":"💡 fan (윗니 100% 바람) vs pan (두 입술 100% 터짐)","audio":"dial_02","targets":[{"word":"fan","id":"dw_fan"},{"word":"pan","id":"dw_pan"}]});
+  }, null, 5.93);
+  tl.call(function() {
+    bounceWord("dw_fan");
+  }, null, 7.52);
+  tl.call(function() {
+    bounceWord("dw_pan");
+  }, null, 8.84);
+  tl.call(function() {
+    showDialogue({"id":"03","en":"The fast runner did not stop in the past.","enHtml":"The <span class=\"hl-f\" id=\"dw_fast\">fast</span> runner did not stop in the <span class=\"hl-p\" id=\"dw_past\">past</span>.","kr":"그 빠른 주자는 과거에 멈추지 않았다.","pairBadge":"fast [f] vs past [p]","sylTip":"💡 fast (윗니 100% 바람) vs past (두 입술 100% 터짐)","audio":"dial_03","targets":[{"word":"fast","id":"dw_fast"},{"word":"past","id":"dw_past"}]});
+  }, null, 10.36);
+  tl.call(function() {
+    bounceWord("dw_fast");
+  }, null, 10.81);
+  tl.call(function() {
+    bounceWord("dw_past");
+  }, null, 13.43);
+  tl.call(function() {
+    showDialogue({"id":"04","en":"Do not drink water from the pool, you fool.","enHtml":"Do not drink water from the <span class=\"hl-p\" id=\"dw_pool\">pool</span>, you <span class=\"hl-f\" id=\"dw_fool\">fool</span>.","kr":"수영장 물을 마시지 마, 바보야.","pairBadge":"fool [f] vs pool [p]","sylTip":"💡 fool (윗니 100% 바람) vs pool (두 입술 100% 터짐)","audio":"dial_04","targets":[{"word":"pool","id":"dw_pool"},{"word":"fool","id":"dw_fool"}]});
+  }, null, 15.03);
+  tl.call(function() {
+    bounceWord("dw_pool");
+  }, null, 17.44);
+  tl.call(function() {
+    bounceWord("dw_fool");
+  }, null, 18.26);
+  tl.call(function() {
+    showDialogue({"id":"05","en":"I feel like I want to peel this fresh orange.","enHtml":"I <span class=\"hl-f\" id=\"dw_feel\">feel</span> like I want to <span class=\"hl-p\" id=\"dw_peel\">peel</span> this fresh orange.","kr":"이 신선한 오렌지 껍질을 벗기고 싶은 기분이다.","pairBadge":"feel [f] vs peel [p]","sylTip":"💡 feel (윗니 100% 바람) vs peel (두 입술 100% 터짐)","audio":"dial_05","targets":[{"word":"feel","id":"dw_feel"},{"word":"peel","id":"dw_peel"}]});
+  }, null, 19.96);
+  tl.call(function() {
+    bounceWord("dw_feel");
+  }, null, 20.36);
+  tl.call(function() {
+    bounceWord("dw_peel");
+  }, null, 21.82);
+  tl.call(function() {
+    showDialogue({"id":"06","en":"Keep the office safe and tape the box tight.","enHtml":"Keep the <span class=\"hl-f\" id=\"dw_office\">office</span> <span class=\"hl-f\" id=\"dw_safe\">safe</span> and <span class=\"hl-p\" id=\"dw_tape\">tape</span> the box tight.","kr":"사무실을 안전하게 지키고 상자를 테이프로 꽉 붙이세요.","pairBadge":"office [f] · safe [f] vs tape [p]","sylTip":"💡 office, safe (바람 F) vs tape (입술 터짐 P)","audio":"dial_06","targets":[{"word":"office","id":"dw_office"},{"word":"safe","id":"dw_safe"},{"word":"tape","id":"dw_tape"}]});
+  }, null, 24.72);
+  tl.call(function() {
+    bounceWord("dw_office");
+  }, null, 25.56);
+  tl.call(function() {
+    bounceWord("dw_safe");
+  }, null, 26.12);
+  tl.call(function() {
+    bounceWord("dw_tape");
+  }, null, 26.84);
+  tl.call(function() {
+    showDialogue({"id":"07","en":"She has a real passion for high fashion.","enHtml":"She has a real <span class=\"hl-p\" id=\"dw_passion\">passion</span> for high <span class=\"hl-f\" id=\"dw_fashion\">fashion</span>.","kr":"그녀는 고급 패션에 대한 진정한 열정을 가지고 있다.","pairBadge":"fashion [f] vs passion [p]","sylTip":"💡 fashion (윗니 100% 바람) vs passion (두 입술 100% 터짐)","audio":"dial_07","targets":[{"word":"passion","id":"dw_passion"},{"word":"fashion","id":"dw_fashion"}]});
+  }, null, 29.60);
+  tl.call(function() {
+    bounceWord("dw_passion");
+  }, null, 30.98);
+  tl.call(function() {
+    bounceWord("dw_fashion");
+  }, null, 32.26);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-dialogue"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

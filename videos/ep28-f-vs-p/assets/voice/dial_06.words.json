@@ -1,0 +1,47 @@
+[
+  {
+    "word": "Keep",
+    "from": 0.12,
+    "to": 0.44
+  },
+  {
+    "word": "the",
+    "from": 0.52,
+    "to": 0.76
+  },
+  {
+    "word": "office",
+    "from": 0.84,
+    "to": 1.32
+  },
+  {
+    "word": "safe",
+    "from": 1.4,
+    "to": 1.72
+  },
+  {
+    "word": "and",
+    "from": 1.8,
+    "to": 2.04
+  },
+  {
+    "word": "tape",
+    "from": 2.12,
+    "to": 2.44
+  },
+  {
+    "word": "the",
+    "from": 2.52,
+    "to": 2.76
+  },
+  {
+    "word": "box",
+    "from": 2.84,
+    "to": 3.08
+  },
+  {
+    "word": "tight.",
+    "from": 3.16,
+    "to": 3.64
+  }
+]

@@ -1,0 +1,152 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 4.8cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.8cqh 2.2cqw; font-size: 1.25cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .capture-badge {
+    background: #10B981; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 49%; transform: translate(-50%, -50%);
+    width: 90cqw; display: flex; gap: 2.8cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .summary-col {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 22px; padding: 2.4cqh 1.8cqw; display: flex; flex-direction: column; gap: 1.4cqh;
+  }
+  .col-f { border-color: #EF4444; }
+  .col-p { border-color: #3B82F6; }
+  .col-header {
+    padding: 1.4cqh 1.2cqw; border-radius: 14px; border: 2px solid #111111; text-align: center;
+  }
+  .header-f { background: #FEE2E2; }
+  .header-p { background: #DBEAFE; }
+  .col-title {
+    font-size: 1.6cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .col-sub {
+    font-size: 1.05cqw; font-weight: 800; color: #4B5563; margin-top: 0.3cqh; white-space: nowrap;
+  }
+  .word-list {
+    display: flex; flex-direction: column; gap: 0.8cqh; margin-top: 0.4cqh;
+  }
+  .word-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #FAF7F2; border: 1.5px solid #111111; border-radius: 10px;
+    padding: 0.7cqh 1.2cqw;
+  }
+  .word-name {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.45cqw; white-space: nowrap; color: #111111;
+  }
+  .target-phoneme {
+    display: inline-block;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    padding-bottom: 1px;
+  }
+  .phoneme-f { color: #DC2626; border-color: #DC2626; }
+  .phoneme-p { color: #2563EB; border-color: #2563EB; }
+  .syl-tag {
+    font-size: 1.05cqw; font-weight: 900; padding: 0.2cqh 0.8cqw; border-radius: 6px;
+    border: 1.5px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .tag-f { background: #FEE2E2; color: #991B1B; }
+  .tag-p { background: #DBEAFE; color: #1E40AF; }
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1cqh 2.6cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+<div id="root" data-composition-id="09-summary" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="capture-badge">📱 캡처 추천</span>
+    <span>스마트폰 저장용 1장 요약 치트시트 (F vs P 0.1초 조음 법칙)</span>
+  </div>
+
+  <div class="stage">
+    <!-- Col 1: [f] -->
+    <div class="summary-col col-f">
+      <div class="col-header header-f">
+        <div class="col-title" style="color:#DC2626;">[f] 윗니 100% 바람 소리</div>
+        <div class="col-sub">윗니 끝을 아랫입술 안쪽에 살짝 대고 쉬익!</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-f">f</span>an</span><span class="syl-tag tag-f">[팬] 선풍기</span></div>
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-f">f</span>eel</span><span class="syl-tag tag-f">[필] 느끼다</span></div>
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-f">f</span>ool</span><span class="syl-tag tag-f">[풀] 바보</span></div>
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-f">f</span>ast</span><span class="syl-tag tag-f">[패스트] 빠른</span></div>
+        <div class="word-row"><span class="word-name">co<span class="target-phoneme phoneme-f">f</span> · <span class="target-phoneme phoneme-f">f</span>ee</span><span class="syl-tag tag-f">[커피] 커피</span></div>
+        <div class="word-row"><span class="word-name">o<span class="target-phoneme phoneme-f">f</span> · <span class="target-phoneme phoneme-f">f</span>ice</span><span class="syl-tag tag-f">[오피스] 사무실</span></div>
+        <div class="word-row"><span class="word-name">lea<span class="target-phoneme phoneme-f">f</span></span><span class="syl-tag tag-f">[리프] 나뭇잎</span></div>
+        <div class="word-row"><span class="word-name">sa<span class="target-phoneme phoneme-f">f</span>e</span><span class="syl-tag tag-f">[세이프] 안전한</span></div>
+      </div>
+    </div>
+
+    <!-- Col 2: [p] -->
+    <div class="summary-col col-p">
+      <div class="col-header header-p">
+        <div class="col-title" style="color:#2563EB;">[p] 윗니 0% 두 입술 터짐</div>
+        <div class="col-sub">윗니 접촉 0%! 두 입술만 가볍게 닫았다가 팡!</div>
+      </div>
+      <div class="word-list">
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-p">p</span>an</span><span class="syl-tag tag-p">[팬] 냄비</span></div>
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-p">p</span>eel</span><span class="syl-tag tag-p">[필] 껍질</span></div>
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-p">p</span>ool</span><span class="syl-tag tag-p">[풀] 수영장</span></div>
+        <div class="word-row"><span class="word-name"><span class="target-phoneme phoneme-p">p</span>ast</span><span class="syl-tag tag-p">[패스트] 과거</span></div>
+        <div class="word-row"><span class="word-name">co · <span class="target-phoneme phoneme-p">p</span>y</span><span class="syl-tag tag-p">[카피] 복사</span></div>
+        <div class="word-row"><span class="word-name">o<span class="target-phoneme phoneme-p">p</span> · tion</span><span class="syl-tag tag-p">[옵션] 선택지</span></div>
+        <div class="word-row"><span class="word-name">lea<span class="target-phoneme phoneme-p">p</span></span><span class="syl-tag tag-p">[립] 도약</span></div>
+        <div class="word-row"><span class="word-name">ta<span class="target-phoneme phoneme-p">p</span>e</span><span class="syl-tag tag-p">[테이프] 테이프</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="audioSummary" src="assets/voice/03_f09_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="18.16"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("정말 수고하셨습니다."); }, null, 0.44);
+  tl.call(function() { cap("오늘 훈련한 스물네 쌍의 핵심 소리 규칙 요약표입니다."); }, null, 2.14);
+  tl.call(function() { cap("에프는 윗니 백 퍼센트의 바람이 새는 소리, 피는"); }, null, 6.14);
+  tl.call(function() { cap("윗니 영 퍼센트의 입술이 터지는 소리입니다."); }, null, 10.24);
+  tl.call(function() { cap("지금 화면을 스마트폰으로 캡처해 두시고, 헷갈릴 때마다 꺼내서"); }, null, 13.60);
+  tl.call(function() { cap("소리를 떠올려 보세요."); }, null, 17.17);
+
+    tl.call(function() { cap(""); }, null, 18.16);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

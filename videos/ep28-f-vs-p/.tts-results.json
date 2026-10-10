@@ -1,0 +1,426 @@
+{
+  "01_f01_hook": {
+    "path": "assets/voice/01_f01_hook.wav",
+    "duration_s": 36.2
+  },
+  "02_f02_principle": {
+    "path": "assets/voice/02_f02_principle.wav",
+    "duration_s": 36.44
+  },
+  "03_f09_summary": {
+    "path": "assets/voice/03_f09_summary.wav",
+    "duration_s": 18.16
+  },
+  "m_w01_fan": {
+    "path": "assets/voice/m_w01_fan.wav",
+    "duration_s": 1.03
+  },
+  "m_w02_pan": {
+    "path": "assets/voice/m_w02_pan.wav",
+    "duration_s": 0.68
+  },
+  "m_w03_fat": {
+    "path": "assets/voice/m_w03_fat.wav",
+    "duration_s": 0.69
+  },
+  "m_w04_pat": {
+    "path": "assets/voice/m_w04_pat.wav",
+    "duration_s": 0.64
+  },
+  "m_w05_fig": {
+    "path": "assets/voice/m_w05_fig.wav",
+    "duration_s": 0.72
+  },
+  "m_w06_pig": {
+    "path": "assets/voice/m_w06_pig.wav",
+    "duration_s": 0.65
+  },
+  "m_w07_fin": {
+    "path": "assets/voice/m_w07_fin.wav",
+    "duration_s": 0.72
+  },
+  "m_w08_pin": {
+    "path": "assets/voice/m_w08_pin.wav",
+    "duration_s": 0.62
+  },
+  "m_w09_fit": {
+    "path": "assets/voice/m_w09_fit.wav",
+    "duration_s": 0.54
+  },
+  "m_w10_pit": {
+    "path": "assets/voice/m_w10_pit.wav",
+    "duration_s": 0.58
+  },
+  "m_w11_fog": {
+    "path": "assets/voice/m_w11_fog.wav",
+    "duration_s": 0.81
+  },
+  "m_w12_pog": {
+    "path": "assets/voice/m_w12_pog.wav",
+    "duration_s": 0.73
+  },
+  "m_w13_feel": {
+    "path": "assets/voice/m_w13_feel.wav",
+    "duration_s": 0.64
+  },
+  "m_w14_peel": {
+    "path": "assets/voice/m_w14_peel.wav",
+    "duration_s": 0.62
+  },
+  "m_w15_feet": {
+    "path": "assets/voice/m_w15_feet.wav",
+    "duration_s": 0.58
+  },
+  "m_w16_peat": {
+    "path": "assets/voice/m_w16_peat.wav",
+    "duration_s": 0.57
+  },
+  "m_w17_fool": {
+    "path": "assets/voice/m_w17_fool.wav",
+    "duration_s": 0.69
+  },
+  "m_w18_pool": {
+    "path": "assets/voice/m_w18_pool.wav",
+    "duration_s": 0.62
+  },
+  "m_w19_face": {
+    "path": "assets/voice/m_w19_face.wav",
+    "duration_s": 0.8
+  },
+  "m_w20_pace": {
+    "path": "assets/voice/m_w20_pace.wav",
+    "duration_s": 0.71
+  },
+  "m_w21_fair": {
+    "path": "assets/voice/m_w21_fair.wav",
+    "duration_s": 0.72
+  },
+  "m_w22_pair": {
+    "path": "assets/voice/m_w22_pair.wav",
+    "duration_s": 0.58
+  },
+  "m_w23_fast": {
+    "path": "assets/voice/m_w23_fast.wav",
+    "duration_s": 0.73
+  },
+  "m_w24_past": {
+    "path": "assets/voice/m_w24_past.wav",
+    "duration_s": 0.74
+  },
+  "m_w25_coffee": {
+    "path": "assets/voice/m_w25_coffee.wav",
+    "duration_s": 0.72
+  },
+  "m_w26_copy": {
+    "path": "assets/voice/m_w26_copy.wav",
+    "duration_s": 0.61
+  },
+  "m_w27_office": {
+    "path": "assets/voice/m_w27_office.wav",
+    "duration_s": 0.76
+  },
+  "m_w28_option": {
+    "path": "assets/voice/m_w28_option.wav",
+    "duration_s": 0.7
+  },
+  "m_w29_follow": {
+    "path": "assets/voice/m_w29_follow.wav",
+    "duration_s": 0.67
+  },
+  "m_w30_pillow": {
+    "path": "assets/voice/m_w30_pillow.wav",
+    "duration_s": 0.62
+  },
+  "m_w31_forest": {
+    "path": "assets/voice/m_w31_forest.wav",
+    "duration_s": 0.74
+  },
+  "m_w32_protect": {
+    "path": "assets/voice/m_w32_protect.wav",
+    "duration_s": 0.75
+  },
+  "m_w33_fourteen": {
+    "path": "assets/voice/m_w33_fourteen.wav",
+    "duration_s": 0.84
+  },
+  "m_w34_portion": {
+    "path": "assets/voice/m_w34_portion.wav",
+    "duration_s": 0.65
+  },
+  "m_w35_freedom": {
+    "path": "assets/voice/m_w35_freedom.wav",
+    "duration_s": 0.65
+  },
+  "m_w36_pressure": {
+    "path": "assets/voice/m_w36_pressure.wav",
+    "duration_s": 0.66
+  },
+  "m_w37_leaf": {
+    "path": "assets/voice/m_w37_leaf.wav",
+    "duration_s": 0.63
+  },
+  "m_w38_leap": {
+    "path": "assets/voice/m_w38_leap.wav",
+    "duration_s": 0.63
+  },
+  "m_w39_beef": {
+    "path": "assets/voice/m_w39_beef.wav",
+    "duration_s": 0.6
+  },
+  "m_w40_beep": {
+    "path": "assets/voice/m_w40_beep.wav",
+    "duration_s": 0.51
+  },
+  "m_w41_cuff": {
+    "path": "assets/voice/m_w41_cuff.wav",
+    "duration_s": 0.51
+  },
+  "m_w42_cup": {
+    "path": "assets/voice/m_w42_cup.wav",
+    "duration_s": 0.55
+  },
+  "m_w43_cliff": {
+    "path": "assets/voice/m_w43_cliff.wav",
+    "duration_s": 0.66
+  },
+  "m_w44_clip": {
+    "path": "assets/voice/m_w44_clip.wav",
+    "duration_s": 0.57
+  },
+  "m_w45_chef": {
+    "path": "assets/voice/m_w45_chef.wav",
+    "duration_s": 0.64
+  },
+  "m_w46_step": {
+    "path": "assets/voice/m_w46_step.wav",
+    "duration_s": 0.7
+  },
+  "m_w47_safe": {
+    "path": "assets/voice/m_w47_safe.wav",
+    "duration_s": 0.69
+  },
+  "m_w48_tape": {
+    "path": "assets/voice/m_w48_tape.wav",
+    "duration_s": 0.71
+  },
+  "f_w01_fan": {
+    "path": "assets/voice/f_w01_fan.wav",
+    "duration_s": 0.75
+  },
+  "f_w02_pan": {
+    "path": "assets/voice/f_w02_pan.wav",
+    "duration_s": 0.79
+  },
+  "f_w03_fat": {
+    "path": "assets/voice/f_w03_fat.wav",
+    "duration_s": 0.64
+  },
+  "f_w04_pat": {
+    "path": "assets/voice/f_w04_pat.wav",
+    "duration_s": 0.68
+  },
+  "f_w05_fig": {
+    "path": "assets/voice/f_w05_fig.wav",
+    "duration_s": 0.62
+  },
+  "f_w06_pig": {
+    "path": "assets/voice/f_w06_pig.wav",
+    "duration_s": 0.7
+  },
+  "f_w07_fin": {
+    "path": "assets/voice/f_w07_fin.wav",
+    "duration_s": 0.66
+  },
+  "f_w08_pin": {
+    "path": "assets/voice/f_w08_pin.wav",
+    "duration_s": 0.7
+  },
+  "f_w09_fit": {
+    "path": "assets/voice/f_w09_fit.wav",
+    "duration_s": 0.59
+  },
+  "f_w10_pit": {
+    "path": "assets/voice/f_w10_pit.wav",
+    "duration_s": 0.64
+  },
+  "f_w11_fog": {
+    "path": "assets/voice/f_w11_fog.wav",
+    "duration_s": 0.71
+  },
+  "f_w12_pog": {
+    "path": "assets/voice/f_w12_pog.wav",
+    "duration_s": 0.76
+  },
+  "f_w13_feel": {
+    "path": "assets/voice/f_w13_feel.wav",
+    "duration_s": 0.68
+  },
+  "f_w14_peel": {
+    "path": "assets/voice/f_w14_peel.wav",
+    "duration_s": 0.69
+  },
+  "f_w15_feet": {
+    "path": "assets/voice/f_w15_feet.wav",
+    "duration_s": 0.58
+  },
+  "f_w16_peat": {
+    "path": "assets/voice/f_w16_peat.wav",
+    "duration_s": 0.63
+  },
+  "f_w17_fool": {
+    "path": "assets/voice/f_w17_fool.wav",
+    "duration_s": 0.63
+  },
+  "f_w18_pool": {
+    "path": "assets/voice/f_w18_pool.wav",
+    "duration_s": 0.73
+  },
+  "f_w19_face": {
+    "path": "assets/voice/f_w19_face.wav",
+    "duration_s": 0.69
+  },
+  "f_w20_pace": {
+    "path": "assets/voice/f_w20_pace.wav",
+    "duration_s": 0.79
+  },
+  "f_w21_fair": {
+    "path": "assets/voice/f_w21_fair.wav",
+    "duration_s": 0.69
+  },
+  "f_w22_pair": {
+    "path": "assets/voice/f_w22_pair.wav",
+    "duration_s": 0.77
+  },
+  "f_w23_fast": {
+    "path": "assets/voice/f_w23_fast.wav",
+    "duration_s": 0.78
+  },
+  "f_w24_past": {
+    "path": "assets/voice/f_w24_past.wav",
+    "duration_s": 0.84
+  },
+  "f_w25_coffee": {
+    "path": "assets/voice/f_w25_coffee.wav",
+    "duration_s": 0.77
+  },
+  "f_w26_copy": {
+    "path": "assets/voice/f_w26_copy.wav",
+    "duration_s": 0.72
+  },
+  "f_w27_office": {
+    "path": "assets/voice/f_w27_office.wav",
+    "duration_s": 0.85
+  },
+  "f_w28_option": {
+    "path": "assets/voice/f_w28_option.wav",
+    "duration_s": 0.75
+  },
+  "f_w29_follow": {
+    "path": "assets/voice/f_w29_follow.wav",
+    "duration_s": 0.72
+  },
+  "f_w30_pillow": {
+    "path": "assets/voice/f_w30_pillow.wav",
+    "duration_s": 0.73
+  },
+  "f_w31_forest": {
+    "path": "assets/voice/f_w31_forest.wav",
+    "duration_s": 0.83
+  },
+  "f_w32_protect": {
+    "path": "assets/voice/f_w32_protect.wav",
+    "duration_s": 0.82
+  },
+  "f_w33_fourteen": {
+    "path": "assets/voice/f_w33_fourteen.wav",
+    "duration_s": 0.88
+  },
+  "f_w34_portion": {
+    "path": "assets/voice/f_w34_portion.wav",
+    "duration_s": 0.81
+  },
+  "f_w35_freedom": {
+    "path": "assets/voice/f_w35_freedom.wav",
+    "duration_s": 0.79
+  },
+  "f_w36_pressure": {
+    "path": "assets/voice/f_w36_pressure.wav",
+    "duration_s": 0.77
+  },
+  "f_w37_leaf": {
+    "path": "assets/voice/f_w37_leaf.wav",
+    "duration_s": 0.69
+  },
+  "f_w38_leap": {
+    "path": "assets/voice/f_w38_leap.wav",
+    "duration_s": 0.65
+  },
+  "f_w39_beef": {
+    "path": "assets/voice/f_w39_beef.wav",
+    "duration_s": 0.56
+  },
+  "f_w40_beep": {
+    "path": "assets/voice/f_w40_beep.wav",
+    "duration_s": 0.57
+  },
+  "f_w41_cuff": {
+    "path": "assets/voice/f_w41_cuff.wav",
+    "duration_s": 0.61
+  },
+  "f_w42_cup": {
+    "path": "assets/voice/f_w42_cup.wav",
+    "duration_s": 0.61
+  },
+  "f_w43_cliff": {
+    "path": "assets/voice/f_w43_cliff.wav",
+    "duration_s": 0.55
+  },
+  "f_w44_clip": {
+    "path": "assets/voice/f_w44_clip.wav",
+    "duration_s": 0.63
+  },
+  "f_w45_chef": {
+    "path": "assets/voice/f_w45_chef.wav",
+    "duration_s": 0.69
+  },
+  "f_w46_step": {
+    "path": "assets/voice/f_w46_step.wav",
+    "duration_s": 0.72
+  },
+  "f_w47_safe": {
+    "path": "assets/voice/f_w47_safe.wav",
+    "duration_s": 0.58
+  },
+  "f_w48_tape": {
+    "path": "assets/voice/f_w48_tape.wav",
+    "duration_s": 0.64
+  },
+  "dial_01": {
+    "path": "assets/voice/dial_01.wav",
+    "duration_s": 4.23
+  },
+  "dial_02": {
+    "path": "assets/voice/dial_02.wav",
+    "duration_s": 3.23
+  },
+  "dial_03": {
+    "path": "assets/voice/dial_03.wav",
+    "duration_s": 3.47
+  },
+  "dial_04": {
+    "path": "assets/voice/dial_04.wav",
+    "duration_s": 3.73
+  },
+  "dial_05": {
+    "path": "assets/voice/dial_05.wav",
+    "duration_s": 3.56
+  },
+  "dial_06": {
+    "path": "assets/voice/dial_06.wav",
+    "duration_s": 3.68
+  },
+  "dial_07": {
+    "path": "assets/voice/dial_07.wav",
+    "duration_s": 2.99
+  }
+}

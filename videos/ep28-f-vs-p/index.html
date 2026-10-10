@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>EP28 - F vs P 0.1초 조음 물리법칙</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #F7F4EE; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #F7F4EE; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="415.61" data-width="1920" data-height="1080">
+      <div id="scene-01-hook" class="scene" data-composition-id="01-hook" data-composition-src="compositions/frames/01-hook.html" data-start="0.00" data-duration="37.20" data-track-index="0"></div>
+      <div id="scene-02-principle" class="scene" data-composition-id="02-principle" data-composition-src="compositions/frames/02-principle.html" data-start="37.20" data-duration="37.44" data-track-index="0"></div>
+      <div id="scene-03-drill1" class="scene" data-composition-id="03-drill1" data-composition-src="compositions/frames/03-drill1.html" data-start="74.64" data-duration="47.13" data-track-index="0"></div>
+      <div id="scene-04-drill2" class="scene" data-composition-id="04-drill2" data-composition-src="compositions/frames/04-drill2.html" data-start="121.77" data-duration="46.81" data-track-index="0"></div>
+      <div id="scene-05-drill3" class="scene" data-composition-id="05-drill3" data-composition-src="compositions/frames/05-drill3.html" data-start="168.58" data-duration="48.49" data-track-index="0"></div>
+      <div id="scene-06-drill4" class="scene" data-composition-id="06-drill4" data-composition-src="compositions/frames/06-drill4.html" data-start="217.07" data-duration="44.15" data-track-index="0"></div>
+      <div id="scene-07-dialogue" class="scene" data-composition-id="07-dialogue" data-composition-src="compositions/frames/07-dialogue.html" data-start="261.22" data-duration="34.29" data-track-index="0"></div>
+      <div id="scene-08-quiz" class="scene" data-composition-id="08-quiz" data-composition-src="compositions/frames/08-quiz.html" data-start="295.51" data-duration="36.20" data-track-index="0"></div>
+      <div id="scene-09-summary" class="scene" data-composition-id="09-summary" data-composition-src="compositions/frames/09-summary.html" data-start="331.71" data-duration="19.16" data-track-index="0"></div>
+      <div id="scene-10-encore" class="scene" data-composition-id="10-encore" data-composition-src="compositions/frames/10-encore.html" data-start="350.87" data-duration="64.74" data-track-index="0"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

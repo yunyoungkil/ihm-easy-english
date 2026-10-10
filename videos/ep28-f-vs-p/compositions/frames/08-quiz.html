@@ -1,0 +1,193 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 65cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;
+  }
+  .quiz-card {
+    width: 100%; background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .quiz-counter {
+    font-size: 1.25cqw; font-weight: 900; color: #6B7280; background: #F3F4F6;
+    padding: 0.3cqh 1.3cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .question-badge {
+    background: #FEF3C7; color: #92400E; border: 2px solid #111111;
+    padding: 0.5cqh 1.6cqw; border-radius: 999px; font-size: 1.3cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .blind-box {
+    width: 22cqw; height: 10cqh; background: #111111; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-family: 'Archivo Black', sans-serif; font-size: 3.8cqw;
+    letter-spacing: 0.1em;
+  }
+  .answer-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1.0;
+    white-space: nowrap; display: none; color: #111111;
+  }
+  .target-phoneme {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .phoneme-f { color: #DC2626; border-color: #DC2626; }
+  .phoneme-p { color: #2563EB; border-color: #2563EB; }
+  .answer-meta {
+    display: none; flex-direction: column; align-items: center; gap: 0.8cqh;
+  }
+  .answer-ipa {
+    font-size: 2cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .answer-rule {
+    font-size: 1.35cqw; font-weight: 900; padding: 0.5cqh 1.8cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="08-quiz" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span>🎧 0.1초 직관 반응 퀴즈 (원어민 발음을 듣고 F인지 P인지 맞춰보세요!)</span>
+  </div>
+
+  <div class="stage">
+    <div class="quiz-card" id="quizCard">
+      <div id="quizCounter" class="quiz-counter">퀴즈 1 / 8</div>
+      <div id="quizBadge" class="question-badge">❓ 원어민 발음을 듣고 소리를 구분해 보세요</div>
+      <div id="blindBox" class="blind-box">???</div>
+      <div id="answerWord" class="answer-word"><span class="target-phoneme phoneme-p">p</span>ool</div>
+      <div id="answerMeta" class="answer-meta">
+        <div id="answerIpa" class="answer-ipa">[puːl] · 풀 · 수영장</div>
+        <div id="answerRule" class="answer-rule">[p] 두 입술 터지는 소리 (윗니 0%)</div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="sq_0" src="assets/voice/m_w18_pool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.62"></audio>
+  <audio id="sq_1" src="assets/voice/f_w25_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.82" data-duration="0.77"></audio>
+  <audio id="sq_2" src="assets/voice/m_w38_leap.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.29" data-duration="0.63"></audio>
+  <audio id="sq_3" src="assets/voice/f_w01_fan.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.62" data-duration="0.75"></audio>
+  <audio id="sq_4" src="assets/voice/m_w23_fast.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.07" data-duration="0.73"></audio>
+  <audio id="sq_5" src="assets/voice/f_w26_copy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.50" data-duration="0.72"></audio>
+  <audio id="sq_6" src="assets/voice/m_w17_fool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.92" data-duration="0.69"></audio>
+  <audio id="sq_7" src="assets/voice/f_w37_leaf.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.31" data-duration="0.69"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var quizCounter = document.getElementById("quizCounter");
+    var quizBadge = document.getElementById("quizBadge");
+    var blindBox = document.getElementById("blindBox");
+    var answerWord = document.getElementById("answerWord");
+    var answerMeta = document.getElementById("answerMeta");
+    var answerIpa = document.getElementById("answerIpa");
+    var answerRule = document.getElementById("answerRule");
+    var quizCard = document.getElementById("quizCard");
+
+    function setBlind(idx, total) {
+      quizCounter.textContent = "퀴즈 " + idx + " / " + total;
+      quizBadge.textContent = "❓ 원어민 발음을 듣고 소리를 구분해 보세요";
+      quizBadge.style.background = "#FEF3C7";
+      quizBadge.style.color = "#92400E";
+      blindBox.style.display = "flex";
+      answerWord.style.display = "none";
+      answerMeta.style.display = "none";
+      gsap.fromTo(quizCard, { scale: 0.96 }, { scale: 1, duration: 0.25, ease: "back.out(1.5)" });
+    }
+
+    function revealAnswer(q) {
+      blindBox.style.display = "none";
+      answerWord.style.display = "block";
+      answerMeta.style.display = "flex";
+
+      answerWord.innerHTML = q.w.formatted;
+      answerIpa.textContent = q.w.krSyl + " " + q.w.ipa + " · " + q.w.kr;
+      answerRule.textContent = q.expl;
+
+      var bg = q.isF ? "#FEE2E2" : "#DBEAFE";
+      var textCol = q.isF ? "#991B1B" : "#1E40AF";
+      answerRule.style.background = bg;
+      answerRule.style.color = textCol;
+
+      quizBadge.textContent = "✓ 정답: " + (q.isF ? "[f] 윗니 100%" : "[p] 윗니 0%");
+      quizBadge.style.background = "#D1FAE5";
+      quizBadge.style.color = "#065F46";
+
+      gsap.fromTo(answerWord, { scale: 0.85 }, { scale: 1, duration: 0.35, ease: "back.out(2)" });
+    }
+
+  tl.call(function() {
+    setBlind(1, 8);
+  }, null, 0.50);
+  tl.call(function() {
+    revealAnswer({"id":"q1","w":{"id":"w18","word":"pool","syl":"pool","krSyl":"풀","ipa":"[puːl]","kr":"수영장 / 웅덩이","m":"m_w18_pool","f":"f_w18_pool","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>ool"},"isF":false,"audioKey":"m_w18_pool","expl":"[p] 두 입술 터지는 소리 (윗니 0%)"});
+  }, null, 2.62);
+  tl.call(function() {
+    setBlind(2, 8);
+  }, null, 4.82);
+  tl.call(function() {
+    revealAnswer({"id":"q2","w":{"id":"w25","word":"cof · fee","syl":"cof · fee","krSyl":"커피","ipa":"[ˈkɔːfi]","kr":"커피","m":"m_w25_coffee","f":"f_w25_coffee","formatted":"co<span class=\"target-phoneme phoneme-f\">f</span> · <span class=\"target-phoneme phoneme-f\">f</span>ee"},"isF":true,"audioKey":"f_w25_coffee","expl":"[f] 윗니 바람 새는 소리 (윗니 100%)"});
+  }, null, 7.09);
+  tl.call(function() {
+    setBlind(3, 8);
+  }, null, 9.29);
+  tl.call(function() {
+    revealAnswer({"id":"q3","w":{"id":"w38","word":"leap","syl":"leap","krSyl":"립","ipa":"[liːp]","kr":"도약하다 / 뛰다","m":"m_w38_leap","f":"f_w38_leap","formatted":"lea<span class=\"target-phoneme phoneme-p\">p</span>"},"isF":false,"audioKey":"m_w38_leap","expl":"[p] 입술 닫히는 끝소리 (윗니 0%)"});
+  }, null, 11.42);
+  tl.call(function() {
+    setBlind(4, 8);
+  }, null, 13.62);
+  tl.call(function() {
+    revealAnswer({"id":"q4","w":{"id":"w01","word":"fan","syl":"fan","krSyl":"팬","ipa":"[fæn]","kr":"선풍기 / 부채","m":"m_w01_fan","f":"f_w01_fan","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>an"},"isF":true,"audioKey":"f_w01_fan","expl":"[f] 윗니 바람 새는 소리 (윗니 100%)"});
+  }, null, 15.87);
+  tl.call(function() {
+    setBlind(5, 8);
+  }, null, 18.07);
+  tl.call(function() {
+    revealAnswer({"id":"q5","w":{"id":"w23","word":"fast","syl":"fast","krSyl":"패스트","ipa":"[fæst]","kr":"빠른","m":"m_w23_fast","f":"f_w23_fast","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ast"},"isF":true,"audioKey":"m_w23_fast","expl":"[f] 윗니 바람 새는 소리 (윗니 100%)"});
+  }, null, 20.30);
+  tl.call(function() {
+    setBlind(6, 8);
+  }, null, 22.50);
+  tl.call(function() {
+    revealAnswer({"id":"q6","w":{"id":"w26","word":"co · py","syl":"co · py","krSyl":"카피","ipa":"[ˈkɑːpi]","kr":"복사","m":"m_w26_copy","f":"f_w26_copy","formatted":"co · <span class=\"target-phoneme phoneme-p\">p</span>y"},"isF":false,"audioKey":"f_w26_copy","expl":"[p] 두 입술 터지는 소리 (윗니 0%)"});
+  }, null, 24.72);
+  tl.call(function() {
+    setBlind(7, 8);
+  }, null, 26.92);
+  tl.call(function() {
+    revealAnswer({"id":"q7","w":{"id":"w17","word":"fool","syl":"fool","krSyl":"풀","ipa":"[fuːl]","kr":"바보 / 속이다","m":"m_w17_fool","f":"f_w17_fool","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ool"},"isF":true,"audioKey":"m_w17_fool","expl":"[f] 윗니 바람 새는 소리 (윗니 100%)"});
+  }, null, 29.11);
+  tl.call(function() {
+    setBlind(8, 8);
+  }, null, 31.31);
+  tl.call(function() {
+    revealAnswer({"id":"q8","w":{"id":"w37","word":"leaf","syl":"leaf","krSyl":"리프","ipa":"[liːf]","kr":"나뭇잎","m":"m_w37_leaf","f":"f_w37_leaf","formatted":"lea<span class=\"target-phoneme phoneme-f\">f</span>"},"isF":true,"audioKey":"f_w37_leaf","expl":"[f] 바람 새며 끝나는 소리 (윗니 100%)"});
+  }, null, 33.50);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-quiz"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

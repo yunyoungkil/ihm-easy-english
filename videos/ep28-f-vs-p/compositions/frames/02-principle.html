@@ -1,0 +1,161 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.18; z-index: 1; filter: saturate(1.1);
+    transform: scale(1.05); transform-origin: center center;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tip-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .rule-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 4cqh 2.6cqw; display: flex; flex-direction: column; gap: 2cqh;
+  }
+  .rule-card.card-f { border-color: #EF4444; background: #FFFDFD; box-shadow: 8px 8px 0px #EF4444; }
+  .rule-card.card-p { border-color: #3B82F6; background: #FDFEFF; box-shadow: 8px 8px 0px #3B82F6; }
+  .rule-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .rule-title {
+    font-size: 1.7cqw; font-weight: 900; white-space: nowrap;
+  }
+  .rule-badge {
+    font-size: 1.1cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .badge-f { background: #FEE2E2; color: #DC2626; }
+  .badge-p { background: #DBEAFE; color: #2563EB; }
+  .rule-desc {
+    font-size: 1.35cqw; font-weight: 700; color: #374151; line-height: 1.5;
+  }
+  .rule-formula {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 14px;
+    padding: 1.5cqh 1.6cqw; display: flex; flex-direction: column; gap: 0.6cqh;
+  }
+  .formula-label {
+    font-size: 1.1cqw; font-weight: 900; color: #6B7280; white-space: nowrap;
+  }
+  .formula-content {
+    font-size: 1.4cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .example-pill {
+    background: #FFFFFF; border: 2px solid #111111; border-radius: 10px;
+    padding: 0.5cqh 1.2cqw; font-size: 1.2cqw; font-weight: 900; display: inline-block;
+    white-space: nowrap;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <img class="bg-img" src="assets/images/f02_articulation_f_vs_p.jpg" alt="" />
+
+  <div class="eyebrow-pill">
+    <span class="tip-badge">핵심 물리법칙</span>
+    <span>입술을 꽉 깨물면 틀립니다! 윗니 접촉 여부가 소리를 결정합니다</span>
+  </div>
+
+  <div class="stage">
+    <!-- Rule 1: [f] sound -->
+    <div class="rule-card card-f" id="cardF">
+      <div class="rule-header">
+        <span class="rule-title" style="color:#DC2626;">① [f] 바람 새는 소리</span>
+        <span class="rule-badge badge-f">윗니 접촉 100%</span>
+      </div>
+      <div class="rule-desc">
+        윗니 끝을 아랫입술 안쪽 살에 살짝 대고, 그 틈으로 바람을 <strong>'쉬익'</strong> 내보내는 소리입니다.
+      </div>
+      <div class="rule-formula">
+        <span class="formula-label">조음 원리</span>
+        <span class="formula-content">윗니 100% 접촉 ➔ 마찰 바람 소리</span>
+      </div>
+      <div style="margin-top:auto;">
+        <span class="example-pill">fan [팬] · coffee [커피] · leaf [리프]</span>
+      </div>
+    </div>
+
+    <!-- Rule 2: [p] sound -->
+    <div class="rule-card card-p" id="cardP">
+      <div class="rule-header">
+        <span class="rule-title" style="color:#2563EB;">② [p] 입술 터지는 소리</span>
+        <span class="rule-badge badge-p">윗니 접촉 0%</span>
+      </div>
+      <div class="rule-desc">
+        윗니가 전혀 닿지 않습니다! 위아래 두 입술만 가볍게 닫았다가 바람을 <strong>'팡'</strong> 터뜨립니다.
+      </div>
+      <div class="rule-formula">
+        <span class="formula-label">조음 원리</span>
+        <span class="formula-content">윗니 0% (두 입술 100%) ➔ 파열 폭발음</span>
+      </div>
+      <div style="margin-top:auto;">
+        <span class="example-pill">pan [팬] · copy [카피] · leap [립]</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption-pill" id="capPill"></div>
+
+  <audio id="audioPrinciple" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="36.44"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("혹시 에프 발음할 때 아랫입술을 꽉 깨물어야 한다고"); }, null, 0.35);
+  tl.call(function() { cap("배우셨나요?"); }, null, 4.29);
+  tl.call(function() { cap("입술을 깨물면 오히려 소리가 막혀서 틀립니다."); }, null, 5.29);
+  tl.call(function() { cap("에프는 윗니 끝을 아랫입술 안쪽 살에 살짝 대고"); }, null, 8.55);
+  tl.call(function() { cap("바람을 쉬익 내보내는 소리입니다."); }, null, 12.27);
+  tl.call(function() { cap("윗니가 닿는 비율 백 퍼센트입니다."); }, null, 14.95);
+  tl.call(function() { cap("반대로 피는 윗니가 전혀 닿지 않습니다."); }, null, 17.64);
+  tl.call(function() { cap("윗니 접촉 영 퍼센트입니다."); }, null, 20.68);
+  tl.call(function() { cap("위아래 두 입술만 가볍게 닫았다가 바람을 팡 터뜨리는"); }, null, 22.82);
+  tl.call(function() { cap("소리입니다."); }, null, 26.57);
+  tl.call(function() { cap("윗니 백 퍼센트의 에프, 윗니 영 퍼센트의 피."); }, null, 27.34);
+  tl.call(function() { cap("이 단순한 규칙 하나만 기억하시고, 이제 스물네 쌍의"); }, null, 30.51);
+  tl.call(function() { cap("단어로 귀 훈련을 시작하겠습니다."); }, null, 34.31);
+
+    tl.call(function() { cap(""); }, null, 36.44);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

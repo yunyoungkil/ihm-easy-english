@@ -1,0 +1,359 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tip-badge {
+    background: #DBEAFE; color: #1E40AF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2cqh; z-index: 5;
+  }
+  .pair-counter-bar {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+  }
+  .counter-badge {
+    font-size: 1.25cqw; font-weight: 900; color: #4B5563; background: #FFFFFF;
+    padding: 0.4cqh 1.5cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tip-box {
+    background: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.4cqh 1.8cqw; font-size: 1.2cqw; font-weight: 900; color: #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .cards-wrapper {
+    display: flex; gap: 3.2cqw; width: 100%; align-items: stretch;
+  }
+  .pair-card {
+    flex: 1; background: #FFFFFF; border: 4px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 26px; padding: 3.6cqh 2.4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6cqh;
+  }
+  .card-f { border-color: #EF4444; }
+  .card-p { border-color: #3B82F6; }
+  .card-f.active {
+    background: #FFF5F5; box-shadow: 10px 10px 0px #EF4444;
+  }
+  .card-p.active {
+    background: #F0F7FF; box-shadow: 10px 10px 0px #3B82F6;
+  }
+  .card-label {
+    font-size: 1.15cqw; font-weight: 900; padding: 0.4cqh 1.3cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .label-f { background: #FEE2E2; color: #DC2626; }
+  .label-p { background: #DBEAFE; color: #2563EB; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 5.2cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap; color: #111111;
+  }
+  .target-phoneme {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .phoneme-f { color: #DC2626; border-color: #DC2626; }
+  .phoneme-p { color: #2563EB; border-color: #2563EB; }
+  .ipa-text {
+    font-size: 1.7cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .meaning-text {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  /* Indicator Dots only - 3 Repetitions */
+  .dots-wrapper {
+    display: flex; gap: 1cqw; justify-content: center; align-items: center; margin-top: 0.5cqh;
+  }
+  .dot {
+    width: 1.4cqw; height: 1.4cqw; border-radius: 50%;
+    border: 2.5px solid #111111; background: #E5E7EB;
+  }
+  .dot.active {
+    background: #10B981; transform: scale(1.35); box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="06-drill4" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">Group 4 · 단어 끝소리 6쌍</span>
+    <span>받침 'ㅂ' 왜곡 타파! (바람 새는 leaf vs 입술 닫히는 leap)</span>
+  </div>
+
+  <div class="stage">
+    <div class="pair-counter-bar">
+      <div id="counterBadge" class="counter-badge">1쌍 / 6쌍</div>
+      <div id="tipBox" class="tip-box">조음 팁 안내</div>
+    </div>
+
+    <div class="cards-wrapper">
+      <!-- Left Card: F Word -->
+      <div class="pair-card card-f" id="cardF">
+        <div class="card-label label-f">[f] 윗니 100% 바람</div>
+        <div id="wordF" class="word-text"><span class="target-phoneme phoneme-f">f</span>an</div>
+        <div id="ipaF" class="ipa-text">[fæn] · 팬</div>
+        <div id="meaningF" class="meaning-text">선풍기 / 부채</div>
+      </div>
+
+      <!-- Right Card: P Word -->
+      <div class="pair-card card-p" id="cardP">
+        <div class="card-label label-p">[p] 윗니 0% 두 입술 터짐</div>
+        <div id="wordP" class="word-text"><span class="target-phoneme phoneme-p">p</span>an</div>
+        <div id="ipaP" class="ipa-text">[pæn] · 팬</div>
+        <div id="meaningP" class="meaning-text">냄비 / 프라이팬</div>
+      </div>
+    </div>
+
+    <div class="dots-wrapper">
+      <div class="dot" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+    </div>
+  </div>
+
+  <audio id="a_p19_f0" src="assets/voice/m_w37_leaf.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.63"></audio>
+  <audio id="a_p19_p0" src="assets/voice/m_w38_leap.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.48" data-duration="0.63"></audio>
+  <audio id="a_p19_f1" src="assets/voice/f_w37_leaf.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="2.76" data-duration="0.69"></audio>
+  <audio id="a_p19_p1" src="assets/voice/f_w38_leap.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.80" data-duration="0.65"></audio>
+  <audio id="a_p19_f2" src="assets/voice/m_w37_leaf.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.10" data-duration="0.63"></audio>
+  <audio id="a_p19_p2" src="assets/voice/f_w38_leap.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="6.08" data-duration="0.65"></audio>
+  <audio id="a_p20_f0" src="assets/voice/m_w39_beef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.83" data-duration="0.60"></audio>
+  <audio id="a_p20_p0" src="assets/voice/m_w40_beep.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.78" data-duration="0.51"></audio>
+  <audio id="a_p20_f1" src="assets/voice/f_w39_beef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.94" data-duration="0.56"></audio>
+  <audio id="a_p20_p1" src="assets/voice/f_w40_beep.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.85" data-duration="0.57"></audio>
+  <audio id="a_p20_f2" src="assets/voice/m_w39_beef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.07" data-duration="0.60"></audio>
+  <audio id="a_p20_p2" src="assets/voice/f_w40_beep.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.02" data-duration="0.57"></audio>
+  <audio id="a_p21_f0" src="assets/voice/m_w41_cuff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.69" data-duration="0.51"></audio>
+  <audio id="a_p21_p0" src="assets/voice/m_w42_cup.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.55" data-duration="0.55"></audio>
+  <audio id="a_p21_f1" src="assets/voice/f_w41_cuff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.75" data-duration="0.61"></audio>
+  <audio id="a_p21_p1" src="assets/voice/f_w42_cup.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.71" data-duration="0.61"></audio>
+  <audio id="a_p21_f2" src="assets/voice/m_w41_cuff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.97" data-duration="0.51"></audio>
+  <audio id="a_p21_p2" src="assets/voice/f_w42_cup.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.83" data-duration="0.61"></audio>
+  <audio id="a_p22_f0" src="assets/voice/m_w43_cliff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.54" data-duration="0.66"></audio>
+  <audio id="a_p22_p0" src="assets/voice/m_w44_clip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="22.55" data-duration="0.57"></audio>
+  <audio id="a_p22_f1" src="assets/voice/f_w43_cliff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.77" data-duration="0.55"></audio>
+  <audio id="a_p22_p1" src="assets/voice/f_w44_clip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.67" data-duration="0.63"></audio>
+  <audio id="a_p22_f2" src="assets/voice/m_w43_cliff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.95" data-duration="0.66"></audio>
+  <audio id="a_p22_p2" src="assets/voice/f_w44_clip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.96" data-duration="0.63"></audio>
+  <audio id="a_p23_f0" src="assets/voice/m_w45_chef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.69" data-duration="0.64"></audio>
+  <audio id="a_p23_p0" src="assets/voice/m_w46_step.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.68" data-duration="0.70"></audio>
+  <audio id="a_p23_f1" src="assets/voice/f_w45_chef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.03" data-duration="0.69"></audio>
+  <audio id="a_p23_p1" src="assets/voice/f_w46_step.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.07" data-duration="0.72"></audio>
+  <audio id="a_p23_f2" src="assets/voice/m_w45_chef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.44" data-duration="0.64"></audio>
+  <audio id="a_p23_p2" src="assets/voice/f_w46_step.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.43" data-duration="0.72"></audio>
+  <audio id="a_p24_f0" src="assets/voice/m_w47_safe.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.25" data-duration="0.69"></audio>
+  <audio id="a_p24_p0" src="assets/voice/m_w48_tape.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.29" data-duration="0.71"></audio>
+  <audio id="a_p24_f1" src="assets/voice/f_w47_safe.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.65" data-duration="0.58"></audio>
+  <audio id="a_p24_p1" src="assets/voice/f_w48_tape.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.58" data-duration="0.64"></audio>
+  <audio id="a_p24_f2" src="assets/voice/m_w47_safe.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.87" data-duration="0.69"></audio>
+  <audio id="a_p24_p2" src="assets/voice/f_w48_tape.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.91" data-duration="0.64"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var counterBadge = document.getElementById("counterBadge");
+    var tipBox = document.getElementById("tipBox");
+    var cardF = document.getElementById("cardF");
+    var cardP = document.getElementById("cardP");
+    var wordF = document.getElementById("wordF");
+    var ipaF = document.getElementById("ipaF");
+    var meaningF = document.getElementById("meaningF");
+    var wordP = document.getElementById("wordP");
+    var ipaP = document.getElementById("ipaP");
+    var meaningP = document.getElementById("meaningP");
+    var dots = [
+      document.getElementById("dot1"),
+      document.getElementById("dot2"),
+      document.getElementById("dot3")
+    ];
+
+    function setPair(pair, idx, total) {
+      counterBadge.textContent = "최소대립쌍 " + idx + " / " + total;
+      tipBox.textContent = "💡 " + pair.tip;
+
+      wordF.innerHTML = pair.f.formatted;
+      ipaF.textContent = pair.f.krSyl + " " + pair.f.ipa;
+      meaningF.textContent = pair.f.kr;
+
+      wordP.innerHTML = pair.p.formatted;
+      ipaP.textContent = pair.p.krSyl + " " + pair.p.ipa;
+      meaningP.textContent = pair.p.kr;
+
+      cardF.classList.remove("active");
+      cardP.classList.remove("active");
+      dots.forEach(function(d) { d.className = "dot"; });
+
+      gsap.fromTo([cardF, cardP], { scale: 0.96 }, { scale: 1, duration: 0.25, stagger: 0.05, ease: "back.out(1.5)" });
+    }
+
+    function highlightSide(side, dotIdx) {
+      if (side === "f") {
+        cardF.classList.add("active");
+        cardP.classList.remove("active");
+        gsap.fromTo(wordF, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: "power1.out" });
+      } else {
+        cardP.classList.add("active");
+        cardF.classList.remove("active");
+        gsap.fromTo(wordP, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: "power1.out" });
+      }
+
+      dots.forEach(function(d, i) {
+        if (i < dotIdx) {
+          d.className = "dot active";
+        } else {
+          d.className = "dot";
+        }
+      });
+    }
+
+  tl.call(function() {
+    setPair({"id":"p19","group":"g4","f":{"id":"w37","word":"leaf","syl":"leaf","krSyl":"리프","ipa":"[liːf]","kr":"나뭇잎","m":"m_w37_leaf","f":"f_w37_leaf","formatted":"lea<span class=\"target-phoneme phoneme-f\">f</span>"},"p":{"id":"w38","word":"leap","syl":"leap","krSyl":"립","ipa":"[liːp]","kr":"도약하다 / 뛰다","m":"m_w38_leap","f":"f_w38_leap","formatted":"lea<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 leaf vs 입술 닫히는 leap"}, 1, 6);
+  }, null, 0.50);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 0.50);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 1.48);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 2.76);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 3.80);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 5.10);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 6.08);
+  tl.call(function() {
+    setPair({"id":"p20","group":"g4","f":{"id":"w39","word":"beef","syl":"beef","krSyl":"비프","ipa":"[biːf]","kr":"소고기","m":"m_w39_beef","f":"f_w39_beef","formatted":"bee<span class=\"target-phoneme phoneme-f\">f</span>"},"p":{"id":"w40","word":"beep","syl":"beep","krSyl":"빕","ipa":"[biːp]","kr":"삐 소리","m":"m_w40_beep","f":"f_w40_beep","formatted":"bee<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 beef vs 입술 닫히는 beep"}, 2, 6);
+  }, null, 7.83);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 7.83);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 8.78);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 9.94);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 10.85);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 12.07);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 13.02);
+  tl.call(function() {
+    setPair({"id":"p21","group":"g4","f":{"id":"w41","word":"cuff","syl":"cuff","krSyl":"커프","ipa":"[kʌf]","kr":"소매 끝동","m":"m_w41_cuff","f":"f_w41_cuff","formatted":"cu<span class=\"target-phoneme phoneme-f\">ff</span>"},"p":{"id":"w42","word":"cup","syl":"cup","krSyl":"컵","ipa":"[kʌp]","kr":"컵","m":"m_w42_cup","f":"f_w42_cup","formatted":"cu<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 cuff vs 입술 닫히는 cup"}, 3, 6);
+  }, null, 14.69);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 14.69);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 15.55);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 16.75);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 17.71);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 18.97);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 19.83);
+  tl.call(function() {
+    setPair({"id":"p22","group":"g4","f":{"id":"w43","word":"cliff","syl":"cliff","krSyl":"클리프","ipa":"[klɪf]","kr":"절벽","m":"m_w43_cliff","f":"f_w43_cliff","formatted":"cli<span class=\"target-phoneme phoneme-f\">ff</span>"},"p":{"id":"w44","word":"clip","syl":"clip","krSyl":"클립","ipa":"[klɪp]","kr":"클립 / 고정핀","m":"m_w44_clip","f":"f_w44_clip","formatted":"cli<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 cliff vs 입술 닫히는 clip"}, 4, 6);
+  }, null, 21.54);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 21.54);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 22.55);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 23.77);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 24.67);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 25.95);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 26.96);
+  tl.call(function() {
+    setPair({"id":"p23","group":"g4","f":{"id":"w45","word":"chef","syl":"chef","krSyl":"셰프","ipa":"[ʃɛf]","kr":"요리사","m":"m_w45_chef","f":"f_w45_chef","formatted":"che<span class=\"target-phoneme phoneme-f\">f</span>"},"p":{"id":"w46","word":"step","syl":"step","krSyl":"스텝","ipa":"[stɛp]","kr":"걸음 / 계단","m":"m_w46_step","f":"f_w46_step","formatted":"ste<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 chef vs 입술 닫히는 step"}, 5, 6);
+  }, null, 28.69);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 28.69);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 29.68);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 31.03);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 32.07);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 33.44);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 34.43);
+  tl.call(function() {
+    setPair({"id":"p24","group":"g4","f":{"id":"w47","word":"safe","syl":"safe","krSyl":"세이프","ipa":"[seɪf]","kr":"안전한 / 금고","m":"m_w47_safe","f":"f_w47_safe","formatted":"sa<span class=\"target-phoneme phoneme-f\">f</span>e"},"p":{"id":"w48","word":"tape","syl":"tape","krSyl":"테이프","ipa":"[teɪp]","kr":"테이프","m":"m_w48_tape","f":"f_w48_tape","formatted":"ta<span class=\"target-phoneme phoneme-p\">p</span>e"},"tip":"바람 새는 끝소리 safe vs 입술 닫히는 tape"}, 6, 6);
+  }, null, 36.25);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 36.25);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 37.29);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 38.65);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 39.58);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 40.87);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 41.91);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-drill4"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

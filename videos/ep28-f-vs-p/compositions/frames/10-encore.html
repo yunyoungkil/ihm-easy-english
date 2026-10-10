@@ -1,0 +1,442 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 84cqw; display: flex; flex-direction: column; align-items: center; gap: 2cqh; z-index: 5;
+  }
+  .encore-counter {
+    font-size: 1.3cqw; font-weight: 900; color: #4B5563; background: #FFFFFF;
+    padding: 0.4cqh 1.6cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .cards-wrapper {
+    display: flex; gap: 3.2cqw; width: 100%; align-items: stretch;
+  }
+  .encore-card {
+    flex: 1; background: #FFFFFF; border: 4px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 26px; padding: 4.5cqh 2.5cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .card-f { border-color: #EF4444; }
+  .card-p { border-color: #3B82F6; }
+  .card-f.active {
+    background: #FFF5F5; box-shadow: 10px 10px 0px #EF4444;
+  }
+  .card-p.active {
+    background: #F0F7FF; box-shadow: 10px 10px 0px #3B82F6;
+  }
+  .encore-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap; color: #111111;
+  }
+  .target-phoneme {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .phoneme-f { color: #DC2626; border-color: #DC2626; }
+  .phoneme-p { color: #2563EB; border-color: #2563EB; }
+  .encore-ipa {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .encore-kr {
+    font-size: 2.5cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .end-overlay {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    background: #F7F4EE; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3.5cqh;
+    opacity: 0; z-index: 20; pointer-events: none;
+  }
+  .end-title {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; color: #111111; text-align: center;
+  }
+  .end-sub {
+    font-size: 1.8cqw; font-weight: 800; color: #4B5563; text-align: center;
+  }
+  .end-boxes {
+    display: flex; gap: 3cqw; margin-top: 2cqh;
+  }
+  .end-box {
+    width: 32cqw; height: 30cqh; background: #FFFFFF; border: 4px solid #111111;
+    box-shadow: 6px 6px 0px #111111; border-radius: 20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2cqh;
+    text-align: center; padding: 2cqh 2cqw;
+  }
+  .end-box-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.4cqh 1.2cqw; font-size: 1.1cqw; font-weight: 900;
+  }
+  .end-box-title {
+    font-size: 1.5cqw; font-weight: 900; color: #111111;
+  }
+  audio { display: none; }
+</style>
+<div id="root" data-composition-id="10-encore" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span>🎧 24쌍 무한 앵콜 총복습 (오직 귀로만 듣고 0.1초 만에 구별해 보세요!)</span>
+  </div>
+
+  <div class="stage" id="encoreStage">
+    <div id="encoreCounter" class="encore-counter">앵콜 1 / 24</div>
+
+    <div class="cards-wrapper">
+      <div class="encore-card card-f" id="encF">
+        <div id="encWordF" class="encore-word"><span class="target-phoneme phoneme-f">f</span>an</div>
+        <div id="encIpaF" class="encore-ipa">팬 [fæn]</div>
+        <div id="encKrF" class="encore-kr">선풍기 / 부채</div>
+      </div>
+
+      <div class="encore-card card-p" id="encP">
+        <div id="encWordP" class="encore-word"><span class="target-phoneme phoneme-p">p</span>an</div>
+        <div id="encIpaP" class="encore-ipa">팬 [pæn]</div>
+        <div id="encKrP" class="encore-kr">냄비 / 프라이팬</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Screen Elements Overlay (10s) -->
+  <div class="end-overlay" id="endOverlay">
+    <div class="end-title">매일 10분, 귀가 뚫리는 쉬운 영어</div>
+    <div class="end-sub">구독과 좋아요를 누르시면 다음 발음 훈련 영상을 놓치지 않습니다!</div>
+    <div class="end-boxes">
+      <div class="end-box">
+        <div class="end-box-badge">추천 영상</div>
+        <div class="end-box-title">EP27: 단어 끝 -S · -ES 3가지 물리법칙 [s] vs [z] vs [ɪz]</div>
+      </div>
+      <div class="end-box">
+        <div class="end-box-badge" style="background:#2563EB;">구독하기</div>
+        <div class="end-box-title">이해하면 쉬운영어 채널 구독하고 실력 완성하기</div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="en_f_0" src="assets/voice/m_w01_fan.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="1.03"></audio>
+  <audio id="en_p_0" src="assets/voice/m_w02_pan.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.83" data-duration="0.68"></audio>
+  <audio id="en_f_1" src="assets/voice/f_w03_fat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.11" data-duration="0.64"></audio>
+  <audio id="en_p_1" src="assets/voice/f_w04_pat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.05" data-duration="0.68"></audio>
+  <audio id="en_f_2" src="assets/voice/m_w05_fig.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.33" data-duration="0.72"></audio>
+  <audio id="en_p_2" src="assets/voice/m_w06_pig.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="6.35" data-duration="0.65"></audio>
+  <audio id="en_f_3" src="assets/voice/f_w07_fin.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.60" data-duration="0.66"></audio>
+  <audio id="en_p_3" src="assets/voice/f_w08_pin.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.56" data-duration="0.70"></audio>
+  <audio id="en_f_4" src="assets/voice/m_w09_fit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.86" data-duration="0.54"></audio>
+  <audio id="en_p_4" src="assets/voice/m_w10_pit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.70" data-duration="0.58"></audio>
+  <audio id="en_f_5" src="assets/voice/f_w11_fog.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.88" data-duration="0.71"></audio>
+  <audio id="en_p_5" src="assets/voice/f_w12_pog.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.89" data-duration="0.76"></audio>
+  <audio id="en_f_6" src="assets/voice/m_w13_feel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.25" data-duration="0.64"></audio>
+  <audio id="en_p_6" src="assets/voice/m_w14_peel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.19" data-duration="0.62"></audio>
+  <audio id="en_f_7" src="assets/voice/f_w15_feet.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.41" data-duration="0.58"></audio>
+  <audio id="en_p_7" src="assets/voice/f_w16_peat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.29" data-duration="0.63"></audio>
+  <audio id="en_f_8" src="assets/voice/m_w17_fool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.52" data-duration="0.69"></audio>
+  <audio id="en_p_8" src="assets/voice/m_w18_pool.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.51" data-duration="0.62"></audio>
+  <audio id="en_f_9" src="assets/voice/f_w19_face.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.73" data-duration="0.69"></audio>
+  <audio id="en_p_9" src="assets/voice/f_w20_pace.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.72" data-duration="0.79"></audio>
+  <audio id="en_f_10" src="assets/voice/m_w21_fair.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.11" data-duration="0.72"></audio>
+  <audio id="en_p_10" src="assets/voice/m_w22_pair.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.13" data-duration="0.58"></audio>
+  <audio id="en_f_11" src="assets/voice/f_w23_fast.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.31" data-duration="0.78"></audio>
+  <audio id="en_p_11" src="assets/voice/f_w24_past.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.39" data-duration="0.84"></audio>
+  <audio id="en_f_12" src="assets/voice/m_w25_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.83" data-duration="0.72"></audio>
+  <audio id="en_p_12" src="assets/voice/m_w26_copy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.85" data-duration="0.61"></audio>
+  <audio id="en_f_13" src="assets/voice/f_w27_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.06" data-duration="0.85"></audio>
+  <audio id="en_p_13" src="assets/voice/f_w28_option.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.21" data-duration="0.75"></audio>
+  <audio id="en_f_14" src="assets/voice/m_w29_follow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.56" data-duration="0.67"></audio>
+  <audio id="en_p_14" src="assets/voice/m_w30_pillow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.53" data-duration="0.62"></audio>
+  <audio id="en_f_15" src="assets/voice/f_w31_forest.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.75" data-duration="0.83"></audio>
+  <audio id="en_p_15" src="assets/voice/f_w32_protect.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.88" data-duration="0.82"></audio>
+  <audio id="en_f_16" src="assets/voice/m_w33_fourteen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.30" data-duration="0.84"></audio>
+  <audio id="en_p_16" src="assets/voice/m_w34_portion.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.44" data-duration="0.65"></audio>
+  <audio id="en_f_17" src="assets/voice/f_w35_freedom.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="39.69" data-duration="0.79"></audio>
+  <audio id="en_p_17" src="assets/voice/f_w36_pressure.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.78" data-duration="0.77"></audio>
+  <audio id="en_f_18" src="assets/voice/m_w37_leaf.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.15" data-duration="0.63"></audio>
+  <audio id="en_p_18" src="assets/voice/m_w38_leap.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.08" data-duration="0.63"></audio>
+  <audio id="en_f_19" src="assets/voice/f_w39_beef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="44.31" data-duration="0.56"></audio>
+  <audio id="en_p_19" src="assets/voice/f_w40_beep.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.17" data-duration="0.57"></audio>
+  <audio id="en_f_20" src="assets/voice/m_w41_cuff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.34" data-duration="0.51"></audio>
+  <audio id="en_p_20" src="assets/voice/m_w42_cup.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.15" data-duration="0.55"></audio>
+  <audio id="en_f_21" src="assets/voice/f_w43_cliff.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.30" data-duration="0.55"></audio>
+  <audio id="en_p_21" src="assets/voice/f_w44_clip.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.15" data-duration="0.63"></audio>
+  <audio id="en_f_22" src="assets/voice/m_w45_chef.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.38" data-duration="0.64"></audio>
+  <audio id="en_p_22" src="assets/voice/m_w46_step.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="51.32" data-duration="0.70"></audio>
+  <audio id="en_f_23" src="assets/voice/f_w47_safe.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="52.62" data-duration="0.58"></audio>
+  <audio id="en_p_23" src="assets/voice/f_w48_tape.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="53.50" data-duration="0.64"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var encoreCounter = document.getElementById("encoreCounter");
+    var encF = document.getElementById("encF");
+    var encP = document.getElementById("encP");
+    var encWordF = document.getElementById("encWordF");
+    var encIpaF = document.getElementById("encIpaF");
+    var encKrF = document.getElementById("encKrF");
+    var encWordP = document.getElementById("encWordP");
+    var encIpaP = document.getElementById("encIpaP");
+    var encKrP = document.getElementById("encKrP");
+
+    function showEncorePair(pair, idx, total) {
+      encoreCounter.textContent = "앵콜 " + idx + " / " + total;
+      encWordF.innerHTML = pair.f.formatted;
+      encIpaF.textContent = pair.f.krSyl + " " + pair.f.ipa;
+      encKrF.textContent = pair.f.kr;
+
+      encWordP.innerHTML = pair.p.formatted;
+      encIpaP.textContent = pair.p.krSyl + " " + pair.p.ipa;
+      encKrP.textContent = pair.p.kr;
+
+      encF.classList.remove("active");
+      encP.classList.remove("active");
+      gsap.fromTo([encF, encP], { scale: 0.96 }, { scale: 1, duration: 0.2, stagger: 0.05, ease: "back.out(1.5)" });
+    }
+
+    function highlightEncore(side) {
+      if (side === "f") {
+        encF.classList.add("active");
+        encP.classList.remove("active");
+        gsap.fromTo(encWordF, { scale: 1.08 }, { scale: 1, duration: 0.18, ease: "power1.out" });
+      } else {
+        encP.classList.add("active");
+        encF.classList.remove("active");
+        gsap.fromTo(encWordP, { scale: 1.08 }, { scale: 1, duration: 0.18, ease: "power1.out" });
+      }
+    }
+
+  tl.call(function() {
+    showEncorePair({"id":"p01","group":"g1","f":{"id":"w01","word":"fan","syl":"fan","krSyl":"팬","ipa":"[fæn]","kr":"선풍기 / 부채","m":"m_w01_fan","f":"f_w01_fan","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>an"},"p":{"id":"w02","word":"pan","syl":"pan","krSyl":"팬","ipa":"[pæn]","kr":"냄비 / 프라이팬","m":"m_w02_pan","f":"f_w02_pan","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>an"},"tip":"윗니 바람 fan vs 두 입술 터짐 pan"}, 1, 24);
+  }, null, 0.50);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 0.50);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 1.83);
+  tl.call(function() {
+    showEncorePair({"id":"p02","group":"g1","f":{"id":"w03","word":"fat","syl":"fat","krSyl":"팻","ipa":"[fæt]","kr":"뚱뚱한 / 기름","m":"m_w03_fat","f":"f_w03_fat","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>at"},"p":{"id":"w04","word":"pat","syl":"pat","krSyl":"팻","ipa":"[pæt]","kr":"토닥이다","m":"m_w04_pat","f":"f_w04_pat","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>at"},"tip":"윗니 바람 fat vs 두 입술 터짐 pat"}, 2, 24);
+  }, null, 3.11);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 3.11);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 4.05);
+  tl.call(function() {
+    showEncorePair({"id":"p03","group":"g1","f":{"id":"w05","word":"fig","syl":"fig","krSyl":"픽","ipa":"[fɪɡ]","kr":"무화과","m":"m_w05_fig","f":"f_w05_fig","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ig"},"p":{"id":"w06","word":"pig","syl":"pig","krSyl":"픽","ipa":"[pɪɡ]","kr":"돼지","m":"m_w06_pig","f":"f_w06_pig","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>ig"},"tip":"윗니 바람 fig vs 두 입술 터짐 pig"}, 3, 24);
+  }, null, 5.33);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 5.33);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 6.35);
+  tl.call(function() {
+    showEncorePair({"id":"p04","group":"g1","f":{"id":"w07","word":"fin","syl":"fin","krSyl":"핀","ipa":"[fɪn]","kr":"지느러미","m":"m_w07_fin","f":"f_w07_fin","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>in"},"p":{"id":"w08","word":"pin","syl":"pin","krSyl":"핀","ipa":"[pɪn]","kr":"옷핀 / 핀","m":"m_w08_pin","f":"f_w08_pin","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>in"},"tip":"윗니 바람 fin vs 두 입술 터짐 pin"}, 4, 24);
+  }, null, 7.60);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 7.60);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 8.56);
+  tl.call(function() {
+    showEncorePair({"id":"p05","group":"g1","f":{"id":"w09","word":"fit","syl":"fit","krSyl":"핏","ipa":"[fɪt]","kr":"꼭 맞다 / 건강한","m":"m_w09_fit","f":"f_w09_fit","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>it"},"p":{"id":"w10","word":"pit","syl":"pit","krSyl":"핏","ipa":"[pɪt]","kr":"구덩이","m":"m_w10_pit","f":"f_w10_pit","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>it"},"tip":"윗니 바람 fit vs 두 입술 터짐 pit"}, 5, 24);
+  }, null, 9.86);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 9.86);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 10.70);
+  tl.call(function() {
+    showEncorePair({"id":"p06","group":"g1","f":{"id":"w11","word":"fog","syl":"fog","krSyl":"팍","ipa":"[fɔːɡ]","kr":"안개","m":"m_w11_fog","f":"f_w11_fog","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>og"},"p":{"id":"w12","word":"pog","syl":"pog","krSyl":"팍","ipa":"[pɔːɡ]","kr":"작은 딱지","m":"m_w12_pog","f":"f_w12_pog","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>og"},"tip":"윗니 바람 fog vs 두 입술 터짐 pog"}, 6, 24);
+  }, null, 11.88);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 11.88);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 12.89);
+  tl.call(function() {
+    showEncorePair({"id":"p07","group":"g2","f":{"id":"w13","word":"feel","syl":"feel","krSyl":"필","ipa":"[fiːl]","kr":"느끼다","m":"m_w13_feel","f":"f_w13_feel","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>eel"},"p":{"id":"w14","word":"peel","syl":"peel","krSyl":"필","ipa":"[piːl]","kr":"껍질을 벗기다","m":"m_w14_peel","f":"f_w14_peel","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>eel"},"tip":"윗니 바람 feel vs 두 입술 터짐 peel"}, 7, 24);
+  }, null, 14.25);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 14.25);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 15.19);
+  tl.call(function() {
+    showEncorePair({"id":"p08","group":"g2","f":{"id":"w15","word":"feet","syl":"feet","krSyl":"핏","ipa":"[fiːt]","kr":"발들 (foot의 복수)","m":"m_w15_feet","f":"f_w15_feet","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>eet"},"p":{"id":"w16","word":"peat","syl":"peat","krSyl":"핏","ipa":"[piːt]","kr":"이탄 / 토탄","m":"m_w16_peat","f":"f_w16_peat","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>eat"},"tip":"윗니 바람 feet vs 두 입술 터짐 peat"}, 8, 24);
+  }, null, 16.41);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 16.41);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 17.29);
+  tl.call(function() {
+    showEncorePair({"id":"p09","group":"g2","f":{"id":"w17","word":"fool","syl":"fool","krSyl":"풀","ipa":"[fuːl]","kr":"바보 / 속이다","m":"m_w17_fool","f":"f_w17_fool","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ool"},"p":{"id":"w18","word":"pool","syl":"pool","krSyl":"풀","ipa":"[puːl]","kr":"수영장 / 웅덩이","m":"m_w18_pool","f":"f_w18_pool","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>ool"},"tip":"★ 최다 혼동 주의! 바람 fool vs 수영장 pool"}, 9, 24);
+  }, null, 18.52);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 18.52);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 19.51);
+  tl.call(function() {
+    showEncorePair({"id":"p10","group":"g2","f":{"id":"w19","word":"face","syl":"face","krSyl":"페이스","ipa":"[feɪs]","kr":"얼굴 / 마주하다","m":"m_w19_face","f":"f_w19_face","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ace"},"p":{"id":"w20","word":"pace","syl":"pace","krSyl":"페이스","ipa":"[peɪs]","kr":"속도 / 보폭","m":"m_w20_pace","f":"f_w20_pace","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>ace"},"tip":"윗니 바람 face vs 두 입술 터짐 pace"}, 10, 24);
+  }, null, 20.73);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 20.73);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 21.72);
+  tl.call(function() {
+    showEncorePair({"id":"p11","group":"g2","f":{"id":"w21","word":"fair","syl":"fair","krSyl":"페어","ipa":"[fɛr]","kr":"공정한 / 박람회","m":"m_w21_fair","f":"f_w21_fair","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>air"},"p":{"id":"w22","word":"pair","syl":"pair","krSyl":"페어","ipa":"[pɛr]","kr":"한 쌍 / 짝","m":"m_w22_pair","f":"f_w22_pair","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>air"},"tip":"윗니 바람 fair vs 두 입술 터짐 pair"}, 11, 24);
+  }, null, 23.11);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 23.11);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 24.13);
+  tl.call(function() {
+    showEncorePair({"id":"p12","group":"g2","f":{"id":"w23","word":"fast","syl":"fast","krSyl":"패스트","ipa":"[fæst]","kr":"빠른","m":"m_w23_fast","f":"f_w23_fast","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ast"},"p":{"id":"w24","word":"past","syl":"past","krSyl":"패스트","ipa":"[pæst]","kr":"과거의 / 지나서","m":"m_w24_past","f":"f_w24_past","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>ast"},"tip":"윗니 바람 fast vs 두 입술 터짐 past"}, 12, 24);
+  }, null, 25.31);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 25.31);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 26.39);
+  tl.call(function() {
+    showEncorePair({"id":"p13","group":"g3","f":{"id":"w25","word":"cof · fee","syl":"cof · fee","krSyl":"커피","ipa":"[ˈkɔːfi]","kr":"커피","m":"m_w25_coffee","f":"f_w25_coffee","formatted":"co<span class=\"target-phoneme phoneme-f\">f</span> · <span class=\"target-phoneme phoneme-f\">f</span>ee"},"p":{"id":"w26","word":"co · py","syl":"co · py","krSyl":"카피","ipa":"[ˈkɑːpi]","kr":"복사","m":"m_w26_copy","f":"f_w26_copy","formatted":"co · <span class=\"target-phoneme phoneme-p\">p</span>y"},"tip":"윗니 100% cof·fee vs 두 입술 100% co·py"}, 13, 24);
+  }, null, 27.83);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 27.83);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 28.85);
+  tl.call(function() {
+    showEncorePair({"id":"p14","group":"g3","f":{"id":"w27","word":"of · fice","syl":"of · fice","krSyl":"오피스","ipa":"[ˈɔːfɪs]","kr":"사무실","m":"m_w27_office","f":"f_w27_office","formatted":"o<span class=\"target-phoneme phoneme-f\">f</span> · <span class=\"target-phoneme phoneme-f\">f</span>ice"},"p":{"id":"w28","word":"op · tion","syl":"op · tion","krSyl":"옵션","ipa":"[ˈɑːpʃn]","kr":"선택지","m":"m_w28_option","f":"f_w28_option","formatted":"o<span class=\"target-phoneme phoneme-p\">p</span> · tion"},"tip":"윗니 100% of·fice vs 두 입술 100% op·tion"}, 14, 24);
+  }, null, 30.06);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 30.06);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 31.21);
+  tl.call(function() {
+    showEncorePair({"id":"p15","group":"g3","f":{"id":"w29","word":"fol · low","syl":"fol · low","krSyl":"팔로우","ipa":"[ˈfɑːloʊ]","kr":"따라가다","m":"m_w29_follow","f":"f_w29_follow","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ol · low"},"p":{"id":"w30","word":"pil · low","syl":"pil · low","krSyl":"필로우","ipa":"[ˈpɪloʊ]","kr":"베개","m":"m_w30_pillow","f":"f_w30_pillow","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>il · low"},"tip":"윗니 100% fol·low vs 두 입술 100% pil·low"}, 15, 24);
+  }, null, 32.56);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 32.56);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 33.53);
+  tl.call(function() {
+    showEncorePair({"id":"p16","group":"g3","f":{"id":"w31","word":"for · est","syl":"for · est","krSyl":"포레스트","ipa":"[ˈfɔːrɪst]","kr":"숲","m":"m_w31_forest","f":"f_w31_forest","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>or · est"},"p":{"id":"w32","word":"pro · tect","syl":"pro · tect","krSyl":"프로텍트","ipa":"[prəˈtɛkt]","kr":"보호하다","m":"m_w32_protect","f":"f_w32_protect","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>ro · tect"},"tip":"윗니 100% for·est vs 두 입술 100% pro·tect"}, 16, 24);
+  }, null, 34.75);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 34.75);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 35.88);
+  tl.call(function() {
+    showEncorePair({"id":"p17","group":"g3","f":{"id":"w33","word":"four · teen","syl":"four · teen","krSyl":"포틴","ipa":"[ˌfɔːrˈtiːn]","kr":"14","m":"m_w33_fourteen","f":"f_w33_fourteen","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>our · teen"},"p":{"id":"w34","word":"por · tion","syl":"por · tion","krSyl":"포션","ipa":"[ˈpɔːrʃn]","kr":"일부분 / 몫","m":"m_w34_portion","f":"f_w34_portion","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>or · tion"},"tip":"윗니 100% four·teen vs 두 입술 100% por·tion"}, 17, 24);
+  }, null, 37.30);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 37.30);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 38.44);
+  tl.call(function() {
+    showEncorePair({"id":"p18","group":"g3","f":{"id":"w35","word":"free · dom","syl":"free · dom","krSyl":"프리덤","ipa":"[ˈfriːdəm]","kr":"자유","m":"m_w35_freedom","f":"f_w35_freedom","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ree · dom"},"p":{"id":"w36","word":"pres · sure","syl":"pres · sure","krSyl":"프레셔","ipa":"[ˈprɛʃər]","kr":"압박 / 압력","m":"m_w36_pressure","f":"f_w36_pressure","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>res · sure"},"tip":"윗니 100% free·dom vs 두 입술 100% pres·sure"}, 18, 24);
+  }, null, 39.69);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 39.69);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 40.78);
+  tl.call(function() {
+    showEncorePair({"id":"p19","group":"g4","f":{"id":"w37","word":"leaf","syl":"leaf","krSyl":"리프","ipa":"[liːf]","kr":"나뭇잎","m":"m_w37_leaf","f":"f_w37_leaf","formatted":"lea<span class=\"target-phoneme phoneme-f\">f</span>"},"p":{"id":"w38","word":"leap","syl":"leap","krSyl":"립","ipa":"[liːp]","kr":"도약하다 / 뛰다","m":"m_w38_leap","f":"f_w38_leap","formatted":"lea<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 leaf vs 입술 닫히는 leap"}, 19, 24);
+  }, null, 42.15);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 42.15);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 43.08);
+  tl.call(function() {
+    showEncorePair({"id":"p20","group":"g4","f":{"id":"w39","word":"beef","syl":"beef","krSyl":"비프","ipa":"[biːf]","kr":"소고기","m":"m_w39_beef","f":"f_w39_beef","formatted":"bee<span class=\"target-phoneme phoneme-f\">f</span>"},"p":{"id":"w40","word":"beep","syl":"beep","krSyl":"빕","ipa":"[biːp]","kr":"삐 소리","m":"m_w40_beep","f":"f_w40_beep","formatted":"bee<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 beef vs 입술 닫히는 beep"}, 20, 24);
+  }, null, 44.31);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 44.31);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 45.17);
+  tl.call(function() {
+    showEncorePair({"id":"p21","group":"g4","f":{"id":"w41","word":"cuff","syl":"cuff","krSyl":"커프","ipa":"[kʌf]","kr":"소매 끝동","m":"m_w41_cuff","f":"f_w41_cuff","formatted":"cu<span class=\"target-phoneme phoneme-f\">ff</span>"},"p":{"id":"w42","word":"cup","syl":"cup","krSyl":"컵","ipa":"[kʌp]","kr":"컵","m":"m_w42_cup","f":"f_w42_cup","formatted":"cu<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 cuff vs 입술 닫히는 cup"}, 21, 24);
+  }, null, 46.34);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 46.34);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 47.15);
+  tl.call(function() {
+    showEncorePair({"id":"p22","group":"g4","f":{"id":"w43","word":"cliff","syl":"cliff","krSyl":"클리프","ipa":"[klɪf]","kr":"절벽","m":"m_w43_cliff","f":"f_w43_cliff","formatted":"cli<span class=\"target-phoneme phoneme-f\">ff</span>"},"p":{"id":"w44","word":"clip","syl":"clip","krSyl":"클립","ipa":"[klɪp]","kr":"클립 / 고정핀","m":"m_w44_clip","f":"f_w44_clip","formatted":"cli<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 cliff vs 입술 닫히는 clip"}, 22, 24);
+  }, null, 48.30);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 48.30);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 49.15);
+  tl.call(function() {
+    showEncorePair({"id":"p23","group":"g4","f":{"id":"w45","word":"chef","syl":"chef","krSyl":"셰프","ipa":"[ʃɛf]","kr":"요리사","m":"m_w45_chef","f":"f_w45_chef","formatted":"che<span class=\"target-phoneme phoneme-f\">f</span>"},"p":{"id":"w46","word":"step","syl":"step","krSyl":"스텝","ipa":"[stɛp]","kr":"걸음 / 계단","m":"m_w46_step","f":"f_w46_step","formatted":"ste<span class=\"target-phoneme phoneme-p\">p</span>"},"tip":"바람 새는 끝소리 chef vs 입술 닫히는 step"}, 23, 24);
+  }, null, 50.38);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 50.38);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 51.32);
+  tl.call(function() {
+    showEncorePair({"id":"p24","group":"g4","f":{"id":"w47","word":"safe","syl":"safe","krSyl":"세이프","ipa":"[seɪf]","kr":"안전한 / 금고","m":"m_w47_safe","f":"f_w47_safe","formatted":"sa<span class=\"target-phoneme phoneme-f\">f</span>e"},"p":{"id":"w48","word":"tape","syl":"tape","krSyl":"테이프","ipa":"[teɪp]","kr":"테이프","m":"m_w48_tape","f":"f_w48_tape","formatted":"ta<span class=\"target-phoneme phoneme-p\">p</span>e"},"tip":"바람 새는 끝소리 safe vs 입술 닫히는 tape"}, 24, 24);
+  }, null, 52.62);
+  tl.call(function() {
+    highlightEncore("f");
+  }, null, 52.62);
+  tl.call(function() {
+    highlightEncore("p");
+  }, null, 53.50);
+  tl.to("#encoreStage", { opacity: 0, duration: 0.4 }, 54.74);
+  tl.to("#endOverlay", { opacity: 1, duration: 0.5 }, 54.74);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-encore"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

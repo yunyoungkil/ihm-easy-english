@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "snapshotId": "2026-10-09T12-05-25-881Z",
-  "syncedAt": "2026-10-09T12:05:25.881Z",
+  "snapshotId": "2026-10-10T03-59-33-601Z",
+  "syncedAt": "2026-10-10T03:59:33.601Z",
   "range": {
-    "startDate": "2026-07-10",
-    "endDate": "2026-10-07"
+    "startDate": "2026-07-11",
+    "endDate": "2026-10-08"
   },
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/1Oo6_AfJXNpD3im1GJ6pdxVvlFw7-Nm8Be6PPzHGWS74k12n6xgdhUYHbFQLNO_1H1fWu1bv=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 112,
-    "totalViews": 53051,
+    "totalViews": 53070,
     "videos": 76,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
@@ -124,7 +124,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "204",
+        "viewCount": "203",
         "likeCount": "0",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -163,7 +163,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "56",
+        "viewCount": "57",
         "likeCount": "1",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1705,7 +1705,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=COywo9YG&rs=AOn4CLAh9WjHdqxYu1wQb3ZRxEur5fnt4g",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CJTuptYG&rs=AOn4CLAfQZwesQ7w6OsX-JEqfARi25q1GA",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -2067,7 +2067,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "2189",
+        "viewCount": "2188",
         "likeCount": "5",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -2452,109 +2452,115 @@
     }
   ],
   "classifications": {
-    "h-UUbuWQuag": {
-      "season": 1,
-      "episode": 8,
-      "role": "A",
-      "updatedAt": "2026-08-13T10:59:21.686Z",
-      "category": "SEASON",
-      "source": "manual"
+    "OApg8ePbVMA": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "YoaCRYCWpws": {
-      "season": 1,
-      "episode": 8,
-      "role": "LONG",
-      "updatedAt": "2026-08-13T10:59:22.388Z",
-      "category": "SEASON",
-      "source": "manual"
+    "LPzzDsQatYI": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "dijhGjxOQOw": {
-      "season": 1,
-      "episode": 7,
-      "role": "B",
-      "updatedAt": "2026-08-13T10:59:23.069Z",
-      "category": "SEASON",
-      "source": "manual"
+    "ZWnD5Lesn-4": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "M9ru03p3QoE": {
-      "season": 1,
-      "episode": 7,
-      "role": "A",
-      "updatedAt": "2026-08-13T10:59:24.354Z",
-      "category": "SEASON",
-      "source": "manual"
+    "KYd0K0wf16M": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "tFe-cB__uns": {
-      "season": 1,
-      "episode": 6,
-      "role": "LONG",
-      "updatedAt": "2026-08-13T10:59:24.857Z",
-      "category": "SEASON",
-      "source": "manual"
+    "k55Qhho66zY": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "ewv3GcXNLsE": {
-      "season": 1,
-      "episode": 6,
-      "role": "B",
-      "updatedAt": "2026-08-13T10:59:25.760Z",
-      "category": "SEASON",
-      "source": "manual"
+    "bOeQvoOIctU": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "FwBboz1jenA": {
-      "season": 1,
-      "episode": 6,
-      "role": "A",
-      "updatedAt": "2026-08-13T10:59:27.740Z",
-      "category": "SEASON",
-      "source": "manual"
+    "q896jKji8FA": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "hu4GNC7peTY": {
-      "season": 1,
-      "episode": 6,
-      "role": "LONG",
-      "updatedAt": "2026-08-13T10:59:28.319Z",
-      "category": "SEASON",
-      "source": "manual"
+    "v7cWpAdf8KM": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "BsyRH8GWYJ4": {
-      "season": 1,
-      "episode": 4,
-      "role": "LONG",
-      "updatedAt": "2026-08-13T11:02:30.571Z",
-      "category": "SEASON",
-      "source": "manual"
+    "XkH4vY0GdBU": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "F-o7EmQL3zY": {
-      "season": 1,
-      "episode": 4,
-      "role": "A",
-      "updatedAt": "2026-08-13T11:02:30.945Z",
-      "category": "SEASON",
-      "source": "manual"
+    "7w93OJqV0Nc": {
+      "category": "LEGACY",
+      "season": null,
+      "episode": null,
+      "role": "STANDALONE_LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:11:37.852Z"
     },
-    "k8T7chDCj3Q": {
-      "season": 1,
-      "episode": 4,
-      "role": "B",
-      "updatedAt": "2026-08-13T11:02:37.588Z",
-      "category": "SEASON",
-      "source": "manual"
+    "LgEmfyQ41NI": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "BLinHY3p4yc": {
-      "season": 1,
-      "episode": 5,
-      "role": "LONG",
-      "updatedAt": "2026-08-13T11:02:40.397Z",
-      "category": "SEASON",
-      "source": "manual"
+    "qf38zv-SVNo": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
-    "6nANjHxy2Lc": {
-      "season": 1,
-      "episode": 5,
-      "role": "A",
-      "updatedAt": "2026-08-13T11:02:48.029Z",
-      "category": "SEASON",
-      "source": "manual"
+    "xVXqGbOHpbM": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
+    },
+    "pghOYvcjpIg": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
+    },
+    "c7Mp5L8HSXE": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
+    },
+    "4EGKRM-m77w": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
+    },
+    "l8w3SlUnm3Y": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
+    },
+    "GlOrcx3y1rE": {
+      "category": "LEGACY",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "구체적 운영 계획 이전 업로드"
     },
     "7GJ6Iiy_THk": {
       "category": "LEGACY",
@@ -2766,65 +2772,125 @@
       "source": "auto",
       "reason": "독립 포맷 실험"
     },
+    "BsyRH8GWYJ4": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 4,
+      "role": "LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-30T03:02:57.866Z"
+    },
+    "F-o7EmQL3zY": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 4,
+      "role": "A",
+      "source": "manual",
+      "updatedAt": "2026-08-30T03:02:56.110Z"
+    },
+    "k8T7chDCj3Q": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 4,
+      "role": "B",
+      "source": "manual",
+      "updatedAt": "2026-08-30T03:02:55.160Z"
+    },
+    "BLinHY3p4yc": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 5,
+      "role": "LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-30T03:03:42.587Z"
+    },
+    "6nANjHxy2Lc": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 5,
+      "role": "A",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:48:05.835Z"
+    },
     "Ha_7wdnFNmo": {
       "category": "EXPERIMENT",
+      "season": null,
+      "episode": null,
       "role": "STANDALONE_LONG",
-      "source": "auto",
-      "reason": "독립 포맷 실험"
+      "source": "manual",
+      "updatedAt": "2026-08-31T06:31:33.416Z"
     },
     "f4wkmIvplCc": {
       "category": "EXPERIMENT",
+      "season": null,
+      "episode": null,
       "role": "STANDALONE_LONG",
-      "source": "auto",
-      "reason": "독립 포맷 실험"
+      "source": "manual",
+      "updatedAt": "2026-08-31T06:31:32.416Z"
     },
-    "LgEmfyQ41NI": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "hu4GNC7peTY": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 6,
+      "role": "LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:48:14.029Z"
     },
-    "qf38zv-SVNo": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "FwBboz1jenA": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 6,
+      "role": "A",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:47:18.938Z"
     },
-    "xVXqGbOHpbM": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "ewv3GcXNLsE": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 6,
+      "role": "B",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:47:17.892Z"
     },
-    "pghOYvcjpIg": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "tFe-cB__uns": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 7,
+      "role": "LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:47:24.534Z"
     },
-    "c7Mp5L8HSXE": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "M9ru03p3QoE": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 7,
+      "role": "A",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:20:11.918Z"
     },
-    "4EGKRM-m77w": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "dijhGjxOQOw": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 7,
+      "role": "B",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:20:00.116Z"
     },
-    "l8w3SlUnm3Y": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "YoaCRYCWpws": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 8,
+      "role": "LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:47:26.611Z"
     },
-    "GlOrcx3y1rE": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "h-UUbuWQuag": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 8,
+      "role": "A",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:19:28.454Z"
     },
     "5MiM1tIpQQk": {
       "category": "SEASON",
@@ -2832,13 +2898,15 @@
       "episode": 8,
       "role": "B",
       "source": "manual",
-      "updatedAt": "2026-08-14T09:04:01.715Z"
+      "updatedAt": "2026-08-29T08:19:15.717Z"
     },
     "IfK4Itzgt6o": {
-      "category": "OTHER",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "검토 필요"
+      "category": "CHANNEL",
+      "season": null,
+      "episode": null,
+      "role": "C",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:19:43.744Z"
     },
     "sNNufVhkjT8": {
       "category": "SEASON",
@@ -2846,7 +2914,7 @@
       "episode": 9,
       "role": "LONG",
       "source": "manual",
-      "updatedAt": "2026-08-22T13:04:15.605Z"
+      "updatedAt": "2026-08-29T08:17:15.776Z"
     },
     "7qSWJZqV14o": {
       "category": "SEASON",
@@ -2854,7 +2922,7 @@
       "episode": 9,
       "role": "A",
       "source": "manual",
-      "updatedAt": "2026-08-22T13:44:16.233Z"
+      "updatedAt": "2026-08-29T08:18:46.851Z"
     },
     "Si88xXt-EQc": {
       "category": "SEASON",
@@ -2862,7 +2930,7 @@
       "episode": 9,
       "role": "B",
       "source": "manual",
-      "updatedAt": "2026-08-22T13:44:18.301Z"
+      "updatedAt": "2026-08-29T08:18:45.148Z"
     },
     "3PkSwrFIcRE": {
       "category": "SEASON",
@@ -2870,7 +2938,7 @@
       "episode": 10,
       "role": "LONG",
       "source": "manual",
-      "updatedAt": "2026-08-31T11:09:56.737Z"
+      "updatedAt": "2026-08-29T08:17:39.122Z"
     },
     "LdiZKCzKf0c": {
       "category": "SEASON",
@@ -2878,7 +2946,7 @@
       "episode": 10,
       "role": "A",
       "source": "manual",
-      "updatedAt": "2026-09-07T05:23:49.962Z"
+      "updatedAt": "2026-08-29T08:18:07.961Z"
     },
     "nVrCk8IZFGA": {
       "category": "SEASON",
@@ -2886,67 +2954,15 @@
       "episode": 10,
       "role": "B",
       "source": "manual",
-      "updatedAt": "2026-09-07T05:23:50.940Z"
+      "updatedAt": "2026-08-29T08:17:52.624Z"
     },
-    "OApg8ePbVMA": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "LPzzDsQatYI": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "ZWnD5Lesn-4": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "KYd0K0wf16M": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "k55Qhho66zY": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "bOeQvoOIctU": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "q896jKji8FA": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "v7cWpAdf8KM": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "XkH4vY0GdBU": {
-      "category": "LEGACY",
-      "role": "STANDALONE_SHORT",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
-    },
-    "7w93OJqV0Nc": {
-      "category": "LEGACY",
-      "role": "STANDALONE_LONG",
-      "source": "auto",
-      "reason": "구체적 운영 계획 이전 업로드"
+    "aG2sI5Xf6H0": {
+      "category": "SEASON",
+      "season": 1,
+      "episode": 10,
+      "role": "LONG",
+      "source": "manual",
+      "updatedAt": "2026-08-29T08:11:42.553Z"
     },
     "W7toujk6ER8": {
       "category": "OTHER",
@@ -2956,11 +2972,9 @@
     },
     "a2VrFQVjImI": {
       "category": "OTHER",
-      "season": null,
-      "episode": null,
       "role": "STANDALONE_LONG",
-      "source": "manual",
-      "updatedAt": "2026-09-07T05:23:26.057Z"
+      "source": "auto",
+      "reason": "검토 필요"
     },
     "AcNSDMpkR_A": {
       "category": "OTHER",
@@ -3018,20 +3032,13 @@
     }
   },
   "summary": {
-    "views": 26047,
-    "estimatedMinutesWatched": 4739,
+    "views": 26057,
+    "estimatedMinutesWatched": 4765,
     "averageViewDuration": 33,
     "subscribersGained": 58,
     "subscribersLost": 2
   },
   "daily": [
-    {
-      "day": "2026-07-10",
-      "views": 3,
-      "estimatedMinutesWatched": 0,
-      "subscribersGained": 0,
-      "subscribersLost": 0
-    },
     {
       "day": "2026-07-11",
       "views": 3215,
@@ -3647,20 +3654,27 @@
       "estimatedMinutesWatched": 8,
       "subscribersGained": 2,
       "subscribersLost": 0
+    },
+    {
+      "day": "2026-10-07",
+      "views": 13,
+      "estimatedMinutesWatched": 26,
+      "subscribersGained": 0,
+      "subscribersLost": 0
     }
   ],
   "contentTypes": [
     {
       "creatorContentType": "shorts",
-      "views": 25529,
-      "estimatedMinutesWatched": 4234,
+      "views": 25532,
+      "estimatedMinutesWatched": 4235,
       "subscribersGained": 42,
       "subscribersLost": 0
     },
     {
       "creatorContentType": "videoOnDemand",
-      "views": 518,
-      "estimatedMinutesWatched": 504,
+      "views": 525,
+      "estimatedMinutesWatched": 529,
       "subscribersGained": 6,
       "subscribersLost": 0
     },
@@ -3680,8 +3694,8 @@
     },
     {
       "insightTrafficSourceType": "YT_SEARCH",
-      "views": 644,
-      "estimatedMinutesWatched": 115
+      "views": 647,
+      "estimatedMinutesWatched": 116
     },
     {
       "insightTrafficSourceType": "YT_OTHER_PAGE",
@@ -3695,13 +3709,13 @@
     },
     {
       "insightTrafficSourceType": "SUBSCRIBER",
-      "views": 153,
+      "views": 154,
       "estimatedMinutesWatched": 129
     },
     {
       "insightTrafficSourceType": "RELATED_VIDEO",
-      "views": 38,
-      "estimatedMinutesWatched": 117
+      "views": 44,
+      "estimatedMinutesWatched": 142
     },
     {
       "insightTrafficSourceType": "SHORTS_CONTENT_LINKS",
@@ -3752,7 +3766,7 @@
     },
     {
       "insightTrafficSourceDetail": "영어발음",
-      "views": 7,
+      "views": 6,
       "estimatedMinutesWatched": 1
     },
     {
@@ -3840,10 +3854,12 @@
       "subscriberNet": 5,
       "subscribersPerThousandViews": 2.28310502283105,
       "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "검토 필요"
+        "category": "CHANNEL",
+        "season": null,
+        "episode": null,
+        "role": "C",
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:19:43.744Z"
       },
       "url": "https://youtu.be/IfK4Itzgt6o"
     },
@@ -3865,12 +3881,12 @@
       "subscriberNet": 5,
       "subscribersPerThousandViews": 2.5188916876574305,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "B",
-        "updatedAt": "2026-08-13T10:59:23.069Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:20:00.116Z"
       },
       "url": "https://youtu.be/dijhGjxOQOw"
     },
@@ -3892,12 +3908,12 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "A",
-        "updatedAt": "2026-08-13T11:02:30.945Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:56.110Z"
       },
       "url": "https://youtu.be/F-o7EmQL3zY"
     },
@@ -3919,12 +3935,12 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:21.686Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:19:28.454Z"
       },
       "url": "https://youtu.be/h-UUbuWQuag"
     },
@@ -3946,12 +3962,12 @@
       "subscriberNet": 11,
       "subscribersPerThousandViews": 6.654567453115548,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:24.354Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:20:11.918Z"
       },
       "url": "https://youtu.be/M9ru03p3QoE"
     },
@@ -3973,21 +3989,21 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 5,
         "role": "A",
-        "updatedAt": "2026-08-13T11:02:48.029Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:48:05.835Z"
       },
       "url": "https://youtu.be/6nANjHxy2Lc"
     },
     {
       "video": "5MiM1tIpQQk",
-      "views": 1593,
-      "estimatedMinutesWatched": 247,
+      "views": 1595,
+      "estimatedMinutesWatched": 248,
       "averageViewDuration": 34,
-      "averageViewPercentage": 65.6,
+      "averageViewPercentage": 65.38,
       "subscribersGained": 2,
       "subscribersLost": 0,
       "likes": 3,
@@ -3998,14 +4014,14 @@
       "durationSeconds": 53,
       "creatorContentType": "SHORTS",
       "subscriberNet": 2,
-      "subscribersPerThousandViews": 1.2554927809165097,
+      "subscribersPerThousandViews": 1.2539184952978057,
       "classification": {
         "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-14T09:04:01.715Z"
+        "updatedAt": "2026-08-29T08:19:15.717Z"
       },
       "url": "https://youtu.be/5MiM1tIpQQk"
     },
@@ -4036,10 +4052,10 @@
     },
     {
       "video": "Si88xXt-EQc",
-      "views": 1261,
-      "estimatedMinutesWatched": 176,
+      "views": 1262,
+      "estimatedMinutesWatched": 177,
       "averageViewDuration": 19,
-      "averageViewPercentage": 39.2,
+      "averageViewPercentage": 39.21,
       "subscribersGained": 4,
       "subscribersLost": 0,
       "likes": 3,
@@ -4050,14 +4066,14 @@
       "durationSeconds": 51,
       "creatorContentType": "SHORTS",
       "subscriberNet": 4,
-      "subscribersPerThousandViews": 3.1720856463124503,
+      "subscribersPerThousandViews": 3.1695721077654517,
       "classification": {
         "category": "SEASON",
         "season": 1,
         "episode": 9,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:44:18.301Z"
+        "updatedAt": "2026-08-29T08:18:45.148Z"
       },
       "url": "https://youtu.be/Si88xXt-EQc"
     },
@@ -4084,7 +4100,7 @@
         "episode": 9,
         "role": "A",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:44:16.233Z"
+        "updatedAt": "2026-08-29T08:18:46.851Z"
       },
       "url": "https://youtu.be/7qSWJZqV14o"
     },
@@ -4106,12 +4122,12 @@
       "subscriberNet": 7,
       "subscribersPerThousandViews": 6.050129645635264,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "B",
-        "updatedAt": "2026-08-13T11:02:37.588Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:55.160Z"
       },
       "url": "https://youtu.be/k8T7chDCj3Q"
     },
@@ -4138,7 +4154,7 @@
         "episode": 10,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-09-07T05:23:50.940Z"
+        "updatedAt": "2026-08-29T08:17:52.624Z"
       },
       "url": "https://youtu.be/nVrCk8IZFGA"
     },
@@ -4165,7 +4181,7 @@
         "episode": 10,
         "role": "A",
         "source": "manual",
-        "updatedAt": "2026-09-07T05:23:49.962Z"
+        "updatedAt": "2026-08-29T08:18:07.961Z"
       },
       "url": "https://youtu.be/LdiZKCzKf0c"
     },
@@ -4287,12 +4303,12 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:27.740Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:18.938Z"
       },
       "url": "https://youtu.be/FwBboz1jenA"
     },
@@ -4314,12 +4330,12 @@
       "subscriberNet": 1,
       "subscribersPerThousandViews": 2.331002331002331,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "B",
-        "updatedAt": "2026-08-13T10:59:25.760Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:17.892Z"
       },
       "url": "https://youtu.be/ewv3GcXNLsE"
     },
@@ -4350,10 +4366,10 @@
     },
     {
       "video": "ROks87qezuU",
-      "views": 51,
-      "estimatedMinutesWatched": 41,
-      "averageViewDuration": 141,
-      "averageViewPercentage": 34.19,
+      "views": 54,
+      "estimatedMinutesWatched": 52,
+      "averageViewDuration": 155,
+      "averageViewPercentage": 37.5,
       "subscribersGained": 2,
       "subscribersLost": 0,
       "likes": 1,
@@ -4364,7 +4380,7 @@
       "durationSeconds": 415,
       "creatorContentType": "VIDEO_ON_DEMAND",
       "subscriberNet": 2,
-      "subscribersPerThousandViews": 39.21568627450981,
+      "subscribersPerThousandViews": 37.03703703703704,
       "classification": {
         "category": "OTHER",
         "role": "STANDALONE_LONG",
@@ -4391,12 +4407,12 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:22.388Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:26.611Z"
       },
       "url": "https://youtu.be/YoaCRYCWpws"
     },
@@ -4426,6 +4442,31 @@
       "url": "https://youtu.be/jRoYudL30DE"
     },
     {
+      "video": "VwEkIUluszw",
+      "views": 24,
+      "estimatedMinutesWatched": 57,
+      "averageViewDuration": 189,
+      "averageViewPercentage": 48.46,
+      "subscribersGained": 1,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 1,
+      "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
+      "publishedAt": "2026-09-22T11:00:04Z",
+      "thumbnail": "https://i.ytimg.com/vi/VwEkIUluszw/maxresdefault.jpg",
+      "durationSeconds": 391,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 1,
+      "subscribersPerThousandViews": 41.666666666666664,
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "url": "https://youtu.be/VwEkIUluszw"
+    },
+    {
       "video": "f4wkmIvplCc",
       "views": 20,
       "estimatedMinutesWatched": 31,
@@ -4444,36 +4485,13 @@
       "subscribersPerThousandViews": 50,
       "classification": {
         "category": "EXPERIMENT",
+        "season": null,
+        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "독립 포맷 실험"
+        "source": "manual",
+        "updatedAt": "2026-08-31T06:31:32.416Z"
       },
       "url": "https://youtu.be/f4wkmIvplCc"
-    },
-    {
-      "video": "VwEkIUluszw",
-      "views": 19,
-      "estimatedMinutesWatched": 43,
-      "averageViewDuration": 185,
-      "averageViewPercentage": 47.49,
-      "subscribersGained": 1,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 1,
-      "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
-      "publishedAt": "2026-09-22T11:00:04Z",
-      "thumbnail": "https://i.ytimg.com/vi/VwEkIUluszw/maxresdefault.jpg",
-      "durationSeconds": 391,
-      "creatorContentType": "VIDEO_ON_DEMAND",
-      "subscriberNet": 1,
-      "subscribersPerThousandViews": 52.63157894736842,
-      "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "검토 필요"
-      },
-      "url": "https://youtu.be/VwEkIUluszw"
     },
     {
       "video": "BsyRH8GWYJ4",
@@ -4493,39 +4511,14 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "LONG",
-        "updatedAt": "2026-08-13T11:02:30.571Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:57.866Z"
       },
       "url": "https://youtu.be/BsyRH8GWYJ4"
-    },
-    {
-      "video": "cu3EB5OJdMM",
-      "views": 17,
-      "estimatedMinutesWatched": 34,
-      "averageViewDuration": 159,
-      "averageViewPercentage": 27.71,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 1,
-      "title": "왜 GO는 '고'인데 GENTLE은 '젠틀'일까? 알파벳 G의 두 가지 소리 | 영어 읽기 잘하는법  #파닉스규칙,#영어단어읽는법,,#영어기초발음,#영어발음,#영어공부",
-      "publishedAt": "2026-07-10T17:00:46Z",
-      "thumbnail": "https://i.ytimg.com/vi/cu3EB5OJdMM/maxresdefault.jpg",
-      "durationSeconds": 575,
-      "creatorContentType": "VIDEO_ON_DEMAND",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/cu3EB5OJdMM"
     },
     {
       "video": "MdLjt4zvg8g",
@@ -4570,14 +4563,39 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:24.857Z",
         "category": "SEASON",
-        "source": "manual"
+        "season": 1,
+        "episode": 7,
+        "role": "LONG",
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:24.534Z"
       },
       "url": "https://youtu.be/tFe-cB__uns"
+    },
+    {
+      "video": "cu3EB5OJdMM",
+      "views": 15,
+      "estimatedMinutesWatched": 34,
+      "averageViewDuration": 186,
+      "averageViewPercentage": 32.51,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "왜 GO는 '고'인데 GENTLE은 '젠틀'일까? 알파벳 G의 두 가지 소리 | 영어 읽기 잘하는법  #파닉스규칙,#영어단어읽는법,,#영어기초발음,#영어발음,#영어공부",
+      "publishedAt": "2026-07-10T17:00:46Z",
+      "thumbnail": "https://i.ytimg.com/vi/cu3EB5OJdMM/maxresdefault.jpg",
+      "durationSeconds": 575,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/cu3EB5OJdMM"
     },
     {
       "video": "hu4GNC7peTY",
@@ -4597,66 +4615,14 @@
       "subscriberNet": 1,
       "subscribersPerThousandViews": 71.42857142857143,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:28.319Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:48:14.029Z"
       },
       "url": "https://youtu.be/hu4GNC7peTY"
-    },
-    {
-      "video": "u2WOzu-0Hxc",
-      "views": 12,
-      "estimatedMinutesWatched": 36,
-      "averageViewDuration": 197,
-      "averageViewPercentage": 56.25,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 0,
-      "comments": 0,
-      "title": "영어 기초 배우기 | 왜 C도 K도 크 소리일까요? #영어기초 #영어기초배우기 #영어읽는법 #파닉스 #영어공부 #성인영어 #기초영어 #영어발음",
-      "publishedAt": "2026-07-02T21:00:05Z",
-      "thumbnail": "https://i.ytimg.com/vi/u2WOzu-0Hxc/maxresdefault.jpg",
-      "durationSeconds": 351,
-      "creatorContentType": "VIDEO_ON_DEMAND",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/u2WOzu-0Hxc"
-    },
-    {
-      "video": "BLinHY3p4yc",
-      "views": 11,
-      "estimatedMinutesWatched": 11,
-      "averageViewDuration": 68,
-      "averageViewPercentage": 24.51,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 0,
-      "comments": 1,
-      "title": "영어 읽는 법 | HEROIC은 왜 히로익일까? -IC만 알면 끝! (영어기초배우기 EP5)",
-      "publishedAt": "2026-07-22T13:47:18Z",
-      "thumbnail": "https://i.ytimg.com/vi/BLinHY3p4yc/maxresdefault.jpg",
-      "durationSeconds": 281,
-      "creatorContentType": "VIDEO_ON_DEMAND",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "season": 1,
-        "episode": 5,
-        "role": "LONG",
-        "updatedAt": "2026-08-13T11:02:40.397Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "url": "https://youtu.be/BLinHY3p4yc"
     },
     {
       "video": "xVXqGbOHpbM",
@@ -4682,6 +4648,58 @@
         "reason": "구체적 운영 계획 이전 업로드"
       },
       "url": "https://youtu.be/xVXqGbOHpbM"
+    },
+    {
+      "video": "BLinHY3p4yc",
+      "views": 11,
+      "estimatedMinutesWatched": 11,
+      "averageViewDuration": 68,
+      "averageViewPercentage": 24.51,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 1,
+      "title": "영어 읽는 법 | HEROIC은 왜 히로익일까? -IC만 알면 끝! (영어기초배우기 EP5)",
+      "publishedAt": "2026-07-22T13:47:18Z",
+      "thumbnail": "https://i.ytimg.com/vi/BLinHY3p4yc/maxresdefault.jpg",
+      "durationSeconds": 281,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "SEASON",
+        "season": 1,
+        "episode": 5,
+        "role": "LONG",
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:03:42.587Z"
+      },
+      "url": "https://youtu.be/BLinHY3p4yc"
+    },
+    {
+      "video": "u2WOzu-0Hxc",
+      "views": 11,
+      "estimatedMinutesWatched": 35,
+      "averageViewDuration": 215,
+      "averageViewPercentage": 61.38,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 0,
+      "title": "영어 기초 배우기 | 왜 C도 K도 크 소리일까요? #영어기초 #영어기초배우기 #영어읽는법 #파닉스 #영어공부 #성인영어 #기초영어 #영어발음",
+      "publishedAt": "2026-07-02T21:00:05Z",
+      "thumbnail": "https://i.ytimg.com/vi/u2WOzu-0Hxc/maxresdefault.jpg",
+      "durationSeconds": 351,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/u2WOzu-0Hxc"
     },
     {
       "video": "pghOYvcjpIg",
@@ -4710,7 +4728,7 @@
     },
     {
       "video": "-V1lwpEF7Ik",
-      "views": 8,
+      "views": 9,
       "estimatedMinutesWatched": 33,
       "averageViewDuration": 251,
       "averageViewPercentage": 47.03,
@@ -4732,31 +4750,6 @@
         "reason": "구체적 운영 계획 이전 업로드"
       },
       "url": "https://youtu.be/-V1lwpEF7Ik"
-    },
-    {
-      "video": "hsqsL6vneCk",
-      "views": 8,
-      "estimatedMinutesWatched": 11,
-      "averageViewDuration": 335,
-      "averageViewPercentage": 1458.91,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "X는 어떻게 읽을까요 X가 앞에 올 때 #영어초보 #영어 #파닉스 #영어초보 #영어 #파닉스 #영어공부",
-      "publishedAt": "2026-06-26T13:00:07Z",
-      "thumbnail": "https://i.ytimg.com/vi/hsqsL6vneCk/maxresdefault.jpg",
-      "durationSeconds": 23,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/hsqsL6vneCk"
     },
     {
       "video": "JOyI0DWGzEM",
@@ -4784,6 +4777,31 @@
       "url": "https://youtu.be/JOyI0DWGzEM"
     },
     {
+      "video": "hsqsL6vneCk",
+      "views": 8,
+      "estimatedMinutesWatched": 11,
+      "averageViewDuration": 335,
+      "averageViewPercentage": 1458.91,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "X는 어떻게 읽을까요 X가 앞에 올 때 #영어초보 #영어 #파닉스 #영어초보 #영어 #파닉스 #영어공부",
+      "publishedAt": "2026-06-26T13:00:07Z",
+      "thumbnail": "https://i.ytimg.com/vi/hsqsL6vneCk/maxresdefault.jpg",
+      "durationSeconds": 23,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/hsqsL6vneCk"
+    },
+    {
       "video": "sNNufVhkjT8",
       "views": 7,
       "estimatedMinutesWatched": 7,
@@ -4806,7 +4824,7 @@
         "episode": 9,
         "role": "LONG",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:04:15.605Z"
+        "updatedAt": "2026-08-29T08:17:15.776Z"
       },
       "url": "https://youtu.be/sNNufVhkjT8"
     },
@@ -4829,36 +4847,13 @@
       "subscribersPerThousandViews": 0,
       "classification": {
         "category": "EXPERIMENT",
+        "season": null,
+        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "독립 포맷 실험"
+        "source": "manual",
+        "updatedAt": "2026-08-31T06:31:33.416Z"
       },
       "url": "https://youtu.be/Ha_7wdnFNmo"
-    },
-    {
-      "video": "qf38zv-SVNo",
-      "views": 6,
-      "estimatedMinutesWatched": 2,
-      "averageViewDuration": 30,
-      "averageViewPercentage": 65.22,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 0,
-      "comments": 0,
-      "title": "A는 에이가 아닙니다? | Apple로 배우는 영어 첫걸음 #50대영어 #영어공부 #영어독학 #영어초보 #파닉스",
-      "publishedAt": "2026-06-22T01:03:47Z",
-      "thumbnail": "https://i.ytimg.com/vi/qf38zv-SVNo/maxresdefault.jpg",
-      "durationSeconds": 46,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/qf38zv-SVNo"
     },
     {
       "video": "LgEmfyQ41NI",
@@ -4886,6 +4881,31 @@
       "url": "https://youtu.be/LgEmfyQ41NI"
     },
     {
+      "video": "qf38zv-SVNo",
+      "views": 6,
+      "estimatedMinutesWatched": 2,
+      "averageViewDuration": 30,
+      "averageViewPercentage": 65.22,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 0,
+      "title": "A는 에이가 아닙니다? | Apple로 배우는 영어 첫걸음 #50대영어 #영어공부 #영어독학 #영어초보 #파닉스",
+      "publishedAt": "2026-06-22T01:03:47Z",
+      "thumbnail": "https://i.ytimg.com/vi/qf38zv-SVNo/maxresdefault.jpg",
+      "durationSeconds": 46,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/qf38zv-SVNo"
+    },
+    {
       "video": "a2VrFQVjImI",
       "views": 6,
       "estimatedMinutesWatched": 4,
@@ -4904,11 +4924,9 @@
       "subscribersPerThousandViews": 0,
       "classification": {
         "category": "OTHER",
-        "season": null,
-        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "manual",
-        "updatedAt": "2026-09-07T05:23:26.057Z"
+        "source": "auto",
+        "reason": "검토 필요"
       },
       "url": "https://youtu.be/a2VrFQVjImI"
     },
@@ -4949,7 +4967,7 @@
       "comments": 0,
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=COywo9YG&rs=AOn4CLAh9WjHdqxYu1wQb3ZRxEur5fnt4g",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CJTuptYG&rs=AOn4CLAfQZwesQ7w6OsX-JEqfARi25q1GA",
       "durationSeconds": 353,
       "creatorContentType": "VIDEO_ON_DEMAND",
       "subscriberNet": 0,
@@ -5235,7 +5253,7 @@
         "episode": 10,
         "role": "LONG",
         "source": "manual",
-        "updatedAt": "2026-08-31T11:09:56.737Z"
+        "updatedAt": "2026-08-29T08:17:39.122Z"
       },
       "url": "https://youtu.be/3PkSwrFIcRE"
     },
@@ -5315,31 +5333,6 @@
       "url": "https://youtu.be/dqUv-iFpy2g"
     },
     {
-      "video": "w0xvwLiOX1U",
-      "views": 2,
-      "estimatedMinutesWatched": 0,
-      "averageViewDuration": 20,
-      "averageViewPercentage": 87.83,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "T는 어떻게 읽을까요? #영어초보 #파닉스 #영어공부 #영어초보 #파닉스 #영어공부 #영어독학 #50대영어 #영포자 #영어독학 #50대영어 #영포자",
-      "publishedAt": "2026-06-25T13:00:37Z",
-      "thumbnail": "https://i.ytimg.com/vi/w0xvwLiOX1U/maxresdefault.jpg",
-      "durationSeconds": 23,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/w0xvwLiOX1U"
-    },
-    {
       "video": "51fLblzetS0",
       "views": 2,
       "estimatedMinutesWatched": 0,
@@ -5363,6 +5356,31 @@
         "reason": "구체적 운영 계획 이전 업로드"
       },
       "url": "https://youtu.be/51fLblzetS0"
+    },
+    {
+      "video": "w0xvwLiOX1U",
+      "views": 2,
+      "estimatedMinutesWatched": 0,
+      "averageViewDuration": 20,
+      "averageViewPercentage": 87.83,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "T는 어떻게 읽을까요? #영어초보 #파닉스 #영어공부 #영어초보 #파닉스 #영어공부 #영어독학 #50대영어 #영포자 #영어독학 #50대영어 #영포자",
+      "publishedAt": "2026-06-25T13:00:37Z",
+      "thumbnail": "https://i.ytimg.com/vi/w0xvwLiOX1U/maxresdefault.jpg",
+      "durationSeconds": 23,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/w0xvwLiOX1U"
     },
     {
       "video": "1BslXwjEbOI",
@@ -5640,6 +5658,31 @@
       "url": "https://youtu.be/_TEGdCgLmYE"
     },
     {
+      "video": "EDjmQmvGA1o",
+      "views": 1,
+      "estimatedMinutesWatched": 0,
+      "averageViewDuration": 0,
+      "averageViewPercentage": 0,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 0,
+      "title": "사전 찾아보고 배신감 느꼈습니다, City를 '시티'로 읽으면 절대 못 알아듣는 이유 | 영어 T 발음 원리",
+      "publishedAt": "2026-10-02T14:00:08Z",
+      "thumbnail": "https://i.ytimg.com/vi/EDjmQmvGA1o/maxresdefault.jpg",
+      "durationSeconds": 507,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "url": "https://youtu.be/EDjmQmvGA1o"
+    },
+    {
       "video": "d7lre1PlsEo",
       "views": 1,
       "estimatedMinutesWatched": 0,
@@ -5784,10 +5827,12 @@
       "subscriberNet": 5,
       "subscribersPerThousandViews": 2.28310502283105,
       "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "검토 필요"
+        "category": "CHANNEL",
+        "season": null,
+        "episode": null,
+        "role": "C",
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:19:43.744Z"
       },
       "url": "https://youtu.be/IfK4Itzgt6o"
     },
@@ -5809,12 +5854,12 @@
       "subscriberNet": 5,
       "subscribersPerThousandViews": 2.5188916876574305,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "B",
-        "updatedAt": "2026-08-13T10:59:23.069Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:20:00.116Z"
       },
       "url": "https://youtu.be/dijhGjxOQOw"
     },
@@ -5836,12 +5881,12 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "A",
-        "updatedAt": "2026-08-13T11:02:30.945Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:56.110Z"
       },
       "url": "https://youtu.be/F-o7EmQL3zY"
     },
@@ -5863,12 +5908,12 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:21.686Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:19:28.454Z"
       },
       "url": "https://youtu.be/h-UUbuWQuag"
     },
@@ -5890,12 +5935,12 @@
       "subscriberNet": 11,
       "subscribersPerThousandViews": 6.654567453115548,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:24.354Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:20:11.918Z"
       },
       "url": "https://youtu.be/M9ru03p3QoE"
     },
@@ -5917,21 +5962,21 @@
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 5,
         "role": "A",
-        "updatedAt": "2026-08-13T11:02:48.029Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:48:05.835Z"
       },
       "url": "https://youtu.be/6nANjHxy2Lc"
     },
     {
       "video": "5MiM1tIpQQk",
-      "views": 1593,
-      "estimatedMinutesWatched": 247,
+      "views": 1595,
+      "estimatedMinutesWatched": 248,
       "averageViewDuration": 34,
-      "averageViewPercentage": 65.6,
+      "averageViewPercentage": 65.38,
       "subscribersGained": 2,
       "subscribersLost": 0,
       "likes": 3,
@@ -5942,14 +5987,14 @@
       "durationSeconds": 53,
       "creatorContentType": "SHORTS",
       "subscriberNet": 2,
-      "subscribersPerThousandViews": 1.2554927809165097,
+      "subscribersPerThousandViews": 1.2539184952978057,
       "classification": {
         "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-14T09:04:01.715Z"
+        "updatedAt": "2026-08-29T08:19:15.717Z"
       },
       "url": "https://youtu.be/5MiM1tIpQQk"
     },
@@ -5980,10 +6025,10 @@
     },
     {
       "video": "Si88xXt-EQc",
-      "views": 1261,
-      "estimatedMinutesWatched": 176,
+      "views": 1262,
+      "estimatedMinutesWatched": 177,
       "averageViewDuration": 19,
-      "averageViewPercentage": 39.2,
+      "averageViewPercentage": 39.21,
       "subscribersGained": 4,
       "subscribersLost": 0,
       "likes": 3,
@@ -5994,14 +6039,14 @@
       "durationSeconds": 51,
       "creatorContentType": "SHORTS",
       "subscriberNet": 4,
-      "subscribersPerThousandViews": 3.1720856463124503,
+      "subscribersPerThousandViews": 3.1695721077654517,
       "classification": {
         "category": "SEASON",
         "season": 1,
         "episode": 9,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:44:18.301Z"
+        "updatedAt": "2026-08-29T08:18:45.148Z"
       },
       "url": "https://youtu.be/Si88xXt-EQc"
     },
@@ -6028,7 +6073,7 @@
         "episode": 9,
         "role": "A",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:44:16.233Z"
+        "updatedAt": "2026-08-29T08:18:46.851Z"
       },
       "url": "https://youtu.be/7qSWJZqV14o"
     },
@@ -6050,12 +6095,12 @@
       "subscriberNet": 7,
       "subscribersPerThousandViews": 6.050129645635264,
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "B",
-        "updatedAt": "2026-08-13T11:02:37.588Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:55.160Z"
       },
       "url": "https://youtu.be/k8T7chDCj3Q"
     },
@@ -6082,7 +6127,7 @@
         "episode": 10,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-09-07T05:23:50.940Z"
+        "updatedAt": "2026-08-29T08:17:52.624Z"
       },
       "url": "https://youtu.be/nVrCk8IZFGA"
     },
@@ -6109,7 +6154,7 @@
         "episode": 10,
         "role": "A",
         "source": "manual",
-        "updatedAt": "2026-09-07T05:23:49.962Z"
+        "updatedAt": "2026-08-29T08:18:07.961Z"
       },
       "url": "https://youtu.be/LdiZKCzKf0c"
     },
@@ -6167,6 +6212,36 @@
   "channelCRecommendations": [
     {
       "rank": 1,
+      "score": 83,
+      "videoId": "tFe-cB__uns",
+      "title": "-sion은 '션'일까 '전'일까? 99%가 모르는 영어 발음의 숨겨진 과학적 원리 (시즌1 EP7)",
+      "url": "https://youtu.be/tFe-cB__uns",
+      "publishedAt": "2026-08-09T10:16:00Z",
+      "durationSeconds": 407,
+      "thumbnail": "https://i.ytimg.com/vi/tFe-cB__uns/maxresdefault.jpg",
+      "classification": {
+        "category": "SEASON",
+        "season": 1,
+        "episode": 7,
+        "role": "LONG",
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:24.534Z"
+      },
+      "confidence": "high",
+      "metrics": {
+        "views": 15,
+        "averageViewPercentage": 23.83,
+        "subscriberNet": 0,
+        "subscribersPerThousandViews": 0,
+        "evidenceViews": 3653,
+        "weightedRetention": 51.06540651519299,
+        "evidenceSubscribers": 16,
+        "evidenceSubscriberRate": 4.37996167533534
+      },
+      "reason": "근거 조회수 3,653 · 가중 시청률 51.1% · 연결 쇼츠 2개 반영"
+    },
+    {
+      "rank": 2,
       "score": 81,
       "videoId": "BsyRH8GWYJ4",
       "title": "원어민 발음이 유독 빠르게 들리는 진짜 이유 (게으른 소리 슈와) | 영어 #쉬운영어 #영어학습  #영어읽는방법 #원어민영어 #영어",
@@ -6175,12 +6250,12 @@
       "durationSeconds": 420,
       "thumbnail": "https://i.ytimg.com/vi/BsyRH8GWYJ4/maxresdefault.jpg",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "LONG",
-        "updatedAt": "2026-08-13T11:02:30.571Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:57.866Z"
       },
       "confidence": "high",
       "metrics": {
@@ -6196,7 +6271,7 @@
       "reason": "근거 조회수 3,099 · 가중 시청률 80.7% · 연결 쇼츠 2개 반영"
     },
     {
-      "rank": 2,
+      "rank": 3,
       "score": 74,
       "videoId": "sNNufVhkjT8",
       "title": "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙",
@@ -6210,7 +6285,7 @@
         "episode": 9,
         "role": "LONG",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:04:15.605Z"
+        "updatedAt": "2026-08-29T08:17:15.776Z"
       },
       "confidence": "high",
       "metrics": {
@@ -6218,15 +6293,15 @@
         "averageViewPercentage": 21.44,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 2466,
-        "weightedRetention": 57.65883211678832,
+        "evidenceViews": 2467,
+        "weightedRetention": 57.65646534252128,
         "evidenceSubscribers": 6,
-        "evidenceSubscriberRate": 2.4330900243309004
+        "evidenceSubscriberRate": 2.432103769760843
       },
-      "reason": "근거 조회수 2,466 · 가중 시청률 57.7% · 연결 쇼츠 2개 반영"
+      "reason": "근거 조회수 2,467 · 가중 시청률 57.7% · 연결 쇼츠 2개 반영"
     },
     {
-      "rank": 3,
+      "rank": 4,
       "score": 73,
       "videoId": "BLinHY3p4yc",
       "title": "영어 읽는 법 | HEROIC은 왜 히로익일까? -IC만 알면 끝! (영어기초배우기 EP5)",
@@ -6235,12 +6310,12 @@
       "durationSeconds": 281,
       "thumbnail": "https://i.ytimg.com/vi/BLinHY3p4yc/maxresdefault.jpg",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 5,
         "role": "LONG",
-        "updatedAt": "2026-08-13T11:02:40.397Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:03:42.587Z"
       },
       "confidence": "high",
       "metrics": {
@@ -6256,7 +6331,7 @@
       "reason": "근거 조회수 1,663 · 가중 시청률 174.1% · 연결 쇼츠 1개 반영"
     },
     {
-      "rank": 4,
+      "rank": 5,
       "score": 70,
       "videoId": "hu4GNC7peTY",
       "title": "영어 강세 규칙, 이것만 알면 끝 | -TION 단어 읽는 법 (영어기초배우기 EP6)",
@@ -6265,12 +6340,12 @@
       "durationSeconds": 411,
       "thumbnail": "https://i.ytimg.com/vi/hu4GNC7peTY/maxresdefault.jpg",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:28.319Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:48:14.029Z"
       },
       "confidence": "high",
       "metrics": {
@@ -6286,8 +6361,8 @@
       "reason": "근거 조회수 898 · 가중 시청률 76.7% · 연결 쇼츠 2개 반영"
     },
     {
-      "rank": 5,
-      "score": 69,
+      "rank": 6,
+      "score": 68,
       "videoId": "YoaCRYCWpws",
       "title": "영어 발음, PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초배우기 EP8)",
       "url": "https://youtu.be/YoaCRYCWpws",
@@ -6295,12 +6370,12 @@
       "durationSeconds": 367,
       "thumbnail": "https://i.ytimg.com/vi/YoaCRYCWpws/maxresdefault.jpg",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:22.388Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:26.611Z"
       },
       "confidence": "high",
       "metrics": {
@@ -6308,42 +6383,12 @@
         "averageViewPercentage": 20.63,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 3437,
-        "weightedRetention": 61.24111725341867,
+        "evidenceViews": 3439,
+        "weightedRetention": 61.14161674905495,
         "evidenceSubscribers": 2,
-        "evidenceSubscriberRate": 0.5819028222286878
+        "evidenceSubscriberRate": 0.5815644082582145
       },
-      "reason": "근거 조회수 3,437 · 가중 시청률 61.2% · 연결 쇼츠 2개 반영"
-    },
-    {
-      "rank": 6,
-      "score": 66,
-      "videoId": "tFe-cB__uns",
-      "title": "-sion은 '션'일까 '전'일까? 99%가 모르는 영어 발음의 숨겨진 과학적 원리 (시즌1 EP7)",
-      "url": "https://youtu.be/tFe-cB__uns",
-      "publishedAt": "2026-08-09T10:16:00Z",
-      "durationSeconds": 407,
-      "thumbnail": "https://i.ytimg.com/vi/tFe-cB__uns/maxresdefault.jpg",
-      "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:24.857Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "confidence": "high",
-      "metrics": {
-        "views": 15,
-        "averageViewPercentage": 23.83,
-        "subscriberNet": 0,
-        "subscribersPerThousandViews": 0,
-        "evidenceViews": 899,
-        "weightedRetention": 76.46582869855395,
-        "evidenceSubscribers": 1,
-        "evidenceSubscriberRate": 1.1123470522803114
-      },
-      "reason": "근거 조회수 899 · 가중 시청률 76.5% · 연결 쇼츠 2개 반영"
+      "reason": "근거 조회수 3,439 · 가중 시청률 61.1% · 연결 쇼츠 2개 반영"
     },
     {
       "rank": 7,
@@ -6360,7 +6405,7 @@
         "episode": 10,
         "role": "LONG",
         "source": "manual",
-        "updatedAt": "2026-08-31T11:09:56.737Z"
+        "updatedAt": "2026-08-29T08:17:39.122Z"
       },
       "confidence": "high",
       "metrics": {
@@ -6392,20 +6437,20 @@
       },
       "confidence": "low",
       "metrics": {
-        "views": 51,
-        "averageViewPercentage": 34.19,
+        "views": 54,
+        "averageViewPercentage": 37.5,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 51,
-        "weightedRetention": 34.19,
+        "evidenceViews": 54,
+        "weightedRetention": 37.5,
         "evidenceSubscribers": 2,
-        "evidenceSubscriberRate": 39.21568627450981
+        "evidenceSubscriberRate": 37.03703703703704
       },
-      "reason": "근거 조회수 51 · 가중 시청률 34.2% · 표본 부족"
+      "reason": "근거 조회수 54 · 가중 시청률 37.5% · 표본 부족"
     },
     {
       "rank": 9,
-      "score": 46,
+      "score": 47,
       "videoId": "VwEkIUluszw",
       "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
       "url": "https://youtu.be/VwEkIUluszw",
@@ -6420,16 +6465,16 @@
       },
       "confidence": "low",
       "metrics": {
-        "views": 19,
-        "averageViewPercentage": 47.49,
+        "views": 24,
+        "averageViewPercentage": 48.46,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 19,
-        "weightedRetention": 47.49,
+        "evidenceViews": 24,
+        "weightedRetention": 48.46,
         "evidenceSubscribers": 1,
-        "evidenceSubscriberRate": 52.63157894736842
+        "evidenceSubscriberRate": 41.666666666666664
       },
-      "reason": "근거 조회수 19 · 가중 시청률 47.5% · 표본 부족"
+      "reason": "근거 조회수 24 · 가중 시청률 48.5% · 표본 부족"
     },
     {
       "rank": 10,
@@ -6442,9 +6487,11 @@
       "thumbnail": "https://i.ytimg.com/vi/f4wkmIvplCc/maxresdefault.jpg",
       "classification": {
         "category": "EXPERIMENT",
+        "season": null,
+        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "독립 포맷 실험"
+        "source": "manual",
+        "updatedAt": "2026-08-31T06:31:32.416Z"
       },
       "confidence": "low",
       "metrics": {
@@ -6502,27 +6549,19 @@
     "unchanged": 0,
     "skipped": [
       {
-        "folder": ".temp-extract-1788173522715",
+        "folder": ".temp-extract-1788142243221",
         "reason": "폴더명 형식 불일치"
       },
       {
-        "folder": ".temp-extract-1788178785030",
-        "reason": "폴더명 형식 불일치"
-      },
-      {
-        "folder": ".temp-extract-1788179243949",
-        "reason": "폴더명 형식 불일치"
-      },
-      {
-        "folder": ".temp-extract-1790602716686",
-        "reason": "폴더명 형식 불일치"
+        "folder": "콘텐츠 2026-08-04_2026-09-01 이해하면 쉬운 영어",
+        "reason": "노출수 또는 CTR 컬럼 없음"
       }
     ],
     "waiting": [],
     "archived": 0,
-    "directory": "C:\\Users\\yunyo\\Downloads\\project\\imports\\youtube-studio",
+    "directory": "C:\\Users\\yunyo\\.gemini\\antigravity-ide\\scratch\\ihm-easy-english\\imports\\youtube-studio",
     "autoProcessed": true,
-    "totalScanned": 4
+    "totalScanned": 2
   },
   "videoReachManual": {
     "schemaVersion": 1,
@@ -15556,8 +15595,8 @@
   },
   "evaluations48h": {
     "schemaVersion": 1,
-    "generatedAt": "2026-10-09T12:05:25.091Z",
-    "reportEndDate": "2026-10-07",
+    "generatedAt": "2026-10-10T03:59:32.757Z",
+    "reportEndDate": "2026-10-08",
     "evaluations": [
       {
         "contentId": "s1-ep08-shorts-b",
@@ -15573,7 +15612,7 @@
         "decisionStatus": "pass",
         "label": "통과",
         "reason": "평균 시청률 65.7%로 최소 기준 통과",
-        "evaluatedAt": "2026-10-09T12:05:25.091Z",
+        "evaluatedAt": "2026-10-10T03:59:32.757Z",
         "metrics": {
           "views": 1578,
           "estimatedMinutesWatched": 243,

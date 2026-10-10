@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "syncedAt": "2026-10-09T12:05:25.881Z",
+  "syncedAt": "2026-10-10T03:59:33.601Z",
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/1Oo6_AfJXNpD3im1GJ6pdxVvlFw7-Nm8Be6PPzHGWS74k12n6xgdhUYHbFQLNO_1H1fWu1bv=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 112,
-    "totalViews": 53051,
+    "totalViews": 53070,
     "videos": 76,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
@@ -136,7 +136,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "204",
+        "viewCount": "203",
         "likeCount": "0",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -183,7 +183,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "56",
+        "viewCount": "57",
         "likeCount": "1",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -551,11 +551,9 @@
       "url": "https://youtu.be/a2VrFQVjImI",
       "classification": {
         "category": "OTHER",
-        "season": null,
-        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "manual",
-        "updatedAt": "2026-09-07T05:23:26.057Z"
+        "source": "auto",
+        "reason": "검토 필요"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -599,7 +597,7 @@
         "episode": 10,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-09-07T05:23:50.940Z"
+        "updatedAt": "2026-08-29T08:17:52.624Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -647,7 +645,7 @@
         "episode": 10,
         "role": "A",
         "source": "manual",
-        "updatedAt": "2026-09-07T05:23:49.962Z"
+        "updatedAt": "2026-08-29T08:18:07.961Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -701,7 +699,7 @@
         "episode": 10,
         "role": "LONG",
         "source": "manual",
-        "updatedAt": "2026-08-31T11:09:56.737Z"
+        "updatedAt": "2026-08-29T08:17:39.122Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -754,7 +752,7 @@
         "episode": 9,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:44:18.301Z"
+        "updatedAt": "2026-08-29T08:18:45.148Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -807,7 +805,7 @@
         "episode": 9,
         "role": "A",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:44:16.233Z"
+        "updatedAt": "2026-08-29T08:18:46.851Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -864,7 +862,7 @@
         "episode": 9,
         "role": "LONG",
         "source": "manual",
-        "updatedAt": "2026-08-22T13:04:15.605Z"
+        "updatedAt": "2026-08-29T08:17:15.776Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -917,10 +915,12 @@
       },
       "url": "https://youtu.be/IfK4Itzgt6o",
       "classification": {
-        "category": "OTHER",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "검토 필요"
+        "category": "CHANNEL",
+        "season": null,
+        "episode": null,
+        "role": "C",
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:19:43.744Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -974,7 +974,7 @@
         "episode": 8,
         "role": "B",
         "source": "manual",
-        "updatedAt": "2026-08-14T09:04:01.715Z"
+        "updatedAt": "2026-08-29T08:19:15.717Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1001,12 +1001,12 @@
       },
       "url": "https://youtu.be/h-UUbuWQuag",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:21.686Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:19:28.454Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1033,12 +1033,12 @@
       },
       "url": "https://youtu.be/YoaCRYCWpws",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 8,
         "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:22.388Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:26.611Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1065,12 +1065,12 @@
       },
       "url": "https://youtu.be/dijhGjxOQOw",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "B",
-        "updatedAt": "2026-08-13T10:59:23.069Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:20:00.116Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1097,12 +1097,12 @@
       },
       "url": "https://youtu.be/M9ru03p3QoE",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 7,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:24.354Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:20:11.918Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1129,12 +1129,12 @@
       },
       "url": "https://youtu.be/tFe-cB__uns",
       "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:24.857Z",
         "category": "SEASON",
-        "source": "manual"
+        "season": 1,
+        "episode": 7,
+        "role": "LONG",
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:24.534Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1169,12 +1169,12 @@
       },
       "url": "https://youtu.be/ewv3GcXNLsE",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "B",
-        "updatedAt": "2026-08-13T10:59:25.760Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:17.892Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1210,12 +1210,12 @@
       },
       "url": "https://youtu.be/FwBboz1jenA",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "A",
-        "updatedAt": "2026-08-13T10:59:27.740Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:47:18.938Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1258,12 +1258,12 @@
       },
       "url": "https://youtu.be/hu4GNC7peTY",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 6,
         "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:28.319Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:48:14.029Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1299,9 +1299,11 @@
       "url": "https://youtu.be/f4wkmIvplCc",
       "classification": {
         "category": "EXPERIMENT",
+        "season": null,
+        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "독립 포맷 실험"
+        "source": "manual",
+        "updatedAt": "2026-08-31T06:31:32.416Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1349,9 +1351,11 @@
       "url": "https://youtu.be/Ha_7wdnFNmo",
       "classification": {
         "category": "EXPERIMENT",
+        "season": null,
+        "episode": null,
         "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "독립 포맷 실험"
+        "source": "manual",
+        "updatedAt": "2026-08-31T06:31:33.416Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1396,12 +1400,12 @@
       },
       "url": "https://youtu.be/6nANjHxy2Lc",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 5,
         "role": "A",
-        "updatedAt": "2026-08-13T11:02:48.029Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-29T08:48:05.835Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1448,12 +1452,12 @@
       },
       "url": "https://youtu.be/BLinHY3p4yc",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 5,
         "role": "LONG",
-        "updatedAt": "2026-08-13T11:02:40.397Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:03:42.587Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1504,12 +1508,12 @@
       },
       "url": "https://youtu.be/k8T7chDCj3Q",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "B",
-        "updatedAt": "2026-08-13T11:02:37.588Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:55.160Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1557,12 +1561,12 @@
       },
       "url": "https://youtu.be/F-o7EmQL3zY",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "A",
-        "updatedAt": "2026-08-13T11:02:30.945Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:56.110Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -1600,12 +1604,12 @@
       },
       "url": "https://youtu.be/BsyRH8GWYJ4",
       "classification": {
+        "category": "SEASON",
         "season": 1,
         "episode": 4,
         "role": "LONG",
-        "updatedAt": "2026-08-13T11:02:30.571Z",
-        "category": "SEASON",
-        "source": "manual"
+        "source": "manual",
+        "updatedAt": "2026-08-30T03:02:57.866Z"
       },
       "comments": [],
       "channelOwnerComments": []
@@ -2095,7 +2099,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=COywo9YG&rs=AOn4CLAh9WjHdqxYu1wQb3ZRxEur5fnt4g",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CJTuptYG&rs=AOn4CLAfQZwesQ7w6OsX-JEqfARi25q1GA",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -2585,7 +2589,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "2189",
+        "viewCount": "2188",
         "likeCount": "5",
         "dislikeCount": "0",
         "favoriteCount": "0",

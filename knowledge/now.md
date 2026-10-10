@@ -1,6 +1,19 @@
 # 지금 할 일
 
-마지막 확인: 2026-10-09
+마지막 확인: 2026-10-10
+
+## 📦 제작 완료 및 타 PC 렌더링/업로드 준비 — 단편 EP28(원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기 드릴)
+
+- 폴더: `videos/ep28-f-vs-p/`
+- 타임라인: 총 415.61초 (6분 55.6초) / 10개 프레임 완비 + 10초 엔드스크린 구간 탑재 (405.61s~415.61s).
+- 검수 완료: `npx hyperframes check` 린터/런타임/레이아웃/모션/대비 59/59 WCAG AA 100% 통과 (Check passed).
+- 렌더링 방식: 타 PC 분산 렌더링 (사용자 명시: "렌더는 다른 PC에서 할 거야").
+  - 렌더 명령어: `npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4`
+- 업로드 패키지 빌드 완료: `output/upload-packages/ep28-f-vs-p/`
+  - 메타데이터: `title.txt`, `title-variants.txt`, `timeline.txt` (10개 챕터 + 10초 엔드스크린), `description.txt`, `pinned-comment.txt`, `tags.txt`, `status.json`, `upload-checklist.txt`
+  - 원클릭 대시보드: `index.html` (타 PC 렌더링 명령어 원클릭 복사, 유튜브 스튜디오 메타데이터 원클릭 복사, 썸네일 프롬프트 가이드 완비)
+  - 썸네일 프롬프트: `prompts/thumbnail-prompts.md` (모바일 1위 클로즈업 C안, 메인 와이드 C안, A안 반전, B안 직격)
+- **다음 행동**: 사용자가 다른 PC에서 `npx hyperframes render` 실행 후 패키지 폴더(`output/upload-packages/ep28-f-vs-p/index.html`) 열람하여 유튜브 스튜디오 업로드 및 예약 설정.
 
 ## ✅ 제작 완료 (업로드 대기) — 단편 EP27(영어 -S · -ES 끝소리 3가지 물리법칙 24단어 반복 듣기 롱폼)
 

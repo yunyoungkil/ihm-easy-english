@@ -1,0 +1,359 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tip-badge {
+    background: #D1FAE5; color: #065F46; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2cqh; z-index: 5;
+  }
+  .pair-counter-bar {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+  }
+  .counter-badge {
+    font-size: 1.25cqw; font-weight: 900; color: #4B5563; background: #FFFFFF;
+    padding: 0.4cqh 1.5cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tip-box {
+    background: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.4cqh 1.8cqw; font-size: 1.2cqw; font-weight: 900; color: #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .cards-wrapper {
+    display: flex; gap: 3.2cqw; width: 100%; align-items: stretch;
+  }
+  .pair-card {
+    flex: 1; background: #FFFFFF; border: 4px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 26px; padding: 3.6cqh 2.4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6cqh;
+  }
+  .card-f { border-color: #EF4444; }
+  .card-p { border-color: #3B82F6; }
+  .card-f.active {
+    background: #FFF5F5; box-shadow: 10px 10px 0px #EF4444;
+  }
+  .card-p.active {
+    background: #F0F7FF; box-shadow: 10px 10px 0px #3B82F6;
+  }
+  .card-label {
+    font-size: 1.15cqw; font-weight: 900; padding: 0.4cqh 1.3cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .label-f { background: #FEE2E2; color: #DC2626; }
+  .label-p { background: #DBEAFE; color: #2563EB; }
+  .word-text {
+    font-family: 'Archivo Black', sans-serif; font-size: 5.2cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap; color: #111111;
+  }
+  .target-phoneme {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .phoneme-f { color: #DC2626; border-color: #DC2626; }
+  .phoneme-p { color: #2563EB; border-color: #2563EB; }
+  .ipa-text {
+    font-size: 1.7cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .meaning-text {
+    font-size: 2.2cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  /* Indicator Dots only - 3 Repetitions */
+  .dots-wrapper {
+    display: flex; gap: 1cqw; justify-content: center; align-items: center; margin-top: 0.5cqh;
+  }
+  .dot {
+    width: 1.4cqw; height: 1.4cqw; border-radius: 50%;
+    border: 2.5px solid #111111; background: #E5E7EB;
+  }
+  .dot.active {
+    background: #10B981; transform: scale(1.35); box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+  }
+  audio { display: none; }
+</style>
+
+<div id="root" data-composition-id="05-drill3" data-width="1920" data-height="1080">
+  <div class="eyebrow-pill">
+    <span class="tip-badge">Group 3 · 실생활 2음절 필수 6쌍</span>
+    <span>영어 철자 음절 분리 (윗니 100% cof·fee vs 두 입술 100% co·py)</span>
+  </div>
+
+  <div class="stage">
+    <div class="pair-counter-bar">
+      <div id="counterBadge" class="counter-badge">1쌍 / 6쌍</div>
+      <div id="tipBox" class="tip-box">조음 팁 안내</div>
+    </div>
+
+    <div class="cards-wrapper">
+      <!-- Left Card: F Word -->
+      <div class="pair-card card-f" id="cardF">
+        <div class="card-label label-f">[f] 윗니 100% 바람</div>
+        <div id="wordF" class="word-text"><span class="target-phoneme phoneme-f">f</span>an</div>
+        <div id="ipaF" class="ipa-text">[fæn] · 팬</div>
+        <div id="meaningF" class="meaning-text">선풍기 / 부채</div>
+      </div>
+
+      <!-- Right Card: P Word -->
+      <div class="pair-card card-p" id="cardP">
+        <div class="card-label label-p">[p] 윗니 0% 두 입술 터짐</div>
+        <div id="wordP" class="word-text"><span class="target-phoneme phoneme-p">p</span>an</div>
+        <div id="ipaP" class="ipa-text">[pæn] · 팬</div>
+        <div id="meaningP" class="meaning-text">냄비 / 프라이팬</div>
+      </div>
+    </div>
+
+    <div class="dots-wrapper">
+      <div class="dot" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+    </div>
+  </div>
+
+  <audio id="a_p13_f0" src="assets/voice/m_w25_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.72"></audio>
+  <audio id="a_p13_p0" src="assets/voice/m_w26_copy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.57" data-duration="0.61"></audio>
+  <audio id="a_p13_f1" src="assets/voice/f_w25_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="2.83" data-duration="0.77"></audio>
+  <audio id="a_p13_p1" src="assets/voice/f_w26_copy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.95" data-duration="0.72"></audio>
+  <audio id="a_p13_f2" src="assets/voice/m_w25_coffee.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.32" data-duration="0.72"></audio>
+  <audio id="a_p13_p2" src="assets/voice/f_w26_copy.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="6.39" data-duration="0.72"></audio>
+  <audio id="a_p14_f0" src="assets/voice/m_w27_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.21" data-duration="0.76"></audio>
+  <audio id="a_p14_p0" src="assets/voice/m_w28_option.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.32" data-duration="0.70"></audio>
+  <audio id="a_p14_f1" src="assets/voice/f_w27_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.67" data-duration="0.85"></audio>
+  <audio id="a_p14_p1" src="assets/voice/f_w28_option.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="11.87" data-duration="0.75"></audio>
+  <audio id="a_p14_f2" src="assets/voice/m_w27_office.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.27" data-duration="0.76"></audio>
+  <audio id="a_p14_p2" src="assets/voice/f_w28_option.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.38" data-duration="0.75"></audio>
+  <audio id="a_p15_f0" src="assets/voice/m_w29_follow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.23" data-duration="0.67"></audio>
+  <audio id="a_p15_p0" src="assets/voice/m_w30_pillow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="17.25" data-duration="0.62"></audio>
+  <audio id="a_p15_f1" src="assets/voice/f_w29_follow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.52" data-duration="0.72"></audio>
+  <audio id="a_p15_p1" src="assets/voice/f_w30_pillow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.59" data-duration="0.73"></audio>
+  <audio id="a_p15_f2" src="assets/voice/m_w29_follow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.97" data-duration="0.67"></audio>
+  <audio id="a_p15_p2" src="assets/voice/f_w30_pillow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.99" data-duration="0.73"></audio>
+  <audio id="a_p16_f0" src="assets/voice/m_w31_forest.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.82" data-duration="0.74"></audio>
+  <audio id="a_p16_p0" src="assets/voice/m_w32_protect.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.91" data-duration="0.75"></audio>
+  <audio id="a_p16_f1" src="assets/voice/f_w31_forest.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.31" data-duration="0.83"></audio>
+  <audio id="a_p16_p1" src="assets/voice/f_w32_protect.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.49" data-duration="0.82"></audio>
+  <audio id="a_p16_f2" src="assets/voice/m_w31_forest.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.96" data-duration="0.74"></audio>
+  <audio id="a_p16_p2" src="assets/voice/f_w32_protect.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.05" data-duration="0.82"></audio>
+  <audio id="a_p17_f0" src="assets/voice/m_w33_fourteen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.97" data-duration="0.84"></audio>
+  <audio id="a_p17_p0" src="assets/voice/m_w34_portion.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="33.16" data-duration="0.65"></audio>
+  <audio id="a_p17_f1" src="assets/voice/f_w33_fourteen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.46" data-duration="0.88"></audio>
+  <audio id="a_p17_p1" src="assets/voice/f_w34_portion.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.69" data-duration="0.81"></audio>
+  <audio id="a_p17_f2" src="assets/voice/m_w33_fourteen.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.15" data-duration="0.84"></audio>
+  <audio id="a_p17_p2" src="assets/voice/f_w34_portion.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.34" data-duration="0.81"></audio>
+  <audio id="a_p18_f0" src="assets/voice/m_w35_freedom.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.25" data-duration="0.65"></audio>
+  <audio id="a_p18_p0" src="assets/voice/m_w36_pressure.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.25" data-duration="0.66"></audio>
+  <audio id="a_p18_f1" src="assets/voice/f_w35_freedom.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.56" data-duration="0.79"></audio>
+  <audio id="a_p18_p1" src="assets/voice/f_w36_pressure.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.70" data-duration="0.77"></audio>
+  <audio id="a_p18_f2" src="assets/voice/m_w35_freedom.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.12" data-duration="0.65"></audio>
+  <audio id="a_p18_p2" src="assets/voice/f_w36_pressure.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.12" data-duration="0.77"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var counterBadge = document.getElementById("counterBadge");
+    var tipBox = document.getElementById("tipBox");
+    var cardF = document.getElementById("cardF");
+    var cardP = document.getElementById("cardP");
+    var wordF = document.getElementById("wordF");
+    var ipaF = document.getElementById("ipaF");
+    var meaningF = document.getElementById("meaningF");
+    var wordP = document.getElementById("wordP");
+    var ipaP = document.getElementById("ipaP");
+    var meaningP = document.getElementById("meaningP");
+    var dots = [
+      document.getElementById("dot1"),
+      document.getElementById("dot2"),
+      document.getElementById("dot3")
+    ];
+
+    function setPair(pair, idx, total) {
+      counterBadge.textContent = "최소대립쌍 " + idx + " / " + total;
+      tipBox.textContent = "💡 " + pair.tip;
+
+      wordF.innerHTML = pair.f.formatted;
+      ipaF.textContent = pair.f.krSyl + " " + pair.f.ipa;
+      meaningF.textContent = pair.f.kr;
+
+      wordP.innerHTML = pair.p.formatted;
+      ipaP.textContent = pair.p.krSyl + " " + pair.p.ipa;
+      meaningP.textContent = pair.p.kr;
+
+      cardF.classList.remove("active");
+      cardP.classList.remove("active");
+      dots.forEach(function(d) { d.className = "dot"; });
+
+      gsap.fromTo([cardF, cardP], { scale: 0.96 }, { scale: 1, duration: 0.25, stagger: 0.05, ease: "back.out(1.5)" });
+    }
+
+    function highlightSide(side, dotIdx) {
+      if (side === "f") {
+        cardF.classList.add("active");
+        cardP.classList.remove("active");
+        gsap.fromTo(wordF, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: "power1.out" });
+      } else {
+        cardP.classList.add("active");
+        cardF.classList.remove("active");
+        gsap.fromTo(wordP, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: "power1.out" });
+      }
+
+      dots.forEach(function(d, i) {
+        if (i < dotIdx) {
+          d.className = "dot active";
+        } else {
+          d.className = "dot";
+        }
+      });
+    }
+
+  tl.call(function() {
+    setPair({"id":"p13","group":"g3","f":{"id":"w25","word":"cof · fee","syl":"cof · fee","krSyl":"커피","ipa":"[ˈkɔːfi]","kr":"커피","m":"m_w25_coffee","f":"f_w25_coffee","formatted":"co<span class=\"target-phoneme phoneme-f\">f</span> · <span class=\"target-phoneme phoneme-f\">f</span>ee"},"p":{"id":"w26","word":"co · py","syl":"co · py","krSyl":"카피","ipa":"[ˈkɑːpi]","kr":"복사","m":"m_w26_copy","f":"f_w26_copy","formatted":"co · <span class=\"target-phoneme phoneme-p\">p</span>y"},"tip":"윗니 100% cof·fee vs 두 입술 100% co·py"}, 1, 6);
+  }, null, 0.50);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 0.50);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 1.57);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 2.83);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 3.95);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 5.32);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 6.39);
+  tl.call(function() {
+    setPair({"id":"p14","group":"g3","f":{"id":"w27","word":"of · fice","syl":"of · fice","krSyl":"오피스","ipa":"[ˈɔːfɪs]","kr":"사무실","m":"m_w27_office","f":"f_w27_office","formatted":"o<span class=\"target-phoneme phoneme-f\">f</span> · <span class=\"target-phoneme phoneme-f\">f</span>ice"},"p":{"id":"w28","word":"op · tion","syl":"op · tion","krSyl":"옵션","ipa":"[ˈɑːpʃn]","kr":"선택지","m":"m_w28_option","f":"f_w28_option","formatted":"o<span class=\"target-phoneme phoneme-p\">p</span> · tion"},"tip":"윗니 100% of·fice vs 두 입술 100% op·tion"}, 2, 6);
+  }, null, 8.21);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 8.21);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 9.32);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 10.67);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 11.87);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 13.27);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 14.38);
+  tl.call(function() {
+    setPair({"id":"p15","group":"g3","f":{"id":"w29","word":"fol · low","syl":"fol · low","krSyl":"팔로우","ipa":"[ˈfɑːloʊ]","kr":"따라가다","m":"m_w29_follow","f":"f_w29_follow","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ol · low"},"p":{"id":"w30","word":"pil · low","syl":"pil · low","krSyl":"필로우","ipa":"[ˈpɪloʊ]","kr":"베개","m":"m_w30_pillow","f":"f_w30_pillow","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>il · low"},"tip":"윗니 100% fol·low vs 두 입술 100% pil·low"}, 3, 6);
+  }, null, 16.23);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 16.23);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 17.25);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 18.52);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 19.59);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 20.97);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 21.99);
+  tl.call(function() {
+    setPair({"id":"p16","group":"g3","f":{"id":"w31","word":"for · est","syl":"for · est","krSyl":"포레스트","ipa":"[ˈfɔːrɪst]","kr":"숲","m":"m_w31_forest","f":"f_w31_forest","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>or · est"},"p":{"id":"w32","word":"pro · tect","syl":"pro · tect","krSyl":"프로텍트","ipa":"[prəˈtɛkt]","kr":"보호하다","m":"m_w32_protect","f":"f_w32_protect","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>ro · tect"},"tip":"윗니 100% for·est vs 두 입술 100% pro·tect"}, 4, 6);
+  }, null, 23.82);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 23.82);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 24.91);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 26.31);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 27.49);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 28.96);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 30.05);
+  tl.call(function() {
+    setPair({"id":"p17","group":"g3","f":{"id":"w33","word":"four · teen","syl":"four · teen","krSyl":"포틴","ipa":"[ˌfɔːrˈtiːn]","kr":"14","m":"m_w33_fourteen","f":"f_w33_fourteen","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>our · teen"},"p":{"id":"w34","word":"por · tion","syl":"por · tion","krSyl":"포션","ipa":"[ˈpɔːrʃn]","kr":"일부분 / 몫","m":"m_w34_portion","f":"f_w34_portion","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>or · tion"},"tip":"윗니 100% four·teen vs 두 입술 100% por·tion"}, 5, 6);
+  }, null, 31.97);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 31.97);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 33.16);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 34.46);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 35.69);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 37.15);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 38.34);
+  tl.call(function() {
+    setPair({"id":"p18","group":"g3","f":{"id":"w35","word":"free · dom","syl":"free · dom","krSyl":"프리덤","ipa":"[ˈfriːdəm]","kr":"자유","m":"m_w35_freedom","f":"f_w35_freedom","formatted":"<span class=\"target-phoneme phoneme-f\">f</span>ree · dom"},"p":{"id":"w36","word":"pres · sure","syl":"pres · sure","krSyl":"프레셔","ipa":"[ˈprɛʃər]","kr":"압박 / 압력","m":"m_w36_pressure","f":"f_w36_pressure","formatted":"<span class=\"target-phoneme phoneme-p\">p</span>res · sure"},"tip":"윗니 100% free·dom vs 두 입술 100% pres·sure"}, 6, 6);
+  }, null, 40.25);
+  tl.call(function() {
+    highlightSide("f", 1);
+  }, null, 40.25);
+  tl.call(function() {
+    highlightSide("p", 1);
+  }, null, 41.25);
+  tl.call(function() {
+    highlightSide("f", 2);
+  }, null, 42.56);
+  tl.call(function() {
+    highlightSide("p", 2);
+  }, null, 43.70);
+  tl.call(function() {
+    highlightSide("f", 3);
+  }, null, 45.12);
+  tl.call(function() {
+    highlightSide("p", 3);
+  }, null, 46.12);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["05-drill3"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

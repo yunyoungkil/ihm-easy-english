@@ -19,8 +19,11 @@ import {
   approveThumbnail,
   scanPackagesNeedingAttention,
   scanUploadNotices,
+  dismissCommentNotice,
   resolveAttention,
   decideNextUpload,
+  OUR_CHANNEL_ID,
+  isOurChannel,
 } from '../youtube-publisher.mjs';
 
 const CLEAN_RULES = {
@@ -64,6 +67,7 @@ const decide = async (root, overrides = {}) =>
     rules: CLEAN_RULES,
     latestScheduledDate: null,
     hasScope: true,
+    connectedChannel: {id: OUR_CHANNEL_ID, title: '이해하면 쉬운 영어'},
     recentUploadHistory: [],
     existingUploads: [],
     now: FIXED_NOW,
@@ -192,21 +196,103 @@ test('스튜디오에서 직접 해결했다고 표시하면 다시 진행한다
   }
 });
 
-test('댓글이 거부되면 기록만 남기고 업로드는 멈추지 않는다', async () => {
+test('예약 업로드는 댓글을 시도하지 않고 공개 후 등록 안내를 남긴다', async () => {
   const root = await makePackages(['ep24-a', 'ep25-b']);
+  const urls = [];
+  const fetchFn = async (url, options) => {
+    urls.push(url);
+    return partialFetch('none')(url, options);
+  };
   try {
     const first = await decide(root);
-    const result = await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: partialFetch('/commentThreads')});
+    const result = await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn});
     assert.equal(result.success, true);
-    assert.match((await readStatus(root, 'ep24-a')).commentError, /403/);
+    assert.deepEqual(result.warnings, []);
+    assert.equal(urls.some((url) => url.includes('commentThreads')), false);
+    assert.equal((await readStatus(root, 'ep24-a')).pinnedCommentPending, true);
     assert.equal((await scanPackagesNeedingAttention(root)).length, 0);
     const notices = await scanUploadNotices(root);
     assert.equal(notices.length, 1);
     assert.equal(notices[0].episodeId, 'ep24-a');
+    assert.equal(notices[0].published, false);
     assert.equal((await decide(root)).item.episodeId, 'ep25-b');
   } finally {
     await rm(root, {recursive: true, force: true});
   }
+});
+
+test('고정 댓글 안내는 공개된 뒤에도 남고, 등록했다고 표시하면 사라진다', async () => {
+  const root = await makePackages(['ep24-a']);
+  const dir = join(root, 'ep24-a');
+  try {
+    await writeFile(join(dir, 'status.json'), JSON.stringify({status: 'published', videoId: 'VID', pinnedCommentPending: true}));
+    const [notice] = await scanUploadNotices(root);
+    assert.equal(notice.published, true);
+    assert.equal(notice.videoId, 'VID');
+    await dismissCommentNotice(dir);
+    assert.deepEqual(await scanUploadNotices(root), []);
+    assert.equal((await readStatus(root, 'ep24-a')).pinnedCommentPending, undefined);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('예전 방식으로 댓글이 실패한 영상도 안내하고, 등록했다고 표시하면 기록을 지운다', async () => {
+  const root = await makePackages(['ep24-a']);
+  const dir = join(root, 'ep24-a');
+  try {
+    await writeFile(join(dir, 'status.json'), JSON.stringify({status: 'scheduled', videoId: 'VID', commentError: '고정 댓글 등록 실패 (403)'}));
+    assert.equal((await scanUploadNotices(root)).length, 1);
+    await dismissCommentNotice(dir);
+    assert.deepEqual(await scanUploadNotices(root), []);
+    assert.equal((await readStatus(root, 'ep24-a')).commentError, undefined);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('올릴 고정 댓글이 없으면 안내하지 않는다', async () => {
+  const root = await makePackages(['ep24-a'], {files: {'pinned-comment.txt': ''}});
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: partialFetch('none')});
+    assert.deepEqual(await scanUploadNotices(root), []);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('우리 채널이 아니면 모든 조건이 맞아도 올리지 않는다 (k포스트잇 업로드 사고 재현)', async () => {
+  const root = await makePackages(['ep24-a']);
+  const wrong = {id: 'UCTlT9eSeGvWLBVwa9c28zMg', title: 'k포스트잇'};
+  try {
+    const auto = await decide(root, {connectedChannel: wrong});
+    assert.equal(auto.ok, false);
+    assert.equal(auto.code, 'wrong_channel');
+    assert.match(auto.reason, /k포스트잇/);
+    const manual = await decide(root, {connectedChannel: wrong, episodeId: 'ep24-a', force: true});
+    assert.equal(manual.ok, false);
+    assert.equal(manual.code, 'wrong_channel');
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('연동된 채널을 확인하지 못하면 올리지 않는다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    const decision = await decide(root, {connectedChannel: null});
+    assert.equal(decision.ok, false);
+    assert.equal(decision.code, 'channel_unknown');
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('isOurChannel은 우리 채널 ID만 참이다', () => {
+  assert.equal(isOurChannel('UCwNrEdm2jYAtUlfHVvH3WQw'), true);
+  assert.equal(isOurChannel('UCTlT9eSeGvWLBVwa9c28zMg'), false);
+  assert.equal(isOurChannel(undefined), false);
 });
 
 test('업로드 권한이 없으면 호출하지 않고 멈춘다', async () => {
@@ -646,8 +732,8 @@ test('processQueueItem performs upload pipeline and updates status.json', async 
     assert.equal(result.success, true);
     assert.equal(result.videoId, 'mock-video-id-999');
 
-    // API 호출 4회 검증
-    assert.equal(mockCalls.length, 4);
+    // API 호출 3회 검증 (예약 영상에는 댓글을 달 수 없어 시도하지 않는다)
+    assert.equal(mockCalls.length, 3);
 
     // 1번 호출 헤더/바디 검증
     const initCall = mockCalls[0];
@@ -656,11 +742,6 @@ test('processQueueItem performs upload pipeline and updates status.json', async 
     assert.equal(initBody.snippet.title, '테스트 영상 제목');
     assert.equal(initBody.status.privacyStatus, 'private');
     assert.equal(initBody.status.publishAt, '2026-11-09T14:00:00.000Z');
-
-    // 4번 호출(댓글) 검증
-    const commentCall = mockCalls[3];
-    const commentBody = JSON.parse(commentCall.options.body);
-    assert.equal(commentBody.snippet.topLevelComment.snippet.textOriginal, '테스트 고정 댓글');
 
     // status.json 갱신 검증
     const updatedStatus = JSON.parse(await readFile(join(pkgDir, 'status.json'), 'utf8'));

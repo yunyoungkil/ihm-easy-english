@@ -27,6 +27,12 @@ const UPLOAD_SCOPE = 'https://www.googleapis.com/auth/youtube.upload';
 
 export const hasUploadScope = (scope) => String(scope || '').split(/\s+/).includes(UPLOAD_SCOPE);
 
+// 이해하면 쉬운 영어. 한 구글 계정에 채널이 여러 개라 재연동 때 다른 채널이 잡힐 수 있다
+// (2026-11-06 EP24가 k포스트잇 채널에 올라간 사고). 올리기와 데이터 저장 전에 항상 대조한다.
+export const OUR_CHANNEL_ID = 'UCwNrEdm2jYAtUlfHVvH3WQw';
+
+export const isOurChannel = (channelId) => channelId === OUR_CHANNEL_ID;
+
 // 메인 썸네일만 올린다. 없을 때 시안으로 대신하면 EP24의 BEACH vs BITCH 같은 파일이 올라갈 수 있다.
 const selectMainThumbnail = (files) => ['thumbnail.jpg', 'thumbnail.png', 'thumbnail.jpeg'].find((name) => files.includes(name)) || null;
 
@@ -179,12 +185,19 @@ export async function scanPackagesNeedingAttention(uploadPackagesDir) {
   });
 }
 
-// 업로드를 막지는 않지만 사람이 직접 처리해야 하는 일. 공개되면 목록에서 사라진다.
+// 업로드를 막지는 않지만 사람이 직접 처리해야 하는 일. 고정 댓글은 공개된 뒤에 달 수 있으므로
+// 공개 시점에 사라지면 안 된다. 등록했다고 표시할 때까지 남긴다.
 export async function scanUploadNotices(uploadPackagesDir) {
   const packages = await readPackageStatuses(uploadPackagesDir);
   return packages
-    .filter(({ status }) => status.status === 'scheduled' && status.commentError)
-    .map(({ episodeId, status }) => ({ episodeId, videoId: status.videoId, message: String(status.commentError).slice(0, 300) }));
+    .filter(({ status }) => ['scheduled', 'published'].includes(status.status) && (status.pinnedCommentPending || status.commentError))
+    .map(({ episodeId, pkgDir, status }) => ({ episodeId, pkgDir, videoId: status.videoId, published: status.status === 'published' }));
+}
+
+export async function dismissCommentNotice(pkgDir) {
+  const statusPath = join(pkgDir, 'status.json');
+  const { pinnedCommentPending, commentError, ...rest } = await readJsonFile(statusPath);
+  await writeJsonFile(statusPath, rest);
 }
 
 export async function resolveAttention({ pkgDir, action, accessToken, fetchFn = fetch }) {
@@ -241,6 +254,7 @@ export function decideNextUpload({
   rules = {},
   latestScheduledDate = null,
   hasScope = false,
+  connectedChannel = null,
   recentUploadHistory = [],
   existingUploads = null,
   skipDuplicateCheck = false,
@@ -251,6 +265,10 @@ export function decideNextUpload({
   const stop = (reason, code = 'blocked') => ({ ok: false, reason, code });
 
   if (!hasScope) return stop('유튜브 업로드 권한이 없습니다. 대시보드에서 채널을 재연동하세요.', 'no_scope');
+  if (!connectedChannel) return stop('연동된 채널을 확인하지 못해 올리지 않습니다.', 'channel_unknown');
+  if (!isOurChannel(connectedChannel.id)) {
+    return stop(`지금 연동된 채널은 "${connectedChannel.title}"입니다. 재연동해서 "이해하면 쉬운 영어" 채널을 고르세요.`, 'wrong_channel');
+  }
   if (attention.length > 0) return stop(`${attention[0].episodeId} 문제를 먼저 해결해야 합니다: ${attention[0].message}`, 'attention');
   if (readyPackages.length === 0) return stop('대기 중인 패키지가 없습니다.', 'empty');
 
@@ -502,14 +520,10 @@ export async function processQueueItem({
       }
     }
 
+    // 예약(비공개) 영상에는 댓글이 달리지 않는다. 실제 업로드 2회 모두 403으로 거부됐다(2026-11-06).
+    // 시도하지 않고, 공개 뒤 사람이 등록하고 고정하도록 표시만 남긴다.
     if (rules.autoComment && item.pinnedComment) {
-      try {
-        await createFirstComment({ videoId, commentText: item.pinnedComment, accessToken, fetchFn });
-      } catch (commentErr) {
-        console.warn(`[Publisher] 댓글 등록 경고 (${item.episodeId}):`, commentErr.message);
-        followUp.commentError = commentErr.message;
-        warnings.push(`댓글 등록 실패: ${commentErr.message}`);
-      }
+      followUp.pinnedCommentPending = true;
     }
 
     const updatedStatus = {

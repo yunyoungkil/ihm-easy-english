@@ -1,6 +1,7 @@
 // 2026-11-06 점검에서 실제로 재현한 보안 문제가 다시 생기지 않는지 확인한다. 실행: npm test
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import ts from 'typescript';
 import {execFileSync} from 'node:child_process';
 import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
@@ -78,6 +79,24 @@ test('이미지 저장은 지정 폴더 밖으로 나갈 수 없다', async () =
   const saved = join(tempThumbDir, imageUrl.split('/').pop());
   assert.equal(existsSync(saved), true);
   rmSync(saved);
+});
+
+// 2026-11-06: 수정하며 지운 변수 target을 업로드 성공 뒤 처리에서 계속 써서, 영상은 올라갔는데 화면에는 실패로 나왔다.
+// 실행해 봐야 터지는 오류라 문법 검사로는 못 잡는다. 서버 코드의 정의되지 않은 이름을 미리 찾는다.
+test('서버와 업로드 코드에 정의되지 않은 변수가 없다', () => {
+  const files = ['scripts/youtube-analytics-server.mjs', 'scripts/youtube-publisher.mjs'];
+  const program = ts.createProgram(files, {allowJs: true, checkJs: true, noEmit: true, target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.NodeNext, moduleResolution: ts.ModuleResolutionKind.NodeNext, skipLibCheck: true});
+  const CANNOT_FIND_NAME = new Set([2304, 2552]);
+  const undefinedNames = files.flatMap((file) =>
+    program
+      .getSemanticDiagnostics(program.getSourceFile(file))
+      .filter((diagnostic) => CANNOT_FIND_NAME.has(diagnostic.code))
+      .map((diagnostic) => {
+        const {line} = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+        return `${file}:${line + 1} ${ts.flattenDiagnosticMessageText(diagnostic.messageText, ' ')}`;
+      }),
+  );
+  assert.deepEqual(undefinedNames, []);
 });
 
 test('업로드 패키지 페이지는 글 파일에서 만들고 HTML을 이스케이프한다', async () => {

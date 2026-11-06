@@ -2,7 +2,7 @@ import {createServer} from 'node:http';
 import {readFile, writeFile, unlink, mkdir, readdir, rename, stat} from 'node:fs/promises';
 import {existsSync} from 'node:fs';
 import {randomBytes} from 'node:crypto';
-import {dirname, join, resolve} from 'node:path';
+import {dirname, join, relative, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {exec, execFile} from 'node:child_process';
 import {promisify} from 'node:util';
@@ -34,7 +34,9 @@ import {
   scanPackagesNeedingAttention,
   scanUploadNotices,
   resolveAttention,
+  dismissCommentNotice,
   decideNextUpload,
+  isOurChannel,
 } from './youtube-publisher.mjs';
 
 const execAsync = promisify(exec);
@@ -814,6 +816,12 @@ const getDashboard = async (accessToken) => {
   );
   const channel = channelData.items?.[0];
   if (!channel) throw new Error('승인한 계정에서 YouTube 채널을 찾지 못했습니다.');
+  // 다른 채널의 숫자로 우리 채널 데이터를 덮어쓰지 않도록 저장 전에 멈춘다.
+  if (!isOurChannel(channel.id)) {
+    const error = new Error(`지금 연동된 채널은 "${channel.snippet?.title}"입니다. 재연동해서 "이해하면 쉬운 영어" 채널을 고르세요.`);
+    error.status = 409;
+    throw error;
+  }
 
   const uploadsPlaylist = channel.contentDetails?.relatedPlaylists?.uploads;
   const uploadItems = uploadsPlaylist ? await googleGetAllPages(
@@ -4834,6 +4842,7 @@ function renderSchedulePanelHtml(data) {
   const attention = data.attention || [];
   const notices = data.notices || [];
   const hasScope = data.hasUploadScope === true;
+  const channelOk = data.channelOk === true;
 
   const alertBox = (color, body, actions) =>
     '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(0,0,0,0.25);border:1px solid ' + color + ';border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--text-normal)">' +
@@ -4842,7 +4851,10 @@ function renderSchedulePanelHtml(data) {
     '</div>';
 
   let alertsHtml = '';
-  if (!hasScope) {
+  if (data.connectedChannel && !channelOk) {
+    alertsHtml += alertBox('var(--accent-red)', '🛑 지금 연동된 채널은 <b>' + esc(data.connectedChannel.title) + '</b>입니다. 우리 채널이 아니라 올리지도 동기화하지도 않습니다. 재연동할 때 <b>이해하면 쉬운 영어</b>를 골라 주세요.',
+      '<a class="btn btn-sm btn-amber" href="/auth" style="padding:4px 10px;font-size:12px">🔗 채널 재연동</a>');
+  } else if (!hasScope) {
     alertsHtml += alertBox('var(--accent-gold)', '⚠️ 유튜브 업로드 권한이 없어 지금은 올릴 수 없습니다. 채널을 재연동하면 권한이 추가됩니다.',
       '<a class="btn btn-sm btn-amber" href="/auth" style="padding:4px 10px;font-size:12px">🔗 채널 재연동</a>');
   }
@@ -4854,7 +4866,14 @@ function renderSchedulePanelHtml(data) {
     alertsHtml += alertBox('var(--accent-red)', '🛑 <b>' + esc(item.episodeId) + '</b> ' + title + '<br><span style="color:var(--text-muted);font-size:12px">' + esc(item.message) + '</span>', actions);
   });
   notices.forEach((item) => {
-    alertsHtml += alertBox('rgba(255,255,255,0.15)', '💬 <b>' + esc(item.episodeId) + '</b> 고정 댓글이 자동으로 등록되지 않았습니다. 공개된 뒤 직접 등록해 주세요.', '');
+    const message = item.published
+      ? '공개됐습니다. 지금 고정 댓글을 등록하고 고정해 주세요.'
+      : '고정 댓글은 공개된 뒤 직접 등록해 주세요. 예약 영상에는 댓글을 달 수 없습니다.';
+    const openLink = item.published && item.videoId
+      ? '<a class="btn btn-sm btn-outline" href="https://youtu.be/' + encodeURIComponent(item.videoId) + '" target="_blank" rel="noopener" style="padding:4px 10px;font-size:12px">영상 열기</a>'
+      : '';
+    alertsHtml += alertBox('rgba(255,255,255,0.15)', '💬 <b>' + esc(item.episodeId) + '</b> ' + message,
+      openLink + '<button class="btn btn-sm btn-outline btn-comment-done" data-epid="' + esc(item.episodeId) + '" style="padding:4px 10px;font-size:12px">등록함</button>');
   });
   if (isEnabled && data.nextDecision && !data.nextDecision.ok) {
     alertsHtml += alertBox('rgba(255,255,255,0.15)', '⏸️ 자동 업로드 대기 중: ' + esc(data.nextDecision.reason), '');
@@ -4877,7 +4896,7 @@ function renderSchedulePanelHtml(data) {
       const statusCell = blockers.length
         ? blockers.map((text) => '<div style="font-size:12px;color:var(--accent-red);overflow-wrap:anywhere">' + esc(text) + '</div>').join('')
         : '<span class="badge badge-pass" style="background:rgba(0,229,255,0.15);color:var(--accent-cyan)">준비 완료</span>';
-      const canUpload = idx === 0 && blockers.length === 0 && attention.length === 0 && hasScope;
+      const canUpload = idx === 0 && blockers.length === 0 && attention.length === 0 && hasScope && channelOk;
       queueRowsHtml += '<tr style="border-bottom:1px solid rgba(255,255,255,0.05)">' +
         '<td style="padding:10px 8px;color:var(--text-muted);font-weight:700">#' + (idx + 1) + '</td>' +
         '<td style="padding:10px 8px">' + thumbnailCell + '</td>' +
@@ -5020,6 +5039,25 @@ async function loadAndBindSchedulePanel() {
           await loadAndBindSchedulePanel();
         } catch (err) {
           alert('썸네일 승인 실패: ' + err.message);
+          btn.disabled = false;
+        }
+      };
+    });
+
+    // Pinned comment done buttons
+    document.querySelectorAll('.btn-comment-done').forEach(btn => {
+      btn.onclick = async () => {
+        btn.disabled = true;
+        try {
+          const doneRes = await fetch('/api/schedule/comment-done', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ episodeId: btn.dataset.epid }),
+          });
+          if (!doneRes.ok) throw new Error((await doneRes.json()).error || '처리 실패');
+          await loadAndBindSchedulePanel();
+        } catch (err) {
+          alert('처리 실패: ' + err.message);
           btn.disabled = false;
         }
       };
@@ -8772,7 +8810,8 @@ const server = createServer(async (req, res) => {
         redirect_uri: redirectUri,
         response_type: 'code',
         access_type: 'offline',
-        prompt: 'consent',
+        // 계정과 채널을 고르는 화면을 항상 띄운다. 기본값으로 다른 채널이 잡히는 일을 막기 위해서다.
+        prompt: 'select_account consent',
         include_granted_scopes: 'true',
         scope: 'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.force-ssl',
         state,
@@ -8793,6 +8832,14 @@ const server = createServer(async (req, res) => {
         redirect_uri: redirectUri,
         grant_type: 'authorization_code',
       });
+      // 다른 채널로 로그인했으면 저장하지 않는다. 기존 연동은 그대로 남는다.
+      const connected = await fetchConnectedChannel(token.access_token);
+      if (!isOurChannel(connected?.id)) {
+        const name = String(connected?.title || '확인 실패').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+        res.writeHead(409, {'Content-Type': 'text/html; charset=utf-8'});
+        res.end(`<!doctype html><html lang="ko"><meta charset="utf-8"><title>다른 채널입니다</title><body style="font-family:sans-serif;padding:40px;line-height:1.7"><h1>다른 채널로 로그인했습니다</h1><p>선택한 채널: <b>${name}</b></p><p>이 연동은 저장하지 않았습니다. <b>이해하면 쉬운 영어</b> 채널을 골라 다시 연결해 주세요.</p><p><a href="/auth">다시 연결하기</a> · <a href="/">대시보드로 돌아가기</a></p></body></html>`);
+        return;
+      }
       await saveToken(token);
       return redirect(res, '/');
     }
@@ -9106,12 +9153,19 @@ const server = createServer(async (req, res) => {
       if (body.autoUploadEnabled === true && !hasUploadScope((await loadToken())?.scope)) {
         return json(res, 409, { error: '유튜브 업로드 권한이 없습니다. 먼저 채널을 재연동해 주세요.' });
       }
+      if (body.autoUploadEnabled === true) {
+        const accessToken = await getAccessToken();
+        const connected = accessToken ? await getConnectedChannel(accessToken) : null;
+        if (!isOurChannel(connected?.id)) {
+          return json(res, 409, { error: `지금 연동된 채널은 "${connected?.title || '확인 실패'}"입니다. 재연동해서 "이해하면 쉬운 영어" 채널을 고르세요.` });
+        }
+      }
       const updated = await savePublishRules(publishRulesPath, body);
       return json(res, 200, { ok: true, rules: updated });
     }
     if (url.pathname === '/api/schedule/queue' && req.method === 'GET') {
       const rules = await loadPublishRules(publishRulesPath);
-      const context = await loadUploadContext();
+      const context = await loadUploadContext({ accessToken: await getAccessToken() });
       const queue = buildPublishQueue({ readyPackages: context.readyPackages, rules, latestScheduledDate: context.latestScheduledDate });
       const throttle = isUploadAllowed({
         recentUploadHistory: context.recentUploadHistory,
@@ -9126,6 +9180,8 @@ const server = createServer(async (req, res) => {
         throttle,
         latestScheduledDate: context.latestScheduledDate,
         hasUploadScope: context.hasScope,
+        connectedChannel: context.connectedChannel,
+        channelOk: isOurChannel(context.connectedChannel?.id),
         attention: context.attention,
         notices: await scanUploadNotices(globalUploadPackagesDir),
         nextDecision: { ok: nextDecision.ok, reason: nextDecision.reason || null, episodeId: nextDecision.item?.episodeId || null },
@@ -9141,6 +9197,14 @@ const server = createServer(async (req, res) => {
       } catch (err) {
         return json(res, 400, { error: err.message });
       }
+    }
+    if (url.pathname === '/api/schedule/comment-done' && req.method === 'POST') {
+      const { episodeId } = await readJsonBody(req);
+      const notices = await scanUploadNotices(globalUploadPackagesDir);
+      const target = notices.find((p) => p.episodeId === episodeId);
+      if (!target) return json(res, 404, { error: `고정 댓글 안내가 있는 패키지(${episodeId})를 찾을 수 없습니다.` });
+      await dismissCommentNotice(target.pkgDir);
+      return json(res, 200, { ok: true });
     }
     if (url.pathname === '/api/schedule/resolve' && req.method === 'POST') {
       const { episodeId, action } = await readJsonBody(req);
@@ -9179,9 +9243,7 @@ const server = createServer(async (req, res) => {
 
         const result = await processQueueItem({ item: decision.item, accessToken, rules });
         if (result.success) {
-          await getEpisodesSummary(true);
-          await syncIdeaBoardHistoryFromPackages();
-          notifyClients('schedule-updated', { episodeId: target.episodeId, videoId: result.videoId });
+          await finishSuccessfulUpload(decision.item.episodeId, result.videoId);
           return json(res, 200, { ok: true, result });
         } else {
           return json(res, 500, { error: result.error });
@@ -9923,6 +9985,37 @@ async function getLatestScheduledDate() {
 }
 
 let isUploadWorkerRunning = false;
+async function fetchConnectedChannel(accessToken) {
+  try {
+    const data = await googleGet('https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true', accessToken);
+    const channel = data.items?.[0];
+    return channel ? { id: channel.id, title: channel.snippet?.title || '' } : null;
+  } catch (err) {
+    console.warn('[Auto-Upload] 연동 채널 조회 실패:', err.message);
+    return null;
+  }
+}
+
+// 화면을 열 때마다 유튜브를 호출하지 않도록 토큰이 같으면 저장해 둔 값을 쓴다. 실패는 저장하지 않는다.
+let connectedChannelMemo = { accessToken: null, channel: null };
+async function getConnectedChannel(accessToken, { fresh = false } = {}) {
+  if (!fresh && connectedChannelMemo.accessToken === accessToken && connectedChannelMemo.channel) return connectedChannelMemo.channel;
+  const channel = await fetchConnectedChannel(accessToken);
+  connectedChannelMemo = { accessToken, channel };
+  return channel;
+}
+
+// 영상은 이미 올라간 뒤다. 여기서 오류가 나도 업로드 실패로 보고하면 사람이 다시 누르게 되므로 삼키고 기록만 한다.
+async function finishSuccessfulUpload(episodeId, videoId) {
+  try {
+    await getEpisodesSummary(true);
+    await syncIdeaBoardHistoryFromPackages();
+    notifyClients('schedule-updated', { episodeId, videoId });
+  } catch (err) {
+    console.warn(`[Auto-Upload] 업로드 뒤 정리 오류 (${episodeId}, 영상은 올라갔음):`, err.message);
+  }
+}
+
 // 자동 업로드와 수동 버튼, 화면 표시가 같은 정보로 판단하도록 한곳에서 모은다.
 // checkChannel은 실제로 올리기 직전에만 켠다. 화면을 열 때마다 유튜브를 호출하지 않기 위해서다.
 async function loadUploadContext({ accessToken = null, checkChannel = false } = {}) {
@@ -9941,7 +10034,8 @@ async function loadUploadContext({ accessToken = null, checkChannel = false } = 
       console.warn('[Auto-Upload] 채널 업로드 목록 조회 실패:', err.message);
     }
   }
-  return { hasScope: hasUploadScope(token?.scope), readyPackages, attention, latestScheduledDate, recentUploadHistory, existingUploads };
+  const connectedChannel = accessToken ? await getConnectedChannel(accessToken, { fresh: checkChannel }) : null;
+  return { hasScope: hasUploadScope(token?.scope), connectedChannel, readyPackages, attention, latestScheduledDate, recentUploadHistory, existingUploads };
 }
 
 let lastAutoUploadWaitReason = null;
@@ -9971,9 +10065,7 @@ async function runAutoUploadCheck() {
     if (res.success) {
       console.log(`[Auto-Upload] 업로드 완료: ${target.episodeId} (videoId: ${res.videoId})`);
       for (const warning of res.warnings || []) console.warn(`[Auto-Upload] 주의: ${target.episodeId}: ${warning}`);
-      await getEpisodesSummary(true);
-      await syncIdeaBoardHistoryFromPackages();
-      notifyClients('schedule-updated', { episodeId: target.episodeId, videoId: res.videoId });
+      await finishSuccessfulUpload(target.episodeId, res.videoId);
     } else {
       console.warn(`[Auto-Upload] 업로드 실패: ${target.episodeId}: ${res.error}`);
     }

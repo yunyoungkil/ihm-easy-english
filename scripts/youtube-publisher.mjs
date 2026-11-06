@@ -3,9 +3,9 @@
  * YouTube 자동 예약 업로드 및 발행 스케줄 엔진
  */
 
-import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, readdir, mkdir, stat } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
-import { existsSync } from 'node:fs';
+import { existsSync, createReadStream } from 'node:fs';
 
 export const DEFAULT_PUBLISH_RULES = {
   autoUploadEnabled: false,
@@ -129,6 +129,230 @@ export function buildPublishQueue({ readyPackages = [], rules = {}, latestSchedu
 
   return queue;
 }
+
+/**
+ * YouTube Data API v3 Resumable Upload 프로토콜로 동영상을 업로드하고 예약 시각을 설정합니다.
+ */
+export async function uploadVideoToYouTube({
+  videoPath,
+  title,
+  description = '',
+  tags = [],
+  privacyStatus = 'private',
+  publishAt = null,
+  accessToken,
+  fetchFn = fetch,
+}) {
+  const videoStat = await stat(videoPath);
+  const initUrl = 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status';
+
+  const metadataBody = {
+    snippet: {
+      title,
+      description,
+      tags: Array.isArray(tags) ? tags : [],
+      categoryId: '27', // Education
+    },
+    status: {
+      privacyStatus: privacyStatus || 'private',
+      selfDeclaredMadeForKids: false,
+    },
+  };
+
+  if (publishAt) {
+    metadataBody.status.publishAt = publishAt;
+  }
+
+  const initRes = await fetchFn(initUrl, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json; charset=UTF-8',
+      'X-Upload-Content-Type': 'video/mp4',
+      'X-Upload-Content-Length': videoStat.size.toString(),
+    },
+    body: JSON.stringify(metadataBody),
+  });
+
+  if (!initRes.ok) {
+    const err = await initRes.text();
+    throw new Error(`YouTube 업로드 세션 생성 실패 (${initRes.status}): ${err}`);
+  }
+
+  const uploadUrl = initRes.headers.get('location');
+  if (!uploadUrl) {
+    throw new Error('YouTube 업로드 세션 URL(location)을 받지 못했습니다.');
+  }
+
+  const stream = createReadStream(videoPath);
+  const putRes = await fetchFn(uploadUrl, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'video/mp4',
+      'Content-Length': videoStat.size.toString(),
+    },
+    body: stream,
+    duplex: 'half',
+  });
+
+  if (!putRes.ok) {
+    const err = await putRes.text();
+    throw new Error(`동영상 바이너리 전송 실패 (${putRes.status}): ${err}`);
+  }
+
+  const data = await putRes.json();
+  return { videoId: data.id };
+}
+
+/**
+ * 커스텀 썸네일을 업로드합니다.
+ */
+export async function setVideoThumbnail({
+  videoId,
+  thumbnailPath,
+  accessToken,
+  fetchFn = fetch,
+}) {
+  const thumbStat = await stat(thumbnailPath);
+  const isPng = thumbnailPath.toLowerCase().endsWith('.png');
+  const contentType = isPng ? 'image/png' : 'image/jpeg';
+  const stream = createReadStream(thumbnailPath);
+
+  const url = `https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${encodeURIComponent(videoId)}`;
+  const res = await fetchFn(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': contentType,
+      'Content-Length': thumbStat.size.toString(),
+    },
+    body: stream,
+    duplex: 'half',
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`썸네일 등록 실패 (${res.status}): ${err}`);
+  }
+}
+
+/**
+ * 영상에 첫 댓글을 등록합니다.
+ */
+export async function createFirstComment({
+  videoId,
+  commentText,
+  accessToken,
+  fetchFn = fetch,
+}) {
+  if (!commentText || !commentText.trim()) return null;
+
+  const url = 'https://www.googleapis.com/youtube/v3/commentThreads?part=snippet';
+  const res = await fetchFn(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: JSON.stringify({
+      snippet: {
+        videoId,
+        topLevelComment: {
+          snippet: {
+            textOriginal: commentText.trim(),
+          },
+        },
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`고정 댓글 등록 실패 (${res.status}): ${err}`);
+  }
+
+  const data = await res.json();
+  return { commentId: data.id };
+}
+
+/**
+ * 큐 아이템 하나를 처리하여 유튜브에 예약 업로드하고 status.json을 갱신합니다.
+ */
+export async function processQueueItem({
+  item,
+  accessToken,
+  rules = {},
+  fetchFn = fetch,
+}) {
+  const statusPath = join(item.pkgDir, 'status.json');
+  let existingStatus = {};
+  try {
+    existingStatus = JSON.parse(await readFile(statusPath, 'utf8'));
+  } catch {
+    existingStatus = {};
+  }
+
+  try {
+    const videoPath = join(item.pkgDir, item.videoFileName);
+    const { videoId } = await uploadVideoToYouTube({
+      videoPath,
+      title: item.title,
+      description: item.description,
+      tags: item.tags,
+      privacyStatus: rules.defaultPrivacy || 'private',
+      publishAt: item.scheduledFor,
+      accessToken,
+      fetchFn,
+    });
+
+    if (item.thumbnailFileName) {
+      const thumbPath = join(item.pkgDir, item.thumbnailFileName);
+      try {
+        await setVideoThumbnail({ videoId, thumbnailPath: thumbPath, accessToken, fetchFn });
+      } catch (thumbErr) {
+        console.warn(`[Publisher] 썸네일 등록 경고 (${item.episodeId}):`, thumbErr.message);
+      }
+    }
+
+    if (rules.autoComment && item.pinnedComment) {
+      try {
+        await createFirstComment({ videoId, commentText: item.pinnedComment, accessToken, fetchFn });
+      } catch (commentErr) {
+        console.warn(`[Publisher] 댓글 등록 경고 (${item.episodeId}):`, commentErr.message);
+      }
+    }
+
+    const updatedStatus = {
+      ...existingStatus,
+      status: 'scheduled',
+      videoId,
+      scheduledFor: item.scheduledFor,
+      uploadedAt: new Date().toISOString(),
+      lastSyncedAt: new Date().toISOString(),
+    };
+    await writeFile(statusPath, JSON.stringify(updatedStatus, null, 2), 'utf8');
+
+    return {
+      success: true,
+      videoId,
+      scheduledFor: item.scheduledFor,
+    };
+  } catch (err) {
+    const failedStatus = {
+      ...existingStatus,
+      status: 'upload_failed',
+      uploadError: err.message,
+      lastSyncedAt: new Date().toISOString(),
+    };
+    await writeFile(statusPath, JSON.stringify(failedStatus, null, 2), 'utf8');
+
+    return {
+      success: false,
+      error: err.message,
+    };
+  }
+}
+
 
 /**
  * 패키지 폴더명에서 에피소드 번호를 추출하여 오름차순으로 정렬합니다.

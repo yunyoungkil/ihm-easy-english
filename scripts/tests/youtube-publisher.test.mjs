@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, rm, writeFile, mkdir } from 'node:fs/promises';
+import { mkdtemp, rm, writeFile, readFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
@@ -11,6 +11,10 @@ import {
   savePublishRules,
   scanReadyPackages,
   buildPublishQueue,
+  uploadVideoToYouTube,
+  setVideoThumbnail,
+  createFirstComment,
+  processQueueItem,
 } from '../youtube-publisher.mjs';
 
 test('sortEpisodePackages orders packages strictly by episode number ascending', () => {
@@ -222,4 +226,114 @@ test('buildPublishQueue orders packages and assigns sequential slots', async () 
   // 셋째 슬롯: 다음주 월요일 (11-16 14:00Z)
   assert.equal(queue[2].scheduledFor, '2026-11-16T14:00:00.000Z');
 });
+
+test('processQueueItem performs upload pipeline and updates status.json', async () => {
+  const tempDir = await mkdtemp(join(tmpdir(), 'pkg-upload-test-'));
+
+  try {
+    const pkgDir = join(tempDir, 'ep24-test');
+    await mkdir(pkgDir, { recursive: true });
+    await writeFile(join(pkgDir, 'status.json'), JSON.stringify({ status: 'ready_to_upload' }));
+    await writeFile(join(pkgDir, 'video.mp4'), 'test video content');
+    await writeFile(join(pkgDir, 'thumbnail.jpg'), 'test thumb content');
+
+    const item = {
+      episodeId: 'ep24-test',
+      pkgDir,
+      title: '테스트 영상 제목',
+      description: '테스트 설명',
+      tags: ['영어', '발음'],
+      pinnedComment: '테스트 고정 댓글',
+      videoFileName: 'video.mp4',
+      thumbnailFileName: 'thumbnail.jpg',
+      scheduledFor: '2026-11-09T14:00:00.000Z',
+    };
+
+    const rules = {
+      autoComment: true,
+      defaultPrivacy: 'private',
+    };
+
+    const mockCalls = [];
+    const mockFetch = async (url, options = {}) => {
+      mockCalls.push({ url, options });
+
+      // 1. Resumable session init
+      if (url.includes('/upload/youtube/v3/videos?uploadType=resumable')) {
+        return {
+          ok: true,
+          status: 200,
+          headers: new Headers({
+            location: 'https://mock.upload.url/session-12345',
+          }),
+        };
+      }
+
+      // 2. Binary upload
+      if (url === 'https://mock.upload.url/session-12345') {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({ id: 'mock-video-id-999' }),
+        };
+      }
+
+      // 3. Thumbnail upload
+      if (url.includes('/thumbnails/set')) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({}),
+        };
+      }
+
+      // 4. Comment insert
+      if (url.includes('/commentThreads')) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({ id: 'mock-comment-id-111' }),
+        };
+      }
+
+      throw new Error(`Unhandled mock url: ${url}`);
+    };
+
+    const result = await processQueueItem({
+      item,
+      accessToken: 'mock-access-token',
+      rules,
+      fetchFn: mockFetch,
+    });
+
+    assert.equal(result.success, true);
+    assert.equal(result.videoId, 'mock-video-id-999');
+
+    // API 호출 4회 검증
+    assert.equal(mockCalls.length, 4);
+
+    // 1번 호출 헤더/바디 검증
+    const initCall = mockCalls[0];
+    assert.equal(initCall.options.headers['Authorization'], 'Bearer mock-access-token');
+    const initBody = JSON.parse(initCall.options.body);
+    assert.equal(initBody.snippet.title, '테스트 영상 제목');
+    assert.equal(initBody.status.privacyStatus, 'private');
+    assert.equal(initBody.status.publishAt, '2026-11-09T14:00:00.000Z');
+
+    // 4번 호출(댓글) 검증
+    const commentCall = mockCalls[3];
+    const commentBody = JSON.parse(commentCall.options.body);
+    assert.equal(commentBody.snippet.topLevelComment.snippet.textOriginal, '테스트 고정 댓글');
+
+    // status.json 갱신 검증
+    const updatedStatus = JSON.parse(await readFile(join(pkgDir, 'status.json'), 'utf8'));
+    assert.equal(updatedStatus.status, 'scheduled');
+    assert.equal(updatedStatus.videoId, 'mock-video-id-999');
+    assert.equal(updatedStatus.scheduledFor, '2026-11-09T14:00:00.000Z');
+    assert.ok(updatedStatus.lastSyncedAt);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
 

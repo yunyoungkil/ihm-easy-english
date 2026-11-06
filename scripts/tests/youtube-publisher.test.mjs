@@ -1,9 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtemp, rm, writeFile, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import {
   calculateNextPublishSlot,
   sortEpisodePackages,
   isUploadAllowed,
+  loadPublishRules,
+  savePublishRules,
+  scanReadyPackages,
+  buildPublishQueue,
 } from '../youtube-publisher.mjs';
 
 test('sortEpisodePackages orders packages strictly by episode number ascending', () => {
@@ -115,3 +122,104 @@ test('isUploadAllowed enforces daily limit of 1 video and weekly limit of 2 vide
   });
   assert.equal(res3.allowed, true);
 });
+
+test('loadPublishRules returns defaults if file does not exist, and savePublishRules writes valid JSON', async () => {
+  const tempDir = await mkdtemp(join(tmpdir(), 'pub-rules-test-'));
+  const rulesPath = join(tempDir, 'publish-rules.json');
+
+  try {
+    const rules = await loadPublishRules(rulesPath);
+    assert.equal(rules.publishTimeKst, '23:00');
+    assert.deepEqual(rules.allowedDaysOfWeek, [1, 4]);
+    assert.equal(rules.maxUploadsPerDay, 1);
+    assert.equal(rules.maxUploadsPerWeek, 2);
+
+    // 저장 테스트
+    rules.publishTimeKst = '20:00';
+    await savePublishRules(rulesPath, rules);
+
+    const reloaded = await loadPublishRules(rulesPath);
+    assert.equal(reloaded.publishTimeKst, '20:00');
+    assert.ok(reloaded.updatedAt);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test('scanReadyPackages finds ready packages and extracts metadata correctly', async () => {
+  const tempDir = await mkdtemp(join(tmpdir(), 'pkg-scan-test-'));
+
+  try {
+    // 1. 유효한 ready 패키지 (EP24)
+    const ep24Dir = join(tempDir, 'ep24-test');
+    await mkdir(ep24Dir, { recursive: true });
+    await writeFile(join(ep24Dir, 'status.json'), JSON.stringify({ status: 'ready_to_upload' }));
+    await writeFile(join(ep24Dir, 'title.txt'), 'EP24 제목');
+    await writeFile(join(ep24Dir, 'description.txt'), 'EP24 설명');
+    await writeFile(join(ep24Dir, 'tags.txt'), 'tag1, tag2');
+    await writeFile(join(ep24Dir, 'pinned-comment.txt'), '고정 댓글 내용');
+    await writeFile(join(ep24Dir, 'thumbnail.jpg'), 'fake-thumb');
+    await writeFile(join(ep24Dir, 'English_Test_Video.mp4'), 'fake-mp4');
+
+    // 2. 이미 예약된 패키지 (EP23)
+    const ep23Dir = join(tempDir, 'ep23-test');
+    await mkdir(ep23Dir, { recursive: true });
+    await writeFile(join(ep23Dir, 'status.json'), JSON.stringify({ status: 'scheduled' }));
+    await writeFile(join(ep23Dir, 'test.mp4'), 'fake');
+
+    // 3. 비디오 파일이 없는 미완성 패키지 (EP25)
+    const ep25Dir = join(tempDir, 'ep25-test');
+    await mkdir(ep25Dir, { recursive: true });
+    await writeFile(join(ep25Dir, 'status.json'), JSON.stringify({ status: 'ready_to_upload' }));
+    await writeFile(join(ep25Dir, 'title.txt'), 'EP25 제목');
+
+    const scanned = await scanReadyPackages(tempDir);
+    assert.equal(scanned.length, 1);
+    assert.equal(scanned[0].episodeId, 'ep24-test');
+    assert.equal(scanned[0].title, 'EP24 제목');
+    assert.equal(scanned[0].videoFileName, 'English_Test_Video.mp4');
+    assert.equal(scanned[0].thumbnailFileName, 'thumbnail.jpg');
+    assert.equal(scanned[0].pinnedComment, '고정 댓글 내용');
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test('buildPublishQueue orders packages and assigns sequential slots', async () => {
+  const readyPackages = [
+    { episodeId: 'ep26-r-vs-l', title: 'EP26' },
+    { episodeId: 'ep24-long-short-i', title: 'EP24' },
+    { episodeId: 'ep25-pool-pull', title: 'EP25' },
+  ];
+
+  const rules = {
+    publishTimeKst: '23:00',
+    allowedDaysOfWeek: [1, 4], // Mon, Thu
+    scheduleMode: 'daysOfWeek',
+    maxUploadsPerDay: 1,
+    maxUploadsPerWeek: 2,
+  };
+
+  // now: 2026-11-06 (금)
+  const now = new Date('2026-11-06T10:00:00Z');
+  const queue = buildPublishQueue({
+    readyPackages,
+    rules,
+    latestScheduledDate: null,
+    now,
+  });
+
+  assert.equal(queue.length, 3);
+  // 정렬 순서 검증
+  assert.equal(queue[0].episodeId, 'ep24-long-short-i');
+  assert.equal(queue[1].episodeId, 'ep25-pool-pull');
+  assert.equal(queue[2].episodeId, 'ep26-r-vs-l');
+
+  // 첫 슬롯: 월요일 (11-09 14:00Z)
+  assert.equal(queue[0].scheduledFor, '2026-11-09T14:00:00.000Z');
+  // 둘째 슬롯: 목요일 (11-12 14:00Z)
+  assert.equal(queue[1].scheduledFor, '2026-11-12T14:00:00.000Z');
+  // 셋째 슬롯: 다음주 월요일 (11-16 14:00Z)
+  assert.equal(queue[2].scheduledFor, '2026-11-16T14:00:00.000Z');
+});
+

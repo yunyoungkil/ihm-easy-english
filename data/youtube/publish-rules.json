@@ -1,0 +1,12 @@
+{
+  "autoUploadEnabled": false,
+  "publishTimeKst": "23:00",
+  "scheduleMode": "daysOfWeek",
+  "minIntervalDays": 3,
+  "allowedDaysOfWeek": [1, 4],
+  "maxUploadsPerDay": 1,
+  "maxUploadsPerWeek": 2,
+  "defaultPrivacy": "private",
+  "autoComment": true,
+  "updatedAt": "2026-11-06T19:06:00.000Z"
+}

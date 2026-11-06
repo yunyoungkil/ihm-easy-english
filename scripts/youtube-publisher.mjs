@@ -3,6 +3,133 @@
  * YouTube 자동 예약 업로드 및 발행 스케줄 엔진
  */
 
+import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
+import { join, dirname } from 'node:path';
+import { existsSync } from 'node:fs';
+
+export const DEFAULT_PUBLISH_RULES = {
+  autoUploadEnabled: false,
+  publishTimeKst: '23:00',
+  scheduleMode: 'daysOfWeek',
+  minIntervalDays: 3,
+  allowedDaysOfWeek: [1, 4],
+  maxUploadsPerDay: 1,
+  maxUploadsPerWeek: 2,
+  defaultPrivacy: 'private',
+  autoComment: true,
+};
+
+export async function loadPublishRules(rulesPath) {
+  try {
+    const raw = await readFile(rulesPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    return { ...DEFAULT_PUBLISH_RULES, ...parsed };
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return { ...DEFAULT_PUBLISH_RULES };
+    }
+    throw err;
+  }
+}
+
+export async function savePublishRules(rulesPath, rules) {
+  await mkdir(dirname(rulesPath), { recursive: true });
+  const payload = {
+    ...DEFAULT_PUBLISH_RULES,
+    ...rules,
+    updatedAt: new Date().toISOString(),
+  };
+  await writeFile(rulesPath, JSON.stringify(payload, null, 2), 'utf8');
+  return payload;
+}
+
+export async function scanReadyPackages(uploadPackagesDir) {
+  if (!existsSync(uploadPackagesDir)) return [];
+  const entries = await readdir(uploadPackagesDir, { withFileTypes: true });
+  const ready = [];
+
+  for (const ent of entries) {
+    if (!ent.isDirectory()) continue;
+    const pkgDir = join(uploadPackagesDir, ent.name);
+    const statusPath = join(pkgDir, 'status.json');
+    if (!existsSync(statusPath)) continue;
+
+    let statusJson = null;
+    try {
+      statusJson = JSON.parse(await readFile(statusPath, 'utf8'));
+    } catch {
+      continue;
+    }
+
+    if (statusJson.status !== 'ready_to_upload') continue;
+
+    // 패키지 내 파일 확인
+    const files = await readdir(pkgDir);
+    const videoFile = files.find((f) => f.endsWith('.mp4'));
+    if (!videoFile) continue; // 동영상 없으면 제외
+
+    const thumbFile = files.find((f) => f === 'thumbnail.jpg' || f === 'thumbnail.png' || f.startsWith('thumbnail'));
+
+    const readOptional = async (filename, fallback = '') => {
+      const p = join(pkgDir, filename);
+      if (existsSync(p)) return (await readFile(p, 'utf8')).trim();
+      return fallback;
+    };
+
+    const title = (await readOptional('title.txt')) || statusJson.title || ent.name;
+    const description = await readOptional('description.txt');
+    const tags = (await readOptional('tags.txt')).split(',').map((t) => t.trim()).filter(Boolean);
+    const pinnedComment = await readOptional('pinned-comment.txt');
+
+    ready.push({
+      episodeId: ent.name,
+      pkgDir,
+      title,
+      description,
+      tags,
+      pinnedComment,
+      videoFileName: videoFile,
+      thumbnailFileName: thumbFile || null,
+      status: statusJson.status,
+      recommendedPublishAt: statusJson.recommendedPublishAt || null,
+      generatedAt: statusJson.generatedAt || null,
+    });
+  }
+
+  return sortEpisodePackages(ready.map((r) => r.episodeId))
+    .map((id) => ready.find((r) => r.episodeId === id))
+    .filter(Boolean);
+}
+
+export function buildPublishQueue({ readyPackages = [], rules = {}, latestScheduledDate = null, now = new Date() }) {
+  const sorted = sortEpisodePackages(readyPackages.map((p) => p.episodeId))
+    .map((id) => readyPackages.find((p) => p.episodeId === id))
+    .filter(Boolean);
+
+  let currentSlotRef = latestScheduledDate;
+  const queue = [];
+
+  for (const pkg of sorted) {
+    const nextSlot = calculateNextPublishSlot({
+      lastPublishAt: currentSlotRef,
+      publishTimeKst: rules.publishTimeKst || '23:00',
+      allowedDaysOfWeek: rules.allowedDaysOfWeek || [1, 4],
+      scheduleMode: rules.scheduleMode || 'daysOfWeek',
+      minIntervalDays: rules.minIntervalDays || 3,
+      now,
+    });
+
+    queue.push({
+      ...pkg,
+      scheduledFor: nextSlot,
+    });
+
+    currentSlotRef = nextSlot;
+  }
+
+  return queue;
+}
+
 /**
  * 패키지 폴더명에서 에피소드 번호를 추출하여 오름차순으로 정렬합니다.
  * 예: ep24-long-short-i -> 24, s1-ep09-longform -> 9

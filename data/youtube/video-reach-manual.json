@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-02T12:37:39.295Z",
+  "updatedAt": "2026-11-06T10:42:19.785Z",
   "videos": {
     "YoaCRYCWpws": {
       "videoId": "YoaCRYCWpws",
@@ -135,6 +135,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 620,
+          "ctr": 4.03,
+          "packageId": "youtube-YoaCRYCWpws",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -271,6 +281,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 255,
+          "ctr": 3.14,
+          "packageId": "youtube-BLinHY3p4yc",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -407,6 +427,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 167,
+          "ctr": 1.8,
+          "packageId": "youtube-r2dDUxflF0Y",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -543,6 +573,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 135,
+          "ctr": 0.74,
+          "packageId": "youtube-wHoTmrRbf6k",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -679,6 +719,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 155,
+          "ctr": 1.94,
+          "packageId": "youtube--V1lwpEF7Ik",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -815,6 +865,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 354,
+          "ctr": 4.24,
+          "packageId": "youtube-jRoYudL30DE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -951,6 +1011,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 207,
+          "ctr": 2.9,
+          "packageId": "youtube-BsyRH8GWYJ4",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1087,6 +1157,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 218,
+          "ctr": 3.67,
+          "packageId": "youtube-cu3EB5OJdMM",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1223,6 +1303,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 55,
+          "ctr": 7.27,
+          "packageId": "youtube-Ha_7wdnFNmo",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1359,6 +1449,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 473,
+          "ctr": 2.11,
+          "packageId": "youtube-f4wkmIvplCc",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1465,6 +1565,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 315,
+          "ctr": 4.13,
+          "packageId": "youtube-riZ2xrY67kU",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1591,6 +1701,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 138,
+          "ctr": 7.25,
+          "packageId": "youtube-JOyI0DWGzEM",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1717,6 +1837,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 133,
+          "ctr": 6.77,
+          "packageId": "youtube-hu4GNC7peTY",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1843,6 +1973,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 390,
+          "ctr": 3.85,
+          "packageId": "youtube-u2WOzu-0Hxc",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -1969,6 +2109,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 184,
+          "ctr": 8.7,
+          "packageId": "youtube-qf38zv-SVNo",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2095,6 +2245,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 157,
+          "ctr": 5.73,
+          "packageId": "youtube-xVXqGbOHpbM",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2221,6 +2381,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 207,
+          "ctr": 2.42,
+          "packageId": "youtube-pghOYvcjpIg",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2347,6 +2517,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 149,
+          "ctr": 2.68,
+          "packageId": "youtube-c7Mp5L8HSXE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2473,6 +2653,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 151,
+          "ctr": 1.32,
+          "packageId": "youtube-4EGKRM-m77w",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2599,6 +2789,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 165,
+          "ctr": 3.03,
+          "packageId": "youtube-l8w3SlUnm3Y",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2725,6 +2925,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 179,
+          "ctr": 2.79,
+          "packageId": "youtube-GlOrcx3y1rE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2851,6 +3061,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 177,
+          "ctr": 2.82,
+          "packageId": "youtube-7GJ6Iiy_THk",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -2977,6 +3197,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 170,
+          "ctr": 2.35,
+          "packageId": "youtube-51fLblzetS0",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3103,6 +3333,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 223,
+          "ctr": 1.35,
+          "packageId": "youtube-dwe9WPIHi5k",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3229,6 +3469,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 159,
+          "ctr": 2.52,
+          "packageId": "youtube-_TEGdCgLmYE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3355,6 +3605,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 177,
+          "ctr": 2.82,
+          "packageId": "youtube-r7QQlVQtA1Y",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3481,6 +3741,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 163,
+          "ctr": 3.07,
+          "packageId": "youtube-KpVpLURLtzo",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3607,6 +3877,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 165,
+          "ctr": 1.82,
+          "packageId": "youtube-XrjSTAggQc8",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3733,6 +4013,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 153,
+          "ctr": 2.61,
+          "packageId": "youtube-k8T7chDCj3Q",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3859,6 +4149,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 138,
+          "ctr": 2.17,
+          "packageId": "youtube-6nANjHxy2Lc",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -3985,6 +4285,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 102,
+          "ctr": 1.96,
+          "packageId": "youtube-FwBboz1jenA",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4111,6 +4421,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 195,
+          "ctr": 4.62,
+          "packageId": "youtube-tFe-cB__uns",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4237,6 +4557,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 222,
+          "ctr": 2.25,
+          "packageId": "youtube-M9ru03p3QoE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4363,6 +4693,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 120,
+          "ctr": 2.5,
+          "packageId": "youtube-dijhGjxOQOw",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4489,6 +4829,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 100,
+          "ctr": 2,
+          "packageId": "youtube-yu9jZesTwYs",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4615,6 +4965,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 136,
+          "ctr": 1.47,
+          "packageId": "youtube-oZUhK2YKW8w",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4741,6 +5101,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 144,
+          "ctr": 4.17,
+          "packageId": "youtube-kfVJAJTmLpU",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4867,6 +5237,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 200,
+          "ctr": 4,
+          "packageId": "youtube-IfK4Itzgt6o",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -4993,6 +5373,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 79,
+          "ctr": 1.27,
+          "packageId": "youtube-qb-vO3Qubec",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -5119,6 +5509,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 87,
+          "ctr": 5.75,
+          "packageId": "youtube-h-UUbuWQuag",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -5245,6 +5645,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 74,
+          "ctr": 2.7,
+          "packageId": "youtube-Si88xXt-EQc",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -5371,6 +5781,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 134,
+          "ctr": 4.48,
+          "packageId": "youtube-FK-JWJ_7vq4",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -5497,6 +5917,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 88,
+          "ctr": 5.68,
+          "packageId": "youtube-7qSWJZqV14o",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -5623,6 +6053,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 161,
+          "ctr": 2.48,
+          "packageId": "youtube-F-o7EmQL3zY",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -5749,6 +6189,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 163,
+          "ctr": 2.45,
+          "packageId": "youtube-4LQ9epVVahA",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -5875,6 +6325,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 121,
+          "ctr": 9.09,
+          "packageId": "youtube-5MiM1tIpQQk",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6001,6 +6461,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 124,
+          "ctr": 4.03,
+          "packageId": "youtube-7LrJxl9Mzi0",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6127,6 +6597,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 84,
+          "ctr": 2.38,
+          "packageId": "youtube-Zh8_xYi_Gu0",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6253,6 +6733,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 67,
+          "ctr": 1.49,
+          "packageId": "youtube-hsqsL6vneCk",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6379,6 +6869,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 126,
+          "ctr": 3.97,
+          "packageId": "youtube-1BslXwjEbOI",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6505,6 +7005,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 88,
+          "ctr": 5.68,
+          "packageId": "youtube-ewv3GcXNLsE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6631,6 +7141,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 57,
+          "ctr": 0,
+          "packageId": "youtube-d7lre1PlsEo",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6757,6 +7277,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 108,
+          "ctr": 2.78,
+          "packageId": "youtube-dqUv-iFpy2g",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -6883,6 +7413,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 141,
+          "ctr": 9.93,
+          "packageId": "youtube-LgEmfyQ41NI",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7009,6 +7549,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 68,
+          "ctr": 1.47,
+          "packageId": "youtube-l_9PYWiORjE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7135,6 +7685,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 80,
+          "ctr": 2.5,
+          "packageId": "youtube-a1d1lxLd68k",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7261,6 +7821,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 71,
+          "ctr": 0,
+          "packageId": "youtube-w0xvwLiOX1U",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7387,6 +7957,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 110,
+          "ctr": 4.55,
+          "packageId": "youtube-2lae1vhl53s",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7513,6 +8093,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 72,
+          "ctr": 1.39,
+          "packageId": "youtube-6ojF8F0dJ2E",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7639,6 +8229,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 100,
+          "ctr": 2,
+          "packageId": "youtube--oEAORG6oYE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7765,6 +8365,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 94,
+          "ctr": 3.19,
+          "packageId": "youtube-2xir5cjFcsg",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7861,6 +8471,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 0,
+          "ctr": 0,
+          "packageId": "youtube-7QpRKp_1UcI",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -7957,6 +8577,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 0,
+          "ctr": 0,
+          "packageId": "youtube-qz6tiVIpqHw",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8083,6 +8713,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 70,
+          "ctr": 4.29,
+          "packageId": "youtube-sNNufVhkjT8",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8209,6 +8849,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 97,
+          "ctr": 1.03,
+          "packageId": "youtube-1EtmmvExoLg",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8335,6 +8985,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 48,
+          "ctr": 4.17,
+          "packageId": "youtube-nVrCk8IZFGA",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8461,6 +9121,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 114,
+          "ctr": 1.75,
+          "packageId": "youtube-LdiZKCzKf0c",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8567,6 +9237,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 36,
+          "ctr": 2.78,
+          "packageId": "youtube-3PkSwrFIcRE",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8633,6 +9313,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 39,
+          "ctr": 5.13,
+          "packageId": "youtube-a2VrFQVjImI",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8689,6 +9379,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 35,
+          "ctr": 5.71,
+          "packageId": "youtube-W7toujk6ER8",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8735,6 +9435,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 35,
+          "ctr": 5.71,
+          "packageId": "youtube-beKA35yvxdk",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8781,6 +9491,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 34,
+          "ctr": 5.88,
+          "packageId": "youtube-uqmVMRhT_1A",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8827,6 +9547,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 45,
+          "ctr": 4.44,
+          "packageId": "youtube-AcNSDMpkR_A",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8863,6 +9593,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 1523,
+          "ctr": 4.99,
+          "packageId": "youtube-ROks87qezuU",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8899,6 +9639,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 70,
+          "ctr": 7.14,
+          "packageId": "youtube-MdLjt4zvg8g",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8935,6 +9685,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 401,
+          "ctr": 4.49,
+          "packageId": "youtube-VwEkIUluszw",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8971,6 +9731,16 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 884,
+          "ctr": 0.11,
+          "packageId": "youtube-4of_mgeLazQ",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     },
@@ -8997,6 +9767,64 @@
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2025-06-18_2026-10-02 이해하면 쉬운 영어",
           "importedAt": "2026-10-02T12:37:39.295Z"
+        },
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 46,
+          "ctr": 2.17,
+          "packageId": "youtube--UHrFcMRsEY",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
+        }
+      }
+    },
+    "bPTAnjMT7xc": {
+      "videoId": "bPTAnjMT7xc",
+      "windows": {},
+      "periods": {
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 94,
+          "ctr": 5.32,
+          "packageId": "youtube-bPTAnjMT7xc",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
+        }
+      }
+    },
+    "EDjmQmvGA1o": {
+      "videoId": "EDjmQmvGA1o",
+      "windows": {},
+      "periods": {
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 162,
+          "ctr": 1.85,
+          "packageId": "youtube-EDjmQmvGA1o",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
+        }
+      }
+    },
+    "9d9m869BCTI": {
+      "videoId": "9d9m869BCTI",
+      "windows": {},
+      "periods": {
+        "2026-01-01_2026-11-06": {
+          "startDate": "2026-01-01",
+          "endDate": "2026-11-06",
+          "impressions": 70,
+          "ctr": 1.43,
+          "packageId": "youtube-9d9m869BCTI",
+          "source": "youtube-studio-channel-export",
+          "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
+          "importedAt": "2026-11-06T10:42:19.785Z"
         }
       }
     }
@@ -9004,7 +9832,7 @@
   "lastFolderScan": {
     "directory": "C:\\Users\\yunyo\\Downloads\\project\\imports\\youtube-studio",
     "scanned": 5,
-    "imported": 78,
+    "imported": 81,
     "unchanged": 0,
     "waiting": [],
     "skipped": [
@@ -9025,6 +9853,6 @@
         "reason": "폴더명 형식 불일치"
       }
     ],
-    "scannedAt": "2026-10-02T12:37:39.295Z"
+    "scannedAt": "2026-11-06T10:42:19.785Z"
   }
 }

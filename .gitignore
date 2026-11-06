@@ -75,3 +75,13 @@ output/temp-thumbnails
 # 이동되는데 그것도 같은 이유로 미추적.
 imports/youtube-studio
 imports/youtube-studio-archive
+
+# Local cache, sqlite db and snapshots
+*.db
+__pycache__/
+scripts/__pycache__/
+data/youtube/snapshots/
+scripts/_ep20_raw_*
+scripts/_lora_train_log*
+videos/*/.check-output.txt
+

@@ -1,6 +1,6 @@
 ---
 name: episode-planning
-description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플로우. 다음 에피소드 기획(채널 현실 점검, 유형 선택, 경쟁 채널 스캔, 소재·제목·썸네일, 대본, 비주얼 스타일, 그림 프롬프트), 쇼츠 파생과 다음 영상 연결, 업로드 전 점검, 성과 리뷰, 그리고 "성장 점검", "주간 점검", "대청소", "업로드 전 점검", "시청자 반응 분석", "월간 리포트", "왜 조회수가 안 나와" 같은 요청에 사용한다. 라이브 데이터 기반이며 vidIQ는 쓰지 않는다.
+description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플로우. 다음 에피소드 기획(채널 현실 점검, 유형 선택, 경쟁 채널 스캔, 소재·제목·썸네일, 대본, 비주얼 스타일, 그림 프롬프트), 쇼츠 파생과 다음 영상 연결, 업로드 전 점검, 성과 리뷰, 새 대화의 첫 답변(시작 브리핑), 그리고 "브리핑", "성장 점검", "주간 점검", "대청소", "업로드 전 점검", "시청자 반응 분석", "월간 리포트", "왜 조회수가 안 나와" 같은 요청에 사용한다. 라이브 데이터 기반이며 vidIQ는 쓰지 않는다.
 ---
 
 # 기획·성장 통합 워크플로우 (Orchestrator)
@@ -38,26 +38,27 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 
 | 순서 | 단계 | 핵심 작업 | 상세 가이드 |
 |---|---|---|---|
-| 0 | **Phase 0** 막힌 곳 풀기 | 0-A 대청소(쌓였을 때 1회), 0-B 주간 점검(매주). `npm run growth-check`, 밀린 리뷰 숫자 채우기 | [00-unblock-and-weekly.md](references/00-unblock-and-weekly.md) |
-| 1 | **Phase 1** 라이브 데이터 분석 | `/api/sync` 직후 채널 현실 점검, 페인포인트 검색 | [01-topic-and-data.md](references/01-topic-and-data.md) |
+| 0 | **Phase 0** 막힌 곳 풀기 | 0-A 대청소(쌓였을 때 1회), 0-B 주간 점검(매주), **0-C 시작 브리핑(새 대화 첫 답변)**. `npm run growth-check`, 밀린 리뷰 숫자 채우기 | [00-unblock-and-weekly.md](references/00-unblock-and-weekly.md) |
+| 1 | **Phase 1** 라이브 데이터 분석 | `/api/sync` 직후 채널 현실 점검, **형식 배분 판정**, 페인포인트 검색 | [01-topic-and-data.md](references/01-topic-and-data.md) |
 | 2 | **Phase 2** 콘텐츠 유형 선택 | 방식 × 형식 결정, **검증 게이트 표**(결과 없는 형식 2편 이상이면 제외) | 01 |
 | 3 | **Phase 3** 경쟁 채널 스캔 | 사용자가 준 채널만 `market-demand.mjs` 스캔, 2단계 클러스터 | 01 |
 | 4 | **Phase 4** 소재 후보 | 최종 3개(확장 2 + 가설 1), 예측은 같은 방식·형식 중앙값 대비 배수로 통일 | 01 |
 | 5 | **Phase 5** 분량·포맷·스타일 | 고유 코너, **비주얼 스타일 1차 결정**, 쇼츠 세트와 연결 칸 | 01 |
-| 6 | **Phase 6** 제목 & 썸네일 | **근거 4종 먼저**(클릭률 상·하위, A/B 승자, 아웃라이어, 실제 검색어), 제목 3안, 프롬프트 4종 | [02-title-and-thumbnail.md](references/02-title-and-thumbnail.md) |
+| 6 | **Phase 6** 제목 & 썸네일 | **근거 4종 먼저**(클릭률 상·하위, A/B 승자, 아웃라이어, 실제 검색어), 제목 3안, **방향 미리보기 비교**, 프롬프트(글자·색면뿐이면 생략, 작은 표본이면 메인 1종, 아니면 4종) | [02-title-and-thumbnail.md](references/02-title-and-thumbnail.md) |
 | 7 | **Phase 7** 목차 | 직전 3편과 구성 비교, 단일 현실 장면 | [03-script-and-narration.md](references/03-script-and-narration.md) |
 | 8 | **Phase 8** 대본·TTS 규격 | **korean-skills 3종 순서**(humanizer → style-guide → grammar-checker), 금지어 검사 | 03 |
 | 9 | **Phase 9** 비주얼 스타일 확인 | Phase 5 결정을 확인만 함 | [04-visual-and-assets.md](references/04-visual-and-assets.md) |
 | 10 | **Phase 10** 그림·영상 프롬프트 | HyperFrames 필터, 워터마크 차단, 그림 속 전문용어 금지 | 04 |
 | — | 제작 | 음성·HyperFrames·검수·렌더 (`knowledge/VIDEO_WORKFLOW.md`) | — |
 | 11 | **Phase 12** 쇼츠 파생 & 다음 영상 연결 | 롱폼 1편당 쇼츠 2개, 롱폼 링크, 엔드스크린·재생목록 | [06-shorts-and-next-watch.md](references/06-shorts-and-next-watch.md) |
-| 12 | **Phase 13** 업로드 전 점검 | 금지어·업로드 페이지 검사, seo-audit·korean-skills·design 스킬 점검 | [07-packaging-check.md](references/07-packaging-check.md) |
-| 13 | **Phase 11** 성과 리뷰 & 중단 규칙 | 48시간·7일·28일, 예측 vs 실제, **2편 연속 부진 시 그 형식 새 기획 중단** | [05-performance-review.md](references/05-performance-review.md) |
+| 12 | **Phase 13** 업로드 전 점검 | 금지어·업로드 페이지 검사, seo-audit·korean-skills·design 스킬 점검(작은 표본이면 필수 2개) | [07-packaging-check.md](references/07-packaging-check.md) |
+| 13 | **Phase 11** 성과 리뷰 & 중단 규칙 | 48시간·7일·28일, 예측 vs 실제, **2편 연속 부진 시 그 형식 새 기획 중단**(작은 표본이면 참고만) | [05-performance-review.md](references/05-performance-review.md) |
 | 정기 | 인사이트(2주) · 월간 리포트(매월) | 댓글 속 미해결 질문 → Phase 4 근거, 월간 성과·수익화 단계 | [08-insights-and-monthly.md](references/08-insights-and-monthly.md) |
 
 ### 요청별 바로가기
 | 사용자 요청 | 시작할 곳 |
 |---|---|
+| 새 대화의 첫 답변, "브리핑" | Phase 0-C (요청이 함께 있으면 브리핑 뒤 바로 처리) |
 | "다음 영상 기획해줘", "아이디어 추천" | Phase 1 (막힌 곳이 많으면 Phase 0-A 먼저 제안) |
 | "대청소", "밀린 거 정리" | Phase 0-A |
 | "성장 점검", "주간 점검", "왜 조회수가 안 나와" | Phase 0-B |
@@ -76,7 +77,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
    | 멈춤 지점 | 언제 | 무엇을 승인받나 |
    |---|---|---|
    | 1. 기획 확정 | Phase 5 끝 | 소재, 방식·형식, 고유 코너, 추천 스타일, 쇼츠 세트 |
-   | 2. 제목·썸네일 확정 | Phase 6 끝 | 근거 표, 제목 3안, 썸네일 프롬프트 4종 |
+   | 2. 제목·썸네일 확정 | Phase 6 끝 | 근거 표, 제목 3안, 방향 미리보기, 썸네일 프롬프트(글자·색면뿐이면 생략, 작은 표본이면 메인 1종, 아니면 4종) |
    | 3. 대본 확정 | Phase 8 끝 | 목차 비교, 대본, 한국어 다듬기 표 (음성 제작 비용 전) |
    | 4. 렌더 | 제작 후 | 아래 3번 규칙 그대로 |
    | 5. 공개 | Phase 13 끝 | 업로드 전 점검 결과, 수정안, 공개 진행 |
@@ -93,4 +94,5 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
    - **vidIQ 사용 안 함**: 우리 채널 숫자는 대시보드(`npm run analytics`, 포트 3001), 경쟁 채널은 `market-demand.mjs`·`analyze-outlier-comments.mjs`와 `watch:watch`로 본다.
    - **숫자는 라이브 값만**: `POST /api/sync` 직후 응답만 쓰고 `range`를 같이 적는다. `data/youtube/*.json`의 숫자를 그대로 인용하지 않는다.
    - **작은 표본은 가설**: 1편에서 본 것은 가설, 같은 방식·형식 2편 이상에서 반복된 것만 확정이다.
+   - **작은 표본 규칙 (2026-11-06)**: 같은 형식 최근 3편의 노출 중앙값이 1,000회 미만이면(`npm run growth-check`가 판정) 썸네일은 메인 1장만 만들고, 업로드 전 점검은 필수만 하고, 중단 신호는 참고로만 쓴다. 노출 150회를 시안 3개로 나누면 시안당 50회, 클릭은 1~3번이라 승자를 가릴 수 없기 때문이다.
    - **직언과 쉬운 설명**: 숫자와 근거로 결론을 말하고(`CLAUDE.md` 직언 원칙), 지표에는 한 줄 풀이를 붙인다(`00-unblock-and-weekly.md` 마지막 표).

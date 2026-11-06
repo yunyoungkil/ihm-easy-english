@@ -23,12 +23,12 @@
 ## 2. 월간 리포트 & 수익화 점검 (매월 초)
 
 1. **월간 성과 — `marketing:performance-report`**
-   - 롱폼/쇼츠, 강의형/듣기형을 **따로** 비교한다(섞어 비교 금지).
+   - 롱폼/쇼츠, 강의형/듣기형을 **따로** 비교한다(섞어 비교 금지). 어느 형식에 시간을 쓸지는 전체 비중으로 따로 판단한다(Phase 1 형식 배분 판정).
    - 지난달 대비 조회수·구독자·시청 시간, 영상별 시청 지속률 순위, 트래픽 소스 변화.
    - 이번 달 REVIEW.md 판정을 모아 "확정 vs 가설" 표를 만든다.
 2. **중단 규칙 점검**: `05-performance-review.md` 4절 규칙에 걸린 방식·형식을 표로 정리한다.
 3. **성공 패턴 승격**: 2편 이상 반복된 것만 `success-patterns.json` 후보로 올리고 **사용자 승인 후** 반영한다.
-4. **다음 달 계획 — `marketing:campaign-plan`**: 집중할 주제 묶음(인사이트 결과), 롱폼·쇼츠 발행 목표, 쇼츠 → 롱폼 연결 세트, 같은 틀 반복을 피하는 방식 배분(강의·듣기·쇼츠 섞기).
+4. **다음 달 계획 — `marketing:campaign-plan`**: 집중할 주제 묶음(인사이트 결과), 롱폼·쇼츠 발행 목표(`knowledge/channel-strategy.md` "주간 목표" 표를 사용자와 갱신), 쇼츠 → 롱폼 연결 세트, 같은 틀 반복을 피하는 방식 배분(강의·듣기·쇼츠 섞기).
 5. **수익화 단계 점검**(`knowledge/channel-strategy.md` 4단계 로드맵): 지금 몇 단계인지, 다음 단계로 가려면 무엇이 부족한지 한 줄로 판정한다. 무료 PDF·카카오톡 채널 같은 리드 수집을 시작할 때는 안내 글에 `marketing:content-creation`, 단계별 메시지에 `marketing:email-sequence`. 채널 아트 교체가 필요할 때만 `ui-ux-pro-max:banner-design`.
 6. **산출물**: `knowledge/growth/monthly-YYYY-MM.md`. `knowledge/now.md`의 다음 행동이 바뀌었으면 함께 갱신한다.
 

@@ -6,5 +6,10 @@
   "videoFile": "English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4",
   "thumbnailsCount": 4,
   "generatedAt": "2026-10-09T12:57:44.872Z",
-  "lastSyncedAt": "2026-11-06T10:49:55.268Z"
+  "lastSyncedAt": "2026-11-06T15:08:39.433Z",
+  "thumbnailApproval": {
+    "file": "thumbnail.jpg",
+    "sha256": "927e63dd74d58df5ab714efc83f25b34d1dcc161ed2e014fc3b05550914bb6d1",
+    "approvedAt": "2026-11-06T15:08:43.914Z"
+  }
 }

@@ -10,7 +10,9 @@
 //   2) 발행 간격: 최근 14일/28일 롱폼·쇼츠 공개 수, 마지막 공개 후 며칠 지났는지
 //   3) 성과 리뷰 밀린 것: 7일·28일 REVIEW.md 실제 칸, 아직 판정 대기인 48시간 판정
 //
-// 숫자(조회수·CTR)는 여기서 다루지 않는다. 숫자는 반드시 대시보드 /api/sync 직후 값으로 본다.
+//   4) 형식 배분과 표본: 마지막 동기화 값으로 scripts/growth-rules.mjs의 규칙을 판정한다
+//
+// 보고용 숫자(조회수·CTR)는 여기서 다루지 않는다. 숫자는 반드시 대시보드 /api/sync 직후 값으로 본다.
 //
 // 사용법:
 //   node scripts/growth-check.mjs                 # 오늘 기준, 화면 출력
@@ -20,6 +22,7 @@
 import {existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {decideFormatPriority, decideSampleSize, latestImpressions} from './growth-rules.mjs';
 import {loadPublishRules} from './youtube-publisher.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -179,8 +182,17 @@ const reviews = published.map((p) => {
 });
 const reviewsDue = reviews.filter((r) => r.due.length);
 
+// ---- 4) 형식 배분과 표본 -----------------------------------------------------
+const analytics = readJson(join(projectDir, 'data', 'youtube', 'analytics-latest.json'), {});
+const formatPriority = {
+  ...decideFormatPriority({contentTypes: analytics.contentTypes, publishedLast14: {shorts: cadence.shorts14, longform: cadence.long14}}),
+  range: analytics.range || null,
+};
+const reach = readJson(join(projectDir, 'data', 'youtube', 'video-reach-manual.json'), {videos: {}});
+const sample = decideSampleSize(liveLong.slice(0, 3).map((v) => latestImpressions(reach.videos?.[v.videoId])));
+
 // ---- 출력 -----------------------------------------------------------------
-const result = {generatedFor: ymd(today), catalogSyncedAt: catalog.syncedAt || null, backlog, cadence, reviewsDue, noReviewFile, totals: {packages: packages.length, published: published.length}};
+const result = {generatedFor: ymd(today), catalogSyncedAt: catalog.syncedAt || null, backlog, cadence, reviewsDue, noReviewFile, formatPriority, sample, totals: {packages: packages.length, published: published.length}};
 
 if (args.json) {
   console.log(JSON.stringify(result, null, 2));
@@ -216,6 +228,19 @@ if (args.json) {
     lines.push('');
   }
   if (noReviewFile.length) lines.push(`- REVIEW.md 없는 옛 영상 ${noReviewFile.length}개는 밀린 일로 세지 않았습니다.`, '');
+
+  lines.push('## 4. 형식 배분과 표본', '');
+  if (formatPriority.shares) {
+    const rangeLabel = formatPriority.range ? `, ${formatPriority.range.startDate}~${formatPriority.range.endDate}` : '';
+    lines.push(`- 조회 비중(마지막 동기화${rangeLabel}): 쇼츠 ${formatPriority.shares.shorts}%, 롱폼 ${formatPriority.shares.longform}%`);
+  }
+  lines.push(`- 형식 판정: ${formatPriority.verdict}`);
+  lines.push(
+    sample.median == null
+      ? '- 최근 롱폼 3편 노출 기록 없음 — 작은 표본 규칙 적용 (썸네일 메인 1장, 필수 점검만, 중단 신호는 참고)'
+      : `- 최근 롱폼 ${sample.count}편 노출 중앙값: ${sample.median}회${sample.small ? ' — 작은 표본 규칙 적용 (썸네일 메인 1장, 필수 점검만, 중단 신호는 참고)' : ''}`,
+    '',
+  );
 
   const text = lines.join('\n');
   console.log(text);

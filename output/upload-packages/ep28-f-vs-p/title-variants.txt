@@ -1,4 +1,4 @@
 [A] (메인 · thumbnail.jpg와 세트) 원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기
 [B] (상식 뒤집기 · thumbnail-variant-a.jpg와 세트) F 발음할 때 아랫입술 꽉 물면 틀립니다 | F vs P 24쌍 소리 연습
 [C] (실수 주의 · thumbnail-variant-b.jpg와 세트) Coffee와 Copy, 입술 닿는 순간 갈립니다 | F vs P 24쌍 반복 듣기
-[D] (호기심형 · 제목만 시험) F와 P가 죽어도 안 들렸던 진짜 이유 | 윗니 0% vs 100% 소리 원리
+[D] (호기심형 · 제목만 시험) F와 P가 죽어도 안 들렸던 진짜 이유 | 윗니 100% vs 0% 소리 원리

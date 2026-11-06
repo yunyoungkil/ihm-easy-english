@@ -641,7 +641,7 @@ EP12에서 검증된 뒤로 **새 영상(EP13부터)에도 기본으로 적용�
 사고하고 제안한다:
 1. **경쟁사 결핍 추출**: 경쟁사 대본을 단순 복제하지 않고, 댓글/반응에서 **시청자의 미해결 질문·고통(Pain Point)**만 추출하여 DB화한다.
 2. **우리 채널 브랜드 렌즈**: 추출한 소재를 3060 성인 학습자 맞춤 직관 비유, 큰 글씨 비주얼 카드, 3회 반복 낭독 포맷으로 재해석한다.
-3. **HyperFrames 초고속 제작**: 1인 제작 시간을 80% 단축하여 롱폼 2일 간격(주 2~3회) + 2~3회 쇼츠의 꾸준한 공급을 달성한다(2026-09-18 확정 — 기존 3일 간격에서 단축. 워크플로우가 충분히 안정화됐다는 판단, 근거: `knowledge/production-rules.md`의 "공개 일정과 엔딩 화면 연결 규칙").
+3. **HyperFrames 초고속 제작**: 1인 제작 시간을 80% 단축하여 롱폼 주 2회(월·목 밤 11시) + 쇼츠의 꾸준한 공급을 달성한다(2026-11-06 사용자 확정 — 2026-09-18의 "2일 간격"을 대체. 자동 예약 업로드 기본값과 같다. 근거: `knowledge/production-rules.md`의 "공개 일정과 엔딩 화면 연결 규칙").
 4. **우리 채널 데이터 자산화**: 4사분면 진단 및 시청 지속률 피드백을 통해 검증된 **'성공 비유 족보'**를 누적하고, AI 프롬프트에 자동 환류시킨다.
 5. **다단계 수익화 연계**: 단순 조회수 수익을 넘어 **3060 맞춤 실물/전자책 교재, 유료 멤버십 챌린지, 자체 카카오톡 구독자 DB**로 연결한다.
 (상세: [`knowledge/channel-strategy.md`](knowledge/channel-strategy.md) 및 [`knowledge/decisions/2026-08-30-ai-features-enhancement-plan.md`](knowledge/decisions/2026-08-30-ai-features-enhancement-plan.md). 4~5단계가 요구하는 `audience-dna.json`/`success-patterns.json` 누적·환류 루프는 2026-08-31 구현 완료 — `scripts/youtube-analytics-server.mjs`의 🧬 Knowledge DB 탭과 write/read 훅 참고.)

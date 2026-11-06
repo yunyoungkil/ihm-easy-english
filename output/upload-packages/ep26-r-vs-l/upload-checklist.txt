@@ -1,21 +1,27 @@
-EP26 업로드 패키지 체크리스트 (Right vs Light R vs L Minimal Pairs)
+[EP26 유튜브 업로드 체크리스트]
+영상: English_Pronunciation_Right_vs_Light_Minimal_Pairs_Listening_Drill.mp4 (12분 25초)
 
-[✓] 1. 영상 파일 규격
-    - SEO 권장 파일명: English_Pronunciation_Right_vs_Light_Minimal_Pairs_Listening_Drill.mp4
-    - 해상도: 1920x1080 Full HD (30fps)
-    - 총 길이: 12분 24.7초 (744.66s)
-[✓] 2. 썸네일 4종 완비
-    - thumbnail-close-up.jpg (모바일 피드 CTR 1위 전용 클로즈업)
-    - thumbnail.jpg (A안 메인 바스트샷)
-    - thumbnail-b.jpg (B안 실수 경고형)
-    - thumbnail-c.jpg (C안 원리 성취형)
-    - 모서리 4방 워터마크 0% 무결점 검수 통과
-[✓] 3. 메타데이터 파일
-    - title.txt (메인 제목)
-    - title-variants.txt (A/B/C/D 변형 후보)
-    - timeline.txt (10개 챕터 타임라인)
-    - description.txt (타임라인 포함 설명란)
-    - tags.txt (SEO 검색 태그)
-    - pinned-comment.txt (고정 댓글)
-[✓] 4. 원클릭 대시보드
-    - index.html (클릭 시 자동 클립보드 복사)
+⚠️ 올리기 전에 먼저 할 일
+1. 썸네일은 반드시 새로 만드세요. 옛 시안에는 영상 길이와 다른 [30분 듣기]가 박혀 있습니다.
+   videos/ep26-r-vs-l/prompts/thumbnail-prompts.md로 새로 만들어 같은 파일 이름으로 바꿔 넣으세요.
+   자동 업로드를 쓰면 교체한 뒤 대시보드 대기 큐에서 "이 썸네일 승인"을 눌러야 올라갑니다.
+2. 영상 안 금지어는 다시 렌더링하지 않고 그대로 올리기로 했습니다 (2026-11-06). 남은 항목은 아래와 같습니다.
+   화면: "6회 드릴" 라벨 4곳, 물리법칙 1곳, 0:28 원리 그림의 Retroflex · Alveolar Lateral
+   음성: "물리법칙" 1번
+
+□ 1. 영상 파일 업로드
+□ 2. 제목: title.txt 복사. 테스트를 쓰면 아래 세트대로 등록
+     A안 메인 · thumbnail.jpg와 세트
+     B안 실수 주의 · thumbnail-b.jpg와 세트
+     C안 상식 뒤집기 · thumbnail-c.jpg와 세트
+     D안 호기심형 · 제목만 시험
+□ 3. 설명: description.txt 복사 (챕터 포함)
+□ 4. 태그: tags.txt 복사
+□ 5. 고정 댓글: pinned-comment.txt 복사 후 첫 댓글로 등록하고 고정
+□ 6. 최종 화면: 마지막 10초 (12:14부터), 추천 영상 + 구독 버튼
+     화면에 그려진 네모와 카드는 눌리지 않는 그림입니다. 스튜디오 최종 화면에서 같은 자리에 요소를 직접 얹으세요.
+     직전 편: EP25 (공개된 뒤 연결)
+□ 7. 재생목록: "[이해하면 쉬운영어] 반복 듣기 정주행"에 추가. 이 재생목록은 아직 채널에 없으니 처음 한 번 만드세요.
+□ 8. 자막: 아직 없습니다. subtitles/ 폴더를 만든 뒤 따로 올립니다.
+□ 9. 시청자층: 아동용 아님
+□ 10. AI 사용 표시: 예 (실사처럼 보이는 AI 배경 영상이 있음. 표시해도 노출과 수익에 불이익이 없다고 유튜브가 안내함)

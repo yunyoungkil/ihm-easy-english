@@ -1,390 +1,193 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EP24 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0C0F17;
-      --card-bg: rgba(22, 27, 41, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #F59E0B;
-      --accent-glow: rgba(245, 158, 11, 0.35);
-      --primary: #10B981;
-      --success: #10B981;
-      --text: #F3F4F6;
-      --text-muted: #9CA3AF;
-      --radius: 16px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
-      min-height: 100vh;
-      padding: 40px 24px;
-      line-height: 1.6;
-      background-image:
-        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
-    }
-    .container {
-      max-width: 1380px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--card-border);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 800;
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--primary);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      margin-bottom: 8px;
-    }
-    h1 {
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .meta-pills {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .meta-pill {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: var(--text-muted);
-      border: 1px solid var(--card-border);
-    }
-    .meta-pill strong { color: var(--text); }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-    @media (max-width: 960px) {
-      .grid-2 { grid-template-columns: 1fr; }
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 28px;
-      backdrop-filter: blur(16px);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      position: relative;
-    }
-    .card-title {
-      font-size: 18px;
-      font-weight: 800;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .card-title span {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .copy-btn {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .copy-btn:hover {
-      filter: brightness(1.1);
-      transform: translateY(-1px);
-    }
-    .copy-btn.copied {
-      background: var(--success);
-      color: #FFF;
-    }
-    .preview-box {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 16px;
-      font-size: 14px;
-      color: var(--text);
-      white-space: pre-wrap;
-      word-break: break-all;
-      max-height: 380px;
-      overflow-y: auto;
-      line-height: 1.7;
-    }
-    .thumb-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 20px;
-    }
-    @media (max-width: 640px) {
-      .thumb-grid { grid-template-columns: 1fr; }
-    }
-    .thumb-card {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .thumb-img {
-      width: 100%;
-      border-radius: 10px;
-      border: 2px solid var(--card-border);
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    }
-    .thumb-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent);
-      display: flex;
-      justify-content: space-between;
-    }
-    .checklist-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    .checklist-item input[type="checkbox"] {
-      margin-top: 4px;
-      accent-color: var(--accent);
-      width: 16px;
-      height: 16px;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP24 업로드 패키지</title>
+<style>:root{color-scheme:dark;--bg:#0C0F17;--card:#161B29;--line:rgba(255,255,255,.12);--accent:#F5C518;--text:#F3F4F6;--muted:#A3ACBA}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Malgun Gothic',sans-serif;line-height:1.6;padding:32px 16px}
+main{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+header p{color:var(--muted);overflow-wrap:anywhere}
+h1{font-size:26px;font-weight:900}
+h2{font-size:17px;font-weight:800}
+h3{font-size:14px;font-weight:700;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;min-width:0;align-content:start}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.check{border-color:var(--accent)}
+.check pre{max-height:none}
+pre{background:rgba(0,0,0,.35);border-radius:8px;padding:14px;font:inherit;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow-y:auto}
+button{flex-shrink:0;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--text);cursor:pointer;font:inherit;font-size:13px;font-weight:700;padding:6px 14px;white-space:nowrap}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.variant{display:grid;gap:8px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+figure{display:grid;gap:6px}
+img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block}
+figcaption{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+a{color:var(--accent);overflow-wrap:anywhere}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}</style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <div>
-        <div class="badge">EP24 · 롱폼 패키지</div>
-        <h1>EP24 유튜브 업로드 원클릭 패키지</h1>
-      </div>
-      <div class="meta-pills">
-        <div class="meta-pill">총 러닝타임: <strong>9분 29초 (569.32s)</strong></div>
-        <div class="meta-pill">선택 시안: <strong>A안 (메인)</strong></div>
-        <div class="meta-pill">최종 화면: <strong>마지막 10초 (09:19 ~ 09:29)</strong></div>
-        <div class="meta-pill">SEO 파일명: <strong>English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4</strong></div>
-      </div>
-    </header>
+<main>
+  <header>
+    <h1>EP24 업로드 패키지</h1>
+    <p>Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요? | 영어 모음 20쌍 반복 듣기</p>
+    <p>영상 파일: <a href="English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4">English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4</a></p>
+  </header>
+  <section class="card check">
+    <div class="card-head"><h2>업로드 체크리스트</h2><button type="button" data-copy="checklist">복사</button></div>
+    <pre id="checklist">[EP24 유튜브 업로드 체크리스트]
+영상: English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4 (9분 29초)
 
-    <!-- 썸네일 미리보기 (4종 세트) -->
-    <div class="card">
-      <div class="card-title">
-        <span>🖼️ 생성 완료 썸네일 4종 세트 (A안 메인 · B안 경고 · C안 원리 · 모바일 클로즈업)</span>
-        <span style="font-size: 13px; color: var(--text-muted);">클릭 시 원본 다운로드</span>
-      </div>
-      <div class="thumb-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-        <div class="thumb-card">
-          <div class="thumb-label">
-            <span>[메인 채택 A안] thumbnail.jpg</span>
-            <a href="thumbnail.jpg" download style="color: var(--accent); text-decoration: none;">다운로드 ⬇️</a>
-          </div>
-          <img src="thumbnail.jpg" alt="메인 썸네일 A안" class="thumb-img" onerror="this.style.display='none'">
-        </div>
-        <div class="thumb-card">
-          <div class="thumb-label">
-            <span>[모바일 1위] thumbnail-close-up.jpg</span>
-            <a href="thumbnail-close-up.jpg" download style="color: var(--accent); text-decoration: none;">다운로드 ⬇️</a>
-          </div>
-          <img src="thumbnail-close-up.jpg" alt="모바일 클로즈업 썸네일" class="thumb-img" onerror="this.style.display='none'">
-        </div>
-        <div class="thumb-card">
-          <div class="thumb-label">
-            <span>[경고형 B안] thumbnail-b.jpg</span>
-            <a href="thumbnail-b.jpg" download style="color: var(--accent); text-decoration: none;">다운로드 ⬇️</a>
-          </div>
-          <img src="thumbnail-b.jpg" alt="경고형 썸네일 B안" class="thumb-img" onerror="this.style.display='none'">
-        </div>
-        <div class="thumb-card">
-          <div class="thumb-label">
-            <span>[원리형 C안] thumbnail-c.jpg</span>
-            <a href="thumbnail-c.jpg" download style="color: var(--accent); text-decoration: none;">다운로드 ⬇️</a>
-          </div>
-          <img src="thumbnail-c.jpg" alt="원리형 썸네일 C안" class="thumb-img" onerror="this.style.display='none'">
-        </div>
-      </div>
+⚠️ 올리기 전에 먼저 할 일
+1. 썸네일은 반드시 새로 만드세요. 옛 시안에는 영상 길이와 다른 [30분 듣기]가 박혀 있습니다. 특히 thumbnail-b.jpg(BEACH vs BITCH)는 절대 올리지 마세요.
+   videos/ep24-long-short-i/prompts/thumbnail-prompts.md로 새로 만들어 같은 파일 이름으로 바꿔 넣으세요.
+   자동 업로드를 쓰면 교체한 뒤 대시보드 대기 큐에서 &quot;이 썸네일 승인&quot;을 눌러야 올라갑니다.
+2. 영상 안 금지어는 다시 렌더링하지 않고 그대로 올리기로 했습니다 (2026-11-06). 남은 항목은 아래와 같습니다.
+   화면: bitch 14곳 (3:08 Group 4, 섞어 듣기, 총복습), 0:31 원리 그림의 VOCAL TRACT ANATOMY 등 영어 전문용어, TENSE 긴장모음 · LAX 이완모음, 각 Group 시작에 잠깐 보이는 &quot;반복 듣기 드릴 (●●● 순차 점등)&quot; 라벨 4곳
+   음성: bitch를 읽는 단어 음성이 들어 있음
+
+□ 1. 영상 파일 업로드
+□ 2. 제목: title.txt 복사. 테스트를 쓰면 아래 세트대로 등록
+     A안 메인 · thumbnail.jpg와 세트
+     B안 상식 뒤집기 · thumbnail-b.jpg와 세트
+     C안 원리형 · thumbnail-c.jpg와 세트
+     D안 호기심형 · 제목만 시험
+□ 3. 설명: description.txt 복사 (챕터 포함)
+□ 4. 태그: tags.txt 복사
+□ 5. 고정 댓글: pinned-comment.txt 복사 후 첫 댓글로 등록하고 고정
+□ 6. 최종 화면: 마지막 10초 (9:19부터), 추천 영상 + 구독 버튼
+     화면에 그려진 네모와 카드는 눌리지 않는 그림입니다. 스튜디오 최종 화면에서 같은 자리에 요소를 직접 얹으세요.
+     직전 편: EP23 https://youtu.be/9d9m869BCTI (이미 공개됨)
+□ 7. 재생목록: &quot;[이해하면 쉬운영어] 반복 듣기 정주행&quot;에 추가. 이 재생목록은 아직 채널에 없으니 처음 한 번 만드세요.
+□ 8. 자막: 아직 없습니다. subtitles/ 폴더를 만든 뒤 따로 올립니다.
+□ 9. 시청자층: 아동용 아님
+□ 10. AI 사용 표시: 예 (실사처럼 보이는 AI 배경 영상이 있음. 표시해도 노출과 수익에 불이익이 없다고 유튜브가 안내함)</pre>
+  </section>
+  <section class="card">
+    <h2>썸네일</h2>
+    <div class="thumbs">
+        <figure><img src="thumbnail.jpg" alt="thumbnail.jpg" loading="lazy"><figcaption>thumbnail.jpg</figcaption></figure>
+        <figure><img src="thumbnail-b.jpg" alt="thumbnail-b.jpg" loading="lazy"><figcaption>thumbnail-b.jpg</figcaption></figure>
+        <figure><img src="thumbnail-c.jpg" alt="thumbnail-c.jpg" loading="lazy"><figcaption>thumbnail-c.jpg</figcaption></figure>
+        <figure><img src="thumbnail-close-up.jpg" alt="thumbnail-close-up.jpg" loading="lazy"><figcaption>thumbnail-close-up.jpg</figcaption></figure>
     </div>
-
-    <!-- 제목 & 설명란 -->
-    <div class="grid-2">
-      <!-- 제목 -->
-      <div class="card">
-        <div class="card-title">
-          <span>📌 유튜브 영상 제목 (Title)</span>
-          <button class="copy-btn" onclick="copyText('title-text', this)">복사하기</button>
-        </div>
-        <div id="title-text" class="preview-box" style="font-weight: 700; font-size: 16px; color: var(--accent);">[30분 듣기] Sheep과 Ship, 둘 다 똑같이 '쉽'으로 발음하셨나요? 20단어 귀 뚫림 | 영어 모음 발음</div>
-        <div style="font-size: 13px; color: var(--text-muted);">
-          * 50자 이내(49자), 모바일 3단 구간 최적화, 롱테일 검색어("| 영어 모음 발음") 배치 완료
-        </div>
+  </section>
+  <section class="card">
+      <div class="card-head"><h2>메인 제목</h2><button type="button" data-copy="title">복사</button></div>
+      <pre id="title">Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요? | 영어 모음 20쌍 반복 듣기</pre>
+    </section>
+  <section class="card">
+    <h2>제목 시안 (제목 및 썸네일 테스트용)</h2>
+    <div class="variant">
+        <div class="card-head"><h3>A안 · 메인 · thumbnail.jpg와 세트</h3><button type="button" data-copy="variant-A">복사</button></div>
+        <pre id="variant-A">Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요? | 영어 모음 20쌍 반복 듣기</pre>
       </div>
+      <div class="variant">
+        <div class="card-head"><h3>B안 · 상식 뒤집기 · thumbnail-b.jpg와 세트</h3><button type="button" data-copy="variant-B">복사</button></div>
+        <pre id="variant-B">길게 끈다고 Seat가 되지 않습니다, 진짜 차이는 입 모양 | 영어 모음 발음</pre>
+      </div>
+      <div class="variant">
+        <div class="card-head"><h3>C안 · 원리형 · thumbnail-c.jpg와 세트</h3><button type="button" data-copy="variant-C">복사</button></div>
+        <pre id="variant-C">소리 길이 늘이지 마세요, 입꼬리를 당기면 갈립니다 | Sheep Ship 영어 모음</pre>
+      </div>
+      <div class="variant">
+        <div class="card-head"><h3>D안 · 호기심형 · 제목만 시험</h3><button type="button" data-copy="variant-D">복사</button></div>
+        <pre id="variant-D">원어민 귀에는 완전히 다르게 들리는 짝단어 20쌍 | 영어 듣기 연습</pre>
+      </div>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <div class="card-head"><h2>설명</h2><button type="button" data-copy="description">복사</button></div>
+      <pre id="description">sheep과 ship, seat와 sit. 둘 다 똑같이 '쉽', '싯'으로 읽고 계셨죠?
+학창 시절에는 장모음은 길게, 단모음은 짧게 읽으라고 배웠습니다. 그런데 미드를 들어보면 길게 끄는 것 같지도 않은데 두 소리가 분명히 다르게 들립니다.
 
-      <!-- 고정 댓글 -->
-      <div class="card">
-        <div class="card-title">
-          <span>💬 고정 댓글 (Pinned Comment)</span>
-          <button class="copy-btn" onclick="copyText('pinned-text', this)">복사하기</button>
-        </div>
-        <div id="pinned-text" class="preview-box">☕ 여러분은 그동안 sheep과 ship, seat와 sit을 읽을 때 소리 길이를 늘이셨나요, 아니면 입꼬리를 당기셨나요?
+진짜 차이는 길이보다 입 모양에 있습니다.
+
+① [iː] sheep: 웃듯이 입꼬리를 양옆으로 당기면서 내는 소리
+② [ɪ] ship: 멍때리듯이 입에 힘을 툭 빼고 내는 소리
+
+20쌍 40단어를 남녀 목소리로 번갈아 반복해서 들어보세요. 이어서 문장 7개와 40단어 섞어 듣기까지 따라가다 보면, 두 소리가 왜 다르게 들렸는지 귀로 느껴집니다.
+
+「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리가 나는 원리로 설명합니다.
+
+📌 오늘 배우는 내용
+・Sheep vs Ship: 소리의 길이보다 입꼬리 차이
+・Group 1: 일상 사물 &amp; 동물 5쌍 (sheep/ship, feet/fit, seat/sit, heel/hill, peel/pill)
+・Group 2: 음식 &amp; 동작 5쌍 (meat/mitt, peach/pitch, beat/bit, heat/hit, cheap/chip)
+・Group 3: 감각 &amp; 상태 5쌍 (sleep/slip, feel/fill, reach/rich, leave/live, seek/sick)
+・Group 4: 헷갈리기 쉬운 단어 5쌍 (lead/lid, teen/tin, deed/did, steel/still 외)
+・문장 7개 3회 연속 듣기
+・40단어 무작위 섞어 듣기
+・스마트폰 캡처용 1장 요약 치트시트
+・20쌍 앵콜 총복습
+
+⏱️ 챕터
+0:00 Sheep vs Ship, 둘 다 똑같이 '쉽'?
+0:31 [iː] vs [ɪ] 입 모양 차이
+0:57 Group 1: 일상 사물 &amp; 동물 5쌍 (sheep vs ship, feet vs fit...)
+1:41 Group 2: 음식 &amp; 동작 5쌍 (meat vs mitt, peach vs pitch...)
+2:23 Group 3: 감각 &amp; 상태 5쌍 (sleep vs slip, feel vs fill...)
+3:08 Group 4: 헷갈리기 쉬운 단어 5쌍 (lead vs lid, teen vs tin...)
+3:51 문장 속에서 듣기 7문장
+4:56 40단어 무작위 섞어 듣기 (실전 퀴즈)
+8:12 스마트폰 캡처용 1장 요약 치트시트
+8:29 20쌍 앵콜 총복습
+9:19 다음 추천 영상 &amp; 완주
+
+소리를 길게 늘이기만 하면 오히려 어색하게 들립니다.
+소리가 나는 원리를 알면 듣기도 말하기도 한결 쉬워집니다.
+영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다!
+
+#영어발음 #영어모음 #장모음단모음 #sheepship #발음비교 #파닉스 #성인파닉스 #영어단어읽는법 #영어리스닝</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>고정 댓글</h2><button type="button" data-copy="pinned">복사</button></div>
+      <pre id="pinned">☕ 여러분은 그동안 sheep과 ship, seat와 sit을 읽을 때 소리 길이를 늘이셨나요, 아니면 입꼬리를 당기셨나요?
 
 영상을 보시면서 가장 소리 구분이 잘 안 됐거나 헷갈렸던 짝단어가 있다면 댓글로 편하게 남겨주세요!
 하나하나 읽어보고 답변드리겠습니다. 😊
 
-오늘 9분 집중 훈련을 완주하신 분들은 댓글에 "완주 완료! 🐑🚢"를 남겨주시면 큰 응원이 됩니다!
-(단어만 빠르게 복습하실 분들은 8:29 앵콜 총복습 구간을 반복해서 활용해 보세요!)</div>
-      </div>
-    </div>
-
-    <!-- 설명란 & 태그 -->
-    <div class="grid-2">
-      <!-- 설명란 -->
-      <div class="card">
-        <div class="card-title">
-          <span>📝 유튜브 영상 설명 (Description + 타임라인)</span>
-          <button class="copy-btn" onclick="copyText('desc-text', this)">복사하기</button>
-        </div>
-        <div id="desc-text" class="preview-box">솔직히 sheep과 ship, seat와 sit, 둘 다 그냥 똑같이 "쉽", "싯"으로 읽고 계셨죠?
-학창 시절에 장모음은 길게 끌고, 단모음은 짧게 끊으라고 배웠지만, 미드나 영화를 보면 원어민들은 길게 끄는 것 같지도 않은데 기가 막히게 구분합니다.
-
-원어민들이 두 소리를 완벽히 구별하는 진짜 이유는 '소리의 길이'가 아닙니다.
-바로 "입술과 턱을 쓰는 방법(조음 긴장도)"이 완전히 다르기 때문입니다.
-
-① [iː] 장모음 (TENSE): 웃듯이 입꼬리를 양옆으로 팽팽하게 당기며 내는 단단한 소리
-② [ɪ] 단모음 (LAX): 멍때리듯이 턱과 입술에 힘을 툭 빼고 내는 편안한 소리
-
-오늘 딱 20쌍 40개 단어를 남녀 원어민 음성으로 3회씩 반복해 듣고, 실전 카페 대화와 무작위 40단어 덱 셔플까지 귀로 훈련해 보세요.
-영상을 다 보고 나시면 "아, 이래서 다르게 들렸구나!" 바로 귀가 뚫리게 됩니다.
-
-「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리의 물리적 원리로 설명합니다.
-
-📌 오늘 배우는 내용
-・Sheep vs Ship: 소리의 길이가 아니라 입꼬리 1초 차이
-・구강 조음 단면도로 보는 긴장모음 vs 이완모음 원리
-・Group 1: 일상 사물 & 동물 5쌍 (sheep/ship, feet/fit, seat/sit, heel/hill, peel/pill)
-・Group 2: 음식 & 동작 5쌍 (meat/mitt, peach/pitch, beat/bit, heat/hit, cheap/chip)
-・Group 3: 감각 & 상태 5쌍 (sleep/slip, feel/fill, reach/rich, leave/live, seek/sick)
-・Group 4: 추상 & 주의 단어 5쌍 (lead/lid, teen/tin, deed/did, steel/still, beach/bitch)
-・카페 실전 대화 7문장 3회 연속 리스닝
-・40단어 무작위 덱 셔플 반응 훈련 (실전 귀 훈련)
-・스마트폰 캡처용 1장 요약 치트시트
-・처음부터 끝까지 무한 앵콜 총복습
-
-⏱️ 챕터 타임라인
-0:00 Sheep vs Ship, 둘 다 똑같이 '쉽'?
-0:31 [iː] vs [ɪ] 입 모양 1초 차이 조음 원리
-0:57 Group 1: 일상 사물 & 동물 5쌍 (sheep vs ship, feet vs fit...)
-1:41 Group 2: 음식 & 동작 5쌍 (meat vs mitt, peach vs pitch...)
-2:23 Group 3: 감각 & 상태 5쌍 (sleep vs slip, feel vs fill...)
-3:08 Group 4: 추상 & 주의 단어 5쌍 (lead vs lid, beach vs bitch...)
-3:51 실전 짝단어 문장 대화 7문장
-4:56 40단어 무작위 덱 셔플 귀 훈련 (실전 퀴즈)
+오늘 9분 집중 훈련을 완주하신 분들은 댓글에 &quot;완주 완료! 🐑🚢&quot;를 남겨주시면 큰 응원이 됩니다!
+(단어만 빠르게 복습하실 분들은 8:29 앵콜 총복습 구간을 반복해서 활용해 보세요!)</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>태그</h2><button type="button" data-copy="tags">복사</button></div>
+      <pre id="tags">영어발음, 영어모음, 장모음, 단모음, sheep ship, 발음비교, 파닉스, 성인파닉스, 왕초보영어, 기초영어, 영어리스닝, 영어듣기, 영어회화, 미국식발음, 발음원리, 발음교정, 영어단어읽는법, 영어공부혼자하기, 이해하면쉬운영어</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>챕터</h2><button type="button" data-copy="timeline">복사</button></div>
+      <pre id="timeline">0:00 Sheep vs Ship, 둘 다 똑같이 '쉽'?
+0:31 [iː] vs [ɪ] 입 모양 차이
+0:57 Group 1: 일상 사물 &amp; 동물 5쌍 (sheep vs ship, feet vs fit...)
+1:41 Group 2: 음식 &amp; 동작 5쌍 (meat vs mitt, peach vs pitch...)
+2:23 Group 3: 감각 &amp; 상태 5쌍 (sleep vs slip, feel vs fill...)
+3:08 Group 4: 헷갈리기 쉬운 단어 5쌍 (lead vs lid, teen vs tin...)
+3:51 문장 속에서 듣기 7문장
+4:56 40단어 무작위 섞어 듣기 (실전 퀴즈)
 8:12 스마트폰 캡처용 1장 요약 치트시트
-8:29 20쌍 무한 앵콜 총복습
-9:19 다음 추천 영상 & 완주
-
-영어를 배울 때 무작정 소리를 길게 늘여 빼는 것은 오히려 어색한 발음을 만듭니다.
-소리가 나는 물리적 원리를 이해하면, 리스닝도 스피킹도 한결 쉬워집니다.
-영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다!
-
-#영어발음 #영어모음 #장모음단모음 #sheepship #발음비교 #파닉스 #성인파닉스 #원어민발음 #영어단어읽는법 #영어리스닝
-</div>
-      </div>
-
-      <!-- 태그 & 엔드스크린 체크리스트 -->
-      <div class="card">
-        <div class="card-title">
-          <span>🏷️ 검색 태그 (Tags)</span>
-          <button class="copy-btn" onclick="copyText('tags-text', this)">복사하기</button>
-        </div>
-        <div id="tags-text" class="preview-box" style="max-height: 120px;">영어발음, 영어모음, 장모음, 단모음, sheep ship, 발음비교, 파닉스, 성인파닉스, 왕초보영어, 기초영어, 영어리스닝, 영어듣기, 영어회화, 미국식발음, 발음원리, 발음교정, 영어단어읽는법, 영어공부혼자하기, 이해하면쉬운영어, 미니멀페어, 최소대립쌍</div>
-
-        <div class="card-title" style="margin-top: 10px;">
-          <span>🎞️ 동영상 원본 파일명 (유튜브 SEO 검색 키워드)</span>
-          <button class="copy-btn" onclick="copyText('video-filename-text', this)">복사하기</button>
-        </div>
-        <div id="video-filename-text" class="preview-box" style="padding: 10px 14px; font-weight: 700; color: #10B981;">English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4</div>
-
-        <div class="card-title" style="margin-top: 10px;">
-          <span>🎬 최종 화면 (End Screen) 10초 세팅 안내</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <div class="checklist-item">
-            <input type="checkbox" checked disabled>
-            <div><strong>시작 시간:</strong> 09:19 (559.32초) ~ 종료 09:29 (569.32초) — 10.0초간 유지</div>
-          </div>
-          <div class="checklist-item">
-            <input type="checkbox" checked disabled>
-            <div><strong>좌측 가이드:</strong> 16:9 추천 영상 (직전 편 EP23 자음 규칙)</div>
-          </div>
-          <div class="checklist-item">
-            <input type="checkbox" checked disabled>
-            <div><strong>우측 가이드:</strong> 16:9 재생목록 ([이해하면 쉬운영어] 정주행 플레이리스트)</div>
-          </div>
-          <div class="checklist-item">
-            <input type="checkbox" checked disabled>
-            <div><strong>하단 중앙:</strong> 구독 원형 버튼 (채널 구독 알약 뱃지 위치)</div>
-          </div>
-        </div>
-      </div>
-    </div>
+8:29 20쌍 앵콜 총복습
+9:19 다음 추천 영상 &amp; 완주</pre>
+    </section>
   </div>
-
-  <script>
-    function copyText(id, btn) {
-      const el = document.getElementById(id);
-      const text = el.innerText || el.textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.innerText;
-        btn.innerText = '복사 완료! ✓';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerText = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    }
-  </script>
+</main>
+<script>document.addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-copy]');
+  if (!button) return;
+  const text = document.getElementById(button.dataset.copy).textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+  }
+  button.textContent = '복사됨';
+  setTimeout(() => { button.textContent = '복사'; }, 1500);
+});</script>
 </body>
 </html>

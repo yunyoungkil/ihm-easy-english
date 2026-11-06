@@ -1,106 +1,145 @@
-# EP28 (F vs P 자음 짝단어 24쌍 반복 듣기 훈련) 썸네일 생성 프롬프트 (4종 세트)
+# EP28 썸네일 이미지 생성 프롬프트 (4종, 아바타 없음)
 
-- **에피소드 ID**: `ep28-f-vs-p`
-- **주제**: F vs P 0.1초 조음 물리법칙 (윗니 0% vs 100%) 24쌍 집중 반복 듣기 훈련
-- **메인 채택**: **4안 (물리법칙형)** (`원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기`)
-- **디자인 스타일**: 웜크림 네오브루탈리즘 (단색 웜크림 배경 `#F7F4EE`, 플랫 화이트 앵커 텍스트, 골드 알약 캡슐 `#F5C518`, 채널 공식 아바타)
+- 에피소드 ID: `ep28-f-vs-p`
+- 작성일: 2026-11-06. 2026-10-28 아바타 중단 결정에 따라 전부 새로 썼습니다. 이전 프롬프트는 git 기록에 있습니다.
+- 사용 방법: 코드 블록을 Gemini나 Google Flow에 그대로 붙여넣어 만듭니다. 마음에 드는 그림을 아래 표의 파일 이름으로 `output/upload-packages/ep28-f-vs-p/`에 덮어씁니다.
+- 확인할 것: 네 모서리에 워터마크나 반짝이 아이콘이 없는지, 글자가 깨지지 않았는지 봅니다. 최종 확인은 대시보드의 LIVE MOBILE FEED PREVIEW로 합니다.
+
+| 파일 | 제목 세트 | 칩 | 큰 글자 | 알약 문구 | 그림 | 이렇게 한 이유 |
+|---|---|---|---|---|---|---|
+| `thumbnail.jpg` | A | [반복 듣기] | F vs P | 윗니 0% vs 100% | 닫은 입술과 공기 터짐 vs 윗니가 입술에 닿고 바람 | 윗니가 닿는지 안 닿는지 그림으로 바로 보입니다. |
+| `thumbnail-variant-a.jpg` | B | [소리 연습] | F 발음 | 꽉 물면 틀립니다 | 입술 꽉 문 그림에 빨간 X, 살짝 댄 그림에 초록 체크 | "입술 물어라"는 상식을 고쳐 줍니다. 기존 "입술 물면 틀립니다"보다 정확합니다. |
+| `thumbnail-variant-b.jpg` | C | [실수 주의] | COFFEE vs COPY | 두 입술 닿으면 탈락 | 커피잔 카드 + 복사 용지 카드 | 누구나 아는 물건 두 개로 뜻 차이를 보여 줍니다. |
+| `thumbnail-close-up.jpg` | A의 모바일용 | [반복 듣기] | F vs P | 윗니 0% vs 100% | F vs P만 아주 크게 | 휴대폰 피드의 작은 크기에서도 읽히도록 그림까지 뺐습니다. |
 
 ---
 
-## 1. Main Variant (메인 채택 · 바스트샷 와이드, thumbnail.jpg)
+## 1. thumbnail.jpg (A)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "F vs P 0.1초 소리 물리법칙 짝단어 반복 듣기". This must match the channel's established house style exactly — do not invent a different look.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: F vs P, the upper teeth touching the lower lip or not. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "F vs P" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "윗니 0% vs 100%" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark, no UI mockup text.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain, evenly and softly lit seamless single warm cream/beige backdrop (#F7F4EE) across the ENTIRE frame. No chalkboard, no desk, no room interior, no decorative items.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[반복 듣기]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "F vs P", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "윗니 0% vs 100%" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO ===
-The exact same Korean male presenter shown in reference image (public/brand/thumbnail-presenter-reference.jpg) — same facial identity and features. Dressed in the EXACT SAME signature uniform: navy baseball cap and black t-shirt, each printed with the colorful vertical-bar sound-wave icon.
-Hero sits to the right side at a medium-close waist-up distance. The hero is pointing with his index finger toward his upper teeth/lip with a sharp, confident "0.1초면 바로 구별!" expression, looking directly at the viewer with an enlightened, proud smile. Empty negative space separates hero and text.
+[Visual] On the right, two equal white rounded cards with heavy black borders, side by side. Left card: a simple flat drawing of closed lips with short burst lines of air. Right card: a simple flat drawing of upper front teeth resting lightly on the lower lip with soft wind lines. Lips and teeth only, no face. No words inside the cards.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif font with sharp infographic clarity.
-NEGATIVE: Do NOT put the anchor line inside a colored box. Do NOT add neon glow, 3D metallic extrusion, sparkles, drop shadows, or circuit lines. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
+[Layout] Text block on the left 55% of the frame, the two cards on the right 45%. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm cream color (#F7F4EE) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-## 2. Main Mobile Close-Up (모바일 전용 클로즈업, thumbnail-close-up.jpg)
+## 2. thumbnail-variant-a.jpg (B)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "F vs P 발음 구별 원리". Mobile extreme close-up variant.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: F vs P, the upper teeth touching the lower lip or not. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "F vs P" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "윗니 0% vs 100%" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame. No props, no set dressing.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[소리 연습]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "F 발음", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "꽉 물면 틀립니다" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO (MOBILE CLOSE-UP) ===
-The exact same Korean male presenter from reference image (navy cap and black t-shirt with sound-wave icon).
-Camera distance: Extreme close-up where the hero's face and upper shoulders fill 40-50% of the frame width on the right side. Sharp focus on eyes, smile, and facial expression. Hero holds an index finger right beside his mouth in a precise "비밀 법칙 발견!" gesture, readable clearly even when shrunk to 100px in a mobile feed.
+[Visual] On the left, two stacked white rounded cards with heavy black borders. Upper card: a simple flat drawing of upper teeth biting hard into the lower lip, with one thick red X. Lower card: a simple flat drawing of upper teeth touching the lower lip lightly, with one bold green check mark. Lips and teeth only, no face. No words inside the cards.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
+[Layout] The two cards on the left 45% of the frame, the text block on the right 55%, so this layout mirrors the usual one. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm sand color (#F3E3C3) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-## 3. Variant A (대조군 · 상식 파괴형, thumbnail-variant-a.jpg)
+## 3. thumbnail-variant-b.jpg (C)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "F 발음할 때 입술 물면 틀립니다". This must match the channel's established house style exactly.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: F vs P, the upper teeth touching the lower lip or not. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "F 발음할 때" — massive, on its own line, crisp flat white lettering with heavy black outline.
-- Pill phrase: "입술 물면 틀립니다" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame. No props, no extra scene.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[실수 주의]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "COFFEE vs COPY", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "두 입술 닿으면 탈락" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO ===
-The exact same Korean male presenter from reference image (navy cap and black t-shirt with sound-wave icon).
-Hero sits to the right side, raising one hand in a firm, friendly "Wait, stop that habit!" stop gesture with an eye-opening "그렇게 배우셨죠?" expression, looking toward the text. Empty negative space separates hero and text.
+[Visual] Below the anchor, two equal white rounded cards with heavy black borders, side by side. Left card: one simple flat icon of a coffee cup. Right card: one simple flat icon of a stack of white paper sheets. No words inside the cards.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
+[Layout] Anchor across the top of the frame, the two cards in the middle right, the gold pill at the lower left. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat pale cream color (#F4EFE6) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-## 4. Variant B (대조군 · 단어 대조 직격형, thumbnail-variant-b.jpg)
+## 4. thumbnail-close-up.jpg (A의 모바일용)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "Coffee와 Copy 입술 닿는 순간 갈립니다". This must match the channel's established house style exactly.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: F vs P, the upper teeth touching the lower lip or not. Aspect ratio 16:9. Designed to stay readable at very small size in a phone feed, so use very few elements and very large letters.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[실수 주의]" in a compact dark navy pill with white text.
-- Anchor line: "Coffee와 Copy" — massive, on its own line, crisp flat white lettering with heavy black outline.
-- Pill phrase: "두 입술 닿으면 탈락" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame. No props, no extra scene.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[반복 듣기]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "F vs P", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "윗니 0% vs 100%" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO ===
-The exact same Korean male presenter from reference image (navy cap and black t-shirt with sound-wave icon).
-Hero is on the right side, holding up two fingers in a comparison gesture with an intrigued, knowing smirk ("이 차이 아셨나요?"). Hero looks toward the text. Empty negative space between hero and text.
+[Visual] No icons and no cards. The huge letters are the whole picture.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
+[Layout] The anchor fills the upper two thirds of the frame, the gold pill directly below it. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm cream color (#F7F4EE) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```

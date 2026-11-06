@@ -1,6 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
+// ⛔ 2026-11-06: 이 스크립트에는 고치기 전 문구(금지어, [30분 듣기] 등)가 들어 있다.
+// 다시 실행하면 고친 패키지를 옛 글로 덮어쓰므로 막아 둔다. 글은 패키지 폴더의 txt 파일을 직접 고치고,
+// 페이지는 `npm run upload-page -- <패키지 폴더>`로 다시 만든다.
+throw new Error('옛 업로드 패키지 빌드 스크립트입니다. npm run upload-page를 쓰세요.');
+
 const projectDir = path.resolve('videos/ep27-s-ending');
 const outputDir = path.resolve('output/upload-packages/ep27-s-ending');
 fs.mkdirSync(outputDir, { recursive: true });

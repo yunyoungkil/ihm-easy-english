@@ -1,103 +1,146 @@
-# EP25 썸네일 이미지 생성 프롬프트 (4종 세트)
+# EP25 썸네일 이미지 생성 프롬프트 (4종, 아바타 없음)
 
-- **에피소드 ID**: `ep25-pool-pull`
-- **주제**: 장모음 [uː] vs 단모음 [ʊ] 짝단어 대조 20쌍 심화 반복 듣기 드릴
-- **메인 채택**: **A안** (`[30분 듣기] Pool과 Pull, 둘 다 똑같이 '풀'로 발음하셨나요? 20단어 귀 뚫림 | 영어 모음 발음`)
-- **디자인 스타일**: 웜크림 네오브루탈리즘 (단색 웜크림 배경, 플랫 화이트 앵커 텍스트, 골드 알약 캡슐, 채널 공식 아바타)
+- 에피소드 ID: `ep25-pool-pull`
+- 작성일: 2026-11-06. 2026-10-28 아바타 중단 결정에 따라 전부 새로 썼습니다. 이전 프롬프트는 git 기록에 있습니다.
+- 사용 방법: 코드 블록을 Gemini나 Google Flow에 그대로 붙여넣어 만듭니다. 마음에 드는 그림을 아래 표의 파일 이름으로 `output/upload-packages/ep25-pool-pull/`에 덮어씁니다.
+- 확인할 것: 네 모서리에 워터마크나 반짝이 아이콘이 없는지, 글자가 깨지지 않았는지 봅니다. 최종 확인은 대시보드의 LIVE MOBILE FEED PREVIEW로 합니다.
+
+| 파일 | 제목 세트 | 칩 | 큰 글자 | 알약 문구 | 그림 | 이렇게 한 이유 |
+|---|---|---|---|---|---|---|
+| `thumbnail.jpg` | A | [반복 듣기] | POOL vs PULL | 입술 모으면 끝 | 수영장 아이콘 카드 + 문 당기는 아이콘 카드 | 뜻이 다른 두 장면을 그림으로 먼저 보여 줍니다. |
+| `thumbnail-b.jpg` | B | [실수 주의] | FOOL vs FULL | 뜻이 완전히 달라요 | I'M FOOL에 빨간 X, I'M FULL에 초록 체크 | 실수하면 뜻이 어떻게 바뀌는지 보여 줍니다. 근거 없는 "바보 소리 듣습니다"를 대체합니다. |
+| `thumbnail-c.jpg` | C | [소리 연습] | [uː] vs [ʊ] | 입에 힘 빼면 끝 | 촛불 끄듯 모은 입술 vs 힘 뺀 입술 | 영상의 비유(촛불)를 그대로 그림으로 씁니다. 금지 표현 "턱에 힘 빼면 끝"을 대체합니다. |
+| `thumbnail-close-up.jpg` | A의 모바일용 | [반복 듣기] | POOL (윗줄) · PULL (아랫줄) | 입술 모으면 끝 | 단어만 크게, 오른쪽에 작은 아이콘 | 휴대폰 피드의 작은 크기에서도 단어가 읽히도록 정보를 줄였습니다. |
 
 ---
 
-## 1. Variant A (메인 채택 · 바스트샷 와이드)
+## 1. thumbnail.jpg (A)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "Pool vs Pull 장모음 단모음 30분 듣기 드릴". This must match the channel's established house style exactly — do not invent a different look.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: Pool vs Pull, the long [uː] and short [ʊ] vowels. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[30분 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "POOL vs PULL" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "입술 모으면 끝" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark, no UI mockup text.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain, evenly and softly lit seamless single warm cream/beige backdrop across the ENTIRE frame. No chalkboard, no desk, no room interior, no decorative items.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[반복 듣기]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "POOL vs PULL", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "입술 모으면 끝" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO ===
-The exact same person shown in the attached reference image (public/brand/thumbnail-presenter-reference.jpg) — same facial identity and features. Dressed in the EXACT SAME signature uniform: navy baseball cap and black t-shirt, each printed with the same small colorful vertical-bar sound-wave icon. 
-Hero sits to the right side at a medium-close waist-up distance. The hero points his index finger toward the "POOL vs PULL" text with a genuine, eye-opening "Did you know?" curious expression, looking toward the text. Empty negative space separates the hero from the text block.
+[Visual] On the right, two equal white rounded cards with heavy black borders, side by side. Left card: one simple flat icon of a blue swimming pool with a ladder. Right card: one simple flat icon of a door handle with a curved arrow showing a pulling motion. No words inside the cards.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif font with sharp infographic clarity.
-NEGATIVE: Do NOT put the anchor line inside a colored box. Do NOT add neon glow, 3D metallic extrusion, sparkles, drop shadows, or circuit lines.
+[Layout] Text block on the left 55% of the frame, the two cards on the right 45%. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm cream color (#F7F4EE) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-## 2. Variant B (대조군 · 손실회피/실수경고형)
+## 2. thumbnail-b.jpg (B)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "Fool vs Full 모음 발음 실수 경고". This must match the channel's established house style exactly.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: Pool vs Pull, the long [uː] and short [ʊ] vowels. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[실수 주의]" in a compact dark navy pill with white text.
-- Anchor line: "FOOL vs FULL" — massive, on its own line, crisp flat white lettering with heavy black outline.
-- Pill phrase: "바보 소리 듣습니다" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame. No props, no extra scene.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[실수 주의]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "FOOL vs FULL", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "뜻이 완전히 달라요" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
+- Inside the visual only: "I'M FOOL", "I'M FULL".
 
-=== HERO ===
-The exact same person shown in reference image (navy cap and black t-shirt with sound-wave icon).
-Hero is on the right side, raising one palm forward in a playful "Stop! Wait a second!" warning gesture, with wide eyes and a shocked, dramatic reaction to reading the words. Text and hero do not overlap.
+[Visual] On the left, two stacked white rounded cards with heavy black borders. Upper card: "I'M FOOL" in bold black letters with one thick red X beside it. Lower card: "I'M FULL" in bold black letters with one bold green check mark beside it.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns.
+[Layout] The two cards on the left 45% of the frame, the text block on the right 55%, so this layout mirrors the usual one. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm sand color (#F3E3C3) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-## 3. Variant C (대조군 · 원리/성취형)
+## 3. thumbnail-c.jpg (C)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "모음 [uː] vs [ʊ] 턱과 입술 힘 빼기 원리". This must match the channel's established house style exactly.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: Pool vs Pull, the long [uː] and short [ʊ] vowels. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[30분 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "[uː] vs [ʊ]" — massive, flat white lettering with heavy black outline.
-- Pill phrase: "턱에 힘 빼면 끝" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any other text.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[소리 연습]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "[uː] vs [ʊ]", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "입에 힘 빼면 끝" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO ===
-The exact same person from reference image (signature navy cap & black t-shirt with soundwave logo).
-Hero is positioned on the right, gesturing lightly toward his jaw with relaxed fingers, smiling with quiet confidence and clarity as if demonstrating the effortless jaw drop. Clean separation between text and subject.
+[Visual] Below the anchor, two large simple flat line drawings of lips only, no face. Left: tightly rounded pursed lips blowing toward one small flat candle flame. Right: relaxed, slightly open lips with no tension. No words next to them.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Heavy graphic sans-serif with bold black stroke.
-NEGATIVE: No neon effects, no glows, no 3D bubbles, no cluttered props.
+[Layout] Anchor centered at the top across the frame, the two lip drawings in the middle, the gold pill at the lower left. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat pale cream color (#F4EFE6) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-## 4. Variant A Close-Up (모바일 피드 1위 전용 클로즈업)
+## 4. thumbnail-close-up.jpg (A의 모바일용)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어', 16:9 horizontal. Dedicated MOBILE CLOSE-UP variant (thumbnail-close-up.jpg).
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: Pool vs Pull, the long [uː] and short [ʊ] vowels. Aspect ratio 16:9. Designed to stay readable at very small size in a phone feed, so use very few elements and very large letters.
 
-=== TEXT CONTENT ===
-- Category Pill (top-left): "[30분 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "POOL vs PULL" — large bold white lettering with thick black border.
-- Pill phrase: "입술 모으면 끝" — inside a solid warm-yellow (#F5C518) pill shape with black bold text.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== COMPOSITION & HERO (EXTREME CLOSE-UP) ===
-Camera distance is NOT waist-up: render an EXTREME CLOSE-UP where the hero's face and shoulders fill at least 45-50% of the frame width on the right side.
-Hero: exact same person from reference image (navy cap with soundwave logo, black shirt). Eyes and mouth are highly expressive with a bright eureka smile, looking directly toward the text on the left.
-Even when shrunk to 100px wide in a mobile feed, the facial expression and the words "POOL vs PULL" remain instantly recognizable in 0.1 seconds.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[반복 듣기]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor, on two lines: "POOL" on the first line and "PULL" on the second line, the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "입술 모으면 끝" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== BACKGROUND & TYPOGRAPHY ===
-Seamless plain warm cream backdrop. Sharp, flat graphic typography. 
-NEGATIVE: No glow, no 3D text, no background props, no text overlapping the hero.
+[Visual] To the right of each word, one small simple flat icon: a swimming pool beside POOL and a door handle with a curved arrow beside PULL.
+
+[Layout] The two words fill most of the frame height on the left, the gold pill directly below them. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm cream color (#F7F4EE) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```

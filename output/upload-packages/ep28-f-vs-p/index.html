@@ -1,451 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EP28 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0C0F17;
-      --card-bg: rgba(22, 27, 41, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #F59E0B;
-      --accent-glow: rgba(245, 158, 11, 0.35);
-      --primary: #3B82F6;
-      --success: #10B981;
-      --text: #F3F4F6;
-      --text-muted: #9CA3AF;
-      --radius: 16px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
-      min-height: 100vh;
-      padding: 40px 24px;
-      line-height: 1.6;
-      background-image:
-        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
-    }
-    .container {
-      max-width: 1380px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--card-border);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 800;
-      background: rgba(59, 130, 246, 0.15);
-      color: var(--primary);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      margin-bottom: 8px;
-    }
-    h1 {
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-top: 4px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 24px;
-    }
-    .col-8 { grid-column: span 8; }
-    .col-4 { grid-column: span 4; }
-    .col-6 { grid-column: span 6; }
-    .col-12 { grid-column: span 12; }
-    @media (max-width: 1024px) {
-      .col-8, .col-4, .col-6 { grid-column: span 12; }
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-    }
-    .card-title {
-      font-size: 17px;
-      font-weight: 800;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #FFF;
-    }
-    .copy-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #FFF;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      text-decoration: none;
-    }
-    .copy-btn:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
-      transform: translateY(-1px);
-    }
-    .copy-btn.copied {
-      background: var(--success);
-      border-color: var(--success);
-    }
-    .text-box {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 16px;
-      font-size: 14px;
-      color: var(--text);
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-family: inherit;
-      max-height: 280px;
-      overflow-y: auto;
-    }
-    .thumbs-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    .thumb-card {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .thumb-card img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      display: block;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .thumb-meta {
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .thumb-label {
-      font-size: 14px;
-      font-weight: 800;
-    }
-    .rec-tag {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--accent);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      font-size: 11px;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .prompt-box {
-      background: rgba(0, 0, 0, 0.5);
-      border-top: 1px solid var(--card-border);
-      padding: 12px 16px;
-      font-size: 12px;
-      color: var(--text-muted);
-      max-height: 120px;
-      overflow-y: auto;
-    }
-    .render-alert {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .code-cmd {
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-family: monospace;
-      font-size: 13px;
-      color: #60A5FA;
-      flex-grow: 1;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP28 업로드 패키지</title>
+<style>:root{color-scheme:dark;--bg:#0C0F17;--card:#161B29;--line:rgba(255,255,255,.12);--accent:#F5C518;--text:#F3F4F6;--muted:#A3ACBA}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Malgun Gothic',sans-serif;line-height:1.6;padding:32px 16px}
+main{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+header p{color:var(--muted);overflow-wrap:anywhere}
+h1{font-size:26px;font-weight:900}
+h2{font-size:17px;font-weight:800}
+h3{font-size:14px;font-weight:700;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;min-width:0;align-content:start}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.check{border-color:var(--accent)}
+.check pre{max-height:none}
+pre{background:rgba(0,0,0,.35);border-radius:8px;padding:14px;font:inherit;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow-y:auto}
+button{flex-shrink:0;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--text);cursor:pointer;font:inherit;font-size:13px;font-weight:700;padding:6px 14px;white-space:nowrap}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.variant{display:grid;gap:8px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+figure{display:grid;gap:6px}
+img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block}
+figcaption{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+a{color:var(--accent);overflow-wrap:anywhere}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div>
-        <div class="badge">🚀 UPLOAD PACKAGE READY</div>
-        <h1>EP28 유튜브 업로드 원클릭 패키지</h1>
-        <div class="subtitle">F vs P 0.1초 소리 물리법칙 (윗니 0% vs 100%) 24쌍 반복 듣기 | 타 PC 렌더링 지원</div>
-      </div>
-      <div>
-        <span class="rec-tag" style="padding: 8px 16px; font-size: 14px;">타임라인 총 6분 55초 (415.61s)</span>
-      </div>
+<main>
+  <header>
+    <h1>EP28 업로드 패키지</h1>
+    <p>원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기</p>
+    <p>영상 파일: <a href="English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4">English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4</a></p>
+  </header>
+  <section class="card check">
+    <div class="card-head"><h2>업로드 체크리스트</h2><button type="button" data-copy="checklist">복사</button></div>
+    <pre id="checklist">[EP28 유튜브 업로드 체크리스트]
+영상: English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4 (6분 56초)
+
+⚠️ 올리기 전에 먼저 할 일
+1. 썸네일은 새로 만드는 것을 권합니다. 옛 시안도 올릴 수는 있지만 중단하기로 한 아바타가 들어 있습니다.
+   videos/ep28-f-vs-p/prompts/thumbnail-prompts.md로 새로 만들어 같은 파일 이름으로 바꿔 넣으세요.
+   자동 업로드를 쓰면 교체한 뒤 대시보드 대기 큐에서 &quot;이 썸네일 승인&quot;을 눌러야 올라갑니다.
+2. 영상 안 금지어는 다시 렌더링하지 않고 그대로 올리기로 했습니다 (2026-11-06). 남은 항목은 아래와 같습니다.
+   화면: 조음 8곳, 최소대립쌍 4곳 (단어 카드 진행 표시), 물리법칙 3곳, 0:37 배경 그림의 LABIODENTAL FRICATIVE · BILABIAL PLOSIVE, &quot;남·여 3회 교차 집중 듣기&quot; 라벨
+   음성: &quot;물리법칙&quot; 1번 (받아쓰기 기준)
+
+□ 1. 영상 파일 업로드
+□ 2. 제목: title.txt 복사. 테스트를 쓰면 아래 세트대로 등록
+     A안 메인 · thumbnail.jpg와 세트
+     B안 상식 뒤집기 · thumbnail-variant-a.jpg와 세트
+     C안 실수 주의 · thumbnail-variant-b.jpg와 세트
+     D안 호기심형 · 제목만 시험
+□ 3. 설명: description.txt 복사 (챕터 포함)
+□ 4. 태그: tags.txt 복사
+□ 5. 고정 댓글: pinned-comment.txt 복사 후 첫 댓글로 등록하고 고정
+□ 6. 최종 화면: 마지막 10초 (6:45부터), 추천 영상 + 구독 버튼
+     화면에 그려진 네모와 카드는 눌리지 않는 그림입니다. 스튜디오 최종 화면에서 같은 자리에 요소를 직접 얹으세요.
+     직전 편: EP27 (공개된 뒤 연결)
+□ 7. 재생목록: &quot;[이해하면 쉬운영어] 반복 듣기 정주행&quot;에 추가. 이 재생목록은 아직 채널에 없으니 처음 한 번 만드세요.
+□ 8. 자막: 아직 없습니다. subtitles/ 폴더를 만든 뒤 따로 올립니다.
+□ 9. 시청자층: 아동용 아님
+□ 10. AI 사용 표시: 예 (실사처럼 보이는 AI 배경 영상이 있음. 표시해도 노출과 수익에 불이익이 없다고 유튜브가 안내함)</pre>
+  </section>
+  <section class="card">
+    <h2>썸네일</h2>
+    <div class="thumbs">
+        <figure><img src="thumbnail.jpg" alt="thumbnail.jpg" loading="lazy"><figcaption>thumbnail.jpg</figcaption></figure>
+        <figure><img src="thumbnail-variant-a.jpg" alt="thumbnail-variant-a.jpg" loading="lazy"><figcaption>thumbnail-variant-a.jpg</figcaption></figure>
+        <figure><img src="thumbnail-variant-b.jpg" alt="thumbnail-variant-b.jpg" loading="lazy"><figcaption>thumbnail-variant-b.jpg</figcaption></figure>
+        <figure><img src="thumbnail-close-up.jpg" alt="thumbnail-close-up.jpg" loading="lazy"><figcaption>thumbnail-close-up.jpg</figcaption></figure>
     </div>
-
-    <!-- Other PC Render Guide Alert -->
-    <div class="render-alert">
-      <div>
-        <div style="font-weight: 800; font-size: 15px; margin-bottom: 4px;">💻 다른 PC에서 렌더링 실행 명령어:</div>
-        <div style="font-size: 13px; color: var(--text-muted);">작업 PC에서 아래 명령어를 실행하면 이 패키지 폴더로 MP4가 바로 출력됩니다.</div>
+  </section>
+  <section class="card">
+      <div class="card-head"><h2>메인 제목</h2><button type="button" data-copy="title">복사</button></div>
+      <pre id="title">원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기</pre>
+    </section>
+  <section class="card">
+    <h2>제목 시안 (제목 및 썸네일 테스트용)</h2>
+    <div class="variant">
+        <div class="card-head"><h3>A안 · 메인 · thumbnail.jpg와 세트</h3><button type="button" data-copy="variant-A">복사</button></div>
+        <pre id="variant-A">원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기</pre>
       </div>
-      <div class="code-cmd" id="renderCmdBox">npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4</div>
-      <button class="copy-btn" onclick="copyText('renderCmdBox', this)">명령어 복사</button>
-    </div>
-
-    <div class="grid">
-      <!-- Title Section -->
-      <div class="card col-8">
-        <div class="card-title">
-          <span>📌 유튜브 영상 제목 (메인 채택)</span>
-          <button class="copy-btn" onclick="copyText('titleBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="titleBox">원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기</div>
+      <div class="variant">
+        <div class="card-head"><h3>B안 · 상식 뒤집기 · thumbnail-variant-a.jpg와 세트</h3><button type="button" data-copy="variant-B">복사</button></div>
+        <pre id="variant-B">F 발음할 때 아랫입술 꽉 물면 틀립니다 | F vs P 24쌍 소리 연습</pre>
       </div>
-
-      <!-- Checklist -->
-      <div class="card col-4">
-        <div class="card-title">
-          <span>📋 업로드 체크리스트</span>
-        </div>
-        <div class="text-box" style="font-size: 13px;">[EP28 유튜브 업로드 체크리스트]
-- 에피소드: ep28-f-vs-p (F vs P 0.1초 소리 물리법칙 24쌍 반복 듣기)
-- 영상 길이: 6분 55.6초 (415.61s) / 엔드스크린 10초 탑재
-- 최종 영상 파일명: English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4
-- 타 PC 렌더링 명령어:
-  npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4
-- 썸네일 시안:
-  [메인 권장 1위] thumbnail-close-up.jpg (모바일 전용 클로즈업: 윗니 0% vs 100%)
-  [메인 와이드] thumbnail.jpg (바스트샷 와이드 16:9)
-  [A안 상식파괴] thumbnail-variant-a.jpg ("입술 물면 틀립니다")
-  [B안 직격형] thumbnail-variant-b.jpg ("Coffee와 Copy, 입술 닿는 순간 탈락")
-- 카테고리: 교육 (Education)
-- 재생목록: [이해하면 쉬운영어] 반복 듣기 정주행
-- 최종 태그: 19개 핵심 키워드 탑재 완료
-- 자막: 한국어 오디오 내장 + Whisper 타임라인 완비
-</div>
+      <div class="variant">
+        <div class="card-head"><h3>C안 · 실수 주의 · thumbnail-variant-b.jpg와 세트</h3><button type="button" data-copy="variant-C">복사</button></div>
+        <pre id="variant-C">Coffee와 Copy, 입술 닿는 순간 갈립니다 | F vs P 24쌍 반복 듣기</pre>
       </div>
+      <div class="variant">
+        <div class="card-head"><h3>D안 · 호기심형 · 제목만 시험</h3><button type="button" data-copy="variant-D">복사</button></div>
+        <pre id="variant-D">F와 P가 죽어도 안 들렸던 진짜 이유 | 윗니 0% vs 100% 소리 원리</pre>
+      </div>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <div class="card-head"><h2>설명</h2><button type="button" data-copy="description">복사</button></div>
+      <pre id="description">학창 시절에 F는 입술을 물고, P는 '프'라고 배우셨죠?
+커피 coffee와 카피 copy는 한글로 쓰면 둘 다 'ㅍ'입니다. 그래서 미드에서 F와 P가 빠르게 지나가면 구별이 잘 안 됩니다.
 
-      <!-- Description Section -->
-      <div class="card col-8">
-        <div class="card-title">
-          <span>📝 영상 설명 및 타임라인</span>
-          <button class="copy-btn" onclick="copyText('descBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="descBox" style="max-height: 400px;">학창 시절 영어 시간에 "F는 입술 물고, P는 프"라고만 배우셨나요?
-원어민에게 "Coffee"를 시켰는데 "Copy"로 알아듣거나, 미드에서 F와 P가 0.1초 만에 스쳐 지나갈 때 왜 구별이 안 될까요?
+차이는 입술을 세게 무는 데 있지 않습니다. 윗니가 닿느냐 안 닿느냐, 딱 하나입니다.
 
-비밀은 '입술을 무는 것'이 아니라, "윗니가 닿는 면적과 공기 흐름의 물리법칙"에 있습니다!
-윗니 0% (두 입술 파열) vs 윗니 100% (아랫입술 안쪽 살짝 마찰)의 차이를 원리로 이해하면, 0.1초 만에 두 소리가 선명하게 갈라집니다.
+이 영상에서 24쌍을 남녀 목소리로 번갈아 반복해서 들어보세요. 🎧
 
-이 영상 하나로 24개 필수 짝단어를 원어민 남녀 음성으로 6회 반복 체화해 보세요! 🎧
-
-[타임라인 챕터]
-00:00 0.1초 소리 물리법칙 (Coffee vs Copy)
-00:37 조음 물리법칙 원리 (윗니 0% 파열 vs 윗니 100% 마찰)
-01:14 드릴 1: 단모음 기본 6쌍 (fan vs pan, fat vs pat...)
-02:01 드릴 2: 장모음 & 이중모음 6쌍 (fool vs pool, face vs pace...)
-02:48 드릴 3: 실생활 2음절 필수 6쌍 (cof · fee vs co · py...)
-03:37 드릴 4: 받침 끝소리 6쌍 (leaf vs leap, calf vs cap...)
-04:21 실전 회화 문맥 속 청취 (7문장 타겟 단어 대비)
-04:55 0.1초 직관 청취 퀴즈 (8문항 실전 반응 훈련)
+⏱️ 챕터
+00:00 Coffee vs Copy, 입술 닿는 순간 갈리는 소리
+00:37 원리: 윗니 0% (공기 팡 터뜨리기) vs 윗니 100% (바람 슥 밀어내기)
+01:14 1단계: 단모음 기본 6쌍 (fan vs pan, fat vs pat...)
+02:01 2단계: 장모음 &amp; 이중모음 6쌍 (fool vs pool, face vs pace...)
+02:48 3단계: 실생활 2음절 6쌍 (cof · fee vs co · py...)
+03:37 4단계: 받침 끝소리 6쌍 (leaf vs leap, calf vs cap...)
+04:21 문장 속에서 듣기 7문장
+04:55 듣고 바로 맞히기 퀴즈 8문제
 05:31 스마트폰 캡처용 1장 요약 치트시트
-05:50 24쌍 무한 앵콜 총복습
-06:45 [엔드스크린] 다음 추천 영상 및 채널 구독
+05:50 24쌍 앵콜 총복습
+06:45 마무리 &amp; 다음 영상 추천
 
 ━━━━━━━━━━━━━━━━━━━
-💡 F vs P 조음 물리법칙 핵심 요약:
-① [p] 양순 파열음 (윗니 닿는 면적 0%):
-   - 두 입술을 가볍게 닫았다가 공기를 팡 터뜨리는 순간적인 소리
-   - (pan, pat, pool, pace, copy, leap 등)
+💡 F vs P 핵심 요약
+① [p] 윗니 0%: 두 입술을 가볍게 닫았다가 공기를 팡 터뜨리는 소리
+   (pan, pat, pool, pace, copy, leap 등)
 
-② [f] 순치 마찰음 (윗니 닿는 면적 100%):
-   - 윗니 앞니로 아랫입술 '안쪽'을 가볍게 대고, 바람을 부드럽게 밀어내는 지속적인 소리
-   - (주의: 아랫입술을 꽉 물면 원어민처럼 빠르고 자연스럽게 소리 낼 수 없습니다!)
-   - (fan, fat, fool, face, coffee, leaf 등)
+② [f] 윗니 100%: 윗니를 아랫입술 안쪽에 살짝 대고 바람을 슥 밀어내는 소리
+   아랫입술을 꽉 물면 오히려 부자연스럽게 들립니다.
+   (fan, fat, fool, face, coffee, leaf 등)
 
 ━━━━━━━━━━━━━━━━━━━
-📌 학습 팁:
-단어만 보지 마시고, 04:21부터 시작되는 실전 회화 7문장과 24단어 무작위 셔플 퀴즈를 통해 귀가 먼저 0.1초 만에 반응할 때까지 반복 청취해 보세요!
-05:31에 나오는 '1장 요약 치트시트'는 스마트폰으로 캡처해 두시면 언제든 복습하기 좋습니다.
+📌 이렇게 들어보세요
+단어만 보지 마시고, 04:21부터 나오는 문장 7개와 04:55 퀴즈 8문제로 귀가 먼저 반응할 때까지 들어보세요.
+05:31에 나오는 요약 치트시트는 캡처해 두시면 언제든 다시 볼 수 있습니다.
 
-━━━━━━━━━━━━━━━━━━━
-📺 다음 추천 영상:
-• EP27: 단어 끝 -S · -ES 3가지 물리법칙 [s] vs [z] vs [ɪz] (https://youtu.be/...)
-
-#영어발음 #F발음 #P발음 #FvsP #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어
-</div>
-      </div>
-
-      <!-- Title Variants -->
-      <div class="card col-4">
-        <div class="card-title">
-          <span>🔀 A/B 테스트 제목 후보군</span>
-          <button class="copy-btn" onclick="copyText('variantsBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="variantsBox" style="max-height: 400px; font-size: 13px;">Variant 1 (메인 채택 · 물리법칙형):
-원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기
-
-Variant 2 (대조군 · 실수경고형):
-Coffee와 Copy, 입술 닿는 순간 갈립니다 | F vs P 24쌍 반복 듣기
-
-Variant 3 (대조군 · 상식파괴형):
-F 발음할 때 아랫입술 물면 틀립니다! 원어민의 0.1초 비밀 | F vs P 소리 훈련
-
-Variant 4 (간결 집중형):
-[30분 듣기] F와 P가 죽어도 안 들렸던 진짜 이유 | 윗니 0% vs 100% 물리법칙
-</div>
-      </div>
-
-      <!-- Thumbnails Section -->
-      <div class="card col-12">
-        <div class="card-title">
-          <span>🖼️ 썸네일 기획안 4종 (프롬프트 복사 가능)</span>
-          <a href="file:///C:/Users/yunyo/.gemini/antigravity-ide/scratch/ihm-easy-english/videos/ep28-f-vs-p/prompts/thumbnail-prompts.md" target="_blank" class="copy-btn">전체 프롬프트 열기</a>
-        </div>
-        <div class="thumbs-grid">
-          <div class="thumb-card">
-            <img src="thumbnail-close-up.jpg" alt="모바일 1위">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">[권장 1위] 모바일 전용 클로즈업 (C안)</div>
-                <div style="font-size: 12px; color: var(--text-muted);">"윗니 0% vs 100%" · 모바일 피드 극대화</div>
-              </div>
-              <span class="rec-tag">추천 1위</span>
-            </div>
-            <div class="prompt-box">
-              <strong>파일명:</strong> thumbnail-close-up.jpg<br>
-              <strong>카피:</strong> [반복 듣기] F vs P 윗니 0% vs 100%
-            </div>
-          </div>
-          <div class="thumb-card">
-            <img src="thumbnail.jpg" alt="메인 와이드">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">[메인] Variant C (바스트샷 와이드)</div>
-                <div style="font-size: 12px; color: var(--text-muted);">"F vs P" + "윗니 0% vs 100%" 제스처</div>
-              </div>
-              <span class="rec-tag">메인</span>
-            </div>
-            <div class="prompt-box">
-              <strong>파일명:</strong> thumbnail.jpg<br>
-              <strong>카피:</strong> [반복 듣기] F vs P 윗니 0% vs 100%
-            </div>
-          </div>
-          <div class="thumb-card">
-            <img src="thumbnail-variant-a.jpg" alt="A안 상식파괴">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">[A안] 대조군 · 상식 파괴형</div>
-                <div style="font-size: 12px; color: var(--text-muted);">"입술 물면 틀립니다" 스탑 제스처</div>
-              </div>
-            </div>
-            <div class="prompt-box">
-              <strong>파일명:</strong> thumbnail-variant-a.jpg<br>
-              <strong>카피:</strong> [반복 듣기] F 발음할 때 입술 물면 틀립니다
-            </div>
-          </div>
-          <div class="thumb-card">
-            <img src="thumbnail-variant-b.jpg" alt="B안 직격형">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">[B안] 대조군 · 단어 대조 직격형</div>
-                <div style="font-size: 12px; color: var(--text-muted);">"Coffee와 Copy" 두 입술 닿으면 탈락</div>
-              </div>
-            </div>
-            <div class="prompt-box">
-              <strong>파일명:</strong> thumbnail-variant-b.jpg<br>
-              <strong>카피:</strong> [실수 주의] Coffee와 Copy 두 입술 닿으면 탈락
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pinned Comment & Tags -->
-      <div class="card col-6">
-        <div class="card-title">
-          <span>💬 고정 댓글</span>
-          <button class="copy-btn" onclick="copyText('pinBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="pinBox">오늘도 F vs P 24쌍 반복 듣기 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
+#영어발음 #F발음 #P발음 #FvsP #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>고정 댓글</h2><button type="button" data-copy="pinned">복사</button></div>
+      <pre id="pinned">오늘도 F vs P 24쌍 반복 듣기 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
 
 💬 여러분은 24개 짝단어 중 어떤 단어가 귀로 가장 구분하기 어려우셨나요?
 (예: Coffee vs Copy? Leaf vs Leap? Fool vs Pool?)
 댓글로 남겨주시면 발음 교정 팁을 함께 나눠드리겠습니다!
 
 📱 05:31 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!
-구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️
-</div>
-      </div>
-
-      <div class="card col-6">
-        <div class="card-title">
-          <span>🏷️ 검색 태그 (쉼표 구분)</span>
-          <button class="copy-btn" onclick="copyText('tagBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="tagBox">영어발음, F발음, P발음, F vs P, 영어리스닝, 영어듣기, 영어회화, 기초영어, 파닉스, 발음규칙, 짝단어, 최소대립쌍, 영어공부, 원어민발음, 이해하면쉬운영어, English pronunciation, F vs P, minimal pairs, listening drill, english listening</div>
-      </div>
-    </div>
+구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>태그</h2><button type="button" data-copy="tags">복사</button></div>
+      <pre id="tags">영어발음, F발음, P발음, F vs P, 영어리스닝, 영어듣기, 영어회화, 기초영어, 파닉스, 발음규칙, 짝단어, 영어공부, 원어민발음, 이해하면쉬운영어, English pronunciation, english listening</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>챕터</h2><button type="button" data-copy="timeline">복사</button></div>
+      <pre id="timeline">00:00 Coffee vs Copy, 입술 닿는 순간 갈리는 소리
+00:37 원리: 윗니 0% (공기 팡 터뜨리기) vs 윗니 100% (바람 슥 밀어내기)
+01:14 1단계: 단모음 기본 6쌍 (fan vs pan, fat vs pat...)
+02:01 2단계: 장모음 &amp; 이중모음 6쌍 (fool vs pool, face vs pace...)
+02:48 3단계: 실생활 2음절 6쌍 (cof · fee vs co · py...)
+03:37 4단계: 받침 끝소리 6쌍 (leaf vs leap, calf vs cap...)
+04:21 문장 속에서 듣기 7문장
+04:55 듣고 바로 맞히기 퀴즈 8문제
+05:31 스마트폰 캡처용 1장 요약 치트시트
+05:50 24쌍 앵콜 총복습
+06:45 마무리 &amp; 다음 영상 추천</pre>
+    </section>
   </div>
-
-  <script>
-    function copyText(elemId, btn) {
-      const text = document.getElementById(elemId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '✓ 복사완료!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    }
-  </script>
+</main>
+<script>document.addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-copy]');
+  if (!button) return;
+  const text = document.getElementById(button.dataset.copy).textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+  }
+  button.textContent = '복사됨';
+  setTimeout(() => { button.textContent = '복사'; }, 1500);
+});</script>
 </body>
 </html>

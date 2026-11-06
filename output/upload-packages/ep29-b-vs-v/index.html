@@ -1,212 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EP29 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0C0F17;
-      --card-bg: rgba(22, 27, 41, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #F59E0B;
-      --accent-glow: rgba(245, 158, 11, 0.35);
-      --primary: #3B82F6;
-      --success: #10B981;
-      --text: #F3F4F6;
-      --text-muted: #9CA3AF;
-      --radius: 16px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
-      min-height: 100vh;
-      padding: 40px 24px;
-      line-height: 1.6;
-      background-image:
-        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
-    }
-    .container {
-      max-width: 1380px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--card-border);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 800;
-      background: rgba(59, 130, 246, 0.15);
-      color: var(--primary);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      margin-bottom: 8px;
-    }
-    h1 {
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    @media (max-width: 1024px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .card-title {
-      font-size: 18px;
-      font-weight: 800;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #FFF;
-    }
-    .copy-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text);
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .copy-btn:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #FFF;
-      transform: translateY(-1px);
-    }
-    .copy-btn.copied {
-      background: var(--success);
-      border-color: var(--success);
-      color: #FFF;
-    }
-    .content-box {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 16px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #D1D5DB;
-      white-space: pre-wrap;
-      max-height: 280px;
-      overflow-y: auto;
-      font-family: inherit;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP29 업로드 패키지</title>
+<style>:root{color-scheme:dark;--bg:#0C0F17;--card:#161B29;--line:rgba(255,255,255,.12);--accent:#F5C518;--text:#F3F4F6;--muted:#A3ACBA}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Malgun Gothic',sans-serif;line-height:1.6;padding:32px 16px}
+main{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+header p{color:var(--muted);overflow-wrap:anywhere}
+h1{font-size:26px;font-weight:900}
+h2{font-size:17px;font-weight:800}
+h3{font-size:14px;font-weight:700;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;min-width:0;align-content:start}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.check{border-color:var(--accent)}
+.check pre{max-height:none}
+pre{background:rgba(0,0,0,.35);border-radius:8px;padding:14px;font:inherit;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow-y:auto}
+button{flex-shrink:0;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--text);cursor:pointer;font:inherit;font-size:13px;font-weight:700;padding:6px 14px;white-space:nowrap}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.variant{display:grid;gap:8px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+figure{display:grid;gap:6px}
+img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block}
+figcaption{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+a{color:var(--accent);overflow-wrap:anywhere}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div>
-        <div class="badge">🚀 UPLOAD PACKAGE</div>
-        <h1>EP29 · B vs V 0.1초 소리 원리 24쌍 반복 듣기</h1>
-      </div>
+<main>
+  <header>
+    <h1>EP29 업로드 패키지</h1>
+    <p>원어민이 B와 V를 0.1초 만에 구별하는 법 | B vs V 24쌍 반복 듣기</p>
+    <p>영상 파일: <a href="English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4">English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4</a></p>
+  </header>
+  <section class="card check">
+    <div class="card-head"><h2>업로드 체크리스트</h2><button type="button" data-copy="checklist">복사</button></div>
+    <pre id="checklist">[EP29 유튜브 업로드 체크리스트]
+영상: English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4 (6분 53초)
+
+⚠️ 올리기 전에 먼저 할 일
+1. 썸네일은 새로 만드는 것을 권합니다. 옛 시안도 올릴 수는 있지만 중단하기로 한 아바타가 들어 있습니다.
+   videos/ep29-b-vs-v/prompts/thumbnail-prompts.md로 새로 만들어 같은 파일 이름으로 바꿔 넣으세요.
+   자동 업로드를 쓰면 교체한 뒤 대시보드 대기 큐에서 &quot;이 썸네일 승인&quot;을 눌러야 올라갑니다.
+2. 영상 안 금지어는 다시 렌더링하지 않고 그대로 올리기로 했습니다 (2026-11-06). 남은 항목은 아래와 같습니다.
+   화면: 마찰음 2곳, 끝 화면의 &quot;EP28: F vs P 0.1초 조음 물리법칙&quot; 1곳, 0:27 배경 그림의 Bilabial · Labiodental
+   음성: 금지어 없음. 다만 도입부에 &quot;원어민 앞에서 이 단어를 말하면&quot; 문장이 있음
+
+□ 1. 영상 파일 업로드
+□ 2. 제목: title.txt 복사. 테스트를 쓰면 아래 세트대로 등록
+     A안 메인 · thumbnail.jpg와 세트
+     B안 상식 뒤집기 · thumbnail-variant-a.jpg와 세트
+     C안 원리형 · thumbnail-variant-b.jpg와 세트
+     D안 호기심형 · 제목만 시험
+□ 3. 설명: description.txt 복사 (챕터 포함)
+□ 4. 태그: tags.txt 복사
+□ 5. 고정 댓글: pinned-comment.txt 복사 후 첫 댓글로 등록하고 고정
+□ 6. 최종 화면: 마지막 10초 (6:42부터), 추천 영상 + 구독 버튼
+     화면에 그려진 네모와 카드는 눌리지 않는 그림입니다. 스튜디오 최종 화면에서 같은 자리에 요소를 직접 얹으세요.
+     직전 편: EP28 (공개된 뒤 연결). 영상 끝 화면 글자에 EP28이 적혀 있으니 순서를 맞추세요.
+□ 7. 재생목록: &quot;[이해하면 쉬운영어] 반복 듣기 정주행&quot;에 추가. 이 재생목록은 아직 채널에 없으니 처음 한 번 만드세요.
+□ 8. 자막: 아직 없습니다. subtitles/ 폴더를 만든 뒤 따로 올립니다.
+□ 9. 시청자층: 아동용 아님
+□ 10. AI 사용 표시: 예 (실사처럼 보이는 AI 배경 영상이 있음. 표시해도 노출과 수익에 불이익이 없다고 유튜브가 안내함)</pre>
+  </section>
+  <section class="card">
+    <h2>썸네일</h2>
+    <div class="thumbs">
+        <figure><img src="thumbnail.jpg" alt="thumbnail.jpg" loading="lazy"><figcaption>thumbnail.jpg</figcaption></figure>
+        <figure><img src="thumbnail-variant-a.jpg" alt="thumbnail-variant-a.jpg" loading="lazy"><figcaption>thumbnail-variant-a.jpg</figcaption></figure>
+        <figure><img src="thumbnail-variant-b.jpg" alt="thumbnail-variant-b.jpg" loading="lazy"><figcaption>thumbnail-variant-b.jpg</figcaption></figure>
+        <figure><img src="thumbnail-close-up.jpg" alt="thumbnail-close-up.jpg" loading="lazy"><figcaption>thumbnail-close-up.jpg</figcaption></figure>
     </div>
-    <div class="grid">
-      <div class="card">
-        <div class="card-title">
-          <span>📝 메인 제목</span>
-          <button class="copy-btn" onclick="copyText('titleContent', this)">복사하기</button>
-        </div>
-        <div class="content-box" id="titleContent">원어민이 B와 V를 0.1초 만에 구별하는 법 | B vs V 24쌍 반복 듣기</div>
+  </section>
+  <section class="card">
+      <div class="card-head"><h2>메인 제목</h2><button type="button" data-copy="title">복사</button></div>
+      <pre id="title">원어민이 B와 V를 0.1초 만에 구별하는 법 | B vs V 24쌍 반복 듣기</pre>
+    </section>
+  <section class="card">
+    <h2>제목 시안 (제목 및 썸네일 테스트용)</h2>
+    <div class="variant">
+        <div class="card-head"><h3>A안 · 메인 · thumbnail.jpg와 세트</h3><button type="button" data-copy="variant-A">복사</button></div>
+        <pre id="variant-A">원어민이 B와 V를 0.1초 만에 구별하는 법 | B vs V 24쌍 반복 듣기</pre>
       </div>
-      <div class="card">
-        <div class="card-title">
-          <span>🏷️ 업로드 태그</span>
-          <button class="copy-btn" onclick="copyText('tagsContent', this)">복사하기</button>
-        </div>
-        <div class="content-box" id="tagsContent">영어발음, B발음, V발음, B vs V, 영어리스닝, 영어듣기, 영어회화, 기초영어, 파닉스, 발음규칙, 짝단어, 영어공부, 원어민발음, 이해하면쉬운영어, English pronunciation, B vs V, minimal pairs, listening drill, english listening</div>
+      <div class="variant">
+        <div class="card-head"><h3>B안 · 상식 뒤집기 · thumbnail-variant-a.jpg와 세트</h3><button type="button" data-copy="variant-B">복사</button></div>
+        <pre id="variant-B">여태 둘 다 'ㅂ'으로 읽으셨나요? B와 V 구별하는 법 | 24쌍 반복 듣기</pre>
       </div>
-      <div class="card">
-        <div class="card-title">
-          <span>📌 고정 댓글</span>
-          <button class="copy-btn" onclick="copyText('pinnedContent', this)">복사하기</button>
-        </div>
-        <div class="content-box" id="pinnedContent">오늘도 B vs V 24쌍 반복 듣기 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
+      <div class="variant">
+        <div class="card-head"><h3>C안 · 원리형 · thumbnail-variant-b.jpg와 세트</h3><button type="button" data-copy="variant-C">복사</button></div>
+        <pre id="variant-C">Best와 Vest, 입술 하나로 뜻이 갈립니다 | B vs V 24쌍 소리 연습</pre>
+      </div>
+      <div class="variant">
+        <div class="card-head"><h3>D안 · 호기심형 · 제목만 시험</h3><button type="button" data-copy="variant-D">복사</button></div>
+        <pre id="variant-D">B와 V가 죽어도 안 들렸던 진짜 이유 | 윗니 0% vs 100% 소리 원리</pre>
+      </div>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <div class="card-head"><h2>설명</h2><button type="button" data-copy="description">복사</button></div>
+      <pre id="description">베스트셀러의 best와 조끼 vest. 학창 시절부터 둘 다 '베스트'로 읽어오셨죠?
+한글에는 V 소리가 없어서 B와 V를 전부 'ㅂ'으로 적다 보니, 미드에서 두 소리가 빠르게 지나가면 구별이 잘 안 됩니다.
+
+차이는 윗니가 닿느냐 안 닿느냐, 딱 하나입니다.
+
+이 영상에서 24쌍을 남녀 목소리로 번갈아 반복해서 들어보세요. 🎧
+
+⏱️ 챕터
+00:00 Best vs Vest, 둘 다 '베스트'?
+00:27 원리: 윗니 0% (공기 팡 터뜨리기) vs 윗니 100% (바람 슥 밀어내기)
+01:00 1단계: 기본 단모음 6쌍 (best vs vest, ban vs van...)
+01:51 2단계: 패턴 확장 6쌍 (base vs vase, bolt vs volt...)
+02:41 3단계: 심화 짝단어 6쌍 (curb vs curve, lobe vs love...)
+03:30 4단계: 단어 끝과 중간 6쌍 (cab vs calve, marble vs marvel...)
+04:18 문장 속에서 듣기 7문장
+04:46 듣고 바로 맞히기 퀴즈 8문제
+05:23 스마트폰 캡처용 1장 요약 치트시트
+05:43 24쌍 앵콜 총복습
+06:42 마무리 &amp; 다음 영상 추천
+
+━━━━━━━━━━━━━━━━━━━
+💡 B vs V 핵심 요약
+① [b] 윗니 0%: 두 입술을 가볍게 닫았다가 공기를 팡 터뜨리는 소리
+   (best, ban, berry, bat, boat, base, curb 등)
+
+② [v] 윗니 100%: 윗니를 아랫입술 안쪽에 살짝 대고, 목을 부르르 떨면서 바람을 슥 밀어내는 소리
+   아랫입술을 꽉 깨물면 오히려 부자연스럽게 들립니다.
+   (vest, van, very, vat, vote, vase, curve 등)
+
+━━━━━━━━━━━━━━━━━━━
+📌 이렇게 들어보세요
+단어만 보지 마시고, 04:18부터 나오는 문장 7개와 04:46 퀴즈 8문제로 귀가 먼저 반응할 때까지 들어보세요.
+05:23에 나오는 요약 치트시트는 캡처해 두시면 언제든 다시 볼 수 있습니다.
+
+#영어발음 #B발음 #V발음 #BvsV #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>고정 댓글</h2><button type="button" data-copy="pinned">복사</button></div>
+      <pre id="pinned">오늘도 B vs V 24쌍 반복 듣기 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
 
 💬 여러분은 24개 짝단어 중 어떤 단어가 귀로 가장 구분하기 어려우셨나요?
 (예: Best vs Vest? Berry vs Very? Curb vs Curve?)
 댓글로 남겨주시면 발음 교정 팁을 함께 나눠드리겠습니다!
 
-📱 05:03 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!
-구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️
-</div>
-      </div>
-      <div class="card">
-        <div class="card-title">
-          <span>⏱️ 챕터 타임라인</span>
-          <button class="copy-btn" onclick="copyText('timelineContent', this)">복사하기</button>
-        </div>
-        <div class="content-box" id="timelineContent">00:00 0.1초 소리 원리 (Best vs Vest)
-00:27 소리 원리 (윗니 0% 파열 vs 윗니 100% 마찰)
+📱 05:23 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!
+구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>태그</h2><button type="button" data-copy="tags">복사</button></div>
+      <pre id="tags">영어발음, B발음, V발음, B vs V, 영어리스닝, 영어듣기, 영어회화, 기초영어, 파닉스, 발음규칙, 짝단어, 영어공부, 원어민발음, 이해하면쉬운영어, English pronunciation, english listening</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>챕터</h2><button type="button" data-copy="timeline">복사</button></div>
+      <pre id="timeline">00:00 Best vs Vest, 둘 다 '베스트'?
+00:27 원리: 윗니 0% (공기 팡 터뜨리기) vs 윗니 100% (바람 슥 밀어내기)
 01:00 1단계: 기본 단모음 6쌍 (best vs vest, ban vs van...)
 01:51 2단계: 패턴 확장 6쌍 (base vs vase, bolt vs volt...)
 02:41 3단계: 심화 짝단어 6쌍 (curb vs curve, lobe vs love...)
-03:30 4단계: 어말 & 어중 6쌍 (cab vs calve, marble vs marvel...)
-04:18 실전 회화 문맥 속 청취 (7문장 타겟 단어 대비)
-04:46 0.1초 직관 청취 퀴즈 (8문항 실전 반응 훈련)
+03:30 4단계: 단어 끝과 중간 6쌍 (cab vs calve, marble vs marvel...)
+04:18 문장 속에서 듣기 7문장
+04:46 듣고 바로 맞히기 퀴즈 8문제
 05:23 스마트폰 캡처용 1장 요약 치트시트
-05:43 24쌍 무한 앵콜 총복습
-06:42 [엔드스크린] 다음 추천 영상 및 채널 구독
-</div>
-      </div>
-    </div>
+05:43 24쌍 앵콜 총복습
+06:42 마무리 &amp; 다음 영상 추천</pre>
+    </section>
   </div>
-  <script>
-    function copyText(id, btn) {
-      const text = document.getElementById(id).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const orig = btn.innerText;
-        btn.innerText = "✓ 복사완료";
-        btn.classList.add("copied");
-        setTimeout(() => {
-          btn.innerText = orig;
-          btn.classList.remove("copied");
-        }, 1800);
-      });
-    }
-  </script>
+</main>
+<script>document.addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-copy]');
+  if (!button) return;
+  const text = document.getElementById(button.dataset.copy).textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+  }
+  button.textContent = '복사됨';
+  setTimeout(() => { button.textContent = '복사'; }, 1500);
+});</script>
 </body>
 </html>

@@ -1,15 +1,27 @@
 [EP28 유튜브 업로드 체크리스트]
-- 에피소드: ep28-f-vs-p (F vs P 0.1초 소리 물리법칙 24쌍 반복 듣기)
-- 영상 길이: 6분 55.6초 (415.61s) / 엔드스크린 10초 탑재
-- 최종 영상 파일명: English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4
-- 타 PC 렌더링 명령어:
-  npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4
-- 썸네일 시안:
-  [메인 권장 1위] thumbnail-close-up.jpg (모바일 전용 클로즈업: 윗니 0% vs 100%)
-  [메인 와이드] thumbnail.jpg (바스트샷 와이드 16:9)
-  [A안 상식파괴] thumbnail-variant-a.jpg ("입술 물면 틀립니다")
-  [B안 직격형] thumbnail-variant-b.jpg ("Coffee와 Copy, 입술 닿는 순간 탈락")
-- 카테고리: 교육 (Education)
-- 재생목록: [이해하면 쉬운영어] 반복 듣기 정주행
-- 최종 태그: 19개 핵심 키워드 탑재 완료
-- 자막: 한국어 오디오 내장 + Whisper 타임라인 완비
+영상: English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4 (6분 56초)
+
+⚠️ 올리기 전에 먼저 할 일
+1. 썸네일은 새로 만드는 것을 권합니다. 옛 시안도 올릴 수는 있지만 중단하기로 한 아바타가 들어 있습니다.
+   videos/ep28-f-vs-p/prompts/thumbnail-prompts.md로 새로 만들어 같은 파일 이름으로 바꿔 넣으세요.
+   자동 업로드를 쓰면 교체한 뒤 대시보드 대기 큐에서 "이 썸네일 승인"을 눌러야 올라갑니다.
+2. 영상 안 금지어는 다시 렌더링하지 않고 그대로 올리기로 했습니다 (2026-11-06). 남은 항목은 아래와 같습니다.
+   화면: 조음 8곳, 최소대립쌍 4곳 (단어 카드 진행 표시), 물리법칙 3곳, 0:37 배경 그림의 LABIODENTAL FRICATIVE · BILABIAL PLOSIVE, "남·여 3회 교차 집중 듣기" 라벨
+   음성: "물리법칙" 1번 (받아쓰기 기준)
+
+□ 1. 영상 파일 업로드
+□ 2. 제목: title.txt 복사. 테스트를 쓰면 아래 세트대로 등록
+     A안 메인 · thumbnail.jpg와 세트
+     B안 상식 뒤집기 · thumbnail-variant-a.jpg와 세트
+     C안 실수 주의 · thumbnail-variant-b.jpg와 세트
+     D안 호기심형 · 제목만 시험
+□ 3. 설명: description.txt 복사 (챕터 포함)
+□ 4. 태그: tags.txt 복사
+□ 5. 고정 댓글: pinned-comment.txt 복사 후 첫 댓글로 등록하고 고정
+□ 6. 최종 화면: 마지막 10초 (6:45부터), 추천 영상 + 구독 버튼
+     화면에 그려진 네모와 카드는 눌리지 않는 그림입니다. 스튜디오 최종 화면에서 같은 자리에 요소를 직접 얹으세요.
+     직전 편: EP27 (공개된 뒤 연결)
+□ 7. 재생목록: "[이해하면 쉬운영어] 반복 듣기 정주행"에 추가. 이 재생목록은 아직 채널에 없으니 처음 한 번 만드세요.
+□ 8. 자막: 아직 없습니다. subtitles/ 폴더를 만든 뒤 따로 올립니다.
+□ 9. 시청자층: 아동용 아님
+□ 10. AI 사용 표시: 예 (실사처럼 보이는 AI 배경 영상이 있음. 표시해도 노출과 수익에 불이익이 없다고 유튜브가 안내함)

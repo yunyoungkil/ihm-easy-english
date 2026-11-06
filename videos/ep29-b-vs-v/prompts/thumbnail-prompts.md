@@ -1,133 +1,146 @@
-# 썸네일 프롬프트 시스템 — ep29-b-vs-v
+# EP29 썸네일 이미지 생성 프롬프트 (4종, 아바타 없음)
 
-이 문서는 유튜브 A/B 테스트(Test & Compare) 및 모바일 피드 시인성 극대화를 위한 **4종 썸네일 프롬프트 세트**입니다.
-채널 공식 발표자 캐릭터(`public/brand/thumbnail-presenter-reference.jpg`)의 브랜드 아이덴티티(파란 사운드웨이브 볼캡 + 검정 로고 티셔츠)를 100% 일치시켜 제작합니다.
+- 에피소드 ID: `ep29-b-vs-v`
+- 작성일: 2026-11-06. 2026-10-28 아바타 중단 결정에 따라 전부 새로 썼습니다. 이전 프롬프트는 git 기록에 있습니다.
+- 사용 방법: 코드 블록을 Gemini나 Google Flow에 그대로 붙여넣어 만듭니다. 마음에 드는 그림을 아래 표의 파일 이름으로 `output/upload-packages/ep29-b-vs-v/`에 덮어씁니다.
+- 확인할 것: 네 모서리에 워터마크나 반짝이 아이콘이 없는지, 글자가 깨지지 않았는지 봅니다. 최종 확인은 대시보드의 LIVE MOBILE FEED PREVIEW로 합니다.
+
+| 파일 | 제목 세트 | 칩 | 큰 글자 | 알약 문구 | 그림 | 이렇게 한 이유 |
+|---|---|---|---|---|---|---|
+| `thumbnail.jpg` | A | [반복 듣기] | BEST vs VEST | 윗니 0% vs 100% | 트로피 카드 + 조끼 카드 | EP28 메인과 달라 보이게 하면서 뜻 차이를 그림으로 보여 줍니다. |
+| `thumbnail-variant-a.jpg` | B | [소리 연습] | B vs V | 다 'ㅂ'으로 읽으셨죠? | 커다란 ㅂ 카드에 빨간 X | 한글 ㅂ 하나로 읽어 온 습관을 바로 짚어 줍니다. |
+| `thumbnail-variant-b.jpg` | C | [귀 뚫림] | B vs V | 터뜨리기 vs 밀어내기 | 입술 터짐 vs 윗니와 바람 | "물기"는 설명란의 "꽉 깨물면 안 된다"와 어긋나서 "밀어내기"로 바꿨습니다. |
+| `thumbnail-close-up.jpg` | A의 모바일용 | [반복 듣기] | B vs V | 윗니 0% vs 100% | B vs V만 아주 크게 | 휴대폰 피드의 작은 크기에서도 읽히도록 그림까지 뺐습니다. |
 
 ---
 
-## 1. 썸네일 카피 및 규격 원칙
+## 1. thumbnail.jpg (A)
 
-- **공식 아바타 레퍼런스**: `public/brand/thumbnail-presenter-reference.jpg` (동일 인물, 남색 사운드웨이브 자수 볼캡 + 검정 티셔츠).
-- **단어 수 제한**: 헤드라인 + 골드 알약 카피 합쳐서 **5단어 이하** 엄격 준수.
-- **카테고리 칩**: 좌측 상단 `[반복 듣기]` (2단어 이하, 다크 네이비 알약).
-- **시각 스타일**: 웜크림(`#F7F4EE`) 단색 배경 + 볼드 고딕 앵커 텍스트 + 골드 알약(`#F5C518`) + 공식 발표자 표정 중심.
-- **Zero Watermark**: 워터마크, AI 로고, 스파클 일체 배제.
-
----
-
-## 2. 4종 프롬프트 세트
-
-### [시안 A: 직격 상식파괴형] — "다 'ㅂ'으로 읽으셨죠?" (thumbnail-variant-a.jpg)
-- **카피 구성 (총 4단어)**:
-  - 카테고리 칩: `[반복 듣기]`
-  - 메인 앵커: `B vs V`
-  - 골드 알약: `다 'ㅂ'으로 읽으셨죠?`
-- **프롬프트**:
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "B vs V 발음 구별 원리".
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: B vs V, the upper teeth touching the lower lip or not. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "B vs V" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "다 'ㅂ'으로 읽으셨죠?" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain, evenly and softly lit seamless single warm cream/beige backdrop (#F7F4EE) across the ENTIRE frame. No chalkboard, no desk, no room interior, no decorative items.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[반복 듣기]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "BEST vs VEST", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "윗니 0% vs 100%" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO ===
-The exact same Korean male presenter shown in reference image (public/brand/thumbnail-presenter-reference.jpg) — same facial identity and features. Dressed in the EXACT SAME signature uniform: navy baseball cap and black t-shirt, each printed with the colorful vertical-bar sound-wave icon.
-Hero sits to the right side at a medium-close waist-up distance. The hero is holding one hand open with a surprised, questioning "정말 다 'ㅂ'인 줄 아셨죠?" expression, looking directly at the viewer with an enlightened, friendly smile. Empty negative space separates hero and text.
+[Visual] On the right, two equal white rounded cards with heavy black borders, side by side. Left card: one simple flat icon of a gold trophy. Right card: one simple flat icon of a sleeveless vest. No words inside the cards.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif font with sharp infographic clarity.
-NEGATIVE: Do NOT put the anchor line inside a colored box. Do NOT add neon glow, 3D metallic extrusion, sparkles, drop shadows, or circuit lines. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
+[Layout] Text block on the left 55% of the frame, the two cards on the right 45%. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm cream color (#F7F4EE) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-### [시안 B: 물리법칙 직격형] — "터뜨리기 vs 물기" (thumbnail-variant-b.jpg)
-- **카피 구성 (총 4단어)**:
-  - 카테고리 칩: `[반복 듣기]`
-  - 메인 앵커: `B vs V`
-  - 골드 알약: `터뜨리기 vs 물기`
-- **프롬프트**:
+## 2. thumbnail-variant-a.jpg (B)
+
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "B vs V 발음 구별 원리".
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: B vs V, the upper teeth touching the lower lip or not. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "B vs V" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "터뜨리기 vs 물기" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain, evenly and softly lit seamless single warm cream/beige backdrop (#F7F4EE) across the ENTIRE frame. No clutter.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[소리 연습]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "B vs V", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "다 'ㅂ'으로 읽으셨죠?" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
+- Inside the visual only: "ㅂ".
 
-=== HERO ===
-The exact same Korean male presenter shown in reference image (public/brand/thumbnail-presenter-reference.jpg) — same facial identity and features. Dressed in the EXACT SAME signature uniform: navy baseball cap and black t-shirt, each printed with the colorful vertical-bar sound-wave icon.
-Hero sits to the right side at a medium-close waist-up distance. The hero holds up two fingers to compare two clear concepts with a confident knowing smile, looking directly at the viewer.
+[Visual] On the left, one large white rounded card with a heavy black border containing the single huge Korean letter "ㅂ" in bold black, with one thick red X over it.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif font with sharp infographic clarity.
-NEGATIVE: No neon, no 3D text, no props, no watermark, no AI logos, no Gemini logo or sparkle icons, ultra-clean edges.
+[Layout] The card on the left 40% of the frame, the huge anchor and pill on the right 60%, so this layout mirrors the usual one. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm sand color (#F3E3C3) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-### [시안 C: 0.1초 소리 원리형 (와이드 메인)] — "윗니 0% vs 100%" (thumbnail.jpg)
-- **카피 구성 (총 5단어)**:
-  - 카테고리 칩: `[반복 듣기]`
-  - 메인 앵커: `B vs V`
-  - 골드 알약: `윗니 0% vs 100%`
-- **프롬프트**:
+## 3. thumbnail-variant-b.jpg (C)
+
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "B vs V 발음 구별 원리". Wide standard variant.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: B vs V, the upper teeth touching the lower lip or not. Aspect ratio 16:9.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "B vs V" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "윗니 0% vs 100%" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain, evenly and softly lit seamless single warm cream/beige backdrop (#F7F4EE) across the ENTIRE frame. No props.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[귀 뚫림]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "B vs V", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "터뜨리기 vs 밀어내기" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO ===
-The exact same Korean male presenter shown in reference image (public/brand/thumbnail-presenter-reference.jpg) — same facial identity and features. Dressed in the EXACT SAME signature uniform: navy baseball cap and black t-shirt, each printed with the colorful vertical-bar sound-wave icon.
-Hero sits to the right side at a medium-close waist-up distance. The hero is pointing with his index finger toward his upper teeth/lip with a sharp, confident "0.1초면 바로 구별!" expression, looking directly at the viewer with an enlightened, proud smile. Empty negative space separates hero and text.
+[Visual] Below the anchor, two equal white rounded cards with heavy black borders, side by side. Left card: a simple flat drawing of closed lips with short burst lines of air. Right card: a simple flat drawing of upper front teeth resting lightly on the lower lip with soft wind lines. Lips and teeth only, no face. No words inside the cards.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif font with sharp infographic clarity.
-NEGATIVE: No neon, no 3D effects, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
+[Layout] Anchor at the top left, the two cards in the middle right, the gold pill at the lower left. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat pale cream color (#F4EFE6) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```
 
 ---
 
-### [시안 D: 모바일 전용 극단적 클로즈업] — "윗니 0% vs 100%" (thumbnail-close-up.jpg)
-- **카피 구성 (총 5단어)**:
-  - 카테고리 칩: `[반복 듣기]`
-  - 메인 앵커: `B vs V`
-  - 골드 알약: `윗니 0% vs 100%`
-- **특징**: 화면의 45%를 차지하는 상반신/얼굴 타이트 바스트 샷, 작은 모바일 피드 화면에서도 0.1초 만에 식별.
-- **프롬프트**:
+## 4. thumbnail-close-up.jpg (A의 모바일용)
+
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "B vs V 발음 구별 원리". Mobile extreme close-up variant.
+A high-clarity YouTube thumbnail graphic for a Korean English-pronunciation channel, viewers are Korean adults aged 30 to 60. Flat neo-brutalist typographic poster. Topic: B vs V, the upper teeth touching the lower lip or not. Aspect ratio 16:9. Designed to stay readable at very small size in a phone feed, so use very few elements and very large letters.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[반복 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "B vs V" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "윗니 0% vs 100%" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+[Subject] No people. The visual hero is the large text and the simple graphic described below.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame. No props, no set dressing.
+[Text] Render EXACTLY these strings and nothing else, spelled correctly, with no garbled or malformed Hangul or phonetic symbols:
+- Category pill, top-left: "[반복 듣기]" in bold white letters inside a small dark navy (#16213E) rounded pill.
+- Anchor: "B vs V", the largest text in the frame, crisp flat white letters with a heavy black outline, not inside any box.
+- Gold pill: "윗니 0% vs 100%" in bold black letters inside one solid #F5C518 rounded pill with a heavy black outline.
 
-=== HERO (MOBILE CLOSE-UP) ===
-The exact same Korean male presenter from reference image (navy cap and black t-shirt with sound-wave icon).
-Camera distance: Extreme close-up where the hero's face and upper shoulders fill 40-50% of the frame width on the right side. Sharp focus on eyes, smile, and facial expression. Hero holds an index finger right beside his mouth in a precise "비밀 법칙 발견!" gesture, readable clearly even when shrunk to 100px in a mobile feed.
+[Visual] No icons and no cards. The huge letters are the whole picture.
 
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
+[Layout] The anchor fills the upper two thirds of the frame, the gold pill directly below it. Keep text and visual as separate areas with clear empty space between them.
+
+[Background] One seamless flat warm cream color (#F7F4EE) across the entire frame, evenly lit. No room, no desk, no texture.
+
+[Font] Black Han Sans (검은고딕) style heavy gothic for all Hangul, the same weight as the Latin letters, not thinner or smaller.
+
+[No redundancy] Do not repeat any text elsewhere. No channel name, no logo, no extra captions.
+
+[Safe zone — bottom-right] Keep the bottom-right 15% of the width and height empty, background color only.
+
+[DO NOT — UI chrome] Do not draw any YouTube or video-player interface, duration badge, or progress bar. This is a standalone graphic, not a screenshot.
+
+[DO NOT — grid] Do not render any visible grid lines or alignment guides. The layout above is for internal planning only.
+
+[Negative] No human, no face, no avatar, no character. No 3D text, no neon glow, no gradients, no complex background, no props beyond the items described. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.
 ```

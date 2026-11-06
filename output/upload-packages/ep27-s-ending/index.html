@@ -1,376 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EP27 유튜브 업로드 원클릭 패키지 | 이해하면 쉬운영어</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0C0F17;
-      --card-bg: rgba(22, 27, 41, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent: #F59E0B;
-      --accent-glow: rgba(245, 158, 11, 0.35);
-      --primary: #3B82F6;
-      --success: #10B981;
-      --text: #F3F4F6;
-      --text-muted: #9CA3AF;
-      --radius: 16px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Noto Sans KR', 'Outfit', sans-serif;
-      min-height: 100vh;
-      padding: 40px 24px;
-      line-height: 1.6;
-      background-image:
-        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
-    }
-    .container {
-      max-width: 1380px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--card-border);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 800;
-      background: rgba(59, 130, 246, 0.15);
-      color: var(--primary);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      margin-bottom: 8px;
-    }
-    h1 {
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #FFF 40%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-top: 4px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 24px;
-    }
-    .col-8 { grid-column: span 8; }
-    .col-4 { grid-column: span 4; }
-    .col-12 { grid-column: span 12; }
-    @media (max-width: 1024px) {
-      .col-8, .col-4 { grid-column: span 12; }
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-    }
-    .card-title {
-      font-size: 17px;
-      font-weight: 800;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #FFF;
-    }
-    .copy-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #FFF;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .copy-btn:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
-      transform: translateY(-1px);
-    }
-    .copy-btn.copied {
-      background: var(--success);
-      border-color: var(--success);
-    }
-    .text-box {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      padding: 16px;
-      font-size: 14px;
-      color: var(--text);
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-family: inherit;
-      max-height: 280px;
-      overflow-y: auto;
-    }
-    .thumbs-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    .thumb-card {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .thumb-card img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      display: block;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .thumb-meta {
-      padding: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .thumb-label {
-      font-size: 13px;
-      font-weight: 800;
-    }
-    .rec-tag {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--accent);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      font-size: 11px;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .video-card video {
-      width: 100%;
-      border-radius: 10px;
-      background: #000;
-      outline: none;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP27 업로드 패키지</title>
+<style>:root{color-scheme:dark;--bg:#0C0F17;--card:#161B29;--line:rgba(255,255,255,.12);--accent:#F5C518;--text:#F3F4F6;--muted:#A3ACBA}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Malgun Gothic',sans-serif;line-height:1.6;padding:32px 16px}
+main{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+header p{color:var(--muted);overflow-wrap:anywhere}
+h1{font-size:26px;font-weight:900}
+h2{font-size:17px;font-weight:800}
+h3{font-size:14px;font-weight:700;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;min-width:0;align-content:start}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.check{border-color:var(--accent)}
+.check pre{max-height:none}
+pre{background:rgba(0,0,0,.35);border-radius:8px;padding:14px;font:inherit;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow-y:auto}
+button{flex-shrink:0;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--text);cursor:pointer;font:inherit;font-size:13px;font-weight:700;padding:6px 14px;white-space:nowrap}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.variant{display:grid;gap:8px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+figure{display:grid;gap:6px}
+img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block}
+figcaption{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+a{color:var(--accent);overflow-wrap:anywhere}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div>
-        <div class="badge">🚀 UPLOAD READY</div>
-        <h1>EP27 유튜브 업로드 원클릭 패키지</h1>
-        <div class="subtitle">영어 -S · -ES 끝소리 3가지 물리법칙 [s] vs [z] vs [ɪz] (30분 집중 듣기 드릴)</div>
-      </div>
-      <div>
-        <a href="English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4" download class="copy-btn" style="padding: 10px 20px; font-size: 15px; background: var(--primary);">
-          ⬇️ 비디오 다운로드 (23.1MB)
-        </a>
-      </div>
+<main>
+  <header>
+    <h1>EP27 업로드 패키지</h1>
+    <p>영어 -S 끝소리 3가지, 이것만 알면 귀가 뚫립니다 | 24단어 반복 듣기</p>
+    <p>영상 파일: <a href="English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4">English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4</a></p>
+  </header>
+  <section class="card check">
+    <div class="card-head"><h2>업로드 체크리스트</h2><button type="button" data-copy="checklist">복사</button></div>
+    <pre id="checklist">[EP27 유튜브 업로드 체크리스트]
+영상: English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4 (8분 20초)
+
+⚠️ 올리기 전에 먼저 할 일
+1. 썸네일은 반드시 새로 만드세요. 옛 시안에는 영상 길이와 다른 [30분 듣기]가 박혀 있습니다.
+   videos/ep27-s-ending/prompts/thumbnail-prompts.md로 새로 만들어 같은 파일 이름으로 바꿔 넣으세요.
+   자동 업로드를 쓰면 교체한 뒤 대시보드 대기 큐에서 &quot;이 썸네일 승인&quot;을 눌러야 올라갑니다.
+2. 영상 안 금지어는 다시 렌더링하지 않고 그대로 올리기로 했습니다 (2026-11-06). 남은 항목은 아래와 같습니다.
+   화면: 유성음 62곳, 쿠션 모음 47곳, 무성음 46곳, 치찰음 9곳, 조음 5곳, 물리법칙 3곳
+   음성: &quot;유성음&quot; 3번, &quot;물리법칙&quot; 2번, &quot;무성음&quot; 1번, &quot;치찰음&quot; 1번 (받아쓰기 기준, &quot;쿠션 모음&quot;은 대본에 2번)
+
+□ 1. 영상 파일 업로드
+□ 2. 제목: title.txt 복사. 테스트를 쓰면 아래 세트대로 등록
+     A안 메인 · thumbnail.jpg와 세트
+     B안 상식 뒤집기 · thumbnail-variant-a.jpg와 세트
+     C안 호기심형 · thumbnail-variant-b.jpg와 세트
+□ 3. 설명: description.txt 복사 (챕터 포함)
+□ 4. 태그: tags.txt 복사
+□ 5. 고정 댓글: pinned-comment.txt 복사 후 첫 댓글로 등록하고 고정
+□ 6. 최종 화면: 마지막 10초 (8:09부터), 추천 영상 + 구독 버튼
+     화면에 그려진 네모와 카드는 눌리지 않는 그림입니다. 스튜디오 최종 화면에서 같은 자리에 요소를 직접 얹으세요.
+     추천 영상: 화면에 적힌 대로 EP22 https://youtu.be/bPTAnjMT7xc (이미 공개됨)
+□ 7. 재생목록: &quot;[이해하면 쉬운영어] 반복 듣기 정주행&quot;에 추가. 이 재생목록은 아직 채널에 없으니 처음 한 번 만드세요.
+□ 8. 자막: 아직 없습니다. subtitles/ 폴더를 만든 뒤 따로 올립니다.
+□ 9. 시청자층: 아동용 아님
+□ 10. AI 사용 표시: 예 (실사처럼 보이는 AI 배경 영상이 있음. 표시해도 노출과 수익에 불이익이 없다고 유튜브가 안내함)</pre>
+  </section>
+  <section class="card">
+    <h2>썸네일</h2>
+    <div class="thumbs">
+        <figure><img src="thumbnail.jpg" alt="thumbnail.jpg" loading="lazy"><figcaption>thumbnail.jpg</figcaption></figure>
+        <figure><img src="thumbnail-variant-a.jpg" alt="thumbnail-variant-a.jpg" loading="lazy"><figcaption>thumbnail-variant-a.jpg</figcaption></figure>
+        <figure><img src="thumbnail-variant-b.jpg" alt="thumbnail-variant-b.jpg" loading="lazy"><figcaption>thumbnail-variant-b.jpg</figcaption></figure>
+        <figure><img src="thumbnail-close-up.jpg" alt="thumbnail-close-up.jpg" loading="lazy"><figcaption>thumbnail-close-up.jpg</figcaption></figure>
     </div>
-
-    <div class="grid">
-      <!-- Title Section -->
-      <div class="card col-8">
-        <div class="card-title">
-          <span>📌 유튜브 영상 제목</span>
-          <button class="copy-btn" onclick="copyText('titleBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="titleBox">[30분 듣기] 영어 -S 끝소리 3가지 물리법칙, 이것만 알면 귀가 뚫립니다 | 기초 파닉스</div>
+  </section>
+  <section class="card">
+      <div class="card-head"><h2>메인 제목</h2><button type="button" data-copy="title">복사</button></div>
+      <pre id="title">영어 -S 끝소리 3가지, 이것만 알면 귀가 뚫립니다 | 24단어 반복 듣기</pre>
+    </section>
+  <section class="card">
+    <h2>제목 시안 (제목 및 썸네일 테스트용)</h2>
+    <div class="variant">
+        <div class="card-head"><h3>A안 · 메인 · thumbnail.jpg와 세트</h3><button type="button" data-copy="variant-A">복사</button></div>
+        <pre id="variant-A">영어 -S 끝소리 3가지, 이것만 알면 귀가 뚫립니다 | 24단어 반복 듣기</pre>
       </div>
-
-      <!-- Checklist -->
-      <div class="card col-4">
-        <div class="card-title">
-          <span>📋 업로드 체크리스트</span>
-        </div>
-        <div class="text-box" style="font-size: 13px;">[EP27 유튜브 업로드 체크리스트]
-- 에피소드: ep27-s-ending (-S · -ES 끝소리 3가지 물리법칙)
-- 영상 파일: English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4
-- 썸네일:
-  [C안 메인] thumbnail.jpg (와이드 바스트샷)
-  [C안 모바일] thumbnail-close-up.jpg (모바일 피드 100px 특화 1위 권장)
-  [A안] thumbnail-variant-a.jpg (반전형: "다 '스'로 읽으셨죠?")
-  [B안] thumbnail-variant-b.jpg (실수경고형: "80%가 '즈' 소리입니다")
-- 카테고리: 교육 (Education)
-- 재생목록: [이해하면 쉬운영어] 30분 집중 듣기 드릴 정주행
-- 최종 태그: 15개 키워드 탑재 완료
-- 자막: 한국어 오디오 내장 + Whisper 타임라인 완비
-</div>
+      <div class="variant">
+        <div class="card-head"><h3>B안 · 상식 뒤집기 · thumbnail-variant-a.jpg와 세트</h3><button type="button" data-copy="variant-B">복사</button></div>
+        <pre id="variant-B">단어 끝 S, 전부 '스'로 읽으셨죠? 끝소리 3가지 | 영어 S 발음 24단어</pre>
       </div>
+      <div class="variant">
+        <div class="card-head"><h3>C안 · 호기심형 · thumbnail-variant-b.jpg와 세트</h3><button type="button" data-copy="variant-C">복사</button></div>
+        <pre id="variant-C">Houses가 왜 '하우지즈'일까? -S 끝소리 3가지 | 영어 S 발음 24단어</pre>
+      </div>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <div class="card-head"><h2>설명</h2><button type="button" data-copy="description">복사</button></div>
+      <pre id="description">학창 시절에 복수형이나 3인칭 단수에 붙은 S는 그냥 '스'로 읽으면 된다고 배우셨죠?
+그런데 미드를 들어보면 dogs는 '독스'가 아니라 끝이 '즈'에 가깝게 들립니다. houses는 아예 '하우지즈'가 됩니다.
 
-      <!-- Description Section -->
-      <div class="card col-8">
-        <div class="card-title">
-          <span>📝 영상 설명 및 타임라인</span>
-          <button class="copy-btn" onclick="copyText('descBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="descBox" style="max-height: 400px;">학창 시절 영어 시간에 "복수형이나 3인칭 단수에 붙은 S는 그냥 '스'라고 읽으면 돼"라고 배우셨나요?
-원어민에게 "dogs"를 "독스", "is"를 "이스"라고 발음하면 왜 어색하게 들리고, 미드에서는 왜 S 소리가 다르게 들릴까요?
+단어 끝 -S와 -ES는 바로 앞 소리에 따라 딱 3가지로 갈립니다. 24단어를 남녀 목소리로 번갈아 반복해서 들으면서 귀로 익혀보세요. 🎧
 
-영어 단어 끝에 붙는 -S / -ES는 사실 성대의 떨림과 입안 공간에 따라 딱 3가지 물리 법칙으로 결정됩니다.
-이 영상 하나로 24개 필수 단어의 끝소리를 원어민 남녀 음성으로 6회 반복 체화해 보세요! 🎧
-
-[타임라인 챕터]
+⏱️ 챕터
 00:00 -S, 다 '스'로 읽으셨죠? 3가지 끝소리 차이 (도입부)
-00:29 조음 물리법칙 ([s] vs [z] vs [ɪz] 쿠션 원리)
-01:16 Group 1: [s] 무성음 6단어 (cats, cups, books, laughs...)
-02:10 Group 2: [z] 유성음 6단어 (dogs, plays, pens, calls...)
-03:02 Group 3: [ɪz] 쿠션 모음 6단어 (bu · ses, wat · ches, box · es...)
-03:54 Group 4: [ɪz] 특수 예외 & 기능어 6단어 (hou · ses, pri · zes, is...)
-04:44 실전 대화 7문장 (-S 문맥 청취 & 타겟 단어 대비)
-05:09 24단어 무작위 덱 셔플 귀 훈련 (실전 반응 퀴즈)
+00:29 끝소리가 갈리는 원리 ([s] vs [z] vs [ɪz])
+01:16 Group 1: [s] 성대 떨림 0% 6단어 (cats, cups, books, laughs...)
+02:10 Group 2: [z] 성대 떨림 100% 6단어 (dogs, plays, pens, calls...)
+03:02 Group 3: [ɪz] 혀 꼬임 방지 쿠션 6단어 (bu · ses, wat · ches, box · es...)
+03:54 Group 4: 예외 &amp; 자주 쓰는 말 6단어 (hou · ses, pri · zes, is...)
+04:44 문장 속에서 듣기 7문장
+05:09 24단어 무작위 섞어 듣기 (실전 퀴즈)
 07:10 스마트폰 캡처용 1장 요약 치트시트
-07:36 24단어 무한 앵콜 총복습 & 다음 영상 추천
+07:36 24단어 앵콜 총복습 &amp; 다음 영상 추천
 
 ━━━━━━━━━━━━━━━━━━━
-💡 -S · -ES 발음의 3가지 물리 법칙 완전 정복:
-① [s] 무성음 뒤: 성대 떨림 0% 뒤에서는 똑같이 안 떨리는 [s] (cats, cups, books, laughs, stops, sleeps)
-② [z] 유성음 뒤: 성대가 울리는 소리 뒤에서는 부드러운 [z] (dogs, plays, pens, calls, loves, dreams)
-③ [ɪz] 치찰음 뒤: 혀 꼬임 방지 쿠션 모음 투입! 음절 +1 (bu · ses, wat · ches, box · es, clas · ses)
-★ 특수 예외 & 기능어: hou · ses (어간 유성음화 [haʊzɪz]), is [ɪz], was [wɑːz], has [hæz], does [dʌz]
+💡 -S · -ES 소리 3가지
+① [s]: 성대가 떨리지 않는 소리 뒤에서는 똑같이 안 떨리는 [s] (cats, cups, books, laughs, stops, sleeps)
+② [z]: 성대가 울리는 소리 뒤에서는 부드러운 [z] (dogs, plays, pens, calls, loves, dreams)
+③ [ɪz]: 이미 바람 소리가 나는 단어 뒤에서는 혀가 꼬이지 않게 소리를 하나 더 넣은 [ɪz] (bu · ses, wat · ches, box · es, clas · ses)
+★ 따로 기억할 것: hou · ses는 앞소리까지 바뀌어 [haʊzɪz]로 읽습니다. is [ɪz], was [wɑːz], has [hæz], does [dʌz]도 끝이 '즈' 소리입니다.
 
 ━━━━━━━━━━━━━━━━━━━
-📌 학습 팁:
-단어만 보지 마시고, 05:00부터 시작되는 실전 대화 7문장과 24단어 무작위 셔플 퀴즈를 통해 귀가 먼저 반응할 때까지 반복 청취해 보세요!
+📌 이렇게 들어보세요
+단어만 보지 마시고, 04:44부터 나오는 문장 7개와 05:09부터 나오는 24단어 섞어 듣기로 귀가 먼저 반응할 때까지 들어보세요.
 
-#영어발음 #S발음 #복수형발음 #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어
-</div>
-      </div>
-
-      <!-- Video Preview -->
-      <div class="card col-4 video-card">
-        <div class="card-title">
-          <span>🎬 렌더링 영상 확인</span>
-        </div>
-        <video controls src="English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4" preload="metadata"></video>
-        <div style="font-size: 13px; color: var(--text-muted);">
-          • 1080p Full HD · 8분 19.6초<br>
-          • 10초 엔드스크린 구간 탑재 완료
-        </div>
-      </div>
-
-      <!-- Thumbnails Section -->
-      <div class="card col-12">
-        <div class="card-title">
-          <span>🖼️ 썸네일 4종 (우클릭 저장 또는 즉시 복사)</span>
-        </div>
-        <div class="thumbs-grid">
-          <div class="thumb-card">
-            <img src="thumbnail-close-up.jpg" alt="모바일 1위">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">모바일 전용 클로즈업 (C안)</div>
-                <div style="font-size: 12px; color: var(--text-muted);">피드 100px 축소 시 시인성 극대화</div>
-              </div>
-              <span class="rec-tag">추천 1위</span>
-            </div>
-          </div>
-          <div class="thumb-card">
-            <img src="thumbnail.jpg" alt="C안 메인">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">Variant C (메인 와이드)</div>
-                <div style="font-size: 12px; color: var(--text-muted);">"3가지 소리였습니다" 손가락 제스처</div>
-              </div>
-              <span class="rec-tag">메인</span>
-            </div>
-          </div>
-          <div class="thumb-card">
-            <img src="thumbnail-variant-a.jpg" alt="A안">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">Variant A (직관적 반전형)</div>
-                <div style="font-size: 12px; color: var(--text-muted);">"다 '스'로 읽으셨죠?" 호기심 자극</div>
-              </div>
-            </div>
-          </div>
-          <div class="thumb-card">
-            <img src="thumbnail-variant-b.jpg" alt="B안">
-            <div class="thumb-meta">
-              <div>
-                <div class="thumb-label">Variant B (실수경고형)</div>
-                <div style="font-size: 12px; color: var(--text-muted);">"80%가 '즈' 소리입니다" 충격 강조</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pinned Comment & Tags -->
-      <div class="card col-6">
-        <div class="card-title">
-          <span>💬 고정 댓글</span>
-          <button class="copy-btn" onclick="copyText('pinBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="pinBox">오늘도 24단어 -S · -ES 끝소리 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
+#영어발음 #S발음 #복수형발음 #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>고정 댓글</h2><button type="button" data-copy="pinned">복사</button></div>
+      <pre id="pinned">오늘도 24단어 -S · -ES 끝소리 훈련을 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏
 
 💬 여러분은 그동안 24개 단어 중 어떤 단어의 S 발음이 가장 헷갈리셨나요?
 (예: dogs를 독스로 알고 계셨나요? 아니면 houses가 하우지즈로 변하는 게 신기하셨나요?)
 댓글로 남겨주시면 발음 교정 팁을 함께 나눠드리겠습니다!
 
-📱 07:30 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!
-구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️
-</div>
-      </div>
-
-      <div class="card col-6">
-        <div class="card-title">
-          <span>🏷️ 검색 태그</span>
-          <button class="copy-btn" onclick="copyText('tagBox', this)">복사하기</button>
-        </div>
-        <div class="text-box" id="tagBox">영어발음, S발음, 영어복수형, 3인칭단수, 영어리스닝, 영어듣기, 영어회화, 기초영어, 파닉스, 발음규칙, 영어공부, 원어민발음, 이해하면쉬운영어, English pronunciation, s ending pronunciation, plural s</div>
-      </div>
-    </div>
+📱 07:10 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!
+구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>태그</h2><button type="button" data-copy="tags">복사</button></div>
+      <pre id="tags">영어발음, S발음, 영어복수형, 3인칭단수, 영어리스닝, 영어듣기, 영어회화, 기초영어, 파닉스, 발음규칙, 영어공부, 원어민발음, 이해하면쉬운영어, English pronunciation, s ending pronunciation, plural s</pre>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>챕터</h2><button type="button" data-copy="timeline">복사</button></div>
+      <pre id="timeline">00:00 -S, 다 '스'로 읽으셨죠? 3가지 끝소리 차이 (도입부)
+00:29 끝소리가 갈리는 원리 ([s] vs [z] vs [ɪz])
+01:16 Group 1: [s] 성대 떨림 0% 6단어 (cats, cups, books, laughs...)
+02:10 Group 2: [z] 성대 떨림 100% 6단어 (dogs, plays, pens, calls...)
+03:02 Group 3: [ɪz] 혀 꼬임 방지 쿠션 6단어 (bu · ses, wat · ches, box · es...)
+03:54 Group 4: 예외 &amp; 자주 쓰는 말 6단어 (hou · ses, pri · zes, is...)
+04:44 문장 속에서 듣기 7문장
+05:09 24단어 무작위 섞어 듣기 (실전 퀴즈)
+07:10 스마트폰 캡처용 1장 요약 치트시트
+07:36 24단어 앵콜 총복습 &amp; 다음 영상 추천</pre>
+    </section>
   </div>
-
-  <script>
-    function copyText(elemId, btn) {
-      const text = document.getElementById(elemId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '✓ 복사완료!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    }
-  </script>
+</main>
+<script>document.addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-copy]');
+  if (!button) return;
+  const text = document.getElementById(button.dataset.copy).textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+  }
+  button.textContent = '복사됨';
+  setTimeout(() => { button.textContent = '복사'; }, 1500);
+});</script>
 </body>
 </html>

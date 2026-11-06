@@ -61,3 +61,13 @@
   - 전역 규칙에 따라 최종 영상 파일명을 `English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4`로 `output/upload-packages/ep24-long-short-i/`에 복사 배치.
   - 썸네일 4종(`thumbnail.jpg`, `thumbnail-close-up.jpg`, `thumbnail-b.jpg`, `thumbnail-c.jpg`) 및 원클릭 대시보드(`index.html`), `status.json` 시드 완료.
   - EP24 전체 제작 워크플로우 100% 완료.
+
+
+## 2026-11-06 업로드 패키지 수정 (업로드 전 점검)
+
+- 제목: 실제 9분 29초인데 붙어 있던 길이 표기와 금지어를 빼고 50자 안으로 줄였다.
+- 설명·챕터·고정 댓글: 금지어, 해외 일화, 근거 없는 최상급, 자리표시자 링크, 실제와 다른 시각을 고쳤다. 챕터 시각은 index.html의 프레임 시작과 대조해 맞는 것을 확인했다.
+- 썸네일: 아바타 없는 프롬프트 4종을 새로 썼다. 이미지는 아직 만들지 않았다.
+- 남은 일 (영상 자체, 다시 렌더링해야 고쳐짐):
+  - 화면: bitch 14곳 (3:08 Group 4, 섞어 듣기, 총복습), 0:31 원리 그림의 VOCAL TRACT ANATOMY 등 영어 전문용어, TENSE 긴장모음 · LAX 이완모음, 각 Group 시작에 잠깐 보이는 "반복 듣기 드릴 (●●● 순차 점등)" 라벨 4곳
+  - 음성: bitch를 읽는 단어 음성이 들어 있음

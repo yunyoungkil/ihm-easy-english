@@ -42,3 +42,13 @@
     - 썸네일 4종: `thumbnail-close-up.jpg` (모바일 1위), `thumbnail.jpg`, `thumbnail-variant-a.jpg`, `thumbnail-variant-b.jpg`
     - 메타데이터: `title.txt`, `title-variants.txt`, `description.txt`, `pinned-comment.txt`, `tags.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json` (`ready_to_upload`)
     - 원클릭 복사 HTML 대시보드: `output/upload-packages/ep27-s-ending/index.html`
+
+
+## 2026-11-06 업로드 패키지 수정 (업로드 전 점검)
+
+- 제목: 실제 8분 20초인데 붙어 있던 길이 표기와 금지어를 빼고 50자 안으로 줄였다.
+- 설명·챕터·고정 댓글: 금지어, 해외 일화, 근거 없는 최상급, 자리표시자 링크, 실제와 다른 시각을 고쳤다. 챕터 시각은 index.html의 프레임 시작과 대조해 맞는 것을 확인했다.
+- 썸네일: 아바타 없는 프롬프트 4종을 새로 썼다. 이미지는 아직 만들지 않았다.
+- 남은 일 (영상 자체, 다시 렌더링해야 고쳐짐):
+  - 화면: 유성음 62곳, 쿠션 모음 47곳, 무성음 46곳, 치찰음 9곳, 조음 5곳, 물리법칙 3곳
+  - 음성: "유성음" 3번, "물리법칙" 2번, "무성음" 1번, "치찰음" 1번 (받아쓰기 기준, "쿠션 모음"은 대본에 2번)

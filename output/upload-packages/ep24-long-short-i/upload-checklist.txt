@@ -1,28 +1,27 @@
-================================================================================
-✅ EP24 유튜브 업로드 체크리스트 (Sheep vs Ship 장모음 [iː] vs 단모음 [ɪ] 20쌍 드릴)
-================================================================================
-[기본 정보]
-- 총 영상 길이: 569.32초 (9분 29.3초)
-- 에피소드 ID: ep24-long-short-i
-- SEO 영상 파일명: English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4
-- 권장 예약 발행일: EP23 기준 2일 간격 골든타임 권장
+[EP24 유튜브 업로드 체크리스트]
+영상: English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4 (9분 29초)
 
-[업로드 단계 체크]
-1. [ ] 동영상 파일 업로드 (유튜브 SEO 검색 키워드 파일명):
-       English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4
-       (경로: output/upload-packages/ep24-long-short-i/English_Pronunciation_Sheep_vs_Ship_Minimal_Pairs_Listening_Drill.mp4)
-2. [ ] 썸네일 업로드:
-       A안 (메인 추천) 또는 사용자 선택 시안 (thumbnail.jpg)
-       - A/B 테스트 대조군: thumbnail-b.jpg, thumbnail-c.jpg, thumbnail-close-up.jpg
-3. [ ] 제목/설명 입력:
-       title-variants.txt 선택안 복사 & description.txt 본문 복사
-4. [ ] 태그 입력:
-       tags.txt 내용 전체 복사 붙여넣기
-5. [ ] 고정 댓글 등록:
-       pinned-comment.txt 복사하여 첫 댓글 등록 후 [댓글 고정] 설정
-6. [ ] 최종 화면 (End Screen) 설정:
-       - 시작 시각: 09:19 (559.32초) ~ 09:29 (569.32초) — 10.0초간 유지
-       - 연결 영상: 직전 편 EP23 (같은 자음 두 개는 한 번만 소리 난다)
-       - 구성: 좌측 16:9 직전 편 추천 영상, 우측 16:9 전체 재생목록, 하단 구독 버튼
-       (※ 영상 마지막 10초에 전용 엔드스크린 템플릿과 카드 가이드라인이 이미 렌더링되어 있습니다)
-================================================================================
+⚠️ 올리기 전에 먼저 할 일
+1. 썸네일은 반드시 새로 만드세요. 옛 시안에는 영상 길이와 다른 [30분 듣기]가 박혀 있습니다. 특히 thumbnail-b.jpg(BEACH vs BITCH)는 절대 올리지 마세요.
+   videos/ep24-long-short-i/prompts/thumbnail-prompts.md로 새로 만들어 같은 파일 이름으로 바꿔 넣으세요.
+   자동 업로드를 쓰면 교체한 뒤 대시보드 대기 큐에서 "이 썸네일 승인"을 눌러야 올라갑니다.
+2. 영상 안 금지어는 다시 렌더링하지 않고 그대로 올리기로 했습니다 (2026-11-06). 남은 항목은 아래와 같습니다.
+   화면: bitch 14곳 (3:08 Group 4, 섞어 듣기, 총복습), 0:31 원리 그림의 VOCAL TRACT ANATOMY 등 영어 전문용어, TENSE 긴장모음 · LAX 이완모음, 각 Group 시작에 잠깐 보이는 "반복 듣기 드릴 (●●● 순차 점등)" 라벨 4곳
+   음성: bitch를 읽는 단어 음성이 들어 있음
+
+□ 1. 영상 파일 업로드
+□ 2. 제목: title.txt 복사. 테스트를 쓰면 아래 세트대로 등록
+     A안 메인 · thumbnail.jpg와 세트
+     B안 상식 뒤집기 · thumbnail-b.jpg와 세트
+     C안 원리형 · thumbnail-c.jpg와 세트
+     D안 호기심형 · 제목만 시험
+□ 3. 설명: description.txt 복사 (챕터 포함)
+□ 4. 태그: tags.txt 복사
+□ 5. 고정 댓글: pinned-comment.txt 복사 후 첫 댓글로 등록하고 고정
+□ 6. 최종 화면: 마지막 10초 (9:19부터), 추천 영상 + 구독 버튼
+     화면에 그려진 네모와 카드는 눌리지 않는 그림입니다. 스튜디오 최종 화면에서 같은 자리에 요소를 직접 얹으세요.
+     직전 편: EP23 https://youtu.be/9d9m869BCTI (이미 공개됨)
+□ 7. 재생목록: "[이해하면 쉬운영어] 반복 듣기 정주행"에 추가. 이 재생목록은 아직 채널에 없으니 처음 한 번 만드세요.
+□ 8. 자막: 아직 없습니다. subtitles/ 폴더를 만든 뒤 따로 올립니다.
+□ 9. 시청자층: 아동용 아님
+□ 10. AI 사용 표시: 예 (실사처럼 보이는 AI 배경 영상이 있음. 표시해도 노출과 수익에 불이익이 없다고 유튜브가 안내함)

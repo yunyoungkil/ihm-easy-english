@@ -4755,6 +4755,12 @@ function renderEpisodesTab() {
         '<div class="card-subtext">시즌1 완결 및 시즌2 기획 허브 · 제목, 설명문, 태그, 고정댓글 1클릭 복사 인스펙터</div>' +
       '</div>' +
       '<button class="btn btn-cyan btn-sm" onclick="openFacelessGuideModal()">💡 Faceless 비디오 제작 가이드</button>' +
+    '</div>' +
+    '<div id="schedule-panel-container" class="bento-card col-12" style="background:linear-gradient(180deg, rgba(16,22,34,0.95) 0%, rgba(10,14,24,0.95) 100%);border:1px solid rgba(0,229,255,0.25);border-radius:12px;padding:20px;margin-bottom:8px">' +
+      '<div style="display:flex;align-items:center;gap:10px;color:var(--text-muted);font-size:13px">' +
+        '<div class="loading-spinner" style="width:16px;height:16px;border:2px solid var(--accent-cyan);border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite"></div>' +
+        '<span>발행 스케줄 및 업로드 대기 큐 로딩 중...</span>' +
+      '</div>' +
     '</div>';
 
   eps.forEach(ep => {
@@ -4795,7 +4801,192 @@ function renderEpisodesTab() {
   return html;
 }
 
+function renderSchedulePanelHtml(data) {
+  if (!data || !data.rules) return '<div style="color:var(--text-muted)">스케줄 데이터를 불러올 수 없습니다.</div>';
+  const rules = data.rules;
+  const queue = data.queue || [];
+  const throttle = data.throttle || { allowed: true, uploadsLast24h: 0, uploadsLast7d: 0 };
+  const isEnabled = rules.autoUploadEnabled;
+
+  const days = [
+    { label: '일', val: 0 },
+    { label: '월', val: 1 },
+    { label: '화', val: 2 },
+    { label: '수', val: 3 },
+    { label: '목', val: 4 },
+    { label: '금', val: 5 },
+    { label: '토', val: 6 },
+  ];
+
+  let daysHtml = days.map(d => {
+    const checked = (rules.allowedDaysOfWeek || []).includes(d.val) ? 'checked' : '';
+    return '<label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:4px 8px;background:rgba(255,255,255,0.05);border-radius:6px;font-size:12px">' +
+      '<input type="checkbox" class="sched-day-cb" value="' + d.val + '" ' + checked + '> ' + d.label +
+    '</label>';
+  }).join(' ');
+
+  let queueRowsHtml = '';
+  if (queue.length === 0) {
+    queueRowsHtml = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">대기 중인 패키지가 없습니다. (모든 영상이 이미 예약 또는 공개 완료되었습니다)</td></tr>';
+  } else {
+    queue.forEach((item, idx) => {
+      const kstDateStr = item.scheduledFor ? new Date(item.scheduledFor).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', month: 'long', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '-';
+      queueRowsHtml += '<tr style="border-bottom:1px solid rgba(255,255,255,0.05)">' +
+        '<td style="padding:10px 8px;color:var(--text-muted);font-weight:700">#' + (idx + 1) + '</td>' +
+        '<td style="padding:10px 8px;font-weight:700;color:var(--accent-cyan);white-space:nowrap">' + esc(item.episodeId) + '</td>' +
+        '<td style="padding:10px 8px;color:var(--text-bright);max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="' + esc(item.title) + '">' + esc(item.title) + '</td>' +
+        '<td style="padding:10px 8px;color:var(--accent-gold);font-weight:700;white-space:nowrap">🗓️ ' + esc(kstDateStr) + '</td>' +
+        '<td style="padding:10px 8px;white-space:nowrap"><span class="badge badge-pass" style="background:rgba(0,229,255,0.15);color:var(--accent-cyan)">준비 완료</span></td>' +
+        '<td style="padding:10px 8px;white-space:nowrap">' +
+          '<button class="btn btn-sm btn-magenta btn-upload-now" data-epid="' + esc(item.episodeId) + '" style="padding:4px 10px;font-size:12px">🚀 즉시 예약 업로드</button>' +
+        '</td>' +
+      '</tr>';
+    });
+  }
+
+  return '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">' +
+    '<div style="display:flex;align-items:center;gap:12px">' +
+      '<span style="font-size:18px;font-weight:800;color:var(--text-bright)">📅 YouTube 자동 예약 업로드 & 발행 스케줄러</span>' +
+      '<span class="badge" style="' + (isEnabled ? 'background:rgba(16,185,129,0.2);color:#10b981' : 'background:rgba(255,255,255,0.1);color:var(--text-muted)') + '">' + (isEnabled ? '🟢 자동 업로드 활성' : '⚪ 자동 업로드 비활성') + '</span>' +
+      '<button id="btn-toggle-auto-upload" class="btn btn-sm ' + (isEnabled ? 'btn-danger' : 'btn-cyan') + '" style="padding:3px 10px;font-size:12px">' + (isEnabled ? '자동 업로드 끄기' : '자동 업로드 켜기') + '</button>' +
+    '</div>' +
+    '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted)">' +
+      '<span class="tag-chip" style="background:rgba(0,229,255,0.08);color:var(--accent-cyan)">🛡️ 일일 한도: ' + throttle.uploadsLast24h + '/1편</span>' +
+      '<span class="tag-chip" style="background:rgba(168,85,247,0.08);color:var(--accent-purple)">🛡️ 주간 한도: ' + throttle.uploadsLast7d + '/2편</span>' +
+    '</div>' +
+  '</div>' +
+  '<div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px;margin-bottom:16px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">' +
+    '<div style="display:flex;align-items:center;gap:8px">' +
+      '<label style="font-size:13px;font-weight:700;color:var(--text-normal)">⏰ 발행 시각:</label>' +
+      '<input type="time" id="sched-publish-time" value="' + esc(rules.publishTimeKst || '23:00') + '" style="background:#0c101d;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:4px 8px;border-radius:6px;font-size:13px">' +
+      '<span style="font-size:11px;color:var(--text-muted)">KST (밤 11시)</span>' +
+    '</div>' +
+    '<div style="display:flex;align-items:center;gap:8px">' +
+      '<label style="font-size:13px;font-weight:700;color:var(--text-normal)">🗓️ 발행 요일:</label>' +
+      daysHtml +
+    '</div>' +
+    '<div style="display:flex;align-items:center;gap:8px">' +
+      '<button id="btn-save-schedule-rules" class="btn btn-sm btn-cyan" style="padding:5px 14px;font-weight:700">💾 스케줄 설정 저장</button>' +
+    '</div>' +
+  '</div>' +
+  '<div style="margin-top:12px">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+      '<span style="font-size:14px;font-weight:700;color:var(--text-bright)">📋 대기 큐 (에피소드 오름차순 예약 목록)</span>' +
+      '<span style="font-size:12px;color:var(--text-muted)">총 ' + queue.length + '편 대기 중</span>' +
+    '</div>' +
+    '<div style="overflow-x:auto">' +
+      '<table style="width:100%;border-collapse:collapse;font-size:13px;text-align:left">' +
+        '<thead>' +
+          '<tr style="border-bottom:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-size:12px">' +
+            '<th style="padding:8px">#</th>' +
+            '<th style="padding:8px">에피소드</th>' +
+            '<th style="padding:8px">제목</th>' +
+            '<th style="padding:8px">예약 배정 일시 (KST)</th>' +
+            '<th style="padding:8px">상태</th>' +
+            '<th style="padding:8px">수동 제어</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          queueRowsHtml +
+        '</tbody>' +
+      '</table>' +
+    '</div>' +
+  '</div>';
+}
+
+async function loadAndBindSchedulePanel() {
+  const container = document.getElementById('schedule-panel-container');
+  if (!container) return;
+  try {
+    const res = await fetch('/api/schedule/queue');
+    const data = await res.json();
+    container.innerHTML = renderSchedulePanelHtml(data);
+
+    // Toggle switch
+    const toggleBtn = document.getElementById('btn-toggle-auto-upload');
+    if (toggleBtn) {
+      toggleBtn.onclick = async () => {
+        const nextState = !data.rules.autoUploadEnabled;
+        toggleBtn.disabled = true;
+        try {
+          await fetch('/api/schedule/rules', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...data.rules, autoUploadEnabled: nextState }),
+          });
+          await loadAndBindSchedulePanel();
+        } catch (err) {
+          alert('설정 변경 실패: ' + err.message);
+        } finally {
+          toggleBtn.disabled = false;
+        }
+      };
+    }
+
+    // Save rules
+    const saveBtn = document.getElementById('btn-save-schedule-rules');
+    if (saveBtn) {
+      saveBtn.onclick = async () => {
+        const timeInput = document.getElementById('sched-publish-time');
+        const cbs = document.querySelectorAll('.sched-day-cb:checked');
+        const allowedDays = Array.from(cbs).map(cb => parseInt(cb.value, 10));
+
+        saveBtn.disabled = true;
+        saveBtn.textContent = '저장 중...';
+        try {
+          await fetch('/api/schedule/rules', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...data.rules,
+              publishTimeKst: timeInput.value || '23:00',
+              allowedDaysOfWeek: allowedDays,
+            }),
+          });
+          alert('발행 스케줄 설정이 저장되었습니다.');
+          await loadAndBindSchedulePanel();
+        } catch (err) {
+          alert('저장 실패: ' + err.message);
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = '💾 스케줄 설정 저장';
+        }
+      };
+    }
+
+    // Upload Now buttons
+    document.querySelectorAll('.btn-upload-now').forEach(btn => {
+      btn.onclick = async () => {
+        const epId = btn.dataset.epid;
+        if (!confirm('[' + epId + '] 영상을 지금 YouTube에 예약 상태로 업로드하시겠습니까?')) return;
+
+        btn.disabled = true;
+        btn.textContent = '업로드 중 (수 분 소요)...';
+        try {
+          const upRes = await fetch('/api/schedule/upload-now', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ episodeId: epId, force: true }),
+          });
+          const upData = await upRes.json();
+          if (!upRes.ok) throw new Error(upData.error || '업로드 실패');
+          alert('[' + epId + '] YouTube 예약 업로드 성공! (Video ID: ' + (upData.result?.videoId || '') + ')');
+          await loadAndBindSchedulePanel();
+          if (typeof fetchDashboardData === 'function') fetchDashboardData();
+        } catch (err) {
+          alert('업로드 실패: ' + err.message);
+          btn.disabled = false;
+          btn.textContent = '🚀 즉시 예약 업로드';
+        }
+      };
+    });
+  } catch (err) {
+    container.innerHTML = '<div style="color:var(--accent-red)">스케줄러 데이터를 불러오지 못했습니다: ' + esc(err.message) + '</div>';
+  }
+}
+
 function bindEpisodeEvents() {
+  loadAndBindSchedulePanel();
   document.querySelectorAll('.btn-inspect-pkg').forEach(btn => {
     btn.onclick = () => {
       const season = btn.dataset.season;

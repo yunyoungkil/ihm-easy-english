@@ -1,19 +1,46 @@
 # 지금 할 일
 
-마지막 확인: 2026-10-10
+마지막 확인: 2026-11-06
 
-## 📦 제작 완료 및 타 PC 렌더링/업로드 준비 — 단편 EP28(원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기)
+## 🔜 지금 막힌 곳 (2026-11-06 점검)
+
+- **공개 현황**: EP22(10/12)·EP23(10/28)까지 공개. EP24~29, 6편은 완성됐는데 미공개.
+- **쇼츠**: 9/2 이후 공개 0개. 최근 90일 조회수의 96%가 쇼츠였고, 최근 14일 조회수는 83회.
+- **EP24~29 패키지를 올리기 전에 고칠 것**:
+  - 썸네일: 전부 아바타가 들어가 있음 — 2026-10-28 아바타 중단 결정과 어긋남.
+  - 제목: EP24~27의 `[30분 듣기]`가 실제 길이(8~13분)와 다름. 썸네일에도 박혀 있음.
+  - EP24 B안: 썸네일·제목에 `BITCH` 문구.
+  - 설명: EP28 "드릴", EP25 제목 후보 "드릴", EP27 유성음·무성음 등 금지어가 남아 있음. 자막도 없음.
+- **코드 남은 일(재현 전)**: 판정 전 영상의 AI 처방전, 쇼츠의 CTR 기준, JSON 동시 저장, Gemini 실패 표시, 빈 CTR을 0으로 저장. 상세: `knowledge/logs/2026-10.md` 2026-11-06 절.
+- **규칙 충돌 미정리**: 훅 규칙(지인 대화·연구량 증명) vs 경험 날조 금지, BGM 볼륨 6% vs 8~10%, 클로즈업 CTR 1위 vs 가상 CTR 미사용.
+
+## ✅ 제작 완료 (업로드 대기) — 단편 EP29(Best와 Vest를 똑같이 읽으면 미국인이 못 알아듣는 이유 | B vs V 24쌍 반복 듣기)
+
+- 폴더: `videos/ep29-b-vs-v/`
+- 기획 상태: 11-Phase 워크플로우 완비 (소재 확정, 제목 3안, 5단어 썸네일 4종, 10프레임 frame.md, SCRIPT.md, visual-prompts.md 완료)
+- 메인 제목: `[반복 듣기] Best와 Vest를 똑같이 읽으면 미국인이 못 알아듣는 이유 | B vs V 24쌍 소리 연습`
+- 썸네일 카피: `[반복 듣기]` (칩) + `B vs V` (화이트 앵커) + `다 'ㅂ'으로 읽으셨죠?` (골드 알약 3단어, A안 상식파괴형 확정)
+- 사전 예측: `videos/ep29-b-vs-v/REVIEW.md` 기록 완료 (최근 롱폼 중앙값 대비 2.0~3.5배 예상)
+- 에셋 전처리:
+  - 오디오 103개 클립 분할 완료 (`assets/voice/`) 및 Whisper 단어 타임스탬프 `.words.json` 전수 추출 완료.
+  - Zero Watermark 검수 및 ffmpeg 크롭/delogo 완벽 제거 완료 (`f01_best_vs_vest.mp4`, `f02_articulation.jpg`, `f07_cafe_ambience.mp4`).
+- 컴포지션 구현: 10개 프레임 완비 + 10초 엔드스크린 탑재 (총 412.59초 / 6분 52.6초).
+- 렌더링 완료: `output/upload-packages/ep29-b-vs-v/English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4` (Full HD 1920x1080, 30.0MB, 412.59초 / 6분 52.6초, 12,378 프레임 100% 무결점 렌더 완료, 소요 시간 14m 31.8s).
+- 공식 시그니처 아바타 썸네일 4종 탑재 완료: `thumbnail-variant-a.jpg`(A안 채택), `thumbnail-variant-b.jpg`(B안), `thumbnail.jpg`(C안 와이드), `thumbnail-close-up.jpg`(D안 모바일 전용 클로즈업).
+- 업로드 패키지 빌드 완료: `output/upload-packages/ep29-b-vs-v/` (메타데이터, 원클릭 복사 HTML 대시보드 `index.html` 완비).
+- **다음 행동**: 사용자가 원클릭 대시보드(`output/upload-packages/ep29-b-vs-v/index.html`) 열람 후 유튜브 스튜디오 업로드 및 예약 설정 진행 ➔ 차기 에피소드(EP30) 기획 착수.
+
+## ✅ 제작 완료 (업로드 대기) — 단편 EP28(원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기)
 
 - 폴더: `videos/ep28-f-vs-p/`
 - 타임라인: 총 415.61초 (6분 55.6초) / 10개 프레임 완비 + 10초 엔드스크린 구간 탑재 (405.61s~415.61s).
 - 검수 완료: `npx hyperframes check` 린터/런타임/레이아웃/모션/대비 59/59 WCAG AA 100% 통과 (Check passed).
-- 렌더링 방식: 타 PC 분산 렌더링 (사용자 명시: "렌더는 다른 PC에서 할 거야").
-  - 렌더 명령어: `npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4`
+- 렌더링 완료: `output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4` (Full HD 1920x1080, 30.1MB, 415.61초 / 6분 55.6초, 12,469 프레임 100% 무결점 렌더 완료, 소요 시간 14m 44.6s).
 - 업로드 패키지 빌드 완료: `output/upload-packages/ep28-f-vs-p/`
-  - 메타데이터: `title.txt`, `title-variants.txt`, `timeline.txt` (10개 챕터 + 10초 엔드스크린), `description.txt`, `pinned-comment.txt`, `tags.txt`, `status.json`, `upload-checklist.txt`
-  - 원클릭 대시보드: `index.html` (타 PC 렌더링 명령어 원클릭 복사, 유튜브 스튜디오 메타데이터 원클릭 복사, 썸네일 4종 뷰어 완비)
+  - 메타데이터: `title.txt`, `title-variants.txt`, `timeline.txt` (10개 챕터 + 10초 엔드스크린), `description.txt`, `pinned-comment.txt`, `tags.txt`, `status.json` (`ready_to_upload`), `upload-checklist.txt`
+  - 원클릭 대시보드: `index.html` (유튜브 스튜디오 메타데이터 원클릭 복사, 썸네일 4종 뷰어 완비)
   - 썸네일 4종 탑재 완료: `thumbnail-close-up.jpg`(모바일 1위 권장), `thumbnail.jpg`(메인 와이드), `thumbnail-variant-a.jpg`(A안 상식파괴), `thumbnail-variant-b.jpg`(B안 직격형) — Zero Watermark 검수 100% 통과 완료
-- **다음 행동**: 사용자가 다른 PC에서 `npx hyperframes render` 실행 후 패키지 폴더(`output/upload-packages/ep28-f-vs-p/index.html`) 열람하여 유튜브 스튜디오 업로드 및 예약 설정 ➔ 차기 에피소드(EP29) 기획 착수.
+- **다음 행동**: 사용자가 패키지 폴더(`output/upload-packages/ep28-f-vs-p/index.html`) 열람하여 유튜브 스튜디오 업로드 및 예약 설정 진행 ➔ 차기 에피소드(EP29) 기획 착수.
 
 ## ✅ 제작 완료 (업로드 대기) — 단편 EP27(영어 -S · -ES 끝소리 3가지 물리법칙 24단어 반복 듣기 롱폼)
 
@@ -25,15 +52,16 @@
   - 메타데이터: 10개 챕터 타임스탬프 `description.txt`, `title.txt`, `title-variants.txt`, `tags.txt`, `pinned-comment.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json` (`ready_to_upload`), 원클릭 HTML 대시보드(`index.html`) 완비.
 - **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행 ➔ 차기 에피소드(EP28) 기획 착수.
 
-## ✅ 제작 완료 (업로드 대기) — 단편 EP22(과거형 -ED 끝소리 3가지 규칙 24단어 반복 듣기 롱폼)
+## ✅ 제작 완료 (업로드 대기) — 단편 EP22(과거형 -ED 끝소리 3가지 규칙 24단어 집중 듣기 롱폼)
 
 - 폴더: `videos/ep22-ed-ending/`
 - 렌더링 완료: `renders/ep22-ed-ending_2026-10-09_20-44-19.mp4` (Full HD 1920x1080, 28.2MB, 502.87초 / 8분 22.9초, 15,087 프레임 전량 무결점 렌더 완료).
 - 업로드 패키지 완비: `output/upload-packages/ep22-ed-ending/`
   - 최종 비디오: `English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4`
-  - 썸네일 4종: `thumbnail-close-up.jpg`(모바일 1위 권장), `thumbnail.jpg`(A안 메인), `thumbnail-b.jpg`(B안 실수경고), `thumbnail-c.jpg`(C안 원리성취) — Zero Watermark 검수 100% 통과
-  - 메타데이터: 10개 챕터 타임스탬프 `description.txt`, `title.txt`, `tags.txt`, `pinned-comment.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json` (`ready_to_upload`), 원클릭 HTML 대시보드(`index.html`) 완비.
-- **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행 ➔ 차기 에피소드(EP27) 기획 착수.
+  - 확정 제목 (Variant C 채택): `[집중 듣기] 영어 과거형 끝소리 3가지 비밀, 원리 하나로 귀가 뚫립니다 | -ED 발음 규칙`
+  - 썸네일 전략: 아바타 전면 제외 ➔ 3단 소리 인포그래픽 포스터형 (`[집중 듣기]` + `-ED` + `소리가 3개였네!`)
+  - 메타데이터: 10개 챕터 타임스탬프 `description.txt`, `title.txt`, `title-variants.txt`, `tags.txt`, `pinned-comment.txt`, `timeline.txt`, `upload-checklist.txt`, `status.json` (`ready_to_upload`), 원클릭 HTML 대시보드(`index.html`) 완비.
+- **다음 행동**: 사용자가 원클릭 대시보드 열람 후 유튜브 업로드 및 예약 설정 진행.
 
 ## ✅ 제작 완료 (업로드 대기) — 단편 EP26(Right vs Light R vs L 자음 20쌍 반복 듣기 롱폼)
 

@@ -1,9 +1,10 @@
 {
   "episode": "ep23-double-consonant",
-  "status": "ready_to_upload",
+  "status": "published",
   "scheduledFor": "2026-10-09T14:00:00Z",
-  "videoId": null,
+  "videoId": "9d9m869BCTI",
   "updatedAt": "2026-10-08T11:32:00.000Z",
-  "lastSyncedAt": "2026-10-10T03:59:35.181Z",
-  "publishedAt": null
+  "lastSyncedAt": "2026-11-06T08:04:40.067Z",
+  "publishedAt": "2026-10-28T13:00:32Z",
+  "publishedAtSource": "youtube"
 }

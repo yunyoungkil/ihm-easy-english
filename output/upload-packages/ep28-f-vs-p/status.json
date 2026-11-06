@@ -1,5 +1,5 @@
 {
-  "status": "ready_for_render_on_other_pc",
+  "status": "ready_to_upload",
   "episodeId": "ep28-f-vs-p",
   "title": "원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기",
   "recommendedPublishAt": "2026-10-12T14:00:00Z",
@@ -8,6 +8,7 @@
   "durationFormatted": "6분 55초",
   "endScreenDuration": "10초 (405.61s ~ 415.61s)",
   "thumbnailsCount": 4,
-  "renderCommand": "npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4",
-  "generatedAt": "2026-10-10T08:34:12.711Z"
+  "renderedAt": "2026-10-10T12:36:12Z",
+  "generatedAt": "2026-10-10T08:34:12.711Z",
+  "lastSyncedAt": "2026-11-06T08:04:41.081Z"
 }

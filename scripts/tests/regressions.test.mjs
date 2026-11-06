@@ -2,12 +2,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
-import {existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {getRequestBlockReason} from '../request-guard.mjs';
 import {extractZip} from '../studio-auto-ingest.mjs';
 import {persistGeneratedImage, tempThumbDir} from '../ab-simulator.mjs';
+import {buildPackagePage, findPackageProblems, parseTitleVariants} from '../build-upload-package-page.mjs';
 
 const guard = (headers, method = 'GET', pathname = '/api/dashboard') =>
   getRequestBlockReason({headers: {host: 'localhost:3001', ...headers}, method, pathname, port: 3001});
@@ -77,4 +78,31 @@ test('이미지 저장은 지정 폴더 밖으로 나갈 수 없다', async () =
   const saved = join(tempThumbDir, imageUrl.split('/').pop());
   assert.equal(existsSync(saved), true);
   rmSync(saved);
+});
+
+test('업로드 패키지 페이지는 글 파일에서 만들고 HTML을 이스케이프한다', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'ep99-package-'));
+  writeFileSync(join(dir, 'title.txt'), '제목 <b>굵게</b>\n');
+  writeFileSync(join(dir, 'title-variants.txt'), '[A] (메인) 첫 제목\r\n설명 줄\r\n[B] 둘째 제목\r\n');
+  writeFileSync(join(dir, 'description.txt'), '설명 본문');
+  writeFileSync(join(dir, 'thumbnail.jpg'), '');
+  const result = await buildPackagePage(dir);
+  const html = readFileSync(join(dir, 'index.html'), 'utf8');
+  assert.equal(result.variants, 2);
+  assert.equal(result.thumbnails, 1);
+  assert.match(html, /제목 &lt;b&gt;굵게&lt;\/b&gt;/);
+  assert.doesNotMatch(html, /<b>굵게/);
+  assert.match(html, /설명 본문/);
+  rmSync(dir, {recursive: true, force: true});
+});
+
+test('패키지 검사는 금지어·긴 제목·자리표시자 링크를 잡고 들려드릴은 넘긴다', () => {
+  const variants = parseTitleVariants('[A] (메인) 짧은 제목');
+  assert.deepEqual(findPackageProblems({title: '짧은 제목', variants, description: '세 번씩 들려드릴게요'}), []);
+  const problems = findPackageProblems({
+    title: `[30분 듣기] ${'가'.repeat(50)}`,
+    description: '듣기 드릴과 조음 https://youtu.be/...',
+    pinned: 'beach vs Bitch',
+  }).join('\n');
+  for (const expected of ['제목 59자','실제 길이와 맞는지', '드릴', '조음', '자리표시자', 'Bitch']) assert.match(problems, new RegExp(expected));
 });

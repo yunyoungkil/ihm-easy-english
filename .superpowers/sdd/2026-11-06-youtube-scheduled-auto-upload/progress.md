@@ -16,3 +16,4 @@ Pre-flight: no interface conflicts detected.
 Task 1: complete (calculateNextPublishSlot, sortEpisodePackages, isUploadAllowed verified with 5 unit tests)
 Task 2: complete (loadPublishRules, savePublishRules, scanReadyPackages, buildPublishQueue verified with 3 unit tests)
 Task 3: complete (uploadVideoToYouTube, setVideoThumbnail, createFirstComment, processQueueItem verified with mocked test)
+Task 4: complete (integrated /api/schedule/rules, /api/schedule/queue, /api/schedule/upload-now, OAuth scopes, and background watcher)

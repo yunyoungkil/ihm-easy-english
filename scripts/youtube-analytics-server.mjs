@@ -22,6 +22,14 @@ import { buildMatrixDataset, diagnoseVideoWithGemini } from './matrix-diagnosis.
 import { lintBrandScript } from './brand-script-linter.mjs';
 import { generateTopicCandidates } from './idea-board.mjs';
 import { getRequestBlockReason } from './request-guard.mjs';
+import {
+  loadPublishRules,
+  savePublishRules,
+  scanReadyPackages,
+  buildPublishQueue,
+  isUploadAllowed,
+  processQueueItem,
+} from './youtube-publisher.mjs';
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
@@ -51,6 +59,8 @@ const ideaBoardStatePath = join(youtubeDataDir, 'idea-board-state.json');
 // (2026-09-04, 사용자 지적: "선택해서 공개 예약까지 했으면 뭔가 표시가 있어야 하지 않냐"). 이 파일은
 // 별도로 두고 덮어쓰지 않는다 — 실제 제작이 확정된 소재만 수동으로 기록한다.
 const ideaBoardHistoryPath = join(youtubeDataDir, 'idea-board-history.json');
+const publishRulesPath = join(youtubeDataDir, 'publish-rules.json');
+const globalUploadPackagesDir = join(projectDir, 'output', 'upload-packages');
 // Gemini 호출 없이 대화창에서 직접(Claude가) 작성한 아이디어 초안을 대시보드로 가져오는 창구
 // (2026-09-13, 사용자 요청: "버튼을 만들어 클릭하면 네가 아이디어 화면에 출력할 수 있어?" —
 // Gemini 월간 지출 한도 초과로 API 호출이 막혔을 때를 위함). 대시보드 버튼 자체가 Claude를
@@ -8474,7 +8484,7 @@ const server = createServer(async (req, res) => {
         access_type: 'offline',
         prompt: 'consent',
         include_granted_scopes: 'true',
-        scope: 'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/yt-analytics.readonly',
+        scope: 'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.force-ssl',
         state,
       });
       return redirect(res, `https://accounts.google.com/o/oauth2/v2/auth?${params}`);
@@ -8795,6 +8805,73 @@ const server = createServer(async (req, res) => {
     }
     if (url.pathname === '/api/episodes/summary') {
       return json(res, 200, await getEpisodesSummary());
+    }
+    if (url.pathname === '/api/schedule/rules' && req.method === 'GET') {
+      const rules = await loadPublishRules(publishRulesPath);
+      return json(res, 200, rules);
+    }
+    if (url.pathname === '/api/schedule/rules' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const updated = await savePublishRules(publishRulesPath, body);
+      return json(res, 200, { ok: true, rules: updated });
+    }
+    if (url.pathname === '/api/schedule/queue' && req.method === 'GET') {
+      const rules = await loadPublishRules(publishRulesPath);
+      const readyPackages = await scanReadyPackages(globalUploadPackagesDir);
+      const latestScheduledDate = await getLatestScheduledDate();
+      const queue = buildPublishQueue({ readyPackages, rules, latestScheduledDate });
+      const recentHistory = await getRecentUploadHistory();
+      const throttle = isUploadAllowed({
+        recentUploadHistory: recentHistory,
+        maxUploadsPerDay: rules.maxUploadsPerDay,
+        maxUploadsPerWeek: rules.maxUploadsPerWeek,
+      });
+      return json(res, 200, {
+        ok: true,
+        rules,
+        queue,
+        throttle,
+        latestScheduledDate,
+      });
+    }
+    if (url.pathname === '/api/schedule/upload-now' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const { episodeId, force } = body;
+      if (!episodeId) return json(res, 400, { error: 'episodeId가 필요합니다.' });
+
+      const accessToken = await getAccessToken();
+      if (!accessToken) return json(res, 401, { error: 'YouTube 채널 재연동(로그인)이 필요합니다.' });
+
+      const rules = await loadPublishRules(publishRulesPath);
+      const readyPackages = await scanReadyPackages(globalUploadPackagesDir);
+      const target = readyPackages.find((p) => p.episodeId === episodeId);
+      if (!target) return json(res, 404, { error: `대기 중인 패키지(${episodeId})를 찾을 수 없습니다.` });
+
+      if (!force) {
+        const recentHistory = await getRecentUploadHistory();
+        const throttle = isUploadAllowed({
+          recentUploadHistory: recentHistory,
+          maxUploadsPerDay: rules.maxUploadsPerDay,
+          maxUploadsPerWeek: rules.maxUploadsPerWeek,
+        });
+        if (!throttle.allowed) {
+          return json(res, 429, { error: throttle.reason, throttle });
+        }
+      }
+
+      const latestScheduledDate = await getLatestScheduledDate();
+      const queue = buildPublishQueue({ readyPackages: [target], rules, latestScheduledDate });
+      const queueItem = queue[0];
+
+      const result = await processQueueItem({ item: queueItem, accessToken, rules });
+      if (result.success) {
+        await getEpisodesSummary(true);
+        await syncIdeaBoardHistoryFromPackages();
+        notifyClients('schedule-updated', { episodeId: target.episodeId, videoId: result.videoId });
+        return json(res, 200, { ok: true, result });
+      } else {
+        return json(res, 500, { error: result.error });
+      }
     }
     if (url.pathname === '/api/catalog') {
       const catalog = await loadJson(catalogPath);
@@ -9486,6 +9563,93 @@ const studioWatcher = startStudioWatcher({
     }
   },
 });
+
+async function getRecentUploadHistory() {
+  if (!existsSync(globalUploadPackagesDir)) return [];
+  const entries = await readdir(globalUploadPackagesDir, { withFileTypes: true });
+  const history = [];
+  for (const ent of entries) {
+    if (!ent.isDirectory()) continue;
+    const sPath = join(globalUploadPackagesDir, ent.name, 'status.json');
+    if (existsSync(sPath)) {
+      try {
+        const s = JSON.parse(await readFile(sPath, 'utf8'));
+        if (s.uploadedAt) {
+          history.push({ uploadedAt: s.uploadedAt, videoId: s.videoId, episodeId: ent.name });
+        }
+      } catch {}
+    }
+  }
+  return history;
+}
+
+async function getLatestScheduledDate() {
+  if (!existsSync(globalUploadPackagesDir)) return null;
+  const entries = await readdir(globalUploadPackagesDir, { withFileTypes: true });
+  let latest = null;
+  for (const ent of entries) {
+    if (!ent.isDirectory()) continue;
+    const sPath = join(globalUploadPackagesDir, ent.name, 'status.json');
+    if (existsSync(sPath)) {
+      try {
+        const s = JSON.parse(await readFile(sPath, 'utf8'));
+        const dt = s.scheduledFor || (s.status === 'published' ? s.publishedAt : null);
+        if (dt && (!latest || new Date(dt) > new Date(latest))) {
+          latest = dt;
+        }
+      } catch {}
+    }
+  }
+  return latest;
+}
+
+let isUploadWorkerRunning = false;
+async function runAutoUploadCheck() {
+  if (isUploadWorkerRunning) return;
+  isUploadWorkerRunning = true;
+  try {
+    const rules = await loadPublishRules(publishRulesPath);
+    if (!rules.autoUploadEnabled) return;
+
+    const accessToken = await getAccessToken();
+    if (!accessToken) return;
+
+    const readyPackages = await scanReadyPackages(globalUploadPackagesDir);
+    if (!readyPackages.length) return;
+
+    const recentHistory = await getRecentUploadHistory();
+    const throttle = isUploadAllowed({
+      recentUploadHistory: recentHistory,
+      maxUploadsPerDay: rules.maxUploadsPerDay,
+      maxUploadsPerWeek: rules.maxUploadsPerWeek,
+    });
+
+    if (!throttle.allowed) {
+      return;
+    }
+
+    const latestScheduledDate = await getLatestScheduledDate();
+    const queue = buildPublishQueue({ readyPackages, rules, latestScheduledDate });
+    if (!queue.length) return;
+
+    const target = queue[0];
+    console.log(`[Auto-Upload] 자동 예약 업로드 실행: ${target.episodeId} -> ${target.scheduledFor}`);
+    const res = await processQueueItem({ item: target, accessToken, rules });
+    if (res.success) {
+      console.log(`[Auto-Upload] 업로드 완료: ${target.episodeId} (videoId: ${res.videoId})`);
+      await getEpisodesSummary(true);
+      await syncIdeaBoardHistoryFromPackages();
+      notifyClients('schedule-updated', { episodeId: target.episodeId, videoId: res.videoId });
+    } else {
+      console.warn(`[Auto-Upload] 업로드 실패: ${target.episodeId}: ${res.error}`);
+    }
+  } catch (err) {
+    console.error('[Auto-Upload] 주기적 점검 오류:', err.message);
+  } finally {
+    isUploadWorkerRunning = false;
+  }
+}
+setInterval(runAutoUploadCheck, 5 * 60 * 1000).unref();
 
 server.listen(port, '127.0.0.1', () => {
   console.log(`YouTube Channel Lab: http://localhost:${port}`);

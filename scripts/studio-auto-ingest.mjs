@@ -1,27 +1,28 @@
 import { existsSync, readdirSync, statSync, watch } from 'node:fs';
 import { readFile, writeFile, mkdir, rm, copyFile } from 'node:fs/promises';
 import { join, resolve, basename, extname } from 'node:path';
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
 /**
  * Extract a zip file into a target directory using PowerShell / tar
  */
 export async function extractZip(zipPath, targetDir) {
   await mkdir(targetDir, { recursive: true });
-  // Escape paths for powershell
-  const escapedZip = zipPath.replace(/'/g, "''");
-  const escapedTarget = targetDir.replace(/'/g, "''");
-  const psCmd = `powershell -NoProfile -NonInteractive -Command "Expand-Archive -LiteralPath '${escapedZip}' -DestinationPath '${escapedTarget}' -Force"`;
+  // 파일 이름을 명령 문자열에 끼워 넣지 않는다. PowerShell은 곡선 따옴표(’)도 따옴표로 읽어서,
+  // Downloads에 받은 zip의 이름만으로 명령이 실행될 수 있었다. 경로는 환경 변수로만 넘긴다.
   try {
-    await execAsync(psCmd);
+    await execFileAsync('powershell', [
+      '-NoProfile', '-NonInteractive', '-Command',
+      'Expand-Archive -LiteralPath $env:INGEST_ZIP_PATH -DestinationPath $env:INGEST_TARGET_DIR -Force',
+    ], { env: { ...process.env, INGEST_ZIP_PATH: zipPath, INGEST_TARGET_DIR: targetDir } });
     return true;
   } catch (err) {
     // Fallback to tar if powershell failed
     try {
-      await execAsync(`tar -xf "${zipPath}" -C "${targetDir}"`);
+      await execFileAsync('tar', ['-xf', zipPath, '-C', targetDir]);
       return true;
     } catch (tarErr) {
       throw new Error(`압축 해제 실패: ${err.message} (tar: ${tarErr.message})`);

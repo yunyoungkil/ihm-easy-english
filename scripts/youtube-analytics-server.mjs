@@ -21,6 +21,7 @@ import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThum
 import { buildMatrixDataset, diagnoseVideoWithGemini } from './matrix-diagnosis.mjs';
 import { lintBrandScript } from './brand-script-linter.mjs';
 import { generateTopicCandidates } from './idea-board.mjs';
+import { getRequestBlockReason } from './request-guard.mjs';
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
@@ -192,7 +193,7 @@ const getAccessToken = async () => {
 };
 
 const googleGet = async (url, accessToken) => {
-  const response = await fetch(url, {headers: {Authorization: `Bearer ${accessToken}`}});
+  const response = await fetch(url, {headers: accessToken ? {Authorization: `Bearer ${accessToken}`} : {}});
   const data = await response.json();
   if (!response.ok) {
     const message = data?.error?.message || `Google API request failed (${response.status})`;
@@ -214,6 +215,31 @@ const googleGetAllPages = async (url, accessToken) => {
     pageToken = page.nextPageToken || '';
   } while (pageToken);
   return items;
+};
+
+// 쇼츠인지는 길이로 알 수 없다 — 유튜브 쇼츠는 최대 3분이라 "60초 이하" 기준이면 64초·86초 쇼츠가
+// 롱폼으로 잘못 들어간다(2026-11-06 확인: 이 때문에 영상별 롱폼 합계가 공식 집계보다 1,993회 많았다).
+// 유튜브가 채널마다 자동으로 두는 쇼츠 전용 재생목록(UC…→UUSH…)을 기준으로 삼는다. 이 목록의 조회수
+// 합은 Analytics의 쇼츠 집계와 정확히 일치했다. 공개 영상만 들어 있어서 예약·비공개 영상은 길이로 판정한다.
+const getChannelShortsIds = async (channelId, accessToken) => {
+  if (!channelId?.startsWith('UC')) return null;
+  try {
+    const items = await googleGetAllPages(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=UUSH${channelId.slice(2)}`,
+      accessToken,
+    );
+    return new Set(items.map((item) => item.contentDetails?.videoId).filter(Boolean));
+  } catch (err) {
+    if (err.status === 404) return new Set(); // 쇼츠가 하나도 없는 채널은 이 재생목록 자체가 없다
+    console.warn('[Shorts] 쇼츠 재생목록을 못 읽어 길이 기준으로 대신합니다:', err.message);
+    return null;
+  }
+};
+
+const resolveVideoFormat = (video, shortsIds) => {
+  if (shortsIds && video.privacyStatus === 'public') return shortsIds.has(video.videoId) ? 'SHORTS' : 'LONGFORM';
+  const seconds = Number(video.durationSeconds || 0);
+  return seconds > 0 && seconds <= 60 ? 'SHORTS' : 'LONGFORM';
 };
 
 const chunks = (values, size) => Array.from({length: Math.ceil(values.length / size)}, (_, index) => values.slice(index * size, (index + 1) * size));
@@ -426,14 +452,13 @@ const columnIndex = (headers, aliases) => {
   return exact >= 0 ? exact : normalized.findIndex((h) => aliases.some((a) => h.includes(a)));
 };
 
-const numeric = (value, percent = false) => {
+// Studio의 CTR 칸은 이미 % 값이고 % 기호가 없다. 1 이하를 비율로 보고 100을 곱하면 0.79%가 79%로 저장된다.
+const numeric = (value) => {
   const raw = String(value ?? '').trim();
-  const hadPercent = raw.includes('%');
-  let s = raw.replace(/,/g, '').replace(/%/g, '');
+  const s = raw.replace(/,/g, '').replace(/%/g, '');
   if (!s || s === '—' || s === '-') return null;
   const n = Number(s);
-  if (!Number.isFinite(n)) return null;
-  return percent && !hadPercent && n > 0 && n <= 1 ? Math.round(n * 10000) / 100 : n;
+  return Number.isFinite(n) ? n : null;
 };
 
 const durationSeconds = (iso) => {
@@ -499,7 +524,7 @@ const inferClassifications = (videos, savedMap) => {
       continue;
     }
 
-    const isShort = Number(video.durationSeconds || 0) <= 60;
+    const isShort = video.format ? video.format === 'SHORTS' : Number(video.durationSeconds || 0) <= 60;
     if (isShort && video.time >= plannedStart) {
       const parent = [...dated].filter((candidate) => {
         const classification = map[candidate.videoId];
@@ -661,7 +686,7 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
           if (!vId) continue;
 
           const impressions = numeric(r[impressionsIndex]);
-          const ctr = numeric(r[ctrIndex], true);
+          const ctr = numeric(r[ctrIndex]);
           if (impressions == null && ctr == null) continue;
 
           reach.videos[vId] ||= { videoId: vId, windows: {}, periods: {} };
@@ -697,7 +722,7 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
 
       const totalRow = rows.slice(1).find((r) => ['합계', 'total'].includes(normalizeTitle(r[0] || ''))) || rows[1];
       const impressions = numeric(totalRow[impressionsIndex]);
-      const ctr = numeric(totalRow[ctrIndex], true);
+      const ctr = numeric(totalRow[ctrIndex]);
       if (impressions == null || ctr == null) {
         skipped.push({folder, reason: '노출수/CTR 수치 변환 실패'});
         continue;
@@ -811,6 +836,9 @@ const getDashboard = async (accessToken) => {
     };
   });
 
+  const shortsIds = await getChannelShortsIds(channel.id, accessToken);
+  recentVideos = recentVideos.map((video) => ({...video, format: resolveVideoFormat(video, shortsIds)}));
+
   const playlistItems = await googleGetAllPages('https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&mine=true&maxResults=50', accessToken);
   const playlists = playlistItems.map((item) => ({
     playlistId: item.id,
@@ -820,12 +848,20 @@ const getDashboard = async (accessToken) => {
     url: `https://www.youtube.com/playlist?list=${item.id}`,
   }));
 
+  // 댓글 목록을 OAuth로 읽으려면 쓰기까지 되는 youtube.force-ssl 권한이 필요하다. 지금 권한(youtube.readonly)으로는
+  // 항상 403이 나서, 아래 catch가 조용히 삼키는 바람에 전 영상 댓글이 0개로 저장되고 있었다(2026-11-06 확인).
+  // 공개 댓글은 API 키로 읽을 수 있으므로 권한을 넓히지 않고 키를 쓴다. 비공개·예약 영상은 키로 못 읽으니 건너뛴다.
   const commentsByVideo = {};
+  const commentErrors = new Set();
   await mapConcurrent(recentVideos, 6, async (video) => {
+    if (youtubeApiKey && video.privacyStatus !== 'public') {
+      commentsByVideo[video.videoId] = [];
+      return;
+    }
     try {
       const items = await googleGetAllPages(
-        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${encodeURIComponent(video.videoId)}&maxResults=100`,
-        accessToken,
+        `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${encodeURIComponent(video.videoId)}&maxResults=100${youtubeApiKey ? `&key=${encodeURIComponent(youtubeApiKey)}` : ''}`,
+        youtubeApiKey ? null : accessToken,
       );
       commentsByVideo[video.videoId] = items.map((item) => {
         const top = item.snippet?.topLevelComment?.snippet;
@@ -839,10 +875,12 @@ const getDashboard = async (accessToken) => {
           isChannelOwner: top?.authorChannelId?.value === channel.id,
         };
       });
-    } catch {
+    } catch (err) {
+      if (!/disabled/i.test(err.message)) commentErrors.add(err.message); // 댓글을 꺼 둔 영상은 오류가 아니다
       commentsByVideo[video.videoId] = [];
     }
   });
+  if (commentErrors.size) console.warn(`[Comments] 댓글 수집 실패: ${[...commentErrors].join(' / ')}`);
 
   const savedClassifications = await loadVideoMap();
   const classifications = inferClassifications(recentVideos, savedClassifications);
@@ -852,7 +890,7 @@ const getDashboard = async (accessToken) => {
     analyticsQuery(accessToken, {
       startDate,
       endDate,
-      metrics: 'views,estimatedMinutesWatched,averageViewDuration,subscribersGained,subscribersLost',
+      metrics: 'views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,subscribersGained,subscribersLost',
     }),
     analyticsQuery(accessToken, {
       startDate,
@@ -899,6 +937,7 @@ const getDashboard = async (accessToken) => {
   const topRows = rowObjects(topReport);
   const videoMetrics = new Map(topRows.map((row) => [row.video, row]));
 
+  const formatById = new Map(recentVideos.map((video) => [video.videoId, video.format]));
   const videoPerformance = topRows.map((row) => {
     const detail = detailsById[row.video] || {};
     const views = Number(row.views || 0);
@@ -909,7 +948,7 @@ const getDashboard = async (accessToken) => {
       publishedAt: detail.snippet?.publishedAt || '',
       thumbnail: detail.snippet?.thumbnails?.maxres?.url || detail.snippet?.thumbnails?.high?.url || detail.snippet?.thumbnails?.medium?.url || (row.video ? `https://i.ytimg.com/vi/${row.video}/mqdefault.jpg` : ''),
       durationSeconds: durationSeconds(detail.contentDetails?.duration),
-      creatorContentType: durationSeconds(detail.contentDetails?.duration) <= 60 ? 'SHORTS' : 'VIDEO_ON_DEMAND',
+      creatorContentType: (formatById.get(row.video) || resolveVideoFormat({durationSeconds: durationSeconds(detail.contentDetails?.duration)}, null)) === 'SHORTS' ? 'SHORTS' : 'VIDEO_ON_DEMAND',
       subscriberNet: net,
       subscribersPerThousandViews: views > 0 ? (net / views) * 1000 : 0,
       classification: classifications[row.video] || null,
@@ -1071,8 +1110,11 @@ const getRecentUploadsForMatching = async (accessToken) => {
 // videos.list(1 unit)만 호출하고, 모르면 채널 업로드 목록에서 제목으로 찾아낸 뒤로는 videoId를
 // 저장해 다음부터는 그 조회만 하게 한다. 5분에 한 번 이상은 확인하지 않는다.
 const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, titleCandidates) => {
-  if (!statusData || statusData.status === 'published') return statusData;
-  if (!statusData.scheduledFor) return statusData;
+  if (!statusData?.status) return statusData; // status.json이 없는 옛 패키지
+  // 공개일까지 유튜브 값으로 확인했으면 더 볼 게 없다. 예전 기록은 동기화한 시각이 공개일로 적혀 있어(최대 9일 차이)
+  // 한 번씩 다시 확인해서 고친다. 예약일이 없는 패키지도 확인한다 — 안 그러면 EP22처럼 이미 공개된 영상이
+  // 영원히 "업로드 대기"로 남는다(2026-11-06 확인).
+  if (statusData.status === 'published' && statusData.publishedAtSource === 'youtube') return statusData;
   // 예약 시각이 아직 안 지났어도 동기화를 시도한다 — videoId가 없으면(막 업로드했을 수 있음)
   // 찾아서 기록해야 하고, 있어도 사용자가 유튜브 Studio에서 예약 시각을 바꿨을 수 있다(EP14에서
   // 실제로 20:00→08:00→20:00으로 바뀐 적 있음). "지난 것만 동기화"였던 예전 조건 때문에 막
@@ -1085,10 +1127,10 @@ const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, ti
 
   try {
     let videoId = statusData.videoId || null;
-    let ytStatus = null;
+    let ytVideo = null;
     if (videoId) {
-      const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}`, accessToken);
-      ytStatus = data.items?.[0]?.status || null;
+      const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoId}`, accessToken);
+      ytVideo = data.items?.[0] || null;
     } else {
       // 제목 A/B 테스트 시안(title-variants.txt) 중 하나로 실제 업로드했을 수 있다 —
       // 기본 title.txt 하나만 정확히 일치시키면 그 경우 영영 못 찾는다(2026-09-18 확인,
@@ -1108,22 +1150,24 @@ const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, ti
       if (!match) {
         match = uploads.find((v) => {
           const t = normalize(v.title);
-          return candidateTitles.some((c) => c.length >= 6 && t.includes(c));
+          return candidateTitles.some((c) => c.length >= 12 && t.includes(c));
         });
       }
       if (match) {
         videoId = match.videoId;
-        const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoId}`, accessToken);
-        ytStatus = data.items?.[0]?.status || null;
+        const data = await googleGet(`https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoId}`, accessToken);
+        ytVideo = data.items?.[0] || null;
       }
     }
+    const ytStatus = ytVideo?.status || null;
 
     const updated = {...statusData, lastSyncedAt: new Date().toISOString()};
     if (videoId) updated.videoId = videoId;
     if (ytStatus) {
       if (ytStatus.privacyStatus === 'public') {
         updated.status = 'published';
-        updated.publishedAt = updated.publishedAt || new Date().toISOString();
+        updated.publishedAt = ytVideo.snippet?.publishedAt || updated.publishedAt || new Date().toISOString();
+        if (ytVideo.snippet?.publishedAt) updated.publishedAtSource = 'youtube';
       } else if (ytStatus.privacyStatus === 'private' && ytStatus.publishAt) {
         updated.status = 'scheduled';
         updated.scheduledFor = ytStatus.publishAt;
@@ -3154,7 +3198,7 @@ function renderOverviewTab() {
     return '<tr data-video="' + esc(v.videoId) + '">' +
       '<td><div style="display:flex;align-items:center;gap:10px">' +
         (thumbUrl ? '<img class="thumb-mini" src="' + esc(thumbUrl) + '" alt="">' : '') +
-        '<div style="min-width:0"><b>' + esc(v.title) + '</b><div class="card-subtext">' + esc((v.publishedAt||'').slice(0,10)) + ' · ' + (v.durationSeconds <= 60 ? '쇼츠' : '롱폼') + '</div></div>' +
+        '<div style="min-width:0"><b>' + esc(v.title) + '</b><div class="card-subtext">' + esc((v.publishedAt||'').slice(0,10)) + ' · ' + ((v.format ? v.format === 'SHORTS' : v.durationSeconds <= 60) ? '쇼츠' : '롱폼') + '</div></div>' +
       '</div></td>' +
       '<td><select class="category">' +
         '<option value="SEASON"' + selected(category, 'SEASON') + '>시즌 콘텐츠</option>' +
@@ -4951,7 +4995,7 @@ function renderStudioTab() {
     thumbnailUrl: v.thumbnail || 'https://i.ytimg.com/vi/' + v.videoId + '/mqdefault.jpg',
     version: '현재',
     status: 'published',
-    format: (v.durationSeconds <= 60) ? 'SHORTS' : 'LONGFORM',
+    format: v.format || ((v.durationSeconds <= 60) ? 'SHORTS' : 'LONGFORM'),
     publishedAt: v.publishedAt,
     durationSeconds: v.durationSeconds,
   }));
@@ -5188,7 +5232,7 @@ function computeMatrixDataset() {
     const cls = v.classification || pkg.classification || {};
     const durationSec = Number(v.durationSeconds || perf.durationSeconds || 0);
     const titleHasShortsTag = /#(shorts|쇼츠)/i.test(v.title || '');
-    const isShort = (v.format === 'SHORTS') ||
+    const isShort = v.format ? v.format === 'SHORTS' :
                     (durationSec > 0 && durationSec <= 60) ||
                     ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role) ||
                     titleHasShortsTag;
@@ -5266,7 +5310,7 @@ function computeMatrixDataset() {
     // "#쇼츠" 영상 2건이 durationSec<=60에 안 걸려서 LONGFORM으로 잘못 분류되고 있었음).
     // 제목에 명시적으로 쇼츠 표시가 있으면 길이와 무관하게 그걸 우선한다.
     const titleHasShortsTag = /#(shorts|쇼츠)/i.test(v.title || '');
-    const isShort = (v.format === 'SHORTS') ||
+    const isShort = v.format ? v.format === 'SHORTS' :
                     (durationSec > 0 && durationSec <= 60) ||
                     ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role) ||
                     titleHasShortsTag;
@@ -5328,7 +5372,7 @@ function computeMatrixDataset() {
     const now = new Date();
     const ageHours = pubDate ? (now.getTime() - pubDate.getTime()) / (1000 * 60 * 60) : 999;
     const is48hWarmup = ageHours >= 0 && ageHours < 48;
-    const hasStatisticalSignificance = hasRealCtr && !is48hWarmup && impressions >= minImpressions && views >= minViews;
+    const hasStatisticalSignificance = hasRealCtr && hasValidRetention && !is48hWarmup && impressions >= minImpressions && views >= minViews;
 
     const retThresh = isShort ? resolvedRetThresholdShorts : resolvedRetThresholdLong;
 
@@ -8407,7 +8451,12 @@ async function getFullDashboardData(forceLiveSync = false) {
 
 const server = createServer(async (req, res) => {
   try {
-    const url = new URL(req.url, `http://${req.headers.host || `localhost:${port}`}`);
+    const url = new URL(req.url, `http://localhost:${port}`);
+    const blockReason = getRequestBlockReason({headers: req.headers, method: req.method, pathname: url.pathname, port});
+    if (blockReason) {
+      console.warn(`[Request Guard] 외부 요청 차단 (${blockReason}): ${req.method} ${url.pathname}`);
+      return json(res, 403, {error: '다른 사이트에서 온 요청이라 막았습니다. 대시보드 화면에서 다시 시도하세요.'});
+    }
     if (url.pathname === '/') {
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
       res.end(pageHtml);

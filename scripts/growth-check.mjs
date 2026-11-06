@@ -3,11 +3,12 @@
 // 인터넷이나 유료 API를 쓰지 않고, 저장소 안의 파일만 읽어서
 // "지금 성장 루프 어디가 막혀 있는지"를 한 장으로 보여준다.
 //
-//   1) 업로드 대기열: 다 만들었는데 아직 'published'가 아닌 패키지
-//      - 예약 시각이 이미 지났는데 상태가 그대로면 "실제로는 공개됐는데 동기화가 안 된 것"일 가능성이 높다
-//        (knowledge/production-rules.md "업로드 후 대시보드 자동 동기화가 안 될 때" 참고)
-//   2) 발행 간격: 최근 14일/28일 공개 수, 마지막 공개 후 며칠 지났는지
-//   3) 성과 리뷰 밀린 것: 48시간 판정(evaluations-48h.json), 7일·28일 REVIEW.md 실제 칸
+// 공개 여부와 공개일은 data/youtube/catalog.json(대시보드 동기화 결과)을 기준으로 삼는다.
+// status.json은 패키지를 만들 때 적은 값이라 늦거나 틀릴 수 있다.
+//
+//   1) 업로드 대기열: 다 만들었는데 유튜브에 아직 공개되지 않은 패키지
+//   2) 발행 간격: 최근 14일/28일 롱폼·쇼츠 공개 수, 마지막 공개 후 며칠 지났는지
+//   3) 성과 리뷰 밀린 것: 7일·28일 REVIEW.md 실제 칸, 아직 판정 대기인 48시간 판정
 //
 // 숫자(조회수·CTR)는 여기서 다루지 않는다. 숫자는 반드시 대시보드 /api/sync 직후 값으로 본다.
 //
@@ -35,12 +36,13 @@ const daysSince = (iso) => Math.floor((today - new Date(iso)) / DAY);
 
 // 채널 전략: 롱폼 2일 간격(주 2~3회). CLAUDE.md "채널 핵심 성장 & 수익화 플라이휠 원칙" 3번.
 const TARGET_GAP_DAYS = 2;
-const WARN_GAP_DAYS = 4;
 
 const readJson = (path, fallback) => {
+  if (!existsSync(path)) return fallback;
   try {
-    return JSON.parse(readFileSync(path, 'utf8'));
-  } catch {
+    return JSON.parse(readFileSync(path, 'utf8').replace(/^\uFEFF/, ''));
+  } catch (err) {
+    console.error(`⚠️ ${path} 읽기 실패: ${err.message}`);
     return fallback;
   }
 };
@@ -51,8 +53,14 @@ const videosDir = join(projectDir, 'videos');
 const videoFolders = existsSync(videosDir) ? readdirSync(videosDir) : [];
 
 const evaluations = readJson(join(projectDir, 'data', 'youtube', 'evaluations-48h.json'), {evaluations: []});
-const evaluatedIds = new Set((evaluations.evaluations || []).map((e) => e.videoId).filter(Boolean));
-const evaluatedContent = new Set((evaluations.evaluations || []).map((e) => e.contentId).filter(Boolean));
+// evaluate-48h는 content/ 아래 등록된 영상만 다룬다. 항목이 없다고 밀린 게 아니므로, 판정 대기 중인 항목만 본다.
+const waiting48hIds = new Set((evaluations.evaluations || []).filter((e) => /^waiting/.test(e.decisionStatus || '')).map((e) => e.videoId));
+
+const catalog = readJson(join(projectDir, 'data', 'youtube', 'catalog.json'), {videos: []});
+const catalogVideos = catalog.videos || [];
+const catalogById = new Map(catalogVideos.map((v) => [v.videoId, v]));
+const isPublic = (v) => v?.privacyStatus === 'public';
+const formatOf = (v) => v.format || (Number(v.durationSeconds || 0) <= 60 ? 'SHORTS' : 'LONGFORM');
 
 // 패키지 폴더 이름(ep11-gonna-longform)과 제작 폴더(videos/ep11-longform-faceless)는 이름이 다를 수 있어
 // 앞의 에피소드 번호(ep11)로 짝을 찾는다.
@@ -63,16 +71,16 @@ const findVideoFolder = (pkg) => {
   return key ? videoFolders.find((v) => epKey(v) === key) : undefined;
 };
 
-// REVIEW.md의 "## 실제" 칸에 실제 숫자가 들어갔는지
-const reviewFilled = (folder) => {
-  if (!folder) return false;
-  const path = join(videosDir, folder, 'REVIEW.md');
-  if (!existsSync(path)) return false;
-  const text = readFileSync(path, 'utf8');
-  const section = text.split(/^## /m).find((s) => s.startsWith('실제'));
-  if (!section) return false;
-  const line = section.split('\n').find((l) => l.includes('조회수'));
-  return Boolean(line && /\d/.test(line.split(':').slice(1).join(':')));
+// REVIEW.md가 있는지, "## 실제" 칸이 공개 후 며칠 차까지 적혔는지.
+// "데이터 없음"은 적은 것으로 보고, "(미기록)" 같은 괄호 안내문은 안 적은 것으로 본다.
+const reviewState = (folder) => {
+  const path = folder ? join(videosDir, folder, 'REVIEW.md') : null;
+  if (!path || !existsSync(path)) return {exists: false, reviewedDays: 0};
+  const section = readFileSync(path, 'utf8').split(/^## /m).find((s) => s.startsWith('실제')) || '';
+  const field = (label) => (section.split('\n').find((l) => l.includes(label)) || '').split(':').slice(1).join(':').trim();
+  const numbers = field('조회수');
+  if (!numbers || /^\(|미기록/.test(numbers)) return {exists: true, reviewedDays: 0};
+  return {exists: true, reviewedDays: Number((field('공개 후 경과').match(/\d+/) || [])[0]) || 7};
 };
 
 const packages = (existsSync(packagesDir) ? readdirSync(packagesDir, {withFileTypes: true}) : [])
@@ -80,28 +88,32 @@ const packages = (existsSync(packagesDir) ? readdirSync(packagesDir, {withFileTy
   .map((d) => {
     const status = readJson(join(packagesDir, d.name, 'status.json'), {});
     const folder = findVideoFolder(d.name);
+    const live = catalogById.get(status.videoId);
     return {
       name: d.name,
       kind: /shorts/.test(d.name) ? '쇼츠' : '롱폼',
       status: status.status || '(없음)',
+      isPublished: isPublic(live) || status.status === 'published',
       scheduledFor: status.scheduledFor || null,
-      publishedAt: status.publishedAt || null,
+      recommendedPublishAt: status.recommendedPublishAt || null,
+      publishedAt: live?.publishedAt || status.publishedAt || null,
       videoId: status.videoId || null,
       videoFolder: folder || null,
-      has48h: evaluatedIds.has(status.videoId) || evaluatedContent.has(d.name),
-      reviewFilled: reviewFilled(folder),
+      waiting48h: waiting48hIds.has(status.videoId),
+      review: reviewState(folder),
     };
   });
 
 // ---- 1) 업로드 대기열 ------------------------------------------------------
 const backlog = packages
-  .filter((p) => p.status !== 'published')
+  .filter((p) => !p.isPublished)
   .map((p) => {
+    const planned = p.scheduledFor || p.recommendedPublishAt;
     let note;
-    if (p.scheduledFor && new Date(p.scheduledFor) < today) {
-      note = `예약 시각(${ymd(new Date(p.scheduledFor))})이 지났는데 상태가 그대로 — 실제 공개 여부 확인 후 동기화`;
-    } else if (p.scheduledFor) {
-      note = `${ymd(new Date(p.scheduledFor))} 공개 예약`;
+    if (planned && new Date(planned) < today) {
+      note = `잡아 둔 일정(${ymd(new Date(planned))})이 지났는데 아직 공개 안 됨 — 일정 다시 잡기`;
+    } else if (planned) {
+      note = `${ymd(new Date(planned))} 공개 예정`;
     } else {
       note = '공개 일정 미정';
     }
@@ -109,44 +121,52 @@ const backlog = packages
   });
 
 // ---- 2) 발행 간격 ----------------------------------------------------------
-const published = packages
-  .filter((p) => p.status === 'published' && p.publishedAt)
+const liveVideos = catalogVideos
+  .filter((v) => isPublic(v) && v.publishedAt && new Date(v.publishedAt) <= today)
   .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-const longform = published.filter((p) => p.kind === '롱폼');
-const inLast = (list, days) => list.filter((p) => daysSince(p.publishedAt) < days).length;
-const lastLong = longform[0];
-const gapDays = lastLong ? daysSince(lastLong.publishedAt) : null;
+const liveLong = liveVideos.filter((v) => formatOf(v) === 'LONGFORM');
+const liveShorts = liveVideos.filter((v) => formatOf(v) === 'SHORTS');
+const inLast = (list, days) => list.filter((v) => daysSince(v.publishedAt) < days).length;
+const lastSummary = (v) => (v ? {title: v.title, date: ymd(new Date(v.publishedAt)), gapDays: daysSince(v.publishedAt)} : null);
+const gapDays = liveLong[0] ? daysSince(liveLong[0].publishedAt) : null;
 const cadence = {
-  last14: inLast(published, 14),
-  last28: inLast(published, 28),
-  long14: inLast(longform, 14),
-  long28: inLast(longform, 28),
+  long14: inLast(liveLong, 14),
+  long28: inLast(liveLong, 28),
+  shorts14: inLast(liveShorts, 14),
+  shorts28: inLast(liveShorts, 28),
   target28: Math.floor(28 / TARGET_GAP_DAYS),
-  lastLongform: lastLong ? {name: lastLong.name, date: ymd(new Date(lastLong.publishedAt))} : null,
+  lastLongform: lastSummary(liveLong[0]),
+  lastShort: lastSummary(liveShorts[0]),
   gapDays,
   verdict:
-    gapDays === null ? '공개된 롱폼 없음' : gapDays > WARN_GAP_DAYS ? '발행 공백 — 목표 간격(2일)을 넘김' : '목표 간격 안',
+    gapDays === null ? '공개된 롱폼 없음' : gapDays > TARGET_GAP_DAYS ? '발행 공백 — 목표 간격(2일)을 넘김' : '목표 간격 안',
 };
 
 // ---- 3) 성과 리뷰 밀린 것 ---------------------------------------------------
+// REVIEW.md 작성은 EP23부터 시작했으므로, 파일이 없는 옛 영상은 밀린 일로 세지 않고 개수만 따로 알린다.
+const published = packages.filter((p) => p.isPublished && p.publishedAt && new Date(p.publishedAt) <= today);
+const noReviewFile = published.filter((p) => !p.review.exists).map((p) => p.name);
 const reviews = published.map((p) => {
   const age = daysSince(p.publishedAt);
   const due = [];
-  if (age >= 2 && !p.has48h) due.push('48시간 판정');
-  if (age >= 7 && !p.reviewFilled) due.push(age >= 28 ? '28일 리뷰' : '7일 리뷰');
+  if (age >= 2 && p.waiting48h) due.push('48시간 판정');
+  if (p.review.exists) {
+    if (age >= 28 && p.review.reviewedDays < 28) due.push('28일 리뷰');
+    else if (age >= 7 && p.review.reviewedDays < 7) due.push('7일 리뷰');
+  }
   return {name: p.name, kind: p.kind, published: ymd(new Date(p.publishedAt)), age, due, videoFolder: p.videoFolder};
 });
 const reviewsDue = reviews.filter((r) => r.due.length);
 
 // ---- 출력 -----------------------------------------------------------------
-const result = {generatedFor: ymd(today), backlog, cadence, reviewsDue, totals: {packages: packages.length, published: published.length}};
+const result = {generatedFor: ymd(today), catalogSyncedAt: catalog.syncedAt || null, backlog, cadence, reviewsDue, noReviewFile, totals: {packages: packages.length, published: published.length}};
 
 if (args.json) {
   console.log(JSON.stringify(result, null, 2));
 } else {
   const lines = [];
   lines.push(`# 성장 점검 — ${result.generatedFor}`, '');
-  lines.push('> 파일 기준 점검입니다. 조회수·CTR 같은 숫자는 대시보드 `/api/sync` 직후 값으로 따로 확인합니다.', '');
+  lines.push(`> 파일 기준 점검입니다(마지막 동기화: ${result.catalogSyncedAt ? ymd(new Date(result.catalogSyncedAt)) : '없음'}). 조회수·CTR 같은 숫자는 대시보드 \`/api/sync\` 직후 값으로 따로 확인합니다.`, '');
 
   lines.push(`## 1. 업로드 대기열 (${backlog.length}개)`, '');
   if (!backlog.length) lines.push('- 없음', '');
@@ -157,10 +177,13 @@ if (args.json) {
   }
 
   lines.push('## 2. 발행 간격', '');
-  lines.push(`- 최근 14일 공개: ${cadence.last14}개 (롱폼 ${cadence.long14}개)`);
-  lines.push(`- 최근 28일 공개: ${cadence.last28}개 (롱폼 ${cadence.long28}개, 목표 롱폼 약 ${cadence.target28}개)`);
+  lines.push(`- 최근 14일 공개: 롱폼 ${cadence.long14}개, 쇼츠 ${cadence.shorts14}개`);
+  lines.push(`- 최근 28일 공개: 롱폼 ${cadence.long28}개 (목표 약 ${cadence.target28}개), 쇼츠 ${cadence.shorts28}개`);
   if (cadence.lastLongform) {
-    lines.push(`- 마지막 롱폼 공개: ${cadence.lastLongform.date} (${cadence.lastLongform.name}), ${cadence.gapDays}일 전`);
+    lines.push(`- 마지막 롱폼 공개: ${cadence.lastLongform.date}, ${cadence.lastLongform.gapDays}일 전 (${cadence.lastLongform.title})`);
+  }
+  if (cadence.lastShort) {
+    lines.push(`- 마지막 쇼츠 공개: ${cadence.lastShort.date}, ${cadence.lastShort.gapDays}일 전 (${cadence.lastShort.title})`);
   }
   lines.push(`- 판정: ${cadence.verdict}`, '');
 
@@ -171,6 +194,7 @@ if (args.json) {
     for (const r of reviewsDue) lines.push(`| ${r.name} | ${r.published} | ${r.age}일 | ${r.due.join(', ')} |`);
     lines.push('');
   }
+  if (noReviewFile.length) lines.push(`- REVIEW.md 없는 옛 영상 ${noReviewFile.length}개는 밀린 일로 세지 않았습니다.`, '');
 
   const text = lines.join('\n');
   console.log(text);

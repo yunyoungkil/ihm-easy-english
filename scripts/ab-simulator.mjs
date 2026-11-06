@@ -795,7 +795,9 @@ export async function persistGeneratedImage({ engineLabel, dataUrl, variantKey }
 
   const mimeType = match[1];
   const ext = mimeType === 'image/png' ? 'png' : mimeType === 'image/jpeg' ? 'jpg' : 'svg';
-  const filename = `${variantKey}-${Date.now()}-${randomBytes(3).toString('hex')}.${ext}`;
+  // variantKey는 요청 본문에서 그대로 오므로, 경로 문자(../ 등)를 지워 저장 폴더 밖으로 못 나가게 한다.
+  const safeKey = String(variantKey ?? 'A').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40) || 'A';
+  const filename = `${safeKey}-${Date.now()}-${randomBytes(3).toString('hex')}.${ext}`;
 
   try {
     await mkdir(tempThumbDir, { recursive: true });

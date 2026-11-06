@@ -150,9 +150,20 @@ function chunk(arr, size) {
   return out;
 }
 
-// ISO 8601 duration ("PT4M13S") → seconds. 이 프로젝트의 기존 관례
-// (youtube-analytics-server.mjs의 durationSeconds/creatorContentType)와 동일하게
-// 60초 이하를 쇼츠로 판정한다 — 다른 곳과 기준을 다르게 두지 않기 위함.
+// 유튜브가 채널마다 자동으로 두는 쇼츠 전용 재생목록(UC…→UUSH…)의 최근 영상. 쇼츠는 최대 3분이라
+// 길이만으로는 61~180초 쇼츠를 못 가려낸다(youtube-analytics-server.mjs의 getChannelShortsIds와 같은 기준).
+// 쇼츠가 없는 채널은 재생목록이 없어 실패하므로 빈 목록으로 본다. 호출당 1 unit.
+async function fetchRecentShortsIds(channelId) {
+  if (!channelId?.startsWith("UC")) return new Set();
+  try {
+    const data = await apiGet("playlistItems", { playlistId: `UUSH${channelId.slice(2)}`, part: "contentDetails", maxResults: "50" });
+    return new Set((data.items ?? []).map((i) => i.contentDetails?.videoId).filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
+// ISO 8601 duration ("PT4M13S") → seconds.
 function durationSecondsFromIso(iso) {
   const match = String(iso || '').match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
   if (!match) return null;
@@ -260,6 +271,7 @@ async function analyzeChannel(rawInput) {
     throw new Error(`"${channelTitle}" 채널에 분석할 영상이 없습니다.`);
   }
 
+  const shortsIds = await fetchRecentShortsIds(channelId);
   const MS_PER_DAY = 86_400_000;
   const now = Date.now();
   const rows = [];
@@ -279,7 +291,7 @@ async function analyzeChannel(rawInput) {
         ageDays: ageDays ? Math.round(ageDays) : null,
         viewsPerDay,
         durationSeconds,
-        isShort: durationSeconds != null ? durationSeconds <= 60 : null,
+        isShort: durationSeconds != null ? durationSeconds <= 60 || shortsIds.has(item.id) : null,
       });
     }
   }
@@ -464,6 +476,8 @@ async function main() {
     for (const id of candidateByChannel.get(channelId)?.videoIds ?? []) allVideoIds.add(id);
     for (const id of baselineVideoIds.get(channelId) ?? []) allVideoIds.add(id);
   }
+  const shortsIdsByChannel = new Map();
+  for (const [channelId] of smallChannels) shortsIdsByChannel.set(channelId, await fetchRecentShortsIds(channelId));
   const MS_PER_DAY = 86_400_000;
   const now = Date.now();
   const videoStats = new Map(); // videoId -> { viewCount, viewsPerDay, channelId, title, publishedAt, durationSeconds, isShort }
@@ -484,7 +498,7 @@ async function main() {
         title: item.snippet?.title,
         publishedAt,
         durationSeconds,
-        isShort: durationSeconds != null ? durationSeconds <= 60 : null,
+        isShort: durationSeconds != null ? durationSeconds <= 60 || Boolean(shortsIdsByChannel.get(item.snippet?.channelId)?.has(item.id)) : null,
       });
     }
   }

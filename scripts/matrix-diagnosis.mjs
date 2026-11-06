@@ -35,9 +35,11 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
 
     // 3. Format Validation (Duration & Role Check)
     const durationSec = Number(v.durationSeconds || perf.durationSeconds || 0);
-    const isShort = (v.format === 'SHORTS') || 
-                    (durationSec > 0 && durationSec <= 60) || 
-                    ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role);
+    const titleHasShortsTag = /#(shorts|쇼츠)/i.test(v.title || '');
+    const isShort = v.format ? v.format === 'SHORTS' :
+                    (durationSec > 0 && durationSec <= 60) ||
+                    ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role) ||
+                    titleHasShortsTag;
 
     const views = Number(perf.views || v.statistics?.viewCount || 0);
     const subscribersGained = Number(perf.subscribersGained || 0);
@@ -95,7 +97,8 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
     const now = new Date();
     const ageHours = pubDate ? (now.getTime() - pubDate.getTime()) / (1000 * 60 * 60) : 999;
     const is48hWarmup = ageHours >= 0 && ageHours < 48;
-    const hasStatisticalSignificance = hasRealCtr && !is48hWarmup && impressions >= minImpressions && views >= minViews;
+    // 시청 데이터가 없는 영상은 시청률 0%로 계산돼 "초반 이탈"로 잘못 진단되므로 사분면을 확정하지 않는다.
+    const hasStatisticalSignificance = hasRealCtr && hasValidRetention && !is48hWarmup && impressions >= minImpressions && views >= minViews;
 
     videoItems.push({
       videoId,

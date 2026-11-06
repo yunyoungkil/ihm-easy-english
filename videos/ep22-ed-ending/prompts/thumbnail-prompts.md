@@ -1,106 +1,91 @@
-# EP22 (-ED 과거형 끝소리 3가지 규칙) 썸네일 생성 프롬프트 (4종 세트)
+# EP22 (-ED 과거형 끝소리 3가지 규칙) 썸네일 생성 프롬프트 (아바타 전면 제외 · 단어 인포그래픽 포스터형)
 
 - **에피소드 ID**: `ep22-ed-ending`
-- **주제**: 영어 과거형 -ED 끝소리 3가지 규칙 ([t] / [d] / [ɪd]) 30분 집중 반복 듣기 드릴
-- **메인 채택**: **A안** (`[30분 듣기] Wanted, Walked, Played — 끝소리 3개가 다 다릅니다 | 영어 과거형 -ED 발음 규칙`)
-- **디자인 스타일**: 웜크림 네오브루탈리즘 (단색 웜크림 배경, 플랫 화이트 앵커 텍스트, 골드 알약 캡슐, 채널 공식 아바타)
+- **주제**: 영어 과거형 -ED 끝소리 3가지 규칙 ([t] / [d] / [ɪd]) 8분 집중 청취
+- **메인 채택**: **Variant C** (`[집중 듣기] 영어 과거형 끝소리 3가지 비밀, 원리 하나로 귀가 뚫립니다 | -ED 발음 규칙`)
+- **디자인 시스템**: 네오브루탈리즘 포스터 (웜크림 배경, 플랫 화이트 앵커 텍스트, 골드 알약 캡슐, **아바타 캐릭터 전면 배제**, 3단 소리 서랍/단어 카드)
 
 ---
 
-## 1. Variant A (메인 채택 · 바스트샷 와이드)
+## 1. Variant C (메인 채택 · 3단 소리 서랍 인포그래픽 · thumbnail.jpg & thumbnail-variant-c.jpg)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "영어 과거형 -ED 끝소리 3가지 규칙 30분 듣기 드릴". This must match the channel's established house style exactly — do not invent a different look.
+A high-CTR, high-clarity YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "영어 과거형 -ED 끝소리 3가지 비밀". Pure typographic/infographic poster style matching the channel's neo-brutalist house style. STRICTLY NO HUMAN AVATAR, NO PEOPLE.
 
 === TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[30분 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "-ED" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "다 '드'로 읽으셨죠?" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark, no UI mockup text.
+- Category Pill (top-left): "[집중 듣기]" in a compact dark navy pill with bold white lettering.
+- Anchor line: "-ED" — massive, on its own line, crisp flat white lettering with heavy black neo-brutalist outline.
+- Pill phrase: "소리가 3개였네!" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and heavy black border.
 
-=== BACKGROUND ===
-Plain, evenly and softly lit seamless single warm cream/beige backdrop (#F7F4EE) across the ENTIRE frame. No chalkboard, no desk, no room interior, no decorative items.
+=== RIGHT-SIDE VISUAL (Instead of human avatar, render a clean 3-tier sound infographic card) ===
+On the right half of the frame, render a vertical 3-drawer sound infographic stack with crisp rounded white cards, heavy black borders, and slight drop shadows:
+1. Top card: "① [t] 틱!" with a bright coral-red accent tag (#DC2626) and small text "walked, stopped"
+2. Middle card: "② [d] 드!" with a sky-blue accent tag (#2563EB) and small text "played, loved"
+3. Bottom card: "③ [ɪd] 이디!" with an emerald-green accent tag (#059669) and small text "wanted, started"
 
-=== HERO ===
-The exact same Korean male presenter shown in reference image (public/brand/thumbnail-presenter-reference.jpg) — same facial identity and features. Dressed in the EXACT SAME signature uniform: navy baseball cap and black t-shirt, each printed with the colorful vertical-bar sound-wave icon.
-Hero sits to the right side at a medium-close waist-up distance. The hero makes a puzzled-but-amused "뭔가 들켰다" expression (eyebrows slightly raised, smirk, one hand half-raised as if caught mid-habit), looking toward the text. Empty negative space separates the hero from the text block.
+=== BACKGROUND & COMPOSITION ===
+Plain, evenly and softly lit seamless single warm cream/beige backdrop (#F7F4EE) across the ENTIRE frame. Left side contains the Category Pill, massive "-ED" anchor, and gold pill. Right side contains the 3-drawer infographic stack. Perfectly balanced negative space.
 
 === TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif font with sharp infographic clarity.
-NEGATIVE: Do NOT put the anchor line inside a colored box. Do NOT add neon glow, 3D metallic extrusion, sparkles, drop shadows, or circuit lines. No watermark, no AI logos.
+Bold heavy sans-serif typography with thick black borders.
+NEGATIVE: NO HUMAN, no face, no avatar, no person, no character, no watermark, no AI logo, no sparkles, no 3D chrome, no neon glow, no messy textures.
 ```
 
 ---
 
-## 2. Variant A 모바일 전용 클로즈업 (thumbnail-close-up.jpg)
+## 2. Variant C 모바일 전용 초직관형 (thumbnail-close-up.jpg)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "영어 과거형 -ED 발음 규칙". Mobile extreme close-up variant.
+A high-CTR, ultra-bold mobile-optimized YouTube thumbnail for "영어 과거형 -ED 끝소리 3가지 비밀", 16:9 horizontal. Designed to be 100% legible even when shrunken to 100px width on mobile feeds. STRICTLY NO HUMAN, NO AVATAR.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[30분 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "-ED" — massive, on its own line, crisp white flat lettering with heavy black outline.
-- Pill phrase: "다 '드'로 읽으셨죠?" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+=== TEXT CONTENT ===
+- Top-left: "[집중 듣기]" dark navy pill.
+- Massive Anchor: "-ED" filling the upper left with bold black stroke.
+- Massive Gold Pill: "소리가 3개였네!" in thick bold black font inside #F5C518 yellow pill.
+- Right visual: A bold, high-contrast visual badge showing "[t] · [d] · [ɪd]" with 3 colored circular indicators (Red, Blue, Green) that pop with extreme clarity.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame. No props, no set dressing.
-
-=== HERO (MOBILE CLOSE-UP) ===
-The exact same Korean male presenter from reference image (navy cap and black t-shirt with sound-wave icon).
-Camera distance: Extreme close-up where the hero's face and upper shoulders fill 40-50% of the frame width on the right side. Sharp focus on eyes and facial expression. A dramatic, instantly readable "들켰다!" reaction readable even when shrunk to 100px in a mobile feed.
-
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No watermark, no AI logos.
+=== BACKGROUND & NEGATIVE ===
+Seamless warm cream backdrop (#F7F4EE). High contrast, bold neo-brutalist styling.
+NEGATIVE: NO PEOPLE, no human, no face, no watermark, no AI logos.
 ```
 
 ---
 
-## 3. Variant B (대조군 · 손실회피/실수경고형, thumbnail-b.jpg)
+## 3. Variant A (대조군 · 단어 3색 대비 카드 · thumbnail-variant-a.jpg)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "원어민은 -ED를 절대 '드'로 안 읽습니다". This must match the channel's established house style exactly.
+A high-CTR YouTube thumbnail for "영어 과거형 -ED 끝소리 3가지 규칙", 16:9 horizontal. Neo-brutalist word-card poster style. STRICTLY NO HUMAN.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[실수 주의]" in a compact dark navy pill with white text.
-- Anchor line: "-ED" — massive, on its own line, crisp flat white lettering with heavy black outline.
-- Pill phrase: "저만 몰랐다고요?" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+=== TEXT CONTENT ===
+- Top-left: "[소리 연습]" dark navy pill.
+- Anchor line: "-ED" massive white lettering with black outline.
+- Pill phrase: "다 '드'로 읽으셨죠?" inside #F5C518 gold pill.
+- Right visual: 3 stacked word cards with contrasting endings:
+  - "walked ➔ [t]" (Red)
+  - "played ➔ [d]" (Blue)
+  - "wanted ➔ [ɪd]" (Green)
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame. No props, no extra scene.
-
-=== HERO ===
-The exact same Korean male presenter from reference image (navy cap and black t-shirt with sound-wave icon).
-Hero is on the right side, raising both hands near his head in a genuine shocked/stunned "Wait, really?!" expression (wide eyes, mouth slightly open in disbelief). Hero looks toward the text. Empty negative space between hero and text.
-
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No watermark, no AI logos.
+=== BACKGROUND & NEGATIVE ===
+Seamless warm cream backdrop (#F7F4EE).
+NEGATIVE: NO HUMAN, no face, no watermark, no AI logos.
 ```
 
 ---
 
-## 4. Variant C (대조군 · 원리/성취형, thumbnail-c.jpg)
+## 4. Variant B (대조군 · 실수경고/손실회피형 · thumbnail-variant-b.jpg)
 
 ```text
-A high-CTR, photorealistic YouTube thumbnail for Korean English-pronunciation education channel '이해하면 쉬운영어' (target: 3060 adult learners), 16:9 horizontal, on the topic "영어 과거형 끝소리 3가지 비밀". This must match the channel's established house style exactly.
+A high-CTR YouTube thumbnail for "영어 과거형 -ED 발음 실수", 16:9 horizontal. STRICTLY NO HUMAN.
 
-=== TEXT CONTENT (render each quoted string below exactly character-for-character) ===
-- Category Pill (top-left): "[30분 듣기]" in a compact dark navy pill with white text.
-- Anchor line: "-ED" — massive, on its own line, crisp flat white lettering with heavy black outline.
-- Pill phrase: "3가지 소리였습니다" — rendered entirely inside one solid warm-yellow (#F5C518) rounded pill shape with bold black lettering and black outline.
-Do not render any extra text, no channel name, no logo watermark.
+=== TEXT CONTENT ===
+- Top-left: "[실수 주의]" dark navy pill.
+- Anchor line: "-ED" massive white lettering with black outline.
+- Pill phrase: "저만 몰랐다고요?" inside #F5C518 gold pill.
+- Right visual: Shock contrast box showing:
+  - "walked = 워크드? ❌"
+  - "walked = 웍트! ⭕" with bright green stamp.
 
-=== BACKGROUND ===
-Plain seamless single warm cream/beige backdrop across the entire frame.
-
-=== HERO ===
-The exact same Korean male presenter from reference image (navy cap and black t-shirt with sound-wave icon).
-Hero is on the right side, placing one index finger near his lips in a playful "secret-sharing" gesture ("shh", warm knowing smile, confident nod), eyes directed toward the text block.
-
-=== TYPOGRAPHY & NEGATIVE ===
-Bold heavy sans-serif typography with thick black borders.
-NEGATIVE: No neon, no glow, no 3D chrome, no complex background patterns. No watermark, no AI logos.
+=== BACKGROUND & NEGATIVE ===
+Seamless warm cream backdrop (#F7F4EE).
+NEGATIVE: NO HUMAN, no face, no watermark, no AI logos.
 ```

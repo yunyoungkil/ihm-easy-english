@@ -9,4 +9,4 @@
 - 카테고리: 교육 (Education)
 - 재생목록: [이해하면 쉬운영어] 30분 집중 듣기 드릴 정주행
 - 최종 태그: 15개 키워드 탑재 완료
-- 자막: 한국어 오디오 내장 + Whisper 타임라인 완비
+- 자막: 한국어 자막(subtitles/subtitles-ko.srt, subtitles/subtitles-ko.vtt) 업로드 준비 완료 (116개 큐)

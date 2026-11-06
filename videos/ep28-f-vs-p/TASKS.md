@@ -31,17 +31,15 @@
   - [x] 자동 무결점 검수 (`npx hyperframes check videos/ep28-f-vs-p`) -> 린터/런타임/레이아웃/모션/대비 52/52 WCAG AA 100% 통과 완료
 - **현재 상태 및 후속 절차 (2026-10-10)**:
   - [x] 사용자 화면 및 타임라인 검수 완료
-  - [x] 타 PC 렌더링 전환 (사용자 명시 지시: "렌더는 다른 PC에서 할 거야")
-  - [x] 유튜브 업로드 원클릭 패키지 빌드 100% 완료 (`output/upload-packages/ep28-f-vs-p/`)
+  - [x] 렌더링 시작 승인 확인 후 로컬 렌더링 완료 (14분 44.6초 소요, 12,469 프레임 100% 무결점 완료)
+    - 결과 비디오: `output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4` (30.1 MB, 6분 55.6초)
+  - [x] 유튜브 업로드 원클릭 패키지 빌드 및 검수 100% 완료 (`output/upload-packages/ep28-f-vs-p/`)
     - `title.txt` / `title-variants.txt`: 메인 및 A/B 테스트 4종 제목
     - `timeline.txt`: 10개 프레임 + 10초 엔드스크린 타임라인 (00:00~06:45)
     - `description.txt`: 핵심 조음 물리법칙 정리, 학습 팁, 다음 추천 영상 링크, 해시태그
     - `pinned-comment.txt`: 시청자 완주 축하 및 헷갈리는 단어 반응 유도 고정 댓글
     - `tags.txt`: 19개 핵심 SEO 검색 태그 (500자 최적화)
-    - `status.json` / `upload-checklist.txt`: 메타데이터 및 업로드 검수 가이드
+    - `status.json` (`ready_to_upload`) / `upload-checklist.txt`: 메타데이터 및 업로드 검수 가이드
     - `index.html`: 원클릭 클립보드 복사 대시보드 페이지
-- **다른 PC에서 실행할 렌더링 명령어**:
-  ```bash
-  npx hyperframes render videos/ep28-f-vs-p --output=output/upload-packages/ep28-f-vs-p/English_Pronunciation_F_vs_P_Minimal_Pairs_Listening_Drill.mp4
-  ```
+  - [x] 유튜브 Studio 업로드 대기 상태 완료 (권장 예약일: 2026-10-12 23:00 KST)
 

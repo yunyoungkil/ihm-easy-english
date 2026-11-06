@@ -141,5 +141,12 @@
    - 사용자 명시적 승인 후 `npx hyperframes render videos/ep22-ed-ending` 실행 (15,087 프레임 전량 캡처, 8분 22.9초 / 502.87s, 28.2MB, 무결점 완료).
    - `prompts/thumbnail-prompts.md` 기반 썸네일 4종 고화질 생성 완료 (A안 와이드, 모바일 클로즈업, B안, C안 — Zero Watermark 검수 100% 통과).
    - `output/upload-packages/ep22-ed-ending/`에 영상(`English_Pronunciation_Past_Tense_ED_Ending_3_Rules_Listening_Drill.mp4`), 썸네일 4종, 메타데이터(제목, 챕터 타임라인, 설명란, 고정댓글, 태그, 체크리스트, status.json, 원클릭 index.html) 완비 완료 (`status: "ready_to_upload"`).
+9. **한국어 자막(.srt / .vtt) 생성 및 패키지 연동 완료 (2026-10-16)**:
+   - Whisper 실측 타임스탬프 기반 전체 116개 큐 한국어 자막 생성 완료:
+     - `output/upload-packages/ep22-ed-ending/subtitles/subtitles-ko.srt`
+     - `output/upload-packages/ep22-ed-ending/subtitles/subtitles-ko.vtt`
+     - `output/upload-packages/ep22-ed-ending/subtitles-ko.srt`
+   - 원클릭 업로드 대시보드(`index.html`)에 자막 다운로드 카드 연동 완료.
+   - `status.json` 및 `upload-checklist.txt` 자막 항목 갱신 완료.
 
 

@@ -20,6 +20,7 @@
 import {existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {loadPublishRules} from './youtube-publisher.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const args = Object.fromEntries(
@@ -34,8 +35,22 @@ const today = args.today ? new Date(`${args.today}T23:59:59+09:00`) : new Date()
 const ymd = (d) => new Date(d.getTime() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10); // KST
 const daysSince = (iso) => Math.floor((today - new Date(iso)) / DAY);
 
-// 채널 전략: 롱폼 2일 간격(주 2~3회). CLAUDE.md "채널 핵심 성장 & 수익화 플라이휠 원칙" 3번.
-const TARGET_GAP_DAYS = 2;
+// 발행 간격 기준은 대시보드 자동 예약 규칙과 같은 값을 쓴다(2026-11-06 사용자 결정: 월·목 주 2회).
+// 대시보드에서 바꾼 값(data/youtube/publish-rules.json)이 있으면 그걸, 없으면 youtube-publisher.mjs 기본값을 읽는다.
+const publishRules = await loadPublishRules(join(projectDir, 'data', 'youtube', 'publish-rules.json'));
+const DAY_NAMES = ['일', '월', '화', '수', '목', '금', '토'];
+const allowedDays = [...new Set(publishRules.allowedDaysOfWeek || [])].sort((a, b) => a - b);
+const usesWeekdays = publishRules.scheduleMode === 'daysOfWeek' && allowedDays.length > 0;
+// 요일 방식이면 허용 요일 사이 가장 긴 간격(월·목이면 목→월 4일)을, 아니면 최소 간격 일수를 공백 기준으로 쓴다.
+const TARGET_GAP_DAYS = usesWeekdays
+  ? Math.max(...allowedDays.map((d, i) => (i + 1 < allowedDays.length ? allowedDays[i + 1] - d : 7 - d + allowedDays[0])))
+  : Number(publishRules.minIntervalDays) || 3;
+const PER_WEEK = usesWeekdays
+  ? Math.min(allowedDays.length, Number(publishRules.maxUploadsPerWeek) || allowedDays.length)
+  : Number(publishRules.maxUploadsPerWeek) || Math.floor(7 / TARGET_GAP_DAYS);
+const RULE_LABEL = usesWeekdays
+  ? `${allowedDays.map((d) => DAY_NAMES[d]).join('·')} 주 ${PER_WEEK}회`
+  : `${TARGET_GAP_DAYS}일 간격`;
 
 const readJson = (path, fallback) => {
   if (!existsSync(path)) return fallback;
@@ -134,12 +149,18 @@ const cadence = {
   long28: inLast(liveLong, 28),
   shorts14: inLast(liveShorts, 14),
   shorts28: inLast(liveShorts, 28),
-  target28: Math.floor(28 / TARGET_GAP_DAYS),
+  target28: PER_WEEK * 4,
+  rule: RULE_LABEL,
+  maxGapDays: TARGET_GAP_DAYS,
   lastLongform: lastSummary(liveLong[0]),
   lastShort: lastSummary(liveShorts[0]),
   gapDays,
   verdict:
-    gapDays === null ? '공개된 롱폼 없음' : gapDays > TARGET_GAP_DAYS ? '발행 공백 — 목표 간격(2일)을 넘김' : '목표 간격 안',
+    gapDays === null
+      ? '공개된 롱폼 없음'
+      : gapDays > TARGET_GAP_DAYS
+        ? `발행 공백 — 공개 규칙(${RULE_LABEL}, 최대 ${TARGET_GAP_DAYS}일 간격)을 넘김`
+        : `공개 규칙(${RULE_LABEL}) 안`,
 };
 
 // ---- 3) 성과 리뷰 밀린 것 ---------------------------------------------------
@@ -178,7 +199,7 @@ if (args.json) {
 
   lines.push('## 2. 발행 간격', '');
   lines.push(`- 최근 14일 공개: 롱폼 ${cadence.long14}개, 쇼츠 ${cadence.shorts14}개`);
-  lines.push(`- 최근 28일 공개: 롱폼 ${cadence.long28}개 (목표 약 ${cadence.target28}개), 쇼츠 ${cadence.shorts28}개`);
+  lines.push(`- 최근 28일 공개: 롱폼 ${cadence.long28}개 (목표 약 ${cadence.target28}개, ${cadence.rule}), 쇼츠 ${cadence.shorts28}개`);
   if (cadence.lastLongform) {
     lines.push(`- 마지막 롱폼 공개: ${cadence.lastLongform.date}, ${cadence.lastLongform.gapDays}일 전 (${cadence.lastLongform.title})`);
   }

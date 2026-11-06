@@ -1,0 +1,177 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.25; z-index: 1; filter: saturate(1.1);
+    transform: scale(1.05); transform-origin: center center;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 86cqw; z-index: 5;
+  }
+  .dialogue-card {
+    background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 5cqh 4cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 2.2cqh;
+  }
+  .tag-pill {
+    display: inline-block; background: #FAF7F2; border: 2px solid #111111;
+    padding: 0.5cqh 1.8cqw; border-radius: 999px; font-size: 1.25cqw; font-weight: 900; color: #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .sentence-en {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.5cqw; line-height: 1.35;
+    color: #111111;
+  }
+  .hl-b {
+    color: #DC2626; border-bottom: 5px solid #DC2626; padding-bottom: 2px;
+    display: inline-block; background: #FEE2E2; padding-left: 8px; padding-right: 8px; border-radius: 8px;
+    transform-origin: center bottom;
+  }
+  .hl-v {
+    color: #2563EB; border-bottom: 5px solid #2563EB; padding-bottom: 2px;
+    display: inline-block; background: #DBEAFE; padding-left: 8px; padding-right: 8px; border-radius: 8px;
+    transform-origin: center bottom;
+  }
+  .sentence-kr {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563;
+  }
+  .syl-tip-box {
+    background: #FAF7F2; border: 2.5px solid #111111; box-shadow: 3px 3px 0px #111111;
+    border-radius: 14px; padding: 1cqh 2.4cqw; font-size: 1.4cqw; font-weight: 900;
+    color: #111111; margin-top: 0.5cqh; white-space: nowrap;
+  }
+</style>
+<div data-hf-id="hf-ytef" id="root" data-composition-id="07-dialogue" data-width="1920" data-height="1080">
+  <video data-hf-id="hf-agz8" id="bgVideoF07" class="bg-video" src="assets/videos/f07_cafe_ambience.mp4" autoplay loop muted data-start="0" data-duration="27.93" data-hf-media-start-basis="local" data-layout-allow-overflow=""></video>
+
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-wq1j">💬 실전 회화 문맥 속 B vs V 청취 훈련 (7문장 집중 훈련)</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-b74b" class="dialogue-card" id="dialCard">
+      <div data-hf-id="hf-mhhh" id="dialTag" class="tag-pill">best [b] vs vest [v]</div>
+      <div data-hf-id="hf-yeez" id="dialEn" class="sentence-en">Is this the best vest you have?</div>
+      <div data-hf-id="hf-ewvc" id="dialKr" class="sentence-kr">이게 당신이 가진 가장 좋은 조끼인가요?</div>
+      <div data-hf-id="hf-fd7o" id="dialSylTip" class="syl-tip-box">💡 best (두 입술 팡 터짐) vs vest (윗니 진동 마찰)</div>
+    </div>
+  </div>
+
+  <audio data-hf-id="hf-6y79" id="dia_01" src="assets/voice/dial_01.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="2.66"></audio>
+  <audio data-hf-id="hf-exiq" id="dia_02" src="assets/voice/dial_02.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.36" data-duration="2.98"></audio>
+  <audio data-hf-id="hf-23ce" id="dia_03" src="assets/voice/dial_03.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.54" data-duration="2.34"></audio>
+  <audio data-hf-id="hf-nu5a" id="dia_04" src="assets/voice/dial_04.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.08" data-duration="2.05"></audio>
+  <audio data-hf-id="hf-yig0" id="dia_05" src="assets/voice/dial_05.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.33" data-duration="2.66"></audio>
+  <audio data-hf-id="hf-wvfg" id="dia_06" src="assets/voice/dial_06.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.19" data-duration="2.86"></audio>
+  <audio data-hf-id="hf-93t3" id="dia_07" src="assets/voice/dial_07.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.25" data-duration="2.98"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var dialTag = document.getElementById("dialTag");
+    var dialEn = document.getElementById("dialEn");
+    var dialKr = document.getElementById("dialKr");
+    var dialSylTip = document.getElementById("dialSylTip");
+    var dialCard = document.getElementById("dialCard");
+
+    function showDialogue(d) {
+      dialTag.textContent = d.pairBadge;
+      dialEn.innerHTML = d.enHtml;
+      dialKr.textContent = d.kr;
+      dialSylTip.textContent = d.sylTip;
+      gsap.fromTo(dialCard, { scale: 0.96 }, { scale: 1, duration: 0.3, ease: "back.out(1.5)" });
+    }
+
+    function bounceWord(targetId) {
+      var el = document.getElementById(targetId);
+      if (el) {
+        gsap.fromTo(el, { scale: 1.2, y: -4 }, { scale: 1, y: 0, duration: 0.35, ease: "elastic.out(1.2, 0.4)" });
+      }
+    }
+
+  tl.call(function() {
+    showDialogue({"id":"01","en":"Is this the best vest you have?","enHtml":"Is this the <span class=\"hl-b\" id=\"dw_best\">best</span> <span class=\"hl-v\" id=\"dw_vest\">vest</span> you have?","kr":"이게 당신이 가진 가장 좋은 조끼인가요?","pairBadge":"best [b] vs vest [v]","sylTip":"💡 best (두 입술 팡 터짐) vs vest (윗니 진동 마찰)","audio":"dial_01","targets":[{"word":"best","id":"dw_best"},{"word":"vest","id":"dw_vest"}]});
+  }, null, 0.50);
+  tl.call(function() {
+    bounceWord("dw_best");
+  }, null, 1.90);
+  tl.call(function() {
+    bounceWord("dw_vest");
+  }, null, 2.33);
+  tl.call(function() {
+    showDialogue({"id":"02","en":"Yes, you can take the van without a ban.","enHtml":"Yes, you can take the <span class=\"hl-v\" id=\"dw_van\">van</span> without a <span class=\"hl-b\" id=\"dw_ban\">ban</span>.","kr":"네, 금지 조치 없이 그 승합차를 타실 수 있습니다.","pairBadge":"van [v] vs ban [b]","sylTip":"💡 van (윗니 진동 마찰) vs ban (두 입술 팡 터짐)","audio":"dial_02","targets":[{"word":"van","id":"dw_van"},{"word":"ban","id":"dw_ban"}]});
+  }, null, 4.36);
+  tl.call(function() {
+    bounceWord("dw_van");
+  }, null, 5.98);
+  tl.call(function() {
+    bounceWord("dw_ban");
+  }, null, 6.95);
+  tl.call(function() {
+    showDialogue({"id":"03","en":"I like this berry very much.","enHtml":"I like this <span class=\"hl-b\" id=\"dw_berry\">berry</span> <span class=\"hl-v\" id=\"dw_very\">very</span> much.","kr":"나는 이 베리를 매우 좋아해요.","pairBadge":"berry [b] vs very [v]","sylTip":"💡 berry (두 입술 팡 터짐) vs very (윗니 진동 마찰)","audio":"dial_03","targets":[{"word":"berry","id":"dw_berry"},{"word":"very","id":"dw_very"}]});
+  }, null, 8.54);
+  tl.call(function() {
+    bounceWord("dw_berry");
+  }, null, 9.57);
+  tl.call(function() {
+    bounceWord("dw_very");
+  }, null, 10.02);
+  tl.call(function() {
+    showDialogue({"id":"04","en":"Did you take the boat to cast your vote?","enHtml":"Did you take the <span class=\"hl-b\" id=\"dw_boat\">boat</span> to cast your <span class=\"hl-v\" id=\"dw_vote\">vote</span>?","kr":"투표하기 위해 배를 타셨나요?","pairBadge":"boat [b] vs vote [v]","sylTip":"💡 boat (두 입술 팡 터짐) vs vote (윗니 진동 마찰)","audio":"dial_04","targets":[{"word":"boat","id":"dw_boat"},{"word":"vote","id":"dw_vote"}]});
+  }, null, 12.08);
+  tl.call(function() {
+    bounceWord("dw_boat");
+  }, null, 13.04);
+  tl.call(function() {
+    bounceWord("dw_vote");
+  }, null, 13.96);
+  tl.call(function() {
+    showDialogue({"id":"05","en":"Put the flower in a base or a vase?","enHtml":"Put the flower in a <span class=\"hl-b\" id=\"dw_base\">base</span> or a <span class=\"hl-v\" id=\"dw_vase\">vase</span>?","kr":"꽃을 받침대에 꽂을까요, 아니면 꽃병에 꽂을까요?","pairBadge":"base [b] vs vase [v]","sylTip":"💡 base (두 입술 팡 터짐) vs vase (윗니 진동 마찰)","audio":"dial_05","targets":[{"word":"base","id":"dw_base"},{"word":"vase","id":"dw_vase"}]});
+  }, null, 15.33);
+  tl.call(function() {
+    bounceWord("dw_base");
+  }, null, 16.91);
+  tl.call(function() {
+    bounceWord("dw_vase");
+  }, null, 17.64);
+  tl.call(function() {
+    showDialogue({"id":"06","en":"Check the bolt and the high volt line.","enHtml":"Check the <span class=\"hl-b\" id=\"dw_bolt\">bolt</span> and the high <span class=\"hl-v\" id=\"dw_volt\">volt</span> line.","kr":"볼트 빗장과 고전압 전선을 확인하세요.","pairBadge":"bolt [b] vs volt [v]","sylTip":"💡 bolt (두 입술 팡 터짐) vs volt (윗니 진동 마찰)","audio":"dial_06","targets":[{"word":"bolt","id":"dw_bolt"},{"word":"volt","id":"dw_volt"}]});
+  }, null, 19.19);
+  tl.call(function() {
+    bounceWord("dw_bolt");
+  }, null, 20.06);
+  tl.call(function() {
+    bounceWord("dw_volt");
+  }, null, 21.39);
+  tl.call(function() {
+    showDialogue({"id":"07","en":"She made a solemn vow with a gentle bow.","enHtml":"She made a solemn <span class=\"hl-v\" id=\"dw_vow\">vow</span> with a gentle <span class=\"hl-b\" id=\"dw_bow\">bow</span>.","kr":"그녀는 정중한 인사와 함께 엄숙한 맹세를 했다.","pairBadge":"vow [v] vs bow [b]","sylTip":"💡 vow (윗니 진동 마찰) vs bow (두 입술 팡 터짐)","audio":"dial_07","targets":[{"word":"vow","id":"dw_vow"},{"word":"bow","id":"dw_bow"}]});
+  }, null, 23.25);
+  tl.call(function() {
+    bounceWord("dw_vow");
+  }, null, 24.72);
+  tl.call(function() {
+    bounceWord("dw_bow");
+  }, null, 26.07);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["07-dialogue"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

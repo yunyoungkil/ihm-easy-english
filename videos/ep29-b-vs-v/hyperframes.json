@@ -1,0 +1,59 @@
+{
+  "name": "ep29-b-vs-v",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "output": "out/ep29-b-vs-v.mp4",
+  "frames": [
+    {
+      "id": "01-hook",
+      "src": "compositions/frames/01-hook.html",
+      "duration": 821
+    },
+    {
+      "id": "02-principle",
+      "src": "compositions/frames/02-principle.html",
+      "duration": 994
+    },
+    {
+      "id": "03-drill1",
+      "src": "compositions/frames/03-drill1.html",
+      "duration": 1535
+    },
+    {
+      "id": "04-drill2",
+      "src": "compositions/frames/04-drill2.html",
+      "duration": 1495
+    },
+    {
+      "id": "05-drill3",
+      "src": "compositions/frames/05-drill3.html",
+      "duration": 1467
+    },
+    {
+      "id": "06-drill4",
+      "src": "compositions/frames/06-drill4.html",
+      "duration": 1444
+    },
+    {
+      "id": "07-dialogue",
+      "src": "compositions/frames/07-dialogue.html",
+      "duration": 838
+    },
+    {
+      "id": "08-quiz",
+      "src": "compositions/frames/08-quiz.html",
+      "duration": 1106
+    },
+    {
+      "id": "09-summary",
+      "src": "compositions/frames/09-summary.html",
+      "duration": 605
+    },
+    {
+      "id": "10-encore",
+      "src": "compositions/frames/10-encore.html",
+      "duration": 2072
+    }
+  ]
+}

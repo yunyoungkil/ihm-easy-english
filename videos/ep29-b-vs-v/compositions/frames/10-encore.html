@@ -1,0 +1,442 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 84cqw; display: flex; flex-direction: column; align-items: center; gap: 2cqh; z-index: 5;
+  }
+  .encore-counter {
+    font-size: 1.3cqw; font-weight: 900; color: #4B5563; background: #FFFFFF;
+    padding: 0.4cqh 1.6cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .cards-wrapper {
+    display: flex; gap: 3.2cqw; width: 100%; align-items: stretch;
+  }
+  .encore-card {
+    flex: 1; background: #FFFFFF; border: 4px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 26px; padding: 4.5cqh 2.5cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .card-b { border-color: #EF4444; }
+  .card-v { border-color: #3B82F6; }
+  .card-b.active {
+    background: #FFF5F5; box-shadow: 10px 10px 0px #EF4444;
+  }
+  .card-v.active {
+    background: #F0F7FF; box-shadow: 10px 10px 0px #3B82F6;
+  }
+  .encore-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.2cqw; line-height: 1.0;
+    letter-spacing: -0.02em; white-space: nowrap; color: #111111;
+  }
+  .target-phoneme {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .phoneme-b { color: #DC2626; border-color: #DC2626; }
+  .phoneme-v { color: #2563EB; border-color: #2563EB; }
+  .encore-ipa {
+    font-size: 2.1cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .encore-kr {
+    font-size: 2.5cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .end-overlay {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    background: #F7F4EE; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3.5cqh;
+    opacity: 0; z-index: 20; pointer-events: none;
+  }
+  .end-title {
+    font-family: 'Archivo Black', sans-serif; font-size: 3.6cqw; color: #111111; text-align: center;
+  }
+  .end-sub {
+    font-size: 1.8cqw; font-weight: 800; color: #4B5563; text-align: center;
+  }
+  .end-boxes {
+    display: flex; gap: 3cqw; margin-top: 2cqh;
+  }
+  .end-box {
+    width: 32cqw; height: 30cqh; background: #FFFFFF; border: 4px solid #111111;
+    box-shadow: 6px 6px 0px #111111; border-radius: 20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2cqh;
+    text-align: center; padding: 2cqh 2cqw;
+  }
+  .end-box-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.4cqh 1.2cqw; font-size: 1.1cqw; font-weight: 900;
+  }
+  .end-box-title {
+    font-size: 1.5cqw; font-weight: 900; color: #111111;
+  }
+  audio { display: none; }
+</style>
+<div data-hf-id="hf-f3wd" id="root" data-composition-id="10-encore" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-k35q">🎧 24쌍 무한 앵콜 총복습 (오직 귀로만 듣고 0.1초 만에 구별해 보세요!)</span>
+  </div>
+
+  <div data-hf-id="hf-v5ai" class="stage" id="encoreStage">
+    <div data-hf-id="hf-qcwu" id="encoreCounter" class="encore-counter">앵콜 1 / 24</div>
+
+    <div data-hf-id="hf-nqoz" class="cards-wrapper">
+      <div data-hf-id="hf-edya" class="encore-card card-b" id="encB">
+        <div data-hf-id="hf-lct7" id="encWordB" class="encore-word"><span data-hf-id="hf-qi0u" class="target-phoneme phoneme-b">b</span>est</div>
+        <div data-hf-id="hf-pp4d" id="encIpaB" class="encore-ipa">베스트 [bɛst]</div>
+        <div data-hf-id="hf-skf6" id="encKrB" class="encore-kr">최고의 / 가장 좋은</div>
+      </div>
+
+      <div data-hf-id="hf-9m7e" class="encore-card card-v" id="encV">
+        <div data-hf-id="hf-bzfb" id="encWordV" class="encore-word"><span data-hf-id="hf-w4vy" class="target-phoneme phoneme-v">v</span>est</div>
+        <div data-hf-id="hf-co6l" id="encIpaV" class="encore-ipa">베스트 [vɛst]</div>
+        <div data-hf-id="hf-bfdb" id="encKrV" class="encore-kr">조끼</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Screen Elements Overlay (10s) -->
+  <div data-hf-id="hf-h1vz" class="end-overlay" id="endOverlay">
+    <div data-hf-id="hf-x7sx" class="end-title">매일 10분, 귀가 뚫리는 쉬운 영어</div>
+    <div data-hf-id="hf-7okd" class="end-sub">구독과 좋아요를 누르시면 다음 발음 훈련 영상을 놓치지 않습니다!</div>
+    <div data-hf-id="hf-edx3" class="end-boxes">
+      <div data-hf-id="hf-pgw3" class="end-box">
+        <div data-hf-id="hf-alsp" class="end-box-badge">추천 영상</div>
+        <div data-hf-id="hf-4mp0" class="end-box-title">EP28: F vs P 0.1초 조음 물리법칙 [f] vs [p]</div>
+      </div>
+      <div data-hf-id="hf-o18j" class="end-box">
+        <div data-hf-id="hf-0rgv" class="end-box-badge" style="background:#2563EB;">구독하기</div>
+        <div data-hf-id="hf-uv8u" class="end-box-title">이해하면 쉬운영어 채널 구독하고 실력 완성하기</div>
+      </div>
+    </div>
+  </div>
+
+  <audio data-hf-id="hf-0qiv" id="en_b_0" src="assets/voice/m_w01_best.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="1.05"></audio>
+  <audio data-hf-id="hf-kthd" id="en_v_0" src="assets/voice/m_w02_vest.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="1.85" data-duration="0.88"></audio>
+  <audio data-hf-id="hf-s16m" id="en_b_1" src="assets/voice/f_w03_ban.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="3.33" data-duration="0.82"></audio>
+  <audio data-hf-id="hf-kraz" id="en_v_1" src="assets/voice/f_w04_van.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="4.45" data-duration="0.82"></audio>
+  <audio data-hf-id="hf-h73t" id="en_b_2" src="assets/voice/m_w05_berry.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.87" data-duration="0.92"></audio>
+  <audio data-hf-id="hf-x35u" id="en_v_2" src="assets/voice/m_w06_very.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="7.09" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-4ksc" id="en_b_3" src="assets/voice/f_w07_bat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="8.50" data-duration="0.80"></audio>
+  <audio data-hf-id="hf-2cd1" id="en_v_3" src="assets/voice/f_w08_vat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.60" data-duration="0.79"></audio>
+  <audio data-hf-id="hf-vm75" id="en_b_4" src="assets/voice/m_w09_bet.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="10.99" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-rdkl" id="en_v_4" src="assets/voice/m_w10_vet.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="12.07" data-duration="0.73"></audio>
+  <audio data-hf-id="hf-h5uo" id="en_b_5" src="assets/voice/f_w11_boat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="13.40" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-a5qb" id="en_v_5" src="assets/voice/f_w12_vote.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.44" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-s51q" id="en_b_6" src="assets/voice/m_w13_base.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="15.81" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-4ce6" id="en_v_6" src="assets/voice/m_w14_vase.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="16.92" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-f4pf" id="en_b_7" src="assets/voice/f_w15_bile.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.33" data-duration="0.83"></audio>
+  <audio data-hf-id="hf-pc12" id="en_v_7" src="assets/voice/f_w16_vile.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="19.46" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-c45u" id="en_b_8" src="assets/voice/m_w17_bolt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="20.83" data-duration="0.69"></audio>
+  <audio data-hf-id="hf-fhqe" id="en_v_8" src="assets/voice/m_w18_volt.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="21.82" data-duration="0.73"></audio>
+  <audio data-hf-id="hf-7gev" id="en_b_9" src="assets/voice/f_w19_bow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.15" data-duration="0.83"></audio>
+  <audio data-hf-id="hf-erg7" id="en_v_9" src="assets/voice/f_w20_vow.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="24.28" data-duration="0.79"></audio>
+  <audio data-hf-id="hf-jjft" id="en_b_10" src="assets/voice/m_w21_bale.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="25.67" data-duration="0.80"></audio>
+  <audio data-hf-id="hf-exxy" id="en_v_10" src="assets/voice/m_w22_veil.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="26.77" data-duration="0.73"></audio>
+  <audio data-hf-id="hf-35kb" id="en_b_11" src="assets/voice/f_w23_bane.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="28.10" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-2of3" id="en_v_11" src="assets/voice/f_w24_vane.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="29.18" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-4kr1" id="en_b_12" src="assets/voice/m_w25_bicker.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="30.59" data-duration="0.76"></audio>
+  <audio data-hf-id="hf-v2h3" id="en_v_12" src="assets/voice/m_w26_vicker.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.65" data-duration="0.73"></audio>
+  <audio data-hf-id="hf-peh6" id="en_b_13" src="assets/voice/f_w27_bind.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="32.98" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-4b4d" id="en_v_13" src="assets/voice/f_w28_vine.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="34.05" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-j5rk" id="en_b_14" src="assets/voice/m_w29_bribe.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="35.43" data-duration="0.84"></audio>
+  <audio data-hf-id="hf-55xb" id="en_v_14" src="assets/voice/m_w30_vibe.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="36.57" data-duration="0.70"></audio>
+  <audio data-hf-id="hf-fwin" id="en_b_15" src="assets/voice/f_w31_curb.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="37.87" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-zsav" id="en_v_15" src="assets/voice/f_w32_curve.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="38.94" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-sqzj" id="en_b_16" src="assets/voice/m_w33_rib.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="40.35" data-duration="0.73"></audio>
+  <audio data-hf-id="hf-yy3f" id="en_v_16" src="assets/voice/m_w34_rive.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="41.38" data-duration="0.73"></audio>
+  <audio data-hf-id="hf-err0" id="en_b_17" src="assets/voice/f_w35_lobe.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="42.71" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-0b1n" id="en_v_17" src="assets/voice/f_w36_love.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="43.78" data-duration="0.68"></audio>
+  <audio data-hf-id="hf-tj32" id="en_b_18" src="assets/voice/m_w37_cab.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="45.06" data-duration="0.76"></audio>
+  <audio data-hf-id="hf-2934" id="en_v_18" src="assets/voice/m_w38_calve.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="46.12" data-duration="0.70"></audio>
+  <audio data-hf-id="hf-xuaw" id="en_b_19" src="assets/voice/f_w39_dub.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="47.42" data-duration="0.71"></audio>
+  <audio data-hf-id="hf-5kx9" id="en_v_19" src="assets/voice/f_w40_dove.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="48.43" data-duration="0.64"></audio>
+  <audio data-hf-id="hf-hjj4" id="en_b_20" src="assets/voice/m_w41_rob.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="49.67" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-nomk" id="en_v_20" src="assets/voice/m_w42_rove.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="50.75" data-duration="0.79"></audio>
+  <audio data-hf-id="hf-v1s0" id="en_b_21" src="assets/voice/f_w43_marble.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="52.14" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-qiz8" id="en_v_21" src="assets/voice/f_w44_marvel.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="53.22" data-duration="0.77"></audio>
+  <audio data-hf-id="hf-g0ns" id="en_b_22" src="assets/voice/m_w45_habit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="54.59" data-duration="0.67"></audio>
+  <audio data-hf-id="hf-w2u6" id="en_v_22" src="assets/voice/m_w46_have_it.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="55.56" data-duration="0.64"></audio>
+  <audio data-hf-id="hf-qncg" id="en_b_23" src="assets/voice/f_w47_ribbon.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="56.80" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-j7rv" id="en_v_23" src="assets/voice/f_w48_riven.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="57.84" data-duration="0.64"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var encoreCounter = document.getElementById("encoreCounter");
+    var encB = document.getElementById("encB");
+    var encV = document.getElementById("encV");
+    var encWordB = document.getElementById("encWordB");
+    var encIpaB = document.getElementById("encIpaB");
+    var encKrB = document.getElementById("encKrB");
+    var encWordV = document.getElementById("encWordV");
+    var encIpaV = document.getElementById("encIpaV");
+    var encKrV = document.getElementById("encKrV");
+
+    function showEncorePair(pair, idx, total) {
+      encoreCounter.textContent = "앵콜 " + idx + " / " + total;
+      encWordB.innerHTML = pair.b.formatted;
+      encIpaB.textContent = pair.b.krSyl + " " + pair.b.ipa;
+      encKrB.textContent = pair.b.kr;
+
+      encWordV.innerHTML = pair.v.formatted;
+      encIpaV.textContent = pair.v.krSyl + " " + pair.v.ipa;
+      encKrV.textContent = pair.v.kr;
+
+      encB.classList.remove("active");
+      encV.classList.remove("active");
+      gsap.fromTo([encB, encV], { scale: 0.96 }, { scale: 1, duration: 0.2, stagger: 0.05, ease: "back.out(1.5)" });
+    }
+
+    function highlightEncore(side) {
+      if (side === "b") {
+        encB.classList.add("active");
+        encV.classList.remove("active");
+        gsap.fromTo(encWordB, { scale: 1.08 }, { scale: 1, duration: 0.18, ease: "power1.out" });
+      } else {
+        encV.classList.add("active");
+        encB.classList.remove("active");
+        gsap.fromTo(encWordV, { scale: 1.08 }, { scale: 1, duration: 0.18, ease: "power1.out" });
+      }
+    }
+
+  tl.call(function() {
+    showEncorePair({"id":"p01","group":"g1","b":{"id":"w01","word":"best","syl":"best","krSyl":"베스트","ipa":"[bɛst]","kr":"최고의 / 가장 좋은","m":"m_w01_best","f":"f_w01_best","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>est"},"v":{"id":"w02","word":"vest","syl":"vest","krSyl":"베스트","ipa":"[vɛst]","kr":"조끼","m":"m_w02_vest","f":"f_w02_vest","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>est"},"tip":"두 입술 터짐 best vs 윗니 물고 진동 vest"}, 1, 24);
+  }, null, 0.50);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 0.50);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 1.85);
+  tl.call(function() {
+    showEncorePair({"id":"p02","group":"g1","b":{"id":"w03","word":"ban","syl":"ban","krSyl":"밴","ipa":"[bæn]","kr":"금지하다 / 금지령","m":"m_w03_ban","f":"f_w03_ban","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>an"},"v":{"id":"w04","word":"van","syl":"van","krSyl":"밴","ipa":"[væn]","kr":"승합차 / 밴","m":"m_w04_van","f":"f_w04_van","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>an"},"tip":"두 입술 터짐 ban vs 윗니 물고 진동 van"}, 2, 24);
+  }, null, 3.33);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 3.33);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 4.45);
+  tl.call(function() {
+    showEncorePair({"id":"p03","group":"g1","b":{"id":"w05","word":"ber · ry","syl":"ber · ry","krSyl":"베리","ipa":"[ˈbɛri]","kr":"딸기류 열매","m":"m_w05_berry","f":"f_w05_berry","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>er · ry"},"v":{"id":"w06","word":"ve · ry","syl":"ve · ry","krSyl":"베리","ipa":"[ˈvɛri]","kr":"매우 / 대단히","m":"m_w06_very","f":"f_w06_very","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>e · ry"},"tip":"★ 최다 혼동 주의! 딸기 ber·ry vs 매우 ve·ry"}, 3, 24);
+  }, null, 5.87);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 5.87);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 7.09);
+  tl.call(function() {
+    showEncorePair({"id":"p04","group":"g1","b":{"id":"w07","word":"bat","syl":"bat","krSyl":"배트","ipa":"[bæt]","kr":"야구방망이 / 박쥐","m":"m_w07_bat","f":"f_w07_bat","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>at"},"v":{"id":"w08","word":"vat","syl":"vat","krSyl":"배트","ipa":"[væt]","kr":"대형 통 / 수조","m":"m_w08_vat","f":"f_w08_vat","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>at"},"tip":"두 입술 터짐 bat vs 윗니 물고 진동 vat"}, 4, 24);
+  }, null, 8.50);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 8.50);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 9.60);
+  tl.call(function() {
+    showEncorePair({"id":"p05","group":"g1","b":{"id":"w09","word":"bet","syl":"bet","krSyl":"베트","ipa":"[bɛt]","kr":"내기하다 / 장담하다","m":"m_w09_bet","f":"f_w09_bet","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>et"},"v":{"id":"w10","word":"vet","syl":"vet","krSyl":"베트","ipa":"[vɛt]","kr":"수의사","m":"m_w10_vet","f":"f_w10_vet","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>et"},"tip":"두 입술 터짐 bet vs 윗니 물고 진동 vet"}, 5, 24);
+  }, null, 10.99);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 10.99);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 12.07);
+  tl.call(function() {
+    showEncorePair({"id":"p06","group":"g1","b":{"id":"w11","word":"boat","syl":"boat","krSyl":"보트","ipa":"[boʊt]","kr":"배 / 보트","m":"m_w11_boat","f":"f_w11_boat","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>oat"},"v":{"id":"w12","word":"vote","syl":"vote","krSyl":"보트","ipa":"[voʊt]","kr":"투표하다 / 투표","m":"m_w12_vote","f":"f_w12_vote","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ote"},"tip":"두 입술 터짐 boat vs 윗니 물고 진동 vote"}, 6, 24);
+  }, null, 13.40);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 13.40);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 14.44);
+  tl.call(function() {
+    showEncorePair({"id":"p07","group":"g2","b":{"id":"w13","word":"base","syl":"base","krSyl":"베이스","ipa":"[beɪs]","kr":"기초 / 토대 / 받침","m":"m_w13_base","f":"f_w13_base","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ase"},"v":{"id":"w14","word":"vase","syl":"vase","krSyl":"베이스","ipa":"[veɪs]","kr":"꽃병 / 화병","m":"m_w14_vase","f":"f_w14_vase","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ase"},"tip":"두 입술 터짐 base vs 윗니 물고 진동 vase"}, 7, 24);
+  }, null, 15.81);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 15.81);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 16.92);
+  tl.call(function() {
+    showEncorePair({"id":"p08","group":"g2","b":{"id":"w15","word":"bile","syl":"bile","krSyl":"바일","ipa":"[baɪl]","kr":"담즙 / 분노","m":"m_w15_bile","f":"f_w15_bile","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ile"},"v":{"id":"w16","word":"vile","syl":"vile","krSyl":"바일","ipa":"[vaɪl]","kr":"사악한 / 비열한","m":"m_w16_vile","f":"f_w16_vile","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ile"},"tip":"두 입술 터짐 bile vs 윗니 물고 진동 vile"}, 8, 24);
+  }, null, 18.33);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 18.33);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 19.46);
+  tl.call(function() {
+    showEncorePair({"id":"p09","group":"g2","b":{"id":"w17","word":"bolt","syl":"bolt","krSyl":"볼트","ipa":"[boʊlt]","kr":"빗장 / 볼트 / 번개","m":"m_w17_bolt","f":"f_w17_bolt","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>olt"},"v":{"id":"w18","word":"volt","syl":"volt","krSyl":"볼트","ipa":"[voʊlt]","kr":"전압 단위 (볼트)","m":"m_w18_volt","f":"f_w18_volt","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>olt"},"tip":"두 입술 터짐 bolt vs 윗니 물고 진동 volt"}, 9, 24);
+  }, null, 20.83);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 20.83);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 21.82);
+  tl.call(function() {
+    showEncorePair({"id":"p10","group":"g2","b":{"id":"w19","word":"bow","syl":"bow","krSyl":"바우","ipa":"[baʊ]","kr":"고개 숙여 인사하다","m":"m_w19_bow","f":"f_w19_bow","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ow"},"v":{"id":"w20","word":"vow","syl":"vow","krSyl":"바우","ipa":"[vaʊ]","kr":"맹세하다 / 서약","m":"m_w20_vow","f":"f_w20_vow","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ow"},"tip":"두 입술 터짐 bow vs 윗니 물고 진동 vow"}, 10, 24);
+  }, null, 23.15);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 23.15);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 24.28);
+  tl.call(function() {
+    showEncorePair({"id":"p11","group":"g2","b":{"id":"w21","word":"bale","syl":"bale","krSyl":"베일","ipa":"[beɪl]","kr":"짚더미 / 보석금","m":"m_w21_bale","f":"f_w21_bale","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ale"},"v":{"id":"w22","word":"veil","syl":"veil","krSyl":"베일","ipa":"[veɪl]","kr":"면사포 / 베일","m":"m_w22_veil","f":"f_w22_veil","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>eil"},"tip":"두 입술 터짐 bale vs 윗니 물고 진동 veil"}, 11, 24);
+  }, null, 25.67);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 25.67);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 26.77);
+  tl.call(function() {
+    showEncorePair({"id":"p12","group":"g2","b":{"id":"w23","word":"bane","syl":"bane","krSyl":"베인","ipa":"[beɪn]","kr":"골칫거리 / 파멸의 원인","m":"m_w23_bane","f":"f_w23_bane","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ane"},"v":{"id":"w24","word":"vane","syl":"vane","krSyl":"베인","ipa":"[veɪn]","kr":"풍향계 / 날개","m":"m_w24_vane","f":"f_w24_vane","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ane"},"tip":"두 입술 터짐 bane vs 윗니 물고 진동 vane"}, 12, 24);
+  }, null, 28.10);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 28.10);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 29.18);
+  tl.call(function() {
+    showEncorePair({"id":"p13","group":"g3","b":{"id":"w25","word":"bick · er","syl":"bick · er","krSyl":"비커","ipa":"[ˈbɪkər]","kr":"말다툼하다","m":"m_w25_bicker","f":"f_w25_bicker","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ick · er"},"v":{"id":"w26","word":"vick · er","syl":"vick · er","krSyl":"비커","ipa":"[ˈvɪkər]","kr":"보좌목사 / 성직자","m":"m_w26_vicker","f":"f_w26_vicker","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ick · er"},"tip":"두 입술 100% bick·er vs 윗니 100% vick·er"}, 13, 24);
+  }, null, 30.59);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 30.59);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 31.65);
+  tl.call(function() {
+    showEncorePair({"id":"p14","group":"g3","b":{"id":"w27","word":"bind","syl":"bind","krSyl":"바인드","ipa":"[baɪnd]","kr":"묶다 / 결속하다","m":"m_w27_bind","f":"f_w27_bind","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ind"},"v":{"id":"w28","word":"vine","syl":"vine","krSyl":"바인","ipa":"[vaɪn]","kr":"포도나무 / 덩굴","m":"m_w28_vine","f":"f_w28_vine","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ine"},"tip":"두 입술 터짐 bind vs 윗니 물고 진동 vine"}, 14, 24);
+  }, null, 32.98);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 32.98);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 34.05);
+  tl.call(function() {
+    showEncorePair({"id":"p15","group":"g3","b":{"id":"w29","word":"bribe","syl":"bribe","krSyl":"브라이브","ipa":"[braɪb]","kr":"뇌물을 주다","m":"m_w29_bribe","f":"f_w29_bribe","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>ri<span class=\"target-phoneme phoneme-b\">b</span>e"},"v":{"id":"w30","word":"vibe","syl":"vibe","krSyl":"바이브","ipa":"[vaɪb]","kr":"분위기 / 느낌","m":"m_w30_vibe","f":"f_w30_vibe","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ibe"},"tip":"두 입술 bribe vs 윗니 vibe"}, 15, 24);
+  }, null, 35.43);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 35.43);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 36.57);
+  tl.call(function() {
+    showEncorePair({"id":"p16","group":"g3","b":{"id":"w31","word":"curb","syl":"curb","krSyl":"커브","ipa":"[kɜːrb]","kr":"도로 턱 / 억제하다","m":"m_w31_curb","f":"f_w31_curb","formatted":"cur<span class=\"target-phoneme phoneme-b\">b</span>"},"v":{"id":"w32","word":"curve","syl":"curve","krSyl":"커브","ipa":"[kɜːrv]","kr":"곡선 / 굽이지다","m":"m_w32_curve","f":"f_w32_curve","formatted":"cur<span class=\"target-phoneme phoneme-v\">v</span>e"},"tip":"★ 최다 혼동 주의! 도로 턱 curb vs 곡선 curve"}, 16, 24);
+  }, null, 37.87);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 37.87);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 38.94);
+  tl.call(function() {
+    showEncorePair({"id":"p17","group":"g3","b":{"id":"w33","word":"rib","syl":"rib","krSyl":"립","ipa":"[rɪb]","kr":"갈비뼈 / 갈비","m":"m_w33_rib","f":"f_w33_rib","formatted":"ri<span class=\"target-phoneme phoneme-b\">b</span>"},"v":{"id":"w34","word":"rive","syl":"rive","krSyl":"라이브","ipa":"[raɪv]","kr":"쪼개다 / 찢다","m":"m_w34_rive","f":"f_w34_rive","formatted":"ri<span class=\"target-phoneme phoneme-v\">v</span>e"},"tip":"두 입술 닫힘 rib vs 윗니 물기 rive"}, 17, 24);
+  }, null, 40.35);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 40.35);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 41.38);
+  tl.call(function() {
+    showEncorePair({"id":"p18","group":"g3","b":{"id":"w35","word":"lobe","syl":"lobe","krSyl":"로브","ipa":"[loʊb]","kr":"귓불 / 엽","m":"m_w35_lobe","f":"f_w35_lobe","formatted":"lo<span class=\"target-phoneme phoneme-b\">b</span>e"},"v":{"id":"w36","word":"love","syl":"love","krSyl":"러브","ipa":"[lʌv]","kr":"사랑하다 / 사랑","m":"m_w36_love","f":"f_w36_love","formatted":"lo<span class=\"target-phoneme phoneme-v\">v</span>e"},"tip":"두 입술 닫힘 lobe vs 윗니 물기 love"}, 18, 24);
+  }, null, 42.71);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 42.71);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 43.78);
+  tl.call(function() {
+    showEncorePair({"id":"p19","group":"g4","b":{"id":"w37","word":"cab","syl":"cab","krSyl":"캡","ipa":"[kæb]","kr":"택시","m":"m_w37_cab","f":"f_w37_cab","formatted":"ca<span class=\"target-phoneme phoneme-b\">b</span>"},"v":{"id":"w38","word":"calve","syl":"calve","krSyl":"캐브","ipa":"[kæv]","kr":"새끼를 낳다","m":"m_w38_calve","f":"f_w38_calve","formatted":"cal<span class=\"target-phoneme phoneme-v\">v</span>e"},"tip":"끝소리 입술 닫힘 cab vs 윗니 진동 calve"}, 19, 24);
+  }, null, 45.06);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 45.06);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 46.12);
+  tl.call(function() {
+    showEncorePair({"id":"p20","group":"g4","b":{"id":"w39","word":"dub","syl":"dub","krSyl":"덥","ipa":"[dʌb]","kr":"별명을 붙이다 / 더빙하다","m":"m_w39_dub","f":"f_w39_dub","formatted":"du<span class=\"target-phoneme phoneme-b\">b</span>"},"v":{"id":"w40","word":"dove","syl":"dove","krSyl":"더브","ipa":"[dʌv]","kr":"비둘기","m":"m_w40_dove","f":"f_w40_dove","formatted":"do<span class=\"target-phoneme phoneme-v\">v</span>e"},"tip":"끝소리 입술 닫힘 dub vs 윗니 진동 dove"}, 20, 24);
+  }, null, 47.42);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 47.42);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 48.43);
+  tl.call(function() {
+    showEncorePair({"id":"p21","group":"g4","b":{"id":"w41","word":"rob","syl":"rob","krSyl":"랍","ipa":"[rɑːb]","kr":"털다 / 강탈하다","m":"m_w41_rob","f":"f_w41_rob","formatted":"ro<span class=\"target-phoneme phoneme-b\">b</span>"},"v":{"id":"w42","word":"rove","syl":"rove","krSyl":"로우브","ipa":"[roʊv]","kr":"방랑하다 / 헤매다","m":"m_w42_rove","f":"f_w42_rove","formatted":"ro<span class=\"target-phoneme phoneme-v\">v</span>e"},"tip":"끝소리 입술 닫힘 rob vs 윗니 진동 rove"}, 21, 24);
+  }, null, 49.67);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 49.67);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 50.75);
+  tl.call(function() {
+    showEncorePair({"id":"p22","group":"g4","b":{"id":"w43","word":"mar · ble","syl":"mar · ble","krSyl":"마블","ipa":"[ˈmɑːrbl]","kr":"대리석 / 구슬","m":"m_w43_marble","f":"f_w43_marble","formatted":"mar · <span class=\"target-phoneme phoneme-b\">b</span>le"},"v":{"id":"w44","word":"mar · vel","syl":"mar · vel","krSyl":"마블","ipa":"[ˈmɑːrvl]","kr":"경이로움 / 감탄하다","m":"m_w44_marvel","f":"f_w44_marvel","formatted":"mar · <span class=\"target-phoneme phoneme-v\">v</span>el"},"tip":"두 입술 100% mar·ble vs 윗니 100% mar·vel"}, 22, 24);
+  }, null, 52.14);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 52.14);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 53.22);
+  tl.call(function() {
+    showEncorePair({"id":"p23","group":"g4","b":{"id":"w45","word":"hab · it","syl":"hab · it","krSyl":"해빗","ipa":"[ˈhæbɪt]","kr":"습관 / 버릇","m":"m_w45_habit","f":"f_w45_habit","formatted":"ha<span class=\"target-phoneme phoneme-b\">b</span> · it"},"v":{"id":"w46","word":"have it","syl":"have it","krSyl":"해빗","ipa":"[hæv ɪt]","kr":"그것을 가지다","m":"m_w46_have_it","f":"f_w46_have_it","formatted":"ha<span class=\"target-phoneme phoneme-v\">v</span>e it"},"tip":"두 입술 hab·it vs 윗니 물기 have it"}, 23, 24);
+  }, null, 54.59);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 54.59);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 55.56);
+  tl.call(function() {
+    showEncorePair({"id":"p24","group":"g4","b":{"id":"w47","word":"rib · bon","syl":"rib · bon","krSyl":"리본","ipa":"[ˈrɪbən]","kr":"리본 / 띠","m":"m_w47_ribbon","f":"f_w47_ribbon","formatted":"ri<span class=\"target-phoneme phoneme-b\">b</span> · <span class=\"target-phoneme phoneme-b\">b</span>on"},"v":{"id":"w48","word":"riv · en","syl":"riv · en","krSyl":"리븐","ipa":"[ˈrɪvn]","kr":"찢겨진 / 갈라진","m":"m_w48_riven","f":"f_w48_riven","formatted":"ri<span class=\"target-phoneme phoneme-v\">v</span> · en"},"tip":"두 입술 rib·bon vs 윗니 물기 riv·en"}, 24, 24);
+  }, null, 56.80);
+  tl.call(function() {
+    highlightEncore("b");
+  }, null, 56.80);
+  tl.call(function() {
+    highlightEncore("v");
+  }, null, 57.84);
+  tl.to("#encoreStage", { opacity: 0, duration: 0.4 }, 59.08);
+  tl.to("#endOverlay", { opacity: 1, duration: 0.5 }, 59.08);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-encore"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

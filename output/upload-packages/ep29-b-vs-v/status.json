@@ -1,0 +1,14 @@
+{
+  "status": "ready_to_upload",
+  "episodeId": "ep29-b-vs-v",
+  "title": "원어민이 B와 V를 0.1초 만에 구별하는 법 | B vs V 24쌍 반복 듣기",
+  "recommendedPublishAt": "2026-10-15T14:00:00Z",
+  "videoFile": "English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4",
+  "durationSeconds": 412.59,
+  "durationFormatted": "6분 53초",
+  "endScreenDuration": "10초 (402.59s ~ 412.59s)",
+  "thumbnailsCount": 4,
+  "renderCommand": "npx hyperframes render videos/ep29-b-vs-v --output=output/upload-packages/ep29-b-vs-v/English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4",
+  "generatedAt": "2026-10-12T10:29:18.341Z",
+  "lastSyncedAt": "2026-11-06T08:04:41.086Z"
+}

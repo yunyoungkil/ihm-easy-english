@@ -1,0 +1,142 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 4.8cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.8cqh 2.2cqw; font-size: 1.25cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .stage {
+    position: absolute; left: 50%; top: 49%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .summary-col {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 3cqh 2.2cqw; display: flex; flex-direction: column; gap: 1.5cqh;
+  }
+  .col-b { border-color: #EF4444; }
+  .col-v { border-color: #3B82F6; }
+  .col-header {
+    display: flex; justify-content: space-between; align-items: center; padding-bottom: 1cqh;
+    border-bottom: 2px dashed #E5E7EB;
+  }
+  .col-title {
+    font-size: 1.6cqw; font-weight: 900; white-space: nowrap;
+  }
+  .col-badge {
+    font-size: 1.05cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .badge-b { background: #FEE2E2; color: #DC2626; }
+  .badge-v { background: #DBEAFE; color: #2563EB; }
+  .words-list {
+    display: flex; flex-direction: column; gap: 1cqh;
+  }
+  .word-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 12px;
+    padding: 0.8cqh 1.4cqw;
+  }
+  .word-name {
+    font-family: 'Archivo Black', sans-serif; font-size: 1.6cqw; color: #111111; white-space: nowrap;
+  }
+  .target-phoneme {
+    display: inline-block; border-bottom: 3px solid; padding-bottom: 1px;
+  }
+  .phoneme-b { color: #DC2626; border-color: #DC2626; }
+  .phoneme-v { color: #2563EB; border-color: #2563EB; }
+  .syl-tag {
+    font-size: 1.1cqw; font-weight: 800; white-space: nowrap;
+  }
+  .tag-b { color: #DC2626; }
+  .tag-v { color: #2563EB; }
+  .caption-pill {
+    position: absolute; bottom: 3.5cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1cqh 2.4cqw; font-size: 1.5cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-a8wd" id="root" data-composition-id="09-summary" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-dpyd">📋 B vs V 0.1초 소리 구별 요약표 (캡처해서 보관하세요!)</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <!-- Col B -->
+    <div data-hf-id="hf-uvl2" class="summary-col col-b">
+      <div data-hf-id="hf-hzcg" class="col-header">
+        <span data-hf-id="hf-grfb" class="col-title" style="color:#DC2626;">[b] 윗니 0% 두 입술 터짐</span>
+        <span data-hf-id="hf-e7o4" class="col-badge badge-b">파열 폭발음</span>
+      </div>
+      <div data-hf-id="hf-e2f8" class="words-list">
+        <div data-hf-id="hf-wkvr" class="word-row"><span data-hf-id="hf-x8bp" class="word-name"><span data-hf-id="hf-qi0u" class="target-phoneme phoneme-b">b</span>est</span><span data-hf-id="hf-hxdb" class="syl-tag tag-b">[베스트] 최고</span></div>
+        <div data-hf-id="hf-aq47" class="word-row"><span data-hf-id="hf-7imw" class="word-name"><span data-hf-id="hf-lp5u" class="target-phoneme phoneme-b">b</span>an</span><span data-hf-id="hf-0k5f" class="syl-tag tag-b">[밴] 금지</span></div>
+        <div data-hf-id="hf-abt6" class="word-row"><span data-hf-id="hf-58nu" class="word-name"><span data-hf-id="hf-m3gv" class="target-phoneme phoneme-b">b</span>er · ry</span><span data-hf-id="hf-6cb9" class="syl-tag tag-b">[베리] 딸기류</span></div>
+        <div data-hf-id="hf-9xi5" class="word-row"><span data-hf-id="hf-zjox" class="word-name"><span data-hf-id="hf-mhrw" class="target-phoneme phoneme-b">b</span>oat</span><span data-hf-id="hf-ufzh" class="syl-tag tag-b">[보트] 배</span></div>
+        <div data-hf-id="hf-cpnc" class="word-row"><span data-hf-id="hf-rx3y" class="word-name"><span data-hf-id="hf-mw2x" class="target-phoneme phoneme-b">b</span>ase</span><span data-hf-id="hf-ftuf" class="syl-tag tag-b">[베이스] 기초</span></div>
+        <div data-hf-id="hf-cbcb" class="word-row"><span data-hf-id="hf-u0x3" class="word-name">cur<span data-hf-id="hf-nady" class="target-phoneme phoneme-b">b</span></span><span data-hf-id="hf-2rfc" class="syl-tag tag-b">[커브] 도로 턱</span></div>
+        <div data-hf-id="hf-bx1a" class="word-row"><span data-hf-id="hf-qxrz" class="word-name">mar · <span data-hf-id="hf-nooz" class="target-phoneme phoneme-b">b</span>le</span><span data-hf-id="hf-8uy2" class="syl-tag tag-b">[마블] 대리석</span></div>
+      </div>
+    </div>
+
+    <!-- Col V -->
+    <div data-hf-id="hf-skdu" class="summary-col col-v">
+      <div data-hf-id="hf-g2dk" class="col-header">
+        <span data-hf-id="hf-4mqv" class="col-title" style="color:#2563EB;">[v] 윗니 100% 윗니 물고 진동</span>
+        <span data-hf-id="hf-vl7p" class="col-badge badge-v">성대 진동 마찰음</span>
+      </div>
+      <div data-hf-id="hf-40zg" class="words-list">
+        <div data-hf-id="hf-biq9" class="word-row"><span data-hf-id="hf-7cft" class="word-name"><span data-hf-id="hf-w4vy" class="target-phoneme phoneme-v">v</span>est</span><span data-hf-id="hf-wpsj" class="syl-tag tag-v">[베스트] 조끼</span></div>
+        <div data-hf-id="hf-eavg" class="word-row"><span data-hf-id="hf-yxdc" class="word-name"><span data-hf-id="hf-shia" class="target-phoneme phoneme-v">v</span>an</span><span data-hf-id="hf-phsz" class="syl-tag tag-v">[밴] 승합차</span></div>
+        <div data-hf-id="hf-dwkf" class="word-row"><span data-hf-id="hf-g5pk" class="word-name"><span data-hf-id="hf-svtb" class="target-phoneme phoneme-v">v</span>e · ry</span><span data-hf-id="hf-rmiv" class="syl-tag tag-v">[베리] 매우</span></div>
+        <div data-hf-id="hf-9ked" class="word-row"><span data-hf-id="hf-2fbj" class="word-name"><span data-hf-id="hf-ta4c" class="target-phoneme phoneme-v">v</span>ote</span><span data-hf-id="hf-35tn" class="syl-tag tag-v">[보트] 투표</span></div>
+        <div data-hf-id="hf-9ype" class="word-row"><span data-hf-id="hf-z9s2" class="word-name"><span data-hf-id="hf-tofd" class="target-phoneme phoneme-v">v</span>ase</span><span data-hf-id="hf-g08z" class="syl-tag tag-v">[베이스] 꽃병</span></div>
+        <div data-hf-id="hf-ad0f" class="word-row"><span data-hf-id="hf-j6jq" class="word-name">cur<span data-hf-id="hf-u2qe" class="target-phoneme phoneme-v">v</span>e</span><span data-hf-id="hf-vwmm" class="syl-tag tag-v">[커브] 곡선</span></div>
+        <div data-hf-id="hf-arbg" class="word-row"><span data-hf-id="hf-gcw5" class="word-name">mar · <span data-hf-id="hf-uh1f" class="target-phoneme phoneme-v">v</span>el</span><span data-hf-id="hf-7evy" class="syl-tag tag-v">[마블] 경이로움</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-2hyj" id="audioSummary" src="assets/voice/03_f09_summary.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="19.16"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("오늘 배운 비와 브이의 소리 법칙, 딱 한"); }, null, 0.38);
+  tl.call(function() { cap("가지만 기억하세요."); }, null, 3.96);
+  tl.call(function() { cap("비는 윗니 없이 두 입술 팡, 브이는 윗니로"); }, null, 5.67);
+  tl.call(function() { cap("아랫입술 물고 부르르."); }, null, 10.11);
+  tl.call(function() { cap("화면의 정리 카드를 캡처해 두시고 헷갈릴 때마다 꺼내"); }, null, 12.19);
+  tl.call(function() { cap("보세요."); }, null, 15.46);
+  tl.call(function() { cap("여러분의 영어 듣기 실력이 매일 깊어집니다."); }, null, 16.02);
+
+    tl.call(function() { cap(""); }, null, 19.16);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["09-summary"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

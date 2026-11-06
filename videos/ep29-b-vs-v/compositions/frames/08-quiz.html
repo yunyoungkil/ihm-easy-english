@@ -1,0 +1,193 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; z-index: 10; display: inline-flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 65cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5;
+  }
+  .quiz-card {
+    width: 100%; background: #FFFFFF; border: 4px solid #111111; box-shadow: 8px 8px 0px #111111;
+    border-radius: 28px; padding: 4.5cqh 3cqw; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8cqh;
+  }
+  .quiz-counter {
+    font-size: 1.25cqw; font-weight: 900; color: #6B7280; background: #F3F4F6;
+    padding: 0.3cqh 1.3cqw; border-radius: 999px; border: 2px solid #111111;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .question-badge {
+    background: #FEF3C7; color: #92400E; border: 2px solid #111111;
+    padding: 0.5cqh 1.6cqw; border-radius: 999px; font-size: 1.3cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .blind-box {
+    width: 22cqw; height: 10cqh; background: #111111; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-family: 'Archivo Black', sans-serif; font-size: 3.8cqw;
+    letter-spacing: 0.1em;
+  }
+  .answer-word {
+    font-family: 'Archivo Black', sans-serif; font-size: 6.5cqw; line-height: 1.0;
+    white-space: nowrap; display: none; color: #111111;
+  }
+  .target-phoneme {
+    display: inline-block;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    padding-bottom: 3px;
+  }
+  .phoneme-b { color: #DC2626; border-color: #DC2626; }
+  .phoneme-v { color: #2563EB; border-color: #2563EB; }
+  .answer-meta {
+    display: none; flex-direction: column; align-items: center; gap: 0.8cqh;
+  }
+  .answer-ipa {
+    font-size: 2cqw; font-weight: 800; color: #4B5563; white-space: nowrap;
+  }
+  .answer-rule {
+    font-size: 1.35cqw; font-weight: 900; padding: 0.5cqh 1.8cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-brij" id="root" data-composition-id="08-quiz" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-4876">🎧 0.1초 직관 반응 퀴즈 (원어민 발음을 듣고 B인지 V인지 맞춰보세요!)</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <div data-hf-id="hf-i6gt" class="quiz-card" id="quizCard">
+      <div data-hf-id="hf-rsw1" id="quizCounter" class="quiz-counter">퀴즈 1 / 8</div>
+      <div data-hf-id="hf-3nn8" id="quizBadge" class="question-badge">❓ 원어민 발음을 듣고 소리를 구분해 보세요</div>
+      <div data-hf-id="hf-oetm" id="blindBox" class="blind-box">???</div>
+      <div data-hf-id="hf-oq95" id="answerWord" class="answer-word"><span data-hf-id="hf-w4vy" class="target-phoneme phoneme-v">v</span>est</div>
+      <div data-hf-id="hf-i4pn" id="answerMeta" class="answer-meta">
+        <div data-hf-id="hf-au79" id="answerIpa" class="answer-ipa">[vɛst] · 베스트 · 조끼</div>
+        <div data-hf-id="hf-w34n" id="answerRule" class="answer-rule">[v] 윗니 물고 진동하는 소리 (윗니 100%)</div>
+      </div>
+    </div>
+  </div>
+
+  <audio data-hf-id="hf-zd3y" id="sq_0" src="assets/voice/m_w02_vest.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0.50" data-duration="0.88"></audio>
+  <audio data-hf-id="hf-ct9a" id="sq_1" src="assets/voice/f_w05_berry.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="5.08" data-duration="0.87"></audio>
+  <audio data-hf-id="hf-l701" id="sq_2" src="assets/voice/m_w04_van.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="9.65" data-duration="0.78"></audio>
+  <audio data-hf-id="hf-2zm5" id="sq_3" src="assets/voice/f_w11_boat.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="14.13" data-duration="0.74"></audio>
+  <audio data-hf-id="hf-9l4p" id="sq_4" src="assets/voice/m_w14_vase.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="18.57" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-bwa9" id="sq_5" src="assets/voice/f_w32_curve.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="23.08" data-duration="0.81"></audio>
+  <audio data-hf-id="hf-9cbm" id="sq_6" src="assets/voice/m_w36_love.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="27.59" data-duration="0.65"></audio>
+  <audio data-hf-id="hf-owie" id="sq_7" src="assets/voice/f_w45_habit.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="31.94" data-duration="0.74"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+
+    var quizCounter = document.getElementById("quizCounter");
+    var quizBadge = document.getElementById("quizBadge");
+    var blindBox = document.getElementById("blindBox");
+    var answerWord = document.getElementById("answerWord");
+    var answerMeta = document.getElementById("answerMeta");
+    var answerIpa = document.getElementById("answerIpa");
+    var answerRule = document.getElementById("answerRule");
+    var quizCard = document.getElementById("quizCard");
+
+    function setBlind(idx, total) {
+      quizCounter.textContent = "퀴즈 " + idx + " / " + total;
+      quizBadge.textContent = "❓ 원어민 발음을 듣고 소리를 구분해 보세요";
+      quizBadge.style.background = "#FEF3C7";
+      quizBadge.style.color = "#92400E";
+      blindBox.style.display = "flex";
+      answerWord.style.display = "none";
+      answerMeta.style.display = "none";
+      gsap.fromTo(quizCard, { scale: 0.96 }, { scale: 1, duration: 0.25, ease: "back.out(1.5)" });
+    }
+
+    function revealAnswer(q) {
+      blindBox.style.display = "none";
+      answerWord.style.display = "block";
+      answerMeta.style.display = "flex";
+
+      answerWord.innerHTML = q.w.formatted;
+      answerIpa.textContent = q.w.krSyl + " " + q.w.ipa + " · " + q.w.kr;
+      answerRule.textContent = q.expl;
+
+      var bg = q.isB ? "#FEE2E2" : "#DBEAFE";
+      var textCol = q.isB ? "#991B1B" : "#1E40AF";
+      answerRule.style.background = bg;
+      answerRule.style.color = textCol;
+
+      quizBadge.textContent = "✓ 정답: " + (q.isB ? "[b] 윗니 0% 두 입술 터짐" : "[v] 윗니 100% 윗니 물고 진동");
+      quizBadge.style.background = "#D1FAE5";
+      quizBadge.style.color = "#065F46";
+
+      gsap.fromTo(answerWord, { scale: 0.85 }, { scale: 1, duration: 0.35, ease: "back.out(2)" });
+    }
+
+  tl.call(function() {
+    setBlind(1, 8);
+  }, null, 0.50);
+  tl.call(function() {
+    revealAnswer({"id":"q1","w":{"id":"w02","word":"vest","syl":"vest","krSyl":"베스트","ipa":"[vɛst]","kr":"조끼","m":"m_w02_vest","f":"f_w02_vest","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>est"},"isB":false,"audioKey":"m_w02_vest","expl":"[v] 윗니 물고 진동하는 소리 (윗니 100%)"});
+  }, null, 2.88);
+  tl.call(function() {
+    setBlind(2, 8);
+  }, null, 5.08);
+  tl.call(function() {
+    revealAnswer({"id":"q2","w":{"id":"w05","word":"ber · ry","syl":"ber · ry","krSyl":"베리","ipa":"[ˈbɛri]","kr":"딸기류 열매","m":"m_w05_berry","f":"f_w05_berry","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>er · ry"},"isB":true,"audioKey":"f_w05_berry","expl":"[b] 두 입술 터지는 소리 (윗니 0%)"});
+  }, null, 7.45);
+  tl.call(function() {
+    setBlind(3, 8);
+  }, null, 9.65);
+  tl.call(function() {
+    revealAnswer({"id":"q3","w":{"id":"w04","word":"van","syl":"van","krSyl":"밴","ipa":"[væn]","kr":"승합차 / 밴","m":"m_w04_van","f":"f_w04_van","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>an"},"isB":false,"audioKey":"m_w04_van","expl":"[v] 윗니 물고 진동하는 소리 (윗니 100%)"});
+  }, null, 11.93);
+  tl.call(function() {
+    setBlind(4, 8);
+  }, null, 14.13);
+  tl.call(function() {
+    revealAnswer({"id":"q4","w":{"id":"w11","word":"boat","syl":"boat","krSyl":"보트","ipa":"[boʊt]","kr":"배 / 보트","m":"m_w11_boat","f":"f_w11_boat","formatted":"<span class=\"target-phoneme phoneme-b\">b</span>oat"},"isB":true,"audioKey":"f_w11_boat","expl":"[b] 두 입술 터지는 소리 (윗니 0%)"});
+  }, null, 16.37);
+  tl.call(function() {
+    setBlind(5, 8);
+  }, null, 18.57);
+  tl.call(function() {
+    revealAnswer({"id":"q5","w":{"id":"w14","word":"vase","syl":"vase","krSyl":"베이스","ipa":"[veɪs]","kr":"꽃병 / 화병","m":"m_w14_vase","f":"f_w14_vase","formatted":"<span class=\"target-phoneme phoneme-v\">v</span>ase"},"isB":false,"audioKey":"m_w14_vase","expl":"[v] 윗니 물고 진동하는 소리 (윗니 100%)"});
+  }, null, 20.88);
+  tl.call(function() {
+    setBlind(6, 8);
+  }, null, 23.08);
+  tl.call(function() {
+    revealAnswer({"id":"q6","w":{"id":"w32","word":"curve","syl":"curve","krSyl":"커브","ipa":"[kɜːrv]","kr":"곡선 / 굽이지다","m":"m_w32_curve","f":"f_w32_curve","formatted":"cur<span class=\"target-phoneme phoneme-v\">v</span>e"},"isB":false,"audioKey":"f_w32_curve","expl":"[v] 윗니 물고 끝나는 소리 (윗니 100%)"});
+  }, null, 25.39);
+  tl.call(function() {
+    setBlind(7, 8);
+  }, null, 27.59);
+  tl.call(function() {
+    revealAnswer({"id":"q7","w":{"id":"w36","word":"love","syl":"love","krSyl":"러브","ipa":"[lʌv]","kr":"사랑하다 / 사랑","m":"m_w36_love","f":"f_w36_love","formatted":"lo<span class=\"target-phoneme phoneme-v\">v</span>e"},"isB":false,"audioKey":"m_w36_love","expl":"[v] 윗니 물고 끝나는 소리 (윗니 100%)"});
+  }, null, 29.74);
+  tl.call(function() {
+    setBlind(8, 8);
+  }, null, 31.94);
+  tl.call(function() {
+    revealAnswer({"id":"q8","w":{"id":"w45","word":"hab · it","syl":"hab · it","krSyl":"해빗","ipa":"[ˈhæbɪt]","kr":"습관 / 버릇","m":"m_w45_habit","f":"f_w45_habit","formatted":"ha<span class=\"target-phoneme phoneme-b\">b</span> · it"},"isB":true,"audioKey":"f_w45_habit","expl":"[b] 두 입술 닫히는 소리 (윗니 0%)"});
+  }, null, 34.18);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-quiz"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

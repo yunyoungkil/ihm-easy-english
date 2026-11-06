@@ -1,0 +1,157 @@
+<template>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  #root {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: #F7F4EE; color: #111111; font-family: 'Noto Sans KR', sans-serif;
+    container-type: size;
+  }
+  .bg-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.18; z-index: 1; filter: saturate(1.1);
+    transform: scale(1.05); transform-origin: center center;
+  }
+  .eyebrow-pill {
+    position: absolute; top: 5.5cqh; left: 50%; transform: translateX(-50%);
+    background: #FFFFFF; border: 3px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 999px; padding: 0.9cqh 2.4cqw; font-size: 1.3cqw; font-weight: 900;
+    color: #111111; display: inline-flex; align-items: center; gap: 0.8cqw; z-index: 10;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tip-badge {
+    background: #EF4444; color: #FFFFFF; border: 2px solid #111111; border-radius: 999px;
+    padding: 0.3cqh 0.9cqw; font-size: 1.05cqw; font-weight: 900;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .eyebrow-pill span { white-space: nowrap; }
+  .stage {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: 86cqw; display: flex; gap: 3.5cqw; align-items: stretch; justify-content: center; z-index: 5;
+  }
+  .rule-card {
+    flex: 1; background: #FFFFFF; border: 3.5px solid #111111; box-shadow: 6px 6px 0px #111111;
+    border-radius: 24px; padding: 4cqh 2.6cqw; display: flex; flex-direction: column; gap: 2cqh;
+  }
+  .rule-card.card-b { border-color: #EF4444; background: #FFFDFD; box-shadow: 8px 8px 0px #EF4444; }
+  .rule-card.card-v { border-color: #3B82F6; background: #FDFEFF; box-shadow: 8px 8px 0px #3B82F6; }
+  .rule-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .rule-title {
+    font-size: 1.7cqw; font-weight: 900; white-space: nowrap;
+  }
+  .rule-badge {
+    font-size: 1.1cqw; font-weight: 900; padding: 0.4cqh 1.2cqw; border-radius: 999px;
+    border: 2px solid #111111; white-space: nowrap; flex-shrink: 0;
+  }
+  .badge-b { background: #FEE2E2; color: #DC2626; }
+  .badge-v { background: #DBEAFE; color: #2563EB; }
+  .rule-desc {
+    font-size: 1.35cqw; font-weight: 700; color: #374151; line-height: 1.5;
+  }
+  .rule-formula {
+    background: #FAF7F2; border: 2px solid #111111; border-radius: 14px;
+    padding: 1.5cqh 1.6cqw; display: flex; flex-direction: column; gap: 0.6cqh;
+  }
+  .formula-label {
+    font-size: 1.1cqw; font-weight: 900; color: #6B7280; white-space: nowrap;
+  }
+  .formula-content {
+    font-size: 1.4cqw; font-weight: 900; color: #111111; white-space: nowrap;
+  }
+  .example-pill {
+    background: #FFFFFF; border: 2px solid #111111; border-radius: 10px;
+    padding: 0.5cqh 1.2cqw; font-size: 1.2cqw; font-weight: 900; display: inline-block;
+    white-space: nowrap;
+  }
+  .caption-pill {
+    position: absolute; bottom: 3.8cqh; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.98); border: 2.5px solid #111111; box-shadow: 4px 4px 0px #111111;
+    border-radius: 36px; padding: 1.1cqh 2.6cqw; font-size: 1.55cqw; font-weight: 800;
+    color: #111111; text-align: center; max-width: 86cqw; z-index: 50; opacity: 0;
+  }
+  audio { display: none; }
+</style>
+
+<div data-hf-id="hf-cvx8" id="root" data-composition-id="02-principle" data-width="1920" data-height="1080">
+  <img data-hf-id="hf-ed86" class="bg-img" src="assets/images/f02_articulation.jpg" alt="">
+
+  <div data-hf-id="hf-o8qf" class="eyebrow-pill">
+    <span data-hf-id="hf-ol9b" class="tip-badge">핵심 소리 원리</span>
+    <span data-hf-id="hf-glis">입술을 꽉 깨물면 틀립니다! 윗니 접촉 여부가 소리를 결정합니다</span>
+  </div>
+
+  <div data-hf-id="hf-tan6" class="stage">
+    <!-- Rule 1: [b] sound -->
+    <div data-hf-id="hf-lz6q" class="rule-card card-b" id="cardB">
+      <div data-hf-id="hf-7az0" class="rule-header">
+        <span data-hf-id="hf-gn0r" class="rule-title" style="color:#DC2626;">① [b] 입술 터지는 소리</span>
+        <span data-hf-id="hf-oso3" class="rule-badge badge-b">윗니 접촉 0%</span>
+      </div>
+      <div data-hf-id="hf-ssnz" class="rule-desc">
+        윗니가 전혀 닿지 않습니다! 위아래 두 입술만 가볍게 닫았다가 공기를 <strong data-hf-id="hf-rqin">'팡'</strong> 터뜨립니다.
+      </div>
+      <div data-hf-id="hf-lie3" class="rule-formula">
+        <span data-hf-id="hf-zi14" class="formula-label">소리 원리</span>
+        <span data-hf-id="hf-eiu0" class="formula-content">윗니 0% (두 입술 100%) ➔ 파열 폭발음</span>
+      </div>
+      <div data-hf-id="hf-1qdz" style="margin-top:auto;">
+        <span data-hf-id="hf-nnlp" class="example-pill">best [베스트] · ban [밴] · ber·ry [베리]</span>
+      </div>
+    </div>
+
+    <!-- Rule 2: [v] sound -->
+    <div data-hf-id="hf-vene" class="rule-card card-v" id="cardV">
+      <div data-hf-id="hf-zujo" class="rule-header">
+        <span data-hf-id="hf-ml4v" class="rule-title" style="color:#2563EB;">② [v] 윗니 진동 소리</span>
+        <span data-hf-id="hf-j30q" class="rule-badge badge-v">윗니 접촉 100%</span>
+      </div>
+      <div data-hf-id="hf-66ya" class="rule-desc">
+        윗니 끝을 아랫입술 안쪽 살에 살짝 대고, 성대를 <strong data-hf-id="hf-rxuu">'부르르'</strong> 떨며 바람을 밀어냅니다.
+      </div>
+      <div data-hf-id="hf-v9uj" class="rule-formula">
+        <span data-hf-id="hf-a1kw" class="formula-label">소리 원리</span>
+        <span data-hf-id="hf-wufe" class="formula-content">윗니 100% 접촉 ➔ 성대 진동 마찰음</span>
+      </div>
+      <div data-hf-id="hf-7ydz" style="margin-top:auto;">
+        <span data-hf-id="hf-i9fd" class="example-pill">vest [베스트] · van [밴] · ve·ry [베리]</span>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-da8d" class="caption-pill" id="capPill"></div>
+
+  <audio data-hf-id="hf-s9z8" id="audioPrinciple" src="assets/voice/02_f02_principle.wav" data-audio-group="voiceover" data-hf-media-start-basis="local" data-start="0" data-duration="32.12"></audio>
+</div>
+<script>
+  (function () {
+    var tl = gsap.timeline({ paused: true });
+    var pill = document.getElementById("capPill");
+    function cap(t) {
+      if (!t) {
+        gsap.to(pill, { opacity: 0, duration: 0.15, overwrite: "auto" });
+      } else {
+        pill.innerText = t;
+        gsap.to(pill, { opacity: 1, duration: 0.15, overwrite: "auto" });
+      }
+    }
+
+  tl.call(function() { cap("소리의 비밀은 윗니에 있습니다."); }, null, 0.39);
+  tl.call(function() { cap("알파벳 비는 두 입술을 가볍게 닫았다가 팡 터뜨리는"); }, null, 3.08);
+  tl.call(function() { cap("소리입니다."); }, null, 7.74);
+  tl.call(function() { cap("윗니가 아예 개입하지 않는 0퍼센트입니다."); }, null, 8.87);
+  tl.call(function() { cap("반면에 알파벳 브이는 윗니로 아랫입술 안쪽을 살짝 깨물고"); }, null, 12.51);
+  tl.call(function() { cap("성대를 부르르 떨어주는 소리입니다."); }, null, 17.69);
+  tl.call(function() { cap("윗니가 100퍼센트 개입해야 합니다."); }, null, 21.00);
+  tl.call(function() { cap("입술 팡 터뜨리기 비, 아랫입술 물고 떨기 브이,"); }, null, 23.75);
+  tl.call(function() { cap("이 원리를 기억하고 지금부터 귀로 따라와 보세요."); }, null, 28.06);
+
+    tl.call(function() { cap(""); }, null, 32.12);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-principle"] = tl;
+    tl.seek(0);
+  })();
+</script>
+</template>

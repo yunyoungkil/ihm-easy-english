@@ -1,0 +1,15 @@
+[EP29 유튜브 업로드 체크리스트]
+- 에피소드: ep29-b-vs-v (B vs V 0.1초 소리 원리 24쌍 반복 듣기)
+- 영상 길이: 6분 52.6초 (412.59s) / 엔드스크린 10초 탑재
+- 최종 영상 파일명: English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4
+- 타 PC 렌더링 명령어:
+  npx hyperframes render videos/ep29-b-vs-v --output=output/upload-packages/ep29-b-vs-v/English_Pronunciation_B_vs_V_Minimal_Pairs_Listening_Drill.mp4
+- 썸네일 시안:
+  [A안 상식파괴 · 채택] thumbnail-variant-a.jpg ("다 'ㅂ'으로 읽으셨죠?")
+  [메인 권장 1위] thumbnail-close-up.jpg (모바일 전용 클로즈업: 윗니 0% vs 100%)
+  [메인 와이드] thumbnail.jpg (바스트샷 와이드 16:9)
+  [B안 직격형] thumbnail-variant-b.jpg ("터뜨리기 vs 물기")
+- 카테고리: 교육 (Education)
+- 재생목록: [이해하면 쉬운영어] 반복 듣기 정주행
+- 최종 태그: 19개 핵심 키워드 탑재 완료
+- 자막: 한국어 오디오 내장 + Whisper 타임라인 완비

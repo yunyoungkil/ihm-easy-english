@@ -69,13 +69,14 @@ description: 이해하면 쉬운영어 채널의 성장 점검 워크플로우. 
 |---|---|---|
 | 제목·설명·태그 검색 노출 | `marketing:seo-audit` (유튜브 검색에 맞게 적용) | 시청자가 실제로 치는 검색어가 제목 앞쪽에 있는가. 검색어 근거는 대시보드 검색어 데이터와 `market-demand.json` 제목 패턴, 웹 검색 |
 | 맞춤법·띄어쓰기 | `korean-skills:grammar-checker` | 제목, 설명, 고정 댓글, 챕터 이름 전부 |
-| 표기 일관성 | `korean-skills:style-guide` | 이전 편들과 용어·숫자·괄호 표기가 같은가 (`[30분 듣기]` 등) |
+| 표기 일관성 | `korean-skills:style-guide` | 이전 편들과 용어·숫자·괄호 표기가 같은가 (`[반복 듣기]` 등) |
 | AI 말투 | `korean-skills:humanizer` | 설명란·고정 댓글이 사람이 쓴 말처럼 읽히는가 |
 | 브랜드 톤 | `marketing:brand-review` | `knowledge/brand-persona.md` 기준, 금지어·과장 표현·가짜 해외 일화 없음 |
 | 썸네일 가독성 | `design:design-critique` | 5단어 이하, 칩 2단어 이하, 채널명 없음, 시안 A/B/C가 서로 다른 훅인가 |
 | 40~60대 가독성 | `design:accessibility-review` | 글자 대비(WCAG AA), 모바일 피드 크기에서 읽히는가. 최종 확인은 대시보드 LIVE MOBILE FEED PREVIEW |
 | 짧은 문구 | `design:ux-copy` | 썸네일 카피·고정 댓글 첫 줄·CTA 문장 다듬기 |
 | 쇼츠 → 롱폼 연결 | (체크리스트) | 쇼츠라면 설명·고정 댓글에 관련 롱폼 링크가 있는가 (`channel-strategy.md` 성장 구조) |
+| 같은 틀 반복 | (체크리스트) | 직전 3편과 제목 문장 틀과 프레임 구성이 같은가, 이 영상에만 있는 코너가 있는가 (2026-11-06 이후 기획한 영상부터, EP24~29 제외) |
 
 - 결과는 `packaging-review.md`에 "통과 / 고칠 것(원문 → 수정안)" 표로 남긴다.
 - 고칠 것은 제안만 하고, 패키지 파일 수정은 사용자 승인 후 진행한다. 수정하면 `knowledge/production-rules.md` "업로드 패키지 변경 완료 조건"을 따른다.

@@ -28,9 +28,9 @@
 3. **[옵션 3] 모노크롬 에디토리얼 (다큐멘터리 수사물 스타일)**:
    - 타자기 활자, 낡은 신문/사전 스크랩, 거친 크림슨 레드 마커 원형 표시 및 머스타드 악센트, 아날로그 증거물 질감.
    - 추천: 훅(Hook)에서의 오답 고발, 발음 비밀 파헤치기, 충격적 반전 규명.
-4. **[옵션 4] 빈티지 스케치노트 & 다이어그램 (조음 메커니즘 특화)**:
+4. **[옵션 4] 빈티지 스케치노트 & 다이어그램 (입 모양·혀 위치 설명 특화)**:
    - 구강 단면도, 혀의 이동 경로, 소리 파형 손그림 다이어그램 및 크래프트지 메모 패드.
-   - 추천: 발음 조음 위치(혀, 입술, 성대) 및 소리 충돌/탈락 메커니즘 시각화.
+   - 추천: 소리 나는 위치(혀, 입술, 성대) 및 소리 충돌/탈락 메커니즘 시각화.
 5. **[옵션 5] 자동 선택 (Auto Select)**:
    - 주제와 프레임 구성에 가장 어울리는 비주얼 스타일을 에이전트가 자동 판단하여 적용.
 
@@ -58,6 +58,8 @@
 - 표준 엔딩 문구:
   > `Everything must look physically assembled from real paper pieces rather than digitally illustrated. No cartoon appearance, no glossy CGI, no 3D-rendered look, no gradients, no clutter, no watermark, no unnecessary logos, and no text other than the specifically requested label. Premium editorial documentary aesthetic, 16:9, ultra-detailed, 8K.`
 - 복사용 ` ```text ` 코드 블록 제공.
+- **그림 속 전문용어 금지 (2026-11-06)**: `Bilabial`, `Labiodental`, `Retroflex`, `VOCAL TRACT` 같은 영어 전문용어를 프롬프트의 제목, 패널 이름, 라벨에 쓰지 않습니다. 쓰면 AI가 그대로 그려 넣을 수 있습니다(EP26·EP28 프롬프트에 있었고 영상 그림에도 들어감). 라벨이 꼭 필요하면 `혀끝 허공`처럼 쉬운 한국어만 따옴표로 지정합니다.
+- 프롬프트를 저장한 뒤 `npm run check-terms -- videos/<프로젝트>`로 코드 블록 안의 금지어를 확인합니다. 이미지를 만들기 전에 고쳐야 다시 만드는 비용이 들지 않습니다.
 
 ### 4. 5초 스톱모션 영상(Image-to-Video) 프롬프트
 - **카메라**: 5초 내내 **완전 고정(Locked static shot)**.

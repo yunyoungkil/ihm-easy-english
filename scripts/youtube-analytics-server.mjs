@@ -8528,6 +8528,14 @@ if (window.EventSource) {
         console.error('SSE data parse error:', err);
       }
     });
+    evtSource.addEventListener('schedule-updated', (e) => {
+      try {
+        if (typeof loadAndBindSchedulePanel === 'function') loadAndBindSchedulePanel();
+        if (typeof showToast === 'function') showToast('🚀 유튜브 예약 업로드가 완료되었습니다!');
+      } catch (err) {
+        console.error('SSE schedule-updated error:', err);
+      }
+    });
   } catch (err) {
     console.warn('SSE connection warning:', err);
   }
@@ -9030,6 +9038,10 @@ const server = createServer(async (req, res) => {
       const { episodeId, force } = body;
       if (!episodeId) return json(res, 400, { error: 'episodeId가 필요합니다.' });
 
+      if (isUploadWorkerRunning) {
+        return json(res, 409, { error: '현재 다른 동영상 업로드가 진행 중입니다. 잠시 후 다시 시도해 주세요.' });
+      }
+
       const accessToken = await getAccessToken();
       if (!accessToken) return json(res, 401, { error: 'YouTube 채널 재연동(로그인)이 필요합니다.' });
 
@@ -9050,18 +9062,24 @@ const server = createServer(async (req, res) => {
         }
       }
 
-      const latestScheduledDate = await getLatestScheduledDate();
-      const queue = buildPublishQueue({ readyPackages: [target], rules, latestScheduledDate });
-      const queueItem = queue[0];
+      isUploadWorkerRunning = true;
+      try {
+        const latestScheduledDate = await getLatestScheduledDate();
+        // 개별 타겟만이 아니라 전체 대기 큐에서 해당 에피소드의 올바른 슬롯 순서를 산출
+        const fullQueue = buildPublishQueue({ readyPackages, rules, latestScheduledDate });
+        const queueItem = fullQueue.find((p) => p.episodeId === episodeId) || target;
 
-      const result = await processQueueItem({ item: queueItem, accessToken, rules });
-      if (result.success) {
-        await getEpisodesSummary(true);
-        await syncIdeaBoardHistoryFromPackages();
-        notifyClients('schedule-updated', { episodeId: target.episodeId, videoId: result.videoId });
-        return json(res, 200, { ok: true, result });
-      } else {
-        return json(res, 500, { error: result.error });
+        const result = await processQueueItem({ item: queueItem, accessToken, rules });
+        if (result.success) {
+          await getEpisodesSummary(true);
+          await syncIdeaBoardHistoryFromPackages();
+          notifyClients('schedule-updated', { episodeId: target.episodeId, videoId: result.videoId });
+          return json(res, 200, { ok: true, result });
+        } else {
+          return json(res, 500, { error: result.error });
+        }
+      } finally {
+        isUploadWorkerRunning = false;
       }
     }
     if (url.pathname === '/api/catalog') {
@@ -9765,8 +9783,10 @@ async function getRecentUploadHistory() {
     if (existsSync(sPath)) {
       try {
         const s = JSON.parse(await readFile(sPath, 'utf8'));
-        if (s.uploadedAt) {
-          history.push({ uploadedAt: s.uploadedAt, videoId: s.videoId, episodeId: ent.name });
+        // 스튜디오 수동 업로드 및 자동 업로드 일시를 통합 반영
+        const dt = s.uploadedAt || (s.status === 'scheduled' ? s.lastSyncedAt : null) || (s.status === 'published' ? s.publishedAt : null);
+        if (dt) {
+          history.push({ uploadedAt: dt, videoId: s.videoId, episodeId: ent.name });
         }
       } catch {}
     }

@@ -65,10 +65,14 @@ export async function scanReadyPackages(uploadPackagesDir) {
 
     // 패키지 내 파일 확인
     const files = await readdir(pkgDir);
-    const videoFile = files.find((f) => f.endsWith('.mp4'));
+    // 키워드 파일명(SEO)을 generic video.mp4보다 우선 선택
+    const videoFile = files.find((f) => f.endsWith('.mp4') && f.toLowerCase() !== 'video.mp4') ||
+                      files.find((f) => f.endsWith('.mp4'));
     if (!videoFile) continue; // 동영상 없으면 제외
 
-    const thumbFile = files.find((f) => f === 'thumbnail.jpg' || f === 'thumbnail.png' || f.startsWith('thumbnail'));
+    // 확정본 thumbnail.jpg/png를 변형 시안(thumbnail-close-up, thumbnail-b 등)보다 우선 선택
+    const thumbFile = files.find((f) => f === 'thumbnail.jpg' || f === 'thumbnail.png') ||
+                      files.find((f) => /^thumbnail.*\.(jpg|jpeg|png)$/i.test(f)) || null;
 
     const readOptional = async (filename, fallback = '') => {
       const p = join(pkgDir, filename);
@@ -148,7 +152,7 @@ export async function uploadVideoToYouTube({
 
   const metadataBody = {
     snippet: {
-      title,
+      title: (title || '').slice(0, 100),
       description,
       tags: Array.isArray(tags) ? tags : [],
       categoryId: '27', // Education
@@ -425,8 +429,8 @@ export function calculateNextPublishSlot({
   const refKst = toKstParts(refDate);
 
   if (scheduleMode === 'interval') {
-    // 간격 모드: 기준일 + minIntervalDays
-    const candidateKstTime = new Date(Date.UTC(refKst.year, refKst.monthIndex, refKst.day + minIntervalDays));
+    const safeInterval = Math.max(1, parseInt(minIntervalDays, 10) || 3);
+    const candidateKstTime = new Date(Date.UTC(refKst.year, refKst.monthIndex, refKst.day + safeInterval));
     let candidateSlot = createUtcFromKst(
       candidateKstTime.getUTCFullYear(),
       candidateKstTime.getUTCMonth(),
@@ -438,7 +442,7 @@ export function calculateNextPublishSlot({
     // 과거라면 now 이후로 보정
     while (candidateSlot.getTime() <= nowDate.getTime()) {
       const parts = toKstParts(candidateSlot);
-      const nextDay = new Date(Date.UTC(parts.year, parts.monthIndex, parts.day + minIntervalDays));
+      const nextDay = new Date(Date.UTC(parts.year, parts.monthIndex, parts.day + safeInterval));
       candidateSlot = createUtcFromKst(
         nextDay.getUTCFullYear(),
         nextDay.getUTCMonth(),

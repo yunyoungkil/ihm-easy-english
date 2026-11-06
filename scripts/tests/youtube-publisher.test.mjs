@@ -162,8 +162,11 @@ test('scanReadyPackages finds ready packages and extracts metadata correctly', a
     await writeFile(join(ep24Dir, 'description.txt'), 'EP24 설명');
     await writeFile(join(ep24Dir, 'tags.txt'), 'tag1, tag2');
     await writeFile(join(ep24Dir, 'pinned-comment.txt'), '고정 댓글 내용');
+    // 테스트용 변형 시안과 정식 thumbnail.jpg, video.mp4와 키워드 mp4 동시 생성
+    await writeFile(join(ep24Dir, 'thumbnail-close-up.jpg'), 'fake-thumb-closeup');
     await writeFile(join(ep24Dir, 'thumbnail.jpg'), 'fake-thumb');
-    await writeFile(join(ep24Dir, 'English_Test_Video.mp4'), 'fake-mp4');
+    await writeFile(join(ep24Dir, 'video.mp4'), 'fake-generic-mp4');
+    await writeFile(join(ep24Dir, 'English_Test_Keyword_Video.mp4'), 'fake-keyword-mp4');
 
     // 2. 이미 예약된 패키지 (EP23)
     const ep23Dir = join(tempDir, 'ep23-test');
@@ -181,8 +184,10 @@ test('scanReadyPackages finds ready packages and extracts metadata correctly', a
     assert.equal(scanned.length, 1);
     assert.equal(scanned[0].episodeId, 'ep24-test');
     assert.equal(scanned[0].title, 'EP24 제목');
-    assert.equal(scanned[0].videoFileName, 'English_Test_Video.mp4');
+    // thumbnail.jpg가 thumbnail-close-up.jpg보다 우선되어야 함
     assert.equal(scanned[0].thumbnailFileName, 'thumbnail.jpg');
+    // 키워드 mp4가 generic video.mp4보다 우선되어야 함
+    assert.equal(scanned[0].videoFileName, 'English_Test_Keyword_Video.mp4');
     assert.equal(scanned[0].pinnedComment, '고정 댓글 내용');
   } finally {
     await rm(tempDir, { recursive: true, force: true });

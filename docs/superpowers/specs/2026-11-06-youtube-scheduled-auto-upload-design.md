@@ -52,6 +52,8 @@
 
 ## 3. 제약 사항 (Constraints)
 
+> **2026-11-06 재검토로 추가된 안전 규칙**: 실패가 다음 편으로 번지고(6편 연쇄 실패 재현), 썸네일 실패가 기록되지 않으며, 옛 썸네일이 확인 없이 올라가는 문제가 있어 `decideNextUpload`로 판단을 모았다. 상세는 `knowledge/logs/2026-10.md` 2026-11-06 절.
+
 1. **OAuth 2.0 스코프 확장**:
    - 기존 대시보드는 읽기 전용 스코프(`youtube.readonly`, `yt-analytics.readonly`)만 사용 중임.
    - 영상 및 썸네일 업로드, 댓글 작성을 위해 `https://www.googleapis.com/auth/youtube.upload` 및 `https://www.googleapis.com/auth/youtube.force-ssl` 스코프 추가 필요.

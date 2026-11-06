@@ -15,7 +15,339 @@ import {
   setVideoThumbnail,
   createFirstComment,
   processQueueItem,
+  hasUploadScope,
+  approveThumbnail,
+  scanPackagesNeedingAttention,
+  scanUploadNotices,
+  resolveAttention,
+  decideNextUpload,
 } from '../youtube-publisher.mjs';
+
+const CLEAN_RULES = {
+  publishTimeKst: '23:00',
+  allowedDaysOfWeek: [1, 4],
+  scheduleMode: 'daysOfWeek',
+  maxUploadsPerDay: 1,
+  maxUploadsPerWeek: 2,
+  defaultPrivacy: 'private',
+  autoComment: true,
+  containsSyntheticMedia: true,
+};
+const FIXED_NOW = new Date('2026-11-06T12:00:00Z');
+const UPLOAD_SCOPE = 'https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.upload';
+
+// 업로드 대기 패키지를 임시 폴더에 만든다. 썸네일 승인까지 끝낸 상태로 만들려면 approve를 쓴다.
+const makePackages = async (episodeIds, {approve = true, files = {}} = {}) => {
+  const root = await mkdtemp(join(tmpdir(), 'publisher-safety-'));
+  for (const id of episodeIds) {
+    const dir = join(root, id);
+    await mkdir(dir, {recursive: true});
+    await writeFile(join(dir, 'status.json'), JSON.stringify({status: 'ready_to_upload'}));
+    await writeFile(join(dir, 'title.txt'), `${id} 제목`);
+    await writeFile(join(dir, 'description.txt'), '설명');
+    await writeFile(join(dir, 'tags.txt'), '영어발음');
+    await writeFile(join(dir, 'pinned-comment.txt'), '고정 댓글');
+    await writeFile(join(dir, 'clip.mp4'), 'video');
+    await writeFile(join(dir, 'thumbnail.jpg'), 'thumb');
+    for (const [name, content] of Object.entries(files)) await writeFile(join(dir, name), content);
+    if (approve) await approveThumbnail(dir);
+  }
+  return root;
+};
+
+const readStatus = async (root, id) => JSON.parse(await readFile(join(root, id, 'status.json'), 'utf8'));
+
+const decide = async (root, overrides = {}) =>
+  decideNextUpload({
+    readyPackages: await scanReadyPackages(root),
+    attention: await scanPackagesNeedingAttention(root),
+    rules: CLEAN_RULES,
+    latestScheduledDate: null,
+    hasScope: true,
+    recentUploadHistory: [],
+    existingUploads: [],
+    now: FIXED_NOW,
+    ...overrides,
+  });
+
+const failingFetch = (status, reason) => async () => ({ok: false, status, text: async () => reason});
+
+// 영상은 올라가고 나머지 호출은 failFor에 맞는 주소만 거부하는 가짜 응답
+const partialFetch = (failFor) => async (url) => {
+  if (url.includes('uploadType=resumable')) return {ok: true, status: 200, headers: new Headers({location: 'https://mock/session'})};
+  if (url === 'https://mock/session') return {ok: true, status: 200, json: async () => ({id: 'VID1'})};
+  if (url.includes(failFor)) return {ok: false, status: 403, text: async () => 'forbidden'};
+  return {ok: true, status: 200, json: async () => ({id: 'OK'})};
+};
+
+test('hasUploadScope는 업로드 권한이 있어야 참이다', () => {
+  assert.equal(hasUploadScope(UPLOAD_SCOPE), true);
+  assert.equal(hasUploadScope('https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/yt-analytics.readonly'), false);
+  assert.equal(hasUploadScope(undefined), false);
+});
+
+test('한 편이 실패하면 다음 편으로 넘어가지 않고 멈춘다 (6편 연쇄 실패 재현)', async () => {
+  const eps = ['ep24-a', 'ep25-b', 'ep26-c'];
+  const root = await makePackages(eps);
+  try {
+    const first = await decide(root);
+    assert.equal(first.ok, true);
+    assert.equal(first.item.episodeId, 'ep24-a');
+    const result = await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: failingFetch(403, 'insufficientPermissions')});
+    assert.equal(result.success, false);
+
+    const second = await decide(root);
+    assert.equal(second.ok, false);
+    assert.match(second.reason, /ep24-a/);
+    assert.equal((await readStatus(root, 'ep25-b')).status, 'ready_to_upload');
+    assert.equal((await readStatus(root, 'ep26-c')).status, 'ready_to_upload');
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('실패한 편이 있으면 수동 업로드도 뒤 편을 올리지 못한다 (순서 꼬임 재현)', async () => {
+  const root = await makePackages(['ep24-a', 'ep25-b']);
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: failingFetch(503, 'backendError')});
+    const manual = await decide(root, {episodeId: 'ep25-b', force: true});
+    assert.equal(manual.ok, false);
+    assert.match(manual.reason, /ep24-a/);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('실패 영상은 화면에 보이도록 목록에 남고, 다시 시도하면 대기로 돌아간다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: failingFetch(503, 'backendError')});
+    const attention = await scanPackagesNeedingAttention(root);
+    assert.equal(attention.length, 1);
+    assert.equal(attention[0].kind, 'upload_failed');
+    assert.match(attention[0].message, /503/);
+
+    const resolved = await resolveAttention({pkgDir: join(root, 'ep24-a'), action: 'retry', accessToken: 't', fetchFn: failingFetch(500, 'should not call')});
+    assert.equal(resolved.ok, true);
+    const status = await readStatus(root, 'ep24-a');
+    assert.equal(status.status, 'ready_to_upload');
+    assert.equal(status.uploadError, undefined);
+    assert.equal((await decide(root)).ok, true);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('썸네일이 거부되면 기록을 남기고 다음 업로드를 멈춘다', async () => {
+  const root = await makePackages(['ep24-a', 'ep25-b']);
+  try {
+    const first = await decide(root);
+    const result = await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: partialFetch('/thumbnails/set')});
+    assert.equal(result.success, true);
+    assert.match(result.warnings.join(' '), /썸네일/);
+    const status = await readStatus(root, 'ep24-a');
+    assert.equal(status.status, 'scheduled');
+    assert.match(status.thumbnailError, /403/);
+
+    const attention = await scanPackagesNeedingAttention(root);
+    assert.equal(attention[0].kind, 'thumbnail_failed');
+    assert.equal((await decide(root)).ok, false);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('썸네일 다시 시도: 실패하면 기록이 남고 성공하면 지워진다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: partialFetch('/thumbnails/set')});
+    const dir = join(root, 'ep24-a');
+
+    const failed = await resolveAttention({pkgDir: dir, action: 'retry', accessToken: 't', fetchFn: failingFetch(403, 'forbidden')});
+    assert.equal(failed.ok, false);
+    assert.match((await readStatus(root, 'ep24-a')).thumbnailError, /403/);
+
+    const succeeded = await resolveAttention({pkgDir: dir, action: 'retry', accessToken: 't', fetchFn: async () => ({ok: true, status: 200, json: async () => ({})})});
+    assert.equal(succeeded.ok, true);
+    assert.equal((await readStatus(root, 'ep24-a')).thumbnailError, undefined);
+    assert.equal((await scanPackagesNeedingAttention(root)).length, 0);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('스튜디오에서 직접 해결했다고 표시하면 다시 진행한다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: partialFetch('/thumbnails/set')});
+    const resolved = await resolveAttention({pkgDir: join(root, 'ep24-a'), action: 'dismiss', accessToken: 't', fetchFn: failingFetch(500, 'should not call')});
+    assert.equal(resolved.ok, true);
+    assert.equal((await scanPackagesNeedingAttention(root)).length, 0);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('댓글이 거부되면 기록만 남기고 업로드는 멈추지 않는다', async () => {
+  const root = await makePackages(['ep24-a', 'ep25-b']);
+  try {
+    const first = await decide(root);
+    const result = await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn: partialFetch('/commentThreads')});
+    assert.equal(result.success, true);
+    assert.match((await readStatus(root, 'ep24-a')).commentError, /403/);
+    assert.equal((await scanPackagesNeedingAttention(root)).length, 0);
+    const notices = await scanUploadNotices(root);
+    assert.equal(notices.length, 1);
+    assert.equal(notices[0].episodeId, 'ep24-a');
+    assert.equal((await decide(root)).item.episodeId, 'ep25-b');
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('업로드 권한이 없으면 호출하지 않고 멈춘다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    const decision = await decide(root, {hasScope: false});
+    assert.equal(decision.ok, false);
+    assert.match(decision.reason, /재연동/);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('사람이 승인하지 않은 썸네일은 올리지 않고, 뒤 편으로 건너뛰지도 않는다', async () => {
+  const root = await makePackages(['ep24-a', 'ep25-b']);
+  try {
+    await writeFile(join(root, 'ep24-a', 'thumbnail.jpg'), 'replaced-without-approval');
+    const decision = await decide(root);
+    assert.equal(decision.ok, false);
+    assert.match(decision.reason, /ep24-a/);
+    assert.match(decision.reason, /승인/);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('승인 뒤 썸네일을 바꾸면 승인이 풀리고, 다시 승인하면 통과한다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    const dir = join(root, 'ep24-a');
+    assert.deepEqual((await scanReadyPackages(root))[0].blockers, []);
+    await writeFile(join(dir, 'thumbnail.jpg'), 'new-thumb');
+    assert.match((await scanReadyPackages(root))[0].blockers.join(' '), /승인/);
+    await approveThumbnail(dir);
+    assert.deepEqual((await scanReadyPackages(root))[0].blockers, []);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('메인 썸네일이 없으면 시안으로 대신 올리지 않는다 (thumbnail-b.jpg 사고 방지)', async () => {
+  const root = await makePackages(['ep24-a'], {approve: false, files: {'thumbnail-b.jpg': 'beach-vs-bitch'}});
+  try {
+    await rm(join(root, 'ep24-a', 'thumbnail.jpg'));
+    const [pkg] = await scanReadyPackages(root);
+    assert.equal(pkg.thumbnailFileName, null);
+    assert.match(pkg.blockers.join(' '), /thumbnail\.jpg/);
+    await assert.rejects(approveThumbnail(join(root, 'ep24-a')), /thumbnail\.jpg/);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('금지어나 빈 링크가 있으면 올리지 않는다', async () => {
+  const root = await makePackages(['ep24-a', 'ep25-b']);
+  try {
+    await writeFile(join(root, 'ep24-a', 'description.txt'), '듣기 드릴 영상입니다');
+    await writeFile(join(root, 'ep25-b', 'description.txt'), '다음 영상 https://youtu.be/...');
+    const [first, second] = await scanReadyPackages(root);
+    assert.match(first.blockers.join(' '), /드릴/);
+    assert.match(second.blockers.join(' '), /자리표시자/);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('실제 길이가 맞는 길이 표기 제목은 업로드를 막지 않는다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    await writeFile(join(root, 'ep24-a', 'title.txt'), '[30분 듣기] 영어 발음');
+    assert.deepEqual((await scanReadyPackages(root))[0].blockers, []);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('채널에 같은 제목이 이미 있으면 올리지 않는다 (시안 제목 포함)', async () => {
+  const root = await makePackages(['ep24-a'], {files: {'title-variants.txt': '[A] (메인) ep24-a 제목\n[B] (시안) 스튜디오에서 고른 긴 시안 제목입니다'}});
+  try {
+    const sameTitle = await decide(root, {existingUploads: [{videoId: 'X', title: '  ep24-a   제목 '}]});
+    assert.equal(sameTitle.ok, false);
+    assert.match(sameTitle.reason, /이미/);
+    const variant = await decide(root, {existingUploads: [{videoId: 'Y', title: '스튜디오에서 고른 긴 시안 제목입니다'}]});
+    assert.equal(variant.ok, false);
+    assert.equal((await decide(root, {existingUploads: [{videoId: 'Z', title: '전혀 다른 영상'}]})).ok, true);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('채널 목록을 못 읽으면 중복을 알 수 없으니 올리지 않는다', async () => {
+  const root = await makePackages(['ep24-a']);
+  try {
+    const decision = await decide(root, {existingUploads: null});
+    assert.equal(decision.ok, false);
+    assert.match(decision.reason, /채널/);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('수동 업로드도 큐의 첫 편만 올릴 수 있다', async () => {
+  const root = await makePackages(['ep24-a', 'ep25-b']);
+  try {
+    const skip = await decide(root, {episodeId: 'ep25-b', force: true});
+    assert.equal(skip.ok, false);
+    assert.match(skip.reason, /순서/);
+    assert.equal((await decide(root, {episodeId: 'ep24-a', force: true})).ok, true);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('한도를 넘으면 자동 업로드는 멈추고, 사람이 누른 수동 업로드는 통과한다', async () => {
+  const root = await makePackages(['ep24-a']);
+  const recentUploadHistory = [{uploadedAt: new Date(FIXED_NOW.getTime() - 3600 * 1000).toISOString()}];
+  try {
+    assert.equal((await decide(root, {recentUploadHistory})).ok, false);
+    assert.equal((await decide(root, {recentUploadHistory, episodeId: 'ep24-a', force: true})).ok, true);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('AI 사용 표시가 업로드 정보에 들어간다', async () => {
+  const root = await makePackages(['ep24-a']);
+  const bodies = [];
+  const fetchFn = async (url, options = {}) => {
+    if (url.includes('uploadType=resumable')) bodies.push(JSON.parse(options.body));
+    return partialFetch('none')(url);
+  };
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn});
+    assert.equal(bodies[0].status.containsSyntheticMedia, true);
+    assert.equal(bodies[0].status.privacyStatus, 'private');
+    assert.equal(bodies[0].status.publishAt, first.item.scheduledFor);
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
 
 test('sortEpisodePackages orders packages strictly by episode number ascending', () => {
   const input = [

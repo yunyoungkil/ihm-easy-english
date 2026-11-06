@@ -29,6 +29,12 @@ import {
   buildPublishQueue,
   isUploadAllowed,
   processQueueItem,
+  hasUploadScope,
+  approveThumbnail,
+  scanPackagesNeedingAttention,
+  scanUploadNotices,
+  resolveAttention,
+  decideNextUpload,
 } from './youtube-publisher.mjs';
 
 const execAsync = promisify(exec);
@@ -1094,8 +1100,8 @@ let lastUploadsForMatchingTime = 0;
 // 공개 여부와 무관하게 전부 나온다 — 대시보드 메인 화면(getDashboard)이 이미 이 방식을 쓰고
 // 있어서 신뢰성이 검증돼 있다. 비용도 오히려 더 싸다(search.list 100 unit vs
 // playlistItems.list 1 unit). 5분 캐시로 여러 패키지를 동기화할 때 재호출을 피한다.
-const getRecentUploadsForMatching = async (accessToken) => {
-  if (memoryUploadsForMatching && (Date.now() - lastUploadsForMatchingTime < 5 * 60 * 1000)) {
+const getRecentUploadsForMatching = async (accessToken, {fresh = false} = {}) => {
+  if (!fresh && memoryUploadsForMatching && (Date.now() - lastUploadsForMatchingTime < 5 * 60 * 1000)) {
     return memoryUploadsForMatching;
   }
   const channelData = await googleGet('https://www.googleapis.com/youtube/v3/channels?part=contentDetails&mine=true', accessToken);
@@ -4825,32 +4831,74 @@ function renderSchedulePanelHtml(data) {
     '</label>';
   }).join(' ');
 
+  const attention = data.attention || [];
+  const notices = data.notices || [];
+  const hasScope = data.hasUploadScope === true;
+
+  const alertBox = (color, body, actions) =>
+    '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(0,0,0,0.25);border:1px solid ' + color + ';border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;color:var(--text-normal)">' +
+      '<div style="min-width:0;overflow-wrap:anywhere">' + body + '</div>' +
+      (actions ? '<div style="display:flex;gap:8px;flex-shrink:0">' + actions + '</div>' : '') +
+    '</div>';
+
+  let alertsHtml = '';
+  if (!hasScope) {
+    alertsHtml += alertBox('var(--accent-gold)', '⚠️ 유튜브 업로드 권한이 없어 지금은 올릴 수 없습니다. 채널을 재연동하면 권한이 추가됩니다.',
+      '<a class="btn btn-sm btn-amber" href="/auth" style="padding:4px 10px;font-size:12px">🔗 채널 재연동</a>');
+  }
+  attention.forEach((item) => {
+    const isThumbnail = item.kind === 'thumbnail_failed';
+    const title = isThumbnail ? '썸네일 등록 실패. 이대로면 자동 생성 썸네일로 공개될 수 있습니다.' : '업로드 실패. 해결할 때까지 다음 영상을 올리지 않습니다.';
+    const actions = '<button class="btn btn-sm btn-cyan btn-resolve-upload" data-epid="' + esc(item.episodeId) + '" data-action="retry" style="padding:4px 10px;font-size:12px">다시 시도</button>' +
+      (isThumbnail ? '<button class="btn btn-sm btn-outline btn-resolve-upload" data-epid="' + esc(item.episodeId) + '" data-action="dismiss" style="padding:4px 10px;font-size:12px">스튜디오에서 해결함</button>' : '');
+    alertsHtml += alertBox('var(--accent-red)', '🛑 <b>' + esc(item.episodeId) + '</b> ' + title + '<br><span style="color:var(--text-muted);font-size:12px">' + esc(item.message) + '</span>', actions);
+  });
+  notices.forEach((item) => {
+    alertsHtml += alertBox('rgba(255,255,255,0.15)', '💬 <b>' + esc(item.episodeId) + '</b> 고정 댓글이 자동으로 등록되지 않았습니다. 공개된 뒤 직접 등록해 주세요.', '');
+  });
+  if (isEnabled && data.nextDecision && !data.nextDecision.ok) {
+    alertsHtml += alertBox('rgba(255,255,255,0.15)', '⏸️ 자동 업로드 대기 중: ' + esc(data.nextDecision.reason), '');
+  }
+
   let queueRowsHtml = '';
   if (queue.length === 0) {
-    queueRowsHtml = '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted)">대기 중인 패키지가 없습니다. (모든 영상이 이미 예약 또는 공개 완료되었습니다)</td></tr>';
+    queueRowsHtml = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">대기 중인 패키지가 없습니다.</td></tr>';
   } else {
     queue.forEach((item, idx) => {
       const kstDateStr = item.scheduledFor ? new Date(item.scheduledFor).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', month: 'long', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '-';
+      const blockers = item.blockers || [];
+      const thumbnailApproved = !!item.thumbnailFileName && !!item.thumbnailApproval && item.thumbnailApproval.sha256 === item.thumbnailSha256;
+      const thumbnailCell = item.thumbnailFileName
+        ? '<img src="/api/upload-package-asset/' + encodeURIComponent(item.episodeId) + '/' + encodeURIComponent(item.thumbnailFileName) + '" alt="' + esc(item.episodeId) + ' 썸네일" loading="lazy" style="width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;display:block">' +
+          (thumbnailApproved
+            ? '<div style="margin-top:4px;font-size:11px;color:#10b981">✓ 승인됨</div>'
+            : '<button class="btn btn-sm btn-cyan btn-approve-thumbnail" data-epid="' + esc(item.episodeId) + '" style="margin-top:4px;padding:2px 8px;font-size:11px">이 썸네일 승인</button>')
+        : '<span style="font-size:12px;color:var(--accent-red)">thumbnail.jpg 없음</span>';
+      const statusCell = blockers.length
+        ? blockers.map((text) => '<div style="font-size:12px;color:var(--accent-red);overflow-wrap:anywhere">' + esc(text) + '</div>').join('')
+        : '<span class="badge badge-pass" style="background:rgba(0,229,255,0.15);color:var(--accent-cyan)">준비 완료</span>';
+      const canUpload = idx === 0 && blockers.length === 0 && attention.length === 0 && hasScope;
       queueRowsHtml += '<tr style="border-bottom:1px solid rgba(255,255,255,0.05)">' +
         '<td style="padding:10px 8px;color:var(--text-muted);font-weight:700">#' + (idx + 1) + '</td>' +
+        '<td style="padding:10px 8px">' + thumbnailCell + '</td>' +
         '<td style="padding:10px 8px;font-weight:700;color:var(--accent-cyan);white-space:nowrap">' + esc(item.episodeId) + '</td>' +
         '<td style="padding:10px 8px;color:var(--text-bright);max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="' + esc(item.title) + '">' + esc(item.title) + '</td>' +
         '<td style="padding:10px 8px;color:var(--accent-gold);font-weight:700;white-space:nowrap">🗓️ ' + esc(kstDateStr) + '</td>' +
-        '<td style="padding:10px 8px;white-space:nowrap"><span class="badge badge-pass" style="background:rgba(0,229,255,0.15);color:var(--accent-cyan)">준비 완료</span></td>' +
+        '<td style="padding:10px 8px;min-width:150px">' + statusCell + '</td>' +
         '<td style="padding:10px 8px;white-space:nowrap">' +
-          '<button class="btn btn-sm btn-magenta btn-upload-now" data-epid="' + esc(item.episodeId) + '" style="padding:4px 10px;font-size:12px">🚀 즉시 예약 업로드</button>' +
+          (canUpload ? '<button class="btn btn-sm btn-magenta btn-upload-now" data-epid="' + esc(item.episodeId) + '" style="padding:4px 10px;font-size:12px">🚀 즉시 예약 업로드</button>' : '<span style="font-size:12px;color:var(--text-muted)">' + (idx === 0 ? '조건 미충족' : '앞 편 다음') + '</span>') +
         '</td>' +
       '</tr>';
     });
   }
 
-  return '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">' +
-    '<div style="display:flex;align-items:center;gap:12px">' +
+  return alertsHtml + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">' +
+    '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;min-width:0">' +
       '<span style="font-size:18px;font-weight:800;color:var(--text-bright)">📅 YouTube 자동 예약 업로드 & 발행 스케줄러</span>' +
       '<span class="badge" style="' + (isEnabled ? 'background:rgba(16,185,129,0.2);color:#10b981' : 'background:rgba(255,255,255,0.1);color:var(--text-muted)') + '">' + (isEnabled ? '🟢 자동 업로드 활성' : '⚪ 자동 업로드 비활성') + '</span>' +
       '<button id="btn-toggle-auto-upload" class="btn btn-sm ' + (isEnabled ? 'btn-danger' : 'btn-cyan') + '" style="padding:3px 10px;font-size:12px">' + (isEnabled ? '자동 업로드 끄기' : '자동 업로드 켜기') + '</button>' +
     '</div>' +
-    '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted)">' +
+    '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--text-muted)">' +
       '<span class="tag-chip" style="background:rgba(0,229,255,0.08);color:var(--accent-cyan)">🛡️ 일일 한도: ' + throttle.uploadsLast24h + '/1편</span>' +
       '<span class="tag-chip" style="background:rgba(168,85,247,0.08);color:var(--accent-purple)">🛡️ 주간 한도: ' + throttle.uploadsLast7d + '/2편</span>' +
     '</div>' +
@@ -4861,7 +4909,7 @@ function renderSchedulePanelHtml(data) {
       '<input type="time" id="sched-publish-time" value="' + esc(rules.publishTimeKst || '23:00') + '" style="background:#0c101d;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:4px 8px;border-radius:6px;font-size:13px">' +
       '<span style="font-size:11px;color:var(--text-muted)">KST (밤 11시)</span>' +
     '</div>' +
-    '<div style="display:flex;align-items:center;gap:8px">' +
+    '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">' +
       '<label style="font-size:13px;font-weight:700;color:var(--text-normal)">🗓️ 발행 요일:</label>' +
       daysHtml +
     '</div>' +
@@ -4874,11 +4922,13 @@ function renderSchedulePanelHtml(data) {
       '<span style="font-size:14px;font-weight:700;color:var(--text-bright)">📋 대기 큐 (에피소드 오름차순 예약 목록)</span>' +
       '<span style="font-size:12px;color:var(--text-muted)">총 ' + queue.length + '편 대기 중</span>' +
     '</div>' +
+    '<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">올라간 뒤 끝 화면, 재생목록, 댓글 고정, 제목·썸네일 테스트는 스튜디오에서 직접 합니다.</div>' +
     '<div style="overflow-x:auto">' +
       '<table style="width:100%;border-collapse:collapse;font-size:13px;text-align:left">' +
         '<thead>' +
           '<tr style="border-bottom:1px solid rgba(255,255,255,0.1);color:var(--text-muted);font-size:12px">' +
             '<th style="padding:8px">#</th>' +
+            '<th style="padding:8px">메인 썸네일</th>' +
             '<th style="padding:8px">에피소드</th>' +
             '<th style="padding:8px">제목</th>' +
             '<th style="padding:8px">예약 배정 일시 (KST)</th>' +
@@ -4907,13 +4957,15 @@ async function loadAndBindSchedulePanel() {
     if (toggleBtn) {
       toggleBtn.onclick = async () => {
         const nextState = !data.rules.autoUploadEnabled;
+        if (nextState && !confirm('자동 업로드를 켜면 썸네일을 승인한 영상부터 순서대로 유튜브에 비공개 예약으로 올라갑니다. 켤까요?')) return;
         toggleBtn.disabled = true;
         try {
-          await fetch('/api/schedule/rules', {
+          const toggleRes = await fetch('/api/schedule/rules', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...data.rules, autoUploadEnabled: nextState }),
           });
+          if (!toggleRes.ok) throw new Error((await toggleRes.json()).error || '요청 실패');
           await loadAndBindSchedulePanel();
         } catch (err) {
           alert('설정 변경 실패: ' + err.message);
@@ -4954,6 +5006,44 @@ async function loadAndBindSchedulePanel() {
       };
     }
 
+    // Approve thumbnail buttons
+    document.querySelectorAll('.btn-approve-thumbnail').forEach(btn => {
+      btn.onclick = async () => {
+        btn.disabled = true;
+        try {
+          const approveRes = await fetch('/api/schedule/approve-thumbnail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ episodeId: btn.dataset.epid }),
+          });
+          if (!approveRes.ok) throw new Error((await approveRes.json()).error || '승인 실패');
+          await loadAndBindSchedulePanel();
+        } catch (err) {
+          alert('썸네일 승인 실패: ' + err.message);
+          btn.disabled = false;
+        }
+      };
+    });
+
+    // Resolve failed upload buttons
+    document.querySelectorAll('.btn-resolve-upload').forEach(btn => {
+      btn.onclick = async () => {
+        btn.disabled = true;
+        try {
+          const resolveRes = await fetch('/api/schedule/resolve', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ episodeId: btn.dataset.epid, action: btn.dataset.action }),
+          });
+          if (!resolveRes.ok) throw new Error((await resolveRes.json()).error || '처리 실패');
+          await loadAndBindSchedulePanel();
+        } catch (err) {
+          alert('처리 실패: ' + err.message);
+          btn.disabled = false;
+        }
+      };
+    });
+
     // Upload Now buttons
     document.querySelectorAll('.btn-upload-now').forEach(btn => {
       btn.onclick = async () => {
@@ -4970,7 +5060,8 @@ async function loadAndBindSchedulePanel() {
           });
           const upData = await upRes.json();
           if (!upRes.ok) throw new Error(upData.error || '업로드 실패');
-          alert('[' + epId + '] YouTube 예약 업로드 성공! (Video ID: ' + (upData.result?.videoId || '') + ')');
+          const warnings = upData.result?.warnings || [];
+          alert('[' + epId + '] YouTube 예약 업로드 성공! (Video ID: ' + (upData.result?.videoId || '') + ')' + (warnings.length ? ' 주의: ' + warnings.join(' / ') : ''));
           await loadAndBindSchedulePanel();
           if (typeof fetchDashboardData === 'function') fetchDashboardData();
         } catch (err) {
@@ -9011,27 +9102,57 @@ const server = createServer(async (req, res) => {
     }
     if (url.pathname === '/api/schedule/rules' && req.method === 'POST') {
       const body = await readJsonBody(req);
+      // 권한 없이 켜면 올라가지도 않으면서 켜진 것처럼 보이므로 막는다.
+      if (body.autoUploadEnabled === true && !hasUploadScope((await loadToken())?.scope)) {
+        return json(res, 409, { error: '유튜브 업로드 권한이 없습니다. 먼저 채널을 재연동해 주세요.' });
+      }
       const updated = await savePublishRules(publishRulesPath, body);
       return json(res, 200, { ok: true, rules: updated });
     }
     if (url.pathname === '/api/schedule/queue' && req.method === 'GET') {
       const rules = await loadPublishRules(publishRulesPath);
-      const readyPackages = await scanReadyPackages(globalUploadPackagesDir);
-      const latestScheduledDate = await getLatestScheduledDate();
-      const queue = buildPublishQueue({ readyPackages, rules, latestScheduledDate });
-      const recentHistory = await getRecentUploadHistory();
+      const context = await loadUploadContext();
+      const queue = buildPublishQueue({ readyPackages: context.readyPackages, rules, latestScheduledDate: context.latestScheduledDate });
       const throttle = isUploadAllowed({
-        recentUploadHistory: recentHistory,
+        recentUploadHistory: context.recentUploadHistory,
         maxUploadsPerDay: rules.maxUploadsPerDay,
         maxUploadsPerWeek: rules.maxUploadsPerWeek,
       });
+      const nextDecision = decideNextUpload({ ...context, rules, skipDuplicateCheck: true });
       return json(res, 200, {
         ok: true,
         rules,
         queue,
         throttle,
-        latestScheduledDate,
+        latestScheduledDate: context.latestScheduledDate,
+        hasUploadScope: context.hasScope,
+        attention: context.attention,
+        notices: await scanUploadNotices(globalUploadPackagesDir),
+        nextDecision: { ok: nextDecision.ok, reason: nextDecision.reason || null, episodeId: nextDecision.item?.episodeId || null },
       });
+    }
+    if (url.pathname === '/api/schedule/approve-thumbnail' && req.method === 'POST') {
+      const { episodeId } = await readJsonBody(req);
+      const readyPackages = await scanReadyPackages(globalUploadPackagesDir);
+      const target = readyPackages.find((p) => p.episodeId === episodeId);
+      if (!target) return json(res, 404, { error: `대기 중인 패키지(${episodeId})를 찾을 수 없습니다.` });
+      try {
+        return json(res, 200, { ok: true, approval: await approveThumbnail(target.pkgDir) });
+      } catch (err) {
+        return json(res, 400, { error: err.message });
+      }
+    }
+    if (url.pathname === '/api/schedule/resolve' && req.method === 'POST') {
+      const { episodeId, action } = await readJsonBody(req);
+      if (isUploadWorkerRunning) {
+        return json(res, 409, { error: '현재 다른 동영상 업로드가 진행 중입니다. 잠시 후 다시 시도해 주세요.' });
+      }
+      const attention = await scanPackagesNeedingAttention(globalUploadPackagesDir);
+      const target = attention.find((p) => p.episodeId === episodeId);
+      if (!target) return json(res, 404, { error: `해결할 문제가 있는 패키지(${episodeId})를 찾을 수 없습니다.` });
+      const accessToken = await getAccessToken();
+      const result = await resolveAttention({ pkgDir: target.pkgDir, action, accessToken });
+      return json(res, result.ok ? 200 : 502, result.ok ? { ok: true } : { error: result.error });
     }
     if (url.pathname === '/api/schedule/upload-now' && req.method === 'POST') {
       const body = await readJsonBody(req);
@@ -9046,30 +9167,17 @@ const server = createServer(async (req, res) => {
       if (!accessToken) return json(res, 401, { error: 'YouTube 채널 재연동(로그인)이 필요합니다.' });
 
       const rules = await loadPublishRules(publishRulesPath);
-      const readyPackages = await scanReadyPackages(globalUploadPackagesDir);
-      const target = readyPackages.find((p) => p.episodeId === episodeId);
-      if (!target) return json(res, 404, { error: `대기 중인 패키지(${episodeId})를 찾을 수 없습니다.` });
-
-      if (!force) {
-        const recentHistory = await getRecentUploadHistory();
-        const throttle = isUploadAllowed({
-          recentUploadHistory: recentHistory,
-          maxUploadsPerDay: rules.maxUploadsPerDay,
-          maxUploadsPerWeek: rules.maxUploadsPerWeek,
-        });
-        if (!throttle.allowed) {
-          return json(res, 429, { error: throttle.reason, throttle });
-        }
-      }
 
       isUploadWorkerRunning = true;
       try {
-        const latestScheduledDate = await getLatestScheduledDate();
-        // 개별 타겟만이 아니라 전체 대기 큐에서 해당 에피소드의 올바른 슬롯 순서를 산출
-        const fullQueue = buildPublishQueue({ readyPackages, rules, latestScheduledDate });
-        const queueItem = fullQueue.find((p) => p.episodeId === episodeId) || target;
+        const context = await loadUploadContext({ accessToken, checkChannel: true });
+        const decision = decideNextUpload({ ...context, rules, episodeId, force: force === true });
+        if (!decision.ok) {
+          if (decision.code === 'duplicate') await getEpisodesSummary(true);
+          return json(res, 409, { error: decision.reason, code: decision.code });
+        }
 
-        const result = await processQueueItem({ item: queueItem, accessToken, rules });
+        const result = await processQueueItem({ item: decision.item, accessToken, rules });
         if (result.success) {
           await getEpisodesSummary(true);
           await syncIdeaBoardHistoryFromPackages();
@@ -9815,6 +9923,28 @@ async function getLatestScheduledDate() {
 }
 
 let isUploadWorkerRunning = false;
+// 자동 업로드와 수동 버튼, 화면 표시가 같은 정보로 판단하도록 한곳에서 모은다.
+// checkChannel은 실제로 올리기 직전에만 켠다. 화면을 열 때마다 유튜브를 호출하지 않기 위해서다.
+async function loadUploadContext({ accessToken = null, checkChannel = false } = {}) {
+  const [token, readyPackages, attention, latestScheduledDate, recentUploadHistory] = await Promise.all([
+    loadToken(),
+    scanReadyPackages(globalUploadPackagesDir),
+    scanPackagesNeedingAttention(globalUploadPackagesDir),
+    getLatestScheduledDate(),
+    getRecentUploadHistory(),
+  ]);
+  let existingUploads = null;
+  if (checkChannel && accessToken) {
+    try {
+      existingUploads = await getRecentUploadsForMatching(accessToken, { fresh: true });
+    } catch (err) {
+      console.warn('[Auto-Upload] 채널 업로드 목록 조회 실패:', err.message);
+    }
+  }
+  return { hasScope: hasUploadScope(token?.scope), readyPackages, attention, latestScheduledDate, recentUploadHistory, existingUploads };
+}
+
+let lastAutoUploadWaitReason = null;
 async function runAutoUploadCheck() {
   if (isUploadWorkerRunning) return;
   isUploadWorkerRunning = true;
@@ -9825,29 +9955,22 @@ async function runAutoUploadCheck() {
     const accessToken = await getAccessToken();
     if (!accessToken) return;
 
-    const readyPackages = await scanReadyPackages(globalUploadPackagesDir);
-    if (!readyPackages.length) return;
-
-    const recentHistory = await getRecentUploadHistory();
-    const throttle = isUploadAllowed({
-      recentUploadHistory: recentHistory,
-      maxUploadsPerDay: rules.maxUploadsPerDay,
-      maxUploadsPerWeek: rules.maxUploadsPerWeek,
-    });
-
-    if (!throttle.allowed) {
+    const context = await loadUploadContext({ accessToken, checkChannel: true });
+    const decision = decideNextUpload({ ...context, rules });
+    if (!decision.ok) {
+      if (decision.code === 'duplicate') await getEpisodesSummary(true);
+      if (decision.reason !== lastAutoUploadWaitReason) console.log(`[Auto-Upload] 대기: ${decision.reason}`);
+      lastAutoUploadWaitReason = decision.reason;
       return;
     }
+    lastAutoUploadWaitReason = null;
 
-    const latestScheduledDate = await getLatestScheduledDate();
-    const queue = buildPublishQueue({ readyPackages, rules, latestScheduledDate });
-    if (!queue.length) return;
-
-    const target = queue[0];
+    const target = decision.item;
     console.log(`[Auto-Upload] 자동 예약 업로드 실행: ${target.episodeId} -> ${target.scheduledFor}`);
     const res = await processQueueItem({ item: target, accessToken, rules });
     if (res.success) {
       console.log(`[Auto-Upload] 업로드 완료: ${target.episodeId} (videoId: ${res.videoId})`);
+      for (const warning of res.warnings || []) console.warn(`[Auto-Upload] 주의: ${target.episodeId}: ${warning}`);
       await getEpisodesSummary(true);
       await syncIdeaBoardHistoryFromPackages();
       notifyClients('schedule-updated', { episodeId: target.episodeId, videoId: res.videoId });

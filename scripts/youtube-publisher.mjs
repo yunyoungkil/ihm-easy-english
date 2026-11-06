@@ -6,6 +6,8 @@
 import { readFile, writeFile, readdir, mkdir, stat } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { existsSync, createReadStream } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { findPackageProblems, parseTitleVariants } from './build-upload-package-page.mjs';
 
 export const DEFAULT_PUBLISH_RULES = {
   autoUploadEnabled: false,
@@ -17,6 +19,40 @@ export const DEFAULT_PUBLISH_RULES = {
   maxUploadsPerWeek: 2,
   defaultPrivacy: 'private',
   autoComment: true,
+  // 실사처럼 보이는 AI 배경 영상을 쓰므로 표시한다. 유튜브는 표시해도 노출·수익에 불이익이 없다고 안내한다.
+  containsSyntheticMedia: true,
+};
+
+const UPLOAD_SCOPE = 'https://www.googleapis.com/auth/youtube.upload';
+
+export const hasUploadScope = (scope) => String(scope || '').split(/\s+/).includes(UPLOAD_SCOPE);
+
+// 메인 썸네일만 올린다. 없을 때 시안으로 대신하면 EP24의 BEACH vs BITCH 같은 파일이 올라갈 수 있다.
+const selectMainThumbnail = (files) => ['thumbnail.jpg', 'thumbnail.png', 'thumbnail.jpeg'].find((name) => files.includes(name)) || null;
+
+const hashFile = async (path) => createHash('sha256').update(await readFile(path)).digest('hex');
+
+const readJsonFile = async (path) => JSON.parse(await readFile(path, 'utf8'));
+
+const writeJsonFile = (path, value) => writeFile(path, JSON.stringify(value, null, 2), 'utf8');
+
+// 사람이 지금 이 썸네일 파일을 봤다고 기록한다. 파일이 바뀌면 지문이 달라져 승인이 풀린다.
+export async function approveThumbnail(pkgDir) {
+  const file = selectMainThumbnail(await readdir(pkgDir));
+  if (!file) throw new Error('메인 썸네일(thumbnail.jpg)이 없어 승인할 수 없습니다.');
+  const statusPath = join(pkgDir, 'status.json');
+  const status = await readJsonFile(statusPath);
+  const thumbnailApproval = { file, sha256: await hashFile(join(pkgDir, file)), approvedAt: new Date().toISOString() };
+  await writeJsonFile(statusPath, { ...status, thumbnailApproval });
+  return thumbnailApproval;
+}
+
+const findBlockers = ({ title, description, tags, pinnedComment, thumbnailFileName, thumbnailSha256, thumbnailApproval }) => {
+  const blockers = [];
+  if (!thumbnailFileName) blockers.push('메인 썸네일(thumbnail.jpg)이 없습니다.');
+  else if (thumbnailApproval?.sha256 !== thumbnailSha256) blockers.push('썸네일 승인이 필요합니다.');
+  blockers.push(...findPackageProblems({ title, description, tags: tags.join(', '), pinned: pinnedComment, ignoreLengthHint: true }));
+  return blockers;
 };
 
 export async function loadPublishRules(rulesPath) {
@@ -70,9 +106,7 @@ export async function scanReadyPackages(uploadPackagesDir) {
                       files.find((f) => f.endsWith('.mp4'));
     if (!videoFile) continue; // 동영상 없으면 제외
 
-    // 확정본 thumbnail.jpg/png를 변형 시안(thumbnail-close-up, thumbnail-b 등)보다 우선 선택
-    const thumbFile = files.find((f) => f === 'thumbnail.jpg' || f === 'thumbnail.png') ||
-                      files.find((f) => /^thumbnail.*\.(jpg|jpeg|png)$/i.test(f)) || null;
+    const thumbFile = selectMainThumbnail(files);
 
     const readOptional = async (filename, fallback = '') => {
       const p = join(pkgDir, filename);
@@ -84,16 +118,23 @@ export async function scanReadyPackages(uploadPackagesDir) {
     const description = await readOptional('description.txt');
     const tags = (await readOptional('tags.txt')).split(',').map((t) => t.trim()).filter(Boolean);
     const pinnedComment = await readOptional('pinned-comment.txt');
+    const titleVariants = parseTitleVariants(await readOptional('title-variants.txt')).map((variant) => variant.title);
+    const thumbnailSha256 = thumbFile ? await hashFile(join(pkgDir, thumbFile)) : null;
+    const thumbnailApproval = statusJson.thumbnailApproval || null;
 
     ready.push({
       episodeId: ent.name,
       pkgDir,
       title,
+      titleVariants,
       description,
       tags,
       pinnedComment,
       videoFileName: videoFile,
       thumbnailFileName: thumbFile || null,
+      thumbnailSha256,
+      thumbnailApproval,
+      blockers: findBlockers({ title, description, tags, pinnedComment, thumbnailFileName: thumbFile, thumbnailSha256, thumbnailApproval }),
       status: statusJson.status,
       recommendedPublishAt: statusJson.recommendedPublishAt || null,
       generatedAt: statusJson.generatedAt || null,
@@ -103,6 +144,137 @@ export async function scanReadyPackages(uploadPackagesDir) {
   return sortEpisodePackages(ready.map((r) => r.episodeId))
     .map((id) => ready.find((r) => r.episodeId === id))
     .filter(Boolean);
+}
+
+const readPackageStatuses = async (uploadPackagesDir) => {
+  if (!existsSync(uploadPackagesDir)) return [];
+  const entries = await readdir(uploadPackagesDir, { withFileTypes: true });
+  const packages = [];
+  for (const ent of entries) {
+    if (!ent.isDirectory()) continue;
+    const pkgDir = join(uploadPackagesDir, ent.name);
+    const statusPath = join(pkgDir, 'status.json');
+    if (!existsSync(statusPath)) continue;
+    try {
+      packages.push({ episodeId: ent.name, pkgDir, status: await readJsonFile(statusPath) });
+    } catch {
+      // 깨진 status.json은 업로드 대상도 해결 대상도 아니다.
+    }
+  }
+  return sortEpisodePackages(packages.map((p) => p.episodeId)).map((id) => packages.find((p) => p.episodeId === id));
+};
+
+// 사람이 해결해야 다음 업로드로 넘어갈 수 있는 패키지. 실패를 건너뛰면 공개 순서가 꼬이고
+// 같은 원인(권한, 할당량)으로 남은 영상까지 줄줄이 실패한다.
+export async function scanPackagesNeedingAttention(uploadPackagesDir) {
+  const packages = await readPackageStatuses(uploadPackagesDir);
+  return packages.flatMap(({ episodeId, pkgDir, status }) => {
+    if (status.status === 'upload_failed') {
+      return [{ episodeId, pkgDir, kind: 'upload_failed', message: String(status.uploadError || '업로드 실패').slice(0, 300) }];
+    }
+    if (status.status === 'scheduled' && status.thumbnailError) {
+      return [{ episodeId, pkgDir, kind: 'thumbnail_failed', videoId: status.videoId, message: String(status.thumbnailError).slice(0, 300) }];
+    }
+    return [];
+  });
+}
+
+// 업로드를 막지는 않지만 사람이 직접 처리해야 하는 일. 공개되면 목록에서 사라진다.
+export async function scanUploadNotices(uploadPackagesDir) {
+  const packages = await readPackageStatuses(uploadPackagesDir);
+  return packages
+    .filter(({ status }) => status.status === 'scheduled' && status.commentError)
+    .map(({ episodeId, status }) => ({ episodeId, videoId: status.videoId, message: String(status.commentError).slice(0, 300) }));
+}
+
+export async function resolveAttention({ pkgDir, action, accessToken, fetchFn = fetch }) {
+  const statusPath = join(pkgDir, 'status.json');
+  const status = await readJsonFile(statusPath);
+
+  if (status.status === 'upload_failed' && action === 'retry') {
+    const { uploadError, ...rest } = status;
+    await writeJsonFile(statusPath, { ...rest, status: 'ready_to_upload' });
+    return { ok: true };
+  }
+
+  if (status.status === 'scheduled' && status.thumbnailError) {
+    const { thumbnailError, ...rest } = status;
+    if (action === 'dismiss') {
+      await writeJsonFile(statusPath, rest);
+      return { ok: true };
+    }
+    if (action === 'retry') {
+      const file = selectMainThumbnail(await readdir(pkgDir));
+      try {
+        if (!file) throw new Error('메인 썸네일(thumbnail.jpg)이 없습니다.');
+        await setVideoThumbnail({ videoId: status.videoId, thumbnailPath: join(pkgDir, file), accessToken, fetchFn });
+        await writeJsonFile(statusPath, rest);
+        return { ok: true };
+      } catch (err) {
+        await writeJsonFile(statusPath, { ...rest, thumbnailError: err.message });
+        return { ok: false, error: err.message };
+      }
+    }
+  }
+
+  return { ok: false, error: '처리할 문제가 없습니다.' };
+}
+
+const normalizeTitle = (title) => (title || '').trim().replace(/\s+/g, ' ');
+
+const findExistingUpload = (item, existingUploads) => {
+  const candidates = [item.title, ...(item.titleVariants || [])].filter(Boolean).map(normalizeTitle);
+  return existingUploads.find((video) => {
+    const title = normalizeTitle(video.title);
+    return candidates.some((candidate) => candidate === title || (candidate.length >= 12 && title.includes(candidate)));
+  });
+};
+
+/**
+ * 다음에 올릴 영상을 정한다. 자동 업로드와 수동 버튼이 같은 검사를 통과해야 올라간다.
+ * episodeId를 주면 사람이 누른 수동 업로드이고, force는 업로드 한도만 건너뛴다.
+ * 첫 편에 문제가 있으면 뒤 편으로 건너뛰지 않는다. 끝 화면이 앞 편을 가리켜서 공개 순서가 중요하다.
+ */
+export function decideNextUpload({
+  readyPackages = [],
+  attention = [],
+  rules = {},
+  latestScheduledDate = null,
+  hasScope = false,
+  recentUploadHistory = [],
+  existingUploads = null,
+  skipDuplicateCheck = false,
+  episodeId = null,
+  force = false,
+  now = new Date(),
+}) {
+  const stop = (reason, code = 'blocked') => ({ ok: false, reason, code });
+
+  if (!hasScope) return stop('유튜브 업로드 권한이 없습니다. 대시보드에서 채널을 재연동하세요.', 'no_scope');
+  if (attention.length > 0) return stop(`${attention[0].episodeId} 문제를 먼저 해결해야 합니다: ${attention[0].message}`, 'attention');
+  if (readyPackages.length === 0) return stop('대기 중인 패키지가 없습니다.', 'empty');
+
+  const [next] = buildPublishQueue({ readyPackages, rules, latestScheduledDate, now });
+  if (episodeId && next.episodeId !== episodeId) return stop(`순서를 지켜 주세요. 다음 차례는 ${next.episodeId}입니다.`, 'order');
+  if (next.blockers?.length) return stop(`${next.episodeId}: ${next.blockers.join(' ')}`, 'package');
+
+  if (!force) {
+    const throttle = isUploadAllowed({
+      recentUploadHistory,
+      maxUploadsPerDay: rules.maxUploadsPerDay,
+      maxUploadsPerWeek: rules.maxUploadsPerWeek,
+      now,
+    });
+    if (!throttle.allowed) return stop(throttle.reason, 'throttled');
+  }
+
+  if (!skipDuplicateCheck) {
+    if (!existingUploads) return stop('채널 업로드 목록을 읽지 못해 중복 여부를 확인할 수 없습니다.', 'channel_unknown');
+    const existing = findExistingUpload(next, existingUploads);
+    if (existing) return stop(`${next.episodeId}: 채널에 이미 같은 제목의 영상이 있습니다 (${existing.videoId}).`, 'duplicate');
+  }
+
+  return { ok: true, item: next };
 }
 
 export function buildPublishQueue({ readyPackages = [], rules = {}, latestScheduledDate = null, now = new Date() }) {
@@ -144,6 +316,7 @@ export async function uploadVideoToYouTube({
   tags = [],
   privacyStatus = 'private',
   publishAt = null,
+  containsSyntheticMedia = false,
   accessToken,
   fetchFn = fetch,
 }) {
@@ -165,6 +338,10 @@ export async function uploadVideoToYouTube({
 
   if (publishAt) {
     metadataBody.status.publishAt = publishAt;
+  }
+
+  if (containsSyntheticMedia) {
+    metadataBody.status.containsSyntheticMedia = true;
   }
 
   const initRes = await fetchFn(initUrl, {
@@ -305,9 +482,14 @@ export async function processQueueItem({
       tags: item.tags,
       privacyStatus: rules.defaultPrivacy || 'private',
       publishAt: item.scheduledFor,
+      containsSyntheticMedia: rules.containsSyntheticMedia,
       accessToken,
       fetchFn,
     });
+
+    // 영상은 이미 올라갔으므로 이후 실패로 upload_failed를 쓰면 안 된다. 다시 올리면 중복이 된다.
+    const warnings = [];
+    const followUp = {};
 
     if (item.thumbnailFileName) {
       const thumbPath = join(item.pkgDir, item.thumbnailFileName);
@@ -315,6 +497,8 @@ export async function processQueueItem({
         await setVideoThumbnail({ videoId, thumbnailPath: thumbPath, accessToken, fetchFn });
       } catch (thumbErr) {
         console.warn(`[Publisher] 썸네일 등록 경고 (${item.episodeId}):`, thumbErr.message);
+        followUp.thumbnailError = thumbErr.message;
+        warnings.push(`썸네일 등록 실패: ${thumbErr.message}`);
       }
     }
 
@@ -323,11 +507,14 @@ export async function processQueueItem({
         await createFirstComment({ videoId, commentText: item.pinnedComment, accessToken, fetchFn });
       } catch (commentErr) {
         console.warn(`[Publisher] 댓글 등록 경고 (${item.episodeId}):`, commentErr.message);
+        followUp.commentError = commentErr.message;
+        warnings.push(`댓글 등록 실패: ${commentErr.message}`);
       }
     }
 
     const updatedStatus = {
       ...existingStatus,
+      ...followUp,
       status: 'scheduled',
       videoId,
       scheduledFor: item.scheduledFor,
@@ -340,6 +527,7 @@ export async function processQueueItem({
       success: true,
       videoId,
       scheduledFor: item.scheduledFor,
+      warnings,
     };
   } catch (err) {
     const failedStatus = {

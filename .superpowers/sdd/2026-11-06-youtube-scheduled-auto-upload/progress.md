@@ -18,3 +18,5 @@ Task 2: complete (loadPublishRules, savePublishRules, scanReadyPackages, buildPu
 Task 3: complete (uploadVideoToYouTube, setVideoThumbnail, createFirstComment, processQueueItem verified with mocked test)
 Task 4: complete (integrated /api/schedule/rules, /api/schedule/queue, /api/schedule/upload-now, OAuth scopes, and background watcher)
 Task 5: complete (dashboard UI: renderSchedulePanelHtml, loadAndBindSchedulePanel, queue table, rules form)
+Task 6: complete (E2E verification, 69/69 tests passing, dashboard API tested)
+All tasks complete.

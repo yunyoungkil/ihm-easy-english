@@ -24,6 +24,7 @@ import {
   decideNextUpload,
   OUR_CHANNEL_ID,
   isOurChannel,
+  languageSnippetUpdate,
 } from '../youtube-publisher.mjs';
 
 const CLEAN_RULES = {
@@ -433,6 +434,54 @@ test('AI 사용 표시가 업로드 정보에 들어간다', async () => {
   } finally {
     await rm(root, {recursive: true, force: true});
   }
+});
+
+test('업로드 정보에 영상 언어와 오디오 언어가 한국어로 들어간다', async () => {
+  const root = await makePackages(['ep24-a']);
+  const bodies = [];
+  const fetchFn = async (url, options = {}) => {
+    if (url.includes('uploadType=resumable')) bodies.push(JSON.parse(options.body));
+    return partialFetch('none')(url);
+  };
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: CLEAN_RULES, fetchFn});
+    assert.equal(bodies[0].snippet.defaultLanguage, 'ko');
+    assert.equal(bodies[0].snippet.defaultAudioLanguage, 'ko');
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('규칙에 다른 언어를 정하면 그 언어로 올린다', async () => {
+  const root = await makePackages(['ep24-a']);
+  const bodies = [];
+  const fetchFn = async (url, options = {}) => {
+    if (url.includes('uploadType=resumable')) bodies.push(JSON.parse(options.body));
+    return partialFetch('none')(url);
+  };
+  try {
+    const first = await decide(root);
+    await processQueueItem({item: first.item, accessToken: 't', rules: {...CLEAN_RULES, videoLanguage: 'en'}, fetchFn});
+    assert.equal(bodies[0].snippet.defaultLanguage, 'en');
+    assert.equal(bodies[0].snippet.defaultAudioLanguage, 'en');
+  } finally {
+    await rm(root, {recursive: true, force: true});
+  }
+});
+
+test('이미 올라간 영상의 언어를 고칠 때 제목·설명·태그·카테고리를 그대로 보낸다', () => {
+  const current = {
+    title: '제목', description: '설명', tags: ['a', 'b'], categoryId: '27',
+    channelId: 'UCx', thumbnails: {default: {url: 'x'}}, localized: {title: '제목'}, publishedAt: '2026-11-06T00:00:00Z',
+  };
+  assert.deepEqual(languageSnippetUpdate(current, 'ko'), {
+    title: '제목', description: '설명', tags: ['a', 'b'], categoryId: '27', defaultLanguage: 'ko', defaultAudioLanguage: 'ko',
+  });
+});
+
+test('언어를 고칠 때 제목이나 카테고리가 없으면 덮어쓰지 않고 멈춘다', () => {
+  assert.throws(() => languageSnippetUpdate({description: '설명'}, 'ko'), /제목|카테고리/);
 });
 
 test('sortEpisodePackages orders packages strictly by episode number ascending', () => {

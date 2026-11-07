@@ -21,7 +21,28 @@ export const DEFAULT_PUBLISH_RULES = {
   autoComment: true,
   // 실사처럼 보이는 AI 배경 영상을 쓰므로 표시한다. 유튜브는 표시해도 노출·수익에 불이익이 없다고 안내한다.
   containsSyntheticMedia: true,
+  // 영상 언어와 오디오 언어. 스튜디오 업로드는 채널 기본값(ko)을 쓰지만 API 업로드는 보내지 않으면 비어서,
+  // 자동 자막과 자동 더빙의 원본 언어 판단에 쓰이지 않는다(2026-11-07 EP24에서 발견).
+  videoLanguage: 'ko',
 };
+
+/**
+ * 이미 올라간 영상의 언어만 고칠 때 보낼 snippet을 만든다.
+ * videos.update는 snippet을 통째로 바꾸므로, 쓸 수 있는 칸을 현재 값 그대로 함께 보내야 제목·설명·태그가 지워지지 않는다.
+ */
+export function languageSnippetUpdate(current, language) {
+  if (!current?.title || !current?.categoryId) {
+    throw new Error('현재 제목이나 카테고리를 읽지 못해 언어를 고치지 않습니다. 그대로 보내면 다른 칸이 지워질 수 있습니다.');
+  }
+  return {
+    title: current.title,
+    description: current.description ?? '',
+    tags: Array.isArray(current.tags) ? current.tags : [],
+    categoryId: current.categoryId,
+    defaultLanguage: language,
+    defaultAudioLanguage: language,
+  };
+}
 
 const UPLOAD_SCOPE = 'https://www.googleapis.com/auth/youtube.upload';
 
@@ -335,6 +356,7 @@ export async function uploadVideoToYouTube({
   privacyStatus = 'private',
   publishAt = null,
   containsSyntheticMedia = false,
+  language = DEFAULT_PUBLISH_RULES.videoLanguage,
   accessToken,
   fetchFn = fetch,
 }) {
@@ -347,6 +369,8 @@ export async function uploadVideoToYouTube({
       description,
       tags: Array.isArray(tags) ? tags : [],
       categoryId: '27', // Education
+      defaultLanguage: language,
+      defaultAudioLanguage: language,
     },
     status: {
       privacyStatus: privacyStatus || 'private',
@@ -501,6 +525,7 @@ export async function processQueueItem({
       privacyStatus: rules.defaultPrivacy || 'private',
       publishAt: item.scheduledFor,
       containsSyntheticMedia: rules.containsSyntheticMedia,
+      language: rules.videoLanguage || DEFAULT_PUBLISH_RULES.videoLanguage,
       accessToken,
       fetchFn,
     });

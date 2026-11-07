@@ -3,7 +3,7 @@
 - **제목**: 양일까 배일까? sheep과 ship, 소리만 듣고 맞혀 보세요 #영어발음 #shorts
 - **공개**: 2026-11-10(화) 20:00 KST
 - **길이**: 44.65초 (실측). 마지막 안내 39.73초부터 4.92초.
-- **상태**: 나레이션과 그림 반입 완료, 화면 제작 완료. 손 그림(`cta_hand`) 반영 후 다른 PC에서 렌더링(2026-11-07 사용자 결정). 판정표: [FACT-CHECK.md](FACT-CHECK.md), 검사 결과: [REVIEW.md](REVIEW.md)
+- **상태**: 렌더링 완료(2026-11-07 이 PC, 사용자 승인). 업로드 파일은 `renders/Sheep_vs_Ship_English_Pronunciation_Listening_Quiz_Shorts.mp4`(1080x1920, 44.7초, -16.5 LUFS, 최고 -1.0 dBFS). 그림은 마커 손그림체. 판정표: [FACT-CHECK.md](FACT-CHECK.md)
 
 ## 제작 체크리스트
 

@@ -24,4 +24,4 @@ A vertical YouTube Shorts thumbnail in 9:16 portrait format, 1080 by 1920 pixels
 
 - **받으면 확인할 것**: 한글 글자가 깨지지 않았는지, 손가락이 다섯 개인지, 아래 25%가 비었는지, 문에 글자가 없는지.
 - **저장**: 다운로드 폴더에 `ep25_shorts_thumbnail.jpg`로 넣으면 Claude가 EP25 쇼츠 업로드 패키지(`output/upload-packages/ep25-shorts-pool-pull/thumbnail.jpg`)로 옮긴다.
-- **시도 기록**: 아직 없음
+- **시도 기록**: 2026-11-08 1안 그대로 받아 `output/upload-packages/ep25-shorts-pool-pull/thumbnail.jpg`에 넣었다(768×1376). "넷 다 '풀'?"의 '풀'은 확대해 ㅜ 줄기까지 확인(플 아님), 아래 25% 비어 있음, 네 모서리 로고 없음.

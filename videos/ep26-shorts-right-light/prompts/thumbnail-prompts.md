@@ -24,4 +24,4 @@ A vertical YouTube Shorts thumbnail in 9:16 portrait format, 1080 by 1920 pixels
 
 - **받으면 확인할 것**: 한글 글자가 깨지지 않았는지, 신호등이 세 칸이고 초록불만 켜졌는지, 아래 25%가 비었는지.
 - **저장**: 다운로드 폴더에 `ep26_shorts_thumbnail.jpg`로 넣으면 Claude가 EP26 쇼츠 업로드 패키지(`output/upload-packages/ep26-shorts-right-light/thumbnail.jpg`)로 옮긴다.
-- **시도 기록**: 아직 없음
+- **시도 기록**: 2026-11-08 1안 그대로 받아 `output/upload-packages/ep26-shorts-right-light/thumbnail.jpg`에 넣었다(768×1376). 글자 정확, 신호등 세 칸 중 초록만 켜짐, 차가 오른쪽으로 꺾는 화살표 있음, 아래 25% 비어 있음, 네 모서리 로고 없음. 노란 형광펜은 등호 대신 첫 줄 "라이트" 아래에 그어졌다(괜찮음).

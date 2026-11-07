@@ -604,7 +604,9 @@ EP12에서 검증된 뒤로 **새 영상(EP13부터)에도 기본으로 적용�
 - **최종 렌더는 `-o`로 `output/upload-packages/`에 바로 쏘지 말 것**(2026-09-10 확정) —
   프로젝트 자체의 `videos/<project>/renders/` 폴더에 기본 경로로 먼저 렌더한 뒤, 최종본만
   `output/upload-packages/<project>-longform/video.mp4`로 복사하는 2단계로 한다(EP11~13은
-  전부 이 방식이었는데 EP14에서 처음 건너뛰어 사용자가 지적한 뒤 정정함). 상세:
+  전부 이 방식이었는데 EP14에서 처음 건너뛰어 사용자가 지적한 뒤 정정함). 쇼츠도 같은 2단계로
+  `output/upload-packages/ep<번호>-shorts-<이름>/`에 넣되 `status.json`은 두지 않는다(2026-11-07,
+  대시보드가 같은 번호 롱폼 카드의 쇼츠 탭으로 보여 준다). 상세:
   `knowledge/production-rules.md`의 "출력 폴더" 절.
 - **GSAP로 애니메이션하는 요소에는 CSS `transition`을 같이 걸지 말 것**(2026-09-18 확정,
   EP17 Frame 6·7·8 사례) — HyperFrames는 "단일 paused 타임라인을 seek해서 렌더링"하는

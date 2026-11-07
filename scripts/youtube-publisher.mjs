@@ -8,6 +8,7 @@ import { join, dirname } from 'node:path';
 import { existsSync, createReadStream } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { findPackageProblems, parseTitleVariants } from './build-upload-package-page.mjs';
+import { selectPackageVideo } from './upload-package-summary.mjs';
 
 export const DEFAULT_PUBLISH_RULES = {
   autoUploadEnabled: false,
@@ -128,9 +129,8 @@ export async function scanReadyPackages(uploadPackagesDir) {
 
     // 패키지 내 파일 확인
     const files = await readdir(pkgDir);
-    // 키워드 파일명(SEO)을 generic video.mp4보다 우선 선택
-    const videoFile = files.find((f) => f.endsWith('.mp4') && f.toLowerCase() !== 'video.mp4') ||
-                      files.find((f) => f.endsWith('.mp4'));
+    // 키워드 파일명(SEO)을 generic video.mp4보다 우선 선택(대시보드와 같은 규칙)
+    const videoFile = selectPackageVideo(files);
     if (!videoFile) continue; // 동영상 없으면 제외
 
     const thumbFile = selectMainThumbnail(files);

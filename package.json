@@ -42,7 +42,7 @@
     "analyze-comments": "node scripts/analyze-outlier-comments.mjs",
     "growth-check": "node scripts/growth-check.mjs",
     "check-terms": "node scripts/check-banned-terms.mjs",
-    "test": "node --test scripts/tests/regressions.test.mjs scripts/tests/banned-terms.test.mjs scripts/tests/youtube-publisher.test.mjs scripts/tests/growth-rules.test.mjs",
+    "test": "node --test scripts/tests/regressions.test.mjs scripts/tests/banned-terms.test.mjs scripts/tests/youtube-publisher.test.mjs scripts/tests/growth-rules.test.mjs scripts/tests/upload-package-summary.test.mjs",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"

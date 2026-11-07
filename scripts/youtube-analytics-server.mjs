@@ -38,6 +38,7 @@ import {
   decideNextUpload,
   isOurChannel,
 } from './youtube-publisher.mjs';
+import { attachShortsPackages, selectPackageVideo, shortsPackageEpisode } from './upload-package-summary.mjs';
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
@@ -1256,6 +1257,8 @@ const getEpisodesSummary = async (forceReload = false) => {
       episodes.flatMap((e) => Object.values(e.tracks).map((t) => t.contentId).filter(Boolean))
     );
     const pkgFolders = await readdir(uploadPackagesDir, {withFileTypes: true});
+    // 쇼츠 패키지(ep24-shorts-…)는 따로 카드를 만들지 않고, 롱폼 카드를 다 모은 뒤 같은 번호 카드에 쇼츠 탭으로 붙인다.
+    const shortsPackages = [];
     for (const folder of pkgFolders) {
       if (!folder.isDirectory() || coveredContentIds.has(folder.name)) continue;
       const pkgPath = join(uploadPackagesDir, folder.name);
@@ -1303,7 +1306,8 @@ const getEpisodesSummary = async (forceReload = false) => {
           .filter((f) => /^thumbnail.*\.(jpg|jpeg|png)$/i.test(f))
           .sort()
           .map((f) => `/api/upload-package-asset/${encodeURIComponent(folder.name)}/${encodeURIComponent(f)}`);
-        const videoFile = assetFiles.find((f) => /^video.*\.mp4$/i.test(f));
+        // 자동 업로드와 같은 규칙: 검색어로 지은 영상 파일을 video.mp4보다 먼저 고른다.
+        const videoFile = selectPackageVideo(assetFiles);
         const videoAssetUrl = videoFile
           ? `/api/upload-package-asset/${encodeURIComponent(folder.name)}/${encodeURIComponent(videoFile)}`
           : null;
@@ -1362,37 +1366,42 @@ const getEpisodesSummary = async (forceReload = false) => {
           statusLabel = '공개됨';
         }
 
-        episodes.push({
-          season: '단편',
-          episode: epMatch ? `EP${epMatch[1]}` : folder.name,
-          tracks: {
-            longform: {
-              file: 'title.txt',
-              contentId: folder.name,
-              status: statusData.status || 'packaged',
-              statusLabel,
-              scheduledFor: statusData.scheduledFor || null,
-              classification: null,
-              youtube: {
-                title,
-                titleVariants,
-                description,
-                timeline: timelineRaw || '',
-                tags: tagsRaw ? tagsRaw.split(',').map((s) => s.trim()).filter(Boolean) : [],
-                pinnedComment,
-                thumbnailText: [],
-                thumbnailCandidates,
-                multilingualVariants,
-                videoAssetUrl,
-                videoId: statusData.videoId || null,
-                url: statusData.videoId ? `https://youtu.be/${statusData.videoId}` : null,
-              },
-              evaluation: null,
-            },
+        const track = {
+          file: 'title.txt',
+          contentId: folder.name,
+          status: statusData.status || 'packaged',
+          statusLabel,
+          scheduledFor: statusData.scheduledFor || null,
+          classification: null,
+          youtube: {
+            title,
+            titleVariants,
+            description,
+            timeline: timelineRaw || '',
+            tags: tagsRaw ? tagsRaw.split(',').map((s) => s.trim()).filter(Boolean) : [],
+            pinnedComment,
+            thumbnailText: [],
+            thumbnailCandidates,
+            multilingualVariants,
+            videoAssetUrl,
+            videoId: statusData.videoId || null,
+            url: statusData.videoId ? `https://youtu.be/${statusData.videoId}` : null,
           },
-        });
+          evaluation: null,
+        };
+        const shortsEpisode = shortsPackageEpisode(folder.name);
+        if (shortsEpisode) {
+          shortsPackages.push({episode: shortsEpisode, track});
+        } else {
+          episodes.push({
+            season: '단편',
+            episode: epMatch ? `EP${epMatch[1]}` : folder.name,
+            tracks: {longform: track},
+          });
+        }
       } catch {}
     }
+    attachShortsPackages(episodes, shortsPackages);
   }
 
   const sorted = episodes.sort((a, b) => {

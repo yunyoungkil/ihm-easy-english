@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {attachShortsPackages, selectPackageVideo, shortsPackageEpisode} from '../upload-package-summary.mjs';
+import {attachShortsPackages, packageStatusSource, selectPackageVideo, shortsPackageEpisode} from '../upload-package-summary.mjs';
 
 test('검색어로 지은 영상 파일을 video.mp4보다 먼저 고른다', () => {
   assert.equal(selectPackageVideo(['video.mp4', 'Sheep_vs_Ship_Shorts.mp4', 'title.txt']), 'Sheep_vs_Ship_Shorts.mp4');
@@ -55,4 +55,13 @@ test('붙일 롱폼 카드가 없으면 번호 옆에 쇼츠라고 적은 카드
   assert.equal(episodes.length, 2);
   assert.equal(episodes[1].episode, 'EP31 쇼츠');
   assert.equal(episodes[1].tracks.longform.contentId, 'ep31-shorts-x');
+});
+
+test('쇼츠 패키지는 대시보드 전용 상태 파일을 쓰고, 처음에는 제목으로 찾아보도록 packaged로 시작한다', () => {
+  assert.deepEqual(packageStatusSource('ep24-shorts-sheep-ship'), {file: 'shorts-status.json', fallback: {status: 'packaged'}});
+});
+
+test('롱폼 패키지는 지금처럼 status.json을 쓰고, 없으면 동기화하지 않는다', () => {
+  assert.deepEqual(packageStatusSource('ep24-long-short-i'), {file: 'status.json', fallback: {}});
+  assert.deepEqual(packageStatusSource('channel-shorts-c-schwa'), {file: 'status.json', fallback: {}});
 });

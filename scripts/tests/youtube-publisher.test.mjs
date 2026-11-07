@@ -804,3 +804,18 @@ test('processQueueItem performs upload pipeline and updates status.json', async 
 });
 
 
+
+test('쇼츠 패키지의 대시보드용 상태 파일(shorts-status.json)은 자동 업로드 대기열에 들어가지 않는다', async () => {
+  const tempDir = await mkdtemp(join(tmpdir(), 'shorts-status-test-'));
+  try {
+    const dir = join(tempDir, 'ep24-shorts-sheep-ship');
+    await mkdir(dir, { recursive: true });
+    await writeFile(join(dir, 'shorts-status.json'), JSON.stringify({ status: 'ready_to_upload' }));
+    await writeFile(join(dir, 'title.txt'), '쇼츠 제목');
+    await writeFile(join(dir, 'thumbnail.jpg'), 'fake-thumb');
+    await writeFile(join(dir, 'Shorts_Keyword.mp4'), 'fake-mp4');
+    assert.deepEqual(await scanReadyPackages(tempDir), []);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});

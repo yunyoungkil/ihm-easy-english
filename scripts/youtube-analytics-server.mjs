@@ -38,7 +38,7 @@ import {
   decideNextUpload,
   isOurChannel,
 } from './youtube-publisher.mjs';
-import { attachShortsPackages, selectPackageVideo, shortsPackageEpisode } from './upload-package-summary.mjs';
+import { attachShortsPackages, packageStatusSource, selectPackageVideo, shortsPackageEpisode } from './upload-package-summary.mjs';
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
@@ -1134,7 +1134,8 @@ const getRecentUploadsForMatching = async (accessToken, {fresh = false} = {}) =>
 // 패키지에 한해 유튜브 실제 상태를 확인해서 status.json을 갱신한다 — videoId를 이미 알면
 // videos.list(1 unit)만 호출하고, 모르면 채널 업로드 목록에서 제목으로 찾아낸 뒤로는 videoId를
 // 저장해 다음부터는 그 조회만 하게 한다. 5분에 한 번 이상은 확인하지 않는다.
-const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, titleCandidates) => {
+// statusFile: 롱폼은 status.json, 쇼츠는 대시보드만 읽는 shorts-status.json(packageStatusSource 참고).
+const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, titleCandidates, statusFile = 'status.json') => {
   if (!statusData?.status) return statusData; // status.json이 없는 옛 패키지
   // 공개일까지 유튜브 값으로 확인했으면 더 볼 게 없다. 예전 기록은 동기화한 시각이 공개일로 적혀 있어(최대 9일 차이)
   // 한 번씩 다시 확인해서 고친다. 예약일이 없는 패키지도 확인한다 — 안 그러면 EP22처럼 이미 공개된 영상이
@@ -1198,7 +1199,7 @@ const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, ti
         updated.scheduledFor = ytStatus.publishAt;
       }
     }
-    await saveJson(join(pkgPath, 'status.json'), updated);
+    await saveJson(join(pkgPath, statusFile), updated);
     return updated;
   } catch (err) {
     console.warn('[upload-package] YouTube 상태 동기화 실패:', err.message);
@@ -1345,8 +1346,10 @@ const getEpisodesSummary = async (forceReload = false) => {
         // 예약 시각이 지난 건에 한해 실제 유튜브 상태로 자동 동기화한다(2026-09-05 추가,
         // syncUploadPackageStatusFromYouTube 참고 — 그 전엔 예약 시각이 지나도 계속 "예약됨"으로
         // 멈춰 있는 진짜 버그였다).
-        let statusData = await loadJson(join(pkgPath, 'status.json')) || {};
-        statusData = await syncUploadPackageStatusFromYouTube(pkgPath, statusData, title, titleVariants);
+        // 쇼츠 패키지는 status.json 대신 shorts-status.json을 읽고 쓴다(자동 업로드 대기열과 섞이지 않게).
+        const statusSource = packageStatusSource(folder.name);
+        let statusData = await loadJson(join(pkgPath, statusSource.file)) || {...statusSource.fallback};
+        statusData = await syncUploadPackageStatusFromYouTube(pkgPath, statusData, title, titleVariants, statusSource.file);
         let statusLabel = '패키징 완료';
         if (statusData.status === 'scheduled' && statusData.scheduledFor) {
           const d = new Date(statusData.scheduledFor);

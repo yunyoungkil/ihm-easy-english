@@ -27,4 +27,4 @@ A vertical YouTube Shorts thumbnail in 9:16 portrait format, 1080 by 1920 pixels
 
 - **받으면 확인할 것**: 한글 글자가 깨지지 않았는지, 아래 25%가 비었는지, 정답(양)을 가리키는 표시가 없는지.
 - **저장**: 다운로드 폴더에 `ep24_shorts_thumbnail.jpg`로 넣으면 Claude가 `output/upload-packages/ep24-shorts-sheep-ship/thumbnail.jpg`로 옮긴다(대시보드 SHORTS-A 탭에 보임).
-- **시도 기록**: 아직 없음
+- **시도 기록**: 2026-11-08 1안 프롬프트로 사용자가 만들어 `output/upload-packages/ep24-shorts-sheep-ship/thumbnail.jpg`에 넣었다(768×1376). 한글 두 줄 정확, 아래 25% 비어 있음, 정답 표시 없음, 네 모서리에 로고 없음(밝기 최소값 232~233).

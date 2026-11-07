@@ -14,6 +14,14 @@ export const shortsPackageEpisode = (folderName = '') => {
   return m ? `EP${m[1]}` : null;
 };
 
+// 대시보드가 패키지 상태를 읽고 유튜브와 맞춰 저장할 파일. 쇼츠는 status.json 대신 대시보드만 읽는
+// shorts-status.json을 쓴다(자동 업로드 대기열·업로드 횟수 계산은 status.json만 읽으므로 섞이지 않는다).
+// 쇼츠는 파일이 없어도 packaged로 시작해 유튜브 업로드 목록에서 제목으로 찾아보게 한다.
+export const packageStatusSource = (folderName = '') =>
+  shortsPackageEpisode(folderName)
+    ? {file: 'shorts-status.json', fallback: {status: 'packaged'}}
+    : {file: 'status.json', fallback: {}};
+
 // 쇼츠 패키지를 같은 번호의 단편 롱폼 카드에 쇼츠 탭('shorts-a', 'shorts-b' …)으로 붙인다.
 // 같은 번호 카드가 둘이면 패키지 인스펙터가 번호로 찾다가 엉뚱한 카드를 열기 때문이다.
 // 붙일 롱폼이 없으면 "EP31 쇼츠"처럼 따로 카드를 만든다.

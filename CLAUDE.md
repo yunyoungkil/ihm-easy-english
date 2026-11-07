@@ -239,6 +239,8 @@ AI 툴(Google Veo/Gemini, Runway Gen-3, Sora, Pika, Kling, Midjourney, Imagen �
 확인한다**(2026-09-07 확정, 상세: `knowledge/VIDEO_WORKFLOW.md` 3단계). 경쟁사 대본 분석에서
 나온 예시라도 그 경쟁 채널의 설명 자체가 언어학적으로 맞는지는 다시 검증해야 한다 — 채널 데이터는
 "이게 시청자가 궁금해하는 지점"이라는 근거일 뿐, "이 설명이 맞다"는 보증이 아니다.
+**대본 초안 직후에는 `FACT-CHECK.md` 표를 만들고, 표가 없으면 음성을 만들지 않는다**(2026-11-07 확정,
+형식: `episode-planning` 스킬 `references/03-script-and-narration.md` 5절).
 
 ### 스크립트 작성 시 도입부 대화체 핑퐁 훅 및 글로벌 연출 차용 원칙 (모든 대화 공통 적용, 2026-09-28 확정)
 

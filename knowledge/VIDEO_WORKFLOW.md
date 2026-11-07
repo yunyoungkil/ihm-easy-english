@@ -106,6 +106,8 @@
 
 ### 확정할 것
 
+- **대본 초안 직후 `FACT-CHECK.md` 표를 만든다. 표가 없으면 음성을 만들지 않는다**(2026-11-07 확정,
+  형식: `.claude/skills/episode-planning/references/03-script-and-narration.md` 5절).
 - **목차·대본에 쓰는 구체적 예문·발음 현상은 웹 검색으로 사실관계를 확인한 뒤 쓴다**
   (2026-09-07 확정). 채널 자체 데이터(`audience-dna.json`의 painPoint/question, 경쟁사 대본
   분석)에서 이미 근거를 찾았더라도, 그 경쟁 채널의 설명 자체가 언어학적으로 정확한지는 별개

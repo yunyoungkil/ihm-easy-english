@@ -46,7 +46,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | 5 | **Phase 5** 분량·포맷·스타일 | 고유 코너, **비주얼 스타일 1차 결정**, 쇼츠 세트와 연결 칸 | 01 |
 | 6 | **Phase 6** 제목 & 썸네일 | **근거 4종 먼저**(클릭률 상·하위, A/B 승자, 아웃라이어, 실제 검색어), 제목 3안, **방향 미리보기 비교**, 프롬프트(글자·색면뿐이면 생략, 작은 표본이면 메인 1종, 아니면 4종) | [02-title-and-thumbnail.md](references/02-title-and-thumbnail.md) |
 | 7 | **Phase 7** 목차 | 직전 3편과 구성 비교, 단일 현실 장면 | [03-script-and-narration.md](references/03-script-and-narration.md) |
-| 8 | **Phase 8** 대본·TTS 규격 | **korean-skills 3종 순서**(humanizer → style-guide → grammar-checker), 금지어 검사 | 03 |
+| 8 | **Phase 8** 대본·TTS 규격 | 초안 직후 **팩트 체크 표(`FACT-CHECK.md`)**, **korean-skills 3종 순서**(humanizer → style-guide → grammar-checker), 바뀐 문장 재판정, 금지어 검사 | 03 |
 | 9 | **Phase 9** 비주얼 스타일 확인 | Phase 5 결정을 확인만 함 | [04-visual-and-assets.md](references/04-visual-and-assets.md) |
 | 10 | **Phase 10** 그림·영상 프롬프트 | HyperFrames 필터, 워터마크 차단, 그림 속 전문용어 금지 | 04 |
 | — | 제작 | 음성·HyperFrames·검수·렌더 (`knowledge/VIDEO_WORKFLOW.md`) | — |
@@ -78,7 +78,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
    |---|---|---|
    | 1. 기획 확정 | Phase 5 끝 | 소재, 방식·형식, 고유 코너, 추천 스타일, 쇼츠 세트 |
    | 2. 제목·썸네일 확정 | Phase 6 끝 | 근거 표, 제목 3안, 방향 미리보기, 썸네일 프롬프트(글자·색면뿐이면 생략, 작은 표본이면 메인 1종, 아니면 4종) |
-   | 3. 대본 확정 | Phase 8 끝 | 목차 비교, 대본, 한국어 다듬기 표 (음성 제작 비용 전) |
+   | 3. 대본 확정 | Phase 8 끝 | 목차 비교, 대본, 팩트 체크 표, 한국어 다듬기 표 (음성 제작 비용 전) |
    | 4. 렌더 | 제작 후 | 아래 3번 규칙 그대로 |
    | 5. 공개 | Phase 13 끝 | 업로드 전 점검 결과, 수정안, 공개 진행 |
 

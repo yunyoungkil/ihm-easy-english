@@ -1,15 +1,19 @@
 {
-  "status": "ready_to_upload",
+  "status": "scheduled",
   "episodeId": "ep27-s-ending",
   "title": "영어 -S 끝소리 3가지, 이것만 알면 귀가 뚫립니다 | 24단어 반복 듣기",
   "recommendedPublishAt": "2026-10-11T14:00:00Z",
   "videoFile": "English_Pronunciation_S_Ending_3_Rules_Listening_Drill.mp4",
   "thumbnailsCount": 4,
   "generatedAt": "2026-10-09T12:57:44.872Z",
-  "lastSyncedAt": "2026-11-08T15:05:14.362Z",
+  "lastSyncedAt": "2026-11-08T15:48:53.787Z",
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "f4887c9d64e88b1516c8a7f692ffb1a238cc6c567e5789690b39554616c3223f",
     "approvedAt": "2026-11-07T14:31:56.865Z"
-  }
+  },
+  "pinnedCommentPending": true,
+  "videoId": "a4E6XlTbTW0",
+  "scheduledFor": "2026-11-19T14:00:00Z",
+  "uploadedAt": "2026-11-08T15:43:08.573Z"
 }

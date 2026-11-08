@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "syncedAt": "2026-11-07T12:18:47.505Z",
+  "syncedAt": "2026-11-08T15:48:53.516Z",
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/1Oo6_AfJXNpD3im1GJ6pdxVvlFw7-Nm8Be6PPzHGWS74k12n6xgdhUYHbFQLNO_1H1fWu1bv=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 114,
-    "totalViews": 53306,
+    "totalViews": 53314,
     "videos": 78,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
@@ -14,10 +14,201 @@
   "uploadsPlaylist": "UUwNrEdm2jYAtUlfHVvH3WQw",
   "videos": [
     {
+      "videoId": "a4E6XlTbTW0",
+      "title": "영어 -S 끝소리 3가지, 이것만 알면 귀가 뚫립니다 | 24단어 반복 듣기",
+      "publishedAt": "2026-11-08T15:43:00Z",
+      "thumbnail": "https://i9.ytimg.com/vi/a4E6XlTbTW0/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLD01tE-t2K4IcuRPcsgl9NxN8u83w",
+      "description": "학창 시절에 복수형이나 3인칭 단수에 붙은 S는 그냥 '스'로 읽으면 된다고 배우셨죠?\n그런데 미드를 들어보면 dogs는 '독스'가 아니라 끝이 '즈'에 가깝게 들립니다. houses는 아예 '하우지즈'가 됩니다.\n\n단어 끝 -S와 -ES는 바로 앞 소리에 따라 딱 3가지로 갈립니다. 24단어를 남녀 목소리로 번갈아 반복해서 들으면서 귀로 익혀보세요. 🎧\n\n⏱️ 챕터\n00:00 -S, 다 '스'로 읽으셨죠? 3가지 끝소리 차이 (도입부)\n00:29 끝소리가 갈리는 원리 ([s] vs [z] vs [ɪz])\n01:16 Group 1: [s] 성대 떨림 0% 6단어 (cats, cups, books, laughs...)\n02:10 Group 2: [z] 성대 떨림 100% 6단어 (dogs, plays, pens, calls...)\n03:02 Group 3: [ɪz] 혀 꼬임 방지 쿠션 6단어 (bu · ses, wat · ches, box · es...)\n03:54 Group 4: 예외 & 자주 쓰는 말 6단어 (hou · ses, pri · zes, is...)\n04:44 문장 속에서 듣기 7문장\n05:09 24단어 무작위 섞어 듣기 (실전 퀴즈)\n07:10 스마트폰 캡처용 1장 요약 치트시트\n07:36 24단어 앵콜 총복습 & 다음 영상 추천\n\n━━━━━━━━━━━━━━━━━━━\n💡 -S · -ES 소리 3가지\n① [s]: 성대가 떨리지 않는 소리 뒤에서는 똑같이 안 떨리는 [s] (cats, cups, books, laughs, stops, sleeps)\n② [z]: 성대가 울리는 소리 뒤에서는 부드러운 [z] (dogs, plays, pens, calls, loves, dreams)\n③ [ɪz]: 이미 바람 소리가 나는 단어 뒤에서는 혀가 꼬이지 않게 소리를 하나 더 넣은 [ɪz] (bu · ses, wat · ches, box · es, clas · ses)\n★ 따로 기억할 것: hou · ses는 앞소리까지 바뀌어 [haʊzɪz]로 읽습니다. is [ɪz], was [wɑːz], has [hæz], does [dʌz]도 끝이 '즈' 소리입니다.\n\n━━━━━━━━━━━━━━━━━━━\n📌 이렇게 들어보세요\n단어만 보지 마시고, 04:44부터 나오는 문장 7개와 05:09부터 나오는 24단어 섞어 듣기로 귀가 먼저 반응할 때까지 들어보세요.\n\n#영어발음 #S발음 #복수형발음 #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어",
+      "tags": [
+        "3인칭단수",
+        "English pronunciation",
+        "S발음",
+        "plural s",
+        "s ending pronunciation",
+        "기초영어",
+        "발음규칙",
+        "영어공부",
+        "영어듣기",
+        "영어리스닝",
+        "영어발음",
+        "영어복수형",
+        "영어회화",
+        "원어민발음",
+        "이해하면쉬운영어",
+        "파닉스"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT8M20S",
+      "durationSeconds": 500,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-19T14:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/a4E6XlTbTW0",
+      "format": "LONGFORM",
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "comments": [],
+      "channelOwnerComments": []
+    },
+    {
+      "videoId": "UDwLERu-Tu8",
+      "title": "Right와 Light, 둘 다 '라이트'로 읽으셨나요? | 영어 R L 20쌍 반복 듣기",
+      "publishedAt": "2026-11-08T15:05:26Z",
+      "thumbnail": "https://i9.ytimg.com/vi/UDwLERu-Tu8/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLCK-JPf5EFwJaOZVfVuJinWzwDGDw",
+      "description": "오른쪽 right와 전등 light, 둘 다 똑같이 '라이트'로 읽고 계신가요?\n기도하다 pray와 놀다 play도 마찬가지입니다.\n\n한글 ㄹ 하나로 쓰다 보니 둘이 같은 소리처럼 느껴집니다. 그런데 R은 혀를 심하게 굴리는 소리가 아닙니다.\n\n① R: 혀끝이 입천장에 닿지 않는 소리 (접촉 0%)\n② L: 혀끝이 윗니 바로 뒤 잇몸에 닿는 소리 (접촉 100%)\n\n20쌍 40단어를 남녀 목소리로 번갈아 반복해서 들어보세요. 문장 7개와 40단어 섞어 듣기까지 이어집니다.\n\n📌 챕터\n00:00 Right와 Light, 아직도 둘 다 '라이트'? (도입부)\n00:28 혀 굴리지 마세요! [r] 혀끝 허공 0% vs [l] 잇몸 접촉 100% 원리\n01:05 Group 1: 자주 나오는 5쌍 (Right/Light, Red/Led, Rain/Lane...)\n02:31 Group 2: 필수 동사 5쌍 (Run/Learn, Read/Lead, Ride/Lied...)\n03:57 Group 3: 일상 명사 5쌍 (River/Liver, Rock/Lock, Road/Load...)\n05:21 Group 4: 자음이 붙은 단어 5쌍 (Pray/Play, Crown/Clown, Grass/Glass...)\n06:47 문장 속에서 듣기 7문장\n07:42 40단어 무작위 섞어 듣기 (실전 퀴즈)\n11:00 1장 요약 치트시트 (스마트폰 캡처용)\n11:22 20쌍 앵콜 총복습 & 다음 영상 추천\n\n💡 이렇게 들어보세요\n1. 이어폰을 끼고 혀끝이 닿는지 안 닿는지에 집중해 보세요.\n2. 11:00 요약 치트시트는 캡처해 두고 틈틈이 소리 내어 연습해 보세요.\n\n#영어발음 #영어듣기 #영어리스닝 #RL발음 #영어회화 #자음발음 #이해하면쉬운영어",
+      "tags": [
+        "L발음",
+        "Pray Play",
+        "RL구분",
+        "Right Light",
+        "R발음",
+        "기초영어회화",
+        "영어 리스닝 훈련",
+        "영어 발음 꿀팁",
+        "영어 쉐도잉",
+        "영어공부혼자하기",
+        "영어듣기",
+        "영어리스닝",
+        "영어발음",
+        "원어민 발음",
+        "이해하면 쉬운영어",
+        "파닉스"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT12M25S",
+      "durationSeconds": 745,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-16T14:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/UDwLERu-Tu8",
+      "format": "LONGFORM",
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "comments": [],
+      "channelOwnerComments": []
+    },
+    {
+      "videoId": "oMrCtSBbibc",
+      "title": "양일까 배일까? sheep과 ship, 소리만 듣고 맞혀 보세요 #영어발음 #shorts",
+      "publishedAt": "2026-11-07T15:06:10Z",
+      "thumbnail": "https://i9.ytimg.com/vi/oMrCtSBbibc/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLCb94qjDy30neUoVQODYLSDsW3g4A",
+      "description": "전체 영상: Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요?\n\nsheep과 ship, seat와 sit, feel과 fill.\n한글로 적으면 둘 다 '쉽', '싯', '필'인데, 영어에서는 서로 다른 단어입니다.\n\n차이는 소리 길이보다 입과 혀 모양에서 납니다.\n・sheep, seat, feel: 웃듯이 입꼬리를 옆으로 당기는 소리\n・ship, sit, fill: 입에 힘을 툭 빼는 소리\n\n세 문제 중 몇 개 맞히셨나요?\n20쌍 전체는 화면 아래 링크에서 이어서 들어 보세요.\n\n#영어발음 #영어듣기 #발음테스트",
+      "tags": [
+        "sheep ship",
+        "sheep ship 발음",
+        "seat sit 발음",
+        "feel fill 발음",
+        "영어발음",
+        "영어 발음 테스트",
+        "발음 테스트",
+        "영어듣기",
+        "영단어 발음",
+        "장모음 단모음",
+        "영어모음",
+        "기초영어",
+        "왕초보영어",
+        "영어 쇼츠",
+        "이해하면쉬운영어"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT45S",
+      "durationSeconds": 45,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-10T11:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/oMrCtSBbibc",
+      "format": "SHORTS",
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "comments": [],
+      "channelOwnerComments": []
+    },
+    {
+      "videoId": "8Ul_lkCkUCI",
+      "title": "Pool과 Pull, 둘 다 '풀'로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
+      "publishedAt": "2026-11-07T13:16:38Z",
+      "thumbnail": "https://i9.ytimg.com/vi/8Ul_lkCkUCI/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLBlOZZ49wNNvka2GdclmATgwEEC3w",
+      "description": "수영장 pool과 당기다 pull, 둘 다 똑같이 '풀'로 읽고 계신가요?\n바보 fool과 배부른 full도 한글로 쓰면 똑같이 '풀'입니다.\n\n학창 시절에는 길게 읽으면 [uː], 짧게 읽으면 [ʊ]라고 배웠습니다. 그런데 실제 차이는 길이보다 입술에 있습니다.\n\n① [uː] pool: 촛불을 끄듯이 입술을 둥글게 앞으로 모으면서 내는 소리\n② [ʊ] pull: 멍때리듯이 입에 힘을 툭 빼고 내는 소리\n\n20쌍을 남녀 목소리로 번갈아 반복해서 들어보세요. 문장 7개와 40단어 섞어 듣기까지 이어집니다.\n\n📌 챕터\n00:00 Pool과 Pull, 둘 다 똑같이 '풀'? (도입부)\n00:49 [uː] vs [ʊ] 입술 모양 차이\n01:35 Group 1: 핵심 명사 & 동사 5쌍 (pool vs pull, fool vs full...)\n03:00 Group 2: 조동사 & 과거형 5쌍 (cooed vs could, shooed vs should...)\n04:30 Group 3: 불규칙 과거 & 동작 5쌍 (shoot vs shook, toot vs took...)\n05:53 Group 4: 일상에서 자주 헷갈리는 5쌍 (food vs foot, boot vs book...)\n07:20 문장 속에서 듣기 7문장\n08:06 40단어 무작위 섞어 듣기 (실전 퀴즈)\n11:28 1장 요약 치트시트 (스마트폰 캡처용)\n11:58 20쌍 앵콜 총복습 & 다음 영상 추천\n\n💡 이렇게 들어보세요\n1. 이어폰을 끼고 입술 모양 차이에 집중해 보세요.\n2. 11:28 요약 치트시트는 캡처해 두고 틈틈이 다시 보세요.\n\n#영어발음 #영어듣기 #영어리스닝 #영어회화 #모음발음 #이해하면쉬운영어",
+      "tags": [
+        "fool full",
+        "look luke",
+        "pool pull",
+        "기초영어회화",
+        "모음발음",
+        "영어 리스닝 훈련",
+        "영어 발음 꿀팁",
+        "영어 쉐도잉",
+        "영어공부혼자하기",
+        "영어듣기",
+        "영어리스닝",
+        "영어발음",
+        "영어소리",
+        "원어민 발음",
+        "이해하면 쉬운영어",
+        "장모음단모음"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT13M1S",
+      "durationSeconds": 781,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-12T14:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/8Ul_lkCkUCI",
+      "format": "LONGFORM",
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "comments": [],
+      "channelOwnerComments": []
+    },
+    {
       "videoId": "--Ajwp-UvIk",
       "title": "Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
       "publishedAt": "2026-11-06T11:17:59Z",
-      "thumbnail": "https://i9.ytimg.com/vi/--Ajwp-UvIk/maxresdefault.jpg?sqp=CMSsvNcG&rs=AOn4CLBhbcnVWVAxkovIAjjK6l2ADqsyxQ",
+      "thumbnail": "https://i9.ytimg.com/vi/--Ajwp-UvIk/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLCi1NQUmfq2ZGDskUgcLqsrXNTkeQ",
       "description": "sheep과 ship, seat와 sit. 둘 다 똑같이 '쉽', '싯'으로 읽고 계셨죠?\n학창 시절에는 장모음은 길게, 단모음은 짧게 읽으라고 배웠습니다. 그런데 미드를 들어보면 길게 끄는 것 같지도 않은데 두 소리가 분명히 다르게 들립니다.\n\n진짜 차이는 길이보다 입 모양에 있습니다.\n\n① [iː] sheep: 웃듯이 입꼬리를 양옆으로 당기면서 내는 소리\n② [ɪ] ship: 멍때리듯이 입에 힘을 툭 빼고 내는 소리\n\n20쌍 40단어를 남녀 목소리로 번갈아 반복해서 들어보세요. 이어서 문장 7개와 40단어 섞어 듣기까지 따라가다 보면, 두 소리가 왜 다르게 들렸는지 귀로 느껴집니다.\n\n「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리가 나는 원리로 설명합니다.\n\n📌 오늘 배우는 내용\n・Sheep vs Ship: 소리의 길이보다 입꼬리 차이\n・Group 1: 일상 사물 & 동물 5쌍 (sheep/ship, feet/fit, seat/sit, heel/hill, peel/pill)\n・Group 2: 음식 & 동작 5쌍 (meat/mitt, peach/pitch, beat/bit, heat/hit, cheap/chip)\n・Group 3: 감각 & 상태 5쌍 (sleep/slip, feel/fill, reach/rich, leave/live, seek/sick)\n・Group 4: 헷갈리기 쉬운 단어 5쌍 (lead/lid, teen/tin, deed/did, steel/still 외)\n・문장 7개 3회 연속 듣기\n・40단어 무작위 섞어 듣기\n・스마트폰 캡처용 1장 요약 치트시트\n・20쌍 앵콜 총복습\n\n⏱️ 챕터\n0:00 Sheep vs Ship, 둘 다 똑같이 '쉽'?\n0:31 [iː] vs [ɪ] 입 모양 차이\n0:57 Group 1: 일상 사물 & 동물 5쌍 (sheep vs ship, feet vs fit...)\n1:41 Group 2: 음식 & 동작 5쌍 (meat vs mitt, peach vs pitch...)\n2:23 Group 3: 감각 & 상태 5쌍 (sleep vs slip, feel vs fill...)\n3:08 Group 4: 헷갈리기 쉬운 단어 5쌍 (lead vs lid, teen vs tin...)\n3:51 문장 속에서 듣기 7문장\n4:56 40단어 무작위 섞어 듣기 (실전 퀴즈)\n8:12 스마트폰 캡처용 1장 요약 치트시트\n8:29 20쌍 앵콜 총복습\n9:19 다음 추천 영상 & 완주\n\n소리를 길게 늘이기만 하면 오히려 어색하게 들립니다.\n소리가 나는 원리를 알면 듣기도 말하기도 한결 쉬워집니다.\n영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다!\n\n#영어발음 #영어모음 #장모음단모음 #sheepship #발음비교 #파닉스 #성인파닉스 #영어단어읽는법 #영어리스닝",
       "tags": [
         "sheep ship",
@@ -41,7 +232,7 @@
         "파닉스"
       ],
       "categoryId": "27",
-      "defaultLanguage": null,
+      "defaultLanguage": "ko",
       "duration": "PT9M30S",
       "durationSeconds": 570,
       "privacyStatus": "private",
@@ -174,7 +365,8 @@
           "text": "오늘도 24단어 -ED 과거형 발음 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏<br><br>💬 여러분은 그동안 24개 단어 중 어떤 단어의 -ED 발음이 가장 헷갈리셨나요?<br>댓글로 남겨주시면 발음 교정 팁을 함께 나눠드리겠습니다!<br><br>📱 <a href=\"https://www.youtube.com/watch?v=bPTAnjMT7xc&amp;t=480\">08:00</a> 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!<br>구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️",
           "likeCount": 0,
           "publishedAt": "2026-10-28T10:12:46Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -185,7 +377,8 @@
           "text": "오늘도 24단어 -ED 과거형 발음 끝까지 완주하신 여러분, 정말 고생하셨습니다! 👏<br><br>💬 여러분은 그동안 24개 단어 중 어떤 단어의 -ED 발음이 가장 헷갈리셨나요?<br>댓글로 남겨주시면 발음 교정 팁을 함께 나눠드리겠습니다!<br><br>📱 <a href=\"https://www.youtube.com/watch?v=bPTAnjMT7xc&amp;t=480\">08:00</a> 요약 치트시트는 스마트폰에 캡처해 두고 틈날 때마다 꺼내보세요!<br>구독과 좋아요는 다음 유익한 발음 영상 제작에 큰 힘이 됩니다. ❤️",
           "likeCount": 0,
           "publishedAt": "2026-10-28T10:12:46Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -288,7 +481,8 @@
           "text": "📌 여러분은 스마트폰 앱에서 World 발음할 때 어떤 단어로 가장 많이 오인식되셨나요?<br>1번 Old (늙은... 👴)<br>2번 Word (단어... 📖)<br>3번 그냥 침묵... (인식 불가 ❌)<br><br>댓글로 여러분의 현실 경험을 남겨주시면, &#39;게으른 혀 4글자 공식&#39;으로 바로 뚫어드립니다!<br>오늘 영상이 도움 되셨다면 [구독 &amp; 좋아요] 부탁드립니다! ✨",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:11:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -299,7 +493,8 @@
           "text": "📌 여러분은 스마트폰 앱에서 World 발음할 때 어떤 단어로 가장 많이 오인식되셨나요?<br>1번 Old (늙은... 👴)<br>2번 Word (단어... 📖)<br>3번 그냥 침묵... (인식 불가 ❌)<br><br>댓글로 여러분의 현실 경험을 남겨주시면, &#39;게으른 혀 4글자 공식&#39;으로 바로 뚫어드립니다!<br>오늘 영상이 도움 되셨다면 [구독 &amp; 좋아요] 부탁드립니다! ✨",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:11:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -356,7 +551,8 @@
           "text": "📌 오늘 영상 핵심 요약 (화면 캡처 치트시트)<br>1. -ate로 끝나는 단어가 동사(행동)일 땐 ➔ 끝까지 힘을 살려 또렷하게 &#39;에이트&#39;!<br>2. -ate로 끝나는 단어가 명사·형용사(이름/상태)일 땐 ➔ 앞머리만 힘주고 뒤는 힘을 빼서 &#39;엇/잇&#39;!<br>3. estimate, graduate, separate, certificate, moderate, delegate, chocolate, climate, private 전부 같은 원리!<br><br>💡 질문: estimate처럼 여러분이 늘 헷갈렸던 -ate 단어가 또 있나요? 댓글로 남겨주시면 다음 영상에 반영하겠습니다!",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:11:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -367,7 +563,8 @@
           "text": "📌 오늘 영상 핵심 요약 (화면 캡처 치트시트)<br>1. -ate로 끝나는 단어가 동사(행동)일 땐 ➔ 끝까지 힘을 살려 또렷하게 &#39;에이트&#39;!<br>2. -ate로 끝나는 단어가 명사·형용사(이름/상태)일 땐 ➔ 앞머리만 힘주고 뒤는 힘을 빼서 &#39;엇/잇&#39;!<br>3. estimate, graduate, separate, certificate, moderate, delegate, chocolate, climate, private 전부 같은 원리!<br><br>💡 질문: estimate처럼 여러분이 늘 헷갈렸던 -ate 단어가 또 있나요? 댓글로 남겨주시면 다음 영상에 반영하겠습니다!",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:11:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -402,7 +599,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "155",
+        "viewCount": "158",
         "likeCount": "4",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -424,7 +621,8 @@
           "text": "📌 오늘 영상 핵심 요약 (화면 캡처 치트시트)<br>1. 1번 서랍 KN- (knee, knife, know) ➔ 앞의 K 버리고 앞니 뒤 N으로 바로 출발!<br>2. 2번 서랍 -MB (climb, comb, thumb) ➔ 뒤의 B 버리고 입술 편안히 붙여 &#39;음~&#39;으로 마무리!<br>3. 3번 서랍 WR- (write, wrong, wrist) ➔ 앞의 W 버리고 혀 뒤로 당겨 시원하게 R로 직진!<br><br>💡 질문: 여러분이 영어를 배우면서 가장 읽기 힘들었던 묵음 단어는 무엇이었나요? 댓글로 남겨주시면 다음 영상에 반영하겠습니다!",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:10:35Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -435,7 +633,8 @@
           "text": "📌 오늘 영상 핵심 요약 (화면 캡처 치트시트)<br>1. 1번 서랍 KN- (knee, knife, know) ➔ 앞의 K 버리고 앞니 뒤 N으로 바로 출발!<br>2. 2번 서랍 -MB (climb, comb, thumb) ➔ 뒤의 B 버리고 입술 편안히 붙여 &#39;음~&#39;으로 마무리!<br>3. 3번 서랍 WR- (write, wrong, wrist) ➔ 앞의 W 버리고 혀 뒤로 당겨 시원하게 R로 직진!<br><br>💡 질문: 여러분이 영어를 배우면서 가장 읽기 힘들었던 묵음 단어는 무엇이었나요? 댓글로 남겨주시면 다음 영상에 반영하겠습니다!",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:10:35Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -496,7 +695,8 @@
           "text": "오늘 배운 &#39;소리 서랍 3개&#39;로 직접 읽어보실까요? 영상에는 나오지 않은 새로운 단어들입니다 👀<br><br>① BARN<br>② PORCH<br>③ SHIRT<br>④ NURSE (💡 힌트: ③번과 같은 서랍이에요!)<br><br>(힌트: AR은 &#39;아~&#39;, OR은 &#39;오~&#39;, ER·IR·UR은 전부 편안한 &#39;어~&#39; 소리라고 했습니다!)<br><br>각 단어의 한글 발음을 댓글로 남겨주세요, 맞았는지 확인해 드릴게요! ✍️",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:10:13Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -507,7 +707,8 @@
           "text": "오늘 배운 &#39;소리 서랍 3개&#39;로 직접 읽어보실까요? 영상에는 나오지 않은 새로운 단어들입니다 👀<br><br>① BARN<br>② PORCH<br>③ SHIRT<br>④ NURSE (💡 힌트: ③번과 같은 서랍이에요!)<br><br>(힌트: AR은 &#39;아~&#39;, OR은 &#39;오~&#39;, ER·IR·UR은 전부 편안한 &#39;어~&#39; 소리라고 했습니다!)<br><br>각 단어의 한글 발음을 댓글로 남겨주세요, 맞았는지 확인해 드릴게요! ✍️",
           "likeCount": 0,
           "publishedAt": "2026-09-28T14:10:13Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -568,7 +769,8 @@
           "text": "오늘 배운 &#39;앞 모음 법칙&#39;으로 직접 읽어보실까요? 영상에는 나오지 않은 새로운 단어들입니다 👀<br><br>① BEAT<br>② ROAD<br>③ MAIN<br>④ BREAD (💡 주의: 이건 아까 배운 예외 단어였죠?)<br><br>(힌트: 모음 2개가 나란히 오면 앞 모음 이름 그대로 소리 내고, 뒤 모음은 소리를 내지 않는다고 했습니다!)<br><br>각 단어의 한글 발음을 댓글로 남겨주세요, 맞았는지 확인해 드릴게요! ✍️",
           "likeCount": 0,
           "publishedAt": "2026-09-20T11:16:52Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -579,7 +781,8 @@
           "text": "오늘 배운 &#39;앞 모음 법칙&#39;으로 직접 읽어보실까요? 영상에는 나오지 않은 새로운 단어들입니다 👀<br><br>① BEAT<br>② ROAD<br>③ MAIN<br>④ BREAD (💡 주의: 이건 아까 배운 예외 단어였죠?)<br><br>(힌트: 모음 2개가 나란히 오면 앞 모음 이름 그대로 소리 내고, 뒤 모음은 소리를 내지 않는다고 했습니다!)<br><br>각 단어의 한글 발음을 댓글로 남겨주세요, 맞았는지 확인해 드릴게요! ✍️",
           "likeCount": 0,
           "publishedAt": "2026-09-20T11:16:52Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -640,7 +843,8 @@
           "text": "오늘 배운 원리로 직접 맞혀보실까요? 아래 4개 단어, 영상에는 안 나온 새 단어들이에요 👀<br><br>① CONCLUSION<br>② PROVISION<br>③ COMPREHENSION<br>④ ADMISSION<br><br>(힌트: 끝소리 바로 앞 글자가 모음이거나 R이면 전, 그 밖의 자음이면 션 — S가 두 번 겹치면 무조건 션이었죠?)<br><br>정답을 댓글로 남겨주세요, 맞았는지 확인해드릴게요!",
           "likeCount": 0,
           "publishedAt": "2026-09-17T11:28:43Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -651,7 +855,8 @@
           "text": "오늘 배운 원리로 직접 맞혀보실까요? 아래 4개 단어, 영상에는 안 나온 새 단어들이에요 👀<br><br>① CONCLUSION<br>② PROVISION<br>③ COMPREHENSION<br>④ ADMISSION<br><br>(힌트: 끝소리 바로 앞 글자가 모음이거나 R이면 전, 그 밖의 자음이면 션 — S가 두 번 겹치면 무조건 션이었죠?)<br><br>정답을 댓글로 남겨주세요, 맞았는지 확인해드릴게요!",
           "likeCount": 0,
           "publishedAt": "2026-09-17T11:28:43Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -712,7 +917,8 @@
           "text": "오늘 배운 원리로 직접 연습해볼까요? 아래 표현들, 혀에 힘 빼고 자연스럽게 이어서 소리 내보세요 👀<br><br>① TURN OFF<br>② LOOK AT<br>③ COME IN<br>④ SIT ON<br><br>(힌트: 앞 단어가 자음으로 끝나고 뒤 단어가 모음으로 시작하면, 그 자음이 뒤로 슬쩍 넘어가서 붙습니다)<br><br>어떻게 들렸는지 댓글로 알려주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-17T11:28:24Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -723,7 +929,8 @@
           "text": "오늘 배운 원리로 직접 연습해볼까요? 아래 표현들, 혀에 힘 빼고 자연스럽게 이어서 소리 내보세요 👀<br><br>① TURN OFF<br>② LOOK AT<br>③ COME IN<br>④ SIT ON<br><br>(힌트: 앞 단어가 자음으로 끝나고 뒤 단어가 모음으로 시작하면, 그 자음이 뒤로 슬쩍 넘어가서 붙습니다)<br><br>어떻게 들렸는지 댓글로 알려주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-17T11:28:24Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -785,7 +992,8 @@
           "text": "오늘 배운 원리로 직접 테스트해볼까요? 아래 단어들, C가 &#39;크&#39;로 소리 날지 &#39;스&#39;로 소리 날지 미리 소리 내서 읽어보세요 👀<br><br>① CIRCLE<br>② CANDY<br>③ CYCLE<br>④ CAMERA<br><br>(힌트: C 바로 뒤에 E, I, Y가 오면 혀가 귀찮아서 &#39;스&#39;로 바뀝니다)<br><br>맞았는지 댓글로 알려주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-17T11:28:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -796,7 +1004,8 @@
           "text": "오늘 배운 원리로 직접 테스트해볼까요? 아래 단어들, C가 &#39;크&#39;로 소리 날지 &#39;스&#39;로 소리 날지 미리 소리 내서 읽어보세요 👀<br><br>① CIRCLE<br>② CANDY<br>③ CYCLE<br>④ CAMERA<br><br>(힌트: C 바로 뒤에 E, I, Y가 오면 혀가 귀찮아서 &#39;스&#39;로 바뀝니다)<br><br>맞았는지 댓글로 알려주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-17T11:28:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -857,7 +1066,8 @@
           "text": "영상 속 리스닝 테스트 4문장 중에서, 실제 속도로 들었을 때 GONNA를 가장 놓치기 쉬웠던 문장은 몇 번인가요? 👀<br><br>오늘 배운 압축 원리를 떠올리면서 다시 들어보시면 확실히 들리실 거예요.<br><br>① What are you gonna do this weekend?<br>② She&#39;s probably gonna be late.<br>③ It&#39;s gonna be okay.<br>④ They&#39;re gonna miss the train.<br><br>가장 헷갈렸던 번호를 댓글로 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-08T15:48:33Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -868,7 +1078,8 @@
           "text": "영상 속 리스닝 테스트 4문장 중에서, 실제 속도로 들었을 때 GONNA를 가장 놓치기 쉬웠던 문장은 몇 번인가요? 👀<br><br>오늘 배운 압축 원리를 떠올리면서 다시 들어보시면 확실히 들리실 거예요.<br><br>① What are you gonna do this weekend?<br>② She&#39;s probably gonna be late.<br>③ It&#39;s gonna be okay.<br>④ They&#39;re gonna miss the train.<br><br>가장 헷갈렸던 번호를 댓글로 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-08T15:48:33Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -932,7 +1143,8 @@
           "text": "영상 속 리스닝 테스트 4문장 중에서, 실제 속도로 들었을 때 Want인지 Won&#39;t인지 가장 헷갈렸던 문장은 몇 번인가요? 👀<br><br>오늘 배운 입 모양 원리(벌어지면 Want, 오므라들면 Won&#39;t)를 떠올리면서 다시 들어보시면 확실히 구분되실 거예요.<br><br>① I want it so bad.<br>② She won&#39;t listen.<br>③ They want more time.<br>④ We won&#39;t give up.<br><br>가장 헷갈렸던 번호를 댓글로 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-05T14:16:38Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -943,7 +1155,8 @@
           "text": "영상 속 리스닝 테스트 4문장 중에서, 실제 속도로 들었을 때 Want인지 Won&#39;t인지 가장 헷갈렸던 문장은 몇 번인가요? 👀<br><br>오늘 배운 입 모양 원리(벌어지면 Want, 오므라들면 Won&#39;t)를 떠올리면서 다시 들어보시면 확실히 구분되실 거예요.<br><br>① I want it so bad.<br>② She won&#39;t listen.<br>③ They want more time.<br>④ We won&#39;t give up.<br><br>가장 헷갈렸던 번호를 댓글로 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-09-05T14:16:38Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -997,7 +1210,8 @@
           "text": "여러분도 SOCIAL을 이미 &quot;소셜&quot;이라고 읽고 계셨죠? 😄<br><br>-CIAL로 끝나는 다른 단어들도 다 같은 규칙이에요. 전체 원리는 관련 영상에서 확인하세요 👇<br><a href=\"https://www.youtube.com/watch?v=3PkSwrFIcRE\">https://youtu.be/3PkSwrFIcRE</a>",
           "likeCount": 0,
           "publishedAt": "2026-09-02T16:08:25Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1008,7 +1222,8 @@
           "text": "여러분도 SOCIAL을 이미 &quot;소셜&quot;이라고 읽고 계셨죠? 😄<br><br>-CIAL로 끝나는 다른 단어들도 다 같은 규칙이에요. 전체 원리는 관련 영상에서 확인하세요 👇<br><a href=\"https://www.youtube.com/watch?v=3PkSwrFIcRE\">https://youtu.be/3PkSwrFIcRE</a>",
           "likeCount": 0,
           "publishedAt": "2026-09-02T16:08:25Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1066,7 +1281,8 @@
           "text": "4문제 중 몇 개 맞히셨나요? 👀<br><br>댓글로 점수 알려주세요! 시즌1 전체 원리는 관련 영상에서 다시 확인할 수 있어요 👇<br><a href=\"https://www.youtube.com/watch?v=3PkSwrFIcRE\">https://youtu.be/3PkSwrFIcRE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-31T11:30:41Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1077,7 +1293,8 @@
           "text": "4문제 중 몇 개 맞히셨나요? 👀<br><br>댓글로 점수 알려주세요! 시즌1 전체 원리는 관련 영상에서 다시 확인할 수 있어요 👇<br><a href=\"https://www.youtube.com/watch?v=3PkSwrFIcRE\">https://youtu.be/3PkSwrFIcRE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-31T11:30:41Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1141,7 +1358,8 @@
           "text": "시즌1 전체 중에서 가장 헷갈렸던 단어는 무엇이었나요? 👀<br><br>오늘 퀴즈(OBSERVATION·CONFUSION·CAPTURE·ARTIFICIAL) 네 개 중 몇 개 맞히셨는지도 댓글로 알려주세요!<br><br>시즌2에서는 문장 속 소리 연결·축약을 다룹니다. 기대해 주세요 👇<br>📚 시즌1 처음부터 이어서 보기<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-29T14:00:44Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1152,7 +1370,8 @@
           "text": "시즌1 전체 중에서 가장 헷갈렸던 단어는 무엇이었나요? 👀<br><br>오늘 퀴즈(OBSERVATION·CONFUSION·CAPTURE·ARTIFICIAL) 네 개 중 몇 개 맞히셨는지도 댓글로 알려주세요!<br><br>시즌2에서는 문장 속 소리 연결·축약을 다룹니다. 기대해 주세요 👇<br>📚 시즌1 처음부터 이어서 보기<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-29T14:00:44Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1215,7 +1434,8 @@
           "text": "COMMERCE가 커머스라면 COMMERCIAL은 어떻게 읽으셨나요? 👀<br><br>① 커머시알<br>② 커머셜<br><br>FINANCIAL까지 맞혔는지도 댓글로 알려주세요!<br><br>-CIAL의 발음과 강세 원리는 관련 영상에서 자세히 확인할 수 있습니다. 👇<br><a href=\"https://www.youtube.com/watch?v=sNNufVhkjT8\">https://youtu.be/sNNufVhkjT8</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-27T12:53:00Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1226,7 +1446,8 @@
           "text": "COMMERCE가 커머스라면 COMMERCIAL은 어떻게 읽으셨나요? 👀<br><br>① 커머시알<br>② 커머셜<br><br>FINANCIAL까지 맞혔는지도 댓글로 알려주세요!<br><br>-CIAL의 발음과 강세 원리는 관련 영상에서 자세히 확인할 수 있습니다. 👇<br><a href=\"https://www.youtube.com/watch?v=sNNufVhkjT8\">https://youtu.be/sNNufVhkjT8</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-27T12:53:00Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1289,7 +1510,8 @@
           "text": "OFFICIAL과 FINANCIAL을 처음 보고 어떻게 읽으셨나요? 👀<br><br>① 오피시알 / 파이낸시알<br>② 오피셜 / 파이낸셜<br><br>정답을 맞혔는지 댓글로 알려주세요!<br><br>-CIAL이 왜 한 번에 ‘셜’로 소리 나는지는 관련 영상에서 확인할 수 있습니다. 👇<br><a href=\"https://www.youtube.com/watch?v=sNNufVhkjT8\">https://youtu.be/sNNufVhkjT8</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-25T13:58:00Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1300,7 +1522,8 @@
           "text": "OFFICIAL과 FINANCIAL을 처음 보고 어떻게 읽으셨나요? 👀<br><br>① 오피시알 / 파이낸시알<br>② 오피셜 / 파이낸셜<br><br>정답을 맞혔는지 댓글로 알려주세요!<br><br>-CIAL이 왜 한 번에 ‘셜’로 소리 나는지는 관련 영상에서 확인할 수 있습니다. 👇<br><a href=\"https://www.youtube.com/watch?v=sNNufVhkjT8\">https://youtu.be/sNNufVhkjT8</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-25T13:58:00Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1367,7 +1590,8 @@
           "text": "SPECIAL·OFFICIAL·SOCIAL 중에서 처음 읽을 때 가장 헷갈렸던 단어는 무엇인가요? 👀<br><br>영상의 규칙을 적용하면 처음 보는 -CIAL 단어도 ‘셜’과 강세 위치를 함께 예상할 수 있습니다.<br><br>① SPECIAL<br>② OFFICIAL<br>③ COMMERCIAL<br>④ FINANCIAL<br><br>가장 헷갈렸던 번호와 발음을 댓글로 남겨주세요!<br><br>📚 시즌1 처음부터 이어서 보기<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-25T13:57:11Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1378,7 +1602,8 @@
           "text": "SPECIAL·OFFICIAL·SOCIAL 중에서 처음 읽을 때 가장 헷갈렸던 단어는 무엇인가요? 👀<br><br>영상의 규칙을 적용하면 처음 보는 -CIAL 단어도 ‘셜’과 강세 위치를 함께 예상할 수 있습니다.<br><br>① SPECIAL<br>② OFFICIAL<br>③ COMMERCIAL<br>④ FINANCIAL<br><br>가장 헷갈렸던 번호와 발음을 댓글로 남겨주세요!<br><br>📚 시즌1 처음부터 이어서 보기<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-25T13:57:11Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1444,7 +1669,8 @@
           "text": "BANANA·PIZZA·COMPUTER에서 힘이 빠지는 모음을 찾으셨나요? 👀<br><br>영어를 들을 때 모든 철자를 잡으려 하면 오히려 더 어렵습니다. 강한 소리를 먼저 찾고, 약한 모음은 슈와 /ə/로 줄어들 수 있다는 점을 기억해 보세요.<br><br>👇 슈와를 찾는 3가지 방법과 더 많은 예시<br><br><a href=\"https://www.youtube.com/watch?v=BsyRH8GWYJ4\">https://youtu.be/BsyRH8GWYJ4</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-14T11:42:32Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1455,7 +1681,8 @@
           "text": "BANANA·PIZZA·COMPUTER에서 힘이 빠지는 모음을 찾으셨나요? 👀<br><br>영어를 들을 때 모든 철자를 잡으려 하면 오히려 더 어렵습니다. 강한 소리를 먼저 찾고, 약한 모음은 슈와 /ə/로 줄어들 수 있다는 점을 기억해 보세요.<br><br>👇 슈와를 찾는 3가지 방법과 더 많은 예시<br><br><a href=\"https://www.youtube.com/watch?v=BsyRH8GWYJ4\">https://youtu.be/BsyRH8GWYJ4</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-14T11:42:32Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1519,7 +1746,8 @@
           "text": "여러분은 TREASURE와 LEISURE를 처음 보고 어떻게 읽으셨나요? 👀<br><br>① 트레처 / 리처<br>② 트레저 / 리저<br><br>정답을 맞혔는지 댓글로 알려주세요!<br><br>CULTURE·FURNITURE와 발음이 달라지는 이유와<br>정확한 혀 모양은 관련 영상에서 확인할 수 있습니다. 👇<br>PICTURE는 왜 &#39;픽투어&#39;가 아닐까? : <a href=\"https://www.youtube.com/watch?v=YoaCRYCWpws\">https://youtu.be/YoaCRYCWpws</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-13T13:51:23Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1530,7 +1758,8 @@
           "text": "여러분은 TREASURE와 LEISURE를 처음 보고 어떻게 읽으셨나요? 👀<br><br>① 트레처 / 리처<br>② 트레저 / 리저<br><br>정답을 맞혔는지 댓글로 알려주세요!<br><br>CULTURE·FURNITURE와 발음이 달라지는 이유와<br>정확한 혀 모양은 관련 영상에서 확인할 수 있습니다. 👇<br>PICTURE는 왜 &#39;픽투어&#39;가 아닐까? : <a href=\"https://www.youtube.com/watch?v=YoaCRYCWpws\">https://youtu.be/YoaCRYCWpws</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-13T13:51:23Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1572,7 +1801,8 @@
           "text": "📌 똑같이 -ure로 끝나는데 왜 소리가 완전히 갈릴까요? <br>원어민들의 &#39;혀 모양&#39;과 &#39;입안의 과학&#39;을 알면 평생 무작정 외울 필요가 없습니다!<br><br>이해하면 너무 쉬운 영어 발음 법칙, 풀버전 영상에서 지금 바로 확인해 보세요! 👇<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-10T14:07:56Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1583,7 +1813,8 @@
           "text": "📌 똑같이 -ure로 끝나는데 왜 소리가 완전히 갈릴까요? <br>원어민들의 &#39;혀 모양&#39;과 &#39;입안의 과학&#39;을 알면 평생 무작정 외울 필요가 없습니다!<br><br>이해하면 너무 쉬운 영어 발음 법칙, 풀버전 영상에서 지금 바로 확인해 보세요! 👇<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-10T14:07:56Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1625,7 +1856,8 @@
           "text": "영어 발음 규칙, 오늘 확실히 잡으셨나요? 😊<br><br>📌 오늘의 핵심 3가지<br>1️⃣ 티+유 = 처 소리<br>2️⃣ 에스+유 = 저 소리 (지난 시간 모음 규칙 재적용)<br>3️⃣ 션·전·처, 사실 다 같은 원리였다는 것<br><br>📚 시즌1 재생목록<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a><br><br>다음 시간에는 SPECIAL의 &#39;셜&#39; 비밀을 풀어봅니다.<br>영어는 외우는 것이 아니라 이해하는 것입니다. 😊",
           "likeCount": 0,
           "publishedAt": "2026-08-10T05:49:47Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1636,7 +1868,8 @@
           "text": "영어 발음 규칙, 오늘 확실히 잡으셨나요? 😊<br><br>📌 오늘의 핵심 3가지<br>1️⃣ 티+유 = 처 소리<br>2️⃣ 에스+유 = 저 소리 (지난 시간 모음 규칙 재적용)<br>3️⃣ 션·전·처, 사실 다 같은 원리였다는 것<br><br>📚 시즌1 재생목록<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a><br><br>다음 시간에는 SPECIAL의 &#39;셜&#39; 비밀을 풀어봅니다.<br>영어는 외우는 것이 아니라 이해하는 것입니다. 😊",
           "likeCount": 0,
           "publishedAt": "2026-08-10T05:49:47Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1678,7 +1911,8 @@
           "text": "📌 모음 뒤에서는 왜 하필 부드러운 &#39;전&#39; 발음으로 바뀔까요?<br>우리 몸의 &#39;성대 떨림&#39; 원리를 알면 평생 까먹지 않습니다!<br><br>이해하면 너무 쉬운 영어 발음 법칙, 풀버전 영상에서 바로 확인해 보세요! 👇<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-09T13:20:14Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1689,7 +1923,8 @@
           "text": "📌 모음 뒤에서는 왜 하필 부드러운 &#39;전&#39; 발음으로 바뀔까요?<br>우리 몸의 &#39;성대 떨림&#39; 원리를 알면 평생 까먹지 않습니다!<br><br>이해하면 너무 쉬운 영어 발음 법칙, 풀버전 영상에서 바로 확인해 보세요! 👇<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-09T13:20:14Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1731,7 +1966,8 @@
           "text": "📌 모음 뒤에서는 왜 하필 부드러운 &#39;전&#39; 발음으로 바뀔까요?<br>우리 몸의 &#39;성대 떨림&#39; 원리를 알면 평생 까먹지 않습니다!<br><br>이해하면 너무 쉬운 영어 발음 법칙, 풀버전 영상에서 바로 확인해 보세요! 👇<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-09T10:15:27Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1742,7 +1978,8 @@
           "text": "📌 모음 뒤에서는 왜 하필 부드러운 &#39;전&#39; 발음으로 바뀔까요?<br>우리 몸의 &#39;성대 떨림&#39; 원리를 알면 평생 까먹지 않습니다!<br><br>이해하면 너무 쉬운 영어 발음 법칙, 풀버전 영상에서 바로 확인해 보세요! 👇<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://www.youtube.com/playlist?list=PLdTWj5v6v8zE</a>",
           "likeCount": 0,
           "publishedAt": "2026-08-09T10:15:27Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1784,7 +2021,8 @@
           "text": "📌 오늘의 복습 퀴즈!<br>그렇다면 &#39;Vision(비전)&#39;과 &#39;Tension(텐션)&#39;은 각각 -sion 앞의 글자가 무엇이라서 그렇게 발음될까요? 영상을 보신 분들이라면 3초 만에 답이 보이실 겁니다! 댓글로 정답을 남겨주세요! 👇<br><br>영상이 도움 되셨다면 주위 영어 공부하는 친구들에게도 공유해 주세요. 😉",
           "likeCount": 0,
           "publishedAt": "2026-08-09T10:12:53Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1795,7 +2033,8 @@
           "text": "📌 오늘의 복습 퀴즈!<br>그렇다면 &#39;Vision(비전)&#39;과 &#39;Tension(텐션)&#39;은 각각 -sion 앞의 글자가 무엇이라서 그렇게 발음될까요? 영상을 보신 분들이라면 3초 만에 답이 보이실 겁니다! 댓글로 정답을 남겨주세요! 👇<br><br>영상이 도움 되셨다면 주위 영어 공부하는 친구들에게도 공유해 주세요. 😉",
           "likeCount": 0,
           "publishedAt": "2026-08-09T10:12:53Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1936,7 +2175,8 @@
           "text": "오늘도 함께해 주셔서 감사합니다. 😊<br><br>📚 시즌1은 순서대로 보시면 이해가 훨씬 쉽습니다.<br>▶ 시즌1 재생목록<br><br>▶ EP5. -IC의 비밀<br><br>영어는 외우는 것이 아니라 이해하는 것입니다.<br><br>다음 영상에서는 같은 규칙인데 소리가 갈리는 -SION의 비밀을 함께 풀어보겠습니다.<br><br>감사합니다. 😊",
           "likeCount": 0,
           "publishedAt": "2026-08-04T13:04:28Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -1947,7 +2187,8 @@
           "text": "오늘도 함께해 주셔서 감사합니다. 😊<br><br>📚 시즌1은 순서대로 보시면 이해가 훨씬 쉽습니다.<br>▶ 시즌1 재생목록<br><br>▶ EP5. -IC의 비밀<br><br>영어는 외우는 것이 아니라 이해하는 것입니다.<br><br>다음 영상에서는 같은 규칙인데 소리가 갈리는 -SION의 비밀을 함께 풀어보겠습니다.<br><br>감사합니다. 😊",
           "likeCount": 0,
           "publishedAt": "2026-08-04T13:04:28Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -1995,7 +2236,8 @@
           "text": "📌 2편도 끝까지 보셨다면 정말 잘하셨어요!<br>오늘 배운 20문장 중에 가장 자주 쓸 것 같은 문장 하나만 댓글로 남겨주세요 ✍️<br>다음 편에서 여러분이 남겨주신 문장으로 예문을 만들어볼게요!<br><br>1편 다시보기 👉 <a href=\"https://www.youtube.com/watch?v=Ha_7wdnFNmo\">https://youtu.be/Ha_7wdnFNmo</a><br>3편은 다음 주에 올라옵니다 🙌",
           "likeCount": 0,
           "publishedAt": "2026-07-29T13:14:08Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2006,7 +2248,8 @@
           "text": "📌 2편도 끝까지 보셨다면 정말 잘하셨어요!<br>오늘 배운 20문장 중에 가장 자주 쓸 것 같은 문장 하나만 댓글로 남겨주세요 ✍️<br>다음 편에서 여러분이 남겨주신 문장으로 예문을 만들어볼게요!<br><br>1편 다시보기 👉 <a href=\"https://www.youtube.com/watch?v=Ha_7wdnFNmo\">https://youtu.be/Ha_7wdnFNmo</a><br>3편은 다음 주에 올라옵니다 🙌",
           "likeCount": 0,
           "publishedAt": "2026-07-29T13:14:08Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2066,7 +2309,8 @@
           "text": "오늘의 7분 투자, 정말 고생 많으셨습니다! 👏 영상이 도움 되셨다면 &#39;구독&#39;과 &#39;좋아요&#39;로 응원 부탁드려요.<br><br>✅ 오늘의 미션: 영상에 나온 20문장을 한 번씩 더 들어보며 입으로 따라 읽어보세요! <br>소리 내어 말할 때 영어가 진짜 내 것이 됩니다. <br>궁금한 문장이나 다음 영상에서 다뤘으면 하는 주제가 있다면 언제든 댓글 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-07-26T12:53:19Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2077,7 +2321,8 @@
           "text": "오늘의 7분 투자, 정말 고생 많으셨습니다! 👏 영상이 도움 되셨다면 &#39;구독&#39;과 &#39;좋아요&#39;로 응원 부탁드려요.<br><br>✅ 오늘의 미션: 영상에 나온 20문장을 한 번씩 더 들어보며 입으로 따라 읽어보세요! <br>소리 내어 말할 때 영어가 진짜 내 것이 됩니다. <br>궁금한 문장이나 다음 영상에서 다뤘으면 하는 주제가 있다면 언제든 댓글 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-07-26T12:53:19Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2137,7 +2382,8 @@
           "text": "정답은 맞히셨나요? 😊<br><br>왜 HERO는 HEro인데 HEROIC은 heROic이 되는지,<br>원리를 이해하면 처음 보는 -IC 단어도 스스로 읽을 수 있습니다.<br><br>📺 EP5 「-IC의 비밀」<br><a href=\"https://www.youtube.com/watch?v=BLinHY3p4yc\">https://youtu.be/BLinHY3p4yc</a><br><br>📚 시즌1 재생목록<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://youtube.com/playlist?list=PLdTWj5v6v8zE&amp;si=54XnVCvHjdEVnpUA</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-22T14:50:06Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         },
         {
           "commentId": "UgzOyS3RdKonLGOpulx4AaABAg",
@@ -2146,7 +2392,8 @@
           "text": "원어민들 허로익이라하던데",
           "likeCount": 1,
           "publishedAt": "2026-07-22T16:12:01Z",
-          "isChannelOwner": false
+          "isChannelOwner": false,
+          "replyCount": 1
         }
       ],
       "channelOwnerComments": [
@@ -2157,7 +2404,8 @@
           "text": "정답은 맞히셨나요? 😊<br><br>왜 HERO는 HEro인데 HEROIC은 heROic이 되는지,<br>원리를 이해하면 처음 보는 -IC 단어도 스스로 읽을 수 있습니다.<br><br>📺 EP5 「-IC의 비밀」<br><a href=\"https://www.youtube.com/watch?v=BLinHY3p4yc\">https://youtu.be/BLinHY3p4yc</a><br><br>📚 시즌1 재생목록<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://youtube.com/playlist?list=PLdTWj5v6v8zE&amp;si=54XnVCvHjdEVnpUA</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-22T14:50:06Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2219,7 +2467,8 @@
           "text": "오늘도 함께해 주셔서 감사합니다. 😊<br><br>📚 시즌1은 순서대로 보시면 이해가 훨씬 쉽습니다.<br><br>▶ 시즌1 재생목록<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://youtube.com/playlist?list=PLdTWj5v6v8zE&amp;si=54XnVCvHjdEVnpUA</a><br><br>▶ EP4. 원어민 발음이 유독 빠르게 들리는 진짜 이유 (슈와)<br><a href=\"https://www.youtube.com/watch?v=BsyRH8GWYJ4\">https://youtu.be/BsyRH8GWYJ4</a><br><br>영어는 외우는 것이 아니라 이해하는 것입니다.<br><br>다음 영상에서는 -IC처럼 강세를 끌어당기는 또 다른 규칙을 함께 알아보겠습니다.<br><br>감사합니다. 😊",
           "likeCount": 0,
           "publishedAt": "2026-07-22T13:01:46Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2230,7 +2479,8 @@
           "text": "오늘도 함께해 주셔서 감사합니다. 😊<br><br>📚 시즌1은 순서대로 보시면 이해가 훨씬 쉽습니다.<br><br>▶ 시즌1 재생목록<br><a href=\"https://www.youtube.com/playlist?list=PLdTWj5v6v8zE\">https://youtube.com/playlist?list=PLdTWj5v6v8zE&amp;si=54XnVCvHjdEVnpUA</a><br><br>▶ EP4. 원어민 발음이 유독 빠르게 들리는 진짜 이유 (슈와)<br><a href=\"https://www.youtube.com/watch?v=BsyRH8GWYJ4\">https://youtu.be/BsyRH8GWYJ4</a><br><br>영어는 외우는 것이 아니라 이해하는 것입니다.<br><br>다음 영상에서는 -IC처럼 강세를 끌어당기는 또 다른 규칙을 함께 알아보겠습니다.<br><br>감사합니다. 😊",
           "likeCount": 0,
           "publishedAt": "2026-07-22T13:01:46Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2296,7 +2546,8 @@
           "text": "발음의 핵심은 &#39;힘 빼기&#39;입니다! <br>슈와 소리를 마스터하면 영어 리스닝도 훨씬 잘 들리기 시작할 거예요. <br>🎧 더 궁금한 발음이나 표현이 있다면 언제든 댓글로 질문 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-07-20T12:02:42Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2307,7 +2558,8 @@
           "text": "발음의 핵심은 &#39;힘 빼기&#39;입니다! <br>슈와 소리를 마스터하면 영어 리스닝도 훨씬 잘 들리기 시작할 거예요. <br>🎧 더 궁금한 발음이나 표현이 있다면 언제든 댓글로 질문 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-07-20T12:02:42Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2346,7 +2598,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1928",
+        "viewCount": "1929",
         "likeCount": "2",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -2370,7 +2622,8 @@
           "text": "영어가 유독 빠르게 들렸던 이유, 바로 이 &#39;슈와&#39; 소리 때문이었죠! <br>🎧 한 번에 완벽할 순 없으니, 이 영상 저장해두고 입에 익을 때까지 반복해서 따라 읽어보세요. <br>궁금한 점은 언제든 댓글 남겨주시고요! ✨",
           "likeCount": 0,
           "publishedAt": "2026-07-20T12:03:52Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2381,7 +2634,8 @@
           "text": "영어가 유독 빠르게 들렸던 이유, 바로 이 &#39;슈와&#39; 소리 때문이었죠! <br>🎧 한 번에 완벽할 순 없으니, 이 영상 저장해두고 입에 익을 때까지 반복해서 따라 읽어보세요. <br>궁금한 점은 언제든 댓글 남겨주시고요! ✨",
           "likeCount": 0,
           "publishedAt": "2026-07-20T12:03:52Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2434,7 +2688,8 @@
           "text": "오늘 영상, 어떠셨나요? 😊<br><br>여러분이 그동안 &quot;왜 이렇게 읽지?&quot; 하고 혼자 답답해했던 단어가 있다면<br>댓글로 남겨주세요. 다음 영상 소재로 다뤄볼게요!<br><br>📌 지난 시간 배운 내용이 궁금하시다면<br><br>#1 왜 영어 단어는 마지막 E를 무음으로 만들까? (영어 읽는 법, 성인 파닉스)<br><a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE</a><br><br>#2 왜 CAT은 &#39;캣&#39;인데 KING은 &#39;킹&#39;일까? C와 K의 비밀<br><a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a><br><br>#3 왜 GO는 &#39;고&#39;인데 GENTLE은 &#39;젠틀&#39;일까? 알파벳 G의 두 가지 소리<br><a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a><br><br>구독과 좋아요는 다음 영상을 만드는 큰 힘이 됩니다. 감사합니다 🙏",
           "likeCount": 0,
           "publishedAt": "2026-07-19T12:20:19Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2445,7 +2700,8 @@
           "text": "오늘 영상, 어떠셨나요? 😊<br><br>여러분이 그동안 &quot;왜 이렇게 읽지?&quot; 하고 혼자 답답해했던 단어가 있다면<br>댓글로 남겨주세요. 다음 영상 소재로 다뤄볼게요!<br><br>📌 지난 시간 배운 내용이 궁금하시다면<br><br>#1 왜 영어 단어는 마지막 E를 무음으로 만들까? (영어 읽는 법, 성인 파닉스)<br><a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE</a><br><br>#2 왜 CAT은 &#39;캣&#39;인데 KING은 &#39;킹&#39;일까? C와 K의 비밀<br><a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a><br><br>#3 왜 GO는 &#39;고&#39;인데 GENTLE은 &#39;젠틀&#39;일까? 알파벳 G의 두 가지 소리<br><a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a><br><br>구독과 좋아요는 다음 영상을 만드는 큰 힘이 됩니다. 감사합니다 🙏",
           "likeCount": 0,
           "publishedAt": "2026-07-19T12:20:19Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2515,7 +2771,8 @@
           "text": "이해하면 쉬운 영어<br><br>6개 단어 중 몇 개나 성공하셨나요? 댓글로 점수를 남겨주세요! 🥳<br>(예: &quot;5개 성공! 마지막 스테이지가 헷갈렸네요&quot;)<br><br>하나라도 버벅였다면 여러분이 영어를 못해서가 아니라, 단지 ‘원리’를 배운 적이 없기 때문입니다.<br><br>마지막 E가 부리는 마법, 지금 아래 [1편] 본편에서 확인해 보세요!<br><br>👇 [1편] 마지막 E의 비밀부터 정주행하기<br>1편 [매직 E] : <a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE</a><br><br>🎁 함께 알면 더 쉬워지는 원리들<br>2편 [C와 K의 구역 다툼]: <a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a><br>3편 [G의 두 얼굴]: <a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-13T11:38:24Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2526,7 +2783,8 @@
           "text": "이해하면 쉬운 영어<br><br>6개 단어 중 몇 개나 성공하셨나요? 댓글로 점수를 남겨주세요! 🥳<br>(예: &quot;5개 성공! 마지막 스테이지가 헷갈렸네요&quot;)<br><br>하나라도 버벅였다면 여러분이 영어를 못해서가 아니라, 단지 ‘원리’를 배운 적이 없기 때문입니다.<br><br>마지막 E가 부리는 마법, 지금 아래 [1편] 본편에서 확인해 보세요!<br><br>👇 [1편] 마지막 E의 비밀부터 정주행하기<br>1편 [매직 E] : <a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE</a><br><br>🎁 함께 알면 더 쉬워지는 원리들<br>2편 [C와 K의 구역 다툼]: <a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a><br>3편 [G의 두 얼굴]: <a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-13T11:38:24Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2594,7 +2852,8 @@
           "text": "이해하면 쉬운 영어<br><br>6개 다 맞히신 분 계신가요? 있다면 댓글로 자랑해 주세요! 🥳<br>하나라도 틀렸다면 실망하지 마세요. &#39;방법&#39;이 틀렸을 뿐입니다.<br><br>마지막 단어 PRICE가 왜 ‘프라이스’로 읽히는지 그 소름 돋는 원리를 아래 본편에서 알려드립니다.<br><br>👇 5분 만에 영어 눈이 떠지는 영상<br>마법 E : <a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE</a><br>C,K 선택의 차이 : <a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a><br>G소리 : <a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-12T07:00:41Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2605,7 +2864,8 @@
           "text": "이해하면 쉬운 영어<br><br>6개 다 맞히신 분 계신가요? 있다면 댓글로 자랑해 주세요! 🥳<br>하나라도 틀렸다면 실망하지 마세요. &#39;방법&#39;이 틀렸을 뿐입니다.<br><br>마지막 단어 PRICE가 왜 ‘프라이스’로 읽히는지 그 소름 돋는 원리를 아래 본편에서 알려드립니다.<br><br>👇 5분 만에 영어 눈이 떠지는 영상<br>마법 E : <a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE</a><br>C,K 선택의 차이 : <a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a><br>G소리 : <a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-12T07:00:41Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2673,7 +2933,8 @@
           "text": "이해하면 쉬운 영어<br><br>똑같은 &#39;ㅋ&#39; 소리인데 왜 철자가 다른지 늘 답답하셨죠? 😊<br>이건 여러분 잘못이 아닙니다. 단지 뒤에 오는 &#39;모음 친구&#39;들과의 비밀 약속을 배운 적이 없었을 뿐입니다.<br><br>우리 민족의 이름 KOREA가 왜 ‘C’가 아닌 ‘K’로 시작해야만 했는지, 그 역사적인 이유와 명쾌한 공식을 본편에서 딱 5분 만에 정리해 드립니다.<br><br>이해하는 순간, 영어는 반드시 쉬워집니다. ✨<br><br>👇 KOREA가 K인 진짜 이유, 본편에서 확인하기<br><a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a>",
           "likeCount": 1,
           "publishedAt": "2026-07-12T03:36:13Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2684,7 +2945,8 @@
           "text": "이해하면 쉬운 영어<br><br>똑같은 &#39;ㅋ&#39; 소리인데 왜 철자가 다른지 늘 답답하셨죠? 😊<br>이건 여러분 잘못이 아닙니다. 단지 뒤에 오는 &#39;모음 친구&#39;들과의 비밀 약속을 배운 적이 없었을 뿐입니다.<br><br>우리 민족의 이름 KOREA가 왜 ‘C’가 아닌 ‘K’로 시작해야만 했는지, 그 역사적인 이유와 명쾌한 공식을 본편에서 딱 5분 만에 정리해 드립니다.<br><br>이해하는 순간, 영어는 반드시 쉬워집니다. ✨<br><br>👇 KOREA가 K인 진짜 이유, 본편에서 확인하기<br><a href=\"https://www.youtube.com/watch?v=-V1lwpEF7Ik\">https://youtu.be/-V1lwpEF7Ik</a>",
           "likeCount": 1,
           "publishedAt": "2026-07-12T03:36:13Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2753,7 +3015,8 @@
           "text": "이해하면 쉬운 영어<br><br>4개 단어 모두 당당하게 읽으셨나요? <br>하나라도 버벅였다면 여러분이 영어를 못해서가 아니라, 단지 ‘원리’를 배운 적이 없기 때문입니다.<br><br>G가 얼굴을 바꾸는 소름 돋는 원리, 지금 아래 본편에서 확인해 보세요!<br><br>👇 G의 두 얼굴, 5분 만에 정복하기<br><a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-12T02:38:03Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2764,7 +3027,8 @@
           "text": "이해하면 쉬운 영어<br><br>4개 단어 모두 당당하게 읽으셨나요? <br>하나라도 버벅였다면 여러분이 영어를 못해서가 아니라, 단지 ‘원리’를 배운 적이 없기 때문입니다.<br><br>G가 얼굴을 바꾸는 소름 돋는 원리, 지금 아래 본편에서 확인해 보세요!<br><br>👇 G의 두 얼굴, 5분 만에 정복하기<br><a href=\"https://www.youtube.com/watch?v=cu3EB5OJdMM\">https://youtu.be/cu3EB5OJdMM</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-12T02:38:03Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2813,7 +3077,8 @@
           "text": "여러분은 지금 영어를 ‘읽고’ 계신가요? 아니면 ‘외우고’ 계신가요? 🧐<br><br>SALE(세일)은 아는데, CANE(케인) 앞에서 1초라도 망설였다면<br>그건 아직 영어의 ‘원리’를 모르고 무작정 외워왔다는 증거입니다.<br><br>원리만 이해하면 처음 보는 단어도,<br>수천 개의 복잡한 단어도 고민 없이 바로 읽을 수 있습니다.<br><br>단 5분 만에 평생 써먹는 영어 읽기 공식을 내 것으로 만드세요!<br>영어는 이해하는 순간부터 반드시 쉬워집니다. ✨<br><br>👇 SALE이 ‘세일’인 진짜 이유, 본편에서 확인하기<br><a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE?si=b1N3IiIFBhjkEroz</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-11T15:19:25Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2824,7 +3089,8 @@
           "text": "여러분은 지금 영어를 ‘읽고’ 계신가요? 아니면 ‘외우고’ 계신가요? 🧐<br><br>SALE(세일)은 아는데, CANE(케인) 앞에서 1초라도 망설였다면<br>그건 아직 영어의 ‘원리’를 모르고 무작정 외워왔다는 증거입니다.<br><br>원리만 이해하면 처음 보는 단어도,<br>수천 개의 복잡한 단어도 고민 없이 바로 읽을 수 있습니다.<br><br>단 5분 만에 평생 써먹는 영어 읽기 공식을 내 것으로 만드세요!<br>영어는 이해하는 순간부터 반드시 쉬워집니다. ✨<br><br>👇 SALE이 ‘세일’인 진짜 이유, 본편에서 확인하기<br><a href=\"https://www.youtube.com/watch?v=jRoYudL30DE\">https://youtu.be/jRoYudL30DE?si=b1N3IiIFBhjkEroz</a>",
           "likeCount": 0,
           "publishedAt": "2026-07-11T15:19:25Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2895,7 +3161,8 @@
           "text": "이해하면 쉬운 영어<br><br>오늘도 영어의 소중한 비밀 하나를 함께 풀어보았습니다. 끝까지 들어주셔서 고맙습니다.<br><br>오늘 배운 내용을 바탕으로 깜짝 퀴즈를 준비했습니다! <br><br>Q. 건강을 위해 가는 ‘GYM(짐)’은 왜 ‘김’이 아니라 ‘짐’이라고 읽을까요?<br>1번: 그냥 예외라서 외워야 한다.<br>2번: G 뒤에 모음 친구 ‘Y’가 오기 때문에 부드러운 ‘ㅈ’ 소리를 낸다.<br><br>[보너스 질문]<br>오늘 배운 자이언트(GIANT) 단어를 가만히 보세요. 뒤에 붙은 ANT는 곤충 개미(ANT)와 똑같이 생겼는데, 왜 ‘앤트’가 아니라 ‘언트’로 읽힐까요?<br><br>이 기묘하고 게으른 소리의 정체는 다음 4편에서 공개됩니다. 정답을 아시는 분들은 댓글로 번호를 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-07-10T17:01:55Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2906,7 +3173,8 @@
           "text": "이해하면 쉬운 영어<br><br>오늘도 영어의 소중한 비밀 하나를 함께 풀어보았습니다. 끝까지 들어주셔서 고맙습니다.<br><br>오늘 배운 내용을 바탕으로 깜짝 퀴즈를 준비했습니다! <br><br>Q. 건강을 위해 가는 ‘GYM(짐)’은 왜 ‘김’이 아니라 ‘짐’이라고 읽을까요?<br>1번: 그냥 예외라서 외워야 한다.<br>2번: G 뒤에 모음 친구 ‘Y’가 오기 때문에 부드러운 ‘ㅈ’ 소리를 낸다.<br><br>[보너스 질문]<br>오늘 배운 자이언트(GIANT) 단어를 가만히 보세요. 뒤에 붙은 ANT는 곤충 개미(ANT)와 똑같이 생겼는데, 왜 ‘앤트’가 아니라 ‘언트’로 읽힐까요?<br><br>이 기묘하고 게으른 소리의 정체는 다음 4편에서 공개됩니다. 정답을 아시는 분들은 댓글로 번호를 남겨주세요!",
           "likeCount": 0,
           "publishedAt": "2026-07-10T17:01:55Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -2956,7 +3224,8 @@
           "text": "왜 CAT은 C고, KING은 K일까요? <br>🤔 오늘 배운 &#39;C와 K의 비밀&#39; 핵심! <br>✅ A, O, U 앞에는 C (예: Cat, Cup) <br>✅ E, I 앞에는 K (예: King, Key)<br><br>이제 단어만 봐도 헷갈리지 않겠죠? 영상이 도움 되셨다면 &#39;좋아요&#39;와 구독으로 응원해 주세요! 여러분이 평소에 읽기 어려웠던 또 다른 단어가 있다면 댓글로 남겨주세요. 👇 주세요. 👇",
           "likeCount": 0,
           "publishedAt": "2026-07-20T05:52:12Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -2967,7 +3236,8 @@
           "text": "왜 CAT은 C고, KING은 K일까요? <br>🤔 오늘 배운 &#39;C와 K의 비밀&#39; 핵심! <br>✅ A, O, U 앞에는 C (예: Cat, Cup) <br>✅ E, I 앞에는 K (예: King, Key)<br><br>이제 단어만 봐도 헷갈리지 않겠죠? 영상이 도움 되셨다면 &#39;좋아요&#39;와 구독으로 응원해 주세요! 여러분이 평소에 읽기 어려웠던 또 다른 단어가 있다면 댓글로 남겨주세요. 👇 주세요. 👇",
           "likeCount": 0,
           "publishedAt": "2026-07-20T05:52:12Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3016,7 +3286,8 @@
           "text": "이해하면 쉬운 영어<br>안녕하세요. 「이해하면 쉬운 영어」입니다.<br>첫 번째 영상, 끝까지 함께해 주셔서 진심으로 고맙습니다.<br>오늘 우리가 이해한 영어의 첫 번째 비밀은 ‘조용한 지휘자, E’였습니다.<br>단어 맨 끝에 오는 E는 소리를 내지 않는다.<br>대신 앞쪽 모음을 알파벳 이름 그대로 읽게 해준다.<br>이 간단한 원리 하나가 여러분의 영어 시야를 획기적으로 넓혀줄 것입니다.<br>혹시 오늘 배운 원리로 읽어본 단어 중 가장 기억에 남는 것이 있으신가요?<br>혹은 평소 읽기 어려웠던 단어가 있다면 댓글로 남겨주세요.<br>함께 공부하는 분들의 따뜻한 댓글은 다음 영상을 만드는 큰 힘이 됩니다.<br>오늘도 수고하셨습니다. 영어는 이해하는 순간부터 반드시 쉬워집니다.",
           "likeCount": 0,
           "publishedAt": "2026-07-06T14:39:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3027,7 +3298,8 @@
           "text": "이해하면 쉬운 영어<br>안녕하세요. 「이해하면 쉬운 영어」입니다.<br>첫 번째 영상, 끝까지 함께해 주셔서 진심으로 고맙습니다.<br>오늘 우리가 이해한 영어의 첫 번째 비밀은 ‘조용한 지휘자, E’였습니다.<br>단어 맨 끝에 오는 E는 소리를 내지 않는다.<br>대신 앞쪽 모음을 알파벳 이름 그대로 읽게 해준다.<br>이 간단한 원리 하나가 여러분의 영어 시야를 획기적으로 넓혀줄 것입니다.<br>혹시 오늘 배운 원리로 읽어본 단어 중 가장 기억에 남는 것이 있으신가요?<br>혹은 평소 읽기 어려웠던 단어가 있다면 댓글로 남겨주세요.<br>함께 공부하는 분들의 따뜻한 댓글은 다음 영상을 만드는 큰 힘이 됩니다.<br>오늘도 수고하셨습니다. 영어는 이해하는 순간부터 반드시 쉬워집니다.",
           "likeCount": 0,
           "publishedAt": "2026-07-06T14:39:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3104,7 +3376,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CMSsvNcG&rs=AOn4CLBQIUoPAeuGXQ58aDEfx7m5D0TRkA",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLAyHYY6CxLYkb8ZVMPjcTCj1Ku90Q",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -3260,7 +3532,8 @@
           "text": "요거트 영어로 Yogurt 🥛<br><br>알파벳 이름은 &#39;와이&#39;인데 단어 맨 앞에 오면 &#39;이&#39; 소리가 난다니, 처음엔 참 헷갈렸습니다!&#39;와이거트&#39;가 아니라 &#39;요거트&#39;인 이유를 이제야 명쾌하게 알았네요. <br><br>😊50대인 저도 매일 편견을 깨며 즐겁게 배우고 있습니다.<br>여러분은 오늘 Y 발음 어떠셨나요?<br><br>댓글에 &quot;Yogurt&quot; 적고 함께 이야기 나눠요! <br>👍다음 편(Sky)도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T15:19:17Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3271,7 +3544,8 @@
           "text": "요거트 영어로 Yogurt 🥛<br><br>알파벳 이름은 &#39;와이&#39;인데 단어 맨 앞에 오면 &#39;이&#39; 소리가 난다니, 처음엔 참 헷갈렸습니다!&#39;와이거트&#39;가 아니라 &#39;요거트&#39;인 이유를 이제야 명쾌하게 알았네요. <br><br>😊50대인 저도 매일 편견을 깨며 즐겁게 배우고 있습니다.<br>여러분은 오늘 Y 발음 어떠셨나요?<br><br>댓글에 &quot;Yogurt&quot; 적고 함께 이야기 나눠요! <br>👍다음 편(Sky)도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T15:19:17Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3311,7 +3585,8 @@
           "text": "엑스레이 영어로 X-ray 🩻<br><br>뒤에 올 땐 &#39;크스&#39;, 앞에 올 땐 &#39;즈&#39;라던 X가 이번엔 원래 이름 그대로 &#39;엑스&#39;로 소리 나네요!<br>영어 읽기가 참 알쏭달쏭하지만, 이렇게 원리를 하나씩 풀어가는 재미가 쏠쏠합니다. 😊<br><br>50대인 저도 포기하지 않고 매일 한 걸음씩 나아가고 있습니다.<br>여러분은 오늘 X-ray 발음 어떠셨나요?<br><br>댓글에 &quot;X-ray&quot; 적고 함께 이야기 나눠요! 👍<br>이로써 X 시리즈도 완전 정복입니다! 구독하고 다음 Y편도 같이 부셔봅시다!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T15:18:00Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3322,7 +3597,8 @@
           "text": "엑스레이 영어로 X-ray 🩻<br><br>뒤에 올 땐 &#39;크스&#39;, 앞에 올 땐 &#39;즈&#39;라던 X가 이번엔 원래 이름 그대로 &#39;엑스&#39;로 소리 나네요!<br>영어 읽기가 참 알쏭달쏭하지만, 이렇게 원리를 하나씩 풀어가는 재미가 쏠쏠합니다. 😊<br><br>50대인 저도 포기하지 않고 매일 한 걸음씩 나아가고 있습니다.<br>여러분은 오늘 X-ray 발음 어떠셨나요?<br><br>댓글에 &quot;X-ray&quot; 적고 함께 이야기 나눠요! 👍<br>이로써 X 시리즈도 완전 정복입니다! 구독하고 다음 Y편도 같이 부셔봅시다!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T15:18:00Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3362,7 +3638,8 @@
           "text": "실로폰 영어로 Xylophone 🎼<br><br>저도 파닉스 기호표만 보고 X는 무조건 &#39;크스&#39;인 줄 알았는데, 맨 앞에 오면 &#39;즈&#39; 소리가 난다는 걸 이번에 새로 배웠습니다! 엑실로폰이 아니라 자일로폰이었다니 참 신기하죠? 😊<br><br>50대인 저도 매일 편견을 깨며 하나씩 알아가고 있습니다.여러분은 오늘 X 발음 어떠셨나요?<br><br>댓글에 &quot;Xylophone&quot; 적고 함께 이야기 나눠요! 👍<br><br>다음 편도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T13:43:31Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3373,7 +3650,8 @@
           "text": "실로폰 영어로 Xylophone 🎼<br><br>저도 파닉스 기호표만 보고 X는 무조건 &#39;크스&#39;인 줄 알았는데, 맨 앞에 오면 &#39;즈&#39; 소리가 난다는 걸 이번에 새로 배웠습니다! 엑실로폰이 아니라 자일로폰이었다니 참 신기하죠? 😊<br><br>50대인 저도 매일 편견을 깨며 하나씩 알아가고 있습니다.여러분은 오늘 X 발음 어떠셨나요?<br><br>댓글에 &quot;Xylophone&quot; 적고 함께 이야기 나눠요! 👍<br><br>다음 편도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T13:43:31Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3413,7 +3691,8 @@
           "text": "상자 영어로 Box <br>📦저도 처음엔 책에 &#39;크스&#39;라고 나와서 &#39;바크스&#39;인 줄 알았는데, &#39;크&#39; 소리가 받침 &#39;ㄱ&#39;으로 쏙 숨는다는 걸 배우고 무릎을 탁 쳤습니다! 영어는 알면 알수록 신기하네요. 😊<br><br>50대인 저도 하나씩 알아가는 재미로 공부하고 있습니다.여러분은 오늘 X 발음 어떠셨나요?<br><br>댓글에 &quot;Box&quot; 적고 함께 이야기 나눠요! 👍<br>다음 편도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T13:42:28Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3424,7 +3703,8 @@
           "text": "상자 영어로 Box <br>📦저도 처음엔 책에 &#39;크스&#39;라고 나와서 &#39;바크스&#39;인 줄 알았는데, &#39;크&#39; 소리가 받침 &#39;ㄱ&#39;으로 쏙 숨는다는 걸 배우고 무릎을 탁 쳤습니다! 영어는 알면 알수록 신기하네요. 😊<br><br>50대인 저도 하나씩 알아가는 재미로 공부하고 있습니다.여러분은 오늘 X 발음 어떠셨나요?<br><br>댓글에 &quot;Box&quot; 적고 함께 이야기 나눠요! 👍<br>다음 편도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T13:42:28Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3464,7 +3744,8 @@
           "text": "거미줄 영어로 web 🕸️<br><br>저도 처음엔 W 발음이 그냥 &#39;우&#39;인 줄 알았는데, 입술을 앞으로 쭈욱 내밀고 시작해야 진짜 소리가 나더라고요!<br>50대인 저도 매일 한 걸음씩 깨우쳐 가고 있습니다.<br><br>여러분은 W 발음할 때 어떠셨나요?<br>댓글에 &quot;web&quot; 적고 함께 이야기 나눠요! <br><br>😊다음 X편도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T11:22:18Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3475,7 +3756,8 @@
           "text": "거미줄 영어로 web 🕸️<br><br>저도 처음엔 W 발음이 그냥 &#39;우&#39;인 줄 알았는데, 입술을 앞으로 쭈욱 내밀고 시작해야 진짜 소리가 나더라고요!<br>50대인 저도 매일 한 걸음씩 깨우쳐 가고 있습니다.<br><br>여러분은 W 발음할 때 어떠셨나요?<br>댓글에 &quot;web&quot; 적고 함께 이야기 나눠요! <br><br>😊다음 X편도 같이 격파해 봅시다! 구독하고 함께해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-26T11:22:18Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3515,7 +3797,8 @@
           "text": "승합차 영어로 Van 🚐<br><br>댓글에 &quot;Van&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:32:06Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3526,7 +3809,8 @@
           "text": "승합차 영어로 Van 🚐<br><br>댓글에 &quot;Van&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:32:06Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3566,7 +3850,8 @@
           "text": "위로 영어로 Up ⬆️<br><br>댓글에 &quot;Up&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:33:11Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3577,7 +3862,8 @@
           "text": "위로 영어로 Up ⬆️<br><br>댓글에 &quot;Up&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:33:11Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3617,7 +3903,8 @@
           "text": "호랑이 영어로 Tiger 🐯<br><br>댓글에 &quot;Tiger&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:32:57Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3628,7 +3915,8 @@
           "text": "호랑이 영어로 Tiger 🐯<br><br>댓글에 &quot;Tiger&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:32:57Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3668,7 +3956,8 @@
           "text": "태양 영어로 Sun ☀️<br><br>댓글에 &quot;Sun&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:32:43Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3679,7 +3968,8 @@
           "text": "태양 영어로 Sun ☀️<br><br>댓글에 &quot;Sun&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-26T09:32:43Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3719,7 +4009,8 @@
           "text": "ROBOT!",
           "likeCount": 0,
           "publishedAt": "2026-06-25T10:34:55Z",
-          "isChannelOwner": false
+          "isChannelOwner": false,
+          "replyCount": 1
         },
         {
           "commentId": "UgwDkCwc1foNILrRPu14AaABAg",
@@ -3728,7 +4019,8 @@
           "text": "로봇 영어로 Robot 🤖<br><br>댓글에 &quot;Robot&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-25T10:20:16Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3739,7 +4031,8 @@
           "text": "로봇 영어로 Robot 🤖<br><br>댓글에 &quot;Robot&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-25T10:20:16Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3779,7 +4072,8 @@
           "text": "여왕 영어로 Queen 👑<br><br>댓글에 &quot;Queen&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-25T10:20:44Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3790,7 +4084,8 @@
           "text": "여왕 영어로 Queen 👑<br><br>댓글에 &quot;Queen&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-25T10:20:44Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3830,7 +4125,8 @@
           "text": "돼지 영어로 Pig 🐷<br><br>댓글에 &quot;Pig&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T13:33:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3841,7 +4137,8 @@
           "text": "돼지 영어로 Pig 🐷<br><br>댓글에 &quot;Pig&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T13:33:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3881,7 +4178,8 @@
           "text": "근데 왜 idol은 이돌이 아니고 아이돌인가요?",
           "likeCount": 0,
           "publishedAt": "2026-06-25T02:11:52Z",
-          "isChannelOwner": false
+          "isChannelOwner": false,
+          "replyCount": 3
         },
         {
           "commentId": "UgzVMGfp_nRgT_HS2KZ4AaABAg",
@@ -3890,7 +4188,8 @@
           "text": "오늘 배운 단어는 Ink입니다.<br><br>댓글에 &quot;Ink&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T12:30:15Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3901,7 +4200,8 @@
           "text": "오늘 배운 단어는 Ink입니다.<br><br>댓글에 &quot;Ink&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T12:30:15Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3941,7 +4241,8 @@
           "text": "오늘 배운 단어는 Orange입니다.<br><br>댓글에 &quot;Orange&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:42:46Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -3952,7 +4253,8 @@
           "text": "오늘 배운 단어는 Orange입니다.<br><br>댓글에 &quot;Orange&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:42:46Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -3992,7 +4294,8 @@
           "text": "코 영어로 Nose 👃<br><br>댓글에 &quot;Nose&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:44:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4003,7 +4306,8 @@
           "text": "코 영어로 Nose 👃<br><br>댓글에 &quot;Nose&quot; 적고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:44:02Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4043,7 +4347,8 @@
           "text": "오늘 배운 단어는 Moon입니다.<br><br>댓글에 &quot;Moon&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:43:42Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4054,7 +4359,8 @@
           "text": "오늘 배운 단어는 Moon입니다.<br><br>댓글에 &quot;Moon&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:43:42Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4094,7 +4400,8 @@
           "text": "오늘 배운 단어는 Lion입니다.<br><br>댓글에 &quot;Lion&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:43:28Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4105,7 +4412,8 @@
           "text": "오늘 배운 단어는 Lion입니다.<br><br>댓글에 &quot;Lion&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:43:28Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4145,7 +4453,8 @@
           "text": "오늘 배운 단어는 Key입니다.<br><br>댓글에 &quot;Key&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T04:54:14Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4156,7 +4465,8 @@
           "text": "오늘 배운 단어는 Key입니다.<br><br>댓글에 &quot;Key&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T04:54:14Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4196,7 +4506,8 @@
           "text": "오늘 배운 단어는 Jam입니다.<br><br>댓글에 &quot;Jam&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T04:54:55Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4207,7 +4518,8 @@
           "text": "오늘 배운 단어는 Jam입니다.<br><br>댓글에 &quot;Jam&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-24T04:54:55Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4247,7 +4559,8 @@
           "text": "I 도 제대로 못 읽는 주제에 누굴 가르치려들어?",
           "likeCount": 0,
           "publishedAt": "2026-06-24T11:03:50Z",
-          "isChannelOwner": false
+          "isChannelOwner": false,
+          "replyCount": 1
         },
         {
           "commentId": "UgzfTCExKSk5MCrpi-54AaABAg",
@@ -4256,7 +4569,8 @@
           "text": "오늘 배운 단어는 Ink입니다.<br><br>댓글에 &quot;Ink&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T13:43:21Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4267,7 +4581,8 @@
           "text": "오늘 배운 단어는 Ink입니다.<br><br>댓글에 &quot;Ink&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T13:43:21Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4307,7 +4622,8 @@
           "text": "얘도 G 발음 엉터리네<br>기본도 안된 주제에  뭘 한다는 거냐",
           "likeCount": 0,
           "publishedAt": "2026-06-24T09:41:36Z",
-          "isChannelOwner": false
+          "isChannelOwner": false,
+          "replyCount": 0
         },
         {
           "commentId": "UgzHsfZdXykA3aGWjrR4AaABAg",
@@ -4316,7 +4632,8 @@
           "text": "오늘 배운 단어는 Hat입니다.<br><br>Hat 한 번 따라 읽어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T12:19:58Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4327,7 +4644,8 @@
           "text": "오늘 배운 단어는 Hat입니다.<br><br>Hat 한 번 따라 읽어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T12:19:58Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4367,7 +4685,8 @@
           "text": "G 발음도 못하는 주제에 뭘 한다는 거냐?<br>똑바로 하거라. 인석아",
           "likeCount": 0,
           "publishedAt": "2026-06-24T09:38:16Z",
-          "isChannelOwner": false
+          "isChannelOwner": false,
+          "replyCount": 0
         },
         {
           "commentId": "Ugy9MVTjy01mpBwOwBd4AaABAg",
@@ -4376,7 +4695,8 @@
           "text": "오늘 배운 단어는 Goat입니다.<br><br>댓글에 &quot;Goat&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T12:20:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4387,7 +4707,8 @@
           "text": "오늘 배운 단어는 Goat입니다.<br><br>댓글에 &quot;Goat&quot; 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T12:20:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4427,7 +4748,8 @@
           "text": "오늘 배운 단어는 Fish입니다.<br><br>Fish 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T13:44:44Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4438,7 +4760,8 @@
           "text": "오늘 배운 단어는 Fish입니다.<br><br>Fish 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T13:44:44Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4478,7 +4801,8 @@
           "text": "오늘 배운 단어는 Egg입니다.<br><br>Egg 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T13:44:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4489,7 +4813,8 @@
           "text": "오늘 배운 단어는 Egg입니다.<br><br>Egg 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-23T13:44:29Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4529,7 +4854,8 @@
           "text": "오늘 배운 단어는 Dog입니다.<br><br>Dog 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-22T11:09:16Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4540,7 +4866,8 @@
           "text": "오늘 배운 단어는 Dog입니다.<br><br>Dog 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-22T11:09:16Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4580,7 +4907,8 @@
           "text": "씨이이이",
           "likeCount": 0,
           "publishedAt": "2026-06-22T10:01:38Z",
-          "isChannelOwner": false
+          "isChannelOwner": false,
+          "replyCount": 0
         },
         {
           "commentId": "UgwEhbWtTC4fkbKfmQl4AaABAg",
@@ -4589,7 +4917,8 @@
           "text": "오늘 배운 단어는 Cat입니다.<br><br>Cat 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-22T09:31:32Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4600,7 +4929,8 @@
           "text": "오늘 배운 단어는 Cat입니다.<br><br>Cat 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-22T09:31:32Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4640,7 +4970,8 @@
           "text": "오늘 배운 단어는 Ball입니다.<br><br>Ball 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-22T06:20:19Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4651,7 +4982,8 @@
           "text": "오늘 배운 단어는 Ball입니다.<br><br>Ball 한 번 적어보고 가실까요? 😊",
           "likeCount": 0,
           "publishedAt": "2026-06-22T06:20:19Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4691,7 +5023,8 @@
           "text": "오늘 처음 배운 단어는 Apple입니다.<br><br>댓글에 Apple을 한 번 적어보세요!",
           "likeCount": 0,
           "publishedAt": "2026-06-22T06:21:30Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4702,7 +5035,8 @@
           "text": "오늘 처음 배운 단어는 Apple입니다.<br><br>댓글에 Apple을 한 번 적어보세요!",
           "likeCount": 0,
           "publishedAt": "2026-06-22T06:21:30Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     },
@@ -4742,7 +5076,8 @@
           "text": "저는 50대에 영어를 다시 시작했습니다.<br><br>여러분은 영어를 놓은 지 몇 년 되셨나요?<br><br>댓글로 알려주세요. 같이 공부해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-22T06:22:08Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ],
       "channelOwnerComments": [
@@ -4753,7 +5088,8 @@
           "text": "저는 50대에 영어를 다시 시작했습니다.<br><br>여러분은 영어를 놓은 지 몇 년 되셨나요?<br><br>댓글로 알려주세요. 같이 공부해요!",
           "likeCount": 0,
           "publishedAt": "2026-06-22T06:22:08Z",
-          "isChannelOwner": true
+          "isChannelOwner": true,
+          "replyCount": 0
         }
       ]
     }
@@ -4770,14 +5106,14 @@
       "playlistId": "PLCbnHG8SDRes",
       "title": "이해하면 쉬운 영어 | 영어 읽는 법 테스트 시즌1 (30초 퀴즈)",
       "description": "30초 테스트로 먼저 확인하고, 원리는 연결된 롱폼 영상에서 배워보세요. 영어 읽는 법을 30초 퀴즈로 연습하는 시즌1 쇼츠입니다.  먼저 스스로 읽어보고, 정답을 확인하며 영어 읽는 원리를 자연스럽게 익혀보세요.  더 자세한 설명은 각 쇼츠와 연결된 시즌1 롱폼 영상에서 확인할 수 있습니다.  영어는 외우는 것이 아니라 이해하는 것입니다. 「이해하면 쉬운 영어」",
-      "itemCount": 17,
+      "itemCount": 18,
       "url": "https://www.youtube.com/playlist?list=PLCbnHG8SDRes"
     },
     {
       "playlistId": "PLdTWj5v6v8zE",
       "title": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
       "description": "영어 읽는 법을 기초부터 원리로 배우는 시즌1입니다.  Silent E, C와 K, G의 소리, 슈와, 강세 규칙까지 순서대로 배우며 영어 읽기의 기본 원리를 이해합니다.  영어를 외우는 것이 아니라 이해하고 싶은 분들을 위한 시리즈입니다.",
-      "itemCount": 24,
+      "itemCount": 25,
       "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
     }
   ]

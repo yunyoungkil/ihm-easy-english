@@ -1,27 +1,186 @@
 {
   "schemaVersion": 1,
-  "snapshotId": "2026-11-07T12-18-47-505Z",
-  "syncedAt": "2026-11-07T12:18:47.505Z",
+  "snapshotId": "2026-11-08T15-48-53-516Z",
+  "syncedAt": "2026-11-08T15:48:53.516Z",
   "range": {
-    "startDate": "2026-08-08",
-    "endDate": "2026-11-05"
+    "startDate": "2026-08-09",
+    "endDate": "2026-11-06"
   },
   "channel": {
     "id": "UCwNrEdm2jYAtUlfHVvH3WQw",
     "title": "이해하면 쉬운 영어",
     "thumbnail": "https://yt3.ggpht.com/1Oo6_AfJXNpD3im1GJ6pdxVvlFw7-Nm8Be6PPzHGWS74k12n6xgdhUYHbFQLNO_1H1fWu1bv=s88-c-k-c0x00ffffff-no-rj",
     "subscribers": 114,
-    "totalViews": 53306,
+    "totalViews": 53314,
     "videos": 78,
     "url": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw",
     "subscribeUrl": "https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw?sub_confirmation=1"
   },
   "recentVideos": [
     {
+      "videoId": "a4E6XlTbTW0",
+      "title": "영어 -S 끝소리 3가지, 이것만 알면 귀가 뚫립니다 | 24단어 반복 듣기",
+      "publishedAt": "2026-11-08T15:43:00Z",
+      "thumbnail": "https://i9.ytimg.com/vi/a4E6XlTbTW0/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLD01tE-t2K4IcuRPcsgl9NxN8u83w",
+      "description": "학창 시절에 복수형이나 3인칭 단수에 붙은 S는 그냥 '스'로 읽으면 된다고 배우셨죠?\n그런데 미드를 들어보면 dogs는 '독스'가 아니라 끝이 '즈'에 가깝게 들립니다. houses는 아예 '하우지즈'가 됩니다.\n\n단어 끝 -S와 -ES는 바로 앞 소리에 따라 딱 3가지로 갈립니다. 24단어를 남녀 목소리로 번갈아 반복해서 들으면서 귀로 익혀보세요. 🎧\n\n⏱️ 챕터\n00:00 -S, 다 '스'로 읽으셨죠? 3가지 끝소리 차이 (도입부)\n00:29 끝소리가 갈리는 원리 ([s] vs [z] vs [ɪz])\n01:16 Group 1: [s] 성대 떨림 0% 6단어 (cats, cups, books, laughs...)\n02:10 Group 2: [z] 성대 떨림 100% 6단어 (dogs, plays, pens, calls...)\n03:02 Group 3: [ɪz] 혀 꼬임 방지 쿠션 6단어 (bu · ses, wat · ches, box · es...)\n03:54 Group 4: 예외 & 자주 쓰는 말 6단어 (hou · ses, pri · zes, is...)\n04:44 문장 속에서 듣기 7문장\n05:09 24단어 무작위 섞어 듣기 (실전 퀴즈)\n07:10 스마트폰 캡처용 1장 요약 치트시트\n07:36 24단어 앵콜 총복습 & 다음 영상 추천\n\n━━━━━━━━━━━━━━━━━━━\n💡 -S · -ES 소리 3가지\n① [s]: 성대가 떨리지 않는 소리 뒤에서는 똑같이 안 떨리는 [s] (cats, cups, books, laughs, stops, sleeps)\n② [z]: 성대가 울리는 소리 뒤에서는 부드러운 [z] (dogs, plays, pens, calls, loves, dreams)\n③ [ɪz]: 이미 바람 소리가 나는 단어 뒤에서는 혀가 꼬이지 않게 소리를 하나 더 넣은 [ɪz] (bu · ses, wat · ches, box · es, clas · ses)\n★ 따로 기억할 것: hou · ses는 앞소리까지 바뀌어 [haʊzɪz]로 읽습니다. is [ɪz], was [wɑːz], has [hæz], does [dʌz]도 끝이 '즈' 소리입니다.\n\n━━━━━━━━━━━━━━━━━━━\n📌 이렇게 들어보세요\n단어만 보지 마시고, 04:44부터 나오는 문장 7개와 05:09부터 나오는 24단어 섞어 듣기로 귀가 먼저 반응할 때까지 들어보세요.\n\n#영어발음 #S발음 #복수형발음 #영어듣기 #영어리스닝 #영어회화 #기초영어 #파닉스 #이해하면쉬운영어",
+      "tags": [
+        "3인칭단수",
+        "English pronunciation",
+        "S발음",
+        "plural s",
+        "s ending pronunciation",
+        "기초영어",
+        "발음규칙",
+        "영어공부",
+        "영어듣기",
+        "영어리스닝",
+        "영어발음",
+        "영어복수형",
+        "영어회화",
+        "원어민발음",
+        "이해하면쉬운영어",
+        "파닉스"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT8M20S",
+      "durationSeconds": 500,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-19T14:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/a4E6XlTbTW0",
+      "format": "LONGFORM"
+    },
+    {
+      "videoId": "UDwLERu-Tu8",
+      "title": "Right와 Light, 둘 다 '라이트'로 읽으셨나요? | 영어 R L 20쌍 반복 듣기",
+      "publishedAt": "2026-11-08T15:05:26Z",
+      "thumbnail": "https://i9.ytimg.com/vi/UDwLERu-Tu8/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLCK-JPf5EFwJaOZVfVuJinWzwDGDw",
+      "description": "오른쪽 right와 전등 light, 둘 다 똑같이 '라이트'로 읽고 계신가요?\n기도하다 pray와 놀다 play도 마찬가지입니다.\n\n한글 ㄹ 하나로 쓰다 보니 둘이 같은 소리처럼 느껴집니다. 그런데 R은 혀를 심하게 굴리는 소리가 아닙니다.\n\n① R: 혀끝이 입천장에 닿지 않는 소리 (접촉 0%)\n② L: 혀끝이 윗니 바로 뒤 잇몸에 닿는 소리 (접촉 100%)\n\n20쌍 40단어를 남녀 목소리로 번갈아 반복해서 들어보세요. 문장 7개와 40단어 섞어 듣기까지 이어집니다.\n\n📌 챕터\n00:00 Right와 Light, 아직도 둘 다 '라이트'? (도입부)\n00:28 혀 굴리지 마세요! [r] 혀끝 허공 0% vs [l] 잇몸 접촉 100% 원리\n01:05 Group 1: 자주 나오는 5쌍 (Right/Light, Red/Led, Rain/Lane...)\n02:31 Group 2: 필수 동사 5쌍 (Run/Learn, Read/Lead, Ride/Lied...)\n03:57 Group 3: 일상 명사 5쌍 (River/Liver, Rock/Lock, Road/Load...)\n05:21 Group 4: 자음이 붙은 단어 5쌍 (Pray/Play, Crown/Clown, Grass/Glass...)\n06:47 문장 속에서 듣기 7문장\n07:42 40단어 무작위 섞어 듣기 (실전 퀴즈)\n11:00 1장 요약 치트시트 (스마트폰 캡처용)\n11:22 20쌍 앵콜 총복습 & 다음 영상 추천\n\n💡 이렇게 들어보세요\n1. 이어폰을 끼고 혀끝이 닿는지 안 닿는지에 집중해 보세요.\n2. 11:00 요약 치트시트는 캡처해 두고 틈틈이 소리 내어 연습해 보세요.\n\n#영어발음 #영어듣기 #영어리스닝 #RL발음 #영어회화 #자음발음 #이해하면쉬운영어",
+      "tags": [
+        "L발음",
+        "Pray Play",
+        "RL구분",
+        "Right Light",
+        "R발음",
+        "기초영어회화",
+        "영어 리스닝 훈련",
+        "영어 발음 꿀팁",
+        "영어 쉐도잉",
+        "영어공부혼자하기",
+        "영어듣기",
+        "영어리스닝",
+        "영어발음",
+        "원어민 발음",
+        "이해하면 쉬운영어",
+        "파닉스"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT12M25S",
+      "durationSeconds": 745,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-16T14:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/UDwLERu-Tu8",
+      "format": "LONGFORM"
+    },
+    {
+      "videoId": "oMrCtSBbibc",
+      "title": "양일까 배일까? sheep과 ship, 소리만 듣고 맞혀 보세요 #영어발음 #shorts",
+      "publishedAt": "2026-11-07T15:06:10Z",
+      "thumbnail": "https://i9.ytimg.com/vi/oMrCtSBbibc/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLCb94qjDy30neUoVQODYLSDsW3g4A",
+      "description": "전체 영상: Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요?\n\nsheep과 ship, seat와 sit, feel과 fill.\n한글로 적으면 둘 다 '쉽', '싯', '필'인데, 영어에서는 서로 다른 단어입니다.\n\n차이는 소리 길이보다 입과 혀 모양에서 납니다.\n・sheep, seat, feel: 웃듯이 입꼬리를 옆으로 당기는 소리\n・ship, sit, fill: 입에 힘을 툭 빼는 소리\n\n세 문제 중 몇 개 맞히셨나요?\n20쌍 전체는 화면 아래 링크에서 이어서 들어 보세요.\n\n#영어발음 #영어듣기 #발음테스트",
+      "tags": [
+        "sheep ship",
+        "sheep ship 발음",
+        "seat sit 발음",
+        "feel fill 발음",
+        "영어발음",
+        "영어 발음 테스트",
+        "발음 테스트",
+        "영어듣기",
+        "영단어 발음",
+        "장모음 단모음",
+        "영어모음",
+        "기초영어",
+        "왕초보영어",
+        "영어 쇼츠",
+        "이해하면쉬운영어"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT45S",
+      "durationSeconds": 45,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-10T11:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/oMrCtSBbibc",
+      "format": "SHORTS"
+    },
+    {
+      "videoId": "8Ul_lkCkUCI",
+      "title": "Pool과 Pull, 둘 다 '풀'로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
+      "publishedAt": "2026-11-07T13:16:38Z",
+      "thumbnail": "https://i9.ytimg.com/vi/8Ul_lkCkUCI/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLBlOZZ49wNNvka2GdclmATgwEEC3w",
+      "description": "수영장 pool과 당기다 pull, 둘 다 똑같이 '풀'로 읽고 계신가요?\n바보 fool과 배부른 full도 한글로 쓰면 똑같이 '풀'입니다.\n\n학창 시절에는 길게 읽으면 [uː], 짧게 읽으면 [ʊ]라고 배웠습니다. 그런데 실제 차이는 길이보다 입술에 있습니다.\n\n① [uː] pool: 촛불을 끄듯이 입술을 둥글게 앞으로 모으면서 내는 소리\n② [ʊ] pull: 멍때리듯이 입에 힘을 툭 빼고 내는 소리\n\n20쌍을 남녀 목소리로 번갈아 반복해서 들어보세요. 문장 7개와 40단어 섞어 듣기까지 이어집니다.\n\n📌 챕터\n00:00 Pool과 Pull, 둘 다 똑같이 '풀'? (도입부)\n00:49 [uː] vs [ʊ] 입술 모양 차이\n01:35 Group 1: 핵심 명사 & 동사 5쌍 (pool vs pull, fool vs full...)\n03:00 Group 2: 조동사 & 과거형 5쌍 (cooed vs could, shooed vs should...)\n04:30 Group 3: 불규칙 과거 & 동작 5쌍 (shoot vs shook, toot vs took...)\n05:53 Group 4: 일상에서 자주 헷갈리는 5쌍 (food vs foot, boot vs book...)\n07:20 문장 속에서 듣기 7문장\n08:06 40단어 무작위 섞어 듣기 (실전 퀴즈)\n11:28 1장 요약 치트시트 (스마트폰 캡처용)\n11:58 20쌍 앵콜 총복습 & 다음 영상 추천\n\n💡 이렇게 들어보세요\n1. 이어폰을 끼고 입술 모양 차이에 집중해 보세요.\n2. 11:28 요약 치트시트는 캡처해 두고 틈틈이 다시 보세요.\n\n#영어발음 #영어듣기 #영어리스닝 #영어회화 #모음발음 #이해하면쉬운영어",
+      "tags": [
+        "fool full",
+        "look luke",
+        "pool pull",
+        "기초영어회화",
+        "모음발음",
+        "영어 리스닝 훈련",
+        "영어 발음 꿀팁",
+        "영어 쉐도잉",
+        "영어공부혼자하기",
+        "영어듣기",
+        "영어리스닝",
+        "영어발음",
+        "영어소리",
+        "원어민 발음",
+        "이해하면 쉬운영어",
+        "장모음단모음"
+      ],
+      "categoryId": "27",
+      "defaultLanguage": "ko",
+      "duration": "PT13M1S",
+      "durationSeconds": 781,
+      "privacyStatus": "private",
+      "scheduledPublishAt": "2026-11-12T14:00:00Z",
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "0",
+        "dislikeCount": "0",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "url": "https://youtu.be/8Ul_lkCkUCI",
+      "format": "LONGFORM"
+    },
+    {
       "videoId": "--Ajwp-UvIk",
       "title": "Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
       "publishedAt": "2026-11-06T11:17:59Z",
-      "thumbnail": "https://i9.ytimg.com/vi/--Ajwp-UvIk/maxresdefault.jpg?sqp=CMSsvNcG&rs=AOn4CLBhbcnVWVAxkovIAjjK6l2ADqsyxQ",
+      "thumbnail": "https://i9.ytimg.com/vi/--Ajwp-UvIk/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLCi1NQUmfq2ZGDskUgcLqsrXNTkeQ",
       "description": "sheep과 ship, seat와 sit. 둘 다 똑같이 '쉽', '싯'으로 읽고 계셨죠?\n학창 시절에는 장모음은 길게, 단모음은 짧게 읽으라고 배웠습니다. 그런데 미드를 들어보면 길게 끄는 것 같지도 않은데 두 소리가 분명히 다르게 들립니다.\n\n진짜 차이는 길이보다 입 모양에 있습니다.\n\n① [iː] sheep: 웃듯이 입꼬리를 양옆으로 당기면서 내는 소리\n② [ɪ] ship: 멍때리듯이 입에 힘을 툭 빼고 내는 소리\n\n20쌍 40단어를 남녀 목소리로 번갈아 반복해서 들어보세요. 이어서 문장 7개와 40단어 섞어 듣기까지 따라가다 보면, 두 소리가 왜 다르게 들렸는지 귀로 느껴집니다.\n\n「이해하면 쉬운영어」입니다. 왕초보도 이해할 수 있게, 소리가 나는 원리로 설명합니다.\n\n📌 오늘 배우는 내용\n・Sheep vs Ship: 소리의 길이보다 입꼬리 차이\n・Group 1: 일상 사물 & 동물 5쌍 (sheep/ship, feet/fit, seat/sit, heel/hill, peel/pill)\n・Group 2: 음식 & 동작 5쌍 (meat/mitt, peach/pitch, beat/bit, heat/hit, cheap/chip)\n・Group 3: 감각 & 상태 5쌍 (sleep/slip, feel/fill, reach/rich, leave/live, seek/sick)\n・Group 4: 헷갈리기 쉬운 단어 5쌍 (lead/lid, teen/tin, deed/did, steel/still 외)\n・문장 7개 3회 연속 듣기\n・40단어 무작위 섞어 듣기\n・스마트폰 캡처용 1장 요약 치트시트\n・20쌍 앵콜 총복습\n\n⏱️ 챕터\n0:00 Sheep vs Ship, 둘 다 똑같이 '쉽'?\n0:31 [iː] vs [ɪ] 입 모양 차이\n0:57 Group 1: 일상 사물 & 동물 5쌍 (sheep vs ship, feet vs fit...)\n1:41 Group 2: 음식 & 동작 5쌍 (meat vs mitt, peach vs pitch...)\n2:23 Group 3: 감각 & 상태 5쌍 (sleep vs slip, feel vs fill...)\n3:08 Group 4: 헷갈리기 쉬운 단어 5쌍 (lead vs lid, teen vs tin...)\n3:51 문장 속에서 듣기 7문장\n4:56 40단어 무작위 섞어 듣기 (실전 퀴즈)\n8:12 스마트폰 캡처용 1장 요약 치트시트\n8:29 20쌍 앵콜 총복습\n9:19 다음 추천 영상 & 완주\n\n소리를 길게 늘이기만 하면 오히려 어색하게 들립니다.\n소리가 나는 원리를 알면 듣기도 말하기도 한결 쉬워집니다.\n영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다!\n\n#영어발음 #영어모음 #장모음단모음 #sheepship #발음비교 #파닉스 #성인파닉스 #영어단어읽는법 #영어리스닝",
       "tags": [
         "sheep ship",
@@ -45,7 +204,7 @@
         "파닉스"
       ],
       "categoryId": "27",
-      "defaultLanguage": null,
+      "defaultLanguage": "ko",
       "duration": "PT9M30S",
       "durationSeconds": 570,
       "privacyStatus": "private",
@@ -298,7 +457,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "155",
+        "viewCount": "158",
         "likeCount": "4",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1423,7 +1582,7 @@
       "privacyStatus": "public",
       "scheduledPublishAt": null,
       "statistics": {
-        "viewCount": "1928",
+        "viewCount": "1929",
         "likeCount": "2",
         "dislikeCount": "0",
         "favoriteCount": "0",
@@ -1881,7 +2040,7 @@
       "videoId": "riZ2xrY67kU",
       "title": "영어 기초 배우기 | 영어 간판 다 읽히는 소리 변신 법칙 #50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #간판영어, #파닉스예외, #5060영어",
       "publishedAt": "2026-06-28T16:27:25Z",
-      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CMSsvNcG&rs=AOn4CLBQIUoPAeuGXQ58aDEfx7m5D0TRkA",
+      "thumbnail": "https://i9.ytimg.com/vi/riZ2xrY67kU/maxresdefault.jpg?sqp=CPyxwtcG&rs=AOn4CLAyHYY6CxLYkb8ZVMPjcTCj1Ku90Q",
       "description": "영어 기초 배우기, 첫걸음이 막막하셨던 분들을 위해 준비했습니다. 😊\n\n요즘 동네 거리를 걷다 보면 영어로 된 간판이 정말 많이 보입니다. \n그럴 때마다 속으로 '저 간판은 도대체 어떻게 읽는 거지?, 이렇게 읽는 건가, 저렇게 읽는 건가' 하고 한 번쯤 고민해 보지 않으셨나요? \n\n그 궁금증을 완벽하게 해결해 드립니다. \n복잡하게 외우는 공부가 아니라, 영어가 왜 그렇게 소리 나는지 그 비밀을 아주 명쾌하게 풀어드립니다. \n\n딱 5분만 투자해 보세요. \n더 이상 주변 글자들 앞에서 머뭇거리거나 고민하지 않아도 됩니다. \n내 힘으로 주변 단어들을 직접 시원하게 읽어내고, 당당하게 주문하는 일상의 즐거움을 100% 누리게 도와드리겠습니다. \n\n오늘은 우리가 매일 마주치는 가장 흔한 글자들이 왜 자리를 바꾸면 카멜레온처럼 소리가 싹 변하는지, 그 숨겨진 소리 법칙을 다 알려드릴게요. 자, 지금 바로 출발합니다!\n\n💬 오늘 영상을 보시면서 가장 신기했거나 기억에 남는 규칙이 있다면 아래 댓글로 편하게 한 줄 남겨주세요. 제가 직접 확인하고, 응원의 하트 날려드리겠습니다! 늘 건강 유의하세요! ❤️\n\n#50대영어, #왕초보영어, #알파벳읽는법, #시니어영어, #기초영어회화, #간판영어, #파닉스예외, #5060영어, #성인영어과외, #혼자하는영어, #생활영어단어, #변신알파벳, #야매파닉스, #실버영어",
       "tags": [],
       "categoryId": "26",
@@ -2649,14 +2808,14 @@
       "playlistId": "PLCbnHG8SDRes",
       "title": "이해하면 쉬운 영어 | 영어 읽는 법 테스트 시즌1 (30초 퀴즈)",
       "description": "30초 테스트로 먼저 확인하고, 원리는 연결된 롱폼 영상에서 배워보세요. 영어 읽는 법을 30초 퀴즈로 연습하는 시즌1 쇼츠입니다.  먼저 스스로 읽어보고, 정답을 확인하며 영어 읽는 원리를 자연스럽게 익혀보세요.  더 자세한 설명은 각 쇼츠와 연결된 시즌1 롱폼 영상에서 확인할 수 있습니다.  영어는 외우는 것이 아니라 이해하는 것입니다. 「이해하면 쉬운 영어」",
-      "itemCount": 17,
+      "itemCount": 18,
       "url": "https://www.youtube.com/playlist?list=PLCbnHG8SDRes"
     },
     {
       "playlistId": "PLdTWj5v6v8zE",
       "title": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
       "description": "영어 읽는 법을 기초부터 원리로 배우는 시즌1입니다.  Silent E, C와 K, G의 소리, 슈와, 강세 규칙까지 순서대로 배우며 영어 읽기의 기본 원리를 이해합니다.  영어를 외우는 것이 아니라 이해하고 싶은 분들을 위한 시리즈입니다.",
-      "itemCount": 24,
+      "itemCount": 25,
       "url": "https://www.youtube.com/playlist?list=PLdTWj5v6v8zE"
     }
   ],
@@ -3242,24 +3401,41 @@
       "role": "STANDALONE_LONG",
       "source": "auto",
       "reason": "검토 필요"
+    },
+    "8Ul_lkCkUCI": {
+      "category": "OTHER",
+      "role": "STANDALONE_LONG",
+      "source": "auto",
+      "reason": "검토 필요"
+    },
+    "oMrCtSBbibc": {
+      "category": "OTHER",
+      "role": "STANDALONE_SHORT",
+      "source": "auto",
+      "reason": "검토 필요"
+    },
+    "UDwLERu-Tu8": {
+      "category": "OTHER",
+      "role": "STANDALONE_LONG",
+      "source": "auto",
+      "reason": "검토 필요"
+    },
+    "a4E6XlTbTW0": {
+      "category": "OTHER",
+      "role": "STANDALONE_LONG",
+      "source": "auto",
+      "reason": "검토 필요"
     }
   },
   "summary": {
-    "views": 15673,
-    "estimatedMinutesWatched": 2846,
+    "views": 14807,
+    "estimatedMinutesWatched": 2799,
     "averageViewDuration": 35,
-    "averageViewPercentage": 48.82,
-    "subscribersGained": 46,
+    "averageViewPercentage": 48.77,
+    "subscribersGained": 45,
     "subscribersLost": 3
   },
   "daily": [
-    {
-      "day": "2026-08-08",
-      "views": 877,
-      "estimatedMinutesWatched": 53,
-      "subscribersGained": 1,
-      "subscribersLost": 0
-    },
     {
       "day": "2026-08-09",
       "views": 3623,
@@ -3875,20 +4051,27 @@
       "estimatedMinutesWatched": 0,
       "subscribersGained": 0,
       "subscribersLost": 0
+    },
+    {
+      "day": "2026-11-05",
+      "views": 11,
+      "estimatedMinutesWatched": 6,
+      "subscribersGained": 0,
+      "subscribersLost": 0
     }
   ],
   "contentTypes": [
     {
       "creatorContentType": "shorts",
-      "views": 15072,
-      "estimatedMinutesWatched": 2239,
-      "subscribersGained": 31,
+      "views": 14201,
+      "estimatedMinutesWatched": 2189,
+      "subscribersGained": 30,
       "subscribersLost": 0
     },
     {
       "creatorContentType": "videoOnDemand",
-      "views": 600,
-      "estimatedMinutesWatched": 606,
+      "views": 605,
+      "estimatedMinutesWatched": 610,
       "subscribersGained": 8,
       "subscribersLost": 0
     },
@@ -3903,23 +4086,23 @@
   "trafficSources": [
     {
       "insightTrafficSourceType": "SHORTS",
-      "views": 14361,
-      "estimatedMinutesWatched": 2073
+      "views": 13509,
+      "estimatedMinutesWatched": 2024
     },
     {
       "insightTrafficSourceType": "YT_SEARCH",
-      "views": 566,
+      "views": 559,
       "estimatedMinutesWatched": 117
     },
     {
       "insightTrafficSourceType": "YT_OTHER_PAGE",
-      "views": 285,
-      "estimatedMinutesWatched": 76
+      "views": 276,
+      "estimatedMinutesWatched": 75
     },
     {
       "insightTrafficSourceType": "SUBSCRIBER",
-      "views": 149,
-      "estimatedMinutesWatched": 99
+      "views": 154,
+      "estimatedMinutesWatched": 97
     },
     {
       "insightTrafficSourceType": "YT_CHANNEL",
@@ -3929,7 +4112,7 @@
     {
       "insightTrafficSourceType": "RELATED_VIDEO",
       "views": 101,
-      "estimatedMinutesWatched": 295
+      "estimatedMinutesWatched": 299
     },
     {
       "insightTrafficSourceType": "PLAYLIST",
@@ -3937,14 +4120,14 @@
       "estimatedMinutesWatched": 18
     },
     {
-      "insightTrafficSourceType": "NO_LINK_OTHER",
-      "views": 16,
-      "estimatedMinutesWatched": 12
-    },
-    {
       "insightTrafficSourceType": "SHORTS_CONTENT_LINKS",
       "views": 16,
       "estimatedMinutesWatched": 23
+    },
+    {
+      "insightTrafficSourceType": "NO_LINK_OTHER",
+      "views": 13,
+      "estimatedMinutesWatched": 11
     },
     {
       "insightTrafficSourceType": "EXT_URL",
@@ -3972,6 +4155,42 @@
       "estimatedMinutesWatched": 0
     }
   ],
+  "trafficSources7d": {
+    "startDate": "2026-10-31",
+    "endDate": "2026-11-06",
+    "rows": [
+      {
+        "insightTrafficSourceType": "YT_SEARCH",
+        "views": 19,
+        "estimatedMinutesWatched": 28
+      },
+      {
+        "insightTrafficSourceType": "SUBSCRIBER",
+        "views": 10,
+        "estimatedMinutesWatched": 0
+      },
+      {
+        "insightTrafficSourceType": "RELATED_VIDEO",
+        "views": 5,
+        "estimatedMinutesWatched": 18
+      },
+      {
+        "insightTrafficSourceType": "NO_LINK_OTHER",
+        "views": 1,
+        "estimatedMinutesWatched": 0
+      },
+      {
+        "insightTrafficSourceType": "EXT_URL",
+        "views": 1,
+        "estimatedMinutesWatched": 0
+      },
+      {
+        "insightTrafficSourceType": "NOTIFICATION",
+        "views": 1,
+        "estimatedMinutesWatched": 0
+      }
+    ]
+  },
   "searchTerms": [
     {
       "insightTrafficSourceDetail": "영단어",
@@ -4292,60 +4511,6 @@
       "url": "https://youtu.be/LdiZKCzKf0c"
     },
     {
-      "video": "FwBboz1jenA",
-      "views": 456,
-      "estimatedMinutesWatched": 25,
-      "averageViewDuration": 14,
-      "averageViewPercentage": 70.89,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "CELEBRATE, 강세 위치 1초 안에 맞힐 수 있나요? ⏱️ #shorts #영어공부 #영어발음",
-      "publishedAt": "2026-08-08T12:53:41Z",
-      "thumbnail": "https://i.ytimg.com/vi/FwBboz1jenA/maxresdefault.jpg",
-      "durationSeconds": 21,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "A",
-        "updatedAt": "2026-08-13T10:59:27.740Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "url": "https://youtu.be/FwBboz1jenA"
-    },
-    {
-      "video": "ewv3GcXNLsE",
-      "views": 432,
-      "estimatedMinutesWatched": 27,
-      "averageViewDuration": 15,
-      "averageViewPercentage": 84.16,
-      "subscribersGained": 1,
-      "subscribersLost": 0,
-      "likes": 0,
-      "comments": 0,
-      "title": "STATION 발음 테스트, 10초 안에 도전! ⏱️ #shorts #영어공부",
-      "publishedAt": "2026-08-08T12:57:39Z",
-      "thumbnail": "https://i.ytimg.com/vi/ewv3GcXNLsE/maxresdefault.jpg",
-      "durationSeconds": 19,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 1,
-      "subscribersPerThousandViews": 2.314814814814815,
-      "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "B",
-        "updatedAt": "2026-08-13T10:59:25.760Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "url": "https://youtu.be/ewv3GcXNLsE"
-    },
-    {
       "video": "4of_mgeLazQ",
       "views": 204,
       "estimatedMinutesWatched": 5,
@@ -4372,10 +4537,10 @@
     },
     {
       "video": "ROks87qezuU",
-      "views": 140,
-      "estimatedMinutesWatched": 238,
-      "averageViewDuration": 154,
-      "averageViewPercentage": 37.34,
+      "views": 148,
+      "estimatedMinutesWatched": 245,
+      "averageViewDuration": 157,
+      "averageViewPercentage": 37.88,
       "subscribersGained": 5,
       "subscribersLost": 0,
       "likes": 4,
@@ -4386,7 +4551,7 @@
       "durationSeconds": 415,
       "creatorContentType": "VIDEO_ON_DEMAND",
       "subscriberNet": 5,
-      "subscribersPerThousandViews": 35.714285714285715,
+      "subscribersPerThousandViews": 33.78378378378378,
       "classification": {
         "category": "OTHER",
         "role": "STANDALONE_LONG",
@@ -4527,31 +4692,6 @@
       "url": "https://youtu.be/tFe-cB__uns"
     },
     {
-      "video": "f4wkmIvplCc",
-      "views": 17,
-      "estimatedMinutesWatched": 25,
-      "averageViewDuration": 100,
-      "averageViewPercentage": 22.87,
-      "subscribersGained": 1,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "\"보고 싶어요\"를 영어로? 초급 영어 필수 문장 20개 EP2",
-      "publishedAt": "2026-07-29T13:27:19Z",
-      "thumbnail": "https://i.ytimg.com/vi/f4wkmIvplCc/maxresdefault.jpg",
-      "durationSeconds": 438,
-      "creatorContentType": "VIDEO_ON_DEMAND",
-      "subscriberNet": 1,
-      "subscribersPerThousandViews": 58.8235294117647,
-      "classification": {
-        "category": "EXPERIMENT",
-        "role": "STANDALONE_LONG",
-        "source": "auto",
-        "reason": "독립 포맷 실험"
-      },
-      "url": "https://youtu.be/f4wkmIvplCc"
-    },
-    {
       "video": "6nANjHxy2Lc",
       "views": 16,
       "estimatedMinutesWatched": 2,
@@ -4604,6 +4744,31 @@
         "source": "manual"
       },
       "url": "https://youtu.be/hu4GNC7peTY"
+    },
+    {
+      "video": "f4wkmIvplCc",
+      "views": 14,
+      "estimatedMinutesWatched": 22,
+      "averageViewDuration": 111,
+      "averageViewPercentage": 25.53,
+      "subscribersGained": 1,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "\"보고 싶어요\"를 영어로? 초급 영어 필수 문장 20개 EP2",
+      "publishedAt": "2026-07-29T13:27:19Z",
+      "thumbnail": "https://i.ytimg.com/vi/f4wkmIvplCc/maxresdefault.jpg",
+      "durationSeconds": 438,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 1,
+      "subscribersPerThousandViews": 71.42857142857143,
+      "classification": {
+        "category": "EXPERIMENT",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "독립 포맷 실험"
+      },
+      "url": "https://youtu.be/f4wkmIvplCc"
     },
     {
       "video": "pghOYvcjpIg",
@@ -4758,6 +4923,31 @@
       "url": "https://youtu.be/sNNufVhkjT8"
     },
     {
+      "video": "r7QQlVQtA1Y",
+      "views": 8,
+      "estimatedMinutesWatched": 4,
+      "averageViewDuration": 95,
+      "averageViewPercentage": 289.78,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "L은 엘이 아닙니다? #영어초보 #파닉스 #50대영어 #영어초보 #파닉스 #50대영어 #영어공부 #영어독학 #영어공부 #영어독학",
+      "publishedAt": "2026-06-24T06:00:27Z",
+      "thumbnail": "https://i.ytimg.com/vi/r7QQlVQtA1Y/maxresdefault.jpg",
+      "durationSeconds": 33,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/r7QQlVQtA1Y"
+    },
+    {
       "video": "F-o7EmQL3zY",
       "views": 8,
       "estimatedMinutesWatched": 1,
@@ -4785,29 +4975,31 @@
       "url": "https://youtu.be/F-o7EmQL3zY"
     },
     {
-      "video": "r7QQlVQtA1Y",
+      "video": "ewv3GcXNLsE",
       "views": 8,
-      "estimatedMinutesWatched": 4,
-      "averageViewDuration": 95,
-      "averageViewPercentage": 289.78,
+      "estimatedMinutesWatched": 1,
+      "averageViewDuration": 16,
+      "averageViewPercentage": 89.33,
       "subscribersGained": 0,
       "subscribersLost": 0,
-      "likes": 1,
+      "likes": 0,
       "comments": 0,
-      "title": "L은 엘이 아닙니다? #영어초보 #파닉스 #50대영어 #영어초보 #파닉스 #50대영어 #영어공부 #영어독학 #영어공부 #영어독학",
-      "publishedAt": "2026-06-24T06:00:27Z",
-      "thumbnail": "https://i.ytimg.com/vi/r7QQlVQtA1Y/maxresdefault.jpg",
-      "durationSeconds": 33,
+      "title": "STATION 발음 테스트, 10초 안에 도전! ⏱️ #shorts #영어공부",
+      "publishedAt": "2026-08-08T12:57:39Z",
+      "thumbnail": "https://i.ytimg.com/vi/ewv3GcXNLsE/maxresdefault.jpg",
+      "durationSeconds": 19,
       "creatorContentType": "SHORTS",
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
       "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
+        "season": 1,
+        "episode": 6,
+        "role": "B",
+        "updatedAt": "2026-08-13T10:59:25.760Z",
+        "category": "SEASON",
+        "source": "manual"
       },
-      "url": "https://youtu.be/r7QQlVQtA1Y"
+      "url": "https://youtu.be/ewv3GcXNLsE"
     },
     {
       "video": "a2VrFQVjImI",
@@ -4987,6 +5179,33 @@
       "url": "https://youtu.be/qf38zv-SVNo"
     },
     {
+      "video": "FwBboz1jenA",
+      "views": 6,
+      "estimatedMinutesWatched": 1,
+      "averageViewDuration": 23,
+      "averageViewPercentage": 110.31,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 0,
+      "title": "CELEBRATE, 강세 위치 1초 안에 맞힐 수 있나요? ⏱️ #shorts #영어공부 #영어발음",
+      "publishedAt": "2026-08-08T12:53:41Z",
+      "thumbnail": "https://i.ytimg.com/vi/FwBboz1jenA/maxresdefault.jpg",
+      "durationSeconds": 21,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "season": 1,
+        "episode": 6,
+        "role": "A",
+        "updatedAt": "2026-08-13T10:59:27.740Z",
+        "category": "SEASON",
+        "source": "manual"
+      },
+      "url": "https://youtu.be/FwBboz1jenA"
+    },
+    {
       "video": "FK-JWJ_7vq4",
       "views": 6,
       "estimatedMinutesWatched": 1,
@@ -5112,6 +5331,31 @@
       "url": "https://youtu.be/Zh8_xYi_Gu0"
     },
     {
+      "video": "2lae1vhl53s",
+      "views": 5,
+      "estimatedMinutesWatched": 0,
+      "averageViewDuration": 17,
+      "averageViewPercentage": 75.8,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "Y는 어떻게 읽을까요? | 앞에 올 때 #영어초보 #영어 #파닉스 #영어초보 #영어 #파닉스 #영어공부",
+      "publishedAt": "2026-06-26T14:45:07Z",
+      "thumbnail": "https://i.ytimg.com/vi/2lae1vhl53s/maxresdefault.jpg",
+      "durationSeconds": 23,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/2lae1vhl53s"
+    },
+    {
       "video": "9d9m869BCTI",
       "views": 5,
       "estimatedMinutesWatched": 1,
@@ -5189,6 +5433,31 @@
       "url": "https://youtu.be/-V1lwpEF7Ik"
     },
     {
+      "video": "2xir5cjFcsg",
+      "views": 4,
+      "estimatedMinutesWatched": 0,
+      "averageViewDuration": 17,
+      "averageViewPercentage": 76.74,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "Y는 어떻게 읽을까요? | Y가 뒤에 올 때 #영어초보 #영어 #영어인강 #영어초보 #영어 #영어인강",
+      "publishedAt": "2026-06-26T16:00:09Z",
+      "thumbnail": "https://i.ytimg.com/vi/2xir5cjFcsg/maxresdefault.jpg",
+      "durationSeconds": 23,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/2xir5cjFcsg"
+    },
+    {
       "video": "7GJ6Iiy_THk",
       "views": 4,
       "estimatedMinutesWatched": 1,
@@ -5214,19 +5483,19 @@
       "url": "https://youtu.be/7GJ6Iiy_THk"
     },
     {
-      "video": "2lae1vhl53s",
+      "video": "l8w3SlUnm3Y",
       "views": 4,
-      "estimatedMinutesWatched": 0,
-      "averageViewDuration": 25,
-      "averageViewPercentage": 111.52,
+      "estimatedMinutesWatched": 1,
+      "averageViewDuration": 36,
+      "averageViewPercentage": 87.2,
       "subscribersGained": 0,
       "subscribersLost": 0,
       "likes": 1,
       "comments": 0,
-      "title": "Y는 어떻게 읽을까요? | 앞에 올 때 #영어초보 #영어 #파닉스 #영어초보 #영어 #파닉스 #영어공부",
-      "publishedAt": "2026-06-26T14:45:07Z",
-      "thumbnail": "https://i.ytimg.com/vi/2lae1vhl53s/maxresdefault.jpg",
-      "durationSeconds": 23,
+      "title": "F 발음 배우기 | Fish로 배우는 영어 #50대영어 #영어공부 #영어독학 #50대영어 #영어공부 #영어독학 #영어초보 #파닉스 #영어초보 #파닉스",
+      "publishedAt": "2026-06-22T13:00:25Z",
+      "thumbnail": "https://i.ytimg.com/vi/l8w3SlUnm3Y/maxresdefault.jpg",
+      "durationSeconds": 42,
       "creatorContentType": "SHORTS",
       "subscriberNet": 0,
       "subscribersPerThousandViews": 0,
@@ -5236,7 +5505,7 @@
         "source": "auto",
         "reason": "구체적 운영 계획 이전 업로드"
       },
-      "url": "https://youtu.be/2lae1vhl53s"
+      "url": "https://youtu.be/l8w3SlUnm3Y"
     },
     {
       "video": "beKA35yvxdk",
@@ -5262,31 +5531,6 @@
         "reason": "검토 필요"
       },
       "url": "https://youtu.be/beKA35yvxdk"
-    },
-    {
-      "video": "l8w3SlUnm3Y",
-      "views": 4,
-      "estimatedMinutesWatched": 1,
-      "averageViewDuration": 36,
-      "averageViewPercentage": 87.2,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "F 발음 배우기 | Fish로 배우는 영어 #50대영어 #영어공부 #영어독학 #50대영어 #영어공부 #영어독학 #영어초보 #파닉스 #영어초보 #파닉스",
-      "publishedAt": "2026-06-22T13:00:25Z",
-      "thumbnail": "https://i.ytimg.com/vi/l8w3SlUnm3Y/maxresdefault.jpg",
-      "durationSeconds": 42,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/l8w3SlUnm3Y"
     },
     {
       "video": "uqmVMRhT_1A",
@@ -5464,31 +5708,6 @@
         "reason": "검토 필요"
       },
       "url": "https://youtu.be/AcNSDMpkR_A"
-    },
-    {
-      "video": "2xir5cjFcsg",
-      "views": 2,
-      "estimatedMinutesWatched": 0,
-      "averageViewDuration": 26,
-      "averageViewPercentage": 113.91,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "Y는 어떻게 읽을까요? | Y가 뒤에 올 때 #영어초보 #영어 #영어인강 #영어초보 #영어 #영어인강",
-      "publishedAt": "2026-06-26T16:00:09Z",
-      "thumbnail": "https://i.ytimg.com/vi/2xir5cjFcsg/maxresdefault.jpg",
-      "durationSeconds": 23,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/2xir5cjFcsg"
     },
     {
       "video": "dqUv-iFpy2g",
@@ -5993,31 +6212,6 @@
       "url": "https://youtu.be/wHoTmrRbf6k"
     },
     {
-      "video": "XrjSTAggQc8",
-      "views": 1,
-      "estimatedMinutesWatched": 0,
-      "averageViewDuration": 32,
-      "averageViewPercentage": 96.97,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "N은 엔이 아닙니다? #영어초보 #파닉스 #50대영어 #영어초보 #파닉스 #50대영어 #영어공부 #영어독학 #영어공부 #영어독학",
-      "publishedAt": "2026-06-24T09:30:27Z",
-      "thumbnail": "https://i.ytimg.com/vi/XrjSTAggQc8/maxresdefault.jpg",
-      "durationSeconds": 33,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "category": "LEGACY",
-        "role": "STANDALONE_SHORT",
-        "source": "auto",
-        "reason": "구체적 운영 계획 이전 업로드"
-      },
-      "url": "https://youtu.be/XrjSTAggQc8"
-    },
-    {
       "video": "dwe9WPIHi5k",
       "views": 1,
       "estimatedMinutesWatched": 0,
@@ -6041,6 +6235,31 @@
         "reason": "구체적 운영 계획 이전 업로드"
       },
       "url": "https://youtu.be/dwe9WPIHi5k"
+    },
+    {
+      "video": "XrjSTAggQc8",
+      "views": 1,
+      "estimatedMinutesWatched": 0,
+      "averageViewDuration": 32,
+      "averageViewPercentage": 96.97,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 1,
+      "comments": 0,
+      "title": "N은 엔이 아닙니다? #영어초보 #파닉스 #50대영어 #영어초보 #파닉스 #50대영어 #영어공부 #영어독학 #영어공부 #영어독학",
+      "publishedAt": "2026-06-24T09:30:27Z",
+      "thumbnail": "https://i.ytimg.com/vi/XrjSTAggQc8/maxresdefault.jpg",
+      "durationSeconds": 33,
+      "creatorContentType": "SHORTS",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "LEGACY",
+        "role": "STANDALONE_SHORT",
+        "source": "auto",
+        "reason": "구체적 운영 계획 이전 업로드"
+      },
+      "url": "https://youtu.be/XrjSTAggQc8"
     }
   ],
   "topVideos": [
@@ -6286,60 +6505,6 @@
       "url": "https://youtu.be/LdiZKCzKf0c"
     },
     {
-      "video": "FwBboz1jenA",
-      "views": 456,
-      "estimatedMinutesWatched": 25,
-      "averageViewDuration": 14,
-      "averageViewPercentage": 70.89,
-      "subscribersGained": 0,
-      "subscribersLost": 0,
-      "likes": 1,
-      "comments": 0,
-      "title": "CELEBRATE, 강세 위치 1초 안에 맞힐 수 있나요? ⏱️ #shorts #영어공부 #영어발음",
-      "publishedAt": "2026-08-08T12:53:41Z",
-      "thumbnail": "https://i.ytimg.com/vi/FwBboz1jenA/maxresdefault.jpg",
-      "durationSeconds": 21,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 0,
-      "subscribersPerThousandViews": 0,
-      "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "A",
-        "updatedAt": "2026-08-13T10:59:27.740Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "url": "https://youtu.be/FwBboz1jenA"
-    },
-    {
-      "video": "ewv3GcXNLsE",
-      "views": 432,
-      "estimatedMinutesWatched": 27,
-      "averageViewDuration": 15,
-      "averageViewPercentage": 84.16,
-      "subscribersGained": 1,
-      "subscribersLost": 0,
-      "likes": 0,
-      "comments": 0,
-      "title": "STATION 발음 테스트, 10초 안에 도전! ⏱️ #shorts #영어공부",
-      "publishedAt": "2026-08-08T12:57:39Z",
-      "thumbnail": "https://i.ytimg.com/vi/ewv3GcXNLsE/maxresdefault.jpg",
-      "durationSeconds": 19,
-      "creatorContentType": "SHORTS",
-      "subscriberNet": 1,
-      "subscribersPerThousandViews": 2.314814814814815,
-      "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "B",
-        "updatedAt": "2026-08-13T10:59:25.760Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "url": "https://youtu.be/ewv3GcXNLsE"
-    },
-    {
       "video": "4of_mgeLazQ",
       "views": 204,
       "estimatedMinutesWatched": 5,
@@ -6366,10 +6531,10 @@
     },
     {
       "video": "ROks87qezuU",
-      "views": 140,
-      "estimatedMinutesWatched": 238,
-      "averageViewDuration": 154,
-      "averageViewPercentage": 37.34,
+      "views": 148,
+      "estimatedMinutesWatched": 245,
+      "averageViewDuration": 157,
+      "averageViewPercentage": 37.88,
       "subscribersGained": 5,
       "subscribersLost": 0,
       "likes": 4,
@@ -6380,7 +6545,7 @@
       "durationSeconds": 415,
       "creatorContentType": "VIDEO_ON_DEMAND",
       "subscriberNet": 5,
-      "subscribersPerThousandViews": 35.714285714285715,
+      "subscribersPerThousandViews": 33.78378378378378,
       "classification": {
         "category": "OTHER",
         "role": "STANDALONE_LONG",
@@ -6440,6 +6605,58 @@
         "reason": "검토 필요"
       },
       "url": "https://youtu.be/VwEkIUluszw"
+    },
+    {
+      "video": "BsyRH8GWYJ4",
+      "views": 23,
+      "estimatedMinutesWatched": 51,
+      "averageViewDuration": 219,
+      "averageViewPercentage": 52.28,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 0,
+      "title": "원어민 발음이 유독 빠르게 들리는 진짜 이유 (게으른 소리 슈와) | 영어 #쉬운영어 #영어학습  #영어읽는방법 #원어민영어 #영어",
+      "publishedAt": "2026-07-19T13:15:18Z",
+      "thumbnail": "https://i.ytimg.com/vi/BsyRH8GWYJ4/maxresdefault.jpg",
+      "durationSeconds": 420,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "season": 1,
+        "episode": 4,
+        "role": "LONG",
+        "updatedAt": "2026-08-13T11:02:30.571Z",
+        "category": "SEASON",
+        "source": "manual"
+      },
+      "url": "https://youtu.be/BsyRH8GWYJ4"
+    },
+    {
+      "video": "MdLjt4zvg8g",
+      "views": 19,
+      "estimatedMinutesWatched": 6,
+      "averageViewDuration": 64,
+      "averageViewPercentage": 15.990000000000002,
+      "subscribersGained": 0,
+      "subscribersLost": 0,
+      "likes": 0,
+      "comments": 1,
+      "title": "여태 두 글자 다 읽었네요... 모음 2개 겹친 단어 소리 원리 | 파닉스 기초",
+      "publishedAt": "2026-09-20T11:00:18Z",
+      "thumbnail": "https://i.ytimg.com/vi/MdLjt4zvg8g/maxresdefault.jpg",
+      "durationSeconds": 406,
+      "creatorContentType": "VIDEO_ON_DEMAND",
+      "subscriberNet": 0,
+      "subscribersPerThousandViews": 0,
+      "classification": {
+        "category": "OTHER",
+        "role": "STANDALONE_LONG",
+        "source": "auto",
+        "reason": "검토 필요"
+      },
+      "url": "https://youtu.be/MdLjt4zvg8g"
     }
   ],
   "channelCRecommendations": [
@@ -6475,36 +6692,6 @@
     },
     {
       "rank": 2,
-      "score": 70,
-      "videoId": "hu4GNC7peTY",
-      "title": "영어 강세 규칙, 이것만 알면 끝 | -TION 단어 읽는 법 (영어기초배우기 EP6)",
-      "url": "https://youtu.be/hu4GNC7peTY",
-      "publishedAt": "2026-08-04T13:29:49Z",
-      "durationSeconds": 411,
-      "thumbnail": "https://i.ytimg.com/vi/hu4GNC7peTY/maxresdefault.jpg",
-      "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:28.319Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "confidence": "high",
-      "metrics": {
-        "views": 15,
-        "averageViewPercentage": 29.710000000000004,
-        "subscriberNet": 0,
-        "subscribersPerThousandViews": 0,
-        "evidenceViews": 903,
-        "weightedRetention": 76.55438538205979,
-        "evidenceSubscribers": 2,
-        "evidenceSubscriberRate": 2.2148394241417497
-      },
-      "reason": "근거 조회수 903 · 가중 시청률 76.6% · 연결 쇼츠 2개 반영"
-    },
-    {
-      "rank": 3,
       "score": 68,
       "videoId": "YoaCRYCWpws",
       "title": "영어 발음, PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초배우기 EP8)",
@@ -6534,38 +6721,8 @@
       "reason": "근거 조회수 3,448 · 가중 시청률 61.1% · 연결 쇼츠 2개 반영"
     },
     {
-      "rank": 4,
+      "rank": 3,
       "score": 66,
-      "videoId": "tFe-cB__uns",
-      "title": "-sion은 '션'일까 '전'일까? 99%가 모르는 영어 발음의 숨겨진 과학적 원리 (시즌1 EP7)",
-      "url": "https://youtu.be/tFe-cB__uns",
-      "publishedAt": "2026-08-09T10:16:00Z",
-      "durationSeconds": 407,
-      "thumbnail": "https://i.ytimg.com/vi/tFe-cB__uns/maxresdefault.jpg",
-      "classification": {
-        "season": 1,
-        "episode": 6,
-        "role": "LONG",
-        "updatedAt": "2026-08-13T10:59:24.857Z",
-        "category": "SEASON",
-        "source": "manual"
-      },
-      "confidence": "high",
-      "metrics": {
-        "views": 17,
-        "averageViewPercentage": 23.55,
-        "subscriberNet": 0,
-        "subscribersPerThousandViews": 0,
-        "evidenceViews": 905,
-        "weightedRetention": 76.33514917127071,
-        "evidenceSubscribers": 1,
-        "evidenceSubscriberRate": 1.1049723756906078
-      },
-      "reason": "근거 조회수 905 · 가중 시청률 76.3% · 연결 쇼츠 2개 반영"
-    },
-    {
-      "rank": 5,
-      "score": 65,
       "videoId": "ROks87qezuU",
       "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
       "url": "https://youtu.be/ROks87qezuU",
@@ -6580,19 +6737,19 @@
       },
       "confidence": "medium",
       "metrics": {
-        "views": 140,
-        "averageViewPercentage": 37.34,
+        "views": 148,
+        "averageViewPercentage": 37.88,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 140,
-        "weightedRetention": 37.34,
+        "evidenceViews": 148,
+        "weightedRetention": 37.88,
         "evidenceSubscribers": 5,
-        "evidenceSubscriberRate": 35.714285714285715
+        "evidenceSubscriberRate": 33.78378378378378
       },
-      "reason": "근거 조회수 140 · 가중 시청률 37.3%"
+      "reason": "근거 조회수 148 · 가중 시청률 37.9%"
     },
     {
-      "rank": 6,
+      "rank": 4,
       "score": 65,
       "videoId": "3PkSwrFIcRE",
       "title": "익-션-전-천-처-저-셜, 사실 한 규칙이었습니다 | 시즌1 총정리",
@@ -6622,7 +6779,37 @@
       "reason": "근거 조회수 2,317 · 가중 시청률 60.5% · 연결 쇼츠 2개 반영"
     },
     {
-      "rank": 7,
+      "rank": 5,
+      "score": 49,
+      "videoId": "hu4GNC7peTY",
+      "title": "영어 강세 규칙, 이것만 알면 끝 | -TION 단어 읽는 법 (영어기초배우기 EP6)",
+      "url": "https://youtu.be/hu4GNC7peTY",
+      "publishedAt": "2026-08-04T13:29:49Z",
+      "durationSeconds": 411,
+      "thumbnail": "https://i.ytimg.com/vi/hu4GNC7peTY/maxresdefault.jpg",
+      "classification": {
+        "season": 1,
+        "episode": 6,
+        "role": "LONG",
+        "updatedAt": "2026-08-13T10:59:28.319Z",
+        "category": "SEASON",
+        "source": "manual"
+      },
+      "confidence": "low",
+      "metrics": {
+        "views": 15,
+        "averageViewPercentage": 29.710000000000004,
+        "subscriberNet": 0,
+        "subscribersPerThousandViews": 0,
+        "evidenceViews": 29,
+        "weightedRetention": 62.83275862068966,
+        "evidenceSubscribers": 1,
+        "evidenceSubscriberRate": 34.48275862068965
+      },
+      "reason": "근거 조회수 29 · 가중 시청률 62.8% · 연결 쇼츠 2개 반영 · 표본 부족"
+    },
+    {
+      "rank": 6,
       "score": 48,
       "videoId": "VwEkIUluszw",
       "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
@@ -6650,8 +6837,8 @@
       "reason": "근거 조회수 30 · 가중 시청률 47.7% · 표본 부족"
     },
     {
-      "rank": 8,
-      "score": 44,
+      "rank": 7,
+      "score": 43,
       "videoId": "f4wkmIvplCc",
       "title": "\"보고 싶어요\"를 영어로? 초급 영어 필수 문장 20개 EP2",
       "url": "https://youtu.be/f4wkmIvplCc",
@@ -6666,19 +6853,19 @@
       },
       "confidence": "low",
       "metrics": {
-        "views": 17,
-        "averageViewPercentage": 22.87,
+        "views": 14,
+        "averageViewPercentage": 25.53,
         "subscriberNet": 0,
         "subscribersPerThousandViews": 0,
-        "evidenceViews": 17,
-        "weightedRetention": 22.87,
+        "evidenceViews": 14,
+        "weightedRetention": 25.53,
         "evidenceSubscribers": 1,
-        "evidenceSubscriberRate": 58.8235294117647
+        "evidenceSubscriberRate": 71.42857142857143
       },
-      "reason": "근거 조회수 17 · 가중 시청률 22.9% · 표본 부족"
+      "reason": "근거 조회수 14 · 가중 시청률 25.5% · 표본 부족"
     },
     {
-      "rank": 9,
+      "rank": 8,
       "score": 36,
       "videoId": "4of_mgeLazQ",
       "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
@@ -6704,6 +6891,36 @@
         "evidenceSubscriberRate": 0
       },
       "reason": "근거 조회수 204 · 가중 시청률 6.5%"
+    },
+    {
+      "rank": 9,
+      "score": 34,
+      "videoId": "tFe-cB__uns",
+      "title": "-sion은 '션'일까 '전'일까? 99%가 모르는 영어 발음의 숨겨진 과학적 원리 (시즌1 EP7)",
+      "url": "https://youtu.be/tFe-cB__uns",
+      "publishedAt": "2026-08-09T10:16:00Z",
+      "durationSeconds": 407,
+      "thumbnail": "https://i.ytimg.com/vi/tFe-cB__uns/maxresdefault.jpg",
+      "classification": {
+        "season": 1,
+        "episode": 6,
+        "role": "LONG",
+        "updatedAt": "2026-08-13T10:59:24.857Z",
+        "category": "SEASON",
+        "source": "manual"
+      },
+      "confidence": "low",
+      "metrics": {
+        "views": 17,
+        "averageViewPercentage": 23.55,
+        "subscriberNet": 0,
+        "subscribersPerThousandViews": 0,
+        "evidenceViews": 31,
+        "weightedRetention": 57.317741935483866,
+        "evidenceSubscribers": 0,
+        "evidenceSubscriberRate": 0
+      },
+      "reason": "근거 조회수 31 · 가중 시청률 57.3% · 연결 쇼츠 2개 반영 · 표본 부족"
     },
     {
       "rank": 10,
@@ -6809,7 +7026,7 @@
   },
   "videoReachManual": {
     "schemaVersion": 1,
-    "updatedAt": "2026-11-06T10:42:19.785Z",
+    "updatedAt": "2026-11-08T15:15:28.109Z",
     "videos": {
       "YoaCRYCWpws": {
         "videoId": "YoaCRYCWpws",
@@ -15285,11 +15502,11 @@
             "startDate": "2026-01-01",
             "endDate": "2026-11-06",
             "impressions": 0,
-            "ctr": 0,
+            "ctr": null,
             "packageId": "youtube-7QpRKp_1UcI",
             "source": "youtube-studio-channel-export",
             "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
-            "importedAt": "2026-11-06T10:42:19.785Z"
+            "importedAt": "2026-11-08T15:15:28.109Z"
           }
         }
       },
@@ -15391,11 +15608,11 @@
             "startDate": "2026-01-01",
             "endDate": "2026-11-06",
             "impressions": 0,
-            "ctr": 0,
+            "ctr": null,
             "packageId": "youtube-qz6tiVIpqHw",
             "source": "youtube-studio-channel-export",
             "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
-            "importedAt": "2026-11-06T10:42:19.785Z"
+            "importedAt": "2026-11-08T15:15:28.109Z"
           }
         }
       },
@@ -16641,8 +16858,8 @@
     "lastFolderScan": {
       "directory": "C:\\Users\\yunyo\\Downloads\\project\\imports\\youtube-studio",
       "scanned": 5,
-      "imported": 81,
-      "unchanged": 0,
+      "imported": 2,
+      "unchanged": 79,
       "waiting": [],
       "skipped": [
         {
@@ -16662,13 +16879,13 @@
           "reason": "폴더명 형식 불일치"
         }
       ],
-      "scannedAt": "2026-11-06T10:42:19.785Z"
+      "scannedAt": "2026-11-08T15:15:28.109Z"
     }
   },
   "evaluations48h": {
     "schemaVersion": 1,
-    "generatedAt": "2026-11-07T12:18:46.711Z",
-    "reportEndDate": "2026-11-05",
+    "generatedAt": "2026-11-08T15:48:52.701Z",
+    "reportEndDate": "2026-11-06",
     "evaluations": [
       {
         "contentId": "s1-ep08-shorts-b",
@@ -16684,7 +16901,7 @@
         "decisionStatus": "pass",
         "label": "통과",
         "reason": "평균 시청률 65.7%로 최소 기준 통과",
-        "evaluatedAt": "2026-11-07T12:18:46.711Z",
+        "evaluatedAt": "2026-11-08T15:48:52.701Z",
         "metrics": {
           "views": 1578,
           "estimatedMinutesWatched": 243,

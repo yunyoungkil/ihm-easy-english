@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-06T10:42:19.785Z",
+  "updatedAt": "2026-11-08T15:15:28.109Z",
   "videos": {
     "YoaCRYCWpws": {
       "videoId": "YoaCRYCWpws",
@@ -8476,11 +8476,11 @@
           "startDate": "2026-01-01",
           "endDate": "2026-11-06",
           "impressions": 0,
-          "ctr": 0,
+          "ctr": null,
           "packageId": "youtube-7QpRKp_1UcI",
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
-          "importedAt": "2026-11-06T10:42:19.785Z"
+          "importedAt": "2026-11-08T15:15:28.109Z"
         }
       }
     },
@@ -8582,11 +8582,11 @@
           "startDate": "2026-01-01",
           "endDate": "2026-11-06",
           "impressions": 0,
-          "ctr": 0,
+          "ctr": null,
           "packageId": "youtube-qz6tiVIpqHw",
           "source": "youtube-studio-channel-export",
           "sourceFolder": "콘텐츠 2026-01-01_2026-11-06 이해하면 쉬운 영어",
-          "importedAt": "2026-11-06T10:42:19.785Z"
+          "importedAt": "2026-11-08T15:15:28.109Z"
         }
       }
     },
@@ -9832,8 +9832,8 @@
   "lastFolderScan": {
     "directory": "C:\\Users\\yunyo\\Downloads\\project\\imports\\youtube-studio",
     "scanned": 5,
-    "imported": 81,
-    "unchanged": 0,
+    "imported": 2,
+    "unchanged": 79,
     "waiting": [],
     "skipped": [
       {
@@ -9853,6 +9853,6 @@
         "reason": "폴더명 형식 불일치"
       }
     ],
-    "scannedAt": "2026-11-06T10:42:19.785Z"
+    "scannedAt": "2026-11-08T15:15:28.109Z"
   }
 }

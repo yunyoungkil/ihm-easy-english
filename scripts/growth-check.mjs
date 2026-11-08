@@ -22,7 +22,18 @@
 import {existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {decideFormatPriority, decideSampleSize, latestImpressions} from './growth-rules.mjs';
+import {
+  decideFormatPriority,
+  decideSampleSize,
+  latestImpressions,
+  newViewerComments,
+  recentPublished,
+  shortsLinkLive,
+  shortsToLongform,
+  upcomingPublishes,
+  weeklyComparison,
+} from './growth-rules.mjs';
+import {shortsPackageEpisode} from './upload-package-summary.mjs';
 import {loadPublishRules} from './youtube-publisher.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -191,8 +202,29 @@ const formatPriority = {
 const reach = readJson(join(projectDir, 'data', 'youtube', 'video-reach-manual.json'), {videos: {}});
 const sample = decideSampleSize(liveLong.slice(0, 3).map((v) => latestImpressions(reach.videos?.[v.videoId])));
 
+// ---- 5) 시작 브리핑 재료 (2026-11-09 사용자 결정) ------------------------------------
+// 쇼츠 패키지는 status.json 대신 대시보드 전용 shorts-status.json에 예약·공개 상태가 있다.
+const shortsStatuses = (existsSync(packagesDir) ? readdirSync(packagesDir, {withFileTypes: true}) : [])
+  .filter((d) => d.isDirectory() && shortsPackageEpisode(d.name) && existsSync(join(packagesDir, d.name, 'shorts-status.json')))
+  .map((d) => ({name: d.name, ...readJson(join(packagesDir, d.name, 'shorts-status.json'), {})}));
+const longformStatuses = packages.map((p) => ({name: p.name, status: p.status, scheduledFor: p.scheduledFor}));
+const traffic7d = analytics.trafficSources7d;
+const comments = readJson(join(projectDir, 'data', 'youtube', 'comments.json'), {commentsByVideo: {}});
+const briefing = {
+  data: {syncedAt: analytics.syncedAt || catalog.syncedAt || null, statsEnd: (analytics.daily || []).at(-1)?.day || null},
+  weekly: weeklyComparison(analytics.daily || []),
+  recent: recentPublished(catalogVideos, analytics.videoPerformance || [], today),
+  shortsLink: shortsLinkLive(shortsStatuses, today)
+    ? traffic7d?.rows?.length
+      ? {...shortsToLongform(traffic7d.rows), range: `${traffic7d.startDate}~${traffic7d.endDate}`}
+      : {missing: true}
+    : null,
+  upcoming: upcomingPublishes([...longformStatuses, ...shortsStatuses], today),
+  comments: newViewerComments(comments.commentsByVideo || {}, today),
+};
+
 // ---- 출력 -----------------------------------------------------------------
-const result = {generatedFor: ymd(today), catalogSyncedAt: catalog.syncedAt || null, backlog, cadence, reviewsDue, noReviewFile, formatPriority, sample, totals: {packages: packages.length, published: published.length}};
+const result = {generatedFor: ymd(today), catalogSyncedAt: catalog.syncedAt || null, backlog, cadence, reviewsDue, noReviewFile, formatPriority, sample, briefing, totals: {packages: packages.length, published: published.length}};
 
 if (args.json) {
   console.log(JSON.stringify(result, null, 2));

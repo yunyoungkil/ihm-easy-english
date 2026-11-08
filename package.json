@@ -40,9 +40,10 @@
     "content-opportunity": "node scripts/content-opportunity.mjs",
     "market-demand": "node scripts/market-demand.mjs",
     "analyze-comments": "node scripts/analyze-outlier-comments.mjs",
+    "briefing:sync": "node scripts/briefing-sync.mjs",
     "growth-check": "node scripts/growth-check.mjs",
     "check-terms": "node scripts/check-banned-terms.mjs",
-    "test": "node --test scripts/tests/regressions.test.mjs scripts/tests/banned-terms.test.mjs scripts/tests/youtube-publisher.test.mjs scripts/tests/growth-rules.test.mjs scripts/tests/upload-package-summary.test.mjs scripts/tests/dashboard-fixes.test.mjs",
+    "test": "node --test scripts/tests/regressions.test.mjs scripts/tests/banned-terms.test.mjs scripts/tests/youtube-publisher.test.mjs scripts/tests/growth-rules.test.mjs scripts/tests/upload-package-summary.test.mjs scripts/tests/dashboard-fixes.test.mjs scripts/tests/briefing-data.test.mjs scripts/tests/briefing-sync.test.mjs",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"

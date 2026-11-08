@@ -89,9 +89,144 @@ const nextActionLines = (actions) =>
       ]
     : [];
 
+// ---- 시작 브리핑 재료 (2026-11-09 사용자 결정) ----------------------------------
+// 브리핑 줄: 제목(스킬·동기화) / 최근 7일(지난주 대비) / 최근 공개 성적 / 쇼츠→롱폼 / 다음 공개(48시간·실패)
+// / 할 일(새 댓글 포함) / 남은 수리. 조건이 맞지 않는 줄은 빼서 평소 4~5줄, 많아도 7줄로 쓴다.
+const DAY_MS = 24 * 60 * 60 * 1000;
+const asNumber = (value) => Number(value || 0);
+const timeOf = (iso) => (iso ? Date.parse(iso) : NaN);
+
+// 최근 7일과 그 전 7일의 조회수·순 구독(얻은 수 - 잃은 수). 날짜가 7일보다 적으면 null.
+export function weeklyComparison(daily = []) {
+  const rows = [...daily].filter((row) => row?.day).sort((a, b) => a.day.localeCompare(b.day));
+  if (rows.length < 7) return null;
+  const sum = (list, key) => list.reduce((total, row) => total + asNumber(row[key]), 0);
+  const block = (list) => ({
+    start: list[0].day,
+    end: list.at(-1).day,
+    views: sum(list, 'views'),
+    subsNet: sum(list, 'subscribersGained') - sum(list, 'subscribersLost'),
+  });
+  const current = block(rows.slice(-7));
+  const before = rows.slice(-14, -7);
+  const previous = before.length === 7 ? block(before) : null;
+  return {current, previous, deltaViews: previous ? current.views - previous.views : null};
+}
+
+// 최근 days일 안에 공개된 영상과 그 성적. 유튜브 통계는 2~3일 늦게 들어오므로 아직 없으면 null로 둔다.
+export function recentPublished(videos = [], performance = [], now = new Date(), days = 7) {
+  const perfById = new Map(performance.map((row) => [row.video, row]));
+  return videos
+    .filter((v) => v.privacyStatus === 'public' && v.publishedAt)
+    .filter((v) => {
+      const age = now - new Date(v.publishedAt);
+      return age >= 0 && age < days * DAY_MS;
+    })
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+    .map((v) => {
+      const perf = perfById.get(v.videoId);
+      return {
+        videoId: v.videoId,
+        title: v.title,
+        format: v.format,
+        daysSince: Math.floor((now - new Date(v.publishedAt)) / DAY_MS),
+        views: perf ? asNumber(perf.views) : null,
+        avgViewPct: perf && perf.averageViewPercentage != null ? Number(perf.averageViewPercentage) : null,
+      };
+    });
+}
+
+// 관련 동영상을 단 쇼츠(쇼츠 패키지)가 공개되고 하루가 지났는지. 그 전에는 쇼츠→롱폼 숫자가 계속 0이라 줄을 열지 않는다.
+export function shortsLinkLive(shortsStatuses = [], now = new Date()) {
+  return shortsStatuses.some((s) => {
+    const at = timeOf(s.status === 'published' ? s.publishedAt || s.scheduledFor : s.scheduledFor);
+    return Number.isFinite(at) && now - at >= DAY_MS;
+  });
+}
+
+// 유입 경로 표에서 쇼츠 피드 조회(SHORTS)와 쇼츠 링크로 넘어온 조회(SHORTS_CONTENT_LINKS)를 꺼낸다.
+export function shortsToLongform(trafficRows = []) {
+  const views = (type) => asNumber(trafficRows.find((row) => row.insightTrafficSourceType === type)?.views);
+  return {shortsViews: views('SHORTS'), linkViews: views('SHORTS_CONTENT_LINKS')};
+}
+
+// 앞으로 hours시간 안에 공개될 영상과 업로드에 실패한 패키지.
+export function upcomingPublishes(items = [], now = new Date(), hours = 48) {
+  const soon = items.filter((item) => {
+    const at = timeOf(item.scheduledFor);
+    return item.status !== 'published' && Number.isFinite(at) && at > now && at - now <= hours * 60 * 60 * 1000;
+  });
+  return {soon, failed: items.filter((item) => item.status === 'upload_failed')};
+}
+
+// 최근 days일 시청자 댓글 수(채널 주인 댓글 제외)와 그중 답이 없는 수. 답 수를 모르는 옛 자료면 unanswered는 null.
+export function newViewerComments(commentsByVideo = {}, now = new Date(), days = 7) {
+  const recent = Object.values(commentsByVideo || {})
+    .flat()
+    .filter((c) => c && !c.isChannelOwner && c.publishedAt && now - new Date(c.publishedAt) < days * DAY_MS && now - new Date(c.publishedAt) >= 0);
+  const knowsReplies = recent.every((c) => c.replyCount != null);
+  return {count: recent.length, unanswered: knowsReplies ? recent.filter((c) => Number(c.replyCount) === 0).length : null};
+}
+
+// 마지막 동기화가 hours시간보다 오래됐거나 기록이 없으면 새로 동기화한다.
+export function needsSync(syncedAt, now = new Date(), hours = 12) {
+  const at = timeOf(syncedAt);
+  return !Number.isFinite(at) || now - at > hours * 60 * 60 * 1000;
+}
+
+const kstLabel = (iso) => {
+  const at = timeOf(iso);
+  if (!Number.isFinite(at)) return '기록 없음';
+  const d = new Date(at + 9 * 60 * 60 * 1000);
+  return `${d.getUTCMonth() + 1}/${d.getUTCDate()} ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
+};
+const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
+
+const briefingLines = (check, briefing) => {
+  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments} = briefing;
+  const lines = ['브리핑 재료(이 숫자로 줄을 만든다. "줄을 쓰지 않는다"라고 적힌 줄은 뺀다. 형식: 00-unblock-and-weekly.md 0-C):'];
+  lines.push(`- 제목 줄: **브리핑** (episode-planning 0-C · 동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
+  lines.push(
+    weekly
+      ? `- 최근 7일: 조회 ${weekly.current.views}회 (${weekly.previous ? `지난주 ${weekly.previous.views}회, ${signed(weekly.deltaViews)}` : '지난주 자료 없음'}), 구독 ${signed(weekly.current.subsNet)}명 (${weekly.current.start}~${weekly.current.end}) — 목표는 knowledge/channel-strategy.md "주간 목표" 표`
+      : '- 최근 7일: 날짜별 자료가 7일보다 적다 — 대시보드 동기화 뒤 다시 본다',
+  );
+  lines.push(
+    recent.length
+      ? `- 최근 공개 성적: ${recent
+          .map((v) => `${v.title} (${v.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${v.daysSince}일째, ${v.views == null ? '통계 아직 없음' : `조회 ${v.views}회${v.avgViewPct == null ? '' : `, 평균 시청률 ${v.avgViewPct}%`}`})`)
+          .join(' / ')}`
+      : '- 최근 공개 성적: 7일 안에 공개된 영상이 없다 — 줄을 쓰지 않는다',
+  );
+  lines.push(
+    !shortsLink
+      ? '- 쇼츠→롱폼: 아직 줄을 쓰지 않는다(관련 동영상을 단 쇼츠가 공개되고 하루가 지나야 연다)'
+      : shortsLink.missing
+        ? '- 쇼츠→롱폼: 최근 7일 유입 자료가 없다 — 줄에 "자료 없음(동기화 필요)"이라고 쓴다'
+        : `- 쇼츠→롱폼(${shortsLink.range || '최근 7일'}): 쇼츠 피드 조회 ${shortsLink.shortsViews}회, 쇼츠 링크로 넘어온 조회 ${shortsLink.linkViews}회`,
+  );
+  const upcomingParts = [
+    ...upcoming.soon.map((item) => `${item.name} ${kstLabel(item.scheduledFor)} 공개`),
+    ...upcoming.failed.map((item) => `${item.name} 업로드 실패`),
+  ];
+  lines.push(upcomingParts.length ? `- 다음 공개: ${upcomingParts.join(', ')}` : '- 다음 공개: 48시간 안 공개와 업로드 실패가 없다 — 줄을 쓰지 않는다');
+  if (comments) {
+    lines.push(
+      `- 새 시청자 댓글 ${comments.count}개 (${comments.unanswered == null ? '답 여부 모름' : `답 없음 ${comments.unanswered}개`}) — 최근 7일, 답할 댓글이 있으면 할 일 줄에 넣는다`,
+    );
+  }
+  const reviews = (check.reviewsDue || []).map((review) => `${review.name}(${(review.due || []).join(', ')})`);
+  const sample = check.sample || {};
+  lines.push(
+    `- 참고(줄로 쓰지 않음, 할 일에 반영): 형식 판정 — ${check.formatPriority?.verdict ?? '없음'} / 밀린 리뷰 — ${reviews.length ? reviews.join(', ') : '없음'} / 업로드 대기 ${(check.backlog || []).length}개 / 표본 — ${sample.median == null ? '노출 기록 없음' : `노출 중앙값 ${sample.median}회`}${sample.small ? '(작은 표본)' : ''}`,
+  );
+  return lines;
+};
+
 export function buildBriefingContext(check, nextActions = []) {
   const actionLines = nextActionLines(nextActions);
   if (!check) return [BRIEFING_INSTRUCTION, '막힌 곳 점검을 실행하지 못했다. npm run growth-check 를 직접 실행해 확인한다.', ...actionLines].join('\n');
+  if (check.briefing) return [BRIEFING_INSTRUCTION, ...briefingLines(check, check.briefing), ...actionLines].join('\n');
 
   const reviews = (check.reviewsDue || []).map((review) => `${review.name}(${(review.due || []).join(', ')})`);
   const sample = check.sample || {};

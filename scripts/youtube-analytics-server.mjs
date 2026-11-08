@@ -901,6 +901,8 @@ const getDashboard = async (accessToken) => {
           likeCount: Number(top?.likeCount || 0),
           publishedAt: top?.publishedAt,
           isChannelOwner: top?.authorChannelId?.value === channel.id,
+          // 답 수(누가 답했든). 시작 브리핑이 "답 없는 새 댓글"을 세는 데 쓴다(2026-11-09).
+          replyCount: Number(item.snippet?.totalReplyCount || 0),
         };
       });
     } catch (err) {
@@ -914,7 +916,9 @@ const getDashboard = async (accessToken) => {
   const classifications = inferClassifications(recentVideos, savedClassifications);
   await saveVideoMap(classifications);
 
-  const [summaryReport, dailyReport, topReport, contentTypeReport, trafficReport, searchReport] = await Promise.all([
+  // 시작 브리핑의 "쇼츠→롱폼" 줄은 최근 7일 유입 경로를 따로 받는다(90일 합계로는 이번 주 변화를 못 본다, 2026-11-09).
+  const traffic7dStart = new Date(Date.parse(`${endDate}T00:00:00Z`) - 6 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const [summaryReport, dailyReport, topReport, contentTypeReport, trafficReport, searchReport, traffic7dReport] = await Promise.all([
     analyticsQuery(accessToken, {
       startDate,
       endDate,
@@ -957,6 +961,13 @@ const getDashboard = async (accessToken) => {
       filters: 'insightTrafficSourceType==YT_SEARCH',
       sort: '-views',
       maxResults: '15',
+    }),
+    optionalAnalyticsQuery(accessToken, {
+      startDate: traffic7dStart,
+      endDate,
+      dimensions: 'insightTrafficSourceType',
+      metrics: 'views,estimatedMinutesWatched',
+      sort: '-views',
     }),
   ]);
 
@@ -1049,6 +1060,7 @@ const getDashboard = async (accessToken) => {
     daily,
     contentTypes: rowObjects(contentTypeReport),
     trafficSources: rowObjects(trafficReport),
+    trafficSources7d: {startDate: traffic7dStart, endDate, rows: rowObjects(traffic7dReport)},
     searchTerms: rowObjects(searchReport),
     videoPerformance,
     topVideos: videoPerformance.slice(0, 15),

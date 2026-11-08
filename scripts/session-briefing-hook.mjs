@@ -6,6 +6,7 @@ import {execFile} from 'node:child_process';
 import {readFile} from 'node:fs/promises';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {syncIfStale} from './briefing-sync.mjs';
 import {buildBriefingContext, extractNextActions, renderSessionStartOutput} from './growth-rules.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -32,5 +33,8 @@ const readNextActions = () =>
     .then(extractNextActions)
     .catch(() => []);
 
+// 마지막 동기화가 12시간보다 오래됐으면 먼저 동기화한다. 실패해도 대화 시작은 막지 않는다.
+const syncNote = await syncIfStale().catch((err) => `동기화 확인 실패(${err.message})`);
 const [check, nextActions] = await Promise.all([runGrowthCheck(), readNextActions()]);
+if (check?.briefing?.data) check.briefing.data.sync = syncNote;
 process.stdout.write(`${renderSessionStartOutput(buildBriefingContext(check, nextActions))}\n`);

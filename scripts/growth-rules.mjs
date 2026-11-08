@@ -75,11 +75,17 @@ export function extractNextActions(markdown) {
   return actions;
 }
 
+// "(차차)"는 급하지 않은 수리 항목 표시다(2026-11-09 사용자 결정: 간단한 것은 바로 고치고 나머지는 브리핑에서 알려 차차 고친다).
+const SLOW_FIX_MARK = '(차차)';
+
 const nextActionLines = (actions) =>
   actions.length
     ? [
         '다음 할 일(knowledge/now.md, 급한 순서). 브리핑의 할 일 줄은 이 목록을 먼저 따르고, "사용자 결정" 항목은 브리핑 끝에 묻는다:',
         ...actions.map((action, index) => `${index + 1}. ${action}`),
+        ...(actions.some((action) => action.includes(SLOW_FIX_MARK))
+          ? [`"${SLOW_FIX_MARK}" 항목은 급하지 않은 수리다. 할 일 줄에 넣지 말고 브리핑 마지막 줄 "남은 수리: N개 (다음: 하나)"로 알린다.`]
+          : []),
       ]
     : [];
 

@@ -12,13 +12,15 @@ import {
   fetchVideoDetails,
   fetchComments,
   analyzeCommentsWithGemini,
+  aiAnalysisFailed,
   generateMarkdownReport,
   formatInsightText,
 } from './analyze-outlier-comments.mjs';
 import { analyzeSingleScript } from './analyze-competitor-script.mjs';
 import { startStudioWatcher } from './studio-auto-ingest.mjs';
 import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage, buildThumbnailPrompt, hasPresenterReference, tempThumbDir, persistGeneratedImage } from './ab-simulator.mjs';
-import { buildMatrixDataset, diagnoseVideoWithGemini } from './matrix-diagnosis.mjs';
+import { buildMatrixDataset, diagnoseVideoWithGemini, isDiagnosable } from './matrix-diagnosis.mjs';
+import { toStoredCtr } from './studio-reach.mjs';
 import { lintBrandScript } from './brand-script-linter.mjs';
 import { generateTopicCandidates } from './idea-board.mjs';
 import { getRequestBlockReason } from './request-guard.mjs';
@@ -711,7 +713,7 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
           reach.videos[vId] ||= { videoId: vId, windows: {}, periods: {} };
           reach.videos[vId].periods ||= {};
           const current = reach.videos[vId].periods[periodKey];
-          if (current && current.impressions === Math.round(impressions || 0) && current.ctr === (ctr || 0)) {
+          if (current && current.impressions === Math.round(impressions || 0) && current.ctr === toStoredCtr(ctr)) {
             unchanged++;
             continue;
           }
@@ -719,7 +721,8 @@ const scanStudioExportFolders = async (videos = [], packagingRegistry = {items: 
             startDate,
             endDate,
             impressions: Math.round(impressions || 0),
-            ctr: Number(ctr || 0),
+            // CTR 칸이 비면 0이 아니라 null(없음). 0으로 저장하면 실제 CTR 0%로 판정된다(점검 3번).
+            ctr: toStoredCtr(ctr),
             packageId: `youtube-${vId}`,
             source: 'youtube-studio-channel-export',
             sourceFolder: folder,
@@ -2492,6 +2495,11 @@ input:disabled, select:disabled {
 const fmt = new Intl.NumberFormat('ko-KR');
 const sec = (n) => { n = Math.round(Number(n)||0); return Math.floor(n/60) + '분 ' + (n%60) + '초'; };
 const esc = (s) => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// Studio 구간 고르기: CTR이 있는 구간 중 가장 최근에 끝난 것, 같은 날 끝나면 더 긴 구간(scripts/studio-reach.mjs와 같은 규칙).
+const periodSpanMs = (p) => (Date.parse((p && p.endDate) || '') - Date.parse((p && p.startDate) || '')) || 0;
+const pickLatestPeriod = (periods) => Object.values(periods || {})
+  .filter((p) => p && p.ctr != null)
+  .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')) || periodSpanMs(b) - periodSpanMs(a))[0] || null;
 
 let gDashboard = null;
 let gMarketDemand = null;
@@ -5376,7 +5384,8 @@ function renderStudioTab() {
     const hasData = periodList.length > 0 || windowList.length > 0;
 
     const video = allVideos.find(v => v.videoId === x.videoId) || x;
-    const isShort = x.format === 'SHORTS' || (Number(video.durationSeconds || 0) > 0 && Number(video.durationSeconds) <= 60);
+    // 쇼츠 판정은 format만 쓴다(유튜브 쇼츠 재생목록 기준). 60초 규칙은 61~180초 쇼츠를 놓친다.
+    const isShort = (x.format || video.format) === 'SHORTS';
     const metrics = (d.videoPerformance || []).find(v => v.video === x.videoId) || video.metrics || {};
     const localThumbnails = d.localThumbnails || {};
     let image = localThumbnails[x.videoId]
@@ -5598,9 +5607,7 @@ function computeMatrixDataset() {
     } else if (windows['first_48h'] && windows['first_48h'].ctr != null) {
       ctr = Number(windows['first_48h'].ctr); impressions = Number(windows['first_48h'].impressions || 0); hasRealCtr = true;
     } else {
-      const latestPeriod = Object.values(periods)
-        .filter((p) => p && p.ctr != null)
-        .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')))[0];
+      const latestPeriod = pickLatestPeriod(periods);
       if (latestPeriod) { ctr = Number(latestPeriod.ctr); impressions = Number(latestPeriod.impressions || 0); hasRealCtr = true; }
     }
     preScan.push({ format: isShort ? 'SHORTS' : 'LONGFORM', views, impressions, ctr, hasRealCtr, retentionRate, hasValidRetention });
@@ -5693,10 +5700,8 @@ function computeMatrixDataset() {
     } else {
       // periods는 겹치는 Studio 폴더를 계속 가져올 때마다 항목이 쌓인다 — Object.values()[0]은
       // 삽입 순서(=가장 먼저 수집된 오래된 구간)라서 새 데이터를 넣어도 진단이 안 바뀌는 버그였다.
-      // endDate가 가장 최신인 구간을 쓴다.
-      const latestPeriod = Object.values(periods)
-        .filter((p) => p && p.ctr != null)
-        .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')))[0];
+      // endDate가 가장 최신인 구간을 쓰고, 같은 날 끝나면 더 긴 구간을 쓴다.
+      const latestPeriod = pickLatestPeriod(periods);
       if (latestPeriod) {
         ctr = Number(latestPeriod.ctr);
         impressions = Number(latestPeriod.impressions || 0);
@@ -6101,7 +6106,7 @@ function renderMatrixTab() {
                 '<button class="btn btn-sm btn-cyan btn-open-tab" data-target-tab="tab-studio" style="font-size:11px; padding:6px 12px;">📁 Studio CSV 가져오기</button>' : '') +
               (v.quadrant === 'Q3' ? 
                 '<button class="btn btn-sm btn-cyan btn-send-to-ab" data-video-id="' + esc(v.videoId) + '" data-title="' + encodeURIComponent(v.title) + '" data-thumb="' + encodeURIComponent(v.thumbnail) + '" style="font-size:11px; padding:6px 12px; font-weight:800; background:linear-gradient(135deg, rgba(16,185,129,0.3), rgba(0,240,255,0.2)); border-color:var(--accent-emerald); color:#fff;">🎯 A/B 시뮬레이터로 썸네일 개선</button>' : '') +
-              (v.quadrant !== 'PENDING_STUDIO' ? 
+              (v.isVerified ?
                 '<button class="btn btn-sm btn-matrix-diagnose" data-video-id="' + esc(v.videoId) + '" style="font-size:11px; padding:6px 10px;">🤖 AI 처방전</button>' : '') +
             '</div>' +
           '</div>';
@@ -6295,8 +6300,10 @@ function openMatrixDiagnosisModal(video) {
 
     '<div id="matrix-modal-ai-result">' +
       '<div style="text-align:center; padding:30px 10px;">' +
-        '<p style="color:var(--text-normal); font-size:13px; margin-bottom:16px;">Gemini AI가 이 영상의 사분면 위치와 시청자 반응 지표를 심층 분석하여 맞춤 처방전을 생성합니다.</p>' +
-        '<button class="btn btn-cyan" id="btn-run-matrix-diagnose" style="font-size:14px; padding:10px 24px;">🚀 Gemini AI 맞춤 처방전 생성하기</button>' +
+        (video.isVerified
+          ? '<p style="color:var(--text-normal); font-size:13px; margin-bottom:16px;">Gemini AI가 이 영상의 사분면 위치와 시청자 반응 지표를 심층 분석하여 맞춤 처방전을 생성합니다.</p>' +
+            '<button class="btn btn-cyan" id="btn-run-matrix-diagnose" style="font-size:14px; padding:10px 24px;">🚀 Gemini AI 맞춤 처방전 생성하기</button>'
+          : '<p style="color:var(--text-muted); font-size:13px;">아직 사분면이 확정되지 않아 AI 처방을 하지 않습니다. 노출과 시청 데이터가 더 모이면 열립니다.</p>') +
       '</div>' +
     '</div>';
 
@@ -9373,6 +9380,7 @@ const server = createServer(async (req, res) => {
       const existingPainPoints = existingDna.filter((e) => e.type === 'painPoint' || e.type === 'question');
 
       const results = [];
+      const failed = [];
       for (const vid of targetVideoIds.slice(0, 3)) {
         try {
           const meta = await fetchVideoDetails(vid, ytKey);
@@ -9381,6 +9389,10 @@ const server = createServer(async (req, res) => {
           let aiInsights = null;
           if (geminiKey && comments.length > 0) {
             aiInsights = await analyzeCommentsWithGemini(meta, comments, geminiKey, existingPainPoints);
+          }
+          // AI를 불렀는데 결과가 없으면 실패로 남긴다. 예전에는 빈 결과를 성공으로 보내고 실패 기록까지 지웠다(점검 6번).
+          if (aiAnalysisFailed({hasGeminiKey: Boolean(geminiKey), commentsCount: comments.length, aiInsights})) {
+            throw new Error('Gemini 댓글 분석이 결과를 돌려주지 않았습니다(쿼터·응답 형식 문제일 수 있음).');
           }
           const reportMd = generateMarkdownReport(meta, comments, aiInsights);
           const slug = meta.title.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_').slice(0, 50) + `_${vid}`;
@@ -9408,10 +9420,15 @@ const server = createServer(async (req, res) => {
         } catch (err) {
           console.error(`Error analyzing video ${vid}:`, err.message);
           await recordAnalysisFailure(vid, 'comment', err.message);
+          failed.push({videoId: vid, error: err.message});
         }
       }
 
-      return json(res, 200, {ok: true, results, count: results.length});
+      // 모두 실패했으면 성공처럼 보이지 않게 오류로 돌려준다.
+      if (results.length === 0 && failed.length > 0) {
+        return json(res, 502, {error: `분석에 실패했습니다: ${failed[0].error}`, failed});
+      }
+      return json(res, 200, {ok: true, results, count: results.length, failed});
     }
     if (url.pathname === '/api/scripts/list') {
       const reports = [];
@@ -9509,6 +9526,10 @@ const server = createServer(async (req, res) => {
     }
     if (url.pathname === '/api/matrix/diagnose' && req.method === 'POST') {
       const body = await readJsonBody(req);
+      // 사분면이 확정된 영상만 처방한다. 표본 부족·집계 중 영상은 근거 없는 Q4 조언이 나왔다(점검 1번).
+      if (!isDiagnosable(body.video)) {
+        return json(res, 409, {error: '사분면이 확정된 영상(Q1~Q4)만 처방합니다. 노출과 시청 데이터가 더 모이면 다시 시도하세요.'});
+      }
       const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
       if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY_HERE') {
         return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});

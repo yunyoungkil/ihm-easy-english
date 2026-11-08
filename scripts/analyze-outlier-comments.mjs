@@ -339,7 +339,14 @@ function generateMarkdownReport(videoMeta, comments, aiInsights) {
   return md;
 }
 
+// 키도 있고 댓글도 있어 AI를 불렀는데 결과가 없으면 실패다. analyzeCommentsWithGemini는 실패하면
+// null을 돌려줘서, 예전에는 빈 결과가 "분석 성공"으로 기록됐다(2026-11-09 점검 6번).
+// 키가 없거나 댓글이 없으면 처음부터 AI를 부르지 않으므로 실패가 아니다.
+const aiAnalysisFailed = ({hasGeminiKey, commentsCount, aiInsights}) =>
+  Boolean(hasGeminiKey && commentsCount > 0 && !aiInsights);
+
 export {
+  aiAnalysisFailed,
   extractVideoId,
   fetchVideoDetails,
   fetchComments,

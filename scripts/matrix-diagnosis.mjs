@@ -1,3 +1,10 @@
+import { pickLatestPeriod } from './studio-reach.mjs';
+
+// 사분면이 확정된(Q1~Q4, isVerified) 영상만 AI 처방 대상이다. 표본 부족·48시간 집계 중·Studio 대기 영상은
+// 처방 지침에서 "CTR과 지속률이 모두 저조"(Q4)로 떨어져 근거 없는 조언이 나왔다(2026-11-09 점검 1번).
+export const isDiagnosable = (video) =>
+  Boolean(video && video.isVerified === true && ['Q1', 'Q2', 'Q3', 'Q4'].includes(video.quadrant));
+
 export function buildMatrixDataset(dashboardData, customThresholds = {}) {
   const d = dashboardData || {};
   const allVideos = d.recentVideos || [];
@@ -79,10 +86,9 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
     } else {
       // 겹치는 Studio 폴더를 계속 가져오면 같은 영상에 periods 항목이 여러 개 쌓인다 —
       // Object.values()[0]은 삽입 순서(=가장 먼저 수집된, 즉 가장 오래된 구간)를 집어서
-      // 데이터를 새로 가져와도 진단이 안 바뀌는 버그였다. endDate가 가장 최신인 구간을 쓴다.
-      const latestPeriod = Object.values(periods)
-        .filter((p) => p && p.ctr != null)
-        .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')))[0];
+      // 데이터를 새로 가져와도 진단이 안 바뀌는 버그였다. endDate가 가장 최신인 구간을 쓰고,
+      // 같은 날 끝나면 더 긴 구간을 쓴다(pickLatestPeriod).
+      const latestPeriod = pickLatestPeriod(periods);
       if (latestPeriod) {
         ctr = Number(latestPeriod.ctr);
         impressions = Number(latestPeriod.impressions || 0);

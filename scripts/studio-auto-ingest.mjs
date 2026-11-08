@@ -134,6 +134,22 @@ export async function scanDownloadsDirectory(downloadsDir, studioExportDir) {
 }
 
 /**
+ * 파일마다 따로 기다렸다가 실행한다. 같은 키(파일)가 다시 오면 그 파일만 다시 기다린다.
+ * 예전에는 타이머 하나를 모든 파일이 같이 써서, 1초 안에 파일 두 개가 오면 앞 파일 처리가 취소됐다
+ * (2026-11-09 점검 8번).
+ */
+export function createKeyedDebouncer(delayMs) {
+  const timers = new Map();
+  return (key, fn) => {
+    clearTimeout(timers.get(key));
+    timers.set(key, setTimeout(() => {
+      timers.delete(key);
+      fn();
+    }, delayMs));
+  };
+}
+
+/**
  * Start real-time file watcher on Downloads and imports/youtube-studio
  */
 export function startStudioWatcher({
@@ -143,7 +159,7 @@ export function startStudioWatcher({
 }) {
   if (!studioExportDir) throw new Error('studioExportDir is required');
 
-  let debounceTimer = null;
+  const debounce = createKeyedDebouncer(1000);
   const processedFiles = new Set();
 
   const handleFileChange = (dir, filename) => {
@@ -153,8 +169,7 @@ export function startStudioWatcher({
     if (!isZip && !isCsv) return;
     if (filename.includes('.crdownload') || filename.includes('.tmp')) return;
 
-    if (debounceTimer) clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(async () => {
+    debounce(join(dir, filename), async () => {
       try {
         const fullPath = join(dir, filename);
         if (!existsSync(fullPath)) return;
@@ -174,7 +189,7 @@ export function startStudioWatcher({
       } catch (err) {
         console.error('[Auto-Ingest Watcher] Error:', err.message);
       }
-    }, 1000);
+    });
   };
 
   const watchers = [];

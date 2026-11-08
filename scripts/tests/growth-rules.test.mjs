@@ -175,3 +175,12 @@ test('실제 now.md에 다음 할 일 절이 있고 훅이 그 항목을 넘겨�
   const stdout = execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {cwd: projectDir, encoding: 'utf8', input: '{"source":"startup"}'});
   assert.ok(JSON.parse(stdout).hookSpecificOutput.additionalContext.includes(actions[0]));
 });
+
+test('"(차차)" 항목이 있으면 브리핑 마지막 "남은 수리" 줄로 알리라고 안내한다', () => {
+  const context = buildBriefingContext(null, ['**사용자**: 쇼츠 올리기', '**Claude (차차)**: 대시보드 남은 문제 2개']);
+  assert.match(context, /남은 수리/);
+});
+
+test('"(차차)" 항목이 없으면 남은 수리 안내를 넣지 않는다', () => {
+  assert.doesNotMatch(buildBriefingContext(null, ['**사용자**: 쇼츠 올리기']), /남은 수리/);
+});

@@ -15,14 +15,28 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const projectRoot = path.resolve(__dirname, "..");
 
-/** The voice. Fixed for every episode — do not parameterise. */
-export const VOICE = Object.freeze({
-  name: "Charon",
-  style: "warm, sophisticated, and captivating podcast host tone, speaking naturally with nuanced cadence and engaging rhythm",
-  pace: "natural",
-  languageCode: "ko-KR",
-  model: "gemini-3.1-flash-tts-preview",
+/** Available voices. Updated 2026-11-09 per user decision: Male = Gero, Female = Olin */
+export const VOICES = Object.freeze({
+  male: Object.freeze({
+    name: "Gero",
+    gender: "male",
+    style: "warm, confident, and engaging tone with natural cadence",
+    pace: "natural",
+    languageCode: "ko-KR",
+    model: "gemini-3.8-flash-tts",
+  }),
+  female: Object.freeze({
+    name: "Olin",
+    gender: "female",
+    style: "clear, friendly, and captivating tone with natural cadence",
+    pace: "natural",
+    languageCode: "ko-KR",
+    model: "gemini-3.8-flash-tts",
+  }),
 });
+
+/** Default narrator voice (Male: Gero). */
+export const VOICE = VOICES.male;
 
 /**
  * The Gemini speech API takes the voice as a parameter but has no fields for
@@ -201,8 +215,15 @@ export function sampleRateFromMime(mimeType) {
  * One narration line -> PCM bytes, in the channel voice.
  * Throws with the API's own message so failures are diagnosable.
  */
-export async function synthesize(narration, apiKey, delivery) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${VOICE.model}:generateContent`;
+export async function synthesize(narration, apiKey, delivery = {}) {
+  const targetVoice =
+    delivery?.gender === "female" ||
+    delivery?.voice === "female" ||
+    delivery?.voiceName?.toLowerCase() === "olin"
+      ? VOICES.female
+      : VOICES.male;
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetVoice.model}:generateContent`;
 
   const response = await fetch(url, {
     method: "POST",
@@ -216,8 +237,8 @@ export async function synthesize(narration, apiKey, delivery) {
       generationConfig: {
         responseModalities: ["AUDIO"],
         speechConfig: {
-          languageCode: VOICE.languageCode,
-          voiceConfig: { prebuiltVoiceConfig: { voiceName: VOICE.name } },
+          languageCode: targetVoice.languageCode,
+          voiceConfig: { prebuiltVoiceConfig: { voiceName: targetVoice.name } },
         },
       },
     }),

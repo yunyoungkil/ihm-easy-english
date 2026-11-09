@@ -2,14 +2,13 @@
   "episode": "ep24-long-short-i",
   "status": "scheduled",
   "updatedAt": "2026-10-08T11:32:00.000Z",
-  "lastSyncedAt": "2026-11-09T12:01:36.545Z",
+  "lastSyncedAt": "2026-11-09T12:30:27.144Z",
   "publishedAt": null,
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "d512433c6ba6aba0efcb312606dbe3ec454dccdd17e82f5290c0fc5e84e753bd",
     "approvedAt": "2026-11-06T11:04:26.498Z"
   },
-  "commentError": "고정 댓글 등록 실패 (403): {\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.\",\n    \"errors\": [\n      {\n        \"message\": \"The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.\",\n        \"domain\": \"youtube.commentThread\",\n        \"reason\": \"forbidden\",\n        \"location\": \"body\",\n        \"locationType\": \"other\"\n      }\n    ]\n  }\n}\n",
   "videoId": "--Ajwp-UvIk",
   "scheduledFor": "2026-11-09T14:00:00Z",
   "uploadedAt": "2026-11-06T11:18:08.831Z"

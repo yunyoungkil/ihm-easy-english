@@ -50,7 +50,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | 9 | **Phase 9** 비주얼 스타일 확인 | Phase 5 결정을 확인만 함 | [04-visual-and-assets.md](references/04-visual-and-assets.md) |
 | 10 | **Phase 10** 그림·영상 프롬프트 | HyperFrames 필터, 워터마크 차단, 그림 속 전문용어 금지 | 04 |
 | — | 제작 | 음성·HyperFrames·검수·렌더 (`knowledge/VIDEO_WORKFLOW.md`) | — |
-| 11 | **Phase 12** 쇼츠 파생 & 다음 영상 연결 | 롱폼 1편당 쇼츠 2개, 롱폼 링크, 엔드스크린·재생목록 | [06-shorts-and-next-watch.md](references/06-shorts-and-next-watch.md) |
+| 11 | **Phase 12** 쇼츠 파생 & 다음 영상 연결 | 롱폼 1편당 쇼츠 2개, 롱폼 링크, 엔드스크린·재생목록. **쇼츠 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 쓴다** | [06-shorts-and-next-watch.md](references/06-shorts-and-next-watch.md) |
 | 12 | **Phase 13** 업로드 전 점검 | 금지어·업로드 페이지 검사, seo-audit·korean-skills·design 스킬 점검(작은 표본이면 필수 2개) | [07-packaging-check.md](references/07-packaging-check.md) |
 | 13 | **Phase 11** 성과 리뷰 & 중단 규칙 | 48시간·7일·28일, 예측 vs 실제, **2편 연속 부진 시 그 형식 새 기획 중단**(작은 표본이면 참고만) | [05-performance-review.md](references/05-performance-review.md) |
 | 정기 | 인사이트(2주) · 월간 리포트(매월) | 댓글 속 미해결 질문 → Phase 4 근거, 월간 성과·수익화 단계 | [08-insights-and-monthly.md](references/08-insights-and-monthly.md) |

@@ -23,6 +23,8 @@ import {existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync} from 'n
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {
+  afterPublishTasks,
+  thumbnailGaps,
   decideFormatPriority,
   decideSampleSize,
   latestImpressions,
@@ -127,6 +129,8 @@ const packages = (existsSync(packagesDir) ? readdirSync(packagesDir, {withFileTy
       recommendedPublishAt: status.recommendedPublishAt || null,
       publishedAt: live?.publishedAt || status.publishedAt || null,
       videoId: status.videoId || null,
+      // 대시보드 알림(scanUploadNotices)과 같은 기준: 대기 표시나 자동 등록 실패 기록이 있으면 사람이 달아야 한다.
+      pinnedCommentPending: Boolean(status.pinnedCommentPending || status.commentError),
       videoFolder: folder || null,
       waiting48h: waiting48hIds.has(status.videoId),
       review: reviewState(folder),
@@ -210,6 +214,21 @@ const shortsStatuses = (existsSync(packagesDir) ? readdirSync(packagesDir, {with
 const longformStatuses = packages.map((p) => ({name: p.name, status: p.status, scheduledFor: p.scheduledFor}));
 const traffic7d = analytics.trafficSources7d;
 const comments = readJson(join(projectDir, 'data', 'youtube', 'comments.json'), {commentsByVideo: {}});
+// 패키지 폴더 이름에서 편 번호(EP25)를 읽는다.
+const episodeOf = (name) => {
+  const m = /^ep(\d+)/i.exec(name);
+  return m ? `EP${m[1]}` : null;
+};
+// 썸네일 파일이 없는 패키지: 롱폼은 status.json, 쇼츠는 shorts-status.json이 있는 폴더만 본다(옛 쇼츠 폴더는 상태 파일이 없어 제외).
+const thumbnailItems = (existsSync(packagesDir) ? readdirSync(packagesDir, {withFileTypes: true}) : [])
+  .filter((d) => d.isDirectory())
+  .map((d) => {
+    const file = shortsPackageEpisode(d.name) ? 'shorts-status.json' : 'status.json';
+    if (!existsSync(join(packagesDir, d.name, file))) return null;
+    const status = readJson(join(packagesDir, d.name, file), {});
+    return {name: d.name, status: status.status || '(없음)', hasThumbnail: existsSync(join(packagesDir, d.name, 'thumbnail.jpg'))};
+  })
+  .filter(Boolean);
 const briefing = {
   data: {syncedAt: analytics.syncedAt || catalog.syncedAt || null, statsEnd: (analytics.daily || []).at(-1)?.day || null},
   weekly: weeklyComparison(analytics.daily || []),
@@ -221,6 +240,13 @@ const briefing = {
     : null,
   upcoming: upcomingPublishes([...longformStatuses, ...shortsStatuses], today),
   comments: newViewerComments(comments.commentsByVideo || {}, today),
+  missingThumbnails: thumbnailGaps(thumbnailItems),
+  afterPublish: afterPublishTasks({
+    longform: packages.filter((p) => p.kind === '롱폼').map((p) => ({...p, episode: episodeOf(p.name)})),
+    shorts: shortsStatuses.map((s) => ({...s, episode: shortsPackageEpisode(s.name)})),
+    done: readJson(join(projectDir, 'data', 'youtube', 'after-publish-done.json'), {}),
+    now: today,
+  }),
 };
 
 // ---- 출력 -----------------------------------------------------------------

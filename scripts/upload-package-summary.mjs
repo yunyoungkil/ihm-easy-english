@@ -38,3 +38,23 @@ export const attachShortsPackages = (episodes, shortsPackages = []) => {
   }
   return episodes;
 };
+
+// 대시보드 카드에 보일 패키지 상태 글. 날짜는 한국 시간으로 계산해 서버 PC의 시간대와 상관없이 같다.
+// plannedFor는 쇼츠 패키지의 shorts-status.json에 적는 공개 예정일이다(아직 스튜디오에 예약하기 전).
+const KST_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
+const kstParts = (iso) => {
+  const at = Date.parse(iso);
+  if (!Number.isFinite(at)) return null;
+  const d = new Date(at + 9 * 60 * 60 * 1000);
+  const pad = (n) => String(n).padStart(2, '0');
+  return {md: `${d.getUTCMonth() + 1}/${d.getUTCDate()}(${KST_DAYS[d.getUTCDay()]})`, hm: `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`};
+};
+
+export const packageStatusLabel = (status = {}) => {
+  const when = kstParts(status.scheduledFor);
+  if (status.status === 'scheduled' && status.scheduledFor) return when ? `예약 · ${when.md} ${when.hm}` : '예약됨';
+  if (status.status === 'ready_to_upload' && status.scheduledFor) return when ? `업로드 대기 · 예약 권장: ${when.md} ${when.hm} KST` : '업로드 대기';
+  if (status.status === 'published') return '공개됨';
+  const planned = kstParts(status.plannedFor);
+  return planned ? `패키징 완료 · 예정 ${planned.md} ${planned.hm}` : '패키징 완료';
+};

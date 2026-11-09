@@ -40,7 +40,7 @@ import {
   decideNextUpload,
   isOurChannel,
 } from './youtube-publisher.mjs';
-import { attachShortsPackages, packageStatusSource, selectPackageVideo, shortsPackageEpisode } from './upload-package-summary.mjs';
+import { attachShortsPackages, packageStatusSource, selectPackageVideo, packageStatusLabel, shortsPackageEpisode } from './upload-package-summary.mjs';
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
@@ -1365,24 +1365,7 @@ const getEpisodesSummary = async (forceReload = false) => {
         const statusSource = packageStatusSource(folder.name);
         let statusData = await loadJson(join(pkgPath, statusSource.file)) || {...statusSource.fallback};
         statusData = await syncUploadPackageStatusFromYouTube(pkgPath, statusData, title, titleVariants, statusSource.file);
-        let statusLabel = '패키징 완료';
-        if (statusData.status === 'scheduled' && statusData.scheduledFor) {
-          const d = new Date(statusData.scheduledFor);
-          const days = ['일', '월', '화', '수', '목', '금', '토'];
-          const dayName = Number.isNaN(d.getTime()) ? '' : `(${days[d.getDay()]})`;
-          statusLabel = Number.isNaN(d.getTime())
-            ? '예약됨'
-            : `예약 · ${d.getMonth() + 1}/${d.getDate()}${dayName} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-        } else if (statusData.status === 'ready_to_upload' && statusData.scheduledFor) {
-          const d = new Date(statusData.scheduledFor);
-          const days = ['일', '월', '화', '수', '목', '금', '토'];
-          const dayName = Number.isNaN(d.getTime()) ? '' : `(${days[d.getDay()]})`;
-          statusLabel = Number.isNaN(d.getTime())
-            ? '업로드 대기'
-            : `업로드 대기 · 예약 권장: ${d.getMonth() + 1}/${d.getDate()}${dayName} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} KST`;
-        } else if (statusData.status === 'published') {
-          statusLabel = '공개됨';
-        }
+        const statusLabel = packageStatusLabel(statusData);
 
         const track = {
           file: 'title.txt',
@@ -4834,8 +4817,10 @@ function renderEpisodesTab() {
       '<div style="font-weight:700;font-size:15px;color:var(--text-normal);margin-bottom:10px;line-height:1.4">' + esc(long.title || '(제목 미지정)') + '</div>' +
       '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">' +
         (long.videoId ? '<span class="tag-chip">롱폼: ' + esc(long.videoId) + '</span>' : '') +
-        (shortsA.videoId ? '<span class="tag-chip">쇼츠A: ' + esc(shortsA.videoId) + '</span>' : '') +
-        (shortsB.videoId ? '<span class="tag-chip">쇼츠B: ' + esc(shortsB.videoId) + '</span>' : '') +
+        // 쇼츠는 업로드 전(패키징 완료)에도 카드에서 바로 보여 준다. 예전에는 videoId가 있어야만 보여서,
+        // 카드를 열어 쇼츠 탭을 눌러 봐야 쇼츠가 있는지 알 수 있었다(2026-11-09 사용자 지적).
+        (ep.tracks?.['shorts-a'] ? '<span class="tag-chip" style="border-color:var(--accent-magenta)">📱 쇼츠A: ' + esc(ep.tracks['shorts-a'].statusLabel || ep.tracks['shorts-a'].status || '') + '</span>' : '') +
+        (ep.tracks?.['shorts-b'] ? '<span class="tag-chip" style="border-color:var(--accent-magenta)">📱 쇼츠B: ' + esc(ep.tracks['shorts-b'].statusLabel || ep.tracks['shorts-b'].status || '') + '</span>' : '') +
       '</div>' +
       '<div style="display:flex;gap:8px">' +
         '<button class="btn btn-sm btn-magenta btn-inspect-pkg" data-season="' + esc(ep.season) + '" data-ep="' + esc(ep.episode) + '">📦 업로드 패키지 열기</button>' +

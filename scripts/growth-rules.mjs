@@ -168,6 +168,42 @@ export function newViewerComments(commentsByVideo = {}, now = new Date(), days =
   return {count: recent.length, unanswered: knowsReplies ? recent.filter((c) => Number(c.replyCount) === 0).length : null};
 }
 
+// 공개된 뒤 사람이 스튜디오에서 해야 하는 일(2026-11-09 사용자 요청). 예전에는 now.md에 손으로 적어야 브리핑에 나왔다.
+//   - 롱폼 고정 댓글: 공개됐고 status.json의 pinnedCommentPending이 남아 있을 때(대시보드 "등록함"을 누르면 사라진다).
+//   - 쇼츠 관련 동영상: 같은 편 롱폼이 공개됐고 쇼츠가 유튜브에 올라가 있을 때(예약 상태여도 지정할 수 있다).
+//   - 쇼츠 고정 댓글: 쇼츠가 공개됐을 때(예약 시각이 지나면 공개로 본다).
+// 끝낸 일은 data/youtube/after-publish-done.json에 {"EP25-shorts:related": "2026-11-13"}처럼 적는다. 공개 days일이 지나면 내지 않는다.
+export function afterPublishTasks({longform = [], shorts = [], done = {}, now = new Date(), days = 14}) {
+  const fresh = (iso) => {
+    const at = timeOf(iso);
+    return Number.isFinite(at) && at <= now && now - at < days * DAY_MS;
+  };
+  const shortsLive = (s) => s.status === 'published' || (s.status === 'scheduled' && fresh(s.scheduledFor));
+  const shortsUploaded = (s) => ['scheduled', 'published'].includes(s.status);
+  const tasks = [];
+  const add = (key, text) => {
+    if (!done[key]) tasks.push({key, text});
+  };
+  for (const l of longform) {
+    if (!l.isPublished || !fresh(l.publishedAt)) continue;
+    if (l.pinnedCommentPending) add(`${l.episode}-long:pinned`, `${l.episode} 롱폼 고정 댓글 등록 후 대시보드 "등록함"`);
+    for (const s of shorts.filter((x) => x.episode === l.episode && shortsUploaded(x))) {
+      add(`${s.episode}-shorts:related`, `${s.episode} 쇼츠 "관련 동영상"에 ${l.episode} 롱폼 지정`);
+    }
+  }
+  for (const s of shorts) {
+    const at = s.status === 'published' ? s.publishedAt || s.scheduledFor : s.scheduledFor;
+    if (shortsLive(s) && fresh(at)) add(`${s.episode}-shorts:pinned`, `${s.episode} 쇼츠 고정 댓글 등록`);
+  }
+  return tasks;
+}
+
+// 썸네일 파일(thumbnail.jpg)이 없는 패키지(2026-11-09 사용자 지적). EP27~29 쇼츠 패키지를 만들 때 썸네일 단계를 빠뜨려
+// 대시보드에 썸네일이 비었다. 이미 공개된 패키지는 올릴 일이 없으므로 뺀다.
+export function thumbnailGaps(items = []) {
+  return (items || []).filter((item) => !item.hasThumbnail && item.status !== 'published').map((item) => item.name);
+}
+
 // 마지막 동기화가 hours시간보다 오래됐거나 기록이 없으면 새로 동기화한다.
 export function needsSync(syncedAt, now = new Date(), hours = 12) {
   const at = timeOf(syncedAt);
@@ -183,7 +219,7 @@ const kstLabel = (iso) => {
 const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
 
 const briefingLines = (check, briefing) => {
-  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments} = briefing;
+  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = []} = briefing;
   const lines = ['브리핑 재료(이 숫자로 줄을 만든다. "줄을 쓰지 않는다"라고 적힌 줄은 뺀다. 형식: 00-unblock-and-weekly.md 0-C):'];
   lines.push(`- 제목 줄: **브리핑** (episode-planning 0-C · 동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
   lines.push(
@@ -210,6 +246,16 @@ const briefingLines = (check, briefing) => {
     ...upcoming.failed.map((item) => `${item.name} 업로드 실패`),
   ];
   lines.push(upcomingParts.length ? `- 다음 공개: ${upcomingParts.join(', ')}` : '- 다음 공개: 48시간 안 공개와 업로드 실패가 없다 — 줄을 쓰지 않는다');
+  lines.push(
+    afterPublish.length
+      ? `- 공개 후 할 일(할 일 줄 맨 앞에 넣는다): ${afterPublish.map((task) => task.text).join(' / ')} — 사용자가 끝냈다고 하면 data/youtube/after-publish-done.json에 키(${afterPublish.map((task) => task.key).join(', ')})와 날짜를 적는다`
+      : '- 공개 후 할 일: 없다 — 따로 쓰지 않는다',
+  );
+  lines.push(
+    missingThumbnails.length
+      ? `- 썸네일 없는 패키지(할 일 줄에 넣는다): ${missingThumbnails.join(', ')} — 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 만든다(06-shorts-and-next-watch.md)`
+      : '- 썸네일 없는 패키지: 없다 — 따로 쓰지 않는다',
+  );
   if (comments) {
     lines.push(
       `- 새 시청자 댓글 ${comments.count}개 (${comments.unanswered == null ? '답 여부 모름' : `답 없음 ${comments.unanswered}개`}) — 최근 7일, 답할 댓글이 있으면 할 일 줄에 넣는다`,

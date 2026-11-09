@@ -1,6 +1,7 @@
 {
-  "status": "packaged",
+  "status": "scheduled",
   "plannedFor": "2026-11-21T11:00:00Z",
-  "lastSyncedAt": "2026-11-09T11:50:37.787Z",
-  "videoId": "blowoldSorE"
+  "lastSyncedAt": "2026-11-09T12:01:38.290Z",
+  "videoId": "blowoldSorE",
+  "scheduledFor": "2026-11-21T11:00:00Z"
 }

@@ -8,6 +8,7 @@ import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {syncIfStale} from './briefing-sync.mjs';
 import {buildBriefingContext, extractNextActions, renderSessionStartOutput} from './growth-rules.mjs';
+import {setupAutomationChrome} from './setup-automation-chrome.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 
@@ -35,6 +36,15 @@ const readNextActions = () =>
 
 // 마지막 동기화가 12시간보다 오래됐으면 먼저 동기화한다. 실패해도 대화 시작은 막지 않는다.
 const syncNote = await syncIfStale().catch((err) => `동기화 확인 실패(${err.message})`);
-const [check, nextActions] = await Promise.all([runGrowthCheck(), readNextActions()]);
+const [check, nextActions, chromeStatus] = await Promise.all([
+  runGrowthCheck(),
+  readNextActions(),
+  setupAutomationChrome().catch(() => null)
+]);
+
+if (chromeStatus && !chromeStatus.isLoggedIn) {
+  nextActions.unshift('Gemini 자동화: 바탕화면 Gemini-Automation 아이콘에서 1회 로그인 필요 (차차)');
+}
+
 if (check?.briefing?.data) check.briefing.data.sync = syncNote;
 process.stdout.write(`${renderSessionStartOutput(buildBriefingContext(check, nextActions))}\n`);

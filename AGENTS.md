@@ -397,13 +397,13 @@ AI 툴(Google Veo/Gemini, Runway Gen-3, Sora, Pika, Kling, Midjourney, Imagen �
 사용자가 미드저니, ChatGPT 등 특정 모델을 명시적으로 지정하지 않고 "프롬프트 만들어줘"라고 요청하거나 별도 언급이 없을 때는, **항상 구글 제미나이(Google Gemini / Google AI Studio / Imagen) 전용 프롬프트를 기본값으로 작성**한다.
 영상·이미지 생성이나 데이터 분석 프롬프트를 구글 모델(Gemini/Veo/Imagen)에 직접 쓸 때는 `aistudio.google.com/docs`를 매번 새로 읽지 말고 [`knowledge/google-ai-studio-prompting.md`](knowledge/google-ai-studio-prompting.md) (원문 핵심을 미리 정리해 둔 문서)의 서술형 구조(Subject, Setting, Lighting, Shot, Text, Aspect Ratio 16:9 등)를 준수하여 작성한다.
 
-### AI 이미지 생성 한도(쿼터) 소진 시 코드로 우회하지 말고 즉시 사용자에게 먼저 보고 및 상의 (2026-09-20 확정)
+### 이미지 생성 2단계 원칙: 자체 모델 우선 및 한도 소진 시 브라우저 컨트롤 폴백 (2026-11-10 확정)
 
-사용자가 "이미지"라고 요청하거나 영상 프레임에 일러스트 에셋이 필요할 때, AI 이미지 생성 도구(`generate_image` / 구글 Imagen 등)의 일일 생성 한도(429 Quota Exhausted)가 걸렸다고 해서 **사용자 상의 없이 임의로 코드로 억지 그래픽을 그리거나(SVG/Canvas/Chrome 스크린샷 렌더 등) 어설프게 대체하지 않는다**(2026-09-20 EP19에서 실제 발생 — 한도가 찼는데 알리지 않고 코드로 시소/헤드폰 이미지를 찍어내 사용자가 "왜 자꾸 코드로 이미지를 만들지?"라고 지적함).
-
-AI 이미지 생성 도구의 쿼터가 소진되면 **작업을 즉시 멈추고 사용자에게 상황을 투명하게 먼저 알린 뒤 지시를 받는다**:
-1. 현재 쿼터가 소진되었고 리셋까지 남은 시간(예: 약 3시간 뒤 리셋)을 명확히 고지한다.
-2. 기존에 생성해 둔 검증된 채널 공식 일러스트/캐릭터 에셋으로 대체할지, 사용자가 외부 AI(미드저니/ChatGPT 등)로 직접 뽑을 수 있도록 프롬프트를 작성해 드릴지, 아니면 리셋 후 자동으로 다시 생성할지 선택지를 제시하고 결정을 기다린다.
+이미지 및 일러스트 제작 시 아래 2단계를 반드시 준수한다:
+1. **1단계 (자체 모델 우선 사용)**: 이미지 제작 시 에이전트의 **자체 모델(`image-generator` 서브에이전트 / Gemini API / MCP 이미지 생성 도구)을 1차로 우선 사용**한다.
+2. **2단계 (자체 모델 한도 소진 시 브라우저 컨트롤 폴백)**: 자체 모델의 한도 소진(429 Quota Exhausted, 크레딧 소진 등) 발생 시, 코드로 억지 그래픽을 그리거나(SVG/Canvas/Chrome 스크린샷 렌더 등) 어설프게 대체하는 행위를 엄격히 금지하며, 즉시 **브라우저 컨트롤(`scripts/generate-web-gemini-image.mjs` / Chrome CDP 연동 Web Gemini)**을 사용하여 고품질 Imagen 3 이미지를 자동으로 제작·다운로드하여 프로젝트에 반입한다.
+   - 다른 PC 동기화 및 환경 설정은 [`knowledge/gemini-web-automation-setup.md`](knowledge/gemini-web-automation-setup.md) 참고. 세션 시작 브리핑 훅(`scripts/session-briefing-hook.mjs`)에서 `scripts/setup-automation-chrome.mjs`가 자동 호출되어 다른 PC에서도 전용 프로필 및 바탕화면 바로가기(`Gemini-Automation`)가 자동 구성된다(최초 1회만 구글 로그인 필요).
+   - 단, 브라우저 컨트롤조차 사용할 수 없는 예외 상황(크롬 미설치 등)이 발생했을 때만 작업을 멈추고 사용자에게 상황을 알린 뒤 지시를 받는다.
 
 ### 영상 내 시각적 도파민을 위한 일러스트 적극 생성 및 역할 분담 원칙 (2026-09-20 확정, 2026-09-21 EP20 사례로 구체화)
 

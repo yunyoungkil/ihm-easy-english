@@ -25,6 +25,7 @@
   영상을 분석해 뽑아낸 화면 구성·모션 기법 누적. 새 영상 만들기 전 참고 소재로 훑어볼 것
 - [영상 STATUS 템플릿](templates/STATUS.template.md) — 영상별 진행 상태와 다음 행동 기록 양식
 - [환경 설정 — HeyGen/WSL 브리지](environment-setup.md) — 이 컴퓨터에서 media-use(BGM/이미지/보이스 무료 카탈로그)를 쓰기 위한 WSL·heygen CLI 설치·연결 절차
+- [Chrome Web Gemini 자동화 설정 및 다중 PC 동기화 가이드](gemini-web-automation-setup.md) — 팝업 없이 100% 무인으로 Web Gemini(Imagen 3) 이미지를 자동 생성하는 크롬 전용 프로필 설정 및 자동화 도구
 
 ## 결정
 

@@ -83,10 +83,6 @@ const packagesDir = join(projectDir, 'output', 'upload-packages');
 const videosDir = join(projectDir, 'videos');
 const videoFolders = existsSync(videosDir) ? readdirSync(videosDir) : [];
 
-const evaluations = readJson(join(projectDir, 'data', 'youtube', 'evaluations-48h.json'), {evaluations: []});
-// evaluate-48h는 content/ 아래 등록된 영상만 다룬다. 항목이 없다고 밀린 게 아니므로, 판정 대기 중인 항목만 본다.
-const waiting48hIds = new Set((evaluations.evaluations || []).filter((e) => /^waiting/.test(e.decisionStatus || '')).map((e) => e.videoId));
-
 const catalog = readJson(join(projectDir, 'data', 'youtube', 'catalog.json'), {videos: []});
 const catalogVideos = catalog.videos || [];
 const catalogById = new Map(catalogVideos.map((v) => [v.videoId, v]));
@@ -132,7 +128,6 @@ const packages = (existsSync(packagesDir) ? readdirSync(packagesDir, {withFileTy
       // 대시보드 알림(scanUploadNotices)과 같은 기준: 대기 표시나 자동 등록 실패 기록이 있으면 사람이 달아야 한다.
       pinnedCommentPending: Boolean(status.pinnedCommentPending || status.commentError),
       videoFolder: folder || null,
-      waiting48h: waiting48hIds.has(status.videoId),
       review: reviewState(folder),
     };
   });
@@ -188,7 +183,6 @@ const noReviewFile = published.filter((p) => !p.review.exists).map((p) => p.name
 const reviews = published.map((p) => {
   const age = daysSince(p.publishedAt);
   const due = [];
-  if (age >= 2 && p.waiting48h) due.push('48시간 판정');
   if (p.review.exists) {
     if (age >= 28 && p.review.reviewedDays < 28) due.push('28일 리뷰');
     else if (age >= 7 && p.review.reviewedDays < 7) due.push('7일 리뷰');

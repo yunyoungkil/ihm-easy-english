@@ -36,7 +36,6 @@
     "upload-summary": "node scripts/build-episode-upload-summary.mjs",
     "upload-page": "node scripts/build-upload-package-page.mjs",
     "wiki:lint": "node scripts/lint-knowledge.mjs",
-    "evaluate-48h": "node scripts/evaluate-48h.mjs",
     "content-opportunity": "node scripts/content-opportunity.mjs",
     "market-demand": "node scripts/market-demand.mjs",
     "analyze-comments": "node scripts/analyze-outlier-comments.mjs",

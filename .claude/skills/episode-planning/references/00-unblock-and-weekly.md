@@ -24,7 +24,6 @@
    - 편마다 업로드 전에 남은 일을 `upload-checklist.txt`와 `knowledge/now.md`에서 읽어 함께 적는다(새 메인 썸네일, 썸네일 승인, 금지어 항목 등).
    - 같은 방식·형식이 연달아 나가면 "같은 틀 반복"으로 보일 수 있으니, 사이에 쇼츠를 끼울 수 있는지 함께 제안한다(Phase 12).
 3. **밀린 리뷰 숫자만 먼저 채우기**
-   - `npm run evaluate-48h`를 한 번 돌린다.
    - 공개 7일이 지난 영상의 `REVIEW.md` "실제" 칸에 `/api/sync` 직후 숫자만 채운다. 판정과 `success-patterns.json` 승격은 이 단계에서 하지 않는다. 판정은 Phase 2에서 그 형식이 필요할 때 Phase 11로 한다.
 4. **전후 비교**: 마지막에 `npm run growth-check`를 다시 돌려 막힌 곳이 얼마나 줄었는지 보여 준다.
 
@@ -36,7 +35,7 @@
 
 1. `npm run growth-check -- --save`로 새로 막힌 곳만 찾는다. 결과는 `knowledge/growth/check-YYYY-MM-DD.md`에 저장된다. 형식 배분과 표본 판정도 여기서 나온다.
 2. `/api/sync` 직후 숫자로 이번 주를 본다: 조회수·구독자 증감, 롱폼 vs 쇼츠 비중, 상위 트래픽 소스 3개, 검색 유입 비중, 최근 영상 시청 지속률. `knowledge/channel-strategy.md` "주간 목표"와 나란히 적는다.
-3. 공개 2일이 지난 영상이 있으면 `npm run evaluate-48h`, 7일·28일이 된 영상이 있으면 Phase 11.
+3. 공개 7일·28일이 된 영상이 있으면 Phase 11 진행 (48시간 판정은 작은 표본 노이즈 방지로 폐지됨).
 4. Phase 11의 **중단 규칙**에 걸린 방식·형식이 있는지 확인한다(`05-performance-review.md` 4절).
 5. `marketing:performance-report` 스킬로 한 장 요약: 핵심 숫자 표(출처·범위 포함) → 잘된 것 1~2개 → 막힌 것 1~2개 → **이번 주 할 일 최대 3개**. 할 일은 "EP25 썸네일 승인"처럼 이번 주 안에 끝낼 수 있는 행동으로 쓴다.
 6. 결과는 `knowledge/growth/weekly-YYYY-MM-DD.md`에 남긴다(같은 날짜 파일이 있으면 읽고 갱신).

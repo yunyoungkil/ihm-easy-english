@@ -6,7 +6,6 @@ import {dirname, join, relative, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {exec, execFile} from 'node:child_process';
 import {promisify} from 'node:util';
-import {build48hEvaluations} from './evaluate-48h.mjs';
 import {
   extractVideoId,
   fetchVideoDetails,
@@ -52,7 +51,6 @@ const catalogPath = join(youtubeDataDir, 'catalog.json');
 const latestSnapshotPath = join(youtubeDataDir, 'analytics-latest.json');
 const snapshotDir = join(youtubeDataDir, 'snapshots');
 const commentsPath = join(youtubeDataDir, 'comments.json');
-const evaluationsPath = join(youtubeDataDir, 'evaluations-48h.json');
 const packagingRegistryPath = join(youtubeDataDir, 'packaging-registry.json');
 const videoReachManualPath = join(youtubeDataDir, 'video-reach-manual.json');
 const outputCommentsDir = join(youtubeDataDir, 'outlier-comments');
@@ -995,18 +993,6 @@ const getDashboard = async (accessToken) => {
   dashboard.localThumbnails = await getLocalPackageThumbnailMap();
   dashboard.studioFolderScan = await scanStudioExportFolders(recentVideos, dashboard.packagingRegistry);
   dashboard.videoReachManual = await loadJson(videoReachManualPath) || {schemaVersion: 1, videos: {}};
-
-  const evaluations48h = await build48hEvaluations({
-    snapshot: dashboard,
-    queryVideoWindow: async (videoId, window) => rowObjects(await analyticsQuery(accessToken, {
-      startDate: window.startDate,
-      endDate: window.endDate,
-      metrics: 'views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,subscribersGained,subscribersLost,likes,comments',
-      filters: `video==${videoId}`,
-    }))[0] || {},
-  });
-  dashboard.evaluations48h = evaluations48h;
-  await saveJson(evaluationsPath, evaluations48h);
 
   const syncedAt = new Date().toISOString();
   const snapshotId = syncedAt.replace(/[:.]/g, '-');
@@ -2341,9 +2327,6 @@ input:disabled, select:disabled {
   <button class="rail-btn" data-tab="tab-episodes" title="에피소드 & 업로드 패키징">
     🎬<span class="label">Episodes</span>
   </button>
-  <button class="rail-btn" data-tab="tab-evaluations" title="48시간 사후 평가">
-    ⚖️<span class="label">48H Eval</span>
-  </button>
   <button class="rail-btn" data-tab="tab-studio" title="Studio CSV CTR 트래커">
     📁<span class="label">Studio</span>
   </button>
@@ -2384,7 +2367,6 @@ input:disabled, select:disabled {
       <button class="tab-pill" data-tab="tab-demand">🎯 시장 수요 레이더 (Market Demand)</button>
       <button class="tab-pill" data-tab="tab-outlier">🤖 아웃라이어 댓글 AI (Outlier Lab)</button>
       <button class="tab-pill" data-tab="tab-episodes">🎬 에피소드 & 업로드 패키지</button>
-      <button class="tab-pill" data-tab="tab-evaluations">⚖️ 48H 사후 판정 (Evaluations)</button>
       <button class="tab-pill" data-tab="tab-studio">📁 Studio CTR 트래커</button>
       <button class="tab-pill" data-tab="tab-design">🎨 브랜드 디자인 시스템</button>
       <button class="tab-pill" data-tab="tab-knowledge-db">🧬 데이터 자산 (Knowledge DB)</button>
@@ -3077,9 +3059,6 @@ function renderCurrentTab() {
       case 'tab-episodes':
         root.innerHTML = renderEpisodesTab();
         bindEpisodeEvents();
-        break;
-      case 'tab-evaluations':
-        root.innerHTML = renderEvaluationsTab();
         break;
       case 'tab-studio':
         root.innerHTML = renderStudioTab();
@@ -5053,32 +5032,7 @@ function openFacelessGuideModal() {
   openModal('Faceless Explainer 비디오 가이드', guide);
 }
 
-/* TAB 5: 48H EVALUATIONS */
-function renderEvaluationsTab() {
-  const evals = gDashboard?.evaluations48h?.evaluations || [];
-  return '<div class="bento-grid">' +
-    '<div class="bento-card col-12">' +
-      '<div class="card-title" style="color:var(--accent-amber)">48H DECISION ENGINE</div>' +
-      '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">⚖️ 업로드 48시간 사후 판정 스코어보드</h2>' +
-      '<div class="card-subtext">업로드 후 48시간 기준 시청률과 유지율을 기반으로 자동 분류된 판정 결과입니다.</div>' +
-    '</div>' +
-    (evals.length > 0 ? evals.map(e => {
-      const bClass = e.decisionStatus === 'strong-pass' ? 'badge-strong-pass' : e.decisionStatus === 'pass' ? 'badge-pass' : e.decisionStatus === 'hold' ? 'badge-hold' : 'badge-revise';
-      const thumb = e.videoId ? 'https://i.ytimg.com/vi/' + e.videoId + '/mqdefault.jpg' : '';
-      return '<div class="bento-card col-4">' +
-        (thumb ? '<img class="thumb-img" style="margin-bottom:12px" src="' + esc(thumb) + '" alt="">' : '') +
-        '<div class="card-header">' +
-          '<span class="card-title">' + esc(e.contentId) + '</span>' +
-          '<span class="badge ' + bClass + '">' + esc(e.label) + '</span>' +
-        '</div>' +
-        '<div style="font-size:14px;color:var(--text-bright);margin:8px 0;line-height:1.5">' + esc(e.reason) + '</div>' +
-        (e.metrics ? '<div class="card-subtext" style="margin-top:10px">조회수 ' + fmt.format(e.metrics.views || 0) + ' · 시청률 ' + Number(e.metrics.averageViewPercentage || 0).toFixed(1) + '% · 구독 ' + fmt.format(e.metrics.subscribersGained || 0) + '</div>' : '') +
-      '</div>';
-    }).join('') : '<div class="bento-card col-12 card-subtext">현재 판정 대상 영상이 없습니다.</div>') +
-  '</div>';
-}
-
-/* TAB 6: STUDIO CSV CTR TRACKER */
+/* TAB 5: STUDIO CSV CTR TRACKER */
 function renderStudioTab() {
   const d = gDashboard || {};
   const scan = d.studioFolderScan || {};
@@ -9027,9 +8981,7 @@ const server = createServer(async (req, res) => {
       return json(res, 200, catalog);
     }
     if (url.pathname === '/api/evaluations/48h') {
-      const evaluations = await loadJson(evaluationsPath);
-      if (!evaluations) return json(res, 404, {error: '저장된 48시간 판정 결과가 없습니다. 먼저 데이터를 새로고침하세요.'});
-      return json(res, 200, evaluations);
+      return json(res, 200, {evaluations: [], status: 'deprecated'});
     }
     if (url.pathname === '/api/video-reach' && req.method === 'POST') {
       const body = await readJsonBody(req);

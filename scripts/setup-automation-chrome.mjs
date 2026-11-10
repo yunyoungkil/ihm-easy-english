@@ -36,7 +36,13 @@ export async function setupAutomationChrome({ launchIfDown = true } = {}) {
 
   // 2. Ensure Desktop shortcut exists
   const userProfile = process.env.USERPROFILE || 'C:\\Users\\Default';
-  const desktopDir = path.join(userProfile, 'Desktop');
+  let desktopDir = path.join(userProfile, 'Desktop');
+  try {
+    const resolved = execSync('powershell -NoProfile -Command "[Environment]::GetFolderPath(\'Desktop\')"', { encoding: 'utf8' }).trim();
+    if (resolved && fs.existsSync(resolved)) {
+      desktopDir = resolved;
+    }
+  } catch {}
   const shortcutPath = path.join(desktopDir, 'Gemini-Automation.lnk');
 
   let shortcutCreated = false;

@@ -1,30 +1,30 @@
 {
-  "format": "LONGFORM",
-  "topic": "자음 벽 유무로 갈리는 단모음 vs 장모음 소리 원리",
+  "format": "SHORTS",
+  "topic": "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다",
   "audience": "단어마다 알파벳 모음 소리가 제각각 바뀌어 단어 읽기를 포기했던 노베이스 왕초보 학습자",
   "variants": [
     {
       "id": "A",
-      "title": "모음 소리 제각각이라 포기했었는데... 글자 뒤 딱 하나로 소리가 바뀝니다 | 영어 파닉스 발음",
-      "imageUrl": "",
-      "thumbnailHeadline": "단어 모음 여태 헛고생",
-      "visualConcept": "검지손가락으로 관자놀이를 가볍게 짚으며 깊은 탄식과 공감을 담아 카메라를 응시하는 표정",
+      "title": "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다 #영어발음 #shorts",
+      "imageUrl": "https://i.ytimg.com/vi/nVrCk8IZFGA/hqdefault.jpg",
+      "thumbnailCopy": "SOCIAL 발음 비밀",
+      "badge": "1분 컷",
       "isLocalFile": false
     },
     {
       "id": "B",
-      "title": "분명 같은 A인데 왜 딴판이지? 단어마다 모음 소리 헷갈릴 때 | 영어 모음 읽는 법",
-      "imageUrl": "",
-      "thumbnailHeadline": "같은 모음인데 전혀 딴판?",
-      "visualConcept": "두 손으로 머리를 살짝 감싸 쥐며 믿기지 않는다는 듯 눈을 크게 뜨고 깜짝 놀라는 표정",
+      "title": "시즌1 발음 테스트, 4문제 다 맞히면 진짜 실력 #영어발음 #shorts",
+      "imageUrl": "https://i.ytimg.com/vi/LdiZKCzKf0c/hqdefault.jpg",
+      "thumbnailCopy": "발음 테스트 4문제",
+      "badge": "실력 테스트",
       "isLocalFile": false
     },
     {
       "id": "C",
-      "title": "저도 단어마다 모음 바뀌어 애먹었습니다, 글자 사이 틈을 보고서야 술술 읽히네요 | 영어 알파벳 소리",
-      "imageUrl": "",
-      "thumbnailHeadline": "모음 소리 충격 반전",
-      "visualConcept": "입술에 검지를 살짝 대는 쉿 포즈와 함께 비밀스러운 해법을 건네듯 미소 짓는 표정",
+      "title": "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
+      "imageUrl": "https://i.ytimg.com/vi/Si88xXt-EQc/hqdefault.jpg",
+      "thumbnailCopy": "COMMERCIAL 발음 비법",
+      "badge": "비법 공개",
       "isLocalFile": false
     }
   ],

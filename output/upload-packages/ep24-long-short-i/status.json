@@ -1,9 +1,9 @@
 {
   "episode": "ep24-long-short-i",
-  "status": "scheduled",
+  "status": "published",
   "updatedAt": "2026-10-08T11:32:00.000Z",
-  "lastSyncedAt": "2026-11-09T12:30:27.144Z",
-  "publishedAt": null,
+  "lastSyncedAt": "2026-11-10T06:31:42.851Z",
+  "publishedAt": "2026-11-09T14:00:32Z",
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "d512433c6ba6aba0efcb312606dbe3ec454dccdd17e82f5290c0fc5e84e753bd",
@@ -11,5 +11,6 @@
   },
   "videoId": "--Ajwp-UvIk",
   "scheduledFor": "2026-11-09T14:00:00Z",
-  "uploadedAt": "2026-11-06T11:18:08.831Z"
+  "uploadedAt": "2026-11-06T11:18:08.831Z",
+  "publishedAtSource": "youtube"
 }

@@ -47,7 +47,6 @@ const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const envPath = join(projectDir, '.env');
 const tokenPath = join(projectDir, '.youtube-oauth-token.json');
-const videoMapPath = join(projectDir, '.youtube-video-map.json');
 const youtubeDataDir = join(projectDir, 'data', 'youtube');
 const catalogPath = join(youtubeDataDir, 'catalog.json');
 const latestSnapshotPath = join(youtubeDataDir, 'analytics-latest.json');
@@ -146,19 +145,6 @@ const loadToken = async () => {
   } catch {
     return null;
   }
-};
-
-const loadVideoMap = async () => {
-  if (!existsSync(videoMapPath)) return {};
-  try {
-    return JSON.parse(await readFile(videoMapPath, 'utf8'));
-  } catch {
-    return {};
-  }
-};
-
-const saveVideoMap = async (map) => {
-  await writeFile(videoMapPath, JSON.stringify(map, null, 2), 'utf8');
 };
 
 const readJsonBody = async (req) => {
@@ -518,64 +504,6 @@ const rowObjects = (report) => {
   return (report.rows || []).map((row) => Object.fromEntries(row.map((value, index) => [headers[index], value])));
 };
 
-const inferClassifications = (videos, savedMap) => {
-  const map = Object.fromEntries(Object.entries(savedMap || {}).map(([id, value]) => [id, {
-    ...value,
-    category: value.category || (value.season ? 'SEASON' : 'OTHER'),
-    source: value.source || 'manual',
-  }]));
-  const dated = videos.map((video) => ({...video, time: Date.parse(video.publishedAt || '') || 0}));
-  const manuallyPlanned = dated.filter((video) => map[video.videoId]?.source !== 'auto' && map[video.videoId]?.season);
-  const plannedStart = manuallyPlanned.length ? Math.min(...manuallyPlanned.map((video) => video.time)) : Infinity;
-  const assignedRoles = new Map();
-  for (const value of Object.values(map)) {
-    if (!value.season || !value.episode || !['A', 'B'].includes(value.role)) continue;
-    const key = `${value.season}-${value.episode}`;
-    assignedRoles.set(key, new Set([...(assignedRoles.get(key) || []), value.role]));
-  }
-
-  for (const video of [...dated].sort((a, b) => a.time - b.time)) {
-    if (map[video.videoId] && map[video.videoId].source !== 'auto') continue;
-    const title = video.title || '';
-    const explicit = title.match(/시즌\s*([12]).*?EP\s*(\d+)|영어기초배우기\s*EP\s*(\d+)/i);
-    if (explicit) {
-      const season = Number(explicit[1] || 1);
-      const episode = Number(explicit[2] || explicit[3]);
-      map[video.videoId] = {category: 'SEASON', season, episode, role: 'LONG', source: 'auto', reason: '제목의 시즌·EP 표기'};
-      continue;
-    }
-
-    const isShort = video.format ? video.format === 'SHORTS' : Number(video.durationSeconds || 0) <= 60;
-    if (isShort && video.time >= plannedStart) {
-      const parent = [...dated].filter((candidate) => {
-        const classification = map[candidate.videoId];
-        const gap = video.time - candidate.time;
-        return classification?.category === 'SEASON' && classification.role === 'LONG' && gap >= 0 && gap <= 7 * 86400000;
-      }).sort((a, b) => b.time - a.time)[0];
-      if (parent) {
-        const base = map[parent.videoId];
-        const key = `${base.season}-${base.episode}`;
-        const used = assignedRoles.get(key) || new Set();
-        const role = ['A', 'B'].find((candidate) => !used.has(candidate));
-        if (role) {
-          used.add(role); assignedRoles.set(key, used);
-          map[video.videoId] = {category: 'SEASON', season: base.season, episode: base.episode, role, source: 'auto', reason: '같은 주에 업로드된 시즌 쇼츠'};
-          continue;
-        }
-      }
-    }
-
-    if (/20\s*(?:개\s*)?문장|필수\s*문장\s*20개|스피드 테스트|연습\s*\d+|실력 테스트/i.test(title)) {
-      map[video.videoId] = {category: 'EXPERIMENT', role: isShort ? 'STANDALONE_SHORT' : 'STANDALONE_LONG', source: 'auto', reason: '독립 포맷 실험'};
-    } else if (video.time < plannedStart) {
-      map[video.videoId] = {category: 'LEGACY', role: isShort ? 'STANDALONE_SHORT' : 'STANDALONE_LONG', source: 'auto', reason: '구체적 운영 계획 이전 업로드'};
-    } else {
-      map[video.videoId] = {category: 'OTHER', role: isShort ? 'STANDALONE_SHORT' : 'STANDALONE_LONG', source: 'auto', reason: '검토 필요'};
-    }
-  }
-  return map;
-};
-
 const cleanForMatch = (s) => String(s || '')
   .normalize('NFKC')
   .toLowerCase()
@@ -912,9 +840,8 @@ const getDashboard = async (accessToken) => {
   });
   if (commentErrors.size) console.warn(`[Comments] 댓글 수집 실패: ${[...commentErrors].join(' / ')}`);
 
-  const savedClassifications = await loadVideoMap();
-  const classifications = inferClassifications(recentVideos, savedClassifications);
-  await saveVideoMap(classifications);
+  // 2026-11-10: 수동/추론 분류기 폐지. 추후 업로드 패키징 개편 시 status.json 기반 자동 연결로 이관
+  const classifications = {};
 
   // 시작 브리핑의 "쇼츠→롱폼" 줄은 최근 7일 유입 경로를 따로 받는다(90일 합계로는 이번 주 변화를 못 본다, 2026-11-09).
   const traffic7dStart = new Date(Date.parse(`${endDate}T00:00:00Z`) - 6 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -1001,10 +928,7 @@ const getDashboard = async (accessToken) => {
     const classification = classifications[video.videoId] || {};
     const views = Number(metrics.views || 0);
     const retention = Number(metrics.averageViewPercentage || 0);
-    const relatedShorts = videoPerformance.filter((row) => {
-      const c = classifications[row.video] || {};
-      return c.season === classification.season && c.episode === classification.episode && ['A', 'B'].includes(c.role);
-    });
+    const relatedShorts = []; // 2026-11-10: 수동/추론 분류기 폐지 (추후 업로드 패키지 status.json 기반으로 복원 예정)
     const evidence = [metrics, ...relatedShorts].filter((row) => Number(row.views || 0) > 0);
     const evidenceViews = evidence.reduce((sum, row) => sum + Number(row.views || 0), 0);
     const evidenceSubscribers = evidence.reduce((sum, row) => sum + Number(row.subscriberNet ?? (Number(row.subscribersGained || 0) - Number(row.subscribersLost || 0))), 0);
@@ -2505,8 +2429,6 @@ let gKdbSourceFilter = 'ALL'; // 'ALL' | 'outlierComment' | 'competitorScript'
 let gCurrentTab = (function() {
   try { return localStorage.getItem('ihm_active_tab') || 'tab-overview'; } catch (_) { return 'tab-overview'; }
 })();
-let gClassificationFilter = 'ALL';
-let gClassificationSearch = '';
 let gStudioFilter = 'ALL';
 let gAiLabSubTab = (function() {
   try { return localStorage.getItem('ihm_ailab_subtab') || 'comments'; } catch (_) { return 'comments'; }
@@ -3199,65 +3121,6 @@ function renderOverviewTab() {
   const shorts = types.shorts || {};
   const vod = types.videoondemand || {};
 
-  const allVideos = d.recentVideos || [];
-  const filteredVideos = allVideos.filter(v => {
-    const c = (d.classifications || {})[v.videoId] || {};
-    const titleMatch = !gClassificationSearch || v.title.toLowerCase().includes(gClassificationSearch.toLowerCase()) || v.videoId.includes(gClassificationSearch);
-    if (!titleMatch) return false;
-    if (gClassificationFilter === 'SEASON_1') return c.category === 'SEASON' && c.season === 1;
-    if (gClassificationFilter === 'SEASON_2') return c.category === 'SEASON' && c.season === 2;
-    if (gClassificationFilter === 'CHANNEL') return c.category === 'CHANNEL' || c.role === 'C';
-    if (gClassificationFilter === 'LEGACY') return c.category === 'LEGACY' || c.category === 'EXPERIMENT';
-    if (gClassificationFilter === 'OTHER') return c.category === 'OTHER' || !c.category;
-    return true;
-  });
-
-  const getRoleOptions = (cat, role) => {
-    if (cat === 'SEASON') {
-      return '<option value="LONG"' + (role === 'LONG' ? ' selected' : '') + '>롱폼 (LONG)</option>' +
-        '<option value="A"' + (role === 'A' ? ' selected' : '') + '>쇼츠 A (Track A)</option>' +
-        '<option value="B"' + (role === 'B' ? ' selected' : '') + '>쇼츠 B (Track B)</option>' +
-        '<option value="STANDALONE_SHORT"' + (role === 'STANDALONE_SHORT' ? ' selected' : '') + '>시즌 단독 쇼츠</option>';
-    }
-    if (cat === 'CHANNEL') {
-      return '<option value="C" selected>쇼츠 C (채널 공통)</option>';
-    }
-    return '<option value="STANDALONE_SHORT"' + (role === 'STANDALONE_SHORT' || !role ? ' selected' : '') + '>독립 쇼츠</option>' +
-      '<option value="STANDALONE_LONG"' + (role === 'STANDALONE_LONG' ? ' selected' : '') + '>독립 롱폼</option>';
-  };
-
-  const classificationRows = filteredVideos.map(v => {
-    const c = (d.classifications || {})[v.videoId] || {};
-    const category = c.category || (c.season ? 'SEASON' : 'OTHER');
-    const isSeason = category === 'SEASON';
-    const selected = (a, b) => String(a) === String(b) ? ' selected' : '';
-    const thumbUrl = v.thumbnail || (v.videoId ? 'https://i.ytimg.com/vi/' + v.videoId + '/mqdefault.jpg' : '');
-    const isManual = c.source === 'manual';
-
-    return '<tr data-video="' + esc(v.videoId) + '">' +
-      '<td><div style="display:flex;align-items:center;gap:10px">' +
-        (thumbUrl ? '<img class="thumb-mini" src="' + esc(thumbUrl) + '" alt="">' : '') +
-        '<div style="min-width:0"><b>' + esc(v.title) + '</b><div class="card-subtext">' + esc((v.publishedAt||'').slice(0,10)) + ' · ' + ((v.format ? v.format === 'SHORTS' : v.durationSeconds <= 60) ? '쇼츠' : '롱폼') + '</div></div>' +
-      '</div></td>' +
-      '<td><select class="category">' +
-        '<option value="SEASON"' + selected(category, 'SEASON') + '>시즌 콘텐츠</option>' +
-        '<option value="CHANNEL"' + selected(category, 'CHANNEL') + '>채널 공통 (C)</option>' +
-        '<option value="LEGACY"' + selected(category, 'LEGACY') + '>기존 (Legacy)</option>' +
-        '<option value="EXPERIMENT"' + selected(category, 'EXPERIMENT') + '>실험 (Experiment)</option>' +
-        '<option value="OTHER"' + selected(category, 'OTHER') + '>기타 / 검토</option>' +
-      '</select></td>' +
-      '<td><select class="season"' + (isSeason ? '' : ' disabled') + '><option value="1"' + selected(c.season || 1, 1) + '>시즌1</option><option value="2"' + selected(c.season, 2) + '>시즌2</option></select></td>' +
-      '<td><input class="episode" type="number" min="1" max="99" value="' + esc(isSeason ? (c.episode || 1) : '') + '"' + (isSeason ? '' : ' disabled') + ' style="width:58px"></td>' +
-      '<td><select class="role">' + getRoleOptions(category, c.role) + '</select></td>' +
-      '<td>' +
-        '<div style="display:flex;align-items:center;gap:8px">' +
-          '<button class="btn btn-sm btn-cyan save-classification">확정</button>' +
-          '<span class="save-state badge ' + (isManual ? 'badge-pass' : 'badge-hold') + '" style="font-size:10px">' + (isManual ? '✓ 직접' : '자동') + '</span>' +
-        '</div>' +
-      '</td>' +
-    '</tr>';
-  }).join('');
-
   // 다음 업로드 대기/예약 패키지가 있으면 전체 관제 탭 최상단에 눈에 띄게 배치한다 (2026-09-17)
   // ⚠️ 예전엔 두 번째 fallback이 lf.status === 'scheduled'이기만 하면(이미 실제로 예약
   // 완료돼 videoId까지 있어도) 무조건 "업로드 대기"로 잡아버리는 버그가 있었다(2026-09-19
@@ -3434,123 +3297,13 @@ function renderOverviewTab() {
         '</div>';
       }).join('') +
     '</div>' +
-
-    '<div class="bento-card col-12">' +
-      '<div class="card-header" style="flex-wrap:wrap;gap:12px">' +
-        '<div>' +
-          '<span class="card-title">영상 자동 분류 & 상태 관리 (Video Classifications)</span>' +
-          '<div class="card-subtext">새 영상은 제목과 업로드 시점에 따라 자동 분류되며, [확정] 시 영구 보존됩니다. (총 ' + allVideos.length + '개 영상)</div>' +
-        '</div>' +
-        '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">' +
-          '<input type="text" id="input-cls-search" placeholder="영상 제목 / ID 검색" value="' + esc(gClassificationSearch) + '" style="width:200px">' +
-          '<button class="btn btn-sm ' + (gClassificationFilter === 'ALL' ? 'btn-cyan' : '') + ' btn-cls-filter" data-filter="ALL">전체 (' + allVideos.length + ')</button>' +
-          '<button class="btn btn-sm ' + (gClassificationFilter === 'SEASON_1' ? 'btn-cyan' : '') + ' btn-cls-filter" data-filter="SEASON_1">시즌 1</button>' +
-          '<button class="btn btn-sm ' + (gClassificationFilter === 'SEASON_2' ? 'btn-cyan' : '') + ' btn-cls-filter" data-filter="SEASON_2">시즌 2</button>' +
-          '<button class="btn btn-sm ' + (gClassificationFilter === 'CHANNEL' ? 'btn-cyan' : '') + ' btn-cls-filter" data-filter="CHANNEL">채널 공통 (C)</button>' +
-          '<button class="btn btn-sm ' + (gClassificationFilter === 'LEGACY' ? 'btn-cyan' : '') + ' btn-cls-filter" data-filter="LEGACY">기존 / 실험</button>' +
-          '<button class="btn btn-sm ' + (gClassificationFilter === 'OTHER' ? 'btn-cyan' : '') + ' btn-cls-filter" data-filter="OTHER">검토 필요</button>' +
-        '</div>' +
-      '</div>' +
-      '<div style="overflow-x:auto;max-height:600px;overflow-y:auto">' +
-        '<table class="cyber-table">' +
-          '<thead><tr><th>영상</th><th>콘텐츠 유형</th><th>시즌</th><th>EP</th><th>역할</th><th>확정 상태</th></tr></thead>' +
-          '<tbody>' + (classificationRows || '<tr><td colspan="6" class="card-subtext" style="text-align:center;padding:30px">검색 결과에 맞는 영상이 없습니다.</td></tr>') + '</tbody>' +
-        '</table>' +
-      '</div>' +
-    '</div>' +
   '</div>';
 
   return html;
 }
 
 function bindOverviewEvents() {
-  const searchInput = document.getElementById('input-cls-search');
-  if (searchInput) {
-    searchInput.oninput = (e) => {
-      gClassificationSearch = e.target.value;
-      renderCurrentTab();
-      const el = document.getElementById('input-cls-search');
-      if (el) { el.focus(); el.selectionStart = el.selectionEnd = el.value.length; }
-    };
-  }
-
-  document.querySelectorAll('.btn-cls-filter').forEach(btn => {
-    btn.onclick = () => {
-      gClassificationFilter = btn.dataset.filter;
-      renderCurrentTab();
-    };
-  });
-
-  document.querySelectorAll('.category').forEach(sel => {
-    sel.onchange = () => {
-      const row = sel.closest('tr');
-      const cat = sel.value;
-      const seasonSel = row.querySelector('.season');
-      const epInput = row.querySelector('.episode');
-      const roleSel = row.querySelector('.role');
-
-      if (cat === 'SEASON') {
-        seasonSel.disabled = false;
-        epInput.disabled = false;
-        if (!epInput.value) epInput.value = '1';
-        roleSel.innerHTML = 
-          '<option value="LONG">롱폼 (LONG)</option>' +
-          '<option value="A">쇼츠 A (Track A)</option>' +
-          '<option value="B">쇼츠 B (Track B)</option>' +
-          '<option value="STANDALONE_SHORT">시즌 단독 쇼츠</option>';
-      } else if (cat === 'CHANNEL') {
-        seasonSel.disabled = true;
-        epInput.disabled = true;
-        roleSel.innerHTML = '<option value="C" selected>쇼츠 C (채널 공통)</option>';
-      } else {
-        seasonSel.disabled = true;
-        epInput.disabled = true;
-        roleSel.innerHTML = 
-          '<option value="STANDALONE_SHORT">독립 쇼츠</option>' +
-          '<option value="STANDALONE_LONG">독립 롱폼</option>';
-      }
-    };
-  });
-
-  document.querySelectorAll('.save-classification').forEach(btn => {
-    btn.onclick = async () => {
-      const row = btn.closest('tr');
-      const state = row.querySelector('.save-state');
-      const videoId = row.dataset.video;
-      const category = row.querySelector('.category').value;
-      const season = category === 'SEASON' ? Number(row.querySelector('.season').value || 1) : null;
-      const episode = category === 'SEASON' ? Number(row.querySelector('.episode').value || 1) : null;
-      const role = row.querySelector('.role').value;
-
-      btn.disabled = true;
-      state.textContent = '저장 중...';
-      try {
-        const res = await fetch('/api/classification', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ videoId, category, season, episode, role })
-        });
-        const result = await res.json();
-        if (!res.ok) throw new Error(result.error || '저장 실패');
-        
-        if (gDashboard) {
-          gDashboard.classifications ||= {};
-          gDashboard.classifications[videoId] = result.classification;
-        }
-
-        row.classList.add('row-saved');
-        state.className = 'save-state badge badge-pass';
-        state.textContent = '✓ 직접';
-        showToast('영상 분류가 성공적으로 저장되었습니다!');
-      } catch (err) {
-        state.className = 'save-state badge badge-revise';
-        state.textContent = '❌ ' + err.message;
-        alert('저장 실패: ' + err.message);
-      } finally {
-        btn.disabled = false;
-      }
-    };
-  });
+  // 2026-11-10: 영상 수동 분류 UI 폐지 (업로드 패키징 개편 시 status.json 기반 자동 연결로 이관 예정)
 }
 
 /* TAB 2: MARKET DEMAND RADAR */
@@ -9891,55 +9644,8 @@ const server = createServer(async (req, res) => {
       }, null, 2), 'utf8');
       return json(res, 200, { ok: true, filename, filePath });
     }
-    if (url.pathname === '/api/classification' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      const videoId = String(body.videoId || '').trim();
-      const category = String(body.category || 'SEASON');
-      const season = body.season != null && body.season !== '' ? Number(body.season) : null;
-      const episode = body.episode != null && body.episode !== '' ? Number(body.episode) : null;
-      const role = String(body.role || '');
-      if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) return json(res, 400, {error: '영상 ID가 올바르지 않습니다.'});
-      if (!['SEASON', 'CHANNEL', 'LEGACY', 'EXPERIMENT', 'OTHER'].includes(category)) return json(res, 400, {error: '콘텐츠 유형이 올바르지 않습니다.'});
-      if (category === 'SEASON') {
-        if (![1, 2].includes(season)) return json(res, 400, {error: '시즌은 1 또는 2여야 합니다.'});
-        if (!Number.isInteger(episode) || episode < 1 || episode > 99) return json(res, 400, {error: 'EP 번호가 올바르지 않습니다.'});
-      }
-      if (!['LONG', 'A', 'B', 'C', 'STANDALONE_SHORT', 'STANDALONE_LONG'].includes(role)) return json(res, 400, {error: '역할이 올바르지 않습니다.'});
-      if (category === 'CHANNEL' && role !== 'C') return json(res, 400, {error: '채널 공통 콘텐츠는 쇼츠 C 역할로 저장해야 합니다.'});
-      if (category === 'SEASON' && role === 'C') return json(res, 400, {error: '쇼츠 C는 시즌·EP가 아닌 채널 공통 콘텐츠입니다.'});
-      
-      const map = await loadVideoMap();
-      map[videoId] = {
-        category,
-        season: category === 'SEASON' ? season : null,
-        episode: category === 'SEASON' ? episode : null,
-        role,
-        source: 'manual',
-        updatedAt: new Date().toISOString()
-      };
-      await saveVideoMap(map);
-      
-      const catalog = await loadJson(catalogPath);
-      if (catalog?.videos) {
-        const video = catalog.videos.find((item) => item.videoId === videoId);
-        if (video) {
-          video.classification = map[videoId];
-          catalog.updatedAt = new Date().toISOString();
-          await saveJson(catalogPath, catalog);
-        }
-      }
-      
-      const snapshot = await loadJson(latestSnapshotPath);
-      if (snapshot) {
-        snapshot.classifications ||= {};
-        snapshot.classifications[videoId] = map[videoId];
-        await saveJson(latestSnapshotPath, snapshot);
-      }
-      if (memoryDashboardCache?.classifications) {
-        memoryDashboardCache.classifications[videoId] = map[videoId];
-      }
-      
-      return json(res, 200, {ok: true, classification: map[videoId]});
+    if (url.pathname === '/api/classification') {
+      return json(res, 410, {error: '영상 수동 분류 기능이 폐지되었습니다.'});
     }
     if (url.pathname === '/logout') {
       if (existsSync(tokenPath)) await unlink(tokenPath);

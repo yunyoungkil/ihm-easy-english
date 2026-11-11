@@ -39,7 +39,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 
 | 순서 | 단계 | 핵심 작업 | 상세 가이드 |
 |---|---|---|---|
-| 0 | **Phase 0** 막힌 곳 풀기 | 0-A 대청소(쌓였을 때 1회), 0-B 주간 점검(매주), **0-C 시작 브리핑(새 대화 첫 답변)**. `npm run growth-check`, 밀린 리뷰 숫자 채우기 | [00-unblock-and-weekly.md](references/00-unblock-and-weekly.md) |
+| 0 | **Phase 0** 막힌 곳 풀기 | 0-A 대청소(쌓였을 때 1회), 0-B 주간 점검(매주), **0-C 시작 브리핑(새 대화 첫 답변)**. `npm run growth-check`, 밀린 리뷰와 오래된 데이터 자동 처리 | [00-unblock-and-weekly.md](references/00-unblock-and-weekly.md) |
 | 1 | **Phase 1** 라이브 데이터 분석 | `/api/sync` 직후 채널 현실 점검, **형식 배분 판정**, 페인포인트 검색 | [01-topic-and-data.md](references/01-topic-and-data.md) |
 | 2 | **Phase 2** 콘텐츠 유형 선택 | 방식 × 형식 결정, **검증 게이트 표**(결과 없는 형식 2편 이상이면 제외) | 01 |
 | 3 | **Phase 3** 경쟁 채널 스캔 & 레이더 | 추천 유입 기반 자동 발굴 + 7일 성과 연동 자율 라이프사이클(수습➔황금광산➔차단➔졸업) | 01 |
@@ -53,7 +53,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | — | 제작 | 음성·HyperFrames·검수·렌더 (`knowledge/VIDEO_WORKFLOW.md`) | — |
 | 11 | **Phase 12** 쇼츠 파생 & 다음 영상 연결 | 롱폼 1편당 쇼츠 2개, 롱폼 링크, 엔드스크린·재생목록. **쇼츠 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 쓴다** | [06-shorts-and-next-watch.md](references/06-shorts-and-next-watch.md) |
 | 12 | **Phase 13** 업로드 전 점검 | 금지어·업로드 페이지 검사, seo-audit·korean-skills·design 스킬 점검(작은 표본이면 필수 2개) | [07-packaging-check.md](references/07-packaging-check.md) |
-| 13 | **Phase 11** 성과 리뷰 & 중단 규칙 | 48시간·7일·28일, 예측 vs 실제, **2편 연속 부진 시 그 형식 새 기획 중단**(작은 표본이면 참고만) | [05-performance-review.md](references/05-performance-review.md) |
+| 13 | **Phase 11** 성과 리뷰 & 중단 규칙 | 7일·28일, 예측 vs 실제, 기획 근거 판정, **성공 패턴·소재 이력 자동 기록**, **2편 연속 부진 시 그 형식 새 기획 중단**(작은 표본이면 참고만) | [05-performance-review.md](references/05-performance-review.md) |
 | 정기 | 인사이트(2주) · 월간 리포트(매월) | 댓글 속 미해결 질문 → Phase 4 근거, 월간 성과·수익화 단계 | [08-insights-and-monthly.md](references/08-insights-and-monthly.md) |
 
 ### 요청별 바로가기
@@ -71,6 +71,26 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 
 ---
 
+## 🔁 데이터 되먹임 루프 (2026-11-11)
+
+이 스킬은 모은 데이터를 읽어 기획하고, 결과를 다시 데이터에 써서 다음 기획이 더 정확해지게 한다. 사람이 버튼을 누르거나 손으로 적게 하면 주기를 놓치고 데이터가 오염된다(2026-11-11 사용자 결정, `AGENTS.md` "자동화 우선 원칙"). 그래서 **아래 "쓰는 단계"의 기록은 에이전트가 그 단계에서 묻지 않고 하고, 보고에 한 줄로 알린다.**
+
+| 데이터 | 읽는 단계 | 쓰는 단계 (자동) | 오래됐을 때 |
+|---|---|---|---|
+| 우리 채널 숫자 (`/api/sync` 응답) | Phase 1, 6, 11 | 대시보드 동기화 | 매번 새로 받는다 |
+| 경쟁 채널 (`market-demand.json`) | Phase 3, 4, 6 | `market-demand.mjs` | `updatedAt`이 7일 넘으면 Phase 3에서 `--sync-all-tracked` |
+| 시청자 고민 (`audience-dna.json`) | Phase 1, 4, 7 | 08 인사이트 (`POST /api/insights/analyze`) | `updatedAt`이 14일 넘으면 08 인사이트 1절을 먼저 |
+| 만든 소재 (`idea-board-history.json`) | Phase 1, 4 | 기획 확정 `selected` → 예약 `scheduled` → 공개 확인 `published` | 공개됐는데 빠진 영상이 있으면 그 자리에서 채운다 |
+| 기획 근거 (`BRIEF.md` "기획 근거" 칸) | Phase 3, 11 | Phase 4 선택 직후 | — |
+| 예측과 실제 (`REVIEW.md`) | Phase 2, 4, 6 | Phase 4(예측), Phase 11(실제·판정) | 공개 7일·28일이 지나면 Phase 11을 바로 |
+| 성공 패턴 (`success-patterns.json`) | Phase 4, 6, 7 | Phase 11 (1편이면 가설, 2편 이상이면 확정) | — |
+
+- 쓰기 전에 파일을 읽고 기존 형식을 지킨다. 출처(API 응답, `REVIEW.md`)가 있는 값만 쓰고, 숫자를 짐작으로 채우지 않는다.
+- Gemini를 부르는 갱신(댓글·대본 분석)은 지금처럼 비용·한도를 먼저 알린다. 동기화와 파일 읽기·쓰기는 묻지 않는다.
+- 대화를 마칠 때(`AGENTS.md` 작업 종료 규칙) 바뀐 데이터 파일도 같이 커밋한다.
+
+---
+
 ## 🛑 진행 및 멈춤 지점 원칙
 
 1. **멈춤 지점은 5곳입니다** (2026-11-06 개편. 단계마다 멈추면 1인 제작자에게 절차가 제작보다 무거워져 결국 건너뛰게 되기 때문).
@@ -84,7 +104,8 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
    | 5. 공개 | Phase 13 끝 | 업로드 전 점검 결과, 수정안, 공개 진행 |
 
    - 나머지 단계는 결과를 보고하고 계속 진행합니다. 사용자가 "단계마다 멈춰줘"라고 하면 그 대화에서는 매 단계 멈춥니다.
-   - 멈춤 지점이 아니어도 아래는 항상 승인을 받습니다: 유료 호출(Gemini 등) 전 비용 안내, `success-patterns.json`·`audience-dna.json` 반영, 업로드 패키지 파일 수정, 공개 일정 확정.
+   - 멈춤 지점이 아니어도 아래는 항상 승인을 받습니다: 유료 호출(Gemini 등) 전 비용 안내, 업로드 패키지 파일 수정, 공개 일정 확정.
+   - 데이터 파일(`success-patterns.json`, `audience-dna.json`, `idea-board-history.json`, `REVIEW.md` 실제·판정)은 승인 없이 자동으로 씁니다(위 "데이터 되먹임 루프", 2026-11-11 사용자 결정).
    - 같은 틀 반복 비교표(목차·제목)는 `CLAUDE.md` 규칙대로 보고한 뒤에만 다음 단계로 넘어갑니다.
 2. **사전 파일 존재 확인 의무화**:
    - `REVIEW.md`, `thumbnail-prompts.md`, `SCRIPT.md`, `visual-prompts.md` 등을 작성할 때 "내가 새로 만든다"고 가정하지 않고, 반드시 먼저 `view_file`로 기존 파일이 있는지 확인 후 갱신합니다.
@@ -93,7 +114,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
    - 승인을 요청하기 전에 `npm run check-terms -- videos/<프로젝트>`로 금지어를 검사해 결과를 함께 보고합니다. 렌더 명령은 훅이 같은 검사로 막습니다.
 4. **데이터와 말하기 공통 원칙**:
    - **vidIQ 사용 안 함**: 우리 채널 숫자는 대시보드(`npm run analytics`, 포트 3001), 경쟁 채널은 `market-demand.mjs`·`analyze-outlier-comments.mjs`와 `watch:watch`로 본다.
-   - **숫자는 라이브 값만**: `POST /api/sync` 직후 응답만 쓰고 `range`를 같이 적는다. `data/youtube/*.json`의 숫자를 그대로 인용하지 않는다.
+   - **숫자는 라이브 값만**: 우리 채널 숫자는 `POST /api/sync` 직후 응답만 쓰고 `range`를 같이 적는다. `analytics-latest.json` 같은 우리 채널 스냅샷 숫자를 그대로 인용하지 않는다. 루프 표의 누적 데이터(경쟁 채널, 시청자 고민, 만든 소재, 성공 패턴)는 파일을 직접 읽어 근거로 쓰고, 마지막 갱신일을 같이 적는다.
    - **작은 표본은 가설**: 1편에서 본 것은 가설, 같은 방식·형식 2편 이상에서 반복된 것만 확정이다.
    - **작은 표본 규칙 (2026-11-06)**: 같은 형식 최근 3편의 노출 중앙값이 1,000회 미만이면(`npm run growth-check`가 판정) 썸네일은 메인 1장만 만들고, 업로드 전 점검은 필수만 하고, 중단 신호는 참고로만 쓴다. 노출 150회를 시안 3개로 나누면 시안당 50회, 클릭은 1~3번이라 승자를 가릴 수 없기 때문이다.
    - **직언과 쉬운 설명**: 숫자와 근거로 결론을 말하고(`CLAUDE.md` 직언 원칙), 지표에는 한 줄 풀이를 붙인다(`00-unblock-and-weekly.md` 마지막 표).

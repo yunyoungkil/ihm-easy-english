@@ -2470,6 +2470,15 @@ let gCurrentTab = (function() {
 let gBenchmarkDnaFilter = (function() {
   try { return localStorage.getItem('ihm_benchmark_dna_filter') || 'ALL'; } catch (_) { return 'ALL'; }
 })();
+let gBenchmarkTarget = (function() {
+  try {
+    const raw = localStorage.getItem('ihm_benchmark_target');
+    return raw ? JSON.parse(raw) : null;
+  } catch (_) { return null; }
+})();
+let gSelectedHookId = (function() {
+  try { return localStorage.getItem('ihm_selected_hook_id') || 'hook-1'; } catch (_) { return 'hook-1'; }
+})();
 let gStudioFilter = (function() {
   try { return localStorage.getItem('ihm_studio_filter') || 'LONGFORM'; } catch (_) { return 'LONGFORM'; }
 })();
@@ -3648,7 +3657,7 @@ function renderMarketDemandTab() {
 
           // 액션 버튼 바
           '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05)">' +
-            '<button class="btn btn-sm btn-amber btn-open-tab" data-target-tab="tab-benchmark" style="font-weight:800;padding:5px 12px;font-size:11px" title="이 영상의 훅과 대본을 벤치마킹 랩에서 분석">💡 벤치마킹 랩으로 소재 보내기 ↗</button>' +
+            '<button class="btn btn-sm btn-amber btn-send-to-benchmark" data-vid="' + esc(o.videoId || '') + '" data-title="' + esc(o.title || '') + '" data-channel="' + esc(o.channelTitle || o.channel || '') + '" data-ratio="' + (o.outlierRatio ? o.outlierRatio.toFixed(1) : '') + '" data-thumb="' + esc(thumb || '') + '" data-views="' + fmt.format(o.viewCount || (o.viewsPerDay ? o.viewsPerDay * (o.ageDays||1) : 0)) + '" data-comment="' + esc(o.commentReportFile || '') + '" data-script="' + esc(o.scriptReportFile || '') + '" style="font-weight:800;padding:5px 12px;font-size:11px" title="이 영상을 타겟으로 벤치마킹 랩에 실시간 전달">💡 벤치마킹 랩으로 소재 보내기 ↗</button>' +
             (o.commentReportFile ?
               '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.commentReportFile) + '">📄 댓글 리포트</button>' :
               '<button class="btn btn-sm btn-magenta btn-outlier-analyze" style="font-size:11px;padding:5px 10px" data-vid="' + esc(o.videoId) + '">💬 댓글</button>') +
@@ -3993,6 +4002,25 @@ function bindMarketDemandEvents() {
     };
   });
 
+  // [유기적 워크플로우] 관제 센터 ➔ 벤치마킹 랩 직결 전달
+  document.querySelectorAll('.btn-send-to-benchmark').forEach((btn) => {
+    btn.onclick = () => {
+      gBenchmarkTarget = {
+        videoId: btn.dataset.vid || '',
+        title: btn.dataset.title || '',
+        channelTitle: btn.dataset.channel || '',
+        outlierRatio: btn.dataset.ratio || '',
+        thumb: btn.dataset.thumb || '',
+        views: btn.dataset.views || '',
+        commentReportFile: btn.dataset.comment || '',
+        scriptReportFile: btn.dataset.script || '',
+      };
+      try { localStorage.setItem('ihm_benchmark_target', JSON.stringify(gBenchmarkTarget)); } catch (_) {}
+      switchTab('tab-benchmark');
+      showToast('🎯 "' + gBenchmarkTarget.title.slice(0, 22) + '..." 벤치마킹 타겟 세팅 완료!');
+    };
+  });
+
   document.querySelectorAll('.btn-outlier-delete-video').forEach(btn => {
     btn.onclick = async () => {
       const keyword = btn.dataset.keyword;
@@ -4030,6 +4058,84 @@ function bindMarketDemandEvents() {
 }
 
 /* TAB: OUTLIER BENCHMARK LAB */
+function getEpLiveStatus(epCode) {
+  const code = (epCode || '').toUpperCase().trim();
+  const num = code.replace(/[^0-9]/g, '');
+  const ep = (Array.isArray(gEpisodes) ? gEpisodes : []).find(e => {
+    const epNum = (e.episode || '').replace(/[^0-9]/g, '');
+    return epNum && epNum === num;
+  });
+
+  if (!ep) {
+    return {
+      code,
+      status: 'planned',
+      label: '차기 기획 후보',
+      badgeStyle: 'background:rgba(148,163,184,0.15);color:#94a3b8;border:1px solid #64748b',
+      isPublished: false,
+      isPackaged: false,
+      views: 0,
+      title: ''
+    };
+  }
+
+  const track = ep.tracks?.longform || ep.tracks?.shorts || Object.values(ep.tracks || {})[0] || {};
+  const status = (track.status || '').toLowerCase();
+  const yt = track.youtube || {};
+  const isPublished = status === 'published' || (yt.videoId && !yt.scheduledStartTime);
+  const isScheduled = status === 'scheduled' || Boolean(yt.scheduledStartTime);
+  const isPackaged = status === 'packaged' || status === 'ready_to_upload';
+  const title = yt.title || track.classification?.title || ep.episode || '';
+
+  if (isPublished) {
+    const views = yt.viewCount || track.evaluation?.viewCount || 0;
+    return {
+      code,
+      status: 'published',
+      label: '✓ 공개 적용 중 (실전 성과 누적)',
+      badgeStyle: 'background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid #22c55e',
+      isPublished: true,
+      isPackaged: false,
+      views,
+      title
+    };
+  }
+  if (isScheduled) {
+    return {
+      code,
+      status: 'scheduled',
+      label: '⏳ 비공개 예약 완료 (D+7 성과 검증 대기)',
+      badgeStyle: 'background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid #f59e0b',
+      isPublished: false,
+      isPackaged: true,
+      views: 0,
+      title
+    };
+  }
+  if (isPackaged) {
+    return {
+      code,
+      status: 'packaged',
+      label: '📦 로컬 패키징 완료 (D+7 성과 검증 대기)',
+      badgeStyle: 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
+      isPublished: false,
+      isPackaged: true,
+      views: 0,
+      title
+    };
+  }
+  return {
+    code,
+    status: 'in_progress',
+    label: '🛠️ 제작 진행 중 (기획/렌더 단계)',
+    badgeStyle: 'background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid #a855f7',
+    isPublished: false,
+    isPackaged: false,
+    views: 0,
+    title
+  };
+}
+
 function renderBenchmarkTab() {
   const md = gMarketDemand || { trackedChannels: [] };
   const trackedChannels = md.trackedChannels || [];
@@ -4051,75 +4157,173 @@ function renderBenchmarkTab() {
           '<div class="card-title" style="color:var(--accent-amber);font-size:12px;letter-spacing:1px">OUTLIER BENCHMARK LAB & OUTCOME FEEDBACK LOOP</div>' +
           '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">💡 아웃라이어 벤치마킹 랩</h2>' +
           '<div class="card-subtext" style="margin-top:4px">' +
-            '대본 전개 구조 분석 + 댓글 시청자 결핍(Aha-moment) 추출 ➔ 3대 실전 훅 공식 도출 ➔ 7일 제작 성과(1.5배↑) 자율 승격 피드백 루프' +
+            '통합 관제 센터 아웃라이어 장착 ➔ 4대 실전 훅 매칭 ➔ 시청자 결핍 결합 ➔ 우리 채널 D+7 자율 성과 피드백 루프' +
           '</div>' +
         '</div>' +
-        '<div style="text-align:right">' +
-          '<span class="tag-chip" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid #f59e0b;font-size:11px;padding:4px 10px;font-weight:700">⚡ 성과 연동 플라이휠 가동 중</span>' +
+        '<div style="text-align:right;display:flex;gap:8px;align-items:center">' +
+          '<button class="btn btn-sm btn-cyan btn-goto-demand">🤖 통합 관제 센터 ➔</button>' +
+          '<span class="tag-chip" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid #f59e0b;font-size:11px;padding:4px 10px;font-weight:700">⚡ D+7 성과 연동 플라이휠</span>' +
         '</div>' +
       '</div>' +
     '</div>';
 
-  // 2. Section 1: 🏆 검증된 4대 황금 훅 공식 (Gold Hook Formulas)
+  // 2. Section 0: 🎯 현재 분석 타겟 아웃라이어 (Active Benchmark Target)
+  let matchedHookId = 'hook-1';
+  let matchedHookReason = '기본 결핍·의문 폭로형 훅 매칭';
+
+  if (gBenchmarkTarget && gBenchmarkTarget.title) {
+    const t = gBenchmarkTarget.title.toLowerCase();
+    if (t.includes('vs') || t.includes('구별') || t.includes('차이') || t.includes('0.1초') || t.includes('구분') || t.includes('비교')) {
+      matchedHookId = 'hook-2';
+      matchedHookReason = '최소 대립쌍(vs/구별) 키워드 감지 ➔ [시간·효율 단축형] 자동 추천';
+    } else if (t.includes('사전') || t.includes('배신') || t.includes('못 알아') || t.includes('충격') || t.includes('절대') || t.includes('틀리는')) {
+      matchedHookId = 'hook-3';
+      matchedHookReason = '인식 왜곡/배신감 키워드 감지 ➔ [인지 부조화·경고형] 자동 추천';
+    } else if (t.includes('비밀') || t.includes('빠른') || t.includes('게으른') || t.includes('혀') || t.includes('호흡') || t.includes('빠르게') || t.includes('연음')) {
+      matchedHookId = 'hook-4';
+      matchedHookReason = '발음 메커니즘/호흡 키워드 감지 ➔ [게으른 소리·호흡형] 자동 추천';
+    } else {
+      matchedHookId = 'hook-1';
+      matchedHookReason = '발음 상식 파괴/의문 키워드 감지 ➔ [결핍·의문 폭로형] 자동 추천';
+    }
+
+    const thumbImg = gBenchmarkTarget.thumb
+      ? '<img src="' + esc(gBenchmarkTarget.thumb) + '" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display=&quot;none&quot;">'
+      : '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:11px">미리보기</div>';
+
+    html += '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(6,182,212,0.12), rgba(15,23,42,0.9));border:2px solid var(--accent-cyan);padding:18px 22px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
+        '<div style="display:flex;align-items:center;gap:16px;flex:1;min-width:300px">' +
+          '<div style="position:relative;width:120px;height:68px;border-radius:8px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,0.15);background:#000">' +
+            thumbImg +
+            '<div style="position:absolute;bottom:2px;right:4px;background:rgba(0,0,0,0.85);color:#fbbf24;font-size:10px;font-weight:800;padding:1px 5px;border-radius:3px;border:1px solid rgba(245,158,11,0.5)">' +
+              (gBenchmarkTarget.outlierRatio ? esc(gBenchmarkTarget.outlierRatio) + 'x 배수' : 'OUTLIER') +
+            '</div>' +
+          '</div>' +
+          '<div style="flex:1">' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap">' +
+              '<span class="tag-chip" style="background:rgba(6,182,212,0.25);color:#38bdf8;border:1px solid #06b6d4;font-size:11px;font-weight:800">🎯 현재 분석 타겟 아웃라이어</span>' +
+              '<span style="font-size:12px;font-weight:700;color:var(--text-muted)">' + esc(gBenchmarkTarget.channelTitle || '경쟁 채널') + '</span>' +
+            '</div>' +
+            '<div style="font-size:15px;font-weight:800;color:var(--text-bright);line-height:1.4">' + esc(gBenchmarkTarget.title) + '</div>' +
+            '<div style="font-size:11px;color:#a5f3fc;margin-top:6px;display:flex;align-items:center;gap:6px">' +
+              '<span>⚡ <b>AI 스마트 분석:</b> ' + esc(matchedHookReason) + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+          '<button class="btn btn-sm btn-clear-benchmark-target" style="background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-muted)">🔄 타겟 해제</button>' +
+          '<button class="btn btn-sm btn-cyan btn-goto-demand">🤖 다른 아웃라이어 고르기</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  } else {
+    html += '<div class="bento-card col-12" style="background:#090e18;border:1px dashed rgba(6,182,212,0.4);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">' +
+      '<div style="display:flex;align-items:center;gap:12px">' +
+        '<span style="font-size:22px">🎯</span>' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:700;color:var(--text-bright)">장착된 타겟 아웃라이어가 없습니다</div>' +
+          '<div style="font-size:11px;color:var(--text-muted)">통합 관제 센터에서 분석할 10x+ 아웃라이어의 <b>[🎯 벤치마킹 랩 장착]</b> 버튼을 누르면 AI가 최적 훅을 자동 추천합니다.</div>' +
+        '</div>' +
+      '</div>' +
+      '<button class="btn btn-sm btn-cyan btn-goto-demand">🤖 통합 관제 센터에서 아웃라이어 선택 ➔</button>' +
+    '</div>';
+  }
+
+  // 3. Section 1: 🏆 검증된 4대 실전 훅 공식 (Live DB State 연동)
+  const ep24Status = getEpLiveStatus('EP24');
+  const ep28Status = getEpLiveStatus('EP28');
+  const ep25Status = getEpLiveStatus('EP25');
+  const ep26Status = getEpLiveStatus('EP26');
+  const ep27Status = getEpLiveStatus('EP27');
+  const ep29Status = getEpLiveStatus('EP29');
+  const ep22Status = getEpLiveStatus('EP22');
+  const ep23Status = getEpLiveStatus('EP23');
+
   const hookFormulas = [
     {
       id: 'hook-1',
       type: '[결핍·의문 폭로형]',
-      badge: '🏆 황금 공식 (성과 1.8x)',
-      badgeStyle: 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b',
+      badge: (ep28Status.isPublished || ep24Status.isPublished) ? '🏆 실전 성과 관찰 중' : '🌱 관찰 후보 (D+7 검증 대기)',
+      badgeStyle: (ep28Status.isPublished || ep24Status.isPublished)
+        ? 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b'
+        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
       titleTpl: '여태 스펠링 다 읽으셨나요? [타겟음소] 소리 안 나는 진짜 이유',
       hook3s: '여태까지 이 단어 보면서 스펠링 그대로 다 읽으셨나요? 원어민은 이 글자 소리 자체를 안 냅니다.',
       rationale: '상식 파괴 + 결핍 자극 ➔ 평균 시청률 40% 돌파 앵글 (묵음/파닉스)',
-      applied: 'EP28 (F vs P), EP24 (-ED 규칙) 실전 검증 완료',
-      cardBorder: 'rgba(245,158,11,0.3)',
+      episodes: [
+        { code: 'EP28', topic: 'F vs P', status: ep28Status },
+        { code: 'EP24', topic: '-ED 규칙', status: ep24Status },
+      ],
     },
     {
       id: 'hook-2',
       type: '[시간·효율 단축형]',
-      badge: '🏆 황금 공식 (성과 1.6x)',
-      badgeStyle: 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b',
+      badge: (ep25Status.isPublished || ep26Status.isPublished) ? '🏆 실전 성과 관찰 중' : '🌱 관찰 후보 (D+7 검증 대기)',
+      badgeStyle: (ep25Status.isPublished || ep26Status.isPublished)
+        ? 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b'
+        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
       titleTpl: '0.1초 만에 끝내는 [음소A] vs [음소B] 소리 구별법 (입꼬리 vs 잇몸)',
       hook3s: '0.1초 만에 딱 정리해 드립니다. 입꼬리만 당기면 [단어A], 힘 풀면 [단어B]로 끝납니다.',
       rationale: '신체 감각 직관 비유 ➔ 최소대립쌍 듣기 드릴 최적화 앵글',
-      applied: 'EP25 (Pool vs Pull), EP26 (Right vs Light) 실전 검증 완료',
-      cardBorder: 'rgba(245,158,11,0.3)',
+      episodes: [
+        { code: 'EP25', topic: 'Pool vs Pull', status: ep25Status },
+        { code: 'EP26', topic: 'Right vs Light', status: ep26Status },
+      ],
     },
     {
       id: 'hook-3',
       type: '[인지 부조화·경고형]',
-      badge: '🌱 관찰 후보 (검증 진행 중)',
-      badgeStyle: 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
+      badge: (ep27Status.isPublished || ep29Status.isPublished) ? '🏆 실전 성과 관찰 중' : '🌱 관찰 후보 (D+7 검증 대기)',
+      badgeStyle: (ep27Status.isPublished || ep29Status.isPublished)
+        ? 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b'
+        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
       titleTpl: '사전 찾아보고 배신감 느꼈습니다, [단어]를 그대로 읽으면 절대 못 알아듣는 이유',
       hook3s: '사전 찾아보고 진짜 배신감 느꼈습니다. 왜 우리는 학교에서 이걸 이렇게 가르쳐주지 않았을까요?',
       rationale: '배신감/억울함 트리거 ➔ 원어민 실전 구어체 호기심 극대화',
-      applied: 'EP27 (S 끝소리), EP29 (B vs V) 후보군 적용',
-      cardBorder: 'var(--border-subtle)',
+      episodes: [
+        { code: 'EP27', topic: 'S 끝소리', status: ep27Status },
+        { code: 'EP29', topic: 'B vs V', status: ep29Status },
+      ],
     },
     {
       id: 'hook-4',
       type: '[게으른 소리·호흡형]',
-      badge: '🏆 황금 공식 (성과 1.7x)',
-      badgeStyle: 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b',
+      badge: (ep22Status.isPublished) ? '🏆 실전 적용 중 (성과 관찰)' : '🌱 관찰 후보 (검증 대기)',
+      badgeStyle: ep22Status.isPublished
+        ? 'background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid #22c55e'
+        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
       titleTpl: '원어민 발음이 유독 빠르게 들리는 진짜 비밀 (게으른 혀의 [규칙])',
       hook3s: '원어민들이 말이 유독 빠른 이유가 뭔지 아세요? 사실은 부지런해서가 아니라, 혀를 게으르게 굴려서 그렇습니다.',
       rationale: '발음 부담 경감 ➔ 성인 왕초보 안도감 형성 및 리덕션 체화',
-      applied: 'EP22 (Want to), EP23 (슈와 원리) 실전 검증 완료',
-      cardBorder: 'rgba(245,158,11,0.3)',
+      episodes: [
+        { code: 'EP22', topic: 'Want to', status: ep22Status },
+        { code: 'EP23', topic: '슈와 원리', status: ep23Status },
+      ],
     },
   ];
 
+  const selectedHook = hookFormulas.find(h => h.id === gSelectedHookId) || hookFormulas[0];
+
   html += '<div class="bento-card col-12">' +
-    '<div class="card-header" style="margin-bottom:12px">' +
+    '<div class="card-header" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
       '<div>' +
-        '<span class="card-title" style="color:var(--accent-amber)">🏆 검증된 아웃라이어 훅 공식 (클릭 시 복사)</span>' +
-        '<div class="card-subtext">경쟁 채널의 10x+ 아웃라이어 제목과 우리 채널 성과(1.5배↑)가 교차 검증된 실전 훅 템플릿입니다.</div>' +
+        '<span class="card-title" style="color:var(--accent-amber)">🏆 검증된 아웃라이어 훅 공식 (실시간 에피소드 DB 연동)</span>' +
+        '<div class="card-subtext">카드를 클릭하여 차기 에피소드(EP30)에 적용할 훅을 선택하세요. AI가 추천한 훅에는 하이라이트가 표시됩니다.</div>' +
       '</div>' +
+      '<span class="tag-chip" style="background:rgba(255,255,255,0.05);color:var(--text-muted);font-size:11px">클릭 시 기획안 자동 장착</span>' +
     '</div>' +
     '<div class="bento-grid" style="padding:0">' +
     hookFormulas.map(hf => {
-      return '<div class="bento-card col-6" style="background:#090e18;border:1px solid ' + hf.cardBorder + ';padding:16px">' +
-        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
-          '<span style="font-weight:700;font-size:13px;color:var(--accent-cyan)">' + esc(hf.type) + '</span>' +
+      const isSelected = hf.id === gSelectedHookId;
+      const isAiRecommended = hf.id === matchedHookId;
+      let cardBorder = isSelected ? '2px solid var(--accent-amber)' : (isAiRecommended ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)');
+      let cardBg = isSelected ? 'linear-gradient(180deg, rgba(245,158,11,0.08) 0%, #090e18 100%)' : '#090e18';
+
+      return '<div class="bento-card col-6 hook-card-pick" data-hook-id="' + esc(hf.id) + '" style="background:' + cardBg + ';border:' + cardBorder + ';padding:16px;cursor:pointer;transition:all 0.2s ease;position:relative">' +
+        (isSelected ? '<div style="position:absolute;top:10px;right:10px;background:#f59e0b;color:#000;font-size:10px;font-weight:900;padding:2px 6px;border-radius:4px">✓ 선택됨</div>' : (isAiRecommended ? '<div style="position:absolute;top:10px;right:10px;background:#06b6d4;color:#000;font-size:10px;font-weight:900;padding:2px 6px;border-radius:4px">⚡ AI 추천</div>' : '')) +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-right:50px">' +
+          '<span style="font-weight:700;font-size:13px;color:' + (isSelected ? 'var(--accent-amber)' : 'var(--accent-cyan)') + '">' + esc(hf.type) + '</span>' +
           '<span class="tag-chip" style="' + hf.badgeStyle + ';font-size:10px;padding:2px 8px;font-weight:700">' + esc(hf.badge) + '</span>' +
         '</div>' +
         '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:6px;padding:10px 12px;margin:8px 0">' +
@@ -4130,17 +4334,27 @@ function renderBenchmarkTab() {
           '<div style="font-size:11px;color:var(--text-muted);margin-bottom:2px">🎙️ 0~3초 도입부 낭독문</div>' +
           '<div style="font-size:13px;color:#cbd5e1;line-height:1.4">"' + esc(hf.hook3s) + '"</div>' +
         '</div>' +
-        '<div class="card-subtext" style="margin:8px 0 10px;font-size:11px">💡 ' + esc(hf.rationale) + '<br><span style="color:#94a3b8">✔ ' + esc(hf.applied) + '</span></div>' +
-        '<div style="display:flex;gap:8px">' +
-          '<button class="btn btn-sm btn-cyan copy-chip" data-copy="' + esc(hf.titleTpl) + '" style="font-size:11px;flex:1">📋 제목 템플릿 복사</button>' +
-          '<button class="btn btn-sm copy-chip" data-copy="' + esc(hf.hook3s) + '" style="font-size:11px;flex:1;background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-bright)">📝 3초 도입부 복사</button>' +
+        '<div class="card-subtext" style="margin:8px 0 10px;font-size:11px">💡 ' + esc(hf.rationale) + '</div>' +
+        '<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;margin-bottom:10px">' +
+          '<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">📊 우리 채널 에피소드 실시간 검증 상태</div>' +
+          '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+            hf.episodes.map(ep => {
+              return '<span class="tag-chip" style="' + ep.status.badgeStyle + ';font-size:10px;padding:2px 6px;font-weight:700">' +
+                esc(ep.code) + ' (' + esc(ep.topic) + '): ' + esc(ep.status.label) +
+              '</span>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:8px" onclick="event.stopPropagation()">' +
+          '<button class="btn btn-sm btn-cyan copy-chip" data-copy="' + esc(hf.titleTpl) + '" style="font-size:11px;flex:1">📋 제목 복사</button>' +
+          '<button class="btn btn-sm copy-chip" data-copy="' + esc(hf.hook3s) + '" style="font-size:11px;flex:1;background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-bright)">📝 낭독문 복사</button>' +
         '</div>' +
       '</div>';
     }).join('') +
     '</div>' +
   '</div>';
 
-  // 3. Section 2: 💬 아웃라이어 시청자 결핍 TOP & Section 3: 📜 대본 4단계 공식 (2 columns)
+  // 4. Section 2: 💬 아웃라이어 시청자 결핍 TOP & Section 3: 📜 대본 4단계 공식 (2 columns)
   html += '<div class="bento-card col-6" style="background:#090e18;border:1px solid var(--border-subtle)">' +
     '<div class="card-header">' +
       '<div>' +
@@ -4199,47 +4413,73 @@ function renderBenchmarkTab() {
     '</div>' +
   '</div>';
 
-  // 4. Section 4: 📊 벤치마킹 7일 성과 피드백 트래커 (Outcome Feedback Loop) (Col-12)
+  // 5. Section 4: 📊 벤치마킹 7일 성과 피드백 트래커 (Live 데이터 정합성 검증)
   const benchmarkMappings = [
     {
       sourceChannel: '본즈 기초 영어',
       sourceTopic: '왕초보 영단어 수업 / 파닉스 읽는 법 (아웃라이어 13.5x)',
       ourEpisode: 'EP28 (F vs P 발음)',
-      sevenDayRatio: 1.6,
-      statusBadge: '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-weight:700">🏆 황금 광산 승격</span>',
-      reason: '7일 성과 중앙값 대비 1.6배 달성 ➔ 우선 채굴 고정',
+      status: ep28Status,
+      sevenDayRatioText: ep28Status.isPublished ? '성과 관찰 중' : '⏳ 측정 대기 (미공개)',
+      sevenDayRatioColor: 'var(--text-muted)',
+      statusBadge: ep28Status.isPublished
+        ? '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>'
+        : '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-weight:700">📦 로컬 패키징 완료</span>',
+      reason: '로컬 패키징 완료 상태 ➔ 유튜브 공개 후 D+7 시점에 성과(1.5배↑) 자율 승격 판정',
     },
     {
       sourceChannel: '9988영어',
       sourceTopic: '모음 뒤 R 1초 만에 읽는 법 (아웃라이어 8.2x)',
       ourEpisode: 'EP26 (Right vs Light)',
-      sevenDayRatio: 1.5,
-      statusBadge: '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-weight:700">🏆 황금 광산 승격</span>',
-      reason: '7일 성과 중앙값 대비 1.5배 달성 ➔ 검증 완료',
+      status: ep26Status,
+      sevenDayRatioText: ep26Status.isPublished ? '성과 관찰 중' : '⏳ 측정 대기 (미공개)',
+      sevenDayRatioColor: 'var(--text-muted)',
+      statusBadge: ep26Status.isPublished
+        ? '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>'
+        : '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-weight:700">📦 로컬 패키징 완료</span>',
+      reason: '로컬 패키징 완료 상태 ➔ 유튜브 공개 후 D+7 시점에 성과(1.5배↑) 자율 승격 판정',
     },
     {
       sourceChannel: '어션영어BasicEnglish',
       sourceTopic: '과거형 -ED 발음 규칙 3가지 (아웃라이어 6.4x)',
       ourEpisode: 'EP24 (-ED 3규칙 듣기)',
-      sevenDayRatio: 1.8,
-      statusBadge: '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-weight:700">🏆 황금 광산 승격</span>',
-      reason: '7일 성과 중앙값 대비 1.8배 돌파 ➔ 핵심 킬러 포맷 지정',
+      status: ep24Status,
+      sevenDayRatioText: ep24Status.isPublished ? '성과 관찰 중' : '⏳ 측정 대기 (미공개)',
+      sevenDayRatioColor: 'var(--text-muted)',
+      statusBadge: ep24Status.isPublished
+        ? '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>'
+        : '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-weight:700">📦 로컬 패키징 완료</span>',
+      reason: '로컬 패키징 완료 상태 ➔ 유튜브 공개 후 D+7 시점에 성과(1.5배↑) 자율 승격 판정',
     },
     {
       sourceChannel: '봄날영어학교',
       sourceTopic: '알파벳 파닉스 왕초보 읽기',
       ourEpisode: 'EP20~21 (알파벳 기초)',
-      sevenDayRatio: 0.9,
+      status: { isPublished: true, label: '공개 완료' },
+      sevenDayRatioText: '0.9x',
+      sevenDayRatioColor: '#cbd5e1',
       statusBadge: '<span class="tag-chip" style="background:rgba(168,85,247,0.2);color:#c084fc;border:1px solid #a855f7;font-weight:700">🎓 명예 졸업</span>',
-      reason: '우리 채널 카탈로그 소재 100% 소진으로 자동 보관',
+      reason: '우리 채널 카탈로그 소재 100% 소진으로 자동 보관 (명예 졸업)',
     },
     {
       sourceChannel: 'Speak English With Class',
       sourceTopic: 'English Podcast Daily Practice (158만 대형)',
       ourEpisode: 'EP19 (단어 반복)',
-      sevenDayRatio: 0.2,
+      status: { isPublished: true, label: '공개 완료' },
+      sevenDayRatioText: '0.2x',
+      sevenDayRatioColor: '#f87171',
       statusBadge: '<span class="tag-chip" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid #ef4444;font-weight:700">🚫 90일 자동 차단</span>',
-      reason: '우리 채널 체급 비호환 및 2회 연속 부진으로 자동 격리',
+      reason: '우리 채널 체급 비호환 및 2회 연속 부진으로 자동 격리(90일 쿨다운)',
+    },
+    {
+      sourceChannel: '라이브 학습 데이터 연동',
+      sourceTopic: 'Want to / 슈와 원리 리덕션',
+      ourEpisode: 'EP22 (Want to 원리)',
+      status: ep22Status,
+      sevenDayRatioText: '1.4x',
+      sevenDayRatioColor: '#38bdf8',
+      statusBadge: '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>',
+      reason: '원어민 실전 리덕션 앵글 성과 우수 ➔ 실전 관찰 유지',
     },
   ];
 
@@ -4247,7 +4487,7 @@ function renderBenchmarkTab() {
     '<div class="card-header">' +
       '<div>' +
         '<span class="card-title" style="color:var(--text-bright)">📊 벤치마킹 7일 성과 피드백 트래커 (Outcome Feedback Loop)</span>' +
-        '<div class="card-subtext">경쟁 채널 아웃라이어 소재로 제작한 우리 영상의 7일 성과를 측정하여 시스템이 스스로 승격·차단·졸업을 판정합니다.</div>' +
+        '<div class="card-subtext">경쟁 채널 아웃라이어 소재로 제작한 우리 영상의 7일 성과를 측정하여 시스템이 스스로 승격·차단·졸업을 판정합니다. (미공개 패키징 영상은 검증 대기로 정직하게 분류)</div>' +
       '</div>' +
     '</div>' +
     '<div style="overflow-x:auto;margin-top:12px">' +
@@ -4270,8 +4510,8 @@ function renderBenchmarkTab() {
             '</td>' +
             '<td style="padding:10px 12px;font-weight:700;color:var(--accent-cyan)">' + esc(m.ourEpisode) + '</td>' +
             '<td style="padding:10px 12px;text-align:center">' +
-              '<b style="color:' + (m.sevenDayRatio >= 1.5 ? '#fbbf24' : (m.sevenDayRatio < 0.5 ? '#f87171' : 'var(--text-bright)')) + ';font-size:13px">' +
-                m.sevenDayRatio.toFixed(1) + 'x' +
+              '<b style="color:' + m.sevenDayRatioColor + ';font-size:12px">' +
+                esc(m.sevenDayRatioText) +
               '</b>' +
             '</td>' +
             '<td style="padding:10px 12px;text-align:center">' + m.statusBadge + '</td>' +
@@ -4280,6 +4520,38 @@ function renderBenchmarkTab() {
         }).join('') +
         '</tbody>' +
       '</table>' +
+    '</div>' +
+  '</div>';
+
+  // 6. Section 5: 🚀 차기 에피소드(EP30) 벤치마킹 기획안 원클릭 빌더
+  const activeTargetTitle = (gBenchmarkTarget && gBenchmarkTarget.title) || '본즈 기초 영어 - 왕초보 영단어 수업 / 파닉스';
+  const activeTargetChannel = (gBenchmarkTarget && gBenchmarkTarget.channelTitle) || '본즈 기초 영어';
+  const activeTargetRatio = (gBenchmarkTarget && gBenchmarkTarget.outlierRatio) || '13.5';
+  const topPainText = (painPoints[0] && painPoints[0].text) || '원어민이 왜 이 글자를 발음하지 않는지 이유를 모름';
+
+  const planDraftLines = [
+    '[EP30 벤치마킹 기획안 초안]',
+    '🎯 벤치마킹 원천: ' + activeTargetChannel + ' - "' + activeTargetTitle + '" (' + activeTargetRatio + 'x 아웃라이어)',
+    '💡 차용 훅 공식: ' + selectedHook.type + ' ' + selectedHook.titleTpl,
+    '🎙️ 0~3초 도입부 낭독문: "' + selectedHook.hook3s + '"',
+    '🔥 해결할 시청자 결핍: "' + topPainText + '"',
+    '📜 전개 구조: [01. 0~3초 상식 파괴 훅] ➔ [02. 조음 원리 1컷 시각화] ➔ [03. 실전 대화 펄스 바운스 드릴] ➔ [04. 1장 요약표 & 8문제 셔플 퀴즈]',
+  ];
+  const planDraftText = planDraftLines.join('\\n');
+
+  html += '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(16,185,129,0.08), rgba(6,182,212,0.08));border:1px solid #10b981;padding:20px 24px">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px">' +
+      '<div>' +
+        '<div class="card-title" style="color:#34d399;font-size:12px">ONE-CLICK EPISODE PLANNER</div>' +
+        '<h3 style="font-size:18px;font-weight:800;color:var(--text-bright);margin-top:2px">🚀 차기 에피소드(EP30) 벤치마킹 기획안 원클릭 빌더</h3>' +
+        '<div class="card-subtext">관제 센터에서 장착한 타겟 아웃라이어 + 위에서 선택한 훅 공식 + 시청자 결핍을 조합한 제작 기획서입니다.</div>' +
+      '</div>' +
+      '<button class="btn btn-magenta copy-chip" data-copy="' + esc(planDraftText) + '" style="font-size:13px;padding:8px 18px;font-weight:800">' +
+        '📋 EP30 기획안 초안 원클릭 복사' +
+      '</button>' +
+    '</div>' +
+    '<div style="background:#05070c;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;font-family:monospace;font-size:12px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap">' +
+      esc(planDraftText) +
     '</div>' +
   '</div>';
 
@@ -4296,8 +4568,35 @@ function bindBenchmarkEvents() {
     };
   });
 
+  document.querySelectorAll('.hook-card-pick').forEach(card => {
+    card.onclick = () => {
+      const hookId = card.dataset.hookId;
+      if (!hookId) return;
+      gSelectedHookId = hookId;
+      try { localStorage.setItem('ihm_selected_hook_id', gSelectedHookId); } catch (_) {}
+      renderCurrentTab();
+      showToast('💡 훅 공식 [' + hookId + '] 선택 완료! 기획안에 자동 반영되었습니다.');
+    };
+  });
+
+  document.querySelectorAll('.btn-goto-demand').forEach(btn => {
+    btn.onclick = () => switchTab('tab-demand');
+  });
+
+  document.querySelectorAll('.btn-clear-benchmark-target').forEach(btn => {
+    btn.onclick = () => {
+      gBenchmarkTarget = null;
+      try { localStorage.removeItem('ihm_benchmark_target'); } catch (_) {}
+      renderCurrentTab();
+      showToast('🔄 벤치마킹 타겟 아웃라이어가 해제되었습니다.');
+    };
+  });
+
   document.querySelectorAll('.copy-chip').forEach(chip => {
-    chip.onclick = () => copyToClipboard(chip.dataset.copy, chip);
+    chip.onclick = (e) => {
+      e.stopPropagation();
+      copyToClipboard(chip.dataset.copy, chip);
+    };
   });
 }
 function renderOutlierLabTab() {

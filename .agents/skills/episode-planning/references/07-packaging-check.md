@@ -44,5 +44,6 @@
 
 - `output/upload-packages/<패키지>/packaging-review.md`: "통과 / 고칠 것(원문 → 수정안)" 표. 스킬마다 따로 적는다.
 - 고칠 것은 제안만 하고, 패키지 파일은 사용자 승인 뒤에 고친다. 고치면 `knowledge/production-rules.md` "업로드 패키지 변경 완료 조건"을 따른다.
+- 예약이 확인되면(패키지 `status.json`이 `scheduled`) 소재 이력을 `status: "scheduled"`로 묻지 않고 등록한다(`01-topic-and-data.md` "소재 이력 등록", 2026-11-11).
 
 **멈춤 지점 (공개 게이트)**: 점검 결과를 보고하고, 수정 승인과 공개 진행 여부를 사용자에게 받는다.

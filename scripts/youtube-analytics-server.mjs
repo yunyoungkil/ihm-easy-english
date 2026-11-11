@@ -266,9 +266,22 @@ const mapConcurrent = async (items, limit, fn) => {
   return results;
 };
 
-const saveJson = async (path, value) => {
-  await mkdir(youtubeDataDir, {recursive: true});
-  await writeFile(path, JSON.stringify(value, null, 2), 'utf8');
+let fileWriteQueue = Promise.resolve();
+const saveJson = (path, value) => {
+  fileWriteQueue = fileWriteQueue.then(async () => {
+    await mkdir(dirname(path), {recursive: true});
+    const tmpPath = `${path}.tmp.${Date.now()}`;
+    await writeFile(tmpPath, JSON.stringify(value, null, 2), 'utf8');
+    try {
+      await rename(tmpPath, path);
+    } catch (_) {
+      await writeFile(path, JSON.stringify(value, null, 2), 'utf8');
+      await unlink(tmpPath).catch(() => {});
+    }
+  }).catch(err => {
+    console.error('saveJson error on', path, err);
+  });
+  return fileWriteQueue;
 };
 
 const loadJson = async (path, fallback = null) => {
@@ -1925,6 +1938,55 @@ input:disabled, select:disabled {
 }
 .right { text-align: right !important; }
 
+.studio-thumb-preview-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.studio-thumb-mini {
+  width: 52px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  background: #080d16;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.studio-thumb-mini.is-shorts {
+  width: 24px;
+  height: 38px;
+}
+.studio-thumb-preview-wrap:hover .studio-thumb-mini {
+  transform: scale(1.08);
+  border-color: var(--accent-cyan);
+}
+.studio-thumb-hover-pop {
+  display: none;
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99;
+  background: #060910;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 10px;
+  padding: 4px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.85);
+  pointer-events: none;
+}
+.studio-thumb-preview-wrap:hover .studio-thumb-hover-pop {
+  display: block;
+}
+.studio-thumb-hover-pop img {
+  display: block;
+  border-radius: 6px;
+  max-height: 240px;
+  max-width: 320px;
+  object-fit: contain;
+}
+
 .tag-chip {
   display: inline-flex;
   align-items: center;
@@ -2390,7 +2452,12 @@ let gKdbSourceFilter = 'ALL'; // 'ALL' | 'outlierComment' | 'competitorScript'
 let gCurrentTab = (function() {
   try { return localStorage.getItem('ihm_active_tab') || 'tab-overview'; } catch (_) { return 'tab-overview'; }
 })();
-let gStudioFilter = 'ALL';
+let gStudioFilter = (function() {
+  try { return localStorage.getItem('ihm_studio_filter') || 'LONGFORM'; } catch (_) { return 'LONGFORM'; }
+})();
+let gStudioViewMode = (function() {
+  try { return localStorage.getItem('ihm_studio_view_mode') || 'TABLE'; } catch (_) { return 'TABLE'; }
+})();
 let gAiLabSubTab = (function() {
   try { return localStorage.getItem('ihm_ailab_subtab') || 'comments'; } catch (_) { return 'comments'; }
 })(); // 'comments' | 'scripts' | 'brand-linter'
@@ -4595,10 +4662,10 @@ function renderEpisodesTab() {
       const statusText = track.statusLabel || track.status || 'READY';
 
       html += '<div class="bento-card col-3" style="border-top:3px solid var(--accent-magenta);">' +
-        (thumbUrl ? '<div style="position:relative;margin-bottom:14px">' +
-          '<img class="thumb-img" src="' + esc(thumbUrl) + '" style="aspect-ratio:16/9;object-fit:cover;" alt="">' +
+        (thumbUrl ? '<div style="position:relative;margin-bottom:14px;background:#05070c;border-radius:10px;overflow:hidden;display:flex;justify-content:center;align-items:center;height:210px;border:1px solid var(--border-subtle);">' +
+          '<img src="' + esc(thumbUrl) + '" style="height:100%;max-width:100%;aspect-ratio:9/16;object-fit:contain;border-radius:6px;display:block;" alt="">' +
           (isCandidateThumb ? '<span style="position:absolute;top:8px;left:8px;background:rgba(5,7,12,0.85);color:var(--text-bright);font-size:11px;padding:3px 8px;border-radius:6px">시안 후보</span>' : '') +
-          '<span style="position:absolute;top:8px;right:8px;background:var(--accent-magenta);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px">SHORTS</span>' +
+          '<span style="position:absolute;top:8px;right:8px;background:var(--accent-magenta);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px">SHORTS (9:16)</span>' +
         '</div>' : '') +
         '<div class="card-header">' +
           '<span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--accent-magenta);white-space:nowrap">📱 ' + esc(ep.episode) + '</span>' +
@@ -4622,12 +4689,17 @@ function renderEpisodesTab() {
     const isCandidateThumb = !long.videoId;
     const statusText = ep.tracks?.longform?.statusLabel || ep.tracks?.longform?.status || 'READY';
     const relatedCount = ep.relatedShorts?.length || (ep.tracks?.['shorts-b'] ? 2 : (ep.tracks?.['shorts-a'] ? 1 : 0));
+    const reach = long.videoId ? (gDashboard?.videoReachManual?.videos || {})[long.videoId] : null;
+    const latestPeriod = reach ? pickLatestPeriod(reach.periods) : null;
+    const ctrChip = (latestPeriod && latestPeriod.ctr != null)
+      ? '<span class="tag-chip" style="border-color:var(--accent-cyan);color:var(--accent-cyan);font-size:11px;" title="' + esc(latestPeriod.startDate || '') + ' ~ ' + esc(latestPeriod.endDate || '') + ' 성과">📊 최근 CTR ' + Number(latestPeriod.ctr).toFixed(2) + '% (' + fmt.format(latestPeriod.impressions || 0) + '회)</span>'
+      : '';
 
     html += '<div class="bento-card col-3" style="border-top:3px solid var(--accent-cyan);">' +
-      (thumbUrl ? '<div style="position:relative;margin-bottom:14px">' +
-        '<img class="thumb-img" src="' + esc(thumbUrl) + '" alt="">' +
+      (thumbUrl ? '<div style="position:relative;margin-bottom:14px;background:#05070c;border-radius:10px;overflow:hidden;border:1px solid var(--border-subtle);">' +
+        '<img class="thumb-img" src="' + esc(thumbUrl) + '" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" alt="">' +
         (isCandidateThumb ? '<span style="position:absolute;top:8px;left:8px;background:rgba(5,7,12,0.85);color:var(--text-bright);font-size:11px;padding:3px 8px;border-radius:6px">시안 후보</span>' : '') +
-        '<span style="position:absolute;top:8px;right:8px;background:var(--accent-cyan);color:#000;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px">LONGFORM</span>' +
+        '<span style="position:absolute;top:8px;right:8px;background:var(--accent-cyan);color:#000;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px">LONGFORM (16:9)</span>' +
       '</div>' : '') +
       '<div class="card-header">' +
         '<span style="font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--text-bright);white-space:nowrap">' + esc(ep.season.toUpperCase()) + ' · ' + esc(ep.episode.toUpperCase()) + '</span>' +
@@ -4636,6 +4708,7 @@ function renderEpisodesTab() {
       '<div style="font-weight:700;font-size:15px;color:var(--text-normal);margin-bottom:10px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + esc(long.title || '(제목 미지정)') + '</div>' +
       '<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">' +
         (long.videoId ? '<span class="tag-chip" style="font-size:11px;">롱폼: ' + esc(long.videoId) + '</span>' : '') +
+        ctrChip +
         (relatedCount > 0 ? '<span class="tag-chip btn-filter-to-shorts" style="border-color:var(--accent-magenta);color:var(--accent-magenta);font-size:11px;cursor:pointer;">📱 쇼츠 ' + relatedCount + '개</span>' : '') +
       '</div>' +
       '<div style="display:flex;gap:8px">' +
@@ -5263,10 +5336,16 @@ function renderStudioTab() {
       : '<span class="badge badge-hold" style="margin-top:4px">Studio CSV 대기</span>';
 
     return '<div class="thumb-card ' + (hasData ? 'has-data' : 'waiting-data') + ' col-4" style="' + (hasData ? 'border-color:rgba(0,240,255,0.4);' : '') + '">' +
-      '<div style="position:relative">' +
-        '<img class="thumb-img" src="' + esc(image || '') + '" data-fallback-vid="' + esc(x.videoId || '') + '" alt="" style="border-radius:14px 14px 0 0;border:0;width:100%;height:150px;object-fit:cover">' +
+      '<div style="position:relative;background:#05070c;border-radius:14px 14px 0 0;overflow:hidden;">' +
+        (isShort ? (
+          '<div style="display:flex;justify-content:center;align-items:center;height:180px;background:#000;">' +
+            '<img src="' + esc(image || '') + '" data-fallback-vid="' + esc(x.videoId || '') + '" alt="" style="height:100%;aspect-ratio:9/16;object-fit:contain;border:0;display:block;">' +
+          '</div>'
+        ) : (
+          '<img class="thumb-img" src="' + esc(image || '') + '" data-fallback-vid="' + esc(x.videoId || '') + '" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:0;display:block;">'
+        )) +
         statusChip +
-        '<span class="tag-chip" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);font-size:10px">' + (isShort ? '쇼츠' : '롱폼') + '</span>' +
+        '<span class="tag-chip" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);font-size:10px">' + (isShort ? '쇼츠 (9:16)' : '롱폼 (16:9)') + '</span>' +
       '</div>' +
       '<div class="thumb-body" style="padding:14px">' +
         '<div class="card-header" style="margin-bottom:6px">' +
@@ -5282,6 +5361,113 @@ function renderStudioTab() {
     '</div>';
   }).join('') : '<div class="bento-card col-12 card-subtext" style="text-align:center;padding:40px">선택한 필터 조건에 해당하는 영상이 없습니다.</div>';
 
+  const tableRows = filteredItems.length > 0 ? filteredItems.map(x => {
+    const saved = savedReachMap[x.videoId] || {};
+    const reach = saved.windows || {};
+    const periods = saved.periods || {};
+    const periodList = Object.values(periods);
+    const windowList = Object.entries(reach).filter(([w, v]) => v && (v.impressions != null || v.ctr != null));
+    const hasData = periodList.length > 0 || windowList.length > 0;
+
+    const video = allVideos.find(v => v.videoId === x.videoId) || x;
+    const isShort = (x.format || video.format) === 'SHORTS';
+    const localThumbnails = d.localThumbnails || {};
+    let image = localThumbnails[x.videoId]
+      ? '/api/package-image?videoId=' + encodeURIComponent(x.videoId)
+      : (x.thumbnailPath 
+          ? '/api/package-image?id=' + encodeURIComponent(x.id) 
+          : (video.thumbnail || x.thumbnailUrl || ''));
+    if (!image && x.videoId) {
+      image = 'https://i.ytimg.com/vi/' + x.videoId + '/mqdefault.jpg';
+    }
+    if (image && image.includes('maxresdefault.jpg') && image.includes('sqp=')) {
+      image = 'https://i.ytimg.com/vi/' + (x.videoId || '') + '/hqdefault.jpg';
+    }
+
+    const sortedPeriods = periodList.sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')));
+    const latestPeriod = sortedPeriods[0];
+    const previousPeriod = sortedPeriods[1];
+    const ctrDelta = (latestPeriod && previousPeriod && latestPeriod.ctr != null && previousPeriod.ctr != null)
+      ? Number((latestPeriod.ctr - previousPeriod.ctr).toFixed(2))
+      : null;
+
+    let deltaHtml = '<span style="color:var(--text-muted);font-size:11px;">-</span>';
+    if (ctrDelta != null) {
+      if (Math.abs(ctrDelta) < 0.01) {
+        deltaHtml = '<span style="color:var(--text-muted);font-size:11px;">동일</span>';
+      } else if (ctrDelta > 0) {
+        deltaHtml = '<span style="color:var(--accent-emerald);font-weight:700;font-size:11px;">▲ +' + ctrDelta.toFixed(2) + '%p</span>';
+      } else {
+        deltaHtml = '<span style="color:var(--accent-magenta);font-weight:700;font-size:11px;">▼ ' + ctrDelta.toFixed(2) + '%p</span>';
+      }
+    }
+
+    const isSmallSample = latestPeriod && Number(latestPeriod.impressions || 0) < 1000;
+    const watchUrl = x.videoId ? 'https://youtu.be/' + encodeURIComponent(x.videoId) : null;
+
+    return '<tr>' +
+      '<td style="text-align:center;">' +
+        '<div class="studio-thumb-preview-wrap">' +
+          '<img class="studio-thumb-mini' + (isShort ? ' is-shorts' : '') + '" src="' + esc(image) + '" alt="">' +
+          '<div class="studio-thumb-hover-pop">' +
+            '<img src="' + esc(image) + '" style="' + (isShort ? 'height:220px;aspect-ratio:9/16;' : 'width:240px;aspect-ratio:16/9;') + 'object-fit:cover;" alt="">' +
+          '</div>' +
+        '</div>' +
+      '</td>' +
+      '<td>' +
+        '<span class="tag-chip" style="font-size:10px;padding:2px 6px;' + (isShort ? 'border-color:var(--accent-magenta);color:var(--accent-magenta);' : 'border-color:var(--accent-cyan);color:var(--accent-cyan);') + '">' + (isShort ? '📱 쇼츠' : '📺 롱폼') + '</span>' +
+      '</td>' +
+      '<td>' +
+        (watchUrl 
+          ? '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" style="color:var(--text-bright);text-decoration:none;font-weight:700;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;" title="' + esc(x.title || x.videoId) + '">▶ ' + esc(x.title || x.videoId) + '</a>'
+          : '<span style="color:var(--text-bright);font-weight:700;">' + esc(x.title || x.videoId) + '</span>') +
+      '</td>' +
+      '<td>' +
+        (latestPeriod ? (
+          '<div><b style="font-family:var(--font-mono);font-size:13px;color:var(--text-bright);">' + fmt.format(latestPeriod.impressions || 0) + '회</b>' +
+          (isSmallSample ? '<div style="font-size:10px;color:var(--accent-amber);white-space:nowrap;">🌱 초기 반응 수집 중</div>' : '') + '</div>'
+        ) : '<span style="color:var(--text-muted);font-size:12px;">-</span>') +
+      '</td>' +
+      '<td>' +
+        (latestPeriod && latestPeriod.ctr != null ? (
+          '<b style="font-family:var(--font-mono);font-size:14px;color:' + (latestPeriod.ctr >= 5 ? 'var(--accent-emerald)' : 'var(--accent-cyan)') + ';">' + Number(latestPeriod.ctr).toFixed(2) + '%</b>'
+        ) : '<span style="color:var(--text-muted);font-size:12px;">-</span>') +
+      '</td>' +
+      '<td>' + deltaHtml + '</td>' +
+      '<td>' +
+        (latestPeriod ? (
+          '<span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);white-space:nowrap;">' + esc(String(latestPeriod.startDate || '').slice(5)) + ' ~ ' + esc(String(latestPeriod.endDate || '').slice(5)) + '</span>'
+        ) : '<span style="color:var(--text-muted);font-size:11px;">-</span>') +
+      '</td>' +
+      '<td>' +
+        (hasData 
+          ? '<span class="badge badge-strong-pass" style="font-size:9px;padding:2px 6px;">✓ 연결 (' + (periodList.length + windowList.length) + ')</span>'
+          : '<span class="badge badge-hold" style="font-size:9px;padding:2px 6px;">대기</span>') +
+      '</td>' +
+    '</tr>';
+  }).join('') : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted);">선택한 필터 조건에 해당하는 영상이 없습니다.</td></tr>';
+
+  const tableViewHtml = 
+    '<div class="bento-card col-12" style="overflow-x:auto;padding:0;border:1px solid var(--border-subtle);border-radius:12px;">' +
+      '<table class="cyber-table">' +
+        '<thead>' +
+          '<tr>' +
+            '<th style="width:64px;text-align:center;">미리보기</th>' +
+            '<th style="width:80px;">포맷</th>' +
+            '<th>영상 제목</th>' +
+            '<th style="width:140px;">노출수</th>' +
+            '<th style="width:110px;">최신 CTR</th>' +
+            '<th style="width:100px;">추이</th>' +
+            '<th style="width:130px;">분석 구간</th>' +
+            '<th style="width:100px;">상태</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          tableRows +
+        '</tbody>' +
+      '</table>' +
+    '</div>';
+
   return '<div class="bento-grid">' +
     '<div class="bento-card col-12">' +
       '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">' +
@@ -5290,8 +5476,13 @@ function renderStudioTab() {
           '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">📁 YouTube Studio CTR & 도달 성과 트래커</h2>' +
           '<div class="card-subtext">스튜디오에서 내보낸 노출수·CTR 데이터를 자동 감지하여 채널 영상과 매칭·보존합니다.</div>' +
         '</div>' +
-        '<div style="display:flex;gap:10px;align-items:center">' +
+        '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">' +
+          '<a class="btn btn-sm" href="https://studio.youtube.com" target="_blank" rel="noopener" style="text-decoration:none;">🎬 Studio 열기 ↗</a>' +
           '<button class="btn btn-cyan btn-sm" id="btn-studio-rescan">↻ 수동 재스캔</button>' +
+          '<div style="display:flex;gap:4px;background:#080d16;padding:3px 6px;border-radius:10px;border:1px solid var(--border-subtle);">' +
+            '<button class="tab-pill btn-studio-view-toggle' + (gStudioViewMode === 'TABLE' ? ' active' : '') + '" data-mode="TABLE">📋 컴팩트 목록 (권장)</button>' +
+            '<button class="tab-pill btn-studio-view-toggle' + (gStudioViewMode === 'CARD' ? ' active' : '') + '" data-mode="CARD">🖼️ 카드 뷰</button>' +
+          '</div>' +
         '</div>' +
       '</div>' +
 
@@ -5314,17 +5505,24 @@ function renderStudioTab() {
         (scan.skipped && scan.skipped.length > 0 ? '<span class="badge badge-hold">스킵/미연결: ' + scan.skipped.length + '개</span>' : '') +
       '</div>' +
       '<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">' +
-        '<button class="tab-pill studio-filter-btn' + (gStudioFilter === 'ALL' ? ' active' : '') + '" data-filter="ALL">전체 보기 (' + allItems.length + ')</button>' +
+        '<button class="tab-pill studio-filter-btn' + (gStudioFilter === 'LONGFORM' ? ' active' : '') + '" data-filter="LONGFORM">📺 롱폼 (' + allItems.filter(i => i.format !== 'SHORTS').length + ')</button>' +
+        '<button class="tab-pill studio-filter-btn' + (gStudioFilter === 'SHORTS' ? ' active' : '') + '" data-filter="SHORTS">📱 쇼츠 (' + allItems.filter(i => i.format === 'SHORTS').length + ')</button>' +
         '<button class="tab-pill studio-filter-btn' + (gStudioFilter === 'HAS_DATA' ? ' active' : '') + '" data-filter="HAS_DATA">✨ CTR 수집 완료 (' + totalWithDataCount + ')</button>' +
-        '<button class="tab-pill studio-filter-btn' + (gStudioFilter === 'LONGFORM' ? ' active' : '') + '" data-filter="LONGFORM">롱폼 (' + allItems.filter(i => i.format !== 'SHORTS').length + ')</button>' +
-        '<button class="tab-pill studio-filter-btn' + (gStudioFilter === 'SHORTS' ? ' active' : '') + '" data-filter="SHORTS">쇼츠 (' + allItems.filter(i => i.format === 'SHORTS').length + ')</button>' +
+        '<button class="tab-pill studio-filter-btn' + (gStudioFilter === 'ALL' ? ' active' : '') + '" data-filter="ALL">전체 보기 (' + allItems.length + ')</button>' +
       '</div>' +
     '</div>' +
-    thumbCards +
+    (gStudioViewMode === 'TABLE' ? tableViewHtml : thumbCards) +
   '</div>';
 }
 
 function bindStudioEvents() {
+  document.querySelectorAll('.btn-studio-view-toggle').forEach(btn => {
+    btn.onclick = () => {
+      gStudioViewMode = btn.dataset.mode;
+      try { localStorage.setItem('ihm_studio_view_mode', gStudioViewMode); } catch (_) {}
+      renderCurrentTab();
+    };
+  });
   const rescanBtn = document.getElementById('btn-studio-rescan');
   if (rescanBtn) {
     rescanBtn.onclick = async () => {
@@ -5352,6 +5550,7 @@ function bindStudioEvents() {
   document.querySelectorAll('.studio-filter-btn').forEach(btn => {
     btn.onclick = () => {
       gStudioFilter = btn.dataset.filter;
+      try { localStorage.setItem('ihm_studio_filter', gStudioFilter); } catch (_) {}
       renderCurrentTab();
     };
   });

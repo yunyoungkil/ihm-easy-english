@@ -44,7 +44,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { syncAllTrackedChannels } from "./competitor-lifecycle.mjs";
+import { syncAllTrackedChannels, runD7AutonomousCycle } from "./competitor-lifecycle.mjs";
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputPath = join(projectDir, "data", "youtube", "market-demand.json");
@@ -79,6 +79,32 @@ const CHANNEL_INPUT = channelArg ? channelArg.slice("--channel=".length) : null;
 
 // --sync-all-tracked — 등록된 전체 추적 채널의 최신 영상 및 아웃라이어 일괄 동기화 모드
 const SYNC_ALL_TRACKED = process.argv.includes("--sync-all-tracked");
+
+// --d7-sync — 공개 7일(D+7) 경과 영상의 성과 검증 및 키워드/채널 자율 순환 모드 (2026-11-11)
+const D7_SYNC = process.argv.includes("--d7-sync");
+
+if (D7_SYNC) {
+  const current = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, "utf8")) : {};
+  const catalogPath = join(projectDir, "data", "youtube", "catalog.json");
+  const catalog = existsSync(catalogPath) ? JSON.parse(readFileSync(catalogPath, "utf8")) : null;
+  const catalogVideos = Array.isArray(catalog?.videos) ? catalog.videos : (Array.isArray(catalog) ? catalog : []);
+
+  const analyticsPath = join(projectDir, "data", "youtube", "analytics-latest.json");
+  const analyticsData = existsSync(analyticsPath) ? JSON.parse(readFileSync(analyticsPath, "utf8")) : {};
+
+  const result = runD7AutonomousCycle({
+    marketDemandData: current,
+    analyticsData,
+    catalogVideos,
+    now: new Date(),
+  });
+
+  writeFileSync(outputPath, JSON.stringify(result.marketDemandData, null, 2), "utf8");
+  console.log(`[D+7 자율 순환 완료] 대상 영상: ${result.evaluatedVideo?.title || '없음'} (${result.evaluatedVideo?.ratio || 1.0}x 배수)`);
+  console.log(`- 황금 광산 승격 채널: ${result.promotedChannels.join(', ') || '없음'}`);
+  console.log(`- 신규 발굴 검색어: ${result.discoveredKeywords.join(', ') || '없음'}`);
+  process.exit(0);
+}
 
 function applyLifecycle(data) {
   const catalogPath = join(projectDir, "data", "youtube", "catalog.json");

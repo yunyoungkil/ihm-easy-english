@@ -8,6 +8,7 @@ import {
   calculateTopicExhaustion,
   evaluateChannelLifecycle,
   syncAllTrackedChannels,
+  runD7AutonomousCycle,
 } from '../competitor-lifecycle.mjs';
 
 test('extractKeywords: 불용어를 제거하고 2글자 이상 핵심 키워드를 추출한다', () => {
@@ -129,4 +130,60 @@ test('syncAllTrackedChannels: 전체 채널의 라이프사이클을 일괄 동�
   assert.ok(synced.lifecycleSyncedAt != null);
   assert.ok(synced.trackedChannels[0].exhaustion != null);
 });
+
+test('runD7AutonomousCycle: D+7 영상 성과를 검증하고 황금 광산 승격 및 시청자 검색어를 키워드 풀에 자율 편입한다', () => {
+  const now = new Date('2026-11-18T12:00:00Z');
+  const catalog = [
+    {
+      videoId: 'v101',
+      title: 'F와 P 발음 0.1초 구별법',
+      publishedAt: '2026-11-10T12:00:00Z', // 8일 전 공개 (D+7 대상)
+      views: 350,
+    },
+  ];
+  const analyticsData = {
+    summary: { medianViews: 200 }, // 350 / 200 = 1.75배 (1.5배↑ 황금광산 승격 요건 충족)
+    searchTerms: [
+      { insightTrafficSourceDetail: 'F 발음 원리', views: 50 },
+      { insightTrafficSourceDetail: '이해하면', views: 30 }, // 불용어
+    ],
+  };
+  const marketDemand = {
+    trackedChannels: [
+      {
+        channelId: 'ch_fp',
+        channelTitle: 'FP영어',
+        status: LIFECYCLE_STATUS.CANDIDATE,
+        topOutliers: [
+          { title: 'F와 P 발음 차이' },
+          { title: 'V와 B 소리 비밀' }, // 미커버 잔여 소재
+        ],
+      },
+    ],
+    byKeyword: [],
+  };
+
+  const result = runD7AutonomousCycle({
+    marketDemandData: marketDemand,
+    analyticsData,
+    catalogVideos: catalog,
+    now,
+  });
+
+  const updated = result.marketDemandData;
+  assert.equal(updated.d7AutonomousCycle.status, 'completed');
+  assert.equal(updated.d7AutonomousCycle.targetVideo.videoId, 'v101');
+  assert.equal(updated.d7AutonomousCycle.targetVideo.ratio, 1.8);
+  assert.equal(updated.trackedChannels[0].status, LIFECYCLE_STATUS.GOLD_MINE);
+  assert.ok(result.promotedChannels.includes('FP영어'));
+  assert.ok(updated.d7ProcessedVideoIds.includes('v101'));
+
+  // 시청자 검색어 'F 발음 원리'가 키워드 풀에 신규 편입되었는지 검증
+  const addedKw = updated.byKeyword.find((k) => k.keyword === 'F 발음 원리');
+  assert.ok(addedKw != null);
+  assert.equal(addedKw.source, 'd7_search_terms');
+  // 불용어 '이해하면'은 걸러졌는지 검증
+  assert.equal(updated.byKeyword.find((k) => k.keyword === '이해하면'), undefined);
+});
+
 

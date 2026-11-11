@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-11T06:20:16.947Z",
+  "generatedAt": "2026-11-11T06:54:04.965Z",
   "note": "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, 채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 이례적으로 잘된 주제. 조회수는 게시 후 경과일로 나눠 비교함 — 오래된 영상이 최근 업로드보다 누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: 정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). 채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 구독자 100,000명 이하 채널만 포함). 표본 3개 미만은 `confidence: \"low\"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 (곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). --keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert). opportunityScore = marketDemandScore / log10(totalResults+10) — 수요가 높아도 이미 포화된(totalResults 큰) 키워드는 할인함. 정밀 계산이 아니라 대략적인 경쟁 밀도 보정이니 참고용으로만 쓸 것. titlePatterns = 그 채널 기준으로 이례적으로(outlierRatio≥1.5) 잘 된 영상들의 제목에서 2회 이상 반복된 단어 — 무슨 주제를 다룰지가 아니라 어떤 각도/후킹으로 제목을 달지에 대한 신호.",
   "keywordPool": [
     "영어 발음 규칙",
@@ -11,14 +11,9 @@
     "미국식 발음 규칙"
   ],
   "lastRunKeywords": [
-    "영어 발음 규칙",
-    "영어 발음 원리",
-    "영어 연음 축약",
-    "왕초보 영어 발음",
-    "영어 듣기 안 들리는 이유",
-    "미국식 발음 규칙"
+    "영어공부법"
   ],
-  "channelsAnalyzed": 24,
+  "channelsAnalyzed": 14,
   "byKeyword": [
     {
       "keyword": "영어 왕초보, 어디서부터 시작하죠?",
@@ -271,35 +266,36 @@
     },
     {
       "keyword": "영어공부법",
-      "videoCount": 22,
+      "analyzedAt": "2026-11-11T06:54:04.951Z",
+      "videoCount": 16,
       "confidence": "ok",
       "lowSampleWarning": null,
       "marketDemandScore": 250,
-      "totalResults": 717759,
-      "opportunityScore": 42.7,
+      "totalResults": 1000000,
+      "opportunityScore": 41.7,
       "titlePatterns": [
         {
           "word": "영어",
-          "titleCount": 11
-        },
-        {
-          "word": "공부법",
-          "titleCount": 6
-        },
-        {
-          "word": "이렇게",
-          "titleCount": 4
+          "titleCount": 7
         },
         {
           "word": "영어공부법",
+          "titleCount": 4
+        },
+        {
+          "word": "공부법",
           "titleCount": 3
         },
         {
           "word": "1등급",
-          "titleCount": 3
+          "titleCount": 2
         },
         {
-          "word": "빨리",
+          "word": "이렇게",
+          "titleCount": 2
+        },
+        {
+          "word": "말하는",
           "titleCount": 2
         },
         {
@@ -307,49 +303,49 @@
           "titleCount": 2
         },
         {
-          "word": "없이",
+          "word": "feat",
           "titleCount": 2
         }
       ],
       "topOutliers": [
         {
-          "videoId": "klRk7F5k2TE",
-          "title": "영어 노베이스는 이것부터 하세요",
-          "channelTitle": "연세대 수능영어 - 데니스",
-          "viewCount": 548617,
-          "publishedAt": "2024-09-07T07:56:16Z",
-          "ageDays": 730,
-          "viewsPerDay": 751.6,
-          "channelBaselineViewsPerDay": 1,
-          "outlierRatio": 770.56,
-          "durationSeconds": 17,
-          "isShort": true
-        },
-        {
-          "videoId": "G5unshk12zk",
-          "title": "실패 없이 금방 배우는 영어 공부법",
-          "channelTitle": "분더스토리",
-          "viewCount": 4553043,
-          "publishedAt": "2024-10-04T11:00:15Z",
-          "ageDays": 703,
-          "viewsPerDay": 6478.4,
-          "channelBaselineViewsPerDay": 11.5,
-          "outlierRatio": 562.11,
-          "durationSeconds": 54,
-          "isShort": true
-        },
-        {
           "videoId": "djKEhzNPAr8",
           "title": "한국인 98%는 모르는 언어 습득의 비밀",
           "channelTitle": "외국어 줍는 남자",
-          "viewCount": 1437383,
+          "viewCount": 1494222,
           "publishedAt": "2022-09-09T16:19:21Z",
-          "ageDays": 1459,
-          "viewsPerDay": 985.5,
-          "channelBaselineViewsPerDay": 2.9,
-          "outlierRatio": 343.41,
+          "ageDays": 1524,
+          "viewsPerDay": 980.7,
+          "channelBaselineViewsPerDay": 2.7,
+          "outlierRatio": 362.22,
           "durationSeconds": 25,
           "isShort": true
+        },
+        {
+          "videoId": "_9qeS-JJsfk",
+          "title": "영어 듣기하며 독해 몇번까지 풀어요? | 찾아가는 동니버스 4화",
+          "channelTitle": "동니버스",
+          "viewCount": 3706325,
+          "publishedAt": "2024-04-15T07:45:01Z",
+          "ageDays": 940,
+          "viewsPerDay": 3943,
+          "channelBaselineViewsPerDay": 27.6,
+          "outlierRatio": 143.01,
+          "durationSeconds": 20,
+          "isShort": true
+        },
+        {
+          "videoId": "wgBELecJdjM",
+          "title": "언어천재 타일러가 말하는 영어공부법",
+          "channelTitle": "미쿡영어",
+          "viewCount": 1244696,
+          "publishedAt": "2024-08-05T21:00:43Z",
+          "ageDays": 827,
+          "viewsPerDay": 1504.3,
+          "channelBaselineViewsPerDay": 13.2,
+          "outlierRatio": 114.33,
+          "durationSeconds": 61,
+          "isShort": false
         }
       ]
     },
@@ -978,6 +974,61 @@
           "isShort": true
         }
       ]
+    },
+    {
+      "keyword": "영단어",
+      "marketDemandScore": 120,
+      "opportunityScore": 75,
+      "totalResults": 20300,
+      "videoCount": 5,
+      "analyzedAt": "2026-11-11T07:27:13.660Z",
+      "source": "d7_search_terms",
+      "topOutliers": [],
+      "lastD7SyncedAt": "2026-11-11T07:33:43.825Z"
+    },
+    {
+      "keyword": "한 명씩 정리한다 - skidrow277",
+      "marketDemandScore": 120,
+      "opportunityScore": 75,
+      "totalResults": 600,
+      "videoCount": 5,
+      "analyzedAt": "2026-11-11T07:27:13.660Z",
+      "source": "d7_search_terms",
+      "topOutliers": [],
+      "lastD7SyncedAt": "2026-11-11T07:33:43.825Z"
+    },
+    {
+      "keyword": "영어발음",
+      "marketDemandScore": 120,
+      "opportunityScore": 75,
+      "totalResults": 400,
+      "videoCount": 5,
+      "analyzedAt": "2026-11-11T07:27:13.660Z",
+      "source": "d7_search_terms",
+      "topOutliers": [],
+      "lastD7SyncedAt": "2026-11-11T07:33:43.825Z"
+    },
+    {
+      "keyword": "영어 발음",
+      "marketDemandScore": 120,
+      "opportunityScore": 75,
+      "totalResults": 300,
+      "videoCount": 5,
+      "analyzedAt": "2026-11-11T07:27:13.660Z",
+      "source": "d7_search_terms",
+      "topOutliers": [],
+      "lastD7SyncedAt": "2026-11-11T07:33:43.825Z"
+    },
+    {
+      "keyword": "먼치킨 고양이",
+      "marketDemandScore": 120,
+      "opportunityScore": 75,
+      "totalResults": 200,
+      "videoCount": 5,
+      "analyzedAt": "2026-11-11T07:27:13.660Z",
+      "source": "d7_search_terms",
+      "topOutliers": [],
+      "lastD7SyncedAt": "2026-11-11T07:33:43.825Z"
     }
   ],
   "trackedChannels": [
@@ -1170,7 +1221,7 @@
       "statusReason": "최근 제작 성과 우수(중앙값 대비 1.5배)로 황금 광산 승격",
       "consecutiveFailures": 0,
       "blockedUntil": null,
-      "statusUpdatedAt": "2026-11-11T06:20:16.953Z",
+      "statusUpdatedAt": "2026-11-11T07:33:43.825Z",
       "exhaustion": {
         "totalOutliers": 5,
         "coveredCount": 3,
@@ -1431,7 +1482,7 @@
       },
       "status": "candidate",
       "statusReason": "추천 동영상 유입 알고리즘으로 자동 포착 (관찰 중)",
-      "statusUpdatedAt": "2026-11-11T06:20:16.953Z",
+      "statusUpdatedAt": "2026-11-11T07:33:43.825Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1694,7 +1745,7 @@
       },
       "status": "graduated",
       "statusReason": "알파벳 기초 소재 100% 소진으로 명예 졸업 (자동 보관)",
-      "statusUpdatedAt": "2026-11-11T06:20:16.953Z",
+      "statusUpdatedAt": "2026-11-11T07:33:43.825Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1891,7 +1942,7 @@
       },
       "status": "candidate",
       "statusReason": "연음/발음 키워드 알고리즘 포착 (관찰 중)",
-      "statusUpdatedAt": "2026-11-11T06:20:16.953Z",
+      "statusUpdatedAt": "2026-11-11T07:33:43.825Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2088,7 +2139,7 @@
       },
       "status": "graduated",
       "statusReason": "글로벌 팟캐스트 롱폼 형식 소진으로 명예 졸업",
-      "statusUpdatedAt": "2026-11-11T06:20:16.953Z",
+      "statusUpdatedAt": "2026-11-11T07:33:43.825Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2296,5 +2347,28 @@
       }
     }
   ],
-  "lifecycleSyncedAt": "2026-11-11T06:20:16.953Z"
+  "lifecycleSyncedAt": "2026-11-11T07:33:43.825Z",
+  "d7ProcessedVideoIds": [
+    "9d9m869BCTI",
+    "bPTAnjMT7xc"
+  ],
+  "d7AutonomousCycle": {
+    "lastRunAt": "2026-11-11T07:33:43.825Z",
+    "targetVideo": {
+      "videoId": "bPTAnjMT7xc",
+      "title": "[집중 듣기] 영어 과거형 끝소리 3가지 비밀, 원리 하나로 귀가 뚫립니다 | -ED 발음 규칙",
+      "publishedAt": "2026-10-12T11:30:03Z",
+      "views": 0,
+      "ratio": 0
+    },
+    "promotedChannels": [],
+    "discoveredKeywords": [
+      "영단어",
+      "한 명씩 정리한다 - skidrow277",
+      "영어발음",
+      "영어 발음",
+      "먼치킨 고양이"
+    ],
+    "status": "completed"
+  }
 }

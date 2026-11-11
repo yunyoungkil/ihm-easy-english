@@ -2450,6 +2450,9 @@ let gEpisodes = null;
 let gEpisodeFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gKnowledgeDb = null;
 let gKdbSourceFilter = 'ALL'; // 'ALL' | 'outlierComment' | 'competitorScript'
+let gDemandFilter = (function() {
+  try { return localStorage.getItem('ihm_demand_filter') || 'ALL'; } catch (_) { return 'ALL'; }
+})();
 let gCurrentTab = (function() {
   try { return localStorage.getItem('ihm_active_tab') || 'tab-overview'; } catch (_) { return 'tab-overview'; }
 })();
@@ -3390,6 +3393,29 @@ function renderOverviewTab() {
     '</div>' +
   '</div>';
 
+  // AI 경쟁 채널 자율 레이더 현황 요약 카드
+  const tracked = gMarketDemand?.trackedChannels || [];
+  const gmCount = tracked.filter((c) => c.status === 'gold_mine').length;
+  const candCount = tracked.filter((c) => c.status === 'candidate').length;
+  const gradCount = tracked.filter((c) => c.status === 'graduated').length;
+  const blkCount = tracked.filter((c) => c.status === 'blocked').length;
+
+  html += '<div class="bento-card col-12" style="background:#090d16;border:1px solid rgba(217,70,239,0.25);margin-top:14px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">' +
+    '<div>' +
+      '<div class="card-title" style="color:var(--accent-magenta);font-size:11px">AUTONOMOUS RADAR STATUS</div>' +
+      '<div style="font-size:16px;font-weight:800;color:var(--text-bright);margin-top:2px">🎯 AI 경쟁 채널 자율 순환 현황</div>' +
+      '<div class="card-subtext" style="margin-top:2px">' +
+        '🏆 황금 광산 <b style="color:#fbbf24">' + gmCount + '개</b> · ' +
+        '🌱 발굴 후보 <b style="color:#38bdf8">' + candCount + '개</b> · ' +
+        '🎓 명예 졸업 <b style="color:#c084fc">' + gradCount + '개</b> · ' +
+        '🚫 자동 차단 <b style="color:#f87171">' + blkCount + '개</b>' +
+      '</div>' +
+    '</div>' +
+    '<div>' +
+      '<button class="btn btn-sm btn-cyan btn-open-tab" data-target-tab="tab-demand" style="padding:6px 14px">🎯 경쟁 분석 레이더 열기 ↗</button>' +
+    '</div>' +
+  '</div>';
+
   return html;
 }
 
@@ -3408,45 +3434,73 @@ function renderMarketDemandTab() {
     '</div>';
   }
 
+  const trackedChannels = md.trackedChannels || [];
+  const goldMines = trackedChannels.filter(c => c.status === 'gold_mine');
+  const candidates = trackedChannels.filter(c => c.status === 'candidate');
+  const graduated = trackedChannels.filter(c => c.status === 'graduated');
+  const blocked = trackedChannels.filter(c => c.status === 'blocked');
+
+  const filteredChannels = gDemandFilter === 'ALL'
+    ? trackedChannels
+    : trackedChannels.filter(c => c.status === gDemandFilter);
+
   let html = '<div class="bento-grid">' +
-    '<div class="bento-card col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
-      '<div>' +
-        '<div class="card-title" style="color:var(--accent-magenta)">RADAR INTELLIGENCE</div>' +
-        '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">🎯 경쟁 채널 시장 수요 & 아웃라이어 레이더</h2>' +
-        '<div class="card-subtext">총 ' + (md.channelsAnalyzed || 30) + '개 채널 분석 완료 · 마지막 갱신: ' + esc(md.generatedAt?.slice(0,19).replace('T', ' ')) + '</div>' +
+    // Top Autonomous Radar Header
+    '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(217,70,239,0.08), rgba(6,182,212,0.08));border:1px solid rgba(217,70,239,0.3);padding:20px 24px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
+        '<div>' +
+          '<div class="card-title" style="color:var(--accent-magenta);font-size:12px;letter-spacing:1px">AUTONOMOUS RADAR COCKPIT</div>' +
+          '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">🤖 AI 경쟁 채널 자율 순환 관제 센터</h2>' +
+          '<div class="card-subtext" style="margin-top:4px">' +
+            '사람의 수동 관리 0% · 추천 유입 자동 포착 · 7일 제작 성과(1.5배↑) 황금광산 자동 고정 · 2회 부진 시 자동 차단 · 소재 100% 소진 시 명예 졸업' +
+          '</div>' +
+        '</div>' +
+        '<div style="text-align:right">' +
+          '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-size:11px;padding:4px 10px;font-weight:700">⚡ 무인 자율 순환 가동 중</span>' +
+          '<div class="card-subtext" style="margin-top:4px">마지막 자동 동기화: ' + esc(md.lifecycleSyncedAt ? md.lifecycleSyncedAt.slice(0, 19).replace('T', ' ') : (md.generatedAt?.slice(0, 19).replace('T', ' ') || '최신')) + '</div>' +
+        '</div>' +
       '</div>' +
-      '<div style="display:flex;gap:10px;align-items:center">' +
-        '<input type="text" id="input-demand-kw" placeholder="신규 키워드 (예: 영어 발음 규칙)" style="width:240px">' +
-        '<button class="btn btn-magenta" id="btn-run-demand-kw">🚀 수요 분석 실행</button>' +
+    '</div>' +
+
+    // 4 Bento Status Metric Cards
+    '<div class="bento-card col-3" style="background:#0d121f;border-top:3px solid #f59e0b">' +
+      '<div class="card-title" style="color:#fbbf24">🏆 황금 광산 (Gold Mine)</div>' +
+      '<div style="font-size:28px;font-weight:900;color:var(--text-bright);margin:6px 0">' + goldMines.length + '<span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:4px">개</span></div>' +
+      '<div class="card-subtext" style="color:#fbbf24">성과 1.5배↑ 검증 · 우선 채굴</div>' +
+    '</div>' +
+    '<div class="bento-card col-3" style="background:#0d121f;border-top:3px solid #06b6d4">' +
+      '<div class="card-title" style="color:#38bdf8">🌱 발굴 후보 (Candidate)</div>' +
+      '<div style="font-size:28px;font-weight:900;color:var(--text-bright);margin:6px 0">' + candidates.length + '<span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:4px">개</span></div>' +
+      '<div class="card-subtext" style="color:#38bdf8">추천 유입·알고리즘 자동 포착</div>' +
+    '</div>' +
+    '<div class="bento-card col-3" style="background:#0d121f;border-top:3px solid #a855f7">' +
+      '<div class="card-title" style="color:#c084fc">🎓 명예 졸업 (Graduated)</div>' +
+      '<div style="font-size:28px;font-weight:900;color:var(--text-bright);margin:6px 0">' + graduated.length + '<span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:4px">개</span></div>' +
+      '<div class="card-subtext" style="color:#c084fc">소재 100% 소진 (자동 보관)</div>' +
+    '</div>' +
+    '<div class="bento-card col-3" style="background:#0d121f;border-top:3px solid #ef4444">' +
+      '<div class="card-title" style="color:#f87171">🚫 자동 차단 (Blocked)</div>' +
+      '<div style="font-size:28px;font-weight:900;color:var(--text-bright);margin:6px 0">' + blocked.length + '<span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:4px">개</span></div>' +
+      '<div class="card-subtext" style="color:#f87171">2회 부진 격리 (90일 쿨다운)</div>' +
+    '</div>' +
+
+    // Filter Controls
+    '<div class="bento-card col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:12px 20px">' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">' +
+        '<span style="font-size:13px;font-weight:700;color:var(--text-bright);margin-right:4px">상태별 채널 보기:</span>' +
+        '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'ALL' ? 'btn-cyan' : '') + '" data-status="ALL">전체 (' + trackedChannels.length + ')</button>' +
+        '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'gold_mine' ? 'btn-cyan' : '') + '" data-status="gold_mine">🏆 황금 광산 (' + goldMines.length + ')</button>' +
+        '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'candidate' ? 'btn-cyan' : '') + '" data-status="candidate">🌱 발굴 후보 (' + candidates.length + ')</button>' +
+        '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'graduated' ? 'btn-cyan' : '') + '" data-status="graduated">🎓 명예 졸업 (' + graduated.length + ')</button>' +
+        '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'blocked' ? 'btn-cyan' : '') + '" data-status="blocked">🚫 자동 차단 (' + blocked.length + ')</button>' +
       '</div>' +
+      '<div style="font-size:12px;color:var(--text-muted)">※ 영상 제작 성과에 연동되어 100% 자율 전이됩니다.</div>' +
     '</div>';
 
-  // 특정 경쟁 채널 지목 분석(2026-09-30 추가) — 키워드 검색으로는 우연히 못 걸릴 수 있는
-  // 채널을 사용자가 직접 지목해 깊이 파본다(market-demand.mjs --channel= 참고). 이름 검색이
-  // 아니라 URL/@핸들만 받는다 — channels.list forHandle=은 1단위+100% 정확이지만, 이름
-  // 검색(search.list)은 100단위인데 동명이인 채널을 잘못 짚어도 티가 안 나는 위험이 있어서
-  // 사용자와 논의 후 의도적으로 뺐다.
-  html += '<div class="bento-card col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;background:#0d0a16;border:1px solid rgba(217,70,239,0.25)">' +
-    '<div>' +
-      '<div class="card-title" style="color:var(--accent-cyan)">CHANNEL DEEP-DIVE</div>' +
-      '<h3 style="font-family:var(--font-display);font-size:16px;color:var(--text-bright);margin-top:2px">🔗 특정 채널 추적 분석</h3>' +
-      '<div class="card-subtext">키워드 검색에 안 걸리는 채널도 URL/@핸들만 있으면 직접 분석 — 채널 자체 기준선 대비 어떤 영상이 유독 잘 됐는지(같은 방법론)</div>' +
-    '</div>' +
-    '<div style="display:flex;gap:10px;align-items:center">' +
-      '<input type="text" id="input-demand-channel" placeholder="채널 URL 또는 @핸들 (이름 검색은 지원 안 함)" style="width:320px">' +
-      '<button class="btn btn-cyan" id="btn-run-demand-channel">🔎 채널 분석 실행</button>' +
-    '</div>' +
-  '</div>';
-
-  const trackedChannels = md.trackedChannels || [];
-  if (trackedChannels.length > 0) {
+  if (filteredChannels.length > 0) {
     html += '<div class="bento-card col-12">' +
-      '<div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
-        '<span class="card-title" style="color:var(--accent-cyan)">🔗 성과 연동 자율 추적 채널 (' + trackedChannels.length + '개)</span>' +
-        '<div style="font-size:12px;color:var(--text-muted)">🤖 성과 1.5배↑ 시 자동 고정(황금 광산) · 2회 부진 시 자동 차단 · 소재 100% 소진 시 명예 졸업</div>' +
-      '</div>' +
       '<div class="bento-grid" style="padding:0">' +
-      trackedChannels.map((c) => {
+      filteredChannels.map((c) => {
         const subLabel = c.subscriberCount != null ? fmt.format(c.subscriberCount) + '명' : '비공개';
         const sizeWarning = (c.subscriberCount != null && c.subscriberCount > 100000)
           ? '<div class="card-subtext" style="color:var(--accent-amber);margin-top:2px">⚠️ 체급 큼 — 패턴 참고용</div>' : '';
@@ -3459,25 +3513,30 @@ function renderMarketDemandTab() {
         } else if (status === 'graduated') {
           statusBadge = '<span class="tag-chip" style="background:rgba(168,85,247,0.2);color:#c084fc;border:1px solid #a855f7;font-size:10px;padding:2px 8px;font-weight:700">🎓 명예 졸업</span>';
         }
-        const exhaustionText = c.exhaustion
-          ? '<span style="font-size:11px;color:var(--text-subtle);margin-left:6px">소진율 ' + Math.round((c.exhaustion.exhaustionRate || 0) * 100) + '% (잔여 ' + (c.exhaustion.uncoveredCount || 0) + '개)</span>'
-          : '';
+        const exhaustionRate = c.exhaustion ? Math.round((c.exhaustion.exhaustionRate || 0) * 100) : 0;
+        const uncoveredCount = c.exhaustion ? c.exhaustion.uncoveredCount : 0;
         const reasonText = c.statusReason
-          ? '<div style="font-size:11px;color:var(--accent-cyan);margin-top:4px">💡 ' + esc(c.statusReason) + '</div>'
+          ? '<div style="font-size:11px;color:var(--accent-cyan);background:rgba(6,182,212,0.06);border-left:2px solid var(--accent-cyan);padding:4px 8px;border-radius:4px;margin-top:6px">💡 ' + esc(c.statusReason) + '</div>'
           : '';
-        return '<div class="bento-card col-4" style="background:#090e18">' +
+        return '<div class="bento-card col-4" style="background:#090e18;border:1px solid ' + (status === 'gold_mine' ? 'rgba(245,158,11,0.3)' : (status === 'blocked' ? 'rgba(239,68,68,0.3)' : (status === 'graduated' ? 'rgba(168,85,247,0.3)' : 'var(--border-subtle)'))) + '">' +
           '<div class="card-header">' +
             '<div>' +
               '<span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--text-bright)">' + esc(c.channelTitle || c.handle || '미상 채널') + '</span>' +
-              '<div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:4px">' + statusBadge + exhaustionText + '</div>' +
-            '</div>' +
-            '<div style="display:flex;gap:6px;align-items:center">' +
-              '<button class="btn btn-sm btn-channel-refresh" data-input="' + esc(c.handle || c.channelUrl || c.channelId) + '" title="이 채널만 다시 분석해서 최신 데이터로 덮어쓰기" style="padding:2px 6px">🔄</button>' +
-              '<button class="btn btn-sm btn-channel-delete" data-channel-id="' + esc(c.channelId) + '" title="추적 목록에서 제거" style="color:#ff5577;border-color:#ff5577;padding:2px 6px">🗑️</button>' +
+              '<div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:4px">' + statusBadge + '</div>' +
             '</div>' +
           '</div>' +
           '<div class="card-subtext" style="margin-top:-2px">구독자 ' + subLabel + ' · 영상 ' + (c.videoCount || 0) + '개 분석 · ' + esc((c.analyzedAt || '').slice(0, 10)) + '</div>' +
           reasonText +
+          // Sleek Exhaustion Progress Bar
+          '<div style="margin-top:10px;background:#05070c;border:1px solid var(--border-subtle);border-radius:6px;padding:8px">' +
+            '<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">' +
+              '<span style="color:var(--text-subtle)">소재 소진율</span>' +
+              '<b style="color:' + (uncoveredCount > 0 ? '#38bdf8' : '#a855f7') + '">' + exhaustionRate + '% (잔여 ' + uncoveredCount + '개)</b>' +
+            '</div>' +
+            '<div style="height:5px;background:#131826;border-radius:99px;overflow:hidden">' +
+              '<div style="height:100%;width:' + exhaustionRate + '%;background:' + (status === 'gold_mine' ? 'linear-gradient(90deg,#f59e0b,#eab308)' : 'linear-gradient(90deg,var(--accent-cyan),var(--accent-magenta))') + ';border-radius:99px"></div>' +
+            '</div>' +
+          '</div>' +
           sizeWarning +
           (c.titlePatterns && c.titlePatterns.length > 0 ?
             '<div style="margin-top:10px">' + c.titlePatterns.slice(0, 6).map(p =>
@@ -3485,9 +3544,23 @@ function renderMarketDemandTab() {
             ).join('') + '</div>' : '') +
           (c.topOutliers && c.topOutliers.length > 0 ?
             '<div style="margin-top:12px;border-top:1px solid var(--border-subtle);padding-top:10px">' +
-              '<div class="card-title" style="margin-bottom:6px">⭐ 이 채널 기준 이례적으로 잘 된 영상:</div>' +
+              '<div class="card-title" style="margin-bottom:6px">⭐ 대표 아웃라이어 영상:</div>' +
               c.topOutliers.slice(0, 3).map(o => {
                 const watchUrl = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
+                return '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:8px;padding:8px 10px;margin-bottom:6px">' +
+                  (watchUrl ?
+                    '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" style="text-decoration:none"><div style="font-weight:700;font-size:12px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">▶ ' + esc(o.title) + '</div></a>' :
+                    '<div style="font-weight:700;font-size:12px;color:var(--text-bright)">' + esc(o.title) + '</div>') +
+                  '<div class="card-subtext">' + (o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '') + ' · 일평균 ' + fmt.format(Math.round(o.viewsPerDay || 0)) + '회' +
+                  '</div>' +
+                '</div>';
+              }).join('') +
+            '</div>' : '') +
+        '</div>';
+      }).join('') +
+      '</div>' +
+    '</div>';
+  }
                 return '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:8px;padding:8px 10px;margin-bottom:6px">' +
                   (watchUrl ?
                     '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" style="text-decoration:none"><div style="font-weight:700;font-size:12px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">▶ ' + esc(o.title) + '</div></a>' :
@@ -3619,6 +3692,13 @@ function renderMarketDemandTab() {
 }
 
 function bindMarketDemandEvents() {
+  document.querySelectorAll('.btn-demand-filter').forEach((btn) => {
+    btn.onclick = () => {
+      gDemandFilter = btn.dataset.status || 'ALL';
+      try { localStorage.setItem('ihm_demand_filter', gDemandFilter); } catch (_) {}
+      renderCurrentTab();
+    };
+  });
   const btnRun = document.getElementById('btn-run-demand-kw');
   if (btnRun) {
     btnRun.onclick = async () => {

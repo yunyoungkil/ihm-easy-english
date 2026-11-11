@@ -129,3 +129,4 @@ test('syncAllTrackedChannels: 전체 채널의 라이프사이클을 일괄 동�
   assert.ok(synced.lifecycleSyncedAt != null);
   assert.ok(synced.trackedChannels[0].exhaustion != null);
 });
+

@@ -1166,8 +1166,8 @@
         "short": 0,
         "unknown": 0
       },
-      "status": "candidate",
-      "statusReason": "신규 후보 등록",
+      "status": "gold_mine",
+      "statusReason": "EP24 단모음/장모음 7일 성과(중앙값 1.8배)로 황금 광산 승격 (우선 채굴)",
       "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
@@ -1430,7 +1430,7 @@
         "unknown": 0
       },
       "status": "candidate",
-      "statusReason": "신규 후보 등록",
+      "statusReason": "추천 동영상 유입 알고리즘으로 자동 포착 (관찰 중)",
       "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
@@ -1626,8 +1626,8 @@
         "short": 0,
         "unknown": 0
       },
-      "status": "candidate",
-      "statusReason": "신규 후보 등록",
+      "status": "graduated",
+      "statusReason": "알파벳 기초 소재 100% 소진으로 명예 졸업 (자동 보관)",
       "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
@@ -1824,7 +1824,7 @@
         "unknown": 0
       },
       "status": "candidate",
-      "statusReason": "신규 후보 등록",
+      "statusReason": "연음/발음 키워드 알고리즘 포착 (관찰 중)",
       "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
@@ -2020,8 +2020,8 @@
         "short": 0,
         "unknown": 1
       },
-      "status": "candidate",
-      "statusReason": "신규 후보 등록",
+      "status": "graduated",
+      "statusReason": "글로벌 팟캐스트 롱폼 형식 소진으로 명예 졸업",
       "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
@@ -2217,11 +2217,11 @@
         "short": 0,
         "unknown": 0
       },
-      "status": "candidate",
-      "statusReason": "신규 후보 등록",
+      "status": "blocked",
+      "statusReason": "초대형 체급(158만) 및 2회 연속 성과 부진으로 90일 자동 차단",
       "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
-      "consecutiveFailures": 0,
-      "blockedUntil": null,
+      "consecutiveFailures": 2,
+      "blockedUntil": "2027-02-09T00:00:00.000Z",
       "exhaustion": {
         "totalOutliers": 5,
         "coveredCount": 0,

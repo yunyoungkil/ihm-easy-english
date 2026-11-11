@@ -4606,7 +4606,7 @@ function renderEpisodesTab() {
         '</div>' +
         '<div style="font-weight:700;font-size:14px;color:var(--text-normal);margin-bottom:10px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + esc(yt.title || '(제목 미지정)') + '</div>' +
         '<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">' +
-          (ep.parentEpisode ? '<span class="tag-chip" style="border-color:var(--accent-cyan);color:var(--accent-cyan);font-size:11px;">🔗 ' + esc(ep.parentEpisode) + ' 롱폼 연계</span>' : '') +
+          (ep.parentEpisode ? '<span class="tag-chip btn-filter-to-longform" style="border-color:var(--accent-cyan);color:var(--accent-cyan);font-size:11px;cursor:pointer;">🔗 ' + esc(ep.parentEpisode) + ' 롱폼 연계</span>' : '') +
           (yt.videoId ? '<span class="tag-chip" style="font-size:11px;">쇼츠 ID: ' + esc(yt.videoId) + '</span>' : '') +
         '</div>' +
         '<div style="display:flex;gap:8px">' +
@@ -4636,7 +4636,7 @@ function renderEpisodesTab() {
       '<div style="font-weight:700;font-size:15px;color:var(--text-normal);margin-bottom:10px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + esc(long.title || '(제목 미지정)') + '</div>' +
       '<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">' +
         (long.videoId ? '<span class="tag-chip" style="font-size:11px;">롱폼: ' + esc(long.videoId) + '</span>' : '') +
-        (relatedCount > 0 ? '<span class="tag-chip" style="border-color:var(--accent-magenta);color:var(--accent-magenta);font-size:11px;cursor:pointer;" onclick="setEpisodeFilter(\'SHORTS\')">📱 쇼츠 ' + relatedCount + '개</span>' : '') +
+        (relatedCount > 0 ? '<span class="tag-chip btn-filter-to-shorts" style="border-color:var(--accent-magenta);color:var(--accent-magenta);font-size:11px;cursor:pointer;">📱 쇼츠 ' + relatedCount + '개</span>' : '') +
       '</div>' +
       '<div style="display:flex;gap:8px">' +
         '<button class="btn btn-sm btn-cyan btn-inspect-pkg" data-season="' + esc(ep.season) + '" data-ep="' + esc(ep.episode) + '" style="width:100%;justify-content:center;">📦 롱폼 패키지 열기</button>' +
@@ -4952,6 +4952,18 @@ function bindEpisodeEvents() {
   document.querySelectorAll('.btn-ep-filter').forEach(btn => {
     btn.onclick = () => {
       gEpisodeFilter = btn.dataset.filter;
+      renderCurrentTab();
+    };
+  });
+  document.querySelectorAll('.btn-filter-to-shorts').forEach(btn => {
+    btn.onclick = () => {
+      gEpisodeFilter = 'SHORTS';
+      renderCurrentTab();
+    };
+  });
+  document.querySelectorAll('.btn-filter-to-longform').forEach(btn => {
+    btn.onclick = () => {
+      gEpisodeFilter = 'LONGFORM';
       renderCurrentTab();
     };
   });

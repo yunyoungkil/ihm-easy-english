@@ -44,6 +44,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { syncAllTrackedChannels } from "./competitor-lifecycle.mjs";
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputPath = join(projectDir, "data", "youtube", "market-demand.json");
@@ -75,6 +76,16 @@ const KEYWORD_POOL = adHocKeywords.length > 0 ? adHocKeywords : DEFAULT_KEYWORD_
 // --channel="..." — 특정 채널 하나 지목 분석 모드. 키워드 풀 검색을 완전히 스킵한다.
 const channelArg = process.argv.find((a) => a.startsWith("--channel="));
 const CHANNEL_INPUT = channelArg ? channelArg.slice("--channel=".length) : null;
+
+// --sync-all-tracked — 등록된 전체 추적 채널의 최신 영상 및 아웃라이어 일괄 동기화 모드
+const SYNC_ALL_TRACKED = process.argv.includes("--sync-all-tracked");
+
+function applyLifecycle(data) {
+  const catalogPath = join(projectDir, "data", "youtube", "catalog.json");
+  const catalog = existsSync(catalogPath) ? JSON.parse(readFileSync(catalogPath, "utf8")) : null;
+  const videos = Array.isArray(catalog?.videos) ? catalog.videos : (Array.isArray(catalog) ? catalog : []);
+  return syncAllTrackedChannels(data, videos, new Date());
+}
 
 // Below this many observed videos, a keyword's score is one or two data
 // points wearing a median's clothes — channel-strategy.md's "작은 표본은
@@ -356,6 +367,44 @@ async function analyzeChannel(rawInput) {
 }
 
 async function main() {
+  // 전체 추적 채널 일괄 최신화 모드 (--sync-all-tracked)
+  if (SYNC_ALL_TRACKED) {
+    console.log(`전체 추적 채널 일괄 최신화 시작...`);
+    const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
+    const tracked = Array.isArray(existing?.trackedChannels) ? existing.trackedChannels : [];
+    if (tracked.length === 0) {
+      console.log(`추적 중인 채널이 없습니다.`);
+      return;
+    }
+    const mergedChannels = new Map(tracked.map((c) => [c.channelId, c]));
+    for (const ch of tracked) {
+      try {
+        console.log(`채널 분석 중: ${ch.channelTitle || ch.handle || ch.channelId}`);
+        const fresh = await analyzeChannel(ch.channelId);
+        const prev = mergedChannels.get(fresh.channelId);
+        mergedChannels.set(fresh.channelId, {
+          ...prev,
+          ...fresh,
+          status: prev?.status || 'candidate',
+          statusReason: prev?.statusReason || '신규 후보 등록',
+          consecutiveFailures: prev?.consecutiveFailures || 0,
+          blockedUntil: prev?.blockedUntil || null,
+        });
+      } catch (err) {
+        console.error(`- "${ch.channelTitle || ch.channelId}" 분석 실패: ${err.message}`);
+      }
+    }
+    const result = {
+      ...(existing ?? { schemaVersion: 1, keywordPool: DEFAULT_KEYWORD_POOL, lastRunKeywords: [], channelsAnalyzed: 0, byKeyword: [] }),
+      generatedAt: new Date().toISOString(),
+      trackedChannels: [...mergedChannels.values()],
+    };
+    const finalResult = applyLifecycle(result);
+    writeFileSync(outputPath, JSON.stringify(finalResult, null, 2), "utf8");
+    console.log(`\n✓ 전체 추적 채널 동기화 완료: ${finalResult.trackedChannels.length}개 채널`);
+    return;
+  }
+
   // 채널 지목 분석 모드 — 키워드 풀 검색(search.list, 100단위/키워드)을 완전히 건너뛰고
   // trackedChannels 배열에만 upsert한다. byKeyword는 안 건드리므로 기존 데이터 보존됨.
   if (CHANNEL_INPUT) {
@@ -363,13 +412,22 @@ async function main() {
     const channelResult = await analyzeChannel(CHANNEL_INPUT);
     const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
     const mergedChannels = new Map((existing?.trackedChannels ?? []).map((c) => [c.channelId, c]));
-    mergedChannels.set(channelResult.channelId, channelResult);
+    const prev = mergedChannels.get(channelResult.channelId);
+    mergedChannels.set(channelResult.channelId, {
+      ...prev,
+      ...channelResult,
+      status: prev?.status || 'candidate',
+      statusReason: prev?.statusReason || '신규 후보 등록',
+      consecutiveFailures: prev?.consecutiveFailures || 0,
+      blockedUntil: prev?.blockedUntil || null,
+    });
     const result = {
       ...(existing ?? { schemaVersion: 1, keywordPool: DEFAULT_KEYWORD_POOL, lastRunKeywords: [], channelsAnalyzed: 0, byKeyword: [] }),
       generatedAt: new Date().toISOString(),
       trackedChannels: [...mergedChannels.values()],
     };
-    writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf8");
+    const finalResult = applyLifecycle(result);
+    writeFileSync(outputPath, JSON.stringify(finalResult, null, 2), "utf8");
     console.log(`\n✓ ${outputPath}`);
     console.log(JSON.stringify({
       channelTitle: channelResult.channelTitle,
@@ -635,7 +693,8 @@ async function main() {
     trackedChannels: existing?.trackedChannels ?? [],
   };
 
-  writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf8");
+  const finalResult = applyLifecycle(result);
+  writeFileSync(outputPath, JSON.stringify(finalResult, null, 2), "utf8");
   console.log(`\n✓ ${outputPath}`);
   for (const k of marketDemandByKeyword) {
     if (k.confidence === "low") console.warn(`⚠ "${k.keyword}": ${k.lowSampleWarning}`);

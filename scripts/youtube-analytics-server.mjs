@@ -3484,6 +3484,18 @@ function renderMarketDemandTab() {
       '<div class="card-subtext" style="color:#f87171">2회 부진 격리 (90일 쿨다운)</div>' +
     '</div>' +
 
+    // Direct Channel Registration & Sync Control Bar (사용자 요청: 링크 입력란 복원)
+    '<div class="bento-card col-12" style="background:#090e18;border:1px solid rgba(6,182,212,0.3);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">' +
+      '<div style="display:flex;align-items:center;gap:10px;flex:1;min-width:320px">' +
+        '<span style="font-size:16px">🔗</span>' +
+        '<input id="input-demand-channel" type="text" placeholder="유튜브 채널 URL 또는 @핸들 입력 (예: https://www.youtube.com/@handle, @영어채널, UC...)" style="flex:1;background:#05070c;border:1px solid var(--border-subtle);color:var(--text-bright);padding:9px 14px;border-radius:6px;font-size:13px;outline:none;" />' +
+        '<button id="btn-run-demand-channel" class="btn btn-cyan btn-sm" style="white-space:nowrap;padding:9px 16px;font-weight:700">🔎 채널 직접 분석/등록</button>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px">' +
+        '<button id="btn-sync-all-channels" class="btn btn-sm" style="background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-bright);font-size:12px;padding:9px 14px;font-weight:600" title="모든 추적 채널의 최신 영상 및 아웃라이어를 일괄 새로고침">🔄 전체 채널 최신 데이터 동기화</button>' +
+      '</div>' +
+    '</div>' +
+
     // Filter Controls
     '<div class="bento-card col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:12px 20px">' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">' +
@@ -3519,10 +3531,14 @@ function renderMarketDemandTab() {
           ? '<div style="font-size:11px;color:var(--accent-cyan);background:rgba(6,182,212,0.06);border-left:2px solid var(--accent-cyan);padding:4px 8px;border-radius:4px;margin-top:6px">💡 ' + esc(c.statusReason) + '</div>'
           : '';
         return '<div class="bento-card col-4" style="background:#090e18;border:1px solid ' + (status === 'gold_mine' ? 'rgba(245,158,11,0.3)' : (status === 'blocked' ? 'rgba(239,68,68,0.3)' : (status === 'graduated' ? 'rgba(168,85,247,0.3)' : 'var(--border-subtle)'))) + '">' +
-          '<div class="card-header">' +
+          '<div class="card-header" style="display:flex;justify-content:space-between;align-items:flex-start">' +
             '<div>' +
               '<span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--text-bright)">' + esc(c.channelTitle || c.handle || '미상 채널') + '</span>' +
               '<div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:4px">' + statusBadge + '</div>' +
+            '</div>' +
+            '<div style="display:flex;gap:4px;align-items:center">' +
+              '<button class="btn btn-sm btn-channel-refresh" data-input="' + esc(c.handle || c.channelUrl || c.channelId) + '" title="이 채널 최신 영상 및 아웃라이어 재분석" style="padding:4px 8px;font-size:11px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);color:var(--text-bright)">🔄</button>' +
+              '<button class="btn btn-sm btn-channel-delete" data-channel-id="' + esc(c.channelId) + '" title="추적 목록에서 제거" style="padding:4px 8px;font-size:11px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171">🗑️</button>' +
             '</div>' +
           '</div>' +
           '<div class="card-subtext" style="margin-top:-2px">구독자 ' + subLabel + ' · 영상 ' + (c.videoCount || 0) + '개 분석 · ' + esc((c.analyzedAt || '').slice(0, 10)) + '</div>' +
@@ -3815,6 +3831,42 @@ function bindMarketDemandEvents() {
     btnRunChannel.onclick = () => {
       const input = document.getElementById('input-demand-channel');
       runChannelInput(input ? input.value : '', btnRunChannel);
+    };
+    const inputChannel = document.getElementById('input-demand-channel');
+    if (inputChannel) {
+      inputChannel.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          btnRunChannel.click();
+        }
+      };
+    }
+  }
+
+  const btnSyncAll = document.getElementById('btn-sync-all-channels');
+  if (btnSyncAll) {
+    btnSyncAll.onclick = async () => {
+      if (!confirm('모든 추적 채널의 최신 영상과 아웃라이어를 일괄 새로고침할까요? (YouTube API 쿼터가 소모됩니다)')) return;
+      btnSyncAll.disabled = true;
+      const originalText = btnSyncAll.innerHTML;
+      btnSyncAll.innerHTML = '⏳ 전체 채널 동기화 중...';
+      try {
+        const res = await fetch('/api/market-demand/run', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({syncAll: true}),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '전체 동기화 실패');
+        gMarketDemand = data.data;
+        renderCurrentTab();
+        showToast('⚡ 모든 추적 채널의 최신 데이터 동기화 완료!');
+      } catch (err) {
+        alert('❌ 동기화 오류: ' + err.message);
+      } finally {
+        btnSyncAll.disabled = false;
+        btnSyncAll.innerHTML = originalText;
+      }
     };
   }
 
@@ -9143,7 +9195,7 @@ const server = createServer(async (req, res) => {
       // 추가) — 둘 다 오면 channel을 우선한다(UI가 두 입력을 동시에 못 보내게 만들 것이므로
       // 실제로는 안 겹치지만, 서버는 방어적으로 우선순위를 명시해둔다).
       const args = ['scripts/market-demand.mjs',
-        ...(body.channel ? [`--channel=${body.channel}`] : (body.keyword ? [`--keyword=${body.keyword}`] : []))];
+        ...(body.syncAll ? ['--sync-all-tracked'] : (body.channel ? [`--channel=${body.channel}`] : (body.keyword ? [`--keyword=${body.keyword}`] : [])))];
       try {
         await execFileAsync('node', args, {cwd: projectDir});
         const updated = await loadJson(marketDemandPath);

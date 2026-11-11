@@ -42,7 +42,7 @@
     "briefing:sync": "node scripts/briefing-sync.mjs",
     "growth-check": "node scripts/growth-check.mjs",
     "check-terms": "node scripts/check-banned-terms.mjs",
-    "test": "node --test scripts/tests/regressions.test.mjs scripts/tests/banned-terms.test.mjs scripts/tests/youtube-publisher.test.mjs scripts/tests/growth-rules.test.mjs scripts/tests/upload-package-summary.test.mjs scripts/tests/dashboard-fixes.test.mjs scripts/tests/briefing-data.test.mjs scripts/tests/briefing-sync.test.mjs scripts/tests/sync-render.test.mjs scripts/tests/after-publish.test.mjs scripts/tests/package-label.test.mjs scripts/tests/thumbnail-gaps.test.mjs",
+    "test": "node --test scripts/tests/regressions.test.mjs scripts/tests/banned-terms.test.mjs scripts/tests/youtube-publisher.test.mjs scripts/tests/growth-rules.test.mjs scripts/tests/upload-package-summary.test.mjs scripts/tests/dashboard-fixes.test.mjs scripts/tests/briefing-data.test.mjs scripts/tests/briefing-sync.test.mjs scripts/tests/sync-render.test.mjs scripts/tests/after-publish.test.mjs scripts/tests/package-label.test.mjs scripts/tests/thumbnail-gaps.test.mjs scripts/tests/competitor-lifecycle.test.mjs",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"

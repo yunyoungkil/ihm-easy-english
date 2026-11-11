@@ -1165,6 +1165,17 @@
         "long": 50,
         "short": 0,
         "unknown": 0
+      },
+      "status": "candidate",
+      "statusReason": "신규 후보 등록",
+      "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "exhaustion": {
+        "totalOutliers": 5,
+        "coveredCount": 3,
+        "uncoveredCount": 2,
+        "exhaustionRate": 0.6
       }
     },
     {
@@ -1417,6 +1428,17 @@
         "long": 43,
         "short": 7,
         "unknown": 0
+      },
+      "status": "candidate",
+      "statusReason": "신규 후보 등록",
+      "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "exhaustion": {
+        "totalOutliers": 5,
+        "coveredCount": 0,
+        "uncoveredCount": 5,
+        "exhaustionRate": 0
       }
     },
     {
@@ -1603,6 +1625,17 @@
         "long": 50,
         "short": 0,
         "unknown": 0
+      },
+      "status": "candidate",
+      "statusReason": "신규 후보 등록",
+      "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "exhaustion": {
+        "totalOutliers": 5,
+        "coveredCount": 0,
+        "uncoveredCount": 5,
+        "exhaustionRate": 0
       }
     },
     {
@@ -1789,6 +1822,17 @@
         "long": 50,
         "short": 0,
         "unknown": 0
+      },
+      "status": "candidate",
+      "statusReason": "신규 후보 등록",
+      "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "exhaustion": {
+        "totalOutliers": 5,
+        "coveredCount": 1,
+        "uncoveredCount": 4,
+        "exhaustionRate": 0.2
       }
     },
     {
@@ -1975,6 +2019,17 @@
         "long": 49,
         "short": 0,
         "unknown": 1
+      },
+      "status": "candidate",
+      "statusReason": "신규 후보 등록",
+      "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "exhaustion": {
+        "totalOutliers": 5,
+        "coveredCount": 0,
+        "uncoveredCount": 5,
+        "exhaustionRate": 0
       }
     },
     {
@@ -2161,7 +2216,19 @@
         "long": 50,
         "short": 0,
         "unknown": 0
+      },
+      "status": "candidate",
+      "statusReason": "신규 후보 등록",
+      "statusUpdatedAt": "2026-11-11T05:24:49.011Z",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "exhaustion": {
+        "totalOutliers": 5,
+        "coveredCount": 0,
+        "uncoveredCount": 5,
+        "exhaustionRate": 0
       }
     }
-  ]
+  ],
+  "lifecycleSyncedAt": "2026-11-11T05:24:49.011Z"
 }

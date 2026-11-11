@@ -40,6 +40,7 @@ import {
   isOurChannel,
 } from './youtube-publisher.mjs';
 import { attachShortsPackages, packageStatusSource, selectPackageVideo, packageStatusLabel, shortsPackageEpisode } from './upload-package-summary.mjs';
+import { syncAllTrackedChannels, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
@@ -3440,21 +3441,43 @@ function renderMarketDemandTab() {
   const trackedChannels = md.trackedChannels || [];
   if (trackedChannels.length > 0) {
     html += '<div class="bento-card col-12">' +
-      '<div class="card-header"><span class="card-title" style="color:var(--accent-cyan)">🔗 추적 중인 채널 (' + trackedChannels.length + '개)</span></div>' +
+      '<div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
+        '<span class="card-title" style="color:var(--accent-cyan)">🔗 성과 연동 자율 추적 채널 (' + trackedChannels.length + '개)</span>' +
+        '<div style="font-size:12px;color:var(--text-muted)">🤖 성과 1.5배↑ 시 자동 고정(황금 광산) · 2회 부진 시 자동 차단 · 소재 100% 소진 시 명예 졸업</div>' +
+      '</div>' +
       '<div class="bento-grid" style="padding:0">' +
       trackedChannels.map((c) => {
         const subLabel = c.subscriberCount != null ? fmt.format(c.subscriberCount) + '명' : '비공개';
         const sizeWarning = (c.subscriberCount != null && c.subscriberCount > 100000)
-          ? '<div class="card-subtext" style="color:var(--accent-amber);margin-top:2px">⚠️ 우리 채널보다 훨씬 큼 — 패턴 참고용으로만 볼 것, 수요 점수처럼 직접 비교하지 말 것</div>' : '';
+          ? '<div class="card-subtext" style="color:var(--accent-amber);margin-top:2px">⚠️ 체급 큼 — 패턴 참고용</div>' : '';
+        const status = c.status || 'candidate';
+        let statusBadge = '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-size:10px;padding:2px 8px;font-weight:700">🌱 발굴 후보</span>';
+        if (status === 'gold_mine') {
+          statusBadge = '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:2px 8px;font-weight:700">🏆 황금 광산</span>';
+        } else if (status === 'blocked') {
+          statusBadge = '<span class="tag-chip" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid #ef4444;font-size:10px;padding:2px 8px;font-weight:700">🚫 자동 차단</span>';
+        } else if (status === 'graduated') {
+          statusBadge = '<span class="tag-chip" style="background:rgba(168,85,247,0.2);color:#c084fc;border:1px solid #a855f7;font-size:10px;padding:2px 8px;font-weight:700">🎓 명예 졸업</span>';
+        }
+        const exhaustionText = c.exhaustion
+          ? '<span style="font-size:11px;color:var(--text-subtle);margin-left:6px">소진율 ' + Math.round((c.exhaustion.exhaustionRate || 0) * 100) + '% (잔여 ' + (c.exhaustion.uncoveredCount || 0) + '개)</span>'
+          : '';
+        const reasonText = c.statusReason
+          ? '<div style="font-size:11px;color:var(--accent-cyan);margin-top:4px">💡 ' + esc(c.statusReason) + '</div>'
+          : '';
         return '<div class="bento-card col-4" style="background:#090e18">' +
           '<div class="card-header">' +
-            '<span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text-bright)">' + esc(c.channelTitle) + '</span>' +
+            '<div>' +
+              '<span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--text-bright)">' + esc(c.channelTitle || c.handle || '미상 채널') + '</span>' +
+              '<div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:4px">' + statusBadge + exhaustionText + '</div>' +
+            '</div>' +
             '<div style="display:flex;gap:6px;align-items:center">' +
               '<button class="btn btn-sm btn-channel-refresh" data-input="' + esc(c.handle || c.channelUrl || c.channelId) + '" title="이 채널만 다시 분석해서 최신 데이터로 덮어쓰기" style="padding:2px 6px">🔄</button>' +
               '<button class="btn btn-sm btn-channel-delete" data-channel-id="' + esc(c.channelId) + '" title="추적 목록에서 제거" style="color:#ff5577;border-color:#ff5577;padding:2px 6px">🗑️</button>' +
             '</div>' +
           '</div>' +
-          '<div class="card-subtext" style="margin-top:-4px">구독자 ' + subLabel + ' · 영상 ' + (c.videoCount || 0) + '개 분석 · ' + esc((c.analyzedAt || '').slice(0, 10)) + '</div>' +
+          '<div class="card-subtext" style="margin-top:-2px">구독자 ' + subLabel + ' · 영상 ' + (c.videoCount || 0) + '개 분석 · ' + esc((c.analyzedAt || '').slice(0, 10)) + '</div>' +
+          reasonText +
           sizeWarning +
           (c.titlePatterns && c.titlePatterns.length > 0 ?
             '<div style="margin-top:10px">' + c.titlePatterns.slice(0, 6).map(p =>
@@ -9032,11 +9055,15 @@ const server = createServer(async (req, res) => {
       if (memoryMarketDemand && (Date.now() - lastMarketDemandTime < 60_000)) {
         return json(res, 200, await annotateMarketDemandAnalysisStatus(memoryMarketDemand));
       }
-      const marketDemand = await loadJson(marketDemandPath);
+      const [marketDemand, catalog] = await Promise.all([
+        loadJson(marketDemandPath),
+        loadJson(catalogPath, { videos: [] }),
+      ]);
       if (!marketDemand) return json(res, 404, {error: 'market-demand.json 파일이 없습니다.'});
-      memoryMarketDemand = marketDemand;
+      const syncedMarketDemand = syncAllTrackedChannels(marketDemand, catalog.videos || catalog);
+      memoryMarketDemand = syncedMarketDemand;
       lastMarketDemandTime = Date.now();
-      return json(res, 200, await annotateMarketDemandAnalysisStatus(marketDemand));
+      return json(res, 200, await annotateMarketDemandAnalysisStatus(syncedMarketDemand));
     }
     if (url.pathname === '/api/market-demand/run' && req.method === 'POST') {
       const body = await readJsonBody(req);

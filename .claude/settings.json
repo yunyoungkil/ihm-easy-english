@@ -36,5 +36,9 @@
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "abracadabrax-youtube-thumbnail-maker@anthropic-plugin-directory": false,
+    "cowork-plugin-management@knowledge-work-plugins": false
   }
 }

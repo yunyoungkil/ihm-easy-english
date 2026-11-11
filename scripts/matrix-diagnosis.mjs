@@ -1,3 +1,4 @@
+import { GEMINI_TEXT_MODELS } from './gemini-models.mjs';
 import { pickLatestPeriod } from './studio-reach.mjs';
 
 // 사분면이 확정된(Q1~Q4, isVerified) 영상만 AI 처방 대상이다. 표본 부족·48시간 집계 중·Studio 대기 영상은
@@ -390,7 +391,7 @@ ${quadrantGuidance}
   }
 }`;
 
-  const models = ['gemini-2.5-flash', 'gemini-flash-latest', 'gemini-2.5-flash-lite', 'gemini-3.7-flash'];
+  const models = [...GEMINI_TEXT_MODELS];
   let lastError = null;
 
   for (const model of models) {

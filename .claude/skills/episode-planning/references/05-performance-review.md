@@ -27,7 +27,7 @@
 7. **성공 패턴 자동 기록 (`success-patterns.json`, 2026-11-11 사용자 결정으로 승인 없이)**:
    - **넣는 조건**: 같은 방식·형식 중앙값 대비 1.5배 이상이고 표본 부족(4절)이 아닐 때. 같은 방식·형식 영상이 2편 미만이라 기준선이 없으면 넣지 않는다.
    - **상태**: 처음 넣을 때는 `가설`이다. 같은 방식·형식의 다른 편에서 같은 요인(`coreSuccessFactor`)이 다시 나오면 두 항목 모두 `확정`으로 바꾼다. 이후 같은 요인을 쓴 편이 0.5배 미만이면 `확정`을 `가설`로 내리고 이유를 `note`에 적는다.
-   - **형식**: 기존 리더(`idea-board.mjs`, `ab-simulator.mjs`, `matrix-diagnosis.mjs`)가 읽는 칸을 지키고, 판정에 필요한 칸을 더한다. 영상 하나에 항목 하나이며 `id`는 영상 ID다.
+   - **형식**: 기존 리더(`matrix-diagnosis.mjs`. `idea-board.mjs`·`ab-simulator.mjs`는 2026-11-11에 지움)가 읽는 칸을 지키고, 판정에 필요한 칸을 더한다. 영상 하나에 항목 하나이며 `id`는 영상 ID다.
      ```json
      {"id":"<영상 ID>","videoId":"<영상 ID>","title":"<제목>","ctr":2.4,"retentionRate":41,
       "coreSuccessFactor":"<통한 이유 한 줄>","reusableHook":"<다시 쓸 훅>","reusableAnalogy":"<다시 쓸 비유>",

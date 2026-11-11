@@ -45,6 +45,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { syncAllTrackedChannels, runD7AutonomousCycle } from "./competitor-lifecycle.mjs";
+import { loadEpisodeOutcomes } from "./planning-outcome.mjs";
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputPath = join(projectDir, "data", "youtube", "market-demand.json");
@@ -92,15 +93,17 @@ if (D7_SYNC) {
   const analyticsPath = join(projectDir, "data", "youtube", "analytics-latest.json");
   const analyticsData = existsSync(analyticsPath) ? JSON.parse(readFileSync(analyticsPath, "utf8")) : {};
 
+  const now = new Date();
   const result = runD7AutonomousCycle({
     marketDemandData: current,
     analyticsData,
+    episodeOutcomes: loadEpisodeOutcomes(projectDir, now),
     catalogVideos,
-    now: new Date(),
+    now,
   });
 
   writeFileSync(outputPath, JSON.stringify(result.marketDemandData, null, 2), "utf8");
-  console.log(`[D+7 자율 순환 완료] 대상 영상: ${result.evaluatedVideo?.title || '없음'} (${result.evaluatedVideo?.ratio || 1.0}x 배수)`);
+  console.log(`[D+7 자율 순환 완료] 반영한 판정: ${result.applied.map((a) => `${a.label} ${a.verdict} ${a.ratio}배 → ${a.channels.join('·') || '근거 채널 없음'}`).join(', ') || '없음'} (보류 ${result.marketDemandData.d7AutonomousCycle.holdCount}편)`);
   console.log(`- 황금 광산 승격 채널: ${result.promotedChannels.join(', ') || '없음'}`);
   console.log(`- 신규 발굴 검색어: ${result.discoveredKeywords.join(', ') || '없음'}`);
   process.exit(0);

@@ -8,7 +8,6 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {getRequestBlockReason} from '../request-guard.mjs';
 import {extractZip} from '../studio-auto-ingest.mjs';
-import {persistGeneratedImage, tempThumbDir} from '../ab-simulator.mjs';
 import {buildPackagePage, findPackageProblems, parseTitleVariants} from '../build-upload-package-page.mjs';
 
 const guard = (headers, method = 'GET', pathname = '/api/dashboard') =>
@@ -22,7 +21,7 @@ test('대시보드 화면과 터미널 스크립트의 요청은 통과한다', 
 });
 
 test('다른 사이트에서 온 요청은 막는다', () => {
-  assert.equal(guard({origin: 'https://evil.example'}, 'POST', '/api/ab-simulator/generate-image'), 'origin');
+  assert.equal(guard({origin: 'https://evil.example'}, 'POST', '/api/insights/analyze'), 'origin');
   assert.equal(guard({origin: 'null'}, 'POST', '/api/sync'), 'origin');
   assert.equal(guard({origin: 'http://localhost:9999'}, 'POST', '/api/sync'), 'origin');
   assert.equal(guard({'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors'}, 'GET', '/logout'), 'cross-site');
@@ -70,15 +69,6 @@ test('곡선 따옴표와 한글이 들어간 이름의 실제 zip은 정상으�
   } finally {
     rmSync(dir, {recursive: true, force: true});
   }
-});
-
-test('이미지 저장은 지정 폴더 밖으로 나갈 수 없다', async () => {
-  mkdirSync(tempThumbDir, {recursive: true});
-  const {imageUrl} = await persistGeneratedImage({engineLabel: 'test', dataUrl: 'data:image/png;base64,AA==', variantKey: '../../evil\\x'});
-  assert.match(imageUrl, /^\/api\/temp-thumbnail\/[A-Za-z0-9_-]+-\d+-[0-9a-f]+\.png$/);
-  const saved = join(tempThumbDir, imageUrl.split('/').pop());
-  assert.equal(existsSync(saved), true);
-  rmSync(saved);
 });
 
 // 2026-11-06: 수정하며 지운 변수 target을 업로드 성공 뒤 처리에서 계속 써서, 영상은 올라갔는데 화면에는 실패로 나왔다.

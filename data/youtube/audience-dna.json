@@ -1,7 +1,132 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-13T03:03:52.880Z",
+  "updatedAt": "2026-11-11T13:12:28.625Z",
   "entries": [
+    {
+      "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
+      "type": "question",
+      "text": "초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
+      "occurrences": 3,
+      "sources": [
+        {
+          "videoId": "-o_h1nIiCQM",
+          "channelTitle": "엄마의 브랜딩(Re:Studio)",
+          "sourceType": "outlierComment"
+        },
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        },
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-09-07T09:42:23.236Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "vocabulary:버터발음",
+      "type": "vocabulary",
+      "text": "버터발음",
+      "occurrences": 3,
+      "sources": [
+        {
+          "videoId": "kPKP8PA6vxg",
+          "channelTitle": "잉글핏",
+          "sourceType": "outlierComment"
+        },
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-09-07T09:41:07.356Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "vocabulary:방구석",
+      "type": "vocabulary",
+      "text": "방구석",
+      "occurrences": 2,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        },
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "vocabulary:입근육",
+      "type": "vocabulary",
+      "text": "입근육",
+      "occurrences": 2,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        },
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "vocabulary:백지 리셋",
+      "type": "vocabulary",
+      "text": "백지 리셋",
+      "occurrences": 2,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        },
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "question:대화할 원어민 상대가 1도 없는 방구석에서, 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
+      "type": "question",
+      "text": "대화할 원어민 상대가 1도 없는 방구석에서, 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
+      "occurrences": 2,
+      "sources": [
+        {
+          "videoId": "-o_h1nIiCQM",
+          "channelTitle": "엄마의 브랜딩(Re:Studio)",
+          "sourceType": "outlierComment"
+        },
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-09-07T09:42:23.236Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
     {
       "id": "vocabulary:언어팩",
       "type": "vocabulary",
@@ -46,21 +171,6 @@
       ],
       "firstSeenAt": "2026-09-07T09:42:20.119Z",
       "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "vocabulary:버터발음",
-      "type": "vocabulary",
-      "text": "버터발음",
-      "occurrences": 2,
-      "sources": [
-        {
-          "videoId": "kPKP8PA6vxg",
-          "channelTitle": "잉글핏",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:41:07.356Z",
-      "lastSeenAt": "2026-09-07T09:41:07.628Z"
     },
     {
       "id": "vocabulary:복식호흡",
@@ -228,6 +338,471 @@
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
     },
     {
+      "id": "painPoint:대화할 원어민 상대가 1도 없는 방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫어야 하는 현실적인 고통과 '미국 살다 온 게 아니면 안 된다'는 체념",
+      "type": "painPoint",
+      "text": "대화할 원어민 상대가 1도 없는 방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫어야 하는 현실적인 고통과 '미국 살다 온 게 아니면 안 된다'는 체념",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "painPoint:토익 문장은 외우지만 '아 진짜?', '말도 안 돼' 같은 일상 감정 표현이 1초 만에 원어민식 덩어리 소리로 튀어나오지 않아 실전에서 멈춰버리는 현상",
+      "type": "painPoint",
+      "text": "토익 문장은 외우지만 '아 진짜?', '말도 안 돼' 같은 일상 감정 표현이 1초 만에 원어민식 덩어리 소리로 튀어나오지 않아 실전에서 멈춰버리는 현상",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "painPoint:받침으로 못 들어가는 자음들을 입안에서 어떻게 처리해야 원어민처럼 소리가 나는지 모르고, 긴 단어를 읽을 때 혀가 꼬이는 답답함",
+      "type": "painPoint",
+      "text": "받침으로 못 들어가는 자음들을 입안에서 어떻게 처리해야 원어민처럼 소리가 나는지 모르고, 긴 단어를 읽을 때 혀가 꼬이는 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "question:방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
+      "type": "question",
+      "text": "방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "question:70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
+      "type": "question",
+      "text": "70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "vocabulary:한국어 언어팩",
+      "type": "vocabulary",
+      "text": "한국어 언어팩",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "vocabulary:게으른 혀",
+      "type": "vocabulary",
+      "text": "게으른 혀",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "vocabulary:덩어리 소리",
+      "type": "vocabulary",
+      "text": "덩어리 소리",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "vocabulary:환경 탓",
+      "type": "vocabulary",
+      "text": "환경 탓",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "13MTKD2RPqA",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:28.625Z",
+      "lastSeenAt": "2026-11-11T13:12:28.625Z"
+    },
+    {
+      "id": "painPoint:돌아서면 잊어버리는 백지 리셋 현상 (나이 탓으로 돌리는 좌절)",
+      "type": "painPoint",
+      "text": "돌아서면 잊어버리는 백지 리셋 현상 (나이 탓으로 돌리는 좌절)",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "painPoint:학교 다닐 때 외우기만 하던 주입식 교육의 트라우마와 포기",
+      "type": "painPoint",
+      "text": "학교 다닐 때 외우기만 하던 주입식 교육의 트라우마와 포기",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "painPoint:영어 간판이나 단어 하나도 제대로 못 읽던 왕초보의 답답함",
+      "type": "painPoint",
+      "text": "영어 간판이나 단어 하나도 제대로 못 읽던 왕초보의 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "question:긴 단어나 복잡한 모음 뭉치는 도대체 어떻게 끊어 읽어야 혀가 꼬이지 않나요?",
+      "type": "question",
+      "text": "긴 단어나 복잡한 모음 뭉치는 도대체 어떻게 끊어 읽어야 혀가 꼬이지 않나요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "question:받침으로 못 들어가는 자음들은 입안에서 소리를 어떻게 처리해야 원어민처럼 소리가 나나요?",
+      "type": "question",
+      "text": "받침으로 못 들어가는 자음들은 입안에서 소리를 어떻게 처리해야 원어민처럼 소리가 나나요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "question:70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 저장해 놓고 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
+      "type": "question",
+      "text": "70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 저장해 놓고 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:귀에 쏙쏙",
+      "type": "vocabulary",
+      "text": "귀에 쏙쏙",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:머리에 쏙 들어오네요",
+      "type": "vocabulary",
+      "text": "머리에 쏙 들어오네요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:속이 뻥 뚫리는 강의",
+      "type": "vocabulary",
+      "text": "속이 뻥 뚫리는 강의",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:알사탕 같은 기초",
+      "type": "vocabulary",
+      "text": "알사탕 같은 기초",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:눈이 딱 트여요",
+      "type": "vocabulary",
+      "text": "눈이 딱 트여요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:돌아서면 잊어버림",
+      "type": "vocabulary",
+      "text": "돌아서면 잊어버림",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:아리까리한 부분",
+      "type": "vocabulary",
+      "text": "아리까리한 부분",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "vocabulary:간판도 읽겠네",
+      "type": "vocabulary",
+      "text": "간판도 읽겠네",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "J28QuPqOCyM",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:12:06.115Z",
+      "lastSeenAt": "2026-11-11T13:12:06.115Z"
+    },
+    {
+      "id": "painPoint:원어민 친구나 유학 환경이 없어 입이 트이지 않는다는 체념과, '미국 살다 온 거 아니냐'며 환경 탓을 하며 입을 떼지 못하고 포기해버리는 고통.",
+      "type": "painPoint",
+      "text": "원어민 친구나 유학 환경이 없어 입이 트이지 않는다는 체념과, '미국 살다 온 거 아니냐'며 환경 탓을 하며 입을 떼지 못하고 포기해버리는 고통.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "painPoint:토익이나 회화책 예문은 외우지만, 하루 종일 가장 많이 쓰는 감정 감탄사나 추임새('아 진짜?', '말도 안 돼', '그냥 그래')가 1초 만에 원어민식 덩어리 소리로 나오지 않아 실전 대화에서 멈춰버리는 현상.",
+      "type": "painPoint",
+      "text": "토익이나 회화책 예문은 외우지만, 하루 종일 가장 많이 쓰는 감정 감탄사나 추임새('아 진짜?', '말도 안 돼', '그냥 그래')가 1초 만에 원어민식 덩어리 소리로 나오지 않아 실전 대화에서 멈춰버리는 현상.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "painPoint:외우면 며칠 뒤 백지처럼 리셋되고, 혀와 입술 근육에 영구 장착하는 신체적 훈련법을 모른 채 머리로만 문법을 검열하며 공부하는 악순환.",
+      "type": "painPoint",
+      "text": "외우면 며칠 뒤 백지처럼 리셋되고, 혀와 입술 근육에 영구 장착하는 신체적 훈련법을 모른 채 머리로만 문법을 검열하며 공부하는 악순환.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "question:내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, 원어민 슬랭을 흉내 내야 하나요 아니면 쉬운 기본 단어 조합으로 만들어야 하나요?",
+      "type": "question",
+      "text": "내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, 원어민 슬랭을 흉내 내야 하나요 아니면 쉬운 기본 단어 조합으로 만들어야 하나요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "vocabulary:혀끝",
+      "type": "vocabulary",
+      "text": "혀끝",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "vocabulary:흘려듣기",
+      "type": "vocabulary",
+      "text": "흘려듣기",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "vocabulary:뭉개짐",
+      "type": "vocabulary",
+      "text": "뭉개짐",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
+      "id": "vocabulary:뇌 정지",
+      "type": "vocabulary",
+      "text": "뇌 정지",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "CfphQuviQVI",
+          "channelTitle": "어션영어BasicEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-11T13:11:41.835Z",
+      "lastSeenAt": "2026-11-11T13:11:41.835Z"
+    },
+    {
       "id": "vocabulary:영어 체화 및 지속성: 헬스장 쇠질(체육관 운동) 루틴 비유 - 머리가 아니라 근육에 새기는 하루 1회 반복",
       "type": "vocabulary",
       "text": "영어 체화 및 지속성: 헬스장 쇠질(체육관 운동) 루틴 비유 - 머리가 아니라 근육에 새기는 하루 1회 반복",
@@ -393,39 +968,9 @@
       "lastSeenAt": "2026-09-07T09:42:23.236Z"
     },
     {
-      "id": "question:대화할 원어민 상대가 1도 없는 방구석에서, 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
-      "type": "question",
-      "text": "대화할 원어민 상대가 1도 없는 방구석에서, 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
       "id": "question:내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, '원어민 슬랭'을 흉내 내야 하나요 아니면 '쉬운 기본 단어 조합'으로 만들어야 하나요?",
       "type": "question",
       "text": "내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, '원어민 슬랭'을 흉내 내야 하나요 아니면 '쉬운 기본 단어 조합'으로 만들어야 하나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
-      "type": "question",
-      "text": "초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
       "occurrences": 1,
       "sources": [
         {

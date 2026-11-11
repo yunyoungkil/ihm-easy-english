@@ -127,6 +127,15 @@ async function main() {
       ],
       // renderMarketDemandTab — shape matches data/youtube/market-demand.json
       // (byKeyword[] + trackedChannels[], see scripts/market-demand.mjs)
+      // renderAbSimulatorTab(실제 검색 피드 & 잘된 썸네일) — shape matches /api/thumb-feed/packages, /api/thumb-feed
+      gThumbFeedPackages: [{name: 'ep99-test', title: 'TEST_FEED_OUR_TITLE', format: 'LONGFORM', status: 'scheduled', when: null,
+        thumbnails: [{file: 'thumbnail.jpg', url: '/api/upload-package-asset/ep99-test/thumbnail.jpg'}], queries: ['test query']}],
+      gThumbFeedPkg: 'ep99-test',
+      gThumbFeedQuery: 'test query',
+      gThumbFeedData: {key: 'LONGFORM::test query', query: 'test query', format: 'LONGFORM', fetchedAt: '2026-11-11T00:00:00Z', fromCache: true,
+        feed: [{videoId: 'F1', title: 'TEST_FEED_RESULT', channelTitle: 'C', views: 100, thumbnail: 'x', isShort: false}],
+        winners: [{videoId: 'W1', title: 'TEST_FEED_WINNER', channelTitle: 'C', views: 9000, subs: 100, ratio: 90, thumbnail: 'x'}],
+        competitorOutliers: [{videoId: 'O1', title: 'TEST_FEED_OUTLIER', channelTitle: 'C', views: 5000, outlierRatio: 12.3, thumbnail: 'x'}]},
       gMarketDemand: {
         schemaVersion: 1,
         generatedAt: '2026-10-02T00:00:00.000Z',
@@ -187,6 +196,16 @@ async function main() {
             ],
           },
         ],
+        // renderBenchmarkTab(기획 근거 성적표) — shape matches runD7AutonomousCycle episodeOutcomes
+        episodeOutcomes: [
+          {
+            label: 'TEST_OUTCOME_LABEL', slug: 'ep99-test', videoId: 'TESTVID099', title: '테스트 영상',
+            publishedAt: '2026-10-01T00:00:00Z', verdict: 'hold', ratio: 1.3, reason: '작은 표본',
+            views: 10, impressions: 70, hasSources: true, audience: 'TEST_OUTCOME_AUDIENCE',
+            competitors: [{channelTitle: 'TEST_OUTCOME_CHANNEL', channelId: 'UCTEST0000000000000000', videoId: 'TESTVID002', sourceRatio: 25.3}],
+          },
+        ],
+        d7AutonomousCycle: {lastRunAt: '2026-11-11T00:00:00Z', applied: [{label: 'TEST_D7_APPLIED', ratio: 1.8, channels: ['TEST_TRACKED_CHANNEL']}], holdCount: 3},
       },
       // renderKnowledgeDbTab — shape matches data/youtube/audience-dna.json +
       // data/youtube/success-patterns.json (see upsertAudienceDna / renderKnowledgeDbTab)
@@ -233,7 +252,9 @@ async function main() {
     // above (e.g. renderDesignSystemTab is self-contained).
     const expectedMarkers = {
       renderOverviewTab: ['Top Video'],
-      renderMarketDemandTab: ['TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER'],
+      renderMarketDemandTab: ['TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER', 'TEST_D7_APPLIED'],
+      renderBenchmarkTab: ['TEST_OUTCOME_LABEL', 'TEST_OUTCOME_CHANNEL', 'TEST_OUTCOME_AUDIENCE'],
+      renderAbSimulatorTab: ['TEST_FEED_OUR_TITLE', 'TEST_FEED_RESULT', 'TEST_FEED_WINNER', 'TEST_FEED_OUTLIER'],
       renderEpisodesTab: ['EP16 Test Title'],
       renderStudioTab: ['Video 1'],
     };
@@ -244,6 +265,7 @@ async function main() {
       'renderEpisodesTab',
       'renderStudioTab',
       'renderMarketDemandTab',
+      'renderBenchmarkTab',
       'renderAbSimulatorTab',
     ];
 

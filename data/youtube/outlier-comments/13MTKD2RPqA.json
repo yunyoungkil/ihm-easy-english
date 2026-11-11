@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-11T13:12:28.613Z",
+  "video": {
+    "videoId": "13MTKD2RPqA",
+    "title": "딱 33일! 올인원 기초영어! [Day19 파트2_a, an, the의 구분하는 법!]",
+    "channelTitle": "어션영어BasicEnglish",
+    "channelId": "UCqQR8b-MTXuMgrV7scZfq_w",
+    "publishedAt": "2026-11-07T03:30:19Z",
+    "viewCount": 1661,
+    "likeCount": 23,
+    "commentCount": 4,
+    "thumbnailUrl": "https://i.ytimg.com/vi/13MTKD2RPqA/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "id": 1,
+        "title": "원어민 환경 부재와 혼잣말 한계",
+        "description": "대화할 원어민 상대가 1도 없는 방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫어야 하는 현실적인 고통과 '미국 살다 온 게 아니면 안 된다'는 체념"
+      },
+      {
+        "id": 2,
+        "title": "실전 감정 추임새의 백지 리셋",
+        "description": "토익 문장은 외우지만 '아 진짜?', '말도 안 돼' 같은 일상 감정 표현이 1초 만에 원어민식 덩어리 소리로 튀어나오지 않아 실전에서 멈춰버리는 현상"
+      },
+      {
+        "id": 3,
+        "title": "긴 단어와 복잡한 자음 처리의 어려움",
+        "description": "받침으로 못 들어가는 자음들을 입안에서 어떻게 처리해야 원어민처럼 소리가 나는지 모르고, 긴 단어를 읽을 때 혀가 꼬이는 답답함"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "id": 1,
+        "question": "방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?"
+      },
+      {
+        "id": 2,
+        "question": "초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?"
+      },
+      {
+        "id": 3,
+        "question": "70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 머릿속에 평생 남는 복습 루틴은 무엇인가요?"
+      }
+    ],
+    "audienceVocabulary": [
+      "방구석",
+      "입근육",
+      "한국어 언어팩",
+      "백지 리셋",
+      "게으른 혀",
+      "덩어리 소리",
+      "환경 탓"
+    ],
+    "whatWorked": [
+      {
+        "id": 1,
+        "point": "어려운 문법 용어를 배제하고 소리가 나는 물리적인 원리를 직관적인 비유로 풀어준 점"
+      },
+      {
+        "id": 2,
+        "point": "무작정 외우게 하지 않고 혀의 위치나 입모양 같은 '소리의 지름길'을 명쾌하게 짚어준 점"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "미국 유학 0일, 방구석 혼잣말만으로 원어민 입근육 장착하는 3단계 소리 법칙",
+        "영어만 보면 머리가 하얗게 백지화되는 분들, 딱 10분만 이 '언어팩'으로 갈아끼우세요",
+        "토익 단어 외우지 마세요! 하루 종일 쓰는 감정 추임새 1초 만에 뱉는 법"
+      ],
+      "hookThreeSeconds": "영어 못했던 거 절대 여러분 탓 아닙니다. 혀를 한국인처럼 게으르게 굴려서 그런 거예요. 딱 3초만 따라 해보세요.",
+      "shortsTrackAIdea": {
+        "concept": "받침 없는 자음 처리 원리 설명형 쇼츠",
+        "hook": "자음 발음할 때 절대 입술 꾹 닫지 마세요. 원어민은 입안에서 이렇게 소리를 흘립니다."
+      },
+      "shortsTrackBIdea": {
+        "concept": "실전 감정 추임새(말도 안 돼!) 덩어리 소리 상황극 쇼츠",
+        "hook": "외국인이 'What?' 할 때 'What?'이라고 대답하면 대화 끊기는 이유, 이 추임새 하나면 끝납니다."
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "Ugy75S5is62gzpORicN4AaABAg",
+      "text": "선생님 감사합니다 👍👍👍\n날씨가 많이 추워졌어요 ~\n건강조심하시길 빕니다 🙏",
+      "author": "@박인선-q2b",
+      "likeCount": 1,
+      "publishedAt": "2026-11-07T09:37:03Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxawmW8Qd1JZ6edp414AaABAg",
+      "text": "오늘도 잘 들었습니다\n🥰😍🤩😘",
+      "author": "@풀-k7z",
+      "likeCount": 0,
+      "publishedAt": "2026-11-09T08:25:42Z",
+      "replyCount": 1
+    }
+  ]
+}

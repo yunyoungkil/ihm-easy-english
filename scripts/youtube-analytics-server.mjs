@@ -17,11 +17,9 @@ import {
 } from './analyze-outlier-comments.mjs';
 import { analyzeSingleScript } from './analyze-competitor-script.mjs';
 import { startStudioWatcher } from './studio-auto-ingest.mjs';
-import { getMockCompetitorVideos, evaluateThumbnailTitleVariants, generateAiThumbnailImage, buildThumbnailPrompt, hasPresenterReference, tempThumbDir, persistGeneratedImage } from './ab-simulator.mjs';
-import { buildMatrixDataset, diagnoseVideoWithGemini, isDiagnosable } from './matrix-diagnosis.mjs';
+import { pickSearchQueries, rankWinners, fetchSearchFeed } from './thumb-feed.mjs';
+import { buildMatrixDataset, isDiagnosable } from './matrix-diagnosis.mjs';
 import { toStoredCtr } from './studio-reach.mjs';
-import { lintBrandScript } from './brand-script-linter.mjs';
-import { generateTopicCandidates } from './idea-board.mjs';
 import { getRequestBlockReason } from './request-guard.mjs';
 import {
   loadPublishRules,
@@ -38,9 +36,11 @@ import {
   dismissCommentNotice,
   decideNextUpload,
   isOurChannel,
+  OUR_CHANNEL_ID,
 } from './youtube-publisher.mjs';
 import { attachShortsPackages, packageStatusSource, selectPackageVideo, packageStatusLabel, shortsPackageEpisode } from './upload-package-summary.mjs';
-import { syncAllTrackedChannels, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
+import { syncAllTrackedChannels, runD7AutonomousCycle, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
+import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 
 const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
@@ -77,7 +77,6 @@ const globalUploadPackagesDir = join(projectDir, 'output', 'upload-packages');
 // 동일한 candidates 스키마) 대시보드의 "✍️ Claude 초안 불러오기" 버튼이 그 파일을 읽어와서
 // 정상적인 AI 생성 결과와 똑같은 방식으로 화면에 띄운다.
 const ideaBoardManualDraftPath = join(youtubeDataDir, 'idea-board-manual-draft.json');
-const abSimulatorStatePath = join(youtubeDataDir, 'ab-simulator-state.json');
 const AUDIENCE_DNA_MAX_ENTRIES = 300;
 const SUCCESS_PATTERNS_MAX_ENTRIES = 300;
 const contentDir = join(projectDir, 'content');
@@ -2388,7 +2387,7 @@ input:disabled, select:disabled {
   <button class="rail-btn" data-tab="tab-demand" title="경쟁 분석 & 시장 수요 (Market & Competitor)">
     🎯<span class="label">Market</span>
   </button>
-  <button class="rail-btn" data-tab="tab-ab-simulator" title="모바일 피드 A/B 시뮬레이터">
+  <button class="rail-btn" data-tab="tab-ab-simulator" title="실제 검색 피드 & 잘된 썸네일">
     📱<span class="label">Feed A/B</span>
   </button>
 </aside>
@@ -2418,8 +2417,8 @@ input:disabled, select:disabled {
       <button class="tab-pill" data-tab="tab-episodes">🎬 에피소드 & 업로드 패키지</button>
       <button class="tab-pill" data-tab="tab-studio">📁 Studio CTR 트래커</button>
       <button class="tab-pill" data-tab="tab-demand">🎯 경쟁 분석 & 시장 수요</button>
-      <button class="tab-pill" data-tab="tab-benchmark">💡 아웃라이어 벤치마킹 랩</button>
-      <button class="tab-pill" data-tab="tab-ab-simulator">📱 A/B 피드 시뮬레이터</button>
+      <button class="tab-pill" data-tab="tab-benchmark">💡 기획 근거 성적표</button>
+      <button class="tab-pill" data-tab="tab-ab-simulator">🔍 검색 피드 & 잘된 썸네일</button>
     </nav>
   </div>
 
@@ -2470,15 +2469,6 @@ let gCurrentTab = (function() {
 let gBenchmarkDnaFilter = (function() {
   try { return localStorage.getItem('ihm_benchmark_dna_filter') || 'ALL'; } catch (_) { return 'ALL'; }
 })();
-let gBenchmarkTarget = (function() {
-  try {
-    const raw = localStorage.getItem('ihm_benchmark_target');
-    return raw ? JSON.parse(raw) : null;
-  } catch (_) { return null; }
-})();
-let gSelectedHookId = (function() {
-  try { return localStorage.getItem('ihm_selected_hook_id') || 'hook-1'; } catch (_) { return 'hook-1'; }
-})();
 let gStudioFilter = (function() {
   try { return localStorage.getItem('ihm_studio_filter') || 'LONGFORM'; } catch (_) { return 'LONGFORM'; }
 })();
@@ -2495,17 +2485,6 @@ let gBrandScriptFormat = "SHORTS";
 let gBrandScriptText = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TEXT)};
 let gBrandScriptLinterResult = null;
 
-function saveBrandLinterState() {
-  try {
-    const state = {
-      topic: gBrandScriptTopic,
-      format: gBrandScriptFormat,
-      text: gBrandScriptText,
-      result: gBrandScriptLinterResult,
-    };
-    localStorage.setItem('ihm_brand_linter_state', JSON.stringify(state));
-  } catch (_) {}
-}
 
 function loadBrandLinterState() {
   try {
@@ -2536,169 +2515,26 @@ let gMatrixRetThresholdShorts = null;
 // every call site.
 let gMatrixResolvedThresholds = { ctr: 6.0, retLong: 42.0, retShorts: 70.0 };
 
-/* A/B SIMULATOR STATE */
-let gAbVariants = [
-  {
-    id: 'A',
-    title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙",
-    imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
-    thumbnailCopy: "SPECIAL 발음 치트키",
-    badge: '발음 원리',
-    isLocalFile: false,
-  },
-  {
-    id: 'B',
-    title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)",
-    imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg',
-    thumbnailCopy: "PICTURE 소리 비밀",
-    badge: '소리 법칙',
-    isLocalFile: false,
-  },
-  {
-    id: 'C',
-    title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)",
-    imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg',
-    thumbnailCopy: "시즌1 완결 총정리 족보",
-    badge: '총정리',
-    isLocalFile: false,
-  },
-];
-let gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
-let gAbAudience = "3060 성인 & 왕초보 영어 학습자";
-let gAbFormat = "LONGFORM"; // 'LONGFORM' | 'SHORTS'
+/* A/B SIMULATOR STATE — 2026-11-11 재설계 뒤 남은 호환 변수.
+   다른 탭(브랜드 대본·스튜디오·아이디어)이 gAbTopic/gAbFormat에 주제를 넣고 이 탭을 연다.
+   새 탭("실제 검색 피드 & 잘된 썸네일")은 gAbTopic을 검색어 후보 하나로만 쓴다.
+   예전 AI CTR 진단·시안 저장·이미지 생성 상태는 지웠다(서버 /api/ab-simulator/* 도 삭제). */
+let gAbVariants = [];
+let gAbTopic = '';
+let gAbAudience = '';
+let gAbFormat = 'LONGFORM';
 let gAbCompetitors = [];
-let gAbCompetitorsFetchedForTopic = null; // 마지막으로 gAbCompetitors를 가져온 topic — 바뀌면 재요청
-let gAbActiveFeedView = 'A'; // 'A' | 'B' | 'C' | 'ALL'
-let gAbFeedPosition = 'TOP'; // 'TOP' | 'MIDDLE' | 'BOTTOM'
-let gAbFeedSlotIndex = 0; // 0 to 6 (Exact slot position in mobile feed)
-let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale'
+let gAbCompetitorsFetchedForTopic = null;
+let gAbActiveFeedView = 'A';
+let gAbFeedPosition = 'TOP';
+let gAbFeedSlotIndex = 0;
+let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale' — 새 피드에서도 그대로 쓴다
 let gAbAiReport = null;
-let gAbSelectedVariantTab = 'A'; // 'A' | 'B' | 'C'
-// 클로즈업 전용 4번째 썸네일(thumbnail-close-up.jpg) — A/B/C 시안과 별개로 저장한다.
-// knowledge/thumbnail-strategy.md의 "클로즈업 썸네일은 대시보드 예상 CTR %가 가장 높은
-// 시안을 선택해 제작한다"(2026-09-20 확정) 규칙이 그동안 코드로는 강제되지 않고 사람이
-// 매번 화면의 %를 손으로 읽어 옮기는 방식이었다 — 이제 버튼 하나로 bestVariant의 문구를
-// 그대로 가져다 클로즈업 전용 구도로 생성한다(2026-09-29).
+let gAbSelectedVariantTab = 'A';
 let gAbCloseUpImageUrl = '';
-let gAbCloseUpSourceVariant = ''; // 이 클로즈업이 어느 시안 문구로 만들어졌는지 기록
-
-let gAbStateSyncTimer = null;
-let gAbStateSyncFailedNotified = false;
-function saveAbSimulatorState() {
-  const state = {
-    format: gAbFormat,
-    topic: gAbTopic,
-    audience: gAbAudience,
-    variants: gAbVariants,
-    activeFeedView: gAbActiveFeedView,
-    feedPosition: gAbFeedPosition,
-    feedSlotIndex: gAbFeedSlotIndex,
-    selectedVariantTab: gAbSelectedVariantTab,
-    visionFilter: gAbVisionFilter,
-    aiReport: gAbAiReport,
-    closeUpImageUrl: gAbCloseUpImageUrl,
-    closeUpSourceVariant: gAbCloseUpSourceVariant,
-  };
-  // localStorage는 같은 탭에서만 쓰는 빠른 캐시일 뿐, 진짜 저장소는 서버 파일이다 — 이 저장이
-  // 실패해도(예: 용량 초과) 서버 동기화는 반드시 계속 시도해야 한다. 예전엔 이 둘이 같은 try
-  // 블록 안에 있어서, localStorage.setItem이 QuotaExceededError로 던지면 그 아래 서버 동기화
-  // setTimeout 자체가 등록조차 안 됐다 — "드래그앤드롭했는데 서버에 저장이 안 된다"던 게 실은
-  // 업로드 자체 버그가 아니라 saveAbSimulatorState 함수 전체가 조용히 멈춰있던 문제였다
-  // (2026-09-02, Playwright 검증으로 실제 QuotaExceededError를 콘솔에서 확인해서 발견 — 예전
-  // 로컬 업로드가 base64를 그대로 상태에 남겨서 용량을 초과시켰었다).
-  try {
-    localStorage.setItem('ihm_ab_simulator_state', JSON.stringify(state));
-  } catch (err) {
-    console.warn('Failed to save A/B simulator state to localStorage (서버 동기화는 계속 진행):', err);
-  }
-  // 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서 못 봄(2026-09-02, 사용자 지적).
-  // 입력창 타이핑마다 saveAbSimulatorState가 호출되므로 네트워크 요청은 디바운스한다.
-  if (gAbStateSyncTimer) clearTimeout(gAbStateSyncTimer);
-  gAbStateSyncTimer = setTimeout(() => {
-    fetch('/api/ab-simulator/state', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(state),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        gAbStateSyncFailedNotified = false;
-      })
-      .catch((err) => {
-        // 예전엔 여기서 그냥 삼켜서 실패해도 아무 표시가 없었다 — 반복 토스트로 스팸이 안 되게
-        // 다음 성공 전까지 한 번만 띄운다.
-        console.warn('Failed to sync A/B simulator state to server:', err);
-        if (!gAbStateSyncFailedNotified) {
-          gAbStateSyncFailedNotified = true;
-          showToast('⚠️ 시안 변경사항이 서버에 저장되지 않고 있습니다 — 새로고침하면 사라질 수 있어요.');
-        }
-      });
-  }, 1200);
-}
-
-async function hydrateAbSimulatorFromServer() {
-  try {
-    const res = await fetch('/api/ab-simulator/state');
-    if (!res.ok) return;
-    const state = await res.json();
-    if (state && Array.isArray(state.variants) && state.variants.length === 3) {
-      if (state.format) gAbFormat = state.format;
-      if (state.topic) gAbTopic = state.topic;
-      if (state.audience) gAbAudience = state.audience;
-      gAbVariants = state.variants;
-      if (state.activeFeedView) gAbActiveFeedView = state.activeFeedView;
-      if (state.feedPosition) gAbFeedPosition = state.feedPosition;
-      if (typeof state.feedSlotIndex === 'number') gAbFeedSlotIndex = state.feedSlotIndex;
-      if (state.selectedVariantTab) gAbSelectedVariantTab = state.selectedVariantTab;
-      if (state.visionFilter) gAbVisionFilter = state.visionFilter;
-      if (state.aiReport) gAbAiReport = state.aiReport;
-      if (state.closeUpImageUrl) gAbCloseUpImageUrl = state.closeUpImageUrl;
-      if (state.closeUpSourceVariant) gAbCloseUpSourceVariant = state.closeUpSourceVariant;
-      try { localStorage.setItem('ihm_ab_simulator_state', JSON.stringify(state)); } catch (_) {}
-    }
-  } catch (err) {
-    console.warn('Failed to hydrate A/B simulator state from server:', err);
-  }
-}
-
-function loadAbSimulatorState() {
-  try {
-    const saved = localStorage.getItem('ihm_ab_simulator_state');
-    if (saved) {
-      const state = JSON.parse(saved);
-      if (state.format) gAbFormat = state.format;
-      if (state.topic) gAbTopic = state.topic;
-      if (state.audience) gAbAudience = state.audience;
-      if (typeof state.feedSlotIndex === 'number') gAbFeedSlotIndex = state.feedSlotIndex;
-      if (state.feedPosition) gAbFeedPosition = state.feedPosition;
-      if (Array.isArray(state.variants) && state.variants.length === 3) {
-        gAbVariants = state.variants;
-        // Self-heal: If format is LONGFORM but variants still hold old competitor images, update to our channel's 16:9 Longform thumbnails
-        if (gAbFormat === 'LONGFORM') {
-          const hasOldSample = gAbVariants.some(v => v.imageUrl && (v.imageUrl.includes('OVAeeJxmdw0') || v.imageUrl.includes('tpveKY5pnis') || v.imageUrl.includes('t_wVvVyqdbg') || v.imageUrl.includes('5MiM1tIpQQk') || v.imageUrl.includes('unsplash.com')) && !v.isLocalFile);
-          if (hasOldSample) {
-            gAbVariants = [
-              { id: 'A', title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙", imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg', thumbnailCopy: "SPECIAL 발음 치트키", badge: '발음 원리', isLocalFile: false },
-              { id: 'B', title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)", imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg', thumbnailCopy: "PICTURE 소리 비밀", badge: '소리 법칙', isLocalFile: false },
-              { id: 'C', title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)", imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg', thumbnailCopy: "시즌1 완결 총정리 족보", badge: '총정리', isLocalFile: false },
-            ];
-            gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
-          }
-        }
-      }
-      if (state.activeFeedView) gAbActiveFeedView = state.activeFeedView;
-      if (state.feedPosition) gAbFeedPosition = state.feedPosition;
-      if (state.selectedVariantTab) gAbSelectedVariantTab = state.selectedVariantTab;
-      if (state.visionFilter) gAbVisionFilter = state.visionFilter;
-      if (state.aiReport) gAbAiReport = state.aiReport;
-      if (state.closeUpImageUrl) gAbCloseUpImageUrl = state.closeUpImageUrl;
-      if (state.closeUpSourceVariant) gAbCloseUpSourceVariant = state.closeUpSourceVariant;
-    }
-  } catch (err) {
-    console.warn('Failed to load A/B simulator state:', err);
-  }
-}
-loadAbSimulatorState();
+let gAbCloseUpSourceVariant = '';
+function saveAbSimulatorState() {}
+async function hydrateAbSimulatorFromServer() {}
 
 /* IDEA BOARD STATE */
 let gIdeaBoardCandidates = null;
@@ -3478,10 +3314,10 @@ function renderMarketDemandTab() {
     ? trackedChannels
     : trackedChannels.filter(c => c.status === gDemandFilter);
 
-  // D+7 자율 순환 요약 정보
+  // D+7 자율 순환 요약 정보 — 동기화(/api/sync)마다 서버가 자동으로 돌린 결과만 보여 준다.
   const d7 = md.d7AutonomousCycle || null;
-  const d7Target = d7?.targetVideo || null;
-  const d7LastRun = d7?.lastRunAt ? d7.lastRunAt.slice(0, 10) : (md.lifecycleSyncedAt?.slice(0, 10) || '최신');
+  const d7Applied = Array.isArray(d7?.applied) ? d7.applied : [];
+  const d7LastRun = d7?.lastRunAt ? d7.lastRunAt.slice(0, 10) : '아직 안 돎';
 
   let html = '<div class="bento-grid">' +
     // Top Autonomous Cockpit Header
@@ -3505,9 +3341,11 @@ function renderMarketDemandTab() {
       '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">' +
         '<span class="pulse-dot" style="background:var(--accent-amber);box-shadow:0 0 10px var(--accent-amber);width:9px;height:9px;border-radius:50%;display:inline-block"></span>' +
         '<span style="font-weight:800;color:var(--accent-amber);font-size:13px">🔔 D+7 자율 순환 현황:</span>' +
-        (d7Target ?
-          '<span class="badge" style="background:#090e18;border-color:var(--accent-cyan);color:var(--accent-cyan);font-size:11px;font-weight:700">최근 검증: ' + esc(d7Target.title.slice(0, 32)) + '... (' + d7Target.ratio + 'x 배수)</span>' :
-          '<span class="badge badge-pass" style="font-size:11px">최신 영상 성과 검증 대기</span>') +
+        (d7Applied.length ?
+          d7Applied.map((a) => '<span class="badge" style="background:#090e18;border-color:var(--accent-cyan);color:var(--accent-cyan);font-size:11px;font-weight:700">' + esc(a.label) + ' ' + esc(a.ratio) + '배 → ' + esc((a.channels || []).join('·') || '근거 채널 없음') + '</span>').join('') :
+          '<span class="badge badge-hold" style="font-size:11px">이번에 반영한 판정 없음</span>') +
+        (d7 && d7.holdCount ?
+          '<span class="badge" style="font-size:11px" title="노출이 적어(작은 표본) 운인지 실력인지 가릴 수 없는 편은 경쟁 채널 상태를 바꾸지 않습니다">판정 보류 ' + d7.holdCount + '편 (표본 부족)</span>' : '') +
         (d7?.discoveredKeywords && d7.discoveredKeywords.length > 0 ?
           '<span class="badge" style="background:rgba(6,182,212,0.15);color:#38bdf8;font-size:11px">시청자 유입어 ' + d7.discoveredKeywords.length + '개 편입됨</span>' : '') +
       '</div>' +
@@ -3522,7 +3360,6 @@ function renderMarketDemandTab() {
         '<button id="btn-run-demand-smart" class="btn btn-cyan btn-sm" style="white-space:nowrap;padding:10px 18px;font-weight:800">🚀 스마트 분석</button>' +
       '</div>' +
       '<div style="display:flex;align-items:center;gap:8px">' +
-        '<button id="btn-run-d7-sync" class="btn btn-sm" style="background:rgba(245,158,11,0.15);border:1px solid #f59e0b;color:#fbbf24;font-size:12px;padding:9px 14px;font-weight:700" title="공개 7일 차 영상 성과를 검증하고 시청자 검색어를 키워드 풀에 자율 흡수합니다">🔄 D+7 자율 순환 1회 동기화</button>' +
         '<button id="btn-sync-all-channels" class="btn btn-sm" style="background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-bright);font-size:12px;padding:9px 14px;font-weight:600" title="모든 추적 채널 최신 아웃라이어 새로고침">전체 채널 동기화</button>' +
       '</div>' +
     '</div>' +
@@ -3575,10 +3412,13 @@ function renderMarketDemandTab() {
           '<span style="font-weight:800;font-size:13.5px;color:' + (isSelected ? 'var(--accent-cyan)' : 'var(--text-bright)') + ';word-break:keep-all">' + esc(k.keyword) + '</span>' +
           (isD7 ? '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px">D+7 유입</span>' : '') +
         '</div>' +
-        '<div class="card-subtext" style="margin-top:3px;font-size:11px">기회 ' + Number(k.opportunityScore || 0).toFixed(1) + '점 · 표본 ' + (k.videoCount || 0) + '개</div>' +
+        // 시청자 검색어로 들어온 키워드는 아직 분석 전이라 점수가 없다 — 0점으로 보이지 않게 실제 검색 조회수를 보여 준다.
+        (k.marketDemandScore == null
+          ? '<div class="card-subtext" style="margin-top:3px;font-size:11px">우리 채널 검색 유입 ' + (k.searchViews ?? '?') + '회 · 🔄로 분석 전</div>'
+          : '<div class="card-subtext" style="margin-top:3px;font-size:11px">기회 ' + Number(k.opportunityScore || 0).toFixed(1) + '점 · 표본 ' + (k.videoCount || 0) + '개</div>') +
       '</div>' +
       '<div style="display:flex;gap:4px;align-items:center;flex-shrink:0">' +
-        '<span class="badge ' + scoreClass + '" style="font-size:10px;padding:2px 7px;white-space:nowrap">수요 ' + score + '</span>' +
+        (k.marketDemandScore == null ? '' : '<span class="badge ' + scoreClass + '" style="font-size:10px;padding:2px 7px;white-space:nowrap">수요 ' + score + '</span>') +
         '<button class="btn btn-sm btn-demand-refresh" data-keyword="' + esc(k.keyword) + '" title="재분석" style="padding:2px 6px;font-size:11px">🔄</button>' +
         '<button class="btn btn-sm btn-demand-delete" data-keyword="' + esc(k.keyword) + '" title="키워드 삭제" style="color:#ff5577;border-color:#ff5577;padding:2px 6px;font-size:11px">🗑️</button>' +
       '</div>' +
@@ -3614,7 +3454,6 @@ function renderMarketDemandTab() {
     html += '<div>' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">' +
         '<span style="font-size:13px;font-weight:800;color:var(--text-bright)">⭐ 이 키워드를 장악한 대표 아웃라이어 영상 (' + outliers.length + '개):</span>' +
-        '<span class="card-subtext">※ 벤치마킹 랩 버튼으로 훅·대본 즉시 분석</span>' +
       '</div>';
 
     if (outliers.length === 0) {
@@ -3657,7 +3496,6 @@ function renderMarketDemandTab() {
 
           // 액션 버튼 바
           '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05)">' +
-            '<button class="btn btn-sm btn-amber btn-send-to-benchmark" data-vid="' + esc(o.videoId || '') + '" data-title="' + esc(o.title || '') + '" data-channel="' + esc(o.channelTitle || o.channel || '') + '" data-ratio="' + (o.outlierRatio ? o.outlierRatio.toFixed(1) : '') + '" data-thumb="' + esc(thumb || '') + '" data-views="' + fmt.format(o.viewCount || (o.viewsPerDay ? o.viewsPerDay * (o.ageDays||1) : 0)) + '" data-comment="' + esc(o.commentReportFile || '') + '" data-script="' + esc(o.scriptReportFile || '') + '" style="font-weight:800;padding:5px 12px;font-size:11px" title="이 영상을 타겟으로 벤치마킹 랩에 실시간 전달">💡 벤치마킹 랩으로 소재 보내기 ↗</button>' +
             (o.commentReportFile ?
               '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.commentReportFile) + '">📄 댓글 리포트</button>' :
               '<button class="btn btn-sm btn-magenta btn-outlier-analyze" style="font-size:11px;padding:5px 10px" data-vid="' + esc(o.videoId) + '">💬 댓글</button>') +
@@ -3739,6 +3577,21 @@ function renderMarketDemandTab() {
             '</div>' +
           '</div>' +
           sizeWarning +
+          // 이 채널에서 평소보다 크게 터진 영상(아웃라이어) 상위 3개 — 추적하는 이유 자체라 카드에서 빠지면 안 된다
+          // (2026-11-11 master-detail 개편 때 빠졌던 것을 되살림, test-client-syntax의 TEST_TRACKED_OUTLIER가 이걸 확인한다)
+          ((c.topOutliers || []).length > 0 ?
+            '<div style="margin-top:10px;display:flex;flex-direction:column;gap:4px">' +
+              '<div class="card-subtext" style="font-size:11px">평소보다 크게 터진 영상</div>' +
+              c.topOutliers.slice(0, 3).map((o) => {
+                const url = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
+                const ratio = o.outlierRatio ? Number(o.outlierRatio).toFixed(1) + '배' : '';
+                const titleHtml = '<span style="color:var(--text-bright);font-size:12px;line-height:1.35">' + esc(o.title || '') + '</span>';
+                return '<div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">' +
+                  (url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener" style="text-decoration:none;min-width:0">' + titleHtml + '</a>' : titleHtml) +
+                  '<span style="color:var(--accent-amber);font-size:11px;font-weight:700;white-space:nowrap">' + ratio + '</span>' +
+                '</div>';
+              }).join('') +
+            '</div>' : '') +
           (c.titlePatterns && c.titlePatterns.length > 0 ?
             '<div style="margin-top:10px">' + c.titlePatterns.slice(0, 6).map(p =>
               '<span class="tag-chip copy-chip tag-link-kw" data-kw="' + esc(p.word) + '" data-copy="' + esc(p.word) + '" title="클릭 시 이 키워드로 포커스">#' + esc(p.word) + '</span>'
@@ -3835,32 +3688,6 @@ function bindMarketDemandEvents() {
       if (e.key === 'Enter') {
         e.preventDefault();
         runSmartAnalysis();
-      }
-    };
-  }
-
-  // D+7 자율 순환 동기화 버튼 이벤트 바인딩
-  const btnD7 = document.getElementById('btn-run-d7-sync');
-  if (btnD7) {
-    btnD7.onclick = async () => {
-      btnD7.disabled = true;
-      btnD7.textContent = '⏳ D+7 검증 중...';
-      try {
-        const res = await fetch('/api/market-demand/run', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({d7Sync: true}),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'D+7 순환 실패');
-        gMarketDemand = data.data;
-        renderCurrentTab();
-        showToast('🔔 D+7 자율 순환 1회 동기화 완료! 성과 및 시청자 유입어 갱신됨');
-      } catch (err) {
-        alert('❌ D+7 순환 오류: ' + err.message);
-      } finally {
-        btnD7.disabled = false;
-        btnD7.textContent = '🔄 D+7 자율 순환 1회 동기화';
       }
     };
   }
@@ -4002,25 +3829,6 @@ function bindMarketDemandEvents() {
     };
   });
 
-  // [유기적 워크플로우] 관제 센터 ➔ 벤치마킹 랩 직결 전달
-  document.querySelectorAll('.btn-send-to-benchmark').forEach((btn) => {
-    btn.onclick = () => {
-      gBenchmarkTarget = {
-        videoId: btn.dataset.vid || '',
-        title: btn.dataset.title || '',
-        channelTitle: btn.dataset.channel || '',
-        outlierRatio: btn.dataset.ratio || '',
-        thumb: btn.dataset.thumb || '',
-        views: btn.dataset.views || '',
-        commentReportFile: btn.dataset.comment || '',
-        scriptReportFile: btn.dataset.script || '',
-      };
-      try { localStorage.setItem('ihm_benchmark_target', JSON.stringify(gBenchmarkTarget)); } catch (_) {}
-      switchTab('tab-benchmark');
-      showToast('🎯 "' + gBenchmarkTarget.title.slice(0, 22) + '..." 벤치마킹 타겟 세팅 완료!');
-    };
-  });
-
   document.querySelectorAll('.btn-outlier-delete-video').forEach(btn => {
     btn.onclick = async () => {
       const keyword = btn.dataset.keyword;
@@ -4057,305 +3865,82 @@ function bindMarketDemandEvents() {
   });
 }
 
-/* TAB: OUTLIER BENCHMARK LAB */
-function getEpLiveStatus(epCode) {
-  const code = (epCode || '').toUpperCase().trim();
-  const num = code.replace(/[^0-9]/g, '');
-  const ep = (Array.isArray(gEpisodes) ? gEpisodes : []).find(e => {
-    const epNum = (e.episode || '').replace(/[^0-9]/g, '');
-    return epNum && epNum === num;
-  });
-
-  if (!ep) {
-    return {
-      code,
-      status: 'planned',
-      label: '차기 기획 후보',
-      badgeStyle: 'background:rgba(148,163,184,0.15);color:#94a3b8;border:1px solid #64748b',
-      isPublished: false,
-      isPackaged: false,
-      views: 0,
-      title: ''
-    };
-  }
-
-  const track = ep.tracks?.longform || ep.tracks?.shorts || Object.values(ep.tracks || {})[0] || {};
-  const status = (track.status || '').toLowerCase();
-  const yt = track.youtube || {};
-  const isPublished = status === 'published' || (yt.videoId && !yt.scheduledStartTime);
-  const isScheduled = status === 'scheduled' || Boolean(yt.scheduledStartTime);
-  const isPackaged = status === 'packaged' || status === 'ready_to_upload';
-  const title = yt.title || track.classification?.title || ep.episode || '';
-
-  if (isPublished) {
-    const views = yt.viewCount || track.evaluation?.viewCount || 0;
-    return {
-      code,
-      status: 'published',
-      label: '✓ 공개 적용 중 (실전 성과 누적)',
-      badgeStyle: 'background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid #22c55e',
-      isPublished: true,
-      isPackaged: false,
-      views,
-      title
-    };
-  }
-  if (isScheduled) {
-    return {
-      code,
-      status: 'scheduled',
-      label: '⏳ 비공개 예약 완료 (D+7 성과 검증 대기)',
-      badgeStyle: 'background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid #f59e0b',
-      isPublished: false,
-      isPackaged: true,
-      views: 0,
-      title
-    };
-  }
-  if (isPackaged) {
-    return {
-      code,
-      status: 'packaged',
-      label: '📦 로컬 패키징 완료 (D+7 성과 검증 대기)',
-      badgeStyle: 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
-      isPublished: false,
-      isPackaged: true,
-      views: 0,
-      title
-    };
-  }
-  return {
-    code,
-    status: 'in_progress',
-    label: '🛠️ 제작 진행 중 (기획/렌더 단계)',
-    badgeStyle: 'background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid #a855f7',
-    isPublished: false,
-    isPackaged: false,
-    views: 0,
-    title
-  };
-}
-
+/* TAB: 기획 근거 성적표 (보기 전용, 2026-11-11 재작성)
+   전에는 "타겟 장착 → 훅 카드 고르기 → 제목·낭독문·EP30 기획안 복사"를 사람이 하는 작업장이었고,
+   표의 숫자·채널 연결·"검증된 훅 공식"이 코드에 손으로 적혀 있었다. 이제 서버가 동기화마다
+   planning-outcome.mjs로 계산해 market-demand.json episodeOutcomes에 남긴 판정만 보여 준다. */
 function renderBenchmarkTab() {
   const md = gMarketDemand || { trackedChannels: [] };
-  const trackedChannels = md.trackedChannels || [];
+  const outcomes = Array.isArray(md.episodeOutcomes) ? md.episodeOutcomes : [];
   const dnaEntries = (gKnowledgeDb && gKnowledgeDb.audienceDna && gKnowledgeDb.audienceDna.entries) || [];
-  
   const painPoints = dnaEntries.filter(e => e.type === 'painPoint');
   const questions = dnaEntries.filter(e => e.type === 'question');
-  
   let displayedDna = [];
   if (gBenchmarkDnaFilter === 'painPoint') displayedDna = painPoints;
   else if (gBenchmarkDnaFilter === 'question') displayedDna = questions;
   else displayedDna = dnaEntries.filter(e => e.type === 'painPoint' || e.type === 'question');
 
-  // 1. Cockpit Header
+  const verdictBadge = (v) => {
+    const map = {
+      worked: ['통함', 'rgba(34,197,94,0.18)', '#4ade80', '#22c55e'],
+      neutral: ['보통', 'rgba(148,163,184,0.15)', '#cbd5e1', '#64748b'],
+      failed: ['안 통함', 'rgba(239,68,68,0.18)', '#f87171', '#ef4444'],
+      hold: ['보류', 'rgba(245,158,11,0.15)', '#fbbf24', '#f59e0b'],
+    };
+    const m = map[v] || ['대기', 'rgba(148,163,184,0.1)', '#94a3b8', '#475569'];
+    return '<span class="tag-chip" style="background:' + m[1] + ';color:' + m[2] + ';border:1px solid ' + m[3] + ';font-weight:700;white-space:nowrap">' + m[0] + '</span>';
+  };
+  const counts = outcomes.reduce((acc, o) => { acc[o.verdict] = (acc[o.verdict] || 0) + 1; return acc; }, {});
+  const withSources = outcomes.filter(o => o.hasSources).length;
+  const lastRun = md.d7AutonomousCycle?.lastRunAt ? md.d7AutonomousCycle.lastRunAt.slice(0, 16).replace('T', ' ') + ' UTC' : '아직 안 돎';
+
   let html = '<div class="bento-grid">' +
-    '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(245,158,11,0.08), rgba(6,182,212,0.08));border:1px solid rgba(245,158,11,0.3);padding:20px 24px">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
-        '<div>' +
-          '<div class="card-title" style="color:var(--accent-amber);font-size:12px;letter-spacing:1px">OUTLIER BENCHMARK LAB & OUTCOME FEEDBACK LOOP</div>' +
-          '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">💡 아웃라이어 벤치마킹 랩</h2>' +
-          '<div class="card-subtext" style="margin-top:4px">' +
-            '통합 관제 센터 아웃라이어 장착 ➔ 4대 실전 훅 매칭 ➔ 시청자 결핍 결합 ➔ 우리 채널 D+7 자율 성과 피드백 루프' +
-          '</div>' +
-        '</div>' +
-        '<div style="text-align:right;display:flex;gap:8px;align-items:center">' +
-          '<button class="btn btn-sm btn-cyan btn-goto-demand">🤖 통합 관제 센터 ➔</button>' +
-          '<span class="tag-chip" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid #f59e0b;font-size:11px;padding:4px 10px;font-weight:700">⚡ D+7 성과 연동 플라이휠</span>' +
-        '</div>' +
+    '<div class="bento-card col-12" style="padding:18px 22px">' +
+      '<div class="card-title" style="color:var(--accent-amber);font-size:12px">PLANNING OUTCOME (READ-ONLY)</div>' +
+      '<h2 style="font-family:var(--font-display);font-size:20px;color:var(--text-bright);margin-top:2px">💡 기획 근거 성적표</h2>' +
+      '<div class="card-subtext" style="margin-top:6px;line-height:1.6">' +
+        '우리 영상이 공개 7일 뒤 통했는지, 그리고 그 영상을 기획할 때 어느 경쟁 영상·시청자 고민을 근거로 썼는지 보여 줍니다. ' +
+        '동기화할 때마다 자동으로 계산하고, 여기서 누를 것은 없습니다. 판정 결과는 경쟁 채널 상태(황금 광산·차단)에 자동으로 반영됩니다.' +
       '</div>' +
-    '</div>';
-
-  // 2. Section 0: 🎯 현재 분석 타겟 아웃라이어 (Active Benchmark Target)
-  let matchedHookId = 'hook-1';
-  let matchedHookReason = '기본 결핍·의문 폭로형 훅 매칭';
-
-  if (gBenchmarkTarget && gBenchmarkTarget.title) {
-    const t = gBenchmarkTarget.title.toLowerCase();
-    if (t.includes('vs') || t.includes('구별') || t.includes('차이') || t.includes('0.1초') || t.includes('구분') || t.includes('비교')) {
-      matchedHookId = 'hook-2';
-      matchedHookReason = '최소 대립쌍(vs/구별) 키워드 감지 ➔ [시간·효율 단축형] 자동 추천';
-    } else if (t.includes('사전') || t.includes('배신') || t.includes('못 알아') || t.includes('충격') || t.includes('절대') || t.includes('틀리는')) {
-      matchedHookId = 'hook-3';
-      matchedHookReason = '인식 왜곡/배신감 키워드 감지 ➔ [인지 부조화·경고형] 자동 추천';
-    } else if (t.includes('비밀') || t.includes('빠른') || t.includes('게으른') || t.includes('혀') || t.includes('호흡') || t.includes('빠르게') || t.includes('연음')) {
-      matchedHookId = 'hook-4';
-      matchedHookReason = '발음 메커니즘/호흡 키워드 감지 ➔ [게으른 소리·호흡형] 자동 추천';
-    } else {
-      matchedHookId = 'hook-1';
-      matchedHookReason = '발음 상식 파괴/의문 키워드 감지 ➔ [결핍·의문 폭로형] 자동 추천';
-    }
-
-    const thumbImg = gBenchmarkTarget.thumb
-      ? '<img src="' + esc(gBenchmarkTarget.thumb) + '" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display=&quot;none&quot;">'
-      : '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:11px">미리보기</div>';
-
-    html += '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(6,182,212,0.12), rgba(15,23,42,0.9));border:2px solid var(--accent-cyan);padding:18px 22px">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
-        '<div style="display:flex;align-items:center;gap:16px;flex:1;min-width:300px">' +
-          '<div style="position:relative;width:120px;height:68px;border-radius:8px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,0.15);background:#000">' +
-            thumbImg +
-            '<div style="position:absolute;bottom:2px;right:4px;background:rgba(0,0,0,0.85);color:#fbbf24;font-size:10px;font-weight:800;padding:1px 5px;border-radius:3px;border:1px solid rgba(245,158,11,0.5)">' +
-              (gBenchmarkTarget.outlierRatio ? esc(gBenchmarkTarget.outlierRatio) + 'x 배수' : 'OUTLIER') +
-            '</div>' +
-          '</div>' +
-          '<div style="flex:1">' +
-            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap">' +
-              '<span class="tag-chip" style="background:rgba(6,182,212,0.25);color:#38bdf8;border:1px solid #06b6d4;font-size:11px;font-weight:800">🎯 현재 분석 타겟 아웃라이어</span>' +
-              '<span style="font-size:12px;font-weight:700;color:var(--text-muted)">' + esc(gBenchmarkTarget.channelTitle || '경쟁 채널') + '</span>' +
-            '</div>' +
-            '<div style="font-size:15px;font-weight:800;color:var(--text-bright);line-height:1.4">' + esc(gBenchmarkTarget.title) + '</div>' +
-            '<div style="font-size:11px;color:#a5f3fc;margin-top:6px;display:flex;align-items:center;gap:6px">' +
-              '<span>⚡ <b>AI 스마트 분석:</b> ' + esc(matchedHookReason) + '</span>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-        '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
-          '<button class="btn btn-sm btn-clear-benchmark-target" style="background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-muted)">🔄 타겟 해제</button>' +
-          '<button class="btn btn-sm btn-cyan btn-goto-demand">🤖 다른 아웃라이어 고르기</button>' +
-        '</div>' +
+      '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:11px">' +
+        '<span class="tag-chip">비교 숫자 = 공개 후 첫 7일 조회수 (같은 형식끼리)</span>' +
+        '<span class="tag-chip">통함 = 같은 형식 중앙값의 1.5배 이상</span>' +
+        '<span class="tag-chip">안 통함 = 0.5배 미만</span>' +
+        '<span class="tag-chip">보류 = 7일 조회 100회 미만, 또는 같은 형식 최근 3편 중앙값 300회 미만(작은 표본)</span>' +
+        '<span class="tag-chip">마지막 계산: ' + esc(lastRun) + '</span>' +
       '</div>' +
-    '</div>';
-  } else {
-    html += '<div class="bento-card col-12" style="background:#090e18;border:1px dashed rgba(6,182,212,0.4);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">' +
-      '<div style="display:flex;align-items:center;gap:12px">' +
-        '<span style="font-size:22px">🎯</span>' +
-        '<div>' +
-          '<div style="font-size:13px;font-weight:700;color:var(--text-bright)">장착된 타겟 아웃라이어가 없습니다</div>' +
-          '<div style="font-size:11px;color:var(--text-muted)">통합 관제 센터에서 분석할 10x+ 아웃라이어의 <b>[🎯 벤치마킹 랩 장착]</b> 버튼을 누르면 AI가 최적 훅을 자동 추천합니다.</div>' +
-        '</div>' +
-      '</div>' +
-      '<button class="btn btn-sm btn-cyan btn-goto-demand">🤖 통합 관제 센터에서 아웃라이어 선택 ➔</button>' +
-    '</div>';
-  }
-
-  // 3. Section 1: 🏆 검증된 4대 실전 훅 공식 (Live DB State 연동)
-  const ep24Status = getEpLiveStatus('EP24');
-  const ep28Status = getEpLiveStatus('EP28');
-  const ep25Status = getEpLiveStatus('EP25');
-  const ep26Status = getEpLiveStatus('EP26');
-  const ep27Status = getEpLiveStatus('EP27');
-  const ep29Status = getEpLiveStatus('EP29');
-  const ep22Status = getEpLiveStatus('EP22');
-  const ep23Status = getEpLiveStatus('EP23');
-
-  const hookFormulas = [
-    {
-      id: 'hook-1',
-      type: '[결핍·의문 폭로형]',
-      badge: (ep28Status.isPublished || ep24Status.isPublished) ? '🏆 실전 성과 관찰 중' : '🌱 관찰 후보 (D+7 검증 대기)',
-      badgeStyle: (ep28Status.isPublished || ep24Status.isPublished)
-        ? 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b'
-        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
-      titleTpl: '여태 스펠링 다 읽으셨나요? [타겟음소] 소리 안 나는 진짜 이유',
-      hook3s: '여태까지 이 단어 보면서 스펠링 그대로 다 읽으셨나요? 원어민은 이 글자 소리 자체를 안 냅니다.',
-      rationale: '상식 파괴 + 결핍 자극 ➔ 평균 시청률 40% 돌파 앵글 (묵음/파닉스)',
-      episodes: [
-        { code: 'EP28', topic: 'F vs P', status: ep28Status },
-        { code: 'EP24', topic: '-ED 규칙', status: ep24Status },
-      ],
-    },
-    {
-      id: 'hook-2',
-      type: '[시간·효율 단축형]',
-      badge: (ep25Status.isPublished || ep26Status.isPublished) ? '🏆 실전 성과 관찰 중' : '🌱 관찰 후보 (D+7 검증 대기)',
-      badgeStyle: (ep25Status.isPublished || ep26Status.isPublished)
-        ? 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b'
-        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
-      titleTpl: '0.1초 만에 끝내는 [음소A] vs [음소B] 소리 구별법 (입꼬리 vs 잇몸)',
-      hook3s: '0.1초 만에 딱 정리해 드립니다. 입꼬리만 당기면 [단어A], 힘 풀면 [단어B]로 끝납니다.',
-      rationale: '신체 감각 직관 비유 ➔ 최소대립쌍 듣기 드릴 최적화 앵글',
-      episodes: [
-        { code: 'EP25', topic: 'Pool vs Pull', status: ep25Status },
-        { code: 'EP26', topic: 'Right vs Light', status: ep26Status },
-      ],
-    },
-    {
-      id: 'hook-3',
-      type: '[인지 부조화·경고형]',
-      badge: (ep27Status.isPublished || ep29Status.isPublished) ? '🏆 실전 성과 관찰 중' : '🌱 관찰 후보 (D+7 검증 대기)',
-      badgeStyle: (ep27Status.isPublished || ep29Status.isPublished)
-        ? 'background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b'
-        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
-      titleTpl: '사전 찾아보고 배신감 느꼈습니다, [단어]를 그대로 읽으면 절대 못 알아듣는 이유',
-      hook3s: '사전 찾아보고 진짜 배신감 느꼈습니다. 왜 우리는 학교에서 이걸 이렇게 가르쳐주지 않았을까요?',
-      rationale: '배신감/억울함 트리거 ➔ 원어민 실전 구어체 호기심 극대화',
-      episodes: [
-        { code: 'EP27', topic: 'S 끝소리', status: ep27Status },
-        { code: 'EP29', topic: 'B vs V', status: ep29Status },
-      ],
-    },
-    {
-      id: 'hook-4',
-      type: '[게으른 소리·호흡형]',
-      badge: (ep22Status.isPublished) ? '🏆 실전 적용 중 (성과 관찰)' : '🌱 관찰 후보 (검증 대기)',
-      badgeStyle: ep22Status.isPublished
-        ? 'background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid #22c55e'
-        : 'background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4',
-      titleTpl: '원어민 발음이 유독 빠르게 들리는 진짜 비밀 (게으른 혀의 [규칙])',
-      hook3s: '원어민들이 말이 유독 빠른 이유가 뭔지 아세요? 사실은 부지런해서가 아니라, 혀를 게으르게 굴려서 그렇습니다.',
-      rationale: '발음 부담 경감 ➔ 성인 왕초보 안도감 형성 및 리덕션 체화',
-      episodes: [
-        { code: 'EP22', topic: 'Want to', status: ep22Status },
-        { code: 'EP23', topic: '슈와 원리', status: ep23Status },
-      ],
-    },
-  ];
-
-  const selectedHook = hookFormulas.find(h => h.id === gSelectedHookId) || hookFormulas[0];
-
-  html += '<div class="bento-card col-12">' +
-    '<div class="card-header" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
-      '<div>' +
-        '<span class="card-title" style="color:var(--accent-amber)">🏆 검증된 아웃라이어 훅 공식 (실시간 에피소드 DB 연동)</span>' +
-        '<div class="card-subtext">카드를 클릭하여 차기 에피소드(EP30)에 적용할 훅을 선택하세요. AI가 추천한 훅에는 하이라이트가 표시됩니다.</div>' +
-      '</div>' +
-      '<span class="tag-chip" style="background:rgba(255,255,255,0.05);color:var(--text-muted);font-size:11px">클릭 시 기획안 자동 장착</span>' +
     '</div>' +
-    '<div class="bento-grid" style="padding:0">' +
-    hookFormulas.map(hf => {
-      const isSelected = hf.id === gSelectedHookId;
-      const isAiRecommended = hf.id === matchedHookId;
-      let cardBorder = isSelected ? '2px solid var(--accent-amber)' : (isAiRecommended ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)');
-      let cardBg = isSelected ? 'linear-gradient(180deg, rgba(245,158,11,0.08) 0%, #090e18 100%)' : '#090e18';
-
-      return '<div class="bento-card col-6 hook-card-pick" data-hook-id="' + esc(hf.id) + '" style="background:' + cardBg + ';border:' + cardBorder + ';padding:16px;cursor:pointer;transition:all 0.2s ease;position:relative">' +
-        (isSelected ? '<div style="position:absolute;top:10px;right:10px;background:#f59e0b;color:#000;font-size:10px;font-weight:900;padding:2px 6px;border-radius:4px">✓ 선택됨</div>' : (isAiRecommended ? '<div style="position:absolute;top:10px;right:10px;background:#06b6d4;color:#000;font-size:10px;font-weight:900;padding:2px 6px;border-radius:4px">⚡ AI 추천</div>' : '')) +
-        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-right:50px">' +
-          '<span style="font-weight:700;font-size:13px;color:' + (isSelected ? 'var(--accent-amber)' : 'var(--accent-cyan)') + '">' + esc(hf.type) + '</span>' +
-          '<span class="tag-chip" style="' + hf.badgeStyle + ';font-size:10px;padding:2px 8px;font-weight:700">' + esc(hf.badge) + '</span>' +
-        '</div>' +
-        '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:6px;padding:10px 12px;margin:8px 0">' +
-          '<div style="font-size:11px;color:var(--text-muted);margin-bottom:2px">📌 제목 템플릿</div>' +
-          '<div style="font-size:14px;font-weight:800;color:var(--text-bright);line-height:1.4">' + esc(hf.titleTpl) + '</div>' +
-        '</div>' +
-        '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:6px;padding:10px 12px;margin:8px 0">' +
-          '<div style="font-size:11px;color:var(--text-muted);margin-bottom:2px">🎙️ 0~3초 도입부 낭독문</div>' +
-          '<div style="font-size:13px;color:#cbd5e1;line-height:1.4">"' + esc(hf.hook3s) + '"</div>' +
-        '</div>' +
-        '<div class="card-subtext" style="margin:8px 0 10px;font-size:11px">💡 ' + esc(hf.rationale) + '</div>' +
-        '<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;margin-bottom:10px">' +
-          '<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">📊 우리 채널 에피소드 실시간 검증 상태</div>' +
-          '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
-            hf.episodes.map(ep => {
-              return '<span class="tag-chip" style="' + ep.status.badgeStyle + ';font-size:10px;padding:2px 6px;font-weight:700">' +
-                esc(ep.code) + ' (' + esc(ep.topic) + '): ' + esc(ep.status.label) +
-              '</span>';
+    '<div class="bento-card col-12">' +
+      '<div class="card-header"><div>' +
+        '<span class="card-title" style="color:var(--text-bright)">📊 공개 7일이 지난 영상 ' + outcomes.length + '편</span>' +
+        '<div class="card-subtext">통함 ' + (counts.worked || 0) + ' · 보통 ' + (counts.neutral || 0) + ' · 안 통함 ' + (counts.failed || 0) + ' · 보류 ' + (counts.hold || 0) +
+          ' · 기획 근거가 기록된 편 ' + withSources + '편 (BRIEF.md "기획 근거" 칸, 다음 기획부터 스킬이 자동으로 적음)</div>' +
+      '</div></div>' +
+      (outcomes.length === 0
+        ? '<div style="padding:30px;text-align:center;color:var(--text-muted)">아직 계산된 판정이 없습니다. 다음 동기화 때 자동으로 채워집니다.</div>'
+        : '<div style="overflow-x:auto;margin-top:10px"><table style="width:100%;border-collapse:collapse;font-size:12px;text-align:left">' +
+            '<thead><tr style="border-bottom:1px solid var(--border-subtle);color:var(--text-muted)">' +
+              '<th style="padding:8px 10px">편</th><th style="padding:8px 10px;min-width:110px;white-space:nowrap">기획 근거</th>' +
+              '<th style="padding:8px 10px;text-align:center">판정</th><th style="padding:8px 10px;text-align:center">배수(참고)</th>' +
+              '<th style="padding:8px 10px">이유</th></tr></thead><tbody>' +
+            outcomes.map(o => {
+              const sources = (o.competitors || []).length
+                ? o.competitors.map(c => esc(c.channelTitle) + ' <span style="color:var(--text-muted)">(' + esc(c.sourceRatio) + '배 영상)</span>').join('<br>')
+                : (o.hasSources ? '<span style="white-space:nowrap">경쟁 근거 없음</span>' : '<span style="color:var(--text-muted);white-space:nowrap">기록 없음</span>');
+              return '<tr style="border-bottom:1px solid rgba(255,255,255,0.04)">' +
+                '<td style="padding:8px 10px"><div style="font-weight:700;color:var(--accent-cyan)">' + esc(o.label) + '</div>' +
+                  '<div style="font-size:11px;color:var(--text-muted);max-width:320px">' + esc((o.title || '').slice(0, 48)) + '</div></td>' +
+                '<td style="padding:8px 10px;font-size:11px">' + sources + (o.audience ? '<div style="color:var(--text-muted);margin-top:2px">고민: ' + esc(o.audience) + '</div>' : '') + '</td>' +
+                '<td style="padding:8px 10px;text-align:center">' + verdictBadge(o.verdict) + '</td>' +
+                '<td style="padding:8px 10px;text-align:center;color:var(--text-muted)">' + (o.ratio == null ? '-' : esc(o.ratio) + '배') + '</td>' +
+                '<td style="padding:8px 10px;font-size:11px;color:var(--text-muted)">' + esc(o.reason || '') + '</td>' +
+              '</tr>';
             }).join('') +
-          '</div>' +
-        '</div>' +
-        '<div style="display:flex;gap:8px" onclick="event.stopPropagation()">' +
-          '<button class="btn btn-sm btn-cyan copy-chip" data-copy="' + esc(hf.titleTpl) + '" style="font-size:11px;flex:1">📋 제목 복사</button>' +
-          '<button class="btn btn-sm copy-chip" data-copy="' + esc(hf.hook3s) + '" style="font-size:11px;flex:1;background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-bright)">📝 낭독문 복사</button>' +
-        '</div>' +
-      '</div>';
-    }).join('') +
-    '</div>' +
-  '</div>';
+          '</tbody></table></div>') +
+    '</div>';
 
   // 4. Section 2: 💬 아웃라이어 시청자 결핍 TOP & Section 3: 📜 대본 4단계 공식 (2 columns)
-  html += '<div class="bento-card col-6" style="background:#090e18;border:1px solid var(--border-subtle)">' +
+  html += '<div class="bento-card col-12" style="background:#090e18;border:1px solid var(--border-subtle)">' +
     '<div class="card-header">' +
       '<div>' +
         '<span class="card-title" style="color:var(--accent-magenta)">💬 아웃라이어 시청자 결핍 & 혼란점 (' + displayedDna.length + '건)</span>' +
@@ -4384,177 +3969,6 @@ function renderBenchmarkTab() {
     '</div>' +
   '</div>';
 
-  // Section 3: 📜 아웃라이어 대본 4단계 전개 공식
-  html += '<div class="bento-card col-6" style="background:#090e18;border:1px solid var(--border-subtle)">' +
-    '<div class="card-header">' +
-      '<div>' +
-        '<span class="card-title" style="color:var(--accent-cyan)">📜 아웃라이어 대본 4단계 전개 공식</span>' +
-        '<div class="card-subtext">유튜브 상위 1% 아웃라이어의 공통 전개 구조를 우리 채널 규격으로 역설계한 프레임워크입니다.</div>' +
-      '</div>' +
-      '<button class="btn btn-sm copy-chip" data-copy="[01. 0~3초 상식 파괴 훅] ➔ [02. 조음 원리 1컷 시각화] ➔ [03. 실전 대화 펄스 바운스 드릴] ➔ [04. 1장 요약표 & 8문제 셔플 퀴즈]" style="font-size:11px;background:rgba(6,182,212,0.1);border:1px solid var(--accent-cyan);color:var(--accent-cyan)">📋 4단계 구조 복사</button>' +
-    '</div>' +
-    '<div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">' +
-      '<div style="background:#05070c;border-left:3px solid var(--accent-magenta);border-radius:6px;padding:10px 14px">' +
-        '<div style="font-weight:800;font-size:13px;color:var(--accent-magenta)">01. 0~3초 상식 파괴 훅 (The Dopamine Hook)</div>' +
-        '<div style="font-size:12px;color:var(--text-muted);margin-top:2px">"사전 찾아보고 배신감 느꼈습니다" 등 일상 단어의 충격적 발음 왜곡 제기로 이탈 방지</div>' +
-      '</div>' +
-      '<div style="background:#05070c;border-left:3px solid var(--accent-cyan);border-radius:6px;padding:10px 14px">' +
-        '<div style="font-weight:800;font-size:13px;color:var(--accent-cyan)">02. 조음 원리 1컷 시각화 (Aha-Moment Principle)</div>' +
-        '<div style="font-size:12px;color:var(--text-muted);margin-top:2px">조음기관 전문용어 배제, 직관적 신체 감각 뱃지 ([성대 떨림 0% vs 100%], [입꼬리 당김]) 1컷 제시</div>' +
-      '</div>' +
-      '<div style="background:#05070c;border-left:3px solid var(--accent-amber);border-radius:6px;padding:10px 14px">' +
-        '<div style="font-weight:800;font-size:13px;color:var(--accent-amber)">03. 실전 대화 펄스 바운스 드릴 (Minimal Pairs Drill)</div>' +
-        '<div style="font-size:12px;color:var(--text-muted);margin-top:2px">원어민 남·여 교차 3회 반복, 발화 순간 타겟 단어 1.15배 scale 점등 + 사운드 팁 바운스</div>' +
-      '</div>' +
-      '<div style="background:#05070c;border-left:3px solid #10b981;border-radius:6px;padding:10px 14px">' +
-        '<div style="font-weight:800;font-size:13px;color:#34d399">04. 1장 요약표 & 8문제 셔플 퀴즈 (Engagement & Loop)</div>' +
-        '<div style="font-size:12px;color:var(--text-muted);margin-top:2px">핵심 규칙 1장 정리 + 셔플 퀴즈로 시청자 댓글 참여 유도 및 다음 추천 영상 루프 연결</div>' +
-      '</div>' +
-    '</div>' +
-  '</div>';
-
-  // 5. Section 4: 📊 벤치마킹 7일 성과 피드백 트래커 (Live 데이터 정합성 검증)
-  const benchmarkMappings = [
-    {
-      sourceChannel: '본즈 기초 영어',
-      sourceTopic: '왕초보 영단어 수업 / 파닉스 읽는 법 (아웃라이어 13.5x)',
-      ourEpisode: 'EP28 (F vs P 발음)',
-      status: ep28Status,
-      sevenDayRatioText: ep28Status.isPublished ? '성과 관찰 중' : '⏳ 측정 대기 (미공개)',
-      sevenDayRatioColor: 'var(--text-muted)',
-      statusBadge: ep28Status.isPublished
-        ? '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>'
-        : '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-weight:700">📦 로컬 패키징 완료</span>',
-      reason: '로컬 패키징 완료 상태 ➔ 유튜브 공개 후 D+7 시점에 성과(1.5배↑) 자율 승격 판정',
-    },
-    {
-      sourceChannel: '9988영어',
-      sourceTopic: '모음 뒤 R 1초 만에 읽는 법 (아웃라이어 8.2x)',
-      ourEpisode: 'EP26 (Right vs Light)',
-      status: ep26Status,
-      sevenDayRatioText: ep26Status.isPublished ? '성과 관찰 중' : '⏳ 측정 대기 (미공개)',
-      sevenDayRatioColor: 'var(--text-muted)',
-      statusBadge: ep26Status.isPublished
-        ? '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>'
-        : '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-weight:700">📦 로컬 패키징 완료</span>',
-      reason: '로컬 패키징 완료 상태 ➔ 유튜브 공개 후 D+7 시점에 성과(1.5배↑) 자율 승격 판정',
-    },
-    {
-      sourceChannel: '어션영어BasicEnglish',
-      sourceTopic: '과거형 -ED 발음 규칙 3가지 (아웃라이어 6.4x)',
-      ourEpisode: 'EP24 (-ED 3규칙 듣기)',
-      status: ep24Status,
-      sevenDayRatioText: ep24Status.isPublished ? '성과 관찰 중' : '⏳ 측정 대기 (미공개)',
-      sevenDayRatioColor: 'var(--text-muted)',
-      statusBadge: ep24Status.isPublished
-        ? '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>'
-        : '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-weight:700">📦 로컬 패키징 완료</span>',
-      reason: '로컬 패키징 완료 상태 ➔ 유튜브 공개 후 D+7 시점에 성과(1.5배↑) 자율 승격 판정',
-    },
-    {
-      sourceChannel: '봄날영어학교',
-      sourceTopic: '알파벳 파닉스 왕초보 읽기',
-      ourEpisode: 'EP20~21 (알파벳 기초)',
-      status: { isPublished: true, label: '공개 완료' },
-      sevenDayRatioText: '0.9x',
-      sevenDayRatioColor: '#cbd5e1',
-      statusBadge: '<span class="tag-chip" style="background:rgba(168,85,247,0.2);color:#c084fc;border:1px solid #a855f7;font-weight:700">🎓 명예 졸업</span>',
-      reason: '우리 채널 카탈로그 소재 100% 소진으로 자동 보관 (명예 졸업)',
-    },
-    {
-      sourceChannel: 'Speak English With Class',
-      sourceTopic: 'English Podcast Daily Practice (158만 대형)',
-      ourEpisode: 'EP19 (단어 반복)',
-      status: { isPublished: true, label: '공개 완료' },
-      sevenDayRatioText: '0.2x',
-      sevenDayRatioColor: '#f87171',
-      statusBadge: '<span class="tag-chip" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid #ef4444;font-weight:700">🚫 90일 자동 차단</span>',
-      reason: '우리 채널 체급 비호환 및 2회 연속 부진으로 자동 격리(90일 쿨다운)',
-    },
-    {
-      sourceChannel: '라이브 학습 데이터 연동',
-      sourceTopic: 'Want to / 슈와 원리 리덕션',
-      ourEpisode: 'EP22 (Want to 원리)',
-      status: ep22Status,
-      sevenDayRatioText: '1.4x',
-      sevenDayRatioColor: '#38bdf8',
-      statusBadge: '<span class="tag-chip" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;font-weight:700">✓ 공개 적용 중</span>',
-      reason: '원어민 실전 리덕션 앵글 성과 우수 ➔ 실전 관찰 유지',
-    },
-  ];
-
-  html += '<div class="bento-card col-12" style="background:#090e18;border:1px solid var(--border-subtle)">' +
-    '<div class="card-header">' +
-      '<div>' +
-        '<span class="card-title" style="color:var(--text-bright)">📊 벤치마킹 7일 성과 피드백 트래커 (Outcome Feedback Loop)</span>' +
-        '<div class="card-subtext">경쟁 채널 아웃라이어 소재로 제작한 우리 영상의 7일 성과를 측정하여 시스템이 스스로 승격·차단·졸업을 판정합니다. (미공개 패키징 영상은 검증 대기로 정직하게 분류)</div>' +
-      '</div>' +
-    '</div>' +
-    '<div style="overflow-x:auto;margin-top:12px">' +
-      '<table style="width:100%;border-collapse:collapse;font-size:12px;text-align:left">' +
-        '<thead>' +
-          '<tr style="border-bottom:1px solid var(--border-subtle);color:var(--text-muted)">' +
-            '<th style="padding:10px 12px">원천 경쟁 채널 & 아웃라이어</th>' +
-            '<th style="padding:10px 12px">우리 제작 에피소드</th>' +
-            '<th style="padding:10px 12px;text-align:center">7일 차 성과 배수</th>' +
-            '<th style="padding:10px 12px;text-align:center">자율 라이프사이클 상태</th>' +
-            '<th style="padding:10px 12px">시스템 판정 사유</th>' +
-          '</tr>' +
-        '</thead>' +
-        '<tbody>' +
-        benchmarkMappings.map(m => {
-          return '<tr style="border-bottom:1px solid rgba(255,255,255,0.04)">' +
-            '<td style="padding:10px 12px">' +
-              '<div style="font-weight:700;color:var(--text-bright)">' + esc(m.sourceChannel) + '</div>' +
-              '<div style="font-size:11px;color:var(--text-muted)">' + esc(m.sourceTopic) + '</div>' +
-            '</td>' +
-            '<td style="padding:10px 12px;font-weight:700;color:var(--accent-cyan)">' + esc(m.ourEpisode) + '</td>' +
-            '<td style="padding:10px 12px;text-align:center">' +
-              '<b style="color:' + m.sevenDayRatioColor + ';font-size:12px">' +
-                esc(m.sevenDayRatioText) +
-              '</b>' +
-            '</td>' +
-            '<td style="padding:10px 12px;text-align:center">' + m.statusBadge + '</td>' +
-            '<td style="padding:10px 12px;font-size:11px;color:var(--text-muted)">' + esc(m.reason) + '</td>' +
-          '</tr>';
-        }).join('') +
-        '</tbody>' +
-      '</table>' +
-    '</div>' +
-  '</div>';
-
-  // 6. Section 5: 🚀 차기 에피소드(EP30) 벤치마킹 기획안 원클릭 빌더
-  const activeTargetTitle = (gBenchmarkTarget && gBenchmarkTarget.title) || '본즈 기초 영어 - 왕초보 영단어 수업 / 파닉스';
-  const activeTargetChannel = (gBenchmarkTarget && gBenchmarkTarget.channelTitle) || '본즈 기초 영어';
-  const activeTargetRatio = (gBenchmarkTarget && gBenchmarkTarget.outlierRatio) || '13.5';
-  const topPainText = (painPoints[0] && painPoints[0].text) || '원어민이 왜 이 글자를 발음하지 않는지 이유를 모름';
-
-  const planDraftLines = [
-    '[EP30 벤치마킹 기획안 초안]',
-    '🎯 벤치마킹 원천: ' + activeTargetChannel + ' - "' + activeTargetTitle + '" (' + activeTargetRatio + 'x 아웃라이어)',
-    '💡 차용 훅 공식: ' + selectedHook.type + ' ' + selectedHook.titleTpl,
-    '🎙️ 0~3초 도입부 낭독문: "' + selectedHook.hook3s + '"',
-    '🔥 해결할 시청자 결핍: "' + topPainText + '"',
-    '📜 전개 구조: [01. 0~3초 상식 파괴 훅] ➔ [02. 조음 원리 1컷 시각화] ➔ [03. 실전 대화 펄스 바운스 드릴] ➔ [04. 1장 요약표 & 8문제 셔플 퀴즈]',
-  ];
-  const planDraftText = planDraftLines.join('\\n');
-
-  html += '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(16,185,129,0.08), rgba(6,182,212,0.08));border:1px solid #10b981;padding:20px 24px">' +
-    '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px">' +
-      '<div>' +
-        '<div class="card-title" style="color:#34d399;font-size:12px">ONE-CLICK EPISODE PLANNER</div>' +
-        '<h3 style="font-size:18px;font-weight:800;color:var(--text-bright);margin-top:2px">🚀 차기 에피소드(EP30) 벤치마킹 기획안 원클릭 빌더</h3>' +
-        '<div class="card-subtext">관제 센터에서 장착한 타겟 아웃라이어 + 위에서 선택한 훅 공식 + 시청자 결핍을 조합한 제작 기획서입니다.</div>' +
-      '</div>' +
-      '<button class="btn btn-magenta copy-chip" data-copy="' + esc(planDraftText) + '" style="font-size:13px;padding:8px 18px;font-weight:800">' +
-        '📋 EP30 기획안 초안 원클릭 복사' +
-      '</button>' +
-    '</div>' +
-    '<div style="background:#05070c;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;font-family:monospace;font-size:12px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap">' +
-      esc(planDraftText) +
-    '</div>' +
-  '</div>';
-
   html += '</div>'; // close bento-grid
   return html;
 }
@@ -4568,30 +3982,6 @@ function bindBenchmarkEvents() {
     };
   });
 
-  document.querySelectorAll('.hook-card-pick').forEach(card => {
-    card.onclick = () => {
-      const hookId = card.dataset.hookId;
-      if (!hookId) return;
-      gSelectedHookId = hookId;
-      try { localStorage.setItem('ihm_selected_hook_id', gSelectedHookId); } catch (_) {}
-      renderCurrentTab();
-      showToast('💡 훅 공식 [' + hookId + '] 선택 완료! 기획안에 자동 반영되었습니다.');
-    };
-  });
-
-  document.querySelectorAll('.btn-goto-demand').forEach(btn => {
-    btn.onclick = () => switchTab('tab-demand');
-  });
-
-  document.querySelectorAll('.btn-clear-benchmark-target').forEach(btn => {
-    btn.onclick = () => {
-      gBenchmarkTarget = null;
-      try { localStorage.removeItem('ihm_benchmark_target'); } catch (_) {}
-      renderCurrentTab();
-      showToast('🔄 벤치마킹 타겟 아웃라이어가 해제되었습니다.');
-    };
-  });
-
   document.querySelectorAll('.copy-chip').forEach(chip => {
     chip.onclick = (e) => {
       e.stopPropagation();
@@ -4599,270 +3989,7 @@ function bindBenchmarkEvents() {
     };
   });
 }
-function renderOutlierLabTab() {
-  const isComments = gAiLabSubTab === 'comments';
-  const isScripts = gAiLabSubTab === 'scripts';
-  const isBrandLinter = gAiLabSubTab === 'brand-linter';
 
-  let subtabControlsHtml = '';
-  if (isComments) {
-    subtabControlsHtml = '<div style="margin-top:18px">' +
-      '<div class="card-subtext" style="margin-bottom:8px">시청자가 실제로 헷갈린 문장, 질문, 생생한 어휘(Mental Model)를 분석합니다.</div>' +
-      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-        '<input type="text" id="input-ai-kw" placeholder="키워드 분석 (예: WANT TO 축약, 영어 연음)" style="flex:1;min-width:240px">' +
-        '<button class="btn btn-magenta" id="btn-run-ai-kw">🚀 키워드 아웃라이어 분석</button>' +
-        '<input type="text" id="input-ai-url" placeholder="유튜브 URL 직접 입력 (https://...)" style="flex:1;min-width:240px">' +
-        '<button class="btn btn-cyan" id="btn-run-ai-url">🔎 URL 댓글 분석</button>' +
-      '</div>' +
-    '</div>';
-  } else if (isScripts) {
-    subtabControlsHtml = '<div style="margin-top:18px">' +
-      '<div class="card-subtext" style="margin-bottom:8px">유튜브 자막을 1-Click 추출하여 <b>[도입부 후킹 구조] + [핵심 비유법] + [대본 타임라인] + [우리 채널 맞춤 대본]</b>을 역설계합니다.</div>' +
-      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-        '<input type="text" id="input-script-url" placeholder="유튜브 URL 또는 영상 ID 입력 (https://youtube.com/watch?v=...)" style="flex:1;min-width:300px">' +
-        '<button class="btn btn-cyan" id="btn-run-script-analyze">🚀 대본 역설계 & 맞춤 대본 생성</button>' +
-      '</div>' +
-    '</div>';
-  } else {
-    const charCount = (gBrandScriptText || '').length;
-    const estSec = Math.round(charCount / 5.3);
-
-    subtabControlsHtml = '<div style="margin-top:18px">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">' +
-        '<div class="card-subtext">3060 맞춤 <b>[도파민 3단계 공식]</b>과 <b>[HyperFrames 씬 규격]</b>을 엄격하게 심사하고 즉시 제작용 JSON으로 변환합니다.</div>' +
-        '<div style="display:flex;gap:6px;">' +
-          '<button class="btn btn-sm" id="btn-brand-linter-sample-shorts">📱 쇼츠 3060 샘플</button>' +
-          '<button class="btn btn-sm" id="btn-brand-linter-sample-long">📺 롱폼 3060 샘플</button>' +
-          '<button class="btn btn-sm btn-amber" id="btn-brand-linter-clear">🗑️ 비우기</button>' +
-        '</div>' +
-      '</div>' +
-
-      '<div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px;">' +
-        '<div>' +
-          '<div style="font-size:11px;font-weight:700;color:var(--accent-amber);margin-bottom:4px;">📌 영상 주제 / 핵심 키워드</div>' +
-          '<input type="text" id="input-brand-linter-topic" value="' + esc(gBrandScriptTopic) + '" placeholder="예: 30초 만에 Want vs Wont 발음 구분법" style="width:100%;">' +
-        '</div>' +
-        '<div>' +
-          '<div style="font-size:11px;font-weight:700;color:var(--accent-cyan);margin-bottom:4px;">🎬 영상 포맷</div>' +
-          '<select id="select-brand-linter-format" style="width:100%;">' +
-            '<option value="SHORTS"' + (gBrandScriptFormat === 'SHORTS' ? ' selected' : '') + '>📱 쇼츠 (9:16 / 60초 미만)</option>' +
-            '<option value="LONGFORM"' + (gBrandScriptFormat === 'LONGFORM' ? ' selected' : '') + '>📺 롱폼 (16:9 / 3~8분)</option>' +
-          '</select>' +
-        '</div>' +
-      '</div>' +
-
-      '<div style="margin-bottom:12px;">' +
-        '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">' +
-          '<span style="font-weight:700;color:var(--text-bright);">✍️ 심사할 대본 원문 입력 (줄바꿈 = 씬 분절 기준)</span>' +
-          '<span id="brand-linter-char-stats" style="color:var(--accent-cyan);font-weight:700;">총 ' + charCount + '자 · 예상 낭독시간 약 ' + estSec + '초</span>' +
-        '</div>' +
-        '<textarea id="textarea-brand-linter-script" style="width:100%;height:180px;font-size:13px;line-height:1.6;font-family:monospace;background:#060910;border:1px solid var(--border-subtle);border-radius:10px;padding:12px;color:#fff;" placeholder="심사할 대본을 입력하세요...">' + esc(gBrandScriptText) + '</textarea>' +
-      '</div>' +
-
-      '<div style="display:flex;justify-content:flex-end;">' +
-        '<button class="btn btn-magenta" id="btn-run-brand-linter" style="font-size:14px;padding:10px 24px;font-weight:800;">' +
-          '🚀 3060 브랜드 도파민 린팅 & HyperFrames 씬 JSON 생성' +
-        '</button>' +
-      '</div>' +
-    '</div>';
-  }
-
-  return '<div class="bento-grid">' +
-    '<div class="bento-card highlight-cyan col-12">' +
-      '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">' +
-        '<div>' +
-          '<div class="card-title" style="color:var(--accent-cyan)">GEMINI AUDIENCE & SCRIPT INTELLIGENCE</div>' +
-          '<h2 style="font-family:var(--font-display);font-size:24px;color:var(--text-bright);margin-top:2px">🤖 아웃라이어 영상 댓글 & 대본 AI 심층 분석실</h2>' +
-          '<p style="color:var(--text-normal);margin-top:4px;font-size:13px">시청자의 생생한 질문·고통(VoC)과 경쟁 채널의 대본 전개 공식을 역설계하여 &lsquo;이해하면 쉬운영어&rsquo;만의 대본 템플릿과 HyperFrames 씬을 도출합니다.</p>' +
-        '</div>' +
-        '<div style="display:flex;gap:8px;background:rgba(0,0,0,0.5);padding:4px;border-radius:10px;border:1px solid var(--border-subtle);flex-wrap:wrap;">' +
-          '<button class="tab-pill' + (isComments ? ' active' : '') + '" id="subtab-btn-comments">💬 1. 댓글 VoC 분석</button>' +
-          '<button class="tab-pill' + (isScripts ? ' active' : '') + '" id="subtab-btn-scripts">📜 2. 경쟁사 대본 역설계</button>' +
-          '<button class="tab-pill' + (isBrandLinter ? ' active' : '') + '" id="subtab-btn-brand-linter" style="' + (isBrandLinter ? 'border-color:var(--accent-magenta);color:var(--accent-magenta);' : '') + '">✨ 3. 3060 대본 린터 & HyperFrames</button>' +
-        '</div>' +
-      '</div>' +
-
-      subtabControlsHtml +
-
-      '<div id="ai-lab-status" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(0,240,255,0.1);border:1px solid var(--accent-cyan);border-radius:10px;color:var(--text-bright);font-weight:700">' +
-        '⏳ <span id="ai-lab-status-text">Gemini AI 심층 분석 중입니다... (약 5~10초 소요)</span>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="bento-card col-12" id="ai-results-container"' + (isBrandLinter && gBrandScriptLinterResult ? '' : ' style="display:none"') + '>' +
-      (isBrandLinter && gBrandScriptLinterResult ? renderBrandLinterResults(gBrandScriptLinterResult) : '') +
-    '</div>' +
-
-    (!isBrandLinter ? 
-      '<div class="bento-card col-12">' +
-        '<div class="card-header">' +
-          '<span class="card-title">' + (isComments ? '📑 생성된 댓글 기획 리포트 아카이브' : '📜 생성된 대본 역설계 리포트 아카이브') + '</span>' +
-          '<button class="btn btn-sm" id="btn-refresh-ai-reports">↻ 리포트 목록 새로고침</button>' +
-        '</div>' +
-        '<div id="saved-reports-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px"></div>' +
-      '</div>' : '') +
-  '</div>';
-}
-
-function renderBrandLinterResults(r) {
-  if (!r) return '';
-  const isPass = r.score >= 80;
-  const badgeClass = r.score >= 90 ? 'badge-strong-pass' : r.score >= 80 ? 'badge-pass' : 'badge-revise';
-  const scenes = r.hyperFramesScenes || [];
-
-  const typeColorMap = {
-    hook: 'var(--accent-magenta)',
-    rule: 'var(--accent-cyan)',
-    expand: 'var(--accent-amber)',
-    twist: '#ff4d4d',
-    outro: 'var(--accent-emerald)',
-  };
-
-  const typeNameMap = {
-    hook: '1. HOOK (3초 후킹)',
-    rule: '2. RULE (소리 지름길 원리)',
-    expand: '3. EXPAND (패턴 확장 쾌감)',
-    twist: '4. TWIST (반전 꿀팁)',
-    outro: '5. OUTRO (힐링 & 구독)',
-  };
-
-  let html = '<div style="display:grid; gap:18px;">' +
-    /* CARD 1: 3060 SCOREBOARD */
-    '<div style="background:#080c14; border:1px solid ' + (isPass ? 'var(--accent-cyan)' : 'var(--accent-amber)') + '; border-radius:14px; padding:20px;">' +
-      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">' +
-        '<div>' +
-          '<div class="card-title" style="color:var(--accent-cyan)">3060 BRAND DOPAMINE & READABILITY SCORECARD</div>' +
-          '<h3 style="font-family:var(--font-display); font-size:22px; color:#fff; margin-top:2px;">' +
-            '🏆 대본 종합 점수: <span style="color:' + (isPass ? 'var(--accent-cyan)' : 'var(--accent-amber)') + '">' + r.score + '점</span> (' + esc(r.grade || 'B') + ' 등급)' +
-          '</h3>' +
-        '</div>' +
-        '<span class="badge ' + badgeClass + '" style="font-size:13px; padding:6px 14px;">' + (isPass ? '✅ 3060 제작 승인 (PASS)' : '⚠️ 도파민 보완 권장 (REVISE)') + '</span>' +
-      '</div>' +
-      '<p style="color:var(--text-normal); font-size:13px; line-height:1.5; margin-bottom:16px;">' + esc(r.summary || '') + '</p>' +
-
-      /* 3 Stages Dopamine Grid */
-      '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:10px; margin-bottom:16px;">' +
-        '<div style="background:rgba(255,42,109,0.08); border:1px solid rgba(255,42,109,0.25); border-radius:10px; padding:12px;">' +
-          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-            '<b style="color:var(--accent-magenta); font-size:12px;">⚡ 1단계: 게으른 혀의 소리 지름길</b>' +
-            (r.dopamineStages?.stage1_shortcut?.present ? '<span class="badge badge-pass" style="font-size:9px">충족</span>' : '<span class="badge badge-hold" style="font-size:9px">미흡</span>') +
-          '</div>' +
-          '<div style="font-size:11px; color:var(--text-normal); line-height:1.4;">' + esc(r.dopamineStages?.stage1_shortcut?.note || '원리 해제 설명') + '</div>' +
-        '</div>' +
-
-        '<div style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.25); border-radius:10px; padding:12px;">' +
-          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-            '<b style="color:var(--accent-cyan); font-size:12px;">🚀 2단계: 패턴 확장 (카타르시스)</b>' +
-            (r.dopamineStages?.stage2_expansion?.present ? '<span class="badge badge-pass" style="font-size:9px">충족</span>' : '<span class="badge badge-hold" style="font-size:9px">미흡</span>') +
-          '</div>' +
-          '<div style="font-size:11px; color:var(--text-normal); line-height:1.4;">' + esc(r.dopamineStages?.stage2_expansion?.note || '단어 확장 쾌감') + '</div>' +
-        '</div>' +
-
-        '<div style="background:rgba(255,184,0,0.08); border:1px solid rgba(255,184,0,0.25); border-radius:10px; padding:12px;">' +
-          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-            '<b style="color:var(--accent-amber); font-size:12px;">💡 3단계: 반전 꿀팁 (미세한 차이)</b>' +
-            (r.dopamineStages?.stage3_twist?.present ? '<span class="badge badge-pass" style="font-size:9px">충족</span>' : '<span class="badge badge-hold" style="font-size:9px">미흡</span>') +
-          '</div>' +
-          '<div style="font-size:11px; color:var(--text-normal); line-height:1.4;">' + esc(r.dopamineStages?.stage3_twist?.note || '예외/차이점 꿀팁') + '</div>' +
-        '</div>' +
-      '</div>' +
-
-      /* Readability Stats */
-      '<div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12px; background:#04060a; padding:10px 14px; border-radius:8px; border:1px solid var(--border-subtle);">' +
-        '<span>👓 <b>한 줄 평균 글자수:</b> ' + (r.readabilityCheck?.avgCharsPerLine || 0) + '자 ' + ((r.readabilityCheck?.avgCharsPerLine || 0) <= 28 ? '<span style="color:var(--accent-cyan); font-weight:700;">(3060 낭독 최적)</span>' : '<span style="color:var(--accent-amber); font-weight:700;">(다소 긺)</span>') + '</span> · ' +
-        '<span>🚫 <b>어려운 음성학/문법 용어:</b> ' + ((r.readabilityCheck?.jargonWordsFound?.length || 0) === 0 ? '<span style="color:var(--accent-emerald); font-weight:700;">0건 (완벽 차단)</span>' : '<span style="color:var(--accent-magenta); font-weight:700;">' + esc(r.readabilityCheck.jargonWordsFound.join(', ')) + '</span>') + '</span> · ' +
-        '<span>🎵 <b>3060 낭독 리듬감:</b> <b style="color:var(--accent-cyan);">' + (r.readabilityCheck?.rhythmScore || 90) + '점</b></span>' +
-      '</div>' +
-    '</div>';
-
-    /* CARD 2: VIOLATIONS & POLISHED SCRIPT */
-    if (r.violations && r.violations.length > 0) {
-      html += '<div style="background:#080c14; border:1px solid rgba(255,100,100,0.3); border-radius:14px; padding:18px;">' +
-        '<div class="card-title" style="color:#ff7676; margin-bottom:10px;">⚠️ 위반 항목 & 3060 브랜드 교정 진단 (' + r.violations.length + '건)</div>' +
-        '<div style="display:grid; gap:8px; margin-bottom:16px;">' +
-          r.violations.map(v => 
-            '<div style="background:#05070c; border:1px solid var(--border-subtle); border-radius:8px; padding:10px 12px; font-size:12px; line-height:1.4;">' +
-              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-                '<span style="color:#ff7676; font-weight:700;">' + (v.lineIndex ? ('#' + v.lineIndex + '행: ') : '') + esc(v.type || '위반') + '</span>' +
-                (v.lineText ? '<span style="color:var(--text-muted); font-size:11px;">원문: &ldquo;' + esc(v.lineText.slice(0, 25)) + '...&rdquo;</span>' : '') +
-              '</div>' +
-              '<div style="color:var(--text-bright); margin-bottom:4px;">' + esc(v.message || '') + '</div>' +
-              (v.suggestedFix ? '<div style="color:var(--accent-cyan); background:rgba(0,240,255,0.06); padding:6px 8px; border-radius:6px;">💡 <b>추천 교정:</b> &ldquo;' + esc(v.suggestedFix) + '&rdquo;</div>' : '') +
-            '</div>'
-          ).join('') +
-        '</div>' +
-      '</div>';
-    }
-
-    if (r.improvedScript) {
-      html += '<div style="background:#080c14; border:1px solid var(--accent-emerald); border-radius:14px; padding:18px;">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">' +
-          '<div class="card-title" style="color:var(--accent-emerald);">✨ 3060 브랜드 맞춤 100% 교정 대본 전문</div>' +
-          '<div style="display:flex; gap:6px;">' +
-            '<button class="btn btn-sm btn-cyan btn-apply-improved-script" data-script="' + encodeURIComponent(r.improvedScript) + '">✍️ 위 에디터에 반영</button>' +
-            '<button class="btn btn-sm btn-magenta btn-copy-text" data-text="' + encodeURIComponent(r.improvedScript) + '">📋 교정 대본 복사</button>' +
-          '</div>' +
-        '</div>' +
-        '<pre style="background:#020408; border:1px solid #1a2234; border-radius:8px; padding:14px; color:#fff; font-size:12px; line-height:1.6; white-space:pre-wrap; font-family:monospace; margin:0;">' + esc(r.improvedScript) + '</pre>' +
-      '</div>';
-    }
-
-    /* CARD 3: HYPERFRAMES SCENE CARDS PREVIEW & ACTIONS */
-    if (scenes.length > 0) {
-      html += '<div style="background:#090d16; border:1px solid var(--accent-magenta); border-radius:14px; padding:20px;">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">' +
-          '<div>' +
-            '<div class="card-title" style="color:var(--accent-magenta)">🎬 HYPERFRAMES SCENE JSON & CYBER-HUD CARDS (' + scenes.length + '개 씬 분절 완료)</div>' +
-            '<h3 style="font-family:var(--font-display); font-size:18px; color:#fff; margin-top:2px;">⚡ HyperFrames 비주얼 씬 규격</h3>' +
-          '</div>' +
-          '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
-            '<button class="btn btn-sm btn-magenta" id="btn-export-scenes-json">💾 scenes.json 파일 저장</button>' +
-            '<button class="btn btn-sm btn-cyan btn-copy-text" data-text="' + encodeURIComponent(JSON.stringify(scenes, null, 2)) + '">📋 씬 JSON 복사</button>' +
-            '<button class="btn btn-sm btn-amber" id="btn-send-scenes-to-ab" data-topic="' + encodeURIComponent(gBrandScriptTopic) + '">🎯 A/B 시뮬레이터로 연동</button>' +
-          '</div>' +
-        '</div>' +
-
-        /* Scene Visual Cards */
-        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:12px; margin-bottom:16px;">' +
-          scenes.map(sc => {
-            const scColor = typeColorMap[sc.type] || 'var(--accent-cyan)';
-            const scName = typeNameMap[sc.type] || ('Scene ' + sc.sceneIndex);
-            return '<div style="background:#05070c; border:1px solid ' + scColor + '; border-radius:12px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 4px 15px rgba(0,0,0,0.5);">' +
-              '<div>' +
-                '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
-                  '<span class="badge" style="background:rgba(0,0,0,0.4); border-color:' + scColor + '; color:' + scColor + '; font-size:10px; font-weight:800;">' + scName + '</span>' +
-                  '<span style="color:#aaa; font-size:11px; font-weight:700;">⏱️ ' + (sc.durationSec || 6) + '초</span>' +
-                '</div>' +
-
-                '<div style="font-size:13px; font-weight:700; color:#fff; line-height:1.45; margin-bottom:10px; background:rgba(255,255,255,0.03); padding:8px 10px; border-radius:6px;">' +
-                  '&ldquo;' + esc(sc.spokenText || '') + '&rdquo;' +
-                '</div>' +
-
-                '<div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:11px; margin-bottom:8px;">' +
-                  '<div style="background:#0a0e18; padding:6px 8px; border-radius:6px; border:1px solid #1a2234;"><span style="color:var(--text-muted);">카드 타이틀:</span> <b style="color:var(--text-bright);">' + esc(sc.cardTitle || '') + '</b></div>' +
-                  '<div style="background:#0a0e18; padding:6px 8px; border-radius:6px; border:1px solid #1a2234;"><span style="color:var(--text-muted);">키워드:</span> <b style="color:' + scColor + ';">' + esc(sc.highlightWord || '') + '</b></div>' +
-                '</div>' +
-              '</div>' +
-
-              (sc.onScreenVisualTip ? 
-                '<div style="font-size:10px; color:var(--accent-cyan); background:rgba(0,240,255,0.05); padding:6px 8px; border-radius:6px; border:1px dashed rgba(0,240,255,0.2);">' +
-                  '🎨 <b>비주얼 룩:</b> ' + esc(sc.onScreenVisualTip) +
-                '</div>' : '') +
-            '</div>';
-          }).join('') +
-        '</div>' +
-
-        /* JSON collapsible box */
-        '<details style="background:#020408; border:1px solid var(--border-subtle); border-radius:8px; padding:10px;">' +
-          '<summary style="color:var(--text-muted); font-size:11px; font-weight:700; cursor:pointer;">🔍 HyperFrames 씬 원본 JSON 코드 보기 (' + scenes.length + ' scenes)</summary>' +
-          '<pre style="color:#00f0ff; font-size:11px; font-family:monospace; line-height:1.4; max-height:220px; overflow-y:auto; margin-top:8px; white-space:pre-wrap;">' + esc(JSON.stringify(scenes, null, 2)) + '</pre>' +
-        '</details>' +
-      '</div>';
-    }
-
-  html += '</div>';
-  return html;
-}
 
 // 댓글/대본 분석이 끝난 직후 그 결과로 갱신되는 두 화면(시장 수요 레이더 / 데이터 자산)의 캐시를
 // 조용히 새로고침한다 — 분석은 보통 시장 수요 카드에서 시작해서 아웃라이어 랩 탭으로 넘어와
@@ -4965,242 +4092,6 @@ function triggerCommentAnalysis(vidOrUrl) {
   runAiCommentAnalysis({url: fullUrl});
 }
 
-function bindOutlierLabEvents() {
-  const subtabComments = document.getElementById('subtab-btn-comments');
-  const subtabScripts = document.getElementById('subtab-btn-scripts');
-  const subtabBrandLinter = document.getElementById('subtab-btn-brand-linter');
-
-  if (subtabComments) subtabComments.onclick = () => { 
-    gAiLabSubTab = 'comments'; 
-    try { localStorage.setItem('ihm_ailab_subtab', 'comments'); } catch (_) {}
-    renderCurrentTab(); 
-  };
-  if (subtabScripts) subtabScripts.onclick = () => { 
-    gAiLabSubTab = 'scripts'; 
-    try { localStorage.setItem('ihm_ailab_subtab', 'scripts'); } catch (_) {}
-    renderCurrentTab(); 
-  };
-  if (subtabBrandLinter) subtabBrandLinter.onclick = () => { 
-    gAiLabSubTab = 'brand-linter'; 
-    try { localStorage.setItem('ihm_ailab_subtab', 'brand-linter'); } catch (_) {}
-    renderCurrentTab(); 
-  };
-
-  // 1. Comments Subtab Events
-  const btnKw = document.getElementById('btn-run-ai-kw');
-  if (btnKw) btnKw.onclick = () => {
-    const kw = document.getElementById('input-ai-kw')?.value.trim();
-    if (!kw) return alert('키워드를 입력하세요.');
-    runAiCommentAnalysis({keyword: kw});
-  };
-
-  const btnUrl = document.getElementById('btn-run-ai-url');
-  if (btnUrl) btnUrl.onclick = () => {
-    const url = document.getElementById('input-ai-url')?.value.trim();
-    if (!url) return alert('유튜브 URL을 입력하세요.');
-    runAiCommentAnalysis({url});
-  };
-
-  // 2. Script Subtab Events
-  const btnScript = document.getElementById('btn-run-script-analyze');
-  if (btnScript) btnScript.onclick = () => {
-    const urlInput = document.getElementById('input-script-url');
-    const targetUrl = urlInput ? urlInput.value.trim() : '';
-    runScriptAnalysis(targetUrl);
-  };
-
-  // 3. Brand Linter Subtab Events
-  const topicInput = document.getElementById('input-brand-linter-topic');
-  if (topicInput) topicInput.oninput = (e) => {
-    gBrandScriptTopic = e.target.value;
-    saveBrandLinterState();
-  };
-
-  const formatSelect = document.getElementById('select-brand-linter-format');
-  if (formatSelect) formatSelect.onchange = (e) => {
-    gBrandScriptFormat = e.target.value;
-    saveBrandLinterState();
-  };
-
-  const scriptTextarea = document.getElementById('textarea-brand-linter-script');
-  if (scriptTextarea) {
-    scriptTextarea.oninput = (e) => {
-      gBrandScriptText = e.target.value;
-      saveBrandLinterState();
-      const stats = document.getElementById('brand-linter-char-stats');
-      if (stats) {
-        const cLen = gBrandScriptText.length;
-        const est = Math.round(cLen / 5.3);
-        stats.textContent = '총 ' + cLen + '자 · 예상 낭독시간 약 ' + est + '초';
-      }
-    };
-  }
-
-  // Sample Buttons
-  const btnSampleShorts = document.getElementById('btn-brand-linter-sample-shorts');
-  if (btnSampleShorts) {
-    btnSampleShorts.onclick = () => {
-      gBrandScriptFormat = 'SHORTS';
-      gBrandScriptTopic = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TOPIC)};
-      gBrandScriptText = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TEXT)};
-      saveBrandLinterState();
-      renderCurrentTab();
-      showToast('📱 쇼츠 3060 도파민 샘플 대본이 로드되었습니다!');
-    };
-  }
-
-  const btnSampleLong = document.getElementById('btn-brand-linter-sample-long');
-  if (btnSampleLong) {
-    btnSampleLong.onclick = () => {
-      gBrandScriptFormat = 'LONGFORM';
-      gBrandScriptTopic = ${JSON.stringify(BRAND_LINTER_SAMPLE_LONG_TOPIC)};
-      gBrandScriptText = ${JSON.stringify(BRAND_LINTER_SAMPLE_LONG_TEXT)};
-      saveBrandLinterState();
-      renderCurrentTab();
-      showToast('📺 롱폼 3060 도파민 샘플 대본이 로드되었습니다!');
-    };
-  }
-
-  const btnClear = document.getElementById('btn-brand-linter-clear');
-  if (btnClear) {
-    btnClear.onclick = () => {
-      if (confirm('대본 에디터를 비우시겠습니까?')) {
-        gBrandScriptText = '';
-        gBrandScriptLinterResult = null;
-        saveBrandLinterState();
-        renderCurrentTab();
-      }
-    };
-  }
-
-  // Run Brand Linter Button
-  const btnRunLinter = document.getElementById('btn-run-brand-linter');
-  if (btnRunLinter) {
-    btnRunLinter.onclick = async () => {
-      const scriptText = (gBrandScriptText || '').trim();
-      if (!scriptText) return alert('심사할 대본을 입력하세요.');
-
-      const statusBox = document.getElementById('ai-lab-status');
-      const statusText = document.getElementById('ai-lab-status-text');
-      const resultsContainer = document.getElementById('ai-results-container');
-
-      if (statusBox) statusBox.style.display = 'block';
-      if (statusText) statusText.textContent = 'Gemini AI가 3060 브랜드 도파민 3단계 공식 및 HyperFrames 씬 규격을 정밀 심사 중입니다... (약 3~5초 소요)';
-      btnRunLinter.disabled = true;
-
-      try {
-        const res = await fetch('/api/brand-script/lint', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            scriptText,
-            topic: gBrandScriptTopic,
-            format: gBrandScriptFormat,
-          }),
-        });
-
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '대본 심사에 실패했습니다.');
-
-        gBrandScriptLinterResult = data.result;
-        saveBrandLinterState();
-
-        if (statusBox) statusBox.style.display = 'none';
-        if (resultsContainer) {
-          resultsContainer.style.display = 'block';
-          resultsContainer.innerHTML = renderBrandLinterResults(data.result);
-          resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        showToast('🎉 3060 브랜드 대본 린팅 및 HyperFrames 씬 생성이 완료되었습니다!');
-      } catch (err) {
-        if (statusBox) statusBox.style.display = 'block';
-        if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
-      } finally {
-        btnRunLinter.disabled = false;
-      }
-    };
-  }
-
-  // Dynamic Button Listeners for results
-  document.querySelectorAll('.btn-apply-improved-script').forEach(btn => {
-    btn.onclick = () => {
-      const script = decodeURIComponent(btn.dataset.script || '');
-      gBrandScriptText = script;
-      saveBrandLinterState();
-      renderCurrentTab();
-      showToast('✍️ 교정된 대본이 에디터에 반영되었습니다!');
-    };
-  });
-
-  document.querySelectorAll('.btn-copy-text').forEach(btn => {
-    btn.onclick = () => {
-      const text = decodeURIComponent(btn.dataset.text || '');
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text);
-        showToast('📋 복사되었습니다!');
-      } else {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast('📋 복사되었습니다!');
-      }
-    };
-  });
-
-  const btnExportScenes = document.getElementById('btn-export-scenes-json');
-  if (btnExportScenes && gBrandScriptLinterResult?.hyperFramesScenes) {
-    btnExportScenes.onclick = async () => {
-      try {
-        const res = await fetch('/api/brand-script/export-scenes', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            scenes: gBrandScriptLinterResult.hyperFramesScenes,
-            topic: gBrandScriptTopic,
-            format: gBrandScriptFormat,
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '저장 실패');
-        showToast('💾 [' + data.filename + '] 파일이 output/scenes/ 에 성공적으로 저장되었습니다!');
-      } catch (err) {
-        alert('저장 오류: ' + err.message);
-      }
-    };
-  }
-
-  const btnSendToAb = document.getElementById('btn-send-scenes-to-ab');
-  if (btnSendToAb) {
-    btnSendToAb.onclick = () => {
-      const topic = decodeURIComponent(btnSendToAb.dataset.topic || gBrandScriptTopic);
-      gAbTopic = topic;
-      gAbFormat = gBrandScriptFormat;
-      gAbVariants[0].title = topic + ' (핵심 소리 원리 1초 완성)';
-      gAbVariants[1].title = '원어민이 ' + topic.slice(0, 10) + ' 발음할 때 절대 모르는 비밀 #영어발음';
-      gAbVariants[2].title = topic + '? 딱 1가지만 기억하세요! 귀가 뚫리는 공식';
-      saveAbSimulatorState();
-      switchTab('tab-ab-simulator');
-      showToast('🎯 린팅된 주제가 A/B 시뮬레이터에 연동되었습니다!');
-    };
-  }
-
-  const refreshBtn = document.getElementById('btn-refresh-ai-reports');
-  if (refreshBtn) {
-    refreshBtn.onclick = () => {
-      if (gAiLabSubTab === 'comments') loadSavedReportsList();
-      else if (gAiLabSubTab === 'scripts') loadSavedScriptReportsList();
-    };
-  }
-
-  if (gAiLabSubTab === 'comments') {
-    loadSavedReportsList();
-  } else if (gAiLabSubTab === 'scripts') {
-    loadSavedScriptReportsList();
-  }
-}
 
 function renderSingleAiReportCard(r) {
   const v = r.video || {};
@@ -6932,327 +5823,7 @@ function renderMatrixTab() {
   '</div>';
 }
 
-function bindMatrixEvents() {
-  const allItems = computeMatrixDataset();
 
-  // 1. Format Filter Buttons
-  document.querySelectorAll('.btn-matrix-format').forEach(btn => {
-    btn.onclick = () => {
-      gMatrixFormatFilter = btn.dataset.format;
-      renderCurrentTab();
-    };
-  });
-
-  // 2. Quadrant Filter Buttons
-  document.querySelectorAll('.btn-matrix-quadrant').forEach(btn => {
-    btn.onclick = () => {
-      gMatrixQuadrantFilter = btn.dataset.quadrant;
-      renderCurrentTab();
-    };
-  });
-
-  // 3. Threshold Inputs
-  const ctrInput = document.getElementById('input-matrix-ctr-thresh');
-  if (ctrInput) {
-    ctrInput.onchange = (e) => {
-      gMatrixCtrThreshold = Number(e.target.value) || 6.0;
-      renderCurrentTab();
-    };
-  }
-
-  const retInput = document.getElementById('input-matrix-ret-thresh');
-  if (retInput) {
-    retInput.onchange = (e) => {
-      if (gMatrixFormatFilter === 'SHORTS') {
-        gMatrixRetThresholdShorts = Number(e.target.value) || 70.0;
-      } else {
-        gMatrixRetThresholdLong = Number(e.target.value) || 42.0;
-      }
-      renderCurrentTab();
-    };
-  }
-
-  // 4. SVG Bubble Hover Tooltips & Click to Diagnose
-  const tooltip = document.getElementById('matrix-chart-tooltip');
-  const container = document.querySelector('.matrix-svg-container');
-
-  document.querySelectorAll('.matrix-bubble').forEach(bubble => {
-    bubble.onmouseenter = (e) => {
-      if (!tooltip || !container) return;
-      const title = decodeURIComponent(bubble.dataset.title);
-      const ctr = bubble.dataset.ctr;
-      const ret = bubble.dataset.ret;
-      const views = Number(bubble.dataset.views || 0);
-      const format = bubble.dataset.format;
-      const quadrant = bubble.dataset.quadrant;
-      const qLabel = decodeURIComponent(bubble.dataset.quadrantLabel);
-      const thumb = decodeURIComponent(bubble.dataset.thumb);
-      const action = decodeURIComponent(bubble.dataset.action);
-
-      const bCol = quadrant === 'WARMUP' ? 'var(--accent-amber)' : quadrant === 'Q1' ? 'var(--accent-cyan)' : quadrant === 'Q2' ? 'var(--accent-amber)' : quadrant === 'Q3' ? 'var(--accent-emerald)' : 'var(--accent-violet)';
-
-      tooltip.innerHTML = 
-        '<div style="display:flex; gap:8px; margin-bottom:6px;">' +
-          '<img src="' + esc(thumb) + '" style="width:70px; height:40px; object-fit:cover; border-radius:4px; background:#000;">' +
-          '<div style="flex:1; min-width:0;">' +
-            '<span class="badge" style="font-size:9px; border-color:' + bCol + '; color:' + bCol + '; padding:1px 6px;">' + (quadrant === 'WARMUP' ? '⏳ 48H 집계중' : esc(quadrant)) + ' · ' + esc(qLabel) + '</span>' +
-            '<div style="font-weight:700; font-size:11px; color:#fff; line-height:1.3; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; margin-top:2px;">' + esc(title) + '</div>' +
-          '</div>' +
-        '</div>' +
-        '<div style="display:flex; justify-content:space-between; font-size:11px; border-top:1px solid rgba(255,255,255,0.1); padding-top:4px; margin-top:4px;">' +
-          '<span>CTR: <b style="color:' + bCol + '">' + ctr + '%</b></span>' +
-          '<span>지속률: <b>' + ret + '%</b></span>' +
-          '<span>조회수: <b>' + fmt.format(views) + '</b></span>' +
-        '</div>' +
-        '<div style="font-size:10px; color:var(--accent-cyan); margin-top:4px; text-align:right;">👉 클릭하여 AI 처방전 열람</div>';
-
-      const rect = container.getBoundingClientRect();
-      const clientX = e.clientX - rect.left;
-      const clientY = e.clientY - rect.top;
-
-      tooltip.style.left = Math.min(rect.width - 290, Math.max(10, clientX + 15)) + 'px';
-      tooltip.style.top = Math.min(rect.height - 130, Math.max(10, clientY - 40)) + 'px';
-      tooltip.style.display = 'block';
-    };
-
-    bubble.onmouseleave = () => {
-      if (tooltip) tooltip.style.display = 'none';
-    };
-
-    bubble.onclick = () => {
-      const vid = bubble.dataset.videoId;
-      const targetVideo = allItems.find(v => v.videoId === vid);
-      if (targetVideo) openMatrixDiagnosisModal(targetVideo);
-    };
-  });
-
-  // 5. Action Button: Send to A/B Simulator
-  document.querySelectorAll('.btn-send-to-ab').forEach(btn => {
-    btn.onclick = (e) => {
-      e.stopPropagation();
-      const vid = btn.dataset.videoId;
-      const targetVideo = allItems.find(v => v.videoId === vid);
-      const videoTitle = targetVideo ? targetVideo.title : decodeURIComponent(btn.dataset.title);
-      const videoThumb = targetVideo ? targetVideo.thumbnail : decodeURIComponent(btn.dataset.thumb);
-      const isVideoShorts = targetVideo ? (targetVideo.format === 'SHORTS' || targetVideo.isShorts) : (videoTitle.toLowerCase().includes('#shorts'));
-      
-      gAbFormat = isVideoShorts ? 'SHORTS' : 'LONGFORM';
-      gAbTopic = videoTitle;
-      // 이 핸드오프엔 영상별 타겟층을 추정할 근거 데이터가 없다(아이디어 보드처럼 AI가 만든
-      // targetAudience가 없음) — 그래도 이전 화면에서 쓰던 무관한 값이 그대로 남는 것보다는
-      // 채널 기본값으로 리셋하는 게 낫다(2026-09-01, 같은 문제가 아이디어 보드 핸드오프에도
-      // 있었던 걸 사용자가 지적해서 발견).
-      gAbAudience = '3060 성인 & 왕초보 영어 학습자';
-      // thumbnailHeadline은 메모가 아니라 실제 생성 이미지에 그대로 그려지는 문구다
-      // (buildThumbnailPrompt) — "현재 시안"/"대안 B" 같은 내부 비교용 라벨을 넣으면 그게
-      // 그대로 썸네일에 박혀 나온다(사용자 지적, 2026-09-01 — 아이디어 보드 핸드오프에서
-      // 먼저 발견돼 여기도 같은 패턴으로 수정). 빈 칸으로 둬서 시안별 기본값으로 폴백시킨다.
-      // (하단 캡션·포인트 뱃지는 2026-09-13 폐지.)
-      gAbVariants[0] = {
-        id: 'A',
-        title: videoTitle,
-        imageUrl: videoThumb,
-        thumbnailHeadline: '',
-        visualConcept: '',
-        isLocalFile: false
-      };
-      gAbVariants[1] = {
-        id: 'B',
-        title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (핵심 원리)' : ' (핵심 원리 30초 완성)'),
-        imageUrl: '',
-        thumbnailHeadline: '',
-        visualConcept: '',
-        isLocalFile: false
-      };
-      gAbVariants[2] = {
-        id: 'C',
-        title: videoTitle.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts (필수 패턴)' : ' (필수 패턴 총정리)'),
-        imageUrl: '',
-        thumbnailHeadline: '',
-        visualConcept: '',
-        isLocalFile: false
-      };
-      gAbSelectedVariantTab = 'A';
-      gAbActiveFeedView = 'A';
-      // 이전 진단(gAbAiReport)은 완전히 다른 소재/시안을 평가한 결과라 그대로 두면 새 소재를 진단한
-      // 것처럼 오인된다(2026-09-02, 실제로 이 문제 때문에 혼란이 생겨서 발견) — 핸드오프 시 항상 비움.
-      gAbAiReport = null;
-      saveAbSimulatorState();
-      switchTab('tab-ab-simulator');
-      showToast(isVideoShorts ? '📱 쇼츠(9:16) 영상이 A/B 시뮬레이터에 로드되었습니다!' : '📺 롱폼(16:9) 영상이 A/B 시뮬레이터에 로드되었습니다!');
-    };
-  });
-
-  // 6. Action Button: AI Diagnose Modal
-  document.querySelectorAll('.btn-matrix-diagnose').forEach(btn => {
-    btn.onclick = (e) => {
-      e.stopPropagation();
-      const vid = btn.dataset.videoId;
-      const targetVideo = allItems.find(v => v.videoId === vid);
-      if (targetVideo) openMatrixDiagnosisModal(targetVideo);
-    };
-  });
-}
-
-function openMatrixDiagnosisModal(video) {
-  const bColor = video.quadrant === 'WARMUP' ? 'var(--accent-amber)' : video.quadrant === 'Q1' ? 'var(--accent-cyan)' : video.quadrant === 'Q2' ? 'var(--accent-amber)' : video.quadrant === 'Q3' ? 'var(--accent-emerald)' : 'var(--accent-violet)';
-
-  let modalHtml = 
-    '<div style="display:flex; gap:14px; margin-bottom:16px; background:#080c14; padding:14px; border-radius:12px; border:1px solid var(--border-subtle);">' +
-      '<img src="' + esc(video.thumbnail) + '" style="width:140px; height:79px; object-fit:cover; border-radius:8px; flex-shrink:0; background:#000;">' +
-      '<div style="flex:1; min-width:0;">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-          '<span class="badge" style="border-color:' + bColor + '; color:' + bColor + '; font-size:11px;">' + (video.quadrant === 'WARMUP' ? '⏳ 48H 집계중' : esc(video.quadrant)) + ' · ' + esc(video.quadrantLabel) + '</span>' +
-          '<span class="tag-chip">' + esc(video.format) + '</span>' +
-        '</div>' +
-        '<h3 style="font-size:16px; font-weight:800; color:var(--text-bright); line-height:1.35; margin-bottom:6px;">' + esc(video.title) + '</h3>' +
-        '<div style="display:flex; gap:12px; font-size:12px; color:var(--text-normal);">' +
-          '<span>조회수 <b>' + fmt.format(video.views) + '회</b></span> · ' +
-          '<span>노출 클릭률 <b style="color:' + bColor + '">' + video.ctr + '%</b></span> · ' +
-          '<span>시청지속률 <b style="color:var(--text-bright)">' + video.retentionRate + '%</b></span>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-
-    '<div id="matrix-modal-ai-result">' +
-      '<div style="text-align:center; padding:30px 10px;">' +
-        (video.isVerified
-          ? '<p style="color:var(--text-normal); font-size:13px; margin-bottom:16px;">Gemini AI가 이 영상의 사분면 위치와 시청자 반응 지표를 심층 분석하여 맞춤 처방전을 생성합니다.</p>' +
-            '<button class="btn btn-cyan" id="btn-run-matrix-diagnose" style="font-size:14px; padding:10px 24px;">🚀 Gemini AI 맞춤 처방전 생성하기</button>'
-          : '<p style="color:var(--text-muted); font-size:13px;">아직 사분면이 확정되지 않아 AI 처방을 하지 않습니다. 노출과 시청 데이터가 더 모이면 열립니다.</p>') +
-      '</div>' +
-    '</div>';
-
-  openModal('📊 사분면 정밀 진단 및 AI 처방전 (Action Hub)', modalHtml);
-
-  const runBtn = document.getElementById('btn-run-matrix-diagnose');
-  if (runBtn) {
-    runBtn.onclick = async () => {
-      const container = document.getElementById('matrix-modal-ai-result');
-      if (container) {
-        container.innerHTML = '<div style="text-align:center; padding:40px;"><div class="pulse-dot" style="margin:0 auto 12px; width:14px; height:14px;"></div><p style="color:var(--text-bright); font-weight:700;">Gemini AI가 사분면 맞춤 원인 및 처방전을 분석 중입니다... (약 3~5초 소요)</p></div>';
-      }
-      try {
-        const res = await fetch('/api/matrix/diagnose', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ video }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '진단 실패');
-        const diag = data.diagnosis;
-
-        const altTitles = diag.alternativeTitles || diag.suggestedAlternativeTitles || [];
-
-        container.innerHTML = 
-          '<div style="display:grid; gap:14px;">' +
-            '<div style="background:rgba(0,240,255,0.08); border:1px solid var(--accent-cyan); border-radius:12px; padding:16px;">' +
-              '<div class="card-title" style="color:var(--accent-cyan)">💡 AI 원인 진단 & 사분면 핵심 판정</div>' +
-              '<div style="font-size:14px; font-weight:700; color:#fff; margin:6px 0 4px; line-height:1.4;">' + esc(diag.diagnosisSummary || '') + '</div>' +
-              '<div style="font-size:12px; color:var(--text-normal); line-height:1.5;">' + esc(diag.coreProblemOrSuccessFactor || '') + '</div>' +
-            '</div>' +
-
-            '<div style="background:#080c14; border:1px solid var(--border-subtle); border-radius:12px; padding:16px;">' +
-              '<div class="card-title" style="color:var(--accent-amber); margin-bottom:8px;">📋 3단계 즉각 실행 처방전 (Action Steps)</div>' +
-              '<div style="display:grid; gap:8px;">' +
-                (diag.actionPrescriptions || []).map(p => 
-                  '<div style="background:#05070c; border:1px solid var(--border-subtle); border-radius:8px; padding:10px; font-size:12px; line-height:1.4;">' +
-                    '<b style="color:var(--accent-cyan)">Step ' + p.step + ' [' + esc(p.category || '개선') + ']:</b> ' + esc(p.action || '') +
-                  '</div>'
-                ).join('') +
-              '</div>' +
-            '</div>' +
-
-            '<div style="background:#080c14; border:1px solid var(--border-subtle); border-radius:12px; padding:16px;">' +
-              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
-                '<div class="card-title" style="color:var(--accent-magenta);">⚡ 추천 고클릭률 대체 제목 3종 (클릭 시 복사)</div>' +
-                '<span class="badge badge-magenta" style="font-size:10px;">HIGH CTR</span>' +
-              '</div>' +
-              '<div style="display:grid; gap:8px;">' +
-                (altTitles.length > 0 ? altTitles.map((t, idx) => 
-                  '<div class="tag-chip copy-chip" data-copy="' + esc(t) + '" style="cursor:pointer; display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:#05070c; border:1px solid var(--border-subtle); border-radius:8px; font-size:13px; font-weight:700; color:var(--text-bright); line-height:1.4;">' +
-                    '<span><b style="color:var(--accent-cyan); margin-right:6px;">#' + (idx + 1) + '</b> "' + esc(t) + '"</span>' +
-                    '<span style="color:var(--accent-magenta); font-size:11px; margin-left:8px; flex-shrink:0;">📋 복사</span>' +
-                  '</div>'
-                ).join('') : '<div style="color:var(--text-muted); font-size:12px;">대체 제목이 생성되지 않았습니다.</div>') +
-              '</div>' +
-            '</div>' +
-
-            '<div style="display:flex; justify-content:space-between; align-items:center; background:#060910; padding:12px 16px; border-radius:10px; border:1px solid var(--border-active);">' +
-              '<span style="font-size:12px; color:var(--accent-amber); font-weight:700;">' + esc(diag.priorityVerdict || '추천 액션 완료') + '</span>' +
-              '<button class="btn btn-sm btn-cyan" id="btn-modal-to-ab" style="font-weight:800;">🎯 이 영상으로 A/B 시뮬레이터 바로 실행</button>' +
-            '</div>' +
-          '</div>';
-
-        container.querySelectorAll('.copy-chip').forEach(chip => {
-          chip.onclick = () => copyToClipboard(chip.dataset.copy, chip);
-        });
-
-        const toAbBtn = document.getElementById('btn-modal-to-ab');
-        if (toAbBtn) {
-          toAbBtn.onclick = () => {
-            closeModal();
-            const isVideoShorts = (video.format === 'SHORTS') || video.isShorts || (typeof video.durationSec === 'number' && video.durationSec <= 60) || (typeof video.durationSeconds === 'number' && video.durationSeconds <= 60) || (video.title && (video.title.toLowerCase().includes('#shorts') || video.title.toLowerCase().includes('shorts')));
-            gAbFormat = isVideoShorts ? 'SHORTS' : 'LONGFORM';
-            gAbTopic = video.title;
-            // 이 핸드오프도 영상별 타겟층 추정 데이터가 없다 — 이전 화면의 무관한 값이 남는 것보다
-            // 채널 기본값으로 리셋(2026-09-01, 위 .btn-send-to-ab와 동일 이유).
-            gAbAudience = '3060 성인 & 왕초보 영어 학습자';
-
-            // thumbnailHeadline은 항상 빈 칸으로 시작한다 — altTitles는 그냥 대안 "제목" 문자열
-            // 배열이라 헤드라인용 문구가 따로 없는데, 예전엔 title.slice(0, 15)로 제목 앞
-            // 15글자를 잘라 카피인 척 채워 넣고 있었다(2026-09-11, 사용자 지적: "썸네일 카피를
-            // 보면 문자 수만이 들어가는 것 같은데" — 실제로 문장 중간에서 뚝 잘린 의미 없는
-            // 조각이었다). 제목과 헤드라인은 서로 다른 내용이어야 하므로, 진짜 헤드라인이 없으면
-            // 빈 칸으로 둬서 "🚀 Gemini AI CTR 정밀 진단"이 만들어주는 실제 문구로 채우게 한다.
-            // (실제 생성 이미지에 그대로 그려지므로 가짜 값을 넣으면 안 된다. 하단 캡션·포인트
-            // 뱃지는 2026-09-13 폐지.)
-            // 1. Variant A (Original Baseline Video)
-            gAbVariants[0] = {
-              id: 'A',
-              title: video.title,
-              imageUrl: video.thumbnail,
-              thumbnailHeadline: '',
-              visualConcept: '',
-              isLocalFile: false
-            };
-
-            // 2. Variant B (AI Recommendation 1 - Empty image ready for new thumbnail drop/generation)
-            gAbVariants[1] = {
-              id: 'B',
-              title: (altTitles && altTitles[0]) ? altTitles[0] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #shorts (개선안 B)' : ' (개선안 B)')),
-              imageUrl: '',
-              thumbnailHeadline: '',
-              visualConcept: '',
-              isLocalFile: false
-            };
-
-            // 3. Variant C (AI Recommendation 2 - Empty image ready for new thumbnail drop/generation)
-            gAbVariants[2] = {
-              id: 'C',
-              title: (altTitles && altTitles[1]) ? altTitles[1] : (video.title.replace(/#.*/, '').trim() + (isVideoShorts ? ' #영어 #shorts' : ' (완전정복 C)')),
-              imageUrl: '',
-              thumbnailHeadline: '',
-              visualConcept: '',
-              isLocalFile: false
-            };
-
-            gAbSelectedVariantTab = 'A';
-            gAbActiveFeedView = 'A';
-            gAbAiReport = null;
-            saveAbSimulatorState();
-            switchTab('tab-ab-simulator');
-            showToast(isVideoShorts ? '📱 쇼츠(9:16) 영상이 A/B 시뮬레이터에 로드되었습니다!' : '📺 롱폼(16:9) 영상이 A/B 시뮬레이터에 로드되었습니다!');
-          };
-        }
-      } catch (err) {
-        if (container) {
-          container.innerHTML = '<div style="color:#ff7676; padding:20px;">❌ AI 진단 오류: ' + esc(err.message) + '</div>';
-        }
-      }
-    };
-  }
-}
 
 /* STUDIO RPA CUSTOM METRIC COLLECTOR MODAL */
 /* STUDIO DIRECT EXPORT & AUTO-INGEST MODAL */
@@ -7321,2135 +5892,203 @@ function bindStudioRpaModalEvents() {
   }
 }
 
-/* TAB: A/B FEED SIMULATOR & AI CTR PREDICTOR */
+/* TAB: 실제 검색 피드 & 잘된 썸네일 (2026-11-11 재설계)
+   예전 "A/B 피드 시뮬레이터 · AI CTR 예측기"를 대신한다. 비교 대상은 그 편 검색어로 실제 한국 유튜브를 검색한 결과이고
+   (서버가 하루 캐시), 잘된 썸네일은 구독자 대비 조회 배수·경쟁 채널 평소 대비 배수 같은 실제 숫자로만 고른다.
+   지어낸 영상·AI 예상 CTR은 없다. 사람은 보기만 하고, Claude는 Phase 6 썸네일 방향의 근거로 쓴다. */
+let gThumbFeedPackages = null;
+let gThumbFeedPkg = (function() { try { return localStorage.getItem('ihm_thumbfeed_pkg') || ''; } catch (_) { return ''; } })();
+let gThumbFeedQuery = '';
+let gThumbFeedThumbIdx = 0;
+let gThumbFeedData = null;
+let gThumbFeedLoading = false;
+let gThumbFeedError = '';
+
+function thumbFeedCurrentPkg() {
+  const list = gThumbFeedPackages || [];
+  return list.find(p => p.name === gThumbFeedPkg) || list[0] || null;
+}
+
+function thumbFeedQueries(pkg) {
+  const qs = (pkg && pkg.queries ? pkg.queries.slice() : []);
+  if (gAbTopic && qs.indexOf(gAbTopic) === -1) qs.push(gAbTopic);
+  return qs;
+}
+
 function renderAbSimulatorTab() {
-  const isShorts = gAbFormat === 'SHORTS';
-  const currentVariant = gAbVariants.find(v => v.id === gAbSelectedVariantTab) || gAbVariants[0];
-  const colorMap = { A: 'var(--accent-magenta)', B: 'var(--accent-cyan)', C: 'var(--accent-amber)' };
-  const badgeClassMap = { A: 'badge-revise', B: 'badge-pass', C: 'badge-hold' };
-
-  const chosenVariant = (gAbActiveFeedView === 'ALL') ? currentVariant : (gAbVariants.find(v => v.id === gAbActiveFeedView) || currentVariant);
-  const bColor = colorMap[chosenVariant.id] || 'var(--accent-magenta)';
-
-  /* Rich Competitor Videos: 2 Top Longforms & 4 Bottom Longforms from Market Demand Radar (100% Pure 16:9 Longforms) */
-  const FALLBACK_topLongforms = [
-    {
-      title: "왕초보를 위한 영어회화 강의 - Lesson 001 [기본적인 문장 구성하기]",
-      channelTitle: "라이브 아카데미 토들러",
-      views: "185만회",
-      publishedAgo: "1개월 전",
-      thumbnail: "https://i.ytimg.com/vi/OGHo7apPWIY/mqdefault.jpg",
-      duration: "14:28",
-      avatarSeed: "LiveAcademy1",
-    },
-    {
-      title: "🌱영어회화 | 기초 영어 - 문장 만들기 - Lesson 002",
-      channelTitle: "라이브 아카데미 토들러",
-      views: "145만회",
-      publishedAgo: "1개월 전",
-      thumbnail: "https://i.ytimg.com/vi/yJg0rrmRZhA/mqdefault.jpg",
-      duration: "11:20",
-      avatarSeed: "LiveAcademy2",
-    }
-  ];
-
-  /* 6 Authentic Competitor Shorts Cards from Real Competitor Channels (10초 영어회화, 톡톡영어, 딴딴영어, 리스닝영어창고, 시니어 엄지척 영어, 보리영어) */
-  const FALLBACK_shortsList = [
-    {
-      title: "맛이 왜 이래 영어로? 원어민은 off 하나로 끝냅니다. #shorts",
-      channelTitle: "10초 영어회화",
-      imageUrl: "https://i.ytimg.com/vi/PQJwmKD4YiA/hqdefault.jpg",
-      views: "180만회",
-      tag: "인기 급상승",
-    },
-    {
-      title: "너는 그럴 자격이 있다 영어로? You deserve it #shorts",
-      channelTitle: "톡톡영어",
-      imageUrl: "https://i.ytimg.com/vi/7zrEVHsWwV0/hqdefault.jpg",
-      views: "94만회",
-      tag: "새 동영상",
-    },
-    {
-      title: "[패턴영어] It's all good~ 패턴으로 배우는 영어 표현! #shorts",
-      channelTitle: "딴딴영어",
-      imageUrl: "https://i.ytimg.com/vi/AwKOIQjT4Tc/hqdefault.jpg",
-      views: "63만회",
-      tag: "인기",
-    },
-    {
-      title: "왕초보 영어 5문장 | 매일 쓰는 필수 표현 #shorts",
-      channelTitle: "리스닝영어창고",
-      imageUrl: "https://i.ytimg.com/vi/1zwyCkBvTXc/hqdefault.jpg",
-      views: "57만회",
-      tag: "추천",
-    },
-    {
-      title: "원어민이 대화 중에 자주 쓰는 짧은 영어 #shorts",
-      channelTitle: "시니어 엄지척 영어",
-      imageUrl: "https://i.ytimg.com/vi/d-4OjN7OnCA/hqdefault.jpg",
-      views: "87만회",
-      tag: "",
-    },
-    {
-      title: "미드로 배우는 쉬운 영어표현 It was all for nothing #shorts",
-      channelTitle: "보리영어",
-      imageUrl: "https://i.ytimg.com/vi/XVPPUe_elEw/hqdefault.jpg",
-      views: "52만회",
-      tag: "새 동영상",
-    }
-  ];
-
-  /* 4 Real Bottom Longform Videos from Market Demand Radar & YouTube (100% Pure 16:9 Competitor Longforms) */
-  const FALLBACK_bottomLongforms = [
-    {
-      title: "[왕기초 영어 읽기 0편] 준비 1단계. ⭐알파벳⭐ 배우기 | 한글로 배우는 영어",
-      channelTitle: "하니티처",
-      views: "63만회",
-      publishedAgo: "3주 전",
-      thumbnail: "https://i.ytimg.com/vi/tpveKY5pnis/mqdefault.jpg",
-      duration: "12:15",
-      avatarSeed: "HaniTeacher",
-    },
-    {
-      title: "[왕기초 영어 읽기 0편] 준비 2단계 ⭐대문자 쓰기⭐ 함께 쓰면서 외워요!",
-      channelTitle: "하니티처",
-      views: "57만회",
-      publishedAgo: "2개월 전",
-      thumbnail: "https://i.ytimg.com/vi/Eh5h2WatNII/mqdefault.jpg",
-      duration: "09:40",
-      avatarSeed: "HaniTeacher2",
-    },
-    {
-      title: "[왕기초 영어 읽기 8편] 모르면 실수하는 ⭐L 단어 읽기⭐ (L 심화편)",
-      channelTitle: "하니티처",
-      views: "48만회",
-      publishedAgo: "2개월 전",
-      thumbnail: "https://i.ytimg.com/vi/4YHtkTvQmYk/mqdefault.jpg",
-      duration: "13:20",
-      avatarSeed: "HaniTeacher3",
-    },
-    {
-      title: "[왕기초 영어 읽기 7편] ⭐장모음 U⭐ 읽고 쓰기, 이걸로 끝!",
-      channelTitle: "하니티처",
-      views: "52만회",
-      publishedAgo: "4개월 전",
-      thumbnail: "https://i.ytimg.com/vi/6iCB2V4Leeo/mqdefault.jpg",
-      duration: "15:30",
-      avatarSeed: "HaniTeacher4",
-    }
-  ];
-
-  // 실제 경쟁 영상 데이터(gAbCompetitors — bindAbSimulatorEvents가 topic 관련도 순으로 정렬해서
-  // 가져옴)로 topLongforms/shortsList/bottomLongforms를 채운다. 2026-09-01: 예전엔 이 세 목록이
-  // 전부 고정 하드코딩이라 소재가 뭐든 항상 같은 경쟁 영상만 보여줬음(사용자 피드백) — 이제
-  // "우리 썸네일이 실제로 지금 소재와 겹치는 경쟁 영상들 사이에서 얼마나 눈에 띄는가"를 보여준다.
-  // 롱폼 슬롯과 쇼츠 선반은 반드시 분리한다 — market-demand.json의 각 영상엔 실측 duration(초)이
-  // 있고 60초 이하면 isShort(이 프로젝트의 기존 쇼츠 판정 기준, youtube-analytics-server.mjs의
-  // durationSeconds/creatorContentType과 동일)다. 안 섞으면 세로 9:16 쇼츠 카드에 가로 롱폼
-  // 썸네일이 찌그러져 들어가는 걸 막을 수 있다(사용자가 직접 지적). 해당 타입의 실제 데이터가
-  // 없으면(예: 아직 market-demand.json을 재생성 안 해서 옛 데이터에 isShort가 없음) 그 슬롯만
-  // FALLBACK_*로 폴백 — 두 폴백 모두 원래부터 타입이 맞는 목록이라 안전하다. 풀이 슬롯 수보다
-  // 작으면 모듈로 순환으로 채운다 — 카드가 비거나 깨지는 것보다 일부 반복이 낫다.
-  const realLongformPool = gAbCompetitors.filter((v) => !v.isShort);
-  const realShortsPool = gAbCompetitors.filter((v) => v.isShort);
-  const longformPool = realLongformPool.length ? realLongformPool : [...FALLBACK_topLongforms, ...FALLBACK_bottomLongforms];
-  const shortsPool = realShortsPool.length ? realShortsPool : FALLBACK_shortsList;
-  const pickFrom = (pool, count, offset) => {
-    if (!pool.length) return [];
-    return Array.from({ length: count }, (_, i) => pool[(offset + i) % pool.length]);
-  };
-  const topLongforms = pickFrom(longformPool, 2, 0);
-  const bottomLongforms = pickFrom(longformPool, 4, 2);
-  const shortsList = pickFrom(shortsPool, 6, 0);
-
-  function renderLongformFeedCard(item, isTest = false, testId = '', borderCol = '', slotIdx = 0) {
-    const isT = isTest;
-    const bC = borderCol || (isT ? bColor : 'transparent');
-    // 2026-09-01: 예전엔 box-shadow 글로우까지 줘서 우리 카드가 경쟁 영상보다 항상 눈에 띄게
-    // "치팅"하고 있었다(사용자 지적) — 이 도구의 목적은 "실제로 경쟁 영상 사이에서 눈에 띄는지"를
-    // 보는 것이라 인위적으로 강조하면 비교가 무의미해진다. 드래그 핸들 바(아래)만으로 어느 카드가
-    // 우리 것인지 알 수 있으니, 썸네일 자체엔 얇은 테두리(위치 구분용)만 남기고 글로우는 뺀다.
-    const borderStyle = isT
-      // bC는 'var(--accent-magenta)' 같은 CSS 변수 참조라 뒤에 헥스 알파(66)를 그냥 이어붙이면
-      // 무효한 CSS가 되어 브라우저가 border 선언 전체를 조용히 버린다(2026-09-01, Playwright로
-      // 실제 발견) — color-mix()로 반투명을 만들어야 한다.
-      ? ('border: 1px solid color-mix(in srgb, ' + bC + ' 40%, transparent); border-radius: 12px; margin: 0 6px 14px; background: rgba(0,0,0,0.6); overflow: hidden;')
-      : 'margin-bottom: 14px; background: transparent;';
-    // 아이디어 보드에서 막 넘어온 시안은 아직 썸네일 이미지가 없는 게 정상이다(의도적으로 비워둠).
-    // 그런데도 실제 이미지처럼 보이는 대체 썸네일(예전엔 EP9 실제 썸네일 URL)을 채워 넣으면,
-    // "이미 완성된 썸네일이 있다"고 착각하게 만든다(사용자 지적) — 없으면 명확한 빈 상태를 보여준다.
-    const realThumb = item.thumbnail || item.imageUrl || (!isT ? 'https://i.ytimg.com/vi/OVAeeJxmdw0/mqdefault.jpg' : '');
-
-    return '<div class="feed-item ab-feed-drop-zone' + (isT ? ' ab-feed-card-draggable active-test' : '') + '" ' + (isT ? 'draggable="true"' : '') + ' data-is-test="' + (isT ? '1' : '0') + '" data-slot-type="longform" data-slot-idx="' + slotIdx + '" style="' + borderStyle + '">' +
-      (isT ?
-        '<div style="background:' + bC + '; color:#000; font-weight:900; font-size:11px; padding:4px 10px; display:flex; justify-content:space-between; align-items:center; cursor:grab;">' +
-          '<span>☰ ★ 우리 채널 시안 ' + (testId || chosenVariant.id) + ' (드래그하여 위치 이동)</span>' +
-        '</div>' : '') +
-      '<div class="feed-thumb-wrap">' +
-        (realThumb
-          ? '<img class="feed-thumb-img" src="' + esc(realThumb) + '" draggable="false" style="pointer-events:none;" alt="">'
-          : '<div class="feed-thumb-img" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:#0a0e18; color:var(--text-muted); font-size:11px;"><span style="font-size:22px;">🖼️</span><span>썸네일 없음 — 아래 [🎨 AI 1-Click 생성]으로 채우세요</span></div>') +
-        '<span class="feed-duration">' + esc(item.duration || '08:24') + '</span>' +
-      '</div>' +
-      '<div class="feed-meta" style="padding: 10px 12px 6px; display:flex; gap:10px;">' +
-        '<div style="width:34px; height:34px; border-radius:50%; background:' + (isT ? 'linear-gradient(135deg, var(--accent-magenta), #7928ca)' : '#27272a') + '; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:13px; flex-shrink:0; overflow:hidden;">' +
-          (isT ? '⚡' : '<img src="https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(item.avatarSeed || item.channelTitle || 'channel') + '" style="width:100%;height:100%;object-fit:cover;">') +
-        '</div>' +
-        '<div class="feed-details" style="flex:1; min-width:0;">' +
-          '<div class="feed-title" style="color:#f1f1f1; font-size:13px; font-weight:700; line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">' + esc(item.title || '(제목 없음)') + '</div>' +
-          '<div class="feed-sub" style="color:#aaa; font-size:11px; margin-top:3px;">' + esc(item.channelTitle || '이해하면 쉬운 영어') + ' · ' + (typeof item.views === 'number' ? ('조회수 ' + Math.round(item.views/10000) + '만회') : esc(item.views || '조회수 2.4만회')) + ' · ' + esc(item.publishedAgo || '2시간 전') + '</div>' +
-        '</div>' +
-        '<div style="color:#aaa; font-size:14px;">⋮</div>' +
+  const pkg = thumbFeedCurrentPkg();
+  const filterCss = gAbVisionFilter === 'blur' ? 'filter:blur(2.5px);' : (gAbVisionFilter === 'grayscale' ? 'filter:grayscale(1);' : '');
+  const fmtNum = (n) => (n == null ? '-' : fmt.format(n));
+  let html = '<div class="bento-grid">' +
+    '<div class="bento-card col-12" style="padding:18px 22px">' +
+      '<div class="card-title" style="color:var(--accent-cyan);font-size:12px">REAL SEARCH FEED (READ-ONLY)</div>' +
+      '<h2 style="font-family:var(--font-display);font-size:20px;color:var(--text-bright);margin-top:2px">🔍 실제 검색 피드 & 잘된 썸네일</h2>' +
+      '<div class="card-subtext" style="margin-top:6px;line-height:1.6">' +
+        '시청자가 칠 법한 검색어로 실제 한국 유튜브를 검색한 결과 사이에 우리 썸네일을 넣어 봅니다. 아래에는 구독자 수에 비해 조회가 크게 터진 썸네일을 모았습니다. ' +
+        '점수를 지어내지 않고 실제 숫자만 씁니다. 같은 검색어는 하루 한 번만 새로 검색합니다(유튜브 사용량 약 100).' +
       '</div>' +
     '</div>';
+
+  if (!gThumbFeedPackages) {
+    html += '<div class="bento-card col-12" style="padding:30px;text-align:center;color:var(--text-muted)">' + (gThumbFeedError ? esc(gThumbFeedError) : '패키지 목록을 불러오는 중...') + '</div></div>';
+    return html;
+  }
+  if (!pkg) {
+    html += '<div class="bento-card col-12" style="padding:30px;text-align:center;color:var(--text-muted)">썸네일이 들어 있는 업로드 패키지가 없습니다.</div></div>';
+    return html;
   }
 
-  function renderSingleShortsCard(item, isTest = false, testId = '', borderCol = '', slotIdx = 0) {
-    const isT = isTest;
-    const bC = borderCol || (isT ? bColor : 'transparent');
-    // 2026-09-01: 글로우(box-shadow)를 빼고 테두리도 얇게 — 롱폼 카드와 같은 이유(사용자 지적,
-    // 위 renderLongformFeedCard 주석 참고).
-    const borderStyle = isT
-      ? ('border: 1px solid color-mix(in srgb, ' + bC + ' 40%, transparent); cursor:grab;')
-      : '';
-    const realThumb = item.imageUrl || item.thumbnail || (!isT ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=480&h=854&fit=crop&q=80' : '');
-    return '<div class="shorts-card ab-feed-drop-zone' + (isT ? ' ab-feed-card-draggable active-test' : '') + '" ' + (isT ? 'draggable="true"' : '') + ' data-is-test="' + (isT ? '1' : '0') + '" data-slot-type="shorts" data-slot-idx="' + slotIdx + '" style="' + borderStyle + '">' +
-      (realThumb
-        ? '<img class="shorts-card-img" src="' + esc(realThumb) + '" draggable="false" style="pointer-events:none;" alt="">'
-        : '<div class="shorts-card-img" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:#0a0e18; color:var(--text-muted); font-size:10px; text-align:center; padding:8px;"><span style="font-size:20px;">🖼️</span><span>썸네일 없음</span></div>') +
-      '<div class="shorts-card-top">' +
-        (isT ? '<span style="background:' + bC + '; color:#000; font-size:9px; font-weight:900; padding:2px 5px; border-radius:3px;">☰ ★ 시안 ' + (testId || item.id) + '</span>' : (item.tag ? '<span style="background:rgba(0,0,0,0.6); color:#fff; font-size:9px; font-weight:700; padding:2px 5px; border-radius:3px;">' + esc(item.tag) + '</span>' : '<span></span>')) +
-        '<span style="color:#fff; font-size:12px; text-shadow:0 1px 3px #000;">⋮</span>' +
-      '</div>' +
-      '<div class="shorts-card-bottom">' +
-        '<div class="shorts-card-title" style="color:#fff; font-weight:800;">' + esc(item.title || '(쇼츠 제목을 입력하세요)') + '</div>' +
-        '<div class="shorts-card-views" style="' + (isT ? 'color:var(--accent-cyan);' : '') + '">' + (isT ? '이해하면 쉬운 영어 · 2.4만회' : (item.channelTitle ? (esc(item.channelTitle) + ' · ') : '') + (typeof item.views === 'number' ? ('조회수 ' + Math.round(item.views / 10000) + '만회') : esc(item.views || '조회수 120만회'))) + '</div>' +
-      '</div>' +
-    '</div>';
-  }
+  const queries = thumbFeedQueries(pkg);
+  const thumbs = pkg.thumbnails || [];
+  const ourThumb = thumbs[Math.min(gThumbFeedThumbIdx, thumbs.length - 1)] || null;
+  const isShorts = pkg.format === 'SHORTS';
 
-  function renderShortsFeedShelf() {
-    let cardsHtml = '';
-    if (isShorts) {
-      if (gAbActiveFeedView === 'ALL') {
-        /* ALL Mode in Shorts shelf: Zigzag 3 variants + 3 competitors */
-        const varA = gAbVariants.find(v => v.id === 'A') || gAbVariants[0];
-        const varB = gAbVariants.find(v => v.id === 'B') || gAbVariants[1];
-        const varC = gAbVariants.find(v => v.id === 'C') || gAbVariants[2];
-
-        cardsHtml += renderSingleShortsCard(varA, true, 'A', 'var(--accent-magenta)', 0);
-        cardsHtml += renderSingleShortsCard(shortsList[0], false, '', '', 1);
-        cardsHtml += renderSingleShortsCard(shortsList[1], false, '', '', 2);
-        cardsHtml += renderSingleShortsCard(varB, true, 'B', 'var(--accent-cyan)', 3);
-        cardsHtml += renderSingleShortsCard(varC, true, 'C', 'var(--accent-amber)', 4);
-        cardsHtml += renderSingleShortsCard(shortsList[2], false, '', '', 5);
-      } else {
-        /* Single Variant Mode in Shorts Shelf with Exact Slot (0 to 5) */
-        const activeSlot = Math.max(0, Math.min(5, gAbFeedSlotIndex));
-        for (let i = 0; i < 6; i++) {
-          if (i === activeSlot) {
-            cardsHtml += renderSingleShortsCard(chosenVariant, true, chosenVariant.id, bColor, i);
-          } else {
-            const compIdx = i > activeSlot ? i - 1 : i;
-            cardsHtml += renderSingleShortsCard(shortsList[compIdx] || shortsList[0], false, '', '', i);
-          }
-        }
-      }
-    } else {
-      /* Longform Mode: Shorts 선반 - 올바른 9:16 비율의 실제 유튜브 쇼츠 썸네일만 사용 */
-      shortsList.forEach((item, idx) => {
-        /* object-fit: cover로 9:16 이미지가 컨테이너에 완전히 맞게 표시 */
-        cardsHtml += renderSingleShortsCard(item, false, '', '', idx);
-      });
-    }
-
-    return '<div class="shorts-shelf">' +
-      '<div class="shorts-shelf-header">' +
-        '<div style="display:flex; align-items:center; gap:6px; font-weight:900; font-size:14px; color:#fff;">' +
-          '<span style="color:#ff0033; font-size:15px;">▶</span> Shorts' +
-        '</div>' +
-        '<div style="color:#aaa; font-size:14px; cursor:pointer;">⋮</div>' +
-      '</div>' +
-      '<div class="shorts-shelf-grid">' + cardsHtml + '</div>' +
-    '</div>';
-  }
-
-  let feedHtml = '';
-  if (isShorts) {
-    /* 1. Top Section: 2 Real Competitor Longforms */
-    feedHtml += renderLongformFeedCard(topLongforms[0], false, '', '', 0);
-    feedHtml += renderLongformFeedCard(topLongforms[1], false, '', '', 1);
-
-    /* 2. Middle Section: 6 Shorts Shelf */
-    feedHtml += renderShortsFeedShelf();
-
-    /* 3. Bottom Section: 4 Real Competitor Longforms */
-    bottomLongforms.forEach((v, idx) => {
-      feedHtml += renderLongformFeedCard(v, false, '', '', idx + 2);
-    });
-  } else {
-    /* Longform Mode (Top 2 Longforms ➔ Middle Shorts Shelf ➔ Bottom 4 Longforms) */
-    if (gAbActiveFeedView === 'ALL') {
-      /* Section 1 (Top before Shorts): Variant A + 2 Real Competitor Longforms */
-      const varA = gAbVariants.find(v => v.id === 'A') || gAbVariants[0];
-      const varB = gAbVariants.find(v => v.id === 'B') || gAbVariants[1];
-      const varC = gAbVariants.find(v => v.id === 'C') || gAbVariants[2];
-
-      feedHtml += renderLongformFeedCard({
-        title: varA.title || '(시안 A 제목)',
-        channelTitle: "이해하면 쉬운 영어",
-        views: "2.4만회",
-        publishedAgo: "2시간 전",
-        thumbnail: varA.imageUrl || '',
-        duration: "07:42",
-      }, true, 'A', 'var(--accent-magenta)', 0);
-      feedHtml += renderLongformFeedCard(topLongforms[0], false, '', '', 1);
-      feedHtml += renderLongformFeedCard(topLongforms[1], false, '', '', 2);
-
-      /* Section 2 (Middle): Shorts Shelf with 6 items */
-      feedHtml += renderShortsFeedShelf();
-
-      /* Section 3 (Bottom after Shorts): Variant B + Competitor 1 + Variant C + Competitors 2, 3, 4 */
-      feedHtml += renderLongformFeedCard({
-        title: varB.title || '(시안 B 제목)',
-        channelTitle: "이해하면 쉬운 영어",
-        views: "2.4만회",
-        publishedAgo: "2시간 전",
-        thumbnail: varB.imageUrl || '',
-        duration: "07:42",
-      }, true, 'B', 'var(--accent-cyan)', 3);
-      feedHtml += renderLongformFeedCard(bottomLongforms[0], false, '', '', 4);
-
-      feedHtml += renderLongformFeedCard({
-        title: varC.title || '(시안 C 제목)',
-        channelTitle: "이해하면 쉬운 영어",
-        views: "2.4만회",
-        publishedAgo: "2시간 전",
-        thumbnail: varC.imageUrl || '',
-        duration: "07:42",
-      }, true, 'C', 'var(--accent-amber)', 5);
-      feedHtml += renderLongformFeedCard(bottomLongforms[1], false, '', '', 6);
-      feedHtml += renderLongformFeedCard(bottomLongforms[2], false, '', '', 7);
-      feedHtml += renderLongformFeedCard(bottomLongforms[3], false, '', '', 8);
-    } else {
-      /* Single Variant Mode with Exact Slot Index (0 to 7) */
-      const testCard = {
-        title: chosenVariant.title || '(제목을 입력하세요)',
-        channelTitle: "이해하면 쉬운 영어",
-        views: "2.4만회",
-        publishedAgo: "2시간 전",
-        thumbnail: chosenVariant.imageUrl || '',
-        duration: "07:42",
-      };
-
-      const compVideos = [
-        topLongforms[0],    // 0: 라이브 아카데미 토들러 (기본적인 문장 구성하기)
-        topLongforms[1],    // 1: 라이브 아카데미 토들러 (기초 영어 문장 만들기)
-        bottomLongforms[0], // 2: 하니티처 (알파벳 배우기 왕기초)
-        bottomLongforms[1], // 3: 하니티처 (대문자 쓰기)
-        bottomLongforms[2], // 4: 하니티처 (L 단어 읽기)
-        bottomLongforms[3], // 5: 하니티처 (장모음 U 읽고 쓰기)
-      ];
-
-      const targetSlot = Math.max(0, Math.min(7, gAbFeedSlotIndex));
-
-      // Section 1: Before Shorts Shelf (ALWAYS contains BOTH top competitor longforms)
-      if (targetSlot === 0) {
-        feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, 0);
-        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 1);
-        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 2);
-      } else if (targetSlot === 1) {
-        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 0);
-        feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, 1);
-        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 2);
-      } else if (targetSlot === 2) {
-        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 0);
-        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 1);
-        feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, 2);
-      } else {
-        feedHtml += renderLongformFeedCard(compVideos[0], false, '', '', 0);
-        feedHtml += renderLongformFeedCard(compVideos[1], false, '', '', 1);
-      }
-
-      // Section 2: Middle Section - YouTube Shorts Shelf
-      feedHtml += renderShortsFeedShelf();
-
-      // Section 3: After Shorts Shelf (Slots 3, 4, 5, 6, 7)
-      if (targetSlot >= 3) {
-        const bottomComps = compVideos.slice(2); // 4 items: bottomLongforms
-        const relSlot = targetSlot - 3;
-        for (let i = 0; i < 5; i++) {
-          const currentSlotIdx = i + 3;
-          if (i === relSlot) {
-            feedHtml += renderLongformFeedCard(testCard, true, chosenVariant.id, bColor, currentSlotIdx);
-          } else {
-            const cIdx = i > relSlot ? i - 1 : i;
-            if (bottomComps[cIdx]) {
-              feedHtml += renderLongformFeedCard(bottomComps[cIdx], false, '', '', currentSlotIdx);
-            }
-          }
-        }
-      } else {
-        // When our card is in top section, render the 4 bottom competitors
-        for (let i = 0; i < 4; i++) {
-          feedHtml += renderLongformFeedCard(compVideos[i + 2], false, '', '', i + 3);
-        }
-      }
-    }
-  }
-
-  const report = gAbAiReport;
-
-  return '<div class="bento-grid">' +
-    /* 2026-09-01: 편집·결과 어디를 스크롤해서 보고 있어도 진단 버튼에 바로 닿도록 sticky.
-       .nav-rail(1061행)과 같은 패턴(position:sticky; top:0), z-index는 nav-rail(100)보다
-       낮고 토스트(9999)·모달(1000)보다는 훨씬 낮은 40으로 잡아 겹침 문제를 피한다. */
-    '<div class="bento-card highlight-magenta col-12" style="position:sticky; top:0; z-index:40;">' +
-      '<div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">' +
-        '<div>' +
-          '<div class="card-title" style="color:#ffccd9">YOUTUBE FEED SALIENCE & AI CTR PREDICTOR</div>' +
-          '<h2 style="font-family:var(--font-display); font-size:24px; color:#fff; margin-top:2px">🎯 썸네일 & 제목 A/B 피드 시뮬레이터 · AI CTR 예측기</h2>' +
-          '<p style="color:#ffe6ec; margin-top:4px; font-size:13px">실제 모바일 유튜브 피드 환경에서 경쟁 영상과 나란히 비교하여 시각적 스턴건 효과와 예상 CTR을 사전 진단합니다. <b>1. 시안 입력 → 2. 진단 실행 → 3. 결과 확인</b> 순서로 진행하세요.</p>' +
-        '</div>' +
-        '<div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">' +
-          '<div style="display:flex; gap:4px; background:#080d16; padding:3px 6px; border-radius:10px; border:1px solid var(--border-subtle);">' +
-            '<button class="tab-pill btn-ab-format-toggle' + (!isShorts ? ' active' : '') + '" data-format="LONGFORM">📺 롱폼 (16:9)</button>' +
-            '<button class="tab-pill btn-ab-format-toggle' + (isShorts ? ' active' : '') + '" data-format="SHORTS">📱 쇼츠 (9:16)</button>' +
-          '</div>' +
-          '<button class="btn btn-sm" id="btn-ab-fill-sample">🎲 샘플 불러오기</button>' +
-          '<button class="btn btn-sm btn-amber" id="btn-ab-reset-state" title="기본 데이터로 초기화합니다">🗑️ 초기화</button>' +
-          '<button class="btn btn-cyan btn-sm" id="btn-ab-run-ai">🚀 Gemini AI CTR 정밀 진단</button>' +
-        '</div>' +
-        /* 채널 기준 인물 — 나노바나나 생성이 항상 이 얼굴을 레퍼런스로 쓴다. "📋 프롬프트만
-           복사"로 제미나이 웹에서 직접 생성할 땐 프롬프트가 "첨부된 레퍼런스 이미지"를 가리키므로
-           이 이미지도 같이 첨부해야 한다 — 그래서 바로 옆에서 보고 복사할 수 있게 둔다(2026-09-01). */
-        '<div style="display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center;">' +
-          '<span style="font-size:9px; color:var(--text-muted); max-width:100px; line-height:1.3;">채널 기준 인물<br>(제미나이 웹 생성 시 같이 첨부)</span>' +
-          /* onerror는 인라인 속성값이라 그 안에 작은따옴표를 또 쓰면 CLAUDE.md가 금지하는
-             수동 이스케이프(\') 문제가 재현된다 — 서버가 이 문자열을 조립할 때 이스케이프가
-             한 겹 풀려서 브라우저에는 따옴표 없는 this.style.display=none 이 도착해
-             "Unexpected identifier 'none'"로 클라이언트 스크립트 전체가 깨졌다. 따옴표가
-             필요 없는 this.hidden=true로 바꿔 같은 효과(요소 숨김)를 낸다. */
-          '<img id="ab-presenter-ref-img" src="/api/presenter-reference" style="width:64px; height:64px; object-fit:cover; border-radius:8px; border:2px solid var(--accent-amber); cursor:pointer;" title="클릭하면 이 이미지가 클립보드로 복사됩니다" onerror="this.hidden=true">' +
-          '<button class="btn btn-xs" id="btn-ab-copy-presenter-ref" style="font-size:9px; padding:2px 6px;">📋 이미지 복사</button>' +
-        '</div>' +
-      '</div>' +
-
-      '<div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; align-items:center;">' +
-        '<div style="flex:2; min-width:280px;">' +
-          '<div style="font-size:11px; font-weight:700; color:var(--accent-amber); margin-bottom:4px;">📌 영상 기획 주제 / 핵심 키워드</div>' +
-          '<input type="text" id="input-ab-topic" value="' + esc(gAbTopic) + '" placeholder="예: 30초 만에 Want vs Won 구분법" style="width:100%">' +
-        '</div>' +
-        '<div style="flex:1; min-width:200px;">' +
-          '<div style="font-size:11px; font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">👥 타겟 시청자층</div>' +
-          // 2026-09-01: 예전엔 고정 3개 중에서만 고를 수 있는 <select>였음 — 아이디어 보드가
-          // 소재별로 추천하는 targetAudience(예: "발음 원리를 처음 배우는 알파벳 입문자")가 이
-          // 3개 중 어디에도 안 맞을 수 있어서 자유 입력으로 바꿨다. 기존 3개는 빠른 선택용
-          // datalist로 남겨 편의성은 유지.
-          '<input type="text" id="input-ab-audience" list="ab-audience-presets" value="' + esc(gAbAudience) + '" placeholder="예: 발음 원리를 처음 배우는 알파벳 입문자" style="width:100%">' +
-          '<datalist id="ab-audience-presets">' +
-            '<option value="3060 성인 & 왕초보 영어 학습자">' +
-            '<option value="기초 회화 및 발음 교정 학습자">' +
-            '<option value="알파벳/파닉스 읽는 법 입문자">' +
-          '</datalist>' +
-        '</div>' +
-      '</div>' +
-
-      '<div id="ab-eval-status" style="display:none; margin-top:14px; padding:12px 16px; background:rgba(0,240,255,0.12); border:1px solid var(--accent-cyan); border-radius:10px; color:var(--text-bright); font-weight:700;">' +
-        '⏳ <span id="ab-eval-status-text">Gemini AI가 썸네일 가독성과 호기심 갭을 분석 중입니다... (약 3~5초 소요)</span>' +
-      '</div>' +
+  html += '<div class="bento-card col-12" style="padding:14px 18px;display:flex;flex-direction:column;gap:10px">' +
+    '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
+      '<span class="card-subtext" style="white-space:nowrap">패키지</span>' +
+      '<select id="thumbfeed-pkg" style="background:#05070c;color:var(--text-bright);border:1px solid var(--border-subtle);border-radius:6px;padding:6px 8px;max-width:100%">' +
+        gThumbFeedPackages.map(p => '<option value="' + esc(p.name) + '"' + (p.name === pkg.name ? ' selected' : '') + '>' +
+          esc(p.name) + (p.status === 'published' ? ' · 공개됨' : (p.status === 'scheduled' ? ' · 예약' : '')) + '</option>').join('') +
+      '</select>' +
     '</div>' +
-
-    (report ?
-      '<div class="bento-card highlight-cyan col-12" id="ab-report-section">' +
-
-        /* Title + Visual Suite (5 types, merged — 적용은 텍스트만, 생성은 이미지까지) — 진단 스코어카드보다
-           먼저 보여줌: 바로 쓸 수 있는 제안이 스코어 분석보다 실행 우선순위가 높다. */
-        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:18px; margin-bottom:16px;">' +
-          '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:4px;">' +
-            '<div class="card-title" style="color:var(--accent-cyan); margin:0;">⚡ GEMINI AI 추천 고클릭률 제목+비주얼 5종</div>' +
-            '<span class="badge" style="background:color-mix(in srgb, ' + colorMap[gAbSelectedVariantTab] + ' 13%, transparent); color:' + colorMap[gAbSelectedVariantTab] + '; border:1px solid color-mix(in srgb, ' + colorMap[gAbSelectedVariantTab] + ' 40%, transparent); font-size:11px; font-weight:700;">💎 지금 워크벤치 = 시안 ' + gAbSelectedVariantTab + '</span>' +
-          '</div>' +
-          '<div class="card-subtext" style="margin-bottom:12px;">"텍스트 적용"은 제목·카피만 바꿉니다(무료·즉시). 이미지는 아래 워크벤치의 [🎨 AI 1-Click 생성] 또는 [📋 프롬프트만 복사]로 만드세요. 굵은 글씨는 지금 워크벤치가 보고 있는 시안, 노란 테두리+✓는 그 시안에 지금 실제로 적용돼 있는 문구입니다.</div>' +
-          '<div style="display:grid; gap:10px;">' +
-            (report.aiTitleSuggestions || []).map((s, sIdx) => {
-              const applyBtn = (vId, cls) => {
-                const active = gAbSelectedVariantTab === vId;
-                // "지금 워크벤치가 보는 시안"(active, 카드 전체에 동일하게 적용되는 전역 상태)과
-                // "이 카드의 문구가 실제로 그 시안에 적용돼 있는지"(appliedHere, 카드마다 다름)는
-                // 서로 다른 정보라 표시를 분리한다 — active만 있으면 어느 카드를 눌러서 지금 상태가
-                // 됐는지 알 수 없다(2026-09-01, 사용자 피드백).
-                const targetVar = gAbVariants.find(v => v.id === vId);
-                const appliedHere = !!(s.title && targetVar && targetVar.title === s.title);
-                let extraStyle = '';
-                if (active) extraStyle += ' box-shadow:0 0 0 2px ' + colorMap[vId] + '; font-weight:900;';
-                if (appliedHere) extraStyle += ' border:2px solid var(--accent-amber);';
-                const titleAttr = appliedHere ? '이 문구가 지금 시안 ' + vId + '에 적용돼 있습니다' : (active ? '지금 워크벤치에서 편집 중인 시안입니다' : '');
-                return '<button class="btn btn-sm ' + cls + ' btn-ab-apply-title" data-idx="' + sIdx + '" data-var="' + vId + '" style="font-size:10px; padding:3px 8px;' + extraStyle + '" title="' + titleAttr + '">' + vId + (appliedHere ? ' ✓' : '') + '</button>';
-              };
-              return '<div style="background:#06080e; border:1px solid var(--border-subtle); border-radius:10px; padding:12px 14px;">' +
-                '<div style="display:flex; align-items:center; gap:10px; margin-bottom:6px; flex-wrap:wrap;">' +
-                  '<span class="badge" style="background:rgba(255,0,85,0.15); color:var(--accent-magenta); border:1px solid rgba(255,0,85,0.3); font-size:11px;">' + esc(s.type) + '</span>' +
-                  '<span style="font-weight:700; font-size:13px; color:#fff;">' + esc(s.title) + '</span>' +
-                '</div>' +
-                (s.thumbnailHeadline ? '<div style="font-size:12px; font-weight:700; color:var(--accent-magenta); margin-bottom:6px;">🔥 썸네일 헤드라인: ' + esc(s.thumbnailHeadline) + '</div>' : '') +
-                (s.designConcept ? '<div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">🎨 비주얼 컨셉: ' + esc(s.designConcept) + '</div>' : '') +
-                '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
-                  '<span style="font-size:10px; color:var(--text-muted); align-self:center;">텍스트 적용:</span>' +
-                  applyBtn('A', '') +
-                  applyBtn('B', 'btn-cyan') +
-                  applyBtn('C', 'btn-amber') +
-                '</div>' +
-              '</div>';
-            }).join('') +
-          '</div>' +
-        '</div>' +
-
-        '<div class="card-title" style="color:var(--accent-cyan)">GEMINI CTR INTELLIGENCE VERDICT</div>' +
-        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; margin-top:16px;">' +
-          (report.variantsEvaluation || []).map(ve => {
-            const vKey = ve.variantKey;
-            const bCol = colorMap[vKey] || 'var(--accent-cyan)';
-            return '<div style="background:#080c14; border:1px solid ' + (vKey === report.bestVariant ? bCol : 'var(--border-subtle)') + '; border-radius:14px; padding:16px;">' +
-              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
-                '<span style="font-weight:800; font-size:16px; color:' + bCol + '">시안 ' + vKey + '</span>' +
-                '<span class="badge badge-pass" style="font-size:12px;">예상 CTR ' + esc(ve.predictedCtrRange || '') + '</span>' +
-              '</div>' +
-              '<div style="display:grid; gap:8px; margin-bottom:12px;">' +
-                '<div>' +
-                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>호기심 갭 (Curiosity)</span><b>' + (ve.curiosityGapScore||0) + '점</b></div>' +
-                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.curiosityGapScore||0) + '%; height:100%; background:var(--accent-magenta);"></div></div>' +
-                '</div>' +
-                '<div>' +
-                  '<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:2px;"><span>시각 시선 강도 (Salience)</span><b>' + (ve.visualSalienceScore||0) + '점</b></div>' +
-                  '<div style="height:4px; background:#1a2234; border-radius:2px; overflow:hidden;"><div style="width:' + (ve.visualSalienceScore||0) + '%; height:100%; background:var(--accent-cyan);"></div></div>' +
-                '</div>' +
-              '</div>' +
-              '<div style="font-size:11px; margin-bottom:8px;"><b style="color:var(--accent-cyan);">🎯 핵심 시선점:</b> ' + esc(ve.focalPoint || '전체 고른 시선') + '</div>' +
-              '<div style="background:rgba(0,0,0,0.3); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
-                '<div style="color:var(--accent-emerald); font-weight:700; margin-bottom:2px;">✅ 시각 강점:</div>' +
-                '<ul style="margin:0; padding-left:14px; color:var(--text-bright);">' +
-                  (ve.strengths || []).map(s => '<li>' + esc(s) + '</li>').join('') +
-                '</ul>' +
-              '</div>' +
-              '<div style="background:rgba(255,100,100,0.08); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:11px;">' +
-                '<div style="color:#ff7676; font-weight:700; margin-bottom:2px;">⚠️ 개선 포인트:</div>' +
-                '<ul style="margin:0; padding-left:14px; color:#ffccd9;">' +
-                  (ve.weaknesses || []).map(w => '<li>' + esc(w) + '</li>').join('') +
-                '</ul>' +
-              '</div>' +
-              '<div style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:8px; padding:8px 10px; font-size:11px; color:var(--accent-cyan);">' +
-                '<b>💡 디자이너 피드백:</b> ' + esc(ve.visualImprovementTip || '명도 대비 강화 권장') +
-              '</div>' +
-            '</div>';
-          }).join('') +
-        '</div>' +
-      '</div>' : '') +
-
-    /* LEFT: VARIANT WORKBENCH — 탭(미니 갤러리)을 먼저, 그 아래에 선택된 시안의 편집 필드를
-       배치한다(2026-09-01, 사용자 피드백). 탭이 그 아래 필드보다 위에 있어야 "탭을 눌렀는데
-       뭐가 바뀌었는지" 스크롤 없이 바로 보인다. id="ab-workbench-card"는 "텍스트 적용" 클릭 시
-       자동 스크롤·하이라이트 타겟. */
-    '<div class="bento-card col-6" id="ab-workbench-card" style="display:flex; flex-direction:column; justify-content:space-between;">' +
-      '<div>' +
-        /* 3-VARIANT MINIATURE COMPARISON GALLERY with Direct Image Drop */
-        '<div style="margin-bottom:14px; background:#060910; border:1px solid var(--border-subtle); border-radius:12px; padding:12px;">' +
-          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
-            '<span style="font-weight:800; font-size:13px; color:' + colorMap[currentVariant.id] + '">💎 시안 ' + currentVariant.id + ' 설정 (' + (isShorts ? '쇼츠 9:16' : '롱폼 16:9') + ')</span>' +
-            '<span class="badge ' + badgeClassMap[currentVariant.id] + '">Variant ' + currentVariant.id + '</span>' +
-          '</div>' +
-          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">' +
-            '<span style="font-size:11px; font-weight:700; color:var(--text-muted);">👥 시안 A · B · C 썸네일 비교 (직접 선택)</span>' +
-          '</div>' +
-          '<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">' +
-            ['A', 'B', 'C'].map(vId => {
-              const v = gAbVariants.find(item => item.id === vId) || { id: vId, title: '', imageUrl: '' };
-              const isSelected = gAbSelectedVariantTab === vId;
-              const bColor = colorMap[vId] || 'var(--accent-cyan)';
-              return '<div class="btn-ab-tab-select ab-gallery-card" data-var="' + vId + '" title="클릭하여 선택하거나, 외부 이미지를 드롭하세요" style="cursor:pointer; background:#0a0e18; border:2px solid ' + (isSelected ? bColor : 'var(--border-subtle)') + '; border-radius:8px; padding:6px; transition:all 0.2s; box-shadow:' + (isSelected ? '0 0 10px rgba(0,240,255,0.2)' : 'none') + ';">' +
-                '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">' +
-                  '<span style="font-weight:800; font-size:11px; color:' + bColor + ';">시안 ' + vId + '</span>' +
-                  '<button class="btn btn-xs btn-outline btn-ab-generate-card-thumb" data-var="' + vId + '"' + (report ? '' : ' disabled') + ' style="font-size:9px; padding:1px 5px; border-color:' + bColor + '; color:' + bColor + ';' + (report ? '' : ' opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? '이 시안의 썸네일을 AI로 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">🎨 생성</button>' +
-                '</div>' +
-                '<div style="width:100%; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; background:#05070c; border-radius:4px; overflow:hidden; margin-bottom:4px; display:flex; align-items:center; justify-content:center;">' +
-                  (v.imageUrl ? '<img src="' + esc(v.imageUrl) + '" draggable="false" style="width:100%; height:100%; object-fit:cover; pointer-events:none; user-select:none; -webkit-user-drag:none;">' : '<div style="font-size:10px; color:' + bColor + '; text-align:center; padding:4px; line-height:1.2; border:1px dashed rgba(255,255,255,0.15); border-radius:4px; width:92%; height:88%; display:flex; flex-direction:column; align-items:center; justify-content:center;"><span>🖼️</span><span style="font-size:9px; color:var(--text-muted); margin-top:2px;">새 시안 드롭</span></div>') +
-                '</div>' +
-                '<div style="font-size:10px; color:var(--text-normal); line-height:1.2; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; height:24px;" title="' + esc(v.title || '') + '">' +
-                  esc(v.title || '(제목 없음)') +
-                '</div>' +
-                /* 유튜브 Test & Compare에 실제로 올린 시안 표시 — 2026-09-02, 3종을 전부 만들어두고
-                   실제 유튜브 A/B 테스트로 겨루기로 한 워크플로우 지원. 체크 자체는 대시보드
-                   상태일 뿐 실제 업로드를 대신하지 않는다(사용자가 유튜브에 직접 올린 뒤 표시). */
-                '<label style="display:flex; align-items:center; gap:4px; margin-top:4px; font-size:9px; color:var(--text-muted); cursor:pointer;" onclick="event.stopPropagation()">' +
-                  '<input type="checkbox" class="cb-ab-in-use" data-var="' + vId + '"' + (v.inUse ? ' checked' : '') + ' style="cursor:pointer; margin:0;">' +
-                  (v.inUse ? '<span style="color:var(--accent-emerald); font-weight:700;">✅ 유튜브 테스트 중</span>' : '<span>유튜브 A/B 테스트에 사용</span>') +
-                '</label>' +
-              '</div>';
-            }).join('') +
-          '</div>' +
-        '</div>' +
-
-        '<div style="background:#090d16; border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">' +
-          '<div style="margin-bottom:14px;">' +
-            '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
-              '<span style="font-weight:700; color:var(--text-bright)">제목 (Title)</span>' +
-              '<span id="ab-char-counter" style="color:' + ((currentVariant.title || '').length > 28 ? 'var(--accent-amber)' : 'var(--text-muted)') + '">' + (currentVariant.title || '').length + '자 ' + ((currentVariant.title || '').length > 28 ? '(모바일 28자 초과 주의)' : '') + '</span>' +
-            '</div>' +
-            '<input type="text" id="input-ab-variant-title" value="' + esc(currentVariant.title || '') + '" placeholder="유튜브 제목을 입력하세요" style="width:100%; font-size:14px; font-weight:600;">' +
-          '</div>' +
-
-          '<div style="margin-bottom:14px;">' +
-            '<div style="font-size:12px; font-weight:700; color:var(--text-bright); margin-bottom:6px;">썸네일 이미지 (Thumbnail Image - ' + (isShorts ? '9:16 세로형' : '16:9 가로형') + ')</div>' +
-            '<div style="display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap;">' +
-              '<input type="text" id="input-ab-variant-img" value="' + ((currentVariant.imageUrl || '').startsWith('data:') || (currentVariant.imageUrl || '').startsWith('blob:') ? '' : esc(currentVariant.imageUrl || '')) + '" placeholder="' + ((currentVariant.imageUrl || '').startsWith('data:') || (currentVariant.imageUrl || '').startsWith('blob:') ? '📁 이미지 적용됨 (새 URL 입력 시 교체)' : '이미지 URL (https://...)') + '" style="flex:1; min-width:180px;">' +
-              '<input type="file" id="input-ab-file-upload" accept="image/*" style="display:none">' +
-              '<button class="btn btn-sm btn-cyan" id="btn-ab-upload-trigger">📁 파일</button>' +
-              '<button class="btn btn-sm btn-magenta" id="btn-ab-generate-workbench-thumb"' + (report ? '' : ' disabled') + ' style="' + (report ? '' : 'opacity:0.4; cursor:not-allowed;') + '" title="' + (report ? 'AI가 이 시안의 주제와 카피로 4K 네온 배경을 1-Click 자동 생성합니다' : '먼저 🚀 Gemini AI CTR 정밀 진단으로 문구 5안을 확인·적용하세요') + '">🎨 AI 1-Click 생성</button>' +
-              '<button class="btn btn-sm btn-cyan" id="btn-ab-copy-workbench-prompt" title="API 비용 없이 이 시안 프롬프트를 복사해서 gemini.google.com(제미나이 유료 구독)에 직접 붙여넣어 생성할 수 있습니다">📋 프롬프트만 복사</button>' +
-            '</div>' +
-            '<div style="font-size:10px; color:var(--accent-amber); margin-bottom:8px;">⚠️ 프롬프트만 복사해서 쓸 땐, 상단의 [채널 기준 인물] 이미지도 같이 복사해서 함께 첨부해야 매번 같은 얼굴로 나옵니다.</div>' +
-            '<div id="ab-thumb-dropzone" style="width:100%; max-width:' + (isShorts ? '180px' : '100%') + '; aspect-ratio:' + (isShorts ? '9/16' : '16/9') + '; margin:0 auto; background:#05070c; border:2px dashed var(--border-active); border-radius:10px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;">' +
-              (currentVariant.imageUrl ? '<img src="' + esc(currentVariant.imageUrl) + '" style="width:100%; height:100%; object-fit:cover; background:#000;">' : '<div class="card-subtext" style="text-align:center; padding:10px;">🖼️ ' + (isShorts ? '쇼츠(9:16) 이미지' : '롱폼(16:9) 이미지') + '를 드래그하거나 [🎨 AI 1-Click 생성]을 누르세요</div>') +
-            '</div>' +
-          '</div>' +
-
-          '<div style="margin-bottom:10px;">' +
-            '<div style="font-size:11px; font-weight:700; color:var(--accent-amber); margin-bottom:4px;">썸네일 헤드라인 (이미지 안 유일한 텍스트 — 조사 뺀 핵심 단어 3~4개로 압축, 설득이 아니라 스크롤을 멈추는 시각적 스턴건)</div>' +
-            '<input type="text" id="input-ab-variant-headline" value="' + esc(currentVariant.thumbnailHeadline || '') + '" placeholder="예: 다시는 안 틀림" style="width:100%">' +
-          '</div>' +
-
-          '<div style="margin-top:10px;">' +
-            '<div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">🎨 비주얼 컨셉 힌트 (AI 5종의 "텍스트 적용" 시 자동 채워짐 — 생성 프롬프트에 실제로 반영됨)</div>' +
-            '<input type="text" id="input-ab-variant-visual" value="' + esc(currentVariant.visualConcept || '') + '" placeholder="예: 상단에 큰 X표시로 오답 강조, 좌우 대비 구도" style="width:100%">' +
-          '</div>' +
-
-          /* 모바일 클로즈업 전용 4번째 썸네일 — knowledge/thumbnail-strategy.md의 "클로즈업
-             썸네일은 대시보드 예상 CTR %가 가장 높은 시안을 선택해 제작한다"(2026-09-20 확정)
-             규칙을 코드로 강제한다. 예전엔 이 규칙이 문서에만 있고, 사람이 CTR 진단 화면을 보고
-             1위 시안 문구를 손으로 옮겨 별도 생성해야 했다(2026-09-29 사용자 확인으로 발견) —
-             이제 report.bestVariant를 그대로 읽어 그 시안의 title/headline/visualConcept로
-             클로즈업 전용 구도(얼굴 40~50%, 배경 장면 없음)를 자동 생성한다. */
-          '<div style="margin-top:14px; padding-top:14px; border-top:1px dashed var(--border-subtle);">' +
-            '<div style="font-size:11px; font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">📱 모바일 전용 클로즈업 (thumbnail-close-up.jpg)</div>' +
-            '<div class="card-subtext" style="margin-bottom:8px;">' + (report && report.bestVariant ? ('CTR 진단 1위 시안(<b>' + esc(report.bestVariant) + '</b>)의 문구를 그대로 가져다 얼굴 클로즈업 전용 구도로 생성합니다 — 채널 규칙(2026-09-20)이 코드로 강제 적용됩니다.') : '먼저 🚀 Gemini AI CTR 정밀 진단을 실행해 1위 시안을 확정하세요.') + '</div>' +
-            '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
-              '<button class="btn btn-sm btn-cyan" id="btn-ab-generate-closeup"' + (report && report.bestVariant ? '' : ' disabled') + ' style="' + (report && report.bestVariant ? '' : 'opacity:0.4; cursor:not-allowed;') + '">🔎 1위 시안(' + esc(report && report.bestVariant ? report.bestVariant : '?') + ')로 클로즈업 생성</button>' +
-              '<button class="btn btn-sm btn-cyan" id="btn-ab-copy-closeup-prompt"' + (report && report.bestVariant ? '' : ' disabled') + ' style="' + (report && report.bestVariant ? '' : 'opacity:0.4; cursor:not-allowed;') + '" title="API 비용 없이 클로즈업 전용 프롬프트를 복사해서 gemini.google.com(제미나이 유료 구독)에 직접 붙여넣어 생성할 수 있습니다">📋 클로즈업 프롬프트만 복사</button>' +
-            '</div>' +
-            (gAbCloseUpImageUrl ?
-              '<div style="margin-top:8px; display:flex; gap:10px; align-items:flex-start;">' +
-                '<img src="' + esc(gAbCloseUpImageUrl) + '" style="width:120px; aspect-ratio:16/9; object-fit:cover; border-radius:6px; background:#000;">' +
-                '<div style="font-size:10px; color:var(--text-muted);">시안 ' + esc(gAbCloseUpSourceVariant || '?') + ' 문구로 생성됨.<br><a href="' + esc(gAbCloseUpImageUrl) + '" download="thumbnail-close-up.jpg" style="color:var(--accent-cyan);">⬇️ thumbnail-close-up.jpg로 다운로드</a></div>' +
-              '</div>'
-              : '') +
-          '</div>' +
-        '</div>' +
-      '</div>' +
+    '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">' +
+      '<span class="card-subtext" style="white-space:nowrap">검색어</span>' +
+      queries.map(q => '<button class="btn btn-sm btn-thumbfeed-query ' + (q === gThumbFeedQuery ? 'btn-cyan' : '') + '" data-query="' + esc(q) + '">' + esc(q) + '</button>').join('') +
     '</div>' +
-
-    /* RIGHT: MOCKUP with Unified View Controls */
-    '<div class="bento-card col-6" style="display:flex; flex-direction:column;">' +
-      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">' +
-        '<div class="card-title" style="color:var(--accent-magenta)">LIVE MOBILE FEED PREVIEW</div>' +
-      '</div>' +
-
-      '<div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; width:360px; max-width:100%; margin:0 auto 10px auto; padding:0 4px;">' +
-          '<button class="tab-pill btn-ab-feed-view' + (gAbActiveFeedView === 'ALL' ? ' active' : '') + '" data-feed="ALL" title="시안 A·B·C를 피드 전체에 교차 배치하여 비교합니다">' +
-            '🌐 3개 동시 교차 (ALL)' +
-          '</button>' +
-          '<div style="display:flex; gap:3px; background:#080d16; padding:2px 5px; border-radius:8px; border:1px solid var(--border-subtle);">' +
-            '<button class="tab-pill btn-ab-filter' + (gAbVisionFilter === 'normal' ? ' active' : '') + '" data-filter="normal" title="표준 시각 모드">👁️</button>' +
-            '<button class="tab-pill btn-ab-filter' + (gAbVisionFilter === 'blur' ? ' active' : '') + '" data-filter="blur" title="시선 흐림(블러) 테스트 - 썸네일 핵심 형태 감지">🌫️</button>' +
-            '<button class="tab-pill btn-ab-filter' + (gAbVisionFilter === 'grayscale' ? ' active' : '') + '" data-filter="grayscale" title="흑백 명도 대비 테스트">⚫</button>' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="mockup-phone">' +
-          /* Status Header */
-          '<div class="mockup-phone-header">' +
-            '<span>7:49</span>' +
-            '<div style="width:65px; height:10px; background:#111; border-radius:99px;"></div>' +
-            '<div style="display:flex; align-items:center; gap:4px; font-size:10px;"><span>LTE</span><span>🔋</span></div>' +
-          '</div>' +
-          /* YouTube App Bar */
-          '<div class="mockup-phone-appbar">' +
-            '<div style="display:flex; align-items:center; gap:4px; font-weight:900; font-size:13px; color:#fff; letter-spacing:-0.5px;">' +
-              '<span style="color:#ff0033; font-size:15px;">▶</span> YouTube' +
-            '</div>' +
-            '<div style="display:flex; align-items:center; gap:10px; font-size:13px; color:#fff;">' +
-              '<span>📡</span>' +
-              '<span>🔔</span>' +
-              '<span>🔍</span>' +
-              '<div style="width:20px; height:20px; border-radius:50%; background:#27272a; overflow:hidden;"><img src="https://api.dicebear.com/7.x/identicon/svg?seed=Me" style="width:100%;height:100%;object-fit:cover;"></div>' +
-            '</div>' +
-          '</div>' +
-          /* Scrollable Feed with Vision Filter */
-          '<div class="mockup-feed-scroll" style="' + (gAbVisionFilter === 'blur' ? 'filter: blur(4.5px);' : (gAbVisionFilter === 'grayscale' ? 'filter: grayscale(100%) contrast(1.15);' : '')) + '">' + feedHtml + '</div>' +
-          /* Bottom Navigation Bar (Image 1 replica) */
-          '<div class="mockup-phone-bottom-nav">' +
-            '<div class="nav-item active"><span class="nav-item-icon">🏠</span><span>홈</span></div>' +
-            '<div class="nav-item"><span class="nav-item-icon">⚡</span><span>Shorts</span></div>' +
-            '<div class="nav-item-create"><span>➕</span></div>' +
-            '<div class="nav-item"><span class="nav-item-icon">📺</span><span>구독</span></div>' +
-            '<div class="nav-item"><span class="nav-item-icon">👤</span><span>내 페이지</span></div>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
+    '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">' +
+      '<span class="card-subtext" style="white-space:nowrap">우리 썸네일</span>' +
+      thumbs.map((t, i) => '<button class="btn btn-sm btn-thumbfeed-thumb ' + (ourThumb && t.file === ourThumb.file ? 'btn-cyan' : '') + '" data-idx="' + i + '">' + esc(t.file) + '</button>').join('') +
+      '<span class="card-subtext" style="margin-left:12px;white-space:nowrap">보기</span>' +
+      [['normal', '보통'], ['blur', '흐림'], ['grayscale', '흑백']].map(f => '<button class="btn btn-sm btn-thumbfeed-filter ' + (gAbVisionFilter === f[0] ? 'btn-cyan' : '') + '" data-filter="' + f[0] + '">' + f[1] + '</button>').join('') +
     '</div>' +
   '</div>';
+
+  const d = gThumbFeedData;
+  if (gThumbFeedLoading || !d) {
+    html += '<div class="bento-card col-12" style="padding:30px;text-align:center;color:var(--text-muted)">' +
+      (gThumbFeedError ? '검색 실패: ' + esc(gThumbFeedError) : '"' + esc(gThumbFeedQuery) + '" 검색 결과를 불러오는 중...') + '</div></div>';
+    return html;
+  }
+
+  // 피드: 검색 결과 3번째 자리에 우리 썸네일
+  const ours = {isOurs: true, title: pkg.title, channelTitle: '이해하면 쉬운영어', thumbnail: ourThumb ? ourThumb.url : '', views: null};
+  const feedItems = (d.feed || []).slice(0, 11);
+  feedItems.splice(Math.min(2, feedItems.length), 0, ours);
+  const card = (x) => {
+    const link = x.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(x.videoId) : '';
+    const img = '<img src="' + esc(x.thumbnail || '') + '" alt="" style="width:100%;aspect-ratio:' + (isShorts ? '9/16' : '16/9') + ';object-fit:cover;border-radius:8px;display:block;' + filterCss + '">';
+    return '<div style="' + (x.isOurs ? 'outline:2px solid var(--accent-amber);outline-offset:3px;border-radius:8px;' : '') + '">' +
+      (link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener">' + img + '</a>' : img) +
+      '<div style="font-size:12px;color:var(--text-bright);margin-top:6px;line-height:1.35">' + (x.isOurs ? '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px;margin-right:4px">우리 영상</span>' : '') + esc(x.title || '') + '</div>' +
+      '<div style="font-size:11px;color:var(--text-muted);margin-top:2px">' + esc(x.channelTitle || '') + (x.views != null ? ' · 조회수 ' + fmtNum(x.views) + '회' : '') + '</div>' +
+    '</div>';
+  };
+  html += '<div class="bento-card col-12">' +
+    '<div class="card-header"><div>' +
+      '<span class="card-title" style="color:var(--text-bright)">📱 "' + esc(d.query) + '" 실제 검색 결과 ' + (d.feed || []).length + '개 + 우리 썸네일(3번째)</span>' +
+      '<div class="card-subtext">검색 시각 ' + esc(String(d.fetchedAt || '').slice(0, 16).replace('T', ' ')) + ' UTC' + (d.fromCache ? ' (오늘 저장해 둔 결과)' : '') + ' · 휴대폰 화면 너비로 보여 줍니다</div>' +
+    '</div></div>' +
+    '<div style="max-width:' + (isShorts ? '420px' : '380px') + ';margin:10px auto 0;display:grid;grid-template-columns:' + (isShorts ? '1fr 1fr' : '1fr') + ';gap:14px">' +
+      feedItems.map(card).join('') +
+    '</div>' +
+  '</div>';
+
+  const winnerCard = (x, badge) => {
+    const link = x.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(x.videoId) : '';
+    return '<div class="bento-card col-3" style="padding:10px">' +
+      '<a href="' + esc(link) + '" target="_blank" rel="noopener"><img src="' + esc(x.thumbnail || '') + '" alt="" style="width:100%;aspect-ratio:' + (isShorts ? '9/16' : '16/9') + ';object-fit:cover;border-radius:6px;display:block"></a>' +
+      '<div style="margin-top:6px"><span class="tag-chip" style="background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid #f59e0b;font-weight:800">' + esc(badge) + '</span></div>' +
+      '<div style="font-size:12px;color:var(--text-bright);margin-top:4px;line-height:1.35">' + esc(x.title || '') + '</div>' +
+      '<div style="font-size:11px;color:var(--text-muted);margin-top:2px">' + esc(x.channelTitle || '') + (x.views != null ? ' · 조회수 ' + fmtNum(x.views) + '회' : '') + '</div>' +
+    '</div>';
+  };
+  const winners = d.winners || [];
+  html += '<div class="bento-card col-12"><div class="card-header"><div>' +
+      '<span class="card-title" style="color:var(--accent-amber)">🏆 이 검색에서 잘된 썸네일 (구독자 수 대비 조회 배수 순)</span>' +
+      '<div class="card-subtext">채널이 작은데도 조회가 많이 나온 영상일수록 썸네일·제목의 힘이 컸다고 볼 수 있습니다. 구독자 1,000명 미만이거나 구독자 수를 숨긴 채널은 뺐습니다(배수가 의미 없이 커져서).</div>' +
+    '</div></div>' +
+    (winners.length ? '<div class="bento-grid" style="padding:0;margin-top:8px">' + winners.map(x => winnerCard(x, '구독자 대비 ' + x.ratio + '배')).join('') + '</div>'
+      : '<div style="padding:20px;text-align:center;color:var(--text-muted)">이 검색 결과에는 비교할 영상이 없습니다.</div>') +
+  '</div>';
+
+  const outs = d.competitorOutliers || [];
+  html += '<div class="bento-card col-12"><div class="card-header"><div>' +
+      '<span class="card-title" style="color:var(--accent-magenta)">📈 경쟁 채널에서 평소보다 크게 터진 썸네일</span>' +
+      '<div class="card-subtext">추적 중인 경쟁 채널에서 그 채널 평소 조회의 몇 배가 나온 영상입니다(차단 채널 제외, ' + (isShorts ? '쇼츠' : '롱폼') + '만).</div>' +
+    '</div></div>' +
+    (outs.length ? '<div class="bento-grid" style="padding:0;margin-top:8px">' + outs.map(x => winnerCard(x, '평소 대비 ' + Number(x.outlierRatio || 0).toFixed(1) + '배')).join('') + '</div>'
+      : '<div style="padding:20px;text-align:center;color:var(--text-muted)">해당 형식의 경쟁 아웃라이어가 없습니다.</div>') +
+  '</div>';
+
+  html += '</div>';
+  return html;
 }
 
 function bindAbSimulatorEvents() {
-  const currentVar = gAbVariants.find(v => v.id === gAbSelectedVariantTab) || gAbVariants[0];
-
-  // 1. Topic & Audience Inputs
-  const topicInput = document.getElementById('input-ab-topic');
-  if (topicInput) topicInput.oninput = (e) => { 
-    gAbTopic = e.target.value; 
-    saveAbSimulatorState(); 
-  };
-
-  const audienceInput = document.getElementById('input-ab-audience');
-  if (audienceInput) audienceInput.oninput = (e) => {
-    gAbAudience = e.target.value;
-    saveAbSimulatorState();
-  };
-
-  // 2. Variant Title input & char count
-  const titleInput = document.getElementById('input-ab-variant-title');
-  if (titleInput) {
-    titleInput.oninput = (e) => {
-      currentVar.title = e.target.value;
-      saveAbSimulatorState();
-      const counter = document.getElementById('ab-char-counter');
-      if (counter) {
-        counter.textContent = currentVar.title.length + '자 ' + (currentVar.title.length > 28 ? '(모바일 28자 초과 주의)' : '');
-        counter.style.color = currentVar.title.length > 28 ? 'var(--accent-amber)' : 'var(--text-muted)';
+  const load = async () => {
+    if (!gThumbFeedPackages) {
+      if (gThumbFeedLoading) return;
+      gThumbFeedLoading = true;
+      try {
+        const res = await fetch('/api/thumb-feed/packages');
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'HTTP ' + res.status);
+        gThumbFeedPackages = data.packages || [];
+        gThumbFeedError = '';
+      } catch (err) {
+        gThumbFeedError = '패키지 목록을 못 불러왔습니다: ' + err.message;
       }
-      renderAbFeedOnly();
-    };
-  }
-
-  // 3. Variant Image input
-  const imgInput = document.getElementById('input-ab-variant-img');
-  if (imgInput) {
-    imgInput.oninput = (e) => {
-      currentVar.imageUrl = e.target.value;
-      currentVar._base64Data = null;
-      currentVar.isLocalFile = false;
-      saveAbSimulatorState();
-      renderAbSimulatorTabDirect();
-    };
-  }
-
-  // 4. Variant Headline, Copy & Badge input
-  const headlineInput = document.getElementById('input-ab-variant-headline');
-  if (headlineInput) headlineInput.oninput = (e) => {
-    currentVar.thumbnailHeadline = e.target.value;
-    saveAbSimulatorState();
-  };
-
-  const visualConceptInput = document.getElementById('input-ab-variant-visual');
-  if (visualConceptInput) visualConceptInput.oninput = (e) => {
-    currentVar.visualConcept = e.target.value;
-    saveAbSimulatorState();
-  };
-
-  // Helper: Apply Image from Local File
-  function setVariantImageFromFile(file, targetVarId) {
-    const vId = targetVarId || gAbSelectedVariantTab;
-    const targetVar = gAbVariants.find(v => v.id === vId) || gAbVariants[0];
-    if (!file) return;
-    try {
-      gAbSelectedVariantTab = targetVar.id;
-      if (gAbActiveFeedView !== 'ALL') {
-        gAbActiveFeedView = targetVar.id;
-      }
-      // blob: URL로 즉시 미리보기(네트워크 대기 없이 바로 보이게) — 이건 이 브라우저 탭에서만
-      // 유효하므로 최종 저장값으로 쓰지 않는다. 아래에서 서버 업로드가 끝나면 짧은
-      // /api/temp-thumbnail/... URL로 덮어써서 새로고침·다른 PC에서도 열리게 한다
-      // (2026-09-02 — 예전엔 blob:+base64를 그대로 상태에 남겨서 새로고침하면 깨지고,
-      // 시안 3개를 다 채우면 상태 동기화 요청이 커져 조용히 실패하곤 했다).
-      const blobUrl = URL.createObjectURL(file);
-      targetVar.imageUrl = blobUrl;
-      targetVar.isLocalFile = true;
-
-      const img = new Image();
-      img.onload = () => {
-        if (img.naturalHeight > img.naturalWidth * 1.15) {
-          gAbFormat = 'SHORTS';
-        } else if (img.naturalWidth > img.naturalHeight * 1.15) {
-          gAbFormat = 'LONGFORM';
-        }
-        renderAbSimulatorTabDirect();
-      };
-      img.src = blobUrl;
-      renderAbSimulatorTabDirect();
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        fetch('/api/ab-simulator/upload-local-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ dataUrl: event.target.result, variantKey: targetVar.id }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (!data.ok) throw new Error(data.error || '업로드 실패');
-            URL.revokeObjectURL(blobUrl);
-            targetVar.imageUrl = data.imageUrl;
-            delete targetVar._base64Data;
-            saveAbSimulatorState();
-            renderAbSimulatorTabDirect();
-            showToast('🖼️ 시안 ' + targetVar.id + '에 썸네일 이미지가 저장됐습니다!');
-          })
-          .catch((err) => {
-            // 실패해도 blob: 미리보기는 화면에 남아있지만, 이 값은 새로고침하면 사라지고
-            // 서버/다른 PC에도 안 남는다는 걸 반드시 알려야 한다(예전엔 조용히 실패해서
-            // "드래그앤드롭했는데 저장이 안 되는 것 같다"는 혼란을 만들었다).
-            showToast('❌ 이미지 서버 저장 실패 — 새로고침하면 사라집니다: ' + err.message);
-          });
-      };
-      reader.readAsDataURL(file);
-    } catch (err) {
-      console.error('File load error:', err);
-      showToast('❌ 이미지를 불러오지 못했습니다: ' + err.message);
-    }
-  }
-
-  function handleDropOrPaste(e, isDrop, targetVarId) {
-    const dt = isDrop ? e.dataTransfer : e.clipboardData;
-    if (!dt) return false;
-
-    // Real OS file drop / paste
-    if (dt.files && dt.files.length > 0) {
-      for (let i = 0; i < dt.files.length; i++) {
-        const file = dt.files[i];
-        if (file.type.startsWith('image/')) {
-          setVariantImageFromFile(file, targetVarId);
-          return true;
-        }
-      }
-    }
-
-    if (dt.items && dt.items.length > 0) {
-      for (let i = 0; i < dt.items.length; i++) {
-        const item = dt.items[i];
-        if (item.type.indexOf('image') !== -1) {
-          const file = item.getAsFile();
-          if (file) {
-            setVariantImageFromFile(file, targetVarId);
-            return true;
-          }
-        }
-      }
-    }
-
-    // Only process text/URL on explicit PASTE (do not allow dragging internal web images to overwrite other variants)
-    if (!isDrop) {
-      const uri = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').trim();
-      if (uri && (uri.startsWith('http://') || uri.startsWith('https://'))) {
-        const vId = targetVarId || gAbSelectedVariantTab;
-        const targetVar = gAbVariants.find(v => v.id === vId) || gAbVariants[0];
-        gAbSelectedVariantTab = targetVar.id;
-        if (gAbActiveFeedView !== 'ALL') {
-          gAbActiveFeedView = targetVar.id;
-        }
-        targetVar.imageUrl = uri;
-        targetVar._base64Data = null;
-        targetVar.isLocalFile = false;
-        saveAbSimulatorState();
-        renderAbSimulatorTabDirect();
-        showToast('🔗 시안 ' + targetVar.id + '에 이미지 링크가 적용되었습니다!');
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // 5. File Upload Handler
-  const uploadTrigger = document.getElementById('btn-ab-upload-trigger');
-  const fileInput = document.getElementById('input-ab-file-upload');
-  if (uploadTrigger && fileInput) {
-    uploadTrigger.onclick = () => fileInput.click();
-    fileInput.onchange = (e) => {
-      const file = e.target.files?.[0];
-      if (file) setVariantImageFromFile(file);
-    };
-  }
-
-  // 6. Drag & Drop on dropzone
-  const dropzone = document.getElementById('ab-thumb-dropzone');
-  if (dropzone) {
-    dropzone.onclick = () => fileInput && fileInput.click();
-    dropzone.ondragover = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropzone.style.borderColor = 'var(--accent-cyan)';
-      dropzone.style.background = 'rgba(0, 240, 255, 0.08)';
-    };
-    dropzone.ondragleave = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropzone.style.borderColor = 'var(--border-active)';
-      dropzone.style.background = '#05070c';
-    };
-    dropzone.ondrop = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropzone.style.borderColor = 'var(--border-active)';
-      dropzone.style.background = '#05070c';
-      handleDropOrPaste(e, true);
-    };
-  }
-
-  window.ondragover = (e) => { e.preventDefault(); };
-  window.ondrop = (e) => {
-    e.preventDefault();
-    if (gCurrentTab === 'tab-ab-simulator') {
-      handleDropOrPaste(e, true);
-    }
-  };
-
-  window.onpaste = (e) => {
-    if (gCurrentTab === 'tab-ab-simulator') {
-      const activeTag = document.activeElement ? document.activeElement.tagName : '';
-      const isInput = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
-      if (!isInput || document.activeElement?.id === 'input-ab-variant-img') {
-        const handled = handleDropOrPaste(e, false);
-        if (handled && e.cancelable) e.preventDefault();
-      }
-    }
-  };
-
-  // 7. Format Toggle (Longform vs Shorts)
-  document.querySelectorAll('.btn-ab-format-toggle').forEach(btn => {
-    btn.onclick = () => {
-      const prevFormat = gAbFormat;
-      gAbFormat = btn.dataset.format;
-      if (prevFormat !== gAbFormat) {
-        const hasCustomFile = gAbVariants.some(v => v.isLocalFile || (v.imageUrl && v.imageUrl.startsWith('data:')));
-        if (!hasCustomFile) {
-          if (gAbFormat === 'SHORTS') {
-            gAbTopic = "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다";
-            gAbVariants = [
-              { id: 'A', title: "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다 #영어발음 #shorts", imageUrl: 'https://i.ytimg.com/vi/nVrCk8IZFGA/hqdefault.jpg', thumbnailCopy: "SOCIAL 발음 비밀", badge: '1분 컷', isLocalFile: false },
-              { id: 'B', title: "시즌1 발음 테스트, 4문제 다 맞히면 진짜 실력 #영어발음 #shorts", imageUrl: 'https://i.ytimg.com/vi/LdiZKCzKf0c/hqdefault.jpg', thumbnailCopy: "발음 테스트 4문제", badge: '실력 테스트', isLocalFile: false },
-              { id: 'C', title: "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts", imageUrl: 'https://i.ytimg.com/vi/Si88xXt-EQc/hqdefault.jpg', thumbnailCopy: "COMMERCIAL 발음 비법", badge: '비법 공개', isLocalFile: false }
-            ];
-          } else {
-            gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
-            gAbVariants = [
-              { id: 'A', title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙", imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg', thumbnailCopy: "SPECIAL 발음 치트키", badge: '발음 원리', isLocalFile: false },
-              { id: 'B', title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)", imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg', thumbnailCopy: "PICTURE 소리 비밀", badge: '소리 법칙', isLocalFile: false },
-              { id: 'C', title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)", imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg', thumbnailCopy: "시즌1 완결 총정리 족보", badge: '총정리', isLocalFile: false }
-            ];
-          }
-        }
-      }
-      saveAbSimulatorState();
-      renderAbSimulatorTabDirect();
-      showToast(gAbFormat === 'SHORTS' ? '📱 쇼츠 (9:16) 모드로 전환되었습니다.' : '📺 롱폼 (16:9) 모드로 전환되었습니다.');
-    };
-  });
-
-  // 8. Variant Tab Select (A, B, C) & Direct Image Drop
-  document.querySelectorAll('.btn-ab-tab-select').forEach(btn => {
-    btn.onclick = () => {
-      const vId = btn.dataset.var;
-      gAbSelectedVariantTab = vId;
-      if (gAbActiveFeedView !== 'ALL') {
-        gAbActiveFeedView = vId;
-      }
-      saveAbSimulatorState();
-      renderAbSimulatorTabDirect();
-    };
-
-    // Support external image drop directly onto each variant card
-    btn.ondragover = (e) => {
-      e.preventDefault();
-      btn.style.borderColor = 'var(--accent-cyan)';
-      btn.style.background = 'rgba(0, 240, 255, 0.08)';
-    };
-    btn.ondragleave = () => {
-      btn.style.borderColor = '';
-      btn.style.background = '#0a0e18';
-    };
-    btn.ondrop = (e) => {
-      e.preventDefault();
-      btn.style.borderColor = '';
-      btn.style.background = '#0a0e18';
-      const targetVarId = btn.dataset.var;
-      handleDropOrPaste(e, true, targetVarId);
-    };
-  });
-
-  // 8-2. "유튜브 A/B 테스트에 사용" 체크 — 3종을 전부 만들어두고 유튜브 자체 Test & Compare로
-  // 겨루는 워크플로우 지원(2026-09-02). 체크 자체는 대시보드 기록일 뿐 실제 업로드를 대신하지
-  // 않는다 — 사용자가 유튜브에 직접 올린 뒤 표시하는 용도.
-  document.querySelectorAll('.cb-ab-in-use').forEach(cb => {
-    cb.onclick = (e) => e.stopPropagation();
-    cb.onchange = (e) => {
-      const vId = e.target.dataset.var;
-      const targetVar = gAbVariants.find(v => v.id === vId);
-      if (targetVar) {
-        targetVar.inUse = e.target.checked;
-        saveAbSimulatorState();
-        renderAbSimulatorTabDirect();
-      }
-    };
-  });
-
-  // 9. Feed View Toggle (Single vs ALL)
-  document.querySelectorAll('.btn-ab-feed-view').forEach(btn => {
-    btn.onclick = () => {
-      if (gAbActiveFeedView === 'ALL') {
-        gAbActiveFeedView = gAbSelectedVariantTab;
-      } else {
-        gAbActiveFeedView = 'ALL';
-      }
-      saveAbSimulatorState();
-      renderAbSimulatorTabDirect();
-    };
-  });
-
-  // 9-2. Auto-Scroll & Drag & Drop on Mobile Feed cards
-  let gAbFeedDragActive = false;
-  let autoScrollRafId = null;
-  let autoScrollSpeed = 0;
-  const feedScrollEl = document.querySelector('.mockup-feed-scroll');
-
-  function performAutoScroll() {
-    if (!gAbFeedDragActive || !feedScrollEl || autoScrollSpeed === 0) {
-      autoScrollRafId = null;
+      gThumbFeedLoading = false;
+      if (gCurrentTab === 'tab-ab-simulator') renderCurrentTab();
       return;
     }
-    feedScrollEl.scrollTop += autoScrollSpeed;
-    autoScrollRafId = requestAnimationFrame(performAutoScroll);
-  }
-
-  function handleFeedAutoScroll(e) {
-    if (!gAbFeedDragActive || !feedScrollEl) return;
-    const rect = feedScrollEl.getBoundingClientRect();
-    const mouseY = e.clientY;
-    
-    // Bottom edge auto-scroll (triggers within 90px of bottom, or below container)
-    if (mouseY > rect.bottom - 90) {
-      const dist = Math.max(1, mouseY - (rect.bottom - 90));
-      autoScrollSpeed = Math.min(22, dist * 0.35 + 4);
-      if (!autoScrollRafId) {
-        autoScrollRafId = requestAnimationFrame(performAutoScroll);
-      }
-    } 
-    // Top edge auto-scroll (triggers within 90px of top, or above container)
-    else if (mouseY < rect.top + 90) {
-      const dist = Math.max(1, (rect.top + 90) - mouseY);
-      autoScrollSpeed = -Math.min(22, dist * 0.35 + 4);
-      if (!autoScrollRafId) {
-        autoScrollRafId = requestAnimationFrame(performAutoScroll);
-      }
-    } 
-    else {
-      autoScrollSpeed = 0;
-    }
-  }
-
-  function stopFeedDrag() {
-    gAbFeedDragActive = false;
-    autoScrollSpeed = 0;
-    if (autoScrollRafId) {
-      cancelAnimationFrame(autoScrollRafId);
-      autoScrollRafId = null;
-    }
-    document.querySelectorAll('.ab-feed-card-draggable').forEach(c => c.classList.remove('is-dragging'));
-    document.querySelectorAll('.ab-feed-drop-zone').forEach(z => z.classList.remove('drag-over'));
-  }
-
-  document.querySelectorAll('.ab-feed-card-draggable').forEach(card => {
-    card.ondragstart = (e) => {
-      gAbFeedDragActive = true;
-      e.dataTransfer.setData('text/feed-internal-drag', 'true');
-      e.dataTransfer.setData('text/feed-source-slot', card.dataset.slotIdx || '0');
-      e.dataTransfer.effectAllowed = 'move';
-      card.classList.add('is-dragging');
-    };
-    card.ondragend = () => {
-      stopFeedDrag();
-    };
-  });
-
-  if (feedScrollEl) {
-    feedScrollEl.ondragover = (e) => {
-      e.preventDefault();
-      if (gAbFeedDragActive) {
-        handleFeedAutoScroll(e);
-      }
-    };
-    feedScrollEl.ondrop = (e) => {
-      if (e.target === feedScrollEl || e.target.classList.contains('mockup-feed-scroll')) {
-        e.preventDefault();
-        stopFeedDrag();
-        if (e.dataTransfer && e.dataTransfer.getData('text/feed-internal-drag') === 'true') {
-          gAbFeedSlotIndex = (gAbFormat === 'SHORTS') ? 5 : 7;
-          gAbFeedPosition = 'BOTTOM';
-          saveAbSimulatorState();
-          renderAbSimulatorTabDirect({ scrollToActive: true });
-          showToast('📍 시안 ' + gAbSelectedVariantTab + ' 위치가 [맨 하단]으로 이동되었습니다!');
-        }
-      }
-    };
-  }
-
-  window.addEventListener('dragover', (e) => {
-    if (gAbFeedDragActive) {
-      handleFeedAutoScroll(e);
-    }
-  });
-
-  window.addEventListener('dragend', () => {
-    stopFeedDrag();
-  });
-
-  document.querySelectorAll('.ab-feed-drop-zone').forEach(el => {
-    el.ondragover = (e) => {
-      e.preventDefault();
-      el.classList.add('drag-over');
-      if (gAbFeedDragActive) {
-        handleFeedAutoScroll(e);
-      }
-    };
-    el.ondragleave = () => {
-      el.classList.remove('drag-over');
-    };
-    el.ondrop = (e) => {
-      e.preventDefault();
-      stopFeedDrag();
-
-      // Case 1: Internal feed card drag (repositioning test card within feed to exact slot)
-      if (e.dataTransfer && e.dataTransfer.getData('text/feed-internal-drag') === 'true') {
-        const targetSlotIdx = parseInt(el.dataset.slotIdx || '0', 10);
-        const slotType = el.dataset.slotType || 'longform';
-        
-        gAbFeedSlotIndex = targetSlotIdx;
-        gAbFeedPosition = (targetSlotIdx <= 2) ? 'TOP' : (targetSlotIdx === 3 ? 'MIDDLE' : 'BOTTOM');
-
-        saveAbSimulatorState();
-        renderAbSimulatorTabDirect({ scrollToActive: true });
-        showToast('🎯 시안 ' + gAbSelectedVariantTab + '를 ' + (slotType === 'shorts' ? '쇼츠 ' : '피드 ') + (targetSlotIdx + 1) + '번째 위치에 정확히 배치했습니다!');
-        return;
-      }
-
-      // Case 2: External OS image file drop
-      handleDropOrPaste(e, true);
-    };
-  });
-
-  // 10. Vision Filter Buttons (Normal / Blur / Grayscale)
-  document.querySelectorAll('.btn-ab-filter').forEach(btn => {
-    btn.onclick = () => {
-      const filter = btn.dataset.filter;
-      gAbVisionFilter = filter;
-      saveAbSimulatorState();
-
-      const feedScroll = document.querySelector('.mockup-feed-scroll');
-      if (feedScroll) {
-        if (filter === 'blur') {
-          feedScroll.style.filter = 'blur(4.5px)';
-        } else if (filter === 'grayscale') {
-          feedScroll.style.filter = 'grayscale(100%) contrast(1.15)';
-        } else {
-          feedScroll.style.filter = 'none';
-        }
-      }
-      document.querySelectorAll('.btn-ab-filter').forEach(b => {
-        b.classList.toggle('active', b.dataset.filter === filter);
-      });
-      showToast(filter === 'blur' ? '🌫️ 시선 흐림(블러) 모드가 적용되었습니다 (썸네일 형태 감지).' : (filter === 'grayscale' ? '⚫ 흑백 명도 대비 모드가 적용되었습니다.' : '👁️ 표준 시각 모드로 복귀했습니다.'));
-    };
-  });
-
-  // 11. Fill Sample Button
-  const fillSampleBtn = document.getElementById('btn-ab-fill-sample');
-  if (fillSampleBtn) {
-    fillSampleBtn.onclick = () => {
-      if (gAbFormat === 'SHORTS') {
-        gAbTopic = "매일 쓰는 SOCIAL, 사실 발음 규칙 그대로였다";
-        gAbVariants = [
-          {
-            id: 'A',
-            title: "OFFICIAL을 ‘오피시알’로 읽으면 틀립니다 #영어발음 #shorts",
-            imageUrl: 'https://i.ytimg.com/vi/7qSWJZqV14o/hqdefault.jpg',
-            thumbnailCopy: "OFFICIAL 발음 비밀",
-            badge: '1분 컷',
-            isLocalFile: false,
-          },
-          {
-            id: 'B',
-            title: "왜 HEROIC은 히로익일까? 30초 테스트 #영어발음 #shorts",
-            imageUrl: 'https://i.ytimg.com/vi/6nANjHxy2Lc/hqdefault.jpg',
-            thumbnailCopy: "발음 테스트 30초",
-            badge: '실력 테스트',
-            isLocalFile: false,
-          },
-          {
-            id: 'C',
-            title: "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
-            imageUrl: 'https://i.ytimg.com/vi/Si88xXt-EQc/hqdefault.jpg',
-            thumbnailCopy: "COMMERCIAL 발음 비법",
-            badge: '비법 공개',
-            isLocalFile: false,
-          },
-        ];
-      } else {
-        gAbTopic = "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙";
-        gAbVariants = [
-          {
-            id: 'A',
-            title: "SPECIAL은 왜 ‘스페시알’이 아닐까? | -CIAL 영어 발음 규칙",
-            imageUrl: 'https://i.ytimg.com/vi/sNNufVhkjT8/mqdefault.jpg',
-            thumbnailCopy: "SPECIAL 발음 치트키",
-            badge: '발음 원리',
-            isLocalFile: false,
-          },
-          {
-            id: 'B',
-            title: "PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초)",
-            imageUrl: 'https://i.ytimg.com/vi/YoaCRYCWpws/mqdefault.jpg',
-            thumbnailCopy: "PICTURE 소리 비밀",
-            badge: '소리 법칙',
-            isLocalFile: false,
-          },
-          {
-            id: 'C',
-            title: "익-션-전-천-처-저-셜, 사실 딱 하나의 규칙이었습니다 (시즌1 총정리)",
-            imageUrl: 'https://i.ytimg.com/vi/3PkSwrFIcRE/mqdefault.jpg',
-            thumbnailCopy: "시즌1 완결 총정리 족보",
-            badge: '총정리',
-            isLocalFile: false,
-          },
-        ];
-      }
-      saveAbSimulatorState();
-      renderAbSimulatorTabDirect();
-      showToast('샘플 ' + (gAbFormat === 'SHORTS' ? '쇼츠' : '롱폼') + ' A/B 데이터가 채워졌습니다!');
-    };
-  }
-
-  // 12. Reset State Button
-  const resetBtn = document.getElementById('btn-ab-reset-state');
-  if (resetBtn) {
-    resetBtn.onclick = () => {
-      if (confirm('시안 편집기 데이터를 기본 상태로 초기화하시겠습니까?')) {
-        try { localStorage.removeItem('ihm_ab_simulator_state'); } catch (_) {}
-        location.reload();
-      }
-    };
-  }
-
-  // 채널 기준 인물 이미지를 클립보드로 복사 — 제미나이 웹에서 프롬프트와 함께 붙여넣을 수 있게.
-  // 텍스트 복사(execCommand)와 달리 이미지는 Clipboard API(ClipboardItem)가 유일한 방법이라
-  // 폴백이 마땅치 않음 — 실패하면 새 탭에서 열어 우클릭 복사하도록 안내한다.
-  // ⚠️ 원본 파일은 image/jpeg인데 Chromium의 ClipboardItem.write()는 image/png만 지원한다
-  // (image/jpeg를 그대로 넘기면 "Type image/jpeg not supported on write" 예외가 매번 발생해
-  // 이 기능이 100% 실패했다 — 2026-09-01 Playwright 검증 중 발견). 그래서 fetch한 jpeg blob을
-  // <canvas>에 그린 뒤 canvas.toBlob('image/png')로 변환해 png로만 클립보드에 쓴다.
-  const copyPresenterRefHandler = async () => {
+    const pkg = thumbFeedCurrentPkg();
+    if (!pkg) return;
+    const queries = thumbFeedQueries(pkg);
+    if (!gThumbFeedQuery || queries.indexOf(gThumbFeedQuery) === -1) gThumbFeedQuery = queries[0] || '';
+    if (!gThumbFeedQuery) return;
+    const want = pkg.format + '::' + gThumbFeedQuery;
+    if ((gThumbFeedData && gThumbFeedData.key === want) || gThumbFeedLoading || gThumbFeedError) return;
+    gThumbFeedLoading = true;
     try {
-      const res = await fetch('/api/presenter-reference');
-      if (!res.ok) throw new Error('이미지를 찾을 수 없습니다');
-      const jpegBlob = await res.blob();
-      const bitmap = await createImageBitmap(jpegBlob);
-      const canvas = document.createElement('canvas');
-      canvas.width = bitmap.width;
-      canvas.height = bitmap.height;
-      canvas.getContext('2d').drawImage(bitmap, 0, 0);
-      const pngBlob = await new Promise((resolve, reject) => {
-        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('PNG 변환 실패'))), 'image/png');
-      });
-      await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob })]);
-      showToast('📋 채널 기준 인물 이미지가 복사되었습니다! 제미나이 웹에 Ctrl+V로 붙여넣으세요.');
-    } catch (err) {
-      showToast('❌ 자동 복사에 실패했습니다 — 이미지를 새 탭에서 열어 우클릭으로 복사해주세요.');
-      window.open('/api/presenter-reference', '_blank');
-    }
-  };
-  const presenterRefImg = document.getElementById('ab-presenter-ref-img');
-  if (presenterRefImg) presenterRefImg.onclick = copyPresenterRefHandler;
-  const copyPresenterRefBtn = document.getElementById('btn-ab-copy-presenter-ref');
-  if (copyPresenterRefBtn) copyPresenterRefBtn.onclick = copyPresenterRefHandler;
-
-  // 13. Run AI Evaluation Button
-  const runAiBtn = document.getElementById('btn-ab-run-ai');
-  if (runAiBtn) {
-    runAiBtn.onclick = async () => {
-      const statusBox = document.getElementById('ab-eval-status');
-      const statusText = document.getElementById('ab-eval-status-text');
-      if (statusBox) statusBox.style.display = 'block';
-      if (statusText) statusText.textContent = 'Gemini AI가 ' + (gAbFormat === 'SHORTS' ? '쇼츠(9:16) 사각지대 및 시선 스턴건' : '롱폼(16:9) 호기심 갭 및 가독성') + '을 정밀 진단 중입니다... (약 3~5초 소요)';
-      runAiBtn.disabled = true;
-
-      try {
-        const payloadVariants = gAbVariants.map(v => ({
-          id: v.id,
-          title: v.title,
-          imageUrl: v._base64Data || v.imageUrl,
-          thumbnailHeadline: v.thumbnailHeadline,
-        }));
-
-        const res = await fetch('/api/ab-simulator/evaluate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            topic: gAbTopic,
-            targetAudience: gAbAudience,
-            format: gAbFormat,
-            variants: payloadVariants,
-          }),
-        });
-
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'AI 진단에 실패했습니다.');
-
-        gAbAiReport = data.evaluation;
-        saveAbSimulatorState();
-        renderAbSimulatorTabDirect();
-
-        const reportEl = document.getElementById('ab-report-section');
-        if (reportEl) reportEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        showToast('🎉 Gemini AI CTR 정밀 진단이 완료되었습니다!');
-      } catch (err) {
-        showToast('❌ 진단 오류: ' + err.message);
-      } finally {
-        if (statusBox) statusBox.style.display = 'none';
-        runAiBtn.disabled = false;
-      }
-    };
-  }
-
-  // 14. Apply AI Title Buttons
-  document.querySelectorAll('.btn-ab-apply-title').forEach(btn => {
-    btn.onclick = () => {
-      const targetVarId = btn.dataset.var;
-      const suggestion = ((gAbAiReport && gAbAiReport.aiTitleSuggestions) || [])[Number(btn.dataset.idx)];
-      const targetVar = gAbVariants.find(v => v.id === targetVarId);
-      if (targetVar && suggestion) {
-        targetVar.title = suggestion.title || '';
-        targetVar.thumbnailHeadline = suggestion.thumbnailHeadline || targetVar.thumbnailHeadline;
-        // designConcept(비주얼 컨셉 한 줄)도 같이 저장 — buildThumbnailPrompt가 이걸 프롬프트에
-        // 반영해서, 5종 제안마다 실제로 다른 비주얼이 나오게 한다(2026-09-01, 예전엔 텍스트만
-        // 반영되고 이 필드는 화면 표시용으로만 쓰이던 dead data였음 — 사용자 지적으로 발견).
-        targetVar.visualConcept = suggestion.designConcept || '';
-        // 적용한 시안으로 워크벤치 포커스도 같이 옮긴다 — "지금 워크벤치 = 시안 X" 배지와
-        // 텍스트 적용 버튼의 강조 표시가 방금 클릭한 시안으로 바로 따라오게.
-        gAbSelectedVariantTab = targetVarId;
-        saveAbSimulatorState();
-        showToast('시안 ' + targetVarId + '에 제목·카피·뱃지·비주얼 컨셉이 적용됐습니다 (이미지 자체는 그대로예요 — 옆의 🎨 버튼으로 채우세요)');
-        renderAbSimulatorTabDirect();
-        // 리포트 섹션(아래)에서 클릭했는데 반영 결과는 워크벤치(위)에 나타나므로, 자동
-        // 스크롤+짧은 하이라이트로 스크롤 없이 바로 보이게 한다(2026-09-01, 사용자 피드백).
-        const wbCard = document.getElementById('ab-workbench-card');
-        if (wbCard) {
-          wbCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          wbCard.classList.remove('ab-just-applied');
-          void wbCard.offsetWidth; // 같은 클래스를 연속 클릭 시에도 애니메이션이 재시작되도록 강제 리플로우
-          wbCard.classList.add('ab-just-applied');
-          setTimeout(() => wbCard.classList.remove('ab-just-applied'), 900);
-        }
-      }
-    };
-  });
-
-  // 16. 1-Click AI Image Generation Handler (FLUX.1 / Imagen 3)
-  const generateImgForVariant = async (vKey, promptText, btnEl) => {
-    const targetVar = gAbVariants.find(v => v.id === vKey) || currentVar;
-    // promptText가 비어 있으면 그대로 빈 문자열로 보낸다 — 서버(generateAiThumbnailImage)가
-    // title/topic/thumbnailHeadline으로 자체 템플릿을 구성하므로 여기서 대충 뭉친 대체
-    // 프롬프트를 만들면 서버 템플릿을 가로채 버린다(실제로 그랬던 버그였음).
-    const finalPrompt = promptText || '';
-
-    const originalText = btnEl ? btnEl.innerHTML : '';
-    if (btnEl) {
-      btnEl.disabled = true;
-      btnEl.innerHTML = '⏳ 4K AI 렌더링 중...';
-    }
-
-    try {
-      showToast('🎨 Gemini 3.6 AI 일러스트레이터가 영상 주제에 맞춘 고유 비주얼 썸네일을 생성 중입니다... (약 10~15초)');
-      const res = await fetch('/api/ab-simulator/generate-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: finalPrompt,
-          variantKey: vKey,
-          title: targetVar.title || gAbTopic || '',
-          thumbnailHeadline: targetVar.thumbnailHeadline || '',
-          topic: gAbTopic || targetVar.title || '',
-          format: gAbFormat,
-          engine: 'gemini',
-          visualConcept: targetVar.visualConcept || '',
-        }),
-      });
-
+      const res = await fetch('/api/thumb-feed?query=' + encodeURIComponent(gThumbFeedQuery) + '&format=' + encodeURIComponent(pkg.format));
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || '이미지 생성 실패');
-
-      // imageUrl은 이제 base64가 아니라 서버가 저장한 파일을 가리키는 짧은 서빙 URL
-      // (/api/temp-thumbnail/...)이다 — _base64Data는 진짜 로컬 업로드(파일 첨부) 전용으로
-      // 남겨두고 여기서는 건드리지 않는다. resolveImageToInlineData가 이 URL을 직접 처리한다.
-      targetVar.imageUrl = data.imageUrl;
-      targetVar.isLocalFile = true;
-
-      saveAbSimulatorState();
-      renderAbSimulatorTabDirect();
-      showToast('🎉 [' + (data.engine || 'Gemini 3.6 AI') + '] 맞춤형 비주얼 썸네일이 시안 ' + vKey + '에 1-Click 적용되었습니다!');
+      if (!res.ok) throw new Error(data.error || 'HTTP ' + res.status);
+      data.key = want;
+      gThumbFeedData = data;
+      gThumbFeedError = '';
     } catch (err) {
-      showToast('❌ 이미지 생성 오류: ' + err.message);
-    } finally {
-      if (btnEl) {
-        btnEl.disabled = false;
-        btnEl.innerHTML = originalText;
-      }
+      gThumbFeedError = err.message;
     }
+    gThumbFeedLoading = false;
+    if (gCurrentTab === 'tab-ab-simulator') renderCurrentTab();
   };
 
-  const wbGenBtn = document.getElementById('btn-ab-generate-workbench-thumb');
-  if (wbGenBtn) {
-    wbGenBtn.onclick = () => {
-      generateImgForVariant(gAbSelectedVariantTab, '', wbGenBtn);
-    };
-  }
-
-  // 모바일 클로즈업(thumbnail-close-up.jpg) 1-Click 생성 — CTR 1위 시안(report.bestVariant)의
-  // title/thumbnailHeadline/visualConcept를 그대로 가져다 closeUp:true로 생성한다. A/B/C 탭의
-  // imageUrl은 건드리지 않고 별도의 gAbCloseUpImageUrl에만 저장한다(2026-09-29).
-  const closeUpBtn = document.getElementById('btn-ab-generate-closeup');
-  if (closeUpBtn) {
-    closeUpBtn.onclick = async () => {
-      const bestKey = gAbAiReport && gAbAiReport.bestVariant;
-      if (!bestKey) return;
-      const bestVar = gAbVariants.find(v => v.id === bestKey);
-      if (!bestVar) {
-        showToast('❌ 1위 시안(' + bestKey + ')의 시안 데이터를 찾을 수 없습니다.');
-        return;
-      }
-      const originalText = closeUpBtn.innerHTML;
-      closeUpBtn.disabled = true;
-      closeUpBtn.innerHTML = '⏳ 클로즈업 렌더링 중...';
-      try {
-        showToast('🔎 CTR 1위 시안(' + bestKey + ') 문구로 모바일 클로즈업을 생성 중입니다... (약 10~15초)');
-        const res = await fetch('/api/ab-simulator/generate-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prompt: '',
-            variantKey: bestKey,
-            title: bestVar.title || gAbTopic || '',
-            thumbnailHeadline: bestVar.thumbnailHeadline || '',
-            topic: gAbTopic || bestVar.title || '',
-            format: gAbFormat,
-            engine: 'gemini',
-            visualConcept: bestVar.visualConcept || '',
-            closeUp: true,
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '클로즈업 생성 실패');
-        gAbCloseUpImageUrl = data.imageUrl;
-        gAbCloseUpSourceVariant = bestKey;
-        saveAbSimulatorState();
-        renderAbSimulatorTabDirect();
-        showToast('🎉 1위 시안(' + bestKey + ') 문구로 thumbnail-close-up.jpg가 생성되었습니다!');
-      } catch (err) {
-        showToast('❌ 클로즈업 생성 오류: ' + err.message);
-      } finally {
-        if (closeUpBtn) {
-          closeUpBtn.disabled = false;
-          closeUpBtn.innerHTML = originalText;
-        }
-      }
-    };
-  }
-
-  // 제미나이 유료 구독으로 직접(API 비용 없이) 생성하고 싶을 때 — 실제 자동 생성과 똑같은
-  // 프롬프트를 서버에서 받아와 복사만 해준다(이미지 생성 자체는 안 함).
-  const wbCopyPromptBtn = document.getElementById('btn-ab-copy-workbench-prompt');
-  if (wbCopyPromptBtn) {
-    wbCopyPromptBtn.onclick = async () => {
-      const targetVar = gAbVariants.find(v => v.id === gAbSelectedVariantTab) || currentVar;
-      const originalText = wbCopyPromptBtn.innerHTML;
-      wbCopyPromptBtn.disabled = true;
-      wbCopyPromptBtn.innerHTML = '⏳ 준비 중...';
-      try {
-        const res = await fetch('/api/ab-simulator/thumbnail-prompt', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            variantKey: gAbSelectedVariantTab,
-            title: targetVar.title || gAbTopic || '',
-            thumbnailHeadline: targetVar.thumbnailHeadline || '',
-            topic: gAbTopic || targetVar.title || '',
-            format: gAbFormat,
-            visualConcept: targetVar.visualConcept || '',
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '프롬프트 생성 실패');
-
-        const promptText = data.prompt || '';
-        const copyViaExecCommand = () => {
-          try {
-            const ta = document.createElement('textarea');
-            ta.value = promptText;
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
-            const ok = document.execCommand('copy');
-            document.body.removeChild(ta);
-            showToast(ok ? '📋 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.' : '❌ 복사에 실패했습니다.');
-          } catch (err) {
-            showToast('❌ 복사에 실패했습니다.');
-          }
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(promptText)
-            .then(() => showToast('📋 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.'))
-            .catch(() => copyViaExecCommand());
-        } else {
-          copyViaExecCommand();
-        }
-      } catch (err) {
-        showToast('❌ 프롬프트 준비 오류: ' + err.message);
-      } finally {
-        wbCopyPromptBtn.disabled = false;
-        wbCopyPromptBtn.innerHTML = originalText;
-      }
-    };
-  }
-
-  // 클로즈업(thumbnail-close-up.jpg) 전용 프롬프트만 복사 — 위 wbCopyPromptBtn과 똑같은
-  // "API 비용 없이 gemini.google.com에 직접 붙여넣기" 경로인데, closeUp:true를 안 보내면
-  // 일반 A/B/C용 프롬프트(배경 장면 + 정체성 태그 2개)가 그대로 나가버린다(2026-09-29,
-  // 사용자가 이 버튼으로 만든 결과물에서 실제로 확인 — 클로즈업 강제 구도가 전혀 반영 안 됨).
-  const closeUpCopyBtn = document.getElementById('btn-ab-copy-closeup-prompt');
-  if (closeUpCopyBtn) {
-    closeUpCopyBtn.onclick = async () => {
-      const bestKey = gAbAiReport && gAbAiReport.bestVariant;
-      if (!bestKey) return;
-      const bestVar = gAbVariants.find(v => v.id === bestKey);
-      if (!bestVar) {
-        showToast('❌ 1위 시안(' + bestKey + ')의 시안 데이터를 찾을 수 없습니다.');
-        return;
-      }
-      const originalText = closeUpCopyBtn.innerHTML;
-      closeUpCopyBtn.disabled = true;
-      closeUpCopyBtn.innerHTML = '⏳ 준비 중...';
-      try {
-        const res = await fetch('/api/ab-simulator/thumbnail-prompt', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            variantKey: bestKey,
-            title: bestVar.title || gAbTopic || '',
-            thumbnailHeadline: bestVar.thumbnailHeadline || '',
-            topic: gAbTopic || bestVar.title || '',
-            format: gAbFormat,
-            visualConcept: bestVar.visualConcept || '',
-            closeUp: true,
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '프롬프트 생성 실패');
-
-        const promptText = data.prompt || '';
-        const copyViaExecCommand = () => {
-          try {
-            const ta = document.createElement('textarea');
-            ta.value = promptText;
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
-            const ok = document.execCommand('copy');
-            document.body.removeChild(ta);
-            showToast(ok ? '📋 클로즈업 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.' : '❌ 복사에 실패했습니다.');
-          } catch (err) {
-            showToast('❌ 복사에 실패했습니다.');
-          }
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(promptText)
-            .then(() => showToast('📋 클로즈업 프롬프트가 복사되었습니다! gemini.google.com에 붙여넣어 생성하세요.'))
-            .catch(() => copyViaExecCommand());
-        } else {
-          copyViaExecCommand();
-        }
-      } catch (err) {
-        showToast('❌ 프롬프트 준비 오류: ' + err.message);
-      } finally {
-        closeUpCopyBtn.disabled = false;
-        closeUpCopyBtn.innerHTML = originalText;
-      }
-    };
-  }
-
-  // Gallery Card AI Generation Buttons
-  document.querySelectorAll('.btn-ab-generate-card-thumb').forEach(btn => {
-    btn.onclick = (e) => {
-      e.stopPropagation();
-      const vKey = btn.dataset.var;
-      generateImgForVariant(vKey, '', btn);
-    };
+  const sel = document.getElementById('thumbfeed-pkg');
+  if (sel) sel.onchange = () => {
+    gThumbFeedPkg = sel.value;
+    try { localStorage.setItem('ihm_thumbfeed_pkg', gThumbFeedPkg); } catch (_) {}
+    gThumbFeedQuery = ''; gThumbFeedThumbIdx = 0; gThumbFeedData = null; gThumbFeedError = '';
+    renderCurrentTab();
+  };
+  document.querySelectorAll('.btn-thumbfeed-query').forEach(btn => {
+    btn.onclick = () => { gThumbFeedQuery = btn.dataset.query || ''; gThumbFeedData = null; gThumbFeedError = ''; renderCurrentTab(); };
   });
-
-  // Prefetch/refresh competitor videos — topic이 바뀌면(예: 아이디어 보드에서 핸드오프) 다시
-  // 가져온다. 예전엔 한 번만 불러온 뒤 화면 어디에도 안 쓰이던 죽은 데이터였음(2026-09-01 수정) —
-  // 이제 LIVE MOBILE FEED PREVIEW의 경쟁 영상 카드들이 이 데이터를 실제로 그린다.
-  if (gAbCompetitors.length === 0 || gAbCompetitorsFetchedForTopic !== gAbTopic) {
-    const topicAtFetch = gAbTopic;
-    gAbCompetitorsFetchedForTopic = topicAtFetch; // 같은 topic으로 재렌더될 때마다 중복 요청 방지(낙관적 마킹)
-    fetch('/api/ab-simulator/competitors?topic=' + encodeURIComponent(topicAtFetch)).then(r => r.json()).then(data => {
-      if (data.competitors && data.competitors.length > 0) {
-        gAbCompetitors = data.competitors;
-        renderAbFeedOnly();
-      }
-    }).catch(() => { gAbCompetitorsFetchedForTopic = null; }); // 실패하면 다음 렌더에서 재시도
-  }
+  document.querySelectorAll('.btn-thumbfeed-thumb').forEach(btn => {
+    btn.onclick = () => { gThumbFeedThumbIdx = Number(btn.dataset.idx) || 0; renderCurrentTab(); };
+  });
+  document.querySelectorAll('.btn-thumbfeed-filter').forEach(btn => {
+    btn.onclick = () => { gAbVisionFilter = btn.dataset.filter || 'normal'; renderCurrentTab(); };
+  });
+  load();
 }
 
-function renderAbSimulatorTabDirect(options = {}) {
-  if (gCurrentTab === 'tab-ab-simulator') {
-    const scrollEl = document.querySelector('.mockup-feed-scroll');
-    const currentScrollTop = scrollEl ? scrollEl.scrollTop : 0;
-
-    renderCurrentTab();
-
-    const newScrollEl = document.querySelector('.mockup-feed-scroll');
-    if (newScrollEl) {
-      newScrollEl.scrollTop = currentScrollTop;
-      if (options && options.scrollToActive) {
-        setTimeout(() => {
-          const activeCard = newScrollEl.querySelector('.active-test');
-          if (activeCard) {
-            activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        }, 30);
-      }
-    }
-  }
-}
-
-function renderAbFeedOnly() {
-  if (gCurrentTab === 'tab-ab-simulator') {
-    const scrollEl = document.querySelector('.mockup-feed-scroll');
-    const currentScrollTop = scrollEl ? scrollEl.scrollTop : 0;
-    renderCurrentTab();
-    const newScrollEl = document.querySelector('.mockup-feed-scroll');
-    if (newScrollEl) newScrollEl.scrollTop = currentScrollTop;
-  }
-}
-
-/* TAB 7: DESIGN SYSTEM */
-function renderDesignSystemTab() {
-  return '<div class="bento-grid">' +
-    '<div class="bento-card highlight-magenta col-12">' +
-      '<div class="card-title" style="color:#ffccd9">BRAND IDENTITY & DESIGN TOKENS</div>' +
-      '<h2 style="font-family:var(--font-display);font-size:24px;color:#fff;margin-top:2px">🎨 IHM Easy English Cyber-HUD 디자인 시스템</h2>' +
-      '<p style="color:#ffe6ec;margin-top:4px;font-size:13px">채널 썸네일, Faceless Explainer 자막 카드, 데이터 분석 대시보드 전반에 적용되는 통일된 디자인 규격입니다.</p>' +
-    '</div>' +
-
-    '<div class="bento-card col-4">' +
-      '<div class="card-header"><span class="card-title" style="color:var(--accent-magenta)">Neon Magenta (#ff2a6d)</span></div>' +
-      '<div style="height:48px;background:#ff2a6d;border-radius:8px;margin-bottom:8px"></div>' +
-      '<div class="card-subtext">시그니처 포인트, 핫 이슈, 최고 성과, 핵심 알림</div>' +
-    '</div>' +
-
-    '<div class="bento-card col-4">' +
-      '<div class="card-header"><span class="card-title" style="color:var(--accent-cyan)">Cyber Cyan (#00f0ff)</span></div>' +
-      '<div style="height:48px;background:#00f0ff;border-radius:8px;margin-bottom:8px"></div>' +
-      '<div class="card-subtext">주요 인터랙션, 통과 뱃지, 실시간 연결 상태</div>' +
-    '</div>' +
-
-    '<div class="bento-card col-4">' +
-      '<div class="card-header"><span class="card-title" style="color:var(--accent-amber)">Electric Amber (#ffd166)</span></div>' +
-      '<div style="height:48px;background:#ffd166;border-radius:8px;margin-bottom:8px"></div>' +
-      '<div class="card-subtext">주의 & 기회, 보류 뱃지, 3초 후킹 하이라이트</div>' +
-    '</div>' +
-
-    '<div class="bento-card col-12">' +
-      '<div class="card-header"><span class="card-title">📖 브랜드 디자인 시스템 마크다운 문서 (knowledge/brand-dashboard-design-system.md)</span></div>' +
-      '<p class="card-subtext">전체 디자인 시스템 세부 규격은 로컬 마크다운 파일로 영구 보존되어 언제든 재사용 가능합니다.</p>' +
-    '</div>' +
-  '</div>';
-}
 
 /* TAB: KNOWLEDGE DB (audience-dna.json / success-patterns.json 누적·환류 뷰어) */
-function renderKnowledgeDbTab() {
-  const dna = gKnowledgeDb?.audienceDna?.entries || [];
-  const patterns = gKnowledgeDb?.successPatterns?.entries || [];
-  const typeLabel = {painPoint: '😣 고통점', question: '❓ 질문', vocabulary: '🗣️ 어휘'};
-  // 어느 채널의 어느 분석(댓글 VoC vs 경쟁사 대본 역설계)에서 나온 항목인지 한 리스트에 섞여
-  // 보여서 구분이 안 됐다(2026-09-07, 사용자 지적). upsertAudienceDna가 이미 sources[].sourceType에
-  // 'outlierComment'/'competitorScript'를 기록해 두고 있었으므로, 그 값으로 배지와 출처 필터를 만든다.
-  const sourceLabel = {outlierComment: '💬 댓글', competitorScript: '📜 대본'};
-  const entrySourceTypes = (d) => [...new Set((d.sources || []).map((s) => s.sourceType).filter(Boolean))];
-  const dnaByComment = dna.filter((d) => entrySourceTypes(d).includes('outlierComment'));
-  const dnaByScript = dna.filter((d) => entrySourceTypes(d).includes('competitorScript'));
-  const filteredDna = gKdbSourceFilter === 'ALL' ? dna : dna.filter((d) => entrySourceTypes(d).includes(gKdbSourceFilter));
 
-  let html = '<div class="bento-grid">' +
-    '<div class="bento-card col-12">' +
-      '<div class="card-title" style="color:var(--accent-violet)">GROWTH FLYWHEEL DATA ASSET</div>' +
-      '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">🧬 데이터 자산 (Knowledge DB)</h2>' +
-      '<p class="card-subtext">경쟁사 댓글·대본 분석과 우리 채널 Q1(알고리즘 효자) 진단에서 누적된 데이터입니다. ' +
-      '4사분면 진단·A/B 시뮬레이터 프롬프트에 자동으로 다시 주입되어 시간이 지날수록 더 정확한 제안을 만듭니다.</p>' +
-    '</div>';
-
-  html += '<div class="bento-card col-12">' +
-    '<div class="card-header"><span class="card-title" style="color:var(--accent-emerald)">🏆 성공 패턴 DB (success-patterns.json) · ' + patterns.length + '건</span></div>' +
-    (patterns.length === 0
-      ? '<p class="card-subtext">아직 없습니다. Matrix 탭에서 Q1 영상을 AI 진단하면 여기 쌓입니다.</p>'
-      : patterns.map((p) => (
-        '<div class="kdb-row" style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:12px 14px;margin-bottom:8px">' +
-          '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">' +
-            '<div style="min-width:0">' +
-              '<div style="font-weight:700;font-size:13px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(p.title || p.videoId) + '</div>' +
-              '<div class="card-subtext">CTR ' + (p.ctr ?? '-') + '% · 지속률 ' + (p.retentionRate ?? '-') + '% · ' + esc((p.diagnosedAt || '').slice(0,10)) + '</div>' +
-              '<div style="font-size:12px;color:var(--text-normal);margin-top:6px"><b>후킹:</b> ' + esc(p.reusableHook || '기록 없음') + '</div>' +
-              '<div style="font-size:12px;color:var(--text-normal);margin-top:2px"><b>비유:</b> ' + esc(p.reusableAnalogy || '기록 없음') + '</div>' +
-            '</div>' +
-            '<button class="btn btn-sm btn-outline btn-kdb-delete" data-store="successPatterns" data-id="' + esc(p.id) + '" title="삭제">🗑️</button>' +
-          '</div>' +
-        '</div>'
-      )).join('')) +
-  '</div>';
-
-  html += '<div class="bento-card col-12">' +
-    '<div class="card-header"><span class="card-title" style="color:var(--accent-amber)">🎯 시청자 DNA (audience-dna.json) · ' + dna.length + '건</span></div>' +
-    (dna.length === 0 ? '' :
-      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px">' +
-        '<span style="font-size:11px;font-weight:700;color:var(--text-muted)">출처 필터:</span>' +
-        '<button class="tab-pill btn-kdb-source-filter' + (gKdbSourceFilter === 'ALL' ? ' active' : '') + '" data-source="ALL">전체 (' + dna.length + ')</button>' +
-        '<button class="tab-pill btn-kdb-source-filter' + (gKdbSourceFilter === 'outlierComment' ? ' active' : '') + '" data-source="outlierComment">💬 댓글 분석 (' + dnaByComment.length + ')</button>' +
-        '<button class="tab-pill btn-kdb-source-filter' + (gKdbSourceFilter === 'competitorScript' ? ' active' : '') + '" data-source="competitorScript">📜 대본 분석 (' + dnaByScript.length + ')</button>' +
-      '</div>'
-    ) +
-    (dna.length === 0
-      ? '<p class="card-subtext">아직 없습니다. Outlier Lab 탭에서 댓글 분석 또는 대본 역설계를 실행하면 여기 쌓입니다.</p>'
-      : filteredDna.length === 0
-      ? '<p class="card-subtext">이 출처로는 아직 쌓인 항목이 없습니다.</p>'
-      : filteredDna.map((d) => (
-        '<div class="kdb-row" style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;gap:10px;align-items:center">' +
-          '<div style="min-width:0;display:flex;gap:10px;align-items:center">' +
-            '<span class="badge badge-hold" style="flex-shrink:0">' + (typeLabel[d.type] || d.type) + '</span>' +
-            entrySourceTypes(d).map((st) => '<span class="badge" style="flex-shrink:0;font-size:10px;border-color:var(--accent-violet);color:var(--accent-violet)">' + (sourceLabel[st] || st) + '</span>').join('') +
-            '<span style="font-size:13px;color:var(--text-normal);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(d.text) + '</span>' +
-            '<span class="card-subtext" style="flex-shrink:0">' + (d.occurrences || 1) + '회 · ' + (d.sources?.length || 0) + '개 영상</span>' +
-          '</div>' +
-          '<button class="btn btn-sm btn-outline btn-kdb-delete" data-store="audienceDna" data-id="' + esc(d.id) + '" title="삭제">🗑️</button>' +
-        '</div>'
-      )).join('')) +
-  '</div>';
-
-  html += '</div>';
-  return html;
-}
-
-function bindKnowledgeDbEvents() {
-  document.querySelectorAll('.btn-kdb-source-filter').forEach((btn) => {
-    btn.onclick = () => {
-      gKdbSourceFilter = btn.dataset.source;
-      renderCurrentTab();
-    };
-  });
-
-  document.querySelectorAll('.btn-kdb-delete').forEach((btn) => {
-    btn.onclick = async () => {
-      if (!confirm('이 항목을 영구 삭제할까요?')) return;
-      btn.disabled = true;
-      try {
-        const res = await fetch('/api/knowledge-db/delete', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({store: btn.dataset.store, id: btn.dataset.id}),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '삭제 실패');
-        const kdbRes = await fetch('/api/knowledge-db');
-        gKnowledgeDb = kdbRes.ok ? await kdbRes.json() : gKnowledgeDb;
-        showToast('삭제되었습니다.');
-        renderCurrentTab();
-      } catch (err) {
-        alert('❌ 오류: ' + err.message);
-        btn.disabled = false;
-      }
-    };
-  });
-}
 
 /* TAB: 💡 IDEA BOARD (아이디어 추천 → A/B 시뮬레이터 핸드오프) */
-function renderIdeaBoardTab() {
-  const md = gMarketDemand;
-  const co = gContentOpportunity;
-  const hasMd = !!(md && md.byKeyword && md.byKeyword.length);
-  const hasCo = !!(co && ((co.byRule && co.byRule.length) || (co.byRole && co.byRole.length)));
 
-  if (!hasMd && !hasCo) {
-    return '<div class="bento-card" style="padding:40px;text-align:center">' +
-      '<h3>아이디어 추천에 필요한 데이터가 아직 없습니다.</h3>' +
-      '<p class="card-subtext" style="justify-content:center;margin-bottom:20px">market-demand·content-opportunity 데이터를 먼저 생성해야 근거 있는 소재 후보를 추천할 수 있습니다.</p>' +
-      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
-        '<button class="btn btn-magenta" id="btn-idea-board-run-demand">🚀 시장 수요 분석 실행</button>' +
-        '<button class="btn btn-cyan" id="btn-idea-board-run-co">📊 채널 성과 분석 실행</button>' +
-      '</div>' +
-    '</div>';
-  }
-
-  const srcLabel = {marketDemand: '시장수요', contentOpportunity: '채널성과', audienceDna: '시청자DNA', successPatterns: '성공패턴'};
-  const candidates = (gIdeaBoardCandidates && gIdeaBoardCandidates.candidates) || [];
-  const genAt = gIdeaBoardGeneratedAt ? esc(gIdeaBoardGeneratedAt.slice(0, 19).replace('T', ' ')) : '';
-  // 마지막 생성에 쓴 집중 키워드를 사람이 읽는 문구로도 보여준다(아래 <select> 복원과 별개로,
-  // 셀렉트를 못 보고 지나쳐도 "마지막 생성" 옆에서 바로 확인 가능하게).
-  const focusLabel = gIdeaBoardFocusKeyword ? ' · 집중 키워드: "' + esc(gIdeaBoardFocusKeyword) + '"' : (genAt ? ' · 전체 데이터 참고' : '');
-  // Claude가 대화창에서 수동으로 써 준 초안을 불러온 결과인지 표시 — Gemini 결과와 구분돼야
-  // 나중에 "이게 AI가 진짜 근거로 뽑은 거 맞나" 헷갈리지 않는다(2026-09-13).
-  const generatedByLabel = gIdeaBoardCandidates?.generatedBy === 'claude' ? ' · ✍️ Claude 수동 생성' : '';
-
-  // 시장 수요 레이더의 특정 키워드 하나에 집중해서 아이디어를 뽑고 싶을 때를 위한 선택지
-  // (2026-09-13, 사용자 제안: "아이디어 보드에 셀렉터 버튼으로 선택하는건 어때?" — 처음엔 시장
-  // 수요 카드마다 "이 키워드로 생성" 버튼을 얹는 안이었는데, 카드 9개마다 버튼을 반복하는 대신
-  // 여기 한 곳에 드롭다운으로 모아두는 게 더 깔끔하다는 제안으로 방향 전환). 기본값은 지금까지의
-  // 동작 그대로(상위 8개 키워드를 두루 참고) — 드롭다운에서 특정 키워드를 고를 때만 그 키워드
-  // 하나에 집중하도록 focusKeyword를 서버에 넘긴다.
-  // 생성 완료 후 화면을 다시 그리면 <select>가 통째로 새로 만들어지는데, 방금 쓴 키워드를
-  // selected로 표시해두지 않으면 매번 기본값("전체 데이터 참고")으로 보여서 "내가 뭘로
-  // 생성했는지 모르겠다"는 문제가 있었다(2026-09-13, 사용자 지적). gIdeaBoardFocusKeyword와
-  // 비교해서 마지막으로 실제 생성에 쓴 키워드를 그대로 selected 처리한다.
-  const focusOptions = (md?.byKeyword || [])
-    .map((k) => '<option value="' + esc(k.keyword) + '"' + (k.keyword === gIdeaBoardFocusKeyword ? ' selected' : '') + '>' + esc(k.keyword) + '</option>')
-    .join('');
-
-  let html = '<div class="bento-grid">' +
-    '<div class="bento-card highlight-cyan col-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
-      '<div>' +
-        '<div class="card-title" style="color:var(--accent-cyan)">IDEA → THUMBNAIL PIPELINE</div>' +
-        '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">💡 아이디어→썸네일 기획 보드</h2>' +
-        '<div class="card-subtext">market-demand · content-opportunity · audience-dna · success-patterns 4개 데이터를 근거로 다음 소재를 추천합니다' + (genAt ? ' · 마지막 생성: ' + genAt : '') + focusLabel + generatedByLabel + '</div>' +
-      '</div>' +
-      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
-        (focusOptions ?
-          '<select id="select-idea-focus-keyword" title="특정 키워드 하나에 집중해서 생성하고 싶으면 선택" style="max-width:220px">' +
-            '<option value=""' + (gIdeaBoardFocusKeyword ? '' : ' selected') + '>전체 데이터 참고 (기본)</option>' +
-            focusOptions +
-          '</select>' : '') +
-        '<button class="btn btn-magenta" id="btn-idea-board-generate">🔄 아이디어 후보 5개 생성</button>' +
-        '<button class="btn btn-outline" id="btn-idea-board-load-manual" title="Gemini 호출 없이, 대화창에서 Claude에게 직접 요청해 만든 초안을 불러옵니다(월간 지출 한도 초과 등으로 API가 막혔을 때)">✍️ Claude 초안 불러오기</button>' +
-      '</div>' +
-    '</div>' +
-    '<div id="idea-board-status" style="display:none; margin-top:0; padding:12px 16px; background:rgba(0,240,255,0.12); border:1px solid var(--accent-cyan); border-radius:10px; color:var(--text-bright); font-weight:700;" class="bento-card col-12">' +
-      '⏳ Gemini AI가 4개 데이터 소스를 근거로 소재 후보를 뽑는 중입니다... (약 5~10초 소요)' +
-    '</div>';
-
-  if (gIdeaBoardHistory.length) {
-    // 배너에는 최근 N개만 보여준다 — AI 추천에 넘기는 목록(producedTopics)은 이 화면 표시와
-    // 무관하게 항상 전체를 다 쓴다(2026-09-11, "많이 늘어나면 어떻게 처리됨?" 대응 — 무제한
-    // 칩 목록이 페이지를 다 차지하는 걸 막되, 실제 중복 방지 로직은 그대로 전부 반영).
-    const total = gIdeaBoardHistory.length;
-    const showAll = gIdeaBoardHistoryExpanded || total <= IDEA_BOARD_HISTORY_COLLAPSED_COUNT;
-    const visible = showAll ? gIdeaBoardHistory : gIdeaBoardHistory.slice(-IDEA_BOARD_HISTORY_COLLAPSED_COUNT);
-    const hiddenCount = total - visible.length;
-    html += '<div class="bento-card col-12" style="background:rgba(16,185,129,0.08);border:1px solid var(--accent-emerald)">' +
-      '<div class="card-title" style="color:var(--accent-emerald)">✅ 이미 만든 소재(' + total + '건) — 아래 후보 생성 시 자동으로 제외됨</div>' +
-      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
-      visible.map((h) =>
-        '<span class="tag-chip" style="font-size:12px">' + esc(h.episodeLabel || h.episodeSlug || '') + ' · ' + esc(h.topic || '') +
-        (h.status ? ' (' + esc(h.status) + ')' : '') +
-        (h.status === 'selected' ?
-          ' <button class="btn-idea-history-release" data-topic="' + esc(h.topic) + '" title="선택 해지 — 다시 추천 후보로 돌아갈 수 있게 됩니다(프로젝트 파일은 지우지 않음)" style="margin-left:4px;background:none;border:none;color:#ff5577;cursor:pointer;font-weight:800;font-size:13px;line-height:1">✕</button>' : '') +
-        '</span>'
-      ).join('') +
-      (hiddenCount > 0 ?
-        '<button class="btn btn-sm" id="btn-idea-history-toggle" style="font-size:12px">+' + hiddenCount + '개 더 있음 · 펼치기</button>' :
-        (total > IDEA_BOARD_HISTORY_COLLAPSED_COUNT ?
-          '<button class="btn btn-sm" id="btn-idea-history-toggle" style="font-size:12px">접기</button>' : '')) +
-      '</div>' +
-    '</div>';
-  }
-
-  if (!candidates.length) {
-    html += '<div class="bento-card col-12" style="padding:30px;text-align:center"><p class="card-subtext" style="justify-content:center">위 버튼을 눌러 데이터 기반 소재 후보 5개를 생성하세요.</p></div>';
-  } else {
-    if (gIdeaBoardCandidates.summaryNote) {
-      html += '<div class="bento-card col-12" style="font-size:12px;color:var(--text-muted)">📋 ' + esc(gIdeaBoardCandidates.summaryNote) + '</div>';
-    }
-    // 후보 목록은 생성된 시점의 스냅샷이라(서버/localStorage에 캐시됨), 생성 이후 실제로 제작이
-    // 끝나 idea-board-history.json에 새로 기록된 소재와 겹쳐도 저절로 안 걸러진다 — 그래서
-    // "이미 만든 소재" 배너에도 있고 후보 카드로도 여전히 뜨는 모순이 생겼다(2026-09-07, 사용자
-    // 지적). 새로 생성할 때만 걸러지는 프롬프트 단계와 별개로, 렌더할 때마다 매번 최신
-    // gIdeaBoardHistory와 대조해서 이미 제작된 후보는 선택 못 하게 표시한다.
-    const normalizeTopic = (s) => String(s || '').trim();
-    // status별로 라벨을 다르게 보여준다 — 'selected'는 "이 주제로 진행" 누른 직후 자동 기록된
-    // 상태(아직 대본/렌더 전이라 "제작됨"이라고 하면 거짓말)이고, 'scheduled'/'published'는 실제로
-    // 끝난 것. (2026-09-07, 선택 즉시 자동 기록 기능 추가하면서 상태 구분도 같이 반영.)
-    const historyStatusLabel = { selected: '🔄 이미 진행 중', scheduled: '✅ 이미 제작됨', published: '✅ 이미 공개됨' };
-    candidates.forEach((c) => {
-      const isSelected = !!(gIdeaBoardSelected && gIdeaBoardSelected.rank === c.rank && gIdeaBoardSelected.topic === c.topic);
-      const historyMatch = gIdeaBoardHistory.find((h) => normalizeTopic(h.topic) === normalizeTopic(c.topic));
-      // 방금 선택해서 history 상태가 아직 'selected'(막 고른 초기 단계)인 자기 자신만 잠금 표시
-      // 대상에서 뺀다 — 안 그러면 선택 즉시 자동 기록되는 이 항목이 스스로를 잠가서 "✅ 선택됨"
-      // 표시가 안 뜬다. 하지만 'scheduled'/'published'처럼 더 진행된 상태면, 지금 화면에서 계속
-      // 선택 중이더라도(업로드 패키지·예약까지 이미 끝났다는 뜻이므로) 그대로 잠금 표시를 보여준다
-      // (2026-09-07, "예약까지 하면 잠겨야 하는거 아님?"이라는 사용자 지적으로 반영).
-      const producedMatch = historyMatch && !(isSelected && historyMatch.status === 'selected') ? historyMatch : null;
-      const producedLabel = producedMatch ? (historyStatusLabel[producedMatch.status] || '🔒 이미 진행됨') : '';
-      html += '<div class="bento-card col-3" style="border:' + (isSelected ? '2px solid var(--accent-emerald)' : '1px solid var(--border-subtle)') + (producedMatch ? ';opacity:0.6' : '') + '">' +
-        '<div class="card-header">' +
-          '<span style="font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text-bright)">#' + esc(c.rank) + ' ' + esc(c.topic || '') + '</span>' +
-          (producedMatch ?
-            '<span class="badge badge-strong-pass" title="' + esc(producedMatch.episodeLabel || '') + (producedMatch.status ? ' · ' + esc(producedMatch.status) : '') + '">' + producedLabel + '</span>' :
-            '<span class="badge badge-pass">점수 ' + (c.score || 0) + '</span>') +
-        '</div>' +
-        '<div style="font-size:13px;color:var(--accent-amber);margin:8px 0">🎣 ' + esc(c.angleOrHook || '') + '</div>' +
-        '<div style="font-size:12px;color:var(--text-normal);margin-bottom:10px">' + esc(c.rationale || '') + '</div>' +
-        (c.targetAudience ? '<div style="font-size:11px;color:var(--accent-cyan);margin-bottom:6px">👥 ' + esc(c.targetAudience) + '</div>' : '') +
-        ((c.dataSourceRefs && c.dataSourceRefs.length) ?
-          '<div style="margin-bottom:10px">' + c.dataSourceRefs.map((r) => '<span class="tag-chip" style="font-size:10px">' + esc(srcLabel[r.source] || r.source) + ': ' + esc(r.detail || '') + '</span>').join('') + '</div>' : '') +
-        '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
-          '<span class="tag-chip">' + (c.suggestedFormat === 'SHORTS' ? '📱 쇼츠' : '📺 롱폼') + '</span>' +
-          (producedMatch ?
-            '<span class="badge badge-hold" style="cursor:default" title="' + esc(producedMatch.episodeLabel || '') + '(으)로 ' + esc(producedMatch.status || '') + ' — 선택 불가">' + producedLabel + '</span>' +
-            (producedMatch.status === 'selected' ?
-              '<button class="btn btn-sm btn-idea-history-release" data-topic="' + esc(producedMatch.topic || c.topic) + '" style="margin-left:6px;color:#ff5577;border-color:#ff5577">해지</button>' : '') :
-            '<button class="btn btn-sm ' + (isSelected ? 'btn-cyan' : 'btn-outline') + ' btn-idea-board-pick" data-rank="' + esc(c.rank) + '">' + (isSelected ? '✅ 선택됨' : '이 주제로 진행 →') + '</button>') +
-        '</div>' +
-      '</div>';
-    });
-  }
-
-  if (gIdeaBoardSelected) {
-    html += '<div class="bento-card highlight-magenta col-12">' +
-      '<div class="card-title" style="color:#ffccd9">선택된 기획</div>' +
-      '<h3 style="color:#fff;margin-top:4px">' + esc(gIdeaBoardSelected.topic || '') + '</h3>' +
-      '<div class="card-subtext">' + esc(gIdeaBoardSelected.rationale || '') + '</div>' +
-      (gIdeaBoardSelected.targetAudience ? '<div style="font-size:12px;color:var(--accent-cyan);margin-top:6px">👥 타겟 시청자층: ' + esc(gIdeaBoardSelected.targetAudience) + '</div>' : '') +
-      '<div style="margin-top:12px"><button class="btn btn-cyan" id="btn-idea-board-handoff">🎯 제목·썸네일 확정하러 가기</button></div>' +
-    '</div>';
-  }
-
-  html += '</div>';
-  return html;
-}
-
-function bindIdeaBoardEvents() {
-  const historyToggleBtn = document.getElementById('btn-idea-history-toggle');
-  if (historyToggleBtn) {
-    historyToggleBtn.onclick = () => {
-      gIdeaBoardHistoryExpanded = !gIdeaBoardHistoryExpanded;
-      renderCurrentTab();
-    };
-  }
-
-  const genBtn = document.getElementById('btn-idea-board-generate');
-  if (genBtn) {
-    genBtn.onclick = async () => {
-      const statusBox = document.getElementById('idea-board-status');
-      if (statusBox) statusBox.style.display = 'block';
-      genBtn.disabled = true;
-      const originalText = genBtn.innerHTML;
-      genBtn.innerHTML = '⏳ 생성 중...';
-      const focusSelect = document.getElementById('select-idea-focus-keyword');
-      const focusKeyword = focusSelect ? focusSelect.value : '';
-      try {
-        const res = await fetch('/api/idea-board/generate-candidates', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(focusKeyword ? {focusKeyword} : {}),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '아이디어 생성에 실패했습니다.');
-        gIdeaBoardCandidates = data;
-        gIdeaBoardGeneratedAt = data.generatedAt || new Date().toISOString();
-        gIdeaBoardFocusKeyword = focusKeyword || null;
-        gIdeaBoardSelected = null;
-        saveIdeaBoardState();
-        // 서버가 생성 직전에 "찜만 하고 제작으로 안 넘어간" 이력을 정리했을 수 있으니
-        // (2026-09-11 확인), 배너에 옛 개수가 남지 않도록 이력도 같이 새로 받아온다.
-        await hydrateIdeaBoardFromServer();
-        renderCurrentTab();
-        showToast(focusKeyword ? '💡 "' + focusKeyword + '" 키워드에 집중한 아이디어 후보 5개가 생성되었습니다!' : '💡 아이디어 후보 5개가 생성되었습니다!');
-      } catch (err) {
-        showToast('❌ 오류: ' + err.message);
-      } finally {
-        if (statusBox) statusBox.style.display = 'none';
-        genBtn.disabled = false;
-        genBtn.innerHTML = originalText;
-      }
-    };
-  }
-
-  const loadManualBtn = document.getElementById('btn-idea-board-load-manual');
-  if (loadManualBtn) {
-    loadManualBtn.onclick = async () => {
-      loadManualBtn.disabled = true;
-      const original = loadManualBtn.innerHTML;
-      loadManualBtn.innerHTML = '⏳ 불러오는 중...';
-      try {
-        const res = await fetch('/api/idea-board/manual-draft');
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '초안을 불러오지 못했습니다.');
-        // 실제 Gemini 생성 성공 흐름과 완전히 동일하게 처리한다 — 화면 입장에서는 출처가
-        // Gemini인지 Claude인지 몰라도 되고, 저장·이력 갱신·핸드오프 전부 똑같이 동작해야 한다.
-        gIdeaBoardCandidates = data;
-        gIdeaBoardGeneratedAt = data.generatedAt || new Date().toISOString();
-        gIdeaBoardFocusKeyword = data.focusKeyword || null;
-        gIdeaBoardSelected = null;
-        saveIdeaBoardState();
-        await hydrateIdeaBoardFromServer();
-        renderCurrentTab();
-        showToast('✍️ Claude가 작성한 초안을 불러왔습니다' + (data.focusKeyword ? ' ("' + data.focusKeyword + '" 집중)' : '') + '.');
-      } catch (err) {
-        showToast('❌ ' + err.message);
-      } finally {
-        loadManualBtn.disabled = false;
-        loadManualBtn.innerHTML = original;
-      }
-    };
-  }
-
-  document.querySelectorAll('.btn-idea-history-release').forEach((btn) => {
-    btn.onclick = async (ev) => {
-      ev.stopPropagation();
-      const topic = btn.dataset.topic;
-      if (!topic) return;
-      if (!confirm('"' + topic + '" 선택을 해지할까요? 다시 추천 후보에 나올 수 있게 됩니다 (이미 만든 프로젝트 파일이 있다면 지우지는 않습니다).')) return;
-      try {
-        const res = await fetch('/api/idea-board/history/release', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({topic}),
-        });
-        const data = await res.json();
-        if (res.ok && data.entries) {
-          gIdeaBoardHistory = data.entries;
-          // 해지한 소재가 현재 화면에 선택된 상태(gIdeaBoardSelected)였다면 선택도 같이 풀어준다
-          // — 안 그러면 해지했는데도 "✅ 선택됨" 표시가 그대로 남아 혼란스럽다.
-          if (gIdeaBoardSelected && gIdeaBoardSelected.topic === topic) {
-            gIdeaBoardSelected = null;
-            saveIdeaBoardState();
-          }
-          renderCurrentTab();
-          showToast('🔓 "' + topic + '" 선택을 해지했습니다.');
-        } else {
-          showToast('⚠️ 해지 실패: ' + (data.error || '알 수 없는 오류'));
-        }
-      } catch (err) {
-        showToast('⚠️ 해지 요청 실패: ' + err.message);
-      }
-    };
-  });
-
-  document.querySelectorAll('.btn-idea-board-pick').forEach((btn) => {
-    btn.onclick = async () => {
-      const rank = Number(btn.dataset.rank);
-      const cand = ((gIdeaBoardCandidates && gIdeaBoardCandidates.candidates) || []).find((c) => c.rank === rank);
-      if (!cand) return;
-      gIdeaBoardSelected = cand;
-      saveIdeaBoardState();
-      renderCurrentTab();
-      showToast('✅ "' + cand.topic + '" 소재를 선택했습니다.');
-      // "이 주제로 진행" 누른 그 순간 바로 idea-board-history.json에 기록한다 — 전에는 영상이
-      // 완전히 제작·예약될 때까지 기록이 안 남아서, 그 며칠 사이에 후보를 다시 생성하면 같은
-      // 소재가 또 추천될 수 있었다(2026-09-07, EP13이 실제로 며칠 동안 미등록 상태였던 걸
-      // 사용자가 발견). 선택 즉시 기록해서 그 공백을 없앤다 — 이후 대본 확정/렌더/예약 단계는
-      // production-rules.md에 적어둔 대로 각 단계 끝날 때 이 기록을 계속 갱신한다.
-      try {
-        const res = await fetch('/api/idea-board/history/register', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(cand),
-        });
-        const data = await res.json();
-        if (res.ok && data.entries) {
-          gIdeaBoardHistory = data.entries;
-          renderCurrentTab();
-        }
-      } catch (err) {
-        console.warn('Failed to register idea-board history:', err);
-      }
-    };
-  });
-
-  const handoffBtn = document.getElementById('btn-idea-board-handoff');
-  if (handoffBtn) {
-    handoffBtn.onclick = () => {
-      const sel = gIdeaBoardSelected;
-      if (!sel) return;
-      gAbFormat = sel.suggestedFormat === 'SHORTS' ? 'SHORTS' : 'LONGFORM';
-      gAbTopic = sel.topic;
-      // 예전엔 핸드오프가 gAbAudience를 아예 안 건드려서 이전 값이 그대로 남았다(사용자 지적,
-      // 2026-09-01) — 아이디어 후보의 targetAudience(이 소재에 맞춰 AI가 추천한 구체적 타겟)를
-      // 그대로 반영한다. 후보에 없으면(구버전 캐시 등) 채널 기본값으로 폴백.
-      gAbAudience = sel.targetAudience || '3060 성인 & 왕초보 영어 학습자';
-      // B/C는 "(변형안 B)" 같은 문자열을 붙인 가짜 제목을 채우지 않는다 — 실제로 정해진 게
-      // 없는데 진짜 제목처럼 보이면, 여기서 바로 진단을 돌렸을 때 그 가짜 문구를 채점해버린다
-      // (2026-09-01, 사용자 지적). 아직 안 정해졌으면 빈 칸으로 둬서 "🚀 진단"으로 받은 5종
-      // 추천 중 다른 걸 B/C에 각각 적용하는 게 다음 단계임을 명확히 한다.
-      // thumbnailCopy·badge 필드는 2026-09-13 폐지(썸네일 헤드라인 하나만 남기고, 하단 캡션·
-      // 포인트 뱃지는 시각적 스턴건 효과를 흐리는 군더더기로 판단해 제거) — 아이디어 보드의
-      // suggestedBadge 스키마 필드도 같이 폐지했으므로 여기서 더 이상 채울 값이 없다.
-      gAbVariants[0] = {id: 'A', title: sel.topic, imageUrl: '', thumbnailHeadline: '', visualConcept: '', isLocalFile: false};
-      gAbVariants[1] = {id: 'B', title: '', imageUrl: '', thumbnailHeadline: '', visualConcept: '', isLocalFile: false};
-      gAbVariants[2] = {id: 'C', title: '', imageUrl: '', thumbnailHeadline: '', visualConcept: '', isLocalFile: false};
-      gAbSelectedVariantTab = 'A';
-      gAbActiveFeedView = 'A';
-      // 이전 진단(gAbAiReport)은 완전히 다른 소재/시안을 평가한 결과라 그대로 두면 새 소재를 진단한
-      // 것처럼 오인된다(2026-09-02, 실제로 이 문제 때문에 혼란이 생겨서 발견) — 핸드오프 시 항상 비움.
-      gAbAiReport = null;
-      saveAbSimulatorState();
-      switchTab('tab-ab-simulator');
-      showToast('💡 기획 보드에서 선택한 소재가 A/B 시뮬레이터에 로드되었습니다!');
-    };
-  }
-
-  const runDemandBtn = document.getElementById('btn-idea-board-run-demand');
-  if (runDemandBtn) {
-    runDemandBtn.onclick = async () => {
-      runDemandBtn.disabled = true;
-      runDemandBtn.innerHTML = '⏳ 실행 중...';
-      try {
-        const res = await fetch('/api/market-demand/run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({})});
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '실행 실패');
-        gMarketDemand = data.data;
-        renderCurrentTab();
-      } catch (err) {
-        showToast('❌ 오류: ' + err.message);
-        runDemandBtn.disabled = false;
-      }
-    };
-  }
-
-  const runCoBtn = document.getElementById('btn-idea-board-run-co');
-  if (runCoBtn) {
-    runCoBtn.onclick = async () => {
-      runCoBtn.disabled = true;
-      runCoBtn.innerHTML = '⏳ 실행 중...';
-      try {
-        const res = await fetch('/api/content-opportunity/run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({})});
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '실행 실패');
-        gContentOpportunity = data.data;
-        renderCurrentTab();
-      } catch (err) {
-        showToast('❌ 오류: ' + err.message);
-        runCoBtn.disabled = false;
-      }
-    };
-  }
-}
 
 const btnRpa = document.getElementById('btn-open-studio-rpa');
 if (btnRpa) btnRpa.onclick = () => openStudioRpaModal();
@@ -9694,13 +6333,6 @@ const server = createServer(async (req, res) => {
       req.on('close', () => sseClients.delete(res));
       return;
     }
-    if (url.pathname === '/api/studio-downloads-info') {
-      return json(res, 200, {
-        downloadsDir,
-        studioExportDir,
-        active: true,
-      });
-    }
     if (url.pathname === '/api/studio-scan' && (req.method === 'POST' || req.method === 'GET')) {
       const catalog = await loadJson(catalogPath);
       const packaging = await loadJson(packagingRegistryPath) || {schemaVersion: 1, items: []};
@@ -9735,22 +6367,6 @@ const server = createServer(async (req, res) => {
       const image = await readFile(filePath);
       const isPng = filePath.endsWith('.png');
       res.writeHead(200, {'Content-Type': isPng ? 'image/png' : 'image/jpeg', 'Cache-Control': 'max-age=3600'});
-      res.end(image);
-      return;
-    }
-    if (url.pathname.startsWith('/api/temp-thumbnail/')) {
-      // A/B 시뮬레이터가 generateAiThumbnailImage로 생성해 output/temp-thumbnails/에 저장한
-      // 파일을 서빙한다 — 파일명은 서버가 직접 생성하므로(persistGeneratedImage) 임의 문자는
-      // 안 들어오지만, 공개 라우트인 만큼 경로 이탈만 방어적으로 한 번 더 막는다.
-      const filename = decodeURIComponent(url.pathname.slice('/api/temp-thumbnail/'.length));
-      if (!filename || filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
-        return json(res, 400, {error: '잘못된 파일명입니다.'});
-      }
-      const filePath = join(tempThumbDir, filename);
-      if (!existsSync(filePath)) return json(res, 404, {error: '생성된 썸네일 파일을 찾지 못했습니다.'});
-      const image = await readFile(filePath);
-      const contentType = filename.endsWith('.png') ? 'image/png' : filename.endsWith('.svg') ? 'image/svg+xml' : 'image/jpeg';
-      res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'max-age=3600'});
       res.end(image);
       return;
     }
@@ -9822,17 +6438,6 @@ const server = createServer(async (req, res) => {
       const data = await readFile(filePath);
       res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'no-cache', 'Last-Modified': projLastModified});
       res.end(data);
-      return;
-    }
-    if (url.pathname === '/api/presenter-reference') {
-      // 채널 기준 인물(public/brand/thumbnail-presenter-reference.jpg)을 대시보드에서 직접
-      // 보고 복사할 수 있게 서빙 — 제미나이 웹에서 수동 생성할 때 이 이미지를 같이 첨부해야
-      // 실제 생성 경로(레퍼런스 이미지 첨부)와 결과가 어긋나지 않는다(2026-09-01).
-      const refPath = join(projectDir, 'public', 'brand', 'thumbnail-presenter-reference.jpg');
-      if (!existsSync(refPath)) return json(res, 404, {error: '아직 기준 인물 이미지가 설정되지 않았습니다.'});
-      const image = await readFile(refPath);
-      res.writeHead(200, {'Content-Type': 'image/jpeg', 'Cache-Control': 'max-age=3600'});
-      res.end(image);
       return;
     }
     if (url.pathname === '/api/market-demand') {
@@ -10108,38 +6713,6 @@ const server = createServer(async (req, res) => {
       if (!catalog) return json(res, 404, {error: '저장된 YouTube 카탈로그가 없습니다. 먼저 /api/sync를 실행하세요.'});
       return json(res, 200, catalog);
     }
-    if (url.pathname === '/api/evaluations/48h') {
-      return json(res, 200, {evaluations: [], status: 'deprecated'});
-    }
-    if (url.pathname === '/api/video-reach' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      const packageId = String(body.packageId || '');
-      const window = String(body.window || '');
-      const videoId = String(body.videoId || '');
-      const impressions = body.impressions === '' || body.impressions == null ? null : Number(body.impressions);
-      const ctr = body.ctr === '' || body.ctr == null ? null : Number(body.ctr);
-      if (!/^[A-Za-z0-9._-]{3,100}$/.test(packageId)) return json(res, 400, {error: '패키징 ID가 올바르지 않습니다.'});
-      if (!['24h', '48h', '7d', '28d'].includes(window)) return json(res, 400, {error: '측정 시점이 올바르지 않습니다.'});
-      if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) return json(res, 400, {error: 'YouTube 영상 ID가 올바르지 않습니다.'});
-      
-      const packages = await loadJson(packagingRegistryPath) || {schemaVersion: 1, items: []};
-      let packageItem = packages.items.find((entry) => entry.id === packageId);
-      if (packageItem) {
-        packageItem.videoId = videoId;
-        packageItem.updatedAt = new Date().toISOString();
-        packages.updatedAt = packageItem.updatedAt;
-        await saveJson(packagingRegistryPath, packages);
-      }
-      const reach = await loadJson(videoReachManualPath) || {schemaVersion: 1, videos: {}};
-      reach.videos[videoId] ||= {videoId, windows: {}};
-      reach.videos[videoId].windows[window] = {impressions, ctr, packageId, recordedAt: new Date().toISOString()};
-      reach.updatedAt = new Date().toISOString();
-      await saveJson(videoReachManualPath, reach);
-      if (memoryDashboardCache?.videoReachManual?.videos) {
-        memoryDashboardCache.videoReachManual.videos[videoId] = reach.videos[videoId];
-      }
-      return json(res, 200, {ok: true, video: reach.videos[videoId], package: packageItem || null});
-    }
     if (url.pathname === '/api/insights/list') {
       const reports = [];
       if (existsSync(outputInsightsDir)) {
@@ -10333,7 +6906,49 @@ const server = createServer(async (req, res) => {
         // 끝난 에피소드도 "🔄 이미 진행 중" 배지에 계속 머물러 있는 버그가 있었다(2026-09-11
         // 확인 — "예약까지 했는데 이미 진행중이라는 배지를 달음").
         await syncIdeaBoardHistoryFromPackages();
-        return json(res, 200, {ok: true, sync: dashboard.sync, channel: dashboard.channel});
+        // 7일 판정 → 경쟁 채널 상태 반영을 동기화마다 자동으로 돌린다(2026-11-11, 자동화 우선 원칙).
+        // 전에는 경쟁 탭의 "D+7 자율 순환" 버튼을 눌러야만 돌았다. 실패해도 동기화 자체는 성공으로 둔다.
+        let d7 = null;
+        try {
+          // 판정 재료: 공개 10일이 지난 영상의 "공개 후 첫 7일 조회수"를 아직 안 받은 것만 받아 쌓는다(분석 API, 할당량 부담 없음).
+          const views7dFile = views7dPath(projectDir);
+          const views7dStore = await loadJson(views7dFile, {schemaVersion: 1, videos: {}});
+          const catalogForViews = await loadJson(catalogPath, {videos: []});
+          const todo = videosNeedingViews7d(catalogForViews.videos || [], views7dStore.videos || {}, new Date()).slice(0, 40);
+          for (const v of todo) {
+            const window7 = sevenDayWindow(v.publishedAt);
+            try {
+              const report = await analyticsQuery(accessToken, {...window7, metrics: 'views', filters: `video==${v.videoId}`});
+              const views7d = Number(report.rows?.[0]?.[0] ?? 0);
+              views7dStore.videos[v.videoId] = {views7d, ...window7, format: v.format || null, fetchedAt: new Date().toISOString()};
+            } catch (err) {
+              // 한 편이 실패해도 나머지는 계속 받는다. 실패한 편은 다음 동기화 때 다시 시도된다.
+            }
+          }
+          if (todo.length) {
+            views7dStore.updatedAt = new Date().toISOString();
+            await saveJson(views7dFile, views7dStore);
+          }
+          const marketDemand = await loadJson(marketDemandPath);
+          if (marketDemand) {
+            const catalog = await loadJson(catalogPath, {videos: []});
+            const now = new Date();
+            const result = runD7AutonomousCycle({
+              marketDemandData: marketDemand,
+              analyticsData: dashboard,
+              episodeOutcomes: loadEpisodeOutcomes(projectDir, now),
+              catalogVideos: catalog.videos || catalog,
+              now,
+            });
+            await saveJson(marketDemandPath, result.marketDemandData);
+            memoryMarketDemand = null;
+            lastMarketDemandTime = 0;
+            d7 = {applied: result.applied.length, hold: result.marketDemandData.d7AutonomousCycle.holdCount};
+          }
+        } catch (err) {
+          d7 = {error: err.message};
+        }
+        return json(res, 200, {ok: true, sync: dashboard.sync, channel: dashboard.channel, d7});
       } catch (err) {
         return json(res, err.status || 500, {error: err.message});
       }
@@ -10354,147 +6969,58 @@ const server = createServer(async (req, res) => {
 
       return json(res, 200, matrix);
     }
-    if (url.pathname === '/api/matrix/diagnose' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      // 사분면이 확정된 영상만 처방한다. 표본 부족·집계 중 영상은 근거 없는 Q4 조언이 나왔다(점검 1번).
-      if (!isDiagnosable(body.video)) {
-        return json(res, 409, {error: '사분면이 확정된 영상(Q1~Q4)만 처방합니다. 노출과 시청 데이터가 더 모이면 다시 시도하세요.'});
-      }
-      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-      if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY_HERE') {
-        return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
-      }
-      try {
-        const patternsStore = await loadJson(successPatternsPath, {entries: []});
-        const diagnosis = await diagnoseVideoWithGemini({
-          video: body.video,
-          geminiKey,
-          successPatterns: patternsStore.entries || [],
+    // ---- 실제 검색 피드 & 잘된 썸네일 (2026-11-11, 예전 A/B 시뮬레이터·AI CTR 예측기 대체) ----
+    // 패키지 목록: 아직 공개 안 된 편 먼저, 그다음 최근 공개 편. 썸네일 파일과 검색어 후보를 함께 준다.
+    if (url.pathname === '/api/thumb-feed/packages') {
+      const packagesDir = join(projectDir, 'output', 'upload-packages');
+      const dirs = existsSync(packagesDir) ? (await readdir(packagesDir, {withFileTypes: true})).filter((d) => d.isDirectory()) : [];
+      const items = [];
+      for (const d of dirs) {
+        const dir = join(packagesDir, d.name);
+        const isShorts = existsSync(join(dir, 'shorts-status.json'));
+        const status = await loadJson(join(dir, isShorts ? 'shorts-status.json' : 'status.json'), {});
+        const files = await readdir(dir).catch(() => []);
+        const thumbs = files.filter((f) => /^thumbnail[\w-]*\.(jpg|jpeg|png)$/i.test(f)).sort((a, b) => (a === 'thumbnail.jpg' ? -1 : b === 'thumbnail.jpg' ? 1 : a.localeCompare(b)));
+        if (!thumbs.length) continue;
+        const title = existsSync(join(dir, 'title.txt')) ? (await readFile(join(dir, 'title.txt'), 'utf8')).split(/\r?\n/)[0].trim() : d.name;
+        const tags = existsSync(join(dir, 'tags.txt')) ? (await readFile(join(dir, 'tags.txt'), 'utf8')).split(/[,\n]/) : [];
+        items.push({
+          name: d.name,
+          title,
+          format: isShorts ? 'SHORTS' : 'LONGFORM',
+          status: status.status || 'packaged',
+          when: status.publishedAt || status.scheduledFor || null,
+          thumbnails: thumbs.map((f) => ({file: f, url: '/api/upload-package-asset/' + encodeURIComponent(d.name) + '/' + encodeURIComponent(f)})),
+          queries: pickSearchQueries(tags, title),
         });
-        if (body.video?.quadrant === 'Q1' && body.video?.videoId) {
-          await upsertSuccessPatterns({
-            videoId: body.video.videoId,
-            title: body.video.title || '',
-            ctr: body.video.ctr ?? null,
-            retentionRate: body.video.retentionRate ?? null,
-            coreSuccessFactor: diagnosis.coreProblemOrSuccessFactor || '',
-            reusableHook: diagnosis.successPattern?.reusableHook || '',
-            reusableAnalogy: diagnosis.successPattern?.reusableAnalogy || '',
-          });
-        }
-        return json(res, 200, {ok: true, diagnosis});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
       }
+      items.sort((a, b) => (a.status === 'published') - (b.status === 'published') || String(b.when || '').localeCompare(String(a.when || '')));
+      return json(res, 200, {ok: true, packages: items});
     }
-    if (url.pathname === '/api/ab-simulator/competitors') {
-      const topic = url.searchParams.get('topic') || '';
-      const competitors = await getMockCompetitorVideos({ topic });
-      return json(res, 200, {ok: true, competitors});
-    }
-    if (url.pathname === '/api/ab-simulator/evaluate' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-      if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY_HERE') {
-        return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
-      }
+    // 실제 한국 유튜브 검색 결과(하루 캐시) + 잘된 썸네일(검색 결과 중 구독자 대비 조회 배수 순, 경쟁 채널 아웃라이어).
+    if (url.pathname === '/api/thumb-feed') {
+      const query = String(url.searchParams.get('query') || '').trim().slice(0, 80);
+      const format = url.searchParams.get('format') === 'SHORTS' ? 'SHORTS' : 'LONGFORM';
       try {
-        const [dnaStore, patternsStore, marketDemand] = await Promise.all([
-          loadJson(audienceDnaPath, {entries: []}),
-          loadJson(successPatternsPath, {entries: []}),
-          loadJson(marketDemandPath),
-        ]);
-        const evaluation = await evaluateThumbnailTitleVariants({
-          topic: body.topic,
-          variants: body.variants,
-          targetAudience: body.targetAudience,
-          format: body.format || 'LONGFORM',
-          geminiKey,
-          audienceDna: dnaStore.entries || [],
-          successPatterns: patternsStore.entries || [],
-          marketDemand,
+        const feed = await fetchSearchFeed({query, format, apiKey: process.env.YOUTUBE_API_KEY, cachePath: join(youtubeDataDir, 'thumb-feed-cache.json')});
+        const md = await loadJson(marketDemandPath, {trackedChannels: []});
+        const outliers = (md.trackedChannels || [])
+          .filter((c) => c.status !== 'blocked')
+          .flatMap((c) => (c.topOutliers || []).map((o) => ({...o, channelTitle: o.channelTitle || c.channelTitle})))
+          .filter((o) => o.videoId && (format === 'SHORTS') === (o.isShort === true))
+          .sort((a, b) => (Number(b.outlierRatio) || 0) - (Number(a.outlierRatio) || 0))
+          .slice(0, 12)
+          .map((o) => ({videoId: o.videoId, title: o.title, channelTitle: o.channelTitle, views: o.viewCount || null, outlierRatio: o.outlierRatio,
+            thumbnail: o.thumbnail || 'https://i.ytimg.com/vi/' + o.videoId + '/mqdefault.jpg'}));
+        return json(res, 200, {
+          ok: true,
+          query: feed.query, format, fetchedAt: feed.fetchedAt, fromCache: feed.fromCache,
+          feed: feed.items.filter((x) => (format === 'SHORTS') === x.isShort),
+          winners: rankWinners(feed.items, {format, ourChannelId: OUR_CHANNEL_ID}),
+          competitorOutliers: outliers,
         });
-        return json(res, 200, {ok: true, evaluation});
       } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    if (url.pathname === '/api/ab-simulator/thumbnail-prompt' && req.method === 'POST') {
-      // API로 직접 생성하지 않고, 사용자가 제미나이 웹(유료 구독)에 직접 붙여넣을 프롬프트만
-      // 돌려준다 — buildThumbnailPrompt는 순수 함수라 Gemini API 호출이 없고 비용도 안 든다.
-      const body = await readJsonBody(req);
-      try {
-        const built = buildThumbnailPrompt({
-          topic: body.topic || '',
-          variantKey: body.variantKey || 'A',
-          title: body.title || '',
-          thumbnailHeadline: body.thumbnailHeadline || '',
-          format: body.format || 'LONGFORM',
-          hasPersonReference: await hasPresenterReference(),
-          visualConcept: body.visualConcept || '',
-          closeUp: !!body.closeUp,
-        });
-        return json(res, 200, {ok: true, prompt: built.prompt});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    if (url.pathname === '/api/ab-simulator/generate-image' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-      try {
-        const result = await generateAiThumbnailImage({
-          prompt: body.prompt,
-          topic: body.topic || '',
-          variantKey: body.variantKey || 'A',
-          title: body.title || '',
-          thumbnailHeadline: body.thumbnailHeadline || '',
-          format: body.format || 'LONGFORM',
-          engine: body.engine || 'flux',
-          geminiKey,
-          visualConcept: body.visualConcept || '',
-          closeUp: !!body.closeUp,
-        });
-        return json(res, 200, {ok: true, ...result});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    // 드래그앤드롭/파일 업로드로 넣은 로컬 이미지를 서버 파일로 저장 — 예전엔 blob: URL +
-    // base64를 그대로 상태에 남겨서 (1) blob:은 그 브라우저 탭에서만 유효해 새로고침/다른 PC에서
-    // 못 열리고, (2) base64가 시안당 수 MB라 A/B/C 세 개를 다 채우면 상태 동기화 요청이 커져서
-    // 조용히 실패하기 쉬웠다(2026-09-02, 사용자가 "드래그앤드롭했는데 서버 연결이 안 되는 것 같다"고
-    // 지적해서 발견). AI 1-Click 생성(`persistGeneratedImage`)과 똑같이 파일로 저장해 짧은
-    // `/api/temp-thumbnail/...` URL만 상태에 남기도록 통일한다.
-    if (url.pathname === '/api/ab-simulator/upload-local-image' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      try {
-        const result = await persistGeneratedImage({
-          engineLabel: 'local-upload',
-          dataUrl: body.dataUrl,
-          variantKey: body.variantKey || 'A',
-        });
-        return json(res, 200, {ok: true, ...result});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    // A/B 시뮬레이터 상태도 서버 파일로 저장(아이디어 보드와 같은 이유, 2026-09-02).
-    if (url.pathname === '/api/ab-simulator/state' && req.method === 'GET') {
-      try {
-        const state = await loadJson(abSimulatorStatePath, {});
-        return json(res, 200, state || {});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    if (url.pathname === '/api/ab-simulator/state' && req.method === 'POST') {
-      try {
-        const body = await readJsonBody(req);
-        await writeFile(abSimulatorStatePath, JSON.stringify(body, null, 2), 'utf8');
-        return json(res, 200, {ok: true});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
+        return json(res, 502, {error: err.message});
       }
     }
     if (url.pathname === '/api/knowledge-db') {
@@ -10504,79 +7030,10 @@ const server = createServer(async (req, res) => {
       ]);
       return json(res, 200, {ok: true, audienceDna, successPatterns});
     }
-    if (url.pathname === '/api/knowledge-db/delete' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      const storeKey = body.store === 'successPatterns' ? successPatternsPath : body.store === 'audienceDna' ? audienceDnaPath : null;
-      if (!storeKey || !body.id) return json(res, 400, {error: 'store와 id가 필요합니다.'});
-      const store = await loadJson(storeKey, {schemaVersion: 1, entries: []});
-      store.entries = (store.entries || []).filter((e) => e.id !== body.id);
-      store.updatedAt = new Date().toISOString();
-      await saveJson(storeKey, store);
-      return json(res, 200, {ok: true});
-    }
     if (url.pathname === '/api/content-opportunity') {
       const data = await loadJson(contentOpportunityPath);
       if (!data) return json(res, 404, {error: 'content-opportunity.json 파일이 없습니다. npm run content-opportunity를 실행하세요.'});
       return json(res, 200, data);
-    }
-    if (url.pathname === '/api/content-opportunity/run' && req.method === 'POST') {
-      try {
-        await execAsync('node scripts/content-opportunity.mjs', {cwd: projectDir});
-        return json(res, 200, {ok: true, data: await loadJson(contentOpportunityPath)});
-      } catch (err) {
-        return json(res, 500, {error: `스크립트 실행 오류: ${err.message}`});
-      }
-    }
-    if (url.pathname === '/api/idea-board/generate-candidates' && req.method === 'POST') {
-      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-      if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY_HERE') {
-        return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
-      }
-      try {
-        const body = await readJsonBody(req);
-        const focusKeyword = String(body.focusKeyword || '').trim();
-        const [marketDemand, contentOpportunity, dnaStore, patternsStore, historyStore, catalog] = await Promise.all([
-          loadJson(marketDemandPath),
-          loadJson(contentOpportunityPath),
-          loadJson(audienceDnaPath, {entries: []}),
-          loadJson(successPatternsPath, {entries: []}),
-          loadJson(ideaBoardHistoryPath, {entries: []}),
-          loadJson(catalogPath, {videos: []}),
-        ]);
-
-        // "선택됨"(status: 'selected')인데 episodeSlug가 없는 항목 — 즉 "이 주제로 진행"은
-        // 눌렀지만 실제 제작(BRIEF.md·썸네일)으로는 안 넘어간 항목 — 은 새 후보를 다시 생성하는
-        // 이 행동 자체가 "그 선택은 안 쓰겠다"는 의사로 봐야 한다(2026-09-11, 사용자 지적:
-        // "이미 선택한 아이디어는 사용하지 않겠다로 판단되야하는거 아니야? 썸네일 제작으로 안
-        // 넘어갔으니"). 안 그러면 후보를 재생성할 때마다 예전에 찜만 하고 접은 소재가 영영
-        // "이미 제작됨" 취급을 받아 겹침 검사에 계속 걸리고, 실제로 그 소재가 다시 추천돼도
-        // AI가 어중간하게 피하려다 비슷한 각도로 또 내는 부작용도 있었다(예: "노베이스 입 근육
-        // 세팅" 소재가 살짝 다른 문구로 다시 나온 사례). episodeSlug가 있으면(실제 제작 시작)
-        // 절대 안 지운다 — 여기서 지우는 건 "찜만 하고 그친" 것만이다.
-        const abandoned = (historyStore.entries || []).filter((e) => e.status === 'selected' && !e.episodeSlug);
-        if (abandoned.length) {
-          historyStore.entries = (historyStore.entries || []).filter((e) => !(e.status === 'selected' && !e.episodeSlug));
-          historyStore.updatedAt = new Date().toISOString();
-          await saveJson(ideaBoardHistoryPath, historyStore);
-        }
-
-        const result = await generateTopicCandidates({
-          geminiKey, marketDemand, contentOpportunity,
-          audienceDna: dnaStore.entries || [],
-          successPatterns: patternsStore.entries || [],
-          producedTopics: historyStore.entries || [],
-          // catalog.json은 채널 소유자 권한으로 조회해서 예약/비공개 영상도 포함된다(2026-09-11
-          // 확인 — 방금 올린 EP15도 공개 전인데 이미 들어 있었음). /api/sync를 돌릴 때마다
-          // 최신화되므로 앞으로 올라가는 영상도 별도 작업 없이 계속 반영된다.
-          channelVideos: (catalog.videos || []).map((v) => ({title: v.title})),
-          // 아이디어 보드의 키워드 셀렉터에서 특정 시장 수요 키워드 하나를 골랐을 때만 채워짐
-          // (2026-09-13). 비어 있으면 기존과 동일하게 상위 8개 키워드를 두루 참고한다.
-          focusKeyword: focusKeyword || undefined,
-        });
-        return json(res, 200, {ok: true, ...result});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
     }
     // 아이디어 보드 상태(후보·선택)를 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서
     // 똑같은 유료 Gemini 호출을 불필요하게 반복해야 했음(2026-09-02, 사용자 지적으로 발견).
@@ -10595,18 +7052,6 @@ const server = createServer(async (req, res) => {
       try {
         const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
         return json(res, 200, history || {schemaVersion: 1, entries: []});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    // "✍️ Claude 초안 불러오기" 버튼용 — Claude가 대화 중 이 파일을 직접 써 두면(Gemini와 동일한
-    // candidates 스키마), 그걸 그대로 읽어와 화면에 띄운다. 없으면 404로 "아직 초안이 없다"를
-    // 명확히 알린다(빈 성공 응답으로 조용히 넘기면 버튼이 아무 반응 없어 보임).
-    if (url.pathname === '/api/idea-board/manual-draft' && req.method === 'GET') {
-      try {
-        const draft = await loadJson(ideaBoardManualDraftPath);
-        if (!draft) return json(res, 404, {error: '아직 Claude가 작성한 초안이 없습니다. 대화창에서 먼저 요청하세요.'});
-        return json(res, 200, draft);
       } catch (err) {
         return json(res, 500, {error: err.message});
       }
@@ -10654,32 +7099,6 @@ const server = createServer(async (req, res) => {
         return json(res, 500, {error: err.message});
       }
     }
-    // "🔄 이미 진행 중" 카드를 사용자가 직접 해지하는 엔드포인트(2026-09-11, 사용자 지적: "선택해서
-    // 썸네일 제작까지 갔다가 주제가 맘에 안 들어서 안 할 수도 있잖아"). 기존 자동 정리(위
-    // generate-candidates의 abandoned 필터링)는 "후보를 다시 생성할 때"만 걸려서, 그 전까진 카드가
-    // 계속 잠긴 채로 남아 있었다 — 이건 사용자가 원할 때 바로 풀 수 있게 하는 수동 창구.
-    // status가 'selected'인 것만 해지 가능하다 — 'scheduled'/'published'는 실제로 업로드
-    // 패키지·YouTube 예약까지 끝난 진짜 제작물이라, 여기서 실수로 지워지면 안 된다(그 단계를
-    // 취소하려면 실제 YouTube 예약 자체를 먼저 취소해야 하므로 이 버튼의 책임 범위 밖이다).
-    if (url.pathname === '/api/idea-board/history/release' && req.method === 'POST') {
-      try {
-        const body = await readJsonBody(req);
-        const topic = String(body.topic || '').trim();
-        if (!topic) return json(res, 400, {error: 'topic이 필요합니다.'});
-        const history = await loadJson(ideaBoardHistoryPath, {schemaVersion: 1, entries: []});
-        const idx = history.entries.findIndex((e) => String(e.topic || '').trim() === topic);
-        if (idx === -1) return json(res, 404, {error: '해당 소재를 이력에서 찾을 수 없습니다.'});
-        if (history.entries[idx].status !== 'selected') {
-          return json(res, 400, {error: '이미 예약/공개된 소재는 여기서 해지할 수 없습니다 (status: ' + history.entries[idx].status + ').'});
-        }
-        history.entries.splice(idx, 1);
-        history.updatedAt = new Date().toISOString();
-        await saveJson(ideaBoardHistoryPath, history);
-        return json(res, 200, {ok: true, entries: history.entries});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
     if (url.pathname === '/api/idea-board/state' && req.method === 'POST') {
       try {
         const body = await readJsonBody(req);
@@ -10688,44 +7107,6 @@ const server = createServer(async (req, res) => {
       } catch (err) {
         return json(res, 500, {error: err.message});
       }
-    }
-    if (url.pathname === '/api/brand-script/lint' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-      try {
-        const result = await lintBrandScript({
-          scriptText: body.scriptText,
-          topic: body.topic || '',
-          format: body.format || 'SHORTS',
-          apiKey: geminiKey,
-        });
-        return json(res, 200, { ok: true, result });
-      } catch (err) {
-        return json(res, 500, { error: err.message });
-      }
-    }
-    if (url.pathname === '/api/brand-script/export-scenes' && req.method === 'POST') {
-      const body = await readJsonBody(req);
-      const scenes = body.scenes || [];
-      const topic = body.topic || 'episode';
-      const format = body.format || 'SHORTS';
-      const outputScenesDir = join(projectDir, 'output', 'scenes');
-      if (!existsSync(outputScenesDir)) await mkdir(outputScenesDir, { recursive: true });
-      const safeTopic = (topic || 'scene').replace(/[\\/:*?"<>|]/g, '_').slice(0, 30);
-      const filename = `scenes_${safeTopic}_${Date.now()}.json`;
-      const filePath = join(outputScenesDir, filename);
-      await writeFile(filePath, JSON.stringify({
-        topic,
-        format,
-        exportedAt: new Date().toISOString(),
-        brandPersona: "이해하면 쉬운영어 Cyber-HUD",
-        sceneCount: scenes.length,
-        scenes,
-      }, null, 2), 'utf8');
-      return json(res, 200, { ok: true, filename, filePath });
-    }
-    if (url.pathname === '/api/classification') {
-      return json(res, 410, {error: '영상 수동 분류 기능이 폐지되었습니다.'});
     }
     if (url.pathname === '/logout') {
       if (existsSync(tokenPath)) await unlink(tokenPath);

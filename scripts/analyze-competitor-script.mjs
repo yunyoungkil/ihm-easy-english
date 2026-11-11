@@ -1,3 +1,4 @@
+import { GEMINI_TEXT_MODELS } from './gemini-models.mjs';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
@@ -218,7 +219,7 @@ ${transcriptData.fullText}
 \`\`\`
 `;
 
-  const models = ["gemini-2.5-flash", "gemini-flash-latest", "gemini-2.5-flash-lite"];
+  const models = [...GEMINI_TEXT_MODELS];
   let lastError = null;
 
   for (const model of models) {

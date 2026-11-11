@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "videos": {
+    "9d9m869BCTI": {
+      "views7d": 5,
+      "startDate": "2026-10-28",
+      "endDate": "2026-11-03",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:00.332Z"
+    },
+    "bPTAnjMT7xc": {
+      "views7d": 7,
+      "startDate": "2026-10-12",
+      "endDate": "2026-10-18",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:00.773Z"
+    },
+    "EDjmQmvGA1o": {
+      "views7d": 3,
+      "startDate": "2026-10-02",
+      "endDate": "2026-10-08",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:01.028Z"
+    },
+    "-UHrFcMRsEY": {
+      "views7d": 1,
+      "startDate": "2026-09-28",
+      "endDate": "2026-10-04",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:01.471Z"
+    },
+    "4of_mgeLazQ": {
+      "views7d": 203,
+      "startDate": "2026-09-26",
+      "endDate": "2026-10-02",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:01.715Z"
+    },
+    "ROks87qezuU": {
+      "views7d": 46,
+      "startDate": "2026-09-24",
+      "endDate": "2026-09-30",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:02.168Z"
+    },
+    "VwEkIUluszw": {
+      "views7d": 4,
+      "startDate": "2026-09-22",
+      "endDate": "2026-09-28",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:02.406Z"
+    },
+    "MdLjt4zvg8g": {
+      "views7d": 13,
+      "startDate": "2026-09-20",
+      "endDate": "2026-09-26",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:02.877Z"
+    },
+    "uqmVMRhT_1A": {
+      "views7d": 2,
+      "startDate": "2026-09-17",
+      "endDate": "2026-09-23",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:03.116Z"
+    },
+    "beKA35yvxdk": {
+      "views7d": 2,
+      "startDate": "2026-09-14",
+      "endDate": "2026-09-20",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:03.561Z"
+    },
+    "AcNSDMpkR_A": {
+      "views7d": 0,
+      "startDate": "2026-09-11",
+      "endDate": "2026-09-17",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:03.792Z"
+    },
+    "W7toujk6ER8": {
+      "views7d": 2,
+      "startDate": "2026-09-08",
+      "endDate": "2026-09-14",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:04.256Z"
+    },
+    "a2VrFQVjImI": {
+      "views7d": 6,
+      "startDate": "2026-09-05",
+      "endDate": "2026-09-11",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:04.497Z"
+    },
+    "nVrCk8IZFGA": {
+      "views7d": 1155,
+      "startDate": "2026-09-02",
+      "endDate": "2026-09-08",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:04.927Z"
+    },
+    "LdiZKCzKf0c": {
+      "views7d": 1151,
+      "startDate": "2026-08-31",
+      "endDate": "2026-09-06",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:05.190Z"
+    },
+    "3PkSwrFIcRE": {
+      "views7d": 1,
+      "startDate": "2026-08-29",
+      "endDate": "2026-09-04",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:05.608Z"
+    },
+    "Si88xXt-EQc": {
+      "views7d": 1258,
+      "startDate": "2026-08-27",
+      "endDate": "2026-09-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:05.875Z"
+    },
+    "7qSWJZqV14o": {
+      "views7d": 1197,
+      "startDate": "2026-08-25",
+      "endDate": "2026-08-31",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:06.283Z"
+    },
+    "sNNufVhkjT8": {
+      "views7d": 5,
+      "startDate": "2026-08-23",
+      "endDate": "2026-08-29",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:06.566Z"
+    },
+    "IfK4Itzgt6o": {
+      "views7d": 2164,
+      "startDate": "2026-08-14",
+      "endDate": "2026-08-20",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:06.979Z"
+    },
+    "5MiM1tIpQQk": {
+      "views7d": 1584,
+      "startDate": "2026-08-13",
+      "endDate": "2026-08-19",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:07.262Z"
+    },
+    "h-UUbuWQuag": {
+      "views7d": 1805,
+      "startDate": "2026-08-10",
+      "endDate": "2026-08-16",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:07.670Z"
+    },
+    "YoaCRYCWpws": {
+      "views7d": 26,
+      "startDate": "2026-08-09",
+      "endDate": "2026-08-15",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:07.965Z"
+    },
+    "dijhGjxOQOw": {
+      "views7d": 1980,
+      "startDate": "2026-08-09",
+      "endDate": "2026-08-15",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:08.353Z"
+    },
+    "M9ru03p3QoE": {
+      "views7d": 1647,
+      "startDate": "2026-08-09",
+      "endDate": "2026-08-15",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:08.667Z"
+    },
+    "tFe-cB__uns": {
+      "views7d": 12,
+      "startDate": "2026-08-09",
+      "endDate": "2026-08-15",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:09.033Z"
+    },
+    "ewv3GcXNLsE": {
+      "views7d": 428,
+      "startDate": "2026-08-08",
+      "endDate": "2026-08-14",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:09.346Z"
+    },
+    "FwBboz1jenA": {
+      "views7d": 454,
+      "startDate": "2026-08-08",
+      "endDate": "2026-08-14",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:09.716Z"
+    },
+    "hu4GNC7peTY": {
+      "views7d": 7,
+      "startDate": "2026-08-04",
+      "endDate": "2026-08-10",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:10.025Z"
+    },
+    "f4wkmIvplCc": {
+      "views7d": 3,
+      "startDate": "2026-07-29",
+      "endDate": "2026-08-04",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:10.404Z"
+    },
+    "Ha_7wdnFNmo": {
+      "views7d": 5,
+      "startDate": "2026-07-26",
+      "endDate": "2026-08-01",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:10.700Z"
+    },
+    "6nANjHxy2Lc": {
+      "views7d": 1645,
+      "startDate": "2026-07-22",
+      "endDate": "2026-07-28",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:11.096Z"
+    },
+    "BLinHY3p4yc": {
+      "views7d": 9,
+      "startDate": "2026-07-22",
+      "endDate": "2026-07-28",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:11.376Z"
+    },
+    "k8T7chDCj3Q": {
+      "views7d": 1157,
+      "startDate": "2026-07-20",
+      "endDate": "2026-07-26",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:11.776Z"
+    },
+    "F-o7EmQL3zY": {
+      "views7d": 1920,
+      "startDate": "2026-07-20",
+      "endDate": "2026-07-26",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:12.046Z"
+    },
+    "BsyRH8GWYJ4": {
+      "views7d": 8,
+      "startDate": "2026-07-19",
+      "endDate": "2026-07-25",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:12.479Z"
+    },
+    "r2dDUxflF0Y": {
+      "views7d": 1142,
+      "startDate": "2026-07-13",
+      "endDate": "2026-07-19",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:12.714Z"
+    },
+    "wHoTmrRbf6k": {
+      "views7d": 1002,
+      "startDate": "2026-07-12",
+      "endDate": "2026-07-18",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:13.180Z"
+    },
+    "4LQ9epVVahA": {
+      "views7d": 1141,
+      "startDate": "2026-07-11",
+      "endDate": "2026-07-17",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:13.427Z"
+    },
+    "7LrJxl9Mzi0": {
+      "views7d": 1104,
+      "startDate": "2026-07-11",
+      "endDate": "2026-07-17",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:13.869Z"
+    },
+    "FK-JWJ_7vq4": {
+      "views7d": 1396,
+      "startDate": "2026-07-11",
+      "endDate": "2026-07-17",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:30.384Z"
+    },
+    "cu3EB5OJdMM": {
+      "views7d": 7,
+      "startDate": "2026-07-10",
+      "endDate": "2026-07-16",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:30.970Z"
+    },
+    "-V1lwpEF7Ik": {
+      "views7d": 6,
+      "startDate": "2026-07-08",
+      "endDate": "2026-07-14",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:31.279Z"
+    },
+    "jRoYudL30DE": {
+      "views7d": 11,
+      "startDate": "2026-07-06",
+      "endDate": "2026-07-12",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:31.881Z"
+    },
+    "u2WOzu-0Hxc": {
+      "views7d": 8,
+      "startDate": "2026-07-02",
+      "endDate": "2026-07-08",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:32.179Z"
+    },
+    "JOyI0DWGzEM": {
+      "views7d": 4,
+      "startDate": "2026-06-30",
+      "endDate": "2026-07-06",
+      "format": "LONGFORM",
+      "fetchedAt": "2026-11-11T12:58:32.788Z"
+    },
+    "-oEAORG6oYE": {
+      "views7d": 195,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:33.071Z"
+    },
+    "1EtmmvExoLg": {
+      "views7d": 8,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:33.638Z"
+    },
+    "2xir5cjFcsg": {
+      "views7d": 171,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:33.969Z"
+    },
+    "2lae1vhl53s": {
+      "views7d": 197,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:34.546Z"
+    },
+    "dqUv-iFpy2g": {
+      "views7d": 343,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:34.909Z"
+    },
+    "hsqsL6vneCk": {
+      "views7d": 1173,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:35.488Z"
+    },
+    "6ojF8F0dJ2E": {
+      "views7d": 251,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:35.881Z"
+    },
+    "l_9PYWiORjE": {
+      "views7d": 364,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:36.448Z"
+    },
+    "Zh8_xYi_Gu0": {
+      "views7d": 1739,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-02",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:36.837Z"
+    },
+    "a1d1lxLd68k": {
+      "views7d": 305,
+      "startDate": "2026-06-25",
+      "endDate": "2026-07-01",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:37.404Z"
+    },
+    "w0xvwLiOX1U": {
+      "views7d": 313,
+      "startDate": "2026-06-25",
+      "endDate": "2026-07-01",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:37.933Z"
+    },
+    "d7lre1PlsEo": {
+      "views7d": 495,
+      "startDate": "2026-06-25",
+      "endDate": "2026-07-01",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:38.368Z"
+    },
+    "qb-vO3Qubec": {
+      "views7d": 2619,
+      "startDate": "2026-06-25",
+      "endDate": "2026-07-01",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:38.827Z"
+    },
+    "kfVJAJTmLpU": {
+      "views7d": 2371,
+      "startDate": "2026-06-24",
+      "endDate": "2026-06-30",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:39.323Z"
+    },
+    "1BslXwjEbOI": {
+      "views7d": 734,
+      "startDate": "2026-06-24",
+      "endDate": "2026-06-30",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:39.771Z"
+    },
+    "yu9jZesTwYs": {
+      "views7d": 2187,
+      "startDate": "2026-06-24",
+      "endDate": "2026-06-30",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:40.268Z"
+    },
+    "oZUhK2YKW8w": {
+      "views7d": 2252,
+      "startDate": "2026-06-24",
+      "endDate": "2026-06-30",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:40.711Z"
+    },
+    "XrjSTAggQc8": {
+      "views7d": 1261,
+      "startDate": "2026-06-24",
+      "endDate": "2026-06-30",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:41.121Z"
+    },
+    "KpVpLURLtzo": {
+      "views7d": 1271,
+      "startDate": "2026-06-24",
+      "endDate": "2026-06-30",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:41.656Z"
+    },
+    "r7QQlVQtA1Y": {
+      "views7d": 1070,
+      "startDate": "2026-06-23",
+      "endDate": "2026-06-29",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:42.069Z"
+    },
+    "_TEGdCgLmYE": {
+      "views7d": 27,
+      "startDate": "2026-06-23",
+      "endDate": "2026-06-29",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:42.618Z"
+    },
+    "dwe9WPIHi5k": {
+      "views7d": 1034,
+      "startDate": "2026-06-23",
+      "endDate": "2026-06-29",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:42.946Z"
+    },
+    "51fLblzetS0": {
+      "views7d": 512,
+      "startDate": "2026-06-23",
+      "endDate": "2026-06-29",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:43.562Z"
+    },
+    "7GJ6Iiy_THk": {
+      "views7d": 1301,
+      "startDate": "2026-06-23",
+      "endDate": "2026-06-29",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:43.887Z"
+    },
+    "GlOrcx3y1rE": {
+      "views7d": 1298,
+      "startDate": "2026-06-23",
+      "endDate": "2026-06-29",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:44.525Z"
+    },
+    "l8w3SlUnm3Y": {
+      "views7d": 21,
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-28",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:44.811Z"
+    },
+    "4EGKRM-m77w": {
+      "views7d": 20,
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-28",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:45.464Z"
+    },
+    "c7Mp5L8HSXE": {
+      "views7d": 18,
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-28",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:45.761Z"
+    },
+    "pghOYvcjpIg": {
+      "views7d": 1021,
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-28",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:46.410Z"
+    },
+    "xVXqGbOHpbM": {
+      "views7d": 803,
+      "startDate": "2026-06-21",
+      "endDate": "2026-06-27",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:46.710Z"
+    },
+    "qf38zv-SVNo": {
+      "views7d": 1212,
+      "startDate": "2026-06-21",
+      "endDate": "2026-06-27",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:47.350Z"
+    },
+    "LgEmfyQ41NI": {
+      "views7d": 343,
+      "startDate": "2026-06-21",
+      "endDate": "2026-06-27",
+      "format": "SHORTS",
+      "fetchedAt": "2026-11-11T12:58:47.666Z"
+    }
+  },
+  "updatedAt": "2026-11-11T12:58:47.666Z"
+}

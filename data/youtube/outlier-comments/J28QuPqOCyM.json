@@ -1,0 +1,896 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-11T13:12:06.111Z",
+  "video": {
+    "videoId": "J28QuPqOCyM",
+    "title": "이렇게 쉽다고? 영어 읽는 법 (박자.초성.받침)",
+    "channelTitle": "9988영어",
+    "channelId": "UC52RQtmlcTIb7Dg_L4cdnBw",
+    "publishedAt": "2026-06-14T10:30:00Z",
+    "viewCount": 537253,
+    "likeCount": 11332,
+    "commentCount": 1245,
+    "thumbnailUrl": "https://i.ytimg.com/vi/J28QuPqOCyM/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "id": 1,
+        "painPoint": "돌아서면 잊어버리는 백지 리셋 현상 (나이 탓으로 돌리는 좌절)",
+        "description": "80 다 되어가는 나이에 이해는 했지만 돌아서기도 전에 잊어버린다는 댓글처럼, 머리로만 이해하고 신체적/구강 구조에 체화되지 않아 며칠 뒤 리셋되는 고통.",
+        "userQuote": "나이가 있어 (80)다 되가니 이해는 했지만 돌아서기도 전에 잊어버리니 그것이 문제이지만"
+      },
+      {
+        "id": 2,
+        "painPoint": "학교 다닐 때 외우기만 하던 주입식 교육의 트라우마와 포기",
+        "description": "그냥 외우는 것은 힘들고 금방 까먹는데, '이렇게 쉬운 걸 왜 어려워서 포기했을까' 하며 과거의 학습법에 대한 깊은 아쉬움.",
+        "userQuote": "절대 그냥 외우는 것보다 이해하니 정말 좋아요 그냥 외울 때는 힘들었는데"
+      },
+      {
+        "id": 3,
+        "painPoint": "영어 간판이나 단어 하나도 제대로 못 읽던 왕초보의 답답함",
+        "description": "영어 읽기가 너무 힘들고 항상 간판 읽는 법이 궁금했으나, 기초가 전혀 없어 도전조차 하지 못했던 막막함.",
+        "userQuote": "항상 읽는법이 궁금했는데 아주 쉽고 재밌게 가르쳐 주셔서 배울 마음이 확 들었습니다"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "id": 1,
+        "question": "긴 단어나 복잡한 모음 뭉치는 도대체 어떻게 끊어 읽어야 혀가 꼬이지 않나요?",
+        "context": "모음 한 뭉치 끊어 읽기를 더 빨리 알았더라면 좋았겠다는 반응에서 비롯된 구체적 끊어 읽기 원리에 대한 갈증."
+      },
+      {
+        "id": 2,
+        "question": "받침으로 못 들어가는 자음들은 입안에서 소리를 어떻게 처리해야 원어민처럼 소리가 나나요?",
+        "context": "긴 단어 읽는 법과 받침으로 못 가는 단어를 알기 쉽게 설명해 주어 도움을 받았다는 반응의 연장선."
+      },
+      {
+        "id": 3,
+        "question": "70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 저장해 놓고 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
+        "context": "배우면 금방 까먹는데 머릿속에 잘 기억하도록 저장하고 싶다는 반복 학습법에 대한 구체적인 요청."
+      }
+    ],
+    "audienceVocabulary": [
+      "귀에 쏙쏙",
+      "머리에 쏙 들어오네요",
+      "속이 뻥 뚫리는 강의",
+      "알사탕 같은 기초",
+      "눈이 딱 트여요",
+      "돌아서면 잊어버림",
+      "아리까리한 부분",
+      "간판도 읽겠네"
+    ],
+    "whatWorked": [
+      {
+        "aspect": "복잡한 문법 용어 배제 및 직관적 비유",
+        "detail": "박자, 초성, 받침 등 우리에게 익숙한 한글 자모음 개념을 영어에 대입하여 초보자도 뇌에서 거부감 없이 즉각 이해하도록 만든 설명 방식"
+      },
+      {
+        "aspect": "또박또박 천천히 짚어주는 템포",
+        "detail": "모음과 자음을 하나씩 손으로 짚어가듯 차분하고 체계적으로 풀이하여, 귀가 열리고 눈이 뜨이게 만든 시각·청각적 안내"
+      },
+      {
+        "aspect": "나이와 상관없이 누구나 할 수 있다는 강력한 자신감 부여",
+        "detail": "70~80대 고령 학습자들도 '나도 할 수 있다'는 용기를 얻게 만드는 따뜻하고 친절한 톤앤매너"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "70대도 하루 만에 영단어 간판 줄줄 읽는 '박자·받침' 비밀 공식",
+        "영어를 못했던 게 아닙니다. '이 한글 원리'를 몰랐을 뿐입니다",
+        "돌아서면 까먹는 분 주목! 뇌에 평생 박히는 영어 읽기 3분 법칙"
+      ],
+      "hookThreeSeconds": "알파벳만 겨우 읽으신다고요? 영어를 못했던 게 아니라, 한국식으로 혀를 굴렸던 소리의 원리를 몰랐을 뿐입니다. 딱 3분만 들어보세요. 영어 간판이 한글처럼 읽히기 시작합니다.",
+      "shortsTrackAIdea": {
+        "concept": "영어 단어의 복잡한 모음을 한글 '받침과 박자' 개념으로 3초 만에 쪼개는 구강 구조 원리 해설",
+        "hookOneLiner": "영어 단어 길다고 쫄지 마세요. 딱 이 '3박자'만 지키면 혀가 알아서 굴러갑니다."
+      },
+      "shortsTrackBIdea": {
+        "concept": "원어민이 책 속 문장을 버리고 혀를 게으르게 굴려 축약해 발음하는 '호흡과 리덕션'의 실전 적용 상황극",
+        "hookOneLiner": "원어민들은 이 긴 단어를 왜 이렇게 뭉개서 말할까요? 게으른 혀의 비밀을 알려드립니다."
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgzSZ3zHY2irBzQ2bxZ4AaABAg",
+      "text": "쉽게 이해 할수있게 강의 하시네요 영어   유튜브중 최고  입니다",
+      "author": "@이신희-p9i",
+      "likeCount": 100,
+      "publishedAt": "2026-07-05T22:31:41Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgyqIwn5R06IDfmyDNx4AaABAg",
+      "text": "저도 70대 중반인데도 이해가 잘되네요 잘배웠습니다",
+      "author": "@현담허완식",
+      "likeCount": 54,
+      "publishedAt": "2026-07-07T08:51:09Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugwq2MUnHcj-8wn-bsB4AaABAg",
+      "text": "이해가 빠르도록 풀어서 설명을 잘 해  주시네요\n최고입니다~굿",
+      "author": "@우쭈쭈-o1f",
+      "likeCount": 114,
+      "publishedAt": "2026-07-01T22:23:29Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgxcYq3IWDNGdy9fxbB4AaABAg",
+      "text": "우연히 듣게 되었는데 깜짝 놀랐습니다\n아무도 이런 설명을 해 주신 분이 없었습니다 계속 듣겠습니다",
+      "author": "@김영숙-y3n",
+      "likeCount": 30,
+      "publishedAt": "2026-08-02T12:25:04Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz0cxqPu8ShNnUyNjF4AaABAg",
+      "text": "유튜브에서 최고의 강의심니다 저는70대할머니인데 어른들이 배워도 이해가되서 넘넘좋와요  선생님 감사합니다 자상하게 알여주셔서 정말 감사합니다 건강하세요",
+      "author": "@김수옥-o1r",
+      "likeCount": 195,
+      "publishedAt": "2026-07-04T08:37:21Z",
+      "replyCount": 25
+    },
+    {
+      "commentId": "Ugw5JB2sM1zikm5aTg14AaABAg",
+      "text": "선생님 대박 저한태는 선생님 스타일이 딱이네요 귀에쏙쏙 정말 혼자하기 좋으네요 창피할때도 있는데 자신감이 생기네요 감사...",
+      "author": "@백십오-b3q",
+      "likeCount": 75,
+      "publishedAt": "2026-07-10T21:13:20Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzV_wYnyxLkRRXNVG94AaABAg",
+      "text": "고맙습니다선생님 너무고맙습니",
+      "author": "@최옥자-j3v",
+      "likeCount": 27,
+      "publishedAt": "2026-07-17T13:44:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzrbp_DvGnkgH86v-54AaABAg",
+      "text": "머리에 쏙쏙들어오네요\n감사합니다 \n쌤 최고 입니다",
+      "author": "@급식의왕사티킹-j8d",
+      "likeCount": 43,
+      "publishedAt": "2026-07-05T12:00:27Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwFv-6b-JiYOJeyEkd4AaABAg",
+      "text": "영어 읽기가 힘들었는데 비법을 알려줘서 감사합니다.❤😊",
+      "author": "@함박꽂",
+      "likeCount": 25,
+      "publishedAt": "2026-07-17T22:02:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzL56CLyQxM-v2xPG54AaABAg",
+      "text": "선생님 대박이십니다 다른영어 배워도 이해가 안되는데 선생님 영어는 눈이 딱 뜨여요 !!!",
+      "author": "@수곰푸",
+      "likeCount": 0,
+      "publishedAt": "2026-11-11T11:00:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxtTZBaQDgODwGGX0h4AaABAg",
+      "text": "저는 65세인데.  기본을 전혀 모르는사람이라서 쉽게. 이해는 돼지 않지만 관심두고 배우면 잘 배울 수 있을것같아요. 정확하고 세심하게 가르처주셔서 감사드리고. 저같은사람들이 많이 배울수있도록 앞으로도 많은수고. 브탁드려요",
+      "author": "@방영숙-p9b",
+      "likeCount": 22,
+      "publishedAt": "2026-07-12T04:05:32Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugw-rAmDvSR0Z7eSEYF4AaABAg",
+      "text": "영어 초보들에겐 너무쉽게 배울수가 있으니 아주 신이납니다!!🎉🎉🎉🎉🎉",
+      "author": "@김준희-u7s",
+      "likeCount": 59,
+      "publishedAt": "2026-07-05T23:59:32Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgzTgGeOVSIIizbDOrh4AaABAg",
+      "text": "최고의 강의네요\n이해가 정말 쉽게 배워주네요🎉🎉🎉",
+      "author": "@영혼-w4t",
+      "likeCount": 25,
+      "publishedAt": "2026-07-09T10:47:37Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz5i30JK3nLmYzj5KR4AaABAg",
+      "text": "선생님 강의 최고 입니다  전 68세 할머니 입니다  절대 그냥 외우는것 보다  이해하니 정맣 좋아요 그냥 외울때는 힘 들었는데 정말 감사합니다",
+      "author": "@이여사사연방송국-c6n",
+      "likeCount": 1,
+      "publishedAt": "2026-11-06T11:14:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwYCsajtxK07mvwPaN4AaABAg",
+      "text": "짱. 이십니다\n70대 할머니인데 이해가 잘 되었어요. 감사합니다❤❤❤",
+      "author": "@박복순-d4p2p",
+      "likeCount": 3,
+      "publishedAt": "2026-07-18T01:56:08Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyHmHOgnZX3R-OcrBt4AaABAg",
+      "text": "배우면 금방까먹는데 저장해놓고 머리속에 잘 기억하도록 해보겠습니다 .선생님 강이 최고입니다.감사.",
+      "author": "@최용숙-v6p",
+      "likeCount": 1,
+      "publishedAt": "2026-11-01T10:25:07Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgytTymNjQ785585pyd4AaABAg",
+      "text": "감사합니다 \n재밉게또박또박\n설명해주시고\n이해하기싶게넘넘재밉습니다",
+      "author": "@황민자-i4q",
+      "likeCount": 3,
+      "publishedAt": "2026-10-24T08:31:55Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwuoq7G04fJSmTeyKl4AaABAg",
+      "text": "샘 넘~~이해가 잘되게 가르쳐 주셔서 쉽게 따라했네요~\n감사합니다~~",
+      "author": "@김영희-g6b",
+      "likeCount": 2,
+      "publishedAt": "2026-10-24T12:46:32Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwcPtUCn6laUzFT4xp4AaABAg",
+      "text": "지금까지 초보영어\n최고의 쌤 입니다\n이해하기 쉽고\n머리에 쏙~~~~~\n감사합니다🎉",
+      "author": "@하니-c7c",
+      "likeCount": 7,
+      "publishedAt": "2026-07-14T04:02:13Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzoS4_xYab6Fqvh8fR4AaABAg",
+      "text": "속이 뻥 뚫리는강의입니다\n넘 감사합니다\n이제야 영어 읽기가 쉬워졌어요~~^^ 꾸벅❤❤❤❤❤❤❤❤❤❤❤",
+      "author": "@날아가고파-k7g",
+      "likeCount": 1,
+      "publishedAt": "2026-11-08T15:05:43Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwkJikvALp9V3M7x_54AaABAg",
+      "text": "또 다른 방식 \n나에게는. 맞춤 입니다\n감사합니다",
+      "author": "@포세이돈-b7d",
+      "likeCount": 12,
+      "publishedAt": "2026-07-07T09:10:05Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxY8xzMduBjL0iW2h54AaABAg",
+      "text": "선생님 늦은 수고하셨습니다 고맙습니다 \n건강하세요",
+      "author": "@내청춘-q4g",
+      "likeCount": 2,
+      "publishedAt": "2026-07-18T18:48:28Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgybVvb3p0ia6uzd3x54AaABAg",
+      "text": "🙏",
+      "author": "@양승연-t9j",
+      "likeCount": 23,
+      "publishedAt": "2026-07-08T12:35:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx3bNtIO6CvET8Hs-N4AaABAg",
+      "text": "선생님 귀에 쏘옥 들어 옵니다 정말 헷갈렸는데 \n최고의 강의십니다❤❤❤❤❤",
+      "author": "@전영숙-d6s",
+      "likeCount": 1,
+      "publishedAt": "2026-10-31T12:32:08Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzqwA-ZIdemVQyxUAV4AaABAg",
+      "text": "선생님 오늘처음인데 너무\n쉽게 강의하시니 감동입니다~",
+      "author": "@이순복-x4c",
+      "likeCount": 10,
+      "publishedAt": "2026-07-17T23:46:29Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzIO9KfmL6LsdH0ifd4AaABAg",
+      "text": "이해가 쏙쏙 감사합니다\n이렇게 쉬운걸 어려워서 포기한 나를 뒤돌아봅니다\n감사합니다❤❤❤",
+      "author": "@윤수연-y7d",
+      "likeCount": 1,
+      "publishedAt": "2026-10-27T05:58:25Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwSVyn5WPx2oio1jZ14AaABAg",
+      "text": "박자로.영어단어를 읽을수있다니 대단한 비법 자신감뿜뿜입니다",
+      "author": "@sda-b4w",
+      "likeCount": 3,
+      "publishedAt": "2026-07-11T14:21:46Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwVwZud7JM581W-tfl4AaABAg",
+      "text": "이렇게 알아듣기 쉬운 방법으로 이해하기 쉽게 가르쳐 주신 선생님은 처음입니다.\n감사합니다.\n구독하고 공부하겠습니다.\n좋아요. 고맙습니다.",
+      "author": "@이루다-p1j",
+      "likeCount": 1,
+      "publishedAt": "2026-10-30T03:06:48Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyvTdHY0VvU29_C7a14AaABAg",
+      "text": "저도 70초반인데 어쩌다 이채널을 접했는데 진작 왜몰랐던것이 아쉬운데 이제라도 알았으니 열심히 공부 해 볼 마음이 생겼어요\n항상읽는법이궁금했는데 아주쉽고재밓게가르켜주셔서 배울 마음이 확 들었습니다 노트까지 준비해서 기록해가며 열심히  해보겠습니다\n샘~~감사합니다!!\n최고예요~~",
+      "author": "@유기숙-k4w",
+      "likeCount": 4,
+      "publishedAt": "2026-08-02T04:04:05Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy9HuqHu38T6_jMY514AaABAg",
+      "text": "선생님 넘넘좋고귀에쏙쏙 들어오고 눈에도잘들어오고 되풀이해주셔서 천천히 이해할수잇도록 최고십니다.감사하고 또감사해요.",
+      "author": "@경옥강-w9o",
+      "likeCount": 1,
+      "publishedAt": "2026-10-23T05:27:28Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy3CHepgv4-k_W6Gfp4AaABAg",
+      "text": "감사합니다 \n초보자에게 쉽게 알려주시니 고맙습니다",
+      "author": "@빛과소금-j1l",
+      "likeCount": 9,
+      "publishedAt": "2026-08-01T09:56:24Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwPpu9_r7Ke_2Cyr3h4AaABAg",
+      "text": "다른 유튜브강사님들과  다르게 너무도 세세히 이해하기쉽게 알려주시어 감사드립니다",
+      "author": "@박희숙-w3v",
+      "likeCount": 1,
+      "publishedAt": "2026-10-21T02:52:35Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz9UwUowDG7vR2yaaJ4AaABAg",
+      "text": "선생님!\n최고의 강의 감사합니다.\n계속해서 부탁드립니다.\n화이팅입니다.",
+      "author": "@Tv-ur3pp",
+      "likeCount": 6,
+      "publishedAt": "2026-07-14T04:36:45Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwxEyf3iJgjBQQ8pPN4AaABAg",
+      "text": "선생님께 박수🙏🙏🙏",
+      "author": "@g.j7723",
+      "likeCount": 1,
+      "publishedAt": "2026-11-11T04:59:36Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwLwXq0QaCdSkpgrCB4AaABAg",
+      "text": "선생님께서\n제일 상세하고\n머리에 쏙쏙 \n들어오게 알려\n주셔서 감사\n드립니다❤",
+      "author": "@최미-f1z",
+      "likeCount": 8,
+      "publishedAt": "2026-07-15T00:48:52Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyFL05v08pitDlB1Vh4AaABAg",
+      "text": "완전 이해 쉽게 알켜 주시네요\n완전 짱 샘이십니다^^",
+      "author": "@금경희-k9p",
+      "likeCount": 1,
+      "publishedAt": "2026-11-07T15:20:40Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxquATTh-PkelojPpx4AaABAg",
+      "text": "선생님너무잘가르치읍니더고맙읍니다",
+      "author": "@이경자-z7y",
+      "likeCount": 11,
+      "publishedAt": "2026-07-11T02:37:04Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgywYos2m8gr1asu5tV4AaABAg",
+      "text": "이렇게 정성드려 가르쳐주시니 너무너무 감사합니다",
+      "author": "@hyunsookbaek3861",
+      "likeCount": 1,
+      "publishedAt": "2026-08-29T04:28:39Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzYcGhzsp0JGGyV_cN4AaABAg",
+      "text": "너무 쉽고 잘이해가됩니다\n재미있네요\n고맙습니다~^^\n최고 입니다",
+      "author": "@정순최-u7z",
+      "likeCount": 11,
+      "publishedAt": "2026-07-14T22:51:24Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzBs1PyrIDBlLGcLYJ4AaABAg",
+      "text": "학교다닐때 영어를 이렇게 가르쳐주셨다면 영어를 사랑하지 않았을까요  완전 명강의\n 쌤 넘 감사드립니다\n대~~~~~~박 👍",
+      "author": "@민공주-n2u",
+      "likeCount": 1,
+      "publishedAt": "2026-10-14T11:49:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwFq3Ruv3970QTboNV4AaABAg",
+      "text": "긴단어 읽는법과  받침으로 못가는 단어\n알기쉽게 설명해 주셔서\n큰도움 받았습니다\n넘 감사드립니다",
+      "author": "@무지개-x2t",
+      "likeCount": 6,
+      "publishedAt": "2026-07-13T10:48:14Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxqMMRFnytH4FT8zkV4AaABAg",
+      "text": "선생님 60대인데 머리속에 쏙쏙 들어오네요 선생님 덕분에 용기가나네요감사합니다",
+      "author": "@Ok불주먹",
+      "likeCount": 2,
+      "publishedAt": "2026-08-28T23:26:28Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzyMfQ89w2uW7_2qtF4AaABAg",
+      "text": "칠팔십대도 이해할수있도록\n세심하게 가르쳐주심 감사합니다\n쌤 최고",
+      "author": "@이석희-g2p",
+      "likeCount": 4,
+      "publishedAt": "2026-07-15T02:20:11Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwLheh4YwlaFwAc0Rd4AaABAg",
+      "text": "선생님!\n최고이십니다!\n고맙습니다...",
+      "author": "@명희숙-d5u",
+      "likeCount": 1,
+      "publishedAt": "2026-09-24T18:16:23Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgynZgpRoUU93dKkTEx4AaABAg",
+      "text": "아주 간단하게 잘 해주시네요\n처음 알았어요\n감동. 입니다 ^^",
+      "author": "@구정숙-o1q",
+      "likeCount": 14,
+      "publishedAt": "2026-07-14T23:26:14Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzAlYqbKR193ouHy_d4AaABAg",
+      "text": "머리속에 쏙쏙 들어 오도록 설명 잘해 주셔서 시간이 짧게 느껴지네요,\n감사합니다!!",
+      "author": "@루비왕-o5t",
+      "likeCount": 2,
+      "publishedAt": "2026-07-28T21:43:15Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy0u4ZZZAMt-6Nzof94AaABAg",
+      "text": "늘 시도하다 포기했었는데\n할수있을거같아요\n눈이 뜨이고 귀가 열립니다\n너무너무 감사합니다~^~^",
+      "author": "@이순남-w4n",
+      "likeCount": 6,
+      "publishedAt": "2026-07-17T13:11:43Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgycLjy_OJtiGwXnIER4AaABAg",
+      "text": "선생님 처음으로 영어 들어보는 강위잘들었읍니다\n감사합니다\n또뵙겠읍니다",
+      "author": "@me1429",
+      "likeCount": 1,
+      "publishedAt": "2026-10-11T11:06:46Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxAVe8kR5Q-sPSTtaN4AaABAg",
+      "text": "아리까리 한부분  확실하게잘가릊쳐주시네요  감사합니다",
+      "author": "@임경숙-o4v",
+      "likeCount": 10,
+      "publishedAt": "2026-07-03T20:00:09Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyGc5f3al9_slRohBV4AaABAg",
+      "text": "70에 영어 배우는데\n쌤  설명이 쏙쏙 흡수됩니다\n감사합니다\n최고입니다",
+      "author": "@문정란-e8y",
+      "likeCount": 2,
+      "publishedAt": "2026-07-11T22:10:33Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz6d-UzYTZV3hEIi4d4AaABAg",
+      "text": "안녕하세요 이렇게까지 꼼꼼히 가리켜주시다니 넘감합니다",
+      "author": "@kellylee1632",
+      "likeCount": 3,
+      "publishedAt": "2026-07-19T19:16:30Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy15ZPrCrQFPoV2V0d4AaABAg",
+      "text": "너무 감사합니다  이해가 속속  됩니다 \n배우니까 너무 재미 있어요",
+      "author": "@Clara-sp3qs",
+      "likeCount": 1,
+      "publishedAt": "2026-10-24T12:57:47Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw3u3973T1crYL--Et4AaABAg",
+      "text": "너무 잘가르쳐 주시네요 이부분 확실히 몇번이고 꼭해야되겠네요",
+      "author": "@은총-x9e",
+      "likeCount": 6,
+      "publishedAt": "2026-07-11T00:53:20Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugzgszj7MiUCQfF5lKp4AaABAg",
+      "text": "초보자에게도 너무너무 쉽게 가르쳐 주셔서 감사합니다 정말로 존경스럽습니다",
+      "author": "@신승복-u7h",
+      "likeCount": 1,
+      "publishedAt": "2026-08-21T07:48:19Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugyn1HqylSLRHQqlNph4AaABAg",
+      "text": "선생님 차분히 체계적스로 쉽게  풀이해 주셔서 너무 감사드립니다\n최고의 설명  ~\n감탄합니다 나이가 있어  (80)다되가니 이해는 했지만 돌아서기도전에 잊어버리니 그것이 문제이지만 여지것중에 최고의 교육 경의를 표합니다",
+      "author": "@수현-t2k",
+      "likeCount": 9,
+      "publishedAt": "2026-07-29T11:35:17Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyKbAIYyxL5g5cUTNN4AaABAg",
+      "text": "자꾸만듣고싶은강의입니다. 너무감사합니다.",
+      "author": "@최숙자-u2j2s",
+      "likeCount": 1,
+      "publishedAt": "2026-08-31T04:00:36Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzHHyNiQrcPLFbXE8d4AaABAg",
+      "text": "훌륭한 강의 잘 들었습니다 감사합니다",
+      "author": "@오영순-g2c",
+      "likeCount": 20,
+      "publishedAt": "2026-07-02T14:10:50Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyAilX3OQKklSDw9pB4AaABAg",
+      "text": "선생님께서 아주 쉽고 정확하게 가르쳐주시니\n고맙고 감사합니다",
+      "author": "@조해면",
+      "likeCount": 1,
+      "publishedAt": "2026-08-29T03:31:33Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugx95PZuab361PHIztp4AaABAg",
+      "text": "쌩 \n너무 감사합니다 \n모음 자음을 하나씩\n짚어가면서 배우니\n귀에 쏙쏙 들어오네요\n수고하셨습니다",
+      "author": "@이순남-r4r",
+      "likeCount": 3,
+      "publishedAt": "2026-08-17T07:05:26Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzI4xmEL5HO1uNPFId4AaABAg",
+      "text": "정말 최고입니다 \n감사합니다",
+      "author": "@InC-q8b6j",
+      "likeCount": 2,
+      "publishedAt": "2026-10-24T12:49:26Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxjPijN_fSne0L8OW14AaABAg",
+      "text": "모음 한뭉치 끈어읽 기 빨리알앗더라면..\n다시 용기가 생깁니다.\n감사드립니다~",
+      "author": "@수니-x4u",
+      "likeCount": 4,
+      "publishedAt": "2026-07-21T00:23:23Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwijDkDQnTHt9rcz8h4AaABAg",
+      "text": "쉽게 이해가 가도록 설명해 주셔서 감사드립니다",
+      "author": "@오지혜-t6o",
+      "likeCount": 1,
+      "publishedAt": "2026-10-03T00:03:12Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyDWO67gy1TqcaNGsl4AaABAg",
+      "text": "쉽게 배울수 있게. 해주시니. 열심히. 배워 보겠습니다 ㆍ선생님 감사. 합니다",
+      "author": "@이향남-u8i",
+      "likeCount": 4,
+      "publishedAt": "2026-08-17T01:05:22Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxXAhNVVZWNW8yBxWB4AaABAg",
+      "text": "와~  대박. 영어공부의 길이 열리는 순간입니다.",
+      "author": "@최경애-r6i",
+      "likeCount": 1,
+      "publishedAt": "2026-10-24T22:44:19Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz7qKwEFZkfIZgCVB14AaABAg",
+      "text": "쵝오쵝오-\n초보자에게 정말 쉽게 이해가 되서 좋아요\n감사 합니다",
+      "author": "@황기숙-w7r",
+      "likeCount": 8,
+      "publishedAt": "2026-07-23T01:58:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyKVDV6SlJuaN4Nl4R4AaABAg",
+      "text": "계속연결된강의를듣고싶어요.\n정말이해하기쉽고재미있어요🎉🎉🎉",
+      "author": "@한번만들어보고싶네요",
+      "likeCount": 2,
+      "publishedAt": "2026-07-23T04:44:39Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwHlJ0pdxHWGtMdRwh4AaABAg",
+      "text": "선생님 강의 최고입니다. \n간판도 읽을수 있겠네요\n이런 강의 처음입니다.\n감사합니다~^^",
+      "author": "@상금김-j8y",
+      "likeCount": 7,
+      "publishedAt": "2026-07-10T02:25:27Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzbFcJ7-UIzVsmqNQh4AaABAg",
+      "text": "지금까지 모르던 영어 간판 읽기 알게돼서 너무 감사합니다",
+      "author": "@안정자-j1j",
+      "likeCount": 2,
+      "publishedAt": "2026-07-21T17:54:39Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwcdy8h8QwfGP2rzHl4AaABAg",
+      "text": "자세하게 참 잘 기르쳐 주시네요",
+      "author": "@이도경-e6r",
+      "likeCount": 51,
+      "publishedAt": "2026-07-02T05:59:10Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzFh195_4IG3OLmTwF4AaABAg",
+      "text": "명강의👍🏽👍🏼👍🏽👍🏾👍🏾👍🏿",
+      "author": "@안나62",
+      "likeCount": 2,
+      "publishedAt": "2026-11-05T14:18:33Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxXejnphGZ2vWnfXEd4AaABAg",
+      "text": "쌤요 이해가 잘가요 참좋았어요 고맙습니다",
+      "author": "@이영자-j4n",
+      "likeCount": 8,
+      "publishedAt": "2026-07-12T04:27:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw_z2feMc14wW2LfBt4AaABAg",
+      "text": "선생님은 정말이지 알사탕같아요\n기초를 너무도 알기쉽게 잘 가르치고\n초보들이 정말 좋아할것 같아요~\n어르신들 어릴적 알사탕을 좋아 했듯이~ 😅😅😅😅",
+      "author": "@수저-z6f",
+      "likeCount": 1,
+      "publishedAt": "2026-08-16T22:37:21Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzkQvvZu03Ka3IdK_R4AaABAg",
+      "text": "이해 되기 쉬워좋아요~!\n감사 합니다!♡♡",
+      "author": "@이화사랑이",
+      "likeCount": 12,
+      "publishedAt": "2026-07-12T02:00:09Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugx2a0KHmtlTMA2astR4AaABAg",
+      "text": "선생님 차근차근 설명하니까 귀에 쏙~ 들어옵니다.\n이해도 잘되구요.\n정말 감사합니다.",
+      "author": "@배베로니카-w9n",
+      "likeCount": 2,
+      "publishedAt": "2026-08-13T07:40:59Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwOMKqSaF_XKwTJr3V4AaABAg",
+      "text": "👍👍👍👍👍 최곱니다~^ ^!!!",
+      "author": "@김성옥-m9h",
+      "likeCount": 13,
+      "publishedAt": "2026-07-12T02:59:40Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyiD0DueLVg20siDIV4AaABAg",
+      "text": "귀에 쏙쏙 잘들어오게 강의  넘 잘하시네요  선생님 감사감사 합니다",
+      "author": "@박민숙-d8w",
+      "likeCount": 2,
+      "publishedAt": "2026-10-03T09:07:29Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxJTgmr23CRAS3BTyh4AaABAg",
+      "text": "최고예요 쏙쏙 머리에 들어옵니다",
+      "author": "@행복나무-v6l",
+      "likeCount": 10,
+      "publishedAt": "2026-07-01T08:53:07Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwIsLIqtb-xyNlOobZ4AaABAg",
+      "text": "복습 하면서 계속 보겠습니다.   감사합니다",
+      "author": "@김양숙-l8h",
+      "likeCount": 1,
+      "publishedAt": "2026-08-19T03:36:02Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzG0wFLTrdh_vvufnN4AaABAg",
+      "text": "최고의 유튜브 강의\n입니다~♡\n계속 올려 주시면\n감사하겠습니다~^^",
+      "author": "@hubodor",
+      "likeCount": 5,
+      "publishedAt": "2026-07-16T01:03:51Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxSidIRhB8TRboYCKJ4AaABAg",
+      "text": "70대인데 귀에 쏙쏙 들어오는 강의 good",
+      "author": "@찬찬히-b1f",
+      "likeCount": 2,
+      "publishedAt": "2026-08-19T22:21:25Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugx79Kjdq-VCdT_cEKt4AaABAg",
+      "text": "배우다가 어려워 포기 했는데 다시 시작 하고 싶은마음이 들어요",
+      "author": "@정숙양-t2x",
+      "likeCount": 3,
+      "publishedAt": "2026-07-16T06:47:05Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy_wY2Z2DR_Ug-2eLR4AaABAg",
+      "text": "머리에 쏙쏙들어오게 차분하게 아주 설명잘하시네요 설명짱이예요 수고하셨습니다",
+      "author": "@미진윤-q5y",
+      "likeCount": 1,
+      "publishedAt": "2026-08-17T08:33:02Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugyz7i3-vMk5_3vaGXx4AaABAg",
+      "text": "넘넘. 쉽게 잘 가르치심니다  최고입니다  넘넘. 감사드림니다",
+      "author": "@자원김-g9p",
+      "likeCount": 3,
+      "publishedAt": "2026-07-11T18:01:44Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw_Zii2SQxWVAHXMyZ4AaABAg",
+      "text": "천천히  해주시니까 \n 좋아요 🎉",
+      "author": "@hee4989",
+      "likeCount": 1,
+      "publishedAt": "2026-08-16T11:03:09Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgySnw1QefgsbiClKax4AaABAg",
+      "text": "최고중에 최곱니다 여기저기 최고라는데 아무리 배우려 해도 무슨 말인지  못알아듣겠고 난 왜 그런지  자존감만 무너졌는데 이제야 만났네요 감사드립니다 열심히 배우겠습니다",
+      "author": "@박미연-q5z",
+      "likeCount": 4,
+      "publishedAt": "2026-08-07T02:04:15Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwaeaiby-wX1P6TfeJ4AaABAg",
+      "text": "햇갈려서 읽기 어려웠던. 단어 오늘 확실하게 알게 되었습니다~  감사합니다~ 머리에 쏙쏙 들어오게 잘 가르쳐 주셔서 감사합니다~^^*",
+      "author": "@한정원-d5c",
+      "likeCount": 1,
+      "publishedAt": "2026-08-06T21:07:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzeqWfu-SHEZclyJxV4AaABAg",
+      "text": "감사합니다~~넘  상세하게 알려주셔서 ~~",
+      "author": "@이정숙-e1y",
+      "likeCount": 10,
+      "publishedAt": "2026-07-14T23:48:27Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz1sJAjCemRzBzFWPV4AaABAg",
+      "text": "정확하게 읽을수 있을것 같습니다 감사합니다 ^^",
+      "author": "@이정옥-v8n",
+      "likeCount": 1,
+      "publishedAt": "2026-08-06T10:51:25Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxRYvDHqMZSKekLqPt4AaABAg",
+      "text": "선생님  귀와 눈에 쏙쏙 들리고 보여요  감사합니다",
+      "author": "@김옥선-k9e",
+      "likeCount": 13,
+      "publishedAt": "2026-07-06T10:59:05Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgxiKPhXcfpRg_AV_u14AaABAg",
+      "text": "선생님~~🎉\n이렇게  체계적으로\n한자 한자를 짚어주심에\n눈이 뻔쩍 뜨이내요\n열심히 해볼꺼요",
+      "author": "@이주연-l8i",
+      "likeCount": 2,
+      "publishedAt": "2026-08-11T05:19:55Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugzj_Key1dg_3QEJseN4AaABAg",
+      "text": "너무좋은 강의였 습니다.\n감사합니다.",
+      "author": "@엄-r8b",
+      "likeCount": 8,
+      "publishedAt": "2026-07-14T15:09:40Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyiezaqczZtlwk861t4AaABAg",
+      "text": "머리속으로 쏙쏙 들어 옵니다\n감사합니다. 더 열심히 할게요",
+      "author": "@복순김-o5n",
+      "likeCount": 1,
+      "publishedAt": "2026-10-19T06:30:21Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwZM_9ADoLt9FNRu4V4AaABAg",
+      "text": "너무 쉽게 가르쳐 주시네요  특히 아에이오어  노래 아주 중독성 있네요  잘 배웠습니다  유트브에서 영어 가르쳐 주신분 중에 최고이십니다  구독  안할수가 없네요",
+      "author": "@ejs4354",
+      "likeCount": 4,
+      "publishedAt": "2026-10-12T22:52:23Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyyWl0mD3WF9npv-nZ4AaABAg",
+      "text": "이해가 돼게 가르켜 잘 배우겠슴니다.❤",
+      "author": "@최영옥-k5r",
+      "likeCount": 2,
+      "publishedAt": "2026-10-23T20:20:39Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyMz_6nnuuKJMnRkEh4AaABAg",
+      "text": "강사님 귀에 쏙쏙 들어오게 잘들었습니다..",
+      "author": "@김명순-n5e",
+      "likeCount": 4,
+      "publishedAt": "2026-07-10T05:20:54Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw7QJ7EKQCJQiy60wd4AaABAg",
+      "text": "세상에나 모음을\n기준으로 읽는걸\n처음알았어요\n이런식으로 배웠음\n영어 두려움이 없었을듯\n너무 감사합니다♡",
+      "author": "@튜율립-s8e",
+      "likeCount": 1,
+      "publishedAt": "2026-10-21T11:00:03Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugyfe4hPk64lyHDU4QR4AaABAg",
+      "text": "선생님 감사합니다.~~",
+      "author": "@김윤-m8o",
+      "likeCount": 10,
+      "publishedAt": "2026-07-12T22:16:20Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzqzT7iRROaI3ZDrqd4AaABAg",
+      "text": "아주 쉽게 설명해주셔서 이해가 쉽네요\n고맙습니다 ^^",
+      "author": "@김민자-b1m",
+      "likeCount": 1,
+      "publishedAt": "2026-08-17T06:23:46Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw2xna6Wj_trDLZ3lB4AaABAg",
+      "text": "선생님 정말 감사합니다 \n조금쉽게 이해할 수 있도록 노력하겠습니다",
+      "author": "@금자김-v6c",
+      "likeCount": 6,
+      "publishedAt": "2026-07-21T03:30:49Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyRoSQF0OTQI_WxedJ4AaABAg",
+      "text": "감사합니다 오늘도 화이팅 하세요 ㅎㅎ",
+      "author": "@이현진-u4t",
+      "likeCount": 1,
+      "publishedAt": "2026-08-06T06:19:13Z",
+      "replyCount": 1
+    }
+  ]
+}

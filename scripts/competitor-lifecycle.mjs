@@ -169,6 +169,10 @@ export function evaluateChannelLifecycle({
       } else {
         statusReason = `1회 성과 부진(최근 ${latestEpisodeRatio.toFixed(1)}배) 경고 누적`;
       }
+    } else {
+      // 보통 성과는 "연속" 부진을 끊는다 — 부진·보통·부진이 2회 연속 부진으로 세어지지 않게.
+      consecutiveFailures = 0;
+      statusReason = `최근 제작 성과 보통(중앙값 대비 ${latestEpisodeRatio.toFixed(1)}배)`;
     }
   }
 
@@ -221,146 +225,115 @@ export function syncAllTrackedChannels(marketDemandData = {}, catalogVideos = []
 }
 
 /**
- * 공개 7일(D+7) 시점의 영상을 찾아 성과 검증 및 키워드/채널 자율 순환을 1회 수행한다. (2026-11-11 자동화 원칙)
+ * 공개 7일(D+7)이 지난 우리 영상의 판정을 경쟁 채널 상태에 반영하고, 시청자 검색어를 키워드 풀에 넣는다.
+ * (2026-11-11 재작성 — 이전 버전은 조회수를 없는 칸에서 읽어 늘 0이었고, 중앙값이 없으면 100을 넣었고,
+ *  원천 채널을 제목 단어가 겹치는지로 짐작했다. 이제 판정은 planning-outcome.mjs 하나에서 오고,
+ *  원천 채널은 BRIEF.md "기획 근거" 칸에 적힌 채널 ID만 쓴다.)
+ *
+ * - 반영하는 판정: worked / neutral / failed 만. hold(표본 부족)·pending(7일 전)은 손대지 않고,
+ *   처리 완료로 표시하지도 않는다 — 표본이 쌓이면 다음 순환에서 다시 본다.
+ * - 공개 28일이 지난 편은 반영하지 않는다(그때 붙은 판정은 7일 판정이 아니다).
  * @param {object} params
- * @param {object} params.marketDemandData 시장 수요 데이터
- * @param {object} [params.analyticsData] 분석 데이터 (searchTerms, recentVideos, summary 등)
- * @param {object[]} [params.catalogVideos] 카탈로그 영상 목록
- * @param {Date} [params.now] 현재 시각
- * @returns {{ marketDemandData: object, evaluatedVideo: object|null, promotedChannels: string[], discoveredKeywords: string[] }}
+ * @param {object} params.marketDemandData 시장 수요 데이터(market-demand.json)
+ * @param {object} [params.analyticsData] 분석 데이터(searchTerms)
+ * @param {object[]} [params.episodeOutcomes] planning-outcome.mjs loadEpisodeOutcomes() 결과
+ * @param {object[]} [params.catalogVideos] 카탈로그 영상(소재 소진율 계산용)
+ * @param {Date} [params.now]
  */
 export function runD7AutonomousCycle({
   marketDemandData = {},
   analyticsData = {},
+  episodeOutcomes = [],
   catalogVideos = [],
   now = new Date(),
 }) {
-  const ourCatalog = Array.isArray(catalogVideos) && catalogVideos.length > 0
-    ? catalogVideos
-    : (Array.isArray(analyticsData.recentVideos) ? analyticsData.recentVideos : []);
-  const ourCatalogTitles = ourCatalog.map((v) => v.title || '').filter(Boolean);
-
+  const ourCatalogTitles = (catalogVideos || []).map((v) => v.title || '').filter(Boolean);
   const processedIds = new Set(marketDemandData.d7ProcessedVideoIds || []);
-  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+  const FINAL = new Set(['worked', 'neutral', 'failed']);
+  const MAX_AGE_DAYS = 28;
 
-  // 1. D+7 대상 영상 선별 (공개 7일 이상 경과 & 아직 처리 안 된 영상 우선)
-  const eligibleVideos = ourCatalog.filter((v) => {
-    if (!v.publishedAt) return false;
-    const pubTime = new Date(v.publishedAt).getTime();
-    return (now.getTime() - pubTime) >= SEVEN_DAYS_MS;
-  });
-
-  // 미처리 영상 중 가장 최근 영상 선택 (없으면 가장 최근 7일 경과 영상으로 fallback)
-  const targetVideo = eligibleVideos.find((v) => v.videoId && !processedIds.has(v.videoId)) || eligibleVideos[0] || null;
-
-  let targetRatio = 1.0;
+  let trackedChannels = Array.isArray(marketDemandData.trackedChannels) ? [...marketDemandData.trackedChannels] : [];
   const promotedChannels = [];
-  let evaluatedVideoSummary = null;
+  const applied = [];
 
-  if (targetVideo) {
-    const views = Number(targetVideo.views || targetVideo.viewCount || 0);
-    // 포맷 중앙값 계산 (없으면 기본값 100)
-    const medianViews = Number(analyticsData.summary?.medianViews || 100);
-    targetRatio = medianViews > 0 ? views / medianViews : 1.0;
+  // 1. 판정이 난 편마다, 그 편의 기획 근거에 적힌 채널에만 배수를 반영한다(오래된 편부터).
+  const ready = (episodeOutcomes || [])
+    .filter((o) => o.videoId && FINAL.has(o.verdict) && Number.isFinite(o.ratio))
+    .filter((o) => !processedIds.has(o.videoId) && (o.ageDays == null || o.ageDays <= MAX_AGE_DAYS))
+    .sort((a, b) => String(a.publishedAt || '').localeCompare(String(b.publishedAt || '')));
 
-    evaluatedVideoSummary = {
-      videoId: targetVideo.videoId || '',
-      title: targetVideo.title || '',
-      publishedAt: targetVideo.publishedAt || '',
-      views,
-      ratio: Math.round(targetRatio * 10) / 10,
-    };
-
-    if (targetVideo.videoId) {
-      processedIds.add(targetVideo.videoId);
-    }
-  }
-
-  // 2. 경쟁 채널 라이프사이클 평가 및 승격 (원천 채널 매핑)
-  let trackedChannels = Array.isArray(marketDemandData.trackedChannels)
-    ? [...marketDemandData.trackedChannels]
-    : [];
-
-  let bestMatchedChannel = null;
-  let maxOverlap = 0;
-
-  if (targetVideo && targetVideo.title) {
-    for (const ch of trackedChannels) {
-      for (const outlier of (ch.topOutliers || [])) {
-        const overlap = computeKeywordOverlap(targetVideo.title, outlier.title || '');
-        if (overlap > maxOverlap && overlap >= LIFECYCLE_CONFIG.EXHAUSTION_SIMILARITY) {
-          maxOverlap = overlap;
-          bestMatchedChannel = ch;
-        }
+  for (const o of ready) {
+    const sourceIds = new Set((o.sources?.competitors || []).map((c) => c.channelId));
+    const touched = [];
+    trackedChannels = trackedChannels.map((channel) => {
+      if (!sourceIds.has(channel.channelId)) return channel;
+      const before = channel.status;
+      const updated = evaluateChannelLifecycle({channel, ourCatalogTitles, latestEpisodeRatio: o.ratio, now});
+      if (updated.status === LIFECYCLE_STATUS.GOLD_MINE && before !== LIFECYCLE_STATUS.GOLD_MINE) {
+        promotedChannels.push(updated.channelId);
       }
-    }
+      touched.push(updated.channelTitle || updated.channelId);
+      return updated;
+    });
+    processedIds.add(o.videoId);
+    applied.push({label: o.label, videoId: o.videoId, verdict: o.verdict, ratio: o.ratio, channels: touched});
   }
 
-  trackedChannels = trackedChannels.map((channel) => {
-    const isMatched = bestMatchedChannel && channel.channelId === bestMatchedChannel.channelId;
-    const ratioToApply = isMatched ? targetRatio : null;
-    const updated = evaluateChannelLifecycle({
-      channel,
-      ourCatalogTitles,
-      latestEpisodeRatio: ratioToApply,
-      now,
-    });
-    if (isMatched && updated.status === LIFECYCLE_STATUS.GOLD_MINE) {
-      promotedChannels.push(updated.channelTitle || updated.channelId);
-    }
-    return updated;
-  });
+  // 2. 나머지 채널은 소재 소진율(명예 졸업)만 다시 계산한다.
+  trackedChannels = trackedChannels.map((channel) =>
+    evaluateChannelLifecycle({channel, ourCatalogTitles, now}));
 
-  // 3. 실제 시청자 검색어(searchTerms)에서 유입 키워드 자동 추출 & byKeyword 편입
-  const searchTerms = Array.isArray(analyticsData.searchTerms) ? analyticsData.searchTerms : [];
+  // 3. 실제 시청자 검색어를 키워드 풀에 넣는다. 점수는 지어내지 않는다 — 실제 검색 조회수만 붙인다.
+  //    (이전 버전은 수요 120점·기회 75점·검색 결과수 views×100을 고정값으로 넣었다.)
+  const searchTerms = Array.isArray(analyticsData?.searchTerms) ? analyticsData.searchTerms : [];
   const discoveredKeywords = [];
-  const existingByKeyword = Array.isArray(marketDemandData.byKeyword)
-    ? [...marketDemandData.byKeyword]
-    : [];
-  const keywordMap = new Map(existingByKeyword.map((k) => [k.keyword, k]));
-
-  // 노이즈 검색어 제외 필터
-  const searchStopWords = new Set(['이해하면', '쉬운영어', 'skidrow277', 'shorts', '구독']);
-
+  const keywordMap = new Map((Array.isArray(marketDemandData.byKeyword) ? marketDemandData.byKeyword : []).map((k) => [k.keyword, k]));
+  const searchStopWords = new Set(['이해하면', '쉬운영어', '이해하면 쉬운영어', 'skidrow277', 'shorts', '구독']);
   for (const item of searchTerms) {
     const term = (item.insightTrafficSourceDetail || item.query || item.term || '').trim();
-    if (!term || term.length < 2) continue;
-    if (searchStopWords.has(term.toLowerCase())) continue;
-
+    if (!term || term.length < 2 || searchStopWords.has(term.toLowerCase())) continue;
+    // 채널 이름이 섞인 검색어(예: "한 명씩 정리한다 - skidrow277")와 영어 학습과 상관없는 검색어(예: "먼치킨 고양이")는 뺀다.
+    if (term.toLowerCase().includes('skidrow') || term.includes('쉬운영어')) continue;
+    if (!/[a-z]/i.test(term) && !/(영어|발음|듣기|영단어|단어|파닉스|회화|읽기|스펠링|알파벳)/.test(term)) continue;
     discoveredKeywords.push(term);
-    if (!keywordMap.has(term)) {
-      // 신규 키워드 자동 발굴 편입
-      keywordMap.set(term, {
+    const existing = keywordMap.get(term);
+    keywordMap.set(term, existing
+      ? {...existing, source: existing.source || 'd7_search_terms', searchViews: Number(item.views) || existing.searchViews || null, lastD7SyncedAt: now.toISOString()}
+      : {
         keyword: term,
-        marketDemandScore: 120, // 검색 유입 검증 기본 점수
-        opportunityScore: 75.0,
-        totalResults: item.views ? item.views * 100 : 500,
-        videoCount: 5,
-        analyzedAt: now.toISOString(),
         source: 'd7_search_terms',
+        searchViews: Number(item.views) || null,
+        marketDemandScore: null,
+        opportunityScore: null,
+        totalResults: null,
+        videoCount: 0,
+        analyzedAt: now.toISOString(),
         topOutliers: [],
       });
-    } else {
-      const existing = keywordMap.get(term);
-      keywordMap.set(term, {
-        ...existing,
-        source: 'd7_search_terms',
-        lastD7SyncedAt: now.toISOString(),
-      });
-    }
-    if (discoveredKeywords.length >= 5) break; // 상위 5개까지만 선별
+    if (discoveredKeywords.length >= 5) break;
   }
 
-  const updatedByKeyword = Array.from(keywordMap.values());
+  // 4. 화면(벤치마킹 탭)이 읽을 판정 목록 — 7일이 지난 편만, 최근 공개 순.
+  const outcomesForView = (episodeOutcomes || [])
+    .filter((o) => o.verdict !== 'pending')
+    .sort((a, b) => String(b.publishedAt || '').localeCompare(String(a.publishedAt || '')))
+    .map((o) => ({
+      label: o.label, slug: o.slug, videoId: o.videoId, title: o.title || '', publishedAt: o.publishedAt || null,
+      verdict: o.verdict, ratio: o.ratio, reason: o.reason,
+      views: o.views ?? null, views7d: o.views7d ?? null, baselineViews7d: o.baselineViews7d ?? null,
+      competitors: o.sources?.competitors || [], audience: o.sources?.audience || null, hasSources: !!o.sources,
+    }));
 
   const updatedData = {
     ...marketDemandData,
     trackedChannels,
-    byKeyword: updatedByKeyword,
+    byKeyword: Array.from(keywordMap.values()),
     d7ProcessedVideoIds: Array.from(processedIds),
+    episodeOutcomes: outcomesForView,
     d7AutonomousCycle: {
       lastRunAt: now.toISOString(),
-      targetVideo: evaluatedVideoSummary,
+      applied,
+      holdCount: (episodeOutcomes || []).filter((o) => o.verdict === 'hold').length,
       promotedChannels,
       discoveredKeywords,
       status: 'completed',
@@ -368,10 +341,5 @@ export function runD7AutonomousCycle({
     lifecycleSyncedAt: now.toISOString(),
   };
 
-  return {
-    marketDemandData: updatedData,
-    evaluatedVideo: evaluatedVideoSummary,
-    promotedChannels,
-    discoveredKeywords,
-  };
+  return {marketDemandData: updatedData, applied, promotedChannels, discoveredKeywords};
 }

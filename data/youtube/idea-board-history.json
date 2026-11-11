@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-03T05:47:18.170Z",
+  "updatedAt": "2026-11-11T09:22:18.829Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -280,6 +280,110 @@
       "episodeLabel": null,
       "status": "selected",
       "selectedAt": "2026-10-02T12:03:57.962Z",
+      "producedAt": null
+    },
+    {
+      "topic": "과거형 -ED 끝소리 3가지 ([t]·[d]·[ɪd])",
+      "angleOrHook": "[집중 듣기] 영어 과거형 끝소리 3가지 비밀, 원리 하나로 귀가 뚫립니다 | -ED 발음 규칙",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep22-ed-ending",
+      "episodeLabel": "EP22",
+      "status": "published",
+      "selectedAt": "2026-11-11T09:22:18.769Z",
+      "producedAt": "2026-10-12T11:30:03Z"
+    },
+    {
+      "topic": "같은 자음 두 개는 한 번만 소리 난다",
+      "angleOrHook": "철자 2개 겹치는 영어 단어, 오늘 이 영상 하나로 평생 고민 끝냅니다 | 영어 파닉스 발음",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep23-double-consonant",
+      "episodeLabel": "EP23",
+      "status": "published",
+      "selectedAt": "2026-11-11T09:22:18.783Z",
+      "producedAt": "2026-10-28T13:00:32Z"
+    },
+    {
+      "topic": "장모음 [iː] vs 단모음 [ɪ] (sheep·ship)",
+      "angleOrHook": "Sheep과 Ship, 둘 다 '쉽'으로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep24-long-short-i",
+      "episodeLabel": "EP24",
+      "status": "published",
+      "selectedAt": "2026-11-11T09:22:18.792Z",
+      "producedAt": "2026-11-09T14:00:32Z"
+    },
+    {
+      "topic": "장모음 [uː] vs 단모음 [ʊ] (pool·pull)",
+      "angleOrHook": "Pool과 Pull, 둘 다 '풀'로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep25-pool-pull",
+      "episodeLabel": "EP25",
+      "status": "scheduled",
+      "selectedAt": "2026-11-11T09:22:18.800Z",
+      "producedAt": null
+    },
+    {
+      "topic": "R vs L 첫소리 구분 (right·light)",
+      "angleOrHook": "Right와 Light, 둘 다 '라이트'로 읽으셨나요? | 영어 R L 20쌍 반복 듣기",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep26-r-vs-l",
+      "episodeLabel": "EP26",
+      "status": "scheduled",
+      "selectedAt": "2026-11-11T09:22:18.808Z",
+      "producedAt": null
+    },
+    {
+      "topic": "-S·-ES 끝소리 3가지 ([s]·[z]·[ɪz])",
+      "angleOrHook": "영어 -S 끝소리 3가지, 이것만 알면 귀가 뚫립니다 | 24단어 반복 듣기",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep27-s-ending",
+      "episodeLabel": "EP27",
+      "status": "scheduled",
+      "selectedAt": "2026-11-11T09:22:18.815Z",
+      "producedAt": null
+    },
+    {
+      "topic": "F vs P 첫소리 구분 (fan·pan)",
+      "angleOrHook": "원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep28-f-vs-p",
+      "episodeLabel": "EP28",
+      "status": "scheduled",
+      "selectedAt": "2026-11-11T09:22:18.823Z",
+      "producedAt": null
+    },
+    {
+      "topic": "B vs V 첫소리 구분 (best·vest)",
+      "angleOrHook": "원어민이 B와 V를 0.1초 만에 구별하는 법 | B vs V 24쌍 반복 듣기",
+      "targetAudience": "",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [],
+      "episodeSlug": "ep29-b-vs-v",
+      "episodeLabel": "EP29",
+      "status": "scheduled",
+      "selectedAt": "2026-11-11T09:22:18.829Z",
       "producedAt": null
     }
   ]

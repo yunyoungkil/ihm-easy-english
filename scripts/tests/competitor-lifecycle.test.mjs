@@ -131,59 +131,78 @@ test('syncAllTrackedChannels: 전체 채널의 라이프사이클을 일괄 동�
   assert.ok(synced.trackedChannels[0].exhaustion != null);
 });
 
-test('runD7AutonomousCycle: D+7 영상 성과를 검증하고 황금 광산 승격 및 시청자 검색어를 키워드 풀에 자율 편입한다', () => {
-  const now = new Date('2026-11-18T12:00:00Z');
-  const catalog = [
-    {
-      videoId: 'v101',
-      title: 'F와 P 발음 0.1초 구별법',
-      publishedAt: '2026-11-10T12:00:00Z', // 8일 전 공개 (D+7 대상)
-      views: 350,
-    },
-  ];
-  const analyticsData = {
-    summary: { medianViews: 200 }, // 350 / 200 = 1.75배 (1.5배↑ 황금광산 승격 요건 충족)
-    searchTerms: [
-      { insightTrafficSourceDetail: 'F 발음 원리', views: 50 },
-      { insightTrafficSourceDetail: '이해하면', views: 30 }, // 불용어
-    ],
-  };
-  const marketDemand = {
-    trackedChannels: [
-      {
-        channelId: 'ch_fp',
-        channelTitle: 'FP영어',
-        status: LIFECYCLE_STATUS.CANDIDATE,
-        topOutliers: [
-          { title: 'F와 P 발음 차이' },
-          { title: 'V와 B 소리 비밀' }, // 미커버 잔여 소재
-        ],
-      },
-    ],
-    byKeyword: [],
-  };
+// ---- runD7AutonomousCycle (2026-11-11 재작성): BRIEF "기획 근거"로 원천 채널을 찾고, 표본 부족이면 손대지 않는다 ----
 
-  const result = runD7AutonomousCycle({
-    marketDemandData: marketDemand,
-    analyticsData,
-    catalogVideos: catalog,
-    now,
-  });
-
-  const updated = result.marketDemandData;
-  assert.equal(updated.d7AutonomousCycle.status, 'completed');
-  assert.equal(updated.d7AutonomousCycle.targetVideo.videoId, 'v101');
-  assert.equal(updated.d7AutonomousCycle.targetVideo.ratio, 1.8);
-  assert.equal(updated.trackedChannels[0].status, LIFECYCLE_STATUS.GOLD_MINE);
-  assert.ok(result.promotedChannels.includes('FP영어'));
-  assert.ok(updated.d7ProcessedVideoIds.includes('v101'));
-
-  // 시청자 검색어 'F 발음 원리'가 키워드 풀에 신규 편입되었는지 검증
-  const addedKw = updated.byKeyword.find((k) => k.keyword === 'F 발음 원리');
-  assert.ok(addedKw != null);
-  assert.equal(addedKw.source, 'd7_search_terms');
-  // 불용어 '이해하면'은 걸러졌는지 검증
-  assert.equal(updated.byKeyword.find((k) => k.keyword === '이해하면'), undefined);
+const ch = (id, over = {}) => ({channelId: id, channelTitle: id, status: LIFECYCLE_STATUS.CANDIDATE, topOutliers: [{title: '아직 안 다룬 소재 ' + id}], ...over});
+const outcome = (over = {}) => ({
+  label: 'EP30', videoId: 'v30', verdict: 'worked', ratio: 1.8, ageDays: 8, reason: '같은 형식 중앙값 대비 1.8배',
+  sources: {topic: 't', competitors: [{channelTitle: 'A', channelId: 'UC_A', videoId: 'x', sourceRatio: 5}], audience: null},
+  ...over,
+});
+const cycle = (outcomes, md, extra = {}) => runD7AutonomousCycle({
+  marketDemandData: {trackedChannels: [ch('UC_A'), ch('UC_B')], byKeyword: [], ...md},
+  episodeOutcomes: outcomes, catalogVideos: [], now: new Date('2026-12-01T00:00:00Z'), ...extra,
 });
 
+test('runD7AutonomousCycle: 통한 편의 기획 근거 채널만 황금 광산으로 올린다', () => {
+  const r = cycle([outcome()]);
+  const [a, b] = r.marketDemandData.trackedChannels;
+  assert.equal(a.status, LIFECYCLE_STATUS.GOLD_MINE);
+  assert.equal(b.status, LIFECYCLE_STATUS.CANDIDATE);
+  assert.deepEqual(r.promotedChannels, ['UC_A']);
+  assert.ok(r.marketDemandData.d7ProcessedVideoIds.includes('v30'));
+});
 
+test('runD7AutonomousCycle: 보류·대기 판정은 채널 상태를 바꾸지 않고 처리 완료로 표시하지도 않는다', () => {
+  const r = cycle([outcome({verdict: 'hold', ratio: 9, reason: '작은 표본'}), outcome({videoId: 'v31', verdict: 'pending', ratio: null})]);
+  assert.ok(r.marketDemandData.trackedChannels.every((c) => c.status === LIFECYCLE_STATUS.CANDIDATE));
+  assert.deepEqual(r.marketDemandData.d7ProcessedVideoIds, []);
+});
+
+test('runD7AutonomousCycle: 기획 근거가 없으면 제목이 비슷해도 어느 채널도 건드리지 않는다', () => {
+  const r = cycle([outcome({sources: null})]);
+  assert.ok(r.marketDemandData.trackedChannels.every((c) => c.status === LIFECYCLE_STATUS.CANDIDATE));
+});
+
+test('runD7AutonomousCycle: 이미 처리한 영상은 다시 반영하지 않는다', () => {
+  const r = cycle([outcome({verdict: 'failed', ratio: 0.2})], {d7ProcessedVideoIds: ['v30']});
+  assert.equal(r.marketDemandData.trackedChannels[0].consecutiveFailures || 0, 0);
+});
+
+test('runD7AutonomousCycle: 같은 채널 근거로 만든 두 편이 연달아 안 통하면 차단한다', () => {
+  const r = cycle([outcome({verdict: 'failed', ratio: 0.3}), outcome({videoId: 'v31', verdict: 'failed', ratio: 0.2})]);
+  assert.equal(r.marketDemandData.trackedChannels[0].status, LIFECYCLE_STATUS.BLOCKED);
+});
+
+test('runD7AutonomousCycle: 28일이 지난 편은 반영하지 않는다', () => {
+  const r = cycle([outcome({ageDays: 40})]);
+  assert.equal(r.marketDemandData.trackedChannels[0].status, LIFECYCLE_STATUS.CANDIDATE);
+});
+
+test('runD7AutonomousCycle: 판정 결과를 화면용으로 남긴다', () => {
+  const r = cycle([outcome(), outcome({videoId: 'v31', label: 'EP31', verdict: 'hold', ratio: 2, reason: '작은 표본', sources: null})]);
+  const saved = r.marketDemandData.episodeOutcomes;
+  assert.equal(saved.length, 2);
+  assert.deepEqual(saved.map((o) => o.verdict), ['worked', 'hold']);
+});
+
+test('runD7AutonomousCycle: 시청자 검색어는 지어낸 점수 없이 실제 검색 조회수만 붙여 편입한다', () => {
+  const r = cycle([], {}, {analyticsData: {searchTerms: [{insightTrafficSourceDetail: 'F 발음 원리', views: 50}, {insightTrafficSourceDetail: '이해하면', views: 30}]}});
+  const kw = r.marketDemandData.byKeyword.find((k) => k.keyword === 'F 발음 원리');
+  assert.equal(kw.source, 'd7_search_terms');
+  assert.equal(kw.searchViews, 50);
+  assert.equal(kw.marketDemandScore, null);
+  assert.equal(kw.opportunityScore, null);
+  assert.equal(r.marketDemandData.byKeyword.find((k) => k.keyword === '이해하면'), undefined);
+});
+
+test('evaluateChannelLifecycle: 보통 성과(0.5~1.5배)는 연속 부진 횟수를 0으로 되돌린다', () => {
+  const got = evaluateChannelLifecycle({channel: ch('UC_A', {consecutiveFailures: 1}), latestEpisodeRatio: 1.0});
+  assert.equal(got.consecutiveFailures, 0);
+});
+
+test('runD7AutonomousCycle: 영어 학습과 상관없는 검색어나 채널 이름이 들어간 검색어는 넣지 않는다', () => {
+  const terms = ['먼치킨 고양이', '한 명씩 정리한다 - skidrow277', '영어 발음', 'right light'];
+  const r = cycle([], {}, {analyticsData: {searchTerms: terms.map((t) => ({insightTrafficSourceDetail: t, views: 3}))}});
+  assert.deepEqual(r.marketDemandData.byKeyword.map((k) => k.keyword), ['영어 발음', 'right light']);
+});

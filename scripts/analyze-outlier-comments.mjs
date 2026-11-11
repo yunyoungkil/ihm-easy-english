@@ -11,6 +11,7 @@
 //   node scripts/analyze-outlier-comments.mjs --all
 //   node scripts/analyze-outlier-comments.mjs --dry-run
 
+import { GEMINI_TEXT_MODELS } from './gemini-models.mjs';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -193,7 +194,7 @@ ${commentsSnippet}
 반드시 JSON 코드 블록(\`\`\`json ... \`\`\`)으로 출력해 주세요.
 `;
 
-  const models = ["gemini-2.5-flash", "gemini-flash-latest", "gemini-2.5-flash-lite"];
+  const models = [...GEMINI_TEXT_MODELS];
   let lastError = null;
 
   for (const model of models) {

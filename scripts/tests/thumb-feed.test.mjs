@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync, rmSync} from 'node:fs';
+import {mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {pickSearchQueries, rankWinners, insertOurThumbnail, fetchSearchFeed, isShortDuration} from '../thumb-feed.mjs';
@@ -54,8 +54,8 @@ function fakeYouTube() {
     }
     if (u.pathname.endsWith('/videos')) {
       return {ok: true, json: async () => ({items: [
-        {id: 'v1', snippet: {title: 'T1', channelId: 'C1', channelTitle: 'A', publishedAt: '2026-11-01T00:00:00Z', thumbnails: {medium: {url: 'm1'}}}, statistics: {viewCount: '5000'}, contentDetails: {duration: 'PT8M'}},
-        {id: 'v2', snippet: {title: 'T2', channelId: 'C2', channelTitle: 'B', publishedAt: '2026-11-01T00:00:00Z', thumbnails: {medium: {url: 'm2'}}}, statistics: {viewCount: '100'}, contentDetails: {duration: 'PT40S'}},
+        {id: 'v1', snippet: {title: 'T1', channelId: 'C1', channelTitle: 'A', publishedAt: '2026-11-01T00:00:00Z', thumbnails: {medium: {url: 'm1'}, high: {url: 'h1'}, maxres: {url: 'x1'}}}, statistics: {viewCount: '5000'}, contentDetails: {duration: 'PT8M'}},
+        {id: 'v2', snippet: {title: 'T2', channelId: 'C2', channelTitle: 'B', publishedAt: '2026-11-01T00:00:00Z', thumbnails: {medium: {url: 'm2'}, high: {url: 'h2'}}}, statistics: {viewCount: '100'}, contentDetails: {duration: 'PT40S'}},
       ]})};
     }
     if (u.pathname.endsWith('/channels')) {
@@ -76,8 +76,10 @@ test('검색 결과를 받아 조회·구독자·길이를 붙이고, 24시간 �
     assert.equal(first.items.length, 2);
     assert.deepEqual(first.items[0], {
       videoId: 'v1', title: 'T1', channelId: 'C1', channelTitle: 'A', publishedAt: '2026-11-01T00:00:00Z',
-      thumbnail: 'm1', views: 5000, subs: 1000, durationSeconds: 480, isShort: false,
+      thumbnail: 'x1', views: 5000, subs: 1000, durationSeconds: 480, isShort: false,
     });
+    // 경쟁사 썸네일도 가장 큰 크기로 — 작은 미리보기(medium 320px)를 늘리면 흐려서 우리 것만 선명해 보이는 착시가 생겼다(2026-11-11)
+    assert.equal(first.items[1].thumbnail, 'h2');
     assert.equal(first.items[1].subs, null);
     assert.equal(first.items[1].isShort, true);
     assert.equal(first.fromCache, false);
@@ -90,6 +92,20 @@ test('검색 결과를 받아 조회·구독자·길이를 붙이고, 24시간 �
 
     await fetchSearchFeed({query: 'Right Light', apiKey: 'k', cachePath, now: new Date('2026-11-12T01:00:00Z'), fetchImpl: yt.fetchImpl});
     assert.equal(searchCalls(), 2);
+  } finally {
+    rmSync(dir, {recursive: true, force: true});
+  }
+});
+
+test('예전 형식(작은 썸네일) 캐시는 하루가 안 지났어도 새로 받는다', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'thumbfeed-'));
+  try {
+    const cachePath = join(dir, 'cache.json');
+    const now = new Date('2026-11-11T00:00:00Z');
+    writeFileSync(cachePath, JSON.stringify({schemaVersion: 1, queries: {'LONGFORM::q': {query: 'q', format: 'LONGFORM', fetchedAt: now.toISOString(), items: []}}}));
+    const yt = fakeYouTube();
+    const got = await fetchSearchFeed({query: 'q', apiKey: 'k', cachePath, now, fetchImpl: yt.fetchImpl});
+    assert.equal(got.fromCache, false);
   } finally {
     rmSync(dir, {recursive: true, force: true});
   }

@@ -63,7 +63,11 @@ export function parsePlanningSources(markdown = '') {
   const audienceMatch = audienceRaw.match(/^"(.+?)"/);
   const audience = audienceMatch ? audienceMatch[1] : null;
 
-  return {topic, competitors, audience};
+  // 쇼츠 형식(Track A 퀴즈형 / Track B 반전·발견형 / C 확장형) — 스킬 06 1절 8번(2026-11-11)
+  const trackRaw = valueOf('형식')[0] || '';
+  const track = trackRaw && !/^없음/.test(trackRaw) ? trackRaw : null;
+
+  return {topic, competitors, audience, track};
 }
 
 /**

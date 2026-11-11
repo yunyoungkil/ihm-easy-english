@@ -126,3 +126,9 @@ test('예약만 걸린 비공개 영상은 판정·기준·표본 어디에도 �
   assert.equal(a.sampleMedianViews7d, 500);
   assert.equal(a.verdict, 'worked');
 });
+
+test('기획 근거의 "형식" 줄(쇼츠 Track A/B/C)을 읽는다', () => {
+  const got = parsePlanningSources(brief('- 경쟁 영상: 경쟁 근거 없음\n- 형식: Track A 퀴즈형'));
+  assert.equal(got.track, 'Track A 퀴즈형');
+  assert.equal(parsePlanningSources(brief('- 경쟁 영상: 경쟁 근거 없음')).track, null);
+});

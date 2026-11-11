@@ -72,3 +72,22 @@ node scripts/generate-web-gemini-image.mjs \
 2. **로그인이 풀렸거나 세션이 만료되었을 때**:
    - 바탕화면의 **`Gemini-Automation`** 아이콘을 다시 더블클릭하여 구글 계정으로 재로그인합니다.
 
+---
+
+## 6. 무료 생성 도구 확장 (2026-11-11 사용자 알림)
+
+같은 `Gemini-Automation` 크롬 프로필(구글 로그인 1회)로 아래 사이트도 자동화한다. 상세 우선순위 표는 `AGENTS.md` "이미지 생성 2단계 원칙".
+
+| 사이트 | 쓸 곳 | 워터마크 | 상태 |
+|---|---|---|---|
+| https://aistudio.google.com | 이미지(워터마크 없음), 영상(`Omni 1.2 Flash`) | 이미지: 없음(사용자 알림, 미시험) · **영상(`Omni 1.2 Flash`): 눈에 보이는 워터마크 없음 — 확인됨 (2026-11-12)** (`720×1280` 9:16 5초 네 모서리 240×240 확대 확인, 비가시 SynthID 별도) | 1차 영상 수동/스크립트 시험 완료(EP24 두 번째 쇼츠). 자동화 스크립트 아직 없음. 비율 `Auto`/`16:9`/`9:16`(`1:1` 없음), 3~15초, 24fps, 무음 지시에도 오디오 트랙을 붙이므로 `<video muted>`/`-an` 필수 |
+| https://aistudio.google.com/new_music?model=lyria-3.5 | **배경음악(BGM 1순위)** (`Lyria 3.5`) | **오디오 워터마크 없음 — 확인됨 (2026-11-12)** (`44.1kHz` 스테레오 `192 kbps` MP3 `62.25초`, `0~33초` 평균 `-14.1 dB`, ID3 C2PA 메타데이터는 `ffmpeg -map_metadata -1`로 제거) | 1차 BGM 시험 및 EP24 두 번째 쇼츠 적용 완료(2026-11-12). API 키 미선택(`key_off`) 상태에서 완전 무료. 자동화 스크립트 아직 없음. **`Composer` 모드 + 긍정문만 작성**해야 후반 허밍 유입 방지 |
+| https://gemini.google.com/app | 이미지·영상 | **첫 장 이후 찍힘** — 2026-11-11 실제 확인(EP24 두 번째 쇼츠 썸네일 오른쪽 아래 별) | `scripts/generate-web-gemini-image.mjs` |
+| https://www.flowmusic.app | 배경음악(2순위)·효과음·음악 비디오 | **오디오 워터마크 없음 — 확인됨 (2026-11-12)** (`Clear Speech Study Beat.mp3` `48kHz` `167.4초`, `... → Download → MP3`) · 영상은 미시험 | 1차 BGM 시험 완료(EP24 두 번째 쇼츠에서는 `Lyria 3.5`로 교체). 자동화 스크립트 아직 없음. **크레딧 안에서만 무료**(2026-11-12 사용자 정정). 실제 크레딧은 왼쪽 아래 `💎` 점수(데뷔 XP)가 아니라 설정 메뉴(`Settings menu`) 안 `... credits`(시험 시 `10575 credits`). 커뮤니티 피드의 인기 음악·음악 비디오와 프롬프트를 참고 자료로 쓴다 |
+
+- 참고: https://flow.google.com 은 `PRO` 계정(1,050 크레딧) 팝업에서 **"거주 중인 지역에서는 워터마크 표시가 필수입니다"**가 명시적으로 확인됨(2026-11-12) → 영상 생성은 AI Studio `Omni 1.2 Flash`를 1순위로 둔다.
+- AI Studio·flowmusic 자동화 스크립트를 만들면 이 표의 상태 칸을 고친다.
+  - AI Studio `Lyria 3.5` UI 주의(2026-11-12 확인): 초기 빈 화면에서는 `button[data-testid="text-input"]`을 먼저 눌러 에디터를 열고, 생성 버튼은 `button.ctrl-enter-submit`을 사용한다. `Composer` 모드의 시간 입력칸은 `.fill()` 대신 `boundingBox()` 클릭 후 `Ctrl+A` → `insertText`가 안정적이다.
+  - flowmusic UI 주의(2026-11-12 확인): Radix UI 드롭다운(`... → Download → MP3`)은 일반 `.click()`이 멈출 수 있어 `boundingBox()` 기반 `page.mouse.click`이나 DOM `el.click()`을 쓰고, `/__api/download/audio/<id>` 직접 `fetch`는 세션 인증 없이 403이 나므로 응답 가로채기·CDP 다운로드를 사용한다.
+- 처음 쓸 때 실제로 워터마크가 없는지, 무료가 맞는지 확인해 "확인됨"과 날짜를 적는다.
+- flowmusic 자동화는 생성 전에 설정 메뉴 안 남은 크레딧을 읽어, 모자라면 만들지 않고 다음 날로 넘긴다(유료 결제 버튼은 누르지 않는다).

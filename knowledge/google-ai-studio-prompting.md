@@ -45,6 +45,22 @@
   이 채널은 1920x1080 출력이므로 B롤은 **8초로 고정**할 것.
 - `aspect_ratio`: `"16:9"`(기본, 가로) 또는 `"9:16"`(세로).
 
+### AI Studio `Omni 1.2 Flash` (`gemini-omni-1.2-flash`) 웹 실측 특성 (2026-11-12)
+
+EP24 두 번째 쇼츠 1번 장면(`classroom_board.jpg`)을 5초·720p·`9:16`으로 생성·검증해 확인한 Veo와의 차이점:
+- **컨트롤 옵션**: 비율은 `Auto`, `16:9`, `9:16` 3가지만 지원(**`1:1` 없음**), 길이는 `3~15초`, 해상도는 `360p / 720p / 1080p / 4k`, 프레임레이트는 **`24fps` 고정**.
+- **워터마크**: 네 모서리 240×240 확대 검수 결과 **눈에 보이는 워터마크 없음**(비가시 SynthID는 별도). 참고로 같은 날 `flow.google.com`은 `PRO` 계정 팝업에 *"거주 중인 지역에서는 워터마크 표시가 필수입니다"*가 명시됨.
+- **오디오 강제 포함**: `"Silent, no background music, no dialogue."`를 명시해도 `48kHz stereo AAC` 트랙을 함께 생성한다(시험 영상에서 지시봉 두드림 소리 `peak -9.6 dB` 실측). HyperFrames에 넣을 때는 `<video muted>` 또는 `ffmpeg -an` 제거 필수.
+- **카메라 움직임 편향**: `"slow, subtle camera push-in"`처럼 약하게 적어도 5초 후반 줌인이 꽤 강하게 들어가 프레임 끝 피사체(손끝 등)가 잘릴 수 있다. 가장자리 여백이 넉넉한 16:9/9:16 배경에만 쓰거나 `"static camera, locked tripod"`로 움직임을 강하게 제한한다.
+
+### AI Studio `Lyria 3.5` (`new_music?model=lyria-3.5`) 음악 생성 실측 특성 (2026-11-12)
+
+EP24 두 번째 쇼츠 BGM을 `aistudio.google.com/new_music?model=lyria-3.5`에서 `Text` 모드와 `Composer` 모드로 각각 생성해 전 구간 청취·음량 실측한 결과:
+- **무료 생성 및 출력 규격**: API 키를 선택하지 않은 웹 플레이그라운드(`key_off`)에서 무료로 생성되며, **44.1kHz 스테레오 `192 kbps` MP3**가 나온다(같은 날 비교한 `flowmusic.app` `128~133 kbps`보다 음질이 높음). 내장된 ID3 C2PA 매니페스트(~5.5 KB)는 `ffmpeg -i raw.mp3 -map 0:a:0 -c:a copy -map_metadata -1 track.mp3`로 떼어 깔끔한 오디오 스트림만 남긴다. 오디오 워터마크 없음.
+- **`Text` 모드 주의 (부정어 역효과 및 길이 초과)**: `Text` 모드에서 `"No vocals, no humming"` 같은 부정어를 적으면 오히려 모델이 단어를 인식해 1분 이후 구간(1차 테스트 `1:07~1:44`)에 허밍(`"음~ 음~"`)이 섞일 수 있다.
+- **`Composer` 모드 + 긍정문 필수 (검증된 해법)**: **`Composer` 모드**에서 구간별 블록(`Intro 0:00–0:06`, `Verse 0:06–0:31`, `Outro 0:31–0:38` 등)을 나누고 `"Instrumental only, 95 BPM, solo felt piano with soft muted drums..."`처럼 **원하는 악기·무드만 긍정문으로 적으면** `"vocals"`/`"humming"` 금지어 없이 62.25초 전 구간 순수 반주로 안정 생성됨을 확인했다. 요청 길이(38초)보다 길게(약 62초) 나올 수 있으나 초입이 부드럽고 음량이 균일(`0~33초` 평균 `-14.1 dB`, `peak 0.0 dB`)해 기존 쇼츠 `data-volume="0.06"` 및 `carve.mjs`와 바로 맞물린다.
+- **웹 UI 자동화 선택자**: 빈 화면에서는 `button[data-testid="text-input"]`을 눌러 입력란을 열고, 생성 버튼은 `button.ctrl-enter-submit`을 사용한다. `Composer`의 시간 입력칸은 `.fill()` 대신 좌표 클릭(`boundingBox()` + `mouse.click()`) 후 `Ctrl+A` → `insertText`가 안정적이다.
+
 **팁**:
 - 형용사·부사로 구체적으로 묘사할 것("dramatically", "slowly" 등) — 모호하면 모델이 순한
   기본값(자연스러운 대화 수준 동작)으로 해석한다. EP12 B롤 1차 시도가 실제로 이 문제로
@@ -76,9 +92,8 @@ cel-shading"처럼 구체적으로).
 **고급 기능**: 레퍼런스 이미지 최대 14장(일관성·스타일 블렌딩), Google Search grounding(실사
 사실 기반 이미지), `previous_interaction_id`로 멀티턴 편집, 최대 4K 해상도.
 
-> 이 채널이 이미 쓰고 있는 자체 연동(`scripts/ab-simulator.mjs`의
-> `generateAiThumbnailImage()`, 모델은 `gemini-3.1-flash-image` 계열)도 이 문서 기준을
-> 따른다 — 새 이미지 프롬프트를 짤 때 이 표를 참고해서 쓸 것.
+> 예전 대시보드 자체 이미지 생성(`scripts/ab-simulator.mjs`)은 2026-11-11에 지웠다. 이미지는 이제
+> 이미지 생성 2단계 원칙(`AGENTS.md`)대로 만든다 — 그때도 새 이미지 프롬프트는 이 표를 참고해서 쓸 것.
 
 ## 3. 데이터 분석/구조화 출력(JSON) 프롬프트 — Gemini Structured Output
 
@@ -109,7 +124,7 @@ YouTube 자체 연동 우선 원칙과 같은 맥락으로, 프로젝트 밖 서
   `videos/<프로젝트>/assets/images/<frame-id>-prompt.md`(이미지) — 프로젝트 폴더 밖에 두지
   않는다. **이건 특정 에피소드의 실제 제작에 쓰는 프롬프트 전용이다.**
 - **예외 — 도구/코드 자체를 테스트하는 프롬프트는 `test-prompts/`(저장소 루트)에 둔다**
-  (2026-09-11 확정, 사용자 지적: "이건 대시보드 테스트인데?" — `scripts/ab-simulator.mjs`의
+  (2026-09-11 확정, 사용자 지적: "이건 대시보드 테스트인데?" — 당시 `scripts/ab-simulator.mjs`(2026-11-11 삭제)의
   `buildThumbnailPrompt()` 같은 **공유 도구 코드의 변경을 검증**하는 프롬프트를 특정
   에피소드 폴더에 넣었다가 오해를 산 사례). 특정 에피소드 소재를 예시로 빌려 쓰더라도, 목적이
   "이 영상을 만들기 위해서"가 아니라 "이 공유 코드/프롬프트 방식이 잘 작동하는지 확인하기

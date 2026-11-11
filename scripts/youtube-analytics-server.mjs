@@ -41,8 +41,8 @@ import {
 import { attachShortsPackages, packageStatusSource, selectPackageVideo, packageStatusLabel, shortsPackageEpisode } from './upload-package-summary.mjs';
 import { syncAllTrackedChannels, runD7AutonomousCycle, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
+import { recordSuccessPatterns } from './success-patterns.mjs';
 
-const execAsync = promisify(exec);
 const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const envPath = join(projectDir, '.env');
@@ -62,7 +62,6 @@ const contentOpportunityPath = join(youtubeDataDir, 'content-opportunity.json');
 const audienceDnaPath = join(youtubeDataDir, 'audience-dna.json');
 const analysisFailuresPath = join(youtubeDataDir, 'analysis-failures.json');
 const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
-const ideaBoardStatePath = join(youtubeDataDir, 'idea-board-state.json');
 // 아이디어 보드가 고른 소재가 실제로 에피소드까지 이어졌는지 기록하는 영구 이력 — idea-board-state.json은
 // "지금 화면에 뭐가 떠 있나"만 담는 임시 상태라 새 후보 5개를 생성하면 이전 선택이 흔적 없이 사라진다
 // (2026-09-04, 사용자 지적: "선택해서 공개 예약까지 했으면 뭔가 표시가 있어야 하지 않냐"). 이 파일은
@@ -70,15 +69,7 @@ const ideaBoardStatePath = join(youtubeDataDir, 'idea-board-state.json');
 const ideaBoardHistoryPath = join(youtubeDataDir, 'idea-board-history.json');
 const publishRulesPath = join(youtubeDataDir, 'publish-rules.json');
 const globalUploadPackagesDir = join(projectDir, 'output', 'upload-packages');
-// Gemini 호출 없이 대화창에서 직접(Claude가) 작성한 아이디어 초안을 대시보드로 가져오는 창구
-// (2026-09-13, 사용자 요청: "버튼을 만들어 클릭하면 네가 아이디어 화면에 출력할 수 있어?" —
-// Gemini 월간 지출 한도 초과로 API 호출이 막혔을 때를 위함). 대시보드 버튼 자체가 Claude를
-// 호출할 방법은 없으므로, Claude가 대화 중에 이 파일을 직접 써 두면(generateTopicCandidates()와
-// 동일한 candidates 스키마) 대시보드의 "✍️ Claude 초안 불러오기" 버튼이 그 파일을 읽어와서
-// 정상적인 AI 생성 결과와 똑같은 방식으로 화면에 띄운다.
-const ideaBoardManualDraftPath = join(youtubeDataDir, 'idea-board-manual-draft.json');
 const AUDIENCE_DNA_MAX_ENTRIES = 300;
-const SUCCESS_PATTERNS_MAX_ENTRIES = 300;
 const contentDir = join(projectDir, 'content');
 const studioExportDir = resolve(process.env.YOUTUBE_STUDIO_EXPORT_DIR || join(projectDir, 'imports', 'youtube-studio'));
 // 스캔이 끝난 Studio 폴더는 여기로 옮긴다. studioExportDir "안"이 아니라 형제 폴더인 이유:
@@ -416,20 +407,6 @@ const cascadeDeleteOrphanedVideoData = async (orphanedVideoIds) => {
   return {deletedReportFiles, removedDnaEntries};
 };
 
-// entry: {videoId, title, ctr, retentionRate, coreSuccessFactor, reusableHook, reusableAnalogy}
-const upsertSuccessPatterns = async (entry) => {
-  if (!entry?.videoId) return;
-  const store = await loadJson(successPatternsPath, { schemaVersion: 1, entries: [] });
-  const now = new Date().toISOString();
-  const byId = new Map(store.entries.map((e) => [e.id, e]));
-  byId.set(entry.videoId, { id: entry.videoId, ...entry, diagnosedAt: now });
-
-  const entries = [...byId.values()]
-    .sort((a, b) => new Date(b.diagnosedAt) - new Date(a.diagnosedAt))
-    .slice(0, SUCCESS_PATTERNS_MAX_ENTRIES);
-
-  await saveJson(successPatternsPath, { schemaVersion: 1, updatedAt: now, entries });
-};
 
 const parseCsvRows = (text) => {
   const rows = [];
@@ -1384,36 +1361,6 @@ const syncIdeaBoardHistoryFromPackages = async () => {
   return history;
 };
 
-const BRAND_LINTER_SAMPLE_SHORTS_TOPIC = "30초 만에 'Want' vs 'Won\'t' 발음 완벽 구분법";
-const BRAND_LINTER_SAMPLE_SHORTS_TEXT = `Want와 Won't, 원어민 발음 들을 때마다 헷갈리셨죠?
-당신이 영어를 못해서가 아니라, 미국인 혀의 '소리 지름길'을 몰랐기 때문입니다.
-
-미국인들은 Want를 말할 때 혀와 입술을 게으르게 툭 떨어뜨려 '원-트'처럼 편하게 소리 냅니다.
-이 원리는 Water, What, Watch에도 똑같이 통합니다! 입술에 힘을 빼면 다 들립니다.
-
-근데 Won't는 왜 다를까요? 딱 요 차이 하나만 기억하세요!
-Won't는 입술을 동그랗게 모으면서 '오우' 소리를 살짝 넣어 '워운트'로 발음해야 합니다.
-
-소리 원리만 알면 무작정 외우지 않아도 귀가 저절로 열립니다.
-하루 1분, 소리 비법을 매일 받아보시려면 구독을 눌러주세요!`;
-
-const BRAND_LINTER_SAMPLE_LONG_TOPIC = "원어민이 평생 써먹는 영어 발음 3대 황금 공식 (3060 맞춤 7분 완성)";
-const BRAND_LINTER_SAMPLE_LONG_TEXT = `기초가 전혀 없어도 괜찮습니다.
-당신이 영어를 못했던 게 아니라 소리 나는 원리를 몰랐을 뿐입니다. 무작정 외우지 마세요.
-
-미국인들이 빠르게 말할 때 혀를 굴리는 게 아니라, 사실은 혀를 덜 움직이려고 소리를 깎아내는 겁니다.
-1단계 소리 지름길: T와 D가 모음 사이에 끼면 부드러운 'ㄹ' 소리로 변신합니다.
-Water가 '워러', Butter가 '버러'로 들리는 이유입니다.
-
-이 원리는 다른 수백 개 단어에도 똑같이 통합니다!
-City(씨리), Better(베러), Letter(레러), Hospital(하스피럴).
-패턴만 익히면 CNN 뉴스도 우리말처럼 편안하게 들리기 시작합니다.
-
-근데 왜 Mountain이나 Button은 '마운런', '버런'이 아닐까요?
-딱 요 사소한 반전 차이! 코로 숨을 턱 막는 '비음 멈춤 소리' 때문입니다.
-
-하루 일하고 지친 여러분을 위한 세련된 지적 휴식, 이해하면 쉬운 영어였습니다.
-다음 영상에서도 귀가 뻥 뚫리는 소리 비법을 전해드립니다. 구독하고 편하게 받아보세요!`;
 
 /* Cyber-HUD Single Page Application HTML */
 const pageHtml = `<!doctype html>
@@ -2452,11 +2399,9 @@ const pickLatestPeriod = (periods) => Object.values(periods || {})
 
 let gDashboard = null;
 let gMarketDemand = null;
-let gContentOpportunity = null;
 let gEpisodes = null;
 let gEpisodeFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gKnowledgeDb = null;
-let gKdbSourceFilter = 'ALL'; // 'ALL' | 'outlierComment' | 'competitorScript'
 let gDemandFilter = (function() {
   try { return localStorage.getItem('ihm_demand_filter') || 'ALL'; } catch (_) { return 'ALL'; }
 })();
@@ -2475,30 +2420,7 @@ let gStudioFilter = (function() {
 let gStudioViewMode = (function() {
   try { return localStorage.getItem('ihm_studio_view_mode') || 'TABLE'; } catch (_) { return 'TABLE'; }
 })();
-let gAiLabSubTab = (function() {
-  try { return localStorage.getItem('ihm_ailab_subtab') || 'comments'; } catch (_) { return 'comments'; }
-})(); // 'comments' | 'scripts' | 'brand-linter'
 
-/* 3060 BRAND SCRIPT LINTER & HYPERFRAMES STATE */
-let gBrandScriptTopic = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TOPIC)};
-let gBrandScriptFormat = "SHORTS";
-let gBrandScriptText = ${JSON.stringify(BRAND_LINTER_SAMPLE_SHORTS_TEXT)};
-let gBrandScriptLinterResult = null;
-
-
-function loadBrandLinterState() {
-  try {
-    const saved = localStorage.getItem('ihm_brand_linter_state');
-    if (saved) {
-      const state = JSON.parse(saved);
-      if (state.topic) gBrandScriptTopic = state.topic;
-      if (state.format) gBrandScriptFormat = state.format;
-      if (state.text) gBrandScriptText = state.text;
-      if (state.result) gBrandScriptLinterResult = state.result;
-    }
-  } catch (_) {}
-}
-loadBrandLinterState();
 
 /* 4-QUADRANT MATRIX STATE */
 let gMatrixFormatFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
@@ -2515,108 +2437,9 @@ let gMatrixRetThresholdShorts = null;
 // every call site.
 let gMatrixResolvedThresholds = { ctr: 6.0, retLong: 42.0, retShorts: 70.0 };
 
-/* A/B SIMULATOR STATE — 2026-11-11 재설계 뒤 남은 호환 변수.
-   다른 탭(브랜드 대본·스튜디오·아이디어)이 gAbTopic/gAbFormat에 주제를 넣고 이 탭을 연다.
-   새 탭("실제 검색 피드 & 잘된 썸네일")은 gAbTopic을 검색어 후보 하나로만 쓴다.
-   예전 AI CTR 진단·시안 저장·이미지 생성 상태는 지웠다(서버 /api/ab-simulator/* 도 삭제). */
-let gAbVariants = [];
-let gAbTopic = '';
-let gAbAudience = '';
-let gAbFormat = 'LONGFORM';
-let gAbCompetitors = [];
-let gAbCompetitorsFetchedForTopic = null;
-let gAbActiveFeedView = 'A';
-let gAbFeedPosition = 'TOP';
-let gAbFeedSlotIndex = 0;
+/* 검색 피드 탭의 "보통·흐림·흑백" 보기 상태 (예전 A/B 시뮬레이터 상태는 2026-11-11에 모두 지웠다) */
 let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale' — 새 피드에서도 그대로 쓴다
-let gAbAiReport = null;
-let gAbSelectedVariantTab = 'A';
-let gAbCloseUpImageUrl = '';
-let gAbCloseUpSourceVariant = '';
-function saveAbSimulatorState() {}
-async function hydrateAbSimulatorFromServer() {}
 
-/* IDEA BOARD STATE */
-let gIdeaBoardCandidates = null;
-let gIdeaBoardSelected = null;
-let gIdeaBoardGeneratedAt = null;
-// 마지막 생성 때 집중했던 시장 수요 키워드(2026-09-13) — 생성 직후 화면을 다시 그리면
-// <select>가 매번 새로 만들어져서 값이 기본값으로 돌아가 버리는 문제가 있었다(사용자 지적:
-// "완료 단계에서 선택한 개별 키워드가 셀렉터에서 해제되서 어떤 키워드로 생성했는지 모르겠어").
-// generatedAt과 똑같은 방식으로(localStorage + 서버 파일) 저장해서, 다시 렌더링해도 그 셀렉트가
-// 방금 쓴 키워드를 계속 선택된 채로 보여주게 한다. null이면 "전체 데이터 참고" 모드였다는 뜻.
-let gIdeaBoardFocusKeyword = null;
-let gIdeaBoardHistory = [];
-// "이미 만든 소재" 배너를 전부 펼쳐서 보여줄지 여부 — 기본은 접힌 상태(최근 N개만).
-// 탭을 벗어났다 돌아와도 유지되게 탭 로컬 상태가 아니라 세션 전역으로 둔다(2026-09-11,
-// 사용자 지적: "많이 늘어나면 어떻게 처리됨?" — 무제한으로 늘어나는 배너가 페이지를
-// 다 차지하는 문제를 막기 위함. AI 추천 생성 시 넘기는 목록 자체는 그대로 전부 다 넘긴다 —
-// 화면 표시만 요약하는 것).
-let gIdeaBoardHistoryExpanded = false;
-const IDEA_BOARD_HISTORY_COLLAPSED_COUNT = 8;
-
-function saveIdeaBoardState() {
-  try {
-    const state = {
-      candidates: gIdeaBoardCandidates,
-      selected: gIdeaBoardSelected,
-      generatedAt: gIdeaBoardGeneratedAt,
-      focusKeyword: gIdeaBoardFocusKeyword,
-    };
-    localStorage.setItem('ihm_idea_board_state', JSON.stringify(state));
-    // 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서 못 봐서 후보를 다시 생성해야
-    // 했음(2026-09-02, 사용자 지적). 생성·선택 시에만 호출되는 함수라 디바운스 없이 바로 보낸다.
-    fetch('/api/idea-board/state', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(state),
-    }).catch(() => {});
-  } catch (err) {
-    console.warn('Failed to save idea board state:', err);
-  }
-}
-
-async function hydrateIdeaBoardFromServer() {
-  try {
-    const res = await fetch('/api/idea-board/state');
-    if (!res.ok) return;
-    const state = await res.json();
-    if (state && state.candidates) {
-      gIdeaBoardCandidates = state.candidates;
-      gIdeaBoardSelected = state.selected || null;
-      gIdeaBoardGeneratedAt = state.generatedAt || null;
-      gIdeaBoardFocusKeyword = state.focusKeyword || null;
-      try { localStorage.setItem('ihm_idea_board_state', JSON.stringify(state)); } catch (_) {}
-    }
-  } catch (err) {
-    console.warn('Failed to hydrate idea board state from server:', err);
-  }
-  try {
-    const histRes = await fetch('/api/idea-board/history');
-    if (histRes.ok) {
-      const hist = await histRes.json();
-      gIdeaBoardHistory = hist.entries || [];
-    }
-  } catch (err) {
-    console.warn('Failed to load idea board history:', err);
-  }
-}
-
-function loadIdeaBoardState() {
-  try {
-    const saved = localStorage.getItem('ihm_idea_board_state');
-    if (saved) {
-      const state = JSON.parse(saved);
-      if (state.candidates) gIdeaBoardCandidates = state.candidates;
-      if (state.selected) gIdeaBoardSelected = state.selected;
-      if (state.generatedAt) gIdeaBoardGeneratedAt = state.generatedAt;
-      if (state.focusKeyword) gIdeaBoardFocusKeyword = state.focusKeyword;
-    }
-  } catch (err) {
-    console.warn('Failed to load idea board state:', err);
-  }
-}
-loadIdeaBoardState();
 
 function updateClock() {
   const now = new Date();
@@ -2857,20 +2680,14 @@ document.addEventListener('click', (e) => {
 
 async function loadAll() {
   try {
-    const [dashRes, demandRes, coRes, epRes, kdbRes] = await Promise.all([
+    const [dashRes, demandRes, epRes, kdbRes] = await Promise.all([
       fetch('/api/dashboard'),
       fetch('/api/market-demand'),
-      fetch('/api/content-opportunity'),
       fetch('/api/episodes/summary'),
       fetch('/api/knowledge-db'),
-      // 서버에 저장된 아이디어 보드/A-B 시뮬레이터 상태를 첫 렌더 전에 반영 — 다른 PC/브라우저에서
-      // 열어도 localStorage 없이 바로 이전 상태가 보이게 한다(2026-09-02).
-      hydrateIdeaBoardFromServer(),
-      hydrateAbSimulatorFromServer(),
     ]);
 
     gMarketDemand = demandRes.ok ? await demandRes.json() : null;
-    gContentOpportunity = coRes.ok ? await coRes.json() : null;
     const epJson = epRes.ok ? await epRes.json() : [];
     gEpisodes = Array.isArray(epJson) ? epJson : [];
     gKnowledgeDb = kdbRes.ok ? await kdbRes.json() : null;
@@ -5911,7 +5728,6 @@ function thumbFeedCurrentPkg() {
 
 function thumbFeedQueries(pkg) {
   const qs = (pkg && pkg.queries ? pkg.queries.slice() : []);
-  if (gAbTopic && qs.indexOf(gAbTopic) === -1) qs.push(gAbTopic);
   return qs;
 }
 
@@ -5977,7 +5793,8 @@ function renderAbSimulatorTab() {
   const card = (x) => {
     const link = x.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(x.videoId) : '';
     const img = '<img src="' + esc(x.thumbnail || '') + '" alt="" style="width:100%;aspect-ratio:' + (isShorts ? '9/16' : '16/9') + ';object-fit:cover;border-radius:8px;display:block;' + filterCss + '">';
-    return '<div style="' + (x.isOurs ? 'outline:2px solid var(--accent-amber);outline-offset:3px;border-radius:8px;' : '') + '">' +
+    // 우리 썸네일에 테두리를 두르지 않는다 — 실제 유튜브에는 없어서 우리 것만 눈에 띄는 착시가 생긴다(2026-11-11). 제목 앞 작은 표시만 둔다.
+    return '<div>' +
       (link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener">' + img + '</a>' : img) +
       '<div style="font-size:12px;color:var(--text-bright);margin-top:6px;line-height:1.35">' + (x.isOurs ? '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px;margin-right:4px">우리 영상</span>' : '') + esc(x.title || '') + '</div>' +
       '<div style="font-size:11px;color:var(--text-muted);margin-top:2px">' + esc(x.channelTitle || '') + (x.views != null ? ' · 조회수 ' + fmtNum(x.views) + '회' : '') + '</div>' +
@@ -6933,17 +6750,21 @@ const server = createServer(async (req, res) => {
           if (marketDemand) {
             const catalog = await loadJson(catalogPath, {videos: []});
             const now = new Date();
+            const outcomes = loadEpisodeOutcomes(projectDir, now);
             const result = runD7AutonomousCycle({
               marketDemandData: marketDemand,
               analyticsData: dashboard,
-              episodeOutcomes: loadEpisodeOutcomes(projectDir, now),
+              episodeOutcomes: outcomes,
               catalogVideos: catalog.videos || catalog,
               now,
             });
             await saveJson(marketDemandPath, result.marketDemandData);
             memoryMarketDemand = null;
             lastMarketDemandTime = 0;
-            d7 = {applied: result.applied.length, hold: result.marketDemandData.d7AutonomousCycle.holdCount};
+            // "통함" 판정은 성공 패턴에 자동 기록(2026-11-11). 사람·Claude가 적은 훅·비유는 지우지 않는다.
+            const patterns = recordSuccessPatterns(await loadJson(successPatternsPath, {schemaVersion: 1, entries: []}), outcomes, now);
+            if (patterns.added.length || patterns.changed.length) await saveJson(successPatternsPath, patterns.store);
+            d7 = {applied: result.applied.length, hold: result.marketDemandData.d7AutonomousCycle.holdCount, patternsAdded: patterns.added.length, patternsChanged: patterns.changed.length};
           }
         } catch (err) {
           d7 = {error: err.message};
@@ -7011,7 +6832,8 @@ const server = createServer(async (req, res) => {
           .sort((a, b) => (Number(b.outlierRatio) || 0) - (Number(a.outlierRatio) || 0))
           .slice(0, 12)
           .map((o) => ({videoId: o.videoId, title: o.title, channelTitle: o.channelTitle, views: o.viewCount || null, outlierRatio: o.outlierRatio,
-            thumbnail: o.thumbnail || 'https://i.ytimg.com/vi/' + o.videoId + '/mqdefault.jpg'}));
+            // 비교용이라 늘 큰 크기(hqdefault 480px) — 저장된 작은 미리보기는 흐려서 우리 썸네일만 선명해 보였다(2026-11-11)
+            thumbnail: 'https://i.ytimg.com/vi/' + o.videoId + '/hqdefault.jpg'}));
         return json(res, 200, {
           ok: true,
           query: feed.query, format, fetchedAt: feed.fetchedAt, fromCache: feed.fromCache,
@@ -7034,16 +6856,6 @@ const server = createServer(async (req, res) => {
       const data = await loadJson(contentOpportunityPath);
       if (!data) return json(res, 404, {error: 'content-opportunity.json 파일이 없습니다. npm run content-opportunity를 실행하세요.'});
       return json(res, 200, data);
-    }
-    // 아이디어 보드 상태(후보·선택)를 서버 파일로도 저장 — localStorage뿐이면 다른 PC/브라우저에서
-    // 똑같은 유료 Gemini 호출을 불필요하게 반복해야 했음(2026-09-02, 사용자 지적으로 발견).
-    if (url.pathname === '/api/idea-board/state' && req.method === 'GET') {
-      try {
-        const state = await loadJson(ideaBoardStatePath, {});
-        return json(res, 200, state || {});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
     }
     // 이 GET 자체는 읽기 전용 — 실제 제작으로 이어진 소재의 영구 이력. state와 별도 파일이라
     // "🔄 후보 5개 생성"이 새 후보를 뽑아도 지워지지 않는다. 기록을 쓰는 쪽은 바로 아래
@@ -7095,15 +6907,6 @@ const server = createServer(async (req, res) => {
         history.updatedAt = now;
         await saveJson(ideaBoardHistoryPath, history);
         return json(res, 200, {ok: true, entries: history.entries});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    if (url.pathname === '/api/idea-board/state' && req.method === 'POST') {
-      try {
-        const body = await readJsonBody(req);
-        await writeFile(ideaBoardStatePath, JSON.stringify(body, null, 2), 'utf8');
-        return json(res, 200, {ok: true});
       } catch (err) {
         return json(res, 500, {error: err.message});
       }

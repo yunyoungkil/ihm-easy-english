@@ -11,6 +11,7 @@
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const CACHE_VERSION = 2; // 2: 썸네일을 가장 큰 크기로 받음 — 그 전 캐시(작은 썸네일)는 새로 받는다
 const RESULTS = 12;
 const API = 'https://www.googleapis.com/youtube/v3';
 
@@ -85,7 +86,7 @@ export async function fetchSearchFeed({query, format = 'LONGFORM', apiKey, cache
   const key = `${format}::${query}`;
   const cache = cachePath && existsSync(cachePath) ? readCache(cachePath) : {schemaVersion: 1, queries: {}};
   const hit = cache.queries?.[key];
-  if (hit && now - new Date(hit.fetchedAt) < CACHE_TTL_MS) return {...hit, fromCache: true};
+  if (hit && hit.version === CACHE_VERSION && now - new Date(hit.fetchedAt) < CACHE_TTL_MS) return {...hit, fromCache: true};
   if (!apiKey) throw new Error('.env에 YOUTUBE_API_KEY가 없습니다');
 
   const get = async (path, params) => {
@@ -115,7 +116,9 @@ export async function fetchSearchFeed({query, format = 'LONGFORM', apiKey, cache
       channelId: it.snippet.channelId,
       channelTitle: it.snippet.channelTitle,
       publishedAt: it.snippet.publishedAt,
-      thumbnail: it.snippet.thumbnails?.medium?.url || it.snippet.thumbnails?.high?.url || `https://i.ytimg.com/vi/${it.id}/mqdefault.jpg`,
+      // 가장 큰 크기부터. 작은 미리보기(medium 320px)를 피드 너비로 늘리면 흐려져서, 원본을 쓰는 우리 썸네일만
+      // 선명해 보이는 착시가 생겼다(2026-11-11 사용자 발견). 4:3 크기(high·standard)의 위아래 검은 띠는 화면에서 잘라 낸다.
+      thumbnail: ['maxres', 'standard', 'high', 'medium'].map((k) => it.snippet.thumbnails?.[k]?.url).find(Boolean) || `https://i.ytimg.com/vi/${it.id}/hqdefault.jpg`,
       views: Number(it.statistics?.viewCount) || 0,
       subs: Number.isFinite(subs) ? subs : null,
       durationSeconds,
@@ -123,7 +126,7 @@ export async function fetchSearchFeed({query, format = 'LONGFORM', apiKey, cache
     };
   });
 
-  const entry = {query, format, fetchedAt: now.toISOString(), items};
+  const entry = {query, format, version: CACHE_VERSION, fetchedAt: now.toISOString(), items};
   if (cachePath) {
     cache.queries = {...(cache.queries || {}), [key]: entry};
     writeFileSync(cachePath, JSON.stringify(cache, null, 2), 'utf8');

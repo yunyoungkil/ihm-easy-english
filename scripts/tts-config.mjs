@@ -208,7 +208,9 @@ export function pcmToWav(pcm, { sampleRate, channels, bitsPerSample }) {
 /** `audio/L16;codec=pcm;rate=24000` -> 24000, so a format drift is visible. */
 export function sampleRateFromMime(mimeType) {
   const m = /rate=(\d+)/.exec(mimeType ?? "");
-  return m ? Number(m[1]) : null;
+  // 2026-11-11: 응답 mimeType에 rate가 빠진 경우가 있었다(sample rate 0인 깨진 wav가 저장됨).
+  // Gemini TTS 출력은 24kHz 16-bit mono라 그 기본값을 쓴다.
+  return m ? Number(m[1]) : AUDIO_FORMAT.sampleRate;
 }
 
 /**

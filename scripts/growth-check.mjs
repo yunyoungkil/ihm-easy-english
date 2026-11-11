@@ -36,6 +36,7 @@ import {
   weeklyComparison,
 } from './growth-rules.mjs';
 import {shortsPackageEpisode} from './upload-package-summary.mjs';
+import {loadLoopHealth} from './loop-health.mjs';
 import {loadPublishRules} from './youtube-publisher.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -235,6 +236,8 @@ const briefing = {
   upcoming: upcomingPublishes([...longformStatuses, ...shortsStatuses], today),
   comments: newViewerComments(comments.commentsByVideo || {}, today),
   missingThumbnails: thumbnailGaps(thumbnailItems),
+  // 자동 성장 루프 화재경보기(2026-11-11): 매일 루프 기록·테스트 결과·데이터 신선도·기록 누락을 코드로 판정
+  loopHealth: (() => { try { return loadLoopHealth(projectDir, today); } catch (err) { return {ok: false, problems: [{id: 'health-error', text: `경보기 실행 실패: ${err.message}`}]}; } })(),
   afterPublish: afterPublishTasks({
     longform: packages.filter((p) => p.kind === '롱폼').map((p) => ({...p, episode: episodeOf(p.name)})),
     shorts: shortsStatuses.map((s) => ({...s, episode: shortsPackageEpisode(s.name)})),

@@ -38,3 +38,29 @@ test('같은 영상이 여러 채널·키워드에 있어도 한 번만 고른�
   const md = {trackedChannels: [ch('A', 'candidate', [o('x', 9)]), ch('B', 'candidate', [o('x', 9), o('y', 3)])]};
   assert.deepEqual(pickCommentTargets(md, new Set(), 3), ['x', 'y']);
 });
+
+// ---- 대시보드 실제 데이터 점검: 주요 통로가 오류 없이 내용을 내보내는가 ----
+import {dashboardApiProblems, DASHBOARD_CHECKS} from '../daily-loop.mjs';
+
+const okBodies = {
+  '/api/dashboard': {channel: {title: 'x'}, recentVideos: [1]},
+  '/api/episodes/summary': [{episode: 'EP1'}],
+  '/api/market-demand': {byKeyword: [1], trackedChannels: [1]},
+  '/api/knowledge-db': {audienceDna: {entries: [1]}},
+  '/api/thumb-feed/packages': {packages: [1]},
+};
+const resp = (over = {}) => DASHBOARD_CHECKS.map((c) => ({path: c.path, status: 200, body: okBodies[c.path], ...(over[c.path] || {})}));
+
+test('주요 통로가 모두 200이고 내용이 있으면 문제 없음', () => {
+  assert.deepEqual(dashboardApiProblems(resp()), []);
+});
+
+test('오류 응답이나 빈 내용이면 그 통로를 알린다', () => {
+  const got = dashboardApiProblems(resp({
+    '/api/market-demand': {status: 500, body: {error: 'boom'}},
+    '/api/episodes/summary': {body: []},
+  }));
+  assert.equal(got.length, 2);
+  assert.ok(got.some((p) => p.includes('/api/market-demand') && p.includes('500')));
+  assert.ok(got.some((p) => p.includes('/api/episodes/summary') && p.includes('비어')));
+});

@@ -985,7 +985,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T13:11:30.032Z"
+      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
     },
     {
       "keyword": "영어발음",
@@ -997,7 +997,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T13:11:30.032Z"
+      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
     },
     {
       "keyword": "영어 발음",
@@ -1009,7 +1009,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T13:11:30.032Z"
+      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
     },
     {
       "keyword": "발음 테스트",
@@ -1021,7 +1021,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T13:11:30.032Z"
+      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
     },
     {
       "keyword": "영어미드",
@@ -1033,7 +1033,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T13:11:30.032Z"
+      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
     }
   ],
   "trackedChannels": [
@@ -1226,7 +1226,7 @@
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
       "consecutiveFailures": 0,
       "blockedUntil": null,
-      "statusUpdatedAt": "2026-11-11T13:11:30.032Z",
+      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
       "exhaustion": {
         "totalOutliers": 5,
         "coveredCount": 3,
@@ -1487,7 +1487,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T13:11:30.032Z",
+      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1750,7 +1750,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T13:11:30.032Z",
+      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1947,7 +1947,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T13:11:30.032Z",
+      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2144,7 +2144,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T13:11:30.032Z",
+      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2341,7 +2341,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T13:11:30.032Z",
+      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2352,7 +2352,7 @@
       }
     }
   ],
-  "lifecycleSyncedAt": "2026-11-11T13:11:30.032Z",
+  "lifecycleSyncedAt": "2026-11-11T14:02:11.330Z",
   "d7ProcessedVideoIds": [],
   "episodeOutcomes": [
     {
@@ -2565,7 +2565,7 @@
     }
   ],
   "d7AutonomousCycle": {
-    "lastRunAt": "2026-11-11T13:11:30.032Z",
+    "lastRunAt": "2026-11-11T14:02:11.330Z",
     "applied": [],
     "holdCount": 13,
     "promotedChannels": [],

@@ -9,9 +9,10 @@
 //   2. 매일: POST /api/sync (유튜브 동기화 + 7일 조회 받기 + 7일 판정 → 경쟁 채널 상태)
 //   3. 경쟁 채널 데이터가 7일 넘었으면: POST /api/market-demand/run {syncAll} (채널당 약 4 unit)
 //   4. 시청자 고민(audience-dna)이 14일 넘었으면: 아직 분석 안 한 경쟁 아웃라이어 3편 댓글 분석(무료 Gemini 키)
-//   5. 결과를 data/youtube/daily-loop.json 에 남긴다(시작 브리핑 연결은 knowledge/now.md "다음 할 일").
+//   5. 대시보드 실제 데이터 통로 5개 점검 + 단위 테스트 + 대시보드 화면 검사(프로그램 전체 점검을 코드가 대신, 토큰 0)
+//   6. 결과를 data/youtube/daily-loop.json 에 남긴다 → 시작 브리핑의 scripts/loop-health.mjs가 판정한다.
 
-import {spawn} from 'node:child_process';
+import {execFile, spawn} from 'node:child_process';
 import {existsSync, readdirSync, readFileSync, writeFileSync, openSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -42,6 +43,29 @@ export function pickCommentTargets(marketDemand = {}, analyzedIds = new Set(), n
     .filter((o) => (seen.has(o.videoId) ? false : (seen.add(o.videoId), true)))
     .slice(0, n)
     .map((o) => o.videoId);
+}
+
+// 대시보드가 실제 데이터를 제대로 내보내는지 — 화면 검사(test-client-syntax)는 연습용 데이터로 그리므로
+// 실제 통로가 오류를 내도 모른다(2026-11-11 사용자 지적: "자동 루프 검사는 대시보드 내용도 포함").
+// 검색(search.list)은 부르지 않아 유튜브 사용량이 들지 않는다.
+export const DASHBOARD_CHECKS = Object.freeze([
+  {path: '/api/dashboard', has: (b) => !!b?.channel && Array.isArray(b?.recentVideos) && b.recentVideos.length > 0},
+  {path: '/api/episodes/summary', has: (b) => Array.isArray(b) && b.length > 0},
+  {path: '/api/market-demand', has: (b) => Array.isArray(b?.byKeyword) && b.byKeyword.length > 0 && Array.isArray(b?.trackedChannels) && b.trackedChannels.length > 0},
+  {path: '/api/knowledge-db', has: (b) => Array.isArray(b?.audienceDna?.entries) && b.audienceDna.entries.length > 0},
+  {path: '/api/thumb-feed/packages', has: (b) => Array.isArray(b?.packages) && b.packages.length > 0},
+]);
+
+/** @param {{path:string,status:number,body:any}[]} responses */
+export function dashboardApiProblems(responses = []) {
+  const problems = [];
+  for (const check of DASHBOARD_CHECKS) {
+    const r = responses.find((x) => x.path === check.path);
+    if (!r) problems.push(`${check.path} 응답 없음`);
+    else if (r.status !== 200) problems.push(`${check.path} 오류 ${r.status}${r.body?.error ? ' (' + String(r.body.error).slice(0, 60) + ')' : ''}`);
+    else if (!check.has(r.body)) problems.push(`${check.path} 내용이 비어 있음`);
+  }
+  return problems;
 }
 
 // ---- 실행부 ----------------------------------------------------------------
@@ -129,6 +153,44 @@ async function run() {
       return {done, failed, note: targets.length ? undefined : '분석할 새 아웃라이어 영상이 없음'};
     });
   }
+
+  await step('dashboard', async () => {
+    const responses = [];
+    for (const {path} of DASHBOARD_CHECKS) {
+      try {
+        const res = await fetch(`${base}${path}`, {signal: AbortSignal.timeout(60000)});
+        responses.push({path, status: res.status, body: await res.json().catch(() => null)});
+      } catch (err) {
+        responses.push({path, status: 0, body: {error: err.message}});
+      }
+    }
+    const problems = dashboardApiProblems(responses);
+    if (problems.length) throw new Error('대시보드 데이터 통로: ' + problems.join(', '));
+    return {checked: DASHBOARD_CHECKS.length};
+  });
+
+  // 프로그램 전체 점검을 코드가 대신한다: 단위 테스트 + 대시보드 화면 검사(서버가 켜져 있어야 함).
+  // 결과는 이 보고서에 남고, 브리핑의 loop-health가 실패를 알린다(2026-11-11 사용자 요청).
+  await step('tests', async () => {
+    const run = (args, timeoutMs) => new Promise((resolve) => {
+      execFile(process.execPath, args, {cwd: projectDir, timeout: timeoutMs, maxBuffer: 20 * 1024 * 1024}, (err, stdout, stderr) => {
+        resolve({code: err ? (err.code ?? 1) : 0, out: String(stdout || '') + String(stderr || '')});
+      });
+    });
+    const testScript = readJson(join(projectDir, 'package.json'), {}).scripts?.test || '';
+    const files = testScript.split(/\s+/).filter((t) => t.endsWith('.test.mjs'));
+    const unit = await run(['--test', ...files], 5 * 60 * 1000);
+    const pass = Number((unit.out.match(/ℹ pass (\d+)/) || [])[1] || 0);
+    const fail = Number((unit.out.match(/ℹ fail (\d+)/) || [])[1] || 0);
+    const client = await run(['scripts/test-client-syntax.mjs'], 3 * 60 * 1000);
+    const clientOk = client.code === 0 && client.out.includes('ALL CLIENT TABS AND FUNCTIONS VERIFIED');
+    const result = {unit: `${pass}/${pass + fail}`, client: clientOk ? 'pass' : 'fail'};
+    if (unit.code !== 0 || fail > 0 || !clientOk) {
+      const failedNames = (unit.out.match(/^✖ .+$/gm) || []).slice(0, 5).join(' | ');
+      throw new Error(`단위 테스트 ${fail}개 실패${failedNames ? ' (' + failedNames + ')' : ''}${clientOk ? '' : ', 대시보드 화면 검사 실패'}`);
+    }
+    return result;
+  });
 
   report.finishedAt = new Date().toISOString();
   report.ok = Object.values(report.steps).every((s) => s.ok);

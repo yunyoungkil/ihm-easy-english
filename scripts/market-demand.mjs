@@ -360,7 +360,7 @@ async function analyzeChannel(rawInput) {
     .slice(0, 5)
     .map(toOutlierRow);
 
-  // 기존 호환용: 형식을 섞은 상위 5개 (idea-board.mjs가 읽는다)
+  // 형식을 섞은 상위 5개 — 경쟁 탭·검색 피드의 키워드 아웃라이어가 읽는다(예전 idea-board.mjs는 2026-11-11 삭제)
   const topOutliers = rankTopOutliers(withRatio);
   // 형식별 상위 5개 — 쇼츠가 롱폼에 밀려 한 번도 안 뽑히는 문제를 막는다.
   // 쇼츠 여부는 길이 60초 이하로 판정한다(유튜브 Data API는 분류값을 주지 않음).

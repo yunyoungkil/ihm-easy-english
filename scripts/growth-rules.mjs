@@ -219,7 +219,7 @@ const kstLabel = (iso) => {
 const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
 
 const briefingLines = (check, briefing) => {
-  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = []} = briefing;
+  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = [], loopHealth = null} = briefing;
   const lines = ['브리핑 재료(이 숫자로 줄을 만든다. "줄을 쓰지 않는다"라고 적힌 줄은 뺀다. 형식: 00-unblock-and-weekly.md 0-C):'];
   lines.push(`- 제목 줄: **브리핑** (episode-planning 0-C · 동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
   lines.push(
@@ -256,6 +256,13 @@ const briefingLines = (check, briefing) => {
       ? `- 썸네일 없는 패키지(할 일 줄에 넣는다): ${missingThumbnails.join(', ')} — 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 만든다(06-shorts-and-next-watch.md)`
       : '- 썸네일 없는 패키지: 없다 — 따로 쓰지 않는다',
   );
+  if (loopHealth) {
+    lines.push(
+      loopHealth.ok
+        ? `- 자동 루프: 정상 (마지막 자동 실행 ${kstLabel(loopHealth.lastLoopAt)}) — 짧게 한 줄로 쓴다`
+        : `- 자동 루프 고장 ${loopHealth.problems.length}개: ${loopHealth.problems.map((p) => p.text).join(' / ')} — 브리핑에 그대로 쓰고, 브리핑 직후 Claude가 묻지 않고 원인을 찾아 고친 뒤 결과를 알린다(렌더·썸네일·업로드 승인과 사용자 결정이 필요한 것만 묻는다). 코드: scripts/loop-health.mjs`,
+    );
+  }
   if (comments) {
     lines.push(
       `- 새 시청자 댓글 ${comments.count}개 (${comments.unanswered == null ? '답 여부 모름' : `답 없음 ${comments.unanswered}개`}) — 최근 7일, 답할 댓글이 있으면 할 일 줄에 넣는다`,

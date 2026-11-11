@@ -31,28 +31,36 @@ test('롱폼 폴더나 번호 없는 쇼츠 폴더는 쇼츠 에피소드로 보
 
 const longformEntry = (episode) => ({season: '단편', episode, tracks: {longform: {contentId: `${episode.toLowerCase()}-long`}}});
 
-test('쇼츠를 같은 번호 롱폼 카드에 쇼츠 탭으로 붙인다', () => {
+test('쇼츠를 롱폼에 연계하면서 독립된 쇼츠 카드로도 추가한다', () => {
   const episodes = [longformEntry('EP24'), longformEntry('EP25')];
   attachShortsPackages(episodes, [{episode: 'EP24', track: {contentId: 'ep24-shorts-sheep-ship'}}]);
-  assert.equal(episodes.length, 2);
+  assert.equal(episodes.length, 3);
   assert.equal(episodes[0].tracks['shorts-a'].contentId, 'ep24-shorts-sheep-ship');
   assert.equal(episodes[1].tracks['shorts-a'], undefined);
+  assert.equal(episodes[2].season, '쇼츠');
+  assert.equal(episodes[2].episode, 'EP24 쇼츠');
+  assert.equal(episodes[2].parentEpisode, 'EP24');
+  assert.equal(episodes[2].kind, 'shorts');
 });
 
-test('같은 롱폼에 쇼츠가 두 편이면 두 번째는 쇼츠 B 탭이 된다', () => {
+test('같은 롱폼에 쇼츠가 두 편이면 A/B 탭 연계 및 각각 독립 쇼츠 카드가 생성된다', () => {
   const episodes = [longformEntry('EP24')];
   attachShortsPackages(episodes, [
     {episode: 'EP24', track: {contentId: 'ep24-shorts-a'}},
     {episode: 'EP24', track: {contentId: 'ep24-shorts-b'}},
   ]);
+  assert.equal(episodes.length, 3);
   assert.equal(episodes[0].tracks['shorts-a'].contentId, 'ep24-shorts-a');
   assert.equal(episodes[0].tracks['shorts-b'].contentId, 'ep24-shorts-b');
+  assert.equal(episodes[1].episode, 'EP24 쇼츠');
+  assert.equal(episodes[2].episode, 'EP24 쇼츠');
 });
 
-test('붙일 롱폼 카드가 없으면 번호 옆에 쇼츠라고 적은 카드를 따로 만든다', () => {
+test('붙일 롱폼 카드가 없어도 쇼츠 카드를 독립적으로 만든다', () => {
   const episodes = [longformEntry('EP25')];
   attachShortsPackages(episodes, [{episode: 'EP31', track: {contentId: 'ep31-shorts-x'}}]);
   assert.equal(episodes.length, 2);
+  assert.equal(episodes[1].season, '쇼츠');
   assert.equal(episodes[1].episode, 'EP31 쇼츠');
   assert.equal(episodes[1].tracks.longform.contentId, 'ep31-shorts-x');
 });

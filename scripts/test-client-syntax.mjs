@@ -235,24 +235,16 @@ async function main() {
       renderOverviewTab: ['Top Video'],
       renderMarketDemandTab: ['TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER'],
       renderEpisodesTab: ['EP16 Test Title'],
-      renderEvaluationsTab: ['TEST_EVAL_LABEL'],
       renderStudioTab: ['Video 1'],
-      renderKnowledgeDbTab: ['TEST_DNA_VOCAB_항목', 'TEST_SUCCESS_PATTERN_제목'],
     };
 
-    // Test rendering every tab!
+    // Test rendering every active tab!
     const tabsToTest = [
       'renderOverviewTab',
-      'renderMatrixTab',
-      'renderAbSimulatorTab',
-      'renderMarketDemandTab',
-      'renderOutlierLabTab',
       'renderEpisodesTab',
-      'renderEvaluationsTab',
       'renderStudioTab',
-      'renderDesignSystemTab',
-      'renderBrandLinterResults',
-      'renderKnowledgeDbTab',
+      'renderMarketDemandTab',
+      'renderAbSimulatorTab',
     ];
 
     let anyMarkerFailed = false;

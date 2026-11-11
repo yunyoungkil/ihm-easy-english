@@ -2306,35 +2306,20 @@ input:disabled, select:disabled {
 
 <aside class="nav-rail">
   <div class="rail-logo" title="IHM Command Center">⚡</div>
-  <button class="rail-btn active" data-tab="tab-overview" title="전체 관제 (Overview)">
-    ⚡<span class="label">Home</span>
+  <button class="rail-btn active" data-tab="tab-overview" title="전체 관제 (Overview & Growth Cockpit)">
+    ⚡<span class="label">Overview</span>
   </button>
-  <button class="rail-btn" data-tab="tab-idea-board" title="아이디어 추천부터 썸네일 제작까지 기획 보드">
-    💡<span class="label">Idea</span>
-  </button>
-  <button class="rail-btn" data-tab="tab-matrix" title="CTR vs 시청지속률 4사분면 진단 매트릭스">
-    📊<span class="label">Matrix</span>
-  </button>
-  <button class="rail-btn" data-tab="tab-ab-simulator" title="썸네일·제목 A/B 피드 시뮬레이터 & CTR 예측기">
-    🎯<span class="label">A/B Test</span>
-  </button>
-  <button class="rail-btn" data-tab="tab-demand" title="시장 수요 레이더 (Market Demand)">
-    🎯<span class="label">Demand</span>
-  </button>
-  <button class="rail-btn" data-tab="tab-outlier" title="아웃라이어 댓글 AI 분석실">
-    🤖<span class="label">AI Lab</span>
-  </button>
-  <button class="rail-btn" data-tab="tab-episodes" title="에피소드 & 업로드 패키징">
-    🎬<span class="label">Episodes</span>
+  <button class="rail-btn" data-tab="tab-episodes" title="에피소드 & 업로드 패키징 (롱폼 / 쇼츠)">
+    🎬<span class="label">Packages</span>
   </button>
   <button class="rail-btn" data-tab="tab-studio" title="Studio CSV CTR 트래커">
     📁<span class="label">Studio</span>
   </button>
-  <button class="rail-btn" data-tab="tab-design" title="브랜드 디자인 시스템 & 가이드">
-    🎨<span class="label">Design</span>
+  <button class="rail-btn" data-tab="tab-demand" title="경쟁 분석 & 시장 수요 (Market & Competitor)">
+    🎯<span class="label">Market</span>
   </button>
-  <button class="rail-btn" data-tab="tab-knowledge-db" title="누적 데이터 자산 (시청자 DNA / 성공 패턴)">
-    🧬<span class="label">Knowledge</span>
+  <button class="rail-btn" data-tab="tab-ab-simulator" title="모바일 피드 A/B 시뮬레이터">
+    📱<span class="label">Feed A/B</span>
   </button>
 </aside>
 
@@ -2343,7 +2328,7 @@ input:disabled, select:disabled {
     <div class="header-left">
       <div class="eyebrow">
         <span class="pulse-dot"></span>
-        <span id="channel-status-label">IHM EASY ENGLISH // CYBER-HUD v2.0</span>
+        <span id="channel-status-label">IHM EASY ENGLISH // COCKPIT v3.0</span>
       </div>
       <h1 class="hero-greeting" id="hero-greeting">Good day, Creator.</h1>
       <div class="card-subtext" id="channel-meta-subtext">데이터를 불러오는 중...</div>
@@ -2358,20 +2343,13 @@ input:disabled, select:disabled {
   </header>
 
   <div class="category-tabs-wrapper">
-    <button class="tab-scroll-btn tab-scroll-left" id="btn-tab-scroll-left" title="왼쪽 탭으로 이동">‹</button>
     <nav class="category-tabs" id="category-tabs-nav">
       <button class="tab-pill active" data-tab="tab-overview">⚡ 전체 관제 (Overview)</button>
-      <button class="tab-pill" data-tab="tab-idea-board">💡 아이디어→썸네일 기획 보드</button>
-      <button class="tab-pill" data-tab="tab-matrix">📊 CTR·지속률 4사분면 매트릭스</button>
-      <button class="tab-pill" data-tab="tab-ab-simulator">🎯 썸네일·제목 A/B 시뮬레이터</button>
-      <button class="tab-pill" data-tab="tab-demand">🎯 시장 수요 레이더 (Market Demand)</button>
-      <button class="tab-pill" data-tab="tab-outlier">🤖 아웃라이어 댓글 AI (Outlier Lab)</button>
       <button class="tab-pill" data-tab="tab-episodes">🎬 에피소드 & 업로드 패키지</button>
       <button class="tab-pill" data-tab="tab-studio">📁 Studio CTR 트래커</button>
-      <button class="tab-pill" data-tab="tab-design">🎨 브랜드 디자인 시스템</button>
-      <button class="tab-pill" data-tab="tab-knowledge-db">🧬 데이터 자산 (Knowledge DB)</button>
+      <button class="tab-pill" data-tab="tab-demand">🎯 경쟁 분석 & 시장 수요</button>
+      <button class="tab-pill" data-tab="tab-ab-simulator">📱 A/B 피드 시뮬레이터</button>
     </nav>
-    <button class="tab-scroll-btn tab-scroll-right" id="btn-tab-scroll-right" title="오른쪽 탭으로 이동">›</button>
   </div>
 
   <div id="tab-content-root">
@@ -2406,6 +2384,7 @@ let gDashboard = null;
 let gMarketDemand = null;
 let gContentOpportunity = null;
 let gEpisodes = null;
+let gEpisodeFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gKnowledgeDb = null;
 let gKdbSourceFilter = 'ALL'; // 'ALL' | 'outlierComment' | 'competitorScript'
 let gCurrentTab = (function() {
@@ -3036,26 +3015,6 @@ function renderCurrentTab() {
         root.innerHTML = renderOverviewTab();
         bindOverviewEvents();
         break;
-      case 'tab-idea-board':
-        root.innerHTML = renderIdeaBoardTab();
-        bindIdeaBoardEvents();
-        break;
-      case 'tab-matrix':
-        root.innerHTML = renderMatrixTab();
-        bindMatrixEvents();
-        break;
-      case 'tab-ab-simulator':
-        root.innerHTML = renderAbSimulatorTab();
-        bindAbSimulatorEvents();
-        break;
-      case 'tab-demand':
-        root.innerHTML = renderMarketDemandTab();
-        bindMarketDemandEvents();
-        break;
-      case 'tab-outlier':
-        root.innerHTML = renderOutlierLabTab();
-        bindOutlierLabEvents();
-        break;
       case 'tab-episodes':
         root.innerHTML = renderEpisodesTab();
         bindEpisodeEvents();
@@ -3064,12 +3023,14 @@ function renderCurrentTab() {
         root.innerHTML = renderStudioTab();
         bindStudioEvents();
         break;
-      case 'tab-design':
-        root.innerHTML = renderDesignSystemTab();
+      case 'tab-demand':
+      case 'tab-outlier':
+        root.innerHTML = renderMarketDemandTab();
+        bindMarketDemandEvents();
         break;
-      case 'tab-knowledge-db':
-        root.innerHTML = renderKnowledgeDbTab();
-        bindKnowledgeDbEvents();
+      case 'tab-ab-simulator':
+        root.innerHTML = renderAbSimulatorTab();
+        bindAbSimulatorEvents();
         break;
       default:
         root.innerHTML = renderOverviewTab();
@@ -3177,8 +3138,91 @@ function renderOverviewTab() {
       '</div>';
   }
 
+  // 🧭 주간 브리핑 & 목표 계산 (growth-rules.mjs 공식과 연동)
+  const dailyRows = d.daily || [];
+  const current7 = dailyRows.slice(-7);
+  const prev7 = dailyRows.slice(-14, -7);
+  const c7Views = current7.reduce((sum, r) => sum + (Number(r.views) || 0), 0);
+  const p7Views = prev7.reduce((sum, r) => sum + (Number(r.views) || 0), 0);
+  const c7SubsNet = current7.reduce((sum, r) => sum + ((Number(r.subscribersGained) || 0) - (Number(r.subscribersLost) || 0)), 0);
+  const deltaViews = c7Views - p7Views;
+  const deltaViewsSign = deltaViews >= 0 ? '+' + fmt.format(deltaViews) : fmt.format(deltaViews);
+  const viewGoalPct = Math.min(100, Math.round((c7Views / 1000) * 100));
+  const subGoalPct = Math.min(100, Math.round((Math.max(0, c7SubsNet) / 3) * 100));
+
+  const t7 = d.trafficSources7d?.rows || [];
+  const shortsFeedViews = t7.filter(r => r.insightTrafficSourceType === 'SHORTS').reduce((s, r) => s + (Number(r.views) || 0), 0);
+  const linkViews = t7.filter(r => ['RELATED_VIDEO', 'EXT_URL', 'NOTIFICATION', 'END_SCREEN'].includes(r.insightTrafficSourceType)).reduce((s, r) => s + (Number(r.views) || 0), 0);
+
+  const nowMs = Date.now();
+  const recentPubs = (d.videoPerformance || []).filter(v => {
+    const pub = Date.parse(v.publishedAt);
+    return pub && (nowMs - pub) <= 14 * 86400000;
+  }).slice(0, 3);
+
+  const briefingCockpitHtml = 
+    '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(16,22,34,0.95) 0%, rgba(10,14,24,0.98) 100%);border:1px solid rgba(0,240,255,0.3);border-radius:14px;padding:22px;margin-bottom:16px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px;">' +
+        '<div style="display:flex;align-items:center;gap:10px;">' +
+          '<span style="font-size:20px;">🧭</span>' +
+          '<span class="card-title" style="color:var(--accent-cyan);font-weight:800;font-size:16px;margin:0;">주간 성장 브리핑 & 목표 현황판 (Weekly Growth Cockpit)</span>' +
+          '<span class="badge badge-pass" style="font-size:11px;">최근 7일 vs 지난주 실측</span>' +
+        '</div>' +
+        '<div class="card-subtext" style="font-size:12px;">주간 목표: 조회수 1,000회 · 신규 구독 3명</div>' +
+      '</div>' +
+
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:16px;margin-bottom:16px;">' +
+        '<div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:10px;padding:14px;">' +
+          '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px;">' +
+            '<span>주간 조회수 목표 (1,000회)</span>' +
+            '<b style="color:var(--accent-cyan);">' + viewGoalPct + '%</b>' +
+          '</div>' +
+          '<div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;">' + fmt.format(c7Views) + '회 <span style="font-size:12px;font-weight:600;color:' + (deltaViews >= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)') + '">(' + deltaViewsSign + ' vs 지난주)</span></div>' +
+          '<div style="height:6px;background:#090d16;border-radius:99px;overflow:hidden;">' +
+            '<div style="height:100%;width:' + viewGoalPct + '%;background:var(--accent-cyan);border-radius:99px;"></div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:10px;padding:14px;">' +
+          '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px;">' +
+            '<span>주간 구독 순증 (+3명)</span>' +
+            '<b style="color:var(--accent-magenta);">' + subGoalPct + '%</b>' +
+          '</div>' +
+          '<div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;">+' + c7SubsNet + '명 <span style="font-size:12px;font-weight:600;color:var(--text-muted);">(목표 3명)</span></div>' +
+          '<div style="height:6px;background:#090d16;border-radius:99px;overflow:hidden;">' +
+            '<div style="height:100%;width:' + subGoalPct + '%;background:var(--accent-magenta);border-radius:99px;"></div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:10px;padding:14px;">' +
+          '<div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">쇼츠 ➔ 롱폼 플라이휠 (최근 7일)</div>' +
+          '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:4px;">쇼츠 피드: <b>' + fmt.format(shortsFeedViews) + '</b>회</div>' +
+          '<div style="font-size:13px;color:var(--accent-cyan);">링크 전환: <b>' + fmt.format(linkViews) + '</b>회 (' + (shortsFeedViews > 0 ? ((linkViews/shortsFeedViews)*100).toFixed(2) : '0') + '%)</div>' +
+        '</div>' +
+      '</div>' +
+
+      (recentPubs.length > 0 ? 
+        '<div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">' +
+          '<div style="font-size:12px;font-weight:700;color:var(--accent-amber);margin-bottom:10px;">⚡ 최근 공개 영상 성적 (골든타임 추적)</div>' +
+          '<div style="display:flex;gap:12px;flex-wrap:wrap;">' +
+            recentPubs.map(v => {
+              const daysAgo = Math.max(0, Math.floor((nowMs - Date.parse(v.publishedAt)) / 86400000));
+              return '<div style="flex:1;min-width:260px;background:rgba(0,0,0,0.3);border:1px solid var(--border-subtle);border-radius:8px;padding:10px 14px;">' +
+                '<div style="font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(v.title) + '</div>' +
+                '<div style="display:flex;gap:10px;margin-top:6px;font-size:12px;color:var(--text-muted);">' +
+                  '<span class="badge ' + (daysAgo <= 2 ? 'badge-amber' : 'badge-pass') + '" style="font-size:10px;">' + (daysAgo === 0 ? '오늘' : daysAgo + '일차') + '</span>' +
+                  '<span>조회 <b>' + fmt.format(v.views || 0) + '</b>회</span>' +
+                  '<span>시청률 <b>' + Number(v.averageViewPercentage || 0).toFixed(1) + '%</b></span>' +
+                '</div>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>' : '') +
+    '</div>';
+
   let html = '<div class="bento-grid">' +
     readyBannerHtml +
+    briefingCockpitHtml +
     '<div class="bento-card col-3">' +
       '<div class="card-header"><span class="card-title">총 조회수 (Views)</span><span class="badge badge-pass">90D</span></div>' +
       '<div class="card-value">' + fmt.format(summary.views || 0) + '</div>' +
@@ -3220,7 +3264,7 @@ function renderOverviewTab() {
         '</div>' +
         '<div style="display:flex;gap:10px">' +
           '<a class="btn btn-magenta" href="' + esc(bestVideo.url) + '" target="_blank">🎬 YouTube 재생</a>' +
-          '<button class="btn btn-sm btn-open-tab" data-target-tab="tab-outlier">🤖 AI 댓글 분석실 열기</button>' +
+          '<button class="btn btn-sm btn-open-tab" data-target-tab="tab-demand">🎯 시장 수요 & 아웃라이어 열기</button>' +
         '</div>' +
       '</div>' : '') +
 
@@ -4034,16 +4078,14 @@ async function runScriptAnalysis(targetUrl) {
 function triggerScriptAnalysis(vidOrUrl) {
   if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
   const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
-  gAiLabSubTab = 'scripts';
-  switchTab('tab-outlier');
+  switchTab('tab-demand');
   runScriptAnalysis(fullUrl);
 }
 
 function triggerCommentAnalysis(vidOrUrl) {
   if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
   const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
-  gAiLabSubTab = 'comments';
-  switchTab('tab-outlier');
+  switchTab('tab-demand');
   const urlInput = document.getElementById('input-ai-url');
   if (urlInput) urlInput.value = fullUrl;
   runAiCommentAnalysis({url: fullUrl});
@@ -4524,38 +4566,80 @@ function renderEpisodesTab() {
       '</div>' +
     '</div>';
 
+  const isShortsEp = (ep) => ep.kind === 'shorts' || ep.season === '쇼츠' || (!ep.tracks?.longform && (ep.tracks?.['shorts-a'] || ep.tracks?.['shorts-b']));
+  const totalCount = eps.length;
+  const longCount = eps.filter(e => !isShortsEp(e)).length;
+  const shortsCount = eps.filter(e => isShortsEp(e)).length;
+
+  html += '<div class="bento-card col-12" style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;margin-bottom:12px;background:rgba(15,20,32,0.85);border:1px solid var(--border-subtle);border-radius:12px;">' +
+    '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">' +
+      '<span style="font-size:13px;font-weight:700;color:var(--text-muted);margin-right:4px;">포맷 필터:</span>' +
+      '<button class="btn btn-sm ' + (gEpisodeFilter === 'ALL' ? 'btn-cyan' : '') + ' btn-ep-filter" data-filter="ALL">전체 (' + totalCount + ')</button>' +
+      '<button class="btn btn-sm ' + (gEpisodeFilter === 'LONGFORM' ? 'btn-cyan' : '') + ' btn-ep-filter" data-filter="LONGFORM">🎬 롱폼 (' + longCount + ')</button>' +
+      '<button class="btn btn-sm ' + (gEpisodeFilter === 'SHORTS' ? 'btn-magenta' : '') + ' btn-ep-filter" data-filter="SHORTS">📱 쇼츠 (' + shortsCount + ')</button>' +
+    '</div>' +
+    '<div class="card-subtext" style="font-size:12px;">💡 쇼츠와 롱폼이 분리되어 독립 카드로 표시됩니다.</div>' +
+  '</div>';
+
   eps.forEach(ep => {
+    const isEpShorts = isShortsEp(ep);
+    if (gEpisodeFilter === 'LONGFORM' && isEpShorts) return;
+    if (gEpisodeFilter === 'SHORTS' && !isEpShorts) return;
+
+    if (isEpShorts) {
+      const track = ep.tracks?.shorts || ep.tracks?.longform || ep.tracks?.['shorts-a'] || ep.tracks?.['shorts-b'] || {};
+      const yt = track.youtube || {};
+      const thumbUrl = yt.thumbnailCandidates?.[0]
+        || (yt.videoId ? 'https://i.ytimg.com/vi/' + yt.videoId + '/mqdefault.jpg' : '');
+      const isCandidateThumb = !yt.videoId;
+      const statusText = track.statusLabel || track.status || 'READY';
+
+      html += '<div class="bento-card col-3" style="border-top:3px solid var(--accent-magenta);">' +
+        (thumbUrl ? '<div style="position:relative;margin-bottom:14px">' +
+          '<img class="thumb-img" src="' + esc(thumbUrl) + '" style="aspect-ratio:16/9;object-fit:cover;" alt="">' +
+          (isCandidateThumb ? '<span style="position:absolute;top:8px;left:8px;background:rgba(5,7,12,0.85);color:var(--text-bright);font-size:11px;padding:3px 8px;border-radius:6px">시안 후보</span>' : '') +
+          '<span style="position:absolute;top:8px;right:8px;background:var(--accent-magenta);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px">SHORTS</span>' +
+        '</div>' : '') +
+        '<div class="card-header">' +
+          '<span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--accent-magenta);white-space:nowrap">📱 ' + esc(ep.episode) + '</span>' +
+          '<span class="badge badge-pass" style="white-space:nowrap">' + esc(statusText) + '</span>' +
+        '</div>' +
+        '<div style="font-weight:700;font-size:14px;color:var(--text-normal);margin-bottom:10px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + esc(yt.title || '(제목 미지정)') + '</div>' +
+        '<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">' +
+          (ep.parentEpisode ? '<span class="tag-chip" style="border-color:var(--accent-cyan);color:var(--accent-cyan);font-size:11px;">🔗 ' + esc(ep.parentEpisode) + ' 롱폼 연계</span>' : '') +
+          (yt.videoId ? '<span class="tag-chip" style="font-size:11px;">쇼츠 ID: ' + esc(yt.videoId) + '</span>' : '') +
+        '</div>' +
+        '<div style="display:flex;gap:8px">' +
+          '<button class="btn btn-sm btn-magenta btn-inspect-pkg" data-season="' + esc(ep.season) + '" data-ep="' + esc(ep.episode) + '" style="width:100%;justify-content:center;">📦 쇼츠 패키지 열기</button>' +
+        '</div>' +
+      '</div>';
+      return;
+    }
+
     const long = ep.tracks?.longform?.youtube || {};
-    const shortsA = ep.tracks?.['shorts-a']?.youtube || {};
-    const shortsB = ep.tracks?.['shorts-b']?.youtube || {};
-    // 로컬 후보 썸네일(우리가 직접 만든 파일, 항상 로드됨)을 우선 쓰고, 없을 때만 유튜브 CDN
-    // 썸네일로 폴백한다. CDN 썸네일(i.ytimg.com)은 videoId가 있어도 영상이 아직 비공개/예약
-    // 상태면 안 나온다 — 2026-09-11 확인: 업로드 직후(공개 전) EP13·EP14가 깨진 이미지로
-    // 보이는 버그였음(videoId 유무만으로 CDN을 쓰던 예전 로직의 문제).
     const thumbUrl = long.thumbnailCandidates?.[0]
       || (long.videoId ? 'https://i.ytimg.com/vi/' + long.videoId + '/mqdefault.jpg' : '');
     const isCandidateThumb = !long.videoId;
     const statusText = ep.tracks?.longform?.statusLabel || ep.tracks?.longform?.status || 'READY';
+    const relatedCount = ep.relatedShorts?.length || (ep.tracks?.['shorts-b'] ? 2 : (ep.tracks?.['shorts-a'] ? 1 : 0));
 
-    html += '<div class="bento-card col-3">' +
+    html += '<div class="bento-card col-3" style="border-top:3px solid var(--accent-cyan);">' +
       (thumbUrl ? '<div style="position:relative;margin-bottom:14px">' +
         '<img class="thumb-img" src="' + esc(thumbUrl) + '" alt="">' +
         (isCandidateThumb ? '<span style="position:absolute;top:8px;left:8px;background:rgba(5,7,12,0.85);color:var(--text-bright);font-size:11px;padding:3px 8px;border-radius:6px">시안 후보</span>' : '') +
+        '<span style="position:absolute;top:8px;right:8px;background:var(--accent-cyan);color:#000;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px">LONGFORM</span>' +
       '</div>' : '') +
       '<div class="card-header">' +
         '<span style="font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--text-bright);white-space:nowrap">' + esc(ep.season.toUpperCase()) + ' · ' + esc(ep.episode.toUpperCase()) + '</span>' +
         '<span class="badge badge-pass" style="white-space:nowrap">' + esc(statusText) + '</span>' +
       '</div>' +
-      '<div style="font-weight:700;font-size:15px;color:var(--text-normal);margin-bottom:10px;line-height:1.4">' + esc(long.title || '(제목 미지정)') + '</div>' +
-      '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">' +
-        (long.videoId ? '<span class="tag-chip">롱폼: ' + esc(long.videoId) + '</span>' : '') +
-        // 쇼츠는 업로드 전(패키징 완료)에도 카드에서 바로 보여 준다. 예전에는 videoId가 있어야만 보여서,
-        // 카드를 열어 쇼츠 탭을 눌러 봐야 쇼츠가 있는지 알 수 있었다(2026-11-09 사용자 지적).
-        (ep.tracks?.['shorts-a'] ? '<span class="tag-chip" style="border-color:var(--accent-magenta)">📱 쇼츠A: ' + esc(ep.tracks['shorts-a'].statusLabel || ep.tracks['shorts-a'].status || '') + '</span>' : '') +
-        (ep.tracks?.['shorts-b'] ? '<span class="tag-chip" style="border-color:var(--accent-magenta)">📱 쇼츠B: ' + esc(ep.tracks['shorts-b'].statusLabel || ep.tracks['shorts-b'].status || '') + '</span>' : '') +
+      '<div style="font-weight:700;font-size:15px;color:var(--text-normal);margin-bottom:10px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + esc(long.title || '(제목 미지정)') + '</div>' +
+      '<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">' +
+        (long.videoId ? '<span class="tag-chip" style="font-size:11px;">롱폼: ' + esc(long.videoId) + '</span>' : '') +
+        (relatedCount > 0 ? '<span class="tag-chip" style="border-color:var(--accent-magenta);color:var(--accent-magenta);font-size:11px;cursor:pointer;" onclick="setEpisodeFilter(\'SHORTS\')">📱 쇼츠 ' + relatedCount + '개</span>' : '') +
       '</div>' +
       '<div style="display:flex;gap:8px">' +
-        '<button class="btn btn-sm btn-magenta btn-inspect-pkg" data-season="' + esc(ep.season) + '" data-ep="' + esc(ep.episode) + '">📦 업로드 패키지 열기</button>' +
+        '<button class="btn btn-sm btn-cyan btn-inspect-pkg" data-season="' + esc(ep.season) + '" data-ep="' + esc(ep.episode) + '" style="width:100%;justify-content:center;">📦 롱폼 패키지 열기</button>' +
       '</div>' +
     '</div>';
   });
@@ -4865,6 +4949,12 @@ async function loadAndBindSchedulePanel() {
 
 function bindEpisodeEvents() {
   loadAndBindSchedulePanel();
+  document.querySelectorAll('.btn-ep-filter').forEach(btn => {
+    btn.onclick = () => {
+      gEpisodeFilter = btn.dataset.filter;
+      renderCurrentTab();
+    };
+  });
   document.querySelectorAll('.btn-inspect-pkg').forEach(btn => {
     btn.onclick = () => {
       const season = btn.dataset.season;
@@ -4875,6 +4965,10 @@ function bindEpisodeEvents() {
     };
   });
 }
+window.setEpisodeFilter = (filter) => {
+  gEpisodeFilter = filter;
+  renderCurrentTab();
+};
 
 function openEpisodeInspectorModal(epData) {
   const tracks = epData.tracks || {};

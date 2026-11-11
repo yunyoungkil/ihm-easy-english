@@ -22,19 +22,31 @@ export const packageStatusSource = (folderName = '') =>
     ? {file: 'shorts-status.json', fallback: {status: 'packaged'}}
     : {file: 'status.json', fallback: {}};
 
-// 쇼츠 패키지를 같은 번호의 단편 롱폼 카드에 쇼츠 탭('shorts-a', 'shorts-b' …)으로 붙인다.
-// 같은 번호 카드가 둘이면 패키지 인스펙터가 번호로 찾다가 엉뚱한 카드를 열기 때문이다.
-// 붙일 롱폼이 없으면 "EP31 쇼츠"처럼 따로 카드를 만든다.
+// 쇼츠 패키지를 독립된 카드로 등록하면서, 같은 번호의 롱폼 카드에도 연계 정보(tracks['shorts-a'…])를 연결한다.
+// 롱폼이 없어도 쇼츠 카드는 독립적으로 생성되며, 롱폼 카드가 있으면 상호 연결(relatedShorts / parentEpisode)된다.
 export const attachShortsPackages = (episodes, shortsPackages = []) => {
   for (const {episode, track} of shortsPackages) {
+    // 1. 해당 번호의 롱폼 카드가 있으면 쇼츠 트랙을 연계 등록
     const target = episodes.find((e) => e.season === '단편' && e.episode === episode && e.tracks?.longform);
-    if (!target) {
-      episodes.push({season: '단편', episode: `${episode} 쇼츠`, tracks: {longform: track}});
-      continue;
+    if (target) {
+      let n = 0;
+      while (target.tracks[`shorts-${String.fromCharCode(97 + n)}`]) n += 1;
+      target.tracks[`shorts-${String.fromCharCode(97 + n)}`] = track;
+      target.relatedShorts = target.relatedShorts || [];
+      target.relatedShorts.push(track.contentId);
     }
-    let n = 0;
-    while (target.tracks[`shorts-${String.fromCharCode(97 + n)}`]) n += 1;
-    target.tracks[`shorts-${String.fromCharCode(97 + n)}`] = track;
+
+    // 2. 쇼츠 자체를 독립된 카드로 episodes 목록에 추가 (대시보드에서 롱폼과 분리 표시)
+    episodes.push({
+      season: '쇼츠',
+      episode: `${episode} 쇼츠`,
+      parentEpisode: episode,
+      kind: 'shorts',
+      tracks: {
+        longform: track,
+        shorts: track,
+      },
+    });
   }
   return episodes;
 };

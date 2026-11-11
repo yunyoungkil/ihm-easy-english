@@ -1713,10 +1713,17 @@ h1.hero-greeting {
   gap: 18px;
 }
 .col-12 { grid-column: span 12; }
+.col-11 { grid-column: span 11; }
+.col-10 { grid-column: span 10; }
+.col-9  { grid-column: span 9; }
 .col-8  { grid-column: span 8; }
+.col-7  { grid-column: span 7; }
 .col-6  { grid-column: span 6; }
+.col-5  { grid-column: span 5; }
 .col-4  { grid-column: span 4; }
 .col-3  { grid-column: span 3; }
+.col-2  { grid-column: span 2; }
+.col-1  { grid-column: span 1; }
 
 .bento-card {
   background: var(--bg-card);
@@ -3535,14 +3542,14 @@ function renderMarketDemandTab() {
 
   // ==========================================
   // [CORE INNOVATION] 2-Column Master-Detail View
-  // 좌측 (col-5): 시장 수요 키워드 풀
-  // 우측 (col-7): 선택된 키워드 장악 채널 & 대표 아웃라이어
+  // 좌측 (col-4): 시장 수요 키워드 풀
+  // 우측 (col-8): 선택된 키워드 장악 채널 & 대표 아웃라이어
   // ==========================================
-  html += '<div class="bento-card col-5" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">' +
+  html += '<div class="bento-card col-4" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">' +
     '<div class="card-header" style="margin-bottom:12px">' +
       '<div>' +
         '<span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text-bright)">🎯 핵심 수요 키워드 풀</span>' +
-        '<div class="card-subtext" style="margin-top:2px">클릭 시 우측에 장악 채널 & 아웃라이어가 즉시 연동됩니다 (' + keywords.length + '개)</div>' +
+        '<div class="card-subtext" style="margin-top:2px">클릭 시 우측에 아웃라이어가 즉시 연동됩니다 (' + keywords.length + '개)</div>' +
       '</div>' +
     '</div>' +
     '<div style="display:flex;flex-direction:column;gap:8px;max-height:640px;overflow-y:auto;padding-right:4px">';
@@ -3554,15 +3561,15 @@ function renderMarketDemandTab() {
     const isD7 = k.source === 'd7_search_terms';
 
     html += '<div class="demand-kw-item" data-keyword="' + esc(k.keyword) + '" style="cursor:pointer;background:' + (isSelected ? 'rgba(6,182,212,0.12)' : '#05070c') + ';border:1.5px solid ' + (isSelected ? 'var(--accent-cyan)' : 'var(--border-subtle)') + ';border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;transition:all 0.15s ease">' +
-      '<div style="min-width:0;flex:1">' +
+      '<div style="min-width:0;flex:1;margin-right:8px">' +
         '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' +
-          '<span style="font-weight:800;font-size:14px;color:' + (isSelected ? 'var(--accent-cyan)' : 'var(--text-bright)') + '">' + esc(k.keyword) + '</span>' +
+          '<span style="font-weight:800;font-size:13.5px;color:' + (isSelected ? 'var(--accent-cyan)' : 'var(--text-bright)') + ';word-break:keep-all">' + esc(k.keyword) + '</span>' +
           (isD7 ? '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px">D+7 유입</span>' : '') +
         '</div>' +
-        '<div class="card-subtext" style="margin-top:2px">기회 ' + Number(k.opportunityScore || 0).toFixed(1) + '점 · 표본 ' + (k.videoCount || 0) + '개</div>' +
+        '<div class="card-subtext" style="margin-top:3px;font-size:11px">기회 ' + Number(k.opportunityScore || 0).toFixed(1) + '점 · 표본 ' + (k.videoCount || 0) + '개</div>' +
       '</div>' +
-      '<div style="display:flex;gap:6px;align-items:center">' +
-        '<span class="badge ' + scoreClass + '" style="font-size:10px;padding:2px 8px">수요 ' + score + '</span>' +
+      '<div style="display:flex;gap:4px;align-items:center;flex-shrink:0">' +
+        '<span class="badge ' + scoreClass + '" style="font-size:10px;padding:2px 7px;white-space:nowrap">수요 ' + score + '</span>' +
         '<button class="btn btn-sm btn-demand-refresh" data-keyword="' + esc(k.keyword) + '" title="재분석" style="padding:2px 6px;font-size:11px">🔄</button>' +
         '<button class="btn btn-sm btn-demand-delete" data-keyword="' + esc(k.keyword) + '" title="키워드 삭제" style="color:#ff5577;border-color:#ff5577;padding:2px 6px;font-size:11px">🗑️</button>' +
       '</div>' +
@@ -3572,7 +3579,7 @@ function renderMarketDemandTab() {
   html += '</div></div>';
 
   // 우측 Detail: 선택된 키워드 연계 채널 & 대표 아웃라이어
-  html += '<div class="bento-card col-7" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">';
+  html += '<div class="bento-card col-8" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">';
 
   if (selectedKwObj) {
     const opp = Number(selectedKwObj.opportunityScore || 0).toFixed(1);

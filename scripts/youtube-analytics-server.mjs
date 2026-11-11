@@ -3561,20 +3561,6 @@ function renderMarketDemandTab() {
       '</div>' +
     '</div>';
   }
-                return '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:8px;padding:8px 10px;margin-bottom:6px">' +
-                  (watchUrl ?
-                    '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" style="text-decoration:none"><div style="font-weight:700;font-size:12px;color:var(--text-bright);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">▶ ' + esc(o.title) + '</div></a>' :
-                    '<div style="font-weight:700;font-size:12px;color:var(--text-bright)">' + esc(o.title) + '</div>') +
-                  '<div class="card-subtext">' + (o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '') + ' · 일평균 ' + fmt.format(Math.round(o.viewsPerDay || 0)) + '회' +
-                  '</div>' +
-                '</div>';
-              }).join('') +
-            '</div>' : '') +
-        '</div>';
-      }).join('') +
-      '</div>' +
-    '</div>';
-  }
 
   // 키워드 카드마다 따로 있던 "제목 반복 패턴"을 하나로 합친다 — 같은 단어가 여러 카드에
   // 중복으로 뜨면 어느 걸 복사했는지 헷갈리고, 같은 걸 또 수요 분석하게 될 수 있다는 사용자

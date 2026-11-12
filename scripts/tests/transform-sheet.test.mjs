@@ -182,8 +182,34 @@ test('컷 필름스트립: 경쟁 컷 프레임과 우리 컷 카드를 시간 �
   const rep = {...report, windowSeconds: 53, pacing: {count: 3, perMinute: 17, times: [9.5, 15, 17.3]}};
   const html = renderTransformSheetPage(s, rep, []);
   assert.equal((html.match(/class="film comp"/g) || []).length, 1);
-  assert.equal((html.match(/\/outlier-frames\/AAAAAAAAAAA\/cut-0[0-2]\.jpg/g) || []).length, 3);
-  assert.equal((html.match(/\/transform-images\/AAAAAAAAAAA\/cuts\/cut-0[0-6]\.png/g) || []).length, 7);
+  assert.equal((html.match(/src="\/outlier-frames\/AAAAAAAAAAA\/cut-0[0-2]\.jpg"/g) || []).length, 3);
+  assert.equal((html.match(/src="\/transform-images\/AAAAAAAAAAA\/cuts\/cut-0[0-6]\.png"/g) || []).length, 7);
   assert.match(html, /<figcaption>9\.5초<\/figcaption>/);
   assert.match(html, /<figcaption>14초<\/figcaption>/);
+});
+
+test('컷 필름스트립은 한 줄 스크롤이 아니라 줄바꿈 격자이고, 그림은 300px 높이로 크게 보이며 누르면 원본이 열린다', () => {
+  const s = good();
+  s.rows.find((r) => r.key === 'visual').ours.cutPlan = {durationSeconds: 50, cuts: [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5].map((t, i) => ({t, template: 'hook', word: 'a', image: `images/AAAAAAAAAAA/cuts/cut-0${i}.png`}))};
+  const rep = {...report, windowSeconds: 53, pacing: {count: 3, perMinute: 17, times: [9.5, 15, 17.3]}};
+  const html = renderTransformSheetPage(s, rep, []);
+  assert.match(html, /\.film\{[^}]*flex-wrap:wrap/);
+  assert.doesNotMatch(html, /\.film\{[^}]*overflow-x:auto/);
+  assert.match(html, /\.film img\{[^}]*height:300px/);
+  assert.match(html, /<a href="\/transform-images\/AAAAAAAAAAA\/cuts\/cut-00\.png" target="_blank" rel="noopener"><img/);
+  assert.match(html, /<a href="\/outlier-frames\/AAAAAAAAAAA\/cut-00\.jpg" target="_blank" rel="noopener"><img/);
+});
+
+test('이미지 주소에 파일 수정 시각(?v=)을 붙여, 그림을 다시 만들면 브라우저가 옛 파일을 쓰지 않게 한다', () => {
+  const s = good();
+  s.rows.find((r) => r.key === 'thumbnail').ours = {text: '우리', images: ['images/AAAAAAAAAAA/thumb-A.jpg']};
+  s.rows.find((r) => r.key === 'visual').ours.cutPlan = {durationSeconds: 50, cuts: [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5].map((t, i) => ({t, template: 'hook', word: 'a', image: `images/AAAAAAAAAAA/cuts/cut-0${i}.png`}))};
+  const rep = {...report, windowSeconds: 53, pacing: {count: 3, perMinute: 17, times: [9.5, 15, 17.3]}};
+  const html = renderTransformSheetPage(s, rep, [], {assetVersion: '1731420000'});
+  assert.match(html, /src="\/transform-images\/AAAAAAAAAAA\/thumb-A\.jpg\?v=1731420000"/);
+  assert.match(html, /src="\/transform-images\/AAAAAAAAAAA\/cuts\/cut-00\.png\?v=1731420000"/);
+  assert.match(html, /src="\/outlier-frames\/AAAAAAAAAAA\/cut-00\.jpg\?v=1731420000"/);
+  assert.match(html, /<a href="\/transform-images\/AAAAAAAAAAA\/cuts\/cut-00\.png\?v=1731420000"/);
+  const none = renderTransformSheetPage(s, rep, []);
+  assert.doesNotMatch(none, /\?v=/);
 });

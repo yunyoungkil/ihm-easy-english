@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
-  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes, cutFrameName, missingCutFrames,
+  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes, cutFrameName, missingCutFrames, CUT_FRAME_HEIGHT,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -238,4 +238,8 @@ test('컷마다 프레임 한 장: 빠진 컷 번호만 골라내고, 파일 이
   assert.deepEqual(missingCutFrames(report, (rel) => exists.has(rel)), [1]);
   assert.deepEqual(missingCutFrames({videoId: 'abcdefghijk', pacing: {}}, () => false), []);
   assert.deepEqual(missingCutFrames({videoId: 'abcdefghijk', pacing: {times: [1, 2]}}, () => false), [0, 1]);
+});
+
+test('컷 프레임은 읽을 수 있게 480px 높이로 뽑는다', () => {
+  assert.equal(CUT_FRAME_HEIGHT, 480);
 });

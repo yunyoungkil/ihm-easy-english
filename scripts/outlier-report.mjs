@@ -424,6 +424,8 @@ export async function resolveYtDlp({install = false} = {}) {
 }
 
 /** 컷마다 프레임 한 장의 파일 이름(2026-11-12: 컷을 글자가 아니라 이미지로 비교한다). */
+export const CUT_FRAME_HEIGHT = 480; // 컷 프레임 높이(px). 300px는 글자를 읽을 수 없었다(2026-11-12 사용자)
+
 export function cutFrameName(index) {
   return `cut-${String(index).padStart(2, '0')}.jpg`;
 }
@@ -458,7 +460,7 @@ async function processClip(videoId, moments, windowSeconds, {detectCuts = true, 
     for (const i of wantIdx) {
       const t = Math.max(0, Number(cutTimesNow[i]) + 0.3);
       if (!Number.isFinite(t)) continue;
-      await execFileAsync('ffmpeg', ['-loglevel', 'error', '-y', '-ss', String(t), '-i', join(work, video), '-frames:v', '1', '-vf', 'scale=-2:300', '-q:v', '5', join(outDir, cutFrameName(i))], {timeout: 60000}).catch(() => {});
+      await execFileAsync('ffmpeg', ['-loglevel', 'error', '-y', '-ss', String(t), '-i', join(work, video), '-frames:v', '1', '-vf', `scale=-2:${CUT_FRAME_HEIGHT}`, '-q:v', '3', join(outDir, cutFrameName(i))], {timeout: 60000}).catch(() => {});
     }
     const frames = [];
     for (const m of moments) {

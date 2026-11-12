@@ -1,6 +1,6 @@
 import {createServer} from 'node:http';
 import {readFile, writeFile, unlink, mkdir, readdir, rename, stat} from 'node:fs/promises';
-import {existsSync} from 'node:fs';
+import {existsSync, readdirSync, statSync} from 'node:fs';
 import {randomBytes} from 'node:crypto';
 import {dirname, join, relative, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -6155,6 +6155,22 @@ async function getFullDashboardData(forceLiveSync = false) {
   return null;
 }
 
+// 폴더(하위 폴더 포함) 안 파일 중 가장 늦은 수정 시각(초). 그림을 다시 만들면 값이 바뀌어 이미지 주소의 ?v=가 달라진다(브라우저 캐시 방지).
+function latestFileMtime(dirs) {
+  let latest = 0;
+  const walk = (dir) => {
+    if (!existsSync(dir)) return;
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      const st = statSync(full);
+      if (st.isDirectory()) walk(full);
+      else if (st.mtimeMs > latest) latest = st.mtimeMs;
+    }
+  };
+  dirs.forEach(walk);
+  return latest ? String(Math.floor(latest / 1000)) : '';
+}
+
 // 아웃라이어 리포트 캡처 만들기 줄(한 번에 한 편씩). 같은 영상은 두 번 넣지 않는다.
 // 돌려주는 값: 이 리포트에서 아직 없는 캡처 수(0이면 다 있음).
 const outlierFrameJobs = new Set();
@@ -6216,14 +6232,14 @@ const server = createServer(async (req, res) => {
       const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
       if (report) queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing})));
+      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing}), {assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
       return;
     }
     const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/((?:cuts\/)?[\w.-]{1,60}\.(?:jpg|png))$/);
     if (sheetImageMatch) {
       const imagePath = join(transformSheetsDir, 'images', sheetImageMatch[1], sheetImageMatch[2]);
       if (!existsSync(imagePath)) return json(res, 404, {error: '이미지가 없습니다.'});
-      res.writeHead(200, {'Content-Type': sheetImageMatch[2].endsWith('.png') ? 'image/png' : 'image/jpeg', 'Cache-Control': 'max-age=3600'});
+      res.writeHead(200, {'Content-Type': sheetImageMatch[2].endsWith('.png') ? 'image/png' : 'image/jpeg', 'Cache-Control': 'no-cache'});
       res.end(await readFile(imagePath));
       return;
     }
@@ -6254,7 +6270,7 @@ const server = createServer(async (req, res) => {
     if (outlierFrameMatch) {
       const framePath = join(outlierFramesDir, outlierFrameMatch[1], outlierFrameMatch[2]);
       if (!existsSync(framePath)) return json(res, 404, {error: '캡처가 이 PC에 없습니다(다른 PC에서 만든 리포트는 다시 분석해야 캡처가 생깁니다).'});
-      res.writeHead(200, {'Content-Type': 'image/jpeg', 'Cache-Control': 'max-age=3600'});
+      res.writeHead(200, {'Content-Type': 'image/jpeg', 'Cache-Control': 'no-cache'});
       res.end(await readFile(framePath));
       return;
     }

@@ -42,6 +42,7 @@ import { attachShortsPackages, packageStatusSource, selectPackageVideo, packageS
 import { syncAllTrackedChannels, runD7AutonomousCycle, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 import { recordSuccessPatterns } from './success-patterns.mjs';
+import { resolveVideoFormat } from './video-format.mjs';
 
 const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -230,12 +231,6 @@ const getChannelShortsIds = async (channelId, accessToken) => {
     console.warn('[Shorts] 쇼츠 재생목록을 못 읽어 길이 기준으로 대신합니다:', err.message);
     return null;
   }
-};
-
-const resolveVideoFormat = (video, shortsIds) => {
-  if (shortsIds && video.privacyStatus === 'public') return shortsIds.has(video.videoId) ? 'SHORTS' : 'LONGFORM';
-  const seconds = Number(video.durationSeconds || 0);
-  return seconds > 0 && seconds <= 60 ? 'SHORTS' : 'LONGFORM';
 };
 
 const chunks = (values, size) => Array.from({length: Math.ceil(values.length / size)}, (_, index) => values.slice(index * size, (index + 1) * size));

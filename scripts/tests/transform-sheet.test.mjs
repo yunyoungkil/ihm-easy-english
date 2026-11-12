@@ -13,7 +13,7 @@ const good = () => ({
   format: 'SHORTS',
   topic: '가운데 모음이 사라지는 외래어',
   identityShare: {ours: 30, competitor: 70, reason: '확정 판정 0편이라 경쟁 쪽을 크게'},
-  rows: ROW_KEYS.map((k) => row(k)),
+  rows: ROW_KEYS.map((k) => (k === 'visual' ? row(k, {ours: {text: '우리 쪽', cutPlan: {durationSeconds: 50, times: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45]}}}) : row(k))),
   borrowed: [{fromVideoId: 'BBBBBBBBBBB', what: '철자 카드 넘기기', reason: '소리가 바뀌는 글자를 눈으로 보여 줌', evidence: '2,380배 영상, 표본 1편(가설)'}],
   rejected: [{fromVideoId: 'CCCCCCCCCCC', what: '전문 강사 발언 인용', reason: '확인할 수 없는 수치 주장이라 뺀다'}],
 });
@@ -132,4 +132,45 @@ test('BRIEF 기획 근거의 변형 시트 줄을 읽는다', () => {
   const brief = '## 기획 근거\n- 변형 시트: SbQVBQoRciA (가운데 모음이 사라지는 외래어)\n\n## 다음\n';
   assert.equal(parsePlanningSources(brief).transformSheet, 'SbQVBQoRciA');
   assert.equal(parsePlanningSources('## 기획 근거\n- 경쟁 영상: 경쟁 근거 없음\n').transformSheet, null);
+});
+
+// ---- 컷 리듬 비교(2026-11-12 사용자: 우리도 경쟁 컷 수에 조금은 맞춰야 한다) ----
+const withPlan = (times, duration = 50) => { const s = good(); s.rows.find((r) => r.key === 'visual').ours.cutPlan = {durationSeconds: duration, times}; return s; };
+const withoutPlan = () => { const s = good(); delete s.rows.find((r) => r.key === 'visual').ours.cutPlan; return s; };
+
+test('화면 연출 행에는 컷 계획(몇 초에 장면이 바뀌는지)이 있어야 한다', () => {
+  assert.ok(validateSheet(withoutPlan()).some((p) => p.includes('컷 계획')));
+  assert.deepEqual(validateSheet(withPlan([0, 4, 8, 12, 16])), []);
+});
+
+test('컷 계획은 시간 순서이고 영상 길이 안에 있어야 한다', () => {
+  assert.ok(validateSheet(withPlan([0, 8, 4])).some((p) => p.includes('순서')));
+  assert.ok(validateSheet(withPlan([0, 4, 99], 50)).some((p) => p.includes('길이')));
+});
+
+test('우리 컷 수가 경쟁의 절반 미만이면 실패한다(1분당 컷 수로 비교, 경쟁 컷 수가 없으면 비교하지 않는다)', () => {
+  const comp = {perMinute: 17};
+  const few = withPlan([0, 25]); // 50초에 2번 = 1분에 2.4번
+  assert.ok(validateSheet(few, {competitorPacing: comp}).some((p) => p.includes('절반')));
+  const enough = withPlan([0, 3.5, 7, 10.5, 14, 17.5, 21, 24.5, 28, 31.5, 35, 38.5, 42, 46]); // 1분에 16.8번
+  assert.deepEqual(validateSheet(enough, {competitorPacing: comp}), []);
+  assert.deepEqual(validateSheet(few, {competitorPacing: {perMinute: null}}), []);
+  assert.deepEqual(validateSheet(few), []);
+});
+
+test('시트 화면: 경쟁 컷 시각과 우리 컷 계획을 같은 시간 막대로 보여 주고 1분당 컷 수를 적는다', () => {
+  const s = withPlan([0, 10, 20, 30, 40]);
+  const rep = {...report, windowSeconds: 53, pacing: {count: 3, perMinute: 17, times: [3, 10, 30]}};
+  const html = renderTransformSheetPage(s, rep, []);
+  assert.match(html, /컷 리듬/);
+  assert.equal((html.match(/class="tick comp"/g) || []).length, 3);
+  assert.equal((html.match(/class="tick ours"/g) || []).length, 5);
+  assert.match(html, /경쟁 3번/);
+  assert.match(html, /우리 계획 5번/);
+});
+
+test('시트 화면: 그림은 같은 높이로 제한하고 여러 장은 가로로 나란히 둔다', () => {
+  const html = renderTransformSheetPage(good(), report, []);
+  assert.match(html, /\.sheet-col \.imgs\{[^}]*flex-wrap:nowrap/);
+  assert.match(html, /max-height:300px/);
 });

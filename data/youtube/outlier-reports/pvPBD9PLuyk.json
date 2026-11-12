@@ -175,7 +175,10 @@
     "count": 1,
     "medianGapSeconds": null,
     "perMinute": 1.9,
-    "source": "ffmpeg 장면 전환 감지(코드)"
+    "source": "ffmpeg 장면 전환 감지(코드)",
+    "times": [
+      0.5
+    ]
   },
   "frames": [
     {

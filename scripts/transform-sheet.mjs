@@ -34,7 +34,24 @@ export function sheetStage(sheet) {
 }
 
 /** 규칙을 어긴 곳을 문장으로 돌려준다. 빈 배열이면 통과. imageExists로 우리 쪽 이미지 파일 존재를 확인한다. */
-export function validateSheet(sheet, {imageExists = () => true} = {}) {
+export const MIN_CUT_SHARE = 0.5; // 우리 컷 수는 경쟁(1분당)의 절반 이상(2026-11-12 사용자: 그만큼은 아니더라도 조금은 맞춘다)
+
+/** 컷 계획: {durationSeconds, times:[초...]}. 시간 순서·길이 안이어야 하고, 경쟁 컷 수가 있으면 1분당 절반 이상이어야 한다. */
+function cutPlanProblems(plan, competitorPacing) {
+  if (!plan || !Array.isArray(plan.times) || !plan.times.length || !(Number(plan.durationSeconds) > 0)) return ['화면 연출: 우리 쪽 컷 계획(몇 초에 장면이 바뀌는지)이 없다'];
+  const out = [];
+  const t = plan.times.map(Number);
+  if (t.some((x, i) => !Number.isFinite(x) || x < 0 || (i > 0 && x <= t[i - 1]))) out.push('화면 연출: 컷 계획이 시간 순서가 아니다');
+  if (t.some((x) => x > Number(plan.durationSeconds))) out.push('화면 연출: 컷 계획이 영상 길이를 넘는다');
+  const comp = Number(competitorPacing?.perMinute);
+  if (!out.length && Number.isFinite(comp) && comp > 0) {
+    const ours = (t.length / Number(plan.durationSeconds)) * 60;
+    if (ours < comp * MIN_CUT_SHARE) out.push(`화면 연출: 우리 컷이 1분에 ${Math.round(ours * 10) / 10}번으로 경쟁(${comp}번)의 절반 미만이다`);
+  }
+  return out;
+}
+
+export function validateSheet(sheet, {imageExists = () => true, competitorPacing = null} = {}) {
   const problems = [];
   if (!filled(sheet?.sourceVideoId)) problems.push('원본 경쟁 영상 ID가 없다');
   if (!filled(sheet?.topic)) problems.push('우리 소재가 없다');
@@ -50,6 +67,7 @@ export function validateSheet(sheet, {imageExists = () => true} = {}) {
     if (!filled(r.competitor?.text)) problems.push(`${ROW_LABELS[key]}: 경쟁 쪽 내용이 비어 있다`);
     if (!filled(r.ours?.text)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 내용이 비어 있다`);
     if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);
+    if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing));
     for (const img of [r.ours?.image, ...(r.ours?.images || [])].filter(filled)) {
       if (!imageExists(img)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 이미지 파일이 없다(${img})`);
     }

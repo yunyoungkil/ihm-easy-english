@@ -6216,7 +6216,7 @@ const server = createServer(async (req, res) => {
       const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
       if (report) queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists})));
+      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing})));
       return;
     }
     const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/([\w.-]{1,60}\.(?:jpg|png))$/);

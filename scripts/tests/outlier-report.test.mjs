@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
-  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay,
+  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -221,4 +221,11 @@ test('따라잡기: 아직 합친 리포트가 없는 예전 리포트 영상이
   assert.equal(reportsPerDay({eligibleIds: ['a', 'b'], oldReportIds: new Set(['b'])}), 6);
   assert.equal(reportsPerDay({eligibleIds: ['a'], oldReportIds: new Set(['z'])}), 2);
   assert.equal(reportsPerDay({eligibleIds: [], oldReportIds: new Set(['z'])}), 2);
+});
+
+test('컷 시각이 저장 안 된 예전 리포트만 컷 시각을 다시 잰다(영상에서 잰 값일 때만, 값이 있으면 안 잰다)', () => {
+  assert.equal(needsCutTimes({pacing: {source: 'ffmpeg 장면 전환 감지(코드)', count: 15}}), true);
+  assert.equal(needsCutTimes({pacing: {source: 'ffmpeg 장면 전환 감지(코드)', count: 15, times: [1, 2]}}), false);
+  assert.equal(needsCutTimes({pacing: {source: 'AI가 적은 화면 변화(영상을 못 받아 대신 씀)', count: 4}}), false);
+  assert.equal(needsCutTimes({}), false);
 });

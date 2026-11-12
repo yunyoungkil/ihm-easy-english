@@ -161,14 +161,16 @@ test('경쟁 영상 소재를 쓰는 새 에피소드는 변형 시트를 가리
     if (!src.transformSheet) { problems.push(d.name + ': 경쟁 영상을 근거로 쓰는데 "- 변형 시트:" 줄이 없다'); continue; }
     const sheet = sheets.get(src.transformSheet);
     if (!sheet) { problems.push(d.name + ': 가리킨 변형 시트(' + src.transformSheet + ')가 없다'); continue; }
-    for (const p of validateSheet(sheet, {imageExists: sheetImageExists})) problems.push(d.name + ' 시트: ' + p);
+    for (const p of validateSheet(sheet, {imageExists: sheetImageExists, competitorPacing: (await import('../outlier-report.mjs')).loadReports().find((r) => r.videoId === sheet.sourceVideoId)?.pacing})) problems.push(d.name + ' 시트: ' + p);
   }
   assert.deepEqual(problems, []);
 });
 
 test('저장된 변형 시트는 모두 규칙(다른 경쟁 영상에서 가져옴, 이유·근거, 뺀 이유, 이미지 파일)을 통과한다 [2026-11-12]', async () => {
   const {loadSheets, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
-  const bad = loadSheets().flatMap((s) => validateSheet(s, {imageExists: sheetImageExists}).map((p) => s.sourceVideoId + ': ' + p));
+  const {loadReports} = await import('../outlier-report.mjs');
+  const pacing = new Map(loadReports().map((r) => [r.videoId, r.pacing]));
+  const bad = loadSheets().flatMap((s) => validateSheet(s, {imageExists: sheetImageExists, competitorPacing: pacing.get(s.sourceVideoId)}).map((p) => s.sourceVideoId + ': ' + p));
   assert.deepEqual(bad, []);
 });
 

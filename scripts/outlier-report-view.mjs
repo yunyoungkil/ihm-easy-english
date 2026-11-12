@@ -168,16 +168,36 @@ const SHEET_CSS = `<style>
 .sheet-col{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .sheet-col.ours{border-color:var(--accent)}
 .sheet-col h4{margin:0 0 6px;font-size:12px;color:var(--sub);text-transform:none}
-.sheet-col .imgs{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
-.sheet-col img{width:auto;max-width:100%;max-height:420px;height:auto;border-radius:6px;border:1px solid var(--line);display:block}
+.sheet-col .imgs{display:flex;flex-wrap:nowrap;gap:8px;margin:6px 0;align-items:flex-start}
+.sheet-col img{width:auto;min-width:0;max-width:100%;max-height:300px;height:auto;border-radius:6px;border:1px solid var(--line);display:block}
 .sheet-why{grid-column:1/-1;font-size:13px;color:var(--sub);padding:0 4px 6px}
 .sheet-label{font-weight:700;margin:18px 0 0}
 .warn{border:1px solid var(--bad);color:var(--bad);border-radius:10px;padding:8px 12px;margin:10px 0;font-size:14px}
+.timeline{position:relative;height:26px;background:var(--card);border:1px solid var(--line);border-radius:6px;margin:4px 0 2px}
+.tick{position:absolute;top:3px;bottom:3px;width:3px;border-radius:2px;transform:translateX(-1px)}
+.tick.comp{background:var(--sub)}.tick.ours{background:var(--accent)}
+.tl-label{font-size:13px;color:var(--sub);margin-top:8px}
 .bar{display:flex;height:14px;border-radius:7px;overflow:hidden;border:1px solid var(--line);max-width:420px}
 .bar span:first-child{background:var(--accent)}.bar span:last-child{background:var(--line)}
 @media (max-width:700px){.sheet-row{grid-template-columns:minmax(0,1fr)}}
 </style>`;
 const STAGE_KO = {draft: '초안', approved: '승인', published: '공개', measured: '성적 입력됨'};
+
+/** 컷 리듬: 경쟁 컷 시각(ffmpeg가 잰 값)과 우리 컷 계획을 같은 시간 막대로 보여 준다. */
+function cutRhythm(row, report) {
+  const plan = row.ours?.cutPlan;
+  const times = report?.pacing?.times;
+  const compDur = Number(report?.windowSeconds) || Number(report?.meta?.durationSeconds) || 0;
+  const bar = (list, dur, cls) => `<div class="timeline">${list.map((t) => `<span class="tick ${cls}" style="left:${Math.min(100, (Number(t) / dur) * 100)}%"></span>`).join('')}</div>`;
+  const parts = ['<div class="sheet-label">컷 리듬</div>'];
+  if (Array.isArray(times) && compDur > 0) parts.push(`<div class="tl-label">경쟁 ${times.length}번 (1분에 ${report.pacing.perMinute ?? '측정 전'}번 · ${compDur}초 안)</div>${bar(times, compDur, 'comp')}`);
+  else parts.push('<div class="tl-label">경쟁 컷 시각: 측정 전(캡처 채우기를 돌리면 생긴다)</div>');
+  if (plan?.times?.length) {
+    const perMin = Math.round((plan.times.length / Number(plan.durationSeconds)) * 600) / 10;
+    parts.push(`<div class="tl-label">우리 계획 ${plan.times.length}번 (1분에 ${perMin}번 · ${Number(plan.durationSeconds)}초 안)</div>${bar(plan.times, Number(plan.durationSeconds), 'ours')}`);
+  }
+  return parts.join('');
+}
 
 export function renderTransformSheetPage(sheet, report, problems = []) {
   const id = encodeURIComponent(sheet.sourceVideoId);
@@ -208,7 +228,7 @@ export function renderTransformSheetPage(sheet, report, problems = []) {
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
   <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div></div>
   <div class="sheet-why">왜 바꿨나: ${escapeHtml(r.why)}</div>
-</div>`);
+</div>${r.key === 'visual' ? cutRhythm(r, report) : ''}`);
   }
   parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');
   for (const b of sheet.borrowed || []) parts.push(`<div class="card"><b>${escapeHtml(b.what)}</b> <a href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">(${escapeHtml(b.fromVideoId)})</a><div>가져와도 되는 이유: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div></div>`);

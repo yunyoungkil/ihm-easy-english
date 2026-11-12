@@ -467,16 +467,28 @@ export function missingFrames(report, exists = (rel) => existsSync(join(projectD
 }
 
 /** 빠진 캡처를 다시 만든다. Gemini는 부르지 않고 영상 앞부분만 잠깐 받아 자른다. */
+/** 영상에서 잰 컷 횟수는 있는데 컷 시각이 저장 안 된 예전 리포트(2026-11-12 이전). 변형 시트가 컷 리듬을 시간 막대로 비교하려면 시각이 필요하다. */
+export function needsCutTimes(report) {
+  const p = report?.pacing;
+  return Boolean(p && String(p.source || '').startsWith('ffmpeg') && !Array.isArray(p.times));
+}
+
 export async function ensureReportFrames(report) {
   const missing = missingFrames(report);
-  if (!missing.length) return {videoId: report.videoId, made: 0, error: null};
-  const result = await processClip(report.videoId, missing, report.windowSeconds ?? LONG_VIDEO_WINDOW_SECONDS, {detectCuts: false});
-  if (!report.frames?.length && result.frames.length) {
-    // 처음 분석 때 캡처를 못 만든 리포트는 이번에 만든 목록을 리포트에 적어 둔다(다음 PC가 같은 순간을 만들게).
+  const needCuts = needsCutTimes(report);
+  if (!missing.length && !needCuts) return {videoId: report.videoId, made: 0, error: null};
+  const result = await processClip(report.videoId, missing, report.windowSeconds ?? LONG_VIDEO_WINDOW_SECONDS, {detectCuts: needCuts});
+  const saveFrames = !report.frames?.length && result.frames.length;
+  const saveCuts = needCuts && Array.isArray(result.cuts);
+  if (saveFrames || saveCuts) {
     const path = join(reportsDir, `${report.videoId}.json`);
     const saved = JSON.parse(readFileSync(path, 'utf8'));
-    saved.frames = result.frames;
-    saved.framesError = null;
+    if (saveFrames) {
+      // 처음 분석 때 캡처를 못 만든 리포트는 이번에 만든 목록을 리포트에 적어 둔다(다음 PC가 같은 순간을 만들게).
+      saved.frames = result.frames;
+      saved.framesError = null;
+    }
+    if (saveCuts) saved.pacing = {...saved.pacing, times: result.cuts};
     writeFileSync(path, `${JSON.stringify(saved, null, 2)}\n`, 'utf8');
   }
   return {videoId: report.videoId, made: result.frames.length, error: result.error};
@@ -484,7 +496,7 @@ export async function ensureReportFrames(report) {
 
 export async function ensureAllFrames({install = false} = {}) {
   const reports = loadReports();
-  const pending = reports.filter((r) => missingFrames(r).length);
+  const pending = reports.filter((r) => missingFrames(r).length || needsCutTimes(r));
   if (!pending.length) return {total: reports.length, pending: 0, made: 0, failed: []};
   if (!(await resolveYtDlp({install}))) return {total: reports.length, pending: pending.length, made: 0, failed: [{videoId: '*', error: 'yt-dlp가 이 PC에 없고 설치도 못 함'}]};
   let made = 0;
@@ -527,7 +539,7 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
   const captured = withFrames ? await processClip(videoId, pickFrameMoments(analysis.visualMoments, windowSeconds), windowSeconds) : {frames: [], cuts: null, error: '캡처 안 함'};
   // 컷 간격은 영상에서 코드가 직접 잰 장면 전환을 먼저 쓴다. 영상을 못 받았을 때만 AI가 적은 화면 변화로 대신하고, 출처를 남긴다.
   const pacing = captured.cuts
-    ? {...computePacing(captured.cuts.map((t) => ({t})), windowSeconds), source: 'ffmpeg 장면 전환 감지(코드)'}
+    ? {...computePacing(captured.cuts.map((t) => ({t})), windowSeconds), times: captured.cuts, source: 'ffmpeg 장면 전환 감지(코드)'}
     : {...computePacing(analysis.visualMoments, windowSeconds), source: 'AI가 적은 화면 변화(영상을 못 받아 대신 씀)'};
 
   const report = {

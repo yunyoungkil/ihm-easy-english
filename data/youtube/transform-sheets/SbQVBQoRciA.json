@@ -37,13 +37,14 @@
         ]
       },
       "ours": {
-        "text": "시안 A(2단어): 노란 알약 \"초콜릿 ✗\" + 큰 chocolate(choc와 late 사이의 o에 빨간 선) + \"초클릿\". 시안 B(3단어 질문형): \"초콜릿 맞게 읽으셨나요?\" + chocolate 카드. 두 안 모두 인물 없음. 유튜브 제목·썸네일 테스트로 가린다. 시안 C(4단어 질문형): 노란 알약 \"여기서 뭐가 빠졌게?\" + chocolate의 o가 회색 + 빨간 선. 시안 D(3단어): \"빠진 소리 찾기\" + 단어 5개 카드(chocolate/vegetable/different/family/memory). 시안 E(2단어): 알약 \"초콜릿 ✗\" + 큰 \"초클릿\" ✓ + chocolate 카드.",
+        "text": "시안 A(2단어): 노란 알약 \"초콜릿 ✗\" + 큰 chocolate(choc와 late 사이의 o에 빨간 선) + \"초클릿\". 시안 B(3단어 질문형): \"초콜릿 맞게 읽으셨나요?\" + chocolate 카드. 두 안 모두 인물 없음. 유튜브 제목·썸네일 테스트로 가린다. 시안 C(4단어 질문형): 노란 알약 \"여기서 뭐가 빠졌게?\" + chocolate의 o가 회색 + 빨간 선. 시안 D(3단어): \"빠진 소리 찾기\" + 단어 5개 카드(chocolate/vegetable/different/family/memory). 시안 E(2단어): 알약 \"초콜릿 ✗\" + 큰 \"초클릿\" ✓ + chocolate 카드. 시안 F(2단어): 시안 E의 처음 버전(알약 오타 수정 전). 알약이 \"초클릿 ✗\"로 그려져 있다.",
         "images": [
           "images/SbQVBQoRciA/thumb-A.jpg",
           "images/SbQVBQoRciA/thumb-B.jpg",
           "images/SbQVBQoRciA/thumb-C.jpg",
           "images/SbQVBQoRciA/thumb-D.jpg",
-          "images/SbQVBQoRciA/thumb-E.jpg"
+          "images/SbQVBQoRciA/thumb-E.jpg",
+          "images/SbQVBQoRciA/thumb-F.jpg"
         ]
       },
       "why": "경쟁 4편이 모두 4단어 이상이라 \"2단어가 더 낫다\"는 근거는 없다. 그래서 2단어 대비형(A)과 3단어 질문형(B)을 같이 올려 실제로 가린다. 인물은 쓰지 않는다(2026-10-28 결정)."
@@ -299,7 +300,8 @@
   ],
   "thumbnailPicks": [
     "images/SbQVBQoRciA/thumb-B.jpg",
-    "images/SbQVBQoRciA/thumb-D.jpg"
+    "images/SbQVBQoRciA/thumb-D.jpg",
+    "images/SbQVBQoRciA/thumb-E.jpg"
   ],
   "titlePicks": [
     "초콜릿 영어 발음, 빨리 말하면 가운데 소리가 거의 안 들려요 (아는 단어 5개)",

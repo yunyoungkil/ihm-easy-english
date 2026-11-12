@@ -20,6 +20,23 @@ export const LIFECYCLE_CONFIG = {
   BLOCK_COOLDOWN_DAYS: 90,           // 차단 쿨다운 기간 (90일)
   MEGA_OUTLIER_UNBLOCK_RATIO: 5.0,   // 차단 해제 가능한 초대형 아웃라이어 기준
   EXHAUSTION_SIMILARITY: 0.33,       // 핵심 키워드(타겟 음소 포함) 33% 이상 겹치면 기커버 소재로 판정
+  SEARCH_TERM_CAP: 5,                // D+7 유입 검색어 동시 유지 상한
+  SEARCH_TERM_GRACE_DAYS: 7,         // 유입이 끊긴 D+7 검색어를 자동 퇴장시키기 전 유예 일수
+};
+
+const SEARCH_TERM_STOP_WORDS = new Set(['이해하면', '쉬운영어', '이해하면 쉬운영어', 'skidrow277', 'shorts', '구독']);
+const LEARNING_TOPIC_RE = /(영어|발음|듣기|영단어|단어|파닉스|회화|읽기|스펠링|알파벳|원어민|연음|강세|억양)/;
+const normalizeSearchTermKey = (term = '') => String(term).replace(/\s+/g, '').toLowerCase();
+const isEligibleSearchTerm = (term = '') => {
+  const t = String(term).trim();
+  if (!t || t.length < 2 || SEARCH_TERM_STOP_WORDS.has(t.toLowerCase())) return false;
+  // 채널/제목 구분자("채널 - 제목", "제목 | 채널"), 핸들(@), URL, 우리 채널 이름은 제외한다.
+  if (t.toLowerCase().includes('skidrow') || t.includes('쉬운영어')) return false;
+  if (/\s[-–—|]\s/.test(t) || /(?:^|\s)@|https?:\/\/|youtu\.be/i.test(t)) return false;
+  if (LEARNING_TOPIC_RE.test(t)) return true;
+  // 영어 학습 한국어가 없는 검색어는 하이픈 슬러그(예: "zlet-kytjly")나 숫자·기호 조합을 빼고 영문 단어만 허용한다.
+  if (/[a-z0-9]+-[a-z0-9-]+/i.test(t)) return false;
+  return /^[a-z][a-z\s']{1,40}$/i.test(t);
 };
 
 /**
@@ -283,35 +300,109 @@ export function runD7AutonomousCycle({
   trackedChannels = trackedChannels.map((channel) =>
     evaluateChannelLifecycle({channel, ourCatalogTitles, now}));
 
-  // 3. 실제 시청자 검색어를 키워드 풀에 넣는다. 점수는 지어내지 않는다 — 실제 검색 조회수만 붙인다.
-  //    (이전 버전은 수요 120점·기회 75점·검색 결과수 views×100을 고정값으로 넣었다.)
+  // 3. 실제 시청자 검색어를 키워드 풀에 넣고(공백 중복 통합, 최대 5개), 유입이 끊겨 유예 기간이 지난
+  //    d7_search_terms는 자동으로 퇴장시켜 고아 영상 ID를 함께 반환한다. 점수는 지어내지 않는다.
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const nowIso = now.toISOString();
+  const nowMs = now.getTime();
   const searchTerms = Array.isArray(analyticsData?.searchTerms) ? analyticsData.searchTerms : [];
-  const discoveredKeywords = [];
-  const keywordMap = new Map((Array.isArray(marketDemandData.byKeyword) ? marketDemandData.byKeyword : []).map((k) => [k.keyword, k]));
-  const searchStopWords = new Set(['이해하면', '쉬운영어', '이해하면 쉬운영어', 'skidrow277', 'shorts', '구독']);
+  /** @type {Map<string, { term: string, views: number, topRowViews: number }>} */
+  const activeSearchMap = new Map();
   for (const item of searchTerms) {
-    const term = (item.insightTrafficSourceDetail || item.query || item.term || '').trim();
-    if (!term || term.length < 2 || searchStopWords.has(term.toLowerCase())) continue;
-    // 채널 이름이 섞인 검색어(예: "한 명씩 정리한다 - skidrow277")와 영어 학습과 상관없는 검색어(예: "먼치킨 고양이")는 뺀다.
-    if (term.toLowerCase().includes('skidrow') || term.includes('쉬운영어')) continue;
-    if (!/[a-z]/i.test(term) && !/(영어|발음|듣기|영단어|단어|파닉스|회화|읽기|스펠링|알파벳)/.test(term)) continue;
-    discoveredKeywords.push(term);
-    const existing = keywordMap.get(term);
-    keywordMap.set(term, existing
-      ? {...existing, source: existing.source || 'd7_search_terms', searchViews: Number(item.views) || existing.searchViews || null, lastD7SyncedAt: now.toISOString()}
+    const term = String(item.insightTrafficSourceDetail || item.query || item.term || '').trim();
+    if (!isEligibleSearchTerm(term)) continue;
+    const normKey = normalizeSearchTermKey(term);
+    const views = Number(item.views) || 0;
+    const prev = activeSearchMap.get(normKey);
+    if (prev) {
+      prev.views += views;
+      if (views > prev.topRowViews) {
+        prev.term = term;
+        prev.topRowViews = views;
+      }
+      continue;
+    }
+    if (activeSearchMap.size >= LIFECYCLE_CONFIG.SEARCH_TERM_CAP) continue;
+    activeSearchMap.set(normKey, {term, views, topRowViews: views});
+  }
+
+  const existingByKeyword = Array.isArray(marketDemandData.byKeyword) ? marketDemandData.byKeyword : [];
+  /** @type {Map<string, any>} */
+  const keywordMap = new Map(existingByKeyword.map((k) => [k.keyword, k]));
+  const keptWinnerKeywords = new Set();
+  const discoveredKeywords = [];
+
+  for (const [normKey, candidate] of activeSearchMap.entries()) {
+    const matchingExisting = existingByKeyword.filter((k) => normalizeSearchTermKey(k.keyword) === normKey);
+    const winner = matchingExisting.find((k) => k.keyword === candidate.term && k.marketDemandScore != null)
+      || matchingExisting.find((k) => k.marketDemandScore != null)
+      || matchingExisting.find((k) => k.keyword === candidate.term)
+      || matchingExisting[0]
+      || null;
+    const targetKeyword = winner ? winner.keyword : candidate.term;
+    discoveredKeywords.push(targetKeyword);
+    keptWinnerKeywords.add(targetKeyword);
+    keywordMap.set(targetKeyword, winner
+      ? {
+        ...winner,
+        source: winner.source || 'd7_search_terms',
+        searchViews: candidate.views || winner.searchViews || null,
+        lastD7SyncedAt: nowIso,
+        d7OutOfActiveSince: null,
+      }
       : {
-        keyword: term,
+        keyword: targetKeyword,
         source: 'd7_search_terms',
-        searchViews: Number(item.views) || null,
+        searchViews: candidate.views || null,
         marketDemandScore: null,
         opportunityScore: null,
         totalResults: null,
         videoCount: 0,
-        analyzedAt: now.toISOString(),
+        firstSeenAt: nowIso,
+        lastD7SyncedAt: nowIso,
+        d7OutOfActiveSince: null,
+        analyzedAt: null,
         topOutliers: [],
       });
-    if (discoveredKeywords.length >= 5) break;
   }
+
+  /** @type {any[]} */
+  const retiredKeywordObjs = [];
+  if (discoveredKeywords.length > 0) {
+    for (const [kw, entry] of [...keywordMap.entries()]) {
+      if (entry.source !== 'd7_search_terms' || keptWinnerKeywords.has(kw)) continue;
+      const normKey = normalizeSearchTermKey(kw);
+      // 공백 중복 별칭이나 불용어·채널명 유입어는 즉시 정리한다.
+      if (activeSearchMap.has(normKey) || !isEligibleSearchTerm(kw)) {
+        retiredKeywordObjs.push(entry);
+        keywordMap.delete(kw);
+        continue;
+      }
+      const outSinceMs = entry.d7OutOfActiveSince ? new Date(entry.d7OutOfActiveSince).getTime() : NaN;
+      if (!Number.isFinite(outSinceMs)) {
+        keywordMap.set(kw, {...entry, d7OutOfActiveSince: nowIso});
+      } else if (nowMs - outSinceMs >= LIFECYCLE_CONFIG.SEARCH_TERM_GRACE_DAYS * DAY_MS) {
+        retiredKeywordObjs.push(entry);
+        keywordMap.delete(kw);
+      }
+    }
+  }
+
+  const remainingByKeyword = Array.from(keywordMap.values());
+  const retiredKeywords = retiredKeywordObjs.map((k) => k.keyword);
+  const remainingVideoIds = new Set();
+  for (const k of remainingByKeyword) {
+    for (const o of (k.topOutliers || [])) {
+      if (o?.videoId) remainingVideoIds.add(o.videoId);
+    }
+  }
+  const retiredVideoIds = new Set();
+  for (const k of retiredKeywordObjs) {
+    for (const o of (k.topOutliers || [])) {
+      if (o?.videoId) retiredVideoIds.add(o.videoId);
+    }
+  }
+  const orphanedVideoIds = [...retiredVideoIds].filter((id) => !remainingVideoIds.has(id));
 
   // 4. 화면(벤치마킹 탭)이 읽을 판정 목록 — 7일이 지난 편만, 최근 공개 순.
   const outcomesForView = (episodeOutcomes || [])
@@ -327,19 +418,20 @@ export function runD7AutonomousCycle({
   const updatedData = {
     ...marketDemandData,
     trackedChannels,
-    byKeyword: Array.from(keywordMap.values()),
+    byKeyword: remainingByKeyword,
     d7ProcessedVideoIds: Array.from(processedIds),
     episodeOutcomes: outcomesForView,
     d7AutonomousCycle: {
-      lastRunAt: now.toISOString(),
+      lastRunAt: nowIso,
       applied,
       holdCount: (episodeOutcomes || []).filter((o) => o.verdict === 'hold').length,
       promotedChannels,
       discoveredKeywords,
+      retiredKeywords,
       status: 'completed',
     },
-    lifecycleSyncedAt: now.toISOString(),
+    lifecycleSyncedAt: nowIso,
   };
 
-  return {marketDemandData: updatedData, applied, promotedChannels, discoveredKeywords};
+  return {marketDemandData: updatedData, applied, promotedChannels, discoveredKeywords, retiredKeywords, orphanedVideoIds};
 }

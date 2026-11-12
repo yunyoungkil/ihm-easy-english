@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {decideDailySteps, pickCommentTargets, COMPETITOR_REFRESH_DAYS, AUDIENCE_REFRESH_DAYS} from '../daily-loop.mjs';
+import {decideDailySteps, decideOutlierBackfill, pickCommentTargets, runAudienceBackfillStep, COMPETITOR_REFRESH_DAYS, AUDIENCE_REFRESH_DAYS} from '../daily-loop.mjs';
 
 const now = new Date('2026-11-20T20:00:00Z');
 const ago = (d) => new Date(now.getTime() - d * 86400000).toISOString();
@@ -63,4 +63,49 @@ test('오류 응답이나 빈 내용이면 그 통로를 알린다', () => {
   assert.equal(got.length, 2);
   assert.ok(got.some((p) => p.includes('/api/market-demand') && p.includes('500')));
   assert.ok(got.some((p) => p.includes('/api/episodes/summary') && p.includes('비어')));
+});
+
+test('백필 대상 선정: 키워드·채널 양쪽에서 댓글과 대본 대상을 각각 고르고, 영구 실패는 제외한다', () => {
+  const md = {
+    byKeyword: [{keyword: '영어', topOutliers: [o('kw1', 80), o('kw2', 30)]}],
+    trackedChannels: [ch('A', 'candidate', [o('ch1', 50)])],
+  };
+  const failures = {
+    kw1: {script: {message: '자막 추출 실패 (kw1): 이 영상에는 가져올 수 있는 자막이 없습니다.', failedAt: now.toISOString()}},
+  };
+  const got = decideOutlierBackfill({
+    marketDemand: md,
+    existingCommentIds: new Set(['ch1']),
+    existingScriptIds: new Set(['kw2']),
+    failures,
+    now,
+    commentLimit: 3,
+    scriptLimit: 3,
+  });
+  assert.deepEqual(got.commentTargets, ['kw1', 'kw2']);
+  assert.deepEqual(got.scriptTargets, ['ch1']);
+  assert.equal(got.hasWork, true);
+});
+
+test('runAudienceBackfillStep: 영구 제약 건너뛰기는 통과시키고 시스템 전체 실패는 오류를 던진다', async () => {
+  const okResult = await runAudienceBackfillStep(
+    {commentTargets: ['v1', 'v2'], scriptTargets: ['v3'], hasWork: true},
+    async (path, {videoId}) => {
+      if (path === '/api/insights/analyze' && videoId === 'v1') {
+        throw new Error('영상(v1)의 댓글 기능이 비활성화되어 있습니다 (commentsDisabled).');
+      }
+      return {ok: true};
+    },
+  );
+  assert.deepEqual(okResult.comment.done, ['v2']);
+  assert.equal(okResult.comment.skipped.length, 1);
+  assert.deepEqual(okResult.script.done, ['v3']);
+
+  await assert.rejects(
+    () => runAudienceBackfillStep(
+      {commentTargets: ['v1'], scriptTargets: ['v2'], hasWork: true},
+      async () => { throw new Error('Gemini API failed: 429'); },
+    ),
+    /댓글:.*429.*대본:.*429/,
+  );
 });

@@ -16,14 +16,17 @@ async function main() {
     console.log('HTTP Response Client JS length:', clientJs.length, 'bytes');
 
     // Create a mock DOM environment
-    const contextObj = {
-      window: {
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        EventSource: null,
-      },
-      document: {
-        getElementById: (id) => ({
+    const sseListeners = new Map();
+    const fetchedUrls = [];
+    class MockEventSource {
+      addEventListener(type, fn) {
+        sseListeners.set(type, fn);
+      }
+    }
+    const mockElements = new Map();
+    const getOrCreateEl = (id) => {
+      if (!mockElements.has(id)) {
+        mockElements.set(id, {
           style: {},
           classList: { toggle: () => {}, add: () => {}, remove: () => {} },
           appendChild: () => {},
@@ -34,9 +37,24 @@ async function main() {
           textContent: '',
           innerHTML: '',
           value: '',
+          scrollTop: 0,
           dataset: {},
-        }),
-        querySelectorAll: () => [],
+        });
+      }
+      return mockElements.get(id);
+    };
+
+    const contextObj = {
+      EventSource: MockEventSource,
+      window: {
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        EventSource: MockEventSource,
+      },
+      document: {
+        activeElement: { tagName: 'BODY' },
+        getElementById: (id) => getOrCreateEl(id),
+        querySelectorAll: (sel) => (sel === '.demand-kw-scroll' ? [getOrCreateEl('.demand-kw-scroll')] : []),
         addEventListener: () => {},
         createElement: () => ({
           style: {},
@@ -52,7 +70,10 @@ async function main() {
         removeItem: () => {},
       },
       console: console,
-      fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({}) }),
+      fetch: (url) => {
+        fetchedUrls.push(String(url));
+        return Promise.resolve({ ok: true, json: () => Promise.resolve({}) });
+      },
       setTimeout: (fn) => fn(),
       setInterval: () => {},
       Intl: Intl,
@@ -297,6 +318,20 @@ async function main() {
       console.error('\n❌ One or more tabs rendered without reaching their real-data branch — fixture injection regressed.');
       process.exit(1);
     }
+
+    const analysisHandler = sseListeners.get('analysis-updated');
+    if (typeof analysisHandler !== 'function') {
+      console.error('❌ SSE analysis-updated listener was not registered.');
+      process.exit(1);
+    }
+    fetchedUrls.length = 0;
+    new vm.Script('gCurrentTab = "tab-demand"; gDemandBusyCount = 0;', { filename: 'sse-prep.js' }).runInContext(vmContext);
+    await analysisHandler();
+    if (!fetchedUrls.includes('/api/market-demand') || !fetchedUrls.includes('/api/knowledge-db')) {
+      console.error('❌ SSE analysis-updated handler did not refresh /api/market-demand and /api/knowledge-db:', fetchedUrls);
+      process.exit(1);
+    }
+    console.log('  ✓ SSE analysis-updated listener refreshed derived data cleanly');
 
     console.log('\n🎉 ALL CLIENT TABS AND FUNCTIONS VERIFIED 100% OPERATIONAL (with real-data branches confirmed reached)!');
   } catch (err) {

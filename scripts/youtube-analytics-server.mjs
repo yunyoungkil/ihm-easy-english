@@ -43,6 +43,15 @@ import { syncAllTrackedChannels, runD7AutonomousCycle, LIFECYCLE_STATUS } from '
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 import { recordSuccessPatterns } from './success-patterns.mjs';
 import { resolveVideoFormat } from './video-format.mjs';
+import {
+  DEFAULT_ON_DEMAND_LIMIT,
+  createSerialReportQueue,
+  executeCommentReport,
+  executeScriptReport,
+  extractReportVideoIds,
+  pickRecentMarketDemandSlice,
+  selectOutlierReportBacklog,
+} from './outlier-report-backlog.mjs';
 
 const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -277,8 +286,16 @@ const loadJson = async (path, fallback = null) => {
 
 const normalizeDnaText = (text) => String(text || '').trim().toLowerCase().replace(/\s+/g, ' ');
 
+let analysisStateLock = Promise.resolve();
+const withAnalysisStateLock = (fn) => {
+  const run = analysisStateLock.then(() => fn());
+  analysisStateLock = run.catch(() => {});
+  return run;
+};
+const deletedOrphanTimestamps = new Map();
+
 // entries: [{type, text, videoId, channelTitle, sourceType}]
-const upsertAudienceDna = async (newEntries) => {
+const upsertAudienceDna = (newEntries) => withAnalysisStateLock(async () => {
   if (!newEntries?.length) return;
   const store = await loadJson(audienceDnaPath, { schemaVersion: 1, entries: [] });
   const byKey = new Map(store.entries.map((e) => [`${e.type}:${normalizeDnaText(e.text)}`, e]));
@@ -314,7 +331,7 @@ const upsertAudienceDna = async (newEntries) => {
     .slice(0, AUDIENCE_DNA_MAX_ENTRIES);
 
   await saveJson(audienceDnaPath, { schemaVersion: 1, updatedAt: now, entries });
-};
+});
 
 // 댓글/대본 분석이 실패해도 그 사실이 어디에도 안 남아서, 시장 수요 레이더로 돌아가면 버튼이
 // 분석 전과 똑같아 보여 사용자가 (예: 자막이 꺼진 영상인 줄 모르고) 같은 영상을 또 눌러보게
@@ -322,14 +339,14 @@ const upsertAudienceDna = async (newEntries) => {
 // 마지막 실패 사유도 videoId 기준으로 기록해 카드에 경고로 보여준다. 실패가 영구적인지
 // (자막 꺼짐) 일시적인지(API 오류 등) 우리가 단정할 수 없으므로 버튼 자체를 막지는 않고,
 // "이전에 실패했다"는 경고만 얹어서 재시도 여부는 사용자가 판단하게 한다.
-const recordAnalysisFailure = async (videoId, kind, message) => {
+const recordAnalysisFailure = (videoId, kind, message) => withAnalysisStateLock(async () => {
   if (!videoId || !message) return;
   const store = await loadJson(analysisFailuresPath, { schemaVersion: 1, entries: {} });
   store.entries[videoId] = { ...store.entries[videoId], [kind]: { message, failedAt: new Date().toISOString() } };
   await saveJson(analysisFailuresPath, store);
-};
+});
 
-const clearAnalysisFailure = async (videoId, kind) => {
+const clearAnalysisFailure = (videoId, kind) => withAnalysisStateLock(async () => {
   if (!videoId) return;
   const store = await loadJson(analysisFailuresPath, { schemaVersion: 1, entries: {} });
   if (store.entries[videoId]?.[kind]) {
@@ -337,6 +354,88 @@ const clearAnalysisFailure = async (videoId, kind) => {
     if (Object.keys(store.entries[videoId]).length === 0) delete store.entries[videoId];
     await saveJson(analysisFailuresPath, store);
   }
+});
+
+const outlierReportQueue = createSerialReportQueue();
+
+const runSingleCommentReport = (vid, ytKey, geminiKey, options = {}) => executeCommentReport(vid, {
+  ytKey,
+  geminiKey,
+  fetchVideoDetails,
+  fetchComments,
+  analyzeCommentsWithGemini,
+  aiAnalysisFailed,
+  generateMarkdownReport,
+  formatInsightText,
+  loadExistingPainPoints: async () => {
+    const existingDna = (await loadJson(audienceDnaPath, {entries: []})).entries || [];
+    return existingDna.filter((e) => e.type === 'painPoint' || e.type === 'question');
+  },
+  saveCommentFiles: async ({videoId, slug, reportMd, meta, aiInsights, comments}) => {
+    if (!existsSync(outputInsightsDir)) await mkdir(outputInsightsDir, {recursive: true});
+    if (!existsSync(outputCommentsDir)) await mkdir(outputCommentsDir, {recursive: true});
+    await writeFile(join(outputInsightsDir, `${slug}.md`), reportMd, 'utf8');
+    await writeFile(join(outputCommentsDir, `${videoId}.json`), JSON.stringify({schemaVersion: 1, analyzedAt: new Date().toISOString(), video: meta, aiInsights, comments}, null, 2), 'utf8');
+  },
+  upsertAudienceDna,
+  recordAnalysisFailure,
+  clearAnalysisFailure,
+  notifyClients,
+  shouldAbort: options.shouldAbort,
+});
+
+const runSingleScriptReport = (vid, options = {}) => executeScriptReport(vid, {
+  ytKey: options.ytKey,
+  geminiKey: options.geminiKey,
+  analyzeSingleScript,
+  upsertAudienceDna,
+  recordAnalysisFailure,
+  clearAnalysisFailure,
+  notifyClients,
+  shouldAbort: options.shouldAbort,
+});
+
+const enqueueAutoOutlierReports = async (marketDemandSlice) => {
+  const ytKey = process.env.YOUTUBE_API_KEY;
+  const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  if (!ytKey || ytKey === 'YOUR_YOUTUBE_API_KEY_HERE') return {comments: [], scripts: []};
+  if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY_HERE') return {comments: [], scripts: []};
+
+  const enqueuedAt = Date.now();
+  const [commentFiles, scriptFiles, failuresStore] = await Promise.all([
+    existsSync(outputInsightsDir) ? readdir(outputInsightsDir).catch(() => []) : [],
+    existsSync(outputScriptInsightsDir) ? readdir(outputScriptInsightsDir).catch(() => []) : [],
+    loadJson(analysisFailuresPath, {schemaVersion: 1, entries: {}}),
+  ]);
+  const {commentTargets, scriptTargets} = selectOutlierReportBacklog(marketDemandSlice, {
+    existingCommentIds: extractReportVideoIds(commentFiles),
+    existingScriptIds: extractReportVideoIds(scriptFiles),
+    failures: failuresStore.entries || {},
+    limit: DEFAULT_ON_DEMAND_LIMIT,
+  });
+
+  const makeShouldAbort = (vid) => () => (deletedOrphanTimestamps.get(vid) || 0) >= enqueuedAt;
+  const schedule = (kind, targets, fn) => {
+    const queued = [];
+    for (const vid of targets) {
+      const {joined, promise} = outlierReportQueue.enqueue(
+        `${kind}:${vid}`,
+        () => fn(vid, makeShouldAbort(vid)),
+        {priority: 'low'},
+      );
+      if (!joined) {
+        queued.push(vid);
+        promise.catch((err) => console.warn(`[Auto-Report] ${kind} 실패 (${vid}):`, err.message));
+      }
+    }
+    return queued;
+  };
+
+  const queuedComments = schedule('comment', commentTargets, (vid, shouldAbort) =>
+    runSingleCommentReport(vid, ytKey, geminiKey, {shouldAbort}));
+  const queuedScripts = schedule('script', scriptTargets, (vid, shouldAbort) =>
+    runSingleScriptReport(vid, {ytKey, geminiKey, shouldAbort}));
+  return {comments: queuedComments, scripts: queuedScripts};
 };
 
 // 시장 수요 레이더에서 키워드 전체(또는 영상 하나)를 지울 때 공통으로 쓰는 "고아 데이터 청소"
@@ -348,7 +447,9 @@ const cascadeDeleteOrphanedVideoData = async (orphanedVideoIds) => {
   let removedDnaEntries = 0;
   if (!orphanedVideoIds.length) return {deletedReportFiles, removedDnaEntries};
 
+  const deletedAt = Date.now();
   for (const vid of orphanedVideoIds) {
+    deletedOrphanTimestamps.set(vid, deletedAt);
     for (const dir of [outputInsightsDir, outputScriptInsightsDir]) {
       try {
         if (!existsSync(dir)) continue;
@@ -362,42 +463,44 @@ const cascadeDeleteOrphanedVideoData = async (orphanedVideoIds) => {
     }
   }
 
-  const failuresStore = await loadJson(analysisFailuresPath, {schemaVersion: 1, entries: {}});
-  let failuresChanged = false;
-  for (const vid of orphanedVideoIds) {
-    if (failuresStore.entries[vid]) {
-      delete failuresStore.entries[vid];
-      failuresChanged = true;
+  await withAnalysisStateLock(async () => {
+    const failuresStore = await loadJson(analysisFailuresPath, {schemaVersion: 1, entries: {}});
+    let failuresChanged = false;
+    for (const vid of orphanedVideoIds) {
+      if (failuresStore.entries[vid]) {
+        delete failuresStore.entries[vid];
+        failuresChanged = true;
+      }
     }
-  }
-  if (failuresChanged) await saveJson(analysisFailuresPath, failuresStore);
+    if (failuresChanged) await saveJson(analysisFailuresPath, failuresStore);
 
-  // 시청자DNA는 여러 영상에서 뽑힌 문구가 하나의 항목으로 병합돼 있으므로(upsertAudienceDna
-  // 참고), 이번에 지우는 영상이 남긴 출처(sources)만 걷어내고 — 다른 영상도 이 항목의 출처라면
-  // 항목 자체는 채널 전체 지식으로 남긴다. 출처가 완전히 0개가 되면(이 영상들에서만 나온
-  // 문구였다는 뜻) 그때만 항목째로 지운다.
-  const dnaStore = await loadJson(audienceDnaPath, {schemaVersion: 1, entries: []});
-  const orphanSet = new Set(orphanedVideoIds);
-  const keptEntries = [];
-  let dnaChanged = false;
-  for (const entry of dnaStore.entries || []) {
-    const beforeLen = (entry.sources || []).length;
-    const removedCount = (entry.sources || []).filter((s) => orphanSet.has(s.videoId)).length;
-    if (removedCount === 0) { keptEntries.push(entry); continue; }
-    dnaChanged = true;
-    entry.sources = (entry.sources || []).filter((s) => !orphanSet.has(s.videoId));
-    if (entry.sources.length === 0 && beforeLen > 0) {
-      removedDnaEntries++;
-      continue; // 항목째로 제외
+    // 시청자DNA는 여러 영상에서 뽑힌 문구가 하나의 항목으로 병합돼 있으므로(upsertAudienceDna
+    // 참고), 이번에 지우는 영상이 남긴 출처(sources)만 걷어내고 — 다른 영상도 이 항목의 출처라면
+    // 항목 자체는 채널 전체 지식으로 남긴다. 출처가 완전히 0개가 되면(이 영상들에서만 나온
+    // 문구였다는 뜻) 그때만 항목째로 지운다.
+    const dnaStore = await loadJson(audienceDnaPath, {schemaVersion: 1, entries: []});
+    const orphanSet = new Set(orphanedVideoIds);
+    const keptEntries = [];
+    let dnaChanged = false;
+    for (const entry of dnaStore.entries || []) {
+      const beforeLen = (entry.sources || []).length;
+      const removedCount = (entry.sources || []).filter((s) => orphanSet.has(s.videoId)).length;
+      if (removedCount === 0) { keptEntries.push(entry); continue; }
+      dnaChanged = true;
+      entry.sources = (entry.sources || []).filter((s) => !orphanSet.has(s.videoId));
+      if (entry.sources.length === 0 && beforeLen > 0) {
+        removedDnaEntries++;
+        continue; // 항목째로 제외
+      }
+      entry.occurrences = Math.max(1, (entry.occurrences || 1) - removedCount);
+      keptEntries.push(entry);
     }
-    entry.occurrences = Math.max(1, (entry.occurrences || 1) - removedCount);
-    keptEntries.push(entry);
-  }
-  if (dnaChanged) {
-    dnaStore.entries = keptEntries;
-    dnaStore.updatedAt = new Date().toISOString();
-    await saveJson(audienceDnaPath, dnaStore);
-  }
+    if (dnaChanged) {
+      dnaStore.entries = keptEntries;
+      dnaStore.updatedAt = new Date().toISOString();
+      await saveJson(audienceDnaPath, dnaStore);
+    }
+  });
 
   return {deletedReportFiles, removedDnaEntries};
 };
@@ -1358,6 +1461,9 @@ const syncIdeaBoardHistoryFromPackages = async () => {
 
 
 /* Cyber-HUD Single Page Application HTML */
+// 브라우저(화면) 코드에도 같은 판정 함수가 필요하다. 서버가 불러온 함수는 브라우저에 없어서(`resolveVideoFormat is not defined`로 터짐),
+// 원본 함수 본문을 화면 코드 첫머리에 한 번만 끼워 넣는다. 규칙을 화면 코드에 따로 복사해 두지 않는다(2026-11-12).
+const clientVideoFormatSource = `const resolveVideoFormat = ${resolveVideoFormat.toString()};`;
 const pageHtml = `<!doctype html>
 <html lang="ko">
 <head>
@@ -1461,9 +1567,6 @@ body {
   box-shadow: 0 0 20px rgba(255, 42, 109, 0.4);
   margin-bottom: 28px;
   cursor: pointer;
-// 브라우저(화면) 코드에도 같은 판정 함수가 필요하다. 서버가 불러온 함수는 브라우저에 없어서(`resolveVideoFormat is not defined`로 터짐),
-// 원본 함수 본문을 화면 코드 첫머리에 한 번만 끼워 넣는다. 규칙을 화면 코드에 따로 복사해 두지 않는다(2026-11-12).
-const clientVideoFormatSource = `const resolveVideoFormat = ${resolveVideoFormat.toString()};`;
 }
 .rail-btn {
   width: 48px;
@@ -2400,6 +2503,8 @@ let gMarketDemand = null;
 let gEpisodes = null;
 let gEpisodeFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gKnowledgeDb = null;
+let gDemandRefreshSeq = 0;
+let gDemandBusyCount = 0;
 let gDemandFilter = (function() {
   try { return localStorage.getItem('ihm_demand_filter') || 'ALL'; } catch (_) { return 'ALL'; }
 })();
@@ -3163,6 +3268,8 @@ function renderMarketDemandTab() {
           '<span class="badge" style="font-size:11px" title="노출이 적어(작은 표본) 운인지 실력인지 가릴 수 없는 편은 경쟁 채널 상태를 바꾸지 않습니다">판정 보류 ' + d7.holdCount + '편 (표본 부족)</span>' : '') +
         (d7?.discoveredKeywords && d7.discoveredKeywords.length > 0 ?
           '<span class="badge" style="background:rgba(6,182,212,0.15);color:#38bdf8;font-size:11px">시청자 유입어 ' + d7.discoveredKeywords.length + '개 편입됨</span>' : '') +
+        (d7?.retiredKeywords && d7.retiredKeywords.length > 0 ?
+          '<span class="badge" style="background:rgba(168,85,247,0.15);color:#c084fc;font-size:11px">만료 검색어 ' + d7.retiredKeywords.length + '개 교체 정리됨</span>' : '') +
       '</div>' +
       '<div class="card-subtext" style="color:var(--text-muted);font-size:11px">마지막 D+7 순환: ' + esc(d7LastRun) + '</div>' +
     '</div>' +
@@ -3213,13 +3320,19 @@ function renderMarketDemandTab() {
         '<div class="card-subtext" style="margin-top:2px">클릭 시 우측에 아웃라이어가 즉시 연동됩니다 (' + keywords.length + '개)</div>' +
       '</div>' +
     '</div>' +
-    '<div style="display:flex;flex-direction:column;gap:8px;max-height:640px;overflow-y:auto;padding-right:4px">';
+    '<div class="demand-kw-scroll" style="display:flex;flex-direction:column;gap:8px;max-height:640px;overflow-y:auto;padding-right:4px">';
 
   keywords.forEach((k) => {
     const isSelected = k.keyword === gSelectedDemandKeyword;
-    const score = Math.round(k.marketDemandScore || 0);
+    const hasScore = k.marketDemandScore != null;
+    const score = hasScore ? Math.round(k.marketDemandScore) : 0;
     const scoreClass = score >= 150 ? 'badge-strong-pass' : score >= 80 ? 'badge-pass' : 'badge-hold';
     const isD7 = k.source === 'd7_search_terms';
+    const subtext = !hasScore
+      ? (k.emptyReason
+        ? '우리 채널 검색 유입 ' + (k.searchViews ?? '?') + '회 · ' + esc(k.emptyReason)
+        : '우리 채널 검색 유입 ' + (k.searchViews ?? '?') + '회 · 자동 분석 대기')
+      : '기회 ' + Number(k.opportunityScore || 0).toFixed(1) + '점 · 표본 ' + (k.videoCount || 0) + '개';
 
     html += '<div class="demand-kw-item" data-keyword="' + esc(k.keyword) + '" style="cursor:pointer;background:' + (isSelected ? 'rgba(6,182,212,0.12)' : '#05070c') + ';border:1.5px solid ' + (isSelected ? 'var(--accent-cyan)' : 'var(--border-subtle)') + ';border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;transition:all 0.15s ease">' +
       '<div style="min-width:0;flex:1;margin-right:8px">' +
@@ -3227,15 +3340,11 @@ function renderMarketDemandTab() {
           '<span style="font-weight:800;font-size:13.5px;color:' + (isSelected ? 'var(--accent-cyan)' : 'var(--text-bright)') + ';word-break:keep-all">' + esc(k.keyword) + '</span>' +
           (isD7 ? '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px">D+7 유입</span>' : '') +
         '</div>' +
-        // 시청자 검색어로 들어온 키워드는 아직 분석 전이라 점수가 없다 — 0점으로 보이지 않게 실제 검색 조회수를 보여 준다.
-        (k.marketDemandScore == null
-          ? '<div class="card-subtext" style="margin-top:3px;font-size:11px">우리 채널 검색 유입 ' + (k.searchViews ?? '?') + '회 · 🔄로 분석 전</div>'
-          : '<div class="card-subtext" style="margin-top:3px;font-size:11px">기회 ' + Number(k.opportunityScore || 0).toFixed(1) + '점 · 표본 ' + (k.videoCount || 0) + '개</div>') +
+        // 아직 분석 전이거나 소형 채널 표본이 0개인 키워드는 0점으로 보이지 않게 실제 상태·검색 조회수를 보여 준다.
+        '<div class="card-subtext" style="margin-top:3px;font-size:11px">' + subtext + '</div>' +
       '</div>' +
       '<div style="display:flex;gap:4px;align-items:center;flex-shrink:0">' +
-        (k.marketDemandScore == null ? '' : '<span class="badge ' + scoreClass + '" style="font-size:10px;padding:2px 7px;white-space:nowrap">수요 ' + score + '</span>') +
-        '<button class="btn btn-sm btn-demand-refresh" data-keyword="' + esc(k.keyword) + '" title="재분석" style="padding:2px 6px;font-size:11px">🔄</button>' +
-        '<button class="btn btn-sm btn-demand-delete" data-keyword="' + esc(k.keyword) + '" title="키워드 삭제" style="color:#ff5577;border-color:#ff5577;padding:2px 6px;font-size:11px">🗑️</button>' +
+        (!hasScore ? '<span class="badge badge-hold" style="font-size:10px;padding:2px 7px;white-space:nowrap">' + (k.emptyReason ? '표본 부족' : '분석 대기') + '</span>' : '<span class="badge ' + scoreClass + '" style="font-size:10px;padding:2px 7px;white-space:nowrap">수요 ' + score + '</span>') +
       '</div>' +
     '</div>';
   });
@@ -3246,8 +3355,10 @@ function renderMarketDemandTab() {
   html += '<div class="bento-card col-8" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">';
 
   if (selectedKwObj) {
-    const opp = Number(selectedKwObj.opportunityScore || 0).toFixed(1);
-    const score = Math.round(selectedKwObj.marketDemandScore || 0);
+    const hasScore = selectedKwObj.marketDemandScore != null;
+    const opp = hasScore && selectedKwObj.opportunityScore != null ? Number(selectedKwObj.opportunityScore).toFixed(1) : '측정 전';
+    const score = hasScore ? Math.round(selectedKwObj.marketDemandScore) : '측정 전';
+    const totalResultsText = selectedKwObj.totalResults != null ? fmt.format(selectedKwObj.totalResults) : '측정 전';
     const outliers = selectedKwObj.topOutliers || [];
 
     html += '<div class="card-header" style="border-bottom:1px solid var(--border-subtle);padding-bottom:12px;margin-bottom:14px">' +
@@ -3261,7 +3372,7 @@ function renderMarketDemandTab() {
       '<div style="display:flex;gap:14px;align-items:center">' +
         '<div style="text-align:right"><div class="card-title" style="font-size:10px">기회 점수</div><div style="font-size:18px;font-weight:900;color:var(--accent-cyan)">' + opp + '</div></div>' +
         '<div style="text-align:right"><div class="card-title" style="font-size:10px">수요 점수</div><div style="font-size:18px;font-weight:900;color:var(--text-bright)">' + score + '</div></div>' +
-        '<div style="text-align:right"><div class="card-title" style="font-size:10px">검색 결과수</div><div style="font-size:18px;font-weight:900;color:var(--accent-amber)">' + fmt.format(selectedKwObj.totalResults || 0) + '</div></div>' +
+        '<div style="text-align:right"><div class="card-title" style="font-size:10px">검색 결과수</div><div style="font-size:18px;font-weight:900;color:var(--accent-amber)">' + totalResultsText + '</div></div>' +
       '</div>' +
     '</div>';
 
@@ -3273,7 +3384,9 @@ function renderMarketDemandTab() {
 
     if (outliers.length === 0) {
       html += '<div style="background:#05070c;border:1px dashed var(--border-subtle);border-radius:8px;padding:30px;text-align:center;color:var(--text-muted)">' +
-        '이 키워드에 대한 아웃라이어 영상 데이터가 없습니다.<br>우측 상단의 🔄 버튼을 눌러 최신 아웃라이어를 분석하세요.' +
+        (selectedKwObj.emptyReason
+          ? esc(selectedKwObj.emptyReason) + '<br>주기적 자동 재점검(14일) 시 다시 확인합니다.'
+          : '아직 아웃라이어가 분석되지 않았습니다.<br>매일 루프에서 자동으로 순차 분석될 예정입니다.') +
       '</div>';
     } else {
       outliers.forEach((o) => {
@@ -3434,8 +3547,7 @@ function bindMarketDemandEvents() {
 
   // 키워드 목록 항목 클릭 시 마스터-디테일 전환
   document.querySelectorAll('.demand-kw-item').forEach((item) => {
-    item.onclick = (e) => {
-      if (e.target.closest('.btn-demand-refresh') || e.target.closest('.btn-demand-delete')) return;
+    item.onclick = () => {
       const kw = item.dataset.keyword;
       if (kw && kw !== gSelectedDemandKeyword) {
         gSelectedDemandKeyword = kw;
@@ -3474,6 +3586,7 @@ function bindMarketDemandEvents() {
     if (!val) return alert('분석할 키워드 또는 채널 링크/@핸들을 입력하세요.');
     btnSmart.disabled = true;
     btnSmart.textContent = '⏳ 스마트 분석 중...';
+    gDemandBusyCount++;
     try {
       const res = await fetch('/api/market-demand/run', {
         method: 'POST',
@@ -3482,6 +3595,7 @@ function bindMarketDemandEvents() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || '스마트 분석 실패');
+      gDemandRefreshSeq++;
       gMarketDemand = data.data;
       const isChannelInput = val.startsWith('http://') || val.startsWith('https://') || val.startsWith('@') || val.startsWith('UC');
       if (!isChannelInput) {
@@ -3489,10 +3603,12 @@ function bindMarketDemandEvents() {
         try { localStorage.setItem('ihm_demand_selected_keyword', val); } catch (_) {}
       }
       renderCurrentTab();
-      showToast('🚀 스마트 분석 완료!');
+      const qCount = (data.queued?.comments?.length || 0) + (data.queued?.scripts?.length || 0);
+      showToast(qCount > 0 ? '🚀 스마트 분석 완료! 상위 리포트 ' + qCount + '건 백그라운드 생성 시작' : '🚀 스마트 분석 완료!');
     } catch (err) {
       alert('❌ 오류: ' + err.message);
     } finally {
+      gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
       btnSmart.disabled = false;
       btnSmart.textContent = '🚀 스마트 분석';
     }
@@ -3511,66 +3627,12 @@ function bindMarketDemandEvents() {
     chip.onclick = () => copyToClipboard(chip.dataset.copy, chip);
   });
 
-  document.querySelectorAll('.btn-demand-refresh').forEach(btn => {
-    btn.onclick = async () => {
-      const keyword = btn.dataset.keyword;
-      if (!keyword) return;
-      const original = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = '⏳';
-      try {
-        const res = await fetch('/api/market-demand/run', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({keyword}),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '업데이트 실패');
-        gMarketDemand = data.data;
-        renderCurrentTab();
-        showToast('🔄 "' + keyword + '" 최신 데이터로 업데이트 완료.');
-      } catch (err) {
-        alert('❌ 업데이트 실패: ' + err.message);
-        btn.disabled = false;
-        btn.textContent = original;
-      }
-    };
-  });
-
-  document.querySelectorAll('.btn-demand-delete').forEach(btn => {
-    btn.onclick = async () => {
-      const keyword = btn.dataset.keyword;
-      if (!keyword) return;
-      if (!confirm('"' + keyword + '" 키워드를 삭제할까요? 다른 키워드에서 더 이상 안 쓰이는 아웃라이어 영상의 댓글/대본 리포트 파일과, 그 영상들에서만 나온 시청자DNA 항목도 함께 정리됩니다.')) return;
-      btn.disabled = true;
-      try {
-        const res = await fetch('/api/market-demand/delete', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({keyword}),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '삭제 실패');
-        gMarketDemand = data.data;
-        if (gSelectedDemandKeyword === keyword) {
-          gSelectedDemandKeyword = (gMarketDemand.byKeyword && gMarketDemand.byKeyword[0]) ? gMarketDemand.byKeyword[0].keyword : '';
-          try { localStorage.setItem('ihm_demand_selected_keyword', gSelectedDemandKeyword); } catch (_) {}
-        }
-        renderCurrentTab();
-        const c = data.cleaned || {};
-        showToast('🗑️ "' + keyword + '" 삭제 완료 — 리포트 ' + (c.reportFiles || 0) + '개, 시청자DNA ' + (c.dnaEntries || 0) + '개 정리됨.');
-      } catch (err) {
-        alert('❌ 삭제 실패: ' + err.message);
-        btn.disabled = false;
-      }
-    };
-  });
-
   const runChannelInput = async (rawInput, btnEl) => {
     const channel = String(rawInput || '').trim();
     if (!channel) return alert('채널 URL 또는 @핸들을 입력하세요.');
     const originalText = btnEl ? btnEl.innerHTML : '';
     if (btnEl) { btnEl.disabled = true; btnEl.innerHTML = '⏳ 분석 중...'; }
+    gDemandBusyCount++;
     try {
       const res = await fetch('/api/market-demand/run', {
         method: 'POST',
@@ -3579,12 +3641,15 @@ function bindMarketDemandEvents() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || '채널 분석 실패');
+      gDemandRefreshSeq++;
       gMarketDemand = data.data;
       renderCurrentTab();
-      showToast('🔎 채널 분석 완료.');
+      const qCount = (data.queued?.comments?.length || 0) + (data.queued?.scripts?.length || 0);
+      showToast(qCount > 0 ? '🔎 채널 분석 완료 (리포트 ' + qCount + '건 백그라운드 생성 중)' : '🔎 채널 분석 완료.');
     } catch (err) {
       alert('❌ 채널 분석 오류: ' + err.message);
     } finally {
+      gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
       if (btnEl) { btnEl.disabled = false; btnEl.innerHTML = originalText; }
     }
   };
@@ -3596,6 +3661,7 @@ function bindMarketDemandEvents() {
       btnSyncAll.disabled = true;
       const originalText = btnSyncAll.innerHTML;
       btnSyncAll.innerHTML = '⏳ 전체 채널 동기화 중...';
+      gDemandBusyCount++;
       try {
         const res = await fetch('/api/market-demand/run', {
           method: 'POST',
@@ -3604,12 +3670,14 @@ function bindMarketDemandEvents() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || '전체 동기화 실패');
+        gDemandRefreshSeq++;
         gMarketDemand = data.data;
         renderCurrentTab();
         showToast('⚡ 모든 추적 채널의 최신 데이터 동기화 완료!');
       } catch (err) {
         alert('❌ 동기화 오류: ' + err.message);
       } finally {
+        gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
         btnSyncAll.disabled = false;
         btnSyncAll.innerHTML = originalText;
       }
@@ -3626,6 +3694,7 @@ function bindMarketDemandEvents() {
       if (!channelId) return;
       if (!confirm('이 채널을 추적 목록에서 제거할까요?')) return;
       btn.disabled = true;
+      gDemandBusyCount++;
       try {
         const res = await fetch('/api/market-demand/delete-channel', {
           method: 'POST',
@@ -3634,12 +3703,15 @@ function bindMarketDemandEvents() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || '삭제 실패');
+        gDemandRefreshSeq++;
         gMarketDemand = data.data;
         renderCurrentTab();
         showToast('🗑️ 채널 추적 목록에서 제거됨.');
       } catch (err) {
         alert('❌ 삭제 실패: ' + err.message);
         btn.disabled = false;
+      } finally {
+        gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
       }
     };
   });
@@ -3651,6 +3723,7 @@ function bindMarketDemandEvents() {
       if (!keyword || !videoId) return;
       if (!confirm('이 영상을 "' + keyword + '" 키워드에서 제외할까요? 다른 키워드에서 더 이상 안 쓰이면 댓글/대본 리포트 파일과 시청자DNA 항목도 함께 정리됩니다.')) return;
       btn.disabled = true;
+      gDemandBusyCount++;
       try {
         const res = await fetch('/api/market-demand/delete-video', {
           method: 'POST',
@@ -3659,6 +3732,7 @@ function bindMarketDemandEvents() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || '삭제 실패');
+        gDemandRefreshSeq++;
         gMarketDemand = data.data;
         renderCurrentTab();
         const c = data.cleaned || {};
@@ -3667,6 +3741,8 @@ function bindMarketDemandEvents() {
       } catch (err) {
         alert('❌ 삭제 실패: ' + err.message);
         btn.disabled = false;
+      } finally {
+        gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
       }
     };
   });
@@ -3814,15 +3890,19 @@ function bindBenchmarkEvents() {
 // 때와 삭제할 때만 갱신되고 분석 후엔 안 갱신되는 같은 구조라 같이 고침). 지금 보이는 탭을
 // 다시 그리지는 않고 데이터만 갱신 — 다음에 그 탭으로 전환할 때 자동으로 최신 상태로 뜬다.
 async function refreshAnalysisDerivedDataSilently() {
+  const seqAtStart = gDemandRefreshSeq;
   try {
     const [demandRes, kdbRes] = await Promise.all([
       fetch('/api/market-demand'),
       fetch('/api/knowledge-db'),
     ]);
+    if (seqAtStart !== gDemandRefreshSeq) return false;
     if (demandRes.ok) gMarketDemand = await demandRes.json();
     if (kdbRes.ok) gKnowledgeDb = await kdbRes.json();
+    return true;
   } catch (err) {
     console.warn('Failed to refresh market demand / knowledge DB after analysis:', err);
+    return false;
   }
 }
 
@@ -5944,6 +6024,27 @@ if (window.EventSource) {
         console.error('SSE schedule-updated error:', err);
       }
     });
+    evtSource.addEventListener('analysis-updated', async () => {
+      try {
+        const applied = await refreshAnalysisDerivedDataSilently();
+        if (!applied) return;
+        const activeTag = document.activeElement && document.activeElement.tagName;
+        const shouldRefreshTab = gCurrentTab === 'tab-demand' || gCurrentTab === 'tab-outlier' || gCurrentTab === 'tab-benchmark';
+        if (shouldRefreshTab && !gDemandBusyCount && activeTag !== 'INPUT' && activeTag !== 'TEXTAREA') {
+          const smartEl = document.getElementById('input-demand-smart');
+          const smartDraft = smartEl ? smartEl.value : '';
+          const kwScrollEl = document.querySelectorAll('.demand-kw-scroll')[0];
+          const prevScrollTop = kwScrollEl ? kwScrollEl.scrollTop : 0;
+          renderCurrentTab();
+          const nextSmartEl = document.getElementById('input-demand-smart');
+          if (nextSmartEl && smartDraft) nextSmartEl.value = smartDraft;
+          const nextKwScrollEl = document.querySelectorAll('.demand-kw-scroll')[0];
+          if (nextKwScrollEl && prevScrollTop > 0) nextKwScrollEl.scrollTop = prevScrollTop;
+        }
+      } catch (err) {
+        console.error('SSE analysis-updated error:', err);
+      }
+    });
   } catch (err) {
     console.warn('SSE connection warning:', err);
   }
@@ -6284,12 +6385,17 @@ const server = createServer(async (req, res) => {
 
       const args = ['scripts/market-demand.mjs',
         ...(body.syncAll ? ['--sync-all-tracked'] : (body.d7Sync ? ['--d7-sync'] : (channel ? [`--channel=${channel}`] : (keyword ? [`--keyword=${keyword}`] : []))))];
+      const runStartedAt = Date.now() - 1000;
       try {
         await execFileAsync('node', args, {cwd: projectDir});
         const updated = await loadJson(marketDemandPath);
         memoryMarketDemand = updated;
         lastMarketDemandTime = Date.now();
-        return json(res, 200, {ok: true, data: await annotateMarketDemandAnalysisStatus(updated)});
+        let queued = {comments: [], scripts: []};
+        if (!body.syncAll && !body.d7Sync && body.autoAnalyze !== false) {
+          queued = await enqueueAutoOutlierReports(pickRecentMarketDemandSlice(updated, runStartedAt));
+        }
+        return json(res, 200, {ok: true, queued, data: await annotateMarketDemandAnalysisStatus(updated)});
       } catch (err) {
         return json(res, 500, {error: `스크립트 실행 오류: ${err.message}`});
       }
@@ -6564,6 +6670,9 @@ const server = createServer(async (req, res) => {
       if (!ytKey || ytKey === 'YOUR_YOUTUBE_API_KEY_HERE') {
         return json(res, 400, {error: '.env 파일에 YOUTUBE_API_KEY 설정이 필요합니다.'});
       }
+      if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY_HERE') {
+        return json(res, 400, {error: '.env 파일에 GEMINI_API_KEY 설정이 필요합니다.'});
+      }
 
       let targetVideoIds = [];
       const directId = extractVideoId(body.url || body.videoId);
@@ -6584,50 +6693,18 @@ const server = createServer(async (req, res) => {
         return json(res, 400, {error: '분석할 영상 URL이나 키워드가 필요합니다.'});
       }
 
-      const existingDna = (await loadJson(audienceDnaPath, {entries: []})).entries || [];
-      const existingPainPoints = existingDna.filter((e) => e.type === 'painPoint' || e.type === 'question');
-
       const results = [];
       const failed = [];
       for (const vid of targetVideoIds.slice(0, 3)) {
         try {
-          const meta = await fetchVideoDetails(vid, ytKey);
-          if (!meta) continue;
-          const comments = await fetchComments(vid, ytKey, 100);
-          let aiInsights = null;
-          if (geminiKey && comments.length > 0) {
-            aiInsights = await analyzeCommentsWithGemini(meta, comments, geminiKey, existingPainPoints);
-          }
-          // AI를 불렀는데 결과가 없으면 실패로 남긴다. 예전에는 빈 결과를 성공으로 보내고 실패 기록까지 지웠다(점검 6번).
-          if (aiAnalysisFailed({hasGeminiKey: Boolean(geminiKey), commentsCount: comments.length, aiInsights})) {
-            throw new Error('Gemini 댓글 분석이 결과를 돌려주지 않았습니다(쿼터·응답 형식 문제일 수 있음).');
-          }
-          const reportMd = generateMarkdownReport(meta, comments, aiInsights);
-          const slug = meta.title.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_').slice(0, 50) + `_${vid}`;
-          if (!existsSync(outputInsightsDir)) await mkdir(outputInsightsDir, {recursive: true});
-          if (!existsSync(outputCommentsDir)) await mkdir(outputCommentsDir, {recursive: true});
-          await writeFile(join(outputInsightsDir, `${slug}.md`), reportMd, 'utf8');
-          await writeFile(join(outputCommentsDir, `${vid}.json`), JSON.stringify({schemaVersion: 1, analyzedAt: new Date().toISOString(), video: meta, aiInsights, comments}, null, 2), 'utf8');
-          if (aiInsights) {
-            const dnaEntries = [
-              ...(aiInsights.painPoints || []).map((item) => ({ type: 'painPoint', text: formatInsightText(item) })),
-              ...(aiInsights.audienceQuestions || []).map((item) => ({ type: 'question', text: formatInsightText(item) })),
-              ...(aiInsights.audienceVocabulary || []).map((item) => ({ type: 'vocabulary', text: formatInsightText(item) })),
-            ].map((e) => ({ ...e, videoId: vid, channelTitle: meta.channelTitle, sourceType: 'outlierComment' }));
-            await upsertAudienceDna(dnaEntries);
-          }
-          await clearAnalysisFailure(vid, 'comment');
-          results.push({
-            videoId: vid,
-            video: meta,
-            commentsCount: comments.length,
-            aiInsights,
-            markdown: reportMd,
-            file: `${slug}.md`,
-          });
+          const result = await outlierReportQueue.enqueue(
+            `comment:${vid}`,
+            () => runSingleCommentReport(vid, ytKey, geminiKey),
+            {priority: 'high'},
+          ).promise;
+          if (result) results.push(result);
         } catch (err) {
           console.error(`Error analyzing video ${vid}:`, err.message);
-          await recordAnalysisFailure(vid, 'comment', err.message);
           failed.push({videoId: vid, error: err.message});
         }
       }
@@ -6685,15 +6762,13 @@ const server = createServer(async (req, res) => {
       const vid = extractVideoId(body.url || body.videoId);
       if (!vid) return json(res, 400, {error: '올바른 유튜브 URL 또는 영상 ID가 필요합니다.'});
       try {
-        const result = await analyzeSingleScript(vid);
-        if (!result) {
-          await recordAnalysisFailure(vid, 'script', '대본 분석에 실패했습니다.');
-          return json(res, 500, {error: '대본 분석에 실패했습니다.'});
-        }
-        await clearAnalysisFailure(vid, 'script');
+        const result = await outlierReportQueue.enqueue(
+          `script:${vid}`,
+          () => runSingleScriptReport(vid, {ytKey, geminiKey}),
+          {priority: 'high'},
+        ).promise;
         return json(res, 200, {ok: true, result});
       } catch (err) {
-        await recordAnalysisFailure(vid, 'script', err.message);
         return json(res, 500, {error: err.message});
       }
     }
@@ -6747,12 +6822,22 @@ const server = createServer(async (req, res) => {
               now,
             });
             await saveJson(marketDemandPath, result.marketDemandData);
+            if (result.orphanedVideoIds?.length) {
+              await cascadeDeleteOrphanedVideoData(result.orphanedVideoIds);
+            }
             memoryMarketDemand = null;
             lastMarketDemandTime = 0;
             // "통함" 판정은 성공 패턴에 자동 기록(2026-11-11). 사람·Claude가 적은 훅·비유는 지우지 않는다.
             const patterns = recordSuccessPatterns(await loadJson(successPatternsPath, {schemaVersion: 1, entries: []}), outcomes, now);
             if (patterns.added.length || patterns.changed.length) await saveJson(successPatternsPath, patterns.store);
-            d7 = {applied: result.applied.length, hold: result.marketDemandData.d7AutonomousCycle.holdCount, patternsAdded: patterns.added.length, patternsChanged: patterns.changed.length};
+            d7 = {
+              applied: result.applied.length,
+              hold: result.marketDemandData.d7AutonomousCycle.holdCount,
+              retiredKeywords: (result.retiredKeywords || []).length,
+              cleanedVideos: (result.orphanedVideoIds || []).length,
+              patternsAdded: patterns.added.length,
+              patternsChanged: patterns.changed.length,
+            };
           }
         } catch (err) {
           d7 = {error: err.message};

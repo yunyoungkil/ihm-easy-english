@@ -78,6 +78,7 @@ def main():
     except Exception as e:
         print(json.dumps({
             "ok": False,
+            "errorType": type(e).__name__,
             "error": str(e),
             "videoId": video_id
         }, ensure_ascii=False))

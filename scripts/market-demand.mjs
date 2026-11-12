@@ -45,6 +45,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { syncAllTrackedChannels, runD7AutonomousCycle } from "./competitor-lifecycle.mjs";
+import { mergeKeywordAnalysisEntries } from "./keyword-backlog.mjs";
 import { loadEpisodeOutcomes } from "./planning-outcome.mjs";
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -636,13 +637,30 @@ async function main() {
   // made) than a repeatable signal. See knowledge/channel-strategy.md —
   // "작은 표본은 성공으로 과장하지 않는다."
   const RATIO_CAP = 5;
-  const marketDemandByKeyword = [...byKeyword.entries()]
-    .map(([keyword, rows]) => {
+  const analyzedAtIso = new Date().toISOString();
+  const marketDemandByKeyword = KEYWORD_POOL
+    .map((keyword) => {
+      const rows = byKeyword.get(keyword) ?? [];
+      const totalResults = totalResultsByKeyword.get(keyword) ?? null;
+      if (rows.length === 0) {
+        return {
+          keyword,
+          analyzedAt: analyzedAtIso,
+          videoCount: 0,
+          confidence: "low",
+          lowSampleWarning: null,
+          marketDemandScore: null,
+          totalResults,
+          opportunityScore: null,
+          emptyReason: "소형 채널 표본 0개",
+          titlePatterns: [],
+          topOutliers: [],
+        };
+      }
       const cappedRatios = rows.map((r) => Math.min(RATIO_CAP, r.outlierRatio));
       const avgRatio = median(cappedRatios);
       const lowSample = rows.length < LOW_SAMPLE_THRESHOLD;
       const marketDemandScore = avgRatio !== null ? Math.round(Math.max(0, 50 * avgRatio) * 10) / 10 : null;
-      const totalResults = totalResultsByKeyword.get(keyword) ?? null;
       // Saturation discount: log-scaled so it separates hundreds of
       // competing videos from hundreds of thousands without a linear
       // divide-by-totalResults swinging wildly on YouTube's rounding of its
@@ -655,7 +673,7 @@ async function main() {
           : null;
       return {
         keyword,
-        analyzedAt: new Date().toISOString(), // 이 키워드가 실제로 마지막으로 (재)분석된 시각.
+        analyzedAt: analyzedAtIso, // 이 키워드가 실제로 마지막으로 (재)분석된 시각.
         // 전체 결과 파일의 generatedAt과는 다르다 — generatedAt은 파일을 마지막으로 쓴 시각이라
         // ad-hoc으로 키워드 하나만 돌려도 안 건드린 다른 키워드까지 갱신된 것처럼 보인다.
         // 대시보드가 "이미 분석된 키워드입니다" 중복 경고를 정확한 날짜로 보여주려면 필요하다.
@@ -667,6 +685,7 @@ async function main() {
         marketDemandScore,
         totalResults, // YouTube's own approximate match count for this keyword — saturation proxy
         opportunityScore, // marketDemandScore discounted by how crowded the keyword already is
+        emptyReason: null,
         titlePatterns: extractTitlePatterns(rows), // recurring words across overperforming titles — the "angle", not just the topic
         topOutliers: rows.sort((a, b) => b.outlierRatio - a.outlierRatio).slice(0, 3).map((r) => ({
           videoId: r.videoId,
@@ -689,15 +708,12 @@ async function main() {
   // shouldn't erase the default pool's results, and re-running the default
   // pool shouldn't erase keywords someone checked ad-hoc earlier.
   const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
-  const mergedByKeyword = new Map((existing?.byKeyword ?? []).map((k) => [k.keyword, k]));
-  for (const entry of marketDemandByKeyword) mergedByKeyword.set(entry.keyword, entry);
-  const allByKeyword = [...mergedByKeyword.values()].sort(
-    (a, b) => (b.opportunityScore ?? b.marketDemandScore ?? -1) - (a.opportunityScore ?? a.marketDemandScore ?? -1),
-  );
+  const allByKeyword = mergeKeywordAnalysisEntries(existing?.byKeyword ?? [], marketDemandByKeyword);
 
   const result = {
+    ...(existing ?? {}),
     schemaVersion: 1,
-    generatedAt: new Date().toISOString(),
+    generatedAt: analyzedAtIso,
     note:
       "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, " +
       "채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 " +

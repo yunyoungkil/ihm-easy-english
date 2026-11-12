@@ -13,13 +13,30 @@
 //   6. 결과를 data/youtube/daily-loop.json 에 남긴다 → 시작 브리핑의 scripts/loop-health.mjs가 판정한다.
 
 import {execFile, spawn} from 'node:child_process';
-import {existsSync, readdirSync, readFileSync, writeFileSync, openSync} from 'node:fs';
+import {existsSync, readFileSync, writeFileSync, openSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {
+  DEFAULT_BACKFILL_PER_RUN,
+  executeBacklogTargets,
+  hasBatchSystemFailure,
+  loadExistingReportIds,
+  selectOutlierReportBacklog,
+} from './outlier-report-backlog.mjs';
+import {
+  DEFAULT_KEYWORD_REFRESH_DAYS,
+  DEFAULT_KEYWORD_REFRESH_LIMIT,
+  executeKeywordRefreshTargets,
+  selectKeywordRefreshTargets,
+  updateKeywordFailureMap,
+} from './keyword-backlog.mjs';
 
 export const COMPETITOR_REFRESH_DAYS = 7;
 export const AUDIENCE_REFRESH_DAYS = 14;
-const COMMENT_TARGETS_PER_RUN = 3;
+export const KEYWORD_REFRESH_DAYS = DEFAULT_KEYWORD_REFRESH_DAYS;
+export const KEYWORD_TARGETS_PER_RUN = DEFAULT_KEYWORD_REFRESH_LIMIT;
+const COMMENT_TARGETS_PER_RUN = DEFAULT_BACKFILL_PER_RUN;
+const SCRIPT_TARGETS_PER_RUN = DEFAULT_BACKFILL_PER_RUN;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 const olderThan = (iso, days, now) => !iso || !Number.isFinite(new Date(iso).getTime()) || now - new Date(iso) > days * DAY_MS;
@@ -34,15 +51,85 @@ export function decideDailySteps({now = new Date(), competitorsAnalyzedAt = null
 
 /** 차단·졸업 채널은 빼고, 이미 분석한 영상은 빼고, 평소 대비 배수가 큰 순으로 n개. */
 export function pickCommentTargets(marketDemand = {}, analyzedIds = new Set(), n = COMMENT_TARGETS_PER_RUN) {
-  const seen = new Set();
-  return (marketDemand.trackedChannels || [])
-    .filter((c) => c.status !== 'blocked' && c.status !== 'graduated')
-    .flatMap((c) => c.topOutliers || [])
-    .filter((o) => o?.videoId && !analyzedIds.has(o.videoId))
-    .sort((a, b) => (Number(b.outlierRatio) || 0) - (Number(a.outlierRatio) || 0))
-    .filter((o) => (seen.has(o.videoId) ? false : (seen.add(o.videoId), true)))
-    .slice(0, n)
-    .map((o) => o.videoId);
+  return selectOutlierReportBacklog(marketDemand, {existingCommentIds: analyzedIds, limit: n}).commentTargets;
+}
+
+/** 키워드·추적 채널 양쪽에서 아직 댓글·대본 리포트가 없는 영상 대상을 고른다. */
+export function decideOutlierBackfill({
+  marketDemand = {},
+  existingCommentIds = new Set(),
+  existingScriptIds = new Set(),
+  failures = {},
+  now = new Date(),
+  commentLimit = COMMENT_TARGETS_PER_RUN,
+  scriptLimit = SCRIPT_TARGETS_PER_RUN,
+} = {}) {
+  const safeCommentLimit = Math.max(0, Number.isFinite(Number(commentLimit)) ? Math.floor(Number(commentLimit)) : COMMENT_TARGETS_PER_RUN);
+  const safeScriptLimit = Math.max(0, Number.isFinite(Number(scriptLimit)) ? Math.floor(Number(scriptLimit)) : SCRIPT_TARGETS_PER_RUN);
+  const {commentTargets, scriptTargets} = selectOutlierReportBacklog(marketDemand, {
+    existingCommentIds,
+    existingScriptIds,
+    failures,
+    limit: Math.max(safeCommentLimit, safeScriptLimit),
+    now,
+  });
+  const pickedComments = commentTargets.slice(0, safeCommentLimit);
+  const pickedScripts = scriptTargets.slice(0, safeScriptLimit);
+  return {
+    commentTargets: pickedComments,
+    scriptTargets: pickedScripts,
+    hasWork: pickedComments.length > 0 || pickedScripts.length > 0,
+  };
+}
+
+/** 댓글·대본 백필 배치를 실행하고 전체 시스템 오류 시 원인을 모아 예외를 던진다. */
+export async function runAudienceBackfillStep(backfill, postFn) {
+  const comment = await executeBacklogTargets(
+    backfill.commentTargets,
+    (videoId) => postFn('/api/insights/analyze', {videoId}, 5 * 60 * 1000),
+  );
+  const script = await executeBacklogTargets(
+    backfill.scriptTargets,
+    (videoId) => postFn('/api/scripts/analyze', {videoId}, 5 * 60 * 1000),
+  );
+  const errors = [];
+  if (hasBatchSystemFailure(comment)) errors.push(`댓글: ${comment.failed[0].error}`);
+  if (hasBatchSystemFailure(script)) errors.push(`대본: ${script.failed[0].error}`);
+  if (errors.length) throw new Error(`리포트 자동 분석 실패 (${errors.join(' / ')})`);
+  return {
+    comment,
+    script,
+    note: backfill.hasWork ? undefined : '분석할 새 아웃라이어 영상이 없음',
+  };
+}
+
+/** 이번 일일 루프에서 분석/재분석할 키워드 대상을 고른다. */
+export function decideKeywordBackfill({
+  marketDemand = {},
+  failedKeywords = {},
+  now = new Date(),
+  limit = KEYWORD_TARGETS_PER_RUN,
+  refreshDays = KEYWORD_REFRESH_DAYS,
+} = {}) {
+  const {targets, skippedCount} = selectKeywordRefreshTargets(marketDemand, {
+    limit,
+    refreshDays,
+    failedKeywords,
+    now,
+  });
+  return {targets, skippedCount, hasWork: targets.length > 0};
+}
+
+/** 키워드 자동 분석·갱신 배치를 실행한다. */
+export async function runKeywordRefreshStep(selection, postFn) {
+  if (!selection?.targets?.length) {
+    return {analyzed: [], failed: [], haltedOnQuota: false, skippedCount: selection?.skippedCount || 0, note: '분석/갱신할 키워드가 없음'};
+  }
+  const result = await executeKeywordRefreshTargets(
+    selection.targets,
+    (keyword) => postFn('/api/market-demand/run', {keyword}, 10 * 60 * 1000),
+  );
+  return {...result, skippedCount: selection?.skippedCount || 0};
 }
 
 // 대시보드가 실제 데이터를 제대로 내보내는지 — 화면 검사(test-client-syntax)는 연습용 데이터로 그리므로
@@ -140,24 +227,40 @@ async function run() {
     });
   }
 
-  if (plan.audience) {
-    await step('audience', async () => {
-      const commentsDir = join(dataDir, 'outlier-comments');
-      const analyzed = new Set(existsSync(commentsDir) ? readdirSync(commentsDir).map((f) => f.replace(/\.json$/, '')) : []);
-      const targets = pickCommentTargets(readJson(join(dataDir, 'market-demand.json'), {}), analyzed);
-      const done = [];
-      const failed = [];
-      for (const videoId of targets) {
-        try {
-          await post('/api/insights/analyze', {videoId}, 5 * 60 * 1000);
-          done.push(videoId);
-        } catch (err) {
-          failed.push({videoId, error: err.message});
-        }
-      }
-      if (!done.length && failed.length) throw new Error(`댓글 분석 전부 실패: ${failed[0].error}`);
-      return {done, failed, note: targets.length ? undefined : '분석할 새 아웃라이어 영상이 없음'};
-    });
+  const prevLoop = readJson(join(dataDir, 'daily-loop.json'), {});
+  const keywordSelection = decideKeywordBackfill({
+    marketDemand: readJson(join(dataDir, 'market-demand.json'), {}),
+    failedKeywords: prevLoop.keywordFailures || {},
+    now,
+  });
+  let keywordBatchResult = {analyzed: [], failed: [], haltedOnQuota: false};
+  await step('keywords', async () => {
+    keywordBatchResult = await runKeywordRefreshStep(keywordSelection, post);
+    if (keywordBatchResult.haltedOnQuota || (keywordBatchResult.analyzed.length === 0 && keywordBatchResult.failed.length > 0)) {
+      const first = keywordBatchResult.failed[0];
+      throw new Error(`키워드 자동 분석 실패 (${first.keyword}: ${first.error})`);
+    }
+    return keywordBatchResult;
+  });
+  report.keywordFailures = updateKeywordFailureMap(prevLoop.keywordFailures || {}, {
+    analyzed: keywordBatchResult.analyzed,
+    failed: keywordBatchResult.failed,
+    now,
+  });
+
+  const latestMarketDemand = readJson(join(dataDir, 'market-demand.json'), {});
+  const {existingCommentIds, existingScriptIds} = loadExistingReportIds(projectDir);
+  const failures = readJson(join(dataDir, 'analysis-failures.json'), {entries: {}}).entries || {};
+  const backfill = decideOutlierBackfill({
+    marketDemand: latestMarketDemand,
+    existingCommentIds,
+    existingScriptIds,
+    failures,
+    now,
+  });
+
+  if (plan.audience || backfill.hasWork) {
+    await step('audience', () => runAudienceBackfillStep(backfill, post));
   }
 
   await step('dashboard', async () => {

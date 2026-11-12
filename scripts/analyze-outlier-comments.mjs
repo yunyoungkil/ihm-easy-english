@@ -82,7 +82,7 @@ async function fetchVideoDetails(videoId, apiKey) {
     key: apiKey,
   });
 
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
   if (!res.ok) {
     const errorText = await res.text();
     throw new Error(`YouTube Video API failed (${res.status}): ${errorText}`);
@@ -104,7 +104,8 @@ async function fetchVideoDetails(videoId, apiKey) {
   };
 }
 
-async function fetchComments(videoId, apiKey, maxResults = 100) {
+async function fetchComments(videoId, apiKey, maxResults = 100, options = {}) {
+  const { throwOnDisabled = false } = options;
   const url = new URL("https://www.googleapis.com/youtube/v3/commentThreads");
   url.search = new URLSearchParams({
     part: "snippet",
@@ -115,11 +116,14 @@ async function fetchComments(videoId, apiKey, maxResults = 100) {
     key: apiKey,
   });
 
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     const reason = err.error?.errors?.[0]?.reason || err.error?.message;
     if (reason === "commentsDisabled") {
+      if (throwOnDisabled) {
+        throw new Error(`영상(${videoId})의 댓글 기능이 비활성화되어 있습니다 (commentsDisabled).`);
+      }
       console.warn(`  ⚠ 영상(${videoId})의 댓글 기능이 비활성화되어 있습니다.`);
       return [];
     }
@@ -203,6 +207,7 @@ ${commentsSnippet}
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(45_000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {

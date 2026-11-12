@@ -202,7 +202,119 @@ test('evaluateChannelLifecycle: 보통 성과(0.5~1.5배)는 연속 부진 횟�
 });
 
 test('runD7AutonomousCycle: 영어 학습과 상관없는 검색어나 채널 이름이 들어간 검색어는 넣지 않는다', () => {
-  const terms = ['먼치킨 고양이', '한 명씩 정리한다 - skidrow277', '영어 발음', 'right light'];
+  const terms = [
+    '먼치킨 고양이',
+    '한 명씩 정리한다 - skidrow277',
+    'zlet-kytjly - 갑자기 난리남',
+    'zlet-kytjly',
+    '영어 발음',
+    'right light',
+  ];
   const r = cycle([], {}, {analyticsData: {searchTerms: terms.map((t) => ({insightTrafficSourceDetail: t, views: 3}))}});
   assert.deepEqual(r.marketDemandData.byKeyword.map((k) => k.keyword), ['영어 발음', 'right light']);
+});
+
+test('runD7AutonomousCycle: 이미 편입됐던 채널 슬러그/노이즈 d7_search_terms는 다음 순환에서 즉시 퇴장·고아 영상 반환한다', () => {
+  const r = runD7AutonomousCycle({
+    marketDemandData: {
+      trackedChannels: [],
+      byKeyword: [
+        {keyword: 'zlet-kytjly - 갑자기 난리남', source: 'd7_search_terms', marketDemandScore: 47.5, topOutliers: [{videoId: 'NOISE_VID_1'}]},
+        {keyword: '영어발음', source: 'd7_search_terms', marketDemandScore: 250, topOutliers: [{videoId: 'GOOD_VID_01'}]},
+      ],
+    },
+    analyticsData: {
+      searchTerms: [
+        {insightTrafficSourceDetail: 'zlet-kytjly - 갑자기 난리남', views: 5},
+        {insightTrafficSourceDetail: '영어발음', views: 4},
+      ],
+    },
+    episodeOutcomes: [],
+    catalogVideos: [],
+    now: new Date('2026-11-12T06:30:00Z'),
+  });
+  assert.deepEqual(r.retiredKeywords, ['zlet-kytjly - 갑자기 난리남']);
+  assert.deepEqual(r.orphanedVideoIds, ['NOISE_VID_1']);
+  assert.deepEqual(r.marketDemandData.byKeyword.map((k) => k.keyword), ['영어발음']);
+});
+
+test('runD7AutonomousCycle: 새 d7_search_terms는 analyzedAt: null로 들어가고, 유입이 끊기면 7일 유예 후 퇴장·고아 영상 ID를 반환한다', () => {
+  const nowDay1 = new Date('2026-11-12T00:00:00Z');
+  const first = runD7AutonomousCycle({
+    marketDemandData: {
+      trackedChannels: [],
+      byKeyword: [
+        {keyword: '기존 수동 키워드', marketDemandScore: 80, topOutliers: [{videoId: 'KEEP_VID_01'}]},
+        {keyword: '유지 영어발음', source: 'd7_search_terms', marketDemandScore: 90, analyzedAt: '2026-11-01T00:00:00Z', topOutliers: [{videoId: 'SHARED_VID1'}]},
+        {keyword: '예전 영어단어', source: 'd7_search_terms', marketDemandScore: 70, analyzedAt: '2026-11-01T00:00:00Z', topOutliers: [{videoId: 'OLD_ORPHAN1'}, {videoId: 'SHARED_VID1'}]},
+      ],
+    },
+    analyticsData: {searchTerms: [{insightTrafficSourceDetail: '유지 영어발음', views: 20}, {insightTrafficSourceDetail: '영단어', views: 15}]},
+    episodeOutcomes: [],
+    catalogVideos: [],
+    now: nowDay1,
+  });
+
+  const newKw = first.marketDemandData.byKeyword.find((k) => k.keyword === '영단어');
+  assert.equal(newKw.analyzedAt, null, '아직 분석 전이므로 analyzedAt은 null이어야 한다');
+  assert.equal(newKw.marketDemandScore, null);
+  const graceKw = first.marketDemandData.byKeyword.find((k) => k.keyword === '예전 영어단어');
+  assert.ok(graceKw?.d7OutOfActiveSince, '첫 이탈 시 유예 시작 시각을 남긴다');
+  assert.deepEqual(first.retiredKeywords, []);
+  assert.deepEqual(first.orphanedVideoIds, []);
+
+  // 7일 후에도 여전히 active searchTerms에 없으면 퇴장하고, 공유 안 되는 고아 videoId만 반환한다
+  const afterGrace = runD7AutonomousCycle({
+    marketDemandData: first.marketDemandData,
+    analyticsData: {searchTerms: [{insightTrafficSourceDetail: '유지 영어발음', views: 25}, {insightTrafficSourceDetail: '영단어', views: 18}]},
+    episodeOutcomes: [],
+    catalogVideos: [],
+    now: new Date(nowDay1.getTime() + 7 * 86400000 + 1000),
+  });
+  assert.deepEqual(afterGrace.retiredKeywords, ['예전 영어단어']);
+  assert.deepEqual(afterGrace.orphanedVideoIds, ['OLD_ORPHAN1']);
+  assert.equal(afterGrace.marketDemandData.byKeyword.find((k) => k.keyword === '예전 영어단어'), undefined);
+  assert.ok(afterGrace.marketDemandData.byKeyword.find((k) => k.keyword === '기존 수동 키워드'), '수동 키워드는 D+7 순환이 삭제하지 않는다');
+});
+
+test('runD7AutonomousCycle: 띄어쓰기만 다른 검색어 중복은 1슬롯으로 통합하고 중복 별칭은 정리한다', () => {
+  const r = runD7AutonomousCycle({
+    marketDemandData: {
+      trackedChannels: [],
+      byKeyword: [
+        {keyword: '영어발음', source: 'd7_search_terms', marketDemandScore: 76, analyzedAt: '2026-11-01T00:00:00Z', topOutliers: [{videoId: 'VID_KEEP_01'}]},
+        {keyword: '영어 발음', source: 'd7_search_terms', marketDemandScore: 76, analyzedAt: '2026-11-01T00:00:00Z', topOutliers: [{videoId: 'VID_DUP_001'}]},
+      ],
+    },
+    analyticsData: {
+      searchTerms: [
+        {insightTrafficSourceDetail: '영어발음', views: 11},
+        {insightTrafficSourceDetail: '영어 발음', views: 10},
+        {insightTrafficSourceDetail: '영어미드', views: 8},
+      ],
+    },
+    episodeOutcomes: [],
+    catalogVideos: [],
+    now: new Date('2026-11-12T00:00:00Z'),
+  });
+  const kept = r.marketDemandData.byKeyword.filter((k) => k.keyword.replace(/\s+/g, '') === '영어발음');
+  assert.equal(kept.length, 1);
+  assert.equal(kept[0].searchViews, 21);
+  assert.deepEqual(r.retiredKeywords, ['영어 발음']);
+  assert.deepEqual(r.orphanedVideoIds, ['VID_DUP_001']);
+});
+
+test('runD7AutonomousCycle: searchTerms가 비어 있으면 기존 d7_search_terms 퇴장을 시작하지 않는다', () => {
+  const r = runD7AutonomousCycle({
+    marketDemandData: {
+      trackedChannels: [],
+      byKeyword: [{keyword: '영어발음', source: 'd7_search_terms', marketDemandScore: 76, topOutliers: []}],
+    },
+    analyticsData: {searchTerms: []},
+    episodeOutcomes: [],
+    catalogVideos: [],
+    now: new Date('2026-11-12T00:00:00Z'),
+  });
+  assert.equal(r.marketDemandData.byKeyword.length, 1);
+  assert.equal(r.marketDemandData.byKeyword[0].d7OutOfActiveSince, undefined);
 });

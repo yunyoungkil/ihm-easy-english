@@ -3,10 +3,10 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec } from "node:child_process";
+import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const envPath = join(projectDir, ".env");
 const outputScriptInsightsDir = join(projectDir, "output", "script-insights");
@@ -50,9 +50,12 @@ export function extractVideoId(urlOrId) {
 export async function fetchVideoDetails(videoId, apiKey = YOUTUBE_API_KEY) {
   if (!apiKey) throw new Error("YOUTUBE_API_KEY is required");
   const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${videoId}&key=${apiKey}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  if (!res.ok || !data.items || data.items.length === 0) return null;
+  const res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(`YouTube Video API failed (${res.status}): ${data?.error?.message || res.statusText}`);
+  }
+  if (!data.items || data.items.length === 0) return null;
   const item = data.items[0];
   return {
     videoId,
@@ -69,40 +72,66 @@ export async function fetchVideoDetails(videoId, apiKey = YOUTUBE_API_KEY) {
   };
 }
 
+const TRANSIENT_TRANSCRIPT_RE = /RequestBlocked|IpBlocked|YouTubeRequestFailed|PoTokenRequired|FailedToCreateConsentCookie|blocking requests|Too Many Requests|HTTP Error 429|\b429\b|timed out|ETIMEDOUT|ECONNRESET|ENOTFOUND/i;
+
+/**
+ * youtube_transcript_api 오류를 일시적 제한(429·IP 차단·시간 초과)과 영구적 자막 부재로 구분한다.
+ * @param {string} reason
+ * @param {string} [errorType]
+ * @returns {string}
+ */
+export function classifyTranscriptError(reason, errorType = "") {
+  const raw = String(reason || "");
+  const combined = `${errorType} ${raw}`;
+  if (TRANSIENT_TRANSCRIPT_RE.test(combined)) {
+    return `YouTube 자막 요청 일시 제한/네트워크 오류: ${raw}`;
+  }
+  if (/TranscriptsDisabled/i.test(errorType) || /subtitles are disabled/i.test(raw)) {
+    return "업로더가 이 영상의 자막 기능을 꺼놔서 자막을 가져올 수 없습니다.";
+  }
+  if (/NoTranscriptFound|StopIteration/i.test(errorType) || /no transcripts? (was|were) found/i.test(raw)) {
+    return "이 영상에는 가져올 수 있는 자막이 없습니다.";
+  }
+  if (
+    /VideoUnavailable|VideoUnplayable|InvalidVideoId|AgeRestricted/i.test(errorType) ||
+    /video (is )?(unavailable|no longer available)|video unplayable|age[- ]?restricted/i.test(raw)
+  ) {
+    return "이 영상을 찾을 수 없습니다(비공개이거나 삭제됐을 수 있습니다).";
+  }
+  return raw;
+}
+
 export async function extractTranscript(videoId) {
   const pyScript = join(projectDir, "scripts", "extract-transcript.py");
   try {
-    const { stdout } = await execAsync(`python "${pyScript}" ${videoId}`);
+    const { stdout } = await execFileAsync("python", [pyScript, videoId], { timeout: 45_000 });
     const data = JSON.parse(stdout.trim());
     if (!data.ok) throw new Error(data.error || "Transcript extraction failed");
     return data;
   } catch (err) {
     // extract-transcript.py가 실패해도 {ok:false, error} JSON을 stdout에 찍고 exit 1로 끝내는데,
-    // execAsync는 exit 1이면 그 JSON을 파싱해서 보여주지 않고 그냥 "Command failed: ..." 라는
+    // execFileAsync는 exit 1이면 그 JSON을 파싱해서 보여주지 않고 그냥 "Command failed: ..." 라는
     // 의미 없는 메시지로 reject한다. 다만 Node는 그 실패한 프로세스의 stdout을 err.stdout에
     // 그대로 담아주므로, 여기서 다시 파싱해서 실제 원인을 꺼낸다(2026-09-07, 사용자 지적).
-    let reason = err.message;
+    let reason = err.killed || err.signal === "SIGTERM" ? "자막 추출 시간 초과(timed out)" : err.message;
+    let errorType = "";
     if (err.stdout) {
       try {
         const parsed = JSON.parse(String(err.stdout).trim());
         if (parsed?.error) reason = parsed.error;
+        if (parsed?.errorType) errorType = parsed.errorType;
       } catch {
         // stdout이 JSON이 아니면(예: python 자체가 없거나 문법 오류) 원래 err.message를 그대로 씀
       }
     }
-    if (/subtitles are disabled/i.test(reason)) {
-      reason = '업로더가 이 영상의 자막 기능을 꺼놔서 자막을 가져올 수 없습니다.';
-    } else if (/no transcripts? (was|were) found|transcriptsdisabled|could not retrieve a transcript/i.test(reason)) {
-      reason = '이 영상에는 가져올 수 있는 자막이 없습니다.';
-    } else if (/video (is )?unavailable|video unplayable/i.test(reason)) {
-      reason = '이 영상을 찾을 수 없습니다(비공개이거나 삭제됐을 수 있습니다).';
-    }
-    throw new Error(`자막 추출 실패 (${videoId}): ${reason}`);
+    throw new Error(`자막 추출 실패 (${videoId}): ${classifyTranscriptError(reason, errorType)}`);
   }
 }
 
-export async function analyzeScriptWithGemini(videoMeta, transcriptData, apiKey = GEMINI_API_KEY) {
-  if (!apiKey) {
+export async function analyzeScriptWithGemini(videoMeta, transcriptData, apiKey = GEMINI_API_KEY, options = {}) {
+  const { throwOnError = false } = options;
+  if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY_HERE") {
+    if (throwOnError) throw new Error("GEMINI_API_KEY가 설정되어 있지 않습니다.");
     console.warn("⚠ GEMINI_API_KEY가 없어 AI 대본 분석을 건너뜁니다.");
     return null;
   }
@@ -228,6 +257,7 @@ ${transcriptData.fullText}
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(45_000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
@@ -251,6 +281,9 @@ ${transcriptData.fullText}
   }
 
   console.warn(`  ⚠ Gemini 대본 분석 실패: ${lastError?.message}`);
+  if (throwOnError) {
+    throw new Error(`Gemini 대본 분석 실패: ${lastError?.message || "알 수 없는 오류"}`);
+  }
   return null;
 }
 
@@ -376,28 +409,44 @@ function upsertAudienceDnaFromScript(newEntries) {
   writeFileSync(audienceDnaPath, JSON.stringify({ schemaVersion: 1, updatedAt: now, entries }, null, 2), "utf8");
 }
 
-export async function analyzeSingleScript(videoId) {
+export async function analyzeSingleScript(videoId, options = {}) {
+  const {
+    ytKey = YOUTUBE_API_KEY,
+    geminiKey = GEMINI_API_KEY,
+    fetchMetaFn = fetchVideoDetails,
+    extractTranscriptFn = extractTranscript,
+    analyzeWithGeminiFn = analyzeScriptWithGemini,
+    onDnaEntries = null,
+    shouldAbortWrite = null,
+  } = options;
+
   console.log(`\n========================================`);
   console.log(`🔍 영상 대본/자막 심층 분석 시작: ${videoId}`);
   console.log(`========================================`);
 
   // 1. Fetch Video Details
   console.log(`▶ 1/3 영상 메타데이터 조회 중...`);
-  const meta = await fetchVideoDetails(videoId);
+  const meta = await fetchMetaFn(videoId, ytKey);
   if (!meta) {
-    console.error(`❌ 영상 정보를 찾을 수 없습니다: ${videoId}`);
-    return null;
+    throw new Error("이 영상을 찾을 수 없습니다(비공개이거나 삭제됐을 수 있습니다).");
   }
   console.log(`   제목: "${meta.title}" (${meta.channelTitle})`);
 
   // 2. Extract Transcript
   console.log(`▶ 2/3 영상 자막/스크립트 추출 중...`);
-  const transcriptData = await extractTranscript(videoId);
+  const transcriptData = await extractTranscriptFn(videoId);
   console.log(`   자막 추출 완료 (${transcriptData.lineCount}행, ${transcriptData.languageName})`);
 
   // 3. Gemini AI Analysis
   console.log(`▶ 3/3 Gemini AI 대본 구조 역설계 및 재해석 중...`);
-  const aiInsights = await analyzeScriptWithGemini(meta, transcriptData);
+  const aiInsights = await analyzeWithGeminiFn(meta, transcriptData, geminiKey, { throwOnError: true });
+  if (!aiInsights) {
+    throw new Error("Gemini 대본 분석이 결과를 돌려주지 않았습니다(쿼터·응답 형식 문제일 수 있음).");
+  }
+
+  if (shouldAbortWrite?.()) {
+    return null;
+  }
 
   // 4. Save Artifacts
   const safeTitle = meta.title.replace(/[\\/:*?"<>|]/g, "_").slice(0, 50).trim();
@@ -425,7 +474,11 @@ export async function analyzeSingleScript(videoId) {
       ...(aiInsights.coreMetaphors || []).map((m) => ({ type: "vocabulary", text: m.metaphorUsed ? `${m.concept}: ${m.metaphorUsed}` : m.concept })),
       ...(aiInsights.blindSpots || []).map((text) => ({ type: "painPoint", text })),
     ].filter((e) => e.text).map((e) => ({ ...e, videoId, channelTitle: meta.channelTitle, sourceType: "competitorScript" }));
-    upsertAudienceDnaFromScript(dnaEntries);
+    if (typeof onDnaEntries === "function") {
+      await onDnaEntries(dnaEntries);
+    } else {
+      upsertAudienceDnaFromScript(dnaEntries);
+    }
   }
 
   console.log(`\n✅ 대본 분석 리포트 저장 완료:`);

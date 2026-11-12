@@ -70,13 +70,45 @@ test('공개 전·예약 영상은 판정하지 않는다 [2026-11-11: EP27이 �
   assert.deepEqual(judged.map((o) => `${o.label}:${o.verdict}`), []);
 });
 
-test('스튜디오 탭의 쇼츠/롱폼 구분은 카탈로그 format과 같다 [AGENTS.md 대시보드 규칙 4: 쇼츠 판정은 format만]', {skip: !has('catalog.json') && '카탈로그 없음'}, () => {
-  // 대시보드 코드의 대체 규칙(format이 없으면 60초 이하)을 실제 영상에 적용해도 format과 달라지면 안 된다.
-  const differs = catalogVideos().filter((v) => {
-    const byStudioRule = v.format === 'SHORTS' || (Number(v.durationSeconds || 0) > 0 && Number(v.durationSeconds) <= 60);
-    return byStudioRule !== (v.format === 'SHORTS');
-  });
-  assert.deepEqual(differs.map((v) => `${v.videoId}(${v.format},${v.durationSeconds}s)`), [], '길이로 따지면 쇼츠인데 format은 롱폼인 영상 — 길이 규칙을 지워야 한다');
+// 2026-11-12 수리: 이 시험은 서버 코드를 읽지 않고 시험 안에서 규칙을 따로 계산해서, 서버의 쇼츠 판정 기준을
+// 60초에서 600초로 바꿔도 통과했다(일부러 망가뜨려 확인). 의도(쇼츠 판정은 format만)는 그대로이고, 감시하는 대상만
+// "시험이 흉내 낸 규칙"에서 "서버가 실제로 쓰는 판정 함수(scripts/video-format.mjs)"로 바꿨다.
+// 그 함수가 서버 파일 밖으로 나온 것은 제미나이 코드 시험 B1(knowledge/gemini-build-test.md)의 결과다.
+test('쇼츠/롱폼 판정 함수는 실제 카탈로그의 format을 그대로 낸다 [AGENTS.md 대시보드 규칙 4: 쇼츠 판정은 format만]', {skip: !has('catalog.json') && '카탈로그 없음'}, async () => {
+  const {resolveVideoFormat} = await import('../video-format.mjs');
+  const videos = catalogVideos();
+  assert.ok(videos.length >= 10, `카탈로그 영상이 ${videos.length}편뿐`);
+  // 서버가 동기화 때 만드는 것과 같은 입력: 공개된 쇼츠 영상의 ID 목록
+  const shortsIds = new Set(videos.filter((v) => v.privacyStatus === 'public' && v.format === 'SHORTS').map((v) => v.videoId));
+  const differs = videos.filter((v) => resolveVideoFormat(v, shortsIds) !== v.format);
+  assert.deepEqual(differs.map((v) => `${v.videoId}(${v.format},${v.privacyStatus},${v.durationSeconds}s)`), [], '판정 함수가 카탈로그 format과 다른 값을 냄');
+  // 60초를 넘는 공개 쇼츠가 실제로 있어야 이 시험이 "길이만 보는 구현"을 잡을 수 있다
+  const longShorts = videos.filter((v) => v.privacyStatus === 'public' && v.format === 'SHORTS' && Number(v.durationSeconds) > 60);
+  assert.ok(longShorts.length > 0, '60초 넘는 공개 쇼츠가 카탈로그에 없어 길이만 보는 구현을 못 잡는다');
+  for (const v of longShorts) assert.equal(resolveVideoFormat(v, shortsIds), 'SHORTS');
+});
+
+test('서버는 쇼츠 판정을 직접 하지 않고 판정 함수를 거친다 [AGENTS.md 대시보드 규칙 4: 길이 60초 규칙으로 새로 판정하지 않는다]', () => {
+  assert.match(server, /from\s+['"]\.\/video-format\.mjs['"]/, '서버가 scripts/video-format.mjs를 불러 쓰지 않음');
+  assert.doesNotMatch(server, /(?:const|function)\s+resolveVideoFormat\b/, '서버 파일에 판정 함수가 다시 정의됨');
+  // 서버 파일 안에서 영상 길이를 60(또는 180)초와 직접 비교하면 판정 함수를 우회한 것이다.
+  // 단, 2026-11-12 시점에 이미 있던 3곳은 모두 `format`이 있으면 format을 먼저 쓰고 없을 때만 길이로 대신하는 구조라
+  // 카탈로그의 모든 영상에서는 길이 규칙이 작동하지 않는다. 지금 판정 함수로 바꾸면 서버 코드 수정 범위가 커지고
+  // (5106·5182줄은 제목의 #쇼츠 태그와 역할(role)까지 함께 쓰는 더 복잡한 규칙) 그래서 알려진 예외로 적어 두고,
+  // 새로 늘어나는 것만 막는다. 이 목록의 줄이 사라지면 목록에서도 지워 준다(목록이 줄어드는 것은 환영).
+  const KNOWN_FALLBACKS = [
+    "format: v.format || ((v.durationSeconds <= 60) ? 'SHORTS' : 'LONGFORM'),",
+    '(durationSec > 0 && durationSec <= 60) ||',
+    '(durationSec > 0 && durationSec <= 60) ||',
+  ];
+  const bypass = serverLines.map((line) => line.trim())
+    .filter((line) => /(?:duration\w*|seconds)\s*(?:<=?|>=?)\s*(?:60|180)\b/.test(line) && !/^\/\//.test(line));
+  const unknown = [...bypass];
+  for (const known of KNOWN_FALLBACKS) {
+    const at = unknown.indexOf(known);
+    if (at !== -1) unknown.splice(at, 1);
+  }
+  assert.deepEqual(unknown.map((line) => line.slice(0, 100)), [], '서버에 길이로 쇼츠를 직접 판정하는 줄이 새로 생겼다 — 판정 함수를 거쳐야 한다');
 });
 
 test('전체 관제의 "최근 7일"은 실제 일별 데이터의 7일 합과 같다 [2026-11-09 브리핑 개편: 최근 7일 vs 지난주]', {skip: !has('analytics-latest.json') && '분석 데이터 없음'}, () => {

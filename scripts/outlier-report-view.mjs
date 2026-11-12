@@ -2,6 +2,8 @@
 // 대시보드 서버가 /outlier-reports, /outlier-report/<영상ID> 로 보여 준다. 읽기 전용.
 // 댓글·자막·제목은 외부에서 온 글자라서 전부 escapeHtml을 거친다(시험이 확인).
 
+import {fullScript} from './transform-sheet.mjs';
+
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 const mmss = (sec) => {
@@ -180,7 +182,7 @@ const SHEET_CSS = `<style>
 .film{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:10px;padding:6px 2px 14px}
 .film figure{margin:0;flex:0 0 auto;text-align:center}
 .film img{height:300px;width:auto;border-radius:5px;border:1px solid var(--line);display:block}
-.film figcaption{font-size:11px;color:var(--sub);margin-top:2px}
+.film figcaption{font-size:11px;color:var(--sub);margin-top:2px}.film figure .say{width:167px;margin:4px auto 0;font-size:13px;line-height:1.4;text-align:left;white-space:normal;word-break:keep-all}.fullscript div{padding:3px 0}
 .film.ours img{border-color:var(--accent)}
 .bar{display:flex;height:14px;border-radius:7px;overflow:hidden;border:1px solid var(--line);max-width:420px}
 .bar span:first-child{background:var(--accent)}.bar span:last-child{background:var(--line)}
@@ -206,7 +208,10 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x) {
   const id = encodeURIComponent(report?.videoId || '');
   const fig = (src, t) => `<figure><a href="${src}" target="_blank" rel="noopener"><img loading="lazy" src="${src}" alt="${escapeHtml(t)}초 컷"></a><figcaption>${escapeHtml(t)}초</figcaption></figure>`;
   if (Array.isArray(times) && times.length) parts.push(`<div class="tl-label">경쟁 컷 이미지</div><div class="film comp">${times.map((t, i) => fig(ver(`/outlier-frames/${id}/cut-${String(i).padStart(2, '0')}.jpg`), t)).join('')}</div>`);
-  if (Array.isArray(plan?.cuts) && plan.cuts.length) parts.push(`<div class="tl-label">우리 컷 이미지</div><div class="film ours">${plan.cuts.map((c) => fig(oursUrl(c.image), c.t)).join('')}</div>`);
+  const oursFig = (c) => `<figure><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${c.narration ? `<div class="say">${escapeHtml(c.narration)}</div>` : ''}</figure>`;
+  if (Array.isArray(plan?.cuts) && plan.cuts.length) parts.push(`<div class="tl-label">우리 컷 이미지${plan.cuts.some((c) => c.narration) ? ' + 컷 대본' : ''}</div><div class="film ours">${plan.cuts.map(oursFig).join('')}</div>`);
+  const script = fullScript(plan);
+  if (script.lines.length) parts.push(`<div class="sheet-label">전체 대본 (컷 대본을 이은 것 — 음성에 그대로 넣는 글)</div><div class="card fullscript">${script.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
   return parts.join('');
 }
 

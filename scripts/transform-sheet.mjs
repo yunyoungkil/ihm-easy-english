@@ -55,8 +55,37 @@ export function rhythmProblem(times) {
   return null;
 }
 
+export const MAX_SYLLABLES_PER_SECOND = 7; // 쇼츠 낭독이 숨 가쁘지 않은 한도(한글 글자 수 ÷ 컷 길이). 이 이상이면 컷 이미지가 지나간 뒤에도 말이 남는다.
+export const hangulSyllables = (text) => (String(text || '').match(/[가-힣]/g) || []).length;
+
+/** 컷마다 길이(초): 다음 컷 시각까지, 마지막 컷은 영상 끝까지. */
+export function cutDurations(plan) {
+  const cuts = plan?.cuts || [];
+  return cuts.map((c, i) => (i + 1 < cuts.length ? Number(cuts[i + 1].t) : Number(plan.durationSeconds)) - Number(c.t));
+}
+
+/** 전체 대본은 따로 쓰지 않고 컷 대본을 순서대로 이어서 만든다(컷 대본과 전체 대본이 어긋날 수 없다). */
+export function fullScript(plan) {
+  const lines = (plan?.cuts || []).filter((c) => filled(c.narration)).map((c) => ({t: Number(c.t), text: String(c.narration).trim()}));
+  return {lines, text: lines.map((l) => l.text).join('\n')};
+}
+
+/** 대본 규칙(schemaVersion 2부터, 2026-11-13 사용자: 다음 변형 시트는 완성형으로 한 번에): 컷마다 대본, 영어로 시작 금지(TTS가 억양을 바꾼다), 컷 길이에 맞는 분량. */
+function scriptProblems(plan) {
+  const out = [];
+  const durs = cutDurations(plan);
+  (plan?.cuts || []).forEach((c, i) => {
+    if (!filled(c.narration)) { out.push(`대본: ${c.t}초 컷에 대본(narration)이 없다`); return; }
+    const text = String(c.narration).trim();
+    if (/^[A-Za-z]/.test(text)) out.push(`대본: ${c.t}초 컷이 영어로 시작한다 — 한글 독음으로 쓴다(AI 음성이 억양을 바꾼다)`);
+    const rate = hangulSyllables(text) / durs[i];
+    if (durs[i] > 0 && rate > MAX_SYLLABLES_PER_SECOND) out.push(`대본: ${c.t}초 컷 대본이 너무 길다(1초에 ${Math.round(rate * 10) / 10}글자, 한도 ${MAX_SYLLABLES_PER_SECOND})`);
+  });
+  return out;
+}
+
 /** 컷 계획: {durationSeconds, cuts:[{t, template, image,...}] 또는 times:[초...]}. 시간 순서·길이 안, 컷마다 이미지, 리듬, 경쟁 컷 수의 절반 이상. */
-function cutPlanProblems(plan, competitorPacing, imageExists) {
+function cutPlanProblems(plan, competitorPacing, imageExists, needScript = false) {
   const t = cutTimes(plan);
   if (!plan || !t.length || !(Number(plan.durationSeconds) > 0)) return ['화면 연출: 우리 쪽 컷 계획(몇 초에 장면이 바뀌는지)이 없다'];
   const out = [];
@@ -70,6 +99,7 @@ function cutPlanProblems(plan, competitorPacing, imageExists) {
     const r = rhythmProblem(t);
     if (r) out.push(r);
   }
+  if (needScript && !out.length) out.push(...scriptProblems(plan));
   const comp = Number(competitorPacing?.perMinute);
   if (!out.length && Number.isFinite(comp) && comp > 0) {
     const ours = (t.length / Number(plan.durationSeconds)) * 60;
@@ -94,7 +124,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     if (!filled(r.competitor?.text)) problems.push(`${ROW_LABELS[key]}: 경쟁 쪽 내용이 비어 있다`);
     if (!filled(r.ours?.text)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 내용이 비어 있다`);
     if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);
-    if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing, imageExists));
+    if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing, imageExists, Number(sheet?.schemaVersion) >= 2));
     for (const img of [r.ours?.image, ...(r.ours?.images || [])].filter(filled)) {
       if (!imageExists(img)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 이미지 파일이 없다(${img})`);
     }

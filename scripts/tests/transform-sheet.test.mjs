@@ -256,3 +256,33 @@ test('시트의 썸네일 시안은 유튜브 쇼츠 목록에 나오는 크기(
     rows: [{key: 'thumbnail', competitor: {text: 'c'}, ours: {text: 'o', images: ['images/x/a.jpg']}, why: 'w'}], borrowed: [], rejected: []};
   assert.match(renderTransformSheetPage(sheet, null, []), /\.pick img\.real\{width:200px/);
 });
+
+test('대본 규칙(schemaVersion 2): 컷마다 대본, 영어로 시작 금지, 컷 길이에 맞는 분량, 전체 대본은 컷 대본을 이은 것', async () => {
+  const {validateSheet, fullScript, cutDurations, hangulSyllables, ROW_KEYS} = await import('../transform-sheet.mjs');
+  const mk = (cuts, version = 2) => ({sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', schemaVersion: version, identityShare: {ours: 30, competitor: 70, reason: 'r'},
+    rows: ROW_KEYS.map((k) => ({key: k, competitor: {text: 'c'}, ours: k === 'visual' ? {text: 'o', cutPlan: {durationSeconds: 30, cuts}} : {text: 'o'}, why: 'w'})),
+    borrowed: [{fromVideoId: 'BBBBBBBBBBB', what: 'x', reason: 'r', evidence: 'e'}], rejected: []});
+  const c = (t, narration) => ({t, template: 'hook', word: 'a', image: `i/${t}.png`, ...(narration === undefined ? {} : {narration})});
+  const times = [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5];
+  const good = times.map((t) => c(t, '안녕하세요 반갑습니다'));
+  assert.deepEqual(validateSheet(mk(good)).filter((p) => p.includes('대본')), []);
+  assert.ok(validateSheet(mk(good.map((x, i) => (i === 3 ? c(x.t) : x)))).some((p) => p.includes('대본(narration)이 없다')));
+  assert.ok(validateSheet(mk(good.map((x, i) => (i === 3 ? c(x.t, 'Chocolate 어떻게') : x)))).some((p) => p.includes('영어로 시작')));
+  assert.ok(validateSheet(mk(good.map((x, i) => (i === 1 ? c(x.t, '가나다라마바사아자차카타파하가나다라마바사아자차카타파하') : x)))).some((p) => p.includes('너무 길다')));
+  assert.deepEqual(validateSheet(mk(times.map((t) => c(t)), 1)).filter((p) => p.includes('대본')), [], '1판 시트는 대본이 없어도 된다');
+  const plan = {durationSeconds: 30, cuts: [c(0, '하나'), c(10, '둘'), c(20, '셋')]};
+  assert.deepEqual(fullScript(plan).text, '하나\n둘\n셋');
+  assert.deepEqual(cutDurations(plan), [10, 10, 10]);
+  assert.equal(hangulSyllables('초콜릿 abc 1'), 3);
+});
+
+test('시트 페이지: 컷 이미지 아래 컷 대본과, 아래에 컷 대본을 이은 전체 대본이 보인다', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const cuts = [{t: 0, image: 'images/A/cuts/c0.png', narration: '첫째 줄'}, {t: 5, image: 'images/A/cuts/c1.png', narration: '둘째 줄'}];
+  const sheet = {sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', format: 'SHORTS', identityShare: {ours: 30, competitor: 70, reason: 'r'},
+    rows: [{key: 'visual', competitor: {text: 'c'}, ours: {text: 'o', cutPlan: {durationSeconds: 10, cuts}}, why: 'w'}], borrowed: [], rejected: []};
+  const html = renderTransformSheetPage(sheet, null, []);
+  assert.equal((html.match(/<div class="say">/g) || []).length, 2);
+  assert.match(html, /class="card fullscript"/);
+  assert.match(html, /첫째 줄<\/div><div><span class="meta">5초<\/span> 둘째 줄/);
+});

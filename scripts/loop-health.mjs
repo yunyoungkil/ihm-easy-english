@@ -18,7 +18,7 @@ const ageMs = (iso, now) => (iso && Number.isFinite(new Date(iso).getTime()) ? n
 export function checkLoopHealth({
   now = new Date(), dailyLoop = null, analyticsSyncedAt = null, catalogVideos = [], views7d = {},
   audienceDnaUpdatedAt = null, competitorsAnalyzedAt = null, episodeOutcomes = [], successPatternIds = [],
-  episodesMissingSources = [], nextInputGeneratedAt = undefined, episodesMissingInputRef = [],
+  episodesMissingSources = [], nextInputGeneratedAt = undefined, episodesMissingInputRef = [], oldReportFiles = 0,
 }) {
   const problems = [];
   const add = (id, text) => problems.push({id, text});
@@ -51,6 +51,11 @@ export function checkLoopHealth({
     add('next-input-stale', nextInputGeneratedAt
       ? `다음 기획 입력 파일이 ${Math.round(ageMs(nextInputGeneratedAt, now) / H)}시간째 새로 안 만들어졌다(npm run next-input)`
       : '다음 기획 입력 파일(data/youtube/next-episode-input.md)이 없다(npm run next-input)');
+  }
+  // 2026-11-12 사용자 결정: 합친 아웃라이어 리포트가 예전 댓글·대본 리포트 영상을 다 따라잡으면 예전 코드와 파일을 지운다.
+  // 사람이 기억할 일로 남기지 않고, 따라잡은 날 브리핑에 뜨게 한다(브리핑 직후 Claude가 지운다).
+  if (dailyLoop?.outlierReportCatchUp === 0 && oldReportFiles > 0) {
+    add('old-reports-done', `합친 리포트가 예전 리포트 영상을 다 따라잡았다 — 예전 댓글·대본 리포트 코드와 파일 ${oldReportFiles}개를 지울 차례(knowledge/now.md 계획)`);
   }
   if (episodesMissingInputRef.length) add('brief-input', `BRIEF.md 기획 근거에 "다음 기획 입력" 인용이 없는 새 편: ${episodesMissingInputRef.join(', ')}`);
 
@@ -92,5 +97,6 @@ export function loadLoopHealth(projectDir, now = new Date()) {
     episodesMissingSources,
     nextInputGeneratedAt,
     episodesMissingInputRef,
+    oldReportFiles: ['outlier-comments', 'script-insights'].reduce((n, dir) => n + (existsSync(join(dataDir, dir)) ? readdirSync(join(dataDir, dir)).length : 0), 0),
   });
 }

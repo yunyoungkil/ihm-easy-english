@@ -18,6 +18,7 @@ import {fileURLToPath} from 'node:url';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {GEMINI_TEXT_MODELS} from './gemini-models.mjs';
+import {upsertAudienceDnaFile} from './audience-dna.mjs';
 
 const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -115,6 +116,7 @@ ${commentBlock}
   "ending": {"what": "끝부분에서 한 일(구독 요청, 다음 영상 안내 등이 있으면 그대로)", "quote": "끝부분 자막 원문"},
   "viewerReaction": {
     "resonated": [{"point": "시청자가 공감하거나 감탄한 지점", "quote": "댓글 원문"}],
+    "painPoints": [{"pain": "시청자가 털어놓은 어려움·답답함(영어를 들을 때·말할 때)", "quote": "댓글 원문"}],
     "unanswered": [{"question": "시청자에게 남은 질문·아쉬움·요청", "quote": "댓글 원문"}],
     "vocabulary": [{"expression": "시청자가 직접 쓴 표현", "quote": "댓글 원문"}]
   },
@@ -151,7 +153,7 @@ export function verifyQuotes(analysis = {}, {title = '', transcriptText = null, 
   mark(a.opening, 'quote', transcriptText);
   for (const f of a.flow || []) mark(f, 'quote', transcriptText);
   mark(a.ending, 'quote', transcriptText);
-  for (const key of ['resonated', 'unanswered', 'vocabulary']) for (const r of a.viewerReaction?.[key] || []) mark(r, 'quote', commentTexts.length ? commentsJoined : null);
+  for (const key of ['resonated', 'painPoints', 'unanswered', 'vocabulary']) for (const r of a.viewerReaction?.[key] || []) mark(r, 'quote', commentTexts.length ? commentsJoined : null);
   for (const l of a.links || []) mark(l, 'quote', commentTexts.length ? commentsJoined : null);
   return {analysis: a, summary};
 }
@@ -214,6 +216,24 @@ export function buildVisualLibrary(reports = []) {
 }
 
 export const REPORTS_PER_DAY = 2; // Gemini 무료 한도 안에서 영상 보기 호출을 하루 2번으로 둔다
+export const CATCH_UP_REPORTS_PER_DAY = 6; // 예전 댓글·대본 리포트 영상을 따라잡는 동안만(2026-11-12 사용자 결정)
+
+/** 매일 루프 대상 안에 예전 리포트만 있고 합친 리포트는 없는 영상이 남아 있으면 따라잡기 속도로 만든다. */
+export function reportsPerDay({eligibleIds = [], oldReportIds = new Set()} = {}) {
+  return eligibleIds.some((id) => oldReportIds.has(id)) ? CATCH_UP_REPORTS_PER_DAY : REPORTS_PER_DAY;
+}
+
+/**
+ * 합친 리포트에서 시청자 고민 데이터(audience-dna.json)로 넘길 항목: 댓글 원문 인용이 확인된 것만(2026-11-12).
+ * 예전 댓글 리포트는 인용 확인 없이 AI 요약을 넣었다. 우리 채널 영상은 경쟁 시청자 고민이 아니라 뺀다.
+ */
+export function audienceDnaEntriesFromReport(report) {
+  if (String(report?.meta?.channelTitle || '').includes('이해하면 쉬운')) return [];
+  const vr = report?.analysis?.viewerReaction || {};
+  const pick = (list, field, type) => (list || []).filter((x) => x?.quoteVerified === true && String(x[field] || '').trim())
+    .map((x) => ({type, text: String(x[field]).trim(), videoId: report.videoId, channelTitle: report.meta?.channelTitle || '', sourceType: 'outlierComment'}));
+  return [...pick(vr.painPoints, 'pain', 'painPoint'), ...pick(vr.unanswered, 'question', 'question'), ...pick(vr.vocabulary, 'expression', 'vocabulary')];
+}
 export const REPORT_FAILURE_COOLDOWN_DAYS = 7;
 // 키워드 검색으로 들어온 아웃라이어에는 고양이 브이로그 같은 무관한 영상도 섞인다. 영어 학습과 관계있는 제목만 고른다.
 const RELEVANT_TITLE_RE = /영어|영단어|english|발음|파닉스|phonics|단어|회화|듣기|리스닝|스피킹|문법|원어민|미드|읽는/i;
@@ -535,6 +555,10 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
   };
   mkdirSync(reportsDir, {recursive: true});
   writeFileSync(join(reportsDir, `${videoId}.json`), `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+  // 시청자 고민 데이터는 이제 이 리포트가 채운다(예전 댓글 리포트 대신). 인용이 확인된 댓글만 넘긴다.
+  const dnaEntries = audienceDnaEntriesFromReport(report);
+  report.audienceDnaNew = upsertAudienceDnaFile(join(projectDir, 'data', 'youtube', 'audience-dna.json'), dnaEntries);
+  report.audienceDnaSent = dnaEntries.length;
   return report;
 }
 
@@ -560,7 +584,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && pro
     const t0 = Date.now();
     try {
       const r = await analyzeOutlierVideo(id, {withFrames: !process.argv.includes('--no-frames')});
-      console.log(`${id}: ${((Date.now() - t0) / 1000).toFixed(0)}초 · 모델 ${r.model} · 인용 확인 ${r.quoteCheck.verified}/${r.quoteCheck.checked} · 장면 전환 ${r.pacing.count}번 · AI가 적은 화면 변화 ${r.analysis.visualMoments.length}개 · 캡처 ${r.frames.length}장${r.framesError ? ` (캡처 실패: ${r.framesError})` : ''} · 자막 ${r.sources.transcript.ok ? '있음' : `없음(${r.sources.transcript.error.slice(0, 60)})`} · 댓글 ${r.sources.comments.count ?? 0}개`);
+      console.log(`${id}: ${((Date.now() - t0) / 1000).toFixed(0)}초 · 모델 ${r.model} · 인용 확인 ${r.quoteCheck.verified}/${r.quoteCheck.checked} · 장면 전환 ${r.pacing.count}번 · AI가 적은 화면 변화 ${r.analysis.visualMoments.length}개 · 캡처 ${r.frames.length}장${r.framesError ? ` (캡처 실패: ${r.framesError})` : ''} · 자막 ${r.sources.transcript.ok ? '있음' : `없음(${r.sources.transcript.error.slice(0, 60)})`} · 댓글 ${r.sources.comments.count ?? 0}개 · 시청자 고민 ${r.audienceDnaSent}개 보냄(새 항목 ${r.audienceDnaNew}개)`);
     } catch (err) {
       console.error(`${id}: 실패 — ${err.message}`);
       process.exitCode = 1;

@@ -1,5 +1,6 @@
-﻿# 매일 새벽 5시에 채널 성장 루프(scripts/daily-loop.mjs)를 돌리도록 윈도우 작업 스케줄러에 등록한다.
-# 2026-11-11 사용자 승인. PC가 그 시각에 꺼져 있었으면 켜진 뒤 바로 한 번 돈다(StartWhenAvailable).
+﻿# 매일 새벽 1시에 채널 성장 루프(scripts/daily-loop.mjs)를 돌리도록 윈도우 작업 스케줄러에 등록한다.
+# 2026-11-11 사용자 승인(처음엔 새벽 5시). 2026-11-12 사용자 요청으로 새벽 1시로 옮김 — 그 시각엔 PC가 늘 켜져 있고,
+# 밤 11시 공개분까지 동기화된다. PC가 그 시각에 꺼져 있었으면 켜진 뒤 바로 한 번 돈다(StartWhenAvailable).
 # 로그인한 사용자 권한으로만 돈다(비밀번호 저장 없음). 다시 실행하면 같은 이름의 작업을 덮어쓴다.
 #   등록:  powershell -ExecutionPolicy Bypass -File scripts/register-daily-loop.ps1
 #   확인:  Get-ScheduledTask -TaskName IHM-Daily-Growth-Loop
@@ -11,8 +12,8 @@ $node = (Get-Command node).Source
 $taskName = 'IHM-Daily-Growth-Loop'
 
 $action = New-ScheduledTaskAction -Execute $node -Argument '"scripts\daily-loop.mjs"' -WorkingDirectory $projectDir
-$trigger = New-ScheduledTaskTrigger -Daily -At 5:00am
-$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 1) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+$trigger = New-ScheduledTaskTrigger -Daily -At 1:00am
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 2) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
 
 Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Principal $principal `

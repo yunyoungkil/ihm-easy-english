@@ -48,6 +48,10 @@ const okBodies = {
   '/api/market-demand': {byKeyword: [1], trackedChannels: [1]},
   '/api/knowledge-db': {audienceDna: {entries: [1]}},
   '/api/thumb-feed/packages': {packages: [1]},
+  '/api/next-input': {outcomes: [], comparisons: {}},
+  '/next-input': '<h1>다음 기획 입력</h1>',
+  '/outlier-reports': '<h1>아웃라이어 리포트 3편</h1>',
+  '/visual-library': '<h1>연출 자료집</h1>',
 };
 const resp = (over = {}) => DASHBOARD_CHECKS.map((c) => ({path: c.path, status: 200, body: okBodies[c.path], ...(over[c.path] || {})}));
 
@@ -108,4 +112,12 @@ test('runAudienceBackfillStep: 영구 제약 건너뛰기는 통과시키고 시
     ),
     /댓글:.*429.*대본:.*429/,
   );
+});
+
+test('2026-11-12 새로 만든 화면도 매일 점검한다: 다음 기획 입력·리포트 목록·연출 자료집은 HTML 글자로 제목을 확인한다', () => {
+  const paths = DASHBOARD_CHECKS.map((c) => c.path);
+  for (const path of ['/api/next-input', '/next-input', '/outlier-reports', '/visual-library']) assert.ok(paths.includes(path), path + ' 점검이 없다');
+  assert.equal(DASHBOARD_CHECKS.find((c) => c.path === '/visual-library').html, true);
+  const got = dashboardApiProblems(resp({'/visual-library': {body: '<h1>오류</h1>'}}));
+  assert.ok(got.some((p) => p.includes('/visual-library') && p.includes('비어')));
 });

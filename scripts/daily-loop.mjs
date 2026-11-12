@@ -141,6 +141,11 @@ export const DASHBOARD_CHECKS = Object.freeze([
   {path: '/api/market-demand', has: (b) => Array.isArray(b?.byKeyword) && b.byKeyword.length > 0 && Array.isArray(b?.trackedChannels) && b.trackedChannels.length > 0},
   {path: '/api/knowledge-db', has: (b) => Array.isArray(b?.audienceDna?.entries) && b.audienceDna.entries.length > 0},
   {path: '/api/thumb-feed/packages', has: (b) => Array.isArray(b?.packages) && b.packages.length > 0},
+  // 2026-11-12: 다음 기획 입력 카드와 따로 열리는 화면들. HTML 화면은 글자로 받아 제목이 있는지 본다.
+  {path: '/api/next-input', has: (b) => Array.isArray(b?.outcomes) && !!b?.comparisons},
+  {path: '/next-input', html: true, has: (t) => typeof t === 'string' && t.includes('다음 기획 입력')},
+  {path: '/outlier-reports', html: true, has: (t) => typeof t === 'string' && t.includes('아웃라이어 리포트')},
+  {path: '/visual-library', html: true, has: (t) => typeof t === 'string' && t.includes('연출 자료집')},
 ]);
 
 /** @param {{path:string,status:number,body:any}[]} responses */
@@ -257,25 +262,32 @@ async function run() {
     existingScriptIds,
     failures,
     now,
-    // 예전 대본 리포트는 프롬프트에 검증 안 된 우리 철학과 분류 목록이 박혀 있었다. 대본·댓글·화면을 한 번에 보는
-    // 합친 아웃라이어 리포트(아래 outlierReports 단계)가 대신하므로 자동 생성은 멈춘다(2026-11-12, AGENTS.md).
+    // 예전 대본·댓글 리포트 자동 생성은 멈춘다(2026-11-12 사용자 결정). 대본·댓글·화면을 한 번에 보는
+    // 합친 아웃라이어 리포트(아래 outlierReports 단계)가 대신하고, 시청자 고민 데이터도 그 리포트가 채운다.
+    // 예전 코드는 합친 리포트가 예전 리포트 영상을 다 따라잡은 뒤 지운다(knowledge/now.md).
     scriptLimit: 0,
+    commentLimit: 0,
   });
 
-  if (plan.audience || backfill.hasWork) {
+  if (backfill.hasWork) {
     await step('audience', () => runAudienceBackfillStep(backfill, post));
   }
 
-  // 합친 아웃라이어 리포트: 하루 2편까지, 배수 큰 영상부터. 실패한 영상은 7일 동안 다시 하지 않는다.
-  const {pickReportTargets, analyzeOutlierVideo, loadReports} = await import('./outlier-report.mjs');
+  // 합친 아웃라이어 리포트: 배수 큰 영상부터 하루 2편. 예전 리포트만 있는 영상이 남아 있으면 따라잡는 동안 하루 6편.
+  // 실패한 영상은 7일 동안 다시 하지 않는다.
+  const {pickReportTargets, analyzeOutlierVideo, loadReports, reportsPerDay} = await import('./outlier-report.mjs');
   const keepSince = now.getTime() - 30 * 86400000;
   report.outlierReportFailures = Object.fromEntries(Object.entries(prevLoop.outlierReportFailures || {}).filter(([, at]) => Date.parse(at) >= keepSince));
-  const reportTargets = pickReportTargets({
+  const reportPick = {
     marketDemand: latestMarketDemand,
     existingIds: new Set(loadReports().map((r) => r.videoId)),
     failures: report.outlierReportFailures,
     now,
-  });
+  };
+  const eligibleIds = pickReportTargets({...reportPick, limit: Infinity});
+  const oldReportIds = new Set([...existingCommentIds, ...existingScriptIds]);
+  report.outlierReportCatchUp = eligibleIds.filter((id) => oldReportIds.has(id)).length;
+  const reportTargets = pickReportTargets({...reportPick, limit: reportsPerDay({eligibleIds, oldReportIds})});
   if (reportTargets.length) {
     await step('outlierReports', async () => {
       const done = [];
@@ -312,10 +324,10 @@ async function run() {
 
   await step('dashboard', async () => {
     const responses = [];
-    for (const {path} of DASHBOARD_CHECKS) {
+    for (const {path, html} of DASHBOARD_CHECKS) {
       try {
         const res = await fetch(`${base}${path}`, {signal: AbortSignal.timeout(60000)});
-        responses.push({path, status: res.status, body: await res.json().catch(() => null)});
+        responses.push({path, status: res.status, body: html ? await res.text().catch(() => null) : await res.json().catch(() => null)});
       } catch (err) {
         responses.push({path, status: 0, body: {error: err.message}});
       }

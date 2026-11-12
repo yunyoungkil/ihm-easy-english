@@ -119,6 +119,7 @@ export function renderReportPage(report, {framesPending = 0} = {}) {
   };
   parts.push('<h2>5. 시청자 반응 (댓글)</h2>');
   list('공감·감탄', vr.resonated, 'point');
+  list('시청자가 털어놓은 어려움', vr.painPoints, 'pain');
   list('남은 질문·아쉬움', vr.unanswered, 'question');
   list('시청자가 쓴 표현', vr.vocabulary, 'expression');
 

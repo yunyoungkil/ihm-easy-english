@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T08:31:14.045Z",
+  "updatedAt": "2026-11-12T11:57:20.217Z",
   "entries": [
     {
       "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
@@ -481,6 +481,96 @@
       ],
       "firstSeenAt": "2026-09-07T06:25:33.613Z",
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
+    },
+    {
+      "id": "painPoint:다른 과목에 비해 영어 기초가 너무 부족해서 전체 입시에서 큰 피해를 보고 있다는 답답함",
+      "type": "painPoint",
+      "text": "다른 과목에 비해 영어 기초가 너무 부족해서 전체 입시에서 큰 피해를 보고 있다는 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "klRk7F5k2TE",
+          "channelTitle": "연세대 수능영어 - 데니스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T11:57:20.217Z",
+      "lastSeenAt": "2026-11-12T11:57:20.217Z"
+    },
+    {
+      "id": "painPoint:단어를 아무리 외워도 다음 날 까먹고 문제나 리스닝도 전혀 풀 수 없다는 어려움",
+      "type": "painPoint",
+      "text": "단어를 아무리 외워도 다음 날 까먹고 문제나 리스닝도 전혀 풀 수 없다는 어려움",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "klRk7F5k2TE",
+          "channelTitle": "연세대 수능영어 - 데니스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T11:57:20.217Z",
+      "lastSeenAt": "2026-11-12T11:57:20.217Z"
+    },
+    {
+      "id": "question:영어 알파벳이나 읽기조차 못 하는 수준이어도 단어 암기부터 바로 시작해야 하는지 질문함",
+      "type": "question",
+      "text": "영어 알파벳이나 읽기조차 못 하는 수준이어도 단어 암기부터 바로 시작해야 하는지 질문함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "klRk7F5k2TE",
+          "channelTitle": "연세대 수능영어 - 데니스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T11:57:20.217Z",
+      "lastSeenAt": "2026-11-12T11:57:20.217Z"
+    },
+    {
+      "id": "question:단어 암기 이후에는 어떤 단계의 교재나 공부를 이어가야 하는지 추천을 구함",
+      "type": "question",
+      "text": "단어 암기 이후에는 어떤 단계의 교재나 공부를 이어가야 하는지 추천을 구함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "klRk7F5k2TE",
+          "channelTitle": "연세대 수능영어 - 데니스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T11:57:20.217Z",
+      "lastSeenAt": "2026-11-12T11:57:20.217Z"
+    },
+    {
+      "id": "vocabulary:성적이 심각하게 하락했거나 기초가 완전히 무너졌음을 뜻하는 표현",
+      "type": "vocabulary",
+      "text": "성적이 심각하게 하락했거나 기초가 완전히 무너졌음을 뜻하는 표현",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "klRk7F5k2TE",
+          "channelTitle": "연세대 수능영어 - 데니스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T11:57:20.217Z",
+      "lastSeenAt": "2026-11-12T11:57:20.217Z"
+    },
+    {
+      "id": "vocabulary:영어를 읽는 기본적인 방법조차 알지 못하는 초보 상태를 나타내는 말",
+      "type": "vocabulary",
+      "text": "영어를 읽는 기본적인 방법조차 알지 못하는 초보 상태를 나타내는 말",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "klRk7F5k2TE",
+          "channelTitle": "연세대 수능영어 - 데니스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T11:57:20.217Z",
+      "lastSeenAt": "2026-11-12T11:57:20.217Z"
     },
     {
       "id": "painPoint:외국어나 미드를 백날 틀어놔도 '아는 만큼만 들리고' 귀가 안 뚫리는 벽 (💬 \"댓글 중 '모르는 상태에서는 백날 틀어놔도 모르겠던데 딱 아는 만큼만 들림' 등의 반응처럼, 무작정 노출만 하면 영어가 늘 거라 믿었지만 제자리걸음인 좌절감.\")",

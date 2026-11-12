@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
-  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames,
+  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -191,4 +191,34 @@ test('연출 자료집 페이지: 검색어로 거르고, 캡처가 있으면 �
   assert.match(filtered, /빨간 X 표시/);
   assert.doesNotMatch(filtered, /영화 장면/);
   assert.match(filtered, /value="X 표시"/);
+});
+
+test('시청자 고민으로 넘기는 것은 댓글 원문 인용이 확인된 항목뿐이다(어려움·질문·표현)', () => {
+  const report = {
+    videoId: 'abcdefghijk', meta: {channelTitle: '경쟁 채널'},
+    analysis: {viewerReaction: {
+      painPoints: [{pain: '혀가 꼬여요', quote: 'q', quoteVerified: true}, {pain: '지어낸 고민', quote: 'x', quoteVerified: false}],
+      unanswered: [{question: '영국식도 같나요?', quote: 'q', quoteVerified: true}],
+      vocabulary: [{expression: '버터 발음', quote: 'q', quoteVerified: true}, {expression: '인용 없음', quote: '', quoteVerified: undefined}],
+      resonated: [{point: '공감', quote: 'q', quoteVerified: true}],
+    }},
+  };
+  assert.deepEqual(audienceDnaEntriesFromReport(report).map((e) => [e.type, e.text, e.sourceType]), [
+    ['painPoint', '혀가 꼬여요', 'outlierComment'],
+    ['question', '영국식도 같나요?', 'outlierComment'],
+    ['vocabulary', '버터 발음', 'outlierComment'],
+  ]);
+  assert.deepEqual(audienceDnaEntriesFromReport({...report, meta: {channelTitle: '이해하면 쉬운영어'}}), [], '우리 채널 영상은 경쟁 시청자 고민이 아니다');
+});
+
+test('프롬프트가 시청자가 털어놓은 어려움 칸을 요구하고, 인용 검사가 그 칸도 본다', () => {
+  assert.match(buildReportPrompt({meta, windowSeconds: 30}), /"painPoints"/);
+  const got = verifyQuotes({viewerReaction: {painPoints: [{pain: 'p', quote: '좀 충격임'}]}}, {title: '', transcriptText: null, commentTexts: ['와 좀 충격임']});
+  assert.equal(got.analysis.viewerReaction.painPoints[0].quoteVerified, true);
+});
+
+test('따라잡기: 아직 합친 리포트가 없는 예전 리포트 영상이 매일 루프 대상 안에 있으면 하루 6편, 없으면 2편', () => {
+  assert.equal(reportsPerDay({eligibleIds: ['a', 'b'], oldReportIds: new Set(['b'])}), 6);
+  assert.equal(reportsPerDay({eligibleIds: ['a'], oldReportIds: new Set(['z'])}), 2);
+  assert.equal(reportsPerDay({eligibleIds: [], oldReportIds: new Set(['z'])}), 2);
 });

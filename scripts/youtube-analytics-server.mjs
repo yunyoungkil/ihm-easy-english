@@ -46,6 +46,7 @@ import { resolveVideoFormat } from './video-format.mjs';
 import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir, missingFrames as missingOutlierFrames, ensureReportFrames, buildVisualLibrary } from './outlier-report.mjs';
 import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage } from './outlier-report-view.mjs';
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
+import { mergeAudienceDna } from './audience-dna.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -78,7 +79,6 @@ const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
 const ideaBoardHistoryPath = join(youtubeDataDir, 'idea-board-history.json');
 const publishRulesPath = join(youtubeDataDir, 'publish-rules.json');
 const globalUploadPackagesDir = join(projectDir, 'output', 'upload-packages');
-const AUDIENCE_DNA_MAX_ENTRIES = 300;
 const contentDir = join(projectDir, 'content');
 const studioExportDir = resolve(process.env.YOUTUBE_STUDIO_EXPORT_DIR || join(projectDir, 'imports', 'youtube-studio'));
 // 스캔이 끝난 Studio 폴더는 여기로 옮긴다. studioExportDir "안"이 아니라 형제 폴더인 이유:
@@ -283,8 +283,6 @@ const loadJson = async (path, fallback = null) => {
   try { return JSON.parse(await readFile(path, 'utf8')); } catch { return fallback; }
 };
 
-const normalizeDnaText = (text) => String(text || '').trim().toLowerCase().replace(/\s+/g, ' ');
-
 let analysisStateLock = Promise.resolve();
 const withAnalysisStateLock = (fn) => {
   const run = analysisStateLock.then(() => fn());
@@ -293,43 +291,11 @@ const withAnalysisStateLock = (fn) => {
 };
 const deletedOrphanTimestamps = new Map();
 
-// entries: [{type, text, videoId, channelTitle, sourceType}]
+// entries: [{type, text, videoId, channelTitle, sourceType}] — 합치기 규칙은 scripts/audience-dna.mjs 한곳에 있다(2026-11-12).
 const upsertAudienceDna = (newEntries) => withAnalysisStateLock(async () => {
   if (!newEntries?.length) return;
   const store = await loadJson(audienceDnaPath, { schemaVersion: 1, entries: [] });
-  const byKey = new Map(store.entries.map((e) => [`${e.type}:${normalizeDnaText(e.text)}`, e]));
-  const now = new Date().toISOString();
-
-  for (const raw of newEntries) {
-    const text = String(raw.text || '').trim();
-    if (!text) continue;
-    const key = `${raw.type}:${normalizeDnaText(text)}`;
-    const existing = byKey.get(key);
-    if (existing) {
-      existing.occurrences = (existing.occurrences || 1) + 1;
-      existing.lastSeenAt = now;
-      if (raw.videoId && !existing.sources.some((s) => s.videoId === raw.videoId)) {
-        existing.sources.push({ videoId: raw.videoId, channelTitle: raw.channelTitle || '', sourceType: raw.sourceType || '' });
-        if (existing.sources.length > 10) existing.sources = existing.sources.slice(-10);
-      }
-    } else {
-      byKey.set(key, {
-        id: key,
-        type: raw.type,
-        text,
-        occurrences: 1,
-        sources: raw.videoId ? [{ videoId: raw.videoId, channelTitle: raw.channelTitle || '', sourceType: raw.sourceType || '' }] : [],
-        firstSeenAt: now,
-        lastSeenAt: now,
-      });
-    }
-  }
-
-  const entries = [...byKey.values()]
-    .sort((a, b) => (b.occurrences - a.occurrences) || (new Date(b.lastSeenAt) - new Date(a.lastSeenAt)))
-    .slice(0, AUDIENCE_DNA_MAX_ENTRIES);
-
-  await saveJson(audienceDnaPath, { schemaVersion: 1, updatedAt: now, entries });
+  await saveJson(audienceDnaPath, mergeAudienceDna(store, newEntries, new Date().toISOString()));
 });
 
 // 댓글/대본 분석이 실패해도 그 사실이 어디에도 안 남아서, 시장 수요 레이더로 돌아가면 버튼이
@@ -2899,7 +2865,7 @@ function renderCurrentTab() {
    숫자는 서버가 실제 파일에서 계산한 값을 그대로 쓰고, 표본이 작으면 가설이라고 붙인다. */
 function renderNextInputCard() {
   const n = gNextInput;
-  const head = '<div class="card-header"><span class="card-title">🧭 다음 기획 입력</span><span class="badge badge-hold">매일 05:00 자동</span></div>';
+  const head = '<div class="card-header"><span class="card-title">🧭 다음 기획 입력</span><span class="badge badge-hold">매일 새벽 1시 자동</span></div>';
   if (!n) return '<div class="bento-card col-12">' + head + '<div class="card-subtext">불러오는 중이거나 아직 없습니다.</div></div>';
   const outcomes = n.outcomes || [];
   const count = (v) => outcomes.filter(o => o.verdict === v).length;

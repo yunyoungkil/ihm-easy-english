@@ -91,3 +91,11 @@ test('기획 근거에 "다음 기획 입력" 인용이 없는 새 편(EP30부�
   assert.deepEqual(ids(r), ['brief-input']);
   assert.match(r.problems[0].text, /ep30-th-sound/);
 });
+
+test('합친 리포트가 예전 리포트 영상을 다 따라잡았는데 예전 리포트 파일이 남아 있으면 지울 차례라고 알린다', () => {
+  const loop = (catchUp) => ({...healthy().dailyLoop, outlierReportCatchUp: catchUp});
+  assert.equal(checkLoopHealth({...healthy(), dailyLoop: loop(4), oldReportFiles: 49}).ok, true, '따라잡는 중');
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), dailyLoop: loop(0), oldReportFiles: 49})), ['old-reports-done']);
+  assert.equal(checkLoopHealth({...healthy(), dailyLoop: loop(0), oldReportFiles: 0}).ok, true, '이미 지움');
+  assert.equal(checkLoopHealth({...healthy(), dailyLoop: loop(undefined), oldReportFiles: 49}).ok, true, '아직 기록 없음');
+});

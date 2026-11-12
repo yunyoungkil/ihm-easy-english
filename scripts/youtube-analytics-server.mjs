@@ -60,7 +60,6 @@ const tokenPath = join(projectDir, '.youtube-oauth-token.json');
 const youtubeDataDir = join(projectDir, 'data', 'youtube');
 const catalogPath = join(youtubeDataDir, 'catalog.json');
 const latestSnapshotPath = join(youtubeDataDir, 'analytics-latest.json');
-const snapshotDir = join(youtubeDataDir, 'snapshots');
 const commentsPath = join(youtubeDataDir, 'comments.json');
 const packagingRegistryPath = join(youtubeDataDir, 'packaging-registry.json');
 const videoReachManualPath = join(youtubeDataDir, 'video-reach-manual.json');
@@ -68,14 +67,11 @@ const outputCommentsDir = join(youtubeDataDir, 'outlier-comments');
 const outputInsightsDir = join(projectDir, 'output', 'insights');
 const outputScriptInsightsDir = join(projectDir, 'output', 'script-insights');
 const marketDemandPath = join(youtubeDataDir, 'market-demand.json');
-const contentOpportunityPath = join(youtubeDataDir, 'content-opportunity.json');
 const audienceDnaPath = join(youtubeDataDir, 'audience-dna.json');
 const analysisFailuresPath = join(youtubeDataDir, 'analysis-failures.json');
 const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
-// 아이디어 보드가 고른 소재가 실제로 에피소드까지 이어졌는지 기록하는 영구 이력 — idea-board-state.json은
-// "지금 화면에 뭐가 떠 있나"만 담는 임시 상태라 새 후보 5개를 생성하면 이전 선택이 흔적 없이 사라진다
-// (2026-09-04, 사용자 지적: "선택해서 공개 예약까지 했으면 뭔가 표시가 있어야 하지 않냐"). 이 파일은
-// 별도로 두고 덮어쓰지 않는다 — 실제 제작이 확정된 소재만 수동으로 기록한다.
+// 실제로 제작·예약·공개까지 간 소재의 영구 이력. 다음 기획이 같은 소재를 다시 고르지 않게 막는다
+// (2026-09-04 신설. 아이디어 보드 화면은 2026-11-11에 지웠고 이 이력은 기획 스킬이 등록한다).
 const ideaBoardHistoryPath = join(youtubeDataDir, 'idea-board-history.json');
 const publishRulesPath = join(youtubeDataDir, 'publish-rules.json');
 const globalUploadPackagesDir = join(projectDir, 'output', 'upload-packages');
@@ -1100,9 +1096,8 @@ const getDashboard = async (accessToken) => {
   const snapshot = {schemaVersion: 1, snapshotId, syncedAt, ...dashboard};
   await saveJson(catalogPath, catalog);
   await saveJson(commentsPath, {schemaVersion: 1, syncedAt, commentsByVideo});
+  // 동기화마다 snapshots/에 한 장씩 따로 쓰던 것은 읽는 곳이 없어 2026-11-12에 멈췄다(knowledge/data-consumption-map.md).
   await saveJson(latestSnapshotPath, snapshot);
-  await mkdir(snapshotDir, {recursive: true});
-  await writeFile(join(snapshotDir, `${snapshotId}.json`), JSON.stringify(snapshot, null, 2), 'utf8');
   return {...dashboard, sync: {syncedAt, snapshotId, catalogPath, latestSnapshotPath, commentsPath, videoCount: recentVideos.length, playlistCount: playlists.length, commentCount: Object.values(commentsByVideo).flat().length}};
 };
 
@@ -6924,11 +6919,6 @@ const server = createServer(async (req, res) => {
         loadJson(successPatternsPath, {schemaVersion: 1, entries: []}),
       ]);
       return json(res, 200, {ok: true, audienceDna, successPatterns});
-    }
-    if (url.pathname === '/api/content-opportunity') {
-      const data = await loadJson(contentOpportunityPath);
-      if (!data) return json(res, 404, {error: 'content-opportunity.json 파일이 없습니다. npm run content-opportunity를 실행하세요.'});
-      return json(res, 200, data);
     }
     // 이 GET 자체는 읽기 전용 — 실제 제작으로 이어진 소재의 영구 이력. state와 별도 파일이라
     // "🔄 후보 5개 생성"이 새 후보를 뽑아도 지워지지 않는다. 기록을 쓰는 쪽은 바로 아래

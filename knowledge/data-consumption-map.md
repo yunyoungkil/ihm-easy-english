@@ -34,20 +34,24 @@
 | `script-insights/` | 아웃라이어 대본 분석(`scripts/analyze-competitor-script.mjs`) | `scripts/analyze-competitor-script.mjs`, `scripts/youtube-analytics-server.mjs` | 표시만 | **훅·구조·비유·우리식 대본은 화면에만 나온다.** 또 프롬프트에 우리 철학과 분류 목록이 박혀 있어 관찰이 그 틀로 왜곡된다. AI가 추측한 "경쟁 영상의 빈틈"이 시청자 고민(`painPoint`)으로 저장된다(26개) → 합친 리포트와 연출 자료집으로 바꾼다 |
 | `audience-dna.json` | 위 두 분석이 자동으로 쌓음(300개) | `scripts/loop-health.mjs`, `scripts/analyze-competitor-script.mjs`, `.claude/skills/episode-planning/references/01-topic-and-data.md`, `.claude/skills/episode-planning/references/03-script-and-narration.md` | 기획 입력(지시) | 300개가 순위 없이 쌓여 있다. 그중 41개(`competitorScript`)는 시청자 댓글이 아니라 대본 분석에서 왔고, 그 안의 26개는 AI가 추측한 "경쟁 영상의 빈틈"이 고민(`painPoint`)으로 저장된 것이다 → 다음 기획 입력 파일에서 시청자 댓글 출처만 세어 상위 항목을 뽑는다 |
 | `thumb-feed-cache.json` | 검색 피드 탭(`scripts/thumb-feed.mjs`) | `scripts/youtube-analytics-server.mjs`, `.claude/skills/episode-planning/references/02-title-and-thumbnail.md` | 기획 입력(지시) | 실제 검색 결과 캐시. 썸네일 정할 때 사람이 눈으로 본다. 그대로 둔다 |
-| `content-opportunity.json` | `npm run content-opportunity`(손으로 실행) | `scripts/youtube-analytics-server.mjs` | 없음 | 2026-08-28 이후 갱신 없음. 서버에 통로(`/api/content-opportunity`)는 있지만 화면도 스킬도 부르지 않는다 → 삭제 후보(승인 대기) |
 | `packaging-registry.json` | 2026-08 손으로 만든 목록(1개, EP9) | `scripts/youtube-analytics-server.mjs` | 운영 | 스튜디오 폴더 읽기가 참고하는 옛 목록. 항목이 1개뿐이다 → 정리 후보(코드 확인 필요) |
 | `publish-rules.json` | 손으로 둔 공개 일정 규칙 | `scripts/growth-check.mjs`, `scripts/youtube-analytics-server.mjs` | 운영 | 공개 간격 점검에 쓰임 |
 | `after-publish-done.json` | 공개 후 자동 작업 | `scripts/growth-check.mjs`, `scripts/growth-rules.mjs` | 운영 | 고정 댓글 등 공개 후 할 일 중복 방지 |
 | `analysis-failures.json` | 리포트 분석 실패 기록 | `scripts/daily-loop.mjs`, `scripts/youtube-analytics-server.mjs` | 운영 | 영구 실패 영상을 다시 시도하지 않게 막는다 |
 | `daily-loop.json` | 매일 루프 | `scripts/daily-loop.mjs`, `scripts/loop-health.mjs` | 운영 | 브리핑의 자동 루프 점검 줄 |
 | `daily-loop-server.log` | 매일 루프가 띄운 서버의 기록 | `scripts/daily-loop.mjs` | 운영 | 고장 원인 확인용 |
-| `snapshots/` | 동기화마다 한 장씩(152개, 61MB, 깃에 안 올림) | `scripts/youtube-analytics-server.mjs` | 없음 | 쓰기만 하고 읽는 곳이 없다 → 저장을 멈추거나 최근 몇 개만 남기는 것 결정 필요(승인 대기) |
-| `studio-browser-profile/` | 옛 스튜디오 자동 브라우저 프로필(23MB, 깃에 안 올림) | `.gitignore` | 없음 | 지금 코드에서 쓰는 곳이 없다 → 내 PC에서 지워도 되는지 승인 대기 |
-| `studio-debug.png` | 2026-08-30 옛 스튜디오 자동화 디버그 캡처(깃에 안 올림) | 없음 | 없음 | 만드는 코드도 없다 → 내 PC에서 삭제 후보(승인 대기) |
-| `ab-simulator-state.json` | 2026-11-11에 지운 A/B 시뮬레이터 | 없음 | 없음 | 남은 찌꺼기 → 삭제 후보(승인 대기) |
-| `idea-board-manual-draft.json` | 2026-09-13 손으로 쓴 아이디어 초안 | 없음 | 없음 | 남은 찌꺼기 → 삭제 후보(승인 대기) |
-| `idea-board-state.json` | 2026-11-11에 지운 아이디어 보드 | 없음 | 없음 | 서버에는 설명 주석만 남아 있다 → 삭제 후보(승인 대기) |
-| `thumbnail-registry.json` | 2026-08 손으로 만든 목록 | 없음 | 없음 | 남은 찌꺼기 → 삭제 후보(승인 대기) |
+| `snapshots/` | (2026-11-12 저장 멈춤, 깃에 안 올림) | 없음 | 없음 | **삭제됨.** 동기화마다 한 장씩 쓰기만 하고 읽는 곳이 없었다(152개, 61MB). 다른 PC에 남아 있으면 지운다 |
+| `studio-browser-profile/` | (옛 스튜디오 자동 브라우저 프로필, 깃에 안 올림) | 없음 | 없음 | **삭제됨**(23MB). 쓰는 코드가 없다. 다른 PC에 남아 있으면 지운다 |
+| `studio-debug.png` | (2026-08-30 옛 디버그 캡처, 깃에 안 올림) | 없음 | 없음 | **삭제됨.** 다른 PC에 남아 있으면 지운다 |
+
+## 지운 것 (2026-11-12 사용자 승인 "전부 지우고 쭉 진행해")
+
+| 지운 것 | 이유 |
+|---|---|
+| `ab-simulator-state.json`, `idea-board-state.json` | 2026-11-11에 지운 A/B 시뮬레이터·아이디어 보드의 찌꺼기. 읽는 곳 없음 |
+| `idea-board-manual-draft.json`(2026-09-13), `thumbnail-registry.json`(2026-08) | 손으로 만든 옛 목록. 읽는 곳 없음 |
+| `content-opportunity.json`, `scripts/content-opportunity.mjs`, 서버 `/api/content-opportunity`, `npm run content-opportunity` | 2026-08-28 이후 갱신 없음. 화면도 스킬도 부르지 않았다. 역할별 지속률 기준선 같은 계산이 필요하면 다음 기획 입력 파일에서 지금 데이터로 새로 한다 |
+| 서버의 `snapshots/` 저장 | 위 표 참고. 최신 값은 `analytics-latest.json` 한 장으로 충분하다 |
 
 ## 데이터 밖에서 쌓이는 분석
 

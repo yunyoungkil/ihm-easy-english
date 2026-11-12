@@ -255,7 +255,7 @@ AI 툴(Google Veo/Gemini, Runway Gen-3, Sora, Pika, Kling, Midjourney, Imagen �
 
 (2026-11-11: 대시보드의 아이디어 보드 탭과 `idea-board.mjs`는 지웠다. 소재 추천은 이제 `episode-planning` 스킬이 하고, 아래 데이터 확인 원칙은 그대로 스킬과 Claude에 적용된다.) 예전 아이디어 보드는 소재를 추천할 때마다 코드로 강제해서
 `data/youtube/market-demand.json`(경쟁 채널 아웃라이어·제목 패턴)·`audience-dna.json`(경쟁 영상
-댓글에서 뽑은 시청자 페인포인트·어휘)·`content-opportunity.json`(채널 자체 적합도)·
+댓글에서 뽑은 시청자 페인포인트·어휘)·
 `success-patterns.json`(우리 채널 검증된 성공 패턴, 2026-09-04 기준 아직 비어 있음)·
 `idea-board-history.json`(**실제로 제작·예약/공개까지 된 소재 영구 이력** — 2026-09-04 신설,
 겹치는 소재를 다시 추천하지 않기 위함)을 반드시 참고한다.

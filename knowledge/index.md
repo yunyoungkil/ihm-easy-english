@@ -36,7 +36,7 @@
 - [HyperFrames 도입 비교 실험](decisions/2026-08-23-hyperframes-pilot.md)
 - [HyperFrames 전면 전환](decisions/2026-08-26-hyperframes-full-migration.md) — 새 제작(롱폼 포함) 전부 HyperFrames로, Remotion은 EP6~EP10 보존용
 - [팟캐스트 형식 콘텐츠 추가 검토](decisions/2026-08-25-podcast-format-idea.md) — 초기 브레인스토밍, 미착수
-- [채널 자체 적합도 점수 도입](decisions/2026-08-25-content-opportunity-score.md) — project1에서 `my_channel_fit_score` 공식만 이식, 경쟁 채널 비교는 미포함
+- [채널 자체 적합도 점수 도입](decisions/2026-08-25-content-opportunity-score.md) — (2026-11-12 계산 스크립트 삭제, 기록만 남김) project1에서 `my_channel_fit_score` 공식만 이식, 경쟁 채널 비교는 미포함
 - [경쟁 채널 비교(market_demand_score) 구현](decisions/2026-08-29-market-demand-score.md) — 소형 채널 outlier 탐지, 원 조회수 비교 버그를 하루당 조회수로 수정
 - [아웃라이어 댓글 AI 분석 구축](decisions/2026-08-29-outlier-comment-analysis.md) — Gemini AI 시청자 고민/어휘 분석 파이프라인
 - [Studio CTR 다운로드 폴더 자동 낚아채기](decisions/2026-08-29-studio-ctr-auto-ingest.md) — Downloads 폴더 실시간 무인 압축해제 & 대시보드 SSE 동기화
@@ -72,8 +72,7 @@
 ## 원본 데이터
 
 - `../data/youtube/analytics-latest.json` — 최신 YouTube 분석 스냅샷
-- `../data/youtube/evaluations-48h.json` — 업로드 후 48시간 자동 판정
-- `../data/youtube/content-opportunity.json` — 포맷·규칙별 채널 자체 적합도 점수(`npm run content-opportunity`로 재생성). `my_channel_fit_score`(project1 이식) + `marketDemand`(경쟁 채널 outlier, `market-demand.json`이 있으면 자동 포함) 표시, 둘은 축이 달라 곱하지 않고 나란히 표시
+- 데이터 파일 전체와 각 파일이 어디에 쓰이는지는 [데이터 소비 지도](data-consumption-map.md)에 있다
 - `../data/youtube/market-demand.json` — 경쟁 채널 outlier 기반 키워드별 시장 수요 점수(`node scripts/market-demand.mjs`로 재생성, YouTube Data API 쿼터 ~632 units 소모)
 - `../data/youtube/catalog.json` — 채널 영상 카탈로그
 - `../scripts/ep09_shortsA_auto.json` — EP9 Track A 대본·타이밍

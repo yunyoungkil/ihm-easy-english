@@ -3,8 +3,9 @@
 //
 //   content_opportunity_score = market_demand_score * (my_channel_fit_score / 100)
 //
-// content-opportunity.mjs already computes my_channel_fit_score from OUR OWN
-// analytics. This script computes the other half — market_demand_score — by
+// (content-opportunity.mjs, which computed my_channel_fit_score, was removed on
+// 2026-11-12: nothing read its output — knowledge/data-consumption-map.md.)
+// This script computes market_demand_score by
 // searching YouTube for small/mid Korean English-pronunciation channels and
 // finding videos that significantly OUTPERFORM their own channel's typical
 // video. An outlier isn't "this channel is popular" (channel size already
@@ -722,8 +723,7 @@ async function main() {
       "정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). " +
       "채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 " +
       `구독자 ${MAX_SUBSCRIBERS.toLocaleString()}명 이하 채널만 포함). 표본 ${LOW_SAMPLE_THRESHOLD}개 미만은 ` +
-      '`confidence: "low"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 ' +
-      "(곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). " +
+      '`confidence: "low"`로 표시함. ' +
       "--keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert). " +
       "opportunityScore = marketDemandScore / log10(totalResults+10) — 수요가 높아도 이미 포화된(totalResults " +
       "큰) 키워드는 할인함. 정밀 계산이 아니라 대략적인 경쟁 밀도 보정이니 참고용으로만 쓸 것. " +

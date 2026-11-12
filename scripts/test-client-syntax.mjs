@@ -2,7 +2,8 @@ import vm from 'vm';
 
 async function main() {
   try {
-    const res = await fetch('http://localhost:3001/');
+    // commit-guard는 고친 코드로 띄운 검사용 서버를 DASHBOARD_URL로 넘긴다(3001은 고치기 전 코드일 수 있음).
+    const res = await fetch(process.env.DASHBOARD_URL || 'http://localhost:3001/');
     const html = await res.text();
     const scriptStart = html.indexOf('<script>');
     const scriptEnd = html.indexOf('</script>');

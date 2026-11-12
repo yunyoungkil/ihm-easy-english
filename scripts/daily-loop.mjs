@@ -115,6 +115,12 @@ async function run() {
   };
 
   await step('server', ensureServer);
+  await step('gitHooks', async () => {
+    const {ensureGitHooks} = await import('./ensure-git-hooks.mjs');
+    const result = ensureGitHooks(projectDir);
+    if (result.startsWith('실패')) throw new Error(`커밋 전 자동 검사 켜기 ${result}`);
+    return result;
+  });
 
   const marketDemand = readJson(join(dataDir, 'market-demand.json'), {});
   const competitorsAnalyzedAt = (marketDemand.trackedChannels || [])
@@ -180,14 +186,17 @@ async function run() {
     const testScript = readJson(join(projectDir, 'package.json'), {}).scripts?.test || '';
     const files = testScript.split(/\s+/).filter((t) => t.endsWith('.test.mjs'));
     const unit = await run(['--test', ...files], 5 * 60 * 1000);
-    const pass = Number((unit.out.match(/ℹ pass (\d+)/) || [])[1] || 0);
-    const fail = Number((unit.out.match(/ℹ fail (\d+)/) || [])[1] || 0);
+    // 화면(TTY)에서는 "ℹ pass 254", 작업 스케줄러처럼 화면이 없으면 "# pass 254"로 나온다.
+    // 2026-11-12까지는 앞의 것만 찾아서 늘 0/0으로 읽고도 통과로 처리했다. 하나도 못 셌으면 실패로 본다.
+    const pass = Number((unit.out.match(/^[ℹ#] pass (\d+)/m) || [])[1] || 0);
+    const fail = Number((unit.out.match(/^[ℹ#] fail (\d+)/m) || [])[1] || 0);
     const client = await run(['scripts/test-client-syntax.mjs'], 3 * 60 * 1000);
     const clientOk = client.code === 0 && client.out.includes('ALL CLIENT TABS AND FUNCTIONS VERIFIED');
     const result = {unit: `${pass}/${pass + fail}`, client: clientOk ? 'pass' : 'fail'};
-    if (unit.code !== 0 || fail > 0 || !clientOk) {
-      const failedNames = (unit.out.match(/^✖ .+$/gm) || []).slice(0, 5).join(' | ');
-      throw new Error(`단위 테스트 ${fail}개 실패${failedNames ? ' (' + failedNames + ')' : ''}${clientOk ? '' : ', 대시보드 화면 검사 실패'}`);
+    if (unit.code !== 0 || fail > 0 || pass === 0 || !clientOk) {
+      const failedNames = (unit.out.match(/^(?:✖|not ok) .+$/gm) || []).slice(0, 5).join(' | ');
+      const what = pass === 0 && fail === 0 ? '단위 테스트 결과를 읽지 못함(0개)' : `단위 테스트 ${fail}개 실패`;
+      throw new Error(`${what}${failedNames ? ' (' + failedNames + ')' : ''}${clientOk ? '' : ', 대시보드 화면 검사 실패'}`);
     }
     return result;
   });

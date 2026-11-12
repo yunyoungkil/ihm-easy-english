@@ -42,5 +42,8 @@ export async function syncIfStale({
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  // 훅이 없는 에이전트(Gemini 등)는 이 명령으로 브리핑을 시작하므로, 여기서 커밋 전 자동 검사도 켜 둔다(2026-11-12).
+  const {ensureGitHooks} = await import('./ensure-git-hooks.mjs');
+  if (ensureGitHooks() === 'set') console.log('커밋 전 자동 검사를 켰습니다(.githooks)');
   console.log(await syncIfStale({timeoutMs: 120000}));
 }

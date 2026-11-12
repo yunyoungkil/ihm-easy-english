@@ -1,0 +1,3 @@
+#!/bin/sh
+# 커밋 전 자동 검사 (scripts/commit-guard.mjs). 건너뛰지 않는다(--no-verify 금지, AGENTS.md 맨 위).
+exec node scripts/commit-guard.mjs --pre-commit

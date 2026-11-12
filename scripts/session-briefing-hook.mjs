@@ -7,6 +7,7 @@ import {readFile} from 'node:fs/promises';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {syncIfStale} from './briefing-sync.mjs';
+import {ensureGitHooks} from './ensure-git-hooks.mjs';
 import {buildBriefingContext, extractNextActions, renderSessionStartOutput} from './growth-rules.mjs';
 import {setupAutomationChrome} from './setup-automation-chrome.mjs';
 
@@ -33,6 +34,9 @@ const readNextActions = () =>
   readFile(join(projectDir, 'knowledge', 'now.md'), 'utf8')
     .then(extractNextActions)
     .catch(() => []);
+
+// 커밋 전 자동 검사(.githooks)는 PC마다 켜야 해서 대화를 시작할 때마다 맞춘다(2026-11-12).
+ensureGitHooks();
 
 // 마지막 동기화가 12시간보다 오래됐으면 먼저 동기화한다. 실패해도 대화 시작은 막지 않는다.
 const syncNote = await syncIfStale().catch((err) => `동기화 확인 실패(${err.message})`);

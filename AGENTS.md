@@ -1,5 +1,24 @@
 # 이해하면 쉬운영어
 
+## 0. 작업 확인 규칙 (모든 AI 공통, 2026-11-12) — 이 파일에서 가장 먼저 지킨다
+
+이 파일은 길어서 일부 도구에서는 뒷부분이 잘린 채 읽힌다(2026-11-12 Antigravity 확인: 101KB 중 77KB). 그래서 가장 자주 어긴 규칙을 맨 앞에 둔다. 근거 사례는 `knowledge/logs/2026-11.md` 2026-11-12 절.
+
+1. **완료 보고는 이 틀로 쓴다.** 틀을 못 채우면 아직 끝난 것이 아니다.
+   - 바꾼 파일:
+   - 실행한 확인 명령과 출력 줄 그대로 (예: `# pass 268`, `# fail 0`, `ALL CLIENT TABS AND FUNCTIONS VERIFIED`)
+   - 확인하지 못한 것: (없으면 "없음")
+2. **정해진 확인 명령을 다른 명령으로 바꾸지 않는다.** `scripts/`를 고쳤으면 `npm test`, 대시보드 서버를 고쳤으면 `node scripts/test-client-syntax.mjs`도 돌린다. `node --check`(문법만 봄)는 대신할 수 없다. 대시보드 검사는 떠 있는 서버를 보므로, 서버 코드를 고친 뒤에는 서버를 다시 켜고 돌린다(커밋 검사는 새 서버를 따로 띄워 이걸 자동으로 한다).
+3. **화면·데이터 파일에 성과 숫자를 손으로 쓰지 않는다.** 배수, 조회수, CTR, 시청률, 경쟁 채널 상태(황금 광산·차단 등)는 계산 코드가 실제 데이터에서 만든 값만 쓴다. 아직 데이터가 없으면 "측정 전"이라고 쓴다. 값이 없을 때 그럴듯한 숫자로 대신하지 않는다(`medianViews || 100` 금지). 예시 숫자는 테스트 파일에만 둔다.
+4. **데이터를 읽는 코드를 쓰기 전에 실제 파일에서 그 칸을 확인한다.** 예: `node -e "console.log(require('./data/youtube/catalog.json').videos[0])"`. 조회수는 `statistics.viewCount`다. 테스트용 가짜 데이터도 실제 파일의 칸 이름을 그대로 쓴다. `scripts/tests/real-data-contract.test.mjs`가 실제 데이터로 다시 확인한다.
+5. **검사가 실패하면 실패라고 보고한다.** 기준을 낮추거나, 0개를 통과로 치거나, 실패를 건너뛰게 고치는 것은 고친 것이 아니다.
+6. **기록에는 숫자와 명령 결과를 쓴다.** `완벽`, `무결점`, `박멸`, `100% 통과` 같은 말은 쓰지 않는다(커밋 검사가 막는다).
+7. **커밋은 자기가 바꾼 파일만 이름을 적어 담는다.** `git add -A`, `git add .`를 쓰지 않는다(다른 PC·다른 AI가 작업 중인 파일이 섞인다). 서명은 실제 모델 이름으로 한다: `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`, `Co-Authored-By: <지금 쓰는 Gemini 모델 이름> (Antigravity) <noreply@google.com>`처럼. 다른 모델 이름을 빌리지 않는다.
+8. **커밋 전 자동 검사(`.githooks/`, `scripts/commit-guard.mjs`)가 막으면 원인을 고친다.** `--no-verify`로 건너뛰지 않는다. 숫자가 정말 기준값이면 그 줄에 `// allow-literal: <이유>`를 붙인다. 이 검사는 `npm run briefing:sync`, 매일 루프, `npm install`이 자동으로 켠다(손으로: `node scripts/ensure-git-hooks.mjs`).
+9. **기능 하나를 만들면 확인하고 커밋한 뒤 다음으로 간다.** 사용자에게 보여 주기 전에 1번 틀을 채운다.
+
+---
+
 **새 제작(롱폼·쇼츠·썸네일 전부)은 HyperFrames로 한다.** 예전 Remotion 파이프라인(EP6~EP10)의 기술 문서는
 [`knowledge/legacy/remotion-pipeline.md`](knowledge/legacy/remotion-pipeline.md)로 옮겼고 EP6~EP10을 재렌더할 때만 참고한다.
 새 작업은 HyperFrames의 `/hyperframes` 스킬 진입점부터 시작한다.

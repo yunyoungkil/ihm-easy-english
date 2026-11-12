@@ -249,3 +249,10 @@ test('제목 후보 선택: 시트의 후보만 고를 수 있고, 시안 체크
   assert.match(html, /\.thumbbox\{[^}]*overflow:auto/);
   assert.doesNotMatch(html, /이 시안 고르기/);
 });
+
+test('시트의 썸네일 시안은 유튜브 쇼츠 목록에 나오는 크기(가로 200px)로 보인다', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const sheet = {sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', format: 'SHORTS', identityShare: {ours: 30, competitor: 70, reason: 'r'},
+    rows: [{key: 'thumbnail', competitor: {text: 'c'}, ours: {text: 'o', images: ['images/x/a.jpg']}, why: 'w'}], borrowed: [], rejected: []};
+  assert.match(renderTransformSheetPage(sheet, null, []), /\.pick img\.real\{width:200px/);
+});

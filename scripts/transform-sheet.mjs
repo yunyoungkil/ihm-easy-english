@@ -11,11 +11,28 @@
 import {existsSync, readFileSync, readdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {findBannedTerms} from './banned-terms.mjs';
 
 export const ROW_KEYS = Object.freeze(['title', 'thumbnail', 'opening', 'flow', 'visual', 'reaction', 'ending']);
 export const ROW_LABELS = Object.freeze({
-  title: '제목', thumbnail: '썸네일', opening: '첫 15초', flow: '전개', visual: '화면 연출', reaction: '시청자 반응 지점', ending: '끝맺음',
+  title: '제목', thumbnail: '썸네일', opening: '첫 15초', flow: '전개', visual: '화면 연출', reaction: '시청자 반응 지점', ending: '끝맺음', package: '설명글·태그·고정 댓글',
 });
+/** 완성형(schemaVersion 2) 시트는 업로드 문구 칸까지 있어야 한다. */
+export const rowKeysFor = (sheet) => (Number(sheet?.schemaVersion) >= 2 ? [...ROW_KEYS, 'package'] : ROW_KEYS);
+export const MIN_TAGS = 8;
+
+/** 설명글·태그·고정 댓글 칸: 셋 다 있고, 금지어가 없고, 대본이 "고정 댓글"을 약속하면 고정 댓글이 실제로 있어야 한다. */
+function packageProblems(pkg, plan) {
+  const out = [];
+  if (!filled(pkg?.description)) out.push('설명글·태그·고정 댓글: 설명글이 없다');
+  if (!Array.isArray(pkg?.tags) || pkg.tags.filter(filled).length < MIN_TAGS) out.push(`설명글·태그·고정 댓글: 태그가 ${MIN_TAGS}개 미만이다`);
+  if (!filled(pkg?.pinnedComment)) out.push((plan?.cuts || []).some((c) => String(c.narration || '').includes('고정 댓글')) ? '설명글·태그·고정 댓글: 대본이 "고정 댓글에 있어요"라고 약속했는데 고정 댓글 내용이 없다' : '설명글·태그·고정 댓글: 고정 댓글이 없다');
+  for (const [name, text] of [['설명글', pkg?.description], ['태그', (pkg?.tags || []).join(' ')], ['고정 댓글', pkg?.pinnedComment]]) {
+    const hits = findBannedTerms(String(text || ''));
+    if (hits.length) out.push(`설명글·태그·고정 댓글: ${name}에 금지어(${hits.map((h) => h.term).join(', ')})가 있다`);
+  }
+  return out;
+}
 export const STATUSES = Object.freeze(['draft', 'approved', 'published']);
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -118,9 +135,14 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   if (!share || Number(share.ours) + Number(share.competitor) !== 100) problems.push('정체성 비율(우리+경쟁)의 합이 100이 아니다');
   if (!filled(share?.reason)) problems.push('정체성 비율의 근거가 없다');
 
-  for (const key of ROW_KEYS) {
+  for (const key of rowKeysFor(sheet)) {
     const r = (sheet?.rows || []).find((x) => x.key === key);
     if (!r) { problems.push(`항목 ${key}(${ROW_LABELS[key]})이 없다`); continue; }
+    if (key === 'package') {
+      problems.push(...packageProblems(r.ours, (sheet.rows || []).find((x) => x.key === 'visual')?.ours?.cutPlan));
+      if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);
+      continue;
+    }
     if (!filled(r.competitor?.text)) problems.push(`${ROW_LABELS[key]}: 경쟁 쪽 내용이 비어 있다`);
     if (!filled(r.ours?.text)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 내용이 비어 있다`);
     if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);

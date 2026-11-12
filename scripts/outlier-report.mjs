@@ -324,6 +324,9 @@ async function fetchMeta(videoId, key) {
     commentCount: Number(item.statistics.commentCount || 0),
     durationSeconds: isoDurationSeconds(item.contentDetails?.duration),
     thumbnail: (th.maxres || th.high || th.medium || th.default || {}).url || null,
+    // 설명글과 태그(2026-11-13): 변형 시트의 "설명글·태그·고정 댓글" 칸이 경쟁 쪽 값으로 그대로 보여 준다. 태그를 안 단 영상은 빈 목록.
+    description: item.snippet.description || '',
+    tags: Array.isArray(item.snippet.tags) ? item.snippet.tags : [],
   };
 }
 

@@ -182,13 +182,23 @@ const SHEET_CSS = `<style>
 .film{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:10px;padding:6px 2px 14px}
 .film figure{margin:0;flex:0 0 auto;text-align:center}
 .film img{height:300px;width:auto;border-radius:5px;border:1px solid var(--line);display:block}
-.film figcaption{font-size:11px;color:var(--sub);margin-top:2px}.film figure .say{width:167px;margin:4px auto 0;font-size:13px;line-height:1.4;text-align:left;white-space:normal;word-break:keep-all}.fullscript div{padding:3px 0}
+.film figcaption{font-size:11px;color:var(--sub);margin-top:2px}.film figure .say{width:167px;margin:4px auto 0;font-size:13px;line-height:1.4;text-align:left;white-space:normal;word-break:keep-all}.fullscript div{padding:3px 0}.pkg{white-space:pre-wrap;word-break:keep-all;margin:4px 0 8px;font:inherit;font-size:14px}
 .film.ours img{border-color:var(--accent)}
 .bar{display:flex;height:14px;border-radius:7px;overflow:hidden;border:1px solid var(--line);max-width:420px}
 .bar span:first-child{background:var(--accent)}.bar span:last-child{background:var(--line)}
 @media (max-width:700px){.sheet-row{grid-template-columns:minmax(0,1fr)}}
 </style>`;
 const STAGE_KO = {draft: '초안', approved: '승인', published: '공개', measured: '성적 입력됨'};
+
+/** 경쟁 영상의 설명글·태그(리포트에 저장된 값 그대로). 오래된 리포트는 아직 저장 전이라고 밝힌다. */
+function packageCompetitor(report) {
+  const m = report?.meta;
+  if (!m || m.description === undefined) return '<div class="meta">설명글·태그: 이 리포트에는 아직 저장 전</div>';
+  return `<h4>설명글</h4><pre class="pkg">${escapeHtml(m.description || '(없음)')}</pre><h4>태그</h4><div>${(m.tags || []).length ? escapeHtml(m.tags.join(', ')) : '태그 없음(이 영상은 태그를 달지 않았다)'}</div>`;
+}
+function packageOurs(ours) {
+  return `<h4>설명글</h4><pre class="pkg">${escapeHtml(ours?.description || '')}</pre><h4>태그 (${(ours?.tags || []).length}개)</h4><div>${escapeHtml((ours?.tags || []).join(', '))}</div><h4>고정 댓글</h4><pre class="pkg">${escapeHtml(ours?.pinnedComment || '')}</pre>`;
+}
 
 /** 컷 리듬: 경쟁 컷 시각(ffmpeg가 잰 값)과 우리 컷 계획을 같은 시간 막대로 보여 준다. */
 function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x) {
@@ -250,8 +260,8 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
     const ours = r.key === 'thumbnail' ? '' : oursImg(r.ours?.image) + (r.ours?.images || []).map(oursImg).join('');
     parts.push(`<div class="sheet-label">${escapeHtml(ROW_LABELS_VIEW[r.key] || r.key)}</div>
 <div class="sheet-row">
-  <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
-  <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}</div>
+  <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.key === 'package' ? packageCompetitor(report) : ''}${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
+  <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}${r.key === 'package' ? packageOurs(r.ours) : ''}</div>
   <div class="sheet-why">왜 바꿨나: ${escapeHtml(r.why)}</div>
 </div>${thumbs.length ? `<div class="thumbbox">${thumbs.map((rel) => `<label class="pick"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`).join('')}</div>` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver) : ''}`);
   }
@@ -269,7 +279,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
   return page(`변형 시트 ${sheet.topic}`, parts.join('\n'));
 }
 
-const ROW_LABELS_VIEW = {title: '제목', thumbnail: '썸네일', opening: '첫 15초', flow: '전개', visual: '화면 연출', reaction: '시청자 반응 지점', ending: '끝맺음'};
+const ROW_LABELS_VIEW = {title: '제목', thumbnail: '썸네일', opening: '첫 15초', flow: '전개', visual: '화면 연출', reaction: '시청자 반응 지점', ending: '끝맺음', package: '설명글·태그·고정 댓글'};
 
 export function renderTransformSheetIndex(items = []) {
   const cards = items.map(({sheet, report}) => {

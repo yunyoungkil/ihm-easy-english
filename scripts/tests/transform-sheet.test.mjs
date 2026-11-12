@@ -286,3 +286,36 @@ test('시트 페이지: 컷 이미지 아래 컷 대본과, 아래에 컷 대본
   assert.match(html, /class="card fullscript"/);
   assert.match(html, /첫째 줄<\/div><div><span class="meta">5초<\/span> 둘째 줄/);
 });
+
+test('완성형(2판) 시트는 설명글·태그·고정 댓글 칸이 있어야 하고, 대본이 약속한 고정 댓글이 비면 실패한다', async () => {
+  const {validateSheet, ROW_KEYS} = await import('../transform-sheet.mjs');
+  const cuts = [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5].map((t) => ({t, template: 'hook', word: 'a', image: `i/${t}.png`, narration: t === 19.5 ? '정답은 고정 댓글에 있어요' : '안녕하세요'}));
+  const pkg = {description: '설명 첫 줄', tags: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], pinnedComment: '정답입니다'};
+  const mk = (p) => ({sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', schemaVersion: 2, identityShare: {ours: 30, competitor: 70, reason: 'r'},
+    rows: [...ROW_KEYS.map((k) => ({key: k, competitor: {text: 'c'}, ours: k === 'visual' ? {text: 'o', cutPlan: {durationSeconds: 30, cuts}} : {text: 'o'}, why: 'w'})), ...(p ? [{key: 'package', competitor: {text: 'c'}, ours: p, why: 'w'}] : [])],
+    borrowed: [{fromVideoId: 'BBBBBBBBBBB', what: 'x', reason: 'r', evidence: 'e'}], rejected: []});
+  const only = (s) => validateSheet(s).filter((x) => x.includes('설명글·태그·고정 댓글') || x.includes('package'));
+  assert.deepEqual(only(mk(pkg)), []);
+  assert.ok(only(mk(null)).length > 0, '칸이 없으면 실패');
+  assert.ok(only(mk({...pkg, pinnedComment: ''})).some((x) => x.includes('약속했는데')));
+  assert.ok(only(mk({...pkg, tags: ['a', 'b']})).some((x) => x.includes('태그가')));
+  assert.ok(only(mk({...pkg, description: '듣기 드릴 영상'})).some((x) => x.includes('금지어')));
+  const v1 = mk(null); v1.schemaVersion = 1;
+  assert.deepEqual(only(v1), [], '1판은 이 칸이 없어도 된다');
+});
+
+test('경쟁 설명글·태그는 리포트 값을 그대로 보여 주고, 태그가 없으면 없다고 밝힌다. 패키지는 시트에서 복사한다', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const {packageFilesFromSheet} = await import('../package-from-sheet.mjs');
+  const sheet = {sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', format: 'SHORTS', identityShare: {ours: 30, competitor: 70, reason: 'r'}, titlePicks: ['제목 하나'],
+    rows: [{key: 'package', competitor: {text: 'c'}, ours: {text: 'o', description: '우리 설명', tags: ['태그1', '태그2'], pinnedComment: '우리 고정'}, why: 'w'}], borrowed: [], rejected: []};
+  const html = renderTransformSheetPage(sheet, {videoId: 'AAAAAAAAAAA', meta: {description: '경쟁 설명 줄', tags: []}}, []);
+  assert.match(html, /경쟁 설명 줄/);
+  assert.match(html, /태그 없음/);
+  assert.match(html, /우리 고정/);
+  assert.match(renderTransformSheetPage(sheet, {videoId: 'AAAAAAAAAAA', meta: {}}, []), /저장 전/);
+  const files = packageFilesFromSheet(sheet);
+  assert.equal(files['title.txt'], '제목 하나\n');
+  assert.equal(files['tags.txt'], '태그1, 태그2\n');
+  assert.throws(() => packageFilesFromSheet({...sheet, titlePicks: []}), /제목을 정확히 1개/);
+});

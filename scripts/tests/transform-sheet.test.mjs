@@ -320,5 +320,12 @@ test('경쟁 설명글·태그는 리포트 값을 그대로 보여 주고, 태�
   const files = packageFilesFromSheet(sheet);
   assert.equal(files['title.txt'], '제목 하나\n');
   assert.equal(files['tags.txt'], '태그1, 태그2\n');
-  assert.throws(() => packageFilesFromSheet({...sheet, titlePicks: []}), /제목을 정확히 1개/);
+  assert.throws(() => packageFilesFromSheet({...sheet, titlePicks: []}), /제목을 1~3개/);
+  const multi = packageFilesFromSheet({...sheet, titlePicks: ['가', '나', '다']});
+  assert.equal(multi['title.txt'], '가\n');
+  assert.equal(multi['title-variants.txt'], '가\n나\n다\n');
+  assert.throws(() => packageFilesFromSheet({...sheet, titlePicks: ['1', '2', '3', '4']}), /제목을 1~3개/);
+  const {packageImagesFromSheet} = await import('../package-from-sheet.mjs');
+  assert.deepEqual(packageImagesFromSheet({thumbnailPicks: ['images/x/a.jpg', 'images/x/b.jpg', 'images/x/c.jpg']}).map((x) => x.to), ['thumbnail.jpg', 'thumbnail-variant-b.jpg', 'thumbnail-variant-c.jpg']);
+  assert.throws(() => packageImagesFromSheet({thumbnailPicks: []}), /썸네일 시안을 1~3개/);
 });

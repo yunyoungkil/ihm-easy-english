@@ -27,6 +27,7 @@
 - [영상 STATUS 템플릿](templates/STATUS.template.md) — 영상별 진행 상태와 다음 행동 기록 양식
 - [환경 설정 — HeyGen/WSL 브리지](environment-setup.md) — 이 컴퓨터에서 media-use(BGM/이미지/보이스 무료 카탈로그)를 쓰기 위한 WSL·heygen CLI 설치·연결 절차
 - [Chrome Web Gemini 자동화 설정 및 다중 PC 동기화 가이드](gemini-web-automation-setup.md) — 팝업 없이 100% 무인으로 Web Gemini(Imagen 3) 이미지를 자동 생성하는 크롬 전용 프로필 설정 및 자동화 도구
+- [Gemini(Antigravity) 코딩 환경 동기화 가이드](gemini-coding-env.md) — 다른 PC의 Gemini에서도 동일하게 유지할 플러그인(chrome-devtools-plugin·coderabbit·context7), MCP, 전역 스킬, CLI/런타임 기준 및 빠른 점검 명령
 - [제미나이 의도 테스트](gemini-intent-test.md) — 제미나이(Antigravity)가 규칙대로 일하는지 임시 가지에서 실제로 시켜 보고 `scripts/score-gemini-test.mjs`가 git 기록과 실제 데이터로 채점한다(2026-11-12). 커밋 전 자동 검사·의도 명세 9개의 배경은 `logs/2026-11.md` 2026-11-12 절
 - [제미나이 코드 만들기 시험](gemini-build-test.md) — Claude가 고친 것을 문제로 내고 제미나이가 처음부터 푼 코드를 Claude가 저장소 밖에 보관한 합격 시험으로 채점한다(2026-11-12). 첫 과제 B1: 쇼츠/롱폼 판정 함수 분리
 

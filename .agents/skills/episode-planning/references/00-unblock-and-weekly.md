@@ -53,6 +53,9 @@
 2. 훅이 넘겨준 "브리핑 재료"를 쓴다. 훅은 마지막 동기화가 12시간보다 오래됐으면 먼저 대시보드 동기화를 부른다(`scripts/briefing-sync.mjs`). 재료에 "대시보드가 꺼져 있어 동기화 못 함"이라고 나왔거나, `git pull`로 새 내용을 받았거나, 훅 결과가 없으면 대시보드를 켠 뒤 `npm run briefing:sync`와 `npm run growth-check -- --json`(결과의 `briefing`)으로 재료를 다시 만든다. 훅이 없는 에이전트도 이 두 명령으로 같은 재료를 만든다.
 3. `knowledge/now.md` "▶ 다음 할 일"(훅이 넘겨준다)과 `knowledge/channel-strategy.md` "주간 목표" 표를 읽는다.
 4. 이 틀로 보고한다(2026-11-09 사용자 결정으로 개편). 조건이 맞지 않는 줄은 빼서 평소 4~5줄, 많아도 7줄로 쓴다.
+5. **[Gemini(Antigravity) 전용 — Claude 브리핑 제외]** Gemini에서 시작 브리핑(0-C)을 할 때는 `knowledge/gemini-coding-env.md`의 "빠른 환경 점검 명령"으로 이 PC의 플러그인(`chrome-devtools-plugin`, `coderabbit`, `context7`), `gemini` MCP, 전역 스킬, `git config core.hooksPath`를 확인하고 브리핑 끝에 아래 한 줄을 덧붙인다(`.claude/skills/`에는 넣지 않는다):
+   - 누락이 없으면: `- **Gemini 환경**: 동일 (플러그인 3·MCP·스킬·Git 훅 정상, 기준: knowledge/gemini-coding-env.md)`
+   - 누락이 있으면: `- **Gemini 환경**: 누락 있음 (<빠진 항목>) — knowledge/gemini-coding-env.md 보고 설치 필요`
 
 ```markdown
 **브리핑** (episode-planning 0-C · 동기화 11/9 09:00, 통계 ~11/7)

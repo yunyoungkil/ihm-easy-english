@@ -55,7 +55,28 @@ async function ensureChrome() {
   throw new Error('자동화용 크롬을 켜지 못했습니다');
 }
 
-export async function generateAiStudioImage({prompt, output, aspect = '16:9', model = DEFAULT_MODEL}) {
+/** 안내 팝업의 배경막(cdk-overlay-backdrop)이 클릭을 가로막는 경우가 있다(2026-11-12 장면 2 생성 실패) → Escape로 닫고, 남으면 배경막을 눌러 닫는다. 결제·업그레이드 버튼은 누르지 않는다. */
+async function dismissOverlays(page) {
+  for (let i = 0; i < 4; i += 1) {
+    if (!(await page.locator('.cdk-overlay-backdrop-showing').count())) return;
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(700);
+    if (await page.locator('.cdk-overlay-backdrop-showing').count()) await page.locator('.cdk-overlay-backdrop-showing').first().click({force: true, position: {x: 5, y: 5}}).catch(() => {});
+    await page.waitForTimeout(700);
+  }
+}
+
+/** 한 번 실패하면 새 대화로 한 번 더 시도한다(팝업·일시 오류 대비). */
+export async function generateAiStudioImage(options) {
+  try {
+    return await generateOnce(options);
+  } catch (err) {
+    if (/로그인|요금제|한도/.test(err.message)) throw err; // 다시 해도 소용없는 실패
+    return generateOnce(options);
+  }
+}
+
+async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MODEL}) {
   await ensureChrome();
   const browser = await chromium.connectOverCDP(`http://localhost:${DEBUG_PORT}`);
   const page = await browser.contexts()[0].newPage();
@@ -64,6 +85,7 @@ export async function generateAiStudioImage({prompt, output, aspect = '16:9', mo
     await page.setViewportSize({width: 1600, height: 1000});
     await page.goto(`https://aistudio.google.com/prompts/new_chat?model=${model}`, {waitUntil: 'domcontentloaded'});
     await page.waitForTimeout(14000);
+    await dismissOverlays(page);
     const text = await page.evaluate(() => document.body.innerText);
     if (/sign in|로그인/i.test(text.slice(0, 600)) && !/Playground/.test(text)) throw new Error('AI Studio에 로그인이 필요합니다(Gemini-Automation 크롬에서 한 번 로그인)');
     if (/only available with a Google AI plan/.test(text)) throw new Error(`${model}은(는) 이 계정에서 요금제가 필요한 모델입니다. 결제는 누르지 않고 멈춥니다.`);

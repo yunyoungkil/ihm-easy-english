@@ -44,9 +44,10 @@ import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath 
 import { recordSuccessPatterns } from './success-patterns.mjs';
 import { resolveVideoFormat } from './video-format.mjs';
 import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir, missingFrames as missingOutlierFrames, ensureReportFrames, buildVisualLibrary } from './outlier-report.mjs';
-import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage } from './outlier-report-view.mjs';
+import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex } from './outlier-report-view.mjs';
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
+import { loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir } from './transform-sheet.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -6197,7 +6198,33 @@ const server = createServer(async (req, res) => {
       if (!report) return json(res, 404, {error: '이 영상의 리포트가 없습니다.'});
       const framesPending = queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(renderOutlierReportPage(report, {framesPending}));
+      res.end(renderOutlierReportPage(report, {framesPending, hasSheet: loadTransformSheets().some((t) => t.sourceVideoId === outlierReportMatch[1])}));
+      return;
+    }
+    // 변형 시트(2026-11-12): 경쟁 영상과 우리가 만들 콘텐츠를 같은 행에서 좌우로 비교한다. 읽기 전용.
+    if (url.pathname === '/transform-sheets') {
+      const reports = new Map(loadOutlierReports().map((r) => [r.videoId, r]));
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      res.end(renderTransformSheetIndex(loadTransformSheets().map((sheet) => ({sheet, report: reports.get(sheet.sourceVideoId) || null}))));
+      return;
+    }
+    const sheetMatch = url.pathname.match(/^\/transform-sheet\/([\w-]{11})$/);
+    if (sheetMatch) {
+      const sheet = loadTransformSheets().find((x) => x.sourceVideoId === sheetMatch[1]);
+      if (!sheet) return json(res, 404, {error: '이 영상의 변형 시트가 없습니다.'});
+      const reportPath = join(outlierReportsDir, sheetMatch[1] + '.json');
+      const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
+      if (report) queueMissingOutlierFrames(report);
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists})));
+      return;
+    }
+    const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/([\w.-]{1,60}\.(?:jpg|png))$/);
+    if (sheetImageMatch) {
+      const imagePath = join(transformSheetsDir, 'images', sheetImageMatch[1], sheetImageMatch[2]);
+      if (!existsSync(imagePath)) return json(res, 404, {error: '이미지가 없습니다.'});
+      res.writeHead(200, {'Content-Type': sheetImageMatch[2].endsWith('.png') ? 'image/png' : 'image/jpeg', 'Cache-Control': 'max-age=3600'});
+      res.end(await readFile(imagePath));
       return;
     }
     // 연출 자료집 페이지(탭은 6개로 두기로 한 결정 때문에 따로 연다): 모든 리포트의 화면 변화. 빠진 캡처는 뒤에서 만든다.

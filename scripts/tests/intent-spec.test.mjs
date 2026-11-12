@@ -146,6 +146,32 @@ test('새 에피소드의 기획 근거는 다음 기획 입력 파일을 인용
   assert.deepEqual(missing, [], 'BRIEF.md 기획 근거에 "- 다음 기획 입력:" 줄이 없음 — data/youtube/next-episode-input.md에서 출발해 쓴 항목을 적는다');
 });
 
+test('경쟁 영상 소재를 쓰는 새 에피소드는 변형 시트를 가리키고, 시트는 규칙을 통과한다 [2026-11-12 사용자: 소재만 가져오고 이유는 안 옮겼다, EP30부터]', async () => {
+  const {parsePlanningSources} = await import('../planning-outcome.mjs');
+  const {loadSheets, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
+  const videosDir = join(projectDir, 'videos');
+  const sheets = new Map(loadSheets().map((s) => [s.sourceVideoId, s]));
+  const problems = [];
+  for (const d of readdirSync(videosDir, {withFileTypes: true})) {
+    if (!d.isDirectory() || !/^ep(\d+)-/.test(d.name) || Number(d.name.match(/^ep(\d+)/)[1]) < 30) continue;
+    const brief = join(videosDir, d.name, 'BRIEF.md');
+    if (!existsSync(brief)) continue;
+    const src = parsePlanningSources(readFileSync(brief, 'utf8'));
+    if (!src || src.competitors.length === 0) continue; // 경쟁 영상 근거가 없는 편은 시트가 필요 없다
+    if (!src.transformSheet) { problems.push(d.name + ': 경쟁 영상을 근거로 쓰는데 "- 변형 시트:" 줄이 없다'); continue; }
+    const sheet = sheets.get(src.transformSheet);
+    if (!sheet) { problems.push(d.name + ': 가리킨 변형 시트(' + src.transformSheet + ')가 없다'); continue; }
+    for (const p of validateSheet(sheet, {imageExists: sheetImageExists})) problems.push(d.name + ' 시트: ' + p);
+  }
+  assert.deepEqual(problems, []);
+});
+
+test('저장된 변형 시트는 모두 규칙(다른 경쟁 영상에서 가져옴, 이유·근거, 뺀 이유, 이미지 파일)을 통과한다 [2026-11-12]', async () => {
+  const {loadSheets, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
+  const bad = loadSheets().flatMap((s) => validateSheet(s, {imageExists: sheetImageExists}).map((p) => s.sourceVideoId + ': ' + p));
+  assert.deepEqual(bad, []);
+});
+
 test('다음 기획 입력 파일은 실제 데이터로 만들어지고, 시청자 고민에 AI 추측을 섞지 않는다 [2026-11-12 사용자: 데이터를 기획에 써먹는다]', {skip: !has('catalog.json') && '카탈로그 없음'}, async () => {
   const {buildFromProject, renderNextEpisodeInput} = await import('../next-episode-input.mjs');
   const input = buildFromProject(projectDir);

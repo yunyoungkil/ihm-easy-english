@@ -146,6 +146,7 @@ export const DASHBOARD_CHECKS = Object.freeze([
   {path: '/next-input', html: true, has: (t) => typeof t === 'string' && t.includes('다음 기획 입력')},
   {path: '/outlier-reports', html: true, has: (t) => typeof t === 'string' && t.includes('아웃라이어 리포트')},
   {path: '/visual-library', html: true, has: (t) => typeof t === 'string' && t.includes('연출 자료집')},
+  {path: '/transform-sheets', html: true, has: (t) => typeof t === 'string' && t.includes('변형 시트')},
 ]);
 
 /** @param {{path:string,status:number,body:any}[]} responses */

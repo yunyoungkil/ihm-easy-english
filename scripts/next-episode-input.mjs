@@ -13,6 +13,7 @@ import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
 import {loadReports as loadOutlierReports} from './outlier-report.mjs';
+import {loadSheets} from './transform-sheet.mjs';
 
 export const MIN_COMPARE_VIDEOS = 6; // 상위 3편과 하위 3편이 겹치지 않는 최소 수
 export const RECENT_POOL = 20; // 같은 형식 최근 20편 안에서 비교한다(오래된 영상이 지금 채널을 대표하지 않게)
@@ -195,7 +196,7 @@ function renderComparison(c) {
 }
 
 export function renderNextEpisodeInput(input) {
-  const {generatedAt, freshness = {}, comparisons = {}, searchTerms = [], viewerComments = [], allViewerComments = null, audience = {}, reviews = [], outcomes = [], successPatternCount = 0, outlierReports = []} = input;
+  const {generatedAt, freshness = {}, comparisons = {}, searchTerms = [], viewerComments = [], allViewerComments = null, audience = {}, reviews = [], outcomes = [], successPatternCount = 0, outlierReports = [], transformSheets = []} = input;
   const out = [
     '# 다음 기획 입력',
     '',
@@ -266,6 +267,16 @@ export function renderNextEpisodeInput(input) {
       out.push(`- 가져올 점: ${r.adopt ?? '측정 전'} / 다르게 할 점: ${r.differentiate ?? '측정 전'}`, '');
     }
   } else out.push('합친 아웃라이어 리포트 없음.', '');
+
+  // 8절: 변형 시트(경쟁 영상을 우리 콘텐츠로 바꾼 한 장, 2026-11-12). 경쟁 소재를 쓰는 편은 여기서 출발한다.
+  out.push('## 8. 변형 시트 (경쟁 영상 → 우리 콘텐츠)', '');
+  if (transformSheets.length) {
+    out.push('경쟁 영상을 같은 행에서 우리 콘텐츠와 비교한 시트. 경쟁 소재를 쓰는 편은 새로 만들기 전에 이 시트를 만들고 `BRIEF.md` 기획 근거에 `변형 시트:` 줄로 연결한다.', '');
+    for (const t of transformSheets) {
+      out.push(`- **${cut(t.topic, 60)}** — ${t.status === 'draft' ? '초안' : t.status === 'approved' ? '승인' : '공개'} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개 · http://localhost:3001/transform-sheet/${t.sourceVideoId}`);
+    }
+    out.push('');
+  } else out.push('변형 시트 없음.', '');
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -307,6 +318,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     outcomes: loadEpisodeOutcomes(projectDir, now),
     successPatternCount: (patterns.entries || []).length,
     outlierReports: summarizeOutlierReports(loadOutlierReports()),
+    transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };
 }
 

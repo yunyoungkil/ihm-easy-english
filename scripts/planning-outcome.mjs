@@ -68,9 +68,12 @@ export function parsePlanningSources(markdown = '') {
   const track = trackRaw && !/^없음/.test(trackRaw) ? trackRaw : null;
 
   // 다음 기획 입력 파일(data/youtube/next-episode-input.md)을 인용한 줄 — 2026-11-12, EP30부터 필수
-  const inputRef = valueOf('다음 기획 입력')[0] || null;
+  const inputRef = valueOf("다음 기획 입력")[0] || null;
+  // 변형 시트(2026-11-12): 경쟁 영상 소재를 쓰는 편은 data/youtube/transform-sheets/<영상ID>.json을 가리킨다
+  const sheetRaw = valueOf("변형 시트")[0] || null;
+  const transformSheet = sheetRaw ? ((sheetRaw.match(/^[\w-]{11}/) || [])[0] || null) : null;
 
-  return {topic, competitors, audience, track, inputRef};
+  return {topic, competitors, audience, track, inputRef, transformSheet};
 }
 
 /**

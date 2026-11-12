@@ -1,0 +1,115 @@
+// 의도 명세 (2026-11-12). 코드를 만든 쪽이 아니라 "사용자가 정한 말"에서 가져온 합격 기준이다.
+// 이 파일은 만든 쪽(특히 다른 AI)이 합격하려고 고치지 않는다. 의도 자체가 바뀌면 사용자 확인을 받고,
+// 어느 결정에서 나온 기준인지(출처)를 같이 고친다. 출처는 각 테스트 이름 뒤 [ ] 안에 적었다.
+// 실제 파일(data/youtube, output/upload-packages)과 서버 코드를 그대로 읽는다. 가짜 데이터는 쓰지 않는다.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {existsSync, readFileSync, readdirSync} from 'node:fs';
+import {dirname, join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {loadEpisodeOutcomes} from '../planning-outcome.mjs';
+import {weeklyComparison} from '../growth-rules.mjs';
+
+const projectDir = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
+const dataDir = join(projectDir, 'data', 'youtube');
+const readJson = (path) => JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, ''));
+const server = readFileSync(join(projectDir, 'scripts', 'youtube-analytics-server.mjs'), 'utf8');
+const serverLines = server.split(/\r?\n/);
+const has = (name) => existsSync(join(dataDir, name));
+const catalogVideos = () => {
+  const c = readJson(join(dataDir, 'catalog.json'));
+  return Array.isArray(c?.videos) ? c.videos : (Array.isArray(c) ? c : []);
+};
+
+test('대시보드는 6개 현황 탭만 가진다 [2026-11-11 탭 압축·대청소 결정]', () => {
+  const tabs = [...new Set([...server.matchAll(/data-tab="(tab-[a-z-]+)"/g)].map((m) => m[1]))].sort();
+  assert.deepEqual(tabs, ['tab-ab-simulator', 'tab-benchmark', 'tab-demand', 'tab-episodes', 'tab-overview', 'tab-studio'],
+    '탭이 늘거나 줄었다 — 사용자 확인 없이 탭을 바꾸지 않는다');
+});
+
+test('데이터를 바꾸는 서버 통로는 허용 목록 안에서만 늘린다 [자동화 우선 원칙 2026-11-11: 사람이 관리하는 입력 UI 금지]', () => {
+  // 허용 이유: 승인 관문(schedule/*), 자동 루프가 부르는 통로(sync, market-demand/run, insights/analyze, scripts/analyze,
+  // idea-board/history/register), 사용자가 직접 비우는 삭제(market-demand/delete*), 스튜디오 파일 읽기(studio-scan).
+  const allowed = new Set([
+    '/api/sync', '/api/studio-scan', '/api/insights/analyze', '/api/scripts/analyze', '/api/idea-board/history/register',
+    '/api/market-demand/run', '/api/market-demand/delete', '/api/market-demand/delete-channel', '/api/market-demand/delete-video',
+    '/api/schedule/approve-thumbnail', '/api/schedule/comment-done', '/api/schedule/resolve', '/api/schedule/rules', '/api/schedule/upload-now',
+  ]);
+  const posts = new Set();
+  for (const line of serverLines) {
+    if (!/req\.method === 'POST'|method: 'POST'/.test(line) || !/url\.pathname === '/.test(line)) continue;
+    const m = line.match(/url\.pathname === '(\/api\/[^']+)'/);
+    if (m) posts.add(m[1]);
+  }
+  const extra = [...posts].filter((p) => !allowed.has(p));
+  assert.deepEqual(extra, [], `새 데이터 변경 통로가 생겼다: ${extra.join(', ')} — 사람이 눌러야 하는 관리 기능이면 사용자 확인이 먼저다. 확인을 받았다면 이 허용 목록과 이유를 같이 고친다`);
+});
+
+test('화면에 보이는 값에 지어낸 영상·무작위 숫자·남의 사진을 쓰지 않는다 [2026-11-11 시뮬레이터 대청소: 없는 채널·unsplash·Math.random 조회수]', () => {
+  const bad = serverLines.map((line, i) => ({line, no: i + 1}))
+    .filter(({line}) => /unsplash|picsum|placeholder\.com|lorem ipsum|발음의 신/i.test(line)
+      || (/Math\.random\(\)/.test(line) && !/grad-|id|key|uid|nonce/i.test(line)));
+  assert.deepEqual(bad.map((b) => `${b.no}: ${b.line.trim().slice(0, 90)}`), []);
+});
+
+test('업로드는 decideNextUpload를 거친 뒤에만 실행된다 [AGENTS.md 대시보드 규칙 5: 우회 경로 금지]', () => {
+  const calls = serverLines.map((l, i) => (l.includes('processQueueItem(') && !/^\s*(async\s+)?function\s/.test(l) ? i : -1)).filter((i) => i >= 0);
+  assert.ok(calls.length >= 1, '업로드 호출을 찾지 못함 — 이 검사가 코드와 어긋남');
+  for (const i of calls) {
+    const before = serverLines.slice(Math.max(0, i - 40), i).join('\n');
+    assert.match(before, /decideNextUpload\(/, `${i + 1}행의 업로드 호출 앞 40줄 안에 decideNextUpload가 없음`);
+  }
+});
+
+test('공개 전·예약 영상은 판정하지 않는다 [2026-11-11: EP27이 공개 전에 조회 0회로 판정될 뻔함]', {skip: !has('catalog.json') && '카탈로그 없음'}, () => {
+  const now = new Date();
+  const notLive = new Set(catalogVideos()
+    .filter((v) => (v.privacyStatus && v.privacyStatus !== 'public') || new Date(v.publishedAt) > now)
+    .map((v) => v.videoId));
+  const judged = loadEpisodeOutcomes(projectDir, now).filter((o) => notLive.has(o.videoId) && o.verdict !== 'pending');
+  assert.deepEqual(judged.map((o) => `${o.label}:${o.verdict}`), []);
+});
+
+test('스튜디오 탭의 쇼츠/롱폼 구분은 카탈로그 format과 같다 [AGENTS.md 대시보드 규칙 4: 쇼츠 판정은 format만]', {skip: !has('catalog.json') && '카탈로그 없음'}, () => {
+  // 대시보드 코드의 대체 규칙(format이 없으면 60초 이하)을 실제 영상에 적용해도 format과 달라지면 안 된다.
+  const differs = catalogVideos().filter((v) => {
+    const byStudioRule = v.format === 'SHORTS' || (Number(v.durationSeconds || 0) > 0 && Number(v.durationSeconds) <= 60);
+    return byStudioRule !== (v.format === 'SHORTS');
+  });
+  assert.deepEqual(differs.map((v) => `${v.videoId}(${v.format},${v.durationSeconds}s)`), [], '길이로 따지면 쇼츠인데 format은 롱폼인 영상 — 길이 규칙을 지워야 한다');
+});
+
+test('전체 관제의 "최근 7일"은 실제 일별 데이터의 7일 합과 같다 [2026-11-09 브리핑 개편: 최근 7일 vs 지난주]', {skip: !has('analytics-latest.json') && '분석 데이터 없음'}, () => {
+  const daily = readJson(join(dataDir, 'analytics-latest.json')).daily || [];
+  assert.ok(daily.length >= 14, `일별 데이터가 ${daily.length}일뿐 — 지난주와 비교하려면 14일이 필요`);
+  const weekly = weeklyComparison(daily);
+  const days = daily.map((d) => d.day).sort();
+  assert.equal(weekly.current.end, days.at(-1), '"최근 7일"의 마지막 날이 데이터의 마지막 날이 아님');
+  const inRange = (d, a, b) => d.day >= a && d.day <= b;
+  const sum = (a, b, key) => daily.filter((d) => inRange(d, a, b)).reduce((n, d) => n + Number(d[key] || 0), 0);
+  assert.equal(weekly.current.views, sum(weekly.current.start, weekly.current.end, 'views'), '최근 7일 조회수가 일별 합과 다름');
+  assert.equal(weekly.previous.views, sum(weekly.previous.start, weekly.previous.end, 'views'), '지난주 조회수가 일별 합과 다름');
+  const span = (a, b) => (new Date(b) - new Date(a)) / 86400000 + 1;
+  assert.equal(span(weekly.current.start, weekly.current.end), 7);
+  assert.equal(span(weekly.previous.start, weekly.previous.end), 7);
+});
+
+test('실제로 만든 에피소드(EP22~)는 모두 소재 이력에 있다 [2026-11-11 스킬 되먹임 루프: 같은 소재를 다시 고르지 않게]', {skip: !has('idea-board-history.json') && '소재 이력 없음'}, () => {
+  const slugs = new Set((readJson(join(dataDir, 'idea-board-history.json')).entries || []).map((e) => e.episodeSlug).filter(Boolean));
+  const dir = join(projectDir, 'output', 'upload-packages');
+  const missing = readdirSync(dir, {withFileTypes: true})
+    .filter((d) => d.isDirectory() && /^ep(\d+)-/.test(d.name) && !d.name.includes('-shorts-') && Number(d.name.match(/^ep(\d+)/)[1]) >= 22)
+    .map((d) => d.name.replace(/-longform$/, ''))
+    .filter((slug) => existsSync(join(dir, slug, 'status.json')) || existsSync(join(dir, `${slug}-longform`, 'status.json')))
+    .filter((slug) => !slugs.has(slug));
+  assert.deepEqual(missing, [], '소재 이력에 없는 에피소드 — 스킬 01 "소재 이력 등록"을 한다');
+});
+
+test('새 에피소드의 BRIEF.md에는 기획 근거 칸이 있다 [2026-11-11 스킬 01: EP30부터 필수]', () => {
+  const videosDir = join(projectDir, 'videos');
+  const missing = readdirSync(videosDir, {withFileTypes: true})
+    .filter((d) => d.isDirectory() && /^ep(\d+)-/.test(d.name) && Number(d.name.match(/^ep(\d+)/)[1]) >= 30)
+    .filter((d) => !/^##\s+기획 근거\s*$/m.test(existsSync(join(videosDir, d.name, 'BRIEF.md')) ? readFileSync(join(videosDir, d.name, 'BRIEF.md'), 'utf8') : ''))
+    .map((d) => d.name);
+  assert.deepEqual(missing, [], 'BRIEF.md에 "## 기획 근거" 칸이 없음 — 이게 없으면 경쟁 채널 판정이 근거 없이 돈다');
+});

@@ -120,3 +120,13 @@ export function loadSheets(dir = sheetsDir) {
 }
 
 export const sheetImageExists = (rel) => existsSync(join(sheetsDir, rel));
+
+/** 썸네일 시안 선택(체크박스) 저장: 시트의 썸네일 줄에 실제로 있는 이미지만 고를 수 있다. 사용자 승인 지점이라 사람이 누른 값만 기록한다. */
+export function setThumbnailPick(sheet, image, picked) {
+  const row = (sheet.rows || []).find((r) => r.key === 'thumbnail');
+  const allowed = [row?.ours?.image, ...(row?.ours?.images || [])].filter(Boolean);
+  if (!allowed.includes(image)) throw new Error('이 시트의 썸네일 시안이 아닙니다');
+  const now = new Set(sheet.thumbnailPicks || []);
+  if (picked) now.add(image); else now.delete(image);
+  return {...sheet, thumbnailPicks: allowed.filter((x) => now.has(x))};
+}

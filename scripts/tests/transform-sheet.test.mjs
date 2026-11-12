@@ -213,3 +213,24 @@ test('이미지 주소에 파일 수정 시각(?v=)을 붙여, 그림을 다시 
   const none = renderTransformSheetPage(s, rep, []);
   assert.doesNotMatch(none, /\?v=/);
 });
+
+test('썸네일 시안 선택: 시트에 있는 시안만 고를 수 있고, 고르고 풀 수 있다', async () => {
+  const {setThumbnailPick} = await import('../transform-sheet.mjs');
+  const sheet = {rows: [{key: 'thumbnail', ours: {images: ['images/x/a.jpg', 'images/x/b.jpg']}}]};
+  const one = setThumbnailPick(sheet, 'images/x/b.jpg', true);
+  assert.deepEqual(one.thumbnailPicks, ['images/x/b.jpg']);
+  const two = setThumbnailPick(one, 'images/x/a.jpg', true);
+  assert.deepEqual(two.thumbnailPicks, ['images/x/a.jpg', 'images/x/b.jpg']);
+  assert.deepEqual(setThumbnailPick(two, 'images/x/b.jpg', false).thumbnailPicks, ['images/x/a.jpg']);
+  assert.throws(() => setThumbnailPick(sheet, 'images/x/zzz.jpg', true), /시안/);
+});
+
+test('시트 페이지의 썸네일 시안마다 체크박스가 있고 고른 것은 체크되어 보인다', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const sheet = {sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', format: 'SHORTS', identityShare: {ours: 30, competitor: 70, reason: 'r'}, thumbnailPicks: ['images/x/b.jpg'],
+    rows: [{key: 'thumbnail', competitor: {text: 'c'}, ours: {text: 'o', images: ['images/x/a.jpg', 'images/x/b.jpg']}, why: 'w'}], borrowed: [], rejected: []};
+  const html = renderTransformSheetPage(sheet, null, []);
+  assert.equal((html.match(/data-pick="/g) || []).length, 2);
+  assert.match(html, /data-pick="images\/x\/b\.jpg" checked/);
+  assert.doesNotMatch(html, /data-pick="images\/x\/a\.jpg" checked/);
+});

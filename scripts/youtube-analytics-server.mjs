@@ -47,7 +47,7 @@ import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, fra
 import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex } from './outlier-report-view.mjs';
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
-import { loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir } from './transform-sheet.mjs';
+import { setThumbnailPick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir } from './transform-sheet.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -6234,6 +6234,18 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
       res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing}), {assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
       return;
+    }
+    if (url.pathname === '/api/transform-sheet-pick' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const vid = String(body.videoId || '');
+      if (!/^[\w-]{11}$/.test(vid)) return json(res, 400, {error: '영상 ID가 이상합니다.'});
+      const file = join(transformSheetsDir, vid + '.json');
+      if (!existsSync(file)) return json(res, 404, {error: '변형 시트가 없습니다.'});
+      try {
+        const next = setThumbnailPick(await loadJson(file), String(body.image || ''), body.picked === true);
+        await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
+        return json(res, 200, {ok: true, thumbnailPicks: next.thumbnailPicks});
+      } catch (e) { return json(res, 400, {error: e.message}); }
     }
     const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/((?:cuts\/)?[\w.-]{1,60}\.(?:jpg|png))$/);
     if (sheetImageMatch) {

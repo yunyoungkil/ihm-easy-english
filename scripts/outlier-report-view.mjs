@@ -22,7 +22,7 @@ h1{font-size:20px;margin:8px 0}h2{font-size:17px;margin:28px 0 8px;border-bottom
 .moment{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}.moment img{width:auto;max-width:100%;height:auto;border-radius:6px;border:1px solid var(--line)}
 .t{font-weight:700;font-variant-numeric:tabular-nums}
 table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto}code{font-size:13px;background:var(--line);padding:1px 4px;border-radius:4px}td,th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
-.pick{display:inline-block;margin:0 10px 10px 0;vertical-align:top}.pick span{display:block;text-align:center;padding:6px 0;font-weight:700}.thumb{max-width:360px;width:100%;border-radius:8px}
+.thumbbox{display:flex;flex-wrap:nowrap;gap:14px;overflow:auto;max-height:80vh;padding:8px 2px 12px;border:1px solid var(--line);border-radius:10px;margin:8px 0}.pick{position:relative;flex:0 0 auto}.pick img.real{max-width:none;max-height:none;width:auto;height:auto;display:block}.pick input{position:absolute;top:10px;right:10px;width:30px;height:30px;accent-color:var(--accent);cursor:pointer}.titles label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}.titles input{width:22px;height:22px;flex:0 0 auto;accent-color:var(--accent)}.thumb{max-width:360px;width:100%;border-radius:8px}
 .list a{display:grid;grid-template-columns:160px minmax(0,1fr);gap:12px;text-decoration:none;color:inherit}
 .list img{width:160px;border-radius:6px}
 @media (max-width:600px){.list a{grid-template-columns:96px minmax(0,1fr)}.list img{width:96px}}
@@ -177,7 +177,7 @@ const SHEET_CSS = `<style>
 .tick{position:absolute;top:3px;bottom:3px;width:3px;border-radius:2px;transform:translateX(-1px)}
 .tick.comp{background:var(--sub)}.tick.ours{background:var(--accent)}
 .tl-label{font-size:13px;color:var(--sub);margin-top:8px}
-.film{display:flex;flex-wrap:wrap;gap:10px;padding:6px 2px 10px}
+.film{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:10px;padding:6px 2px 14px}
 .film figure{margin:0;flex:0 0 auto;text-align:center}
 .film img{height:300px;width:auto;border-radius:5px;border:1px solid var(--line);display:block}
 .film figcaption{font-size:11px;color:var(--sub);margin-top:2px}
@@ -237,16 +237,18 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
   for (const r of sheet.rows || []) {
     const comp = (r.competitor?.images || []).map(competitorImg).join('');
     const picks = new Set(sheet.thumbnailPicks || []);
-    const oursOne = (rel) => (r.key === 'thumbnail' && rel
-      ? `<label class="pick">${oursImg(rel)}<span><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}> 이 시안 고르기</span></label>`
-      : oursImg(rel));
-    const ours = oursOne(r.ours?.image) + (r.ours?.images || []).map(oursOne).join('');
+    const titlePicks = new Set(sheet.titlePicks || []);
+    const thumbs = r.key === 'thumbnail' ? [r.ours?.image, ...(r.ours?.images || [])].filter(Boolean) : [];
+    const titleBox = r.key === 'title' && (r.ours?.titles || []).length
+      ? `<div class="titles"><b>제목 후보 (고르기)</b>${r.ours.titles.map((t) => `<label><input type="checkbox" data-pick-title="${escapeHtml(t)}"${titlePicks.has(t) ? ' checked' : ''}><span>${escapeHtml(t)}</span></label>`).join('')}</div>`
+      : '';
+    const ours = r.key === 'thumbnail' ? '' : oursImg(r.ours?.image) + (r.ours?.images || []).map(oursImg).join('');
     parts.push(`<div class="sheet-label">${escapeHtml(ROW_LABELS_VIEW[r.key] || r.key)}</div>
 <div class="sheet-row">
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
-  <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div></div>
+  <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}</div>
   <div class="sheet-why">왜 바꿨나: ${escapeHtml(r.why)}</div>
-</div>${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver) : ''}`);
+</div>${thumbs.length ? `<div class="thumbbox">${thumbs.map((rel) => `<label class="pick"><img class="real" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`).join('')}</div>` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver) : ''}`);
   }
   parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');
   for (const b of sheet.borrowed || []) parts.push(`<div class="card"><b>${escapeHtml(b.what)}</b> <a href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">(${escapeHtml(b.fromVideoId)})</a><div>가져와도 되는 이유: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div></div>`);
@@ -257,7 +259,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
     parts.push('<h2>대본 전에 확인할 것</h2>');
     for (const t of sheet.pending) parts.push(`<div class="card">${escapeHtml(t)}</div>`);
   }
-  parts.push(`<script>document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset||!t.dataset.pick)return;fetch('/api/transform-sheet-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:${JSON.stringify(sheet.sourceVideoId)},image:t.dataset.pick,picked:t.checked})}).then(function(r){if(!r.ok){t.checked=!t.checked;alert('저장하지 못했습니다');}}).catch(function(){t.checked=!t.checked;alert('저장하지 못했습니다');});});</script>`);
+  parts.push(`<script>document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset||(!t.dataset.pick&&!t.dataset.pickTitle))return;fetch('/api/transform-sheet-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:${JSON.stringify(sheet.sourceVideoId)},kind:t.dataset.pickTitle?'title':'thumbnail',image:t.dataset.pick||t.dataset.pickTitle,picked:t.checked})}).then(function(r){if(!r.ok){t.checked=!t.checked;alert('저장하지 못했습니다');}}).catch(function(){t.checked=!t.checked;alert('저장하지 못했습니다');});});</script>`);
   if (sheet.outcome) parts.push(`<h2>성적</h2><div class="card">${escapeHtml(JSON.stringify(sheet.outcome))}</div>`);
   return page(`변형 시트 ${sheet.topic}`, parts.join('\n'));
 }

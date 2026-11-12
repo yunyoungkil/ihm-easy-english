@@ -47,7 +47,7 @@ import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, fra
 import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex } from './outlier-report-view.mjs';
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
-import { setThumbnailPick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir } from './transform-sheet.mjs';
+import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir } from './transform-sheet.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -6242,9 +6242,10 @@ const server = createServer(async (req, res) => {
       const file = join(transformSheetsDir, vid + '.json');
       if (!existsSync(file)) return json(res, 404, {error: '변형 시트가 없습니다.'});
       try {
-        const next = setThumbnailPick(await loadJson(file), String(body.image || ''), body.picked === true);
+        const pick = body.kind === 'title' ? setTitlePick : setThumbnailPick;
+        const next = pick(await loadJson(file), String(body.image || ''), body.picked === true);
         await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
-        return json(res, 200, {ok: true, thumbnailPicks: next.thumbnailPicks});
+        return json(res, 200, {ok: true, thumbnailPicks: next.thumbnailPicks, titlePicks: next.titlePicks});
       } catch (e) { return json(res, 400, {error: e.message}); }
     }
     const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/((?:cuts\/)?[\w.-]{1,60}\.(?:jpg|png))$/);

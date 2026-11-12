@@ -121,6 +121,15 @@ export function loadSheets(dir = sheetsDir) {
 
 export const sheetImageExists = (rel) => existsSync(join(sheetsDir, rel));
 
+/** 제목 후보 선택: 시트의 제목 줄 `ours.titles`에 있는 문장만 고를 수 있다. */
+export function setTitlePick(sheet, title, picked) {
+  const allowed = ((sheet.rows || []).find((r) => r.key === 'title')?.ours?.titles || []).filter(Boolean);
+  if (!allowed.includes(title)) throw new Error('이 시트의 제목 후보가 아닙니다');
+  const now = new Set(sheet.titlePicks || []);
+  if (picked) now.add(title); else now.delete(title);
+  return {...sheet, titlePicks: allowed.filter((x) => now.has(x))};
+}
+
 /** 썸네일 시안 선택(체크박스) 저장: 시트의 썸네일 줄에 실제로 있는 이미지만 고를 수 있다. 사용자 승인 지점이라 사람이 누른 값만 기록한다. */
 export function setThumbnailPick(sheet, image, picked) {
   const row = (sheet.rows || []).find((r) => r.key === 'thumbnail');

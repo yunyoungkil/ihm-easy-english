@@ -188,13 +188,12 @@ test('컷 필름스트립: 경쟁 컷 프레임과 우리 컷 카드를 시간 �
   assert.match(html, /<figcaption>14초<\/figcaption>/);
 });
 
-test('컷 필름스트립은 한 줄 스크롤이 아니라 줄바꿈 격자이고, 그림은 300px 높이로 크게 보이며 누르면 원본이 열린다', () => {
+test('컷 필름스트립은 가로 한 줄 스크롤이고, 그림은 300px 높이로 보이며 누르면 원본이 열린다', () => {
   const s = good();
   s.rows.find((r) => r.key === 'visual').ours.cutPlan = {durationSeconds: 50, cuts: [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5].map((t, i) => ({t, template: 'hook', word: 'a', image: `images/AAAAAAAAAAA/cuts/cut-0${i}.png`}))};
   const rep = {...report, windowSeconds: 53, pacing: {count: 3, perMinute: 17, times: [9.5, 15, 17.3]}};
   const html = renderTransformSheetPage(s, rep, []);
-  assert.match(html, /\.film\{[^}]*flex-wrap:wrap/);
-  assert.doesNotMatch(html, /\.film\{[^}]*overflow-x:auto/);
+  assert.match(html, /\.film\{[^}]*flex-wrap:nowrap[^}]*overflow-x:auto/);
   assert.match(html, /\.film img\{[^}]*height:300px/);
   assert.match(html, /<a href="\/transform-images\/AAAAAAAAAAA\/cuts\/cut-00\.png" target="_blank" rel="noopener"><img/);
   assert.match(html, /<a href="\/outlier-frames\/AAAAAAAAAAA\/cut-00\.jpg" target="_blank" rel="noopener"><img/);
@@ -233,4 +232,20 @@ test('시트 페이지의 썸네일 시안마다 체크박스가 있고 고른 �
   assert.equal((html.match(/data-pick="/g) || []).length, 2);
   assert.match(html, /data-pick="images\/x\/b\.jpg" checked/);
   assert.doesNotMatch(html, /data-pick="images\/x\/a\.jpg" checked/);
+});
+
+test('제목 후보 선택: 시트의 후보만 고를 수 있고, 시안 체크박스는 이미지 오른쪽 위 모서리에 글자 없이 있다', async () => {
+  const {setTitlePick} = await import('../transform-sheet.mjs');
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const sheet = {sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', format: 'SHORTS', identityShare: {ours: 30, competitor: 70, reason: 'r'}, titlePicks: [],
+    rows: [{key: 'title', competitor: {text: 'c'}, ours: {text: 'o', titles: ['가', '나', '다']}, why: 'w'}, {key: 'thumbnail', competitor: {text: 'c'}, ours: {text: 'o', images: ['images/x/a.jpg']}, why: 'w'}], borrowed: [], rejected: []};
+  const one = setTitlePick(sheet, '나', true);
+  assert.deepEqual(one.titlePicks, ['나']);
+  assert.throws(() => setTitlePick(sheet, '없는 제목', true), /후보/);
+  const html = renderTransformSheetPage(one, null, []);
+  assert.equal((html.match(/data-pick-title="/g) || []).length, 3);
+  assert.match(html, /data-pick-title="나" checked/);
+  assert.match(html, /\.pick input\{position:absolute;top:\d+px;right:\d+px/);
+  assert.match(html, /\.thumbbox\{[^}]*overflow:auto/);
+  assert.doesNotMatch(html, /이 시안 고르기/);
 });

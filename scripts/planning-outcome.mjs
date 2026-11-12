@@ -67,7 +67,10 @@ export function parsePlanningSources(markdown = '') {
   const trackRaw = valueOf('형식')[0] || '';
   const track = trackRaw && !/^없음/.test(trackRaw) ? trackRaw : null;
 
-  return {topic, competitors, audience, track};
+  // 다음 기획 입력 파일(data/youtube/next-episode-input.md)을 인용한 줄 — 2026-11-12, EP30부터 필수
+  const inputRef = valueOf('다음 기획 입력')[0] || null;
+
+  return {topic, competitors, audience, track, inputRef};
 }
 
 /**

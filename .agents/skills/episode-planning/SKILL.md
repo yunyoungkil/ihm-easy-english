@@ -77,6 +77,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 
 | 데이터 | 읽는 단계 | 쓰는 단계 (자동) | 오래됐을 때 |
 |---|---|---|---|
+| **다음 기획 입력 (`data/youtube/next-episode-input.md`)** | **Phase 1에서 가장 먼저**, 4, 6, 7 | 매일 루프 · `npm run next-input` | Phase 1에서 `/api/sync` 직후 새로 만든다 |
 | 우리 채널 숫자 (`/api/sync` 응답) | Phase 1, 6, 11 | 대시보드 동기화 | 매번 새로 받는다 |
 | 경쟁 채널 (`market-demand.json`) | Phase 3, 4, 6 | `market-demand.mjs` | `updatedAt`이 7일 넘으면 Phase 3에서 `--sync-all-tracked` |
 | 시청자 고민 (`audience-dna.json`) | Phase 1, 4, 7 | 08 인사이트 (`POST /api/insights/analyze`) | `updatedAt`이 14일 넘으면 08 인사이트 1절을 먼저 |

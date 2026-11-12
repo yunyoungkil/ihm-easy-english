@@ -263,6 +263,14 @@ async function run() {
     await step('audience', () => runAudienceBackfillStep(backfill, post));
   }
 
+  // 모은 데이터를 다음 기획의 출발점 한 장으로 만든다(2026-11-12, knowledge/data-consumption-map.md).
+  // 동기화·시청자 고민 분석이 끝난 뒤에 만들어야 오늘 데이터가 들어간다.
+  await step('nextInput', async () => {
+    const {writeNextEpisodeInput} = await import('./next-episode-input.mjs');
+    const markdown = writeNextEpisodeInput(projectDir, new Date());
+    return {lines: markdown.split('\n').length};
+  });
+
   await step('dashboard', async () => {
     const responses = [];
     for (const {path} of DASHBOARD_CHECKS) {

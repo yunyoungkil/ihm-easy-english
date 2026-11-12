@@ -11,7 +11,7 @@ import {fileURLToPath} from 'node:url';
 const projectDir = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 const mapPath = join(projectDir, 'knowledge', 'data-consumption-map.md');
 const dataDir = join(projectDir, 'data', 'youtube');
-const GRADES = ['자동 결정', '기획 입력(지시)', '표시만', '운영', '없음'];
+const GRADES = ['자동 결정', '기획 입력(자동)', '기획 입력(지시)', '표시만', '운영', '없음'];
 
 export function parseMapRows(markdown) {
   const section = markdown.split(/^## 지도\s*$/m)[1]?.split(/^## /m)[0] || '';

@@ -18,7 +18,7 @@ const ageMs = (iso, now) => (iso && Number.isFinite(new Date(iso).getTime()) ? n
 export function checkLoopHealth({
   now = new Date(), dailyLoop = null, analyticsSyncedAt = null, catalogVideos = [], views7d = {},
   audienceDnaUpdatedAt = null, competitorsAnalyzedAt = null, episodeOutcomes = [], successPatternIds = [],
-  episodesMissingSources = [],
+  episodesMissingSources = [], nextInputGeneratedAt = undefined, episodesMissingInputRef = [],
 }) {
   const problems = [];
   const add = (id, text) => problems.push({id, text});
@@ -46,6 +46,14 @@ export function checkLoopHealth({
 
   if (episodesMissingSources.length) add('brief-sources', `BRIEF.md "기획 근거" 칸이 없는 새 편: ${episodesMissingSources.join(', ')}`);
 
+  // 모은 데이터가 기획으로 이어지는 통로(2026-11-12): 매일 루프가 입력 파일을 만들고, 새 편 기획 근거가 그 파일을 인용한다.
+  if (nextInputGeneratedAt !== undefined && ageMs(nextInputGeneratedAt, now) > LIMITS.loopHours * H) {
+    add('next-input-stale', nextInputGeneratedAt
+      ? `다음 기획 입력 파일이 ${Math.round(ageMs(nextInputGeneratedAt, now) / H)}시간째 새로 안 만들어졌다(npm run next-input)`
+      : '다음 기획 입력 파일(data/youtube/next-episode-input.md)이 없다(npm run next-input)');
+  }
+  if (episodesMissingInputRef.length) add('brief-input', `BRIEF.md 기획 근거에 "다음 기획 입력" 인용이 없는 새 편: ${episodesMissingInputRef.join(', ')}`);
+
   return {ok: problems.length === 0, problems, lastLoopAt: dailyLoop?.finishedAt || null};
 }
 
@@ -60,14 +68,17 @@ export function loadLoopHealth(projectDir, now = new Date()) {
   const md = readJson(join(dataDir, 'market-demand.json'), {});
   const patterns = readJson(join(dataDir, 'success-patterns.json'), {entries: []});
   const videosDir = join(projectDir, 'videos');
-  const episodesMissingSources = existsSync(videosDir)
-    ? readdirSync(videosDir, {withFileTypes: true}).filter((d) => d.isDirectory()).map((d) => d.name).filter((slug) => {
-        const n = Number((slug.match(/^ep(\d+)/i) || [])[1]);
-        if (!(n >= SOURCES_REQUIRED_FROM_EP)) return false;
-        const brief = join(videosDir, slug, 'BRIEF.md');
-        return existsSync(brief) && parsePlanningSources(readFileSync(brief, 'utf8')) == null;
-      })
+  const newBriefs = existsSync(videosDir)
+    ? readdirSync(videosDir, {withFileTypes: true}).filter((d) => d.isDirectory()).map((d) => d.name)
+      .filter((slug) => Number((slug.match(/^ep(\d+)/i) || [])[1]) >= SOURCES_REQUIRED_FROM_EP && existsSync(join(videosDir, slug, 'BRIEF.md')))
+      .map((slug) => ({slug, sources: parsePlanningSources(readFileSync(join(videosDir, slug, 'BRIEF.md'), 'utf8'))}))
     : [];
+  const episodesMissingSources = newBriefs.filter((b) => b.sources == null).map((b) => b.slug);
+  const episodesMissingInputRef = newBriefs.filter((b) => b.sources != null && !b.sources.inputRef).map((b) => b.slug);
+  let nextInputGeneratedAt = null;
+  try {
+    nextInputGeneratedAt = (readFileSync(join(dataDir, 'next-episode-input.md'), 'utf8').match(/^만든 때: (\S+)/m) || [])[1] || null;
+  } catch { /* 파일이 없으면 null로 두고 문제로 알린다 */ }
   return checkLoopHealth({
     now,
     dailyLoop: readJson(join(dataDir, 'daily-loop.json'), null),
@@ -79,5 +90,7 @@ export function loadLoopHealth(projectDir, now = new Date()) {
     episodeOutcomes: loadEpisodeOutcomes(projectDir, now),
     successPatternIds: (patterns.entries || []).map((e) => e.videoId || e.id).filter(Boolean),
     episodesMissingSources,
+    nextInputGeneratedAt,
+    episodesMissingInputRef,
   });
 }

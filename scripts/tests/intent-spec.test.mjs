@@ -134,3 +134,30 @@ test('새 에피소드의 BRIEF.md에는 기획 근거 칸이 있다 [2026-11-11
     .map((d) => d.name);
   assert.deepEqual(missing, [], 'BRIEF.md에 "## 기획 근거" 칸이 없음 — 이게 없으면 경쟁 채널 판정이 근거 없이 돈다');
 });
+
+test('새 에피소드의 기획 근거는 다음 기획 입력 파일을 인용한다 [2026-11-12 사용자: 모은 데이터는 대시보드 꾸미기가 아니라 기획에 쓰인다, EP30부터]', async () => {
+  const {parsePlanningSources} = await import('../planning-outcome.mjs');
+  const videosDir = join(projectDir, 'videos');
+  const missing = readdirSync(videosDir, {withFileTypes: true})
+    .filter((d) => d.isDirectory() && /^ep(\d+)-/.test(d.name) && Number(d.name.match(/^ep(\d+)/)[1]) >= 30)
+    .filter((d) => existsSync(join(videosDir, d.name, 'BRIEF.md')))
+    .filter((d) => !parsePlanningSources(readFileSync(join(videosDir, d.name, 'BRIEF.md'), 'utf8'))?.inputRef)
+    .map((d) => d.name);
+  assert.deepEqual(missing, [], 'BRIEF.md 기획 근거에 "- 다음 기획 입력:" 줄이 없음 — data/youtube/next-episode-input.md에서 출발해 쓴 항목을 적는다');
+});
+
+test('다음 기획 입력 파일은 실제 데이터로 만들어지고, 시청자 고민에 AI 추측을 섞지 않는다 [2026-11-12 사용자: 데이터를 기획에 써먹는다]', {skip: !has('catalog.json') && '카탈로그 없음'}, async () => {
+  const {buildFromProject, renderNextEpisodeInput} = await import('../next-episode-input.mjs');
+  const input = buildFromProject(projectDir);
+  const md = renderNextEpisodeInput(input);
+  assert.doesNotMatch(md, /undefined|NaN|\[object Object\]/, '입력 파일에 빈 값이 그대로 찍힘');
+  for (const heading of ['## 1. 실험 결과', '## 2. 우리 영상 비교', '## 5. 경쟁 영상 시청자의 고민과 질문']) assert.ok(md.includes(heading), `${heading} 절이 없음`);
+  const dna = readJson(join(dataDir, 'audience-dna.json')).entries || [];
+  const aiOnly = dna.filter((e) => ['painPoint', 'question'].includes(e.type) && !(e.sources || []).some((s) => s.sourceType === 'outlierComment')).length;
+  assert.equal(input.audience.excludedAiGuesses, aiOnly, '시청자 댓글 출처 없이 대본 분석 AI 추측만 있는 항목 수와 걸러낸 수가 다름');
+  const listed = [...input.audience.painPoint, ...input.audience.question];
+  for (const item of listed) {
+    const entry = dna.find((e) => e.text === item.text);
+    assert.ok(entry?.sources?.some((s) => s.sourceType === 'outlierComment'), `시청자 댓글 출처가 없는 항목이 고민 순위에 들어감: ${item.text.slice(0, 40)}`);
+  }
+});

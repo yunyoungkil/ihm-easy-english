@@ -132,3 +132,9 @@ test('기획 근거의 "형식" 줄(쇼츠 Track A/B/C)을 읽는다', () => {
   assert.equal(got.track, 'Track A 퀴즈형');
   assert.equal(parsePlanningSources(brief('- 경쟁 영상: 경쟁 근거 없음')).track, null);
 });
+
+test('기획 근거의 "다음 기획 입력" 줄(인용한 입력 파일의 만든 때)을 읽고, 없으면 null', () => {
+  const got = parsePlanningSources(brief('- 다음 기획 입력: 2026-11-20T05:10:00.000Z · 쓴 항목: 2절 롱폼 상위 물음표 제목, 5절 질문 1'));
+  assert.equal(got.inputRef, '2026-11-20T05:10:00.000Z · 쓴 항목: 2절 롱폼 상위 물음표 제목, 5절 질문 1');
+  assert.equal(parsePlanningSources(brief('- 경쟁 영상: 경쟁 근거 없음')).inputRef, null);
+});

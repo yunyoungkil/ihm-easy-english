@@ -78,3 +78,16 @@ test('기획 근거 칸이 빠진 새 편(EP30부터)이 있으면 문제', () =
   assert.deepEqual(ids(r), ['brief-sources']);
   assert.match(r.problems[0].text, /ep30-th-sound/);
 });
+
+test('다음 기획 입력 파일이 하루 넘게 안 만들어졌으면 문제', () => {
+  assert.equal(checkLoopHealth({...healthy(), nextInputGeneratedAt: hoursAgo(7)}).ok, true);
+  const r = checkLoopHealth({...healthy(), nextInputGeneratedAt: hoursAgo(50)});
+  assert.deepEqual(ids(r), ['next-input-stale']);
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), nextInputGeneratedAt: null})), ['next-input-stale']);
+});
+
+test('기획 근거에 "다음 기획 입력" 인용이 없는 새 편(EP30부터)이 있으면 문제', () => {
+  const r = checkLoopHealth({...healthy(), episodesMissingInputRef: ['ep30-th-sound']});
+  assert.deepEqual(ids(r), ['brief-input']);
+  assert.match(r.problems[0].text, /ep30-th-sound/);
+});

@@ -14,23 +14,22 @@ export function splitWord(word, drop) {
 
 const CSS = `html{zoom:2}*{box-sizing:border-box;margin:0}
 body{width:384px;height:688px;background:#F4EFE6;font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;display:flex;align-items:center;justify-content:center;color:#000}
-.card{width:336px;background:#fff;border:5px solid #000;border-radius:22px;box-shadow:10px 10px 0 #000;padding:30px 12px 26px;text-align:center}
-.word{font:900 56px/1 "Arial Black","Arial",sans-serif;letter-spacing:-1px;display:flex;justify-content:center;align-items:flex-end;gap:2px}
-.word.small{font-size:44px}
+.card{width:360px;min-height:520px;background:#fff;border:5px solid #000;border-radius:24px;box-shadow:10px 10px 0 #000;padding:28px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.word{font:900 56px/1 "Arial Black","Arial",sans-serif;letter-spacing:-1px;display:flex;justify-content:center;align-items:flex-end;gap:2px;white-space:nowrap}
+.word.small{font-size:56px}
 .gone{position:relative;color:#bdbdbd}
-.gone:after{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:7px;background:#e8202a;transform:rotate(-38deg)}
-.ko{font:900 60px/1.1 "Malgun Gothic",sans-serif;margin-top:22px}
-.ko.small{font-size:46px}
+.gone:after{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:8px;background:#e8202a;transform:rotate(-38deg)}
+.ko{font:900 72px/1.1 "Malgun Gothic",sans-serif;margin-top:34px}
+.ko.small{font-size:64px}
 .wrong{color:#e8202a}
-.pill{display:inline-block;margin-top:26px;background:#F5C518;border:4px solid #000;border-radius:40px;box-shadow:5px 5px 0 #000;padding:9px 18px;font:900 20px/1 "Malgun Gothic",sans-serif}
-.pill.top{margin:0 0 22px}
-.q{position:absolute}
-.badge{display:inline-block;margin-top:18px;background:#e8202a;color:#fff;border:4px solid #000;border-radius:50%;width:54px;height:54px;line-height:46px;font:900 32px "Malgun Gothic",sans-serif;box-shadow:4px 4px 0 #000}
-.arrow{font:900 40px/1 sans-serif;margin:14px 0 0}
-.rrow{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:3px solid #000;padding:11px 6px;font:900 22px/1.1 "Arial Black","Arial",sans-serif}
+.pill{display:inline-block;word-break:keep-all;text-wrap:balance;max-width:330px;margin-top:34px;background:#F5C518;border:4px solid #000;border-radius:44px;box-shadow:5px 5px 0 #000;padding:11px 20px;font:900 23px/1.1 "Malgun Gothic",sans-serif}
+.pill.top{margin:0 0 34px}
+.badge{display:inline-block;margin-top:26px;background:#e8202a;color:#fff;border:4px solid #000;border-radius:50%;width:68px;height:68px;line-height:58px;font:900 42px "Malgun Gothic",sans-serif;box-shadow:4px 4px 0 #000}
+.arrow{font:900 48px/1 sans-serif;margin:18px 0 0}
+.rrow{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:3px solid #000;padding:20px 8px;font:900 26px/1.1 "Arial Black","Arial",sans-serif}
 .rrow:first-of-type{border-top:0}
-.rrow .k{font:900 24px/1.1 "Malgun Gothic",sans-serif}
-.say{font:900 30px/1.25 "Malgun Gothic",sans-serif}`;
+.rrow .k{font:900 30px/1.1 "Malgun Gothic",sans-serif}
+.say{font:900 40px/1.3 "Malgun Gothic",sans-serif;word-break:keep-all;text-wrap:balance}`;
 
 const pill = (t, cls = '') => (t ? `<div class="pill ${cls}">${esc(t)}</div>` : '');
 const wrap = (inner) => `<!doctype html><meta charset="utf-8"><style>${CSS}</style><div class="card">${inner}</div>`;

@@ -83,3 +83,26 @@ test('컷 간격이 일정한 계획은 규칙이 실패한다', () => {
   const even = [0, 3.5, 7, 10.5, 14, 17.5, 21, 24.5, 28, 31.5].map((t) => cut(t));
   assert.ok(validateSheet(sheetWith(plan(even)), {imageExists: () => true}).some((p) => p.includes('일정')));
 });
+
+test('카드는 세로 프레임(384×688)의 폭 90% 이상, 높이 70% 이상을 채운다(경쟁의 꽉 찬 화면보다 빈약해 보이지 않게)', () => {
+  const html = renderCardHtml({template: 'hook', word: 'chocolate', pill: '질문'});
+  const block = (html.match(/\.card\{([^}]*)\}/) || [])[1] || '';
+  const width = Number((block.match(/(?:^|;)width:(\d+)px/) || [])[1]);
+  const minH = Number((block.match(/min-height:(\d+)px/) || [])[1]);
+  assert.ok(width >= 384 * 0.9, `카드 폭 ${width}px가 프레임 폭의 90% 미만`);
+  assert.ok(minH >= 688 * 0.7, `카드 최소 높이 ${minH}px가 프레임 높이의 70% 미만`);
+});
+
+test('큰 글자 기준: 영어 단어 56px 이상, 한글 소리 64px 이상, 알약 22px 이상(휴대폰에서 읽히게)', () => {
+  const html = renderCardHtml({template: 'vowel-drop', word: 'chocolate', drop: [4, 5], sound: '초클릿', pill: 'x'});
+  const px = (re) => Number((html.match(re) || [])[1]);
+  assert.ok(px(/\.word\{font:900 (\d+)px/) >= 56);
+  assert.ok(px(/\.ko\{font:900 (\d+)px/) >= 64);
+  assert.ok(px(/\.pill\{[^}]*font:900 (\d+)px/) >= 22);
+});
+
+test('긴 문구는 글자 중간이 아니라 단어 단위로, 줄 길이가 고르게 줄바꿈한다(한 글자만 다음 줄로 넘어가지 않게)', () => {
+  const html = renderCardHtml({template: 'vowel-drop', word: 'chocolate', drop: [4, 5], sound: '초클릿', pill: '빨리 말하면 거의 안 들려요'});
+  assert.match(html, /\.pill\{[^}]*word-break:keep-all[^}]*text-wrap:balance/);
+  assert.match(html, /\.say\{[^}]*word-break:keep-all[^}]*text-wrap:balance/);
+});

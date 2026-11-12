@@ -197,7 +197,7 @@ function packageCompetitor(report) {
   return `<h4>설명글</h4><pre class="pkg">${escapeHtml(m.description || '(없음)')}</pre><h4>태그</h4><div>${(m.tags || []).length ? escapeHtml(m.tags.join(', ')) : '태그 없음(이 영상은 태그를 달지 않았다)'}</div>`;
 }
 function packageOurs(ours) {
-  return `<h4>설명글</h4><pre class="pkg">${escapeHtml(ours?.description || '')}</pre><h4>태그 (${(ours?.tags || []).length}개)</h4><div>${escapeHtml((ours?.tags || []).join(', '))}</div><h4>고정 댓글</h4><pre class="pkg">${escapeHtml(ours?.pinnedComment || '')}</pre>`;
+  return `<h4>설명글</h4><pre class="pkg">${escapeHtml(ours?.description || '')}</pre><h4>태그 (${(ours?.tags || []).length}개)</h4><div>${escapeHtml((ours?.tags || []).join(', '))}</div>${(ours?.tagCheck || []).length ? `<h4>태그를 유튜브 검색창에 쳐 본 결과</h4>${ours.tagCheck.map((c) => `<div class="meta"><b>${escapeHtml(c.tag)}</b> — ${escapeHtml(c.verdict)}: ${escapeHtml(c.reason)}${(c.top || []).length ? ` (위쪽 결과: ${c.top.map((t) => '“' + escapeHtml(t) + '”').join(', ')})` : ''}</div>`).join('')}` : ''}<h4>고정 댓글</h4><pre class="pkg">${escapeHtml(ours?.pinnedComment || '')}</pre>`;
 }
 
 /** 컷 리듬: 경쟁 컷 시각(ffmpeg가 잰 값)과 우리 컷 계획을 같은 시간 막대로 보여 준다. */

@@ -27,6 +27,13 @@ function packageProblems(pkg, plan) {
   if (!filled(pkg?.description)) out.push('설명글·태그·고정 댓글: 설명글이 없다');
   if (!Array.isArray(pkg?.tags) || pkg.tags.filter(filled).length < MIN_TAGS) out.push(`설명글·태그·고정 댓글: 태그가 ${MIN_TAGS}개 미만이다`);
   if (!filled(pkg?.pinnedComment)) out.push((plan?.cuts || []).some((c) => String(c.narration || '').includes('고정 댓글')) ? '설명글·태그·고정 댓글: 대본이 "고정 댓글에 있어요"라고 약속했는데 고정 댓글 내용이 없다' : '설명글·태그·고정 댓글: 고정 댓글이 없다');
+  // 태그는 유튜브 검색창에 직접 쳐 본 것만 쓴다(2026-11-13 사용자): 검색 결과가 우리 영상과 뜻이 안 맞으면 뺀다.
+  const checks = new Map((pkg?.tagCheck || []).map((c) => [c.tag, c]));
+  for (const tag of (pkg?.tags || []).filter(filled)) {
+    const c = checks.get(tag);
+    if (!c || !filled(c.verdict)) out.push(`설명글·태그·고정 댓글: 태그 "${tag}"를 유튜브 검색창에서 확인한 기록(tagCheck)이 없다`);
+    else if (c.verdict === '안 맞음') out.push(`설명글·태그·고정 댓글: 태그 "${tag}"는 검색 결과가 우리 영상과 안 맞는다(${c.reason || ''}) — 뺀다`);
+  }
   for (const [name, text] of [['설명글', pkg?.description], ['태그', (pkg?.tags || []).join(' ')], ['고정 댓글', pkg?.pinnedComment]]) {
     const hits = findBannedTerms(String(text || ''));
     if (hits.length) out.push(`설명글·태그·고정 댓글: ${name}에 금지어(${hits.map((h) => h.term).join(', ')})가 있다`);

@@ -290,7 +290,8 @@ test('시트 페이지: 컷 이미지 아래 컷 대본과, 아래에 컷 대본
 test('완성형(2판) 시트는 설명글·태그·고정 댓글 칸이 있어야 하고, 대본이 약속한 고정 댓글이 비면 실패한다', async () => {
   const {validateSheet, ROW_KEYS} = await import('../transform-sheet.mjs');
   const cuts = [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5].map((t) => ({t, template: 'hook', word: 'a', image: `i/${t}.png`, narration: t === 19.5 ? '정답은 고정 댓글에 있어요' : '안녕하세요'}));
-  const pkg = {description: '설명 첫 줄', tags: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], pinnedComment: '정답입니다'};
+  const tagList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  const pkg = {description: '설명 첫 줄', tags: tagList, tagCheck: tagList.map((tag) => ({tag, verdict: '맞음', reason: 'r'})), pinnedComment: '정답입니다'};
   const mk = (p) => ({sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', schemaVersion: 2, identityShare: {ours: 30, competitor: 70, reason: 'r'},
     rows: [...ROW_KEYS.map((k) => ({key: k, competitor: {text: 'c'}, ours: k === 'visual' ? {text: 'o', cutPlan: {durationSeconds: 30, cuts}} : {text: 'o'}, why: 'w'})), ...(p ? [{key: 'package', competitor: {text: 'c'}, ours: p, why: 'w'}] : [])],
     borrowed: [{fromVideoId: 'BBBBBBBBBBB', what: 'x', reason: 'r', evidence: 'e'}], rejected: []});
@@ -299,6 +300,8 @@ test('완성형(2판) 시트는 설명글·태그·고정 댓글 칸이 있어�
   assert.ok(only(mk(null)).length > 0, '칸이 없으면 실패');
   assert.ok(only(mk({...pkg, pinnedComment: ''})).some((x) => x.includes('약속했는데')));
   assert.ok(only(mk({...pkg, tags: ['a', 'b']})).some((x) => x.includes('태그가')));
+  assert.ok(only(mk({...pkg, tagCheck: pkg.tagCheck.slice(1)})).some((x) => x.includes('확인한 기록')), '검색창에서 확인하지 않은 태그는 실패');
+  assert.ok(only(mk({...pkg, tagCheck: pkg.tagCheck.map((c, i) => (i === 0 ? {...c, verdict: '안 맞음', reason: '뜻이 다름'} : c))})).some((x) => x.includes('안 맞는다')), '안 맞는 태그는 실패');
   assert.ok(only(mk({...pkg, description: '듣기 드릴 영상'})).some((x) => x.includes('금지어')));
   const v1 = mk(null); v1.schemaVersion = 1;
   assert.deepEqual(only(v1), [], '1판은 이 칸이 없어도 된다');

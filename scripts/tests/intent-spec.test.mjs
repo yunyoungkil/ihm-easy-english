@@ -90,24 +90,13 @@ test('쇼츠/롱폼 판정 함수는 실제 카탈로그의 format을 그대로 
 
 test('서버는 쇼츠 판정을 직접 하지 않고 판정 함수를 거친다 [AGENTS.md 대시보드 규칙 4: 길이 60초 규칙으로 새로 판정하지 않는다]', () => {
   assert.match(server, /from\s+['"]\.\/video-format\.mjs['"]/, '서버가 scripts/video-format.mjs를 불러 쓰지 않음');
-  assert.doesNotMatch(server, /(?:const|function)\s+resolveVideoFormat\b/, '서버 파일에 판정 함수가 다시 정의됨');
+  // 화면 코드에 원본 함수를 그대로 끼워 넣는 한 줄(clientVideoFormatSource)만 예외. 함수 본문을 서버에 새로 쓰면 실패한다.
+  const serverWithoutInjection = serverLines.filter((line) => !/^const clientVideoFormatSource = `const resolveVideoFormat = \$\{resolveVideoFormat\.toString\(\)\};`;\s*$/.test(line.trim())).join('\n');
+  assert.doesNotMatch(serverWithoutInjection, /(?:const|function)\s+resolveVideoFormat\b/, '서버 파일에 판정 함수가 다시 정의됨');
   // 서버 파일 안에서 영상 길이를 60(또는 180)초와 직접 비교하면 판정 함수를 우회한 것이다.
-  // 단, 2026-11-12 시점에 이미 있던 3곳은 모두 `format`이 있으면 format을 먼저 쓰고 없을 때만 길이로 대신하는 구조라
-  // 카탈로그의 모든 영상에서는 길이 규칙이 작동하지 않는다. 지금 판정 함수로 바꾸면 서버 코드 수정 범위가 커지고
-  // (5106·5182줄은 제목의 #쇼츠 태그와 역할(role)까지 함께 쓰는 더 복잡한 규칙) 그래서 알려진 예외로 적어 두고,
-  // 새로 늘어나는 것만 막는다. 이 목록의 줄이 사라지면 목록에서도 지워 준다(목록이 줄어드는 것은 환영).
-  const KNOWN_FALLBACKS = [
-    "format: v.format || ((v.durationSeconds <= 60) ? 'SHORTS' : 'LONGFORM'),",
-    '(durationSec > 0 && durationSec <= 60) ||',
-    '(durationSec > 0 && durationSec <= 60) ||',
-  ];
-  const bypass = serverLines.map((line) => line.trim())
+  // (2026-11-12: 예전에 있던 3곳은 판정 함수 하나로 합쳐 예외 목록이 비었다. 새로 생기면 실패한다.)
+  const unknown = serverLines.map((line) => line.trim())
     .filter((line) => /(?:duration\w*|seconds)\s*(?:<=?|>=?)\s*(?:60|180)\b/.test(line) && !/^\/\//.test(line));
-  const unknown = [...bypass];
-  for (const known of KNOWN_FALLBACKS) {
-    const at = unknown.indexOf(known);
-    if (at !== -1) unknown.splice(at, 1);
-  }
   assert.deepEqual(unknown.map((line) => line.slice(0, 100)), [], '서버에 길이로 쇼츠를 직접 판정하는 줄이 새로 생겼다 — 판정 함수를 거쳐야 한다');
 });
 

@@ -1461,6 +1461,9 @@ body {
   box-shadow: 0 0 20px rgba(255, 42, 109, 0.4);
   margin-bottom: 28px;
   cursor: pointer;
+// 브라우저(화면) 코드에도 같은 판정 함수가 필요하다. 서버가 불러온 함수는 브라우저에 없어서(`resolveVideoFormat is not defined`로 터짐),
+// 원본 함수 본문을 화면 코드 첫머리에 한 번만 끼워 넣는다. 규칙을 화면 코드에 따로 복사해 두지 않는다(2026-11-12).
+const clientVideoFormatSource = `const resolveVideoFormat = ${resolveVideoFormat.toString()};`;
 }
 .rail-btn {
   width: 48px;
@@ -4738,7 +4741,7 @@ function renderStudioTab() {
     thumbnailUrl: v.thumbnail || 'https://i.ytimg.com/vi/' + v.videoId + '/mqdefault.jpg',
     version: '현재',
     status: 'published',
-    format: v.format || ((v.durationSeconds <= 60) ? 'SHORTS' : 'LONGFORM'),
+    format: v.format || resolveVideoFormat(v, null),
     publishedAt: v.publishedAt,
     durationSeconds: v.durationSeconds,
   }));
@@ -5099,13 +5102,8 @@ function computeMatrixDataset() {
     const perf = performanceMap.get(v.videoId) || {};
     const reach = reachManual[v.videoId] || {};
     const pkg = packageMap.get(v.videoId) || {};
-    const cls = v.classification || pkg.classification || {};
     const durationSec = Number(v.durationSeconds || perf.durationSeconds || 0);
-    const titleHasShortsTag = /#(shorts|쇼츠)/i.test(v.title || '');
-    const isShort = v.format ? v.format === 'SHORTS' :
-                    (durationSec > 0 && durationSec <= 60) ||
-                    ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role) ||
-                    titleHasShortsTag;
+    const isShort = (v.format || resolveVideoFormat({...v, durationSeconds: durationSec}, null)) === 'SHORTS';
     const views = Number(perf.views || v.statistics?.viewCount || 0);
     let retentionRate = 0;
     let hasValidRetention = (views >= minViews);
@@ -5168,7 +5166,6 @@ function computeMatrixDataset() {
     const perf = performanceMap.get(videoId) || {};
     const reach = reachManual[videoId] || {};
     const pkg = packageMap.get(videoId) || {};
-    const cls = v.classification || pkg.classification || {};
 
     // 3. Format Validation (Duration & Role Check)
     const durationSec = Number(v.durationSeconds || perf.durationSeconds || 0);
@@ -5177,11 +5174,7 @@ function computeMatrixDataset() {
     // (2026-09-07, 4사분면 매트릭스 "롱폼" 필터에 쇼츠가 섞여 나온다는 지적으로 발견 — 86초짜리
     // "#쇼츠" 영상 2건이 durationSec<=60에 안 걸려서 LONGFORM으로 잘못 분류되고 있었음).
     // 제목에 명시적으로 쇼츠 표시가 있으면 길이와 무관하게 그걸 우선한다.
-    const titleHasShortsTag = /#(shorts|쇼츠)/i.test(v.title || '');
-    const isShort = v.format ? v.format === 'SHORTS' :
-                    (durationSec > 0 && durationSec <= 60) ||
-                    ['A', 'B', 'C', 'STANDALONE_SHORT'].includes(cls.role) ||
-                    titleHasShortsTag;
+    const isShort = (v.format || resolveVideoFormat({...v, durationSeconds: durationSec}, null)) === 'SHORTS';
 
     const views = Number(perf.views || v.statistics?.viewCount || 0);
     const subscribersGained = Number(perf.subscribersGained || 0);
@@ -6083,7 +6076,7 @@ const server = createServer(async (req, res) => {
     }
     if (url.pathname === '/') {
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(pageHtml);
+      res.end(pageHtml.replace('<script>', () => '<script>' + String.fromCharCode(10) + clientVideoFormatSource + String.fromCharCode(10)));
       return;
     }
     if (url.pathname === '/auth') {

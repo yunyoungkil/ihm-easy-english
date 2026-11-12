@@ -2890,8 +2890,8 @@ function renderNextInputCard() {
   return '<div class="bento-card col-12">' + head +
     '<ul style="margin:8px 0 0 18px;padding:0;line-height:1.8;font-size:13px;color:var(--text-normal)">' + items.map(t => '<li>' + t + '</li>').join('') + '</ul>' +
     '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px">' +
-      '<a class="btn btn-sm btn-cyan" href="/next-input" target="_blank" rel="noopener">전체 보기 →</a>' +
-      '<a class="btn btn-sm" href="/outlier-reports" target="_blank" rel="noopener">경쟁 영상 리포트 →</a>' +
+      '<a class="btn btn-sm btn-cyan" href="/transform-sheets" target="_blank" rel="noopener">📝 비교 시트 →</a>' +
+      '<a class="btn btn-sm" href="/next-input" target="_blank" rel="noopener">전체 보기 →</a>' +
       '<a class="btn btn-sm" href="/visual-library" target="_blank" rel="noopener">📸 연출 자료집 →</a>' +
       '<span class="card-subtext" style="margin-left:auto">' + esc(when) + '</span>' +
     '</div></div>';
@@ -6217,7 +6217,7 @@ const server = createServer(async (req, res) => {
       res.end(renderOutlierReportPage(report, {framesPending, hasSheet: loadTransformSheets().some((t) => t.sourceVideoId === outlierReportMatch[1])}));
       return;
     }
-    // 변형 시트(2026-11-12): 경쟁 영상과 우리가 만들 콘텐츠를 같은 행에서 좌우로 비교한다. 읽기 전용.
+    // 비교 시트(2026-11-12): 경쟁 영상과 우리가 만들 콘텐츠를 같은 행에서 좌우로 비교한다. 읽기 전용.
     if (url.pathname === '/transform-sheets') {
       const reports = new Map(loadOutlierReports().map((r) => [r.videoId, r]));
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
@@ -6227,7 +6227,7 @@ const server = createServer(async (req, res) => {
     const sheetMatch = url.pathname.match(/^\/transform-sheet\/([\w-]{11})$/);
     if (sheetMatch) {
       const sheet = loadTransformSheets().find((x) => x.sourceVideoId === sheetMatch[1]);
-      if (!sheet) return json(res, 404, {error: '이 영상의 변형 시트가 없습니다.'});
+      if (!sheet) return json(res, 404, {error: '이 영상의 비교 시트가 없습니다.'});
       const reportPath = join(outlierReportsDir, sheetMatch[1] + '.json');
       const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
       if (report) queueMissingOutlierFrames(report);
@@ -6240,7 +6240,7 @@ const server = createServer(async (req, res) => {
       const vid = String(body.videoId || '');
       if (!/^[\w-]{11}$/.test(vid)) return json(res, 400, {error: '영상 ID가 이상합니다.'});
       const file = join(transformSheetsDir, vid + '.json');
-      if (!existsSync(file)) return json(res, 404, {error: '변형 시트가 없습니다.'});
+      if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
       try {
         const pick = body.kind === 'title' ? setTitlePick : setThumbnailPick;
         const next = pick(await loadJson(file), String(body.image || ''), body.picked === true);

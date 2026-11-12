@@ -1,4 +1,4 @@
-// 변형 시트의 컷 카드를 이미지(PNG)로 만든다(2026-11-12). 카드 틀은 scripts/sheet-card-templates.mjs.
+// 비교 시트의 컷 카드를 이미지(PNG)로 만든다(2026-11-12). 카드 틀은 scripts/sheet-card-templates.mjs.
 // 시트의 rows[visual].ours.cutPlan.cuts[]마다 한 장씩 768×1376 PNG를 만들어 각 컷의 image 경로에 저장한다.
 // 자동화용 크롬(포트 9222)에 붙어서 HTML을 화면에 그린 뒤 캡처한다. 복잡한 그림·썸네일은 scripts/generate-aistudio-image.mjs.
 // 사용: node scripts/render-sheet-cards.mjs <원본 영상ID>
@@ -13,7 +13,7 @@ const DEBUG_PORT = 9222;
 
 export async function renderSheetCards(videoId) {
   const sheetPath = join(sheetsDir, `${videoId}.json`);
-  if (!existsSync(sheetPath)) throw new Error(`변형 시트가 없다: ${videoId}`);
+  if (!existsSync(sheetPath)) throw new Error(`비교 시트가 없다: ${videoId}`);
   const sheet = JSON.parse(readFileSync(sheetPath, 'utf8'));
   const cuts = sheet.rows?.find((r) => r.key === 'visual')?.ours?.cutPlan?.cuts || [];
   if (!cuts.length) throw new Error('시트에 컷 계획(cuts)이 없다');

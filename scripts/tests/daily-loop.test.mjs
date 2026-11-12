@@ -52,7 +52,7 @@ const okBodies = {
   '/next-input': '<h1>다음 기획 입력</h1>',
   '/outlier-reports': '<h1>아웃라이어 리포트 3편</h1>',
   '/visual-library': '<h1>연출 자료집</h1>',
-  '/transform-sheets': '<h1>변형 시트 1장</h1>',
+  '/transform-sheets': '<h1>비교 시트 1장</h1>',
 };
 const resp = (over = {}) => DASHBOARD_CHECKS.map((c) => ({path: c.path, status: 200, body: okBodies[c.path], ...(over[c.path] || {})}));
 

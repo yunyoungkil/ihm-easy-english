@@ -147,7 +147,7 @@ test('새 에피소드의 기획 근거는 다음 기획 입력 파일을 인용
   assert.deepEqual(missing, [], 'BRIEF.md 기획 근거에 "- 다음 기획 입력:" 줄이 없음 — data/youtube/next-episode-input.md에서 출발해 쓴 항목을 적는다');
 });
 
-test('경쟁 영상 소재를 쓰는 새 에피소드는 변형 시트를 가리키고, 시트는 규칙을 통과한다 [2026-11-12 사용자: 소재만 가져오고 이유는 안 옮겼다, EP30부터]', async () => {
+test('경쟁 영상 소재를 쓰는 새 에피소드는 비교 시트를 가리키고, 시트는 규칙을 통과한다 [2026-11-12 사용자: 소재만 가져오고 이유는 안 옮겼다, EP30부터]', async () => {
   const {parsePlanningSources} = await import('../planning-outcome.mjs');
   const {loadSheets, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
   const videosDir = join(projectDir, 'videos');
@@ -159,15 +159,15 @@ test('경쟁 영상 소재를 쓰는 새 에피소드는 변형 시트를 가리
     if (!existsSync(brief)) continue;
     const src = parsePlanningSources(readFileSync(brief, 'utf8'));
     if (!src || src.competitors.length === 0) continue; // 경쟁 영상 근거가 없는 편은 시트가 필요 없다
-    if (!src.transformSheet) { problems.push(d.name + ': 경쟁 영상을 근거로 쓰는데 "- 변형 시트:" 줄이 없다'); continue; }
+    if (!src.transformSheet) { problems.push(d.name + ': 경쟁 영상을 근거로 쓰는데 "- 비교 시트:" 줄이 없다'); continue; }
     const sheet = sheets.get(src.transformSheet);
-    if (!sheet) { problems.push(d.name + ': 가리킨 변형 시트(' + src.transformSheet + ')가 없다'); continue; }
+    if (!sheet) { problems.push(d.name + ': 가리킨 비교 시트(' + src.transformSheet + ')가 없다'); continue; }
     for (const p of validateSheet(sheet, {imageExists: sheetImageExists, competitorPacing: (await import('../outlier-report.mjs')).loadReports().find((r) => r.videoId === sheet.sourceVideoId)?.pacing})) problems.push(d.name + ' 시트: ' + p);
   }
   assert.deepEqual(problems, []);
 });
 
-test('저장된 변형 시트는 모두 규칙(다른 경쟁 영상에서 가져옴, 이유·근거, 뺀 이유, 이미지 파일)을 통과한다 [2026-11-12]', async () => {
+test('저장된 비교 시트는 모두 규칙(다른 경쟁 영상에서 가져옴, 이유·근거, 뺀 이유, 이미지 파일)을 통과한다 [2026-11-12]', async () => {
   const {loadSheets, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
   const {loadReports} = await import('../outlier-report.mjs');
   const pacing = new Map(loadReports().map((r) => [r.videoId, r.pacing]));
@@ -222,4 +222,9 @@ test('대시보드 추이 그래프는 실제 값을 그린다 — 나머지 연
   const fake = serverLines.map((line) => line.trim())
     .filter((line) => /generateSparklineSvg\(/.test(line) && /%\s*\d/.test(line) && !/^\/\//.test(line));
   assert.deepEqual(fake, [], '추이 그래프 값을 나머지 연산(%)으로 만들고 있다 — 실제 데이터 칸에서 계산한다');
+});
+
+test('대시보드 카드의 주 버튼은 비교 시트이고, 경쟁 영상 리포트 목록은 카드에 없다 [2026-11-13 사용자: 리포트는 근거, 비교 시트가 작업 화면]', () => {
+  assert.match(server, /btn btn-sm btn-cyan" href="\/transform-sheets"[^>]*>📝 비교 시트 →/);
+  assert.doesNotMatch(server, /href="\/outlier-reports"[^>]*>경쟁 영상 리포트 →/);
 });

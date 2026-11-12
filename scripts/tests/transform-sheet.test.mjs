@@ -1,5 +1,5 @@
-// 변형 시트(scripts/transform-sheet.mjs) 시험. 2026-11-12.
-// 변형 시트 = 경쟁 영상 한 편(과 다른 잘된 리포트)을 우리 콘텐츠로 바꾸는 한 장. 리포트 안에서 좌우로 비교한다.
+// 비교 시트(scripts/transform-sheet.mjs) 시험. 2026-11-12.
+// 비교 시트 = 경쟁 영상 한 편(과 다른 잘된 리포트)을 우리 콘텐츠로 바꾸는 한 장. 리포트 안에서 좌우로 비교한다.
 // 규칙: 경쟁 영상이 한 편뿐이면 안 되고, 가져온 것마다 이유가 있어야 하며, 뺀 것도 이유와 함께 남는다.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -114,22 +114,22 @@ test('우리 쪽 이미지가 여러 장(images)일 때도 하나하나 파일�
   assert.ok(problems.some((p) => p.includes('없음.jpg')));
 });
 
-test('경쟁 영상 리포트 화면: 변형 시트가 있으면 시트 링크가 나오고, 없으면 안 나온다', () => {
+test('경쟁 영상 리포트 화면: 비교 시트가 있으면 시트 링크가 나오고, 없으면 안 나온다', () => {
   const r = {videoId: 'AAAAAAAAAAA', meta: {title: 't'}, analysis: {}, frames: [], pacing: {}, quoteCheck: {}, windowSeconds: 60};
   assert.match(renderReportPage(r, {hasSheet: true}), /\/transform-sheet\/AAAAAAAAAAA/);
   assert.doesNotMatch(renderReportPage(r), /\/transform-sheet\//);
 });
 
-test('다음 기획 입력: 변형 시트 현황(상태·가져온 영상 수)을 8절에 적는다', () => {
+test('다음 기획 입력: 비교 시트 현황(상태·가져온 영상 수)을 8절에 적는다', () => {
   const md = renderNextEpisodeInput({generatedAt: '2026-11-12T00:00:00Z', comparisons: {}, transformSheets: [{sourceVideoId: 'AAAAAAAAAAA', topic: '가운데 모음', status: 'draft', format: 'SHORTS', borrowedCount: 2, rejectedCount: 4}]});
-  assert.match(md, /## 8\. 변형 시트/);
+  assert.match(md, /## 8\. 비교 시트/);
   assert.match(md, /가운데 모음/);
   assert.match(md, /\/transform-sheet\/AAAAAAAAAAA/);
   assert.doesNotMatch(md, /undefined|NaN/);
 });
 
-test('BRIEF 기획 근거의 변형 시트 줄을 읽는다', () => {
-  const brief = '## 기획 근거\n- 변형 시트: SbQVBQoRciA (가운데 모음이 사라지는 외래어)\n\n## 다음\n';
+test('BRIEF 기획 근거의 비교 시트 줄을 읽는다', () => {
+  const brief = '## 기획 근거\n- 비교 시트: SbQVBQoRciA (가운데 모음이 사라지는 외래어)\n\n## 다음\n';
   assert.equal(parsePlanningSources(brief).transformSheet, 'SbQVBQoRciA');
   assert.equal(parsePlanningSources('## 기획 근거\n- 경쟁 영상: 경쟁 근거 없음\n').transformSheet, null);
 });

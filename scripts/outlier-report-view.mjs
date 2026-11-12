@@ -89,7 +89,7 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false} =
   const src = report.sources || {};
   parts.push(`<div class="meta">분석 ${escapeHtml(String(report.analyzedAt || '').slice(0, 10))} · ${escapeHtml(report.model || '')} · 화면은 처음 ${report.windowSeconds}초 · 자막 ${src.transcript?.ok ? '있음' : `없음(${escapeHtml(src.transcript?.error || '')})`} · 댓글 ${src.comments?.count ?? 0}개 · 인용 확인 ${report.quoteCheck?.verified ?? 0}/${report.quoteCheck?.checked ?? 0}</div>`);
   parts.push(`<p><a href="https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}" target="_blank" rel="noopener">유튜브에서 보기</a></p>`);
-  if (hasSheet) parts.push(`<div class="card">📝 <a href="/transform-sheet/${id}"><b>이 영상을 우리 콘텐츠로 바꾼 변형 시트 보기</b></a> — 경쟁과 우리를 좌우로 비교하고, 바꾼 이유와 다른 영상에서 가져온 것을 적어 두었다.</div>`);
+  if (hasSheet) parts.push(`<div class="card">📝 <a href="/transform-sheet/${id}"><b>이 영상을 우리 콘텐츠로 바꾼 비교 시트 보기</b></a> — 경쟁과 우리를 좌우로 비교하고, 바꾼 이유와 다른 영상에서 가져온 것을 적어 두었다.</div>`);
   if (framesPending > 0) parts.push(`<div class="card"><b>캡처 ${Number(framesPending)}장을 이 PC에서 만드는 중입니다.</b> 캡처는 깃에 올리지 않아 PC마다 처음 한 번 만듭니다(1편에 30초~2분). 이 화면은 25초마다 스스로 새로고침합니다.</div>`);
 
   const c = a.click || {};
@@ -164,7 +164,7 @@ export function renderVisualLibraryPage(entries = [], {query = '', reports = 0, 
   return page('연출 자료집', body.join('\n'), {refreshSeconds: pendingReports ? 25 : 0});
 }
 
-// ---- 변형 시트(2026-11-12): 경쟁 영상과 우리가 만들 영상을 같은 행에서 좌우로 비교한다 ----
+// ---- 비교 시트(2026-11-12): 경쟁 영상과 우리가 만들 영상을 같은 행에서 좌우로 비교한다 ----
 const SHEET_CSS = `<style>
 .sheet-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:8px 0}
 .sheet-col{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
@@ -241,9 +241,9 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
   const stage = sheet.status === 'published' && sheet.outcome?.views7d != null ? 'measured' : sheet.status;
   const share = sheet.identityShare || {ours: 0, competitor: 0};
   const parts = [
-    '<p><a href="/transform-sheets">← 변형 시트 목록</a> · <a href="/outlier-report/' + id + '">경쟁 영상 리포트</a> · <a href="/">대시보드</a></p>',
+    '<p><a href="/transform-sheets">← 비교 시트 목록</a> · <a href="/outlier-report/' + id + '">근거 보기(경쟁 영상 리포트)</a> · <a href="/">대시보드</a></p>',
     SHEET_CSS,
-    `<h1>변형 시트: ${escapeHtml(sheet.topic)}</h1>`,
+    `<h1>비교 시트: ${escapeHtml(sheet.topic)}</h1>`,
     `<div class="meta">경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)} (${escapeHtml(report?.meta?.channelTitle || '')}, 평소의 ${report?.outlierRatio == null ? '측정 전' : Math.round(report.outlierRatio) + '배'}) · 형식 ${escapeHtml(sheet.format)} · 상태 ${escapeHtml(STAGE_KO[stage] || stage)}</div>`,
     `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
   ];
@@ -276,7 +276,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
   }
   parts.push(`<script>document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset||(!t.dataset.pick&&!t.dataset.pickTitle))return;fetch('/api/transform-sheet-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:${JSON.stringify(sheet.sourceVideoId)},kind:t.dataset.pickTitle?'title':'thumbnail',image:t.dataset.pick||t.dataset.pickTitle,picked:t.checked})}).then(function(r){if(!r.ok){t.checked=!t.checked;alert('저장하지 못했습니다');}}).catch(function(){t.checked=!t.checked;alert('저장하지 못했습니다');});});</script>`);
   if (sheet.outcome) parts.push(`<h2>성적</h2><div class="card">${escapeHtml(JSON.stringify(sheet.outcome))}</div>`);
-  return page(`변형 시트 ${sheet.topic}`, parts.join('\n'));
+  return page(`비교 시트 ${sheet.topic}`, parts.join('\n'));
 }
 
 const ROW_LABELS_VIEW = {title: '제목', thumbnail: '썸네일', opening: '첫 15초', flow: '전개', visual: '화면 연출', reaction: '시청자 반응 지점', ending: '끝맺음', package: '설명글·태그·고정 댓글'};
@@ -286,7 +286,7 @@ export function renderTransformSheetIndex(items = []) {
     const stage = sheet.status === 'published' && sheet.outcome?.views7d != null ? 'measured' : sheet.status;
     return `<div class="card"><a href="/transform-sheet/${encodeURIComponent(sheet.sourceVideoId)}"><b>${escapeHtml(sheet.topic)}</b></a><div class="meta">${escapeHtml(STAGE_KO[stage] || stage)} · ${escapeHtml(sheet.format)} · 경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</div></div>`;
   });
-  return page('변형 시트', `<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">경쟁 영상 리포트</a></p><h1>변형 시트 ${items.length}장</h1><p class="meta">경쟁 영상 리포트를 우리 콘텐츠로 바꾼 한 장. 좌우로 비교하고, 다른 경쟁 영상에서 가져온 것과 뺀 것을 이유와 함께 남긴다. 실패·기각도 데이터로 쌓는다.</p>${cards.join('\n') || '<p class="meta">아직 없음</p>'}`);
+  return page('비교 시트', `<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">근거(경쟁 영상 리포트 목록)</a></p><h1>비교 시트 ${items.length}장</h1><p class="meta">경쟁 영상 리포트를 우리 콘텐츠로 바꾼 한 장. 좌우로 비교하고, 다른 경쟁 영상에서 가져온 것과 뺀 것을 이유와 함께 남긴다. 실패·기각도 데이터로 쌓는다.</p>${cards.join('\n') || '<p class="meta">아직 없음</p>'}`);
 }
 
 export function renderReportIndex(reports = []) {

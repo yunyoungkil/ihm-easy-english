@@ -329,7 +329,7 @@ export function buildMeta(videoId, item) {
     commentCount: Number(item.statistics.commentCount || 0),
     durationSeconds: isoDurationSeconds(item.contentDetails?.duration),
     thumbnail: (th.maxres || th.high || th.medium || th.default || {}).url || null,
-    // 설명글과 태그(2026-11-13): 변형 시트의 "설명글·태그·고정 댓글" 칸이 경쟁 쪽 값으로 그대로 보여 준다. 태그를 안 단 영상은 빈 목록.
+    // 설명글과 태그(2026-11-13): 비교 시트의 "설명글·태그·고정 댓글" 칸이 경쟁 쪽 값으로 그대로 보여 준다. 태그를 안 단 영상은 빈 목록.
     description: item.snippet.description || '',
     tags: Array.isArray(item.snippet.tags) ? item.snippet.tags : [],
   };
@@ -496,7 +496,7 @@ export function missingFrames(report, exists = (rel) => existsSync(join(projectD
 }
 
 /** 빠진 캡처를 다시 만든다. Gemini는 부르지 않고 영상 앞부분만 잠깐 받아 자른다. */
-/** 영상에서 잰 컷 횟수는 있는데 컷 시각이 저장 안 된 예전 리포트(2026-11-12 이전). 변형 시트가 컷 리듬을 시간 막대로 비교하려면 시각이 필요하다. */
+/** 영상에서 잰 컷 횟수는 있는데 컷 시각이 저장 안 된 예전 리포트(2026-11-12 이전). 비교 시트가 컷 리듬을 시간 막대로 비교하려면 시각이 필요하다. */
 export function needsCutTimes(report) {
   const p = report?.pacing;
   return Boolean(p && String(p.source || '').startsWith('ffmpeg') && !Array.isArray(p.times));

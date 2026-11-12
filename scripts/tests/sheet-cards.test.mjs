@@ -1,4 +1,4 @@
-// 변형 시트의 컷 카드(scripts/sheet-card-templates.mjs) 시험. 2026-11-12.
+// 비교 시트의 컷 카드(scripts/sheet-card-templates.mjs) 시험. 2026-11-12.
 // 배경: AI 이미지 모델이 철자를 4번 틀렸다(chocolate에서 엉뚱한 글자를 흐리게 처리). 글자가 핵심인 카드는 코드(HTML)로 그려
 // 철자·강조 글자를 틀릴 수 없게 한다. "어느 글자가 사라지나"는 단어와 글자 위치로 적고, 앞·가운데·뒤 조각은 코드가 계산한다.
 import test from 'node:test';

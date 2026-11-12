@@ -268,15 +268,15 @@ export function renderNextEpisodeInput(input) {
     }
   } else out.push('합친 아웃라이어 리포트 없음.', '');
 
-  // 8절: 변형 시트(경쟁 영상을 우리 콘텐츠로 바꾼 한 장, 2026-11-12). 경쟁 소재를 쓰는 편은 여기서 출발한다.
-  out.push('## 8. 변형 시트 (경쟁 영상 → 우리 콘텐츠)', '');
+  // 8절: 비교 시트(경쟁 영상을 우리 콘텐츠로 바꾼 한 장, 2026-11-12). 경쟁 소재를 쓰는 편은 여기서 출발한다.
+  out.push('## 8. 비교 시트 (경쟁 영상 → 우리 콘텐츠)', '');
   if (transformSheets.length) {
-    out.push('경쟁 영상을 같은 행에서 우리 콘텐츠와 비교한 시트. 경쟁 소재를 쓰는 편은 새로 만들기 전에 이 시트를 만들고 `BRIEF.md` 기획 근거에 `변형 시트:` 줄로 연결한다.', '');
+    out.push('경쟁 영상을 같은 행에서 우리 콘텐츠와 비교한 시트. 경쟁 소재를 쓰는 편은 새로 만들기 전에 이 시트를 만들고 `BRIEF.md` 기획 근거에 `비교 시트:` 줄로 연결한다.', '');
     for (const t of transformSheets) {
       out.push(`- **${cut(t.topic, 60)}** — ${t.status === 'draft' ? '초안' : t.status === 'approved' ? '승인' : '공개'} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개 · http://localhost:3001/transform-sheet/${t.sourceVideoId}`);
     }
     out.push('');
-  } else out.push('변형 시트 없음.', '');
+  } else out.push('비교 시트 없음.', '');
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 

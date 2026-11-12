@@ -292,17 +292,21 @@ async function run() {
     await step('outlierReports', async () => {
       const done = [];
       const failed = [];
+      // 자막을 받았는지도 남긴다(2026-11-12: 낮에 시험하느라 자막 요청이 막혔다 — 다음 브리핑에서 풀렸는지 본다).
+      // 자막이 막혀도 리포트는 만들어진다(Gemini가 영상 소리를 직접 듣는다). 막힌 것만으로 실패 처리하지 않는다.
+      const transcript = {ok: 0, blocked: 0};
       for (const videoId of reportTargets) {
         try {
-          await analyzeOutlierVideo(videoId);
+          const r = await analyzeOutlierVideo(videoId);
           done.push(videoId);
+          transcript[r.sources?.transcript?.ok ? 'ok' : 'blocked'] += 1;
         } catch (err) {
           failed.push({videoId, error: String(err.message).slice(0, 200)});
           report.outlierReportFailures[videoId] = new Date().toISOString();
         }
       }
       if (!done.length) throw new Error(`합친 아웃라이어 리포트 실패: ${failed.map((f) => `${f.videoId}(${f.error})`).join(', ')}`);
-      return {done, failed};
+      return {done, failed, transcript};
     });
   }
 

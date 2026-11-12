@@ -423,7 +423,18 @@ export async function resolveYtDlp({install = false} = {}) {
   return null;
 }
 
-async function processClip(videoId, moments, windowSeconds, {detectCuts = true} = {}) {
+/** 컷마다 프레임 한 장의 파일 이름(2026-11-12: 컷을 글자가 아니라 이미지로 비교한다). */
+export function cutFrameName(index) {
+  return `cut-${String(index).padStart(2, '0')}.jpg`;
+}
+
+/** 컷 시각은 저장돼 있는데 이 PC에 프레임이 없는 컷 번호. */
+export function missingCutFrames(report, exists = (rel) => existsSync(join(projectDir, rel))) {
+  const times = Array.isArray(report?.pacing?.times) ? report.pacing.times : [];
+  return times.map((_, i) => i).filter((i) => !exists(`data/youtube/outlier-frames/${report.videoId}/${cutFrameName(i)}`));
+}
+
+async function processClip(videoId, moments, windowSeconds, {detectCuts = true, knownCutTimes = null, cutFrameIndexes = null} = {}) {
   const work = mkdtempSync(join(tmpdir(), 'outlier-frames-'));
   try {
     const ytDlp = await resolveYtDlp();
@@ -441,6 +452,14 @@ async function processClip(videoId, moments, windowSeconds, {detectCuts = true} 
     }
     const outDir = join(framesDir, videoId);
     mkdirSync(outDir, {recursive: true});
+    // 컷 프레임: 새로 잰 컷이면 전부, 이미 저장된 시각이면 빠진 번호만(컷이 일어난 직후 0.3초 지점)
+    const cutTimesNow = cuts || knownCutTimes || [];
+    const wantIdx = cuts ? cutTimesNow.map((_, i) => i) : (cutFrameIndexes || []);
+    for (const i of wantIdx) {
+      const t = Math.max(0, Number(cutTimesNow[i]) + 0.3);
+      if (!Number.isFinite(t)) continue;
+      await execFileAsync('ffmpeg', ['-loglevel', 'error', '-y', '-ss', String(t), '-i', join(work, video), '-frames:v', '1', '-vf', 'scale=-2:300', '-q:v', '5', join(outDir, cutFrameName(i))], {timeout: 60000}).catch(() => {});
+    }
     const frames = [];
     for (const m of moments) {
       const t = Math.max(0, Math.floor(m.t));
@@ -476,8 +495,9 @@ export function needsCutTimes(report) {
 export async function ensureReportFrames(report) {
   const missing = missingFrames(report);
   const needCuts = needsCutTimes(report);
-  if (!missing.length && !needCuts) return {videoId: report.videoId, made: 0, error: null};
-  const result = await processClip(report.videoId, missing, report.windowSeconds ?? LONG_VIDEO_WINDOW_SECONDS, {detectCuts: needCuts});
+  const missingCuts = missingCutFrames(report);
+  if (!missing.length && !needCuts && !missingCuts.length) return {videoId: report.videoId, made: 0, error: null};
+  const result = await processClip(report.videoId, missing, report.windowSeconds ?? LONG_VIDEO_WINDOW_SECONDS, {detectCuts: needCuts, knownCutTimes: report.pacing?.times || null, cutFrameIndexes: missingCuts});
   const saveFrames = !report.frames?.length && result.frames.length;
   const saveCuts = needCuts && Array.isArray(result.cuts);
   if (saveFrames || saveCuts) {
@@ -496,7 +516,7 @@ export async function ensureReportFrames(report) {
 
 export async function ensureAllFrames({install = false} = {}) {
   const reports = loadReports();
-  const pending = reports.filter((r) => missingFrames(r).length || needsCutTimes(r));
+  const pending = reports.filter((r) => missingFrames(r).length || needsCutTimes(r) || missingCutFrames(r).length);
   if (!pending.length) return {total: reports.length, pending: 0, made: 0, failed: []};
   if (!(await resolveYtDlp({install}))) return {total: reports.length, pending: pending.length, made: 0, failed: [{videoId: '*', error: 'yt-dlp가 이 PC에 없고 설치도 못 함'}]};
   let made = 0;

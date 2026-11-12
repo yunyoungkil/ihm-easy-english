@@ -6219,7 +6219,7 @@ const server = createServer(async (req, res) => {
       res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing})));
       return;
     }
-    const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/([\w.-]{1,60}\.(?:jpg|png))$/);
+    const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/((?:cuts\/)?[\w.-]{1,60}\.(?:jpg|png))$/);
     if (sheetImageMatch) {
       const imagePath = join(transformSheetsDir, 'images', sheetImageMatch[1], sheetImageMatch[2]);
       if (!existsSync(imagePath)) return json(res, 404, {error: '이미지가 없습니다.'});
@@ -6250,7 +6250,7 @@ const server = createServer(async (req, res) => {
       res.end(renderMarkdownPage('다음 기획 입력', markdown));
       return;
     }
-    const outlierFrameMatch = url.pathname.match(/^\/outlier-frames\/([\w-]{11})\/(\d{1,5}\.jpg)$/);
+    const outlierFrameMatch = url.pathname.match(/^\/outlier-frames\/([\w-]{11})\/((?:cut-)?\d{1,5}\.jpg)$/);
     if (outlierFrameMatch) {
       const framePath = join(outlierFramesDir, outlierFrameMatch[1], outlierFrameMatch[2]);
       if (!existsSync(framePath)) return json(res, 404, {error: '캡처가 이 PC에 없습니다(다른 PC에서 만든 리포트는 다시 분석해야 캡처가 생깁니다).'});

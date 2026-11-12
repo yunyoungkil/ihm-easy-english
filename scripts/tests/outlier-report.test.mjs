@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
-  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes,
+  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes, cutFrameName, missingCutFrames,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -228,4 +228,14 @@ test('컷 시각이 저장 안 된 예전 리포트만 컷 시각을 다시 잰�
   assert.equal(needsCutTimes({pacing: {source: 'ffmpeg 장면 전환 감지(코드)', count: 15, times: [1, 2]}}), false);
   assert.equal(needsCutTimes({pacing: {source: 'AI가 적은 화면 변화(영상을 못 받아 대신 씀)', count: 4}}), false);
   assert.equal(needsCutTimes({}), false);
+});
+
+test('컷마다 프레임 한 장: 빠진 컷 번호만 골라내고, 파일 이름은 cut-번호(두 자리)로 정한다', () => {
+  assert.equal(cutFrameName(0), 'cut-00.jpg');
+  assert.equal(cutFrameName(12), 'cut-12.jpg');
+  const report = {videoId: 'abcdefghijk', pacing: {times: [3, 9, 15]}};
+  const exists = new Set(['data/youtube/outlier-frames/abcdefghijk/cut-00.jpg', 'data/youtube/outlier-frames/abcdefghijk/cut-02.jpg']);
+  assert.deepEqual(missingCutFrames(report, (rel) => exists.has(rel)), [1]);
+  assert.deepEqual(missingCutFrames({videoId: 'abcdefghijk', pacing: {}}, () => false), []);
+  assert.deepEqual(missingCutFrames({videoId: 'abcdefghijk', pacing: {times: [1, 2]}}, () => false), [0, 1]);
 });

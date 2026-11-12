@@ -4,7 +4,7 @@
   "createdAt": "2026-11-12",
   "status": "draft",
   "format": "SHORTS",
-  "topic": "한국에서 매일 쓰는 단어, 영어로는 가운데 소리가 사라진다 (chocolate 외 4개)",
+  "topic": "한국 사람이 아는 단어, 빨리 말하면 가운데 소리가 거의 안 들린다 (chocolate 외 4개)",
   "identityShare": {
     "ours": 30,
     "competitor": 70,
@@ -18,7 +18,7 @@
         "quote": "한국인이 자주 틀리는 영어 발음 5개"
       },
       "ours": {
-        "text": "초콜릿 영어 발음, 가운데 소리가 사라집니다 (매일 쓰는 단어 5개) — 앞부분에 한국 사람이 이미 아는 단어를 두고, 개수는 뒤에 붙인다. 같은 틀 반복 규칙에 따라 최근 쇼츠 제목의 \"…발음 테스트!\", \"…맞혀 보세요\" 틀과 겹치지 않게 썼다."
+        "text": "초콜릿 영어 발음, 빨리 말하면 가운데 소리가 거의 안 들려요 (아는 단어 5개) — 앞부분에 한국 사람이 이미 아는 단어를 두고, 개수는 뒤에 붙인다. 최근 쇼츠 제목의 \"…발음 테스트!\", \"…맞혀 보세요\" 틀과 겹치지 않게 썼다."
       },
       "why": "경쟁은 \"틀린다\"는 약속으로 이겼지만 우리 시청자가 이미 아는 단어(초콜릿)를 앞에 두면 클릭 전에 \"내가 아는 단어인데?\"라는 궁금증이 생긴다. 개수는 그대로 가져온다."
     },
@@ -46,9 +46,10 @@
         "quote": "발음 한번 해보세요"
       },
       "ours": {
-        "text": "0~3초 \"초콜릿, 영어로 어떻게 읽으세요?\"(카드: chocolate) → 3~10초 \"한글로 쓰면 초콜릿인데, 원어민 소리는 초클릿에 가깝습니다. 가운데 o가 사라져요.\" → 10~15초 \"우리말도 '안녕하십니까'를 '안녕하심까'로 줄이잖아요. 영어도 똑같이 줄입니다.\"(대본 전 사실 확인 필요, 아래 목록)",
+        "text": "0~2초 \"초콜릿, 어떻게 읽으세요?\"(카드: chocolate) → 2~9초 \"한글로 쓰면 초콜릿인데, 빨리 말하면 가운데 o가 거의 안 들려서 초클릿처럼 들려요.\"(사전도 이 모음을 선택 표기로 적는다 — 사실 확인 항목 참고) → 9~14초 \"우리말도 '안녕하십니까'를 '안녕하심까'로 줄여서 말하잖아요. 영어도 빨리 말할 땐 똑같이 줄입니다.\"",
         "images": [
-          "images/SbQVBQoRciA/scene-1-hook.jpg"
+          "images/SbQVBQoRciA/cuts/cut-00.png",
+          "images/SbQVBQoRciA/cuts/cut-02.png"
         ]
       },
       "why": "시청자에게 먼저 시키는 참여 구조는 그대로 가져온다. 원리 설명은 경쟁 영상의 시청자 댓글(\"안녕하십니까 → 안녕하심까\")에서 나온 한국어 비유로 바꿔, 3060 국내 학습자가 이미 하는 말버릇으로 이해하게 한다."
@@ -59,48 +60,161 @@
         "text": "5단어(Comfortable, Interest, Temperature, History, Favorite)와 Family, Camera까지 같은 틀(한글 표기 X → 실제발음 → 영화 클립)을 6초씩 반복하고 마지막 3초에 아웃트로를 붙인다."
       },
       "ours": {
-        "text": "chocolate → vegetable → different → restaurant → memory. 같은 틀(한글로 쓴 소리 ✗ → 줄어든 소리 → 글자 카드에서 사라지는 글자 지우기)을 단어당 6초 반복하고, 마지막 한 단어만 틀을 바꿔 시청자가 맞히게 한다. 모두 한국에서 외래어로 매일 쓰는 단어다."
+        "text": "chocolate(도입) → vegetable → different → memory → 정리표 → vulnerable(퀴즈). 단어마다 같은 틀(한글로 쓴 소리 ✗ → 글자가 흐려지는 카드와 줄어든 소리)을 반복하고, 마지막 vulnerable만 틀을 바꿔 시청자가 맞히게 한다. 단어는 사전 대조를 통과한 것만 골랐다(아래 사실 확인)."
       },
-      "why": "반복 틀이 리듬을 만든다는 점(경쟁 570배)은 가져온다. 마지막 한 단어를 퀴즈로 바꾸는 것은 \"같은 틀 찍어 내기\" 위험을 줄이는 우리 쪽 변형이다. 경쟁이 쓴 단어(comfortable 등)는 그대로 쓰지 않고 같은 원리의 다른 단어로 바꿨다. 한글로 적는 소리와 줄어든 소리가 실제로 달라지는 단어만 골랐다(business는 비즈니스로 표기가 같아 뺐다)."
+      "why": "반복 틀이 리듬을 만든다는 점(경쟁 570배)은 가져온다. 마지막 한 단어를 퀴즈로 바꾸는 것은 \"같은 틀 찍어 내기\" 위험을 줄이는 우리 쪽 변형이다. 경쟁이 쓴 단어(comfortable 등)는 쓰지 않았다. 처음 고른 restaurant·average·several·business는 사전이 줄지 않는 형태를 함께 적거나 한글 표기가 같아서 뺐다."
     },
     {
       "key": "visual",
       "competitor": {
-        "text": "진행자 상반신 + 큰 글자 카드. 장면 전환은 53초에 15번(1분에 17번, 평균 2.9초 간격)인데 **첫 9.5초에는 컷이 한 번도 없고** 그 뒤 15~50초에 몰려 있다(단어마다 진행자 → 영화 클립을 오간다). 빨간 X와 주황 박스로 틀린 부분을 짚고, 영화 클립으로 실제 발음을 증명한다. 아래 컷 리듬 막대가 컷 시각이다.",
-        "images": [
-          "frame:3",
-          "frame:4",
-          "frame:14"
-        ]
+        "text": "진행자 상반신 + 큰 글자 카드. 장면 전환은 53초에 15번(1분에 17번)인데 **첫 9.5초에는 컷이 없고**, 이후 긴 컷(약 3.3초, 진행자)과 짧은 컷(약 2.2초, 영화 클립)이 **번갈아** 나온다(간격 5.5 → 2.3 → 3.3 → 3.2 → 2.4 → 3.6 → 2.2 → 3.7 …). 끝으로 갈수록 2.2~3.1초로 빨라진다. 아래 컷 리듬 막대와 컷 이미지가 실제 컷이다.",
+        "images": []
       },
       "ours": {
-        "text": "인물 없이 글자 카드만 쓴다. 컷 계획은 50초에 14번(1분에 약 17번)으로 경쟁과 같은 리듬에 맞춘다: 0~14초 도입 카드 4번(질문 → 원리 → 한글 비유), 14~42초 단어 5개를 단어당 6초·카드 2번씩 바꾸되 한글 소리 ✗ → 줄어든 소리 → 글자 지우기 순서, 42~50초 마지막 퀴즈·정리표. 영화 클립 대신 \"카드에서 글자가 지워지는 동작\"이 증명 역할을 한다.",
-        "images": [
-          "images/SbQVBQoRciA/scene-2-vowel.png",
-          "images/SbQVBQoRciA/scene-3-recap.jpg"
-        ],
+        "text": "인물 없이 글자 카드만 쓴다. 컷 14번(50초, 1분에 16.8번)으로 경쟁과 같은 밀도에 맞추되 **리듬은 내용에 따라 다르게** 짠다: 도입 2.2 → 3.3 → 4 → 4.5초로 질문에서 원리로 풀어 주고, 단어 3개는 긴 컷(3.3초: 한글 표기 ✗)과 짧은 컷(2.2초: 줄어든 소리)을 번갈아 경쟁의 긴·짧은 박자를 따르고, 정리표와 퀴즈로 갈수록 4.5~5초로 느려져 생각할 시간을 준다. 영화 클립 대신 글자가 흐려지는 카드가 증명 역할을 한다. 컷마다 카드를 코드로 그렸다(아래 컷 이미지).",
+        "images": [],
         "cutPlan": {
           "durationSeconds": 50,
-          "times": [
-            0,
-            3.5,
-            7,
-            10.5,
-            14,
-            17.5,
-            21,
-            24.5,
-            28,
-            31.5,
-            35,
-            38.5,
-            42,
-            46
+          "cuts": [
+            {
+              "t": 0,
+              "template": "hook",
+              "word": "chocolate",
+              "pill": "초콜릿, 어떻게 읽으세요?",
+              "image": "images/SbQVBQoRciA/cuts/cut-00.png"
+            },
+            {
+              "t": 2.2,
+              "template": "contrast",
+              "word": "chocolate",
+              "written": "초콜릿",
+              "sound": "초클릿",
+              "image": "images/SbQVBQoRciA/cuts/cut-01.png"
+            },
+            {
+              "t": 5.5,
+              "template": "vowel-drop",
+              "word": "chocolate",
+              "drop": [
+                4,
+                5
+              ],
+              "sound": "초클릿",
+              "pill": "빨리 말하면 거의 안 들려요",
+              "image": "images/SbQVBQoRciA/cuts/cut-02.png"
+            },
+            {
+              "t": 9.5,
+              "template": "analogy",
+              "from": "안녕하십니까",
+              "to": "안녕하심까",
+              "pill": "우리말도 줄여서 말해요",
+              "image": "images/SbQVBQoRciA/cuts/cut-03.png"
+            },
+            {
+              "t": 14,
+              "template": "word-wrong",
+              "word": "vegetable",
+              "written": "베지터블",
+              "image": "images/SbQVBQoRciA/cuts/cut-04.png"
+            },
+            {
+              "t": 17.3,
+              "template": "word-drop",
+              "word": "vegetable",
+              "drop": [
+                3,
+                4
+              ],
+              "sound": "베즈터블",
+              "image": "images/SbQVBQoRciA/cuts/cut-05.png"
+            },
+            {
+              "t": 19.5,
+              "template": "word-wrong",
+              "word": "different",
+              "written": "디퍼런트",
+              "image": "images/SbQVBQoRciA/cuts/cut-06.png"
+            },
+            {
+              "t": 22.8,
+              "template": "word-drop",
+              "word": "different",
+              "drop": [
+                4,
+                5
+              ],
+              "sound": "디프런트",
+              "image": "images/SbQVBQoRciA/cuts/cut-07.png"
+            },
+            {
+              "t": 25,
+              "template": "word-wrong",
+              "word": "memory",
+              "written": "메모리",
+              "image": "images/SbQVBQoRciA/cuts/cut-08.png"
+            },
+            {
+              "t": 28.3,
+              "template": "word-drop",
+              "word": "memory",
+              "drop": [
+                3,
+                4
+              ],
+              "sound": "멤리",
+              "image": "images/SbQVBQoRciA/cuts/cut-09.png"
+            },
+            {
+              "t": 30.5,
+              "template": "recap",
+              "pill": "빨리 말하면 거의 안 들려요",
+              "rows": [
+                {
+                  "word": "chocolate",
+                  "sound": "초클릿"
+                },
+                {
+                  "word": "vegetable",
+                  "sound": "베즈터블"
+                },
+                {
+                  "word": "different",
+                  "sound": "디프런트"
+                },
+                {
+                  "word": "memory",
+                  "sound": "멤리"
+                }
+              ],
+              "image": "images/SbQVBQoRciA/cuts/cut-10.png"
+            },
+            {
+              "t": 35,
+              "template": "quiz",
+              "word": "vulnerable",
+              "pill": "몇 마디로 읽을까요?",
+              "image": "images/SbQVBQoRciA/cuts/cut-11.png"
+            },
+            {
+              "t": 40,
+              "template": "cta",
+              "text": "벌너러블? 벌느러블?\n어느 쪽에 가까울까요",
+              "pill": "정답은 고정 댓글에서",
+              "image": "images/SbQVBQoRciA/cuts/cut-12.png"
+            },
+            {
+              "t": 44.5,
+              "template": "cta",
+              "text": "몇 마디로 들렸는지\n댓글로 알려 주세요",
+              "pill": "다음 편: vulnerable",
+              "image": "images/SbQVBQoRciA/cuts/cut-13.png"
+            }
           ],
-          "beats": "0 질문 카드(chocolate) · 3.5 줄어든 소리 · 7 사라지는 o · 10.5 한글 비유(안녕하심까) · 14~38.5 단어 4개(vegetable·different·restaurant·memory) 각 2번 · 42 마지막 퀴즈(vulnerable) · 46 댓글 질문"
+          "rhythm": "도입 빠름(2.2~4.5) → 단어 3개는 긴(3.3)·짧은(2.2) 번갈아 → 정리·퀴즈로 느려짐(4.5~5)"
         }
       },
-      "why": "컷 주기(3초 안팎)와 빨간 X로 짚는 방식은 가져온다. 경쟁은 첫 9.5초를 컷 없이 한 장면으로 시작해 15번 몰아치지만, 우리는 인물이 없는 글자 카드라 도입부를 컷 없이 두면 정지 화면이 길어져 도입 4번을 넣고 전체 리듬(1분에 17번)만 맞춘다. 영화 클립은 남의 영상 재사용이라 쓰지 않고, 같은 증명을 우리가 만든 글자 카드 동작으로 대신한다. 컷 수가 시청 유지에 영향을 준다는 증거는 이 1편뿐이라 가설이다."
+      "why": "컷 밀도(1분에 17번)와 \"긴 컷 → 짧은 컷\" 번갈아 박자는 경쟁에서 가져온다. 경쟁은 첫 9.5초를 컷 없이 한 장면으로 시작하지만 우리는 인물 없는 글자 카드라 도입을 컷 없이 두면 정지 화면이 길어서 도입에 4번 넣었다. 처음 계획은 전부 3.5초로 일정해서 리듬이 없었고(사용자 지적), 내용(질문 → 원리 → 단어 반복 → 퀴즈)에 맞춰 간격을 달리했다. 컷 리듬이 시청 유지에 영향을 준다는 증거는 이 1편뿐이라 가설이다."
     },
     {
       "key": "reaction",
@@ -109,7 +223,7 @@
         "quote": "헐.... 히스트리 충격인디."
       },
       "ours": {
-        "text": "충격 지점은 \"매일 쓰는 단어가 달랐다\"(초콜릿, 레스토랑, 메모리)로 잡는다. 남은 질문 두 개는 우리가 받는다: vulnerable을 다음 편 소재로 예고하고, 영국식은 사전 확인 뒤 고정 댓글에 답한다."
+        "text": "충격 지점은 \"매일 쓰는 단어가 달랐다\"(초콜릿, 베지터블, 메모리)로 잡는다. 남은 질문 두 개는 우리가 받는다: vulnerable을 다음 편 소재로 예고하고, 영국식은 사전 확인 뒤 고정 댓글에 답한다."
       },
       "why": "경쟁 영상에서 시청자가 실제로 남긴 질문(영국식, vulnerable)이라 우리 영상이 아직 아무도 답하지 않은 자리를 채운다. 우리 채널 시청자 댓글은 전체 7개뿐이라 이 질문들이 지금 쓸 수 있는 가장 확실한 시청자 목소리다."
     },
@@ -161,9 +275,16 @@
     }
   ],
   "pending": [
-    "대본 음성을 만들기 전에 FACT-CHECK.md 표를 만든다: chocolate·vegetable·different·restaurant·memory가 미국식·영국식에서 실제로 줄어든 소리로 나는지 사전 표기를 대조한다. 확인 전에는 \"원어민은 두 마디로 말한다\" 같은 단정을 대본에 쓰지 않는다.",
-    "시청자 질문 \"영국영어에서도 동일하게 적용되나요?\"의 답은 위 사전 대조 결과로 정해 고정 댓글에 쓴다.",
-    "직전 쇼츠 3편과 제목·구성 비교표를 보고한다(같은 틀 찍어 내기 방지). 이 시트의 제목 \"…발음, 가운데 소리가 사라집니다\"는 최근 제목 틀과 겹치지 않는다고 판단했지만 표로 확인한다.",
+    "【사실 확인 — 2026-11-12 사전 대조, 대본 음성 전에 FACT-CHECK.md로 옮긴다】이 소재의 핵심은 \"사라진다\"가 아니라 \"빨리 말하면 거의 안 들린다\"다. 사전도 이 모음을 선택 표기로 적는 단어가 많다.",
+    "vegetable: Oxford Learner's·Cambridge learner·WordReference·Vocabulary.com이 가운데 모음 없는 형태(/ˈvedʒtəbl/)를 표준으로 적는다. 확인됨. (https://www.oxfordlearnersdictionaries.com/us/definition/english/vegetable)",
+    "different: WordReference는 /ˈdɪfərənt/와 /ˈdɪfrənt/ 두 형태를 함께 적고 Vocabulary.com도 줄어든 형태(/ˈdɪfrɪnt/)를 적는다. 줄어든 형태도 표준이지만 선택적이다.",
+    "memory: Merriam-Webster가 줄어든 형태(ˈmem-rē)를 먼저 적고 3음절 형태를 변형으로 둔다. 제가 처음에 \"3음절이라 안 줄어든다\"고 한 것은 틀렸다. (https://www.merriam-webster.com/dictionary/memory)",
+    "chocolate: Merriam-Webster가 ˈchä-k(ə-)lət로 가운데 모음을 괄호(선택)로 적는다. 대부분 출처가 사전상 3음절에 선택적 줄임으로 설명하고 빠른 일상 발화에서 2음절이 된다. \"원어민은 두 마디로 말한다\"는 단정은 쓰지 않는다. (https://www.merriam-webster.com/dictionary/chocolate)",
+    "vulnerable: 아직 사전 대조 전이다(Merriam-Webster는 ˈvəl-n(ə-)rə-bəl로 가운데 모음을 선택 표기로 알려져 있으나 이번에 열어 보지 않았다). 퀴즈 카드의 한글 소리 표기(벌너러블/벌느러블)도 확정 전이다.",
+    "뺀 단어: restaurant(출처마다 /ˈrestərənt/·/ˈrestrɑnt/ 등으로 갈린다), average·several(사전에 따라 줄지 않는 /ˈævərɪdʒ/·/ˈsɛvərəl/ 형태가 먼저 나온다), business(한글 표기가 비즈니스로 같아 \"달라진다\"를 못 보여 준다).",
+    "카드의 한글 표기(초클릿, 베즈터블, 디프런트, 멤리)는 한글로 소리를 흉내 낸 근사치다. 음성을 만들 때 원어민 소리와 대조한다.",
+    "시청자 질문 \"영국영어에서도 동일하게 적용되나요?\"의 답은 영국식 표기(Cambridge UK) 대조 뒤에 고정 댓글에 쓴다. 아직 확인 안 했다.",
+    "직전 쇼츠 3편과 제목·구성 비교표를 보고한다(같은 틀 찍어 내기 방지).",
     "썸네일 A/B 중 무엇을 메인으로 올릴지는 사용자가 정한다(썸네일은 승인 관문)."
   ]
 }

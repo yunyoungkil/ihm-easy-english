@@ -13,7 +13,7 @@ const good = () => ({
   format: 'SHORTS',
   topic: '가운데 모음이 사라지는 외래어',
   identityShare: {ours: 30, competitor: 70, reason: '확정 판정 0편이라 경쟁 쪽을 크게'},
-  rows: ROW_KEYS.map((k) => (k === 'visual' ? row(k, {ours: {text: '우리 쪽', cutPlan: {durationSeconds: 50, times: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45]}}}) : row(k))),
+  rows: ROW_KEYS.map((k) => (k === 'visual' ? row(k, {ours: {text: '우리 쪽', cutPlan: {durationSeconds: 50, times: [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5, 22.8, 25, 28.3, 30.5, 35, 40, 44.5]}}}) : row(k))),
   borrowed: [{fromVideoId: 'BBBBBBBBBBB', what: '철자 카드 넘기기', reason: '소리가 바뀌는 글자를 눈으로 보여 줌', evidence: '2,380배 영상, 표본 1편(가설)'}],
   rejected: [{fromVideoId: 'CCCCCCCCCCC', what: '전문 강사 발언 인용', reason: '확인할 수 없는 수치 주장이라 뺀다'}],
 });
@@ -152,7 +152,7 @@ test('우리 컷 수가 경쟁의 절반 미만이면 실패한다(1분당 컷 �
   const comp = {perMinute: 17};
   const few = withPlan([0, 25]); // 50초에 2번 = 1분에 2.4번
   assert.ok(validateSheet(few, {competitorPacing: comp}).some((p) => p.includes('절반')));
-  const enough = withPlan([0, 3.5, 7, 10.5, 14, 17.5, 21, 24.5, 28, 31.5, 35, 38.5, 42, 46]); // 1분에 16.8번
+  const enough = withPlan([0, 2.2, 5.5, 9.5, 14, 17.3, 19.5, 22.8, 25, 28.3, 30.5, 35, 40, 44.5]); // 1분에 16.8번
   assert.deepEqual(validateSheet(enough, {competitorPacing: comp}), []);
   assert.deepEqual(validateSheet(few, {competitorPacing: {perMinute: null}}), []);
   assert.deepEqual(validateSheet(few), []);
@@ -173,4 +173,17 @@ test('시트 화면: 그림은 같은 높이로 제한하고 여러 장은 가�
   const html = renderTransformSheetPage(good(), report, []);
   assert.match(html, /\.sheet-col \.imgs\{[^}]*flex-wrap:nowrap/);
   assert.match(html, /max-height:300px/);
+});
+
+test('컷 필름스트립: 경쟁 컷 프레임과 우리 컷 카드를 시간 순서로 이미지로 보여 주고 시각을 붙인다', () => {
+  const s = good();
+  const v = s.rows.find((r) => r.key === 'visual');
+  v.ours.cutPlan = {durationSeconds: 50, cuts: [0, 2.2, 5.5, 9.5, 14, 17.3, 19.5].map((t, i) => ({t, template: 'hook', word: 'a', image: `images/AAAAAAAAAAA/cuts/cut-0${i}.png`}))};
+  const rep = {...report, windowSeconds: 53, pacing: {count: 3, perMinute: 17, times: [9.5, 15, 17.3]}};
+  const html = renderTransformSheetPage(s, rep, []);
+  assert.equal((html.match(/class="film comp"/g) || []).length, 1);
+  assert.equal((html.match(/\/outlier-frames\/AAAAAAAAAAA\/cut-0[0-2]\.jpg/g) || []).length, 3);
+  assert.equal((html.match(/\/transform-images\/AAAAAAAAAAA\/cuts\/cut-0[0-6]\.png/g) || []).length, 7);
+  assert.match(html, /<figcaption>9\.5초<\/figcaption>/);
+  assert.match(html, /<figcaption>14초<\/figcaption>/);
 });

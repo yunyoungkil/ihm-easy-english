@@ -36,13 +36,40 @@ export function sheetStage(sheet) {
 /** 규칙을 어긴 곳을 문장으로 돌려준다. 빈 배열이면 통과. imageExists로 우리 쪽 이미지 파일 존재를 확인한다. */
 export const MIN_CUT_SHARE = 0.5; // 우리 컷 수는 경쟁(1분당)의 절반 이상(2026-11-12 사용자: 그만큼은 아니더라도 조금은 맞춘다)
 
-/** 컷 계획: {durationSeconds, times:[초...]}. 시간 순서·길이 안이어야 하고, 경쟁 컷 수가 있으면 1분당 절반 이상이어야 한다. */
-function cutPlanProblems(plan, competitorPacing) {
-  if (!plan || !Array.isArray(plan.times) || !plan.times.length || !(Number(plan.durationSeconds) > 0)) return ['화면 연출: 우리 쪽 컷 계획(몇 초에 장면이 바뀌는지)이 없다'];
+export const RHYTHM_MIN_CV = 0.15; // 컷 간격의 변동(표준편차÷평균)이 이보다 작으면 "전부 일정"
+const RHYTHM_MIN_CUTS = 6;
+
+/** 컷 시각 목록: cuts([{t,...}])가 있으면 거기서, 없으면 예전 형식 times에서. */
+export function cutTimes(plan) {
+  if (Array.isArray(plan?.cuts) && plan.cuts.length) return plan.cuts.map((c) => Number(c.t));
+  return Array.isArray(plan?.times) ? plan.times.map(Number) : [];
+}
+
+/** 컷 간격이 거의 일정하면 문제를 문장으로(2026-11-12 사용자: 우리 컷은 전부 일정해서 리듬감이 없다). 컷이 적으면 보지 않는다. */
+export function rhythmProblem(times) {
+  if (!Array.isArray(times) || times.length < RHYTHM_MIN_CUTS) return null;
+  const gaps = times.slice(1).map((t, k) => t - times[k]);
+  const mean = gaps.reduce((a, b) => a + b, 0) / gaps.length;
+  const sd = Math.sqrt(gaps.reduce((a, g) => a + (g - mean) ** 2, 0) / gaps.length);
+  if (mean > 0 && sd / mean < RHYTHM_MIN_CV) return `화면 연출: 컷 간격이 거의 일정하다(평균 ${Math.round(mean * 10) / 10}초, 변동 ${Math.round((sd / mean) * 100)}%) — 긴 컷과 짧은 컷이 섞인 리듬이 없다`;
+  return null;
+}
+
+/** 컷 계획: {durationSeconds, cuts:[{t, template, image,...}] 또는 times:[초...]}. 시간 순서·길이 안, 컷마다 이미지, 리듬, 경쟁 컷 수의 절반 이상. */
+function cutPlanProblems(plan, competitorPacing, imageExists) {
+  const t = cutTimes(plan);
+  if (!plan || !t.length || !(Number(plan.durationSeconds) > 0)) return ['화면 연출: 우리 쪽 컷 계획(몇 초에 장면이 바뀌는지)이 없다'];
   const out = [];
-  const t = plan.times.map(Number);
   if (t.some((x, i) => !Number.isFinite(x) || x < 0 || (i > 0 && x <= t[i - 1]))) out.push('화면 연출: 컷 계획이 시간 순서가 아니다');
   if (t.some((x) => x > Number(plan.durationSeconds))) out.push('화면 연출: 컷 계획이 영상 길이를 넘는다');
+  for (const c of plan.cuts || []) {
+    if (!filled(c.image)) out.push(`화면 연출: ${c.t}초 컷에 컷 이미지가 없다(글자로만 적은 컷 금지)`);
+    else if (!imageExists(c.image)) out.push(`화면 연출: ${c.t}초 컷 이미지 파일이 없다(${c.image})`);
+  }
+  if (!out.length) {
+    const r = rhythmProblem(t);
+    if (r) out.push(r);
+  }
   const comp = Number(competitorPacing?.perMinute);
   if (!out.length && Number.isFinite(comp) && comp > 0) {
     const ours = (t.length / Number(plan.durationSeconds)) * 60;
@@ -67,7 +94,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     if (!filled(r.competitor?.text)) problems.push(`${ROW_LABELS[key]}: 경쟁 쪽 내용이 비어 있다`);
     if (!filled(r.ours?.text)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 내용이 비어 있다`);
     if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);
-    if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing));
+    if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing, imageExists));
     for (const img of [r.ours?.image, ...(r.ours?.images || [])].filter(filled)) {
       if (!imageExists(img)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 이미지 파일이 없다(${img})`);
     }

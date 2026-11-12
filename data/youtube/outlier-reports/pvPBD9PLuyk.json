@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "videoId": "pvPBD9PLuyk",
+  "analyzedAt": "2026-11-12T08:17:32.775Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 32,
+  "meta": {
+    "videoId": "pvPBD9PLuyk",
+    "title": "영어 발음이 어려운이유 😭😭 #영어회화 #영어 #영어발음 #영어공부 #영어단어",
+    "channelId": "UCR8fzJ6zX3HeC2n-agUtyzg",
+    "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
+    "publishedAt": "2025-09-24T16:40:03Z",
+    "viewCount": 5575675,
+    "likeCount": 41480,
+    "commentCount": 1026,
+    "durationSeconds": 32,
+    "thumbnail": "https://i.ytimg.com/vi/pvPBD9PLuyk/maxresdefault.jpg"
+  },
+  "subscriberCount": 10000,
+  "viewsPerSubscriber": 557.57,
+  "outlierRatio": 2379.74,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=pvPBD9PLuyk! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 32
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어 발음이 어려운 이유라는 궁금증과 공감대를 자극하며 해시태그로 주제를 강조함",
+      "titleQuote": "영어 발음이 어려운이유 😭😭 #영어회화 #영어 #영어발음 #영어공부 #영어단어",
+      "thumbnailText": "원어민도 극대노 하는 영어 발음 기호",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "분홍색/보라색 줄무늬 셔츠를 입은 남성이 BOMB 판을 들고 황당한 표정을 짓고 있으며, 상단에 노란색·검은색 자막 박스가 위치함",
+      "thumbnailVsTitle": "제목은 영어 발음이 어려운 이유라는 주제를 밝히고, 썸네일은 원어민조차 극대노한다는 극적 상황을 덧붙여 관심도를 높임",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "코미디언이 알파벳 철자 판(BOMB, TOMB, COMB 등)을 차례로 넘기며 유사한 형태의 단어들이 서로 다른 발음으로 읽히는 규칙의 불일치를 코믹하게 연기함",
+      "quote": "",
+      "reasonToKeepWatching": "철자 판을 넘길 때마다 예상치 못한 발음 차이가 연속해 등장하여 다음 단어는 어떻게 발음될지 기대감을 유지시킴"
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 7,
+        "what": "BOMB(밤)과 TOMB(툼) 단어 판을 비교하며 철자 형태는 같지만 발음이 전혀 다른 상황을 묘사함",
+        "quote": ""
+      },
+      {
+        "start": 7,
+        "end": 13,
+        "what": "COMB(콤) 단어를 새로 제시하며 앞선 단어들과 또 다르게 발음되는 불규칙성을 강조함",
+        "quote": ""
+      },
+      {
+        "start": 13,
+        "end": 19,
+        "what": "POMB 대신 POEM(포엠) 구조로 넘어가는 과정을 연기하며 철자 표기의 황당함을 연출함",
+        "quote": ""
+      },
+      {
+        "start": 19,
+        "end": 32,
+        "what": "HOEM/HOME, SOME 등의 단어 판을 연속으로 바꿔 보여주며 영어 표기와 발음 사이의 불일치를 극적으로 연기함",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "남성이 BOMB 철자 판을 들고 등장하며 자막 바가 화면 중앙 하단에 표시됨",
+        "purpose": "첫 단어 BOMB의 발음을 시각적으로 제시"
+      },
+      {
+        "t": 3,
+        "what": "철자 B가 T로 넘어가며 TOMB 단어가 됨",
+        "purpose": "-OMB 어휘의 발음 변화(툼) 비교"
+      },
+      {
+        "t": 7,
+        "what": "철자 T가 C로 넘어가며 COMB 단어가 됨",
+        "purpose": "-OMB 어휘의 또 다른 발음(콤) 비교"
+      },
+      {
+        "t": 13,
+        "what": "철자 C가 P로 넘어갔다가 판을 내려 POEM으로 전환을 준비함",
+        "purpose": "POMB가 아닌 POEM 단어로 넘어가는 상황 연출"
+      },
+      {
+        "t": 18,
+        "what": "POEM 철자 판이 완전히 펼쳐져 보임",
+        "purpose": "POEM 단어 표기 제시"
+      },
+      {
+        "t": 20,
+        "what": "철자 P가 H로 넘어가 HOEM 단어가 됨",
+        "purpose": "HOEM과 HOME의 표기 불일치 비교"
+      },
+      {
+        "t": 24,
+        "what": "철자 E, M 부위가 펼쳐지며 HOME 단어가 완성됨",
+        "purpose": "HOME 단어 표기 확정"
+      },
+      {
+        "t": 27,
+        "what": "철자 H가 S로 넘어가 SOME 단어가 됨",
+        "purpose": "SOME 단어의 예외적 발음(썸) 강조"
+      }
+    ],
+    "ending": {
+      "what": "SOME 단어 판을 든 채 영어 철자 발음의 예외성과 불합리함에 대해 억울한 표정을 지으며 마무리함",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "영어를 가르치는 현직 교사나 원어민조차 철자·발음 규칙의 불규칙성 때문에 헷갈려 한다는 점에 공감함",
+          "quote": "영어선생님인데…..가르칠 수록 깨달아지는 건 영어라는 언어 체계는 개판이라는 거..",
+          "quoteVerified": true
+        },
+        {
+          "point": "해외 어학원 선생님도 스펠링이나 발음을 찾아본다는 사실에 학습자들이 위안을 얻음",
+          "quote": "영어권 해외에서 지금 어학원다님 선생도 가끔 스팰링,발음 틀려서 찾아봄 자기들도 헷갈리는 ..",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "원본 코미디 쇼 영상의 가장 재미있는 뒷부분까지 가져오지 않고 중단되어 아쉽다는 반응",
+          "quote": "가져올꺼면 끝까지 가져와야지 마지막이 제일 재밌는 영상인데",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "개판",
+          "quote": "영어선생님인데…..가르칠 수록 깨달아지는 건 영어라는 언어 체계는 개판이라는 거..",
+          "quoteVerified": true
+        },
+        {
+          "expression": "극대노",
+          "quote": "원어민도 극대노 하는 영어 발음 기호",
+          "quoteVerified": false
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "비슷한 철자 조합(-omb, -oem 등)임에도 발음이 모두 다르게 적용되는 영상 속 교구 연출",
+        "reaction": "영어는 철자 표기와 발음 간 일치성이 너무 떨어져 암기 부담이 크다는 시청자들의 공감",
+        "quote": "스펠링과 발음이 제일 안맞는 언어가 영어임..이런 언어의 특징은 전세계 공용어이다보니 각 나라 출신에 따라 발음이 다 조금씩 달랴서 개잡탕 언어가 됨..",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "유사한 알파벳 패턴(예: -omb 조합)을 떼었다 붙이는 시각 교구/자막으로 직관적인 소리 차이를 한눈에 보여준다.",
+      "differentiate": "발음 규칙의 황당함을 유머로 소비하는 것에 그치지 않고, 30~60대 학습자가 헷갈리기 쉬운 소리 연결과 모음 변화의 원리를 짧고 명쾌하게 짚어준다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 7,
+    "verified": 6,
+    "unverified": 1
+  },
+  "pacing": {
+    "count": 1,
+    "medianGapSeconds": null,
+    "perMinute": 1.9,
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 13,
+      "file": "13.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 20,
+      "file": "20.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 27,
+      "file": "27.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 7862,
+    "candidatesTokenCount": 1729,
+    "totalTokenCount": 11299,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3851
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2911
+      }
+    ],
+    "thoughtsTokenCount": 1708,
+    "serviceTier": "standard"
+  }
+}

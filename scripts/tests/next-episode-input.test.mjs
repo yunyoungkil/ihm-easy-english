@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   compareOurVideos, rankAudienceNeeds, recentViewerComments, extractReviewLessons, titleTraits,
-  renderNextEpisodeInput, pickReviewLessons, MIN_COMPARE_VIDEOS,
+  renderNextEpisodeInput, pickReviewLessons, summarizeOutlierReports, MIN_COMPARE_VIDEOS,
 } from '../next-episode-input.mjs';
 
 const now = new Date('2026-11-12T00:00:00Z');
@@ -137,4 +137,18 @@ test('리뷰 교훈은 공개일이 적힌(실제로 리뷰한) 편만, 최근 �
     {slug: 'ep22', publishedOn: '2026-10-12', lessons: []},
   ];
   assert.deepEqual(pickReviewLessons(reviews, 3).map((r) => r.slug), ['ep23', 'ep21']);
+});
+
+test('경쟁 영상 리포트 요약: 성과 배수 큰 영상부터, 리포트 화면 주소와 함께 넣고 빈 값은 측정 전', () => {
+  const reports = [
+    {videoId: 'aaaaaaaaaaa', outlierRatio: 10, meta: {title: 'A', channelTitle: 'ca'}, pacing: {perMinute: 3, source: 'ffmpeg 장면 전환 감지(코드)'}, analysis: {click: {titleDevice: '숫자 약속', thumbnailText: '5개', thumbnailWordCount: 1}, opening: {first15s: '바로 시험'}, visualMoments: [{t: 1}], forUs: {adopt: '가져옴', differentiate: '다르게'}}},
+    {videoId: 'bbbbbbbbbbb', outlierRatio: 99, meta: {title: 'B', channelTitle: 'cb'}, pacing: {}, analysis: {}},
+  ];
+  const got = summarizeOutlierReports(reports, 5);
+  assert.deepEqual(got.map((r) => r.videoId), ['bbbbbbbbbbb', 'aaaaaaaaaaa']);
+  const md = renderNextEpisodeInput({generatedAt: now.toISOString(), comparisons: {}, outlierReports: got});
+  assert.match(md, /## 7\. 경쟁 영상 관찰/);
+  assert.match(md, /\/outlier-report\/aaaaaaaaaaa/);
+  assert.match(md, /바로 시험/);
+  assert.doesNotMatch(md, /undefined|NaN/);
 });

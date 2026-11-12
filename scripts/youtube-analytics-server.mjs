@@ -43,6 +43,8 @@ import { syncAllTrackedChannels, runD7AutonomousCycle, LIFECYCLE_STATUS } from '
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 import { recordSuccessPatterns } from './success-patterns.mjs';
 import { resolveVideoFormat } from './video-format.mjs';
+import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir } from './outlier-report.mjs';
+import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex } from './outlier-report-view.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -6173,6 +6175,29 @@ const server = createServer(async (req, res) => {
     if (url.pathname === '/') {
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
       res.end(pageHtml.replace('<script>', () => '<script>' + String.fromCharCode(10) + clientVideoFormatSource + String.fromCharCode(10)));
+      return;
+    }
+    // 합친 아웃라이어 리포트 화면(읽기 전용, 2026-11-12). 캡처 이미지는 이 PC에만 있다.
+    if (url.pathname === '/outlier-reports') {
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      res.end(renderOutlierReportIndex(loadOutlierReports()));
+      return;
+    }
+    const outlierReportMatch = url.pathname.match(/^\/outlier-report\/([\w-]{11})$/);
+    if (outlierReportMatch) {
+      const reportPath = join(outlierReportsDir, `${outlierReportMatch[1]}.json`);
+      const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
+      if (!report) return json(res, 404, {error: '이 영상의 리포트가 없습니다.'});
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      res.end(renderOutlierReportPage(report));
+      return;
+    }
+    const outlierFrameMatch = url.pathname.match(/^\/outlier-frames\/([\w-]{11})\/(\d{1,5}\.jpg)$/);
+    if (outlierFrameMatch) {
+      const framePath = join(outlierFramesDir, outlierFrameMatch[1], outlierFrameMatch[2]);
+      if (!existsSync(framePath)) return json(res, 404, {error: '캡처가 이 PC에 없습니다(다른 PC에서 만든 리포트는 다시 분석해야 캡처가 생깁니다).'});
+      res.writeHead(200, {'Content-Type': 'image/jpeg', 'Cache-Control': 'max-age=3600'});
+      res.end(await readFile(framePath));
       return;
     }
     if (url.pathname === '/auth') {

@@ -12,6 +12,7 @@ import {readFileSync, writeFileSync, existsSync, readdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
+import {loadReports as loadOutlierReports} from './outlier-report.mjs';
 
 export const MIN_COMPARE_VIDEOS = 6; // 상위 3편과 하위 3편이 겹치지 않는 최소 수
 export const RECENT_POOL = 20; // 같은 형식 최근 20편 안에서 비교한다(오래된 영상이 지금 채널을 대표하지 않게)
@@ -143,6 +144,28 @@ export function pickReviewLessons(reviews = [], n = 3) {
     .slice(0, n);
 }
 
+/** 합친 아웃라이어 리포트(data/youtube/outlier-reports) 요약: 성과 배수 큰 영상부터. */
+export function summarizeOutlierReports(reports = [], n = 5) {
+  return [...reports]
+    .sort((a, b) => (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
+    .slice(0, n)
+    .map((r) => ({
+      videoId: r.videoId,
+      title: r.meta?.title ?? null,
+      channelTitle: r.meta?.channelTitle ?? null,
+      outlierRatio: r.outlierRatio ?? null,
+      titleDevice: r.analysis?.click?.titleDevice ?? null,
+      thumbnailText: r.analysis?.click?.thumbnailText ?? null,
+      thumbnailWordCount: r.analysis?.click?.thumbnailWordCount ?? null,
+      first15s: r.analysis?.opening?.first15s ?? null,
+      cutsPerMinute: r.pacing?.perMinute ?? null,
+      pacingSource: r.pacing?.source ?? null,
+      visualChanges: (r.analysis?.visualMoments || []).length,
+      adopt: r.analysis?.forUs?.adopt ?? null,
+      differentiate: r.analysis?.forUs?.differentiate ?? null,
+    }));
+}
+
 const KO = {LONGFORM: '롱폼', SHORTS: '쇼츠'};
 const VERDICT = {worked: '통함', neutral: '보통', failed: '안 통함', hold: '보류', pending: '집계 전'};
 const show = (v, unit = '') => (v == null ? '측정 전' : `${v}${unit}`);
@@ -172,7 +195,7 @@ function renderComparison(c) {
 }
 
 export function renderNextEpisodeInput(input) {
-  const {generatedAt, freshness = {}, comparisons = {}, searchTerms = [], viewerComments = [], allViewerComments = null, audience = {}, reviews = [], outcomes = [], successPatternCount = 0} = input;
+  const {generatedAt, freshness = {}, comparisons = {}, searchTerms = [], viewerComments = [], allViewerComments = null, audience = {}, reviews = [], outcomes = [], successPatternCount = 0, outlierReports = []} = input;
   const out = [
     '# 다음 기획 입력',
     '',
@@ -229,6 +252,20 @@ export function renderNextEpisodeInput(input) {
       out.push('');
     });
   } else out.push('"다음 영상에 적용할 것"이 적힌 리뷰 없음.', '');
+
+  out.push('## 7. 경쟁 영상 관찰 (합친 아웃라이어 리포트)', '');
+  if (outlierReports.length) {
+    out.push(`경쟁 영상 ${outlierReports.length}편을 화면·자막·댓글로 관찰한 기록(채널 평소 대비 배수 큰 순). 관찰은 사실이고 "가져올 점·다르게 할 점"은 AI 제안이다. 캡처와 원문 인용은 리포트 화면에서 본다. 화면 구성 후보는 \`npm run visual-library -- <검색어>\`로 꺼낸다.`, '');
+    for (const r of outlierReports) {
+      const ratio = r.outlierRatio == null ? '측정 전' : `${Math.round(r.outlierRatio)}배`;
+      out.push(`**${cut(r.title ?? r.videoId, 50)}** — ${r.channelTitle ?? '측정 전'}, 평소 대비 ${ratio} · http://localhost:3001/outlier-report/${r.videoId}`);
+      out.push(`- 제목: ${r.titleDevice ?? '측정 전'}`);
+      out.push(`- 썸네일 글자: ${r.thumbnailText ? `"${cut(r.thumbnailText, 40)}" (${r.thumbnailWordCount ?? '?'}단어)` : '측정 전'}`);
+      out.push(`- 첫 15초: ${r.first15s ? cut(r.first15s, 160) : '측정 전'}`);
+      out.push(`- 장면 전환 1분에 ${r.cutsPerMinute ?? '측정 전'}번(${r.pacingSource ?? '출처 없음'}), AI가 적은 화면 변화 ${r.visualChanges}개`);
+      out.push(`- 가져올 점: ${r.adopt ?? '측정 전'} / 다르게 할 점: ${r.differentiate ?? '측정 전'}`, '');
+    }
+  } else out.push('합친 아웃라이어 리포트 없음.', '');
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -269,6 +306,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     reviews,
     outcomes: loadEpisodeOutcomes(projectDir, now),
     successPatternCount: (patterns.entries || []).length,
+    outlierReports: summarizeOutlierReports(loadOutlierReports()),
   };
 }
 

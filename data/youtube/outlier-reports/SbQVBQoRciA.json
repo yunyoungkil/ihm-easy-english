@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 1,
+  "videoId": "SbQVBQoRciA",
+  "analyzedAt": "2026-11-12T08:17:04.294Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 53,
+  "meta": {
+    "videoId": "SbQVBQoRciA",
+    "title": "한국인이 자주 틀리는 영어 발음 5개",
+    "channelId": "UCV10iJPWgMrwnbyImNftcAA",
+    "channelTitle": "조밥잉글리쉬 ",
+    "publishedAt": "2026-11-10T11:00:02Z",
+    "viewCount": 47699,
+    "likeCount": 1028,
+    "commentCount": 29,
+    "durationSeconds": 53,
+    "thumbnail": "https://i.ytimg.com/vi/SbQVBQoRciA/maxresdefault.jpg"
+  },
+  "subscriberCount": 4730,
+  "viewsPerSubscriber": 10.08,
+  "outlierRatio": 569.92,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=SbQVBQoRciA! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 19
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 53
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "한국인들이 흔히 틀리는 영어 발음 5가지라는 주제와 구체적인 개수를 명시하여 궁금증과 학습 의욕을 자극한다.",
+      "titleQuote": "한국인이 자주 틀리는 영어 발음 5개",
+      "thumbnailText": "Comfortable 발음 한번 해보세요",
+      "thumbnailWordCount": 4,
+      "thumbnailVisual": "검은 모자를 쓴 진행자가 화면 중앙에서 손가락을 들며 위를 쳐다보고, 상단에 하늘색으로 'Comfortable' 단어 텍스트가 강조되어 있다.",
+      "thumbnailVsTitle": "제목은 틀리기 쉬운 발음 5개라는 전체 주제를 안내하고, 썸네일은 그중 첫 예시 단어(Comfortable)를 제시하며 시청자에게 직접 발음해보도록 참여를 유도한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "진행자가 시청자에게 'Comfortable' 단어를 직접 발음해보라고 요청한 뒤, 잘못된 한국식 발음을 짚어준다. 이어 첫 모음에 강세가 올 때 두 번째 모음이 약화되거나 탈락하는 원리를 설명하고 원어민 발음 법을 안내한다.",
+      "quote": "",
+      "reasonToKeepWatching": "'발음 한번 해보세요', '원어민 만들어 드릴게요!'라는 멘트로 시청자의 참여를 유도하고 학습 기대감을 높인다."
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 11,
+        "what": "시청자에게 발음을 유도하고 첫 모음 강세에 따른 두 번째 모음 탈락 규칙을 설명함",
+        "quote": ""
+      },
+      {
+        "start": 11,
+        "end": 16,
+        "what": "Comfortable 단의 축약 발음법 시연 및 영화 클립 예시 제시",
+        "quote": ""
+      },
+      {
+        "start": 16,
+        "end": 23,
+        "what": "Interest 단의 축약 발음법 시연 및 영화 클립 예시 제시",
+        "quote": ""
+      },
+      {
+        "start": 23,
+        "end": 29,
+        "what": "Temperature 단의 축약 발음법 시연 및 영화 클립 예시 제시",
+        "quote": ""
+      },
+      {
+        "start": 29,
+        "end": 35,
+        "what": "History 단의 축약 발음법 시연 및 영화 클립 예시 제시",
+        "quote": ""
+      },
+      {
+        "start": 35,
+        "end": 40,
+        "what": "Favorite 단의 축약 발음법 시연 및 영화 클립 예시 제시",
+        "quote": ""
+      },
+      {
+        "start": 40,
+        "end": 45,
+        "what": "Family 단의 축약 발음법 시연 및 영화 클립 예시 제시",
+        "quote": ""
+      },
+      {
+        "start": 45,
+        "end": 50,
+        "what": "Camera 단의 축약 발음법 시연 및 영화 클립 예시 제시",
+        "quote": ""
+      },
+      {
+        "start": 50,
+        "end": 53,
+        "what": "채널 로고 일러스트 그래픽을 보여주며 영상 종료",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "진행자 모습 상단에 하늘색 'Comfortable', 하단에 '발음 한번 해보세요' 텍스트 등장",
+        "purpose": "시청자에게 첫 번째 테스트 단어를 제시함"
+      },
+      {
+        "t": 1,
+        "what": "진행자가 손가락을 펴며 '하나 둘 셋!' 자막 등장",
+        "purpose": "시청자가 발음할 시간을 주기 위한 카운트다운"
+      },
+      {
+        "t": 2,
+        "what": "'컴포러' 자막 표기",
+        "purpose": "시청자가 발음한 소리를 모사함"
+      },
+      {
+        "t": 3,
+        "what": "붉은 X 표시와 함께 '컴포타블X' 자막 표시",
+        "purpose": "한국인의 흔한 잘못된 발음을 지적함"
+      },
+      {
+        "t": 4,
+        "what": "'Com' 부분만 주황색 박스로 하이라이트된 'Comfortable' 텍스트 등장",
+        "purpose": "첫 번째 모음에 강세가 들어감을 시각적으로 안내"
+      },
+      {
+        "t": 11,
+        "what": "하늘색 박스 자막 '편안한 Comfortable 컴포타블X' 등장",
+        "purpose": "올바른 단어 뜻과 잘못된 발음 대비"
+      },
+      {
+        "t": 14,
+        "what": "'실제발음: Comftable' 텍스트 표시",
+        "purpose": "원어민의 실제 축약 발음 표기 제공"
+      },
+      {
+        "t": 15,
+        "what": "영화 클립 화면으로 전환되어 시청각 자료 재생",
+        "purpose": "실제 영화 속 원어민 발음 검증"
+      },
+      {
+        "t": 17,
+        "what": "진행자 화면으로 돌아와 '흥미로운 Interest 인터레스X' 표시",
+        "purpose": "두 번째 단어 소개"
+      },
+      {
+        "t": 20,
+        "what": "'실제발음: Intrest' 텍스트 표시",
+        "purpose": "Interest의 실제 원어민 발음 표기"
+      },
+      {
+        "t": 21,
+        "what": "영화 클립 화면 전환",
+        "purpose": "Interest 실제 발음 예시 제공"
+      },
+      {
+        "t": 23,
+        "what": "진행자 화면으로 돌아와 '온도 Temperature 템퍼러처X' 표시",
+        "purpose": "세 번째 단어 소개"
+      },
+      {
+        "t": 25,
+        "what": "'실제발음: Temprature' 텍스트 표시",
+        "purpose": "Temperature의 실제 원어민 발음 표기"
+      },
+      {
+        "t": 26,
+        "what": "영화 클립 화면 전환",
+        "purpose": "Temperature 실제 발음 예시 제공"
+      },
+      {
+        "t": 29,
+        "what": "진행자 화면으로 돌아와 '역사 History 히스토리X' 표시",
+        "purpose": "네 번째 단어 소개"
+      },
+      {
+        "t": 31,
+        "what": "'실제발음: Histry' 텍스트 표시",
+        "purpose": "History의 실제 원어민 발음 표기"
+      },
+      {
+        "t": 32,
+        "what": "영화 클립 화면 전환",
+        "purpose": "History 실제 발음 예시 제공"
+      },
+      {
+        "t": 35,
+        "what": "진행자 화면으로 돌아와 '좋아하는 Favorite 페이보릿X' 표시",
+        "purpose": "다섯 번째 단어 소개"
+      },
+      {
+        "t": 37,
+        "what": "'실제발음: Favrit' 텍스트 표시",
+        "purpose": "Favorite의 실제 원어민 발음 표기"
+      },
+      {
+        "t": 38,
+        "what": "영화 클립 화면 전환",
+        "purpose": "Favorite 실제 발음 예시 제공"
+      },
+      {
+        "t": 40,
+        "what": "진행자 화면으로 돌아와 '가족 Family 페밀리X' 표시",
+        "purpose": "추가 단어 Family 소개"
+      },
+      {
+        "t": 43,
+        "what": "영화 클립 화면 전환 및 '실제발음: Famly' 표시",
+        "purpose": "Family 실제 발음 예시 제공"
+      },
+      {
+        "t": 46,
+        "what": "진행자 화면으로 돌아와 '사진기 Camera 카메라X' 표시",
+        "purpose": "추가 단어 Camera 소개"
+      },
+      {
+        "t": 48,
+        "what": "'실제발음: Camra' 텍스트 표시",
+        "purpose": "Camera의 실제 원어민 발음 표기"
+      },
+      {
+        "t": 49,
+        "what": "영화 클립 화면 전환",
+        "purpose": "Camera 실제 발음 예시 제공"
+      },
+      {
+        "t": 51,
+        "what": "노란색 바탕의 'JOBOB ENGLISH' 일러스트 아웃로 화면으로 전환",
+        "purpose": "채널 브랜딩 안내 및 영상 종료"
+      }
+    ],
+    "ending": {
+      "what": "'JOBOB ENGLISH 영어는 조밥잉글리쉬' 일러스트 아웃로 화면이 뜨며 영상이 마무리된다.",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "평소 알고 있던 영어 단어 발음과 원어민의 실제 발음 차이를 확인하고 놀라움과 신기함을 나타냄",
+          "quote": "와... 좀 충격임...😲",
+          "quoteVerified": true
+        },
+        {
+          "point": "History(히스토리)의 모음이 탈락하여 발음된다는 점에 큰 충격을 받음",
+          "quote": "헐.... 히스트리 충격인디.",
+          "quoteVerified": true
+        },
+        {
+          "point": "영어 발음에서 단순 혀굴림보다 강세와 음절 탈락 원리가 중요하다는 핵심에 공감함",
+          "quote": "둥글 둥글 혀 굴림은 무용. 잘하는 영어발음은 강세가 포인트. 원어민은 강세로 알아먹지.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "point": "설명된 모음 탈락 현상이 영국식 영어 발음에도 동일하게 적용되는지 궁금해함",
+          "quote": "영국영어에서도 동일하게 적용되나요??",
+          "quoteVerified": true
+        },
+        {
+          "point": "vulnerable 등 본인이 직접 발음하기 힘들어하는 단어들의 발음법에 대한 다름 예시 요청",
+          "quote": "제 기준 절대 발음 안되는 단어는 vulnerable.. 😂",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "안녕하심까",
+          "quote": "안녕하십니까 →안녕하심까",
+          "quoteVerified": true
+        },
+        {
+          "expression": "어디갓노",
+          "quote": "두번째모음...어디갓노 어디갓노",
+          "quoteVerified": true
+        },
+        {
+          "expression": "캠롸",
+          "quote": "캠롸...ㄷㄷㄷ",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "영상 29~35초 구간에서 History 단어의 잇따른 모음 탈락 발음(Histry)을 보여준 장면",
+        "reaction": "히스토리 발음에 충격을 받았다는 반응",
+        "quote": "헐.... 히스트리 충격인디.",
+        "quoteVerified": true
+      },
+      {
+        "cause": "영상 46~50초 구간에서 Camera를 'Camra(캠롸)'로 발음하는 원리를 시연한 장면",
+        "reaction": "소리 입력을 한글로 묘사하며 반응함",
+        "quote": "캠롸...ㄷㄷㄷ",
+        "quoteVerified": true
+      },
+      {
+        "cause": "영상 04~09초 구간에서 첫 모음 강세로 인해 두 번째 모음이 약화되거나 사라진다는 소리 규칙 설명",
+        "reaction": "두 번째 모음이 어디로 사라졌는지 재치있게 반응함",
+        "quote": "두번째모음...어디갓노 어디갓노",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "첫 강세로 인해 중간 모음이 사라지는 소리 원리를 먼저 짧게 제시하고, 실제 영화/미드 클립 예시를 빠르게 이어 배치하여 설득력을 높이는 구성 방식을 활용한다.",
+      "differentiate": "어려운 원리 설명 대신 시청자가 일상에서 겪는 한국어 소리 축약 현상(예: '안녕하십니까'가 '안녕하심까'로 들리는 현상)을 비유로 풀어 설명하여 30~60대 성인층의 이해를 돕는다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 12,
+    "verified": 12,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 15,
+    "medianGapSeconds": 2.9,
+    "perMinute": 17,
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 21,
+      "file": "21.jpg"
+    },
+    {
+      "t": 29,
+      "file": "29.jpg"
+    },
+    {
+      "t": 35,
+      "file": "35.jpg"
+    },
+    {
+      "t": 43,
+      "file": "43.jpg"
+    },
+    {
+      "t": 51,
+      "file": "51.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 7260,
+    "candidatesTokenCount": 3074,
+    "totalTokenCount": 13376,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 4742
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 1418
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 3042,
+    "serviceTier": "standard"
+  }
+}

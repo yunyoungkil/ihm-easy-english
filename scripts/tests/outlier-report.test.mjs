@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
-  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary,
+  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex} from '../outlier-report-view.mjs';
 
@@ -120,4 +120,26 @@ test('연출 자료집 검색: 화면 변화 설명·목적·제목에 검색어
   assert.deepEqual(searchVisualLibrary(lib, 'X 표시').map((e) => e.t), [1]);
   assert.deepEqual(searchVisualLibrary(lib, '실제').map((e) => e.t), [2]);
   assert.equal(searchVisualLibrary(lib, '').length, 2);
+});
+
+test('매일 루프 대상: 차단·졸업 채널, 이미 있는 리포트, 7일 안 실패, 영어 학습과 무관한 제목은 빼고 배수 큰 순으로 하루 몫만', () => {
+  const now = new Date('2026-11-20T00:00:00Z');
+  const o = (videoId, outlierRatio, title) => ({videoId, outlierRatio, title});
+  const marketDemand = {
+    byKeyword: [{keyword: '영어 발음', topOutliers: [o('kw000000001', 50, '영어 발음 5개'), o('kw000000002', 900, '고양이 브이로그'), o('kw000000003', 30, '원어민 회화')]}],
+    trackedChannels: [
+      {status: 'candidate', topOutliers: [o('ch000000001', 80, '파닉스 1편'), o('kw000000001', 70, '영어 발음 5개')]},
+      {status: 'blocked', topOutliers: [o('bl000000001', 999, '영어 발음 비밀')]},
+    ],
+  };
+  const got = pickReportTargets({
+    marketDemand,
+    existingIds: new Set(['ch000000001']),
+    failures: {kw000000003: '2026-11-18T00:00:00Z'},
+    now,
+    limit: 2,
+  });
+  assert.deepEqual(got, ['kw000000001']);
+  const later = pickReportTargets({marketDemand, existingIds: new Set(['ch000000001']), failures: {kw000000003: '2026-11-01T00:00:00Z'}, now, limit: 2});
+  assert.deepEqual(later, ['kw000000001', 'kw000000003'], '7일 지난 실패는 다시 시도');
 });

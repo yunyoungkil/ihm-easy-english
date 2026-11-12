@@ -13,7 +13,6 @@ const outputScriptInsightsDir = join(projectDir, "output", "script-insights");
 const dataScriptInsightsDir = join(projectDir, "data", "youtube", "script-insights");
 const marketDemandPath = join(projectDir, "data", "youtube", "market-demand.json");
 const audienceDnaPath = join(projectDir, "data", "youtube", "audience-dna.json");
-const AUDIENCE_DNA_MAX_ENTRIES = 300;
 
 // Ensure directories exist
 mkdirSync(outputScriptInsightsDir, { recursive: true });
@@ -136,18 +135,11 @@ export async function analyzeScriptWithGemini(videoMeta, transcriptData, apiKey 
     return null;
   }
 
+  // 2026-11-12: 이 자리에 있던 우리 채널 철학·"도파민 3단계 공식"·분류 목록은 검증되지 않은 틀이라 뺐다. AGENTS.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다".
+  // 매일 루프의 자동 생성은 멈췄고, 경쟁 영상 분석은 scripts/outlier-report.mjs의 합친 리포트가 맡는다.
   const prompt = `
-당신은 대한민국 최고의 유튜브 영어 교육 콘텐츠 기획자이자 대본 디렉터입니다.
-타겟 채널: **'이해하면 쉬운영어'**
-- **채널 페르소나 & 철학**:
-  * "기초가 전혀 없어도 괜찮습니다. 당신이 영어를 못했던 게 아니라 소리 나는 원리를 몰랐을 뿐입니다. 무작정 외우지 마세요."
-  * 선생님처럼 어려운 문법/음성학 용어 절대 금지. 가식 없이 솔직하고 담백한 실전 학습 파트너 톤.
-  * 일하고 지친 시청자에게 주는 '세련된 지적 휴식 & 힐링(Rest & Recharge)' 3분.
-- **독점 3단계 도파민 공식 (The Epiphany Formula)**:
-  * 1단계: 게으른 혀의 소리 지름길 (원리 해제 - "미국인들도 혀가 편하려고 이렇게 소리가 뭉개지는 겁니다")
-  * 2단계: 패턴 확장 카타르시스 (어? 다른 단어에도 똑같이 통하네? 아싸!)
-  * 3단계: 반전 비밀 꿀팁 (어? 근데 왜 이건 다르지? 딱 요 사소한 차이!)
-- **핵심 가치**: 직관적인 소리 변신 원리 + 3060 맞춤 3회 반복 낭독 훈련 + 일상/해외여행에서 당당해지는 실전 자신감.
+당신은 유튜브 영상 대본을 있는 그대로 관찰해서 기록하는 분석가입니다. 평가하거나 미리 정한 유형·공식에 끼워 넣지 말고, 대본에 실제로 있는 것을 적으세요.
+우리 채널은 한국에 사는 30~60대 성인이 영어 소리를 이해하도록 돕는 채널이다. 어려운 전문용어나 시청자가 겪지 않은 해외 경험담은 쓰지 않는다. 이 정보는 ourAdaptedScript 칸에만 쓴다.
 ${(() => {
     if (!existsSync(audienceDnaPath)) return "";
     try {
@@ -158,8 +150,8 @@ ${(() => {
     } catch { return ""; }
   })()}
 다음은 유튜브에서 높은 조회수 또는 반응을 얻은 영상의 [메타데이터]와 [전체 자막/대본(타임스탬프 포함)]입니다.
-이 대본을 철저히 **역설계(Reverse-Engineering)**하여 왜 시청자가 끝까지 시청했는지 분해하고,
-우리 채널('이해하면 쉬운영어')의 고유 브랜드 페르소나 스타일로 10배 더 뛰어난 **신규 대본 템플릿(롱폼 & 쇼츠 2종)**을 설계해 주세요.
+이 대본이 실제로 어떻게 흘러가는지 시각과 원문 인용을 붙여 기록하세요. 대본으로 알 수 없는 것은 "확인 불가"라고 쓰고, 칸을 억지로 채우지 마세요.
+storyArchitecture의 구간 수와 이름은 이 영상의 실제 흐름대로 정합니다(아래 예시 5칸을 따르지 않아도 됩니다).
 
 ---
 ### [분석 대상 영상 정보]
@@ -177,7 +169,7 @@ ${transcriptData.fullText}
 \`\`\`json
 {
   "hookingAnatomy": {
-    "technique": "상식 파괴형 / 공감 유발형 / 손실 회피형 / 직관 퀴즈형 중 1개",
+    "technique": "도입부에서 실제로 한 일을 자기 말로(미리 정한 유형 이름을 쓰지 않는다)",
     "openingHookQuote": "도입부 첫 5초의 핵심 멘트 원문",
     "whyItWorked": "왜 시청자가 스크롤을 멈추고 집중할 수밖에 없었는지 심리적 이유 분석"
   },
@@ -225,9 +217,9 @@ ${transcriptData.fullText}
     "경쟁사 대본의 맹점 2"
   ],
   "ourAdaptedScript": {
-    "recommendedTitle": "우리 채널에 최적화된 썸네일·제목 (예: 왜 WANT는 '원트'가 아니라 '우원'으로 들릴까?)",
-    "openingHook": "첫 3초 후킹 멘트",
-    "corePrincipleExplanation": "이해하면 쉬운영어만의 시각적 소리 변신 원리 설명 가이드",
+    "recommendedTitle": "이 영상의 구조를 참고한 우리 채널용 제목 후보",
+    "openingHook": "첫 3초 멘트 후보",
+    "corePrincipleExplanation": "이 영상이 설명한 원리를 우리 시청자에게 쉬운 말로 옮긴 설명",
     "longformStructure": {
       "step1_Hook": "...",
       "step2_CardDisplay": "자막 카드에 띄울 한글 발음 표기 및 영어 단어",
@@ -365,50 +357,6 @@ export function generateScriptMarkdownReport(videoMeta, transcriptData, aiInsigh
   return md;
 }
 
-const normalizeDnaText = (text) => String(text || "").trim().toLowerCase().replace(/\s+/g, " ");
-
-// entries: [{type, text, videoId, channelTitle, sourceType}]
-function upsertAudienceDnaFromScript(newEntries) {
-  if (!newEntries?.length) return;
-  let store = { schemaVersion: 1, entries: [] };
-  if (existsSync(audienceDnaPath)) {
-    try { store = JSON.parse(readFileSync(audienceDnaPath, "utf8")); } catch { /* keep default */ }
-  }
-  const byKey = new Map((store.entries || []).map((e) => [`${e.type}:${normalizeDnaText(e.text)}`, e]));
-  const now = new Date().toISOString();
-
-  for (const raw of newEntries) {
-    const text = String(raw.text || "").trim();
-    if (!text) continue;
-    const key = `${raw.type}:${normalizeDnaText(text)}`;
-    const existing = byKey.get(key);
-    if (existing) {
-      existing.occurrences = (existing.occurrences || 1) + 1;
-      existing.lastSeenAt = now;
-      if (raw.videoId && !existing.sources.some((s) => s.videoId === raw.videoId)) {
-        existing.sources.push({ videoId: raw.videoId, channelTitle: raw.channelTitle || "", sourceType: raw.sourceType || "" });
-        if (existing.sources.length > 10) existing.sources = existing.sources.slice(-10);
-      }
-    } else {
-      byKey.set(key, {
-        id: key,
-        type: raw.type,
-        text,
-        occurrences: 1,
-        sources: raw.videoId ? [{ videoId: raw.videoId, channelTitle: raw.channelTitle || "", sourceType: raw.sourceType || "" }] : [],
-        firstSeenAt: now,
-        lastSeenAt: now,
-      });
-    }
-  }
-
-  const entries = [...byKey.values()]
-    .sort((a, b) => (b.occurrences - a.occurrences) || (new Date(b.lastSeenAt) - new Date(a.lastSeenAt)))
-    .slice(0, AUDIENCE_DNA_MAX_ENTRIES);
-
-  writeFileSync(audienceDnaPath, JSON.stringify({ schemaVersion: 1, updatedAt: now, entries }, null, 2), "utf8");
-}
-
 export async function analyzeSingleScript(videoId, options = {}) {
   const {
     ytKey = YOUTUBE_API_KEY,
@@ -468,18 +416,9 @@ export async function analyzeSingleScript(videoId, options = {}) {
   writeFileSync(jsonPath, JSON.stringify(reportPayload, null, 2), "utf8");
   writeFileSync(mdPath, mdContent, "utf8");
 
-  const isMyChannel = meta.channelTitle.includes("이해하면 쉬운");
-  if (aiInsights && !isMyChannel) {
-    const dnaEntries = [
-      ...(aiInsights.coreMetaphors || []).map((m) => ({ type: "vocabulary", text: m.metaphorUsed ? `${m.concept}: ${m.metaphorUsed}` : m.concept })),
-      ...(aiInsights.blindSpots || []).map((text) => ({ type: "painPoint", text })),
-    ].filter((e) => e.text).map((e) => ({ ...e, videoId, channelTitle: meta.channelTitle, sourceType: "competitorScript" }));
-    if (typeof onDnaEntries === "function") {
-      await onDnaEntries(dnaEntries);
-    } else {
-      upsertAudienceDnaFromScript(dnaEntries);
-    }
-  }
+  // 2026-11-12: 대본 분석 결과는 더 이상 시청자 고민(audience-dna.json)에 넣지 않는다.
+  // blindSpots는 시청자 말이 아니라 AI가 추측한 "경쟁 영상의 빈틈"이었고 painPoint로 저장돼 시청자 고민과 섞였다(26개).
+  // coreMetaphors도 시청자 표현이 아니라 경쟁 강사의 비유였다(15개). 시청자 고민은 댓글에서 온 것만 쓴다(knowledge/data-consumption-map.md).
 
   console.log(`\n✅ 대본 분석 리포트 저장 완료:`);
   console.log(`   - JSON: ${jsonPath}`);

@@ -3092,7 +3092,8 @@ function renderOverviewTab() {
       '<div class="card-header"><span class="card-title">평균 시청 지속 시간</span><span class="badge badge-hold">AVG RETENTION</span></div>' +
       '<div class="card-value">' + sec(summary.averageViewDuration) + '</div>' +
       '<div class="card-subtext">평균 시청률 <b>' + Number(summary.averageViewPercentage || 0).toFixed(1) + '%</b></div>' +
-      generateSparklineSvg(daily.map(x => (Number(x.views)||0) % 50 + 40).slice(-20), '#ffd166') +
+      // 일별 평균 시청 시간(초) = 시청 분 × 60 ÷ 조회수. 2026-11-12까지는 "조회수 % 50 + 40"이라는 의미 없는 값으로 그려져 있었다.
+      generateSparklineSvg(daily.filter(x => Number(x.views) > 0).map(x => Number(x.estimatedMinutesWatched || 0) * 60 / Number(x.views)).slice(-20), '#ffd166') +
     '</div>' +
 
     '<div class="bento-card col-3">' +

@@ -161,3 +161,36 @@ test('다음 기획 입력 파일은 실제 데이터로 만들어지고, 시청
     assert.ok(entry?.sources?.some((s) => s.sourceType === 'outlierComment'), `시청자 댓글 출처가 없는 항목이 고민 순위에 들어감: ${item.text.slice(0, 40)}`);
   }
 });
+
+test('경쟁 영상을 분석하는 프롬프트에 검증 안 된 우리 철학·미리 정한 분류 목록이 없다 [2026-11-12 사용자: 틀에 맞춰 쓰면 영상이 발전하지 않는다]', async () => {
+  const BANNED = ['도파민', '게으른 혀', 'Epiphany', '상식 파괴형', '공감 유발형', '손실 회피형', '직관 퀴즈형', '3단계 공식', '이해하면 쉬운영어만의'];
+  const sent = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (_url, init) => {
+    sent.push(String(init?.body || ''));
+    return {ok: false, status: 400, json: async () => ({error: {message: '시험용 가짜 응답'}})};
+  };
+  const realWarn = console.warn;
+  console.warn = () => {};
+  try {
+    const meta = {title: '제목', channelTitle: '경쟁 채널', viewCount: 1000, likeCount: 10, commentCount: 5};
+    const {analyzeScriptWithGemini} = await import('../analyze-competitor-script.mjs');
+    await analyzeScriptWithGemini(meta, {fullText: '자막 내용'}, 'test-key');
+    const {analyzeCommentsWithGemini} = await import('../analyze-outlier-comments.mjs');
+    await analyzeCommentsWithGemini(meta, [{text: '댓글', likeCount: 1}], 'test-key').catch(() => null);
+    const {buildReportPrompt} = await import('../outlier-report.mjs');
+    sent.push(buildReportPrompt({meta, transcriptLines: [{start: 0, text: '자막'}], comments: [{text: '댓글'}], windowSeconds: 60}));
+  } finally {
+    globalThis.fetch = realFetch;
+    console.warn = realWarn;
+  }
+  assert.ok(sent.length >= 3, `가로챈 프롬프트가 ${sent.length}개뿐 — 분석 함수가 Gemini를 부르지 않았다`);
+  const hits = sent.flatMap((body, i) => BANNED.filter((w) => body.includes(w)).map((w) => `${i}번째 프롬프트: ${w}`));
+  assert.deepEqual(hits, [], '분석 프롬프트에 우리 틀이 들어 있다 — AGENTS.md "AI 분석 프롬프트에 검증 안 된 우리 틀을 넣지 않는다"');
+});
+
+test('대시보드 추이 그래프는 실제 값을 그린다 — 나머지 연산 같은 가짜 곡선 금지 [AGENTS.md 확인 규칙 3: 화면 숫자를 지어내지 않는다]', () => {
+  const fake = serverLines.map((line) => line.trim())
+    .filter((line) => /generateSparklineSvg\(/.test(line) && /%\s*\d/.test(line) && !/^\/\//.test(line));
+  assert.deepEqual(fake, [], '추이 그래프 값을 나머지 연산(%)으로 만들고 있다 — 실제 데이터 칸에서 계산한다');
+});

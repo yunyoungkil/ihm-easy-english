@@ -33,10 +33,10 @@
 | `idea-board-history.json` | 기획 스킬이 등록(`/api/idea-board/history/register`) | `scripts/youtube-analytics-server.mjs`, `.claude/skills/episode-planning/references/01-topic-and-data.md` | 운영 | 같은 소재를 다시 고르지 않게 막는 목록. 의도 명세 시험이 빠진 편을 잡는다 |
 | `market-demand.json` | `scripts/market-demand.mjs`, `scripts/keyword-backlog.mjs`, 매일 루프 | `scripts/competitor-lifecycle.mjs`, `scripts/keyword-backlog.mjs`, `scripts/outlier-report-backlog.mjs`, `scripts/loop-health.mjs`, `.claude/skills/episode-planning/references/01-topic-and-data.md` | 자동 결정 | 경쟁 채널 상태, 키워드 순환, 리포트 대상 선정에 쓰임. 다만 아웃라이어 제목 패턴은 기획 때 지시로만 쓰인다 |
 | `outlier-comments/` | 아웃라이어 댓글 분석(`scripts/outlier-report-backlog.mjs`) | `scripts/outlier-report-backlog.mjs`, `scripts/youtube-analytics-server.mjs` | 표시만 | 고민·질문·표현은 `audience-dna.json`으로 넘어간다. **"설명이 통한 지점(whatWorked)"과 "제작 제안"은 화면에만 나온다** → 합친 리포트로 바꾼다 |
-| `script-insights/` | 아웃라이어 대본 분석(`scripts/analyze-competitor-script.mjs`) | `scripts/analyze-competitor-script.mjs`, `scripts/youtube-analytics-server.mjs` | 표시만 | **훅·구조·비유·우리식 대본은 화면에만 나온다.** 또 프롬프트에 우리 철학과 분류 목록이 박혀 있어 관찰이 그 틀로 왜곡된다. AI가 추측한 "경쟁 영상의 빈틈"이 시청자 고민(`painPoint`)으로 저장된다(26개) → 합친 리포트(`outlier-reports/`)로 옮기는 중 |
+| `script-insights/` | 아웃라이어 대본 분석(`scripts/analyze-competitor-script.mjs`) | `scripts/analyze-competitor-script.mjs`, `scripts/youtube-analytics-server.mjs` | 표시만 | **훅·구조·비유·우리식 대본은 화면에만 나온다.** 또 프롬프트에 우리 철학과 분류 목록이 박혀 있어 관찰이 그 틀로 왜곡된다. AI가 추측한 "경쟁 영상의 빈틈"이 시청자 고민(`painPoint`)으로 저장됐다(26개). → 2026-11-12: 매일 루프의 자동 생성을 멈추고(합친 리포트가 대신), 프롬프트에서 철학·분류 목록을 빼고, 시청자 고민에 넣던 코드를 지웠다. 이미 있는 리포트는 화면에서만 본다 |
 | `outlier-reports/` | 합친 아웃라이어 리포트(`scripts/outlier-report.mjs`, `npm run outlier-report -- <영상ID>`) | `scripts/next-episode-input.mjs`, `scripts/outlier-report.mjs`, `scripts/youtube-analytics-server.mjs`, `.claude/skills/episode-planning/references/04-visual-and-assets.md` | 기획 입력(자동) | 2026-11-12 신설. 경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한다. 프롬프트에 우리 철학·분류 목록이 없고, 인용은 코드가 원문과 대조하며, 컷 간격은 ffmpeg가 잰다. 다음 기획 입력 7절로 들어가고, 화면 변화는 연출 자료집(`npm run visual-library`)으로 제작 단계에서 꺼낸다. 사람은 `/outlier-reports` 화면에서 캡처와 함께 본다 |
 | `outlier-frames/` | 합친 아웃라이어 리포트가 만드는 화면 캡처(1초 간격 3장 띠, 깃에 안 올림) | `scripts/outlier-report-view.mjs`, `scripts/outlier-report.mjs`, `.claude/skills/episode-planning/references/04-visual-and-assets.md` | 기획 입력(지시) | 제작 단계에서 화면 구성 후보를 고를 때 Claude가 열어 보고, 리포트 화면에 나온다. 경쟁 영상 화면이라 이 PC에만 둔다 |
-| `audience-dna.json` | 위 두 분석이 자동으로 쌓음(300개) | `scripts/next-episode-input.mjs`, `scripts/loop-health.mjs`, `scripts/analyze-competitor-script.mjs`, `.claude/skills/episode-planning/references/01-topic-and-data.md` | 기획 입력(자동) | 시청자 댓글 출처가 있는 고민·질문만 출처 영상 수로 순위를 매겨 다음 기획 입력 5절로 들어간다(2026-11-12). 41개(`competitorScript`)는 대본 분석에서 왔고, 그중 26개는 AI가 추측한 "경쟁 영상의 빈틈"이 고민으로 저장된 것이라 순위에서 뺀다. 저장 단계에서 섞이는 것 자체는 합친 리포트 작업에서 고친다 |
+| `audience-dna.json` | 댓글 분석이 자동으로 쌓음(2026-11-12 정리 후 259개) | `scripts/next-episode-input.mjs`, `scripts/loop-health.mjs`, `scripts/analyze-competitor-script.mjs`, `.claude/skills/episode-planning/references/01-topic-and-data.md` | 기획 입력(자동) | 시청자 댓글 출처가 있는 고민·질문만 출처 영상 수로 순위를 매겨 다음 기획 입력 5절로 들어간다(2026-11-12). 41개(`competitorScript`)는 대본 분석에서 왔고, 그중 26개는 AI가 추측한 "경쟁 영상의 빈틈"이 고민으로 저장된 것이라 순위에서 뺐고, 2026-11-12에 그 41개를 파일에서도 지웠다(대본 분석은 더 이상 이 파일에 쓰지 않는다) |
 | `thumb-feed-cache.json` | 검색 피드 탭(`scripts/thumb-feed.mjs`) | `scripts/youtube-analytics-server.mjs`, `.claude/skills/episode-planning/references/02-title-and-thumbnail.md` | 기획 입력(지시) | 실제 검색 결과 캐시. 썸네일 정할 때 사람이 눈으로 본다. 그대로 둔다 |
 | `packaging-registry.json` | 2026-08 손으로 만든 목록(1개, EP9) | `scripts/youtube-analytics-server.mjs` | 운영 | 스튜디오 폴더 읽기가 참고하는 옛 목록. 항목이 1개뿐이다 → 정리 후보(코드 확인 필요) |
 | `publish-rules.json` | 손으로 둔 공개 일정 규칙 | `scripts/growth-check.mjs`, `scripts/youtube-analytics-server.mjs` | 운영 | 공개 간격 점검에 쓰임 |
@@ -68,7 +68,7 @@
 ## 가장 큰 빈틈 네 가지 (2026-11-12 확인 → 같은 날 1·3·4번 처리)
 
 1. ~~**우리 영상 성적이 기획으로 돌아오지 않는다.**~~ → 다음 기획 입력 2절(같은 형식 상·하위 비교)로 처리.
-2. **경쟁 영상 분석의 핵심(훅, 구조, 설명 방식, 연출)이 화면에만 있다.** 그리고 분석 프롬프트가 우리 철학과 미리 정한 분류로 결과를 왜곡한다.
+2. ~~**경쟁 영상 분석의 핵심(훅, 구조, 설명 방식, 연출)이 화면에만 있다.** 그리고 분석 프롬프트가 우리 철학과 미리 정한 분류로 결과를 왜곡한다.~~ → 합친 아웃라이어 리포트(`outlier-reports/`)가 다음 기획 입력 7절과 연출 자료집으로 들어가고, 분석 프롬프트 세 곳에서 철학·분류 목록을 뺐다(의도 명세 시험이 실제로 보내는 프롬프트를 가로채 확인).
 3. ~~**시청자 고민 300개가 순위 없이 쌓이고, AI 추측(26개)이 시청자 고민으로 섞여 있다.**~~ → 다음 기획 입력 5절에서 시청자 댓글 출처만 순위를 낸다. 저장 단계에서 섞이는 것은 4번(합친 리포트)에서 고친다.
 4. ~~**"기획 입력(지시)" 등급은 Claude가 그 단계를 건너뛰면 그대로 끊긴다.**~~ → 주요 데이터를 "기획 입력(자동)"으로 올렸다. EP30부터 `BRIEF.md`가 입력 파일을 인용하지 않으면 시험과 브리핑이 알린다. `thumb-feed-cache.json`처럼 사람이 눈으로 보는 것은 지시로 남는다.
 
@@ -77,4 +77,4 @@
 1. 이 지도와 시험 — 2026-11-12 완료
 2. 찌꺼기 파일 정리 — 2026-11-12 완료
 3. **다음 기획 입력 파일** — 2026-11-12 완료: 매일 루프가 위 1·3번 빈틈을 한 장으로 만든다(출처와 표본 수 표시, 표본이 모자라면 "가설"). 기획 스킬 1단계가 이 파일을 먼저 읽고, `BRIEF.md` 기획 근거 칸이 이 파일을 인용하게 해서 4번 빈틈을 줄인다
-4. **합친 아웃라이어 리포트와 연출 자료집**: 대본·댓글·화면을 한 리포트로 묶고, 철학과 분류 목록을 프롬프트에서 뺀다. 화면 연출은 캡처와 함께 쌓아 제작 단계에서 후보로 꺼낸다
+4. **합친 아웃라이어 리포트와 연출 자료집** — 2026-11-12 완료: 대본·댓글·화면을 한 리포트로 묶고, 철학과 분류 목록을 프롬프트에서 뺀다. 화면 연출은 캡처와 함께 쌓아 제작 단계에서 후보로 꺼낸다

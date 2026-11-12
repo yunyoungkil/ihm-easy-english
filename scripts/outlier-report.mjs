@@ -213,6 +213,37 @@ export function buildVisualLibrary(reports = []) {
     });
 }
 
+export const REPORTS_PER_DAY = 2; // Gemini 무료 한도 안에서 영상 보기 호출을 하루 2번으로 둔다
+export const REPORT_FAILURE_COOLDOWN_DAYS = 7;
+// 키워드 검색으로 들어온 아웃라이어에는 고양이 브이로그 같은 무관한 영상도 섞인다. 영어 학습과 관계있는 제목만 고른다.
+const RELEVANT_TITLE_RE = /영어|영단어|english|발음|파닉스|phonics|단어|회화|듣기|리스닝|스피킹|문법|원어민|미드|읽는/i;
+
+/** 매일 루프가 합친 리포트를 만들 경쟁 영상: 배수 큰 순, 하루 몫만. failures는 {영상ID: 실패 시각}. */
+export function pickReportTargets({marketDemand = {}, existingIds = new Set(), failures = {}, now = new Date(), limit = REPORTS_PER_DAY} = {}) {
+  const blockedChannel = (ch) => ch?.status === 'blocked' || ch?.status === 'graduated';
+  const blockedIds = new Set((marketDemand.trackedChannels || []).filter(blockedChannel).flatMap((ch) => (ch.topOutliers || []).map((o) => o.videoId)));
+  const best = new Map();
+  const add = (list) => {
+    for (const o of list || []) {
+      if (!o?.videoId || blockedIds.has(o.videoId)) continue;
+      const prev = best.get(o.videoId);
+      if (!prev || (Number(o.outlierRatio) || 0) > prev.outlierRatio) best.set(o.videoId, {videoId: o.videoId, outlierRatio: Number(o.outlierRatio) || 0, title: o.title || prev?.title || ''});
+    }
+  };
+  for (const kw of marketDemand.byKeyword || []) add(kw.topOutliers);
+  for (const ch of marketDemand.trackedChannels || []) if (!blockedChannel(ch)) add(ch.topOutliers);
+  const cooldownMs = REPORT_FAILURE_COOLDOWN_DAYS * 86400000;
+  return [...best.values()]
+    .filter((o) => RELEVANT_TITLE_RE.test(o.title) && !existingIds.has(o.videoId))
+    .filter((o) => {
+      const failedAt = Date.parse(failures[o.videoId] || '');
+      return !(Number.isFinite(failedAt) && now.getTime() - failedAt < cooldownMs);
+    })
+    .sort((a, b) => b.outlierRatio - a.outlierRatio)
+    .slice(0, limit)
+    .map((o) => o.videoId);
+}
+
 /** 연출 자료집 검색: 화면 변화 설명·목적·영상 제목에 검색어가 모두 들어간 순간. 검색어가 비면 전부. */
 export function searchVisualLibrary(library = [], query = '') {
   const words = String(query).trim().toLowerCase().split(/\s+/).filter(Boolean);

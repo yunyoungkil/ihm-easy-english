@@ -257,10 +257,41 @@ async function run() {
     existingScriptIds,
     failures,
     now,
+    // 예전 대본 리포트는 프롬프트에 검증 안 된 우리 철학과 분류 목록이 박혀 있었다. 대본·댓글·화면을 한 번에 보는
+    // 합친 아웃라이어 리포트(아래 outlierReports 단계)가 대신하므로 자동 생성은 멈춘다(2026-11-12, AGENTS.md).
+    scriptLimit: 0,
   });
 
   if (plan.audience || backfill.hasWork) {
     await step('audience', () => runAudienceBackfillStep(backfill, post));
+  }
+
+  // 합친 아웃라이어 리포트: 하루 2편까지, 배수 큰 영상부터. 실패한 영상은 7일 동안 다시 하지 않는다.
+  const {pickReportTargets, analyzeOutlierVideo, loadReports} = await import('./outlier-report.mjs');
+  const keepSince = now.getTime() - 30 * 86400000;
+  report.outlierReportFailures = Object.fromEntries(Object.entries(prevLoop.outlierReportFailures || {}).filter(([, at]) => Date.parse(at) >= keepSince));
+  const reportTargets = pickReportTargets({
+    marketDemand: latestMarketDemand,
+    existingIds: new Set(loadReports().map((r) => r.videoId)),
+    failures: report.outlierReportFailures,
+    now,
+  });
+  if (reportTargets.length) {
+    await step('outlierReports', async () => {
+      const done = [];
+      const failed = [];
+      for (const videoId of reportTargets) {
+        try {
+          await analyzeOutlierVideo(videoId);
+          done.push(videoId);
+        } catch (err) {
+          failed.push({videoId, error: String(err.message).slice(0, 200)});
+          report.outlierReportFailures[videoId] = new Date().toISOString();
+        }
+      }
+      if (!done.length) throw new Error(`합친 아웃라이어 리포트 실패: ${failed.map((f) => `${f.videoId}(${f.error})`).join(', ')}`);
+      return {done, failed};
+    });
   }
 
   // 모은 데이터를 다음 기획의 출발점 한 장으로 만든다(2026-11-12, knowledge/data-consumption-map.md).

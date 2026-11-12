@@ -294,6 +294,14 @@ async function run() {
     });
   }
 
+  // 다른 PC가 만든 리포트의 캡처는 깃으로 오지 않으므로 이 PC에서 빠진 것을 채운다(Gemini 안 부름).
+  await step('outlierFrames', async () => {
+    const {ensureAllFrames} = await import('./outlier-report.mjs');
+    const result = await ensureAllFrames({install: true});
+    if (result.failed.length && !result.made) throw new Error(`캡처 채우기 실패: ${result.failed.map((f) => `${f.videoId}(${f.error})`).join(', ').slice(0, 200)}`);
+    return result;
+  });
+
   // 모은 데이터를 다음 기획의 출발점 한 장으로 만든다(2026-11-12, knowledge/data-consumption-map.md).
   // 동기화·시청자 고민 분석이 끝난 뒤에 만들어야 오늘 데이터가 들어간다.
   await step('nextInput', async () => {

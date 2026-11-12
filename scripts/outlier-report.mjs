@@ -381,15 +381,39 @@ async function callGemini({videoId, windowSeconds, thumbnailBase64, prompt, gemi
  * (2) 고른 순간마다 그 시각부터 1초 간격 3장을 이어 붙인 띠를 만든다(AI 시각이 1~2초 어긋나도 전환이 띠 안에 들어오게).
  * 받은 영상은 끝나면 지운다.
  */
-async function processClip(videoId, moments, windowSeconds) {
+let ytDlpCommand; // undefined = 아직 안 찾음, null = 없음
+/** yt-dlp 실행 방법을 찾는다. 명령이 없으면 파이썬 모듈로 부른다. install이면 없을 때 pip로 설치를 시도한다. */
+export async function resolveYtDlp({install = false} = {}) {
+  if (ytDlpCommand) return ytDlpCommand;
+  const tries = [['yt-dlp'], ['python', '-m', 'yt_dlp'], ['py', '-m', 'yt_dlp']];
+  for (const cmd of tries) {
+    try {
+      await execFileAsync(cmd[0], [...cmd.slice(1), '--version'], {timeout: 30000});
+      ytDlpCommand = cmd;
+      return cmd;
+    } catch { /* 다음 방법 */ }
+  }
+  if (install) {
+    try {
+      await execFileAsync('python', ['-m', 'pip', 'install', '--user', '-U', 'yt-dlp'], {timeout: 300000, maxBuffer: 20 * 1024 * 1024});
+      return resolveYtDlp({install: false});
+    } catch { /* 설치 실패 */ }
+  }
+  ytDlpCommand = null;
+  return null;
+}
+
+async function processClip(videoId, moments, windowSeconds, {detectCuts = true} = {}) {
   const work = mkdtempSync(join(tmpdir(), 'outlier-frames-'));
   try {
+    const ytDlp = await resolveYtDlp();
+    if (!ytDlp) throw new Error('yt-dlp가 이 PC에 없음(npm run outlier-frames가 설치를 시도한다)');
     const section = `*0-${Math.ceil(windowSeconds) + 3}`;
-    await execFileAsync('yt-dlp', ['-q', '--no-warnings', '--download-sections', section, '-f', 'bv*[height<=480][ext=mp4]/b[height<=480]/b', '-o', join(work, 'v.%(ext)s'), `https://www.youtube.com/watch?v=${videoId}`], {timeout: 300000, maxBuffer: 10 * 1024 * 1024});
+    await execFileAsync(ytDlp[0], [...ytDlp.slice(1), '-q', '--no-warnings', '--download-sections', section, '-f', 'bv*[height<=480][ext=mp4]/b[height<=480]/b', '-o', join(work, 'v.%(ext)s'), `https://www.youtube.com/watch?v=${videoId}`], {timeout: 300000, maxBuffer: 10 * 1024 * 1024});
     const video = readdirSync(work).find((f) => f.startsWith('v.'));
     if (!video) throw new Error('영상 파일을 받지 못함');
     let cuts = null;
-    try {
+    if (detectCuts) try {
       const {stderr} = await execFileAsync('ffmpeg', ['-hide_banner', '-i', join(work, video), '-t', String(windowSeconds), '-vf', "select='gt(scene,0.3)',showinfo", '-an', '-f', 'null', '-'], {timeout: 180000, maxBuffer: 50 * 1024 * 1024});
       cuts = parseSceneTimes(stderr);
     } catch (err) {
@@ -410,6 +434,47 @@ async function processClip(videoId, moments, windowSeconds) {
   } finally {
     rmSync(work, {recursive: true, force: true});
   }
+}
+
+/**
+ * 리포트에 적힌 캡처 중 이 PC 디스크에 없는 순간(2026-11-12 사용자: 다른 PC에서도 작업한다).
+ * 캡처는 리포트의 시각만 있으면 똑같이 다시 만들 수 있어서 깃에 올리지 않고 각 PC가 만든다.
+ */
+export function missingFrames(report, exists = (rel) => existsSync(join(projectDir, rel))) {
+  const listed = report?.frames || [];
+  if (listed.length) return listed.filter((f) => !exists(`data/youtube/outlier-frames/${report.videoId}/${f.file}`)).map((f) => ({t: f.t}));
+  return pickFrameMoments(report?.analysis?.visualMoments || [], report?.windowSeconds ?? LONG_VIDEO_WINDOW_SECONDS).map((m) => ({t: m.t}));
+}
+
+/** 빠진 캡처를 다시 만든다. Gemini는 부르지 않고 영상 앞부분만 잠깐 받아 자른다. */
+export async function ensureReportFrames(report) {
+  const missing = missingFrames(report);
+  if (!missing.length) return {videoId: report.videoId, made: 0, error: null};
+  const result = await processClip(report.videoId, missing, report.windowSeconds ?? LONG_VIDEO_WINDOW_SECONDS, {detectCuts: false});
+  if (!report.frames?.length && result.frames.length) {
+    // 처음 분석 때 캡처를 못 만든 리포트는 이번에 만든 목록을 리포트에 적어 둔다(다음 PC가 같은 순간을 만들게).
+    const path = join(reportsDir, `${report.videoId}.json`);
+    const saved = JSON.parse(readFileSync(path, 'utf8'));
+    saved.frames = result.frames;
+    saved.framesError = null;
+    writeFileSync(path, `${JSON.stringify(saved, null, 2)}\n`, 'utf8');
+  }
+  return {videoId: report.videoId, made: result.frames.length, error: result.error};
+}
+
+export async function ensureAllFrames({install = false} = {}) {
+  const reports = loadReports();
+  const pending = reports.filter((r) => missingFrames(r).length);
+  if (!pending.length) return {total: reports.length, pending: 0, made: 0, failed: []};
+  if (!(await resolveYtDlp({install}))) return {total: reports.length, pending: pending.length, made: 0, failed: [{videoId: '*', error: 'yt-dlp가 이 PC에 없고 설치도 못 함'}]};
+  let made = 0;
+  const failed = [];
+  for (const r of pending) {
+    const res = await ensureReportFrames(r);
+    made += res.made;
+    if (res.error) failed.push({videoId: r.videoId, error: res.error});
+  }
+  return {total: reports.length, pending: pending.length, made, failed};
 }
 
 function findOutlierRatio(videoId) {
@@ -473,7 +538,12 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
   return report;
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && process.argv.includes('--library')) {
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && process.argv.includes('--ensure-frames')) {
+  // 빠진 캡처 채우기: npm run outlier-frames (세션 시작 훅·매일 루프가 자동으로 부른다)
+  const result = await ensureAllFrames({install: process.argv.includes('--install')});
+  console.log(`캡처 확인: 리포트 ${result.total}편 중 캡처가 빠진 편 ${result.pending}편, 새로 만든 캡처 ${result.made}장${result.failed.length ? `, 실패 ${result.failed.map((f) => `${f.videoId}(${f.error})`).join(', ')}` : ''}`);
+  if (result.failed.length && !result.made) process.exitCode = 1;
+} else if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && process.argv.includes('--library')) {
   // 연출 자료집 검색: npm run visual-library -- 검색어 (제작 단계에서 화면 구성 후보를 꺼낼 때)
   const query = process.argv.slice(process.argv.indexOf('--library') + 1).join(' ');
   const found = searchVisualLibrary(buildVisualLibrary(loadReports()), query);

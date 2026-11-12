@@ -21,7 +21,7 @@ h1{font-size:20px;margin:8px 0}h2{font-size:17px;margin:28px 0 8px;border-bottom
 .ok{color:var(--ok)}.bad{color:var(--bad)}.na{color:var(--na)}
 .moment{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}.moment img{width:auto;max-width:100%;height:auto;border-radius:6px;border:1px solid var(--line)}
 .t{font-weight:700;font-variant-numeric:tabular-nums}
-table{width:100%;border-collapse:collapse;font-size:14px}td,th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
+table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto}code{font-size:13px;background:var(--line);padding:1px 4px;border-radius:4px}td,th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
 .thumb{max-width:360px;width:100%;border-radius:8px}
 .list a{display:grid;grid-template-columns:160px minmax(0,1fr);gap:12px;text-decoration:none;color:inherit}
 .list img{width:160px;border-radius:6px}
@@ -33,21 +33,61 @@ const badge = (flag) => (flag === true ? '<span class="ok">✓ 원문 확인</sp
     : '<span class="na">– 대조할 원문 없음</span>');
 const quote = (text, flag) => (String(text ?? '').trim() ? `<div class="q">“${escapeHtml(text)}” ${badge(flag)}</div>` : '');
 
-const page = (title, body) => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(title)}</title><style>${STYLE}</style></head><body><main>${body}</main></body></html>`;
+const page = (title, body, {refreshSeconds = 0} = {}) => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${refreshSeconds ? `<meta http-equiv="refresh" content="${Number(refreshSeconds)}">` : ''}<title>${escapeHtml(title)}</title><style>${STYLE}</style></head><body><main>${body}</main></body></html>`;
 
-export function renderReportPage(report) {
+// 마크다운 한 줄 안의 꾸밈: 이미 이스케이프된 글자에만 적용한다.
+const inlineMd = (escaped) => escaped
+  .replace(/`([^`]+)`/g, '<code>$1</code>')
+  .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+  .replace(/http:\/\/localhost:3001(\/[\w\-/]+)/g, '<a href="$1">$1</a>');
+
+/** 다음 기획 입력처럼 코드가 만든 마크다운을 읽기 전용 화면으로 그린다. 표·목록·제목·굵게·코드만 다룬다. */
+export function renderMarkdownPage(title, markdown = '') {
+  const lines = String(markdown).replace(/\r\n/g, '\n').split('\n');
+  const out = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.trim()) { i += 1; continue; }
+    const heading = line.match(/^(#{1,3})\s+(.*)$/);
+    if (heading) { out.push(`<h${heading[1].length}>${inlineMd(escapeHtml(heading[2]))}</h${heading[1].length}>`); i += 1; continue; }
+    if (line.trim().startsWith('|')) {
+      const rows = [];
+      while (i < lines.length && lines[i].trim().startsWith('|')) { rows.push(lines[i]); i += 1; }
+      const cells = (row) => row.trim().replace(/^\||\|$/g, '').split('|').map((c) => inlineMd(escapeHtml(c.trim())));
+      const body = rows.filter((r, n) => !(n === 1 && /^[\s|:-]+$/.test(r)));
+      out.push(`<table><tr>${cells(body[0]).map((c) => `<th>${c}</th>`).join('')}</tr>${body.slice(1).map((r) => `<tr>${cells(r).map((c) => `<td>${c}</td>`).join('')}</tr>`).join('')}</table>`);
+      continue;
+    }
+    if (/^\s*(-|\d+\.)\s+/.test(line)) {
+      const ordered = /^\s*\d+\./.test(line);
+      const items = [];
+      while (i < lines.length && /^\s*(-|\d+\.)\s+/.test(lines[i])) { items.push(lines[i].replace(/^\s*(-|\d+\.)\s+/, '')); i += 1; }
+      const tag = ordered ? 'ol' : 'ul';
+      out.push(`<${tag}>${items.map((it) => `<li>${inlineMd(escapeHtml(it))}</li>`).join('')}</${tag}>`);
+      continue;
+    }
+    const para = [];
+    while (i < lines.length && lines[i].trim() && !/^(#{1,3}\s|\s*\||\s*(-|\d+\.)\s)/.test(lines[i])) { para.push(lines[i]); i += 1; }
+    out.push(`<p>${para.map((p) => inlineMd(escapeHtml(p))).join('<br>')}</p>`);
+  }
+  return page(title, `<p><a href="/">← 대시보드</a></p>${out.join('\n')}`);
+}
+
+export function renderReportPage(report, {framesPending = 0} = {}) {
   const a = report.analysis || {};
   const m = report.meta || {};
   const id = escapeHtml(report.videoId);
   const yt = (t) => `https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}&t=${Math.floor(Number(t) || 0)}s`;
   const frameByT = new Map((report.frames || []).map((f) => [f.t, f.file]));
   const parts = [];
-  parts.push(`<p><a href="/outlier-reports">← 리포트 목록</a></p>`);
+  parts.push(`<p><a href="/outlier-reports">← 리포트 목록</a> · <a href="/visual-library">연출 자료집</a> · <a href="/">대시보드</a></p>`);
   parts.push(`<h1>${escapeHtml(m.title)}</h1>`);
   parts.push(`<div class="meta">${escapeHtml(m.channelTitle)} · 구독자 ${num(report.subscriberCount)} · 조회수 ${num(m.viewCount)} · 구독자 대비 ${report.viewsPerSubscriber ?? '측정 전'}배 · 채널 평소 대비 ${report.outlierRatio == null ? '측정 전' : `${Math.round(report.outlierRatio * 10) / 10}배`} · 길이 ${m.durationSeconds ?? '?'}초</div>`);
   const src = report.sources || {};
   parts.push(`<div class="meta">분석 ${escapeHtml(String(report.analyzedAt || '').slice(0, 10))} · ${escapeHtml(report.model || '')} · 화면은 처음 ${report.windowSeconds}초 · 자막 ${src.transcript?.ok ? '있음' : `없음(${escapeHtml(src.transcript?.error || '')})`} · 댓글 ${src.comments?.count ?? 0}개 · 인용 확인 ${report.quoteCheck?.verified ?? 0}/${report.quoteCheck?.checked ?? 0}</div>`);
   parts.push(`<p><a href="https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}" target="_blank" rel="noopener">유튜브에서 보기</a></p>`);
+  if (framesPending > 0) parts.push(`<div class="card"><b>캡처 ${Number(framesPending)}장을 이 PC에서 만드는 중입니다.</b> 캡처는 깃에 올리지 않아 PC마다 처음 한 번 만듭니다(1편에 30초~2분). 이 화면은 25초마다 스스로 새로고침합니다.</div>`);
 
   const c = a.click || {};
   parts.push('<h2>1. 클릭 — 제목과 썸네일</h2><div class="card">');
@@ -59,7 +99,7 @@ export function renderReportPage(report) {
   parts.push(`<h2>2. 첫 15초</h2><div class="card"><p>${escapeHtml(o.first15s)}</p>${quote(o.quote, o.quoteVerified)}<p><b>계속 볼 이유</b>: ${escapeHtml(o.reasonToKeepWatching)}</p></div>`);
 
   const p = report.pacing || {};
-  parts.push(`<h2>3. 화면 연출</h2><p class="meta">처음 ${report.windowSeconds}초 동안 장면 전환 ${p.count ?? 0}번 · 1분에 ${p.perMinute ?? 0}번 · 전환 사이 간격 중앙값 ${p.medianGapSeconds == null ? '측정 전' : `${p.medianGapSeconds}초`} (출처: ${escapeHtml(p.source || '코드 계산')}). 아래는 AI가 적은 화면 변화 ${(a.visualMoments || []).length}개다. 캡처는 그 시각부터 1초 간격 3장이고, AI가 말한 시각은 1~2초 어긋날 수 있다.${report.framesError ? ` 캡처 실패: ${escapeHtml(report.framesError)}` : ''}</p>`);
+  parts.push(`<h2>3. 화면 연출</h2><p class="meta">처음 ${report.windowSeconds}초 동안 장면 전환 ${p.count ?? 0}번 · 1분에 ${p.perMinute ?? 0}번 · 전환 사이 간격 중앙값 ${p.medianGapSeconds == null ? '측정 전' : `${p.medianGapSeconds}초`} (출처: ${escapeHtml(p.source || '코드 계산')}). 아래는 AI가 적은 화면 변화 ${(a.visualMoments || []).length}개다. 캡처는 그 시각부터 1초 간격 3장이고, AI가 말한 시각은 몇 초 어긋날 수 있다.${report.framesError ? ` 캡처 실패: ${escapeHtml(report.framesError)}` : ''}</p>`);
   for (const mo of a.visualMoments || []) {
     const file = frameByT.get(mo.t);
     parts.push(`<div class="card moment"><div><a class="t" href="${yt(mo.t)}" target="_blank" rel="noopener">${mmss(mo.t)}</a> ${escapeHtml(mo.what)}</div>${file ? `<img loading="lazy" src="/outlier-frames/${id}/${escapeHtml(file)}" alt="${mmss(mo.t)} 화면">` : ''}<div class="q">${escapeHtml(mo.purpose)}</div></div>`);
@@ -88,11 +128,40 @@ export function renderReportPage(report) {
 
   const u = a.forUs || {};
   parts.push(`<h2>7. 우리 채널에</h2><div class="card"><p><b>가져올 점</b>: ${escapeHtml(u.adopt)}</p><p><b>다르게 할 점</b>: ${escapeHtml(u.differentiate)}</p></div>`);
-  return page(m.title || report.videoId, parts.join('\n'));
+  return page(m.title || report.videoId, parts.join('\n'), {refreshSeconds: framesPending > 0 ? 25 : 0});
+}
+
+/**
+ * 연출 자료집 페이지(2026-11-12): 모든 리포트의 화면 변화를 캡처 띠와 함께 평소 대비 배수 큰 순으로 깐다.
+ * 대시보드 탭은 6개로 두기로 한 결정(2026-11-11)이 있어 탭이 아니라 따로 열리는 페이지로 만들었다.
+ * 검색은 주소의 ?q= 로 서버가 거른다(화면 스크립트 없음).
+ */
+export function renderVisualLibraryPage(entries = [], {query = '', reports = 0, pendingReports = 0} = {}) {
+  const words = String(query).trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const shown = entries.filter((e) => {
+    const hay = `${e.what || ''} ${e.purpose || ''} ${e.title || ''}`.toLowerCase();
+    return words.every((w) => hay.includes(w));
+  });
+  const tiles = shown.slice(0, 150).map((e) => {
+    const img = !e.frame ? ''
+      : e.frameReady ? `<a href="/outlier-report/${encodeURIComponent(e.videoId)}"><img loading="lazy" src="/${escapeHtml(e.frame.replace('data/youtube/', ''))}" alt="${mmss(e.t)} 화면"></a>`
+        : '<div class="meta">⏳ 이 PC에서 캡처 만드는 중</div>';
+    const ratio = e.outlierRatio == null ? '측정 전' : `${Math.round(e.outlierRatio)}배`;
+    return `<div class="card moment">${img}<div><span class="t">${mmss(e.t)}</span> ${escapeHtml(e.what)}</div><div class="q">${escapeHtml(e.purpose)}</div><div class="meta">${escapeHtml(e.channelTitle)} · 평소의 ${ratio} · <a href="/outlier-report/${encodeURIComponent(e.videoId)}">리포트</a></div></div>`;
+  });
+  const body = [
+    '<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">경쟁 영상 리포트 목록</a></p>',
+    `<h1>연출 자료집</h1>`,
+    `<p class="meta">경쟁 영상 ${reports}편 · 화면 변화 ${entries.length}개. 잘된 경쟁 영상이 화면을 어떻게 바꿨는지 1초 간격 3장 캡처로 본다. 구조만 배우고 그림·문구·남의 영상은 따라 하지 않는다. AI가 적은 시각은 몇 초 어긋날 수 있어 캡처 띠로 직접 확인한다. 매일 루프가 하루 2편씩 늘린다.${pendingReports ? ` 지금 이 PC에서 ${Number(pendingReports)}편의 캡처를 만드는 중이라 25초마다 새로고침한다.` : ''}</p>`,
+    `<form method="get" action="/visual-library"><input type="search" name="q" value="${escapeHtml(query)}" placeholder="검색: 비교, X 표시, 정답, 자막…" style="width:100%;max-width:420px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)"></form>`,
+    `<p class="meta">${shown.length}개${shown.length > 150 ? ' (앞 150개만 표시)' : ''}</p>`,
+    tiles.join('\n') || `<p class="meta">${entries.length ? '검색어에 맞는 화면 변화가 없습니다.' : '아직 리포트가 없습니다. 매일 루프가 하루 2편씩 만듭니다.'}</p>`,
+  ];
+  return page('연출 자료집', body.join('\n'), {refreshSeconds: pendingReports ? 25 : 0});
 }
 
 export function renderReportIndex(reports = []) {
   const sorted = [...reports].sort((a, b) => (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
   const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} · 채널 평소 대비 ${r.outlierRatio == null ? '측정 전' : `${Math.round(r.outlierRatio * 10) / 10}배`} · 장면 전환 ${r.pacing?.count ?? 0}번 · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
-  return page('아웃라이어 리포트', `<h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
+  return page('아웃라이어 리포트', `<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
 }

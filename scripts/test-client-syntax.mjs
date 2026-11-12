@@ -176,6 +176,8 @@ async function main() {
             topOutliers: [
               {
                 videoId: 'TESTVID001',
+                // 합친 아웃라이어 리포트가 있는 영상(서버 annotateOutlier가 붙이는 칸, 2026-11-12)
+                outlierReport: { frame: null, visualChanges: 7 },
                 title: 'TEST_OUTLIER_TITLE 발음 함께 연습해요',
                 channelTitle: 'TEST_CHANNEL',
                 viewCount: 182610,
@@ -231,6 +233,19 @@ async function main() {
       },
       // renderKnowledgeDbTab — shape matches data/youtube/audience-dna.json +
       // data/youtube/success-patterns.json (see upsertAudienceDna / renderKnowledgeDbTab)
+      // renderNextInputCard — shape matches scripts/next-episode-input.mjs buildFromProject() (/api/next-input)
+      gNextInput: {
+        generatedAt: '2026-11-12T05:00:00.000Z',
+        fileGeneratedAt: '2026-11-12T05:00:00.000Z',
+        outcomes: [{label: 'EP23', verdict: 'hold'}, {label: 'EP24', verdict: 'pending'}],
+        comparisons: {
+          LONGFORM: {format: 'LONGFORM', status: 'ok', count: 20, medianViews7d: 5, smallSample: true,
+            top: [{traits: {question: true, startsWithEnglish: false}}], bottom: [{traits: {question: false, startsWithEnglish: false}}]},
+          SHORTS: {format: 'SHORTS', status: 'hold', count: 3, reason: 'TEST_NEXT_INPUT_HOLD', top: [], bottom: []},
+        },
+        audience: {painPoint: [], question: [{text: 'TEST_NEXT_INPUT_Q', videoCount: 5, occurrences: 5, channels: []}], excludedAiGuesses: 0},
+        outlierReports: [{videoId: 'TESTVID001', title: 'TEST_NEXT_INPUT_REPORT', outlierRatio: 570}],
+      },
       gKnowledgeDb: {
         audienceDna: {
           entries: [
@@ -273,8 +288,8 @@ async function main() {
     // branch would also satisfy). Tabs not listed here don't depend on any of the fixtures
     // above (e.g. renderDesignSystemTab is self-contained).
     const expectedMarkers = {
-      renderOverviewTab: ['Top Video'],
-      renderMarketDemandTab: ['TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER', 'TEST_D7_APPLIED'],
+      renderOverviewTab: ['Top Video', 'TEST_NEXT_INPUT_Q', 'TEST_NEXT_INPUT_HOLD', 'TEST_NEXT_INPUT_REPORT'],
+      renderMarketDemandTab: ['TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER', 'TEST_D7_APPLIED', '리포트 보기 (화면 변화 7)'],
       renderBenchmarkTab: ['TEST_OUTCOME_LABEL', 'TEST_OUTCOME_CHANNEL', 'TEST_OUTCOME_AUDIENCE'],
       renderAbSimulatorTab: ['TEST_FEED_OUR_TITLE', 'TEST_FEED_RESULT', 'TEST_FEED_WINNER', 'TEST_FEED_OUTLIER'],
       renderEpisodesTab: ['EP16 Test Title'],

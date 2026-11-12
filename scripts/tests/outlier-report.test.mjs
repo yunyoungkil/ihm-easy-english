@@ -5,9 +5,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
-  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets,
+  MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames,
 } from '../outlier-report.mjs';
-import {renderReportPage, renderReportIndex} from '../outlier-report-view.mjs';
+import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
 const meta = {videoId: 'SbQVBQoRciA', title: '한국인이 자주 틀리는 영어 발음 5개', channelTitle: '채널', viewCount: 42628, publishedAt: '2026-11-01T00:00:00Z', durationSeconds: 53};
 
@@ -142,4 +142,53 @@ test('매일 루프 대상: 차단·졸업 채널, 이미 있는 리포트, 7일
   assert.deepEqual(got, ['kw000000001']);
   const later = pickReportTargets({marketDemand, existingIds: new Set(['ch000000001']), failures: {kw000000003: '2026-11-01T00:00:00Z'}, now, limit: 2});
   assert.deepEqual(later, ['kw000000001', 'kw000000003'], '7일 지난 실패는 다시 시도');
+});
+
+test('다른 PC에서 빠진 캡처만 다시 만든다: 리포트에 적힌 캡처 중 디스크에 없는 것, 목록이 비었으면 화면 변화에서 고른다', () => {
+  const report = {videoId: 'abcdefghijk', windowSeconds: 60, frames: [{t: 1, file: '1.jpg'}, {t: 5.5, file: '5.jpg'}], analysis: {visualMoments: [{t: 1}, {t: 5.5}]}};
+  const onDisk = new Set(['data/youtube/outlier-frames/abcdefghijk/1.jpg']);
+  const exists = (rel) => onDisk.has(rel);
+  assert.deepEqual(missingFrames(report, exists).map((m) => m.t), [5.5]);
+  onDisk.add('data/youtube/outlier-frames/abcdefghijk/5.jpg');
+  assert.deepEqual(missingFrames(report, exists), []);
+  const noList = {...report, frames: []};
+  assert.deepEqual(missingFrames(noList, () => false).map((m) => m.t), [1, 5.5]);
+  assert.deepEqual(missingFrames({...noList, analysis: {visualMoments: []}}, () => false), []);
+});
+
+test('캡처를 만드는 중이면 리포트 화면에 안내를 띄우고 잠시 뒤 스스로 새로고침한다', () => {
+  const report = {videoId: 'abcdefghijk', meta: {title: 't'}, analysis: {}, frames: [], pacing: {}, quoteCheck: {}, windowSeconds: 60};
+  const pending = renderReportPage(report, {framesPending: 4});
+  assert.match(pending, /캡처 4장을 이 PC에서 만드는 중/);
+  assert.match(pending, /http-equiv="refresh"/);
+  assert.doesNotMatch(renderReportPage(report), /http-equiv="refresh"/);
+});
+
+test('다음 기획 입력 페이지: 마크다운 표·목록·굵은 글씨를 그리고 글자는 이스케이프한다', () => {
+  const md = '# 제목\n\n본문 **굵게** `코드` http://localhost:3001/outlier-report/abcdefghijk\n\n| 가 | 나 |\n|---|---|\n| <b>x</b> | 2 |\n\n- 항목 <script>\n';
+  const html = renderMarkdownPage('다음 기획 입력', md);
+  assert.match(html, /<h1>제목<\/h1>/);
+  assert.match(html, /<strong>굵게<\/strong>/);
+  assert.match(html, /<table>/);
+  assert.match(html, /<li>항목 &lt;script&gt;<\/li>/);
+  assert.match(html, /&lt;b&gt;x&lt;\/b&gt;/);
+  assert.match(html, /<a href="\/outlier-report\/abcdefghijk">/);
+  assert.doesNotMatch(html, /<script>/);
+});
+
+test('연출 자료집 페이지: 검색어로 거르고, 캡처가 있으면 이미지·없으면 만드는 중 안내, 글자는 이스케이프', () => {
+  const entries = [
+    {videoId: 'abcdefghijk', title: 't', channelTitle: '<i>채널</i>', outlierRatio: 570, t: 3, what: '빨간 X 표시', purpose: '틀린 발음', frame: 'data/youtube/outlier-frames/abcdefghijk/3.jpg', frameReady: true},
+    {videoId: 'abcdefghijk', title: 't', channelTitle: 'c', outlierRatio: 570, t: 9, what: '영화 장면 <b>', purpose: '실제 쓰임', frame: 'data/youtube/outlier-frames/abcdefghijk/9.jpg', frameReady: false},
+  ];
+  const all = renderVisualLibraryPage(entries, {reports: 1, pendingReports: 1});
+  assert.match(all, /src="\/outlier-frames\/abcdefghijk\/3\.jpg"/);
+  assert.match(all, /이 PC에서 캡처 만드는 중/);
+  assert.match(all, /&lt;i&gt;채널&lt;\/i&gt;/);
+  assert.doesNotMatch(all, /<b>'/);
+  assert.match(all, /http-equiv="refresh"/, '만드는 중이면 스스로 새로고침');
+  const filtered = renderVisualLibraryPage(entries, {query: 'X 표시', reports: 1, pendingReports: 0});
+  assert.match(filtered, /빨간 X 표시/);
+  assert.doesNotMatch(filtered, /영화 장면/);
+  assert.match(filtered, /value="X 표시"/);
 });

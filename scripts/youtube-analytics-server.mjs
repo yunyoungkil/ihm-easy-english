@@ -43,8 +43,9 @@ import { syncAllTrackedChannels, runD7AutonomousCycle, LIFECYCLE_STATUS } from '
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 import { recordSuccessPatterns } from './success-patterns.mjs';
 import { resolveVideoFormat } from './video-format.mjs';
-import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir } from './outlier-report.mjs';
-import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex } from './outlier-report-view.mjs';
+import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir, missingFrames as missingOutlierFrames, ensureReportFrames, buildVisualLibrary } from './outlier-report.mjs';
+import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage } from './outlier-report-view.mjs';
+import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -2500,6 +2501,7 @@ let gMarketDemand = null;
 let gEpisodes = null;
 let gEpisodeFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gKnowledgeDb = null;
+let gNextInput = null; // 다음 기획 입력 요약(/api/next-input, 2026-11-12)
 let gDemandRefreshSeq = 0;
 let gDemandBusyCount = 0;
 let gDemandFilter = (function() {
@@ -2748,16 +2750,6 @@ document.addEventListener('click', (e) => {
     switchTab(tabBtn.dataset.targetTab);
     return;
   }
-  const outlierScriptBtn = e.target.closest('.btn-outlier-script');
-  if (outlierScriptBtn && outlierScriptBtn.dataset.vid) {
-    triggerScriptAnalysis(outlierScriptBtn.dataset.vid);
-    return;
-  }
-  const outlierAnalyzeBtn = e.target.closest('.btn-outlier-analyze');
-  if (outlierAnalyzeBtn && outlierAnalyzeBtn.dataset.vid) {
-    triggerCommentAnalysis(outlierAnalyzeBtn.dataset.vid);
-    return;
-  }
   const viewCommentReportBtn = e.target.closest('.btn-outlier-view-comment');
   if (viewCommentReportBtn && viewCommentReportBtn.dataset.file) {
     viewSavedReportDetail(viewCommentReportBtn.dataset.file);
@@ -2791,6 +2783,11 @@ async function loadAll() {
     const epJson = epRes.ok ? await epRes.json() : [];
     gEpisodes = Array.isArray(epJson) ? epJson : [];
     gKnowledgeDb = kdbRes.ok ? await kdbRes.json() : null;
+    // 다음 기획 입력 요약은 화면을 늦추지 않게 따로 불러와서, 오면 전체 관제 탭을 다시 그린다.
+    fetch('/api/next-input').then(r => r.ok ? r.json() : null).then(j => {
+      gNextInput = j;
+      if (gCurrentTab === 'tab-overview' && gDashboard) renderCurrentTab();
+    }).catch(() => {});
 
     if (dashRes.status === 401) {
       renderAuthRequired();
@@ -2895,6 +2892,42 @@ function renderCurrentTab() {
       '<button class="btn btn-cyan btn-open-tab" data-target-tab="tab-overview" style="margin-top:16px;">⚡ 전체 관제 탭으로 돌아가기</button>' +
     '</div>';
   }
+}
+
+/* 다음 기획 입력 요약 카드 (2026-11-12, 읽기 전용)
+   매일 루프가 만드는 data/youtube/next-episode-input.md와 같은 계산(/api/next-input)을 짧게 보여 준다.
+   숫자는 서버가 실제 파일에서 계산한 값을 그대로 쓰고, 표본이 작으면 가설이라고 붙인다. */
+function renderNextInputCard() {
+  const n = gNextInput;
+  const head = '<div class="card-header"><span class="card-title">🧭 다음 기획 입력</span><span class="badge badge-hold">매일 05:00 자동</span></div>';
+  if (!n) return '<div class="bento-card col-12">' + head + '<div class="card-subtext">불러오는 중이거나 아직 없습니다.</div></div>';
+  const outcomes = n.outcomes || [];
+  const count = (v) => outcomes.filter(o => o.verdict === v).length;
+  const items = [];
+  items.push('판정 ' + outcomes.length + '편: 통함 ' + count('worked') + ' · 보통 ' + count('neutral') + ' · 안 통함 ' + count('failed') + ' · 보류 ' + count('hold') + ' · 집계 전 ' + count('pending') + (count('worked') + count('failed') === 0 ? ' — 아직 확정 판정이 없어 표본을 쌓는 중' : ''));
+  const traitCount = (list, key) => (list || []).filter(v => v.traits && v.traits[key]).length;
+  [['LONGFORM', '롱폼'], ['SHORTS', '쇼츠']].forEach(([key, label]) => {
+    const c = (n.comparisons || {})[key];
+    if (!c) return;
+    if (c.status !== 'ok') { items.push(label + ': 비교 보류 (' + esc(c.reason || '') + ')'); return; }
+    items.push(label + ' 최근 ' + c.count + '편, 7일 조회 중앙값 ' + fmt.format(c.medianViews7d) + '회' +
+      (c.smallSample ? ' <span class="badge badge-hold" style="font-size:10px">작은 표본 · 가설</span>' : '') +
+      ' — 상위 3편 / 하위 3편: 물음표 제목 ' + traitCount(c.top, 'question') + '/' + traitCount(c.bottom, 'question') +
+      ', 영어로 시작 ' + traitCount(c.top, 'startsWithEnglish') + '/' + traitCount(c.bottom, 'startsWithEnglish'));
+  });
+  const q = ((n.audience || {}).question || [])[0];
+  if (q) items.push('경쟁 영상 시청자 질문 1위: "' + esc(String(q.text).slice(0, 70)) + '" (경쟁 영상 ' + q.videoCount + '개)');
+  const r = (n.outlierReports || [])[0];
+  if (r) items.push('관찰한 경쟁 영상 ' + (n.outlierReports || []).length + '편 · 1위: <a href="/outlier-report/' + encodeURIComponent(r.videoId) + '" target="_blank" rel="noopener" style="color:var(--accent-amber)">' + esc(String(r.title || r.videoId).slice(0, 40)) + '</a> (평소의 ' + Math.round(r.outlierRatio || 0) + '배)');
+  const when = n.fileGeneratedAt ? ('파일 ' + new Date(n.fileGeneratedAt).toLocaleString('ko-KR', {month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' · 이 카드는 지금 데이터로 다시 계산') : '파일 아직 없음 · 이 카드는 지금 데이터로 계산';
+  return '<div class="bento-card col-12">' + head +
+    '<ul style="margin:8px 0 0 18px;padding:0;line-height:1.8;font-size:13px;color:var(--text-normal)">' + items.map(t => '<li>' + t + '</li>').join('') + '</ul>' +
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px">' +
+      '<a class="btn btn-sm btn-cyan" href="/next-input" target="_blank" rel="noopener">전체 보기 →</a>' +
+      '<a class="btn btn-sm" href="/outlier-reports" target="_blank" rel="noopener">경쟁 영상 리포트 →</a>' +
+      '<a class="btn btn-sm" href="/visual-library" target="_blank" rel="noopener">📸 연출 자료집 →</a>' +
+      '<span class="card-subtext" style="margin-left:auto">' + esc(when) + '</span>' +
+    '</div></div>';
 }
 
 /* TAB 1: OVERVIEW COCKPIT */
@@ -3074,6 +3107,7 @@ function renderOverviewTab() {
   let html = '<div class="bento-grid">' +
     readyBannerHtml +
     briefingCockpitHtml +
+    renderNextInputCard() +
     '<div class="bento-card col-3">' +
       '<div class="card-header"><span class="card-title">총 조회수 (Views)</span><span class="badge badge-pass">90D</span></div>' +
       '<div class="card-value">' + fmt.format(summary.views || 0) + '</div>' +
@@ -3422,12 +3456,15 @@ function renderMarketDemandTab() {
 
           // 액션 버튼 바
           '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05)">' +
+            // 2026-11-12: 손으로 누르는 "댓글/대본 분석" 버튼을 없앴다. 분석은 매일 루프가 한다(합친 리포트 하루 2편, 배수 큰 순).
+            (o.outlierReport ?
+              ((o.outlierReport.frame ? '<a href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" title="화면 연출 캡처"><img src="' + esc(o.outlierReport.frame) + '" alt="" style="height:44px;border-radius:4px;border:1px solid var(--border-subtle);display:block"></a>' : '') +
+               '<a class="btn btn-sm btn-cyan" href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" style="font-size:11px;padding:5px 10px">📊 리포트 보기 (화면 변화 ' + (o.outlierReport.visualChanges || 0) + ')</a>') :
+              '<span style="font-size:11px;color:var(--text-muted)">⏳ 자동 분석 대기 — 매일 2편, 배수 큰 순</span>') +
             (o.commentReportFile ?
-              '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.commentReportFile) + '">📄 댓글 리포트</button>' :
-              '<button class="btn btn-sm btn-magenta btn-outlier-analyze" style="font-size:11px;padding:5px 10px" data-vid="' + esc(o.videoId) + '">💬 댓글</button>') +
+              '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.commentReportFile) + '">📄 예전 댓글 리포트</button>' : '') +
             (o.scriptReportFile ?
-              '<button class="btn btn-sm btn-outlier-view-script" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.scriptReportFile) + '">📄 대본 리포트</button>' :
-              '<button class="btn btn-sm btn-cyan btn-outlier-script" style="font-size:11px;padding:5px 10px" data-vid="' + esc(o.videoId) + '">📜 대본</button>') +
+              '<button class="btn btn-sm btn-outlier-view-script" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.scriptReportFile) + '">📄 예전 대본 리포트</button>' : '') +
             '<button class="btn btn-sm btn-outlier-delete-video" data-keyword="' + esc(selectedKwObj.keyword) + '" data-vid="' + esc(o.videoId) + '" title="제외" style="color:#ff5577;border-color:#ff5577;padding:5px 8px;margin-left:auto;font-size:11px">🗑️</button>' +
           '</div>' +
         '</div>';
@@ -3745,13 +3782,6 @@ function bindMarketDemandEvents() {
     };
   });
 
-  document.querySelectorAll('.btn-outlier-analyze').forEach(btn => {
-    btn.onclick = () => triggerCommentAnalysis(btn.dataset.vid);
-  });
-
-  document.querySelectorAll('.btn-outlier-script').forEach(btn => {
-    btn.onclick = () => triggerScriptAnalysis(btn.dataset.vid);
-  });
 }
 
 /* TAB: 기획 근거 성적표 (보기 전용, 2026-11-11 재작성)
@@ -3967,22 +3997,6 @@ async function runScriptAnalysis(targetUrl) {
     if (statusBox) statusBox.style.display = 'block';
     if (statusText) statusText.innerHTML = '<span style="color:#ff7676">❌ ' + esc(err.message) + '</span>';
   }
-}
-
-function triggerScriptAnalysis(vidOrUrl) {
-  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
-  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
-  switchTab('tab-demand');
-  runScriptAnalysis(fullUrl);
-}
-
-function triggerCommentAnalysis(vidOrUrl) {
-  if (!vidOrUrl || vidOrUrl === 'undefined') return alert('유효한 영상 ID 또는 URL이 없습니다.');
-  const fullUrl = /^[A-Za-z0-9_-]{11}$/.test(vidOrUrl) ? ('https://youtu.be/' + vidOrUrl) : vidOrUrl;
-  switchTab('tab-demand');
-  const urlInput = document.getElementById('input-ai-url');
-  if (urlInput) urlInput.value = fullUrl;
-  runAiCommentAnalysis({url: fullUrl});
 }
 
 
@@ -6085,11 +6099,20 @@ async function annotateMarketDemandAnalysisStatus(marketDemand) {
     loadJson(analysisFailuresPath, { schemaVersion: 1, entries: {} }),
   ]);
   const failures = failuresStore.entries || {};
+  // 합친 아웃라이어 리포트(2026-11-12): 있으면 화면이 "리포트 보기"와 첫 캡처를 보여 준다.
+  const unifiedReports = new Map(loadOutlierReports().map((r) => [r.videoId, r]));
+  const unifiedInfo = (videoId) => {
+    const r = unifiedReports.get(videoId);
+    if (!r) return null;
+    const first = (r.frames || []).find((f) => existsSync(join(outlierFramesDir, videoId, f.file)));
+    return {frame: first ? `/outlier-frames/${videoId}/${first.file}` : null, visualChanges: (r.analysis?.visualMoments || []).length};
+  };
   // 아웃라이어 영상 하나에 댓글/대본 리포트·실패 사유를 붙이는 로직 — byKeyword의
   // topOutliers와 trackedChannels(2026-09-30 추가)의 topOutliers가 구조가 완전히
   // 같으므로 함수로 뽑아 양쪽에 재사용한다.
   const annotateOutlier = (o) => ({
     ...o,
+    outlierReport: (o.videoId && unifiedInfo(o.videoId)) || null,
     commentReportFile: (o.videoId && commentFileByVid.get(o.videoId)) || null,
     scriptReportFile: (o.videoId && scriptFileByVid.get(o.videoId)) || null,
     // 성공 리포트가 없는데 마지막 시도가 실패로 끝난 적 있으면 그 사유를 같이 실어 보낸다 —
@@ -6165,6 +6188,22 @@ async function getFullDashboardData(forceLiveSync = false) {
   return null;
 }
 
+// 아웃라이어 리포트 캡처 만들기 줄(한 번에 한 편씩). 같은 영상은 두 번 넣지 않는다.
+// 돌려주는 값: 이 리포트에서 아직 없는 캡처 수(0이면 다 있음).
+const outlierFrameJobs = new Set();
+let outlierFrameChain = Promise.resolve();
+function queueMissingOutlierFrames(report) {
+  const missing = missingOutlierFrames(report).length;
+  if (!missing || outlierFrameJobs.has(report.videoId)) return missing;
+  outlierFrameJobs.add(report.videoId);
+  outlierFrameChain = outlierFrameChain
+    .then(() => ensureReportFrames(report))
+    .then((r) => { if (r.error) console.warn(`[Outlier Frames] ${report.videoId}: ${r.error}`); })
+    .catch((err) => console.warn(`[Outlier Frames] ${report.videoId}: ${err.message}`))
+    .finally(() => outlierFrameJobs.delete(report.videoId));
+  return missing;
+}
+
 const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://localhost:${port}`);
@@ -6178,7 +6217,8 @@ const server = createServer(async (req, res) => {
       res.end(pageHtml.replace('<script>', () => '<script>' + String.fromCharCode(10) + clientVideoFormatSource + String.fromCharCode(10)));
       return;
     }
-    // 합친 아웃라이어 리포트 화면(읽기 전용, 2026-11-12). 캡처 이미지는 이 PC에만 있다.
+    // 합친 아웃라이어 리포트 화면(읽기 전용, 2026-11-12). 캡처는 깃에 올리지 않아 PC마다 만든다 —
+    // 빠진 캡처가 있으면 서버가 뒤에서 하나씩 만들고 화면은 안내를 띄운 뒤 스스로 새로고침한다.
     if (url.pathname === '/outlier-reports') {
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
       res.end(renderOutlierReportIndex(loadOutlierReports()));
@@ -6189,8 +6229,32 @@ const server = createServer(async (req, res) => {
       const reportPath = join(outlierReportsDir, `${outlierReportMatch[1]}.json`);
       const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
       if (!report) return json(res, 404, {error: '이 영상의 리포트가 없습니다.'});
+      const framesPending = queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(renderOutlierReportPage(report));
+      res.end(renderOutlierReportPage(report, {framesPending}));
+      return;
+    }
+    // 연출 자료집 페이지(탭은 6개로 두기로 한 결정 때문에 따로 연다): 모든 리포트의 화면 변화. 빠진 캡처는 뒤에서 만든다.
+    if (url.pathname === '/visual-library') {
+      const reports = loadOutlierReports();
+      const pendingReports = reports.filter((r) => queueMissingOutlierFrames(r) > 0).length;
+      const entries = buildVisualLibrary(reports).map((e) => ({...e, frameReady: Boolean(e.frame && existsSync(join(projectDir, e.frame)))}));
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      res.end(renderVisualLibraryPage(entries, {query: String(url.searchParams.get('q') || '').slice(0, 100), reports: reports.length, pendingReports}));
+      return;
+    }
+    // 다음 기획 입력(매일 루프가 만드는 파일과 같은 계산)을 전체 관제 카드와 전체 페이지로 보여 준다.
+    if (url.pathname === '/api/next-input') {
+      const input = buildNextEpisodeInput(projectDir);
+      let fileGeneratedAt = null;
+      try { fileGeneratedAt = ((await readFile(nextEpisodeInputPath(projectDir), 'utf8')).match(/^만든 때: (\S+)/m) || [])[1] || null; } catch { /* 파일 없음 */ }
+      return json(res, 200, {...input, fileGeneratedAt});
+    }
+    if (url.pathname === '/next-input') {
+      let markdown = '';
+      try { markdown = await readFile(nextEpisodeInputPath(projectDir), 'utf8'); } catch { markdown = '# 다음 기획 입력\n\n아직 파일이 없습니다. `npm run next-input`으로 만들거나 매일 루프를 기다립니다.'; }
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      res.end(renderMarkdownPage('다음 기획 입력', markdown));
       return;
     }
     const outlierFrameMatch = url.pathname.match(/^\/outlier-frames\/([\w-]{11})\/(\d{1,5}\.jpg)$/);

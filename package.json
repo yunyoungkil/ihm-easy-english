@@ -39,6 +39,7 @@
     "next-input": "node scripts/next-episode-input.mjs",
     "outlier-report": "node scripts/outlier-report.mjs",
     "visual-library": "node scripts/outlier-report.mjs --library",
+    "outlier-frames": "node scripts/outlier-report.mjs --ensure-frames --install",
     "market-demand": "node scripts/market-demand.mjs",
     "analyze-comments": "node scripts/analyze-outlier-comments.mjs",
     "briefing:sync": "node scripts/briefing-sync.mjs",

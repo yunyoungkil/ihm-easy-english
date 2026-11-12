@@ -312,6 +312,11 @@ async function fetchMeta(videoId, key) {
   const data = await youtubeJson('videos', {part: 'snippet,statistics,contentDetails', id: videoId}, key);
   const item = data.items?.[0];
   if (!item) throw new Error(`영상(${videoId})을 찾을 수 없습니다`);
+  return buildMeta(videoId, item);
+}
+
+/** videos.list 항목(snippet·statistics·contentDetails)에서 리포트의 meta를 만든다. 순수 함수라 시험한다. */
+export function buildMeta(videoId, item) {
   const th = item.snippet.thumbnails || {};
   return {
     videoId,

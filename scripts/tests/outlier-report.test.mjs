@@ -243,3 +243,28 @@ test('컷마다 프레임 한 장: 빠진 컷 번호만 골라내고, 파일 이
 test('컷 프레임은 읽을 수 있게 480px 높이로 뽑는다', () => {
   assert.equal(CUT_FRAME_HEIGHT, 480);
 });
+
+test('리포트 meta는 videos.list의 설명글·태그를 그대로 저장하고, 태그가 없으면 빈 목록이다 (실제 API 칸 이름)', async () => {
+  const {buildMeta} = await import('../outlier-report.mjs');
+  const item = {
+    snippet: {title: '제목', channelId: 'UCx', channelTitle: '채널', publishedAt: '2026-11-10T11:00:02Z', description: '첫 줄\n둘째 줄', tags: ['태그1', '태그2'], thumbnails: {high: {url: 'https://i.ytimg.com/h.jpg'}}},
+    statistics: {viewCount: '47699', likeCount: '1028', commentCount: '29'},
+    contentDetails: {duration: 'PT53S'},
+  };
+  const meta = buildMeta('SbQVBQoRciA', item);
+  assert.equal(meta.description, '첫 줄\n둘째 줄');
+  assert.deepEqual(meta.tags, ['태그1', '태그2']);
+  assert.equal(meta.viewCount, 47699);
+  assert.equal(meta.durationSeconds, 53);
+  const noTags = buildMeta('SbQVBQoRciA', {...item, snippet: {...item.snippet, tags: undefined, description: undefined}});
+  assert.deepEqual(noTags.tags, []);
+  assert.equal(noTags.description, '');
+});
+
+test('저장된 이 영상 리포트의 설명글·태그는 유튜브 영상 페이지에서 직접 본 값과 같다 (2026-11-13 크롬으로 확인)', async () => {
+  const {readFileSync} = await import('node:fs');
+  const meta = JSON.parse(readFileSync(new URL('../../data/youtube/outlier-reports/SbQVBQoRciA.json', import.meta.url), 'utf8')).meta;
+  assert.match(meta.description, /^오늘은 한국인이 자주 틀리는 영어 발음을 알려드립니다\./);
+  assert.match(meta.description, /Comfortable, Interest, Temperature, Favorite, Family$/);
+  assert.deepEqual(meta.tags, []);
+});

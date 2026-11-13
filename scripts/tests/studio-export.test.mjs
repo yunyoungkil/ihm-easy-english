@@ -62,3 +62,70 @@ test('내려받은 파일 이름에서 기간을 읽는다', () => {
   assert.deepEqual(periodFromZipName('콘텐츠 2026-11-06_2026-11-13 이해하면 쉬운 영어.zip'), {startDate: '2026-11-06', endDate: '2026-11-13'});
   assert.equal(periodFromZipName('표 데이터.zip'), null);
 });
+
+// ---- 2026-11-13 Opus 리뷰 반영 ----
+import {checkPeriodDays, isStudioZipName, lastDayOf, mergeRollingReach, ROLLING_REACH_KEY} from '../studio-export.mjs';
+import {pickLatestPeriod, pickLatestPeriodWithImpressions} from '../studio-reach.mjs';
+
+test('숫자로 못 읽는 값은 조용히 null이 되지 않고 던진다(% 기호가 붙기 시작하는 경우)', () => {
+  assert.throws(() => parseStudioTable(REAL.replace(',1352,1.63', ',1352,1.63%')), /숫자로 못 읽은 칸: 썸네일 클릭률 \(%\)="1.63%"/);
+  assert.throws(() => parseStudioTable(REAL.replace('0:00:48', '48초')), /시간으로 못 읽은 칸: 평균 시청 지속 시간/);
+});
+
+test('영상 ID가 아닌 줄이 영상으로 저장되지 않는다', () => {
+  assert.throws(() => parseStudioTable(`${REAL}\r\nTotal,,,,0:00:01,1,1,1,1,1,1,1,1,1`), /영상 ID가 아닌 줄: "Total"/);
+});
+
+test('전체 기간 합계의 신규·재방문 0은 영상 줄이 모두 비어 있으면 null로 둔다(스튜디오가 계산하지 않은 값)', () => {
+  const lifetime = REAL.replace('합계,,,,0:00:48,50.78,4,3,', '합계,,,,0:00:48,50.78,0,0,')
+    .replace('0:00:31,70.63,,,', '0:00:31,70.63,,,').replace('0:03:08,45.42,4,1,', '0:03:08,45.42,,,');
+  const {total} = parseStudioTable(lifetime);
+  assert.equal(total.newViewers, null);
+  assert.equal(total.returningViewers, null);
+  // 영상 줄에 값이 하나라도 있으면 합계 0은 그대로 둔다
+  assert.equal(parseStudioTable(REAL.replace('합계,,,,0:00:48,50.78,4,3,', '합계,,,,0:00:48,50.78,0,0,')).total.newViewers, 0);
+});
+
+test('zip 이름의 종료일은 마지막 날의 다음 날이므로 마지막 날을 따로 계산한다', () => {
+  assert.equal(lastDayOf('2026-11-13'), '2026-11-12'); // 화면은 "~ 2026. 11. 12."
+  assert.equal(lastDayOf('2026-03-01'), '2026-02-28');
+});
+
+test('기간 이름과 받은 구간 길이가 다르면 던진다', () => {
+  assert.doesNotThrow(() => checkPeriodDays('week', {startDate: '2026-11-06', endDate: '2026-11-13'}));
+  assert.doesNotThrow(() => checkPeriodDays('4_weeks', {startDate: '2026-10-16', endDate: '2026-11-13'}));
+  assert.throws(() => checkPeriodDays('week', {startDate: '2026-10-16', endDate: '2026-11-13'}), /week인데 28일 구간/);
+  assert.doesNotThrow(() => checkPeriodDays('lifetime', {startDate: '2025-06-18', endDate: '2026-11-13'}), '전체는 길이를 검사하지 않는다');
+});
+
+test('스튜디오 파일 이름 모양만 받는다(경로 조각 거부)', () => {
+  assert.equal(isStudioZipName('콘텐츠 2026-11-06_2026-11-13 이해하면 쉬운 영어.zip'), true);
+  assert.equal(isStudioZipName('../../x.zip'), false);
+  assert.equal(isStudioZipName('콘텐츠 2026-11-06_2026-11-13 a/b.zip'), false);
+});
+
+test('고정 키로 덮어써서 날마다 키가 늘지 않고, 노출수가 없는 영상은 건너뛴다', () => {
+  const reach = {videos: {oMrCtSBbibc: {videoId: 'oMrCtSBbibc', windows: {}, periods: {'2026-08-12_2026-11-10': {startDate: '2026-08-12', endDate: '2026-11-10', impressions: 100, ctr: 4}}}}};
+  const videos = {oMrCtSBbibc: {impressions: 17, ctrPercent: 5.88}, ROks87qezuU: {impressions: null, ctrPercent: null}, kfVJAJTmLpU: {impressions: 144, ctrPercent: null}};
+  assert.equal(mergeRollingReach(reach, videos, {startDate: '2026-08-14', endDate: '2026-11-13'}, 'T1'), 2);
+  assert.equal(mergeRollingReach(reach, videos, {startDate: '2026-08-15', endDate: '2026-11-14'}, 'T2'), 2);
+  const keys = Object.keys(reach.videos.oMrCtSBbibc.periods);
+  assert.deepEqual(keys, ['2026-08-12_2026-11-10', ROLLING_REACH_KEY], '기존 키는 그대로, 새 키는 하나뿐');
+  assert.equal(reach.videos.oMrCtSBbibc.periods[ROLLING_REACH_KEY].endDate, '2026-11-14');
+  assert.equal(reach.videos.ROks87qezuU, undefined, '노출수가 없으면 항목을 만들지 않는다');
+  assert.equal(reach.videos.kfVJAJTmLpU.periods[ROLLING_REACH_KEY].ctr, null, 'CTR 빈칸은 0이 아니라 null');
+});
+
+test('같은 날 끝나는 구간이 여럿이어도 어떤 곳에서나 가장 긴 구간(90일)이 이긴다', () => {
+  // 실제 키 모양: 7일·28일·90일이 모두 11-13에 끝난다. 들어온 순서(7일 → 28일 → 90일, 또는 반대)가 결과를 바꾸면 안 된다.
+  const a = {startDate: '2026-11-06', endDate: '2026-11-13', impressions: 10, ctr: 1};
+  const b = {startDate: '2026-10-16', endDate: '2026-11-13', impressions: 30, ctr: 2};
+  const c = {startDate: '2026-08-15', endDate: '2026-11-13', impressions: 90, ctr: 3};
+  for (const order of [[a, b, c], [c, b, a], [b, c, a]]) {
+    const periods = Object.fromEntries(order.map((p, i) => [`k${i}`, p]));
+    assert.equal(pickLatestPeriod(periods).impressions, 90);
+    assert.equal(pickLatestPeriodWithImpressions(periods).impressions, 90);
+    assert.equal(pickLatestPeriodWithImpressions(periods, {needCtr: true}).impressions, 90);
+  }
+  assert.equal(pickLatestPeriodWithImpressions({x: {startDate: 'a', endDate: '2026-11-13', impressions: 5, ctr: null}}, {needCtr: true}), null);
+});

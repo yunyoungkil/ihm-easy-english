@@ -4,6 +4,8 @@
 //   - 작은 표본: 노출이 적으면 클릭 한두 번에 결과가 갈리므로 썸네일 테스트와 중단 신호를 믿지 않는다.
 //   - 시작 브리핑: 새 대화의 첫 답변에 넘겨줄 안내문을 만든다.
 
+import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
+
 export const FORMAT_SHARE_THRESHOLD = 70; // %
 export const MIN_VIEWS_FOR_FORMAT_RULE = 100;
 export const SMALL_SAMPLE_IMPRESSIONS = 1000;
@@ -39,10 +41,8 @@ export function decideFormatPriority({contentTypes, publishedLast14}) {
 }
 
 export function latestImpressions(reachEntry) {
-  const periods = Object.values(reachEntry?.periods || {}).filter((period) => period?.impressions != null);
-  if (!periods.length) return null;
-  const latest = periods.reduce((best, period) => (String(period.endDate) > String(best.endDate) ? period : best));
-  return Number(latest.impressions);
+  const latest = pickLatestPeriodWithImpressions(reachEntry?.periods);
+  return latest ? Number(latest.impressions) : null;
 }
 
 export function decideSampleSize(impressions) {

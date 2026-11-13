@@ -16,6 +16,7 @@ import {loadReports as loadOutlierReports} from './outlier-report.mjs';
 import {loadSheets} from './transform-sheet.mjs';
 import {quantile, RECENT_COUNT, usualBands} from './baseline.mjs';
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
+import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
 
 export const MIN_COMPARE_VIDEOS = 6; // 상위 3편과 하위 3편이 겹치지 않는 최소 수
 export const RECENT_POOL = 20; // 같은 형식 최근 20편 안에서 비교한다(오래된 영상이 지금 채널을 대표하지 않게)
@@ -42,9 +43,8 @@ export function titleTraits(title = '') {
 }
 
 function latestReach(reachEntry) {
-  const periods = Object.values(reachEntry?.periods || {}).filter((p) => p?.ctr != null && p?.impressions != null);
-  if (!periods.length) return {ctr: null, impressions: null, period: null};
-  const latest = periods.reduce((best, p) => (String(p.endDate) > String(best.endDate) ? p : best));
+  const latest = pickLatestPeriodWithImpressions(reachEntry?.periods, {needCtr: true});
+  if (!latest) return {ctr: null, impressions: null, period: null};
   return {ctr: Number(latest.ctr), impressions: Number(latest.impressions), period: `${latest.startDate}~${latest.endDate}`};
 }
 
@@ -330,7 +330,10 @@ export function renderStudioMetrics(studio, titles = {}) {
   const p = studio?.periods?.['4_weeks'];
   if (!p?.total) return [...out, '스튜디오 표 수집 전(`npm run studio-export`, 매일 루프 studioExport 단계). 값이 없으면 판단하지 않는다.', ''];
   const t = p.total;
-  out.push(`스튜디오 고급 모드 영상별 표(${p.startDate}~${p.endDate}, 받은 때 ${day(p.fetchedAt)})의 값 그대로다. 계산한 것은 비율뿐이다. 항목 이름은 스튜디오 화면 그대로 쓴다.`);
+  // 스튜디오 zip 이름의 종료일은 마지막 날의 다음 날이다. 화면과 API(마지막 날 포함)에 맞춰 마지막 날로 보여 준다.
+  const endMs = Date.parse(`${p.endDate}T00:00:00Z`);
+  const lastDay = p.lastDay || (Number.isFinite(endMs) ? new Date(endMs - 86400000).toISOString().slice(0, 10) : '측정 전'); // allow-literal: 하루(ms)
+  out.push(`스튜디오 고급 모드 영상별 표(${p.startDate}~${lastDay}, 받은 때 ${day(p.fetchedAt)})의 값 그대로다. 계산한 것은 비율뿐이다. 항목 이름은 스튜디오 화면 그대로 쓴다.`);
   const sum = (t.newViewers ?? 0) + (t.returningViewers ?? 0);
   if (t.newViewers != null && t.returningViewers != null && sum > 0) {
     out.push(`- 시청자: 신규 ${t.newViewers}명, 재방문 ${t.returningViewers}명 (신규 비율 ${((t.newViewers / sum) * 100).toFixed(1)}%)`);

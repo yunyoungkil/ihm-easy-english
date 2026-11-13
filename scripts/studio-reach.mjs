@@ -13,7 +13,14 @@ const spanDays = (p) => {
 
 // CTR이 있는 구간 중 가장 최근에 끝난 구간을 고르고, 같은 날 끝나면 더 긴 구간(표본이 큰 쪽)을 고른다.
 // 예전에는 종료일만 비교해 먼저 들어온 7일 구간이 28일 구간을 이길 수 있었다(점검 4번).
-export const pickLatestPeriod = (periods = {}) =>
+const latestBy = (periods, usable) =>
   Object.values(periods || {})
-    .filter((p) => p && p.ctr != null)
+    .filter((p) => p && usable(p))
     .sort((a, b) => String(b.endDate || '').localeCompare(String(a.endDate || '')) || spanDays(b) - spanDays(a))[0] || null;
+
+export const pickLatestPeriod = (periods = {}) => latestBy(periods, (p) => p.ctr != null);
+
+// 노출수만 쓰는 곳(표본 크기 판정)과 노출수·CTR을 같이 쓰는 곳(기획 입력)도 같은 규칙으로 고른다.
+// 예전에는 두 곳이 "먼저 들어온 항목"을 골라서, 같은 날 끝나는 7일·28일·전체 구간 중 무엇이 쓰일지 들어온 순서에 달려 있었다(2026-11-13 Opus 리뷰 C-2).
+export const pickLatestPeriodWithImpressions = (periods = {}, {needCtr = false} = {}) =>
+  latestBy(periods, (p) => p.impressions != null && (!needCtr || p.ctr != null));

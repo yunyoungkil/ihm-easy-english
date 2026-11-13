@@ -100,3 +100,33 @@ test('실제 데이터: 기준선이 계산되고 실제 파일의 최고값과 
   }
   assert.ok(shorts.n >= catalog.filter((v) => v.format === 'SHORTS' && views7d[v.videoId]).length, '7일 조회가 있는 쇼츠를 빠뜨리면 안 된다');
 });
+
+test('영상별 전체 기간 수치(lifetime)가 있으면 그것으로 시청률·구독 전환을 계산한다(기간 밖 영상도 포함, 조회수 중앙값 미만은 제외)', () => {
+  const f = fixture();
+  f.catalog.push({...video('old', 'SHORTS', 5000), publishedAt: '2025-06-01T00:00:00Z'}); // range 시작 전에 올린 영상
+  const lifetime = {
+    s0: {views: 100, averageViewPercentage: 50, subscribersGained: 0}, s1: {views: 200, averageViewPercentage: 60, subscribersGained: 0},
+    s2: {views: 300, averageViewPercentage: 70, subscribersGained: 3}, s3: {views: 400, averageViewPercentage: 80, subscribersGained: 0},
+    s4: {views: 1000, averageViewPercentage: 90, subscribersGained: 5}, old: {views: 5000, averageViewPercentage: 120, subscribersGained: 25},
+  };
+  const m = computeBaselines({...f, lifetime}).formats.SHORTS.metrics;
+  assert.equal(m.averageViewPercentage.champion.videoId, 'old', 'range 밖 영상도 전체 기간 수치로 들어온다');
+  assert.equal(m.averageViewPercentage.champion.value, 120);
+  assert.equal(m.subscribersPerThousandViews.champion.value, 5); // 25구독 / 5000회 × 1000
+  assert.equal(m.averageViewPercentage.n, 3, '중앙값(400) 이상 조회 영상 s3,s4,old만 본다');
+});
+
+test('실제 데이터: 영상별 전체 기간 수치가 있으면 시청률·구독 전환 기준선 표본이 늘어나고, 기준선 영상의 조회수는 형식 중앙값 이상이다', () => {
+  const life = JSON.parse(readFileSync(join(dataDir, 'video-lifetime.json'), 'utf8')).videos;
+  const catalog = JSON.parse(readFileSync(join(dataDir, 'catalog.json'), 'utf8')).videos;
+  const views7d = JSON.parse(readFileSync(join(dataDir, 'views-7d.json'), 'utf8')).videos;
+  const sample = Object.values(life).find((x) => !x.empty);
+  assert.ok(sample && 'views' in sample && 'averageViewPercentage' in sample && 'subscribersGained' in sample, '실제 video-lifetime.json의 칸 이름이 다르다');
+  const b = computeBaselines({catalog, views7d, performance: [], lifetime: life});
+  const shorts = b.formats.SHORTS.metrics.averageViewPercentage;
+  assert.ok(shorts.n > 3, `쇼츠 시청률 표본이 ${shorts.n}편뿐이다(기간 안 수치만 쓰던 때는 3편)`); // allow-literal: 이전 방식의 표본 수와 비교
+  const c = shorts.champion;
+  const viewsOf = (id) => Number(life[id].views);
+  const formatViews = catalog.filter((v) => v.format === 'SHORTS' && life[v.videoId] && !life[v.videoId].empty).map((v) => viewsOf(v.videoId)).sort((x, y) => x - y);
+  assert.ok(viewsOf(c.videoId) >= formatViews[Math.floor(formatViews.length / 2)], '기준선 영상 조회수가 형식 중앙값 미만이다'); // allow-literal: 중앙값 위치
+});

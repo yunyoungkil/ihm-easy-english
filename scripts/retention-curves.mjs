@@ -61,7 +61,7 @@ export async function fetchCurve({videoId, publishedAt, endDate, accessToken, fe
   return body.rows || [];
 }
 
-async function accessTokenFromDisk() {
+export async function accessTokenFromDisk() {
   const env = Object.fromEntries(readFileSync(join(projectDir, '.env'), 'utf8').split(/\r?\n/)
     .map((l) => l.match(/^\s*(YOUTUBE_CLIENT_ID|YOUTUBE_CLIENT_SECRET)\s*=\s*(.*)$/)).filter(Boolean)
     .map((m) => [m[1], m[2].trim().replace(/^["']|["']$/g, '')]));

@@ -10,6 +10,7 @@ export const baselinesPath = join(dataDir, 'baselines.json');
 
 const QUANTILE_MEDIAN = 0.5; // allow-literal: 분위수의 정의(중앙값)
 const QUANTILE_UPPER = 0.75; // allow-literal: 분위수의 정의(상위 25% 경계)
+const PER_THOUSAND = 1000; // allow-literal: "조회 1,000회당"의 단위
 export const FORMATS = ['SHORTS', 'LONGFORM'];
 export const METRICS = {
   views7d: {label: '공개 7일 조회수', meaning: '제목·썸네일·소재(포장)'},
@@ -24,13 +25,24 @@ export function quantile(values, p) {
   return sorted[Math.min(sorted.length - 1, Math.floor(p * sorted.length))];
 }
 
-function metricRows(format, metric, {catalog, views7d, performance, range}) {
+function metricRows(format, metric, {catalog, views7d, performance, range, lifetime}) {
   const videos = catalog.filter((v) => v.format === format);
   const rows = [];
   if (metric === 'views7d') {
     for (const v of videos) {
       const value = views7d?.[v.videoId]?.views7d;
       if (Number.isFinite(Number(value)) && value !== null) rows.push({videoId: v.videoId, title: v.title, publishedAt: v.publishedAt, value: Number(value)});
+    }
+    return rows;
+  }
+  if (lifetime) {
+    // 영상별 전체 기간 수치(scripts/video-lifetime.mjs). 형식 중앙값 이상 조회 영상만 본다(적은 조회수의 비율은 흔들린다).
+    const have = videos.map((v) => ({v, m: lifetime[v.videoId]})).filter((x) => x.m && !x.m.empty && Number(x.m.views) > 0);
+    const lifetimeFloor = quantile(have.map((x) => Number(x.m.views)), QUANTILE_MEDIAN);
+    for (const {v, m} of have) {
+      if (Number(m.views) < lifetimeFloor) continue;
+      const value = metric === 'subscribersPerThousandViews' ? (Number(m.subscribersGained) / Number(m.views)) * PER_THOUSAND : m[metric];
+      if (Number.isFinite(Number(value))) rows.push({videoId: v.videoId, title: v.title, publishedAt: v.publishedAt, value: Number(value)});
     }
     return rows;
   }
@@ -49,12 +61,12 @@ function metricRows(format, metric, {catalog, views7d, performance, range}) {
 }
 
 /** previous는 이전 baselines.json. 챔피언이 바뀌면 이전 챔피언을 history에 더한다(지우지 않는다). */
-export function computeBaselines({catalog, views7d, performance, range = null, previous = null, now = new Date()}) {
+export function computeBaselines({catalog, views7d, performance, range = null, lifetime = null, previous = null, now = new Date()}) {
   const out = {schemaVersion: 1, computedAt: now.toISOString(), formats: {}, history: [...(previous?.history || [])]};
   for (const format of FORMATS) {
     const entry = {metrics: {}};
     for (const metric of Object.keys(METRICS)) {
-      const rows = metricRows(format, metric, {catalog, views7d, performance, range});
+      const rows = metricRows(format, metric, {catalog, views7d, performance, range, lifetime});
       const values = rows.map((r) => r.value);
       const champion = rows.reduce((best, r) => (!best || r.value > best.value ? r : best), null);
       const median = quantile(values, QUANTILE_MEDIAN);
@@ -103,8 +115,9 @@ export function buildFromDisk({now = new Date(), write = true} = {}) {
   const views7d = readJson(join(dataDir, 'views-7d.json'), {videos: {}}).videos;
   const analytics = readJson(join(dataDir, 'analytics-latest.json'), {});
   const performance = analytics.videoPerformance || [];
+  const lifetimeFile = readJson(join(dataDir, 'video-lifetime.json'), null);
   const previous = readJson(baselinesPath, null);
-  const result = computeBaselines({catalog, views7d, performance, range: analytics.range, previous, now});
+  const result = computeBaselines({catalog, views7d, performance, range: analytics.range, lifetime: lifetimeFile?.videos ?? null, previous, now});
   if (write) writeFileSync(baselinesPath, `${JSON.stringify(result, null, 2)}\n`);
   return result;
 }

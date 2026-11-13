@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-13T06:25:57.923Z",
+  "computedAt": "2026-11-13T07:23:10.996Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -23,33 +23,33 @@
         "averageViewPercentage": {
           "label": "평균 시청률(%)",
           "meaning": "훅·화면·대본(내용)",
-          "n": 3,
-          "median": 71.24,
-          "upper": 77.02,
-          "spreadRatio": 1.0811341942728805,
+          "n": 26,
+          "median": 65.39,
+          "upper": 83.79,
+          "spreadRatio": 1.2813885915277565,
           "champion": {
-            "videoId": "7qSWJZqV14o",
-            "title": "OFFICIAL을 ‘오피시알’로 읽으면 틀립니다 #영어발음 #shorts",
-            "publishedAt": "2026-08-25T11:00:31Z",
-            "value": 77.02
+            "videoId": "6nANjHxy2Lc",
+            "title": "왜 HEROIC은 히로익일까? 영어 읽는 법 30초 테스트 #영어기초 #영어읽는법",
+            "publishedAt": "2026-07-22T14:49:48Z",
+            "value": 174.62
           },
-          "promoteAbove": 83.26895564289725,
+          "promoteAbove": 223.75607585257686,
           "confidence": "가설"
         },
         "subscribersPerThousandViews": {
           "label": "조회 1,000회당 구독",
           "meaning": "채널의 가치",
-          "n": 3,
-          "median": 2.2820629849383844,
-          "upper": 3.1620553359683794,
-          "spreadRatio": 1.3856126482213438,
+          "n": 26,
+          "median": 1.3704888076747375,
+          "upper": 2.5176233635448138,
+          "spreadRatio": 1.8370258475998655,
           "champion": {
-            "videoId": "Si88xXt-EQc",
-            "title": "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
-            "publishedAt": "2026-08-27T11:00:01Z",
-            "value": 3.1620553359683794
+            "videoId": "M9ru03p3QoE",
+            "title": "틀리기 쉬운 영어 발음 테스트! 혹시 '디시션'이라고 읽으셨나요? ❌",
+            "publishedAt": "2026-08-09T10:16:08Z",
+            "value": 6.642512077294686
           },
-          "promoteAbove": 4.381383867893577,
+          "promoteAbove": 12.202466378984614,
           "confidence": "가설"
         }
       }
@@ -75,31 +75,31 @@
         "averageViewPercentage": {
           "label": "평균 시청률(%)",
           "meaning": "훅·화면·대본(내용)",
-          "n": 9,
-          "median": 22.46,
-          "upper": 39.53,
-          "spreadRatio": 1.7600178094390027,
+          "n": 14,
+          "median": 35.58,
+          "upper": 47.67,
+          "spreadRatio": 1.339797639123103,
           "champion": {
-            "videoId": "VwEkIUluszw",
-            "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
-            "publishedAt": "2026-09-22T11:00:04Z",
-            "value": 47.67
+            "videoId": "JOyI0DWGzEM",
+            "title": "영어 기초 배우기 | 왜 CAKE는 케이크일까? #영어기초,#영어읽기,#영어공부,#알파벳소리,#영어발음,#영어왕초보,#기초영어,#중년영어,#영어배우기,#영어독학",
+            "publishedAt": "2026-06-30T21:00:38Z",
+            "value": 59.709999999999994
           },
-          "promoteAbove": 83.90004897595726,
+          "promoteAbove": 79.99931703204047,
           "confidence": "가설"
         },
         "subscribersPerThousandViews": {
           "label": "조회 1,000회당 구독",
           "meaning": "채널의 가치",
-          "n": 9,
+          "n": 14,
           "median": 0,
-          "upper": 0,
+          "upper": 34.68208092485549,
           "spreadRatio": null,
           "champion": {
-            "videoId": "ROks87qezuU",
-            "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
-            "publishedAt": "2026-09-24T11:00:13Z",
-            "value": 34.68208092485549
+            "videoId": "JOyI0DWGzEM",
+            "title": "영어 기초 배우기 | 왜 CAKE는 케이크일까? #영어기초,#영어읽기,#영어공부,#알파벳소리,#영어발음,#영어왕초보,#기초영어,#중년영어,#영어배우기,#영어독학",
+            "publishedAt": "2026-06-30T21:00:38Z",
+            "value": 76.92307692307693
           },
           "promoteAbove": null,
           "confidence": "가설"
@@ -137,6 +137,46 @@
       "value": 64.83,
       "retiredAt": "2026-11-13T06:25:57.923Z",
       "replacedBy": "VwEkIUluszw"
+    },
+    {
+      "format": "SHORTS",
+      "metric": "averageViewPercentage",
+      "videoId": "7qSWJZqV14o",
+      "title": "OFFICIAL을 ‘오피시알’로 읽으면 틀립니다 #영어발음 #shorts",
+      "publishedAt": "2026-08-25T11:00:31Z",
+      "value": 77.02,
+      "retiredAt": "2026-11-13T07:23:10.996Z",
+      "replacedBy": "6nANjHxy2Lc"
+    },
+    {
+      "format": "SHORTS",
+      "metric": "subscribersPerThousandViews",
+      "videoId": "Si88xXt-EQc",
+      "title": "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
+      "publishedAt": "2026-08-27T11:00:01Z",
+      "value": 3.1620553359683794,
+      "retiredAt": "2026-11-13T07:23:10.996Z",
+      "replacedBy": "M9ru03p3QoE"
+    },
+    {
+      "format": "LONGFORM",
+      "metric": "averageViewPercentage",
+      "videoId": "VwEkIUluszw",
+      "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
+      "publishedAt": "2026-09-22T11:00:04Z",
+      "value": 47.67,
+      "retiredAt": "2026-11-13T07:23:10.996Z",
+      "replacedBy": "JOyI0DWGzEM"
+    },
+    {
+      "format": "LONGFORM",
+      "metric": "subscribersPerThousandViews",
+      "videoId": "ROks87qezuU",
+      "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
+      "publishedAt": "2026-09-24T11:00:13Z",
+      "value": 34.68208092485549,
+      "retiredAt": "2026-11-13T07:23:10.996Z",
+      "replacedBy": "JOyI0DWGzEM"
     }
   ]
 }

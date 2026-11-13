@@ -319,6 +319,14 @@ async function run() {
     return result;
   });
 
+  // 영상별 전체 기간 시청률·구독 수치를 받는다(2026-11-13). 기준선이 기간 밖 영상을 못 쓰던 문제를 없앤다. 한 번에 일부씩, 14일마다 새로 받는다.
+  await step('lifetime', async () => {
+    const {collectLifetime} = await import('./video-lifetime.mjs');
+    const r = await collectLifetime({now: new Date()});
+    if (r.failed.length && !r.saved) throw new Error(`전체 기간 수치 수집 실패: ${r.failed[0]}`);
+    return r;
+  });
+
   // 기준선(형식·지표별 현재 최고 기록)을 새로 계산한다(2026-11-13, knowledge/decisions/2026-11-13-experiment-loop.md).
   // 챔피언이 바뀌면 이전 챔피언은 history에 더해진다. 우리 채널에는 "성공"이라는 말을 쓰지 않는다.
   await step('baselines', async () => {

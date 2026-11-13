@@ -226,6 +226,14 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x) {
 }
 
 /** assetVersion: 그림 파일의 수정 시각. 주소 끝에 ?v=를 붙여 그림을 다시 만들면 브라우저가 옛 파일(캐시)을 쓰지 않게 한다. */
+const METRIC_NAMES = {views7d: '조회수', watchSeconds7d: '평균 시청 시간', subs7d: '구독 수'};
+/** 가져온 것에 쌓인 근거 기록(영상이 나온 뒤 결과가 더해진다). 없으면 아직 시험 전이라고 밝힌다. */
+export function evidenceHtml(b) {
+  const log = b?.evidenceLog || [];
+  if (!log.length) return '<div class="q">결과 기록: 아직 시험 전(공개 7일 뒤 자동으로 더해진다)</div>';
+  return `<div class="q">결과 기록 ${log.length}건<ul>${log.map((e) => `<li>${escapeHtml(e.date)} · ${escapeHtml(e.videoId)} · ${escapeHtml(METRIC_NAMES[e.metric] || e.metric)} ${escapeHtml(e.value)} → ${escapeHtml(e.result)}${(e.variables || []).length ? ` (시험 변수: ${escapeHtml(e.variables.join(', '))})` : ''}</li>`).join('')}</ul></div>`;
+}
+
 export function renderTransformSheetPage(sheet, report, problems = [], {assetVersion = ''} = {}) {
   const id = encodeURIComponent(sheet.sourceVideoId);
   const ver = (url) => (assetVersion ? `${url}?v=${encodeURIComponent(assetVersion)}` : url);
@@ -270,7 +278,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
 </div>${thumbs.length ? `<div class="thumbbox">${thumbs.map((rel) => `<label class="pick"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`).join('')}</div>` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver) : ''}`);
   }
   parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');
-  for (const b of sheet.borrowed || []) parts.push(`<div class="card"><b>${escapeHtml(b.what)}</b> <a href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">(${escapeHtml(b.fromVideoId)})</a><div>가져와도 되는 이유: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div></div>`);
+  for (const b of sheet.borrowed || []) parts.push(`<div class="card"><b>${escapeHtml(b.what)}</b> <a href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">(${escapeHtml(b.fromVideoId)})</a><div>가져와도 되는 이유: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div>${evidenceHtml(b)}</div>`);
   parts.push('<h2>안 맞아서 뺀 것</h2>');
   if (!(sheet.rejected || []).length) parts.push('<p class="meta">없음</p>');
   for (const r of sheet.rejected || []) parts.push(`<div class="card"><b>${escapeHtml(r.what)}</b> <a href="/outlier-report/${encodeURIComponent(r.fromVideoId)}">(${escapeHtml(r.fromVideoId)})</a><div>뺀 이유: ${escapeHtml(r.reason)}</div></div>`);
@@ -283,6 +291,10 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
     for (const t of sheet.pending) parts.push(`<div class="card">${escapeHtml(t)}</div>`);
   }
   parts.push(`<script>document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset||(!t.dataset.pick&&!t.dataset.pickTitle))return;fetch('/api/transform-sheet-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:${JSON.stringify(sheet.sourceVideoId)},kind:t.dataset.pickTitle?'title':'thumbnail',image:t.dataset.pick||t.dataset.pickTitle,picked:t.checked})}).then(function(r){if(!r.ok){t.checked=!t.checked;alert('저장하지 못했습니다');}}).catch(function(){t.checked=!t.checked;alert('저장하지 못했습니다');});});</script>`);
+  if ((sheet.results || []).length) {
+    parts.push('<h2>결과 기록 (공개 7일 뒤 자동)</h2>');
+    for (const r of sheet.results) parts.push(`<div class="card"><b>${escapeHtml(r.videoId)}</b> · ${escapeHtml(r.summary)}</div>`);
+  }
   if (sheet.outcome) parts.push(`<h2>성적</h2><div class="card">${escapeHtml(JSON.stringify(sheet.outcome))}</div>`);
   return page(`비교 시트 ${sheet.topic}`, parts.join('\n'));
 }

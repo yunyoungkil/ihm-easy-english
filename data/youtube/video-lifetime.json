@@ -26,7 +26,16 @@
       "views": 5,
       "averageViewPercentage": 1.9799999999999998,
       "averageViewDuration": 21,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-10-28",
+        "endDate": "2026-11-03",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 5,
+        "averageViewDuration": 21,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 1
+      }
     },
     "bPTAnjMT7xc": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -35,7 +44,16 @@
       "views": 10,
       "averageViewPercentage": 43.95,
       "averageViewDuration": 221,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-10-12",
+        "endDate": "2026-10-18",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 7,
+        "averageViewDuration": 195,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 13
+      }
     },
     "EDjmQmvGA1o": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -44,7 +62,16 @@
       "views": 11,
       "averageViewPercentage": 29.39,
       "averageViewDuration": 149,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-10-02",
+        "endDate": "2026-10-08",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 3,
+        "averageViewDuration": 0,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "-UHrFcMRsEY": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -53,7 +80,16 @@
       "views": 3,
       "averageViewPercentage": 5.99,
       "averageViewDuration": 30,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-28",
+        "endDate": "2026-10-04",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1,
+        "averageViewDuration": 0,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "4of_mgeLazQ": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -62,7 +98,16 @@
       "views": 204,
       "averageViewPercentage": 6.480000000000001,
       "averageViewDuration": 29,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-26",
+        "endDate": "2026-10-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 203,
+        "averageViewDuration": 0,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 5
+      }
     },
     "ROks87qezuU": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -71,7 +116,16 @@
       "views": 173,
       "averageViewPercentage": 39.53,
       "averageViewDuration": 164,
-      "subscribersGained": 6
+      "subscribersGained": 6,
+      "first7d": {
+        "startDate": "2026-09-24",
+        "endDate": "2026-09-30",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 46,
+        "averageViewDuration": 124,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 30
+      }
     },
     "VwEkIUluszw": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -80,7 +134,16 @@
       "views": 30,
       "averageViewPercentage": 47.67,
       "averageViewDuration": 186,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-09-22",
+        "endDate": "2026-09-28",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 4,
+        "averageViewDuration": 139,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 7
+      }
     },
     "MdLjt4zvg8g": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -89,7 +152,16 @@
       "views": 19,
       "averageViewPercentage": 15.990000000000002,
       "averageViewDuration": 64,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-20",
+        "endDate": "2026-09-26",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 13,
+        "averageViewDuration": 52,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 1
+      }
     },
     "uqmVMRhT_1A": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -98,7 +170,16 @@
       "views": 3,
       "averageViewPercentage": 9.93,
       "averageViewDuration": 39,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-17",
+        "endDate": "2026-09-23",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2,
+        "averageViewDuration": 49,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "beKA35yvxdk": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -107,7 +188,16 @@
       "views": 4,
       "averageViewPercentage": 34.42,
       "averageViewDuration": 147,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-14",
+        "endDate": "2026-09-20",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2,
+        "averageViewDuration": 7,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "AcNSDMpkR_A": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -116,7 +206,16 @@
       "views": 3,
       "averageViewPercentage": 5.05,
       "averageViewDuration": 23,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-11",
+        "endDate": "2026-09-17",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 0,
+        "averageViewDuration": 0,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "W7toujk6ER8": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -125,7 +224,16 @@
       "views": 3,
       "averageViewPercentage": 7.32,
       "averageViewDuration": 15,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-08",
+        "endDate": "2026-09-14",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2,
+        "averageViewDuration": 13,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "a2VrFQVjImI": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -134,7 +242,16 @@
       "views": 7,
       "averageViewPercentage": 22.46,
       "averageViewDuration": 43,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-09-05",
+        "endDate": "2026-09-11",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 6,
+        "averageViewDuration": 47,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 4
+      }
     },
     "nVrCk8IZFGA": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -143,7 +260,16 @@
       "views": 1161,
       "averageViewPercentage": 83.79,
       "averageViewDuration": 17,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-09-02",
+        "endDate": "2026-09-08",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1155,
+        "averageViewDuration": 17,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 131
+      }
     },
     "LdiZKCzKf0c": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -152,7 +278,16 @@
       "views": 1154,
       "averageViewPercentage": 37,
       "averageViewDuration": 20,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-08-31",
+        "endDate": "2026-09-06",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1151,
+        "averageViewDuration": 20,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 63
+      }
     },
     "3PkSwrFIcRE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -161,7 +296,16 @@
       "views": 6,
       "averageViewPercentage": 8.57,
       "averageViewDuration": 18,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-08-29",
+        "endDate": "2026-09-04",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1,
+        "averageViewDuration": 0,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "Si88xXt-EQc": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -170,7 +314,16 @@
       "views": 1265,
       "averageViewPercentage": 39.22,
       "averageViewDuration": 20,
-      "subscribersGained": 4
+      "subscribersGained": 4,
+      "first7d": {
+        "startDate": "2026-08-27",
+        "endDate": "2026-09-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1258,
+        "averageViewDuration": 20,
+        "subscribersGained": 4,
+        "estimatedMinutesWatched": 176
+      }
     },
     "7qSWJZqV14o": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -179,7 +332,16 @@
       "views": 1202,
       "averageViewPercentage": 77.02,
       "averageViewDuration": 34,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-08-25",
+        "endDate": "2026-08-31",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1197,
+        "averageViewDuration": 34,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 270
+      }
     },
     "sNNufVhkjT8": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -188,7 +350,16 @@
       "views": 8,
       "averageViewPercentage": 20.36,
       "averageViewDuration": 57,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-08-23",
+        "endDate": "2026-08-29",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 5,
+        "averageViewDuration": 53,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 4
+      }
     },
     "IfK4Itzgt6o": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -197,7 +368,16 @@
       "views": 2191,
       "averageViewPercentage": 71.24,
       "averageViewDuration": 37,
-      "subscribersGained": 5
+      "subscribersGained": 5,
+      "first7d": {
+        "startDate": "2026-08-14",
+        "endDate": "2026-08-20",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2164,
+        "averageViewDuration": 37,
+        "subscribersGained": 5,
+        "estimatedMinutesWatched": 350
+      }
     },
     "5MiM1tIpQQk": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -206,7 +386,16 @@
       "views": 1602,
       "averageViewPercentage": 65.39,
       "averageViewDuration": 34,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-08-13",
+        "endDate": "2026-08-19",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1584,
+        "averageViewDuration": 34,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 244
+      }
     },
     "h-UUbuWQuag": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -215,7 +404,16 @@
       "views": 1809,
       "averageViewPercentage": 58.19,
       "averageViewDuration": 30,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-08-10",
+        "endDate": "2026-08-16",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1805,
+        "averageViewDuration": 30,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 273
+      }
     },
     "YoaCRYCWpws": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -224,7 +422,16 @@
       "views": 39,
       "averageViewPercentage": 20.22,
       "averageViewDuration": 74,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-08-09",
+        "endDate": "2026-08-15",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 26,
+        "averageViewDuration": 61,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 26
+      }
     },
     "dijhGjxOQOw": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -233,7 +440,16 @@
       "views": 1986,
       "averageViewPercentage": 47.57,
       "averageViewDuration": 30,
-      "subscribersGained": 5
+      "subscribersGained": 5,
+      "first7d": {
+        "startDate": "2026-08-09",
+        "endDate": "2026-08-15",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1980,
+        "averageViewDuration": 30,
+        "subscribersGained": 5,
+        "estimatedMinutesWatched": 293
+      }
     },
     "M9ru03p3QoE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -242,7 +458,16 @@
       "views": 1656,
       "averageViewPercentage": 55.59,
       "averageViewDuration": 30,
-      "subscribersGained": 11
+      "subscribersGained": 11,
+      "first7d": {
+        "startDate": "2026-08-09",
+        "endDate": "2026-08-15",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1647,
+        "averageViewDuration": 30,
+        "subscribersGained": 10,
+        "estimatedMinutesWatched": 308
+      }
     },
     "tFe-cB__uns": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -251,7 +476,16 @@
       "views": 17,
       "averageViewPercentage": 23.55,
       "averageViewDuration": 95,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-08-09",
+        "endDate": "2026-08-15",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 12,
+        "averageViewDuration": 106,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 21
+      }
     },
     "ewv3GcXNLsE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -260,7 +494,16 @@
       "views": 432,
       "averageViewPercentage": 84.16,
       "averageViewDuration": 15,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-08-08",
+        "endDate": "2026-08-14",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 428,
+        "averageViewDuration": 16,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 26
+      }
     },
     "FwBboz1jenA": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -269,7 +512,16 @@
       "views": 456,
       "averageViewPercentage": 70.89,
       "averageViewDuration": 14,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-08-08",
+        "endDate": "2026-08-14",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 454,
+        "averageViewDuration": 14,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 25
+      }
     },
     "hu4GNC7peTY": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -278,7 +530,16 @@
       "views": 18,
       "averageViewPercentage": 32.54,
       "averageViewDuration": 133,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-08-04",
+        "endDate": "2026-08-10",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 7,
+        "averageViewDuration": 176,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 20
+      }
     },
     "f4wkmIvplCc": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -287,7 +548,16 @@
       "views": 22,
       "averageViewPercentage": 21.67,
       "averageViewDuration": 94,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-07-29",
+        "endDate": "2026-08-04",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 3,
+        "averageViewDuration": 94,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 4
+      }
     },
     "Ha_7wdnFNmo": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -296,7 +566,16 @@
       "views": 7,
       "averageViewPercentage": 18.15,
       "averageViewDuration": 87,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-26",
+        "endDate": "2026-08-01",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 5,
+        "averageViewDuration": 113,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 9
+      }
     },
     "6nANjHxy2Lc": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -305,7 +584,16 @@
       "views": 1664,
       "averageViewPercentage": 174.62,
       "averageViewDuration": 36,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-22",
+        "endDate": "2026-07-28",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1645,
+        "averageViewDuration": 36,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 371
+      }
     },
     "BLinHY3p4yc": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -314,7 +602,16 @@
       "views": 12,
       "averageViewPercentage": 23.16,
       "averageViewDuration": 65,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-22",
+        "endDate": "2026-07-28",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 9,
+        "averageViewDuration": 73,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 11
+      }
     },
     "k8T7chDCj3Q": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -323,7 +620,16 @@
       "views": 1160,
       "averageViewPercentage": 55.11000000000001,
       "averageViewDuration": 32,
-      "subscribersGained": 7
+      "subscribersGained": 7,
+      "first7d": {
+        "startDate": "2026-07-20",
+        "endDate": "2026-07-26",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1157,
+        "averageViewDuration": 32,
+        "subscribersGained": 7,
+        "estimatedMinutesWatched": 371
+      }
     },
     "F-o7EmQL3zY": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -332,7 +638,16 @@
       "views": 1929,
       "averageViewPercentage": 96.5,
       "averageViewDuration": 28,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-20",
+        "endDate": "2026-07-26",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1920,
+        "averageViewDuration": 29,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 221
+      }
     },
     "BsyRH8GWYJ4": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -341,7 +656,16 @@
       "views": 31,
       "averageViewPercentage": 43.48,
       "averageViewDuration": 182,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-19",
+        "endDate": "2026-07-25",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 8,
+        "averageViewDuration": 117,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 15
+      }
     },
     "r2dDUxflF0Y": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -350,7 +674,16 @@
       "views": 1150,
       "averageViewPercentage": 48.19,
       "averageViewDuration": 41,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-13",
+        "endDate": "2026-07-19",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1142,
+        "averageViewDuration": 41,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 304
+      }
     },
     "wHoTmrRbf6k": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -359,7 +692,16 @@
       "views": 1003,
       "averageViewPercentage": 34.69,
       "averageViewDuration": 29,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-07-12",
+        "endDate": "2026-07-18",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1002,
+        "averageViewDuration": 29,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 136
+      }
     },
     "4LQ9epVVahA": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -368,7 +710,16 @@
       "views": 1153,
       "averageViewPercentage": 45.93,
       "averageViewDuration": 27,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-11",
+        "endDate": "2026-07-17",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1141,
+        "averageViewDuration": 27,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 196
+      }
     },
     "7LrJxl9Mzi0": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -377,7 +728,16 @@
       "views": 1107,
       "averageViewPercentage": 42.86,
       "averageViewDuration": 24,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-07-11",
+        "endDate": "2026-07-17",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1104,
+        "averageViewDuration": 24,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 149
+      }
     },
     "FK-JWJ_7vq4": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -386,7 +746,16 @@
       "views": 1403,
       "averageViewPercentage": 53.81,
       "averageViewDuration": 30,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-07-11",
+        "endDate": "2026-07-17",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1396,
+        "averageViewDuration": 30,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 250
+      }
     },
     "cu3EB5OJdMM": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -395,7 +764,16 @@
       "views": 19,
       "averageViewPercentage": 29.74,
       "averageViewDuration": 171,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-10",
+        "endDate": "2026-07-16",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 7,
+        "averageViewDuration": 102,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 11
+      }
     },
     "-V1lwpEF7Ik": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -404,7 +782,16 @@
       "views": 13,
       "averageViewPercentage": 48.7,
       "averageViewDuration": 260,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-08",
+        "endDate": "2026-07-14",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 6,
+        "averageViewDuration": 354,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 35
+      }
     },
     "jRoYudL30DE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -413,7 +800,16 @@
       "views": 39,
       "averageViewPercentage": 35.58,
       "averageViewDuration": 154,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-06",
+        "endDate": "2026-07-12",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 11,
+        "averageViewDuration": 193,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 35
+      }
     },
     "u2WOzu-0Hxc": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -422,7 +818,16 @@
       "views": 24,
       "averageViewPercentage": 57.26,
       "averageViewDuration": 200,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-07-02",
+        "endDate": "2026-07-08",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 8,
+        "averageViewDuration": 204,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 27
+      }
     },
     "JOyI0DWGzEM": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -431,7 +836,16 @@
       "views": 13,
       "averageViewPercentage": 59.709999999999994,
       "averageViewDuration": 164,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-06-30",
+        "endDate": "2026-07-06",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 4,
+        "averageViewDuration": 211,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 14
+      }
     },
     "-oEAORG6oYE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -440,7 +854,16 @@
       "views": 200,
       "averageViewPercentage": 46.06,
       "averageViewDuration": 11,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 195,
+        "averageViewDuration": 7,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 6
+      }
     },
     "1EtmmvExoLg": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -449,7 +872,16 @@
       "views": 12,
       "averageViewPercentage": 117.78,
       "averageViewDuration": 29,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 8,
+        "averageViewDuration": 23,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 0
+      }
     },
     "2xir5cjFcsg": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -458,7 +890,16 @@
       "views": 178,
       "averageViewPercentage": 839.06,
       "averageViewDuration": 192,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 171,
+        "averageViewDuration": 264,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 47
+      }
     },
     "2lae1vhl53s": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -467,7 +908,16 @@
       "views": 209,
       "averageViewPercentage": 57.21000000000001,
       "averageViewDuration": 13,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 197,
+        "averageViewDuration": 10,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 8
+      }
     },
     "dqUv-iFpy2g": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -476,7 +926,16 @@
       "views": 346,
       "averageViewPercentage": 57.38999999999999,
       "averageViewDuration": 13,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 343,
+        "averageViewDuration": 13,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 17
+      }
     },
     "hsqsL6vneCk": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -485,7 +944,16 @@
       "views": 1183,
       "averageViewPercentage": 109.28,
       "averageViewDuration": 25,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1173,
+        "averageViewDuration": 22,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 100
+      }
     },
     "6ojF8F0dJ2E": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -494,7 +962,16 @@
       "views": 253,
       "averageViewPercentage": 45.23,
       "averageViewDuration": 10,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 251,
+        "averageViewDuration": 9,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 10
+      }
     },
     "l_9PYWiORjE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -503,7 +980,16 @@
       "views": 366,
       "averageViewPercentage": 45.88,
       "averageViewDuration": 10,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 364,
+        "averageViewDuration": 10,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 13
+      }
     },
     "Zh8_xYi_Gu0": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -512,7 +998,16 @@
       "views": 1744,
       "averageViewPercentage": 66.72,
       "averageViewDuration": 15,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-06-26",
+        "endDate": "2026-07-02",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1739,
+        "averageViewDuration": 15,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 109
+      }
     },
     "a1d1lxLd68k": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -521,7 +1016,16 @@
       "views": 308,
       "averageViewPercentage": 1114.68,
       "averageViewDuration": 256,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-25",
+        "endDate": "2026-07-01",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 305,
+        "averageViewDuration": 269,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 171
+      }
     },
     "w0xvwLiOX1U": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -530,7 +1034,16 @@
       "views": 315,
       "averageViewPercentage": 34.43,
       "averageViewDuration": 7,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-25",
+        "endDate": "2026-07-01",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 313,
+        "averageViewDuration": 7,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 10
+      }
     },
     "d7lre1PlsEo": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -539,7 +1052,16 @@
       "views": 496,
       "averageViewPercentage": 48.62,
       "averageViewDuration": 11,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-06-25",
+        "endDate": "2026-07-01",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 495,
+        "averageViewDuration": 11,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 21
+      }
     },
     "qb-vO3Qubec": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -548,7 +1070,16 @@
       "views": 2620,
       "averageViewPercentage": 55.31,
       "averageViewDuration": 12,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-06-25",
+        "endDate": "2026-07-01",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2619,
+        "averageViewDuration": 12,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 153
+      }
     },
     "kfVJAJTmLpU": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -557,7 +1088,16 @@
       "views": 2374,
       "averageViewPercentage": 89.11,
       "averageViewDuration": 20,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-06-24",
+        "endDate": "2026-06-30",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2371,
+        "averageViewDuration": 20,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 224
+      }
     },
     "1BslXwjEbOI": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -566,7 +1106,16 @@
       "views": 737,
       "averageViewPercentage": 59.84,
       "averageViewDuration": 13,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-24",
+        "endDate": "2026-06-30",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 734,
+        "averageViewDuration": 13,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 35
+      }
     },
     "yu9jZesTwYs": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -575,7 +1124,16 @@
       "views": 2189,
       "averageViewPercentage": 57.69,
       "averageViewDuration": 13,
-      "subscribersGained": 3
+      "subscribersGained": 3,
+      "first7d": {
+        "startDate": "2026-06-24",
+        "endDate": "2026-06-30",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2187,
+        "averageViewDuration": 13,
+        "subscribersGained": 3,
+        "estimatedMinutesWatched": 164
+      }
     },
     "oZUhK2YKW8w": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -584,7 +1142,16 @@
       "views": 2254,
       "averageViewPercentage": 57.64,
       "averageViewDuration": 13,
-      "subscribersGained": 5
+      "subscribersGained": 5,
+      "first7d": {
+        "startDate": "2026-06-24",
+        "endDate": "2026-06-30",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 2252,
+        "averageViewDuration": 13,
+        "subscribersGained": 5,
+        "estimatedMinutesWatched": 163
+      }
     },
     "XrjSTAggQc8": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -593,7 +1160,16 @@
       "views": 1262,
       "averageViewPercentage": 71,
       "averageViewDuration": 23,
-      "subscribersGained": 6
+      "subscribersGained": 6,
+      "first7d": {
+        "startDate": "2026-06-24",
+        "endDate": "2026-06-30",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1261,
+        "averageViewDuration": 23,
+        "subscribersGained": 6,
+        "estimatedMinutesWatched": 226
+      }
     },
     "KpVpLURLtzo": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -602,7 +1178,16 @@
       "views": 1272,
       "averageViewPercentage": 117.31,
       "averageViewDuration": 38,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-06-24",
+        "endDate": "2026-06-30",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1271,
+        "averageViewDuration": 38,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 367
+      }
     },
     "r7QQlVQtA1Y": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -611,7 +1196,16 @@
       "views": 1078,
       "averageViewPercentage": 90.58,
       "averageViewDuration": 29,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-06-23",
+        "endDate": "2026-06-29",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1070,
+        "averageViewDuration": 29,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 254
+      }
     },
     "_TEGdCgLmYE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -620,7 +1214,16 @@
       "views": 28,
       "averageViewPercentage": 225.67,
       "averageViewDuration": 74,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-23",
+        "endDate": "2026-06-29",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 27,
+        "averageViewDuration": 77,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 18
+      }
     },
     "dwe9WPIHi5k": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -629,7 +1232,16 @@
       "views": 1037,
       "averageViewPercentage": 72.03,
       "averageViewDuration": 23,
-      "subscribersGained": 5
+      "subscribersGained": 5,
+      "first7d": {
+        "startDate": "2026-06-23",
+        "endDate": "2026-06-29",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1034,
+        "averageViewDuration": 23,
+        "subscribersGained": 5,
+        "estimatedMinutesWatched": 214
+      }
     },
     "51fLblzetS0": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -638,7 +1250,16 @@
       "views": 514,
       "averageViewPercentage": 332.48,
       "averageViewDuration": 96,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-23",
+        "endDate": "2026-06-29",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 512,
+        "averageViewDuration": 97,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 102
+      }
     },
     "7GJ6Iiy_THk": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -647,7 +1268,16 @@
       "views": 1307,
       "averageViewPercentage": 72.67,
       "averageViewDuration": 21,
-      "subscribersGained": 3
+      "subscribersGained": 3,
+      "first7d": {
+        "startDate": "2026-06-23",
+        "endDate": "2026-06-29",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1301,
+        "averageViewDuration": 21,
+        "subscribersGained": 3,
+        "estimatedMinutesWatched": 94
+      }
     },
     "GlOrcx3y1rE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -656,7 +1286,16 @@
       "views": 1301,
       "averageViewPercentage": 94.34,
       "averageViewDuration": 32,
-      "subscribersGained": 7
+      "subscribersGained": 7,
+      "first7d": {
+        "startDate": "2026-06-23",
+        "endDate": "2026-06-29",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1298,
+        "averageViewDuration": 32,
+        "subscribersGained": 7,
+        "estimatedMinutesWatched": 288
+      }
     },
     "l8w3SlUnm3Y": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -665,7 +1304,16 @@
       "views": 26,
       "averageViewPercentage": 70.48,
       "averageViewDuration": 29,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-06-22",
+        "endDate": "2026-06-28",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 21,
+        "averageViewDuration": 30,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 4
+      }
     },
     "4EGKRM-m77w": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -674,7 +1322,16 @@
       "views": 22,
       "averageViewPercentage": 96.25,
       "averageViewDuration": 40,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-22",
+        "endDate": "2026-06-28",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 20,
+        "averageViewDuration": 42,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 5
+      }
     },
     "c7Mp5L8HSXE": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -683,7 +1340,16 @@
       "views": 25,
       "averageViewPercentage": 81.16,
       "averageViewDuration": 41,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-22",
+        "endDate": "2026-06-28",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 18,
+        "averageViewDuration": 42,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 7
+      }
     },
     "pghOYvcjpIg": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -692,7 +1358,16 @@
       "views": 1034,
       "averageViewPercentage": 56.75,
       "averageViewDuration": 28,
-      "subscribersGained": 2
+      "subscribersGained": 2,
+      "first7d": {
+        "startDate": "2026-06-22",
+        "endDate": "2026-06-28",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1021,
+        "averageViewDuration": 28,
+        "subscribersGained": 2,
+        "estimatedMinutesWatched": 201
+      }
     },
     "xVXqGbOHpbM": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -701,7 +1376,16 @@
       "views": 815,
       "averageViewPercentage": 36.7,
       "averageViewDuration": 17,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-06-21",
+        "endDate": "2026-06-27",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 803,
+        "averageViewDuration": 17,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 65
+      }
     },
     "qf38zv-SVNo": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -710,7 +1394,16 @@
       "views": 1218,
       "averageViewPercentage": 65.32,
       "averageViewDuration": 30,
-      "subscribersGained": 4
+      "subscribersGained": 4,
+      "first7d": {
+        "startDate": "2026-06-21",
+        "endDate": "2026-06-27",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 1212,
+        "averageViewDuration": 30,
+        "subscribersGained": 4,
+        "estimatedMinutesWatched": 282
+      }
     },
     "LgEmfyQ41NI": {
       "fetchedAt": "2026-11-13T07:22:20.092Z",
@@ -719,8 +1412,17 @@
       "views": 349,
       "averageViewPercentage": 58.79,
       "averageViewDuration": 19,
-      "subscribersGained": 1
+      "subscribersGained": 1,
+      "first7d": {
+        "startDate": "2026-06-21",
+        "endDate": "2026-06-27",
+        "fetchedAt": "2026-11-13T08:00:27.266Z",
+        "views": 343,
+        "averageViewDuration": 19,
+        "subscribersGained": 1,
+        "estimatedMinutesWatched": 20
+      }
     }
   },
-  "updatedAt": "2026-11-13T07:22:20.092Z"
+  "updatedAt": "2026-11-13T08:00:27.266Z"
 }

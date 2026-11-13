@@ -1,55 +1,64 @@
 {
-  "schemaVersion": 1,
-  "computedAt": "2026-11-13T07:23:10.996Z",
+  "schemaVersion": 2,
+  "computedAt": "2026-11-13T08:01:41.619Z",
   "formats": {
     "SHORTS": {
       "metrics": {
         "views7d": {
           "label": "공개 7일 조회수",
           "meaning": "제목·썸네일·소재(포장)",
+          "unit": "회",
           "n": 51,
           "median": 1141,
           "upper": 1396,
           "spreadRatio": 1.2234881682734444,
+          "promoteRule": "비율",
           "champion": {
             "videoId": "qb-vO3Qubec",
             "title": "R은 어떻게 읽을까요 #영어초보 #파닉스 #영어공부 #영어초보 #파닉스 #영어공부 #영어독학 #50대영어 #영포자 #영어독학 #50대영어 #영포자",
             "publishedAt": "2026-06-25T09:57:56Z",
+            "durationSeconds": 23,
             "value": 2619
           },
           "promoteAbove": 3204.315512708151,
           "confidence": "가설"
         },
-        "averageViewPercentage": {
-          "label": "평균 시청률(%)",
-          "meaning": "훅·화면·대본(내용)",
+        "watchSeconds7d": {
+          "label": "공개 7일 평균 시청 시간",
+          "meaning": "훅·화면·대본(내용). 영상이 길수록 유리해서 길이를 같이 본다",
+          "unit": "초",
           "n": 26,
-          "median": 65.39,
-          "upper": 83.79,
-          "spreadRatio": 1.2813885915277565,
+          "median": 30,
+          "upper": 32,
+          "spreadRatio": 1.0666666666666667,
+          "promoteRule": "비율",
           "champion": {
-            "videoId": "6nANjHxy2Lc",
-            "title": "왜 HEROIC은 히로익일까? 영어 읽는 법 30초 테스트 #영어기초 #영어읽는법",
-            "publishedAt": "2026-07-22T14:49:48Z",
-            "value": 174.62
+            "videoId": "r2dDUxflF0Y",
+            "title": "영어 읽기 실력 테스트 | 초보 | 원리 알면 1초 컷! ⏱️ #영어공부 #챌린지 #쇼츠 #파닉스",
+            "publishedAt": "2026-07-13T11:42:14Z",
+            "durationSeconds": 86,
+            "value": 41
           },
-          "promoteAbove": 223.75607585257686,
+          "promoteAbove": 43.733333333333334,
           "confidence": "가설"
         },
-        "subscribersPerThousandViews": {
-          "label": "조회 1,000회당 구독",
+        "subs7d": {
+          "label": "공개 7일 구독 수",
           "meaning": "채널의 가치",
-          "n": 26,
-          "median": 1.3704888076747375,
-          "upper": 2.5176233635448138,
-          "spreadRatio": 1.8370258475998655,
+          "unit": "명",
+          "n": 51,
+          "median": 1,
+          "upper": 2,
+          "spreadRatio": 2,
+          "promoteRule": "비율",
           "champion": {
             "videoId": "M9ru03p3QoE",
             "title": "틀리기 쉬운 영어 발음 테스트! 혹시 '디시션'이라고 읽으셨나요? ❌",
             "publishedAt": "2026-08-09T10:16:08Z",
-            "value": 6.642512077294686
+            "durationSeconds": 55,
+            "value": 10
           },
-          "promoteAbove": 12.202466378984614,
+          "promoteAbove": 20,
           "confidence": "가설"
         }
       }
@@ -59,49 +68,58 @@
         "views7d": {
           "label": "공개 7일 조회수",
           "meaning": "제목·썸네일·소재(포장)",
+          "unit": "회",
           "n": 27,
           "median": 6,
           "upper": 9,
           "spreadRatio": 1.5,
+          "promoteRule": "비율",
           "champion": {
             "videoId": "4of_mgeLazQ",
             "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
             "publishedAt": "2026-09-26T11:00:34Z",
+            "durationSeconds": 456,
             "value": 203
           },
           "promoteAbove": 304.5,
           "confidence": "가설"
         },
-        "averageViewPercentage": {
-          "label": "평균 시청률(%)",
-          "meaning": "훅·화면·대본(내용)",
+        "watchSeconds7d": {
+          "label": "공개 7일 평균 시청 시간",
+          "meaning": "훅·화면·대본(내용). 영상이 길수록 유리해서 길이를 같이 본다",
+          "unit": "초",
           "n": 14,
-          "median": 35.58,
-          "upper": 47.67,
-          "spreadRatio": 1.339797639123103,
+          "median": 117,
+          "upper": 193,
+          "spreadRatio": 1.6495726495726495,
+          "promoteRule": "비율",
           "champion": {
-            "videoId": "JOyI0DWGzEM",
-            "title": "영어 기초 배우기 | 왜 CAKE는 케이크일까? #영어기초,#영어읽기,#영어공부,#알파벳소리,#영어발음,#영어왕초보,#기초영어,#중년영어,#영어배우기,#영어독학",
-            "publishedAt": "2026-06-30T21:00:38Z",
-            "value": 59.709999999999994
+            "videoId": "-V1lwpEF7Ik",
+            "title": "왜 CAT은 '캣'인데 KING은 '킹'일까? C와 K의 비밀 | 영어 읽기 잘하는법 | 영어 #영어기초 #C와K의차이 #이해하면쉬운영어",
+            "publishedAt": "2026-07-08T12:57:50Z",
+            "durationSeconds": 535,
+            "value": 354
           },
-          "promoteAbove": 79.99931703204047,
+          "promoteAbove": 583.9487179487179,
           "confidence": "가설"
         },
-        "subscribersPerThousandViews": {
-          "label": "조회 1,000회당 구독",
+        "subs7d": {
+          "label": "공개 7일 구독 수",
           "meaning": "채널의 가치",
-          "n": 14,
+          "unit": "명",
+          "n": 27,
           "median": 0,
-          "upper": 34.68208092485549,
+          "upper": 0,
           "spreadRatio": null,
+          "promoteRule": "차이",
           "champion": {
-            "videoId": "JOyI0DWGzEM",
-            "title": "영어 기초 배우기 | 왜 CAKE는 케이크일까? #영어기초,#영어읽기,#영어공부,#알파벳소리,#영어발음,#영어왕초보,#기초영어,#중년영어,#영어배우기,#영어독학",
-            "publishedAt": "2026-06-30T21:00:38Z",
-            "value": 76.92307692307693
+            "videoId": "ROks87qezuU",
+            "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 1
           },
-          "promoteAbove": null,
+          "promoteAbove": 1,
           "confidence": "가설"
         }
       }

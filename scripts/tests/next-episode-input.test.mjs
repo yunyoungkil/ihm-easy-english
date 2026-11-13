@@ -156,9 +156,9 @@ test('경쟁 영상 리포트 요약: 성과 배수 큰 영상부터, 리포트 
 test('기준선 절: baselines.json의 숫자를 그대로 적고, 파일이 없으면 계산 전이라고 밝히며, 대부분 0이라 편차를 못 구한 지표는 그렇게 쓴다', async () => {
   const {renderBaselines} = await import('../next-episode-input.mjs');
   assert.ok(renderBaselines(null).join('\n').includes('기준선 계산 전'));
-  const metric = (value, promoteAbove, n) => ({label: '공개 7일 조회수', meaning: '포장', n, median: 10, champion: {value, title: '제목 A'}, promoteAbove, confidence: '가설'});
+  const metric = (value, promoteAbove, n) => ({label: '공개 7일 조회수', meaning: '포장', unit: '회', n, median: 10, champion: {value, title: '제목 A', durationSeconds: 23}, promoteAbove, confidence: '가설'});
   const text = renderBaselines({formats: {SHORTS: {metrics: {views7d: metric(2619, 3204.32, 51)}}, LONGFORM: {metrics: {views7d: metric(203, null, 27)}}}}).join('\n');
-  assert.ok(text.includes('기준선 2,619') && text.includes('갱신 기준 3,204.32') && text.includes('표본 51편(가설)'), text);
+  assert.ok(text.includes('기준선 2,619회 · 영상 23초') && text.includes('갱신 기준 3,204.32회') && text.includes('표본 51편(가설)'), text);
   assert.ok(text.includes('갱신 기준 없음'), '편차를 못 구하면 그렇게 쓴다');
 });
 

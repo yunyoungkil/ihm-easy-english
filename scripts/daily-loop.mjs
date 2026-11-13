@@ -327,6 +327,12 @@ async function run() {
     return r;
   });
 
+  // 첫 7일 수치가 생긴 영상의 결과를 비교 시트에 더한다(2026-11-13, 근거 누적). 이 영상이 들어가기 전의 기준선으로 판정해야 해서 baselines 단계보다 먼저 돈다.
+  await step('sheetOutcomes', async () => {
+    const {runSettle} = await import('./sheet-outcomes.mjs');
+    return runSettle({now: new Date()});
+  });
+
   // 기준선(형식·지표별 현재 최고 기록)을 새로 계산한다(2026-11-13, knowledge/decisions/2026-11-13-experiment-loop.md).
   // 챔피언이 바뀌면 이전 챔피언은 history에 더해진다. 우리 채널에는 "성공"이라는 말을 쓰지 않는다.
   await step('baselines', async () => {

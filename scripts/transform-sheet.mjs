@@ -168,7 +168,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   for (const r of sheet?.rejected || []) {
     if (!filled(r.reason)) problems.push(`뺀 것(${String(r.what).slice(0, 20)})에 뺀 이유가 없다`);
   }
-  problems.push(...experimentProblems(sheet));
+  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet));
   return problems;
 }
 
@@ -189,6 +189,23 @@ export function experimentProblems(sheet) {
   } else {
     for (const g of sheet.glossary) {
       if (!filled(g?.term) || !filled(g?.plain)) out.push('용어 풀이에는 term(경쟁 쪽 용어)과 plain(쉬운 말)이 모두 있어야 한다');
+    }
+  }
+  return out;
+}
+
+/** 근거 기록(borrowed[].evidenceLog, 2026-11-13): 결과가 쌓이는 칸. 비어 있어도 되고, 있으면 날짜·영상·지표·값·결과가 모두 있어야 한다. */
+export const EVIDENCE_METRICS = Object.freeze(['views7d', 'watchSeconds7d', 'subs7d']);
+export const EVIDENCE_RESULTS = Object.freeze(['갱신 기준 초과', '기준선 위, 편차 안(갱신 아님)', '기준선 이하', '기준선 없음']);
+export function evidenceProblems(sheet) {
+  const out = [];
+  for (const b of sheet?.borrowed || []) {
+    for (const e of b.evidenceLog || []) {
+      const where = `가져온 것(${String(b.what).slice(0, 20)})의 근거 기록`;
+      if (!filled(e?.date) || !filled(e?.videoId)) out.push(`${where}에 날짜나 영상 ID가 없다`);
+      else if (!EVIDENCE_METRICS.includes(e.metric)) out.push(`${where}의 지표(${e.metric})가 ${EVIDENCE_METRICS.join('/')} 중 하나가 아니다`);
+      else if (!Number.isFinite(Number(e.value)) && e.value !== null) out.push(`${where}의 값이 숫자가 아니다`);
+      else if (!EVIDENCE_RESULTS.includes(e.result)) out.push(`${where}의 결과(${e.result})가 정해진 말이 아니다`);
     }
   }
   return out;

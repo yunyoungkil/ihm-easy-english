@@ -168,7 +168,30 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   for (const r of sheet?.rejected || []) {
     if (!filled(r.reason)) problems.push(`뺀 것(${String(r.what).slice(0, 20)})에 뺀 이유가 없다`);
   }
+  problems.push(...experimentProblems(sheet));
   return problems;
+}
+
+/** 3판(schemaVersion 3, 2026-11-13 사용자: 규칙은 기본값이고 컨셉은 시험한다): 이번에 시험하는 변수와 용어 풀이 칸. */
+export function experimentProblems(sheet) {
+  const out = [];
+  if (Number(sheet?.schemaVersion) < 3) return out;
+  const vars = sheet?.testVariables;
+  if (!Array.isArray(vars) || vars.length < 1 || vars.length > 2) {
+    out.push('시험 변수(testVariables)가 1~2개 있어야 한다 — 한 번에 많이 바꾸면 무엇이 효과였는지 알 수 없다. 나머지는 기본값(knowledge/rule-tiers.md)');
+  } else {
+    for (const v of vars) {
+      if (!filled(v?.variable) || !filled(v?.hypothesis) || !filled(v?.measure)) out.push('시험 변수에는 variable(무엇을 시험하나), hypothesis(왜 그럴 것 같은지, 근거 포함), measure(어느 지표로 볼지)가 모두 있어야 한다');
+    }
+  }
+  if (!Array.isArray(sheet?.glossary)) {
+    out.push('용어 풀이(glossary) 칸이 없다 — 경쟁 영상에 전문용어가 없으면 빈 배열로 둔다');
+  } else {
+    for (const g of sheet.glossary) {
+      if (!filled(g?.term) || !filled(g?.plain)) out.push('용어 풀이에는 term(경쟁 쪽 용어)과 plain(쉬운 말)이 모두 있어야 한다');
+    }
+  }
+  return out;
 }
 
 export function loadSheets(dir = sheetsDir) {

@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "computedAt": "2026-11-13T06:25:57.923Z",
+  "formats": {
+    "SHORTS": {
+      "metrics": {
+        "views7d": {
+          "label": "공개 7일 조회수",
+          "meaning": "제목·썸네일·소재(포장)",
+          "n": 51,
+          "median": 1141,
+          "upper": 1396,
+          "spreadRatio": 1.2234881682734444,
+          "champion": {
+            "videoId": "qb-vO3Qubec",
+            "title": "R은 어떻게 읽을까요 #영어초보 #파닉스 #영어공부 #영어초보 #파닉스 #영어공부 #영어독학 #50대영어 #영포자 #영어독학 #50대영어 #영포자",
+            "publishedAt": "2026-06-25T09:57:56Z",
+            "value": 2619
+          },
+          "promoteAbove": 3204.315512708151,
+          "confidence": "가설"
+        },
+        "averageViewPercentage": {
+          "label": "평균 시청률(%)",
+          "meaning": "훅·화면·대본(내용)",
+          "n": 3,
+          "median": 71.24,
+          "upper": 77.02,
+          "spreadRatio": 1.0811341942728805,
+          "champion": {
+            "videoId": "7qSWJZqV14o",
+            "title": "OFFICIAL을 ‘오피시알’로 읽으면 틀립니다 #영어발음 #shorts",
+            "publishedAt": "2026-08-25T11:00:31Z",
+            "value": 77.02
+          },
+          "promoteAbove": 83.26895564289725,
+          "confidence": "가설"
+        },
+        "subscribersPerThousandViews": {
+          "label": "조회 1,000회당 구독",
+          "meaning": "채널의 가치",
+          "n": 3,
+          "median": 2.2820629849383844,
+          "upper": 3.1620553359683794,
+          "spreadRatio": 1.3856126482213438,
+          "champion": {
+            "videoId": "Si88xXt-EQc",
+            "title": "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
+            "publishedAt": "2026-08-27T11:00:01Z",
+            "value": 3.1620553359683794
+          },
+          "promoteAbove": 4.381383867893577,
+          "confidence": "가설"
+        }
+      }
+    },
+    "LONGFORM": {
+      "metrics": {
+        "views7d": {
+          "label": "공개 7일 조회수",
+          "meaning": "제목·썸네일·소재(포장)",
+          "n": 27,
+          "median": 6,
+          "upper": 9,
+          "spreadRatio": 1.5,
+          "champion": {
+            "videoId": "4of_mgeLazQ",
+            "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
+            "publishedAt": "2026-09-26T11:00:34Z",
+            "value": 203
+          },
+          "promoteAbove": 304.5,
+          "confidence": "가설"
+        },
+        "averageViewPercentage": {
+          "label": "평균 시청률(%)",
+          "meaning": "훅·화면·대본(내용)",
+          "n": 9,
+          "median": 22.46,
+          "upper": 39.53,
+          "spreadRatio": 1.7600178094390027,
+          "champion": {
+            "videoId": "VwEkIUluszw",
+            "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
+            "publishedAt": "2026-09-22T11:00:04Z",
+            "value": 47.67
+          },
+          "promoteAbove": 83.90004897595726,
+          "confidence": "가설"
+        },
+        "subscribersPerThousandViews": {
+          "label": "조회 1,000회당 구독",
+          "meaning": "채널의 가치",
+          "n": 9,
+          "median": 0,
+          "upper": 0,
+          "spreadRatio": null,
+          "champion": {
+            "videoId": "ROks87qezuU",
+            "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "value": 34.68208092485549
+          },
+          "promoteAbove": null,
+          "confidence": "가설"
+        }
+      }
+    }
+  },
+  "history": [
+    {
+      "format": "SHORTS",
+      "metric": "averageViewPercentage",
+      "videoId": "dijhGjxOQOw",
+      "title": "틀리기 쉬운 영어 발음 테스트! 텔레비'션'이 아니라 텔레비'전'인 이유 ❌",
+      "publishedAt": "2026-08-09T13:24:19Z",
+      "value": 354.53,
+      "retiredAt": "2026-11-13T06:25:57.923Z",
+      "replacedBy": "7qSWJZqV14o"
+    },
+    {
+      "format": "SHORTS",
+      "metric": "subscribersPerThousandViews",
+      "videoId": "M9ru03p3QoE",
+      "title": "틀리기 쉬운 영어 발음 테스트! 혹시 '디시션'이라고 읽으셨나요? ❌",
+      "publishedAt": "2026-08-09T10:16:08Z",
+      "value": 100,
+      "retiredAt": "2026-11-13T06:25:57.923Z",
+      "replacedBy": "Si88xXt-EQc"
+    },
+    {
+      "format": "LONGFORM",
+      "metric": "averageViewPercentage",
+      "videoId": "JOyI0DWGzEM",
+      "title": "영어 기초 배우기 | 왜 CAKE는 케이크일까? #영어기초,#영어읽기,#영어공부,#알파벳소리,#영어발음,#영어왕초보,#기초영어,#중년영어,#영어배우기,#영어독학",
+      "publishedAt": "2026-06-30T21:00:38Z",
+      "value": 64.83,
+      "retiredAt": "2026-11-13T06:25:57.923Z",
+      "replacedBy": "VwEkIUluszw"
+    }
+  ]
+}

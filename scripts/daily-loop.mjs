@@ -319,6 +319,15 @@ async function run() {
     return result;
   });
 
+  // 기준선(형식·지표별 현재 최고 기록)을 새로 계산한다(2026-11-13, knowledge/decisions/2026-11-13-experiment-loop.md).
+  // 챔피언이 바뀌면 이전 챔피언은 history에 더해진다. 우리 채널에는 "성공"이라는 말을 쓰지 않는다.
+  await step('baselines', async () => {
+    const {buildFromDisk} = await import('./baseline.mjs');
+    const r = buildFromDisk({now: new Date()});
+    const views = r.formats.SHORTS.metrics.views7d;
+    return {shortsViews7dBaseline: views.champion?.value ?? null, shortsViews7dN: views.n, history: r.history.length};
+  });
+
   // 모은 데이터를 다음 기획의 출발점 한 장으로 만든다(2026-11-12, knowledge/data-consumption-map.md).
   // 동기화·시청자 고민 분석이 끝난 뒤에 만들어야 오늘 데이터가 들어간다.
   await step('nextInput', async () => {

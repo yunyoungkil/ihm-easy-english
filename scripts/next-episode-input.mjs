@@ -277,7 +277,26 @@ export function renderNextEpisodeInput(input) {
     }
     out.push('');
   } else out.push('비교 시트 없음.', '');
+  out.push(...renderBaselines(input.baselines));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
+}
+
+/** 기준선(현재 최고 기록): 형식·지표별로 우리가 지금까지 낸 최고와, 이를 넘으려면 필요한 값. 숫자는 baselines.json(scripts/baseline.mjs)이 계산한 것이다. */
+export function renderBaselines(baselines) {
+  const out = ['## 9. 기준선 (현재 최고 기록)', ''];
+  if (!baselines?.formats) return [...out, '기준선 계산 전(`node scripts/baseline.mjs`).', ''];
+  out.push('우리 채널에는 "성공"이라는 말을 쓰지 않는다. 지표별 현재 최고가 기준선이고, 새 영상이 갱신 기준(우리 편차만큼 위)을 넘으면 새 기준선이 된다. 근거 표본이 작으면 가설이다. 조회수는 제목·썸네일·소재(포장), 시청률은 훅·화면·대본(내용)을 본다.', '');
+  const names = {SHORTS: '쇼츠', LONGFORM: '롱폼'};
+  const num = (n) => Number(Number(n).toFixed(2)).toLocaleString('ko-KR');
+  for (const [format, name] of Object.entries(names)) {
+    for (const m of Object.values(baselines.formats[format]?.metrics || {})) {
+      if (!m.champion) { out.push(`- ${name} ${m.label}: 표본 없음`); continue; }
+      const bar = m.promoteAbove == null ? '갱신 기준 없음(편차를 못 구함: 대부분 0)' : `갱신 기준 ${num(m.promoteAbove)}`;
+      out.push(`- ${name} ${m.label}(${m.meaning}): 기준선 ${num(m.champion.value)} · ${bar} · 중앙값 ${num(m.median)} · 표본 ${m.n}편(${m.confidence}) · 「${cut(m.champion.title, 40)}」`);
+    }
+  }
+  out.push('');
+  return out;
 }
 
 const readJson = (path, fallback) => {
@@ -318,6 +337,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     outcomes: loadEpisodeOutcomes(projectDir, now),
     successPatternCount: (patterns.entries || []).length,
     outlierReports: summarizeOutlierReports(loadOutlierReports()),
+    baselines: readJson(join(dataDir, 'baselines.json'), null),
     transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };
 }

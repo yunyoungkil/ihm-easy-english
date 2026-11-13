@@ -329,3 +329,17 @@ test('경쟁 설명글·태그는 리포트 값을 그대로 보여 주고, 태�
   assert.deepEqual(packageImagesFromSheet({thumbnailPicks: ['images/x/a.jpg', 'images/x/b.jpg', 'images/x/c.jpg']}).map((x) => x.to), ['thumbnail.jpg', 'thumbnail-variant-b.jpg', 'thumbnail-variant-c.jpg']);
   assert.throws(() => packageImagesFromSheet({thumbnailPicks: []}), /썸네일 시안을 1~3개/);
 });
+
+test('3판 시트는 시험 변수 1~2개(무엇을·왜·어느 지표로)와 용어 풀이 칸이 있어야 하고, 1·2판은 없어도 된다', async () => {
+  const {experimentProblems, validateSheet} = await import('../transform-sheet.mjs');
+  const base = {schemaVersion: 3, testVariables: [{variable: '훅 유형', hypothesis: '쇼츠 상위 영상이 질문형이다(작은 표본, 가설)', measure: '조회수'}], glossary: []};
+  assert.deepEqual(experimentProblems(base), []);
+  assert.ok(experimentProblems({...base, testVariables: []}).some((x) => x.includes('1~2개')));
+  assert.ok(experimentProblems({...base, testVariables: [base.testVariables[0], base.testVariables[0], base.testVariables[0]]}).some((x) => x.includes('1~2개')), '3개는 너무 많다');
+  assert.ok(experimentProblems({...base, testVariables: [{variable: '훅', hypothesis: '', measure: '조회수'}]}).some((x) => x.includes('hypothesis')));
+  assert.ok(experimentProblems({...base, glossary: undefined}).some((x) => x.includes('glossary')));
+  assert.ok(experimentProblems({...base, glossary: [{term: 'minimal pair', plain: ''}]}).some((x) => x.includes('term')));
+  assert.deepEqual(experimentProblems({schemaVersion: 2}), []);
+  assert.deepEqual(experimentProblems({schemaVersion: 1}), []);
+  assert.ok(validateSheet({...good(), schemaVersion: 3}).some((x) => x.includes('시험 변수')), 'validateSheet가 3판 검사를 부른다');
+});

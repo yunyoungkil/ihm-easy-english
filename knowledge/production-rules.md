@@ -634,3 +634,29 @@ EP11부터의 HyperFrames 체제에는 적용되지 않는다**(2026-09-10 정�
    - 캐릭터의 시선과 손짓이 화면 내 핵심 카드를 향하게 하여 시청자의 시선을 1초도 놓치지 않고 강제 견인.
 5. **사전 부품 라이브러리화 (Sprite Bank Pre-baking)**:
    - 영상 제작 중 즉흥적 AI 생성 도박 금지 ➔ 손 모양 5종, 표정 5종, 소품 10종을 투명 PNG로 사전 구축 후 코드에서 레고 블록 조립식으로 100% 안전 배치.
+
+
+## HyperFrames 기술 주의 (AGENTS.md에서 옮김, 2026-11-13)
+
+- **GSAP로 애니메이션하는 요소에는 CSS `transition`을 같이 걸지 말 것**(2026-09-18 확정,
+  EP17 Frame 6·7·8 사례) — HyperFrames는 "단일 paused 타임라인을 seek해서 렌더링"하는
+  게 핵심 전제인데, 같은 속성(예: opacity/transform)에 CSS `transition`이 남아있으면
+  GSAP가 seek 시 즉시 계산해 넣은 최종값을 그 트랜지션이 다시 가로채 "직전 DOM 상태 →
+  새 값"으로 실제 시간(wall-clock) 기준 0.2초짜리 트랜지션을 새로 시작해버린다 — 그 결과
+  화면을 정확히 언제 캡처/렌더하느냐에 따라 요소가 보이거나 안 보이거나 하는, 영상
+  타임라인과 무관한 비결정성 버그가 생긴다(EP17에서 5개 단어 카드가 t=10s·20s엔 안
+  보이고 t=17s에만 보이는 식으로 나타남 — 실제 렌더 파이프라인이 프레임마다 seek하는
+  방식이라 최종 영상에도 영향 줬을 수 있음). 새 프레임 작성 후
+  `grep -n "transition:" compositions/frames/*.html`로 GSAP 대상 요소에 CSS transition이
+  남아있지 않은지 훑어볼 것.
+- **영문 알파벳 일부를 색깔 `<span>`으로 강조할 때, span이 "f"로 끝나는 글자 바로 뒤에서
+  시작하면("fi", "fl" 등 리게이처 조합) 브라우저가 리게이처 글리프를 span 경계 너머로
+  합성해 전체를 span 밖(앞쪽) 색으로 칠해버릴 수 있다**(2026-09-18 확정, EP17 Frame 11
+  "first" 사례 — `f<span style="color:...">ir</span>st`로 "ir"을 묶었는데 실제로는 "i"까지
+  검정으로 나옴, 픽셀 직접 샘플링으로 확인). 이런 단어 강조 텍스트 요소에는 기본적으로
+  `font-variant-ligatures: none`을 걸어 리게이처 자체를 꺼둘 것.
+
+**⚠️ `lt-neon-border`는 지금 설치가 안 된다**(CLI 0.8.27~0.8.29 확인). 카탈로그 명세서의 `files`에 `target`이 빠져 있어 `hyperframes add lt-neon-border`가 `Cannot read properties of undefined (reading 'replace')`로 실패한다. 네온 효과가 필요하면 EP12 Frame 4(`videos/ep12-want-wont/compositions/frames/04-examples.html`)처럼 CSS로 직접 구현하고, 나중에 `hyperframes add lt-neon-border`부터 다시 시도해 본다.
+
+## 엔드스크린 구간 7~10초로 변경 (2026-11-13 사용자)
+위 "렌더 마지막 5초" 절의 5초는 **7~10초**로 읽는다. 카드류를 넣는다면 유튜브 엔드스크린 요소 크기 이하이거나 정확히 맞고 서로 겹치지 않아야 한다(겹치면 업로드가 안 된다). **요소 크기 수치는 스튜디오 엔드스크린 편집기에서 확인해 여기에 적는다(아직 확인 전 — 지어서 쓰지 않는다).**

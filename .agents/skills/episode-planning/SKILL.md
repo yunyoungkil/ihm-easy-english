@@ -53,7 +53,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | — | 제작 | 음성·HyperFrames·검수·렌더 (`knowledge/VIDEO_WORKFLOW.md`) | — |
 | 11 | **Phase 12** 쇼츠 파생 & 다음 영상 연결 | 롱폼 1편당 쇼츠 2개, 롱폼 링크, 엔드스크린·재생목록. **쇼츠 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 쓴다** | [06-shorts-and-next-watch.md](references/06-shorts-and-next-watch.md) |
 | 12 | **Phase 13** 업로드 전 점검 | 금지어·업로드 페이지 검사, seo-audit·korean-skills·design 스킬 점검(작은 표본이면 필수 2개) | [07-packaging-check.md](references/07-packaging-check.md) |
-| 13 | **Phase 11** 성과 리뷰 & 중단 규칙 | 7일·28일, 예측 vs 실제, 기획 근거 판정, **성공 패턴·소재 이력 자동 기록**, **2편 연속 부진 시 그 형식 새 기획 중단**(작은 표본이면 참고만) | [05-performance-review.md](references/05-performance-review.md) |
+| 13 | **Phase 11** 성과 리뷰 & 중단 규칙 | 7일·28일, 예측 vs 실제, 기획 근거 판정, **통한 요소 기록·소재 이력 자동 기록**, **2편 연속 부진 시 그 형식 새 기획 중단**(작은 표본이면 참고만) | [05-performance-review.md](references/05-performance-review.md) |
 | 정기 | 인사이트(2주) · 월간 리포트(매월) | 댓글 속 미해결 질문 → Phase 4 근거, 월간 성과·수익화 단계 | [08-insights-and-monthly.md](references/08-insights-and-monthly.md) |
 
 ### 요청별 바로가기
@@ -84,7 +84,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | 만든 소재 (`idea-board-history.json`) | Phase 1, 4 | 기획 확정 `selected` → 예약 `scheduled` → 공개 확인 `published` | 공개됐는데 빠진 영상이 있으면 그 자리에서 채운다 |
 | 기획 근거 (`BRIEF.md` "기획 근거" 칸) | Phase 3, 11 | Phase 4 선택 직후 | — |
 | 예측과 실제 (`REVIEW.md`) | Phase 2, 4, 6 | Phase 4(예측), Phase 11(실제·판정) | 공개 7일·28일이 지나면 Phase 11을 바로 |
-| 성공 패턴 (`success-patterns.json`) | Phase 4, 6, 7 | Phase 11 (1편이면 가설, 2편 이상이면 확정) | — |
+| 통한 요소 기록 (`success-patterns.json`) | Phase 4, 6, 7 | Phase 11 (1편이면 가설, 2편 이상이면 확정) | — |
 
 - 쓰기 전에 파일을 읽고 기존 형식을 지킨다. 출처(API 응답, `REVIEW.md`)가 있는 값만 쓰고, 숫자를 짐작으로 채우지 않는다.
 - Gemini를 부르는 갱신(댓글·대본 분석)은 지금처럼 비용·한도를 먼저 알린다. 동기화와 파일 읽기·쓰기는 묻지 않는다.
@@ -115,7 +115,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
    - 승인을 요청하기 전에 `npm run check-terms -- videos/<프로젝트>`로 금지어를 검사해 결과를 함께 보고합니다. 렌더 명령은 훅이 같은 검사로 막습니다.
 4. **데이터와 말하기 공통 원칙**:
    - **vidIQ 사용 안 함**: 우리 채널 숫자는 대시보드(`npm run analytics`, 포트 3001), 경쟁 채널은 `market-demand.mjs`·`analyze-outlier-comments.mjs`와 `watch:watch`로 본다.
-   - **숫자는 라이브 값만**: 우리 채널 숫자는 `POST /api/sync` 직후 응답만 쓰고 `range`를 같이 적는다. `analytics-latest.json` 같은 우리 채널 스냅샷 숫자를 그대로 인용하지 않는다. 루프 표의 누적 데이터(경쟁 채널, 시청자 고민, 만든 소재, 성공 패턴)는 파일을 직접 읽어 근거로 쓰고, 마지막 갱신일을 같이 적는다.
+   - **숫자는 라이브 값만**: 우리 채널 숫자는 `POST /api/sync` 직후 응답만 쓰고 `range`를 같이 적는다. `analytics-latest.json` 같은 우리 채널 스냅샷 숫자를 그대로 인용하지 않는다. 루프 표의 누적 데이터(경쟁 채널, 시청자 고민, 만든 소재, 통한 요소 기록)는 파일을 직접 읽어 근거로 쓰고, 마지막 갱신일을 같이 적는다.
    - **작은 표본은 가설**: 1편에서 본 것은 가설, 같은 방식·형식 2편 이상에서 반복된 것만 확정이다.
-   - **작은 표본 규칙 (2026-11-06)**: 같은 형식 최근 3편의 노출 중앙값이 1,000회 미만이면(`npm run growth-check`가 판정) 썸네일은 메인 1장만 만들고, 업로드 전 점검은 필수만 하고, 중단 신호는 참고로만 쓴다. 노출 150회를 시안 3개로 나누면 시안당 50회, 클릭은 1~3번이라 승자를 가릴 수 없기 때문이다.
+   - **작은 표본 규칙 (2026-11-06)**: 같은 형식 최근 3편의 노출 중앙값이 1,000회 미만이면(`npm run growth-check`가 판정) 업로드 전 점검은 필수만 하고, 중단 신호는 참고로만 쓴다. **썸네일은 서로 다른 컨셉 3개를 유튜브 테스트에 건다(2026-11-13 사용자 결정, 이전의 "메인 1장" 대체).** 노출 150회를 시안 3개로 나누면 시안당 50회, 클릭은 1~3번이라 승자를 가릴 수 없으므로 결과는 "가설"로만 기록하고 확정·규칙화하지 않는다.
    - **직언과 쉬운 설명**: 숫자와 근거로 결론을 말하고(`CLAUDE.md` 직언 원칙), 지표에는 한 줄 풀이를 붙인다(`00-unblock-and-weekly.md` 마지막 표).

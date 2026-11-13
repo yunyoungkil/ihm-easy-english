@@ -12,6 +12,7 @@ import {existsSync, readFileSync, readdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {findBannedTerms} from './banned-terms.mjs';
+import {USUAL_RESULTS} from './baseline.mjs';
 
 export const ROW_KEYS = Object.freeze(['title', 'thumbnail', 'opening', 'flow', 'visual', 'reaction', 'ending']);
 export const ROW_LABELS = Object.freeze({
@@ -196,7 +197,10 @@ export function experimentProblems(sheet) {
 
 /** 근거 기록(borrowed[].evidenceLog, 2026-11-13): 결과가 쌓이는 칸. 비어 있어도 되고, 있으면 날짜·영상·지표·값·결과가 모두 있어야 한다. */
 export const EVIDENCE_METRICS = Object.freeze(['views7d', 'watchSeconds7d', 'subs7d']);
-export const EVIDENCE_RESULTS = Object.freeze(['갱신 기준 초과', '기준선 위, 편차 안(갱신 아님)', '기준선 이하', '기준선 없음']);
+// result = 평소 대비 판정(1단계, 시트의 이김·짐은 이걸로 읽는다), baselineResult = 기준선 판정(2단계, 옆 칸). 2026-11-13 사용자 결정.
+// 옛 기록(result에 기준선 판정이 들어 있던 것)도 통과시키려고 두 말 목록을 모두 허용한다.
+export const BASELINE_RESULTS = Object.freeze(['갱신 기준 초과', '기준선 위, 편차 안(갱신 아님)', '기준선 이하', '기준선 없음']);
+export const EVIDENCE_RESULTS = Object.freeze([...USUAL_RESULTS, ...BASELINE_RESULTS]);
 export function evidenceProblems(sheet) {
   const out = [];
   for (const b of sheet?.borrowed || []) {
@@ -206,6 +210,7 @@ export function evidenceProblems(sheet) {
       else if (!EVIDENCE_METRICS.includes(e.metric)) out.push(`${where}의 지표(${e.metric})가 ${EVIDENCE_METRICS.join('/')} 중 하나가 아니다`);
       else if (!Number.isFinite(Number(e.value)) && e.value !== null) out.push(`${where}의 값이 숫자가 아니다`);
       else if (!EVIDENCE_RESULTS.includes(e.result)) out.push(`${where}의 결과(${e.result})가 정해진 말이 아니다`);
+      else if (e.baselineResult !== undefined && !BASELINE_RESULTS.includes(e.baselineResult)) out.push(`${where}의 기준선 판정(${e.baselineResult})이 정해진 말이 아니다`);
     }
   }
   return out;

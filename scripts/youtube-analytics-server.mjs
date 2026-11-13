@@ -6934,7 +6934,7 @@ const server = createServer(async (req, res) => {
             }
             memoryMarketDemand = null;
             lastMarketDemandTime = 0;
-            // "통함" 판정은 성공 패턴에 자동 기록(2026-11-11). 사람·Claude가 적은 훅·비유는 지우지 않는다.
+            // "통함" 판정은 통한 요소 기록에 자동 기록(2026-11-11). 사람·Claude가 적은 훅·비유는 지우지 않는다.
             const patterns = recordSuccessPatterns(await loadJson(successPatternsPath, {schemaVersion: 1, entries: []}), outcomes, now);
             if (patterns.added.length || patterns.changed.length) await saveJson(successPatternsPath, patterns.store);
             d7 = {

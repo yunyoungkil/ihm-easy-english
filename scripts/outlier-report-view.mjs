@@ -231,7 +231,7 @@ const METRIC_NAMES = {views7d: '조회수', watchSeconds7d: '평균 시청 시�
 export function evidenceHtml(b) {
   const log = b?.evidenceLog || [];
   if (!log.length) return '<div class="q">결과 기록: 아직 시험 전(공개 7일 뒤 자동으로 더해진다)</div>';
-  return `<div class="q">결과 기록 ${log.length}건<ul>${log.map((e) => `<li>${escapeHtml(e.date)} · ${escapeHtml(e.videoId)} · ${escapeHtml(METRIC_NAMES[e.metric] || e.metric)} ${escapeHtml(e.value)} → ${escapeHtml(e.result)}${(e.variables || []).length ? ` (시험 변수: ${escapeHtml(e.variables.join(', '))})` : ''}</li>`).join('')}</ul></div>`;
+  return `<div class="q">결과 기록 ${log.length}건<ul>${log.map((e) => `<li>${escapeHtml(e.date)} · ${escapeHtml(e.videoId)} · ${escapeHtml(METRIC_NAMES[e.metric] || e.metric)} ${escapeHtml(e.value)} → ${escapeHtml(e.result)}${e.baselineResult ? ` · 기준선 판정: ${escapeHtml(e.baselineResult)}` : ''}${e.usual != null ? ` · 평소 ${escapeHtml(e.usual)}(${escapeHtml(e.usualN)}편, ${e.lengthAdjusted ? '길이 보정' : '길이 보정 없음'})` : ''}${e.lowSample ? ` · ※ 표본 작음(조회 ${escapeHtml(e.views)}회)` : ''}${(e.variables || []).length ? ` (시험 변수: ${escapeHtml(e.variables.join(', '))})` : ''}</li>`).join('')}</ul></div>`;
 }
 
 export function renderTransformSheetPage(sheet, report, problems = [], {assetVersion = ''} = {}) {

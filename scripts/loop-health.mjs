@@ -42,7 +42,7 @@ export function checkLoopHealth({
 
   const known = new Set(successPatternIds);
   const unrecorded = episodeOutcomes.filter((o) => o.verdict === 'worked' && o.videoId && !known.has(o.videoId));
-  if (unrecorded.length) add('pattern-gap', `"통함" 판정이 났는데 성공 패턴에 기록이 없다: ${unrecorded.map((o) => `${o.label} ${o.ratio}배`).join(', ')}`);
+  if (unrecorded.length) add('pattern-gap', `"통함" 판정이 났는데 통한 요소 기록에 기록이 없다: ${unrecorded.map((o) => `${o.label} ${o.ratio}배`).join(', ')}`);
 
   if (episodesMissingSources.length) add('brief-sources', `BRIEF.md "기획 근거" 칸이 없는 새 편: ${episodesMissingSources.join(', ')}`);
 

@@ -170,3 +170,26 @@ test('이탈 지점 절: 가장 큰 이탈 구간을 초로 적고, 곡선이 �
   assert.ok(text.includes('중앙값: 5초 (3편)'), text);
   assert.ok(text.includes('4~4.4초(6.0%p)') && text.includes('끝까지 50%'), text);
 });
+
+test('기준선 절(2026-11-13): 표본 작음·기준선 후보에서 뺀 영상·평소(최근 10편 중앙값)·참고 지표·시험 변수 묶음을 보여 주고, 옛 입력(새 칸 없음)도 그대로 처리한다', async () => {
+  const {renderBaselines} = await import('../next-episode-input.mjs');
+  const recent = [30, 10, 20, 40, 50].map((value, i) => ({videoId: `v${i}`, publishedAt: `2026-02-0${i + 1}T00:00:00Z`, durationSeconds: 400, value}));
+  const metric = {label: '공개 7일 조회수', meaning: '포장', unit: '회', n: 8, median: 8, champion: {value: 46, title: '제목 A', durationSeconds: 500}, promoteAbove: 264.5, confidence: '가설',
+    lowSample: true, sampleNote: '표본 작음: 기준 영상의 첫 7일 조회가 46회로 100회 미만 — 참고용(가설)', excluded: [{videoId: 'e1', title: '제목 B', value: 203, reason: '빈 조회 의심: 평균 시청 0초, 영상 길이의 0%'}]};
+  const baselines = {formats: {LONGFORM: {metrics: {views7d: metric}, recent: {views7d: recent}, reference: {subsPer1000Views: {value: 4.93, totalSubs: 2, totalViews: 406}, watchRatio: {median: 0.215}, totalWatchMinutes: {median: 9.42}}}}};
+  const text = renderBaselines(baselines, [{format: 'LONGFORM', variable: '훅 유형', videoCount: 3, goodCount: 1, lowCount: 0}]).join('\n');
+  assert.ok(text.includes('표본 작음') && text.includes('기준선 후보에서 뺌') && text.includes('빈 조회 의심'), text);
+  assert.ok(text.includes('평소(최근 5편 중앙값) 30회'), '다섯 값 [10,20,30,40,50]의 중앙값 30');
+  assert.ok(text.includes('조회 1,000회당 구독 4.93명') && text.includes('시청률 중앙값 22%') && text.includes('기준선 아님'), text);
+  assert.ok(text.includes('롱폼 · 훅 유형: 3편 중 좋은 점 후보 1편'), text);
+  assert.ok(!/성공/.test(text.replace(/"성공"이라는 말을 쓰지 않는다/, '')), '"성공"을 지표 이름으로 쓰지 않는다');
+});
+
+test('리뷰 D: 기준선 절의 평소는 판정에 쓰는 것처럼 짧은 쪽·긴 쪽을 따로 보여 준다', async () => {
+  const {renderBaselines} = await import('../next-episode-input.mjs');
+  const rows = [];
+  for (let i = 0; i < 12; i += 1) rows.push({videoId: `v${i}`, publishedAt: `2026-02-${String(i + 1).padStart(2, '0')}T00:00:00Z`, durationSeconds: i % 2 ? 60 : 20, value: i % 2 ? 1000 : 100});
+  const metric = {label: '공개 7일 조회수', meaning: '포장', unit: '회', n: 12, median: 100, champion: {value: 1000, title: 'T', durationSeconds: 60}, promoteAbove: 1500, confidence: '가설'};
+  const text = renderBaselines({formats: {SHORTS: {metrics: {views7d: metric}, lengthMedianSeconds: 60, recent: {views7d: rows}}}}).join('\n');
+  assert.ok(text.includes('평소(최근 10편 중앙값) 짧은 영상(60초 미만) 100회 · 긴 영상 1,000회'), text);
+});

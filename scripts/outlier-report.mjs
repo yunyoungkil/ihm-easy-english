@@ -479,7 +479,7 @@ async function processClip(videoId, moments, windowSeconds, {detectCuts = true, 
     }
     return {frames, cuts, error: null};
   } catch (err) {
-    return {frames: [], cuts: null, error: String(err.message).slice(0, 300)};
+    return {frames: [], cuts: null, error: ytDlpErrorText(err).slice(0, 300)};
   } finally {
     rmSync(work, {recursive: true, force: true});
   }
@@ -502,6 +502,26 @@ export function needsCutTimes(report) {
   return Boolean(p && String(p.source || '').startsWith('ffmpeg') && !Array.isArray(p.times));
 }
 
+/** 영상이 내려갔거나 비공개·제한이라 yt-dlp가 못 받는 경우의 오류인가(2026-11-13: ZGFuGU1e3i8이 매일 밤 루프를 실패로 만들었다). 네트워크 오류 같은 일시적인 것은 아니다. */
+export function isVideoUnavailableError(message) {
+  return /This video is not available|Video unavailable|Private video|This video has been removed|This video is no longer available|members-only|Sign in to confirm your age/i.test(String(message || ''));
+}
+
+/** yt-dlp 실패의 진짜 이유. 오류 메시지는 명령어 전체가 앞에 붙어 잘리므로 stderr의 ERROR 줄을 먼저 쓴다. */
+export function ytDlpErrorText(err) {
+  const line = String(err?.stderr || '').split(/\r?\n/).find((l) => l.startsWith('ERROR:'));
+  return line ? line.trim() : String(err?.message || err);
+}
+
+export const FRAMES_RETRY_PAUSE_DAYS = 7;
+
+/** 받을 수 없다고 기록된 지 7일이 안 됐으면 다시 시도하지 않는다. 7일 뒤엔 다시 시도하니 일시적 제한이면 스스로 풀린다. */
+export function framesRetryPaused(report, now = Date.now()) {
+  const at = Date.parse(report?.framesUnavailableAt || '');
+  if (!Number.isFinite(at)) return false;
+  return now - at < FRAMES_RETRY_PAUSE_DAYS * 86400000;
+}
+
 export async function ensureReportFrames(report) {
   const missing = missingFrames(report);
   const needCuts = needsCutTimes(report);
@@ -521,22 +541,32 @@ export async function ensureReportFrames(report) {
     if (saveCuts) saved.pacing = {...saved.pacing, times: result.cuts};
     writeFileSync(path, `${JSON.stringify(saved, null, 2)}\n`, 'utf8');
   }
+  // 영상을 받을 수 없는 것이 확인되면 그 사실과 시각을 리포트에 적어 둔다(다음 7일은 다시 시도하지 않는다).
+  if (result.error && isVideoUnavailableError(result.error) && !result.frames.length) {
+    const path = join(reportsDir, `${report.videoId}.json`);
+    const saved = JSON.parse(readFileSync(path, 'utf8'));
+    saved.framesUnavailableAt = new Date().toISOString();
+    writeFileSync(path, `${JSON.stringify(saved, null, 2)}\n`, 'utf8');
+    return {videoId: report.videoId, made: 0, error: null, unavailable: true};
+  }
   return {videoId: report.videoId, made: result.frames.length, error: result.error};
 }
 
 export async function ensureAllFrames({install = false} = {}) {
   const reports = loadReports();
-  const pending = reports.filter((r) => missingFrames(r).length || needsCutTimes(r) || missingCutFrames(r).length);
-  if (!pending.length) return {total: reports.length, pending: 0, made: 0, failed: []};
+  const pending = reports.filter((r) => !framesRetryPaused(r) && (missingFrames(r).length || needsCutTimes(r) || missingCutFrames(r).length));
+  if (!pending.length) return {total: reports.length, pending: 0, made: 0, failed: [], unavailable: []};
   if (!(await resolveYtDlp({install}))) return {total: reports.length, pending: pending.length, made: 0, failed: [{videoId: '*', error: 'yt-dlp가 이 PC에 없고 설치도 못 함'}]};
   let made = 0;
   const failed = [];
+  const unavailable = [];
   for (const r of pending) {
     const res = await ensureReportFrames(r);
     made += res.made;
-    if (res.error) failed.push({videoId: r.videoId, error: res.error});
+    if (res.unavailable) unavailable.push(r.videoId);
+    else if (res.error) failed.push({videoId: r.videoId, error: res.error});
   }
-  return {total: reports.length, pending: pending.length, made, failed};
+  return {total: reports.length, pending: pending.length, made, failed, unavailable};
 }
 
 function findOutlierRatio(videoId) {

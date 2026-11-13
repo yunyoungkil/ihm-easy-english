@@ -68,13 +68,13 @@ test('경쟁 채널 상태: 황금 광산·차단은 실제 판정(BRIEF 기획 
   }
 });
 
-test('성공 패턴: 항목마다 실제 공개 영상과 "통함" 판정이 있다', {skip: !has('success-patterns.json') && 'success-patterns.json 없음'}, () => {
+test('통한 요소 기록: 항목마다 실제 공개 영상과 "통함" 판정이 있다', {skip: !has('success-patterns.json') && 'success-patterns.json 없음'}, () => {
   const entries = readJson(join(dataDir, 'success-patterns.json')).entries || [];
   const ids = new Set(catalogVideos().map((v) => v.videoId));
   const worked = new Set(loadEpisodeOutcomes(projectDir).filter((o) => o.verdict === 'worked').map((o) => o.videoId));
   for (const e of entries) {
     assert.ok(ids.has(e.videoId), `${e.id}: 카탈로그에 없는 영상`);
-    assert.ok(worked.has(e.videoId), `${e.id}: 지금 판정이 "통함"이 아닌데 성공 패턴에 있음`);
+    assert.ok(worked.has(e.videoId), `${e.id}: 지금 판정이 "통함"이 아닌데 통한 요소 기록에 있음`);
     assert.ok(['가설', '확정'].includes(e.status), `${e.id}: 상태가 가설/확정이 아님(${e.status})`);
   }
 });

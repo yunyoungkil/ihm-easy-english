@@ -8,7 +8,7 @@
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {sevenDayWindow, VIEWS_7D_READY_DAYS} from './planning-outcome.mjs';
+import {dayWindow, sevenDayWindow, VIEWS_7D_READY_DAYS} from './planning-outcome.mjs';
 import {accessTokenFromDisk} from './retention-curves.mjs';
 
 const dataDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'data', 'youtube');
@@ -31,8 +31,13 @@ export async function fetchMetrics({videoId, startDate, endDate, metrics, access
 
 export const fetchLifetime = ({videoId, startDate, endDate, accessToken, fetchImpl}) => fetchMetrics({videoId, startDate, endDate, metrics: LIFETIME_METRICS, accessToken, fetchImpl});
 
+// 첫 28일(2026-11-13 사용자 승인): 롱폼은 7일 안에 들어오는 조회가 46%뿐이라(쇼츠 99.5%) 천천히 붙는 조회를 놓치지 않으려고 같이 모아 둔다.
+// 유튜브 문서도 28~90일로 넓혀 보라고 안내한다. 판정은 7일 기준 그대로이고 28일 값은 기록만 한다(기준선·평소는 아직 쓰지 않는다).
+export const FIRST28D_DAYS = 28; // allow-literal: 첫 28일 창
+export const FIRST28D_READY_DAYS = 31; // allow-literal: 28일 + 유튜브 분석 집계가 2~3일 늦는 몫
 const ageDays = (v, now) => (now - new Date(v.publishedAt)) / DAY_MS;
 const needsFirst7d = (v, entry, now) => ageDays(v, now) >= VIEWS_7D_READY_DAYS && !entry?.first7d;
+const needsFirst28d = (v, entry, now) => ageDays(v, now) >= FIRST28D_READY_DAYS && !entry?.first28d;
 const needsLifetime = (v, entry, now) => !entry?.fetchedAt || now - new Date(entry.fetchedAt) >= LIFETIME_REFRESH_DAYS * DAY_MS;
 
 /** 공개 영상 중 전체 기간 수치가 없거나 14일 지났거나, 공개 10일이 지났는데 첫 7일 수치가 없는 것. 오래 안 받은 순. */
@@ -40,7 +45,7 @@ export function selectLifetimeTargets({catalog, existing = {}, now = new Date(),
   return catalog
     .filter((v) => v.privacyStatus === 'public' || v.privacyStatus === undefined)
     .filter((v) => ageDays(v, now) >= 1) // allow-literal: 공개 하루 뒤부터
-    .filter((v) => needsLifetime(v, existing[v.videoId], now) || needsFirst7d(v, existing[v.videoId], now))
+    .filter((v) => needsLifetime(v, existing[v.videoId], now) || needsFirst7d(v, existing[v.videoId], now) || needsFirst28d(v, existing[v.videoId], now))
     .sort((a, b) => String(existing[a.videoId]?.fetchedAt || '').localeCompare(String(existing[b.videoId]?.fetchedAt || '')))
     .slice(0, cap);
 }
@@ -52,7 +57,7 @@ export async function collectLifetime({now = new Date(), cap = LIFETIME_PER_RUN,
   const token = accessToken || (targets.length ? await accessTokenFromDisk() : null);
   const endDate = new Date(now - DAY_MS).toISOString().slice(0, 10);
   const startDate = videos.map((v) => v.publishedAt).sort()[0].slice(0, 10); // 채널 첫 영상 공개일
-  const result = {requested: targets.length, saved: 0, first7d: 0, empty: 0, failed: []};
+  const result = {requested: targets.length, saved: 0, first7d: 0, first28d: 0, empty: 0, failed: []};
   for (const v of targets) {
     const old = store.videos[v.videoId] || {};
     try {
@@ -67,6 +72,11 @@ export async function collectLifetime({now = new Date(), cap = LIFETIME_PER_RUN,
         const m = await fetchMetrics({videoId: v.videoId, startDate: w.startDate, endDate: w.endDate, metrics: FIRST7D_METRICS, accessToken: token, fetchImpl});
         if (m) { store.videos[v.videoId] = {...store.videos[v.videoId], first7d: {startDate: w.startDate, endDate: w.endDate, fetchedAt: now.toISOString(), ...m}}; result.first7d += 1; }
       }
+      if (needsFirst28d(v, store.videos[v.videoId], now)) {
+        const w = dayWindow(v.publishedAt, FIRST28D_DAYS);
+        const m = await fetchMetrics({videoId: v.videoId, startDate: w.startDate, endDate: w.endDate, metrics: FIRST7D_METRICS, accessToken: token, fetchImpl});
+        if (m) { store.videos[v.videoId] = {...store.videos[v.videoId], first28d: {startDate: w.startDate, endDate: w.endDate, fetchedAt: now.toISOString(), ...m}}; result.first28d += 1; }
+      }
     } catch (err) { result.failed.push(`${v.videoId}: ${err.message}`); }
   }
   store.updatedAt = now.toISOString();
@@ -77,6 +87,6 @@ export async function collectLifetime({now = new Date(), cap = LIFETIME_PER_RUN,
 if (process.argv[1] && process.argv[1].endsWith('video-lifetime.mjs')) {
   const cap = process.argv.includes('--all') ? Infinity : LIFETIME_PER_RUN;
   const r = await collectLifetime({cap});
-  console.log(`영상별 수치: 요청 ${r.requested}, 전체 기간 저장 ${r.saved}, 첫 7일 저장 ${r.first7d}, 점 없음 ${r.empty}, 실패 ${r.failed.length}`);
+  console.log(`영상별 수치: 요청 ${r.requested}, 전체 기간 저장 ${r.saved}, 첫 7일 저장 ${r.first7d}, 첫 28일 저장 ${r.first28d}, 점 없음 ${r.empty}, 실패 ${r.failed.length}`);
   for (const f of r.failed) console.log(`  실패 ${f}`);
 }

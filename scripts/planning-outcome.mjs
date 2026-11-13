@@ -101,9 +101,14 @@ export function judgeOutcome({views7d, sampleMedianViews7d, baselineViews7d}) {
 
 /** 유튜브 분석 API 날짜는 태평양 시간 기준이다. 공개일부터 7일(공개일 포함). */
 export function sevenDayWindow(publishedAt) {
+  return dayWindow(publishedAt, 7); // allow-literal: 7일 창
+}
+
+/** 공개일(포함)부터 days일 창. 7일 창은 시작일+6일, 28일 창은 시작일+27일이다. */
+export function dayWindow(publishedAt, days) {
   const pt = (d) => d.toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'});
   const start = new Date(publishedAt);
-  return {startDate: pt(start), endDate: pt(new Date(start.getTime() + 6 * DAY_MS))};
+  return {startDate: pt(start), endDate: pt(new Date(start.getTime() + (days - 1) * DAY_MS))};
 }
 
 /** 7일 조회를 아직 안 받은, 공개 10일이 지난 공개 영상. */

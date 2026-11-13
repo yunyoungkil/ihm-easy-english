@@ -67,3 +67,37 @@ test('collectLifetime: 전체 기간은 채널 첫 영상 공개일부터, 첫 7
   const third = await collectLifetime({now, accessToken: 'T', fetchImpl, path, catalog});
   assert.equal(third.first7d, 0, '이미 받은 첫 7일은 다시 받지 않는다');
 });
+
+// ─── 2026-11-13 사용자 승인: 롱폼은 7일에 조회의 46%만 들어오므로 첫 28일 값도 같이 모아 둔다(판정은 7일 기준 그대로, 28일은 기록만) ───
+test('selectLifetimeTargets: 공개 31일(28일+집계 지연)이 지났는데 첫 28일이 없으면 다시 고르고, 이미 있거나 아직 이르면 고르지 않는다', () => {
+  const fresh = new Date(now - 2 * DAY).toISOString();
+  const catalog = [v('old', 40), v('done', 40), v('young', 20)];
+  const existing = {
+    old: {fetchedAt: fresh, first7d: {views: 1}}, // 첫 7일은 있고 첫 28일이 없다 → 포함
+    done: {fetchedAt: fresh, first7d: {views: 1}, first28d: {views: 5}}, // 둘 다 있다 → 제외
+    young: {fetchedAt: fresh, first7d: {views: 1}}, // 공개 20일이라 28일 수치는 아직 → 제외
+  };
+  assert.deepEqual(selectLifetimeTargets({catalog, existing, now, cap: 10}).map((x) => x.videoId), ['old']);
+});
+
+test('collectLifetime: 첫 28일은 공개일 포함 28일 창(시작일+27일)으로 한 번만 받아 first28d에 저장한다', async () => {
+  const path = join(mkdtempSync(join(tmpdir(), 'lifetime28-')), 'video-lifetime.json');
+  const catalog = [v('a', 100), v('b', 20)];
+  const calls = [];
+  const fetchImpl = async (u) => {
+    const q = new URL(u).searchParams;
+    calls.push({id: q.get('filters'), start: q.get('startDate'), end: q.get('endDate'), metrics: q.get('metrics')});
+    return q.get('metrics').includes('estimatedMinutesWatched') ? respond(SEVEN, [100, 20, 1, 30])() : respond(LIFE, [100, 50, 20, 1])();
+  };
+  const r = await collectLifetime({now, accessToken: 'T', fetchImpl, path, catalog});
+  assert.equal(r.first28d, 1, '공개 31일이 넘은 a만');
+  const windows = calls.filter((c) => c.id === 'video==a' && c.metrics.includes('estimatedMinutesWatched'));
+  const spans = windows.map((c) => (new Date(c.end) - new Date(c.start)) / DAY).sort((x, y) => x - y);
+  assert.deepEqual(spans, [6, 27], '7일 창(+6일)과 28일 창(+27일)'); // allow-literal: 창 길이 = 시작일 + (일수-1)
+  const saved = JSON.parse(readFileSync(path, 'utf8')).videos;
+  assert.equal(saved.a.first28d.views, 100);
+  assert.ok(saved.a.first28d.fetchedAt && saved.a.first28d.startDate && saved.a.first28d.endDate);
+  assert.ok(!saved.b.first28d, '공개 20일인 b는 아직');
+  const again = await collectLifetime({now, accessToken: 'T', fetchImpl, path, catalog});
+  assert.equal(again.first28d, 0, '이미 받은 첫 28일은 다시 받지 않는다');
+});

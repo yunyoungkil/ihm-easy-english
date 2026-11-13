@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-13T08:01:41.619Z",
+  "computedAt": "2026-11-13T11:00:28.858Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -18,9 +18,13 @@
             "title": "R은 어떻게 읽을까요 #영어초보 #파닉스 #영어공부 #영어초보 #파닉스 #영어공부 #영어독학 #50대영어 #영포자 #영어독학 #50대영어 #영포자",
             "publishedAt": "2026-06-25T09:57:56Z",
             "durationSeconds": 23,
-            "value": 2619
+            "value": 2619,
+            "views": 2619
           },
           "promoteAbove": 3204.315512708151,
+          "lowSample": false,
+          "sampleNote": null,
+          "excluded": [],
           "confidence": "가설"
         },
         "watchSeconds7d": {
@@ -37,9 +41,13 @@
             "title": "영어 읽기 실력 테스트 | 초보 | 원리 알면 1초 컷! ⏱️ #영어공부 #챌린지 #쇼츠 #파닉스",
             "publishedAt": "2026-07-13T11:42:14Z",
             "durationSeconds": 86,
-            "value": 41
+            "value": 41,
+            "views": 1142
           },
           "promoteAbove": 43.733333333333334,
+          "lowSample": false,
+          "sampleNote": null,
+          "excluded": [],
           "confidence": "가설"
         },
         "subs7d": {
@@ -56,11 +64,959 @@
             "title": "틀리기 쉬운 영어 발음 테스트! 혹시 '디시션'이라고 읽으셨나요? ❌",
             "publishedAt": "2026-08-09T10:16:08Z",
             "durationSeconds": 55,
-            "value": 10
+            "value": 10,
+            "views": 1647
           },
           "promoteAbove": 20,
+          "lowSample": false,
+          "sampleNote": null,
+          "excluded": [],
           "confidence": "가설"
         }
+      },
+      "lengthMedianSeconds": 33,
+      "recent": {
+        "views7d": [
+          {
+            "videoId": "nVrCk8IZFGA",
+            "publishedAt": "2026-09-02T11:00:33Z",
+            "durationSeconds": 21,
+            "value": 1155
+          },
+          {
+            "videoId": "LdiZKCzKf0c",
+            "publishedAt": "2026-08-31T11:00:24Z",
+            "durationSeconds": 55,
+            "value": 1151
+          },
+          {
+            "videoId": "Si88xXt-EQc",
+            "publishedAt": "2026-08-27T11:00:01Z",
+            "durationSeconds": 51,
+            "value": 1258
+          },
+          {
+            "videoId": "7qSWJZqV14o",
+            "publishedAt": "2026-08-25T11:00:31Z",
+            "durationSeconds": 45,
+            "value": 1197
+          },
+          {
+            "videoId": "IfK4Itzgt6o",
+            "publishedAt": "2026-08-14T11:39:13Z",
+            "durationSeconds": 53,
+            "value": 2164
+          },
+          {
+            "videoId": "5MiM1tIpQQk",
+            "publishedAt": "2026-08-13T13:55:16Z",
+            "durationSeconds": 53,
+            "value": 1584
+          },
+          {
+            "videoId": "h-UUbuWQuag",
+            "publishedAt": "2026-08-10T14:10:33Z",
+            "durationSeconds": 52,
+            "value": 1805
+          },
+          {
+            "videoId": "dijhGjxOQOw",
+            "publishedAt": "2026-08-09T13:24:19Z",
+            "durationSeconds": 64,
+            "value": 1980
+          },
+          {
+            "videoId": "M9ru03p3QoE",
+            "publishedAt": "2026-08-09T10:16:08Z",
+            "durationSeconds": 55,
+            "value": 1647
+          },
+          {
+            "videoId": "ewv3GcXNLsE",
+            "publishedAt": "2026-08-08T12:57:39Z",
+            "durationSeconds": 19,
+            "value": 428
+          },
+          {
+            "videoId": "FwBboz1jenA",
+            "publishedAt": "2026-08-08T12:53:41Z",
+            "durationSeconds": 21,
+            "value": 454
+          },
+          {
+            "videoId": "6nANjHxy2Lc",
+            "publishedAt": "2026-07-22T14:49:48Z",
+            "durationSeconds": 21,
+            "value": 1645
+          },
+          {
+            "videoId": "k8T7chDCj3Q",
+            "publishedAt": "2026-07-20T12:06:23Z",
+            "durationSeconds": 59,
+            "value": 1157
+          },
+          {
+            "videoId": "F-o7EmQL3zY",
+            "publishedAt": "2026-07-20T11:29:33Z",
+            "durationSeconds": 30,
+            "value": 1920
+          },
+          {
+            "videoId": "r2dDUxflF0Y",
+            "publishedAt": "2026-07-13T11:42:14Z",
+            "durationSeconds": 86,
+            "value": 1142
+          },
+          {
+            "videoId": "wHoTmrRbf6k",
+            "publishedAt": "2026-07-12T07:00:56Z",
+            "durationSeconds": 86,
+            "value": 1002
+          },
+          {
+            "videoId": "4LQ9epVVahA",
+            "publishedAt": "2026-07-12T03:33:59Z",
+            "durationSeconds": 60,
+            "value": 1141
+          },
+          {
+            "videoId": "7LrJxl9Mzi0",
+            "publishedAt": "2026-07-12T02:38:47Z",
+            "durationSeconds": 57,
+            "value": 1104
+          },
+          {
+            "videoId": "FK-JWJ_7vq4",
+            "publishedAt": "2026-07-11T15:14:49Z",
+            "durationSeconds": 56,
+            "value": 1396
+          },
+          {
+            "videoId": "-oEAORG6oYE",
+            "publishedAt": "2026-06-26T18:00:23Z",
+            "durationSeconds": 25,
+            "value": 195
+          },
+          {
+            "videoId": "1EtmmvExoLg",
+            "publishedAt": "2026-06-26T17:00:36Z",
+            "durationSeconds": 25,
+            "value": 8
+          },
+          {
+            "videoId": "2xir5cjFcsg",
+            "publishedAt": "2026-06-26T16:00:09Z",
+            "durationSeconds": 23,
+            "value": 171
+          },
+          {
+            "videoId": "2lae1vhl53s",
+            "publishedAt": "2026-06-26T14:45:07Z",
+            "durationSeconds": 23,
+            "value": 197
+          },
+          {
+            "videoId": "dqUv-iFpy2g",
+            "publishedAt": "2026-06-26T14:00:31Z",
+            "durationSeconds": 23,
+            "value": 343
+          },
+          {
+            "videoId": "hsqsL6vneCk",
+            "publishedAt": "2026-06-26T13:00:07Z",
+            "durationSeconds": 23,
+            "value": 1173
+          },
+          {
+            "videoId": "6ojF8F0dJ2E",
+            "publishedAt": "2026-06-26T12:00:12Z",
+            "durationSeconds": 23,
+            "value": 251
+          },
+          {
+            "videoId": "l_9PYWiORjE",
+            "publishedAt": "2026-06-26T11:00:10Z",
+            "durationSeconds": 23,
+            "value": 364
+          },
+          {
+            "videoId": "Zh8_xYi_Gu0",
+            "publishedAt": "2026-06-26T09:31:35Z",
+            "durationSeconds": 23,
+            "value": 1739
+          },
+          {
+            "videoId": "a1d1lxLd68k",
+            "publishedAt": "2026-06-25T14:00:22Z",
+            "durationSeconds": 23,
+            "value": 305
+          },
+          {
+            "videoId": "w0xvwLiOX1U",
+            "publishedAt": "2026-06-25T13:00:37Z",
+            "durationSeconds": 23,
+            "value": 313
+          },
+          {
+            "videoId": "d7lre1PlsEo",
+            "publishedAt": "2026-06-25T12:00:25Z",
+            "durationSeconds": 23,
+            "value": 495
+          },
+          {
+            "videoId": "qb-vO3Qubec",
+            "publishedAt": "2026-06-25T09:57:56Z",
+            "durationSeconds": 23,
+            "value": 2619
+          },
+          {
+            "videoId": "kfVJAJTmLpU",
+            "publishedAt": "2026-06-24T14:30:31Z",
+            "durationSeconds": 23,
+            "value": 2371
+          },
+          {
+            "videoId": "1BslXwjEbOI",
+            "publishedAt": "2026-06-24T13:32:31Z",
+            "durationSeconds": 23,
+            "value": 734
+          },
+          {
+            "videoId": "yu9jZesTwYs",
+            "publishedAt": "2026-06-24T12:29:33Z",
+            "durationSeconds": 23,
+            "value": 2187
+          },
+          {
+            "videoId": "oZUhK2YKW8w",
+            "publishedAt": "2026-06-24T11:42:21Z",
+            "durationSeconds": 23,
+            "value": 2252
+          },
+          {
+            "videoId": "XrjSTAggQc8",
+            "publishedAt": "2026-06-24T09:30:27Z",
+            "durationSeconds": 33,
+            "value": 1261
+          },
+          {
+            "videoId": "KpVpLURLtzo",
+            "publishedAt": "2026-06-24T08:00:27Z",
+            "durationSeconds": 33,
+            "value": 1271
+          },
+          {
+            "videoId": "r7QQlVQtA1Y",
+            "publishedAt": "2026-06-24T06:00:27Z",
+            "durationSeconds": 33,
+            "value": 1070
+          },
+          {
+            "videoId": "_TEGdCgLmYE",
+            "publishedAt": "2026-06-24T04:53:54Z",
+            "durationSeconds": 33,
+            "value": 27
+          },
+          {
+            "videoId": "dwe9WPIHi5k",
+            "publishedAt": "2026-06-23T14:00:32Z",
+            "durationSeconds": 33,
+            "value": 1034
+          },
+          {
+            "videoId": "51fLblzetS0",
+            "publishedAt": "2026-06-23T13:00:28Z",
+            "durationSeconds": 29,
+            "value": 512
+          },
+          {
+            "videoId": "7GJ6Iiy_THk",
+            "publishedAt": "2026-06-23T12:19:14Z",
+            "durationSeconds": 29,
+            "value": 1301
+          },
+          {
+            "videoId": "GlOrcx3y1rE",
+            "publishedAt": "2026-06-23T10:11:52Z",
+            "durationSeconds": 34,
+            "value": 1298
+          },
+          {
+            "videoId": "l8w3SlUnm3Y",
+            "publishedAt": "2026-06-22T13:00:25Z",
+            "durationSeconds": 42,
+            "value": 21
+          },
+          {
+            "videoId": "4EGKRM-m77w",
+            "publishedAt": "2026-06-22T12:00:22Z",
+            "durationSeconds": 42,
+            "value": 20
+          },
+          {
+            "videoId": "c7Mp5L8HSXE",
+            "publishedAt": "2026-06-22T11:08:28Z",
+            "durationSeconds": 51,
+            "value": 18
+          },
+          {
+            "videoId": "pghOYvcjpIg",
+            "publishedAt": "2026-06-22T09:31:05Z",
+            "durationSeconds": 51,
+            "value": 1021
+          },
+          {
+            "videoId": "xVXqGbOHpbM",
+            "publishedAt": "2026-06-22T06:19:46Z",
+            "durationSeconds": 48,
+            "value": 803
+          },
+          {
+            "videoId": "qf38zv-SVNo",
+            "publishedAt": "2026-06-22T01:03:47Z",
+            "durationSeconds": 46,
+            "value": 1212
+          },
+          {
+            "videoId": "LgEmfyQ41NI",
+            "publishedAt": "2026-06-21T15:52:40Z",
+            "durationSeconds": 34,
+            "value": 343
+          }
+        ],
+        "watchSeconds7d": [
+          {
+            "videoId": "nVrCk8IZFGA",
+            "publishedAt": "2026-09-02T11:00:33Z",
+            "durationSeconds": 21,
+            "value": 17
+          },
+          {
+            "videoId": "LdiZKCzKf0c",
+            "publishedAt": "2026-08-31T11:00:24Z",
+            "durationSeconds": 55,
+            "value": 20
+          },
+          {
+            "videoId": "Si88xXt-EQc",
+            "publishedAt": "2026-08-27T11:00:01Z",
+            "durationSeconds": 51,
+            "value": 20
+          },
+          {
+            "videoId": "7qSWJZqV14o",
+            "publishedAt": "2026-08-25T11:00:31Z",
+            "durationSeconds": 45,
+            "value": 34
+          },
+          {
+            "videoId": "IfK4Itzgt6o",
+            "publishedAt": "2026-08-14T11:39:13Z",
+            "durationSeconds": 53,
+            "value": 37
+          },
+          {
+            "videoId": "5MiM1tIpQQk",
+            "publishedAt": "2026-08-13T13:55:16Z",
+            "durationSeconds": 53,
+            "value": 34
+          },
+          {
+            "videoId": "h-UUbuWQuag",
+            "publishedAt": "2026-08-10T14:10:33Z",
+            "durationSeconds": 52,
+            "value": 30
+          },
+          {
+            "videoId": "dijhGjxOQOw",
+            "publishedAt": "2026-08-09T13:24:19Z",
+            "durationSeconds": 64,
+            "value": 30
+          },
+          {
+            "videoId": "M9ru03p3QoE",
+            "publishedAt": "2026-08-09T10:16:08Z",
+            "durationSeconds": 55,
+            "value": 30
+          },
+          {
+            "videoId": "ewv3GcXNLsE",
+            "publishedAt": "2026-08-08T12:57:39Z",
+            "durationSeconds": 19,
+            "value": 16
+          },
+          {
+            "videoId": "FwBboz1jenA",
+            "publishedAt": "2026-08-08T12:53:41Z",
+            "durationSeconds": 21,
+            "value": 14
+          },
+          {
+            "videoId": "6nANjHxy2Lc",
+            "publishedAt": "2026-07-22T14:49:48Z",
+            "durationSeconds": 21,
+            "value": 36
+          },
+          {
+            "videoId": "k8T7chDCj3Q",
+            "publishedAt": "2026-07-20T12:06:23Z",
+            "durationSeconds": 59,
+            "value": 32
+          },
+          {
+            "videoId": "F-o7EmQL3zY",
+            "publishedAt": "2026-07-20T11:29:33Z",
+            "durationSeconds": 30,
+            "value": 29
+          },
+          {
+            "videoId": "r2dDUxflF0Y",
+            "publishedAt": "2026-07-13T11:42:14Z",
+            "durationSeconds": 86,
+            "value": 41
+          },
+          {
+            "videoId": "wHoTmrRbf6k",
+            "publishedAt": "2026-07-12T07:00:56Z",
+            "durationSeconds": 86,
+            "value": 29
+          },
+          {
+            "videoId": "4LQ9epVVahA",
+            "publishedAt": "2026-07-12T03:33:59Z",
+            "durationSeconds": 60,
+            "value": 27
+          },
+          {
+            "videoId": "7LrJxl9Mzi0",
+            "publishedAt": "2026-07-12T02:38:47Z",
+            "durationSeconds": 57,
+            "value": 24
+          },
+          {
+            "videoId": "FK-JWJ_7vq4",
+            "publishedAt": "2026-07-11T15:14:49Z",
+            "durationSeconds": 56,
+            "value": 30
+          },
+          {
+            "videoId": "-oEAORG6oYE",
+            "publishedAt": "2026-06-26T18:00:23Z",
+            "durationSeconds": 25,
+            "value": 7
+          },
+          {
+            "videoId": "1EtmmvExoLg",
+            "publishedAt": "2026-06-26T17:00:36Z",
+            "durationSeconds": 25,
+            "value": 23
+          },
+          {
+            "videoId": "2xir5cjFcsg",
+            "publishedAt": "2026-06-26T16:00:09Z",
+            "durationSeconds": 23,
+            "value": 264
+          },
+          {
+            "videoId": "2lae1vhl53s",
+            "publishedAt": "2026-06-26T14:45:07Z",
+            "durationSeconds": 23,
+            "value": 10
+          },
+          {
+            "videoId": "dqUv-iFpy2g",
+            "publishedAt": "2026-06-26T14:00:31Z",
+            "durationSeconds": 23,
+            "value": 13
+          },
+          {
+            "videoId": "hsqsL6vneCk",
+            "publishedAt": "2026-06-26T13:00:07Z",
+            "durationSeconds": 23,
+            "value": 22
+          },
+          {
+            "videoId": "6ojF8F0dJ2E",
+            "publishedAt": "2026-06-26T12:00:12Z",
+            "durationSeconds": 23,
+            "value": 9
+          },
+          {
+            "videoId": "l_9PYWiORjE",
+            "publishedAt": "2026-06-26T11:00:10Z",
+            "durationSeconds": 23,
+            "value": 10
+          },
+          {
+            "videoId": "Zh8_xYi_Gu0",
+            "publishedAt": "2026-06-26T09:31:35Z",
+            "durationSeconds": 23,
+            "value": 15
+          },
+          {
+            "videoId": "a1d1lxLd68k",
+            "publishedAt": "2026-06-25T14:00:22Z",
+            "durationSeconds": 23,
+            "value": 269
+          },
+          {
+            "videoId": "w0xvwLiOX1U",
+            "publishedAt": "2026-06-25T13:00:37Z",
+            "durationSeconds": 23,
+            "value": 7
+          },
+          {
+            "videoId": "d7lre1PlsEo",
+            "publishedAt": "2026-06-25T12:00:25Z",
+            "durationSeconds": 23,
+            "value": 11
+          },
+          {
+            "videoId": "qb-vO3Qubec",
+            "publishedAt": "2026-06-25T09:57:56Z",
+            "durationSeconds": 23,
+            "value": 12
+          },
+          {
+            "videoId": "kfVJAJTmLpU",
+            "publishedAt": "2026-06-24T14:30:31Z",
+            "durationSeconds": 23,
+            "value": 20
+          },
+          {
+            "videoId": "1BslXwjEbOI",
+            "publishedAt": "2026-06-24T13:32:31Z",
+            "durationSeconds": 23,
+            "value": 13
+          },
+          {
+            "videoId": "yu9jZesTwYs",
+            "publishedAt": "2026-06-24T12:29:33Z",
+            "durationSeconds": 23,
+            "value": 13
+          },
+          {
+            "videoId": "oZUhK2YKW8w",
+            "publishedAt": "2026-06-24T11:42:21Z",
+            "durationSeconds": 23,
+            "value": 13
+          },
+          {
+            "videoId": "XrjSTAggQc8",
+            "publishedAt": "2026-06-24T09:30:27Z",
+            "durationSeconds": 33,
+            "value": 23
+          },
+          {
+            "videoId": "KpVpLURLtzo",
+            "publishedAt": "2026-06-24T08:00:27Z",
+            "durationSeconds": 33,
+            "value": 38
+          },
+          {
+            "videoId": "r7QQlVQtA1Y",
+            "publishedAt": "2026-06-24T06:00:27Z",
+            "durationSeconds": 33,
+            "value": 29
+          },
+          {
+            "videoId": "_TEGdCgLmYE",
+            "publishedAt": "2026-06-24T04:53:54Z",
+            "durationSeconds": 33,
+            "value": 77
+          },
+          {
+            "videoId": "dwe9WPIHi5k",
+            "publishedAt": "2026-06-23T14:00:32Z",
+            "durationSeconds": 33,
+            "value": 23
+          },
+          {
+            "videoId": "51fLblzetS0",
+            "publishedAt": "2026-06-23T13:00:28Z",
+            "durationSeconds": 29,
+            "value": 97
+          },
+          {
+            "videoId": "7GJ6Iiy_THk",
+            "publishedAt": "2026-06-23T12:19:14Z",
+            "durationSeconds": 29,
+            "value": 21
+          },
+          {
+            "videoId": "GlOrcx3y1rE",
+            "publishedAt": "2026-06-23T10:11:52Z",
+            "durationSeconds": 34,
+            "value": 32
+          },
+          {
+            "videoId": "l8w3SlUnm3Y",
+            "publishedAt": "2026-06-22T13:00:25Z",
+            "durationSeconds": 42,
+            "value": 30
+          },
+          {
+            "videoId": "4EGKRM-m77w",
+            "publishedAt": "2026-06-22T12:00:22Z",
+            "durationSeconds": 42,
+            "value": 42
+          },
+          {
+            "videoId": "c7Mp5L8HSXE",
+            "publishedAt": "2026-06-22T11:08:28Z",
+            "durationSeconds": 51,
+            "value": 42
+          },
+          {
+            "videoId": "pghOYvcjpIg",
+            "publishedAt": "2026-06-22T09:31:05Z",
+            "durationSeconds": 51,
+            "value": 28
+          },
+          {
+            "videoId": "xVXqGbOHpbM",
+            "publishedAt": "2026-06-22T06:19:46Z",
+            "durationSeconds": 48,
+            "value": 17
+          },
+          {
+            "videoId": "qf38zv-SVNo",
+            "publishedAt": "2026-06-22T01:03:47Z",
+            "durationSeconds": 46,
+            "value": 30
+          },
+          {
+            "videoId": "LgEmfyQ41NI",
+            "publishedAt": "2026-06-21T15:52:40Z",
+            "durationSeconds": 34,
+            "value": 19
+          }
+        ],
+        "subs7d": [
+          {
+            "videoId": "nVrCk8IZFGA",
+            "publishedAt": "2026-09-02T11:00:33Z",
+            "durationSeconds": 21,
+            "value": 1
+          },
+          {
+            "videoId": "LdiZKCzKf0c",
+            "publishedAt": "2026-08-31T11:00:24Z",
+            "durationSeconds": 55,
+            "value": 0
+          },
+          {
+            "videoId": "Si88xXt-EQc",
+            "publishedAt": "2026-08-27T11:00:01Z",
+            "durationSeconds": 51,
+            "value": 4
+          },
+          {
+            "videoId": "7qSWJZqV14o",
+            "publishedAt": "2026-08-25T11:00:31Z",
+            "durationSeconds": 45,
+            "value": 2
+          },
+          {
+            "videoId": "IfK4Itzgt6o",
+            "publishedAt": "2026-08-14T11:39:13Z",
+            "durationSeconds": 53,
+            "value": 5
+          },
+          {
+            "videoId": "5MiM1tIpQQk",
+            "publishedAt": "2026-08-13T13:55:16Z",
+            "durationSeconds": 53,
+            "value": 2
+          },
+          {
+            "videoId": "h-UUbuWQuag",
+            "publishedAt": "2026-08-10T14:10:33Z",
+            "durationSeconds": 52,
+            "value": 0
+          },
+          {
+            "videoId": "dijhGjxOQOw",
+            "publishedAt": "2026-08-09T13:24:19Z",
+            "durationSeconds": 64,
+            "value": 5
+          },
+          {
+            "videoId": "M9ru03p3QoE",
+            "publishedAt": "2026-08-09T10:16:08Z",
+            "durationSeconds": 55,
+            "value": 10
+          },
+          {
+            "videoId": "ewv3GcXNLsE",
+            "publishedAt": "2026-08-08T12:57:39Z",
+            "durationSeconds": 19,
+            "value": 1
+          },
+          {
+            "videoId": "FwBboz1jenA",
+            "publishedAt": "2026-08-08T12:53:41Z",
+            "durationSeconds": 21,
+            "value": 0
+          },
+          {
+            "videoId": "6nANjHxy2Lc",
+            "publishedAt": "2026-07-22T14:49:48Z",
+            "durationSeconds": 21,
+            "value": 0
+          },
+          {
+            "videoId": "k8T7chDCj3Q",
+            "publishedAt": "2026-07-20T12:06:23Z",
+            "durationSeconds": 59,
+            "value": 7
+          },
+          {
+            "videoId": "F-o7EmQL3zY",
+            "publishedAt": "2026-07-20T11:29:33Z",
+            "durationSeconds": 30,
+            "value": 0
+          },
+          {
+            "videoId": "r2dDUxflF0Y",
+            "publishedAt": "2026-07-13T11:42:14Z",
+            "durationSeconds": 86,
+            "value": 0
+          },
+          {
+            "videoId": "wHoTmrRbf6k",
+            "publishedAt": "2026-07-12T07:00:56Z",
+            "durationSeconds": 86,
+            "value": 1
+          },
+          {
+            "videoId": "4LQ9epVVahA",
+            "publishedAt": "2026-07-12T03:33:59Z",
+            "durationSeconds": 60,
+            "value": 0
+          },
+          {
+            "videoId": "7LrJxl9Mzi0",
+            "publishedAt": "2026-07-12T02:38:47Z",
+            "durationSeconds": 57,
+            "value": 2
+          },
+          {
+            "videoId": "FK-JWJ_7vq4",
+            "publishedAt": "2026-07-11T15:14:49Z",
+            "durationSeconds": 56,
+            "value": 1
+          },
+          {
+            "videoId": "-oEAORG6oYE",
+            "publishedAt": "2026-06-26T18:00:23Z",
+            "durationSeconds": 25,
+            "value": 0
+          },
+          {
+            "videoId": "1EtmmvExoLg",
+            "publishedAt": "2026-06-26T17:00:36Z",
+            "durationSeconds": 25,
+            "value": 0
+          },
+          {
+            "videoId": "2xir5cjFcsg",
+            "publishedAt": "2026-06-26T16:00:09Z",
+            "durationSeconds": 23,
+            "value": 0
+          },
+          {
+            "videoId": "2lae1vhl53s",
+            "publishedAt": "2026-06-26T14:45:07Z",
+            "durationSeconds": 23,
+            "value": 0
+          },
+          {
+            "videoId": "dqUv-iFpy2g",
+            "publishedAt": "2026-06-26T14:00:31Z",
+            "durationSeconds": 23,
+            "value": 1
+          },
+          {
+            "videoId": "hsqsL6vneCk",
+            "publishedAt": "2026-06-26T13:00:07Z",
+            "durationSeconds": 23,
+            "value": 1
+          },
+          {
+            "videoId": "6ojF8F0dJ2E",
+            "publishedAt": "2026-06-26T12:00:12Z",
+            "durationSeconds": 23,
+            "value": 0
+          },
+          {
+            "videoId": "l_9PYWiORjE",
+            "publishedAt": "2026-06-26T11:00:10Z",
+            "durationSeconds": 23,
+            "value": 0
+          },
+          {
+            "videoId": "Zh8_xYi_Gu0",
+            "publishedAt": "2026-06-26T09:31:35Z",
+            "durationSeconds": 23,
+            "value": 2
+          },
+          {
+            "videoId": "a1d1lxLd68k",
+            "publishedAt": "2026-06-25T14:00:22Z",
+            "durationSeconds": 23,
+            "value": 0
+          },
+          {
+            "videoId": "w0xvwLiOX1U",
+            "publishedAt": "2026-06-25T13:00:37Z",
+            "durationSeconds": 23,
+            "value": 0
+          },
+          {
+            "videoId": "d7lre1PlsEo",
+            "publishedAt": "2026-06-25T12:00:25Z",
+            "durationSeconds": 23,
+            "value": 1
+          },
+          {
+            "videoId": "qb-vO3Qubec",
+            "publishedAt": "2026-06-25T09:57:56Z",
+            "durationSeconds": 23,
+            "value": 2
+          },
+          {
+            "videoId": "kfVJAJTmLpU",
+            "publishedAt": "2026-06-24T14:30:31Z",
+            "durationSeconds": 23,
+            "value": 2
+          },
+          {
+            "videoId": "1BslXwjEbOI",
+            "publishedAt": "2026-06-24T13:32:31Z",
+            "durationSeconds": 23,
+            "value": 0
+          },
+          {
+            "videoId": "yu9jZesTwYs",
+            "publishedAt": "2026-06-24T12:29:33Z",
+            "durationSeconds": 23,
+            "value": 3
+          },
+          {
+            "videoId": "oZUhK2YKW8w",
+            "publishedAt": "2026-06-24T11:42:21Z",
+            "durationSeconds": 23,
+            "value": 5
+          },
+          {
+            "videoId": "XrjSTAggQc8",
+            "publishedAt": "2026-06-24T09:30:27Z",
+            "durationSeconds": 33,
+            "value": 6
+          },
+          {
+            "videoId": "KpVpLURLtzo",
+            "publishedAt": "2026-06-24T08:00:27Z",
+            "durationSeconds": 33,
+            "value": 2
+          },
+          {
+            "videoId": "r7QQlVQtA1Y",
+            "publishedAt": "2026-06-24T06:00:27Z",
+            "durationSeconds": 33,
+            "value": 1
+          },
+          {
+            "videoId": "_TEGdCgLmYE",
+            "publishedAt": "2026-06-24T04:53:54Z",
+            "durationSeconds": 33,
+            "value": 0
+          },
+          {
+            "videoId": "dwe9WPIHi5k",
+            "publishedAt": "2026-06-23T14:00:32Z",
+            "durationSeconds": 33,
+            "value": 5
+          },
+          {
+            "videoId": "51fLblzetS0",
+            "publishedAt": "2026-06-23T13:00:28Z",
+            "durationSeconds": 29,
+            "value": 0
+          },
+          {
+            "videoId": "7GJ6Iiy_THk",
+            "publishedAt": "2026-06-23T12:19:14Z",
+            "durationSeconds": 29,
+            "value": 3
+          },
+          {
+            "videoId": "GlOrcx3y1rE",
+            "publishedAt": "2026-06-23T10:11:52Z",
+            "durationSeconds": 34,
+            "value": 7
+          },
+          {
+            "videoId": "l8w3SlUnm3Y",
+            "publishedAt": "2026-06-22T13:00:25Z",
+            "durationSeconds": 42,
+            "value": 1
+          },
+          {
+            "videoId": "4EGKRM-m77w",
+            "publishedAt": "2026-06-22T12:00:22Z",
+            "durationSeconds": 42,
+            "value": 0
+          },
+          {
+            "videoId": "c7Mp5L8HSXE",
+            "publishedAt": "2026-06-22T11:08:28Z",
+            "durationSeconds": 51,
+            "value": 0
+          },
+          {
+            "videoId": "pghOYvcjpIg",
+            "publishedAt": "2026-06-22T09:31:05Z",
+            "durationSeconds": 51,
+            "value": 2
+          },
+          {
+            "videoId": "xVXqGbOHpbM",
+            "publishedAt": "2026-06-22T06:19:46Z",
+            "durationSeconds": 48,
+            "value": 0
+          },
+          {
+            "videoId": "qf38zv-SVNo",
+            "publishedAt": "2026-06-22T01:03:47Z",
+            "durationSeconds": 46,
+            "value": 4
+          },
+          {
+            "videoId": "LgEmfyQ41NI",
+            "publishedAt": "2026-06-21T15:52:40Z",
+            "durationSeconds": 34,
+            "value": 1
+          }
+        ]
+      },
+      "reference": {
+        "subsPer1000Views": {
+          "value": 1.7221913928701276,
+          "totalSubs": 90,
+          "totalViews": 52259,
+          "n": 51
+        },
+        "watchRatio": {
+          "median": 0.6415094339622641,
+          "n": 51
+        },
+        "totalWatchMinutes": {
+          "median": 473.85,
+          "n": 51
+        },
+        "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
       }
     },
     "LONGFORM": {
@@ -75,13 +1031,24 @@
           "spreadRatio": 1.5,
           "promoteRule": "비율",
           "champion": {
-            "videoId": "4of_mgeLazQ",
-            "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
-            "publishedAt": "2026-09-26T11:00:34Z",
-            "durationSeconds": 456,
-            "value": 203
+            "videoId": "ROks87qezuU",
+            "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 46,
+            "views": 46
           },
-          "promoteAbove": 304.5,
+          "promoteAbove": 69,
+          "lowSample": true,
+          "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 46회로 100회 미만 — 참고용(가설)",
+          "excluded": [
+            {
+              "videoId": "4of_mgeLazQ",
+              "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
+              "value": 203,
+              "reason": "빈 조회 의심: 평균 시청 0초, 영상 길이의 0%"
+            }
+          ],
           "confidence": "가설"
         },
         "watchSeconds7d": {
@@ -98,9 +1065,13 @@
             "title": "왜 CAT은 '캣'인데 KING은 '킹'일까? C와 K의 비밀 | 영어 읽기 잘하는법 | 영어 #영어기초 #C와K의차이 #이해하면쉬운영어",
             "publishedAt": "2026-07-08T12:57:50Z",
             "durationSeconds": 535,
-            "value": 354
+            "value": 354,
+            "views": 6
           },
           "promoteAbove": 583.9487179487179,
+          "lowSample": true,
+          "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 6회로 100회 미만 — 참고용(가설)",
+          "excluded": [],
           "confidence": "가설"
         },
         "subs7d": {
@@ -117,11 +1088,527 @@
             "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
             "publishedAt": "2026-09-24T11:00:13Z",
             "durationSeconds": 415,
-            "value": 1
+            "value": 1,
+            "views": 46
           },
           "promoteAbove": 1,
+          "lowSample": true,
+          "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 46회로 100회 미만 — 참고용(가설)",
+          "excluded": [],
           "confidence": "가설"
         }
+      },
+      "lengthMedianSeconds": 415,
+      "recent": {
+        "views7d": [
+          {
+            "videoId": "9d9m869BCTI",
+            "publishedAt": "2026-10-28T13:00:32Z",
+            "durationSeconds": 1085,
+            "value": 5
+          },
+          {
+            "videoId": "bPTAnjMT7xc",
+            "publishedAt": "2026-10-12T11:30:03Z",
+            "durationSeconds": 503,
+            "value": 7
+          },
+          {
+            "videoId": "EDjmQmvGA1o",
+            "publishedAt": "2026-10-02T14:00:08Z",
+            "durationSeconds": 507,
+            "value": 3
+          },
+          {
+            "videoId": "-UHrFcMRsEY",
+            "publishedAt": "2026-09-28T14:00:20Z",
+            "durationSeconds": 506,
+            "value": 1
+          },
+          {
+            "videoId": "4of_mgeLazQ",
+            "publishedAt": "2026-09-26T11:00:34Z",
+            "durationSeconds": 456,
+            "value": 203
+          },
+          {
+            "videoId": "ROks87qezuU",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 46
+          },
+          {
+            "videoId": "VwEkIUluszw",
+            "publishedAt": "2026-09-22T11:00:04Z",
+            "durationSeconds": 391,
+            "value": 4
+          },
+          {
+            "videoId": "MdLjt4zvg8g",
+            "publishedAt": "2026-09-20T11:00:18Z",
+            "durationSeconds": 406,
+            "value": 13
+          },
+          {
+            "videoId": "uqmVMRhT_1A",
+            "publishedAt": "2026-09-17T11:00:21Z",
+            "durationSeconds": 396,
+            "value": 2
+          },
+          {
+            "videoId": "beKA35yvxdk",
+            "publishedAt": "2026-09-14T11:00:34Z",
+            "durationSeconds": 429,
+            "value": 2
+          },
+          {
+            "videoId": "AcNSDMpkR_A",
+            "publishedAt": "2026-09-11T11:00:06Z",
+            "durationSeconds": 474,
+            "value": 0
+          },
+          {
+            "videoId": "W7toujk6ER8",
+            "publishedAt": "2026-09-08T11:00:27Z",
+            "durationSeconds": 215,
+            "value": 2
+          },
+          {
+            "videoId": "a2VrFQVjImI",
+            "publishedAt": "2026-09-05T11:00:29Z",
+            "durationSeconds": 195,
+            "value": 6
+          },
+          {
+            "videoId": "3PkSwrFIcRE",
+            "publishedAt": "2026-08-29T11:00:15Z",
+            "durationSeconds": 211,
+            "value": 1
+          },
+          {
+            "videoId": "sNNufVhkjT8",
+            "publishedAt": "2026-08-23T11:00:06Z",
+            "durationSeconds": 284,
+            "value": 5
+          },
+          {
+            "videoId": "YoaCRYCWpws",
+            "publishedAt": "2026-08-10T05:51:39Z",
+            "durationSeconds": 367,
+            "value": 26
+          },
+          {
+            "videoId": "tFe-cB__uns",
+            "publishedAt": "2026-08-09T10:16:00Z",
+            "durationSeconds": 407,
+            "value": 12
+          },
+          {
+            "videoId": "hu4GNC7peTY",
+            "publishedAt": "2026-08-04T13:29:49Z",
+            "durationSeconds": 411,
+            "value": 7
+          },
+          {
+            "videoId": "f4wkmIvplCc",
+            "publishedAt": "2026-07-29T13:27:19Z",
+            "durationSeconds": 438,
+            "value": 3
+          },
+          {
+            "videoId": "Ha_7wdnFNmo",
+            "publishedAt": "2026-07-26T13:08:11Z",
+            "durationSeconds": 481,
+            "value": 5
+          },
+          {
+            "videoId": "BLinHY3p4yc",
+            "publishedAt": "2026-07-22T13:47:18Z",
+            "durationSeconds": 281,
+            "value": 9
+          },
+          {
+            "videoId": "BsyRH8GWYJ4",
+            "publishedAt": "2026-07-19T13:15:18Z",
+            "durationSeconds": 420,
+            "value": 8
+          },
+          {
+            "videoId": "cu3EB5OJdMM",
+            "publishedAt": "2026-07-10T17:00:46Z",
+            "durationSeconds": 575,
+            "value": 7
+          },
+          {
+            "videoId": "-V1lwpEF7Ik",
+            "publishedAt": "2026-07-08T12:57:50Z",
+            "durationSeconds": 535,
+            "value": 6
+          },
+          {
+            "videoId": "jRoYudL30DE",
+            "publishedAt": "2026-07-06T14:29:18Z",
+            "durationSeconds": 435,
+            "value": 11
+          },
+          {
+            "videoId": "u2WOzu-0Hxc",
+            "publishedAt": "2026-07-02T21:00:05Z",
+            "durationSeconds": 351,
+            "value": 8
+          },
+          {
+            "videoId": "JOyI0DWGzEM",
+            "publishedAt": "2026-06-30T21:00:38Z",
+            "durationSeconds": 276,
+            "value": 4
+          }
+        ],
+        "watchSeconds7d": [
+          {
+            "videoId": "9d9m869BCTI",
+            "publishedAt": "2026-10-28T13:00:32Z",
+            "durationSeconds": 1085,
+            "value": 21
+          },
+          {
+            "videoId": "bPTAnjMT7xc",
+            "publishedAt": "2026-10-12T11:30:03Z",
+            "durationSeconds": 503,
+            "value": 195
+          },
+          {
+            "videoId": "EDjmQmvGA1o",
+            "publishedAt": "2026-10-02T14:00:08Z",
+            "durationSeconds": 507,
+            "value": 0
+          },
+          {
+            "videoId": "-UHrFcMRsEY",
+            "publishedAt": "2026-09-28T14:00:20Z",
+            "durationSeconds": 506,
+            "value": 0
+          },
+          {
+            "videoId": "4of_mgeLazQ",
+            "publishedAt": "2026-09-26T11:00:34Z",
+            "durationSeconds": 456,
+            "value": 0
+          },
+          {
+            "videoId": "ROks87qezuU",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 124
+          },
+          {
+            "videoId": "VwEkIUluszw",
+            "publishedAt": "2026-09-22T11:00:04Z",
+            "durationSeconds": 391,
+            "value": 139
+          },
+          {
+            "videoId": "MdLjt4zvg8g",
+            "publishedAt": "2026-09-20T11:00:18Z",
+            "durationSeconds": 406,
+            "value": 52
+          },
+          {
+            "videoId": "uqmVMRhT_1A",
+            "publishedAt": "2026-09-17T11:00:21Z",
+            "durationSeconds": 396,
+            "value": 49
+          },
+          {
+            "videoId": "beKA35yvxdk",
+            "publishedAt": "2026-09-14T11:00:34Z",
+            "durationSeconds": 429,
+            "value": 7
+          },
+          {
+            "videoId": "AcNSDMpkR_A",
+            "publishedAt": "2026-09-11T11:00:06Z",
+            "durationSeconds": 474,
+            "value": 0
+          },
+          {
+            "videoId": "W7toujk6ER8",
+            "publishedAt": "2026-09-08T11:00:27Z",
+            "durationSeconds": 215,
+            "value": 13
+          },
+          {
+            "videoId": "a2VrFQVjImI",
+            "publishedAt": "2026-09-05T11:00:29Z",
+            "durationSeconds": 195,
+            "value": 47
+          },
+          {
+            "videoId": "3PkSwrFIcRE",
+            "publishedAt": "2026-08-29T11:00:15Z",
+            "durationSeconds": 211,
+            "value": 0
+          },
+          {
+            "videoId": "sNNufVhkjT8",
+            "publishedAt": "2026-08-23T11:00:06Z",
+            "durationSeconds": 284,
+            "value": 53
+          },
+          {
+            "videoId": "YoaCRYCWpws",
+            "publishedAt": "2026-08-10T05:51:39Z",
+            "durationSeconds": 367,
+            "value": 61
+          },
+          {
+            "videoId": "tFe-cB__uns",
+            "publishedAt": "2026-08-09T10:16:00Z",
+            "durationSeconds": 407,
+            "value": 106
+          },
+          {
+            "videoId": "hu4GNC7peTY",
+            "publishedAt": "2026-08-04T13:29:49Z",
+            "durationSeconds": 411,
+            "value": 176
+          },
+          {
+            "videoId": "f4wkmIvplCc",
+            "publishedAt": "2026-07-29T13:27:19Z",
+            "durationSeconds": 438,
+            "value": 94
+          },
+          {
+            "videoId": "Ha_7wdnFNmo",
+            "publishedAt": "2026-07-26T13:08:11Z",
+            "durationSeconds": 481,
+            "value": 113
+          },
+          {
+            "videoId": "BLinHY3p4yc",
+            "publishedAt": "2026-07-22T13:47:18Z",
+            "durationSeconds": 281,
+            "value": 73
+          },
+          {
+            "videoId": "BsyRH8GWYJ4",
+            "publishedAt": "2026-07-19T13:15:18Z",
+            "durationSeconds": 420,
+            "value": 117
+          },
+          {
+            "videoId": "cu3EB5OJdMM",
+            "publishedAt": "2026-07-10T17:00:46Z",
+            "durationSeconds": 575,
+            "value": 102
+          },
+          {
+            "videoId": "-V1lwpEF7Ik",
+            "publishedAt": "2026-07-08T12:57:50Z",
+            "durationSeconds": 535,
+            "value": 354
+          },
+          {
+            "videoId": "jRoYudL30DE",
+            "publishedAt": "2026-07-06T14:29:18Z",
+            "durationSeconds": 435,
+            "value": 193
+          },
+          {
+            "videoId": "u2WOzu-0Hxc",
+            "publishedAt": "2026-07-02T21:00:05Z",
+            "durationSeconds": 351,
+            "value": 204
+          },
+          {
+            "videoId": "JOyI0DWGzEM",
+            "publishedAt": "2026-06-30T21:00:38Z",
+            "durationSeconds": 276,
+            "value": 211
+          }
+        ],
+        "subs7d": [
+          {
+            "videoId": "9d9m869BCTI",
+            "publishedAt": "2026-10-28T13:00:32Z",
+            "durationSeconds": 1085,
+            "value": 0
+          },
+          {
+            "videoId": "bPTAnjMT7xc",
+            "publishedAt": "2026-10-12T11:30:03Z",
+            "durationSeconds": 503,
+            "value": 0
+          },
+          {
+            "videoId": "EDjmQmvGA1o",
+            "publishedAt": "2026-10-02T14:00:08Z",
+            "durationSeconds": 507,
+            "value": 0
+          },
+          {
+            "videoId": "-UHrFcMRsEY",
+            "publishedAt": "2026-09-28T14:00:20Z",
+            "durationSeconds": 506,
+            "value": 0
+          },
+          {
+            "videoId": "4of_mgeLazQ",
+            "publishedAt": "2026-09-26T11:00:34Z",
+            "durationSeconds": 456,
+            "value": 0
+          },
+          {
+            "videoId": "ROks87qezuU",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 1
+          },
+          {
+            "videoId": "VwEkIUluszw",
+            "publishedAt": "2026-09-22T11:00:04Z",
+            "durationSeconds": 391,
+            "value": 0
+          },
+          {
+            "videoId": "MdLjt4zvg8g",
+            "publishedAt": "2026-09-20T11:00:18Z",
+            "durationSeconds": 406,
+            "value": 0
+          },
+          {
+            "videoId": "uqmVMRhT_1A",
+            "publishedAt": "2026-09-17T11:00:21Z",
+            "durationSeconds": 396,
+            "value": 0
+          },
+          {
+            "videoId": "beKA35yvxdk",
+            "publishedAt": "2026-09-14T11:00:34Z",
+            "durationSeconds": 429,
+            "value": 0
+          },
+          {
+            "videoId": "AcNSDMpkR_A",
+            "publishedAt": "2026-09-11T11:00:06Z",
+            "durationSeconds": 474,
+            "value": 0
+          },
+          {
+            "videoId": "W7toujk6ER8",
+            "publishedAt": "2026-09-08T11:00:27Z",
+            "durationSeconds": 215,
+            "value": 0
+          },
+          {
+            "videoId": "a2VrFQVjImI",
+            "publishedAt": "2026-09-05T11:00:29Z",
+            "durationSeconds": 195,
+            "value": 0
+          },
+          {
+            "videoId": "3PkSwrFIcRE",
+            "publishedAt": "2026-08-29T11:00:15Z",
+            "durationSeconds": 211,
+            "value": 0
+          },
+          {
+            "videoId": "sNNufVhkjT8",
+            "publishedAt": "2026-08-23T11:00:06Z",
+            "durationSeconds": 284,
+            "value": 0
+          },
+          {
+            "videoId": "YoaCRYCWpws",
+            "publishedAt": "2026-08-10T05:51:39Z",
+            "durationSeconds": 367,
+            "value": 0
+          },
+          {
+            "videoId": "tFe-cB__uns",
+            "publishedAt": "2026-08-09T10:16:00Z",
+            "durationSeconds": 407,
+            "value": 0
+          },
+          {
+            "videoId": "hu4GNC7peTY",
+            "publishedAt": "2026-08-04T13:29:49Z",
+            "durationSeconds": 411,
+            "value": 1
+          },
+          {
+            "videoId": "f4wkmIvplCc",
+            "publishedAt": "2026-07-29T13:27:19Z",
+            "durationSeconds": 438,
+            "value": 0
+          },
+          {
+            "videoId": "Ha_7wdnFNmo",
+            "publishedAt": "2026-07-26T13:08:11Z",
+            "durationSeconds": 481,
+            "value": 0
+          },
+          {
+            "videoId": "BLinHY3p4yc",
+            "publishedAt": "2026-07-22T13:47:18Z",
+            "durationSeconds": 281,
+            "value": 0
+          },
+          {
+            "videoId": "BsyRH8GWYJ4",
+            "publishedAt": "2026-07-19T13:15:18Z",
+            "durationSeconds": 420,
+            "value": 0
+          },
+          {
+            "videoId": "cu3EB5OJdMM",
+            "publishedAt": "2026-07-10T17:00:46Z",
+            "durationSeconds": 575,
+            "value": 0
+          },
+          {
+            "videoId": "-V1lwpEF7Ik",
+            "publishedAt": "2026-07-08T12:57:50Z",
+            "durationSeconds": 535,
+            "value": 0
+          },
+          {
+            "videoId": "jRoYudL30DE",
+            "publishedAt": "2026-07-06T14:29:18Z",
+            "durationSeconds": 435,
+            "value": 0
+          },
+          {
+            "videoId": "u2WOzu-0Hxc",
+            "publishedAt": "2026-07-02T21:00:05Z",
+            "durationSeconds": 351,
+            "value": 0
+          },
+          {
+            "videoId": "JOyI0DWGzEM",
+            "publishedAt": "2026-06-30T21:00:38Z",
+            "durationSeconds": 276,
+            "value": 0
+          }
+        ]
+      },
+      "reference": {
+        "subsPer1000Views": {
+          "value": 4.926108374384237,
+          "totalSubs": 2,
+          "totalViews": 406,
+          "n": 27
+        },
+        "watchRatio": {
+          "median": 0.2146118721461187,
+          "n": 27
+        },
+        "totalWatchMinutes": {
+          "median": 9.416666666666666,
+          "n": 27
+        },
+        "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
       }
     }
   },
@@ -195,6 +1682,18 @@
       "value": 34.68208092485549,
       "retiredAt": "2026-11-13T07:23:10.996Z",
       "replacedBy": "JOyI0DWGzEM"
+    },
+    {
+      "format": "LONGFORM",
+      "metric": "views7d",
+      "videoId": "4of_mgeLazQ",
+      "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
+      "publishedAt": "2026-09-26T11:00:34Z",
+      "durationSeconds": 456,
+      "value": 203,
+      "retiredAt": "2026-11-13T10:43:32.498Z",
+      "replacedBy": "ROks87qezuU",
+      "reason": "빈 조회 의심으로 기준선 후보에서 제외됨(더 낮은 기록이 새 기준선)"
     }
   ]
 }

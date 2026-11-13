@@ -65,7 +65,7 @@ test('시청자 고민 21일·경쟁 채널 10일보다 오래되면 문제', ()
   assert.deepEqual(ids(checkLoopHealth({...healthy(), competitorsAnalyzedAt: daysAgo(11)})), ['competitors-stale']);
 });
 
-test('"통함" 판정이 났는데 성공 패턴에 기록이 없으면 문제(배운 것을 기록하지 않음)', () => {
+test('"통함" 판정이 났는데 통한 요소 기록에 기록이 없으면 문제(배운 것을 기록하지 않음)', () => {
   const episodeOutcomes = [{label: 'EP24 쇼츠', videoId: 'V', verdict: 'worked', ratio: 1.8}, {label: 'EP25', videoId: 'W', verdict: 'hold'}];
   const r = checkLoopHealth({...healthy(), episodeOutcomes});
   assert.deepEqual(ids(r), ['pattern-gap']);

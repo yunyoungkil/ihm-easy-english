@@ -14,6 +14,8 @@ import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
 import {loadReports as loadOutlierReports} from './outlier-report.mjs';
 import {loadSheets} from './transform-sheet.mjs';
+import {quantile, RECENT_COUNT, usualBands} from './baseline.mjs';
+import {groupResultsByVariable} from './sheet-outcomes.mjs';
 
 export const MIN_COMPARE_VIDEOS = 6; // 상위 3편과 하위 3편이 겹치지 않는 최소 수
 export const RECENT_POOL = 20; // 같은 형식 최근 20편 안에서 비교한다(오래된 영상이 지금 채널을 대표하지 않게)
@@ -211,7 +213,7 @@ export function renderNextEpisodeInput(input) {
   const judged = outcomes.filter((o) => o.verdict !== 'pending');
   const counts = Object.entries(outcomes.reduce((acc, o) => ({...acc, [o.verdict]: (acc[o.verdict] || 0) + 1}), {}))
     .map(([k, n]) => `${VERDICT[k] || k} ${n}편`).join(', ');
-  out.push(`판정 대상 ${outcomes.length}편: ${counts || '없음'}. 성공 패턴 ${successPatternCount}개.`);
+  out.push(`판정 대상 ${outcomes.length}편: ${counts || '없음'}. 통한 요소 기록 ${successPatternCount}개.`);
   if (judged.length && judged.every((o) => o.verdict === 'hold')) out.push('확정 판정(통함·안 통함)이 아직 없다. 지금은 같은 조건으로 꾸준히 올려 표본을 쌓는 단계다.');
   if (judged.length) {
     out.push('', '| 편 | 공개일 | 7일 조회 | 판정 | 이유 |', '|---|---|---|---|---|');
@@ -277,26 +279,45 @@ export function renderNextEpisodeInput(input) {
     }
     out.push('');
   } else out.push('비교 시트 없음.', '');
-  out.push(...renderBaselines(input.baselines));
+  out.push(...renderBaselines(input.baselines, input.variableGroups || []));
   out.push(...renderRetention(input.retention));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
-
+
 /** 기준선(현재 최고 기록): 형식·지표별로 우리가 지금까지 낸 최고와, 이를 넘으려면 필요한 값. 숫자는 baselines.json(scripts/baseline.mjs)이 계산한 것이다. */
-export function renderBaselines(baselines) {
+export function renderBaselines(baselines, variableGroups = []) {
   const out = ['## 9. 기준선 (현재 최고 기록)', ''];
   if (!baselines?.formats) return [...out, '기준선 계산 전(`node scripts/baseline.mjs`).', ''];
-  out.push('우리 채널에는 "성공"이라는 말을 쓰지 않는다. 지표별 현재 최고가 기준선이고, 새 영상이 갱신 기준(우리 편차만큼 위)을 넘으면 새 기준선이 된다. 근거 표본이 작으면 가설이다. 조회수는 제목·썸네일·소재(포장), 평균 시청 시간은 훅·화면·대본(내용, 영상이 길수록 유리), 구독 수는 채널의 가치를 본다. 모두 공개 첫 7일 값이다.', '');
+  out.push('우리 채널에는 "성공"이라는 말을 쓰지 않는다. 판정은 두 단계다. **1단계 "좋은 점 후보"**: 같은 형식에서 비슷한 길이 최근 10편의 중앙값(평소)의 1.5배 이상이면 그 영상의 좋은 점을 가져와 다음 영상에 더한다(자주 일어남). **2단계 "기준선 갱신"**: 지표별 현재 최고가 기준선이고, 새 영상이 갱신 기준(우리 편차만큼 위)을 넘으면 기준선이 올라간다(가끔 일어남). 근거 표본이 작으면 가설이고, 표본이 작아도 기준선을 비우지 않고 "표본 작음"을 붙인다. 조회수는 제목·썸네일·소재(포장), 평균 시청 시간은 훅·화면·대본(내용, 영상이 길수록 유리), 구독 수는 채널의 가치를 본다. 모두 공개 첫 7일 값이다.', '');
   const names = {SHORTS: '쇼츠', LONGFORM: '롱폼'};
   const num = (n) => Number(Number(n).toFixed(2)).toLocaleString('ko-KR');
   for (const [format, name] of Object.entries(names)) {
-    for (const m of Object.values(baselines.formats[format]?.metrics || {})) {
+    const entry = baselines.formats[format] || {};
+    for (const [key, m] of Object.entries(entry.metrics || {})) {
       if (!m.champion) { out.push(`- ${name} ${m.label}: 표본 없음`); continue; }
       const unit = m.unit || '';
       const bar = m.promoteAbove == null ? '갱신 기준 없음(편차를 못 구함)' : `갱신 기준 ${num(m.promoteAbove)}${unit}`;
       const len = m.champion.durationSeconds ? ` · 영상 ${num(m.champion.durationSeconds)}초` : '';
-      out.push(`- ${name} ${m.label}(${m.meaning}): 기준선 ${num(m.champion.value)}${unit}${len} · ${bar} · 중앙값 ${num(m.median)}${unit} · 표본 ${m.n}편(${m.confidence}) · 「${cut(m.champion.title, 40)}」`);
+      // 평소는 판정에 쓰는 것과 같은 계산(usualFor)으로 보여 준다: 길이 중앙값이 있으면 짧은 쪽·긴 쪽을 따로(길이 보정이 안 되는 쪽은 그렇게 적는다)
+      const bands = usualBands(format, key, baselines);
+      const bandText = (u) => (u ? `${num(u.value)}${unit}${u.lengthAdjusted ? '' : '(길이 보정 없음)'}` : '측정 전');
+      const recent = (entry.recent?.[key] || []).slice(0, RECENT_COUNT).map((r) => r.value);
+      let usual = '';
+      if (bands && (bands.low || bands.high)) usual = ` · 평소(최근 ${RECENT_COUNT}편 중앙값) 짧은 영상(${num(bands.mid)}초 미만) ${bandText(bands.low)} · 긴 영상 ${bandText(bands.high)}`;
+      else if (recent.length) usual = ` · 평소(최근 ${recent.length}편 중앙값) ${num(quantile(recent, 0.5))}${unit}`; // allow-literal: 분위수의 정의(중앙값)
+      const notes = [m.sampleNote, ...(m.excluded || []).map((x) => `기준선 후보에서 뺌: 「${cut(x.title, 24)}」 ${num(x.value)}${unit}(${x.reason})`)].filter(Boolean);
+      out.push(`- ${name} ${m.label}(${m.meaning}): 기준선 ${num(m.champion.value)}${unit}${len} · ${bar} · 중앙값 ${num(m.median)}${unit}${usual} · 표본 ${m.n}편(${m.confidence}) · 「${cut(m.champion.title, 40)}」${notes.length ? ` ※ ${notes.join(' / ')}` : ''}`);
     }
+    const ref = entry.reference;
+    if (ref?.subsPer1000Views?.value != null) {
+      const ratio = ref.watchRatio?.median == null ? '측정 전' : `${Math.round(ref.watchRatio.median * 100)}%`; // allow-literal: 비율을 %로
+      const mins = ref.totalWatchMinutes?.median == null ? '측정 전' : `${num(ref.totalWatchMinutes.median)}분`;
+      out.push(`- ${name} 참고(기준선 아님): 조회 1,000회당 구독 ${num(ref.subsPer1000Views.value)}명(${ref.subsPer1000Views.totalSubs}명/${num(ref.subsPer1000Views.totalViews)}회) · 시청률 중앙값 ${ratio} · 총 시청 시간 중앙값 ${mins}`);
+    }
+  }
+  if (variableGroups.length) {
+    out.push('', '같은 시험 변수를 쓴 영상 묶음(건수만 센다, 확정은 단계를 거친다):');
+    for (const g of variableGroups) out.push(`- ${names[g.format] || g.format} · ${g.variable}: ${g.videoCount}편 중 좋은 점 후보 ${g.goodCount}편, 평소의 절반 미만 ${g.lowCount}편`);
   }
   out.push('');
   return out;
@@ -364,6 +385,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     successPatternCount: (patterns.entries || []).length,
     outlierReports: summarizeOutlierReports(loadOutlierReports()),
     baselines: readJson(join(dataDir, 'baselines.json'), null),
+    variableGroups: groupResultsByVariable(loadSheets()),
     retention: readRetention(join(dataDir, 'retention')),
     transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };

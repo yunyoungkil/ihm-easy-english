@@ -6,6 +6,7 @@ import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
   MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes, cutFrameName, missingCutFrames, CUT_FRAME_HEIGHT,
+  isVideoUnavailableError, framesRetryPaused, ytDlpErrorText,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -154,6 +155,25 @@ test('다른 PC에서 빠진 캡처만 다시 만든다: 리포트에 적힌 캡
   const noList = {...report, frames: []};
   assert.deepEqual(missingFrames(noList, () => false).map((m) => m.t), [1, 5.5]);
   assert.deepEqual(missingFrames({...noList, analysis: {visualMoments: []}}, () => false), []);
+});
+
+test('내려받을 수 없는 영상은 캡처 실패로 매일 밤 루프를 깨뜨리지 않는다: 오류 판별, 7일 쉬었다가 다시 시도', () => {
+  const now = Date.parse('2026-11-13T00:00:00Z');
+  assert.equal(isVideoUnavailableError('Command failed: yt-dlp ... ERROR: [youtube] ZGFuGU1e3i8: This video is not available'), true);
+  assert.equal(isVideoUnavailableError('ERROR: [youtube] abc: Private video. Sign in if you have been granted access'), true);
+  assert.equal(isVideoUnavailableError('ERROR: [youtube] abc: Video unavailable'), true);
+  assert.equal(isVideoUnavailableError('Command failed: ETIMEDOUT network error'), false, '네트워크 오류는 일시적이라 쉬지 않는다');
+  assert.equal(isVideoUnavailableError(''), false);
+  // 실제 오류는 명령어 전체가 앞에 붙어 300자로 잘리므로, stderr의 ERROR 줄을 따로 뽑아 쓴다(2026-11-13 실제 실행에서 발견)
+  const real = {message: `Command failed: yt-dlp -q --no-warnings --download-sections *0-303 -f bv*[height<=480][ext=mp4]/b[height<=480]/b -o C:\\Users\\yunyo\\AppData\\Local\\Temp\\outlier-frames-I9fUfH\\v.%(ext)s https://www.youtube.com/watch?v=ZGFuGU1e3i8\nDeprecated Feature: Support for Python version 3.10 has been deprecated.`, stderr: 'Deprecated Feature: Support for Python version 3.10 has been deprecated.\nERROR: [youtube] ZGFuGU1e3i8: This video is not available\n'};
+  assert.equal(ytDlpErrorText(real), 'ERROR: [youtube] ZGFuGU1e3i8: This video is not available');
+  assert.equal(isVideoUnavailableError(ytDlpErrorText(real)), true);
+  assert.equal(ytDlpErrorText({message: 'spawn ffmpeg ENOENT'}), 'spawn ffmpeg ENOENT', 'ERROR 줄이 없으면 원래 메시지');
+  const report = {videoId: 'abcdefghijk', windowSeconds: 60, frames: [], analysis: {visualMoments: [{t: 1}]}};
+  assert.equal(framesRetryPaused(report, now), false, '기록이 없으면 시도한다');
+  assert.equal(framesRetryPaused({...report, framesUnavailableAt: '2026-11-10T00:00:00Z'}, now), true, '3일 전 기록이면 아직 쉰다');
+  assert.equal(framesRetryPaused({...report, framesUnavailableAt: '2026-11-05T00:00:00Z'}, now), false, '8일 지났으면 다시 시도');
+  assert.equal(framesRetryPaused({...report, framesUnavailableAt: 'garbage'}, now), false, '날짜가 깨졌으면 쉬지 않는다');
 });
 
 test('캡처를 만드는 중이면 리포트 화면에 안내를 띄우고 잠시 뒤 스스로 새로고침한다', () => {

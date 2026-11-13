@@ -276,10 +276,11 @@ const briefingLines = (check, briefing) => {
   return lines;
 };
 
-export function buildBriefingContext(check, nextActions = []) {
+export function buildBriefingContext(check, nextActions = [], handoffNote = null) {
   const actionLines = nextActionLines(nextActions);
-  if (!check) return [BRIEFING_INSTRUCTION, '막힌 곳 점검을 실행하지 못했다. npm run growth-check 를 직접 실행해 확인한다.', ...actionLines].join('\n');
-  if (check.briefing) return [BRIEFING_INSTRUCTION, ...briefingLines(check, check.briefing), ...actionLines].join('\n');
+  const handoff = handoffNote ? [handoffNote] : []; // 최근 인수인계 파일(다른 PC·이전 대화의 맥락)을 먼저 읽게 한다
+  if (!check) return [BRIEFING_INSTRUCTION, ...handoff, '막힌 곳 점검을 실행하지 못했다. npm run growth-check 를 직접 실행해 확인한다.', ...actionLines].join('\n');
+  if (check.briefing) return [BRIEFING_INSTRUCTION, ...handoff, ...briefingLines(check, check.briefing), ...actionLines].join('\n');
 
   const reviews = (check.reviewsDue || []).map((review) => `${review.name}(${(review.due || []).join(', ')})`);
   const sample = check.sample || {};
@@ -289,6 +290,7 @@ export function buildBriefingContext(check, nextActions = []) {
 
   return [
     BRIEFING_INSTRUCTION,
+    ...handoff,
     `막힌 곳 점검(파일 기준, ${check.generatedFor}. git pull로 새 내용을 받았으면 다시 실행한다):`,
     `- 업로드 대기 ${(check.backlog || []).length}개`,
     `- 최근 14일 공개: 롱폼 ${check.cadence?.long14 ?? '?'}개, 쇼츠 ${check.cadence?.shorts14 ?? '?'}개. ${check.cadence?.verdict ?? ''}`.trimEnd(),

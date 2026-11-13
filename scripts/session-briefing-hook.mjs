@@ -9,6 +9,7 @@ import {fileURLToPath} from 'node:url';
 import {syncIfStale} from './briefing-sync.mjs';
 import {ensureGitHooks} from './ensure-git-hooks.mjs';
 import {buildBriefingContext, extractNextActions, renderSessionStartOutput} from './growth-rules.mjs';
+import {handoffLine, latestHandoff} from './handoff.mjs';
 import {setupAutomationChrome} from './setup-automation-chrome.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -57,4 +58,4 @@ if (chromeStatus && !chromeStatus.isLoggedIn) {
 }
 
 if (check?.briefing?.data) check.briefing.data.sync = syncNote;
-process.stdout.write(`${renderSessionStartOutput(buildBriefingContext(check, nextActions))}\n`);
+process.stdout.write(`${renderSessionStartOutput(buildBriefingContext(check, nextActions, handoffLine(latestHandoff(projectDir))))}\n`);

@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
   MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes, cutFrameName, missingCutFrames, CUT_FRAME_HEIGHT,
-  isVideoUnavailableError, framesRetryPaused, ytDlpErrorText,
+  isVideoUnavailableError, framesRetryPaused, ytDlpErrorText, isTransientReportError,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -287,4 +287,14 @@ test('저장된 이 영상 리포트의 설명글·태그는 유튜브 영상 �
   assert.match(meta.description, /^오늘은 한국인이 자주 틀리는 영어 발음을 알려드립니다\./);
   assert.match(meta.description, /Comfortable, Interest, Temperature, Favorite, Family$/);
   assert.deepEqual(meta.tags, []);
+});
+
+test('일시적 오류(Gemini 과부하·한도·네트워크)는 7일 쉬기 대상이 아니고, 영상 자체 문제는 그대로 쉰다', () => {
+  assert.equal(isTransientReportError('Gemini 리포트 분석 실패: This model is currently experiencing high demand. Spikes in demand are usually temporary.'), true);
+  assert.equal(isTransientReportError('Gemini 리포트 분석 실패: 503 Service Unavailable'), true);
+  assert.equal(isTransientReportError('429 RESOURCE_EXHAUSTED quota exceeded'), true);
+  assert.equal(isTransientReportError('fetch failed'), true);
+  assert.equal(isTransientReportError('영상 ID 형식이 아님: abc'), false);
+  assert.equal(isTransientReportError('Gemini 리포트 분석 실패: JSON 형식이 아님'), false);
+  assert.equal(isTransientReportError(''), false);
 });

@@ -234,6 +234,10 @@ export function audienceDnaEntriesFromReport(report) {
     .map((x) => ({type, text: String(x[field]).trim(), videoId: report.videoId, channelTitle: report.meta?.channelTitle || '', sourceType: 'outlierComment'}));
   return [...pick(vr.painPoints, 'pain', 'painPoint'), ...pick(vr.unanswered, 'question', 'question'), ...pick(vr.vocabulary, 'expression', 'vocabulary')];
 }
+/** Gemini 과부하(high demand·503)·한도(429)·네트워크 오류처럼 영상과 무관하고 곧 풀리는 실패인가(2026-11-13: 과부하로 실패한 2편이 7일 동안 쉬게 되던 문제). 이런 실패는 쉬기 기록을 남기지 않아 다음 날 다시 시도한다. */
+export function isTransientReportError(message) {
+  return /high demand|overloaded|temporarily|503|429|UNAVAILABLE|RESOURCE_EXHAUSTED|quota|rate limit|fetch failed|ECONNRESET|ETIMEDOUT|timed? ?out/i.test(String(message || ''));
+}
 export const REPORT_FAILURE_COOLDOWN_DAYS = 7;
 // 키워드 검색으로 들어온 아웃라이어에는 고양이 브이로그 같은 무관한 영상도 섞인다. 영어 학습과 관계있는 제목만 고른다.
 const RELEVANT_TITLE_RE = /영어|영단어|english|발음|파닉스|phonics|단어|회화|듣기|리스닝|스피킹|문법|원어민|미드|읽는/i;

@@ -275,8 +275,8 @@ async function run() {
   }
 
   // 합친 아웃라이어 리포트: 배수 큰 영상부터 하루 2편. 예전 리포트만 있는 영상이 남아 있으면 따라잡는 동안 하루 6편.
-  // 실패한 영상은 7일 동안 다시 하지 않는다.
-  const {pickReportTargets, analyzeOutlierVideo, loadReports, reportsPerDay} = await import('./outlier-report.mjs');
+  // 실패한 영상은 7일 동안 다시 하지 않는다(Gemini 과부하·한도 같은 일시적 오류는 제외, 다음 날 다시).
+  const {pickReportTargets, analyzeOutlierVideo, loadReports, reportsPerDay, isTransientReportError} = await import('./outlier-report.mjs');
   const keepSince = now.getTime() - 30 * 86400000;
   report.outlierReportFailures = Object.fromEntries(Object.entries(prevLoop.outlierReportFailures || {}).filter(([, at]) => Date.parse(at) >= keepSince));
   const reportPick = {
@@ -303,7 +303,7 @@ async function run() {
           transcript[r.sources?.transcript?.ok ? 'ok' : 'blocked'] += 1;
         } catch (err) {
           failed.push({videoId, error: String(err.message).slice(0, 200)});
-          report.outlierReportFailures[videoId] = new Date().toISOString();
+          if (!isTransientReportError(err.message)) report.outlierReportFailures[videoId] = new Date().toISOString(); // 일시적 오류는 쉬지 않고 다음 날 다시 시도한다
         }
       }
       if (!done.length) throw new Error(`합친 아웃라이어 리포트 실패: ${failed.map((f) => `${f.videoId}(${f.error})`).join(', ')}`);

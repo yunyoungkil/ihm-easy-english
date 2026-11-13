@@ -278,6 +278,7 @@ export function renderNextEpisodeInput(input) {
     out.push('');
   } else out.push('비교 시트 없음.', '');
   out.push(...renderBaselines(input.baselines));
+  out.push(...renderRetention(input.retention));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -299,9 +300,32 @@ export function renderBaselines(baselines) {
   return out;
 }
 
+/** 이탈 지점(영상별 시청 유지 곡선): 가장 큰 이탈 구간을 초로 보여 준다. 숫자는 data/youtube/retention/*.json(scripts/retention-curves.mjs)이 계산한 것이다. */
+export function renderRetention(curves = []) {
+  const out = ['## 10. 이탈 지점 (영상별 시청 유지 곡선)', ''];
+  const usable = (curves || []).filter((x) => x?.drops?.length);
+  if (!usable.length) return [...out, '이탈 곡선 수집 전(`node scripts/retention-curves.mjs`). 조회가 적은 영상은 API가 점을 주지 않는다.', ''];
+  const num = (n) => Number(Number(n).toFixed(1));
+  out.push(`시청 유지 곡선을 받은 ${usable.length}편에서 가장 크게 떠난 구간이다. 값은 그 구간에서 시청 유지 비율이 줄어든 폭(%p, 다시 보기 포함)이고, 근거 표본이 작으면 가설이다. 이 숫자와 비교 시트의 컷 시각을 맞춰 어느 화면·대본에서 떠났는지 본다.`, '');
+  const bySec = usable.map((x) => x.drops[0].fromSec).sort((a, b) => a - b);
+  const medianSec = bySec[Math.floor(bySec.length / 2)];
+  out.push(`- 편마다 가장 큰 이탈이 시작된 시각의 중앙값: ${num(medianSec)}초 (${usable.length}편)`);
+  for (const x of usable.slice(0, 10)) { // allow-literal: 화면에 보여 줄 최대 편수
+    const d = x.drops[0];
+    out.push(`- ${x.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${num(x.durationSeconds)}초 「${cut(x.title, 30)}」: 가장 큰 이탈 ${num(d.fromSec)}~${num(d.toSec)}초(${(d.drop * 100).toFixed(1)}%p), 끝까지 ${x.watchAt?.end == null ? '측정 전' : `${(x.watchAt.end * 100).toFixed(0)}%`}`);
+  }
+  out.push('');
+  return out;
+}
+
 const readJson = (path, fallback) => {
   try { return JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')); } catch { return fallback; }
 };
+function readRetention(dir) {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => readJson(join(dir, f), null)).filter((j) => j && !j.empty);
+}
+
 
 export const nextEpisodeInputPath = (projectDir) => join(projectDir, 'data', 'youtube', 'next-episode-input.md');
 
@@ -338,6 +362,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     successPatternCount: (patterns.entries || []).length,
     outlierReports: summarizeOutlierReports(loadOutlierReports()),
     baselines: readJson(join(dataDir, 'baselines.json'), null),
+    retention: readRetention(join(dataDir, 'retention')),
     transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };
 }

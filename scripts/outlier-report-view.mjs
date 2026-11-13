@@ -248,6 +248,10 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
     `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
   ];
   for (const p of problems) parts.push(`<div class="warn">⚠ ${escapeHtml(p)}</div>`);
+  if ((sheet.testVariables || []).length) {
+    parts.push('<h2>이번에 시험하는 변수</h2>');
+    for (const v of sheet.testVariables) parts.push(`<div class="card"><b>${escapeHtml(v.variable)}</b> · 보는 지표: ${escapeHtml(v.measure)}<div>왜 이렇게 될 것 같은가(가설): ${escapeHtml(v.hypothesis)}</div></div>`);
+  }
   parts.push('<div class="sheet-row" style="margin-top:18px"><div class="sheet-col"><b>경쟁 콘텐츠(이미 출시)</b></div><div class="sheet-col ours"><b>우리가 만들 콘텐츠</b></div></div>');
   for (const r of sheet.rows || []) {
     const comp = (r.competitor?.images || []).map(competitorImg).join('');
@@ -270,6 +274,10 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
   parts.push('<h2>안 맞아서 뺀 것</h2>');
   if (!(sheet.rejected || []).length) parts.push('<p class="meta">없음</p>');
   for (const r of sheet.rejected || []) parts.push(`<div class="card"><b>${escapeHtml(r.what)}</b> <a href="/outlier-report/${encodeURIComponent(r.fromVideoId)}">(${escapeHtml(r.fromVideoId)})</a><div>뺀 이유: ${escapeHtml(r.reason)}</div></div>`);
+  if (Array.isArray(sheet.glossary) && sheet.glossary.length) {
+    parts.push('<h2>용어 풀이 (경쟁 영상의 전문용어 → 쉬운 말)</h2>');
+    for (const g of sheet.glossary) parts.push(`<div class="card"><b>${escapeHtml(g.term)}</b> → ${escapeHtml(g.plain)}</div>`);
+  }
   if (sheet.pending?.length) {
     parts.push('<h2>대본 전에 확인할 것</h2>');
     for (const t of sheet.pending) parts.push(`<div class="card">${escapeHtml(t)}</div>`);

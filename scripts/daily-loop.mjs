@@ -328,6 +328,14 @@ async function run() {
     return {shortsViews7dBaseline: views.champion?.value ?? null, shortsViews7dN: views.n, history: r.history.length};
   });
 
+  // 영상별 시청 유지 곡선(이탈 지점)을 받는다(2026-11-13). 조회가 충분한 영상만, 한 번에 일부씩, 14일마다 새로 받는다.
+  await step('retention', async () => {
+    const {collect} = await import('./retention-curves.mjs');
+    const r = await collect({now: new Date()});
+    if (r.failed.length && !r.saved) throw new Error(`이탈 곡선 수집 실패: ${r.failed[0]}`);
+    return r;
+  });
+
   // 모은 데이터를 다음 기획의 출발점 한 장으로 만든다(2026-11-12, knowledge/data-consumption-map.md).
   // 동기화·시청자 고민 분석이 끝난 뒤에 만들어야 오늘 데이터가 들어간다.
   await step('nextInput', async () => {

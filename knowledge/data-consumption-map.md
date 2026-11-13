@@ -25,7 +25,8 @@
 |---|---|---|---|---|
 | `catalog.json` | 대시보드 동기화(`/api/sync`) | `scripts/planning-outcome.mjs`, `scripts/growth-check.mjs`, `scripts/loop-health.mjs`, `scripts/competitor-lifecycle.mjs` | 자동 결정 | 공개 7일 성적 판정, 경쟁 채널 승격·차단의 원천. 충분히 쓰임 |
 | `views-7d.json` | `scripts/planning-outcome.mjs` | `scripts/planning-outcome.mjs` | 자동 결정 | 공개 첫 7일 조회수 판정. 충분히 쓰임 |
-| `baselines.json` | `scripts/baseline.mjs`(매일 루프 `baselines` 단계) | `scripts/next-episode-input.mjs` 9절 | 기획 입력(자동) | 형식·지표별 기준선(현재 최고)과 갱신 기준. 챔피언이 바뀌면 이전 챔피언은 history에 더해진다. 2026-11-13 신설 |
+| `baselines.json` | `scripts/baseline.mjs`(매일 루프 `baselines` 단계) | `scripts/next-episode-input.mjs` 9절 | 기획 입력(자동) | 형식·지표별 기준선(현재 최고)과 갱신 기준. 챔피언이 바뀌면 이전 챔피언은 history에 더해진다. 2026-11-13 신설 |
+| `retention/` | `scripts/retention-curves.mjs`(매일 루프 `retention` 단계) | `scripts/next-episode-input.mjs` 10절 | 기획 입력(자동) | 영상별 시청 유지 곡선(100개 지점)과 가장 큰 이탈 구간. 조회가 형식 중앙값 이상이고 공개 7일 넘은 영상만, 14일마다 다시 받는다. 2026-11-13 신설 |
 | `next-episode-input.md` | `scripts/next-episode-input.mjs`(매일 루프, `npm run next-input`) | `.claude/skills/episode-planning/references/01-topic-and-data.md`, `scripts/loop-health.mjs` | 기획 입력(자동) | 2026-11-12 신설. 아래 여러 데이터를 한 장으로 요약한 기획의 출발점. 기획 스킬 1단계가 가장 먼저 읽고, EP30부터 `BRIEF.md` 기획 근거의 `다음 기획 입력` 줄로 인용한다(의도 명세 시험·브리핑 점검이 강제) |
 | `analytics-latest.json` | 대시보드 동기화 | `scripts/next-episode-input.mjs`, `scripts/briefing-sync.mjs`, `scripts/growth-check.mjs`, `scripts/loop-health.mjs` | 기획 입력(자동) | 영상별 평균 시청 비율과 검색어가 다음 기획 입력 2·3절로 들어간다(2026-11-12). 트래픽 소스는 아직 브리핑에만 쓰인다 |
 | `video-reach-manual.json` | 스튜디오에서 내보낸 폴더 자동 읽기(`/api/studio-scan`) | `scripts/next-episode-input.mjs`, `scripts/growth-check.mjs`, `scripts/youtube-analytics-server.mjs` | 기획 입력(자동) | 유튜브 API가 주지 않는 노출수·클릭률의 유일한 원천. 이름에 "manual"이 붙어 있지만 스튜디오 내보내기 파일을 자동으로 읽은 것이다. 가장 최근 기간 클릭률이 다음 기획 입력 2절로 들어간다(2026-11-12) |

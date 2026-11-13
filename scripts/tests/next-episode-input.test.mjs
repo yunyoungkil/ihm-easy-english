@@ -161,3 +161,12 @@ test('기준선 절: baselines.json의 숫자를 그대로 적고, 파일이 없
   assert.ok(text.includes('기준선 2,619') && text.includes('갱신 기준 3,204.32') && text.includes('표본 51편(가설)'), text);
   assert.ok(text.includes('갱신 기준 없음'), '편차를 못 구하면 그렇게 쓴다');
 });
+
+test('이탈 지점 절: 가장 큰 이탈 구간을 초로 적고, 곡선이 없으면 수집 전이라고 밝힌다', async () => {
+  const {renderRetention} = await import('../next-episode-input.mjs');
+  assert.ok(renderRetention([]).join('\n').includes('이탈 곡선 수집 전'));
+  const curve = (title, fromSec) => ({title, format: 'SHORTS', durationSeconds: 40, drops: [{fromSec, toSec: fromSec + 0.4, drop: 0.06}], watchAt: {end: 0.5}});
+  const text = renderRetention([curve('A', 4), curve('B', 6), curve('C', 5)]).join('\n');
+  assert.ok(text.includes('중앙값: 5초 (3편)'), text);
+  assert.ok(text.includes('4~4.4초(6.0%p)') && text.includes('끝까지 50%'), text);
+});

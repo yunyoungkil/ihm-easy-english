@@ -343,3 +343,13 @@ test('3판 시트는 시험 변수 1~2개(무엇을·왜·어느 지표로)와 �
   assert.deepEqual(experimentProblems({schemaVersion: 1}), []);
   assert.ok(validateSheet({...good(), schemaVersion: 3}).some((x) => x.includes('시험 변수')), 'validateSheet가 3판 검사를 부른다');
 });
+
+test('시트 화면: 3판의 시험 변수와 용어 풀이를 보여 주고, 글자는 이스케이프한다', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const sheet = {...good(), schemaVersion: 3, testVariables: [{variable: '훅 유형 <질문형>', hypothesis: '쇼츠 상위 영상 가설', measure: '공개 7일 조회수'}], glossary: [{term: 'minimal pair', plain: '소리만 다른 짝단어'}]};
+  const html = renderTransformSheetPage(sheet, report, []);
+  assert.ok(html.includes('이번에 시험하는 변수') && html.includes('훅 유형 &lt;질문형&gt;') && html.includes('공개 7일 조회수'));
+  assert.ok(html.includes('용어 풀이') && html.includes('minimal pair') && html.includes('소리만 다른 짝단어'));
+  const plain = renderTransformSheetPage(good(), report, []);
+  assert.ok(!plain.includes('이번에 시험하는 변수') && !plain.includes('용어 풀이'), '1·2판 시트에는 이 칸이 안 나온다');
+});

@@ -11,6 +11,7 @@
 - [이번 달 작업 기록](logs/2026-11.md) — 2026년 11월 변경 이력 (10월: [logs/2026-10.md](logs/2026-10.md), 9월: [logs/2026-09.md](logs/2026-09.md))
 - [now.md 보관](logs/now-archive-2026-11-09.md) — 지금 할 일과 상관없는 옛 완료 기록(EP13~EP21 등, 2026-11-09에 옮김)
 - [옛 Remotion 파이프라인](legacy/remotion-pipeline.md) — EP6~EP10을 재렌더할 때만 읽는다(예전 CLAUDE.md 뒷부분)
+- [AGENTS.md 보관 (2026-11-13)](legacy/agents-archive-2026-11-13.md) — 대청소에서 줄이거나 뺀 규칙의 원문(아바타·ComfyUI 시절 규칙 등). 지금 규칙이 아니라 기록
 
 ## 운영
 
@@ -21,6 +22,7 @@
 - [제작 규칙](production-rules.md) — 대상 시청자, 쇼츠 화면, TTS와 검수 원칙
 - [HyperFrames 프롬프트 운영 기준](hyperframes-prompting.md) — 워크플로 선택 이후의 지시 구조, 디자인·모션·자막·검수 기준
 - [구글 AI(제미나이·Veo·Imagen) 프롬프트 작성 기준](google-ai-studio-prompting.md) — 영상/이미지 생성·데이터 분석 프롬프트를 구글 모델에 직접 쓸 때마다 참고. `aistudio.google.com/docs` 재조회 없이 바로 쓸 것
+- [무료 생성 도구: 워터마크와 우선순위](free-generation-tools.md) — AI Studio·Omni·Lyria·flowmusic 등 도구별 워터마크 유무와 시험 결과. 새 도구는 처음 쓸 때 이 표에 적는다
 - [썸네일 전략](thumbnail-strategy.md) — 판단 원칙과 에피소드별 선택 맥락
 - [레퍼런스 영상 비주얼 분석 기록](visual-reference-analysis.md) — `/watch` 스킬로 경쟁/레퍼런스
   영상을 분석해 뽑아낸 화면 구성·모션 기법 누적. 새 영상 만들기 전 참고 소재로 훑어볼 것

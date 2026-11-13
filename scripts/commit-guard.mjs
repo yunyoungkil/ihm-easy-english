@@ -79,7 +79,8 @@ export function findClaimWords(line) {
 
 /** 작업 기록·규칙 문서. 대본(SCRIPT.md 등)은 내용이라 뺀다. */
 export const isRecordFile = (path) => /^(AGENTS|CLAUDE)\.md$/.test(path)
-  || /^knowledge\/.+\.md$/.test(path)
+  // knowledge/legacy/는 옛 문서를 그대로 보관하는 곳이라 원문의 표현을 검사하지 않는다(2026-11-13)
+  || (/^knowledge\/.+\.md$/.test(path) && !/^knowledge\/legacy\//.test(path))
   || /^videos\/[^/]+\/(TASKS|REVIEW)\.md$/.test(path);
 
 // ---- 3) 커밋 메시지 -------------------------------------------------------------------

@@ -49,6 +49,7 @@ test('검사 대상 파일: 동작 코드만, 테스트와 가짜 데이터 파�
   assert.equal(isRecordFile('knowledge/logs/2026-11.md'), true);
   assert.equal(isRecordFile('videos/ep24-shorts-seat-sit/SCRIPT.md'), false); // 대본은 내용이라 뺀다
   assert.equal(isRecordFile('videos/ep23-double-consonant/REVIEW.md'), true);
+  assert.equal(isRecordFile('knowledge/legacy/agents-archive-2026-11-13.md'), false); // 보관 문서는 원문 그대로라 뺀다
 });
 
 test('근거 없는 완료 표현을 잡고, 백틱으로 인용한 말은 넘긴다', () => {

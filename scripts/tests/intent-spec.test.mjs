@@ -228,3 +228,8 @@ test('대시보드 카드의 주 버튼은 비교 시트이고, 경쟁 영상 �
   assert.match(server, /btn btn-sm btn-cyan" href="\/transform-sheets"[^>]*>📝 비교 시트 →/);
   assert.doesNotMatch(server, /href="\/outlier-reports"[^>]*>경쟁 영상 리포트 →/);
 });
+
+test('AGENTS.md는 75KB 이하로 유지한다 [2026-11-12 Antigravity가 101KB 중 77KB만 읽음, 2026-11-13 사용자: 토큰 최소]', () => {
+  const bytes = readFileSync(join(projectDir, 'AGENTS.md')).length;
+  assert.ok(bytes <= 75000, `AGENTS.md가 ${bytes}바이트다. 75,000을 넘으면 일부 도구에서 뒷부분이 잘리고 모든 대화의 토큰이 늘어난다. 옛 내용은 knowledge/legacy/agents-archive-*.md로 옮기고 새 규칙은 짧게 쓴다`);
+});

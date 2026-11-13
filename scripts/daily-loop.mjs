@@ -334,6 +334,12 @@ async function run() {
     return collectStudioMetrics({now: new Date()});
   });
 
+  // 영상별 공개 첫 7일 썸네일 노출수·클릭률(스튜디오 날짜 표, 2026-11-13). 새 영상부터 하루 일부씩 받고, 기준선(롱폼)과 비교 시트 정산이 쓴다.
+  await step('studioFirst7d', async () => {
+    const {collectStudioFirst7d} = await import('./studio-first7d.mjs');
+    return collectStudioFirst7d({now: new Date()});
+  });
+
   // 첫 7일 수치가 생긴 영상의 결과를 비교 시트에 더한다(2026-11-13, 근거 누적). 이 영상이 들어가기 전의 기준선으로 판정해야 해서 baselines 단계보다 먼저 돈다.
   await step('sheetOutcomes', async () => {
     const {runSettle} = await import('./sheet-outcomes.mjs');

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-13T11:00:28.858Z",
+  "computedAt": "2026-11-13T13:44:10.086Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -1002,6 +1002,12 @@
         ]
       },
       "reference": {
+        "firstWeekReach": {
+          "n": 51,
+          "medianImpressions": 60,
+          "pooledCtrPercent": 3.04,
+          "totalImpressions": 4079
+        },
         "subsPer1000Views": {
           "value": 1.7221913928701276,
           "totalSubs": 90,
@@ -1094,6 +1100,77 @@
           "promoteAbove": 1,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 46회로 100회 미만 — 참고용(가설)",
+          "excluded": [],
+          "confidence": "가설"
+        },
+        "impressions7d": {
+          "label": "공개 7일 썸네일 노출수",
+          "meaning": "유튜브가 얼마나 보여 줬는가(포장의 앞 단계). 스튜디오 값",
+          "unit": "회",
+          "n": 27,
+          "median": 44,
+          "upper": 89,
+          "spreadRatio": 2.022727272727273,
+          "promoteRule": "비율",
+          "champion": {
+            "videoId": "YoaCRYCWpws",
+            "title": "영어 발음, PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초배우기 EP8)",
+            "publishedAt": "2026-08-10T05:51:39Z",
+            "durationSeconds": 367,
+            "value": 443,
+            "views": 443,
+            "impressions": 443,
+            "clicks": 19
+          },
+          "promoteAbove": 896.0681818181819,
+          "lowSample": true,
+          "sampleNote": "표본 작음: 기준 영상의 첫 7일 노출이 443회로 1000회 미만 — 참고용(가설)",
+          "coverage": {
+            "have": 27,
+            "recorded": 27,
+            "eligible": 27
+          },
+          "catchingUp": false,
+          "catchingUpNote": null,
+          "excluded": [
+            {
+              "videoId": "4of_mgeLazQ",
+              "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
+              "value": 840,
+              "reason": "빈 조회 의심: 평균 시청 0초, 영상 길이의 0%"
+            }
+          ],
+          "confidence": "가설"
+        },
+        "ctr7d": {
+          "label": "공개 7일 썸네일 클릭률",
+          "meaning": "제목·썸네일이 눌러 보게 했는가(포장). 클릭 수 합 ÷ 노출 합. 스튜디오 값",
+          "unit": "%",
+          "n": 14,
+          "median": 4.29,
+          "upper": 5.17,
+          "spreadRatio": 1.205128205128205,
+          "promoteRule": "비율",
+          "champion": {
+            "videoId": "ROks87qezuU",
+            "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 6.43,
+            "views": 140,
+            "impressions": 140,
+            "clicks": 9
+          },
+          "promoteAbove": 7.748974358974358,
+          "lowSample": true,
+          "sampleNote": "표본 작음: 기준 영상의 첫 7일 노출이 140회로 1000회 미만 — 참고용(가설)",
+          "coverage": {
+            "have": 14,
+            "recorded": 27,
+            "eligible": 27
+          },
+          "catchingUp": false,
+          "catchingUpNote": null,
           "excluded": [],
           "confidence": "가설"
         }
@@ -1590,6 +1667,442 @@
             "publishedAt": "2026-06-30T21:00:38Z",
             "durationSeconds": 276,
             "value": 0
+          }
+        ],
+        "impressions7d": [
+          {
+            "videoId": "9d9m869BCTI",
+            "publishedAt": "2026-10-28T13:00:32Z",
+            "durationSeconds": 1085,
+            "value": 45,
+            "impressions": 45,
+            "clicks": 1
+          },
+          {
+            "videoId": "bPTAnjMT7xc",
+            "publishedAt": "2026-10-12T11:30:03Z",
+            "durationSeconds": 503,
+            "value": 58,
+            "impressions": 58,
+            "clicks": 3
+          },
+          {
+            "videoId": "EDjmQmvGA1o",
+            "publishedAt": "2026-10-02T14:00:08Z",
+            "durationSeconds": 507,
+            "value": 50,
+            "impressions": 50,
+            "clicks": 0
+          },
+          {
+            "videoId": "-UHrFcMRsEY",
+            "publishedAt": "2026-09-28T14:00:20Z",
+            "durationSeconds": 506,
+            "value": 12,
+            "impressions": 12,
+            "clicks": 0
+          },
+          {
+            "videoId": "4of_mgeLazQ",
+            "publishedAt": "2026-09-26T11:00:34Z",
+            "durationSeconds": 456,
+            "value": 840,
+            "impressions": 840,
+            "clicks": 0
+          },
+          {
+            "videoId": "ROks87qezuU",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 140,
+            "impressions": 140,
+            "clicks": 9
+          },
+          {
+            "videoId": "VwEkIUluszw",
+            "publishedAt": "2026-09-22T11:00:04Z",
+            "durationSeconds": 391,
+            "value": 39,
+            "impressions": 39,
+            "clicks": 1
+          },
+          {
+            "videoId": "MdLjt4zvg8g",
+            "publishedAt": "2026-09-20T11:00:18Z",
+            "durationSeconds": 406,
+            "value": 26,
+            "impressions": 26,
+            "clicks": 1
+          },
+          {
+            "videoId": "uqmVMRhT_1A",
+            "publishedAt": "2026-09-17T11:00:21Z",
+            "durationSeconds": 396,
+            "value": 19,
+            "impressions": 19,
+            "clicks": 1
+          },
+          {
+            "videoId": "beKA35yvxdk",
+            "publishedAt": "2026-09-14T11:00:34Z",
+            "durationSeconds": 429,
+            "value": 13,
+            "impressions": 13,
+            "clicks": 0
+          },
+          {
+            "videoId": "AcNSDMpkR_A",
+            "publishedAt": "2026-09-11T11:00:06Z",
+            "durationSeconds": 474,
+            "value": 14,
+            "impressions": 14,
+            "clicks": 0
+          },
+          {
+            "videoId": "W7toujk6ER8",
+            "publishedAt": "2026-09-08T11:00:27Z",
+            "durationSeconds": 215,
+            "value": 12,
+            "impressions": 12,
+            "clicks": 1
+          },
+          {
+            "videoId": "a2VrFQVjImI",
+            "publishedAt": "2026-09-05T11:00:29Z",
+            "durationSeconds": 195,
+            "value": 14,
+            "impressions": 14,
+            "clicks": 1
+          },
+          {
+            "videoId": "3PkSwrFIcRE",
+            "publishedAt": "2026-08-29T11:00:15Z",
+            "durationSeconds": 211,
+            "value": 5,
+            "impressions": 5,
+            "clicks": 0
+          },
+          {
+            "videoId": "sNNufVhkjT8",
+            "publishedAt": "2026-08-23T11:00:06Z",
+            "durationSeconds": 284,
+            "value": 14,
+            "impressions": 14,
+            "clicks": 0
+          },
+          {
+            "videoId": "YoaCRYCWpws",
+            "publishedAt": "2026-08-10T05:51:39Z",
+            "durationSeconds": 367,
+            "value": 443,
+            "impressions": 443,
+            "clicks": 19
+          },
+          {
+            "videoId": "tFe-cB__uns",
+            "publishedAt": "2026-08-09T10:16:00Z",
+            "durationSeconds": 407,
+            "value": 125,
+            "impressions": 125,
+            "clicks": 6
+          },
+          {
+            "videoId": "hu4GNC7peTY",
+            "publishedAt": "2026-08-04T13:29:49Z",
+            "durationSeconds": 411,
+            "value": 34,
+            "impressions": 34,
+            "clicks": 4
+          },
+          {
+            "videoId": "f4wkmIvplCc",
+            "publishedAt": "2026-07-29T13:27:19Z",
+            "durationSeconds": 438,
+            "value": 67,
+            "impressions": 67,
+            "clicks": 1
+          },
+          {
+            "videoId": "Ha_7wdnFNmo",
+            "publishedAt": "2026-07-26T13:08:11Z",
+            "durationSeconds": 481,
+            "value": 17,
+            "impressions": 17,
+            "clicks": 3
+          },
+          {
+            "videoId": "BLinHY3p4yc",
+            "publishedAt": "2026-07-22T13:47:18Z",
+            "durationSeconds": 281,
+            "value": 131,
+            "impressions": 131,
+            "clicks": 7
+          },
+          {
+            "videoId": "BsyRH8GWYJ4",
+            "publishedAt": "2026-07-19T13:15:18Z",
+            "durationSeconds": 420,
+            "value": 89,
+            "impressions": 89,
+            "clicks": 3
+          },
+          {
+            "videoId": "cu3EB5OJdMM",
+            "publishedAt": "2026-07-10T17:00:46Z",
+            "durationSeconds": 575,
+            "value": 47,
+            "impressions": 47,
+            "clicks": 3
+          },
+          {
+            "videoId": "-V1lwpEF7Ik",
+            "publishedAt": "2026-07-08T12:57:50Z",
+            "durationSeconds": 535,
+            "value": 44,
+            "impressions": 44,
+            "clicks": 1
+          },
+          {
+            "videoId": "jRoYudL30DE",
+            "publishedAt": "2026-07-06T14:29:18Z",
+            "durationSeconds": 435,
+            "value": 71,
+            "impressions": 71,
+            "clicks": 2
+          },
+          {
+            "videoId": "u2WOzu-0Hxc",
+            "publishedAt": "2026-07-02T21:00:05Z",
+            "durationSeconds": 351,
+            "value": 139,
+            "impressions": 139,
+            "clicks": 7
+          },
+          {
+            "videoId": "JOyI0DWGzEM",
+            "publishedAt": "2026-06-30T21:00:38Z",
+            "durationSeconds": 276,
+            "value": 15,
+            "impressions": 15,
+            "clicks": 2
+          }
+        ],
+        "ctr7d": [
+          {
+            "videoId": "9d9m869BCTI",
+            "publishedAt": "2026-10-28T13:00:32Z",
+            "durationSeconds": 1085,
+            "value": 2.22,
+            "impressions": 45,
+            "clicks": 1
+          },
+          {
+            "videoId": "bPTAnjMT7xc",
+            "publishedAt": "2026-10-12T11:30:03Z",
+            "durationSeconds": 503,
+            "value": 5.17,
+            "impressions": 58,
+            "clicks": 3
+          },
+          {
+            "videoId": "EDjmQmvGA1o",
+            "publishedAt": "2026-10-02T14:00:08Z",
+            "durationSeconds": 507,
+            "value": 0,
+            "impressions": 50,
+            "clicks": 0
+          },
+          {
+            "videoId": "-UHrFcMRsEY",
+            "publishedAt": "2026-09-28T14:00:20Z",
+            "durationSeconds": 506,
+            "value": 0,
+            "impressions": 12,
+            "clicks": 0
+          },
+          {
+            "videoId": "4of_mgeLazQ",
+            "publishedAt": "2026-09-26T11:00:34Z",
+            "durationSeconds": 456,
+            "value": 0,
+            "impressions": 840,
+            "clicks": 0
+          },
+          {
+            "videoId": "ROks87qezuU",
+            "publishedAt": "2026-09-24T11:00:13Z",
+            "durationSeconds": 415,
+            "value": 6.43,
+            "impressions": 140,
+            "clicks": 9
+          },
+          {
+            "videoId": "VwEkIUluszw",
+            "publishedAt": "2026-09-22T11:00:04Z",
+            "durationSeconds": 391,
+            "value": 2.56,
+            "impressions": 39,
+            "clicks": 1
+          },
+          {
+            "videoId": "MdLjt4zvg8g",
+            "publishedAt": "2026-09-20T11:00:18Z",
+            "durationSeconds": 406,
+            "value": 3.85,
+            "impressions": 26,
+            "clicks": 1
+          },
+          {
+            "videoId": "uqmVMRhT_1A",
+            "publishedAt": "2026-09-17T11:00:21Z",
+            "durationSeconds": 396,
+            "value": 5.26,
+            "impressions": 19,
+            "clicks": 1
+          },
+          {
+            "videoId": "beKA35yvxdk",
+            "publishedAt": "2026-09-14T11:00:34Z",
+            "durationSeconds": 429,
+            "value": 0,
+            "impressions": 13,
+            "clicks": 0
+          },
+          {
+            "videoId": "AcNSDMpkR_A",
+            "publishedAt": "2026-09-11T11:00:06Z",
+            "durationSeconds": 474,
+            "value": 0,
+            "impressions": 14,
+            "clicks": 0
+          },
+          {
+            "videoId": "W7toujk6ER8",
+            "publishedAt": "2026-09-08T11:00:27Z",
+            "durationSeconds": 215,
+            "value": 8.33,
+            "impressions": 12,
+            "clicks": 1
+          },
+          {
+            "videoId": "a2VrFQVjImI",
+            "publishedAt": "2026-09-05T11:00:29Z",
+            "durationSeconds": 195,
+            "value": 7.14,
+            "impressions": 14,
+            "clicks": 1
+          },
+          {
+            "videoId": "3PkSwrFIcRE",
+            "publishedAt": "2026-08-29T11:00:15Z",
+            "durationSeconds": 211,
+            "value": 0,
+            "impressions": 5,
+            "clicks": 0
+          },
+          {
+            "videoId": "sNNufVhkjT8",
+            "publishedAt": "2026-08-23T11:00:06Z",
+            "durationSeconds": 284,
+            "value": 0,
+            "impressions": 14,
+            "clicks": 0
+          },
+          {
+            "videoId": "YoaCRYCWpws",
+            "publishedAt": "2026-08-10T05:51:39Z",
+            "durationSeconds": 367,
+            "value": 4.29,
+            "impressions": 443,
+            "clicks": 19
+          },
+          {
+            "videoId": "tFe-cB__uns",
+            "publishedAt": "2026-08-09T10:16:00Z",
+            "durationSeconds": 407,
+            "value": 4.8,
+            "impressions": 125,
+            "clicks": 6
+          },
+          {
+            "videoId": "hu4GNC7peTY",
+            "publishedAt": "2026-08-04T13:29:49Z",
+            "durationSeconds": 411,
+            "value": 11.76,
+            "impressions": 34,
+            "clicks": 4
+          },
+          {
+            "videoId": "f4wkmIvplCc",
+            "publishedAt": "2026-07-29T13:27:19Z",
+            "durationSeconds": 438,
+            "value": 1.49,
+            "impressions": 67,
+            "clicks": 1
+          },
+          {
+            "videoId": "Ha_7wdnFNmo",
+            "publishedAt": "2026-07-26T13:08:11Z",
+            "durationSeconds": 481,
+            "value": 17.65,
+            "impressions": 17,
+            "clicks": 3
+          },
+          {
+            "videoId": "BLinHY3p4yc",
+            "publishedAt": "2026-07-22T13:47:18Z",
+            "durationSeconds": 281,
+            "value": 5.34,
+            "impressions": 131,
+            "clicks": 7
+          },
+          {
+            "videoId": "BsyRH8GWYJ4",
+            "publishedAt": "2026-07-19T13:15:18Z",
+            "durationSeconds": 420,
+            "value": 3.37,
+            "impressions": 89,
+            "clicks": 3
+          },
+          {
+            "videoId": "cu3EB5OJdMM",
+            "publishedAt": "2026-07-10T17:00:46Z",
+            "durationSeconds": 575,
+            "value": 6.38,
+            "impressions": 47,
+            "clicks": 3
+          },
+          {
+            "videoId": "-V1lwpEF7Ik",
+            "publishedAt": "2026-07-08T12:57:50Z",
+            "durationSeconds": 535,
+            "value": 2.27,
+            "impressions": 44,
+            "clicks": 1
+          },
+          {
+            "videoId": "jRoYudL30DE",
+            "publishedAt": "2026-07-06T14:29:18Z",
+            "durationSeconds": 435,
+            "value": 2.82,
+            "impressions": 71,
+            "clicks": 2
+          },
+          {
+            "videoId": "u2WOzu-0Hxc",
+            "publishedAt": "2026-07-02T21:00:05Z",
+            "durationSeconds": 351,
+            "value": 5.04,
+            "impressions": 139,
+            "clicks": 7
+          },
+          {
+            "videoId": "JOyI0DWGzEM",
+            "publishedAt": "2026-06-30T21:00:38Z",
+            "durationSeconds": 276,
+            "value": 13.33,
+            "impressions": 15,
+            "clicks": 2
           }
         ]
       },

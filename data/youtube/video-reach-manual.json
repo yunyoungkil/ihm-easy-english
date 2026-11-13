@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13T12:33:01.651Z",
+  "updatedAt": "2026-11-13T13:46:27.224Z",
   "videos": {
     "YoaCRYCWpws": {
       "videoId": "YoaCRYCWpws",
@@ -163,7 +163,7 @@
           "ctr": 4.04,
           "packageId": "youtube-YoaCRYCWpws",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -338,7 +338,7 @@
           "ctr": 1.85,
           "packageId": "youtube-BLinHY3p4yc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -513,7 +513,7 @@
           "ctr": 2.63,
           "packageId": "youtube-r2dDUxflF0Y",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -688,7 +688,7 @@
           "ctr": 3.57,
           "packageId": "youtube-wHoTmrRbf6k",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -863,7 +863,7 @@
           "ctr": 2.27,
           "packageId": "youtube--V1lwpEF7Ik",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1038,7 +1038,7 @@
           "ctr": 5,
           "packageId": "youtube-jRoYudL30DE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1213,7 +1213,7 @@
           "ctr": 4.11,
           "packageId": "youtube-BsyRH8GWYJ4",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1388,7 +1388,7 @@
           "ctr": 2.99,
           "packageId": "youtube-cu3EB5OJdMM",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1563,7 +1563,7 @@
           "ctr": 0,
           "packageId": "youtube-Ha_7wdnFNmo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1738,7 +1738,7 @@
           "ctr": 1.3,
           "packageId": "youtube-f4wkmIvplCc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2019,7 +2019,7 @@
           "ctr": 26.67,
           "packageId": "youtube-JOyI0DWGzEM",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2184,7 +2184,7 @@
           "ctr": 5,
           "packageId": "youtube-hu4GNC7peTY",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2349,7 +2349,7 @@
           "ctr": 3.23,
           "packageId": "youtube-u2WOzu-0Hxc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2514,7 +2514,7 @@
           "ctr": 6.45,
           "packageId": "youtube-qf38zv-SVNo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2679,7 +2679,7 @@
           "ctr": 10,
           "packageId": "youtube-xVXqGbOHpbM",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2844,7 +2844,7 @@
           "ctr": 3.33,
           "packageId": "youtube-pghOYvcjpIg",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3009,7 +3009,7 @@
           "ctr": 4,
           "packageId": "youtube-c7Mp5L8HSXE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3174,7 +3174,7 @@
           "ctr": 0,
           "packageId": "youtube-4EGKRM-m77w",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         }
       }
     },
@@ -3329,7 +3329,7 @@
           "ctr": 0,
           "packageId": "youtube-l8w3SlUnm3Y",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3494,7 +3494,7 @@
           "ctr": 0,
           "packageId": "youtube-GlOrcx3y1rE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3659,7 +3659,7 @@
           "ctr": 13.04,
           "packageId": "youtube-7GJ6Iiy_THk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3824,7 +3824,7 @@
           "ctr": 0,
           "packageId": "youtube-51fLblzetS0",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         }
       }
     },
@@ -3979,7 +3979,7 @@
           "ctr": 0,
           "packageId": "youtube-dwe9WPIHi5k",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4144,7 +4144,7 @@
           "ctr": 0,
           "packageId": "youtube-_TEGdCgLmYE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4309,7 +4309,7 @@
           "ctr": 9.68,
           "packageId": "youtube-r7QQlVQtA1Y",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4474,7 +4474,7 @@
           "ctr": 0,
           "packageId": "youtube-KpVpLURLtzo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4639,7 +4639,7 @@
           "ctr": 0,
           "packageId": "youtube-XrjSTAggQc8",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4804,7 +4804,7 @@
           "ctr": 3.64,
           "packageId": "youtube-k8T7chDCj3Q",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4969,7 +4969,7 @@
           "ctr": 0,
           "packageId": "youtube-6nANjHxy2Lc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5134,7 +5134,7 @@
           "ctr": 2.63,
           "packageId": "youtube-FwBboz1jenA",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5299,7 +5299,7 @@
           "ctr": 3.77,
           "packageId": "youtube-tFe-cB__uns",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5464,7 +5464,7 @@
           "ctr": 1.59,
           "packageId": "youtube-M9ru03p3QoE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5629,7 +5629,7 @@
           "ctr": 1.79,
           "packageId": "youtube-dijhGjxOQOw",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5794,7 +5794,7 @@
           "ctr": 0,
           "packageId": "youtube-yu9jZesTwYs",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5959,7 +5959,7 @@
           "ctr": 0,
           "packageId": "youtube-oZUhK2YKW8w",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6124,7 +6124,7 @@
           "ctr": 6.25,
           "packageId": "youtube-kfVJAJTmLpU",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6289,7 +6289,7 @@
           "ctr": 3.7,
           "packageId": "youtube-IfK4Itzgt6o",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6454,7 +6454,7 @@
           "ctr": 0,
           "packageId": "youtube-qb-vO3Qubec",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6619,7 +6619,7 @@
           "ctr": 3.08,
           "packageId": "youtube-h-UUbuWQuag",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6784,7 +6784,7 @@
           "ctr": 2.41,
           "packageId": "youtube-Si88xXt-EQc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6949,7 +6949,7 @@
           "ctr": 5.56,
           "packageId": "youtube-FK-JWJ_7vq4",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7114,7 +7114,7 @@
           "ctr": 5.32,
           "packageId": "youtube-7qSWJZqV14o",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7279,7 +7279,7 @@
           "ctr": 4.41,
           "packageId": "youtube-F-o7EmQL3zY",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7444,7 +7444,7 @@
           "ctr": 3.39,
           "packageId": "youtube-4LQ9epVVahA",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7609,7 +7609,7 @@
           "ctr": 8.91,
           "packageId": "youtube-5MiM1tIpQQk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7774,7 +7774,7 @@
           "ctr": 6.45,
           "packageId": "youtube-7LrJxl9Mzi0",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7939,7 +7939,7 @@
           "ctr": 8.33,
           "packageId": "youtube-Zh8_xYi_Gu0",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8104,7 +8104,7 @@
           "ctr": 5.88,
           "packageId": "youtube-hsqsL6vneCk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8269,7 +8269,7 @@
           "ctr": 6.25,
           "packageId": "youtube-1BslXwjEbOI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8434,7 +8434,7 @@
           "ctr": 6.82,
           "packageId": "youtube-ewv3GcXNLsE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8599,7 +8599,7 @@
           "ctr": 0,
           "packageId": "youtube-d7lre1PlsEo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8764,7 +8764,7 @@
           "ctr": 11.11,
           "packageId": "youtube-dqUv-iFpy2g",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8929,7 +8929,7 @@
           "ctr": 5.26,
           "packageId": "youtube-LgEmfyQ41NI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9094,7 +9094,7 @@
           "ctr": 6.67,
           "packageId": "youtube-l_9PYWiORjE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9259,7 +9259,7 @@
           "ctr": 4.35,
           "packageId": "youtube-a1d1lxLd68k",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9424,7 +9424,7 @@
           "ctr": 0,
           "packageId": "youtube-w0xvwLiOX1U",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9589,7 +9589,7 @@
           "ctr": 5,
           "packageId": "youtube-2lae1vhl53s",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9754,7 +9754,7 @@
           "ctr": 5.88,
           "packageId": "youtube-6ojF8F0dJ2E",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9919,7 +9919,7 @@
           "ctr": 0,
           "packageId": "youtube--oEAORG6oYE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         }
       }
     },
@@ -10074,7 +10074,7 @@
           "ctr": 4.55,
           "packageId": "youtube-2xir5cjFcsg",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10451,7 +10451,7 @@
           "ctr": 3.49,
           "packageId": "youtube-sNNufVhkjT8",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10616,7 +10616,7 @@
           "ctr": 0,
           "packageId": "youtube-1EtmmvExoLg",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10781,7 +10781,7 @@
           "ctr": 4,
           "packageId": "youtube-nVrCk8IZFGA",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10946,7 +10946,7 @@
           "ctr": 1.49,
           "packageId": "youtube-LdiZKCzKf0c",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11091,7 +11091,7 @@
           "ctr": 1.85,
           "packageId": "youtube-3PkSwrFIcRE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11196,7 +11196,7 @@
           "ctr": 3.64,
           "packageId": "youtube-a2VrFQVjImI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11291,7 +11291,7 @@
           "ctr": 3.17,
           "packageId": "youtube-W7toujk6ER8",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11376,7 +11376,7 @@
           "ctr": 3.85,
           "packageId": "youtube-beKA35yvxdk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11461,7 +11461,7 @@
           "ctr": 3.92,
           "packageId": "youtube-uqmVMRhT_1A",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11546,7 +11546,7 @@
           "ctr": 3.13,
           "packageId": "youtube-AcNSDMpkR_A",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11621,7 +11621,7 @@
           "ctr": 4.71,
           "packageId": "youtube-ROks87qezuU",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11696,7 +11696,7 @@
           "ctr": 5.62,
           "packageId": "youtube-MdLjt4zvg8g",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11771,7 +11771,7 @@
           "ctr": 4.23,
           "packageId": "youtube-VwEkIUluszw",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11846,7 +11846,7 @@
           "ctr": 0.11,
           "packageId": "youtube-4of_mgeLazQ",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11911,7 +11911,7 @@
           "ctr": 1.61,
           "packageId": "youtube--UHrFcMRsEY",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11956,7 +11956,7 @@
           "ctr": 4.1,
           "packageId": "youtube-bPTAnjMT7xc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12001,7 +12001,7 @@
           "ctr": 1.62,
           "packageId": "youtube-EDjmQmvGA1o",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12046,7 +12046,7 @@
           "ctr": 0.93,
           "packageId": "youtube-9d9m869BCTI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12081,7 +12081,7 @@
           "ctr": 1.51,
           "packageId": "youtube---Ajwp-UvIk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12116,7 +12116,7 @@
           "ctr": 5.88,
           "packageId": "youtube-oMrCtSBbibc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         }
       }
     },
@@ -12131,7 +12131,7 @@
           "ctr": 0.76,
           "packageId": "youtube-8Ul_lkCkUCI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-13T12:30:56.204Z"
+          "fetchedAt": "2026-11-13T13:46:27.224Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",

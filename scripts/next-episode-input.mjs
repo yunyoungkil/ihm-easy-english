@@ -14,7 +14,7 @@ import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
 import {loadReports as loadOutlierReports} from './outlier-report.mjs';
 import {loadSheets} from './transform-sheet.mjs';
-import {quantile, RECENT_COUNT, usualBands} from './baseline.mjs';
+import {METRICS, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
 import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
 
@@ -289,7 +289,7 @@ export function renderNextEpisodeInput(input) {
 export function renderBaselines(baselines, variableGroups = []) {
   const out = ['## 9. 기준선 (현재 최고 기록)', ''];
   if (!baselines?.formats) return [...out, '기준선 계산 전(`node scripts/baseline.mjs`).', ''];
-  out.push('우리 채널에는 "성공"이라는 말을 쓰지 않는다. 판정은 두 단계다. **1단계 "좋은 점 후보"**: 같은 형식에서 비슷한 길이 최근 10편의 중앙값(평소)의 1.5배 이상이면 그 영상의 좋은 점을 가져와 다음 영상에 더한다(자주 일어남). **2단계 "기준선 갱신"**: 지표별 현재 최고가 기준선이고, 새 영상이 갱신 기준(우리 편차만큼 위)을 넘으면 기준선이 올라간다(가끔 일어남). 근거 표본이 작으면 가설이고, 표본이 작아도 기준선을 비우지 않고 "표본 작음"을 붙인다. 조회수는 제목·썸네일·소재(포장), 평균 시청 시간은 훅·화면·대본(내용, 영상이 길수록 유리), 구독 수는 채널의 가치를 본다. 모두 공개 첫 7일 값이다.', '');
+  out.push('우리 채널에는 "성공"이라는 말을 쓰지 않는다. 판정은 두 단계다. **1단계 "좋은 점 후보"**: 같은 형식에서 비슷한 길이 최근 10편의 중앙값(평소)의 1.5배 이상이면 그 영상의 좋은 점을 가져와 다음 영상에 더한다(자주 일어남). **2단계 "기준선 갱신"**: 지표별 현재 최고가 기준선이고, 새 영상이 갱신 기준(우리 편차만큼 위)을 넘으면 기준선이 올라간다(가끔 일어남). 근거 표본이 작으면 가설이고, 표본이 작아도 기준선을 비우지 않고 "표본 작음"을 붙인다. 조회수는 제목·썸네일·소재(포장), 평균 시청 시간은 훅·화면·대본(내용, 영상이 길수록 유리), 구독 수는 채널의 가치를 본다. 모두 공개 첫 7일 값이다. 롱폼에는 공개 첫 7일 썸네일 노출수·클릭률(스튜디오 값, 클릭률 = 클릭 수 합 ÷ 노출 합)도 포장 지표로 더했다. 클릭률은 노출이 적으면 클릭 한 번에 크게 흔들려서, 평소를 최근 10편의 합산 클릭률로 잡고 클릭 한 번을 운으로 빼고도 1.5배여야 좋은 점 후보로 본다(판정마다 "클릭 1번 = N%p"를 함께 적는다). 쇼츠는 조회의 대부분이 피드에서 넘기다 본 것이라 썸네일 클릭률이 포장을 설명하지 못해 기준선이 아니라 참고로만 보여 준다.', '');
   const names = {SHORTS: '쇼츠', LONGFORM: '롱폼'};
   const num = (n) => Number(Number(n).toFixed(2)).toLocaleString('ko-KR');
   for (const [format, name] of Object.entries(names)) {
@@ -304,12 +304,14 @@ export function renderBaselines(baselines, variableGroups = []) {
       const bandText = (u) => (u ? `${num(u.value)}${unit}${u.lengthAdjusted ? '' : '(길이 보정 없음)'}` : '측정 전');
       const recent = (entry.recent?.[key] || []).slice(0, RECENT_COUNT).map((r) => r.value);
       let usual = '';
-      if (bands && (bands.low || bands.high)) usual = ` · 평소(최근 ${RECENT_COUNT}편 중앙값) 짧은 영상(${num(bands.mid)}초 미만) ${bandText(bands.low)} · 긴 영상 ${bandText(bands.high)}`;
+      if (bands && (bands.low || bands.high)) usual = ` · 평소(최근 ${RECENT_COUNT}편 ${key === 'ctr7d' ? '합산 클릭률' : '중앙값'}) 짧은 영상(${num(bands.mid)}초 미만) ${bandText(bands.low)} · 긴 영상 ${bandText(bands.high)}`;
+      else if (key === 'ctr7d') { const u = usualFor({format, metric: key}, baselines); if (u) usual = ` · 평소(최근 ${u.n}편 합산 클릭률) ${num(u.value)}${unit}`; }
       else if (recent.length) usual = ` · 평소(최근 ${recent.length}편 중앙값) ${num(quantile(recent, 0.5))}${unit}`; // allow-literal: 분위수의 정의(중앙값)
-      const notes = [m.sampleNote, ...(m.excluded || []).map((x) => `기준선 후보에서 뺌: 「${cut(x.title, 24)}」 ${num(x.value)}${unit}(${x.reason})`)].filter(Boolean);
+      const notes = [m.sampleNote, m.catchingUpNote, ...(m.excluded || []).map((x) => `기준선 후보에서 뺌: 「${cut(x.title, 24)}」 ${num(x.value)}${unit}(${x.reason})`)].filter(Boolean);
       out.push(`- ${name} ${m.label}(${m.meaning}): 기준선 ${num(m.champion.value)}${unit}${len} · ${bar} · 중앙값 ${num(m.median)}${unit}${usual} · 표본 ${m.n}편(${m.confidence}) · 「${cut(m.champion.title, 40)}」${notes.length ? ` ※ ${notes.join(' / ')}` : ''}`);
     }
     const ref = entry.reference;
+    if (ref?.firstWeekReach) out.push(`- ${name} 첫 7일 노출·클릭률 참고(기준선 아님, 스튜디오 값): ${ref.firstWeekReach.n}편, 노출 중앙값 ${num(ref.firstWeekReach.medianImpressions)}회, 합산 클릭률 ${ref.firstWeekReach.pooledCtrPercent == null ? '측정 전' : `${num(ref.firstWeekReach.pooledCtrPercent)}%`}`);
     if (ref?.subsPer1000Views?.value != null) {
       const ratio = ref.watchRatio?.median == null ? '측정 전' : `${Math.round(ref.watchRatio.median * 100)}%`; // allow-literal: 비율을 %로
       const mins = ref.totalWatchMinutes?.median == null ? '측정 전' : `${num(ref.totalWatchMinutes.median)}분`;
@@ -318,7 +320,10 @@ export function renderBaselines(baselines, variableGroups = []) {
   }
   if (variableGroups.length) {
     out.push('', '같은 시험 변수를 쓴 영상 묶음(건수만 센다, 확정은 단계를 거친다):');
-    for (const g of variableGroups) out.push(`- ${names[g.format] || g.format} · ${g.variable}: ${g.videoCount}편 중 좋은 점 후보 ${g.goodCount}편, 평소의 절반 미만 ${g.lowCount}편`);
+    for (const g of variableGroups) {
+      const byMetric = Object.entries(g.goodByMetric || {}).map(([k, n]) => `${METRICS[k]?.label || k} ${n}편`).join(', ');
+      out.push(`- ${names[g.format] || g.format} · ${g.variable}: ${g.videoCount}편 중 좋은 점 후보 ${g.goodCount}편${byMetric ? `(지표별: ${byMetric})` : ''}, 평소의 절반 미만 ${g.lowCount}편`);
+    }
   }
   out.push('');
   return out;

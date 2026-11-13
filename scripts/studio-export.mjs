@@ -29,11 +29,10 @@ const DAY_MS = 86400000; // allow-literal: 하루(ms)
 
 /** 받을 기간. key는 스튜디오 주소의 time_period 값. */
 export const STUDIO_PERIODS = Object.freeze([
-  {key: 'week', label: '지난 7일'},
   {key: '4_weeks', label: '지난 28일'},
   {key: 'quarter', label: '지난 90일'},
-  {key: 'lifetime', label: '전체'},
 ]);
+// 7일(week)과 전체(lifetime)는 2026-11-13에 뺐다: 읽는 곳이 없고, 달력 기준 "지난 7일"은 영상마다 공개일 기준인 첫 7일 판정과 무관하다(첫 7일은 studio-first7d.mjs).
 /** 노출수·CTR을 video-reach-manual.json에 덮어쓸 기간과 그 키. 기존 진단이 쓰던 구간(약 90일)을 그대로 이어 간다. */
 export const REACH_PERIOD = 'quarter';
 export const ROLLING_REACH_KEY = 'studio-auto-quarter';
@@ -63,7 +62,7 @@ export function periodFromZipName(name) {
 
 /** 스튜디오가 붙인 파일 이름이 예상한 모양인지(경로 조각이 섞이지 않았는지) 확인한다. */
 export function isStudioZipName(name) {
-  return /^콘텐츠 \d{4}-\d{2}-\d{2}_\d{4}-\d{2}-\d{2} [^\\/]+\.zip$/.test(String(name || ''));
+  return /^(콘텐츠|날짜) \d{4}-\d{2}-\d{2}_\d{4}-\d{2}-\d{2} [^\\/]+\.zip$/.test(String(name || ''));
 }
 
 /** zip 이름의 종료일은 "마지막 날의 다음 날"이다(화면은 ~11. 12.인데 이름은 11-13). 화면과 API(마지막 날 포함)에 맞춘 마지막 날. */
@@ -113,7 +112,7 @@ export function parseCsv(text) {
 
 const isBlank = (s) => s === '' || s === '—' || s === '-';
 // 빈칸·"—"는 null(없음). 그 밖에 숫자로 못 읽는 값(예: "1.63%")은 조용히 null로 바꾸지 않고 던진다 — 표기가 바뀌면 값이 전부 사라진 채 쌓인다.
-const numberOrNull = (v, label) => {
+export const numberOrNull = (v, label) => {
   const s = String(v ?? '').trim();
   if (isBlank(s)) return null;
   const n = Number(s.replace(/,/g, ''));
@@ -209,7 +208,7 @@ function readJsonOr(path, fallback) {
 }
 
 /** 두 실행(매일 루프와 손으로 실행)이 같은 크롬을 동시에 움직이지 않게 잠근다. */
-function acquireLock() {
+export function acquireLock() {
   try {
     if (existsSync(lockPath) && Date.now() - statSync(lockPath).mtimeMs > LOCK_STALE_MS) unlinkSync(lockPath);
     closeSync(openSync(lockPath, 'wx'));
@@ -220,8 +219,8 @@ function acquireLock() {
   return () => { try { unlinkSync(lockPath); } catch {} };
 }
 
-async function downloadPeriod(page, period, workDir) {
-  await page.goto(buildStudioExploreUrl({period}), {waitUntil: 'domcontentloaded'});
+export async function downloadStudioCsv(page, url, workDir) {
+  await page.goto(url, {waitUntil: 'domcontentloaded'});
   if (page.url().includes('accounts.google.com')) {
     const err = new Error('Studio-Automation 크롬의 구글 로그인이 풀림(로그인 화면으로 이동됨)');
     err.loginNeeded = true;
@@ -240,6 +239,8 @@ async function downloadPeriod(page, period, workDir) {
   await withTimeout(download.saveAs(zipPath), DOWNLOAD_TIMEOUT_MS, '파일 저장');
   return {zipPath, name};
 }
+
+const downloadPeriod = (page, period, workDir) => downloadStudioCsv(page, buildStudioExploreUrl({period}), workDir);
 
 /**
  * 기간별로 영상별 표를 받아 저장한다. 읽기 전용(스튜디오 값을 바꾸지 않는다).
@@ -287,6 +288,7 @@ export async function collectStudioMetrics({periods = STUDIO_PERIODS, now = new 
     const saved = readJsonOr(studioMetricsPath, {schemaVersion: 1, periods: {}});
     saved.periods ||= {};
     Object.assign(saved.periods, tables);
+    for (const key of Object.keys(saved.periods)) if (!STUDIO_PERIODS.some((p) => p.key === key)) delete saved.periods[key]; // 더 받지 않는 기간(week·lifetime)의 옛 값이 새 값처럼 남지 않게
     saved.schemaVersion = 1;
     saved.channelId = OUR_CHANNEL_ID;
     saved.fetchedAt = now.toISOString();

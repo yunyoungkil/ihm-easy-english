@@ -260,7 +260,7 @@ const briefingLines = (check, briefing) => {
     lines.push(
       loopHealth.ok
         ? `- 자동 루프: 정상 (마지막 자동 실행 ${kstLabel(loopHealth.lastLoopAt)}) — 짧게 한 줄로 쓴다`
-        : `- 자동 루프 고장 ${loopHealth.problems.length}개: ${loopHealth.problems.map((p) => p.text).join(' / ')} — 브리핑에 그대로 쓰고, 브리핑 직후 Claude가 묻지 않고 원인을 찾아 고친 뒤 결과를 알린다(렌더·썸네일·업로드 승인과 사용자 결정이 필요한 것만 묻는다). 코드: scripts/loop-health.mjs`,
+        : `- 자동 루프 고장 ${loopHealth.problems.length}개: ${loopHealth.problems.map((p) => p.text).join(' / ')} — 브리핑에 그대로 쓰고, 브리핑 직후 Claude가 묻지 않고 원인을 찾아 고친 뒤 결과를 알린다(비교 시트·렌더·업로드 승인과 사용자 결정이 필요한 것만 묻는다). 코드: scripts/loop-health.mjs`,
     );
   }
   if (comments) {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-13T13:44:10.086Z",
+  "computedAt": "2026-11-13T14:15:21.298Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -1120,11 +1120,14 @@
             "value": 443,
             "views": 443,
             "impressions": 443,
-            "clicks": 19
+            "clicks": 19,
+            "abTest": null
           },
           "promoteAbove": 896.0681818181819,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 노출이 443회로 1000회 미만 — 참고용(가설)",
+          "abTestedCount": 16,
+          "mixedNote": null,
           "coverage": {
             "have": 27,
             "recorded": 27,
@@ -1159,11 +1162,14 @@
             "value": 6.43,
             "views": 140,
             "impressions": 140,
-            "clicks": 9
+            "clicks": 9,
+            "abTest": "completed"
           },
           "promoteAbove": 7.748974358974358,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 노출이 140회로 1000회 미만 — 참고용(가설)",
+          "abTestedCount": 8,
+          "mixedNote": "기준 영상에 제목·썸네일 A/B 테스트가 걸려 있어 시안이 섞인 값(어느 제목·썸네일 덕인지 가릴 수 없다)",
           "coverage": {
             "have": 14,
             "recorded": 27,

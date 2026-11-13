@@ -340,6 +340,12 @@ async function run() {
     return collectStudioFirst7d({now: new Date()});
   });
 
+  // 스튜디오 콘텐츠 목록의 "A/B 테스트 실행 중/완료됨" 표시(2026-11-13). 테스트를 건 영상의 첫 7일 클릭률은 시안이 섞인 값이라 기준선·시트 근거에 표시한다.
+  await step('studioAbTests', async () => {
+    const {collectAbTests} = await import('./studio-ab-tests.mjs');
+    return collectAbTests({now: new Date()});
+  });
+
   // 첫 7일 수치가 생긴 영상의 결과를 비교 시트에 더한다(2026-11-13, 근거 누적). 이 영상이 들어가기 전의 기준선으로 판정해야 해서 baselines 단계보다 먼저 돈다.
   await step('sheetOutcomes', async () => {
     const {runSettle} = await import('./sheet-outcomes.mjs');

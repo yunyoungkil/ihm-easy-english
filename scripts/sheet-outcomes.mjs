@@ -55,7 +55,7 @@ export function studioWaitState({format, studio, failure, publishedAt, now = new
  * video: {publishedAt, durationSeconds}. 있어야 "평소"(이 영상보다 먼저 나온 비슷한 길이 최근 10편 중앙값)를 만들 수 있다.
  * 2026-11-13 사용자 결정: 이김·짐은 평소 대비(result)로 읽고, 기준선 판정은 옆 칸(baselineResult)에 따로 적는다.
  */
-export function settleSheet({sheet, videoId, format, metrics, baselines, video = {}, details = {}, studioNote = null, now = new Date()}) {
+export function settleSheet({sheet, videoId, format, metrics, baselines, video = {}, details = {}, studioNote = null, abTest = null, now = new Date()}) {
   if (!sheet?.sourceVideoId || !videoId || !metrics) return {sheet, changed: false};
   if ((sheet.results || []).some((r) => r.videoId === videoId)) return {sheet, changed: false};
   const judged = judgeVideoMetrics({format, metrics, video: {videoId, ...video}, details}, baselines);
@@ -67,13 +67,15 @@ export function settleSheet({sheet, videoId, format, metrics, baselines, video =
   // 노출·클릭률 지표의 표본은 조회가 아니라 노출이다(조회 100회 기준을 노출에 잘못 쓰지 않는다).
   const sampleOf = (metric) => (METRICS[metric]?.studio === true ? {count: metrics.impressions7d ?? null, min: METRICS[metric].sample.min} : {count: views, min: MIN_VIEWS_7D});
   const lowFor = (metric) => { const s = sampleOf(metric); return s.count !== null && s.count < s.min; };
-  const results = [...(sheet.results || []), {videoId, settledAt: now.toISOString(), format, summary: judged.summary, flags: judged.flags || [], studioNote, variables, views7d: views, lowSample, usualRule: USUAL_RULE, metrics: judged.per}];
+  // 제목·썸네일 A/B 테스트가 걸린 영상의 노출수·클릭률은 여러 시안이 섞인 값이다. 근거 기록에 표시해 읽는 사람이 한 시안의 근거로 쓰지 않게 한다.
+  const flags = [...(judged.flags || []), ...(abTest && metrics.ctr7d !== undefined ? ['A/B 테스트가 걸린 영상: 노출수·클릭률은 시안이 섞인 값(어느 제목·썸네일 덕인지 가릴 수 없다)'] : [])];
+  const results = [...(sheet.results || []), {videoId, settledAt: now.toISOString(), format, summary: judged.summary, flags, studioNote, abTest, variables, views7d: views, lowSample, usualRule: USUAL_RULE, metrics: judged.per}];
   const borrowed = (sheet.borrowed || []).map((b) => ({
     ...b,
     evidenceLog: [
       ...(b.evidenceLog || []),
       ...Object.entries(judged.per).map(([metric, p]) => ({
-        date, videoId, metric, value: p.value, views: sampleOf(metric).count, lowSample: lowFor(metric), result: p.usualStatus, usual: p.usual?.value ?? null, usualN: p.usual?.n ?? null, lengthAdjusted: p.usual?.lengthAdjusted ?? null, usualNote: p.usualNote,
+        date, videoId, metric, value: p.value, views: sampleOf(metric).count, lowSample: lowFor(metric), ...(METRICS[metric]?.studio === true ? {abTest} : {}), result: p.usualStatus, usual: p.usual?.value ?? null, usualN: p.usual?.n ?? null, lengthAdjusted: p.usual?.lengthAdjusted ?? null, usualNote: p.usualNote,
         baselineResult: p.status, baseline: p.baseline, promoteAbove: p.promoteAbove, variables,
       })),
     ],
@@ -97,7 +99,7 @@ function baselinesBefore({video, videoId, catalog, views7d, lifetime, studio, st
 }
 
 /** outcomes: loadEpisodeOutcomes 결과. 시트를 가리키는 편 중 첫 7일 수치가 있는 것만 기록한다. catalog: 공개일·영상 길이를 찾는 카탈로그 영상 목록. */
-export function settleAll({outcomes, sheets, lifetime, baselines, catalog = [], views7d = null, studio = {}, studioFailures = {}, now = new Date()}) {
+export function settleAll({outcomes, sheets, lifetime, baselines, catalog = [], views7d = null, studio = {}, studioFailures = {}, abTests = {}, now = new Date()}) {
   const byId = new Map(sheets.map((s) => [s.sourceVideoId, s]));
   const catalogById = new Map(catalog.map((v) => [v.videoId, v]));
   const updated = [];
@@ -111,7 +113,7 @@ export function settleAll({outcomes, sheets, lifetime, baselines, catalog = [], 
     const waiting = studioWaitState({format: o.format, studio: studio?.[o.videoId], failure: studioFailures?.[o.videoId], publishedAt: video.publishedAt, now});
     if (waiting.wait) continue;
     const before = baselinesBefore({video, videoId: o.videoId, catalog, views7d, lifetime, studio, studioFailures, baselines, now});
-    const r = settleSheet({sheet: byId.get(sheetId), videoId: o.videoId, format: o.format, metrics, baselines: before, video, details: detailsFromStudio(studio?.[o.videoId]), studioNote: waiting.note, now});
+    const r = settleSheet({sheet: byId.get(sheetId), videoId: o.videoId, format: o.format, metrics, baselines: before, video, details: detailsFromStudio(studio?.[o.videoId]), studioNote: waiting.note, abTest: abTests?.[o.videoId]?.state ?? null, now});
     if (r.changed) { byId.set(sheetId, r.sheet); updated.push(r.sheet); }
   }
   return {updated: [...new Map(updated.map((s) => [s.sourceVideoId, byId.get(s.sourceVideoId)])).values()], settled: updated.length};
@@ -155,7 +157,8 @@ export function runSettle({now = new Date(), dir = sheetsDir} = {}) {
   const catalog = readJson(join(dataDir, 'catalog.json'), {videos: []}).videos;
   const views7d = readJson(join(dataDir, 'views-7d.json'), {videos: {}}).videos;
   const first7d = readJson(join(dataDir, 'studio-first7d.json'), {videos: {}, failures: {}});
-  const {updated, settled} = settleAll({outcomes, sheets: loadSheets(dir), lifetime, baselines, catalog, views7d, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, now});
+  const abTests = readJson(join(dataDir, 'studio-ab-tests.json'), {videos: {}}).videos || {};
+  const {updated, settled} = settleAll({outcomes, sheets: loadSheets(dir), lifetime, baselines, catalog, views7d, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, abTests, now});
   for (const s of updated) writeFileSync(join(dir, `${s.sourceVideoId}.json`), `${JSON.stringify(s, null, 2)}\n`);
   return {settled, sheets: updated.map((s) => s.sourceVideoId)};
 }

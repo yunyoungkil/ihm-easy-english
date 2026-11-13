@@ -307,7 +307,7 @@ export function renderBaselines(baselines, variableGroups = []) {
       if (bands && (bands.low || bands.high)) usual = ` · 평소(최근 ${RECENT_COUNT}편 ${key === 'ctr7d' ? '합산 클릭률' : '중앙값'}) 짧은 영상(${num(bands.mid)}초 미만) ${bandText(bands.low)} · 긴 영상 ${bandText(bands.high)}`;
       else if (key === 'ctr7d') { const u = usualFor({format, metric: key}, baselines); if (u) usual = ` · 평소(최근 ${u.n}편 합산 클릭률) ${num(u.value)}${unit}`; }
       else if (recent.length) usual = ` · 평소(최근 ${recent.length}편 중앙값) ${num(quantile(recent, 0.5))}${unit}`; // allow-literal: 분위수의 정의(중앙값)
-      const notes = [m.sampleNote, m.catchingUpNote, ...(m.excluded || []).map((x) => `기준선 후보에서 뺌: 「${cut(x.title, 24)}」 ${num(x.value)}${unit}(${x.reason})`)].filter(Boolean);
+      const notes = [m.sampleNote, m.catchingUpNote, m.mixedNote, m.abTestedCount ? `A/B 테스트가 걸린 영상 ${m.abTestedCount}/${m.n}편(클릭률·노출수는 시안이 섞인 값)` : null, ...(m.excluded || []).map((x) => `기준선 후보에서 뺌: 「${cut(x.title, 24)}」 ${num(x.value)}${unit}(${x.reason})`)].filter(Boolean);
       out.push(`- ${name} ${m.label}(${m.meaning}): 기준선 ${num(m.champion.value)}${unit}${len} · ${bar} · 중앙값 ${num(m.median)}${unit}${usual} · 표본 ${m.n}편(${m.confidence}) · 「${cut(m.champion.title, 40)}」${notes.length ? ` ※ ${notes.join(' / ')}` : ''}`);
     }
     const ref = entry.reference;

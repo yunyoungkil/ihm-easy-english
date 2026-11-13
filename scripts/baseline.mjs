@@ -62,7 +62,7 @@ export function quantile(values, p) {
 const num = (x) => (x === null || x === undefined || x === '' || !Number.isFinite(Number(x)) ? null : Number(x));
 
 /** unfiltered: 평균 시청 시간의 조회 문턱(챔피언 후보용)을 적용하지 않은 전체 행. 평소는 이쪽으로 만든다(판정받는 영상은 문턱 없이 비교되므로). */
-function metricRows(format, metric, {catalog, views7d, lifetime, studio}, {unfiltered = false} = {}) {
+function metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests}, {unfiltered = false} = {}) {
   const videos = catalog.filter((v) => v.format === format);
   const rows = [];
   // views: 이 값이 몇 번의 관찰(조회 또는 노출)에서 나왔는지(표본이 작은지 알려 주려고 같이 담는다). extra: 클릭률 판정에 쓰는 노출·클릭 수.
@@ -70,12 +70,13 @@ function metricRows(format, metric, {catalog, views7d, lifetime, studio}, {unfil
   if (metric === 'impressions7d' || metric === 'ctr7d') {
     // 스튜디오 첫 7일 값: 창이 API와 맞고 빠진 날이 없는 기록(usable)만 쓴다. 빈칸을 0으로 채우지 않는다.
     const usable = videos.map((v) => ({v, s: studio?.[v.videoId]})).filter((x) => x.s?.usable === true && num(x.s.impressions) !== null);
-    const extraOf = (s) => ({impressions: num(s.impressions), clicks: num(s.clicks)});
-    if (metric === 'impressions7d') { for (const {v, s} of usable) push(v, num(s.impressions), s.impressions, extraOf(s)); return rows; }
+    // abTest: 이 영상에 제목·썸네일 A/B 테스트가 걸렸는지(running/completed). 걸렸으면 첫 7일 노출·클릭률은 여러 시안이 섞인 값이다.
+    const extraOf = (s, v) => ({impressions: num(s.impressions), clicks: num(s.clicks), abTest: abTests?.[v.videoId]?.state ?? null});
+    if (metric === 'impressions7d') { for (const {v, s} of usable) push(v, num(s.impressions), s.impressions, extraOf(s, v)); return rows; }
     // 클릭률은 첫 7일 노출이 형식 중앙값 이상인 영상만 기준선 후보로 본다(노출 3회·클릭 1회 = 33%가 기준선이 되는 것을 막는다). 조회수 쪽 평균 시청 시간과 같은 방식.
     const withCtr = usable.filter((x) => num(x.s.ctrPercent) !== null);
     const floor = quantile(withCtr.map((x) => Number(x.s.impressions)), QUANTILE_MEDIAN);
-    for (const {v, s} of withCtr) if (unfiltered || Number(s.impressions) >= floor) push(v, num(s.ctrPercent), s.impressions, extraOf(s));
+    for (const {v, s} of withCtr) if (unfiltered || Number(s.impressions) >= floor) push(v, num(s.ctrPercent), s.impressions, extraOf(s, v));
     return rows;
   }
   if (metric === 'views7d') {
@@ -146,7 +147,7 @@ function referenceBlock(format, {catalog, lifetime, studio}) {
 }
 
 /** previous는 이전 baselines.json. 챔피언이 바뀌면 이전 챔피언을 history에 더한다(지우지 않는다). */
-export function computeBaselines({catalog, views7d, lifetime, studio = {}, studioFailures = {}, previous = null, now = new Date()}) {
+export function computeBaselines({catalog, views7d, lifetime, studio = {}, studioFailures = {}, abTests = {}, previous = null, now = new Date()}) {
   const out = {schemaVersion: 2, computedAt: now.toISOString(), formats: {}, history: [...(previous?.history || [])]};
   for (const format of FORMATS) {
     // 길이 중앙값은 7일 조회 수치가 있는 영상으로만 구한다(비공개·예약 영상은 비교 대상이 아니다).
@@ -156,12 +157,12 @@ export function computeBaselines({catalog, views7d, lifetime, studio = {}, studi
     const entry = {metrics: {}, lengthMedianSeconds: lengthMedian, recent: {}, reference: referenceBlock(format, {catalog, lifetime, studio})};
     const emptyView = emptyViewReport(format, {catalog, lifetime});
     for (const metric of FORMAT_METRICS[format]) {
-      const rows = metricRows(format, metric, {catalog, views7d, lifetime, studio});
+      const rows = metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests});
       const values = rows.map((r) => r.value);
       const byDate = (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt);
       // 클릭률 판정은 노출·클릭 수가 필요해서 스튜디오 지표 행에는 함께 남긴다.
       const slim = (r) => ({videoId: r.videoId, publishedAt: r.publishedAt, durationSeconds: r.durationSeconds, value: r.value, ...(r.impressions !== undefined ? {impressions: r.impressions, clicks: r.clicks} : {})});
-      const everyRow = metricRows(format, metric, {catalog, views7d, lifetime, studio}, {unfiltered: true}).sort(byDate);
+      const everyRow = metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests}, {unfiltered: true}).sort(byDate);
       const isHigh = (r) => Number(r.durationSeconds) >= lengthMedian; // usualFor와 같은 길이대 나누기
       entry.recent[metric] = (lengthMedian === null
         ? everyRow.slice(0, RECENT_STORE)
@@ -209,6 +210,8 @@ export function computeBaselines({catalog, views7d, lifetime, studio = {}, studi
         // 표본이 작아도 기준선을 비우지 않는다(사용자 목적: 기준이 있어야 비교와 학습이 돈다). 대신 "참고용"이라고 표시한다.
         lowSample,
         sampleNote: lowSample ? `표본 작음: 기준 영상의 첫 7일 ${sample.unit}${sample.unit === '노출' ? '이' : '가'} ${champion.views}회로 ${sample.min}회 미만 — 참고용(가설)` : null,
+        // 제목·썸네일 A/B 테스트가 걸린 영상은 첫 7일 노출·클릭률이 여러 시안이 섞인 값이다(스튜디오 테스트 보고서는 시안별 클릭률을 주지 않는다). 후보에서 빼지 않고 표시만 한다.
+        ...(isStudio ? {abTestedCount: rows.filter((r) => r.abTest).length, mixedNote: champion?.abTest ? '기준 영상에 제목·썸네일 A/B 테스트가 걸려 있어 시안이 섞인 값(어느 제목·썸네일 덕인지 가릴 수 없다)' : null} : {}),
         ...(isStudio ? {coverage: {have: rows.length, recorded, eligible}, catchingUp, catchingUpNote: catchingUp ? `스튜디오 값을 아직 ${recorded}편만 받음(대상 ${eligible}편) — 다 받을 때까지 기준선 이력을 쓰지 않는다` : null} : {}),
         excluded,
         confidence: '가설', // 갱신 뒤 같은 요소를 쓴 다음 영상이 중앙값 이상일 때까지 확정하지 않는다
@@ -327,7 +330,8 @@ export function buildFromDisk({now = new Date(), write = true} = {}) {
   const lifetime = readJson(join(dataDir, 'video-lifetime.json'), {videos: {}}).videos;
   const previous = readJson(baselinesPath, null);
   const first7d = readJson(join(dataDir, 'studio-first7d.json'), {videos: {}, failures: {}});
-  const result = computeBaselines({catalog, views7d, lifetime, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, previous, now});
+  const abTests = readJson(join(dataDir, 'studio-ab-tests.json'), {videos: {}}).videos || {};
+  const result = computeBaselines({catalog, views7d, lifetime, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, abTests, previous, now});
   if (write) writeFileSync(baselinesPath, `${JSON.stringify(result, null, 2)}\n`);
   return result;
 }

@@ -132,11 +132,15 @@ const os = require('os');
 const path = require('path');
 const { execSync } = require('child_process');
 const home = os.homedir();
-const reqPlugins = ['chrome-devtools-plugin', 'coderabbit', 'context7'];
 const pluginsDir = path.join(home, '.gemini/config/plugins');
-const missPlugins = reqPlugins.filter(p => !fs.existsSync(path.join(pluginsDir, p)));
+const hasChromeDevtools = fs.existsSync(path.join(pluginsDir, 'chrome-devtools-plugin')) || fs.existsSync(path.join(home, '.cache/chrome-devtools-mcp'));
+const missPlugins = ['coderabbit', 'context7'].filter(p => !fs.existsSync(path.join(pluginsDir, p)));
+if (!hasChromeDevtools) missPlugins.push('chrome-devtools-plugin');
 const mcpCfgPath = path.join(home, '.gemini/config/mcp_config.json');
-const hasGeminiMcp = fs.existsSync(mcpCfgPath) && Boolean(JSON.parse(fs.readFileSync(mcpCfgPath, 'utf8')).mcpServers?.gemini);
+let hasGeminiMcp = false;
+try {
+  hasGeminiMcp = Boolean(JSON.parse(fs.readFileSync(mcpCfgPath, 'utf8')).mcpServers?.gemini);
+} catch {}
 const geminiSkillsCount = fs.existsSync(path.join(home, '.gemini/config/skills')) ? fs.readdirSync(path.join(home, '.gemini/config/skills')).length : 0;
 const agentsSkillsCount = fs.existsSync(path.join(home, '.agents/skills')) ? fs.readdirSync(path.join(home, '.agents/skills')).length : 0;
 let hooksPath = '';

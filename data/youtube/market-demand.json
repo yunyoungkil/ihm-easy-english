@@ -985,7 +985,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
+      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
     },
     {
       "keyword": "영어발음",
@@ -997,7 +997,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
+      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
     },
     {
       "keyword": "영어 발음",
@@ -1009,7 +1009,7 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
+      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
     },
     {
       "keyword": "발음 테스트",
@@ -1021,19 +1021,19 @@
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
+      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
     },
     {
       "keyword": "영어미드",
       "source": "d7_search_terms",
-      "searchViews": 2,
+      "searchViews": 4,
       "marketDemandScore": null,
       "opportunityScore": null,
       "totalResults": null,
       "videoCount": 0,
       "analyzedAt": "2026-11-11T09:28:19.631Z",
       "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-11T14:02:11.330Z"
+      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
     }
   ],
   "trackedChannels": [
@@ -1226,7 +1226,7 @@
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
       "consecutiveFailures": 0,
       "blockedUntil": null,
-      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
+      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
       "exhaustion": {
         "totalOutliers": 5,
         "coveredCount": 3,
@@ -1487,7 +1487,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
+      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1750,7 +1750,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
+      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1947,7 +1947,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
+      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2144,7 +2144,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
+      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2341,7 +2341,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-11T14:02:11.330Z",
+      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2352,7 +2352,7 @@
       }
     }
   ],
-  "lifecycleSyncedAt": "2026-11-11T14:02:11.330Z",
+  "lifecycleSyncedAt": "2026-11-13T02:55:47.523Z",
   "d7ProcessedVideoIds": [],
   "episodeOutcomes": [
     {
@@ -2444,7 +2444,7 @@
       "verdict": "hold",
       "ratio": 13.1,
       "reason": "7일 조회 46회 — 100회 미만이라 운과 실력을 가릴 수 없음",
-      "views": 173,
+      "views": 175,
       "views7d": 46,
       "baselineViews7d": 3.5,
       "competitors": [],
@@ -2565,16 +2565,16 @@
     }
   ],
   "d7AutonomousCycle": {
-    "lastRunAt": "2026-11-11T14:02:11.330Z",
+    "lastRunAt": "2026-11-13T02:55:47.523Z",
     "applied": [],
     "holdCount": 13,
     "promotedChannels": [],
     "discoveredKeywords": [
       "영단어",
+      "영어미드",
       "영어발음",
       "영어 발음",
-      "발음 테스트",
-      "영어미드"
+      "발음 테스트"
     ],
     "status": "completed"
   }

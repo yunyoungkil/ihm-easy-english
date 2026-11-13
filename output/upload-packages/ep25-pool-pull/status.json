@@ -1,9 +1,9 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "scheduledFor": "2026-11-12T14:00:00Z",
   "recommendedPublishAt": "2026-10-09T10:00:00Z",
   "seoFilename": "English_Pronunciation_Pool_vs_Pull_Minimal_Pairs_Listening_Drill.mp4",
-  "lastSyncedAt": "2026-11-11T14:09:50.813Z",
+  "lastSyncedAt": "2026-11-13T02:52:57.580Z",
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "12d68a944566bc234bb3e3eb78009b85014778139aae16479bec52849f4ea95d",
@@ -11,5 +11,7 @@
   },
   "pinnedCommentPending": true,
   "videoId": "8Ul_lkCkUCI",
-  "uploadedAt": "2026-11-07T13:16:49.468Z"
+  "uploadedAt": "2026-11-07T13:16:49.468Z",
+  "publishedAt": "2026-11-12T14:00:25Z",
+  "publishedAtSource": "youtube"
 }

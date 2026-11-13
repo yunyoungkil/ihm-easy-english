@@ -281,6 +281,7 @@ export function renderNextEpisodeInput(input) {
   } else out.push('비교 시트 없음.', '');
   out.push(...renderBaselines(input.baselines, input.variableGroups || []));
   out.push(...renderRetention(input.retention));
+  out.push(...renderStudioMetrics(input.studio, input.titles));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -318,6 +319,29 @@ export function renderBaselines(baselines, variableGroups = []) {
   if (variableGroups.length) {
     out.push('', '같은 시험 변수를 쓴 영상 묶음(건수만 센다, 확정은 단계를 거친다):');
     for (const g of variableGroups) out.push(`- ${names[g.format] || g.format} · ${g.variable}: ${g.videoCount}편 중 좋은 점 후보 ${g.goodCount}편, 평소의 절반 미만 ${g.lowCount}편`);
+  }
+  out.push('');
+  return out;
+}
+
+/** 스튜디오 고급 모드 영상별 표(지난 28일)에서 신규·재방문 시청자와 쇼츠 계속 시청함을 보여 준다. 값은 표 그대로이고 계산은 비율뿐이다. */
+export function renderStudioMetrics(studio, titles = {}) {
+  const out = ['## 11. 스튜디오 실측 (신규·재방문 시청자, 쇼츠 계속 시청함)', ''];
+  const p = studio?.periods?.['4_weeks'];
+  if (!p?.total) return [...out, '스튜디오 표 수집 전(`npm run studio-export`, 매일 루프 studioExport 단계). 값이 없으면 판단하지 않는다.', ''];
+  const t = p.total;
+  out.push(`스튜디오 고급 모드 영상별 표(${p.startDate}~${p.endDate}, 받은 때 ${day(p.fetchedAt)})의 값 그대로다. 계산한 것은 비율뿐이다. 항목 이름은 스튜디오 화면 그대로 쓴다.`);
+  const sum = (t.newViewers ?? 0) + (t.returningViewers ?? 0);
+  if (t.newViewers != null && t.returningViewers != null && sum > 0) {
+    out.push(`- 시청자: 신규 ${t.newViewers}명, 재방문 ${t.returningViewers}명 (신규 비율 ${((t.newViewers / sum) * 100).toFixed(1)}%)`);
+  }
+  const rows = Object.entries(p.videos || {})
+    .filter(([, v]) => v.stayedToWatchPercent != null)
+    .sort((a, b) => (b[1].views ?? 0) - (a[1].views ?? 0)); // 조회가 많은 순: 조회 1~6회짜리가 100%로 맨 위에 오는 노이즈를 막는다
+  if (!rows.length) return [...out, '- 계속 시청함 값이 있는 영상이 없다(쇼츠가 이 기간에 없거나 노출이 적다).', ''];
+  out.push(`- 계속 시청함(쇼츠에만 값이 있다) 전체 ${t.stayedToWatchPercent ?? '측정 전'}%. 조회가 많은 순으로 보여 준다(조회가 적은 영상은 비율이 크게 흔들린다).`);
+  for (const [id, v] of rows.slice(0, 10)) { // allow-literal: 화면에 보여 줄 최대 편수
+    out.push(`  - 「${cut(titles[id] || id, 30)}」 계속 시청함 ${v.stayedToWatchPercent}% (조회 ${show(v.views)}, 길이 ${show(v.durationSec, '초')})`);
   }
   out.push('');
   return out;
@@ -387,6 +411,8 @@ export function buildFromProject(projectDir, now = new Date()) {
     baselines: readJson(join(dataDir, 'baselines.json'), null),
     variableGroups: groupResultsByVariable(loadSheets()),
     retention: readRetention(join(dataDir, 'retention')),
+    studio: readJson(join(dataDir, 'studio-metrics.json'), null),
+    titles,
     transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };
 }

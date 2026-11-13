@@ -327,6 +327,13 @@ async function run() {
     return r;
   });
 
+  // 유튜브 스튜디오 고급 모드의 영상별 표(노출수·클릭률·신규/재방문 시청자·계속 시청함)를 7일·28일·전체로 받는다(2026-11-13). API에 없는 값이다.
+  // Studio-Automation 크롬(채널 소유 계정 로그인)이 필요하다. 로그인이 풀리면 이 단계가 실패해 자동 루프 점검이 알려 준다.
+  await step('studioExport', async () => {
+    const {collectStudioMetrics} = await import('./studio-export.mjs');
+    return collectStudioMetrics({now: new Date()});
+  });
+
   // 첫 7일 수치가 생긴 영상의 결과를 비교 시트에 더한다(2026-11-13, 근거 누적). 이 영상이 들어가기 전의 기준선으로 판정해야 해서 baselines 단계보다 먼저 돈다.
   await step('sheetOutcomes', async () => {
     const {runSettle} = await import('./sheet-outcomes.mjs');

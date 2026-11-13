@@ -193,3 +193,24 @@ test('리뷰 D: 기준선 절의 평소는 판정에 쓰는 것처럼 짧은 쪽
   const text = renderBaselines({formats: {SHORTS: {metrics: {views7d: metric}, lengthMedianSeconds: 60, recent: {views7d: rows}}}}).join('\n');
   assert.ok(text.includes('평소(최근 10편 중앙값) 짧은 영상(60초 미만) 100회 · 긴 영상 1,000회'), text);
 });
+
+// 값은 2026-11-13 스튜디오 고급 모드 표(지난 28일)에서 실제로 받은 것(합계 신규 76, 재방문 6, 쇼츠 한 편의 계속 시청함 37.28%).
+test('스튜디오 실측 절: 신규 비율과 쇼츠 계속 시청함을 표 값 그대로 보여 준다', async () => {
+  const {renderStudioMetrics} = await import('../next-episode-input.mjs');
+  const studio = {periods: {'4_weeks': {startDate: '2026-10-16', endDate: '2026-11-13', fetchedAt: '2026-11-13T12:00:00.000Z',
+    total: {newViewers: 76, returningViewers: 6, stayedToWatchPercent: 38.88},
+    videos: {oMrCtSBbibc: {stayedToWatchPercent: 37.28, views: 678, durationSec: 45}, ROks87qezuU: {stayedToWatchPercent: null, views: 106, durationSec: 415}}}}};
+  const text = renderStudioMetrics(studio, {oMrCtSBbibc: '양일까 배일까? sheep과 ship'}).join('\n');
+  assert.ok(text.includes('신규 76명, 재방문 6명 (신규 비율 92.7%)'));
+  assert.ok(text.includes('계속 시청함 37.28% (조회 678, 길이 45초)'));
+  const order = renderStudioMetrics({periods: {'4_weeks': {startDate: 'a', endDate: 'b', fetchedAt: null, total: {}, videos: {few: {stayedToWatchPercent: 100, views: 2}, many: {stayedToWatchPercent: 37.28, views: 678}}}}}).join('\n');
+  assert.ok(order.indexOf('many') < order.indexOf('few'), '조회가 많은 영상이 먼저 나온다');
+  assert.ok(!text.includes('ROks87qezuU'), '값이 없는 롱폼은 목록에 넣지 않는다');
+});
+
+test('스튜디오 실측 절: 수집 전이면 판단하지 않는다고 쓰고 숫자를 지어내지 않는다', async () => {
+  const {renderStudioMetrics} = await import('../next-episode-input.mjs');
+  const text = renderStudioMetrics(null).join('\n');
+  assert.ok(text.includes('수집 전'));
+  assert.ok(!/\d+%/.test(text));
+});

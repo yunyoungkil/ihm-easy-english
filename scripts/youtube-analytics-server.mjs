@@ -2477,6 +2477,9 @@ let gDemandFilter = (function() {
 let gSelectedDemandKeyword = (function() {
   try { return localStorage.getItem('ihm_demand_selected_keyword') || ''; } catch (_) { return ''; }
 })();
+let gSelectedDemandChannel = (function() {
+  try { return localStorage.getItem('ihm_demand_selected_channel') || ''; } catch (_) { return ''; }
+})();
 let gCurrentTab = (function() {
   try { return localStorage.getItem('ihm_active_tab') || 'tab-overview'; } catch (_) { return 'tab-overview'; }
 })();
@@ -3350,6 +3353,55 @@ function renderMarketDemandTab() {
 
   html += '</div></div>';
 
+  // 터진 영상 한 줄(키워드 상세와 채널 상세가 같이 쓴다, 2026-11-14). 손으로 제외하는 버튼은 없앴다(자동화 우선 원칙).
+  const outlierCardHtml = (o) => {
+      const thumb = o.thumbnail || (o.videoId ? 'https://i.ytimg.com/vi/' + o.videoId + '/mqdefault.jpg' : '');
+      const watchUrl = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
+      const ratioText = o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '';
+
+      // 채널 상태 찾기
+      const matchedCh = trackedChannels.find(c => c.channelTitle === o.channelTitle || c.channelId === o.channelId);
+      let chBadge = '';
+      if (matchedCh) {
+        if (matchedCh.status === 'gold_mine') chBadge = '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px">🏆 황금광산</span>';
+        else if (matchedCh.status === 'candidate') chBadge = '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-size:10px;padding:1px 6px">🌱 후보</span>';
+      }
+
+      return '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:10px;padding:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:10px">' +
+        '<div style="display:flex;gap:12px;align-items:flex-start">' +
+          (thumb ? (watchUrl ?
+            '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" title="유튜브에서 영상 보기"><img class="thumb-mini" style="cursor:pointer;width:120px;height:68px;border-radius:6px;object-fit:cover" src="' + esc(thumb) + '" alt=""></a>' :
+            '<img class="thumb-mini" style="width:120px;height:68px;border-radius:6px;object-fit:cover" src="' + esc(thumb) + '" alt="">') : '') +
+          '<div style="flex:1;min-width:0">' +
+            (watchUrl ?
+              '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" style="text-decoration:none"><div style="font-weight:800;font-size:13px;color:var(--text-bright);line-height:1.4;margin-bottom:4px">▶ ' + esc(o.title) + '</div></a>' :
+              '<div style="font-weight:800;font-size:13px;color:var(--text-bright);line-height:1.4;margin-bottom:4px">' + esc(o.title) + '</div>') +
+            '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--text-muted)">' +
+              '<span style="font-weight:700;color:var(--text-normal)">' + esc(o.channelTitle || o.channel) + '</span>' +
+              chBadge +
+              '<span>·</span>' +
+              '<span style="color:var(--accent-amber);font-weight:700">' + ratioText + '</span>' +
+              '<span>·</span>' +
+              '<span>조회수 ' + fmt.format(o.viewCount || (o.viewsPerDay ? o.viewsPerDay * (o.ageDays||1) : 0)) + '회</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        // 액션 버튼 바
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05)">' +
+          // 2026-11-12: 손으로 누르는 "댓글/대본 분석" 버튼을 없앴다. 분석은 매일 루프가 한다(합친 리포트 하루 2편, 배수 큰 순).
+          (o.outlierReport ?
+            ((o.outlierReport.frame ? '<a href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" title="화면 연출 캡처"><img src="' + esc(o.outlierReport.frame) + '" alt="" style="height:44px;border-radius:4px;border:1px solid var(--border-subtle);display:block"></a>' : '') +
+             '<a class="btn btn-sm btn-cyan" href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" style="font-size:11px;padding:5px 10px">📊 리포트 보기 (화면 변화 ' + (o.outlierReport.visualChanges || 0) + ')</a>') :
+            '<span style="font-size:11px;color:var(--text-muted)">⏳ 자동 분석 대기 — 매일 2편, 배수 큰 순</span>') +
+          (o.commentReportFile ?
+            '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.commentReportFile) + '">📄 예전 댓글 리포트</button>' : '') +
+          (o.scriptReportFile ?
+            '<button class="btn btn-sm btn-outlier-view-script" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.scriptReportFile) + '">📄 예전 대본 리포트</button>' : '') +
+        '</div>' +
+      '</div>';
+  };
+
   // 우측 Detail: 선택된 키워드 연계 채널 & 대표 아웃라이어
   html += '<div class="bento-card col-8" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">';
 
@@ -3388,54 +3440,7 @@ function renderMarketDemandTab() {
           : '아직 아웃라이어가 분석되지 않았습니다.<br>매일 루프에서 자동으로 순차 분석될 예정입니다.') +
       '</div>';
     } else {
-      outliers.forEach((o) => {
-        const thumb = o.thumbnail || (o.videoId ? 'https://i.ytimg.com/vi/' + o.videoId + '/mqdefault.jpg' : '');
-        const watchUrl = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
-        const ratioText = o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '';
-
-        // 채널 상태 찾기
-        const matchedCh = trackedChannels.find(c => c.channelTitle === o.channelTitle || c.channelId === o.channelId);
-        let chBadge = '';
-        if (matchedCh) {
-          if (matchedCh.status === 'gold_mine') chBadge = '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px">🏆 황금광산</span>';
-          else if (matchedCh.status === 'candidate') chBadge = '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-size:10px;padding:1px 6px">🌱 후보</span>';
-        }
-
-        html += '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:10px;padding:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:10px">' +
-          '<div style="display:flex;gap:12px;align-items:flex-start">' +
-            (thumb ? (watchUrl ?
-              '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" title="유튜브에서 영상 보기"><img class="thumb-mini" style="cursor:pointer;width:120px;height:68px;border-radius:6px;object-fit:cover" src="' + esc(thumb) + '" alt=""></a>' :
-              '<img class="thumb-mini" style="width:120px;height:68px;border-radius:6px;object-fit:cover" src="' + esc(thumb) + '" alt="">') : '') +
-            '<div style="flex:1;min-width:0">' +
-              (watchUrl ?
-                '<a href="' + esc(watchUrl) + '" target="_blank" rel="noopener" style="text-decoration:none"><div style="font-weight:800;font-size:13px;color:var(--text-bright);line-height:1.4;margin-bottom:4px">▶ ' + esc(o.title) + '</div></a>' :
-                '<div style="font-weight:800;font-size:13px;color:var(--text-bright);line-height:1.4;margin-bottom:4px">' + esc(o.title) + '</div>') +
-              '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--text-muted)">' +
-                '<span style="font-weight:700;color:var(--text-normal)">' + esc(o.channelTitle || o.channel) + '</span>' +
-                chBadge +
-                '<span>·</span>' +
-                '<span style="color:var(--accent-amber);font-weight:700">' + ratioText + '</span>' +
-                '<span>·</span>' +
-                '<span>조회수 ' + fmt.format(o.viewCount || (o.viewsPerDay ? o.viewsPerDay * (o.ageDays||1) : 0)) + '회</span>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-
-          // 액션 버튼 바
-          '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05)">' +
-            // 2026-11-12: 손으로 누르는 "댓글/대본 분석" 버튼을 없앴다. 분석은 매일 루프가 한다(합친 리포트 하루 2편, 배수 큰 순).
-            (o.outlierReport ?
-              ((o.outlierReport.frame ? '<a href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" title="화면 연출 캡처"><img src="' + esc(o.outlierReport.frame) + '" alt="" style="height:44px;border-radius:4px;border:1px solid var(--border-subtle);display:block"></a>' : '') +
-               '<a class="btn btn-sm btn-cyan" href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" style="font-size:11px;padding:5px 10px">📊 리포트 보기 (화면 변화 ' + (o.outlierReport.visualChanges || 0) + ')</a>') :
-              '<span style="font-size:11px;color:var(--text-muted)">⏳ 자동 분석 대기 — 매일 2편, 배수 큰 순</span>') +
-            (o.commentReportFile ?
-              '<button class="btn btn-sm btn-outlier-view-comment" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.commentReportFile) + '">📄 예전 댓글 리포트</button>' : '') +
-            (o.scriptReportFile ?
-              '<button class="btn btn-sm btn-outlier-view-script" style="background:#132032;color:#7dd3fc;border:1px solid #234361;font-size:11px;padding:5px 10px" data-file="' + esc(o.scriptReportFile) + '">📄 예전 대본 리포트</button>' : '') +
-            '<button class="btn btn-sm btn-outlier-delete-video" data-keyword="' + esc(selectedKwObj.keyword) + '" data-vid="' + esc(o.videoId) + '" title="제외" style="color:#ff5577;border-color:#ff5577;padding:5px 8px;margin-left:auto;font-size:11px">🗑️</button>' +
-          '</div>' +
-        '</div>';
-      });
+      outliers.forEach((o) => { html += outlierCardHtml(o); });
     }
 
     html += '</div>';
@@ -3446,13 +3451,30 @@ function renderMarketDemandTab() {
   html += '</div>';
 
   // ==========================================
-  // [BOTTOM SECTION] 전체 추적 경쟁 채널 관제 센터
+  // [BOTTOM SECTION] 추적 경쟁 채널 — 키워드와 같은 "목록 + 상세" 구조 (2026-11-14)
+  // 좌측: 채널 목록(상태 필터), 우측: 선택한 채널의 터진 영상 전부. 영상 한 줄은 키워드 쪽과 같은 outlierCardHtml.
+  // 손으로 누르는 재분석·추적 제거 버튼은 없앴다(발굴·판정·차단·졸업은 시스템이 한다, 자동화 우선 원칙).
   // ==========================================
-  html += '<div class="bento-card col-12" style="margin-top:10px;background:#090e18;border:1px solid var(--border-subtle);padding:18px 20px">' +
-    '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">' +
+  const chBadgeStyle = {
+    gold_mine: ['rgba(245,158,11,0.2)', '#fbbf24', '#f59e0b', '🏆 황금 광산'],
+    candidate: ['rgba(6,182,212,0.15)', '#38bdf8', '#06b6d4', '🌱 발굴 후보'],
+    blocked: ['rgba(239,68,68,0.2)', '#f87171', '#ef4444', '🚫 자동 차단'],
+    graduated: ['rgba(168,85,247,0.2)', '#c084fc', '#a855f7', '🎓 명예 졸업'],
+  };
+  const chStatusBadge = (status) => {
+    const s = chBadgeStyle[status] || chBadgeStyle.candidate;
+    return '<span class="tag-chip" style="background:' + s[0] + ';color:' + s[1] + ';border:1px solid ' + s[2] + ';font-size:10px;padding:2px 8px;font-weight:700;white-space:nowrap">' + s[3] + '</span>';
+  };
+  if (!gSelectedDemandChannel || !filteredChannels.some(c => c.channelId === gSelectedDemandChannel)) {
+    gSelectedDemandChannel = filteredChannels.length > 0 ? filteredChannels[0].channelId : '';
+  }
+  const selectedCh = filteredChannels.find(c => c.channelId === gSelectedDemandChannel) || null;
+
+  html += '<div class="bento-card col-12" style="margin-top:10px;background:#090e18;border:1px solid var(--border-subtle);padding:14px 20px">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">' +
       '<div>' +
-        '<span style="font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--text-bright)">🏢 추적 경쟁 채널 상세 현황</span>' +
-        '<div class="card-subtext" style="margin-top:2px">우리 영상 성과에 연동되어 자율 순환 중인 채널들입니다</div>' +
+        '<span style="font-family:var(--font-display);font-size:17px;font-weight:800;color:var(--text-bright)">🏢 추적 경쟁 채널</span>' +
+        '<div class="card-subtext" style="margin-top:2px">우리 영상 성과에 연동되어 자율 순환 중인 채널들입니다. 클릭 시 우측에 그 채널의 터진 영상이 나옵니다</div>' +
       '</div>' +
       '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
         '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'ALL' ? 'btn-cyan' : '') + '" data-status="ALL">전체 (' + trackedChannels.length + ')</button>' +
@@ -3461,77 +3483,65 @@ function renderMarketDemandTab() {
         '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'graduated' ? 'btn-cyan' : '') + '" data-status="graduated">🎓 명예 졸업 (' + graduated.length + ')</button>' +
         '<button class="btn btn-sm btn-demand-filter ' + (gDemandFilter === 'blocked' ? 'btn-cyan' : '') + '" data-status="blocked">🚫 자동 차단 (' + blocked.length + ')</button>' +
       '</div>' +
-    '</div>';
+    '</div>' +
+  '</div>';
 
-  if (filteredChannels.length > 0) {
-    html += '<div class="bento-grid" style="padding:0">' +
+  if (filteredChannels.length === 0) {
+    html += '<div class="bento-card col-12" style="background:#090e18;border:1px solid var(--border-subtle);padding:20px;text-align:center;color:var(--text-muted)">해당 상태의 채널이 없습니다.</div>';
+  } else {
+    html += '<div class="bento-card col-4" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">' +
+      '<div class="demand-kw-scroll" style="display:flex;flex-direction:column;gap:8px;max-height:640px;overflow-y:auto;padding-right:4px">' +
       filteredChannels.map((c) => {
+        const isSel = c.channelId === gSelectedDemandChannel;
         const subLabel = c.subscriberCount != null ? fmt.format(c.subscriberCount) + '명' : '비공개';
-        const sizeWarning = (c.subscriberCount != null && c.subscriberCount > 100000)
-          ? '<div class="card-subtext" style="color:var(--accent-amber);margin-top:2px">⚠️ 체급 큼 — 패턴 참고용</div>' : '';
-        const status = c.status || 'candidate';
-        let statusBadge = '<span class="tag-chip" style="background:rgba(6,182,212,0.15);color:#38bdf8;border:1px solid #06b6d4;font-size:10px;padding:2px 8px;font-weight:700">🌱 발굴 후보</span>';
-        if (status === 'gold_mine') {
-          statusBadge = '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:2px 8px;font-weight:700">🏆 황금 광산</span>';
-        } else if (status === 'blocked') {
-          statusBadge = '<span class="tag-chip" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid #ef4444;font-size:10px;padding:2px 8px;font-weight:700">🚫 자동 차단</span>';
-        } else if (status === 'graduated') {
-          statusBadge = '<span class="tag-chip" style="background:rgba(168,85,247,0.2);color:#c084fc;border:1px solid #a855f7;font-size:10px;padding:2px 8px;font-weight:700">🎓 명예 졸업</span>';
-        }
-        const exhaustionRate = c.exhaustion ? Math.round((c.exhaustion.exhaustionRate || 0) * 100) : 0;
-        const uncoveredCount = c.exhaustion ? c.exhaustion.uncoveredCount : 0;
-        const reasonText = c.statusReason
-          ? '<div style="font-size:11px;color:var(--accent-cyan);background:rgba(6,182,212,0.06);border-left:2px solid var(--accent-cyan);padding:4px 8px;border-radius:4px;margin-top:6px">💡 ' + esc(c.statusReason) + '</div>'
-          : '';
-
-        return '<div class="bento-card col-4" style="background:#05070c;border:1px solid ' + (status === 'gold_mine' ? 'rgba(245,158,11,0.3)' : (status === 'blocked' ? 'rgba(239,68,68,0.3)' : (status === 'graduated' ? 'rgba(168,85,247,0.3)' : 'var(--border-subtle)'))) + '">' +
-          '<div class="card-header" style="display:flex;justify-content:space-between;align-items:flex-start">' +
-            '<div>' +
-              '<span style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--text-bright)">' + esc(c.channelTitle || c.handle || '미상 채널') + '</span>' +
-              '<div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:4px">' + statusBadge + '</div>' +
-            '</div>' +
-            '<div style="display:flex;gap:4px;align-items:center">' +
-              '<button class="btn btn-sm btn-channel-refresh" data-input="' + esc(c.handle || c.channelUrl || c.channelId) + '" title="재분석" style="padding:4px 8px;font-size:11px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);color:var(--text-bright)">🔄</button>' +
-              '<button class="btn btn-sm btn-channel-delete" data-channel-id="' + esc(c.channelId) + '" title="추적 제거" style="padding:4px 8px;font-size:11px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171">🗑️</button>' +
-            '</div>' +
+        const n = (c.topOutliers || []).length;
+        return '<div class="demand-ch-item" data-channel-id="' + esc(c.channelId) + '" style="cursor:pointer;background:' + (isSel ? 'rgba(6,182,212,0.12)' : '#05070c') + ';border:1.5px solid ' + (isSel ? 'var(--accent-cyan)' : 'var(--border-subtle)') + ';border-radius:8px;padding:10px 12px">' +
+          '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' +
+            '<span style="font-weight:800;font-size:13.5px;color:' + (isSel ? 'var(--accent-cyan)' : 'var(--text-bright)') + ';word-break:keep-all">' + esc(c.channelTitle || c.handle || '미상 채널') + '</span>' +
+            chStatusBadge(c.status || 'candidate') +
           '</div>' +
-          '<div class="card-subtext" style="margin-top:-2px">구독자 ' + subLabel + ' · 영상 ' + (c.videoCount || 0) + '개 분석 · ' + esc((c.analyzedAt || '').slice(0, 10)) + '</div>' +
-          reasonText +
-          '<div style="margin-top:10px;background:#090e18;border:1px solid var(--border-subtle);border-radius:6px;padding:8px">' +
-            '<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">' +
-              '<span style="color:var(--text-subtle)">소재 소진율</span>' +
-              '<b style="color:' + (uncoveredCount > 0 ? '#38bdf8' : '#a855f7') + '">' + exhaustionRate + '% (잔여 ' + uncoveredCount + '개)</b>' +
-            '</div>' +
-            '<div style="height:5px;background:#131826;border-radius:99px;overflow:hidden">' +
-              '<div style="height:100%;width:' + exhaustionRate + '%;background:' + (status === 'gold_mine' ? 'linear-gradient(90deg,#f59e0b,#eab308)' : 'linear-gradient(90deg,var(--accent-cyan),var(--accent-magenta))') + ';border-radius:99px"></div>' +
-            '</div>' +
-          '</div>' +
-          sizeWarning +
-          // 이 채널에서 평소보다 크게 터진 영상(아웃라이어) 상위 3개 — 추적하는 이유 자체라 카드에서 빠지면 안 된다
-          // (2026-11-11 master-detail 개편 때 빠졌던 것을 되살림, test-client-syntax의 TEST_TRACKED_OUTLIER가 이걸 확인한다)
-          ((c.topOutliers || []).length > 0 ?
-            '<div style="margin-top:10px;display:flex;flex-direction:column;gap:4px">' +
-              '<div class="card-subtext" style="font-size:11px">평소보다 크게 터진 영상</div>' +
-              c.topOutliers.slice(0, 3).map((o) => {
-                const url = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
-                const ratio = o.outlierRatio ? Number(o.outlierRatio).toFixed(1) + '배' : '';
-                const titleHtml = '<span style="color:var(--text-bright);font-size:12px;line-height:1.35">' + esc(o.title || '') + '</span>';
-                return '<div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">' +
-                  (url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener" style="text-decoration:none;min-width:0">' + titleHtml + '</a>' : titleHtml) +
-                  '<span style="color:var(--accent-amber);font-size:11px;font-weight:700;white-space:nowrap">' + ratio + '</span>' +
-                '</div>';
-              }).join('') +
-            '</div>' : '') +
-          (c.titlePatterns && c.titlePatterns.length > 0 ?
-            '<div style="margin-top:10px">' + c.titlePatterns.slice(0, 6).map(p =>
-              '<span class="tag-chip copy-chip tag-link-kw" data-kw="' + esc(p.word) + '" data-copy="' + esc(p.word) + '" title="클릭 시 이 키워드로 포커스">#' + esc(p.word) + '</span>'
-            ).join('') + '</div>' : '') +
+          '<div class="card-subtext" style="margin-top:3px;font-size:11px">구독자 ' + subLabel + ' · 터진 영상 ' + n + '개</div>' +
         '</div>';
       }).join('') +
+      '</div>' +
     '</div>';
-  } else {
-    html += '<div style="padding:20px;text-align:center;color:var(--text-muted)">해당 상태의 채널이 없습니다.</div>';
+
+    html += '<div class="bento-card col-8" style="background:#090e18;border:1px solid var(--border-subtle);padding:18px">';
+    if (selectedCh) {
+      const c = selectedCh;
+      const subLabel = c.subscriberCount != null ? fmt.format(c.subscriberCount) + '명' : '비공개';
+      const exhaustionRate = c.exhaustion ? Math.round((c.exhaustion.exhaustionRate || 0) * 100) : 0;
+      const uncoveredCount = c.exhaustion ? c.exhaustion.uncoveredCount : 0;
+      const chOutliers = c.topOutliers || [];
+      html += '<div class="card-header" style="border-bottom:1px solid var(--border-subtle);padding-bottom:12px;margin-bottom:14px">' +
+        '<div>' +
+          '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' +
+            '<span class="card-title" style="color:var(--accent-cyan);font-size:11px;margin:0">SELECTED CHANNEL</span>' +
+            chStatusBadge(c.status || 'candidate') +
+          '</div>' +
+          '<h3 style="font-family:var(--font-display);font-size:20px;font-weight:900;color:#fff;margin-top:4px">' + esc(c.channelTitle || c.handle || '미상 채널') + '</h3>' +
+          '<div class="card-subtext" style="margin-top:2px">구독자 ' + subLabel + ' · 영상 ' + (c.videoCount || 0) + '개 분석 · ' + esc((c.analyzedAt || '').slice(0, 10)) + '</div>' +
+        '</div>' +
+        '<div style="min-width:160px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span style="color:var(--text-subtle)">소재 소진율</span><b style="color:' + (uncoveredCount > 0 ? '#38bdf8' : '#a855f7') + '">' + exhaustionRate + '% (잔여 ' + uncoveredCount + '개)</b></div>' +
+          '<div style="height:5px;background:#131826;border-radius:99px;overflow:hidden"><div style="height:100%;width:' + exhaustionRate + '%;background:linear-gradient(90deg,var(--accent-cyan),#a855f7)"></div></div></div>' +
+      '</div>';
+      if (c.subscriberCount != null && c.subscriberCount > 100000) html += '<div class="card-subtext" style="color:var(--accent-amber);margin-bottom:8px">⚠️ 체급 큼 — 패턴 참고용</div>';
+      if (c.statusReason) html += '<div style="font-size:11px;color:var(--accent-cyan);background:rgba(6,182,212,0.06);border-left:2px solid var(--accent-cyan);padding:4px 8px;border-radius:4px;margin-bottom:10px">💡 ' + esc(c.statusReason) + '</div>';
+      if (c.titlePatterns && c.titlePatterns.length > 0) {
+        html += '<div style="margin-bottom:12px">' + c.titlePatterns.slice(0, 6).map(p =>
+          '<span class="tag-chip copy-chip tag-link-kw" data-kw="' + esc(p.word) + '" data-copy="' + esc(p.word) + '" title="클릭 시 이 키워드로 포커스">#' + esc(p.word) + '</span>'
+        ).join('') + '</div>';
+      }
+      html += '<div style="font-size:13px;font-weight:800;color:var(--text-bright);margin-bottom:10px">⭐ 이 채널에서 평소보다 크게 터진 영상 (' + chOutliers.length + '개):</div>';
+      if (chOutliers.length === 0) {
+        html += '<div style="background:#05070c;border:1px dashed var(--border-subtle);border-radius:8px;padding:30px;text-align:center;color:var(--text-muted)">평소보다 크게 터진 영상이 아직 없습니다.</div>';
+      } else {
+        chOutliers.forEach((o) => { html += outlierCardHtml(o); });
+      }
+    }
+    html += '</div>';
   }
+
 
   html += '</div>'; // End Bottom Card
   html += '</div>'; // End Bento Grid
@@ -3554,6 +3564,18 @@ function bindMarketDemandEvents() {
       if (kw && kw !== gSelectedDemandKeyword) {
         gSelectedDemandKeyword = kw;
         try { localStorage.setItem('ihm_demand_selected_keyword', kw); } catch (_) {}
+        renderCurrentTab();
+      }
+    };
+  });
+
+  // 채널 목록 항목 클릭 시 우측 상세 전환
+  document.querySelectorAll('.demand-ch-item').forEach((item) => {
+    item.onclick = () => {
+      const id = item.dataset.channelId;
+      if (id && id !== gSelectedDemandChannel) {
+        gSelectedDemandChannel = id;
+        try { localStorage.setItem('ihm_demand_selected_channel', id); } catch (_) {}
         renderCurrentTab();
       }
     };
@@ -3629,33 +3651,6 @@ function bindMarketDemandEvents() {
     chip.onclick = () => copyToClipboard(chip.dataset.copy, chip);
   });
 
-  const runChannelInput = async (rawInput, btnEl) => {
-    const channel = String(rawInput || '').trim();
-    if (!channel) return alert('채널 URL 또는 @핸들을 입력하세요.');
-    const originalText = btnEl ? btnEl.innerHTML : '';
-    if (btnEl) { btnEl.disabled = true; btnEl.innerHTML = '⏳ 분석 중...'; }
-    gDemandBusyCount++;
-    try {
-      const res = await fetch('/api/market-demand/run', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({channel}),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || '채널 분석 실패');
-      gDemandRefreshSeq++;
-      gMarketDemand = data.data;
-      renderCurrentTab();
-      const qCount = (data.queued?.comments?.length || 0) + (data.queued?.scripts?.length || 0);
-      showToast(qCount > 0 ? '🔎 채널 분석 완료 (리포트 ' + qCount + '건 백그라운드 생성 중)' : '🔎 채널 분석 완료.');
-    } catch (err) {
-      alert('❌ 채널 분석 오류: ' + err.message);
-    } finally {
-      gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
-      if (btnEl) { btnEl.disabled = false; btnEl.innerHTML = originalText; }
-    }
-  };
-
   const btnSyncAll = document.getElementById('btn-sync-all-channels');
   if (btnSyncAll) {
     btnSyncAll.onclick = async () => {
@@ -3685,69 +3680,6 @@ function bindMarketDemandEvents() {
       }
     };
   }
-
-  document.querySelectorAll('.btn-channel-refresh').forEach(btn => {
-    btn.onclick = () => runChannelInput(btn.dataset.input, btn);
-  });
-
-  document.querySelectorAll('.btn-channel-delete').forEach(btn => {
-    btn.onclick = async () => {
-      const channelId = btn.dataset.channelId;
-      if (!channelId) return;
-      if (!confirm('이 채널을 추적 목록에서 제거할까요?')) return;
-      btn.disabled = true;
-      gDemandBusyCount++;
-      try {
-        const res = await fetch('/api/market-demand/delete-channel', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({channelId}),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '삭제 실패');
-        gDemandRefreshSeq++;
-        gMarketDemand = data.data;
-        renderCurrentTab();
-        showToast('🗑️ 채널 추적 목록에서 제거됨.');
-      } catch (err) {
-        alert('❌ 삭제 실패: ' + err.message);
-        btn.disabled = false;
-      } finally {
-        gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
-      }
-    };
-  });
-
-  document.querySelectorAll('.btn-outlier-delete-video').forEach(btn => {
-    btn.onclick = async () => {
-      const keyword = btn.dataset.keyword;
-      const videoId = btn.dataset.vid;
-      if (!keyword || !videoId) return;
-      if (!confirm('이 영상을 "' + keyword + '" 키워드에서 제외할까요? 다른 키워드에서 더 이상 안 쓰이면 댓글/대본 리포트 파일과 시청자DNA 항목도 함께 정리됩니다.')) return;
-      btn.disabled = true;
-      gDemandBusyCount++;
-      try {
-        const res = await fetch('/api/market-demand/delete-video', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({keyword, videoId}),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '삭제 실패');
-        gDemandRefreshSeq++;
-        gMarketDemand = data.data;
-        renderCurrentTab();
-        const c = data.cleaned || {};
-        const cleanedMsg = c.orphanedVideos ? (' — 리포트 ' + (c.reportFiles || 0) + '개, 시청자DNA ' + (c.dnaEntries || 0) + '개 정리됨.') : ' (다른 키워드에서 계속 쓰여서 리포트·DNA는 남겨둠).';
-        showToast('🗑️ 영상 제외 완료' + cleanedMsg);
-      } catch (err) {
-        alert('❌ 삭제 실패: ' + err.message);
-        btn.disabled = false;
-      } finally {
-        gDemandBusyCount = Math.max(0, gDemandBusyCount - 1);
-      }
-    };
-  });
 
 }
 
@@ -6505,113 +6437,6 @@ const server = createServer(async (req, res) => {
         return json(res, 200, {ok: true, queued, data: await annotateMarketDemandAnalysisStatus(updated)});
       } catch (err) {
         return json(res, 500, {error: `스크립트 실행 오류: ${err.message}`});
-      }
-    }
-    // 시장 수요 레이더 키워드 카드 삭제(2026-09-13, 사용자 지적: "필요없는 데이터가 쌓이면
-    // 안되니깐 카드에 딸린 데이터까지 삭제돼야겠지?"). 단순히 market-demand.json의 byKeyword
-    // 배열에서 항목 하나만 지우면, 그 키워드의 아웃라이어 영상들을 분석해 만든 댓글/대본
-    // 리포트 파일(output/insights/, output/script-insights/)과 그 리포트에서 뽑아
-    // audience-dna.json에 누적된 시청자DNA 항목이 "오염된 데이터"로 계속 남는다.
-    // 단, 같은 영상이 여러 키워드에서 동시에 아웃라이어로 걸리는 경우가 실제로 있으므로
-    // (renderMarketDemandTab()의 videoKeywordMap 참고), 삭제 대상 키워드를 뺀 "나머지"
-    // 키워드에서도 여전히 참조되는 영상은 건드리지 않는다 — 그 영상 리포트를 지우면 다른
-    // 키워드 카드의 "📄 리포트 보기" 버튼이 깨지기 때문.
-    if (url.pathname === '/api/market-demand/delete' && req.method === 'POST') {
-      try {
-        const body = await readJsonBody(req);
-        const keyword = String(body.keyword || '').trim();
-        if (!keyword) return json(res, 400, {error: 'keyword가 필요합니다.'});
-
-        const marketDemand = await loadJson(marketDemandPath, {byKeyword: []});
-        const idx = (marketDemand.byKeyword || []).findIndex((k) => k.keyword === keyword);
-        if (idx === -1) return json(res, 404, {error: `키워드 "${keyword}"를 찾을 수 없습니다.`});
-
-        const removed = marketDemand.byKeyword[idx];
-        const removedVideoIds = new Set((removed.topOutliers || []).map((o) => o.videoId).filter(Boolean));
-        marketDemand.byKeyword = marketDemand.byKeyword.filter((_, i) => i !== idx);
-
-        // 남은 키워드들이 아직 참조 중인 videoId는 고아가 아니므로 삭제 대상에서 뺀다.
-        const stillReferenced = new Set();
-        marketDemand.byKeyword.forEach((k) => (k.topOutliers || []).forEach((o) => {
-          if (o.videoId) stillReferenced.add(o.videoId);
-        }));
-        const orphanedVideoIds = [...removedVideoIds].filter((vid) => !stillReferenced.has(vid));
-        const {deletedReportFiles, removedDnaEntries} = await cascadeDeleteOrphanedVideoData(orphanedVideoIds);
-
-        await saveJson(marketDemandPath, marketDemand);
-        memoryMarketDemand = marketDemand;
-        lastMarketDemandTime = Date.now();
-        return json(res, 200, {
-          ok: true,
-          data: await annotateMarketDemandAnalysisStatus(marketDemand),
-          cleaned: {orphanedVideos: orphanedVideoIds.length, reportFiles: deletedReportFiles, dnaEntries: removedDnaEntries},
-        });
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    // 추적 채널 카드 삭제(2026-09-30) — 키워드 삭제와 달리 videoId cascade 청소는 하지 않는다.
-    // 추적 채널의 topOutliers 영상은 byKeyword 쪽 아웃라이어와 겹칠 수도 있어(같은 영상이
-    // 양쪽에 다 걸리는 경우) 소유권이 애매하고, 댓글/대본 리포트는 videoId 기준으로 어느
-    // 쪽에서 봐도 재사용되는 게 맞으므로(annotateMarketDemandAnalysisStatus가 파일 인덱스로
-    // 매번 다시 찾음) 그냥 남겨둬도 무해하다 — trackedChannels 배열에서 항목만 뺀다.
-    if (url.pathname === '/api/market-demand/delete-channel' && req.method === 'POST') {
-      try {
-        const body = await readJsonBody(req);
-        const channelId = String(body.channelId || '').trim();
-        if (!channelId) return json(res, 400, {error: 'channelId가 필요합니다.'});
-
-        const marketDemand = await loadJson(marketDemandPath, {byKeyword: [], trackedChannels: []});
-        const before = (marketDemand.trackedChannels || []).length;
-        marketDemand.trackedChannels = (marketDemand.trackedChannels || []).filter((c) => c.channelId !== channelId);
-        if (marketDemand.trackedChannels.length === before) {
-          return json(res, 404, {error: `채널 ID "${channelId}"를 찾을 수 없습니다.`});
-        }
-
-        await saveJson(marketDemandPath, marketDemand);
-        memoryMarketDemand = marketDemand;
-        lastMarketDemandTime = Date.now();
-        return json(res, 200, {ok: true, data: await annotateMarketDemandAnalysisStatus(marketDemand)});
-      } catch (err) {
-        return json(res, 500, {error: err.message});
-      }
-    }
-    // 키워드 카드 전체가 아니라, 그 안의 아웃라이어 영상 딱 하나만 지우는 기능(2026-09-13,
-    // 사용자 요청: "각 영상의 데이터를 삭제하는 기능이 있어야하지 않겠어?" — 키워드 자체는
-    // 유효한데 그 안의 특정 영상 하나만 잘못 걸렸거나 필요 없어진 경우를 위함). 그 키워드의
-    // topOutliers에서 이 영상만 빼고, 이 영상이 다른 키워드에서도 여전히 쓰이는지 전체를
-    // 다시 확인한 뒤(자기 자신이 수정된 상태 기준) 고아가 됐을 때만 위와 같은 cascade 청소를
-    // 적용한다.
-    if (url.pathname === '/api/market-demand/delete-video' && req.method === 'POST') {
-      try {
-        const body = await readJsonBody(req);
-        const keyword = String(body.keyword || '').trim();
-        const videoId = String(body.videoId || '').trim();
-        if (!keyword || !videoId) return json(res, 400, {error: 'keyword와 videoId가 모두 필요합니다.'});
-
-        const marketDemand = await loadJson(marketDemandPath, {byKeyword: []});
-        const kEntry = (marketDemand.byKeyword || []).find((k) => k.keyword === keyword);
-        if (!kEntry) return json(res, 404, {error: `키워드 "${keyword}"를 찾을 수 없습니다.`});
-        const hadVideo = (kEntry.topOutliers || []).some((o) => o.videoId === videoId);
-        if (!hadVideo) return json(res, 404, {error: `이 키워드에서 영상 "${videoId}"를 찾을 수 없습니다.`});
-        kEntry.topOutliers = (kEntry.topOutliers || []).filter((o) => o.videoId !== videoId);
-
-        const stillReferenced = marketDemand.byKeyword.some((k) =>
-          (k.topOutliers || []).some((o) => o.videoId === videoId)
-        );
-        const orphanedVideoIds = stillReferenced ? [] : [videoId];
-        const {deletedReportFiles, removedDnaEntries} = await cascadeDeleteOrphanedVideoData(orphanedVideoIds);
-
-        await saveJson(marketDemandPath, marketDemand);
-        memoryMarketDemand = marketDemand;
-        lastMarketDemandTime = Date.now();
-        return json(res, 200, {
-          ok: true,
-          data: await annotateMarketDemandAnalysisStatus(marketDemand),
-          cleaned: {orphanedVideos: orphanedVideoIds.length, reportFiles: deletedReportFiles, dnaEntries: removedDnaEntries},
-        });
-      } catch (err) {
-        return json(res, 500, {error: err.message});
       }
     }
     if (url.pathname === '/api/episodes/summary') {

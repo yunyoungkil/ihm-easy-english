@@ -29,10 +29,10 @@ test('대시보드는 6개 현황 탭만 가진다 [2026-11-11 탭 압축·대�
 
 test('데이터를 바꾸는 서버 통로는 허용 목록 안에서만 늘린다 [자동화 우선 원칙 2026-11-11: 사람이 관리하는 입력 UI 금지]', () => {
   // 허용 이유: 승인 관문(schedule/*), 자동 루프가 부르는 통로(sync, market-demand/run, insights/analyze, scripts/analyze,
-  // idea-board/history/register), 사용자가 직접 비우는 삭제(market-demand/delete*), 스튜디오 파일 읽기(studio-scan).
+  // idea-board/history/register), 스튜디오 파일 읽기(studio-scan).
   const allowed = new Set([
     '/api/sync', '/api/studio-scan', '/api/insights/analyze', '/api/scripts/analyze', '/api/idea-board/history/register',
-    '/api/market-demand/run', '/api/market-demand/delete', '/api/market-demand/delete-channel', '/api/market-demand/delete-video',
+    '/api/market-demand/run',
     '/api/schedule/approve-thumbnail', '/api/schedule/comment-done', '/api/schedule/resolve', '/api/schedule/rules', '/api/schedule/upload-now',
     '/api/transform-sheet-pick', // 썸네일 시안 고르기 = 사용자 승인 관문(2026-11-12 사용자 제안)
   ]);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-11T09:22:18.829Z",
+  "updatedAt": "2026-11-14T13:56:38.879Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -384,6 +384,24 @@
       "episodeLabel": "EP29",
       "status": "scheduled",
       "selectedAt": "2026-11-11T09:22:18.829Z",
+      "producedAt": null
+    },
+    {
+      "topic": "한국 사람이 아는 단어, 빨리 말하면 가운데 소리가 거의 안 들린다 (chocolate 외 4개)",
+      "angleOrHook": "아는 단어 5개(chocolate·vegetable·different·memory·vulnerable)의 가운데 소리가 빨리 말하면 거의 안 들린다. 마지막은 vulnerable 마디 수 퀴즈, 사전은 4마디와 3마디를 둘 다 싣는다.",
+      "targetAudience": "한국에서 영어를 배운 3060 성인 학습자",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [
+        {
+          "source": "competitorOutlier",
+          "detail": "조밥잉글리쉬·SbQVBQoRciA·570배"
+        }
+      ],
+      "episodeSlug": "ep30-shorts-chocolate",
+      "episodeLabel": "EP30 쇼츠",
+      "status": "selected",
+      "selectedAt": "2026-11-14T13:56:38.879Z",
       "producedAt": null
     }
   ]

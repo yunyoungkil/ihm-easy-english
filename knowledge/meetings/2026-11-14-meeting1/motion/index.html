@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>chocolate motion</title>
+<style>
+  html,body{margin:0;padding:0;background:#F4EFE6;}
+  #root{position:relative;width:1080px;height:1920px;overflow:hidden;background:#F4EFE6;font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;}
+  .abs{position:absolute;}
+  #blob{position:absolute;left:0;top:0;width:860px;height:860px;border-radius:50%;background:#F5C518;opacity:.22;}
+  #barTrack{position:absolute;left:60px;top:196px;width:960px;height:14px;border-radius:7px;background:rgba(0,0,0,.12);}
+  #barFill{position:absolute;left:60px;top:196px;width:960px;height:14px;border-radius:7px;background:#F5C518;border:3px solid #000;box-sizing:border-box;transform-origin:0 50%;}
+  .scene{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+  .cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:540px 800px;}
+
+  .pill{position:absolute;left:0;width:1080px;display:flex;justify-content:center;}
+  .pill span{display:inline-block;white-space:nowrap;font-weight:900;font-size:54px;line-height:1.2;color:#000;background:#F5C518;border:6px solid #000;border-radius:999px;padding:20px 48px;box-shadow:8px 10px 0 #000;}
+  .chip{position:absolute;left:0;width:1080px;display:flex;justify-content:center;}
+  .chip span{display:inline-block;white-space:nowrap;font-weight:900;font-size:40px;line-height:1.2;color:#000;background:#F5C518;border:5px solid #000;border-radius:999px;padding:8px 34px;box-shadow:5px 6px 0 #000;}
+
+  .word{position:absolute;left:0;width:1080px;display:flex;justify-content:center;align-items:center;white-space:nowrap;}
+  .wordbox{position:relative;display:inline-flex;align-items:center;white-space:nowrap;}
+  .hl{position:absolute;left:-14px;top:10%;height:80%;width:0;background:#F5C518;border-radius:24px;z-index:0;}
+  .latin .ch{display:inline-block;position:relative;z-index:1;font-family:"Arial Black","Malgun Gothic",sans-serif;font-weight:900;color:#000;letter-spacing:-2px;}
+  .ow{position:relative;display:inline-block;z-index:1;}
+  .ow .ch{position:absolute;left:50%;top:0;}
+  .slashwrap{position:absolute;left:50%;top:52%;width:0;height:0;z-index:3;}
+  .slash{position:absolute;left:-84px;top:-12px;width:168px;height:24px;border-radius:12px;background:#e8202a;transform-origin:0 50%;}
+
+  .kor{display:inline-block;position:relative;z-index:1;font-weight:900;color:#000;white-space:nowrap;}
+  .swapbox{position:relative;display:inline-block;overflow:hidden;vertical-align:top;}
+  .swapbox .kor{display:block;}
+  .rowbox{position:absolute;left:0;width:1080px;display:flex;justify-content:center;align-items:center;white-space:nowrap;}
+  .mark{position:absolute;background:#F5C518;border-radius:22px;z-index:0;}
+  .ring{position:absolute;border:8px solid #e8202a;border-radius:50%;}
+  .streak{position:absolute;height:10px;border-radius:5px;background:#000;opacity:0;}
+  .qb{position:absolute;width:140px;height:140px;border-radius:50%;background:#F5C518;border:6px solid #000;box-shadow:6px 8px 0 #000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:96px;color:#000;}
+  .tag{position:absolute;white-space:nowrap;font-weight:900;font-size:42px;line-height:1.2;color:#fff;background:#000;border-radius:999px;padding:8px 30px;}
+  .tag:before{content:"";position:absolute;left:50%;top:-14px;margin-left:-14px;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:16px solid #000;}
+  .eq{position:absolute;width:100px;height:100px;border-radius:50%;background:#000;color:#F5C518;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:72px;line-height:1;}
+</style>
+</head>
+<body>
+<div id="root">
+  <div id="blob"></div>
+  <div id="barTrack"></div><div id="barFill"></div>
+
+  <!-- ===== scene A/B/C ===== -->
+  <div id="sceneABC" class="scene">
+    <div id="camABC" class="cam">
+      <div id="streaks">
+        <div class="streak" style="left:-300px;top:640px;width:420px"></div>
+        <div class="streak" style="left:-300px;top:1010px;width:560px"></div>
+        <div class="streak" style="left:-300px;top:860px;width:300px"></div>
+      </div>
+
+      <!-- chocolate: persistent across A, B, C -->
+      <div id="word" class="word latin" style="top:700px;height:200px;">
+        <div class="wordbox" id="wb">
+          <div class="hl" id="hl"></div>
+          <span class="ch" style="font-size:150px;line-height:200px">c</span><span class="ch" style="font-size:150px;line-height:200px">h</span><span class="ch" style="font-size:150px;line-height:200px">o</span><span class="ch" style="font-size:150px;line-height:200px">c</span><span class="ow" id="ow1" style="height:200px"><span class="ch" id="o1" style="font-size:150px;line-height:200px;transform:translateX(-50%)">o</span><span class="slashwrap" id="sw1"><span class="slash" id="sl1"></span></span></span><span class="ch" style="font-size:150px;line-height:200px">l</span><span class="ch" style="font-size:150px;line-height:200px">a</span><span class="ch" style="font-size:150px;line-height:200px">t</span><span class="ch" style="font-size:150px;line-height:200px">e</span>
+          <div class="tag" id="tagO" style="top:176px;">가운데 글자</div>
+        </div>
+      </div>
+
+      <!-- A -->
+      <div class="qb" id="qb" style="left:790px;top:520px;">?</div>
+      <div class="pill" id="pillA" style="top:1130px;"><span>초콜릿, 어떻게 읽으세요?</span></div>
+
+      <!-- B -->
+      <div class="chip" id="chipG" style="top:640px;"><span>글자</span></div>
+      <div class="rowbox" id="rowG" style="top:735px;height:230px;">
+        <span class="kor bs" style="font-size:190px;line-height:230px">초</span><span class="kor bs" style="font-size:190px;line-height:230px">콜</span><span class="kor bs" style="font-size:190px;line-height:230px">릿</span>
+      </div>
+      <div class="chip" id="chipS" style="top:1010px;"><span>소리</span></div>
+      <div class="ring" id="ring1" style="left:300px;top:1085px;width:480px;height:230px;"></div>
+      <div class="ring" id="ring2" style="left:300px;top:1085px;width:480px;height:230px;"></div>
+      <div class="rowbox" id="rowS" style="top:1105px;height:230px;">
+        <span class="kor bs2" style="font-size:190px;line-height:230px">초</span><span class="swapbox" id="swap" style="height:230px;"><div class="mark" id="markK" style="left:0;top:20px;width:100%;height:190px;"></div><span class="kor" id="swA" style="font-size:190px;line-height:230px">콜</span><span class="kor" id="swB" style="position:absolute;left:0;top:0;font-size:190px;line-height:230px;color:#e8202a">클</span></span><span class="kor bs2" style="font-size:190px;line-height:230px">릿</span>
+      </div>
+
+      <!-- C -->
+      <div class="pill" id="pillC1" style="top:1130px;"><span>빨리 말하면</span></div>
+      <div class="pill" id="pillC2" style="top:1290px;"><span>거의 안 들려요</span></div>
+    </div>
+  </div>
+
+  <!-- ===== scene D ===== -->
+  <div id="sceneD" class="scene">
+    <div id="camD" class="cam" style="transform-origin:540px 800px;">
+      <div class="pill" id="pillD" style="top:1360px;"><span>우리말도 줄여서 말해요</span></div>
+      <div class="rowbox" id="rowM" style="top:620px;height:230px;">
+        <div class="mark" id="markMam" style="left:620px;top:20px;width:340px;height:190px;transform-origin:0 50%;"></div>
+        <span class="kor" id="ma" style="font-size:200px;line-height:230px">마</span><span class="ow" id="ow2" style="height:230px;width:210px;"><span class="kor" id="eum" style="font-size:200px;line-height:230px;position:absolute;left:50%;top:0;transform:translateX(-50%)">음</span><span class="slashwrap" id="sw2"><span class="slash" id="sl2"></span></span></span>
+        <svg id="arrow" width="150" height="120" viewBox="0 0 150 120" style="margin:0 24px;position:relative;z-index:1;overflow:visible"><path id="arrowPath" d="M8 60 H128 M96 24 L132 60 L96 96" fill="none" stroke="#000" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="kor" id="mam" style="font-size:200px;line-height:230px;color:#000">맘</span>
+      </div>
+      <div class="chip" id="chipE" style="top:985px;"><span>영어</span></div>
+      <div class="word latin" id="echo" style="top:1050px;height:140px;">
+        <div class="wordbox">
+          <span class="ch" style="font-size:104px;line-height:140px">c</span><span class="ch" style="font-size:104px;line-height:140px">h</span><span class="ch" style="font-size:104px;line-height:140px">o</span><span class="ch" style="font-size:104px;line-height:140px">c</span><span class="ow" id="ow3" style="height:140px"><span class="ch" id="o3" style="font-size:104px;line-height:140px;transform:translateX(-50%)">o</span><span class="slashwrap" id="sw3"><span class="slash" id="sl3"></span></span></span><span class="ch" style="font-size:104px;line-height:140px">l</span><span class="ch" style="font-size:104px;line-height:140px">a</span><span class="ch" style="font-size:104px;line-height:140px">t</span><span class="ch" style="font-size:104px;line-height:140px">e</span>
+        </div>
+      </div>
+      <div class="eq" id="eq" style="left:490px;top:845px;">=</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+  // ---- 측정(애니메이션 전에 한 번만): 가운데 글자 칸 너비 고정 ----
+  var ow1=document.getElementById('ow1'), ow2=document.getElementById('ow2'), ow3=document.getElementById('ow3');
+  var o1=document.getElementById('o1'), o3=document.getElementById('o3');
+  var w1=o1.getBoundingClientRect().width, w3=o3.getBoundingClientRect().width;
+  ow1.style.width=w1+'px'; ow3.style.width=w3+'px';
+  // 가운데 글자의 위치(워드박스 기준)로 말풍선 위치 지정
+  var wb=document.getElementById('wb').getBoundingClientRect();
+  var oc=ow1.getBoundingClientRect();
+  var tagO=document.getElementById('tagO');
+  tagO.style.left=(oc.left-wb.left+oc.width/2-100)+'px';
+
+  var tl=gsap.timeline({paused:true,defaults:{ease:'power2.out'}});
+  var S=function(t,v){gsap.set(t,v);};
+  // 모든 등장 트윈은 immediateRender:false (시간 이동에도 같은 화면)
+  function FT(t,from,to,at){to.immediateRender=false;return tl.fromTo(t,from,to,at);}
+
+  // ---- 초기 상태 ----
+  S('#sceneD',{y:1920});
+  S('#blob',{x:110,y:420,scale:1});
+  S('#word .ch',{opacity:0});
+  S('#o1',{opacity:0});
+  S('#qb,#pillA,#chipG,#rowG .bs,#chipS,#rowS,#ring1,#ring2,#pillC1,#pillC2,#tagO',{opacity:0});
+  S('#sl1',{scaleX:0}); S('#sw1',{rotation:-38}); S('#sw2',{rotation:-38}); S('#sw3',{rotation:-38});
+  S('#sl2',{scaleX:0}); S('#sl3',{scaleX:0});
+  S('#markK',{scaleX:0,transformOrigin:'0 50%'});
+  S('#swB',{yPercent:110});
+  S('#pillD,#ma,#ow2,#arrow,#mam,#markMam,#chipE,#echo,#eq',{opacity:0});
+  S('#markMam',{scaleX:0});
+  S('#arrowPath',{attr:{'stroke-dasharray':260,'stroke-dashoffset':260}});
+
+  // ---- 진행 바 (은은한 시간 표시) ----
+  FT('#barFill',{scaleX:0},{scaleX:1,duration:14,ease:'none'},0);
+
+  // ================= 컷 A (0~2.2) 훅 =================
+  // 1) 글자가 한 자씩 튀어 오르며 등장
+  FT('#word .ch:not(#o1)',{y:70,opacity:0,scale:.6},{y:0,opacity:1,scale:1,duration:.3,ease:'back.out(2.4)',stagger:.045},0.05);
+  FT('#o1',{y:70,opacity:0,scale:.6},{y:0,opacity:1,scale:1,duration:.3,ease:'back.out(2.4)'},0.05+4*.045);
+  // 카메라 천천히 다가가기
+  FT('#camABC',{scale:1},{scale:1.06,duration:2.2,ease:'none'},0);
+  FT('#blob',{scale:.9,x:110,y:420},{scale:1.1,x:110,y:420,duration:2.2,ease:'none'},0);
+  // 2) 알약이 밑에서 올라옴 (나레이션 시작에 맞춤)
+  FT('#pillA',{y:90,opacity:0},{y:0,opacity:1,duration:.4,ease:'back.out(1.6)'},0.65);
+  // 3) 읽는 소리를 따라 노란 막대가 글자 위를 훑고 글자가 차례로 통통
+  FT('#hl',{width:0,opacity:1},{width:'105%',duration:.8,ease:'power1.inOut'},1.15);
+  FT('#word .ch',{y:0},{y:-22,duration:.1,ease:'power2.out',stagger:.09,yoyo:true,repeat:1},1.2);
+  // 4) 물음표 말풍선이 튀어나와 흔들림
+  FT('#qb',{scale:0,opacity:0,rotation:-25},{scale:1,opacity:1,rotation:8,duration:.4,ease:'back.out(2.2)'},1.3);
+  FT('#qb',{rotation:8},{rotation:-6,duration:.18,ease:'sine.inOut',yoyo:true,repeat:1},1.75);
+
+  // ============ A→B 이어지는 움직임: 단어가 위로 물러나 작은 라벨이 됨 ============
+  FT('#pillA',{y:0,opacity:1},{y:70,opacity:0,duration:.25,ease:'power2.in'},2.05);
+  FT('#qb',{opacity:1,scale:1},{opacity:0,scale:.2,duration:.22,ease:'power2.in'},2.05);
+  FT('#hl',{opacity:1},{opacity:0,duration:.2},2.1);
+  FT('#word',{y:0,scale:1},{y:-390,scale:.5,duration:.55,ease:'power3.inOut'},2.15);
+  FT('#camABC',{scale:1.06},{scale:1,duration:.5,ease:'power2.out'},2.2);
+  FT('#blob',{x:110,y:420,scale:1.1},{x:30,y:300,scale:1,duration:.8,ease:'power3.inOut'},2.2);
+
+  // ================= 컷 B (2.2~5.5) 글자 vs 소리 =================
+  // 1) '글자' 이름표, 2) '초콜릿'이 음절마다 쿵 하고 박힘
+  FT('#chipG',{x:-90,opacity:0},{x:0,opacity:1,duration:.3,ease:'back.out(1.8)'},2.45);
+  FT('#rowG .bs',{y:140,opacity:0,scale:1.25},{y:0,opacity:1,scale:1,duration:.3,ease:'power3.out',stagger:.1},2.6);
+  // 3) '소리' 이름표 → 위 줄이 복사돼 아래로 떨어지고 가운데 음절만 갈아 끼움
+  FT('#rowG',{opacity:1},{opacity:.4,duration:.3},3.5);
+  FT('#chipS',{x:90,opacity:0},{x:0,opacity:1,duration:.3,ease:'back.out(1.8)'},3.5);
+  FT('#rowS',{y:-370,opacity:0},{y:0,opacity:1,duration:.4,ease:'power3.out'},3.55);
+  FT('#swA',{yPercent:0},{yPercent:-110,duration:.3,ease:'power3.inOut'},4.05);
+  FT('#swB',{yPercent:110},{yPercent:0,duration:.3,ease:'power3.inOut'},4.05);
+  FT('#markK',{scaleX:0},{scaleX:1,duration:.3,ease:'power3.out'},4.2);
+  // 4) 소리 파문이 두 번 퍼져 나감
+  FT('#ring1',{scale:.7,opacity:.85},{scale:1.35,opacity:0,duration:.7,ease:'power2.out'},4.45);
+  FT('#ring2',{scale:.7,opacity:.85},{scale:1.35,opacity:0,duration:.7,ease:'power2.out'},4.95);
+  FT('#camABC',{scale:1},{scale:1.03,duration:2.6,ease:'none'},2.75);
+  FT('#blob',{scale:1},{scale:1.08,duration:3,ease:'none'},2.95);
+
+  // ============ B→C 이어지는 움직임: 줄들이 빠지고 단어가 다시 커짐 ============
+  FT('#rowG',{y:0,opacity:.4},{y:-80,opacity:0,duration:.3,ease:'power2.in'},5.1);
+  FT('#chipG',{y:0,opacity:1},{y:-80,opacity:0,duration:.3,ease:'power2.in'},5.1);
+  FT('#rowS',{y:0,opacity:1},{y:90,opacity:0,duration:.3,ease:'power2.in'},5.1);
+  FT('#chipS',{y:0,opacity:1},{y:90,opacity:0,duration:.3,ease:'power2.in'},5.1);
+  FT('#word',{y:-390,scale:.5},{y:0,scale:1,duration:.55,ease:'power3.inOut'},5.15);
+  FT('#blob',{x:30,y:300},{x:110,y:420,duration:.6,ease:'power3.inOut'},5.15);
+
+  // ================= 컷 C (5.5~9.5) 가운데 글자가 사라짐 =================
+  // 1) 첫 알약
+  FT('#pillC1',{y:90,opacity:0},{y:0,opacity:1,duration:.4,ease:'back.out(1.6)'},5.65);
+  // 2) '빨리': 속도 줄이 휙 지나가고 노란 막대가 빠르게 훑음
+  FT('.streak',{x:0,opacity:.55},{x:1700,opacity:0,duration:.5,ease:'power2.in',stagger:.08},5.8);
+  FT('#hl',{width:0,opacity:1},{width:'105%',duration:.45,ease:'power2.inOut'},5.85);
+  FT('#word .ch',{y:0},{y:-16,duration:.06,ease:'power2.out',stagger:.035,yoyo:true,repeat:1},5.9);
+  FT('#hl',{opacity:1},{opacity:0,duration:.25},6.45);
+  // 3) '가운데 글자': 카메라가 가운데 o로 확대 + 이름표
+  FT('#camABC',{scale:1.03},{scale:1.14,duration:.5,ease:'power3.inOut'},6.55);
+  FT('#tagO',{y:14,opacity:0},{y:0,opacity:1,duration:.3,ease:'back.out(1.8)'},6.7);
+  FT('#o1',{scale:1},{scale:1.2,duration:.25,ease:'back.out(3)',yoyo:true,repeat:1},6.8);
+  // 4) '거의 안 들려요': o가 회색으로 → 빨간 사선이 그어짐 → 둘레가 오므라듦
+  FT('#tagO',{opacity:1},{opacity:0,duration:.2},7.45);
+  FT('#o1',{color:'#000'},{color:'#bdbdbd',duration:.3},7.45);
+  FT('#sl1',{scaleX:0},{scaleX:1,duration:.22,ease:'power3.out'},7.55);
+  FT('#pillC2',{y:90,opacity:0},{y:0,opacity:1,duration:.4,ease:'back.out(1.6)'},7.75);
+  FT('#ow1',{width:w1},{width:w1*.4,duration:.55,ease:'power3.inOut'},8.0);
+  FT('#o1',{scale:1},{scale:.7,duration:.55,ease:'power3.inOut'},8.0);
+  FT('#sw1',{scale:1},{scale:.6,duration:.55,ease:'power3.inOut'},8.0);
+  FT('#camABC',{scale:1.14},{scale:1,duration:.5,ease:'power2.inOut'},8.75);
+
+  // ============ C→D: 화면 전체가 위로 쓱 올라가며 다음 장면이 들어옴 ============
+  FT('#sceneABC',{y:0},{y:-1920,duration:.55,ease:'power3.inOut'},9.2);
+  FT('#sceneD',{y:1920},{y:0,duration:.55,ease:'power3.inOut'},9.2);
+  FT('#blob',{x:110,y:420},{x:30,y:360,duration:.55,ease:'power3.inOut'},9.2);
+
+  // ================= 컷 D (9.5~14) 우리말도 줄여요 =================
+  FT('#camD',{scale:1.0},{scale:1.04,duration:4.2,ease:'none'},9.7);
+  // 1) 알약
+  FT('#pillD',{y:90,opacity:0},{y:0,opacity:1,duration:.4,ease:'back.out(1.6)'},9.85);
+  // 2) '마음' 등장
+  FT('#ma',{y:100,opacity:0,scale:.7},{y:0,opacity:1,scale:1,duration:.35,ease:'back.out(2)'},10.15);
+  FT('#ow2',{y:100,opacity:0,scale:.7},{y:0,opacity:1,scale:1,duration:.35,ease:'back.out(2)'},10.3);
+  // 3) '맘이라고': 음 글자가 회색+사선(chocolate의 o와 같은 몸짓) → 화살표가 그려지고 '맘'이 튀어나옴
+  FT('#eum',{color:'#000'},{color:'#bdbdbd',duration:.3},11.0);
+  FT('#sl2',{scaleX:0},{scaleX:1,duration:.22,ease:'power3.out'},11.1);
+  FT('#arrow',{opacity:0},{opacity:1,duration:.05},11.45);
+  FT('#arrowPath',{attr:{'stroke-dashoffset':260}},{attr:{'stroke-dashoffset':0},duration:.35,ease:'power2.inOut'},11.45);
+  FT('#markMam',{scaleX:0,opacity:1},{scaleX:1,opacity:1,duration:.3,ease:'power3.out'},11.75);
+  FT('#mam',{scale:.2,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:.4,ease:'back.out(2.4)'},11.7);
+  // 4) '영어도 비슷해요': 위 줄이 살짝 올라가고 chocolate가 같은 몸짓으로 들어옴
+  FT('#rowM',{y:0},{y:-50,duration:.4,ease:'power3.inOut'},12.35);
+  FT('#chipE',{x:-90,opacity:0},{x:0,opacity:1,duration:.3,ease:'back.out(1.8)'},12.5);
+  FT('#echo',{x:120,opacity:0},{x:0,opacity:1,duration:.4,ease:'power3.out'},12.6);
+  FT('#o3',{color:'#000'},{color:'#bdbdbd',duration:.3},13.0);
+  FT('#sl3',{scaleX:0},{scaleX:1,duration:.22,ease:'power3.out'},13.1);
+  FT('#ow3',{width:w3},{width:w3*.45,duration:.45,ease:'power3.inOut'},13.3);
+  FT('#sw3',{scale:1},{scale:.6,duration:.45,ease:'power3.inOut'},13.3);
+  FT('#eq',{scale:0,opacity:0},{scale:1,opacity:1,duration:.35,ease:'back.out(3)'},13.2);
+
+  window.tl=tl;
+  window.seekTo=function(t){tl.seek(t,false);};
+  tl.seek(0,false);
+})();
+</script>
+</body>
+</html>

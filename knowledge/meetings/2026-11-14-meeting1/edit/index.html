@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>chocolate edit-sound</title>
+<meta name="viewport" content="width=1080,height=1920">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+  :root{--cream:#F4EFE6;--yellow:#F5C518;--black:#000;--red:#e8202a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;background:#222;overflow:hidden;font-family:"Malgun Gothic","맑은 고딕",sans-serif}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--cream)}
+  .scene{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden}
+  .abs{position:absolute;left:0;top:0;white-space:nowrap}
+  .big{font-weight:700;line-height:1;white-space:nowrap;-webkit-text-stroke:3px currentColor}
+  .L{display:inline-block;position:relative;z-index:1}
+  .pill{position:absolute;left:0;top:0;white-space:nowrap;font-weight:700;color:#000;background:var(--yellow);
+        border:8px solid #000;border-radius:999px;box-shadow:12px 12px 0 #000;padding:24px 46px;font-size:62px;line-height:1.1}
+  .chip{position:absolute;left:0;top:0;white-space:nowrap;font-weight:700;font-size:66px;line-height:1;padding:18px 44px;border-radius:999px;border:6px solid #000}
+  /* A */
+  #A{background:var(--cream)}
+  #cA{position:absolute;left:60px;top:410px;width:920px;height:920px;border-radius:50%;background:var(--yellow);border:10px solid #000;box-shadow:18px 18px 0 #000}
+  #wA{font-size:160px;color:#000}
+  #qA{font-size:300px;color:var(--red);-webkit-text-stroke:6px var(--red)}
+  /* B */
+  #B{background:#000}
+  #chip1{background:var(--cream);color:#000;border-color:var(--cream)}
+  #chip2{background:var(--yellow);color:#000;border-color:var(--yellow)}
+  #w1{font-size:250px;color:var(--cream)}
+  #w2{font-size:250px;color:var(--yellow)}
+  .bar{position:absolute;width:18px;height:60px;border-radius:9px;background:var(--yellow);left:0;top:0}
+  /* C */
+  #C{background:var(--cream)}
+  /* D */
+  #D{background:var(--yellow)}
+  #pD{background:#fff}
+  #m1,#m2{font-size:220px;color:#000}
+  #m2{color:var(--red);-webkit-text-stroke:3px var(--red);font-size:260px}
+  #arrow{font-size:120px;color:#000}
+  #tagD{background:#000;color:var(--cream);border-color:#000}
+  /* global chocolate */
+  #wG{position:absolute;left:0;top:0;font-size:160px;color:#000;white-space:nowrap;line-height:1;z-index:20}
+  #hl{position:absolute;background:var(--yellow);border:6px solid #000;border-radius:18px;z-index:0}
+  #slash{position:absolute;height:16px;border-radius:8px;background:var(--red);z-index:3}
+  #lab{position:absolute;white-space:nowrap;font-size:44px;font-weight:700;color:var(--cream);background:#000;padding:12px 28px;border-radius:999px;z-index:4;-webkit-text-stroke:0}
+  #lab::after{content:"";position:absolute;left:50%;bottom:-16px;margin-left:-14px;border:14px solid transparent;border-top-color:#000;border-bottom:0}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- A hook 0~2.2 -->
+  <div id="A" class="scene">
+    <div id="cA"></div>
+    <div id="wA" class="abs big"></div>
+    <div id="qA" class="abs big">?</div>
+    <div id="pA" class="pill">초콜릿, 어떻게 읽으세요?</div>
+  </div>
+
+  <!-- B contrast 2.2~5.5 -->
+  <div id="B" class="scene">
+    <div id="chip1" class="chip">글자</div>
+    <div id="w1" class="abs big"><span class="L">초</span><span class="L" id="k1">콜</span><span class="L">릿</span></div>
+    <div id="chip2" class="chip">소리</div>
+    <div id="bars"></div>
+    <div id="w2" class="abs big"><span class="L">초</span><span class="L" id="k2">클</span><span class="L">릿</span></div>
+  </div>
+
+  <!-- C vowel-drop 5.5~9.5 (bg + pill; word lives in #wG) -->
+  <div id="C" class="scene">
+    <div id="pC" class="pill">빨리 말하면 거의 안 들려요</div>
+  </div>
+
+  <!-- D analogy 9.5~14 -->
+  <div id="D" class="scene">
+    <div id="pD" class="pill">우리말도 줄여서 말해요</div>
+    <div id="m1" class="abs big">마음</div>
+    <div id="arrow" class="abs big">→</div>
+    <div id="m2" class="abs big">맘</div>
+    <div id="tagD" class="chip">영어도 비슷해요</div>
+  </div>
+
+  <!-- global chocolate (C -> parked in D -> returns) -->
+  <div id="wG" class="big">
+    <div id="hl"></div>
+    <div id="slash"></div>
+    <div id="lab">가운데</div>
+  </div>
+</div>
+
+<script>
+(async function(){
+  try{ await document.fonts.ready; }catch(e){}
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const letters="chocolate".split("");
+  const mk=(host,prefix)=>{ letters.forEach((c,i)=>{const s=document.createElement('span');s.className='L';s.id=prefix+i;s.textContent=c;host.appendChild(s);}); };
+  mk($('#wA'),'A'); mk($('#wG'),'G');
+  // wG: letters must come before overlay children for offsetLeft use; overlay children are absolute so fine.
+
+  const cx=(el,x,y)=>gsap.set(el,{xPercent:-50,yPercent:-50,x:x,y:y});
+  // ---- layout ----
+  cx('#wA',520,870); cx('#qA',880,500); cx('#pA',530,1480);
+  cx('#chip1',540,520); cx('#w1',540,730); cx('#chip2',330,1040); cx('#w2',540,1290);
+  cx('#wG',540,840); cx('#pC',530,1200);
+  cx('#pD',530,620); cx('#m1',540,940); cx('#arrow',580,940); cx('#m2',800,940); cx('#tagD',540,1530);
+
+  // bars next to chip2
+  const bars=[];
+  for(let i=0;i<5;i++){const b=document.createElement('div');b.className='bar';$('#bars').appendChild(b);gsap.set(b,{x:600+i*34,y:1010,transformOrigin:'50% 50%',scaleY:0.35,opacity:0});bars.push(b);}
+
+  // ---- overlay geometry on the middle "o" (G4) ----
+  const o=$('#G4');
+  const oL=o.offsetLeft,oT=o.offsetTop,oW=o.offsetWidth,oH=o.offsetHeight;
+  const hl=$('#hl'); hl.style.left=(oL-7)+'px'; hl.style.top=(oT+20)+'px'; hl.style.width=(oW+14)+'px'; hl.style.height=(oH-30)+'px';
+  const ocx=oL+oW/2, ocy=oT+oH/2+8, SL=130, ang=40*Math.PI/180;
+  const sl=$('#slash'); sl.style.width=SL+'px';
+  sl.style.left=(ocx-SL/2*Math.cos(ang))+'px'; sl.style.top=(ocy+SL/2*Math.sin(ang)-8)+'px';
+  gsap.set(sl,{transformOrigin:'0% 50%',rotation:-40,scaleX:0});
+  const lab=$('#lab'); lab.style.left=ocx+'px'; lab.style.top=(oT-62)+'px'; gsap.set(lab,{xPercent:-50,yPercent:-50,opacity:0});
+  gsap.set(hl,{scaleX:0,transformOrigin:'50% 50%',opacity:1});
+
+  // ---- initial states ----
+  const AL=$$('#wA .L'); gsap.set(AL,{opacity:0,y:120,scale:0.6});
+  gsap.set('#cA',{scale:0.85,transformOrigin:'50% 50%'});
+  gsap.set('#pA',{opacity:0,y:'+=70'}); gsap.set('#qA',{opacity:0,scale:0,rotation:-40});
+  gsap.set('#B',{clipPath:'inset(0 100% 0 0)'}); gsap.set('#C',{clipPath:'inset(100% 0 0 0)'}); gsap.set('#D',{clipPath:'inset(0 0 0 100%)'});
+  gsap.set(['#chip1','#w1','#chip2','#w2'],{opacity:0});
+  gsap.set('#pC',{opacity:0}); gsap.set(['#pD','#m1','#arrow','#m2','#tagD'],{opacity:0});
+  gsap.set('#wG',{autoAlpha:0});
+
+  const tl=gsap.timeline({paused:true,defaults:{ease:'power3.out'}});
+
+  /* ====== CUT A  0 ~ 2.2 : hook ====== */
+  tl.to('#cA',{scale:1.04,duration:2.2,ease:'none'},0);                         // slow drift so frame is never dead
+  // beat A1 0.15 "초콜릿": letters pop in
+  tl.to(AL,{opacity:1,y:0,scale:1,duration:0.32,stagger:0.045,ease:'back.out(2.2)'},0.15);
+  // beat A2 0.8 "어떻게": yellow pill drops
+  tl.to('#pA',{opacity:1,y:'-=70',duration:0.3,ease:'back.out(2)'},0.8);
+  // beat A3 1.4 "읽으세요": red ? stamps, word wobbles
+  tl.to('#qA',{opacity:1,scale:1,rotation:12,duration:0.3,ease:'back.out(3)'},1.4);
+  tl.fromTo('#wA',{rotation:-3},{rotation:0,duration:0.35,ease:'elastic.out(1,0.4)',immediateRender:false},1.4);
+  tl.to('#wA',{rotation:1.2,duration:0.6,ease:'none'},1.75);
+
+  /* ====== wipe A -> B (SFX1 whoosh 2.05) ====== */
+  tl.to('#B',{clipPath:'inset(0 0% 0 0)',duration:0.15,ease:'power2.inOut'},2.05);
+
+  /* ====== CUT B  2.2 ~ 5.5 : contrast ====== */
+  // beat B1 2.3 "글자는": chip + black-letter word pop
+  tl.set(['#chip1','#w1'],{opacity:1},2.3);
+  tl.fromTo('#chip1',{y:'-=40',scale:0.6},{y:'+=40',scale:1,duration:0.28,ease:'back.out(2.2)',immediateRender:false},2.3);
+  tl.fromTo('#w1',{scale:0.55},{scale:1,duration:0.3,ease:'back.out(2)',immediateRender:false},2.3);
+  tl.to('#w1',{rotation:-1.2,duration:1.2,ease:'none'},2.6);
+  // beat B2 3.55 "소리는": chip + sound bars
+  tl.set('#chip2',{opacity:1},3.55);
+  tl.fromTo('#chip2',{x:'-=140',scale:0.7},{x:'+=140',scale:1,duration:0.28,ease:'back.out(2)',immediateRender:false},3.55);
+  bars.forEach((b,i)=>{ tl.set(b,{opacity:1},3.55);
+    tl.to(b,{scaleY:2.4,duration:0.2+i*0.02,repeat:14,yoyo:true,ease:'sine.inOut'},3.55+i*0.04); });
+  // beat B3 4.1 "초클릿처럼": 초클릿 pops, changed letters turn red
+  tl.set('#w2',{opacity:1},4.1);
+  tl.fromTo('#w2',{scale:0.5,y:'+=60'},{scale:1,y:'-=60',duration:0.3,ease:'back.out(2.4)',immediateRender:false},4.1);
+  tl.to('#k1',{color:'#e8202a',duration:0.12,ease:'none'},4.1);
+  tl.to('#k2',{color:'#e8202a',duration:0.12,ease:'none'},4.1);
+  tl.to('#w2',{rotation:1.2,duration:1.2,ease:'none'},4.4);
+
+  /* ====== wipe B -> C (no SFX) ====== */
+  tl.to('#C',{clipPath:'inset(0% 0 0 0)',duration:0.15,ease:'power2.inOut'},5.35);
+
+  /* ====== CUT C  5.5 ~ 9.5 : vowel-drop ====== */
+  tl.set('#wG',{autoAlpha:1,x:-800},5.5);
+  // beat C1 5.6 "빨리": word whooshes in from left + pill pops
+  tl.to('#wG',{x:540,duration:0.3,ease:'power4.out'},5.6);
+  tl.set('#pC',{opacity:1},5.6);
+  tl.fromTo('#pC',{y:'+=60',scale:0.85},{y:'-=60',scale:1,duration:0.3,ease:'back.out(2)',immediateRender:false},5.6);
+  tl.to('#wG',{rotation:-1.4,duration:2.9,ease:'none'},5.95);
+  // beat C2 6.5 "가운데": yellow box + label on the middle o
+  tl.to(hl,{scaleX:1,duration:0.22,ease:'back.out(2)'},6.5);
+  tl.fromTo(lab,{y:'-=30'},{opacity:1,y:'+=30',duration:0.26,ease:'back.out(2.4)',immediateRender:false},6.5);
+  tl.to('#G4',{scale:1.22,duration:0.22,repeat:5,yoyo:true,ease:'sine.inOut'},6.55);   // gentle pulse, never frozen
+  // beat C3 7.95 "거의 안": red slash draws (SFX3), o fades to gray and shrinks
+  tl.to(sl,{scaleX:1,duration:0.2,ease:'power2.in'},7.95);
+  tl.to('#G4',{scale:0.62,color:'#bdbdbd',duration:0.3,ease:'power2.out',overwrite:'auto'},8.3);
+  tl.to(hl,{opacity:0,duration:0.25},8.3);
+  tl.to(lab,{opacity:0,duration:0.2},8.3);
+  // park the word small at top while D wipes in (continuity)
+  tl.to('#wG',{x:540,y:330,scale:0.42,rotation:0,duration:0.5,ease:'power2.inOut'},9.3);
+
+  /* ====== wipe C -> D (no SFX) ====== */
+  tl.to('#D',{clipPath:'inset(0 0 0 0%)',duration:0.15,ease:'power2.inOut'},9.35);
+
+  /* ====== CUT D  9.5 ~ 14 : analogy ====== */
+  // beat D1 10.35 "마음을": pill + 마음
+  tl.set(['#pD','#m1'],{opacity:1},10.35);
+  tl.fromTo('#pD',{y:'+=60',scale:0.85},{y:'-=60',scale:1,duration:0.3,ease:'back.out(2)',immediateRender:false},10.35);
+  tl.fromTo('#m1',{scale:0.5},{scale:1,duration:0.3,ease:'back.out(2.4)',immediateRender:false},10.35);
+  tl.to('#m1',{rotation:-1.5,duration:0.55,ease:'none'},10.5);
+  // beat D2 10.9 "맘이라고": 마음 slides left, arrow draws, 맘 squish-pops (SFX4)
+  tl.to('#m1',{x:270,rotation:0,duration:0.3,ease:'power3.inOut'},10.9);
+  tl.set('#arrow',{opacity:1,scaleX:0,transformOrigin:'0% 50%'},10.9);
+  tl.to('#arrow',{scaleX:1,duration:0.25,ease:'power2.out'},11.0);
+  tl.set('#m2',{opacity:1},11.1);
+  tl.fromTo('#m2',{scaleX:1.7,scaleY:0.45},{scaleX:1,scaleY:1,duration:0.4,ease:'elastic.out(1,0.45)',immediateRender:false},11.1);
+  tl.to('#m2',{rotation:2.5,duration:0.25,repeat:7,yoyo:true,ease:'sine.inOut'},11.6);  // soft sway while "줄여 말하잖아요"
+  tl.to('#arrow',{x:'+=14',duration:0.3,repeat:7,yoyo:true,ease:'sine.inOut'},11.6);
+  // beat D3 13.2 "영어도": parked word flies back, label arrives
+  tl.to('#wG',{x:540,y:1330,scale:0.82,duration:0.45,ease:'back.out(1.6)'},13.2);
+  tl.set('#tagD',{opacity:1},13.2);
+  tl.fromTo('#tagD',{y:'+=50',scale:0.8},{y:'-=50',scale:1,duration:0.3,ease:'back.out(2)',immediateRender:false},13.25);
+  tl.to('#G4',{scale:0.75,duration:0.2,repeat:3,yoyo:true,ease:'sine.inOut'},13.6);
+
+  tl.to({}, {duration:0.01}, 14); // fix total length 14s
+  window.tl=tl;
+  window.seekTo=(t)=>{tl.seek(t); return t;};
+})();
+</script>
+</body>
+</html>

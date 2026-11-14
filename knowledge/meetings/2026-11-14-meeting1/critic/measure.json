@@ -1,0 +1,843 @@
+{
+ "graphic": {
+  "timelineDuration": 14.1,
+  "errors": [],
+  "motionStrict": {
+   "movingRatio": 97.14,
+   "longestStillSec": 0.4,
+   "longestStillEndsAt": 9.2,
+   "longestStillStartsAt": 8.8
+  },
+  "motionThr": {
+   "movingRatio": 95.71,
+   "longestStillSec": 0.4,
+   "longestStillEndsAt": 9.2,
+   "longestStillStartsAt": 8.8
+  },
+  "stillsOver0_5s": [],
+  "lumJumps": [
+   {
+    "t": 2.2,
+    "dl": -0.32
+   },
+   {
+    "t": 2.3,
+    "dl": 0.33
+   },
+   {
+    "t": 5.4,
+    "dl": -0.23
+   },
+   {
+    "t": 5.5,
+    "dl": -0.49
+   },
+   {
+    "t": 9.6,
+    "dl": 0.34
+   }
+  ],
+  "flashPairs": 1,
+  "fullScreenChangesAt": [
+   2.2,
+   2.3,
+   5.5,
+   9.5,
+   9.6
+  ],
+  "reseek": [
+   {
+    "t": 0.5,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 3,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 6.5,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 8.7,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 10.5,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 13,
+    "changedAfterReseek": 0
+   }
+  ],
+  "text": {
+   "minMedianPx": 100,
+   "small": [],
+   "band": [
+    {
+     "txt": "c",
+     "owner": "wordA",
+     "bandSec": 2
+    },
+    {
+     "txt": "h",
+     "owner": "wordA",
+     "bandSec": 1.95
+    },
+    {
+     "txt": "o",
+     "owner": "wordA",
+     "bandSec": 2
+    },
+    {
+     "txt": "c",
+     "owner": "wordA",
+     "bandSec": 2
+    },
+    {
+     "txt": "c",
+     "owner": "wordC",
+     "bandSec": 2.25
+    },
+    {
+     "txt": "h",
+     "owner": "wordC",
+     "bandSec": 2.2
+    },
+    {
+     "txt": "o",
+     "owner": "wordC",
+     "bandSec": 2.15
+    },
+    {
+     "txt": "c",
+     "owner": "wordC",
+     "bandSec": 2.1
+    }
+   ],
+   "wraps": [],
+   "offscreen": [],
+   "shortLived": [],
+   "maxClusters": 4,
+   "owners": [
+    {
+     "owner": "wordA",
+     "text": "chocolate",
+     "minMedianPx": 340,
+     "maxMedianPx": 340,
+     "visibleSec": 2.2
+    },
+    {
+     "owner": "pillA",
+     "text": "초콜릿,어떻게 읽으세요?",
+     "minMedianPx": 100,
+     "maxMedianPx": 100,
+     "visibleSec": 1.6
+    },
+    {
+     "owner": "hgTop",
+     "text": "초릿",
+     "minMedianPx": 300,
+     "maxMedianPx": 300,
+     "visibleSec": 3.05
+    },
+    {
+     "owner": "mT",
+     "text": "콜",
+     "minMedianPx": 300,
+     "maxMedianPx": 300,
+     "visibleSec": 2.95
+    },
+    {
+     "owner": "hgBot",
+     "text": "초릿",
+     "minMedianPx": 300,
+     "maxMedianPx": 300,
+     "visibleSec": 1.75
+    },
+    {
+     "owner": "mB",
+     "text": "클",
+     "minMedianPx": 300,
+     "maxMedianPx": 300,
+     "visibleSec": 1.65
+    },
+    {
+     "owner": "wordC",
+     "text": "choclate",
+     "minMedianPx": 340,
+     "maxMedianPx": 340,
+     "visibleSec": 3.95
+    },
+    {
+     "owner": "oC",
+     "text": "o",
+     "minMedianPx": 183.8,
+     "maxMedianPx": 183.8,
+     "visibleSec": 3.8
+    },
+    {
+     "owner": "pillC",
+     "text": "빨리 말하면거의 안 들려요",
+     "minMedianPx": 100,
+     "maxMedianPx": 100,
+     "visibleSec": 3.1
+    },
+    {
+     "owner": "d1",
+     "text": "마음",
+     "minMedianPx": 250,
+     "maxMedianPx": 250,
+     "visibleSec": 4.2
+    },
+    {
+     "owner": "pillD",
+     "text": "우리말도줄여서 말해요",
+     "minMedianPx": 100,
+     "maxMedianPx": 100,
+     "visibleSec": 3.55
+    },
+    {
+     "owner": "d2",
+     "text": "맘",
+     "minMedianPx": 253.65,
+     "maxMedianPx": 253.65,
+     "visibleSec": 2.45
+    }
+   ]
+  }
+ },
+ "motion": {
+  "timelineDuration": 14,
+  "errors": [],
+  "motionStrict": {
+   "movingRatio": 100,
+   "longestStillSec": 0,
+   "longestStillEndsAt": 0,
+   "longestStillStartsAt": 0
+  },
+  "motionThr": {
+   "movingRatio": 96.43,
+   "longestStillSec": 0.2,
+   "longestStillEndsAt": 8.7,
+   "longestStillStartsAt": 8.5
+  },
+  "stillsOver0_5s": [],
+  "lumJumps": [],
+  "flashPairs": 0,
+  "fullScreenChangesAt": [],
+  "reseek": [
+   {
+    "t": 0.5,
+    "changedAfterReseek": 0.02
+   },
+   {
+    "t": 3,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 6.5,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 8.7,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 10.5,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 13,
+    "changedAfterReseek": 0.07
+   }
+  ],
+  "text": {
+   "minMedianPx": 40.55,
+   "small": [
+    {
+     "txt": "초콜릿, 어떻게 읽으세요?",
+     "owner": "pillA",
+     "medianPx": 56.21,
+     "cssFont": 54,
+     "visibleSec": 1.6
+    },
+    {
+     "txt": "글자",
+     "owner": "chipG",
+     "medianPx": 40.55,
+     "cssFont": 40,
+     "visibleSec": 2.9
+    },
+    {
+     "txt": "소리",
+     "owner": "chipS",
+     "medianPx": 40.78,
+     "cssFont": 40,
+     "visibleSec": 1.85
+    },
+    {
+     "txt": "빨리 말하면",
+     "owner": "pillC1",
+     "medianPx": 61.48,
+     "cssFont": 54,
+     "visibleSec": 3.8
+    },
+    {
+     "txt": "가운데 글자",
+     "owner": "tagO",
+     "medianPx": 47.88,
+     "cssFont": 42,
+     "visibleSec": 0.8
+    },
+    {
+     "txt": "거의 안 들려요",
+     "owner": "pillC2",
+     "medianPx": 61.56,
+     "cssFont": 54,
+     "visibleSec": 1.75
+    },
+    {
+     "txt": "우리말도 줄여서 말해요",
+     "owner": "pillD",
+     "medianPx": 55.16,
+     "cssFont": 54,
+     "visibleSec": 4.15
+    },
+    {
+     "txt": "영어",
+     "owner": "chipE",
+     "medianPx": 41.37,
+     "cssFont": 40,
+     "visibleSec": 1.5
+    },
+    {
+     "txt": "=",
+     "owner": "eq",
+     "medianPx": 74.88,
+     "cssFont": 72,
+     "visibleSec": 0.8
+    }
+   ],
+   "band": [],
+   "wraps": [],
+   "offscreen": [],
+   "shortLived": [
+    {
+     "txt": "o",
+     "owner": "o3",
+     "from": 12.65,
+     "to": 13.15,
+     "sec": 0.5
+    }
+   ],
+   "maxClusters": 8,
+   "owners": [
+    {
+     "owner": "wb",
+     "text": "choclate",
+     "minMedianPx": 154.5,
+     "maxMedianPx": 154.5,
+     "visibleSec": 9.4
+    },
+    {
+     "owner": "o1",
+     "text": "o",
+     "minMedianPx": 153.27,
+     "maxMedianPx": 153.27,
+     "visibleSec": 7.35
+    },
+    {
+     "owner": "pillA",
+     "text": "초콜릿, 어떻게 읽으세요?",
+     "minMedianPx": 56.21,
+     "maxMedianPx": 56.21,
+     "visibleSec": 1.6
+    },
+    {
+     "owner": "qb",
+     "text": "?",
+     "minMedianPx": 100.85,
+     "maxMedianPx": 100.85,
+     "visibleSec": 0.95
+    },
+    {
+     "owner": "chipG",
+     "text": "글자",
+     "minMedianPx": 40.55,
+     "maxMedianPx": 40.55,
+     "visibleSec": 2.9
+    },
+    {
+     "owner": "rowG",
+     "text": "초콜릿",
+     "minMedianPx": 192.96,
+     "maxMedianPx": 193.29,
+     "visibleSec": 2.75
+    },
+    {
+     "owner": "chipS",
+     "text": "소리",
+     "minMedianPx": 40.78,
+     "maxMedianPx": 40.78,
+     "visibleSec": 1.85
+    },
+    {
+     "owner": "rowS",
+     "text": "초릿",
+     "minMedianPx": 193.84,
+     "maxMedianPx": 193.84,
+     "visibleSec": 1.8
+    },
+    {
+     "owner": "swA",
+     "text": "콜",
+     "minMedianPx": 193.84,
+     "maxMedianPx": 193.84,
+     "visibleSec": 1.8
+    },
+    {
+     "owner": "swB",
+     "text": "클",
+     "minMedianPx": 193.84,
+     "maxMedianPx": 193.84,
+     "visibleSec": 1.8
+    },
+    {
+     "owner": "pillC1",
+     "text": "빨리 말하면",
+     "minMedianPx": 61.48,
+     "maxMedianPx": 61.48,
+     "visibleSec": 3.8
+    },
+    {
+     "owner": "tagO",
+     "text": "가운데 글자",
+     "minMedianPx": 47.88,
+     "maxMedianPx": 47.88,
+     "visibleSec": 0.8
+    },
+    {
+     "owner": "pillC2",
+     "text": "거의 안 들려요",
+     "minMedianPx": 61.56,
+     "maxMedianPx": 61.56,
+     "visibleSec": 1.75
+    },
+    {
+     "owner": "pillD",
+     "text": "우리말도 줄여서 말해요",
+     "minMedianPx": 55.16,
+     "maxMedianPx": 55.16,
+     "visibleSec": 4.15
+    },
+    {
+     "owner": "ma",
+     "text": "마",
+     "minMedianPx": 204.86,
+     "maxMedianPx": 204.86,
+     "visibleSec": 3.85
+    },
+    {
+     "owner": "eum",
+     "text": "음",
+     "minMedianPx": 202.38,
+     "maxMedianPx": 202.38,
+     "visibleSec": 0.8
+    },
+    {
+     "owner": "mam",
+     "text": "맘",
+     "minMedianPx": 206.58,
+     "maxMedianPx": 206.58,
+     "visibleSec": 2.3
+    },
+    {
+     "owner": "chipE",
+     "text": "영어",
+     "minMedianPx": 41.37,
+     "maxMedianPx": 41.37,
+     "visibleSec": 1.5
+    },
+    {
+     "owner": "echo",
+     "text": "choclate",
+     "minMedianPx": 107.62,
+     "maxMedianPx": 107.62,
+     "visibleSec": 1.4
+    },
+    {
+     "owner": "o3",
+     "text": "o",
+     "minMedianPx": 107.17,
+     "maxMedianPx": 107.17,
+     "visibleSec": 0.5
+    },
+    {
+     "owner": "eq",
+     "text": "=",
+     "minMedianPx": 74.88,
+     "maxMedianPx": 74.88,
+     "visibleSec": 0.8
+    }
+   ]
+  }
+ },
+ "edit": {
+  "timelineDuration": 14.4,
+  "errors": [],
+  "motionStrict": {
+   "movingRatio": 92.86,
+   "longestStillSec": 0.5,
+   "longestStillEndsAt": 10.3,
+   "longestStillStartsAt": 9.8
+  },
+  "motionThr": {
+   "movingRatio": 85,
+   "longestStillSec": 0.5,
+   "longestStillEndsAt": 10.3,
+   "longestStillStartsAt": 9.8
+  },
+  "stillsOver0_5s": [
+   [
+    9.8,
+    10.3
+   ]
+  ],
+  "lumJumps": [
+   {
+    "t": 2.2,
+    "dl": -0.68
+   },
+   {
+    "t": 5.5,
+    "dl": 0.73
+   }
+  ],
+  "flashPairs": 0,
+  "fullScreenChangesAt": [
+   2.2,
+   5.5,
+   9.5
+  ],
+  "reseek": [
+   {
+    "t": 0.5,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 3,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 6.5,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 8.7,
+    "changedAfterReseek": 0
+   },
+   {
+    "t": 10.5,
+    "changedAfterReseek": 0.74
+   },
+   {
+    "t": 13,
+    "changedAfterReseek": 0
+   }
+  ],
+  "text": {
+   "minMedianPx": 44,
+   "small": [
+    {
+     "txt": "초콜릿, 어떻게 읽으세요?",
+     "owner": "pA",
+     "medianPx": 62,
+     "cssFont": 62,
+     "visibleSec": 1.3
+    },
+    {
+     "txt": "글자",
+     "owner": "chip1",
+     "medianPx": 66,
+     "cssFont": 66,
+     "visibleSec": 3.15
+    },
+    {
+     "txt": "소리",
+     "owner": "chip2",
+     "medianPx": 66,
+     "cssFont": 66,
+     "visibleSec": 1.9
+    },
+    {
+     "txt": "빨리 말하면 거의 안 들려요",
+     "owner": "pC",
+     "medianPx": 62,
+     "cssFont": 62,
+     "visibleSec": 3.85
+    },
+    {
+     "txt": "가운데",
+     "owner": "lab",
+     "medianPx": 44,
+     "cssFont": 44,
+     "visibleSec": 1.85
+    },
+    {
+     "txt": "우리말도 줄여서 말해요",
+     "owner": "pD",
+     "medianPx": 62,
+     "cssFont": 62,
+     "visibleSec": 3.7
+    },
+    {
+     "txt": "영어도 비슷해요",
+     "owner": "tagD",
+     "medianPx": 66,
+     "cssFont": 66,
+     "visibleSec": 0.85
+    }
+   ],
+   "band": [],
+   "wraps": [],
+   "offscreen": [],
+   "shortLived": [],
+   "maxClusters": 13,
+   "owners": [
+    {
+     "owner": "A0",
+     "text": "c",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.95
+    },
+    {
+     "owner": "A1",
+     "text": "h",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.9
+    },
+    {
+     "owner": "A2",
+     "text": "o",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.9
+    },
+    {
+     "owner": "A3",
+     "text": "c",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.85
+    },
+    {
+     "owner": "A4",
+     "text": "o",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.8
+    },
+    {
+     "owner": "A5",
+     "text": "l",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.75
+    },
+    {
+     "owner": "A6",
+     "text": "a",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.7
+    },
+    {
+     "owner": "A7",
+     "text": "t",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.65
+    },
+    {
+     "owner": "A8",
+     "text": "e",
+     "minMedianPx": 160,
+     "maxMedianPx": 160,
+     "visibleSec": 1.6
+    },
+    {
+     "owner": "pA",
+     "text": "초콜릿, 어떻게 읽으세요?",
+     "minMedianPx": 62,
+     "maxMedianPx": 62,
+     "visibleSec": 1.3
+    },
+    {
+     "owner": "qA",
+     "text": "?",
+     "minMedianPx": 300,
+     "maxMedianPx": 300,
+     "visibleSec": 0.7
+    },
+    {
+     "owner": "chip1",
+     "text": "글자",
+     "minMedianPx": 66,
+     "maxMedianPx": 66,
+     "visibleSec": 3.15
+    },
+    {
+     "owner": "w1",
+     "text": "초릿",
+     "minMedianPx": 250,
+     "maxMedianPx": 250,
+     "visibleSec": 3.15
+    },
+    {
+     "owner": "k1",
+     "text": "콜",
+     "minMedianPx": 250,
+     "maxMedianPx": 250,
+     "visibleSec": 3.15
+    },
+    {
+     "owner": "chip2",
+     "text": "소리",
+     "minMedianPx": 66,
+     "maxMedianPx": 66,
+     "visibleSec": 1.9
+    },
+    {
+     "owner": "w2",
+     "text": "초릿",
+     "minMedianPx": 250,
+     "maxMedianPx": 250,
+     "visibleSec": 1.35
+    },
+    {
+     "owner": "k2",
+     "text": "클",
+     "minMedianPx": 250,
+     "maxMedianPx": 250,
+     "visibleSec": 1.35
+    },
+    {
+     "owner": "pC",
+     "text": "빨리 말하면 거의 안 들려요",
+     "minMedianPx": 62,
+     "maxMedianPx": 62,
+     "visibleSec": 3.85
+    },
+    {
+     "owner": "G4",
+     "text": "o",
+     "minMedianPx": 160.72,
+     "maxMedianPx": 160.72,
+     "visibleSec": 2.5
+    },
+    {
+     "owner": "G5",
+     "text": "l",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.4
+    },
+    {
+     "owner": "G6",
+     "text": "a",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.4
+    },
+    {
+     "owner": "G7",
+     "text": "t",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.4
+    },
+    {
+     "owner": "G8",
+     "text": "e",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.4
+    },
+    {
+     "owner": "G0",
+     "text": "c",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.35
+    },
+    {
+     "owner": "G1",
+     "text": "h",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.35
+    },
+    {
+     "owner": "G2",
+     "text": "o",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.35
+    },
+    {
+     "owner": "G3",
+     "text": "c",
+     "minMedianPx": 131.2,
+     "maxMedianPx": 131.2,
+     "visibleSec": 8.35
+    },
+    {
+     "owner": "lab",
+     "text": "가운데",
+     "minMedianPx": 44,
+     "maxMedianPx": 44,
+     "visibleSec": 1.85
+    },
+    {
+     "owner": "pD",
+     "text": "우리말도 줄여서 말해요",
+     "minMedianPx": 62,
+     "maxMedianPx": 62,
+     "visibleSec": 3.7
+    },
+    {
+     "owner": "m1",
+     "text": "마음",
+     "minMedianPx": 220,
+     "maxMedianPx": 220,
+     "visibleSec": 3.7
+    },
+    {
+     "owner": "arrow",
+     "text": "→",
+     "minMedianPx": 120,
+     "maxMedianPx": 120,
+     "visibleSec": 3
+    },
+    {
+     "owner": "m2",
+     "text": "맘",
+     "minMedianPx": 260,
+     "maxMedianPx": 260,
+     "visibleSec": 2.95
+    },
+    {
+     "owner": "tagD",
+     "text": "영어도 비슷해요",
+     "minMedianPx": 66,
+     "maxMedianPx": 66,
+     "visibleSec": 0.85
+    }
+   ]
+  }
+ }
+}

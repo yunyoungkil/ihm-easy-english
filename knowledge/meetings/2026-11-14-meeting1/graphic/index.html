@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080,height=1920">
+<title>chocolate short - graphic proposal</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+  :root{--cream:#F4EFE6;--yellow:#F5C518;--black:#000;--red:#e8202a;--ink:#0b0b0b}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;background:#222;overflow:hidden}
+  body{font-family:'Malgun Gothic','맑은 고딕',sans-serif}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--cream)}
+  .scene{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;visibility:hidden;opacity:0}
+  .nw{white-space:nowrap}
+  .lat{font-family:'Arial Black','Arial',sans-serif;font-weight:900}
+
+  /* ---------- pill ---------- */
+  .pill{position:absolute;left:0;right:0;margin:0 auto;width:fit-content;top:1270px;
+    background:var(--yellow);border:10px solid #000;border-radius:130px;box-shadow:14px 14px 0 #000;
+    padding:34px 64px;text-align:center;font-size:100px;line-height:1.2;font-weight:700;color:#000;white-space:nowrap}
+  .pill span{display:block;white-space:nowrap}
+  .pill.inv{background:#000;color:var(--yellow);border-color:#000;box-shadow:14px 14px 0 var(--red)}
+
+  /* ---------- scene A / C : stacked word ---------- */
+  .burst{position:absolute;left:-760px;top:-260px;width:2600px;height:2600px;border-radius:50%;
+    background:repeating-conic-gradient(from 0deg,#F4EFE6 0deg 9deg,#EBE1CC 9deg 18deg)}
+  .word{position:absolute;left:0;top:250px;width:1080px}
+  .ln{position:relative;height:300px;display:flex;justify-content:center;align-items:center}
+  .ln .in{position:relative;display:inline-block;white-space:nowrap;font-size:340px;line-height:300px;letter-spacing:-6px}
+  .ln .bar{position:absolute;left:-26px;right:-26px;top:22px;bottom:14px;background:var(--yellow);border-radius:34px;z-index:0;transform-origin:left center;transform:scaleX(0)}
+  .ln .tx{position:relative;z-index:1;display:inline-block}
+  .ln .tx i{display:inline-block;font-style:normal}
+
+  #sC{background:var(--ink)}
+  #sC .word .ln .in{color:#fff}
+  #sC .ln.mid .in{color:var(--yellow)}
+  .ring{position:absolute;left:340px;top:560px;width:400px;height:400px;border-radius:50%;border:16px solid var(--yellow);opacity:0}
+  #slash{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;pointer-events:none;overflow:visible;z-index:3}
+
+  /* ---------- scene B ---------- */
+  #sB{background:#FBF8F1}
+  #topP{position:absolute;left:0;top:0;width:1080px;height:1010px;background:var(--yellow);
+    clip-path:polygon(0 0,100% 0,100% 87%,0 100%);overflow:hidden}
+  #dots{position:absolute;left:-200px;top:0;width:1500px;height:1010px;opacity:.16;
+    background:radial-gradient(#000 3px,transparent 4px) 0 0/44px 44px}
+  .hg{position:absolute;left:0;width:1080px;text-align:center;font-weight:900;font-size:300px;line-height:340px;white-space:nowrap;letter-spacing:-8px}
+  .hg i{display:inline-block;font-style:normal;border-radius:56px}
+  #hgTop{top:300px;color:#000}
+  #hgBot{top:1170px;color:var(--red);text-shadow:10px 10px 0 #000}
+  #ul{position:absolute;left:150px;top:660px;width:780px;height:18px;background:#000;border-radius:9px;transform-origin:left center;transform:scaleX(0)}
+  #arrow{position:absolute;left:440px;top:820px;width:200px;height:300px}
+  #eq{position:absolute;left:0;top:1530px;width:1080px;height:120px}
+  #eq b{position:absolute;bottom:0;width:44px;border-radius:22px;background:#000;height:110px;transform-origin:bottom center;transform:scaleY(.12)}
+
+  /* ---------- scene D ---------- */
+  #sD{background:var(--yellow)}
+  #stripes{position:absolute;left:-400px;top:-200px;width:2000px;height:2400px;
+    background:repeating-linear-gradient(135deg,rgba(0,0,0,0) 0 70px,rgba(0,0,0,.07) 70px 140px)}
+  #blob{position:absolute;right:-220px;top:-120px;width:640px;height:640px;border-radius:50%;background:var(--red)}
+  #row{position:absolute;left:0;top:600px;width:1080px;height:340px;display:flex;justify-content:center;align-items:center;gap:30px;font-weight:900;font-size:250px;line-height:300px;white-space:nowrap}
+  #d1{color:#000;display:inline-block}
+  #d2{color:var(--red);text-shadow:8px 8px 0 #000;display:inline-block}
+  #darrow{width:170px;height:130px;display:block;flex:none}
+  #sbar{position:absolute;left:100px;top:1010px;width:880px;height:56px;background:#000;border-radius:28px;transform-origin:center center;transform:scaleX(0)}
+  #sD .pill{top:1270px}
+
+  /* ---------- wipes ---------- */
+  .wipe{position:absolute;z-index:50;visibility:hidden}
+  #wH{left:0;top:0;width:1500px;height:1920px;background:var(--red)}
+  #wH::after{content:"";position:absolute;right:0;top:0;width:70px;height:100%;background:#000}
+  #wV{left:0;top:0;width:1080px;height:2400px;background:var(--red)}
+  #wV::before{content:"";position:absolute;left:0;top:0;width:100%;height:70px;background:#000}
+  #iris{left:-660px;top:-240px;width:2400px;height:2400px;border-radius:50%;background:var(--ink)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ================= A (0-2.2) hook ================= -->
+  <div class="scene" id="sA">
+    <div class="burst" id="burstA"></div>
+    <div class="word" id="wordA">
+      <div class="ln"><div class="in lat"><span class="bar"></span><span class="tx" data-t="choc"></span></div></div>
+      <div class="ln"><div class="in lat"><span class="bar"></span><span class="tx" data-t="o"></span></div></div>
+      <div class="ln"><div class="in lat"><span class="bar"></span><span class="tx" data-t="late"></span></div></div>
+    </div>
+    <div class="pill" id="pillA"><span>초콜릿,</span><span>어떻게 읽으세요?</span></div>
+  </div>
+
+  <!-- ================= B (2.2-5.5) contrast ================= -->
+  <div class="scene" id="sB">
+    <div id="topP"><div id="dots"></div></div>
+    <div class="hg" id="hgTop"><i>초</i><i id="mT">콜</i><i>릿</i></div>
+    <div id="ul"></div>
+    <svg id="arrow" viewBox="0 0 200 300" fill="none">
+      <path id="arrowPath" d="M100 12 L100 228" stroke="#e8202a" stroke-width="44" stroke-linecap="round"/>
+      <path id="arrowHead" d="M30 200 L100 280 L170 200" stroke="#e8202a" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="hg" id="hgBot"><i>초</i><i id="mB">클</i><i>릿</i></div>
+    <div id="eq"></div>
+  </div>
+
+  <!-- ================= C (5.5-9.5) vowel-drop ================= -->
+  <div class="scene" id="sC">
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="word" id="wordC">
+      <div class="ln"><div class="in lat"><span class="bar"></span><span class="tx" data-t="choc"></span></div></div>
+      <div class="ln mid" id="midC"><div class="in lat" id="midIn"><span class="bar"></span><span class="tx" id="oC" data-t="o"></span>
+        <svg id="slash" viewBox="0 0 300 300"><line id="slashL" x1="30" y1="270" x2="270" y2="30" stroke="#e8202a" stroke-width="30" stroke-linecap="round"/></svg></div></div>
+      <div class="ln"><div class="in lat"><span class="bar"></span><span class="tx" data-t="late"></span></div></div>
+    </div>
+    <div class="pill" id="pillC"><span>빨리 말하면</span><span>거의 안 들려요</span></div>
+  </div>
+
+  <!-- ================= D (9.5-14) analogy ================= -->
+  <div class="scene" id="sD">
+    <div id="stripes"></div>
+    <div id="blob"></div>
+    <div id="row">
+      <span id="d1">마음</span>
+      <svg id="darrow" viewBox="0 0 170 130" fill="none">
+        <path id="dPath" d="M10 65 L140 65" stroke="#000" stroke-width="30" stroke-linecap="round"/>
+        <path id="dHead" d="M96 18 L150 65 L96 112" stroke="#000" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span id="d2">맘</span>
+    </div>
+    <div id="sbar"></div>
+    <div class="pill inv" id="pillD"><span>우리말도</span><span>줄여서 말해요</span></div>
+  </div>
+
+  <div class="wipe" id="wH"></div>
+  <div class="wipe" id="wV"></div>
+  <div class="wipe" id="iris"></div>
+</div>
+
+<script>
+// ---- build letter spans (deterministic) ----
+document.querySelectorAll('.tx[data-t]').forEach(el=>{
+  el.innerHTML = el.dataset.t.split('').map(c=>'<i>'+c+'</i>').join('');
+});
+// equalizer bars
+(function(){
+  const eq=document.getElementById('eq'); const n=9, w=44, gap=34;
+  const total=n*w+(n-1)*gap, x0=(1080-total)/2;
+  for(let i=0;i<n;i++){const b=document.createElement('b'); b.style.left=(x0+i*(w+gap))+'px'; eq.appendChild(b);}
+})();
+
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const tl = gsap.timeline({paused:true, defaults:{ease:'power2.out'}});
+window.tl = tl;
+
+// ---- initial states ----
+gsap.set('#sA',{autoAlpha:1});
+gsap.set(['#wH','#wV','#iris'],{autoAlpha:0});
+gsap.set('#wH',{x:-1500}); gsap.set('#wV',{y:1920}); gsap.set('#iris',{scale:0});
+gsap.set('#pillA',{autoAlpha:0,y:260});
+gsap.set('#wordA .tx i',{transformOrigin:'50% 60%'});
+$$('#wordA .tx i').forEach((e,i)=>gsap.set(e,{scale:1.55,rotation:(i%2?-9:9),y:-50}));
+
+// ================= A =================
+tl.to('#burstA',{rotation:30,duration:2.4,ease:'none'},0);
+tl.to('#wordA .tx i',{scale:1,rotation:0,y:0,duration:0.5,ease:'back.out(1.8)',stagger:0.035},0);
+tl.to('#pillA',{autoAlpha:1,y:0,duration:0.45,ease:'back.out(1.6)'},0.55);
+// karaoke-style marker: reads the word the "Korean way" syllable by syllable
+[0.95,1.3,1.65].forEach((t,i)=>{
+  tl.to($$('#wordA .bar')[i],{scaleX:1,duration:0.2,ease:'power3.out'},t);
+  tl.fromTo($$('#wordA .in')[i],{scale:1},{scale:1.05,duration:0.1,yoyo:true,repeat:1,ease:'power1.inOut'},t);
+});
+
+// ================= A -> B wipe (cut 2.2) =================
+tl.set('#wH',{autoAlpha:1},1.97);
+tl.to('#wH',{x:1080,duration:0.5,ease:'power2.inOut'},1.97);
+tl.set('#sA',{autoAlpha:0},2.22);
+tl.set('#sB',{autoAlpha:1},2.22);
+tl.set('#wH',{autoAlpha:0},2.48);
+
+// ================= B =================
+// initial B states
+gsap.set('#hgTop i',{transformOrigin:'50% 60%',autoAlpha:0,y:-120,scale:1.3});
+gsap.set('#hgBot i',{transformOrigin:'50% 60%',autoAlpha:0,y:140,scale:1.3});
+gsap.set('#arrowPath',{attr:{'stroke-dasharray':216,'stroke-dashoffset':216}});
+gsap.set('#arrowHead',{autoAlpha:0});
+gsap.set('#eq b',{scaleY:0.0});
+tl.to('#dots',{x:120,duration:3.4,ease:'none'},2.2);
+tl.to('#hgTop i',{autoAlpha:1,y:0,scale:1,duration:0.35,ease:'back.out(1.8)',stagger:0.09},2.38);
+tl.to('#ul',{scaleX:1,duration:0.35,ease:'power3.out'},2.95);
+tl.to('#mT',{backgroundColor:'#000',color:'#fff',duration:0.2},3.0);
+// arrow draws toward the sound
+tl.to('#arrowPath',{attr:{'stroke-dashoffset':0},duration:0.25,ease:'power2.inOut'},3.4);
+tl.to('#arrowHead',{autoAlpha:1,duration:0.1},3.62);
+// bottom word lands on "소리는 초클릿"
+tl.to('#hgBot i',{autoAlpha:1,y:0,scale:1,duration:0.4,ease:'back.out(2)',stagger:0.1},3.62);
+tl.to('#mB',{backgroundColor:'#e8202a',color:'#fff',duration:0.2},4.1);
+tl.fromTo('#mB',{scale:1},{scale:1.12,duration:0.14,yoyo:true,repeat:1,ease:'power1.inOut'},4.1);
+// top word steps back so the eye goes to the sound
+tl.to(['#hgTop','#ul'],{opacity:0.6,duration:0.4},4.2);
+// equalizer = "you can hear it"
+const eqH=[0.35,0.7,0.5,0.95,0.6,1,0.45,0.8,0.4];
+$$('#eq b').forEach((b,i)=>{
+  tl.to(b,{scaleY:0.14+(i%3)*0.03,duration:0.3,ease:'power2.out'},2.75+i*0.03);
+  tl.to(b,{scaleY:eqH[i],duration:0.18,ease:'power2.out'},3.75+i*0.03);
+  tl.to(b,{scaleY:Math.max(0.2,eqH[i]-0.4)+((i%3)*0.1),duration:0.22+(i%3)*0.04,yoyo:true,repeat:5,ease:'sine.inOut'},3.95+i*0.03);
+});
+// B -> C iris (cut 5.5)
+tl.set('#iris',{autoAlpha:1},5.12);
+tl.to('#iris',{scale:1,duration:0.38,ease:'power2.in'},5.12);
+tl.set('#sB',{autoAlpha:0},5.5);
+tl.set('#sC',{autoAlpha:1},5.5);
+tl.set('#iris',{autoAlpha:0},5.5);
+
+// ================= C =================
+gsap.set('#sC .tx i',{transformOrigin:'50% 60%'});
+$$('#wordC .tx i').forEach((e,i)=>gsap.set(e,{autoAlpha:0,scale:1.5,y:-60,rotation:(i%2?-8:8)}));
+gsap.set('#pillC',{autoAlpha:0,y:260});
+gsap.set('#slashL',{attr:{'stroke-dasharray':340,'stroke-dashoffset':340}});
+gsap.set('#midC',{transformOrigin:'50% 50%'});
+tl.to('#wordC .tx i',{autoAlpha:1,scale:1,y:0,rotation:0,duration:0.4,ease:'back.out(1.8)',stagger:0.04},5.52);
+tl.to('#pillC',{autoAlpha:1,y:0,duration:0.45,ease:'back.out(1.6)'},6.3);
+// the middle o is "said" three times (rings), then it is gone
+$$('.ring').forEach((r,i)=>{
+  tl.fromTo(r,{scale:0.55,opacity:0.9},{scale:2.3,opacity:0,duration:0.7,ease:'power1.out',immediateRender:false},6.0+i*0.28);
+});
+tl.fromTo('#oC',{scale:1},{scale:1.12,duration:0.14,yoyo:true,repeat:5,ease:'sine.inOut',immediateRender:false},6.0);
+// slash + fade + squeeze
+tl.to('#slashL',{attr:{'stroke-dashoffset':0},duration:0.22,ease:'power3.in'},7.05);
+tl.to('#oC',{opacity:0.25,duration:0.5,ease:'power2.inOut'},7.15);
+tl.to('#midIn',{scale:0.5,duration:0.55,ease:'power2.inOut'},7.15);
+tl.to('#midC',{height:96,duration:0.5,ease:'power3.inOut'},7.75);
+tl.to('#wordC',{y:90,duration:0.5,ease:'power3.inOut'},7.75);
+// after the squeeze the two halves nudge together like a quick "chock-lit"
+tl.to('#wordC .ln:first-child',{x:-18,duration:0.12,yoyo:true,repeat:3,ease:'sine.inOut'},8.3);
+tl.to('#wordC .ln:last-child',{x:18,duration:0.12,yoyo:true,repeat:3,ease:'sine.inOut'},8.3);
+
+// C -> D vertical wipe (cut 9.5)
+tl.set('#wV',{autoAlpha:1},9.27);
+tl.to('#wV',{y:-2400,duration:0.46,ease:'power2.inOut'},9.27);
+tl.set('#sC',{autoAlpha:0},9.5);
+tl.set('#sD',{autoAlpha:1},9.5);
+tl.set('#wV',{autoAlpha:0},9.74);
+
+// ================= D =================
+gsap.set('#d1',{x:250,autoAlpha:0,scale:1.4,transformOrigin:'50% 60%'});
+gsap.set('#d2',{autoAlpha:0,scale:2.2,transformOrigin:'50% 60%'});
+gsap.set('#dPath',{attr:{'stroke-dasharray':130,'stroke-dashoffset':130}});
+gsap.set('#dHead',{autoAlpha:0});
+gsap.set('#pillD',{autoAlpha:0,y:260});
+tl.to('#stripes',{x:140,duration:4.5,ease:'none'},9.5);
+tl.fromTo('#blob',{scale:1},{scale:1.15,duration:2.2,yoyo:true,repeat:1,ease:'sine.inOut'},9.5);
+tl.to('#d1',{autoAlpha:1,scale:1,duration:0.4,ease:'back.out(1.8)'},9.82);
+tl.to('#sbar',{scaleX:1,duration:0.4,ease:'power3.out'},10.2);
+tl.to('#pillD',{autoAlpha:1,y:0,duration:0.45,ease:'back.out(1.6)'},10.45);
+// "마음을 맘이라고 줄여 말하잖아요"
+tl.to('#d1',{x:0,duration:0.35,ease:'power3.inOut'},11.15);
+tl.to('#dPath',{attr:{'stroke-dashoffset':0},duration:0.22,ease:'power2.inOut'},11.35);
+tl.to('#dHead',{autoAlpha:1,duration:0.08},11.52);
+tl.to('#d2',{autoAlpha:1,scale:1,duration:0.38,ease:'back.out(2.2)'},11.55);
+tl.to('#sbar',{scaleX:0.5,backgroundColor:'#e8202a',duration:0.7,ease:'elastic.out(1,0.55)'},11.55);
+// "영어도 비슷해요": gentle pulse so the end is alive, not frozen
+tl.fromTo('#d2',{scale:1},{scale:1.1,duration:0.4,yoyo:true,repeat:3,ease:'sine.inOut'},12.5);
+tl.fromTo('#blob',{rotation:0},{rotation:0,duration:0.01},12.5);
+
+// keep the timeline exactly 14s
+tl.set({}, {}, 14);
+
+window.seekTo = (t) => { tl.seek(t, false); };
+</script>
+</body>
+</html>

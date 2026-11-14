@@ -289,6 +289,15 @@ async function run() {
   const oldReportIds = new Set([...existingCommentIds, ...existingScriptIds]);
   report.outlierReportCatchUp = eligibleIds.filter((id) => oldReportIds.has(id)).length;
   const reportTargets = pickReportTargets({...reportPick, limit: reportsPerDay({eligibleIds, oldReportIds})});
+  // 스튜디오 조사 목록 수집(2026-11-14 설계 2절): 실적 우수 목록의 후보를 모은다. 2단계에서 리포트 대상 고르기가 오늘 모은 후보를 바로 쓰도록 outlierReports 앞에 둔다.
+  // acquireLock(studio-export.mjs)은 다른 스튜디오 단계처럼 수집 함수 안에서 건다. 크롬 로그인이 풀리면 오류를 던져 loop-step 점검이 알린다.
+  await step('studioResearch', async () => {
+    const {collectStudioResearch} = await import('./studio-research.mjs');
+    const r = await collectStudioResearch({now: new Date()});
+    if (r && r.ok === false) throw new Error(`스튜디오 조사 목록 수집 실패: ${String(r.error || '').slice(0, 200)}`);
+    return r;
+  });
+
   if (reportTargets.length) {
     await step('outlierReports', async () => {
       const done = [];

@@ -94,3 +94,6 @@ data/youtube/daily-loop.json
 
 # 경쟁 영상 화면 캡처(합친 아웃라이어 리포트, 2026-11-12) — 저작권·용량 때문에 이 PC에만 둔다
 data/youtube/outlier-frames/
+
+# 스튜디오 조사 목록 전체 줄(2026-11-14) — 거르기 규칙을 다시 돌리는 용도, 이 PC에만 둔다
+data/youtube/studio-research-raw.json

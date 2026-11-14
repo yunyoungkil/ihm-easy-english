@@ -10,6 +10,7 @@ import {loadEpisodeOutcomes, parsePlanningSources, views7dPath} from './planning
 const H = 3600 * 1000;
 const D = 24 * H;
 export const LIMITS = Object.freeze({loopHours: 36, syncHours: 36, views7dDays: 12, audienceDays: 21, competitorDays: 10});
+export const RESEARCH_LIMIT_DAYS = 3; // allow-literal: 설계 2절 제안 값(research-stale·research-thin)
 export const SOURCES_REQUIRED_FROM_EP = 30; // 기획 근거 칸 규칙(2026-11-11)이 처음 적용되는 편
 
 const ageMs = (iso, now) => (iso && Number.isFinite(new Date(iso).getTime()) ? now - new Date(iso) : Infinity);
@@ -18,7 +19,7 @@ const ageMs = (iso, now) => (iso && Number.isFinite(new Date(iso).getTime()) ? n
 export function checkLoopHealth({
   now = new Date(), dailyLoop = null, analyticsSyncedAt = null, catalogVideos = [], views7d = {},
   audienceDnaUpdatedAt = null, competitorsAnalyzedAt = null, episodeOutcomes = [], successPatternIds = [],
-  episodesMissingSources = [], nextInputGeneratedAt = undefined, episodesMissingInputRef = [], oldReportFiles = 0,
+  episodesMissingSources = [], nextInputGeneratedAt = undefined, episodesMissingInputRef = [], oldReportFiles = 0, studioResearch = null,
 }) {
   const problems = [];
   const add = (id, text) => problems.push({id, text});
@@ -59,6 +60,18 @@ export function checkLoopHealth({
   }
   if (episodesMissingInputRef.length) add('brief-input', `BRIEF.md 기획 근거에 "다음 기획 입력" 인용이 없는 새 편: ${episodesMissingInputRef.join(', ')}`);
 
+  // 스튜디오 조사 목록 수집(2026-11-14 설계 2절). 파일이 아직 없으면(첫 수집 전) 고장으로 치지 않는다.
+  if (studioResearch) {
+    if (ageMs(studioResearch.updatedAt, now) > RESEARCH_LIMIT_DAYS * D) add('research-stale', `스튜디오 조사 목록 후보(studio-research.json)가 ${RESEARCH_LIMIT_DAYS}일 넘게 갱신되지 않았다(npm run studio-research)`);
+    const runs = Array.isArray(studioResearch.runs) ? studioResearch.runs : [];
+    const thin = ['LONGFORM', 'SHORTS'].filter((format) => {
+      const days = [...new Set(runs.filter((r) => r.format === format).map((r) => r.date))].sort().slice(-RESEARCH_LIMIT_DAYS);
+      if (days.length < RESEARCH_LIMIT_DAYS) return false;
+      return days.every((d) => runs.filter((r) => r.format === format && r.date === d).every((r) => !(r.passed > 0)));
+    });
+    if (thin.length) add('research-thin', `스튜디오 조사 목록에서 ${thin.join('·')} 통과 후보가 ${RESEARCH_LIMIT_DAYS}일 연속 0편이다(화면이 바뀌었는지 확인)`);
+  }
+
   return {ok: problems.length === 0, problems, lastLoopAt: dailyLoop?.finishedAt || null};
 }
 
@@ -97,6 +110,7 @@ export function loadLoopHealth(projectDir, now = new Date()) {
     episodesMissingSources,
     nextInputGeneratedAt,
     episodesMissingInputRef,
+    studioResearch: readJson(join(dataDir, 'studio-research.json'), null),
     oldReportFiles: ['outlier-comments', 'script-insights'].reduce((n, dir) => n + (existsSync(join(dataDir, dir)) ? readdirSync(join(dataDir, dir)).length : 0), 0),
   });
 }

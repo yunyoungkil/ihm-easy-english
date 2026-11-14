@@ -99,3 +99,22 @@ test('합친 리포트가 예전 리포트 영상을 다 따라잡았는데 예�
   assert.equal(checkLoopHealth({...healthy(), dailyLoop: loop(0), oldReportFiles: 0}).ok, true, '이미 지움');
   assert.equal(checkLoopHealth({...healthy(), dailyLoop: loop(undefined), oldReportFiles: 49}).ok, true, '아직 기록 없음');
 });
+
+test('스튜디오 조사 목록: 파일이 없으면 아무것도 띄우지 않고, 3일 넘게 오래되면 research-stale', () => {
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), studioResearch: null})), []);
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), studioResearch: {updatedAt: daysAgo(1), runs: []}})), []);
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), studioResearch: {updatedAt: daysAgo(4), runs: []}})), ['research-stale']);
+});
+
+test('스튜디오 조사 목록: 한 형식의 통과 후보가 3일 연속 0이면 research-thin', () => {
+  const run = (date, format, passed) => ({date, format, passed});
+  const days = ['2026-11-18', '2026-11-19', '2026-11-20'];
+  const thin = {updatedAt: hoursAgo(5), runs: days.flatMap((d) => [run(d, 'LONGFORM', 4), run(d, 'SHORTS', 0)])};
+  const r = checkLoopHealth({...healthy(), studioResearch: thin});
+  assert.deepEqual(ids(r), ['research-thin']);
+  assert.match(r.problems[0].text, /SHORTS/);
+  const short = {updatedAt: hoursAgo(5), runs: days.slice(1).map((d) => run(d, 'SHORTS', 0))};
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), studioResearch: short})), []);
+  const recovered = {updatedAt: hoursAgo(5), runs: [run(days[0], 'SHORTS', 0), run(days[1], 'SHORTS', 2), run(days[2], 'SHORTS', 0)]};
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), studioResearch: recovered})), []);
+});

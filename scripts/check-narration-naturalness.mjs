@@ -1,5 +1,5 @@
 // 나레이션이 한국어로 자연스러운지 규칙으로 검사한다(AI 호출 없음). narration-lint.mjs는 TTS가 영단어를
-// 잘못 읽는 것만 보고, 이 파일은 한국어 말투(AGENTS.md 스크립트 절 8·9·11번, brand-persona.md)를 본다.
+// 잘못 읽는 것만 보고, 이 파일은 한국어 말투(knowledge/script-rules.md 8·9·11번, 2026-11-15에 AGENTS.md에서 옮김, brand-persona.md)를 본다.
 // 사용법:  node scripts/check-narration-naturalness.mjs videos/ep29-b-vs-v/SCRIPT.md [다른 파일...] [--json]
 // 입력: SCRIPT.md의 ```text 블록 중 한글이 든 줄(영어 예문 줄은 건너뜀). 블록이 없으면 파일 전체의 한글 줄.
 // 등급: error(바로 고침) / warn(소리 내어 읽어 보고 판단) / 확인필요(사실 여부를 사용자에게 확인). error가 있으면 종료코드 1.

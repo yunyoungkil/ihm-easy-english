@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "sourceVideoId": "SbQVBQoRciA",
   "createdAt": "2026-11-12",
-  "status": "draft",
+  "status": "approved",
   "format": "SHORTS",
   "topic": "한국 사람이 아는 단어, 빨리 말하면 가운데 소리가 거의 안 들린다 (chocolate 외 4개)",
   "identityShare": {
@@ -57,7 +57,7 @@
         "quote": "발음 한번 해보세요"
       },
       "ours": {
-        "text": "0~2초 \"초콜릿, 어떻게 읽으세요?\"(카드: chocolate) → 2~9초 \"한글로 쓰면 초콜릿인데, 빨리 말하면 가운데 o가 거의 안 들려서 초클릿처럼 들려요.\"(사전도 이 모음을 선택 표기로 적는다 — 사실 확인 항목 참고) → 9~14초 \"우리말도 '마음'을 '맘'이라고 줄여 말하잖아요. 영어도 비슷해요.\"",
+        "text": "0~2초 \"여러분, 초콜릿 어떻게 읽으세요?\"(카드: chocolate) → 2~9초 \"글자는 초콜릿인데, 소리는 초클릿처럼 들려요. 빨리 말하면 가운데 소리가 거의 안 들려요.\"(사전도 이 모음을 선택 표기로 적는다 — 사실 확인 항목 참고) → 9~14초 \"우리말도 마음을 '맘'이라고 줄여 말하죠. 영어도 비슷해요.\"",
         "images": [
           "images/SbQVBQoRciA/cuts/cut-00.png",
           "images/SbQVBQoRciA/cuts/cut-02.png"
@@ -93,7 +93,7 @@
               "word": "chocolate",
               "pill": "초콜릿, 어떻게 읽으세요?",
               "image": "images/SbQVBQoRciA/cuts/cut-00.png",
-              "narration": "초콜릿, 어떻게 읽으세요?"
+              "narration": "여러분, 초콜릿 어떻게 읽으세요?"
             },
             {
               "t": 2.2,
@@ -102,7 +102,7 @@
               "written": "초콜릿",
               "sound": "초클릿",
               "image": "images/SbQVBQoRciA/cuts/cut-01.png",
-              "narration": "글자는 초콜릿, 소리는 초클릿처럼 들려요."
+              "narration": "글자는 초콜릿인데, 소리는 초클릿처럼 들려요."
             },
             {
               "t": 5.5,
@@ -115,7 +115,7 @@
               "sound": "초클릿",
               "pill": "빨리 말하면 거의 안 들려요",
               "image": "images/SbQVBQoRciA/cuts/cut-02.png",
-              "narration": "빨리 말하면 가운데 글자 소리가 거의 안 들려요."
+              "narration": "빨리 말하면 가운데 소리가 거의 안 들려요."
             },
             {
               "t": 9.5,
@@ -124,7 +124,7 @@
               "to": "맘",
               "pill": "우리말도 줄여서 말해요",
               "image": "images/SbQVBQoRciA/cuts/cut-03.png",
-              "narration": "우리말도 마음을 맘이라고 줄여 말하잖아요. 영어도 비슷해요."
+              "narration": "우리말도 마음을 '맘'이라고 줄여 말하죠. 영어도 비슷해요."
             },
             {
               "t": 14,
@@ -132,7 +132,7 @@
               "word": "vegetable",
               "written": "베지터블",
               "image": "images/SbQVBQoRciA/cuts/cut-04.png",
-              "narration": "채소 베지터블, 이렇게 읽기 쉬워요."
+              "narration": "자, 채소 베지터블이에요. 이렇게 읽기 쉽죠."
             },
             {
               "t": 17.3,
@@ -144,7 +144,7 @@
               ],
               "sound": "베즈터블",
               "image": "images/SbQVBQoRciA/cuts/cut-05.png",
-              "narration": "여기도 가운데 소리가 거의 안 들려요."
+              "narration": "이게 또 가운데가 거의 안 들려요."
             },
             {
               "t": 19.5,
@@ -152,7 +152,7 @@
               "word": "different",
               "written": "디퍼런트",
               "image": "images/SbQVBQoRciA/cuts/cut-06.png",
-              "narration": "다르다는 뜻의 디퍼런트도 마찬가지예요."
+              "narration": "디퍼런트도 그래요. '다르다'는 뜻이죠."
             },
             {
               "t": 22.8,
@@ -172,7 +172,7 @@
               "word": "memory",
               "written": "메모리",
               "image": "images/SbQVBQoRciA/cuts/cut-08.png",
-              "narration": "기억이라는 뜻의 메모리는요?"
+              "narration": "그럼 메모리는요? '기억'이라는 뜻이고요."
             },
             {
               "t": 28.3,
@@ -209,7 +209,7 @@
                 }
               ],
               "image": "images/SbQVBQoRciA/cuts/cut-10.png",
-              "narration": "매일 쓰는 단어인데, 소리는 달랐어요."
+              "narration": "매일 쓰는 단어죠. 그런데 소리는 달라요."
             },
             {
               "t": 35,
@@ -217,7 +217,7 @@
               "word": "vulnerable",
               "pill": "몇 마디로 읽을까요?",
               "image": "images/SbQVBQoRciA/cuts/cut-11.png",
-              "narration": "마지막 문제예요. 취약하다는 뜻의 이 단어, 몇 마디로 들릴까요?"
+              "narration": "마지막 단어는 '취약하다'는 뜻이에요. 몇 마디일까요?"
             },
             {
               "t": 40,
@@ -225,7 +225,7 @@
               "text": "벌너러블?\n벌너블?",
               "pill": "사전 표기는 고정 댓글에서",
               "image": "images/SbQVBQoRciA/cuts/cut-12.png",
-              "narration": "벌너러블? 벌너블? 사전은 어떻게 적었는지 고정 댓글에 있어요."
+              "narration": "벌너러블? 벌너블? 한 사전엔 둘 다 있어요. 고정 댓글 보세요."
             },
             {
               "t": 44.5,
@@ -233,7 +233,7 @@
               "text": "몇 마디로 들렸는지\n댓글로 알려 주세요",
               "pill": "",
               "image": "images/SbQVBQoRciA/cuts/cut-13.png",
-              "narration": "몇 마디로 들렸는지 댓글로 알려 주세요."
+              "narration": "몇 마디로 들리셨어요? 댓글로 알려 주세요."
             }
           ],
           "rhythm": "도입 빠름(2.2~4.5) → 단어 3개는 긴(3.3)·짧은(2.2) 번갈아 → 정리·퀴즈로 느려짐(4.5~5)"

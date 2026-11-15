@@ -20,6 +20,7 @@ import {promisify} from 'node:util';
 import {GEMINI_TEXT_MODELS} from './gemini-models.mjs';
 import {upsertAudienceDnaFile} from './audience-dna.mjs';
 import {comparableRatioOrNull} from './peer-ratio.mjs';
+import {buildSpeechField, buildSpeechPatterns} from './speech-stats.mjs';
 
 const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -396,6 +397,107 @@ async function fetchTranscript(videoId) {
   }
 }
 
+// ---------------- 한국어 말투 측정(2026-11-15) ----------------
+// 리포트에 speech 칸을 더한다(Gemini 호출·프롬프트는 그대로). 자막을 받은 날은 그 글로 재서 추가 요청이 0이다.
+// 자막이 막히거나 없는 날만 그 영상 한 편의 소리를 받아 whisper로 받아쓴다. 유튜브가 이 PC의 요청을 막은 적이 있어(2026-11-15 IpBlocked) 요청을 늘리지 않는다.
+export const SPEECH_FALLBACK_PER_DAY = 2; // 대체 경로(소리 받기+받아쓰기)는 하루 최대 2편(2026-11-15 사용자 지시)
+export const SPEECH_FALLBACK_GAP_MS = 9000; // 대체 경로 영상 사이 최소 쉬는 시간(9초 이상, 2026-11-15 사용자 지시)
+export const SPEECH_BLOCK_RE = /HTTP Error 429|Too Many Requests|confirm you.?re not a bot|IpBlocked|RequestBlocked|blocking requests|HTTP Error 403|rate.?limit/i;
+export const speechPatternsPath = join(projectDir, 'data', 'youtube', 'speech-patterns.json');
+/** 같은 프로세스에서 대체 경로를 마지막으로 끝낸 시각(ms). 영상 사이 쉬는 시간을 재는 데 쓴다. */
+export const speechFallbackState = {lastAt: null};
+
+export function isSpeechBlockSignal(message) { return SPEECH_BLOCK_RE.test(String(message || '')); }
+
+/** 쇼츠/롱폼. 경쟁 영상 표(market-demand)의 isShort를 먼저 쓰고, 없으면 길이 60초 이하(market-demand.mjs와 같은 기준). */
+export function speechKindOf(durationSeconds, ratioEntry = null) {
+  if (ratioEntry?.isShort === true) return 'short';
+  if (ratioEntry?.isShort === false) return 'long';
+  const d = Number(durationSeconds);
+  return Number.isFinite(d) && d > 0 && d <= 60 ? 'short' : 'long'; // allow-literal: market-demand.mjs의 쇼츠 판정과 같은 60초
+}
+
+const localDay = (value) => new Date(value).toLocaleDateString('en-CA');
+/** 오늘 대체 경로를 몇 편 시도했는지, 오늘 차단 신호가 있었는지. 저장된 리포트의 speech 칸에서 센다(별도 상태 파일 없음). */
+export function speechFallbackBudget(reports = [], now = new Date()) {
+  const today = localDay(now);
+  const todays = reports.filter((r) => r?.speech?.fallbackTried && r.speech.computedAt && localDay(r.speech.computedAt) === today);
+  const used = todays.length;
+  return {used, limit: SPEECH_FALLBACK_PER_DAY, remaining: Math.max(0, SPEECH_FALLBACK_PER_DAY - used), blocked: todays.some((r) => r.speech.blocked)};
+}
+
+/** 자막에서 말투를 잴 글. 롱폼은 앞 5분(소리 받아쓰기와 같은 범위)만 쓴다. 쇼츠는 전체. */
+export function speechTextFromTranscript(transcript = {}, kind = 'long') {
+  if (transcript.error) return '';
+  const lines = Array.isArray(transcript.lines) ? transcript.lines : [];
+  if (kind === 'long' && lines.length && lines.every((l) => Number.isFinite(Number(l.start)))) {
+    return lines.filter((l) => Number(l.start) < LONG_VIDEO_WINDOW_SECONDS).map((l) => l.text).join(' ');
+  }
+  return String(transcript.fullText || lines.map((l) => l.text).join(' ') || '');
+}
+
+/**
+ * 리포트의 speech 칸 하나를 만든다. 대체 경로(fallback)와 sleep은 바깥에서 주입한다(시험에서 가짜로 바꿈).
+ * fallback({videoId, kind}) → 받아쓴 글(문자열). 던지면 실패로 기록하고, 차단 신호면 그날 더 쓰지 않도록 blocked를 남긴다.
+ * 이 함수는 리포트 생성을 막지 않는다(대체 경로의 오류를 삼킨다).
+ */
+export async function resolveSpeechField({videoId, kind, transcript = {}, reports = [], now = new Date(), fallback = null, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), state = speechFallbackState, nowMs = () => Date.now()} = {}) {
+  const text = speechTextFromTranscript(transcript, kind);
+  if (text) return buildSpeechField({text, source: 'transcript-api', kind, now});
+  const why = transcript.error ? '자막을 못 받음' : '자막이 비어 있음';
+  if (!fallback) return buildSpeechField({kind, now, note: `${why}, 대체 경로 없음`});
+  const budget = speechFallbackBudget(reports, now);
+  if (budget.blocked) return buildSpeechField({kind, now, note: `${why}, 오늘 차단 신호가 있어 대체 경로를 쓰지 않음`});
+  if (budget.remaining <= 0) return buildSpeechField({kind, now, note: `${why}, 대체 경로 하루 상한(${budget.limit}편)에 도달`});
+  if (state.lastAt != null) {
+    const wait = SPEECH_FALLBACK_GAP_MS - (nowMs() - state.lastAt);
+    if (wait > 0) await sleep(wait);
+  }
+  try {
+    const spoken = await fallback({videoId, kind});
+    return buildSpeechField({text: spoken, source: 'whisper-small', kind, now, note: spoken && String(spoken).trim() ? null : '받아쓰기 결과가 비어 있음', extra: {fallbackTried: true}});
+  } catch (err) {
+    const message = String(err?.message || err).slice(0, 300);
+    return buildSpeechField({kind, now, note: `${why}, 받아쓰기 실패: ${message}`, extra: {fallbackTried: true, ...(isSpeechBlockSignal(message) ? {blocked: true} : {})}});
+  } finally {
+    state.lastAt = nowMs();
+  }
+}
+
+/** whisper.cpp(.whisper 폴더)로 소리 파일 하나를 한국어로 받아쓴다. 받아쓴 글만 돌려주고 파일은 부른 쪽이 지운다. */
+export async function transcribeWithWhisper(wavPath, outBase, {whisperDir = join(projectDir, '.whisper'), timeout = 900000} = {}) {
+  await execFileAsync(join(whisperDir, 'main.exe'), ['-m', join(whisperDir, 'ggml-small.bin'), '-l', 'ko', '-f', wavPath, '-otxt', '-of', outBase, '-nt', '-np'], {timeout, maxBuffer: 20 * 1024 * 1024});
+  return readFileSync(`${outBase}.txt`, 'utf8');
+}
+
+/** 실제 대체 경로: 그 영상의 소리 하나만 받아(쇼츠 전체, 롱폼 앞 5분) 받아쓴다. 임시 폴더는 끝나면 지운다. */
+export async function whisperSpeechFallback({videoId, kind}) {
+  const ytDlp = await resolveYtDlp();
+  if (!ytDlp) throw new Error('yt-dlp가 이 PC에 없음');
+  const work = mkdtempSync(join(tmpdir(), 'speech-'));
+  try {
+    const post = `ffmpeg:-ar 16000 -ac 1${kind === 'long' ? ` -t ${LONG_VIDEO_WINDOW_SECONDS}` : ''}`;
+    try {
+      await execFileAsync(ytDlp[0], [...ytDlp.slice(1), '-q', '--no-warnings', '-f', 'bestaudio', '-x', '--audio-format', 'wav', '--postprocessor-args', post, '-o', join(work, 'a.%(ext)s'), `https://www.youtube.com/watch?v=${videoId}`], {timeout: 300000, maxBuffer: 10 * 1024 * 1024});
+    } catch (err) {
+      throw new Error(`${ytDlpErrorText(err)} ${String(err?.stderr || '').slice(0, 200)}`.trim());
+    }
+    const wav = join(work, 'a.wav');
+    if (!existsSync(wav)) throw new Error('소리 파일을 받지 못함');
+    return await transcribeWithWhisper(wav, join(work, 'out'));
+  } finally {
+    rmSync(work, {recursive: true, force: true});
+  }
+}
+
+/** 저장된 리포트의 speech 칸으로 경쟁 말투 합계를 다시 계산해 data/youtube/speech-patterns.json에 쓴다. */
+export function writeSpeechPatternsFile({reports = loadReports(), path = speechPatternsPath, now = new Date()} = {}) {
+  const patterns = buildSpeechPatterns(reports, now);
+  mkdirSync(dirname(path), {recursive: true});
+  writeFileSync(path, `${JSON.stringify(patterns, null, 2)}\n`, 'utf8');
+  return patterns;
+}
+
 async function fetchThumbnailBase64(url) {
   if (!url) return null;
   try {
@@ -604,7 +706,7 @@ function findRatioEntryOnDisk(videoId) {
   } catch { return null; }
 }
 
-export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
+export async function analyzeOutlierVideo(videoId, {withFrames = true, speechFallback = whisperSpeechFallback} = {}) {
   if (!VIDEO_ID_RE.test(videoId)) throw new Error(`영상 ID 형식이 아님: ${videoId}`);
   loadEnv();
   const ytKey = process.env.YOUTUBE_API_KEY;
@@ -617,7 +719,8 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
   ]);
   const commentList = Array.isArray(comments) ? comments : [];
   const windowSeconds = analysisWindowSeconds(meta.durationSeconds);
-  const ratioFields = ratioFieldsFromEntry(findRatioEntryOnDisk(videoId));
+  const ratioEntry = findRatioEntryOnDisk(videoId);
+  const ratioFields = ratioFieldsFromEntry(ratioEntry);
   // AI에게는 새 방식으로 계산된 배수만 알려 준다(옛 방식 값·측정 중·보류는 말하지 않는다).
   const prompt = buildReportPrompt({meta, subscriberCount, outlierRatio: comparableRatioOrNull(ratioFields), transcriptLines: transcript.lines || null, comments: commentList, windowSeconds});
   const {model, analysis: raw, usage} = await callGemini({videoId, windowSeconds, thumbnailBase64, prompt, geminiKey});
@@ -625,6 +728,10 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
   raw.visualMoments = (raw.visualMoments || []).filter((m) => Number.isFinite(Number(m.t)) && m.t >= 0 && m.t <= windowSeconds).map((m) => ({...m, t: Number(m.t)}));
   const {analysis: verified, summary} = verifyQuotes(raw, {title: meta.title, transcriptText: transcript.fullText ?? null, commentTexts: commentList.map((c) => c.text)});
   const analysis = normalizeTeachesAdultEnglishSounds(verified);
+  // 말투 측정(2026-11-15): Gemini 호출이 성공한 뒤에만 한다(실패한 날 소리를 받지 않게). 말투를 못 재도 리포트는 만든다.
+  const speechKind = speechKindOf(meta.durationSeconds, ratioEntry);
+  const speech = await resolveSpeechField({videoId, kind: speechKind, transcript, reports: loadReports(), fallback: speechFallback})
+    .catch((err) => buildSpeechField({kind: speechKind, note: `말투 측정 오류: ${String(err?.message || err).slice(0, 200)}`}));
   const captured = withFrames ? await processClip(videoId, pickFrameMoments(analysis.visualMoments, windowSeconds), windowSeconds) : {frames: [], cuts: null, error: '캡처 안 함'};
   // 컷 간격은 영상에서 코드가 직접 잰 장면 전환을 먼저 쓴다. 영상을 못 받았을 때만 AI가 적은 화면 변화로 대신하고, 출처를 남긴다.
   const pacing = captured.cuts
@@ -647,6 +754,7 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
       thumbnail: Boolean(thumbnailBase64),
       video: {analyzedSeconds: windowSeconds},
     },
+    speech,
     analysis,
     quoteCheck: summary,
     pacing,
@@ -656,6 +764,7 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
   };
   mkdirSync(reportsDir, {recursive: true});
   writeFileSync(join(reportsDir, `${videoId}.json`), `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+  try { writeSpeechPatternsFile(); } catch { /* 합계는 다음 리포트 때 다시 만들어진다 */ }
   // 시청자 고민 데이터는 이제 이 리포트가 채운다(예전 댓글 리포트 대신). 인용이 확인된 댓글만 넘긴다.
   const dnaEntries = audienceDnaEntriesFromReport(report);
   report.audienceDnaNew = upsertAudienceDnaFile(join(projectDir, 'data', 'youtube', 'audience-dna.json'), dnaEntries);

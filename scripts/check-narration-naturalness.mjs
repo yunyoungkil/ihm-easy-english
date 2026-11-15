@@ -4,7 +4,9 @@
 // 입력: SCRIPT.md의 ```text 블록 중 한글이 든 줄(영어 예문 줄은 건너뜀). 블록이 없으면 파일 전체의 한글 줄.
 // 등급: error(바로 고침) / warn(소리 내어 읽어 보고 판단) / 확인필요(사실 여부를 사용자에게 확인). error가 있으면 종료코드 1.
 import fs from 'node:fs';
-import { pathToFileURL } from 'node:url';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { measureSpeech, speechRates, ENDING_KEYS, ENDING_LABELS } from './speech-stats.mjs';
 
 export const T = Object.freeze({
   ENDING_REPEAT_MIN: 3, // allow-literal: 같은 끝맺음 틀이 한 대본에서 3번 이상이면 warn(EP22 사례는 4번)
@@ -133,16 +135,86 @@ export function checkNarration(markdown) {
   return { sentenceCount: sentences.length, issues };
 }
 
+// ---- --compare: 경쟁 영상 말투 합계(data/youtube/speech-patterns.json)와 나란히 보기(2026-11-15) ----
+// 합계는 scripts/outlier-report.mjs가 경쟁 영상 리포트를 만들 때마다 자동으로 다시 계산한다(scripts/speech-stats.mjs).
+export const COMPARE = Object.freeze({
+  MIN_VIDEOS: 3, // allow-literal: 롱폼 영상이 3편 미만이면 비교하지 않는다(2026-11-15 사용자 지시)
+  MIN_SENTENCES: 8, // allow-literal: 우리 문장이 이보다 적으면 비율이 흔들려 "참고"만 붙인다(품질 문턱과 같은 값)
+  ENDING_SKEW_GAP_PCT: 15, // allow-literal: 가장 많은 끝맺음이 경쟁보다 15%p 넘게 쏠리면 짚는다(가설, 수동 측정에서 우리 61% vs 경쟁 42%)
+  LENGTH_RATIO: 1.5, // allow-literal: 평균 문장 길이가 경쟁의 1.5배를 넘거나 2/3 미만이면 짚는다(가설)
+  FILLER_RATIO: 0.5, // allow-literal: 말버릇이 경쟁의 절반 미만이면 짚는다(0이면 당연히 포함, 가설)
+});
+const DEFAULT_PATTERNS_PATH = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'youtube', 'speech-patterns.json');
+
+export function loadSpeechPatterns(file = DEFAULT_PATTERNS_PATH) {
+  try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; }
+}
+
+const topEnding = (endingsPct) => ENDING_KEYS.reduce((best, k) => ((endingsPct[k] ?? 0) > (endingsPct[best] ?? 0) ? k : best), ENDING_KEYS[0]);
+
+/** 우리 대본의 말투를 경쟁 합계와 비교한다. 비교할 수 없으면 {ok:false, reason}. kind는 'long'(기본) 또는 'short'. */
+export function compareWithCompetitors(markdown, patterns, { kind = 'long' } = {}) {
+  const group = patterns?.[kind];
+  const videos = group?.videoCount ?? 0;
+  if (!group?.rates || videos < COMPARE.MIN_VIDEOS) {
+    return { ok: false, reason: `경쟁 영상 말투 기준이 아직 부족해 비교하지 않음(${kind === 'long' ? '롱폼' : '쇼츠'} 품질 통과 ${videos}편, ${COMPARE.MIN_VIDEOS}편 필요)` };
+  }
+  const text = extractNarration(markdown).map((x) => x.text).join(' ');
+  const stats = measureSpeech(text);
+  if (!stats) return { ok: false, reason: '우리 대본에서 한글 문장을 찾지 못함' };
+  const ours = speechRates(stats);
+  const theirs = group.rates;
+  const flags = [];
+  if (ours.dictFramePct > 0 && ours.dictFramePct >= theirs.dictFramePct * 2) {
+    flags.push(`사전 풀이 모양("~라는 뜻의 X는")이 우리 ${ours.dictFramePct}%, 경쟁 ${theirs.dictFramePct}%. 말로 뜻을 알려 줄 때는 단어를 먼저 말하고 뜻을 뒤에 붙이는 쪽이 경쟁 영상에서 더 흔했다(뜻 뒤에 붙임: 우리 ${ours.meaningAfterPct}%, 경쟁 ${theirs.meaningAfterPct}%)`);
+  }
+  const ourTop = topEnding(ours.endingsPct), theirTop = topEnding(theirs.endingsPct);
+  if (ours.endingsPct[ourTop] - (theirs.endingsPct[ourTop] ?? 0) >= COMPARE.ENDING_SKEW_GAP_PCT) {
+    flags.push(`끝맺음이 한 가지에 쏠림: ${ENDING_LABELS[ourTop]} 우리 ${ours.endingsPct[ourTop]}%, 경쟁 ${theirs.endingsPct[ourTop]}%(경쟁은 ${ENDING_LABELS[theirTop]} ${theirs.endingsPct[theirTop]}%가 가장 많음)`);
+  }
+  if (theirs.fillersTotalPer100 > 0 && ours.fillersTotalPer100 < theirs.fillersTotalPer100 * COMPARE.FILLER_RATIO) {
+    flags.push(`말버릇·접속어(자, 그래서, 여러분, 이게, 그냥 등)가 문장 100개당 우리 ${ours.fillersTotalPer100}번, 경쟁 ${theirs.fillersTotalPer100}번`);
+  }
+  if (theirs.meanLength > 0 && (ours.meanLength > theirs.meanLength * COMPARE.LENGTH_RATIO || ours.meanLength < theirs.meanLength / COMPARE.LENGTH_RATIO)) {
+    flags.push(`평균 문장 길이(공백 뺀 글자)가 우리 ${ours.meanLength}, 경쟁 ${theirs.meanLength}`);
+  }
+  return { ok: true, kind, videoCount: videos, lowSample: Boolean(group.lowSample), confidence: patterns.confidence ?? null, ours, theirs, flags, fewSentences: ours.sentences < COMPARE.MIN_SENTENCES };
+}
+
+export function formatComparison(c) {
+  if (!c.ok) return [`  [비교] ${c.reason}`];
+  const L = [];
+  const row = (name, a, b) => L.push(`  ${name.padEnd(28)} 우리 ${String(a).padStart(6)}   경쟁 ${String(b).padStart(6)}`);
+  L.push(`  [비교] 경쟁 ${c.kind === 'long' ? '롱폼' : '쇼츠'} ${c.videoCount}편(문장 ${c.theirs.sentences}개)${c.lowSample ? ', 표본 작음' : ''}, 기준 신뢰도 ${c.confidence ?? '없음'}. 우리 문장 ${c.ours.sentences}개${c.fewSentences ? '(적어서 비율이 흔들림)' : ''}`);
+  for (const k of ENDING_KEYS) row(`끝맺음 ${ENDING_LABELS[k]} %`, c.ours.endingsPct[k], c.theirs.endingsPct[k]);
+  row('평균 문장 길이(글자)', c.ours.meanLength, c.theirs.meanLength);
+  row('인데류 문장 중간(100문장당)', c.ours.jointMidPer100, c.theirs.jointMidPer100);
+  row('인데요류 문장 끝(100문장당)', c.ours.jointEndPer100, c.theirs.jointEndPer100);
+  row('말버릇·접속어(100문장당)', c.ours.fillersTotalPer100, c.theirs.fillersTotalPer100);
+  row('사전 풀이 모양 문장 %', c.ours.dictFramePct, c.theirs.dictFramePct);
+  row('뜻을 뒤에 붙임 문장 %', c.ours.meaningAfterPct, c.theirs.meaningAfterPct);
+  row('질문 문장 %', c.ours.questionPct, c.theirs.questionPct);
+  row('과거형 결론 문장 %', c.ours.pastConclusionPct, c.theirs.pastConclusionPct);
+  if (c.flags.length) { L.push('  크게 벗어난 항목:'); for (const f of c.flags) L.push(`   - ${f}`); }
+  else L.push('  크게 벗어난 항목: 없음');
+  L.push('  이 비교는 제안일 뿐이고 경쟁 기준은 가설이다. 어색한지의 최종 판정은 사용자의 귀다.');
+  return L;
+}
+
 function main() {
   const args = process.argv.slice(2);
   const json = args.includes('--json');
+  const compare = args.includes('--compare');
+  const kind = args.includes('--short') ? 'short' : 'long';
   const files = args.filter((a) => !a.startsWith('--'));
-  if (!files.length) { console.error('사용법: node scripts/check-narration-naturalness.mjs <SCRIPT.md...> [--json]'); process.exit(2); }
+  if (!files.length) { console.error('사용법: node scripts/check-narration-naturalness.mjs <SCRIPT.md...> [--json] [--compare [--short]]'); process.exit(2); }
+  const patterns = compare ? loadSpeechPatterns() : null;
   let hasError = false;
   const results = files.map((f) => {
-    const r = checkNarration(fs.readFileSync(f, 'utf8'));
+    const md = fs.readFileSync(f, 'utf8');
+    const r = checkNarration(md);
     if (r.issues.some((i) => i.severity === 'error')) hasError = true;
-    return { file: f, ...r };
+    return { file: f, ...r, ...(compare ? { compare: patterns ? compareWithCompetitors(md, patterns, { kind }) : { ok: false, reason: 'data/youtube/speech-patterns.json이 아직 없음(경쟁 영상 리포트를 만들면 자동으로 생긴다)' } } : {}) };
   });
   if (json) { console.log(JSON.stringify(results, null, 2)); }
   else {
@@ -150,6 +222,7 @@ function main() {
       const by = {}; r.issues.forEach((i) => { by[i.kind] = (by[i.kind] || 0) + 1; });
       console.log(`${r.file}: 문장 ${r.sentenceCount}개, 이슈 ${r.issues.length}개 ${JSON.stringify(by)}`);
       for (const i of r.issues) console.log(`  [${i.severity}] ${i.kind} 줄 ${i.line}: "${i.match}" ${i.note} | ${i.sentence}`);
+      if (r.compare) for (const line of formatComparison(r.compare)) console.log(line);
     }
   }
   process.exit(hasError ? 1 : 0);

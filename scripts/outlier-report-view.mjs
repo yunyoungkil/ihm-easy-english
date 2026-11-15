@@ -110,6 +110,8 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false} =
   const o = a.opening || {};
   parts.push(`<h2>2. 첫 15초</h2><div class="card"><p>${escapeHtml(o.first15s)}</p>${quote(o.quote, o.quoteVerified)}<p><b>계속 볼 이유</b>: ${escapeHtml(o.reasonToKeepWatching)}</p></div>`);
 
+  if (a.first3s) parts.push(`<div class="card"><b>처음 3초</b>: ${escapeHtml(a.first3s.what)}${quote(a.first3s.quote, a.first3s.quoteVerified)}</div>`);
+
   const p = report.pacing || {};
   parts.push(`<h2>3. 화면 연출</h2><p class="meta">처음 ${report.windowSeconds}초 동안 장면 전환 ${cutCountLabel(p)} · 1분에 ${p.perMinute ?? 0}번 · 전환 사이 간격 중앙값 ${p.medianGapSeconds == null ? '측정 전' : `${p.medianGapSeconds}초`} (출처: ${escapeHtml(p.source || '코드 계산')}). 아래는 AI가 적은 화면 변화 ${(a.visualMoments || []).length}개다. 캡처는 그 시각부터 1초 간격 3장이고, AI가 말한 시각은 몇 초 어긋날 수 있다.${report.framesError ? ` 캡처 실패: ${escapeHtml(report.framesError)}` : ''}</p>`);
   for (const mo of a.visualMoments || []) {
@@ -141,7 +143,38 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false} =
 
   const u = a.forUs || {};
   parts.push(`<h2>7. 우리 채널에</h2><div class="card"><p><b>가져올 점</b>: ${escapeHtml(u.adopt)}</p><p><b>다르게 할 점</b>: ${escapeHtml(u.differentiate)}</p></div>`);
+  parts.push(extraObservationsHtml(a));
   return page(m.title || report.videoId, parts.join('\n'), {refreshSeconds: framesPending > 0 ? 25 : 0});
+}
+
+const NEW_FIELDS = ['first3s', 'infoCount', 'captionStyle', 'audio', 'storytelling'];
+const yesNo = (v) => (v === true ? '있음' : v === false ? '없음' : '확인 불가');
+const orUnknown = (v) => (v ? escapeHtml(v) : '확인 불가');
+const storyLine = (it) => (it ? `<div>${it.t != null ? `<span class="t">${mmss(it.t)}</span> ` : ''}${escapeHtml(it.what)}${quote(it.quote, it.quoteVerified)}</div>` : '<div class="na">확인 불가</div>');
+const storyList = (label, items) => `<p><b>${label}</b></p>${items == null ? '<div class="na">확인 불가</div>' : items.length ? items.map(storyLine).join('') : '<div class="meta">없음</div>'}`;
+
+/** 새 관찰 5칸(첫 3초·정보 개수·자막 모양·소리·이야기 기법). 칸이 아예 없는 옛 리포트는 그렇다고 밝히고, 값이 null이면 확인 불가로 쓴다. */
+export function extraObservationsHtml(a = {}) {
+  const h = '<h2>8. 더 자세히 본 것 (정보 개수·자막 모양·소리·이야기 기법)</h2>';
+  if (NEW_FIELDS.every((k) => a[k] === undefined)) return `${h}<p class="meta">이 리포트는 새 항목 도입 전에 만들어져 이 칸이 없다.</p>`;
+  const out = [h];
+  const ic = a.infoCount;
+  out.push(`<div class="card"><b>정보 개수(AI 추정)</b>: ${ic ? `${ic.count == null ? '확인 불가' : `${escapeHtml(ic.count)}개`} — ${orUnknown(ic.description)}` : '확인 불가'}</div>`);
+  const cs = a.captionStyle;
+  out.push(`<div class="card"><b>자막 모양</b>${cs ? `<div>위치: ${orUnknown(cs.position)} · 크기: ${orUnknown(cs.size)} · 강조 색: ${orUnknown(cs.highlightColor)} · 강조 방식: ${orUnknown(cs.highlightMethod)}</div><div>한 번에 보이는 글자: ${orUnknown(cs.textAmount)} · 바뀌는 시점: ${orUnknown(cs.changeTiming)}</div>` : ': 확인 불가'}</div>`);
+  const au = a.audio;
+  out.push(`<div class="card"><b>소리</b>${au ? `<div>배경음악: ${yesNo(au.hasMusic)} · 분위기: ${orUnknown(au.mood)} · 빠르기: ${orUnknown(au.tempo)}</div><div>효과음: ${yesNo(au.hasSoundEffects)} · 쓰임: ${orUnknown(au.soundEffectUse)}</div><div>말과 음악의 비중: ${orUnknown(au.voiceVsMusic)}</div>` : ': 확인 불가'}</div>`);
+  const st = a.storytelling;
+  out.push('<h3>이야기 기법</h3>');
+  if (!st) out.push('<p class="na">확인 불가</p>');
+  else {
+    out.push(`<div class="card"><p><b>훅</b>${st.hook?.type ? ` (${escapeHtml(st.hook.type)})` : ''}</p>${storyLine(st.hook)}`);
+    out.push(`<p><b>궁금증을 연 곳 / 푼 곳</b></p>${st.curiosity ? `${storyLine(st.curiosity.opened)}${storyLine(st.curiosity.resolved)}` : '<div class="na">확인 불가</div>'}`);
+    out.push(`<p><b>앞뒤 인과</b>: ${st.causality ? `${st.causality.connected == null ? '' : st.causality.connected ? '이어짐 — ' : '나열 — '}${orUnknown(st.causality.summary)}` : '확인 불가'}</p>${(st.causality?.examples || []).map(storyLine).join('')}`);
+    out.push(storyList('끝까지 열어 둔 궁금증', st.openLoops), storyList('같은 틀을 깨는 지점', st.patternBreaks), storyList('시청자에게 시킨 행동', st.viewerActions), storyList('증거·근거를 보여 준 방식', st.evidence));
+    out.push(`<p><b>끝에서 약속을 회수한 방식</b></p>${storyLine(st.payoff)}</div>`);
+  }
+  return out.join('\n');
 }
 
 /**

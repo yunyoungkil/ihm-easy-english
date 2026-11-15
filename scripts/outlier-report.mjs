@@ -91,6 +91,7 @@ ${facts}
 - 자료로 알 수 없는 것은 "확인 불가"라고 쓴다. 해당 없는 목록은 빈 배열로 둔다. 칸을 억지로 채우지 않는다.
 - visualMoments에는 처음 ${windowSeconds}초 안에서 화면이 실제로 바뀐 순간을 빠짐없이 모두 넣는다(장면 전환, 자막 모양 변화, 그래픽·표시 등장, 자료 화면, 확대·축소). 요약하거나 대표만 고르지 않는다. t는 초.
 - 한국어로 쓴다.
+- first3s, infoCount, captionStyle, audio, storytelling 칸은 각 서술을 한두 문장으로 짧게 쓴다. 영상에 실제로 없는 것은 지어내지 말고 "없음"이라고 쓴다. t는 영상 속 초(0~${windowSeconds}), quote는 자막이나 말 원문 그대로(없으면 빈 문자열).
 
 [자막]
 ${transcript}
@@ -113,6 +114,7 @@ ${commentBlock}
     "quote": "첫 15초 자막 원문",
     "reasonToKeepWatching": "시청자에게 계속 볼 이유를 어떤 말·장면으로 줬는지, 없으면 확인 불가"
   },
+  "first3s": {"what": "처음 3초 동안 화면·말·소리에서 실제로 일어난 일", "quote": "그 3초의 자막 원문"},
   "flow": [{"start": 0, "end": 0, "what": "이 구간에서 한 일", "quote": "그 구간 자막 원문"}],
   "visualMoments": [{"t": 0, "what": "화면에서 바뀐 것", "purpose": "그때 나오는 말과 어떻게 맞물리는지"}],
   "ending": {"what": "끝부분에서 한 일(구독 요청, 다음 영상 안내 등이 있으면 그대로)", "quote": "끝부분 자막 원문"},
@@ -121,6 +123,19 @@ ${commentBlock}
     "painPoints": [{"pain": "시청자가 털어놓은 어려움·답답함(영어를 들을 때·말할 때)", "quote": "댓글 원문"}],
     "unanswered": [{"question": "시청자에게 남은 질문·아쉬움·요청", "quote": "댓글 원문"}],
     "vocabulary": [{"expression": "시청자가 직접 쓴 표현", "quote": "댓글 원문"}]
+  },
+  "infoCount": {"count": 0, "description": "영상이 시청자에게 던지는 서로 다른 정보·예시·단어의 개수를 직접 세고, 어떤 방식으로 나열하는지 한 줄"},
+  "captionStyle": {"position": "자막·글자 카드가 화면 어디에 있는지(없으면 없음)", "size": "작음, 보통, 큼 중 하나", "highlightColor": "강조에 쓴 색", "highlightMethod": "강조하는 방식(색 바꿈, 박스, 밑줄, 커짐 등)", "textAmount": "한 번에 보이는 글자 양", "changeTiming": "글자가 바뀌는 시점(말에 맞춰, 일정 간격 등)"},
+  "audio": {"hasMusic": true, "mood": "배경음악 분위기(없으면 빈 문자열)", "tempo": "느림, 보통, 빠름 중 하나(음악이 없으면 빈 문자열)", "hasSoundEffects": true, "soundEffectUse": "효과음이 언제 무엇에 쓰였는지", "voiceVsMusic": "말과 음악의 비중(말이 중심인지, 음악이 큰지)"},
+  "storytelling": {
+    "hook": {"type": "영상이 실제로 쓴 훅의 종류를 자기 말로", "what": "그 훅에서 한 일", "t": 0, "quote": "원문"},
+    "curiosity": {"opened": {"t": 0, "what": "궁금증(문제)을 연 순간", "quote": "원문"}, "resolved": {"t": 0, "what": "그 궁금증을 푼 순간", "quote": "원문"}},
+    "causality": {"connected": true, "summary": "앞 장면의 결과나 문제가 뒤 장면의 이유가 되어 이어지는지, 아니면 나열인지 한 문장", "examples": [{"t": 0, "what": "이어진 곳", "quote": "원문"}]},
+    "openLoops": [{"t": 0, "what": "영상이 끝나기 전까지 계속 열어 둔 궁금증", "quote": "원문"}],
+    "patternBreaks": [{"t": 0, "what": "같은 틀을 반복하다가 깨뜨린 지점", "quote": "원문"}],
+    "viewerActions": [{"t": 0, "what": "시청자에게 시킨 행동(따라 하기, 맞혀 보기, 댓글 등)", "quote": "원문"}],
+    "evidence": [{"t": 0, "what": "증거·근거를 보여 준 방식", "quote": "원문"}],
+    "payoff": {"t": 0, "what": "끝에서 앞서 한 약속을 회수한 방식", "quote": "원문"}
   },
   "links": [{"cause": "영상의 어느 장면·말(시각 포함)", "reaction": "그에 대한 시청자 반응", "quote": "댓글 원문"}],
   "teachesAdultEnglishSounds": true,
@@ -141,6 +156,19 @@ const contains = (haystack, quote) => {
   return q.length > 0 && normalize(haystack).includes(q);
 };
 
+/** 스토리텔링 칸 안의 인용이 달린 항목(t·what·quote)을 모두 모은다. 칸이 없거나 모양이 틀리면 빈 배열. */
+export function storytellingItems(st) {
+  if (!st || typeof st !== 'object' || Array.isArray(st)) return [];
+  const isObj = (x) => x && typeof x === 'object' && !Array.isArray(x);
+  const items = [];
+  for (const key of ['hook', 'payoff']) if (isObj(st[key])) items.push(st[key]);
+  for (const key of ['opened', 'resolved']) if (isObj(st.curiosity?.[key])) items.push(st.curiosity[key]);
+  for (const list of [st.causality?.examples, st.openLoops, st.patternBreaks, st.viewerActions, st.evidence]) {
+    if (Array.isArray(list)) items.push(...list.filter(isObj));
+  }
+  return items;
+}
+
 /** 인용이 실제 원문에 있는지 표시한다. true(확인), false(원문에 없음), null(대조할 원문 자체가 없음). 빈 인용은 세지 않는다. */
 export function verifyQuotes(analysis = {}, {title = '', transcriptText = null, commentTexts = []} = {}) {
   const a = structuredClone(analysis || {});
@@ -158,6 +186,8 @@ export function verifyQuotes(analysis = {}, {title = '', transcriptText = null, 
   mark(a.opening, 'quote', transcriptText);
   for (const f of a.flow || []) mark(f, 'quote', transcriptText);
   mark(a.ending, 'quote', transcriptText);
+  mark(a.first3s, 'quote', transcriptText);
+  for (const item of storytellingItems(a.storytelling)) mark(item, 'quote', transcriptText);
   for (const key of ['resonated', 'painPoints', 'unanswered', 'vocabulary']) for (const r of a.viewerReaction?.[key] || []) mark(r, 'quote', commentTexts.length ? commentsJoined : null);
   for (const l of a.links || []) mark(l, 'quote', commentTexts.length ? commentsJoined : null);
   return {analysis: a, summary};
@@ -233,6 +263,65 @@ export function normalizeTeachesAdultEnglishSounds(analysis = {}) {
   const a = {...(analysis || {})};
   a.teachesAdultEnglishSounds = typeof a.teachesAdultEnglishSounds === 'boolean' ? a.teachesAdultEnglishSounds : null;
   a.teachesAdultEnglishSoundsReason = typeof a.teachesAdultEnglishSoundsReason === 'string' ? a.teachesAdultEnglishSoundsReason.trim() : '';
+  return a;
+}
+
+// ---- 새 관찰 칸 5개(2026-11-15): first3s, infoCount, captionStyle, audio, storytelling ----
+// 칸이 없거나 모양이 틀리면 null. "없음"이라고 쓴 것은 그대로 남겨 "없다고 봤다"와 "값이 없다(null)"를 구분한다.
+const isPlainObject = (x) => x != null && typeof x === 'object' && !Array.isArray(x);
+const textOf = (v) => (typeof v === 'string' ? v.trim() : '');
+const secondsOf = (v) => ((typeof v === 'number' || (typeof v === 'string' && v.trim() !== '')) && Number.isFinite(Number(v)) && Number(v) >= 0 ? Number(v) : null);
+const boolOrNull = (v) => (typeof v === 'boolean' ? v : null);
+const isNone = (what) => what.replace(/[\s.]/g, '') === '없음';
+const pickOne = (v, allowed) => (allowed.includes(textOf(v)) ? textOf(v) : null);
+const storyItem = (x) => {
+  if (!isPlainObject(x)) return null;
+  const what = textOf(x.what);
+  return what ? {t: isNone(what) ? null : secondsOf(x.t), what, quote: isNone(what) ? '' : textOf(x.quote)} : null;
+};
+const storyList = (x) => (Array.isArray(x) ? x.map(storyItem).filter((i) => i && !isNone(i.what)) : null);
+
+export function normalizeExtraObservations(analysis = {}) {
+  const a = {...(analysis || {})};
+  const f3 = isPlainObject(a.first3s) ? {what: textOf(a.first3s.what), quote: textOf(a.first3s.quote)} : null;
+  a.first3s = f3 && f3.what ? f3 : null;
+
+  if (isPlainObject(a.infoCount)) {
+    const raw = a.infoCount.count;
+    const count = (typeof raw === 'number' || (typeof raw === 'string' && raw.trim() !== '')) && Number.isInteger(Number(raw)) && Number(raw) >= 0 ? Number(raw) : null;
+    const description = textOf(a.infoCount.description);
+    a.infoCount = count == null && !description ? null : {count, description, estimated: true}; // 모델이 센 값이라 항상 추정
+  } else a.infoCount = null;
+
+  if (isPlainObject(a.captionStyle)) {
+    const c = a.captionStyle;
+    const out = {position: textOf(c.position), size: pickOne(c.size, ['작음', '보통', '큼']), highlightColor: textOf(c.highlightColor), highlightMethod: textOf(c.highlightMethod), textAmount: textOf(c.textAmount), changeTiming: textOf(c.changeTiming)};
+    a.captionStyle = Object.values(out).some((v) => v) ? out : null;
+  } else a.captionStyle = null;
+
+  if (isPlainObject(a.audio)) {
+    const u = a.audio;
+    const out = {hasMusic: boolOrNull(u.hasMusic), mood: textOf(u.mood), tempo: pickOne(u.tempo, ['느림', '보통', '빠름']), hasSoundEffects: boolOrNull(u.hasSoundEffects), soundEffectUse: textOf(u.soundEffectUse), voiceVsMusic: textOf(u.voiceVsMusic)};
+    a.audio = out.hasMusic == null && out.hasSoundEffects == null && !out.mood && !out.tempo && !out.soundEffectUse && !out.voiceVsMusic ? null : out;
+  } else a.audio = null;
+
+  if (isPlainObject(a.storytelling)) {
+    const s = a.storytelling;
+    const hook = storyItem(s.hook);
+    const cur = isPlainObject(s.curiosity) ? {opened: storyItem(s.curiosity.opened), resolved: storyItem(s.curiosity.resolved)} : null;
+    const cz = isPlainObject(s.causality) ? {connected: boolOrNull(s.causality.connected), summary: textOf(s.causality.summary), examples: storyList(s.causality.examples) || []} : null;
+    const out = {
+      hook: hook ? {...hook, type: textOf(s.hook.type)} : null,
+      curiosity: cur && (cur.opened || cur.resolved) ? cur : null,
+      causality: cz && (cz.connected != null || cz.summary || cz.examples.length) ? cz : null,
+      openLoops: storyList(s.openLoops),
+      patternBreaks: storyList(s.patternBreaks),
+      viewerActions: storyList(s.viewerActions),
+      evidence: storyList(s.evidence),
+      payoff: storyItem(s.payoff),
+    };
+    a.storytelling = out.hook || out.curiosity || out.causality || out.payoff || ['openLoops', 'patternBreaks', 'viewerActions', 'evidence'].some((k) => out[k] != null) ? out : null;
+  } else a.storytelling = null;
   return a;
 }
 
@@ -726,7 +815,7 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true, speechFal
   const {model, analysis: raw, usage} = await callGemini({videoId, windowSeconds, thumbnailBase64, prompt, geminiKey});
 
   raw.visualMoments = (raw.visualMoments || []).filter((m) => Number.isFinite(Number(m.t)) && m.t >= 0 && m.t <= windowSeconds).map((m) => ({...m, t: Number(m.t)}));
-  const {analysis: verified, summary} = verifyQuotes(raw, {title: meta.title, transcriptText: transcript.fullText ?? null, commentTexts: commentList.map((c) => c.text)});
+  const {analysis: verified, summary} = verifyQuotes(normalizeExtraObservations(raw),{title: meta.title, transcriptText: transcript.fullText ?? null, commentTexts: commentList.map((c) => c.text)});
   const analysis = normalizeTeachesAdultEnglishSounds(verified);
   // 말투 측정(2026-11-15): Gemini 호출이 성공한 뒤에만 한다(실패한 날 소리를 받지 않게). 말투를 못 재도 리포트는 만든다.
   const speechKind = speechKindOf(meta.durationSeconds, ratioEntry);

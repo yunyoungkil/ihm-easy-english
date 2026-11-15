@@ -75,6 +75,19 @@ export async function approveThumbnail(pkgDir) {
   return thumbnailApproval;
 }
 
+// 비교 시트 승인 = 썸네일 승인(2026-11-13). package-from-sheet.mjs가 시트가 approved이고 패키지 thumbnail.jpg가
+// 시트에서 고른 첫 시안과 같을 때만 이 파일을 쓴다. 없거나 깨졌으면 승인 없음으로 본다. 판단은 findBlockers의 sha256 비교가 그대로 한다.
+const SHEET_THUMBNAIL_APPROVAL_FILE = 'sheet-thumbnail-approval.json';
+const readSheetThumbnailApproval = async (pkgDir) => {
+  try {
+    const record = await readJsonFile(join(pkgDir, SHEET_THUMBNAIL_APPROVAL_FILE));
+    if (record?.source !== 'sheet-approved' || typeof record.sha256 !== 'string' || !record.sha256) return null;
+    return { file: record.file, sha256: record.sha256, approvedAt: record.approvedAt, source: record.source };
+  } catch {
+    return null;
+  }
+};
+
 const findBlockers = ({ title, description, tags, pinnedComment, thumbnailFileName, thumbnailSha256, thumbnailApproval }) => {
   const blockers = [];
   if (!thumbnailFileName) blockers.push('메인 썸네일(thumbnail.jpg)이 없습니다.');
@@ -147,7 +160,7 @@ export async function scanReadyPackages(uploadPackagesDir) {
     const pinnedComment = await readOptional('pinned-comment.txt');
     const titleVariants = parseTitleVariants(await readOptional('title-variants.txt')).map((variant) => variant.title);
     const thumbnailSha256 = thumbFile ? await hashFile(join(pkgDir, thumbFile)) : null;
-    const thumbnailApproval = statusJson.thumbnailApproval || null;
+    const thumbnailApproval = statusJson.thumbnailApproval || (await readSheetThumbnailApproval(pkgDir));
 
     ready.push({
       episodeId: ent.name,

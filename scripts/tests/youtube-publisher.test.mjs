@@ -26,6 +26,10 @@ import {
   isOurChannel,
   languageSnippetUpdate,
 } from '../youtube-publisher.mjs';
+import { sheetThumbnailApproval, writeSheetThumbnailApproval, SHEET_THUMBNAIL_APPROVAL_FILE } from '../package-from-sheet.mjs';
+import { createHash } from 'node:crypto';
+import { readdir } from 'node:fs/promises';
+const readdirNames = (dir) => readdir(dir);
 
 const CLEAN_RULES = {
   publishTimeKst: '23:00',
@@ -817,5 +821,123 @@ test('쇼츠 패키지의 대시보드용 상태 파일(shorts-status.json)은 �
     assert.deepEqual(await scanReadyPackages(tempDir), []);
   } finally {
     await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+// ---- 비교 시트 승인 = 썸네일 승인 (2026-11-13 결정) ----
+const sha = (text) => createHash('sha256').update(text).digest('hex');
+
+// 시트 폴더(이미지 포함)와 시트 승인 패키지를 임시로 만든다. 칸 이름은 실제 시트(data/youtube/transform-sheets)와 같다.
+const makeSheetPackage = async ({status = 'approved', sheetImage = 'sheet-thumb', pkgThumb = 'sheet-thumb'} = {}) => {
+  const sheetsRoot = await mkdtemp(join(tmpdir(), 'sheet-root-'));
+  await mkdir(join(sheetsRoot, 'images', 'SRC1'), {recursive: true});
+  await writeFile(join(sheetsRoot, 'images', 'SRC1', 'thumb-B.jpg'), sheetImage);
+  const sheet = {sourceVideoId: 'SRC1', status, thumbnailPicks: ['images/SRC1/thumb-B.jpg', 'images/SRC1/thumb-D.jpg']};
+  const root = await makePackages(['ep30-a'], {approve: false, files: {'thumbnail.jpg': pkgThumb}});
+  const dir = join(root, 'ep30-a');
+  const result = writeSheetThumbnailApproval({sheet, videoId: 'SRC1', outDir: dir, now: FIXED_NOW, imagesRoot: sheetsRoot});
+  return {root, dir, sheetsRoot, sheet, result};
+};
+const cleanup = (...dirs) => Promise.all(dirs.map((d) => rm(d, {recursive: true, force: true})));
+
+test('시트 승인 + 해시 일치: 승인 기록이 만들어지고 차단 사유가 없다', async () => {
+  const {root, dir, sheetsRoot, result} = await makeSheetPackage();
+  try {
+    assert.equal(result.written, true);
+    const record = JSON.parse(await readFile(join(dir, SHEET_THUMBNAIL_APPROVAL_FILE), 'utf8'));
+    assert.deepEqual(record, {sheetId: 'SRC1', file: 'thumbnail.jpg', sha256: sha('sheet-thumb'), approvedAt: FIXED_NOW.toISOString(), source: 'sheet-approved'});
+    const [pkg] = await scanReadyPackages(root);
+    assert.deepEqual(pkg.blockers, []);
+    assert.equal(pkg.thumbnailApproval.sha256, sha('sheet-thumb'));
+    const decision = await decide(root);
+    assert.equal(decision.ok, true);
+    assert.equal(JSON.parse(await readFile(join(dir, 'status.json'), 'utf8')).thumbnailApproval, undefined); // status.json은 건드리지 않는다
+  } finally {
+    await cleanup(root, sheetsRoot);
+  }
+});
+
+test('시트가 draft이거나 상태가 없으면 승인으로 인정하지 않는다', async () => {
+  const {root, dir, sheetsRoot, result} = await makeSheetPackage({status: 'draft'});
+  try {
+    assert.equal(result.written, false);
+    assert.match(result.reason, /approved/);
+    assert.equal((await readdirNames(dir)).includes(SHEET_THUMBNAIL_APPROVAL_FILE), false);
+    assert.match((await scanReadyPackages(root))[0].blockers.join(' '), /썸네일 승인이 필요합니다./);
+    assert.equal(sheetThumbnailApproval({sheet: {}, sheetImageSha256: sha('a'), packageThumbSha256: sha('a')}).approved, false);
+  } finally {
+    await cleanup(root, sheetsRoot);
+  }
+});
+
+test('패키지 thumbnail.jpg가 시트에서 고른 첫 시안과 다른 파일이면 승인으로 인정하지 않는다', async () => {
+  const {root, dir, sheetsRoot, result} = await makeSheetPackage({pkgThumb: 'other-file'});
+  try {
+    assert.equal(result.written, false);
+    assert.match(result.reason, /다른 파일/);
+    assert.equal((await readdirNames(dir)).includes(SHEET_THUMBNAIL_APPROVAL_FILE), false);
+    assert.match((await scanReadyPackages(root))[0].blockers.join(' '), /썸네일 승인이 필요합니다./);
+  } finally {
+    await cleanup(root, sheetsRoot);
+  }
+});
+
+test('시트 승인이 인정된 뒤 thumbnail.jpg가 바뀌면 다시 차단된다', async () => {
+  const {root, dir, sheetsRoot} = await makeSheetPackage();
+  try {
+    assert.deepEqual((await scanReadyPackages(root))[0].blockers, []);
+    await writeFile(join(dir, 'thumbnail.jpg'), 'changed-later');
+    assert.match((await scanReadyPackages(root))[0].blockers.join(' '), /썸네일 승인이 필요합니다./);
+    const decision = await decide(root);
+    assert.equal(decision.ok, false);
+    assert.match(decision.reason, /승인/);
+  } finally {
+    await cleanup(root, sheetsRoot);
+  }
+});
+
+test('status.json의 썸네일 승인이 있으면 시트 승인 파일보다 우선한다', async () => {
+  const {root, dir, sheetsRoot} = await makeSheetPackage();
+  try {
+    await writeFile(join(dir, 'thumbnail.jpg'), 'changed-later');
+    await approveThumbnail(dir); // 사람이 바뀐 파일을 직접 승인
+    const [pkg] = await scanReadyPackages(root);
+    assert.equal(pkg.thumbnailApproval.sha256, sha('changed-later'));
+    assert.equal(pkg.thumbnailApproval.source, undefined);
+    assert.deepEqual(pkg.blockers, []);
+  } finally {
+    await cleanup(root, sheetsRoot);
+  }
+});
+
+test('sheet-thumbnail-approval.json이 깨진 JSON이거나 모양이 틀리면 무시하고 차단한다', async () => {
+  const {root, dir, sheetsRoot} = await makeSheetPackage();
+  try {
+    await writeFile(join(dir, SHEET_THUMBNAIL_APPROVAL_FILE), '{깨진 json');
+    let [pkg] = await scanReadyPackages(root);
+    assert.equal(pkg.thumbnailApproval, null);
+    assert.match(pkg.blockers.join(' '), /썸네일 승인이 필요합니다./);
+    await writeFile(join(dir, SHEET_THUMBNAIL_APPROVAL_FILE), JSON.stringify({sha256: sha('sheet-thumb')})); // source 없음
+    [pkg] = await scanReadyPackages(root);
+    assert.match(pkg.blockers.join(' '), /썸네일 승인이 필요합니다./);
+  } finally {
+    await cleanup(root, sheetsRoot);
+  }
+});
+
+test('시트 승인 기록은 썸네일이 바뀐 뒤 다시 돌리면 새 지문으로 쓰고, 같으면 그대로 둔다', async () => {
+  const {root, dir, sheetsRoot, sheet} = await makeSheetPackage();
+  try {
+    const again = writeSheetThumbnailApproval({sheet, videoId: 'SRC1', outDir: dir, now: FIXED_NOW, imagesRoot: sheetsRoot});
+    assert.equal(again.written, false);
+    assert.match(again.reason, /이미/);
+    await writeFile(join(dir, 'thumbnail.jpg'), 'changed-later');
+    assert.equal(writeSheetThumbnailApproval({sheet, videoId: 'SRC1', outDir: dir, now: FIXED_NOW, imagesRoot: sheetsRoot}).written, false); // 시트 시안과 달라졌으니 안 씀
+    await writeFile(join(sheetsRoot, 'images', 'SRC1', 'thumb-B.jpg'), 'changed-later'); // 시트 시안도 같이 바뀐 경우
+    const rewritten = writeSheetThumbnailApproval({sheet, videoId: 'SRC1', outDir: dir, now: FIXED_NOW, imagesRoot: sheetsRoot});
+    assert.equal(rewritten.written, true);
+    assert.equal(rewritten.record.sha256, sha('changed-later'));
+  } finally {
+    await cleanup(root, sheetsRoot);
   }
 });

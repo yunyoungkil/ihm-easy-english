@@ -7,6 +7,11 @@ import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+/** 컷 수 라벨. 0개(또는 값 없음)는 감지가 실패했을 수 있다(2026-11-15 감사 D: 영화 장면 3개인 영상 _xfBa82OAaw가 0개로 잡혔다). */
+export function cutCountLabel(pacing) {
+  const n = Number(pacing?.count);
+  return Number.isFinite(n) && n > 0 ? `${n}번` : '0번(감지 실패 가능)';
+}
 const mmss = (sec) => {
   const s = Math.max(0, Math.floor(Number(sec) || 0));
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
@@ -89,6 +94,9 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false} =
   parts.push(`<div class="meta">${escapeHtml(m.channelTitle)} · 구독자 ${num(report.subscriberCount)} · 조회수 ${num(m.viewCount)} · 구독자 대비 ${report.viewsPerSubscriber ?? '측정 전'}배 · 채널 평소 대비 ${formatRatioLabel(report)} · 길이 ${m.durationSeconds ?? '?'}초</div>`);
   const src = report.sources || {};
   parts.push(`<div class="meta">분석 ${escapeHtml(String(report.analyzedAt || '').slice(0, 10))} · ${escapeHtml(report.model || '')} · 화면은 처음 ${report.windowSeconds}초 · 자막 ${src.transcript?.ok ? '있음' : `없음(${escapeHtml(src.transcript?.error || '')})`} · 댓글 ${src.comments?.count ?? 0}개 · 인용 확인 ${report.quoteCheck?.verified ?? 0}/${report.quoteCheck?.checked ?? 0}</div>`);
+  const teaches = a.teachesAdultEnglishSounds;
+  const teachesText = teaches === true ? '예' : teaches === false ? '아니오 — 이 영상의 댓글은 시청자 고민 데이터에서 뺌' : '미판정';
+  parts.push(`<div class="meta">성인에게 영어 소리를 가르치는 원본 영상인가: ${teachesText}${a.teachesAdultEnglishSoundsReason ? ` (${escapeHtml(a.teachesAdultEnglishSoundsReason)})` : ''}</div>`);
   parts.push(`<p><a href="https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}" target="_blank" rel="noopener">유튜브에서 보기</a></p>`);
   if (hasSheet) parts.push(`<div class="card">📝 <a href="/transform-sheet/${id}"><b>이 영상을 우리 콘텐츠로 바꾼 비교 시트 보기</b></a> — 경쟁과 우리를 좌우로 비교하고, 바꾼 이유와 다른 영상에서 가져온 것을 적어 두었다.</div>`);
   if (framesPending > 0) parts.push(`<div class="card"><b>캡처 ${Number(framesPending)}장을 이 PC에서 만드는 중입니다.</b> 캡처는 깃에 올리지 않아 PC마다 처음 한 번 만듭니다(1편에 30초~2분). 이 화면은 25초마다 스스로 새로고침합니다.</div>`);
@@ -103,7 +111,7 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false} =
   parts.push(`<h2>2. 첫 15초</h2><div class="card"><p>${escapeHtml(o.first15s)}</p>${quote(o.quote, o.quoteVerified)}<p><b>계속 볼 이유</b>: ${escapeHtml(o.reasonToKeepWatching)}</p></div>`);
 
   const p = report.pacing || {};
-  parts.push(`<h2>3. 화면 연출</h2><p class="meta">처음 ${report.windowSeconds}초 동안 장면 전환 ${p.count ?? 0}번 · 1분에 ${p.perMinute ?? 0}번 · 전환 사이 간격 중앙값 ${p.medianGapSeconds == null ? '측정 전' : `${p.medianGapSeconds}초`} (출처: ${escapeHtml(p.source || '코드 계산')}). 아래는 AI가 적은 화면 변화 ${(a.visualMoments || []).length}개다. 캡처는 그 시각부터 1초 간격 3장이고, AI가 말한 시각은 몇 초 어긋날 수 있다.${report.framesError ? ` 캡처 실패: ${escapeHtml(report.framesError)}` : ''}</p>`);
+  parts.push(`<h2>3. 화면 연출</h2><p class="meta">처음 ${report.windowSeconds}초 동안 장면 전환 ${cutCountLabel(p)} · 1분에 ${p.perMinute ?? 0}번 · 전환 사이 간격 중앙값 ${p.medianGapSeconds == null ? '측정 전' : `${p.medianGapSeconds}초`} (출처: ${escapeHtml(p.source || '코드 계산')}). 아래는 AI가 적은 화면 변화 ${(a.visualMoments || []).length}개다. 캡처는 그 시각부터 1초 간격 3장이고, AI가 말한 시각은 몇 초 어긋날 수 있다.${report.framesError ? ` 캡처 실패: ${escapeHtml(report.framesError)}` : ''}</p>`);
   for (const mo of a.visualMoments || []) {
     const file = frameByT.get(mo.t);
     parts.push(`<div class="card moment"><div><a class="t" href="${yt(mo.t)}" target="_blank" rel="noopener">${mmss(mo.t)}</a> ${escapeHtml(mo.what)}</div>${file ? `<img loading="lazy" src="/outlier-frames/${id}/${escapeHtml(file)}" alt="${mmss(mo.t)} 화면">` : ''}<div class="q">${escapeHtml(mo.purpose)}</div></div>`);
@@ -208,7 +216,7 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x) {
   const compDur = Number(report?.windowSeconds) || Number(report?.meta?.durationSeconds) || 0;
   const bar = (list, dur, cls) => `<div class="timeline">${list.map((t) => `<span class="tick ${cls}" style="left:${Math.min(100, (Number(t) / dur) * 100)}%"></span>`).join('')}</div>`;
   const parts = ['<div class="sheet-label">컷 리듬</div>'];
-  if (Array.isArray(times) && compDur > 0) parts.push(`<div class="tl-label">경쟁 ${times.length}번 (1분에 ${report.pacing.perMinute ?? '측정 전'}번 · ${compDur}초 안)</div>${bar(times, compDur, 'comp')}`);
+  if (Array.isArray(times) && compDur > 0) parts.push(`<div class="tl-label">경쟁 ${cutCountLabel({count: times.length})} (1분에 ${report.pacing.perMinute ?? '측정 전'}번 · ${compDur}초 안)</div>${bar(times, compDur, 'comp')}`);
   else parts.push('<div class="tl-label">경쟁 컷 시각: 측정 전(캡처 채우기를 돌리면 생긴다)</div>');
   const ourTimes = Array.isArray(plan?.cuts) && plan.cuts.length ? plan.cuts.map((c) => Number(c.t)) : (plan?.times || []);
   if (ourTimes.length) {
@@ -312,6 +320,6 @@ export function renderTransformSheetIndex(items = []) {
 
 export function renderReportIndex(reports = []) {
   const sorted = [...reports].sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
-  const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} · 채널 평소 대비 ${formatRatioLabel(r)} · 장면 전환 ${r.pacing?.count ?? 0}번 · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
+  const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} · 채널 평소 대비 ${formatRatioLabel(r)} · 장면 전환 ${cutCountLabel(r.pacing)} · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
   return page('아웃라이어 리포트', `<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
 }

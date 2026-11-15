@@ -36,6 +36,7 @@ angle: reveal
 - 경쟁 영상: 조밥잉글리쉬 (UCV10iJPWgMrwnbyImNftcAA) · SbQVBQoRciA · "한국인이 자주 틀리는 영어 발음 5개" · 평소 대비 570배
 - 경쟁 영상: 다니엘 잉글리시 클럽! 다잉클! (UCR8fzJ6zX3HeC2n-agUtyzg) · pvPBD9PLuyk · "영어 발음이 어려운이유" · 평소 대비 2380배
 - 경쟁 영상: 렉스쌤의 왕초보영어훈련소 (UCE7K7KI2DVAUxleiclgFukA) · 8-3QjaGbMHU · "영어 읽는법 1편" · 평소 대비 51배
+- 경쟁 영상 배수 주의: 위 세 줄의 배수는 2026-11-15 점검 전의 옛 계산 방식 값(누적 조회를 날수로 나눈 하루 평균 기준, 날마다 흔들림)이라 크기를 비교하는 근거로 쓰지 않는다. 새 방식(같은 채널·같은 형식 조회 중앙값 대비)은 공개 7일 뒤 계산된다. 기획 당시의 기록이라 줄은 고치지 않았다(기획 근거 파서가 이 형식을 읽는다).
 - 시청자 고민: 없음 (시청자 고민 데이터 항목이 아니라 경쟁 영상 시청자 댓글의 발상("한국어도 줄여 말한다")만 가져오고 예는 사전에 있는 "마음→맘"으로 바꿨다)
 - 통한 요소 기록: 없음
 - 웹: 사전 직접 열람 — Merriam-Webster(vulnerable·chocolate·memory·different), Cambridge(vulnerable·different), Oxford Learner's(vegetable), 표준국어대사전("초콜릿"). 근거와 판정은 `FACT-CHECK.md`.

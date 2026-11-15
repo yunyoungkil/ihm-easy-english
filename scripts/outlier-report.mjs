@@ -19,6 +19,7 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {GEMINI_TEXT_MODELS} from './gemini-models.mjs';
 import {upsertAudienceDnaFile} from './audience-dna.mjs';
+import {comparableRatioOrNull} from './peer-ratio.mjs';
 
 const execFileAsync = promisify(execFile);
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -69,7 +70,7 @@ export function buildReportPrompt({meta, subscriberCount = null, outlierRatio = 
     `제목: ${meta.title}`,
     `채널: ${meta.channelTitle}${subscriberCount != null ? ` (구독자 ${subscriberCount}명)` : ''}`,
     `조회수 ${meta.viewCount}회 · 올린 날 ${String(meta.publishedAt || '').slice(0, 10)} · 길이 ${meta.durationSeconds ?? '확인 불가'}초`,
-    outlierRatio != null ? `이 영상은 같은 채널의 평소 영상보다 하루 조회수가 ${Math.round(outlierRatio * 10) / 10}배 많다.` : '',
+    outlierRatio != null ? `이 영상의 조회수는 같은 채널·같은 형식 최근 영상 조회수의 중앙값보다 ${Math.round(outlierRatio * 10) / 10}배 많다.` : '',
   ].filter(Boolean).join('\n');
 
   return `너는 유튜브 영상을 보고 있는 그대로 기록하는 관찰자다. 평가하거나 미리 정한 유형·공식에 끼워 넣지 말고, 실제로 보고 들은 것을 적는다.
@@ -121,12 +122,15 @@ ${commentBlock}
     "vocabulary": [{"expression": "시청자가 직접 쓴 표현", "quote": "댓글 원문"}]
   },
   "links": [{"cause": "영상의 어느 장면·말(시각 포함)", "reaction": "그에 대한 시청자 반응", "quote": "댓글 원문"}],
+  "teachesAdultEnglishSounds": true,
+  "teachesAdultEnglishSoundsReason": "위 판정의 이유 한 줄",
   "forUs": {
     "adopt": "이 영상에서 그대로 가져올 만한 점 한 줄(무엇을 어떻게)",
     "differentiate": "이 영상이 놓쳤거나 다르게 할 점 한 줄"
   }
 }
 
+teachesAdultEnglishSounds는 true 또는 false만 쓴다. 이 영상 자체가 성인에게 영어 소리(발음·듣기)를 가르치는 원본 영상이면 true, 영어 소리를 가르치는 내용이 아니거나 다른 영상을 잘라 옮긴 클립이면 false다. 판단 근거는 teachesAdultEnglishSoundsReason에 한 줄로 쓴다.
 forUs 두 줄만 우리 쪽 관점이다. 우리 채널은 한국에 사는 30~60대 성인이 영어 소리를 이해하도록 돕는 채널이고, 어려운 전문용어나 시청자가 겪지 않은 해외 경험담은 쓰지 않는다. 나머지 칸은 모두 이 영상에 대한 관찰이다.`;
 }
 
@@ -223,12 +227,33 @@ export function reportsPerDay({eligibleIds = [], oldReportIds = new Set()} = {})
   return eligibleIds.some((id) => oldReportIds.has(id)) ? CATCH_UP_REPORTS_PER_DAY : REPORTS_PER_DAY;
 }
 
+/** AI 판정 칸 정리: true/false만 받고 그 밖의 값·빠진 칸은 null(미판정). 이유는 글자로만 남긴다. 원본 객체는 바꾸지 않는다. */
+export function normalizeTeachesAdultEnglishSounds(analysis = {}) {
+  const a = {...(analysis || {})};
+  a.teachesAdultEnglishSounds = typeof a.teachesAdultEnglishSounds === 'boolean' ? a.teachesAdultEnglishSounds : null;
+  a.teachesAdultEnglishSoundsReason = typeof a.teachesAdultEnglishSoundsReason === 'string' ? a.teachesAdultEnglishSoundsReason.trim() : '';
+  return a;
+}
+
+/** 리포트에 같이 저장하는 새 배수 칸(peer-ratio.mjs가 만든다). 값이 없으면 null로 비우고 대신값을 넣지 않는다. */
+export const RATIO_FIELD_NAMES = ['outlierRatio', 'ratioMethod', 'ratioStatus', 'ratioReason', 'ratioComputedAt', 'ratioDenominator', 'ratioPeerCount'];
+export function ratioFieldsFromEntry(entry) {
+  return Object.fromEntries(RATIO_FIELD_NAMES.map((k) => [k, entry?.[k] ?? null]));
+}
+/** market-demand.json 구조(byKeyword·trackedChannels의 topOutliers)에서 영상 ID로 배수 항목 전체를 찾는다. */
+export function findRatioEntry(marketDemand, videoId) {
+  const all = [...(marketDemand?.byKeyword || []), ...(marketDemand?.trackedChannels || [])].flatMap((x) => x.topOutliers || []);
+  return all.find((o) => o.videoId === videoId) || null;
+}
+
 /**
  * 합친 리포트에서 시청자 고민 데이터(audience-dna.json)로 넘길 항목: 댓글 원문 인용이 확인된 것만(2026-11-12).
  * 예전 댓글 리포트는 인용 확인 없이 AI 요약을 넣었다. 우리 채널 영상은 경쟁 시청자 고민이 아니라 뺀다.
  */
 export function audienceDnaEntriesFromReport(report) {
   if (String(report?.meta?.channelTitle || '').includes('이해하면 쉬운')) return [];
+  // 성인에게 영어 소리를 가르치는 영상이 아니라고 판정된 영상(연예인 토크·동요·수능 등)의 댓글은 시청자 고민이 아니다(2026-11-15 감사 D: 고민 300개 중 84개가 이런 댓글). null·칸 없음(옛 리포트)은 미판정이라 지금처럼 보낸다.
+  if (report?.analysis?.teachesAdultEnglishSounds === false) return [];
   const vr = report?.analysis?.viewerReaction || {};
   const pick = (list, field, type) => (list || []).filter((x) => x?.quoteVerified === true && String(x[field] || '').trim())
     .map((x) => ({type, text: String(x[field]).trim(), videoId: report.videoId, channelTitle: report.meta?.channelTitle || '', sourceType: 'outlierComment'}));
@@ -573,11 +598,9 @@ export async function ensureAllFrames({install = false} = {}) {
   return {total: reports.length, pending: pending.length, made, failed, unavailable};
 }
 
-function findOutlierRatio(videoId) {
+function findRatioEntryOnDisk(videoId) {
   try {
-    const md = JSON.parse(readFileSync(join(projectDir, 'data', 'youtube', 'market-demand.json'), 'utf8'));
-    const all = [...(md.byKeyword || []), ...(md.trackedChannels || [])].flatMap((x) => x.topOutliers || []);
-    return all.find((o) => o.videoId === videoId)?.outlierRatio ?? null;
+    return findRatioEntry(JSON.parse(readFileSync(join(projectDir, 'data', 'youtube', 'market-demand.json'), 'utf8')), videoId);
   } catch { return null; }
 }
 
@@ -594,12 +617,14 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
   ]);
   const commentList = Array.isArray(comments) ? comments : [];
   const windowSeconds = analysisWindowSeconds(meta.durationSeconds);
-  const outlierRatio = findOutlierRatio(videoId);
-  const prompt = buildReportPrompt({meta, subscriberCount, outlierRatio, transcriptLines: transcript.lines || null, comments: commentList, windowSeconds});
+  const ratioFields = ratioFieldsFromEntry(findRatioEntryOnDisk(videoId));
+  // AI에게는 새 방식으로 계산된 배수만 알려 준다(옛 방식 값·측정 중·보류는 말하지 않는다).
+  const prompt = buildReportPrompt({meta, subscriberCount, outlierRatio: comparableRatioOrNull(ratioFields), transcriptLines: transcript.lines || null, comments: commentList, windowSeconds});
   const {model, analysis: raw, usage} = await callGemini({videoId, windowSeconds, thumbnailBase64, prompt, geminiKey});
 
   raw.visualMoments = (raw.visualMoments || []).filter((m) => Number.isFinite(Number(m.t)) && m.t >= 0 && m.t <= windowSeconds).map((m) => ({...m, t: Number(m.t)}));
-  const {analysis, summary} = verifyQuotes(raw, {title: meta.title, transcriptText: transcript.fullText ?? null, commentTexts: commentList.map((c) => c.text)});
+  const {analysis: verified, summary} = verifyQuotes(raw, {title: meta.title, transcriptText: transcript.fullText ?? null, commentTexts: commentList.map((c) => c.text)});
+  const analysis = normalizeTeachesAdultEnglishSounds(verified);
   const captured = withFrames ? await processClip(videoId, pickFrameMoments(analysis.visualMoments, windowSeconds), windowSeconds) : {frames: [], cuts: null, error: '캡처 안 함'};
   // 컷 간격은 영상에서 코드가 직접 잰 장면 전환을 먼저 쓴다. 영상을 못 받았을 때만 AI가 적은 화면 변화로 대신하고, 출처를 남긴다.
   const pacing = captured.cuts
@@ -615,7 +640,7 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true} = {}) {
     meta,
     subscriberCount,
     viewsPerSubscriber: subscriberCount ? Math.round((meta.viewCount / subscriberCount) * 100) / 100 : null,
-    outlierRatio,
+    ...ratioFields,
     sources: {
       transcript: transcript.error ? {ok: false, error: transcript.error} : {ok: true, lines: transcript.lines.length, language: transcript.language},
       comments: Array.isArray(comments) ? {ok: true, count: commentList.length} : {ok: false, error: comments.error},

@@ -218,7 +218,7 @@ Gemini 별 스파클, Runway 등 AI 툴의 워터마크·로고가 시청자 화
 1. **Antigravity의 Gemini 에이전트**는 자체 이미지 모델(`image-generator` 서브에이전트 / Gemini API)을 먼저 쓴다(2026-11-11 사용자 확인). **Claude Code처럼 그런 모델이 없는 에이전트는 이 1단계를 건너뛰고 바로 2단계로 간다.** 연결된 외부 유료 서비스(Higgsfield, Abracadabrax 등 MCP)는 자체 모델이 아니므로 사용자가 지시하지 않으면 쓰지 않는다.
 2. **한도 소진(429, 크레딧 소진) 또는 자체 모델이 없을 때**: 코드로 SVG/Canvas 그래픽을 그려 때우지 않고, 브라우저 컨트롤로 만든다. 이미지는 Google AI Studio 자동화(`npm run image`, `scripts/generate-aistudio-image.mjs`, Nano Banana 2.1)가 1순위다(2026-11-12 완성, 워터마크 없음 확인). 보조로 `scripts/generate-web-gemini-image.mjs`(Chrome CDP, gemini.google.com)가 있다. 크롬이 없는 등 브라우저 컨트롤조차 못 쓸 때만 멈추고 사용자에게 알린다.
 3. 환경 설정과 다른 PC 동기화는 `knowledge/gemini-web-automation-setup.md`. 세션 시작 훅이 `Gemini-Automation` 전용 크롬 프로필을 구성한다(최초 1회 구글 로그인).
-4. **무료 생성 도구별 워터마크·우선순위 표와 시험 결과는 `knowledge/free-generation-tools.md`**. 요약: 영상은 AI Studio의 Omni 1.2 Flash가 1순위(`flow.google.com`은 워터마크 강제), 배경음악은 Lyria 3.5가 1순위·flowmusic이 보조(무료 크레딧 안에서만, 유료로 넘어가지 않는다), gemini.google.com 그림은 첫 장 이후 별 로고가 찍힌다. 새 도구는 처음 쓸 때 워터마크 유무를 확인해 그 표에 날짜와 함께 적는다.
+4. **무료 생성 도구별 워터마크·우선순위 표와 시험 결과는 `knowledge/free-generation-tools.md`**. 요약: 음성(TTS)은 AI Studio 음성 화면이 기본이고 무료 키 API는 gemini-3.8-flash-tts 하루 10회라 보조(2026-11-16, 유료 키 OLD_PAID_GEMINI_API_KEY는 쓰지 않는다), 영상은 AI Studio의 Omni 1.2 Flash가 1순위(`flow.google.com`은 워터마크 강제), 배경음악은 Lyria 3.5가 1순위·flowmusic이 보조(무료 크레딧 안에서만, 유료로 넘어가지 않는다), gemini.google.com 그림은 첫 장 이후 별 로고가 찍힌다. 새 도구는 처음 쓸 때 워터마크 유무를 확인해 그 표에 날짜와 함께 적는다.
 5. gemini.google.com으로 만든 그림은 반입 전에 네 모서리(특히 오른쪽 아래)를 확대해 별 로고를 찾고, 있으면 아래 워터마크 절의 방법으로 크롭하거나 같은 여백 조각으로 덮는다.
 6. 배경음악은 편마다 새로 만들고 같은 `track.mp3`를 모든 쇼츠에 돌려 쓰지 않는다("같은 틀의 영상을 찍어 내지 않는다"와 같은 이유).
 

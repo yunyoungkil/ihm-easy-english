@@ -16,6 +16,7 @@ export const LIFECYCLE_STATUS = {
 export const LIFECYCLE_CONFIG = {
   SUCCESS_RATIO_THRESHOLD: 1.5,      // 포맷 중앙값 대비 1.5배 이상 ➔ 황금 광산
   FAILURE_RATIO_THRESHOLD: 0.5,      // 포맷 중앙값 대비 0.5배 미만 ➔ 실패
+  CONSECUTIVE_SUCCESSES_TO_PROMOTE: 2, // 2회 연속 우수 ➔ 황금 광산 (2026-11-15 사용자 결정: 한 편의 운으로 승격하지 않는다, 숫자는 가설)
   CONSECUTIVE_FAILURES_TO_BLOCK: 2,  // 2회 연속 부진 ➔ 자동 차단
   BLOCK_COOLDOWN_DAYS: 90,           // 차단 쿨다운 기간 (90일)
   MEGA_OUTLIER_UNBLOCK_RATIO: 5.0,   // 차단 해제 가능한 초대형 아웃라이어 기준
@@ -144,6 +145,7 @@ export function evaluateChannelLifecycle({
   let nextStatus = currentStatus;
   let statusReason = channel.statusReason || '신규 후보 등록';
   let consecutiveFailures = channel.consecutiveFailures || 0;
+  let consecutiveSuccesses = channel.consecutiveSuccesses || 0;
   let blockedUntil = channel.blockedUntil || null;
 
   // 1. 차단 상태인 경우: 90일 쿨다운 경과 여부 점검
@@ -152,7 +154,7 @@ export function evaluateChannelLifecycle({
       // 쿨다운 만료 후 메가 아웃라이어 존재 여부 확인
       const maxMultiplier = Math.max(
         0,
-        ...(channel.topOutliers || []).map((o) => o.multiplier || 0)
+        ...(channel.topOutliers || []).map((o) => o.outlierRatio || 0)
       );
       if (maxMultiplier >= LIFECYCLE_CONFIG.MEGA_OUTLIER_UNBLOCK_RATIO) {
         nextStatus = LIFECYCLE_STATUS.CANDIDATE;
@@ -173,10 +175,16 @@ export function evaluateChannelLifecycle({
   // 2. 신규 성과 배수가 전달된 경우: 승격 또는 실패 누적 판정
   if (latestEpisodeRatio != null) {
     if (latestEpisodeRatio >= LIFECYCLE_CONFIG.SUCCESS_RATIO_THRESHOLD) {
-      nextStatus = LIFECYCLE_STATUS.GOLD_MINE;
       consecutiveFailures = 0;
-      statusReason = `최근 제작 성과 우수(중앙값 대비 ${latestEpisodeRatio.toFixed(1)}배)로 황금 광산 승격`;
+      consecutiveSuccesses += 1;
+      if (currentStatus === LIFECYCLE_STATUS.GOLD_MINE || consecutiveSuccesses >= LIFECYCLE_CONFIG.CONSECUTIVE_SUCCESSES_TO_PROMOTE) {
+        nextStatus = LIFECYCLE_STATUS.GOLD_MINE;
+        statusReason = `최근 제작 성과 우수(중앙값 대비 ${latestEpisodeRatio.toFixed(1)}배)로 황금 광산 승격`;
+      } else {
+        statusReason = `최근 제작 성과 우수(중앙값 대비 ${latestEpisodeRatio.toFixed(1)}배) 1회 확인, 한 번 더 확인되면 황금 광산 승격`;
+      }
     } else if (latestEpisodeRatio < LIFECYCLE_CONFIG.FAILURE_RATIO_THRESHOLD) {
+      consecutiveSuccesses = 0;
       consecutiveFailures += 1;
       if (consecutiveFailures >= LIFECYCLE_CONFIG.CONSECUTIVE_FAILURES_TO_BLOCK) {
         nextStatus = LIFECYCLE_STATUS.BLOCKED;
@@ -189,6 +197,7 @@ export function evaluateChannelLifecycle({
     } else {
       // 보통 성과는 "연속" 부진을 끊는다 — 부진·보통·부진이 2회 연속 부진으로 세어지지 않게.
       consecutiveFailures = 0;
+      consecutiveSuccesses = 0;
       statusReason = `최근 제작 성과 보통(중앙값 대비 ${latestEpisodeRatio.toFixed(1)}배)`;
     }
   }
@@ -208,6 +217,7 @@ export function evaluateChannelLifecycle({
     statusReason,
     statusUpdatedAt: now.toISOString(),
     consecutiveFailures,
+    consecutiveSuccesses,
     blockedUntil,
     exhaustion,
   };

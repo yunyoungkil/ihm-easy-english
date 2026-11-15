@@ -53,21 +53,40 @@ test('calculateTopicExhaustion: 잔여 미커버 아웃라이어 수와 소진�
   assert.equal(Math.round(result.exhaustionRate * 100), 67);
 });
 
-test('evaluateChannelLifecycle: 성과 배수 1.5배 이상이면 황금 광산으로 자동 승격된다', () => {
+test('evaluateChannelLifecycle: 성과 배수 1.5배 이상이 두 편 연속이면 황금 광산으로 자동 승격된다', () => {
   const channel = {
     status: LIFECYCLE_STATUS.CANDIDATE,
     consecutiveFailures: 0,
     topOutliers: [{ title: 'TH 발음' }],
   };
-  const evaluated = evaluateChannelLifecycle({
+  const first = evaluateChannelLifecycle({
     channel,
     ourCatalogTitles: [],
     latestEpisodeRatio: 1.8,
     now: new Date('2026-11-11T12:00:00Z'),
   });
-  assert.equal(evaluated.status, LIFECYCLE_STATUS.GOLD_MINE);
-  assert.equal(evaluated.consecutiveFailures, 0);
-  assert.ok(evaluated.statusReason.includes('황금 광산 승격'));
+  // 한 편만으로는 승격하지 않는다(한 편의 운으로 굳히지 않는다).
+  assert.equal(first.status, LIFECYCLE_STATUS.CANDIDATE);
+  assert.equal(first.consecutiveSuccesses, 1);
+
+  const second = evaluateChannelLifecycle({
+    channel: first,
+    ourCatalogTitles: [],
+    latestEpisodeRatio: 2.1,
+    now: new Date('2026-11-18T12:00:00Z'),
+  });
+  assert.equal(second.status, LIFECYCLE_STATUS.GOLD_MINE);
+  assert.equal(second.consecutiveFailures, 0);
+  assert.ok(second.statusReason.includes('황금 광산 승격'));
+});
+
+test('evaluateChannelLifecycle: 우수 사이에 보통·부진이 끼면 연속이 끊긴다', () => {
+  const base = { status: LIFECYCLE_STATUS.CANDIDATE, topOutliers: [{ title: 'TH 발음' }] };
+  const good = evaluateChannelLifecycle({ channel: base, latestEpisodeRatio: 1.8, now: new Date('2026-11-11T12:00:00Z') });
+  const normal = evaluateChannelLifecycle({ channel: good, latestEpisodeRatio: 1.0, now: new Date('2026-11-14T12:00:00Z') });
+  assert.equal(normal.consecutiveSuccesses, 0);
+  const good2 = evaluateChannelLifecycle({ channel: normal, latestEpisodeRatio: 1.9, now: new Date('2026-11-18T12:00:00Z') });
+  assert.equal(good2.status, LIFECYCLE_STATUS.CANDIDATE);
 });
 
 test('evaluateChannelLifecycle: 1회 실패는 경고 누적, 2회 연속 부진은 90일 자동 차단된다', () => {
@@ -93,6 +112,25 @@ test('evaluateChannelLifecycle: 1회 실패는 경고 누적, 2회 연속 부진
   assert.equal(step2.consecutiveFailures, 2);
   assert.ok(step2.blockedUntil != null);
   assert.ok(step2.statusReason.includes('자동 차단'));
+});
+
+test('evaluateChannelLifecycle: 쿨다운이 끝난 차단 채널은 실제 칸 outlierRatio가 5배 이상이면 후보로 돌아온다', () => {
+  // market-demand.json 의 topOutliers 칸 이름은 outlierRatio 다 (2026-11-15 점검: 예전엔 multiplier 를 읽어 영영 풀리지 않았다).
+  const blocked = {
+    status: LIFECYCLE_STATUS.BLOCKED,
+    consecutiveFailures: 2,
+    blockedUntil: '2026-11-01T00:00:00Z',
+    topOutliers: [{ title: '큰 영상', outlierRatio: 6.2 }],
+  };
+  const back = evaluateChannelLifecycle({ channel: blocked, now: new Date('2026-11-15T00:00:00Z') });
+  assert.equal(back.status, LIFECYCLE_STATUS.CANDIDATE);
+  assert.equal(back.blockedUntil, null);
+
+  const stillBlocked = evaluateChannelLifecycle({
+    channel: { ...blocked, topOutliers: [{ title: '작은 영상', outlierRatio: 2 }] },
+    now: new Date('2026-11-15T00:00:00Z'),
+  });
+  assert.equal(stillBlocked.status, LIFECYCLE_STATUS.BLOCKED);
 });
 
 test('evaluateChannelLifecycle: 아웃라이어를 전면 소진하면 명예 졸업(자동 삭제/보관) 처리된다', () => {
@@ -144,13 +182,20 @@ const cycle = (outcomes, md, extra = {}) => runD7AutonomousCycle({
   episodeOutcomes: outcomes, catalogVideos: [], now: new Date('2026-12-01T00:00:00Z'), ...extra,
 });
 
-test('runD7AutonomousCycle: 통한 편의 기획 근거 채널만 황금 광산으로 올린다', () => {
-  const r = cycle([outcome()]);
+test('runD7AutonomousCycle: 통한 편의 기획 근거 채널은 두 편 연속 통해야 황금 광산으로 오른다', () => {
+  // 한 편만 통하면 승격하지 않는다(2026-11-15 사용자 결정: 한 편의 운으로 굳히지 않는다).
+  const one = cycle([outcome()]);
+  assert.equal(one.marketDemandData.trackedChannels[0].status, LIFECYCLE_STATUS.CANDIDATE);
+  assert.equal(one.marketDemandData.trackedChannels[0].consecutiveSuccesses, 1);
+  assert.deepEqual(one.promotedChannels, []);
+  assert.ok(one.marketDemandData.d7ProcessedVideoIds.includes('v30'));
+
+  const r = cycle([outcome(), outcome({videoId: 'v31', label: 'EP31', publishedAt: '2026-11-25T00:00:00Z'})]);
   const [a, b] = r.marketDemandData.trackedChannels;
   assert.equal(a.status, LIFECYCLE_STATUS.GOLD_MINE);
   assert.equal(b.status, LIFECYCLE_STATUS.CANDIDATE);
   assert.deepEqual(r.promotedChannels, ['UC_A']);
-  assert.ok(r.marketDemandData.d7ProcessedVideoIds.includes('v30'));
+  assert.ok(r.marketDemandData.d7ProcessedVideoIds.includes('v31'));
 });
 
 test('runD7AutonomousCycle: 보류·대기 판정은 채널 상태를 바꾸지 않고 처리 완료로 표시하지도 않는다', () => {

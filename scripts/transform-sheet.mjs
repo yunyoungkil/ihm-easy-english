@@ -196,7 +196,7 @@ export function experimentProblems(sheet) {
 }
 
 /** 근거 기록(borrowed[].evidenceLog, 2026-11-13): 결과가 쌓이는 칸. 비어 있어도 되고, 있으면 날짜·영상·지표·값·결과가 모두 있어야 한다. */
-export const EVIDENCE_METRICS = Object.freeze(['views7d', 'watchSeconds7d', 'subs7d', 'impressions7d', 'ctr7d']);
+export const EVIDENCE_METRICS = Object.freeze(['views7d', 'watchSeconds7d', 'subs7d', 'impressions7d', 'ctr7d', 'stayedToWatch']); // stayedToWatch: 쇼츠 계속 시청함(2026-11-15, 스타일 시험 1차 지표)
 // result = 평소 대비 판정(1단계, 시트의 이김·짐은 이걸로 읽는다), baselineResult = 기준선 판정(2단계, 옆 칸). 2026-11-13 사용자 결정.
 // 옛 기록(result에 기준선 판정이 들어 있던 것)도 통과시키려고 두 말 목록을 모두 허용한다.
 export const BASELINE_RESULTS = Object.freeze(['갱신 기준 초과', '기준선 위, 편차 안(갱신 아님)', '기준선 이하', '기준선 없음']);

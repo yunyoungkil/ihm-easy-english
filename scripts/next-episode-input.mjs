@@ -14,7 +14,7 @@ import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
 import {loadReports as loadOutlierReports} from './outlier-report.mjs';
 import {loadSheets} from './transform-sheet.mjs';
-import {METRICS, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
+import {METRICS, MIN_POINTS_POOL, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
 import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
 
@@ -306,8 +306,10 @@ export function renderBaselines(baselines, variableGroups = []) {
       let usual = '';
       if (bands && (bands.low || bands.high)) usual = ` · 평소(최근 ${RECENT_COUNT}편 ${key === 'ctr7d' ? '합산 클릭률' : '중앙값'}) 짧은 영상(${num(bands.mid)}초 미만) ${bandText(bands.low)} · 긴 영상 ${bandText(bands.high)}`;
       else if (key === 'ctr7d') { const u = usualFor({format, metric: key}, baselines); if (u) usual = ` · 평소(최근 ${u.n}편 합산 클릭률) ${num(u.value)}${unit}`; }
+      // 계속 시청함(쇼츠 스타일 시험 1차 지표): 판정과 같은 계산(usualFor). 앞선 쇼츠가 MIN_POINTS_POOL편 미만이면 판정하지 않는다.
+      else if (METRICS[key]?.rule === 'points') { const u = usualFor({format, metric: key}, baselines); usual = u ? ` · 평소(최근 ${u.n}편 중앙값) ${num(u.value)}${unit} · 판정 폭 ±${num(u.spread)}%p 이상(우리 편차, 표본이 작으면 우연 폭이 더 크다, 가설)` : ` · 평소 측정 전(값 있는 쇼츠 ${(entry.recent?.[key] || []).length}편, ${MIN_POINTS_POOL}편부터 판정)`; }
       else if (recent.length) usual = ` · 평소(최근 ${recent.length}편 중앙값) ${num(quantile(recent, 0.5))}${unit}`; // allow-literal: 분위수의 정의(중앙값)
-      const notes = [m.sampleNote, m.catchingUpNote, m.mixedNote, m.abTestedCount ? `A/B 테스트가 걸린 영상 ${m.abTestedCount}/${m.n}편(클릭률·노출수는 시안이 섞인 값)` : null, ...(m.excluded || []).map((x) => `기준선 후보에서 뺌: 「${cut(x.title, 24)}」 ${num(x.value)}${unit}(${x.reason})`)].filter(Boolean);
+      const notes = [m.sampleNote, m.approxNote, m.catchingUpNote, m.mixedNote, m.abTestedCount ? `A/B 테스트가 걸린 영상 ${m.abTestedCount}/${m.n}편(클릭률·노출수는 시안이 섞인 값)` : null, ...(m.excluded || []).map((x) => `기준선 후보에서 뺌: 「${cut(x.title, 24)}」 ${num(x.value)}${unit}(${x.reason})`)].filter(Boolean);
       out.push(`- ${name} ${m.label}(${m.meaning}): 기준선 ${num(m.champion.value)}${unit}${len} · ${bar} · 중앙값 ${num(m.median)}${unit}${usual} · 표본 ${m.n}편(${m.confidence}) · 「${cut(m.champion.title, 40)}」${notes.length ? ` ※ ${notes.join(' / ')}` : ''}`);
     }
     const ref = entry.reference;

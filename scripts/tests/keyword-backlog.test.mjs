@@ -144,7 +144,9 @@ test('updateKeywordFailureMap & daily-loop runKeywordRefreshStep 연동', async 
     posted.push([path, body]);
     return {queued: {comments: ['v1'], scripts: []}};
   });
-  assert.deepEqual(posted, [['/api/market-demand/run', {keyword: '영단어'}]]);
+  // autoAnalyze:false — 서버가 키워드 분석 뒤 예전 형식 댓글·대본 리포트를 자동 예약하지 않게 한다
+  // (2026-11-15 원인 확인: 이 호출이 하루 7편의 예전 리포트를 만들어 "예전 리포트 자동 생성은 멈춘다" 결정을 우회했다).
+  assert.deepEqual(posted, [['/api/market-demand/run', {keyword: '영단어', autoAnalyze: false}]]);
   assert.equal(stepRes.analyzed.length, 1);
   assert.equal(stepRes.analyzed[0].queuedReports, 1);
 });

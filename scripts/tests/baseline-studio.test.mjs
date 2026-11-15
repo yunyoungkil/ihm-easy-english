@@ -28,7 +28,7 @@ test('쇼츠에는 노출수·클릭률 기준선을 두지 않고 참고(firstW
   const catalog = ids.map((id, i) => ({...longVideo(id, i + 1), format: 'SHORTS', durationSeconds: 30}));
   const lifetime = Object.fromEntries(ids.map((id) => [id, f7()]));
   const b = computeBaselines({catalog, views7d: {}, lifetime, studio: {s1: studioRow(20, 1), s2: studioRow(40, 1), s3: studioRow(60, 4)}});
-  assert.deepEqual(Object.keys(b.formats.SHORTS.metrics), ['views7d', 'watchSeconds7d', 'subs7d']);
+  assert.deepEqual(Object.keys(b.formats.SHORTS.metrics), ['views7d', 'watchSeconds7d', 'subs7d', 'stayedToWatch'], '노출수·클릭률은 없고, 쇼츠 1차 지표 계속 시청함(2026-11-15)만 더 있다');
   assert.deepEqual(b.formats.SHORTS.reference.firstWeekReach, {n: 3, medianImpressions: 40, pooledCtrPercent: 5, totalImpressions: 120});
   assert.equal(b.formats.LONGFORM.reference.firstWeekReach, undefined, '롱폼은 기준선 지표라 참고 칸을 따로 두지 않는다');
 });

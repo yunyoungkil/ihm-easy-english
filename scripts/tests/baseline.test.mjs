@@ -34,9 +34,11 @@ test('기준선: 형식·지표별 최고가 기준선이고, 갱신 기준은 �
   assert.equal(m.confidence, '가설');
 });
 
-test('세 지표: 조회수, 평균 시청 시간(초), 구독 수 모두 공개 첫 7일 값으로 기준선을 만들고 챔피언 영상 길이를 함께 담는다', () => {
+test('세 지표: 조회수, 평균 시청 시간(초), 구독 수 모두 공개 첫 7일 값으로 기준선을 만들고 챔피언 영상 길이를 함께 담는다(쇼츠는 계속 시청함 칸이 하나 더 있다)', () => {
   const m = computeBaselines(fixture()).formats.SHORTS.metrics;
-  assert.deepEqual(Object.keys(m), ['views7d', 'watchSeconds7d', 'subs7d']);
+  assert.deepEqual(Object.keys(m), ['views7d', 'watchSeconds7d', 'subs7d', 'stayedToWatch']);
+  assert.equal(m.stayedToWatch.champion, null, '스튜디오 기간 표를 넘기지 않으면 계속 시청함은 값이 없다(대신값을 넣지 않는다)');
+  assert.equal(m.stayedToWatch.n, 0);
   assert.equal(m.watchSeconds7d.champion.value, 18);
   assert.equal(m.watchSeconds7d.champion.durationSeconds, 60, '길이 효과를 읽을 수 있게 챔피언 영상 길이를 남긴다');
   assert.equal(m.subs7d.champion.value, 3);
@@ -106,16 +108,20 @@ test('실제 데이터: 세 지표 기준선이 계산되고, 첫 7일 조회수
   // 스튜디오 첫 7일 값(노출수·클릭률)은 수집 전인 PC에서는 없을 수 있다. 값이 쓸 수 있는 영상이 있을 때만 그 지표의 표본을 요구한다.
   const studioFile = join(dataDir, 'studio-first7d.json');
   const studio = existsSync(studioFile) ? JSON.parse(readFileSync(studioFile, 'utf8')).videos || {} : {};
-  const b = computeBaselines({catalog, views7d, lifetime, studio});
+  // 계속 시청함은 스튜디오 기간 표(studio-metrics.json)에서 온다. 첫 7일을 온전히 포함하고 공개 10일이 지난 쇼츠가 없는 PC에서는 표본이 없을 수 있다.
+  const metricsFile = join(dataDir, 'studio-metrics.json');
+  const studioMetrics = existsSync(metricsFile) ? JSON.parse(readFileSync(metricsFile, 'utf8')) : null;
+  const b = computeBaselines({catalog, views7d, lifetime, studio, studioMetrics});
   for (const format of ['SHORTS', 'LONGFORM']) {
     for (const [key, m] of Object.entries(b.formats[format].metrics)) {
       const hasStudio = catalog.some((v) => v.format === format && studio[v.videoId]?.usable === true);
       if (METRICS[key].studio === true && !hasStudio) continue;
+      if (METRICS[key].periodApprox === true && !Object.keys(b.formats[format].stayedToWatchObserved || {}).length) continue;
       assert.ok(m.champion && m.n > 0, `${format} ${key}: 표본이 없다`);
       assert.ok(m.promoteAbove >= m.champion.value, `${format} ${key}: 갱신 기준이 기준선보다 낮다`);
     }
   }
-  assert.deepEqual(Object.keys(b.formats.SHORTS.metrics), ['views7d', 'watchSeconds7d', 'subs7d'], '쇼츠는 노출수·클릭률을 기준선으로 두지 않는다');
+  assert.deepEqual(Object.keys(b.formats.SHORTS.metrics), ['views7d', 'watchSeconds7d', 'subs7d', 'stayedToWatch'], '쇼츠는 노출수·클릭률을 기준선으로 두지 않는다(계속 시청함은 둔다)');
   const shorts = b.formats.SHORTS.metrics.views7d;
   const realMax = Math.max(...catalog.filter((v) => v.format === 'SHORTS').map((v) => views7d[v.videoId]?.views7d).filter(Number.isFinite));
   assert.equal(shorts.champion.value, realMax);

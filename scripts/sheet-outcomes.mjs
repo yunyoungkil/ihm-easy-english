@@ -7,7 +7,7 @@
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {computeBaselines, judgeVideoMetrics, METRICS, USUAL_RESULTS, USUAL_RULE} from './baseline.mjs';
+import {computeBaselines, judgeVideoMetrics, METRICS, stayedObservation, USUAL_RESULTS, USUAL_RULE} from './baseline.mjs';
 import {loadEpisodeOutcomes, MIN_VIEWS_7D} from './planning-outcome.mjs';
 import {loadSheets, sheetsDir} from './transform-sheet.mjs';
 import {FIRST28D_READY_DAYS} from './video-lifetime.mjs';
@@ -20,22 +20,39 @@ const dataDir = join(projectDir, 'data', 'youtube');
  * first7d(영상별 수치, API)에서 기준선 세 지표 값을 꺼낸다. 첫 7일 수치가 없으면 null.
  * studio(studio-first7d.json의 영상 기록)가 있고 쓸 수 있는 값이면(창이 API와 맞고 빠진 날이 없음) 노출수·클릭률도 더한다.
  */
-export function metricsFromFirst7d(first7d, studio = null) {
+export function metricsFromFirst7d(first7d, studio = null, stayed = null) {
   if (!first7d) return null;
   const base = {views7d: first7d.views ?? null, watchSeconds7d: first7d.averageViewDuration ?? null, subs7d: first7d.subscribersGained ?? null};
   if (studio?.usable === true && studio.impressions !== null && studio.impressions !== undefined) {
     base.impressions7d = studio.impressions;
     base.ctr7d = studio.ctrPercent ?? null; // 노출이 0이면 클릭률을 계산할 수 없다(0%로 적지 않는다)
   }
+  // 쇼츠 계속 시청함(2026-11-15, 스타일 시험 1차 지표): baseline.mjs stayedObservation이 쓸 수 있다고 본 기간 값만 넣는다(없으면 칸을 만들지 않는다).
+  if (stayed && Number.isFinite(Number(stayed.value)) && stayed.value !== null) base.stayedToWatch = Number(stayed.value);
   return base;
 }
 
-/** 클릭률 판정에 쓰는 노출·클릭 수(클릭 한 번을 운으로 빼고 판정하려면 필요하다). */
-export function detailsFromStudio(studio) {
-  return studio?.usable === true && studio.ctrPercent !== null && studio.ctrPercent !== undefined ? {ctr7d: {clicks: studio.clicks, impressions: studio.impressions}} : {};
+/** 클릭률 판정에 쓰는 노출·클릭 수(클릭 한 번을 운으로 빼고 판정하려면 필요하다). 계속 시청함은 우연 폭을 구할 조회수와 값을 읽은 기간 표. */
+export function detailsFromStudio(studio, stayed = null) {
+  const out = studio?.usable === true && studio.ctrPercent !== null && studio.ctrPercent !== undefined ? {ctr7d: {clicks: studio.clicks, impressions: studio.impressions}} : {};
+  if (stayed && Number.isFinite(Number(stayed.value)) && stayed.value !== null) out.stayedToWatch = {views: stayed.views ?? null, period: stayed.period ?? null, windowStart: stayed.windowStart ?? null, windowLastDay: stayed.windowLastDay ?? null};
+  return out;
 }
 
 const DAY_MS = 86400000; // allow-literal: 하루(ms)
+
+/**
+ * 쇼츠는 계속 시청함(스타일 시험 1차 지표) 값이 생긴 뒤에 정산한다. 정산은 한 번뿐이라 먼저 기록하면 그 영상의 1차 지표가 영영 빠진다.
+ * 스튜디오 기간 표(studioMetrics)가 아예 없으면 기다려도 값이 오지 않으므로 기다리지 않는다(예전과 같다). 공개일을 몰라도 값을 고를 수 없어 기다리지 않는다.
+ * 기다리는 한도는 공개 31일(FIRST28D_READY_DAYS) — 90일 창은 그 뒤에도 첫 7일을 품지만, 수집이 31일 동안 안 되면 고장으로 보고 값 없이 정산하고 이유를 남긴다.
+ */
+export function stayedWaitState({format, stayed, studioMetrics, publishedAt, now = new Date()}) {
+  if (format !== 'SHORTS' || stayed) return {wait: false, note: null};
+  if (!studioMetrics || !publishedAt) return {wait: false, note: '계속 시청함 값 없음(스튜디오 기간 표 또는 공개일 없음) — 측정 못 함'};
+  const age = (now.getTime() - Date.parse(publishedAt)) / DAY_MS;
+  if (age >= FIRST28D_READY_DAYS) return {wait: false, note: '계속 시청함 값을 31일 안에 받지 못함 — 측정 못 함'};
+  return {wait: true, note: null};
+}
 
 /**
  * 롱폼은 스튜디오 첫 7일 값(노출·클릭률)이 들어온 뒤에 정산한다. 값이 늦게 오면 그 영상의 클릭률 근거가 영영 빠지기 때문이다.
@@ -65,7 +82,9 @@ export function settleSheet({sheet, videoId, format, metrics, baselines, video =
   const views = metrics.views7d ?? null;
   const lowSample = views !== null && views < MIN_VIEWS_7D;
   // 노출·클릭률 지표의 표본은 조회가 아니라 노출이다(조회 100회 기준을 노출에 잘못 쓰지 않는다).
-  const sampleOf = (metric) => (METRICS[metric]?.studio === true ? {count: metrics.impressions7d ?? null, min: METRICS[metric].sample.min} : {count: views, min: MIN_VIEWS_7D});
+  // 계속 시청함의 표본은 값을 읽은 기간 창의 조회수다(첫 7일 조회수와 거의 같지만 같은 창에서 센 수를 쓴다).
+  const sampleOf = (metric) => (METRICS[metric]?.studio === true ? {count: metrics.impressions7d ?? null, min: METRICS[metric].sample.min}
+    : METRICS[metric]?.periodApprox === true ? {count: details?.[metric]?.views ?? null, min: METRICS[metric].sample.min} : {count: views, min: MIN_VIEWS_7D});
   const lowFor = (metric) => { const s = sampleOf(metric); return s.count !== null && s.count < s.min; };
   // 제목·썸네일 A/B 테스트가 걸린 영상의 노출수·클릭률은 여러 시안이 섞인 값이다. 근거 기록에 표시해 읽는 사람이 한 시안의 근거로 쓰지 않게 한다.
   const flags = [...(judged.flags || []), ...(abTest && metrics.ctr7d !== undefined ? ['A/B 테스트가 걸린 영상: 노출수·클릭률은 시안이 섞인 값(어느 제목·썸네일 덕인지 가릴 수 없다)'] : [])];
@@ -75,13 +94,15 @@ export function settleSheet({sheet, videoId, format, metrics, baselines, video =
     evidenceLog: [
       ...(b.evidenceLog || []),
       ...Object.entries(judged.per).map(([metric, p]) => ({
-        date, videoId, metric, value: p.value, views: sampleOf(metric).count, lowSample: lowFor(metric), ...(METRICS[metric]?.studio === true ? {abTest} : {}), result: p.usualStatus, usual: p.usual?.value ?? null, usualN: p.usual?.n ?? null, lengthAdjusted: p.usual?.lengthAdjusted ?? null, usualNote: p.usualNote,
+        date, videoId, metric, value: p.value, views: sampleOf(metric).count, lowSample: lowFor(metric), ...(METRICS[metric]?.studio === true ? {abTest} : {}),
+        ...(METRICS[metric]?.periodApprox === true ? {period: details?.[metric]?.period ?? null, approxNote: '공개 7일 값이 아니라 기간 값(가설)'} : {}),
+        result: p.usualStatus, usual: p.usual?.value ?? null, usualN: p.usual?.n ?? null, lengthAdjusted: p.usual?.lengthAdjusted ?? null, usualNote: p.usualNote,
         baselineResult: p.status, baseline: p.baseline, promoteAbove: p.promoteAbove, variables,
       })),
     ],
   }));
   const next = {...sheet, results, borrowed};
-  if (sheet.status === 'published') next.outcome = {...(sheet.outcome || {}), views7d: metrics.views7d, watchSeconds7d: metrics.watchSeconds7d, subs7d: metrics.subs7d, ...(metrics.ctr7d !== undefined ? {impressions7d: metrics.impressions7d, ctr7d: metrics.ctr7d} : {})};
+  if (sheet.status === 'published') next.outcome = {...(sheet.outcome || {}), views7d: metrics.views7d, watchSeconds7d: metrics.watchSeconds7d, subs7d: metrics.subs7d, ...(metrics.ctr7d !== undefined ? {impressions7d: metrics.impressions7d, ctr7d: metrics.ctr7d} : {}), ...(metrics.stayedToWatch !== undefined ? {stayedToWatch: metrics.stayedToWatch} : {})};
   return {sheet: next, changed: true};
 }
 
@@ -89,31 +110,40 @@ export function settleSheet({sheet, videoId, format, metrics, baselines, video =
  * 정산이 늦어 baselines.json에 이 영상이 이미 들어 있어도(자기가 챔피언이면 자기와 비교해 "기준선 이하"가 나온다), 그 영상 자신과 그 뒤에 나온 영상을 뺀 카탈로그로
  * 기준선을 다시 계산해 판정한다(2026-11-13 코드 리뷰). 카탈로그나 공개일을 모르면 받은 baselines를 그대로 쓴다.
  */
-function baselinesBefore({video, videoId, catalog, views7d, lifetime, studio, studioFailures, baselines, now}) {
+function baselinesBefore({video, videoId, catalog, views7d, lifetime, studio, studioFailures, studioMetrics, baselines, now}) {
   if (!catalog.length || !video.publishedAt) return baselines;
   const cutoff = Date.parse(video.publishedAt);
   const earlier = catalog.filter((v) => v.videoId !== videoId && Date.parse(v.publishedAt) < cutoff);
   const v7 = views7d ?? Object.fromEntries(Object.entries(lifetime || {}).filter(([, x]) => x?.first7d).map(([id, x]) => [id, {views7d: x.first7d.views}]));
   // 스튜디오 값도 넘겨야 노출수·클릭률 기준선이 "기준선 없음"으로 판정되지 않는다.
-  return computeBaselines({catalog: earlier, views7d: v7, lifetime, studio, studioFailures, now});
+  // 계속 시청함은 기간 창이 밀려 지금 표에서 사라진 옛 쇼츠 값이 baselines.json에 고정돼 있으므로 그것도 넘긴다(earlier에 없는 영상은 metricRows가 거른다).
+  return computeBaselines({catalog: earlier, views7d: v7, lifetime, studio, studioFailures, studioMetrics, stayedObserved: baselines?.formats?.SHORTS?.stayedToWatchObserved ?? null, now});
 }
 
-/** outcomes: loadEpisodeOutcomes 결과. 시트를 가리키는 편 중 첫 7일 수치가 있는 것만 기록한다. catalog: 공개일·영상 길이를 찾는 카탈로그 영상 목록. */
-export function settleAll({outcomes, sheets, lifetime, baselines, catalog = [], views7d = null, studio = {}, studioFailures = {}, abTests = {}, now = new Date()}) {
+/** outcomes: loadEpisodeOutcomes 결과. 시트를 가리키는 편 중 첫 7일 수치가 있는 것만 기록한다. catalog: 공개일·영상 길이를 찾는 카탈로그 영상 목록. studioMetrics: studio-metrics.json(계속 시청함). */
+export function settleAll({outcomes, sheets, lifetime, baselines, catalog = [], views7d = null, studio = {}, studioFailures = {}, abTests = {}, studioMetrics = null, now = new Date()}) {
   const byId = new Map(sheets.map((s) => [s.sourceVideoId, s]));
   const catalogById = new Map(catalog.map((v) => [v.videoId, v]));
   const updated = [];
   for (const o of outcomes) {
     const sheetId = o.sources?.transformSheet;
-    const metrics = metricsFromFirst7d(lifetime?.[o.videoId]?.first7d, studio?.[o.videoId]);
-    if (!sheetId || !o.videoId || !metrics || !byId.has(sheetId)) continue;
     const c = catalogById.get(o.videoId);
     const video = {publishedAt: o.publishedAt ?? c?.publishedAt ?? null, durationSeconds: c?.durationSeconds ?? null};
+    // 쇼츠 계속 시청함: 이미 고정해 둔 값이 있으면 그것, 없으면 지금 스튜디오 기간 표에서 쓸 수 있는 값.
+    const stayed = o.format === 'SHORTS' && o.videoId
+      ? baselines?.formats?.SHORTS?.stayedToWatchObserved?.[o.videoId] ?? stayedObservation({videoId: o.videoId, publishedAt: video.publishedAt}, studioMetrics)
+      : null;
+    const metrics = metricsFromFirst7d(lifetime?.[o.videoId]?.first7d, studio?.[o.videoId], stayed);
+    if (!sheetId || !o.videoId || !metrics || !byId.has(sheetId)) continue;
     // 롱폼은 스튜디오 첫 7일 값이 들어온 뒤에 정산한다(늦게 오면 클릭률 근거가 영영 빠진다). 한도는 31일까지.
     const waiting = studioWaitState({format: o.format, studio: studio?.[o.videoId], failure: studioFailures?.[o.videoId], publishedAt: video.publishedAt, now});
     if (waiting.wait) continue;
-    const before = baselinesBefore({video, videoId: o.videoId, catalog, views7d, lifetime, studio, studioFailures, baselines, now});
-    const r = settleSheet({sheet: byId.get(sheetId), videoId: o.videoId, format: o.format, metrics, baselines: before, video, details: detailsFromStudio(studio?.[o.videoId]), studioNote: waiting.note, abTest: abTests?.[o.videoId]?.state ?? null, now});
+    // 쇼츠는 계속 시청함(1차 지표) 값이 생긴 뒤에 정산한다. 한도는 31일까지.
+    const stayedWait = stayedWaitState({format: o.format, stayed, studioMetrics, publishedAt: video.publishedAt, now});
+    if (stayedWait.wait) continue;
+    const note = [waiting.note, stayedWait.note].filter(Boolean).join(' / ') || null;
+    const before = baselinesBefore({video, videoId: o.videoId, catalog, views7d, lifetime, studio, studioFailures, studioMetrics, baselines, now});
+    const r = settleSheet({sheet: byId.get(sheetId), videoId: o.videoId, format: o.format, metrics, baselines: before, video, details: detailsFromStudio(studio?.[o.videoId], stayed), studioNote: note, abTest: abTests?.[o.videoId]?.state ?? null, now});
     if (r.changed) { byId.set(sheetId, r.sheet); updated.push(r.sheet); }
   }
   return {updated: [...new Map(updated.map((s) => [s.sourceVideoId, byId.get(s.sourceVideoId)])).values()], settled: updated.length};
@@ -158,7 +188,8 @@ export function runSettle({now = new Date(), dir = sheetsDir} = {}) {
   const views7d = readJson(join(dataDir, 'views-7d.json'), {videos: {}}).videos;
   const first7d = readJson(join(dataDir, 'studio-first7d.json'), {videos: {}, failures: {}});
   const abTests = readJson(join(dataDir, 'studio-ab-tests.json'), {videos: {}}).videos || {};
-  const {updated, settled} = settleAll({outcomes, sheets: loadSheets(dir), lifetime, baselines, catalog, views7d, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, abTests, now});
+  const studioMetrics = readJson(join(dataDir, 'studio-metrics.json'), null);
+  const {updated, settled} = settleAll({outcomes, sheets: loadSheets(dir), lifetime, baselines, catalog, views7d, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, abTests, studioMetrics, now});
   for (const s of updated) writeFileSync(join(dir, `${s.sourceVideoId}.json`), `${JSON.stringify(s, null, 2)}\n`);
   return {settled, sheets: updated.map((s) => s.sourceVideoId)};
 }

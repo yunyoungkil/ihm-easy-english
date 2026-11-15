@@ -8,7 +8,9 @@
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {MIN_VIEWS_7D, WORKED_RATIO, FAILED_RATIO} from './planning-outcome.mjs';
+// 2026-11-15 사용자 결정(knowledge/decisions/2026-11-15-direction-audit-decisions.md 1번): 쇼츠 스타일 시험의 1차 지표는 "계속 시청함"(stayedToWatch)이다.
+// 평균 시청 시간은 영상이 길수록 커져서 참고(길이대 비교)로만 남긴다. 계속 시청함은 공개 7일 값이 아니라 스튜디오 28일·90일 표의 기간 값이다(가설, 아래 STAYED_* 설명).
+import {MIN_VIEWS_7D, WORKED_RATIO, FAILED_RATIO, sevenDayWindow, VIEWS_7D_READY_DAYS} from './planning-outcome.mjs';
 import {SMALL_SAMPLE_IMPRESSIONS} from './growth-rules.mjs';
 
 const dataDir = join(dirname(fileURLToPath(import.meta.url)), '..', 'data', 'youtube');
@@ -44,10 +46,23 @@ export const METRICS = {
   subs7d: {label: '공개 7일 구독 수', meaning: '채널의 가치', unit: '명', sample: VIEW_SAMPLE},
   impressions7d: {label: '공개 7일 썸네일 노출수', meaning: '유튜브가 얼마나 보여 줬는가(포장의 앞 단계). 스튜디오 값', unit: '회', sample: IMPRESSION_SAMPLE, studio: true},
   ctr7d: {label: '공개 7일 썸네일 클릭률', meaning: '제목·썸네일이 눌러 보게 했는가(포장). 클릭 수 합 ÷ 노출 합. 스튜디오 값', unit: '%', sample: IMPRESSION_SAMPLE, studio: true},
+  // periodApprox: 공개 첫 7일 표가 아니라 기간 표(28일·90일)에서 읽은 근사값. rule 'points': 배율이 아니라 퍼센트포인트 차이로 판정한다(아래 usualFor·judgeAgainstUsual).
+  stayedToWatch: {label: '계속 시청함', meaning: '쇼츠 첫 1~3초 훅(피드에서 넘기지 않고 계속 본 비율, 길이와 상관없음). 스타일 시험의 1차 지표. 공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)', unit: '%', sample: VIEW_SAMPLE, periodApprox: true, rule: 'points'},
 };
 const BASE_METRICS = ['views7d', 'watchSeconds7d', 'subs7d'];
-/** 형식별 기준선 지표. 쇼츠는 노출수·클릭률을 기준선으로 두지 않는다(참고 표시만). */
-export const FORMAT_METRICS = {LONGFORM: Object.keys(METRICS), SHORTS: BASE_METRICS};
+/** 형식별 기준선 지표. 쇼츠는 노출수·클릭률을 기준선으로 두지 않는다(참고 표시만). 계속 시청함은 쇼츠에만 값이 있다(롱폼은 스튜디오 표에서 전부 빈칸, 2026-11-15 확인). */
+export const FORMAT_METRICS = {LONGFORM: [...BASE_METRICS, 'impressions7d', 'ctr7d'], SHORTS: [...BASE_METRICS, 'stayedToWatch']};
+// 계속 시청함(2026-11-15, 가설). 스튜디오는 이 값을 기간 표(studio-metrics.json의 periods)로만 준다. 쇼츠는 조회의 99.44%가 첫 7일에 끝나므로
+// (쇼츠 51편 첫 7일 조회 합 52,259 ÷ 전체 기간 조회 합 52,555, video-lifetime.json) 기간 창이 첫 7일을 온전히 포함하면 그 값을 첫 7일 값의 근사로 쓴다.
+// 스튜디오 날짜의 시간대를 확정하지 못해서(studio-first7d.json 창 확인 78건 중 68건 ambiguous) 창이 첫 7일보다 앞뒤로 하루씩 넉넉할 때만 쓴다.
+// 창은 매일 앞으로 밀려 오래된 영상이 빠지므로, 처음 쓸 수 있게 된 값을 baselines.json(formats.SHORTS.stayedToWatchObserved)에 고정해 둔다(덮어쓰지 않는다).
+export const STAYED_PERIODS = Object.freeze(['4_weeks', 'quarter']); // 짧은 창 먼저: 첫 7일 뒤 꼬리가 덜 섞인다
+const STAYED_MARGIN_DAYS = 1; // allow-literal: 스튜디오 날짜와 API(태평양 시간) 날짜가 하루 어긋날 수 있는 몫
+// 평소를 만드는 앞선 쇼츠가 이보다 적으면 판정하지 않는다. quantile 정의(floor(p×n)번째)에서 n이 5 이상이어야 상위 25% 경계가 최댓값이 아니다(n=4면 최댓값).
+export const MIN_POINTS_POOL = 5; // allow-literal: 위 정의에서 나오는 최소 표본
+// 우연 폭: 판정받는 영상의 조회수를 표본 수로 본 비율의 표준오차 × 2(정규 근사 약 95%). 쇼츠 조회수는 다시 보기까지 세므로 실제 표본보다 커서 이 폭은 하한이다(가설).
+const CHANCE_Z = 2; // allow-literal: 정규 근사 약 95% 구간
+const DAY_MS = 86400000; // allow-literal: 하루(ms)
 const PACKAGING_METRICS = ['views7d', 'impressions7d', 'ctr7d']; // 포장 지표: 빈 조회 의심 영상은 후보에서 뺀다
 const PERCENT = 100; // allow-literal: 퍼센트 환산
 const STUDIO_MAX_ATTEMPTS = 3; // allow-literal: studio-first7d.mjs의 MAX_ATTEMPTS와 같은 값(그쪽이 정하고 여기서는 "더 시도하지 않음"을 알아보는 데만 쓴다)
@@ -60,13 +75,53 @@ export function quantile(values, p) {
 }
 
 const num = (x) => (x === null || x === undefined || x === '' || !Number.isFinite(Number(x)) ? null : Number(x));
+const shiftDate = (date, days) => new Date(Date.parse(`${date}T00:00:00Z`) + days * DAY_MS).toISOString().slice(0, 10);
+
+/**
+ * 한 쇼츠의 계속 시청함 값을 스튜디오 기간 표(studio-metrics.json)에서 꺼낸다. 쓸 수 없으면 null(대신값을 넣지 않는다).
+ * 쓰는 조건: ① 값이 비어 있지 않다 ② 표를 받은 시각이 공개 10일(VIEWS_7D_READY_DAYS) 뒤다(7일 + 집계 지연)
+ * ③ 기간 창(startDate ~ lastDay)이 공개 첫 7일보다 앞뒤로 하루씩 넉넉하게 감싼다(창이 일부만 겹치면 쓰지 않는다).
+ */
+export function stayedObservation(video, studioMetrics) {
+  if (!video?.videoId || !video.publishedAt || !Number.isFinite(Date.parse(video.publishedAt))) return null;
+  const w = sevenDayWindow(video.publishedAt);
+  for (const key of STAYED_PERIODS) {
+    const p = studioMetrics?.periods?.[key];
+    const row = p?.videos?.[video.videoId];
+    const value = num(row?.stayedToWatchPercent);
+    if (value === null || !p.startDate || !p.fetchedAt) continue;
+    const lastDay = p.lastDay || (p.endDate ? shiftDate(p.endDate, -1) : null); // studio-export의 lastDayOf와 같은 정의(이름의 종료일은 마지막 날의 다음 날)
+    if (!lastDay) continue;
+    if ((Date.parse(p.fetchedAt) - Date.parse(video.publishedAt)) / DAY_MS < VIEWS_7D_READY_DAYS) continue;
+    if (p.startDate > shiftDate(w.startDate, -STAYED_MARGIN_DAYS) || lastDay < shiftDate(w.endDate, STAYED_MARGIN_DAYS)) continue;
+    return {value, views: num(row.views), period: key, windowStart: p.startDate, windowLastDay: lastDay, fetchedAt: p.fetchedAt, firstWeek: w};
+  }
+  return null;
+}
+
+/** 고정해 둔 값(frozen, 이전 baselines.json) + 지금 표에서 새로 쓸 수 있게 된 쇼츠. 이미 고정한 영상은 덮어쓰지 않는다. */
+export function stayedObservedMap({catalog, studioMetrics, frozen = {}}) {
+  const out = {};
+  for (const [id, o] of Object.entries(frozen || {})) if (num(o?.value) !== null) out[id] = o;
+  for (const v of catalog.filter((x) => x.format === 'SHORTS')) {
+    if (out[v.videoId]) continue;
+    const o = stayedObservation(v, studioMetrics);
+    if (o) out[v.videoId] = o;
+  }
+  return out;
+}
 
 /** unfiltered: 평균 시청 시간의 조회 문턱(챔피언 후보용)을 적용하지 않은 전체 행. 평소는 이쪽으로 만든다(판정받는 영상은 문턱 없이 비교되므로). */
-function metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests}, {unfiltered = false} = {}) {
+function metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests, stayed}, {unfiltered = false} = {}) {
   const videos = catalog.filter((v) => v.format === format);
   const rows = [];
   // views: 이 값이 몇 번의 관찰(조회 또는 노출)에서 나왔는지(표본이 작은지 알려 주려고 같이 담는다). extra: 클릭률 판정에 쓰는 노출·클릭 수.
   const push = (v, value, views, extra = {}) => { if (value !== null) rows.push({videoId: v.videoId, title: v.title, publishedAt: v.publishedAt, durationSeconds: num(v.durationSeconds), value, views: num(views), ...extra}); };
+  if (metric === 'stayedToWatch') {
+    // 조회 100회(MIN_VIEWS_7D) 미만 창의 비율은 몇 명 차이로 크게 흔들려서 평소·기준선 어디에도 쓰지 않는다(조회 2회에 100% 같은 값).
+    for (const v of videos) { const o = stayed?.[v.videoId]; if (o && num(o.views) !== null && o.views >= MIN_VIEWS_7D) push(v, num(o.value), o.views, {period: o.period}); }
+    return rows;
+  }
   if (metric === 'impressions7d' || metric === 'ctr7d') {
     // 스튜디오 첫 7일 값: 창이 API와 맞고 빠진 날이 없는 기록(usable)만 쓴다. 빈칸을 0으로 채우지 않는다.
     const usable = videos.map((v) => ({v, s: studio?.[v.videoId]})).filter((x) => x.s?.usable === true && num(x.s.impressions) !== null);
@@ -147,22 +202,25 @@ function referenceBlock(format, {catalog, lifetime, studio}) {
 }
 
 /** previous는 이전 baselines.json. 챔피언이 바뀌면 이전 챔피언을 history에 더한다(지우지 않는다). */
-export function computeBaselines({catalog, views7d, lifetime, studio = {}, studioFailures = {}, abTests = {}, previous = null, now = new Date()}) {
+export function computeBaselines({catalog, views7d, lifetime, studio = {}, studioFailures = {}, abTests = {}, studioMetrics = null, stayedObserved = null, previous = null, now = new Date()}) {
   const out = {schemaVersion: 2, computedAt: now.toISOString(), formats: {}, history: [...(previous?.history || [])]};
+  // 계속 시청함: 이전 baselines.json에 고정해 둔 값 + 지금 스튜디오 기간 표에서 새로 쓸 수 있게 된 값(stayedObserved를 주면 그것을 고정값으로 쓴다).
+  const stayed = stayedObservedMap({catalog, studioMetrics, frozen: stayedObserved ?? previous?.formats?.SHORTS?.stayedToWatchObserved ?? {}});
   for (const format of FORMATS) {
     // 길이 중앙값은 7일 조회 수치가 있는 영상으로만 구한다(비공개·예약 영상은 비교 대상이 아니다).
     const durations = metricRows(format, 'views7d', {catalog, views7d, lifetime}).map((r) => r.durationSeconds).filter((d) => d !== null);
     const lengthMedian = quantile(durations, QUANTILE_MEDIAN);
     // recent: 평소(최근 10편 중앙값)를 판정할 때 영상 길이대·공개 순서로 거를 수 있게 지표별 최근 영상을 길이대별로 최대 30편씩 남겨 둔다.
     const entry = {metrics: {}, lengthMedianSeconds: lengthMedian, recent: {}, reference: referenceBlock(format, {catalog, lifetime, studio})};
+    if (format === 'SHORTS') entry.stayedToWatchObserved = stayed;
     const emptyView = emptyViewReport(format, {catalog, lifetime});
     for (const metric of FORMAT_METRICS[format]) {
-      const rows = metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests});
+      const rows = metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests, stayed});
       const values = rows.map((r) => r.value);
       const byDate = (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt);
       // 클릭률 판정은 노출·클릭 수가 필요해서 스튜디오 지표 행에는 함께 남긴다.
       const slim = (r) => ({videoId: r.videoId, publishedAt: r.publishedAt, durationSeconds: r.durationSeconds, value: r.value, ...(r.impressions !== undefined ? {impressions: r.impressions, clicks: r.clicks} : {})});
-      const everyRow = metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests}, {unfiltered: true}).sort(byDate);
+      const everyRow = metricRows(format, metric, {catalog, views7d, lifetime, studio, abTests, stayed}, {unfiltered: true}).sort(byDate);
       const isHigh = (r) => Number(r.durationSeconds) >= lengthMedian; // usualFor와 같은 길이대 나누기
       entry.recent[metric] = (lengthMedian === null
         ? everyRow.slice(0, RECENT_STORE)
@@ -188,9 +246,12 @@ export function computeBaselines({catalog, views7d, lifetime, studio = {}, studi
       const upper = quantile(values, QUANTILE_UPPER);
       // 우리 데이터의 편차: 이보다 작은 차이는 평소 편차 안이라 "좋아졌다"고 말할 수 없다.
       // 중앙값이 0이면(구독 수처럼 대부분 0) 비율을 못 구하므로 상위 25%와 중앙값의 차(절대값)를 쓴다. 차가 0이면 기준선보다 1이라도 높아야 갱신이다.
-      const ratio = median > 0 ? upper / median : null;
+      const points = METRICS[metric].rule === 'points';
+      const ratio = !points && median > 0 ? upper / median : null;
+      // 퍼센트포인트 지표(계속 시청함)는 값이 좁은 구간(33~37%)에 몰려 배율 규칙으로는 너무 쉽거나 닿지 않는다. 우리 편차의 폭(상위 25% − 하위 25%)만큼 넘어야 갱신이다.
+      const lower = points ? quantile(values, QUANTILE_LOWER) : null;
       let promoteAbove = null;
-      if (champion && median !== null) promoteAbove = ratio ? champion.value * ratio : champion.value + (upper - median);
+      if (champion && median !== null) promoteAbove = points ? champion.value + (upper - lower) : ratio ? champion.value * ratio : champion.value + (upper - median);
       const before = previous?.formats?.[format]?.metrics?.[metric]?.champion;
       if (before && champion && before.videoId !== champion.videoId && !catchingUp) {
         const wasExcluded = packaging && emptyView.has(before.videoId);
@@ -204,7 +265,9 @@ export function computeBaselines({catalog, views7d, lifetime, studio = {}, studi
         median,
         upper,
         spreadRatio: ratio,
-        promoteRule: ratio ? '비율' : '차이',
+        promoteRule: points ? '차이(상위 25% − 하위 25%, %p)' : ratio ? '비율' : '차이',
+        ...(points ? {lower} : {}),
+        ...(METRICS[metric].periodApprox ? {approxNote: '공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)'} : {}),
         champion,
         promoteAbove,
         // 표본이 작아도 기준선을 비우지 않는다(사용자 목적: 기준이 있어야 비교와 학습이 돈다). 대신 "참고용"이라고 표시한다.
@@ -245,6 +308,15 @@ export function usualFor({format, metric, durationSeconds = null, publishedAt = 
   const before = publishedAt ? Date.parse(publishedAt) : null;
   const pool = list.filter((r) => r.videoId !== videoId && (before === null || Date.parse(r.publishedAt) < before));
   if (!pool.length) return null;
+  if (METRICS[metric]?.rule === 'points') {
+    // 계속 시청함은 길이와 상관없어 길이대를 나누지 않는다. 평소 = 앞선 쇼츠 최근 10편의 중앙값, 판정 폭 = 그 10편의 상위 25% − 하위 25%(우리 편차, %p).
+    const picked = pool.slice(0, RECENT_COUNT);
+    if (picked.length < MIN_POINTS_POOL) return null;
+    const values = picked.map((r) => r.value);
+    const lower = quantile(values, QUANTILE_LOWER);
+    const upper = quantile(values, QUANTILE_UPPER);
+    return {value: quantile(values, QUANTILE_MEDIAN), n: picked.length, lengthAdjusted: false, rule: 'points', lower, upper, spread: Number((upper - lower).toFixed(2))}; // allow-literal: 소수 둘째 자리
+  }
   const mid = entry.lengthMedianSeconds;
   let use = pool;
   let lengthAdjusted = false;
@@ -267,6 +339,7 @@ export function usualFor({format, metric, durationSeconds = null, publishedAt = 
 
 /** 화면에 보여 줄 평소: 판정에 실제로 쓰는 것과 같은 계산으로 짧은 쪽·긴 쪽을 따로 구한다(길이 중앙값 기준). 길이 중앙값이 없으면 null. */
 export function usualBands(format, metric, baselines) {
+  if (METRICS[metric]?.rule === 'points') return null; // 길이대를 나누지 않는 지표
   const mid = baselines?.formats?.[format]?.lengthMedianSeconds;
   if (!Number.isFinite(Number(mid)) || mid === null || mid === undefined) return null;
   return {mid, low: usualFor({format, metric, durationSeconds: mid - 1}, baselines), high: usualFor({format, metric, durationSeconds: mid}, baselines)};
@@ -277,6 +350,19 @@ export function judgeAgainstUsual({value, usual, guard = null}) {
   const v = num(value);
   if (!usual || usual.value === null || usual.value === undefined || v === null) return {status: USUAL_RESULTS[3], usual: usual ?? null};
   const base = {usual};
+  if (usual.rule === 'points') {
+    // 계속 시청함(2026-11-15, 가설): 배율(1.5배·0.5배)이 아니라 퍼센트포인트. 판정 폭 = max(우리 편차 폭, 이 영상의 우연 폭).
+    // 우리 편차 폭이 0이어도(값이 모두 같아도) 우연 폭이 있어 "평소보다 조금만 높으면 후보"가 되지 않는다. guard.views = 이 영상 값이 나온 창의 조회수.
+    const views = num(guard?.views);
+    if (!views) return {status: USUAL_RESULTS[3], usual, note: '조회수를 몰라 우연 폭을 구할 수 없음'};
+    const p = Math.min(Math.max(usual.value / PERCENT, 0), 1);
+    const chance = CHANCE_Z * Math.sqrt((p * (1 - p)) / views) * PERCENT;
+    const margin = Math.max(num(usual.spread) ?? 0, chance);
+    const note = `판정 폭 ±${Number(margin.toFixed(2))}%p(우리 편차 ${num(usual.spread) ?? 0}%p, 우연 폭 ${Number(chance.toFixed(2))}%p 중 큰 것, 가설)`; // allow-literal: 소수 둘째 자리
+    if (v >= usual.value + margin) return {...base, status: USUAL_RESULTS[0], note, margin};
+    if (v <= usual.value - margin) return {...base, status: USUAL_RESULTS[2], note, margin};
+    return {...base, status: USUAL_RESULTS[1], note, margin};
+  }
   if (guard) {
     // 클릭률(2026-11-13 사용자 승인, Opus 설계): 노출이 적으면 클릭 한 번에 크게 흔들린다(노출 3회·클릭 1회 = 33%).
     // 클릭 한 번을 운으로 빼고도 평소의 1.5배여야 후보, 클릭 한 번을 더해도 평소의 0.5배 미만이어야 하향으로 본다.
@@ -298,17 +384,19 @@ export function judgeAgainstUsual({value, usual, guard = null}) {
 }
 
 /**
- * 한 편의 세 지표를 한꺼번에 판정한다. metrics: {views7d, watchSeconds7d, subs7d}. video: {videoId, publishedAt, durationSeconds}(있으면 평소 대비도 판정).
+ * 한 편의 지표를 한꺼번에 판정한다. metrics: {views7d, watchSeconds7d, subs7d, (롱폼) impressions7d, ctr7d, (쇼츠) stayedToWatch}. video: {videoId, publishedAt, durationSeconds}(있으면 평소 대비도 판정).
+ * details: 클릭률은 {ctr7d: {clicks, impressions}}, 계속 시청함은 {stayedToWatch: {views}}(우연 폭 계산용).
  * 두 가지 판정이 나란히 나온다: status(2단계, 기준선) / usualStatus(1단계, 평소). 시트의 이김·짐은 usualStatus로 읽고 기준선 판정은 옆 칸이다.
  */
 export function judgeVideoMetrics({format, metrics, video = {}, details = {}}, baselines) {
   const per = {};
   for (const key of FORMAT_METRICS[format] || BASE_METRICS) {
-    // 스튜디오 지표는 값이 아직 없으면(수집 전) 판정에서 뺀다. "기준선 없음"으로 적어 놓으면 값이 들어온 뒤에도 같은 영상을 다시 기록하지 못한다.
-    if (METRICS[key].studio === true && (metrics?.[key] === undefined || metrics?.[key] === null)) continue;
+    // 스튜디오 지표·기간 근사 지표(계속 시청함)는 값이 아직 없으면(수집 전) 판정에서 뺀다. "기준선 없음"으로 적어 놓으면 값이 들어온 뒤에도 같은 영상을 다시 기록하지 못한다.
+    if ((METRICS[key].studio === true || METRICS[key].periodApprox === true) && (metrics?.[key] === undefined || metrics?.[key] === null)) continue;
     // 공개일을 모르면 이 영상보다 먼저 나온 영상만으로 평소를 만들 수 없다(자기 자신이 섞인다) → 평소 없음
     const usual = video.publishedAt ? usualFor({format, metric: key, durationSeconds: video.durationSeconds ?? null, publishedAt: video.publishedAt, videoId: video.videoId ?? null}, baselines) : null;
-    const ju = judgeAgainstUsual({value: metrics?.[key], usual, guard: key === 'ctr7d' ? details?.ctr7d ?? null : null});
+    const guard = key === 'ctr7d' ? details?.ctr7d ?? null : METRICS[key].rule === 'points' ? details?.[key] ?? null : null;
+    const ju = judgeAgainstUsual({value: metrics?.[key], usual, guard});
     per[key] = {value: num(metrics?.[key]), ...judgeAgainstBaseline({format, metric: key, value: metrics?.[key]}, baselines), usual, usualStatus: ju.status, usualNote: ju.note ?? null};
   }
   const over = Object.keys(per).filter((k) => per[k].status === '갱신 기준 초과').map((k) => METRICS[k].label);
@@ -331,7 +419,8 @@ export function buildFromDisk({now = new Date(), write = true} = {}) {
   const previous = readJson(baselinesPath, null);
   const first7d = readJson(join(dataDir, 'studio-first7d.json'), {videos: {}, failures: {}});
   const abTests = readJson(join(dataDir, 'studio-ab-tests.json'), {videos: {}}).videos || {};
-  const result = computeBaselines({catalog, views7d, lifetime, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, abTests, previous, now});
+  const studioMetrics = readJson(join(dataDir, 'studio-metrics.json'), null);
+  const result = computeBaselines({catalog, views7d, lifetime, studio: first7d.videos || {}, studioFailures: first7d.failures || {}, abTests, studioMetrics, previous, now});
   if (write) writeFileSync(baselinesPath, `${JSON.stringify(result, null, 2)}\n`);
   return result;
 }
@@ -342,7 +431,7 @@ if (process.argv[1] && process.argv[1].endsWith('baseline.mjs')) {
     for (const m of Object.values(r.formats[f].metrics)) {
       const bar = m.promoteAbove == null ? '없음' : Number(m.promoteAbove.toFixed(2));
       const len = m.champion?.durationSeconds ? `, 영상 ${m.champion.durationSeconds}초` : '';
-      const flag = [m.sampleNote, ...(m.excluded || []).map((x) => `${x.videoId} 제외(${x.reason})`)].filter(Boolean).join(' / ');
+      const flag = [m.sampleNote, m.approxNote, ...(m.excluded || []).map((x) => `${x.videoId} 제외(${x.reason})`)].filter(Boolean).join(' / ');
       console.log(`${f} ${m.label}: n=${m.n}, 중앙값 ${m.median}, 상위25% ${m.upper}, 기준선 ${m.champion?.value ?? '없음'}${m.unit}${len}, 갱신 기준 ${bar} [${m.promoteRule}] (${(m.champion?.title || '').slice(0, 28)})${flag ? ` ※ ${flag}` : ''}`);
     }
   }

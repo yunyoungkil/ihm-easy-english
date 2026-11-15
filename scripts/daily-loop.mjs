@@ -127,7 +127,8 @@ export async function runKeywordRefreshStep(selection, postFn) {
   }
   const result = await executeKeywordRefreshTargets(
     selection.targets,
-    (keyword) => postFn('/api/market-demand/run', {keyword}, 10 * 60 * 1000),
+    // autoAnalyze:false: 서버가 예전 형식 댓글·대본 리포트를 자동 예약하지 않는다(합친 리포트가 아래 outlierReports 단계에서 만든다).
+    (keyword) => postFn('/api/market-demand/run', {keyword, autoAnalyze: false}, 10 * 60 * 1000),
   );
   return {...result, skippedCount: selection?.skippedCount || 0};
 }

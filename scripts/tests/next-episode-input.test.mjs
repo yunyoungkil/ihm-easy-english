@@ -214,3 +214,17 @@ test('스튜디오 실측 절: 수집 전이면 판단하지 않는다고 쓰고
   assert.ok(text.includes('수집 전'));
   assert.ok(!/\d+%/.test(text));
 });
+
+test('경쟁 영상 리포트 요약: 새 방식 배수는 숫자로, 옛 방식 값은 "옛 방식(참고용)"으로 구분하고 새 값이 먼저 온다 (2026-11-15)', () => {
+  const reports = [
+    {videoId: 'legacy11111', outlierRatio: 570, meta: {title: 'L', channelTitle: 'cl'}, pacing: {}, analysis: {}},
+    {videoId: 'newone11111', outlierRatio: 19.6, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok', meta: {title: 'N', channelTitle: 'cn'}, pacing: {}, analysis: {}},
+    {videoId: 'measuring11', outlierRatio: null, ratioMethod: 'peer-median-views-v2', ratioStatus: 'measuring', meta: {title: 'M', channelTitle: 'cm'}, pacing: {}, analysis: {}},
+  ];
+  const got = summarizeOutlierReports(reports, 5);
+  assert.deepEqual(got.map((r) => r.videoId), ['newone11111', 'legacy11111', 'measuring11']);
+  const md = renderNextEpisodeInput({generatedAt: now.toISOString(), comparisons: {}, outlierReports: got});
+  assert.match(md, /평소 대비 19\.6배/);
+  assert.match(md, /평소 대비 옛 방식 570배\(참고용\)/);
+  assert.match(md, /평소 대비 측정 중/);
+});

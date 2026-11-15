@@ -3,6 +3,7 @@
 
 import {existsSync, readdirSync} from 'node:fs';
 import {join} from 'node:path';
+import {ratioTier} from './peer-ratio.mjs';
 
 export const DEFAULT_BACKFILL_PER_RUN = 3;
 export const DEFAULT_ON_DEMAND_LIMIT = 3;
@@ -70,13 +71,16 @@ function collectRankedOutliers(marketDemand) {
   }
 
   const byVideo = new Map();
+  // 배수는 계산 방식이 다르면 비교하지 않는다(2026-11-15): 새 방식 값(0) → 옛 방식 값(1) → 측정 중·값 없음(2) 묶음 순,
+  // 같은 묶음 안에서만 숫자로 정렬한다. 판정 보류(채널이 멈춤·표본 부족)는 리포트 대상에서 뺀다.
   const addOutliers = (list) => {
     for (const o of list || []) {
-      if (!o?.videoId || blockedIds.has(o.videoId)) continue;
-      const ratio = Number(o.outlierRatio) || 0;
+      if (!o?.videoId || blockedIds.has(o.videoId) || o.ratioStatus === 'hold') continue;
+      const tier = ratioTier(o);
+      const ratio = tier === 2 ? 0 : Number(o.outlierRatio);
       const prev = byVideo.get(o.videoId);
-      if (!prev || ratio > prev.outlierRatio) {
-        byVideo.set(o.videoId, {videoId: o.videoId, outlierRatio: ratio});
+      if (!prev || tier < prev.tier || (tier === prev.tier && ratio > prev.outlierRatio)) {
+        byVideo.set(o.videoId, {videoId: o.videoId, outlierRatio: ratio, tier});
       }
     }
   };
@@ -87,7 +91,7 @@ function collectRankedOutliers(marketDemand) {
     addOutliers(ch?.topOutliers);
   }
 
-  return [...byVideo.values()].sort((a, b) => b.outlierRatio - a.outlierRatio);
+  return [...byVideo.values()].sort((a, b) => a.tier - b.tier || b.outlierRatio - a.outlierRatio);
 }
 
 /**

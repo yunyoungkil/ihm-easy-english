@@ -45,9 +45,10 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { syncAllTrackedChannels, runD7AutonomousCycle } from "./competitor-lifecycle.mjs";
+import { syncAllTrackedChannels, runD7AutonomousCycle, loadPlannedSources, loadOutlierReportChannels } from "./competitor-lifecycle.mjs";
 import { mergeKeywordAnalysisEntries } from "./keyword-backlog.mjs";
 import { loadEpisodeOutcomes } from "./planning-outcome.mjs";
+import { computePeerRatio, isComparableRatio, ratioTier, RATIO_METHOD } from "./peer-ratio.mjs";
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputPath = join(projectDir, "data", "youtube", "market-demand.json");
@@ -101,12 +102,15 @@ if (D7_SYNC) {
     analyticsData,
     episodeOutcomes: loadEpisodeOutcomes(projectDir, now),
     catalogVideos,
+    plannedSources: loadPlannedSources(projectDir),
+    outlierReports: loadOutlierReportChannels(projectDir),
     now,
   });
 
   writeFileSync(outputPath, JSON.stringify(result.marketDemandData, null, 2), "utf8");
   console.log(`[D+7 자율 순환 완료] 반영한 판정: ${result.applied.map((a) => `${a.label} ${a.verdict} ${a.ratio}배 → ${a.channels.join('·') || '근거 채널 없음'}`).join(', ') || '없음'} (보류 ${result.marketDemandData.d7AutonomousCycle.holdCount}편)`);
   console.log(`- 황금 광산 승격 채널: ${result.promotedChannels.join(', ') || '없음'}`);
+  console.log(`- 기획 근거 채널 신규 등록: ${result.registeredChannels.join(', ') || '없음'}${result.unregisteredChannels.length ? ` (등록 못 함 ${result.unregisteredChannels.length}곳: ${result.unregisteredChannels.map((u) => `${u.channelId} ${u.reason}`).join('; ')})` : ''}`);
   console.log(`- 신규 발굴 검색어: ${result.discoveredKeywords.join(', ') || '없음'}`);
   process.exit(0);
 }
@@ -129,7 +133,10 @@ const LOW_SAMPLE_THRESHOLD = 3;
 // reach we don't have, not topic-level demand a channel our size could repeat.
 const MAX_SUBSCRIBERS = 100_000;
 const MAX_CHANNELS = 30; // cap total channels analyzed, regardless of how many the searches surface
-const VIDEOS_PER_CHANNEL_BASELINE = 25; // recent uploads sampled per channel for its own baseline
+// 채널당 비교용으로 받는 최근 업로드 수. 25편이면 같은 형식 영상이 얼마 안 남아 분모가 흔들린다
+// (조밥잉글리쉬 쇼츠 실측 2026-11-15: 최근 25편 기준 29.5배, 50편 기준 20.4배). playlistItems 한 번이 최대 50편이라 호출 수는 같고
+// 채널 지목 경로(CHANNEL_VIDEOS_SAMPLE)와 같은 50으로 맞춘다. 가설: 더 늘리면 안정되는지는 아직 모른다.
+const VIDEOS_PER_CHANNEL_BASELINE = 50;
 
 function estimateQuota() {
   const search = KEYWORD_POOL.length * 100;
@@ -338,11 +345,13 @@ async function analyzeChannel(rawInput) {
     }
   }
 
-  const baseline = median(rows.map((r) => r.viewsPerDay).filter((v) => Number.isFinite(v)));
-  const RATIO_CAP = 5;
+  // 배수 = 이 영상 누적 조회수 ÷ 같은 채널·같은 형식 최근 영상 조회수 중앙값(자기 제외). 정의와 가설 기준은 peer-ratio.mjs.
+  // 공개 7일 미만은 "측정 중", 채널이 멈췄거나 비교 영상이 적으면 "판정 보류"라 값이 null이다(대신값 없음).
+  const analyzedNow = new Date(now);
   const withRatio = rows
-    .filter((r) => Number.isFinite(r.viewsPerDay) && baseline)
-    .map((r) => ({ ...r, outlierRatio: Math.min(RATIO_CAP, r.viewsPerDay / baseline), rawOutlierRatio: r.viewsPerDay / baseline }));
+    .map((r) => ({ ...r, ...computePeerRatio({ video: r, channelVideos: rows, now: analyzedNow }) }))
+    .filter((r) => r.ratioStatus !== "hold");
+  const heldCount = rows.length - withRatio.length;
 
   const toOutlierRow = (r) => ({
     videoId: r.videoId,
@@ -351,14 +360,20 @@ async function analyzeChannel(rawInput) {
     viewCount: r.viewCount,
     publishedAt: r.publishedAt,
     ageDays: r.ageDays,
-    viewsPerDay: Math.round(r.viewsPerDay * 10) / 10,
-    channelBaselineViewsPerDay: Math.round(baseline * 10) / 10,
-    outlierRatio: Math.round(r.rawOutlierRatio * 100) / 100,
+    viewsPerDay: Number.isFinite(r.viewsPerDay) ? Math.round(r.viewsPerDay * 10) / 10 : null,
+    outlierRatio: r.outlierRatio,
+    ratioMethod: r.ratioMethod,
+    ratioStatus: r.ratioStatus,
+    ratioReason: r.ratioReason,
+    ratioComputedAt: r.ratioComputedAt,
+    ratioDenominator: r.ratioDenominator,
+    ratioPeerCount: r.ratioPeerCount,
     durationSeconds: r.durationSeconds,
     isShort: r.isShort,
   });
+  // 값이 있는 배수가 먼저, 그다음 측정 중. 값이 없는 영상끼리는 조회수 순이다.
   const rankTopOutliers = (list) => [...list]
-    .sort((a, b) => b.rawOutlierRatio - a.rawOutlierRatio)
+    .sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0) || b.viewCount - a.viewCount)
     .slice(0, 5)
     .map(toOutlierRow);
 
@@ -379,7 +394,7 @@ async function analyzeChannel(rawInput) {
   // extractTitlePatterns는 "이 채널 기준 이례적으로 잘 된 영상들"(전체 rows 중 outlierRatio≥1.5)의
   // 제목에서 반복 단어를 뽑는다 — topOutliers(상위 5개)보다 더 넓은 표본으로 패턴을 잡기 위해
   // withRatio 전체를 넘긴다.
-  const titlePatterns = extractTitlePatterns(withRatio.map((r) => ({ title: r.title, outlierRatio: r.rawOutlierRatio })));
+  const titlePatterns = extractTitlePatterns(withRatio.filter(isComparableRatio).map((r) => ({ title: r.title, outlierRatio: r.outlierRatio })));
 
   return {
     channelId,
@@ -389,7 +404,10 @@ async function analyzeChannel(rawInput) {
     subscriberCount: Number.isFinite(subscriberCount) ? subscriberCount : null,
     analyzedAt: new Date().toISOString(),
     videoCount: rows.length,
-    channelBaselineViewsPerDay: baseline ? Math.round(baseline * 10) / 10 : null,
+    ratioMethod: RATIO_METHOD,
+    ratioHeldCount: heldCount, // 판정 보류라 topOutliers에서 뺀 영상 수
+    // 옛 방식의 채널 하루 조회 기준선은 없앴다. 병합할 때 이전 값이 남지 않게 undefined로 덮는다(저장될 때 칸이 사라진다).
+    channelBaselineViewsPerDay: undefined,
     titlePatterns,
     topOutliers,
     topOutliersByFormat,
@@ -558,8 +576,9 @@ async function main() {
   //    tracking (both keyword-matched candidates and each channel's baseline
   //    sample). Raw lifetime view count is NOT comparable across videos of
   //    different ages — a 3-year-old video and a 3-day-old upload both
-  //    "accumulate" views, just for very different amounts of time. Every
-  //    comparison below uses views-PER-DAY-SINCE-PUBLISH instead.
+  //    "accumulate" views, just for very different amounts of time. 예전에는 하루 평균(누적÷날수)으로
+  //    맞췄지만 새 영상이 부풀고 같은 영상이 사흘 만에 531~691배로 흔들렸다(방향 점검 D, 2026-11-15).
+  //    지금은 같은 채널·같은 형식 영상끼리 누적 조회수를 비교하고, 공개 7일 미만은 "측정 중"으로 둔다(peer-ratio.mjs).
   const allVideoIds = new Set();
   for (const [channelId] of smallChannels) {
     for (const id of candidateByChannel.get(channelId)?.videoIds ?? []) allVideoIds.add(id);
@@ -569,7 +588,7 @@ async function main() {
   for (const [channelId] of smallChannels) shortsIdsByChannel.set(channelId, await fetchRecentShortsIds(channelId));
   const MS_PER_DAY = 86_400_000;
   const now = Date.now();
-  const videoStats = new Map(); // videoId -> { viewCount, viewsPerDay, channelId, title, publishedAt, durationSeconds, isShort }
+  const videoStats = new Map(); // videoId -> { videoId, viewCount, viewsPerDay, channelId, title, publishedAt, durationSeconds, isShort }
   for (const batch of chunk([...allVideoIds], 50)) {
     // contentDetails를 같이 요청해도 videos.list 쿼터 비용은 그대로다(파트 개수가 아니라 호출
     // 1회당 ~1 unit) — 롱폼/쇼츠 구분 신호(duration)를 추가로 얻는데 추가 비용이 없다.
@@ -580,6 +599,7 @@ async function main() {
       const ageDays = publishedAt ? Math.max(1, (now - new Date(publishedAt).getTime()) / MS_PER_DAY) : null;
       const durationSeconds = durationSecondsFromIso(item.contentDetails?.duration);
       videoStats.set(item.id, {
+        videoId: item.id,
         viewCount,
         viewsPerDay: ageDays ? viewCount / ageDays : null,
         ageDays: ageDays ? Math.round(ageDays) : null,
@@ -592,26 +612,32 @@ async function main() {
     }
   }
 
-  // 5. Per-channel baseline (median views/day of its recent uploads — median
-  //    over mean so one viral fluke doesn't drag the baseline itself up).
-  const channelBaseline = new Map();
+  // 5. 채널별 비교 영상: 그 채널 최근 업로드(baselineVideoIds)의 조회 기록. 배수는 6단계에서 영상마다
+  //    같은 형식 영상의 조회수 중앙값(자기 제외)으로 계산한다(peer-ratio.mjs).
+  const channelRecentVideos = new Map();
   for (const [channelId, videoIds] of baselineVideoIds) {
-    const rates = videoIds.map((id) => videoStats.get(id)?.viewsPerDay).filter((v) => Number.isFinite(v));
-    channelBaseline.set(channelId, median(rates));
+    channelRecentVideos.set(channelId, videoIds.map((id) => videoStats.get(id)).filter(Boolean));
   }
+  const ratioNow = new Date(now);
 
-  // 6. Outlier ratio per keyword-matched video vs its own channel's baseline,
+  // 6. Outlier ratio per keyword-matched video vs the same channel's same-format videos,
   //    aggregated per keyword. 50 = performs like a typical video for that
   //    channel (matches fitScore's neutral midpoint so the two multiply sensibly).
+  //    판정 보류(채널이 멈춤·표본 부족)인 영상은 키워드 결과에서 빼고 개수만 센다(heldByKeyword).
   const byKeyword = new Map();
+  const heldByKeyword = new Map();
   for (const [channelId, entry] of candidateByChannel) {
     if (!smallChannels.some(([id]) => id === channelId)) continue;
-    const baseline = channelBaseline.get(channelId);
-    if (!baseline) continue;
+    const recent = channelRecentVideos.get(channelId);
+    if (!recent) continue;
     for (const videoId of entry.videoIds) {
       const stat = videoStats.get(videoId);
-      if (!stat || !Number.isFinite(stat.viewsPerDay)) continue;
-      const ratio = stat.viewsPerDay / baseline;
+      if (!stat || !Number.isFinite(stat.viewCount)) continue;
+      const ratioInfo = computePeerRatio({ video: stat, channelVideos: recent, now: ratioNow });
+      if (ratioInfo.ratioStatus === "hold") {
+        for (const keyword of entry.keywords) heldByKeyword.set(keyword, (heldByKeyword.get(keyword) ?? 0) + 1);
+        continue;
+      }
       for (const keyword of entry.keywords) {
         if (!byKeyword.has(keyword)) byKeyword.set(keyword, []);
         byKeyword.get(keyword).push({
@@ -622,9 +648,8 @@ async function main() {
           viewCount: stat.viewCount,
           publishedAt: stat.publishedAt,
           ageDays: stat.ageDays,
-          viewsPerDay: Math.round(stat.viewsPerDay * 10) / 10,
-          channelBaselineViewsPerDay: Math.round(baseline * 10) / 10,
-          outlierRatio: ratio,
+          viewsPerDay: Number.isFinite(stat.viewsPerDay) ? Math.round(stat.viewsPerDay * 10) / 10 : null,
+          ...ratioInfo,
           durationSeconds: stat.durationSeconds,
           isShort: stat.isShort,
         });
@@ -638,10 +663,32 @@ async function main() {
   // made) than a repeatable signal. See knowledge/channel-strategy.md —
   // "작은 표본은 성공으로 과장하지 않는다."
   const RATIO_CAP = 5;
+  const toKeywordOutlierRow = (r) => ({
+    videoId: r.videoId,
+    title: r.title,
+    channelTitle: r.channelTitle,
+    viewCount: r.viewCount,
+    publishedAt: r.publishedAt,
+    ageDays: r.ageDays,
+    viewsPerDay: r.viewsPerDay,
+    outlierRatio: r.outlierRatio,
+    ratioMethod: r.ratioMethod,
+    ratioStatus: r.ratioStatus,
+    ratioReason: r.ratioReason,
+    ratioComputedAt: r.ratioComputedAt,
+    ratioDenominator: r.ratioDenominator,
+    ratioPeerCount: r.ratioPeerCount,
+    durationSeconds: r.durationSeconds,
+    isShort: r.isShort,
+  });
   const analyzedAtIso = new Date().toISOString();
   const marketDemandByKeyword = KEYWORD_POOL
     .map((keyword) => {
-      const rows = byKeyword.get(keyword) ?? [];
+      const allRows = byKeyword.get(keyword) ?? [];
+      // 점수는 값이 있는 배수(공개 7일 이상)만으로 만든다. 측정 중인 영상은 점수에 넣지 않고 목록에만 남긴다.
+      const rows = allRows.filter(isComparableRatio);
+      const measuringCount = allRows.length - rows.length;
+      const heldCount = heldByKeyword.get(keyword) ?? 0;
       const totalResults = totalResultsByKeyword.get(keyword) ?? null;
       if (rows.length === 0) {
         return {
@@ -653,9 +700,11 @@ async function main() {
           marketDemandScore: null,
           totalResults,
           opportunityScore: null,
-          emptyReason: "소형 채널 표본 0개",
+          emptyReason: allRows.length === 0 ? "소형 채널 표본 0개" : "비교 가능한 표본 0개(측정 중이거나 판정 보류)",
+          measuringCount,
+          heldCount,
           titlePatterns: [],
-          topOutliers: [],
+          topOutliers: allRows.slice(0, 3).map(toKeywordOutlierRow),
         };
       }
       const cappedRatios = rows.map((r) => Math.min(RATIO_CAP, r.outlierRatio));
@@ -688,19 +737,13 @@ async function main() {
         opportunityScore, // marketDemandScore discounted by how crowded the keyword already is
         emptyReason: null,
         titlePatterns: extractTitlePatterns(rows), // recurring words across overperforming titles — the "angle", not just the topic
-        topOutliers: rows.sort((a, b) => b.outlierRatio - a.outlierRatio).slice(0, 3).map((r) => ({
-          videoId: r.videoId,
-          title: r.title,
-          channelTitle: r.channelTitle,
-          viewCount: r.viewCount,
-          publishedAt: r.publishedAt,
-          ageDays: r.ageDays,
-          viewsPerDay: r.viewsPerDay,
-          channelBaselineViewsPerDay: r.channelBaselineViewsPerDay,
-          outlierRatio: Math.round(r.outlierRatio * 100) / 100,
-          durationSeconds: r.durationSeconds,
-          isShort: r.isShort,
-        })),
+        measuringCount,
+        heldCount,
+        // 값이 있는 배수가 먼저, 부족하면 측정 중인 영상이 뒤따른다.
+        topOutliers: [...allRows]
+          .sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0) || b.viewCount - a.viewCount)
+          .slice(0, 3)
+          .map(toKeywordOutlierRow),
       };
     })
     .sort((a, b) => (b.opportunityScore ?? b.marketDemandScore ?? -1) - (a.opportunityScore ?? a.marketDemandScore ?? -1));
@@ -716,11 +759,12 @@ async function main() {
     schemaVersion: 1,
     generatedAt: analyzedAtIso,
     note:
-      "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, " +
+      "market_demand_score = 50 * (영상의 누적 조회수 / 같은 채널·같은 형식 최근 영상 조회수 중앙값, 자기 제외, 방식 " + RATIO_METHOD + ")의 중앙값, " +
+      "공개 7일 미만은 측정 중이고 채널이 멈췄거나 비교 영상이 적으면 판정 보류라 점수에 넣지 않는다, " +
       "채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 " +
-      "이례적으로 잘된 주제. 조회수는 게시 후 경과일로 나눠 비교함 — 오래된 영상이 최근 업로드보다 " +
-      "누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: " +
-      "정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). " +
+      "이례적으로 잘된 주제. 같은 채널·같은 형식 영상끼리만 누적 조회수를 비교하므로 채널 크기와 쇼츠·롱폼 차이는 " +
+      "분모에서 이미 맞춰진다. 비교 영상은 공개 7일 이상만 쓰고, 이 영상이 비교 영상보다 어리면 값이 낮게 잡힌다. " +
+      "옛 방식(ratioMethod 칸 없음, 하루 평균 비교)으로 저장된 값은 새 값과 섞어 비교하지 않는다. " +
       "채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 " +
       `구독자 ${MAX_SUBSCRIBERS.toLocaleString()}명 이하 채널만 포함). 표본 ${LOW_SAMPLE_THRESHOLD}개 미만은 ` +
       '`confidence: "low"`로 표시함. ' +

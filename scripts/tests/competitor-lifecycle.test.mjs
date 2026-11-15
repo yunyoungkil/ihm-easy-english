@@ -120,17 +120,33 @@ test('evaluateChannelLifecycle: 쿨다운이 끝난 차단 채널은 실제 칸 
     status: LIFECYCLE_STATUS.BLOCKED,
     consecutiveFailures: 2,
     blockedUntil: '2026-11-01T00:00:00Z',
-    topOutliers: [{ title: '큰 영상', outlierRatio: 6.2 }],
+    // 새 방식(peer-median-views-v2)으로 계산된 값만 쓴다(2026-11-15 배수 정의 변경).
+    topOutliers: [{ title: '큰 영상', outlierRatio: 6.2, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok' }],
   };
   const back = evaluateChannelLifecycle({ channel: blocked, now: new Date('2026-11-15T00:00:00Z') });
   assert.equal(back.status, LIFECYCLE_STATUS.CANDIDATE);
   assert.equal(back.blockedUntil, null);
 
   const stillBlocked = evaluateChannelLifecycle({
-    channel: { ...blocked, topOutliers: [{ title: '작은 영상', outlierRatio: 2 }] },
+    channel: { ...blocked, topOutliers: [{ title: '작은 영상', outlierRatio: 2, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok' }] },
     now: new Date('2026-11-15T00:00:00Z'),
   });
   assert.equal(stillBlocked.status, LIFECYCLE_STATUS.BLOCKED);
+});
+
+test('evaluateChannelLifecycle: 옛 방식 배수·측정 중·판정 보류 값으로는 차단을 풀지 않는다', () => {
+  const blocked = {
+    status: LIFECYCLE_STATUS.BLOCKED,
+    consecutiveFailures: 2,
+    blockedUntil: '2026-11-01T00:00:00Z',
+    topOutliers: [
+      { title: '옛 방식 570배', outlierRatio: 569.92 }, // ratioMethod 칸이 없는 옛 값
+      { title: '측정 중', outlierRatio: null, ratioMethod: 'peer-median-views-v2', ratioStatus: 'measuring' },
+      { title: '보류', outlierRatio: null, ratioMethod: 'peer-median-views-v2', ratioStatus: 'hold' },
+    ],
+  };
+  const r = evaluateChannelLifecycle({ channel: blocked, now: new Date('2026-11-15T00:00:00Z') });
+  assert.equal(r.status, LIFECYCLE_STATUS.BLOCKED);
 });
 
 test('evaluateChannelLifecycle: 아웃라이어를 전면 소진하면 명예 졸업(자동 삭제/보관) 처리된다', () => {

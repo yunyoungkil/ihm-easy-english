@@ -14,6 +14,7 @@ import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
 import {loadReports as loadOutlierReports} from './outlier-report.mjs';
 import {loadSheets} from './transform-sheet.mjs';
+import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 import {METRICS, MIN_POINTS_POOL, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
 import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
@@ -147,16 +148,18 @@ export function pickReviewLessons(reviews = [], n = 3) {
     .slice(0, n);
 }
 
-/** 합친 아웃라이어 리포트(data/youtube/outlier-reports) 요약: 성과 배수 큰 영상부터. */
+/** 합친 아웃라이어 리포트(data/youtube/outlier-reports) 요약: 새 방식 배수가 큰 영상부터, 옛 방식 값은 그 뒤(서로 숫자를 비교하지 않는다). */
 export function summarizeOutlierReports(reports = [], n = 5) {
   return [...reports]
-    .sort((a, b) => (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
+    .sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
     .slice(0, n)
     .map((r) => ({
       videoId: r.videoId,
       title: r.meta?.title ?? null,
       channelTitle: r.meta?.channelTitle ?? null,
       outlierRatio: r.outlierRatio ?? null,
+      ratioMethod: r.ratioMethod ?? null,
+      ratioStatus: r.ratioStatus ?? null,
       titleDevice: r.analysis?.click?.titleDevice ?? null,
       thumbnailText: r.analysis?.click?.thumbnailText ?? null,
       thumbnailWordCount: r.analysis?.click?.thumbnailWordCount ?? null,
@@ -260,7 +263,7 @@ export function renderNextEpisodeInput(input) {
   if (outlierReports.length) {
     out.push(`경쟁 영상 ${outlierReports.length}편을 화면·자막·댓글로 관찰한 기록(채널 평소 대비 배수 큰 순). 관찰은 사실이고 "가져올 점·다르게 할 점"은 AI 제안이다. 캡처와 원문 인용은 리포트 화면에서 본다. 화면 구성 후보는 \`npm run visual-library -- <검색어>\`로 꺼낸다.`, '');
     for (const r of outlierReports) {
-      const ratio = r.outlierRatio == null ? '측정 전' : `${Math.round(r.outlierRatio)}배`;
+      const ratio = formatRatioLabel(r);
       out.push(`**${cut(r.title ?? r.videoId, 50)}** — ${r.channelTitle ?? '측정 전'}, 평소 대비 ${ratio} · http://localhost:3001/outlier-report/${r.videoId}`);
       out.push(`- 제목: ${r.titleDevice ?? '측정 전'}`);
       out.push(`- 썸네일 글자: ${r.thumbnailText ? `"${cut(r.thumbnailText, 40)}" (${r.thumbnailWordCount ?? '?'}단어)` : '측정 전'}`);

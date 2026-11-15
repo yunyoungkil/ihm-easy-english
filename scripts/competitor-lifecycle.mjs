@@ -6,6 +6,11 @@
 // [수습(candidate) ➔ 황금광산(gold_mine) ➔ 차단(blocked) ➔ 명예졸업(graduated)]
 // 으로 전이시킨다. (2026-11-11 확정 규칙)
 
+import {existsSync, readdirSync, readFileSync} from 'node:fs';
+import {join} from 'node:path';
+import {comparableRatioOrNull} from './peer-ratio.mjs';
+import {parsePlanningSources} from './planning-outcome.mjs';
+
 export const LIFECYCLE_STATUS = {
   CANDIDATE: 'candidate',     // 신규 발굴/수습
   GOLD_MINE: 'gold_mine',     // 성과 우수 (지속 채굴 대상)
@@ -21,6 +26,10 @@ export const LIFECYCLE_CONFIG = {
   BLOCK_COOLDOWN_DAYS: 90,           // 차단 쿨다운 기간 (90일)
   MEGA_OUTLIER_UNBLOCK_RATIO: 5.0,   // 차단 해제 가능한 초대형 아웃라이어 기준
   EXHAUSTION_SIMILARITY: 0.33,       // 핵심 키워드(타겟 음소 포함) 33% 이상 겹치면 기커버 소재로 판정
+  // 졸업(소재 소진) 판정 보정 (2026-11-15 감사 D, 가설). "단어", "읽는" 두 개만 겹쳐도 소진으로 쳐서
+  // 본즈 기초 영어 5편 중 3편이 오판됐다. 장르 말투는 겹침에서 빼고, 소재 단어가 최소 2개 겹쳐야 한다.
+  GENERIC_KEYWORD_MIN_TITLES: 5,     // 우리 영상 제목 5편 이상에 나오는 말은 소재가 아니라 장르 말투로 보고 겹침에서 뺀다(5편은 우리 채널이 한 소재를 시리즈로 다루는 최소 길이, 근거 약함)
+  MIN_SHARED_KEYWORDS: 2,            // 겹친 소재 단어가 최소 2개(더 작은 쪽 제목의 소재 단어가 1개뿐이면 1개)
   SEARCH_TERM_CAP: 5,                // D+7 유입 검색어 동시 유지 상한
   SEARCH_TERM_GRACE_DAYS: 7,         // 유입이 끊긴 D+7 검색어를 자동 퇴장시키기 전 유예 일수
 };
@@ -87,15 +96,50 @@ export function computeKeywordOverlap(titleA = '', titleB = '') {
 }
 
 /**
+ * 우리 영상 제목 여러 편에 나오는 키워드(장르 말투: 단어, 읽는, 파닉스…)를 모은다.
+ * 소재가 겹치는지 볼 때는 이 말을 뺀다. 소리 타겟 알파벳 한 글자(f, p, r, l…)는 빼지 않는다.
+ * @param {string[]} ourCatalogTitles
+ * @returns {Set<string>}
+ */
+export function computeGenericKeywords(ourCatalogTitles = []) {
+  const titleCounts = new Map();
+  for (const title of ourCatalogTitles) {
+    for (const token of extractKeywords(title)) {
+      if (token.length < 2) continue;
+      titleCounts.set(token, (titleCounts.get(token) || 0) + 1);
+    }
+  }
+  const generic = new Set();
+  for (const [token, count] of titleCounts) {
+    if (count >= LIFECYCLE_CONFIG.GENERIC_KEYWORD_MIN_TITLES) generic.add(token);
+  }
+  return generic;
+}
+
+const withoutGeneric = (keywords, generic) => new Set([...keywords].filter((k) => !generic.has(k)));
+
+/**
  * 아웃라이어 제목이 우리 카탈로그 목록에 이미 다룬 소재인지 판정한다.
+ * 장르 말투(우리 제목에 흔한 말)는 겹침에서 빼고, 남은 소재 단어가 최소 개수 이상, 그리고 작은 쪽의 33% 이상 겹쳐야 한다.
  * @param {string} outlierTitle
  * @param {string[]} ourCatalogTitles
+ * @param {Set<string>} [genericKeywords] 미리 계산한 장르 말투(같은 카탈로그를 여러 번 볼 때 넘긴다)
  * @returns {boolean}
  */
-export function isTopicAlreadyCovered(outlierTitle = '', ourCatalogTitles = []) {
+export function isTopicAlreadyCovered(outlierTitle = '', ourCatalogTitles = [], genericKeywords = computeGenericKeywords(ourCatalogTitles)) {
   if (!outlierTitle || !ourCatalogTitles.length) return false;
+  const outlierKeywords = withoutGeneric(extractKeywords(outlierTitle), genericKeywords);
+  if (outlierKeywords.size === 0) return false;
   for (const ourTitle of ourCatalogTitles) {
-    if (computeKeywordOverlap(outlierTitle, ourTitle) >= LIFECYCLE_CONFIG.EXHAUSTION_SIMILARITY) {
+    const ourKeywords = withoutGeneric(extractKeywords(ourTitle), genericKeywords);
+    if (ourKeywords.size === 0) continue;
+    let shared = 0;
+    for (const token of outlierKeywords) {
+      if (ourKeywords.has(token)) shared += 1;
+    }
+    const minSize = Math.min(outlierKeywords.size, ourKeywords.size);
+    const needed = Math.min(LIFECYCLE_CONFIG.MIN_SHARED_KEYWORDS, minSize);
+    if (shared >= needed && shared / minSize >= LIFECYCLE_CONFIG.EXHAUSTION_SIMILARITY) {
       return true;
     }
   }
@@ -114,9 +158,10 @@ export function calculateTopicExhaustion(channel = {}, ourCatalogTitles = []) {
     return { totalOutliers: 0, coveredCount: 0, uncoveredCount: 0, exhaustionRate: 1.0 };
   }
   let coveredCount = 0;
+  const genericKeywords = computeGenericKeywords(ourCatalogTitles);
   for (const outlier of outliers) {
     const title = outlier.title || '';
-    if (isTopicAlreadyCovered(title, ourCatalogTitles)) {
+    if (isTopicAlreadyCovered(title, ourCatalogTitles, genericKeywords)) {
       coveredCount += 1;
     }
   }
@@ -152,9 +197,10 @@ export function evaluateChannelLifecycle({
   if (currentStatus === LIFECYCLE_STATUS.BLOCKED) {
     if (blockedUntil && new Date(blockedUntil) <= now) {
       // 쿨다운 만료 후 메가 아웃라이어 존재 여부 확인
+      // 새 방식(peer-median-views-v2)으로 계산된 값만 센다. 옛 방식·측정 중·판정 보류는 null이라 빠진다(대신값 없음).
       const maxMultiplier = Math.max(
         0,
-        ...(channel.topOutliers || []).map((o) => o.outlierRatio || 0)
+        ...(channel.topOutliers || []).map((o) => comparableRatioOrNull(o) ?? 0)
       );
       if (maxMultiplier >= LIFECYCLE_CONFIG.MEGA_OUTLIER_UNBLOCK_RATIO) {
         nextStatus = LIFECYCLE_STATUS.CANDIDATE;
@@ -252,6 +298,95 @@ export function syncAllTrackedChannels(marketDemandData = {}, catalogVideos = []
 }
 
 /**
+ * BRIEF.md "기획 근거"가 인용한 경쟁 채널이 판정 대상(trackedChannels)에 없으면 candidate로 등록한다 (2026-11-15 감사 D:
+ * EP30이 인용한 채널 3곳이 판정 대상 6곳에 하나도 없어 판정이 영원히 0건이었다).
+ * 채널 정보는 이미 저장된 경쟁 영상 리포트(data/youtube/outlier-reports)의 meta·subscriberCount만 쓴다.
+ * 리포트에서 못 찾으면 등록하지 않고 `unregistered`에 이유를 남긴다. 이미 있는 채널은 건드리지 않는다.
+ * @param {object} params
+ * @param {object[]} params.trackedChannels
+ * @param {Array<{label?: string, slug?: string, sources?: {competitors?: Array<{channelId: string, channelTitle?: string, videoId?: string}>} | null} | null>} [params.plannedSources]
+ * @param {object[]} [params.outlierReports] 리포트 객체(`meta.channelId`, `meta.channelTitle`, `subscriberCount`)
+ * @param {Date} [params.now]
+ */
+export function registerBriefSourceChannels({trackedChannels = [], plannedSources = [], outlierReports = [], now = new Date()}) {
+  const tracked = [...trackedChannels];
+  const known = new Set(tracked.map((c) => c.channelId));
+  const registered = [];
+  const unregistered = [];
+  const seenUnregistered = new Set();
+  for (const planned of plannedSources || []) {
+    for (const cited of planned?.sources?.competitors || []) {
+      const channelId = cited?.channelId;
+      if (!channelId || known.has(channelId)) continue;
+      const report = (outlierReports || []).find((r) => r?.meta?.channelId === channelId && String(r.meta.channelTitle || '').trim());
+      if (!report) {
+        if (!seenUnregistered.has(channelId)) {
+          seenUnregistered.add(channelId);
+          unregistered.push({
+            channelId,
+            channelTitle: cited.channelTitle || null,
+            label: planned.label || null,
+            reason: '경쟁 영상 리포트(data/youtube/outlier-reports)에 이 채널 정보가 없어 등록하지 않음',
+          });
+        }
+        continue;
+      }
+      const subscriberCount = Number(report.subscriberCount);
+      tracked.push({
+        channelId,
+        channelTitle: String(report.meta.channelTitle).trim(),
+        handle: null,
+        channelUrl: `https://www.youtube.com/channel/${channelId}`,
+        subscriberCount: Number.isFinite(subscriberCount) ? subscriberCount : null,
+        analyzedAt: null, // 아웃라이어는 다음 채널 수집(--sync-all-tracked)이 채운다. 지금은 지어내지 않는다.
+        topOutliers: [],
+        status: LIFECYCLE_STATUS.CANDIDATE,
+        statusReason: `기획 근거 채널로 자동 등록(${planned.label || planned.slug || '기획'}이 인용한 경쟁 영상 ${report.videoId || cited.videoId || '영상 없음'})`,
+        consecutiveFailures: 0,
+        blockedUntil: null,
+        registeredAt: now.toISOString(),
+        registeredFrom: {label: planned.label || null, slug: planned.slug || null, videoId: report.videoId || cited.videoId || null},
+      });
+      known.add(channelId);
+      registered.push(channelId);
+    }
+  }
+  return {trackedChannels: tracked, registered, unregistered};
+}
+
+/** videos/<슬러그>/BRIEF.md 전부에서 "기획 근거"를 읽는다. 아직 공개 전인 편(EP30처럼 업로드 기록이 없는 편)도 포함된다. */
+export function loadPlannedSources(projectDir) {
+  const videosDir = join(projectDir, 'videos');
+  if (!existsSync(videosDir)) return [];
+  const out = [];
+  for (const d of readdirSync(videosDir, {withFileTypes: true})) {
+    if (!d.isDirectory()) continue;
+    const briefPath = join(videosDir, d.name, 'BRIEF.md');
+    if (!existsSync(briefPath)) continue;
+    const sources = parsePlanningSources(readFileSync(briefPath, 'utf8'));
+    if (!sources?.competitors?.length) continue;
+    const num = (d.name.match(/^ep(\d+)/i) || [])[1];
+    out.push({slug: d.name, label: num ? `EP${num}${/shorts/i.test(d.name) ? ' 쇼츠' : ''}` : d.name, sources});
+  }
+  return out;
+}
+
+/** data/youtube/outlier-reports/*.json 에서 채널 등록에 필요한 칸만 읽는다. */
+export function loadOutlierReportChannels(projectDir) {
+  const dir = join(projectDir, 'data', 'youtube', 'outlier-reports');
+  if (!existsSync(dir)) return [];
+  const out = [];
+  for (const name of readdirSync(dir)) {
+    if (!name.endsWith('.json')) continue;
+    try {
+      const r = JSON.parse(readFileSync(join(dir, name), 'utf8').replace(/^﻿/, ''));
+      if (r?.meta?.channelId) out.push({videoId: r.videoId, subscriberCount: r.subscriberCount, meta: {channelId: r.meta.channelId, channelTitle: r.meta.channelTitle}});
+    } catch { /* 깨진 리포트 파일은 건너뛴다 */ }
+  }
+  return out;
+}
+
+/**
  * 공개 7일(D+7)이 지난 우리 영상의 판정을 경쟁 채널 상태에 반영하고, 시청자 검색어를 키워드 풀에 넣는다.
  * (2026-11-11 재작성 — 이전 버전은 조회수를 없는 칸에서 읽어 늘 0이었고, 중앙값이 없으면 100을 넣었고,
  *  원천 채널을 제목 단어가 겹치는지로 짐작했다. 이제 판정은 planning-outcome.mjs 하나에서 오고,
@@ -265,6 +400,8 @@ export function syncAllTrackedChannels(marketDemandData = {}, catalogVideos = []
  * @param {object} [params.analyticsData] 분석 데이터(searchTerms)
  * @param {object[]} [params.episodeOutcomes] planning-outcome.mjs loadEpisodeOutcomes() 결과
  * @param {object[]} [params.catalogVideos] 카탈로그 영상(소재 소진율 계산용)
+ * @param {object[]} [params.plannedSources] BRIEF "기획 근거"(공개 전인 편 포함), loadPlannedSources() 결과
+ * @param {object[]} [params.outlierReports] 경쟁 영상 리포트의 채널 정보, loadOutlierReportChannels() 결과
  * @param {Date} [params.now]
  */
 export function runD7AutonomousCycle({
@@ -272,6 +409,8 @@ export function runD7AutonomousCycle({
   analyticsData = {},
   episodeOutcomes = [],
   catalogVideos = [],
+  plannedSources = [],
+  outlierReports = [],
   now = new Date(),
 }) {
   const ourCatalogTitles = (catalogVideos || []).map((v) => v.title || '').filter(Boolean);
@@ -282,6 +421,18 @@ export function runD7AutonomousCycle({
   let trackedChannels = Array.isArray(marketDemandData.trackedChannels) ? [...marketDemandData.trackedChannels] : [];
   const promotedChannels = [];
   const applied = [];
+
+  // 0. 기획 근거가 인용한 경쟁 채널이 판정 대상에 없으면 먼저 candidate로 등록한다(공개된 편의 근거도 포함).
+  const registration = registerBriefSourceChannels({
+    trackedChannels,
+    plannedSources: [
+      ...(plannedSources || []),
+      ...(episodeOutcomes || []).map((o) => ({label: o.label, slug: o.slug, sources: o.sources})),
+    ],
+    outlierReports,
+    now,
+  });
+  trackedChannels = registration.trackedChannels;
 
   // 1. 판정이 난 편마다, 그 편의 기획 근거에 적힌 채널에만 배수를 반영한다(오래된 편부터).
   const ready = (episodeOutcomes || [])
@@ -436,6 +587,8 @@ export function runD7AutonomousCycle({
       applied,
       holdCount: (episodeOutcomes || []).filter((o) => o.verdict === 'hold').length,
       promotedChannels,
+      registeredChannels: registration.registered,
+      unregisteredChannels: registration.unregistered,
       discoveredKeywords,
       retiredKeywords,
       status: 'completed',
@@ -443,5 +596,8 @@ export function runD7AutonomousCycle({
     lifecycleSyncedAt: nowIso,
   };
 
-  return {marketDemandData: updatedData, applied, promotedChannels, discoveredKeywords, retiredKeywords, orphanedVideoIds};
+  return {
+    marketDemandData: updatedData, applied, promotedChannels, discoveredKeywords, retiredKeywords, orphanedVideoIds,
+    registeredChannels: registration.registered, unregisteredChannels: registration.unregistered,
+  };
 }

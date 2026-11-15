@@ -3,6 +3,7 @@
 // 댓글·자막·제목은 외부에서 온 글자라서 전부 escapeHtml을 거친다(시험이 확인).
 
 import {fullScript} from './transform-sheet.mjs';
+import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -85,7 +86,7 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false} =
   const parts = [];
   parts.push(`<p><a href="/outlier-reports">← 리포트 목록</a> · <a href="/visual-library">연출 자료집</a> · <a href="/">대시보드</a></p>`);
   parts.push(`<h1>${escapeHtml(m.title)}</h1>`);
-  parts.push(`<div class="meta">${escapeHtml(m.channelTitle)} · 구독자 ${num(report.subscriberCount)} · 조회수 ${num(m.viewCount)} · 구독자 대비 ${report.viewsPerSubscriber ?? '측정 전'}배 · 채널 평소 대비 ${report.outlierRatio == null ? '측정 전' : `${Math.round(report.outlierRatio * 10) / 10}배`} · 길이 ${m.durationSeconds ?? '?'}초</div>`);
+  parts.push(`<div class="meta">${escapeHtml(m.channelTitle)} · 구독자 ${num(report.subscriberCount)} · 조회수 ${num(m.viewCount)} · 구독자 대비 ${report.viewsPerSubscriber ?? '측정 전'}배 · 채널 평소 대비 ${formatRatioLabel(report)} · 길이 ${m.durationSeconds ?? '?'}초</div>`);
   const src = report.sources || {};
   parts.push(`<div class="meta">분석 ${escapeHtml(String(report.analyzedAt || '').slice(0, 10))} · ${escapeHtml(report.model || '')} · 화면은 처음 ${report.windowSeconds}초 · 자막 ${src.transcript?.ok ? '있음' : `없음(${escapeHtml(src.transcript?.error || '')})`} · 댓글 ${src.comments?.count ?? 0}개 · 인용 확인 ${report.quoteCheck?.verified ?? 0}/${report.quoteCheck?.checked ?? 0}</div>`);
   parts.push(`<p><a href="https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}" target="_blank" rel="noopener">유튜브에서 보기</a></p>`);
@@ -150,7 +151,7 @@ export function renderVisualLibraryPage(entries = [], {query = '', reports = 0, 
     const img = !e.frame ? ''
       : e.frameReady ? `<a href="/outlier-report/${encodeURIComponent(e.videoId)}"><img loading="lazy" src="/${escapeHtml(e.frame.replace('data/youtube/', ''))}" alt="${mmss(e.t)} 화면"></a>`
         : '<div class="meta">⏳ 이 PC에서 캡처 만드는 중</div>';
-    const ratio = e.outlierRatio == null ? '측정 전' : `${Math.round(e.outlierRatio)}배`;
+    const ratio = formatRatioLabel(e);
     return `<div class="card moment">${img}<div><span class="t">${mmss(e.t)}</span> ${escapeHtml(e.what)}</div><div class="q">${escapeHtml(e.purpose)}</div><div class="meta">${escapeHtml(e.channelTitle)} · 평소의 ${ratio} · <a href="/outlier-report/${encodeURIComponent(e.videoId)}">리포트</a></div></div>`;
   });
   const body = [
@@ -252,7 +253,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], {assetVer
     '<p><a href="/transform-sheets">← 비교 시트 목록</a> · <a href="/outlier-report/' + id + '">근거 보기(경쟁 영상 리포트)</a> · <a href="/">대시보드</a></p>',
     SHEET_CSS,
     `<h1>비교 시트: ${escapeHtml(sheet.topic)}</h1>`,
-    `<div class="meta">경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)} (${escapeHtml(report?.meta?.channelTitle || '')}, 평소의 ${report?.outlierRatio == null ? '측정 전' : Math.round(report.outlierRatio) + '배'}) · 형식 ${escapeHtml(sheet.format)} · 상태 ${escapeHtml(STAGE_KO[stage] || stage)}</div>`,
+    `<div class="meta">경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)} (${escapeHtml(report?.meta?.channelTitle || '')}, 평소의 ${formatRatioLabel(report)}) · 형식 ${escapeHtml(sheet.format)} · 상태 ${escapeHtml(STAGE_KO[stage] || stage)}</div>`,
     `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
   ];
   for (const p of problems) parts.push(`<div class="warn">⚠ ${escapeHtml(p)}</div>`);
@@ -310,7 +311,7 @@ export function renderTransformSheetIndex(items = []) {
 }
 
 export function renderReportIndex(reports = []) {
-  const sorted = [...reports].sort((a, b) => (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
-  const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} · 채널 평소 대비 ${r.outlierRatio == null ? '측정 전' : `${Math.round(r.outlierRatio * 10) / 10}배`} · 장면 전환 ${r.pacing?.count ?? 0}번 · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
+  const sorted = [...reports].sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
+  const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} · 채널 평소 대비 ${formatRatioLabel(r)} · 장면 전환 ${r.pacing?.count ?? 0}번 · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
   return page('아웃라이어 리포트', `<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
 }

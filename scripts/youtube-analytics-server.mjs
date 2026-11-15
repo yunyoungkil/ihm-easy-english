@@ -39,7 +39,7 @@ import {
   OUR_CHANNEL_ID,
 } from './youtube-publisher.mjs';
 import { attachShortsPackages, packageStatusSource, selectPackageVideo, packageStatusLabel, shortsPackageEpisode } from './upload-package-summary.mjs';
-import { syncAllTrackedChannels, runD7AutonomousCycle, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
+import { syncAllTrackedChannels, runD7AutonomousCycle, loadPlannedSources, loadOutlierReportChannels, LIFECYCLE_STATUS } from './competitor-lifecycle.mjs';
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 import { recordSuccessPatterns } from './success-patterns.mjs';
 import { resolveVideoFormat } from './video-format.mjs';
@@ -47,6 +47,7 @@ import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, fra
 import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex } from './outlier-report-view.mjs';
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
+import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir } from './transform-sheet.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
@@ -3357,7 +3358,9 @@ function renderMarketDemandTab() {
   const outlierCardHtml = (o) => {
       const thumb = o.thumbnail || (o.videoId ? 'https://i.ytimg.com/vi/' + o.videoId + '/mqdefault.jpg' : '');
       const watchUrl = o.videoId ? 'https://www.youtube.com/watch?v=' + encodeURIComponent(o.videoId) : '';
-      const ratioText = o.outlierRatio ? o.outlierRatio.toFixed(1) + 'x 배수' : '';
+      const ratioText = o.ratioMethod === 'peer-median-views-v2'
+        ? (o.ratioStatus === 'ok' && o.outlierRatio != null ? o.outlierRatio.toFixed(1) + 'x 배수' : (o.ratioStatus === 'measuring' ? '측정 중' : '판정 보류'))
+        : (o.outlierRatio ? '옛 방식 ' + o.outlierRatio.toFixed(1) + 'x(참고용)' : '');
 
       // 채널 상태 찾기
       const matchedCh = trackedChannels.find(c => c.channelTitle === o.channelTitle || c.channelId === o.channelId);
@@ -5812,7 +5815,7 @@ function renderAbSimulatorTab() {
       '<span class="card-title" style="color:var(--accent-magenta)">📈 경쟁 채널에서 평소보다 크게 터진 썸네일</span>' +
       '<div class="card-subtext">추적 중인 경쟁 채널에서 그 채널 평소 조회의 몇 배가 나온 영상입니다(차단 채널 제외, ' + (isShorts ? '쇼츠' : '롱폼') + '만).</div>' +
     '</div></div>' +
-    (outs.length ? '<div class="bento-grid" style="padding:0;margin-top:8px">' + outs.map(x => winnerCard(x, '평소 대비 ' + Number(x.outlierRatio || 0).toFixed(1) + '배')).join('') + '</div>'
+    (outs.length ? '<div class="bento-grid" style="padding:0;margin-top:8px">' + outs.map(x => winnerCard(x, '평소 대비 ' + (x.ratioLabel || '측정 전'))).join('') + '</div>'
       : '<div style="padding:20px;text-align:center;color:var(--text-muted)">해당 형식의 경쟁 아웃라이어가 없습니다.</div>') +
   '</div>';
 
@@ -6751,6 +6754,8 @@ const server = createServer(async (req, res) => {
               analyticsData: dashboard,
               episodeOutcomes: outcomes,
               catalogVideos: catalog.videos || catalog,
+              plannedSources: loadPlannedSources(projectDir),
+              outlierReports: loadOutlierReportChannels(projectDir),
               now,
             });
             await saveJson(marketDemandPath, result.marketDemandData);
@@ -6834,9 +6839,9 @@ const server = createServer(async (req, res) => {
           .filter((c) => c.status !== 'blocked')
           .flatMap((c) => (c.topOutliers || []).map((o) => ({...o, channelTitle: o.channelTitle || c.channelTitle})))
           .filter((o) => o.videoId && (format === 'SHORTS') === (o.isShort === true))
-          .sort((a, b) => (Number(b.outlierRatio) || 0) - (Number(a.outlierRatio) || 0))
+          .sort((a, b) => ratioTier(a) - ratioTier(b) || (Number(b.outlierRatio) || 0) - (Number(a.outlierRatio) || 0))
           .slice(0, 12)
-          .map((o) => ({videoId: o.videoId, title: o.title, channelTitle: o.channelTitle, views: o.viewCount || null, outlierRatio: o.outlierRatio,
+          .map((o) => ({videoId: o.videoId, title: o.title, channelTitle: o.channelTitle, views: o.viewCount || null, outlierRatio: o.outlierRatio, ratioLabel: formatRatioLabel(o),
             // 비교용이라 늘 큰 크기(hqdefault 480px) — 저장된 작은 미리보기는 흐려서 우리 썸네일만 선명해 보였다(2026-11-11)
             thumbnail: 'https://i.ytimg.com/vi/' + o.videoId + '/hqdefault.jpg'}));
         return json(res, 200, {

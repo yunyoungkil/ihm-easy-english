@@ -417,3 +417,22 @@ test('executeScriptReport & 삭제 중단 가드: Gemini 실패 시 리포트 �
   assert.equal(cleared.length, 0);
   assert.equal(notified.length, 0);
 });
+
+test('계산 방식이 다른 배수는 섞어 비교하지 않는다: 새 방식 값 → 옛 방식 값 → 측정 중 순이고 판정 보류는 대상에서 뺀다 (2026-11-15)', () => {
+  const v2 = (videoId, outlierRatio) => ({videoId, outlierRatio, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok'});
+  const md = {
+    byKeyword: [{
+      keyword: 'k',
+      topOutliers: [
+        {videoId: 'legacy11111', outlierRatio: 770}, // 옛 방식(ratioMethod 칸 없음): 값이 커도 새 값보다 뒤
+        v2('newSmall1111', 2),
+        v2('newBig11111', 19.6),
+        {videoId: 'measuring11', outlierRatio: null, ratioMethod: 'peer-median-views-v2', ratioStatus: 'measuring'},
+        {videoId: 'held1111111', outlierRatio: null, ratioMethod: 'peer-median-views-v2', ratioStatus: 'hold'},
+      ],
+    }],
+    trackedChannels: [],
+  };
+  const {commentTargets} = selectOutlierReportBacklog(md, {limit: 10});
+  assert.deepEqual(commentTargets, ['newBig11111', 'newSmall1111', 'legacy11111', 'measuring11']);
+});

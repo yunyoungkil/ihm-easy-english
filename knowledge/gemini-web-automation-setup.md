@@ -109,3 +109,14 @@ node scripts/generate-web-gemini-image.mjs \
 - 만드는 법: `npm run studio-chrome`(`scripts/setup-studio-chrome.mjs`). 프로필 `%LOCALAPPDATA%\Google\Chrome\StudioAutomationProfile`, 바탕화면 `Studio-Automation.lnk`, 디버깅 포트 **9223**.
 - 최초 1회: 바탕화면 `Studio-Automation` 아이콘으로 열어 **채널 소유 계정**으로 로그인한다(비밀번호는 에이전트가 입력하지 않는다). 로그인 여부는 `npm run studio-chrome` 출력의 `login`(`logged-in` / `login-needed` / `unknown`)으로 본다.
 - 용도는 스튜디오 화면을 읽는 것뿐이다(읽기 전용, 값을 바꾸거나 올리지 않는다). 다른 PC는 `git pull` 뒤 같은 명령과 1회 로그인.
+
+## AI Studio 음성(TTS) 화면 (2026-11-16 직접 확인, `scripts/generate-aistudio-speech.mjs`)
+
+**음성은 이 화면 방식이 기본이다**(2026-11-16 EP30 쇼츠 14줄을 이 방식으로 만들었고 화면에 한도·요금·오류 안내는 뜨지 않았다, 줄당 약 33초). API(무료 `GEMINI_API_KEY`)는 `gemini-3.8-flash-tts` 모델당 하루 10회 한도라서(429 본문은 `knowledge/free-generation-tools.md`) 하루 10줄 안에서의 보조다. 한 줄씩 새 탭으로 만들고 줄 사이 15~20초 쉰다: `node videos/ep30-shorts-chocolate/scripts/make-voice-browser.mjs`가 사용 예다.
+- 주소 `https://aistudio.google.com/generate-speech`(`1600×1000`으로 열고 12초 기다린다). 처음에는 예시 카드 화면이라 **"Create new dialog" 카드**를 눌러야 입력 블록이 생긴다. 모델은 `gemini-3.8-flash-tts`가 기본.
+- 목소리: 블록 위 `Speaker 1 - <이름>` 버튼(기본 `Fola`) → 오른쪽 목록에서 이름을 누른다 → `Escape`. `Gero`는 "Digital Assistant" 묶음에 있다(`Clear and friendly. · Low pitch`).
+- 스타일: 블록 위 `Style` 버튼 → 작은 창의 입력칸("Describe the voice style.")에 **영어**로 쓴다 → `Escape`. 블록마다 따로이고 대본에 섞이지 않는다. 시험 문구: `calm, warm and trustworthy Korean language coach, natural conversational pacing, clear articulation, not exaggerated`.
+- 대본 입력칸 `textarea[aria-label="Speech block text"]`, 실행 `Ctrl+Enter`. `+ Expression` 버튼에서 고르는 태그 40개(`short pause`, `long pause`, `breath`, `sigh` 등)가 `ALLOWED_TAGS`다.
+- 결과: 아래 재생줄에 `<audio src="data:audio/wav;base64,...">`가 붙는다. **처음 1~2초는 0.08초짜리 자리표시 오디오가 먼저 붙고 곧 진짜 소리(예: 4.8~5.2초)로 바뀐다** — `duration > 0.5`인 것만 센다. `Download` 버튼(`aria-label="Download"`)으로도 받을 수 있고 같은 크기였다.
+- 오른쪽 위 `No API key selected`는 키 없이 계정 한도로 도는 표시다. `Unlock Gemini 4 Carbon`·업그레이드 안내는 누르지 않는다. 14줄 연속 생성 중 화면에서 한도 안내는 보지 못했다(하루 몇 번까지 되는지는 확인하지 못했다).
+- 목소리 오른쪽 `Temperature`는 `Model settings`를 펼치면 나온다(기본 1). 스크립트는 건드리지 않는다.

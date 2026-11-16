@@ -1,0 +1,432 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-12T06:36:35.704Z",
+  "video": {
+    "videoId": "nThi-Q_vknA",
+    "title": "박세리의 영어공부법",
+    "channelTitle": "미쿡영어",
+    "channelId": "UCBrtmaaLVMIZ4nx6Ifuf1SQ",
+    "publishedAt": "2024-08-17T21:00:25Z",
+    "viewCount": 1658931,
+    "likeCount": 6864,
+    "commentCount": 92,
+    "thumbnailUrl": "https://i.ytimg.com/vi/nThi-Q_vknA/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "point": "외국어나 미드를 백날 틀어놔도 '아는 만큼만 들리고' 귀가 안 뚫리는 벽",
+        "detail": "댓글 중 '모르는 상태에서는 백날 틀어놔도 모르겠던데 딱 아는 만큼만 들림' 등의 반응처럼, 무작정 노출만 하면 영어가 늘 거라 믿었지만 제자리걸음인 좌절감."
+      },
+      {
+        "point": "소통하고 싶어도 주변에 외국인 친구나 대화 상내가 단 1도 없는 방구석 환경",
+        "detail": "댓글 중 '영국인 또는 미국인을 친구로 만들어 대화를 하고 싶어도 친구로 만들기회가 없네요', '소통할 외국인이 없는데요?' 등 실전 환경 조성의 원초적 벽."
+      },
+      {
+        "point": "토익/수능 고득점자나 문법만 파던 사람들의 말하기 공포증과 지식의 쓸모없음",
+        "detail": "댓글 중 '영어는 성문영어만 공부했던 사람인데...', '돈 많으면 외국어회화 만큼 빨리느는게 없지, 문법만 알면 뭐해' 등 머리로는 아는데 입이 얼어붙는 현상."
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "박세리나 연예인들처럼 현지에서 부딪히거나 비싼 개인 과외를 받지 못하는 평범한 일반인은 도대체 어떻게 혀를 뚫어야 하나요?",
+        "context": "댓글에서 '세리는 현지에서 개인과외 수천만원 드린 거다', '티비 보고 배웠다는 말 믿지 마라'며 현실적용의 한계를 토로함."
+      },
+      {
+        "question": "단어를 모르고 문법을 다 틀려도 일단 무작정 뱉으라는데, 머릿속에서 완벽한 문장을 만들려다 매번 멈칫하게 됩니다. 순서가 어떻게 되나요?",
+        "context": "댓글에서 '단어를 모르면 백날 틀어놔도 모른다', '어법 다 무시하고 아는 단어 짜맞춰도 기다려주는 사람 만나기 힘들다'는 의견 충돌."
+      },
+      {
+        "question": "외국인 친구를 사귈 기회가 없는데, 혼자서 중얼거리는 방구석 훈련만으로도 실전 대화 능력을 키울 수 있나요?",
+        "context": "소통 환경이 안 되는 방구석 학습자들이 가장 궁금해하는 현실적 대안 요구."
+      }
+    ],
+    "audienceVocabulary": [
+      "딱 아는 만큼만 들림",
+      "백날 틀어놔도 안 늚",
+      "성문영어만 공부함",
+      "어법 다 무시하고 아는 단어 짜맞춤",
+      "그냥 허공에 영어로 뱉음",
+      "평가질함",
+      "영어는 공부가 아니라 헬스임"
+    ],
+    "whatWorked": [
+      {
+        "point": "이론 공부나 수동적 흘려듣기(미드 시청 등)의 환상을 깨고 '직접 부딪히며 몸으로 체득하는 헬스 같은 영역'이라는 점을 명확히 짚어준 공감대",
+        "detail": "시청자들이 '영어는 공부가 아니라 헬스다', '직접 부딪혀야 늘지 틀어놓기만 하면 안 된다'는 직관적 비유에 폭발적으로 공감함."
+      }
+    ],
+    "actionableContentPitches": [
+      {
+        "titleCandidates": [
+          "\"미드 백날 틀어놔도 귀 안 뚫리는 진짜 이유\" (방구석에서 혀 트이는 유일한 순서)",
+          "박세리처럼 말하고 싶다면? 성문영어 찌든 머리를 '영어 언어팩'으로 교체하는 1일 10분 헬스 루틴",
+          "외국인 친구 0명이어도 괜찮습니다. 방구석 혼잣말로 원어민 뇌 훔치는 법"
+        ],
+        "hookThreeSeconds": "미드 틀어놓고 귀 뚫리길 기다리셨나요? 틀렸습니다. 백날 들어봐도 여러분 귀에는 안 들려요. 딱 아는 만큼만 들리니까요.",
+        "shortsTrackAIdea": {
+          "concept": "원어민이 중간 모음을 씹고 넘어갈 때 내 혀가 꼬이는 원리를 1분 만에 해부하는 원리 설명형 쇼츠",
+          "hookText": "영어 단어만 보면 혀가 꼬이는 이유, 단어 탓이 아니라 '이것'을 몰라서입니다."
+        },
+        "shortsTrackBIdea": {
+          "concept": "문법 다 틀려도 원어민이 찰떡같이 알아듣게 만드는 '게으른 혀의 단어 짜맞추기' 1분 상황극 쇼츠",
+          "hookText": "문법 완벽하게 하려다 입 꾹 다물고 계신가요? 원어민은 이런 단어 조합에 더 환호합니다."
+        }
+      }
+    ]
+  },
+  "comments": [
+    {
+      "commentId": "Ugwn6gg7U_8yvglZ4gx4AaABAg",
+      "text": "맞아요 부딪혀야 빨리\n배워요^^",
+      "author": "@kyungeunkim1071",
+      "likeCount": 148,
+      "publishedAt": "2024-10-02T22:46:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxxDJFgXS8dO-5lrgV4AaABAg",
+      "text": "저말을 한국에 있울때는 몰랐디… 해외여행 한번 나가서 직접 부딪히니 그때 그때마다 실제로 현장에서 필요했던 영어문장은  안 잊혀짐…",
+      "author": "@leetouman8634",
+      "likeCount": 169,
+      "publishedAt": "2026-03-22T22:58:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwAn21Uns68uY1qzQt4AaABAg",
+      "text": "맞아요 저는 미국와서 손님이 나의 영어선생 생각 할줄몰라도 자꾸 흉내 하니 앉아서 배운것보다 빠른듯",
+      "author": "@kyungnam3561",
+      "likeCount": 163,
+      "publishedAt": "2024-08-29T17:25:20Z",
+      "replyCount": 7
+    },
+    {
+      "commentId": "UgwyAUcF_V4iGISQ9up4AaABAg",
+      "text": "너무나 당연한 답...그냥 외국 유학가서 현지 사람 친구사귀던가 연인을 만들던가  워홀을 하던가 일단 유학가는게 제일 빠름",
+      "author": "@iloveyou-kd2lf",
+      "likeCount": 17,
+      "publishedAt": "2026-07-09T14:43:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy32oBq8W2QhgWzqc14AaABAg",
+      "text": "저도 영어는 성문영어만 공부했던사람인데 ㅋ 건설사 20년차 중동,남미,미국 등등 돌아다니며 일하니 지금은 그냥저냥 소통은 되네요 ㅎㅎ",
+      "author": "@김-l9g9r",
+      "likeCount": 24,
+      "publishedAt": "2026-03-16T11:39:27Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgzejxHBqwKMlUjdCip4AaABAg",
+      "text": "레전드인  세리님",
+      "author": "@스몰빅-h9b",
+      "likeCount": 38,
+      "publishedAt": "2024-09-03T03:56:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzA1UiPmUbxPZU-LgJ4AaABAg",
+      "text": "모르는 상태에서는 백날 틀어놔도 모르겠던데 딱 아는 만큼만 들림 ㅋ",
+      "author": "@영미의작은노래",
+      "likeCount": 0,
+      "publishedAt": "2026-07-30T09:07:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzSCulw0HnNuvmjIP14AaABAg",
+      "text": "의외로 외국인들이 문법 발음 이상해도 오히려 이해해주고 지지해주며 대화하는 사람이 많고 한국인들끼리 못하네 잘하네 평가질함\n무조건 많이 뱉어봐야 확실히 늘어요",
+      "author": "@Thatchocochip",
+      "likeCount": 3,
+      "publishedAt": "2026-10-09T14:52:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwv6MwecQ1msqRiU754AaABAg",
+      "text": "멋지십니다",
+      "author": "@원펀홍",
+      "likeCount": 2,
+      "publishedAt": "2026-04-22T13:35:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwCsLsqTe2szkbhWQ14AaABAg",
+      "text": "레전드급들은 외국어도 마스터하더라 박세리 박찬호 박지성 손흥민 추신수 등등",
+      "author": "@헤임달-c6v",
+      "likeCount": 5,
+      "publishedAt": "2026-04-18T10:43:23Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyGSgYE4rnitGZAMMR4AaABAg",
+      "text": "백날 틀어놓고 들어봤자 아무 의미없다.소통은 당연한거고 성인은 별도의 학습이 반드시 선행 되어야한다.",
+      "author": "@골드트리-i2f",
+      "likeCount": 0,
+      "publishedAt": "2026-10-26T04:01:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyn_61NFADm-v4ecup4AaABAg",
+      "text": "알아듣는 못알아듣게. 현지인들하고. 소통하면빨리배운다",
+      "author": "@똘이-t7b",
+      "likeCount": 1,
+      "publishedAt": "2026-06-27T12:34:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxZBHrljI_xHIAyaLR4AaABAg",
+      "text": "진짜 영어단어 거의 모르는 상태에서\n외국인 즉 상대방이 내가 느리게 말해도 어법 다 무시하고 아는 단어 짜맞춰도 상대방이 기다려주는 분을 만나서 매일매일 이야기 하다보면\n조금씩 늘어나요.\n\n학부 연구생 때, 외국인 석사생 있었는데 그 분이 맨날 번역기 쓰지말고, 영어로만 말하라 해서 처음에는 막막했다가 점점 아는 문장, 자주 쓰는 문장, 자주 쓰는 단어를 알게되고 그리고 점점 모르는 단어를 스스로 찾게되고 그것 또한 자주 말하다 보니 늘어나게 됩니다.\n\n영어는 자신감입니다. 그냥 내 뱉고 상대가 날 기다려주지 못하는 분이라면 어쩔수 없지만 정말 끝까지 기다려주는 외국인 만나기도 힘들긴 하지만 매일매일 그냥 허공에 영어로 뱉고 친구들이랑 이야기할 때도 영어 섞고 내가 말했던 한국어가 과연 영어는 뭐지? 찾아보고 그로다보면 진짜 많이 늘어요.. 한달만에 일상회화는 되는거 같습니다.\n\n부끄럽고, 영단어 미숙하고, 문장을 못 만든다해도 걍 내뱉어 보세요! 그리고 늘 영어 배운다고 미드, 영화로 먼저 보지말고요!\n미드, 영화는 내가 어느정도 외국인과 일상 대화 할 수 있는 정도다 하면 그 때는 여러번 본 영화로 영어 자막 키고 어떻게 연음하는지 보면서 보는게 좋습니다.",
+      "author": "@binnnsuha",
+      "likeCount": 52,
+      "publishedAt": "2026-09-11T18:08:07Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgxfwBH-seNmxSwrZHV4AaABAg",
+      "text": "맞습니다~~하버드 출신 신아영 아나운서도 애니메이션 을 무슨말인지 몰라도~~~몇백번씩 돌려봤다고 본거 같아요",
+      "author": "@여친을만들자",
+      "likeCount": 6,
+      "publishedAt": "2026-06-09T23:40:19Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgxZg8gC3VJEMtmBaDx4AaABAg",
+      "text": "단어를 모르면 백날 틀어나도 모른다.노력해야 되지 영어틀어 놓은다고 들리면 미국이민간 나이든사람들 영어잘하겠네.",
+      "author": "@서경석-g9k",
+      "likeCount": 1,
+      "publishedAt": "2026-08-02T08:12:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxulsQVVY3t7tFxgPt4AaABAg",
+      "text": "제일 빠른건 남자친구나 여자친구 사귀는게 제일 빠름니다. ㅋㅋㅋㅋㅋㅋㅋ 이건 불변의 법칙입니다.",
+      "author": "@YouGarlicginger",
+      "likeCount": 177,
+      "publishedAt": "2024-11-13T11:53:23Z",
+      "replyCount": 11
+    },
+    {
+      "commentId": "UgyQbFc4dCh3Yw_vUg94AaABAg",
+      "text": "영어는 공부가 아니라 헬스임",
+      "author": "@ATT-r3v",
+      "likeCount": 2,
+      "publishedAt": "2026-09-07T21:07:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugybfbx7pCRt_3_E9E94AaABAg",
+      "text": "영국인 또는 미국인을 친구로 만들어 대화를 하고 싶어도 친구로 만들기회가 없네요.",
+      "author": "@돌담길-s9j",
+      "likeCount": 0,
+      "publishedAt": "2026-08-26T13:08:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgybHUFBKpqp1wHAMuZ4AaABAg",
+      "text": "남친 여친 사귀면 엄청 빨리 늘어요",
+      "author": "@사과먹는호랑이-u8q",
+      "likeCount": 40,
+      "publishedAt": "2024-08-18T12:54:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzHsQnTFwt_i6p7DM54AaABAg",
+      "text": "요즘에 제미나이 임 세상이 바뀜",
+      "author": "@슌카",
+      "likeCount": 0,
+      "publishedAt": "2026-08-02T17:43:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwplsrsH9C3XhTtGDR4AaABAg",
+      "text": "박세리처럼 영어 잘 하는 국내 운동선수 못 본 거 같음.. 한 시대를 대표하는 운동선수라 뭘해도 다르긴 다르다",
+      "author": "@Brentcoxwel",
+      "likeCount": 0,
+      "publishedAt": "2026-11-09T22:28:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxLm502E2WYFNc9q5x4AaABAg",
+      "text": "원어민들도 영어 생활권에서 안살면 까먹어요 그만큼 생활 환경이 중요한거죠",
+      "author": "@해파-10",
+      "likeCount": 0,
+      "publishedAt": "2026-10-22T00:30:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwmaSJFO9zhEUqgINR4AaABAg",
+      "text": "영어는 계속 듣는게 중요하지요",
+      "author": "@잉글로그ENGLOG",
+      "likeCount": 0,
+      "publishedAt": "2026-11-03T07:21:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyJXvaykTMKcG0RhlJ4AaABAg",
+      "text": "골프는 두분류가 있다 박세리 박인비 김미연 진정한 골프여제 와 김은선류 왜 스폰들은 골프여제와 부킹해주면 인상쓸가",
+      "author": "@도끼자국-b1n",
+      "likeCount": 1,
+      "publishedAt": "2024-11-29T22:38:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw3UtzIB-osEsT1LFR4AaABAg",
+      "text": "소통이지~",
+      "author": "@kimyui2680",
+      "likeCount": 2,
+      "publishedAt": "2026-10-03T12:48:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgymoRdSeOmxWjBqV4J4AaABAg",
+      "text": "가장 빠른 건 외국인이랑 같이 일하는 겁니다.",
+      "author": "@davidking9018",
+      "likeCount": 4,
+      "publishedAt": "2026-03-11T14:18:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1WZeuBI1r7QjXhs14AaABAg",
+      "text": "노노. 리딩이 선행되어야 고급영어",
+      "author": "@잘살고잘먹기",
+      "likeCount": 0,
+      "publishedAt": "2026-11-08T14:49:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxRfTMw5UYFtQP_vNV4AaABAg",
+      "text": "선생한테  배운거지. Tv 백날 틀어놔야 영어 안늘어요.",
+      "author": "@sinstarry2964",
+      "likeCount": 26,
+      "publishedAt": "2026-07-24T14:12:02Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgwoiasyakuEn-F1rz14AaABAg",
+      "text": "지성. 흥민이 처럼 개인교습을 받았을 듯 한데",
+      "author": "@jamesLee-px4ux",
+      "likeCount": 0,
+      "publishedAt": "2026-11-07T07:39:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyffLDczlUMuFyzvRB4AaABAg",
+      "text": "❤❤❤❤❤",
+      "author": "@woojooo-q2t",
+      "likeCount": 0,
+      "publishedAt": "2026-10-25T01:31:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgylaXiFbuk1_UBUvGN4AaABAg",
+      "text": "습관이 제일 중요하지요",
+      "author": "@말의온도-y7y",
+      "likeCount": 3,
+      "publishedAt": "2026-04-27T07:19:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzShuIcETNzU0d6crF4AaABAg",
+      "text": "에효 공부를 한번도 안해본 운동선수한테 뭔 영어공부법을 물어봐 그냥 현지에서 살면서 배운거지",
+      "author": "@집행자-v5l",
+      "likeCount": 2,
+      "publishedAt": "2026-08-27T23:32:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwmgH9HYTo1Tu3Aj7t4AaABAg",
+      "text": "생활 영어 단어만 달달 외우세요 ㅋㅋㅋ\n문법 몰라도 단어부터 뱉으면 알아들음",
+      "author": "@천수경_000",
+      "likeCount": 0,
+      "publishedAt": "2026-10-21T02:38:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzx_chNAnxFOuVMAKF4AaABAg",
+      "text": "박찬호 처럼 한 문장을 수십명 한테 계속 대화 하면서 말하고, 듣고 깨우치며 배우는게 제일 빠르고 효과적이다.\n같은 말을 물어도 다양한 반응과 표현을 하기 때문이지...",
+      "author": "@불꽃남자-z9p",
+      "likeCount": 0,
+      "publishedAt": "2026-08-07T08:11:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyr1LGXFEqSLZ1rWvp4AaABAg",
+      "text": "돈많으면 외국어회화 만큼 빨리느는게  없습니다. ㅋ 아마 박세리님 영문신문같은건 거진 못읽으실꺼요? ㅋㅋㅋ",
+      "author": "@kkkktv6219",
+      "likeCount": 1,
+      "publishedAt": "2026-09-01T23:13:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwEdeCT9sl5M7bgcm54AaABAg",
+      "text": "세리는 현지에서 개인과외 수천만원드려서 한거임. 😂😂😂 티비 보고 배웠다는 말 듣고 해봐라😅😅😅되겠냐?",
+      "author": "@jameskoo4904",
+      "likeCount": 21,
+      "publishedAt": "2025-12-22T15:57:30Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgwuY86rKeThYzL3o0N4AaABAg",
+      "text": "말을 자꾸해야지 됩니다~!",
+      "author": "@최수민-e2z",
+      "likeCount": 0,
+      "publishedAt": "2026-07-19T02:20:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy5Vl2X-2duH87B24t4AaABAg",
+      "text": "기본기 없이 저렇게 하면 몇년 걸릴거 같은데 ㅎ 비싼 선생님이 계시겠죠 ㅎ",
+      "author": "@enco_literacy",
+      "likeCount": 0,
+      "publishedAt": "2026-10-06T05:42:16Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzfXg00A2NIYnpWsHd4AaABAg",
+      "text": "소통할외국인이 없는데요?",
+      "author": "@양수경-c1v",
+      "likeCount": 0,
+      "publishedAt": "2026-11-04T12:22:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwTQU2wEXBfQS7E48F4AaABAg",
+      "text": "아버지 일로 이미지가 이젠...",
+      "author": "@나-w7s9z",
+      "likeCount": 2,
+      "publishedAt": "2024-12-08T01:56:38Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgzCwwZs6jYPP3T7Hu14AaABAg",
+      "text": "영어는 영어단어 와울 필요 없음 ㅋㅋㅋ\n한글 배울때 한국어 단어 와우지 안잖아요 .. 글을 글임 와우는 순간 바보임 ㅋ그래서 우리나라 교육이 이상함 ㅋ",
+      "author": "@mimgeon",
+      "likeCount": 0,
+      "publishedAt": "2026-10-04T14:16:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgykxI7mlrWpb6lhYMZ4AaABAg",
+      "text": "정말?",
+      "author": "@dalnara572",
+      "likeCount": 0,
+      "publishedAt": "2026-03-02T06:46:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyinpDSi6kO_8msoyV4AaABAg",
+      "text": "세리야 아부지나 잘 챙겨라 사기 배임 횡령으로구속될수도있다",
+      "author": "@윤두창-q2t",
+      "likeCount": 3,
+      "publishedAt": "2024-11-09T15:17:37Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgxwEJmd50hkEXc694x4AaABAg",
+      "text": "영어 못 하지 않나",
+      "author": "@엑스칼리버-r5o",
+      "likeCount": 5,
+      "publishedAt": "2024-09-04T07:11:04Z",
+      "replyCount": 5
+    }
+  ]
+}

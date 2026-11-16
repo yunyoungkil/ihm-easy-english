@@ -1,0 +1,898 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-12T06:36:17.998Z",
+  "video": {
+    "videoId": "jeMIRXw-OT8",
+    "title": "99%가 모르는 AI 영어 공부법, 이 영상 하나로 끝내세요",
+    "channelTitle": "제나쌤 | 영어독학",
+    "channelId": "UCNM9TmyfbOD_GWAfd9qyOMw",
+    "publishedAt": "2026-08-12T08:38:28Z",
+    "viewCount": 1035228,
+    "likeCount": 15222,
+    "commentCount": 341,
+    "thumbnailUrl": "https://i.ytimg.com/vi/jeMIRXw-OT8/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "issue": "고득점 벙어리 현상 (공인인증 점수와 스피킹 실력의 극심한 괴리)",
+        "description": "토익/수능 점수는 높지만 입 밖으로 한 문장도 뱉지 못하는 좌절감. 지식은 머리에 가득하지만 '혀의 소리 내는 원리'를 훈련받지 못해 원어민 앞에서는 입이 얼어붙는 현상.",
+        "viewerQuote": "제가 토익은 975점인데 영어 말하기는 정말 못해요… 토익 점수와 스피킹 수준 차이가 확연히 나는데..."
+      },
+      {
+        "issue": "복붙 장벽 및 디지털 기기 설정에 대한 막막함과 피로감",
+        "description": "AI 툴이 좋다는 것은 알지만 긴 프롬프트를 스마트폰으로 복사하고 붙여넣는 기초적인 조작법조차 어려워 공부 시작 전부터 포기하는 현상.",
+        "viewerQuote": "휴대폰에서 복사하는 방법을 먼저 익혀야겠네요."
+      },
+      {
+        "issue": "'방구석 헬스기구' 현상 (혼자 공부의 의지 결여와 실시간 음성 피드백 부재)",
+        "description": "좋은 툴이나 교재를 준비해 두어도 텍스트 타이핑 방식은 금방 지루해지고, 직접 소리를 내어 주고받는 음성 반응이 없어 지속적인 습관 형성에 실패함.",
+        "viewerQuote": "챗지피티라이브로 공짜로 전세계 회화를 다배울수있다 하지만 하루 30분씩 꾸준히하는건 생각보다 매우 어렵다... 마치 옆방에 헬스기구를 갖춰놔도 매일 운동하러들어가는것 자체가 도전인것과 같다"
+      },
+      {
+        "issue": "교과서 표현과 실제 원어민 뉘앙스 차이에서 오는 불확실성",
+        "description": "문법적으로는 맞는데 원어민이 진짜 쓰는 표현인지, 어색하거나 무례하게 들리지 않는지 뉘앙스 구분을 혼자서 판단할 수 없는 답답함.",
+        "viewerQuote": "전 요즘 항상 뉘앙스 문제에 직면해 있는데 이 부분을 설정해놓으니까 궁금하던 부분을 알아서 알려주니 너무 좋습니다."
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "토익/수능 점수는 높은데 말하기는 왕초보 수준입니다. AI 프롬프트 레벨 설정 시 지적 수준과 입 터짐 수준 중 어디에 맞추어야 하나요?",
+        "context": "글을 읽고 이해하는 독해력과 혀를 움직여 소리를 뱉는 스피킹 레벨이 완전히 불일치할 때의 기준 설정 미해결."
+      },
+      {
+        "question": "손가락으로 글자(타이핑) 치는 거 말고, 버튼 하나 눌러서 혀로 소리 내며 1:1 대화하는 '진짜 음성 스피킹 AI' 세팅법은 없나요?",
+        "context": "텍스트 기반 공부를 넘어 실제 음성 대화 및 소리 연마 기능을 바로 활용하고 싶은 시청자들의 요구."
+      },
+      {
+        "question": "복사-붙여넣기도 어렵고 복잡한 프롬프트 입력도 귀찮은데, 3초 만에 AI를 내 맞춤 소리 선생님으로 만드는 가장 간단한 명령어가 있나요?",
+        "context": "복잡한 프롬프트 지침을 복사하는 복잡성을 극복하고 모바일에서 원터치로 시작하고 싶은 열망."
+      },
+      {
+        "question": "알아들은 것 같은데 막상 입 밖으로 뱉으려면 단어가 맴돕니다. 원어민이 자주 쓰는 진짜 뉘앙스만 골라서 입에 붙이는 훈련법은 뭔가요?",
+        "context": "직역 중심의 어색한 영어에서 벗어나 뉘앙스와 소리 훈련을 동시에 해결하고자 하는 질문."
+      }
+    ],
+    "audienceVocabulary": [
+      "방구석 과외쌤",
+      "복붙 벽 (복사·붙여넣기도 힘들어서 포기하는 장벽)",
+      "헬스기구 효과 (도구만 사두고 안 쓰는 현상)",
+      "토익 벙어리",
+      "손가락 굳음 (타이핑만 하고 입은 닫히는 현상)",
+      "뉘앙스 벽",
+      "소리 길뚫기"
+    ],
+    "whatWorked": [
+      {
+        "point": "어려운 문법 용어 배제 및 '틀린 이유 직관적 콕 짚기' 구조",
+        "reason": "문법적 원리를 길게 늘어놓지 않고, '네 문장/교정 문장/원인/예문 2개'로 단순화하여 시청자가 머리로 이해하기 전에 혀로 익힐 수 있게 만든 점."
+      },
+      {
+        "point": "AI에게 확실한 역할(Persona)과 행동 규칙(Rule)을 부여해 학습 지도 자동화",
+        "reason": "바로 정답을 주지 않고 힌트를 먼저 주거나, 이전에 틀린 약점을 퀴즈로 재시험 보게 만들어 스스로 혀를 움직이게 유도한 학습 설계."
+      },
+      {
+        "point": "지식 전달이 아닌 '시청자가 직접 말하게 만드는 훈련 중심' 접근",
+        "reason": "설명만 길게 듣는 인풋 방식이 아니라 '질문 → 답변 → 소리 교정 → 재시도' 루프를 통해 입근육을 사용하게 해준 점에 감탄함."
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "토익 900점도 원어민 앞선 벙어리 되는 이유? AI로 혀 근육 뚫는 3분 소리 훈련법",
+        "프롬프트 복붙 필요 없습니다! 스마트폰 마이크 켜고 AI랑 바로 입 터지는 '소리 연결' 비법",
+        "챗GPT에 '이 한 문장'만 치세요: 문법 몰라도 입에서 영어가 튀어나오는 게으른 혀의 AI 사용법"
+      ],
+      "hookThreeSeconds": "토익 점수는 높은데 원어민만 만나면 입이 딱 붙으시나요? 당신이 못하는 게 아니라, 머리로 배운 영어를 '혀의 소리 지름길'로 바꾸는 법을 몰랐을 뿐입니다.",
+      "shortsTrackAIdea": {
+        "concept": "AI 마이크 기능으로 문법 용어 없이 '생략되는 모음 소리' 혀 위치 교정받는 기초 팁",
+        "hookLine": "챗GPT한테 영어 문법 물어보지 마세요! '혀 위치랑 소리 연쇄'만 잡아달라고 하면 끝납니다."
+      },
+      "shortsTrackBIdea": {
+        "concept": "토익 975점 독해왕이 AI 음성모드와 3분 대화 후 '진짜 입 떼기' 성공하는 직관적 상황극",
+        "hookLine": "토익 900점 넘는데 식당에서 물 한 잔 주문 못하던 제가, AI 마이크 켜고 3일 만에 입 터진 이유!"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "Ugzn1RlmpQ9PwHkvJhV4AaABAg",
+      "text": "[미쳐버린 무료 AI 영어 과외 선생님 제작 프롬프트]\n\n♥AI로 월 100만 원 영어 과외 선생님 만들기 ↓\n\nhttps://janaenglish.imweb.me/class/?idx=20\n\n복사가 안 되는 분들은 위 링크에서 \n스크롤 살짝 내리시면\n바로 복사해서 사용하실 수 있어요!!!!!!!!!\n\n♥제나쌤 미드로 원어민 되기 VOD ↓\nhttps://janaenglish.liveklass.com/classes/295981\n\n----------\n\r\n[너는 나의 1:1 영어 과외 선생님이야.\r\n내 영어 실력을 분석하고, 내가 자주 틀리는 부분을 찾아 반복해서 연습할 수 있도록 도와줘.\r\n\r\n아래의 학생 정보와 수업 규칙을 항상 참고해서 수업을 진행해.\r\n\r\n[학생 정보]\r\n\r\n* 현재 영어 레벨: 중급\r\n    (예: 수능 영어 3등급 / TOEIC 700점 정도)\r\n* 영어 공부 목표: 원어민과 자연스럽게 일상 대화하기 / TOEFL Speaking 실력 향상\r\n* 하루 공부 가능 시간: 30분\r\n* 특히 향상시키고 싶은 영역: Speaking / 문장 만들기\r\n\r\n※ 위 내용은 반드시 내 실제 영어 실력과 목표에 맞게 수정해서 사용해.\r\n\r\n⸻\r\n\r\n[수업 규칙]\r\n\r\n1. 복습부터 시작하기\r\n\r\n이전에 함께 공부한 내용이 있다면, 매 수업 시작 시 이전에 배운 표현이나 내가 틀렸던 내용을 활용한 복습 퀴즈 3개를 먼저 내줘.\r\n\r\n한 번에 정답을 알려주지 말고, 내가 먼저 답할 수 있게 기다려줘.\r\n\r\n처음 수업이라 복습할 내용이 없다면 간단한 레벨 체크 문제를 내줘.\r\n\r\n2. 내 영어 문장 교정하기\r\n\r\n내가 영어 문장을 쓰거나 말하면 다음 순서로 피드백해줘.\r\n\r\n내 문장:\r\nI am agree with you.\r\n\r\n교정:\r\nI agree with you.\r\n\r\n이유:\r\nagree 자체가 동사이기 때문에 am을 사용하지 않아.\r\n\r\n추가 예문:\r\n\r\n* I agree with your opinion.\r\n* I don’t agree with him.\r\n\r\n문장 전체를 불필요하게 바꾸지 말고, 틀렸거나 부자연스러운 부분을 중심으로 교정해줘.\r\n\r\n3. 설명은 쉽게 하기\r\n\r\n어려운 문법 용어를 최대한 사용하지 말고 한국어로 쉽게 설명해줘.\r\n\r\n설명이 필요한 경우에는 긴 문법 설명보다 짧은 설명 + 실제로 사용할 수 있는 예문 2개 이상을 보여줘.\r\n\r\n4. 내 실수를 학습에 활용하기\r\n\r\n내가 자주 틀리는 문법, 표현, 단어 또는 문장 구조가 있다면 기록해두고 이후 수업에서 다시 연습시켜줘.\r\n\r\n특히 같은 실수를 반복한다면 비슷한 문장을 활용한 문제를 만들어줘.\r\n\r\n예를 들어 내가 계속\r\n\r\n* I am agree\r\n* He go to work\r\n* I went to there\r\n\r\n같은 실수를 한다면 해당 패턴을 활용한 영작이나 빈칸 문제를 만들어줘.\r\n\r\n5. 바로 정답을 알려주지 않기\r\n\r\n내가 문제를 틀렸을 때 바로 정답부터 알려주지 말고, 가능하면 먼저 힌트 한 번을 줘.\r\n\r\n내가 다시 시도한 뒤에도 틀렸다면 정답과 이유를 설명해줘.\r\n\r\n6. 실제로 말할 수 있는 영어를 가르치기\r\n\r\n문법적으로 맞더라도 원어민이 일상적으로 잘 사용하지 않는 표현이라면 더 자연스러운 표현도 알려줘.\r\n\r\n교과서적인 표현보다는 실제 대화에서 자주 사용하는 표현을 우선적으로 가르쳐줘.\r\n\r\n7. 칭찬은 구체적으로, 지적은 짧게 하기\r\n\r\n막연하게 “잘했어요!“라고 하지 말고 무엇을 잘했는지 짧게 알려줘.\r\n\r\n예:\r\n\r\n“이번에는 과거형을 정확하게 사용했어.”\r\n\r\n“지난번에 틀렸던 전치사까지 정확하게 썼어.”\r\n\r\n반대로 틀린 부분은 길게 지적하지 말고 무엇을 고쳐야 하는지만 명확하게 알려줘.\r\n\r\n8. 수업을 마무리하기\r\n\r\n내가 “오늘 수업 끝” 또는 비슷한 말을 하면 다음 세 가지를 정리해줘.\r\n\r\n오늘 배운 것\r\n\r\n* 핵심 표현\r\n* 중요한 문법 또는 문장 구조\r\n\r\n오늘 발견한 내 약점\r\n\r\n* 반복해서 틀린 부분\r\n* 다음에 다시 연습해야 할 부분\r\n\r\n내일 숙제\r\n\r\n* 오늘 배운 내용을 활용한 짧은 과제\r\n* 하루 공부 가능 시간 안에 끝낼 수 있는 분량\r\n\r\n⸻\r\n\r\n[중요]\r\n\r\n이 수업의 목표는 나에게 영어 지식을 많이 설명하는 것이 아니라, 내가 직접 영어를 사용하게 만드는 것이야.\r\n\r\n따라서 설명만 길게 하지 말고,\r\n\r\n질문 → 내 답변 → 교정 → 재시도 → 반복\r\n\r\n순서로 최대한 많이 연습시켜줘.\r\n\r\n내가 이전보다 잘하게 된 부분과 계속 반복해서 틀리는 부분을 구분해서 수업 난이도와 문제를 조절해줘.\r\n\r\n내가 “수업 시작하자”라고 말하면 수업을 시작해.",
+      "author": "@JanaenglishT",
+      "likeCount": 2357,
+      "publishedAt": "2026-08-12T08:39:57Z",
+      "replyCount": 28
+    },
+    {
+      "commentId": "Ugzi9TuMLWDWO9e0HVB4AaABAg",
+      "text": "그렇게 ai가 영어를 마스터 해버렸습니다.",
+      "author": "@roze6307",
+      "likeCount": 122,
+      "publishedAt": "2026-08-13T22:24:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxoemPsJeTZb2xKpLl4AaABAg",
+      "text": "진짜 대박.. 무료 과외 선생님을 얻었어요. 저는 스페인어를 배우는 중인데 이 프롬프트 그대로 ai에게 스페인어 학습용으로 바꿔달라고 하니 30분간 실제 과외를 해주었슺니다. 감사합니다 ㅠㅠ",
+      "author": "@Likking504",
+      "likeCount": 49,
+      "publishedAt": "2026-08-13T14:35:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwoW-Io2yV6zRQqMr14AaABAg",
+      "text": "제일 중요한 것은 내가 해야 함.. 말하고 듣고 쓰고 해야 늘어서ㅜㅜ",
+      "author": "@dotorijune",
+      "likeCount": 20,
+      "publishedAt": "2026-08-16T07:00:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugytju5MbQmOkzNZLt14AaABAg",
+      "text": "챗지피티라이브로 공짜로 전세계 회화를 다배울수있다\n하지만 하루 30분씩 꾸준히하는건 생각보다 애우 어렵다 끈기가 있어야한다\n마치 옆방에 헬스기구를 갖춰놔도 매일 운동하러들어가는것 자체가 도전인것과 같다",
+      "author": "@shinesun2361",
+      "likeCount": 24,
+      "publishedAt": "2026-08-16T08:31:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw11C-Hr7wWi7a-5XV4AaABAg",
+      "text": "와 세상좋아졌네요\n50중반에 영어도저ㆍ해봅니다",
+      "author": "@daliy-j6y",
+      "likeCount": 9,
+      "publishedAt": "2026-09-08T15:18:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwVwRQVkyXbCBCuubZ4AaABAg",
+      "text": "너무 좋은 컨텐츠 감사합니다\n해보면  되겠다 생각했는데 넘 구체적이고 현실적이어서 넘 좋았습니다\n2부 스피킹 편도 많이 기대하고 기다리겠습니다\n감사합니다~~!!",
+      "author": "@콘테스타",
+      "likeCount": 3,
+      "publishedAt": "2026-08-17T12:22:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwSwmS2I8RMNqlikN54AaABAg",
+      "text": "오늘영상은 옛날 학교영어학습에 도움되는 팁.\n그러나 강사님말대로 다음영상이 기대되네요.\n그게 회화훈련, 기대하겠습니다. 고맙습니다.",
+      "author": "@바-나",
+      "likeCount": 2,
+      "publishedAt": "2026-08-15T03:06:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyf3mdvE-soctbVdJJ4AaABAg",
+      "text": "영어를 배우는건 의지의 문제다 왜냐면 방법을 알지만 안하기때문",
+      "author": "@오렌지상큼-p3k",
+      "likeCount": 6,
+      "publishedAt": "2026-08-23T00:22:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwY4NQraIxNbJ58T3t4AaABAg",
+      "text": "제나쌤~~~ 동영상 보자마자 당장 클로드 추가했어요! 영어 독학에 아주 많은 도움이 되겠어요! 감사합니다~~^^",
+      "author": "@herogogo",
+      "likeCount": 2,
+      "publishedAt": "2026-08-18T13:42:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzqY-l9G4kPIrANyNt4AaABAg",
+      "text": "이제는 claude 유료 계정 구독료의 몇 배로 도움 되는 너무 좋은 강의 잘 봤습니다. 감사합니다.",
+      "author": "@softstatic222",
+      "likeCount": 2,
+      "publishedAt": "2026-08-17T14:11:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyto4VRDOTCv2TcL-R4AaABAg",
+      "text": "당장 시작해봤습니다..아주 재밌고 유익하네요..감사합니다...",
+      "author": "@장두성-n3f",
+      "likeCount": 1,
+      "publishedAt": "2026-08-15T08:05:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzBWRS2D5sv51_bIfl4AaABAg",
+      "text": "오! 아주 작동이 잘되네요. 구독하고 꾸준히 한번 해보겠습니다",
+      "author": "@ngotimes",
+      "likeCount": 2,
+      "publishedAt": "2026-08-13T09:49:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzZUFiJjmpoY8B5N1t4AaABAg",
+      "text": "처음 봤는데 빠져들게 귀에 쏙쏙 알기쉽게 수업 잘 하네요",
+      "author": "@거제신흥유통식자재",
+      "likeCount": 1,
+      "publishedAt": "2026-08-16T12:04:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzYLH4-K8eDmtqMEPN4AaABAg",
+      "text": "우연히 알고리즘에 떠서 봤고, 따라해 봤는데...와...선생님, 대박입니다. 너무너무 효과적이네요. 고맙습니다.",
+      "author": "@gotoany",
+      "likeCount": 2,
+      "publishedAt": "2026-08-15T14:44:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzjbAqRIF_7CTZ5nr54AaABAg",
+      "text": "좋은 에너지 잘 받고 갑니다.\n투자이루어지리라는 확신이듭니다.😅",
+      "author": "@han-junpark3636",
+      "likeCount": 1,
+      "publishedAt": "2026-08-13T17:20:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyJRxEIKyQ2GkN2vrV4AaABAg",
+      "text": "바로 구독하고, 챗지피티로 공부하고 왔어요 ㅎㅎ 스피킹연습+발음교정 방법도 얼른 올려주세요,,,,,!!!!❤ 공부할맛납니다ㅎㅎㅎ🎉",
+      "author": "@user-mf5vh4ei6j",
+      "likeCount": 3,
+      "publishedAt": "2026-08-16T09:28:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzy7YJcTpUU0ME0yfx4AaABAg",
+      "text": "매우 감사합니다. 영어공부에 큰 도움이 됩니다.",
+      "author": "@wj_storymusic",
+      "likeCount": 2,
+      "publishedAt": "2026-08-14T01:16:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzhVTP-_sCjdt0PzEh4AaABAg",
+      "text": "선생님 예쁘고 똑똑하심😮",
+      "author": "@Mypreciouspuppy",
+      "likeCount": 9,
+      "publishedAt": "2026-08-16T06:08:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxTBDnee40pVu0QktF4AaABAg",
+      "text": "큰 도움이 됩니다 감사합니다 축복합니다💖",
+      "author": "@SugarRangu",
+      "likeCount": 1,
+      "publishedAt": "2026-08-13T12:40:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyJEmB5szo3adsaZJx4AaABAg",
+      "text": "열심히 해볼랍니다. 구독했습죠",
+      "author": "@레전드경선쇼츠",
+      "likeCount": 1,
+      "publishedAt": "2026-08-15T15:36:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxt-b5lZ4zj7tE9zaF4AaABAg",
+      "text": "오늘 처음 시작했는데 재밌네요~ 열심히 해 볼게요 좋은 정보 감사합니다!!",
+      "author": "@김정한-j6i",
+      "likeCount": 0,
+      "publishedAt": "2026-08-18T04:03:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxRO8AG53F60fiUFdt4AaABAg",
+      "text": "간결한 설명 좋아요. 스피킹 버젼 기다려져요^^",
+      "author": "@briankim_sg",
+      "likeCount": 1,
+      "publishedAt": "2026-08-19T00:59:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzyeVtaga1xDhCTI6V4AaABAg",
+      "text": "어머 이게 뭐야? 최고다\n디지버져❤",
+      "author": "@욜로월드-m7v",
+      "likeCount": 2,
+      "publishedAt": "2026-08-15T23:36:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyn4DB9SkrX41gOnSJ4AaABAg",
+      "text": "이렇게 정성스러운 프롬프트까지 ㅠ 감사합니다!",
+      "author": "@원영훈-x5z",
+      "likeCount": 11,
+      "publishedAt": "2026-08-12T09:40:50Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxJHFetjk_EcdtjcBd4AaABAg",
+      "text": "열정이 대단하시네요,, 새로운 도전 목표가 생겼고요. 고마워요 많이^^",
+      "author": "@참나-v8p",
+      "likeCount": 1,
+      "publishedAt": "2026-09-17T01:07:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwZYrjnnX4WQmb0tuR4AaABAg",
+      "text": "훌륭하신 선생님이시네. 영어를 잊고 살던 저 같은 인간에게 매우 좋은 방법인 것 같습니다. 알려주셔서 감사합니다.",
+      "author": "@악마는빨리커",
+      "likeCount": 1,
+      "publishedAt": "2026-09-01T02:46:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1QYney8WnzQ07b314AaABAg",
+      "text": "좋은 정보 감사해요. 덕분에 영어공부 다시 시작할까 합니다. 구독 좋아요 클리어~ㅎ",
+      "author": "@심준일",
+      "likeCount": 0,
+      "publishedAt": "2026-08-23T11:26:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzpejBuQRDVK59EUqN4AaABAg",
+      "text": "정말 광고없이 유용한 정보를 아낌없이 주는 컨텐츠였어요. 제나쌤님 감사해요~ ^^",
+      "author": "@ajuchef3321",
+      "likeCount": 0,
+      "publishedAt": "2026-08-17T13:20:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyog2SG9gn5imaMk2V4AaABAg",
+      "text": "이번 영상 대박이네요. 다음 AI 스피팅 영상 정말 기다려지내요. 빨리 올려주세요. 제 ~~~~ 발",
+      "author": "@digitalim1007",
+      "likeCount": 0,
+      "publishedAt": "2026-08-15T13:17:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugygvhm7EEptkjLq5Ih4AaABAg",
+      "text": "멋지네요~!\n나도 영어공부 다시 시작해야겠어요!\n감사 감사~!^^",
+      "author": "@Sayya0302",
+      "likeCount": 0,
+      "publishedAt": "2026-08-28T10:34:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwFVxHGlp9SnjzNyld4AaABAg",
+      "text": "1:1 과외선생님 너무 좋네요 좋은영상 감사합니다^^",
+      "author": "@낭자쵸지",
+      "likeCount": 2,
+      "publishedAt": "2026-08-15T04:53:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzIj_IptM93OdfwXZt4AaABAg",
+      "text": "이 프롬프트 정말 좋네요. 여행 가기 전에 연습 중인데 도움이 많이 되어요. 꼭 해보세요!!!",
+      "author": "@ceylon25",
+      "likeCount": 0,
+      "publishedAt": "2026-09-03T05:39:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyxtozofiGCuszE9oh4AaABAg",
+      "text": "감사드립니다.\n부디 꽃길만 걸으시기를 바랍니다.^^",
+      "author": "@듀이란",
+      "likeCount": 2,
+      "publishedAt": "2026-08-14T11:41:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw2tXEhr5mtT884_Rl4AaABAg",
+      "text": "프롬프트까지 알려주시다니요 ㅠㅠㅠ 감사합니다!!👍",
+      "author": "@Blueberries495",
+      "likeCount": 0,
+      "publishedAt": "2026-08-12T21:28:55Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzGafGScNVgLG0rjbl4AaABAg",
+      "text": "좋은 정보 공유해주셔서 감사합니다\n정말 아름다우시고 똑똑하신분이네요😍😍",
+      "author": "@유재현-l9o",
+      "likeCount": 0,
+      "publishedAt": "2026-08-23T14:22:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzJggjQg9B3XTlQyIp4AaABAg",
+      "text": "일단 해보진 않았지만 고맙습니다..이런방법도 있는걸 알려주셔서요",
+      "author": "@하노이랑",
+      "likeCount": 0,
+      "publishedAt": "2026-08-18T17:07:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyXlJf5BBzIczAswbx4AaABAg",
+      "text": "제나쌤 감사 합니다.!! 화이팅~!",
+      "author": "@언제나행복-k7u",
+      "likeCount": 0,
+      "publishedAt": "2026-11-01T05:07:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwbG3lX7cKwchbM1rx4AaABAg",
+      "text": "최근 고민하던걸 콕 찝어주셔서 좋네요, 잘 써먹어보겠습니다.",
+      "author": "@byongholee1839",
+      "likeCount": 0,
+      "publishedAt": "2026-10-10T14:03:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxD_j-iN0-Mh3Lnkzd4AaABAg",
+      "text": "레전드... 좋아요와 구독하고 갑니다..... 잘 활용해보겠습니다 제나쌤",
+      "author": "@hanginggarden803",
+      "likeCount": 0,
+      "publishedAt": "2026-09-13T15:00:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy5UOcwbqNp3Ey_ngd4AaABAg",
+      "text": "엄청 유용할 거 같아요. 감사해요 👍",
+      "author": "@HY-le3jg",
+      "likeCount": 6,
+      "publishedAt": "2026-08-12T09:14:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwzPJPAT4Dq34ERN114AaABAg",
+      "text": "진짜 대단하시다.",
+      "author": "@시골에서삼겹살",
+      "likeCount": 3,
+      "publishedAt": "2026-08-13T20:27:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyH6I03HugSMaih9Pt4AaABAg",
+      "text": "선생님 최고입니다",
+      "author": "@TV-rr3br",
+      "likeCount": 3,
+      "publishedAt": "2026-08-14T05:31:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1S6VU5Co1vSnQtQB4AaABAg",
+      "text": "제공해주신 프롬프트 챗gpt에 넣고 공부 시작했어요. 너무너무 유용하고 좋습니다. 구독 좋아요. 알림설정 다 했어요. 너무 감사해요!!!",
+      "author": "@happyhan97",
+      "likeCount": 0,
+      "publishedAt": "2026-08-12T23:35:03Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwOXnpOigj9sGgfvwN4AaABAg",
+      "text": "Wow  대~박    너무나 유익한 정보 올려주셔서 감사합니다.",
+      "author": "@toursky99",
+      "likeCount": 7,
+      "publishedAt": "2026-08-12T16:23:08Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw65Uqf0tvkJ-NQpRl4AaABAg",
+      "text": "너무 쉽고, 유용하네요...\n어떤 앱보다도 좋은거 같아요\n듣고 말하기가 가능한 다음 강의가 기다려지네요",
+      "author": "@hopark9801",
+      "likeCount": 0,
+      "publishedAt": "2026-08-14T14:11:09Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyZDGL19YrmRIpTz6h4AaABAg",
+      "text": "좋아요... 감사합니다... 시도 해볼께요..",
+      "author": "@김승범-p9v",
+      "likeCount": 0,
+      "publishedAt": "2026-08-15T13:01:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzZ6CaSB_XKADsYHyh4AaABAg",
+      "text": "정말 감사합니다.  덕분에 선생님 생겼어요~~~",
+      "author": "@누륭지인데요이",
+      "likeCount": 0,
+      "publishedAt": "2026-09-13T01:48:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyRlrs8O4F0SOFBIOB4AaABAg",
+      "text": "와 제 나이 50인데 지금까지 내용 중 가장 으뜸임. 좋은 강의 정말 감사합니다.",
+      "author": "@97-tz2yr",
+      "likeCount": 0,
+      "publishedAt": "2026-08-16T02:09:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyJ_rUB8QX4K8Kq3114AaABAg",
+      "text": "정말 유익한 정보 감사합니다~~^^",
+      "author": "@cwj21c3",
+      "likeCount": 0,
+      "publishedAt": "2026-08-30T16:22:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwzPWJrCRnQ8y1ZkZ94AaABAg",
+      "text": "잘들었습니다 감사합니다 👍",
+      "author": "@이기봉-j7s",
+      "likeCount": 0,
+      "publishedAt": "2026-08-14T14:09:43Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugyxj04_tGhwj4cWcSB4AaABAg",
+      "text": "계속 궁금해하던 부분이었는데 너무 깔끎하고 시원하게 정리해 주셨습니다.\n정말 감사합니다 선생님~😄",
+      "author": "@Arcus_Stephano",
+      "likeCount": 0,
+      "publishedAt": "2026-09-19T10:41:24Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzqniznBoR8aVOY5154AaABAg",
+      "text": "우와 선생님 최고 감사합니다🩵",
+      "author": "@Syeooni",
+      "likeCount": 1,
+      "publishedAt": "2026-08-12T19:05:53Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwtj6y5urqngLRQtnJ4AaABAg",
+      "text": "정말로 영어 과외 선생님 생김.  제미나이(gem에다 사용)에서 그대로 입력해서 사용하는데 너무 좋습니다.   감사해요",
+      "author": "@햇살아침-i8b",
+      "likeCount": 4,
+      "publishedAt": "2026-08-14T00:06:38Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgypKjGmQfuECavPeYB4AaABAg",
+      "text": "신문 사설을 읽고 이해하는  것으로 공부을 하면 좋은듯 합니다. 제나쌤 너무 이쁘고 사랑스럽고 똑똑 하네요.",
+      "author": "@PARKLA1821",
+      "likeCount": 0,
+      "publishedAt": "2026-09-05T16:07:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgySvSOgCX-wdmrh9Q94AaABAg",
+      "text": "앗, 알고리즘의 은혜가... 딱 필요한 정보였습니다. 바로 클로드 가입하고 첫 수업했습니다. 좀 길게 했더니 먼저 '마칠까요?' 라고 하더라고요 ㅎㅎ 지치지 않고 꾸준히 하는 게 관건일 것 같아요.",
+      "author": "@릴라릴라-h5z",
+      "likeCount": 0,
+      "publishedAt": "2026-08-13T07:42:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyk66wh2RmWFc-e0gh4AaABAg",
+      "text": "정말 감사합니다~~ㅜㅠ ai영어공부하고 싶었는데 너무 막막했거든요..물어볼곳도 없고..\n그런데 이렇게 도와주시다니~~🙏🏻🙏🏻\n방금 너무 재미있어서 40분이 그냥  지나갔어요~~\n정말 제 수준에 딱 맞는 영어 쌤이 생겼어요~~정말 감사드려요😭",
+      "author": "@민트쪼코-c1v",
+      "likeCount": 0,
+      "publishedAt": "2026-09-17T09:41:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugze4pscb1YRB-rg28t4AaABAg",
+      "text": "열심히해보려구요 감사합니다 선생님",
+      "author": "@아이아으아오양",
+      "likeCount": 0,
+      "publishedAt": "2026-08-19T08:07:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxgZzpEYxQYcQm9fxt4AaABAg",
+      "text": "나효 이쁜데 똑똑하신것 까지한것 같아요.. 구독 누르고 다음영상 보러갑니다…",
+      "author": "@StevenJSMin",
+      "likeCount": 0,
+      "publishedAt": "2026-08-17T09:32:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyg8udFJJomg1TDTfx4AaABAg",
+      "text": "돌려가며 다 설정하고 척 채팅 시작...\nㅎㅎㅎ 늦었지만 시작하는데 설레기까지 고마워요",
+      "author": "@sinimariakim5021",
+      "likeCount": 0,
+      "publishedAt": "2026-08-16T04:14:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwxwNjhRBcKotZJG7F4AaABAg",
+      "text": "한달 후에 오픽시험을 치게 됐는데 클로드나 챗지피티로 오픽을 공부하는 방법도 있나요? im3~ih 목표입니다!",
+      "author": "@wongil123",
+      "likeCount": 0,
+      "publishedAt": "2026-08-13T11:33:04Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxE6-XbBUylS9nnsEJ4AaABAg",
+      "text": "제가 토익은 975점인데 영어 말하기는 정말 못해요… 토익 점수와 스피킹 수준 차이가 확연히 나는데 알려주신 프롬프트의 레벨 정보에 제 토익 점수를 넣어도 될까요??",
+      "author": "@Felicity_jun",
+      "likeCount": 17,
+      "publishedAt": "2026-08-15T13:05:33Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyLN53Q_icI741qT7d4AaABAg",
+      "text": "감사합니다.. 선생님❤",
+      "author": "@brianpark5100",
+      "likeCount": 0,
+      "publishedAt": "2026-08-12T22:37:13Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwbav8JBpOuEx2ADWJ4AaABAg",
+      "text": "혹시 영작이나 에쎄이 연습용 프롬프트도 한번 다뤄주실수 있으실까요?",
+      "author": "@zzang111",
+      "likeCount": 0,
+      "publishedAt": "2026-08-13T00:52:14Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzdiHOhmEZ51T-MRNt4AaABAg",
+      "text": "챗GPT 하고 클라우드 모두 설치해서 사용해 봤는데 클라우드가 공부하기에는 더 적합한것 같네요.. 그리고 이거 대박이네요..정말 큰 도움 될것 같아요.. 감사해요..",
+      "author": "@호주불개미",
+      "likeCount": 0,
+      "publishedAt": "2026-09-30T12:12:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzySNPGUSmfSq46lB14AaABAg",
+      "text": "우와~~  너무 감사해요!!  \n무료로도 이렇게 활용할 수 있다니...\n첫 수업 성공했고.. 꾸준히 하려구요 😄👍👍👍",
+      "author": "@루나루나-u2o",
+      "likeCount": 0,
+      "publishedAt": "2026-10-05T05:44:42Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxN80jcU2m3wo_UDmx4AaABAg",
+      "text": "클로드로 하려는데.. 선생님이 너무 바쁘신가봐요. 계속 잠시 후 다시 시도해 달라고만 하네요😂",
+      "author": "@uncle_travel",
+      "likeCount": 0,
+      "publishedAt": "2026-08-16T22:03:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy4D0UcJYDMEjvNbgt4AaABAg",
+      "text": "꼭 해볼게요 감사합니다!",
+      "author": "@tbrkfjtnl",
+      "likeCount": 0,
+      "publishedAt": "2026-10-26T09:06:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx-R507qjhjTCyxL914AaABAg",
+      "text": "댓글 잘안쓰는데.. 감사해서 씁니다.  ㅎㅎㅎ 저는 업무 회의용 회화를 연습하려고 프롬프트를 조금 수정했어요. 정말 도움 많이됩니다. 감사합니다.",
+      "author": "@통영갈치낚시",
+      "likeCount": 0,
+      "publishedAt": "2026-10-03T14:11:29Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw8wBBojP1NevU3gfJ4AaABAg",
+      "text": "제나쌤 love you 열심히 study 해보겠습니다 Da 잉글리she 마스터하는 그 Day 까지!",
+      "author": "@HyedallMusic",
+      "likeCount": 0,
+      "publishedAt": "2026-08-17T01:24:03Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwpeqFORBBw8f9JGzt4AaABAg",
+      "text": "감사합니다. 리스닝과 관련된 공부를 하고 싶은데 AI선생님 어떻게 이용하면 될까요",
+      "author": "@wonbul1",
+      "likeCount": 0,
+      "publishedAt": "2026-09-12T08:22:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxdUq58mMLsLZwfxbd4AaABAg",
+      "text": "올해 미국에 살게 되면서, AI만큼 편하고 효율적인 학습 도구는 없는 것 같아요. 에너지도 덜 들고요. 좋은 가이드 감사합니다!",
+      "author": "@김세준-p5i",
+      "likeCount": 0,
+      "publishedAt": "2026-08-14T03:24:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwPsELSsHjKpQCHhMZ4AaABAg",
+      "text": "유투버분이 잘 가르쳐주셨는데...\n모든 노력에는 본인의 의지가 있어야되요..",
+      "author": "@양만춘-q2m",
+      "likeCount": 0,
+      "publishedAt": "2026-10-19T04:49:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxz5o3iDbn69D5hEup4AaABAg",
+      "text": "우와~ 정말 감사합니다. 저도 영어선생님이 생겼어요",
+      "author": "@sunghwankim3532",
+      "likeCount": 0,
+      "publishedAt": "2026-08-31T07:09:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzn9fLn06EYu2XWeT94AaABAg",
+      "text": "에이전트 만들때 프로젝트 지침에  고정댓글에 있는 수업규칙과 중요 부분을 그대로 복사해서 붙여넣기 하면 되는걸까요?아니면 영상 4:00 즈음에 나오는 수업규칙을 사용해야 하는걸까요 ?",
+      "author": "@DekardCane",
+      "likeCount": 0,
+      "publishedAt": "2026-08-13T00:59:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyLbY1oyGvVnEaxGjx4AaABAg",
+      "text": "바로 만들어서 해보고 오늘 2일차 입니다.   너무 좋네요.  똘망똘망하게 설명도 잘하시고 친절히 공유까지 해주시고...  전 요즘 항상 뉘앙스 문제에 직면해 있는데 이부분을 설정해놓으니까 궁금하던 부분을 알아서알려주니 너무 좋습니다. 거기다 실전 예문까지 내가 익숙해질떄까지 만들어주고 테스트하고 이러니까  내 약점을 알고 찾아서 보강하는 기능이 킬포인트인것 같습니다.  복 많이 받으세요.",
+      "author": "@drseven77",
+      "likeCount": 0,
+      "publishedAt": "2026-10-06T01:24:53Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxIeo0RHjT66CTENjZ4AaABAg",
+      "text": "초등 1,2학년 파닉스도 안한 친구들도 비기너로 설장하면 잘 배울수 있겠죠???  컴퓨터도 배우고 스스로 영어 공부하는 습관도 만들어 주고 싶네요 \n너무 세상이 좋아졌습니다^^ 부모가 못 따라갈 정도에오 ㅋㅋ",
+      "author": "@박서현-d6w",
+      "likeCount": 0,
+      "publishedAt": "2026-10-26T09:32:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwZjZIDvAg_k9OtSdV4AaABAg",
+      "text": "휴대폰에서 복사하는 방법을 먼저 익혀야겠네요.",
+      "author": "@知天命-b2u",
+      "likeCount": 8,
+      "publishedAt": "2026-08-14T23:54:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzaspKIGW0of9omxnR4AaABAg",
+      "text": "대박 감사합니다 스피킹은 어디있나요 2편",
+      "author": "@Grae-tube",
+      "likeCount": 0,
+      "publishedAt": "2026-11-11T10:42:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxlj5YhUMBuB-sTJh94AaABAg",
+      "text": "고마워요. 예쁜 선생님",
+      "author": "@아이좋다",
+      "likeCount": 0,
+      "publishedAt": "2026-09-16T22:40:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxfj6Bwsw2fIP7D1It4AaABAg",
+      "text": "영어 말고도 다른 언어공부에도 포함이 될까요?",
+      "author": "@유우종-n7j",
+      "likeCount": 0,
+      "publishedAt": "2026-08-14T13:58:40Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxlnzKmsxAJ5-EGvwd4AaABAg",
+      "text": "진짜 레전드다 따봉받으세요",
+      "author": "@salmon5001",
+      "likeCount": 0,
+      "publishedAt": "2026-10-20T08:09:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyIoh6dDT1hJ0t4PDd4AaABAg",
+      "text": "헐 감사합니다 ❤",
+      "author": "@msj-g3h",
+      "likeCount": 0,
+      "publishedAt": "2026-08-17T10:02:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyDpWs0vPt-5ecokwZ4AaABAg",
+      "text": "Claude 클라우드 \n영어 공부😂😂ㅎㅎㅎㅎ",
+      "author": "@sunshinerice1486",
+      "likeCount": 1,
+      "publishedAt": "2026-08-14T23:03:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy3mpHriRhKN1mDoUt4AaABAg",
+      "text": "제미니로 사용하면 프롬프트 설정이 되는건가. 저같은 경우는 제미니가 먼저 제안을해서 해보라고 했더니 알아서 설정을 해놔서 잘 사용중.",
+      "author": "@蒲池幸子-l7g",
+      "likeCount": 0,
+      "publishedAt": "2026-08-30T04:05:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx_ozgYKwQyJoFY_qB4AaABAg",
+      "text": "지금부터 모든 영어 대화를 A2 레벨로 해달라고 하고 진행하면 초급인 사람들도 쉽게 접근 가능합니다.",
+      "author": "@zjvl3467",
+      "likeCount": 33,
+      "publishedAt": "2026-08-12T10:14:59Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "Ugw4ehIKud52j-aNjut4AaABAg",
+      "text": "단어를 알아야 마스터를 하든지 말든지 하지..\n진입장벽은 역시 단어\n개같은게 스펠링의 규칙성 개나줘버린게 많아서 스트레스",
+      "author": "@강돌이-z8b",
+      "likeCount": 11,
+      "publishedAt": "2026-08-15T14:39:49Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxwPBhFplMEUk8yueB4AaABAg",
+      "text": "쳇 지피티 유료사용자인데, 채팅창에 바로 프롬프트 붙어넣나요? 아님 클로드 프로젝트처럼 따로 있나요?",
+      "author": "@새벽종소리0907",
+      "likeCount": 0,
+      "publishedAt": "2026-08-15T03:10:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzPqGyvW4j8u6hirFB4AaABAg",
+      "text": "우와 감사합니다",
+      "author": "@쥴리-j4k",
+      "likeCount": 0,
+      "publishedAt": "2026-08-15T14:09:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyfYbNKRkDJKemCR2R4AaABAg",
+      "text": "영어 고자인데 감사합니다 이걸로 열심히 공부해서 탈출해볼게요",
+      "author": "@조심-f6z",
+      "likeCount": 0,
+      "publishedAt": "2026-08-26T22:02:21Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyKr4Bwe2pH2SW2QrF4AaABAg",
+      "text": "저는 영어실력보다 중국어가 조금 더 되서 동시에.하는걸로 프롬프트를 바꾸고 해봤더니 대박이군요. 두 언어를 동시에 보여주니 아주 좋습니다. 근데 이놈이 얼마나 기억할지..양이 많아지면 어떤 AI툴도 안되던데.",
+      "author": "@aztecaKim",
+      "likeCount": 0,
+      "publishedAt": "2026-10-30T09:11:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxIvVtOZ3uRqhU9QXV4AaABAg",
+      "text": "정말 좋은듯 , 대신 ai가 말할때 한국어 부분은 좀더 빠르게 말해도 알아들으니 한국어부분은 1.2배속으로 해달라고 해달라고 했음",
+      "author": "@퇴근길투스텝",
+      "likeCount": 0,
+      "publishedAt": "2026-10-23T11:01:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzL9pZaLo7arlAmAuV4AaABAg",
+      "text": "토익스피킹 공부해야하는데, 맞춤 프롬프트 있을까요?\n그리고 클로드는 제 발음은 못듣는거죠?",
+      "author": "@hyunnyungchoi7533",
+      "likeCount": 0,
+      "publishedAt": "2026-08-17T14:44:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyHthwnYiU-BOyLNyJ4AaABAg",
+      "text": "프롬프트 찢었따~~~~뿜뿜뿜뿌잉~~~~~~~~~~~~~~~",
+      "author": "@hendersonkim6475",
+      "likeCount": 0,
+      "publishedAt": "2026-09-03T04:57:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy9UZspbdK5TsRvGmB4AaABAg",
+      "text": "혹시 이벤트는 없을까요오 ….?!",
+      "author": "@I-am-princess040",
+      "likeCount": 0,
+      "publishedAt": "2026-08-19T03:14:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzn2_20tBBu2fqvJWl4AaABAg",
+      "text": "복 받으실겁니다. ㅎㅎㅎ",
+      "author": "@빨간다라이-z1d",
+      "likeCount": 0,
+      "publishedAt": "2026-08-24T08:49:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzLhJm67-uXyNGOBmZ4AaABAg",
+      "text": "실시간 번역, 실시간 통역이 되는 시대에 영어 공부를 하는 목적을 다시 생각 해 볼 필요가 있다.",
+      "author": "@ohsibok",
+      "likeCount": 1,
+      "publishedAt": "2026-08-15T04:28:03Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxBEI_VB6eAXbtzCb94AaABAg",
+      "text": "이거 혹시 일반영어회화도 연습에도 활용가능한가요 ?",
+      "author": "@terrysarchive1879",
+      "likeCount": 0,
+      "publishedAt": "2026-10-27T14:44:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzBbwroqnRfgPlzmTh4AaABAg",
+      "text": "너무감사드립니다",
+      "author": "@jjeerroollll",
+      "likeCount": 0,
+      "publishedAt": "2026-08-17T15:55:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwdsuPhjokjIo8vCV14AaABAg",
+      "text": "AI랑 시간날 때마다 영어로 대화하고 싶은데 어떻게 하면 될까요. 공부하는 것처럼 하면 안할거 같고 일상생활에서 자연스럽게 하고 싶은데.",
+      "author": "@jbrad5098",
+      "likeCount": 0,
+      "publishedAt": "2026-08-22T04:02:04Z",
+      "replyCount": 0
+    }
+  ]
+}

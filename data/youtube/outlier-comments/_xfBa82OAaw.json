@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-15T05:19:55.320Z",
+  "video": {
+    "videoId": "_xfBa82OAaw",
+    "title": "미드영화 빈출표현 You lost me #영어회화 #생활영어 #영어공부",
+    "channelTitle": "이지톡잉글리쉬",
+    "channelId": "UCWg3oU5TRRs5TVV4S-xQCGg",
+    "publishedAt": "2026-11-12T21:14:18Z",
+    "viewCount": 43437,
+    "likeCount": 372,
+    "commentCount": 8,
+    "thumbnailUrl": "https://i.ytimg.com/vi/_xfBa82OAaw/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "issue": "아는 단어의 직역과 실제 의미 사이의 괴리로 인한 당황함",
+        "description": "아는 단어로 이루어진 표현('You lost me')을 '너는 나를 잃었다'처럼 문자 그대로 해석했다가 전혀 다른 뜻임을 알고 충격을 받거나 당황하는 현상",
+        "quote": "💬 '너는 나를 잃다가 아니네!!!!!'"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "'You lost me'와 'I'm not following you'는 완전히 같은 의미로 대체 가능한가요?",
+        "quote": "💬 'I'm not following you 와 같은 의미로 보면 되나요?'"
+      },
+      {
+        "question": "'I didn't catch that'이나 'I don't get it'처럼 못 알아들었을 때 쓰는 유사 표현들과 어떤 상황적 차이가 있나요?",
+        "quote": "💬 'I didn't catch that', 💬 'I don't get it'"
+      }
+    ],
+    "audienceVocabulary": [
+      "너는 나를 잃다",
+      "같은 의미",
+      "I'm not following you",
+      "I didn't catch that",
+      "I don't get it"
+    ],
+    "whatWorked": [
+      {
+        "point": "직역하기 쉬운 반전 표현의 진짜 의미를 짚어준 직관적인 설명",
+        "description": "'You lost me'를 단순 직역했을 때의 오류를 바로잡아 주어 시청자에게 확실한 깨달음과 인상을 남김",
+        "quote": "💬 '너는 나를 잃다가 아니네!!!!!'"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "You lost me가 '나를 잃었다'가 아니라고? 원어민이 쓱 말할 때 들리는 소리 원리",
+        "\"못 알아들었어요\" 원어민이 입에 달고 사는 3가지 소리 차이점",
+        "I don't get it과 You lost me, 귀로 먼저 구분하는 가장 쉬운 방법"
+      ],
+      "hookThreeSeconds": "영화 보다가 'You lost me' 들렸을 때 '너 나 잃어버렸니?'로 해석하셨다면 딱 1분만 집중해 보세요!",
+      "shortsTrackAIdea": {
+        "concept": "원어민이 'You lost me'나 'I don't get it'을 말할 때 단어끼리 이어져 소리가 뭉개지는 연음 원리 설명",
+        "hookLine": "원어민이 '유 로스트 미'라고 또박또박 발음하지 않고 '유러스트미'로 붙여 말하는 소리 규칙!"
+      },
+      "shortsTrackBIdea": {
+        "concept": "상대방의 말을 놓쳤을 때 'I didn't catch that'과 'You lost me'를 자연스럽게 뱉는 상황극 미니 대화",
+        "hookLine": "영어로 말할 때 상대방 설명이 너무 빨라 멍해졌다면? 딱 이 소리만 뱉으세요!"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgxeT81yUlWgLERAzt14AaABAg",
+      "text": "🎉🎉🎉🎉🎉",
+      "author": "@이종호-b6r4j",
+      "likeCount": 1,
+      "publishedAt": "2026-11-13T02:03:37Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzSdPFAdSMITKkS8m54AaABAg",
+      "text": "너는 나를 잃다가 아니네!!!!!",
+      "author": "@kksoon1500",
+      "likeCount": 1,
+      "publishedAt": "2026-11-13T15:38:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx4msXjtcwlQUbXsfZ4AaABAg",
+      "text": "I'm not following you 와 같은 의미로 보면 되나요?",
+      "author": "@아름다운이별을",
+      "likeCount": 0,
+      "publishedAt": "2026-11-13T18:36:10Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwQTkCuP4onK4hdWl14AaABAg",
+      "text": "I didn't catch that",
+      "author": "@왔니-f2t",
+      "likeCount": 1,
+      "publishedAt": "2026-11-13T07:08:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugzo5h5e-ppqzOgDgwd4AaABAg",
+      "text": "I don't get it",
+      "author": "@giparangjin5885",
+      "likeCount": 1,
+      "publishedAt": "2026-11-13T16:50:07Z",
+      "replyCount": 0
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-13T13:49:25.587Z",
+  "videoId": "Pr_EB_hK9R4",
+  "video": {
+    "videoId": "Pr_EB_hK9R4",
+    "title": "What If English Words Were Actually Literal? 4",
+    "description": "",
+    "channelId": "UCoHSkg720rcQZkic0g7EtLg",
+    "channelTitle": "Lev English",
+    "publishedAt": "2026-11-09T13:15:03Z",
+    "viewCount": 467485,
+    "likeCount": 0,
+    "commentCount": 11,
+    "thumbnail": "https://i.ytimg.com/vi/Pr_EB_hK9R4/maxresdefault.jpg",
+    "duration": "PT23S"
+  },
+  "transcript": {
+    "ok": true,
+    "videoId": "Pr_EB_hK9R4",
+    "language": "en",
+    "languageName": "English (auto-generated)",
+    "isGenerated": true,
+    "lineCount": 12,
+    "fullText": "car pet carpet oh carpet back fire back fire oh backfire mouth wash mouth wash oh mouth wash spring >> what",
+    "lines": [
+      {
+        "start": 0.1,
+        "duration": 2.6,
+        "text": "car"
+      },
+      {
+        "start": 1,
+        "duration": 3.7,
+        "text": "pet"
+      },
+      {
+        "start": 2.7,
+        "duration": 4.2,
+        "text": "carpet"
+      },
+      {
+        "start": 4.7,
+        "duration": 4.7,
+        "text": "oh carpet"
+      },
+      {
+        "start": 6.9,
+        "duration": 4.9,
+        "text": "back fire"
+      },
+      {
+        "start": 9.4,
+        "duration": 4.6,
+        "text": "back fire"
+      },
+      {
+        "start": 11.8,
+        "duration": 4.4,
+        "text": "oh backfire"
+      },
+      {
+        "start": 14,
+        "duration": 5,
+        "text": "mouth wash"
+      },
+      {
+        "start": 16.2,
+        "duration": 4.9,
+        "text": "mouth wash"
+      },
+      {
+        "start": 19,
+        "duration": 2.9,
+        "text": "oh mouth wash"
+      },
+      {
+        "start": 21.1,
+        "duration": 3.3,
+        "text": "spring"
+      },
+      {
+        "start": 21.9,
+        "duration": 2.5,
+        "text": ">> what"
+      }
+    ]
+  },
+  "aiInsights": {
+    "hookingAnatomy": {
+      "technique": "자동차와 애완동물의 합성어인 carpet을 각각의 단어인 car와 pet으로 나누어 보여주며 직역했을 때의 엉뚱한 시각적 상황을 바로 제시함",
+      "openingHookQuote": "car pet carpet oh carpet",
+      "whyItWorked": "익숙한 단어를 완전히 새로운 시각으로 쪼개서 보여주기 때문에 시각적 호기심과 당황스러움을 동시에 유발함"
+    },
+    "storyArchitecture": [
+      {
+        "step": "1. 첫 번째 단어 조합 제시",
+        "timeRange": "확인 불가",
+        "summary": "car와 pet을 합친 단어 carpet을 소리내어 말하고 각각의 단어로 분해함",
+        "pacingNote": "빠른 전환으로 단어의 의미 변화를 직관적으로 보여줌"
+      },
+      {
+        "step": "2. 두 번째 단어 조합 제시",
+        "timeRange": "확인 불가",
+        "summary": "back과 fire를 조합한 backfire 단어를 소리내고 당황하는 반응을 보임",
+        "pacingNote": "반복되는 패턴으로 시청자의 예상 유도"
+      },
+      {
+        "step": "3. 세 번째 단어 조합 및 마무리",
+        "timeRange": "확인 불가",
+        "summary": "mouth와 wash를 조합한 mouthwash를 거쳐 spring과 관련된 단어 조합을 보여주며 끝남",
+        "pacingNote": "짧고 간결하게 이어지는 예시로 몰입 유지"
+      }
+    ],
+    "coreMetaphors": [
+      {
+        "concept": "단어의 직역 및 조합",
+        "metaphorUsed": "단어를 그대로 쪼개서 물리적인 사물로 연결하는 방식 (예: car + pet = carpet)",
+        "evaluation": "영어 단어의 철자 속에 숨어 있는 엉뚱한 조합을 시각적으로 강하게 인식시킴"
+      }
+    ],
+    "blindSpots": [
+      "단어가 어떻게 소리 내어 읽히는지 발음 기호나 입모양에 대한 상세한 설명이 부족함",
+      "단순히 단어 나열식으로 진행되어 한국인 학습자가 실생활에서 어떻게 활용해야 할지 적용점이 명확하지 않음"
+    ],
+    "ourAdaptedScript": {
+      "recommendedTitle": "영어 단어를 진짜 뜻대로 직역해봤더니 생기는 일",
+      "openingHook": "여러분, 자동차(Car)랑 애완동물(Pet)을 합치면 뭐가 될까요?",
+      "corePrincipleExplanation": "익숙한 영어 단어 속에 숨어 있는 진짜 단어 조각들을 찾아내어 왜 이런 소리와 뜻이 만들어졌는지 쉽게 이해시키는 과정입니다.",
+      "longformStructure": {
+        "step1_Hook": "일상에서 자주 쓰는 단어의 숨겨진 철자 조합을 보여주며 호기심 유발",
+        "step2_CardDisplay": "Car + Pet = Carpet",
+        "step3_Principle": "단어가 합쳐지면서 소리가 어떻게 이어지는지 천천히 쪼개서 설명",
+        "step4_RepetitionDrill": "입으로 소리 내어 따라 읽기 3번 반복",
+        "step5_Outro": "다음 편에서 더 신기한 단어 조합 확인하기 유도"
+      },
+      "shortsTrackA": {
+        "concept": "Track A 원리형 (30초)",
+        "scriptText": "영어 단어 카펫(Carpet)을 자세히 보면 Car와 Pet이 들어있어요! 자동차와 펫이 만난 카펫, 소리 내어 같이 읽어볼까요? Carpet!"
+      },
+      "shortsTrackB": {
+        "concept": "Track B 실전 대화/상황극형 (30초)",
+        "scriptText": "입에 거품 물고 마우스 워시(Mouthwash) 쓰시나요? 단어를 쪼개서 들으면 절대 안 까먹습니다. 입을 씻는 물, Mouthwash!"
+      }
+    }
+  }
+}

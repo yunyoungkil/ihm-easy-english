@@ -1,0 +1,729 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-13T16:02:14.762Z",
+  "video": {
+    "videoId": "AAjB95YXQxc",
+    "title": "본토 영어 발음, 랩으로 연습하면 됩니다",
+    "channelTitle": "이빨파티",
+    "channelId": "UCPAoqP-uh-toBBezBnDu5yQ",
+    "publishedAt": "2026-08-21T09:41:55Z",
+    "viewCount": 249634,
+    "likeCount": 8381,
+    "commentCount": 142,
+    "thumbnailUrl": "https://i.ytimg.com/vi/AAjB95YXQxc/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "issue": "asked, rural처럼 특정 자음 연결 소리에서 혀와 입근육이 얼어붙는 현상",
+        "evidence": "💬 '저는 제일 어려운 발음이 asked예요.. ask까지는 쉬운데 ㅋ에서 ㅇㄷ로 넘어가는게 넘 어렵네요', 💬 'Rural 발음이 ㅈㄴ안댐ㅜ'"
+      },
+      {
+        "issue": "단어나 발음을 알아도 막상 말하려 할 때 발생하는 뇌 속 정체(로딩) 현상",
+        "evidence": "💬 '발음은 잘 되는데 회화 실력은 어케 늘리나요….ㅠ 영어로 말할려고만 하면 뇌에서 로딩시간이 넘 오래 걸려요ㅠㅠㅠ'"
+      },
+      {
+        "issue": "한국어식 입 앞쪽 발성에 익숙해 영어 특유의 목 뒤 울림과 속도를 따라가지 못함",
+        "evidence": "💬 '영어는 발음 할 때 목과 입 뒤쪽에 힘주고 한국어는 입 앞쪽에 힘준다고 들었는데 그래서 랩이나 노래로 목에 힘주고 연습하면 그 영어가 입에 빠르게 붙는거같움'"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "asked([s]-[k]-[t])나 rural([r]-[l])처럼 혀가 연달아 꼬이는 단어는 혀 위치를 어떻게 이동시켜야 씹히지 않고 이어지나요?",
+        "context": "단일 자음은 발음하지만 복합 자음 전환 시 멈칫거리는 현상에 대한 원리 질문"
+      },
+      {
+        "question": "한국어(입 앞쪽 소리)와 영어(목/입 뒤쪽 소리)의 발성 위치 차이를 혼자서 체감하고 교정하는 방법은 무엇인가요?",
+        "context": "소리의 울림점과 근육 힘점을 바꾸는 직관적 훈련법에 대한 의문"
+      },
+      {
+        "question": "빠른 영어 소리를 따라 할 때, 입근육을 적응시키기 위한 단계별 배속(느린 소리->보통 소리) 연습 루틴은 어떻게 짜야 하나요?",
+        "context": "💬 '쉐도잉 영상 따로 있으면 좋겠어요 ㅠ 따라할 수 있게 배속 늦은 버전 일반 버전 이렇게 ㅠ'에 기반한 연습법 요청"
+      }
+    ],
+    "audienceVocabulary": [
+      "뇌에서 로딩시간",
+      "입 뒤쪽에 힘주기",
+      "입 앞쪽에 힘주기",
+      "손 쓰기(리듬 타기)",
+      "혀에 신들리다",
+      "배속 늦은 버전"
+    ],
+    "whatWorked": [
+      {
+        "point": "손동작과 리듬을 활용해 영어의 박자와 억양을 몸으로 체득하게 만든 설명",
+        "evidence": "💬 '진짜 손을 저렇게하면 영어가 잘됨 ㅋㅋㅋㅋ 랩퍼들이 왜그렇게 손을 쓰는지 조금은 알것같음', 💬 '음이랑 리듬이 있으니까 따라하기 더 좋아요.'"
+      },
+      {
+        "point": "한국어와 영어의 소리 나는 위치(입 앞쪽 vs 목/입 뒤쪽) 차이를 명확히 짚어준 발성적 접근",
+        "evidence": "💬 '영어는 발음 할 때 목과 입 뒤쪽에 힘주고 한국어는 입 앞쪽에 힘준다고 들었는데 그래서 랩이나 노래로 목에 힘주고 연습하면 그 영어가 입에 빠르게 붙는거같움'"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "asked, rural만 나오면 혀 꼬이는 4060을 위한 혀 위치 교정 1분 팁",
+        "영어로 말할 때 머뭇거리는 '뇌 로딩' 3초 줄이는 소리 울림통 비밀",
+        "한국어는 입 앞쪽, 영어는 목 뒤쪽? 혼자서 영어 발성 뚫는 3단계 연습"
+      ],
+      "hookThreeSeconds": "혹시 asked 발음할 때 '아스크-드'라고 3박자로 읽다가 혀 꼬이시나요? 오늘 1분 만에 부드럽게 바꿔드립니다.",
+      "shortsTrackAIdea": {
+        "concept": "asked, rural 등 30~60대가 가장 어려워하는 자음 연속 발성 시, 혀를 억지로 움직이지 않고 목 뒤 소리로 자연스럽게 연결하는 원리 설명",
+        "hookLine": "asked를 '아스크-드'라고 끊어 읽으시면 평생 입에 안 붙습니다. 혀를 멈추는 범인은 바로 이 소리입니다."
+      },
+      "shortsTrackBIdea": {
+        "concept": "알고 있는 단어인데도 말을 하려면 머릿속에서 로딩이 걸리는 50대 시청자의 상황을 보여주고, 소리 울림점을 목 안쪽으로 옮겨 바로 입을 떼게 만드는 극복 상황극",
+        "hookLine": "아는 단어인데 막상 말하려니 머릿속에서 로딩 중이신가요? 입 앞쪽 힘부터 풀으셔야 합니다."
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgzpFCD7x_SpsKAEk6h4AaABAg",
+      "text": "래퍼도 아니고 래퍼 할 것도 아닌데 홀린 듯이 클릭",
+      "author": "@MaPoong-gang",
+      "likeCount": 1431,
+      "publishedAt": "2026-08-21T20:17:18Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw48PiIp4ygw4pQmVF4AaABAg",
+      "text": "랩하면 확실히 발음 억양 진짜 외국인같이 변합니다. 저도 고3인데 중1때부터 랩에 흥미생겨서 시간 날때마다 막 몇시간씩 햇는데 중3때 까지, 친구들이 발음 좋다고 하고 영어 선생님도 어디서 공부햇니?라고 질문하실정도로 좋아졋습니다 물론 어렸을때부터 팝송이랑 디즈니 영화 영어로 보고 노래 따라부르고 해서 원래 나쁜건 아니엇지만 그래도 진짜 지금 겁나 좋아졋어요 진짜 막 새벽까지 밤에 잠안자고 햇엇는데 진짜 좋아졋어요",
+      "author": "@빵상-s2h",
+      "likeCount": 1515,
+      "publishedAt": "2026-08-24T11:25:53Z",
+      "replyCount": 10
+    },
+    {
+      "commentId": "UgyKVEo7VFRnIidGKN14AaABAg",
+      "text": "본인 현역수능 영어 60점\nㅈ반고 3등급\nbut 팝송 맨날 따라불렀더니 영어 시간에 영어쌤: 유학갓다왓니? (아시아를 벗어난 적 없음)",
+      "author": "@xodid쳇테양",
+      "likeCount": 597,
+      "publishedAt": "2026-08-28T08:17:04Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgwF7Okk3gYZij8Utel4AaABAg",
+      "text": "3:44 아 ㅇㅕ기 총 맞은 것 같아서 젤 좋음ㅋㅋㅋㅋㅋㅋ",
+      "author": "@콩국수-x2w6k",
+      "likeCount": 144,
+      "publishedAt": "2026-08-25T06:06:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz2vAaNmx7kIroqnFB4AaABAg",
+      "text": "1:56 이 정적이 넘웃김ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@기문학",
+      "likeCount": 41,
+      "publishedAt": "2026-09-05T08:59:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyqDvJLs9lpqEpenmN4AaABAg",
+      "text": "If Peter Piper picked a peck of pickled peppers, where's the peck of pickled peppers Peter Piper picked?\r\n\r\nBetty Botter bought some butter but she said the butter bitter. \r\nIf I put it in my batter it will make my batter bitter. \r\nBut a bit of better butter will make my batter better\r\n\r\nShe sells seashells by the seashore.\r\nThe shells she sells are surely sea shells\r\n\r\nthrough three cheese trees three free fleas flew\r\n\r\nwhile these fleas flew freezy breeze blew\r\n\r\nfreezy breeze made these three trees freeze\r\n\r\nred leather yellow leather truly rural thoroughly rural\r\n\r\nselfish shellfish cellophane\r\n\r\nSix Sticky skeletons\r\n\r\nthe blue blue bird blinks\r\n\r\nred bulb blue bulb\r\n\r\nquick kiss quicker kiss quickest kiss\n\nhow much wood could a woodchuck chuck if a woodchuck could chuck wood\n\n댓글 복붙 ㅈㅅ 연습용임니다",
+      "author": "@pimania9061",
+      "likeCount": 136,
+      "publishedAt": "2026-09-04T12:19:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_ecbe9NtBr6m7Ir14AaABAg",
+      "text": "언니 완전 미국 애니메이션 캬릭터 같이 생겼으요(귀여운)",
+      "author": "@Kxixk373",
+      "likeCount": 445,
+      "publishedAt": "2026-08-21T10:07:32Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzK0xJdRj0ds3IORnF4AaABAg",
+      "text": "요즘 영어 회화 공부중인데 진짜 손을 저렇게하면 영어가 잘됨 ㅋㅋㅋㅋ 랩퍼들이 왜그렇게 손을 쓰는지 조금은 알것같음😂",
+      "author": "@minj8572",
+      "likeCount": 123,
+      "publishedAt": "2026-08-25T14:04:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwkw3ybYe3voOgzWxl4AaABAg",
+      "text": "0:12 아니 너무 좋아서 노래를 그냥 내주셨으면 좋겠음",
+      "author": "@수경-w3c",
+      "likeCount": 79,
+      "publishedAt": "2026-09-07T11:26:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwRofMNaz4zM_lpHRZ4AaABAg",
+      "text": "일어도 비슷한데...표현하고자 하는 문장을 글로써서 외우고 입으로 말합니다. 외운후 최대 5초안에 말할수 있도록 빠르게 말을합니다. 성조가 중국어나 영어처럼 없기에 일본어는 걍 빠르게 말하는것만 연습해도... 진짜 충분합니다. 그 대비 효과는 어마어마 하죠...ㅎㅎㅎ 일본어 회화팁~! 문장을 외우고 말하되 3~5초 시간재고 빠르게 말하는걸 연습한다~!!!!",
+      "author": "@kkkktv6219",
+      "likeCount": 57,
+      "publishedAt": "2026-09-01T01:35:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgznIFcMET7pVl3m8LV4AaABAg",
+      "text": "6:19 여기부터 존나 멋있어 나도 할거야❤",
+      "author": "@yeahwhatRyouseeing",
+      "likeCount": 133,
+      "publishedAt": "2026-08-24T11:40:15Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxCsmQaxbpphixAbV94AaABAg",
+      "text": "영어는 발음 할 때 목과 입 뒤쪽에 힘주고 한국어는 입 앞쪽에 힘준다고 들었는데 그래서 랩이나 노래로 목에 힘주고 연습하면 그 영어가 입에 빠르게 붙는거같움",
+      "author": "@NANA_IS_DOG",
+      "likeCount": 35,
+      "publishedAt": "2026-09-02T14:42:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyK3hsyTdC84qN4tgx4AaABAg",
+      "text": "언니 제발 how to socialize and not be socially awkward 강의 좀 해줘 진짜 간절해",
+      "author": "@annyeonghaseyooppa",
+      "likeCount": 48,
+      "publishedAt": "2026-08-26T03:47:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwGiJijKH72RLXy1dJ4AaABAg",
+      "text": "저거 진짜 됨 텅 트위스터 맨날 했었는데 콩글리쉬 발음 많이 없어짐",
+      "author": "@bamjuu-y8j",
+      "likeCount": 22,
+      "publishedAt": "2026-09-04T11:11:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzKW0rs_XnYglE2bct4AaABAg",
+      "text": "If Peter Piper picked a peck of pickled peppers, where's the peck of pickled peppers Peter Piper picked?\n\nBetty Botter bought some butter but she said the butter bitter. \nIf I put it in my batter it will make my batter bitter. \nBut a bit of better butter will make my batter better\n\nShe sells seashells by the seashore.\nThe shells she sells are surely sea shells\n\nthrough three cheese trees three free fleas flew\n\nwhile these fleas flew freezy breeze blew\n\nfreezy breeze made these three trees freeze\n\nred leather yellow leather truly rural thoroughly rural\n\nselfish shellfish cellophane\n\nSix Sticky skeletons\n\nthe blue blue bird blinks\n\nred bulb blue bulb\n\nquick kiss quicker kiss quickest kiss\n맨날 아침 저녁으로 연습중이에여 진짜 성공하면 기분 째져요ㅜㅜ ❤",
+      "author": "@Rebecca-uv5do",
+      "likeCount": 310,
+      "publishedAt": "2026-08-24T11:15:35Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgxFq8KMSwscvhaHMAF4AaABAg",
+      "text": "목소리가 너무 내스타일임 알고리즘 칭찬해 뭔가 힙하고 친근하고 이튼 좋음.",
+      "author": "@Aubree0902",
+      "likeCount": 27,
+      "publishedAt": "2026-08-25T08:15:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxiwPLmRTHvts7rQcZ4AaABAg",
+      "text": "2:16 아 여기 되게 그 만화같이 움직인다 아 뭐지 뭐더라ㅠ ㅋㅋㅋㅋ… 아 뭐지… 아 지미 뉴트론? ㅋㅋㅋㅋㅋㅋ",
+      "author": "@nyang38i",
+      "likeCount": 4,
+      "publishedAt": "2026-10-18T17:08:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwnwBXmJwlihwE1Pr14AaABAg",
+      "text": "1:52 🩵💨",
+      "author": "@cnwio",
+      "likeCount": 57,
+      "publishedAt": "2026-08-22T12:24:15Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugxrbd8itna9E-FXc2t4AaABAg",
+      "text": "와 진짜 쉐도잉 영상 따로 있으면 좋겠어요 ㅠ 따라할 수 있게 배속 늦은 버전 일반 버전 이렇게 ㅠ",
+      "author": "@토갱-k8i",
+      "likeCount": 12,
+      "publishedAt": "2026-08-26T16:52:10Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwG1nd71EaHLMIgMUt4AaABAg",
+      "text": "5:14 연습시작",
+      "author": "@으엥-sss",
+      "likeCount": 12,
+      "publishedAt": "2026-09-03T10:45:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxrGTUQH3_zsv47Wnx4AaABAg",
+      "text": "아니 인트로 왤케 챨져요",
+      "author": "@bisebxksls",
+      "likeCount": 14,
+      "publishedAt": "2026-08-24T15:11:36Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxId64F-8q3OyDLywB4AaABAg",
+      "text": "간만에 너무 매력적인 여성 발견.. 매 영상 보는 내내 잇몸이 마를 틈이 없음 ㅋㅋ 지금이 저점매수 시기~ 제 알고리즘에 떠주셔서 감사합니다 오늘부터 영상 정주행 해야지ㅎ",
+      "author": "@hi2tsme",
+      "likeCount": 21,
+      "publishedAt": "2026-08-26T15:05:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyz1fpF-YrfWKNvrwd4AaABAg",
+      "text": "Connor Price & Haviah Mighty - Trendsetter\n옛날에 좋아했던 노래였는데 알고보니 여기에도 tongue twisters가 있네요.\n음이랑 리듬이 있으니까 따라하기 더 좋아요.\n\n\"Batter better bring a better bat because I'm bigger, better\r\nSolo singles selling several shows out every single second\r\nPeter Piper picked a peck of pickled peppers\"",
+      "author": "@yujineeeee",
+      "likeCount": 2,
+      "publishedAt": "2026-10-19T16:19:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyq4e51heRdN23_oVN4AaABAg",
+      "text": "나도 랩 ㅈㄴ좋아해서 외힙 하루종일들으니깐 나도모르게 릴스보다가 영어가 들림  리스닝도 젛은듯",
+      "author": "@퀵슈",
+      "likeCount": 0,
+      "publishedAt": "2026-10-31T08:30:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxEy2ha4mJodokUxnZ4AaABAg",
+      "text": "미국 기다려라 내가 가서 다 뿌신다",
+      "author": "@shane.n12",
+      "likeCount": 6,
+      "publishedAt": "2026-09-03T04:12:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgweoLNtgVXdJudprSx4AaABAg",
+      "text": "1:51 아 ㅈㄴ웃겨요언니ㅠㅠ 알고리즘에 그 미친 홈스테이아빠 떠서 보다가 마지막에 셧더퍽리브유얼라잎 보고 감동벅찬 상태로 이 영상 들어왔는데 진짜너무웃기무 2배속으로 보면 더 쩔어요 혀에신들린거같음",
+      "author": "@mirummiu",
+      "likeCount": 14,
+      "publishedAt": "2026-08-23T09:00:50Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzBRxtH709NBOy210x4AaABAg",
+      "text": "롸언니 저진짜 요즘 고민이엇는데 감사해요ㅠㅠㅠㅠㅠ",
+      "author": "@1oiswd",
+      "likeCount": 8,
+      "publishedAt": "2026-08-22T14:39:16Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgypHJBiPus0n4HIOhh4AaABAg",
+      "text": "언니 저는 비록 최근에 언니를 알게 되었지만, 영상들마다 언니 웃음이 참 예쁘심에 놀라고 갑니다. \n부디 언니에게 웃는 일 많이 생기길 바라요..! 행복해주세요❤",
+      "author": "@신소현-j3i",
+      "likeCount": 0,
+      "publishedAt": "2026-09-02T06:56:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxnte4IcQFEqS-9hbF4AaABAg",
+      "text": "와..요즘 언니 영상 주기 미쳤네...나 울어도 되는 거지?😭💞",
+      "author": "@0nera1n1b",
+      "likeCount": 0,
+      "publishedAt": "2026-08-21T12:53:41Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxJlLR836fq5D7RRJB4AaABAg",
+      "text": "와웅.. 혹시 이거 뒤에 부분만 쉐도잉가능하게 일반버전이랑 천천히하는버전 올려주시면안될까용?",
+      "author": "@slit-888",
+      "likeCount": 19,
+      "publishedAt": "2026-08-26T13:43:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwY-9N5KsvhI_p-B8F4AaABAg",
+      "text": "뭐지?? 매력있네요😳 일단 구독ㅎㅎ",
+      "author": "@wcatdogs",
+      "likeCount": 0,
+      "publishedAt": "2026-10-28T14:48:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgybfxLxrz6HSV_FLAB4AaABAg",
+      "text": "언니 영상 더더더더더덛 마니 올려주새여 영상주기 야르~",
+      "author": "@Lun-e9r",
+      "likeCount": 6,
+      "publishedAt": "2026-08-21T11:14:37Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzP5AyOModW6ELuLiF4AaABAg",
+      "text": "영상 주기 개좋아여❤",
+      "author": "@seo10803",
+      "likeCount": 5,
+      "publishedAt": "2026-08-21T14:02:27Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwthECU6RhNdkun4uV4AaABAg",
+      "text": "저는 제일 어려운 발음이 asked예요.. ask까지는 쉬운데 ㅋ에서 ㅇㄷ로 넘어가는게 넘 어렵네요\n랩하는거 도전해볼게요!",
+      "author": "@귤귤-e2t",
+      "likeCount": 4,
+      "publishedAt": "2026-08-27T15:33:47Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz0XbM8QUxUH1ebPxh4AaABAg",
+      "text": "매력 있네 ㅋ",
+      "author": "@KINGMOUNTAIN하슬라짱",
+      "likeCount": 6,
+      "publishedAt": "2026-08-21T14:59:45Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyScQZs0nX3kAU9FOh4AaABAg",
+      "text": "악!!!!!!악!!!!!!!!!악!!!!!꺄오옭!!!!🦅🦅🦅🦅🦅🦅🦅🦅🦅🦅🦅지금너무벅참",
+      "author": "@chloè_ux",
+      "likeCount": 17,
+      "publishedAt": "2026-08-22T03:43:05Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw2dJnRuawCBqEsPr14AaABAg",
+      "text": "본토 영어 발음, 랩으로 연습하면 됩니다",
+      "author": "@place01",
+      "likeCount": 0,
+      "publishedAt": "2026-08-28T09:53:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw8PpOJTiVNG6pntYV4AaABAg",
+      "text": "집에서 혼자해봐야지",
+      "author": "@뇸뇸뇸옴",
+      "likeCount": 3,
+      "publishedAt": "2026-08-24T14:22:08Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugx_Pmh3WNuAg_7R0al4AaABAg",
+      "text": "Very good 👍",
+      "author": "@RealNoyo",
+      "likeCount": 4,
+      "publishedAt": "2026-08-24T15:51:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugx4XAqhhmSAkaPIR0d4AaABAg",
+      "text": "이게 누구야~!!!!이빨파티 아니야!!!!!ㅠ❤",
+      "author": "@hellowakojjungmin",
+      "likeCount": 2,
+      "publishedAt": "2026-08-21T13:09:45Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugwmasl1t89l67abK9F4AaABAg",
+      "text": "에미넴 좋아하는데 다 외워야겠다",
+      "author": "@bbmd82",
+      "likeCount": 0,
+      "publishedAt": "2026-08-24T17:53:51Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwmID9JOPIp2hnttzZ4AaABAg",
+      "text": "멍때리면서 봤습니닼ㅋㅋ",
+      "author": "@GrayBeatDDAe",
+      "likeCount": 0,
+      "publishedAt": "2026-08-28T08:53:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwbPDYGTb4rCYG-6s14AaABAg",
+      "text": "If Peter Piper picked a peck of pickled peppers, where's the peck of pickled peppers Peter Piper picked?\r\n\r\nBetty Botter bought some butter but she said the butter bitter. \r\nIf I put it in my batter it will make my batter bitter. \r\nBut a bit of better butter will make my batter better\r\n\r\nShe sells seashells by the seashore.\r\nThe shells she sells are surely sea shells\r\n\r\nthrough three cheese trees three free fleas flew\r\n\r\nwhile these fleas flew freezy breeze blew\r\n\r\nfreezy breeze made these three trees freeze\r\n\r\nred leather yellow leather truly rural thoroughly rural\r\n\r\nselfish shellfish cellophane\r\n\r\nSix Sticky skeletons\r\n\r\nthe blue blue bird blinks\r\n\r\nred bulb blue bulb\r\n\r\nquick kiss quicker kiss quickest kiss\r\n\r\nhow much wood could a woodchuck chuck if a woodchuck could chuck wood",
+      "author": "@piece-i6b1s",
+      "likeCount": 0,
+      "publishedAt": "2026-10-31T03:55:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzwtxRcEwq-xa1NVsJ4AaABAg",
+      "text": "언니 후드티 정보 주세요,,",
+      "author": "@beachyyvibezx2110",
+      "likeCount": 0,
+      "publishedAt": "2026-11-01T13:25:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzmDA9FeFr6j9pui4V4AaABAg",
+      "text": "재밌고 효과도 좋아요 짱❤❤",
+      "author": "@Jiwonzery",
+      "likeCount": 0,
+      "publishedAt": "2026-08-25T05:00:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxgDd5xe6K-Y-J59rp4AaABAg",
+      "text": "또 추천해주실 랩이있을까요..? 영어잘하고싶어요 ㅠㅠ",
+      "author": "@Luna_Alyssum",
+      "likeCount": 0,
+      "publishedAt": "2026-08-28T15:34:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwSe50-880Z4XMglfp4AaABAg",
+      "text": "언니 발음은 잘 되는데 회화 실력은 어케 늘리나요….ㅠ 영어로 말할려고만 하면 뇌에서 로딩시간이 넘 오래 걸려요ㅠㅠㅠ",
+      "author": "@이상혁-o6t7e",
+      "likeCount": 49,
+      "publishedAt": "2026-08-23T12:57:43Z",
+      "replyCount": 6
+    },
+    {
+      "commentId": "UgwajHgJhMHR5MbY3ot4AaABAg",
+      "text": "ㅈㅂ 립 정보 알려주세요 너무 예쁨",
+      "author": "@user-bg3bg9xl6c",
+      "likeCount": 0,
+      "publishedAt": "2026-09-30T06:53:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyTGbr4WbAgwva1pF94AaABAg",
+      "text": "혹시 영상에서 착용하신 선글라스 정보 알 수 있을까요?? 😎",
+      "author": "@user-yk3sh4bh5p",
+      "likeCount": 2,
+      "publishedAt": "2026-08-27T10:46:55Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzWPFkp_5vYurJedJJ4AaABAg",
+      "text": "무슨 노래로 연습하면 좋은지 추천해 주세요ㅜ😎",
+      "author": "@user-md7rg8pv4x",
+      "likeCount": 3,
+      "publishedAt": "2026-08-25T12:04:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyN09CsZW_TEVu5W1x4AaABAg",
+      "text": "1:50, 5:05",
+      "author": "@몰라-s3w",
+      "likeCount": 1,
+      "publishedAt": "2026-09-20T13:42:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwAKUw42m6K0GVtaL54AaABAg",
+      "text": "언니 립정보 알려조요 너무 골져스",
+      "author": "@motoisjomo",
+      "likeCount": 2,
+      "publishedAt": "2026-08-23T14:23:00Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyYzVRwQAttI1psOEh4AaABAg",
+      "text": "5:15",
+      "author": "@sincostangimbap",
+      "likeCount": 3,
+      "publishedAt": "2026-08-25T13:19:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzNshMYfApjNu4n-rR4AaABAg",
+      "text": "1:53 key point",
+      "author": "@Goldkiwi7",
+      "likeCount": 0,
+      "publishedAt": "2026-10-25T11:46:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwFeUud0V3n49Bd_Ih4AaABAg",
+      "text": "멋쟁이. 감사합니다.",
+      "author": "@geurin_e",
+      "likeCount": 0,
+      "publishedAt": "2026-09-19T07:53:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgypLV-_dzQdymjIold4AaABAg",
+      "text": "ㅎㅎ 개귀엽다",
+      "author": "@yedrigo",
+      "likeCount": 1,
+      "publishedAt": "2026-09-02T06:32:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1TE3Jg60IJAUTJi14AaABAg",
+      "text": "멋져요",
+      "author": "@hrrrrr-v1h",
+      "likeCount": 1,
+      "publishedAt": "2026-09-03T13:19:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwwxGA6zAZs53LyG_14AaABAg",
+      "text": "이빨선생님\n블랙핑크 shut down에 whip it 부분이 있는데용 이게... 암만 해도 잘 안 되더라구요오.... 쌰갈\n갑자기 생각났어요",
+      "author": "@thisisblankspace",
+      "likeCount": 3,
+      "publishedAt": "2026-08-24T16:52:20Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxtThGoIR86yhlcohh4AaABAg",
+      "text": "0:18 이부분 비트 정보 부탁드려도될까요? ㅜㅜ",
+      "author": "@bittersandwichjj",
+      "likeCount": 1,
+      "publishedAt": "2026-09-09T04:23:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzwiB-kB9Es00geGi14AaABAg",
+      "text": "클라우드랩 들어서 발음 영향 없음ㅋㅋㅋ",
+      "author": "@AAA-v3n1q",
+      "likeCount": 0,
+      "publishedAt": "2026-10-20T15:35:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugye9WZkluqlvngzwh94AaABAg",
+      "text": "엉니 책은 단어책 말하는건가용????",
+      "author": "@YJ-kz7rf",
+      "likeCount": 0,
+      "publishedAt": "2026-08-28T07:55:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz0kq0yus7S4o42jUd4AaABAg",
+      "text": "렌즈정보있을까욥",
+      "author": "@손예진-s6f",
+      "likeCount": 0,
+      "publishedAt": "2026-08-24T14:34:59Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxCTczNSsYpO7RVwRR4AaABAg",
+      "text": "요거 무슨 노래로 찾아야할까여!!! 아무리 찾아도 제목을 몰겟어요",
+      "author": "@정채티",
+      "likeCount": 0,
+      "publishedAt": "2026-08-27T15:58:02Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwuTGg3BijC21KA1uJ4AaABAg",
+      "text": "하 이거 해보신분? 락은 안되나요 급합니다 내공 100",
+      "author": "@커트코베인예토전생",
+      "likeCount": 0,
+      "publishedAt": "2026-09-28T03:13:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxemlfjyWZ63qX2SWJ4AaABAg",
+      "text": "영어회화도 발음도 한국어도 안되는데 봐도 되는걸까요…",
+      "author": "@라스트베이비",
+      "likeCount": 6,
+      "publishedAt": "2026-08-21T10:05:32Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugzwm4N86e6P9EvzWFV4AaABAg",
+      "text": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@미나미한국어실력",
+      "likeCount": 1,
+      "publishedAt": "2026-08-21T14:53:24Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy9FZZhX8uWVEHAcqV4AaABAg",
+      "text": "뿌ㅜㅜ욲",
+      "author": "@baboonya",
+      "likeCount": 1,
+      "publishedAt": "2026-08-27T06:28:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy8Pnfm2tBZCm_orZN4AaABAg",
+      "text": "후디 정보 알 수 있을까요🤍",
+      "author": "@aeaeaeo_e",
+      "likeCount": 1,
+      "publishedAt": "2026-08-24T20:27:17Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzXoihEccIlwOJyZ7h4AaABAg",
+      "text": "혹시 원어민들은 텅 트위스트 실제로 말해도 이해하나용...?",
+      "author": "@183xdo2z",
+      "likeCount": 1,
+      "publishedAt": "2026-08-27T16:24:05Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwSx-WbcbwKQJfxp1B4AaABAg",
+      "text": "레쯔기릿",
+      "author": "@라라-c9k",
+      "likeCount": 0,
+      "publishedAt": "2026-08-27T14:32:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyy826PmUuYPHN-RZx4AaABAg",
+      "text": "6:06",
+      "author": "@아이로스",
+      "likeCount": 0,
+      "publishedAt": "2026-09-26T17:25:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxVqOV8i2SmAnhGhc54AaABAg",
+      "text": "밥 먹으면서 보기 썩 좋은 영상은 아니넨요",
+      "author": "@ulland625",
+      "likeCount": 1,
+      "publishedAt": "2026-08-24T11:13:27Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxWTNahh4hURqap28p4AaABAg",
+      "text": "이빨파티 아니고 방구파티 아닌가요",
+      "author": "@rladmldnjs",
+      "likeCount": 7,
+      "publishedAt": "2026-08-24T23:16:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxYQvlVZXQBWzeAFI94AaABAg",
+      "text": "ah that asian-american accent",
+      "author": "@NoName-vd6df",
+      "likeCount": 0,
+      "publishedAt": "2026-08-27T07:36:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwQH_XcddiaurlKmm94AaABAg",
+      "text": "썸네일 승헌쓰인줄",
+      "author": "@sound_2237",
+      "likeCount": 0,
+      "publishedAt": "2026-08-28T08:36:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxFMW93qEJHBatRTgN4AaABAg",
+      "text": "속눈썹정보가궁금합니다 쏘 골저스",
+      "author": "@Why-ej8tz",
+      "likeCount": 0,
+      "publishedAt": "2026-08-23T11:00:08Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxLtEWhORlALcp96PJ4AaABAg",
+      "text": "아왠지모르겟는데존나스윙스같네 ㅅㅂㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@xcbifn-12",
+      "likeCount": 0,
+      "publishedAt": "2026-10-24T14:50:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxUgMJQspblW7URPX94AaABAg",
+      "text": "Rural 발음이 ㅈㄴ안댐ㅜ",
+      "author": "@gusdud6920",
+      "likeCount": 0,
+      "publishedAt": "2026-10-28T18:24:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwbXGOC2y2p-6qiyFl4AaABAg",
+      "text": "걍 어렸을 때 미국 살면 됨",
+      "author": "@정태희-l6w",
+      "likeCount": 2,
+      "publishedAt": "2026-10-22T14:35:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1fw_xF5v1NLRSNA14AaABAg",
+      "text": "5:14 연습시작\n7:55",
+      "author": "@leeoo03",
+      "likeCount": 0,
+      "publishedAt": "2026-09-11T03:02:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwCbowUPAX2LD_xxGt4AaABAg",
+      "text": "개부담스럽네",
+      "author": "@왜정지",
+      "likeCount": 0,
+      "publishedAt": "2026-08-28T12:17:20Z",
+      "replyCount": 3
+    }
+  ]
+}

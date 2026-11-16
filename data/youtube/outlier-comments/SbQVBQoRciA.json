@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-12T06:28:15.250Z",
+  "video": {
+    "videoId": "SbQVBQoRciA",
+    "title": "한국인이 자주 틀리는 영어 발음 5개",
+    "channelTitle": "조밥잉글리쉬 ",
+    "channelId": "UCV10iJPWgMrwnbyImNftcAA",
+    "publishedAt": "2026-11-10T11:00:02Z",
+    "viewCount": 46019,
+    "likeCount": 987,
+    "commentCount": 29,
+    "thumbnailUrl": "https://i.ytimg.com/vi/SbQVBQoRciA/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      "알파벳 모음을 정직하게 다 발음하다가 묘하게 '외국인 티'가 나고 원어민이 못 알아듣는 현상 (\"하나같이 익숙한 단어인데 묘하게 다르게 발음해서 외국인 티가 난다\")",
+      "혀를 둥글둥글 무작정 굴리는 '버터 발음'에만 신경 쓰다가 정작 중요한 '강세와 모음 탈락'을 놓쳐 소통에 실패함 (\"혀 굴림은 무용, 원어민은 강세로 알아먹는다\")",
+      "Film, Vulnerable처럼 자음이 연달아 나오거나 혀 위치 조절이 어려운 단어에서 혀가 꼬여 말을 잇지 못하는 좌절감"
+    ],
+    "audienceQuestions": [
+      "미국식 영어에서 중간 모음이 씹히는(생략되는) 현상이 영국식 영어에서도 동일하게 적용되나요?",
+      "Film(필름)이나 Vulnerable처럼 L과 M, L과 R 소리가 연속으로 붙어있을 때는 혀를 어디에 붙여야 발음이 되나요?",
+      "한국어에서 '안녕하십니까'가 '안녕하심까'로 줄어드는 것처럼, 영어 원어민들도 게을러서 소리를 뭉개는 구체적인 기준이 있나요?"
+    ],
+    "audienceVocabulary": [
+      "두번째 모음",
+      "혀 둥글둥글",
+      "외국인 티",
+      "강세 포인트",
+      "캠롸/히스트리",
+      "안녕하심까 축약"
+    ],
+    "whatWorked": [
+      "어려운 음성학 용어 대신 'Camera→캠롸', 'History→히스트리'처럼 중간 모음이 통째로 날아가는 원리를 직관적 체감 소리로 비교해 준 점",
+      "버터 발음(혀 굴리기)보다 '어디에 힘을 주고(강세) 어디 모음을 씹어 먹는지'가 원어민 귀를 뚫는 핵심임을 짚어준 논리",
+      "한국어의 일상적 소리 축약 현상('안녕하심까')을 예시로 들어 원어민의 '게으른 혀' 원리를 단번에 납득시킨 접근법"
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "버터 굴리지 마세요: 원어민이 Camera를 '카메라'라고 절대 안 읽는 3초 원리",
+        "가운데 모음 하나만 지워도 외국인 티 90% 벗어납니다 (히스토리 X -> 히스트리 O)",
+        "한국어 '안녕하심까'를 알면 원어민 영어 소리가 3배 쉽게 들리는 이유"
+      ],
+      "hookThreeSeconds": "영어 발음 잘해보겠다고 혀 열심히 굴리셨죠? 원어민은 혀를 굴리는 게 아니라, 가운데 모음 하나를 몽땅 지워버립니다.",
+      "shortsTrackAIdea": {
+        "concept": "원어민 혀의 게으름 극치: 3음절 단어를 2음절로 줄여버리는 중간 모음 탈락 원리",
+        "hook": "Camera를 '카-메-라' 3글자 다 읽으면 원어민이 못 알아듣는 이유, 딱 모음 하나만 지워보세요!"
+      },
+      "shortsTrackBIdea": {
+        "concept": "원어민과의 대화 상황극: 버터 발음 유세 떨다가 강세/모음 생략 안 해서 멍청해지는 모의 상황",
+        "hook": "'히스토리'라고 또박또박 말했더니 원어민 반응이 'Pardon?'인 이유!"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgyXkam1ui5PaT9ff3Z4AaABAg",
+      "text": "와... 좀 충격임...😲",
+      "author": "@초코바-z2f",
+      "likeCount": 30,
+      "publishedAt": "2026-11-10T11:48:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzZYhjhTaClpIXtIxl4AaABAg",
+      "text": "오 이거였어.",
+      "author": "@내일은해가뜬다-r1m",
+      "likeCount": 1,
+      "publishedAt": "2026-11-12T04:21:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzJTO_UehdhuZJNFwR4AaABAg",
+      "text": "오 완전 유익하다",
+      "author": "@Popo-b8q4k",
+      "likeCount": 22,
+      "publishedAt": "2026-11-10T17:32:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz5bcklg_MR-AEd36R4AaABAg",
+      "text": "헐.... 히스트리 충격인디.",
+      "author": "@강남서민",
+      "likeCount": 18,
+      "publishedAt": "2026-11-10T23:20:43Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwIP9wa9YQYRRj4QwN4AaABAg",
+      "text": "안녕하십니까 →안녕하심까",
+      "author": "@just7089",
+      "likeCount": 1,
+      "publishedAt": "2026-11-12T02:32:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz0Ne_9lC07gZo3aDp4AaABAg",
+      "text": "하나같이 익숙한데, 묘하게 다르게 발음하고 있었네요! 이래서 외국인티가 날수밖에 없나봐요..ㅎ",
+      "author": "@주라애",
+      "likeCount": 6,
+      "publishedAt": "2026-11-11T02:05:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgybXQj8gqNRHvP7KFh4AaABAg",
+      "text": "두번째모음...어디갓노 어디갓노",
+      "author": "@melon_chip",
+      "likeCount": 4,
+      "publishedAt": "2026-11-11T09:30:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxXqwRKEb1JoDWrzyF4AaABAg",
+      "text": "오~~~~~~ 유용",
+      "author": "@오르123",
+      "likeCount": 3,
+      "publishedAt": "2026-11-11T08:11:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyl5ZKpASUVfhq-9ul4AaABAg",
+      "text": "캠롸...ㄷㄷㄷ",
+      "author": "@justnikeonmyside",
+      "likeCount": 5,
+      "publishedAt": "2026-11-11T03:42:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwK_rQ03BDbPDl4c0d4AaABAg",
+      "text": "와 신기하다",
+      "author": "@감자도리-n2t",
+      "likeCount": 5,
+      "publishedAt": "2026-11-11T07:19:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwpKY2nf3nqEMnkeih4AaABAg",
+      "text": "둥글 둥글 혀 굴림은 무용. 잘하는 영어발음은 강세가 포인트. 원어민은 강세로 알아먹지.",
+      "author": "@무소의뿔-k5x",
+      "likeCount": 6,
+      "publishedAt": "2026-11-11T03:44:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzPoVnjPGetshKBFHd4AaABAg",
+      "text": "오 대박",
+      "author": "@LoE-qx6ge",
+      "likeCount": 3,
+      "publishedAt": "2026-11-11T08:55:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy82mSdn7qFCNkzOJl4AaABAg",
+      "text": "왜 이제 알려줘 대한민국아 ㅠ",
+      "author": "@반찬통-b2v",
+      "likeCount": 12,
+      "publishedAt": "2026-11-11T03:03:05Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "Ugyr1B6KQBAS9JVcHwF4AaABAg",
+      "text": "우와",
+      "author": "@이두나-f2f",
+      "likeCount": 7,
+      "publishedAt": "2026-11-10T23:15:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyxKJgaRDF4HHsW6cd4AaABAg",
+      "text": "제 기준 절대 발음 안되는 단어는 vulnerable.. 😂",
+      "author": "@judelistening",
+      "likeCount": 3,
+      "publishedAt": "2026-11-11T08:52:35Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy0sZuuiwwRq-AFFat4AaABAg",
+      "text": "오",
+      "author": "@kebob-y3t",
+      "likeCount": 3,
+      "publishedAt": "2026-11-11T08:26:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx5lXtQYKKPf7qROBp4AaABAg",
+      "text": "영국영어에서도 동일하게 적용되나요??",
+      "author": "@우여니-c3f",
+      "likeCount": 2,
+      "publishedAt": "2026-11-11T10:37:57Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz1-zzaPXSOyrCIK6h4AaABAg",
+      "text": "film 발음 너무 어려워요",
+      "author": "@heimish773",
+      "likeCount": 1,
+      "publishedAt": "2026-11-11T09:25:56Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgxCMMjdZyhpAA6vEgp4AaABAg",
+      "text": "그냥 영국식으로 해라",
+      "author": "@qwerty1234-k8h",
+      "likeCount": 0,
+      "publishedAt": "2026-11-12T05:52:17Z",
+      "replyCount": 0
+    }
+  ]
+}

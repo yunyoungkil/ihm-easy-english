@@ -1,0 +1,885 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-13T16:01:48.623Z",
+  "video": {
+    "videoId": "FFNfnU_nvHY",
+    "title": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
+    "channelTitle": "MagicEnglish 이근철의 마법영어",
+    "channelId": "UCoGnmCofKnEWH4IIjFEJMEw",
+    "publishedAt": "2021-01-04T03:00:01Z",
+    "viewCount": 411807,
+    "likeCount": 9513,
+    "commentCount": 230,
+    "thumbnailUrl": "https://i.ytimg.com/vi/FFNfnU_nvHY/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "point": "발음 규칙을 잘 알지 못해 겪던 오랜 혼동과 잘못된 발음",
+        "quote": "혼동을 많이 했었는데 유성음과 무성음을 잘 구분됩니다. 그동안 알고 있다고 생각했는데 샘의 섬세한 설명으로 잘 알게 되었습니다.",
+        "detail": "시청자들이 오랫동안 잘못 알고 있던 발음을 바로잡으며 큰 깨달음을 얻고 있음"
+      },
+      {
+        "point": "영어 읽기와 발음에서 오는 헷갈림과 답답함",
+        "quote": "읽기햇갈렸는데 선생님발음영상 많은도움되네요 감사합니다",
+        "detail": "글자로 보는 것과 소리 내어 읽는 것 사이의 괴리 때문에 헷갈려하던 부분들이 해소됨"
+      },
+      {
+        "point": "단어를 알면서도 막상 소리로 들을 때는 생소하게 느껴지는 현상",
+        "quote": "또 들어봐도 역시 생소한것 같습니다.",
+        "detail": "눈으로는 익숙한 단어라도 귀로 들리거나 발음 규칙을 적용할 때 여전히 낯설게 다가오는 답답함"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "C나 G 같은 자음 뒤에 특정 모음(a,o,u 또는 e,i,y)이 올 때 발음이 왜 완전히 달라지나요?",
+        "detail": "c+a/o/u는 [ㅋ], c+e/i/y는 [ㅆ]로 바뀌는 등 자음과 모음 결합에 따른 소리 변화 규칙에 대한 호기심"
+      },
+      {
+        "question": "유성음으로 끝날 때 왜 앞의 모음을 길게 발음해야 하나요?",
+        "detail": "job [좌압]처럼 성대가 울리는 소리로 끝날 때 앞 모음이 길어지는 원리에 대한 궁금증"
+      },
+      {
+        "question": "foot(짧게)과 food(푸우드 길게)처럼 스펠링이 비슷해도 소리의 길이가 왜 달라지나요?",
+        "detail": "뒤에 오는 받침(t와 d)에 따라 모음의 장단이 결정되는 이유에 대한 질문"
+      }
+    ],
+    "audienceVocabulary": [
+      "귀가 열리게",
+      "입이 열리게",
+      "기초공사 튼튼하게",
+      "발음 세탁",
+      "귀가 얼얼 하도록",
+      "요점 정리 노트",
+      "소리의 짝"
+    ],
+    "whatWorked": [
+      {
+        "point": "영어 소리가 '짝(유성음과 무성음)'을 이룬다는 구조적 설명",
+        "detail": "시청자들이 '성대가 울리는 소리와 울리지 않는 소리'로 짝을 지어 설명해 준 덕분에 발음 규칙이 머릿속에 깔끔하게 정리되었다고 극찬함"
+      },
+      {
+        "point": "단순 암기가 아닌 원리를 파고드는 섬세한 분석",
+        "detail": "무조건 따라 하라고 강요하는 것이 아니라 언어의 규칙과 이치를 짚어주어 70대 시청자도 쉽게 이해할 수 있었다고 평가함"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "영어 발음 엉망인 이유, 딱 3가지 소리 짝만 바꾸면 해결됩니다",
+        "매일 읽기만 했던 단어, 알고 보면 소리가 이렇게 달라집니다",
+        "원어민처럼 자연스럽게 소리 내는 1일 10분 발음 교정법"
+      ],
+      "hookThreeSeconds": "혹시 영어 단어 읽을 때마다 입안에서 혀가 꼬이고 헷갈리시나요? 오늘 딱 이거 하나만 아시면 소리가 확 트입니다.",
+      "shortsTrackAIdea": {
+        "concept": "C와 G 발음이 뒤에 오는 모음에 따라 1초 만에 바뀌는 비밀을 시청각 자료로 직관적으로 보여주는 숏폼",
+        "hook": "cat은 [캣]인데 city는 왜 [씨티]가 될까요? 딱 1초 만에 구별하는 법!"
+      },
+      "shortsTrackBIdea": {
+        "concept": "일상에서 흔히 헷갈리는 유성음과 무성음(예: foot과 food)의 소리 길이를 입모양과 함께 따라 해보며 바로 교정하는 상황극 숏폼",
+        "hook": "푸드라고 길게 하면 안 돼요! 방금 내뱉은 그 영어 발음, 원어민이 들으면 깜짝 놀라는 이유"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "Ugx3mwIMbC4BsQNjVfd4AaABAg",
+      "text": "발음규칙 16부터는 아이원발로 정리하세요~\r\nhttps://www.youtube.com/watch?v=4kObuLMtcXo&list=PLpzicmn_JfA6ZGS7TDNkDtz9v_PPKixfM",
+      "author": "@MagicEnglish",
+      "likeCount": 19,
+      "publishedAt": "2021-12-12T04:21:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzuZeMqp9gVChiM0fN4AaABAg",
+      "text": "대한민국 영어 교육의 대명사이신 이근철쌤   \n요새영어 강의찾아 공부중인데, 알수없는 알고리즘이 여기까지 인도해주었네요^^\n다른 영어쌤들보다도  깊이가있는게 화악  느껴집니다. class2  기다리겠습니다.감사합니다\n강의패션도 great!!",
+      "author": "@반짝반짝-g2r",
+      "likeCount": 17,
+      "publishedAt": "2021-01-07T07:47:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxwmr0NF5WmUdhh_tl4AaABAg",
+      "text": "지금에 이 영상을 봤습니다. 감사합니다. 오늘에야 발음 법칙 확실하게 이해했습니다.혼동을 많이 했었는데 유성음과 무성음을 잘 구분됩니다. 그동안 알고 있다고 생각했는데 샘의 섬세한 설명으로 잘 알게 되었습니다.",
+      "author": "@임인숙-z8f",
+      "likeCount": 12,
+      "publishedAt": "2021-08-06T06:51:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwa4-gx1zmfNGWmPBZ4AaABAg",
+      "text": "긴시간 강의 하시느라 감사합니다.\n정말 잘 모르고 있던 \n발음을 고칠 기회가 쌤\n덕분에 고치겠습니다.\n^^",
+      "author": "@大河内正子-s1j",
+      "likeCount": 25,
+      "publishedAt": "2021-01-06T08:07:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzfO8DLd138dekRNO54AaABAg",
+      "text": "영어공부하면 할수록 발음의 중요함을 실감합니다. \n좋은 영상 감사드려요~~\n너무너무 공부돼요.",
+      "author": "@uneni88",
+      "likeCount": 22,
+      "publishedAt": "2021-01-06T06:13:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx0gJDJXTYe3b6ioDF4AaABAg",
+      "text": "영어에서 중요한 발음~\n감사히 공부 했습니다.",
+      "author": "@hyebonyu6909",
+      "likeCount": 20,
+      "publishedAt": "2021-01-06T10:09:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugws2y9A9dEOg9qpRmd4AaABAg",
+      "text": "근철 선생님 👏👏👏\n한국에서부터 선생님의 열정과 성의가 \n이곳 제가 살고 있는 오스트리아 🇦🇹 \n알프스에서도 느껴집니다.\n새해에 복🧧많이 받으세요.\n독일어를 사용하다보니 엉망인 발음교정 👍 \n올 해도 열심히 공부할께요. 고마워요 💛",
+      "author": "@이순애-t1x",
+      "likeCount": 8,
+      "publishedAt": "2021-01-09T12:23:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw2Pe7RELf4apSrsvB4AaABAg",
+      "text": "70대가 근철쌤 덕에 영어발음 세탁해가요\n감사합니다 ~",
+      "author": "@리바흐",
+      "likeCount": 2,
+      "publishedAt": "2022-04-30T02:55:22Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwXlknZcjBoFUaB1Q94AaABAg",
+      "text": "69살 할머니인데요\n선생님 너무너무고맙습니다\n열심히 배우고있습니다.",
+      "author": "@미선한-t7w",
+      "likeCount": 2,
+      "publishedAt": "2022-03-01T06:23:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxzUvzJARs9n0DW1yV4AaABAg",
+      "text": "너무 헷갈렸는데..ㄱㅅ합니다",
+      "author": "@위너-r2j",
+      "likeCount": 11,
+      "publishedAt": "2021-01-04T08:05:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzOZbRYjANFPV1ZKmB4AaABAg",
+      "text": "이근철선생님~ 너무감사합니다.70이넘은나이에도이해가잘됩니다.",
+      "author": "@임윤정-k8w",
+      "likeCount": 3,
+      "publishedAt": "2021-08-30T16:04:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyUlS4ojju6vWCGjGh4AaABAg",
+      "text": "긴시간 동안  성의가 눈에 보여요  명품 선생님께 감사 드립니다  새해에는 큰행운이 가득하시길 기도드립니다.",
+      "author": "@강경순-p4f",
+      "likeCount": 38,
+      "publishedAt": "2021-01-04T04:00:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy2d5Ariu3Ky7RdJJd4AaABAg",
+      "text": "최고의 교습, 발음, 정확도가\n눈부십니다\n늘~잘 듣고 감사드려요",
+      "author": "@이인자-v8j",
+      "likeCount": 1,
+      "publishedAt": "2023-11-07T02:20:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxSEF9_NY6HuBYDn654AaABAg",
+      "text": "언제나  잘 배우고 있습니다 ㆍ\n감사합니다 ~~",
+      "author": "@향상향",
+      "likeCount": 8,
+      "publishedAt": "2021-01-05T06:25:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwrfJ2moSE2xqJWC194AaABAg",
+      "text": "새해 첫 월요일~ 근철쌤의 영어와 함께 시작합니다!! 쌤 감사합니다. 다른 분들도 같이 화이팅!!",
+      "author": "@himeyuki447",
+      "likeCount": 18,
+      "publishedAt": "2021-01-04T03:10:36Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw0gPAK6iFNhCNbpwd4AaABAg",
+      "text": "' Practice makes perfect  '\nI've been busy as a bee this afternoon, so I 've had little time to listen to your lecture. \nI'm free now. \n정확한 발음으로 귀가 열리게 입이 열리게 항상 노력해 주시는  근철샘께 무한 감사드립니다. \n익숙해지기 위해 많은 연습을 해야될 것 같아요\nYour class is always the best for me.\nGood night ~\nSee you tomorrow morning.",
+      "author": "@양영심-o2c",
+      "likeCount": 25,
+      "publishedAt": "2021-01-04T12:03:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzFpF_HHUcOEnuse6B4AaABAg",
+      "text": "Good afternoon~^^★\n아침을 바쁘게 보내며 오전 수업을 skip 했었는데 점심시간인 지금 수업을 들으며 재 충전을 할 수 있어 감사했답니다.\n집안 일을 하느라 수업 중간에 좀 피곤하기도 했지만 힘을 내서 끝까지 다 듣고 나니 뿌듯함이 생깁니다~^^!!!\nMembership 강좌도 같이 병행해서 발음은 싹 잡아가도록 계획을 세워봅니다~ㅎ\n오늘도 수고 많으셨구요, 점심 맛나게 드세요.\nEnjoy your meal and Have a happy & great day~^^♥♥♥",
+      "author": "@장은희-s4l4o",
+      "likeCount": 10,
+      "publishedAt": "2021-01-04T04:21:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwSt2tGMjgkQssJHht4AaABAg",
+      "text": "자상하고세심한울샘\n발음에마니도움되고있답니다\n늘고마움입니다",
+      "author": "@황경희-y5s",
+      "likeCount": 0,
+      "publishedAt": "2023-03-11T02:04:02Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzCUdLllpz4uO9x8EJ4AaABAg",
+      "text": "근철샘 새해복많이  유익한 발음규칙,🙏",
+      "author": "@푸푸-u7d",
+      "likeCount": 19,
+      "publishedAt": "2021-01-04T05:02:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwwl41gIaLwakZ7ph54AaABAg",
+      "text": "진짜  영어를 잘 가르쳐 주셔서  매우 감사합니다 。👍👍👍👍👍👍👍👍👍😁",
+      "author": "@zhengyuanli8810",
+      "likeCount": 4,
+      "publishedAt": "2021-01-09T03:50:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgypuawSQuhoyL2M2DN4AaABAg",
+      "text": "읽는데 많은 도움 되었습니다. 감사합니다~",
+      "author": "@인어공주-c2b",
+      "likeCount": 6,
+      "publishedAt": "2021-01-06T03:19:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy1KGOffbAIn7CoQNF4AaABAg",
+      "text": "감사합니다. 최고입니다",
+      "author": "@미소-m7w",
+      "likeCount": 0,
+      "publishedAt": "2023-07-04T17:34:12Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxxkigpSHSdfP0swXx4AaABAg",
+      "text": "또 들어봐도 역시 생소한것 같습니다. 감사합니다.\n새해에도 늘 건강하세요.",
+      "author": "@bjo-ch",
+      "likeCount": 1,
+      "publishedAt": "2023-01-05T04:37:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxcrQ_K83yEJU0DrAx4AaABAg",
+      "text": "선생님~~안녕하세요. 아이들 영어 가르치고 있는데 주로 파닉스요. 부족한게 많은데 이번 강의 아주 도움이 많이되었어요.  다음 강의도 기대되네요.^^",
+      "author": "@minimallife0817",
+      "likeCount": 4,
+      "publishedAt": "2021-01-10T07:47:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy5YsKg0hDUNVH5g3l4AaABAg",
+      "text": "기초공사 튼튼하게 하는  유익한 강의  감사드립니다 건강하시길 기원합니다",
+      "author": "@손순임-f7l",
+      "likeCount": 16,
+      "publishedAt": "2021-01-04T03:59:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzq5rMkQJP2wOYzz014AaABAg",
+      "text": "너무 유익하고좋아요~",
+      "author": "@요구르트-l5p",
+      "likeCount": 5,
+      "publishedAt": "2021-01-06T05:53:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxyq7uo1_hgi-lUAsh4AaABAg",
+      "text": "선생님 존썜이랑 함께했던 그떄가그립습니다~",
+      "author": "@youngryu7450",
+      "likeCount": 2,
+      "publishedAt": "2022-01-17T01:47:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_lq-hlY3BnbLnwVJ4AaABAg",
+      "text": "우연히 찾은 이 영상,\n어이쿠, 맘 편히 들을랬더니 요점 정리 노트 하나 만들어야 겠네요.",
+      "author": "@gyungheekim",
+      "likeCount": 3,
+      "publishedAt": "2021-01-12T14:08:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzL926hrezkN0cyMDB4AaABAg",
+      "text": "이근철 쌤~*굿~^^",
+      "author": "@최문정-p5i",
+      "likeCount": 0,
+      "publishedAt": "2022-09-13T04:01:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgytBUTaNROlaXdd10x4AaABAg",
+      "text": "선생님의 열정에 늘 감동입니다. 너무 감사 드리고요  그동안 맘대로 하고 살았던 발음 제대로 배우고 바꿔가고 있습니다. 선생님 감사합니다. 축복 드립니다❤",
+      "author": "@kyongokkang-fn3vg",
+      "likeCount": 0,
+      "publishedAt": "2023-07-26T16:08:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz_crdPMUfp2A4sBfZ4AaABAg",
+      "text": "참으로 감사합니다 수고하셨읍니다",
+      "author": "@박계순-q1p",
+      "likeCount": 1,
+      "publishedAt": "2024-05-19T00:03:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzbtkFeY2ssEOCwo154AaABAg",
+      "text": "훌륭한 선생님🌹\n멋지십니다🤗🤩",
+      "author": "@ogugu398",
+      "likeCount": 2,
+      "publishedAt": "2022-01-24T10:39:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx4lFpBDiQzfUB85hl4AaABAg",
+      "text": "정확한 발음 정리 대단히 감사합니다.",
+      "author": "@이기자-z6t-e5d",
+      "likeCount": 2,
+      "publishedAt": "2021-01-11T10:57:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyx1V2EPhsu8BRShfZ4AaABAg",
+      "text": "감사합니다!!\n열심히 따라갈게요~\n새해 복많이 받으세요~^^",
+      "author": "@룰루리맘",
+      "likeCount": 4,
+      "publishedAt": "2021-01-06T00:20:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzkdC-nGtjZWGjIm814AaABAg",
+      "text": "오늘아침도 열심히들었읍니다.감사합니다",
+      "author": "@이완수-n8j",
+      "likeCount": 0,
+      "publishedAt": "2024-12-28T21:48:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw7qyYtP7tFa4S5UXx4AaABAg",
+      "text": "☺️선생님~  감사합니다~\n건행하세요👍🙏",
+      "author": "@Angela-hr7gk",
+      "likeCount": 2,
+      "publishedAt": "2021-05-04T08:57:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzQLZTKBqXj5d2FGk14AaABAg",
+      "text": "감사 감사 정말 감사 오늘 아침 복습으로 또 다시 되새김",
+      "author": "@배공주-d8w",
+      "likeCount": 0,
+      "publishedAt": "2022-06-05T23:15:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwQbTeq4cvmBFgCjrV4AaABAg",
+      "text": "감사하고 감사합니다🙇 👍👍👍👏👏👏💪💪💪",
+      "author": "@떠오르는태양-d5y",
+      "likeCount": 2,
+      "publishedAt": "2021-02-16T00:12:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyCjmkZkrNfCXjVHrZ4AaABAg",
+      "text": "감사합니다 \n고맙습니다 \n사랑합니다 선생님 ㅎㅎ",
+      "author": "@jj-hd1kp",
+      "likeCount": 0,
+      "publishedAt": "2022-05-06T05:59:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy2vhTawp8WEork6BZ4AaABAg",
+      "text": "안녕하세요 ^^  포기하고  또다시  시작하고 몇번식이나 반복의  연속이군요  열심히 배워보려고  함 더  다짐해봅니다 \n감사합니다",
+      "author": "@윤소민-m1z",
+      "likeCount": 0,
+      "publishedAt": "2024-02-12T03:38:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz1lJc78AxgeCxOgqJ4AaABAg",
+      "text": "이름 그대로 마법영어입니다 최고의 강의입니다 발음규칙 잘배웠읍니다 감사합니다",
+      "author": "@leebjlee99",
+      "likeCount": 1,
+      "publishedAt": "2021-09-12T08:41:31Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugxoqmye8hWlc7m91B54AaABAg",
+      "text": "선생님 감사합니다.건강하세요.",
+      "author": "@xinfuche1457",
+      "likeCount": 2,
+      "publishedAt": "2021-02-23T16:59:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwyyk3Y57fQAoXA60V4AaABAg",
+      "text": "이어폰 끼고 듣기도 하고 보기도했습니다. 발음이 가장 중요함을 느낍니다.",
+      "author": "@박봉숙-h9i",
+      "likeCount": 1,
+      "publishedAt": "2021-09-10T11:57:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzYVtXrUjQSLDF7t2V4AaABAg",
+      "text": "역시 쌤은 훌륭합니다.",
+      "author": "@Ocean-25q",
+      "likeCount": 0,
+      "publishedAt": "2023-03-12T15:13:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyAhdRhqETmNTuhnFN4AaABAg",
+      "text": "최고의 강의이십니다!늘 감사하게 배우고있습니다^^수고많으셨습니다♡",
+      "author": "@lhwyang77",
+      "likeCount": 3,
+      "publishedAt": "2021-10-03T22:16:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwXjLp1PD08tGKgUcZ4AaABAg",
+      "text": "최고의 강의 입니다.",
+      "author": "@shlim4524",
+      "likeCount": 0,
+      "publishedAt": "2022-05-15T04:39:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxM8J1U2VbqqUlm7aB4AaABAg",
+      "text": "읽기햇갈렸는데 선생님발음영상 많은도움되네요 감사합니다",
+      "author": "@이재민-h5j",
+      "likeCount": 2,
+      "publishedAt": "2021-02-01T07:13:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz1IUl9p2qnFaxo5rt4AaABAg",
+      "text": "발음 진짜 중요해요 한번 잘못된건 고치기 힘들들어요",
+      "author": "@현정-g2e6p",
+      "likeCount": 0,
+      "publishedAt": "2023-11-26T23:45:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzczforD1LuWM_n2tV4AaABAg",
+      "text": "이근철샘\n정말 중요한 발음규칙 강의 \n감사드립니다 ~",
+      "author": "@k-manlee3754",
+      "likeCount": 1,
+      "publishedAt": "2021-09-05T09:02:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzLHj_GW31AwYrsmjl4AaABAg",
+      "text": "선생님 정말 감사합니다!! 열심히 해서 원어민 발음 도전!!!",
+      "author": "@하마아지매",
+      "likeCount": 2,
+      "publishedAt": "2021-10-21T13:32:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyEd2vER27lmqw6n0F4AaABAg",
+      "text": "감사합니다 좋은 발음 규칙 영상 만들어주셔서요 항상 응원합니다",
+      "author": "@조성완-u1u",
+      "likeCount": 12,
+      "publishedAt": "2021-01-05T01:11:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwY2tV4QoYlckMiYh14AaABAg",
+      "text": "수고하셨읍니다.",
+      "author": "@김여작",
+      "likeCount": 8,
+      "publishedAt": "2021-01-04T09:17:22Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxBe8Qtsj6qwAmE5694AaABAg",
+      "text": "자음 + a /o /u    자음 + i  /e  /y\n대략의 차이를 구별\ngiant 주아 ~좌이언트 job 주아 ~좝",
+      "author": "@Kkh-h4f",
+      "likeCount": 3,
+      "publishedAt": "2021-01-26T11:04:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzthzESxvAR-6tsw4V4AaABAg",
+      "text": "발음과 단어 뜻도 함께 잡아갑니다\nBye~",
+      "author": "@ehj7656",
+      "likeCount": 1,
+      "publishedAt": "2021-02-16T03:13:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw_dxZEIpQ9gDpHQZV4AaABAg",
+      "text": "넘 조아요",
+      "author": "@제리-y4i",
+      "likeCount": 0,
+      "publishedAt": "2023-07-26T07:52:18Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwT-D10K2sRHTHJSah4AaABAg",
+      "text": "아이원발 60강 다 들은 후에 다시 시청하니 정말 귀에 쏙쏙 들어옵니다. 😄",
+      "author": "@큐잉-o6x",
+      "likeCount": 2,
+      "publishedAt": "2021-09-05T13:11:11Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugw8FiTSI_P08iBishp4AaABAg",
+      "text": "listening 에 많은 도움됩니다\n요즘 샘과 함께 하는 엉어 공부 정말 즐겁습니다 \n50대 후반인 저에게도 학습목표가 생기는군요\n차곡차곡 학습하여 영어회화 잘하고 싶습니다\n감사합니다~👍",
+      "author": "@김순희-h6s1l",
+      "likeCount": 0,
+      "publishedAt": "2022-02-12T01:46:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwzVe4H0cyC0nxwu_p4AaABAg",
+      "text": "근철쌤감사합니다ㅡ행운빌어요",
+      "author": "@강윤구-f7l",
+      "likeCount": 0,
+      "publishedAt": "2021-06-26T22:59:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxuPouz52FoKkFCoYl4AaABAg",
+      "text": "3번째 영상, 경험상 10번 들으면 효과 좋아요",
+      "author": "@영-z3q4z",
+      "likeCount": 0,
+      "publishedAt": "2023-01-09T16:15:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxV1i21IUrtJ0JPz8t4AaABAg",
+      "text": "오늘도 감사합니다.",
+      "author": "@김순애-e9j5i",
+      "likeCount": 1,
+      "publishedAt": "2021-05-22T06:37:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw1PnzxtzxV17N3FmZ4AaABAg",
+      "text": "발음 너무나 감사드립니다",
+      "author": "@서원규-n5g",
+      "likeCount": 0,
+      "publishedAt": "2022-02-13T12:56:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzpLuIoPRahZaNafJN4AaABAg",
+      "text": "발음뜻 너무 쉽게  잘  설명해주셔서 읽고 쓰고 반복하고있읍니다 ᆢ 유트브에 올려오는거 구독하고 계속보고있는데 1년전꺼 막 뒤죽박죽 올라와있어 올라오는데로 없어질까 바로내톡에 보관하고 수시로 공부하고있읍니다 쌤너무감사합니다 늣게나마 배울수있어 너무너무감사합니다~~^^",
+      "author": "@서아-s2z7m",
+      "likeCount": 4,
+      "publishedAt": "2021-01-06T16:11:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzdP0LMy6rD45V1LS94AaABAg",
+      "text": "선생님.  Thanks a lot!!",
+      "author": "@Ocean-25q",
+      "likeCount": 0,
+      "publishedAt": "2023-03-12T15:37:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzPX7vORSbNTBeeNmV4AaABAg",
+      "text": "감사합니다❤",
+      "author": "@슈슈슈슈-d5y",
+      "likeCount": 0,
+      "publishedAt": "2024-05-25T13:49:02Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyZZNQVgmNdmBZEg754AaABAg",
+      "text": "감사 또 감사 합니다, 알고는 있었지만 발음은 정말 엉터리였네요, 선생님께서 정확한 발음 가르쳐주셔서 다시한번 감사에 감사드립니다. 열씸히 듣고 배우겠습니다.",
+      "author": "@yaniseo1780",
+      "likeCount": 1,
+      "publishedAt": "2022-03-06T03:49:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyn-OOn-VhvNZEEjH54AaABAg",
+      "text": "선생님 정말 정말 넘넘 감사 드립니다",
+      "author": "@박경애-x5h",
+      "likeCount": 1,
+      "publishedAt": "2021-09-04T09:25:36Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxcKx9J3ohq8aMrtnJ4AaABAg",
+      "text": "발음 제대로 배워 보겠습니다 감사합니다",
+      "author": "@김석교-p3l",
+      "likeCount": 0,
+      "publishedAt": "2021-08-30T03:43:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxAMaf2TS3DkraZ78p4AaABAg",
+      "text": "쉬운 설명 감사합니다~^^",
+      "author": "@mckk5216",
+      "likeCount": 1,
+      "publishedAt": "2021-09-24T15:14:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwfiOlNJOY2RzgNUSd4AaABAg",
+      "text": "오늘도 좋은강의 감사합니다.",
+      "author": "@학-m4i",
+      "likeCount": 1,
+      "publishedAt": "2021-01-26T12:20:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwr9-ERnoxr95gfByd4AaABAg",
+      "text": "모든 강의 너무도 감사드립니다!!!",
+      "author": "@jeesoolim7666",
+      "likeCount": 0,
+      "publishedAt": "2021-10-04T03:18:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx_ififOx0mLRyr5Eh4AaABAg",
+      "text": "고맙습니다^^",
+      "author": "@하늘말나리-r1r",
+      "likeCount": 2,
+      "publishedAt": "2021-01-06T22:40:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxEbv2gkh8l_tZPQe94AaABAg",
+      "text": "😻아침 첫 수업 열공하고 왔는데 오늘 수업이 하나 더 있었네요ㅋ 딴일 하다가 하마터면 놓칠 뻔 했는데 변함없이 샘이 울려주시는 딩동벨이 새삼 감사합니다^^\n국어수업인가~~아님 영어수업인가~~ㅎ\n물론 한꺼번에 두개의 언어를 학습할 수 있는 득템수업입니다🤗\n아주 기~~인 시간동안 물도 안마시며 열심히 가르쳐주신 샘께 보답하듯 저도 반복 또 반복하며 귀가 얼얼 하도록 듣겠습니다 ㅎ\n정말정말 감사드립니다 샘~♡\n맛난 점심 드시고 오후도 힘내셔요~🍳🥘🍲🥣🥗🍚🤩🤩😂",
+      "author": "@Kmonica003",
+      "likeCount": 14,
+      "publishedAt": "2021-01-04T03:40:11Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgxN41A-UVFZgn0iqE94AaABAg",
+      "text": "정말 좋은 강의 입니다\n이렇게 중요한걸 이분이 아니면 누가 할 수 있을까 생각해요 다들 대화만 주력하는데 사실 발음도 엄청 중요한데...",
+      "author": "@kk-oe9ly",
+      "likeCount": 3,
+      "publishedAt": "2021-01-06T11:29:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxNmbwnETdeAKR2R2Z4AaABAg",
+      "text": "뒤에 i aeou가 올때 발음이\n원어민과 틀려 항상 조심해야했는데 정말 요긴히 알려주셔서 이해할수 있었어요 \n감사합니다!",
+      "author": "@cloudia157",
+      "likeCount": 1,
+      "publishedAt": "2021-08-29T18:29:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxHsF_zFGYwzgGz2qB4AaABAg",
+      "text": "🍀영어에서 가장 중요한\n            발음규칙 50개 중 1-15.\n영어의 정석..언어를 연구하시는 분이기에 가능한 접근 방식으로 발음의 규칙 제대로 알려주시는 선생님은 우리에게 진정 필요한 최고의 영어선생님 이십니다~고맙습니다~^^💕🧚‍♀️\n\n규칙 1. c+a / o / u = [ ㅋ ] 로 발음\ncat. case. cold. come. cut. focus [포우커스]\n\n규칙 2. c+e / i / y =[ ㅆ ] 로 발음\nice. face. city.  \ncider [싸이덜]\n(미) 사과 탄산쥬스  (영) 알콜이 가미된 사과주\ncycle [싸이끄을] . spicy [스빠이씨]\n\n규칙 3. g+a / o/ u = [ ㄱ ] 로 발음\ngas. sugar. god. ago. guide. argue [알규우]\n\n규칙 4. g+e / i / y = [ ㅈ ] 발음\npage [페이쥐]. large [라알쥐]. giant [좌이언트]. magic [매쥑]. gym [쥠]. energy [에널쥐]\n예외) get. give, foggy  [ 게,기로 발음]\n\n규칙 5. y = [ 이 ]\nyou. city. yes. busy. yield [이일드] \n               many         양보하다. 생산해 내다 \n규칙 6. ph (99%) = [ f ]\nphone. photo. elephant. alpha [앨퍼] .\n예와) Shepherd . Stephen= Steven 동일이름 \n쉐뻘드 [p] 목자. 양치기  스티븐 [v] 스띠이븐\n*Stephen King  공포소설의 귀재/ 작가\n\n규칙 7. 겹글자 = 한 번만 발음\nlobby [ 라비 ]    sell [ 쎌 ]\nsummer [써멀..여자이름으로도 많이 쓰임]. \nsummary [써머뤼]  요약\nrunning [ 뤄닝 ]  .  innocent [이너쓴트]\n\n👉 8 - 15번 까지의 핵심 point\n영어에서 대부분의 소리는 짝을 이룬다. \n( 이 사실을 알면 굉장히 깔끔하게 발음을\n                                            낼 수 있다. )\n성대가 울리는 유성음과, 울리지 않은 무성음\n규칙 8. 윗입술 아랫입술 p/b   ㅍ/ㅂ\npig . big [유성음]       pay . buy\ntop [ 탑.. 무성음은 길게 발음하지 않는다]\njob [ 좌압... 유성음 즉 성대가 울리는 소리로 끝나면 앞의 모음을 길게 발음한다.\n\n규칙 9. 윗치아 아랫입술 f/v\nfan . van  봉고차량\nface . voice     life . give\n규칙 10. 두 치아 사이에 혀끝  th [쓰] / the [드]\nbath . bathe      think . this\n*breath . breathe (같은 경우)\nthank . that\n\n규칙 11. 윗치아 뒷부분 t/d  ㅌ/ㄷ\ntie . die        town . down\nfoot [ 풋 ] . food [푸우드] 길게 발음한는\n                                              울림소리\n※성대가 울리는 유성음은 앞의 모음 길게~\nfoot의 'oo' 는 원래 긴발음인데 't' 로 인해   짧아짐                                           \n   \n규칙 12. 윗치아 뒷부분  s/z  ㅆ/ㅈ\nsue [쑤우 ] . zoo [주우]  cf) news [누우즈]\nbus . buzz   size . rise [롸이즈]\n\n규칙 13. 잎천장 앞부분 ch [취] . dge [쥐]\nchurch [처얼취]  교회\n judge [저엇쥐]  판사, 판단하다\ncf) ginger [ 쥔절 ]  생강   *성대 다 울림\nteach [티이취]  .  large [라알쥐]\ncheap [ 취입 ]  .   jeep  [ 쥐입 ] 험한 길 가는\n                                                   자동차\n\n규칙 14. 앞천장 뒷부분 sh [슈]  s [쥬]\nfresh [프뤠쉬]  . decision [디씨쥬언]\nshow [ 쑈우 ]   . usually [유쥬얼리]\nshy  [ 샤이 ]   .   genre [ 좐뤄]  영역. 범주\n                          *불어에서 온 단어\n규칙 15. 목젖 끝   k/g  ㅋ / ㄱ\ncold  .  gold      king  .  gift\nokay .  game\n\n선생님~ 수고 많으셨어요. 노력해야 할 발음 규칙들이 또 생겼어요. 꾸준히 다져 나갈게요~ 고맙습니다~^^🍵💝",
+      "author": "@jennykang615",
+      "likeCount": 123,
+      "publishedAt": "2021-01-04T03:28:12Z",
+      "replyCount": 19
+    },
+    {
+      "commentId": "UgzbC_mbV72Uad3PNcF4AaABAg",
+      "text": "네~~~~아자 아자~~~~👍👍👍👍😍😍😍😍오늘도 또 감사드려예 근철쌤🌹🌹🌹🌹👍👍👍👍😍😍😍😍💕💕💕💕",
+      "author": "@이숙희-e9m",
+      "likeCount": 4,
+      "publishedAt": "2021-01-04T11:24:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz53UESinF6kdrSndx4AaABAg",
+      "text": "I speak spanish but im lerning English and Korean languages, thank you teacher, you are the best ❤ from Mexico.",
+      "author": "@marjorieferral1511",
+      "likeCount": 1,
+      "publishedAt": "2021-09-13T07:57:33Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugz5-eL_wmdmcenFcOd4AaABAg",
+      "text": "여러모로 선생님 덕분에 발전하네요 고맙습니다",
+      "author": "@미네르바-q7j",
+      "likeCount": 1,
+      "publishedAt": "2021-02-14T13:25:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz1saIOXyG4_F8go4J4AaABAg",
+      "text": "선생님 너무너무 감사합니다 ❤❤",
+      "author": "@바다-d1j",
+      "likeCount": 0,
+      "publishedAt": "2022-05-04T12:11:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz19zIlH3c0kYDtjyt4AaABAg",
+      "text": "반가워요 eba에서 보고 오늘 처음 뵙네요",
+      "author": "@Go-fh6yf",
+      "likeCount": 1,
+      "publishedAt": "2021-01-08T03:52:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxja9xhefWDOkMR1G14AaABAg",
+      "text": "발음법칙이 궁금했는데  감사합니다ㅎㅎ",
+      "author": "@cosmos2o223",
+      "likeCount": 0,
+      "publishedAt": "2022-01-16T13:13:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw4s0Wc8GquKNpAk-J4AaABAg",
+      "text": "선생님! 항상 넘넘 감사드립니다.\n선생님 덕분에 발음규칙 확실하게 잡아갑니다.\n오늘도 감사 감사드립니다~~^^",
+      "author": "@조조길림",
+      "likeCount": 0,
+      "publishedAt": "2021-12-25T22:45:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyRgWncal03JdcZPpJ4AaABAg",
+      "text": "와우~\n정말 유익한 내용입니다\n전 50대 후반인데 초~대학까지 다녔어도 발음도 제대로 못하고 외국인 만나도 말도 잘 못했는데 매일 2~30분씩 루틴으로 생각하며 시청하다보니 자신감이 좀 생기는거 같습니다\n정말 감사합니다 \n멋진 샘 건강에 유의하시고 앞으로도 좋은내용 지속적으로 듣겠으니 계속 보여주세요~👍",
+      "author": "@김순희-h6s1l",
+      "likeCount": 3,
+      "publishedAt": "2022-01-10T14:48:17Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyiC_90U-jmP-EdkpF4AaABAg",
+      "text": "정말 도움이 많이 되었어요. 진심으로 감사드려요^^",
+      "author": "@sunnykim6532",
+      "likeCount": 0,
+      "publishedAt": "2022-11-01T06:15:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy63nc5N3E9vECSScp4AaABAg",
+      "text": "멋진 강의 감사합니다.",
+      "author": "@suncho-r6h",
+      "likeCount": 0,
+      "publishedAt": "2021-09-18T09:16:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwu-NM_9z5e76W8fdR4AaABAg",
+      "text": "많은 도움이 되었습니다.",
+      "author": "@인집김",
+      "likeCount": 0,
+      "publishedAt": "2021-10-18T13:25:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy6oR7VG9DiLFwtVqJ4AaABAg",
+      "text": "선생님의 정성! 정말 강하게 느껴집니다. 영어를 공부하고자 하는 이들을 향한 선생님의 열정이 정말 고맙습니다.",
+      "author": "@임인숙-z8f",
+      "likeCount": 3,
+      "publishedAt": "2021-01-05T04:39:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyswmmm_RXD1F4iokJ4AaABAg",
+      "text": "You  tube에  수많은 강의들이   많지만  샘처럼\n영어발음을   이렇게까지\n정확한 설명과 학습을 시켜주는  강의는  처음같군요.  온라인  강의를 통한  발음 수업의\n진수를  보여주시네요.~~\n열심히  발음수업을  따라가다  보면   어느날\n달라진  발음이  입에\n붙을 것 같아요.~~\n긴 시간  감사드립니다.~~🙏",
+      "author": "@박미자-l2c",
+      "likeCount": 9,
+      "publishedAt": "2021-01-04T06:32:48Z",
+      "replyCount": 6
+    },
+    {
+      "commentId": "UgwabQmGUGKMtBOgWjh4AaABAg",
+      "text": "궁금증이 풀리는 발음교정 강의 정말 유익한 시간이었어요\n선생님께서 늘 발음을 중요시 하시고 처음부터 제대로 배우라고 하시는지 확실히 알거 같아요\n긴 시간 수고 많으셨어요 선생님의 열정이 느껴지는 귀한 시간이었습니다",
+      "author": "@jungyounpark1009",
+      "likeCount": 3,
+      "publishedAt": "2021-11-26T07:59:54Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgxcJyjhIhzCPQCk-3d4AaABAg",
+      "text": "월요일을 근철쌤과 함께~~~",
+      "author": "@Fioren",
+      "likeCount": 6,
+      "publishedAt": "2021-01-04T05:13:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxJ6lX6gp0ybIFpzS94AaABAg",
+      "text": "감사합니다 큰 도움이 되었습니다.",
+      "author": "@맑은샘6136",
+      "likeCount": 1,
+      "publishedAt": "2021-01-11T13:21:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzoCFxuiFBrtUwNYnt4AaABAg",
+      "text": "대학을 나와도 모르는 발음법칙 ..쉽게 알려주셔서 너무 감사합니다 .. 쌤, 정말 최고입니다",
+      "author": "@송병기-m4t",
+      "likeCount": 4,
+      "publishedAt": "2021-03-20T12:13:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxVxu5ErttImTguD0V4AaABAg",
+      "text": "고맙습니다. \n이근철 선생님!\n새해 복 많이 받으세요.",
+      "author": "@jintaechoi25",
+      "likeCount": 4,
+      "publishedAt": "2021-01-04T11:03:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyiXiMRR9PhnfZU5GR4AaABAg",
+      "text": "귀에 쏙쏙 박히는 유익한 강의 감사합니다!",
+      "author": "@alvin5272",
+      "likeCount": 2,
+      "publishedAt": "2021-02-15T17:31:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxpza_sxEsteoQGOPx4AaABAg",
+      "text": "샘.. 감사해요",
+      "author": "@KIM-lm9kt",
+      "likeCount": 0,
+      "publishedAt": "2021-07-16T12:30:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz2pwMZox-SdmOppH94AaABAg",
+      "text": "감사합니다.",
+      "author": "@Tv-ur3pp",
+      "likeCount": 0,
+      "publishedAt": "2021-09-12T14:27:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzWC2JxTZtfFhxyuLt4AaABAg",
+      "text": "겹글자 summer 발음 처음 배웠습니다. 감사합니다.",
+      "author": "@yunky22",
+      "likeCount": 0,
+      "publishedAt": "2021-10-16T10:08:17Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy-QuWeX1YbyYq4Ggx4AaABAg",
+      "text": "너무 유익한 발음 완벽 정리--독보적인 강의 입니다.",
+      "author": "@아녜스-c9x",
+      "likeCount": 4,
+      "publishedAt": "2021-01-05T09:07:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzUGLIlEEGbC-pq3qJ4AaABAg",
+      "text": "thank you^^",
+      "author": "@humanwe3677",
+      "likeCount": 0,
+      "publishedAt": "2021-03-07T04:36:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxmvu6XZYyUwouM5vZ4AaABAg",
+      "text": "발음규칙 어렵지만\n열심히 따라갑니다~\n항상 고맙습니다~^^",
+      "author": "@charlieekim6588",
+      "likeCount": 5,
+      "publishedAt": "2021-01-04T10:09:07Z",
+      "replyCount": 0
+    }
+  ]
+}

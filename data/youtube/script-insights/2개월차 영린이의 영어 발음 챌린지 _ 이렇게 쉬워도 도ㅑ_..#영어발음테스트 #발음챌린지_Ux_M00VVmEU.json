@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-15T05:21:09.961Z",
+  "videoId": "Ux_M00VVmEU",
+  "video": {
+    "videoId": "Ux_M00VVmEU",
+    "title": "2개월차 영린이의 영어 발음 챌린지 / 이렇게 쉬워도 도ㅑ?..#영어발음테스트 #발음챌린지 #영린이 #영어발음",
+    "description": "",
+    "channelId": "UCWbWuplzBt70mWChzBKCApA",
+    "channelTitle": "수키 suekii",
+    "publishedAt": "2025-04-03T15:28:19Z",
+    "viewCount": 4180322,
+    "likeCount": 48683,
+    "commentCount": 353,
+    "thumbnail": "https://i.ytimg.com/vi/Ux_M00VVmEU/maxresdefault.jpg",
+    "duration": "PT25S"
+  },
+  "transcript": {
+    "ok": true,
+    "videoId": "Ux_M00VVmEU",
+    "language": "en",
+    "languageName": "English (auto-generated)",
+    "isGenerated": true,
+    "lineCount": 8,
+    "fullText": "Oro cocacola Starbucks Nutella Pringles sneak girl KFC KFC McDonald's",
+    "lines": [
+      {
+        "start": 2.08,
+        "duration": 5.16,
+        "text": "Oro"
+      },
+      {
+        "start": 4.72,
+        "duration": 5.52,
+        "text": "cocacola"
+      },
+      {
+        "start": 7.24,
+        "duration": 3,
+        "text": "Starbucks"
+      },
+      {
+        "start": 11,
+        "duration": 5,
+        "text": "Nutella"
+      },
+      {
+        "start": 13.32,
+        "duration": 4.36,
+        "text": "Pringles sneak"
+      },
+      {
+        "start": 16,
+        "duration": 4.4,
+        "text": "girl"
+      },
+      {
+        "start": 17.68,
+        "duration": 6.72,
+        "text": "KFC"
+      },
+      {
+        "start": 20.4,
+        "duration": 4,
+        "text": "KFC McDonald's"
+      }
+    ]
+  },
+  "aiInsights": {
+    "hookingAnatomy": {
+      "technique": "한국인에게 매우 친숙한 글로벌 브랜드 및 기초 단어 이름(코카콜라, 스타벅스, 맥도날드 등)을 연속해서 원어민식 억양과 발음으로 빠르게 낭독하는 챌린지 방식",
+      "openingHookQuote": "Oro cocacola Starbucks Nutella Pringles sneak girl KFC KFC McDonald's",
+      "whyItWorked": "누구나 아는 단어이지만 한국식 발음('맥도날드', '스타벅스')과 실제 영어 소리의 차이가 커서 시청자가 자신의 발성과 비교하며 호기심을 느끼게 만듦"
+    },
+    "storyArchitecture": [
+      {
+        "step": "1. 익숙한 브랜드명 발음 챌린지 시작 (Hook)",
+        "timeRange": "0:00 ~ 0:05",
+        "summary": "Oreo, Coca-Cola, Starbucks, Nutella 등 친숙한 디저트 및 음료 브랜드명을 현지 발음 느낌으로 연속 낭독",
+        "pacingNote": "빠른 호흡으로 익숙한 단어를 던져 시청자의 주의를 즉각 집중시킴"
+      },
+      {
+        "step": "2. 자음 뭉침 및 난이도 있는 단어/브랜드 낭독 (Practice)",
+        "timeRange": "0:05 ~ 0:15",
+        "summary": "Pringles, Snickers(sneak), Girl, KFC, McDonald's 등 L/R 발성이나 강세 이동이 뚜렷한 단어들을 잇따라 발음하며 챌린지 마무리",
+        "pacingNote": "단어 간 쉼 없이 빠르게 이어지며 숏폼 특유의 리듬감 유지"
+      }
+    ],
+    "coreMetaphors": [
+      {
+        "concept": "브랜드명 및 기초 단어의 실제 원어민 소리 억양",
+        "metaphorUsed": "확인 불가 (원리 설명이나 비유 없이 단어 낭독 챌린지로만 구성됨)",
+        "evaluation": "별도의 비유는 없으나 상표명이라는 직관적 대상 자체를 활용해 시청자의 직관적 비교를 유도함"
+      }
+    ],
+    "blindSpots": [
+      "McDonald's, Starbucks 같은 단어를 들을 때 '맥도날드', '스타벅스'라는 한국어 글자 표기가 뇌에 먼저 떠올라 원어민 소리의 강세 위치를 놓치는 현상",
+      "Girl이나 Pringles처럼 끝소리 자음이나 L/R 소리가 겹칠 때 목구멍 뒤쪽에서 소리를 받쳐주지 못해 입술만 웅얼거리게 되는 답답함"
+    ],
+    "ourAdaptedScript": {
+      "recommendedTitle": "맥도날드가 왜 '믹다널즈'로 들릴까? 3060을 위한 브랜드 영어 소리 원리",
+      "openingHook": "매일 보는 스타벅스, 맥도날드... 왜 원어민이 말하면 한 번에 안 들릴까요?",
+      "corePrincipleExplanation": "한국어는 모든 글자를 똑같은 힘으로 읽지만, 영어는 힘을 주는 '강세' 부분만 켜지고 나머지 소리는 힘을 빼서 웅얼거리듯 약해집니다. 이 원리만 알면 브랜드 이름이 또렷하게 들립니다.",
+      "longformStructure": {
+        "step1_Hook": "한국인에게 가장 익숙한 브랜드 '맥도날드(McDonald's)'와 '스타벅스(Starbucks)'를 원어민이 실제 부르는 소리로 들려주며 호기심 유발",
+        "step2_CardDisplay": "화면에 [맥도날드 ➔ Mc-DON-alds / 믹'다'널즈] 형태로 강세 위치를 강조한 한글 소리 카드 제시",
+        "step3_Principle": "영어는 글자 수가 아니라 '강세 위치'가 핵심이라는 원리 설명 (DON에 힘을 주고 나머지는 힘을 빼는 소리 구조 해설)",
+        "step4_RepetitionDrill": "3060 시청자가 편안하게 따라할 수 있도록 천천히 1회, 보통 속도 1회, 자연스러운 속도 1회 총 3회 반복 낭독 유도",
+        "step5_Outro": "오늘부터 길거리 간판을 볼 때 강세 위치를 떠올려보시라는 안내 및 구독 유도"
+      },
+      "shortsTrackA": {
+        "concept": "Track A 원리형 (30초)",
+        "scriptText": "맥도날드, 스타벅스... 왜 원어민 소리는 다르게 들릴까요? 한국어는 '맥-도-날-드' 네 글자를 똑같이 읽지만, 영어는 'DON'에만 강하게 힘을 주고 나머지는 힘을 확 뺍니다. 그래서 '믹-다-널즈'처럼 들리는 거죠. 강세 위치 하나만 짚어도 영어 소리가 훨씬 잘 들립니다!"
+      },
+      "shortsTrackB": {
+        "concept": "Track B 실전 대화/상황극형 (30초)",
+        "scriptText": "(상황) 해외 매장에서 '맥도날드'라고 정직하게 말했다가 직원이 못 알아듣는 상황.\n'맥도날드'라고 또박또박 말하면 못 알아듣습니다. 가운데 '다'에만 힘을 주고 '믹다-널즈'라고 부드럽게 흘려주세요. '스타벅스'도 '스'가 아니라 '타'에 힘을 주어 '스타-벅스'! 이제 소리가 입에 착 붙으실 겁니다."
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-15T05:21:24.866Z",
+  "videoId": "rhjcr61ngHA",
+  "video": {
+    "videoId": "rhjcr61ngHA",
+    "title": "양정화 성우 클라스(feat. 발음 테스트)",
+    "description": "1. 미소의 세상 17화\n2. 개구리중사케로로 5기 27화\n\n\n영상의 저작권은 각 해당 제작사에게 있습니다. 이 채널에 올려지는 모든 영상은 수익구조가 절대적으로 없음을 알려드립니다 Copyright of all of the video are in the each of the production company. All the video of my channel does not have a profit structure absolutely.",
+    "channelId": "UC4FdHvEujcjSjF9z7-iqaRg",
+    "channelTitle": "덕질러",
+    "publishedAt": "2021-02-15T09:15:01Z",
+    "viewCount": 295565,
+    "likeCount": 4305,
+    "commentCount": 89,
+    "thumbnail": "https://i.ytimg.com/vi/rhjcr61ngHA/maxresdefault.jpg",
+    "duration": "PT17S"
+  },
+  "transcript": {
+    "ok": true,
+    "videoId": "rhjcr61ngHA",
+    "language": "en-US",
+    "languageName": "English (United States) (auto-generated)",
+    "isGenerated": true,
+    "lineCount": 8,
+    "fullText": "Is that stake over there a stake? Or is it a speechless stake? The waves of the central bars, city bars, city bars, upper bars, Han Young-jin point, Han Young-yang issue, Han Young-yang issue, Han Young-yang issue, splashing and crashing on the waves of the East Sea, crashing and splashing.",
+    "lines": [
+      {
+        "start": 1.68,
+        "duration": 2.99,
+        "text": "Is that stake over there a stake? Or is"
+      },
+      {
+        "start": 3.72,
+        "duration": 3.65,
+        "text": "it a speechless stake? The waves of the"
+      },
+      {
+        "start": 6.42,
+        "duration": 2.7,
+        "text": "central bars, city bars, city bars,"
+      },
+      {
+        "start": 8.17,
+        "duration": 2.75,
+        "text": "upper bars, Han Young-jin point, Han"
+      },
+      {
+        "start": 9.97,
+        "duration": 2.9,
+        "text": "Young-yang issue, Han Young-yang issue,"
+      },
+      {
+        "start": 11.91,
+        "duration": 2.7,
+        "text": "Han Young-yang issue, splashing and"
+      },
+      {
+        "start": 13.66,
+        "duration": 2.85,
+        "text": "crashing on the waves of the East Sea,"
+      },
+      {
+        "start": 15.56,
+        "duration": 2.12,
+        "text": "crashing and splashing."
+      }
+    ]
+  },
+  "aiInsights": {
+    "hookingAnatomy": {
+      "technique": "시작부터 쉼 없이 고난도 발음 테스트 문장(Tongue Twister)을 빠른 속도로 낭독하여 시청자의 청각적 호기심과 몰입을 즉각 유도함",
+      "openingHookQuote": "Is that stake over there a stake? Or is it a speechless stake?",
+      "whyItWorked": "성우 특유의 명확한 딕션과 빠른 속도감이 결합하여 시청자가 '얼마나 안 틀리고 잘 읽는지' 호기심을 느끼고 계속 관찰하게 만듦"
+    },
+    "storyArchitecture": [
+      {
+        "step": "1. 도입부 딕션 테스트 시작",
+        "timeRange": "0:00 ~ 0:05",
+        "summary": "첫 번째 발음 난이도 문장(Stake 관련 구절)을 빠른 템포로 낭독",
+        "pacingNote": "빠른 소리 전달로 초반 이탈 방지"
+      },
+      {
+        "step": "2. 연쇄 자음 고난도 구간 (창살 구절)",
+        "timeRange": "0:05 ~ 0:12",
+        "summary": "중앙청, 시청 등 유사 자음이 연속되는 문장을 끊김 없이 연속 발음",
+        "pacingNote": "정확한 딕션으로 리듬감 창출"
+      },
+      {
+        "step": "3. 반복 음절 집중 구간 (한영양행 구절)",
+        "timeRange": "0:12 ~ 0:22",
+        "summary": "유사한 모음과 받침이 반복되는 단어 구격을 신속하게 전달",
+        "pacingNote": "반복 요소를 통한 긴장감 유지"
+      },
+      {
+        "step": "4. 마무리 파도 묘사 낭독",
+        "timeRange": "0:22 ~ 0:30",
+        "summary": "동해바다 파도가 치는 듯한 표현을 감정선과 함께 정확히 낭독하며 종료",
+        "pacingNote": "완벽한 마무리로 경탄 자아냄"
+      }
+    ],
+    "coreMetaphors": [
+      {
+        "concept": "어려운 자음/음절 연쇄 발음 훈련",
+        "metaphorUsed": "한국어의 대표적인 발음 테스트 문장(중앙청 창살, 한영양행 등)",
+        "evaluation": "발음의 정확성과 속도를 보여주는 데는 매우 직관적이나, 소리가 만들어지는 원리에 대한 설명은 원문 대본상 확인 불가"
+      }
+    ],
+    "blindSpots": [
+      "빠르게 낭독하는 '발음 테스트' 형태는 재미를 주지만, 실제 일상 대화에서 요구되는 입안 공간 확보나 자연스러운 목소리 울림(호흡)을 익히기에는 한계가 있음",
+      "어려운 단어가 연속될 때 무작정 속도만 높여 따라 하려고 하면 턱과 혀에 과도하게 힘이 들어가 입근육이 더 단단하게 굳어버리는 부작용이 생길 수 있음"
+    ],
+    "ourAdaptedScript": {
+      "recommendedTitle": "영어 발음 꼬일 때 억지로 굴리지 마세요! 3060을 위한 혀 풀기 소리 훈련",
+      "openingHook": "영어만 말하려고 하면 혀가 굳고 꼬이시나요? 억지로 혀를 굴리지 말고 입안 공간부터 열어보세요.",
+      "corePrincipleExplanation": "한국어는 입 앞쪽에서 소리를 내지만, 영어 소리는 목 안쪽과 입 뒤쪽 공간이 열려야 부드럽게 이어집니다. 혀를 억지로 구부리는 대신 아침에 하품하듯 입안을 살짝 넓혀주는 것이 핵심입니다.",
+      "longformStructure": {
+        "step1_Hook": "영어 단어를 읽을 때 혀가 꼬여 멈칫하게 되는 일상적 상황 공감 전달",
+        "step2_CardDisplay": "자막 카드: [TH / R / L] 발음이 겹칠 때 편하게 소리 내는 3가지 기본 원칙",
+        "step3_Principle": "혀를 굴리는 것이 아닌, 목 뒤쪽 울림과 입안 숨길을 열어주는 원리 해설",
+        "step4_RepetitionDrill": "30~60대 시청자가 부담 없이 따라 할 수 있도록 천천히 3회 반복 낭독 유도",
+        "step5_Outro": "오늘 배운 소리 훈련을 매일 1분씩 따라 해보라는 안내 및 고정댓글 참여 유도"
+      },
+      "shortsTrackA": {
+        "concept": "Track A 원리형 (30초)",
+        "scriptText": "영어 말할 때 혀가 자꾸 꼬이시나요? 억지로 혀를 굴리려고 하면 입근육만 더 굳어집니다. 하품할 때처럼 목구멍 안쪽을 살짝 넓혀보세요. 소리가 지나가는 숨길이 열리면 혀가 꼬이지 않고 부드럽게 나옵니다. 지금 바로 입안을 열고 편안하게 소리 내보세요."
+      },
+      "shortsTrackB": {
+        "concept": "Track B 실전 대화/상황극형 (30초)",
+        "scriptText": "영어 단어 읽으려다가 '어... 어...' 하고 뇌가 멈춘 적 있으시죠? 혀를 잘 굴리려고 애쓰지 않아도 괜찮습니다. 입 앞쪽에 힘을 빼고, 목 안쪽에서 소리를 툭 던지듯 내보세요. 소리가 훨씬 맑고 자연스럽게 이어집니다. 하루 1분만 소리 내어 연습해보세요!"
+      }
+    }
+  }
+}

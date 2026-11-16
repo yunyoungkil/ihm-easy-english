@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-12T06:27:09.242Z",
+  "video": {
+    "videoId": "ts4E_jAYHSs",
+    "title": "국내파 30만 영어 유튜버의 의외의 미드 추천",
+    "channelTitle": "알렉스알렉스알렉스",
+    "channelId": "UCx_hSwW0EuF827myKdXRyaQ",
+    "publishedAt": "2026-01-10T06:33:46Z",
+    "viewCount": 673307,
+    "likeCount": 6132,
+    "commentCount": 130,
+    "thumbnailUrl": "https://i.ytimg.com/vi/ts4E_jAYHSs/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      "남들이 다 추천하는 미드(프렌즈, 모던패밀리 등)로 쉐도잉을 시작했다가 초반 장벽(시즌 1~2의 오그라드는 개그, 인위적인 웃음소리, 빠른 템포)에 막혀 자책하며 중도 포기함 ('프렌즈 시즌 1을 영원히 못 이겨내는 중', '다들 재밌다는데 전 너무 안 맞아서 하차함')",
+      "미드 속 과장된 시트콤 캐릭터 대사를 그대로 따라 배웠다가, 실생활에서 쓸 때 너무 오버하거나 특유의 억양이 붙어 어색해짐 ('말하는 게 모니카 빙의돼서 애들이 놀림', '빅뱅이론 대사 실생활에서 쓰면 이상한 사람 됨')",
+      "속도가 너무 빠르거나 딕션이 뭉개지는 미드를 볼 때, 아는 단어조차 소리가 순식간에 지나가 버려 자막 없이는 한 마디도 못 알아듣는 답답함 ('모던패밀리는 템포가 넘 높아서 못 알아듣겠고 발음이 안 들림')",
+      "영어 공부라는 이유로 내 취향에도 안 맞는 드라마를 참고 보느라 귀도 안 트이고 정신적 피로감만 쌓임 ('영어가 귀에 안 감긴 게 한이 되네요', '남자인 저는 전혀 재미를 못 느낌')"
+    ],
+    "audienceQuestions": [
+      "남들이 다 공부용으로 추천하는 '프렌즈'나 '모패'가 저한테는 너무 지루하고 안 맞는데, 억지로 참고 봐야 하나요? 대체할 만한 현실적인 매체는 없나요?",
+      "더빙 애니메이션이나 카툰(릭앤모티 등)으로 영어를 들으면 실생활 스피킹과 딕션에 실제로 도움이 되나요?",
+      "미드 대사를 무작정 쉐도잉하면 너무 연극처럼 어색해지는데, 원어민처럼 자연스럽게 혀를 굴리며 중얼거리는 '방구석 혼잣말 공식'은 무엇인가요?",
+      "원어민들이 미드에서 말을 빠르게 흘려보낼 때 소리를 뭉개는 규칙이 따로 있나요? 뇌가 따라가게 만드는 소리 연결 원리가 궁금합니다."
+    ],
+    "audienceVocabulary": [
+      "마의 시즌1",
+      "영어에 안 감기다",
+      "오그라들다 (Cringe하다)",
+      "라핑트랙 (인위적 웃음소리)",
+      "캐릭터 빙의되다",
+      "소리가 흘러가다",
+      "억지로 버티다",
+      "도파민 솟다"
+    ],
+    "whatWorked": [
+      "'프렌즈 시즌 1~2 순서대로 보지 말고, 가장 폼 올라온 시즌 5~6 도파민 구간부터 먼저 즐기라'는 역발상 접근법에 시청자들이 깊은 해소감을 얻음",
+      "남들의 성공 공식(쉐도잉 성지)을 무조건 따르지 말고, 자신의 성향(시트콤파 vs 사건드라마파 vs 애니파)에 맞춰 매체를 고르라는 현실적인 취향 인정 설명",
+      "문법이나 대사를 달달 외우려 하지 말고, 배경음처럼 틀어놓고 캐릭터와 친해지듯 자연스럽게 소리에 익숙해지는 노출 메커니즘을 강조한 점"
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "미드 쉐도잉 하다가 영어 접은 이유? '프렌즈' 억지로 보지 마세요 (소리 뚫는 10분 원리)",
+        "남들 다 들린다는 미드가 왜 안 들릴까? 원어민이 소리 잘라먹는 '게으른 혀' 3가지 법칙",
+        "미드 대사 무작정 따라 하다가 망하는 사람 특징 (방구석 뇌 교체 혼잣말 훈련법)"
+      ],
+      "hookThreeSeconds": "남들이 '프렌즈'로 영어 공부한다 해서 억지로 참고 보다가 포기하셨나요? 당신의 뇌가 이상한 게 아니라 공부법이 잘못된 겁니다!",
+      "shortsTrackAIdea": {
+        "concept": "미드 속 원어민들이 말을 빠르게 할 때 소리를 잘라먹고 뭉개는 '게으른 혀의 소리 지름길'을 한국어 굴림 비유로 쉽게 설명하는 원리 쇼츠",
+        "hook": "미드 원어민 발음이 딴 단어로 들리는 이유? 혀가 게을러서 소리 중간을 다 잘라먹었기 때문입니다."
+      },
+      "shortsTrackBIdea": {
+        "concept": "미드 대사를 책 읽듯 억지로 과장되게 따라 하다가 어색해지는 상황 vs 게으른 혀 원리를 적용해 자연스럽게 툭 던지는 상황극 비교 쇼츠",
+        "hook": "미드 대사 똑같이 따라 했다가 원어민 친구한테 놀림당한 실제 이유?"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgyHNwT-NQPBNZBsBkB4AaABAg",
+      "text": "전 모던패밀리요 진짜 너무 따뜻함",
+      "author": "@applause_bella",
+      "likeCount": 95,
+      "publishedAt": "2026-01-16T13:13:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_F-qMRjA-HzI35-l4AaABAg",
+      "text": "프렌즈 겁나재밌는데 ㅋㅋㅋㅋ 뭔가 피식하고 웃게되는게 있음ㅋㅋㅋㅋㅋㅋㅋ그리고 어느새 그들과 친구가 되어가는 듯한 느낌이 드는게 좋음",
+      "author": "@리쿠쿠-j5d",
+      "likeCount": 157,
+      "publishedAt": "2026-01-13T10:09:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz0HwG3Uc1Zv8UAh_94AaABAg",
+      "text": "일단 미드는 안 가리고 다 보는게 좋음. 난 어릴때 영어과외, 학원 일절 안 다니고 명덕외고 붙은 애 보다 중학교때 리스닝 시험 점수가 잘 나와서 그 애가 너 무슨 공부하냐고 물어봤을 정도. 그때 난 미드, 영드 안 가리고 다 보는 덕후였음.. 아 글고 노래는 팝송만 들었음. 오픽 AL 한달 학원 다녀서 땄음 첫트에. 그냥 가리지 말고 닥치는대로 내가 미국인인지 한국인인지 모르게 살면 영어 스피킹 리스닝은 저절로 따라오게 되어있음.",
+      "author": "@kimmy8302",
+      "likeCount": 76,
+      "publishedAt": "2026-02-12T16:09:01Z",
+      "replyCount": 5
+    },
+    {
+      "commentId": "UgwfX5awpPH24gpQAhd4AaABAg",
+      "text": "모던패밀리 진심 사랑함\n위기의주부들도",
+      "author": "@Toymarket8",
+      "likeCount": 316,
+      "publishedAt": "2026-01-10T12:02:11Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "Ugz_konUryAk5LrcMid4AaABAg",
+      "text": "저는 Gilmore girls요... 이제 열번 넘게는 돌려본듯",
+      "author": "@dopqm26gcbw-t1q",
+      "likeCount": 71,
+      "publishedAt": "2026-01-14T08:23:26Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "Ugx1t2B0fS7X4MZX9xF4AaABAg",
+      "text": "프렌즈 한 20번은 넘게 본 듯. 혼자 미국와서 친구도 없고 영어도 어설팠을 때 내 친구가 되어줌. 대신 말하는게 너무 모니카 빙의 돼서 애들이 나보고 모니카같이 말한다며 놀린적이 ㅋㅋ 😊",
+      "author": "@JPark118",
+      "likeCount": 324,
+      "publishedAt": "2026-01-13T14:33:47Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugx1wo_ZAEX-fBvcmRZ4AaABAg",
+      "text": "저도 잘 안들릴때 프렌즈는 그닥 안맞아서 위기의 주부들, How I met your mother 이거 두개 엄청 많이봄 모던패밀리도 추천추천",
+      "author": "@amelia_lim1",
+      "likeCount": 49,
+      "publishedAt": "2026-01-14T11:45:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgylpzD1sJFkA_DLxUV4AaABAg",
+      "text": "엄마되서 위기의 주부들 보니깐 대사 하나하나가 다 주옥같음! 주부들 영어공부하기 딱조음!",
+      "author": "@gaeulsarahkim163",
+      "likeCount": 18,
+      "publishedAt": "2026-01-15T17:39:25Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzyZGAUTIZ5kzIDQP54AaABAg",
+      "text": "프렌즈만한 시트콤은 존재하지 않음..",
+      "author": "@와츄두잉",
+      "likeCount": 180,
+      "publishedAt": "2026-01-14T00:20:15Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgxVM1e19jnQPtcNyg54AaABAg",
+      "text": "목소리 되게 좋으시다",
+      "author": "@bbn37zg",
+      "likeCount": 19,
+      "publishedAt": "2026-01-13T16:33:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxODqgqDD-se7OXn5d4AaABAg",
+      "text": "저두 프렌즈 첫화는 별로 안 웃기고 이해도 안됐는데 그냥 생각없이 틀어놓고 좀 보니까 스토리가 쌓이고 인물들끼리도 가까워져서 너무 재밌더라고용 진짜 친구가 된 기분 ㅋㅋ",
+      "author": "@reu-v6z",
+      "likeCount": 6,
+      "publishedAt": "2026-01-26T17:51:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyqk0ntLutq1xfWcRB4AaABAg",
+      "text": "그냥 취향차이같아요ㅋㅋ전 위주>모팸>프렌즈 순으로 재밌었는데 프렌즈는 시즌1도 다 못보겠더라고요. 쉐도잉도 프렌즈에서 위주로 갈아탔어요",
+      "author": "@Newyoungju",
+      "likeCount": 5,
+      "publishedAt": "2026-01-15T13:46:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwU3GHoBt0HjWfQDV14AaABAg",
+      "text": "프렌즈ㅠㅠ 진짜 인생 미든데 저에겐 ❤ 처음이자 거의 마지막 미드이기도하지만요ㅋㅋㅋㅋㅋㅋ돌려보고 또봐도 넘재\n위주도 한번 봐야겠네요",
+      "author": "@peanut_lia",
+      "likeCount": 0,
+      "publishedAt": "2026-10-28T13:41:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxBiqU87ZnEXqU7C9d4AaABAg",
+      "text": "와..프렌즈 벌써 삼십년이 다되가네.. 설정이나 에피가 다 맘에 드는건 아니라도..여전히 웃기고 재밌음. 유머가 별로 올드하게 안 느껴짐. 내 최애 한국 드라마  중 하나를 십여년만에 보니까 오그라들고 시대가 많이 변했다는건만 느꼈는데...\n아이티크라우드 커뮤니티 써티락 스크럽스 이런 시트콤 좋아했는데.. 요샌 미국도 시트콤 안 만드나. 내가 모르는건가",
+      "author": "@어디야여기야",
+      "likeCount": 25,
+      "publishedAt": "2026-01-11T10:15:53Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwMlRX06eapyGH_UG14AaABAg",
+      "text": "모던패밀리 좋은거 같아요 저도 프렌즈는 안맞더라구요 ㅎㅎㅎ",
+      "author": "@김민정-f5m7j",
+      "likeCount": 2,
+      "publishedAt": "2026-01-14T09:53:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyaUAnqXGrMxpDVOJN4AaABAg",
+      "text": "저도 프렌즈 한창 때(?)는 안 좋아하다가, 나중에 그 나이 때 접어들면서 보니 엄청 빠져든 ㅋㅋ 20대 후반부터 지금까지 계속 보내요 ㅋ",
+      "author": "@slee2239",
+      "likeCount": 0,
+      "publishedAt": "2026-11-02T05:25:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwgLEQFx7kFKiPN-wB4AaABAg",
+      "text": "저도 프렌즈 재미없어서 모팸 넘어간 사람으로서 위기의 주부들 함 봐야겠네요!",
+      "author": "@doyou-02",
+      "likeCount": 1,
+      "publishedAt": "2026-01-17T03:55:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyN9x2M_ijIGTYymxd4AaABAg",
+      "text": "취향인것같아용..다 봤는데\n영어엔못감긴게 한이되네요 ㅎㅎ",
+      "author": "@fromyou-n",
+      "likeCount": 0,
+      "publishedAt": "2026-01-14T06:15:15Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzWYOgbUWbM5wNER_J4AaABAg",
+      "text": "프렌즈는 진짜 마의 시즌1만 넘기면 배잡고 깔깔 웃음ㅋㅋ 특히 시즌 4,5,6, 진짜 미쳤음ㅋㅋㅋㅋ프렌즈 재밌게 봤는데 위기의 주부들,모팸,빅뱅이론,굿플레이스다 노잼이라 중간에 하차함...",
+      "author": "@hye_yy",
+      "likeCount": 3,
+      "publishedAt": "2026-09-24T07:20:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw2g--QvDr45cM1zMN4AaABAg",
+      "text": "나도 프렌즈는 별로 눈이 잘 안가던데,,모던패밀리는 텐션이 너무 높았음. 대신 영거 엄청 재밌게 봤음 에피가 좀 짧아서 아숩",
+      "author": "@Blacknacho-p2x",
+      "likeCount": 1,
+      "publishedAt": "2026-10-23T12:16:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw4g8JKj8wfUmgjW0d4AaABAg",
+      "text": "제 최애 미드는 parks and rec 입니다... 시즌7개를 4번 봤어요 ㅋㅋ 오피스 감독한 사람이 parks and rec도 감독해서 코미디 결이 비슷함. 근데 전 오피스보단 parks and rec이 더더 최애",
+      "author": "@hc5586",
+      "likeCount": 1,
+      "publishedAt": "2026-07-16T13:21:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx3SrBIDOejJs9-ZAZ4AaABAg",
+      "text": "브레이킹 배드....뭐 말이 필요없죠...Goose bumps!!!",
+      "author": "@thkims94",
+      "likeCount": 0,
+      "publishedAt": "2026-06-15T02:32:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzddpnZH78dwb_rf9d4AaABAg",
+      "text": "프렌즈 그저 그랬고 위기의 주부들도 그냥 뭐…그때 브레이킹 배드가 날 찾아왔음.😎",
+      "author": "@ame3335",
+      "likeCount": 47,
+      "publishedAt": "2026-01-10T23:45:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz8h2AU829ven162ol4AaABAg",
+      "text": "목소리 너무 좋으시당",
+      "author": "@Zzondogi-k3h",
+      "likeCount": 0,
+      "publishedAt": "2026-01-30T07:29:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgymTxVmtOm4oEOlHEF4AaABAg",
+      "text": "모던패밀리👍🏻👍🏻👍🏻👍🏻👍🏻",
+      "author": "@김다영-g7s",
+      "likeCount": 15,
+      "publishedAt": "2026-01-13T12:55:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy4z7r1ZHiPlA9n3f14AaABAg",
+      "text": "나도 초반에 프렌즈 보면서 개그에 못웃고\n그저 그랬는데 시즌2부터 재밌어짐ㅋㅋㅋ\n프렌즈는 중반부 부터가 진짜",
+      "author": "@Yooah0030",
+      "likeCount": 0,
+      "publishedAt": "2026-10-21T23:13:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyyANlPIgrs0HcQmQd4AaABAg",
+      "text": "나도 위기의 주부들! ❤",
+      "author": "@이다-b9h",
+      "likeCount": 1,
+      "publishedAt": "2026-01-28T10:14:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwRac5g3EOCPX9IIKt4AaABAg",
+      "text": "Friends 는 라핑트랙 때문에   보기가 좀 그런데 .. 딕션은 좋아서 .. 모던 패밀리는 나는.잘 못알아 듣겠고,  내 수준앤 닉 앤 모티  카툰이 젤 좋은거 같음. 프롬 도 재미는 있는데  발음이 잘 안들림 ㅠㅠ😂",
+      "author": "@Woojulike2",
+      "likeCount": 0,
+      "publishedAt": "2026-10-12T01:29:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyHpys-Az--AoCzyHl4AaABAg",
+      "text": "오피스가 진짜 미친놈임",
+      "author": "@kimsoru",
+      "likeCount": 103,
+      "publishedAt": "2026-01-18T15:06:14Z",
+      "replyCount": 6
+    },
+    {
+      "commentId": "UgwW9TTlDzKEsU8v7Zd4AaABAg",
+      "text": "시트콤 같은 쇼에 story라는 단어는...\n이야기 또는 내용이 좋다라는 말로 story는\n시트콤과 같은 쇼에는 어색함\n영화 같은 긴 서사가 있는 내용에 스토리가 자연스럽...",
+      "author": "@user-fk6wx9rj2y",
+      "likeCount": 1,
+      "publishedAt": "2026-01-17T06:00:56Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgzhY6TXMWFj-2ZGIcR4AaABAg",
+      "text": "전 오피스파👔Hello, I am Michael Scott, regional manager of Dunder Mifflin, Scranton.",
+      "author": "@오픽점수오르는채널",
+      "likeCount": 5,
+      "publishedAt": "2026-01-25T04:59:21Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugzv9zfVCOJU8xwGstV4AaABAg",
+      "text": "프렌즈가 진짜 재밌었는데 오히려 전 모던패밀리가 꾸준히 안보게되더라고요 웃음코드가달랐나봐요",
+      "author": "@poshcat808",
+      "likeCount": 1,
+      "publishedAt": "2026-02-27T08:19:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzdnOQw8rUWLL2RD5l4AaABAg",
+      "text": "모던패밀리 빅뱅이론은 재밋게봣는데 프렌즈는 진짜 모르겟음 시즌1을 영원히 못이겨내는중😅",
+      "author": "@JJ-hm8dw",
+      "likeCount": 1,
+      "publishedAt": "2026-01-25T06:46:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyRxxFH3QC6qJS8SE94AaABAg",
+      "text": "모던패밀리 너무 재밌음 ㅠㅠㅠㅠ",
+      "author": "@모나비몰펜",
+      "likeCount": 1,
+      "publishedAt": "2026-04-29T13:04:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz9NyCOIhfs6iA2OLF4AaABAg",
+      "text": "저 대학다닐때 원어민교수님이 위기의주부들 브리 보고 공부하라고 추천해주셨습니다",
+      "author": "@SAROISM89",
+      "likeCount": 0,
+      "publishedAt": "2026-10-21T20:35:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyWk7tcfIQTSknq-p14AaABAg",
+      "text": "시트콤이 안맞는 사람들이 있더라\n반대로 일반 드라마가 안봐지는 사람도 있고",
+      "author": "@taaaaara",
+      "likeCount": 65,
+      "publishedAt": "2026-01-13T09:41:54Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgwG82k-Y9Af8buIrWF4AaABAg",
+      "text": "이건 추천이 아니라 걍 본인이 재밌게 본거잖아",
+      "author": "@lalala3595",
+      "likeCount": 0,
+      "publishedAt": "2026-10-24T21:13:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgydFCOMonJ7vPJE3ad4AaABAg",
+      "text": "웨스트윙이나 굿와이프도 사랑해주세요",
+      "author": "@Onulharu",
+      "likeCount": 0,
+      "publishedAt": "2026-01-24T13:01:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgydBtihMUpgsuPzscx4AaABAg",
+      "text": "나는 시트콤 자체랑 안맞아서 영화 드라마 가리지않고 재밌는건 다봐요 ㅎㅎ",
+      "author": "@재훈-k5c",
+      "likeCount": 0,
+      "publishedAt": "2026-01-25T12:39:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxzyqA24mIplkygjVN4AaABAg",
+      "text": "모던패밀리, 위기의 주부들",
+      "author": "@jek5557",
+      "likeCount": 0,
+      "publishedAt": "2026-10-22T10:18:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzaEmaLP6sxBTm6qzJ4AaABAg",
+      "text": "프렌즈 못보겠어서 넘겨버렸는데..(시트콤을 안 좋아함 안 맞음) 딴거 봤음",
+      "author": "@official.HAELOG",
+      "likeCount": 2,
+      "publishedAt": "2026-01-17T13:13:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyJJFxeb9sk3cF0Mid4AaABAg",
+      "text": "나랑 완전 똑같네",
+      "author": "@conboya",
+      "likeCount": 1,
+      "publishedAt": "2026-01-13T13:26:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwPHHGrwqg7_MSiwJB4AaABAg",
+      "text": "하우멧, 커뮤니티, 빅뱅 레츠고",
+      "author": "@emiwwqd",
+      "likeCount": 0,
+      "publishedAt": "2026-01-16T06:18:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzzOLOUXrVpfSGk1Cx4AaABAg",
+      "text": "위기의 주부들은 진짜 잼긴함ㅋ 근디 말이 어렵지만ㅎ",
+      "author": "@ooo-h3q7s",
+      "likeCount": 0,
+      "publishedAt": "2026-10-31T04:52:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzcOubYzHB-33-ZCVV4AaABAg",
+      "text": "프렌즈는 개인적으로 시즌 1, 2가 진짜 장벽이라고 생각함. 나도 처음에 쉐도잉할 때 다들 프렌즈로 공부하고 다들 재밌다길레 봤는데 시즌 1, 2가 너무cheese하고 cringe했음. 근데 그냥 참고 봤음 시즌 3부터 조금씩 재미있어지고 시즌 5, 6가 최고고 그 이후도 재밌었음. 혹시 프렌즈 시도했는데 재미없는분들은 내 말 믿고 그냥 뒤에 시즌 5, 6 이런거 보셈. 프렌즈 내용 따라가는거 하나도 안중요함. 그리고 재미 먼저 느끼고 시즌 1, 2로 돌아가도 됨. 시즌 5, 6 에피소드들도 재미없으면 진짜 안맞는거니까 딴거보셈.",
+      "author": "@jiri9269",
+      "likeCount": 9,
+      "publishedAt": "2026-01-16T07:59:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwBMwdRX6IdUPvo3m94AaABAg",
+      "text": "세 개 다 봤는데 내 취향은 모팸이었고 제일 재밌었음\n프렌즈는 대중적이고 괜찮았지만 내 기준 많이 올드했고 (나도 못 웃었음)\n위기의 주부들은 올드하긴 했지만 사건 중심이라서 스토리가 흥미롭고 재밌었음",
+      "author": "@dawool1396",
+      "likeCount": 4,
+      "publishedAt": "2026-01-26T18:29:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyYCs-mVMQxxv5mhAF4AaABAg",
+      "text": "도파민을 선택한건가;;",
+      "author": "@tony-l2w1i",
+      "likeCount": 2,
+      "publishedAt": "2026-01-12T14:29:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzV6pf2t1iFWiHkH1J4AaABAg",
+      "text": "Good",
+      "author": "@keemmanhyun2676",
+      "likeCount": 0,
+      "publishedAt": "2026-06-03T02:42:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz8zNcBxG7bQ4h7Hzh4AaABAg",
+      "text": "제니님이 프렌즈보기에는 많이 올드했을것 같아요.😂",
+      "author": "@Summer-kb2if",
+      "likeCount": 7,
+      "publishedAt": "2026-01-11T03:10:21Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgwhiQ1udI7SMEFLw3J4AaABAg",
+      "text": "나는 빅뱅이론",
+      "author": "@Ondal_djfbdhdg",
+      "likeCount": 52,
+      "publishedAt": "2026-01-15T14:25:22Z",
+      "replyCount": 5
+    },
+    {
+      "commentId": "Ugwdiu7JawAy4CuxVTJ4AaABAg",
+      "text": "오히려 젊음층에서 프렌즈가 인기임",
+      "author": "@Abkuyper",
+      "likeCount": 22,
+      "publishedAt": "2026-01-11T09:30:31Z",
+      "replyCount": 5
+    },
+    {
+      "commentId": "UgwPB5EkEsHDyl5O0Nt4AaABAg",
+      "text": "Working mom (Netflix)",
+      "author": "@Jade-ug1jd",
+      "likeCount": 3,
+      "publishedAt": "2026-01-11T03:38:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwo3FiAJl5GB__JFt14AaABAg",
+      "text": "전 The office",
+      "author": "@TheRealJobim",
+      "likeCount": 3,
+      "publishedAt": "2026-01-24T10:24:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwFncwyhty2j4UKy_J4AaABAg",
+      "text": "Seinfeld 좋았는데.. 여기 다 젊구나;",
+      "author": "@hkim7926",
+      "likeCount": 0,
+      "publishedAt": "2026-10-21T02:32:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwbFZxwmK1o5jt-US54AaABAg",
+      "text": "Full House",
+      "author": "@jiniqeee",
+      "likeCount": 0,
+      "publishedAt": "2026-10-09T12:58:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwFaXcV_IY3tsVwEB54AaABAg",
+      "text": "난 프렌즈 하면 13 14 15만 기억남",
+      "author": "@윈드포스1",
+      "likeCount": 0,
+      "publishedAt": "2026-01-20T04:08:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzjNr5hzRBdCliUC054AaABAg",
+      "text": "모던페밀리\n위기의주부들\n빅뱅이론\n프랜즈",
+      "author": "@Rani-Ko",
+      "likeCount": 0,
+      "publishedAt": "2026-02-10T18:26:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzXzK61-CCN8gZi-9d4AaABAg",
+      "text": "제목에 외의의 미드추천 오타좀",
+      "author": "@은지임-s2d",
+      "likeCount": 1,
+      "publishedAt": "2026-01-18T07:58:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzpbO4LteJfZWoVHBt4AaABAg",
+      "text": "house m.d.",
+      "author": "@톨달",
+      "likeCount": 0,
+      "publishedAt": "2026-01-21T19:25:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxizcJCpY_d_TnRRiV4AaABAg",
+      "text": "브나나파 모여라",
+      "author": "@orojeen015",
+      "likeCount": 1,
+      "publishedAt": "2026-01-21T14:08:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxca1BodSFyKd3BZ4t4AaABAg",
+      "text": "더빙 애니 봐도 되나?",
+      "author": "@산토끼익명의",
+      "likeCount": 0,
+      "publishedAt": "2026-10-21T17:39:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxFdsr5QonvbdxYuK94AaABAg",
+      "text": "브레이킹배드 말고는 재밌는 미드가 없었음",
+      "author": "@빌런을피하자",
+      "likeCount": 5,
+      "publishedAt": "2026-01-21T15:26:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz7NespdoK_EBLVT_h4AaABAg",
+      "text": "CSI LasVegas, Sex and the City",
+      "author": "@Gr_log_official",
+      "likeCount": 0,
+      "publishedAt": "2026-02-22T06:27:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz_ubmbFV8Ia1Mzx-54AaABAg",
+      "text": "개그코드란게 다르니..",
+      "author": "@조이-i2f",
+      "likeCount": 0,
+      "publishedAt": "2026-04-10T11:24:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy5AFeHA0SlPPjZMFF4AaABAg",
+      "text": "프렌즈는 진짜 피비랑 로스보고있으면 ㅈㄴ 스트레스 다 날라감..그리고 시대적인 배경과 문화적 차이도 좀 있긴함..그래도 재밌음",
+      "author": "@오금이저릴껄",
+      "likeCount": 0,
+      "publishedAt": "2026-01-18T09:58:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyfjT3ebiTp0pphDLJ4AaABAg",
+      "text": "빅뱅이론이 진짜 재미있는데... 실생활에서 쓰면 이상한 사람될꺼같음 ㅋㅋ",
+      "author": "@chacha9468",
+      "likeCount": 0,
+      "publishedAt": "2026-10-31T12:08:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz3FEWZJyiIKKW4vPl4AaABAg",
+      "text": "미쳤네 발음 뭐냐",
+      "author": "@Jimmy_Carr03",
+      "likeCount": 0,
+      "publishedAt": "2026-10-26T23:26:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyYlUpx_1jpev19-A54AaABAg",
+      "text": "쉐임리스 봐라 ㅋ",
+      "author": "@dmitryx5377",
+      "likeCount": 0,
+      "publishedAt": "2026-10-20T23:35:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyUo-HmtjgfBk7X7L54AaABAg",
+      "text": "모패 팬인데 위기의 주부들 봐야겠네",
+      "author": "@hhbro9815",
+      "likeCount": 0,
+      "publishedAt": "2026-06-15T12:36:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzJvhvUuYS4o1vZ6H94AaABAg",
+      "text": "모던패밀리나 프렌즈나 둘다 재미없어 못보겠음",
+      "author": "@jjgg8640",
+      "likeCount": 1,
+      "publishedAt": "2026-01-17T12:35:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzWLf7zGZb3fbLAEBl4AaABAg",
+      "text": "전부다 여성향 컨텐츠네 ㅠ 남자인 나는 전부다 재미를 못느꼈음 흑",
+      "author": "@긍긍이-t3t",
+      "likeCount": 0,
+      "publishedAt": "2026-10-19T06:08:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwuXyJevS-SSZugXGR4AaABAg",
+      "text": "프렌즈 모던패밀리 그닥",
+      "author": "@imshining",
+      "likeCount": 1,
+      "publishedAt": "2026-01-13T20:49:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1QBiQ1NJruj39Cip4AaABAg",
+      "text": "모던이 재미없엇엉ᆢ\n전 himym봄",
+      "author": "@Giniefromlamp",
+      "likeCount": 0,
+      "publishedAt": "2026-11-02T05:55:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx_1cs5FcxsUlVwk9p4AaABAg",
+      "text": "세대차이나서 그럴듯.",
+      "author": "@EUNJPARK-ct9bp",
+      "likeCount": 2,
+      "publishedAt": "2026-01-12T18:48:10Z",
+      "replyCount": 9
+    }
+  ]
+}

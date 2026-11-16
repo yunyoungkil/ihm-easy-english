@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-13T16:01:30.474Z",
+  "videoId": "KbNTuH4C9Po",
+  "video": {
+    "videoId": "KbNTuH4C9Po",
+    "title": "~away 영어구동사 쉽게 기억하기 | 영어어휘 익히기 | 영어단어 암기 | 영어회화 #koreanlanguage #koreanspeaking #영어단어",
+    "description": "Korean language, Korean learning,Study English, StudyKorean, English vocabulary, Korean  vocabulary, Basic English, English phrases, Basic Korean ,Korean  phrases, Korean culture, kfood,kpop,Korean vocabulary, Basic English, English phrases, Basic Korean ,Korean  phrases, Korean culture, kfood,kpop,hangul,한글,한국어,한국어공부,한국,\n영어표현,기억하기 쉬운 영어공부법,이 들어간 영어,영어단어,영어회화,영단어,영어공부,영어 쉽게 기억하기,YT:CC=ON, 가 들어간 영어단어, 영단어 쉽게 기억하기,영어단어 암기법,영어단어 외우는 법, 영어단어암기,영어쉽게배우기, 영어기초배우기,영단어암기 꿀팁,50대 영어,60대 영어,쉬운 영어, 중년영어,영어공부법,원어민영어,네이티브영어, \n#koreanlanguage,#한국어,#korean,#koreanspeaking,#한국어 #한국어공부 #한국어단어 #영어듣기#영어",
+    "channelId": "UCioUyF-AZnV4uOnYc_Q6LQA",
+    "channelTitle": "시니어 흘려듣는 영어",
+    "publishedAt": "2025-02-17T02:15:45Z",
+    "viewCount": 1034282,
+    "likeCount": 7793,
+    "commentCount": 18,
+    "thumbnail": "https://i.ytimg.com/vi/KbNTuH4C9Po/maxresdefault.jpg",
+    "duration": "PT26S"
+  },
+  "transcript": {
+    "ok": true,
+    "videoId": "KbNTuH4C9Po",
+    "language": "ko",
+    "languageName": "Korean (auto-generated)",
+    "isGenerated": true,
+    "lineCount": 11,
+    "fullText": "가져가다 take a 버리다 throw away 멀리하다 Keep a 나눠주다 Give a 도망가다 Run away 사라지다 Fade away",
+    "lines": [
+      {
+        "start": 0.68,
+        "duration": 3.6,
+        "text": "가져가다 take"
+      },
+      {
+        "start": 2.72,
+        "duration": 3.88,
+        "text": "a"
+      },
+      {
+        "start": 4.28,
+        "duration": 3.88,
+        "text": "버리다 throw"
+      },
+      {
+        "start": 6.6,
+        "duration": 4.36,
+        "text": "away"
+      },
+      {
+        "start": 8.16,
+        "duration": 4.68,
+        "text": "멀리하다 Keep"
+      },
+      {
+        "start": 10.96,
+        "duration": 4.36,
+        "text": "a"
+      },
+      {
+        "start": 12.84,
+        "duration": 4.56,
+        "text": "나눠주다 Give"
+      },
+      {
+        "start": 15.32,
+        "duration": 4,
+        "text": "a"
+      },
+      {
+        "start": 17.4,
+        "duration": 4.44,
+        "text": "도망가다 Run"
+      },
+      {
+        "start": 19.32,
+        "duration": 6.96,
+        "text": "away"
+      },
+      {
+        "start": 21.84,
+        "duration": 4.44,
+        "text": "사라지다 Fade away"
+      }
+    ]
+  },
+  "aiInsights": {
+    "hookingAnatomy": {
+      "technique": "인사나 설명 없이 곧바로 우리말 뜻과 영어 구동사(~ away)를 대조하며 나열하는 방식",
+      "openingHookQuote": "가져가다 take a 버리다 throw away",
+      "whyItWorked": "서두 없이 바로 일상적인 한국어 뜻과 영어 표현이 매칭되어 호기심을 유발함"
+    },
+    "storyArchitecture": [
+      {
+        "step": "1. 구동사 제시 및 나열",
+        "timeRange": "확인 불가",
+        "summary": "한국어 뜻과 '~away'가 포함된 구동사들을 연속으로 제시함 (가져가다 take a, 버리다 throw away, 멀리하다 Keep a, 나눠주다 Give a, 도망가다 Run away, 사라지다 Fade away)",
+        "pacingNote": "빠른 속도로 뜻과 단어를 매칭하여 이탈을 방지함"
+      }
+    ],
+    "coreMetaphors": [
+      {
+        "concept": "~ away 구동사",
+        "metaphorUsed": "확인 불가",
+        "evaluation": "확인 불가"
+      }
+    ],
+    "blindSpots": [
+      "take a, Keep a 등 자막이나 발음 표기에서 일부 단어가 누락되거나 잘못 표기된 부분이 있어 혼란을 줄 수 있음",
+      "구동사의 의미를 깊이 있게 풀어주지 않고 단순 나열에 그쳐 초보 학습자에게는 왜 그런 뜻이 되는지 이해하기 어려울 수 있음"
+    ],
+    "ourAdaptedScript": {
+      "recommendedTitle": "헷갈리는 영어 구동사 away, 딱 3개만 알면 끝",
+      "openingHook": "버리다, 도망가다 할 때 뒤에 꼭 붙는 이 단어, 아시나요?",
+      "corePrincipleExplanation": "away는 무언가 멀어지는 느낌을 주는 단어예요. 그래서 throw away라고 하면 던져서 멀리 보낸다는 뜻이 돼요.",
+      "longformStructure": {
+        "step1_Hook": "일상에서 자주 쓰는 '버리다', '도망가다' 영어로 어떻게 할까요?",
+        "step2_CardDisplay": "버리다 - throw away",
+        "step3_Principle": "away가 들어가면 멀어진다는 느낌이 생겨요.",
+        "step4_RepetitionDrill": "저를 따라 세 번 읽어볼까요? throw away, throw away, throw away.",
+        "step5_Outro": "오늘 배운 표현을 댓글로 남겨보세요!"
+      },
+      "shortsTrackA": {
+        "concept": "Track A 원리형 (30초)",
+        "scriptText": "버리다는 throw away, 도망간다는 run away! 뒤에 붙은 away는 다 '멀리'라는 뜻이에요. 멀리 던지면 버리는 거고, 멀리 달리면 도망가는 거겠죠? 쉽죠?"
+      },
+      "shortsTrackB": {
+        "concept": "Track B 실전 대화/상황극형 (30초)",
+        "scriptText": "쓰레기를 치워야 할 때 뭐라고 할까요? 그냥 throw away라고 해보세요. 던져서 멀리 보낸다는 뜻이에요. 오늘부터 물건 버릴 때 throw away 꼭 기억하세요!"
+      }
+    }
+  }
+}

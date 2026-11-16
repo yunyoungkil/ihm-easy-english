@@ -1,0 +1,902 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-12T06:29:10.129Z",
+  "video": {
+    "videoId": "Ux_M00VVmEU",
+    "title": "2개월차 영린이의 영어 발음 챌린지 / 이렇게 쉬워도 도ㅑ?..#영어발음테스트 #발음챌린지 #영린이 #영어발음",
+    "channelTitle": "수키 suekii",
+    "channelId": "UCWbWuplzBt70mWChzBKCApA",
+    "publishedAt": "2025-04-03T15:28:19Z",
+    "viewCount": 4180208,
+    "likeCount": 48689,
+    "commentCount": 353,
+    "thumbnailUrl": "https://i.ytimg.com/vi/Ux_M00VVmEU/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "point": "직장인들의 고질적인 발음 교정 한계",
+        "detail": "시간이 부족하고 직장 생활을 하며 영어 발음을 교정하는 것이 너무 어렵다는 좌절감",
+        "userQuote": "직장인인데 영어 발음 교정이 진짜 어렵네요ㅠㅠ"
+      },
+      {
+        "point": "한국어 표기와 실제 영어 발음의 괴리",
+        "detail": "한글로 표기된 영어(예: 맥도날드, 스타벅스)를 그대로 고집하다가 원어민이 못 알아듣는 악순환",
+        "userQuote": "한국 분들은 한국어 표기때문에 맥도날드 발음할때 '도'랑 '날'을 고집하는데..."
+      },
+      {
+        "point": "발음 챌린지나 유명 브랜드 단어의 높은 진입 장벽",
+        "detail": "맥도날드, KFC, 코카콜라 같은 익숙한 단어조차 원어민식 억양과 강세를 살리지 못해 실패하는 현상",
+        "userQuote": "그 지옥의 맥도날드를 1번에….허억",
+        "userQuote2": "존박이 맥도날드에서 실패한 영상이 생각나네요"
+      },
+      {
+        "point": "아시안 특유의 억양과 목이 뒤로 눌리는 발음",
+        "detail": "영어 발음을 굴리려고 할 때 목이 뒤로 눌리며 소리가 먹히는 현상",
+        "userQuote": "아시안들 특유의 억양에 영어 발음을 굴린다고 목이 뒤로 눌리는듯한 먹는소리를 내는..."
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "단기간에 저런 원어민스러운 발음이 나오려면 도대체 어떤 공부법과 루틴을 써야 하나요?",
+        "context": "2개월 만에 발음 챌린지를 성공한 사람을 보며 시청자들이 쏟아낸 궁금증"
+      },
+      {
+        "question": "맥도날드나 스타벅스처럼 한글 외래어로 굳어진 단어는 혀와 입모양을 어떻게 바꿔야 원어민이 알아듣나요?",
+        "context": "많은 사람들이 실패하는 지옥의 브랜드 발음의 물리적 비밀에 대한 의문"
+      },
+      {
+        "question": "발음을 잘하기 위해 무작정 소리를 굴리는 것과 인토네이션(강세)을 외우는 것 중 무엇이 먼저인가요?",
+        "context": "단순 버터 발음 흉내와 실제 원어민의 리듬의 차이를 인지한 시청자의 질문"
+      },
+      {
+        "question": "한국어 표기('맥도날드'의 '도', '날')의 틀을 머릿속에서 완전히 지우는 구체적인 훈련법이 있나요?",
+        "context": "한글 자모음의 굴레에서 벗어나지 못하는 고통에 대한 해결책 요청"
+      }
+    ],
+    "audienceVocabulary": [
+      "영린이",
+      "발음 챌린지",
+      "지옥의 맥도날드",
+      "한방에 성공",
+      "인토네이션",
+      "목이 뒤로 눌리는 소리",
+      "한글 표기의 늪",
+      "재능파"
+    ],
+    "whatWorked": [
+      {
+        "element": "원어민식 인토네이션과 리듬감 강조",
+        "description": "단순히 알파벳을 읽는 것이 아니라, 오'뤠'오가 아니라 '오'뤼오처럼 멜로디(인토네이션)를 통째로 외우는 방식의 명쾌한 설명."
+      },
+      {
+        "element": "발음의 물리적 방향성 제시",
+        "description": "소리를 목구멍 뒤로 굴려 먹는 것이 아니라, 앞으로 편안하게 뻗어주는 발성 교정 피드백."
+      },
+      {
+        "element": "한글 외래어 고정관념 타파",
+        "description": "'맥도날드'라는 한글 표기에 갇혀 '도'와 '날'을 정직하게 발음하려는 버릇을 콕 집어내어 시청자의 가려운 곳을 긁어줌."
+      }
+    ],
+    "actionableContentPitches": [
+      {
+        "titleCandidates": [
+          "스타벅스, 맥도날드 발음할 때 원어민이 속으로 웃는 이유 (한국인 99%가 틀리는 이유)",
+          "영어 10년 해도 '맥도날드' 하나 못 알아듣는 진짜 이유 (한글 표기 뇌 지우기)",
+          "무작정 혀 굴리지 마세요. 원어민이 귀 쫑긋 세우는 단 하나의 비밀"
+        ],
+        "hookThreeSeconds": "여러분이 '맥도날드'라고 당당하게 말할 때, 원어민이 멈칫하는 이유가 뭔지 아세요? 한국어 뇌가 여러분의 혀를 붙잡고 있기 때문입니다.",
+        "shortsTrackAIdea": {
+          "concept": "한글 외래어 표기(맥도날드, 스타벅스)와 실제 원어민 소리의 뼈대를 비교하여 혀의 위치와 강세의 원리를 1분 만에 해부하는 원리 설명형 쇼츠",
+          "hook": "당신이 발음할 때마다 원어민이 못 알아듣는 건, 이 '한글 자음'을 혀에 그대로 얹고 있기 때문입니다."
+        },
+        "shortsTrackBIdea": {
+          "concept": "방구석에서 혼자 '맥도날드'와 '스타벅스'를 원어민처럼 장착하는 1일 10분 입근육 리셋 상황극 훈련",
+          "hook": "퇴근길에 딱 1분만 따라 하세요. 오늘부터 '맥도날드' 발음으로 외국인 티 확 벗는 법."
+        }
+      }
+    ]
+  },
+  "comments": [
+    {
+      "commentId": "UgyfCSwCIVOjwOfmaP54AaABAg",
+      "text": "😮…다들 좋게봐주셔서 너무 감사합니다 !\n틱톡에서 영어발음챌린지 검색하셔서 필터 적용 후 가능합니다 \n영어공부법은 롱폼으로 들고 올게요 ! 💖",
+      "author": "@hisuekii",
+      "likeCount": 48,
+      "publishedAt": "2025-05-05T04:38:41Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgwJVQSNi9EM1DOjaAJ4AaABAg",
+      "text": "2개월차는.. 재능 지리네요",
+      "author": "@펭귄-x5t",
+      "likeCount": 5107,
+      "publishedAt": "2025-04-06T07:46:17Z",
+      "replyCount": 8
+    },
+    {
+      "commentId": "UgyVEP-IZAqTw9CWryt4AaABAg",
+      "text": "ㅋㅋㅋㅋ 성공할때마다 작은 숨소리로 놀라는거 너무 귀여워욬ㅋㅋㅋㅋ",
+      "author": "@idyllic-j2n",
+      "likeCount": 2187,
+      "publishedAt": "2025-04-07T07:34:32Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyVJ7d3yE4GYOEy3At4AaABAg",
+      "text": "케이에프씨 성공하는거 내가 본 영상중에 최초이신듯ㅋㅋㅋㅋ대박. 얼굴도 이뿌시고",
+      "author": "@ddoung38",
+      "likeCount": 1722,
+      "publishedAt": "2025-04-06T22:13:36Z",
+      "replyCount": 5
+    },
+    {
+      "commentId": "Ugz9pPd9QycF-X6WdQZ4AaABAg",
+      "text": "와 진짜 이렇게 빨리 성공하는 사람 처음 봐요!!!!!❤",
+      "author": "@elsajung2850",
+      "likeCount": 1185,
+      "publishedAt": "2025-04-06T07:35:13Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "Ugxu4wXD2AOwI5F6YEt4AaABAg",
+      "text": "맥도날드 한방에 하는사람 처음봐 발음 대박이다",
+      "author": "@coca_bearrr",
+      "likeCount": 167,
+      "publishedAt": "2025-04-06T07:02:13Z",
+      "replyCount": 5
+    },
+    {
+      "commentId": "UgwyJ3vhO1Wp7iCOQAF4AaABAg",
+      "text": "영어발음 🐶쩔어욜❤❤❤❤",
+      "author": "@Rookie_ji0803",
+      "likeCount": 210,
+      "publishedAt": "2025-04-06T06:51:06Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugzb8WCigAjjjNAJYbB4AaABAg",
+      "text": "2개월에 이정도면 정말 재능 있으신거 같아요. 제 조언이 도움이 될지는 모르겠지만 몇가지 말씀드리자면 원어민들이 발음 하는걸 보고 인토네션을 외우시는게 좋아요. 예를들면 오'뤠'오 가 아니라 '오'뤼오 가 맞아요. 그리고 아시안들 특유의 억양에 영어 발음을 굴린다고 목이 뒤로 눌리는듯한 먹는소리를 내는데 소리를 조금 더 편안하게 앞으로 뻗는게 좋습니다. kfc 하실때 f 를 날숨에 발음해보세요. 그리고 마지막으로 한글로 표기되는 영어를 잊는게 좋아요. 한국 분들은 한국어 표기때문에 맥도날드 발음할때 '도'랑 '날'을 고집하는데 사실 도 보다는 다 에 어 발음이 섞인듯한 느낌이고 '날스'는 '너어[ㄹ]스'라고 보시면 되요. 저 [ㄹ]을 조금 힘줘서 말할때 혀를 집어넣듯 발음하면 되기는하는데 사실 부드럽게 넘겨도 자연스러울 수 있어요. 화이팅!",
+      "author": "@Oneonly746",
+      "likeCount": 426,
+      "publishedAt": "2025-04-06T17:54:07Z",
+      "replyCount": 9
+    },
+    {
+      "commentId": "UgyfnOba22-MzN3LQAh4AaABAg",
+      "text": "와 연세대 출신이라고 나대다가 성공못하신분있는데 그분보다 잘하시네용",
+      "author": "@서연정-w6y",
+      "likeCount": 6,
+      "publishedAt": "2025-05-21T09:21:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx0enP4dpPwDKMKU0R4AaABAg",
+      "text": "악센트 진짜 잘하신다😮",
+      "author": "@솜사탕-g2o",
+      "likeCount": 32,
+      "publishedAt": "2025-04-06T15:31:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy11421UaZy4h1DySJ4AaABAg",
+      "text": "성공 할 때 마다 놀라는 추임새 겁나 귀엽네ㅋㅋㅋㅋ",
+      "author": "@tamfour93",
+      "likeCount": 9,
+      "publishedAt": "2025-04-07T08:12:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyRmBrkD26MGidSmFN4AaABAg",
+      "text": "아니ㅋㅋㅋ놀랄때마다 허어업 이러다가 놓치는거 겁나 웃기네ㅋㅋㅋ",
+      "author": "@뽀니세상",
+      "likeCount": 0,
+      "publishedAt": "2026-06-21T14:39:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwbvXbL1v7q5LmtF-p4AaABAg",
+      "text": "ㅋ쿠ㅜ 통과 할때마다 호옭… 이러면서 놀라시는거 ㅋㅋ",
+      "author": "@유빈을영원토록",
+      "likeCount": 1,
+      "publishedAt": "2025-05-05T04:08:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwODCNOt49YrmiSbjB4AaABAg",
+      "text": "오마이갓😮 왤케 잘하세여?😊❤❤",
+      "author": "@happy-ol7il",
+      "likeCount": 17,
+      "publishedAt": "2025-04-06T05:33:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyC5UhQqhCtUU9Tiyp4AaABAg",
+      "text": "마지막에 맥도날드 해보니까 진짜 어렵던데..(한번에 성공하신게 대단함🎉)",
+      "author": "@dongjaelee629",
+      "likeCount": 0,
+      "publishedAt": "2025-04-10T10:21:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy4HrByZ-_RKCR0ONV4AaABAg",
+      "text": "봤던 사람들중 제일잘하심\n교포출신들 깝죽대는것보다\n이분이 최고임",
+      "author": "@장찬식-h3e",
+      "likeCount": 4,
+      "publishedAt": "2025-04-08T10:05:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy0e-6I9PF6AJv9ttl4AaABAg",
+      "text": "얼굴이 너무 귀여운거 아니냐...❤",
+      "author": "@JIP_1",
+      "likeCount": 13,
+      "publishedAt": "2025-04-05T11:13:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyaKt_p2oGrLCI_tGJ4AaABAg",
+      "text": "저미국 10년 살았는데 저보다 발음 더 정확하싱듯 ㅋㅋㅋ",
+      "author": "@somikim2650",
+      "likeCount": 5,
+      "publishedAt": "2025-04-07T06:08:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw07Oycn-WaUPJt2v54AaABAg",
+      "text": "그 어려운 맥도날드도 하셧네요 대단해요👍👍👍",
+      "author": "@뚜뚜따따TV",
+      "likeCount": 0,
+      "publishedAt": "2025-05-01T12:28:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyG-49LIBGGlmFHMbF4AaABAg",
+      "text": "누군지 모르는데 귀엽다.. 성공 할 때 마다 허업..!",
+      "author": "@Yun-h3p4w",
+      "likeCount": 0,
+      "publishedAt": "2025-04-09T17:40:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz7-cC9Jr6oKlACgaN4AaABAg",
+      "text": "오리오 \n오 마이 갓❤❤❤❤❤❤ This is a mazing",
+      "author": "@로블계_조은_유나",
+      "likeCount": 17,
+      "publishedAt": "2025-04-06T02:58:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyxzefRhv-ejpwJVwF4AaABAg",
+      "text": "와 발음도 미모도 너무 이쁘시네요",
+      "author": "@melongtop1004",
+      "likeCount": 0,
+      "publishedAt": "2025-04-09T00:22:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwz3XJC2RFOBiuA41R4AaABAg",
+      "text": "그녀가 왜 그렇게 아름다운지 😮",
+      "author": "@top_rizz-e1x",
+      "likeCount": 19,
+      "publishedAt": "2025-04-06T16:10:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx9XM5v6Um7NFyVQX54AaABAg",
+      "text": "ㅋㅋㅋㅋ될 때마다 허어~ ㅋㅋㅋㅋ 귀여우셔요~🥰",
+      "author": "@user-pl5tx6ze8h",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T14:07:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxVwSrILQ5zt6D2khJ4AaABAg",
+      "text": "대박 이걸 한번에해?! 박수👏🏻",
+      "author": "@하치와레-h5r",
+      "likeCount": 1,
+      "publishedAt": "2025-12-30T03:22:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwku3R7Ku5a8MKSxy14AaABAg",
+      "text": "진짜 잘하신당❤",
+      "author": "@S20FE-x2i",
+      "likeCount": 2,
+      "publishedAt": "2025-04-07T12:40:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgweSotF41GXIM6Gn4l4AaABAg",
+      "text": "너무잘해❤❤❤❤",
+      "author": "@최희정-o5f",
+      "likeCount": 9,
+      "publishedAt": "2025-04-06T05:57:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx2-dKHAroj9NP4suV4AaABAg",
+      "text": "우와 진짜 너무 예쁘다 ❤",
+      "author": "@정주안-k8d",
+      "likeCount": 2,
+      "publishedAt": "2025-04-06T11:53:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwYko6Ey2ZP9nxr6gV4AaABAg",
+      "text": "너무 잘하세요!!",
+      "author": "@티프형",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T08:35:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxa4KE24KqmyS18a4t4AaABAg",
+      "text": "이 분 왜 이렇게 이쁘시지 ..",
+      "author": "@HaHa-o",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T14:48:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxFpjNy271pHkoFAyV4AaABAg",
+      "text": "아니 그 전설의 맥도날드를 하다니!!!!❤❤",
+      "author": "@돌고래-576",
+      "likeCount": 0,
+      "publishedAt": "2025-04-29T12:06:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw6P45Tkh7ZCLDFKWd4AaABAg",
+      "text": "코카콜라 입술 안닿고는 안된다는데?  잘 되시네유 굿굿굿",
+      "author": "@레소튜브",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T10:19:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_jUXsSH4J4sKxxrh4AaABAg",
+      "text": "맥날에서 좀 걸리던데.. 저걸 한번에 성공하는 건 최초로 봐서 마음이 편안하네요..",
+      "author": "@플린_2",
+      "likeCount": 0,
+      "publishedAt": "2025-04-19T11:38:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzW3-2FlDiLW3xAq7d4AaABAg",
+      "text": "😂😂😂😂와 진짜 ㅋㅋㅋ\n겁.나.잘.함",
+      "author": "@민siu박",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T11:52:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxY4RZTjSRmYCn4ATh4AaABAg",
+      "text": "진짜 이쁘시네요..",
+      "author": "@스케치툰",
+      "likeCount": 0,
+      "publishedAt": "2025-05-02T18:51:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwslOYeqEdvHVyh8UR4AaABAg",
+      "text": "이렇게 발음 좋은 한국인은 처음 봄",
+      "author": "@이브-like",
+      "likeCount": 36,
+      "publishedAt": "2025-04-06T06:40:19Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgyPHF6PexY3jJ5gZ6B4AaABAg",
+      "text": "잘한닷❤❤",
+      "author": "@스삐끼는호박조아해용",
+      "likeCount": 7,
+      "publishedAt": "2025-04-06T01:43:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzJNq-nFwKNL57LmlV4AaABAg",
+      "text": "맥도널드 한번에 통과한 사람 처음 봐요 와웅 ㄷㄷㄷ",
+      "author": "@haeyajee",
+      "likeCount": 0,
+      "publishedAt": "2025-04-11T03:13:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz2wE7DzhYRnrNY8DR4AaABAg",
+      "text": "와~ 영어발음 미침 😮",
+      "author": "@nguyenthihangnguyenthihang2832",
+      "likeCount": 0,
+      "publishedAt": "2025-04-28T13:30:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyJjG4mCs5teOTYbWJ4AaABAg",
+      "text": "맥도날드 하기 어려운데😮 대박이에요❤",
+      "author": "@김원희-i5f",
+      "likeCount": 0,
+      "publishedAt": "2025-04-06T09:56:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwSIJYo10FRDFa53LJ4AaABAg",
+      "text": "와 발음 어케 공부했길래 2개월만에 저런 발음이 나와욥..?? 궁금해요!",
+      "author": "@바나나칩-e3e",
+      "likeCount": 1,
+      "publishedAt": "2025-06-02T15:52:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzIreQ_0HxKf-P3SpV4AaABAg",
+      "text": "평소 한국어 발음도 또박또박 하실거같네요",
+      "author": "@BestYetToComeBro",
+      "likeCount": 0,
+      "publishedAt": "2025-04-06T09:53:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxAcOfKuJruBwGYO8B4AaABAg",
+      "text": "영어 7년했는데 발음이 저보다 좋으심\n노력과 재능이 붙으면 재능이 이긴다는 것을 지금 깨달았어요",
+      "author": "@렌허벅지먹방냠냠",
+      "likeCount": 52,
+      "publishedAt": "2025-04-07T11:08:22Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgxFMTq7IP4YroVSHR14AaABAg",
+      "text": "쩐다…😂",
+      "author": "@sl_j1",
+      "likeCount": 1,
+      "publishedAt": "2025-04-06T22:11:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgylI8xuYEIa-wdPDFV4AaABAg",
+      "text": "발음이 지리시는듯👍",
+      "author": "@ANX6381",
+      "likeCount": 0,
+      "publishedAt": "2025-05-02T02:13:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwEkl3ascO5oKbb9nt4AaABAg",
+      "text": "와 이영상 너무 이쁘게나오셨는데",
+      "author": "@52r69",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T07:27:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxNYy7hIOZmh_H5JI94AaABAg",
+      "text": "맥도날드를 한번에 성공하노...재능파군...지리노",
+      "author": "@김수한무거북이-b3e",
+      "likeCount": 0,
+      "publishedAt": "2025-04-13T03:52:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzjSZrzDhifROO5nL14AaABAg",
+      "text": "헉 조만간 뜰거같아여 ㅠㅠ",
+      "author": "@IKOREANZ1",
+      "likeCount": 5,
+      "publishedAt": "2025-04-05T13:45:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgznHnKyAsLbpvthQP14AaABAg",
+      "text": "메도날그 를한버네  마추시다니 최고예요😊",
+      "author": "@민경복-e5x",
+      "likeCount": 0,
+      "publishedAt": "2025-05-17T12:58:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzrS5GWXBZEeckGllN4AaABAg",
+      "text": "영어 발음 너무 좋아요 ❤",
+      "author": "@원도어7_5",
+      "likeCount": 0,
+      "publishedAt": "2025-05-01T10:30:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwvcJjX7uvpSqHy0IV4AaABAg",
+      "text": "와 영어 잘하시는분들도 마지막 맥도날드는 엄청 어려워하던데 한번에 성공하다니..❤❤",
+      "author": "@채린-f5c",
+      "likeCount": 5,
+      "publishedAt": "2025-04-08T09:24:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzZCCFCRhi0nDDw3ht4AaABAg",
+      "text": "마지막 맥도날드는 많이 실패하시던데 완전 잘하심요❤❤",
+      "author": "@닉네임추천뷰탁",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T07:23:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwggs8U-Y447mQulNd4AaABAg",
+      "text": "엄청이쁘잖앙♥",
+      "author": "@pigbulback",
+      "likeCount": 0,
+      "publishedAt": "2025-04-12T21:51:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyb1gjwndE0xGLn7ix4AaABAg",
+      "text": "바름이 미쳤어요..ㄷㄷ",
+      "author": "@우아한휴식-c",
+      "likeCount": 0,
+      "publishedAt": "2025-04-08T07:20:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx5E1HGLb2JOTkIkoV4AaABAg",
+      "text": "와 개잘한다",
+      "author": "@김빛가람-p4w",
+      "likeCount": 2,
+      "publishedAt": "2025-04-06T04:29:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwUsVtAf8H4cN3olXB4AaABAg",
+      "text": "바람 미쳤다🎉❤",
+      "author": "@사랑해-u6s8n",
+      "likeCount": 0,
+      "publishedAt": "2026-02-13T08:03:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzPhso-e2bd7XPtRu54AaABAg",
+      "text": "안경 정보 좀 주세용🤓",
+      "author": "@heanggarae",
+      "likeCount": 0,
+      "publishedAt": "2025-04-14T14:38:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgydJP4ipxuD1ObhTHF4AaABAg",
+      "text": "그 지옥의 맥도날드를 1번에….허억",
+      "author": "@Ayeon15",
+      "likeCount": 1,
+      "publishedAt": "2025-06-02T12:09:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwV2acSWRg6yu66iTR4AaABAg",
+      "text": "엄청 이뻐서 보다 놀랐네 영린이라니",
+      "author": "@나잘못생긴듯",
+      "likeCount": 0,
+      "publishedAt": "2025-04-09T15:33:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw7hxk7yZgf52fYUxN4AaABAg",
+      "text": "와... 미침 찢었더",
+      "author": "@김몰라-k5d",
+      "likeCount": 1,
+      "publishedAt": "2025-04-06T12:08:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgySQmd022pxlVFFMBZ4AaABAg",
+      "text": "와우 발음!  \n존박이 맥도날드에서 실패한 영상이 생각나네요 😮",
+      "author": "@세상이-w9h",
+      "likeCount": 0,
+      "publishedAt": "2025-05-07T09:52:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx_L2owT93Z7y4QQGV4AaABAg",
+      "text": "맥도날드 한번에 성공하는사람 처음봤다!!",
+      "author": "@Ex_one",
+      "likeCount": 1,
+      "publishedAt": "2025-04-09T12:02:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxR6l3ctiDQrpMDOyR4AaABAg",
+      "text": "발음이 …… 와우!!!!",
+      "author": "@아따파파-w3n",
+      "likeCount": 0,
+      "publishedAt": "2025-05-05T02:30:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxHDEHyiRzKgevJsnh4AaABAg",
+      "text": "슈호님 넘 예뻐요",
+      "author": "@pretty_isseo",
+      "likeCount": 0,
+      "publishedAt": "2025-12-26T07:03:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzD6j8_UfWoQcgasHd4AaABAg",
+      "text": "와...이거 승무원들분도 쉽게 못하셨는데...와...대박이에요 지금 바로 승무원 하시는건 어떠신지?",
+      "author": "@쿠마로-u8i",
+      "likeCount": 2,
+      "publishedAt": "2025-04-06T08:20:08Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "Ugy8aqnoAb9gIECwtwF4AaABAg",
+      "text": "👍 👍 👍 👍 와~~이거 진짜 어렵던데...\n어케했어요~~???",
+      "author": "@소쿡장난2025",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T11:19:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxnAfx3DQCgJCj5T5N4AaABAg",
+      "text": "와❤ 잘한다❤😂",
+      "author": "@jm-fc6wn",
+      "likeCount": 0,
+      "publishedAt": "2025-04-17T06:01:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzvpj2oTYBmcSY_PBl4AaABAg",
+      "text": "언니 넘 예뻐영 ㅋㅋ",
+      "author": "@Sta._y325",
+      "likeCount": 0,
+      "publishedAt": "2025-04-27T14:10:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxroaMKLCqMkZmh7Dl4AaABAg",
+      "text": "발음 진짜 좋다",
+      "author": "@user-intplikeanimesityds",
+      "likeCount": 0,
+      "publishedAt": "2025-04-08T13:11:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwt6GbH2C5I-w1KQrh4AaABAg",
+      "text": "ㅈㄴ이쁘다..",
+      "author": "@박박비라밥",
+      "likeCount": 0,
+      "publishedAt": "2025-04-09T10:02:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwhHUnAlvVxP680wKd4AaABAg",
+      "text": "2개월차에 이렇게 좋아지시나요!!? 비법 좀 공유해쥬세요ㅠㅠ 직장인인데 영어 발음 교정이 진짜 어렵네요ㅠㅠ",
+      "author": "@iliiillllil",
+      "likeCount": 0,
+      "publishedAt": "2025-04-06T08:15:34Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgzF9l3dhFYD0bzPFH54AaABAg",
+      "text": "짱귀엽다 팬됬습니다",
+      "author": "@미미미미모사",
+      "likeCount": 0,
+      "publishedAt": "2025-04-08T15:47:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyiRCKtmMEH9BXe8QF4AaABAg",
+      "text": "우와 맥도날드 한번에 성공 하는사람 처음 봄😮",
+      "author": "@seon1633",
+      "likeCount": 0,
+      "publishedAt": "2025-04-11T11:10:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxHxzjtIvwzMjE_LxZ4AaABAg",
+      "text": "......잘한당",
+      "author": "@설연_Seol",
+      "likeCount": 0,
+      "publishedAt": "2025-05-03T12:07:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxzdlREYxo_ppI-rVZ4AaABAg",
+      "text": "이걸루? 대다나다.피셜결정체",
+      "author": "@sinhochoi2503",
+      "likeCount": 3,
+      "publishedAt": "2025-04-06T07:53:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwEhqXRg9AKaBpLolJ4AaABAg",
+      "text": "스타벅스 발음 완전 좋으신데",
+      "author": "@asdf1234ej",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T15:08:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyD6-Oc9O07ysM_UnR4AaABAg",
+      "text": "얼굴이 재능인데여!",
+      "author": "@moo_moo_jeans",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T11:43:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzpa0FwIYxaUtEUmPh4AaABAg",
+      "text": "아니 승무원도 못한 맥도널도를 일트만에 ㄷㄷ;;;;;",
+      "author": "@구르미_143",
+      "likeCount": 0,
+      "publishedAt": "2025-05-06T06:01:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyw2E5mo4mKgST6TU94AaABAg",
+      "text": "안경 정보 제발제발유 ㅠㅠㅠㅠㅠㅠ제발 알려주세요 ㅠㅠㅠㅠ",
+      "author": "@cooooly-2",
+      "likeCount": 2,
+      "publishedAt": "2025-04-07T13:40:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzxY3L3_mU-S2CvIOV4AaABAg",
+      "text": "안경어디껀가요?!",
+      "author": "@벼네린",
+      "likeCount": 4,
+      "publishedAt": "2025-04-06T09:35:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxYgwwGFPjN4xJHQph4AaABAg",
+      "text": "맥도널s원래 진짜 어려운건데 이걸 성공하신 당신은 전생에 미국인😅😂🎉😊",
+      "author": "@간지폭풍-GIANTMOUNTAIN400",
+      "likeCount": 0,
+      "publishedAt": "2025-04-13T11:34:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgynTHwQ5xDZCjEbwk14AaABAg",
+      "text": "외국에 유학가신 분들도 마지막 2개는 어려워하시던데..ㄷㄷ",
+      "author": "@유닛이었던_유닛",
+      "likeCount": 1,
+      "publishedAt": "2025-04-07T10:54:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgywQ5kMUc5KRHnruQl4AaABAg",
+      "text": "옹니 혹시 시술이나 성형 받은신거 있으신가요..? 너모 이뻐요",
+      "author": "@오늘_ohneul",
+      "likeCount": 1,
+      "publishedAt": "2025-04-07T07:12:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw0J3HTbS0bExXgDT54AaABAg",
+      "text": "멈추지 말고 빨리 지나가게 제발 허어...헙! 이런 것 좀..",
+      "author": "@하..내인생_hidf",
+      "likeCount": 0,
+      "publishedAt": "2025-05-06T12:24:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgySHH49Cy3HjQ7g8j14AaABAg",
+      "text": "와 이쁘다..",
+      "author": "@가희-A",
+      "likeCount": 0,
+      "publishedAt": "2025-04-06T16:08:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyV7ocpDUlGNoJ6ZVh4AaABAg",
+      "text": "안경 어디껀가요..?",
+      "author": "@책상근수",
+      "likeCount": 0,
+      "publishedAt": "2025-04-08T15:14:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwEY8ec6yVmQfr2jhJ4AaABAg",
+      "text": "마지막 타이거즈 제임스 네일도 어려워하던건데ㄷㄷ1트만에..",
+      "author": "@TtK-xl9np",
+      "likeCount": 0,
+      "publishedAt": "2025-05-02T04:48:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz_nWHxXHk7bMhMPEd4AaABAg",
+      "text": "혹시 이거 어디서 해요...??",
+      "author": "@Yoxn1818",
+      "likeCount": 3,
+      "publishedAt": "2025-04-07T13:09:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx9dddiI7nfK98LS3J4AaABAg",
+      "text": "수백번 녹화하며 하나건진거 올리고 기분좋아서 댓글창 리딸하는 주인장이면 개추 ㅎㅎ",
+      "author": "@비따비-j4e",
+      "likeCount": 1,
+      "publishedAt": "2025-05-06T14:50:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxcZRZ8Z9SR3bf_cNN4AaABAg",
+      "text": "Oh - ree - oh \n\nPringles was spot on",
+      "author": "@andrewofaiur",
+      "likeCount": 0,
+      "publishedAt": "2025-04-09T05:35:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzjdt2cD2G7Q-kdxHl4AaABAg",
+      "text": "국제학교에서는 그건 기본으로 10일만 해도 됩니다",
+      "author": "@캡컷é",
+      "likeCount": 1,
+      "publishedAt": "2025-04-07T10:17:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwOi-aRffClRj7R0lF4AaABAg",
+      "text": "미국에서 박사과정 5년차 중에 있습니다. 영어 원어민인줄 알았어요.",
+      "author": "@chanwoobae5646",
+      "likeCount": 0,
+      "publishedAt": "2025-04-10T15:17:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz7aTFh9ErSFdGU9Ml4AaABAg",
+      "text": "맥도널드 미침,ㄷㄷ",
+      "author": "@Yuling-yu",
+      "likeCount": 0,
+      "publishedAt": "2025-04-26T09:53:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwXBN1uyoYGAL39uN54AaABAg",
+      "text": "뭐야 발음 너무 좋으신데용",
+      "author": "@TV-zr6bu",
+      "likeCount": 10,
+      "publishedAt": "2025-04-05T13:49:44Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgypWNho2RfVKaGsQ7t4AaABAg",
+      "text": "그니까 이분이 말하는 2개월은 그냥 학생때 배운건 머리에 잘 가지고 있다가 다시 제대로 배운게 2개월이라는거 아님?",
+      "author": "@정성화_카이",
+      "likeCount": 0,
+      "publishedAt": "2025-11-21T06:25:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzcELKE3ha4mYHeYJF4AaABAg",
+      "text": "오레오 악센트부터 틀렸는데 발음 좋다는 사람들은 뭐지 대체 ㅋㅋㅋ",
+      "author": "@m_illiO",
+      "likeCount": 7,
+      "publishedAt": "2025-04-06T12:29:25Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "UgxDftZVz2vI_mgCN0N4AaABAg",
+      "text": "맥도날드는 미국에 살다온 쉐리님인가 그분도 몇분은 해야되덩데",
+      "author": "@유혜_Youhye",
+      "likeCount": 0,
+      "publishedAt": "2025-04-06T09:56:50Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxLq40FuxBUPC0AuSt4AaABAg",
+      "text": "혹시 안경정보 여쭤봐도 될까요",
+      "author": "@ansuahhh",
+      "likeCount": 0,
+      "publishedAt": "2025-04-09T23:42:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxyIogIzrsllNX2ZT14AaABAg",
+      "text": "와!! 멕도널드 힘든데 1번위",
+      "author": "@남율아",
+      "likeCount": 0,
+      "publishedAt": "2025-04-07T07:01:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxz7PzrZbTYitsB7wx4AaABAg",
+      "text": "처음 뵙지만 왜 잘하심?",
+      "author": "@BokBok-q8o",
+      "likeCount": 0,
+      "publishedAt": "2025-04-06T15:53:22Z",
+      "replyCount": 0
+    }
+  ]
+}

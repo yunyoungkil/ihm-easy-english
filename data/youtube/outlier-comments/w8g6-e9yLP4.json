@@ -1,0 +1,876 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-12T06:35:50.405Z",
+  "video": {
+    "videoId": "w8g6-e9yLP4",
+    "title": "종민, 도연의 영어 발음 테스트",
+    "channelTitle": "메리고라운드",
+    "channelId": "UCHVuJ2Hy_1917gvFNhuuv5Q",
+    "publishedAt": "2024-11-15T08:30:18Z",
+    "viewCount": 3722441,
+    "likeCount": 60226,
+    "commentCount": 404,
+    "thumbnailUrl": "https://i.ytimg.com/vi/w8g6-e9yLP4/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "issue": "Oval을 '오발'로 읽듯, V 발음만 나오면 한국어 굵은 'ㅂ' 소리로 퉁쳐버려서 발음 인식 앱이나 원어민이 전혀 알아듣지 못하는 현상",
+        "verbatimQuote": "Oval은 무슨 오발탄이냐고 종민이형 ㅋㅋㅋㅋ / 뭐가 자꾸 오발!! 오발!! 이에요 ㅋㅋㅋ"
+      },
+      {
+        "issue": "Triangle, Pentagon 등 쉬운 기본 단어도 막상 입 밖으로 내려면 순간 뇌가 정지하여 '펜... 타... 곤...'처럼 한국어 글자 하나하나 쪼개 읽듯 머뭇거리는 좌절감",
+        "verbatimQuote": "여자분은 기다려주시는데 김종민은 pen... 펜 ta.... 타 gon... 곤 펜타곤 이거임 / 트라이앵글에서 머뭇 거리시는 건..."
+      },
+      {
+        "issue": "영어 단어를 영어 특유의 바람 소리와 혀 위치로 내는 것이 아니라 '한국어 표기법대로 또박또박 말하기' 습관에 갇혀 영어 말하기 자체가 어색하고 부끄러운 고통",
+        "verbatimQuote": "영어하랬더니 왜. 영어발음 한국어로 말하기를 하고있는건지 의문 / 모르는 단어 나오면 시력 안좋은 것 처럼 눈을 개슴치레 뜨네"
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "question": "Oval을 읽을 때 V 발음은 입술을 어디에 붙여야 '오발'이 안 되고 세련된 '오-버얼' 소리가 나나요?",
+        "context": "V소리를 한국어 'ㅂ'과 구분하는 직관적인 입모양 가이드를 필요로 함."
+      },
+      {
+        "question": "Square, Triangle처럼 끝에 -re, -gle이 붙는 기초 단어는 혀를 굴려야 하나요, 아니면 바람을 뱉어야 하나요?",
+        "context": "단어 끝 소리가 씹히거나 어색하게 끊기는 현상에 대한 단순한 소리 원리 질문."
+      },
+      {
+        "question": "알파벳은 다 아는데 영어 단어만 보면 읽기 전에 왜 입이 굳고 머뭇거리게 될까요?",
+        "context": "한국어 뇌(글자 읽기)에서 영어 뇌(소리 덩어리 뱉기)로 전환하는 즉각적인 입근육 훈련법 요구."
+      }
+    ],
+    "audienceVocabulary": [
+      "오발탄 발음",
+      "한국어 쪼개 읽기",
+      "영어발음 한국어로 말하기",
+      "발음 앱 통과",
+      "눈 개슴치레 뜨기",
+      "버터 유학 발음",
+      "입 굳음 현상"
+    ],
+    "whatWorked": [
+      "어려운 음성학 기호 대신 '아랫입술에 스티커 붙이고 바람 빼기' 같은 직관적이고 쉬운 입모양 교정 설명",
+      "단어를 철자 하나하나 또박또박 읽는 한국어 습관을 깨주고, '게으른 혀가 소리를 뭉개고 흘려보내는 구체적 구간'을 짚어준 설명"
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "Oval을 '오발'로 읽고 계셨나요? V발음 3초 만에 원어민 소리로 바꾸는 게으른 혀의 법칙",
+        "Triangle, Square도 입이 굳는 이유: 영어를 못하는 게 아니라 '입술 스위치'를 안 켜서 그렇습니다",
+        "발음 앱도 단번에 PASS! 왕초보가 당장 교정해야 할 기초 단어 3가지 소리 비밀"
+      ],
+      "hookThreeSeconds": "혹시 Oval 보시고 순간적으로 '오발탄'의 '오발!' 하고 읽으셨나요? 괜찮습니다, 혀가 게을러서 ㅂ으로 퉁친 것 뿐이에요!",
+      "shortsTrackAIdea": {
+        "concept": "V와 B 발음의 결정적 차이 - 아랫입술을 간지럽히는 '바람 스위치' 원리 설명형 쇼츠",
+        "hookLine": "Oval을 '오발'로 읽으면 원어민은 '총 쐈냐'고 물어봅니다! 3초 만에 교정해 드릴게요."
+      },
+      "shortsTrackBIdea": {
+        "concept": "영어 발음 앱 켜고 기초 도형 단어 읽다가 계속 Fail 떠서 당황하는 왕초보 상황극 후 소리 교정 팁 전달",
+        "hookLine": "알파벳 다 아는데 이상하게 영어 발음 앱만 켜면 뚝딱거리며 낙제 받는 진짜 이유!"
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "Ugy3xztriWQxItTxZn94AaABAg",
+      "text": "김종민님이 먼저 말할때까지 기다리다가 모를때쯤 말하시는거보면 너무 성격 좋아보여요 김도연님 ㅠㅠㅠ",
+      "author": "@user-sk6qq4eq7o",
+      "likeCount": 7286,
+      "publishedAt": "2024-11-21T01:45:25Z",
+      "replyCount": 31
+    },
+    {
+      "commentId": "UgwXzXa_ylPz-hYUcHp4AaABAg",
+      "text": "냅다 오발ㅋㅋㅋㅋㅋ",
+      "author": "@먜다",
+      "likeCount": 2305,
+      "publishedAt": "2024-11-21T11:14:07Z",
+      "replyCount": 5
+    },
+    {
+      "commentId": "UgzB7YOX2iHnDkEiEkt4AaABAg",
+      "text": "아니이겈ㅋㅋㅋㅋㅋ필터땜에 먼가 아련해져서웃기넼ㅋㅋㅋㅋ",
+      "author": "@하하-t2d4g",
+      "likeCount": 970,
+      "publishedAt": "2024-11-20T19:49:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwb5_4-YZQpf7YKJkJ4AaABAg",
+      "text": "가능한!",
+      "author": "@ababaabbababab",
+      "likeCount": 5744,
+      "publishedAt": "2024-11-20T12:27:38Z",
+      "replyCount": 16
+    },
+    {
+      "commentId": "UgxerZuLxudzmkBSJS94AaABAg",
+      "text": "쟤는 배우 해야겠더라.. 압구정에서 한번 봤었는데 피지컬 혼자 압도적이고, 이목구비도 엄청 시원시원하던데..",
+      "author": "@benzamin00",
+      "likeCount": 1204,
+      "publishedAt": "2024-11-21T15:54:38Z",
+      "replyCount": 18
+    },
+    {
+      "commentId": "UgwCm8bbCozPyNhNGdR4AaABAg",
+      "text": "김도연 닮은 모델인 줄 알았는데 본인이었네 많이 성숙해졌네요",
+      "author": "@콩-b8z",
+      "likeCount": 154,
+      "publishedAt": "2024-11-29T13:23:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwBc-vhSpzRiyLdQIV4AaABAg",
+      "text": "오발ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@끼욧-p3i",
+      "likeCount": 419,
+      "publishedAt": "2024-11-21T06:18:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzRVH8Yt_LGwROfOzN4AaABAg",
+      "text": "가능한! 빨간색이!",
+      "author": "@hanginggarden803",
+      "likeCount": 318,
+      "publishedAt": "2024-11-21T01:30:09Z",
+      "replyCount": 4
+    },
+    {
+      "commentId": "Ugwlo6T4_kTKL8tyDAJ4AaABAg",
+      "text": "김도연 웃을 때 입모양이 예쁘다",
+      "author": "@thrma249",
+      "likeCount": 15,
+      "publishedAt": "2024-12-07T15:35:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxhEOKvuqs3iBgpndB4AaABAg",
+      "text": "도연❤ 아이오아이 때 정말 좋아했었지...😊",
+      "author": "@ImFeelingLonelyAt6",
+      "likeCount": 36,
+      "publishedAt": "2024-11-22T14:38:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxLRcS-mELbjmMs8mJ4AaABAg",
+      "text": "Doyeon's English is sounding better and better. She should be proud of the lessons and effort put in.",
+      "author": "@darkdragon88",
+      "likeCount": 70,
+      "publishedAt": "2024-11-15T15:31:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxVyf7TbQXhDU2Mjj14AaABAg",
+      "text": "김도연 오랜만이네 ^^",
+      "author": "@ask2neo",
+      "likeCount": 18,
+      "publishedAt": "2024-11-21T14:48:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxIf2e5pH7CPKNwDRB4AaABAg",
+      "text": "팬이 예용😂",
+      "author": "@김은영-t4k6d",
+      "likeCount": 3,
+      "publishedAt": "2024-11-25T07:29:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx1zDkhzIo77Xf57iV4AaABAg",
+      "text": "마지막 진짜 웃겨요😂",
+      "author": "@토맛토-dma",
+      "likeCount": 1,
+      "publishedAt": "2025-01-10T09:46:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx4rPAxjdW2pT6Q3mx4AaABAg",
+      "text": "종민님 너무 웃겨요😂",
+      "author": "@나무젓가락-f3r",
+      "likeCount": 2,
+      "publishedAt": "2024-11-22T04:48:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxpIxDN3q6dYbZTbyF4AaABAg",
+      "text": "와 외국인한테 먹힐 상인데 더 이뻐졌다",
+      "author": "@user-hl8ec1vd1",
+      "likeCount": 3,
+      "publishedAt": "2024-12-31T14:04:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwnprnv_dFpodsZXhR4AaABAg",
+      "text": "김도연 유학 다녀왔다더니",
+      "author": "@noonoe72",
+      "likeCount": 31,
+      "publishedAt": "2024-11-21T15:40:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz3JnqvADqNJ6hnSQh4AaABAg",
+      "text": "종민님 1박2일 넘 재밌어요",
+      "author": "@노래제작소-l4e",
+      "likeCount": 0,
+      "publishedAt": "2024-12-27T13:16:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyMXfI4ZOuo6jK_Jy54AaABAg",
+      "text": "Kim Doyeon where have you been? 😃",
+      "author": "@NickNekko",
+      "likeCount": 0,
+      "publishedAt": "2026-05-01T02:16:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw3MWBJfW1rlVmEo4t4AaABAg",
+      "text": "도연이 진짜 오랜만이네 방송에 안나오는거 보니 연예인 생활 안하는갑네",
+      "author": "@하루하루행복-f9q",
+      "likeCount": 3,
+      "publishedAt": "2024-11-22T05:03:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw7AjgnqsO_vRlCGud4AaABAg",
+      "text": "뭐가 자꾸 오발!! 오발!! 이에요 ㅋㅋㅋ 옆사람한테 실수로 총쐈냐고 ㅋㅋㅋ",
+      "author": "@navi_055",
+      "likeCount": 12,
+      "publishedAt": "2024-11-29T21:34:19Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwxnajvmW9DHKjYFmR4AaABAg",
+      "text": "오발ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@AndrewKim-y1b",
+      "likeCount": 35,
+      "publishedAt": "2024-11-21T03:42:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxXwJNrKwyLjYKm_qF4AaABAg",
+      "text": "도연이 넘 이쁘당ㅎㅎㅎ",
+      "author": "@여름이아빠-p8t",
+      "likeCount": 7,
+      "publishedAt": "2024-11-22T11:49:03Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwekP0eKGkCX8mhgWJ4AaABAg",
+      "text": "종민아!!!!\n이모가 늘 응원한지 알지\n결혼식때 초대해줄꺼지~\n팬이모야~~♡♡♡",
+      "author": "@rahee5863",
+      "likeCount": 0,
+      "publishedAt": "2024-12-06T12:34:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw6q1j8L9KspuktpNl4AaABAg",
+      "text": "김종민씨 대탈출 넘 재밌었요",
+      "author": "@침잉다",
+      "likeCount": 0,
+      "publishedAt": "2025-01-07T09:20:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxXuBgmx9iqp1iFZS54AaABAg",
+      "text": "역시 천재",
+      "author": "@mark_kimm",
+      "likeCount": 3,
+      "publishedAt": "2024-11-22T09:58:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgypouCgoqkrRCgVDJ94AaABAg",
+      "text": "도연이가 찐으로 시도한 오발 통과했잖아~~~ 한잔해~~",
+      "author": "@노웨이홈-i8h",
+      "likeCount": 1,
+      "publishedAt": "2024-11-22T16:39:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxG1nwBeNPec8AxYm54AaABAg",
+      "text": "오!발!ㅋㅋㅋㅋ 무슨 오발탄도 아니고ㅋㅋㅋㅋㅋㅋㅋㅋ😂",
+      "author": "@b촘",
+      "likeCount": 1,
+      "publishedAt": "2024-11-26T09:59:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_seMlxWfYwwrYZpt4AaABAg",
+      "text": "역시 천재 종민오빠",
+      "author": "@한소리-s7u",
+      "likeCount": 2,
+      "publishedAt": "2025-01-18T14:40:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyylFn4dcha8pEqGKd4AaABAg",
+      "text": "써끌~ \n\n숙회여!! 숙회여!! \n\n😂😂",
+      "author": "@joshstv9038",
+      "likeCount": 2,
+      "publishedAt": "2025-02-02T13:01:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxo9SWlvgQmQLWmXpZ4AaABAg",
+      "text": "도연언니 럽유❤❤",
+      "author": "@cawaiichang",
+      "likeCount": 13,
+      "publishedAt": "2024-11-24T06:53:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwWQPn4Y4OfXxjJBkB4AaABAg",
+      "text": "여자분은 기다려주시는데 김종민은 pen... 펜 ta.... 타 gon... 곤 펜타곤 이거임",
+      "author": "@안넝하세요",
+      "likeCount": 1,
+      "publishedAt": "2024-12-02T13:29:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxr2UoNJcJleXhvepp4AaABAg",
+      "text": "형님 트라이앵글에서 머뭇 거리시는 건...",
+      "author": "@userabcde-i4j",
+      "likeCount": 0,
+      "publishedAt": "2024-12-08T13:32:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwfyiU5FWtBUuZ7F_94AaABAg",
+      "text": "도연이 오랜만이다~",
+      "author": "@Capri-oj4yf",
+      "likeCount": 1,
+      "publishedAt": "2024-11-27T17:33:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyfDLDjssxX-NX2iqd4AaABAg",
+      "text": "종민이형 졸귀",
+      "author": "@iceblastmarlboro3689",
+      "likeCount": 5,
+      "publishedAt": "2024-11-21T12:02:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwt6klHJZpNGeh7cc94AaABAg",
+      "text": "형님 한국사람은 다 알아들었을거에요😂",
+      "author": "@취돌이",
+      "likeCount": 0,
+      "publishedAt": "2024-11-25T21:29:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw5pMBHK4-8E3MF2654AaABAg",
+      "text": "가_넝_하안! 아니~이~! 누가 이 말 따라하라했나! ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@_SUNSAK",
+      "likeCount": 0,
+      "publishedAt": "2024-12-01T14:00:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgymV1SnlaUgo4TC6Bt4AaABAg",
+      "text": "도연이 런던에서 유학한다더니 영어 발음 엄청 좋넬",
+      "author": "@alwayshappyenfp",
+      "likeCount": 2,
+      "publishedAt": "2024-12-30T13:27:02Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyTffFHKo1Ccy4mHid4AaABAg",
+      "text": "진짜 도연인거 생각 못하거 도연 닮았네 이랬는데 진짜였어...? 대박",
+      "author": "@rneowmeovvs",
+      "likeCount": 0,
+      "publishedAt": "2025-01-20T14:11:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgztXVOZWvN2DHAqLE54AaABAg",
+      "text": "종민이형은 그냥 한국어아니냨ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@mintwhaleno3",
+      "likeCount": 0,
+      "publishedAt": "2024-11-22T14:42:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzTi5BBzmtDev9xgZx4AaABAg",
+      "text": "아저씨 데리고 노느라 고생이많으십니다",
+      "author": "@ruuuuci",
+      "likeCount": 0,
+      "publishedAt": "2024-11-26T08:06:38Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxjZDiuw3nObCx0flp4AaABAg",
+      "text": "오~부얼\n\"통과\"😊",
+      "author": "@킴익명",
+      "likeCount": 2,
+      "publishedAt": "2024-11-22T16:19:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzdlUqaDxwVOjZ40pZ4AaABAg",
+      "text": "김종민이 우리 아빠 식당에 왔는데!",
+      "author": "@말온_은찡이",
+      "likeCount": 1,
+      "publishedAt": "2024-11-29T14:25:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwsjuT_LtWRN--exNl4AaABAg",
+      "text": "종민이 형 보니까 좋다",
+      "author": "@DavidKim1224",
+      "likeCount": 0,
+      "publishedAt": "2024-11-22T20:58:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwrUf0fRHrFbHoaC4l4AaABAg",
+      "text": "종민이 스퀘어 안것도 대단하네 ㅋㅋ",
+      "author": "@seanjung6000",
+      "likeCount": 1,
+      "publishedAt": "2024-12-05T11:10:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxR2QR5Z4wLEflU_kl4AaABAg",
+      "text": "쒈쿨\n스퀘어\n스퀘어!\n스꿰얽",
+      "author": "@쀓-d1x",
+      "likeCount": 0,
+      "publishedAt": "2025-01-11T07:18:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxNsBZ4Usxo8CaPvBt4AaABAg",
+      "text": "앜ㅋㅋㅋ 김종민 닮은 사람인줄 알았는데 \n찐이었네~~~",
+      "author": "@고덕_불주먹",
+      "likeCount": 0,
+      "publishedAt": "2024-12-25T18:32:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwAqLAQ1Pr4tAlJ-4l4AaABAg",
+      "text": "36:47 오. 스타벅스 불매 이야기를 여기서 만날지 몰랐는데 폐업신고를 해서 불매를 하는 방법을 선택했구나.",
+      "author": "@Rebecc4choi",
+      "likeCount": 1,
+      "publishedAt": "2024-11-22T05:12:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyELby4xNRcYyyNiaF4AaABAg",
+      "text": "마지막 김종민 좋아하는 소리 신형만 아니냐 ㅋㅋㅋ",
+      "author": "@박지후-y3f",
+      "likeCount": 0,
+      "publishedAt": "2024-11-29T11:49:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxvTG_It1hJgi8_oQl4AaABAg",
+      "text": "김종민 - \"Skweouaiaiuuua\"",
+      "author": "@tigerex777",
+      "likeCount": 0,
+      "publishedAt": "2024-11-22T01:57:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyL5cnHnVNKrWBpC5V4AaABAg",
+      "text": "Oval을 오발로 읽으시는 종민님 ㅋㅋ😊오버ㄹ발음인데 ㅋㅋ😂",
+      "author": "@kokolove04",
+      "likeCount": 1,
+      "publishedAt": "2025-01-05T12:24:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx4tL3EVEjGdWp2m1F4AaABAg",
+      "text": "할아버지같애 ㅠㅠㅋㅋ",
+      "author": "@babymouse",
+      "likeCount": 1,
+      "publishedAt": "2024-11-22T08:35:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzAG1TsO0NFhSujRCN4AaABAg",
+      "text": "도연이는 배우로 나가는구나. 얼굴이 배우상이긴해.",
+      "author": "@user-mx3wj7hx5m",
+      "likeCount": 2,
+      "publishedAt": "2024-11-22T08:35:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzYGARGTpYKPAk60ip4AaABAg",
+      "text": "와 김종민진짜 할아버지다됫네",
+      "author": "@hwww1538",
+      "likeCount": 0,
+      "publishedAt": "2024-11-21T19:01:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxvp1F7TSkDXOIBQcF4AaABAg",
+      "text": "이거 무슨앱이여요",
+      "author": "@엔에스팍",
+      "likeCount": 13,
+      "publishedAt": "2024-11-22T12:01:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwDK_ebY_McAbOJPk14AaABAg",
+      "text": "와... 저 여자분이랑 결혼하고 싶은데? 몇 초 동안의 두 사람의 상호작용만 봤는데 매력적이다.",
+      "author": "@김영윤-g8s",
+      "likeCount": 1,
+      "publishedAt": "2024-11-22T01:42:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzY-pzm8nnhrxlY5B54AaABAg",
+      "text": "김도연  오랜만이당. ioi",
+      "author": "@ssambary15",
+      "likeCount": 0,
+      "publishedAt": "2024-11-23T10:59:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyYqT7zZL-GqJ1Bi-h4AaABAg",
+      "text": "먼 조합이지 김종민 도연은...",
+      "author": "@kyi-cc3oh",
+      "likeCount": 0,
+      "publishedAt": "2024-11-22T19:08:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwwWsOcpaOrnmWw_YJ4AaABAg",
+      "text": "종민이 형 오발 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@tumi-x4k",
+      "likeCount": 1,
+      "publishedAt": "2024-12-03T12:23:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwVBRc37fwT6mrIxdl4AaABAg",
+      "text": "중국광곤줄알았는디 왼쪽 익숙한 사람이 보여 자세히 보니 종민이 형이였네 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@davidcha1464",
+      "likeCount": 0,
+      "publishedAt": "2024-12-07T13:42:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxAq4ppHA4nuSOYiLt4AaABAg",
+      "text": "김종민 나랑 같네 모르는 단어 나오면 시력 안좋은 것 처럼 눈을 개슴치레 뜨네",
+      "author": "@goodbob3",
+      "likeCount": 0,
+      "publishedAt": "2025-01-07T04:43:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyoEreUv_GOHd9W9lt4AaABAg",
+      "text": "영어하랬더니 왜. 영어발음 한국어로\n말하기를 하고있는건지 의문",
+      "author": "@팩-l5g",
+      "likeCount": 2,
+      "publishedAt": "2024-12-04T07:34:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw0L1q6J-I5Uzer-At4AaABAg",
+      "text": "옆에 여자분 너무 예뻐서 종민이 형 아닌 줄 알았어",
+      "author": "@mtree5985",
+      "likeCount": 0,
+      "publishedAt": "2024-12-08T16:34:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxPnQpoENHdovsGhyh4AaABAg",
+      "text": "김종민씨 실수로 총 쏘셨어요??? 자꾸 오발 오발 ㅋㅋㅋㅋ",
+      "author": "@laon_DC",
+      "likeCount": 0,
+      "publishedAt": "2024-12-03T16:17:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwPEClHzAEaDyNCHRp4AaABAg",
+      "text": "도연이 ?   프로듀스 101?     오랜만이네요 ㅎㅎ",
+      "author": "@박인철-y2g",
+      "likeCount": 0,
+      "publishedAt": "2024-12-01T10:20:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw3pFqN7MqCcY-EkGd4AaABAg",
+      "text": "김종민이 모른다고하면 진짜 모르는거다 ㅋㅋㅋㅋㅋㅋ",
+      "author": "@칼미남쿄우",
+      "likeCount": 0,
+      "publishedAt": "2024-11-24T05:00:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxOAVhhor29AjjRILp4AaABAg",
+      "text": "와 트라이앵글 뭐야이거 할때 개소름돋네\n저 나이쳐먹고 저것도 모르다니;",
+      "author": "@이규민-m4s2l",
+      "likeCount": 0,
+      "publishedAt": "2024-12-26T10:12:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwkDg_qziXJJ_4P3DF4AaABAg",
+      "text": "\"Thats right It goes in the Square hole\"",
+      "author": "@bylexs",
+      "likeCount": 0,
+      "publishedAt": "2024-12-07T05:54:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwml1yQFlgo1YbntSR4AaABAg",
+      "text": "김종민.... 사회의 오발탄과 같은 형....",
+      "author": "@peterkim5063",
+      "likeCount": 0,
+      "publishedAt": "2024-11-22T06:04:02Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxaj9gcdjJK7t26riJ4AaABAg",
+      "text": "김종민씨 귀여워요ㅠㅠㅠㅠㅠㅠㅠㅠㅠ",
+      "author": "@민-d5v",
+      "likeCount": 1,
+      "publishedAt": "2024-11-21T15:15:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzesXKlmUHcBNjAywJ4AaABAg",
+      "text": "스퀘어!!!!! 스퀘어!!!!!!!!!!!!",
+      "author": "@happnew6081",
+      "likeCount": 0,
+      "publishedAt": "2024-12-08T16:14:16Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxrjGMHT2k_gG21IS94AaABAg",
+      "text": "Oval은 무슨 오발탄이냐고 종민이형 ㅋㅋㅋㅋ",
+      "author": "@sharp_fff_fff",
+      "likeCount": 0,
+      "publishedAt": "2024-12-03T12:32:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwPi693SqADS4sT4nx4AaABAg",
+      "text": "펜타곤은 진짜 펜타곤 ㅋㅋㅋ",
+      "author": "@44marchi",
+      "likeCount": 0,
+      "publishedAt": "2024-11-24T11:38:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz3bHGdKNc1iMlZWiZ4AaABAg",
+      "text": "펜타곤은 사실 한국말인가봐..🤣",
+      "author": "@daheec0619",
+      "likeCount": 0,
+      "publishedAt": "2024-12-13T14:02:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwbH2Qv36WextiNMcZ4AaABAg",
+      "text": "김종민 마지막에 짱구 아빠인줄 ㅋㅋㅋ",
+      "author": "@DRX냥이",
+      "likeCount": 0,
+      "publishedAt": "2024-12-31T16:48:47Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwucpWWuIc7sLFCqCR4AaABAg",
+      "text": "사격 오발인가 ㅋㅋㅋㅋㅋㅋㅋ 오발!!!!! ㅋㅋㅋㅋㅋㅋ",
+      "author": "@오반-m9b",
+      "likeCount": 0,
+      "publishedAt": "2024-11-22T04:03:28Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxizt4hGmxh8_ELOCN4AaABAg",
+      "text": "나도 오발외쳤는데ㅋㅋㅋㅋㅋ 종민이형 ㅋㅋㅋㅋ",
+      "author": "@된자",
+      "likeCount": 0,
+      "publishedAt": "2024-12-08T04:17:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw8vEco1akvw7sYd7J4AaABAg",
+      "text": "진짜 바보구낰ㅋㅋ",
+      "author": "@Djdjwjw-t9v",
+      "likeCount": 0,
+      "publishedAt": "2024-12-08T15:09:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxgQ15DEaJo2gpHcsd4AaABAg",
+      "text": "김종민 삼촌이다!!!!!",
+      "author": "@이유주유빈",
+      "likeCount": 0,
+      "publishedAt": "2025-01-09T05:52:39Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx8G9xx1ISUTKdMkzV4AaABAg",
+      "text": "김종민 겁나 웃겨❤❤❤",
+      "author": "@버들류-o3l",
+      "likeCount": 0,
+      "publishedAt": "2025-01-01T00:48:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzdxzZ5s3c17goM1cJ4AaABAg",
+      "text": "펜타곤 보자마자 코난 생각났다.. 27기 극장판 야발 시험 둘쨋날인데 클났네",
+      "author": "@laon_DC",
+      "likeCount": 0,
+      "publishedAt": "2024-12-03T16:18:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx24lqKdCXc8_IMtCp4AaABAg",
+      "text": "아니 읽을줄을 모르는데 발음을 시키네ㅋㅋㅋㅋㅋㄲㅋㅋㅋ",
+      "author": "@CAThandlE01",
+      "likeCount": 0,
+      "publishedAt": "2024-11-25T08:36:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwGlVKxx8Hl20DiqMZ4AaABAg",
+      "text": "팬.ㅌ타.곤 폼 미쳤다",
+      "author": "@실장권법",
+      "likeCount": 0,
+      "publishedAt": "2025-01-12T04:08:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwkbiqCxfDemZ03cmZ4AaABAg",
+      "text": "사귀시면 좋겠네요~❤",
+      "author": "@rentcarokinawa1539",
+      "likeCount": 0,
+      "publishedAt": "2024-12-18T13:42:31Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyFUE3mCtZpA88kHjx4AaABAg",
+      "text": "오발 진짜 저항없이 터졌다ㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@Xingfu_Hong",
+      "likeCount": 0,
+      "publishedAt": "2025-01-05T16:57:04Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxBZech8tAeyGaedqJ4AaABAg",
+      "text": "스꿰엌!!",
+      "author": "@yumyumy748",
+      "likeCount": 0,
+      "publishedAt": "2024-11-21T11:27:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxY8Fjfj_KtAkyL3Dx4AaABAg",
+      "text": "김도연 가수 출신이죠?",
+      "author": "@mjw-e1w",
+      "likeCount": 0,
+      "publishedAt": "2024-12-03T13:01:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwR_HBgEtjSmq7iAtB4AaABAg",
+      "text": "종민형 이다",
+      "author": "@휴머언ɔɔ",
+      "likeCount": 0,
+      "publishedAt": "2024-11-22T13:17:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw7fxJNZ8_0C9va5Bl4AaABAg",
+      "text": "우리 봉고기사 아저씨 발음이다ㅋㅋㅋㅋ",
+      "author": "@BYJ417",
+      "likeCount": 0,
+      "publishedAt": "2025-01-05T01:38:03Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_9KdLShMb33sUext4AaABAg",
+      "text": "도레미 버전은 꼼수로 하니까 도형판 나왔네 ㅋㅋㅋㅋ",
+      "author": "@히바리-9",
+      "likeCount": 0,
+      "publishedAt": "2024-12-02T09:45:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwHG7ybrAS9MqfhDHV4AaABAg",
+      "text": "도연님인지 못알아보고 이쁜 교포인줄",
+      "author": "@뿌롱이-k6s",
+      "likeCount": 1,
+      "publishedAt": "2024-11-22T03:30:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxoMT6YbsW-msNcHDF4AaABAg",
+      "text": "우연히~  나왔으면 퍼펙트였다.",
+      "author": "@DoDoBirdS2",
+      "likeCount": 0,
+      "publishedAt": "2024-11-25T04:02:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzS7H-QCf6EzRMWedd4AaABAg",
+      "text": "김종민 ㅋㅋㅋㅋㅋㅋㅋㅋ갸웃김ㅋㅋㅋㅋㅋ",
+      "author": "@요리조리-i4o",
+      "likeCount": 0,
+      "publishedAt": "2024-12-11T12:19:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyLOHNVOoA_4jS17ol4AaABAg",
+      "text": "나도 이거 해보고 싶다",
+      "author": "@Lee_SangHyeon",
+      "likeCount": 0,
+      "publishedAt": "2024-11-26T07:34:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx96I80nODhg4Z7Ohx4AaABAg",
+      "text": "그냥 웃겨ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "author": "@읭잉-g3t",
+      "likeCount": 0,
+      "publishedAt": "2024-11-27T08:39:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxhnPc0ynCNLEgs6c94AaABAg",
+      "text": "나김종민만아는게아니야딘딘하고나사실두개만알아해햏부끄러워...",
+      "author": "@채이짱-1m1",
+      "likeCount": 0,
+      "publishedAt": "2024-11-21T15:32:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxNVMa7M2iocxtADw14AaABAg",
+      "text": "종민이형 뚝심있네ㅋㅋㅋ",
+      "author": "@고기그자체",
+      "likeCount": 0,
+      "publishedAt": "2024-11-25T10:08:08Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyKlHpcDceV0aqqGfd4AaABAg",
+      "text": "도연이 약간 이미지 그분 같다 누구더라 도깨비에 삼신할미나온 분 목도 길고 웃는 모습도 시원상큼",
+      "author": "@hany5003",
+      "likeCount": 0,
+      "publishedAt": "2025-01-26T13:28:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzlRUeVb62r27lST214AaABAg",
+      "text": "와 김도연 배우인줄",
+      "author": "@delight3464",
+      "likeCount": 0,
+      "publishedAt": "2024-11-21T16:54:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxqnYCCtECHhlKBDpt4AaABAg",
+      "text": "OVAL은 L인데 계속 R발음을 하니까 패스가 안되징~😂",
+      "author": "@BonBon-te8pj",
+      "likeCount": 0,
+      "publishedAt": "2024-12-30T03:32:34Z",
+      "replyCount": 0
+    }
+  ]
+}

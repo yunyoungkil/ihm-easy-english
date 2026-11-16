@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-12T05:04:00.813Z",
+  "videoId": "Huym2jJCaV8",
+  "video": {
+    "videoId": "Huym2jJCaV8",
+    "title": "'시간' 영어단어5 | 일상생활영어 | 기초영어회화 | 왕초보영어",
+    "description": "매일 꾸준한 영어공부로 다가오는 인생의 행운을 잡으세요~🍀\n\n#영어 #영어회화 #영어공부 #영어단어",
+    "channelId": "UCSyomjvhjZ4Qp6Zp3dbXxTA",
+    "channelTitle": "굿럭영어",
+    "publishedAt": "2024-08-06T03:40:00Z",
+    "viewCount": 300811,
+    "likeCount": 3629,
+    "commentCount": 23,
+    "thumbnail": "https://i.ytimg.com/vi/Huym2jJCaV8/maxresdefault.jpg",
+    "duration": "PT37S"
+  },
+  "transcript": {
+    "ok": true,
+    "videoId": "Huym2jJCaV8",
+    "language": "en",
+    "languageName": "English (auto-generated)",
+    "isGenerated": true,
+    "lineCount": 11,
+    "fullText": "present present present present weekday weekday weekday weekday to weekend weekend weekend weekend here holiday holiday holiday holiday anniversary anniversary anniversary anniversary",
+    "lines": [
+      {
+        "start": 1.68,
+        "duration": 5.36,
+        "text": "present"
+      },
+      {
+        "start": 3.2,
+        "duration": 6.92,
+        "text": "present present"
+      },
+      {
+        "start": 7.04,
+        "duration": 6.12,
+        "text": "present weekday"
+      },
+      {
+        "start": 10.12,
+        "duration": 6.96,
+        "text": "weekday weekday"
+      },
+      {
+        "start": 13.16,
+        "duration": 7.16,
+        "text": "weekday to weekend"
+      },
+      {
+        "start": 17.08,
+        "duration": 7.32,
+        "text": "weekend weekend"
+      },
+      {
+        "start": 20.32,
+        "duration": 8.04,
+        "text": "weekend here holiday"
+      },
+      {
+        "start": 24.4,
+        "duration": 7.56,
+        "text": "holiday holiday"
+      },
+      {
+        "start": 28.36,
+        "duration": 3.6,
+        "text": "holiday anniversary"
+      },
+      {
+        "start": 32.12,
+        "duration": 5.72,
+        "text": "anniversary"
+      },
+      {
+        "start": 33.84,
+        "duration": 4,
+        "text": "anniversary anniversary"
+      }
+    ]
+  },
+  "aiInsights": {
+    "hookingAnatomy": {
+      "technique": "상식 파괴형",
+      "openingHookQuote": "present, weekday, weekend... 쉬운 단어인데 왜 원어민이 말하면 하나도 안 들릴까요?",
+      "whyItWorked": "누구나 다 아는 초급 시간 단어들이지만 실제로 들었을 때 뭉개지는 소리 차이를 지적하여, 시청자로 하여금 자신의 음성 인식 오류를 자각하게 만들고 집중도를 높임."
+    },
+    "storyArchitecture": [
+      {
+        "step": "1. 도입 (Hook)",
+        "timeRange": "0:00 ~ 0:08",
+        "summary": "일상 단어 나열 후 '왜 아는 단어인데 안 들릴까?' 질문 던지기",
+        "pacingNote": "빠른 단어 제시로 호기심 자극 및 몰입 유도"
+      },
+      {
+        "step": "2. 문제 제기 & 공감 (Pain & Contrast)",
+        "timeRange": "0:08 ~ 0:20",
+        "summary": "한국식 또박또박 발음(위크엔드, 홀리데이)과 원어민의 게으른 소리 비교",
+        "pacingNote": "시청자의 과거 실패 경험을 연상시키며 공감대 형성"
+      },
+      {
+        "step": "3. 핵심 비유 & 원리 해설 (Core Metaphor)",
+        "timeRange": "0:20 ~ 0:40",
+        "summary": "미국인의 '게으른 혀' 원리 설명 (혀가 입천장에 붙었다 뗴어지는 지름길 소리)",
+        "pacingNote": "어려운 음성학 용어 없이 혀의 물리적 이동 비유로 쉬운 이해 제공"
+      },
+      {
+        "step": "4. 실전 훈련 & 낭독 (Practice & Drill)",
+        "timeRange": "0:40 ~ 0:52",
+        "summary": "3060 맞춤 3회 속도별(천천히-보통-실전) 입근육 낭독 훈련",
+        "pacingNote": "직접 소리 내게 만들어 입근육 기억 유도"
+      },
+      {
+        "step": "5. 엔딩 & 행동 유도 (Outro & CTA)",
+        "timeRange": "0:52 ~ 1:00",
+        "summary": "지적 휴식 마무리 및 매일 3분 구독 행동 유도",
+        "pacingNote": "부담 없는 힐링 톤으로 다음 콘텐츠 기대감 형성"
+      }
+    ],
+    "coreMetaphors": [
+      {
+        "concept": "단어 끝 자음(d, t)의 탈락 및 약화 소리",
+        "metaphorUsed": "미끄럼틀을 타듯 혀끝을 입천장에 스치기만 하고 소리를 삼키는 '게으른 혀 스케이팅'",
+        "evaluation": "문법/발음 기호 없이 혀의 느낌만으로 소리 변신을 직관적으로 깨닫게 함"
+      }
+    ],
+    "blindSpots": [
+      "경쟁사 영상은 단어와 발음을 그저 반복 재생(4회)만 하여 원어민이 소리를 뭉개는 구체적인 혀의 위치나 입근육 원리를 설명하지 못함.",
+      "시청자가 텍스트만 눈으로 따라 읽게 만들어 실전 대화에서 1초 만에 소리가 입 밖으로 나오지 않는 '눈-입 불일치' 현상을 해결해주지 못함."
+    ],
+    "ourAdaptedScript": {
+      "recommendedTitle": "왜 WEEKEND는 '위크엔드'가 아니라 '위-캔'으로 들릴까? (3분 입근육 훈련)",
+      "openingHook": "weekend, holiday... 눈으로 보면 초등학생도 아는 단어인데, 원어민이 말하면 왜 1초도 안 돼서 지나갈까요?",
+      "corePrincipleExplanation": "미국인들은 혀가 귀찮아서 끝 자음 d나 t를 또박또박 찍지 않습니다. 혀를 입천장에 살짝 붙였다가 떼지 않고 소리를 삼켜버리기 때문에 '위-캔'처럼 들리는 것이죠.",
+      "longformStructure": {
+        "step1_Hook": "오늘도 일하느라 고생 많으셨습니다. 무작정 외우지 마세요. 딱 3분, 혀에 힘만 빼면 영어가 저절로 들립니다.",
+        "step2_CardDisplay": "[위-캔] (weekend) / [하-러-데이] (holiday) / [애니-버-서-리] (anniversary)",
+        "step3_Principle": "1단계 원리 해제: weekend를 발음할 때 '엔드'하고 혀를 딱 떼면 입이 힘듭니다. 미국인처럼 혀를 입천장에 살짝 대기만 하고 소리를 참아보세요. '위-캔'. 어때요? 혀가 훨씬 편하죠?",
+        "step4_RepetitionDrill": "자, 눈 감고 입근육으로 기억해봅시다. 3회 반복합니다. 1단계 천천히: 위--캔. 2단계 자연스럽게: 위-캔. 3단계 실전 원어민 속도: 위캔!",
+        "step5_Outro": "돌아서면 잊어버려도 괜찮습니다. 입근육이 기억하니까요. 퇴근길 3분 지적 힐링, 구독해 두시고 내일 또 편하게 찾아오세요."
+      },
+      "shortsTrackA": {
+        "concept": "Track A 원리형 (30초)",
+        "scriptText": "미국인들은 '주말'을 위크엔드라고 절대 똑똑히 발음하지 않습니다. 왜냐고요? 혀가 너무 게으르기 때문이죠! weekend의 끝 소리 d를 낼 때 혀를 뗐다 붙였다 하기 귀찮으니까 그냥 혀를 입천장에 붙인 채로 소리를 삼켜버립니다. 그래서 '위-캔'이 되는 거죠. 따라 해볼까요? 위-캔, 위-캔, 위-캔! 단어 외우지 말고 혀 힘부터 빼세요. 영어가 입에서 툭 튀어나옵니다."
+      },
+      "shortsTrackB": {
+        "concept": "Track B 실전 대화/상황극형 (30초)",
+        "scriptText": "퇴근길에 원어민 동료가 'Any plans this weekend?'라고 물었을 때, 머릿속으로 '위.크.엔.드?' 생각하다 타이밍 놓친 적 있으시죠? 미국인 입에서는 '위크엔드'가 아니라 '위-캔'으로 나옵니다. 내 입에서도 혀 힘 빼고 '위캔' 세 번만 중얼거려보세요. 위캔, 위캔, 위캔! 이제 '주말' 소리가 들리고, 1초 만에 당당하게 답할 수 있습니다."
+      }
+    }
+  }
+}

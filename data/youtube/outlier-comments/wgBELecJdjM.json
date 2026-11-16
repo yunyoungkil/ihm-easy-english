@@ -1,0 +1,886 @@
+{
+  "schemaVersion": 1,
+  "analyzedAt": "2026-11-12T06:34:55.701Z",
+  "video": {
+    "videoId": "wgBELecJdjM",
+    "title": "언어천재 타일러가 말하는 영어공부법",
+    "channelTitle": "미쿡영어",
+    "channelId": "UCBrtmaaLVMIZ4nx6Ifuf1SQ",
+    "publishedAt": "2024-08-05T21:00:43Z",
+    "viewCount": 1245834,
+    "likeCount": 25351,
+    "commentCount": 555,
+    "thumbnailUrl": "https://i.ytimg.com/vi/wgBELecJdjM/hqdefault.jpg"
+  },
+  "aiInsights": {
+    "painPoints": [
+      {
+        "id": 1,
+        "painPoint": "완벽하게 말해야 한다는 강박과 시험용 영어의 한계",
+        "userQuote": "한국은 완벽해야된다는 고정관념때메 습득하는게 힘듦ㅠㅠ / 해외에서 영어시험 준비하느라 공부는 많이하는데 학술정인 영어이고, 평소에 쓰지 않은 어려운 내용들을 접하는데... 일상 생활에서 적용이 잘 안되더라구요.",
+        "description": "학교에서 배운 문법과 시험 영어의 틀에 갇혀, 실전에서 틀릴까 봐 입도 떼지 못하는 한국인 특유의 완벽주의 스트레스."
+      },
+      {
+        "id": 2,
+        "painPoint": "나이가 들면 언어 습득이 불가능하다는 무력감",
+        "description": "어린아이들처럼 자연스럽게 툭 뱉는 '습득'을 하고 싶지만, 머리가 굳었다고 믿으며 혼자 독학하다 지쳐버리는 중장년층 및 직장인들의 현실적 좌절."
+      },
+      {
+        "id": 3,
+        "painPoint": "책으로 배운 '공부'와 실전 '배움(체화)'의 괴리",
+        "description": "단어와 문법 책은 산더미처럼 파고들었지만, 막상 외국인 앞이나 실생활 상황에서는 머리가 하얘져서 간단한 의사소통조차 버벅이는 괴리감."
+      }
+    ],
+    "audienceQuestions": [
+      {
+        "id": 1,
+        "question": "외국인처럼 '습득'으로 영어를 체득하려면 도대체 머리속의 '공부 방식'을 어떻게 리셋해야 하나요?"
+      },
+      {
+        "id": 2,
+        "question": "원어민이 아니거나 주변에 대화 상대가 전혀 없는 방구석 환경에서, 올바른 '체화와 습득'을 혼자 해내는 현실적인 훈련법이 있나요?"
+      },
+      {
+        "id": 3,
+        "question": "틀리는 게 두렵고 완벽주의가 발동할 때, 내 안의 검열관을 끄고 가볍게 뱉어내는 마인드셋 루틴은 무엇인가요?"
+      }
+    ],
+    "audienceVocabulary": [
+      "습득과 체화",
+      "머리가 하얘짐",
+      "입도 못 떼고 버벅임",
+      "영혼이 맑은 사람",
+      "가지고 놀다",
+      "책으로 배운 연애/사업",
+      "완벽해야 한다는 고정관념"
+    ],
+    "whatWorked": [
+      {
+        "point": "익숙한 단어('배우다' 등)의 어원과 본질을 꿰뚫어 설명하며 한국인보다 더 깊이 있게 언어의 철학을 짚어준 점",
+        "insight": "단순 암기가 아니라, 왜 이런 단어가 생겨났고 우리 몸에 어떻게 '베어(배다)' 들어야 하는지 직관적인 비유로 수용자의 뒤통수를 친 지점"
+      },
+      {
+        "point": "'공부(학습)'와 '배움(습득)'의 명확한 개념 분리",
+        "insight": "시청자들이 평소에 느꼈던 '왜 이렇게 열심히 외웠는데 말이 안 나오지?'라는 의문에 대해, 언어는 지식을 머리에 쑤셔 넣는 '공부'가 아니라 몸에 체화하는 '습득'이라는 시원한 해답을 제시한 것"
+      }
+    ],
+    "actionableContentPitches": {
+      "titleCandidates": [
+        "영어를 공부하니까 안 되지! 타일러가 말하는 '언어 습득'의 진짜 비밀",
+        "단어장 덮고 딱 10분만 이렇게 하세요. 머리가 아닌 몸이 기억하는 영어 체화법",
+        "\"틀릴까 봐 입이 안 떨어져요?\" 방구석에서 완벽주의 고치는 3초 뇌 리셋 루틴"
+      ],
+      "hookThreeSeconds": "여러분, 영어 공부 열심히 했는데 왜 원어민만 보면 머리가 하얘질까요? 그건 여러분이 영어를 못해서가 아니라, 엉뚱하게 '공부'를 하고 있었기 때문입니다.",
+      "shortsTrackAIdea": {
+        "concept": "원어민들이 단어를 외울 때 절대 안 쓰는 한국식 '공부' 방식과, 갓난아이처럼 소리를 몸에 흡수하는 '습득' 방식의 뇌 구조 차이를 30초 만에 직관적으로 해부",
+        "hook": "외국인들이 한국인 영어 공부법 보고 깜짝 놀라는 이유, 딱 하나 때문입니다."
+      },
+      "shortsTrackBIdea": {
+        "concept": "원어민 친구가 1도 없는 방구석에서, 혼자 중얼거리며 뇌 속 '한국어 언어팩'을 자연스럽게 '영어 언어팩'으로 밀어내는 1일 10분 최소 루틴 시뮬레이션",
+        "hook": "대화 상대 없어도 됩니다. 방구석에서 혼자 '이것'만 중얼거려도 입근육 뚫리는 기적의 루틴."
+      }
+    }
+  },
+  "comments": [
+    {
+      "commentId": "UgyOH3KJ_KkIr_IFBbp4AaABAg",
+      "text": "한국어를 한국인에게 한국말로 설명하고 이해시키는 미국인...타일러는 정말 대단하다...",
+      "author": "@user-y00n_suck10-c8seki",
+      "likeCount": 5229,
+      "publishedAt": "2024-08-06T20:14:57Z",
+      "replyCount": 16
+    },
+    {
+      "commentId": "Ugy6CPcE1QDQvUt9IKV4AaABAg",
+      "text": "아니 한국인 보다 말을 논리있게 잘해....",
+      "author": "@무지개-m1e",
+      "likeCount": 3544,
+      "publishedAt": "2024-08-06T12:43:19Z",
+      "replyCount": 7
+    },
+    {
+      "commentId": "UgwY9GlRGSqg0uWHn1p4AaABAg",
+      "text": "한국말을 나보다 잘하네 진짴ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 진짜 똑똑해",
+      "author": "@gghgal",
+      "likeCount": 1949,
+      "publishedAt": "2025-03-10T12:56:38Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgwGdnjX44ePujTl-QJ4AaABAg",
+      "text": "언어 천재 아니고 그냥 천재지....\n타일러는 기본적으로 가치관과 철학 정립이 잘 되어 있는 사람이야",
+      "author": "@findingtruth514",
+      "likeCount": 1071,
+      "publishedAt": "2025-03-01T17:07:32Z",
+      "replyCount": 2
+    },
+    {
+      "commentId": "UgyamW0wPZevTyOAxs94AaABAg",
+      "text": "공부와 배움을 구분하고 설득적으로 설명할 수 있는 경지에 있다는게 놀랍습니다. 언어는 진짜 사고의 깊이와 세계의 넓이만큼 표현된다는게 맞나봅니다... 대단해요...",
+      "author": "@herenow4683",
+      "likeCount": 622,
+      "publishedAt": "2025-01-16T13:31:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx3N2LS8xZziZmYlTR4AaABAg",
+      "text": "언어천재 맞구나",
+      "author": "@옹인간",
+      "likeCount": 1072,
+      "publishedAt": "2024-08-06T05:02:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw5Ij9iQP5v0N06klF4AaABAg",
+      "text": "한국사람보다 더 한국말 더 조리있게 잘함..ㅎ 어근까지...ㅎ",
+      "author": "@demos6085",
+      "likeCount": 351,
+      "publishedAt": "2024-08-06T14:58:46Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwHSn08q8fQuOqSkTp4AaABAg",
+      "text": "한국말도 잘해...하ㅜㅠ진짜 대단한 분",
+      "author": "@kloorrg",
+      "likeCount": 216,
+      "publishedAt": "2025-03-06T09:53:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyxwqwrm4YEjruKu3h4AaABAg",
+      "text": "공부는 배움의 도구일 뿐이고, 공부가 아닌 습득으로 체득 및 활용해야 한다...의미의 깊이를 알수록 타일러의 통찰력이 놀랍게 느껴집니다!  타일러는 도대체 세상을 어떻게 이해하는 건지..그 인식의 섬세함! 한 수 배워갑니다. Wow!",
+      "author": "@ChaeWon-pw7ng",
+      "likeCount": 171,
+      "publishedAt": "2025-03-08T13:04:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw_T3Z_ysylsjwkZSt4AaABAg",
+      "text": "와우 타일러 정말 대단하다...",
+      "author": "@박기석-d8z",
+      "likeCount": 264,
+      "publishedAt": "2024-08-08T08:10:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzfOeDnBxEtg7j72id4AaABAg",
+      "text": "와 ...  한국인보다 말을 더 잘하는데 ?? 타일러 한국인 이였나?",
+      "author": "@대한잼민이협회장",
+      "likeCount": 140,
+      "publishedAt": "2024-08-06T21:29:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzfP6Ti2g0zxlcx55B4AaABAg",
+      "text": "저사람이 미국에서 나고자란 미국사람이라는게 너무 놀랍다 ㅋㅋㅋ 한국인 수능1등급도 저정도로 말잘하는 사람 많지않음",
+      "author": "@user-fdisjdiflsmxjfidqpdjfiwk",
+      "likeCount": 18,
+      "publishedAt": "2025-10-07T12:02:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxT3YUe0B42wae5nyF4AaABAg",
+      "text": "얘는 천재가 맞지. 뭐 다른 외국인들도 한국어 유창하게 한다만은 얘만큼 차원이 높다는 생각은 안 듦.",
+      "author": "@user-d9h8g2a6cx",
+      "likeCount": 38,
+      "publishedAt": "2025-05-22T13:51:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyDWRnBu6QD_o5XXat4AaABAg",
+      "text": "진짜 미쳤네 어휘가 .... 학습과 습득을 외국인이 구분해서 말로 설명하는게 너무 신기함 말잘하는 한국인인데? 국어 선생님해도 되겠어 내가 반대로 영어하면 난..... 어..... 목적만? 겨우 말함 I want money~ 이정도...",
+      "author": "@포타겔",
+      "likeCount": 133,
+      "publishedAt": "2024-12-23T06:01:51Z",
+      "replyCount": 3
+    },
+    {
+      "commentId": "UgynLLACKZdWpGz4t1F4AaABAg",
+      "text": "와ㅡㅡ우...\n언어는 학습하는게 아니라 습득하는거다.\n맛는 말 입니다.\n그리고 공부는 배움의 친구이다.\n좋은 진론 입니다.🎉🎉🎉",
+      "author": "@KSKwak-fz9qc",
+      "likeCount": 298,
+      "publishedAt": "2024-08-05T23:27:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy2Sc5MCEDjeWUaahd4AaABAg",
+      "text": "타일러는 영혼이 맑은 사람이다.. 진짜 한국어를 한국인보다 잘 한다. 천재적인 머리로 천재적인 문장을 천재적으로 잘 표현한다. 타일러와 같이 영어를 갖고 놀 수 있을까.. 당신과 함께 영어를 갖고 노는 학교가 있다면 얼마나 행복할까..❤",
+      "author": "@김밥-t3t",
+      "likeCount": 40,
+      "publishedAt": "2025-08-26T09:59:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgywsSOte1wYadUAfIN4AaABAg",
+      "text": "출연자로 타일러가 자주나오는 프로그램이 많았음요. 나도 모르게 경청하고 느끼는게 많다.",
+      "author": "@빛나빛나-e3y",
+      "likeCount": 97,
+      "publishedAt": "2024-08-23T16:57:10Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxUSorT1s3jij8m4Ut4AaABAg",
+      "text": "이 사람 진짜 연구해봐야돼. 어떻게 이렇게 똑똑할까...",
+      "author": "@donghwankim8021",
+      "likeCount": 21,
+      "publishedAt": "2025-04-19T12:23:41Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxjQxGr_GlCMxdgxqN4AaABAg",
+      "text": "옛사람들은 그것을 체득,체화라 하였지요!",
+      "author": "@k112879",
+      "likeCount": 43,
+      "publishedAt": "2024-08-05T22:47:57Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx5FQLbhFdlMGQQsRx4AaABAg",
+      "text": "타일러는 한국의 보물, 타일러 너무 좋은데\n한국에 오래오래 계시면 좋겠어요 ♡",
+      "author": "@김지혜-x6z",
+      "likeCount": 12,
+      "publishedAt": "2025-06-19T06:25:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwTj7d6HPwzTzA7wo54AaABAg",
+      "text": "진짜동감,,,학이 아니고 습입니다.",
+      "author": "@삐까뻔쩍-z9z",
+      "likeCount": 31,
+      "publishedAt": "2024-08-07T16:20:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugypssf6Ptv6hwaE7kV4AaABAg",
+      "text": "우와. 똑타일러 역시 멋짐😊😊😊",
+      "author": "@k_catalina",
+      "likeCount": 104,
+      "publishedAt": "2024-08-06T12:42:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwJCvPclt88ERafKWF4AaABAg",
+      "text": "천재~영리한  막내아들 같은 모습으로 어찌 이리 말을 잘하나 처음 볼땐 이랬는데 보다 보니 언어를 비롯 모든면에서  천재이고 가르침에도 천재네요 타일러 건강하고 행복하게 지내길~~^^",
+      "author": "@sophiaking6523",
+      "likeCount": 42,
+      "publishedAt": "2024-08-25T19:45:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzW-BJZQ0LAWoQgWgZ4AaABAg",
+      "text": "맞네요  연애를 책으로 배울 수 없고 사업을 책으로 배울 수 없다",
+      "author": "@do0329",
+      "likeCount": 11,
+      "publishedAt": "2025-04-20T11:11:48Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzYj7AKUVitkS9RdFt4AaABAg",
+      "text": "철학적이야~ 배울게 많은 사람!!",
+      "author": "@시시-i4h",
+      "likeCount": 43,
+      "publishedAt": "2024-08-15T03:30:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxi3PG_9dd9kJ7hYxV4AaABAg",
+      "text": "뭔가 하기싫어질때 마음속으로 \"하기나 해\" 라고 외치고 하면 누구나 좋은결과 있을거라고 생각합니다",
+      "author": "@변영준-b2r",
+      "likeCount": 16,
+      "publishedAt": "2025-02-26T14:58:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwQOS4Ub5tNRUkyJEh4AaABAg",
+      "text": "존경해요 타일러😍",
+      "author": "@알맹이-i1h",
+      "likeCount": 41,
+      "publishedAt": "2025-05-04T15:22:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzzSrnCQmNmYMzVL894AaABAg",
+      "text": "소오름돋았어 나를 이렇게 쉽고 빠르게\n이해시키다니..",
+      "author": "@molrr",
+      "likeCount": 23,
+      "publishedAt": "2024-12-22T04:40:51Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyLS5AAVT08JCmm__l4AaABAg",
+      "text": "한국인도 한국말로 설명하기 어려운 말들을 타일러는 너무 자연스럽게 하네 ㅋㅋ😅",
+      "author": "@홈즈홈즈-r7y",
+      "likeCount": 10,
+      "publishedAt": "2025-03-16T13:08:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyrovoGuHrQ2ojnn7p4AaABAg",
+      "text": "진짜 이사람 너무 대단하다... 누가보면 한국에서 태어난 언어강사처럼 얘기하는데 알고보면 그냥 토종 미국인....",
+      "author": "@ryangosling-o8w",
+      "likeCount": 9,
+      "publishedAt": "2025-04-01T04:19:06Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzvVEd23xi4zXjjPBx4AaABAg",
+      "text": "왠만한 한국인보다 한국말 잘하시는.. 비정상회담때부터 봐왔지만 경이로워요",
+      "author": "@happycrysmell",
+      "likeCount": 6,
+      "publishedAt": "2025-07-28T14:09:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgypNMMpXuY2W8nBD8J4AaABAg",
+      "text": "타일러는 한국인보다 더 말을 잘해. 천재 맞아요😊",
+      "author": "@namu947",
+      "likeCount": 6,
+      "publishedAt": "2025-06-29T00:19:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyTfXm9GTR_WnzjLl54AaABAg",
+      "text": "언어학습은 실수가 필수이며 틀리는거 두렵다고 안하다보면 진짜 안늘어요😂 외국인인 타일러도 첨부터 저렇게 잘하지 않았겠죠. 한국어를 가지고 논다고 했는데, 아마 한국어를 놀이처럼 즐기며 중단하지 않아서 저런 경지에 오른거인듯. 내가 좋아하는 놀이는 좀틀려도 실수해도되요 왜냐면 그 활동자체로 즐거움이 더 크니까",
+      "author": "@lingsong9871",
+      "likeCount": 10,
+      "publishedAt": "2025-03-26T07:52:11Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy9WimJE2MRtOtDUYJ4AaABAg",
+      "text": "어쩜 이리도 한국어를 잘하실까?\n나도 영어를 좀 해보고 싶어서 이것저것 해보았는데 나이가 들어서인지 도무지 습득이 안되는데 혼자 독학하기엔 참 어려운것 같네요  63세 나이에 영어를 해보겠다고 재미있어서 하긴 하는데 도대체 실력이 늘지 않네요 \n타일러님 대단하십니다",
+      "author": "@노영숙-t7k",
+      "likeCount": 12,
+      "publishedAt": "2025-04-03T18:09:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzwSsp0PcKtZZDN-2t4AaABAg",
+      "text": "이거지...근데 한국은 완벽해야된다는 고정관념때메 습득하는게 힘듦ㅠㅠ",
+      "author": "@aki르",
+      "likeCount": 8,
+      "publishedAt": "2025-03-09T03:13:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxDB9JSjGV8-XGpZ5Z4AaABAg",
+      "text": "ㅋㅋㅋ 언어 학습을 저리 잘 설명해 주는 미국인 타일러 \n공부와 배움이 저렇게 다른거구나 ㅋㅋ",
+      "author": "@김연경-n1y",
+      "likeCount": 5,
+      "publishedAt": "2025-03-07T05:00:54Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxzQwKubuqG0ezFaW54AaABAg",
+      "text": "이사람은 생긴것부터가  똘똘하게 생김 ㅋㅋㅋㅋ",
+      "author": "@시바끄-j8r",
+      "likeCount": 0,
+      "publishedAt": "2026-10-17T05:40:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzAKxKmWR5967Wgw_V4AaABAg",
+      "text": "와...습득하라 자꾸 실수하고 도전해서 습득해라 멋지다...",
+      "author": "@매일운동하자",
+      "likeCount": 5,
+      "publishedAt": "2024-12-24T01:28:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzVlZ1iwt_P_qY_z9t4AaABAg",
+      "text": "언어는 습득이고 실수하고 넘어지는 과정이 배움이다.  공부는 도움을 주는 방법이지 핵심은 배움이 되어야 한다.",
+      "author": "@bsf00-s5j",
+      "likeCount": 2,
+      "publishedAt": "2026-03-27T05:53:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy_q55fTx-9OCbXiDN4AaABAg",
+      "text": "배우다 배다 ...... 생각도 해본 적 없는데 와 ㅎㅎ 이런 설명도 가능하구나 대단해요 👍",
+      "author": "@hrlee28",
+      "likeCount": 17,
+      "publishedAt": "2024-09-22T05:27:53Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyKwgSC2iqGNj7lchJ4AaABAg",
+      "text": "서양인이 저정도의 발음과 한국어를 구사한다는게 정말 대단한거 같다.",
+      "author": "@요비누스-o9e",
+      "likeCount": 7,
+      "publishedAt": "2025-03-11T12:51:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwmRI2EBgeFF6QkbKV4AaABAg",
+      "text": "이 말을듣고 감명받았습니다\n이해가 너무 잘됩니다..",
+      "author": "@정조영-m1t",
+      "likeCount": 6,
+      "publishedAt": "2025-05-27T10:30:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwnAaDRwY83ffr7PCt4AaABAg",
+      "text": "타일러 님이.. 나보다 한국어를 더 잘해 .... ㅎㅎ 어쩜 이렇게 말을 잘할까 !!",
+      "author": "@2cksmswlqdptj",
+      "likeCount": 8,
+      "publishedAt": "2024-12-29T02:00:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy9hhKZPmykNDdrR6p4AaABAg",
+      "text": "우리나라에서 특히 영어는 시험의 도구지 .. 진정한 언어는 습득이 맞는 거 같다",
+      "author": "@안녕하숑숑숑숑",
+      "likeCount": 5,
+      "publishedAt": "2025-03-07T06:57:05Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzWqDBAzqJ0gC8qNw94AaABAg",
+      "text": "공부가 목적이 아니라 배움이, 실질적 실행 능력이 궁극의 그것이다. 모든 분야가 그런듯.",
+      "author": "@프레이어",
+      "likeCount": 3,
+      "publishedAt": "2025-03-28T06:48:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxQ-ot6Zp06NKrv1yF4AaABAg",
+      "text": "논어 학이편 6장\n행유여력 즉이학문\n\n습득 이후에 학문하라!\n\n감사합니다 역시 천재 타일러 짱❤️",
+      "author": "@---yi6tz",
+      "likeCount": 5,
+      "publishedAt": "2025-04-06T17:07:50Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyHtUSmo3l7vJStZ554AaABAg",
+      "text": "와 정말 똑똑하시다 어쩜 저렇게 말을 잘 할까 것도 외국어로..",
+      "author": "@qwe-kz2xg",
+      "likeCount": 1,
+      "publishedAt": "2026-01-25T11:40:22Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxydMQk-z4IwMbbEyB4AaABAg",
+      "text": "이렇게 한국말 잘하는 영어권 사람은 처음봐 ㅋㅋㅋㅋ",
+      "author": "@이방원-b1j",
+      "likeCount": 2,
+      "publishedAt": "2025-04-20T10:46:52Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwW7MzuvOd4y8Fdh2p4AaABAg",
+      "text": "학습과 체화의 차이라 이거지",
+      "author": "@암흑과설탕",
+      "likeCount": 12,
+      "publishedAt": "2024-08-05T22:43:44Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxs-MtDGoYyF96TLGJ4AaABAg",
+      "text": "아니.....그냥 당신은 천재야....",
+      "author": "@GIU-g7y",
+      "likeCount": 6,
+      "publishedAt": "2025-03-06T16:30:35Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy0vMLkbcbztLzUPeR4AaABAg",
+      "text": "똑똑하시다",
+      "author": "@지승범TV",
+      "likeCount": 36,
+      "publishedAt": "2024-08-05T21:56:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxRGogLUrK2LdreSA54AaABAg",
+      "text": "일본에서 나온 현 영문법과 교육방법부터 고쳐야 함. 어떻게 학창시절 내내 배웠어도 한마디 못하는 사람이 많은 현실.",
+      "author": "@majoongin",
+      "likeCount": 3,
+      "publishedAt": "2025-09-23T05:11:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwkB27YPs_ga1YUz7F4AaABAg",
+      "text": "한국어 완전 마스타를 넘어서 배우다를 몸에배다 라는 정도까지 이해를 넓힌게 정말 대단하다. 전통 국어학자가 말하는것 같다",
+      "author": "@ddangddallbo",
+      "likeCount": 2,
+      "publishedAt": "2025-05-26T20:49:59Z",
+      "replyCount": 1
+    },
+    {
+      "commentId": "UgxKFmb4pEx1txRNHDB4AaABAg",
+      "text": "놀랐습니다  한국어로 저렇게 이해가 되게 어려운 개념을 설명하는 능력 ..한국인도 어려운데...",
+      "author": "@푸른나무-z5e",
+      "likeCount": 3,
+      "publishedAt": "2025-01-21T00:59:37Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx3Gb3yY9NYtHpjwLF4AaABAg",
+      "text": "우와 진짜 똑똑해 한국인보다 말을 더 잘하고 비유도 찰떡같이 잘한다",
+      "author": "@zlafnk7777",
+      "likeCount": 1,
+      "publishedAt": "2025-06-20T03:33:21Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwIPEmfj7qVZHOZScV4AaABAg",
+      "text": "사실 한국인인 우리들도 완벽하게 문법이나 맞춤법 뜻등 제대로 구사을 못하는에 다른나라 언어를 공부할때 완벽하게 구사하려다 어려워서 포기하는 아이러니한 상황",
+      "author": "@파란하늘-f8c",
+      "likeCount": 1,
+      "publishedAt": "2025-11-04T20:58:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugy6k1d-Jupp4_THtVJ4AaABAg",
+      "text": "진짜 독서량이 어마무지 한 사람인 것은 확실하다.\n가령 예를 들어서(대충) 일반인이 하루에 3,000문장 쓴다면 배움에 진심인 사람들은 독서량에 따라서 하루에 쓰는 문장의 수가 기하급수적으로 늘어난다고 들었다. 그 수준의 함량에 대한 총량의 결과는 배움의 수준이 상당히 높더라도 어려운 말을 쓰기 보다는 아이들이 들어도 이해가 쉽게 하는 다양한 예의 문장들로 이해시킨다는 것에 있다. (한국은 반대로 배움과 경험이 많을 수록 어려운 문장들을 쓰는 것에 익숙해져 있다.)  타일러 자체는 이미 누군가를 가르치는 수준을 넘어서 자기만의 우주를 갖고 있는 사람임에 분명하다. 이에 대한 나의 이해는,  대학 다닐때 교수님이 하신 말씀으로 알고 있는 것이기도 하다. 생각해 보니 타당하기도 한 말씀이라 기억에 남아 있기도 한 것이고.",
+      "author": "@yokurism",
+      "likeCount": 2,
+      "publishedAt": "2025-02-09T07:51:09Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwMPo5vxvYeWxJeyZl4AaABAg",
+      "text": "너무 이해가 잘 돼요. 공부와 배움의 차이를 생각해본 적이 없는데 다시 한번 생각하게 되었습니다.",
+      "author": "@안나-g8u",
+      "likeCount": 1,
+      "publishedAt": "2026-06-25T07:56:18Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzWxTVCZ3WZ2PF-Wjl4AaABAg",
+      "text": "왜캐 말을 잘하냐\n어후 정말~~\n리스팩트하다~~",
+      "author": "@마리오-t2t",
+      "likeCount": 5,
+      "publishedAt": "2024-08-11T13:43:45Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyoZNad26gTdS1Ijwt4AaABAg",
+      "text": "와우.... 바로 이해되어 버림. 타일러 리스펙",
+      "author": "@KO-df6dg",
+      "likeCount": 2,
+      "publishedAt": "2025-04-10T02:02:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwnMbct7e2sjjPFkxV4AaABAg",
+      "text": "이런 언어 천재님이 한국에 와 있는게 \n뭔가 너무 신기하고 감사하네요",
+      "author": "@메이비베이비-q4c",
+      "likeCount": 0,
+      "publishedAt": "2026-03-04T12:10:40Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugwq97RMMA2XYsyRbtV4AaABAg",
+      "text": "언어로 소통이 안되는 이들은 글로 그림으로 음악으로 행동으로 그도 안되면 눈물로~~",
+      "author": "@백수린-k8l",
+      "likeCount": 0,
+      "publishedAt": "2026-11-11T05:24:58Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyGYG7cvzuyZeQHIx94AaABAg",
+      "text": "타일러보면서 소름이 .. 와.. 말을 너~~~무 잘한다... 한국인보다 10배 잘하네..",
+      "author": "@꿀꾸리_OO",
+      "likeCount": 2,
+      "publishedAt": "2025-03-11T00:19:55Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxQk6dujdbG_otCaNh4AaABAg",
+      "text": "봐도봐도 놀라워.존경해요 타일러...",
+      "author": "@fikachoi3208",
+      "likeCount": 1,
+      "publishedAt": "2025-08-16T11:27:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzYyxFg3By_mlujp3l4AaABAg",
+      "text": "타일러의 한국어 실력이 그걸 증명하는듯..ㄷㄷ",
+      "author": "@Jangdodam",
+      "likeCount": 5,
+      "publishedAt": "2024-10-18T10:33:32Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx0ooeRq_7oj6XzecR4AaABAg",
+      "text": "설명부터 단어의 차이까지 명확히 알고있음 심지어 이해  시키는 능력치도 한국인 상위랭커",
+      "author": "@말은바로잘함",
+      "likeCount": 0,
+      "publishedAt": "2026-08-22T17:25:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugyv-TJBZmjNKUDjkPF4AaABAg",
+      "text": "맞아 꼼꼼하게 하려고 하면 더 안되는거 사실!",
+      "author": "@Sean97-g1h",
+      "likeCount": 2,
+      "publishedAt": "2024-12-23T17:17:26Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzG16kvLHUvjmycrgZ4AaABAg",
+      "text": "나보다 한국말 더 잘하는데…",
+      "author": "@호랭-w2f",
+      "likeCount": 10,
+      "publishedAt": "2024-08-06T00:59:03Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwLQ9aMPfXnnsI5GBR4AaABAg",
+      "text": "공부와 배움의 차이를 타일러를 통해 알았네요~감사합니다👍👍👍",
+      "author": "@mini-mu8hi",
+      "likeCount": 2,
+      "publishedAt": "2025-06-19T01:35:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzDXwsLzaIS47MO99l4AaABAg",
+      "text": "정말 맞는말인것 같아요. 해외에서 영어시험 준비하느라 공부는 많이하는데 학술정인 영어이고, 평소에 쓰지 않은 어려운 내용들을 접하는데, 이게 일상 생활에서 적용이 잘 안되더라구요. 기본적인 단어도 실생활에서 잘 안생각나고. 이게 배운걸 몸에 베개 해서 습득하는게 맞는것 같습니다",
+      "author": "@Limivibes",
+      "likeCount": 0,
+      "publishedAt": "2026-07-22T06:56:29Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw78-JfYV3dFoQzFbF4AaABAg",
+      "text": "인정~ 요즘엔 이런 이야기가 많이 달라지긴 했죠\n정말 외국어가 학습이 아니라 습득, 공부가 아니라 훈련이란 이야기도 많이 하죠\n정말 외국어는 공부하고 학습해야만 가능하다~ 하면 말도 못 하는 아이들은 언어를 배울 수 없어야 하지만, 걷지도 못 하는 아이들이 엄마 아빠 이야기를 하고, 계속 말을 하죠\n\n그래서 3개월, 하루 30분, 주 몇 회... 로 회화가 된다는 말이 안 된다고 하죠\n\n우리가 올림픽에 나간다고 하면, 하루 1시간, 30분, 주 몇 회, 3개월, 6개월, 1년만에 올림픽에 나가고, 올림픽에 가서 메달을 딸 수 있을까? 당연히 안 되죠\n\n외국어도 마찬가지라고 하는... 계속 연습(공부)을 해서 몸에 습득을 해야 하는 건데...",
+      "author": "@SimTheBe",
+      "likeCount": 2,
+      "publishedAt": "2025-10-18T07:14:23Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyojDh60mMk0tGdWLF4AaABAg",
+      "text": "와~~  진짜  한국 박사들보다 말 잘해 !  뇌 속이   궁금하다",
+      "author": "@won-28u",
+      "likeCount": 3,
+      "publishedAt": "2024-12-03T15:38:15Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxvX_-txkkVJOQzUpl4AaABAg",
+      "text": "타일러님 진짜 대단해. 말하는것봐 습득+배움 그 자체야",
+      "author": "@뽀뎅럽럽",
+      "likeCount": 0,
+      "publishedAt": "2026-02-03T12:04:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzG87JRIUCltUIn-T94AaABAg",
+      "text": "쟤는 천재다!!",
+      "author": "@모나정",
+      "likeCount": 1,
+      "publishedAt": "2026-01-06T19:33:12Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwkCru6oH6QxhBfIph4AaABAg",
+      "text": "배우다..가 그런뜻인거 처음 알았다..\n미국인에게 한국말을 배웠다",
+      "author": "@the_sunrain",
+      "likeCount": 1,
+      "publishedAt": "2026-09-02T12:14:02Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzManXQD9AeYhrv6iN4AaABAg",
+      "text": "최근 제가 직접 만든 노래입니다. 신나는 리듬으로 반복 청취하고 따라하면 즐거우면서 구구단을 영어와 한국어로 동시에 외우고 마지막엔 19x19에서 11x11까지  각 제곱값을 영어와 한국어로 번갈아 암송하는 거꾸로 구구단입니다: https://youtu.be/tPCesr70wVY",
+      "author": "@SEUNGHOJung-f9p",
+      "likeCount": 0,
+      "publishedAt": "2025-09-17T09:46:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzfgTtlQ7cYPmx06m94AaABAg",
+      "text": "한국인보다 더 한국말을 잘해... 정말 똑똑해",
+      "author": "@angelcat-w7v",
+      "likeCount": 1,
+      "publishedAt": "2025-01-23T00:22:14Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugz_GohdEeSDpDeMkvd4AaABAg",
+      "text": "발음은 모국어가 아니라 어쩔수없이 조금 튄다는 느낌은 있는데. 그의 어휘수준은 한글을 모국어로 40년이상 살아온 제가 감히 따라갈수도 없는 수준이네요.",
+      "author": "@lyle-b4f",
+      "likeCount": 4,
+      "publishedAt": "2025-03-04T06:49:24Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyA4nSdbpCCwtb2vVp4AaABAg",
+      "text": "외국사람인데도 한글 단어의 의미를 정확히 꿰뚫어서 이해하고 사용하고 있다는게 너무 놀랍다..",
+      "author": "@banana_pot",
+      "likeCount": 1,
+      "publishedAt": "2025-05-18T00:46:20Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugzua7O5YoF1rEUpw0h4AaABAg",
+      "text": "와 방금 타일러가 한말 다시 설명해보라고 해도 타일러보다 한국말 논리정연하게 할 자신이 읍네여 진짜 대단하다",
+      "author": "@얌얌-u8m",
+      "likeCount": 0,
+      "publishedAt": "2026-01-05T10:45:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyTPWrDFkzhXEhMSbx4AaABAg",
+      "text": "미쳤다 ㅋㅋㅋㅋㅋ 쩔었다 진짜 갑자기 타일러의 지성에 반해서 타일러가 아니라 티모시 샐라메로 보인다",
+      "author": "@김성균-u8h",
+      "likeCount": 0,
+      "publishedAt": "2026-01-28T14:24:42Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyOYy9TaLMXPKO-gzR4AaABAg",
+      "text": "와. 배울점이 많은 타일러에요.  존경해요.",
+      "author": "@박명애-x8y",
+      "likeCount": 2,
+      "publishedAt": "2025-03-21T11:57:33Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx7SCMzkByaELDCHcF4AaABAg",
+      "text": "소중한 문과 천재~",
+      "author": "@달꽃-g4d",
+      "likeCount": 6,
+      "publishedAt": "2025-02-21T01:33:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgynHbP4srBhpuldFL94AaABAg",
+      "text": "정답이네 핵심",
+      "author": "@nownow3798",
+      "likeCount": 19,
+      "publishedAt": "2024-08-08T11:45:01Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw8xEg68UpVtT0IHg54AaABAg",
+      "text": "감탄이 나오는 분석입니다.\n타일러는 대단하다..",
+      "author": "@zunsay114",
+      "likeCount": 1,
+      "publishedAt": "2025-01-18T05:42:56Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzJ2WRAdCyZylJwSIB4AaABAg",
+      "text": "한국인보다 더 이해가 쉽게 설명해주심. 대단한분",
+      "author": "@된다네",
+      "likeCount": 0,
+      "publishedAt": "2025-12-07T10:15:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx3MJoPu0Jwh7CJM7J4AaABAg",
+      "text": "타일러는 정말 똑똑하고\n아는것도  많아요",
+      "author": "@조데레사eq",
+      "likeCount": 1,
+      "publishedAt": "2024-08-22T00:27:17Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwY3UEccW9pvQAaRYh4AaABAg",
+      "text": "와…… 타일러는 천재의 재능을 가졌다",
+      "author": "@Lovelovelove_hi",
+      "likeCount": 1,
+      "publishedAt": "2025-03-06T16:10:00Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzAvqzkSx4MfVIl5CR4AaABAg",
+      "text": "갖고놀아야 한다는 말\n정말 한국어 잘하시네요.  👏 👏 👏",
+      "author": "@베로니카-q4v",
+      "likeCount": 0,
+      "publishedAt": "2026-07-26T18:38:34Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgwcUGdZFdFE-z6j5Rl4AaABAg",
+      "text": "타일러랑 만나고싶은 나 ❤ 제발 한국에 오래있어주세요 ❤",
+      "author": "@TRG.ZIV20V",
+      "likeCount": 1,
+      "publishedAt": "2025-05-15T00:47:30Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgzGGladQxN95z9bmad4AaABAg",
+      "text": "대단하네요.똑똑.",
+      "author": "@늘.만남",
+      "likeCount": 11,
+      "publishedAt": "2025-04-14T07:36:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxBGOeGvpzs3I34G3N4AaABAg",
+      "text": "본인이 가진 지식의 깊이를 정확하게 한국어로 표현할 수 있는 수준이라니...부러움을 넘어 감탄하게 되네!",
+      "author": "@trueground5056",
+      "likeCount": 0,
+      "publishedAt": "2025-10-19T08:36:27Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugx-KaGY0GwbrZWm4GR4AaABAg",
+      "text": "타일러 정말. 엄지 척!!",
+      "author": "@hyunshim7964",
+      "likeCount": 2,
+      "publishedAt": "2025-04-21T11:51:25Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxZsAOCue6e-YSA5Rp4AaABAg",
+      "text": "ㅋㅋㅋㅋ세상에 대체 어떻게 한국어를 공부한거지ㅠㅠㅠㅠㅠ나도 타일러가 한국어 하듯이 언어공부하고싶은데...",
+      "author": "@42bwawa12",
+      "likeCount": 1,
+      "publishedAt": "2025-01-16T15:42:13Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgyyX3anDXq_2JqjbTF4AaABAg",
+      "text": "타일러 진짜 똑똑해..",
+      "author": "@aprilkim2993",
+      "likeCount": 1,
+      "publishedAt": "2025-02-24T03:37:43Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxCCduQq5l5LgD8RAV4AaABAg",
+      "text": "진짜 ㅋㅋㅋㅋ 항국말 왤케 잘해여.. ㅋㅋㅋㅋㅋㅋㅋㅋ... 진짜 유창하시다..",
+      "author": "@다래깡",
+      "likeCount": 0,
+      "publishedAt": "2025-09-30T08:07:36Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgygoByCDXgVw2-x3eZ4AaABAg",
+      "text": "그치... 우리가 어릴적부터 한글을 배운게 아닌 사용하다보니 습득이 되어버린 것과 마찬가지다.",
+      "author": "@Redkill-b9y",
+      "likeCount": 1,
+      "publishedAt": "2025-05-16T09:47:49Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugw8gHPbAsIcjCTypV14AaABAg",
+      "text": "뭐냐이사람 진짜 리스펙",
+      "author": "@user-ik1so4gb6n",
+      "likeCount": 1,
+      "publishedAt": "2025-04-06T02:06:59Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "Ugxv0gWfx6hwzrsCJCV4AaABAg",
+      "text": "타일러 뇌가 특이한거에요 ㅠㅠ😅",
+      "author": "@상큼톡톡-p6e",
+      "likeCount": 5,
+      "publishedAt": "2024-08-07T17:00:07Z",
+      "replyCount": 0
+    },
+    {
+      "commentId": "UgxIro8BEM0zuLRX3UV4AaABAg",
+      "text": "아...배움에 대한 본질을 타일러에게 배웠네요!",
+      "author": "@dss6890",
+      "likeCount": 0,
+      "publishedAt": "2026-09-02T15:57:26Z",
+      "replyCount": 0
+    }
+  ]
+}

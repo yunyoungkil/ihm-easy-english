@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-15T05:21:40.777Z",
+  "videoId": "w8g6-e9yLP4",
+  "video": {
+    "videoId": "w8g6-e9yLP4",
+    "title": "종민, 도연의 영어 발음 테스트",
+    "description": "#김종민 #김도연 #코요태 #Roadshapes #메리고라운드 #merrygoround",
+    "channelId": "UCHVuJ2Hy_1917gvFNhuuv5Q",
+    "channelTitle": "메리고라운드",
+    "publishedAt": "2024-11-15T08:30:18Z",
+    "viewCount": 3722479,
+    "likeCount": 60221,
+    "commentCount": 404,
+    "thumbnail": "https://i.ytimg.com/vi/w8g6-e9yLP4/maxresdefault.jpg",
+    "duration": "PT53S"
+  },
+  "transcript": {
+    "ok": true,
+    "videoId": "w8g6-e9yLP4",
+    "language": "ko",
+    "languageName": "Korean (auto-generated)",
+    "isGenerated": true,
+    "lineCount": 11,
+    "fullText": "스퀘어 스퀘어스 뭐야 이게 어 오 뭐 뭐야 우 오발 오벌 뭐야 오벌 오버 오버 오버 오버 어렵네 오버 오버 오버 오버 오 펜타곤 예 야",
+    "lines": [
+      {
+        "start": 5.64,
+        "duration": 3,
+        "text": "스퀘어"
+      },
+      {
+        "start": 12.8,
+        "duration": 6,
+        "text": "스퀘어스 뭐야"
+      },
+      {
+        "start": 15.24,
+        "duration": 3.56,
+        "text": "이게 어"
+      },
+      {
+        "start": 19.08,
+        "duration": 5.32,
+        "text": "오"
+      },
+      {
+        "start": 21.92,
+        "duration": 4.64,
+        "text": "뭐"
+      },
+      {
+        "start": 24.4,
+        "duration": 6.16,
+        "text": "뭐야"
+      },
+      {
+        "start": 26.56,
+        "duration": 4,
+        "text": "우 오발"
+      },
+      {
+        "start": 32.44,
+        "duration": 7.04,
+        "text": "오벌 뭐야 오벌"
+      },
+      {
+        "start": 34.92,
+        "duration": 13.28,
+        "text": "오버 오버 오버"
+      },
+      {
+        "start": 39.48,
+        "duration": 8.72,
+        "text": "오버 어렵네 오버 오버 오버 오버"
+      },
+      {
+        "start": 48.8,
+        "duration": 6.04,
+        "text": "오 펜타곤 예 야"
+      }
+    ]
+  },
+  "aiInsights": {
+    "hookingAnatomy": {
+      "technique": "도입부에서 화면에 제시된 영어 단어를 보며 출연진이 순간 당황하고 중얼거리는 솔직한 반응을 그대로 보여줌",
+      "openingHookQuote": "스퀘어 스퀘어스 뭐야 이게 어 오 뭐 뭐야",
+      "whyItWorked": "영어를 보았을 때 선뜻 입이 떨어지지 않거나 틀릴까 봐 당황하는 시청자 자신의 모습과 겹쳐지면서 강한 현실 공감대와 유쾌함을 형성함"
+    },
+    "storyArchitecture": [
+      {
+        "step": "1. 첫 단어 읽기 시도와 혼란",
+        "timeRange": "확인 불가 (대본 전반부)",
+        "summary": "Square 단어를 접하고 스퀘어, 스퀘어스라고 중얼거리며 당황함",
+        "pacingNote": "출연진의 당황한 반응을 빠르게 연속 배치하여 몰입 유도"
+      },
+      {
+        "step": "2. 난이도 있는 발음 반복 및 시행착오",
+        "timeRange": "확인 불가 (대본 중반부)",
+        "summary": "Oval 단어를 보며 오발, 오벌, 오버를 계속 반복하며 어렵다고 토로함",
+        "pacingNote": "비슷한 소리를 계속 다르게 내보는 실제 유저의 시도 과정으로 공감대 형성"
+      },
+      {
+        "step": "3. 마지막 단어 성공 및 마무리",
+        "timeRange": "확인 불가 (대본 후반부)",
+        "summary": "Pentagon 단어를 읽어내며 환호성으로 테스트 마무리",
+        "pacingNote": "단어 정답을 맞히는 안도감으로 마무리"
+      }
+    ],
+    "coreMetaphors": [
+      {
+        "concept": "Oval, Square, Pentagon 등 기초 도형 영단어 발음",
+        "metaphorUsed": "별도의 체계적 비유 설명 없음 (출연자가 '오발', '오벌', '오버' 등 들리는 한글 표기로 즉흥 발음 시도)",
+        "evaluation": "체계적인 해설은 없으나 한글 소리 표기로 어떻게 왜곡되어 들리는지 실제 현상을 직관적으로 보여줌"
+      }
+    ],
+    "blindSpots": [
+      "Oval[óuvəl] 발음 시 V(아랫입술 닿기)와 L(혀끝 입천장 대기) 자음이 겹칠 때 한국어에 없는 입모양 변화 때문에 '오발'이나 '오버' 같은 익숙한 한글 단어로 대충 뭉개버리는 현상",
+      "Square[skwɛər]의 'qu' 소리처럼 입술을 둥글게 모았다가 펼치는 연쇄 음성을 한국어 단음절 '스퀘'로 단순화하여 실제 영어 소리의 호흡 길이를 따라가지 못하는 현상"
+    ],
+    "ourAdaptedScript": {
+      "recommendedTitle": "오발? 오버? Oval 소리가 입에서 꼬이는 진짜 이유 (3060 영어소리)",
+      "openingHook": "오발? 오벌? 오버? Oval 하나 읽는데 입근육이 왜 이렇게 꼬일까요?",
+      "corePrincipleExplanation": "Oval은 '오발'이 아닙니다. V 소리에서 윗니가 아랫입술을 살짝 누르고, 마지막 L 소리에서 혀끝이 입천장에 붙어야 '오-벌' 하고 깔끔하게 납니다.",
+      "longformStructure": {
+        "step1_Hook": "쉬운 도형 단어 Oval이나 Square, 눈으로는 아는데 막상 입으로 읽으려면 혀가 꼬이시죠?",
+        "step2_CardDisplay": "Oval [오-벌] / Square [스-콰에어]",
+        "step3_Principle": "Oval을 '오발'로 읽으면 입 앞쪽만 쓰게 됩니다. '오-' 한 뒤 아랫입술을 살짝 깨물며 '벌-' 하고 목 안쪽 소리를 내주셔야 영어 울림이 납니다.",
+        "step4_RepetitionDrill": "입모양을 신경 쓰면서 천천히 3번 따라 해보세요. 오-벌, 오-벌, 오-벌.",
+        "step5_Outro": "이제 Oval을 보실 때 '오발' 대신 아랫입술을 살짝 대고 '오-벌'로 소리 내보세요. 다음 시간에 더 쉬운 원리로 찾아오겠습니다."
+      },
+      "shortsTrackA": {
+        "concept": "Track A 원리형 (30초)",
+        "scriptText": "Oval, 읽을 때 오발인가 오버인가 헷갈리셨죠? 한국어에는 V와 L 소리가 없어서 그렇습니다. '오' 하고 나서 아랫입술을 윗니로 살짝 누르며 '벌-' 하고 끝을 올려보세요. 오-벌! 이 입모양 하나만 기억하면 영어 소리가 훨씬 또렷해집니다."
+      },
+      "shortsTrackB": {
+        "concept": "Track B 실전 대화/상황극형 (30초)",
+        "scriptText": "A: 이거 타원형 영어로 뭐라고 읽어요? 오발? 오버?\nB: '오발'이라고 하면 미국 사람이 못 알아들어요! V 발음을 살려서 '오-벌'이라고 해야 해요.\nA: 오-벌? 윗입술 아래 입술이 붙는 게 아니네요?\nB: 맞아요! 윗니로 아랫입술을 살짝 짚어주는 게 핵심입니다. 오-벌!"
+      }
+    }
+  }
+}

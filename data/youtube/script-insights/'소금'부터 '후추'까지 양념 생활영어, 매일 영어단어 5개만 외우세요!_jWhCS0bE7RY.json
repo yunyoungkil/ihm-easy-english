@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-12T05:04:41.105Z",
+  "videoId": "jWhCS0bE7RY",
+  "video": {
+    "videoId": "jWhCS0bE7RY",
+    "title": "'소금'부터 '후추'까지 양념 생활영어, 매일 영어단어 5개만 외우세요!",
+    "description": "누구나 따라하는 쉬운 기브영어\n\n#기초영어 #영어단어 #영어회화 #영어공부 #영어",
+    "channelId": "UCueh_oEGfzVFKU4K-E1CIGg",
+    "channelTitle": "기브영어 Give English",
+    "publishedAt": "2025-04-15T03:55:01Z",
+    "viewCount": 689153,
+    "likeCount": 4516,
+    "commentCount": 10,
+    "thumbnail": "https://i.ytimg.com/vi/jWhCS0bE7RY/maxresdefault.jpg",
+    "duration": "PT37S"
+  },
+  "transcript": {
+    "ok": true,
+    "videoId": "jWhCS0bE7RY",
+    "language": "ko",
+    "languageName": "Korean (auto-generated)",
+    "isGenerated": true,
+    "lineCount": 12,
+    "fullText": "소금 salt salt salt salt 간장 soy sauce soy sauce soy sauce soy sauce 식초 vinegar vinegar vinegar vinegar 설탕 sugar sugar sugar sugar 후추 peer peer peer peer [음악]",
+    "lines": [
+      {
+        "start": 0.48,
+        "duration": 9.68,
+        "text": "소금 salt salt salt"
+      },
+      {
+        "start": 6.32,
+        "duration": 7.68,
+        "text": "salt 간장 soy sauce"
+      },
+      {
+        "start": 10.16,
+        "duration": 5.92,
+        "text": "soy sauce soy sauce"
+      },
+      {
+        "start": 14,
+        "duration": 5.96,
+        "text": "soy sauce"
+      },
+      {
+        "start": 16.08,
+        "duration": 5.52,
+        "text": "식초 vinegar vinegar"
+      },
+      {
+        "start": 19.96,
+        "duration": 3.48,
+        "text": "vinegar"
+      },
+      {
+        "start": 21.6,
+        "duration": 7.16,
+        "text": "vinegar"
+      },
+      {
+        "start": 23.44,
+        "duration": 7.04,
+        "text": "설탕 sugar sugar sugar"
+      },
+      {
+        "start": 28.76,
+        "duration": 6.8,
+        "text": "sugar"
+      },
+      {
+        "start": 30.48,
+        "duration": 5.72,
+        "text": "후추 peer peer peer"
+      },
+      {
+        "start": 35.56,
+        "duration": 3.03,
+        "text": "peer"
+      },
+      {
+        "start": 36.2,
+        "duration": 2.39,
+        "text": "[음악]"
+      }
+    ]
+  },
+  "aiInsights": {
+    "hookingAnatomy": {
+      "technique": "직관 퀴즈형",
+      "openingHookQuote": "'소금'부터 '후추'까지 양념 생활영어, 매일 영어단어 5개만 외우세요!",
+      "whyItWorked": "일상에서 매일 접하는 초간단 양념 단어로 학습 문턱을 낮추고, '하루 5개만'이라는 부담 없는 목표 설정으로 손쉬운 자기계발 욕구를 자극함."
+    },
+    "storyArchitecture": [
+      {
+        "step": "1. 도입 (Hook)",
+        "timeRange": "0:00 ~ 0:08",
+        "summary": "한국어 단어와 영어 단어를 연속 노출하며 즉각적인 단어 카드 방식 도입",
+        "pacingNote": "단어 간 이탈이 없도록 1초 단위 빠르고 직관적인 음성 제시"
+      },
+      {
+        "step": "2. 문제 제기 & 공감 (Pain & Contrast)",
+        "timeRange": "0:08 ~ 0:20",
+        "summary": "일상 양념 단어(salt, soy sauce) 반복 노출을 통한 암기 유도",
+        "pacingNote": "단순 반복으로 시청자가 아는 단어임을 확인시키고 편안함 제공"
+      },
+      {
+        "step": "3. 핵심 비유 & 원리 해설 (Core Metaphor)",
+        "timeRange": "0:20 ~ 0:40",
+        "summary": "별도의 발음 원리 설명 없이 4회 기계적 음성 반복 진행",
+        "pacingNote": "시각적 청각적 템포 유지(단, 설명 부재로 이탈 위험 존재)"
+      },
+      {
+        "step": "4. 실전 훈련 & 낭독 (Practice & Drill)",
+        "timeRange": "0:40 ~ 0:52",
+        "summary": "vinegar, sugar, pepper 단어 연속 4회 복습 세션",
+        "pacingNote": "시청자가 눈과 귀로 리듬을 타며 따라 읽도록 유도"
+      },
+      {
+        "step": "5. 엔딩 & 행동 유도 (Outro & CTA)",
+        "timeRange": "0:52 ~ 1:00",
+        "summary": "배경음악과 함께 5개 단어 세트 학습 완료 처리",
+        "pacingNote": "깔끔하고 부담 없는 종료로 잔여 만족감 전달"
+      }
+    ],
+    "coreMetaphors": [
+      {
+        "concept": "단순 음성 4회 반복 단어 주입법",
+        "metaphorUsed": "유아용 사물 낱말 카드 / 세이펜식 연쇄 재생",
+        "evaluation": "접근성은 매우 뛰어나나 소리 변신 원리나 입근육 위치 설명이 없어 실전 회화 시 입이 안 떨어지는 한계가 있음"
+      }
+    ],
+    "blindSpots": [
+      "단어 단독 발음만 기계적으로 나열하여 해외 식당이나 마트에서 '소금/후추 좀 주세요' 같은 실전 문맥(Collocation)으로 확장하지 못함",
+      "Pepper 발음 시 자막 오류('peer')가 발생하는 등 텍스트 검증이 부실하여 시청자가 잘못된 소리와 철자를 그대로 습득할 위험이 있음",
+      "Vinegar, Pepper 등의 첫 모음 강세와 입술 위치(V와 P의 물리적 입근육 차이)를 짚어주지 않아 한국식 밋밋한 톤('비니거', '페퍼')으로 고착화됨"
+    ],
+    "ourAdaptedScript": {
+      "recommendedTitle": "식당에서 '후추·식초' 찾을 때 '페퍼, 비니거'라고 하지 마세요! (3초 혀 위치 법칙)",
+      "openingHook": "해외 여행 가서 '후추 좀 더 주세요' 할 때 왜 원어민이 못 알아들을까요? '페퍼'가 아니라 혀를 1mm만 뒤로 빼면 됩니다!",
+      "corePrincipleExplanation": "미국인들은 혀를 바쁘게 움직이기 싫어합니다. Pepper를 할 때 입술을 다물었다 억지로 '페' 하지 않고, 입김을 터뜨리며 혀를 게으르게 놓아주면 원어민 소리가 절로 완성됩니다.",
+      "longformStructure": {
+        "step1_Hook": "안녕하세요! '이해하면 쉬운영어'입니다. 오늘 지친 하루 고생 많으셨습니다. 식탁에서 매일 보는 후추와 식초, 원어민처럼 힘 빼고 편하게 발음하는 원리 딱 3분 만에 풀어드릴게요. 무작정 외우지 마세요!",
+        "step2_CardDisplay": "[한글 발음 표기] 븨-니거 / 페-퍼어 | [영어 단어] Vinegar / Pepper",
+        "step3_Principle": "1단계 게으른 혀 원리! '비니거'라고 정박자로 읽으면 혀가 피곤해요. 아윗입술에 윗니를 살짝 얹고 숨을 '븨-' 하고 터뜨린 뒤, 나머지 '니거'는 힘을 빼고 스르륵 흘려주세요. 미국인들도 혀가 편하려고 '븨-니거'하고 뒤를 뭉개버립니다!",
+        "step4_RepetitionDrill": "자, 3060 우리 구독자분들! 편안하게 누워서 입근육만 3번 따라 해봅니다. 1초 만에 입에서 튀어나오게 해드릴게요. (1) 븨-니거! (2) 븨-니거! (3) 븨-니거! 완벽합니다!",
+        "step5_Outro": "오늘 저녁 양념통 보실 때 '븨-니거' 한 번만 속으로 떠올려보세요. 댓글에 오늘 배운 소리를 남겨주시면 실전 자신감이 2배가 됩니다. 내일도 편안한 지적 휴식으로 찾아오겠습니다."
+      },
+      "shortsTrackA": {
+        "concept": "Track A 원리형 (30초)",
+        "scriptText": "미국 식당에서 '식초' 달라고 할 때 '비니거!' 하면 못 알아듣습니다! 왜일까요? 미국인은 혀가 게으르기 때문입니다. 정박자로 '비-니-거' 하지 않고, 아랫입술을 살짝 물고 숨을 내쉬며 '븨-니거' 하고 뒤를 스르륵 뭉개버리거든요. 자, 따라 해보세요! '븨-니거'! 이제 식당에서 당당하게 말하세요!"
+      },
+      "shortsTrackB": {
+        "concept": "Track B 실전 대화/상황극형 (30초)",
+        "scriptText": "(상황극) 해외 여행 식당에서 후추를 달라고 할 때! 'Excuse me, Pepper please~' 하니까 알아듣지 못한다고요? '페퍼'가 아니라, 입술을 팝콘처럼 팡 터뜨리며 '페-퍼어'라고 해주세요. Pass the pepper! 혀에 힘 빼고 3번만 따라 하면 여행지에서 1초 만에 소리가 튀어나옵니다!"
+      }
+    }
+  }
+}

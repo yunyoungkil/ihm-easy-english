@@ -40,3 +40,27 @@ test('비교 시트 화면 연출 행은 경쟁 영상의 저장된 캡처를 �
   assert.ok(html.includes('/outlier-frames/BBBBBBBBBBB/0.jpg') && html.includes('/outlier-frames/BBBBBBBBBBB/4.jpg'));
   assert.ok(!renderTransformSheetPage(sheet, null, [], {}).includes('경쟁 화면 캡처'), '캡처가 없으면 줄을 만들지 않는다');
 });
+
+test('행 출처(origin)를 쓴 시트는 비율 칸 없이도 통과하고, 출처나 이유가 빠지면 문제로 알린다(2026-11-16)', async () => {
+  const {validateSheet, sheetOrigins, sheetImageExists} = await import('../transform-sheet.mjs');
+  const {readFileSync} = await import('node:fs');
+  const sheet = JSON.parse(readFileSync(new URL('../../data/youtube/transform-sheets/w8g6-e9yLP4.json', import.meta.url), 'utf8'));
+  assert.equal(sheet.identityShare, undefined, '사람이 정한 비율 칸은 쓰지 않는다');
+  assert.deepEqual(validateSheet(sheet, {imageExists: sheetImageExists}), []);
+  const o = sheetOrigins(sheet);
+  assert.equal(o.total, 8);
+  assert.equal(o.competitor + o.mixed + o.ours, 8);
+  const noOrigin = JSON.parse(JSON.stringify(sheet)); delete noOrigin.rows[2].origin;
+  assert.ok(validateSheet(noOrigin, {imageExists: sheetImageExists}).some((p) => p.includes('출처(origin)')));
+  const noReason = JSON.parse(JSON.stringify(sheet)); noReason.rows[3].originReason = '';
+  assert.ok(validateSheet(noReason, {imageExists: sheetImageExists}).some((p) => p.includes('originReason')));
+});
+
+test('행 출처가 없는 예전 시트는 예전 비율 칸을 그대로 검사한다', async () => {
+  const {validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
+  const {readFileSync} = await import('node:fs');
+  const old = JSON.parse(readFileSync(new URL('../../data/youtube/transform-sheets/SbQVBQoRciA.json', import.meta.url), 'utf8'));
+  assert.deepEqual(validateSheet(old, {imageExists: sheetImageExists}).filter((p) => p.includes('정체성')), []);
+  delete old.identityShare;
+  assert.ok(validateSheet(old, {imageExists: sheetImageExists}).some((p) => p.includes('정체성')));
+});

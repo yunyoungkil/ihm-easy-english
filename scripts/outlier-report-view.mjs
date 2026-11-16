@@ -213,7 +213,7 @@ const SHEET_CSS = `<style>
 .sheet-col{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .sheet-col.ours{border-color:var(--accent)}
 .sheet-col h4{margin:0 0 6px;font-size:12px;color:var(--sub);text-transform:none}
-.sheet-col .imgs{display:flex;flex-wrap:nowrap;gap:8px;margin:6px 0;align-items:flex-start}
+.sheet-col .imgs{display:flex;flex-wrap:nowrap;gap:10px;margin:8px 0;align-items:flex-start;overflow-x:auto}
 .sheet-col img{width:auto;min-width:0;max-width:100%;max-height:300px;height:auto;border-radius:6px;border:1px solid var(--line);display:block}
 .sheet-why{grid-column:1/-1;font-size:13px;color:var(--sub);padding:0 4px 6px}
 .sheet-label{font-weight:700;margin:18px 0 0}
@@ -262,7 +262,7 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
   const fig = (src, t) => `<figure><a href="${src}" target="_blank" rel="noopener"><img loading="lazy" src="${src}" alt="${escapeHtml(t)}초 컷"></a><figcaption>${escapeHtml(t)}초</figcaption></figure>`;
   if (Array.isArray(times) && times.length) parts.push(`<div class="tl-label">경쟁 컷 이미지</div><div class="film comp">${times.map((t, i) => fig(ver(`/outlier-frames/${id}/cut-${String(i).padStart(2, '0')}.jpg`), t)).join('')}</div>`);
   // 경쟁 영상의 저장된 화면 캡처를 초 순서로 보여 준다(2026-11-16 사용자: 비교 시트에 경쟁 비주얼 컷이 하나도 없다). 컷 시각 감지가 실패한 영상(w8g6 등)도 캡처는 있다. 원본과 가져온 출처 영상 모두.
-  for (const r of refs) parts.push(`<div class="tl-label">경쟁 화면 캡처 — ${escapeHtml(r.label)} · ${r.frames.length}장(저장된 캡처를 초 순서로)</div><div class="film comp">${r.frames.map((fr) => fig(ver(`/outlier-frames/${encodeURIComponent(r.videoId)}/${escapeHtml(fr.file)}`), fr.t)).join('')}</div>`);
+  for (const r of refs.filter((x) => x.frames && x.frames.length)) parts.push(`<div class="tl-label">경쟁 화면 캡처 — ${escapeHtml(r.label)} · ${r.frames.length}장(저장된 캡처를 초 순서로)</div><div class="film comp">${r.frames.map((fr) => fig(ver(`/outlier-frames/${encodeURIComponent(r.videoId)}/${escapeHtml(fr.file)}`), fr.t)).join('')}</div>`);
   const oursFig = (c) => `<figure><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${c.narration ? `<div class="say">${escapeHtml(c.narration)}</div>` : ''}</figure>`;
   if (Array.isArray(plan?.cuts) && plan.cuts.length) parts.push(`<div class="tl-label">우리 컷 이미지${plan.cuts.some((c) => c.narration) ? ' + 컷 대본' : ''}</div><div class="film ours">${plan.cuts.map(oursFig).join('')}</div>`);
   const script = fullScript(plan);
@@ -284,7 +284,9 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   const ver = (url) => (assetVersion ? `${url}?v=${encodeURIComponent(assetVersion)}` : url);
   const frameByT = new Map((report?.frames || []).map((f) => [String(f.t), f.file]));
   const competitorImg = (token) => {
-    if (token === 'thumbnail') return report?.meta?.thumbnail ? `<img src="${escapeHtml(report.meta.thumbnail)}" alt="경쟁 썸네일">` : '';
+    if (token === 'thumbnail') return report?.meta?.thumbnail ? `<img style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid #888" src="${escapeHtml(report.meta.thumbnail)}" alt="경쟁 썸네일">` : '';
+    const tm = String(token).match(/^thumb:(.+)$/);
+    if (tm) { const rr = refReports.find((x) => x.videoId === tm[1]); return rr?.thumbnail ? `<img loading="lazy" style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid #888" src="${escapeHtml(rr.thumbnail)}" title="${escapeHtml(rr.label)}" alt="경쟁 썸네일">` : ''; }
     const m = String(token).match(/^frame:(.+)$/);
     const file = m && frameByT.get(m[1]);
     return file ? `<img loading="lazy" src="${ver(`/outlier-frames/${id}/${escapeHtml(file)}`)}" alt="${escapeHtml(m[1])}초 화면">` : '';
@@ -298,7 +300,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     SHEET_CSS,
     `<h1>비교 시트: ${escapeHtml(sheet.topic)}</h1>`,
     `<div class="meta">경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)} (${escapeHtml(report?.meta?.channelTitle || '')}, 평소의 ${formatRatioLabel(report)}) · 형식 ${escapeHtml(sheet.format)} · 상태 ${escapeHtml(STAGE_KO[stage] || stage)}</div>`,
-    `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
+    (sheet.rows || []).some((x) => x.origin) ? (() => { const o = { competitor: 0, mixed: 0, ours: 0 }; for (const x of sheet.rows || []) if (o[x.origin] !== undefined) o[x.origin] += 1; const n = o.competitor + o.mixed + o.ours || 1; return `<p>행별 출처 <b>경쟁 구조 ${o.competitor} · 섞음 ${o.mixed} · 우리가 새로 만듦 ${o.ours}</b> (총 ${n}행) — 사람이 정한 비율이 아니라 아래 각 행에 적은 출처를 센 값이다.</p><div class="bar"><span style="width:${(o.ours / n) * 100}%"></span><span style="width:${(o.mixed / n) * 100}%;background:var(--accent-amber)"></span><span style="width:${(o.competitor / n) * 100}%"></span></div>`; })() : `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
   ];
   for (const p of problems) parts.push(`<div class="warn">⚠ ${escapeHtml(p)}</div>`);
   if ((sheet.testVariables || []).length) {
@@ -319,7 +321,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
 <div class="sheet-row">
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.key === 'package' ? packageCompetitor(report) : ''}${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
   <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}${r.key === 'package' ? packageOurs(r.ours) : ''}</div>
-  <div class="sheet-why">왜 바꿨나: ${escapeHtml(r.why)}</div>
+  <div class="sheet-why">${r.origin ? `출처: <b>${{ competitor: '경쟁 구조를 가져옴', mixed: '섞음', ours: '우리가 새로 만듦' }[r.origin] || escapeHtml(r.origin)}</b> — ${escapeHtml(r.originReason || '')}<br>` : ''}왜 바꿨나: ${escapeHtml(r.why)}</div>
 </div>${thumbs.length ? `<div class="thumbbox">${thumbs.map((rel) => `<label class="pick"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`).join('')}</div>` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports) : ''}`);
   }
   parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');

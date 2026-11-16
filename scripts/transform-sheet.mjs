@@ -41,6 +41,15 @@ function packageProblems(pkg, plan) {
   }
   return out;
 }
+/** 행마다 이 칸이 어디서 왔는지: competitor = 경쟁 영상의 구조를 가져옴, mixed = 섞음, ours = 우리가 새로 만듦 */
+export const ORIGINS = Object.freeze(['competitor', 'mixed', 'ours']);
+export const usesRowOrigins = (sheet) => (sheet?.rows || []).some((r) => r && r.origin !== undefined);
+/** 행 출처를 센다(사람이 비율을 정하지 않는다). total은 출처가 적힌 행 수 */
+export function sheetOrigins(sheet) {
+  const out = {competitor: 0, mixed: 0, ours: 0, total: 0};
+  for (const r of sheet?.rows || []) if (ORIGINS.includes(r?.origin)) { out[r.origin] += 1; out.total += 1; }
+  return out;
+}
 export const STATUSES = Object.freeze(['draft', 'approved', 'published']);
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -139,9 +148,20 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   if (!filled(sheet?.topic)) problems.push('우리 소재가 없다');
   if (!STATUSES.includes(sheet?.status)) problems.push(`상태가 ${STATUSES.join('/')} 중 하나가 아니다`);
 
-  const share = sheet?.identityShare;
-  if (!share || Number(share.ours) + Number(share.competitor) !== 100) problems.push('정체성 비율(우리+경쟁)의 합이 100이 아니다');
-  if (!filled(share?.reason)) problems.push('정체성 비율의 근거가 없다');
+  // 정체성 비율(2026-11-16 사용자: 사람이 정한 70:30은 근거 없는 숫자였다). 행마다 출처(origin)와 이유를 적은 시트는 그 표를 세어 비율을 보여 주고,
+  // 예전 시트(행 출처 없음)는 예전 칸을 그대로 검사한다.
+  if (usesRowOrigins(sheet)) {
+    for (const key of rowKeysFor(sheet)) {
+      const r = (sheet?.rows || []).find((x) => x.key === key);
+      if (!r) continue; // 행이 없다는 문제는 아래에서 따로 알린다
+      if (!ORIGINS.includes(r.origin)) problems.push(`${ROW_LABELS[key]}: 출처(origin)가 ${ORIGINS.join('/')} 중 하나가 아니다`);
+      else if (!filled(r.originReason)) problems.push(`${ROW_LABELS[key]}: 출처를 그렇게 본 이유(originReason)가 없다`);
+    }
+  } else {
+    const share = sheet?.identityShare;
+    if (!share || Number(share.ours) + Number(share.competitor) !== 100) problems.push('정체성 비율(우리+경쟁)의 합이 100이 아니다');
+    if (!filled(share?.reason)) problems.push('정체성 비율의 근거가 없다');
+  }
 
   for (const key of rowKeysFor(sheet)) {
     const r = (sheet?.rows || []).find((x) => x.key === key);

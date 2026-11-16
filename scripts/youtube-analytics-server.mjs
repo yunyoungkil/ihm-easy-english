@@ -6173,14 +6173,15 @@ const server = createServer(async (req, res) => {
       if (report) queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
       // 경쟁 화면 캡처: 원본 + 가져온 출처 영상의 저장된 캡처를 초 순서로(2026-11-16)
-      const refIds = [sheetMatch[1], ...new Set((sheet.borrowed || []).map((b) => b.fromVideoId).filter((x) => x && x !== sheetMatch[1]))];
+      const thumbIds = (sheet.rows || []).flatMap((r) => (r.competitor?.images || []).map((tk) => String(tk).match(/^thumb:([A-Za-z0-9_-]{11})$/)?.[1]).filter(Boolean));
+      const refIds = [...new Set([sheetMatch[1], ...(sheet.borrowed || []).map((b) => b.fromVideoId).filter(Boolean), ...thumbIds])];
       const refReports = [];
       for (const rid of refIds) {
         const rp = join(outlierReportsDir, rid + '.json');
         const rr = existsSync(rp) ? await loadJson(rp) : null;
         if (!rr) continue;
         const frames = (rr.frames || []).filter((fr) => fr && fr.file && existsSync(join(outlierFramesDir, rid, fr.file))).sort((x, y) => Number(x.t) - Number(y.t));
-        if (frames.length) refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), frames});
+        refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', frames: rid === sheetMatch[1] || (sheet.borrowed || []).some((bb) => bb.fromVideoId === rid) ? frames : []});
       }
       res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
       return;

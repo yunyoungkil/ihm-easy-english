@@ -94,3 +94,16 @@ test('업로드 패키지: 영상 ID가 적힌 패키지는 카탈로그에 그 
   }
   assert.deepEqual(missing, [], '카탈로그에 없는 영상 ID — 지운 영상이거나 다른 채널, 또는 동기화 전');
 });
+
+test('나라별 시청 비율: 기간마다 칸 이름이 맞고 점유율 합이 1 근처다(2026-11-16)', {skip: !has('audience-countries.json') && 'audience-countries.json 없음'}, () => {
+  const store = readJson(join(dataDir, 'audience-countries.json'));
+  assert.ok(store.fetchedAt && store.periods);
+  for (const [key, p] of Object.entries(store.periods)) {
+    assert.ok(p.startDate && p.endDate, `${key} 기간`);
+    assert.ok(Array.isArray(p.rows), `${key} rows`);
+    if (!p.rows.length) { assert.ok(p.emptyReason, `${key}: 행이 없으면 이유가 있다`); continue; }
+    for (const r of p.rows) assert.ok(typeof r.country === 'string' && Number.isFinite(r.views) && Number.isFinite(r.minutes), `${key} ${r.country}`);
+    assert.equal(p.rows.reduce((s, r) => s + r.views, 0), p.totalViews, `${key} 총 조회수 = 행의 합`);
+    assert.ok(Math.abs(p.rows.reduce((s, r) => s + r.viewsShare, 0) - 1) < 0.01, `${key} 점유율 합이 1 근처`);
+  }
+});

@@ -4,7 +4,7 @@
 // 표본이 작으면 결론이 아니라 "가설 재료"로 표시한다(AGENTS.md 자동화 원칙).
 //
 // 쓰는 데이터: catalog.json, views-7d.json, video-reach-manual.json, analytics-latest.json,
-//   comments.json, audience-dna.json, success-patterns.json, videos/*/REVIEW.md, 판정(planning-outcome.mjs)
+//   comments.json, audience-dna.json, audience-countries.json, success-patterns.json, videos/*/REVIEW.md, 판정(planning-outcome.mjs)
 // 만드는 파일: data/youtube/next-episode-input.md (기획 스킬 1단계가 먼저 읽는다)
 //
 // 실행: node scripts/next-episode-input.mjs   (매일 루프가 동기화 뒤에 자동으로 실행한다)
@@ -18,6 +18,7 @@ import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 import {METRICS, MIN_POINTS_POOL, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
 import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
+import {summarizePeriod} from './audience-countries.mjs';
 
 export const MIN_COMPARE_VIDEOS = 6; // 상위 3편과 하위 3편이 겹치지 않는 최소 수
 export const RECENT_POOL = 20; // 같은 형식 최근 20편 안에서 비교한다(오래된 영상이 지금 채널을 대표하지 않게)
@@ -285,6 +286,7 @@ export function renderNextEpisodeInput(input) {
   out.push(...renderBaselines(input.baselines, input.variableGroups || []));
   out.push(...renderRetention(input.retention));
   out.push(...renderStudioMetrics(input.studio, input.titles));
+  out.push(...renderAudienceCountries(input.audienceCountries));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -378,6 +380,19 @@ export function renderRetention(curves = []) {
   return out;
 }
 
+/** 시청 국가(최근 28일, 조회수 기준). 숫자는 data/youtube/audience-countries.json(scripts/audience-countries.mjs)이 계산한 것이다. 번역(제목·설명·자막)을 할지 정하는 근거. */
+export function renderAudienceCountries(store) {
+  const out = ['## 12. 시청 국가 (번역 여부의 근거)', ''];
+  const s = summarizePeriod(store?.periods?.['28d']);
+  if (!s) return [...out, '시청 국가(최근 28일, 조회수 기준): 측정 전(`node scripts/audience-countries.mjs`).', ''];
+  const pct = (r) => `${(r * 100).toFixed(1)}%`;
+  const top = s.top.map((t) => `${t.country} ${pct(t.viewsShare)}`).join(', ');
+  out.push(`시청 국가(최근 28일 ${s.startDate}~${s.endDate}, 조회수 기준 ${s.totalViews}회): 한국 ${pct(s.homeShare)}, 그 외 ${pct(s.otherShare)} (상위 ${s.top.length}개국 ${top}). 유튜브가 나라를 알려 준 조회만 센 값이다.`, '');
+  const s90 = summarizePeriod(store?.periods?.['90d']);
+  if (s90) out.push(`참고 최근 90일(${s90.totalViews}회): 한국 ${pct(s90.homeShare)}, 그 외 ${pct(s90.otherShare)}.`, '');
+  return out;
+}
+
 const readJson = (path, fallback) => {
   try { return JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')); } catch { return fallback; }
 };
@@ -425,6 +440,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     variableGroups: groupResultsByVariable(loadSheets()),
     retention: readRetention(join(dataDir, 'retention')),
     studio: readJson(join(dataDir, 'studio-metrics.json'), null),
+    audienceCountries: readJson(join(dataDir, 'audience-countries.json'), null),
     titles,
     transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };

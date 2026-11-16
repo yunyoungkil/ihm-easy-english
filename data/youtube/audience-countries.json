@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "fetchedAt": "2026-11-16T06:37:42.554Z",
+  "periods": {
+    "28d": {
+      "startDate": "2026-10-19",
+      "endDate": "2026-11-15",
+      "totalViews": 645,
+      "totalMinutes": 216,
+      "rows": [
+        {
+          "country": "KR",
+          "views": 645,
+          "minutes": 216,
+          "viewsShare": 1,
+          "minutesShare": 1
+        }
+      ]
+    },
+    "90d": {
+      "startDate": "2026-08-18",
+      "endDate": "2026-11-15",
+      "totalViews": 5436,
+      "totalMinutes": 940,
+      "rows": [
+        {
+          "country": "KR",
+          "views": 5394,
+          "minutes": 927,
+          "viewsShare": 0.9923,
+          "minutesShare": 0.9862
+        },
+        {
+          "country": "US",
+          "views": 42,
+          "minutes": 13,
+          "viewsShare": 0.0077,
+          "minutesShare": 0.0138
+        }
+      ]
+    }
+  }
+}

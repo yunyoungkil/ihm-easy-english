@@ -338,6 +338,12 @@ async function run() {
     return r;
   });
 
+  // 나라별 시청 비율(최근 28일·90일)을 7일마다 받는다(2026-11-16). 외국 시청자가 있는지 보고 번역(제목·설명·자막) 가치를 정한다.
+  await step('audienceCountries', async () => {
+    const {collectAudienceCountries} = await import('./audience-countries.mjs');
+    return collectAudienceCountries({now: new Date()});
+  });
+
   // 유튜브 스튜디오 고급 모드의 영상별 표(노출수·클릭률·신규/재방문 시청자·계속 시청함)를 7일·28일·전체로 받는다(2026-11-13). API에 없는 값이다.
   // Studio-Automation 크롬(채널 소유 계정 로그인)이 필요하다. 로그인이 풀리면 이 단계가 실패해 자동 루프 점검이 알려 준다.
   await step('studioExport', async () => {

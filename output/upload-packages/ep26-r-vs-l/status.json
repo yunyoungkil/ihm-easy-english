@@ -1,15 +1,16 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "scheduledFor": "2026-11-16T14:00:00Z",
   "recommendedPublishAt": "2026-10-11T14:00:00Z",
   "seoFilename": "English_Pronunciation_Right_vs_Light_Minimal_Pairs_Listening_Drill.mp4",
-  "lastSyncedAt": "2026-11-16T04:03:09.825Z",
+  "lastSyncedAt": "2026-11-16T14:08:16.368Z",
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "62fff3e1dcd424433d370aa64250c8b5d3e7805cfab8463b6d9f308080692d5d",
     "approvedAt": "2026-11-06T14:18:09.488Z"
   },
-  "pinnedCommentPending": true,
   "videoId": "UDwLERu-Tu8",
-  "uploadedAt": "2026-11-08T15:05:34.142Z"
+  "uploadedAt": "2026-11-08T15:05:34.142Z",
+  "publishedAt": "2026-11-16T14:00:08Z",
+  "publishedAtSource": "youtube"
 }

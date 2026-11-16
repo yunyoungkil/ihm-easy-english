@@ -65,6 +65,14 @@
           "images/w8g6-e9yLP4/thumb-D2.jpg",
           "images/w8g6-e9yLP4/thumb-E2.jpg",
           "images/w8g6-e9yLP4/thumb-F2.jpg"
+        ],
+        "images3": [
+          "images/w8g6-e9yLP4/thumb-A3.jpg",
+          "images/w8g6-e9yLP4/thumb-B3.jpg",
+          "images/w8g6-e9yLP4/thumb-C3.jpg",
+          "images/w8g6-e9yLP4/thumb-D3.jpg",
+          "images/w8g6-e9yLP4/thumb-E3.jpg",
+          "images/w8g6-e9yLP4/thumb-F3.jpg"
         ]
       },
       "why": "경쟁 10장 중 8장이 시험 대상을 썸네일에 그대로 보여 주므로 우리도 단어와 칸 수를 보이게 했다(A~F 공통). 얼굴(4장)·글자 표(4장)·만화(1장) 중 어느 것이 낫다는 근거는 없어서, 글자 대비(A·B·C), 일러스트 얼굴(D·E), 그림 목록(F)을 같이 올려 제목·썸네일 테스트로 가린다. \"인물 없음\"은 2026-10-28 기본값(2층)이라 시험 변수이고 규칙이 아니다.",
@@ -666,6 +674,364 @@
               },
               "motion": "단어 칸이 0.08초 간격으로 오른쪽에서 밀려 들어오고, 마지막 0.6초는 멈춘다(반복 재생 때 첫 화면과 이음매가 안 보이게).",
               "image": "images/w8g6-e9yLP4/cuts2/cut-12.png"
+            }
+          ]
+        },
+        "cutPlan3": {
+          "author": "Gemini (Antigravity) 독자 설계 3안",
+          "designNote": "1·2안을 참고하지 않고 원본 w8g6-e9yLP4(실시간 음성인식 타이머·관문 충돌 통과·연속 스테이지)에서 직접 도출한 Arcade Speech-Gate HUD 스타일. 한국식 발음은 빨간 벽에 막히고(✗), 숨은 'ㅡ' 모음을 지워 1박자로 말하면 초록/골드 관문이 뚫리는 게임형 대비 구조.",
+          "durationSeconds": 45.2,
+          "hook": [
+            "한글은 4~5글자",
+            "영어는 **딱 1박자**"
+          ],
+          "hookWhy": "원본 w8g6-e9yLP4(372만 조회)와 아웃라이어 쇼츠들이 상단 대비 문구로 시선을 고정하는 방식에 맞춰, 한글 글자 수(4~5글자)와 영어 발음 박자(딱 1박자)의 대비를 모바일 1줄(9자 이내)로 상단에 고정했다.",
+          "cuts": [
+            {
+              "t": 0,
+              "template": "gate-quiz",
+              "syl": [
+                "스",
+                "트",
+                "레",
+                "스"
+              ],
+              "options": [
+                "1박자?",
+                "4박자?"
+              ],
+              "question": "한글 4글자, 영어로 몇 박자일까요?",
+              "hint": "소리로 맞혀 관문을 뚫어보세요!",
+              "narration": "스트레스, 한 박자 도전!",
+              "bottom": {
+                "subtitle": "스트레스, 몇 박자일까요?",
+                "total": 4,
+                "done": 0,
+                "current": -1
+              },
+              "motion": "상단 🎙️ 00:01 타이머가 깜빡이며 한글 4칸 [스][트][레][스]가 0.06초 간격으로 떨어지고 선택 버튼이 뜬다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-00.png"
+            },
+            {
+              "t": 2.8,
+              "template": "gate-pass",
+              "stage": 1,
+              "stageTotal": 4,
+              "word": "stress",
+              "clusterLen": 3,
+              "syl": [
+                "스",
+                "트",
+                "레",
+                "스"
+              ],
+              "pic": "images/w8g6-e9yLP4/pic-stress.jpg",
+              "badge": "딱 1박자 통과!",
+              "narration": "쪼개지 말고, 한 박자!",
+              "voiceEn": [
+                "stress"
+              ],
+              "bottom": {
+                "subtitle": "쪼개지 말고 딱 1박자!",
+                "total": 4,
+                "done": 0,
+                "current": 0
+              },
+              "motion": "일러스트 스티커가 크게 뜨고 빨간 막힘 바(스·트·레·스 4박자) 아래로 초록 통과 게이트 STRESS가 열리며 ✓ 배지가 찍힌다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-01.png"
+            },
+            {
+              "t": 6.2,
+              "template": "vowel-xray",
+              "word": "stress",
+              "clusterLen": 3,
+              "xrayParts": [
+                "스",
+                "ㅡ",
+                "트",
+                "ㅡ",
+                "레",
+                "ㅡ",
+                "스"
+              ],
+              "clusterLetters": [
+                "s",
+                "t",
+                "r"
+              ],
+              "narration": "사이사이 으를 빼고, 한 번에!",
+              "voiceEn": [
+                "stress"
+              ],
+              "bottom": {
+                "subtitle": "숨은 'ㅡ' 빼고 한 숨에!",
+                "total": 4,
+                "done": 0,
+                "current": 0
+              },
+              "motion": "상단 X-RAY 줄에서 빨간 [ㅡ] 3개가 순서대로 꺼지고 s+t+r 자음 칩이 합쳐져 stress 1박자로 결합한다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-02.png"
+            },
+            {
+              "t": 10.4,
+              "template": "mic-turn",
+              "timer": "00:02",
+              "stageLabel": "1단계 내 차례",
+              "word": "stress",
+              "clusterLen": 3,
+              "pic": "images/w8g6-e9yLP4/pic-stress.jpg",
+              "guide": "① 으 빼고 → ② 한 숨에 말하기!",
+              "narration": "마이크 켜고!",
+              "voiceEn": [
+                "stress"
+              ],
+              "window": 1,
+              "bottom": {
+                "subtitle": "따라 말하기: stress (1초 대기)",
+                "total": 4,
+                "done": 0,
+                "current": 0
+              },
+              "motion": "🎙️ REC 00:02 불빛이 켜지고 음파 막대가 원어민 소리 후 1초 따라 말하기 창 동안 파동친다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-03.png"
+            },
+            {
+              "t": 14,
+              "template": "gate-pass",
+              "stage": 2,
+              "stageTotal": 4,
+              "word": "screen",
+              "clusterLen": 3,
+              "syl": [
+                "스",
+                "크",
+                "린"
+              ],
+              "pic": "images/w8g6-e9yLP4/pic-screen.jpg",
+              "badge": "딱 1박자 통과!",
+              "narration": "다음 관문, 한 박자!",
+              "voiceEn": [
+                "screen"
+              ],
+              "bottom": {
+                "subtitle": "2단계: scr 한 숨에 screen",
+                "total": 4,
+                "done": 1,
+                "current": 1
+              },
+              "motion": "모니터 일러스트가 올라오며 STAGE 2/4 게이트가 scr 노란 강조와 함께 초록 불이 켜진다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-04.png"
+            },
+            {
+              "t": 17,
+              "template": "mic-turn",
+              "timer": "00:02",
+              "stageLabel": "2단계 내 차례",
+              "word": "screen",
+              "clusterLen": 3,
+              "pic": "images/w8g6-e9yLP4/pic-screen.jpg",
+              "guide": "① 으 빼고 → ② 한 숨에 말하기!",
+              "narration": "",
+              "voiceEn": [
+                "screen"
+              ],
+              "window": 1,
+              "bottom": {
+                "subtitle": "따라 말하기: screen (1초 대기)",
+                "total": 4,
+                "done": 1,
+                "current": 1
+              },
+              "motion": "STAGE 2/4 단어 screen이 금색 테두리로 강조되고 음파 막대가 따라 말하기 타이밍에 맞춰 뛴다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-05.png"
+            },
+            {
+              "t": 19.4,
+              "template": "gate-pass",
+              "stage": 3,
+              "stageTotal": 4,
+              "word": "spray",
+              "clusterLen": 3,
+              "syl": [
+                "스",
+                "프",
+                "레",
+                "이"
+              ],
+              "pic": "images/w8g6-e9yLP4/pic-spray.jpg",
+              "badge": "딱 1박자 통과!",
+              "narration": "세 번째도 한 박자,",
+              "voiceEn": [
+                "spray"
+              ],
+              "bottom": {
+                "subtitle": "3단계: spr 한 숨에 spray",
+                "total": 4,
+                "done": 2,
+                "current": 2
+              },
+              "motion": "분무기 일러스트와 함께 spr 자음 뭉치가 노랗게 빛나며 3단계 관문을 돌파한다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-06.png"
+            },
+            {
+              "t": 22.4,
+              "template": "mic-turn",
+              "timer": "00:01",
+              "stageLabel": "3단계 내 차례",
+              "word": "spray",
+              "clusterLen": 3,
+              "pic": "images/w8g6-e9yLP4/pic-spray.jpg",
+              "guide": "① 으 빼고 → ② 한 숨에 말하기!",
+              "narration": "",
+              "voiceEn": [
+                "spray"
+              ],
+              "window": 0.8,
+              "bottom": {
+                "subtitle": "따라 말하기: spray (0.8초 대기)",
+                "total": 4,
+                "done": 2,
+                "current": 2
+              },
+              "motion": "0.8초 빠른 호흡 박자에 맞춰 음파가 한 번 튕기고 spray 단어가 줌인된다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-07.png"
+            },
+            {
+              "t": 24.6,
+              "template": "gate-quiz",
+              "syl": [
+                "스",
+                "트",
+                "라",
+                "이",
+                "크"
+              ],
+              "options": [
+                "1박자?",
+                "5박자?"
+              ],
+              "question": "다섯 글자 스트라이크, 몇 박자?",
+              "hint": "힌트: str을 먼저 묶어보세요!",
+              "narration": "마지막 다섯 글자, 몇 박자?",
+              "window": 1,
+              "bottom": {
+                "subtitle": "마지막 문제! 몇 박자일까요?",
+                "total": 4,
+                "done": 3,
+                "current": 3
+              },
+              "motion": "5개 빨간 블록 [스][트][라][이][크]가 줄줄이 서고 1박자 vs 5박자 선택 버튼이 번쩍인다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-08.png"
+            },
+            {
+              "t": 29.2,
+              "template": "gate-pass",
+              "stage": 4,
+              "stageTotal": 4,
+              "word": "strike",
+              "clusterLen": 3,
+              "syl": [
+                "스",
+                "트",
+                "라",
+                "이",
+                "크"
+              ],
+              "pic": "images/w8g6-e9yLP4/pic-strike.jpg",
+              "badge": "5글자 → 1박자 통과!",
+              "narration": "정답, 역시 한 박자! 으 없이!",
+              "voiceEn": [
+                "strike"
+              ],
+              "bottom": {
+                "subtitle": "정답! 5글자도 딱 1박자",
+                "total": 4,
+                "done": 3,
+                "current": 3
+              },
+              "motion": "볼링 스트라이크 그림이 터지듯 확대되며 5박자 빨간 막힘을 깨고 1박자 통과 게이트가 열린다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-09.png"
+            },
+            {
+              "t": 33,
+              "template": "mic-turn",
+              "timer": "00:02",
+              "stageLabel": "최종 관문 내 차례",
+              "word": "strike",
+              "clusterLen": 3,
+              "pic": "images/w8g6-e9yLP4/pic-strike.jpg",
+              "guide": "① 으 빼고 → ② 한 숨에 말하기!",
+              "narration": "마지막 관문!",
+              "voiceEn": [
+                "strike"
+              ],
+              "window": 1,
+              "bottom": {
+                "subtitle": "마지막 따라 말하기: strike",
+                "total": 4,
+                "done": 3,
+                "current": 3
+              },
+              "motion": "최종 4단계 REC 타이머와 함께 strike의 str 첫소리가 노란 펄스로 빛난다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-10.png"
+            },
+            {
+              "t": 36.6,
+              "template": "all-clear",
+              "rows": [
+                {
+                  "word": "stress",
+                  "clusterLen": 3
+                },
+                {
+                  "word": "screen",
+                  "clusterLen": 3
+                },
+                {
+                  "word": "spray",
+                  "clusterLen": 3
+                },
+                {
+                  "word": "strike",
+                  "clusterLen": 3
+                }
+              ],
+              "narration": "",
+              "voiceEn": [
+                "stress",
+                "screen",
+                "spray",
+                "strike"
+              ],
+              "bottom": {
+                "subtitle": "4개 모두 한 숨에 ✓ 1박자",
+                "total": 4,
+                "done": 4,
+                "current": -1
+              },
+              "motion": "원어민 음성이 4단어를 연달아 읽을 때마다 해당 단어 줄에 초록 ✓ 1박자 도장이 순차 점등된다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-11.png"
+            },
+            {
+              "t": 41.2,
+              "template": "outro-cta",
+              "words": [
+                "stress",
+                "screen",
+                "spray",
+                "strike"
+              ],
+              "ctaTitle": "헷갈리는 1박자 단어",
+              "ctaAsk": "댓글로 남겨 주세요!",
+              "narration": "다 맞히셨나요? 헷갈린 단어 댓글로!",
+              "bottom": {
+                "subtitle": "도전할 단어 댓글로 알려 주세요!",
+                "total": 4,
+                "done": 4,
+                "current": -1
+              },
+              "motion": "4관문 클리어 배지와 함께 금색 댓글 참여 버튼이 아래쪽에서 부드럽게 올라온다.",
+              "image": "images/w8g6-e9yLP4/cuts3/cut-12.png"
             }
           ]
         }

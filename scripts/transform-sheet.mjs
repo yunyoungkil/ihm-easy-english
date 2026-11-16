@@ -92,20 +92,23 @@ export function voiceBudget(cut) {
   const en = n * EN_WORD_SECONDS + Math.max(0, n - 1) * EN_GAP_SECONDS;
   return ko + en + (Number(cut?.window) || 0) + VOICE_MARGIN_SECONDS;
 }
-export function plan2Problems(sheet) {
+function shortsPlanProblems(sheet, {planKey, label, requiredMsg = null, imageExists = null} = {}) {
   const out = [];
   if (!usesRowOrigins(sheet) || sheet?.format !== 'SHORTS') return out;
   const visual = (sheet.rows || []).find((r) => r.key === 'visual');
-  const plan = visual?.ours?.cutPlan2;
-  if (!plan || !Array.isArray(plan.cuts) || !plan.cuts.length) return ['화면 연출: 쇼츠는 위 훅 띠·아래 정보 띠가 있는 2안(cutPlan2)이 있어야 한다(사용자 불변 규칙)'];
+  const plan = visual?.ours?.[planKey];
+  if (!plan || !Array.isArray(plan.cuts) || !plan.cuts.length) {
+    return requiredMsg ? [requiredMsg] : [];
+  }
   const hook = plan.hook;
-  if (!Array.isArray(hook) || hook.length < 1 || hook.length > 2 || hook.some((l) => !filled(l))) out.push('화면 연출 2안: 위 훅 띠(hook)는 1~2줄이어야 한다');
-  else for (const l of hook) if (String(l).replace(/\*\*/g, '').length > HOOK_MAX_CHARS + 1) out.push(`화면 연출 2안: 훅 줄 "${l}"이 ${HOOK_MAX_CHARS}자(쉼표·따옴표 1자 여유)보다 길다 — 모바일에서 한 줄에 안 들어간다`);
-  if (!filled(plan.hookWhy)) out.push('화면 연출 2안: 훅을 그렇게 정한 근거(hookWhy: 경쟁 쇼츠 훅 분석)가 없다');
+  if (!Array.isArray(hook) || hook.length < 1 || hook.length > 2 || hook.some((l) => !filled(l))) out.push(`화면 연출 ${label}: 위 훅 띠(hook)는 1~2줄이어야 한다`);
+  else for (const l of hook) if (String(l).replace(/\*\*/g, '').length > HOOK_MAX_CHARS + 1) out.push(`화면 연출 ${label}: 훅 줄 "${l}"이 ${HOOK_MAX_CHARS}자(쉼표·따옴표 1자 여유)보다 길다 — 모바일에서 한 줄에 안 들어간다`);
+  if (!filled(plan.hookWhy)) out.push(`화면 연출 ${label}: 훅을 그렇게 정한 근거(hookWhy: 경쟁 쇼츠 훅 분석)가 없다`);
   const times = plan.cuts.map((c) => Number(c.t));
   plan.cuts.forEach((c, i) => {
-    const where = `화면 연출 2안 ${i}번 컷(${c.t}초)`;
+    const where = `화면 연출 ${label} ${i}번 컷(${c.t}초)`;
     if (!filled(c.image)) out.push(`${where}: 이미지가 없다`);
+    else if (imageExists && !imageExists(c.image)) out.push(`${where}: 이미지 파일이 없다(${c.image})`);
     const b = c.bottom || {};
     if (!filled(b.subtitle) && !filled(b.speaker)) out.push(`${where}: 아래 정보 띠(bottom.subtitle 또는 speaker)가 없다 — 쇼츠는 아래 띠가 항상 있어야 한다`);
     if (!filled(c.motion)) out.push(`${where}: 움직임 메모(motion)가 없다`);
@@ -115,8 +118,19 @@ export function plan2Problems(sheet) {
     const need = voiceBudget(c);
     if (Number.isFinite(dur) && need > dur + 0.001) out.push(`${where}: 음성 예산 ${Math.round(need * 100) / 100}초가 컷 길이 ${Math.round(dur * 100) / 100}초를 넘는다(한국어 ${hangulSyllables(c.narration)}음절, 영어 ${(c.voiceEn || []).length}개, 따라 말하기 ${c.window || 0}초)`);
   });
-  if (times.some((x, i) => !Number.isFinite(x) || (i > 0 && x <= times[i - 1]))) out.push('화면 연출 2안: 컷 시각이 시간 순서가 아니다');
+  if (times.some((x, i) => !Number.isFinite(x) || (i > 0 && x <= times[i - 1]))) out.push(`화면 연출 ${label}: 컷 시각이 시간 순서가 아니다`);
   return out;
+}
+export function plan2Problems(sheet, {imageExists = null} = {}) {
+  return shortsPlanProblems(sheet, {
+    planKey: 'cutPlan2',
+    label: '2안',
+    requiredMsg: '화면 연출: 쇼츠는 위 훅 띠·아래 정보 띠가 있는 2안(cutPlan2)이 있어야 한다(사용자 불변 규칙)',
+    imageExists,
+  });
+}
+export function plan3Problems(sheet, {imageExists = null} = {}) {
+  return shortsPlanProblems(sheet, {planKey: 'cutPlan3', label: '3안', imageExists});
 }
 export const STATUSES = Object.freeze(['draft', 'approved', 'published']);
 
@@ -243,7 +257,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     if (!filled(r.ours?.text)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 내용이 비어 있다`);
     if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);
     if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing, imageExists, Number(sheet?.schemaVersion) >= 2));
-    for (const img of [r.ours?.image, ...(r.ours?.images || [])].filter(filled)) {
+    for (const img of [r.ours?.image, ...(r.ours?.images || []), ...(r.ours?.images3 || [])].filter(filled)) {
       if (!imageExists(img)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 이미지 파일이 없다(${img})`);
     }
   }
@@ -257,7 +271,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   for (const r of sheet?.rejected || []) {
     if (!filled(r.reason)) problems.push(`뺀 것(${String(r.what).slice(0, 20)})에 뺀 이유가 없다`);
   }
-  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet), ...appliedProblems(sheet), ...plan2Problems(sheet));
+  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet), ...appliedProblems(sheet), ...plan2Problems(sheet), ...plan3Problems(sheet, {imageExists}));
   return problems;
 }
 
@@ -325,7 +339,7 @@ export function setTitlePick(sheet, title, picked) {
 /** 썸네일 시안 선택(체크박스) 저장: 시트의 썸네일 줄에 실제로 있는 이미지만 고를 수 있다. 사용자 승인 지점이라 사람이 누른 값만 기록한다. */
 export function setThumbnailPick(sheet, image, picked) {
   const row = (sheet.rows || []).find((r) => r.key === 'thumbnail');
-  const allowed = [row?.ours?.image, ...(row?.ours?.images || []), ...(row?.ours?.images2 || [])].filter(Boolean);
+  const allowed = [row?.ours?.image, ...(row?.ours?.images || []), ...(row?.ours?.images2 || []), ...(row?.ours?.images3 || [])].filter(Boolean);
   if (!allowed.includes(image)) throw new Error('이 시트의 썸네일 시안이 아닙니다');
   const now = new Set(sheet.thumbnailPicks || []);
   if (picked) now.add(image); else now.delete(image);

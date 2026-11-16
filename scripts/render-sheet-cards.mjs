@@ -8,9 +8,28 @@ import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {renderCardHtml} from './sheet-card-templates.mjs';
 import {renderCard2Html, CARD2} from './sheet-card-templates2.mjs';
+import {renderCard3Html, CARD3} from './sheet-card-templates3.mjs';
 import {sheetsDir} from './transform-sheet.mjs';
 
 const DEBUG_PORT = 9222;
+
+/** 포트 9222 크롬에 먼저 붙고, 닫혀 있으면 로컬 Chrome/Chromium을 헤드리스로 열어 렌더한다. */
+export async function openRenderBrowser() {
+  try {
+    const browser = await chromium.connectOverCDP(`http://127.0.0.1:${DEBUG_PORT}`);
+    const page = await browser.contexts()[0].newPage();
+    return {browser, page};
+  } catch {
+    let browser;
+    try {
+      browser = await chromium.launch({channel: 'chrome', headless: true});
+    } catch {
+      browser = await chromium.launch({headless: true});
+    }
+    const page = await browser.newPage();
+    return {browser, page};
+  }
+}
 
 export async function renderSheetCards(videoId) {
   const sheetPath = join(sheetsDir, `${videoId}.json`);
@@ -18,8 +37,7 @@ export async function renderSheetCards(videoId) {
   const sheet = JSON.parse(readFileSync(sheetPath, 'utf8'));
   const cuts = sheet.rows?.find((r) => r.key === 'visual')?.ours?.cutPlan?.cuts || [];
   if (!cuts.length) throw new Error('시트에 컷 계획(cuts)이 없다');
-  const browser = await chromium.connectOverCDP(`http://localhost:${DEBUG_PORT}`);
-  const page = await browser.contexts()[0].newPage();
+  const {browser, page} = await openRenderBrowser();
   const made = [];
   try {
     await page.setViewportSize({width: 768, height: 1376});
@@ -47,31 +65,30 @@ export async function renderSheetCards(videoId) {
 }
 
 /**
- * 2안 컷 카드(rows[visual].ours.cutPlan2)를 768×1376 실제 크기로 만들고, 만든 직후 코드로 잰다(2026-11-16 설계서 7절):
- * 넘침(화면·카드), 최소 글자 크기(CARD2.minFontPx), 위 훅 띠 글자 폭, 아래·위 띠 안전 자리. 위반이 있으면 이미지는 만들되 목록을 돌려준다.
+ * 2안·3안 컷 카드(cutPlan2 / cutPlan3)를 768×1376 실제 크기로 만들고, 만든 직후 코드로 잰다:
+ * 넘침(화면·카드), 최소 글자 크기(minFontPx), 위 훅 띠 글자 폭, 아래·위 띠 안전 자리. 위반이 있으면 이미지는 만들되 목록을 돌려준다.
  */
-export async function renderSheetCards2(videoId, {onlyIndexes = null} = {}) {
+async function renderVersionedSheetCards(videoId, {planKey, label, renderHtml, cardMetrics, onlyIndexes = null}) {
   const sheetPath = join(sheetsDir, `${videoId}.json`);
   if (!existsSync(sheetPath)) throw new Error(`비교 시트가 없다: ${videoId}`);
   const sheet = JSON.parse(readFileSync(sheetPath, 'utf8'));
-  const plan2 = sheet.rows?.find((r) => r.key === 'visual')?.ours?.cutPlan2;
-  if (!plan2?.cuts?.length) throw new Error('시트에 2안 컷 계획(cutPlan2)이 없다');
-  const browser = await chromium.connectOverCDP(`http://localhost:${DEBUG_PORT}`);
-  const page = await browser.contexts()[0].newPage();
+  const plan = sheet.rows?.find((r) => r.key === 'visual')?.ours?.[planKey];
+  if (!plan?.cuts?.length) throw new Error(`시트에 ${label} 컷 계획(${planKey})이 없다`);
+  const {browser, page} = await openRenderBrowser();
   const made = [];
   const problems = [];
   try {
-    await page.setViewportSize({width: CARD2.width, height: CARD2.height});
-    for (const [idx, cut] of plan2.cuts.entries()) {
+    await page.setViewportSize({width: cardMetrics.width, height: cardMetrics.height});
+    for (const [idx, cut] of plan.cuts.entries()) {
       if (onlyIndexes && !onlyIndexes.includes(idx)) continue;
-      if (!cut.image) throw new Error(`2안 ${cut.t}초 컷에 image 경로가 없다`);
+      if (!cut.image) throw new Error(`${label} ${cut.t}초 컷에 image 경로가 없다`);
       let picData = '';
       if (cut.pic) {
         const picPath = join(sheetsDir, cut.pic);
-        if (!existsSync(picPath)) throw new Error(`2안 ${cut.t}초 컷 그림이 없다: ${cut.pic}`);
+        if (!existsSync(picPath)) throw new Error(`${label} ${cut.t}초 컷 그림이 없다: ${cut.pic}`);
         picData = `data:image/${cut.pic.endsWith('.png') ? 'png' : 'jpeg'};base64,${readFileSync(picPath).toString('base64')}`;
       }
-      await page.setContent(renderCard2Html({...cut, picData}, plan2));
+      await page.setContent(renderHtml({...cut, picData}, plan));
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(200);
       const found = await page.evaluate(({W, H, minFont, topH, botTop, safeTop, safeBottom, safeRightX}) => {
@@ -90,21 +107,21 @@ export async function renderSheetCards2(videoId, {onlyIndexes = null} = {}) {
           seen.add(el);
           const fs = parseFloat(getComputedStyle(el).fontSize);
           const r = el.getBoundingClientRect();
-          const label = n.textContent.trim().slice(0, 12);
-          if (fs < minFont) out.push('글자가 작다(' + fs + 'px < ' + minFont + 'px): ' + label);
+          const txtLabel = n.textContent.trim().slice(0, 12);
+          if (fs < minFont) out.push('글자가 작다(' + fs + 'px < ' + minFont + 'px): ' + txtLabel);
           const hk = el.closest('.hk');
-          if (hk) { const w = hk.querySelector('.hkt').getBoundingClientRect().width; if (w > 640) out.push('훅 줄이 너무 길다(' + Math.round(w) + 'px): ' + label); }
+          if (hk) { const w = hk.querySelector('.hkt').getBoundingClientRect().width; if (w > 640) out.push('훅 줄이 너무 길다(' + Math.round(w) + 'px): ' + txtLabel); }
           const inBand = r.top >= botTop || r.bottom <= topH;
-          if (!inBand && (r.top < safeTop || r.bottom > safeBottom)) out.push('가림 자리를 침범: ' + label);
-          if (!hk && r.top > 560 && r.top < safeBottom && r.right > safeRightX + 8) out.push('오른쪽 버튼 줄(x>' + safeRightX + ')을 침범: ' + label + ' (오른쪽 끝 ' + Math.round(r.right) + ')');
-          if (r.bottom > safeBottom && r.top >= botTop && !el.closest('.dots')) out.push('아래 띠 맨 아래(y>' + safeBottom + ')에 글자: ' + label);
+          if (!inBand && (r.top < safeTop || r.bottom > safeBottom)) out.push('가림 자리를 침범: ' + txtLabel);
+          if (!hk && r.top > 560 && r.top < safeBottom && r.right > safeRightX + 8) out.push('오른쪽 버튼 줄(x>' + safeRightX + ')을 침범: ' + txtLabel + ' (오른쪽 끝 ' + Math.round(r.right) + ')');
+          if (r.bottom > safeBottom && r.top >= botTop && !el.closest('.dots')) out.push('아래 띠 맨 아래(y>' + safeBottom + ')에 글자: ' + txtLabel);
         }
         return out;
-      }, {W: CARD2.width, H: CARD2.height, minFont: CARD2.minFontPx, topH: CARD2.topBandHeight, botTop: CARD2.bottomBandTop, safeTop: CARD2.safeTop, safeBottom: CARD2.safeBottom, safeRightX: CARD2.safeRightX});
+      }, {W: cardMetrics.width, H: cardMetrics.height, minFont: cardMetrics.minFontPx, topH: cardMetrics.topBandHeight, botTop: cardMetrics.bottomBandTop, safeTop: cardMetrics.safeTop, safeBottom: cardMetrics.safeBottom, safeRightX: cardMetrics.safeRightX});
       for (const m of found) problems.push(idx + '번 컷(' + cut.t + '초, ' + cut.template + '): ' + m);
       const out = join(sheetsDir, cut.image);
       mkdirSync(dirname(out), {recursive: true});
-      await page.screenshot({path: out, type: 'png', clip: {x: 0, y: 0, width: CARD2.width, height: CARD2.height}});
+      await page.screenshot({path: out, type: 'png', clip: {x: 0, y: 0, width: cardMetrics.width, height: cardMetrics.height}});
       made.push(cut.image);
     }
   } finally {
@@ -114,15 +131,39 @@ export async function renderSheetCards2(videoId, {onlyIndexes = null} = {}) {
   return {made, problems};
 }
 
+export async function renderSheetCards2(videoId, opts = {}) {
+  return renderVersionedSheetCards(videoId, {
+    planKey: 'cutPlan2',
+    label: '2안',
+    renderHtml: renderCard2Html,
+    cardMetrics: CARD2,
+    ...opts,
+  });
+}
+
+export async function renderSheetCards3(videoId, opts = {}) {
+  return renderVersionedSheetCards(videoId, {
+    planKey: 'cutPlan3',
+    label: '3안',
+    renderHtml: renderCard3Html,
+    cardMetrics: CARD3,
+    ...opts,
+  });
+}
+
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   try {
-    if (process.argv.includes('--v2')) {
-      const {made, problems} = await renderSheetCards2(process.argv[2]);
-      console.log(`2안 컷 카드 ${made.length}장을 만들었습니다.`);
+    const videoId = process.argv.slice(2).find((a) => !a.startsWith('-'));
+    const isV3 = process.argv.includes('--v3');
+    const isV2 = process.argv.includes('--v2');
+    if (isV3 || isV2) {
+      const label = isV3 ? '3안' : '2안';
+      const {made, problems} = isV3 ? await renderSheetCards3(videoId) : await renderSheetCards2(videoId);
+      console.log(`${label} 컷 카드 ${made.length}장을 만들었습니다.`);
       if (problems.length) { console.log(`점검에 걸린 것 ${problems.length}개:`); for (const p of problems) console.log(`- ${p}`); process.exitCode = 2; }
       else console.log('점검: 넘침·최소 글자·훅 폭·가림 자리 모두 통과');
     } else {
-      const made = await renderSheetCards(process.argv[2]);
+      const made = await renderSheetCards(videoId);
       console.log(`컷 카드 ${made.length}장을 만들었습니다.`);
     }
   } catch (err) {

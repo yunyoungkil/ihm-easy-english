@@ -281,13 +281,34 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
   if (Array.isArray(times) && times.length) parts.push(`<div class="tl-label">경쟁 컷 이미지</div><div class="film comp">${times.map((t, i) => fig(ver(`/outlier-frames/${id}/cut-${String(i).padStart(2, '0')}.jpg`), t)).join('')}</div>`);
   // 경쟁 영상의 저장된 화면 캡처를 초 순서로 보여 준다(2026-11-16 사용자: 비교 시트에 경쟁 비주얼 컷이 하나도 없다). 컷 시각 감지가 실패한 영상(w8g6 등)도 캡처는 있다. 원본과 가져온 출처 영상 모두.
   for (const r of refs.filter((x) => x.frames && x.frames.length)) parts.push(`<div class="tl-label">경쟁 화면 캡처 — ${escapeHtml(r.label)} · ${r.frames.length}장(저장된 캡처를 초 순서로)</div><div class="film comp">${r.frames.map((fr) => fig(ver(`/outlier-frames/${encodeURIComponent(r.videoId)}/${escapeHtml(fr.file)}`), fr.t)).join('')}</div>`);
-  // 1안 아래에 2안을 같은 칸으로 놓아 비교한다(2026-11-16 사용자). 2안은 cutPlan2의 같은 번호 컷이다.
+  // 1안 아래에 2안·3안을 같은 칸으로 놓되 각 안의 대본·움직임·아래 띠는 자기 이미지 바로 아래에 둔다(2026-11-16 사용자).
   const plan2 = row.ours?.cutPlan2;
-  const vtag = (label, color) => `<div style="font-size:11.5px;font-weight:800;color:${color};text-align:left;margin:2px 0 3px">${label}</div>`;
-  const oursFig = (c, idx) => { const c2 = plan2?.cuts?.[idx]; const nar = (c2 || c).narration; return `<figure>${plan2 ? vtag('1안', 'var(--sub)') : ''}<a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷 1안"></a>${c2 ? `${vtag('2안', 'var(--accent)')}<a href="${oursUrl(c2.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c2.image)}" alt="${escapeHtml(c2.t)}초 컷 2안"></a>` : ''}<figcaption>${escapeHtml(c.t)}초${c2 && c2.t !== c.t ? ` → 2안 ${escapeHtml(c2.t)}초` : ''}</figcaption>${nar ? `<div class="say">${escapeHtml(nar)}</div>` : ''}${c2?.motion ? `<div class="say" style="color:var(--sub)">움직임: ${escapeHtml(c2.motion)}</div>` : ''}${c2?.bottom ? `<div class="say" style="color:var(--sub)">아래 띠: ${escapeHtml(c2.bottom)}</div>` : ''}</figure>`; };
+  const plan3 = row.ours?.cutPlan3;
+  const vtag = (label, color, extraStyle = '') => `<div style="font-size:11.5px;font-weight:800;color:${color};text-align:left;margin:2px 0 3px;${extraStyle}">${label}</div>`;
+  const bottomText = (b) => (typeof b === 'string' ? b : b?.subtitle || b?.speaker || '');
+  const oursFig = (c, idx) => {
+    const c2 = plan2?.cuts?.[idx];
+    const c3 = plan3?.cuts?.[idx];
+    const nar2 = c2 ? (c2.narration ?? c.narration) : '';
+    const b2 = bottomText(c2?.bottom);
+    const b3 = bottomText(c3?.bottom);
+    const block1 = `${plan2 || plan3 ? vtag('1안', 'var(--sub)') : ''}<a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷 1안"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${!c2 && c.narration ? `<div class="say">${escapeHtml(c.narration)}</div>` : ''}`;
+    const block2 = c2
+      ? `${vtag('2안', 'var(--accent)', 'margin-top:8px;padding-top:6px;border-top:1px dashed var(--line)')}<a href="${oursUrl(c2.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c2.image)}" alt="${escapeHtml(c2.t)}초 컷 2안"></a><figcaption>${escapeHtml(c2.t)}초</figcaption>${nar2 ? `<div class="say">${escapeHtml(nar2)}</div>` : ''}${c2.motion ? `<div class="say" style="color:var(--sub)">2안 움직임: ${escapeHtml(c2.motion)}</div>` : ''}${b2 ? `<div class="say" style="color:var(--sub)">2안 아래 띠: ${escapeHtml(b2)}</div>` : ''}`
+      : '';
+    const block3 = c3
+      ? `${vtag('3안 · Gemini (내가 만듦)', '#c084fc', 'margin-top:8px;padding-top:6px;border-top:1px dashed rgba(192,132,252,0.45)')}<a href="${oursUrl(c3.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c3.image)}" alt="${escapeHtml(c3.t)}초 컷 3안"></a><figcaption style="color:#c084fc">${escapeHtml(c3.t)}초</figcaption>${c3.narration ? `<div class="say" style="color:#c084fc">3안 대본(Gemini): ${escapeHtml(c3.narration)}</div>` : ''}${c3.motion ? `<div class="say" style="color:#c084fc">3안 움직임: ${escapeHtml(c3.motion)}</div>` : ''}${b3 ? `<div class="say" style="color:#c084fc">3안 아래 띠: ${escapeHtml(b3)}</div>` : ''}`
+      : '';
+    return `<figure>${block1}${block2}${block3}</figure>`;
+  };
+  if (plan3?.cuts?.length) {
+    parts.push(`<div class="card" style="border-left:3px solid #c084fc;background:rgba(168,85,247,0.06);margin:10px 0 6px"><b style="color:#c084fc">🤖 3안 — Gemini (Antigravity) 독자 설계 (내가 직접 만듦 · 1·2안 미참고)</b>${plan3.designNote ? `<div class="meta" style="margin-top:4px;color:var(--ink)">${escapeHtml(plan3.designNote)}</div>` : ''}</div>`);
+  }
   if (Array.isArray(plan?.cuts) && plan.cuts.length) parts.push(`<div class="tl-label">우리 컷 이미지${plan.cuts.some((c) => c.narration) ? ' + 컷 대본' : ''}</div><div class="film ours">${plan.cuts.map(oursFig).join('')}</div>`);
   const script = fullScript(plan);
   if (script.lines.length) parts.push(`<div class="sheet-label">전체 대본 (컷 대본을 이은 것 — 음성에 그대로 넣는 글)</div><div class="card fullscript">${script.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
+  const script3 = plan3?.cuts?.length ? fullScript(plan3) : { lines: [] };
+  if (script3.lines.length) parts.push(`<div class="sheet-label" style="color:#c084fc">3안 전체 대본 — Gemini (Antigravity 독자 설계)</div><div class="card fullscript" style="border-left:3px solid #c084fc">${script3.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
   return parts.join('');
 }
 
@@ -335,6 +356,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     const titlePicks = new Set(sheet.titlePicks || []);
     const thumbs = r.key === 'thumbnail' ? [r.ours?.image, ...(r.ours?.images || [])].filter(Boolean) : [];
     const thumbs2 = r.key === 'thumbnail' ? (r.ours?.images2 || []).filter(Boolean) : [];
+    const thumbs3 = r.key === 'thumbnail' ? (r.ours?.images3 || []).filter(Boolean) : [];
     const pickRow = (list) => `<div class="thumbbox">${list.map((rel) => `<label class="pick"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`).join('')}</div>`;
     const titleBox = r.key === 'title' && (r.ours?.titles || []).length
       ? `<div class="titles"><b>제목 후보 (고르기)</b>${r.ours.titles.map((t) => `<label><input type="checkbox" data-pick-title="${escapeHtml(t)}"${titlePicks.has(t) ? ' checked' : ''}><span>${escapeHtml(t)}</span></label>`).join('')}</div>`
@@ -345,7 +367,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.key === 'package' ? packageCompetitor(report) : ''}${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
   <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}${r.key === 'package' ? packageOurs(r.ours) : ''}</div>
   <div class="sheet-why">${r.origin ? `출처: <b>${{ competitor: '경쟁 구조를 가져옴', mixed: '섞음', ours: '우리가 새로 만듦' }[r.origin] || escapeHtml(r.origin)}</b> — ${escapeHtml(r.originReason || '')}<br>` : ''}왜 바꿨나: ${escapeHtml(r.why)}</div>
-</div>${thumbs.length ? `${thumbs2.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports) : ''}`);
+</div>${thumbs.length ? `${thumbs2.length || thumbs3.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}${thumbs3.length ? `<div class="tl-label" style="color:#c084fc;font-weight:800">3안 — Gemini (Antigravity) 독자 설계 시안 (내가 만듦 · 1·2안 미참고, 2안 아래 1:1 비교)</div>${pickRow(thumbs3)}` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports) : ''}`);
   }
   parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');
   for (const b of sheet.borrowed || []) parts.push(`<div class="card" style="border-left:3px solid var(--ok);background:rgba(52,211,153,0.03)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span style="color:var(--ok)">✓</span> ${escapeHtml(b.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">출처: ${escapeHtml(b.fromVideoId)} ↗</a></div><div style="margin-top:8px"><b>가져와도 되는 이유</b>: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div>${(b.appliedTo || []).length ? `<div class="q" style="border-left-color:var(--ok)"><b>적용한 곳</b>: ${b.appliedTo.map((x) => escapeHtml(x)).join(' · ')}</div>` : ''}${evidenceHtml(b)}</div>`);

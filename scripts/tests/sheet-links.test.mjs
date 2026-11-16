@@ -91,3 +91,26 @@ test('비교 시트는 경쟁 영상별 화면 변화 막대를 그리고, 컷 �
   const noFrames = renderTransformSheetPage(sheet, null, [], {refReports: [{...refReports[0], frames: []}]});
   assert.ok(!noFrames.includes('경쟁 화면 변화'), '캡처가 없는(적용 안 한) 참고 영상은 막대를 만들지 않는다');
 });
+
+test('쇼츠 2안은 위 훅 띠·아래 정보 띠·움직임 메모가 있어야 하고, 낭독이 컷 길이를 넘으면 음성 예산 문제로 알린다(2026-11-16)', async () => {
+  const {validateSheet, sheetImageExists, voiceBudget, plan2Problems} = await import('../transform-sheet.mjs');
+  const {readFileSync} = await import('node:fs');
+  const sheet = JSON.parse(readFileSync(new URL('../../data/youtube/transform-sheets/w8g6-e9yLP4.json', import.meta.url), 'utf8'));
+  assert.deepEqual(plan2Problems(sheet), []);
+  assert.deepEqual(validateSheet(sheet, {imageExists: sheetImageExists}), []);
+  const clone = () => JSON.parse(JSON.stringify(sheet));
+  const noPlan = clone(); delete noPlan.rows.find((r) => r.key === 'visual').ours.cutPlan2;
+  assert.ok(plan2Problems(noPlan).some((p) => p.includes('2안(cutPlan2)이 있어야')));
+  const noBottom = clone(); noBottom.rows.find((r) => r.key === 'visual').ours.cutPlan2.cuts[1].bottom = {};
+  assert.ok(plan2Problems(noBottom).some((p) => p.includes('아래 정보 띠')));
+  const noHook = clone(); noHook.rows.find((r) => r.key === 'visual').ours.cutPlan2.hook = [];
+  assert.ok(plan2Problems(noHook).some((p) => p.includes('위 훅 띠')));
+  const longHook = clone(); longHook.rows.find((r) => r.key === 'visual').ours.cutPlan2.hook = ['이 문장은 한 줄에 들어가기에는 너무 깁니다', '짧게'];
+  assert.ok(plan2Problems(longHook).some((p) => p.includes('모바일에서 한 줄에')));
+  const tooLong = clone(); tooLong.rows.find((r) => r.key === 'visual').ours.cutPlan2.cuts[0].narration = '스트레스 영어로는 도대체 몇 마디로 읽는 것이 맞는지 한번 같이 생각해 볼까요';
+  assert.ok(plan2Problems(tooLong).some((p) => p.includes('음성 예산')));
+  const noMotion = clone(); delete noMotion.rows.find((r) => r.key === 'visual').ours.cutPlan2.cuts[2].motion;
+  assert.ok(plan2Problems(noMotion).some((p) => p.includes('움직임 메모')));
+  // 음성 예산 계산식: 한국어 음절 ÷ 4.3 + 영어 0.9초 + 창 + 여유 0.35
+  assert.equal(Math.round(voiceBudget({narration: '따라 하세요.', voiceEn: ['stress'], window: 1.0}) * 100) / 100, 3.41);
+});

@@ -76,6 +76,48 @@ export function appliedProblems(sheet) {
   }
   return out;
 }
+/**
+ * 쇼츠 2안(cutPlan2) 검사(2026-11-16): 위 훅 띠 + 아래 정보 띠가 항상 있어야 하고(사용자 불변 규칙), 컷마다 낭독이 컷 길이에 들어가야 한다.
+ * 음성 예산 = 한국어 음절 ÷ 4.3(EP30 중앙값 4.34에서 잡은 가설) + 영어 단어 소리 0.9초씩(측정 전 가정, 단어 사이 0.2초) + 따라 말하기 창 + 여유 0.35초.
+ * 음성이 나오면 words.json 실측으로 이 값을 바꾼다.
+ */
+export const KO_SYLLABLES_PER_SECOND = 4.3;
+export const EN_WORD_SECONDS = 0.9;
+export const EN_GAP_SECONDS = 0.2;
+export const VOICE_MARGIN_SECONDS = 0.35;
+export const HOOK_MAX_CHARS = 9;
+export function voiceBudget(cut) {
+  const ko = hangulSyllables(cut?.narration) / KO_SYLLABLES_PER_SECOND;
+  const n = Array.isArray(cut?.voiceEn) ? cut.voiceEn.length : 0;
+  const en = n * EN_WORD_SECONDS + Math.max(0, n - 1) * EN_GAP_SECONDS;
+  return ko + en + (Number(cut?.window) || 0) + VOICE_MARGIN_SECONDS;
+}
+export function plan2Problems(sheet) {
+  const out = [];
+  if (!usesRowOrigins(sheet) || sheet?.format !== 'SHORTS') return out;
+  const visual = (sheet.rows || []).find((r) => r.key === 'visual');
+  const plan = visual?.ours?.cutPlan2;
+  if (!plan || !Array.isArray(plan.cuts) || !plan.cuts.length) return ['화면 연출: 쇼츠는 위 훅 띠·아래 정보 띠가 있는 2안(cutPlan2)이 있어야 한다(사용자 불변 규칙)'];
+  const hook = plan.hook;
+  if (!Array.isArray(hook) || hook.length < 1 || hook.length > 2 || hook.some((l) => !filled(l))) out.push('화면 연출 2안: 위 훅 띠(hook)는 1~2줄이어야 한다');
+  else for (const l of hook) if (String(l).replace(/\*\*/g, '').length > HOOK_MAX_CHARS + 1) out.push(`화면 연출 2안: 훅 줄 "${l}"이 ${HOOK_MAX_CHARS}자(쉼표·따옴표 1자 여유)보다 길다 — 모바일에서 한 줄에 안 들어간다`);
+  if (!filled(plan.hookWhy)) out.push('화면 연출 2안: 훅을 그렇게 정한 근거(hookWhy: 경쟁 쇼츠 훅 분석)가 없다');
+  const times = plan.cuts.map((c) => Number(c.t));
+  plan.cuts.forEach((c, i) => {
+    const where = `화면 연출 2안 ${i}번 컷(${c.t}초)`;
+    if (!filled(c.image)) out.push(`${where}: 이미지가 없다`);
+    const b = c.bottom || {};
+    if (!filled(b.subtitle) && !filled(b.speaker)) out.push(`${where}: 아래 정보 띠(bottom.subtitle 또는 speaker)가 없다 — 쇼츠는 아래 띠가 항상 있어야 한다`);
+    if (!filled(c.motion)) out.push(`${where}: 움직임 메모(motion)가 없다`);
+    if (!filled(c.narration) && !(Array.isArray(c.voiceEn) && c.voiceEn.length)) out.push(`${where}: 한국어 낭독도 영어 소리도 없다`);
+    if (/^[A-Za-z]/.test(String(c.narration || '').trim())) out.push(`${where}: 낭독이 영어로 시작한다(AI 음성 억양)`);
+    const dur = (i + 1 < times.length ? times[i + 1] : Number(plan.durationSeconds)) - times[i];
+    const need = voiceBudget(c);
+    if (Number.isFinite(dur) && need > dur + 0.001) out.push(`${where}: 음성 예산 ${Math.round(need * 100) / 100}초가 컷 길이 ${Math.round(dur * 100) / 100}초를 넘는다(한국어 ${hangulSyllables(c.narration)}음절, 영어 ${(c.voiceEn || []).length}개, 따라 말하기 ${c.window || 0}초)`);
+  });
+  if (times.some((x, i) => !Number.isFinite(x) || (i > 0 && x <= times[i - 1]))) out.push('화면 연출 2안: 컷 시각이 시간 순서가 아니다');
+  return out;
+}
 export const STATUSES = Object.freeze(['draft', 'approved', 'published']);
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -215,7 +257,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   for (const r of sheet?.rejected || []) {
     if (!filled(r.reason)) problems.push(`뺀 것(${String(r.what).slice(0, 20)})에 뺀 이유가 없다`);
   }
-  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet), ...appliedProblems(sheet));
+  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet), ...appliedProblems(sheet), ...plan2Problems(sheet));
   return problems;
 }
 

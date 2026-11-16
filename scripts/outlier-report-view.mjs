@@ -273,6 +273,8 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
     const perMin = Math.round((ourTimes.length / Number(plan.durationSeconds)) * 600) / 10;
     parts.push(`<div class="tl-label">우리 계획 ${ourTimes.length}번 (1분에 ${perMin}번 · ${Number(plan.durationSeconds)}초 안)${plan.rhythm ? ` — ${escapeHtml(plan.rhythm)}` : ''}</div>${bar(ourTimes, Number(plan.durationSeconds), 'ours')}`);
   }
+  // 경쟁 영상별 화면 변화(AI가 캡처를 보고 적은 시각). 컷 감지(ffmpeg)가 0번인 영상도 화면 안에서는 계속 바뀌므로 같은 시간 축으로 보여 준다(2026-11-16).
+  for (const r of refs.filter((x) => x.frames && x.frames.length && x.moments && x.moments.length && x.duration > 0)) { const gaps = r.moments.slice(1).map((x, i) => x - r.moments[i]); const mean = gaps.reduce((a, b) => a + b, 0) / (gaps.length || 1); const cv = mean ? Math.sqrt(gaps.reduce((a, b) => a + (b - mean) ** 2, 0) / gaps.length) / mean : 0; parts.push(`<div class="tl-label">경쟁 화면 변화 — ${escapeHtml(r.label)}: ${r.moments.length}번 (1분에 ${Math.round((r.moments.length / r.duration) * 600) / 10}번 · 간격 변동 ${Math.round(cv * 100) / 100} · 컷 감지 ${r.cutCount}번 · AI가 적은 시각이라 ±1초)</div>${bar(r.moments, r.duration, 'comp')}`); }
   // 컷을 글자가 아니라 이미지로: 컷마다 한 장, 시간 순서(2026-11-12 사용자). 경쟁은 영상에서 뽑은 프레임, 우리는 코드로 그린 카드.
   const id = encodeURIComponent(report?.videoId || '');
   const fig = (src, t) => `<figure><a href="${src}" target="_blank" rel="noopener"><img loading="lazy" src="${src}" alt="${escapeHtml(t)}초 컷"></a><figcaption>${escapeHtml(t)}초</figcaption></figure>`;

@@ -79,3 +79,15 @@ test('가져온 것은 어디에 적용했는지(appliedTo)를 적어야 하고,
   const badTitle = JSON.parse(JSON.stringify(sheet)); badTitle.sourceApplied[0].appliedTo = ['title:9'];
   assert.ok(validateSheet(badTitle, {imageExists: sheetImageExists}).some((p) => p.includes('제목 후보 9번은 없다')));
 });
+
+test('비교 시트는 경쟁 영상별 화면 변화 막대를 그리고, 컷 감지가 0번이어도 변화 속도와 간격 변동을 보여 준다(2026-11-16)', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const sheet = {schemaVersion: 3, sourceVideoId: 'AAAAAAAAAAA', topic: '소재', status: 'draft', format: 'SHORTS', borrowed: [], rejected: [], pending: [], testVariables: [], glossary: [],
+    rows: [{key: 'visual', competitor: {text: 'c', images: []}, ours: {text: 'o', images: [], cutPlan: {durationSeconds: 10, cuts: [{t: 0, template: 'hook', image: 'images/AAAAAAAAAAA/cuts/cut-00.png'}]}}, why: 'w'}]};
+  const refReports = [{videoId: 'BBBBBBBBBBB', label: '채널 · 제목', duration: 20, cutCount: 0, moments: [0, 4, 8, 12], frames: [{t: 0, file: '0.jpg'}]}];
+  const html = renderTransformSheetPage(sheet, null, [], {refReports});
+  assert.ok(html.includes('경쟁 화면 변화 — 채널 · 제목: 4번 (1분에 12번'), '4번/20초 = 1분에 12번');
+  assert.ok(html.includes('간격 변동 0') && html.includes('컷 감지 0번'));
+  const noFrames = renderTransformSheetPage(sheet, null, [], {refReports: [{...refReports[0], frames: []}]});
+  assert.ok(!noFrames.includes('경쟁 화면 변화'), '캡처가 없는(적용 안 한) 참고 영상은 막대를 만들지 않는다');
+});

@@ -6172,6 +6172,8 @@ const server = createServer(async (req, res) => {
       const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
       if (report) queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      // 컷 감지가 0번인 영상(화면 안에서 바뀌는 영상)은 AI가 적은 화면 변화 시각의 속도로 우리 컷 수를 비교한다(2026-11-16 사용자: 경쟁 컷 리듬이 빠져 있다)
+      const pacingForCheck = (rep) => { const p = rep?.pacing; if (!p || Number(p.perMinute) > 0) return p; const ts = [...new Set((rep?.analysis?.visualMoments || []).map((m) => Number(m.t)))]; const dur = Number(rep?.windowSeconds) || Number(rep?.meta?.durationSeconds) || 0; return ts.length && dur ? {...p, perMinute: Math.round((ts.length / dur) * 600) / 10} : p; };
       // 경쟁 화면 캡처: 원본 + 가져온 출처 영상의 저장된 캡처를 초 순서로(2026-11-16)
       const thumbIds = (sheet.rows || []).flatMap((r) => (r.competitor?.images || []).map((tk) => String(tk).match(/^thumb:([A-Za-z0-9_-]{11})$/)?.[1]).filter(Boolean));
       const refIds = [...new Set([sheetMatch[1], ...(sheet.borrowed || []).map((b) => b.fromVideoId).filter(Boolean), ...thumbIds])];
@@ -6181,9 +6183,9 @@ const server = createServer(async (req, res) => {
         const rr = existsSync(rp) ? await loadJson(rp) : null;
         if (!rr) continue;
         const frames = (rr.frames || []).filter((fr) => fr && fr.file && existsSync(join(outlierFramesDir, rid, fr.file))).sort((x, y) => Number(x.t) - Number(y.t));
-        refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', frames: rid === sheetMatch[1] || (sheet.borrowed || []).some((bb) => bb.fromVideoId === rid) ? frames : []});
+        refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', duration: Number(rr.windowSeconds) || Number(rr.meta?.durationSeconds) || 0, cutCount: Number(rr.pacing?.count) || 0, moments: [...new Set((rr.analysis?.visualMoments || []).map((m) => Number(m.t)).filter((x) => Number.isFinite(x)))].sort((a, b) => a - b), frames: rid === sheetMatch[1] || (sheet.borrowed || []).some((bb) => bb.fromVideoId === rid) ? frames : []});
       }
-      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
+      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report)}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
       return;
     }
     if (url.pathname === '/api/transform-sheet-pick' && req.method === 'POST') {

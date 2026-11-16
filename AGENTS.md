@@ -26,6 +26,8 @@
 
 11. **내가 확인할 수 있는 것은 사용자에게 넘기지 않고 바로 확인한다 (2026-11-16 사용자)**: 유튜브 예약·공개 상태는 프로젝트 OAuth 연동의 동기화 데이터(`catalog.json`의 `privacyStatus`·`scheduledPublishAt`)나 API로, 화면 상태는 브라우저 컨트롤로 직접 본다. "확인하지 못한 것"에 적고 끝내지 않는다. 그리고 작업·루프가 끝나면 `knowledge/now.md`에 남은 끝난 항목과 낡은 "대기" 문구를 사용자가 시키기 전에 지우고 커밋한다(실제 상태를 확인한 것만, 못 확인한 건 알린다).
 
+12. **"영상 제작 → 예약 완료"가 나오면 뒤따르는 마무리를 한 번에 끝까지 한다 (2026-11-16 사용자: 일일이 승인하면 빠뜨리거나 시간이 없어 못 한다)**. 사용자에게 묻지 않고 순서대로: ① 유튜브 실제 예약 상태 확인(`catalog.json`의 `privacyStatus`·`scheduledPublishAt`, 동기화가 오래됐으면 `npm run sync`)과 패키지 `status.json`·`shorts-status.json` 일치 ② `knowledge/logs/YYYY-MM.md` 그 날짜 절에 예약 사실 ③ `knowledge/now.md`: 끝난 항목 삭제, 공개 7일 뒤 결과 확인 같은 **날짜가 있는 다음 일** 추가 ④ 시험 편이면 `knowledge/style-experiments.md` 표 갱신 ⑤ `knowledge/handoff/<날짜>.md`와 `LATEST.md` 갱신 ⑥ 내가 바꾼 파일만 이름으로 담아 커밋·푸시 ⑦ 못 한 것과 남은 미커밋 파일을 한 줄로 보고. 렌더·업로드 승인 관문은 이 체인에 포함되지 않는다.
+
 ---
 
 **새 제작(롱폼·쇼츠·썸네일 전부)은 HyperFrames로 한다.** 예전 Remotion 파이프라인(EP6~EP10)의 기술 문서는

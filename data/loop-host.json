@@ -1,0 +1,5 @@
+{
+  "host": "DESKTOP-UA9AKL2",
+  "claimedAt": "2026-11-16T04:22:27.950Z",
+  "note": "매일 루프가 데이터를 깃에 올리는 PC. 바꾸려면 host를 새 PC 이름(os.hostname)으로 고친다."
+}

@@ -243,3 +243,23 @@ export function setThumbnailPick(sheet, image, picked) {
   if (picked) now.add(image); else now.delete(image);
   return {...sheet, thumbnailPicks: allowed.filter((x) => now.has(x))};
 }
+
+/**
+ * 영상 ID마다 이 영상이 어느 비교 시트에 쓰였는지(2026-11-16 사용자: 시트를 만들었는데 리포트 목록·키워드 풀에서 연결 표시가 없어 찾기 힘들다).
+ * role: 'source' = 시트의 원본 경쟁 영상, 'borrowed' = 다른 영상에서 가져온 것의 출처. 같은 시트에서 둘 다면 source만 남긴다.
+ */
+export function sheetLinksByVideo(sheets) {
+  const map = new Map();
+  const add = (videoId, sheet, role) => {
+    if (!filled(videoId)) return;
+    const list = map.get(videoId) || [];
+    if (list.some((x) => x.sheetId === sheet.sourceVideoId)) return;
+    list.push({sheetId: sheet.sourceVideoId, topic: sheet.topic, status: sheet.status, role});
+    map.set(videoId, list);
+  };
+  for (const sheet of sheets || []) {
+    add(sheet.sourceVideoId, sheet, 'source');
+    for (const id of borrowedSources(sheet)) add(id, sheet, 'borrowed');
+  }
+  return map;
+}

@@ -48,7 +48,7 @@ import { renderReportPage as renderOutlierReportPage, renderReportIndex as rende
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
-import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir } from './transform-sheet.mjs';
+import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir, sheetLinksByVideo } from './transform-sheet.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -3331,6 +3331,7 @@ function renderMarketDemandTab() {
     const score = hasScore ? Math.round(k.marketDemandScore) : 0;
     const scoreClass = score >= 150 ? 'badge-strong-pass' : score >= 80 ? 'badge-pass' : 'badge-hold';
     const isD7 = k.source === 'd7_search_terms';
+    const sheetUsed = (k.topOutliers || []).filter(function (o) { return o.sheetLinks && o.sheetLinks.length; }).length;
     const subtext = !hasScore
       ? (k.emptyReason
         ? '우리 채널 검색 유입 ' + (k.searchViews ?? '?') + '회 · ' + esc(k.emptyReason)
@@ -3341,6 +3342,7 @@ function renderMarketDemandTab() {
       '<div style="min-width:0;flex:1;margin-right:8px">' +
         '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' +
           '<span style="font-weight:800;font-size:13.5px;color:' + (isSelected ? 'var(--accent-cyan)' : 'var(--text-bright)') + ';word-break:keep-all">' + esc(k.keyword) + '</span>' +
+          (sheetUsed ? '<span class="tag-chip" title="이 키워드의 아웃라이어 중 비교 시트에 쓰인 영상 수" style="background:rgba(168,85,247,0.18);color:#d8b4fe;border:1px solid #a855f7;font-size:10px;padding:1px 6px">📝 비교 시트 ' + sheetUsed + '</span>' : '') +
           (isD7 ? '<span class="tag-chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid #f59e0b;font-size:10px;padding:1px 6px">D+7 유입</span>' : '') +
         '</div>' +
         // 아직 분석 전이거나 소형 채널 표본이 0개인 키워드는 0점으로 보이지 않게 실제 상태·검색 조회수를 보여 준다.
@@ -3393,6 +3395,7 @@ function renderMarketDemandTab() {
         // 액션 버튼 바
         '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05)">' +
           // 2026-11-12: 손으로 누르는 "댓글/대본 분석" 버튼을 없앴다. 분석은 매일 루프가 한다(합친 리포트 하루 2편, 배수 큰 순).
+          ((o.sheetLinks || []).map(function (l) { return '<a class="btn btn-sm" href="/transform-sheet/' + encodeURIComponent(l.sheetId) + '" target="_blank" rel="noopener" title="' + esc(l.topic) + '" style="font-size:11px;padding:5px 10px;background:rgba(168,85,247,0.18);color:#d8b4fe;border:1px solid #a855f7">📝 비교 시트 · ' + (l.role === 'source' ? '원본' : '가져온 출처') + '</a>'; }).join('')) +
           (o.outlierReport ?
             ((o.outlierReport.frame ? '<a href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" title="화면 연출 캡처"><img src="' + esc(o.outlierReport.frame) + '" alt="" style="height:44px;border-radius:4px;border:1px solid var(--border-subtle);display:block"></a>' : '') +
              '<a class="btn btn-sm btn-cyan" href="/outlier-report/' + encodeURIComponent(o.videoId) + '" target="_blank" rel="noopener" style="font-size:11px;padding:5px 10px">📊 리포트 보기 (화면 변화 ' + (o.outlierReport.visualChanges || 0) + ')</a>') :
@@ -6012,8 +6015,10 @@ async function annotateMarketDemandAnalysisStatus(marketDemand) {
   // 아웃라이어 영상 하나에 댓글/대본 리포트·실패 사유를 붙이는 로직 — byKeyword의
   // topOutliers와 trackedChannels(2026-09-30 추가)의 topOutliers가 구조가 완전히
   // 같으므로 함수로 뽑아 양쪽에 재사용한다.
+  const sheetLinks = sheetLinksByVideo(loadTransformSheets());
   const annotateOutlier = (o) => ({
     ...o,
+    sheetLinks: (o.videoId && sheetLinks.get(o.videoId)) || [],
     outlierReport: (o.videoId && unifiedInfo(o.videoId)) || null,
     commentReportFile: (o.videoId && commentFileByVid.get(o.videoId)) || null,
     scriptReportFile: (o.videoId && scriptFileByVid.get(o.videoId)) || null,
@@ -6139,7 +6144,7 @@ const server = createServer(async (req, res) => {
     // 빠진 캡처가 있으면 서버가 뒤에서 하나씩 만들고 화면은 안내를 띄운 뒤 스스로 새로고침한다.
     if (url.pathname === '/outlier-reports') {
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(renderOutlierReportIndex(loadOutlierReports()));
+      res.end(renderOutlierReportIndex(loadOutlierReports(), {links: sheetLinksByVideo(loadTransformSheets())}));
       return;
     }
     const outlierReportMatch = url.pathname.match(/^\/outlier-report\/([\w-]{11})$/);
@@ -6149,7 +6154,7 @@ const server = createServer(async (req, res) => {
       if (!report) return json(res, 404, {error: '이 영상의 리포트가 없습니다.'});
       const framesPending = queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(renderOutlierReportPage(report, {framesPending, hasSheet: loadTransformSheets().some((t) => t.sourceVideoId === outlierReportMatch[1])}));
+      res.end(renderOutlierReportPage(report, {framesPending, hasSheet: loadTransformSheets().some((t) => t.sourceVideoId === outlierReportMatch[1]), sheetLinks: sheetLinksByVideo(loadTransformSheets()).get(outlierReportMatch[1]) || []}));
       return;
     }
     // 비교 시트(2026-11-12): 경쟁 영상과 우리가 만들 콘텐츠를 같은 행에서 좌우로 비교한다. 읽기 전용.

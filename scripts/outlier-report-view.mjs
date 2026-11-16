@@ -82,7 +82,7 @@ export function renderMarkdownPage(title, markdown = '') {
   return page(title, `<p><a href="/">← 대시보드</a></p>${out.join('\n')}`);
 }
 
-export function renderReportPage(report, {framesPending = 0, hasSheet = false} = {}) {
+export function renderReportPage(report, {framesPending = 0, hasSheet = false, sheetLinks = []} = {}) {
   const a = report.analysis || {};
   const m = report.meta || {};
   const id = escapeHtml(report.videoId);
@@ -99,6 +99,7 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false} =
   parts.push(`<div class="meta">성인에게 영어 소리를 가르치는 원본 영상인가: ${teachesText}${a.teachesAdultEnglishSoundsReason ? ` (${escapeHtml(a.teachesAdultEnglishSoundsReason)})` : ''}</div>`);
   parts.push(`<p><a href="https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}" target="_blank" rel="noopener">유튜브에서 보기</a></p>`);
   if (hasSheet) parts.push(`<div class="card">📝 <a href="/transform-sheet/${id}"><b>이 영상을 우리 콘텐츠로 바꾼 비교 시트 보기</b></a> — 경쟁과 우리를 좌우로 비교하고, 바꾼 이유와 다른 영상에서 가져온 것을 적어 두었다.</div>`);
+  for (const l of sheetLinks.filter((x) => x.role === 'borrowed')) parts.push(`<div class="card" style="background:rgba(168,85,247,0.08);border:1.5px solid #a855f7;padding:14px 18px">📝 이 영상에서 가져온 것이 비교 시트에 쓰였다: <a href="/transform-sheet/${escapeHtml(l.sheetId)}"><b>${escapeHtml(l.topic)}</b></a> (${escapeHtml(STAGE_KO[l.status] || l.status)}) — 시트의 "가져온 것"에서 이 영상의 어떤 점을 왜 가져왔는지 볼 수 있다.</div>`);
   if (framesPending > 0) parts.push(`<div class="card"><b>캡처 ${Number(framesPending)}장을 이 PC에서 만드는 중입니다.</b> 캡처는 깃에 올리지 않아 PC마다 처음 한 번 만듭니다(1편에 30초~2분). 이 화면은 25초마다 스스로 새로고침합니다.</div>`);
 
   const c = a.click || {};
@@ -351,8 +352,17 @@ export function renderTransformSheetIndex(items = []) {
   return page('비교 시트', `<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">근거(경쟁 영상 리포트 목록)</a></p><h1>비교 시트 ${items.length}장</h1><p class="meta">경쟁 영상 리포트를 우리 콘텐츠로 바꾼 한 장. 좌우로 비교하고, 다른 경쟁 영상에서 가져온 것과 뺀 것을 이유와 함께 남긴다. 실패·기각도 데이터로 쌓는다.</p>${cards.join('\n') || '<p class="meta">아직 없음</p>'}`);
 }
 
-export function renderReportIndex(reports = []) {
-  const sorted = [...reports].sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
-  const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} · 채널 평소 대비 ${formatRatioLabel(r)} · 장면 전환 ${cutCountLabel(r.pacing)} · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
-  return page('아웃라이어 리포트', `<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
+const SHEET_ROLE_KO = { source: '원본', borrowed: '가져온 출처' };
+/** 이 영상이 쓰인 비교 시트를 글자 배지로 보여 준다(2026-11-16 사용자: 시트를 만들었는데 목록에서 연결 표시가 없어 찾기 힘들다). 카드 전체가 링크라 안쪽에 링크를 또 넣지 않는다. */
+export function sheetBadgeHtml(links = []) {
+  if (!links || !links.length) return '';
+  return links.map((l) => `<span class="pill-badge" style="background:rgba(168,85,247,0.22);color:var(--ink);font-weight:700;border:1px solid #a855f7" title="${escapeHtml(l.topic)}">📝 비교 시트 · ${escapeHtml(SHEET_ROLE_KO[l.role] || l.role)} · ${escapeHtml(STAGE_KO[l.status] || l.status)}</span>`).join(' ');
+}
+
+export function renderReportIndex(reports = [], { links = new Map() } = {}) {
+  const linked = (r) => (links.get(r.videoId) || []).length > 0;
+  const sorted = [...reports].sort((a, b) => Number(linked(b)) - Number(linked(a)) || ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
+  const linkedCount = sorted.filter(linked).length;
+  const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} ${sheetBadgeHtml(links.get(r.videoId))} · 채널 평소 대비 ${formatRatioLabel(r)} · 장면 전환 ${cutCountLabel(r.pacing)} · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
+  return page('아웃라이어 리포트', `<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">📝 비교 시트에 쓰인 영상 ${linkedCount}편은 맨 위에 보라색 배지와 함께 모여 있다(원본 = 시트의 출발 영상, 가져온 출처 = 다른 영상에서 가져온 것의 출처). <a href="/transform-sheets">비교 시트 목록 →</a></p><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
 }

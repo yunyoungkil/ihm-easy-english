@@ -24,6 +24,14 @@ const countChars = (s) => [...s.replace(/\s+/g, '')].length;
 
 // 블록 하나(줄 목록)를 판정한다. 브라우저 없이 시험하는 순수 함수.
 // block = {selector, classes:[], text, lines:[{text,left,right,top,bottom}], rect:{left,top,right,bottom}, parentRect}
+/** 컴포지션 루트의 data-width·data-height를 읽는다(세로 쇼츠는 1080x1920). 없으면 가로 1920x1080(2026-11-16: 세로 영상이 아래쪽 "화면 밖" 오탐을 34건 냈다). */
+export function readScreenSize(html) {
+  const tag = String(html).match(/<[^>]*data-composition-id="main"[^>]*>/)?.[0] || '';
+  const width = Number(tag.match(/data-width="(\d+)"/)?.[1]);
+  const height = Number(tag.match(/data-height="(\d+)"/)?.[1]);
+  return width > 0 && height > 0 ? {width, height} : SCREEN;
+}
+
 export function judgeBlock(block, screen = SCREEN) {
   const issues = [];
   const lines = block.lines || [];
@@ -169,7 +177,7 @@ function findChrome() {
 }
 
 // 페이지 안에서 실행: 보이는 글자 블록마다 줄 정보를 모은다.
-function collectBlocksInPage(minOpacity) {
+function collectBlocksInPage({minOpacity, screen}) {
   const skipTags = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA']);
   const sel = (el) => {
     const parts = [];
@@ -215,7 +223,7 @@ function collectBlocksInPage(minOpacity) {
     const br = b.getBoundingClientRect();
     if (br.width === 0 || br.height === 0) continue;
     // 화면 밖에 통째로 있는 블록은 보이지 않으므로 건너뛴다(넘침은 일부만 걸친 블록에서 잡는다)
-    if (br.right < 0 || br.left > 1920 || br.bottom < 0 || br.top > 1080) continue; // allow-literal: 컴포지션 화면 크기
+    if (br.right < 0 || br.left > screen.width || br.bottom < 0 || br.top > screen.height) continue;
     const lines = [];
     for (const node of nodes) {
       const v = node.nodeValue;
@@ -265,6 +273,7 @@ export async function checkProject(projectDir, {at = [], onlyAt = false, log = (
   const bundleFile = fs.readdirSync(dist).find((f) => f.startsWith('bundleWithLocalizedFonts-'));
   const {bundleWithLocalizedFonts} = await import(pathToFileURL(path.join(dist, bundleFile)).href);
   const html = await bundleWithLocalizedFonts(dir);
+  const screen = readScreenSize(html);
   const {chromium} = await import('playwright-core');
   const server = http.createServer((q, r) => {
     const u = decodeURIComponent(q.url.split('?')[0]);
@@ -276,7 +285,7 @@ export async function checkProject(projectDir, {at = [], onlyAt = false, log = (
   await new Promise((res) => server.listen(0, '127.0.0.1', res));
   const browser = await chromium.launch({executablePath: findChrome()});
   try {
-    const page = await browser.newPage({viewport: SCREEN});
+    const page = await browser.newPage({viewport: screen});
     await page.goto(`http://127.0.0.1:${server.address().port}/`);
     await page.waitForFunction(() => window.__player && typeof window.__player.renderSeek === 'function', null, {timeout: 60000}); // allow-literal: 준비 대기 한도(ms)
     await page.evaluate(() => document.fonts.ready);
@@ -294,8 +303,8 @@ export async function checkProject(projectDir, {at = [], onlyAt = false, log = (
     for (const t of times) {
       await page.evaluate((x) => window.__player.renderSeek(x), t);
       await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
-      const blocks = await page.evaluate(collectBlocksInPage, MIN_OPACITY);
-      for (const b of blocks) for (const it of judgeBlock(b)) found.push({...it, time: t});
+      const blocks = await page.evaluate(collectBlocksInPage, {minOpacity: MIN_OPACITY, screen});
+      for (const b of blocks) for (const it of judgeBlock(b, screen)) found.push({...it, time: t});
       log(`  ${t}초: 글자 블록 ${blocks.length}개`);
     }
     return {times, issues: dedupeIssues(found)};

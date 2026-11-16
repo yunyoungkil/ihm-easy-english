@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {judgeBlock, dedupeIssues, pickSampleTimes, formatReport} from '../check-text-layout.mjs';
+import {judgeBlock, dedupeIssues, pickSampleTimes, formatReport, readScreenSize, SCREEN} from '../check-text-layout.mjs';
 
 // 칸 이름은 collectBlocksInPage가 실제로 내는 것과 같다: selector, classes, text, lines[{text,left,right,top,bottom}], rect, parentRect
 const line = (text, left, right, top = 0) => ({text, left, right, top, bottom: top + 40});
@@ -70,4 +70,14 @@ test('pickSampleTimes: --at와 장면 경계 뒤 0.5초 등을 합치고 --only-
 test('formatReport: 0건이면 "0건"', () => {
   assert.match(formatReport([], [1, 2]), /0건/);
   assert.match(formatReport([{times: [1], selector: 's', text: 't', kind: 'k', value: 'v'}], [1]), /1건/);
+});
+
+test('readScreenSize: 루트의 data-width·data-height를 읽고 없으면 가로 1920x1080', () => {
+  assert.deepEqual(readScreenSize('<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920">'), {width: 1080, height: 1920});
+  assert.deepEqual(readScreenSize('<div data-composition-id="main">'), SCREEN);
+  assert.deepEqual(readScreenSize(''), SCREEN);
+  const portrait = {width: 1080, height: 1920};
+  const low = block([line('아래쪽 글자', 100, 500, 1300)], {rect: {left: 100, right: 500, top: 1300, bottom: 1340}, parentRect: {left: 90, right: 510, top: 1290, bottom: 1350}});
+  assert.ok(judgeBlock(low).some((x) => x.kind === 'text-overflow' && /화면 밖/.test(x.value)), '가로 화면(1080 높이)에서는 y=1340이 화면 밖');
+  assert.ok(!judgeBlock(low, portrait).some((x) => /화면 밖/.test(x.value || '')), '세로 화면 안쪽 글자는 화면 밖이 아니다');
 });

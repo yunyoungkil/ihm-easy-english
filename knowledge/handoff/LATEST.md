@@ -11,7 +11,8 @@
 ## 진행 중: EP30 쇼츠 `videos/ep30-shorts-chocolate` (비교 시트 `SbQVBQoRciA`, 공개 12/1 예정)
 - 시트 **승인됨**(2026-11-15). 나레이션 14줄 확정, 음성 n01~n14(Gero, 합계 58.84초)는 사용자가 **그대로 사용**하기로 함(2026-11-16).
 - **조립 1차 완료(2026-11-16)**: 컷 14개를 코드(HTML/GSAP)로 그린 `index.html`(생성: `node videos/ep30-shorts-chocolate/scripts/build-index.mjs`, 화면 글자는 시트 `cutPlan`에서 읽음), 세로 1080×1920, 길이 71.08초(음성 실측+간격 0.35초+원어민 단어 음성 5개). `hyperframes check` 0 error, `check-terms` 금지어 없음, `check-layout` 5건(글자가 올라오거나 튀는 순간뿐, 가로 넘침 0). 스냅샷·콘택트시트는 `snapshots/`(커밋 안 함). **`voice-en`·`bgm` 파일이 바뀌면 build-index를 다시 돌려야 길이·시각이 갱신된다.**
-- 남은 일(순서): ① 제미나이 결과 확인(`assets/GEMINI-RESULT.md`, 배경음악 `assets/bgm/track.mp3`, 원어민 단어 음성 10개를 whisper로 받아쓰기해 단어가 맞는지) ② build-index 다시 돌림 → `hyperframes check`·`check-layout` ③ 사용자에게 "자동 점검 결과 + 첫인상 한 단어 + 렌더 승인 여부"만 묻는다(품질 판단을 맡기지 않는다) ④ **렌더는 사용자 승인 뒤에만**.
+- **제미나이 작업 끝(커밋 `9e0a1ef`), 내가 확인(2026-11-16)**: 원어민 단어 음성 10개는 whisper(여백 0.6초 추가, medium)로 받아쓰기해 전부 맞는 단어(소리 내용은 이 받아쓰기까지만 확인, 사람 귀 확인 아님). 배경음악 `track.mp3`(62.98초)는 말소리 없음. 영상(71초)보다 짧아 끝과 처음을 4초 겹쳐 이은 `assets/bgm/track.loop.mp3`(73초)를 만들었고 `build-index.mjs`가 이를 우선 쓴다. `hyperframes check` 0 error·`check-terms` 금지어 없음·`check-layout` 5건(올라오거나 튀는 순간뿐).
+- 남은 일(순서): ① 사용자가 미리보기로 보고 **첫인상 한 단어 + 렌더 승인 여부**를 답한다(품질 판단은 요청하지 않는다) ② 승인되면 `videos/ep30-shorts-chocolate/renders/`에 먼저 렌더 → 최종본만 `output/upload-packages/`에 복사(`package-from-sheet.mjs SbQVBQoRciA <폴더>`로 제목·설명·태그·고정 댓글·썸네일) ③ 업로드·공개는 별도 승인(12/1 20:00 예정). 71초가 길다는 반응이 나오면 줄 사이 0.35초·원어민 삽입을 줄인다.
 - 시험 변수는 "장면 안 움직임" 하나. 카드 한글 표기(초클릿·베즈터블·디프런트·멤리)는 원어민 음성과 소리 대조(FACT-CHECK 청취 필요).
 
 ## 자동화·동기화 (2026-11-16 결정)

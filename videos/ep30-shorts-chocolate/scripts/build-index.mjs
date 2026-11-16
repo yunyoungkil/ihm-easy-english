@@ -281,10 +281,12 @@ cuts.forEach((c, i) => {
     );
   }
 });
-const hasBgm = existsSync(join(ROOT, 'assets', 'bgm', 'track.mp3'));
+// 제미나이가 만든 track.mp3는 62.98초라 영상(71초)보다 짧다. 끝과 처음을 4초 겹쳐 이은 track.loop.mp3(73초, ffmpeg acrossfade)가 있으면 그것을 쓴다.
+const bgmFile = existsSync(join(ROOT, 'assets', 'bgm', 'track.loop.mp3')) ? 'track.loop.mp3' : 'track.mp3';
+const hasBgm = existsSync(join(ROOT, 'assets', 'bgm', bgmFile));
 if (hasBgm) {
   audio.push(
-    `<audio id="bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="${TOTAL}" data-track-index="3" data-volume="0.06" data-fade-out="1" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}"></audio>`,
+    `<audio id="bgm" src="assets/bgm/${bgmFile}" data-start="0" data-duration="${TOTAL}" data-track-index="3" data-volume="0.06" data-fade-out="1" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}"></audio>`,
   );
 }
 

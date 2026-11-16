@@ -64,3 +64,18 @@ test('행 출처가 없는 예전 시트는 예전 비율 칸을 그대로 검�
   delete old.identityShare;
   assert.ok(validateSheet(old, {imageExists: sheetImageExists}).some((p) => p.includes('정체성')));
 });
+
+test('가져온 것은 어디에 적용했는지(appliedTo)를 적어야 하고, 없는 컷·시안·제목을 가리키면 문제로 알린다(2026-11-16)', async () => {
+  const {validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
+  const {readFileSync} = await import('node:fs');
+  const sheet = JSON.parse(readFileSync(new URL('../../data/youtube/transform-sheets/w8g6-e9yLP4.json', import.meta.url), 'utf8'));
+  assert.deepEqual(validateSheet(sheet, {imageExists: sheetImageExists}), []);
+  const none = JSON.parse(JSON.stringify(sheet)); none.borrowed[0].appliedTo = [];
+  assert.ok(validateSheet(none, {imageExists: sheetImageExists}).some((p) => p.includes('appliedTo')));
+  const badCut = JSON.parse(JSON.stringify(sheet)); badCut.borrowed[0].appliedTo = ['cut:99'];
+  assert.ok(validateSheet(badCut, {imageExists: sheetImageExists}).some((p) => p.includes('컷 99번은 없다')));
+  const badThumb = JSON.parse(JSON.stringify(sheet)); badThumb.borrowed[1].appliedTo = ['thumb:Z'];
+  assert.ok(validateSheet(badThumb, {imageExists: sheetImageExists}).some((p) => p.includes('썸네일 시안 Z가 없다')));
+  const badTitle = JSON.parse(JSON.stringify(sheet)); badTitle.sourceApplied[0].appliedTo = ['title:9'];
+  assert.ok(validateSheet(badTitle, {imageExists: sheetImageExists}).some((p) => p.includes('제목 후보 9번은 없다')));
+});

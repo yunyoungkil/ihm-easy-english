@@ -2,8 +2,8 @@
 // 대시보드 서버가 /outlier-reports, /outlier-report/<영상ID> 로 보여 준다. 읽기 전용.
 // 댓글·자막·제목은 외부에서 온 글자라서 전부 escapeHtml을 거친다(시험이 확인).
 
-import {fullScript} from './transform-sheet.mjs';
-import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
+import { fullScript } from './transform-sheet.mjs';
+import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -19,21 +19,33 @@ const mmss = (sec) => {
 const num = (n) => (n == null ? '측정 전' : Number(n).toLocaleString('ko-KR'));
 
 const STYLE = `
-:root{--bg:#f7f7f5;--card:#fff;--ink:#1d1d1f;--sub:#5f6368;--line:#e3e3e0;--ok:#127a3a;--bad:#b42318;--na:#8a8a8a;--accent:#b8860b}
-@media (prefers-color-scheme:dark){:root{--bg:#141414;--card:#1e1e1e;--ink:#ececec;--sub:#a5a5a5;--line:#333;--ok:#4cc27a;--bad:#ff7a6e;--na:#888;--accent:#f5c518}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"Noto Sans KR",sans-serif}
-main{max-width:980px;margin:0 auto;padding:16px}a{color:var(--accent)}
-h1{font-size:20px;margin:8px 0}h2{font-size:17px;margin:28px 0 8px;border-bottom:1px solid var(--line);padding-bottom:4px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0}
-.meta{color:var(--sub);font-size:13px}.q{color:var(--sub);font-size:13px;margin-top:4px}
-.ok{color:var(--ok)}.bad{color:var(--bad)}.na{color:var(--na)}
-.moment{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}.moment img{width:auto;max-width:100%;height:auto;border-radius:6px;border:1px solid var(--line)}
-.t{font-weight:700;font-variant-numeric:tabular-nums}
-table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto}code{font-size:13px;background:var(--line);padding:1px 4px;border-radius:4px}td,th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
-.thumbbox{display:flex;flex-wrap:nowrap;gap:14px;overflow:auto;max-height:80vh;padding:8px 2px 12px;border:1px solid var(--line);border-radius:10px;margin:8px 0}.pick{position:relative;flex:0 0 auto}.pick img.real{width:200px;height:auto;display:block;border-radius:8px}.pick input{position:absolute;top:6px;right:6px;width:24px;height:24px;accent-color:var(--accent);cursor:pointer}.titles label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}.titles input{width:22px;height:22px;flex:0 0 auto;accent-color:var(--accent)}.thumb{max-width:360px;width:100%;border-radius:8px}
-.list a{display:grid;grid-template-columns:160px minmax(0,1fr);gap:12px;text-decoration:none;color:inherit}
-.list img{width:160px;border-radius:6px}
-@media (max-width:600px){.list a{grid-template-columns:96px minmax(0,1fr)}.list img{width:96px}}
+:root{--bg:#0b0f19;--card:#111827;--card-hover:#162032;--ink:#f8fafc;--sub:#94a3b8;--line:rgba(255,255,255,0.08);--line-subtle:rgba(255,255,255,0.04);--ok:#34d399;--ok-bg:rgba(52,211,153,0.12);--bad:#f87171;--bad-bg:rgba(248,113,113,0.12);--na:#94a3b8;--accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);--accent-amber:#f59e0b;--accent-purple:#a855f7}
+@media (prefers-color-scheme:light){:root{--bg:#f8fafc;--card:#ffffff;--card-hover:#f1f5f9;--ink:#0f172a;--sub:#64748b;--line:#e2e8f0;--line-subtle:#edf2f7;--ok:#059669;--ok-bg:rgba(5,150,105,0.1);--bad:#dc2626;--bad-bg:rgba(220,38,38,0.1);--na:#64748b;--accent:#0284c7;--accent-glow:rgba(2,132,199,0.1);--accent-amber:#d97706;--accent-purple:#9333ea}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.65 -apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1120px;margin:0 auto;padding:24px 20px 60px}a{color:var(--accent);text-decoration:none;transition:color 0.15s,opacity 0.15s}a:hover{color:var(--ink);text-decoration:underline}
+h1{font-size:23px;font-weight:800;letter-spacing:-0.5px;margin:12px 0 16px;line-height:1.3}h2{font-size:17px;font-weight:700;margin:32px 0 12px;border-left:4px solid var(--accent);padding-left:10px;line-height:1.4}h3{font-size:14.5px;font-weight:700;margin:18px 0 8px;color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:border-color 0.2s,box-shadow 0.2s}
+.meta{color:var(--sub);font-size:13px;line-height:1.55}.q{background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:13.5px;color:var(--ink);line-height:1.5}
+.ok{color:var(--ok);background:var(--ok-bg);padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block}.bad{color:var(--bad);background:var(--bad-bg);padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block}.na{color:var(--na);padding:2px 8px;border-radius:6px;font-size:12px}
+.moment{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}.moment img{width:auto;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+.t{font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent);background:var(--accent-glow);padding:2px 6px;border-radius:4px;font-size:12.5px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;display:table;border-radius:8px;overflow:hidden;border:1px solid var(--line);margin:10px 0}code{font-size:12.5px;background:var(--line);padding:2px 5px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}th{background:rgba(255,255,255,0.04);font-weight:700;color:var(--sub);border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}tr:last-child td{border-bottom:none}
+.thumbbox{display:flex;flex-wrap:nowrap;gap:14px;overflow:auto;max-height:80vh;padding:12px 6px 16px;border:1px solid var(--line);border-radius:12px;margin:10px 0;background:rgba(0,0,0,0.04)}.pick{position:relative;flex:0 0 auto;transition:transform 0.2s}.pick:hover{transform:translateY(-2px)}.pick img.real{width:200px;height:auto;display:block;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,0.12)}.pick input{position:absolute;top:6px;right:6px;width:24px;height:24px;accent-color:var(--accent);cursor:pointer}.titles label{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;cursor:pointer;border-radius:8px;border:1px solid var(--line);margin:6px 0;background:var(--card);transition:background 0.15s,border-color 0.15s}.titles label:hover{border-color:var(--accent);background:var(--card-hover)}.titles input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--accent);margin-top:2px}.thumb{max-width:380px;width:100%;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,0.15)}
+.list{display:flex;flex-direction:column;gap:10px}.list a{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;text-decoration:none;color:inherit;align-items:center}.list img{width:180px;border-radius:8px;border:1px solid var(--line)}
+@media (max-width:600px){.list a{grid-template-columns:100px minmax(0,1fr)}.list img{width:100px}}
+main > p:first-child{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--sub);font-size:13px}
+main > p:first-child a{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:20px;background:var(--card);border:1px solid var(--line);color:var(--sub);font-weight:600;font-size:12.5px;transition:all 0.2s ease}
+main > p:first-child a:hover{background:var(--accent-glow);border-color:var(--accent);color:var(--accent);text-decoration:none;transform:translateY(-1px)}
+.btn-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:var(--accent);color:#000!important;font-weight:700;font-size:13px;text-decoration:none;transition:opacity 0.2s}.btn-cta:hover{opacity:0.9;text-decoration:none}
+.search-form{display:flex;gap:10px;max-width:540px;margin:16px 0}
+.search-input{flex:1;padding:10px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:14px;outline:none;transition:border-color 0.2s}
+.search-input:focus{border-color:var(--accent)}
+.search-btn{padding:10px 18px;border-radius:8px;border:none;background:var(--accent);color:#000;font-weight:700;font-size:13px;cursor:pointer}
+.visual-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:16px}
+.visual-tile{display:flex;flex-direction:column;gap:10px;margin:0;padding:12px;overflow:hidden}
+.visual-tile img{width:100%;height:180px;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block}
+.visual-body{display:flex;flex-direction:column;gap:6px;flex:1}
+.btn-link{display:inline-block;color:var(--accent);font-weight:600;font-size:12.5px}
 `;
 
 const badge = (flag) => (flag === true ? '<span class="ok">✓ 원문 확인</span>'
@@ -41,7 +53,7 @@ const badge = (flag) => (flag === true ? '<span class="ok">✓ 원문 확인</sp
     : '<span class="na">– 대조할 원문 없음</span>');
 const quote = (text, flag) => (String(text ?? '').trim() ? `<div class="q">“${escapeHtml(text)}” ${badge(flag)}</div>` : '');
 
-const page = (title, body, {refreshSeconds = 0} = {}) => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${refreshSeconds ? `<meta http-equiv="refresh" content="${Number(refreshSeconds)}">` : ''}<title>${escapeHtml(title)}</title><style>${STYLE}</style></head><body><main>${body}</main></body></html>`;
+const page = (title, body, { refreshSeconds = 0 } = {}) => `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${refreshSeconds ? `<meta http-equiv="refresh" content="${Number(refreshSeconds)}">` : ''}<title>${escapeHtml(title)}</title><style>${STYLE}</style></head><body><main>${body}</main></body></html>`;
 
 // 마크다운 한 줄 안의 꾸밈: 이미 이스케이프된 글자에만 적용한다.
 const inlineMd = (escaped) => escaped
@@ -82,7 +94,7 @@ export function renderMarkdownPage(title, markdown = '') {
   return page(title, `<p><a href="/">← 대시보드</a></p>${out.join('\n')}`);
 }
 
-export function renderReportPage(report, {framesPending = 0, hasSheet = false, sheetLinks = []} = {}) {
+export function renderReportPage(report, { framesPending = 0, hasSheet = false, sheetLinks = [] } = {}) {
   const a = report.analysis || {};
   const m = report.meta || {};
   const id = escapeHtml(report.videoId);
@@ -91,16 +103,16 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false, s
   const parts = [];
   parts.push(`<p><a href="/outlier-reports">← 리포트 목록</a> · <a href="/visual-library">연출 자료집</a> · <a href="/">대시보드</a></p>`);
   parts.push(`<h1>${escapeHtml(m.title)}</h1>`);
-  parts.push(`<div class="meta">${escapeHtml(m.channelTitle)} · 구독자 ${num(report.subscriberCount)} · 조회수 ${num(m.viewCount)} · 구독자 대비 ${report.viewsPerSubscriber ?? '측정 전'}배 · 채널 평소 대비 ${formatRatioLabel(report)} · 길이 ${m.durationSeconds ?? '?'}초</div>`);
+  parts.push(`<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 10px"><span class="pill-badge">${escapeHtml(m.channelTitle)}</span> · <span>구독자 ${num(report.subscriberCount)}</span> · <span>조회수 ${num(m.viewCount)}</span> · <span>구독자 대비 ${report.viewsPerSubscriber ?? '측정 전'}배</span> · <span style="color:var(--accent-amber);font-weight:700">채널 평소 대비 ${formatRatioLabel(report)}</span> · <span>길이 ${m.durationSeconds ?? '?'}초</span></div>`);
   const src = report.sources || {};
-  parts.push(`<div class="meta">분석 ${escapeHtml(String(report.analyzedAt || '').slice(0, 10))} · ${escapeHtml(report.model || '')} · 화면은 처음 ${report.windowSeconds}초 · 자막 ${src.transcript?.ok ? '있음' : `없음(${escapeHtml(src.transcript?.error || '')})`} · 댓글 ${src.comments?.count ?? 0}개 · 인용 확인 ${report.quoteCheck?.verified ?? 0}/${report.quoteCheck?.checked ?? 0}</div>`);
+  parts.push(`<div class="meta" style="font-size:12px;opacity:0.85">분석 ${escapeHtml(String(report.analyzedAt || '').slice(0, 10))} · ${escapeHtml(report.model || '')} · 화면은 처음 ${report.windowSeconds}초 · 자막 ${src.transcript?.ok ? '있음' : `없음(${escapeHtml(src.transcript?.error || '')})`} · 댓글 ${src.comments?.count ?? 0}개 · 인용 확인 ${report.quoteCheck?.verified ?? 0}/${report.quoteCheck?.checked ?? 0}</div>`);
   const teaches = a.teachesAdultEnglishSounds;
   const teachesText = teaches === true ? '예' : teaches === false ? '아니오 — 이 영상의 댓글은 시청자 고민 데이터에서 뺌' : '미판정';
-  parts.push(`<div class="meta">성인에게 영어 소리를 가르치는 원본 영상인가: ${teachesText}${a.teachesAdultEnglishSoundsReason ? ` (${escapeHtml(a.teachesAdultEnglishSoundsReason)})` : ''}</div>`);
-  parts.push(`<p><a href="https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}" target="_blank" rel="noopener">유튜브에서 보기</a></p>`);
-  if (hasSheet) parts.push(`<div class="card">📝 <a href="/transform-sheet/${id}"><b>이 영상을 우리 콘텐츠로 바꾼 비교 시트 보기</b></a> — 경쟁과 우리를 좌우로 비교하고, 바꾼 이유와 다른 영상에서 가져온 것을 적어 두었다.</div>`);
+  parts.push(`<div class="meta" style="margin-top:4px">성인에게 영어 소리를 가르치는 원본 영상인가: <b>${teachesText}</b>${a.teachesAdultEnglishSoundsReason ? ` (${escapeHtml(a.teachesAdultEnglishSoundsReason)})` : ''}</div>`);
+  parts.push(`<p style="margin:14px 0"><a class="btn-cta" href="https://www.youtube.com/watch?v=${encodeURIComponent(report.videoId)}" target="_blank" rel="noopener">🎬 유튜브에서 보기 ↗</a></p>`);
+  if (hasSheet) parts.push(`<div class="card" style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(168,85,247,0.08));border:1.5px solid var(--accent);padding:14px 18px">📝 <a href="/transform-sheet/${id}"><b>이 영상을 우리 콘텐츠로 바꾼 비교 시트 보기</b></a> — 경쟁과 우리를 좌우로 비교하고, 바꾼 이유와 다른 영상에서 가져온 것을 적어 두었다.</div>`);
   for (const l of sheetLinks.filter((x) => x.role === 'borrowed')) parts.push(`<div class="card" style="background:rgba(168,85,247,0.08);border:1.5px solid #a855f7;padding:14px 18px">📝 이 영상에서 가져온 것이 비교 시트에 쓰였다: <a href="/transform-sheet/${escapeHtml(l.sheetId)}"><b>${escapeHtml(l.topic)}</b></a> (${escapeHtml(STAGE_KO[l.status] || l.status)}) — 시트의 "가져온 것"에서 이 영상의 어떤 점을 왜 가져왔는지 볼 수 있다.</div>`);
-  if (framesPending > 0) parts.push(`<div class="card"><b>캡처 ${Number(framesPending)}장을 이 PC에서 만드는 중입니다.</b> 캡처는 깃에 올리지 않아 PC마다 처음 한 번 만듭니다(1편에 30초~2분). 이 화면은 25초마다 스스로 새로고침합니다.</div>`);
+  if (framesPending > 0) parts.push(`<div class="card" style="border-color:var(--accent-amber);background:rgba(245,158,11,0.08)"><b>캡처 ${Number(framesPending)}장을 이 PC에서 만드는 중입니다.</b> 캡처는 깃에 올리지 않아 PC마다 처음 한 번 만듭니다(1편에 30초~2분). 이 화면은 25초마다 스스로 새로고침합니다.</div>`);
 
   const c = a.click || {};
   parts.push('<h2>1. 클릭 — 제목과 썸네일</h2><div class="card">');
@@ -145,7 +157,7 @@ export function renderReportPage(report, {framesPending = 0, hasSheet = false, s
   const u = a.forUs || {};
   parts.push(`<h2>7. 우리 채널에</h2><div class="card"><p><b>가져올 점</b>: ${escapeHtml(u.adopt)}</p><p><b>다르게 할 점</b>: ${escapeHtml(u.differentiate)}</p></div>`);
   parts.push(extraObservationsHtml(a));
-  return page(m.title || report.videoId, parts.join('\n'), {refreshSeconds: framesPending > 0 ? 25 : 0});
+  return page(m.title || report.videoId, parts.join('\n'), { refreshSeconds: framesPending > 0 ? 25 : 0 });
 }
 
 const NEW_FIELDS = ['first3s', 'infoCount', 'captionStyle', 'audio', 'storytelling'];
@@ -183,7 +195,7 @@ export function extraObservationsHtml(a = {}) {
  * 대시보드 탭은 6개로 두기로 한 결정(2026-11-11)이 있어 탭이 아니라 따로 열리는 페이지로 만들었다.
  * 검색은 주소의 ?q= 로 서버가 거른다(화면 스크립트 없음).
  */
-export function renderVisualLibraryPage(entries = [], {query = '', reports = 0, pendingReports = 0} = {}) {
+export function renderVisualLibraryPage(entries = [], { query = '', reports = 0, pendingReports = 0 } = {}) {
   const words = String(query).trim().toLowerCase().split(/\s+/).filter(Boolean);
   const shown = entries.filter((e) => {
     const hay = `${e.what || ''} ${e.purpose || ''} ${e.title || ''}`.toLowerCase();
@@ -192,46 +204,50 @@ export function renderVisualLibraryPage(entries = [], {query = '', reports = 0, 
   const tiles = shown.slice(0, 150).map((e) => {
     const img = !e.frame ? ''
       : e.frameReady ? `<a href="/outlier-report/${encodeURIComponent(e.videoId)}"><img loading="lazy" src="/${escapeHtml(e.frame.replace('data/youtube/', ''))}" alt="${mmss(e.t)} 화면"></a>`
-        : '<div class="meta">⏳ 이 PC에서 캡처 만드는 중</div>';
-    const ratio = formatRatioLabel(e);
-    return `<div class="card moment">${img}<div><span class="t">${mmss(e.t)}</span> ${escapeHtml(e.what)}</div><div class="q">${escapeHtml(e.purpose)}</div><div class="meta">${escapeHtml(e.channelTitle)} · 평소의 ${ratio} · <a href="/outlier-report/${encodeURIComponent(e.videoId)}">리포트</a></div></div>`;
-  });
-  const body = [
-    '<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">경쟁 영상 리포트 목록</a></p>',
-    `<h1>연출 자료집</h1>`,
-    `<p class="meta">경쟁 영상 ${reports}편 · 화면 변화 ${entries.length}개. 잘된 경쟁 영상이 화면을 어떻게 바꿨는지 1초 간격 3장 캡처로 본다. 구조만 배우고 그림·문구·남의 영상은 따라 하지 않는다. AI가 적은 시각은 몇 초 어긋날 수 있어 캡처 띠로 직접 확인한다. 매일 루프가 하루 2편씩 늘린다.${pendingReports ? ` 지금 이 PC에서 ${Number(pendingReports)}편의 캡처를 만드는 중이라 25초마다 새로고침한다.` : ''}</p>`,
-    `<form method="get" action="/visual-library"><input type="search" name="q" value="${escapeHtml(query)}" placeholder="검색: 비교, X 표시, 정답, 자막…" style="width:100%;max-width:420px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)"></form>`,
-    `<p class="meta">${shown.length}개${shown.length > 150 ? ' (앞 150개만 표시)' : ''}</p>`,
-    tiles.join('\n') || `<p class="meta">${entries.length ? '검색어에 맞는 화면 변화가 없습니다.' : '아직 리포트가 없습니다. 매일 루프가 하루 2편씩 만듭니다.'}</p>`,
-  ];
-  return page('연출 자료집', body.join('\n'), {refreshSeconds: pendingReports ? 25 : 0});
+        : '<div class="meta" style="padding:40px 0;text-align:center;background:rgba(255,255,255,0.02);border-radius:8px">⏳ 이 PC에서 캡처 만드는 중</div>';
+  const ratio = formatRatioLabel(e);
+  return `<div class="card visual-tile">${img}<div class="visual-body"><div><span class="t">${mmss(e.t)}</span> ${escapeHtml(e.what)}</div><div class="q">${escapeHtml(e.purpose)}</div><div class="meta" style="margin-top:auto">${escapeHtml(e.channelTitle)} · 평소의 ${ratio} · <a class="btn-link" href="/outlier-report/${encodeURIComponent(e.videoId)}">리포트</a></div></div></div>`;
+});
+const body = [
+  '<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">경쟁 영상 리포트 목록</a></p>',
+  `<h1>📸 연출 자료집</h1>`,
+  `<p class="meta">경쟁 영상 ${reports}편 · 화면 변화 ${entries.length}개. 잘된 경쟁 영상이 화면을 어떻게 바꿨는지 1초 간격 3장 캡처로 본다. 구조만 배우고 그림·문구·남의 영상은 따라 하지 않는다. AI가 적은 시각은 몇 초 어긋날 수 있어 캡처 띠로 직접 확인한다. 매일 루프가 하루 2편씩 늘린다.${pendingReports ? ` 지금 이 PC에서 ${Number(pendingReports)}편의 캡처를 만드는 중이라 25초마다 새로고침한다.` : ''}</p>`,
+  `<form method="get" action="/visual-library" class="search-form"><input type="search" name="q" value="${escapeHtml(query)}" placeholder="검색: 비교, X 표시, 정답, 자막…" class="search-input"><button type="submit" class="search-btn">검색</button></form>`,
+  `<p class="meta" style="margin-top:14px;font-weight:600">${shown.length}개${shown.length > 150 ? ' (앞 150개만 표시)' : ''}</p>`,
+  tiles.length ? `<div class="visual-grid">${tiles.join('\n')}</div>` : `<p class="meta">${entries.length ? '검색어에 맞는 화면 변화가 없습니다.' : '아직 리포트가 없습니다. 매일 루프가 하루 2편씩 만듭니다.'}</p>`,
+];
+return page('연출 자료집', body.join('\n'), { refreshSeconds: pendingReports ? 25 : 0 });
 }
 
 // ---- 비교 시트(2026-11-12): 경쟁 영상과 우리가 만들 영상을 같은 행에서 좌우로 비교한다 ----
 const SHEET_CSS = `<style>
-.sheet-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:8px 0}
-.sheet-col{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-.sheet-col.ours{border-color:var(--accent)}
-.sheet-col h4{margin:0 0 6px;font-size:12px;color:var(--sub);text-transform:none}
+.sheet-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin:12px 0}
+.sheet-col{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.sheet-col.ours{border-color:var(--accent);background:linear-gradient(180deg, rgba(56,189,248,0.04) 0%, rgba(56,189,248,0) 100%)}
+.sheet-col h4{margin:0 0 8px;font-size:12px;font-weight:700;color:var(--sub);letter-spacing:0.5px;text-transform:uppercase}
 .sheet-col .imgs{display:flex;flex-wrap:nowrap;gap:10px;margin:8px 0;align-items:flex-start;overflow-x:auto}
-.sheet-col img{width:auto;min-width:0;max-width:100%;max-height:300px;height:auto;border-radius:6px;border:1px solid var(--line);display:block}
-.sheet-why{grid-column:1/-1;font-size:13px;color:var(--sub);padding:0 4px 6px}
-.sheet-label{font-weight:700;margin:18px 0 0}
-.warn{border:1px solid var(--bad);color:var(--bad);border-radius:10px;padding:8px 12px;margin:10px 0;font-size:14px}
-.timeline{position:relative;height:26px;background:var(--card);border:1px solid var(--line);border-radius:6px;margin:4px 0 2px}
+.sheet-col img{width:auto;min-width:0;max-width:100%;max-height:300px;height:auto;border-radius:8px;border:1px solid var(--line);display:block}
+.sheet-why{grid-column:1/-1;font-size:13.5px;color:var(--ink);background:rgba(245,158,11,0.08);border-left:3px solid var(--accent-amber);border-radius:0 8px 8px 0;padding:12px 16px;margin:2px 0 10px;line-height:1.55}
+.sheet-label{font-weight:800;font-size:15px;margin:24px 0 6px;color:var(--ink);display:flex;align-items:center;gap:6px}
+.warn{border:1px solid var(--bad);background:var(--bad-bg);color:var(--bad);border-radius:10px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+.timeline{position:relative;height:28px;background:var(--card);border:1px solid var(--line);border-radius:8px;margin:6px 0 4px;overflow:hidden}
 .tick{position:absolute;top:3px;bottom:3px;width:3px;border-radius:2px;transform:translateX(-1px)}
-.tick.comp{background:var(--sub)}.tick.ours{background:var(--accent)}
-.tl-label{font-size:13px;color:var(--sub);margin-top:8px}
-.film{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:10px;padding:6px 2px 14px}
-.film figure{margin:0;flex:0 0 auto;text-align:center}
-.film img{height:300px;width:auto;border-radius:5px;border:1px solid var(--line);display:block}
-.film figcaption{font-size:11px;color:var(--sub);margin-top:2px}.film figure .say{width:167px;margin:4px auto 0;font-size:13px;line-height:1.4;text-align:left;white-space:normal;word-break:keep-all}.fullscript div{padding:3px 0}.pkg{white-space:pre-wrap;word-break:keep-all;margin:4px 0 8px;font:inherit;font-size:14px}
+.tick.comp{background:var(--sub)}.tick.ours{background:var(--accent);box-shadow:0 0 6px var(--accent)}
+.tl-label{font-size:13px;font-weight:600;color:var(--sub);margin-top:10px}
+.film{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:12px;padding:8px 2px 16px}
+.film figure{margin:0;flex:0 0 auto;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+.film img{height:300px;width:auto;border-radius:6px;border:1px solid var(--line);display:block}
+.film figcaption{font-size:11.5px;font-weight:700;color:var(--accent);margin-top:6px}
+.film figure .say{width:167px;margin:6px auto 0;font-size:13px;line-height:1.45;text-align:left;white-space:normal;word-break:keep-all;color:var(--ink);background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:6px}
+.fullscript div{padding:4px 0;border-bottom:1px solid var(--line-subtle)}
+.pkg{white-space:pre-wrap;word-break:keep-all;margin:6px 0 10px;font:inherit;font-size:13.5px;background:rgba(0,0,0,0.03);padding:10px 12px;border-radius:8px;border:1px solid var(--line)}
+.film.ours figure{border-color:rgba(56,189,248,0.3)}
 .film.ours img{border-color:var(--accent)}
-.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;border:1px solid var(--line);max-width:420px}
+.bar{display:flex;height:16px;border-radius:8px;overflow:hidden;border:1px solid var(--line);max-width:460px;margin:8px 0}
 .bar span:first-child{background:var(--accent)}.bar span:last-child{background:var(--line)}
 @media (max-width:700px){.sheet-row{grid-template-columns:minmax(0,1fr)}}
 </style>`;
-const STAGE_KO = {draft: '초안', approved: '승인', published: '공개', measured: '성적 입력됨'};
+const STAGE_KO = { draft: '초안', approved: '승인', published: '공개', measured: '성적 입력됨' };
 
 /** 경쟁 영상의 설명글·태그(리포트에 저장된 값 그대로). 오래된 리포트는 아직 저장 전이라고 밝힌다. */
 function packageCompetitor(report) {
@@ -250,7 +266,7 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
   const compDur = Number(report?.windowSeconds) || Number(report?.meta?.durationSeconds) || 0;
   const bar = (list, dur, cls) => `<div class="timeline">${list.map((t) => `<span class="tick ${cls}" style="left:${Math.min(100, (Number(t) / dur) * 100)}%"></span>`).join('')}</div>`;
   const parts = ['<div class="sheet-label">컷 리듬</div>'];
-  if (Array.isArray(times) && compDur > 0) parts.push(`<div class="tl-label">경쟁 ${cutCountLabel({count: times.length})} (1분에 ${report.pacing.perMinute ?? '측정 전'}번 · ${compDur}초 안)</div>${bar(times, compDur, 'comp')}`);
+  if (Array.isArray(times) && compDur > 0) parts.push(`<div class="tl-label">경쟁 ${cutCountLabel({ count: times.length })} (1분에 ${report.pacing.perMinute ?? '측정 전'}번 · ${compDur}초 안)</div>${bar(times, compDur, 'comp')}`);
   else parts.push('<div class="tl-label">경쟁 컷 시각: 측정 전(캡처 채우기를 돌리면 생긴다)</div>');
   const ourTimes = Array.isArray(plan?.cuts) && plan.cuts.length ? plan.cuts.map((c) => Number(c.t)) : (plan?.times || []);
   if (ourTimes.length) {
@@ -271,7 +287,7 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
 }
 
 /** assetVersion: 그림 파일의 수정 시각. 주소 끝에 ?v=를 붙여 그림을 다시 만들면 브라우저가 옛 파일(캐시)을 쓰지 않게 한다. */
-const METRIC_NAMES = {views7d: '조회수', watchSeconds7d: '평균 시청 시간', subs7d: '구독 수', stayedToWatch: '계속 시청함(%)'};
+const METRIC_NAMES = { views7d: '조회수', watchSeconds7d: '평균 시청 시간', subs7d: '구독 수', stayedToWatch: '계속 시청함(%)' };
 /** 가져온 것에 쌓인 근거 기록(영상이 나온 뒤 결과가 더해진다). 없으면 아직 시험 전이라고 밝힌다. */
 export function evidenceHtml(b) {
   const log = b?.evidenceLog || [];
@@ -284,9 +300,9 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   const ver = (url) => (assetVersion ? `${url}?v=${encodeURIComponent(assetVersion)}` : url);
   const frameByT = new Map((report?.frames || []).map((f) => [String(f.t), f.file]));
   const competitorImg = (token) => {
-    if (token === 'thumbnail') return report?.meta?.thumbnail ? `<img style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid #888" src="${escapeHtml(report.meta.thumbnail)}" alt="경쟁 썸네일">` : '';
+    if (token === 'thumbnail') return report?.meta?.thumbnail ? `<img style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid var(--line)" src="${escapeHtml(report.meta.thumbnail)}" alt="경쟁 썸네일">` : '';
     const tm = String(token).match(/^thumb:(.+)$/);
-    if (tm) { const rr = refReports.find((x) => x.videoId === tm[1]); return rr?.thumbnail ? `<img loading="lazy" style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid #888" src="${escapeHtml(rr.thumbnail)}" title="${escapeHtml(rr.label)}" alt="경쟁 썸네일">` : ''; }
+    if (tm) { const rr = refReports.find((x) => x.videoId === tm[1]); return rr?.thumbnail ? `<img loading="lazy" style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid var(--line)" src="${escapeHtml(rr.thumbnail)}" title="${escapeHtml(rr.label)}" alt="경쟁 썸네일">` : ''; }
     const m = String(token).match(/^frame:(.+)$/);
     const file = m && frameByT.get(m[1]);
     return file ? `<img loading="lazy" src="${ver(`/outlier-frames/${id}/${escapeHtml(file)}`)}" alt="${escapeHtml(m[1])}초 화면">` : '';
@@ -294,20 +310,20 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   const oursUrl = (rel) => ver(`/transform-images/${id}/${escapeHtml(String(rel).replace(/^images\/[^/]+\//, ''))}`);
   const oursImg = (rel) => (rel ? `<img loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안">` : '');
   const stage = sheet.status === 'published' && sheet.outcome?.views7d != null ? 'measured' : sheet.status;
-  const share = sheet.identityShare || {ours: 0, competitor: 0};
+  const share = sheet.identityShare || { ours: 0, competitor: 0 };
   const parts = [
     '<p><a href="/transform-sheets">← 비교 시트 목록</a> · <a href="/outlier-report/' + id + '">근거 보기(경쟁 영상 리포트)</a> · <a href="/">대시보드</a></p>',
     SHEET_CSS,
     `<h1>비교 시트: ${escapeHtml(sheet.topic)}</h1>`,
-    `<div class="meta">경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)} (${escapeHtml(report?.meta?.channelTitle || '')}, 평소의 ${formatRatioLabel(report)}) · 형식 ${escapeHtml(sheet.format)} · 상태 ${escapeHtml(STAGE_KO[stage] || stage)}</div>`,
+    `<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 12px"><span class="pill-badge">${escapeHtml(sheet.format)}</span> · <span>경쟁 영상: <b>${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</b></span> · <span>${escapeHtml(report?.meta?.channelTitle || '')}</span> · <span style="color:var(--accent-amber);font-weight:700">평소의 ${formatRatioLabel(report)}</span> · <span class="pill-badge" style="background:rgba(52,211,153,0.12);color:var(--ok);border-color:rgba(52,211,153,0.3)">상태: ${escapeHtml(STAGE_KO[stage] || stage)}</span></div>`,
     (sheet.rows || []).some((x) => x.origin) ? (() => { const o = { competitor: 0, mixed: 0, ours: 0 }; for (const x of sheet.rows || []) if (o[x.origin] !== undefined) o[x.origin] += 1; const n = o.competitor + o.mixed + o.ours || 1; return `<p>행별 출처 <b>경쟁 구조 ${o.competitor} · 섞음 ${o.mixed} · 우리가 새로 만듦 ${o.ours}</b> (총 ${n}행) — 사람이 정한 비율이 아니라 아래 각 행에 적은 출처를 센 값이다.</p><div class="bar"><span style="width:${(o.ours / n) * 100}%"></span><span style="width:${(o.mixed / n) * 100}%;background:var(--accent-amber)"></span><span style="width:${(o.competitor / n) * 100}%"></span></div>`; })() : `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
   ];
   for (const p of problems) parts.push(`<div class="warn">⚠ ${escapeHtml(p)}</div>`);
   if ((sheet.testVariables || []).length) {
     parts.push('<h2>이번에 시험하는 변수</h2>');
-    for (const v of sheet.testVariables) parts.push(`<div class="card"><b>${escapeHtml(v.variable)}</b> · 보는 지표: ${escapeHtml(v.measure)}<div>왜 이렇게 될 것 같은가(가설): ${escapeHtml(v.hypothesis)}</div></div>`);
+    for (const v of sheet.testVariables) parts.push(`<div class="card" style="border-left:3px solid var(--accent);background:linear-gradient(135deg,rgba(56,189,248,0.06),rgba(168,85,247,0.06))"><div style="font-size:14.5px"><b>🧪 ${escapeHtml(v.variable)}</b> · <span class="pill-badge">보는 지표: ${escapeHtml(v.measure)}</span></div><div class="q" style="margin-top:8px"><b>왜 이렇게 될 것 같은가(가설)</b>: ${escapeHtml(v.hypothesis)}</div></div>`);
   }
-  parts.push('<div class="sheet-row" style="margin-top:18px"><div class="sheet-col"><b>경쟁 콘텐츠(이미 출시)</b></div><div class="sheet-col ours"><b>우리가 만들 콘텐츠</b></div></div>');
+  parts.push('<div class="sheet-row" style="margin-top:20px;font-size:14px"><div class="sheet-col" style="background:rgba(255,255,255,0.03)"><b style="color:var(--sub)">🏛️ 경쟁 콘텐츠 (이미 출시)</b></div><div class="sheet-col ours"><b style="color:var(--accent)">🚀 우리가 만들 콘텐츠 (새 제작안)</b></div></div>');
   for (const r of sheet.rows || []) {
     const comp = (r.competitor?.images || []).map(competitorImg).join('');
     const picks = new Set(sheet.thumbnailPicks || []);
@@ -325,17 +341,18 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
 </div>${thumbs.length ? `<div class="thumbbox">${thumbs.map((rel) => `<label class="pick"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`).join('')}</div>` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports) : ''}`);
   }
   parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');
-  for (const b of sheet.borrowed || []) parts.push(`<div class="card"><b>${escapeHtml(b.what)}</b> <a href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">(${escapeHtml(b.fromVideoId)})</a><div>가져와도 되는 이유: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div>${evidenceHtml(b)}</div>`);
+  for (const b of sheet.borrowed || []) parts.push(`<div class="card" style="border-left:3px solid var(--ok);background:rgba(52,211,153,0.03)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span style="color:var(--ok)">✓</span> ${escapeHtml(b.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">출처: ${escapeHtml(b.fromVideoId)} ↗</a></div><div style="margin-top:8px"><b>가져와도 되는 이유</b>: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div>${(b.appliedTo || []).length ? `<div class="q" style="border-left-color:var(--ok)"><b>적용한 곳</b>: ${b.appliedTo.map((x) => escapeHtml(x)).join(' · ')}</div>` : ''}${evidenceHtml(b)}</div>`);
+  for (const b of sheet.sourceApplied || []) parts.push(`<div class="card" style="border-left:3px solid var(--ok);background:rgba(52,211,153,0.03)"><b><span style="color:var(--ok)">✓</span> 원본에서 가져온 것: ${escapeHtml(b.what)}</b><div style="margin-top:8px"><b>가져온 이유</b>: ${escapeHtml(b.reason)}</div><div class="q" style="border-left-color:var(--ok)"><b>적용한 곳</b>: ${(b.appliedTo || []).map((x) => escapeHtml(x)).join(' · ')}</div></div>`);
   parts.push('<h2>안 맞아서 뺀 것</h2>');
   if (!(sheet.rejected || []).length) parts.push('<p class="meta">없음</p>');
-  for (const r of sheet.rejected || []) parts.push(`<div class="card"><b>${escapeHtml(r.what)}</b> <a href="/outlier-report/${encodeURIComponent(r.fromVideoId)}">(${escapeHtml(r.fromVideoId)})</a><div>뺀 이유: ${escapeHtml(r.reason)}</div></div>`);
+  for (const r of sheet.rejected || []) parts.push(`<div class="card" style="border-left:3px solid var(--bad);background:rgba(248,113,113,0.03)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span style="color:var(--bad)">✗</span> ${escapeHtml(r.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(r.fromVideoId)}">출처: ${escapeHtml(r.fromVideoId)} ↗</a></div><div style="margin-top:8px"><b>뺀 이유</b>: ${escapeHtml(r.reason)}</div></div>`);
   if (Array.isArray(sheet.glossary) && sheet.glossary.length) {
     parts.push('<h2>용어 풀이 (경쟁 영상의 전문용어 → 쉬운 말)</h2>');
-    for (const g of sheet.glossary) parts.push(`<div class="card"><b>${escapeHtml(g.term)}</b> → ${escapeHtml(g.plain)}</div>`);
+    for (const g of sheet.glossary) parts.push(`<div class="card" style="display:flex;align-items:center;gap:12px"><b style="color:var(--bad)">${escapeHtml(g.term)}</b> <span style="color:var(--sub)">➔</span> <b style="color:var(--ok)">${escapeHtml(g.plain)}</b></div>`);
   }
   if (sheet.pending?.length) {
     parts.push('<h2>대본 전에 확인할 것</h2>');
-    for (const t of sheet.pending) parts.push(`<div class="card">${escapeHtml(t)}</div>`);
+    for (const t of sheet.pending) parts.push(`<div class="card" style="border-left:3px solid var(--accent-amber);background:rgba(245,158,11,0.04)">${escapeHtml(t)}</div>`);
   }
   parts.push(`<script>document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset||(!t.dataset.pick&&!t.dataset.pickTitle))return;fetch('/api/transform-sheet-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:${JSON.stringify(sheet.sourceVideoId)},kind:t.dataset.pickTitle?'title':'thumbnail',image:t.dataset.pick||t.dataset.pickTitle,picked:t.checked})}).then(function(r){if(!r.ok){t.checked=!t.checked;alert('저장하지 못했습니다');}}).catch(function(){t.checked=!t.checked;alert('저장하지 못했습니다');});});</script>`);
   if ((sheet.results || []).length) {
@@ -346,12 +363,12 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   return page(`비교 시트 ${sheet.topic}`, parts.join('\n'));
 }
 
-const ROW_LABELS_VIEW = {title: '제목', thumbnail: '썸네일', opening: '첫 15초', flow: '전개', visual: '화면 연출', reaction: '시청자 반응 지점', ending: '끝맺음', package: '설명글·태그·고정 댓글'};
+const ROW_LABELS_VIEW = { title: '제목', thumbnail: '썸네일', opening: '첫 15초', flow: '전개', visual: '화면 연출', reaction: '시청자 반응 지점', ending: '끝맺음', package: '설명글·태그·고정 댓글' };
 
 export function renderTransformSheetIndex(items = []) {
-  const cards = items.map(({sheet, report}) => {
+  const cards = items.map(({ sheet, report }) => {
     const stage = sheet.status === 'published' && sheet.outcome?.views7d != null ? 'measured' : sheet.status;
-    return `<div class="card"><a href="/transform-sheet/${encodeURIComponent(sheet.sourceVideoId)}"><b>${escapeHtml(sheet.topic)}</b></a><div class="meta">${escapeHtml(STAGE_KO[stage] || stage)} · ${escapeHtml(sheet.format)} · 경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</div></div>`;
+    return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><a href="/transform-sheet/${encodeURIComponent(sheet.sourceVideoId)}"><b style="font-size:16px">${escapeHtml(sheet.topic)}</b></a><div class="meta" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill-badge">${escapeHtml(STAGE_KO[stage] || stage)}</span> · <span class="pill-badge" style="background:rgba(255,255,255,0.05);color:var(--sub);border-color:var(--line)">${escapeHtml(sheet.format)}</span> · <span>경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</span></div></div>`;
   });
   return page('비교 시트', `<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">근거(경쟁 영상 리포트 목록)</a></p><h1>비교 시트 ${items.length}장</h1><p class="meta">경쟁 영상 리포트를 우리 콘텐츠로 바꾼 한 장. 좌우로 비교하고, 다른 경쟁 영상에서 가져온 것과 뺀 것을 이유와 함께 남긴다. 실패·기각도 데이터로 쌓는다.</p>${cards.join('\n') || '<p class="meta">아직 없음</p>'}`);
 }
@@ -367,6 +384,6 @@ export function renderReportIndex(reports = [], { links = new Map() } = {}) {
   const linked = (r) => (links.get(r.videoId) || []).length > 0;
   const sorted = [...reports].sort((a, b) => Number(linked(b)) - Number(linked(a)) || ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
   const linkedCount = sorted.filter(linked).length;
-  const items = sorted.map((r) => `<div class="card"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b>${escapeHtml(r.meta?.title)}</b><br><span class="meta">${escapeHtml(r.meta?.channelTitle)} ${sheetBadgeHtml(links.get(r.videoId))} · 채널 평소 대비 ${formatRatioLabel(r)} · 장면 전환 ${cutCountLabel(r.pacing)} · AI가 적은 화면 변화 ${(r.analysis?.visualMoments || []).length}개 · 캡처 ${(r.frames || []).length}장 · 인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0} · 분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></a></div>`);
+  const items = sorted.map((r) => `<div class="card" style="padding:14px"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b style="font-size:15px">${escapeHtml(r.meta?.title)}</b><br><span class="meta" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px"><span class="pill-badge">${escapeHtml(r.meta?.channelTitle)}</span>${sheetBadgeHtml(links.get(r.videoId))} · <span style="color:var(--accent-amber);font-weight:700">채널 평소 대비 ${formatRatioLabel(r)}</span> · <span>장면 전환 ${cutCountLabel(r.pacing)}</span> · <span>AI 화면 변화 ${(r.analysis?.visualMoments || []).length}개</span> · <span>캡처 ${(r.frames || []).length}장</span> · <span>인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0}</span> · <span>분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></span></a></div>`);
   return page('아웃라이어 리포트', `<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">📝 비교 시트에 쓰인 영상 ${linkedCount}편은 맨 위에 보라색 배지와 함께 모여 있다(원본 = 시트의 출발 영상, 가져온 출처 = 다른 영상에서 가져온 것의 출처). <a href="/transform-sheets">비교 시트 목록 →</a></p><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
 }

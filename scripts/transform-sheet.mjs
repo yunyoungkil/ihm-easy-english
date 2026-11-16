@@ -50,6 +50,32 @@ export function sheetOrigins(sheet) {
   for (const r of sheet?.rows || []) if (ORIGINS.includes(r?.origin)) { out[r.origin] += 1; out.total += 1; }
   return out;
 }
+/**
+ * 가져온 것이 "어디에 쓰였는지"(appliedTo)를 적게 한다(2026-11-16 사용자: 근거로 가져왔으면 썸네일·화면·제목에 꼭 적용해야지, 보여주기식이면 쓸모없다).
+ * 표기: cut:N(컷 번호, 0부터), thumb:A(썸네일 시안 글자), title:N(제목 후보 번호, 1부터), row:key(행). 실제로 있는 것만 통과한다.
+ */
+export function appliedProblems(sheet) {
+  const out = [];
+  if (!usesRowOrigins(sheet)) return out;
+  const cuts = (sheet.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan?.cuts || [];
+  const thumbs = (sheet.rows || []).find((r) => r.key === 'thumbnail')?.ours?.images || [];
+  const titles = (sheet.rows || []).find((r) => r.key === 'title')?.ours?.titles || [];
+  const check = (token, where) => {
+    const m = String(token).match(/^(cut|thumb|title|row):(.+)$/);
+    if (!m) return out.push(`${where}: 적용한 곳 "${token}"의 형식이 cut:N / thumb:A / title:N / row:key가 아니다`);
+    const [, kind, v] = m;
+    if (kind === 'cut' && !(Number.isInteger(Number(v)) && Number(v) >= 0 && Number(v) < cuts.length)) out.push(`${where}: 컷 ${v}번은 없다(컷 ${cuts.length}개)`);
+    if (kind === 'thumb' && !thumbs.some((p) => p.endsWith(`thumb-${v}.jpg`))) out.push(`${where}: 썸네일 시안 ${v}가 없다`);
+    if (kind === 'title' && !(Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= titles.length)) out.push(`${where}: 제목 후보 ${v}번은 없다`);
+    if (kind === 'row' && !(sheet.rows || []).some((r) => r.key === v)) out.push(`${where}: 행 ${v}이 없다`);
+  };
+  const items = [...(sheet.borrowed || []).map((b) => [`가져온 것(${String(b.what).slice(0, 18)})`, b.appliedTo]), ...(sheet.sourceApplied || []).map((b) => [`원본에서 가져온 것(${String(b.what).slice(0, 18)})`, b.appliedTo])];
+  for (const [where, applied] of items) {
+    if (!Array.isArray(applied) || !applied.length) out.push(`${where}: 어디에 적용했는지(appliedTo)가 없다 — 보여주기식으로 가져오면 안 된다`);
+    else applied.forEach((tk) => check(tk, where));
+  }
+  return out;
+}
 export const STATUSES = Object.freeze(['draft', 'approved', 'published']);
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -189,7 +215,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   for (const r of sheet?.rejected || []) {
     if (!filled(r.reason)) problems.push(`뺀 것(${String(r.what).slice(0, 20)})에 뺀 이유가 없다`);
   }
-  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet));
+  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet), ...appliedProblems(sheet));
   return problems;
 }
 

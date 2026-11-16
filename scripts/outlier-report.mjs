@@ -9,7 +9,7 @@
 // (3) 장면 전환 간격은 AI 대신 코드가 계산하고, (4) 화면 변화 순간은 캡처 띠로 남겨 사람이 눈으로 확인한다.
 //
 // 저장: data/youtube/outlier-reports/<videoId>.json (깃에 올림)
-//       data/youtube/outlier-frames/<videoId>/<초>.jpg (내 PC에만, 경쟁 영상 화면이라 깃에 안 올림)
+//       data/youtube/outlier-frames/<videoId>/<초>.jpg (2026-11-16부터 깃으로 동기화, 빠진 것은 --ensure-frames가 채움)
 // 실행: node scripts/outlier-report.mjs <영상ID> [<영상ID> ...]
 import {readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync, mkdtempSync} from 'node:fs';
 import {tmpdir} from 'node:os';

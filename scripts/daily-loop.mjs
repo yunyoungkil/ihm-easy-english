@@ -322,7 +322,7 @@ async function run() {
     });
   }
 
-  // 다른 PC가 만든 리포트의 캡처는 깃으로 오지 않으므로 이 PC에서 빠진 것을 채운다(Gemini 안 부름).
+  // 다른 PC가 만든 리포트의 캡처가 깃으로 오기 전 리포트 등 빠진 것을 이 PC에서 채운다(Gemini 안 부름).
   await step('outlierFrames', async () => {
     const {ensureAllFrames} = await import('./outlier-report.mjs');
     const result = await ensureAllFrames({install: true});

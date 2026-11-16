@@ -92,8 +92,8 @@ data/youtube/daily-loop-server.log
 data/youtube/thumb-feed-cache.json
 data/youtube/daily-loop.json
 
-# 경쟁 영상 화면 캡처(합친 아웃라이어 리포트, 2026-11-12) — 저작권·용량 때문에 이 PC에만 둔다
-data/youtube/outlier-frames/
+# 경쟁 영상 화면 캡처(합친 아웃라이어 리포트, 2026-11-12)는 처음엔 저작권·용량 때문에 이 PC에만 뒀으나, 다른 PC에서 다시 만들기가 조용히 실패해 그림이 안 나왔다.
+# 2026-11-16 사용자 결정: 비공개 저장소·6.3MB라 깃에 올린다(매일 루프 dataSync가 올린다). 이 줄을 지우고 올림.
 
 # 스튜디오 조사 목록 전체 줄(2026-11-14) — 거르기 규칙을 다시 돌리는 용도, 이 PC에만 둔다
 data/youtube/studio-research-raw.json

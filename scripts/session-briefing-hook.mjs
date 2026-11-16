@@ -39,7 +39,7 @@ const readNextActions = () =>
 // 커밋 전 자동 검사(.githooks)는 PC마다 켜야 해서 대화를 시작할 때마다 맞춘다(2026-11-12).
 ensureGitHooks();
 
-// 아웃라이어 리포트 캡처는 깃에 올리지 않아 PC마다 만든다(2026-11-12 사용자: 다른 PC에서도 작업한다).
+// 아웃라이어 리포트 캡처는 깃으로 오지만 빠진 것은 PC에서 채운다(2026-11-12 사용자: 다른 PC에서도 작업한다).
 // 몇 분 걸릴 수 있어 대화 시작을 기다리게 하지 않고 따로 띄운다. 없으면 yt-dlp 설치도 시도한다.
 try {
   spawn(process.execPath, [join(projectDir, 'scripts', 'outlier-report.mjs'), '--ensure-frames', '--install'], {cwd: projectDir, detached: true, stdio: 'ignore', windowsHide: true}).unref();

@@ -6135,7 +6135,7 @@ const server = createServer(async (req, res) => {
       res.end(pageHtml.replace('<script>', () => '<script>' + String.fromCharCode(10) + clientVideoFormatSource + String.fromCharCode(10)));
       return;
     }
-    // 합친 아웃라이어 리포트 화면(읽기 전용, 2026-11-12). 캡처는 깃에 올리지 않아 PC마다 만든다 —
+    // 합친 아웃라이어 리포트 화면(읽기 전용, 2026-11-12). 캡처는 2026-11-16부터 깃으로 동기화된다 —
     // 빠진 캡처가 있으면 서버가 뒤에서 하나씩 만들고 화면은 안내를 띄운 뒤 스스로 새로고침한다.
     if (url.pathname === '/outlier-reports') {
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});

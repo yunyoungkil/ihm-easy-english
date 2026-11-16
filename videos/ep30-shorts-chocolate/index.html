@@ -12,8 +12,8 @@ body{font-family:'Noto Sans KR',sans-serif;color:#111}
 #root{position:relative;width:100%;height:100%;overflow:hidden;background:#F1ECE4}
 .clip{position:absolute;inset:0}
 .scn{position:absolute;inset:0}
-.zoom{position:absolute;inset:0;transform-origin:50% 50%}
-.card{position:absolute;left:40px;top:240px;width:980px;height:1290px;box-sizing:border-box;border:10px solid #000;border-radius:56px;background:#fff;box-shadow:24px 24px 0 #000}
+.zoom{position:absolute;inset:0;transform-origin:530px 910px}
+.card{position:absolute;left:40px;top:360px;width:980px;height:1100px;box-sizing:border-box;border:10px solid #000;border-radius:56px;background:#fff;box-shadow:24px 24px 0 #000}
 .stack{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px}
 .word{display:flex;justify-content:center;white-space:nowrap;font-weight:900;line-height:1.5;letter-spacing:-0.01em;color:#111;-webkit-text-stroke:0.025em currentcolor}
 .ch{display:block;position:relative}
@@ -33,61 +33,73 @@ body{font-family:'Noto Sans KR',sans-serif;color:#111}
 .hl1 .hlbg{left:0;right:0}
 .am,.al{display:inline-block;overflow:visible}
 .al{white-space:nowrap}
-.pill{box-sizing:border-box;background:#F5C518;border:10px solid #000;border-radius:90px;box-shadow:12px 12px 0 #000;padding:26px 56px;display:flex;flex-direction:column;align-items:center;font-weight:900;font-size:54px;line-height:1.3;color:#111}
+.pill{box-sizing:border-box;background:#F5C518;border:10px solid #000;border-radius:90px;box-shadow:12px 12px 0 #000;padding:26px 56px;display:flex;flex-direction:column;align-items:center;font-weight:900;font-size:66px;line-height:1.3;color:#111}
 .pill span{display:block;white-space:nowrap}
-.rows{display:flex;flex-direction:column;width:880px}
-.rr{display:grid;grid-template-columns:400px 90px 390px;align-items:center;height:150px;border-top:6px solid #000;box-sizing:border-box}
-.rr .rw{-webkit-text-stroke:0.02em currentcolor;font-weight:900;font-size:64px;white-space:nowrap;text-align:left;color:#111}
+.rows{display:flex;flex-direction:column;width:900px}
+.rr{display:grid;grid-template-columns:410px 80px 410px;align-items:center;height:170px;border-top:6px solid #000;box-sizing:border-box}
+.rr .rw{-webkit-text-stroke:0.02em currentcolor;font-weight:900;font-size:74px;white-space:nowrap;text-align:left;color:#111}
 .rr .ar{justify-self:center}
-.rr .rs{font-weight:900;font-size:80px;white-space:nowrap;text-align:right;color:#111}
-.qm{width:170px;height:170px;box-sizing:border-box;border:10px solid #000;border-radius:50%;background:#E8212E;box-shadow:12px 12px 0 #000;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:110px;line-height:1}
+.rr .rs{font-weight:900;font-size:92px;white-space:nowrap;text-align:right;color:#111}
+.qm{width:200px;height:200px;box-sizing:border-box;border:10px solid #000;border-radius:50%;background:#E8212E;box-shadow:12px 12px 0 #000;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:130px;line-height:1}
 .qm span{display:block}
+.ctg span{display:block;white-space:nowrap}
+#hook{position:absolute;left:0;top:0;width:1080px;height:330px;background:#111111;z-index:50}
+#hook .hl{position:absolute;left:0;right:0;top:110px;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#hook .hl span{display:block;white-space:nowrap;font-size:80px;font-weight:900;line-height:100px;color:#fff}
+#hook b{color:#F5C518;font-weight:900}
+#foot{position:absolute;left:0;top:1500px;width:1080px;height:420px;background:#111111;z-index:50}
+#foot .dots{position:absolute;left:0;right:0;top:64px;display:flex;justify-content:center;gap:36px}
+#foot .dot{width:32px;height:32px;box-sizing:border-box;border-radius:50%;border:4px solid #fff;background:#111111}
+#foot .dot.on{background:#F5C518;border-color:#F5C518}
+#foot .src{position:absolute;left:0;right:0;top:174px;font-size:40px;line-height:52px;font-weight:700;color:#BDBDBD;text-align:center;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="71.08" data-width="1080" data-height="1920">
 <div class="clip" id="scene-00" data-start="0" data-duration="3.64" data-track-index="10">
-  <div class="zoom" id="c0-zoom"><div class="card" id="c0-card"><div class="stack"><div class="word" id="c0-w" style="font-size:144px"><span class="ch">c</span><span class="ch">h</span><span class="ch">o</span><span class="ch">c</span><span class="ch">o</span><span class="ch">l</span><span class="ch">a</span><span class="ch">t</span><span class="ch">e</span></div><div class="pill" id="c0-pl"><span>초콜릿, 어떻게</span><span>읽으세요?</span></div></div></div></div>
+  <div class="zoom" id="c0-zoom"><div class="card" id="c0-card"><div class="stack"><div class="word" id="c0-w" style="font-size:179px"><span class="ch">c</span><span class="ch">h</span><span class="ch">o</span><span class="ch">c</span><span class="ch">o</span><span class="ch">l</span><span class="ch">a</span><span class="ch">t</span><span class="ch">e</span></div><div class="pill" id="c0-pl"><span>초콜릿, 어떻게</span><span>읽으세요?</span></div></div></div></div>
 </div>
 <div class="clip" id="scene-01" data-start="3.39" data-duration="7.13" data-track-index="11">
-  <div class="zoom" id="c1-zoom"><div class="card" id="c1-card"><div class="stack"><div class="word" id="c1-w" style="font-size:128px"><span class="ch">c</span><span class="ch">h</span><span class="ch">o</span><span class="ch">c</span><span class="ch">o</span><span class="ch">l</span><span class="ch">a</span><span class="ch">t</span><span class="ch">e</span></div><div class="wr" id="c1-wr"><div class="ko red" style="font-size:130px">초콜릿</div><svg class="xx" id="c1-x" width="110" height="130" viewBox="0 0 110 130"><path pathLength="1" d="M12 12 L98 118"/><path pathLength="1" d="M98 12 L12 118"/></svg></div><svg class="ar" id="c1-ar" width="90" height="120" viewBox="0 0 90 120"><path pathLength="1" d="M45 6 V104"/><path pathLength="1" d="M16 76 L45 108 L74 76"/></svg><div class="ko sd" id="c1-sd" style="font-size:150px"><span class="hlc">초</span><span class="hlc"><b class="hlbg"></b><span class="hlt">클</span></span><span class="hlc">릿</span></div></div></div></div>
+  <div class="zoom" id="c1-zoom"><div class="card" id="c1-card"><div class="stack"><div class="word" id="c1-w" style="font-size:150px"><span class="ch">c</span><span class="ch">h</span><span class="ch">o</span><span class="ch">c</span><span class="ch">o</span><span class="ch">l</span><span class="ch">a</span><span class="ch">t</span><span class="ch">e</span></div><div class="wr" id="c1-wr"><div class="ko red" style="font-size:150px">초콜릿</div><svg class="xx" id="c1-x" width="110" height="130" viewBox="0 0 110 130"><path pathLength="1" d="M12 12 L98 118"/><path pathLength="1" d="M98 12 L12 118"/></svg></div><svg class="ar" id="c1-ar" width="90" height="120" viewBox="0 0 90 120"><path pathLength="1" d="M45 6 V104"/><path pathLength="1" d="M16 76 L45 108 L74 76"/></svg><div class="ko sd" id="c1-sd" style="font-size:190px"><span class="hlc">초</span><span class="hlc"><b class="hlbg"></b><span class="hlt">클</span></span><span class="hlc">릿</span></div></div></div></div>
 </div>
 <div class="clip" id="scene-02" data-start="10.27" data-duration="6.17" data-track-index="10">
-  <div class="zoom" id="c2-zoom"><div class="card" id="c2-card"><div class="stack"><div class="word" id="c2-w" style="font-size:144px"><span class="ch">c</span><span class="ch">h</span><span class="ch">o</span><span class="ch">c</span><span class="ch dr" id="c2-w-dr">o<i class="slash" id="c2-w-sl"></i></span><span class="ch">l</span><span class="ch">a</span><span class="ch">t</span><span class="ch">e</span></div><div class="ko sd" id="c2-sd" style="font-size:150px">초클릿</div><div class="pill" id="c2-pl"><span>빨리 말하면</span><span>거의 안 들려요</span></div></div></div></div>
+  <div class="zoom" id="c2-zoom"><div class="card" id="c2-card"><div class="stack"><div class="word" id="c2-w" style="font-size:179px"><span class="ch">c</span><span class="ch">h</span><span class="ch">o</span><span class="ch">c</span><span class="ch dr" id="c2-w-dr">o<i class="slash" id="c2-w-sl"></i></span><span class="ch">l</span><span class="ch">a</span><span class="ch">t</span><span class="ch">e</span></div><div class="ko sd" id="c2-sd" style="font-size:170px">초클릿</div><div class="pill" id="c2-pl"><span>빨리 말하면</span><span>거의 안 들려요</span></div></div></div></div>
 </div>
 <div class="clip" id="scene-03" data-start="16.19" data-duration="6.2" data-track-index="11">
-  <div class="zoom" id="c3-zoom"><div class="card" id="c3-card"><div class="stack"><div class="pill" id="c3-pl"><span>우리말도 줄여서 말해요</span></div><div class="ko" id="c3-a" style="font-size:140px"><span class="am">마</span><span class="al" id="c3-al" style="width:1em">음</span></div><svg class="ar" id="c3-ar" width="90" height="120" viewBox="0 0 90 120"><path pathLength="1" d="M45 6 V104"/><path pathLength="1" d="M16 76 L45 108 L74 76"/></svg><div class="ko hl1" id="c3-b" style="font-size:150px"><b class="hlbg" id="c3-hb"></b><span class="hlt">맘</span></div></div></div></div>
+  <div class="zoom" id="c3-zoom"><div class="card" id="c3-card"><div class="stack"><div class="pill" id="c3-pl"><span>우리말도 줄여서 말해요</span></div><div class="ko" id="c3-a" style="font-size:170px"><span class="am">마</span><span class="al" id="c3-al" style="width:1em">음</span></div><svg class="ar" id="c3-ar" width="90" height="120" viewBox="0 0 90 120"><path pathLength="1" d="M45 6 V104"/><path pathLength="1" d="M16 76 L45 108 L74 76"/></svg><div class="ko hl1" id="c3-b" style="font-size:190px"><b class="hlbg" id="c3-hb"></b><span class="hlt">맘</span></div></div></div></div>
 </div>
 <div class="clip" id="scene-04" data-start="22.14" data-duration="5.6" data-track-index="10">
-  <div class="zoom" id="c4-zoom"><div class="card" id="c4-card"><div class="stack"><div class="word" id="c4-w" style="font-size:144px"><span class="ch">v</span><span class="ch">e</span><span class="ch">g</span><span class="ch">e</span><span class="ch">t</span><span class="ch">a</span><span class="ch">b</span><span class="ch">l</span><span class="ch">e</span></div><div class="ko red" id="c4-wr" style="font-size:150px">베지터블</div></div></div></div>
+  <div class="zoom" id="c4-zoom"><div class="card" id="c4-card"><div class="stack"><div class="word" id="c4-w" style="font-size:179px"><span class="ch">v</span><span class="ch">e</span><span class="ch">g</span><span class="ch">e</span><span class="ch">t</span><span class="ch">a</span><span class="ch">b</span><span class="ch">l</span><span class="ch">e</span></div><div class="ko red" id="c4-wr" style="font-size:170px">베지터블</div></div></div></div>
 </div>
 <div class="clip" id="scene-05" data-start="27.49" data-duration="5.65" data-track-index="11">
-  <div class="zoom" id="c5-zoom"><div class="card" id="c5-card"><div class="stack"><div class="word" id="c5-w" style="font-size:144px"><span class="ch">v</span><span class="ch">e</span><span class="ch">g</span><span class="ch dr" id="c5-w-dr">e<i class="slash" id="c5-w-sl"></i></span><span class="ch">t</span><span class="ch">a</span><span class="ch">b</span><span class="ch">l</span><span class="ch">e</span></div><div class="ko sd" id="c5-sd" style="font-size:140px">베즈터블</div></div></div></div>
+  <div class="zoom" id="c5-zoom"><div class="card" id="c5-card"><div class="stack"><div class="word" id="c5-w" style="font-size:179px"><span class="ch">v</span><span class="ch">e</span><span class="ch">g</span><span class="ch dr" id="c5-w-dr">e<i class="slash" id="c5-w-sl"></i></span><span class="ch">t</span><span class="ch">a</span><span class="ch">b</span><span class="ch">l</span><span class="ch">e</span></div><div class="ko sd" id="c5-sd" style="font-size:170px">베즈터블</div></div></div></div>
 </div>
 <div class="clip" id="scene-06" data-start="32.89" data-duration="3.64" data-track-index="10">
-  <div class="zoom" id="c6-zoom"><div class="card" id="c6-card"><div class="stack"><div class="word" id="c6-w" style="font-size:144px"><span class="ch">d</span><span class="ch">i</span><span class="ch">f</span><span class="ch">f</span><span class="ch">e</span><span class="ch">r</span><span class="ch">e</span><span class="ch">n</span><span class="ch">t</span></div><div class="ko red" id="c6-wr" style="font-size:150px">디퍼런트</div></div></div></div>
+  <div class="zoom" id="c6-zoom"><div class="card" id="c6-card"><div class="stack"><div class="word" id="c6-w" style="font-size:179px"><span class="ch">d</span><span class="ch">i</span><span class="ch">f</span><span class="ch">f</span><span class="ch">e</span><span class="ch">r</span><span class="ch">e</span><span class="ch">n</span><span class="ch">t</span></div><div class="ko red" id="c6-wr" style="font-size:170px">디퍼런트</div></div></div></div>
 </div>
 <div class="clip" id="scene-07" data-start="36.28" data-duration="5.65" data-track-index="11">
-  <div class="zoom" id="c7-zoom"><div class="card" id="c7-card"><div class="stack"><div class="word" id="c7-w" style="font-size:144px"><span class="ch">d</span><span class="ch">i</span><span class="ch">f</span><span class="ch">f</span><span class="ch dr" id="c7-w-dr">e<i class="slash" id="c7-w-sl"></i></span><span class="ch">r</span><span class="ch">e</span><span class="ch">n</span><span class="ch">t</span></div><div class="ko sd" id="c7-sd" style="font-size:140px">디프런트</div></div></div></div>
+  <div class="zoom" id="c7-zoom"><div class="card" id="c7-card"><div class="stack"><div class="word" id="c7-w" style="font-size:179px"><span class="ch">d</span><span class="ch">i</span><span class="ch">f</span><span class="ch">f</span><span class="ch dr" id="c7-w-dr">e<i class="slash" id="c7-w-sl"></i></span><span class="ch">r</span><span class="ch">e</span><span class="ch">n</span><span class="ch">t</span></div><div class="ko sd" id="c7-sd" style="font-size:170px">디프런트</div></div></div></div>
 </div>
 <div class="clip" id="scene-08" data-start="41.68" data-duration="4.56" data-track-index="10">
-  <div class="zoom" id="c8-zoom"><div class="card" id="c8-card"><div class="stack"><div class="word" id="c8-w" style="font-size:160px"><span class="ch">m</span><span class="ch">e</span><span class="ch">m</span><span class="ch">o</span><span class="ch">r</span><span class="ch">y</span></div><div class="ko red" id="c8-wr" style="font-size:150px">메모리</div></div></div></div>
+  <div class="zoom" id="c8-zoom"><div class="card" id="c8-card"><div class="stack"><div class="word" id="c8-w" style="font-size:200px"><span class="ch">m</span><span class="ch">e</span><span class="ch">m</span><span class="ch">o</span><span class="ch">r</span><span class="ch">y</span></div><div class="ko red" id="c8-wr" style="font-size:170px">메모리</div></div></div></div>
 </div>
 <div class="clip" id="scene-09" data-start="45.99" data-duration="4.97" data-track-index="11">
-  <div class="zoom" id="c9-zoom"><div class="card" id="c9-card"><div class="stack"><div class="word" id="c9-w" style="font-size:160px"><span class="ch">m</span><span class="ch">e</span><span class="ch">m</span><span class="ch dr" id="c9-w-dr">o<i class="slash" id="c9-w-sl"></i></span><span class="ch">r</span><span class="ch">y</span></div><div class="ko sd" id="c9-sd" style="font-size:140px">멤리</div></div></div></div>
+  <div class="zoom" id="c9-zoom"><div class="card" id="c9-card"><div class="stack"><div class="word" id="c9-w" style="font-size:200px"><span class="ch">m</span><span class="ch">e</span><span class="ch">m</span><span class="ch dr" id="c9-w-dr">o<i class="slash" id="c9-w-sl"></i></span><span class="ch">r</span><span class="ch">y</span></div><div class="ko sd" id="c9-sd" style="font-size:170px">멤리</div></div></div></div>
 </div>
 <div class="clip" id="scene-10" data-start="50.71" data-duration="4.8" data-track-index="10">
   <div class="zoom" id="c10-zoom"><div class="card" id="c10-card"><div class="stack"><div class="pill" id="c10-pl"><span>빨리 말하면</span><span>거의 안 들려요</span></div><div class="rows"><div class="rr" id="c10-r0"><div class="rw">chocolate</div><svg class="ar" id="c10-a0" width="84" height="56" viewBox="0 0 84 56"><path pathLength="1" d="M6 28 H76"/><path pathLength="1" d="M50 6 L78 28 L50 50"/></svg><div class="rs">초클릿</div></div><div class="rr" id="c10-r1"><div class="rw">vegetable</div><svg class="ar" id="c10-a1" width="84" height="56" viewBox="0 0 84 56"><path pathLength="1" d="M6 28 H76"/><path pathLength="1" d="M50 6 L78 28 L50 50"/></svg><div class="rs">베즈터블</div></div><div class="rr" id="c10-r2"><div class="rw">different</div><svg class="ar" id="c10-a2" width="84" height="56" viewBox="0 0 84 56"><path pathLength="1" d="M6 28 H76"/><path pathLength="1" d="M50 6 L78 28 L50 50"/></svg><div class="rs">디프런트</div></div><div class="rr" id="c10-r3"><div class="rw">memory</div><svg class="ar" id="c10-a3" width="84" height="56" viewBox="0 0 84 56"><path pathLength="1" d="M6 28 H76"/><path pathLength="1" d="M50 6 L78 28 L50 50"/></svg><div class="rs">멤리</div></div></div></div></div></div>
 </div>
 <div class="clip" id="scene-11" data-start="55.26" data-duration="5.44" data-track-index="11">
-  <div class="zoom" id="c11-zoom"><div class="card" id="c11-card"><div class="stack"><div class="pill" id="c11-pl"><span>몇 마디로 읽을까요?</span></div><div class="word" id="c11-w" style="font-size:130px"><span class="ch">v</span><span class="ch">u</span><span class="ch">l</span><span class="ch">n</span><span class="ch">e</span><span class="ch">r</span><span class="ch">a</span><span class="ch">b</span><span class="ch">l</span><span class="ch">e</span></div><div class="qm" id="c11-q"><span>?</span></div></div></div></div>
+  <div class="zoom" id="c11-zoom"><div class="card" id="c11-card"><div class="stack"><div class="pill" id="c11-pl"><span>몇 마디로 읽을까요?</span></div><div class="word" id="c11-w" style="font-size:161px"><span class="ch">v</span><span class="ch">u</span><span class="ch">l</span><span class="ch">n</span><span class="ch">e</span><span class="ch">r</span><span class="ch">a</span><span class="ch">b</span><span class="ch">l</span><span class="ch">e</span></div><div class="qm" id="c11-q"><span>?</span></div></div></div></div>
 </div>
 <div class="clip" id="scene-12" data-start="60.45" data-duration="6.48" data-track-index="10">
-  <div class="zoom" id="c12-zoom"><div class="card" id="c12-card"><div class="stack"><div class="ko" id="c12-l0" style="font-size:140px">벌너러블?</div><div class="ko" id="c12-l1" style="font-size:140px">벌너블?</div><div class="pill" id="c12-pl"><span>사전 표기는</span><span>고정 댓글에서</span></div></div></div></div>
+  <div class="zoom" id="c12-zoom"><div class="card" id="c12-card"><div class="stack"><div class="ko ctg" id="c12-l0" style="font-size:125px"><span>벌너러블?</span></div><div class="ko ctg" id="c12-l1" style="font-size:125px"><span>벌너블?</span></div><div class="pill" id="c12-pl"><span>사전 표기는</span><span>고정 댓글에서</span></div></div></div></div>
 </div>
 <div class="clip" id="scene-13" data-start="66.68" data-duration="4.4" data-track-index="11">
-  <div class="zoom" id="c13-zoom"><div class="card" id="c13-card"><div class="stack"><div class="ko" id="c13-l0" style="font-size:83px">몇 마디로 들렸는지</div><div class="ko" id="c13-l1" style="font-size:83px">댓글로 알려 주세요</div></div></div></div>
+  <div class="zoom" id="c13-zoom"><div class="card" id="c13-card"><div class="stack"><div class="ko ctg" id="c13-l0" style="font-size:125px"><span>몇 마디로</span><span>들렸는지</span></div><div class="ko ctg" id="c13-l1" style="font-size:125px"><span>댓글로 알려</span><span>주세요</span></div></div></div></div>
 </div>
+<div id="hook"><div class="hl"><span>아는 단어 5개,</span><span>어디가 <b>거의 안 들릴까?</b></span></div></div>
+<div id="foot"><div class="dots"><i class="dot on" id="dot0"></i><i class="dot" id="dot1"></i><i class="dot" id="dot2"></i><i class="dot" id="dot3"></i><i class="dot" id="dot4"></i></div><div class="src">사전 표기: Merriam-Webster · Cambridge</div></div>
 <audio id="v01" src="assets/voice/n01.wav" data-start="0.3" data-duration="2.84" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
 <audio id="v02" src="assets/voice/n02.wav" data-start="3.49" data-duration="5.16" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
 <audio id="en02" src="assets/voice-en/chocolate-natural.wav" data-start="8.8" data-duration="1.12" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
@@ -239,6 +251,20 @@ tl.fromTo('#c12-l1',{opacity:0,y:50},{opacity:1,y:0,duration:0.4,ease:'power3.ou
 tl.fromTo('#c12-pl',{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.4,ease:'back.out(2.2)'},62.658);
 tl.fromTo('#c13-l0',{opacity:0,y:50},{opacity:1,y:0,duration:0.4,ease:'power3.out'},66.934);
 tl.fromTo('#c13-l1',{opacity:0,y:50},{opacity:1,y:0,duration:0.4,ease:'power3.out'},68.918);
+tl.to('#dot0',{backgroundColor:'#FFFFFF',borderColor:'#FFFFFF',duration:0.25,ease:'none'},22.14);
+tl.to('#dot1',{backgroundColor:'#F5C518',borderColor:'#F5C518',duration:0.25,ease:'none'},22.14);
+tl.to('#dot1',{backgroundColor:'#FFFFFF',borderColor:'#FFFFFF',duration:0.25,ease:'none'},32.89);
+tl.to('#dot2',{backgroundColor:'#F5C518',borderColor:'#F5C518',duration:0.25,ease:'none'},32.89);
+tl.to('#dot2',{backgroundColor:'#FFFFFF',borderColor:'#FFFFFF',duration:0.25,ease:'none'},41.68);
+tl.to('#dot3',{backgroundColor:'#F5C518',borderColor:'#F5C518',duration:0.25,ease:'none'},41.68);
+tl.to('#dot0',{backgroundColor:'#F5C518',borderColor:'#F5C518',duration:0.25,ease:'none'},50.71);
+tl.to('#dot1',{backgroundColor:'#F5C518',borderColor:'#F5C518',duration:0.25,ease:'none'},50.71);
+tl.to('#dot2',{backgroundColor:'#F5C518',borderColor:'#F5C518',duration:0.25,ease:'none'},50.71);
+tl.to('#dot0',{backgroundColor:'#FFFFFF',borderColor:'#FFFFFF',duration:0.25,ease:'none'},55.26);
+tl.to('#dot1',{backgroundColor:'#FFFFFF',borderColor:'#FFFFFF',duration:0.25,ease:'none'},55.26);
+tl.to('#dot2',{backgroundColor:'#FFFFFF',borderColor:'#FFFFFF',duration:0.25,ease:'none'},55.26);
+tl.to('#dot3',{backgroundColor:'#FFFFFF',borderColor:'#FFFFFF',duration:0.25,ease:'none'},55.26);
+tl.to('#dot4',{backgroundColor:'#F5C518',borderColor:'#F5C518',duration:0.25,ease:'none'},55.26);
 window.__timelines['main'] = tl;
 </script>
 </body>

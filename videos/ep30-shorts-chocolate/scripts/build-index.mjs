@@ -66,10 +66,10 @@ function cue(i, sub) {
 const T = (i, rel) => r3(V[i] + rel); // 컷 i 안의 상대 시각 -> 절대 시각
 
 // ---------- 화면 조각 ----------
-const fsFor = (len, maxW, cap) => Math.min(cap, Math.floor(maxW / (len * 0.66)));
+const fsFor = (len, maxW, cap) => Math.min(cap, Math.floor(maxW / (len * 0.56)));
 
-function splitPill(text) {
-  if (text.length <= 12) return [text];
+function splitPill(text, maxLen = 12) {
+  if (text.length <= maxLen) return [text];
   const mid = text.length / 2;
   let best = -1;
   [...text].forEach((ch, k) => {
@@ -123,7 +123,7 @@ const scenes = cuts.map((c, i) => {
   const sd = S[i];
   switch (c.template) {
     case 'hook': {
-      const fs = fsFor(c.word.length, 860, 170);
+      const fs = fsFor(c.word.length, 905, 200);
       body = wordHtml(`${p}-w`, c.word, fs) + pillHtml(`${p}-pl`, c.pill);
       // 글자는 0초부터 보이고(첫 프레임이 썸네일) 아래에서 한 글자씩 제자리로 올라온다
       add(`tl.fromTo('#${p}-w .ch',{y:70},{y:0,duration:0.4,ease:'back.out(1.8)',stagger:0.05},${r3(sd + 0.05)});`);
@@ -131,7 +131,7 @@ const scenes = cuts.map((c, i) => {
       break;
     }
     case 'contrast': {
-      const fs = fsFor(c.word.length, 820, 128);
+      const fs = fsFor(c.word.length, 905, 150);
       const sound = [...c.sound];
       const written = [...c.written];
       const diff = sound.map((ch, k) => written.length === sound.length && written[k] === ch ? 0 : 1);
@@ -140,9 +140,9 @@ const scenes = cuts.map((c, i) => {
         .join('');
       body =
         wordHtml(`${p}-w`, c.word, fs) +
-        `<div class="wr" id="${p}-wr"><div class="ko red" style="font-size:130px">${esc(c.written)}</div>${crossX(p + '-x')}</div>` +
+        `<div class="wr" id="${p}-wr"><div class="ko red" style="font-size:150px">${esc(c.written)}</div>${crossX(p + '-x')}</div>` +
         arrowDown(`${p}-ar`) +
-        `<div class="ko sd" id="${p}-sd" style="font-size:150px">${soundHtml}</div>`;
+        `<div class="ko sd" id="${p}-sd" style="font-size:190px">${soundHtml}</div>`;
       rise(`'#${p}-w'`, r3(sd + 0.15), 30);
       const tWr = T(i, cue(i, c.written));
       pop(`'#${p}-wr'`, tWr);
@@ -157,10 +157,10 @@ const scenes = cuts.map((c, i) => {
     case 'vowel-drop':
     case 'word-drop': {
       const isV = c.template === 'vowel-drop';
-      const fs = fsFor(c.word.length, 860, 160);
+      const fs = fsFor(c.word.length, 905, 200);
       body =
         wordHtml(`${p}-w`, c.word, fs, c.drop) +
-        `<div class="ko sd" id="${p}-sd" style="font-size:${isV ? 150 : 140}px">${esc(c.sound)}</div>` +
+        `<div class="ko sd" id="${p}-sd" style="font-size:170px">${esc(c.sound)}</div>` +
         (isV ? pillHtml(`${p}-pl`, c.pill) : '');
       rise(`'#${p}-w'`, r3(sd + 0.15), 30);
       let tDrop;
@@ -180,9 +180,9 @@ const scenes = cuts.map((c, i) => {
     case 'analogy': {
       body =
         pillHtml(`${p}-pl`, c.pill) +
-        `<div class="ko" id="${p}-a" style="font-size:140px"><span class="am">${esc(c.from[0])}</span><span class="al" id="${p}-al" style="width:1em">${esc(c.from.slice(1))}</span></div>` +
+        `<div class="ko" id="${p}-a" style="font-size:170px"><span class="am">${esc(c.from[0])}</span><span class="al" id="${p}-al" style="width:1em">${esc(c.from.slice(1))}</span></div>` +
         arrowDown(`${p}-ar`) +
-        `<div class="ko hl1" id="${p}-b" style="font-size:150px"><b class="hlbg" id="${p}-hb"></b><span class="hlt">${esc(c.to)}</span></div>`;
+        `<div class="ko hl1" id="${p}-b" style="font-size:190px"><b class="hlbg" id="${p}-hb"></b><span class="hlt">${esc(c.to)}</span></div>`;
       pop(`'#${p}-pl'`, T(i, cue(i, '우리말도')));
       rise(`'#${p}-a'`, T(i, cue(i, '마음을')), 40);
       draw(`'#${p}-ar path'`, r3(T(i, cue(i, '마음을')) + 0.55), 0.35);
@@ -194,8 +194,8 @@ const scenes = cuts.map((c, i) => {
       break;
     }
     case 'word-wrong': {
-      const fs = fsFor(c.word.length, 860, 160);
-      body = wordHtml(`${p}-w`, c.word, fs) + `<div class="ko red" id="${p}-wr" style="font-size:150px">${esc(c.written)}</div>`;
+      const fs = fsFor(c.word.length, 905, 200);
+      body = wordHtml(`${p}-w`, c.word, fs) + `<div class="ko red" id="${p}-wr" style="font-size:170px">${esc(c.written)}</div>`;
       rise(`'#${p}-w'`, r3(sd + 0.15), 30);
       const tWr = T(i, cue(i, c.written));
       pop(`'#${p}-wr'`, tWr);
@@ -220,7 +220,7 @@ const scenes = cuts.map((c, i) => {
       break;
     }
     case 'quiz': {
-      const fs = fsFor(c.word.length, 860, 150);
+      const fs = fsFor(c.word.length, 905, 200);
       body =
         pillHtml(`${p}-pl`, c.pill) +
         wordHtml(`${p}-w`, c.word, fs) +
@@ -239,12 +239,12 @@ const scenes = cuts.map((c, i) => {
       break;
     }
     case 'cta': {
-      const lines = c.text.split('\n');
-      const maxLen = Math.max(...lines.map((l) => [...l].length));
-      const fs = Math.min(140, Math.floor(820 / (maxLen * 0.98)));
+      const lines = c.text.split(String.fromCharCode(10));
+      const fs = 125; // 카드를 채우도록 크게. 긴 줄은 가운데 띄어쓰기에서 두 줄로 접는다(말 순서는 그대로)
       body =
-        lines.map((l, k) => `<div class="ko" id="${p}-l${k}" style="font-size:${fs}px">${esc(l)}</div>`).join('') +
-        (c.pill ? pillHtml(`${p}-pl`, c.pill) : '');
+        lines
+          .map((l, k) => `<div class="ko ctg" id="${p}-l${k}" style="font-size:${fs}px">${splitPill(l, 8).map((x) => `<span>${esc(x)}</span>`).join('')}</div>`)
+          .join('') + (c.pill ? pillHtml(`${p}-pl`, c.pill) : '');
       const cues =
         i === 12 ? ['벌너러블', '벌너블'] : i === 13 ? ['몇', '댓글로'] : (() => { throw new Error('cta 큐 없음'); })();
       lines.forEach((l, k) => rise(`'#${p}-l${k}'`, T(i, cue(i, cues[k])), 50));
@@ -268,6 +268,23 @@ const scenes = cuts.map((c, i) => {
 </div>`;
 });
 // head 줄을 장면 안에서 unshift했으므로 컷 순서가 뒤집혔다. 순서는 의미가 없다(모두 절대 시각).
+
+// ---------- 하단 점(단어 5개 진행 표시) ----------
+// 컷 -> 현재 단어 번호: 0~3=chocolate, 4~5=vegetable, 6~7=different, 8~9=memory, 10=네 단어 모두(recap), 11~13=vulnerable
+const WORD_OF_CUT = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, null, 4, 4, 4];
+const DOT_COLOR = { now: ['#F5C518', '#F5C518'], done: ['#FFFFFF', '#FFFFFF'], todo: ['#111111', '#FFFFFF'] };
+const dotState = (i) =>
+  [0, 1, 2, 3, 4].map((k) => {
+    if (WORD_OF_CUT[i] === null) return k <= 3 ? 'now' : 'todo';
+    return k < WORD_OF_CUT[i] ? 'done' : k === WORD_OF_CUT[i] ? 'now' : 'todo';
+  });
+for (let i = 1; i < 14; i++) {
+  const prev = dotState(i - 1);
+  dotState(i).forEach((st, k) => {
+    if (st === prev[k]) return;
+    js.push(`tl.to('#dot${k}',{backgroundColor:'${DOT_COLOR[st][0]}',borderColor:'${DOT_COLOR[st][1]}',duration:0.25,ease:'none'},${S[i]});`);
+  });
+}
 
 // ---------- 오디오 ----------
 const audio = [];
@@ -317,8 +334,8 @@ body{font-family:'Noto Sans KR',sans-serif;color:#111}
 #root{position:relative;width:100%;height:100%;overflow:hidden;background:#F1ECE4}
 .clip{position:absolute;inset:0}
 .scn{position:absolute;inset:0}
-.zoom{position:absolute;inset:0;transform-origin:50% 50%}
-.card{position:absolute;left:40px;top:240px;width:980px;height:1290px;box-sizing:border-box;border:10px solid #000;border-radius:56px;background:#fff;box-shadow:24px 24px 0 #000}
+.zoom{position:absolute;inset:0;transform-origin:530px 910px}
+.card{position:absolute;left:40px;top:360px;width:980px;height:1100px;box-sizing:border-box;border:10px solid #000;border-radius:56px;background:#fff;box-shadow:24px 24px 0 #000}
 .stack{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px}
 .word{display:flex;justify-content:center;white-space:nowrap;font-weight:900;line-height:1.5;letter-spacing:-0.01em;color:#111;-webkit-text-stroke:0.025em currentcolor}
 .ch{display:block;position:relative}
@@ -338,15 +355,25 @@ body{font-family:'Noto Sans KR',sans-serif;color:#111}
 .hl1 .hlbg{left:0;right:0}
 .am,.al{display:inline-block;overflow:visible}
 .al{white-space:nowrap}
-.pill{box-sizing:border-box;background:#F5C518;border:10px solid #000;border-radius:90px;box-shadow:12px 12px 0 #000;padding:26px 56px;display:flex;flex-direction:column;align-items:center;font-weight:900;font-size:54px;line-height:1.3;color:#111}
+.pill{box-sizing:border-box;background:#F5C518;border:10px solid #000;border-radius:90px;box-shadow:12px 12px 0 #000;padding:26px 56px;display:flex;flex-direction:column;align-items:center;font-weight:900;font-size:66px;line-height:1.3;color:#111}
 .pill span{display:block;white-space:nowrap}
-.rows{display:flex;flex-direction:column;width:880px}
-.rr{display:grid;grid-template-columns:400px 90px 390px;align-items:center;height:150px;border-top:6px solid #000;box-sizing:border-box}
-.rr .rw{-webkit-text-stroke:0.02em currentcolor;font-weight:900;font-size:64px;white-space:nowrap;text-align:left;color:#111}
+.rows{display:flex;flex-direction:column;width:900px}
+.rr{display:grid;grid-template-columns:410px 80px 410px;align-items:center;height:170px;border-top:6px solid #000;box-sizing:border-box}
+.rr .rw{-webkit-text-stroke:0.02em currentcolor;font-weight:900;font-size:74px;white-space:nowrap;text-align:left;color:#111}
 .rr .ar{justify-self:center}
-.rr .rs{font-weight:900;font-size:80px;white-space:nowrap;text-align:right;color:#111}
-.qm{width:170px;height:170px;box-sizing:border-box;border:10px solid #000;border-radius:50%;background:#E8212E;box-shadow:12px 12px 0 #000;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:110px;line-height:1}
+.rr .rs{font-weight:900;font-size:92px;white-space:nowrap;text-align:right;color:#111}
+.qm{width:200px;height:200px;box-sizing:border-box;border:10px solid #000;border-radius:50%;background:#E8212E;box-shadow:12px 12px 0 #000;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:130px;line-height:1}
 .qm span{display:block}
+.ctg span{display:block;white-space:nowrap}
+#hook{position:absolute;left:0;top:0;width:1080px;height:330px;background:#111111;z-index:50}
+#hook .hl{position:absolute;left:0;right:0;top:110px;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#hook .hl span{display:block;white-space:nowrap;font-size:80px;font-weight:900;line-height:100px;color:#fff}
+#hook b{color:#F5C518;font-weight:900}
+#foot{position:absolute;left:0;top:1500px;width:1080px;height:420px;background:#111111;z-index:50}
+#foot .dots{position:absolute;left:0;right:0;top:64px;display:flex;justify-content:center;gap:36px}
+#foot .dot{width:32px;height:32px;box-sizing:border-box;border-radius:50%;border:4px solid #fff;background:#111111}
+#foot .dot.on{background:#F5C518;border-color:#F5C518}
+#foot .src{position:absolute;left:0;right:0;top:174px;font-size:40px;line-height:52px;font-weight:700;color:#BDBDBD;text-align:center;white-space:nowrap}
 `;
 
 const html = `<!doctype html>
@@ -361,6 +388,8 @@ const html = `<!doctype html>
 <body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="${TOTAL}" data-width="1080" data-height="1920">
 ${scenes.join('\n')}
+<div id="hook"><div class="hl"><span>아는 단어 5개,</span><span>어디가 <b>거의 안 들릴까?</b></span></div></div>
+<div id="foot"><div class="dots"><i class="dot on" id="dot0"></i><i class="dot" id="dot1"></i><i class="dot" id="dot2"></i><i class="dot" id="dot3"></i><i class="dot" id="dot4"></i></div><div class="src">사전 표기: Merriam-Webster · Cambridge</div></div>
 ${audio.join('\n')}
 </div>
 <script>

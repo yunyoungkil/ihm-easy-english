@@ -54,8 +54,11 @@ export function decideSampleSize(impressions) {
 }
 
 const BRIEFING_INSTRUCTION = [
-  '[시작 브리핑] 이 대화의 첫 답변은 episode-planning 스킬의 Phase 0-C 시작 브리핑으로 연다.',
-  '절차는 .claude/skills/episode-planning/references/00-unblock-and-weekly.md 에 있다.',
+  '[시작 브리핑] 이 대화의 첫 답변은 episode-planning 0-C(Phase 0-C) 시작 브리핑으로 연다.',
+  '스킬 본문과 reference 문서는 열지 않는다 — 형식은 여기 다 있다(토큰 절약, 2026-11-16). 형식이 모호할 때만 .claude/skills/episode-planning/references/00-unblock-and-weekly.md 0-C절을 읽는다.',
+  '틀: 제목 줄 "**브리핑** (episode-planning 0-C · 동기화 시각, 통계 ~마지막 날)" 다음에 해당하는 줄만 평소 4~5줄, 많아도 7줄:',
+  '최근 7일(조회·구독, 지난주 대비) / 최근 공개 성적 / 쇼츠→롱폼 / 다음 공개 / 자동 루프 / 이번 주 할 일(급하지 않은 수리 줄은 아래 안내가 있을 때만 마지막에). 아래 재료에서 "줄을 쓰지 않는다"는 줄은 뺀다.',
+  '자동 루프가 고장이면 브리핑 직후 묻지 않고 그 부분만 고치고 알린다. 사용자 결정이 필요한 항목은 끝에 한 줄로 묻는다.',
   '사용자 요청이 함께 있으면 브리핑 바로 뒤에 처리하고, 승인을 기다리며 멈추지 않는다. 사용자가 빼라고 하면 생략한다.',
 ].join(' ');
 
@@ -78,11 +81,17 @@ export function extractNextActions(markdown) {
 // "(차차)"는 급하지 않은 수리 항목 표시다(2026-11-09 사용자 결정: 간단한 것은 바로 고치고 나머지는 브리핑에서 알려 차차 고친다).
 const SLOW_FIX_MARK = '(차차)';
 
+// 새 대화마다 전부 넘기면 22개 항목이 약 1만 토큰이다(2026-11-16). 앞 8개만, 항목당 260자까지 보여 주고 나머지는 now.md에서 필요할 때 읽는다.
+const MAX_ACTIONS_SHOWN = 8;
+const MAX_ACTION_CHARS = 260;
+const shortenAction = (text) => (text.length > MAX_ACTION_CHARS ? `${text.slice(0, MAX_ACTION_CHARS).trimEnd()}… (전문은 now.md)` : text);
+
 const nextActionLines = (actions) =>
   actions.length
     ? [
         '다음 할 일(knowledge/now.md, 급한 순서). 브리핑의 할 일 줄은 이 목록을 먼저 따르고, "사용자 결정" 항목은 브리핑 끝에 묻는다:',
-        ...actions.map((action, index) => `${index + 1}. ${action}`),
+        ...actions.slice(0, MAX_ACTIONS_SHOWN).map((action, index) => `${index + 1}. ${shortenAction(action)}`),
+        ...(actions.length > MAX_ACTIONS_SHOWN ? [`나머지 ${actions.length - MAX_ACTIONS_SHOWN}개는 knowledge/now.md "▶ 다음 할 일"에서 필요할 때만 읽는다.`] : []),
         ...(actions.some((action) => action.includes(SLOW_FIX_MARK))
           ? [`"${SLOW_FIX_MARK}" 항목은 급하지 않은 수리다. 할 일 줄에 넣지 말고 브리핑 마지막 줄 "남은 수리: N개 (다음: 하나)"로 알린다.`]
           : []),

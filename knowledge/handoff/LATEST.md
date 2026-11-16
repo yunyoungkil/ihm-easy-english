@@ -1,0 +1,35 @@
+# 현재 상태 요약 (2026-11-16) — 새 대화는 이 파일만 먼저 읽는다
+
+> 이 파일은 날짜 인수인계(`2026-11-14.md` 등 수만 토큰)를 대신하는 **60줄 요약**이다. 날짜 파일은 통째로 읽지 말고 `grep -n "<낱말>"`으로 필요한 절만 읽는다. 작업 한 덩어리를 마칠 때마다 이 파일을 **고쳐 쓴다**(더하지 않고 낡은 줄은 지운다). 틀과 규칙은 `README.md`.
+
+## 사용자와 방향 (원문 26KB는 `knowledge/decisions/2026-11-14-agent-map-direction.md`, 방향이 걸린 결정일 때만 읽는다)
+- 사용자는 품질 판단(분석·아이디어·선택·디자인·글)을 못 한다고 밝혔다. AI가 콘텐츠를 만들고 품질은 자동 점검·측정·시청자 데이터가 맡는다. 사용자에게는 판단이 아니라 **안전 확인 + 취향 반응**("보고 싶은 순서", "전부 별로", "절대 안 됨")만 받는다.
+- 기존 기획~제작은 실패로 보고 처음부터 다시 한다. **영상 스타일·제목 틀·썸네일은 정해진 것이 없다**(예시를 후보처럼 말하지 않는다). 이미 만든 영상(EP24~29)은 고치지 않는다.
+- 어려운 판단은 `opus-expert`가 근거와 함께 정하고, **불변 규칙·방향·승인 관문(비교 시트·렌더·업로드)은 사용자 몫**이다. 구현은 `sonnet-worker`, 에이전트 동시 2명 이하.
+- 직언한다. 기분 맞추기식 동조 금지. 한국어, 초등학생도 알아들을 쉬운 말.
+
+## 진행 중: EP30 쇼츠 `videos/ep30-shorts-chocolate` (비교 시트 `SbQVBQoRciA`, 공개 12/1 예정)
+- 시트 **승인됨**(2026-11-15). 나레이션 14줄 확정, 음성 n01~n14(Gero, 합계 58.84초)는 사용자가 **그대로 사용**하기로 함(2026-11-16).
+- 남은 일(순서): ① 원어민 영어 단어 음성 5개(chocolate·vegetable·different·memory·vulnerable)와 배경음악 → **Gemini(Antigravity)에게 넘긴다: `videos/ep30-shorts-chocolate/GEMINI-TASKS.md`를 사용자가 붙여 넣음** ② 컷 이미지 확인 ③ 조립(`sonnet-worker`가 구현, 컷 시각은 음성 실측 `words.json` 기준) ④ `check-layout`·`check-terms` ⑤ **렌더는 사용자 승인 뒤에만**.
+- 시험 변수는 "장면 안 움직임" 하나. 카드 한글 표기(초클릿·베즈터블·디프런트·멤리)는 원어민 음성과 소리 대조(FACT-CHECK 청취 필요).
+
+## 자동화·동기화 (2026-11-16 결정)
+- **매일 루프(새벽 1시)는 `DESKTOP-UA9AKL2` 한 대만 돌린다**(`data/loop-host.json`). 루프 마지막 `dataSync`가 데이터를 커밋·푸시한다(`scripts/loop-data-sync.mjs`, force push 없음, 충돌이면 실패로 알림). 다른 PC는 루프 예약을 두지 않는다.
+- 경쟁 영상 화면 캡처(`data/youtube/outlier-frames/`)도 깃에 올린다(비공개 저장소, 6.3MB). 다른 PC는 `git pull`이면 된다.
+- 새 PC는 Studio-Automation 크롬 로그인(`npm run studio-chrome`)과 Gemini-Automation 크롬 로그인이 각각 1회 필요하다(훅이 구성만 해 준다).
+- 음성은 AI Studio 화면 방식(`scripts/generate-aistudio-speech.mjs`)이 기본(무료 키 TTS는 하루 10회). 음악은 AI Studio Lyria 3.5 화면(스크립트 없음). 그림은 `npm run image`. 도구별 워터마크 표: `knowledge/free-generation-tools.md`.
+
+## 사용자 결정 대기 / 날짜가 정해진 일
+- 11/17 이후: `SbQVBQoRciA` 새 배수(공개 7일) 확인 → 벤치마크 분석서 대상 4편 재선정. 스튜디오 조사 수집이 3일 이상 쌓이면 설계 결정 2~5번(`knowledge/decisions/2026-11-14-research-source-design-draft.md` 9절)을 한 번에 묻는다. 쇼츠 "계속 시청함" 분포는 11/19~24에 구분력 확인.
+- 11/24: EP24·25·26 쇼츠 구성 비교 판정(`videos/ep26-shorts-right-light/BRIEF.md`).
+- 두 번째 시험 회의(화면 체계 제약 타이포/실사/일러스트)는 첫 시험 결과까지 보류. 벤치마크 대조군·편마다 다른 설명 가치 점검은 정해짐(`knowledge/decisions/2026-11-15-direction-audit-decisions.md`).
+
+## 토큰 규칙 (2026-11-16 사용자: "너의 토큰을 아껴야 한다")
+- 시작 때 읽는 것: 이 파일만. `now.md`는 훅이 앞 8개만 넘긴다(나머지는 필요할 때). 브리핑은 훅의 틀대로 하고 스킬·reference를 열지 않는다. 큰 파일은 `grep -n`·`sed -n`으로 필요한 줄만.
+- 영상 재료 생성(원어민 음성·배경음악·이미지 묶음)은 Gemini에게 지시 파일로 넘기고, 조립·검수·판단은 Claude. 조립 구현은 sonnet-worker. Opus는 판단·리뷰만.
+
+## 함정
+- 대시보드 서버가 pull 뒤 옛 코드로 떠 있을 수 있다 → 코드가 바뀌었으면 서버를 다시 켠 뒤 `node scripts/test-client-syntax.mjs`.
+- 자막(`youtube-transcript`) 요청이 이 PC에서 막히는 일이 있다(`IpBlocked`). 리포트는 Gemini가 소리를 직접 들어 계속 만들어지니 고장이 아니다.
+- 시트 JSON·코드 파일은 Write/Edit로 쓴다(Bash heredoc에서 역슬래시·따옴표가 깨진 적이 있다).
+- 쇼츠 "45초 이내"는 규칙이 아니다(2026-11-14 정정). 내용에 필요한 만큼.

@@ -51,3 +51,17 @@ test('저장소: 인수인계 폴더에 README와 오늘 날짜 파일이 있고
   assert.ok(claude.includes('opus-expert') && claude.includes('먼저 묻는다'), 'CLAUDE.md에 Opus에게 먼저 묻는 규칙이 없다');
   assert.ok(readFileSync(join(projectDir, '.claude', 'agents', 'opus-expert.md'), 'utf8').includes('model:'), 'opus-expert 정의가 없다');
 });
+
+test('LATEST.md 요약이 있으면 브리핑 줄이 그것만 읽게 하고 날짜 파일은 grep으로만 읽게 한다(2026-11-16 토큰 절약)', () => {
+  const root = mkdtempSync(join(tmpdir(), 'handoff-latest-'));
+  mkdirSync(join(root, 'knowledge', 'handoff'), {recursive: true});
+  writeFileSync(join(root, 'knowledge', 'handoff', '2026-11-14.md'), 'x');
+  assert.equal(latestHandoff(root).summary, null, '요약이 없으면 null');
+  writeFileSync(join(root, 'knowledge', 'handoff', 'LATEST.md'), 'y');
+  const h = latestHandoff(root);
+  assert.equal(h.summary, 'knowledge/handoff/LATEST.md');
+  assert.equal(h.date, '2026-11-14', 'LATEST.md는 날짜 파일로 세지 않는다');
+  const line = handoffLine(h, new Date('2026-11-16T00:00:00Z'));
+  assert.ok(line.includes('knowledge/handoff/LATEST.md') && line.includes('grep'), line);
+  assert.ok(!line.includes('먼저 읽어'), '통째로 읽으라는 말이 없다');
+});

@@ -173,7 +173,7 @@ test('실제 now.md에 다음 할 일 절이 있고 훅이 그 항목을 넘겨�
   const actions = extractNextActions(readFileSync(join(projectDir, 'knowledge', 'now.md'), 'utf8'));
   assert.ok(actions.length > 0);
   const stdout = execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {cwd: projectDir, encoding: 'utf8', input: '{"source":"startup"}'});
-  assert.ok(JSON.parse(stdout).hookSpecificOutput.additionalContext.includes(actions[0]));
+  assert.ok(JSON.parse(stdout).hookSpecificOutput.additionalContext.includes(actions[0].slice(0, 100))); // 항목은 260자까지만 넘긴다(토큰 절약)
 });
 
 test('"(차차)" 항목이 있으면 브리핑 마지막 "남은 수리" 줄로 알리라고 안내한다', () => {
@@ -183,4 +183,14 @@ test('"(차차)" 항목이 있으면 브리핑 마지막 "남은 수리" 줄로 
 
 test('"(차차)" 항목이 없으면 남은 수리 안내를 넣지 않는다', () => {
   assert.doesNotMatch(buildBriefingContext(null, ['**사용자**: 쇼츠 올리기']), /남은 수리/);
+});
+
+test('시작 브리핑: 다음 할 일은 앞 8개만, 항목당 260자까지(토큰 절약), 틀이 안내문에 들어 있다', () => {
+  const actions = Array.from({length: 12}, (_, i) => `${i + 1}번 일 ${'가'.repeat(400)}`);
+  const context = buildBriefingContext(null, actions);
+  assert.ok(context.includes('8. 8번 일') && !context.includes('9. 9번 일'));
+  assert.ok(context.includes('나머지 4개는 knowledge/now.md'));
+  assert.ok(context.includes('전문은 now.md') && !context.includes('가'.repeat(300)));
+  assert.ok(context.includes('스킬 본문과 reference 문서는 열지 않는다') && context.includes('Phase 0-C'));
+  assert.ok(context.length < 6000, `맥락이 너무 길다: ${context.length}`); // allow-literal: 시작 맥락 글자 수 상한(토큰 절약 확인)
 });

@@ -71,7 +71,7 @@ export const CARD_TEMPLATES = {
   recap: (c) => wrap(`${pill(c.pill, 'top')}${(c.rows || []).map((r) => `<div class="rrow">${c.check ? '<span class="chk">✓</span>' : ''}<span>${c.check ? `<span class="hl">${esc(r.word)}</span>` : esc(r.word)}</span><span>→</span><span class="k">${esc(r.sound)}</span></div>`).join('')}`),
   // 퀴즈: 단어만 보여 주고 질문
   quiz: (c) => wrap(`${pill(c.pill, 'top')}<div class="word small">${esc(c.word)}</div><div><span class="badge">?</span></div>`),
-  // 한글은 글자 칸이 여러 개, 영어는 한 칸(한 마디)임을 칸 수로 보여 준다(2026-11-16 w8g6 시트). syl: 한글 글자 배열
+  // 한글은 글자 칸이 여러 개, 영어는 한 칸(한 박자)임을 칸 수로 보여 준다(2026-11-16 w8g6 시트). syl: 한글 글자 배열
   'syl-count': (c) => wrap(`${pill(c.pill, 'top')}<div class="boxes">${(c.syl || []).map((s) => `<span class="box">${esc(s)}</span>`).join('')}</div><div class="arrow">↓</div><div class="boxes"><span class="box one">${esc(c.word)}</span></div>`),
   // 그림 + 칸 수: 단어 뜻 그림(picData)을 위에 크게 보여 주고 아래에 한글 칸과 영어 한 칸을 둔다(2026-11-16, 글자만 있는 카드가 밋밋하다는 지적)
   'pic-count': (c) => wrap(`${prog(c.prog)}<img class="pic" src="${esc(c.picData || '')}" alt=""><div class="boxes sm">${(c.syl || []).map((s) => `<span class="box">${esc(s)}</span>`).join('')}</div><div class="arrow" style="margin:6px 0">↓</div><div class="boxes sm"><span class="box one">${hlWord(c.word, c.hl)}</span></div>${pill(c.pill)}`),

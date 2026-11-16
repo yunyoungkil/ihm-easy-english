@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-14T13:56:38.879Z",
+  "updatedAt": "2026-11-16T09:17:31.360Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -402,6 +402,32 @@
       "episodeLabel": "EP30 쇼츠",
       "status": "selected",
       "selectedAt": "2026-11-14T13:56:38.879Z",
+      "producedAt": null
+    },
+    {
+      "topic": "한국 사람이 매일 쓰는 단어, 한글로는 4~5글자인데 영어는 한 마디다 (stress·screen·spray·strike)",
+      "angleOrHook": "스트레스, 영어로는 몇 마디일까요? 한글 칸 수와 영어 한 마디를 나란히 보여 주고 따라 말하게 한다",
+      "targetAudience": "한글 외래어 표기대로 으 소리를 끼워 읽는 3060 국내 성인 학습자",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [
+        {
+          "source": "competitorOutlier",
+          "detail": "메리고라운드·w8g6-e9yLP4·241.5배"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "수키 suekii·Ux_M00VVmEU·274.2배"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "Film, Vulnerable처럼 자음이 연달아 나오는 단어에서 혀가 꼬이는 고민 (2회)"
+        }
+      ],
+      "episodeSlug": "ep31-shorts-consonant-clusters",
+      "episodeLabel": "EP31 쇼츠",
+      "status": "selected",
+      "selectedAt": "2026-11-16T09:17:31.360Z",
       "producedAt": null
     }
   ]

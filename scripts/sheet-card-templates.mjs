@@ -29,6 +29,11 @@ body{width:384px;height:688px;background:#F4EFE6;font-family:"Malgun Gothic","Ap
 .rrow{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:3px solid #000;padding:20px 8px;font:900 26px/1.1 "Arial Black","Arial",sans-serif}
 .rrow:first-of-type{border-top:0}
 .rrow .k{font:900 30px/1.1 "Malgun Gothic",sans-serif}
+.boxes{display:flex;justify-content:center;gap:6px;flex-wrap:nowrap}
+.box{min-width:56px;padding:10px 6px;border:4px solid #000;border-radius:12px;background:#fff;box-shadow:4px 4px 0 #000;font:900 38px/1.1 "Malgun Gothic",sans-serif}
+.box.one{min-width:230px;font:900 54px/1.1 "Arial Black","Arial",sans-serif;background:#F5C518}
+.dots{display:flex;gap:14px;margin-top:40px}
+.dots span{width:26px;height:26px;border-radius:50%;background:#F5C518;border:4px solid #000}
 .say{font:900 40px/1.3 "Malgun Gothic",sans-serif;word-break:keep-all;text-wrap:balance}`;
 
 const pill = (t, cls = '') => (t ? `<div class="pill ${cls}">${esc(t)}</div>` : '');
@@ -55,6 +60,10 @@ export const CARD_TEMPLATES = {
   recap: (c) => wrap(`${pill(c.pill, 'top')}${(c.rows || []).map((r) => `<div class="rrow"><span>${esc(r.word)}</span><span>→</span><span class="k">${esc(r.sound)}</span></div>`).join('')}`),
   // 퀴즈: 단어만 보여 주고 질문
   quiz: (c) => wrap(`${pill(c.pill, 'top')}<div class="word small">${esc(c.word)}</div><div><span class="badge">?</span></div>`),
+  // 한글은 글자 칸이 여러 개, 영어는 한 칸(한 마디)임을 칸 수로 보여 준다(2026-11-16 w8g6 시트). syl: 한글 글자 배열
+  'syl-count': (c) => wrap(`${pill(c.pill, 'top')}<div class="boxes">${(c.syl || []).map((s) => `<span class="box">${esc(s)}</span>`).join('')}</div><div class="arrow">↓</div><div class="boxes"><span class="box one">${esc(c.word)}</span></div>`),
+  // 따라 말하기 칸: 단어를 크게 보여 주고 시청자가 말할 시간을 둔다
+  say: (c) => wrap(`${pill(c.pill, 'top')}<div class="word">${esc(c.word)}</div><div class="dots"><span></span><span></span><span></span></div>`),
   // 마지막 댓글 유도
   cta: (c) => wrap(`<div class="say">${esc(c.text)}</div>${pill(c.pill)}`),
 };

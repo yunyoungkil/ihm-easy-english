@@ -106,3 +106,16 @@ test('긴 문구는 글자 중간이 아니라 단어 단위로, 줄 길이가 �
   assert.match(html, /\.pill\{[^}]*word-break:keep-all[^}]*text-wrap:balance/);
   assert.match(html, /\.say\{[^}]*word-break:keep-all[^}]*text-wrap:balance/);
 });
+
+test('칸 수 카드: 한글 글자마다 한 칸, 영어는 한 칸이다(2026-11-16)', () => {
+  const html = renderCardHtml({template: 'syl-count', word: 'stress', syl: ['스', '트', '레', '스'], pill: '한글 4칸 → 영어 1마디'});
+  assert.equal((html.match(/class="box"/g) || []).length, 4);
+  assert.equal((html.match(/class="box one"/g) || []).length, 1);
+  assert.ok(html.includes('stress'));
+});
+
+test('따라 말하기 카드: 단어와 점 3개가 있고 외부 글자는 이스케이프한다', () => {
+  const html = renderCardHtml({template: 'say', word: 'stress', pill: '<b>따라</b>'});
+  assert.equal((html.match(/<span><\/span>/g) || []).length, 3);
+  assert.ok(!html.includes('<b>'));
+});

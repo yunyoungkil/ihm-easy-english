@@ -20,7 +20,7 @@ const only = opt("only", null)?.split(",") ?? null;
 const OUT_DIR = resolve(opt("out", join(HERE, "..", "assets", "voice", "_ai-studio-raw")));
 const PAUSE_MS = Number(opt("pause", 18000));
 const noTags = args.includes("--no-tags");
-const STYLE = opt("style", "calm, warm and trustworthy Korean language coach, natural conversational pacing, clear articulation, not exaggerated");
+const STYLE = opt("style", "calm, warm and trustworthy Korean language coach, natural conversational pacing, clear articulation, not exaggerated. Finish each sentence crisply and briskly; do not stretch, drag or trail off on the final syllable");
 
 const sheet = JSON.parse(readFileSync(join(ROOT, "data/youtube/transform-sheets/SbQVBQoRciA.json"), "utf8"));
 if (sheet.status !== "approved") throw new Error(`시트 상태가 approved가 아니다: ${sheet.status}`);

@@ -13,9 +13,8 @@
 - **조립 1차 완료(2026-11-16)**: 컷 14개를 코드(HTML/GSAP)로 그린 `index.html`(생성: `node videos/ep30-shorts-chocolate/scripts/build-index.mjs`, 화면 글자는 시트 `cutPlan`에서 읽음), 세로 1080×1920, 길이 71.08초(음성 실측+간격 0.35초+원어민 단어 음성 5개). `hyperframes check` 0 error, `check-terms` 금지어 없음, `check-layout` 5건(글자가 올라오거나 튀는 순간뿐, 가로 넘침 0). 스냅샷·콘택트시트는 `snapshots/`(커밋 안 함). **`voice-en`·`bgm` 파일이 바뀌면 build-index를 다시 돌려야 길이·시각이 갱신된다.**
 - **제미나이 작업 끝(커밋 `9e0a1ef`), 내가 확인(2026-11-16)**: 원어민 단어 음성 10개는 whisper(여백 0.6초 추가, medium)로 받아쓰기해 전부 맞는 단어(소리 내용은 이 받아쓰기까지만 확인, 사람 귀 확인 아님). 배경음악 `track.mp3`(62.98초)는 말소리 없음. 영상(71초)보다 짧아 끝과 처음을 4초 겹쳐 이은 `assets/bgm/track.loop.mp3`(73초)를 만들었고 `build-index.mjs`가 이를 우선 쓴다. `hyperframes check` 0 error·`check-terms` 금지어 없음·`check-layout` 5건(올라오거나 튀는 순간뿐).
 - **사용자 첫인상(2026-11-16)과 2차 수정 반영**: "쇼츠로는 느리고 밋밋하지만 느려서 듣기 좋고 깔끔하다. 글자가 모바일에서 작아 보일 수 있고, 위쪽 훅 문구가 없고 아래 공간을 안 쓴다." → 속도는 그대로, 위 검은 띠에 훅 2줄("아는 단어 5개, 어디가 거의 안 들릴까?"), 아래 띠에 단어 5개 진행 점과 "사전 표기: Merriam-Webster · Cambridge", 카드 글자 25~35% 확대. `hyperframes check` 0 error, 금지어 없음, `check-layout` 5건(움직이는 순간뿐). 미리보기는 `npx hyperframes preview --background --port=3002`(프로젝트 폴더, 변경이 자동 반영).
-- 남은 일(순서): ① 사용자가 미리보기로 보고 **첫인상 한 단어 + 렌더 승인 여부**를 답한다(품질 판단은 요청하지 않는다) ② 승인되면 `videos/ep30-shorts-chocolate/renders/`에 먼저 렌더 → 최종본만 `output/upload-packages/`에 복사(`package-from-sheet.mjs SbQVBQoRciA <폴더>`로 제목·설명·태그·고정 댓글·썸네일) ③ 업로드·공개는 별도 승인(12/1 20:00 예정). 71초가 길다는 반응이 나오면 줄 사이 0.35초·원어민 삽입을 줄인다.
-- 시험 변수는 "장면 안 움직임" 하나. 카드 한글 표기(초클릿·베즈터블·디프런트·멤리)는 원어민 음성과 소리 대조(FACT-CHECK 청취 필요).
-
+- **사용자 승인(2026-11-16)**: 2차 화면을 보고 "좋아졌다, 아직 업그레이드할 부분이 많다"(첫인상), "절대 안 됨" 없음, **렌더 승인**. 렌더 시작(`videos/ep30-shorts-chocolate/renders/`). **음성 지적**: TTS 문장 끝소리가 길어 늘어지는 느낌 → 다음 음성부터 `script-rules.md` 10번의 끝소리 규칙(Style 칸에 crisply/briskly, `words.json` 마지막 낱말 길이 점검). 이번 EP30 음성은 사용자가 이미 "그대로 사용"했으니 다시 만들지 않는다.
+- 남은 일(순서): ① 렌더 결과 확인(길이·소리·모서리) → 최종본만 `output/upload-packages/`로 복사(`node scripts/package-from-sheet.mjs SbQVBQoRciA output/upload-packages/<폴더>`로 제목·설명·태그·고정 댓글·썸네일) ② 업로드·공개는 별도 승인(12/1 20:00 예정)
 ## 자동화·동기화 (2026-11-16 결정)
 - **매일 루프(새벽 1시)는 `DESKTOP-UA9AKL2` 한 대만 돌린다**(`data/loop-host.json`). 루프 마지막 `dataSync`가 데이터를 커밋·푸시한다(`scripts/loop-data-sync.mjs`, force push 없음, 충돌이면 실패로 알림). 다른 PC는 루프 예약을 두지 않는다.
 - 경쟁 영상 화면 캡처(`data/youtube/outlier-frames/`)도 깃에 올린다(비공개 저장소, 6.3MB). 다른 PC는 `git pull`이면 된다.

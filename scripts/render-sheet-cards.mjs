@@ -24,7 +24,14 @@ export async function renderSheetCards(videoId) {
     await page.setViewportSize({width: 768, height: 1376});
     for (const cut of cuts) {
       if (!cut.image) throw new Error(`${cut.t}초 컷에 image 경로가 없다`);
-      await page.setContent(renderCardHtml(cut));
+      // 그림이 필요한 카드(cut.pic)는 파일을 읽어 data 주소로 넣는다(setContent 화면은 파일 경로를 못 읽는다)
+      let picData = '';
+      if (cut.pic) {
+        const picPath = join(sheetsDir, cut.pic);
+        if (!existsSync(picPath)) throw new Error(`${cut.t}초 컷 그림이 없다: ${cut.pic}`);
+        picData = `data:image/${cut.pic.endsWith('.png') ? 'png' : 'jpeg'};base64,${readFileSync(picPath).toString('base64')}`;
+      }
+      await page.setContent(renderCardHtml({...cut, picData}));
       await page.waitForTimeout(150);
       const out = join(sheetsDir, cut.image);
       mkdirSync(dirname(out), {recursive: true});

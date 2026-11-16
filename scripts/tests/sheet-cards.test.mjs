@@ -119,3 +119,11 @@ test('따라 말하기 카드: 단어와 점 3개가 있고 외부 글자는 이
   assert.equal((html.match(/<span><\/span>/g) || []).length, 3);
   assert.ok(!html.includes('<b>'));
 });
+
+test('그림 카드: 그림(picData)이 위에 들어가고 한글 칸·영어 한 칸이 그대로 나온다(2026-11-16)', () => {
+  const html = renderCardHtml({template: 'pic-count', word: 'stress', syl: ['스', '트', '레', '스'], picData: 'data:image/png;base64,AAAA', pill: '4칸 → 1마디'});
+  assert.ok(html.includes('class="pic"') && html.includes('data:image/png;base64,AAAA'));
+  assert.equal((html.match(/class="box"/g) || []).length, 4);
+  const say = renderCardHtml({template: 'pic-say', word: 'stress', picData: 'data:image/png;base64,BBBB', pill: '따라 말해 보세요'});
+  assert.ok(say.includes('data:image/png;base64,BBBB') && (say.match(/<span><\/span>/g) || []).length === 3);
+});

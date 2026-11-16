@@ -29,6 +29,8 @@ body{width:384px;height:688px;background:#F4EFE6;font-family:"Malgun Gothic","Ap
 .rrow{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:3px solid #000;padding:20px 8px;font:900 26px/1.1 "Arial Black","Arial",sans-serif}
 .rrow:first-of-type{border-top:0}
 .rrow .k{font:900 30px/1.1 "Malgun Gothic",sans-serif}
+.pic{width:300px;height:300px;object-fit:cover;border:4px solid #000;border-radius:16px;box-shadow:5px 5px 0 #000;margin-bottom:18px;background:#fff}
+.boxes.sm .box{min-width:44px;padding:8px 4px;font-size:30px}.boxes.sm .box.one{min-width:190px;font-size:44px}
 .boxes{display:flex;justify-content:center;gap:6px;flex-wrap:nowrap}
 .box{min-width:56px;padding:10px 6px;border:4px solid #000;border-radius:12px;background:#fff;box-shadow:4px 4px 0 #000;font:900 38px/1.1 "Malgun Gothic",sans-serif}
 .box.one{min-width:230px;font:900 54px/1.1 "Arial Black","Arial",sans-serif;background:#F5C518}
@@ -62,6 +64,10 @@ export const CARD_TEMPLATES = {
   quiz: (c) => wrap(`${pill(c.pill, 'top')}<div class="word small">${esc(c.word)}</div><div><span class="badge">?</span></div>`),
   // 한글은 글자 칸이 여러 개, 영어는 한 칸(한 마디)임을 칸 수로 보여 준다(2026-11-16 w8g6 시트). syl: 한글 글자 배열
   'syl-count': (c) => wrap(`${pill(c.pill, 'top')}<div class="boxes">${(c.syl || []).map((s) => `<span class="box">${esc(s)}</span>`).join('')}</div><div class="arrow">↓</div><div class="boxes"><span class="box one">${esc(c.word)}</span></div>`),
+  // 그림 + 칸 수: 단어 뜻 그림(picData)을 위에 크게 보여 주고 아래에 한글 칸과 영어 한 칸을 둔다(2026-11-16, 글자만 있는 카드가 밋밋하다는 지적)
+  'pic-count': (c) => wrap(`<img class="pic" src="${esc(c.picData || '')}" alt=""><div class="boxes sm">${(c.syl || []).map((s) => `<span class="box">${esc(s)}</span>`).join('')}</div><div class="arrow" style="margin:6px 0">↓</div><div class="boxes sm"><span class="box one">${esc(c.word)}</span></div>${pill(c.pill)}`),
+  // 그림 + 따라 말하기
+  'pic-say': (c) => wrap(`${pill(c.pill, 'top')}<img class="pic" src="${esc(c.picData || '')}" alt=""><div class="word">${esc(c.word)}</div><div class="dots" style="margin-top:22px"><span></span><span></span><span></span></div>`),
   // 따라 말하기 칸: 단어를 크게 보여 주고 시청자가 말할 시간을 둔다
   say: (c) => wrap(`${pill(c.pill, 'top')}<div class="word">${esc(c.word)}</div><div class="dots"><span></span><span></span><span></span></div>`),
   // 마지막 댓글 유도

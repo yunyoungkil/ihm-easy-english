@@ -876,6 +876,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && pro
     const ratio = e.outlierRatio == null ? '측정 전' : `${Math.round(e.outlierRatio)}배`;
     console.log(`- [${e.channelTitle} · 평소 대비 ${ratio}] ${e.t}초: ${e.what} — ${e.purpose || ''} | ${frame} | http://localhost:3001/outlier-report/${e.videoId}`);
   }
+  if (found.length > 40) console.log(`※ 앞 40개만 표시했다(전체 ${found.length}개). 전체를 종류별로 세어 보려면 npm run visual-summary`);
 } else if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const ids = process.argv.slice(2).filter((a) => !a.startsWith('--'));
   if (!ids.length) { console.error('사용법: node scripts/outlier-report.mjs <영상ID> [...] | --library [검색어]'); process.exit(1); }

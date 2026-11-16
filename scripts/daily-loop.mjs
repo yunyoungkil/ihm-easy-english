@@ -10,7 +10,8 @@
 //   3. 경쟁 채널 데이터가 7일 넘었으면: POST /api/market-demand/run {syncAll} (채널당 약 4 unit)
 //   4. 시청자 고민(audience-dna)이 14일 넘었으면: 아직 분석 안 한 경쟁 아웃라이어 3편 댓글 분석(무료 Gemini 키)
 //   5. 대시보드 실제 데이터 통로 5개 점검 + 단위 테스트 + 대시보드 화면 검사(프로그램 전체 점검을 코드가 대신, 토큰 0)
-//   6. 결과를 data/youtube/daily-loop.json 에 남긴다 → 시작 브리핑의 scripts/loop-health.mjs가 판정한다.
+//   6. 모은 데이터를 깃에 올린다(dataSync, 루프 담당 PC만, scripts/loop-data-sync.mjs).
+//   7. 결과를 data/youtube/daily-loop.json 에 남긴다 → 시작 브리핑의 scripts/loop-health.mjs가 판정한다.
 
 import {execFile, spawn} from 'node:child_process';
 import {existsSync, readFileSync, writeFileSync, openSync} from 'node:fs';
@@ -426,6 +427,13 @@ async function run() {
       throw new Error(`${what}${failedNames ? ' (' + failedNames + ')' : ''}${clientOk ? '' : ', 대시보드 화면 검사 실패'}`);
     }
     return result;
+  });
+
+  // 오늘 모은 데이터를 깃에 올려 다른 PC가 같은 일(Gemini 리포트·곡선)을 또 하지 않게 한다(2026-11-16). 루프 담당 PC 한 곳만 올린다(data/loop-host.json).
+  // 테스트가 실패한 날에도 데이터는 올린다(데이터와 코드는 따로다). 푸시가 부딪히면 취소하고 실패로 알린다.
+  await step('dataSync', async () => {
+    const {syncData} = await import('./loop-data-sync.mjs');
+    return syncData({projectDir, now: new Date()});
   });
 
   report.finishedAt = new Date().toISOString();

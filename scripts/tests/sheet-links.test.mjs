@@ -29,3 +29,14 @@ test('리포트 목록은 시트에 쓰인 영상을 맨 위로 올리고 개수
   assert.ok(html.indexOf('BBBBBBBBBBB') < html.indexOf('DDDDDDDDDDD'), '시트에 쓰인 영상이 배수가 낮아도 먼저 나온다');
   assert.ok(html.includes('비교 시트에 쓰인 영상 1편'));
 });
+
+test('비교 시트 화면 연출 행은 경쟁 영상의 저장된 캡처를 초 순서로 보여 준다(컷 감지가 실패한 영상도, 2026-11-16)', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const sheet = {schemaVersion: 3, sourceVideoId: 'AAAAAAAAAAA', topic: '소재', status: 'draft', format: 'SHORTS', identityShare: {ours: 50, competitor: 50, reason: 'r'}, borrowed: [], rejected: [], pending: [], testVariables: [], glossary: [],
+    rows: [{key: 'visual', competitor: {text: '경쟁 화면', images: []}, ours: {text: '우리 화면', images: [], cutPlan: {durationSeconds: 10, cuts: [{t: 0, template: 'hook', image: 'images/AAAAAAAAAAA/cuts/cut-00.png'}]}}, why: '이유'}]};
+  const refReports = [{videoId: 'BBBBBBBBBBB', label: '채널 · 제목', frames: [{t: 0, file: '0.jpg'}, {t: 4, file: '4.jpg'}]}];
+  const html = renderTransformSheetPage(sheet, {videoId: 'AAAAAAAAAAA', pacing: {count: 0, times: []}, meta: {}}, [], {refReports});
+  assert.ok(html.includes('경쟁 화면 캡처 — 채널 · 제목 · 2장'));
+  assert.ok(html.includes('/outlier-frames/BBBBBBBBBBB/0.jpg') && html.includes('/outlier-frames/BBBBBBBBBBB/4.jpg'));
+  assert.ok(!renderTransformSheetPage(sheet, null, [], {}).includes('경쟁 화면 캡처'), '캡처가 없으면 줄을 만들지 않는다');
+});

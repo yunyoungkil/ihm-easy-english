@@ -6172,7 +6172,17 @@ const server = createServer(async (req, res) => {
       const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
       if (report) queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
-      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing}), {assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
+      // 경쟁 화면 캡처: 원본 + 가져온 출처 영상의 저장된 캡처를 초 순서로(2026-11-16)
+      const refIds = [sheetMatch[1], ...new Set((sheet.borrowed || []).map((b) => b.fromVideoId).filter((x) => x && x !== sheetMatch[1]))];
+      const refReports = [];
+      for (const rid of refIds) {
+        const rp = join(outlierReportsDir, rid + '.json');
+        const rr = existsSync(rp) ? await loadJson(rp) : null;
+        if (!rr) continue;
+        const frames = (rr.frames || []).filter((fr) => fr && fr.file && existsSync(join(outlierFramesDir, rid, fr.file))).sort((x, y) => Number(x.t) - Number(y.t));
+        if (frames.length) refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), frames});
+      }
+      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: report?.pacing}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
       return;
     }
     if (url.pathname === '/api/transform-sheet-pick' && req.method === 'POST') {

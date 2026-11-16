@@ -110,6 +110,49 @@ export function findCatalogDuplicate(title, catalogVideos = []) {
   }) || null;
 }
 
+/**
+ * 스튜디오 "카테고리" 이름과 유튜브 API 카테고리 번호(2026-11-16 EP30 편집 화면의 목록 15개를 읽어 정함).
+ * 번호는 유튜브 API의 공통 값이고, 27(교육)은 우리 채널 최근 영상의 catalog.json categoryId와 같다.
+ */
+export const CATEGORIES = Object.freeze({
+  '영화/애니메이션': '1', '자동차/교통': '2', 음악: '10', '애완동물/동물': '15', 스포츠: '17', '여행/이벤트': '19', 게임: '20',
+  '인물/블로그': '22', 코미디: '23', 엔터테인먼트: '24', '뉴스/정치': '25', '노하우/스타일': '26', 교육: '27', 과학기술: '28', '비영리/사회운동': '29',
+});
+export const DEFAULT_CATEGORY = '교육';
+export const EXPECTED_LANGUAGE_LABEL = '한국어';
+export const EXPECTED_LANGUAGE_CODE = 'ko';
+
+/** --category 값(한글 이름 또는 번호)을 {label, id}로 바꾼다. 모르는 값이면 {error}. */
+export function resolveCategory(value = DEFAULT_CATEGORY) {
+  const v = String(value ?? '').trim();
+  if (Object.hasOwn(CATEGORIES, v)) return {label: v, id: CATEGORIES[v]};
+  const byId = Object.entries(CATEGORIES).find(([, id]) => id === v);
+  if (byId) return {label: byId[0], id: byId[1]};
+  return {error: `모르는 카테고리입니다: "${v}". 가능한 값: ${Object.keys(CATEGORIES).join(', ')}`};
+}
+
+/** 편집 화면에서 읽은 세 칸이 기대값과 같은지 본다. 다른 칸 목록을 돌려준다. */
+export function diffSettings(read, expected) {
+  const out = [];
+  if (norm(read.category) !== expected.category.label) out.push({key: 'category', label: '카테고리', read: norm(read.category), want: expected.category.label});
+  if (norm(read.videoLanguage) !== EXPECTED_LANGUAGE_LABEL) out.push({key: 'videoLanguage', label: '동영상 언어', read: norm(read.videoLanguage), want: EXPECTED_LANGUAGE_LABEL});
+  if (norm(read.titleLanguage) !== EXPECTED_LANGUAGE_LABEL) out.push({key: 'titleLanguage', label: '제목 및 설명 언어', read: norm(read.titleLanguage), want: EXPECTED_LANGUAGE_LABEL});
+  return out;
+}
+
+/**
+ * 동기화된 catalog.json의 영상 한 편이 기대한 설정인지 본다(API 값).
+ * defaultLanguage = 제목 및 설명 언어. 카탈로그에는 동영상 언어(defaultAudioLanguage) 칸이 없어 화면에서 읽은 값으로 확인한다.
+ * 반환: {ok, missing:["빠진 설정 문장", ...]}
+ */
+export function checkCatalogSettings(video, expectedCategoryId) {
+  if (!video) return {ok: false, missing: ['동기화된 카탈로그에 이 영상이 아직 없습니다.']};
+  const missing = [];
+  if (video.defaultLanguage !== EXPECTED_LANGUAGE_CODE) missing.push(`제목 및 설명 언어(defaultLanguage)가 ${EXPECTED_LANGUAGE_CODE}가 아님(현재 ${video.defaultLanguage ?? '비어 있음'})`);
+  if (String(video.categoryId ?? '') !== String(expectedCategoryId)) missing.push(`카테고리(categoryId)가 ${expectedCategoryId}가 아님(현재 ${video.categoryId ?? '비어 있음'})`);
+  return {ok: missing.length === 0, missing};
+}
+
 export const isShortsPackage = (pkgDir) => Boolean(shortsPackageEpisode(basename(resolve(pkgDir)))) || existsSync(join(pkgDir, 'shorts-status.json'));
 
 /** 패키지의 대시보드 상태 파일 이름(쇼츠는 shorts-status.json, 롱폼은 status.json). */
@@ -127,7 +170,7 @@ const readTextSafe = (path) => {
  * options: {schedule(parseSchedule 결과 또는 null), playlist, noPlaylist, noSubs, catalogVideos(null이면 못 읽음), login}
  */
 export function inspectPackage(pkgDir, options = {}) {
-  const {schedule = null, playlist = null, noPlaylist = false, noSubs = false, catalogVideos = null, login = null} = options;
+  const {schedule = null, playlist = null, noPlaylist = false, noSubs = false, catalogVideos = null, login = null, category = resolveCategory()} = options;
   const checks = [];
   const add = (id, label, ok, detail = '') => checks.push({id, label, ok: Boolean(ok), detail});
 
@@ -155,6 +198,11 @@ export function inspectPackage(pkgDir, options = {}) {
   if (noPlaylist && playlist) add('playlist', '재생목록 결정', false, '--playlist와 --no-playlist를 같이 줄 수 없습니다.');
   else if (!noPlaylist && !playlist) add('playlist', '재생목록 결정', false, '--playlist "<이름>" 또는 --no-playlist 중 하나를 꼭 주세요(재생목록을 빠뜨리는 실수 방지).');
   else add('playlist', '재생목록 결정', true, noPlaylist ? '재생목록 없음(--no-playlist)' : `"${playlist}"`);
+
+  // 설정 두 칸(카테고리·언어)은 예약 뒤 편집 화면에서 설정하고 읽어서 확인한다.
+  if (category.error) add('category', '카테고리(--category)', false, category.error);
+  else add('category', '카테고리(--category)', true, `${category.label}(${category.id}) — 예약 뒤 편집 화면에서 설정·확인`);
+  add('languages', '언어 두 칸', true, `동영상 언어·제목 및 설명 언어 둘 다 ${EXPECTED_LANGUAGE_LABEL}(${EXPECTED_LANGUAGE_CODE}) — 예약 뒤 편집 화면에서 설정, 동기화 뒤 API 값으로 확인`);
 
   // 파일
   add('video', '영상 mp4', Boolean(videoFile), videoFile || '패키지에 mp4가 없습니다.');
@@ -206,6 +254,7 @@ export function inspectPackage(pkgDir, options = {}) {
     subsNote: !hasSubs ? '자막 파일 없음' : noSubs ? '자막 파일이 있지만 --no-subs로 끔' : 'subtitles-ko.srt를 예약 뒤 올림',
     playlist: noPlaylist ? null : playlist,
     scheduleText: schedule?.ok ? schedule.text : null,
+    category: category.error ? null : category,
   };
   return {plan, checks, ok: checks.every((c) => c.ok)};
 }
@@ -225,6 +274,7 @@ export function formatPlan(plan) {
     `썸네일: ${rel(plan.thumbnailPath)}`,
     `자막: ${plan.subsNote}`,
     `재생목록: ${plan.playlist ? `"${plan.playlist}"` : '없음'}`,
+    `카테고리: ${plan.category ? `${plan.category.label}(${plan.category.id})` : '(올바르지 않음)'}, 동영상 언어·제목 및 설명 언어: ${EXPECTED_LANGUAGE_LABEL}`,
     `예약 시각(한국): ${plan.scheduleText || '(정해지지 않음)'}`,
   ].join('\n');
 }
@@ -236,20 +286,20 @@ export const scheduledForMatches = (scheduledFor, schedule) => {
 };
 
 export const USAGE = [
-  '사용: npm run studio-upload -- <패키지 폴더> --schedule "YYYY-MM-DD HH:mm" (--playlist "<이름>" | --no-playlist) [--no-subs] [--yes]',
+  '사용: npm run studio-upload -- <패키지 폴더> --schedule "YYYY-MM-DD HH:mm" (--playlist "<이름>" | --no-playlist) [--category 교육] [--no-subs] [--yes]',
   '      npm run studio-upload -- <패키지 폴더> --guide [--schedule "..."] [--playlist "..."]',
   '--yes가 없으면 점검만 합니다. 시각은 한국 시각입니다.',
 ].join('\n');
 
 export function parseArgs(argv) {
-  const out = {pkg: null, schedule: null, playlist: null, noPlaylist: false, noSubs: false, yes: false, guide: false, errors: []};
+  const out = {pkg: null, schedule: null, playlist: null, noPlaylist: false, noSubs: false, yes: false, guide: false, category: null, errors: []};
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === '--yes') out.yes = true;
     else if (a === '--guide') out.guide = true;
     else if (a === '--no-playlist') out.noPlaylist = true;
     else if (a === '--no-subs') out.noSubs = true;
-    else if (a === '--schedule' || a === '--playlist') {
+    else if (a === '--schedule' || a === '--playlist' || a === '--category') {
       const v = argv[i + 1];
       if (v === undefined || v.startsWith('--')) out.errors.push(`${a} 뒤에 값이 필요합니다.`);
       else { out[a.slice(2)] = v; i += 1; }
@@ -263,10 +313,11 @@ export function parseArgs(argv) {
 }
 
 /** 같은 한 줄 명령을 만든다. 빈 값은 "정해야 함" 표시로 둔다. */
-export function buildCommand(pkgRel, {scheduleText, playlist, noPlaylist, noSubs, yes} = {}) {
+export function buildCommand(pkgRel, {scheduleText, playlist, noPlaylist, noSubs, yes, category} = {}) {
   const parts = ['npm run studio-upload --', pkgRel];
   parts.push(`--schedule "${scheduleText || '<정해야 함: YYYY-MM-DD HH:mm>'}"`);
   parts.push(noPlaylist ? '--no-playlist' : `--playlist "${playlist || '<정해야 함: 재생목록 이름>'}"`);
+  if (category && category !== DEFAULT_CATEGORY) parts.push(`--category "${category}"`);
   if (noSubs) parts.push('--no-subs');
   if (yes) parts.push('--yes');
   return parts.join(' ');
@@ -275,9 +326,11 @@ export function buildCommand(pkgRel, {scheduleText, playlist, noPlaylist, noSubs
 /** UPLOAD-GUIDE.md 내용. 세 방법 모두 같은 한 줄 명령을 쓴다. */
 export function buildGuide({pkgRel, plan, scheduleText, playlist, noPlaylist, noSubs}) {
   const need = (v, label) => v || `<미정> (${label} — 정해야 함)`;
-  const cmdDry = buildCommand(pkgRel, {scheduleText, playlist, noPlaylist, noSubs});
-  const cmdYes = buildCommand(pkgRel, {scheduleText, playlist, noPlaylist, noSubs, yes: true});
+  const cmdDry = buildCommand(pkgRel, {scheduleText, playlist, noPlaylist, noSubs, category: plan.category?.label});
+  const cmdYes = buildCommand(pkgRel, {scheduleText, playlist, noPlaylist, noSubs, yes: true, category: plan.category?.label});
   const playlistText = noPlaylist ? '재생목록 없음' : need(playlist, '재생목록 이름');
+  const categoryLabel = plan.category?.label || DEFAULT_CATEGORY;
+  const categoryId = plan.category?.id || CATEGORIES[DEFAULT_CATEGORY];
   return `# 업로드 가이드 — ${plan.pkgName}
 
 이 편을 스튜디오에 예약하는 방법은 3가지입니다. **셋 다 같은 한 줄 명령**을 씁니다. 영상 mp4는 깃에 올라가지 않으므로 이 PC(영상이 있는 PC)에서 실행하세요.
@@ -287,6 +340,7 @@ export function buildGuide({pkgRel, plan, scheduleText, playlist, noPlaylist, no
 - 예약 시각: ${need(scheduleText, '예약 시각')}
 - 재생목록: ${playlistText}
 - 자막: ${plan.subsNote}
+- 카테고리: ${categoryLabel}, 동영상 언어: ${EXPECTED_LANGUAGE_LABEL}, 제목 및 설명 언어: ${EXPECTED_LANGUAGE_LABEL}
 
 ## 가) 내가 직접 스튜디오에서 (체크리스트)
 
@@ -307,7 +361,8 @@ ${plan.description}
 \`\`\`
 ${plan.tags.join(', ')}
 \`\`\`
-- [ ] 영상 언어: 한국어
+- [ ] 더보기에서 **동영상 언어: 한국어**, **카테고리: ${categoryLabel}**
+- [ ] **제목 및 설명 언어: 한국어** (업로드 화면에는 이 칸이 없을 수 있습니다. 예약 뒤 영상 편집 화면의 "자세히 보기"에서 고르고 "저장")
 - [ ] 재생목록: ${playlistText}
 - [ ] 다음 → 다음 → 다음 → 공개 상태에서 **"예약"**(공개·저장 아님) → 날짜·시간: ${need(scheduleText, '예약 시각')}
 - [ ] 예약 확인 창에 날짜·시간이 맞는지 보고 닫기
@@ -331,7 +386,7 @@ ${cmdYes}
 
 ## 끝난 뒤 확인
 
-세 방법 모두 끝난 뒤 확인은 Claude가 합니다. 대시보드에서 동기화한 뒤 \`${plan.statusFile}\`의 \`scheduledFor\`가 예약 시각(UTC${scheduleText ? ` ${new Date(Date.parse(`${scheduleText.replace(' ', 'T')}:00+09:00`)).toISOString()}` : ''})과 같은지 봅니다.
+세 방법 모두 끝난 뒤 확인은 Claude가 합니다. 대시보드에서 동기화한 뒤 \`${plan.statusFile}\`의 \`scheduledFor\`가 예약 시각(UTC${scheduleText ? ` ${new Date(Date.parse(`${scheduleText.replace(' ', 'T')}:00+09:00`)).toISOString()}` : ''})과 같은지 보고, 같은 동기화의 \`data/youtube/catalog.json\`에서 그 영상의 \`defaultLanguage\`가 \`ko\`(제목 및 설명 언어)이고 \`categoryId\`가 \`${categoryId}\`(${categoryLabel})인지 봅니다. 재생목록은 API에 없어 스튜디오 화면에서 확인합니다.
 `;
 }
 
@@ -516,27 +571,129 @@ export async function scheduleInStudio(page, plan, schedule) {
   return {videoId: confirm.videoId, confirmText: confirm.text};
 }
 
-/** 대시보드 동기화를 부르고 예약 시각이 기록됐는지 읽는다(최대 3번). */
-export async function syncAndVerify({plan, schedule, videoId, fetchFn = fetch, sleepMs = 20000}) { // allow-literal: 재시도 간격 20초
+/**
+ * 편집 화면(https://studio.youtube.com/video/<ID>/edit)의 "자세히 보기" 안에 있는 세 칸의 선택자(2026-11-16 EP30에서 읽어 확인):
+ *   카테고리: ytcp-form-select#category / 동영상 언어: ytcp-form-language-input#language-input /
+ *   제목 및 설명 언어: "제목 및 설명 언어"가 든 다른 ytcp-form-language-input. 목록 줄은 tp-yt-paper-item(선택된 줄은 aria-selected).
+ */
+const settingBoxes = (page) => ({
+  category: page.locator('ytcp-form-select#category'),
+  videoLanguage: page.locator('ytcp-form-language-input#language-input'),
+  titleLanguage: page.locator('ytcp-form-language-input').filter({hasText: '제목 및 설명 언어'}).first(),
+});
+
+/** 편집 화면을 열고 "자세히 보기"를 펼친다(이미 펼쳐져 있으면 누르지 않는다). */
+export async function openEditSettings(page, videoId) {
+  await page.goto(`https://studio.youtube.com/video/${videoId}/edit`, {waitUntil: 'domcontentloaded'});
+  if (page.url().includes('accounts.google.com')) throw new Error('구글 로그인이 풀렸습니다.');
+  await page.locator('ytcp-video-metadata-playlists').first().waitFor({timeout: 45000}); // allow-literal: 대기 45초
+  const box = settingBoxes(page);
+  if (!(await box.category.isVisible().catch(() => false))) {
+    await page.locator('#toggle-button').first().click();
+  }
+  await box.category.waitFor({state: 'visible', timeout: 15000}); // allow-literal: 대기 15초
+  await box.category.scrollIntoViewIfNeeded();
+}
+
+/** 세 칸의 현재 값을 읽는다(글자 앞의 칸 이름은 뗀다). */
+export async function readVideoSettings(page) {
+  const box = settingBoxes(page);
+  const text = async (loc, label) => norm(await loc.innerText()).replace(new RegExp(`^${label}\\s*`), '');
+  return {
+    category: await text(box.category, '카테고리'),
+    videoLanguage: await text(box.videoLanguage, '동영상 언어'),
+    titleLanguage: await text(box.titleLanguage, '제목 및 설명 언어'),
+  };
+}
+
+/** 편집 화면의 "공개 상태" 칸 글자(예: 예약됨). */
+export const readVisibilityLabel = async (page) => /공개 상태\s+(\S+)/.exec(norm(await page.locator('body').innerText()))?.[1] || null;
+
+/** 목록형 칸에서 이름이 정확히 같은 줄을 고른다. */
+async function selectDropdownValue(page, boxLocator, label) {
+  await boxLocator.scrollIntoViewIfNeeded();
+  await boxLocator.locator('ytcp-dropdown-trigger, #trigger').first().click();
+  const items = page.locator('tp-yt-paper-item:visible');
+  await items.first().waitFor({state: 'visible', timeout: 15000}); // allow-literal: 대기 15초
+  const texts = (await items.allInnerTexts()).map(norm);
+  const index = texts.indexOf(label);
+  if (index < 0) throw new Error(`목록에 "${label}"이 없습니다.`);
+  await items.nth(index).click();
+  await page.waitForTimeout(800); // allow-literal: 선택 반영 대기
+}
+
+/**
+ * 카테고리·동영상 언어·제목 및 설명 언어를 읽어 보고, 다른 칸만 고쳐 저장한 뒤 다시 열어 읽어서 확인한다.
+ * 실제 업로드에서 처음 시험됨: 값 읽기와 목록 열기는 EP30에서 확인했지만(저장은 하지 않음), 목록 줄 클릭과 "저장"은 사용자가 EP30을 직접 고치는 중이라 눌러 보지 못했다.
+ * 안전: 공개 상태가 "예약됨"이 아니면 저장하지 않고 멈춘다. 저장 뒤에도 "예약됨"이어야 한다(예약 시각은 마지막 API 확인이 본다).
+ */
+export async function ensureVideoSettings(page, videoId, expected) {
+  await openEditSettings(page, videoId);
+  const before = await readVideoSettings(page);
+  const result = {before, changed: [], after: before};
+  if (diffSettings(before, expected).length === 0) return result;
+  const visibility = await readVisibilityLabel(page);
+  if (visibility !== '예약됨') throw new Error(`공개 상태가 "${visibility}"입니다(기대: 예약됨). 설정을 저장하지 않고 멈춥니다.`);
+  const box = settingBoxes(page);
+  const pick = {
+    category: [box.category, expected.category.label],
+    videoLanguage: [box.videoLanguage, EXPECTED_LANGUAGE_LABEL],
+    titleLanguage: [box.titleLanguage, EXPECTED_LANGUAGE_LABEL],
+  };
+  for (const d of diffSettings(before, expected)) {
+    // 동영상 언어를 바꾸면 제목 및 설명 언어가 따라 바뀔 수 있어 칸마다 다시 읽고 필요할 때만 고른다.
+    if (!diffSettings(await readVideoSettings(page), expected).some((x) => x.key === d.key)) continue;
+    await selectDropdownValue(page, ...pick[d.key]);
+    result.changed.push(d.label);
+  }
+  const picked = diffSettings(await readVideoSettings(page), expected);
+  if (picked.length) throw new Error(`선택 뒤에도 값이 다릅니다: ${picked.map((d) => `${d.label}="${d.read}"`).join(', ')}. 저장하지 않았습니다.`);
+  await page.locator('ytcp-button#save').first().click();
+  await page.waitForTimeout(3000); // allow-literal: 저장 요청이 시작될 때까지 대기
+  await page.waitForFunction(() => document.querySelector('ytcp-button#save')?.hasAttribute('disabled'), null, {timeout: 30000}); // allow-literal: 저장이 끝나 버튼이 다시 꺼질 때까지 최대 30초
+  await openEditSettings(page, videoId); // 다시 열어 저장된 값을 읽는다
+  result.after = await readVideoSettings(page);
+  const remaining = diffSettings(result.after, expected);
+  if (remaining.length) throw new Error(`저장 뒤 다시 열어도 값이 다릅니다: ${remaining.map((d) => `${d.label}="${d.read}"`).join(', ')}`);
+  const visibilityAfter = await readVisibilityLabel(page);
+  if (visibilityAfter !== '예약됨') throw new Error(`저장 뒤 공개 상태가 "${visibilityAfter}"입니다(기대: 예약됨). 스튜디오에서 바로 확인하세요.`);
+  return result;
+}
+
+const readCatalogVideo = (videoId) => (readJsonSafe(join(projectDir, 'data', 'youtube', 'catalog.json'))?.videos || []).find((x) => x.videoId === videoId) || null;
+
+/**
+ * 대시보드 동기화를 부르고 API 값으로 끝 검증을 한다(최대 3번).
+ * ① 예약 시각이 기대와 같은지(쇼츠 shorts-status.json, 롱폼 catalog.json) ② catalog.json의 defaultLanguage가 ko이고 categoryId가 기대값인지.
+ * 재생목록은 API에 없어 화면에서 읽은 값으로 확인한다(choosePlaylist).
+ */
+export async function syncAndVerify({plan, schedule, videoId, expectedCategoryId = CATEGORIES[DEFAULT_CATEGORY], fetchFn = fetch, sleepMs = 20000, catalogVideoFn = readCatalogVideo}) { // allow-literal: 재시도 간격 20초
   let lastReason = '';
+  let missing = [];
   for (let attempt = 1; attempt <= 3; attempt += 1) { // allow-literal: 최대 3번 시도
     try {
       const res = await fetchFn(DASHBOARD_SYNC_URL, {method: 'POST', signal: AbortSignal.timeout(240000)}); // allow-literal: 동기화는 오래 걸릴 수 있어 4분
       if (!res.ok) { lastReason = `대시보드 동기화 응답 ${res.status}`; }
       else {
         const found = readRecordedSchedule(plan, videoId);
-        if (scheduledForMatches(found.scheduledFor, schedule)) return {ok: true, scheduledFor: found.scheduledFor, source: found.source};
-        lastReason = `${found.source}의 예약 시각이 ${found.scheduledFor || '(없음)'}입니다(기대: ${schedule.utcIso}).`;
+        const settings = checkCatalogSettings(catalogVideoFn(videoId), expectedCategoryId);
+        const scheduleOk = scheduledForMatches(found.scheduledFor, schedule);
+        if (scheduleOk && settings.ok) return {ok: true, scheduledFor: found.scheduledFor, source: found.source, missing: []};
+        missing = settings.missing;
+        lastReason = [
+          scheduleOk ? null : `${found.source}의 예약 시각이 ${found.scheduledFor || '(없음)'}입니다(기대: ${schedule.utcIso}).`,
+          ...(settings.ok ? [] : settings.missing.map((m) => `빠진 설정: ${m}`)),
+        ].filter(Boolean).join(' / ');
       }
     } catch (err) {
       if (attempt === 1 && /fetch failed|ECONNREFUSED/.test(`${err.message} ${err.cause?.code || ''}`)) {
-        return {ok: false, dashboardDown: true, reason: '대시보드가 꺼져 있어 동기화 못 함'};
+        return {ok: false, dashboardDown: true, reason: '대시보드가 꺼져 있어 동기화 못 함', missing: []};
       }
       lastReason = `동기화 호출 실패: ${err.message}`;
     }
     if (attempt < 3 && sleepMs > 0) await new Promise((r) => setTimeout(r, sleepMs)); // allow-literal: 최대 3번 시도
   }
-  return {ok: false, reason: lastReason};
+  return {ok: false, reason: lastReason, missing};
 }
 
 /** 대시보드가 기록한 예약 시각을 읽는다. 쇼츠는 shorts-status.json, 롱폼은 동기화된 카탈로그. */
@@ -554,7 +711,7 @@ async function runWithStudio(plan, schedule) {
   const release = acquireLock();
   let browser = null;
   let page = null;
-  const summary = {videoId: null, scheduled: false, subs: null, subsError: null};
+  const summary = {videoId: null, scheduled: false, subs: null, subsError: null, settings: null, settingsError: null};
   try {
     browser = await chromium.connectOverCDP(`http://localhost:${STUDIO_PORT}`);
     // 사용자가 쓰던 스튜디오 탭을 건드리지 않게 항상 새 탭에서 한다.
@@ -566,6 +723,13 @@ async function runWithStudio(plan, schedule) {
     summary.videoId = done.videoId;
     log(`  예약 확인 창: ${done.confirmText.slice(0, 140)}`);
     if (!done.videoId) throw new StepError('예약은 됐지만 확인 창에서 영상 ID를 읽지 못했습니다. 스튜디오에서 직접 확인하세요.');
+    try {
+      const settings = await ensureVideoSettings(page, done.videoId, {category: plan.category});
+      summary.settings = settings;
+      log(`  [완료] 카테고리·언어 확인: 카테고리 "${settings.after.category}", 동영상 언어 "${settings.after.videoLanguage}", 제목 및 설명 언어 "${settings.after.titleLanguage}"${settings.changed.length ? ` (고친 칸: ${settings.changed.join(', ')})` : ' (고칠 칸 없음)'}`);
+    } catch (err) {
+      summary.settingsError = String(err.message).split('\n')[0];
+    }
     if (plan.subsPath) {
       try {
         await uploadSubtitles(page, done.videoId, plan.subsPath);
@@ -597,7 +761,9 @@ async function main(argv) {
   if (args.guide) {
     if (schedule && !schedule.ok) console.warn(`예약 시각을 쓰지 않았습니다: ${schedule.error}`);
     if (!existsSync(pkgDir)) { console.error(`패키지 폴더가 없습니다: ${pkgDir}`); return 2; }
-    const {plan} = inspectPackage(pkgDir, {schedule, playlist: args.playlist, noPlaylist: args.noPlaylist, noSubs: args.noSubs, catalogVideos: []});
+    const guideCategory = resolveCategory(args.category ?? undefined);
+    if (guideCategory.error) { console.error(guideCategory.error); return 2; }
+    const {plan} = inspectPackage(pkgDir, {schedule, playlist: args.playlist, noPlaylist: args.noPlaylist, noSubs: args.noSubs, catalogVideos: [], category: guideCategory});
     const text = buildGuide({
       pkgRel: relative(projectDir, pkgDir).split('\\').join('/'),
       plan,
@@ -616,7 +782,7 @@ async function main(argv) {
   const chrome = await setupStudioChrome({launchIfDown: true});
   const login = chrome.supported === false ? `지원 안 됨(${chrome.reason || chrome.error})` : (chrome.login || 'unknown');
   const result = inspectPackage(pkgDir, {
-    schedule, playlist: args.playlist, noPlaylist: args.noPlaylist, noSubs: args.noSubs,
+    schedule, playlist: args.playlist, noPlaylist: args.noPlaylist, noSubs: args.noSubs, category: resolveCategory(args.category ?? undefined),
     catalogVideos: catalog ? (catalog.videos || []) : null, login,
   });
   console.log(result.plan ? formatPlan(result.plan) : `패키지: ${pkgDir}`);
@@ -640,12 +806,14 @@ async function main(argv) {
     return 1;
   }
 
-  const sync = await syncAndVerify({plan: result.plan, schedule, videoId: summary.videoId});
+  const sync = await syncAndVerify({plan: result.plan, schedule, videoId: summary.videoId, expectedCategoryId: result.plan.category.id});
   const url = `https://youtu.be/${summary.videoId}`;
   console.log(`\n스튜디오 예약 완료: ${url} (${schedule.text} 한국 시각)`);
   let code = 0;
   if (summary.subs === 'failed') { console.error(`자막 단계 실패: ${summary.subsError} (영상 예약은 끝났음, 자막만 스튜디오에서 직접 올리세요)`); code = 1; }
+  if (summary.settingsError) { console.error(`카테고리·언어 단계 실패: ${summary.settingsError} (영상 예약은 끝났음. 스튜디오 편집 화면에서 카테고리와 두 언어 칸을 직접 확인하세요)`); code = 1; }
   if (!sync.ok) {
+    if (sync.missing?.length) console.error(`빠진 설정 목록:\n${sync.missing.map((m) => `  - ${m}`).join('\n')}`);
     console.error(`대시보드 확인 실패: ${sync.reason}${sync.dashboardDown ? ' (스튜디오 예약은 끝났음. 대시보드를 켠 뒤 동기화하면 기록됩니다)' : ''}`);
     code = 1;
   } else console.log(`대시보드 기록 확인: ${sync.source}의 예약 시각 ${sync.scheduledFor}`);

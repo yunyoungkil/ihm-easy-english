@@ -6,12 +6,14 @@ import {join} from 'node:path';
 import {
   parseSchedule, studioDateText, studioTimeText, confirmationMatches, videoIdFromText, checkScheduleReadback,
   inspectPackage, parseArgs, buildGuide, buildCommand, tagCharCount, parseTags, scheduledForMatches, syncAndVerify,
-  findCatalogDuplicate,
+  findCatalogDuplicate, resolveCategory, diffSettings, checkCatalogSettings, CATEGORIES,
 } from '../studio-upload.mjs';
 
 // 시험용 "지금": 2026-11-16 15:00 한국 시각 = 06:00 UTC (EP30 예약을 실제로 한 날)
 const NOW = new Date('2026-11-16T06:00:00Z');
 const okSchedule = () => parseSchedule('2026-11-18 20:00', NOW);
+// 실제 catalog.json의 칸 이름(defaultLanguage, categoryId)을 그대로 쓴 시험용 영상
+const okCatalogVideo = {videoId: 'Ng6amm9qFrI', defaultLanguage: 'ko', categoryId: '27'};
 
 const makePackage = (name = 'ep99-shorts-test', extra = {}) => {
   const root = mkdtempSync(join(tmpdir(), 'studio-upload-test-'));
@@ -236,7 +238,7 @@ test('대시보드 확인: 예약 시각이 같은지 비교하고, 꺼져 있�
   assert.equal(scheduledForMatches('2026-11-18T10:00:00Z', s), false);
   assert.equal(scheduledForMatches(null, s), false);
   const plan = run(makePackage('ep92-shorts-sync')).plan;
-  const down = await syncAndVerify({plan, schedule: s, videoId: 'x', sleepMs: 0, fetchFn: async () => { const e = new TypeError('fetch failed'); e.cause = {code: 'ECONNREFUSED'}; throw e; }});
+  const down = await syncAndVerify({plan, schedule: s, videoId: 'x', sleepMs: 0, catalogVideoFn: () => okCatalogVideo, fetchFn: async () => { const e = new TypeError('fetch failed'); e.cause = {code: 'ECONNREFUSED'}; throw e; }});
   assert.equal(down.ok, false);
   assert.equal(down.dashboardDown, true);
   assert.match(down.reason, /꺼져 있어 동기화 못 함/);
@@ -251,10 +253,94 @@ test('대시보드 확인: 동기화 뒤 shorts-status.json의 scheduledFor가 �
     writeFileSync(join(dir, 'shorts-status.json'), JSON.stringify({status: 'scheduled', videoId: 'Ng6amm9qFrI', scheduledFor}));
     return {ok: true, status: 200};
   };
-  const good = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', sleepMs: 0, fetchFn: fetchOk('2026-11-18T11:00:00Z')});
+  const good = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', sleepMs: 0, catalogVideoFn: () => okCatalogVideo, fetchFn: fetchOk('2026-11-18T11:00:00Z')});
   assert.equal(good.ok, true);
-  const bad = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', sleepMs: 0, fetchFn: fetchOk('2026-11-18T10:00:00Z')});
+  const bad = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', sleepMs: 0, catalogVideoFn: () => okCatalogVideo, fetchFn: fetchOk('2026-11-18T10:00:00Z')});
   assert.equal(bad.ok, false);
   assert.match(bad.reason, /shorts-status\.json/);
   assert.equal(existsSync(join(dir, 'status.json')), false);
+});
+
+test('카테고리: 기본은 교육(27), 한글 이름과 번호 둘 다 받고 모르는 값은 거절한다', () => {
+  assert.deepEqual(resolveCategory(), {label: '교육', id: '27'});
+  assert.deepEqual(resolveCategory('교육'), {label: '교육', id: '27'});
+  assert.deepEqual(resolveCategory('27'), {label: '교육', id: '27'});
+  assert.deepEqual(resolveCategory('게임'), {label: '게임', id: '20'});
+  assert.ok(resolveCategory('없는것').error);
+  assert.equal(Object.keys(CATEGORIES).length, 15);
+});
+
+test('실제 catalog.json 최근 영상의 categoryId는 교육 번호와 같다(번호표 확인)', () => {
+  const catalog = JSON.parse(readFileSync(new URL('../../data/youtube/catalog.json', import.meta.url), 'utf8'));
+  const withCat = catalog.videos.filter((v) => v.categoryId).slice(0, 5);
+  assert.ok(withCat.length > 0);
+  for (const v of withCat) assert.equal(String(v.categoryId), CATEGORIES['교육']);
+});
+
+test('설정 판정: 편집 화면에서 읽은 세 칸이 기대와 같으면 통과, 다르면 어느 칸인지 알려 준다', () => {
+  const expected = {category: resolveCategory('교육')};
+  const good = {category: '교육', videoLanguage: '한국어', titleLanguage: '한국어'};
+  assert.deepEqual(diffSettings(good, expected), []);
+  assert.deepEqual(diffSettings({...good, titleLanguage: ''}, expected).map((d) => d.key), ['titleLanguage']);
+  assert.deepEqual(diffSettings({...good, videoLanguage: '영어'}, expected).map((d) => d.key), ['videoLanguage']);
+  assert.deepEqual(diffSettings({...good, category: '엔터테인먼트'}, expected).map((d) => d.key), ['category']);
+  assert.equal(diffSettings({category: '', videoLanguage: '', titleLanguage: ''}, expected).length, 3);
+});
+
+test('API 값 판정: defaultLanguage가 ko이고 categoryId가 기대값이어야 한다(EP30 동기화 직후 null이었던 사례)', () => {
+  assert.equal(checkCatalogSettings({defaultLanguage: 'ko', categoryId: '27'}, '27').ok, true);
+  const noLang = checkCatalogSettings({defaultLanguage: null, categoryId: '27'}, '27');
+  assert.equal(noLang.ok, false);
+  assert.match(noLang.missing[0], /제목 및 설명 언어/);
+  assert.match(noLang.missing[0], /비어 있음/);
+  const wrongCat = checkCatalogSettings({defaultLanguage: 'ko', categoryId: '24'}, '27');
+  assert.equal(wrongCat.ok, false);
+  assert.match(wrongCat.missing[0], /카테고리/);
+  assert.equal(checkCatalogSettings({defaultLanguage: 'en', categoryId: 27}, 27).missing.length, 1);
+  assert.equal(checkCatalogSettings(null, '27').ok, false);
+});
+
+test('끝 검증: 동기화 뒤 카탈로그에 언어·카테고리가 빠져 있으면 실패하고 빠진 설정 목록을 돌려준다', async () => {
+  const dir = makePackage('ep90-shorts-settings');
+  const plan = run(dir).plan;
+  const fetchOk = async () => {
+    writeFileSync(join(dir, 'shorts-status.json'), JSON.stringify({status: 'scheduled', videoId: 'Ng6amm9qFrI', scheduledFor: '2026-11-18T11:00:00Z'}));
+    return {ok: true, status: 200};
+  };
+  const s = okSchedule();
+  const missingLang = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', sleepMs: 0, fetchFn: fetchOk, catalogVideoFn: () => ({videoId: 'Ng6amm9qFrI', defaultLanguage: null, categoryId: '27'})});
+  assert.equal(missingLang.ok, false);
+  assert.equal(missingLang.missing.length, 1);
+  assert.match(missingLang.reason, /빠진 설정/);
+  const bothMissing = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', sleepMs: 0, fetchFn: fetchOk, catalogVideoFn: () => ({videoId: 'Ng6amm9qFrI', defaultLanguage: null, categoryId: '24'})});
+  assert.equal(bothMissing.missing.length, 2);
+  const good = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', sleepMs: 0, fetchFn: fetchOk, catalogVideoFn: () => okCatalogVideo});
+  assert.equal(good.ok, true);
+  const gamePick = await syncAndVerify({plan, schedule: s, videoId: 'Ng6amm9qFrI', expectedCategoryId: '20', sleepMs: 0, fetchFn: fetchOk, catalogVideoFn: () => okCatalogVideo});
+  assert.equal(gamePick.ok, false, '게임(20)을 기대했는데 27이면 실패');
+});
+
+test('점검 표와 옵션: 카테고리·언어 줄이 있고, --category를 받으며, 잘못된 값은 점검에서 거절한다', () => {
+  const dir = makePackage('ep89-shorts-cat');
+  const ok = run(dir);
+  assert.ok(ok.checks.find((c) => c.id === 'category' && c.ok && /교육[(]27[)]/.test(c.detail)));
+  assert.ok(ok.checks.find((c) => c.id === 'languages' && c.ok && /한국어/.test(c.detail)));
+  assert.deepEqual(ok.plan.category, {label: '교육', id: '27'});
+  assert.ok(failedIds(run(dir, {category: resolveCategory('없는것')})).includes('category'));
+  assert.equal(parseArgs(['p', '--category', '게임']).category, '게임');
+  assert.ok(parseArgs(['p', '--category']).errors.length);
+});
+
+test('가이드: 사용자 직접 체크리스트에 카테고리와 두 언어 칸이 있고, 끝 확인에 API 칸이 적힌다', () => {
+  const plan = run(makePackage('ep88-shorts-guide')).plan;
+  const text = buildGuide({pkgRel: 'output/upload-packages/x', plan, scheduleText: '2026-11-18 20:00', playlist: '목록', noPlaylist: false, noSubs: false});
+  assert.match(text, /카테고리: 교육/);
+  assert.match(text, /동영상 언어: 한국어/);
+  assert.match(text, /제목 및 설명 언어: 한국어/);
+  assert.match(text, /defaultLanguage/);
+  assert.match(text, /categoryId/);
+  assert.ok(!text.includes('--category'), '기본 교육이면 명령에 --category를 붙이지 않는다');
+  const game = run(makePackage('ep87-shorts-guide'), {category: resolveCategory('게임')}).plan;
+  const gameText = buildGuide({pkgRel: 'p', plan: game, scheduleText: '2026-11-18 20:00', playlist: '목록', noPlaylist: false, noSubs: false});
+  assert.match(gameText, /--category "게임"/);
 });

@@ -50,7 +50,8 @@ test('실제 데이터: 저장된 곡선 파일은 점 100개이고 칸 이름�
   if (!existsSync(dir)) return;
   const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
   const real = files.map((f) => JSON.parse(readFileSync(join(dir, f), 'utf8'))).filter((j) => !j.empty);
-  assert.ok(real.length === 0 || real.every((j) => j.points.length === 100), '점 개수가 100이 아닌 곡선이 있다'); // allow-literal: 퍼센트 단위 100개 지점
+  // 시청자가 아주 적은 영상(2026-11-16 tFe-cB__uns, 약 15명)은 API가 마지막 100% 점을 빼고 99개만 준다. 실제 데이터 38개 중 37개 100점, 1개 99점.
+  assert.ok(real.every((j) => j.points.length === 100 || (j.points.length === 99 && j.points[98].ratio === 0.99)), '점 개수가 100(또는 끝점이 빠진 99)이 아닌 곡선이 있다'); // allow-literal: 퍼센트 단위 100개 지점, 끝점 누락 시 99개
   for (const j of real) {
     assert.ok(Number(j.durationSeconds) > 0 && j.drops.length > 0, `${j.videoId}: 길이나 이탈 구간이 비었다`);
     assert.ok(j.drops.every((d) => d.toSec <= j.durationSeconds + 0.1), `${j.videoId}: 이탈 시각이 영상 길이를 넘는다`); // allow-literal: 반올림 오차 허용

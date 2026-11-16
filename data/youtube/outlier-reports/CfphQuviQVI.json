@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "videoId": "CfphQuviQVI",
+  "analyzedAt": "2026-11-13T16:08:24.041Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "CfphQuviQVI",
+    "title": "1시간에 끝내는 왕기초 필수 영어 문법 총정리! (feat. 시제, be동사)",
+    "channelId": "UCqQR8b-MTXuMgrV7scZfq_w",
+    "channelTitle": "어션영어BasicEnglish",
+    "publishedAt": "2026-11-09T03:30:26Z",
+    "viewCount": 3042,
+    "likeCount": 30,
+    "commentCount": 2,
+    "durationSeconds": 4168,
+    "thumbnail": "https://i.ytimg.com/vi/CfphQuviQVI/maxresdefault.jpg",
+    "description": "어션영어 - 재생목록\nhttps://www.youtube.com/c/%EC%96%B4%EC%85%98%EC%98%81%EC%96%B4BasicEnglish/playlists?view_as=subscriber\n\n책 소개 영상\nhttps://www.youtube.com/watch?v=WLDh2M3tC6o&t=696s\n\n어션영어 교재 - 핵심 강의 재생목록\nhttps://www.youtube.com/playlist?list=PLNsvYA3ew0xgBC-_vkwwZ2VbDA5LfSOdj\n\n어션영어 교재 - 연관 강의 재생목록\nhttps://www.youtube.com/playlist?list=PLNsvYA3ew0xhdqH9Zb1Xnb-_-EgeL41mL\n\n구매 가능 인터넷 서점\n예스24 https://bit.ly/316VPt3\n알라딘 https://bit.ly/3aw5ahc\n교보문고 https://bit.ly/3kVT5GD\n인터파크 https://bit.ly/3axh2zi",
+    "tags": [
+      "영문법",
+      "영어문법",
+      "영어시제",
+      "왕기초영어",
+      "왕초보영어",
+      "기초영어회화",
+      "어션영어",
+      "올인원 기초영어"
+    ]
+  },
+  "subscriberCount": 227000,
+  "viewsPerSubscriber": 0.01,
+  "outlierRatio": 127.09,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 1503,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 1
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "1시간이라는 명확한 시간 내에 왕기초 필수 영어 문법을 한 번에 정복할 수 있음을 약속하여 학습 의욕을 자극함",
+      "titleQuote": "1시간에 끝내는 왕기초 필수 영어 문법 총정리! (feat. 시제, be동사)",
+      "thumbnailText": "영어 이것부터 공부하세요! I can do it! 왕기초 필수 영어문법 총정리! (1시간 완성)",
+      "thumbnailWordCount": 11,
+      "thumbnailVisual": "흰색 바탕 상단에 파란색 띠와 문구, 중앙에 붉은색과 초록색 강조 글자, 우측 창문 프레임에 입체적인 캐릭터가 손가락으로 아래를 가리키고 있음",
+      "thumbnailVsTitle": "썸네일과 제목 모두 '왕기초 필수 영어문법 총정리'를 공통 핵심 문구로 제시하고 있으며, 썸네일의 '1시간 완성'과 제목의 '1시간에 끝내는'이 완벽히 대응함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "강사가 인사를 건넨 뒤 be동사 활용법에 대해 다루겠다고 소개하고, 동사는 크게 be동사와 일반동사로 나뉜다는 기본 개념을 설명함",
+      "quote": "안녕하세요. 기초 영어 강사 어션입니다. 먼저 비동사를 활용하는 방법에 대해 알아보도록 하겠습니다. 우선 동사는 크게 비동사와 일반 동사로 나누어지는데요.",
+      "reasonToKeepWatching": "be동사와 일반동사의 구분은 매우 중요하다고 강조하며, 영어 기초를 다지기 위해 반드시 알아야 할 핵심 원리를 짚어줌",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 36,
+        "what": "be동사(am, is, are)와 일반동사의 정의 및 차이점 설명",
+        "quote": "비동사는 am, is, are 을 말하며 일반 동사는 비동사를 제외한 나머지 동사를 말합니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 37,
+        "end": 117,
+        "what": "be동사 뒤에 올 수 있는 3가지 요소(형용사, 명사, 전치사+명사)와 그에 따른 의미 차이 설명",
+        "quote": "비동사 즉 am, is, are 다음에는 형용사 명사 또는 전치사 플러스 명사가 주로 옵니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 118,
+        "end": 247,
+        "what": "인칭대명사 주어 종류(I, He, She, It, We, You, They)와 각 주어별 짝꿍 be동사 규칙 정리",
+        "quote": "I는 비동사 am과 함께 쓰이며 he, she, is는 비동사 is we, you, they는 비동사 are과 함께 씁니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 248,
+        "end": 354,
+        "what": "명사의 종류 구분(셀 수 있는 명사의 단수/복수 형태, 셀 수 없는 명사의 예시)",
+        "quote": "명사는 셀 수 있는 명사와 셀 수 없는 명사로 나누어지는데요.",
+        "quoteVerified": true
+      },
+      {
+        "start": 355,
+        "end": 300,
+        "what": "be동사를 활용한 문장 만들기 예시 단어 및 문장 학습",
+        "quote": "앞서 배워 본 비동사를 이용하여 문장을 만들어 보겠습니다. 문장에 쓸 형용사, 명사, 전치사 플러스 명사 표현을 먼저 학습해 보도록 하겠습니다.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "화면 중앙에 'Day 01 be동사 활용법' 제목과 응원 문구 상자 등장",
+        "purpose": "강의 시작 알림 및 학습자 동기 부여"
+      },
+      {
+        "t": 10,
+        "what": "슬라이드가 '1. 동사의 종류 / be동사 / 일반동사' 제목으로 전환",
+        "purpose": "동사의 주요 분류 체계 제시"
+      },
+      {
+        "t": 15,
+        "what": "be동사 항목에 'am, is, are'가 표시되고 일반동사 예시(eat, sleep, move) 텍스트 추가",
+        "purpose": "be동사와 일반동사의 конкре한 종류 visual화"
+      },
+      {
+        "t": 37,
+        "what": "슬라이드가 '2. be동사(am, is, are) 뒤에 주로 오는 3가지'로 전환",
+        "purpose": "be동사 구문의 구조적 특징 안내"
+      },
+      {
+        "t": 44,
+        "what": "'be + 형용사', 'be + 명사', 'be + 전치사+명사' 항목이 순차적으로 표시됨",
+        "purpose": "be동사 결합 패턴 3가지 유형 제시"
+      },
+      {
+        "t": 56,
+        "what": "각 결합 패턴 오른쪽에 해석 의미(': ~하다', ': ~(이)다', ': (~에) 있다, ...')가 추가됨",
+        "purpose": "구조별 한국어 의미 차이 명확화"
+      },
+      {
+        "t": 118,
+        "what": "슬라이드가 '3. 주어에 따라 바뀌는 be동사'로 전환",
+        "purpose": "주어-동사 수일치 규칙 설명 준비"
+      },
+      {
+        "t": 124,
+        "what": "주어 인칭대명사 7개(I, He, She, It, We, You, They)와 발음 표시 기호 등장",
+        "purpose": "주어로 사용되는 대표 대명사 제시"
+      },
+      {
+        "t": 140,
+        "what": "각 대명사 오른쪽에 한국어 의미(나, 그, 그녀, 그것, 우리(들), 너/너희들, 그들/그것들)가 표기됨",
+        "purpose": "대명사의 정확한 한국어 뜻 전달"
+      },
+      {
+        "t": 200,
+        "what": "대명사 묶음별로 짝을 이루는 be동사(am, is, are)가 주황색 글자로 표시됨",
+        "purpose": "주어별 be동사 매칭 규칙 시각화"
+      },
+      {
+        "t": 217,
+        "what": "be동사 뒤에 오를 수 있는 요소(+ 형용사 / 명사 / 전치사+명사)가 종합 배치됨",
+        "purpose": "문장 완성의 기본 공식 구조를 한눈에 정리"
+      },
+      {
+        "t": 248,
+        "what": "슬라이드가 '★ 명사의 종류'로 전환",
+        "purpose": "문장 구성 요소인 명사 개념 보충 설명"
+      },
+      {
+        "t": 251,
+        "what": "'셀 수 있는 명사', '셀 수 없는 명사' 구분 항목이 나타남",
+        "purpose": "명사의 두 가지 주요 분류 제시"
+      }
+    ],
+    "ending": {
+      "what": "be동사 현재형 학습을 마무리하며, 다음 단원에서 be동사 현재형의 부정문에 대해 배울 것임을 고지하고 인사함",
+      "quote": "이번 강의에서는 비동사의 현재형에 대해 알아보았습니다. 다음 강의에서는 비동사의 현재형 부정문에 대해 알아보도록 하겠습니다.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "친절하고 알기 쉬운 문법 설명에 감사를 전하며 즐겁게 시청함",
+          "quote": "선생님 감사합니다 👍👍👍 즐겁게 듣고갑니다 🙏",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": []
+    },
+    "links": [
+      {
+        "cause": "체계적이고 깔끔한 슬라이드 판서와 차분한 목소리로 기초 문법 원리를 명확하게 짚어주는 강의 방식",
+        "reaction": "강의에 대한 만족감을 표하며 감사 인사 남김",
+        "quote": "선생님 감사합니다 👍👍👍 즐겁게 듣고갑니다 🙏",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "슬라이드 텍스트를 최소화하여 [주어 + be동사 + 보어] 규칙을 시각적으로 명확히 대조해 보여주는 구조화된 판서 방식을 적극 활용한다.",
+      "differentiate": "문법 법칙의 서술적 설명에 그치지 않고, 한국어 문장과 영어 소리의 1:1 매칭 훈련 및 입으로 직접 따라 하는 음성 반응 훈련 시간을 대폭 확대한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 10,
+    "verified": 10,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 37,
+      "file": "37.jpg"
+    },
+    {
+      "t": 44,
+      "file": "44.jpg"
+    },
+    {
+      "t": 56,
+      "file": "56.jpg"
+    },
+    {
+      "t": 118,
+      "file": "118.jpg"
+    },
+    {
+      "t": 140,
+      "file": "140.jpg"
+    },
+    {
+      "t": 200,
+      "file": "200.jpg"
+    },
+    {
+      "t": 217,
+      "file": "217.jpg"
+    },
+    {
+      "t": 248,
+      "file": "248.jpg"
+    },
+    {
+      "t": 251,
+      "file": "251.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 42247,
+    "candidatesTokenCount": 2544,
+    "totalTokenCount": 46931,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 13846
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      }
+    ],
+    "thoughtsTokenCount": 2140,
+    "serviceTier": "standard"
+  }
+}

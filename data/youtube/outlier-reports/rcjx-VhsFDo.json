@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 1,
+  "videoId": "rcjx-VhsFDo",
+  "analyzedAt": "2026-11-15T16:07:12.262Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 36,
+  "meta": {
+    "videoId": "rcjx-VhsFDo",
+    "title": "'시간' 영어단어4 | 일상생활영어 | 기초영어회화 | 왕초보영어",
+    "channelId": "UCSyomjvhjZ4Qp6Zp3dbXxTA",
+    "channelTitle": "굿럭영어",
+    "publishedAt": "2024-08-05T03:50:00Z",
+    "viewCount": 1118227,
+    "likeCount": 12405,
+    "commentCount": 72,
+    "durationSeconds": 36,
+    "thumbnail": "https://i.ytimg.com/vi/rcjx-VhsFDo/maxresdefault.jpg",
+    "description": "매일 꾸준한 영어공부로 다가오는 인생의 행운을 잡으세요~🍀\n\n#영어 #영어회화 #영어공부 #영어단어",
+    "tags": [
+      "영어회화",
+      "영어왕초보",
+      "필수기초영어",
+      "기초영어",
+      "생활영어",
+      "기초생활영어",
+      "기초영어회화",
+      "성인영어",
+      "성인영어회화",
+      "원어민영어",
+      "영어듣기",
+      "영어반복듣기",
+      "하루10분영어",
+      "매일영어듣기",
+      "영어습관",
+      "영어말하기",
+      "기초영단어",
+      "필수영단어",
+      "7살영어",
+      "쉬운영어",
+      "노인영어",
+      "영어공부",
+      "영어",
+      "#영어공부",
+      "#영어회화",
+      "#영어",
+      "#영어듣기",
+      "#영어단어",
+      "#영어말하기",
+      "#기초영어",
+      "#생활영어"
+    ]
+  },
+  "subscriberCount": 78500,
+  "viewsPerSubscriber": 14.24,
+  "outlierRatio": 18.06,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=rcjx-VhsFDo! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 54
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 36
+    }
+  },
+  "speech": {
+    "source": null,
+    "quality": null,
+    "kind": "short",
+    "sentences": null,
+    "stats": null,
+    "computedAt": "2026-11-15T16:07:07.522Z",
+    "note": "자막을 못 받음, 대체 경로 하루 상한(2편)에 도달"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "시간 관련 기초 영어 단어 시리즈 중 4번째 편임을 밝혀 일상생활 영어 단어 학습 욕구를 자극함",
+      "titleQuote": "'시간' 영어단어4 | 일상생활영어 | 기초영어회화 | 왕초보영어",
+      "thumbnailText": "시간 영어단어 (4)",
+      "thumbnailWordCount": 3,
+      "thumbnailVisual": "보라색 배경 중앙에 단어 목록 카드가 배치되어 있으며, 한글 뜻, 영어 단어, 검은색 박스 안의 한글 발음 표기가 순차적으로 정리되어 있음",
+      "thumbnailVsTitle": "제목의 '시간 영어단어 (4)' 문구를 썸네일 상단에 똑같이 배치하고 실제 영상 속 학습 단어 카드를 직관적으로 보여줌",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "오늘(Today), 내일(Tomorrow), 지금(Now) 단어가 순서대로 등장하며 여성과 남성 성우가 영어 발음을 반복해 들려줌",
+      "quote": "",
+      "reasonToKeepWatching": "1번부터 5번까지 번호가 붙은 단어 목록을 하나씩 채워가는 방식으로 구성하여 끝까지 보며 5개 단어를 완성하고 싶게 만듦"
+    },
+    "first3s": {
+      "what": "1번 항목 '오늘' 옆에 'Today'와 한글 발음 '[투데이]' 박스가 나타나며 여성과 남성 성우 발음이 나옴",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 6,
+        "what": "1번 '오늘 - Today [투데이]' 단어가 제시되고 성우 발음이 반복됨",
+        "quote": ""
+      },
+      {
+        "start": 7,
+        "end": 14,
+        "what": "2번 '내일 - Tomorrow [투마아로우]' 단어가 제시되고 성우 발음이 반복됨",
+        "quote": ""
+      },
+      {
+        "start": 15,
+        "end": 21,
+        "what": "3번 '지금 - Now [나우]' 단어가 제시되고 성우 발음이 반복됨",
+        "quote": ""
+      },
+      {
+        "start": 22,
+        "end": 28,
+        "what": "4번 '과거 - Past [패스트]' 단어가 제시되고 성우 발음이 반복됨",
+        "quote": ""
+      },
+      {
+        "start": 29,
+        "end": 36,
+        "what": "5번 '미래 - Future [퓨처]' 단어 학습 후 완성된 5개 단어 전체 카드가 축소되며 영상이 마무리됨",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "1번 '오늘' 한글 텍스트 등장",
+        "purpose": "학습할 첫 번째 한글 단어 제시"
+      },
+      {
+        "t": 1,
+        "what": "파란색 'Today' 영어 단어 등장",
+        "purpose": "해당 단어의 영어 철자 제시"
+      },
+      {
+        "t": 2,
+        "what": "검은색 배경의 '[투데이]' 한글 발음 박스 등장",
+        "purpose": "읽는 방법을 한글 발음 표기로 안내"
+      },
+      {
+        "t": 7,
+        "what": "2번 '내일' 및 'Tomorrow' 텍스트 등장",
+        "purpose": "두 번째 단어 제시"
+      },
+      {
+        "t": 10,
+        "what": "검은색 배경의 '[투마아로우]' 발음 박스 등장",
+        "purpose": "두 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 15,
+        "what": "3번 '지금' 및 'Now' 텍스트 등장",
+        "purpose": "세 번째 단어 제시"
+      },
+      {
+        "t": 17,
+        "what": "검은색 배경의 '[나우]' 발음 박스 등장",
+        "purpose": "세 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 22,
+        "what": "4번 '과거' 및 'Past' 텍스트 등장",
+        "purpose": "네 번째 단어 제시"
+      },
+      {
+        "t": 24,
+        "what": "검은색 배경의 '[패스트]' 발음 박스 등장",
+        "purpose": "네 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 29,
+        "what": "5번 '미래' 및 'Future' 텍스트 등장",
+        "purpose": "다섯 번째 단어 제시"
+      },
+      {
+        "t": 31,
+        "what": "검은색 배경의 '[퓨처]' 발음 박스 등장",
+        "purpose": "다섯 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 35,
+        "what": "전체 화면이 줌아웃되며 completed 단어 카드 전체 모습 공개",
+        "purpose": "오늘 배운 5개 단어 전체 요약"
+      }
+    ],
+    "ending": {
+      "what": "5가지 단어의 영어 표기와 한글 발음 표기가 완성된 단어 카드가 줌아웃되면서 영상이 마침",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "시니어층 시청자가 부담 없이 기초 영어를 다시 배울 수 있어 고마워함",
+          "quote": "감사 합니다 오늘 부터 시작 하겠습니다 저는 67세 멋진인생 첫공부 시작합니다 ❤❤",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "단어의 뜻은 알지만 영어 스펠링을 외우는 데 어려움을 겪음",
+          "quote": "Today Tomorrow Now Past future 뜻은 아는데 스펠링 햇갈려셔 적음",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "화면 맨 아래쪽에 위치한 단어가 잘 보이지 않는다는 지적",
+          "quote": "열심히 따라하겠습니다. 그런데 마지막 단어가 보이지않습니다 ~",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "투데이",
+          "quote": "투데이",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 5,
+      "description": "시간 관련 핵심 단어 5개(오늘, 내일, 지금, 과거, 미래)를 번호순으로 차례대로 제시하고 발음을 들려줌",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 좌측에 번호별 단어 리스트 형태로 수직 정렬",
+      "size": "보통",
+      "highlightColor": "파란색(영어 단어), 검은색 박스에 흰색 글자(발음)",
+      "highlightMethod": "단어가 나온 뒤 한글 발음 박스가 나타나는 애니메이션 방식",
+      "textAmount": "한 번에 1개 단어 세트씩 순차적으로 누적 표시",
+      "changeTiming": "성우가 단어를 읽는 음성 타이밍에 맞춰 글자가 등장"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "잔잔하고 따뜻한 피아노 배경음",
+      "tempo": "느림",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "성우의 단어 발음 음성이 뚜렷하게 중심을 이루고 피아노 음악은 배경에 얌전하게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "시간 영어 단어 5개를 순서대로 익히도록 첫 단어 '오늘'부터 바로 제시",
+        "quote": "",
+        "type": "목록형 리스트 학습"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "어떤 시간 관련 기초 단어 5개가 나올지 호기심 유도",
+          "quote": ""
+        },
+        "resolved": {
+          "t": 35,
+          "what": "5개 단어(오늘, 내일, 지금, 과거, 미래)의 영어 표기와 발음을 모두 보여주며 해결",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "1번부터 5번까지 연관된 주제의 단어 5개를 순차적으로 나열하는 방식임",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [
+        {
+          "t": 1,
+          "what": "성우 발음을 듣고 화면의 한글 발음을 보며 소리 내어 따라 읽기 유도",
+          "quote": ""
+        }
+      ],
+      "evidence": [],
+      "payoff": {
+        "t": 35,
+        "what": "5개 단어 전체가 담긴 완성형 요약 카드를 보여줌",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "왕초보도 쉽게 읽을 수 있는 한글 발음 표기와 성우 음성 제공",
+        "reaction": "60대 이상 고령 시청자들이 자신감을 얻고 영어 공부 시작 의지를 밝힘",
+        "quote": "감사 합니다 오늘 부터 시작 하겠습니다 저는 67세 멋진인생 첫공부 시작합니다 ❤❤",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "왕초보 성인 시청자를 위해 기초 시간 단어의 영어 원어민 음성과 한글 발음 표기를 함께 제공하여 쉽게 따라 읽도록 돕기 때문임.",
+    "forUs": {
+      "adopt": "단어 음성 출력에 맞춰 한글 발음 가이드 박스가 직관적으로 떠오르는 타이밍 구성법.",
+      "differentiate": "단순히 한글 발음 표기를 적어주는 데서 나아가 원어민의 진짜 소리 규칙(발음 기호, 호흡, 강세)을 입모양과 함께 구체적으로 짚어준다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 6,
+    "verified": 6,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 17,
+      "file": "17.jpg"
+    },
+    {
+      "t": 22,
+      "file": "22.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 29,
+      "file": "29.jpg"
+    },
+    {
+      "t": 31,
+      "file": "31.jpg"
+    },
+    {
+      "t": 35,
+      "file": "35.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 7362,
+    "candidatesTokenCount": 2533,
+    "totalTokenCount": 12117,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2989
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3273
+      }
+    ],
+    "thoughtsTokenCount": 2222,
+    "serviceTier": "standard"
+  }
+}

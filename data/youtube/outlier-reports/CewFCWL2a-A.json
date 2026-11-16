@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "videoId": "CewFCWL2a-A",
+  "analyzedAt": "2026-11-15T16:04:48.457Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 21,
+  "meta": {
+    "videoId": "CewFCWL2a-A",
+    "title": "기초 영어단어 \"방향 NO.3\" #영어회화 #영어단어장 #초보영어 #영어공부",
+    "channelId": "UCpUiXT61tFZATEa2uwJzzkA",
+    "channelTitle": "몬스터잉글리쉬_여행영어",
+    "publishedAt": "2024-10-18T07:14:04Z",
+    "viewCount": 389957,
+    "likeCount": 3179,
+    "commentCount": 14,
+    "durationSeconds": 21,
+    "thumbnail": "https://i.ytimg.com/vi/CewFCWL2a-A/maxresdefault.jpg",
+    "description": "\"영어회화는 누구나 가능합니다! 반복 듣기만으로도 충분하고, 문장을 들으며 함께 말해보는 것이 중요해요. \n직접 말해보면 학습 효과가 더욱 커집니다. 이 방법만으로도 영어 왕초보에서 탈출할 수 있습니다. \n몬스터영어는 여러분의 영어 학습을 위해 최선을 다하겠습니다. \n생활영어 한눈에 저절로 암기, 치매예방, 기억력 향상에 도움 됩니다.\n여러분의 구독과 좋아요는 저에게 힘을 주는 몬스터파워랍니다!\n늦었다고 생각하지 마세요! 오늘이 바로 시작의 날이에요! 함께 출발해볼까요? \nLet's go!🚀😊\n\n#영어단어장 #왕초보영어 #영어회화 #shorts #shortsenglish #기초영어 #영어 #영어단어 #영어회화 #영어단어공부 #기초영어단어 # #생활영어 #영어공부 #영어학습 #영어공부 #korean #english #필수영어 #영어스터디 #영어단어공부 #기억력향상 #치매예방",
+    "tags": []
+  },
+  "subscriberCount": 35000,
+  "viewsPerSubscriber": 11.14,
+  "outlierRatio": 366.5,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-15T16:00:33.030Z",
+  "ratioDenominator": 1064,
+  "ratioPeerCount": 44,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=CewFCWL2a-A! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 10
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 21
+    }
+  },
+  "speech": {
+    "source": "whisper-small",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 5,
+    "stats": {
+      "sentences": 5,
+      "lengthSum": 57,
+      "lengthMedian": 11,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 5
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 5,
+      "hangulChars": 14,
+      "hangulRatio": 0.3,
+      "uniqueWordRatio": 1,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-15T16:04:25.059Z",
+    "note": "품질 낮음: 문장 5개(8개 미만), 한글 14자(150자 미만), 한국어 글자 비율 0.3(0.7 미만)",
+    "fallbackTried": true
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "기초 영어단어 학습 시리즈 '방향 NO.3' 제목으로 특정 주제 단어 학습을 제시함",
+      "titleQuote": "기초 영어단어 \"방향 NO.3\" #영어회화 #영어단어장 #초보영어 #영어공부",
+      "thumbnailText": "하루 5개 영어단어,머리에 쏙쏙 ➡️ 방향 NO.3 ☑️ 오른쪽 ☑️ 왼쪽 ☑️ 가운데 ☑️ 수직의 ☑️ 수평의 \"구독, 좋아요는 큰 힘이 됩니다\"",
+      "thumbnailWordCount": 18,
+      "thumbnailVisual": "민트색 노트 배경에 한국어 방향 단어 5개가 체크리스트 형식으로 적혀 있음",
+      "thumbnailVsTitle": "제목의 주제어 '방향 NO.3'과 썸네일 속 5개 방향 단어 목록이 일치함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "15초 동안 '오른쪽', '왼쪽', '가운데', '수직의' 4개 단어의 한국어 뜻, 영어 철자, 한글 발음 표기가 순서대로 채워지며 음성이 재생됨",
+      "quote": "",
+      "reasonToKeepWatching": "5개 단어 체크리스트를 하나씩 완성해 가는 형식을 보여주어 끝까지 완성본을 보게 만듦"
+    },
+    "first3s": {
+      "what": "상단 주제와 5개 단어 목록이 나오고 첫 단어 '오른쪽' 옆에 체크표시와 함께 Right/라이트 텍스트가 나타남",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 4,
+        "what": "'오른쪽' 항목에 체크 표시가 되고 영어 단어 'Right'와 한글 표기 '라이트'가 뜨며 음성 발음이 재생됨",
+        "quote": ""
+      },
+      {
+        "start": 4,
+        "end": 8,
+        "what": "'왼쪽' 항목에 체크 표시가 되고 영어 단어 'Left'와 한글 표기 '레프트'가 뜨며 음성 발음이 재생됨",
+        "quote": ""
+      },
+      {
+        "start": 8,
+        "end": 12,
+        "what": "'가운데' 항목에 체크 표시가 되고 영어 단어 'Center'와 한글 표기 '센터'가 노란색 박스로 등장하며 음성이 재생됨",
+        "quote": ""
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "what": "'수직의' 항목에 체크 표시가 되고 영어 단어 'Vertical'과 한글 표기 '버티컬'이 노란색 박스로 등장하며 음성이 재생됨",
+        "quote": ""
+      },
+      {
+        "start": 16,
+        "end": 21,
+        "what": "'수평의' 항목에 체크 표시가 되고 영어 단어 'Horizontal'과 한글 표기 '호리즌탈'이 뜬 후 전체 체크리스트 완성 화면이 보여짐",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "민트색 노트 배경에 5개 한국어 단어 목록이 표시됨",
+        "purpose": "오늘 배울 단어 목차를 미리 제시"
+      },
+      {
+        "t": 1,
+        "what": "'오른쪽' 옆 체크박스에 체크가 되고 Right/라이트 상자가 나타남",
+        "purpose": "첫 번째 단어 정보 전달"
+      },
+      {
+        "t": 5,
+        "what": "'왼쪽' 옆 체크박스에 체크가 되고 Left/레프트 상자가 나타남",
+        "purpose": "두 번째 단어 정보 전달"
+      },
+      {
+        "t": 9,
+        "what": "'가운데' 옆 체크박스에 체크가 되고 노란색 강조의 Center/센터 상자가 나타남",
+        "purpose": "세 번째 단어 정보 전달"
+      },
+      {
+        "t": 13,
+        "what": "'수직의' 옆 체크박스에 체크가 되고 노란색 강조의 Vertical/버티컬 상자가 나타남",
+        "purpose": "네 번째 단어 정보 전달"
+      },
+      {
+        "t": 17,
+        "what": "'수평의' 옆 체크박스에 체크가 되고 노란색 강조의 Horizontal/호리즌탈 상자가 나타남",
+        "purpose": "다섯 번째 단어 정보 전달"
+      },
+      {
+        "t": 20,
+        "what": "화면 구도가 살짝 이동하며 5개 단어가 모두 완성된 전체 표가 확대 강조됨",
+        "purpose": "학습 내용 전체 요약 정리"
+      }
+    ],
+    "ending": {
+      "what": "5개 단어 체크리스트가 완성된 화면을 보여주고 하단 구독 요청 문구를 유지함",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "단어와 발음기호를 정리해 주며 영어 공부가 기억력과 건강에 좋다고 느낀 지점",
+          "quote": "1 오른쪽, Right, 라이트, /raɪt/, 2 왼쪽, Left, 레프트, /lɛft/, 3 가운데, Center, 센터, /ˈsɛntər/ 4 수직의, Vertical, 버티컬, /ˈvɜːrtɪkl/, 5 수평의, Horizontal, 호리즌탈, /ˌhɔːrɪˈzɒntl/ 영어발음기호 추가해서 내용을 올립니다. 한글발음은 영어사전의 한글발음표기를 사용하고 있습니다. 참고만 하세요. ^^ 영어공부는 기억력 향상과 치매예방에 좋습니다. 구독과 좋아요는 사랑입니다^^",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "question": "다른 계절 단어를 물어봄",
+          "quote": "봄 영어로 뭐에요?",
+          "quoteVerified": true
+        },
+        {
+          "question": "왼쪽의 영어 표현을 다시 확인해 봄",
+          "quote": "왼쪽 영어가 레프트인가용?",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "Right(오른쪽)의 한글 표기 '라이트'를 ride(타다) 등의 발음과 혼동함",
+          "quote": "라이트는 타다인데..?",
+          "quoteVerified": true
+        },
+        {
+          "expression": "영상에 표기된 한글 발음 따라 쓰기",
+          "quote": "호리존탈",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 5,
+      "description": "방향 관련 영어 단어 5개(Right, Left, Center, Vertical, Horizontal)를 목록 형식으로 순서대로 제시함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 우측 단어 표 영역",
+      "size": "큼",
+      "highlightColor": "노란색",
+      "highlightMethod": "단어 배경에 노란색 형광 칠을 하고 체크 표시를 덧붙임",
+      "textAmount": "한 화면에 5개 단어 틀이 항상 고정되어 있음",
+      "changeTiming": "약 4초 간격으로 한 줄씩 완성됨"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "배경음악 없이 한국어 단어 읽기 후 여성/남성 영어 발음 음성만 연속으로 나옴"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "하루 5개 영어 단어 학습 목표를 상단 헤더로 고정",
+        "quote": "",
+        "type": "목표 제시형"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "한국어 뜻에 일치하는 영어 단어가 무엇인지 궁금하게 함",
+          "quote": ""
+        },
+        "resolved": {
+          "t": 1,
+          "what": "하나씩 체크 표시와 함께 영어 단어 및 발음 표기를 공개해 해소함",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "5개 단어가 독립적인 나열형 목록 구조로 배치됨",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 20,
+        "what": "영상 끝에 5개 단어가 모두 작성된 완료 상태 체크리스트를 보여줌",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "오른쪽(Right)의 한글 발음 표기 '라이트'",
+        "reaction": "ride(타다) 발음과 한글 표기가 같아 혼동하는 댓글",
+        "quote": "라이트는 타다인데..?",
+        "quoteVerified": true
+      },
+      {
+        "cause": "Horizontal의 한글 발음 표기 '호리즌탈'",
+        "reaction": "한글 발음 표기를 그대로 적은 댓글",
+        "quote": "호리존탈",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 소리의 생성 원리나 원어민 발음 구별법을 가르치는 것이 아니라, 단어 뜻과 한글 발음 표기를 암기용으로 단순 전달하기 때문이다.",
+    "forUs": {
+      "adopt": "체크리스트 형식 디자인을 활용해 시청자가 오늘 배울 소리 학습 목표와 수량을 직관적으로 파악하게 만드는 구성.",
+      "differentiate": "단순히 '라이트', '레프트' 같은 한글 표기를 적는 대신, R과 L 소리의 혀 위치 차이 등 성인이 실제 소리를 알아듣고 낼 수 있는 원리를 설명한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 8,
+    "verified": 8,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 13,
+      "file": "13.jpg"
+    },
+    {
+      "t": 17,
+      "file": "17.jpg"
+    },
+    {
+      "t": 20,
+      "file": "20.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 5304,
+    "candidatesTokenCount": 2459,
+    "totalTokenCount": 10344,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2293
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 1911
+      }
+    ],
+    "thoughtsTokenCount": 2581,
+    "serviceTier": "standard"
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "videoId": "_9qeS-JJsfk",
+  "analyzedAt": "2026-11-15T05:24:42.287Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 20,
+  "meta": {
+    "videoId": "_9qeS-JJsfk",
+    "title": "영어 듣기하며 독해 몇번까지 풀어요? | 찾아가는 동니버스 4화",
+    "channelId": "UChY-xl759yNJlsjYepz8i1Q",
+    "channelTitle": "동니버스",
+    "publishedAt": "2024-04-15T07:45:01Z",
+    "viewCount": 3710848,
+    "likeCount": 45763,
+    "commentCount": 461,
+    "durationSeconds": 20,
+    "thumbnail": "https://i.ytimg.com/vi/_9qeS-JJsfk/maxresdefault.jpg",
+    "description": "# 6주 압축반\n- 신청 : https://bit.ly/3w3O9Kz\n\n# 독해 강의 수강신청 (오르빗)\n- 오르빗 패키지 : https://forten.ac/shop_view/?idx=426\n- 오르빗 파트1 : https://forten.ac/shop_view/?idx=425",
+    "tags": [
+      "공부",
+      "수능",
+      "수능공부법",
+      "공부법",
+      "모의고사푸는법",
+      "기출분석법",
+      "수능영어",
+      "영어공부법",
+      "영어독해",
+      "영어단어",
+      "구문",
+      "2등급",
+      "3등급",
+      "1등급",
+      "동니버스"
+    ]
+  },
+  "subscriberCount": 29200,
+  "viewsPerSubscriber": 127.08,
+  "outlierRatio": 143.01,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 9,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 20
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "고등학생에게 영어 듣기평가 시 독해 문제를 몇 번까지 같이 푸는지 질문하며 수험생들의 관심사와 실전 팁에 대한 호기심을 유발한다.",
+      "titleQuote": "영어 듣기하며 독해 몇번까지 풀어요? | 찾아가는 동니버스 4화",
+      "thumbnailText": "Q. 모의고사 듣기 중에 몇 번까지 푸나요?",
+      "thumbnailWordCount": 7,
+      "thumbnailVisual": "교복을 입은 학생이 음료 컵을 들고 인 길거리에서 질문에 답하는 인터뷰 모습",
+      "thumbnailVsTitle": "제목의 질문 주제를 썸네일에 'Q. 모의고사 듣기 중에 몇 번까지 푸나요?'라는 직관적인 자막 형태로 그대로 제시하여 시청 욕구를 자극한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "인터뷰어가 학생에게 영어 등급, 하루 순공 시간, 듣기평가 시 함께 푸는 독해 문제 수를 차례대로 묻고 학생이 1등급, 2시간, 8문제라고 구체적으로 답변한다.",
+      "quote": "[00:00] 혹시 영어 몇 등급 나오세요 어 [00:01] 저번에 1등급 나왔어 혹시 영어 승공 [00:03] 시간 몇 시간 정도 나오세요 두시간 [00:05] 매일 평균 두시간 정도 혹시 듣기 할 [00:07] 때 모 어서 몇 번까지 푸세요요 한 [00:09] 여덟 문제 맨 앞에네 개랑 21까지 [00:13] 뒤에 4 3 4 4 45까지네 혹시",
+      "reasonToKeepWatching": "영어 1등급을 받는 고등학생이 실제 시험 상황에서 듣기평가와 독해를 병행하는 구체적인 요령과 문제를 푸는 번호를 밝혀 끝까지 보게 만든다.",
+      "quoteVerified": false
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 2,
+        "what": "영어 등급을 묻고 저번에 1등급이 나왔다는 답변을 듣는다.",
+        "quote": "[00:00] 혹시 영어 몇 등급 나오세요 어 [00:01] 저번에 1등급 나왔어",
+        "quoteVerified": false
+      },
+      {
+        "start": 3,
+        "end": 6,
+        "what": "하루 영어 순공 시간을 묻고 매일 평균 2시간이라는 답변을 듣는다.",
+        "quote": "혹시 영어 승공 [00:03] 시간 몇 시간 정도 나오세요 두시간 [00:05] 매일 평균 두시간 정도",
+        "quoteVerified": false
+      },
+      {
+        "start": 7,
+        "end": 15,
+        "what": "듣기평가 중 독해 문제를 몇 번까지 푸는지 묻고, 맨 앞 4개와 뒤 43~45번 등 총 8문제를 푼다는 답변을 듣는다.",
+        "quote": "혹시 듣기 할 [00:07] 때 모 어서 몇 번까지 푸세요요 한 [00:09] 여덟 문제 맨 앞에네 개랑 21까지 [00:13] 뒤에 4 3 4 4 45까지네",
+        "quoteVerified": false
+      },
+      {
+        "start": 16,
+        "end": 20,
+        "what": "영어 인터넷 강의를 어떤 걸 듣는지 묻고, 학원에 다닌다는 답변을 듣는다.",
+        "quote": "혹시 [00:16] 그 영어 인강 누구 들으세요 저 학원 [00:18] 다녀 학원 다녀요",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단에 'Q. 영어 몇 등급 나오나요?' 자막 및 하단에 노란색 버스 그래픽 '찾아가는 동니버스 Ep.04' 등장",
+        "purpose": "첫 번째 질문과 시리즈 회차 정보 제시"
+      },
+      {
+        "t": 1,
+        "what": "학생 신원 설명 자막 '검단여고 1학년' 및 답변 자막 '학생 저번에 1등급 나왔어요' 표시",
+        "purpose": "답변자의 학생 신원 및 영어 등급 공개"
+      },
+      {
+        "t": 3,
+        "what": "상단 자막이 'Q. 영어 순공 시간은 얼마나 되나요?'로 변경",
+        "purpose": "두 번째 질문 제시"
+      },
+      {
+        "t": 5,
+        "what": "답변 자막 '학생 2시간?' 및 인터뷰어 반응 자막 '동형쌤 매일 평균 2시간 정도' 등장",
+        "purpose": "일일 학습 시간 정보 전달"
+      },
+      {
+        "t": 7,
+        "what": "상단 자막이 'Q. 모의고사 듣기 중에 몇 번까지 푸나요?'로 변경",
+        "purpose": "핵심 주제인 듣기 병행 독해 문제 수 질문 제시"
+      },
+      {
+        "t": 9,
+        "what": "답변 자막 '학생 한 8문제?' 등장",
+        "purpose": "병행 풀이 문항 수 답변 제시"
+      },
+      {
+        "t": 11,
+        "what": "답변 자막 '학생 맨 앞에 4개랑' 표시",
+        "purpose": "풀이하는 구체적 문항 위치 설명"
+      },
+      {
+        "t": 14,
+        "what": "인터뷰어 수긍 자막 '동형쌤 뒤에 43, 44, 45까지?' 및 답변 '학생 네' 표시",
+        "purpose": "세부 풀이 번호 재확인"
+      },
+      {
+        "t": 16,
+        "what": "상단 자막이 'Q. 영어 인강은 어떤 걸 듣나요?'로 변경",
+        "purpose": "네 번째 질문 제시"
+      },
+      {
+        "t": 18,
+        "what": "답변 자막 '학생 저 학원다녀요' 표시",
+        "purpose": "사교육 이용 여부 답변 제시"
+      }
+    ],
+    "ending": {
+      "what": "인터뷰어가 영어 인강 수강 여부를 묻자 학원에 다닌다고 답하며 인터뷰가 끝난다.",
+      "quote": "혹시 그 영어 인강 누구 들으세요 저 학원 다녀 학원 다녀요",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "듣기 평가와 독해 문제를 동시에 푸는 전략이 시험 시간 확보에 매우 유용하다는 점에 공감함",
+          "quote": "듣기 문제 풀면서 뒤에 독해 문제 같이 미리 풀어두는게 진짜 이게 맞나 싶을 정도로 너무 중요함 빡집중하면 못해도 3~4문제는 미리 풀 수 있고 익숙해지면 잘하는 사람들은 영상에 나오신 분처럼 7~10개도 가능함",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "듣기를 할 때 다른 문제를 병행해서 풀면 듣기를 틀리게 되어 힘들었던 경험",
+          "quote": "듣기 잘하는게 진짜 유리함 다들 듣기는 기본이지 하는데 나는 진짜 막귀라소 듣기하면서 다른 문제 풀면 듣기 계속 틀려서 듣기할땐 듣기만 하고 독해 속도 늘리는 연습해서 겨우 2등급 마춰서 시험쳤다.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "인터뷰 진행자가 특정 지역으로 찾아와 주기를 요청함",
+          "quote": "제발 정자 한번만 다시 와주세요ㅠㅠ 되도록이면 다음주 금요알 6시쯤 부탁드려요ㅜㅜ",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "막귀, 빡집중, 순공",
+          "quote": "나는 진짜 막귀라소 듣기하면서 다른 문제 풀면 듣기 계속 틀려서",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "듣기평가 중에 독해 8문제를 미리 푼다는 학생의 인터뷰 (00:07~00:15)",
+        "reaction": "듣기와 독해 동시 풀이 기술에 대해 신기해하고 동의하는 시청자 반응",
+        "quote": "와 듣기평가를하면서 뒤의 문제를 동시에 푸는 거군요...",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "길거리 인터뷰 자막 형태처럼 시청자가 가장 궁금해하는 실전 질문과 구체적인 숫자 답변(예: 몇 분, 몇 개)을 빠르게 교차 편집하는 포맷 활용하기",
+      "differentiate": "수험생 모의고사 팁 대신, 30~60대 성인 학습자들이 일상생활에서 매일 15분씩 귀를 뚫기 위해 실천할 수 있는 쉬운 습관 형성 팁으로 다가간다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 12,
+    "verified": 7,
+    "unverified": 5
+  },
+  "pacing": {
+    "count": 8,
+    "medianGapSeconds": 2.2,
+    "perMinute": 24,
+    "times": [
+      1.1,
+      2.8,
+      5,
+      7.2,
+      9.1,
+      10.9,
+      15.9,
+      18.3
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 8068,
+    "candidatesTokenCount": 2160,
+    "totalTokenCount": 12199,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 1819
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 5149
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 1971,
+    "serviceTier": "standard"
+  }
+}

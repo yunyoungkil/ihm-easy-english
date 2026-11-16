@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T11:57:20.217Z",
+  "updatedAt": "2026-11-15T16:07:12.280Z",
   "entries": [
     {
       "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
@@ -481,6 +481,1941 @@
       ],
       "firstSeenAt": "2026-09-07T06:25:33.613Z",
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
+    },
+    {
+      "id": "painPoint:단어의 뜻은 알지만 영어 스펠링을 외우는 데 어려움을 겪음",
+      "type": "painPoint",
+      "text": "단어의 뜻은 알지만 영어 스펠링을 외우는 데 어려움을 겪음",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "rcjx-VhsFDo",
+          "channelTitle": "굿럭영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:07:12.280Z",
+      "lastSeenAt": "2026-11-15T16:07:12.280Z"
+    },
+    {
+      "id": "question:화면 맨 아래쪽에 위치한 단어가 잘 보이지 않는다는 지적",
+      "type": "question",
+      "text": "화면 맨 아래쪽에 위치한 단어가 잘 보이지 않는다는 지적",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "rcjx-VhsFDo",
+          "channelTitle": "굿럭영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:07:12.280Z",
+      "lastSeenAt": "2026-11-15T16:07:12.280Z"
+    },
+    {
+      "id": "vocabulary:투데이",
+      "type": "vocabulary",
+      "text": "투데이",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "rcjx-VhsFDo",
+          "channelTitle": "굿럭영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:07:12.280Z",
+      "lastSeenAt": "2026-11-15T16:07:12.280Z"
+    },
+    {
+      "id": "painPoint:머리로는 아는데 입으로 발음이 잘 나오지 않아 답답해함",
+      "type": "painPoint",
+      "text": "머리로는 아는데 입으로 발음이 잘 나오지 않아 답답해함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Tr4mmY1XtsA",
+          "channelTitle": "쑥쑥 영어(에리카)",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:06:19.615Z",
+      "lastSeenAt": "2026-11-15T16:06:19.615Z"
+    },
+    {
+      "id": "painPoint:알파벳 g가 상황에 따라 다른 소리가 나는 기준 구분을 어려워함",
+      "type": "painPoint",
+      "text": "알파벳 g가 상황에 따라 다른 소리가 나는 기준 구분을 어려워함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Tr4mmY1XtsA",
+          "channelTitle": "쑥쑥 영어(에리카)",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:06:19.615Z",
+      "lastSeenAt": "2026-11-15T16:06:19.615Z"
+    },
+    {
+      "id": "vocabulary:발음기호",
+      "type": "vocabulary",
+      "text": "발음기호",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Tr4mmY1XtsA",
+          "channelTitle": "쑥쑥 영어(에리카)",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:06:19.615Z",
+      "lastSeenAt": "2026-11-15T16:06:19.615Z"
+    },
+    {
+      "id": "vocabulary:알파벳 음가",
+      "type": "vocabulary",
+      "text": "알파벳 음가",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Tr4mmY1XtsA",
+          "channelTitle": "쑥쑥 영어(에리카)",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:06:19.615Z",
+      "lastSeenAt": "2026-11-15T16:06:19.615Z"
+    },
+    {
+      "id": "question:영단어가 나타나는 속도가 빨라서 직접 생각할 시간이 부족하다는 피드백",
+      "type": "question",
+      "text": "영단어가 나타나는 속도가 빨라서 직접 생각할 시간이 부족하다는 피드백",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "8syHTCdfkkA",
+          "channelTitle": "영어로켓배송",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:05:28.342Z",
+      "lastSeenAt": "2026-11-15T16:05:28.342Z"
+    },
+    {
+      "id": "vocabulary:식초 단어를 보고 애사비(애플사이다비네거)를 떠올림",
+      "type": "vocabulary",
+      "text": "식초 단어를 보고 애사비(애플사이다비네거)를 떠올림",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Bxd1XRx25KQ",
+          "channelTitle": "몬스터잉글리쉬_여행영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T16:03:52.717Z",
+      "lastSeenAt": "2026-11-15T16:03:52.717Z"
+    },
+    {
+      "id": "painPoint:완벽하게 말해야 한다는 강박 때문에 언어 습득이 어렵다는 답답함",
+      "type": "painPoint",
+      "text": "완벽하게 말해야 한다는 강박 때문에 언어 습득이 어렵다는 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "wgBELecJdjM",
+          "channelTitle": "미쿡영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:25:32.830Z",
+      "lastSeenAt": "2026-11-15T05:25:32.830Z"
+    },
+    {
+      "id": "painPoint:나이가 들어 영어를 접하려니 습득이 잘 안 되고 혼자 독학하기 어렵다는 고민",
+      "type": "painPoint",
+      "text": "나이가 들어 영어를 접하려니 습득이 잘 안 되고 혼자 독학하기 어렵다는 고민",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "wgBELecJdjM",
+          "channelTitle": "미쿡영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:25:32.830Z",
+      "lastSeenAt": "2026-11-15T05:25:32.830Z"
+    },
+    {
+      "id": "vocabulary:학이 아니고 습",
+      "type": "vocabulary",
+      "text": "학이 아니고 습",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "wgBELecJdjM",
+          "channelTitle": "미쿡영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:25:32.830Z",
+      "lastSeenAt": "2026-11-15T05:25:32.830Z"
+    },
+    {
+      "id": "vocabulary:체득, 체화",
+      "type": "vocabulary",
+      "text": "체득, 체화",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "wgBELecJdjM",
+          "channelTitle": "미쿡영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:25:32.830Z",
+      "lastSeenAt": "2026-11-15T05:25:32.830Z"
+    },
+    {
+      "id": "question:동일한 의미를 가진 다른 영문 표현과 호환되는지 확인하고 싶어함",
+      "type": "question",
+      "text": "동일한 의미를 가진 다른 영문 표현과 호환되는지 확인하고 싶어함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:25:06.632Z",
+      "lastSeenAt": "2026-11-15T05:25:06.632Z"
+    },
+    {
+      "id": "painPoint:듣기를 할 때 다른 문제를 병행해서 풀면 듣기를 틀리게 되어 힘들었던 경험",
+      "type": "painPoint",
+      "text": "듣기를 할 때 다른 문제를 병행해서 풀면 듣기를 틀리게 되어 힘들었던 경험",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_9qeS-JJsfk",
+          "channelTitle": "동니버스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:24:42.288Z",
+      "lastSeenAt": "2026-11-15T05:24:42.288Z"
+    },
+    {
+      "id": "question:인터뷰 진행자가 특정 지역으로 찾아와 주기를 요청함",
+      "type": "question",
+      "text": "인터뷰 진행자가 특정 지역으로 찾아와 주기를 요청함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_9qeS-JJsfk",
+          "channelTitle": "동니버스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:24:42.288Z",
+      "lastSeenAt": "2026-11-15T05:24:42.288Z"
+    },
+    {
+      "id": "vocabulary:막귀, 빡집중, 순공",
+      "type": "vocabulary",
+      "text": "막귀, 빡집중, 순공",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_9qeS-JJsfk",
+          "channelTitle": "동니버스",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:24:42.288Z",
+      "lastSeenAt": "2026-11-15T05:24:42.288Z"
+    },
+    {
+      "id": "painPoint:오랫동안 영어를 공부해도 발음이나 억양 감각이 쉽게 늘지 않아 답답함을 느낌",
+      "type": "painPoint",
+      "text": "오랫동안 영어를 공부해도 발음이나 억양 감각이 쉽게 늘지 않아 답답함을 느낌",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Ux_M00VVmEU",
+          "channelTitle": "수키 suekii",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:24:07.232Z",
+      "lastSeenAt": "2026-11-15T05:24:07.232Z"
+    },
+    {
+      "id": "question:2개월 만에 발음이 이렇게 좋아진 구체적인 공부 방법이나 팁을 공유해달라고 요청함",
+      "type": "question",
+      "text": "2개월 만에 발음이 이렇게 좋아진 구체적인 공부 방법이나 팁을 공유해달라고 요청함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Ux_M00VVmEU",
+          "channelTitle": "수키 suekii",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:24:07.232Z",
+      "lastSeenAt": "2026-11-15T05:24:07.232Z"
+    },
+    {
+      "id": "vocabulary:재능 지리네요, 통과할 때마다 호옭, 영린이",
+      "type": "vocabulary",
+      "text": "재능 지리네요, 통과할 때마다 호옭, 영린이",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Ux_M00VVmEU",
+          "channelTitle": "수키 suekii",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:24:07.232Z",
+      "lastSeenAt": "2026-11-15T05:24:07.232Z"
+    },
+    {
+      "id": "vocabulary:where were we",
+      "type": "vocabulary",
+      "text": "where were we",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "G5unshk12zk",
+          "channelTitle": "분더스토리",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:23:03.086Z",
+      "lastSeenAt": "2026-11-15T05:23:03.086Z"
+    },
+    {
+      "id": "painPoint:아는 단어로 이루어진 표현('you lost me')을 '너는 나를 잃었다'처럼 문자 그대로 해석했다가 전혀 다른 뜻임을 알고 충격을 받거나 당황하는 현상 (💬 \"💬 '너는 나를 잃다가 아니네!!!!!'\")",
+      "type": "painPoint",
+      "text": "아는 단어로 이루어진 표현('You lost me')을 '너는 나를 잃었다'처럼 문자 그대로 해석했다가 전혀 다른 뜻임을 알고 충격을 받거나 당황하는 현상 (💬 \"💬 '너는 나를 잃다가 아니네!!!!!'\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "question:'you lost me'와 'i'm not following you'는 완전히 같은 의미로 대체 가능한가요? (💬 \"💬 'i'm not following you 와 같은 의미로 보면 되나요?'\")",
+      "type": "question",
+      "text": "'You lost me'와 'I'm not following you'는 완전히 같은 의미로 대체 가능한가요? (💬 \"💬 'I'm not following you 와 같은 의미로 보면 되나요?'\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "question:'i didn't catch that'이나 'i don't get it'처럼 못 알아들었을 때 쓰는 유사 표현들과 어떤 상황적 차이가 있나요? (💬 \"💬 'i didn't catch that', 💬 'i don't get it'\")",
+      "type": "question",
+      "text": "'I didn't catch that'이나 'I don't get it'처럼 못 알아들었을 때 쓰는 유사 표현들과 어떤 상황적 차이가 있나요? (💬 \"💬 'I didn't catch that', 💬 'I don't get it'\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "vocabulary:너는 나를 잃다",
+      "type": "vocabulary",
+      "text": "너는 나를 잃다",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "vocabulary:같은 의미",
+      "type": "vocabulary",
+      "text": "같은 의미",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "vocabulary:i'm not following you",
+      "type": "vocabulary",
+      "text": "I'm not following you",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "vocabulary:i didn't catch that",
+      "type": "vocabulary",
+      "text": "I didn't catch that",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "vocabulary:i don't get it",
+      "type": "vocabulary",
+      "text": "I don't get it",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "channelTitle": "이지톡잉글리쉬",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-15T05:19:55.323Z",
+      "lastSeenAt": "2026-11-15T05:19:55.323Z"
+    },
+    {
+      "id": "painPoint:토익 점수나 시험 점수는 높은데 실제 영어 말하기는 너무 못해서 괴리감을 느낌",
+      "type": "painPoint",
+      "text": "토익 점수나 시험 점수는 높은데 실제 영어 말하기는 너무 못해서 괴리감을 느낌",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "jeMIRXw-OT8",
+          "channelTitle": "제나쌤 | 영어독학",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:05:05.846Z",
+      "lastSeenAt": "2026-11-13T16:05:05.846Z"
+    },
+    {
+      "id": "painPoint:ai 도구를 세팅해 놓고도 매일 꾸준히 실행하고 공부하는 것 자체가 가장 어렵고 끈기가 부족함을 토로함",
+      "type": "painPoint",
+      "text": "AI 도구를 세팅해 놓고도 매일 꾸준히 실행하고 공부하는 것 자체가 가장 어렵고 끈기가 부족함을 토로함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "jeMIRXw-OT8",
+          "channelTitle": "제나쌤 | 영어독학",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:05:05.846Z",
+      "lastSeenAt": "2026-11-13T16:05:05.846Z"
+    },
+    {
+      "id": "painPoint:무료 계정으로 클로드를 이용할 때 접속량이 많아 '잠시 후 다시 시도해 주세요' 메시지가 뜨며 사용하기 번거로움을 겪음",
+      "type": "painPoint",
+      "text": "무료 계정으로 클로드를 이용할 때 접속량이 많아 '잠시 후 다시 시도해 주세요' 메시지가 뜨며 사용하기 번거로움을 겪음",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "jeMIRXw-OT8",
+          "channelTitle": "제나쌤 | 영어독학",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:05:05.846Z",
+      "lastSeenAt": "2026-11-13T16:05:05.846Z"
+    },
+    {
+      "id": "question:토익 점수와 스피킹 수준의 차이가 클 때 프롬프트의 레벨 정보를 어떻게 수정해야 할지 구체적인 방법을 물어봄",
+      "type": "question",
+      "text": "토익 점수와 스피킹 수준의 차이가 클 때 프롬프트의 레벨 정보를 어떻게 수정해야 할지 구체적인 방법을 물어봄",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "jeMIRXw-OT8",
+          "channelTitle": "제나쌤 | 영어독학",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:05:05.846Z",
+      "lastSeenAt": "2026-11-13T16:05:05.846Z"
+    },
+    {
+      "id": "vocabulary:설정을 다 해놓고 막상 실천하지 않는 것을 꼬집는 표현",
+      "type": "vocabulary",
+      "text": "설정을 다 해놓고 막상 실천하지 않는 것을 꼬집는 표현",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "jeMIRXw-OT8",
+          "channelTitle": "제나쌤 | 영어독학",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:05:05.846Z",
+      "lastSeenAt": "2026-11-13T16:05:05.846Z"
+    },
+    {
+      "id": "vocabulary:ai의 약점 보강과 반복 출제 기능을 콕 집어 부르는 말",
+      "type": "vocabulary",
+      "text": "AI의 약점 보강과 반복 출제 기능을 콕 집어 부르는 말",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "jeMIRXw-OT8",
+          "channelTitle": "제나쌤 | 영어독학",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:05:05.846Z",
+      "lastSeenAt": "2026-11-13T16:05:05.846Z"
+    },
+    {
+      "id": "painPoint:asked, rural처럼 특정 자음 연결 소리에서 혀와 입근육이 얼어붙는 현상 - 💬 '저는 제일 어려운 발음이 asked예요.. ask까지는 쉬운데 ㅋ에서 ㅇㄷ로 넘어가는게 넘 어렵네요', 💬 'rural 발음이 ㅈㄴ안댐ㅜ'",
+      "type": "painPoint",
+      "text": "asked, rural처럼 특정 자음 연결 소리에서 혀와 입근육이 얼어붙는 현상 - 💬 '저는 제일 어려운 발음이 asked예요.. ask까지는 쉬운데 ㅋ에서 ㅇㄷ로 넘어가는게 넘 어렵네요', 💬 'Rural 발음이 ㅈㄴ안댐ㅜ'",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "painPoint:단어나 발음을 알아도 막상 말하려 할 때 발생하는 뇌 속 정체(로딩) 현상 - 💬 '발음은 잘 되는데 회화 실력은 어케 늘리나요….ㅠ 영어로 말할려고만 하면 뇌에서 로딩시간이 넘 오래 걸려요ㅠㅠㅠ'",
+      "type": "painPoint",
+      "text": "단어나 발음을 알아도 막상 말하려 할 때 발생하는 뇌 속 정체(로딩) 현상 - 💬 '발음은 잘 되는데 회화 실력은 어케 늘리나요….ㅠ 영어로 말할려고만 하면 뇌에서 로딩시간이 넘 오래 걸려요ㅠㅠㅠ'",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "painPoint:한국어식 입 앞쪽 발성에 익숙해 영어 특유의 목 뒤 울림과 속도를 따라가지 못함 - 💬 '영어는 발음 할 때 목과 입 뒤쪽에 힘주고 한국어는 입 앞쪽에 힘준다고 들었는데 그래서 랩이나 노래로 목에 힘주고 연습하면 그 영어가 입에 빠르게 붙는거같움'",
+      "type": "painPoint",
+      "text": "한국어식 입 앞쪽 발성에 익숙해 영어 특유의 목 뒤 울림과 속도를 따라가지 못함 - 💬 '영어는 발음 할 때 목과 입 뒤쪽에 힘주고 한국어는 입 앞쪽에 힘준다고 들었는데 그래서 랩이나 노래로 목에 힘주고 연습하면 그 영어가 입에 빠르게 붙는거같움'",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "question:asked([s]-[k]-[t])나 rural([r]-[l])처럼 혀가 연달아 꼬이는 단어는 혀 위치를 어떻게 이동시켜야 씹히지 않고 이어지나요?",
+      "type": "question",
+      "text": "asked([s]-[k]-[t])나 rural([r]-[l])처럼 혀가 연달아 꼬이는 단어는 혀 위치를 어떻게 이동시켜야 씹히지 않고 이어지나요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "question:한국어(입 앞쪽 소리)와 영어(목/입 뒤쪽 소리)의 발성 위치 차이를 혼자서 체감하고 교정하는 방법은 무엇인가요?",
+      "type": "question",
+      "text": "한국어(입 앞쪽 소리)와 영어(목/입 뒤쪽 소리)의 발성 위치 차이를 혼자서 체감하고 교정하는 방법은 무엇인가요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "question:빠른 영어 소리를 따라 할 때, 입근육을 적응시키기 위한 단계별 배속(느린 소리->보통 소리) 연습 루틴은 어떻게 짜야 하나요?",
+      "type": "question",
+      "text": "빠른 영어 소리를 따라 할 때, 입근육을 적응시키기 위한 단계별 배속(느린 소리->보통 소리) 연습 루틴은 어떻게 짜야 하나요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "vocabulary:뇌에서 로딩시간",
+      "type": "vocabulary",
+      "text": "뇌에서 로딩시간",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "vocabulary:입 뒤쪽에 힘주기",
+      "type": "vocabulary",
+      "text": "입 뒤쪽에 힘주기",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "vocabulary:입 앞쪽에 힘주기",
+      "type": "vocabulary",
+      "text": "입 앞쪽에 힘주기",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "vocabulary:손 쓰기(리듬 타기)",
+      "type": "vocabulary",
+      "text": "손 쓰기(리듬 타기)",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "vocabulary:혀에 신들리다",
+      "type": "vocabulary",
+      "text": "혀에 신들리다",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "vocabulary:배속 늦은 버전",
+      "type": "vocabulary",
+      "text": "배속 늦은 버전",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:02:14.765Z",
+      "lastSeenAt": "2026-11-13T16:02:14.765Z"
+    },
+    {
+      "id": "painPoint:발음 규칙을 잘 알지 못해 겪던 오랜 혼동과 잘못된 발음 (💬 \"혼동을 많이 했었는데 유성음과 무성음을 잘 구분됩니다. 그동안 알고 있다고 생각했는데 샘의 섬세한 설명으로 잘 알게 되었습니다.\")",
+      "type": "painPoint",
+      "text": "발음 규칙을 잘 알지 못해 겪던 오랜 혼동과 잘못된 발음 (💬 \"혼동을 많이 했었는데 유성음과 무성음을 잘 구분됩니다. 그동안 알고 있다고 생각했는데 샘의 섬세한 설명으로 잘 알게 되었습니다.\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "painPoint:영어 읽기와 발음에서 오는 헷갈림과 답답함 (💬 \"읽기햇갈렸는데 선생님발음영상 많은도움되네요 감사합니다\")",
+      "type": "painPoint",
+      "text": "영어 읽기와 발음에서 오는 헷갈림과 답답함 (💬 \"읽기햇갈렸는데 선생님발음영상 많은도움되네요 감사합니다\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "painPoint:단어를 알면서도 막상 소리로 들을 때는 생소하게 느껴지는 현상 (💬 \"또 들어봐도 역시 생소한것 같습니다.\")",
+      "type": "painPoint",
+      "text": "단어를 알면서도 막상 소리로 들을 때는 생소하게 느껴지는 현상 (💬 \"또 들어봐도 역시 생소한것 같습니다.\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "question:c나 g 같은 자음 뒤에 특정 모음(a,o,u 또는 e,i,y)이 올 때 발음이 왜 완전히 달라지나요? (💬 \"c+a/o/u는 [ㅋ], c+e/i/y는 [ㅆ]로 바뀌는 등 자음과 모음 결합에 따른 소리 변화 규칙에 대한 호기심\")",
+      "type": "question",
+      "text": "C나 G 같은 자음 뒤에 특정 모음(a,o,u 또는 e,i,y)이 올 때 발음이 왜 완전히 달라지나요? (💬 \"c+a/o/u는 [ㅋ], c+e/i/y는 [ㅆ]로 바뀌는 등 자음과 모음 결합에 따른 소리 변화 규칙에 대한 호기심\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "question:유성음으로 끝날 때 왜 앞의 모음을 길게 발음해야 하나요? (💬 \"job [좌압]처럼 성대가 울리는 소리로 끝날 때 앞 모음이 길어지는 원리에 대한 궁금증\")",
+      "type": "question",
+      "text": "유성음으로 끝날 때 왜 앞의 모음을 길게 발음해야 하나요? (💬 \"job [좌압]처럼 성대가 울리는 소리로 끝날 때 앞 모음이 길어지는 원리에 대한 궁금증\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "question:foot(짧게)과 food(푸우드 길게)처럼 스펠링이 비슷해도 소리의 길이가 왜 달라지나요? (💬 \"뒤에 오는 받침(t와 d)에 따라 모음의 장단이 결정되는 이유에 대한 질문\")",
+      "type": "question",
+      "text": "foot(짧게)과 food(푸우드 길게)처럼 스펠링이 비슷해도 소리의 길이가 왜 달라지나요? (💬 \"뒤에 오는 받침(t와 d)에 따라 모음의 장단이 결정되는 이유에 대한 질문\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "vocabulary:귀가 열리게",
+      "type": "vocabulary",
+      "text": "귀가 열리게",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "vocabulary:입이 열리게",
+      "type": "vocabulary",
+      "text": "입이 열리게",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "vocabulary:기초공사 튼튼하게",
+      "type": "vocabulary",
+      "text": "기초공사 튼튼하게",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "vocabulary:발음 세탁",
+      "type": "vocabulary",
+      "text": "발음 세탁",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "vocabulary:귀가 얼얼 하도록",
+      "type": "vocabulary",
+      "text": "귀가 얼얼 하도록",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "vocabulary:요점 정리 노트",
+      "type": "vocabulary",
+      "text": "요점 정리 노트",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "vocabulary:소리의 짝",
+      "type": "vocabulary",
+      "text": "소리의 짝",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:48.628Z",
+      "lastSeenAt": "2026-11-13T16:01:48.628Z"
+    },
+    {
+      "id": "painPoint:구동사의 뜻을 제대로 알지 못해 새롭게 알게 될 때의 답답함과 신선함 (💬 \"사라지다.첨알게됨\")",
+      "type": "painPoint",
+      "text": "구동사의 뜻을 제대로 알지 못해 새롭게 알게 될 때의 답답함과 신선함 (💬 \"사라지다.첨알게됨\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "question:바탕화면 흰색이라 좋아요를 못찾겠네요 (💬 \"바탕화면 흰색이라 좋아요를 못찾겠네요😅😅😅😅😅\")",
+      "type": "question",
+      "text": "바탕화면 흰색이라 좋아요를 못찾겠네요 (💬 \"바탕화면 흰색이라 좋아요를 못찾겠네요😅😅😅😅😅\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "question:약간 3인칭 관점 아님? (💬 \"약간 3인칭 관점 아님 ?\")",
+      "type": "question",
+      "text": "약간 3인칭 관점 아님? (💬 \"약간 3인칭 관점 아님 ?\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "question:마크는 비율이 너무 좋은 것 같아요.. 잘생겼는데 얼굴이 작고 키가 크고 다리가 길어요..이건 불공평해 (💬 \"마크는 비율이 너무 좋은 것 같아요..❤ 잘생겼는데 얼굴이 작고 키가 크고 다리가 길어요..이건 불공평해😂\")",
+      "type": "question",
+      "text": "마크는 비율이 너무 좋은 것 같아요.. 잘생겼는데 얼굴이 작고 키가 크고 다리가 길어요..이건 불공평해 (💬 \"마크는 비율이 너무 좋은 것 같아요..❤ 잘생겼는데 얼굴이 작고 키가 크고 다리가 길어요..이건 불공평해😂\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "vocabulary:유용하다",
+      "type": "vocabulary",
+      "text": "유용하다",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "vocabulary:사라지다",
+      "type": "vocabulary",
+      "text": "사라지다",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "vocabulary:첨알게됨",
+      "type": "vocabulary",
+      "text": "첨알게됨",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "vocabulary:좋아요",
+      "type": "vocabulary",
+      "text": "좋아요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "vocabulary:고마워요",
+      "type": "vocabulary",
+      "text": "고마워요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "KbNTuH4C9Po",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T16:01:03.233Z",
+      "lastSeenAt": "2026-11-13T16:01:03.233Z"
+    },
+    {
+      "id": "painPoint:견종 이름을 직역하거나 조합했을 때 생기는 엉뚱함과 이해의 어려움",
+      "type": "painPoint",
+      "text": "견종 이름을 직역하거나 조합했을 때 생기는 엉뚱함과 이해의 어려움",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "painPoint:익숙한 단어의 조합이나 예상치 못한 단어 변형을 마주했을 때의 당황스러움",
+      "type": "painPoint",
+      "text": "익숙한 단어의 조합이나 예상치 못한 단어 변형을 마주했을 때의 당황스러움",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "painPoint:단어 속 소리나 철자 조합이 낯설게 느껴져 오는 답답함",
+      "type": "painPoint",
+      "text": "단어 속 소리나 철자 조합이 낯설게 느껴져 오는 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "question:labrador와 poodle이 합쳐진 단어는 왜 그런 이름이 되었나요?",
+      "type": "question",
+      "text": "Labrador와 Poodle이 합쳐진 단어는 왜 그런 이름이 되었나요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "question:chihuahua 같은 다른 견종들의 이름은 직역하면 어떤 의미가 되나요?",
+      "type": "question",
+      "text": "Chihuahua 같은 다른 견종들의 이름은 직역하면 어떤 의미가 되나요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "question:pomeranian을 palm과 rain으로 조합해서 부르는 이유는 무엇인가요?",
+      "type": "question",
+      "text": "Pomeranian을 palm과 rain으로 조합해서 부르는 이유는 무엇인가요?",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "vocabulary:직역",
+      "type": "vocabulary",
+      "text": "직역",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "vocabulary:단어 조합",
+      "type": "vocabulary",
+      "text": "단어 조합",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "vocabulary:견종 이름",
+      "type": "vocabulary",
+      "text": "견종 이름",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "vocabulary:발음",
+      "type": "vocabulary",
+      "text": "발음",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "vocabulary:소리",
+      "type": "vocabulary",
+      "text": "소리",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "vocabulary:의미",
+      "type": "vocabulary",
+      "text": "의미",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "vocabulary:엉뚱함",
+      "type": "vocabulary",
+      "text": "엉뚱함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "1pdnyUemyRM",
+          "channelTitle": "BloopEnglish",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:08.000Z",
+      "lastSeenAt": "2026-11-13T13:49:08.000Z"
+    },
+    {
+      "id": "painPoint:영어 단어를 직역했을 때의 엉뚱함과 이해의 어려움 (💬 \"springcut\")",
+      "type": "painPoint",
+      "text": "영어 단어를 직역했을 때의 엉뚱함과 이해의 어려움 (💬 \"Springcut\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "painPoint:익숙한 단어의 숨겨진 의미나 조합(예: 파)을 마주했을 때의 생소함 (💬 \"spring onion 🧅\")",
+      "type": "painPoint",
+      "text": "익숙한 단어의 숨겨진 의미나 조합(예: 파)을 마주했을 때의 생소함 (💬 \"Spring onion 🧅\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "painPoint:예상치 못한 단어 조합(양파 등)을 접했을 때의 직관적 반응 (💬 \"spring egg 🥚 ?\")",
+      "type": "painPoint",
+      "text": "예상치 못한 단어 조합(양파 등)을 접했을 때의 직관적 반응 (💬 \"Spring Egg 🥚 ?\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "question:springcut이라는 단어는 어떤 상황에서 쓰이는 직역 표현인가요? (💬 \"springcut\")",
+      "type": "question",
+      "text": "Springcut이라는 단어는 어떤 상황에서 쓰이는 직역 표현인가요? (💬 \"Springcut\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "question:spring onion처럼 'spring'이 들어가는 다른 직역 단어들도 있나요? (💬 \"spring onion 🧅\")",
+      "type": "question",
+      "text": "Spring onion처럼 'Spring'이 들어가는 다른 직역 단어들도 있나요? (💬 \"Spring onion 🧅\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "question:carpet 같은 단어도 직역하면 다른 뜻이 되나요? (💬 \"carpet??????\")",
+      "type": "question",
+      "text": "Carpet 같은 단어도 직역하면 다른 뜻이 되나요? (💬 \"Carpet??????\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "question:spring egg 같은 표현도 실제로 원어민들이 장난스럽게 쓰나요? (💬 \"spring egg 🥚 ?\")",
+      "type": "question",
+      "text": "Spring Egg 같은 표현도 실제로 원어민들이 장난스럽게 쓰나요? (💬 \"Spring Egg 🥚 ?\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "vocabulary:springcut",
+      "type": "vocabulary",
+      "text": "Springcut",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "vocabulary:spring onion",
+      "type": "vocabulary",
+      "text": "Spring onion",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "vocabulary:onions",
+      "type": "vocabulary",
+      "text": "onions",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "vocabulary:carpet",
+      "type": "vocabulary",
+      "text": "Carpet",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "vocabulary:spring egg",
+      "type": "vocabulary",
+      "text": "Spring Egg",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "vocabulary:emoji",
+      "type": "vocabulary",
+      "text": "emoji",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "channelTitle": "Lev English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:49:02.199Z",
+      "lastSeenAt": "2026-11-13T13:49:02.199Z"
+    },
+    {
+      "id": "painPoint:영어 숙어와 관용구를 직역했을 때의 엉뚱함과 이해의 어려움 (💬 \"slang taken to its most literal conclusion.\")",
+      "type": "painPoint",
+      "text": "영어 숙어와 관용구를 직역했을 때의 엉뚱함과 이해의 어려움 (💬 \"slang taken to its most literal conclusion.\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "painPoint:자막이나 영상 편집의 오류(자막 미수정 등)로 인한 몰입 방해 (💬 \"you didn’t edited the capcut generated subtitles\")",
+      "type": "painPoint",
+      "text": "자막이나 영상 편집의 오류(자막 미수정 등)로 인한 몰입 방해 (💬 \"you didn’t edited the CapCut generated subtitles\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "question:애니메이션 원본 작품의 정확한 제목과 전체 내용은 무엇인가요? (💬 \"cartoon name\")",
+      "type": "question",
+      "text": "애니메이션 원본 작품의 정확한 제목과 전체 내용은 무엇인가요? (💬 \"Cartoon name\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "question:부유한 가정에서 태어났는데 왜 계속 돈 문제가 생기는 것인지 전후 맥락이 궁금함 (💬 \"a bit weird that he was born wealthy, but keeps having money problems.\")",
+      "type": "question",
+      "text": "부유한 가정에서 태어났는데 왜 계속 돈 문제가 생기는 것인지 전후 맥락이 궁금함 (💬 \"A bit weird that he was born wealthy, but keeps having money problems.\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "vocabulary:hysterical cartoon",
+      "type": "vocabulary",
+      "text": "Hysterical cartoon",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "vocabulary:brainrot words",
+      "type": "vocabulary",
+      "text": "brainrot words",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "vocabulary:literal conclusion",
+      "type": "vocabulary",
+      "text": "literal conclusion",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "vocabulary:capcut generated subtitles",
+      "type": "vocabulary",
+      "text": "CapCut generated subtitles",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "vocabulary:love at first sight",
+      "type": "vocabulary",
+      "text": "love at first sight",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "channelTitle": "Learning Languages with Leo",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-13T13:48:52.002Z",
+      "lastSeenAt": "2026-11-13T13:48:52.002Z"
+    },
+    {
+      "id": "painPoint:oval 발음을 원어민식(/oʊvəl/)으로 하지 않고 콩글리시로 발음해 인식이 잘 안 되는 답답함",
+      "type": "painPoint",
+      "text": "Oval 발음을 원어민식(/oʊvəl/)으로 하지 않고 콩글리시로 발음해 인식이 잘 안 되는 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "w8g6-e9yLP4",
+          "channelTitle": "메리고라운드",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:04:43.391Z",
+      "lastSeenAt": "2026-11-12T16:04:43.391Z"
+    },
+    {
+      "id": "question:영상에 나온 ar 숏폼 필터 앱의 이름이 무엇인지 궁금해함",
+      "type": "question",
+      "text": "영상에 나온 AR 숏폼 필터 앱의 이름이 무엇인지 궁금해함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "w8g6-e9yLP4",
+          "channelTitle": "메리고라운드",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:04:43.391Z",
+      "lastSeenAt": "2026-11-12T16:04:43.391Z"
+    },
+    {
+      "id": "vocabulary:오발",
+      "type": "vocabulary",
+      "text": "오발",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "w8g6-e9yLP4",
+          "channelTitle": "메리고라운드",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:04:43.391Z",
+      "lastSeenAt": "2026-11-12T16:04:43.391Z"
+    },
+    {
+      "id": "painPoint:천천히 따라 읽어도 발음이 꼬이는데 빠른 속도로 연기하는 것이 대단하고 어렵게 느껴짐",
+      "type": "painPoint",
+      "text": "천천히 따라 읽어도 발음이 꼬이는데 빠른 속도로 연기하는 것이 대단하고 어렵게 느껴짐",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "rhjcr61ngHA",
+          "channelTitle": "덕질러",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:01:51.322Z",
+      "lastSeenAt": "2026-11-12T16:01:51.322Z"
+    },
+    {
+      "id": "question:영상 속 '모아 최고' 대사가 어떤 맥락인지 의미를 물어봄",
+      "type": "question",
+      "text": "영상 속 '모아 최고' 대사가 어떤 맥락인지 의미를 물어봄",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "rhjcr61ngHA",
+          "channelTitle": "덕질러",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:01:51.322Z",
+      "lastSeenAt": "2026-11-12T16:01:51.322Z"
+    },
+    {
+      "id": "vocabulary:킬링 포인트",
+      "type": "vocabulary",
+      "text": "킬링 포인트",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "rhjcr61ngHA",
+          "channelTitle": "덕질러",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:01:51.322Z",
+      "lastSeenAt": "2026-11-12T16:01:51.322Z"
+    },
+    {
+      "id": "vocabulary:극한직업",
+      "type": "vocabulary",
+      "text": "극한직업",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "rhjcr61ngHA",
+          "channelTitle": "덕질러",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:01:51.322Z",
+      "lastSeenAt": "2026-11-12T16:01:51.322Z"
+    },
+    {
+      "id": "painPoint:회화를 시작하기 전에 단어를 많이 외워야 할지 고민되는 답답함",
+      "type": "painPoint",
+      "text": "회화를 시작하기 전에 단어를 많이 외워야 할지 고민되는 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:52.102Z",
+      "lastSeenAt": "2026-11-12T16:00:52.102Z"
+    },
+    {
+      "id": "question:제목에는 고정댓글에 순위를 적어두었다고 했으나 댓글이 보이지 않거나 추천 앱이 영상에 없다는 아쉬움",
+      "type": "question",
+      "text": "제목에는 고정댓글에 순위를 적어두었다고 했으나 댓글이 보이지 않거나 추천 앱이 영상에 없다는 아쉬움",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:52.102Z",
+      "lastSeenAt": "2026-11-12T16:00:52.102Z"
+    },
+    {
+      "id": "question:영상 안에서 명확한 추천 결과를 찾지 못한 시청자의 질문",
+      "type": "question",
+      "text": "영상 안에서 명확한 추천 결과를 찾지 못한 시청자의 질문",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:52.102Z",
+      "lastSeenAt": "2026-11-12T16:00:52.102Z"
+    },
+    {
+      "id": "vocabulary:특정 영어 학습 앱 이름을 언급하며 우선순위를 물어보는 표현",
+      "type": "vocabulary",
+      "text": "특정 영어 학습 앱 이름을 언급하며 우선순위를 물어보는 표현",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:52.102Z",
+      "lastSeenAt": "2026-11-12T16:00:52.102Z"
+    },
+    {
+      "id": "painPoint:비싼 돈을 내고 전화영어를 해도 아무런 실력 향상 없이 일상 수다만 떨다 수업이 끝나는 허무함 (💬 \"전화영어의 큰 단점은, 배우는게 별로 없다는 것. 수다만 떨다가 끝나버려요.\")",
+      "type": "painPoint",
+      "text": "비싼 돈을 내고 전화영어를 해도 아무런 실력 향상 없이 일상 수다만 떨다 수업이 끝나는 허무함 (💬 \"전화영어의 큰 단점은, 배우는게 별로 없다는 것. 수다만 떨다가 끝나버려요.\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "painPoint:ai 대화 앱을 쓸 때 영어로 바로 말이 안 나와 1초만 멈칫('음..')해도 말할 기회를 빼앗기는 압박감 (💬 \"쉬지않고 빨리 말을 해야 해요... 제가 조금이라도 '음..' 이러고 있으면 gpt 가 성격 급하게 바로 그냥 대답해버려요.\")",
+      "type": "painPoint",
+      "text": "AI 대화 앱을 쓸 때 영어로 바로 말이 안 나와 1초만 멈칫('음..')해도 말할 기회를 빼앗기는 압박감 (💬 \"쉬지않고 빨리 말을 해야 해요... 제가 조금이라도 '음..' 이러고 있으면 gpt 가 성격 급하게 바로 그냥 대답해버려요.\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "painPoint:영어 앱에서 문장 복습을 할 때 실제 원어민 음성이 아닌 기계(ai) 발음으로 바뀌어 소리를 제대로 익힐 수 없는 아쉬움 (💬 \"해당 영상의 원어민 발음 그대로 리스닝 연습을 할 수 없다는 거에요... 저장해놓으면 그 부분을 플레이 할 때 ai가 읽어줘요. 원래의 음원 그대로 플레이가 되지를 않고요.\")",
+      "type": "painPoint",
+      "text": "영어 앱에서 문장 복습을 할 때 실제 원어민 음성이 아닌 기계(AI) 발음으로 바뀌어 소리를 제대로 익힐 수 없는 아쉬움 (💬 \"해당 영상의 원어민 발음 그대로 리스닝 연습을 할 수 없다는 거에요... 저장해놓으면 그 부분을 플레이 할 때 AI가 읽어줘요. 원래의 음원 그대로 플레이가 되지를 않고요.\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "painPoint:회화를 시작하기 전에 단어를 얼마나 완벽하게 외워야 하는지 몰라 입도 뻥끗 못 하고 망설이는 답답함 (💬 \"단어를 엄청 많이 외우고 회화를 시작해야하나요..? 회화를 하더라도 단어를 모르면 안되지않나요?\")",
+      "type": "painPoint",
+      "text": "회화를 시작하기 전에 단어를 얼마나 완벽하게 외워야 하는지 몰라 입도 뻥끗 못 하고 망설이는 답답함 (💬 \"단어를 엄청 많이 외우고 회화를 시작해야하나요..? 회화를 하더라도 단어를 모르면 안되지않나요?\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "question:영어 공부를 처음 시작하려 할 때 '말해보카' 같은 단어 암기 앱과 '스픽' 같은 회화 앱 중 무엇을 먼저 시작해야 하나요? (💬 \"말해보카와 스픽 중에 첫 시작을 뭐로 하면 좋을까요??\")",
+      "type": "question",
+      "text": "영어 공부를 처음 시작하려 할 때 '말해보카' 같은 단어 암기 앱과 '스픽' 같은 회화 앱 중 무엇을 먼저 시작해야 하나요? (💬 \"말해보카와 스픽 중에 첫 시작을 뭐로 하면 좋을까요??\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "question:단어를 엄청나게 많이 외우고 나서 회화를 시작해야 하나요, 아니면 단어가 부족해도 회화를 병행해야 하나요? (💬 \"처음 접해보려고 하는데 단어를 엄청 많이 외우고 회화를 시작해야하나요..? 회화를 하더라도 단어를 모르면 안되지않나요?\")",
+      "type": "question",
+      "text": "단어를 엄청나게 많이 외우고 나서 회화를 시작해야 하나요, 아니면 단어가 부족해도 회화를 병행해야 하나요? (💬 \"처음 접해보려고 하는데 단어를 엄청 많이 외우고 회화를 시작해야하나요..? 회화를 하더라도 단어를 모르면 안되지않나요?\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "question:실전 유학이나 워킹홀리데이 등을 준비할 때 가장 효율적인 영어 공부 앱/학습 방식은 무엇인가요? (💬 \"워홀 준비중일때 어떤거 추천 하시나요?\")",
+      "type": "question",
+      "text": "실전 유학이나 워킹홀리데이 등을 준비할 때 가장 효율적인 영어 공부 앱/학습 방식은 무엇인가요? (💬 \"워홀 준비중일때 어떤거 추천 하시나요?\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "question:영상에서 공부 내용이나 표현을 정리할 때 사용한 노트/정리 전용 앱은 무엇인가요? (💬 \"저 혹시 영상에서 정리노트로 사용한 앱이 뭔지 알려주실 수 있나요! 너무 유용해보여요\")",
+      "type": "question",
+      "text": "영상에서 공부 내용이나 표현을 정리할 때 사용한 노트/정리 전용 앱은 무엇인가요? (💬 \"저 혹시 영상에서 정리노트로 사용한 앱이 뭔지 알려주실 수 있나요! 너무 유용해보여요\")",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "vocabulary:수다만 떨다가",
+      "type": "vocabulary",
+      "text": "수다만 떨다가",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "vocabulary:성격 급하게",
+      "type": "vocabulary",
+      "text": "성격 급하게",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "vocabulary:원어민 발음 그대로",
+      "type": "vocabulary",
+      "text": "원어민 발음 그대로",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "vocabulary:첫 시작",
+      "type": "vocabulary",
+      "text": "첫 시작",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "vocabulary:내돈내산",
+      "type": "vocabulary",
+      "text": "내돈내산",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
+    },
+    {
+      "id": "vocabulary:자유 대화",
+      "type": "vocabulary",
+      "text": "자유 대화",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "eGh-AmQzqOc",
+          "channelTitle": "engrit = englishstudy + grit",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-12T16:00:40.840Z",
+      "lastSeenAt": "2026-11-12T16:00:40.840Z"
     },
     {
       "id": "painPoint:다른 과목에 비해 영어 기초가 너무 부족해서 전체 입시에서 큰 피해를 보고 있다는 답답함",
@@ -2656,1416 +4591,6 @@
       ],
       "firstSeenAt": "2026-11-12T06:27:52.594Z",
       "lastSeenAt": "2026-11-12T06:27:52.594Z"
-    },
-    {
-      "id": "painPoint:알파벳 표기대로 읽었다가 개쪽당한 트라우마 (스펠링-발음 불일치) - 한글처럼 표기대로 소리 나지 않다 보니 'angel'을 '엔겔'로, 'island'를 '이스랜드'로 읽었다가 평생 놀림을 받거나 영어에 담을 쌓게 된 시청자들이 수두룩함. - @여름안-j7g: \"중딩때 선생님이 일어나서 영어책 읽으라고해서 읽다가 엔젤을 엔겔이라고 읽어서 3년내내 놀림받았다.\", @하인-l4c: \"island를 이스랜드라고 읽었던 초3의 나.. 왜 s가 묵음이라 아일랜드가 되는건지 이해를 못했다.\"",
-      "type": "painPoint",
-      "text": "알파벳 표기대로 읽었다가 개쪽당한 트라우마 (스펠링-발음 불일치) - 한글처럼 표기대로 소리 나지 않다 보니 'Angel'을 '엔겔'로, 'Island'를 '이스랜드'로 읽었다가 평생 놀림을 받거나 영어에 담을 쌓게 된 시청자들이 수두룩함. - @여름안-j7g: \"중딩때 선생님이 일어나서 영어책 읽으라고해서 읽다가 엔젤을 엔겔이라고 읽어서 3년내내 놀림받았다.\", @하인-l4c: \"Island를 이스랜드라고 읽었던 초3의 나.. 왜 s가 묵음이라 아일랜드가 되는건지 이해를 못했다.\"",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "painPoint:원어민/영어 교사조차 헷갈려하는 영어 철자 시스템의 불합리함 - 영어 철자와 발음에 통일된 규칙이 없다 보니 현직 영어 선생님이나 원어민 어학원 강사도 스펠링을 틀리고 검색해보며, 이로 인해 배우는 초보자만 극심한 혼란을 겪음. - @ju_______0303: \"영어권 해외에서 지금 어학원다님 선생도 가끔 스팰링,발음 틀려서 찾아봄 자기들도 헷갈리는 ..\", @correellary: \"영어선생님인데…..가르칠 수록 깨달아지는 건 영어라는 언어 체계는 개판이라는 거..\"",
-      "type": "painPoint",
-      "text": "원어민/영어 교사조차 헷갈려하는 영어 철자 시스템의 불합리함 - 영어 철자와 발음에 통일된 규칙이 없다 보니 현직 영어 선생님이나 원어민 어학원 강사도 스펠링을 틀리고 검색해보며, 이로 인해 배우는 초보자만 극심한 혼란을 겪음. - @ju_______0303: \"영어권 해외에서 지금 어학원다님 선생도 가끔 스팰링,발음 틀려서 찾아봄 자기들도 헷갈리는 ..\", @correellary: \"영어선생님인데…..가르칠 수록 깨달아지는 건 영어라는 언어 체계는 개판이라는 거..\"",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "painPoint:단어장 스펠링 중심 암기 학습으로 인한 '눈따로 귀따로' 현상 - 발음기호나 실제 소리를 듣지 않고 글자만 외우다 보니, 막상 아는 단어가 실전 소리로 지나갈 때 알아듣지 못하고 혼자 이상하게 발음하는 악순환이 반복됨. - @jaeholee3816: \"발음기호가 없으면 알파벳으로 적혀있는 책도 읽을 수가 없는... 난독증 환자가 많은 건 영어 자체가 잘못 만들어져서임\", @테슬라녹푸: \"이게 영어를 단어장 만들고 암기로 배우면 안되는 이유임.\"",
-      "type": "painPoint",
-      "text": "단어장 스펠링 중심 암기 학습으로 인한 '눈따로 귀따로' 현상 - 발음기호나 실제 소리를 듣지 않고 글자만 외우다 보니, 막상 아는 단어가 실전 소리로 지나갈 때 알아듣지 못하고 혼자 이상하게 발음하는 악순환이 반복됨. - @jaeholee3816: \"발음기호가 없으면 알파벳으로 적혀있는 책도 읽을 수가 없는... 난독증 환자가 많은 건 영어 자체가 잘못 만들어져서임\", @테슬라녹푸: \"이게 영어를 단어장 만들고 암기로 배우면 안되는 이유임.\"",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "question:영어는 왜 스펠링과 실제 발음이 이렇게 안 맞고 제멋대로인가요? 통일된 소리 규칙이 아예 없나요?",
-      "type": "question",
-      "text": "영어는 왜 스펠링과 실제 발음이 이렇게 안 맞고 제멋대로인가요? 통일된 소리 규칙이 아예 없나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "question:wednesday, island처럼 읽지도 않을 거면서 굳이 써놓는 '묵음(silent letters)'은 왜 안 지우고 남아있나요?",
-      "type": "question",
-      "text": "Wednesday, Island처럼 읽지도 않을 거면서 굳이 써놓는 '묵음(Silent letters)'은 왜 안 지우고 남아있나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "question:원어민들은 처음 보는 단어를 접했을 때 발음을 어떻게 추측해서 읽나요? 다 무작정 외우는 건가요?",
-      "type": "question",
-      "text": "원어민들은 처음 보는 단어를 접했을 때 발음을 어떻게 추측해서 읽나요? 다 무작정 외우는 건가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "question:스펠링을 무작정 외우는 단어장 방식을 버리고, 진짜 '소리' 중심으로 단어를 뇌에 입력하는 구체적인 공부법은 무엇인가요?",
-      "type": "question",
-      "text": "스펠링을 무작정 외우는 단어장 방식을 버리고, 진짜 '소리' 중심으로 단어를 뇌에 입력하는 구체적인 공부법은 무엇인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "vocabulary:개잡탕 언어",
-      "type": "vocabulary",
-      "text": "개잡탕 언어",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "vocabulary:지들멋대로 발음",
-      "type": "vocabulary",
-      "text": "지들멋대로 발음",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "vocabulary:묵음 폭탄",
-      "type": "vocabulary",
-      "text": "묵음 폭탄",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "vocabulary:엔겔/이스랜드 참사",
-      "type": "vocabulary",
-      "text": "엔겔/이스랜드 참사",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "vocabulary:철자-발음 불협화음",
-      "type": "vocabulary",
-      "text": "철자-발음 불협화음",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "vocabulary:누더기 언어",
-      "type": "vocabulary",
-      "text": "누더기 언어",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "vocabulary:소리로 부딪히는 경험",
-      "type": "vocabulary",
-      "text": "소리로 부딪히는 경험",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "pvPBD9PLuyk",
-          "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:28.621Z",
-      "lastSeenAt": "2026-11-12T06:27:28.621Z"
-    },
-    {
-      "id": "painPoint:남들이 다 추천하는 미드(프렌즈, 모던패밀리 등)로 쉐도잉을 시작했다가 초반 장벽(시즌 1~2의 오그라드는 개그, 인위적인 웃음소리, 빠른 템포)에 막혀 자책하며 중도 포기함 ('프렌즈 시즌 1을 영원히 못 이겨내는 중', '다들 재밌다는데 전 너무 안 맞아서 하차함')",
-      "type": "painPoint",
-      "text": "남들이 다 추천하는 미드(프렌즈, 모던패밀리 등)로 쉐도잉을 시작했다가 초반 장벽(시즌 1~2의 오그라드는 개그, 인위적인 웃음소리, 빠른 템포)에 막혀 자책하며 중도 포기함 ('프렌즈 시즌 1을 영원히 못 이겨내는 중', '다들 재밌다는데 전 너무 안 맞아서 하차함')",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "painPoint:미드 속 과장된 시트콤 캐릭터 대사를 그대로 따라 배웠다가, 실생활에서 쓸 때 너무 오버하거나 특유의 억양이 붙어 어색해짐 ('말하는 게 모니카 빙의돼서 애들이 놀림', '빅뱅이론 대사 실생활에서 쓰면 이상한 사람 됨')",
-      "type": "painPoint",
-      "text": "미드 속 과장된 시트콤 캐릭터 대사를 그대로 따라 배웠다가, 실생활에서 쓸 때 너무 오버하거나 특유의 억양이 붙어 어색해짐 ('말하는 게 모니카 빙의돼서 애들이 놀림', '빅뱅이론 대사 실생활에서 쓰면 이상한 사람 됨')",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "painPoint:속도가 너무 빠르거나 딕션이 뭉개지는 미드를 볼 때, 아는 단어조차 소리가 순식간에 지나가 버려 자막 없이는 한 마디도 못 알아듣는 답답함 ('모던패밀리는 템포가 넘 높아서 못 알아듣겠고 발음이 안 들림')",
-      "type": "painPoint",
-      "text": "속도가 너무 빠르거나 딕션이 뭉개지는 미드를 볼 때, 아는 단어조차 소리가 순식간에 지나가 버려 자막 없이는 한 마디도 못 알아듣는 답답함 ('모던패밀리는 템포가 넘 높아서 못 알아듣겠고 발음이 안 들림')",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "painPoint:영어 공부라는 이유로 내 취향에도 안 맞는 드라마를 참고 보느라 귀도 안 트이고 정신적 피로감만 쌓임 ('영어가 귀에 안 감긴 게 한이 되네요', '남자인 저는 전혀 재미를 못 느낌')",
-      "type": "painPoint",
-      "text": "영어 공부라는 이유로 내 취향에도 안 맞는 드라마를 참고 보느라 귀도 안 트이고 정신적 피로감만 쌓임 ('영어가 귀에 안 감긴 게 한이 되네요', '남자인 저는 전혀 재미를 못 느낌')",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "question:남들이 다 공부용으로 추천하는 '프렌즈'나 '모패'가 저한테는 너무 지루하고 안 맞는데, 억지로 참고 봐야 하나요? 대체할 만한 현실적인 매체는 없나요?",
-      "type": "question",
-      "text": "남들이 다 공부용으로 추천하는 '프렌즈'나 '모패'가 저한테는 너무 지루하고 안 맞는데, 억지로 참고 봐야 하나요? 대체할 만한 현실적인 매체는 없나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "question:더빙 애니메이션이나 카툰(릭앤모티 등)으로 영어를 들으면 실생활 스피킹과 딕션에 실제로 도움이 되나요?",
-      "type": "question",
-      "text": "더빙 애니메이션이나 카툰(릭앤모티 등)으로 영어를 들으면 실생활 스피킹과 딕션에 실제로 도움이 되나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "question:미드 대사를 무작정 쉐도잉하면 너무 연극처럼 어색해지는데, 원어민처럼 자연스럽게 혀를 굴리며 중얼거리는 '방구석 혼잣말 공식'은 무엇인가요?",
-      "type": "question",
-      "text": "미드 대사를 무작정 쉐도잉하면 너무 연극처럼 어색해지는데, 원어민처럼 자연스럽게 혀를 굴리며 중얼거리는 '방구석 혼잣말 공식'은 무엇인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "question:원어민들이 미드에서 말을 빠르게 흘려보낼 때 소리를 뭉개는 규칙이 따로 있나요? 뇌가 따라가게 만드는 소리 연결 원리가 궁금합니다.",
-      "type": "question",
-      "text": "원어민들이 미드에서 말을 빠르게 흘려보낼 때 소리를 뭉개는 규칙이 따로 있나요? 뇌가 따라가게 만드는 소리 연결 원리가 궁금합니다.",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:마의 시즌1",
-      "type": "vocabulary",
-      "text": "마의 시즌1",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:영어에 안 감기다",
-      "type": "vocabulary",
-      "text": "영어에 안 감기다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:오그라들다 (cringe하다)",
-      "type": "vocabulary",
-      "text": "오그라들다 (Cringe하다)",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:라핑트랙 (인위적 웃음소리)",
-      "type": "vocabulary",
-      "text": "라핑트랙 (인위적 웃음소리)",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:캐릭터 빙의되다",
-      "type": "vocabulary",
-      "text": "캐릭터 빙의되다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:소리가 흘러가다",
-      "type": "vocabulary",
-      "text": "소리가 흘러가다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:억지로 버티다",
-      "type": "vocabulary",
-      "text": "억지로 버티다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "vocabulary:도파민 솟다",
-      "type": "vocabulary",
-      "text": "도파민 솟다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ts4E_jAYHSs",
-          "channelTitle": "알렉스알렉스알렉스",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:09.246Z",
-      "lastSeenAt": "2026-11-12T06:27:09.246Z"
-    },
-    {
-      "id": "painPoint:학창 시절(70~80년대) 배운 콩글리시 발음과 현지 원어민 발음의 괴리로 인한 좌절 (\"7학년인데 영어발음이 우리 배울 때하곤 전혀 달라요\")",
-      "type": "painPoint",
-      "text": "학창 시절(70~80년대) 배운 콩글리시 발음과 현지 원어민 발음의 괴리로 인한 좌절 (\"7학년인데 영어발음이 우리 배울 때하곤 전혀 달라요\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "painPoint:자막 오류 및 텍스트-음성 불일치로 인해 잘못된 단어를 외우게 될까 봐 느끼는 불안감 (\"ant가 wolf로 나옴\", \"harvest가 ruler로 나와요\")",
-      "type": "painPoint",
-      "text": "자막 오류 및 텍스트-음성 불일치로 인해 잘못된 단어를 외우게 될까 봐 느끼는 불안감 (\"ant가 wolf로 나옴\", \"Harvest가 Ruler로 나와요\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "painPoint:맥락 없이 300개씩 쏟아지는 단어 폭탄에 시각적·정신적 피로감 호소 (\"300개는 지겹네요\", \"글씨가 안 뚜렷해서 시력이 안 좋은 사람은 피곤하네요\")",
-      "type": "painPoint",
-      "text": "맥락 없이 300개씩 쏟아지는 단어 폭탄에 시각적·정신적 피로감 호소 (\"300개는 지겹네요\", \"글씨가 안 뚜렷해서 시력이 안 좋은 사람은 피곤하네요\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "painPoint:아는 단어임에도 원어민 소리로 들으면 전혀 안 들리고 소리가 흘러가 버리는 현상 (\"단어는 다 아는데 원어민 발음으로 다시 공부하네요\")",
-      "type": "painPoint",
-      "text": "아는 단어임에도 원어민 소리로 들으면 전혀 안 들리고 소리가 흘러가 버리는 현상 (\"단어는 다 아는데 원어민 발음으로 다시 공부하네요\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "question:\"'퍼즐', '블록'처럼 이미 아는 외래어도 영어 공부할 때 굳이 새로 외워야 하나요?\"",
-      "type": "question",
-      "text": "\"'퍼즐', '블록'처럼 이미 아는 외래어도 영어 공부할 때 굳이 새로 외워야 하나요?\"",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "question:\"학창 시절에 배운 발음이랑 요즘 원어민 발음은 왜 이렇게 다르고, 혀를 어떻게 굴려야 하나요?\"",
-      "type": "question",
-      "text": "\"학창 시절에 배운 발음이랑 요즘 원어민 발음은 왜 이렇게 다르고, 혀를 어떻게 굴려야 하나요?\"",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "question:\"단어 300개를 무작정 듣는 것보다 하루 몇 개씩 어떻게 쪼개서 들어야 뇌에 남나요?\"",
-      "type": "question",
-      "text": "\"단어 300개를 무작정 듣는 것보다 하루 몇 개씩 어떻게 쪼개서 들어야 뇌에 남나요?\"",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "question:\"글자로 읽으면 다 아는 쉬운 단어인데 원어민이 말하면 왜 딴 단어로 들릴까요?\"",
-      "type": "question",
-      "text": "\"글자로 읽으면 다 아는 쉬운 단어인데 원어민이 말하면 왜 딴 단어로 들릴까요?\"",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "vocabulary:귀에 박히다",
-      "type": "vocabulary",
-      "text": "귀에 박히다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "vocabulary:우리 배울 때 발음",
-      "type": "vocabulary",
-      "text": "우리 배울 때 발음",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "vocabulary:7학년(70대)",
-      "type": "vocabulary",
-      "text": "7학년(70대)",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "vocabulary:지겹다",
-      "type": "vocabulary",
-      "text": "지겹다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "vocabulary:눈이 피곤하다",
-      "type": "vocabulary",
-      "text": "눈이 피곤하다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "vocabulary:무의식 암기",
-      "type": "vocabulary",
-      "text": "무의식 암기",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "vocabulary:글씨가 뚜렷하다",
-      "type": "vocabulary",
-      "text": "글씨가 뚜렷하다",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "e8YZ4OquDVg",
-          "channelTitle": "하루영어 | 무의식 영어 암기",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:07:24.811Z",
-      "lastSeenAt": "2026-11-12T06:07:24.811Z"
-    },
-    {
-      "id": "painPoint:대화할 원어민 상대가 1도 없는 방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫어야 하는 현실적인 고통과 '미국 살다 온 게 아니면 안 된다'는 체념",
-      "type": "painPoint",
-      "text": "대화할 원어민 상대가 1도 없는 방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫어야 하는 현실적인 고통과 '미국 살다 온 게 아니면 안 된다'는 체념",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "painPoint:토익 문장은 외우지만 '아 진짜?', '말도 안 돼' 같은 일상 감정 표현이 1초 만에 원어민식 덩어리 소리로 튀어나오지 않아 실전에서 멈춰버리는 현상",
-      "type": "painPoint",
-      "text": "토익 문장은 외우지만 '아 진짜?', '말도 안 돼' 같은 일상 감정 표현이 1초 만에 원어민식 덩어리 소리로 튀어나오지 않아 실전에서 멈춰버리는 현상",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "painPoint:받침으로 못 들어가는 자음들을 입안에서 어떻게 처리해야 원어민처럼 소리가 나는지 모르고, 긴 단어를 읽을 때 혀가 꼬이는 답답함",
-      "type": "painPoint",
-      "text": "받침으로 못 들어가는 자음들을 입안에서 어떻게 처리해야 원어민처럼 소리가 나는지 모르고, 긴 단어를 읽을 때 혀가 꼬이는 답답함",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "question:방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
-      "type": "question",
-      "text": "방구석에서 혼자 중얼거리는 것만으로 입근육을 뚫는 가장 현실적인 '혼잣말 훈련법'은 무엇인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "question:70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
-      "type": "question",
-      "text": "70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "vocabulary:한국어 언어팩",
-      "type": "vocabulary",
-      "text": "한국어 언어팩",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "vocabulary:덩어리 소리",
-      "type": "vocabulary",
-      "text": "덩어리 소리",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "vocabulary:환경 탓",
-      "type": "vocabulary",
-      "text": "환경 탓",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "13MTKD2RPqA",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:28.625Z",
-      "lastSeenAt": "2026-11-11T13:12:28.625Z"
-    },
-    {
-      "id": "painPoint:돌아서면 잊어버리는 백지 리셋 현상 (나이 탓으로 돌리는 좌절)",
-      "type": "painPoint",
-      "text": "돌아서면 잊어버리는 백지 리셋 현상 (나이 탓으로 돌리는 좌절)",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "painPoint:학교 다닐 때 외우기만 하던 주입식 교육의 트라우마와 포기",
-      "type": "painPoint",
-      "text": "학교 다닐 때 외우기만 하던 주입식 교육의 트라우마와 포기",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "painPoint:영어 간판이나 단어 하나도 제대로 못 읽던 왕초보의 답답함",
-      "type": "painPoint",
-      "text": "영어 간판이나 단어 하나도 제대로 못 읽던 왕초보의 답답함",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "question:긴 단어나 복잡한 모음 뭉치는 도대체 어떻게 끊어 읽어야 혀가 꼬이지 않나요?",
-      "type": "question",
-      "text": "긴 단어나 복잡한 모음 뭉치는 도대체 어떻게 끊어 읽어야 혀가 꼬이지 않나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "question:받침으로 못 들어가는 자음들은 입안에서 소리를 어떻게 처리해야 원어민처럼 소리가 나나요?",
-      "type": "question",
-      "text": "받침으로 못 들어가는 자음들은 입안에서 소리를 어떻게 처리해야 원어민처럼 소리가 나나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "question:70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 저장해 놓고 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
-      "type": "question",
-      "text": "70대 고령자나 알파벳만 겨우 아는 기초 제로 상태에서도 저장해 놓고 머릿속에 평생 남는 복습 루틴은 무엇인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:귀에 쏙쏙",
-      "type": "vocabulary",
-      "text": "귀에 쏙쏙",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:머리에 쏙 들어오네요",
-      "type": "vocabulary",
-      "text": "머리에 쏙 들어오네요",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:속이 뻥 뚫리는 강의",
-      "type": "vocabulary",
-      "text": "속이 뻥 뚫리는 강의",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:알사탕 같은 기초",
-      "type": "vocabulary",
-      "text": "알사탕 같은 기초",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:눈이 딱 트여요",
-      "type": "vocabulary",
-      "text": "눈이 딱 트여요",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:돌아서면 잊어버림",
-      "type": "vocabulary",
-      "text": "돌아서면 잊어버림",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:아리까리한 부분",
-      "type": "vocabulary",
-      "text": "아리까리한 부분",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "vocabulary:간판도 읽겠네",
-      "type": "vocabulary",
-      "text": "간판도 읽겠네",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "J28QuPqOCyM",
-          "channelTitle": "9988영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:12:06.115Z",
-      "lastSeenAt": "2026-11-11T13:12:06.115Z"
-    },
-    {
-      "id": "painPoint:원어민 친구나 유학 환경이 없어 입이 트이지 않는다는 체념과, '미국 살다 온 거 아니냐'며 환경 탓을 하며 입을 떼지 못하고 포기해버리는 고통.",
-      "type": "painPoint",
-      "text": "원어민 친구나 유학 환경이 없어 입이 트이지 않는다는 체념과, '미국 살다 온 거 아니냐'며 환경 탓을 하며 입을 떼지 못하고 포기해버리는 고통.",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "CfphQuviQVI",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:11:41.835Z",
-      "lastSeenAt": "2026-11-11T13:11:41.835Z"
-    },
-    {
-      "id": "painPoint:토익이나 회화책 예문은 외우지만, 하루 종일 가장 많이 쓰는 감정 감탄사나 추임새('아 진짜?', '말도 안 돼', '그냥 그래')가 1초 만에 원어민식 덩어리 소리로 나오지 않아 실전 대화에서 멈춰버리는 현상.",
-      "type": "painPoint",
-      "text": "토익이나 회화책 예문은 외우지만, 하루 종일 가장 많이 쓰는 감정 감탄사나 추임새('아 진짜?', '말도 안 돼', '그냥 그래')가 1초 만에 원어민식 덩어리 소리로 나오지 않아 실전 대화에서 멈춰버리는 현상.",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "CfphQuviQVI",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:11:41.835Z",
-      "lastSeenAt": "2026-11-11T13:11:41.835Z"
-    },
-    {
-      "id": "painPoint:외우면 며칠 뒤 백지처럼 리셋되고, 혀와 입술 근육에 영구 장착하는 신체적 훈련법을 모른 채 머리로만 문법을 검열하며 공부하는 악순환.",
-      "type": "painPoint",
-      "text": "외우면 며칠 뒤 백지처럼 리셋되고, 혀와 입술 근육에 영구 장착하는 신체적 훈련법을 모른 채 머리로만 문법을 검열하며 공부하는 악순환.",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "CfphQuviQVI",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:11:41.835Z",
-      "lastSeenAt": "2026-11-11T13:11:41.835Z"
-    },
-    {
-      "id": "question:내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, 원어민 슬랭을 흉내 내야 하나요 아니면 쉬운 기본 단어 조합으로 만들어야 하나요?",
-      "type": "question",
-      "text": "내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, 원어민 슬랭을 흉내 내야 하나요 아니면 쉬운 기본 단어 조합으로 만들어야 하나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "CfphQuviQVI",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:11:41.835Z",
-      "lastSeenAt": "2026-11-11T13:11:41.835Z"
-    },
-    {
-      "id": "vocabulary:혀끝",
-      "type": "vocabulary",
-      "text": "혀끝",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "CfphQuviQVI",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:11:41.835Z",
-      "lastSeenAt": "2026-11-11T13:11:41.835Z"
-    },
-    {
-      "id": "vocabulary:뇌 정지",
-      "type": "vocabulary",
-      "text": "뇌 정지",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "CfphQuviQVI",
-          "channelTitle": "어션영어BasicEnglish",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-11T13:11:41.835Z",
-      "lastSeenAt": "2026-11-11T13:11:41.835Z"
-    },
-    {
-      "id": "painPoint:원어민 친구나 유학 환경이 없어 입이 트일 수 없다는 국내파의 뿌리 깊은 체념 - '비법은 외국인 여친', '돈 많고 시간 많아서', '미국 살다 온 거 아니냐'는 반응처럼, 국내에선 대화할 상대가 없다는 핑계 뒤에 숨어 입을 떼지 못하고 포기해버리는 심리적 고립감",
-      "type": "painPoint",
-      "text": "원어민 친구나 유학 환경이 없어 입이 트일 수 없다는 국내파의 뿌리 깊은 체념 - '비법은 외국인 여친', '돈 많고 시간 많아서', '미국 살다 온 거 아니냐'는 반응처럼, 국내에선 대화할 상대가 없다는 핑계 뒤에 숨어 입을 떼지 못하고 포기해버리는 심리적 고립감",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "painPoint:교과서 속 '남의 문장'만 외우다 보니 정작 내가 하고 싶은 말 앞에서는 꿀 먹은 벙어리가 되는 괴리 - 토익이나 회화책 예문은 달달 외우지만, 내가 하루 종일 한국어로 가장 많이 내뱉는 감정·반응·일상 단어가 1초 만에 영어로 치환되지 않아 실전 대화에서 뇌 정지가 오는 현상",
-      "type": "painPoint",
-      "text": "교과서 속 '남의 문장'만 외우다 보니 정작 내가 하고 싶은 말 앞에서는 꿀 먹은 벙어리가 되는 괴리 - 토익이나 회화책 예문은 달달 외우지만, 내가 하루 종일 한국어로 가장 많이 내뱉는 감정·반응·일상 단어가 1초 만에 영어로 치환되지 않아 실전 대화에서 뇌 정지가 오는 현상",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "painPoint:외우면 며칠 뒤 백지처럼 리셋되는 암기식 공부의 한계와 입근육 피로 - '안 쓰면 바로 잊어버린다'며 좌절하면서도, 어릴 적 '구구단'이나 '노래 가사'처럼 머리가 아닌 혀와 입술 근육에 영구 장착(체화)시키는 신체적 훈련법을 모른 채 머리로만 공부하는 악순환",
-      "type": "painPoint",
-      "text": "외우면 며칠 뒤 백지처럼 리셋되는 암기식 공부의 한계와 입근육 피로 - '안 쓰면 바로 잊어버린다'며 좌절하면서도, 어릴 적 '구구단'이나 '노래 가사'처럼 머리가 아닌 혀와 입술 근육에 영구 장착(체화)시키는 신체적 훈련법을 모른 채 머리로만 공부하는 악순환",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "question:내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, '원어민 슬랭'을 흉내 내야 하나요 아니면 '쉬운 기본 단어 조합'으로 만들어야 하나요?",
-      "type": "question",
-      "text": "내가 일상에서 제일 자주 쓰는 한국말을 영어로 바꿀 때, '원어민 슬랭'을 흉내 내야 하나요 아니면 '쉬운 기본 단어 조합'으로 만들어야 하나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "vocabulary:혼잣말",
-      "type": "vocabulary",
-      "text": "혼잣말",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "vocabulary:구구단",
-      "type": "vocabulary",
-      "text": "구구단",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "vocabulary:잔소리",
-      "type": "vocabulary",
-      "text": "잔소리",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "vocabulary:말할 상대",
-      "type": "vocabulary",
-      "text": "말할 상대",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:23.236Z",
-      "lastSeenAt": "2026-09-07T09:42:23.236Z"
-    },
-    {
-      "id": "painPoint:유학이나 외국인 친구 같은 특별한 환경 없이는 국내파가 영어를 트는 게 불가능하다는 박탈감과 회의감 (\"외국인 여친이 진짜 비결\", \"돈 많고 시간 많아 과외선생 두면 누구나 됨\", \"엘에이 자주 가는 당신과 우리는 달라\")",
-      "type": "painPoint",
-      "text": "유학이나 외국인 친구 같은 특별한 환경 없이는 국내파가 영어를 트는 게 불가능하다는 박탈감과 회의감 (\"외국인 여친이 진짜 비결\", \"돈 많고 시간 많아 과외선생 두면 누구나 됨\", \"엘에이 자주 가는 당신과 우리는 달라\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "painPoint:시험용/책에 나오는 '남의 영어'만 달달 외우느라, 정작 내가 하루 동안 가장 많이 내뱉는 한국어 일상 패턴은 단 한 줄도 영어 소리로 뱉지 못하는 괴리감 (\"내가 한국말로도 자주 하는 대화가 안 나옴\", \"결국 비결은 없고 어그로뿐\")",
-      "type": "painPoint",
-      "text": "시험용/책에 나오는 '남의 영어'만 달달 외우느라, 정작 내가 하루 동안 가장 많이 내뱉는 한국어 일상 패턴은 단 한 줄도 영어 소리로 뱉지 못하는 괴리감 (\"내가 한국말로도 자주 하는 대화가 안 나옴\", \"결국 비결은 없고 어그로뿐\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "painPoint:상대방이나 원어민 대화 파트너가 없으면 입을 뗄 연습조차 할 수 없다고 착각하여 혼자서 입 근육을 훈련하는 방법을 모른 채 침묵만 이어지는 막막함 (\"쓸 일이 있어야 배우지\", \"대화할 상대만 있으면 된다는데 난 없음\")",
-      "type": "painPoint",
-      "text": "상대방이나 원어민 대화 파트너가 없으면 입을 뗄 연습조차 할 수 없다고 착각하여 혼자서 입 근육을 훈련하는 방법을 모른 채 침묵만 이어지는 막막함 (\"쓸 일이 있어야 배우지\", \"대화할 상대만 있으면 된다는데 난 없음\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "painPoint:영어 소리를 낼 때 '노래 리듬'을 타지 못하고 글자 그대로 또박또박 한국어 말하듯 힘을 주며 읽다 보니 말문이 턱턱 막히고 자연스러운 호흡이 실리지 않는 답답함 (\"영어는 리듬인데 글자만 외우다 끝남\")",
-      "type": "painPoint",
-      "text": "영어 소리를 낼 때 '노래 리듬'을 타지 못하고 글자 그대로 또박또박 한국어 말하듯 힘을 주며 읽다 보니 말문이 턱턱 막히고 자연스러운 호흡이 실리지 않는 답답함 (\"영어는 리듬인데 글자만 외우다 끝남\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "question:김종국처럼 국내에서 혼자 중얼거리며 입을 틔우려면, 내가 하루에 자주 쓰는 한국말 표현 50개를 구체적으로 어떤 기준(동작/감정/습관)으로 추려내야 하나요?",
-      "type": "question",
-      "text": "김종국처럼 국내에서 혼자 중얼거리며 입을 틔우려면, 내가 하루에 자주 쓰는 한국말 표현 50개를 구체적으로 어떤 기준(동작/감정/습관)으로 추려내야 하나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "question:상대방 없는 환경에서 혼자말(self-talk)로 입 근육을 길들일 때, 한국어 독백이 영어 리듬으로 바로 튀어나오게 만드는 1인 연습 루틴은 무엇인가요?",
-      "type": "question",
-      "text": "상대방 없는 환경에서 혼자말(Self-talk)로 입 근육을 길들일 때, 한국어 독백이 영어 리듬으로 바로 튀어나오게 만드는 1인 연습 루틴은 무엇인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "question:정석 문법 영어와 실전에서 원어민들이 매일 쓰는 일상 리듬 영어는 혀와 입술을 쓰는 힘의 배분이 어떻게 다른가요?",
-      "type": "question",
-      "text": "정석 문법 영어와 실전에서 원어민들이 매일 쓰는 일상 리듬 영어는 혀와 입술을 쓰는 힘의 배분이 어떻게 다른가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "question:chatgpt나 ai를 발음/회화 연습 파트너로 활용할 때, 어색한 책 문장 대신 '진짜 원어민이 입 밖으로 툭 던지는 소리'인지 검증하며 훈련하는 질문 공식이 있나요?",
-      "type": "question",
-      "text": "ChatGPT나 AI를 발음/회화 연습 파트너로 활용할 때, 어색한 책 문장 대신 '진짜 원어민이 입 밖으로 툭 던지는 소리'인지 검증하며 훈련하는 질문 공식이 있나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "vocabulary:혼자말(셀프토크)",
-      "type": "vocabulary",
-      "text": "혼자말(셀프토크)",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "vocabulary:노래 리듬",
-      "type": "vocabulary",
-      "text": "노래 리듬",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "vocabulary:달달 외우기",
-      "type": "vocabulary",
-      "text": "달달 외우기",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "vocabulary:구구단 암송",
-      "type": "vocabulary",
-      "text": "구구단 암송",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
-    },
-    {
-      "id": "vocabulary:말문 트이기",
-      "type": "vocabulary",
-      "text": "말문 트이기",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "-o_h1nIiCQM",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-09-07T09:42:20.119Z",
-      "lastSeenAt": "2026-09-07T09:42:20.119Z"
     }
   ]
 }

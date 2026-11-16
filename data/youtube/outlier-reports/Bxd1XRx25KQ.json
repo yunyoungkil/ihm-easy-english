@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Bxd1XRx25KQ",
+  "analyzedAt": "2026-11-15T16:03:52.699Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 22,
+  "meta": {
+    "videoId": "Bxd1XRx25KQ",
+    "title": "양념 영어단어 01👾후추를  영어로?#음식에필요한 양념영어단어#영어회화100일의기적 #영어회화 #영어공부 #learnkoreanforbeginners #기초영어",
+    "channelId": "UCpUiXT61tFZATEa2uwJzzkA",
+    "channelTitle": "몬스터잉글리쉬_여행영어",
+    "publishedAt": "2024-09-28T21:21:24Z",
+    "viewCount": 710150,
+    "likeCount": 4762,
+    "commentCount": 17,
+    "durationSeconds": 22,
+    "thumbnail": "https://i.ytimg.com/vi/Bxd1XRx25KQ/maxresdefault.jpg",
+    "description": "\"영어회화는 누구나 가능합니다! 반복 듣기만으로도 충분하고, 문장을 들으며 함께 말해보는 것이 중요해요. \n직접 말해보면 학습 효과가 더욱 커집니다. 이 방법만으로도 영어 왕초보에서 탈출할 수 있습니다. 몬스터영어는 여러분의 영어 학습을 위해 최선을 다하겠습니다. \n여러분의 구독과 좋아요는 저에게 힘을 주는 몬스터파워랍니다!\n늦었다고 생각하지 마세요! 오늘이 바로 시작의 날이에요! 함께 출발해볼까요? \nLet's go!🚀😊",
+    "tags": []
+  },
+  "subscriberCount": 35000,
+  "viewsPerSubscriber": 20.29,
+  "outlierRatio": 667.43,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-15T16:00:33.030Z",
+  "ratioDenominator": 1064,
+  "ratioPeerCount": 44,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=Bxd1XRx25KQ! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 10
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 22
+    }
+  },
+  "speech": {
+    "source": "whisper-small",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 45,
+      "lengthMedian": 45,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 10,
+      "hangulRatio": 0.25,
+      "uniqueWordRatio": 1,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-15T16:03:34.749Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 10자(150자 미만), 한국어 글자 비율 0.25(0.7 미만)",
+    "fallbackTried": true
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "'후추를 영어로?'라는 물음을 던져 시청자의 호기심을 유발하고 기초 양념 영단어 학습을 약속한다.",
+      "titleQuote": "양념 영어단어 01👾후추를  영어로?#음식에필요한 양념영어단어#영어회화100일의기적 #영어회화 #영어공부 #learnkoreanforbeginners #기초영어",
+      "thumbnailText": "",
+      "thumbnailWordCount": 0,
+      "thumbnailVisual": "확인 불가",
+      "thumbnailVsTitle": "확인 불가",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "상단에 '양념 NO.1' 표제가 보이고, 소금(Salt), 후추(Pepper), 설탕(Sugar), 식초(Vinegar) 단어가 순서대로 체크 표시되면서 한국어 단어, 영어 단어, 한글 발음이 텍스트와 음성으로 제시된다.",
+      "quote": "",
+      "reasonToKeepWatching": "5개의 일상 양념 단어를 하나씩 순서대로 빠르게 확인하며 외울 수 있도록 구성되어 다음 단어를 궁금하게 만든다."
+    },
+    "first3s": {
+      "what": "'소금' 단어 옆에 체크표시가 생기고, 영어 단어 'Salt'와 한글 발음 '솔트'가 나타나며 한국어와 영어 음성이 출력된다.",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 4,
+        "what": "'소금'에 해당하는 영단어 'Salt'와 발음 '솔트'를 텍스트와 음성으로 제시한다.",
+        "quote": ""
+      },
+      {
+        "start": 4,
+        "end": 8,
+        "what": "'후추'에 해당하는 영단어 'Pepper'와 발음 '페퍼'를 텍스트와 음성으로 제시한다.",
+        "quote": ""
+      },
+      {
+        "start": 8,
+        "end": 12,
+        "what": "'설탕'에 해당하는 영단어 'Sugar'와 발음 '슈가'를 텍스트와 음성으로 제시한다.",
+        "quote": ""
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "what": "'식초'에 해당하는 영단어 'Vinegar'와 발음 '비네거'를 텍스트와 음성으로 제시한다.",
+        "quote": ""
+      },
+      {
+        "start": 16,
+        "end": 20,
+        "what": "'간장'에 해당하는 영단어 'Soy Sauce'와 발음 '소이 소스'를 텍스트와 음성으로 제시한다.",
+        "quote": ""
+      },
+      {
+        "start": 20,
+        "end": 22,
+        "what": "완성된 5개 양념 단어 표 전체를 보여주며 구독 및 좋아요 요청 문구를 노출하고 영상이 끝난다.",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단에 '하루 5개 영어단어, 머리에 쏙쏙 양념 NO.1' 표가 보이고 '소금' 옆 체크박스에 빨간 체크가 표시된다.",
+        "purpose": "학습할 첫 번째 단어인 소금을 시각적으로 강조한다."
+      },
+      {
+        "t": 1,
+        "what": "'Salt' 텍스트 배경에 노란색 형광펜 하이라이트 박스가 등장하고 아래에 '솔트' 한글 발음이 표기된다.",
+        "purpose": "소금의 영어 명칭과 발음을 명확하게 전달한다."
+      },
+      {
+        "t": 4,
+        "what": "'후추' 옆 체크박스에 빨간 체크가 표시된다.",
+        "purpose": "두 번째 단어 학습으로 진행됨을 보여준다."
+      },
+      {
+        "t": 5,
+        "what": "'Pepper' 텍스트 배경에 노란색 하이라이트 박스가 등장하고 아래에 '페퍼' 한글 발음이 노출되며, 하단 배너 문구가 '고정댓글에 예문이 있어요'로 바뀐다.",
+        "purpose": "후추의 영단어를 보여주는 동시에 댓글 참여를 유도한다."
+      },
+      {
+        "t": 8,
+        "what": "'설탕' 옆 체크박스에 빨간 체크가 표시된다.",
+        "purpose": "세 번째 단어 학습으로 진행됨을 보여준다."
+      },
+      {
+        "t": 9,
+        "what": "'Sugar' 텍스트 배경에 노란색 하이라이트 박스가 등장하고 아래에 '슈가' 한글 발음이 노출되며, 하단 배너 문구가 '여러분의 응원이 필요해요!'로 바뀐다.",
+        "purpose": "설탕의 영단어 노출 및 시청자 호응을 유도한다."
+      },
+      {
+        "t": 12,
+        "what": "'식초' 옆 체크박스에 빨간 체크가 표시된다.",
+        "purpose": "네 번째 단어 학습으로 진행됨을 보여준다."
+      },
+      {
+        "t": 13,
+        "what": "'Vinegar' 텍스트 배경에 노란색 하이라이트 박스가 등장하고 아래에 '비네거' 한글 발음이 노출되며, 하단 배너 문구가 '구독, 좋아요는 큰 힘이 됩니다'로 바뀐다.",
+        "purpose": "식초의 영단어 노출 및 구독/좋아요를 요청한다."
+      },
+      {
+        "t": 16,
+        "what": "'간장' 옆 체크박스에 빨간 체크가 표시된다.",
+        "purpose": "다섯 번째 단어 학습으로 진행됨을 보여준다."
+      },
+      {
+        "t": 17,
+        "what": "'Soy Sauce' 텍스트 배경에 노란색 하이라이트 박스가 등장하고 아래에 '소이 소스' 한글 발음이 표기된다.",
+        "purpose": "간장의 영단어 노출과 발음을 안내한다."
+      },
+      {
+        "t": 20,
+        "what": "화면 전체 프레임이 아웃트로 레이아웃 형태로 바뀌며 5개 단어가 정리되어 연출된다.",
+        "purpose": "전체 내용을 한눈에 정리하며 영상을 마무리한다."
+      }
+    ],
+    "ending": {
+      "what": "5개 양념 단어가 완성된 표를 화면 전체에 보여주며 하단 배너로 '구독, 좋아요는 큰 힘이 됩니다'라는 문구를 노출한다.",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "제시된 단어와 발음을 보며 공부에 도움이 된다고 느꼈다.",
+          "quote": "공부가 잘되어요 감사합니다",
+          "quoteVerified": true
+        },
+        {
+          "point": "콘텐츠 구성이 재미있어 긍정적으로 받아들였다.",
+          "quote": "너무,재미있어요!",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "point": "국제음성기호(발음기호) 정보가 추가되면 좋겠다는 요청이 있었다.",
+          "quote": "1 소금, sogeum, Salt, 솔트, /sɔːlt/ 2 후추, huchu, Pepper, 페퍼, /ˈpɛpər/ 3 설탕, seoltang, Sugar, 슈가, /ˈʃʊɡər/ 4 식초, sikcho, Vinegar, 비네거, /ˈvɪnɪɡər/ 5 간장, ganjang, Soy Sauce, 소이 소스, /sɔɪ sɔːs/ 영어발음기호 추가해서 내용을 올립니다. 한글발음은 영어사전의 한글발음표기를 사용하고 있습니다. 참고만 하세요. ^^ 구독과 좋아요는 사랑입니다^^",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "식초 단어를 보고 애사비(애플사이다비네거)를 떠올림",
+          "quote": "식초는 애사비만 떠오르면 되. (ㅋㅋㅋ)(혹시나 몰라서 돼인 거 앎)",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 5,
+      "description": "소금(Salt), 후추(Pepper), 설탕(Sugar), 식초(Vinegar), 간장(Soy Sauce) 총 5개의 양념 영단어 정보를 순차적 목록 형식으로 나열함.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙의 2열 표 안(왼쪽 한국어/로마자, 오른쪽 영어/한글발음)",
+      "size": "보통",
+      "highlightColor": "노란색",
+      "highlightMethod": "텍스트 배경에 노란색 형광펜 모양 박스 추가 및 빨간색 체크표시 연출",
+      "textAmount": "한 단어씩 순차적으로 등장하여 최종 5개 단어가 표에 채워짐",
+      "changeTiming": "약 4초 간격으로 다음 단어 항목으로 넘어감"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": true,
+      "soundEffectUse": "체크 표시 및 텍스트가 나타날 때 효과음 적용",
+      "voiceVsMusic": "한국어 및 영어 발음 성우 음성 중심"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "주제별(양념) 필수 단어 5개를 머리에 쏙쏙 들어가게 숏폼 형태로 제공하겠다고 선언함",
+        "quote": "",
+        "type": "목록형 지식 제공"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "제목에서 후추를 영어로 어떻게 하는지 물어보며 호기심을 유발함",
+          "quote": "양념 영어단어 01👾후추를  영어로?#음식에필요한 양념영어단어#영어회화100일의기적 #영어회화 #영어공부 #learnkoreanforbeginners #기초영어",
+          "quoteVerified": null
+        },
+        "resolved": {
+          "t": 5,
+          "what": "후추에 해당하는 Pepper 단어와 페퍼 발음을 제시하여 궁금증을 해결함",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "단어 간에 인과관계는 없으며 동일한 서식의 단어 카드 5개가 순서대로 나열되는 병렬적 구조이다.",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [
+        {
+          "t": 5,
+          "what": "고정댓글의 예문을 확인하라고 안내함",
+          "quote": ""
+        },
+        {
+          "t": 13,
+          "what": "구독과 좋아요를 부탁함",
+          "quote": ""
+        }
+      ],
+      "evidence": [],
+      "payoff": {
+        "t": 20,
+        "what": "5개 양념 영단어를 표 하나로 종합하여 정리해 줌",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "영어 단어와 한글 발음(솔트, 페퍼, 슈가, 비네거, 소이 소스)이 함께 표기되어 전달됨",
+        "reaction": "한글 발음 외에 원어민 발음 기호까지 정리해서 댓글로 공유하거나 학습 효과에 감사해함",
+        "quote": "1 소금, sogeum, Salt, 솔트, /sɔːlt/ 2 후추, huchu, Pepper, 페퍼, /ˈpɛpər/ 3 설탕, seoltang, Sugar, 슈가, /ˈʃʊɡər/ 4 식초, sikcho, Vinegar, 비네거, /ˈvɪnɪɡər/ 5 간장, ganjang, Soy Sauce, 소이 소스, /sɔɪ sɔːs/ 영어발음기호 추가해서 내용을 올립니다. 한글발음은 영어사전의 한글발음표기를 사용하고 있습니다. 참고만 하세요. ^^ 구독과 좋아요는 사랑입니다^^",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "성인 학습자를 대상으로 기초 양념 단어의 영어 표기와 한글 발음 읽기, 음성을 함께 제시해 소리를 익히도록 돕는 원본 영상이다.",
+    "forUs": {
+      "adopt": "주제별(양념, 과일 등) 필수 단어 5개를 깔끔한 체크리스트 표 형태로 구성해 시각적 직관성을 높이는 방식을 적용한다.",
+      "differentiate": "단순 한글 발음 표기에 그치지 않고 연음이나 실제 성인 학습자가 틀리기 쉬운 원어민 소리의 원리를 짧게 짚어주는 설명을 추가한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 6,
+    "verified": 6,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 8,
+      "file": "8.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 13,
+      "file": "13.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 17,
+      "file": "17.jpg"
+    },
+    {
+      "t": 20,
+      "file": "20.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 5421,
+    "candidatesTokenCount": 3201,
+    "totalTokenCount": 9379,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2328
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 1993
+      }
+    ],
+    "thoughtsTokenCount": 757,
+    "serviceTier": "standard"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-13T14:15:21.298Z",
+  "computedAt": "2026-11-15T16:09:09.162Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -68,6 +68,32 @@
             "views": 1647
           },
           "promoteAbove": 20,
+          "lowSample": false,
+          "sampleNote": null,
+          "excluded": [],
+          "confidence": "가설"
+        },
+        "stayedToWatch": {
+          "label": "계속 시청함",
+          "meaning": "쇼츠 첫 1~3초 훅(피드에서 넘기지 않고 계속 본 비율, 길이와 상관없음). 스타일 시험의 1차 지표. 공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
+          "unit": "%",
+          "n": 4,
+          "median": 36.33,
+          "upper": 36.71,
+          "spreadRatio": null,
+          "promoteRule": "차이(상위 25% − 하위 25%, %p)",
+          "lower": 33.64,
+          "approxNote": "공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
+          "champion": {
+            "videoId": "Si88xXt-EQc",
+            "title": "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
+            "publishedAt": "2026-08-27T11:00:01Z",
+            "durationSeconds": 51,
+            "value": 36.71,
+            "views": 1265,
+            "period": "quarter"
+          },
+          "promoteAbove": 39.78,
           "lowSample": false,
           "sampleNote": null,
           "excluded": [],
@@ -999,6 +1025,32 @@
             "durationSeconds": 34,
             "value": 1
           }
+        ],
+        "stayedToWatch": [
+          {
+            "videoId": "nVrCk8IZFGA",
+            "publishedAt": "2026-09-02T11:00:33Z",
+            "durationSeconds": 21,
+            "value": 33.64
+          },
+          {
+            "videoId": "LdiZKCzKf0c",
+            "publishedAt": "2026-08-31T11:00:24Z",
+            "durationSeconds": 55,
+            "value": 10.48
+          },
+          {
+            "videoId": "Si88xXt-EQc",
+            "publishedAt": "2026-08-27T11:00:01Z",
+            "durationSeconds": 51,
+            "value": 36.71
+          },
+          {
+            "videoId": "7qSWJZqV14o",
+            "publishedAt": "2026-08-25T11:00:31Z",
+            "durationSeconds": 45,
+            "value": 36.33
+          }
         ]
       },
       "reference": {
@@ -1023,6 +1075,56 @@
           "n": 51
         },
         "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
+      },
+      "stayedToWatchObserved": {
+        "nVrCk8IZFGA": {
+          "value": 33.64,
+          "views": 1161,
+          "period": "quarter",
+          "windowStart": "2026-08-17",
+          "windowLastDay": "2026-11-14",
+          "fetchedAt": "2026-11-15T16:08:11.108Z",
+          "firstWeek": {
+            "startDate": "2026-09-02",
+            "endDate": "2026-09-08"
+          }
+        },
+        "LdiZKCzKf0c": {
+          "value": 10.48,
+          "views": 1154,
+          "period": "quarter",
+          "windowStart": "2026-08-17",
+          "windowLastDay": "2026-11-14",
+          "fetchedAt": "2026-11-15T16:08:11.108Z",
+          "firstWeek": {
+            "startDate": "2026-08-31",
+            "endDate": "2026-09-06"
+          }
+        },
+        "Si88xXt-EQc": {
+          "value": 36.71,
+          "views": 1265,
+          "period": "quarter",
+          "windowStart": "2026-08-17",
+          "windowLastDay": "2026-11-14",
+          "fetchedAt": "2026-11-15T16:08:11.108Z",
+          "firstWeek": {
+            "startDate": "2026-08-27",
+            "endDate": "2026-09-02"
+          }
+        },
+        "7qSWJZqV14o": {
+          "value": 36.33,
+          "views": 1202,
+          "period": "quarter",
+          "windowStart": "2026-08-17",
+          "windowLastDay": "2026-11-14",
+          "fetchedAt": "2026-11-15T16:08:11.108Z",
+          "firstWeek": {
+            "startDate": "2026-08-25",
+            "endDate": "2026-08-31"
+          }
+        }
       }
     },
     "LONGFORM": {

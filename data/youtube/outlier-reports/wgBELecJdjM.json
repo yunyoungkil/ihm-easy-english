@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "videoId": "wgBELecJdjM",
+  "analyzedAt": "2026-11-15T05:25:32.829Z",
+  "model": "gemini-3.5-flash-lite",
+  "windowSeconds": 61,
+  "meta": {
+    "videoId": "wgBELecJdjM",
+    "title": "언어천재 타일러가 말하는 영어공부법",
+    "channelId": "UCBrtmaaLVMIZ4nx6Ifuf1SQ",
+    "channelTitle": "미쿡영어",
+    "publishedAt": "2024-08-05T21:00:43Z",
+    "viewCount": 1249471,
+    "likeCount": 25381,
+    "commentCount": 555,
+    "durationSeconds": 61,
+    "thumbnail": "https://i.ytimg.com/vi/wgBELecJdjM/maxresdefault.jpg",
+    "description": "#english #영어공부법 #타일러",
+    "tags": [
+      "english",
+      "English-speaking",
+      "englishlanguage",
+      "basicenglish",
+      "American English",
+      "British English",
+      "how to study English",
+      "Learning English",
+      "영어",
+      "영어회화",
+      "영어공부법",
+      "기초영어",
+      "영어반복",
+      "영어독학",
+      "타일러",
+      "타일러 영어",
+      "미드",
+      "쉐더잉",
+      "쉐도잉",
+      "미국영어",
+      "영국영어",
+      "영어 이디엄",
+      "영어권국가",
+      "원어민 발음"
+    ]
+  },
+  "subscriberCount": 74100,
+  "viewsPerSubscriber": 16.86,
+  "outlierRatio": 114.33,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=wgBELecJdjM! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 61
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "언어천재로 알려진 인물이 보편적인 영어 공부법에 대한 통념을 뒤집는 새로운 관점을 제시할 것이라는 기대감을 준다.",
+      "titleQuote": "언어천재 타일러가 말하는 영어공부법",
+      "thumbnailText": "언어천재 타일러가 말하는 언어 학습법?",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "안경을 쓰고 갈색 상의를 입은 남성(타일러)이 진지한 표정으로 이야기하는 모습이 상단 자막과 함께 배치되어 있다.",
+      "thumbnailVsTitle": "제목은 '영어공부법'이라고 특정하고 썸네일은 '언어 학습법?'이라고 범위를 넓혀 질문을 던지며 호기심을 유발한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "타일러가 언어는 학습하는 것이 아니라 습득하는 것이 가장 큰 부분이라고 말하며, 공부는 배움을 돕는 도구일 뿐이라고 설명한다.",
+      "quote": "",
+      "reasonToKeepWatching": "일반적인 공부법과 다른 '습득'과 '배움'의 개념 차이를 흥미롭게 풀어내며 시청자의 주의를 끈다."
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 14,
+        "what": "언어는 학습이 아니라 습득이며 공부는 배움을 돕는 도구일 뿐이라고 주장한다.",
+        "quote": ""
+      },
+      {
+        "start": 15,
+        "end": 37,
+        "what": "공부와 배움의 차이를 '배우다'와 '몸에 배다'의 어근 연결로 설명하며 문화가 몸에 배는 것이 곧 '배우는 것'이라고 말한다.",
+        "quote": ""
+      },
+      {
+        "start": 38,
+        "end": 61,
+        "what": "외국어는 공부하고 싶은 것이 아니라 배우고 싶어 해야 하며, 문법을 꼼꼼히 따지기보다 실수를 하더라도 계속 활용하고 갖고 놀아야 습득할 수 있다고 강조한다.",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단에 흰색과 노란색 조합의 텍스트 '언어천재 타일러가 말하는 언어 학습법?'이 나타나고 갈색 옷을 입은 타일러의 모습이 비친다.",
+        "purpose": "영상의 주제를 시각적으로 명확하게 각인시킨다."
+      },
+      {
+        "t": 53,
+        "what": "화면이 배경 서재 쪽으로 약간 넓게 전환되며 타일러가 손동작을 하며 설명하는 모습이 나온다.",
+        "purpose": "발화의 흐름에 맞춰 시각적 지루함을 줄인다."
+      }
+    ],
+    "ending": {
+      "what": "문법이 제대로 되어 있는지 꼼꼼하게 하려다가 오히려 더 안 된다는 말과 함께 영상이 끝난다.",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "공부와 배움을 구분하고 언어는 학습이 아닌 습득이라는 점에 깊이 공감함",
+          "quote": "공부는 배움의 도구일 뿐이고, 공부가 아닌 습득으로 체득 및 활용해야 한다...의미의 깊이를 알수록 타일러의 통찰력이 놀랍게 느껴집니다!",
+          "quoteVerified": true
+        },
+        {
+          "point": "한국인보다 더 논리적이고 조리 있게 한국말을 잘하는 모습에 감탄함",
+          "quote": "아니 한국인 보다 말을 논리있게 잘해....",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "완벽하게 말해야 한다는 강박 때문에 언어 습득이 어렵다는 답답함",
+          "quote": "이거지...근데 한국은 완벽해야된다는 고정관념때메 습득하는게 힘듦ㅠㅠ",
+          "quoteVerified": true
+        },
+        {
+          "pain": "나이가 들어 영어를 접하려니 습득이 잘 안 되고 혼자 독학하기 어렵다는 고민",
+          "quote": "어쩜 이리도 한국어를 잘하실까? 나도 영어를 좀 해보고 싶어서 이것저것 해보았는데 나이가 들어서인지 도무지 습득이 안되는데 혼자 독학하기엔 참 어려운것 같네요",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "학이 아니고 습",
+          "quote": "진짜동감,,,학이 아니고 습입니다.",
+          "quoteVerified": true
+        },
+        {
+          "expression": "체득, 체화",
+          "quote": "옛사람들은 그것을 체득,체화라 하였지요!",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "타일러가 '배우다'와 '몸에 배다'의 어원적 연결을 통해 습득의 개념을 설명한 장면",
+        "reaction": "한국인도 생각지 못한 깊이 있는 해석이라며 국어 선생님 수준이라고 극찬함",
+        "quote": "한국어 완전 마스타를 넘어서 배우다를 몸에배다 라는 정도까지 이해를 넓힌게 정말 대단하다. 전통 국어학자가 말하는것 같다",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "영어 공부를 지식 암기가 아니라 몸에 익히는 '습득'과 '놀이'의 관점으로 접근하도록 3060 시청자에게 쉽게 비유해 설명하기",
+      "differentiate": "어려운 어원 분석이나 철학적 개념 대신, 3060 성인이 일상에서 소리를 편하게 받아들일 수 있는 구체적인 실천 팁 제공하기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 8,
+    "verified": 8,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 53,
+      "file": "53.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 10241,
+    "candidatesTokenCount": 1410,
+    "totalTokenCount": 11651,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3681
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 5460
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "videoId": "8syHTCdfkkA",
+  "analyzedAt": "2026-11-15T16:05:28.325Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 34,
+  "meta": {
+    "videoId": "8syHTCdfkkA",
+    "title": "time이 들어간 영어단어 01🌈 | 영단어-반복음절로 쉽게 기억하기 #영어단어 #영단어외우기 #영어공부 #기초영어 #영어듣기 #영단어암기 #반복영어 #반복음절 #shorts",
+    "channelId": "UCdDmuWIMyI2gDFxxi8dGcZA",
+    "channelTitle": "영어로켓배송",
+    "publishedAt": "2024-09-23T10:00:09Z",
+    "viewCount": 245732,
+    "likeCount": 4064,
+    "commentCount": 25,
+    "durationSeconds": 34,
+    "thumbnail": "https://i.ytimg.com/vi/8syHTCdfkkA/maxresdefault.jpg",
+    "description": "구독과 좋아요는 영상제작에 큰 힘이 됩니다.😊\n영어는 반복할수록 효과가 월등히 커집니다. 편하게 듣고 따라해보세요. \n점점 자신감이 쑥쑥 자라나실 거예요.\n\n영어로켓배송은 매일 아침7시와 저녁7시에 \n새로운 숏츠가 업로드됩니다. 🚀\n일상에서 사용할 수 있는 생활영어들로 알차게 구성하였습니다. \n모든 영어 독학러들을 진심으로 응원합니다!❤️",
+    "tags": []
+  },
+  "subscriberCount": 27300,
+  "viewsPerSubscriber": 9,
+  "outlierRatio": 206.58,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-15T16:00:45.437Z",
+  "ratioDenominator": 1189.5,
+  "ratioPeerCount": 42,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=8syHTCdfkkA! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 15
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 34
+    }
+  },
+  "speech": {
+    "source": null,
+    "quality": null,
+    "kind": "short",
+    "sentences": null,
+    "stats": null,
+    "computedAt": "2026-11-15T16:05:23.183Z",
+    "note": "자막을 못 받음, 대체 경로 하루 상한(2편)에 도달"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "time이 들어간 영단어를 반복 음절 구조로 쉽게 외울 수 있다고 안내함",
+      "titleQuote": "time이 들어간 영어단어 01🌈 | 영단어-반복음절로 쉽게 기억하기 #영어단어 #영단어외우기 #영어공부 #기초영어 #영어듣기 #영단어암기 #반복영어 #반복음절 #shorts",
+      "thumbnailText": "",
+      "thumbnailWordCount": 0,
+      "thumbnailVisual": "연두색 배경에 time이 들어간 한국어 뜻과 영어 단어 목록이 나열되어 있음",
+      "thumbnailVsTitle": "제목에서 밝힌 time 관련 영단어 목록의 본문 화면을 그래픽으로 보여줌",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "한국어 단어 뜻이 음성으로 먼저 나온 뒤 Anytime, Sometime, Lifetime, Overtime 단어가 시각 텍스트와 음성 발음으로 순서대로 나옴",
+      "quote": "",
+      "reasonToKeepWatching": "time이 포함된 주요 영단어 7개를 순차적으로 외울 수 있도록 명확한 리스트 형태를 제시함"
+    },
+    "first3s": {
+      "what": "'언제든지'라는 한국어 음성이 나오고 화면에 Anytime 영단어와 한글 발음 표기가 나타남",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 5,
+        "what": "'언제든지' 뜻과 Anytime 단어 및 발음 제시",
+        "quote": ""
+      },
+      {
+        "start": 5,
+        "end": 9,
+        "what": "'언젠가' 뜻과 Sometime 단어 및 발음 제시",
+        "quote": ""
+      },
+      {
+        "start": 9,
+        "end": 14,
+        "what": "'일생/평생' 뜻과 Lifetime 단어 및 발음 제시",
+        "quote": ""
+      },
+      {
+        "start": 14,
+        "end": 19,
+        "what": "'초과근무' 뜻과 Overtime 단어 및 발음 제시",
+        "quote": ""
+      },
+      {
+        "start": 19,
+        "end": 24,
+        "what": "'취침시간' 뜻과 Bedtime 단어 및 발음 제시",
+        "quote": ""
+      },
+      {
+        "start": 24,
+        "end": 28,
+        "what": "'여가 시간' 뜻과 Spare time 단어 및 발음 제시",
+        "quote": ""
+      },
+      {
+        "start": 28,
+        "end": 34,
+        "what": "'휴식 시간' 뜻과 Break time 단어 및 발음 제시 후 화면 줌아웃 마무리",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "Anytime 단어와 (애니타임) 발음 텍스트가 뜸",
+        "purpose": "첫번째 단어 학습 제시"
+      },
+      {
+        "t": 5,
+        "what": "Sometime 단어와 (썸타임) 발음 텍스트가 뜸",
+        "purpose": "두번째 단어 학습 제시"
+      },
+      {
+        "t": 9,
+        "what": "Lifetime 단어와 (라이프타임) 발음 텍스트가 뜸",
+        "purpose": "세번째 단어 학습 제시"
+      },
+      {
+        "t": 14,
+        "what": "Overtime 단어와 (오버타임) 발음 텍스트가 뜸",
+        "purpose": "네번째 단어 학습 제시"
+      },
+      {
+        "t": 19,
+        "what": "Bedtime 단어와 (베드타임) 발음 텍스트가 뜸",
+        "purpose": "다섯번째 단어 학습 제시"
+      },
+      {
+        "t": 24,
+        "what": "Spare time 단어와 (스페어타임) 발음 텍스트가 뜸",
+        "purpose": "여섯번째 단어 학습 제시"
+      },
+      {
+        "t": 28,
+        "what": "Break time 단어와 (브레이크타임) 발음 텍스트가 뜸",
+        "purpose": "일곱번째 단어 학습 제시"
+      },
+      {
+        "t": 33,
+        "what": "전체 화면이 축소되며 외부 프레임과 구독 유도 문구가 들어옴",
+        "purpose": "영상 마무리 및 구독 행동 유도"
+      }
+    ],
+    "ending": {
+      "what": "마지막 단어 Break time 음성이 끝난 뒤 전체 메인 레이아웃이 줌아웃되며 구독 안내 메시지가 나타남",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "쉽고 깔끔하게 정리되어 영어를 배우기 편리하다고 평가함",
+          "quote": "와 쉽게 배울수있어 감사합니다",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "question": "영단어가 나타나는 속도가 빨라서 직접 생각할 시간이 부족하다는 피드백",
+          "quote": "빨간색 영어단어 뜨는 타임이 넘 빠른 듯요~(생각할 틈이 없음) 영어발음과 같이 떴으면 더 좋을 듯요~",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": []
+    },
+    "infoCount": {
+      "count": 7,
+      "description": "time이 포함된 단어 7개(Anytime, Sometime, Lifetime, Overtime, Bedtime, Spare time, Break time)의 뜻과 발음을 순서대로 제공함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 오른쪽 텍스트 라인",
+      "size": "보통",
+      "highlightColor": "분홍색",
+      "highlightMethod": "단어 등장 시 붉은/분홍 색상 텍스트 적용 및 괄호 안에 한글 발음 병기",
+      "textAmount": "각 라인마다 영어 단어 1개와 발음 1개",
+      "changeTiming": "한국어 뜻 음성이 오디오로 나온 바로 직후"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": true,
+      "soundEffectUse": "새 영단어가 텍스트로 전환되어 나타날 때 팅하는 효과음 출력",
+      "voiceVsMusic": "배경음악 없이 한국어/영어 음성 및 효과음으로만 구성됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "time 접미사가 붙은 단어 7개를 순서대로 암기하는 숏폼 형식",
+        "quote": "",
+        "type": "주제 제시"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "한국어 뜻을 먼저 들려주며 짝이 되는 영단어를 생각하게 만듦",
+          "quote": ""
+        },
+        "resolved": {
+          "t": 1,
+          "what": "영어 단어 텍스트와 원어민 발음 음성을 공개함",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "동일한 패턴의 단어 목록 7개를 단순 병렬 구조로 반복 안내함",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [
+        {
+          "t": 0,
+          "what": "뜻을 먼저 듣고 영단어를 퀴즈처럼 연상하거나 발음을 따라 읊도록 함",
+          "quote": ""
+        }
+      ],
+      "evidence": [],
+      "payoff": {
+        "t": 33,
+        "what": "7개 단어 학습 완료 후 채널 구독 안내 메시지로 마무리",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "한국어 뜻이 나오고 영단어가 텍스트로 나타나는 속도가 다소 빠름",
+        "reaction": "생각할 틈이 부족하다는 시청자 반응 발생",
+        "quote": "빨간색 영어단어 뜨는 타임이 넘 빠른 듯요~(생각할 틈이 없음) 영어발음과 같이 떴으면 더 좋을 듯요~",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "성인 학습자를 대상으로 time이 포함된 단어의 정확한 원어민 발음과 한글 발음 표기를 제시하여 소리를 학습시킴",
+    "forUs": {
+      "adopt": "공통 요소가 들어간 단어들을 모아 한국어 뜻 제시 후 영단어 발음을 들려주는 깔끔한 퀴즈형 나열 구조",
+      "differentiate": "뜻 제시 후 정답 영단어가 뜨기까지 1~2초의 생각할 시간을 주고, 결합 형태에 따른 발음 연쇄 원리를 추가 설명하기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 4,
+    "verified": 4,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 19,
+      "file": "19.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 28,
+      "file": "28.jpg"
+    },
+    {
+      "t": 33,
+      "file": "33.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 6634,
+    "candidatesTokenCount": 2257,
+    "totalTokenCount": 10567,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2443
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3091
+      }
+    ],
+    "thoughtsTokenCount": 1676,
+    "serviceTier": "standard"
+  }
+}

@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "videoId": "81qi9qdN8SU",
+  "analyzedAt": "2026-11-15T16:08:10.108Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 60,
+  "meta": {
+    "videoId": "81qi9qdN8SU",
+    "title": "If English Expressions were Literal Part 1 | Symphony in Slang (1951) | Tex Avery Cartoon",
+    "channelId": "UCmRxBQpopIxcaRIkFrAhMjw",
+    "channelTitle": "Learning Languages with Leo",
+    "publishedAt": "2023-09-15T20:37:04Z",
+    "viewCount": 108044,
+    "likeCount": 2823,
+    "commentCount": 26,
+    "durationSeconds": 60,
+    "thumbnail": "https://i.ytimg.com/vi/81qi9qdN8SU/maxresdefault.jpg",
+    "description": "Symphony in Slang is a 1951 cartoon short directed by Tex Avery, written by Rich Hogan and released with the feature film No Questions Asked by Metro-Goldwyn-Mayer. Minimalist and abstract in style, it tells the story of a man (voiced by radio actor John Brown), who finds himself in Heaven explaining the story of his life to a bewildered Saint Peter and Noah Webster using slang of the time and common idioms. The majority of the short is made up of sight gags based on Peter and Webster's imagined, literal understandings of such phrases as \"I was born with a silver spoon in my mouth\" and \"Outside it was raining cats and dogs.\"\n\n#english #idioms #cartoon #englishgrammar #englishvocabulary #vocabulary #englishlanguage #language #languagelearning #grammar #englishidioms #animation #texavery #avery #cartoon",
+    "tags": []
+  },
+  "subscriberCount": 2650,
+  "viewsPerSubscriber": 40.77,
+  "outlierRatio": 103.45,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=81qi9qdN8SU! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an "
+    },
+    "comments": {
+      "ok": true,
+      "count": 17
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 60
+    }
+  },
+  "speech": {
+    "source": null,
+    "quality": null,
+    "kind": "short",
+    "sentences": null,
+    "stats": null,
+    "computedAt": "2026-11-15T16:08:05.973Z",
+    "note": "자막을 못 받음, 대체 경로 하루 상한(2편)에 도달"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어 관용 표현을 문자 그대로 직역했을 때 벌어지는 상황을 고전 애니메이션 연출로 흥미롭게 보여줌",
+      "titleQuote": "If English Expressions were Literal Part 1 | Symphony in Slang (1951) | Tex Avery Cartoon",
+      "thumbnailText": "If English expressions were literal - P2",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "천국을 배경으로 구름 위에서 이야기를 나누는 캐릭터들과 상단에 배치된 텍스트 자막",
+      "thumbnailVsTitle": "제목의 'If English Expressions were Literal' 문구를 썸네일 상단 자막으로 동일하게 제시하여 핵심 주제를 전달함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "천사가 남성에게 인생 이야기를 요청하자, 남성이 '입에 은스푼을 물고 태어났다'고 말하며 천사가 이를 머릿속으로 상상함",
+      "quote": "",
+      "reasonToKeepWatching": "영어 숙어 표현이 글자 그대로 시각화되면 어떤 황당하고 유머러스한 장면이 나올지 기대감을 유발함"
+    },
+    "first3s": {
+      "what": "구름 위에서 흰 옷을 입은 천사가 빨간 재킷을 입은 남성에게 삶의 이야기를 들려달라고 청함",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 20,
+        "what": "자신의 출생과 태어날 때의 상태(입에 은스푼을 묾)에 대해 이야기함",
+        "quote": ""
+      },
+      {
+        "start": 20,
+        "end": 39,
+        "what": "하룻밤 사이에 자라고 새벽에 일어나 식당 일자리를 얻었다가 쫓겨나는 과정을 직역 장면으로 보여줌",
+        "quote": ""
+      },
+      {
+        "start": 39,
+        "end": 60,
+        "what": "방으로 돌아와 화를 내다 텍사스와 시카고로 이동해 여성을 만나 눈이 맞는 과정을 직역 연출함",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "하늘 위 구름 배경에서 천사와 남성이 대화하는 장면 시작",
+        "purpose": "이야기 전개의 기본 상황 설정"
+      },
+      {
+        "t": 8,
+        "what": "천사가 외눈 안경을 쓰고 놀란 표정으로 남성을 바라봄",
+        "purpose": "남성의 고백(관용구 사용)에 대한 반응 강조"
+      },
+      {
+        "t": 14,
+        "what": "천사 머리 위로 아기가 기어다니는 구름 형태의 상상 풍선 등장",
+        "purpose": "과거 회상 및 묘사의 시작 알림"
+      },
+      {
+        "t": 16,
+        "what": "아기 입에 커다란 쇠 스푼이 실제로 물려있는 클로즈업 연출",
+        "purpose": "'Born with a silver spoon in my mouth' 표현의 직역 시각화"
+      },
+      {
+        "t": 21,
+        "what": "요람 안의 아기가 눈 깜짝할 사이에 키가 큰 성인으로 늘어남",
+        "purpose": "'Grow up overnight' 표현의 직역 시각화"
+      },
+      {
+        "t": 24,
+        "what": "창밖의 밤하늘이 유전체처럼 깨지며(Crack) 아침 해가 떠오름",
+        "purpose": "'Crack of dawn' 표현의 직역 시각화"
+      },
+      {
+        "t": 28,
+        "what": "남성이 침대에서 일어날 때 이불 속에서 진짜 닭들이 날아오름",
+        "purpose": "'Got up with the chickens' 표현의 직역 시각화"
+      },
+      {
+        "t": 30,
+        "what": "요리사 복장의 남성이 냄비에 갈색 고기 반죽(Hash)을 직접 던짐",
+        "purpose": "'Slinging hash' 표현의 직역 시각화"
+      },
+      {
+        "t": 33,
+        "what": "팔 길이가 극도로 짧은 식당 주인이 돈케셔 옆에 서 있음",
+        "purpose": "'Short handed' 표현의 직역 시각화"
+      },
+      {
+        "t": 35,
+        "what": "남성이 나이프와 포크로 머스타드 용기를 자르려고 애씀",
+        "purpose": "'Couldn't cut the mustard' 표현의 직역 시각화"
+      },
+      {
+        "t": 38,
+        "what": "화가 난 주인이 남성에게 붉은목재 대문(Gate)을 직접 쥐어줌",
+        "purpose": "'Gave me the gate' 표현의 직역 시각화"
+      },
+      {
+        "t": 40,
+        "what": "남성이 벽돌 벽에 뚫린 동그란 구멍 속으로 몸을 밀어 넣음",
+        "purpose": "'Hole in the wall' 표현의 직역 시각화"
+      },
+      {
+        "t": 43,
+        "what": "남성 의자 옆에 동일하게 생긴 자기 자신과 붉은 몬스터가 앉아 있음",
+        "purpose": "'Beside myself with anger' 표현의 직역 시각화"
+      },
+      {
+        "t": 48,
+        "what": "기차역 창구에서 엄청나게 기다란 종이 티켓이 뿜어져 나옴",
+        "purpose": "'Train ticket to Texas' 상황 연출"
+      },
+      {
+        "t": 50,
+        "what": "카우보이 모자를 쓴 남성이 살아있는 소들을 주먹으로 때림",
+        "purpose": "'Punching cattle' 표현의 직역 시각화"
+      },
+      {
+        "t": 53,
+        "what": "남성이 슈퍼맨처럼 공중을 날아서 도시 빌딩 숲을 지나감",
+        "purpose": "'Flew to Chicago' 표현의 직역 시각화"
+      },
+      {
+        "t": 55,
+        "what": "액자 그림 속으로 검은 머리 여성이 실제로 걸어 들어옴",
+        "purpose": "'Stepped into the picture' 표현의 직역 시각화"
+      },
+      {
+        "t": 58,
+        "what": "남녀의 눈알이 공중으로 튀어나와 서로 쿵 하고 부딪힘",
+        "purpose": "'Our eyes met' 표현의 직역 시각화"
+      }
+    ],
+    "ending": {
+      "what": "남녀가 서로 바라볼 때 공중에서 눈알 두 쌍이 부딪히는 연출로 장면이 마감됨",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "텍스 에이버리(Tex Avery) 고전 만화의 기발한 직역 연출 유머에 크게 감탄함",
+          "quote": "\"Symphony in Slang\". Hysterical cartoon. Watch the whole thing when you can.",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "point": "애니메이션의 정확한 제목이 무엇인지 물어봄",
+          "quote": "Cartoon name",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "brainrot words",
+          "quote": "So this is the original classic brainrot words.",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 12,
+      "description": "은스푼, 하룻밤 성장, 새벽의 균열, 닭과 일어남, 손 부족, 겨자 자르기, 대문 받기, 벽 구멍, 분노 옆에 서기, 소 펀치, 시카고 비행, 눈 만남 등 12가지 관용구 직역 연출을 옴니버스식으로 빠르게 나열함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "하단 중앙",
+      "size": "보통",
+      "highlightColor": "흰색",
+      "highlightMethod": "단어 단위 텍스트 갱신",
+      "textAmount": "한 번에 3~5단어 내외",
+      "changeTiming": "음성 발화에 맞추어 실시간 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "익살스럽고 다이나믹한 고전 오케스트라 만화 배경음악",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "하늘이 깨지는 소리, 닭 소리, 대문으로 치는 소리, 눈알 부딪히는 소리 등 동작에 맞춘 효과음",
+      "voiceVsMusic": "내레이션 목소리가 또렷하게 중심을 이루고 배경 음악과 효과음이 상황을 보조함"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "흔히 쓰는 관용적 표현을 글자 그대로 시각화할 때 생기는 황당한 웃음을 강조함",
+        "quote": "",
+        "type": "시각적 비유의 직격탄"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 6,
+          "what": "입에 은스푼을 물고 태어났다는 말을 어떻게 시각화할지 궁금증 유발",
+          "quote": ""
+        },
+        "resolved": {
+          "t": 16,
+          "what": "아기 입에 진짜 큰 은숟가락이 물려있는 모습으로 보여주며 해소",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "주인공의 일생전개(출생-성장-취업-해고-이동-연애)라는 타임라인을 축으로 각 단계마다 관용 표현을 직역한 유머 요소들이 하나씩 이어짐",
+        "examples": [
+          {
+            "t": 35,
+            "what": "겨자를 자르지 못하자(Cut the mustard) 주인에게 대문을 받으며(Gave me the gate) 쫓겨남",
+            "quote": ""
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 58,
+          "what": "일반적인 연애 장면인 줄 알았으나 눈알이 물리적으로 튀어나와 부딪히는 극단적 시각화로 예측을 깨뜨림",
+          "quote": ""
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 58,
+        "what": "영상 전체 콘셉트인 '관용구의 직역 시각화'를 눈알이 만나는 마지막 장면까지 철저하게 유지하며 유머적 보상을 제공함",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "애니메이션에서 영단어 관용구를 직역하여 시각화한 연출 방식",
+        "reaction": "원어민 관용구를 가장 재미있게 배울 수 있는 고전 애니메이션이라고 호평함",
+        "quote": "\"Symphony in Slang\". Hysterical cartoon. Watch the whole thing when you can.",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "1951년 고전 만화 영화의 유머 클립일 뿐, 성인에게 영어 소리(발음·듣기)를 가르치기 위해 직접 제작되거나 설명하는 영상이 아니기 때문이다.",
+    "forUs": {
+      "adopt": "영어 관용구나 비유적 표현을 설명할 때 직관적이고 기억에 남는 이미지나 짧은 툰 연출을 병행하는 방식",
+      "differentiate": "단순 만화 클립에 그치지 않고 성인 시청자가 소리로 바로 알아듣고 직접 따라 말할 수 있는 발음·연음 교육을 덧붙여야 함"
+    }
+  },
+  "quoteCheck": {
+    "checked": 5,
+    "verified": 5,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 8,
+      "file": "8.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 30,
+      "file": "30.jpg"
+    },
+    {
+      "t": 33,
+      "file": "33.jpg"
+    },
+    {
+      "t": 38,
+      "file": "38.jpg"
+    },
+    {
+      "t": 43,
+      "file": "43.jpg"
+    },
+    {
+      "t": 50,
+      "file": "50.jpg"
+    },
+    {
+      "t": 53,
+      "file": "53.jpg"
+    },
+    {
+      "t": 58,
+      "file": "58.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 8971,
+    "candidatesTokenCount": 2985,
+    "totalTokenCount": 14968,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2412
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 5459
+      }
+    ],
+    "thoughtsTokenCount": 3012,
+    "serviceTier": "standard"
+  }
+}

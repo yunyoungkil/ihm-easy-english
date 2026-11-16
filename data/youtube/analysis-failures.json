@@ -1,4 +1,99 @@
 {
   "schemaVersion": 1,
-  "entries": {}
+  "entries": {
+    "ITMjbDPkWsI": {
+      "comment": {
+        "message": "영상(ITMjbDPkWsI)의 댓글 기능이 비활성화되어 있습니다 (commentsDisabled).",
+        "failedAt": "2026-11-12T06:07:10.560Z"
+      },
+      "script": {
+        "message": "자막 추출 실패 (ITMjbDPkWsI): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=ITMjbDPkWsI! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:07:27.012Z"
+      }
+    },
+    "e8YZ4OquDVg": {
+      "script": {
+        "message": "자막 추출 실패 (e8YZ4OquDVg): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=e8YZ4OquDVg! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:07:28.931Z"
+      }
+    },
+    "ts4E_jAYHSs": {
+      "script": {
+        "message": "자막 추출 실패 (ts4E_jAYHSs): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=ts4E_jAYHSs! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:29:12.262Z"
+      }
+    },
+    "pvPBD9PLuyk": {
+      "script": {
+        "message": "자막 추출 실패 (pvPBD9PLuyk): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=pvPBD9PLuyk! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:29:14.293Z"
+      }
+    },
+    "wgBELecJdjM": {
+      "script": {
+        "message": "자막 추출 실패 (wgBELecJdjM): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=wgBELecJdjM! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:36:20.168Z"
+      }
+    },
+    "glME08ywZuU": {
+      "script": {
+        "message": "자막 추출 실패 (glME08ywZuU): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=glME08ywZuU! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:36:23.988Z"
+      }
+    },
+    "U2Rq1TU578g": {
+      "script": {
+        "message": "자막 추출 실패 (U2Rq1TU578g): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=U2Rq1TU578g! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:36:28.077Z"
+      }
+    },
+    "nThi-Q_vknA": {
+      "script": {
+        "message": "자막 추출 실패 (nThi-Q_vknA): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=nThi-Q_vknA! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T06:36:29.929Z"
+      }
+    },
+    "YazFSmDW66w": {
+      "comment": {
+        "message": "Gemini 댓글 분석이 결과를 돌려주지 않았습니다(쿼터·응답 형식 문제일 수 있음).",
+        "failedAt": "2026-11-12T16:01:18.077Z"
+      },
+      "script": {
+        "message": "자막 추출 실패 (YazFSmDW66w): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=YazFSmDW66w! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T16:01:21.857Z"
+      }
+    },
+    "eGh-AmQzqOc": {
+      "script": {
+        "message": "자막 추출 실패 (eGh-AmQzqOc): 업로더가 이 영상의 자막 기능을 꺼놔서 자막을 가져올 수 없습니다.",
+        "failedAt": "2026-11-12T16:01:19.940Z"
+      }
+    },
+    "7LLS38-Yb3A": {
+      "comment": {
+        "message": "Gemini 댓글 분석이 결과를 돌려주지 않았습니다(쿼터·응답 형식 문제일 수 있음).",
+        "failedAt": "2026-11-12T16:01:40.216Z"
+      },
+      "script": {
+        "message": "자막 추출 실패 (7LLS38-Yb3A): YouTube 자막 요청 일시 제한/네트워크 오류: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=7LLS38-Yb3A! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nWays to work around this are explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+        "failedAt": "2026-11-12T16:01:42.397Z"
+      }
+    },
+    "81qi9qdN8SU": {
+      "script": {
+        "message": "자막 추출 실패 (81qi9qdN8SU): 업로더가 이 영상의 자막 기능을 꺼놔서 자막을 가져올 수 없습니다.",
+        "failedAt": "2026-11-13T13:49:11.417Z"
+      }
+    },
+    "I5AD5ByAHEQ": {
+      "comment": {
+        "message": "영상(I5AD5ByAHEQ)의 댓글 기능이 비활성화되어 있습니다 (commentsDisabled).",
+        "failedAt": "2026-11-13T16:00:32.054Z"
+      },
+      "script": {
+        "message": "자막 추출 실패 (I5AD5ByAHEQ): 업로더가 이 영상의 자막 기능을 꺼놔서 자막을 가져올 수 없습니다.",
+        "failedAt": "2026-11-13T16:01:05.100Z"
+      }
+    }
+  }
 }

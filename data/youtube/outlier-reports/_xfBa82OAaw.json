@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "videoId": "_xfBa82OAaw",
+  "analyzedAt": "2026-11-15T05:25:06.630Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 8,
+  "meta": {
+    "videoId": "_xfBa82OAaw",
+    "title": "미드영화 빈출표현 You lost me #영어회화 #생활영어 #영어공부",
+    "channelId": "UCWg3oU5TRRs5TVV4S-xQCGg",
+    "channelTitle": "이지톡잉글리쉬",
+    "publishedAt": "2026-11-12T21:14:18Z",
+    "viewCount": 43487,
+    "likeCount": 372,
+    "commentCount": 8,
+    "durationSeconds": 8,
+    "thumbnail": "https://i.ytimg.com/vi/_xfBa82OAaw/maxresdefault.jpg",
+    "description": "실제 원어민의 미드, 영화 속 대사 한마디,\n\n예문과 함께 뉘앙스도 함께 가져가세요.\n\n응원합니다!\n\n#영어회화 #영어공부 #영어표현 #미드영어 #미드영어회화 #미드영어공부 #영어듣기 #생활영어 #일상영어 #원어민영어 #영어혼자공부하기 #영어독학 #영어 #기초영어 #초보영어 #영어말하기 #영어쉐도잉 #영어말하기연습 #왕초보영어 #직장인영어 #출근길영어 #영어문장 #미드 #영화영어 #영화대사 #넷플릭스 #넷플릭스영어 #english #englishlistening #englishstudy #learnenglish #korean #koreanlanguage #learnkorean #영어숙어 #쉐도잉",
+    "tags": [
+      "영어표현",
+      "영어회화",
+      "영어공부",
+      "영어",
+      "원어민영어",
+      "일상영어",
+      "생활영어",
+      "실생활영어",
+      "기초영어",
+      "왕초보영어",
+      "50대영어",
+      "40대영어",
+      "출근길영어",
+      "영어말하기연습",
+      "영어말하기",
+      "영어듣기",
+      "영화대사",
+      "넷플릭스",
+      "넷플릭스 영어",
+      "영어독학",
+      "미드",
+      "미국영어",
+      "미드영어회화",
+      "미드영어",
+      "English",
+      "English-speaking",
+      "englishlistening",
+      "englishexpression"
+    ]
+  },
+  "subscriberCount": 2670,
+  "viewsPerSubscriber": 16.29,
+  "outlierRatio": 134.34,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 6,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 5
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 8
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "미드와 영화에서 자주 쓰이는 핵심 표현 'You lost me'의 실제 뜻을 알려주겠다고 제안함",
+      "titleQuote": "미드영화 빈출표현 You lost me #영어회화 #생활영어 #영어공부",
+      "thumbnailText": "You lost me.",
+      "thumbnailWordCount": 3,
+      "thumbnailVisual": "상단에 노란색 강조 상자로 영어 표현 'You lost me.'가 적혀 있고, 하단에는 한글 발음과 뜻, 활용 예문 텍스트가 배치되며 가운데에 영화 장면이 위치함",
+      "thumbnailVsTitle": "제목에서 제시한 핵심 표현 'You lost me'를 썸네일 상단에 동일하게 시각화하여 강조함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "영상 시작과 동시에 'You lost me'라는 대사가 나오는 여러 영화 및 드라마 장면이 한글 뜻/발음 자막과 함께 빠르게 전환되며 재생됨",
+      "quote": "You lost me.",
+      "reasonToKeepWatching": "다양한 영화 장면 속 원어민들의 실제 발음과 상황을 연속으로 들려주어 흥미를 유발함",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 8,
+        "what": "여러 미드와 영화에서 배우들이 'You lost me'라고 말하는 클립 6개를 연속으로 교차 편집해 들려주고 화면 상하단에 한글 발음, 의미, 부연 설명을 ثابت으로 보여줌",
+        "quote": "You lost me.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단에 노란 상자 'You lost me.' 및 한글 뜻/발음 자막이 고정 표시되고 아담 샌들러 출연 영화 클립이 재생됨",
+        "purpose": "'You lost me'의 기본 텍스트 정보 제공 및 첫 번째 예시 음성 제시"
+      },
+      {
+        "t": 1,
+        "what": "중앙 영상 클립이 SF 영화 장면으로 전환됨",
+        "purpose": "동일한 표현의 두 번째 실제 쓰임새 제시"
+      },
+      {
+        "t": 3,
+        "what": "중앙 영상 클립이 드라마 <프렌즈>의 피비 장면으로 전환됨",
+        "purpose": "'Now you lost me.' 대사가 나오는 세 번째 쓰임새 제시"
+      },
+      {
+        "t": 4,
+        "what": "중앙 영상 클립이 다른 드라마 장면(여성 배우)으로 전환됨",
+        "purpose": "네 번째 쓰임새 제시"
+      },
+      {
+        "t": 5,
+        "what": "중앙 영상 클립이 남녀 대화 장면으로 전환됨",
+        "purpose": "다섯 번째 쓰임새 제시"
+      },
+      {
+        "t": 7,
+        "what": "중앙 영상 클립이 소파에 앉은 여성 장면으로 전환되며 영상 마무리됨",
+        "purpose": "여섯 번째 쓰임새 제시"
+      }
+    ],
+    "ending": {
+      "what": "별도의 엔딩 멘트나 구독 요청 없이 대사 클립이 끝나며 즉시 영상이 종료됨",
+      "quote": "You lost me.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "단어 의미 그대로 직역한 것과 달리 '무슨 말인지 모르겠다'는 전혀 다른 실제 의미를 알게 된 점",
+          "quote": "너는 나를 잃다가 아니네!!!!!",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "question": "동일한 의미를 가진 다른 영문 표현과 호환되는지 확인하고 싶어함",
+          "quote": "I'm not following you 와 같은 의미로 보면 되나요?",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "I didn't catch that",
+          "quote": "I didn't catch that",
+          "quoteVerified": true
+        },
+        {
+          "expression": "I don't get it",
+          "quote": "I don't get it",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "화면에 'You lost me = 무슨 말인지 모르겠어'라고 설명이 표시된 것",
+        "reaction": "직역(너는 나를 잃다)과의 차이에 놀라움 표출",
+        "quote": "너는 나를 잃다가 아니네!!!!!",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "원어민들이 실제 미드/영화에서 해당 표현을 사용하는 1~2초 짧은 클립을 5~6개 연속 배치해 발음의 다양성을 한눈에 보여주는 구성",
+      "differentiate": "클립을 그냥 나열하기보다 시청자가 소리를 직접 듣고 따라 할 수 있도록 소리 연결 포인트(연음/강세)와 섀도잉 구간을 명확히 안내해 준다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 9,
+    "verified": 9,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 3066,
+    "candidatesTokenCount": 1218,
+    "totalTokenCount": 6102,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 1238
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 728
+      }
+    ],
+    "thoughtsTokenCount": 1818,
+    "serviceTier": "standard"
+  }
+}

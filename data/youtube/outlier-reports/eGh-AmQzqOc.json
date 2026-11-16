@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "videoId": "eGh-AmQzqOc",
+  "analyzedAt": "2026-11-12T16:00:52.100Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 11,
+  "meta": {
+    "videoId": "eGh-AmQzqOc",
+    "title": "지금까지 써본 영어공부 앱/웹 순위 총정리 (내돈내산. 광고X. 고정댓글에 적어둠)",
+    "channelId": "UCgQDwGhGxz09WGrF6SHFwqQ",
+    "channelTitle": "engrit = englishstudy + grit",
+    "publishedAt": "2024-10-01T05:30:43Z",
+    "viewCount": 607824,
+    "likeCount": 1317,
+    "commentCount": 25,
+    "durationSeconds": 11,
+    "thumbnail": "https://i.ytimg.com/vi/eGh-AmQzqOc/maxresdefault.jpg",
+    "description": "이동 시간에 영어 리스닝 연습하려고 음원 파일을 만들어서 폰에 넣어서 갖고 다니는데 필요하신 분 있으시면 아래 링크에서 다운 받아 사용하세요.\n\n재배포 X, 상업적 이용 X, 컨텐츠 제작 (출처 반드시 표기할 것)\n\nhttps://needesign.liveklass.com/classes/282620",
+    "tags": []
+  },
+  "subscriberCount": 648,
+  "viewsPerSubscriber": 938,
+  "outlierRatio": 975.89,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=eGh-AmQzqOc! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an "
+    },
+    "comments": {
+      "ok": true,
+      "count": 13
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 11
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "여러 영어공부 앱과 웹사이트를 직접 써보고 순위를 총정리해준다는 솔직 후기(내돈내산, 광고 없음)로 시청자의 호기심과 기대감을 유발함",
+      "titleQuote": "지금까지 써본 영어공부 앱/웹 순위 총정리 (내돈내산. 광고X. 고정댓글에 적어둠)",
+      "thumbnailText": "",
+      "thumbnailWordCount": 0,
+      "thumbnailVisual": "스마트폰 거치대에 스마트폰을 올려두고 다양한 영어 학습 앱 화면을 손가락으로 직접 터치하며 조작하는 4분할 및 다분할 화면",
+      "thumbnailVsTitle": "제목에서 약속한 다양한 앱 사용 경험을 실제로 조작하는 시각적 장면으로 보여주어 제목의 내용을 보완함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "손가락으로 스마트폰의 다양한 영어 학습 앱을 터치하고 조작하는 모습, 키보드로 타자 치는 모습, 차를 우려내는 모습, 모니터 속 필기 정리 화면, 하늘을 찍은 외경 모습이 빠른 템포의 분할 화면과 전환으로 펼쳐짐",
+      "quote": "",
+      "reasonToKeepWatching": "여러 학습 앱을 실제로 사용하는 빠른 분할 화면 연출을 통해 공부 팁과 정리 내용이 이어질 것이라는 기대감을 줌"
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 11,
+        "what": "스마트폰 거치대에 놓인 폰에서 여러 영어 공부 앱을 터치해 실행하고, 모니터 화면의 정리 노트를 보여준 뒤 야외 하늘 풍경으로 영상을 마무리함",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "스마트폰 거치대에 놓인 스마트폰 화면을 손가락으로 터치함",
+        "purpose": "영어 공부 앱을 실제로 사용하는 모습을 시각적으로 보여줌"
+      },
+      {
+        "t": 1,
+        "what": "4분할 화면으로 전환되어 각기 다른 학습 앱 UI와 조작 모습이 표시됨",
+        "purpose": "여러 종류의 앱을 직접 써보았음을 다채로운 화면으로 연출함"
+      },
+      {
+        "t": 3,
+        "what": "키보드 타자 치는 모습, 컵에 티백을 넣는 모습, 스마트폰 조작 모습이 콜라주 형태로 나타남",
+        "purpose": "일상적인 공부 환경과 필기 준비 과정을 시각적으로 전달함"
+      },
+      {
+        "t": 5,
+        "what": "형광펜과 빨간 펜으로 정리된 학습 노트를 모니터 화면 전체로 확대해서 보여줌",
+        "purpose": "직접 분석하고 정리한 자료가 있음을 강조함"
+      },
+      {
+        "t": 6,
+        "what": "모니터 화면에 켜진 문서 및 프로그램 화면을 좌에서 우로 팬하며 보여줌",
+        "purpose": "정리된 내용을 세부적으로 스캔하는 듯한 느낌을 줌"
+      },
+      {
+        "t": 9,
+        "what": "실내 모니터 화면에서 푸른 하늘과 나무가 보이는 야외 풍경으로 장면이 전환되며 카메라가 위로 올려다봄",
+        "purpose": "영상 시각적 마무리를 시원한 야외 풍경으로 연출함"
+      }
+    ],
+    "ending": {
+      "what": "나무와 푸른 하늘이 보이는 야외 풍경을 카메라인 앵글을 위로 올려다보며 영상이 끝남",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "다양한 서비스의 장단점을 상세히 정리해 준 작성자의 정성에 감사를 표함",
+          "quote": "와 정리 감사합니다… 정성이네요..!",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "회화를 시작하기 전에 단어를 많이 외워야 할지 고민되는 답답함",
+          "quote": "안녕하세요. 처음 접해보려고 하는데 단어를 엄청 많이 외우고 회화를 시작해야하나요..? 회화를 하더라도 단어를 모르면 안되지않나요?",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "제목에는 고정댓글에 순위를 적어두었다고 했으나 댓글이 보이지 않거나 추천 앱이 영상에 없다는 아쉬움",
+          "quote": "고정댓글이 없는데요..?😂",
+          "quoteVerified": true
+        },
+        {
+          "question": "영상 안에서 명확한 추천 결과를 찾지 못한 시청자의 질문",
+          "quote": "그래서 추천하는 앱이 어느건데요?아무것도 없네",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "특정 영어 학습 앱 이름을 언급하며 우선순위를 물어보는 표현",
+          "quote": "말해보카와 스픽 중에 첫 시작을 뭐로 하면 좋을까요??",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "제목에서 고정댓글로 앱/웹 순위 총정리를 확인하라고 안내함",
+        "reaction": "시청자가 댓글 창을 확인했으나 고정댓글이 없거나 내용을 찾을 수 없어 피드백을 남김",
+        "quote": "고정댓글이 없는데요..?😂",
+        "quoteVerified": true
+      },
+      {
+        "cause": "영상 본문에는 스마트폰 조작 화면만 나오고 순위나 추천 내용이 직접 나오지 않음",
+        "reaction": "영상 내에서 어떤 앱을 추천하는지 알 수 없다며 답답함을 토로함",
+        "quote": "그래서 추천하는 앱이 어느건데요?아무것도 없네",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "스마트폰이나 모니터 화면에서 실제 학습 도구를 다루는 시각적 시연 장면을 숏폼 초반에 배치해 몰입감을 높인다.",
+      "differentiate": "정보를 댓글이나 외부 텍스트로 미루지 않고, 영상 본문 음성과 자막에서 핵심 결론과 추천 이유를 확실하게 전달한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 8,
+    "verified": 8,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 5,
+    "medianGapSeconds": 1.2,
+    "perMinute": 27.3,
+    "times": [
+      0.2,
+      5.1,
+      6.2,
+      7.5,
+      8.7
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 6,
+      "file": "6.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 3667,
+    "candidatesTokenCount": 1481,
+    "totalTokenCount": 6276,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 992
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 1575
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 1128,
+    "serviceTier": "standard"
+  }
+}

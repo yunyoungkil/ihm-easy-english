@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "videoId": "w8g6-e9yLP4",
+  "analyzedAt": "2026-11-12T16:04:43.390Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 53,
+  "meta": {
+    "videoId": "w8g6-e9yLP4",
+    "title": "종민, 도연의 영어 발음 테스트",
+    "channelId": "UCHVuJ2Hy_1917gvFNhuuv5Q",
+    "channelTitle": "메리고라운드",
+    "publishedAt": "2024-11-15T08:30:18Z",
+    "viewCount": 3722449,
+    "likeCount": 60225,
+    "commentCount": 404,
+    "durationSeconds": 53,
+    "thumbnail": "https://i.ytimg.com/vi/w8g6-e9yLP4/maxresdefault.jpg",
+    "description": "#김종민 #김도연 #코요태 #Roadshapes #메리고라운드 #merrygoround",
+    "tags": []
+  },
+  "subscriberCount": 72200,
+  "viewsPerSubscriber": 51.56,
+  "outlierRatio": 241.46,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=w8g6-e9yLP4! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 53
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "김종민과 김도연이 영어 발음 테스트를 진행하는 모습을 언급해 발음 성적과 반응에 대한 궁금증을 유발한다.",
+      "titleQuote": "종민, 도연의 영어 발음 테스트",
+      "thumbnailText": "00:34 Oval Pentagon 김종민의 연예이슈 대면대면",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "왼쪽에서 웃고 있는 김종민과 오른쪽에서 카메라인식을 바라보는 김도연, 그 사이에 증강현실(AR) 도형 벽과 트랙이 배치된 게임 화면이다.",
+      "thumbnailVsTitle": "제목은 발음 테스트라는 주제와 참가자를 알리고, 썸네일은 AR 필터 게임을 진행하는 실제 장면을 시각적으로 보여준다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "도형 AR 필터 게임이 시작되며 Circle 벽을 도연이 먼저 통과시키고, 뒤이어 나오는 Square 벽을 종민이 '스퀘어'라고 계속 외치다 통과하지 못하자 도연이 'Square'라고 발음해 벽을 깬다.",
+      "quote": "",
+      "reasonToKeepWatching": "김종민의 독특한 한국식 발음과 김도연의 정확한 발음이 대비되면서 다음 도형을 과연 통과할 수 있을지 기대감을 준다."
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 11,
+        "what": "Circle과 Square 도형 등장. 도연이 Circle을 통과시키고, 종민이 Square를 여러 번 외쳤으나 안 뚫리자 도연이 해결한다.",
+        "quote": ""
+      },
+      {
+        "start": 12,
+        "end": 26,
+        "what": "Triangle과 Rectangle 등장. 종민이 머뭇거리자 도연이 Triangle을 통과시키고, 종민이 당황하는 사이 도연이 Rectangle을 맞춰 벽을 넘긴다.",
+        "quote": ""
+      },
+      {
+        "start": 27,
+        "end": 47,
+        "what": "Oval 등장. 종민이 냅다 '오발'이라고 수차례 크게 외치며 시행착오를 겪다가, 마침내 '오~발' 소리로 Oval 벽이 뚫린다.",
+        "quote": ""
+      },
+      {
+        "start": 48,
+        "end": 53,
+        "what": "Pentagon 등장. 종민이 '펜타곤'이라고 발음하여 마지막 벽을 깨고 도연과 함께 만세를 부르며 환호한다.",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "타이머 00:01 표시와 함께 트랙 위로 AR 도형 게임 필터가 활성화된다.",
+        "purpose": "음성 인식 AR 게임 시작을 알린다."
+      },
+      {
+        "t": 2,
+        "what": "Circle 글자와 원형 구멍이 뚫린 목재 벽 그래픽이 다가온다.",
+        "purpose": "첫 번째 단어 Circle을 보여준다."
+      },
+      {
+        "t": 4,
+        "what": "도연의 'Circle' 발음 인식 후 Circle 벽이 깨지고 빨간 공이 통과하며 다음 Square 벽이 다가온다.",
+        "purpose": "발음 성공 시각 효과를 제시한다."
+      },
+      {
+        "t": 10,
+        "what": "Square 벽이 녹색으로 바뀌며 파괴된다.",
+        "purpose": "도연의 Square 발음 통과를 표시한다."
+      },
+      {
+        "t": 12,
+        "what": "Triangle 글자와 삼각형 구멍이 있는 벽 그래픽이 들어온다.",
+        "purpose": "세 번째 단어 Triangle을 제시한다."
+      },
+      {
+        "t": 16,
+        "what": "Triangle 벽이 하늘색으로 변하며 뚫린다.",
+        "purpose": "Triangle 발음 통과를 나타낸다."
+      },
+      {
+        "t": 18,
+        "what": "Rectangle 글자가 적힌 직사각형 구멍 벽이 다가온다.",
+        "purpose": "네 번째 단어 Rectangle을 제시한다."
+      },
+      {
+        "t": 25,
+        "what": "Rectangle 벽이 보라색으로 변하며 파괴된다.",
+        "purpose": "Rectangle 발음 성공을 보여준다."
+      },
+      {
+        "t": 27,
+        "what": "Oval 타원형 구멍 벽이 다가온다.",
+        "purpose": "다섯 번째 단어 Oval을 제시한다."
+      },
+      {
+        "t": 47,
+        "what": "종민의 강조된 발음에 Oval 벽이 주황색으로 변하며 깨진다.",
+        "purpose": "여러 번 시도 끝에 Oval 통과 장면을 나타낸다."
+      },
+      {
+        "t": 48,
+        "what": "마지막 Pentagon 오각형 구멍 벽이 다가온다.",
+        "purpose": "최종 단어 Pentagon을 제시한다."
+      },
+      {
+        "t": 51,
+        "what": "Pentagon 벽이 노란색으로 바뀌며 파괴된다.",
+        "purpose": "마지막 단어 성공을 보여준다."
+      },
+      {
+        "t": 52,
+        "what": "도연이 양손을 들어 춤추듯 기뻐하고 종민이 카메라를 보며 크게 소리친다.",
+        "purpose": "게임 성공 완수의 기쁨을 전달한다."
+      }
+    ],
+    "ending": {
+      "what": "마지막 Pentagon 벽을 깨뜨린 직후 김도연은 양손을 들어 만세를 부르고 김종민은 크게 환호하며 영상이 끝난다.",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "김종민이 먼저 도전하도록 기다려준 뒤 도움을 주는 김도연의 배려심 넘치는 태도",
+          "quote": "김종민님이 먼저 말할때까지 기다리다가 모를때쯤 말하시는거보면 너무 성격 좋아보여요 김도연님 ㅠㅠㅠ",
+          "quoteVerified": true
+        },
+        {
+          "point": "Oval 단어를 냅다 한국식으로 '오발'이라 외치는 김종민의 엉뚱함과 재미",
+          "quote": "냅다 오발ㅋㅋㅋㅋㅋ",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "Oval 발음을 원어민식(/oʊvəl/)으로 하지 않고 콩글리시로 발음해 인식이 잘 안 되는 답답함",
+          "quote": "Oval을 오발로 읽으시는 종민님 ㅋㅋ😊오버ㄹ발음인데 ㅋㅋ😂",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "영상에 나온 AR 숏폼 필터 앱의 이름이 무엇인지 궁금해함",
+          "quote": "이거 무슨앱이여요",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "오발",
+          "quote": "냅다 오발ㅋㅋㅋㅋㅋ",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "김종민이 Oval 단어를 보고 반복해서 '오발'이라고 크게 외침",
+        "reaction": "시청자들이 '오발' 발음에 큰 웃음을 터뜨림",
+        "quote": "오발ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "quoteVerified": true
+      },
+      {
+        "cause": "김도연이 김종민이 도전할 시간을 기다려 주었다가 나중에 발음해 줌",
+        "reaction": "김도연의 성격과 인성을 칭찬함",
+        "quote": "김종민님이 먼저 말할때까지 기다리다가 모를때쯤 말하시는거보면 너무 성격 좋아보여요 김도연님 ㅠㅠㅠ",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "한국식 발음과 음성 인식 사이의 격차를 보여주는 퀴즈·게임 요소를 활용해 시청자의 자발적 몰입과 웃음을 이끌어낸다.",
+      "differentiate": "단순 재미에 그치지 않고, 음성 인식 필터가 왜 해당 한국식 발음(예: 오발)을 거절했는지 소리 구조(음소/모음 발음) 차이를 짚어주는 교육적 포인트를 덧붙인다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 8,
+    "verified": 8,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 25,
+      "file": "25.jpg"
+    },
+    {
+      "t": 47,
+      "file": "47.jpg"
+    },
+    {
+      "t": 48,
+      "file": "48.jpg"
+    },
+    {
+      "t": 51,
+      "file": "51.jpg"
+    },
+    {
+      "t": 52,
+      "file": "52.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 8540,
+    "candidatesTokenCount": 2049,
+    "totalTokenCount": 12411,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2617
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 4823
+      }
+    ],
+    "thoughtsTokenCount": 1822,
+    "serviceTier": "standard"
+  }
+}

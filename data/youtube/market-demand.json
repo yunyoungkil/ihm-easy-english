@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-11T06:54:04.965Z",
-  "note": "market_demand_score = 50 * (영상의 하루당 조회수 / 그 채널 최근 업로드의 하루당 조회수 중앙값)의 중앙값, 채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 이례적으로 잘된 주제. 조회수는 게시 후 경과일로 나눠 비교함 — 오래된 영상이 최근 업로드보다 누적 조회수가 항상 많은 건 당연해서, 원 조회수로 비교하면 무조건 오래된 영상이 이긴다(실측: 정규화 전엔 6개 키워드 전부 상한(150)을 그대로 찍어서 버그로 확인, 이 보정 이후 값임). 채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 구독자 100,000명 이하 채널만 포함). 표본 3개 미만은 `confidence: \"low\"`로 표시함. content-opportunity.mjs가 이 파일과 my_channel_fit_score를 나란히 표시함 (곱하지 않음 — knowledge/decisions/2026-08-29-market-demand-score.md 참고). --keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert). opportunityScore = marketDemandScore / log10(totalResults+10) — 수요가 높아도 이미 포화된(totalResults 큰) 키워드는 할인함. 정밀 계산이 아니라 대략적인 경쟁 밀도 보정이니 참고용으로만 쓸 것. titlePatterns = 그 채널 기준으로 이례적으로(outlierRatio≥1.5) 잘 된 영상들의 제목에서 2회 이상 반복된 단어 — 무슨 주제를 다룰지가 아니라 어떤 각도/후킹으로 제목을 달지에 대한 신호.",
+  "generatedAt": "2026-11-15T16:00:47.077Z",
+  "note": "market_demand_score = 50 * (영상의 누적 조회수 / 같은 채널·같은 형식 최근 영상 조회수 중앙값, 자기 제외, 방식 peer-median-views-v2)의 중앙값, 공개 7일 미만은 측정 중이고 채널이 멈췄거나 비교 영상이 적으면 판정 보류라 점수에 넣지 않는다, 채널별 비율은 5배에서 캡. 50 = 그 채널의 평균적인 영상과 같은 성과, 50 초과 = 그 채널 기준으로도 이례적으로 잘된 주제. 같은 채널·같은 형식 영상끼리만 누적 조회수를 비교하므로 채널 크기와 쇼츠·롱폼 차이는 분모에서 이미 맞춰진다. 비교 영상은 공개 7일 이상만 쓰고, 이 영상이 비교 영상보다 어리면 값이 낮게 잡힌다. 옛 방식(ratioMethod 칸 없음, 하루 평균 비교)으로 저장된 값은 새 값과 섞어 비교하지 않는다. 채널 크기 효과를 최대한 제거하기 위해 채널별 자체 기준선 대비 비율로만 비교함(우리 채널과 비슷한 구독자 100,000명 이하 채널만 포함). 표본 3개 미만은 `confidence: \"low\"`로 표시함. --keyword=로 특정 후보 아이디어만 골라 확인 가능(기존 키워드는 보존, upsert). opportunityScore = marketDemandScore / log10(totalResults+10) — 수요가 높아도 이미 포화된(totalResults 큰) 키워드는 할인함. 정밀 계산이 아니라 대략적인 경쟁 밀도 보정이니 참고용으로만 쓸 것. titlePatterns = 그 채널 기준으로 이례적으로(outlierRatio≥1.5) 잘 된 영상들의 제목에서 2회 이상 반복된 단어 — 무슨 주제를 다룰지가 아니라 어떤 각도/후킹으로 제목을 달지에 대한 신호.",
   "keywordPool": [
     "영어 발음 규칙",
     "영어 발음 원리",
@@ -11,173 +11,117 @@
     "미국식 발음 규칙"
   ],
   "lastRunKeywords": [
-    "영어공부법"
+    "영어기초배우기 발음"
   ],
-  "channelsAnalyzed": 14,
+  "channelsAnalyzed": 8,
   "byKeyword": [
     {
       "keyword": "영어 왕초보, 어디서부터 시작하죠?",
-      "videoCount": 18,
+      "videoCount": 13,
       "confidence": "ok",
       "lowSampleWarning": null,
       "marketDemandScore": 250,
-      "totalResults": 758,
-      "opportunityScore": 86.6,
+      "totalResults": 199,
+      "opportunityScore": 107.8,
       "titlePatterns": [
-        {
-          "word": "영어",
-          "titleCount": 10
-        },
-        {
-          "word": "영어회화",
-          "titleCount": 6
-        },
         {
           "word": "왕초보",
           "titleCount": 3
         },
         {
-          "word": "영어공부법",
-          "titleCount": 3
-        },
-        {
-          "word": "생활영어",
-          "titleCount": 3
-        },
-        {
-          "word": "알파벳",
-          "titleCount": 2
-        },
-        {
-          "word": "왕초보영어",
-          "titleCount": 2
-        },
-        {
-          "word": "영어공부",
-          "titleCount": 2
-        }
-      ],
-      "topOutliers": [
-        {
-          "videoId": "klRk7F5k2TE",
-          "title": "영어 노베이스는 이것부터 하세요",
-          "channelTitle": "연세대 수능영어 - 데니스",
-          "viewCount": 539520,
-          "publishedAt": "2024-09-07T07:56:16Z",
-          "ageDays": 724,
-          "viewsPerDay": 745.1,
-          "channelBaselineViewsPerDay": 1,
-          "outlierRatio": 762.73,
-          "durationSeconds": 17,
-          "isShort": true
-        },
-        {
-          "videoId": "G5unshk12zk",
-          "title": "실패 없이 금방 배우는 영어 공부법",
-          "channelTitle": "분더스토리",
-          "viewCount": 4544741,
-          "publishedAt": "2024-10-04T11:00:15Z",
-          "ageDays": 697,
-          "viewsPerDay": 6520.8,
-          "channelBaselineViewsPerDay": 13.3,
-          "outlierRatio": 489.2,
-          "durationSeconds": 54,
-          "isShort": true
-        },
-        {
-          "videoId": "-o_h1nIiCQM",
-          "title": "영어공부 빨리 느는 사람의 공통적인 특징 | 김종국 영어회화 꿀팁 대방출 #영어 #자기계발 #동기부여",
-          "channelTitle": "엄마의 브랜딩(Re:Studio)",
-          "viewCount": 958628,
-          "publishedAt": "2024-01-11T05:37:53Z",
-          "ageDays": 964,
-          "viewsPerDay": 994.2,
-          "channelBaselineViewsPerDay": 2.3,
-          "outlierRatio": 427.58,
-          "durationSeconds": 39,
-          "isShort": true
-        }
-      ]
-    },
-    {
-      "keyword": "영어기초배우기 발음",
-      "videoCount": 7,
-      "confidence": "ok",
-      "lowSampleWarning": null,
-      "marketDemandScore": 250,
-      "totalResults": 594194,
-      "opportunityScore": 43.3,
-      "titlePatterns": [
-        {
           "word": "영어",
           "titleCount": 3
         },
         {
+          "word": "영어공부",
+          "titleCount": 3
+        },
+        {
+          "word": "영어회화",
+          "titleCount": 3
+        },
+        {
+          "word": "시간",
+          "titleCount": 2
+        },
+        {
+          "word": "일상생활영어",
+          "titleCount": 2
+        },
+        {
+          "word": "기초영어회화",
+          "titleCount": 2
+        },
+        {
           "word": "왕초보영어",
-          "titleCount": 2
-        },
-        {
-          "word": "기초",
-          "titleCount": 2
-        },
-        {
-          "word": "정복하기",
-          "titleCount": 2
-        },
-        {
-          "word": "파닉스",
-          "titleCount": 2
-        },
-        {
-          "word": "알파벳",
-          "titleCount": 2
-        },
-        {
-          "word": "발음",
           "titleCount": 2
         }
       ],
       "topOutliers": [
         {
-          "videoId": "rooxbEm1oRc",
-          "title": "World 발음 함께 연습해요 ! #dailyconversations #english #konglish #dailyenglish #발음연습 #영어공부",
-          "channelTitle": "Just do English",
-          "viewCount": 182610,
-          "publishedAt": "2023-08-06T23:16:35Z",
-          "ageDays": 1127,
-          "viewsPerDay": 162,
-          "channelBaselineViewsPerDay": 2.8,
-          "outlierRatio": 57,
-          "durationSeconds": 26,
+          "videoId": "G5unshk12zk",
+          "title": "실패 없이 금방 배우는 영어 공부법",
+          "channelTitle": "분더스토리",
+          "viewCount": 4632701,
+          "publishedAt": "2024-10-04T11:00:15Z",
+          "ageDays": 772,
+          "viewsPerDay": 5999.3,
+          "outlierRatio": 3154.72,
+          "ratioMethod": "peer-median-views-v2",
+          "ratioStatus": "ok",
+          "ratioReason": null,
+          "ratioComputedAt": "2026-11-15T16:00:33.030Z",
+          "ratioDenominator": 1468.5,
+          "ratioPeerCount": 50,
+          "durationSeconds": 54,
           "isShort": true
         },
         {
-          "videoId": "8-3QjaGbMHU",
-          "title": "영어 읽는법 1편 - 자음과 모음, 그리고 파닉스 | 왕초보영어",
-          "channelTitle": "렉스쌤의 왕초보영어훈련소",
-          "viewCount": 340530,
-          "publishedAt": "2021-01-28T15:50:09Z",
-          "ageDays": 2048,
-          "viewsPerDay": 166.3,
-          "channelBaselineViewsPerDay": 3.3,
-          "outlierRatio": 50.42,
-          "durationSeconds": 943,
-          "isShort": false
+          "videoId": "Bxd1XRx25KQ",
+          "title": "양념 영어단어 01👾후추를  영어로?#음식에필요한 양념영어단어#영어회화100일의기적 #영어회화 #영어공부 #learnkoreanforbeginners #기초영어",
+          "channelTitle": "몬스터잉글리쉬_여행영어",
+          "viewCount": 710150,
+          "publishedAt": "2024-09-28T21:21:24Z",
+          "ageDays": 778,
+          "viewsPerDay": 913.1,
+          "outlierRatio": 667.43,
+          "ratioMethod": "peer-median-views-v2",
+          "ratioStatus": "ok",
+          "ratioReason": null,
+          "ratioComputedAt": "2026-11-15T16:00:33.030Z",
+          "ratioDenominator": 1064,
+          "ratioPeerCount": 44,
+          "durationSeconds": 22,
+          "isShort": true
         },
         {
-          "videoId": "ROPiauAO3m0",
-          "title": "10분 안에 끝내는 알파벳 발음! 음가 완전 정복하기🔥 | 영어 읽는 법 & 파닉스 기초",
-          "channelTitle": "도원 Dowon",
-          "viewCount": 619972,
-          "publishedAt": "2019-07-17T23:00:00Z",
-          "ageDays": 2608,
-          "viewsPerDay": 237.7,
-          "channelBaselineViewsPerDay": 5.8,
-          "outlierRatio": 40.94,
-          "durationSeconds": 531,
-          "isShort": false
+          "videoId": "CewFCWL2a-A",
+          "title": "기초 영어단어 \"방향 NO.3\" #영어회화 #영어단어장 #초보영어 #영어공부",
+          "channelTitle": "몬스터잉글리쉬_여행영어",
+          "viewCount": 389957,
+          "publishedAt": "2024-10-18T07:14:04Z",
+          "ageDays": 758,
+          "viewsPerDay": 514.2,
+          "outlierRatio": 366.5,
+          "ratioMethod": "peer-median-views-v2",
+          "ratioStatus": "ok",
+          "ratioReason": null,
+          "ratioComputedAt": "2026-11-15T16:00:33.030Z",
+          "ratioDenominator": 1064,
+          "ratioPeerCount": 44,
+          "durationSeconds": 21,
+          "isShort": true
         }
-      ]
+      ],
+      "analyzedAt": "2026-11-15T16:00:37.347Z",
+      "emptyReason": null,
+      "measuringCount": 0,
+      "heldCount": 9,
+      "source": null,
+      "searchViews": null,
+      "firstSeenAt": null,
+      "lastD7SyncedAt": null,
+      "d7OutOfActiveSince": null
     },
     {
       "keyword": "영어기초배우기",
@@ -263,6 +207,81 @@
           "isShort": true
         }
       ]
+    },
+    {
+      "keyword": "영어기초배우기 발음",
+      "videoCount": 4,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "marketDemandScore": 250,
+      "totalResults": 1000000,
+      "opportunityScore": 41.7,
+      "titlePatterns": [],
+      "topOutliers": [
+        {
+          "videoId": "8syHTCdfkkA",
+          "title": "time이 들어간 영어단어 01🌈 | 영단어-반복음절로 쉽게 기억하기 #영어단어 #영단어외우기 #영어공부 #기초영어 #영어듣기 #영단어암기 #반복영어 #반복음절 #shorts",
+          "channelTitle": "영어로켓배송",
+          "viewCount": 245732,
+          "publishedAt": "2024-09-23T10:00:09Z",
+          "ageDays": 783,
+          "viewsPerDay": 313.7,
+          "outlierRatio": 206.58,
+          "ratioMethod": "peer-median-views-v2",
+          "ratioStatus": "ok",
+          "ratioReason": null,
+          "ratioComputedAt": "2026-11-15T16:00:45.437Z",
+          "ratioDenominator": 1189.5,
+          "ratioPeerCount": 42,
+          "durationSeconds": 34,
+          "isShort": true
+        },
+        {
+          "videoId": "Tr4mmY1XtsA",
+          "title": "각 알파벳 소리 익히기(Learning English letters with Hangl 'Aa~Zz')",
+          "channelTitle": "쑥쑥 영어(에리카)",
+          "viewCount": 1590938,
+          "publishedAt": "2023-05-12T03:45:16Z",
+          "ageDays": 1284,
+          "viewsPerDay": 1239.5,
+          "outlierRatio": 136.88,
+          "ratioMethod": "peer-median-views-v2",
+          "ratioStatus": "ok",
+          "ratioReason": null,
+          "ratioComputedAt": "2026-11-15T16:00:45.437Z",
+          "ratioDenominator": 11623,
+          "ratioPeerCount": 10,
+          "durationSeconds": 42,
+          "isShort": true
+        },
+        {
+          "videoId": "rcjx-VhsFDo",
+          "title": "'시간' 영어단어4 | 일상생활영어 | 기초영어회화 | 왕초보영어",
+          "channelTitle": "굿럭영어",
+          "viewCount": 1118223,
+          "publishedAt": "2024-08-05T03:50:00Z",
+          "ageDays": 833,
+          "viewsPerDay": 1343.2,
+          "outlierRatio": 120.67,
+          "ratioMethod": "peer-median-views-v2",
+          "ratioStatus": "ok",
+          "ratioReason": null,
+          "ratioComputedAt": "2026-11-15T16:00:45.437Z",
+          "ratioDenominator": 9266.5,
+          "ratioPeerCount": 48,
+          "durationSeconds": 36,
+          "isShort": true
+        }
+      ],
+      "analyzedAt": "2026-11-15T16:00:47.077Z",
+      "emptyReason": null,
+      "measuringCount": 0,
+      "heldCount": 4,
+      "source": null,
+      "searchViews": null,
+      "firstSeenAt": null,
+      "lastD7SyncedAt": null,
+      "d7OutOfActiveSince": null
     },
     {
       "keyword": "영어공부법",
@@ -607,6 +626,259 @@
       ]
     },
     {
+      "keyword": "영어발음",
+      "source": "d7_search_terms",
+      "searchViews": 7,
+      "marketDemandScore": 250,
+      "opportunityScore": 41.7,
+      "totalResults": 1000000,
+      "videoCount": 11,
+      "analyzedAt": "2026-11-13T16:00:45.722Z",
+      "topOutliers": [
+        {
+          "videoId": "SbQVBQoRciA",
+          "title": "한국인이 자주 틀리는 영어 발음 5개",
+          "channelTitle": "조밥잉글리쉬 ",
+          "viewCount": 96944,
+          "publishedAt": "2026-11-10T11:00:02Z",
+          "ageDays": 3,
+          "viewsPerDay": 30211.7,
+          "channelBaselineViewsPerDay": 43.7,
+          "outlierRatio": 691.35,
+          "durationSeconds": 53,
+          "isShort": true
+        },
+        {
+          "videoId": "FFNfnU_nvHY",
+          "title": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "viewCount": 411807,
+          "publishedAt": "2021-01-04T03:00:01Z",
+          "ageDays": 2140,
+          "viewsPerDay": 192.5,
+          "channelBaselineViewsPerDay": 4.7,
+          "outlierRatio": 41.2,
+          "durationSeconds": 3578,
+          "isShort": false
+        },
+        {
+          "videoId": "AAjB95YXQxc",
+          "title": "본토 영어 발음, 랩으로 연습하면 됩니다",
+          "channelTitle": "이빨파티",
+          "viewCount": 249634,
+          "publishedAt": "2026-08-21T09:41:55Z",
+          "ageDays": 84,
+          "viewsPerDay": 2962.6,
+          "channelBaselineViewsPerDay": 139,
+          "outlierRatio": 21.31,
+          "durationSeconds": 577,
+          "isShort": false
+        }
+      ],
+      "lastD7SyncedAt": "2026-11-16T04:03:10.968Z",
+      "d7OutOfActiveSince": null,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "emptyReason": null,
+      "titlePatterns": [
+        {
+          "word": "영어",
+          "titleCount": 5
+        },
+        {
+          "word": "발음",
+          "titleCount": 4
+        },
+        {
+          "word": "English",
+          "titleCount": 2
+        }
+      ],
+      "firstSeenAt": null
+    },
+    {
+      "keyword": "영단어",
+      "source": "d7_search_terms",
+      "searchViews": 203,
+      "marketDemandScore": 219.5,
+      "opportunityScore": 38.5,
+      "totalResults": 495636,
+      "videoCount": 25,
+      "analyzedAt": "2026-11-13T16:00:31.621Z",
+      "topOutliers": [
+        {
+          "videoId": "I5AD5ByAHEQ",
+          "title": "영어단어 2000 개 | 그냥 라디오 처럼 듣기만 하세요 | 중년을 위한 기초 영어회화 필수 영단어 | 자면서 듣는 | 미국 아이 7세 수준",
+          "channelTitle": "하루 10분 영어",
+          "viewCount": 816655,
+          "publishedAt": "2026-08-05T02:34:02Z",
+          "ageDays": 101,
+          "viewsPerDay": 8121.1,
+          "channelBaselineViewsPerDay": 14.8,
+          "outlierRatio": 547.33,
+          "durationSeconds": null,
+          "isShort": null
+        },
+        {
+          "videoId": "KbNTuH4C9Po",
+          "title": "~away 영어구동사 쉽게 기억하기 | 영어어휘 익히기 | 영어단어 암기 | 영어회화 #koreanlanguage #koreanspeaking #영어단어",
+          "channelTitle": "시니어 흘려듣는 영어",
+          "viewCount": 1034282,
+          "publishedAt": "2025-02-17T02:15:45Z",
+          "ageDays": 635,
+          "viewsPerDay": 1629.9,
+          "channelBaselineViewsPerDay": 23,
+          "outlierRatio": 70.86,
+          "durationSeconds": 26,
+          "isShort": true
+        },
+        {
+          "videoId": "WVtl3kD84Z0",
+          "title": "입국부터 출국까지 생활영어, 매일 영어단어 5개만 외우세요!",
+          "channelTitle": "기브영어 Give English",
+          "viewCount": 541774,
+          "publishedAt": "2025-01-08T03:55:00Z",
+          "ageDays": 675,
+          "viewsPerDay": 803.2,
+          "channelBaselineViewsPerDay": 30.2,
+          "outlierRatio": 26.63,
+          "durationSeconds": 40,
+          "isShort": true
+        }
+      ],
+      "lastD7SyncedAt": "2026-11-16T04:03:10.968Z",
+      "d7OutOfActiveSince": null,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "emptyReason": null,
+      "titlePatterns": [
+        {
+          "word": "영단어",
+          "titleCount": 13
+        },
+        {
+          "word": "중학교",
+          "titleCount": 6
+        },
+        {
+          "word": "주제",
+          "titleCount": 5
+        },
+        {
+          "word": "영어단어",
+          "titleCount": 5
+        },
+        {
+          "word": "필수암기",
+          "titleCount": 4
+        },
+        {
+          "word": "영어",
+          "titleCount": 4
+        },
+        {
+          "word": "필수",
+          "titleCount": 3
+        },
+        {
+          "word": "영어회화",
+          "titleCount": 3
+        }
+      ],
+      "firstSeenAt": null
+    },
+    {
+      "keyword": "발음 테스트",
+      "source": "d7_search_terms",
+      "searchViews": 2,
+      "marketDemandScore": 165.4,
+      "opportunityScore": 27.6,
+      "totalResults": 1000000,
+      "videoCount": 27,
+      "analyzedAt": "2026-11-15T05:20:03.910Z",
+      "topOutliers": [
+        {
+          "videoId": "Ux_M00VVmEU",
+          "title": "2개월차 영린이의 영어 발음 챌린지 / 이렇게 쉬워도 도ㅑ?..#영어발음테스트 #발음챌린지 #영린이 #영어발음",
+          "channelTitle": "수키 suekii",
+          "viewCount": 4180322,
+          "publishedAt": "2025-04-03T15:28:19Z",
+          "ageDays": 591,
+          "viewsPerDay": 7078.4,
+          "channelBaselineViewsPerDay": 25.8,
+          "outlierRatio": 274.19,
+          "durationSeconds": 25,
+          "isShort": true
+        },
+        {
+          "videoId": "rhjcr61ngHA",
+          "title": "양정화 성우 클라스(feat. 발음 테스트)",
+          "channelTitle": "덕질러",
+          "viewCount": 295565,
+          "publishedAt": "2021-02-15T09:15:01Z",
+          "ageDays": 2099,
+          "viewsPerDay": 140.8,
+          "channelBaselineViewsPerDay": 0.5,
+          "outlierRatio": 256.35,
+          "durationSeconds": 17,
+          "isShort": true
+        },
+        {
+          "videoId": "w8g6-e9yLP4",
+          "title": "종민, 도연의 영어 발음 테스트",
+          "channelTitle": "메리고라운드",
+          "viewCount": 3722477,
+          "publishedAt": "2024-11-15T08:30:18Z",
+          "ageDays": 730,
+          "viewsPerDay": 5100.2,
+          "channelBaselineViewsPerDay": 21.1,
+          "outlierRatio": 241.52,
+          "durationSeconds": 53,
+          "isShort": true
+        }
+      ],
+      "lastD7SyncedAt": "2026-11-16T04:03:10.968Z",
+      "d7OutOfActiveSince": null,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "emptyReason": null,
+      "titlePatterns": [
+        {
+          "word": "발음",
+          "titleCount": 13
+        },
+        {
+          "word": "테스트",
+          "titleCount": 6
+        },
+        {
+          "word": "챌린지",
+          "titleCount": 4
+        },
+        {
+          "word": "발음테스트",
+          "titleCount": 3
+        },
+        {
+          "word": "아나운서",
+          "titleCount": 2
+        },
+        {
+          "word": "발음연습",
+          "titleCount": 2
+        },
+        {
+          "word": "발음교정",
+          "titleCount": 2
+        },
+        {
+          "word": "한국인이라면",
+          "titleCount": 2
+        }
+      ],
+      "firstSeenAt": null
+    },
+    {
       "keyword": "영어 발음 원리",
       "analyzedAt": "2026-10-10T12:30:55.811Z",
       "videoCount": 15,
@@ -687,6 +959,92 @@
           "channelBaselineViewsPerDay": 1,
           "outlierRatio": 15.56,
           "durationSeconds": 672,
+          "isShort": false
+        }
+      ]
+    },
+    {
+      "keyword": "What If English Words Were Actually Literal?",
+      "analyzedAt": "2026-11-13T13:48:40.201Z",
+      "videoCount": 28,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "marketDemandScore": 75,
+      "totalResults": 1000000,
+      "opportunityScore": 12.5,
+      "emptyReason": null,
+      "titlePatterns": [
+        {
+          "word": "English",
+          "titleCount": 14
+        },
+        {
+          "word": "Words",
+          "titleCount": 13
+        },
+        {
+          "word": "Literal",
+          "titleCount": 13
+        },
+        {
+          "word": "If",
+          "titleCount": 10
+        },
+        {
+          "word": "Were",
+          "titleCount": 9
+        },
+        {
+          "word": "vs",
+          "titleCount": 7
+        },
+        {
+          "word": "What",
+          "titleCount": 6
+        },
+        {
+          "word": "Actually",
+          "titleCount": 6
+        }
+      ],
+      "topOutliers": [
+        {
+          "videoId": "81qi9qdN8SU",
+          "title": "If English Expressions were Literal Part 1 | Symphony in Slang (1951) | Tex Avery Cartoon",
+          "channelTitle": "Learning Languages with Leo",
+          "viewCount": 102673,
+          "publishedAt": "2023-09-15T20:37:04Z",
+          "ageDays": 1155,
+          "viewsPerDay": 88.9,
+          "channelBaselineViewsPerDay": 0.9,
+          "outlierRatio": 103.45,
+          "durationSeconds": 60,
+          "isShort": true
+        },
+        {
+          "videoId": "Pr_EB_hK9R4",
+          "title": "What If English Words Were Actually Literal? 4",
+          "channelTitle": "Lev English",
+          "viewCount": 467485,
+          "publishedAt": "2026-11-09T13:15:03Z",
+          "ageDays": 4,
+          "viewsPerDay": 116193.5,
+          "channelBaselineViewsPerDay": 5942.1,
+          "outlierRatio": 19.55,
+          "durationSeconds": 23,
+          "isShort": true
+        },
+        {
+          "videoId": "1pdnyUemyRM",
+          "title": "Literal vs Reality: If Dog Breeds Were Literal English Words 🐶🤯",
+          "channelTitle": "BloopEnglish",
+          "viewCount": 32052,
+          "publishedAt": "2026-07-13T12:00:18Z",
+          "ageDays": 123,
+          "viewsPerDay": 260.4,
+          "channelBaselineViewsPerDay": 32.4,
+          "outlierRatio": 8.03,
+          "durationSeconds": 144,
           "isShort": false
         }
       ]
@@ -976,64 +1334,95 @@
       ]
     },
     {
-      "keyword": "영단어",
-      "source": "d7_search_terms",
-      "searchViews": 203,
-      "marketDemandScore": null,
-      "opportunityScore": null,
-      "totalResults": null,
-      "videoCount": 0,
-      "analyzedAt": "2026-11-11T09:28:19.631Z",
-      "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
-    },
-    {
-      "keyword": "영어발음",
-      "source": "d7_search_terms",
-      "searchViews": 4,
-      "marketDemandScore": null,
-      "opportunityScore": null,
-      "totalResults": null,
-      "videoCount": 0,
-      "analyzedAt": "2026-11-11T09:28:19.631Z",
-      "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
-    },
-    {
-      "keyword": "영어 발음",
-      "source": "d7_search_terms",
-      "searchViews": 3,
-      "marketDemandScore": null,
-      "opportunityScore": null,
-      "totalResults": null,
-      "videoCount": 0,
-      "analyzedAt": "2026-11-11T09:28:19.631Z",
-      "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
-    },
-    {
-      "keyword": "발음 테스트",
-      "source": "d7_search_terms",
-      "searchViews": 2,
-      "marketDemandScore": null,
-      "opportunityScore": null,
-      "totalResults": null,
-      "videoCount": 0,
-      "analyzedAt": "2026-11-11T09:28:19.631Z",
-      "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
-    },
-    {
       "keyword": "영어미드",
       "source": "d7_search_terms",
       "searchViews": 4,
-      "marketDemandScore": null,
-      "opportunityScore": null,
-      "totalResults": null,
-      "videoCount": 0,
-      "analyzedAt": "2026-11-11T09:28:19.631Z",
-      "topOutliers": [],
-      "lastD7SyncedAt": "2026-11-13T02:55:47.523Z"
+      "marketDemandScore": 34.7,
+      "opportunityScore": 5.8,
+      "totalResults": 1000000,
+      "videoCount": 35,
+      "analyzedAt": "2026-11-15T05:19:36.353Z",
+      "topOutliers": [
+        {
+          "videoId": "_xfBa82OAaw",
+          "title": "미드영화 빈출표현 You lost me #영어회화 #생활영어 #영어공부",
+          "channelTitle": "이지톡잉글리쉬",
+          "viewCount": 43437,
+          "publishedAt": "2026-11-12T21:14:18Z",
+          "ageDays": 2,
+          "viewsPerDay": 18586.7,
+          "channelBaselineViewsPerDay": 138.4,
+          "outlierRatio": 134.34,
+          "durationSeconds": 8,
+          "isShort": true
+        },
+        {
+          "videoId": "8nzWymZViuo",
+          "title": "알아두면 계속 쓰는 스몰 토크 영어 표현 100개 | 🎬 영화·미드 500장면 모음.zip",
+          "channelTitle": "칩스영어",
+          "viewCount": 288098,
+          "publishedAt": "2026-08-30T08:13:57Z",
+          "ageDays": 77,
+          "viewsPerDay": 3747.4,
+          "channelBaselineViewsPerDay": 79.6,
+          "outlierRatio": 47.11,
+          "durationSeconds": 1283,
+          "isShort": false
+        },
+        {
+          "videoId": "ZqY8YPAdTgI",
+          "title": "[Friends_237] It’s all hormones. | #Friends #프렌즈영어공부 #미드영어 #미드영어회화",
+          "channelTitle": "엉클 조 잉글리쉬",
+          "viewCount": 30890,
+          "publishedAt": "2025-10-11T07:42:17Z",
+          "ageDays": 400,
+          "viewsPerDay": 77.2,
+          "channelBaselineViewsPerDay": 2.5,
+          "outlierRatio": 30.34,
+          "durationSeconds": 26,
+          "isShort": true
+        }
+      ],
+      "lastD7SyncedAt": "2026-11-16T04:03:10.968Z",
+      "d7OutOfActiveSince": null,
+      "confidence": "ok",
+      "lowSampleWarning": null,
+      "emptyReason": null,
+      "titlePatterns": [
+        {
+          "word": "영어회화",
+          "titleCount": 10
+        },
+        {
+          "word": "미드",
+          "titleCount": 8
+        },
+        {
+          "word": "미드영어",
+          "titleCount": 4
+        },
+        {
+          "word": "영어쉐도잉",
+          "titleCount": 4
+        },
+        {
+          "word": "영어듣기",
+          "titleCount": 4
+        },
+        {
+          "word": "미드영어표현",
+          "titleCount": 4
+        },
+        {
+          "word": "영어",
+          "titleCount": 3
+        },
+        {
+          "word": "영어공부",
+          "titleCount": 3
+        }
+      ],
+      "firstSeenAt": null
     }
   ],
   "trackedChannels": [
@@ -1226,13 +1615,14 @@
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
       "consecutiveFailures": 0,
       "blockedUntil": null,
-      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
       "exhaustion": {
         "totalOutliers": 5,
-        "coveredCount": 3,
-        "uncoveredCount": 2,
-        "exhaustionRate": 0.6
-      }
+        "coveredCount": 0,
+        "uncoveredCount": 5,
+        "exhaustionRate": 0
+      },
+      "consecutiveSuccesses": 0
     },
     {
       "channelId": "UC52RQtmlcTIb7Dg_L4cdnBw",
@@ -1487,7 +1877,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1495,7 +1885,8 @@
         "coveredCount": 0,
         "uncoveredCount": 5,
         "exhaustionRate": 0
-      }
+      },
+      "consecutiveSuccesses": 0
     },
     {
       "channelId": "UCYQt-GXpSQskD7mUZ5WMioA",
@@ -1750,7 +2141,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1758,7 +2149,8 @@
         "coveredCount": 0,
         "uncoveredCount": 5,
         "exhaustionRate": 0
-      }
+      },
+      "consecutiveSuccesses": 0
     },
     {
       "channelId": "UCqQR8b-MTXuMgrV7scZfq_w",
@@ -1947,7 +2339,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -1955,7 +2347,8 @@
         "coveredCount": 0,
         "uncoveredCount": 5,
         "exhaustionRate": 0
-      }
+      },
+      "consecutiveSuccesses": 0
     },
     {
       "channelId": "UCdRYF_tnw7C-0Yjm1croExQ",
@@ -2144,7 +2537,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2152,7 +2545,8 @@
         "coveredCount": 0,
         "uncoveredCount": 5,
         "exhaustionRate": 0
-      }
+      },
+      "consecutiveSuccesses": 0
     },
     {
       "channelId": "UCbSpMDJ3X656Q3Sipoeqvmg",
@@ -2341,7 +2735,7 @@
       },
       "status": "candidate",
       "statusReason": "후보 — 2026-11-11 손으로 넣은 상태를 지우고 실제 판정으로 다시 시작",
-      "statusUpdatedAt": "2026-11-13T02:55:47.523Z",
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
       "consecutiveFailures": 0,
       "blockedUntil": null,
       "exhaustion": {
@@ -2349,10 +2743,92 @@
         "coveredCount": 0,
         "uncoveredCount": 5,
         "exhaustionRate": 0
+      },
+      "consecutiveSuccesses": 0
+    },
+    {
+      "channelId": "UCV10iJPWgMrwnbyImNftcAA",
+      "channelTitle": "조밥잉글리쉬",
+      "handle": null,
+      "channelUrl": "https://www.youtube.com/channel/UCV10iJPWgMrwnbyImNftcAA",
+      "subscriberCount": 4730,
+      "analyzedAt": null,
+      "topOutliers": [],
+      "status": "candidate",
+      "statusReason": "기획 근거 채널로 자동 등록(EP30 쇼츠이 인용한 경쟁 영상 SbQVBQoRciA)",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "registeredAt": "2026-11-15T16:00:11.765Z",
+      "registeredFrom": {
+        "label": "EP30 쇼츠",
+        "slug": "ep30-shorts-chocolate",
+        "videoId": "SbQVBQoRciA"
+      },
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
+      "consecutiveSuccesses": 0,
+      "exhaustion": {
+        "totalOutliers": 0,
+        "coveredCount": 0,
+        "uncoveredCount": 0,
+        "exhaustionRate": 1
+      }
+    },
+    {
+      "channelId": "UCR8fzJ6zX3HeC2n-agUtyzg",
+      "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
+      "handle": null,
+      "channelUrl": "https://www.youtube.com/channel/UCR8fzJ6zX3HeC2n-agUtyzg",
+      "subscriberCount": 10000,
+      "analyzedAt": null,
+      "topOutliers": [],
+      "status": "candidate",
+      "statusReason": "기획 근거 채널로 자동 등록(EP30 쇼츠이 인용한 경쟁 영상 pvPBD9PLuyk)",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "registeredAt": "2026-11-15T16:00:11.765Z",
+      "registeredFrom": {
+        "label": "EP30 쇼츠",
+        "slug": "ep30-shorts-chocolate",
+        "videoId": "pvPBD9PLuyk"
+      },
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
+      "consecutiveSuccesses": 0,
+      "exhaustion": {
+        "totalOutliers": 0,
+        "coveredCount": 0,
+        "uncoveredCount": 0,
+        "exhaustionRate": 1
+      }
+    },
+    {
+      "channelId": "UCE7K7KI2DVAUxleiclgFukA",
+      "channelTitle": "렉스쌤의 왕초보영어훈련소",
+      "handle": null,
+      "channelUrl": "https://www.youtube.com/channel/UCE7K7KI2DVAUxleiclgFukA",
+      "subscriberCount": 82500,
+      "analyzedAt": null,
+      "topOutliers": [],
+      "status": "candidate",
+      "statusReason": "기획 근거 채널로 자동 등록(EP30 쇼츠이 인용한 경쟁 영상 8-3QjaGbMHU)",
+      "consecutiveFailures": 0,
+      "blockedUntil": null,
+      "registeredAt": "2026-11-15T16:00:11.765Z",
+      "registeredFrom": {
+        "label": "EP30 쇼츠",
+        "slug": "ep30-shorts-chocolate",
+        "videoId": "8-3QjaGbMHU"
+      },
+      "statusUpdatedAt": "2026-11-16T04:03:10.968Z",
+      "consecutiveSuccesses": 0,
+      "exhaustion": {
+        "totalOutliers": 0,
+        "coveredCount": 0,
+        "uncoveredCount": 0,
+        "exhaustionRate": 1
       }
     }
   ],
-  "lifecycleSyncedAt": "2026-11-13T02:55:47.523Z",
+  "lifecycleSyncedAt": "2026-11-16T04:03:10.968Z",
   "d7ProcessedVideoIds": [],
   "episodeOutcomes": [
     {
@@ -2364,7 +2840,7 @@
       "verdict": "hold",
       "ratio": 1.4,
       "reason": "7일 조회 5회 — 100회 미만이라 운과 실력을 가릴 수 없음",
-      "views": 5,
+      "views": 6,
       "views7d": 5,
       "baselineViews7d": 3.5,
       "competitors": [],
@@ -2444,7 +2920,7 @@
       "verdict": "hold",
       "ratio": 13.1,
       "reason": "7일 조회 46회 — 100회 미만이라 운과 실력을 가릴 수 없음",
-      "views": 175,
+      "views": 178,
       "views7d": 46,
       "baselineViews7d": 3.5,
       "competitors": [],
@@ -2565,17 +3041,19 @@
     }
   ],
   "d7AutonomousCycle": {
-    "lastRunAt": "2026-11-13T02:55:47.523Z",
+    "lastRunAt": "2026-11-16T04:03:10.968Z",
     "applied": [],
     "holdCount": 13,
     "promotedChannels": [],
+    "registeredChannels": [],
+    "unregisteredChannels": [],
     "discoveredKeywords": [
       "영단어",
       "영어미드",
       "영어발음",
-      "영어 발음",
       "발음 테스트"
     ],
+    "retiredKeywords": [],
     "status": "completed"
   }
 }

@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Ux_M00VVmEU",
+  "analyzedAt": "2026-11-15T05:24:07.230Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 25,
+  "meta": {
+    "videoId": "Ux_M00VVmEU",
+    "title": "2개월차 영린이의 영어 발음 챌린지 / 이렇게 쉬워도 도ㅑ?..#영어발음테스트 #발음챌린지 #영린이 #영어발음",
+    "channelId": "UCWbWuplzBt70mWChzBKCApA",
+    "channelTitle": "수키 suekii",
+    "publishedAt": "2025-04-03T15:28:19Z",
+    "viewCount": 4180322,
+    "likeCount": 48683,
+    "commentCount": 353,
+    "durationSeconds": 25,
+    "thumbnail": "https://i.ytimg.com/vi/Ux_M00VVmEU/maxresdefault.jpg",
+    "description": "",
+    "tags": []
+  },
+  "subscriberCount": 2350,
+  "viewsPerSubscriber": 1778.86,
+  "outlierRatio": 274.19,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 8,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 25
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어 공부 2개월 차인 초보자가 발음 챌린지를 쉽고 빠르게 성공하는 모습으로 궁금증과 호기심을 유발함",
+      "titleQuote": "2개월차 영린이의 영어 발음 챌린지 / 이렇게 쉬워도 도ㅑ?..",
+      "thumbnailText": "뭐지 나 전생에 미국인이었나",
+      "thumbnailWordCount": 4,
+      "thumbnailVisual": "검은 뿔테 안경을 쓴 출연자가 머리를 괴고 정면을 응시하며, 화면 하단 도로 위에 코카콜라, 오레오 등 브랜드 표지판 AR 그래픽과 텍스트 자막이 올라와 있는 모습",
+      "thumbnailVsTitle": "제목은 2개월 차 영린이의 챌린지 도전 상황을 전하고, 썸네일은 AR 필터 화면과 함께 전생에 미국인이었냐는 유쾌한 문구를 덧붙여 결과에 대한 시각적 기대감을 보완함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "출연자가 AR 필터를 통해 도로 위를 통과하는 영어 브랜드 이름(오레오, 코카콜라, 스타벅스, 누텔라, 프링글스)을 원어민 발음으로 차례대로 읽으며 통과하고, 통과할 때마다 놀란 표정을 지음",
+      "quote": "[00:02] Oro\n[00:04] cocacola\n[00:07] Starbucks\n[00:11] Nutella\n[00:13] Pringles sneak",
+      "reasonToKeepWatching": "오레오부터 누텔라, 프링글스까지 연속해서 깔끔하게 성공하자 끝까지 남은 고난도 브랜드(맥도날드 등)를 통과할 수 있을지 기대하게 만듦",
+      "quoteVerified": false
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 6,
+        "what": "오레오와 코카콜라 발음을 명확히 하여 차례로 표지판을 통과함",
+        "quote": "[00:02] Oro\n[00:04] cocacola",
+        "quoteVerified": false
+      },
+      {
+        "start": 6,
+        "end": 12,
+        "what": "스타벅스와 누텔라 발음을 연속 성공하고 숨을 들이쉬며 놀람",
+        "quote": "[00:07] Starbucks\n[00:11] Nutella",
+        "quoteVerified": false
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "what": "프링글스와 스니커즈 발음을 또다시 한 번에 맞혀 통과함",
+        "quote": "[00:13] Pringles sneak\n[00:16] girl",
+        "quoteVerified": false
+      },
+      {
+        "start": 16,
+        "end": 25,
+        "what": "통과하기 어렵기로 유명한 KFC와 맥도날드 발음까지 한 번에 맞춰 폭죽 그래픽과 함께 최종 성공함",
+        "quote": "[00:17] KFC\n[00:20] KFC McDonald's",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "화면에 도로 3D 그래픽과 함께 오레오/코카콜라 브랜드 표지판 등장",
+        "purpose": "발음 챌린지 게임 필터가 시작되었음을 시각적으로 알림"
+      },
+      {
+        "t": 2,
+        "what": "오레오 표지판이 사라지고 코카콜라 표지판이 전면으로 다가옴",
+        "purpose": "Oreo 발음 통과 판정 확인"
+      },
+      {
+        "t": 4,
+        "what": "코카콜라 표지판이 지나가고 스타벅스 표지판이 등장함",
+        "purpose": "Coca-Cola 발음 통과 판정 확인"
+      },
+      {
+        "t": 7,
+        "what": "스타벅스 표지판이 넘어가고 누텔라 표지판이 올라옴",
+        "purpose": "Starbucks 발음 통과 판정 확인"
+      },
+      {
+        "t": 11,
+        "what": "누텔라 표지판 통과 후 프링글스 표지판이 나타남",
+        "purpose": "Nutella 발음 통과 판정 확인"
+      },
+      {
+        "t": 13,
+        "what": "프링글스 표지판을 지나 스니커즈 표지판이 등장함",
+        "purpose": "Pringles 발음 통과 판정 확인"
+      },
+      {
+        "t": 16,
+        "what": "스니커즈 표지판을 넘어서 KFC 표지판이 들어옴",
+        "purpose": "Snickers 발음 통과 판정 확인"
+      },
+      {
+        "t": 19,
+        "what": "KFC 표지판이 지나가고 마지막 맥도날드 표지판이 다가옴",
+        "purpose": "KFC 발음 통과 판정 확인"
+      },
+      {
+        "t": 23,
+        "what": "맥도날드 표지판 통과와 동시에 화면 전체에 알록달록한 컨페티(폭죽 조각)가 터짐",
+        "purpose": "모든 단어 발음 성공에 따른 게임 승리 축하 효과 연출"
+      }
+    ],
+    "ending": {
+      "what": "가장 어려운 난이도인 맥도날드 발음을 단 한 번에 성공한 뒤, 화면에 폭죽이 터지자 눈을 크게 뜨고 입을 벌리며 기뻐하는 표정으로 마무리됨",
+      "quote": "[00:20] KFC McDonald's",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "다른 챌린저들이 많이 실패하는 맥도날드 발음을 단번에 성공한 발음 감각에 감탄함",
+          "quote": "맥도날드 한방에 하는사람 처음봐 발음 대박이다",
+          "quoteVerified": true
+        },
+        {
+          "point": "단어를 하나씩 통과할 때마다 들리는 숨소리와 놀라는 추임새가 귀엽고 재미있다고 느낍니다.",
+          "quote": "ㅋㅋㅋㅋ 성공할때마다 작은 숨소리로 놀라는거 너무 귀여워욬ㅋㅋㅋㅋ",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "오랫동안 영어를 공부해도 발음이나 억양 감각이 쉽게 늘지 않아 답답함을 느낌",
+          "quote": "영어 7년했는데 발음이 저보다 좋으심 노력과 재능이 붙으면 재능이 이긴다는 것을 지금 깨달았어요",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "2개월 만에 발음이 이렇게 좋아진 구체적인 공부 방법이나 팁을 공유해달라고 요청함",
+          "quote": "와 발음 어케 공부했길래 2개월만에 저런 발음이 나와욥..?? 궁금해요!",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "재능 지리네요, 통과할 때마다 호옭, 영린이",
+          "quote": "2개월차는.. 재능 지리네요",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "영상 후반부(20초 이후)에 맥도날드(McDonald's) 브랜드 표지판을 단 한 번의 발음으로 통과하는 장면",
+        "reaction": "다른 영어 능력자나 승무원들도 실패하곤 하는 맥도날드를 단번에 성공한 모습에 시청자들이 크게 놀라며 찬사를 보냄",
+        "quote": "와 영어 잘하시는분들도 마지막 맥도날드는 엄청 어려워하던데 한번에 성공하다니..❤❤",
+        "quoteVerified": true
+      },
+      {
+        "cause": "단어를 맞힐 때마다 출연자가 '허억', '흡' 하며 놀라는 소리와 표정",
+        "reaction": "시청자들이 성공 시 나오는 추임새와 표정이 웃기고 귀엽다며 긍정적인 반응을 보임",
+        "quote": "성공 할 때 마다 놀라는 추임새 겁나 귀엽네ㅋㅋㅋㅋ",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "외래어 브랜드 이름을 활용해 억양과 발음을 직관적으로 테스트하고 따라 해볼 수 있는 게임 형태의 시각적 그래픽 요소를 도입한다.",
+      "differentiate": "단순히 챌린지를 성공하는 모습만 보여주기보다, 3060 세대가 '맥도날드'나 '코카콜라' 같은 단어에서 강세가 위치하는 원리와 입모양 차이를 한국어 발음 습관과 비교해 쉽고 상세하게 설명해준다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 14,
+    "verified": 8,
+    "unverified": 6
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 13,
+      "file": "13.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 19,
+      "file": "19.jpg"
+    },
+    {
+      "t": 23,
+      "file": "23.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 6179,
+    "candidatesTokenCount": 2131,
+    "totalTokenCount": 10387,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2194
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2885
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 2077,
+    "serviceTier": "standard"
+  }
+}

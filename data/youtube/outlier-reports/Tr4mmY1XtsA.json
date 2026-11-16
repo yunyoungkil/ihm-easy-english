@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Tr4mmY1XtsA",
+  "analyzedAt": "2026-11-15T16:06:19.596Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 42,
+  "meta": {
+    "videoId": "Tr4mmY1XtsA",
+    "title": "각 알파벳 소리 익히기(Learning English letters with Hangl 'Aa~Zz')",
+    "channelId": "UCtdFj2BnAul5lWycpCHMBaw",
+    "channelTitle": "쑥쑥 영어(에리카)",
+    "publishedAt": "2023-05-12T03:45:16Z",
+    "viewCount": 1590946,
+    "likeCount": 18041,
+    "commentCount": 223,
+    "durationSeconds": 42,
+    "thumbnail": "https://i.ytimg.com/vi/Tr4mmY1XtsA/maxresdefault.jpg",
+    "description": "각 알파벳의 소리를 꼭 외워두세요~ 그러면 영어가 읽힙니다!!\n풀영상 보러 가기👉👉https://youtu.be/mhrojAOp9Q0",
+    "tags": []
+  },
+  "subscriberCount": 68300,
+  "viewsPerSubscriber": 23.29,
+  "outlierRatio": 136.88,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-15T16:00:45.437Z",
+  "ratioDenominator": 11623,
+  "ratioPeerCount": 10,
+  "sources": {
+    "transcript": {
+      "ok": false,
+      "error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=Tr4mmY1XtsA! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You "
+    },
+    "comments": {
+      "ok": true,
+      "count": 99
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 42
+    }
+  },
+  "speech": {
+    "source": null,
+    "quality": null,
+    "kind": "short",
+    "sentences": null,
+    "stats": null,
+    "computedAt": "2026-11-15T16:06:14.489Z",
+    "note": "자막을 못 받음, 대체 경로 하루 상한(2편)에 도달"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "알파벳의 개별 소리를 기초부터 직관적으로 배울 수 있음을 안내함",
+      "titleQuote": "각 알파벳 소리 익히기(Learning English letters with Hangl 'Aa~Zz')",
+      "thumbnailText": "'음가표' 로 배우는 알파벳 소리 (기초편)",
+      "thumbnailWordCount": 5,
+      "thumbnailVisual": "분홍색 상단 타이틀 아래 알파벳 A부터 Z까지 한글 음가가 매핑된 표가 있고 a에 파란색 테두리가 처진 화면",
+      "thumbnailVsTitle": "썸네일은 '음가표'라는 한글 매핑 방식을 시각적으로 보여주어 제목의 내용을 보완함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "a부터 i까지 파란색 상자가 알파벳을 순서대로 순회하며 각 알파벳의 기본 소리를 발음함",
+      "quote": "",
+      "reasonToKeepWatching": "알파벳 표 전체가 한눈에 보여 z까지 끝까지 따라 읽게 만듦"
+    },
+    "first3s": {
+      "what": "화면 상단 제목 아래 알파벳 a, b, c에 순서대로 파란 테두리가 표시되며 소리가 나옴",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 11,
+        "what": "a부터 g까지 알파벳 소리를 순서대로 발음함",
+        "quote": ""
+      },
+      {
+        "start": 12,
+        "end": 22,
+        "what": "h부터 n까지 알파벳 소리를 순서대로 발음함",
+        "quote": ""
+      },
+      {
+        "start": 23,
+        "end": 34,
+        "what": "o부터 u까지 알파벳 소리를 순서대로 발음함",
+        "quote": ""
+      },
+      {
+        "start": 35,
+        "end": 42,
+        "what": "v부터 z까지 발음한 뒤 풀영상 안내 화면으로 전환됨",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "알파벳 a에 파란색 네모 테두리가 표시됨",
+        "purpose": "a 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 2,
+        "what": "파란 테두리가 b로 이동함",
+        "purpose": "b 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 3,
+        "what": "파란 테두리가 c로 이동함",
+        "purpose": "c 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 5,
+        "what": "파란 테두리가 d로 이동함",
+        "purpose": "d 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 7,
+        "what": "파란 테두리가 e로 이동함",
+        "purpose": "e 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 9,
+        "what": "파란 테두리가 f로 이동함",
+        "purpose": "f 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 10,
+        "what": "파란 테두리가 g로 이동함",
+        "purpose": "g 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 12,
+        "what": "파란 테두리가 h로 이동함",
+        "purpose": "h 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 13,
+        "what": "파란 테두리가 i로 이동함",
+        "purpose": "i 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 15,
+        "what": "파란 테두리가 j로 이동함",
+        "purpose": "j 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 16,
+        "what": "파란 테두리가 k로 이동함",
+        "purpose": "k 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 18,
+        "what": "파란 테두리가 l로 이동함",
+        "purpose": "l 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 20,
+        "what": "파란 테두리가 m으로 이동함",
+        "purpose": "m 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 21,
+        "what": "파란 테두리가 n으로 이동함",
+        "purpose": "n 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 23,
+        "what": "파란 테두리가 o로 이동함",
+        "purpose": "o 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 25,
+        "what": "파란 테두리가 p로 이동함",
+        "purpose": "p 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 27,
+        "what": "파란 테두리가 q로 이동함",
+        "purpose": "q 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 28,
+        "what": "파란 테두리가 r로 이동함",
+        "purpose": "r 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 30,
+        "what": "파란 테두리가 s로 이동함",
+        "purpose": "s 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 32,
+        "what": "파란 테두리가 t로 이동함",
+        "purpose": "t 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 33,
+        "what": "파란 테두리가 u로 이동함",
+        "purpose": "u 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 35,
+        "what": "파란 테두리가 v로 이동함",
+        "purpose": "v 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 36,
+        "what": "파란 테두리가 w로 이동함",
+        "purpose": "w 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 38,
+        "what": "파란 테두리가 x로 이동함",
+        "purpose": "x 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 39,
+        "what": "파란 테두리가 y로 이동함",
+        "purpose": "y 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 40,
+        "what": "파란 테두리가 z로 이동함",
+        "purpose": "z 소리 발음에 맞춰 강조"
+      },
+      {
+        "t": 41,
+        "what": "전체 화면이 줌아웃되며 바탕 레이아웃이 연출됨",
+        "purpose": "영상 마무리 및 풀영상 유도 안내"
+      }
+    ],
+    "ending": {
+      "what": "화면이 축소되며 '풀영상을 보려면 구독 또는 댓글확인' 문구를 보여주고 종료함",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "나이가 많거나 기초가 없어도 유튜브로 영어를 배울 수 있어 감사해함",
+          "quote": "저는6.25.세대 입니다 먹고사는 것고어렵고 국민학교 다니는것도 4K를 걸어 다니던 시대 학교갔다 오다.배고프면 샘물을.떡갈나무 잎으로 물를떠먹던 그런세대를살았습니다 지금 it 강국 에서 유투브에 서 기초영어 를배울수있어 너무나 감사합니다 수고하세요",
+          "quoteVerified": true
+        },
+        {
+          "point": "어린이 시청자가 매일 반복해서 보며 알파벳 소리를 완벽히 익힘",
+          "quote": "저는4학년인데,발음기호가잘안돼서매일5번씩보고있어요 하루도빠짐없이요❤❤❤❤❤❤",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "머리로는 아는데 입으로 발음이 잘 나오지 않아 답답해함",
+          "quote": "메일 생각나는 너 머리론 아는데 입으로 잘안나오는 알파벳 음가 선생님 안녕하세요 인사🙆🏻‍♀️",
+          "quoteVerified": true
+        },
+        {
+          "pain": "알파벳 g가 상황에 따라 다른 소리가 나는 기준 구분을 어려워함",
+          "quote": "g가 어디선 ㄱ소리나고 어디선 ㅈ소리나는데 구분하는법 알려주세요ㅠㅜ",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "point": "풀영상을 어디서 찾아야 할지 물어봄",
+          "quote": "풀 영상을 못 찾겠어요 😅",
+          "quoteVerified": true
+        },
+        {
+          "point": "자음과 모음 발음기호를 같이 배우는 영상을 찾음",
+          "quote": "저 영어 기초 발음기호 자음 모음 같이 알고 싶어요~ 있을까요??",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "발음기호",
+          "quote": "저는4학년인데,발음기호가잘안돼서매일5번씩보고있어요 하루도빠짐없이요❤❤❤❤❤❤",
+          "quoteVerified": true
+        },
+        {
+          "expression": "알파벳 음가",
+          "quote": "메일 생각나는 너 머리론 아는데 입으로 잘안나오는 알파벳 음가 선생님 안녕하세요 인사🙆🏻‍♀️",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 26,
+      "description": "알파벳 a부터 z까지 26개 개별 문자 음가를 하나씩 그리드 표 순서대로 나열함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 그리드 표 각 알파벳 아래 한글 음가 배치",
+      "size": "보통",
+      "highlightColor": "파란색",
+      "highlightMethod": "읽고 있는 알파벳에 파란색 네모 테두리를 씌움",
+      "textAmount": "26개 알파벳과 대응하는 한글 음가 전체가 한 화면에 표시됨",
+      "changeTiming": "음성 발음 타이밍에 맞춰 파란 테두리가 순서대로 이동"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "배경음악 없이 나레이터의 한국어 음가 발음 목소리만 명확히 재생됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "전체 알파벳 음가표를 보여주고 파란 상자로 첫 글자 a부터 소리를 들려줌",
+        "quote": "",
+        "type": "시각적 음가표 제시"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "각 알파벳 소리가 한글로 어떻게 발음되는지 안내함",
+          "quote": ""
+        },
+        "resolved": {
+          "t": 40,
+          "what": "z까지 모든 알파벳의 소리를 다 읽어주며 궁금증을 해소함",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "알파벳 순서에 맞춰 음가를 일방적으로 나열하는 방식이다.",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 41,
+          "what": "그리드 화면이 줌아웃되며 쇼츠 바탕 전체 프레임으로 전환됨",
+          "quote": ""
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 41,
+          "what": "풀영상을 보려면 구독하거나 댓글을 확인하라고 유도함",
+          "quote": ""
+        }
+      ],
+      "evidence": [],
+      "payoff": {
+        "t": 40,
+        "what": "a부터 z까지의 기초 소리를 시연 완료함",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "a부터 z까지 한글 매핑 표를 보며 순서대로 음가를 들려주는 방식",
+        "reaction": "기초가 안 되어 있던 시청자가 알파벳 소리를 외우기에 매우 편하다고 느낍니다.",
+        "quote": "안녕하세요 알파벳 소리 기초가 잘 안 되서 보았는데 너무 외우기 좋네요🤭💖",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "알파벳 a~z의 기본 파닉스 음가를 한글 표기 매핑과 음성 발음으로 직접 가르치는 기초 영상이다.",
+    "forUs": {
+      "adopt": "알파벳과 한글 음가 매핑 표를 배치하고 현재 발음 중인 위치를 하이라이트 박스로 실시간 표시하여 직관성을 극대화한다.",
+      "differentiate": "단순 음가 나열을 넘어, 해당 소리가 나는 구강 구조나 성인 시청자가 유의해야 할 구체적 발음 팁을 함께 설명한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 10,
+    "verified": 10,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 23,
+      "file": "23.jpg"
+    },
+    {
+      "t": 30,
+      "file": "30.jpg"
+    },
+    {
+      "t": 36,
+      "file": "36.jpg"
+    },
+    {
+      "t": 41,
+      "file": "41.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 8331,
+    "candidatesTokenCount": 3299,
+    "totalTokenCount": 14787,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3822
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3409
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 3157,
+    "serviceTier": "standard"
+  }
+}

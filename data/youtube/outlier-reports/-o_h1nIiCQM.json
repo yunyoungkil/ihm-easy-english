@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "videoId": "-o_h1nIiCQM",
+  "analyzedAt": "2026-11-15T05:23:37.070Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 39,
+  "meta": {
+    "videoId": "-o_h1nIiCQM",
+    "title": "영어공부 빨리 느는 사람의 공통적인 특징 | 김종국 영어회화 꿀팁 대방출 #영어 #자기계발 #동기부여",
+    "channelId": "UC21ilYd_T-RCNZB-byGWifA",
+    "channelTitle": "엄마의 브랜딩(Re:Studio)",
+    "publishedAt": "2024-01-11T05:37:53Z",
+    "viewCount": 1058626,
+    "likeCount": 5860,
+    "commentCount": 104,
+    "durationSeconds": 39,
+    "thumbnail": "https://i.ytimg.com/vi/-o_h1nIiCQM/maxresdefault.jpg",
+    "description": "출처 : https://youtu.be/E9A7dfFQbpI?si=D5GLAueEEuZK_8yH",
+    "tags": [
+      "영어회화",
+      "김종국영어",
+      "영어회화공부",
+      "영어듣기",
+      "영어듣기공부",
+      "김종국영어공부",
+      "김종국영어듣기",
+      "운동영어",
+      "김종국운동영어",
+      "짐종국영어",
+      "짐종국영어공부",
+      "짐종국운동영어",
+      "영어잘하는방법",
+      "영어스피킹",
+      "현지영어회화",
+      "영어연수",
+      "어학연수",
+      "왕초보영어",
+      "왕초보영어공부",
+      "왕초보영어회화",
+      "영어유튜브",
+      "유튜브영어",
+      "스피킹영어"
+    ]
+  },
+  "subscriberCount": 17300,
+  "viewsPerSubscriber": 61.19,
+  "outlierRatio": 427.58,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 20,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 54
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 39
+    }
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어공부가 빨리 느는 사람의 공통적인 특징과 김종국의 영어회화 비결을 밝히겠다며 시청자의 호기심과 동기부여를 자극함",
+      "titleQuote": "영어공부 빨리 느는 사람의 공통적인 특징 | 김종국 영어회화 꿀팁 대방출 #영어 #자기계발 #동기부여",
+      "thumbnailText": "김종국이 영어회화 잘하게 된 비결 2",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "상단 파란색 배너에 흰색 글씨 텍스트가 배치되어 있고, 분홍색 티셔츠를 입은 김종국이 손짓을 하며 대화하는 모습이 보임",
+      "thumbnailVsTitle": "제목은 영어공부 빠른 사람의 특징과 꿀팁 대방출을 강조하고, 썸네일은 김종국의 영어회화 비결 시리즈임을 요약 제시함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "김종국이 영어를 잘하려면 성격을 바꿔야 하고 운동처럼 단 한 번도 빼놓지 않는 꾸준함과 욕심이 중요하다고 강조하며 이야기를 시작함",
+      "quote": "영어를 잘하려면 좀 약간 성격을 좀 바꿔야 돼 머디 아무리 좋아도 욕심 없으면은 그게 제일 중요한 거예요 체육관에가 시작해 2살이에요 지금이 나이까지 단 한 번도 빼본 적이 없어 영어도 똑같아요 말도 그죠 제가 늘 영어 공부할 때 야 이거 실제로 쓰니이 친구가 저한테 좀 좋은 문장 같은 걸 알려줘서 제가 미국에서",
+      "reasonToKeepWatching": "운동을 꾸준히 해온 경험을 영어 공부에 비유하며 실제 현지에서 사용하는 영어 문장에 대해 이야기해 궁금증을 유발함",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 8,
+        "what": "성격 변화의 필요성과 운동처럼 한 번도 빠지지 않는 성실함이 제일 중요하다고 설명함",
+        "quote": "영어를 잘하려면 좀 약간 성격을 좀 바꿔야 돼 머디 아무리 좋아도 욕심 없으면은 그게 제일 중요한 거예요 체육관에가 시작해 2살이에요 지금이 나이까지 단 한 번도 빼본 적이 없어",
+        "quoteVerified": true
+      },
+      {
+        "start": 9,
+        "end": 23,
+        "what": "미국에서 공부할 때 현지인 형이 실제 쓰지 않는 교재식 표현 대신 실전 표현이나 욕 섞인 표현을 알려준 경험담을 언급함",
+        "quote": "영어도 똑같아요 말도 그죠 제가 늘 영어 공부할 때 야 이거 실제로 쓰니이 친구가 저한테 좀 좋은 문장 같은 걸 알려줘서 제가 미국에서 공부를 하고 있으면 같이 다니는 그 깡패 같은 그형이 누가 그런 말을 써 맞아 맞아 아무도 그런 말 안 써 이렇게 써 하면서 여기 섞인 말을 저한테 알려주는",
+        "quoteVerified": true
+      },
+      {
+        "start": 24,
+        "end": 39,
+        "what": "올바른 영어 공부도 필요하지만 자기가 한국어로 자주 쓰는 표현들을 영어로 옮겨서 말할 줄 아는 것이 핵심이라며 정리함",
+        "quote": "그럼 퍼 인라고 하죠 그런 것도 공부를 해야 되는 것도 맞습니다 하지만 내가 사용하는 말들 그런 것들을 추려서 내가 많이 자주 쓰는 말들을 영어로 할 줄 아는 거 그거 굉장히 중요합니다 너무 슬만 배우다 보면 사람이 좀 없어 보여",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단 파란 배너에 '김종국이 영어회화 잘하게 된 비결 2' 글자가 고정된 상태에서 핑크 티셔츠를 입은 김종국이 손짓하며 발언함",
+        "purpose": "영상 주제와 발언자의 모습을 명확하게 전달함"
+      },
+      {
+        "t": 18,
+        "what": "화면 하단에 '\"누가 그런 말을'이라는 따옴표 형태의 흰색 강조 자막이 등장함",
+        "purpose": "미국 현지 형이 했던 인상적인 대사를 시각적으로 강조함"
+      },
+      {
+        "t": 38,
+        "what": "전체 화면 배치가 세로 프레임 형태로 축소되며 하단 자막과 상단 배너가 강조됨",
+        "purpose": "숏폼 영상의 마무리를 알리고 메시지를 정돈함"
+      }
+    ],
+    "ending": {
+      "what": "슬랭만 너무 배우면 사람이 가벼워 보일 수 있으니 자기가 자주 쓰는 말 위주로 영어 표현을 만드는 것이 중요하다고 결론지음",
+      "quote": "거 굉장히 중요합니다 너무 슬만 배우다 보면 사람이 좀 없어 보여",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "내가 자주 사용하는 표현을 위주로 정리해 영어로 외우고 써먹는 것이 가장 효과적이라는 점에 공감함",
+          "quote": "결론: 영어를 배우더라도 내가 자주 쓰는 표현들을 중심으로 배워서 자주 쓸 수 있도록 하라.",
+          "quoteVerified": true
+        },
+        {
+          "point": "뇌에서 나오는 생각 표현 50개 정도만 영어로 익혀두면 웬만한 회화가 가능하다는 의견에 동의함",
+          "quote": "글치 영어든 일본어든 한국어든 그냥 언어팩이 다른것일뿐 생각은 내 뇌에서 나오는거니까 그냥 주로 쓰는 표현 영어로 찾아서 50개 정도 달달 외워놓고 쓰면 웬만큼은 됨",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "point": "외국어를 얼마간 공부해서 소통이 되어도 실제로 쓰지 않으면 금방 잊어버려서 매일 접해야 한다는 답답함",
+          "quote": "제가 일어공부를 해서 어느정도 소통도 했는데. 않쓰니까 잊어버려요. 그래서 매일 공부해야되고 들어야 될거같아요.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "point": "김종국이 미국에 어학연수나 유학을 따로 갔었던 적이 있는지 여부를 물어봄",
+          "quote": "김종국 어학연수라도 갔음? 국내에서만 쭉 산거같은데",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "언어팩",
+          "quote": "글치 영어든 일본어든 한국어든 그냥 언어팩이 다른것일뿐 생각은 내 뇌에서 나오는거니까",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "links": [
+      {
+        "cause": "내가 많이 자주 쓰는 말들을 영어로 할 줄 아는 것이 굉장히 중요하다는 발언",
+        "reaction": "매일 영어로 일기를 쓰며 자신이 일상에서 자주 쓰는 표현을 반복 연습하는 공부법을 공유함",
+        "quote": "내가 사용하는 말들을 영어로 연습하는 법. -> 영어로 매일 매이 일기쓰기죠. 매일 매일 꾸준히만 쓴다면, 거의 모든 일상표현들을 다루게 되고, 나도 모르게 반복적으로 영어로 활용하면서 적게 된다는 점.",
+        "quoteVerified": true
+      },
+      {
+        "cause": "체육관 시작한 후 단 한 번도 빠져본 적이 없다고 말하는 장면",
+        "reaction": "김종국의 기본 성실함이 영어 습득의 진짜 원동력이라고 평함",
+        "quote": "기본적인 근면성실함이 몸에 배여있었네",
+        "quoteVerified": true
+      }
+    ],
+    "forUs": {
+      "adopt": "학습자가 한국어로 일상에서 가장 자주 사용하는 생각과 문장을 먼저 영어 소리로 들려주고 입으로 익히게 만드는 구성을 적용한다.",
+      "differentiate": "복잡한 해외 경험담이나 복잡한 슬랭 대신 한국에 사는 30~60대 성인이 당장 귀로 듣고 직관적으로 이해할 수 있는 기초 소리 들기 훈련에 집중한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 13,
+    "verified": 11,
+    "unverified": 2
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 38,
+      "file": "38.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 8304,
+    "candidatesTokenCount": 1886,
+    "totalTokenCount": 12775,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3664
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3540
+      }
+    ],
+    "thoughtsTokenCount": 2585,
+    "serviceTier": "standard"
+  }
+}

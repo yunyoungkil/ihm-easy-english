@@ -70,11 +70,17 @@
     {
       "key": "visual",
       "competitor": {
-        "text": "두 출연자 상반신 + AR 도형 벽과 단어 글자가 화면 한가운데로 다가오고, 통과하면 벽이 색이 바뀌며 깨진다. 장면 전환 감지는 0번(컷은 없고 화면 안 움직임이 전부)이다.",
-        "images": []
+        "text": "연출 자료집 전체(22편·280장면, `npm run visual-summary`, 장면 설명 글의 낱말로 센 거친 분류)와 캡처 직접 확인(5편). 글자 표·목록·하이라이트가 19편(110장면)으로 가장 많고, 사람이 나오는 영상 9편, 그림·캐릭터가 쓰인 영상 7편(24장면), 실사 사진 2편, AR·게임 2편, 시청자가 말할 시간(카운트다운) 2편이다. 같은 소재(발음 쇼츠) 상위는 두 종류다: ① 사람이 소리 내고 물체가 반응하는 영상(w8g6 AR 도형 벽, Ux_M00VVmEU 도로 위 브랜드 로고 벽, pvPBD9PLuyk 손으로 갈아 끼우는 글자 판) ② 글자 표가 줄마다 채워지는 영상(몬스터잉글리쉬 667배, 영어로켓배송 207배). 그림은 분더스토리(54초, 밈 캐릭터), 제나쌤(개 캐릭터), 웅진빅박스(단어+그림)에서 쓰이지만 발음 소재 쇼츠 상위에서는 쓰이지 않았다. 아래 이미지는 경쟁 영상 캡처를 이어 붙인 참고용이다(왼쪽부터 w8g6, 수키, 다니엘, 몬스터잉글리쉬, 영어로켓배송).",
+        "images": [
+          "images/w8g6-e9yLP4/ref-w8g6-e9yLP4.jpg",
+          "images/w8g6-e9yLP4/ref-Ux_M00VVmEU.jpg",
+          "images/w8g6-e9yLP4/ref-pvPBD9PLuyk.jpg",
+          "images/w8g6-e9yLP4/ref-Bxd1XRx25KQ.jpg",
+          "images/w8g6-e9yLP4/ref-8syHTCdfkkA.jpg"
+        ]
       },
       "ours": {
-        "text": "인물 없이 글자 카드만 쓴다. 컷 13번(47.5초). 한글 글자 칸(스·트·레·스)을 영어 한 칸(stress)과 나란히 보여 주는 카드를 새로 만들었고, \"따라 말하기\" 카드는 큰 단어와 점 3개만 둬서 말할 시간을 시각으로 알려 준다. 긴 컷(설명 4.6초)과 짧은 컷(따라 말하기 2.4초)이 섞이게 했다.",
+        "text": "글자 표 방식(경쟁 2종 중 하나)을 그대로 따르지 않고, 그림을 위에 크게 올린 카드로 시험한다: 단어 뜻 그림 4장(stress 머리 감싼 캐릭터, screen TV, spray 분무기, strike 볼링)을 AI로 만들어 카드 위쪽 300px를 채우고, 아래에 한글 칸과 영어 한 칸을 둔다. 따라 말하기 칸도 그림 + 단어 + 점 3개다. 도입·원리·정리·댓글 카드는 글자 카드다. 컷 13개, 47.5초, 긴 컷(설명 4.6초)과 짧은 컷(2.4초)이 섞인다. 이 그림 카드는 경쟁이 발음 쇼츠에서 쓴 방식이 아니라 우리가 시험하는 가설이다.",
         "images": [],
         "cutPlan": {
           "durationSeconds": 47.5,
@@ -89,7 +95,7 @@
             },
             {
               "t": 2.8,
-              "template": "syl-count",
+              "template": "pic-count",
               "word": "stress",
               "syl": [
                 "스",
@@ -99,7 +105,8 @@
               ],
               "pill": "한글 4칸 → 영어 1마디",
               "narration": "한글로는 네 글자, 영어는 딱 한 마디예요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-01.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-01.png",
+              "pic": "images/w8g6-e9yLP4/pic-stress.jpg"
             },
             {
               "t": 6.2,
@@ -113,15 +120,16 @@
             },
             {
               "t": 10.8,
-              "template": "say",
+              "template": "pic-say",
               "word": "stress",
               "pill": "따라 말해 보세요",
               "narration": "한 번 따라 해 보세요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-03.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-03.png",
+              "pic": "images/w8g6-e9yLP4/pic-stress.jpg"
             },
             {
               "t": 14.4,
-              "template": "syl-count",
+              "template": "pic-count",
               "word": "screen",
               "syl": [
                 "스",
@@ -130,19 +138,21 @@
               ],
               "pill": "한글 3칸 → 영어 1마디",
               "narration": "스크린은 세 글자죠. 영어는 한 마디예요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-04.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-04.png",
+              "pic": "images/w8g6-e9yLP4/pic-screen.jpg"
             },
             {
               "t": 17.6,
-              "template": "say",
+              "template": "pic-say",
               "word": "screen",
               "pill": "으 없이 이어서",
               "narration": "으 없이, 이어서요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-05.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-05.png",
+              "pic": "images/w8g6-e9yLP4/pic-screen.jpg"
             },
             {
               "t": 20,
-              "template": "syl-count",
+              "template": "pic-count",
               "word": "spray",
               "syl": [
                 "스",
@@ -152,15 +162,17 @@
               ],
               "pill": "한글 4칸 → 영어 1마디",
               "narration": "스프레이도 네 글자인데, 영어는 한 마디예요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-06.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-06.png",
+              "pic": "images/w8g6-e9yLP4/pic-spray.jpg"
             },
             {
               "t": 23.6,
-              "template": "say",
+              "template": "pic-say",
               "word": "spray",
               "pill": "따라 말해 보세요",
               "narration": "따라 해 보세요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-07.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-07.png",
+              "pic": "images/w8g6-e9yLP4/pic-spray.jpg"
             },
             {
               "t": 26.6,
@@ -172,7 +184,7 @@
             },
             {
               "t": 31.2,
-              "template": "syl-count",
+              "template": "pic-count",
               "word": "strike",
               "syl": [
                 "스",
@@ -183,15 +195,17 @@
               ],
               "pill": "정답은 1마디",
               "narration": "정답은 한 마디, 으 소리 없이 이어서 말해요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-09.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-09.png",
+              "pic": "images/w8g6-e9yLP4/pic-strike.jpg"
             },
             {
               "t": 35,
-              "template": "say",
+              "template": "pic-say",
               "word": "strike",
               "pill": "마지막으로 따라 말하기",
               "narration": "마지막으로 따라 해 보세요.",
-              "image": "images/w8g6-e9yLP4/cuts/cut-10.png"
+              "image": "images/w8g6-e9yLP4/cuts/cut-10.png",
+              "pic": "images/w8g6-e9yLP4/pic-strike.jpg"
             },
             {
               "t": 38.6,
@@ -229,7 +243,7 @@
           ]
         }
       },
-      "why": "경쟁은 화면 안 움직임으로 긴장을 만든다(장면 전환 0번). 우리는 실제 AR이 없으니 컷의 길이 변화(긴 설명/짧은 따라 말하기)로 박자를 만든다. 사용자 첫인상(2026-11-16: \"느려서 듣기 좋고 깔끔하다 / 쇼츠로는 밋밋하다\")을 받아 글자는 크게, 따라 말하기 칸은 점 3개로 움직임을 줬다."
+      "why": "이전 시트는 연출 자료집을 보지 않고 우리 카드 템플릿에 단어만 바꿨다(사용자 지적, 2026-11-16). 자료집을 보니 발음 쇼츠 상위는 사람+반응 물체와 글자 표 두 종류이고 그림 주인공 방식은 없다. 그림은 사용자가 기대한다고 한 방식이고 시험한 적이 없어서 \"그림 카드 vs 글자 표 카드\"를 사용자 반응(보고 싶은 순서)으로 가린다. 카운트다운으로 시청자가 말할 시간을 주는 경쟁 영상은 조밥잉글리쉬(손가락 하나 둘 셋)와 같은 장면 한 편 더로, 따라 말하기 칸의 근거는 2편뿐이라 가설이다."
     },
     {
       "key": "reaction",

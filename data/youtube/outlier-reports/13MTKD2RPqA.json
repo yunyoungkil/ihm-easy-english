@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 1,
+  "videoId": "13MTKD2RPqA",
+  "analyzedAt": "2026-11-17T09:23:18.837Z",
+  "model": "gemini-flash-lite-latest",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "13MTKD2RPqA",
+    "title": "딱 33일! 올인원 기초영어! [Day19 파트2_a, an, the의 구분하는 법!]",
+    "channelId": "UCqQR8b-MTXuMgrV7scZfq_w",
+    "channelTitle": "어션영어BasicEnglish",
+    "publishedAt": "2026-11-07T03:30:19Z",
+    "viewCount": 1754,
+    "likeCount": 24,
+    "commentCount": 4,
+    "durationSeconds": 900,
+    "thumbnail": "https://i.ytimg.com/vi/13MTKD2RPqA/maxresdefault.jpg",
+    "description": "어션영어 - 재생목록\nhttps://www.youtube.com/c/%EC%96%B4%EC%85%98%EC%98%81%EC%96%B4BasicEnglish/playlists?view_as=subscriber\n\n책 소개 영상\nhttps://www.youtube.com/watch?v=WLDh2M3tC6o&t=696s\n\n어션영어 교재 - 핵심 강의 재생목록\nhttps://www.youtube.com/playlist?list=PLNsvYA3ew0xgBC-_vkwwZ2VbDA5LfSOdj\n\n어션영어 교재 - 연관 강의 재생목록\nhttps://www.youtube.com/playlist?list=PLNsvYA3ew0xhdqH9Zb1Xnb-_-EgeL41mL\n\n구매 가능 인터넷 서점\n예스24 https://bit.ly/316VPt3\n알라딘 https://bit.ly/3aw5ahc\n교보문고 https://bit.ly/3kVT5GD\n인터파크 https://bit.ly/3axh2zi",
+    "tags": [
+      "영문법",
+      "영어문법",
+      "영어시제",
+      "왕기초영어",
+      "왕초보영어",
+      "기초영어회화",
+      "어션영어",
+      "올인원 기초영어"
+    ]
+  },
+  "subscriberCount": 227000,
+  "viewsPerSubscriber": 0.01,
+  "outlierRatio": 45.81,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 303,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 2
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "long",
+    "sentences": 39,
+    "stats": {
+      "sentences": 39,
+      "lengthSum": 1439,
+      "lengthMedian": 31,
+      "endings": {
+        "question": 7,
+        "command": 1,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 31,
+        "haeyo": 0,
+        "other": 0
+      },
+      "jointMid": 3,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 1,
+        "근데": 0,
+        "그러면": 2,
+        "여러분": 7,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 2,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 1,
+      "meaningAfterSentences": 1,
+      "questionSentences": 7,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 39,
+      "hangulChars": 1306,
+      "hangulRatio": 0.94,
+      "uniqueWordRatio": 0.69,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-17T09:23:12.498Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "Day 19라는 시리즈 번호와 함께 a, an, the를 제대로 써야 하는 이유를 알려주겠다고 약속한다.",
+      "titleQuote": "딱 33일! 올인원 기초영어! [Day19 파트2_a, an, the의 구분하는 법!]",
+      "thumbnailText": "기초 영어 33일 초보 탈출 프로젝트! a, an, the를 제대로 써야 하는 이유! (Day 19 - Part 2)",
+      "thumbnailWordCount": 21,
+      "thumbnailVisual": "왼쪽 상단에 파란색 기초 영어 박스가 있고, 창틀에 기대어 아래쪽을 손가락으로 가리키는 안경 쓴 소년 캐릭터 일러스트가 오른쪽 위에 배치되어 있다.",
+      "thumbnailVsTitle": "썸네일과 제목 모두 Day 19와 a, an, the를 제대로 써야 하는 이유를 다루고 있어 같은 메시지를 강화한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "강사가 화면의 글을 짚어가며 인사하고, a, an, the를 제대로 쓰는 것이 좋은 이유를 다루겠지만 완벽하게 쓰기는 정말 쉽지 않다고 말한다.",
+      "quote": "안녕하세요. 기초영어 강사 어입니다. 이번 영상에서는 어 언더를 제대로 쓰는 것이 좋은 이유에 대해 알아보도록 하겠습니다. 사실 어 너를 제대로 쓰는 것은 정말 쉽지 않습니다.",
+      "reasonToKeepWatching": "a, an, the를 틀리게 쓰면 크고 작은 오해가 생길 수 있다며 실수를 줄여가기 위해 노력하자고 이끈다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "종소리와 함께 칠판 같은 화면에 '여러분의 멋진 도전을 응원합니다! You can do it!' 문구와 안경 쓴 소년 캐릭터가 나타난다.",
+      "quote": "안녕하세요. 기초영어 강사 어입니다.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 12,
+        "what": "이번 영상 주제인 a, an, the를 제대로 써야 하는 이유를 소개한다.",
+        "quote": "안녕하세요. 기초영어 강사 어입니다. 이번 영상에서는 어 언더를 제대로 쓰는 것이 좋은 이유에 대해 알아보도록 하겠습니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 12,
+        "end": 48,
+        "what": "관사를 완벽하게 쓰기 어렵고 안 쓰는 사람도 많지만, 그럼에도 제대로 쓰려는 노력이 필요한 이유를 설명한다.",
+        "quote": "사실 어 너를 제대로 쓰는 것은 정말 쉽지 않습니다. 그렇기 때문에 많은 분들이 일을 어려워하시고 심지어 말할 때 아예 쓰지 않는 분들도 계십니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 48,
+        "end": 113,
+        "what": "잘못 사용하면 오해가 생길 수 있으니 완벽하지 않아도 실수를 줄여가자고 말하며, 틀리는 것을 두려워하지 말라고 조언한다.",
+        "quote": "가장 큰 이유는 어, 엄, 더를 잘못 사용하는 경우 크고 작은 오해가 생길 수 있기 때문입니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 113,
+        "end": 200,
+        "what": "영어를 빨리 잘하는 방법으로 틀리는 것을 두려워하지 않는 마음가짐과 많이 말하고 틀려보는 연습을 강조한다.",
+        "quote": "영어를 말씀하실 때 틀려도 의사 전달에 문제만 없으면 되니까 틀리는 것을 두려워하지 않으셨으면 좋겠습니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 200,
+        "end": 426,
+        "what": "첫 번째 예시로 'I like dog.'의 뜻을 짚어보며 관사와 복수형에 따라 개와 개고기로 뜻이 달라질 수 있음을 설명한다.",
+        "quote": "먼저 I like dog는 무슨 뜻일까요? 나는 개를 좋아한다라고 생각하신 분들이 많으실 거라고 생각합니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 426,
+        "end": 502,
+        "what": "patient라는 단어를 통해 관사의 유무에 따라 형용사와 명사(환자) 뜻이 어떻게 달라지는지 퀴즈 형태로 푼다.",
+        "quote": "다음로 patient는 무슨 뜻일까요? patient는 형용사로 참을 있는 또는 인내심 있는이라는 뜻으로 주로 쓰이고 명사로 환자라는 뜻으로도 자주 쓰입니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 502,
+        "end": 646,
+        "what": "관사의 핵심 기능과 셀 수 있는 명사, 불특정한 하나를 지칭할 때의 쓰임새를 설명한다.",
+        "quote": "지금부터 어 하나가 있냐 없느냐에 따라서 단어의 뜻이 어떻게 바뀌는지에 대해 설명드리도록 하겠습니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 646,
+        "end": 742,
+        "what": "cold라는 단어로 춥다(cold)와 감기에 걸려 있다(a cold)의 차이를 설명한다.",
+        "quote": "다음으로 ced는 무슨 뜻일까요? 형용사로 추운 또는 차가운이라는 뜻이고 명사로는 주로 감기라는 뜻으로 많이 쓰이고 추위라는 뜻으로 쓰이기도 합니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 742,
+        "end": 900,
+        "what": "스포츠 앞에는 관사를 안 쓰고 악기 앞에는 the를 붙이는 규칙과 오해의 소지에 대해 설명한다.",
+        "quote": "먼저 화면에 표시된 네 개의 문장을 보시겠습니다.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "Day 19, a, an, the를 제대로 써야 하는 이유! 제목과 You can do it! 문구, 우측 상단 창틀에 소년 캐릭터가 나타남",
+        "purpose": "강의 시작을 알리고 시청자의 도전을 응원함"
+      },
+      {
+        "t": 2,
+        "what": "화면 중앙에 'a, an, the의 활용법 (Part 2)' 자막이 나타남",
+        "purpose": "이번 파트의 주제를 시각적으로 보여줌"
+      },
+      {
+        "t": 19,
+        "what": "화면 상단에 별표와 함께 '★ a, an, the 꼭 말해야 하나요?' 질문 자막이 등장함",
+        "purpose": "시청자가 가질 수 있는 의문을 먼저 제기함"
+      },
+      {
+        "t": 27,
+        "what": "화면 중앙에 하이픈(-)과 함께 세부 항목 자막들이 순서대로 추가됨",
+        "purpose": "강사의 설명 요점을 정리하여 보여줌"
+      },
+      {
+        "t": 113,
+        "what": "화면이 '★ 영어를 빨리 잘하는 방법 ★' 제목과 함께 새로운 목록으로 바뀜",
+        "purpose": "본격적인 강의 전 영어 학습 마인드셋을 전달함"
+      },
+      {
+        "t": 201,
+        "what": "화면이 '1. 'I like dog.'의 뜻은?' 퀴즈 형태로 바뀜",
+        "purpose": "시청자에게 구체적인 예시 문제를 풀도록 유도함"
+      }
+    ],
+    "ending": {
+      "what": "영상이 도움이 되었다면 좋아요와 구독을 부탁하고 다음 강의를 기대해 달라고 안내한다.",
+      "quote": "이 영상이 도움이 되셨다면 좋아요와 구독하기 부탁드리고요. 다음 강의도 기대해 주세요.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "선생님께 감사 인사를 전하고 날씨가 추워져 건강을 챙기기를 바란다.",
+          "quote": "선생님 감사합니다 👍👍👍 날씨가 많이 추워졌어요 ~ 건강조심하시길 빕니다 🙏",
+          "quoteVerified": true
+        },
+        {
+          "point": "오늘 강의도 잘 들었다며 만족감을 표현한다.",
+          "quote": "오늘 오늘도 잘 들었습니다 🥰😍🤩😘",
+          "quoteVerified": false
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "날씨가 많이 추워졌어요 ~ 건강조심하시길 빕니다",
+          "quote": "선생님 감사합니다 👍👍👍 날씨가 많이 추워졌어요 ~ 건강조심하시길 빕니다 🙏",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 5,
+      "description": "a/an/the 관사의 필요성, I like dog vs dogs 예시, patient 단어 퀴즈, cold와 a cold 예시, 스포츠와 악기 관사 규칙까지 총 5가지 핵심 내용을 순서대로 나열한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 상단의 흰색 박스 안",
+      "size": "큼",
+      "highlightColor": "빨간색",
+      "highlightMethod": "핵심 단어나 문법 요소(a, an, the 등)의 글자 색을 빨간색으로 바꿈",
+      "textAmount": "한두 줄 분량의 문장 단위",
+      "changeTiming": "강사의 말 속도와 의미 단위에 맞춰 차례대로 나타남"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "밝고 차분한 학습 분위기의 배경음악",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "화면이 전환되거나 중요 포인트가 나올 때 알림 효과음이 쓰임",
+      "voiceVsMusic": "말소리가 또렷하게 중심을 잡고 배경음악은 작게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 19,
+        "what": "관사를 안 써도 의사소통이 되는데 꼭 써야 하는 이유가 있는지 질문을 던져 집중시킴",
+        "quote": "a, an, the 꼭 말해야 하나요?",
+        "type": "시청자가 평소에 갖는 의문(관사를 꼭 써야 하나요?)을 먼저 던지기",
+        "quoteVerified": false
+      },
+      "curiosity": {
+        "opened": {
+          "t": 201,
+          "what": "'I like dog.'라고 하면 원어민에게 무슨 뜻으로 들릴까?",
+          "quote": "'I like dog.'의 뜻은?",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 230,
+          "what": "관사와 복수형을 안 쓰면 개고기를 좋아한다는 뜻으로 오해받을 수 있음을 알려줌",
+          "quote": "이 문장은 원어민들기에 나는 개고기를 좋아한다라는 뜻으로 들릴 확률이 굉장히 높습니다.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "관사를 안 쓰면 셀 수 없는 명사가 되어 고기나 감기 같은 다른 뜻으로 오해받는다는 원인과 결과를 반복해서 보여준다.",
+        "examples": [
+          {
+            "t": 238,
+            "what": "dog 앞에 관사를 안 쓰거나 s를 안 붙여서 개고기로 오해받는 원인 설명",
+            "quote": "그 이유는 이 단어 앞에 어를 쓰거나 단어 뒤에 s를 쓰지 않았기 때문입니다.",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 113,
+          "what": "문법 이론 설명 중간에 '영어를 빨리 잘하는 방법'이라는 마인드셋 조언으로 전환함",
+          "quote": "영어를 빨리 하시는 방법",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 338,
+          "what": "정답을 말하기 전에 머릿속으로 문장을 떠올려 보게 함",
+          "quote": "머릿속으로 문장을 떠올려 보세요!",
+          "quoteVerified": false
+        }
+      ],
+      "evidence": [
+        {
+          "t": 201,
+          "what": "우리가 흔히 쓰는 예문과 원어민이 오해할 수 있는 상황을 비교해서 보여줌",
+          "quote": "'I like dog.'의 뜻은?",
+          "quoteVerified": false
+        }
+      ],
+      "payoff": {
+        "t": 1418,
+        "what": "영상을 통해 관사의 중요성을 배우고 실수를 줄여가자는 결론을 다시 짚어줌",
+        "quote": "완벽하지는 않더라도 실수를 줄이기 위한 노력이 필요하다고 생각합니다.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "날씨가 추워진 시점의 영상 업로드와 기초 영어 강의",
+        "reaction": "시청자가 선생님께 감사 인사를 전하고 감기 조심하시라고 덕담을 남김",
+        "quote": "선생님 감사합니다 👍👍👍 날씨가 많이 추워졌어요 ~ 건강조심하시길 빕니다 🙏",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 영어 발음이나 듣기 소리를 가르치는 것이 아니라 관사(a, an, the)의 문법적 쓰임과 오해를 방지하는 용법을 가르치는 강의 영상이다.",
+    "forUs": {
+      "adopt": "일상에서 흔히 실수하기 쉬운 문장 예시를 들어 오해의 위험성을 생생하게 짚어주는 방식을 가져온다.",
+      "differentiate": "어려운 문법 용어 설명보다 한국인 성인이 헷갈리는 직관적인 차이에 집중하고 발음 소리 훈련과 연결한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 25,
+    "verified": 18,
+    "unverified": 7
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 19,
+      "file": "19.jpg"
+    },
+    {
+      "t": 27,
+      "file": "27.jpg"
+    },
+    {
+      "t": 113,
+      "file": "113.jpg"
+    },
+    {
+      "t": 201,
+      "file": "201.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 35301,
+    "candidatesTokenCount": 3481,
+    "totalTokenCount": 38782,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 6900
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

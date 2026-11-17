@@ -1,0 +1,671 @@
+{
+  "schemaVersion": 1,
+  "videoId": "8nzWymZViuo",
+  "analyzedAt": "2026-11-17T09:22:31.947Z",
+  "model": "gemini-3.5-flash-lite",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "8nzWymZViuo",
+    "title": "알아두면 계속 쓰는 스몰 토크 영어 표현 100개 | 🎬 영화·미드 500장면 모음.zip",
+    "channelId": "UCQSOd6CLxUvKnRoCwk3zkFA",
+    "channelTitle": "칩스영어",
+    "publishedAt": "2026-08-30T08:13:57Z",
+    "viewCount": 294018,
+    "likeCount": 3848,
+    "commentCount": 31,
+    "durationSeconds": 1283,
+    "thumbnail": "https://i.ytimg.com/vi/8nzWymZViuo/maxresdefault.jpg",
+    "description": "🎬 영화·미드 영어 모음.zip 🍿\n\n영어 회화 공부, 이제 외우지 말고 그냥 들으세요!  🎧\n\n처음 만난 사람과 어색함 없이 대화 트는\n스몰토크 영어 표현 100개를\n영화·미드 실제 장면 500개로 담았습니다!! 😊\n\n단어장처럼 억지로 외우는 게 아니라\n배우들이 실제로 말하는 장면을 반복해서 듣다 보면\n\"아, 이럴 땐 이렇게 말하는구나\" 가\n저절로 몸에 남습니다 ✨\n\n  🎧 이럴 때 틀어두세요\n - 출퇴근 지하철·버스 안에서\n - 운동하거나 산책할 때\n - 🧼 설거지·청소하는 동안\n - 🛏️  잠들기 전 침대에서\n\n  하루 3번만 틀어두면 영어가 저절로 나옵니다! 🔥",
+    "tags": [
+      "영어",
+      "영어회화",
+      "영어공부",
+      "미드영어",
+      "영화영어",
+      "영어공부혼자하기",
+      "쉐도잉",
+      "영어쉐도잉",
+      "영어회화공부"
+    ]
+  },
+  "subscriberCount": 12500,
+  "viewsPerSubscriber": 23.52,
+  "outlierRatio": 47.11,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 146,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 21
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "long",
+    "sentences": 46,
+    "stats": {
+      "sentences": 46,
+      "lengthSum": 642,
+      "lengthMedian": 12,
+      "endings": {
+        "question": 29,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 2,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 2,
+        "haeyo": 7,
+        "other": 6
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 29,
+      "pastConclusionSentences": 8
+    },
+    "qualityMetrics": {
+      "sentences": 46,
+      "hangulChars": 231,
+      "hangulRatio": 0.4,
+      "uniqueWordRatio": 0.61,
+      "uniqueSentenceRatio": 0.87
+    },
+    "computedAt": "2026-11-17T09:19:43.935Z",
+    "note": "품질 낮음: 한국어 글자 비율 0.4(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영화와 미드 500장면을 모아서 스몰 토크 영어 표현 100개를 알려준다고 약속한다.",
+      "titleQuote": "알아두면 계속 쓰는 스몰 토크 영어 표현 100개 | 🎬 영화·미드 500장면 모음.zip",
+      "thumbnailText": "스몰 토크 영어 표현 영화·미드 500장면",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "오른쪽에 여성이 카메라를 응시하는 영화 한 장면이 있고, 중앙 갈색 박스 안에 흰색과 주황색 글씨로 제목이 적혀 있다.",
+      "thumbnailVsTitle": "썸네일과 제목이 같은 주제(스몰 토크 영어 표현, 영화·미드 500장면)를 반복해서 강조한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "처음 만난 사람과 어색함 없이 대화할 수 있는 스몰토크 영어 표현 100개를 준비했다고 소개한 뒤, 첫 번째 표현 'Nice to finally meet you.'를 영화 예시와 함께 보여준다.",
+      "quote": "오늘은 처음 만난 사람도 어색함 없이 대화할 수 있는 스몰토크 영어 표현 100개를 영화와 미드 500 장면으로 준비했습니다. 바로 시작해 볼게요. Nice to finally meet you.",
+      "reasonToKeepWatching": "첫 만남 상황에서 바로 쓸 수 있는 실용적인 영어 표현을 영화 장면과 발음 기호, 한국어 뜻까지 묶어 500장면으로 보여준다고 약속하여 계속 보게 만든다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "인물의 얼굴이 나오는 영화 장면 위에 '오늘은 처음 만난 사람도 어색함 없이 대화할 수 있는 스몰토크 영어 표현 100개를 영화와 미드 500장면으로 준비했습니다.'라는 자막이 나타난다.",
+      "quote": "오늘은 처음 만난 사람도 어색함 없이 대화할 수 있는",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 9,
+        "what": "영상의 주제와 준비한 내용(영화·미드 500장면)을 설명한다.",
+        "quote": "오늘은 처음 만난 사람도 어색함 없이 대화할 수 있는 스몰토크 영어 표현 100개를 영화와 미드 500 장면으로 준비했습니다. 바로 시작해 볼게요.",
+        "quoteVerified": true
+      },
+      {
+        "start": 9,
+        "end": 26,
+        "what": "첫 번째 표현 'Nice to finally meet you.'를 여러 영화 속 인물들의 입을 통해 반복해서 보여준다.",
+        "quote": "Nice to finally meet you.",
+        "quoteVerified": true
+      },
+      {
+        "start": 26,
+        "end": 37,
+        "what": "두 번째 표현 'Have you two met?'을 다양한 영화 장면으로 보여준다.",
+        "quote": "Have you two met?",
+        "quoteVerified": false
+      },
+      {
+        "start": 37,
+        "end": 56,
+        "what": "세 번째 표현 'Let me introduce you.'를 영화 속 소개 상황과 함께 보여준다.",
+        "quote": "Let me introduce you.",
+        "quoteVerified": true
+      },
+      {
+        "start": 56,
+        "end": 110,
+        "what": "네 번째 표현 'I've heard a lot about you.'를 여러 영화 인물들이 말하는 장면으로 보여준다.",
+        "quote": "I've heard a lot about you.",
+        "quoteVerified": false
+      },
+      {
+        "start": 110,
+        "end": 123,
+        "what": "다섯 번째 표현 'It's a pleasure to meet you.'를 영화 장면으로 보여준다.",
+        "quote": "It's a pleasure to meet you.",
+        "quoteVerified": false
+      },
+      {
+        "start": 123,
+        "end": 137,
+        "what": "여섯 번째 표현 'Nice to see you again.'을 영화 장면으로 보여준다.",
+        "quote": "Nice to see you again.",
+        "quoteVerified": false
+      },
+      {
+        "start": 137,
+        "end": 147,
+        "what": "일곱 번째 표현 'Mind if I join you?'를 영화 장면으로 보여준다.",
+        "quote": "Mind if I join you?",
+        "quoteVerified": false
+      },
+      {
+        "start": 147,
+        "end": 201,
+        "what": "여덟 번째 표현 'How do you two know each other?'를 영화 장면으로 보여준다.",
+        "quote": "How do you two know each other?",
+        "quoteVerified": false
+      },
+      {
+        "start": 201,
+        "end": 213,
+        "what": "아홉 번째 표현 'What's your name again?'을 영화 장면으로 보여준다.",
+        "quote": "What's your name again?",
+        "quoteVerified": false
+      },
+      {
+        "start": 213,
+        "end": 226,
+        "what": "열 번째 표현 'I'm terrible with names.'를 영화 장면으로 보여준다.",
+        "quote": "I'm terrible with names.",
+        "quoteVerified": false
+      },
+      {
+        "start": 226,
+        "end": 238,
+        "what": "열한 번째 표현 'You look familiar.'를 영화 장면으로 보여준다.",
+        "quote": "You look familiar.",
+        "quoteVerified": false
+      },
+      {
+        "start": 238,
+        "end": 254,
+        "what": "열두 번째 표현 'I never forget a face.'를 영화 장면으로 보여준다.",
+        "quote": "I never forget a face.",
+        "quoteVerified": false
+      },
+      {
+        "start": 254,
+        "end": 300,
+        "what": "열세 번째 표현 'What do you do?'를 영화 장면으로 보여준다.",
+        "quote": "What do you do?",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "첫 화면 등장 및 안내 자막 표시",
+        "purpose": "영상의 주제를 시청자에게 안내한다."
+      },
+      {
+        "t": 9,
+        "what": "#1 번호와 함께 첫 번째 표현 카드 화면 등장",
+        "purpose": "학습할 영어 표현, 발음 기호, 한국어 뜻, 사용 상황을 시각적으로 정리해 준다."
+      },
+      {
+        "t": 27,
+        "what": "#2 번호와 함께 두 번째 표현 카드 화면 등장",
+        "purpose": "다음 표현으로 넘어가며 학습 흐름을 끊지 않고 이어준다."
+      },
+      {
+        "t": 37,
+        "what": "#3 번호와 함께 세 번째 표현 카드 화면 등장",
+        "purpose": "새로운 표현을 화면 전환과 함께 제시한다."
+      },
+      {
+        "t": 57,
+        "what": "#4 번호와 함께 네 번째 표현 카드 화면 등장",
+        "purpose": "네 번째 표현의 발음과 뜻을 보여준다."
+      },
+      {
+        "t": 111,
+        "what": "#5 번호와 함께 다섯 번째 표현 카드 화면 등장",
+        "purpose": "다섯 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 123,
+        "what": "#6 번호와 함께 여섯 번째 표현 카드 화면 등장",
+        "purpose": "여섯 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 137,
+        "what": "#7 번호와 함께 일곱 번째 표현 카드 화면 등장",
+        "purpose": "일곱 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 147,
+        "what": "#8 번호와 함께 여덟 번째 표현 카드 화면 등장",
+        "purpose": "여덟 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 201,
+        "what": "#9 번호와 함께 아홉 번째 표현 카드 화면 등장",
+        "purpose": "아홉 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 213,
+        "what": "#10 번호와 함께 열 번째 표현 카드 화면 등장",
+        "purpose": "열 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 226,
+        "what": "#11 번호와 함께 열한 번째 표현 카드 화면 등장",
+        "purpose": "열한 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 238,
+        "what": "#12 번호와 함께 열두 번째 표현 카드 화면 등장",
+        "purpose": "열두 번째 표현을 화면에 띄워준다."
+      },
+      {
+        "t": 254,
+        "what": "#13 번호와 함께 열세 번째 표현 카드 화면 등장",
+        "purpose": "열세 번째 표현을 화면에 띄워준다."
+      }
+    ],
+    "ending": {
+      "what": "첫 300초 구간 내에는 영상의 전체 끝부분이 없으므로 확인 불가",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "AI 발음이 다른 크리에이터들에 비해 참 좋다고 칭찬함",
+          "quote": "많은 미드 영상들로부터 공부 도움을 받는 중입니다. 이 영상에 나오는 Ai발음이 만나본 다른 크리에이터 들의 영상들에 비해 참 좋네요.",
+          "quoteVerified": true
+        },
+        {
+          "point": "표현 속 숨은 의미를 알게 되어 감사하다고 함",
+          "quote": "73번 Take it easy.에 헤어질때 잘 지내라는 쓰임이 있는줄은 처음 알았네요. 감사합니다.",
+          "quoteVerified": true
+        },
+        {
+          "point": "성우처럼 목소리가 좋다고 감탄함",
+          "quote": "선생님 목소리가 예술적으로 좋네요 성우 저리가라네요",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "영어회화가 목표인데 여전히 영어 글자만 보고 있는지 돌아보게 됨",
+          "quote": "영어회화가 목표인데, 아직도 영어 글자만 보고 있나요? 지구상에 사는 모든 사람은 모국어를 배울 때 소리만으로 배웠습니다.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "특정 영화 장면에 나온 영화 제목을 물어봄",
+          "quote": "youre kidding me 에서 금발 여자나오는 장면 영화제목이 뭐죠?",
+          "quoteVerified": true
+        },
+        {
+          "question": "반복 횟수가 조금 더 많았으면 좋겠다고 요청함",
+          "quote": "좋아요♡ 반복 횟수가 조금 더 많았음 좋겠어요~",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "Hit the spot !",
+          "quote": "Hit the spot !",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 13,
+      "description": "첫 300초 동안 스몰 토크 영어 표현 13개를 번호와 함께 하나씩 순서대로 나열한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 상단 및 하단",
+      "size": "큼",
+      "highlightColor": "노란색",
+      "highlightMethod": "핵심 표현이나 자막에 노란색 글씨를 사용하고 검은색 반투명 박스 배경을 덧댐",
+      "textAmount": "짧은 한 문장 단위",
+      "changeTiming": "말하는 속도와 영화 장면 전환에 맞춰 바뀜"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "차분하고 집중하기 좋은 배경음악",
+      "tempo": "보통",
+      "hasSoundEffects": false,
+      "soundEffectUse": "효과음은 따로 쓰이지 않고 영화 속 대사와 내레이션 음성 중심",
+      "voiceVsMusic": "말(내레이션 및 영화 대사)이 중심이며 배경음악은 작게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "처음 만난 사람과 어색함 없이 대화할 수 있는 표현 100개를 영화/미드 500장면으로 보여주겠다고 제안함",
+        "quote": "오늘은 처음 만난 사람도 어색함 없이 대화할 수 있는 스몰토크 영어 표현 100개를 영화와 미드 500 장면으로 준비했습니다.",
+        "type": "상황 공감 및 결과물 제시 훅",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "처음 만난 사람에게 어색하지 않게 쓸 수 있는 영어 표현은 무엇일까?",
+          "quote": "스몰토크 영어 표현 100개를 영화와 미드 500 장면으로 준비했습니다.",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 9,
+          "what": "첫 번째 표현인 'Nice to finally meet you.'와 실제 영화 사용 예시들을 보여줌",
+          "quote": "Nice to finally meet you. 드디어 만나뵙네요.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "이야기가 이어지는 구조가 아니라 스몰 토크 표현 100개가 번호순으로 나열되는 모음집 형식이다.",
+        "examples": []
+      },
+      "openLoops": [
+        {
+          "t": 0,
+          "what": "나머지 87개의 표현에서는 어떤 영화 장면과 유용한 표현들이 나올지 궁금증을 유발함",
+          "quote": "스몰토크 영어 표현 100개",
+          "quoteVerified": true
+        }
+      ],
+      "patternBreaks": [],
+      "viewerActions": [
+        {
+          "t": 0,
+          "what": "구독하고 영어 공부 자료를 매일 받아보라고 안내함",
+          "quote": "구독하시고 영어 공부 자료 매일 받아보세요 :)",
+          "quoteVerified": false
+        }
+      ],
+      "evidence": [
+        {
+          "t": 9,
+          "what": "실제 유명 영화와 드라마 속에서 인물들이 해당 표현을 쓰는 실제 장면을 여러 개 보여줌",
+          "quote": "Nice to finally meet you.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 0,
+        "what": "확인 불가",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "영상이 실제 영화 속 대사를 여러 개 모아서 보여준 것",
+        "reaction": "시청자들이 다양한 미드 영상으로 공부에 도움을 받고 있다고 느낌",
+        "quote": "많은 미드 영상들로부터 공부 도움을 받는 중입니다.",
+        "quoteVerified": true
+      },
+      {
+        "cause": "표현의 미세한 뉘앙스나 쓰임을 알려준 것",
+        "reaction": "새로운 쓰임을 알게 되어 감사하다는 댓글을 남김",
+        "quote": "73번 Take it easy.에 헤어질때 잘 지내라는 쓰임이 있는줄은 처음 알았네요. 감사합니다.",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 영화와 미드 장면을 통해 스몰 토크 영어 표현 단어와 문장을 알려주는 모음 영상이지, 성인 학습자를 위한 영어 소리 원리나 발음 훈련을 가르치는 영상이 아니다.",
+    "forUs": {
+      "adopt": "영화나 드라마 속 실제 원어민들의 입 모양과 대화 상황을 시각 자료로 보여주어 몰입감을 높이는 점",
+      "differentiate": "우리는 단순 표현 나열에 그치지 않고, 한국인 3060이 놓치는 소리의 연결과 생략 원리를 직접 소리 내어 훈련하도록 돕는다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 32,
+    "verified": 21,
+    "unverified": 11
+  },
+  "pacing": {
+    "count": 136,
+    "medianGapSeconds": 1.5,
+    "perMinute": 27.2,
+    "times": [
+      1.2,
+      1.8,
+      4.6,
+      5.5,
+      7,
+      8.1,
+      9.7,
+      13.3,
+      15.8,
+      22.3,
+      23.3,
+      25,
+      30.3,
+      31.7,
+      35.3,
+      36.6,
+      37.7,
+      45.6,
+      46.6,
+      52.4,
+      55.5,
+      57.1,
+      60.8,
+      63.8,
+      65.4,
+      65.5,
+      68.7,
+      69.2,
+      75,
+      75.9,
+      76.9,
+      79.1,
+      81.4,
+      83.7,
+      95.5,
+      96.7,
+      97.9,
+      101,
+      102,
+      103.3,
+      103.4,
+      112,
+      114.1,
+      114.4,
+      115.6,
+      116.8,
+      117.5,
+      119.4,
+      122.1,
+      125.3,
+      127.1,
+      127.7,
+      128.7,
+      129.1,
+      130.8,
+      132.9,
+      134.3,
+      138.4,
+      139.6,
+      140,
+      141,
+      151.7,
+      153.2,
+      154.9,
+      157.2,
+      158.7,
+      162.9,
+      169.5,
+      170.7,
+      171.3,
+      172.8,
+      173.2,
+      177.6,
+      178.5,
+      185.6,
+      190.8,
+      192.2,
+      194.9,
+      198.5,
+      203.1,
+      208.4,
+      209.4,
+      211.1,
+      213,
+      214.2,
+      216.9,
+      219.8,
+      221.2,
+      222.3,
+      222.5,
+      224.1,
+      224.9,
+      226.1,
+      226.4,
+      230.4,
+      231.9,
+      232.2,
+      232.8,
+      233.7,
+      236.6,
+      239.5,
+      241.6,
+      246.6,
+      247.4,
+      251.5,
+      251.7,
+      254,
+      254.9,
+      261.1,
+      263,
+      264.6,
+      265.6,
+      267.1,
+      268.2,
+      268.7,
+      269.2,
+      270.1,
+      275.2,
+      276.2,
+      276.5,
+      277.3,
+      278.4,
+      278.9,
+      280.3,
+      281.9,
+      284.5,
+      285.7,
+      286.8,
+      288.5,
+      289.5,
+      290.9,
+      294.5,
+      296.1,
+      297.6,
+      299,
+      299.5,
+      302.2
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 27,
+      "file": "27.jpg"
+    },
+    {
+      "t": 37,
+      "file": "37.jpg"
+    },
+    {
+      "t": 57,
+      "file": "57.jpg"
+    },
+    {
+      "t": 123,
+      "file": "123.jpg"
+    },
+    {
+      "t": 137,
+      "file": "137.jpg"
+    },
+    {
+      "t": 147,
+      "file": "147.jpg"
+    },
+    {
+      "t": 201,
+      "file": "201.jpg"
+    },
+    {
+      "t": 226,
+      "file": "226.jpg"
+    },
+    {
+      "t": 238,
+      "file": "238.jpg"
+    },
+    {
+      "t": 254,
+      "file": "254.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 32915,
+    "candidatesTokenCount": 3692,
+    "totalTokenCount": 36607,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4514
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

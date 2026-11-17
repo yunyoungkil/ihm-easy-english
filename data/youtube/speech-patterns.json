@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-15T16:08:10.131Z",
+  "computedAt": "2026-11-17T09:23:18.869Z",
   "confidence": "가설",
   "note": "경쟁 영상 말투 합계(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.",
   "qualityThresholds": {
@@ -10,52 +10,110 @@
     "UNIQUE_WORD_MIN": 0.4,
     "UNIQUE_SENTENCE_MIN": 0.8
   },
-  "excludedLowQuality": 2,
+  "excludedLowQuality": 6,
   "unmeasured": 20,
   "long": {
-    "videoCount": 0,
+    "videoCount": 3,
     "lowSample": true,
     "totals": {
-      "sentences": 0,
-      "lengthSum": 0,
-      "jointMid": 0,
+      "sentences": 123,
+      "lengthSum": 3455,
+      "jointMid": 10,
       "jointEnd": 0,
-      "dictFrameSentences": 0,
-      "meaningAfterSentences": 0,
-      "questionSentences": 0,
-      "pastConclusionSentences": 0,
+      "dictFrameSentences": 1,
+      "meaningAfterSentences": 1,
+      "questionSentences": 13,
+      "pastConclusionSentences": 11,
       "endings": {
-        "question": 0,
-        "command": 0,
-        "geodeunyo": 0,
+        "question": 13,
+        "command": 7,
+        "geodeunyo": 1,
         "janhayo": 0,
         "neyo": 0,
         "ndeyo": 0,
-        "jyo": 0,
-        "hapsyo": 0,
-        "haeyo": 0,
-        "other": 0
+        "jyo": 5,
+        "hapsyo": 51,
+        "haeyo": 39,
+        "other": 7
       },
       "fillers": {
-        "자": 0,
-        "그래서": 0,
-        "그런데": 0,
+        "자": 5,
+        "그래서": 7,
+        "그런데": 4,
         "근데": 0,
-        "그러면": 0,
-        "여러분": 0,
-        "이게": 0,
-        "그냥": 0,
-        "진짜": 0,
+        "그러면": 2,
+        "여러분": 9,
+        "이게": 2,
+        "그냥": 4,
+        "진짜": 1,
         "되게": 0,
-        "사실": 0,
-        "우리": 0,
+        "사실": 3,
+        "우리": 9,
         "약간": 0
       }
     },
-    "rates": null,
-    "lengthMedianOfVideos": null,
-    "bySource": {},
-    "videos": []
+    "rates": {
+      "sentences": 123,
+      "meanLength": 28.1,
+      "endingsPct": {
+        "question": 10.6,
+        "command": 5.7,
+        "geodeunyo": 0.8,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 4.1,
+        "hapsyo": 41.5,
+        "haeyo": 31.7,
+        "other": 5.7
+      },
+      "jointMidPer100": 8.1,
+      "jointEndPer100": 0,
+      "fillersPer100": {
+        "자": 4.1,
+        "그래서": 5.7,
+        "그런데": 3.3,
+        "근데": 0,
+        "그러면": 1.6,
+        "여러분": 7.3,
+        "이게": 1.6,
+        "그냥": 3.3,
+        "진짜": 0.8,
+        "되게": 0,
+        "사실": 2.4,
+        "우리": 7.3,
+        "약간": 0
+      },
+      "fillersTotalPer100": 37.4,
+      "dictFramePct": 0.8,
+      "meaningAfterPct": 0.8,
+      "questionPct": 10.6,
+      "pastConclusionPct": 8.9
+    },
+    "lengthMedianOfVideos": 25,
+    "bySource": {
+      "transcript-api": 3
+    },
+    "videos": [
+      {
+        "videoId": "13MTKD2RPqA",
+        "channelTitle": "어션영어BasicEnglish",
+        "source": "transcript-api",
+        "sentences": 39
+      },
+      {
+        "videoId": "4cBa8D9P96I",
+        "channelTitle": "JJEnglish101",
+        "source": "transcript-api",
+        "sentences": 49
+      },
+      {
+        "videoId": "J28QuPqOCyM",
+        "channelTitle": "9988영어",
+        "source": "transcript-api",
+        "sentences": 35
+      }
+    ]
   },
   "short": {
     "videoCount": 0,

@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "videoId": "rooxbEm1oRc",
+  "analyzedAt": "2026-11-17T09:18:25.307Z",
+  "model": "gemini-3.5-flash-lite",
+  "windowSeconds": 26,
+  "meta": {
+    "videoId": "rooxbEm1oRc",
+    "title": "World 발음 함께 연습해요 ! #dailyconversations #english #konglish #dailyenglish #발음연습 #영어공부",
+    "channelId": "UC-oiPen1gjMeyPDGuDgjtfw",
+    "channelTitle": "Just do English",
+    "publishedAt": "2023-08-06T23:16:35Z",
+    "viewCount": 198349,
+    "likeCount": 1990,
+    "commentCount": 36,
+    "durationSeconds": 26,
+    "thumbnail": "https://i.ytimg.com/vi/rooxbEm1oRc/maxresdefault.jpg",
+    "description": "",
+    "tags": [
+      "영어",
+      "발음연습",
+      "English"
+    ]
+  },
+  "subscriberCount": 2870,
+  "viewsPerSubscriber": 69.11,
+  "outlierRatio": 58.89,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 10,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 14
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 26
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 267,
+      "lengthMedian": 267,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.55,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-17T09:18:21.257Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "world 발음을 다르게 하면 못 알아듣는다는 경고로 궁금증을 유발함",
+      "titleQuote": "World 발음 함께 연습해요 ! #dailyconversations #english #konglish #dailyenglish #발음연습 #영어공부",
+      "thumbnailText": "world 발음 이렇게 하면 못알아 들어요!",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "노란색 배경에 테두리 원형 그래픽, 상단에 검은색 박스 자막과 영어 단어 강조",
+      "thumbnailVsTitle": "썸네일과 제목 모두 world 발음과 관련된 연습의 필요성을 전달함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "외국인과 한국인 출연자가 화상 통화 형식으로 대화하며 word와 world의 발음 차이를 구별하는 대화를 나눔",
+      "quote": "we're going to think you're saying word and then we'll be like what word",
+      "reasonToKeepWatching": "원어민이 한국인이 흔히 하는 발음 실수를 직접 지적하며 호기심을 유발함",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "외국인 출연자가 한국인의 발음을 오해할 수 있는 상황을 설명함",
+      "quote": "we're going to think you're saying word",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 3,
+        "what": "word와 world의 발음 혼동 상황 설명",
+        "quote": "we're going to think you're saying word and then we'll be like what word",
+        "quoteVerified": true
+      },
+      {
+        "start": 3,
+        "end": 13,
+        "what": "한국인 출연자가 발음 테스트를 진행하고 외국인이 피드백을 줌",
+        "quote": "can you guess what I'm saying word word",
+        "quoteVerified": true
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "what": "L 발음의 중요성과 올바른 발음법을 정리함",
+        "quote": "you're missing the L I thought you were saying word",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단 자막과 화상 통화 화면 등장",
+        "purpose": "발음 차이를 강조하는 주제 안내"
+      },
+      {
+        "t": 3,
+        "what": "노란색 배경의 natural konglish 로고 화면 전환",
+        "purpose": "챕터 전환 및 브랜드 표시"
+      },
+      {
+        "t": 4,
+        "what": "다시 화상 통화 화면으로 복귀",
+        "purpose": "대화 상황 지속"
+      },
+      {
+        "t": 8,
+        "what": "WORD 대문자 자막 표시",
+        "purpose": "발음하는 단어 시각화"
+      },
+      {
+        "t": 25,
+        "what": "화면 하단 자막과 세로형 레이아웃 전환",
+        "purpose": "숏폼 형식에 맞춘 시각적 강조"
+      }
+    ],
+    "ending": {
+      "what": "L 발음을 넣어서 world라고 발음해야 한다는 설명으로 마무리됨",
+      "quote": "or you gotta put the L in there so like or",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "L 발음을 할 때 '을'을 끼워넣는 팁에 공감함",
+          "quote": "저는 그냥 단어 중간에 l이 오면 \"을\"을 끼워넣는 식으로 대처해요.",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "L 소리와 R 소리를 구분하는 것이 여전히 어렵다고 느낌",
+          "quote": "사실 다 커서 영어를 배우는 한국인한테 진짜 어려운 건 world, talk 같은 단어의 L임 소리를 구분하는 것부터가 난관",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "워을드",
+          "quote": "world는 월드 대신 워을드, cold는 콜드 아니고 코을드",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 2,
+      "description": "word와 world 두 단어의 발음 차이와 L 발음의 필요성을 대화와 피드백 형태로 나열함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "노란색",
+      "highlightMethod": "색상 변경 및 박스 강조",
+      "textAmount": "한두 문장 단위",
+      "changeTiming": "말에 맞춰"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "",
+      "voiceVsMusic": "말소리 중심"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "word라고 말하면 원어민이 다른 단어로 오해한다는 점을 짚음",
+        "quote": "we're going to think you're saying word",
+        "type": "원어민이 한국인의 발음 오해 상황을 직접 경고하는 훅",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "왜 world를 word처럼 발음하면 못 알아듣는지 의문을 제기함",
+          "quote": "we're going to think you're saying word",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 13,
+          "what": "L 발음이 빠졌기 때문이라는 이유를 밝힘",
+          "quote": "you're missing the L",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "한국인의 발음 실수를 지적하고, 테스트를 거쳐 올바른 L 발음 교정법으로 자연스럽게 이어진다.",
+        "examples": [
+          {
+            "t": 13,
+            "what": "L 발음 누락 지적",
+            "quote": "you're missing the L",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [
+        {
+          "t": 4,
+          "what": "어떤 단어를 말하는지 맞혀 보도록 유도함",
+          "quote": "Can you guess what I'm saying",
+          "quoteVerified": true
+        }
+      ],
+      "evidence": [
+        {
+          "t": 8,
+          "what": "스펠링을 직접 짚어가며 빠진 글자를 확인시켜 줌",
+          "quote": "Can you spell it",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 20,
+        "what": "L을 넣어서 소리를 내는 방법을 구체적으로 시범 보임",
+        "quote": "you gotta put the L in there",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "world 발음에서 L 소리를 내는 과정",
+        "reaction": "시청자들이 '을'을 끼워넣거나 혀 위치를 잡는 자신만의 팁을 공유함",
+        "quote": "저는 그냥 단어 중간에 l이 오면 \"을\"을 끼워넣는 식으로 대처해요.",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "한국인이 자주 틀리는 world와 word의 발음 차이와 L 소리의 중요성을 원어민과의 대화를 통해 가르치고 있다.",
+    "forUs": {
+      "adopt": "원어민이 오해하는 실제 발음 오류 상황을 대화 형식으로 보여주기",
+      "differentiate": "복잡한 용어 대신 3060 성인이 바로 따라 할 수 있는 직관적인 소리 팁 제공하기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 18,
+    "verified": 18,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 2,
+    "medianGapSeconds": 1,
+    "perMinute": 4.6,
+    "times": [
+      2.8,
+      3.8
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 8,
+      "file": "8.jpg"
+    },
+    {
+      "t": 25,
+      "file": "25.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 6198,
+    "candidatesTokenCount": 1962,
+    "totalTokenCount": 8160,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2736
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2362
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

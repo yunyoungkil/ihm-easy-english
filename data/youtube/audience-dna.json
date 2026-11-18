@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-17T09:19:15.275Z",
+  "updatedAt": "2026-11-18T04:19:12.490Z",
   "entries": [
     {
       "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
@@ -481,6 +481,201 @@
       ],
       "firstSeenAt": "2026-09-07T06:25:33.613Z",
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
+    },
+    {
+      "id": "painPoint:모음 뭉치가 단어마다 다르게 발음되어 무작정 외우기가 어렵고 암기 방법에 대해 답답해합니다.",
+      "type": "painPoint",
+      "text": "모음 뭉치가 단어마다 다르게 발음되어 무작정 외우기가 어렵고 암기 방법에 대해 답답해합니다.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "yUhwIkoPMTc",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:19:12.490Z",
+      "lastSeenAt": "2026-11-18T04:19:12.490Z"
+    },
+    {
+      "id": "question:규칙이 복잡한 모음 뭉치들을 어떻게 효과적으로 암기해야 머리에 남는지 질문합니다.",
+      "type": "question",
+      "text": "규칙이 복잡한 모음 뭉치들을 어떻게 효과적으로 암기해야 머리에 남는지 질문합니다.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "yUhwIkoPMTc",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:19:12.490Z",
+      "lastSeenAt": "2026-11-18T04:19:12.490Z"
+    },
+    {
+      "id": "vocabulary:강사가 제시한 퀴즈 정답 어휘를 댓글로 복습한 표현입니다.",
+      "type": "vocabulary",
+      "text": "강사가 제시한 퀴즈 정답 어휘를 댓글로 복습한 표현입니다.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "yUhwIkoPMTc",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:19:12.490Z",
+      "lastSeenAt": "2026-11-18T04:19:12.490Z"
+    },
+    {
+      "id": "painPoint:고령의 나이에 영어를 처음 배우는데 규칙이 자꾸 바뀌어 기억하기 어렵고 답답함",
+      "type": "painPoint",
+      "text": "고령의 나이에 영어를 처음 배우는데 규칙이 자꾸 바뀌어 기억하기 어렵고 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "duUjpyC60Xs",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:13:21.836Z",
+      "lastSeenAt": "2026-11-18T04:13:21.836Z"
+    },
+    {
+      "id": "question:규칙이 계속 바뀌는 영어를 시니어 입장에서 어떻게 기억하면 좋은지 학습 요령 문의",
+      "type": "question",
+      "text": "규칙이 계속 바뀌는 영어를 시니어 입장에서 어떻게 기억하면 좋은지 학습 요령 문의",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "duUjpyC60Xs",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:13:21.836Z",
+      "lastSeenAt": "2026-11-18T04:13:21.836Z"
+    },
+    {
+      "id": "vocabulary:콕콕 찝어주셔서 조금씩 읽어진다",
+      "type": "vocabulary",
+      "text": "콕콕 찝어주셔서 조금씩 읽어진다",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "duUjpyC60Xs",
+          "channelTitle": "9988영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:13:21.836Z",
+      "lastSeenAt": "2026-11-18T04:13:21.836Z"
+    },
+    {
+      "id": "painPoint:영어 발음을 읽거나 구분할 때 계속 헷갈리고 어려움을 겪었습니다.",
+      "type": "painPoint",
+      "text": "영어 발음을 읽거나 구분할 때 계속 헷갈리고 어려움을 겪었습니다.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:08:06.379Z",
+      "lastSeenAt": "2026-11-18T04:08:06.379Z"
+    },
+    {
+      "id": "painPoint:한번 잘못 굳어진 발음 습관을 고치기가 쉽지 않았습니다.",
+      "type": "painPoint",
+      "text": "한번 잘못 굳어진 발음 습관을 고치기가 쉽지 않았습니다.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:08:06.379Z",
+      "lastSeenAt": "2026-11-18T04:08:06.379Z"
+    },
+    {
+      "id": "question:다음 회차 강의(class 02)가 나오기를 기다립니다.",
+      "type": "question",
+      "text": "다음 회차 강의(Class 02)가 나오기를 기다립니다.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:08:06.379Z",
+      "lastSeenAt": "2026-11-18T04:08:06.379Z"
+    },
+    {
+      "id": "vocabulary:영어발음 세탁해가요",
+      "type": "vocabulary",
+      "text": "영어발음 세탁해가요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "FFNfnU_nvHY",
+          "channelTitle": "MagicEnglish 이근철의 마법영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:08:06.379Z",
+      "lastSeenAt": "2026-11-18T04:08:06.379Z"
+    },
+    {
+      "id": "painPoint:단어를 읽을 때 유사한 다른 단어로 잘못 읽게 되는 어려움",
+      "type": "painPoint",
+      "text": "단어를 읽을 때 유사한 다른 단어로 잘못 읽게 되는 어려움",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "SF7u3wLKCEM",
+          "channelTitle": "베이비보소 English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:06:01.552Z",
+      "lastSeenAt": "2026-11-18T04:06:01.552Z"
+    },
+    {
+      "id": "question:알파벳 o가 반모음인지에 대한 추가적인 질문",
+      "type": "question",
+      "text": "알파벳 O가 반모음인지에 대한 추가적인 질문",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "SF7u3wLKCEM",
+          "channelTitle": "베이비보소 English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:06:01.552Z",
+      "lastSeenAt": "2026-11-18T04:06:01.552Z"
+    },
+    {
+      "id": "vocabulary:첫 계단",
+      "type": "vocabulary",
+      "text": "첫 계단",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "SF7u3wLKCEM",
+          "channelTitle": "베이비보소 English",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T04:06:01.552Z",
+      "lastSeenAt": "2026-11-18T04:06:01.552Z"
     },
     {
       "id": "painPoint:영어를 원래 잘 못하거나 어려워했던 경험",
@@ -4396,201 +4591,6 @@
       ],
       "firstSeenAt": "2026-11-12T06:28:38.788Z",
       "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "painPoint:알파벳 모음을 정직하게 다 발음하다가 묘하게 '외국인 티'가 나고 원어민이 못 알아듣는 현상 (\"하나같이 익숙한 단어인데 묘하게 다르게 발음해서 외국인 티가 난다\")",
-      "type": "painPoint",
-      "text": "알파벳 모음을 정직하게 다 발음하다가 묘하게 '외국인 티'가 나고 원어민이 못 알아듣는 현상 (\"하나같이 익숙한 단어인데 묘하게 다르게 발음해서 외국인 티가 난다\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "painPoint:혀를 둥글둥글 무작정 굴리는 '버터 발음'에만 신경 쓰다가 정작 중요한 '강세와 모음 탈락'을 놓쳐 소통에 실패함 (\"혀 굴림은 무용, 원어민은 강세로 알아먹는다\")",
-      "type": "painPoint",
-      "text": "혀를 둥글둥글 무작정 굴리는 '버터 발음'에만 신경 쓰다가 정작 중요한 '강세와 모음 탈락'을 놓쳐 소통에 실패함 (\"혀 굴림은 무용, 원어민은 강세로 알아먹는다\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "question:film(필름)이나 vulnerable처럼 l과 m, l과 r 소리가 연속으로 붙어있을 때는 혀를 어디에 붙여야 발음이 되나요?",
-      "type": "question",
-      "text": "Film(필름)이나 Vulnerable처럼 L과 M, L과 R 소리가 연속으로 붙어있을 때는 혀를 어디에 붙여야 발음이 되나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "question:한국어에서 '안녕하십니까'가 '안녕하심까'로 줄어드는 것처럼, 영어 원어민들도 게을러서 소리를 뭉개는 구체적인 기준이 있나요?",
-      "type": "question",
-      "text": "한국어에서 '안녕하십니까'가 '안녕하심까'로 줄어드는 것처럼, 영어 원어민들도 게을러서 소리를 뭉개는 구체적인 기준이 있나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "vocabulary:두번째 모음",
-      "type": "vocabulary",
-      "text": "두번째 모음",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "vocabulary:혀 둥글둥글",
-      "type": "vocabulary",
-      "text": "혀 둥글둥글",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "vocabulary:강세 포인트",
-      "type": "vocabulary",
-      "text": "강세 포인트",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "vocabulary:캠롸/히스트리",
-      "type": "vocabulary",
-      "text": "캠롸/히스트리",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "vocabulary:안녕하심까 축약",
-      "type": "vocabulary",
-      "text": "안녕하심까 축약",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "SbQVBQoRciA",
-          "channelTitle": "조밥잉글리쉬 ",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:15.255Z",
-      "lastSeenAt": "2026-11-12T06:28:15.255Z"
-    },
-    {
-      "id": "painPoint:글자(스펠링) 중심으로 영어를 배워서 눈으로는 읽지만 귀로는 들리지 않는 악순환 ('영어회화가 목표인데 아직도 영어 글자만 보고 있나요?')",
-      "type": "painPoint",
-      "text": "글자(스펠링) 중심으로 영어를 배워서 눈으로는 읽지만 귀로는 들리지 않는 악순환 ('영어회화가 목표인데 아직도 영어 글자만 보고 있나요?')",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "8nzWymZViuo",
-          "channelTitle": "칩스영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:52.594Z",
-      "lastSeenAt": "2026-11-12T06:27:52.594Z"
-    },
-    {
-      "id": "painPoint:알파벳 표기대로 읽었다가 망신을 당하거나('angel'을 '엔겔'로 읽어 3년 내내 놀림받은 트라우마), 묵음('island')의 존재 이유를 몰라 영어와 담을 쌓게 됨",
-      "type": "painPoint",
-      "text": "알파벳 표기대로 읽었다가 망신을 당하거나('Angel'을 '엔겔'로 읽어 3년 내내 놀림받은 트라우마), 묵음('Island')의 존재 이유를 몰라 영어와 담을 쌓게 됨",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "8nzWymZViuo",
-          "channelTitle": "칩스영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:52.594Z",
-      "lastSeenAt": "2026-11-12T06:27:52.594Z"
-    },
-    {
-      "id": "painPoint:원어민이나 현직 영어 교사조차 헷갈릴 정도로 개판인 영어 철자 시스템 때문에 초보자들만 극심한 혼란과 난독증을 겪음",
-      "type": "painPoint",
-      "text": "원어민이나 현직 영어 교사조차 헷갈릴 정도로 개판인 영어 철자 시스템 때문에 초보자들만 극심한 혼란과 난독증을 겪음",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "8nzWymZViuo",
-          "channelTitle": "칩스영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:52.594Z",
-      "lastSeenAt": "2026-11-12T06:27:52.594Z"
-    },
-    {
-      "id": "painPoint:다들 재밌다고 추천하는 미드(프렌즈 등)로 쉐도잉을 시도했다가 촌스러운 개그와 빠른 템포에 가로막혀 자책하며 하차함",
-      "type": "painPoint",
-      "text": "다들 재밌다고 추천하는 미드(프렌즈 등)로 쉐도잉을 시도했다가 촌스러운 개그와 빠른 템포에 가로막혀 자책하며 하차함",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "8nzWymZViuo",
-          "channelTitle": "칩스영어",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:27:52.594Z",
-      "lastSeenAt": "2026-11-12T06:27:52.594Z"
     }
   ]
 }

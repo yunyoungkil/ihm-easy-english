@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "videoId": "qR73bQRt2W4",
+  "analyzedAt": "2026-11-18T04:05:00.706Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 220,
+  "meta": {
+    "videoId": "qR73bQRt2W4",
+    "title": "파닉스, 알파벳 음가 쉽게 암기하는 비법을 정리한 노래1 (3분 만에 단모음으로 영어단어 쉽게 읽기!)",
+    "channelId": "UC12aXz2seVdfkMXKzfft-RQ",
+    "channelTitle": "Jimmy class",
+    "publishedAt": "2023-04-25T05:07:22Z",
+    "viewCount": 338538,
+    "likeCount": 4198,
+    "commentCount": 0,
+    "durationSeconds": 220,
+    "thumbnail": "https://i.ytimg.com/vi/qR73bQRt2W4/maxresdefault.jpg",
+    "description": "학습지 다운로드 https://blog.naver.com/forourmother/223093208098\n초등학교 6학년이 되어서 영어 단어를 읽지 못하는 학생들이 많았습니다. 그래서 교과서에는 없지만 파닉스, 알파벳 음가를 가르쳤습니다. 어떻게 하면 쉽게 26개의 음가와 파닉스 규칙을 쉽게 익힐까 고민하다 노래를 만들었습니다. 이 노래만 부르면 저절로 복습이 될 수 있도록 했습니다. 조금이나마 도움이 되시길....",
+    "tags": []
+  },
+  "subscriberCount": 9270,
+  "viewsPerSubscriber": 36.52,
+  "outlierRatio": 585.71,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-18T04:01:41.403Z",
+  "ratioDenominator": 578,
+  "ratioPeerCount": 39,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 30,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": false,
+      "error": "YouTube commentThreads 403: commentsDisabled"
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 220
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "long",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 124,
+      "lengthMedian": 124,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 106,
+      "hangulRatio": 0.86,
+      "uniqueWordRatio": 0.84,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-18T04:04:55.648Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 106자(150자 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "3분 만에 파닉스와 단모음 단어 읽기를 완료할 수 있다는 간단한 암기 비법을 제시하여 흥미를 끕니다.",
+      "titleQuote": "파닉스, 알파벳 음가 쉽게 암기하는 비법을 정리한 노래1 (3분 만에 단모음으로 영어단어 쉽게 읽기!)",
+      "thumbnailText": "초등학생도 이해하는 파닉스 & 알파벳 음가 한방에 끝내는 노래",
+      "thumbnailWordCount": 8,
+      "thumbnailVisual": "검은색 배경 중앙에 깔끔한 흰색 및 노란색 굵은 고딕체 텍스트가 3줄로 나열되어 있습니다.",
+      "thumbnailVsTitle": "제목의 내용(파닉스/알파벳 음가 암기 비법)을 초등학생도 쉽게 따라 할 수 있다는 쉬운 난이도 강조로 보완합니다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "검은 화면에 핑크색 자막으로 영어 글자를 읽는 방법과 알파벳 이름 속에 답이 있다는 오프닝 안내 메시지가 노래 반주와 함께 나옵니다.",
+      "quote": "얘들아 이제 영어 글자를 읽어보자 알파벳 이름 속에 답이 있어 알파벳 이름만 알면 돼",
+      "reasonToKeepWatching": "알파벳 이름만 알면 영어를 읽을 수 있다는 쉬운 원리를 제시해 학습 호기심을 유지시킵니다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "검은 바탕에 '파닉스 한 방에 끝내는 노래'라는 타이틀 핑크 자막과 원곡 표기가 뜹니다.",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 17,
+        "what": "노래의 오프닝 도입부로, 알파벳 이름에서 소리를 찾는 원리를 가사로 설명합니다.",
+        "quote": "얘들아 이제 영어 글자를 읽어보자 알파벳 이름 속에 답이 있어 알파벳 이름만 알면 돼",
+        "quoteVerified": true
+      },
+      {
+        "start": 18,
+        "end": 127,
+        "what": "Miss A 노래 멜로디에 맞춰 알파벳 자음(b, d, f, j, k, l, m, n, p, q, r, s, t, v, x, y, z)의 대표 음가를 연상 기법 가사로 배웁니다.",
+        "quote": "입술을 깨물고 바람소리 와이 됐어이를 가져와",
+        "quoteVerified": false
+      },
+      {
+        "start": 128,
+        "end": 203,
+        "what": "규칙에서 벗어나는 예외 자음(c, g, h, w)의 소리와 연상법을 가사로 이어서 익히고 확인 구간으로 들어갑니다.",
+        "quote": "지구를 위하지 거울을 불어라 감기에 걸렸다 고우를 불어라 Wow you know 파닉스",
+        "quoteVerified": false
+      },
+      {
+        "start": 204,
+        "end": 221,
+        "what": "자음 알파벳과 음가 한글 자음 표기를 빠른 비트에 맞춰 퀴즈처럼 복습 점검합니다.",
+        "quote": ""
+      },
+      {
+        "start": 222,
+        "end": 253,
+        "what": "단모음 5개(a, e, i, o, u)의 발음 규칙('애, 에, 이, 아, 어')을 노래 리듬에 올려 암기시킵니다.",
+        "quote": "이즈 좋았어 이제 모읍니다 5개만 기억해",
+        "quoteVerified": false
+      },
+      {
+        "start": 254,
+        "end": 336,
+        "what": "앞서 배운 자음과 모음 소리를 조합하여 3글자 단어(bat, red, big, hot, gum, cup)를 실제로 읽는 시범을 보여줍니다.",
+        "quote": ""
+      },
+      {
+        "start": 337,
+        "end": 340,
+        "what": "마무리 자막과 함께 학습이 마무리됩니다.",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "검은 화면에 핑크색 타이틀 자막 등장",
+        "purpose": "영상 주제 및 노래의 기반 음악 정보 전달"
+      },
+      {
+        "t": 3,
+        "what": "인트로 안내 핑크색 자막으로 변경",
+        "purpose": "영어 읽기 학습 시작 알림"
+      },
+      {
+        "t": 18,
+        "what": "b 알파벳과 한글 음가 연상 텍스트 표시",
+        "purpose": "b의 'ㅂ' 발음 규칙 제시"
+      },
+      {
+        "t": 28,
+        "what": "f 발음 시 입술 모양 팁을 담은 문구 등장",
+        "purpose": "f 발음의 입술 깨물기 바람 소리 안내"
+      },
+      {
+        "t": 128,
+        "what": "c 알파벳과 'c크, c크하게' 텍스트 표시",
+        "purpose": "예외 자음 c의 'ㅋ' 발음 연상법 전달"
+      },
+      {
+        "t": 204,
+        "what": "화면 중앙에 b, c, f 등 개별 알파벳과 한글 음가가 박자에 맞춰 연속 교체",
+        "purpose": "빠른 비트 자음 음가 복습"
+      }
+    ],
+    "ending": {
+      "what": "검은 바탕에 '모두들 수고했습니다.'라는 흰색 안내 자막이 나오며 영상이 종료됩니다.",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": []
+    },
+    "infoCount": {
+      "count": 26,
+      "description": "알파벳 21개 자음과 5개 단모음 음가 소리 및 결합 단어 6개를 가요 멜로디에 맞춰 순차적으로 나열하며 조합 구조를 시각화합니다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 배치",
+      "size": "큼",
+      "highlightColor": "핑크색, 흰색",
+      "highlightMethod": "핵심 음가 문자를 핑크색 강조 폰트로 다르게 배치",
+      "textAmount": "한 번에 1~2줄의 짧은 가사 및 음가 표기",
+      "changeTiming": "음악 박자와 가사 음성에 맞춰 1~2초 단위로 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 중독성 있는 K-POP Dance 댄스곡 리듬",
+      "tempo": "빠름",
+      "hasSoundEffects": true,
+      "soundEffectUse": "알파벳 음가 발음 소리(브, 드, 쁘 등)가 비트에 맞춰 효과음처럼 삽입됨",
+      "voiceVsMusic": "음악 반주와 가창/발음 소리가 비슷한 비중으로 어우러짐"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "Miss A의 'Bad Girl Good Girl' 멜로디를 활용해 파닉스 규칙을 한 번에 배울 수 있다고 제시함",
+        "quote": "",
+        "type": "유명 가요 멜로디 연상 기법"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 10,
+          "what": "알파벳 이름 속에 영어 읽기의 답이 있다는 원리를 제시해 궁금증 유발",
+          "quote": "알파벳 이름 속에 답이 있어",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 18,
+          "what": "b(비)에서 'ㅂ'을 가져온다는 구체적 음가 추출 규칙을 보여주며 해결",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "개별 자음 소리를 배운 후 예외 자음, 모음 소리를 익히고 마지막에 이들을 합쳐 단어를 읽는 단계적 연계 구조입니다.",
+        "examples": [
+          {
+            "t": 254,
+            "what": "배운 자음 b, t와 모음 a 소리를 합쳐 bat 단어를 조합해 읽음",
+            "quote": ""
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 204,
+          "what": "가사 설명 중심 패턴에서 비트에 맞춰 카드처럼 빠르게 알파벳과 음가를 보여주는 스피드 퀴즈 형태로 바뀜",
+          "quote": ""
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 28,
+          "what": "f 발음 시 입술을 깨물고 바람 소리를 내보도록 안내",
+          "quote": "입술을 깨물고 바람소리",
+          "quoteVerified": true
+        }
+      ],
+      "evidence": [],
+      "payoff": {
+        "t": 254,
+        "what": "앞에서 배운 자음/모음 음가를 조합해 실제 영어 단어(bat, red, big 등)를 직접 읽어내도록 완성해 줌",
+        "quote": ""
+      }
+    },
+    "links": [],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "파닉스와 알파벳 자음·모음 음가를 3분 만에 읽는 법으로 노래를 통해 직관적으로 가르쳐 성인 기초 학습자에게도 유용한 원본 영상입니다.",
+    "forUs": {
+      "adopt": "대중적이고 익숙한 멜로디에 알파벳 음가 규칙을 얹어 직관적인 한글 자모 대응으로 암기 부담을 줄이는 방식",
+      "differentiate": "어린이용 가요 노래 형식을 벗어나 성인 신중년층이 고급스럽고 편안하게 따라 할 수 있는 팝송/트로트 멜로디나 텍스트 기반 구성 적용"
+    }
+  },
+  "quoteCheck": {
+    "checked": 8,
+    "verified": 5,
+    "unverified": 3
+  },
+  "pacing": {
+    "count": 6,
+    "medianGapSeconds": 15,
+    "perMinute": 1.6,
+    "source": "AI가 적은 화면 변화(영상을 못 받아 대신 씀)"
+  },
+  "frames": [],
+  "framesError": "ERROR: [youtube] qR73bQRt2W4: This video is not available",
+  "usage": {
+    "promptTokenCount": 23486,
+    "candidatesTokenCount": 2618,
+    "totalTokenCount": 27561,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 20012
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2374
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 1457,
+    "serviceTier": "standard"
+  },
+  "framesUnavailableAt": "2026-11-18T04:20:28.437Z"
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-17T09:23:18.869Z",
+  "computedAt": "2026-11-18T04:19:12.479Z",
   "confidence": "가설",
   "note": "경쟁 영상 말투 합계(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.",
   "qualityThresholds": {
@@ -10,89 +10,89 @@
     "UNIQUE_WORD_MIN": 0.4,
     "UNIQUE_SENTENCE_MIN": 0.8
   },
-  "excludedLowQuality": 6,
+  "excludedLowQuality": 8,
   "unmeasured": 20,
   "long": {
-    "videoCount": 3,
-    "lowSample": true,
+    "videoCount": 7,
+    "lowSample": false,
     "totals": {
-      "sentences": 123,
-      "lengthSum": 3455,
-      "jointMid": 10,
-      "jointEnd": 0,
+      "sentences": 290,
+      "lengthSum": 7460,
+      "jointMid": 14,
+      "jointEnd": 3,
       "dictFrameSentences": 1,
-      "meaningAfterSentences": 1,
-      "questionSentences": 13,
-      "pastConclusionSentences": 11,
+      "meaningAfterSentences": 4,
+      "questionSentences": 20,
+      "pastConclusionSentences": 22,
       "endings": {
-        "question": 13,
-        "command": 7,
-        "geodeunyo": 1,
+        "question": 20,
+        "command": 11,
+        "geodeunyo": 4,
         "janhayo": 0,
         "neyo": 0,
-        "ndeyo": 0,
-        "jyo": 5,
-        "hapsyo": 51,
-        "haeyo": 39,
-        "other": 7
+        "ndeyo": 3,
+        "jyo": 38,
+        "hapsyo": 86,
+        "haeyo": 83,
+        "other": 45
       },
       "fillers": {
-        "자": 5,
-        "그래서": 7,
-        "그런데": 4,
-        "근데": 0,
-        "그러면": 2,
-        "여러분": 9,
-        "이게": 2,
+        "자": 10,
+        "그래서": 13,
+        "그런데": 7,
+        "근데": 1,
+        "그러면": 3,
+        "여러분": 11,
+        "이게": 4,
         "그냥": 4,
         "진짜": 1,
-        "되게": 0,
+        "되게": 1,
         "사실": 3,
-        "우리": 9,
+        "우리": 19,
         "약간": 0
       }
     },
     "rates": {
-      "sentences": 123,
-      "meanLength": 28.1,
+      "sentences": 290,
+      "meanLength": 25.7,
       "endingsPct": {
-        "question": 10.6,
-        "command": 5.7,
-        "geodeunyo": 0.8,
+        "question": 6.9,
+        "command": 3.8,
+        "geodeunyo": 1.4,
         "janhayo": 0,
         "neyo": 0,
-        "ndeyo": 0,
-        "jyo": 4.1,
-        "hapsyo": 41.5,
-        "haeyo": 31.7,
-        "other": 5.7
+        "ndeyo": 1,
+        "jyo": 13.1,
+        "hapsyo": 29.7,
+        "haeyo": 28.6,
+        "other": 15.5
       },
-      "jointMidPer100": 8.1,
-      "jointEndPer100": 0,
+      "jointMidPer100": 4.8,
+      "jointEndPer100": 1,
       "fillersPer100": {
-        "자": 4.1,
-        "그래서": 5.7,
-        "그런데": 3.3,
-        "근데": 0,
-        "그러면": 1.6,
-        "여러분": 7.3,
-        "이게": 1.6,
-        "그냥": 3.3,
-        "진짜": 0.8,
-        "되게": 0,
-        "사실": 2.4,
-        "우리": 7.3,
+        "자": 3.4,
+        "그래서": 4.5,
+        "그런데": 2.4,
+        "근데": 0.3,
+        "그러면": 1,
+        "여러분": 3.8,
+        "이게": 1.4,
+        "그냥": 1.4,
+        "진짜": 0.3,
+        "되게": 0.3,
+        "사실": 1,
+        "우리": 6.6,
         "약간": 0
       },
-      "fillersTotalPer100": 37.4,
-      "dictFramePct": 0.8,
-      "meaningAfterPct": 0.8,
-      "questionPct": 10.6,
-      "pastConclusionPct": 8.9
+      "fillersTotalPer100": 26.6,
+      "dictFramePct": 0.3,
+      "meaningAfterPct": 1.4,
+      "questionPct": 6.9,
+      "pastConclusionPct": 7.6
     },
-    "lengthMedianOfVideos": 25,
+    "lengthMedianOfVideos": 18,
     "bySource": {
-      "transcript-api": 3
+      "transcript-api": 7
     },
     "videos": [
       {
@@ -108,10 +108,34 @@
         "sentences": 49
       },
       {
+        "videoId": "duUjpyC60Xs",
+        "channelTitle": "9988영어",
+        "source": "transcript-api",
+        "sentences": 34
+      },
+      {
+        "videoId": "FFNfnU_nvHY",
+        "channelTitle": "MagicEnglish 이근철의 마법영어",
+        "source": "transcript-api",
+        "sentences": 46
+      },
+      {
         "videoId": "J28QuPqOCyM",
         "channelTitle": "9988영어",
         "source": "transcript-api",
         "sentences": 35
+      },
+      {
+        "videoId": "UOxjVjiXyII",
+        "channelTitle": "어션영어BasicEnglish",
+        "source": "transcript-api",
+        "sentences": 45
+      },
+      {
+        "videoId": "yUhwIkoPMTc",
+        "channelTitle": "9988영어",
+        "source": "transcript-api",
+        "sentences": 42
       }
     ]
   },

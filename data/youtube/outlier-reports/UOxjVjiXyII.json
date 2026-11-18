@@ -1,0 +1,429 @@
+{
+  "schemaVersion": 1,
+  "videoId": "UOxjVjiXyII",
+  "analyzedAt": "2026-11-18T04:14:42.530Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "UOxjVjiXyII",
+    "title": "딱 33일! 올인원 기초영어! [Day01_am, is, are]",
+    "channelId": "UCqQR8b-MTXuMgrV7scZfq_w",
+    "channelTitle": "어션영어BasicEnglish",
+    "publishedAt": "2026-10-19T03:30:05Z",
+    "viewCount": 7542,
+    "likeCount": 78,
+    "commentCount": 8,
+    "durationSeconds": 487,
+    "thumbnail": "https://i.ytimg.com/vi/UOxjVjiXyII/maxresdefault.jpg",
+    "description": "",
+    "tags": [
+      "영문법",
+      "영어문법",
+      "영어시제",
+      "왕기초영어",
+      "왕초보영어",
+      "기초영어회화",
+      "어션영어",
+      "올인원 기초영어"
+    ]
+  },
+  "subscriberCount": 227000,
+  "viewsPerSubscriber": 0.03,
+  "outlierRatio": 36.68,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 185,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 4
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "long",
+    "sentences": 45,
+    "stats": {
+      "sentences": 45,
+      "lengthSum": 1266,
+      "lengthMedian": 24,
+      "endings": {
+        "question": 0,
+        "command": 1,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 3,
+        "jyo": 0,
+        "hapsyo": 24,
+        "haeyo": 2,
+        "other": 15
+      },
+      "jointMid": 0,
+      "jointEnd": 3,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 1,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 45,
+      "hangulChars": 886,
+      "hangulRatio": 0.75,
+      "uniqueWordRatio": 0.56,
+      "uniqueSentenceRatio": 0.96
+    },
+    "computedAt": "2026-11-18T04:14:33.974Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "33일간의 프로젝트 중 Day 1 과정으로 be동사 am, is, are의 핵심 활용법을 완벽히 익힐 수 있음을 명시함",
+      "titleQuote": "딱 33일! 올인원 기초영어! [Day01_am, is, are]",
+      "thumbnailText": "기초 영어 33일 초보 탈출 프로젝트! I can do it! am, is, are (Day 1) All in One",
+      "thumbnailWordCount": 14,
+      "thumbnailVisual": "하얀 창문틀 너머로 안경을 쓴 소년 캐릭터가 아래쪽을 손가락으로 가리키고 있으며, 큼직한 붉은색 글씨로 am, is, are와 녹색 글씨로 (Day 1)이 강조되어 있음.",
+      "thumbnailVsTitle": "제목의 '33일', 'Day 01', 'am, is, are'라는 핵심 주제 요소를 썸네일 그래픽과 글자로 똑같이 강조함.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "강사가 인사를 건넨 뒤 오늘 배울 내용이 be동사 활용법임을 알리고, 동사를 be동사와 일반동사 두 가지로 구분하며 수업을 시작함.",
+      "quote": "안녕하세요. 기초영어 강사 어입니다. 먼저 비동사를 활용하는 방법에 대해 알아보도록 하겠습니다. 우선 동사는 크게 비동사와 일반 동사로 나누어지는데요.",
+      "reasonToKeepWatching": "be동사 개념의 기본 틀부터 차근차근 정리해 주겠다는 점을 명확히 제시함.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "화면에 응원 문구 슬라이드가 뜬 상태에서 강사가 자기소개 인사를 함.",
+      "quote": "안녕하세요. 기초영어 강사 어입니다.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 36,
+        "what": "동사의 두 가지 종류(be동사와 일반동사) 개념과 대표 예시를 설명함.",
+        "quote": "우선 동사는 크게 비동사와 일반 동사로 나누어지는데요. B동사는 am, is are을 말하며 일반 동사는 비동사를 제외한 나머지 동사를 말합니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 37,
+        "end": 117,
+        "what": "be동사 뒤에 올 수 있는 대표적인 3가지 요소(형용사, 명사, 전치사+명사)와 그에 따른 의미 변화를 다룸.",
+        "quote": "비동사 다음에 주로 오는 세 가지는 반드시 아셔야 하는데요. 비동사 즉 am, is, are 다음에는 형용사, 명사 또는 전치사 플러스 명사가 주어 옵니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 118,
+        "end": 246,
+        "what": "인칭대명사 주어(I, He, She, It, We, You, They)에 대응하는 be동사(am, is, are) 결합 규칙을 설명함.",
+        "quote": "어떤 주어에 어떤 비동사를 써야 하는지를 알아보겠습니다. I는 비동사 M과 함께 쓰이며 he, she, is은 비동사 is, we, you, they는 비동사 are과 함께 씁니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 247,
+        "end": 300,
+        "what": "문장 적용 전 명사의 구분(셀 수 있는 명사와 셀 수 없는 명사) 기준을 짚어줌.",
+        "quote": "문장을 만들어 보기에 앞서 잠시 명사의 종류에 대해 알아보겠습니다. 명사는 셀 수 있는 명사와 셀 수 없는 명사로 나누어지는데요.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "응원 메시지가 적힌 백색 보드판 배경의 첫 화면이 뜸.",
+        "purpose": "강의 시작 문구 전달."
+      },
+      {
+        "t": 10,
+        "what": "제목 '1. 동사의 종류'와 함께 'be동사', '일반동사' 항목이 보드판에 등장함.",
+        "purpose": "동사 분류 체계 제시."
+      },
+      {
+        "t": 15,
+        "what": "be동사 옆에 'am, is, are'가 표시되고 일반동사 예시로 'eat, sleep, move'와 한국어 뜻이 추가됨.",
+        "purpose": "개념별 예시 단어 제시."
+      },
+      {
+        "t": 37,
+        "what": "화면이 전환되며 '2. be동사(am, is, are) 뒤에 주로 오는 3가지' 슬라이드로 바뀜.",
+        "purpose": "두 번째 주제 발표."
+      },
+      {
+        "t": 44,
+        "what": "'be + 형용사', 'be + 명사', 'be + 전치사+명사' 3가지 구조가 붉은 글씨로 나열됨.",
+        "purpose": "핵심 결합 구조 시각화."
+      },
+      {
+        "t": 56,
+        "what": "각 결합 구조 우측에 ': ~하다', ': ~(이)다', ': ~(에) 있다, ...' 뜻이 덧붙여짐.",
+        "purpose": "구조별 의미 차이 명시."
+      },
+      {
+        "t": 118,
+        "what": "화면이 바뀌어 '3. 주어에 따라 바뀌는 be동사' 슬라이드가 나옴.",
+        "purpose": "세 번째 주제 진입."
+      },
+      {
+        "t": 124,
+        "what": "좌측에 'I, He, She, It, We, You, They' 알파벳 주어와 주황색 한글 발음 기호가 표시됨.",
+        "purpose": "주어 읽기 안내."
+      },
+      {
+        "t": 140,
+        "what": "주어 옆으로 화살표와 함께 한국어 해석(나, 그, 그녀, 그것...)이 추가됨.",
+        "purpose": "주어 어휘 뜻 전달."
+      },
+      {
+        "t": 200,
+        "what": "화살표 해석이 사라지고 주어 그룹별 대응하는 be동사(am, is, are)가 연결되어 표시됨.",
+        "purpose": "주어와 be동사 짝지음 훈련."
+      },
+      {
+        "t": 217,
+        "what": "be동사 뒤편에 '+ 형용사 / 명사 / 전치사+명사' 문장 완성 공식 텍스트가 합성됨.",
+        "purpose": "문장 구조 통합 정리."
+      },
+      {
+        "t": 248,
+        "what": "화면이 '★ 명사의 종류' 슬라이드로 넘어가며 '셀 수 있는 명사', '셀 수 없는 명사' 항목이 나옴.",
+        "purpose": "보충 문법 항목 도입."
+      }
+    ],
+    "ending": {
+      "what": "be동사 현재형 수업을 마치고 다음 강의인 부정문을 예고하며 구독과 좋아요를 부탁함.",
+      "quote": "이번 강의에서는 비동사의 현재형에 대해 알아보았습니다. 다음 강의에서는 비동사의 현재형 부정문에 대해 알아보도록 하겠습니다.이 영상이 도움이 되셨다면 좋아요와 구독하기 부탁드리고요. 다음 강의도 기대해 주세요.",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "기초 단계부터 다시 차근차근 수업을 진행해 주어 만족스럽다는 반응.",
+          "quote": "잘봤습니다! 처음부터 시작하니 좋네요 😊",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "Welcome to come back",
+          "quote": "Welcome to come back. I was waiting for you. I'm so happy.",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 10,
+      "description": "be동사, 일반동사, 형용사/명사/전치사구 결합 3종, 주어 7종, 명사의 셀 수 있음/없음 등 10가지 이상의 기초 문법 규칙을 순서대로 제시함.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 백색 판 안",
+      "size": "큼",
+      "highlightColor": "빨간색",
+      "highlightMethod": "글자 색상 변경 및 굵게 표시",
+      "textAmount": "한 화면당 3~6줄 내외",
+      "changeTiming": "강사의 설명 진도에 맞춰 단계적으로 텍스트 추가"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "잔잔하고 편안한 분위기",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "글자나 슬라이드 항목이 새로 뜰 때 띵하는 효과음",
+      "voiceVsMusic": "강사의 해설 목소리가 크고 명확하며 음악은 아주 작게 배경에 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 10,
+        "what": "영어 동사가 크게 두 가지 종류로 나뉜다는 점을 짚으며 시작함.",
+        "quote": "우선 동사는 크게 비동사와 일반 동사로 나누어지는데요.",
+        "type": "기초 분류 기준 제시",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 37,
+          "what": "be동사 뒤에 꼭 알아야 하는 3가지가 무엇인지 질문을 던짐.",
+          "quote": "비동사 다음에 주로 오는 세 가지는 반드시 아셔야 하는데요.",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 44,
+          "what": "형용사, 명사, 전치사+명사라고 확실한 정답을 제시함.",
+          "quote": "비동사 즉 am, is, are 다음에는 형용사, 명사 또는 전치사 플러스 명사가 주어 옵니다.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "동사의 분류에서 be동사 뒤에 오는 문장 요소로 넘어가고, 이어서 주어별 be동사 짝지음과 명사의 성질로 단계별 연계성을 가지며 전개됨.",
+        "examples": [
+          {
+            "t": 118,
+            "what": "be동사의 뒤 구조를 설명한 뒤 주어에 맞춰 바꾸는 법으로 자연스럽게 전환함.",
+            "quote": "다음으로 어떤 주어에 어떤 비동사를 써야 하는지를 알아보겠습니다.",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 248,
+          "what": "be동사 결합을 연습하다가 문장 구성을 위해 명사 구분(셀 수 있는지 여부) 개념으로 잠시 전환함.",
+          "quote": "문장을 만들어 보기에 앞서 잠시 명사의 종류에 대해 알아보겠습니다.",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 125,
+          "what": "시청자에게 주어 단어를 따라 읽어보도록 안내함.",
+          "quote": "먼저 주어로 쓰 있는 단어들을 읽어 보겠습니다.",
+          "quoteVerified": true
+        }
+      ],
+      "evidence": [
+        {
+          "t": 21,
+          "what": "일반동사의 예시로 eat, sleep, move 단어를 텍스트와 음성으로 직접 보여줌.",
+          "quote": "예를 들어 먹다. Hit, 자다, sleep, 움직이다, move 등이 일반 동사입니다.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 434,
+        "what": "배운 규칙(주어+be동사+형용사)을 완성된 예문으로 낭독하며 보상감을 제공함.",
+        "quote": "이번에는 문장으로 읽어 보겠습니다. I am smart. You are smart...",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "기초 단계부터 다시 차근차근 시작하는 강의 구성",
+        "reaction": "기초부터 새로 다시 시작해 주어서 반갑고 좋다는 반응",
+        "quote": "잘봤습니다! 처음부터 시작하니 좋네요 😊",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "발음 원리나 소리 훈련이 아니라 be동사의 문법적 구조와 주어별 결합 규칙을 가르치는 문법 기초 영상이다.",
+    "forUs": {
+      "adopt": "문법 항목이나 인칭대명사를 설명할 때 대형 알파벳 글자와 한글 발음 기호, 한국어 뜻을 한눈에 깔끔하게 대비시켜 보여주는 시각적 구성을 벤치마킹한다.",
+      "differentiate": "문법 용어 중심의 표 설명에서 벗어나, 중장년층이 실제 입으로 소리 내어 덩어리째(I am -> 아임, You are -> 유아) 입에 익히는 소리 훈련과 발음 감각에 집중한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 19,
+    "verified": 17,
+    "unverified": 2
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 37,
+      "file": "37.jpg"
+    },
+    {
+      "t": 44,
+      "file": "44.jpg"
+    },
+    {
+      "t": 56,
+      "file": "56.jpg"
+    },
+    {
+      "t": 118,
+      "file": "118.jpg"
+    },
+    {
+      "t": 124,
+      "file": "124.jpg"
+    },
+    {
+      "t": 140,
+      "file": "140.jpg"
+    },
+    {
+      "t": 200,
+      "file": "200.jpg"
+    },
+    {
+      "t": 217,
+      "file": "217.jpg"
+    },
+    {
+      "t": 248,
+      "file": "248.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 33179,
+    "candidatesTokenCount": 3201,
+    "totalTokenCount": 38984,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4778
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 2604,
+    "serviceTier": "standard"
+  }
+}

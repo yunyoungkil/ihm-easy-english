@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "videoId": "FFNfnU_nvHY",
+  "analyzedAt": "2026-11-18T04:08:06.355Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "FFNfnU_nvHY",
+    "title": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
+    "channelId": "UCoGnmCofKnEWH4IIjFEJMEw",
+    "channelTitle": "MagicEnglish 이근철의 마법영어",
+    "publishedAt": "2021-01-04T03:00:01Z",
+    "viewCount": 411895,
+    "likeCount": 9515,
+    "commentCount": 230,
+    "durationSeconds": 3578,
+    "thumbnail": "https://i.ytimg.com/vi/FFNfnU_nvHY/maxresdefault.jpg",
+    "description": "발음규칙 16부터는 아이원발로 정리하세요~\nhttps://www.youtube.com/watch?v=4kObuLMtcXo&list=PLpzicmn_JfA6ZGS7TDNkDtz9v_PPKixfM\n\n1  영화 미국드라마가 안 들리는 이유? 정말 간단!\n100% 알고 있는 단어나 표현인데 왜 안들렸지?\n내가 말하면 왜 못알아 듣고 다시 물어보는 거야?\n\n이럴 때는 영어학습의 새로운 순서가 필요하다는 뜻!\n\"30일 만에 내 영어인생을 확 바꾸는 방법\" \nhttps://www.youtube.com/watch?v=80j9uIPq3No\n\n2  알아두면 흔들리지 않고 탄탄해서 평생 써먹는 영문법!\n늘 찜찜했던 영어문법이 한 번에 쫙 정리된다면?\n영어회화나 영작으로 바로 연결 된다면?\n또 영어시험의 출제포인트까지 깔끔하게 같이 정리된다면? \n\n아무리 귀한 보물도 내가 눈을 닫고 있으면 그저 돌멩이일 뿐이죠! \nhttps://www.youtube.com/watch?v=9kl5QJEsbyA&list=PLpzicmn_JfA5gZTkdYVBxMpTibHO5Z8C3",
+    "tags": [
+      "이근철 TV",
+      "이근철",
+      "영어",
+      "영어공부",
+      "회화",
+      "영어회화",
+      "단어",
+      "발음",
+      "동사",
+      "마법동사",
+      "마법영어",
+      "초급",
+      "중급",
+      "미드영어",
+      "영어듣기",
+      "리스닝",
+      "미드영어회화",
+      "발음규칙",
+      "원어민발음"
+    ]
+  },
+  "subscriberCount": 58700,
+  "viewsPerSubscriber": 7.02,
+  "outlierRatio": 41.2,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 801,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "long",
+    "sentences": 46,
+    "stats": {
+      "sentences": 46,
+      "lengthSum": 1229,
+      "lengthMedian": 18,
+      "endings": {
+        "question": 3,
+        "command": 3,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 15,
+        "hapsyo": 9,
+        "haeyo": 16,
+        "other": 0
+      },
+      "jointMid": 1,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 5,
+        "그래서": 5,
+        "그런데": 2,
+        "근데": 1,
+        "그러면": 1,
+        "여러분": 2,
+        "이게": 1,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 1,
+        "사실": 0,
+        "우리": 6,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 1,
+      "questionSentences": 3,
+      "pastConclusionSentences": 4
+    },
+    "qualityMetrics": {
+      "sentences": 46,
+      "hangulChars": 1141,
+      "hangulRatio": 0.94,
+      "uniqueWordRatio": 0.66,
+      "uniqueSentenceRatio": 0.98
+    },
+    "computedAt": "2026-11-18T04:07:42.998Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어 발음 규칙 15개를 알려준다고 제시하면서 추가 회차 시청 경로를 안내해 호기심을 유도합니다.",
+      "titleQuote": "영어에서 가장 중요한 발음규칙 15개 -16~50번은 아이원발(이근철tv)에서 들으세요!",
+      "thumbnailText": "마법영어 이근철TV Magic English 영어에서 가장 중요한 발음규칙 50 (규칙 1~15) 규칙 50개면 원어민 발음 할 수 있다!! Class 01",
+      "thumbnailWordCount": 18,
+      "thumbnailVisual": "보라색 배경 오른쪽에 모자와 안경, 나비넥타이를 착용한 이근철 강사가 OK 손짓을 하며 웃고 있고, 왼쪽에는 노란색과 연두색 큰 글씨로 핵심 문구가 배치되어 있습니다.",
+      "thumbnailVsTitle": "제목은 15개 규칙 소개에 집중하고, 썸네일은 50개 규칙을 익히면 원어민 발음이 가능하다는 결과적 혜택을 강조합니다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "인상적인 타이틀 그래픽 후 강사가 인사하며 한국어 '발음->[바름]' 예시를 통해 영어에도 발음 규칙이 있음을 설명하기 시작합니다.",
+      "quote": "여러분 안녕하세요 이근철입니다. 영어에서 가장 중요한 발음 규칙은 무엇일까요",
+      "reasonToKeepWatching": "우리말 '발음'이 [바름]으로 소리 나는 것처럼, 영어 발음 규칙을 알면 정확한 발음과 스펠링을 동시에 잡을 수 있다고 강조합니다.",
+      "quoteVerified": false
+    },
+    "first3s": {
+      "what": "화려한 빛 효과의 'MAGIC ENGLISH 마법영어' 로고가 등장한 뒤, 보라색 강의 화면으로 전환되며 강사가 고개를 숙여 인사합니다.",
+      "quote": "여러분 안녕하세요 이근철입니다.",
+      "quoteVerified": false
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 50,
+        "what": "우리말 연음 원리를 예로 들며 영어 발음 규칙 공부의 필요성과 효과를 설명합니다.",
+        "quote": "방금 말씀드린 우리말의 발 음 이라고 써놓은 단어를 우리는 바름 처럼 발음합니다",
+        "quoteVerified": false
+      },
+      {
+        "start": 51,
+        "end": 201,
+        "what": "규칙 #01(c + a/o/u = [ㅋ])의 원리를 설명하고 cat, case, cold, come 등의 예시 단어로 발음을 연습시킵니다.",
+        "quote": "첫 번째 규칙은 여러분 이소리는 볼 때마다 조금씩 엇갈립니다 그런데 c 라는 소리는요",
+        "quoteVerified": true
+      },
+      {
+        "start": 202,
+        "end": 321,
+        "what": "cut, focus 단어 발음을 교정해주며 c 뒤에 a, o, u가 올 때 [ㅋ] 소리가 난다는 규칙 #01을 마무리합니다.",
+        "quote": "포우커스에요 이발음 주의하세요 절대로 포커스 아니에요",
+        "quoteVerified": false
+      },
+      {
+        "start": 322,
+        "end": 3000,
+        "what": "규칙 #02(c + e/i/y = [ㅆ])를 시작으로 다양한 철자 조합별 발음 규칙과 예시 단어들을 차례대로 강의합니다.",
+        "quote": "규칙 두번째 자 c 다음에 금방 나왔던 아 오 우 아니고",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "반짝이는 빛 효과와 함께 'MAGIC ENGLISH 마법영어' 오프닝 로고 그래픽이 나타납니다.",
+        "purpose": "채널 및 코너 브랜드 아이덴티티를 시각적으로 강조합니다."
+      },
+      {
+        "t": 2,
+        "what": "보라색 화면 상단에 '영어에서 가장 중요한 발음규칙 50개', 오른쪽 상단에 'Class 01', 하단에 강사가 모습을 드러냅니다.",
+        "purpose": "본격적인 강의 주제와 회차 정보를 명확히 전달합니다."
+      },
+      {
+        "t": 3,
+        "what": "강사가 고개를 들며 텍스트에 '정리!'라는 글자와 강사 프로필 자막('이근철 소장')이 추가됩니다.",
+        "purpose": "강사의 등장과 함께 이번 강의의 목표를 명확히 제시합니다."
+      },
+      {
+        "t": 14,
+        "what": "화면 중앙 텍스트가 '발음 -> [바름]'으로 변경됩니다.",
+        "purpose": "우리말 발음 연음 현상 예시를 시각적으로 보여줍니다."
+      },
+      {
+        "t": 24,
+        "what": "화면 중앙 텍스트가 '놀음 -> [노름]'으로 변경됩니다.",
+        "purpose": "두 번째 우리말 연음 예시를 시각화합니다."
+      },
+      {
+        "t": 29,
+        "what": "화면 중앙 텍스트가 '알음 -> [아름]'으로 변경됩니다.",
+        "purpose": "세 번째 우리말 연음 예시를 강조합니다."
+      },
+      {
+        "t": 36,
+        "what": "화면 중앙 텍스트가 다시 '영어에서 가장 중요한 발음규칙 50개 정리!'로 전환됩니다.",
+        "purpose": "우리말 예시에서 영어 발음 규칙 설명으로 주제를 재연결합니다."
+      },
+      {
+        "t": 50,
+        "what": "짧은 전환 로고 그래픽이 지나간 후 '규칙 #01 c+a / o / u = [ㅋ]' 그래픽 타이틀이 표시됩니다.",
+        "purpose": "첫 번째 발음 규칙의 공식을 명확하게 제시합니다."
+      },
+      {
+        "t": 127,
+        "what": "화면 좌측에 규칙 #01에 해당하는 단어 목록('cat·case', 'cold·come', 'cut·focus')과 한글 발음 표기가 나타납니다.",
+        "purpose": "규칙이 적용되는 실제 단어 예시와 한글 발음 안내를 동시에 보여줍니다."
+      },
+      {
+        "t": 202,
+        "what": "강사가 손가락 하나를 들며 focus 단어의 정확한 발음 주의사항을 강조합니다.",
+        "purpose": "잘못하기 쉬운 발음 오류에 시청자의 주의를 집중시킵니다."
+      }
+    ],
+    "ending": {
+      "what": "확인 불가",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "나이가 많아도 이해하기 쉽게 설명해 주어 큰 도움이 되었다고 감사를 전합니다.",
+          "quote": "70대가 근철쌤 덕에 영어발음 세탁해가요 감사합니다 ~",
+          "quoteVerified": true
+        },
+        {
+          "point": "오랫동안 잘못 알고 있던 영어 발음을 제대로 교정할 수 있어서 유익하다고 느낍니다.",
+          "quote": "긴시간 강의 하시느라 감사합니다. 정말 잘 모르고 있던 발음을 고칠 기회가 쌤 덕분에 고치겠습니다. ^^",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "영어 발음을 읽거나 구분할 때 계속 헷갈리고 어려움을 겪었습니다.",
+          "quote": "너무 헷갈렸는데..ㄱㅅ합니다",
+          "quoteVerified": true
+        },
+        {
+          "pain": "한번 잘못 굳어진 발음 습관을 고치기가 쉽지 않았습니다.",
+          "quote": "발음 진짜 중요해요 한번 잘못된건 고치기 힘들들어요",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "다음 회차 강의(Class 02)가 나오기를 기다립니다.",
+          "quote": "class2 기다리겠습니다.감사합니다 강의패션도 great!!",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "영어발음 세탁해가요",
+          "quote": "70대가 근철쌤 덕에 영어발음 세탁해가요 감사합니다 ~",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 12,
+      "description": "c 뒤에 온 모음 종류에 따라 [ㅋ] 소리와 [ㅆ] 소리로 나뉘는 2가지 규칙을 제시하고 cat, case, cold, come, cut, focus, ice, face, city, cider, cycle, spicy 등의 단어 예시를 순서대로 나열하며 설명합니다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 좌측 상단에는 규칙 공식과 예시 단어가 배치되고, 하단에는 강사의 자막과 설명이 위치합니다.",
+      "size": "큼",
+      "highlightColor": "노란색, 연두색",
+      "highlightMethod": "핵심 알파벳과 한글 발음 기호에 보라색 배경 대비 밝은 노란색/연두색 텍스트를 적용하여 강조합니다.",
+      "textAmount": "규칙 공식 1줄과 예시 단어 6개가 한 화면에 보입니다.",
+      "changeTiming": "강사가 새로운 규칙이나 단어 예시를 설명하는 시점에 맞춰 화면 자막이 바뀝니다."
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 산뜻함",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "장면 전환 및 규칙 그래픽이 등장할 때 뿅 하는 팅 효과음이 사용됩니다.",
+      "voiceVsMusic": "강사의 목소리가 중심이며, 배경음악은 매우 낮게 깔려 강의 진행을 방해하지 않습니다."
+    },
+    "storytelling": {
+      "hook": {
+        "t": 6,
+        "what": "영어 발음에서 가장 중요한 규칙이 무엇인지 질문한 뒤 한국어 연음 원리를 예로 들어 호기심을 유발합니다.",
+        "quote": "영어에서 가장 중요한 다른 규칙은 무엇일까요",
+        "type": "질문 던지기 및 익숙한 개념 비유",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 56,
+          "what": "알파벳 C 소리가 상황에 따라 어떻게 달라지는지 문제의식을 제기합니다.",
+          "quote": "이 소리는 볼 때마다 조금씩 엇갈립니다 그런데 c 라는 소리는요 두가지 소리가 있죠",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 113,
+          "what": "c 뒤에 a, o, u 모음이 오면 [ㅋ] 발음이 된다는 규칙을 명쾌하게 정리해 줍니다.",
+          "quote": "뒤에 아 오 우 가 나오면 c + 이런 소리가 나오면 바로 예 큽 발음이 됩니다",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "c+a/o/u = [ㅋ] 규칙을 먼저 설명한 후, 이에 대비되는 c+e/i/y = [ㅆ] 규칙으로 naturally 연결하여 체계성을 높입니다.",
+        "examples": [
+          {
+            "t": 323,
+            "what": "앞서 배운 a, o, u를 제외한 남아있는 모음 e, i, y가 오면 [ㅆ] 소리가 난다고 대조하여 설명합니다.",
+            "quote": "c 다음에 금방 나왔던 아 오 우 아니고 모음이 딱 5개죠... 나머지 에 이 이발음이 오면 모두 다 k 발음이 아니고 c는 스 발음이 돼요",
+            "quoteVerified": false
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 618,
+          "what": "사이클(cycle) 단어 뒤쪽 c+자음 발음에 대해 추후 별도로 6개 예시를 들어 다시 설명해 주겠다고 여지를 남깁니다.",
+          "quote": "자 이거는 나중에 한번 또 예를 6개정도 잡아서 해드릴게요 오늘은 나오지 않습니다",
+          "quoteVerified": false
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 242,
+          "what": "단어 예시를 순서대로 읽다가 focus 단어에서 한국인들이 흔히 범하는 잘못된 '포커스' 발음을 집어내며 경각심을 줍니다.",
+          "quote": "절대로 포커스 아니에요 예 f발음 살리셔서 한다고 포커스라고 발음하면 되게 발음이 이상해져요",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 204,
+          "what": "강사가 소리를 직접 내보라며 시청자에게 입모양과 발음을 따라 하게 유도합니다.",
+          "quote": "해보세요 코올드",
+          "quoteVerified": false
+        }
+      ],
+      "evidence": [
+        {
+          "t": 128,
+          "what": "cat, case, cold, come, cut, focus 등 원칙이 적용되는 실제 단어들을 화면에 띄워 규칙의 유효성을 증명합니다.",
+          "quote": "c 다음에 a가 왔죠 자 그래서 싹트가 아니다 캣입니다",
+          "quoteVerified": false
+        }
+      ],
+      "payoff": {
+        "t": 309,
+        "what": "규칙 #01 설명을 마무리하며 이 규칙을 알면 처음 보는 단어라도 정확히 읽을 수 있다고 효용성을 다시 한번 확신시켜 줍니다.",
+        "quote": "첫 번째 발음 규칙은 굉장히 유용합니다 모른 단어가 나와도 c 다음에 아 오 우 라는 그런 모음이 오면 k 발음이 나더라",
+        "quoteVerified": false
+      }
+    },
+    "links": [
+      {
+        "cause": "나이 많은 학습자도 이해하기 쉬운 명쾌한 설명과 친절한 강의 톤앤매너",
+        "reaction": "70대 시청자가 발음을 교정할 수 있게 되었다며 고마움을 표현함",
+        "quote": "70대가 근철쌤 덕에 영어발음 세탁해가요 감사합니다 ~",
+        "quoteVerified": true
+      },
+      {
+        "cause": "잘못 알고 있던 발음 교정과 정확한 소리 원리 제시",
+        "reaction": "잘못 알고 있던 발음을 고치게 되었다며 긍정 반응을 보임",
+        "quote": "긴시간 강의 하시느라 감사합니다. 정말 잘 모르고 있던 발음을 고칠 기회가 쌤 덕분에 고치겠습니다. ^^",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "성인 학습자를 대상으로 알파벳 철자 조합에 따른 발음 규칙과 정확한 영어 소리 내는 법을 직접 강의하는 원본 영상입니다.",
+    "forUs": {
+      "adopt": "화면 좌측 상단에 공식과 단어 예시를 한눈에 보이는 텍스트 카드로 지속 배치하여 시각적 직관성을 높이는 방식을 적용합니다.",
+      "differentiate": "복잡한 공식 나열보다는 시청자가 자주 틀리는 대표 단어 소리의 차이에만 집중하여 중장년층이 부담 없이 바로 따라 할 수 있도록 단순화합니다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 24,
+    "verified": 12,
+    "unverified": 12
+  },
+  "pacing": {
+    "count": 18,
+    "medianGapSeconds": 0.1,
+    "perMinute": 3.6,
+    "times": [
+      0.1,
+      0.3,
+      0.4,
+      0.4,
+      0.5,
+      1.3,
+      1.4,
+      1.5,
+      1.6,
+      50.1,
+      50.2,
+      50.3,
+      50.4,
+      50.5,
+      50.6,
+      51.4,
+      51.5,
+      51.6,
+      51.7
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 29,
+      "file": "29.jpg"
+    },
+    {
+      "t": 36,
+      "file": "36.jpg"
+    },
+    {
+      "t": 50,
+      "file": "50.jpg"
+    },
+    {
+      "t": 127,
+      "file": "127.jpg"
+    },
+    {
+      "t": 202,
+      "file": "202.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 44139,
+    "candidatesTokenCount": 3704,
+    "totalTokenCount": 49012,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 15738
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      }
+    ],
+    "thoughtsTokenCount": 1169,
+    "serviceTier": "standard"
+  }
+}

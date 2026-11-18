@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "updatedAt": "2026-11-17T09:10:54.372Z",
+  "updatedAt": "2026-11-18T04:01:46.719Z",
   "filterVersion": 1,
   "runs": [
     {
@@ -123,6 +123,36 @@
       "goneSinceLastRun": 42,
       "ourTopicShare": 0.11538461538461539,
       "ms": 37440
+    },
+    {
+      "date": "2026-11-18",
+      "format": "LONGFORM",
+      "list": "outliers",
+      "listed": 894,
+      "endReason": "no-more",
+      "possibleCap": false,
+      "foldsMissing": 0,
+      "passedA": 143,
+      "passed": 25,
+      "newSinceLastRun": 39,
+      "goneSinceLastRun": 7,
+      "ourTopicShare": 0.08,
+      "ms": 23727
+    },
+    {
+      "date": "2026-11-18",
+      "format": "SHORTS",
+      "list": "outliers",
+      "listed": 987,
+      "endReason": "no-more",
+      "possibleCap": false,
+      "foldsMissing": 0,
+      "passedA": 177,
+      "passed": 55,
+      "newSinceLastRun": 82,
+      "goneSinceLastRun": 25,
+      "ourTopicShare": 0.10909090909090909,
+      "ms": 40085
     }
   ],
   "candidates": {
@@ -139,8 +169,8 @@
       "studioViews": 120000,
       "studioRank": 5,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "PUWClTGnxWk": {
       "videoId": "PUWClTGnxWk",
@@ -151,12 +181,12 @@
       "publishedAt": "2026-10-13T23:00:05Z",
       "durationSeconds": 699,
       "studioFolds": 49,
-      "studioSubscribers": 9770,
+      "studioSubscribers": 9830,
       "studioViews": 120000,
       "studioRank": 4,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "xaTAV--wNxg": {
       "videoId": "xaTAV--wNxg",
@@ -169,10 +199,10 @@
       "studioFolds": 19,
       "studioSubscribers": 64500,
       "studioViews": 280000,
-      "studioRank": 9,
+      "studioRank": 11,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "huqNK3Mq03M": {
       "videoId": "huqNK3Mq03M",
@@ -185,10 +215,10 @@
       "studioFolds": 29,
       "studioSubscribers": 33000,
       "studioViews": 41000,
-      "studioRank": 11,
+      "studioRank": 13,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "gN1T27-WhVk": {
       "videoId": "gN1T27-WhVk",
@@ -201,10 +231,10 @@
       "studioFolds": 31,
       "studioSubscribers": 27100,
       "studioViews": 84000,
-      "studioRank": 12,
+      "studioRank": 14,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "4LShGRVrbuQ": {
       "videoId": "4LShGRVrbuQ",
@@ -215,12 +245,12 @@
       "publishedAt": "2026-09-02T11:14:45Z",
       "durationSeconds": 22738,
       "studioFolds": 22,
-      "studioSubscribers": 13700,
+      "studioSubscribers": 13800,
       "studioViews": 380000,
-      "studioRank": 15,
+      "studioRank": 17,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "DPwalPjYRmI": {
       "videoId": "DPwalPjYRmI",
@@ -231,12 +261,12 @@
       "publishedAt": "2026-09-28T12:00:26Z",
       "durationSeconds": 710,
       "studioFolds": 33,
-      "studioSubscribers": 79900,
+      "studioSubscribers": 80300,
       "studioViews": 200000,
-      "studioRank": 19,
+      "studioRank": 21,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "eEizjMme90o": {
       "videoId": "eEizjMme90o",
@@ -247,12 +277,12 @@
       "publishedAt": "2026-10-04T08:22:10Z",
       "durationSeconds": 696,
       "studioFolds": 11,
-      "studioSubscribers": 56700,
+      "studioSubscribers": 56800,
       "studioViews": 190000,
-      "studioRank": 26,
+      "studioRank": 28,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "AAjB95YXQxc": {
       "videoId": "AAjB95YXQxc",
@@ -263,12 +293,12 @@
       "publishedAt": "2026-08-21T09:41:55Z",
       "durationSeconds": 577,
       "studioFolds": 33,
-      "studioSubscribers": 38000,
-      "studioViews": 240000,
-      "studioRank": 29,
+      "studioSubscribers": 38100,
+      "studioViews": 250000,
+      "studioRank": 31,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "UWfgU5QHt_0": {
       "videoId": "UWfgU5QHt_0",
@@ -279,12 +309,12 @@
       "publishedAt": "2026-09-26T10:00:30Z",
       "durationSeconds": 918,
       "studioFolds": 13,
-      "studioSubscribers": 12800,
+      "studioSubscribers": 12900,
       "studioViews": 95000,
-      "studioRank": 34,
+      "studioRank": 36,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "_VUMngGcI6U": {
       "videoId": "_VUMngGcI6U",
@@ -294,13 +324,13 @@
       "channelTitle": "들려야 말하는 영어",
       "publishedAt": "2026-11-03T10:00:06Z",
       "durationSeconds": 5437,
-      "studioFolds": 13,
-      "studioSubscribers": 15300,
-      "studioViews": 86000,
-      "studioRank": 69,
+      "studioFolds": 19,
+      "studioSubscribers": 15400,
+      "studioViews": 89000,
+      "studioRank": 72,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "IT3BR0H95SE": {
       "videoId": "IT3BR0H95SE",
@@ -311,12 +341,12 @@
       "publishedAt": "2026-09-23T22:00:28Z",
       "durationSeconds": 2519,
       "studioFolds": 67,
-      "studioSubscribers": 9770,
+      "studioSubscribers": 9830,
       "studioViews": 120000,
-      "studioRank": 71,
+      "studioRank": 74,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "jPPyTLIzf5k": {
       "videoId": "jPPyTLIzf5k",
@@ -327,12 +357,12 @@
       "publishedAt": "2026-10-13T23:00:36Z",
       "durationSeconds": 345,
       "studioFolds": 25,
-      "studioSubscribers": 79900,
+      "studioSubscribers": 80300,
       "studioViews": 380000,
-      "studioRank": 74,
+      "studioRank": 77,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "_DG6x915tv0": {
       "videoId": "_DG6x915tv0",
@@ -342,13 +372,13 @@
       "channelTitle": "날리지 스튜디오",
       "publishedAt": "2026-10-23T06:11:40Z",
       "durationSeconds": 951,
-      "studioFolds": 14,
-      "studioSubscribers": 50600,
+      "studioFolds": 16,
+      "studioSubscribers": 50700,
       "studioViews": 480000,
-      "studioRank": 149,
+      "studioRank": 157,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "w9Hyda2gIqM": {
       "videoId": "w9Hyda2gIqM",
@@ -358,13 +388,13 @@
       "channelTitle": "윤글리시",
       "publishedAt": "2026-09-09T15:23:05Z",
       "durationSeconds": 2293,
-      "studioFolds": 51,
-      "studioSubscribers": 9590,
+      "studioFolds": 50,
+      "studioSubscribers": 9740,
       "studioViews": 290000,
-      "studioRank": 158,
+      "studioRank": 165,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "8Slu_lQ0sgw": {
       "videoId": "8Slu_lQ0sgw",
@@ -377,10 +407,10 @@
       "studioFolds": 14,
       "studioSubscribers": 20000,
       "studioViews": 15000,
-      "studioRank": 159,
+      "studioRank": 166,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "OcgFevPFPSs": {
       "videoId": "OcgFevPFPSs",
@@ -390,13 +420,13 @@
       "channelTitle": "매튜쌤의 영어수업",
       "publishedAt": "2026-09-05T03:15:35Z",
       "durationSeconds": 13512,
-      "studioFolds": 48,
-      "studioSubscribers": 66300,
+      "studioFolds": 47,
+      "studioSubscribers": 66400,
       "studioViews": 110000,
-      "studioRank": 172,
+      "studioRank": 179,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "uXzL8aMnzGc": {
       "videoId": "uXzL8aMnzGc",
@@ -409,10 +439,10 @@
       "studioFolds": 13,
       "studioSubscribers": 21100,
       "studioViews": 110000,
-      "studioRank": 182,
+      "studioRank": 190,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "zSXX-dL4Mp4": {
       "videoId": "zSXX-dL4Mp4",
@@ -439,12 +469,12 @@
       "publishedAt": "2026-09-01T11:00:30Z",
       "durationSeconds": 1493,
       "studioFolds": 11,
-      "studioSubscribers": 29300,
+      "studioSubscribers": 29400,
       "studioViews": 120000,
-      "studioRank": 197,
+      "studioRank": 206,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "hHO-A8ti7Ss": {
       "videoId": "hHO-A8ti7Ss",
@@ -457,10 +487,10 @@
       "studioFolds": 10,
       "studioSubscribers": 1170,
       "studioViews": 72000,
-      "studioRank": 264,
+      "studioRank": 276,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "Jdc0kFebXJY": {
       "videoId": "Jdc0kFebXJY",
@@ -487,12 +517,12 @@
       "publishedAt": "2026-10-04T12:26:36Z",
       "durationSeconds": 1594,
       "studioFolds": 17,
-      "studioSubscribers": 9590,
+      "studioSubscribers": 9740,
       "studioViews": 160000,
-      "studioRank": 313,
+      "studioRank": 330,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "Wf5t9ww2bFg": {
       "videoId": "Wf5t9ww2bFg",
@@ -502,13 +532,13 @@
       "channelTitle": "meji 미지",
       "publishedAt": "2026-10-11T03:35:41Z",
       "durationSeconds": 868,
-      "studioFolds": 39,
-      "studioSubscribers": 12800,
+      "studioFolds": 40,
+      "studioSubscribers": 12900,
       "studioViews": 350000,
-      "studioRank": 320,
+      "studioRank": 337,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "xAyXWGpE91M": {
       "videoId": "xAyXWGpE91M",
@@ -519,12 +549,12 @@
       "publishedAt": "2026-09-08T14:08:49Z",
       "durationSeconds": 14938,
       "studioFolds": 11,
-      "studioSubscribers": 66300,
-      "studioViews": 89000,
-      "studioRank": 324,
+      "studioSubscribers": 66400,
+      "studioViews": 90000,
+      "studioRank": 342,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "Grk7LUWcV4s": {
       "videoId": "Grk7LUWcV4s",
@@ -535,12 +565,12 @@
       "publishedAt": "2026-10-12T23:00:21Z",
       "durationSeconds": 287,
       "studioFolds": 13,
-      "studioSubscribers": 79900,
+      "studioSubscribers": 80300,
       "studioViews": 200000,
-      "studioRank": 375,
+      "studioRank": 393,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "wxY9QSvbmB4": {
       "videoId": "wxY9QSvbmB4",
@@ -550,13 +580,13 @@
       "channelTitle": "생각하는 원서 읽기, 로사쌤",
       "publishedAt": "2026-10-27T23:54:17Z",
       "durationSeconds": 541,
-      "studioFolds": 20,
-      "studioSubscribers": 9770,
+      "studioFolds": 22,
+      "studioSubscribers": 9830,
       "studioViews": 250000,
-      "studioRank": 376,
+      "studioRank": 394,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "YPg-FHROJ5c": {
       "videoId": "YPg-FHROJ5c",
@@ -566,13 +596,13 @@
       "channelTitle": "만다블_국내파통역사의 영어공부법",
       "publishedAt": "2026-10-16T10:47:29Z",
       "durationSeconds": 177,
-      "studioFolds": 57,
+      "studioFolds": 73,
       "studioSubscribers": 41300,
       "studioViews": 300000,
       "studioRank": 5,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "FTOijpUiGX0": {
       "videoId": "FTOijpUiGX0",
@@ -587,8 +617,8 @@
       "studioViews": 67000,
       "studioRank": 11,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "S9C2Uu2ZcAg": {
       "videoId": "S9C2Uu2ZcAg",
@@ -599,12 +629,12 @@
       "publishedAt": "2026-10-13T04:56:22Z",
       "durationSeconds": 62,
       "studioFolds": 100,
-      "studioSubscribers": 90200,
-      "studioViews": 2260000,
-      "studioRank": 12,
+      "studioSubscribers": 90500,
+      "studioViews": 2280000,
+      "studioRank": 13,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "28q5G0UOJ48": {
       "videoId": "28q5G0UOJ48",
@@ -614,13 +644,13 @@
       "channelTitle": "はじめまして",
       "publishedAt": "2026-10-12T02:08:42Z",
       "durationSeconds": 51,
-      "studioFolds": 39,
-      "studioSubscribers": 12900,
-      "studioViews": 850000,
-      "studioRank": 16,
+      "studioFolds": 44,
+      "studioSubscribers": 13200,
+      "studioViews": 880000,
+      "studioRank": 17,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "2tvBBqQEoz0": {
       "videoId": "2tvBBqQEoz0",
@@ -633,10 +663,10 @@
       "studioFolds": 100,
       "studioSubscribers": 20500,
       "studioViews": 970000,
-      "studioRank": 130,
+      "studioRank": 138,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "1sUDrLZtk94": {
       "videoId": "1sUDrLZtk94",
@@ -651,8 +681,8 @@
       "studioViews": 130000,
       "studioRank": 21,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "Wn-8gUliMWs": {
       "videoId": "Wn-8gUliMWs",
@@ -662,13 +692,13 @@
       "channelTitle": "꾸르집",
       "publishedAt": "2026-10-17T00:00:24Z",
       "durationSeconds": 26,
-      "studioFolds": 26,
+      "studioFolds": 32,
       "studioSubscribers": 13400,
-      "studioViews": 280000,
-      "studioRank": 24,
+      "studioViews": 290000,
+      "studioRank": 25,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "uHUyMvh6kWs": {
       "videoId": "uHUyMvh6kWs",
@@ -695,12 +725,12 @@
       "publishedAt": "2026-09-01T15:11:40Z",
       "durationSeconds": 26,
       "studioFolds": 19,
-      "studioSubscribers": 16300,
+      "studioSubscribers": 16400,
       "studioViews": 260000,
-      "studioRank": 33,
+      "studioRank": 35,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "pzyrnLfZ5JA": {
       "videoId": "pzyrnLfZ5JA",
@@ -713,10 +743,10 @@
       "studioFolds": 30,
       "studioSubscribers": 16800,
       "studioViews": 53000,
-      "studioRank": 34,
+      "studioRank": 36,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "d9vwu7P4y0U": {
       "videoId": "d9vwu7P4y0U",
@@ -729,10 +759,10 @@
       "studioFolds": 50,
       "studioSubscribers": 30600,
       "studioViews": 1370000,
-      "studioRank": 35,
+      "studioRank": 37,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "N0LEBxEo0bw": {
       "videoId": "N0LEBxEo0bw",
@@ -742,13 +772,13 @@
       "channelTitle": "신나고",
       "publishedAt": "2026-10-17T03:00:03Z",
       "durationSeconds": 59,
-      "studioFolds": 56,
-      "studioSubscribers": 18400,
-      "studioViews": 2770000,
-      "studioRank": 48,
+      "studioFolds": 85,
+      "studioSubscribers": 18500,
+      "studioViews": 2900000,
+      "studioRank": 50,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "EuBUiMUMMQY": {
       "videoId": "EuBUiMUMMQY",
@@ -758,13 +788,13 @@
       "channelTitle": "햅삐설윤",
       "publishedAt": "2026-11-02T06:00:29Z",
       "durationSeconds": 20,
-      "studioFolds": 23,
-      "studioSubscribers": 4800,
-      "studioViews": 1260000,
-      "studioRank": 30,
+      "studioFolds": 35,
+      "studioSubscribers": 4810,
+      "studioViews": 1280000,
+      "studioRank": 31,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "k7ZeeVv9r50": {
       "videoId": "k7ZeeVv9r50",
@@ -774,13 +804,13 @@
       "channelTitle": "월트영어 WALT",
       "publishedAt": "2026-11-03T14:03:07Z",
       "durationSeconds": 35,
-      "studioFolds": 20,
-      "studioSubscribers": 34400,
-      "studioViews": 85000,
-      "studioRank": 39,
+      "studioFolds": 21,
+      "studioSubscribers": 34500,
+      "studioViews": 86000,
+      "studioRank": 42,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "_0IdBrVZxAQ": {
       "videoId": "_0IdBrVZxAQ",
@@ -793,10 +823,10 @@
       "studioFolds": 13,
       "studioSubscribers": 2800,
       "studioViews": 26000,
-      "studioRank": 54,
+      "studioRank": 56,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "Bzwd5EdsQGk": {
       "videoId": "Bzwd5EdsQGk",
@@ -806,13 +836,13 @@
       "channelTitle": "낰낰티비",
       "publishedAt": "2026-11-05T02:00:10Z",
       "durationSeconds": 46,
-      "studioFolds": 86,
+      "studioFolds": 100,
       "studioSubscribers": 12000,
       "studioViews": 1050000,
-      "studioRank": 52,
+      "studioRank": 54,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "eJR661M6bIA": {
       "videoId": "eJR661M6bIA",
@@ -822,13 +852,13 @@
       "channelTitle": "대한영국 Lauren in Korea",
       "publishedAt": "2026-10-01T10:17:36Z",
       "durationSeconds": 20,
-      "studioFolds": 43,
-      "studioSubscribers": 26400,
+      "studioFolds": 30,
+      "studioSubscribers": 26500,
       "studioViews": 730000,
-      "studioRank": 62,
+      "studioRank": 68,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "U2ntrEUPVDU": {
       "videoId": "U2ntrEUPVDU",
@@ -839,12 +869,12 @@
       "publishedAt": "2026-08-24T13:44:32Z",
       "durationSeconds": 52,
       "studioFolds": 43,
-      "studioSubscribers": 3510,
+      "studioSubscribers": 3520,
       "studioViews": 880000,
-      "studioRank": 58,
+      "studioRank": 61,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "KK-AREml8EI": {
       "videoId": "KK-AREml8EI",
@@ -854,13 +884,13 @@
       "channelTitle": "고라파떡",
       "publishedAt": "2026-10-31T11:00:37Z",
       "durationSeconds": 23,
-      "studioFolds": 18,
-      "studioSubscribers": 2410,
-      "studioViews": 98000,
-      "studioRank": 57,
+      "studioFolds": 19,
+      "studioSubscribers": 2430,
+      "studioViews": 99000,
+      "studioRank": 59,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "cBZ3ca2OGCY": {
       "videoId": "cBZ3ca2OGCY",
@@ -886,13 +916,13 @@
       "channelTitle": "꿀재미야",
       "publishedAt": "2026-10-11T02:00:23Z",
       "durationSeconds": 26,
-      "studioFolds": 17,
+      "studioFolds": 18,
       "studioSubscribers": 16400,
-      "studioViews": 620000,
-      "studioRank": 63,
+      "studioViews": 630000,
+      "studioRank": 65,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "dwTYJ9OlixQ": {
       "videoId": "dwTYJ9OlixQ",
@@ -905,10 +935,10 @@
       "studioFolds": 14,
       "studioSubscribers": 6410,
       "studioViews": 54000,
-      "studioRank": 68,
+      "studioRank": 70,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "e0kEBFoyVF8": {
       "videoId": "e0kEBFoyVF8",
@@ -918,13 +948,13 @@
       "channelTitle": "으읏쟈!",
       "publishedAt": "2026-10-23T08:30:33Z",
       "durationSeconds": 18,
-      "studioFolds": 11,
+      "studioFolds": 10,
       "studioSubscribers": 10600,
-      "studioViews": 2190000,
-      "studioRank": 75,
+      "studioViews": 2210000,
+      "studioRank": 78,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "F2bA-oPx2xk": {
       "videoId": "F2bA-oPx2xk",
@@ -937,10 +967,10 @@
       "studioFolds": 12,
       "studioSubscribers": 13300,
       "studioViews": 530000,
-      "studioRank": 83,
+      "studioRank": 86,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "c4B0oQdtfgU": {
       "videoId": "c4B0oQdtfgU",
@@ -953,10 +983,10 @@
       "studioFolds": 64,
       "studioSubscribers": 4460,
       "studioViews": 2080000,
-      "studioRank": 116,
+      "studioRank": 121,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "nNWyHFkw1-4": {
       "videoId": "nNWyHFkw1-4",
@@ -969,10 +999,10 @@
       "studioFolds": 100,
       "studioSubscribers": 64500,
       "studioViews": 1520000,
-      "studioRank": 124,
+      "studioRank": 132,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "pa5i9r7v4mo": {
       "videoId": "pa5i9r7v4mo",
@@ -982,13 +1012,13 @@
       "channelTitle": "CalliTube",
       "publishedAt": "2026-10-16T12:50:24Z",
       "durationSeconds": 58,
-      "studioFolds": 16,
-      "studioSubscribers": 90200,
+      "studioFolds": 17,
+      "studioSubscribers": 90500,
       "studioViews": 210000,
-      "studioRank": 129,
+      "studioRank": 137,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "TAqRBlzm_MM": {
       "videoId": "TAqRBlzm_MM",
@@ -998,13 +1028,13 @@
       "channelTitle": "라잌셀럽 ",
       "publishedAt": "2026-11-05T11:07:48Z",
       "durationSeconds": 69,
-      "studioFolds": 41,
+      "studioFolds": 55,
       "studioSubscribers": 20500,
-      "studioViews": 200000,
-      "studioRank": 10,
+      "studioViews": 210000,
+      "studioRank": 8,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "ASay4Wog-Yk": {
       "videoId": "ASay4Wog-Yk",
@@ -1016,11 +1046,11 @@
       "durationSeconds": 178,
       "studioFolds": 21,
       "studioSubscribers": 41300,
-      "studioViews": 82000,
-      "studioRank": 131,
+      "studioViews": 83000,
+      "studioRank": 139,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "otma1oPB_so": {
       "videoId": "otma1oPB_so",
@@ -1030,13 +1060,13 @@
       "channelTitle": "예쁜외국어",
       "publishedAt": "2026-10-07T13:00:23Z",
       "durationSeconds": 15,
-      "studioFolds": 31,
-      "studioSubscribers": 59900,
+      "studioFolds": 32,
+      "studioSubscribers": 62000,
       "studioViews": 1460000,
-      "studioRank": 134,
+      "studioRank": 141,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "W06X2tB0-Cs": {
       "videoId": "W06X2tB0-Cs",
@@ -1049,10 +1079,10 @@
       "studioFolds": 15,
       "studioSubscribers": 2800,
       "studioViews": 140000,
-      "studioRank": 145,
+      "studioRank": 155,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "kjGVKgPqruI": {
       "videoId": "kjGVKgPqruI",
@@ -1062,13 +1092,13 @@
       "channelTitle": "밀가루쌤영어",
       "publishedAt": "2026-09-15T12:00:14Z",
       "durationSeconds": 41,
-      "studioFolds": 15,
+      "studioFolds": 16,
       "studioSubscribers": 64500,
       "studioViews": 140000,
-      "studioRank": 179,
+      "studioRank": 190,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "RC3IVG_uvA4": {
       "videoId": "RC3IVG_uvA4",
@@ -1078,13 +1108,13 @@
       "channelTitle": "예쁜외국어",
       "publishedAt": "2026-09-27T05:17:58Z",
       "durationSeconds": 13,
-      "studioFolds": 22,
-      "studioSubscribers": 59900,
+      "studioFolds": 21,
+      "studioSubscribers": 62000,
       "studioViews": 240000,
-      "studioRank": 181,
+      "studioRank": 192,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "7B9CASK8qgE": {
       "videoId": "7B9CASK8qgE",
@@ -1095,12 +1125,12 @@
       "publishedAt": "2026-09-26T08:00:19Z",
       "durationSeconds": 11,
       "studioFolds": 100,
-      "studioSubscribers": 59900,
-      "studioViews": 1680000,
-      "studioRank": 254,
+      "studioSubscribers": 62000,
+      "studioViews": 1690000,
+      "studioRank": 272,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "IYMO9Xzoaj0": {
       "videoId": "IYMO9Xzoaj0",
@@ -1110,13 +1140,13 @@
       "channelTitle": "어른한마디",
       "publishedAt": "2026-10-15T03:00:06Z",
       "durationSeconds": 41,
-      "studioFolds": 58,
-      "studioSubscribers": 7670,
+      "studioFolds": 70,
+      "studioSubscribers": 7780,
       "studioViews": 140000,
-      "studioRank": 277,
+      "studioRank": 297,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "J_pQfDuvevg": {
       "videoId": "J_pQfDuvevg",
@@ -1126,13 +1156,13 @@
       "channelTitle": "푸히호",
       "publishedAt": "2026-09-17T04:00:02Z",
       "durationSeconds": 22,
-      "studioFolds": 60,
-      "studioSubscribers": 23200,
-      "studioViews": 7580000,
-      "studioRank": 432,
+      "studioFolds": 66,
+      "studioSubscribers": 23800,
+      "studioViews": 7740000,
+      "studioRank": 462,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "50uNdKlxqa8": {
       "videoId": "50uNdKlxqa8",
@@ -1143,12 +1173,12 @@
       "publishedAt": "2026-08-22T08:30:39Z",
       "durationSeconds": 56,
       "studioFolds": 14,
-      "studioSubscribers": 17100,
-      "studioViews": 2710000,
-      "studioRank": 295,
+      "studioSubscribers": 17200,
+      "studioViews": 2790000,
+      "studioRank": 318,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "BMNeCP0FeM0": {
       "videoId": "BMNeCP0FeM0",
@@ -1159,12 +1189,12 @@
       "publishedAt": "2026-10-11T03:00:34Z",
       "durationSeconds": 13,
       "studioFolds": 37,
-      "studioSubscribers": 59700,
+      "studioSubscribers": 62000,
       "studioViews": 1790000,
-      "studioRank": 407,
+      "studioRank": 435,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "DUzqrPusXCw": {
       "videoId": "DUzqrPusXCw",
@@ -1175,12 +1205,12 @@
       "publishedAt": "2026-09-18T00:45:44Z",
       "durationSeconds": 20,
       "studioFolds": 12,
-      "studioSubscribers": 23200,
-      "studioViews": 2370000,
-      "studioRank": 80,
+      "studioSubscribers": 23800,
+      "studioViews": 2480000,
+      "studioRank": 76,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "d4JX6uioj68": {
       "videoId": "d4JX6uioj68",
@@ -1193,10 +1223,10 @@
       "studioFolds": 14,
       "studioSubscribers": 16400,
       "studioViews": 400000,
-      "studioRank": 443,
+      "studioRank": 473,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "6spFTbjx310": {
       "videoId": "6spFTbjx310",
@@ -1206,13 +1236,13 @@
       "channelTitle": "예쁜외국어",
       "publishedAt": "2026-10-12T22:00:22Z",
       "durationSeconds": 17,
-      "studioFolds": 27,
-      "studioSubscribers": 59900,
-      "studioViews": 1440000,
-      "studioRank": 487,
+      "studioFolds": 28,
+      "studioSubscribers": 62000,
+      "studioViews": 1450000,
+      "studioRank": 519,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "5lI0Djp_SKQ": {
       "videoId": "5lI0Djp_SKQ",
@@ -1225,10 +1255,10 @@
       "studioFolds": 24,
       "studioSubscribers": 16800,
       "studioViews": 40000,
-      "studioRank": 500,
+      "studioRank": 578,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "BaBiUIbDvjs": {
       "videoId": "BaBiUIbDvjs",
@@ -1239,12 +1269,12 @@
       "publishedAt": "2026-09-07T12:41:24Z",
       "durationSeconds": 65,
       "studioFolds": 18,
-      "studioSubscribers": 34400,
+      "studioSubscribers": 34500,
       "studioViews": 270000,
-      "studioRank": 503,
+      "studioRank": 582,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "Q_1ehBU62EM": {
       "videoId": "Q_1ehBU62EM",
@@ -1257,10 +1287,10 @@
       "studioFolds": 17,
       "studioSubscribers": 16800,
       "studioViews": 40000,
-      "studioRank": 546,
+      "studioRank": 686,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 3
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 4
     },
     "4rnQ6uc6NfI": {
       "videoId": "4rnQ6uc6NfI",
@@ -1273,10 +1303,10 @@
       "studioFolds": 11,
       "studioSubscribers": 6410,
       "studioViews": 62000,
-      "studioRank": 558,
+      "studioRank": 593,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "Xc-H7tY8IXk": {
       "videoId": "Xc-H7tY8IXk",
@@ -1289,10 +1319,10 @@
       "studioFolds": 11,
       "studioSubscribers": 16800,
       "studioViews": 37000,
-      "studioRank": 654,
+      "studioRank": 163,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "sR3gHiP5UNI": {
       "videoId": "sR3gHiP5UNI",
@@ -1305,10 +1335,10 @@
       "studioFolds": 11,
       "studioSubscribers": 16800,
       "studioViews": 41000,
-      "studioRank": 785,
+      "studioRank": 835,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "jZbmrzepnpQ": {
       "videoId": "jZbmrzepnpQ",
@@ -1321,10 +1351,10 @@
       "studioFolds": 10,
       "studioSubscribers": 16800,
       "studioViews": 35000,
-      "studioRank": 757,
+      "studioRank": 803,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "DbCyXoUkMek": {
       "videoId": "DbCyXoUkMek",
@@ -1335,12 +1365,12 @@
       "publishedAt": "2026-10-12T18:00:00Z",
       "durationSeconds": 8,
       "studioFolds": 35,
-      "studioSubscribers": 59900,
+      "studioSubscribers": 62000,
       "studioViews": 1940000,
-      "studioRank": 828,
+      "studioRank": 879,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 4
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 5
     },
     "uSbB1E6UvJE": {
       "videoId": "uSbB1E6UvJE",
@@ -1355,8 +1385,8 @@
       "studioViews": 34000,
       "studioRank": 6,
       "firstSeenAt": "2026-11-15T05:20:04.415Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 3
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 4
     },
     "81-u37zSNCY": {
       "videoId": "81-u37zSNCY",
@@ -1366,13 +1396,13 @@
       "channelTitle": "쇼츠스팟",
       "publishedAt": "2026-10-18T06:00:19Z",
       "durationSeconds": 31,
-      "studioFolds": 10,
-      "studioSubscribers": 1900,
-      "studioViews": 140000,
-      "studioRank": 249,
+      "studioFolds": 12,
+      "studioSubscribers": 1910,
+      "studioViews": 150000,
+      "studioRank": 267,
       "firstSeenAt": "2026-11-15T16:00:47.541Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 3
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 4
     },
     "R8cDe03BMB0": {
       "videoId": "R8cDe03BMB0",
@@ -1382,13 +1412,13 @@
       "channelTitle": "라잌셀럽 ",
       "publishedAt": "2026-11-09T04:18:44Z",
       "durationSeconds": 61,
-      "studioFolds": 12,
+      "studioFolds": 15,
       "studioSubscribers": 20500,
       "studioViews": 100000,
-      "studioRank": 185,
+      "studioRank": 197,
       "firstSeenAt": "2026-11-16T16:00:38.559Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 3
     },
     "aJgJgJTwdQw": {
       "videoId": "aJgJgJTwdQw",
@@ -1398,13 +1428,77 @@
       "channelTitle": "별꼴극장",
       "publishedAt": "2026-11-07T06:04:12Z",
       "durationSeconds": 59,
-      "studioFolds": 33,
-      "studioSubscribers": 1590,
+      "studioFolds": 42,
+      "studioSubscribers": 1600,
       "studioViews": 490000,
-      "studioRank": 436,
+      "studioRank": 465,
       "firstSeenAt": "2026-11-16T16:00:38.559Z",
-      "lastSeenAt": "2026-11-17T09:10:54.372Z",
-      "timesSeen": 2
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 3
+    },
+    "bFq3ieCIqbI": {
+      "videoId": "bFq3ieCIqbI",
+      "format": "SHORTS",
+      "title": "미국인 박재범에게 영어 잘한다고 칭찬했더니ㅋㅋ",
+      "channelId": "UC7IuoeHXf6Y2D8ZC_UVouaQ",
+      "channelTitle": "하이라이스",
+      "publishedAt": "2026-11-10T21:45:10Z",
+      "durationSeconds": 16,
+      "studioFolds": 66,
+      "studioSubscribers": 5840,
+      "studioViews": 1690000,
+      "studioRank": 41,
+      "firstSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 1
+    },
+    "9xwcJV53ros": {
+      "videoId": "9xwcJV53ros",
+      "format": "SHORTS",
+      "title": "박재범 영어 칭찬하던 명예영국인의 결말 ㅋㅋㅋ",
+      "channelId": "UCDIwY30AHiyInf41-sHyl5A",
+      "channelTitle": "밈박스",
+      "publishedAt": "2026-11-13T08:57:12Z",
+      "durationSeconds": 33,
+      "studioFolds": 17,
+      "studioSubscribers": 1780,
+      "studioViews": 41000,
+      "studioRank": 355,
+      "firstSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 1
+    },
+    "Af7GoZoO94E": {
+      "videoId": "Af7GoZoO94E",
+      "format": "SHORTS",
+      "title": "영어 한마디 했다가 잡도리당한 순간 TOP3",
+      "channelId": "UCicnKwdmE8erQpt_ZWz8E8w",
+      "channelTitle": "라잌셀럽 ",
+      "publishedAt": "2026-11-08T09:11:42Z",
+      "durationSeconds": 61,
+      "studioFolds": 10,
+      "studioSubscribers": 20500,
+      "studioViews": 42000,
+      "studioRank": 439,
+      "firstSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 1
+    },
+    "_h58PepN2OY": {
+      "videoId": "_h58PepN2OY",
+      "format": "SHORTS",
+      "title": "연세대생에게 영어 비결 묻자?! #shorts",
+      "channelId": "UCuuTtNbTcuCUy1ewnMkQdeA",
+      "channelTitle": "🇰🇷 대한민국의 순간",
+      "publishedAt": "2026-11-04T08:00:30Z",
+      "durationSeconds": 51,
+      "studioFolds": 11,
+      "studioSubscribers": 10300,
+      "studioViews": 440000,
+      "studioRank": 656,
+      "firstSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "timesSeen": 1
     }
   }
 }

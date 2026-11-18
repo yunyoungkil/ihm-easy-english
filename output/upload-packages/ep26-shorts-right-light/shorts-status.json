@@ -1,7 +1,9 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "plannedFor": "2026-11-17T11:00:00Z",
-  "lastSyncedAt": "2026-11-17T09:25:25.201Z",
+  "lastSyncedAt": "2026-11-18T04:01:14.977Z",
   "videoId": "OnhkMmAE5ZA",
-  "scheduledFor": "2026-11-17T11:00:00Z"
+  "scheduledFor": "2026-11-17T11:00:00Z",
+  "publishedAt": "2026-11-17T11:00:32Z",
+  "publishedAtSource": "youtube"
 }

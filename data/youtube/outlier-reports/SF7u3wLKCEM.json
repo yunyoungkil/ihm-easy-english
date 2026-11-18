@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 1,
+  "videoId": "SF7u3wLKCEM",
+  "analyzedAt": "2026-11-18T04:06:01.528Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 22,
+  "meta": {
+    "videoId": "SF7u3wLKCEM",
+    "title": "파닉스 왕초보 영어읽는법 clock 연속자음 배우기",
+    "channelId": "UCSICXo3Ky8vI-ivET5RKJIg",
+    "channelTitle": "베이비보소 English",
+    "publishedAt": "2023-07-18T14:59:45Z",
+    "viewCount": 344823,
+    "likeCount": 1924,
+    "commentCount": 14,
+    "durationSeconds": 22,
+    "thumbnail": "https://i.ytimg.com/vi/SF7u3wLKCEM/maxresdefault.jpg",
+    "description": "파닉스 배우기 clock 클락 시계 영어단어 같이 배워요^^\nhttps://youtu.be/TKDZPAGejv0",
+    "tags": []
+  },
+  "subscriberCount": 63000,
+  "viewsPerSubscriber": 5.47,
+  "outlierRatio": 80.4,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-18T04:01:41.403Z",
+  "ratioDenominator": 4289,
+  "ratioPeerCount": 39,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 11,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 13
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 22
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 2,
+    "stats": {
+      "sentences": 2,
+      "lengthSum": 66,
+      "lengthMedian": 33,
+      "endings": {
+        "question": 1,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 1,
+        "other": 0
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 1,
+      "questionSentences": 1,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 2,
+      "hangulChars": 60,
+      "hangulRatio": 0.91,
+      "uniqueWordRatio": 0.91,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-18T04:05:56.563Z",
+    "note": "품질 낮음: 문장 2개(8개 미만), 한글 60자(150자 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "파닉스 왕초보를 대상으로 clock 단어의 연속자음과 발음법을 쉽게 익힐 수 있음을 안내함",
+      "titleQuote": "파닉스 왕초보 영어읽는법 clock 연속자음 배우기",
+      "thumbnailText": "clock ㅋ ㄹ ㄹ ㅏ ㅋ",
+      "thumbnailWordCount": 5,
+      "thumbnailVisual": "흰 바탕 중앙에 대형 알파벳 clock이 있고, 그 아래 한글 자모음 ㅋ, ㄹ, ㄹ, ㅏ, ㅋ 표기와 함께 빨간 둥근 테두리로 묶인 그래픽이 배치됨",
+      "thumbnailVsTitle": "제목은 학습 대상과 주제를 제시하고, 썸네일은 실제 영상에서 다루는 단어와 핵심 발음 조합 기호를 시각적으로 보여줌",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "clock 단어의 c, l, o, ck 발음을 한글 기호로 나열하고 이를 결합하여 '클락' 발음을 만들어내는 과정을 순차적으로 설명함",
+      "quote": "오는 단모음으로 아 소리가나요 ck는 하나의 소리로 크 크와르가 합쳐져서 클 크 발음은 받침으로 와서 lock 한번에 읽으면",
+      "reasonToKeepWatching": "알파벳 조각들이 어떤 한글 발음 기호로 변하고 합쳐져 최종 발음이 되는지 시각적 기호 변화로 호기심을 유지함",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "화면에 clock 단어가 표시되고 c와 l 아래 화살표와 한글 자음 ㅋ, ㄹ이 나타나며 발음 설명이 시작됨",
+      "quote": "오는",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 3,
+        "what": "알파벳 c와 l의 개별 소리를 한글 ㅋ, ㄹ 기호와 함께 제시함",
+        "quote": "오는",
+        "quoteVerified": true
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "what": "모음 o가 단모음 '아' 소리가 남을 설명하고 ㅏ 기호를 추가함",
+        "quote": "단모음으로 아 소리가나요",
+        "quoteVerified": true
+      },
+      {
+        "start": 7,
+        "end": 11,
+        "what": "ck가 '크' 소리가 남을 알리고 앞선 c와 l 소리가 합쳐져 '클'이 되는 과정을 빨간 원으로 강조함",
+        "quote": "ck는 하나의 소리로 크 크와르가 합쳐져서 클",
+        "quoteVerified": true
+      },
+      {
+        "start": 12,
+        "end": 18,
+        "what": "끝의 '크' 발음이 받침으로 합쳐져 완성된 발음 '클락'을 연속해서 읽어줌",
+        "quote": "크 발음은 받침으로 와서 lock 한번에 읽으면 클럽 클럽",
+        "quoteVerified": true
+      },
+      {
+        "start": 19,
+        "end": 22,
+        "what": "하단에 시계 아이콘이 등장하며 단어 clock의 한국어 뜻인 '시계'를 설명하고 마무리함",
+        "quote": "뜻은 시계라는 뜻이에요",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "c 아래 보라색 화살표와 검은색 ㅋ 기호가 표시됨",
+        "purpose": "c 알파벳의 기본 소리값을 시각화"
+      },
+      {
+        "t": 1,
+        "what": "l 아래 보라색 화살표와 회색 ㄹ 기호가 나타남",
+        "purpose": "l 알파벳의 기본 소리값을 시각화"
+      },
+      {
+        "t": 4,
+        "what": "o 아래 보라색 화살표와 ㅏ 기호가 나타남",
+        "purpose": "단모음 o의 '아' 발음을 시각화"
+      },
+      {
+        "t": 7,
+        "what": "ck 아래 보라색 화살표와 ㅋ 기호가 나타남",
+        "purpose": "이중자음 ck의 '크' 발음을 시각화"
+      },
+      {
+        "t": 9,
+        "what": "앞쪽 ㅋ와 ㄹ 기호 둘레에 빨간색 동그라미가 그려짐",
+        "purpose": "두 자음이 결합하여 '클' 소리가 됨을 강조"
+      },
+      {
+        "t": 12,
+        "what": "뒤쪽 ㄹ, ㅏ, ㅋ 기호 둘레에 빨간색 동그라미가 추가로 그려짐",
+        "purpose": "모음과 받침이 결합하여 '락' 소리가 됨을 강조"
+      },
+      {
+        "t": 19,
+        "what": "화면 하단 중앙에 원형 시계 그림 아이콘이 나타남",
+        "purpose": "단어의 의미인 '시계'를 시각적으로 연상시킴"
+      }
+    ],
+    "ending": {
+      "what": "단어의 뜻이 '시계'임을 알리고 시계 일러스트를 보여주며 끝남",
+      "quote": "뜻은 시계라는 뜻이에요",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "포기했던 영어를 파닉스 기초 설명 덕분에 다시 공부할 용기를 얻음",
+          "quote": "너무 감사드리고 사랑해요 ㅠㅠㅠ 영어 포기했었는데 이 영상을 첫 계단 삼아서 다시 한번 일어서보겠습니다..😭😭💗💗",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "단어를 읽을 때 유사한 다른 단어로 잘못 읽게 되는 어려움",
+          "quote": "자꾸 클락을 클론이라고 잃어져요ㅜㅜ",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "알파벳 O가 반모음인지에 대한 추가적인 질문",
+          "quote": "O. 가 반모음인가요?",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "첫 계단",
+          "quote": "이 영상을 첫 계단 삼아서 다시 한번 일어서보겠습니다..",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 4,
+      "description": "c(크), l(ㄹ), o(아), ck(크) 4개 음소의 소리값과 결합 원리를 단계별로 나열함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "알파벳 아래쪽과 화면 중간 하단",
+      "size": "보통",
+      "highlightColor": "주황색, 빨간색",
+      "highlightMethod": "글자 색상 차별화 및 손글씨 형태의 빨간 원 테두리 강조",
+      "textAmount": "한글 자모음 및 단어 단위의 짧은 글자",
+      "changeTiming": "성우 음성 설명 타이밍에 맞춰 한 글자씩 또는 기호 단위로 맞춰 나타남"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "배경음악 없이 여성 성우의 발음 설명 음성만 명확하게 들림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "알파벳 단어 아래에 화살표와 한글 자모를 하나씩 깔아놓으며 호기심 유발",
+        "quote": "오는",
+        "type": "시각적 음소 조립 훅",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "clock 단어가 어떤 소리 요소들로 결합되어 읽히는지 과정 제시",
+          "quote": "오는",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 16,
+          "what": "각 조각을 결합해 완성된 발음 '클락'을 제시하여 해결",
+          "quote": "클럽",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "개별 알파벳 소리값을 도출한 후 이를 묶어 하나의 음절과 단어로 완성해 나가는 원인-결과 구조임",
+        "examples": [
+          {
+            "t": 9,
+            "what": "크 소리와 르 소리가 합쳐져서 클 소리가 되는 과정",
+            "quote": "크와르가 합쳐져서 클",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 19,
+          "what": "시계 그래픽을 보여주며 단어 뜻의 근거를 visual로 제시",
+          "quote": "뜻은 시계라는 뜻이에요",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 16,
+        "what": "발음 조합의 결론인 단어 읽기와 한국어 의미를 정확히 전달함",
+        "quote": "클럽 뜻은 시계라는 뜻이에요",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "알파벳 발음 기호를 한글로 조합해 쉽게 풀어주는 설명 방식",
+        "reaction": "영어 포기자 시청자가 학습 의욕을 되찾고 감사를 표함",
+        "quote": "너무 감사드리고 사랑해요 ㅠㅠㅠ 영어 포기했었는데 이 영상을 첫 계단 삼아서 다시 한번 일어서보겠습니다..😭😭💗💗",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "영어 단어 clock의 자음/모음 발음 원리와 조합법을 한글 표기와 음성으로 가르치는 원본 교육 영상이다.",
+    "forUs": {
+      "adopt": "알파벳 각각의 소리값을 한글 자모에 대치한 뒤 동그라미로 묶어 발음 결합 과정을 한눈에 시각화하는 기법",
+      "differentiate": "단순히 한국어 표기로 직역해 묶기보다 성인 학습자가 유성음/무성음 차이나 혀 위치를 이해할 수 있는 실질적 발음 포인트를 함께 전달하기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 20,
+    "verified": 20,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 19,
+      "file": "19.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 5485,
+    "candidatesTokenCount": 2520,
+    "totalTokenCount": 10242,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2383
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2002
+      }
+    ],
+    "thoughtsTokenCount": 2237,
+    "serviceTier": "standard"
+  }
+}

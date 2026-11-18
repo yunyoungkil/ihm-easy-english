@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-15T16:08:11.108Z",
+  "updatedAt": "2026-11-17T09:23:18.980Z",
   "videos": {
     "YoaCRYCWpws": {
       "videoId": "YoaCRYCWpws",
@@ -157,13 +157,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 106,
-          "ctr": 2.83,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 105,
+          "ctr": 2.86,
           "packageId": "youtube-YoaCRYCWpws",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -332,13 +332,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 53,
-          "ctr": 1.89,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 52,
+          "ctr": 1.92,
           "packageId": "youtube-BLinHY3p4yc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -507,13 +507,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 38,
           "ctr": 2.63,
           "packageId": "youtube-r2dDUxflF0Y",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -682,13 +682,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 28,
           "ctr": 3.57,
           "packageId": "youtube-wHoTmrRbf6k",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -857,13 +857,13 @@
           "importedAt": "2026-11-11T04:28:17.501Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 44,
           "ctr": 2.27,
           "packageId": "youtube--V1lwpEF7Ik",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1032,13 +1032,13 @@
           "importedAt": "2026-11-11T04:28:17.501Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 81,
-          "ctr": 4.94,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 83,
+          "ctr": 4.82,
           "packageId": "youtube-jRoYudL30DE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1207,13 +1207,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 74,
-          "ctr": 4.05,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 75,
+          "ctr": 4,
           "packageId": "youtube-BsyRH8GWYJ4",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1382,13 +1382,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 67,
-          "ctr": 2.99,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 68,
+          "ctr": 2.94,
           "packageId": "youtube-cu3EB5OJdMM",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1557,13 +1557,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 33,
           "ctr": 0,
           "packageId": "youtube-Ha_7wdnFNmo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -1732,13 +1732,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 128,
-          "ctr": 1.56,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 117,
+          "ctr": 1.71,
           "packageId": "youtube-f4wkmIvplCc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2013,13 +2013,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 15,
           "ctr": 26.67,
           "packageId": "youtube-JOyI0DWGzEM",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2178,13 +2178,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 97,
-          "ctr": 5.15,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 93,
+          "ctr": 5.38,
           "packageId": "youtube-hu4GNC7peTY",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2343,13 +2343,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 63,
           "ctr": 3.17,
           "packageId": "youtube-u2WOzu-0Hxc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2508,13 +2508,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 34,
           "ctr": 5.88,
           "packageId": "youtube-qf38zv-SVNo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2673,13 +2673,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 20,
           "ctr": 10,
           "packageId": "youtube-xVXqGbOHpbM",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -2838,13 +2838,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 61,
-          "ctr": 3.28,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 63,
+          "ctr": 3.17,
           "packageId": "youtube-pghOYvcjpIg",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3003,13 +3003,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 25,
           "ctr": 4,
           "packageId": "youtube-c7Mp5L8HSXE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3168,13 +3168,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 10,
           "ctr": 0,
           "packageId": "youtube-4EGKRM-m77w",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         }
       }
     },
@@ -3323,13 +3323,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 17,
           "ctr": 0,
           "packageId": "youtube-l8w3SlUnm3Y",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3488,13 +3488,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 14,
           "ctr": 0,
           "packageId": "youtube-GlOrcx3y1rE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3653,13 +3653,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 23,
           "ctr": 13.04,
           "packageId": "youtube-7GJ6Iiy_THk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -3818,13 +3818,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 12,
           "ctr": 0,
           "packageId": "youtube-51fLblzetS0",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         }
       }
     },
@@ -3973,13 +3973,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 23,
           "ctr": 0,
           "packageId": "youtube-dwe9WPIHi5k",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4138,13 +4138,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 11,
           "ctr": 0,
           "packageId": "youtube-_TEGdCgLmYE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4303,13 +4303,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 31,
-          "ctr": 9.68,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 33,
+          "ctr": 12.12,
           "packageId": "youtube-r7QQlVQtA1Y",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4468,13 +4468,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 9,
           "ctr": 0,
           "packageId": "youtube-KpVpLURLtzo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4633,13 +4633,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 14,
           "ctr": 0,
           "packageId": "youtube-XrjSTAggQc8",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4798,13 +4798,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 56,
           "ctr": 3.57,
           "packageId": "youtube-k8T7chDCj3Q",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -4963,13 +4963,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 53,
           "ctr": 0,
           "packageId": "youtube-6nANjHxy2Lc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5128,13 +5128,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 37,
-          "ctr": 2.7,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 42,
+          "ctr": 2.38,
           "packageId": "youtube-FwBboz1jenA",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5293,13 +5293,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 66,
-          "ctr": 1.52,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 65,
+          "ctr": 1.54,
           "packageId": "youtube-tFe-cB__uns",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5458,13 +5458,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 63,
           "ctr": 1.59,
           "packageId": "youtube-M9ru03p3QoE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5623,13 +5623,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 54,
           "ctr": 3.7,
           "packageId": "youtube-dijhGjxOQOw",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5788,13 +5788,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 16,
           "ctr": 0,
           "packageId": "youtube-yu9jZesTwYs",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -5953,13 +5953,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 20,
           "ctr": 0,
           "packageId": "youtube-oZUhK2YKW8w",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6118,13 +6118,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 18,
           "ctr": 11.11,
           "packageId": "youtube-kfVJAJTmLpU",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6283,13 +6283,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 205,
-          "ctr": 2.93,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 206,
+          "ctr": 2.91,
           "packageId": "youtube-IfK4Itzgt6o",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6448,13 +6448,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 15,
           "ctr": 0,
           "packageId": "youtube-qb-vO3Qubec",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6613,13 +6613,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 64,
           "ctr": 3.13,
           "packageId": "youtube-h-UUbuWQuag",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6778,13 +6778,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 84,
-          "ctr": 2.38,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 87,
+          "ctr": 3.45,
           "packageId": "youtube-Si88xXt-EQc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -6943,13 +6943,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 20,
           "ctr": 5,
           "packageId": "youtube-FK-JWJ_7vq4",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7108,13 +7108,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 94,
           "ctr": 5.32,
           "packageId": "youtube-7qSWJZqV14o",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7273,13 +7273,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 69,
           "ctr": 5.8,
           "packageId": "youtube-F-o7EmQL3zY",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7438,13 +7438,13 @@
           "importedAt": "2026-11-11T04:28:17.501Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 57,
           "ctr": 3.51,
           "packageId": "youtube-4LQ9epVVahA",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7603,13 +7603,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 99,
-          "ctr": 9.09,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 98,
+          "ctr": 9.18,
           "packageId": "youtube-5MiM1tIpQQk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7768,13 +7768,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 31,
-          "ctr": 6.45,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 33,
+          "ctr": 6.06,
           "packageId": "youtube-7LrJxl9Mzi0",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -7933,13 +7933,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 24,
           "ctr": 8.33,
           "packageId": "youtube-Zh8_xYi_Gu0",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8098,13 +8098,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 18,
           "ctr": 5.56,
           "packageId": "youtube-hsqsL6vneCk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8263,13 +8263,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 16,
           "ctr": 6.25,
           "packageId": "youtube-1BslXwjEbOI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8428,13 +8428,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 43,
           "ctr": 6.98,
           "packageId": "youtube-ewv3GcXNLsE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8593,13 +8593,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 13,
           "ctr": 0,
           "packageId": "youtube-d7lre1PlsEo",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8758,13 +8758,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 22,
           "ctr": 13.64,
           "packageId": "youtube-dqUv-iFpy2g",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -8923,13 +8923,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 19,
           "ctr": 5.26,
           "packageId": "youtube-LgEmfyQ41NI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9088,13 +9088,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 15,
           "ctr": 6.67,
           "packageId": "youtube-l_9PYWiORjE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9253,13 +9253,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 23,
           "ctr": 4.35,
           "packageId": "youtube-a1d1lxLd68k",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9418,13 +9418,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 15,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 17,
           "ctr": 0,
           "packageId": "youtube-w0xvwLiOX1U",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9583,13 +9583,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 20,
           "ctr": 5,
           "packageId": "youtube-2lae1vhl53s",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9748,13 +9748,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 17,
           "ctr": 5.88,
           "packageId": "youtube-6ojF8F0dJ2E",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -9913,13 +9913,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 14,
           "ctr": 0,
           "packageId": "youtube--oEAORG6oYE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         }
       }
     },
@@ -10068,13 +10068,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 22,
           "ctr": 4.55,
           "packageId": "youtube-2xir5cjFcsg",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10445,13 +10445,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 86,
           "ctr": 3.49,
           "packageId": "youtube-sNNufVhkjT8",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10610,13 +10610,13 @@
           "importedAt": "2026-11-11T04:28:17.505Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 15,
           "ctr": 0,
           "packageId": "youtube-1EtmmvExoLg",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10775,13 +10775,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 50,
           "ctr": 4,
           "packageId": "youtube-nVrCk8IZFGA",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -10940,13 +10940,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 138,
-          "ctr": 1.45,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 139,
+          "ctr": 1.44,
           "packageId": "youtube-LdiZKCzKf0c",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11085,13 +11085,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 54,
           "ctr": 1.85,
           "packageId": "youtube-3PkSwrFIcRE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11190,13 +11190,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 55,
           "ctr": 3.64,
           "packageId": "youtube-a2VrFQVjImI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11285,13 +11285,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 63,
           "ctr": 3.17,
           "packageId": "youtube-W7toujk6ER8",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11370,13 +11370,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 52,
           "ctr": 3.85,
           "packageId": "youtube-beKA35yvxdk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11455,13 +11455,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 51,
           "ctr": 3.92,
           "packageId": "youtube-uqmVMRhT_1A",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11540,13 +11540,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 64,
           "ctr": 3.13,
           "packageId": "youtube-AcNSDMpkR_A",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11615,13 +11615,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 1871,
-          "ctr": 4.7,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 1898,
+          "ctr": 4.69,
           "packageId": "youtube-ROks87qezuU",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11690,13 +11690,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 89,
           "ctr": 5.62,
           "packageId": "youtube-MdLjt4zvg8g",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11765,13 +11765,13 @@
           "importedAt": "2026-11-11T04:28:17.494Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 426,
           "ctr": 4.23,
           "packageId": "youtube-VwEkIUluszw",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11840,13 +11840,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 908,
           "ctr": 0.11,
           "packageId": "youtube-4of_mgeLazQ",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11905,13 +11905,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 62,
           "ctr": 1.61,
           "packageId": "youtube--UHrFcMRsEY",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11950,13 +11950,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 122,
           "ctr": 4.1,
           "packageId": "youtube-bPTAnjMT7xc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -11995,13 +11995,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
           "impressions": 185,
           "ctr": 1.62,
           "packageId": "youtube-EDjmQmvGA1o",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12040,13 +12040,13 @@
           "importedAt": "2026-11-11T04:28:17.499Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 114,
-          "ctr": 1.75,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 118,
+          "ctr": 1.69,
           "packageId": "youtube-9d9m869BCTI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12075,13 +12075,13 @@
           "importedAt": "2026-11-11T04:28:17.502Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 278,
-          "ctr": 1.44,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 295,
+          "ctr": 1.36,
           "packageId": "youtube---Ajwp-UvIk",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12110,13 +12110,13 @@
           "importedAt": "2026-11-13T11:39:18.921Z"
         },
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 41,
-          "ctr": 4.88,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 42,
+          "ctr": 4.76,
           "packageId": "youtube-oMrCtSBbibc",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         }
       }
     },
@@ -12125,13 +12125,13 @@
       "windows": {},
       "periods": {
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 151,
-          "ctr": 1.32,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 155,
+          "ctr": 1.29,
           "packageId": "youtube-8Ul_lkCkUCI",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         },
         "2026-10-16_2026-11-13": {
           "startDate": "2026-10-16",
@@ -12150,13 +12150,13 @@
       "windows": {},
       "periods": {
         "studio-auto-quarter": {
-          "startDate": "2026-08-17",
-          "endDate": "2026-11-15",
-          "impressions": 94,
-          "ctr": 3.19,
+          "startDate": "2026-08-18",
+          "endDate": "2026-11-16",
+          "impressions": 136,
+          "ctr": 2.94,
           "packageId": "youtube-ogCglr1VNYE",
           "source": "studio-export-rolling",
-          "fetchedAt": "2026-11-15T16:08:11.108Z"
+          "fetchedAt": "2026-11-17T09:23:18.980Z"
         }
       }
     }

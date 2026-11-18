@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 1,
+  "videoId": "4cBa8D9P96I",
+  "analyzedAt": "2026-11-16T16:08:25.482Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "4cBa8D9P96I",
+    "title": "영어 리스닝 규칙 3가지를 알아야 들립니다! 리스닝이 힘드신분들은 꼭 보세요.",
+    "channelId": "UCueImoAsV8idO83PK0BDx5A",
+    "channelTitle": "JJEnglish101",
+    "publishedAt": "2025-02-19T07:00:38Z",
+    "viewCount": 400580,
+    "likeCount": 11877,
+    "commentCount": 418,
+    "durationSeconds": 1038,
+    "thumbnail": "https://i.ytimg.com/vi/4cBa8D9P96I/maxresdefault.jpg",
+    "description": "🎈JJ쌤 영어쉐도잉 챌린지 신청하기 (1기 최저가혜택)\nhttps://cafe.naver.com/englishspeaking101/732\n💌JJ쌤 이메일 레터 무료구독▼▼▼ \nhttps://jjielts.kit.com/442ddc6c91\n💗JJ쌤 인스타그램 ▼▼▼ \nhttps://www.instagram.com/jj_english101\n\n🚨 띄어쓰기 정정! \nquite alot 이 아닌 quite a lot 입니다!",
+    "tags": [
+      "영어회화",
+      "영어공부",
+      "영어표현",
+      "영어리스닝",
+      "영어듣기",
+      "공부법",
+      "영어공부법",
+      "미드공부법",
+      "아이엘츠 리스닝",
+      "리스닝 공부법"
+    ]
+  },
+  "subscriberCount": 34300,
+  "viewsPerSubscriber": 11.68,
+  "outlierRatio": 155.17,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-16T16:00:36.426Z",
+  "ratioDenominator": 2581.5,
+  "ratioPeerCount": 10,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 361,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "long",
+    "sentences": 49,
+    "stats": {
+      "sentences": 49,
+      "lengthSum": 1379,
+      "lengthMedian": 25,
+      "endings": {
+        "question": 3,
+        "command": 4,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 2,
+        "hapsyo": 13,
+        "haeyo": 26,
+        "other": 1
+      },
+      "jointMid": 5,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 5,
+        "그래서": 6,
+        "그런데": 2,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 2,
+        "이게": 2,
+        "그냥": 4,
+        "진짜": 1,
+        "되게": 0,
+        "사실": 1,
+        "우리": 7,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 3,
+      "pastConclusionSentences": 10
+    },
+    "qualityMetrics": {
+      "sentences": 49,
+      "hangulChars": 1369,
+      "hangulRatio": 0.99,
+      "uniqueWordRatio": 0.69,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-16T16:05:37.164Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어 리스닝 규칙 3가지를 명확한 숫자로 제시하고, 리스닝이 힘든 시청자의 문제를 해결해 주겠다고 약속함.",
+      "titleQuote": "영어 리스닝 규칙 3가지를 알아야 들립니다! 리스닝이 힘드신분들은 꼭 보세요.",
+      "thumbnailText": "영어귀뚫기 3가지 규칙 (전)강남해커스 IELTS 리스닝 전담강사 반복듣기로만 귀 안뚫려요, 공부순서 딱정해드림",
+      "thumbnailWordCount": 14,
+      "thumbnailVisual": "화자인 여성이 중앙에 배치되어 있고, 좌측에는 귀와 뚫어뻥 아이콘, 우측에는 전직 강사 이력, 하단에는 검은색 박스에 흰색 글씨로 강조 문구가 적혀 있음.",
+      "thumbnailVsTitle": "제목은 규칙 3가지와 대상(힘든 사람)을 제시하고, 썸네일은 '반복듣기만으론 안 된다'는 경고와 강사 경력을 추가하여 전문성과 신뢰감을 보탬.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "화자가 영어 듣기가 안 돼 답답함과 자괴감을 느낀 적이 있는지 묻고, 자신이 듣기 때문에 흘린 눈물이 3리터는 될 것이라며 경험담을 시작함.",
+      "quote": "여러분 영어 듣기가 안 돼서 막 너무 답답하고 자괴감까지든 적 있으신가요 저는요 듣기 때문에 흘린 눈물이 한 3리는 될 것 같습니다",
+      "reasonToKeepWatching": "영어 듣기 때문에 겪은 뼈아픈 시련 경험담에 공감하게 만들고, 이를 극복하고 귀가 뚫리게 된 3가지 핵심 포인트를 공개하겠다고 예고함.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "화자가 정면을 바라보며 시청자에게 영어 듣기의 답답함에 대해 질문함.",
+      "quote": "여러분 영어 듣기가 안 돼서 막 너무",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 71,
+        "what": "영어 듣기가 안 돼서 눈물 흘렸던 3가지 경험담(캐나다 모임 소외, 대학 수업 필기 불가, IELTS 만점 압박) 고백",
+        "quote": "여러분 영어 듣기가 안 돼서 막 너무 답답하고 자괴감까지든 적 있으신가요",
+        "quoteVerified": true
+      },
+      {
+        "start": 72,
+        "end": 107,
+        "what": "듣기 문제 극복(IELTS 만점, 해커스 강사) 성과 및 오늘 강의할 3가지 포인트 안내",
+        "quote": "우선 아트 리스닝 만점 받았고요 그리고 대학 졸업도 잘했습니다",
+        "quoteVerified": true
+      },
+      {
+        "start": 108,
+        "end": 164,
+        "what": "첫 번째 포인트: 앞에서부터 차례대로 이해하는 실전 해석 습관 들이기 설명",
+        "quote": "첫 번째! 실전 해석 습관들이기 이게 무슨 말이냐 문장을 앞에서부터 차례 차례대로 읽으며 이해하는 습관을 들이셔야 돼요",
+        "quoteVerified": false
+      },
+      {
+        "start": 165,
+        "end": 244,
+        "what": "프렌즈 미드 예시 문장 청취 및 앞에서부터 순서대로 해석하는 방식 시연",
+        "quote": "자 그럼 예를 들어볼까요? 한번 들어보세요",
+        "quoteVerified": false
+      },
+      {
+        "start": 245,
+        "end": 300,
+        "what": "두 번째 포인트: 연음 학습의 필요성과 대표 연음 법칙 안내 시작",
+        "quote": "자 두 번째 리스닝에 꼭 필요한 포인트 연음학습입니다",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 1,
+        "what": "화면 하단에 '내 영어귀를 뚫어준 3가지 리스닝포인트 📌' 자막 텍스트 등장",
+        "purpose": "영상에서 다룰 주요 주제를 시각적으로 명시함."
+      },
+      {
+        "t": 12,
+        "what": "화면 우측 상단에 생수병 3개 그래픽 아이콘 등장",
+        "purpose": "흘린 눈물이 3리터라는 말을 생수병 개수로 비유하여 시각화함."
+      },
+      {
+        "t": 14,
+        "what": "화면 좌측 하단에 '1. 군중 속 외로움' 텍스트 그래픽 등장",
+        "purpose": "첫 번째 눈물 경험담의 소제목을 표시함."
+      },
+      {
+        "t": 29,
+        "what": "생수병 1개가 왼쪽 상단으로 이동하고 '눈물 한바가지💦' 텍스트 등장",
+        "purpose": "첫 번째 경험으로 흘린 눈물 양을 표시함."
+      },
+      {
+        "t": 31,
+        "what": "화면 좌측 하단에 '2. 대학수업 낙제위기' 텍스트 그래픽 등장",
+        "purpose": "두 번째 경험담 소제목을 표시함."
+      },
+      {
+        "t": 49,
+        "what": "화면 우측 하단에 울고 있는 남성 이미지 팝업",
+        "purpose": "수업 시간에 눈물을 삼켜야 했던 서러운 감정을 강조함."
+      },
+      {
+        "t": 56,
+        "what": "왼쪽 상단의 생수병이 2개로 늘어남",
+        "purpose": "두 번째 경험담까지 누적된 눈물 양을 보여줌."
+      },
+      {
+        "t": 57,
+        "what": "화면 좌측 하단에 '3. IELTS 시험 만점챌린지' 텍스트 그래픽 등장",
+        "purpose": "세 번째 경험담 소제목을 표시함."
+      },
+      {
+        "t": 107,
+        "what": "화면 우측 하단에 코난 오브라이언 우는 짤 팝업",
+        "purpose": "시험 준비 중 답답해서 울었던 감정을 극대화함."
+      },
+      {
+        "t": 110,
+        "what": "왼쪽 상단 생수병이 3개로 완성됨",
+        "purpose": "총 3리터의 눈물 비유 그래픽을 완성함."
+      },
+      {
+        "t": 127,
+        "what": "화면 좌측 상단에 해커스 강사 시절 강의 화면 캡처 이미지 팝업",
+        "purpose": "IELTS 리스닝 전담 강사 경력을 증명하여 신뢰도를 높임."
+      },
+      {
+        "t": 148,
+        "what": "화면 전체가 일시적으로 블러(흐림) 처리되며 전환됨",
+        "purpose": "서론을 마치고 본격적인 첫 번째 포인트 내용으로 전환됨을 알림."
+      },
+      {
+        "t": 150,
+        "what": "좌측 상단에 '1. 실전 해석하기' 베이지색 텍스트 상자 등장",
+        "purpose": "첫 번째 핵심 규칙 주제를 명시함."
+      },
+      {
+        "t": 235,
+        "what": "화면 좌측 하단에 미드 '프렌즈' 출연진 장면 이미지 팝업",
+        "purpose": "실전 청취 연습에 쓰일 드라마 예시임을 알림."
+      },
+      {
+        "t": 246,
+        "what": "화면 하단 전체에 영어 스크립트 상자 등장",
+        "purpose": "들려준 영어 문장의 텍스트 구조를 보여줌."
+      },
+      {
+        "t": 256,
+        "what": "영어 문장 구절 아래에 직독직해 한국어 번역 자막이 순차적으로 표시됨",
+        "purpose": "문장을 거꾸로가 아닌 앞에서부터 순서대로 해석하는 방식을 시연함."
+      }
+    ],
+    "ending": {
+      "what": "영어가 안 들리는 과정은 자연스러운 것이니 조급해하지 말고 올바른 길로 함께 꾸준히 나가자는 위로와 격려로 마무리함.",
+      "quote": "너무 조급하게 너무 힘들게 생각하지 마시고 우리 함께 꾸준히 올바른 길로 나가 봐요 오케이 여기까지",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "강사의 실제 경험에 기반한 실용적이고 명쾌한 설명과 마지막 위로에 공감함.",
+          "quote": "확실히 가르치신 경험이있어서인지 한국인들 약점도 아시고 속시원하게 알려주시는것 같아요. 감사합니다!",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "외국에 있거나 영어를 배울 때 안 들려서 느꼈던 소외감과 자괴감.",
+          "quote": "맨 마지막에 울컥햇어여. 저도 외국나가서 혼자 마니 울었어요 영어땜에 소외감 절망감 열등감 얼마나 마니 느꼇게요.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "기초 단어 암기가 우선되어야 한다는 의견 제시.",
+          "quote": "다들 영어단어부터 공부하십쇼..",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "영어가 안 들려 느끼는 슬픔과 답답함을 나타낸 표현.",
+          "quote": "눈물 한바지흘리고있어요..개인적으로 제일 무서운게 듣기…",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 3,
+      "description": "리스닝을 위한 3가지 핵심 규칙(실전 해석/직독직해, 연음 학습, 무작정 듣기 금지 및 레벨별 학습)을 차례대로 나열하여 설명함.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙 자막 및 좌측 상단/하단 텍스트 박스",
+      "size": "보통",
+      "highlightColor": "빨간색 및 검은색",
+      "highlightMethod": "구문 단위 빗금(/) 표시 및 색상 변경을 통해 앞에서부터 해석하는 직독직해 방식 강조",
+      "textAmount": "1~2줄 분량의 말자막 및 구절 단위 텍스트 상자",
+      "changeTiming": "화자의 발화 속도 및 구문 단위에 맞춰 변경"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 차분한 배경음",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "텍스트 박스나 이미지 그래픽이 팝업될 때 뿅/숑 소리 효과음 사용",
+      "voiceVsMusic": "화자의 목소리가 크고 또렷하게 전달되며 배경음악은 작게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 1,
+        "what": "영어 듣기 때문에 답답함과 자괴감을 느낀 적이 있는지 묻고 3리터 눈물 비유를 제시함",
+        "quote": "여러분 영어 듣기가 안 돼서 막 너무 답답하고 자괴감까지든 적 있으신가요",
+        "type": "공감 유도형 질문 및 자학적 고백",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 138,
+          "what": "귀가 트이는 모먼트를 어떻게 얻게 되었는지 궁금증 유발",
+          "quote": "라는 요 모먼트를 어떻게 얻게 됐는지 크게 3가지 포인트로 말씀을 드릴 거구요",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 148,
+          "what": "첫 번째 실전 해석 습관 들이기 포인트 공개",
+          "quote": "첫 번째! 실전 해석 습관들이기",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "영어 듣기 실패와 눈물이라는 원인이 극복 성과(IELTS 만점, 강사)와 3가지 리스닝 규칙 정립이라는 결과로 이어짐.",
+        "examples": [
+          {
+            "t": 117,
+            "what": "눈물을 흘렸던 과거를 넘어 만점을 받고 강사로 활동하게 됨",
+            "quote": "우선 아트 리스닝 만점 받았고요 그리고 대학 졸업도 잘했습니다",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 141,
+          "what": "영상이 끝날 때까지 3가지 핵심 포인트를 하나씩 공개해 나가는 구조",
+          "quote": "크게 3가지 포인트로 말씀을 드릴 거구요",
+          "quoteVerified": false
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 235,
+          "what": "설명 중간에 실제 미드 '프렌즈' 오디오 클립을 들려주고 직접 해석해 보게 함",
+          "quote": "자 그럼 예를 들어볼까요? 한번 들어보세요",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 144,
+          "what": "중요한 내용이니 노트하면서 들으라고 시청자에게 직접 지시함",
+          "quote": "중요한 내용이니까 꼭 노트하면서 들어주세요",
+          "quoteVerified": false
+        }
+      ],
+      "evidence": [
+        {
+          "t": 127,
+          "what": "강남 해커스 학원에서 강의했던 인포그래픽/프로필 캡처 화면을 보여주어 전문성 입증",
+          "quote": "강남 해커스학원에서 아이츠 리스닝 전담 강사로 강의도 쭉 했었어요",
+          "quoteVerified": false
+        }
+      ],
+      "payoff": {
+        "t": 1642,
+        "what": "듣기 학습법에 더해 외국인 친구의 조언을 소개하며 주눅 들지 않는 마음가짐이라는 근본적 해답 제시",
+        "quote": "언제나 제가 말씀드리지만 올바른 방향으로 꾸준하게 나아가신면 언젠간 내가 목표로 하는 그 수준에 다 다르게 되실 거예요",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "화자가 영어를 못 알아듣고 우울했던 경험과 친구의 조언을 진솔하게 털어놓는 장면",
+        "reaction": "시청자들이 자신의 해외 경험이나 공부할 때의 서러움을 상기하며 위로와 자신감을 얻었다고 반응함",
+        "quote": "맨 마지막에 울컥햇어여. 저도 외국나가서 혼자 마니 울었어요 영어땜에 소외감 절망감 열등감 얼마나 마니 느꼇게요.",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "성인 학습자를 대상으로 영어 듣기가 안 되는 원인(연음, 한국식 거꾸로 해석)을 지적하고 연음 법칙과 청취 훈련법을 가르치는 원본 강의 영상이다.",
+    "forUs": {
+      "adopt": "영어 듣기 실패 경험담에 생수병 그래픽 같은 재미있는 시각 비유를 활용하고, 미드 예시 소리와 직독직해 텍스트를 연동해 보여주는 연출을 가져온다.",
+      "differentiate": "해외 유학이나 IELTS 시험 같은 특수 경험 대신 5060 성인이 일상이나 해외여행에서 겪는 현실적인 소리 안 들림 상황으로 예시를 다듬어 제시한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 23,
+    "verified": 14,
+    "unverified": 9
+  },
+  "pacing": {
+    "count": 4,
+    "medianGapSeconds": 53,
+    "perMinute": 0.8,
+    "times": [
+      107.5,
+      165.1,
+      218.1,
+      265
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 29,
+      "file": "29.jpg"
+    },
+    {
+      "t": 49,
+      "file": "49.jpg"
+    },
+    {
+      "t": 56,
+      "file": "56.jpg"
+    },
+    {
+      "t": 107,
+      "file": "107.jpg"
+    },
+    {
+      "t": 110,
+      "file": "110.jpg"
+    },
+    {
+      "t": 148,
+      "file": "148.jpg"
+    },
+    {
+      "t": 150,
+      "file": "150.jpg"
+    },
+    {
+      "t": 246,
+      "file": "246.jpg"
+    },
+    {
+      "t": 256,
+      "file": "256.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 38660,
+    "candidatesTokenCount": 3944,
+    "totalTokenCount": 46703,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 10260
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27300
+      }
+    ],
+    "thoughtsTokenCount": 4099,
+    "serviceTier": "standard"
+  }
+}

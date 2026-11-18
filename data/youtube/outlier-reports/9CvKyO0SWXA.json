@@ -1,0 +1,412 @@
+{
+  "schemaVersion": 1,
+  "videoId": "9CvKyO0SWXA",
+  "analyzedAt": "2026-11-17T09:19:15.255Z",
+  "model": "gemini-flash-lite-latest",
+  "windowSeconds": 165,
+  "meta": {
+    "videoId": "9CvKyO0SWXA",
+    "title": "파닉스송 | 알파벳 파닉스 | 발음도 배우고 노래도 배우고 | 파닉스 | 영어노래",
+    "channelId": "UCMZYZv53oPgVR-CglbOk8IA",
+    "channelTitle": "비비파닉스",
+    "publishedAt": "2018-11-07T05:19:17Z",
+    "viewCount": 2476674,
+    "likeCount": 11114,
+    "commentCount": 928,
+    "durationSeconds": 165,
+    "thumbnail": "https://i.ytimg.com/vi/9CvKyO0SWXA/maxresdefault.jpg",
+    "description": "This is what the letters say~♬\n한달만에 알파벳 음가까지 재미있게 마스터하기!\n↓↓↓↓↓↓↓↓↓↓↓↓↓\nhttps://smartstore.naver.com/bibiphonics/products/5475452488\n\n한달만에 단모음 쭉쭉 읽어보기!\n↓↓↓↓↓↓↓↓↓↓↓↓↓\nhttps://smartstore.naver.com/bibiphonics/products/5616319130\n\n한달만에 장모음마스터 되기!\n↓↓↓↓↓↓↓↓↓↓↓↓↓\nhttps://smartstore.naver.com/bibiphonics/products/5820422783\n\n★About\n비비표 알파벳 대문자 소문자까지 모두 익혔다면~!???!!?\n이번에는 파닉스!!!!!\n비비소문자송 리듬에 맞춰 재미있는 파닉스송도 함께 배워봐요^^\n\n★Timestamp\n00:00 파닉스송\n01:23 파닉스노래 with BIBI\n\n★BIBI PHONICS\nEMAIL - bibistoryteller@gmail.com\nINSTAGRAM - https://www.instagram.com/bibi_phonics/\nCAFE - https://cafe.naver.com/bibiphonics\nBLOG - https://blog.naver.com/lovjih\n\n#파닉스송 #파닉스 #영어노래",
+    "tags": [
+      "파닉스송",
+      "알파벳파닉스",
+      "파닉스발음",
+      "파닉스발음송"
+    ]
+  },
+  "subscriberCount": 40400,
+  "viewsPerSubscriber": 61.3,
+  "outlierRatio": 55.64,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 3,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 165
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "long",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 69,
+      "lengthMedian": 69,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.33,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-17T09:19:08.308Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만), 고유 어절 비율 0.33(0.4 미만, 같은 말 반복)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "파닉스를 노래와 발음으로 배울 수 있다고 안내하며, 알파벳 파닉스를 다룬다는 점을 명확히 보여준다.",
+      "titleQuote": "파닉스송 | 알파벳 파닉스 | 발음도 배우고 노래도 배우고 | 파닉스 | 영어노래",
+      "thumbnailText": "파닉스송 180만",
+      "thumbnailWordCount": 2,
+      "thumbnailVisual": "노란색과 분홍색 그라데이션 배경 위에 흰색 후드티를 입은 진행자가 양팔을 벌리며 웃고 있고, 우측 상단에는 금색 리본 메달 장식이, 상단 중앙에는 초록색 배경의 한글 제목이 적혀 있다.",
+      "thumbnailVsTitle": "썸네일은 조회수 성과와 핵심 키워드를 시각적으로 강조하고, 제목은 상세한 학습 내용을 제공하여 서로 보완적인 정보를 더한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "빨간색 튜브 형태의 유튜브 로고 애니메이션으로 시작해 진행자가 구독, 좋아요, 알림 설정을 안내한 뒤, 'Alphabet Sound song' 타이틀과 함께 알파벳 캐릭터들이 노래에 맞춰 걸어 나오는 애니메이션이 이어진다.",
+      "quote": "This is what the letter say",
+      "reasonToKeepWatching": "알파벳 캐릭터들이 춤추며 등장하고 흥겨운 노래와 함께 알파벳 고유의 소리를 배울 수 있음을 보여준다.",
+      "quoteVerified": false
+    },
+    "first3s": {
+      "what": "어두운 배경 속에서 빨간색 입체 유튜브 로고가 나타났다 사라지며 시선을 끈다.",
+      "quote": ""
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 3,
+        "what": "유튜브 로고 애니메이션이 나타나며 영상이 시작된다.",
+        "quote": ""
+      },
+      {
+        "start": 3,
+        "end": 9,
+        "what": "진행자가 등장해 구독, 좋아요, 알림 설정을 직접 손짓으로 유도한다.",
+        "quote": ""
+      },
+      {
+        "start": 9,
+        "end": 14,
+        "what": "Alphabet Sound song 타이틀 화면과 함께 음악이 시작된다.",
+        "quote": ""
+      },
+      {
+        "start": 14,
+        "end": 22,
+        "what": "알파벳 A부터 Z까지의 캐릭터들이 줄지어 걸어가는 애니메이션이 나온다.",
+        "quote": "This is what the letter say",
+        "quoteVerified": false
+      },
+      {
+        "start": 22,
+        "end": 123,
+        "what": "알파벳 대문자와 소문자 캐릭터들이 차례대로 등장하여 각 알파벳의 소리를 반복해서 들려준다.",
+        "quote": ""
+      },
+      {
+        "start": 123,
+        "end": 240,
+        "what": "진행자가 흰색 의상을 입고 노래에 맞춰 율동과 표정을 보여주며 알파벳 소리를 함께 표현한다.",
+        "quote": "This is what the letters say",
+        "quoteVerified": true
+      },
+      {
+        "start": 240,
+        "end": 243,
+        "what": "비비 로고가 나타나며 영상이 마무리된다.",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "빨간색 유튜브 로고 애니메이션 등장",
+        "purpose": "영상의 시작을 알린다."
+      },
+      {
+        "t": 3,
+        "what": "노란색 상의를 입은 진행자 등장 및 자막(Subscribe, 좋아요, 알림 아이콘) 표시",
+        "purpose": "시청자에게 구독과 참여를 유도한다."
+      },
+      {
+        "t": 9,
+        "what": "Alphabet Sound song 타이틀 화면 전환",
+        "purpose": "노래의 주제를 시각적으로 보여준다."
+      },
+      {
+        "t": 14,
+        "what": "알파벳 캐릭터들이 줄지어 걸어가는 애니메이션 시작",
+        "purpose": "알파벳 순서대로 전체 흐름을 예고한다."
+      },
+      {
+        "t": 22,
+        "what": "알파벳 A부터 Z까지 개별 캐릭터들이 순서대로 화면에 등장",
+        "purpose": "각 글자의 소리를 집중해서 보여준다."
+      },
+      {
+        "t": 123,
+        "what": "흰색 의상을 입은 진행자가 등장해 알파벳에 맞춰 율동을 시작",
+        "purpose": "시청자가 보고 따라 할 수 있는 시각적 모델을 제공한다."
+      }
+    ],
+    "ending": {
+      "what": "말풍선 안에 'bibi'가 적힌 로고가 나타나며 영상이 끝난다.",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "노래와 율동을 통해 알파벳과 파닉스를 쉽고 재미있게 외울 수 있어 추억이 되거나 큰 도움이 되었다는 점",
+          "quote": "이거 초등학교 1학년?그쯤때 외우려고 춤도 따라했는데 추억이다",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "영어를 원래 잘 못하거나 어려워했던 경험",
+          "quote": "와 진짜 나 영어 찐이짜 못하는데ㅠ 이거 보고 다~~~왜웠어요",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "음원 파일이나 멜론 같은 음원 사이트에서 노래를 다운로드할 수 있는지에 대한 문의",
+          "quote": "멜론뮤직같은데 음원은없겠죠?",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "중독성 있어",
+          "quote": "중독성 있어~~♡",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 26,
+      "description": "알파벳 A부터 Z까지 각 글자의 소리를 순서대로 하나씩 나열한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "흰색",
+      "highlightMethod": "일정한 자막 바 위에 텍스트 표시",
+      "textAmount": "한 문장 단위",
+      "changeTiming": "노래 가사에 맞춰 나타남"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "밝고 경쾌한 동요 스타일",
+      "tempo": "빠름",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "노래와 멜로디가 중심이며 보컬이 명확하게 들림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 14,
+        "what": "알파벳 캐릭터들이 춤추며 등장해 소리를 익히게 함",
+        "quote": "This is what the letter say",
+        "type": "시각적 캐릭터와 경쾌한 리듬으로 알파벳 소리를 바로 들려주는 방식",
+        "quoteVerified": false
+      },
+      "curiosity": {
+        "opened": {
+          "t": 14,
+          "what": "각 알파벳이 어떤 소리를 내는지 궁금증을 유발함",
+          "quote": "This is what the letter say",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 22,
+          "what": "A부터 Z까지 차례대로 각 글자의 파닉스 소리를 반복하여 들려줌",
+          "quote": ""
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "알파벳 전체 흐름을 먼저 보여준 뒤 각 알파벳의 소리를 개별적으로 학습하고, 마지막에 진행자의 율동과 함께 복습하는 구조로 이어진다.",
+        "examples": [
+          {
+            "t": 14,
+            "what": "전체 알파벳 행진 이후 개별 알파벳 소리로 넘어감",
+            "quote": "This is what the letter say",
+            "quoteVerified": false
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 123,
+          "what": "애니메이션 위주로 진행되던 화면에 실제 사람이 등장해 율동하는 화면으로 전환됨",
+          "quote": ""
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 3,
+          "what": "구독과 좋아요를 누르도록 유도함",
+          "quote": ""
+        }
+      ],
+      "evidence": [
+        {
+          "t": 22,
+          "what": "캐릭터의 입체적인 움직임과 반복적인 발음 소리를 통해 시청각적으로 학습 내용을 증명함",
+          "quote": ""
+        }
+      ],
+      "payoff": {
+        "t": 123,
+        "what": "앞서 배운 알파벳 소리를 진행자의 율동과 함께 다시 한번 총정리함",
+        "quote": "This is what the letters say",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "알파벳 캐릭터들의 율동과 반복적인 파닉스 소리 제공",
+        "reaction": "아이들과 학생들이 노래를 따라 부르며 쉽게 암기하고 학원이나 집에서 계속 보게 됨",
+        "quote": "이거 영어학원에 율동할때 이걸로하는데 애들,언니,동생이 다 춤춰요ㅋㅋㅋ저도 춤춰요ㅋㅋㅋ파닉스송 진짜 짱이에요!!",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "알파벳 각 글자의 기본적인 파닉스 소리(음가)를 반복해서 가르치는 교육용 영상이다.",
+    "forUs": {
+      "adopt": "알파벳 소리를 반복 리듬과 시각적 캐릭터로 직관적으로 익히게 하는 구성",
+      "differentiate": "성인 학습자가 헷갈리기 쉬운 소리의 원리를 한국어 설명으로 짚어주기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 13,
+    "verified": 8,
+    "unverified": 5
+  },
+  "pacing": {
+    "count": 4,
+    "medianGapSeconds": 6.5,
+    "perMinute": 1.5,
+    "times": [
+      3.5,
+      10,
+      10.1,
+      160.9
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 22,
+      "file": "22.jpg"
+    },
+    {
+      "t": 123,
+      "file": "123.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 19643,
+    "candidatesTokenCount": 2537,
+    "totalTokenCount": 22180,
+    "cachedContentTokenCount": 16425,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 14924
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3619
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 3026
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 919
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 12480
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

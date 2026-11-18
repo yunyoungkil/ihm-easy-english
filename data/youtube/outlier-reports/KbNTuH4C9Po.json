@@ -1,0 +1,404 @@
+{
+  "schemaVersion": 1,
+  "videoId": "KbNTuH4C9Po",
+  "analyzedAt": "2026-11-17T09:16:20.913Z",
+  "model": "gemini-3.5-flash-lite",
+  "windowSeconds": 26,
+  "meta": {
+    "videoId": "KbNTuH4C9Po",
+    "title": "~away 영어구동사 쉽게 기억하기 | 영어어휘 익히기 | 영어단어 암기 | 영어회화 #koreanlanguage #koreanspeaking #영어단어",
+    "channelId": "UCioUyF-AZnV4uOnYc_Q6LQA",
+    "channelTitle": "시니어 흘려듣는 영어",
+    "publishedAt": "2025-02-17T02:15:45Z",
+    "viewCount": 1034870,
+    "likeCount": 7795,
+    "commentCount": 18,
+    "durationSeconds": 26,
+    "thumbnail": "https://i.ytimg.com/vi/KbNTuH4C9Po/maxresdefault.jpg",
+    "description": "Korean language, Korean learning,Study English, StudyKorean, English vocabulary, Korean  vocabulary, Basic English, English phrases, Basic Korean ,Korean  phrases, Korean culture, kfood,kpop,Korean vocabulary, Basic English, English phrases, Basic Korean ,Korean  phrases, Korean culture, kfood,kpop,hangul,한글,한국어,한국어공부,한국,\n영어표현,기억하기 쉬운 영어공부법,이 들어간 영어,영어단어,영어회화,영단어,영어공부,영어 쉽게 기억하기,YT:CC=ON, 가 들어간 영어단어, 영단어 쉽게 기억하기,영어단어 암기법,영어단어 외우는 법, 영어단어암기,영어쉽게배우기, 영어기초배우기,영단어암기 꿀팁,50대 영어,60대 영어,쉬운 영어, 중년영어,영어공부법,원어민영어,네이티브영어, \n#koreanlanguage,#한국어,#korean,#koreanspeaking,#한국어 #한국어공부 #한국어단어 #영어듣기#영어",
+    "tags": [
+      "영어표현",
+      "기억하기 쉬운 영어공부법",
+      "이 들어간 영어",
+      "영어단어",
+      "영어회화",
+      "영단어",
+      "영어공부",
+      "영어 쉽게 기억하기",
+      "YT:CC=ON",
+      "가 들어간 영어단어",
+      "영단어 쉽게 기억하기",
+      "영어단어 암기법",
+      "영어단어 외우는 법",
+      "영어단어암기",
+      "형용사",
+      "동사",
+      "구동사",
+      "영어쉽게배우기",
+      "시제표현",
+      "영어기초배우기",
+      "전치사",
+      "영단어암기 꿀팁",
+      "50대 영어",
+      "60대 영어",
+      "쉬운 영어",
+      "중년영어",
+      "영어공부법",
+      "원어민영어",
+      "네이티브영어",
+      "koreanlanguage",
+      "#한국어",
+      "#korean",
+      "#koreanspeaking",
+      "영어어휘 익히기",
+      "왕초보영어",
+      "영어듣기"
+    ]
+  },
+  "subscriberCount": 49200,
+  "viewsPerSubscriber": 21.03,
+  "outlierRatio": 70.86,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 11,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 16
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 26
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 62,
+      "lengthMedian": 62,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 23,
+      "hangulRatio": 0.37,
+      "uniqueWordRatio": 0.78,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-17T09:16:16.558Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 23자(150자 미만), 한국어 글자 비율 0.37(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "~away 표현을 쉽게 기억하고 어휘와 단어를 암기해 회화에 쓸 수 있도록 해 준다고 약속합니다.",
+      "titleQuote": "~away 영어구동사 쉽게 기억하기 | 영어어휘 익히기 | 영어단어 암기 | 영어회화 #koreanlanguage #koreanspeaking #영어단어",
+      "thumbnailText": "~away 가져가다 take away 버리다 throw away 멀리하다 keep away 나눠주다 give away 도망가다 run away 사라지다 fade away",
+      "thumbnailWordCount": 18,
+      "thumbnailVisual": "상단에 보라색 배경의 '~away' 글자가 있고, 왼쪽에는 한국어 뜻과 빈칸이 있는 away 표현 목록이, 아래쪽에는 검은색 옷을 입은 여자의 상반신 사진이 배치되어 있습니다.",
+      "thumbnailVsTitle": "썸네일은 화면에 나오는 구동사 목록 전체를 미리 보여 주고, 제목은 '영어구동사 쉽게 기억하기'와 같이 학습 목적을 설명합니다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "'가져가다 take away', '버리다 throw away', '멀리하다 keep away', '나눠주다 give away'까지 네 가지 away 구동사의 뜻과 영어 단어, 발음을 차례대로 보여 주고 들려줍니다.",
+      "quote": "가져가다 take away 버리다 throw away 멀리하다 keep away 나눠주다 give away",
+      "reasonToKeepWatching": "화면 왼쪽의 한국어 뜻을 보고 오른쪽에 어떤 영어 단어가 빈칸을 채울지 호기심을 느끼게 만듭니다.",
+      "quoteVerified": false
+    },
+    "first3s": {
+      "what": "'가져가다'라는 한국어 뜻 옆에 빈칸이 있고 'take away'라는 영어 단어와 한글 발음 표기가 나타납니다.",
+      "quote": "가져가다 take",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 2,
+        "what": "'가져가다'에 해당하는 'take away'를 보여 주고 발음을 들려줍니다.",
+        "quote": "가져가다 take away",
+        "quoteVerified": false
+      },
+      {
+        "start": 3,
+        "end": 6,
+        "what": "'버리다'에 해당하는 'throw away'를 보여 주고 발음을 들려줍니다.",
+        "quote": "버리다 throw away",
+        "quoteVerified": true
+      },
+      {
+        "start": 7,
+        "end": 10,
+        "what": "'멀리하다'에 해당하는 'keep away'를 보여 주고 발음을 들려줍니다.",
+        "quote": "멀리하다 keep away",
+        "quoteVerified": false
+      },
+      {
+        "start": 12,
+        "end": 15,
+        "what": "'나눠주다'에 해당하는 'give away'를 보여 주고 발음을 들려줍니다.",
+        "quote": "나눠주다 give away",
+        "quoteVerified": false
+      },
+      {
+        "start": 16,
+        "end": 19,
+        "what": "'도망가다'에 해당하는 'run away'를 보여 주고 발음을 들려줍니다.",
+        "quote": "도망가다 run away",
+        "quoteVerified": true
+      },
+      {
+        "start": 20,
+        "end": 26,
+        "what": "'사라지다'에 해당하는 'fade away'를 보여 주고 발음을 들려줍니다.",
+        "quote": "사라지다 fade away",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "첫 화면이 나타나며 '~away' 제목과 '가져가다' 줄에 빈칸이 보입니다.",
+        "purpose": "영상의 주제와 첫 번째 단어를 제시합니다."
+      },
+      {
+        "t": 2,
+        "what": "빈칸에 빨간색 글씨로 'take'가 채워지고 아래에 '테이크 어웨이' 발음이 나타납니다.",
+        "purpose": "가져가다의 영어 표현을 시각적으로 알려줍니다."
+      },
+      {
+        "t": 4,
+        "what": "'버리다' 줄의 빈칸에 빨간색 글씨로 'throw'가 채워지고 아래에 '쓰로우 어웨이'가 나타납니다.",
+        "purpose": "버리다의 영어 표현을 추가로 보여 줍니다."
+      },
+      {
+        "t": 9,
+        "what": "'멀리하다' 줄의 빈칸에 빨간색 글씨로 'keep'이 채워지고 아래에 '킵 어웨이'가 나타납니다.",
+        "purpose": "멀리하다의 영어 표현을 이어서 보여 줍니다."
+      },
+      {
+        "t": 14,
+        "what": "'나눠주다' 줄의 빈칸에 빨간색 글씨로 'give'가 채워지고 아래에 '기브 어웨이'가 나타납니다.",
+        "purpose": "나눠주다의 영어 표현을 이어서 보여 줍니다."
+      },
+      {
+        "t": 18,
+        "what": "'도망가다' 줄의 빈칸에 빨간색 글씨로 'run'이 채워지고 아래에 '런 어웨이'가 나타납니다.",
+        "purpose": "도망가다의 영어 표현을 이어서 보여 줍니다."
+      },
+      {
+        "t": 23,
+        "what": "'사라지다' 줄의 빈칸에 빨간색 글씨로 'fade'가 채워지고 아래에 '페이드 어웨이'가 나타납니다.",
+        "purpose": "마지막 사라지다 표현을 보여 주며 영상을 마무리합니다."
+      }
+    ],
+    "ending": {
+      "what": "'사라지다 fade away'를 보여 주며 26초 길이의 영상을 마칩니다.",
+      "quote": "사라지다 fade away",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "away 구동사를 한 번에 정리하고 새로운 표현을 알게 되어 좋아함",
+          "quote": "사라지다.첨알게됨",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "chip away",
+          "quote": "chip away 해결해 나가다",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 6,
+      "description": "away가 들어가는 구동사 6가지를 위에서 아래로 한 개씩 순서대로 나열합니다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙",
+      "size": "보통",
+      "highlightColor": "빨간색",
+      "highlightMethod": "단어를 빨간색으로 채우고 한글 발음 표기를 함께 적어 줌",
+      "textAmount": "한 번에 한 줄씩 단어와 뜻이 나타남",
+      "changeTiming": "음성 안내에 맞춰 순서대로 나타남"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "밝고 경쾌함",
+      "tempo": "보통",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "AI 음성으로 단어를 읽어주는 목소리가 배경음악보다 더 크게 들림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "한국어 뜻 옆에 빈칸이 뚫린 away 구동사 목록을 먼저 보여 줍니다.",
+        "quote": "가져가다 away",
+        "type": "시각적 빈칸 채우기",
+        "quoteVerified": false
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "가져가다, 버리다 같은 한국어 뜻 옆에 빈칸이 있어 어떤 영어 단어가 들어갈지 궁금하게 만듭니다.",
+          "quote": "가져가다 away",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 2,
+          "what": "take, throw, keep 같은 단어가 빈칸을 채우며 정답이 바로 밝혀집니다.",
+          "quote": "take away",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "이야기가 이어지는 구조가 아니라 away가 들어가는 필수 구동사 6가지를 단순 목록 형태로 나열합니다.",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 0,
+          "what": "한국어 뜻, 영어 동사, away, 한글 발음 표기를 한 화면에 함께 보여 줍니다.",
+          "quote": "가져가다 take away",
+          "quoteVerified": false
+        }
+      ],
+      "payoff": {
+        "t": 23,
+        "what": "마지막 '사라지다 fade away'까지 총 6개의 표현을 모두 보여 주며 끝납니다.",
+        "quote": "사라지다 fade away",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "'사라지다 fade away' 표현을 알려 준 장면",
+        "reaction": "새로운 표현을 알게 되었다는 반응",
+        "quote": "사라지다.첨알게됨",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "away가 들어가는 영어 구동사의 뜻과 발음을 한글 표기와 함께 소리 내어 가르쳐 줍니다.",
+    "forUs": {
+      "adopt": "한국어 뜻 옆에 빈칸을 두고 영어 단어가 채워지는 방식을 그대로 써서 시청자의 시선을 붙잡기",
+      "differentiate": "단순히 단어를 나열하는 데 그치지 않고 실제 원어민이 연음으로 어떻게 발음하는지 입 모양이나 소리 연결 규칙을 더 자세히 설명하기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 18,
+    "verified": 10,
+    "unverified": 8
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 23,
+      "file": "23.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 5720,
+    "candidatesTokenCount": 2390,
+    "totalTokenCount": 8110,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2345
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2275
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

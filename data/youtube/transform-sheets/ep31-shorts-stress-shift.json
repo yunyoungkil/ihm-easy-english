@@ -3,7 +3,7 @@
   "episodeId": "ep31-shorts-stress-shift",
   "sourceVideoId": "pvPBD9PLuyk",
   "createdAt": "2026-11-19",
-  "status": "draft",
+  "status": "approved",
   "format": "SHORTS",
   "topic": "철자 하나 안 바뀌는데 힘주는 자리 하나로 뜻이 뒤집히는 영어 단어 세 개 (present · record · object)",
   "selfCritique": {
@@ -44,7 +44,11 @@
       "what": "비슷한 철자에서 소리가 확 뒤집히는 시각 반전 + 검은 박스 없는 굵은 흰·빨강·노랑 상단 훅 타이포",
       "reason": "시청자가 0.5초 안에 '똑같은 글자인데 왜 소리가 다르지?'라는 인지 부조화에 걸려 스크롤을 멈추게 한다. 원본은 불규칙 웃음으로 끝나지만 우리는 '앞=이름, 뒤=행동'이라는 실용 원리로 해결 쾌감까지 완성한다.",
       "evidence": "다니엘 잉글리시 클럽 557만 회, 채널 평소 대비 2,379배(옛 배수 참고용, 프레임 0·3·7·18초 직접 확인)",
-      "appliedTo": ["cut:0", "cut:1", "thumb:A"]
+      "appliedTo": [
+        "cut:0",
+        "cut:1",
+        "thumb:A"
+      ]
     },
     {
       "videoId": "G5unshk12zk",
@@ -52,7 +56,14 @@
       "what": "2~3초 간격으로 시각 이미지가 계속 바뀌며 대비를 만드는 리듬(분당 13.3컷)",
       "reason": "텍스트만 떠 있는 정적인 카드는 3초 안에 이탈한다. 3060 시청자 눈높이에 맞춘 선명한 실사 2분할·풀블리드 전환으로 매 컷 시각적 보상을 준다.",
       "evidence": "분더스토리 463만 회, 채널 평소 대비 489배, 분당 13.3컷(프레임 0·3·6·12초 직접 확인)",
-      "appliedTo": ["cut:2", "cut:4", "cut:5", "cut:6", "cut:7", "thumb:B"]
+      "appliedTo": [
+        "cut:2",
+        "cut:4",
+        "cut:5",
+        "cut:6",
+        "cut:7",
+        "thumb:B"
+      ]
     },
     {
       "videoId": "rooxbEm1oRc",
@@ -60,7 +71,12 @@
       "what": "상단 검은 띠 없이 굵은 강조 영단어 + 강렬한 한글 경고 문구 + 원어민이 딴 뜻으로 알아듣는 실전 긴장감",
       "reason": "PPT 같은 검은 직사각형 띠를 벗어던지고도 모바일 시인성을 유지하며, '선물이라고 했는데 발표로 들릴 수 있다'는 즉각적 필요성을 자극한다.",
       "evidence": "Just do English 19.8만 회, 채널 평소 대비 58.9배(프레임 0·3·4·8초 직접 확인)",
-      "appliedTo": ["cut:0", "cut:3", "title:1", "thumb:C"]
+      "appliedTo": [
+        "cut:0",
+        "cut:3",
+        "title:1",
+        "thumb:C"
+      ]
     },
     {
       "videoId": "Ux_M00VVmEU",
@@ -68,7 +84,11 @@
       "what": "시청자가 이미 아는 영어 단어를 직접 맞히며 통과하는 짧은 퀴즈 챌린지 몰입감",
       "reason": "단순 암기 나열 대신 마지막 세 번째 단어(object)를 1.5초 생각 창 퀴즈로 던져 끝까지 보게 만들고 댓글 참여를 유도한다.",
       "evidence": "수키 suekii 418만 회, 채널 평소 대비 274배(프레임 0·2·4·7초 직접 확인)",
-      "appliedTo": ["cut:9", "cut:10", "title:3"]
+      "appliedTo": [
+        "cut:9",
+        "cut:10",
+        "title:3"
+      ]
     },
     {
       "videoId": "Bxd1XRx25KQ",
@@ -76,7 +96,10 @@
       "what": "한눈에 남은 분량이 보이는 체크리스트 요약 + 고정 댓글 보너스 안내",
       "reason": "3060 학습자가 영상 끝에서 '오늘 세 가지를 확실히 건졌다'는 성취감을 느끼고, 고정 댓글을 열어 보너스 다섯 단어까지 확인하며 체류 시간을 늘린다.",
       "evidence": "몬스터잉글리쉬 71만 회, 채널 평소 대비 667배(프레임 0·4·16초 직접 확인)",
-      "appliedTo": ["cut:11", "row:package"]
+      "appliedTo": [
+        "cut:11",
+        "row:package"
+      ]
     }
   ],
   "rejected": [
@@ -154,7 +177,10 @@
       "originReason": "rooxbEm1oRc·pvPBD9PLuyk의 0.5초 직격 훅 구조를 가져오되, 3060이 즉시 공감하는 '선물 vs 발표' 한 문장(3.6초)으로 압축했다.",
       "competitor": {
         "text": "pvPBD9PLuyk: 0초부터 BOMB 판을 들고 등장해 3초 만에 TOMB로 넘기며 반전. rooxbEm1oRc: 0초부터 원어민이 오해하는 상황을 직격.",
-        "images": ["frame:0", "frame:3"]
+        "images": [
+          "frame:0",
+          "frame:3"
+        ]
       },
       "ours": {
         "text": "0.0초: 선물 상자와 무대 마이크가 대각선으로 갈라진 화면 중앙에 PRESENT가 박히고, 상단 훅('같은 영어, 힘 하나로 / 뜻이 뒤집힙니다')과 함께 '선물도 발표도 똑같이 씁니다'로 시작. 3.6초: 2기둥 강세 파형으로 '앞은 이름, 뒤는 행동입니다' 한 줄 원리 제시.",
@@ -183,12 +209,16 @@
       "originReason": "EP30의 네모 카드 템플릿을 전면 폐기하고, 6가지 에디토리얼 실사 사진과 6가지 서로 다른 레이아웃(대각선 2분할, 강세 파형 기둥, 풀블리드 스포트라이트, 듀얼 밴드 플래시, 카운트다운 퀴즈 2분할, 3단 요약 체크리스트)을 컷마다 독자 설계했다.",
       "competitor": {
         "text": "pvPBD9PLuyk: 노란 플립 카드 1종 반복. G5unshk12zk: 흰 배경 위 밈 이미지 고속 교체. rooxbEm1oRc: 화상 통화 2분할 + 상단 노랑·검정 타이포.",
-        "images": ["frame:0", "frame:7", "frame:18"]
+        "images": [
+          "frame:0",
+          "frame:7",
+          "frame:18"
+        ]
       },
       "ours": {
         "text": "단일 최적안(12컷, 42.0초). 모든 컷이 1080×1920 풀스크린 실사·그래픽으로 구성되며, 모바일 최소 폰트 38px 이상, 유튜브 상하·우측 UI 안전구역 준수, 검은 직사각형 상단 띠 ZERO.",
         "cutPlan": {
-          "durationSeconds": 42.0,
+          "durationSeconds": 42,
           "rhythm": "초반 훅(3.6s)→원리(3.1s)→대비(3.6·3.6s)→순수 소리 플래시(2.5s)→전환(2.6s)→대비(3.6·3.6s)→순수 소리 플래시(2.5s)→참여 퀴즈(5.5s)→정답 스매시(4.0s)→요약 CTA(3.8s), 분당 17.1컷, CV 23%",
           "hook": [
             "같은 영어, **힘 하나로**",
@@ -197,14 +227,16 @@
           "hookWhy": "rooxbEm1oRc와 pvPBD9PLuyk의 상단 직격 훅을 분석해 검은 직사각형 띠를 버리고 굵은 외곽선+노란 하이라이트 타이포로 0.5초 안에 '힘 하나로 뜻 반전'이라는 핵심 호기심을 꽂는다.",
           "cuts": [
             {
-              "t": 0.0,
+              "t": 0,
               "template": "diagonal-split-hook",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-00.png",
               "narration": "선물도 발표도 똑같이 씁니다.",
               "voiceEn": [],
               "window": 0,
               "motion": "0.0s 선물(좌상)과 무대(우하) 대각선 슬라이드 인, 중앙 PRESENT 0.3s 스케일 팝과 함께 대각선 번개선 점등",
-              "bottom": { "subtitle": "선물 🎁 vs 발표 🎤" }
+              "bottom": {
+                "subtitle": "선물 🎁 vs 발표 🎤"
+              }
             },
             {
               "t": 3.6,
@@ -214,37 +246,52 @@
               "voiceEn": [],
               "window": 0,
               "motion": "0.2s 앞 기둥(코랄 골드) 쾅! 솟아오름 → 1.4s 뒤 기둥(네온 시안) 쾅! 교차 상승하며 원리 각인",
-              "bottom": { "subtitle": "앞에 힘 = 이름 · 뒤에 힘 = 행동" }
+              "bottom": {
+                "subtitle": "앞에 힘 = 이름 · 뒤에 힘 = 행동"
+              }
             },
             {
               "t": 6.7,
               "template": "fullbleed-noun-reveal",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-02.png",
               "narration": "앞을 세게 읽으면 선물.",
-              "voiceEn": ["PRE-sent"],
+              "voiceEn": [
+                "PRE-sent"
+              ],
               "window": 0,
               "motion": "선물 상자 실사 미세 줌인(1.0→1.06), 원어민 소리 타이밍에 PRE 글자가 1.18배 튀어 오르며 골드 발광",
-              "bottom": { "subtitle": "1/3 · PRE-sent = 선물" }
+              "bottom": {
+                "subtitle": "1/3 · PRE-sent = 선물"
+              }
             },
             {
               "t": 10.3,
               "template": "fullbleed-verb-reveal",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-03.png",
               "narration": "뒤를 세게 읽으면 발표.",
-              "voiceEn": ["pre-SENT"],
+              "voiceEn": [
+                "pre-SENT"
+              ],
               "window": 0,
               "motion": "스포트라이트 무대 실사 컷 전환, 원어민 소리 타이밍에 SENT가 시안 네온 펄스로 강하게 점등",
-              "bottom": { "subtitle": "1/3 · pre-SENT = 발표하다" }
+              "bottom": {
+                "subtitle": "1/3 · pre-SENT = 발표하다"
+              }
             },
             {
               "t": 13.9,
               "template": "dual-band-sound-flash",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-04.png",
               "narration": "",
-              "voiceEn": ["PRE-sent", "pre-SENT"],
+              "voiceEn": [
+                "PRE-sent",
+                "pre-SENT"
+              ],
               "window": 0,
               "motion": "0.1s 상단 코랄 밴드 점등(PRE-sent) → 1.2s 하단 시안 밴드 점등(pre-SENT), 소리 파형 막대 실시간 반응",
-              "bottom": { "subtitle": "귀로 바로 비교 · PRE-sent vs pre-SENT" }
+              "bottom": {
+                "subtitle": "귀로 바로 비교 · PRE-sent vs pre-SENT"
+              }
             },
             {
               "t": 16.4,
@@ -254,57 +301,80 @@
               "voiceEn": [],
               "window": 0,
               "motion": "2/3 배지 슬라이드 업, 대형 RECORD 타이포가 중앙에서 양쪽으로 살짝 갈라지며 다음 반전 예고",
-              "bottom": { "subtitle": "2/3 · RECORD" }
+              "bottom": {
+                "subtitle": "2/3 · RECORD"
+              }
             },
             {
-              "t": 19.0,
+              "t": 19,
               "template": "fullbleed-noun-reveal",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-06.png",
               "narration": "앞에 힘주면 음반, 기록.",
-              "voiceEn": ["RE-cord"],
+              "voiceEn": [
+                "RE-cord"
+              ],
               "window": 0,
               "motion": "LP 레코드 실사 미세 회전·줌인, 원어민 소리 순간 RE가 골드 아크와 함께 쾅! 강조",
-              "bottom": { "subtitle": "2/3 · RE-cord = 음반 · 기록" }
+              "bottom": {
+                "subtitle": "2/3 · RE-cord = 음반 · 기록"
+              }
             },
             {
               "t": 22.6,
               "template": "fullbleed-verb-reveal",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-07.png",
               "narration": "뒤에 힘주면 녹음하다.",
-              "voiceEn": ["re-CORD"],
+              "voiceEn": [
+                "re-CORD"
+              ],
               "window": 0,
               "motion": "빨간 REC 불빛 깜빡임(0.5s 주기), 원어민 소리 순간 CORD가 크림슨 레드로 강렬하게 팽창",
-              "bottom": { "subtitle": "2/3 · re-CORD = 녹음하다" }
+              "bottom": {
+                "subtitle": "2/3 · re-CORD = 녹음하다"
+              }
             },
             {
               "t": 26.2,
               "template": "dual-band-sound-flash",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-08.png",
               "narration": "",
-              "voiceEn": ["RE-cord", "re-CORD"],
+              "voiceEn": [
+                "RE-cord",
+                "re-CORD"
+              ],
               "window": 0,
               "motion": "0.1s 상단 LP 밴드 점등(RE-cord) → 1.2s 하단 REC 밴드 점등(re-CORD), 소리 대비 즉시 각인",
-              "bottom": { "subtitle": "귀로 바로 비교 · RE-cord vs re-CORD" }
+              "bottom": {
+                "subtitle": "귀로 바로 비교 · RE-cord vs re-CORD"
+              }
             },
             {
               "t": 28.7,
               "template": "split-quiz-countdown",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-09.png",
               "narration": "마지막 퀴즈, 무슨 뜻일까요?",
-              "voiceEn": ["ob-JECT"],
+              "voiceEn": [
+                "ob-JECT"
+              ],
               "window": 1.5,
               "motion": "도자기 컵(상) vs 법정 판사봉(하) 2분할 긴장 구도, 중앙 OBJECT(강세 비공개) 주변 원형 1.5초 타이머 링 감소",
-              "bottom": { "subtitle": "3/3 실전 퀴즈 · A 물건 vs B 반대하다" }
+              "bottom": {
+                "subtitle": "3/3 실전 퀴즈 · A 물건 vs B 반대하다"
+              }
             },
             {
               "t": 34.2,
               "template": "quiz-payoff-smash",
               "image": "images/ep31-shorts-stress-shift/cuts/cut-10.png",
               "narration": "뒤가 세죠? 정답은 반대하다.",
-              "voiceEn": ["ob-JECT"],
+              "voiceEn": [
+                "ob-JECT"
+              ],
               "window": 0,
               "motion": "0.0s 판사봉 내리침 플래시와 함께 정답 배지 스탬프 팝, ob-JECT 뒤쪽 JECT 초록·골드 강조",
-              "bottom": { "subtitle": "정답: ob-JECT = 반대하다 (OB-ject = 물건)" }
+              "bottom": {
+                "subtitle": "정답: ob-JECT = 반대하다 (OB-ject = 물건)"
+              }
             },
             {
               "t": 38.2,
@@ -314,7 +384,9 @@
               "voiceEn": [],
               "window": 0,
               "motion": "3단 체크리스트 0.25s 간격 순차 체크 점등, 하단 시안 고정 댓글 배지 2회 부드러운 펄스",
-              "bottom": { "subtitle": "👇 고정 댓글에 보너스 다섯 단어!" }
+              "bottom": {
+                "subtitle": "👇 고정 댓글에 보너스 다섯 단어!"
+              }
             }
           ]
         }
@@ -342,7 +414,9 @@
       },
       "ours": {
         "text": "구독·좋아요 구걸이나 긴 아웃로 없이 38.2~42.0초(3.8초) 동안 3단 요약 체크리스트를 한눈에 정리하고 '다섯 단어 더 고정 댓글에 있어요' 한 마디로 깔끔하게 끝낸다.",
-        "images": ["images/ep31-shorts-stress-shift/cuts/cut-11.png"]
+        "images": [
+          "images/ep31-shorts-stress-shift/cuts/cut-11.png"
+        ]
       },
       "why": "쇼츠 끝에서 구걸성 아웃로가 길어지면 시청자가 바로 넘겨 평균 시청 비율이 깎인다. 요약표가 떠 있는 3.8초 동안 눈으로 다시 읽게 만들어 자연스러운 루프 재시청을 유도한다."
     },
@@ -372,55 +446,82 @@
             "tag": "영어 강세 발음",
             "verdict": "맞음",
             "reason": "상위 결과가 전부 영어 강세·리듬 발음 강의 쇼츠",
-            "top": ["영어 ‘강세’ 하나만 알면 겁나 쉬워져요!😎 #영어발음", "영어 회화의 핵심은 리듬과 강세"]
+            "top": [
+              "영어 ‘강세’ 하나만 알면 겁나 쉬워져요!😎 #영어발음",
+              "영어 회화의 핵심은 리듬과 강세"
+            ]
           },
           {
             "tag": "영어 강세 뜻 차이",
             "verdict": "맞음",
             "reason": "같은 철자·다른 강세 뜻 차이를 다루는 쇼츠가 정확히 상단에 모임",
-            "top": ["강세가 달라지니 뜻이 달라지네? #같은철자다른강세", "같은 철자+다른 강세=다른 뜻?"]
+            "top": [
+              "강세가 달라지니 뜻이 달라지네? #같은철자다른강세",
+              "같은 철자+다른 강세=다른 뜻?"
+            ]
           },
           {
             "tag": "present 발음",
             "verdict": "맞음",
             "reason": "프레즌트 vs 프리젠트 강세 차이를 다루는 쇼츠가 상위 점유",
-            "top": ["'Present' 어떻게 읽으세요? #shorts", "present 발음 프레즌트vs프리젠트 #영어발음규칙"]
+            "top": [
+              "'Present' 어떻게 읽으세요? #shorts",
+              "present 발음 프레즌트vs프리젠트 #영어발음규칙"
+            ]
           },
           {
             "tag": "record 발음",
             "verdict": "맞음",
             "reason": "record 명사 vs 동사 발음 구분 쇼츠가 정확히 일치",
-            "top": ["Record를 발음하는 두가지 방법", "record 동사 vs 명사 발음 정복하기 #shorts"]
+            "top": [
+              "Record를 발음하는 두가지 방법",
+              "record 동사 vs 명사 발음 정복하기 #shorts"
+            ]
           },
           {
             "tag": "object 발음",
             "verdict": "맞음",
             "reason": "object 뜻과 발음 챌린지 콘텐츠가 상단에 노출됨",
-            "top": ["OBJECT 뜻, LG 오브제만 떠오르나요? | 영어단어 뜻 029", "영어발음 object 단어읽기 발음챌린지"]
+            "top": [
+              "OBJECT 뜻, LG 오브제만 떠오르나요? | 영어단어 뜻 029",
+              "영어발음 object 단어읽기 발음챌린지"
+            ]
           },
           {
             "tag": "영어 발음 규칙",
             "verdict": "맞음",
             "reason": "성인 영어 읽기·발음 법칙 영상이 상위권을 차지",
-            "top": ["[영어읽는방법]규칙총정리(재업로드)", "미국인도 모르는 영어의 법칙"]
+            "top": [
+              "[영어읽는방법]규칙총정리(재업로드)",
+              "미국인도 모르는 영어의 법칙"
+            ]
           },
           {
             "tag": "영어 듣기 안들리는 이유",
             "verdict": "맞음",
             "reason": "영어 리스닝 원리·안 들리는 이유 해결 영상이 상단에 모임",
-            "top": ["영어 리스닝, 이 4가지 원칙이면 고민 끝 ‼️", "영어 듣기가 안 들리는 이유"]
+            "top": [
+              "영어 리스닝, 이 4가지 원칙이면 고민 끝 ‼️",
+              "영어 듣기가 안 들리는 이유"
+            ]
           },
           {
             "tag": "원어민 영어 발음",
             "verdict": "맞음",
             "reason": "학교 영어와 다른 원어민 실제 발음 쇼츠가 상단에 모임",
-            "top": ["원어민처럼 발음하는 영어 발음 노하우", "학교에서는 배우지 못했던 원어민 영어 발음 #youtubeshorts"]
+            "top": [
+              "원어민처럼 발음하는 영어 발음 노하우",
+              "학교에서는 배우지 못했던 원어민 영어 발음 #youtubeshorts"
+            ]
           },
           {
             "tag": "영어발음",
             "verdict": "맞음",
             "reason": "한국인이 자주 틀리는 영어 발음 쇼츠 대표 태그",
-            "top": ["한국인이 자주 틀리는 영어 발음 2탄", "영어 잘 들리는 발음 스킬 하나 알아가세요"]
+            "top": [
+              "한국인이 자주 틀리는 영어 발음 2탄",
+              "영어 잘 들리는 발음 스킬 하나 알아가세요"
+            ]
           }
         ],
         "pinnedComment": "마지막 퀴즈 object, 맞히셨나요? 같은 원리로 힘주는 자리 따라 뜻이 갈리는 보너스 다섯 단어입니다.\n\n1. produce — 앞 강세: 신선 농산물(채소·과일) / 뒤 강세: 만들어 내다\n2. suspect — 앞 강세: 용의자 / 뒤 강세: 의심하다\n3. project — 앞 강세: 계획·프로젝트 / 뒤 강세: 비추다·예상하다\n4. permit — 앞 강세: 허가증 / 뒤 강세: 허락하다\n5. progress — 앞 강세: 진전·발전 / 뒤 강세: 나아가다\n\n(한글 표기보다 앞뒤 힘의 크기 차이를 귀로 느껴 보시면 훨씬 빨리 익혀집니다. 가장 신기했던 단어를 댓글로 남겨 주세요!)"
@@ -433,6 +534,10 @@
     "FACT-CHECK 통과 후 컷 단위 한국어 TTS(AI Studio Gemini TTS, 끝소리 늘어짐 방지 Style 지시) 및 원어민 명사·동사 분리 발음 음성 생성 → whisper words.json 실측으로 컷 경계 미세 조정",
     "신규 AI Studio Lyria 3.5 BGM 1곡 생성(무보컬·무워터마크) 및 HyperFrames 1080×1920 30fps 조립 → 검수 후 렌더 승인(Gate 2)"
   ],
-  "thumbnailPicks": [],
-  "titlePicks": []
+  "thumbnailPicks": [
+    "images/ep31-shorts-stress-shift/thumb-B.jpg"
+  ],
+  "titlePicks": [
+    "똑같은 영어 단어, 앞을 세게 읽느냐 뒤를 세게 읽느냐로 뜻이 바뀝니다"
+  ]
 }

@@ -14,12 +14,10 @@
 - **유튜브 실제 예약 상태**: `scheduledPublishAt: 2026-11-18T11:00:00Z` (한국시각 11/18 20:00), 영상 ID `Ng6amm9qFrI`.
 - 11/25 수 이후 공개 7일 지표(조회수, 시청시간, 계속시청함)를 수집해 기준선 갱신 여부를 판정한다.
 
-## 다음 제작 (12/1 화 20:00 쇼츠 자리) — 비교 시트 `w8g6-e9yLP4` (EP31 후보, 상태 draft)
-- **소재**: 한글 4~5글자인데 영어는 한 박자(stress·screen·spray·strike).
-- **다른 PC에서 바로 할 일 (실전 완주)**:
-  1. 비교 시트(`/transform-sheet/w8g6-e9yLP4`)에서 쓸데없는 행정 비율(70:30)과 메타데이터 군더더기를 쳐낸다.
-  2. 명작의 성공 장치(3초 훅, 컷 전환 리듬, 비주얼 모션)를 취하고 우리 채널의 3060 발음 해설을 얹어 **[포장 ➔ 3초 훅 ➔ 컷별 모션 대본 ➔ 음성 예산]** 중심의 슬림한 시트로 정비.
-  3. AI 자체 비평(Self-Critique) 통과 확인 ➔ 사용자 승인(Gate 1) ➔ 대본 FACT-CHECK ➔ 컷 단위 음성(AI Studio Gemini TTS) ➔ HyperFrames 조립 ➔ 렌더 검수(Gate 2)까지 당일 완주한다.
+## 다음 제작 (12/1 화 20:00 쇼츠 자리) — 비교 시트 v4 `ep31-shorts-stress-shift` (상태 draft, Gate 1 승인 대기)
+- **소재**: 철자 하나 안 바뀌는데 힘주는 자리 하나로 뜻이 뒤집히는 영어 단어 세 개 (`present` 선물/발표 · `record` 음반/녹음 · `object` 물건/반대 퀴즈).
+- **완료(2026-11-19)**: 기존 `w8g6-e9yLP4`·`videos/ep31-shorts-stress` 전부 삭제 후 비교 시트 v4(`schemaVersion: 4`, 단일 최적안 12컷 42.0초, 5편 명작 `references[]`, `selfCritique`, 유튜브 실검색 태그 9개, Korean Skills 교정) 신규 작성. AI Studio 무료 무워터마크 실사 6장 + 6종 탈템플릿 12컷 + 썸네일 3안 생성, `validateSheet` 0오류, `npm test` 779/779 통과, 브라우저 73장 이미지 로드 확인(`http://localhost:3001/transform-sheet/ep31-shorts-stress-shift`).
+- **다음 할 일**: 사용자 Gate 1 승인(제목·썸네일 체크 + 안전/취향 확인) ➔ `FACT-CHECK.md` ➔ 컷 단위 한국어 TTS + 원어민 발음 음성 ➔ Lyria 3.5 신규 BGM ➔ HyperFrames 1080×1920 30fps 조립 ➔ 렌더 검수(Gate 2).
 
 ## 토큰 규칙 (2026-11-16 사용자)
 - 시작 때 읽는 것: 이 파일(`LATEST.md`)만. `now.md`는 훅이 앞 8개만 넘긴다. 큰 파일은 `grep -n`으로 필요한 줄만 읽는다.

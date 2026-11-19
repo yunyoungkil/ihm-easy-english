@@ -32,6 +32,9 @@
 - [Gemini(Antigravity) 코딩 환경 동기화 가이드](gemini-coding-env.md) — 다른 PC의 Gemini에서도 동일하게 유지할 플러그인(chrome-devtools-plugin·coderabbit·context7), MCP, 전역 스킬, CLI/런타임 기준 및 빠른 점검 명령
 - [제미나이 의도 테스트](gemini-intent-test.md) — 제미나이(Antigravity)가 규칙대로 일하는지 임시 가지에서 실제로 시켜 보고 `scripts/score-gemini-test.mjs`가 git 기록과 실제 데이터로 채점한다(2026-11-12). 커밋 전 자동 검사·의도 명세 9개의 배경은 `logs/2026-11.md` 2026-11-12 절
 - [제미나이 코드 만들기 시험](gemini-build-test.md) — Claude가 고친 것을 문제로 내고 제미나이가 처음부터 푼 코드를 Claude가 저장소 밖에 보관한 합격 시험으로 채점한다(2026-11-12). 첫 과제 B1: 쇼츠/롱폼 판정 함수 분리
+- [워크플로우 루프 개선 실행 참고 자료](playbooks/workflow-loop-improvement/00-overview.md) — 데이터 신뢰도·한국 트렌드·다중 레퍼런스·적용 추적을 주제별로 정리한 문서 전용 참고 자료(자동 적용되지 않음)
+
+
 
 ## 결정
 

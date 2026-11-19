@@ -14,10 +14,12 @@
 - **EP31 쇼츠 `videos/ep31-shorts-stress-shift`**: **12/01 화 20:00 KST 예약 완료** (ID `AkDKw4o_C58`, 교육 27, 한국어 ko, 40.6s, 1080x1920 30fps).
   - 업로드 패키지 완비: `output/upload-packages/ep31-shorts-stress-shift/`
   - 유튜브 카탈로그(`catalog.json`) 및 `shorts-status.json` 상태 일치 확인. 12/08 화 이후 공개 7일 결과 정산 예정.
+  - `containsSyntheticMedia: true`(AI 사용 표시) 및 쇼츠 기본 재생목록(`PLCbnHG8SDRes`) 추가 완료.
 
 ## 핵심 규칙 추가 (2026-11-19 사용자 확정)
 1. **자율 모델 티어 선택 (Rule 10)**: 단순 기계적 작업(조사, 브리핑, 오디오/BGM 생성, 테스트)은 `flash`/`flash_lite` 경량 모델 자율 사용, 퀄리티 가르는 작업(기획, 탈템플릿 비주얼/모션, 최종 검수)은 `pro`/최상위 모델 사용.
 2. **쇼츠 가로 중심 대칭 (`knowledge/production-rules.md`)**: PC/모바일 레이아웃 모두 상단 훅, 칩, 본문 카드, 퀴즈 텍스트는 좌우 비대칭 마진을 금지하고 균형 있는 가로 중심 대칭(`text-align: center`, 균형 마진) 유지.
+3. **업로드·예약 시 AI 사용 여부와 재생목록 필수 확인 (Rule 14)**: 실사형 AI 이미지, TTS, AI 음악 사용에 따라 스튜디오 더보기 문항 및 API 업로드 시 '변형되었거나 생성된 콘텐츠'('예'/`containsSyntheticMedia: true`)를 필수로 설정하고, 형식별 채널 기본 재생목록(쇼츠/롱폼)을 빠짐없이 연결.
 
 ## 다음 할 일
 1. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 결과 확인.

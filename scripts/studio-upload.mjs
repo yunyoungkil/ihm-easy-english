@@ -32,6 +32,12 @@ const MAX_THUMBNAIL_BYTES = 2 * 1024 * 1024; // allow-literal: 스튜디오 썸�
 const MINUTE_MS = 60000; // allow-literal: 1분(ms)
 const DAY_MS = 86400000; // allow-literal: 하루(ms)
 
+/** 형식별 공식 기본 재생목록 (2026-11-19 사용자 확정) */
+export const DEFAULT_PLAYLISTS = {
+  shorts: '이해하면 쉬운 영어 | 영어 읽는 법 테스트 시즌1 (30초 퀴즈)',
+  longform: '이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)',
+};
+
 // ───────────────────────── 순수 함수(화면을 쓰지 않는다) ─────────────────────────
 
 const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
@@ -524,6 +530,15 @@ export async function scheduleInStudio(page, plan, schedule) {
     const text = norm(await dlg.innerText());
     if (!/동영상 언어\s*한국어/.test(text)) throw new Error('"동영상 언어"가 한국어로 보이지 않습니다.');
   });
+  await step('AI 사용 여부(변형되었거나 생성된 콘텐츠) 확인', async () => {
+    const alteredRadio = dlg.locator('tp-yt-paper-radio-button', {hasText: '예'}).first();
+    if (await alteredRadio.isVisible().catch(() => false)) {
+      if ((await alteredRadio.getAttribute('aria-checked')) !== 'true') {
+        await alteredRadio.click();
+        await page.waitForTimeout(500);
+      }
+    }
+  });
   if (plan.playlist) await step(`재생목록 "${plan.playlist}" 선택`, () => choosePlaylist(page, plan.playlist));
   await step('다음 3번', async () => {
     const next = dlg.locator('#next-button');
@@ -739,6 +754,37 @@ async function runWithStudio(plan, schedule) {
         summary.subs = 'failed';
         summary.subsError = String(err.message).split('\n')[0];
       }
+    }
+    try {
+      const tokenPath = join(projectDir, '.youtube-oauth-token.json');
+      if (existsSync(tokenPath)) {
+        const token = JSON.parse(await readFile(tokenPath, 'utf8'));
+        if (token?.access_token) {
+          await fetch('https://www.googleapis.com/youtube/v3/videos?part=status', {
+            method: 'PUT',
+            headers: {'Authorization': `Bearer ${token.access_token}`, 'Content-Type': 'application/json'},
+            body: JSON.stringify({id: done.videoId, status: {privacyStatus: 'private', publishAt: schedule.utcIso, containsSyntheticMedia: true}}),
+          });
+          log('  [완료] AI 사용 여부(변형되었거나 생성된 콘텐츠: true) API 반영');
+
+          const targetPlaylistName = plan.playlist || DEFAULT_PLAYLISTS[plan.kind];
+          if (targetPlaylistName) {
+            const catalogPath = join(projectDir, 'data', 'youtube', 'catalog.json');
+            const catalog = existsSync(catalogPath) ? JSON.parse(await readFile(catalogPath, 'utf8')) : null;
+            const targetPl = (catalog?.playlists || []).find((p) => norm(p.title) === norm(targetPlaylistName));
+            if (targetPl?.playlistId) {
+              await fetch('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet', {
+                method: 'POST',
+                headers: {'Authorization': `Bearer ${token.access_token}`, 'Content-Type': 'application/json'},
+                body: JSON.stringify({snippet: {playlistId: targetPl.playlistId, resourceId: {kind: 'youtube#video', videoId: done.videoId}}}),
+              });
+              log(`  [완료] 재생목록 "${targetPlaylistName}" API 추가 완료`);
+            }
+          }
+        }
+      }
+    } catch (err) {
+      log(`  [경고] AI 표시/재생목록 API 보완 건너뜀: ${err.message}`);
     }
   } finally {
     if (page) await page.close().catch(() => {});

@@ -228,7 +228,7 @@ const kstLabel = (iso) => {
 const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
 
 const briefingLines = (check, briefing) => {
-  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = [], loopHealth = null, workflowDiagnosis = null} = briefing;
+  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = [], loopHealth = null, workflowDiagnosis = null, hygieneDiagnosis = null} = briefing;
   const lines = ['브리핑 재료(이 숫자로 줄을 만든다. "줄을 쓰지 않는다"라고 적힌 줄은 뺀다. 형식: 00-unblock-and-weekly.md 0-C):'];
   lines.push(`- 제목 줄: **브리핑** (episode-planning 0-C · 동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
   lines.push(
@@ -274,6 +274,13 @@ const briefingLines = (check, briefing) => {
   }
   if (workflowDiagnosis) {
     lines.push(`- 루프 진단 (1건): [${workflowDiagnosis.area}] ${workflowDiagnosis.finding} → 수정·업그레이드안: ${workflowDiagnosis.proposal}`);
+  }
+  if (hygieneDiagnosis) {
+    const parts = [];
+    if (hygieneDiagnosis.dormantFile) parts.push(`① 삭제안(${hygieneDiagnosis.dormantFile.target}): ${hygieneDiagnosis.dormantFile.finding} → ${hygieneDiagnosis.dormantFile.proposal}`);
+    if (hygieneDiagnosis.staleCopy) parts.push(`② 문구 정리(${hygieneDiagnosis.staleCopy.target}): ${hygieneDiagnosis.staleCopy.finding} → ${hygieneDiagnosis.staleCopy.proposal}`);
+    if (hygieneDiagnosis.bugTest) parts.push(`③ 버그 테스트(${hygieneDiagnosis.bugTest.target}): ${hygieneDiagnosis.bugTest.finding} → ${hygieneDiagnosis.bugTest.proposal}`);
+    if (parts.length) lines.push(`- 정리·버그 점검 (1안씩): ${parts.join(' / ')}`);
   }
   if (comments) {
     lines.push(

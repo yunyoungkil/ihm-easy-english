@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {checkLoopHealth, diagnoseWorkflowLoop} from '../loop-health.mjs';
+import {checkLoopHealth, diagnoseCodebaseHygiene, diagnoseWorkflowLoop} from '../loop-health.mjs';
 import {buildBriefingContext} from '../growth-rules.mjs';
 
 const now = new Date('2026-11-20T12:00:00Z');
@@ -163,4 +163,41 @@ test('diagnoseWorkflowLoop: 모든 항목이 정상·최신이면 healthy 상태
   });
   assert.equal(d.severity, 'healthy');
   assert.equal(d.candidateCount, 0);
+});
+
+test('diagnoseCodebaseHygiene: 장기 잠적 파일·불필요 문구·버그 테스트를 1안씩 뽑아 브리핑 문맥에 넣는다', () => {
+  const input = {
+    dormantFiles: [
+      {file: 'scripts/old-ep10.mjs', ageDays: 45, reason: '일회성 과거 에피소드 스크립트'},
+      {file: 'scripts/unused-helper.mjs', ageDays: 30, reason: '미참조'},
+    ],
+    staleCopy: [
+      {file: '.agents/skills/episode-planning/SKILL.md', line: 23, label: '폐지된 5단어 이하 고정 공식 잔존', snippet: '5단어 이하 엄격 제한'},
+      {file: 'knowledge/now.md', line: 8, label: '끝난 할 일([x]) 미삭제 잔존', snippet: '- [x] 완료 항목'},
+    ],
+    untestedActiveScripts: [
+      {file: 'scripts/market-demand.mjs', lines: 180},
+      {file: 'scripts/narration-lint.mjs', lines: 120},
+    ],
+  };
+  const h1 = diagnoseCodebaseHygiene({...input, now: new Date('2026-11-19T12:00:00Z')});
+  const h2 = diagnoseCodebaseHygiene({...input, now: new Date('2026-11-20T12:00:00Z')});
+  assert.equal(h1.dormantFile.candidateCount, 2);
+  assert.equal(h1.staleCopy.candidateCount, 2);
+  assert.equal(h1.bugTest.candidateCount, 2);
+  assert.notEqual(h1.dormantFile.target, h2.dormantFile.target);
+  assert.notEqual(h1.bugTest.target, h2.bugTest.target);
+
+  const ctx = buildBriefingContext({briefing: {data: {}, hygieneDiagnosis: h1}}, []);
+  assert.ok(ctx.includes('- 정리·버그 점검 (1안씩):'));
+  assert.ok(ctx.includes(`① 삭제안(${h1.dormantFile.target})`));
+  assert.ok(ctx.includes(`② 문구 정리(${h1.staleCopy.target})`));
+  assert.ok(ctx.includes(`③ 버그 테스트(${h1.bugTest.target})`));
+});
+
+test('diagnoseCodebaseHygiene: 후보가 없으면 대상 없음으로 정직하게 돌려준다', () => {
+  const h = diagnoseCodebaseHygiene({now, dormantFiles: [], staleCopy: [], untestedActiveScripts: []});
+  assert.equal(h.dormantFile.target, '없음');
+  assert.equal(h.staleCopy.target, '없음');
+  assert.equal(h.bugTest.target, '없음');
 });

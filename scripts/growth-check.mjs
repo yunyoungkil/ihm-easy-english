@@ -36,7 +36,7 @@ import {
   weeklyComparison,
 } from './growth-rules.mjs';
 import {shortsPackageEpisode} from './upload-package-summary.mjs';
-import {loadLoopHealth, loadWorkflowLoopDiagnosis} from './loop-health.mjs';
+import {loadCodebaseHygieneDiagnosis, loadLoopHealth, loadWorkflowLoopDiagnosis} from './loop-health.mjs';
 import {loadPublishRules} from './youtube-publisher.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -240,6 +240,8 @@ const briefing = {
   loopHealth: (() => { try { return loadLoopHealth(projectDir, today); } catch (err) { return {ok: false, problems: [{id: 'health-error', text: `경보기 실행 실패: ${err.message}`}]}; } })(),
   // 워크플로우 루프 1건 진단 + 수정·업그레이드 방안(2026-11-19 사용자 요청)
   workflowDiagnosis: (() => { try { return loadWorkflowLoopDiagnosis(projectDir, today); } catch (err) { return {area: '루프 진단', severity: 'urgent', finding: `진단 실행 실패: ${err.message}`, proposal: 'scripts/loop-health.mjs 점검'}; } })(),
+  // 비대화 방지: 장기 잠적 파일 삭제안 + 불필요 문구 삭제안 + 버그 테스트 1안씩(2026-11-19 사용자 요청)
+  hygieneDiagnosis: (() => { try { return loadCodebaseHygieneDiagnosis(projectDir, today); } catch (err) { return null; } })(),
   afterPublish: afterPublishTasks({
     longform: packages.filter((p) => p.kind === '롱폼').map((p) => ({...p, episode: episodeOf(p.name)})),
     shorts: shortsStatuses.map((s) => ({...s, episode: shortsPackageEpisode(s.name)})),

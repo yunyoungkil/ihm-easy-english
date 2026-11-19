@@ -3,7 +3,7 @@
 // 테스트·화면 검사를 돌려 기록하고(scripts/daily-loop.mjs), 브리핑 때 이 파일이 그 기록과 데이터 신선도를
 // 짧게 판정한다. 정상이면 브리핑 한 줄, 문제가 있으면 Claude가 브리핑 직후 그 부분만 열어 고치고 알린다.
 
-import {existsSync, readdirSync, readFileSync} from 'node:fs';
+import {existsSync, readdirSync, readFileSync, statSync} from 'node:fs';
 import {join} from 'node:path';
 import {loadEpisodeOutcomes, parsePlanningSources, views7dPath} from './planning-outcome.mjs';
 
@@ -239,4 +239,160 @@ export function loadWorkflowLoopDiagnosis(projectDir, now = new Date(), loopHeal
     outlierReports: readDirJsons(join(dataDir, 'outlier-reports')),
     transformSheets: readDirJsons(join(dataDir, 'transform-sheets')),
   });
+}
+
+/**
+ * 프로젝트 비대화 방지 브리핑 항목(2026-11-19 사용자 요청):
+ * 슬로건·워크플로우 루프에 안 맞는 ① 장기 잠적(미참조) 파일 삭제안 1건,
+ * ② 불필요·충돌 문구 삭제안 1건, ③ 활성 스크립트 버그 테스트 1안을 실제 파일 기준으로 1안씩 뽑는다.
+ */
+export function diagnoseCodebaseHygiene({
+  now = new Date(),
+  dormantFiles = [],
+  staleCopy = [],
+  untestedActiveScripts = [],
+} = {}) {
+  const daySeed = Math.floor(new Date(now).getTime() / D);
+  const pick = (list) => (list.length ? list[Math.abs(daySeed) % list.length] : null);
+
+  const dormant = pick(dormantFiles);
+  const copy = pick(staleCopy);
+  const testTarget = pick(untestedActiveScripts);
+
+  return {
+    dormantFile: dormant
+      ? {
+          target: dormant.file,
+          finding: dormant.reason || `어디서도 참조되지 않는 미사용 스크립트(${dormant.ageDays != null ? `${dormant.ageDays}일 전 수정` : '미참조'})`,
+          proposal: `사용처 최종 확인 후 ${dormant.file} 삭제(또는 legacy/ 이관)`,
+          candidateCount: dormantFiles.length,
+        }
+      : {
+          target: '없음',
+          finding: '미참조 장기 잠적 스크립트가 관측되지 않음',
+          proposal: '유지',
+          candidateCount: 0,
+        },
+    staleCopy: copy
+      ? {
+          target: `${copy.file}:${copy.line}`,
+          finding: `${copy.label} ("${copy.snippet}")`,
+          proposal: `${copy.file} ${copy.line}줄의 구 규칙·완료 문구 삭제/정리`,
+          candidateCount: staleCopy.length,
+        }
+      : {
+          target: '없음',
+          finding: '슬로건·규칙과 충돌하는 구 문구가 관측되지 않음',
+          proposal: '유지',
+          candidateCount: 0,
+        },
+    bugTest: testTarget
+      ? {
+          target: testTarget.file,
+          finding: `package.json·다른 스크립트에서 실제 호출되나 scripts/tests/에 단위 테스트 0건(${testTarget.lines ?? '?'}줄)`,
+          proposal: `${testTarget.file} 핵심 분기·오류 경계 단위 테스트 1안 추가`,
+          candidateCount: untestedActiveScripts.length,
+        }
+      : {
+          target: '없음',
+          finding: '활성 스크립트 모두 테스트에서 참조 중',
+          proposal: '기존 회귀 테스트 유지',
+          candidateCount: 0,
+        },
+  };
+}
+
+const STALE_COPY_TARGETS = [
+  '.agents/skills/episode-planning/SKILL.md',
+  '.claude/skills/episode-planning/SKILL.md',
+  'knowledge/now.md',
+  'knowledge/playbooks/comparison-sheet-playbook.md',
+  'knowledge/thumbnail-strategy.md',
+];
+
+const STALE_COPY_RULES = [
+  {label: '폐지된 5단어 이하 고정 공식 잔존', re: /5단어 이하[^\n]*제한/, skipRe: /폐지|금지|없앤|삭제|경계|사례|함정/},
+  {label: '폐지된 모바일 100px 테스트 잔존', re: /모바일\s*100px/, skipRe: /폐지|금지|없앤|삭제/},
+  {label: '폐지된 예상 CTR 예측기 잔존', re: /예상\s*CTR\s*예측기/, skipRe: /폐지|금지|없앤|삭제|틀려/},
+  {label: '끝난 할 일([x]) 미삭제 잔존', re: /^- \[x\] /i, onlyFile: 'knowledge/now.md'},
+];
+
+/** 실제 디스크를 스캔해 장기 잠적 파일·불필요 문구·버그 테스트 1안씩을 만든다. */
+export function loadCodebaseHygieneDiagnosis(projectDir, now = new Date()) {
+  const scriptsDir = join(projectDir, 'scripts');
+  const testsDir = join(scriptsDir, 'tests');
+  const readText = (p) => {
+    try { return existsSync(p) ? readFileSync(p, 'utf8') : ''; } catch { return ''; }
+  };
+
+  const scriptFiles = existsSync(scriptsDir)
+    ? readdirSync(scriptsDir).filter((f) => f.endsWith('.mjs')).sort()
+    : [];
+  const testFiles = existsSync(testsDir)
+    ? readdirSync(testsDir).filter((f) => f.endsWith('.test.mjs')).sort()
+    : [];
+
+  const pkgText = readText(join(projectDir, 'package.json'));
+  const hooksDir = join(projectDir, '.githooks');
+  const hooksText = existsSync(hooksDir)
+    ? readdirSync(hooksDir).map((f) => readText(join(hooksDir, f))).join('\n')
+    : '';
+  const claudeDir = join(projectDir, '.claude');
+  const claudeSettings = readText(join(claudeDir, 'settings.json')) + '\n' + readText(join(claudeDir, 'settings.local.json'));
+  const testCorpus = testFiles.map((f) => readText(join(testsDir, f))).join('\n');
+  const scriptBodies = scriptFiles.map((f) => ({name: f, body: readText(join(scriptsDir, f))}));
+
+  const dormantFiles = [];
+  const untestedActiveScripts = [];
+  const nowMs = new Date(now).getTime();
+
+  for (const {name, body} of scriptBodies) {
+    const inTests = testCorpus.includes(name);
+    const inPkgOrHooks = pkgText.includes(name) || hooksText.includes(name) || claudeSettings.includes(name);
+    const inOtherScripts = scriptBodies.some((other) => other.name !== name && other.body.includes(name));
+    const isReferenced = inPkgOrHooks || inOtherScripts;
+
+    if (!isReferenced && !inTests) {
+      let ageDays = null;
+      try {
+        ageDays = Math.max(0, Math.floor((nowMs - statSync(join(scriptsDir, name)).mtimeMs) / D));
+      } catch {}
+      const isOneOffEp = /^build-ep\d+|^render-ep\d+|^gen-ep\d+/i.test(name);
+      dormantFiles.push({
+        file: `scripts/${name}`,
+        ageDays,
+        reason: isOneOffEp
+          ? `일회성 과거 에피소드 스크립트(참조 0곳${ageDays != null ? `, ${ageDays}일 전 수정` : ''})`
+          : `package.json·스크립트·테스트 어디서도 미참조(${ageDays != null ? `${ageDays}일 전 수정` : '참조 0곳'})`,
+      });
+    } else if (isReferenced && !inTests) {
+      untestedActiveScripts.push({
+        file: `scripts/${name}`,
+        lines: body.split(/\r?\n/).length,
+      });
+    }
+  }
+
+  const staleCopy = [];
+  for (const rel of STALE_COPY_TARGETS) {
+    const text = readText(join(projectDir, rel));
+    if (!text) continue;
+    const lines = text.split(/\r?\n/);
+    lines.forEach((line, idx) => {
+      for (const rule of STALE_COPY_RULES) {
+        if (rule.onlyFile && rule.onlyFile !== rel) continue;
+        if (rule.skipRe && rule.skipRe.test(line)) continue;
+        if (rule.re.test(line)) {
+          staleCopy.push({
+            file: rel,
+            line: idx + 1,
+            label: rule.label,
+            snippet: line.trim().slice(0, 60),
+          });
+        }
+      }
+    });
+  }
+
+  return diagnoseCodebaseHygiene({now, dormantFiles, staleCopy, untestedActiveScripts});
 }

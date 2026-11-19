@@ -1,0 +1,456 @@
+{
+  "schemaVersion": 1,
+  "region": "KR",
+  "collectedAt": "2026-11-19T07:59:08.642Z",
+  "lastAttemptAt": "2026-11-19T07:59:08.642Z",
+  "sources": {
+    "googleTrendsKr": {
+      "ok": true,
+      "fetchedAt": "2026-11-19T07:59:08.642Z",
+      "count": 10,
+      "stale": false,
+      "error": null
+    },
+    "youtubePopularKr": {
+      "ok": true,
+      "fetchedAt": "2026-11-19T07:59:08.642Z",
+      "count": 20,
+      "stale": false,
+      "error": null
+    }
+  },
+  "googleTrends": [
+    {
+      "source": "google-trends-kr",
+      "keyword": "해군",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-19T06:50:00.000Z",
+      "newsItems": [
+        {
+          "title": "[속보] 경찰, 리트 만점자 \"사망으로 최종 판정시 감식 등 진행\"",
+          "source": "한국경제",
+          "url": "https://www.hankyung.com/article/2026111972367"
+        },
+        {
+          "title": "북중 접경서 동해안 향한 김정은… APEC '깜짝 방중' 가능성 낮아졌나",
+          "source": "한국일보",
+          "url": "https://www.hankookilbo.com/news/article/A2026111915510005315"
+        },
+        {
+          "title": "“전 세계가 날 주목해”…‘방중 관심’ 속 현지시찰 노출 [지금뉴스]",
+          "source": "KBS 뉴스",
+          "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8717260"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "주얼리",
+      "approxTraffic": "500+",
+      "publishedAt": "2026-11-19T06:40:00.000Z",
+      "newsItems": [
+        {
+          "title": "올리아, 서울 주얼리 쇼룸에서 팝업 진행",
+          "source": "핸드메이커",
+          "url": "https://www.handmk.com/news/articleView.html?idxno=45236"
+        },
+        {
+          "title": "논논X하츠투하츠, ‘Lemon Tang’ 콜라보 주얼리 3종 선보여",
+          "source": "비욘드포스트",
+          "url": "https://www.beyondpost.co.kr/view.php?ud=20261119130424646637600e7ec7_30"
+        },
+        {
+          "title": "논논, 하츠투하츠와 협업한 ‘Lemon Tang’ 주얼리 컬렉션 공개",
+          "source": "스타데일리뉴스",
+          "url": "https://www.stardailynews.co.kr/news/articleView.html?idxno=602616"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "수능 결시율",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-19T06:20:00.000Z",
+      "newsItems": [
+        {
+          "title": "AI 커닝 단속 강화 영향?…수능 결시자 3000명 넘게 늘었다(종합)",
+          "source": "뉴스1",
+          "url": "https://www.news1.kr/society/education/6359569"
+        },
+        {
+          "title": "수능 1교시 응시자 49만 1천 명‥결시율 작년보다 높아",
+          "source": "MBC 뉴스",
+          "url": "https://imnews.imbc.com/news/2026/society/article/6866952_36918.html"
+        },
+        {
+          "title": "[2027 수능] 전국 평균 시험 응시율 90.03%… 부산 93.16% 최고",
+          "source": "Chosunbiz",
+          "url": "https://biz.chosun.com/topics/topics_social/2026/11/19/XRVCATVQS5G6ZGQPOBSORFZ55M/"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "버거킹 초콜릿와퍼",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-19T06:20:00.000Z",
+      "newsItems": [
+        {
+          "title": "\"만우절 거짓말인 줄 알았는데\"…버거킹, 진짜 '초콜릿 와퍼' 내놓는다 - 머니투데이",
+          "source": "머니투데이",
+          "url": "https://www.mt.co.kr/living/2026/11/17/2026111708270380871"
+        },
+        {
+          "title": "고기 대신 브라우니? 만우절 농담 ‘초콜릿 와퍼’ 현실로!",
+          "source": "어린이동아",
+          "url": "https://kids.donga.com/news/articleView.html?idxno=170338"
+        },
+        {
+          "title": "패티는 브라우니, 피클은 초콜릿…버거킹 '초콜릿 와퍼' 성수서 첫선",
+          "source": "뉴시스",
+          "url": "https://www.newsis.com/view/NISX20261117_0003870829"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "용인 초소형 카메라",
+      "approxTraffic": "5000+",
+      "publishedAt": "2026-11-19T06:00:00.000Z",
+      "newsItems": [
+        {
+          "title": "[단독] 서초구 모 고교 수능시험장에서 신발 속 스마트폰 적발",
+          "source": "MBC 뉴스",
+          "url": "https://imnews.imbc.com/news/2026/society/article/6866972_36918.html"
+        },
+        {
+          "title": "[속보] 경기도 용인 수능 시험장에서 초소형카메라 발견",
+          "source": "YTN",
+          "url": "https://www.ytn.co.kr/_cs/_ln_0115_202611191452546841_005.html"
+        },
+        {
+          "title": "그렇게 경고했는데…용인 시험장서 초소형 카메라·이어폰 발견",
+          "source": "한국경제",
+          "url": "https://www.hankyung.com/article/202611197584i"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "민주유공자법",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-19T05:50:00.000Z",
+      "newsItems": [
+        {
+          "title": "'민주유공자법' 본회의 상정‥국힘 \"운동권 노후 특혜법\" 반발",
+          "source": "MBC 뉴스",
+          "url": "https://imnews.imbc.com/news/2026/politics/article/6866971_36911.html"
+        },
+        {
+          "title": "[오마이포토] 민주유공자법 상정... 퇴장하는 이진숙",
+          "source": "OhmyNews",
+          "url": "https://www.ohmynews.com/NWS_Web/OhmyPhoto/annual/2026_at_pg.aspx?CNTN_CD=A0003286532"
+        },
+        {
+          "title": "[속보] ‘민주유공자법’ 국회 본회의 상정…국민의힘, 무제한 토론(필리버스터) 돌입",
+          "source": "KBS 뉴스",
+          "url": "https://news.kbs.co.kr/news/view.do?ncd=8717337"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "디 에이치 반포 124",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-19T05:50:00.000Z",
+      "newsItems": [
+        {
+          "title": "[단독] “평당 분양가 1억 넘기면 안된다”…디에이치 반포124 제동",
+          "source": "매일경제",
+          "url": "https://www.mk.co.kr/news/realestate/12213314"
+        },
+        {
+          "title": "'30억 로또' 디에이치 반포124 청약 일정 밀린다",
+          "source": "한국경제",
+          "url": "https://www.hankyung.com/article/2026111857156"
+        },
+        {
+          "title": "반포 한강 바로 앞… ‘압도적 하이엔드 대단지’ 내달 분양한다",
+          "source": "조선일보",
+          "url": "https://www.chosun.com/special/special_section/2026/11/19/FO7UFD3IAZCRBAGOMOX37Z34P4/"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "예비타당성조사",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-19T05:40:00.000Z",
+      "newsItems": [
+        {
+          "title": "복지부, 20일 경기 동북부 공공의료원 예비타당성 조사 신청",
+          "source": "연합뉴스",
+          "url": "https://www.yna.co.kr/view/AKR20261119039300060"
+        },
+        {
+          "title": "경기 동북부 의료 공백 메울까…남양주 공공의료원 건립 ‘청신호’",
+          "source": "경기일보",
+          "url": "https://www.kyeonggi.com/article/20261119580141"
+        },
+        {
+          "title": "남양주 공공의료원, 예타 신청사업 선정…400병상 공공병원 추진 - 머니투데이",
+          "source": "머니투데이",
+          "url": "https://www.mt.co.kr/index.php/policy/2026/11/19/2026111914075910645"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "수능 샤프",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-19T05:20:00.000Z",
+      "newsItems": [
+        {
+          "title": "올해 수능 샤프는 ‘무궁화보라색’…연필 빼고 필기구 모두 지급",
+          "source": "한겨레",
+          "url": "https://www.hani.co.kr/arti/society/schooling/1288087.html"
+        },
+        {
+          "title": "연필은 불티, 사인펜은 쌓였다...편의점업계, 수능 특수 김샜다 - 머니투데이",
+          "source": "머니투데이",
+          "url": "https://www.mt.co.kr/living/2026/11/19/2026111915033666154"
+        },
+        {
+          "title": "올해 수능 샤프는 ‘무궁화보라색’…기본 샤프심은 5개",
+          "source": "동아일보",
+          "url": "https://www.donga.com/news/Society/article/all/20261119/135052284/1"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "서울교통공사",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-19T05:20:00.000Z",
+      "newsItems": [
+        {
+          "title": "“수상한 행동 놓치지 않았다”… 서울교통공사 직원들, 범죄 의심 상황 잇따라 대응",
+          "source": "헤럴드경제",
+          "url": "https://mbiz.heraldcorp.com/article/10943026"
+        },
+        {
+          "title": "“출근길에도 시민 안전부터”…지하철 성범죄 막아낸 서울교통공사 직원들",
+          "source": "문화일보",
+          "url": "https://www.munhwa.com/article/11632632"
+        },
+        {
+          "title": "서울 지하철서 성범죄 의심 상황 잇따라…교통공사 직원들 신속 대응",
+          "source": "미디어인뉴스",
+          "url": "https://www.mediainnews.com/news/articleView.html?idxno=49024"
+        }
+      ]
+    }
+  ],
+  "youtubePopular": [
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "LOLXD85SThc",
+      "title": "Do you know (2026 Version)",
+      "channelId": "UCyKkBOFlSdga_PowmZVqxaQ",
+      "channelTitle": "SOMEDAY - Topic",
+      "publishedAt": "2026-11-17T09:04:44.000Z",
+      "categoryId": "10",
+      "viewCount": 197747
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "WqQgO06emHU",
+      "title": "인내심이 바닥나버렸습니다... ≪어벤져스: 둠스데이≫ 메인 예고편 공개 임박 & 루머 총정리",
+      "channelId": "UCKBzr20577Xcn0LJoRVES_A",
+      "channelTitle": "무비띵크_Movie Think",
+      "publishedAt": "2026-11-17T06:08:14.000Z",
+      "categoryId": "1",
+      "viewCount": 505423
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "jyuHJ7WOqq0",
+      "title": "내가 치워",
+      "channelId": "UCDBAVzfX3yZ1hah0FHnOoaA",
+      "channelTitle": "괴물쥐 유튜브",
+      "publishedAt": "2026-11-18T14:00:35.000Z",
+      "categoryId": "20",
+      "viewCount": 566499
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "6POlUfjBIB4",
+      "title": "Sakuranbo",
+      "channelId": "UC4mOLela441MNvGJNy6h8bg",
+      "channelTitle": "YENA - Topic",
+      "publishedAt": "2026-11-17T09:01:35.000Z",
+      "categoryId": "10",
+      "viewCount": 265230
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "Fg0jyss_YnU",
+      "title": "Avengers: Doomsday | The Return | In Theaters December 18",
+      "channelId": "UCvC4D8onUfXzvjTOM-dBfEA",
+      "channelTitle": "Marvel Entertainment",
+      "publishedAt": "2026-11-18T17:00:01.000Z",
+      "categoryId": "24",
+      "viewCount": 5565278
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "Zw99TxJDy0s",
+      "title": "GTA6 켜자마자 스토리는 안 하고 NPC부터 건드려 봤습니다..ㅋㅋ",
+      "channelId": "UCHFIDZWYe9L0xJlez3vkrkQ",
+      "channelTitle": "BanaMongki",
+      "publishedAt": "2026-11-18T14:32:31.000Z",
+      "categoryId": "20",
+      "viewCount": 480620
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "peGBibgqNvc",
+      "title": "It's You",
+      "channelId": "UCJxMzuB_DWzdynwxXoxTdWQ",
+      "channelTitle": "JI JIN SEOK - Topic",
+      "publishedAt": "2026-11-17T03:01:50.000Z",
+      "categoryId": "10",
+      "viewCount": 47296
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "cBHXKJiXFJs",
+      "title": "더 커진 판, 더 독해진 가족 [가족계획 시즌2] 티저 예고편",
+      "channelId": "UCjn-VbcIkAeXQKCmLJV8YwQ",
+      "channelTitle": "쿠팡플레이 Coupang Play",
+      "publishedAt": "2026-11-17T23:04:18.000Z",
+      "categoryId": "24",
+      "viewCount": 796961
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "y9RsawyGyCI",
+      "title": "GTA 6 리뷰",
+      "channelId": "UCQePzo3_oRB-6RAzBioc6pg",
+      "channelTitle": "인벤",
+      "publishedAt": "2026-11-18T11:00:22.000Z",
+      "categoryId": "20",
+      "viewCount": 321567
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "r0qiz07zeVQ",
+      "title": "Worry",
+      "channelId": "UCC9QFzk4mXQNjHArqAem8OA",
+      "channelTitle": "Dark Moon - Topic",
+      "publishedAt": "2026-11-12T03:04:47.000Z",
+      "categoryId": "10",
+      "viewCount": 121252
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "J8vZwz0_lU8",
+      "title": "멸망전 뉴비들을 위한 저교수의 가르침",
+      "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
+      "channelTitle": "저라뎃 JUSTLIKETHAT",
+      "publishedAt": "2026-11-18T14:00:14.000Z",
+      "categoryId": "20",
+      "viewCount": 239351
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "5JkTq9rOYI8",
+      "title": "Angel Bite",
+      "channelId": "UCdeb5b3bAxn1OXXFFeuCaHg",
+      "channelTitle": "TOMORROW BY TOGETHER - Topic",
+      "publishedAt": "2026-11-16T09:00:40.000Z",
+      "categoryId": "10",
+      "viewCount": 682423
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "lKyyuyoraMU",
+      "title": "감스트 13년 만에 출시! GTA6 오픈런!! [26.11.18]",
+      "channelId": "UChtdyqmH0yVFWTBJERP2PKg",
+      "channelTitle": "겜스트GAMEST",
+      "publishedAt": "2026-11-19T03:04:59.000Z",
+      "categoryId": "20",
+      "viewCount": 354123
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "1EsCgszzTb4",
+      "title": "래원 (Layone) '먼치킨 (Feat. 그냥노창, Jvcki Wai)' MV",
+      "channelId": "UCtYO752SVv4vjO8sVeS2Ndw",
+      "channelTitle": "래원",
+      "publishedAt": "2026-11-17T09:00:27.000Z",
+      "categoryId": "10",
+      "viewCount": 506696
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "mUcnosPjqcA",
+      "title": "놈과 왕의 종결급 케미【윤가놈X말왕 합방】",
+      "channelId": "UC20DvGobETQDG_JG048JWAw",
+      "channelTitle": "윤가놈",
+      "publishedAt": "2026-11-18T10:00:27.000Z",
+      "categoryId": "20",
+      "viewCount": 524979
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "ulSPnhAilz8",
+      "title": "I′ve Finally Let You Go",
+      "channelId": "UCuhDzwriRIidtco_rKn4VxQ",
+      "channelTitle": "Choi Chunghyeon - Topic",
+      "publishedAt": "2026-11-14T09:01:32.000Z",
+      "categoryId": "10",
+      "viewCount": 298801
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "FOmplJHIZnw",
+      "title": "그녀와의 재회는 최악이였다",
+      "channelId": "UCta_NRwnsUaew0t3VNxBNyg",
+      "channelTitle": "김재원의 즐거운 세상",
+      "publishedAt": "2026-11-18T07:00:21.000Z",
+      "categoryId": "20",
+      "viewCount": 444098
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "r58jywvd-Rw",
+      "title": "Leave With Me",
+      "channelId": "UCXtPv6CbKfuXPNj3MyKFOig",
+      "channelTitle": "LISA - Topic",
+      "publishedAt": "2026-11-18T15:05:00.000Z",
+      "categoryId": "10",
+      "viewCount": 196171
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "1bMkAVpV3hE",
+      "title": "메타 99점ㄷㄷ GTA6 오픈런 \"상상초월\" 초반부 실제 플레이!",
+      "channelId": "UCqRz_-l3GCmWb92u8P33RYQ",
+      "channelTitle": "더큐TV_TheQ",
+      "publishedAt": "2026-11-18T21:36:32.000Z",
+      "categoryId": "20",
+      "viewCount": 201215
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "sSZsC-fEmYE",
+      "title": "Goodbye to Us",
+      "channelId": "UCTXujdte55ZVhaiJ3ixXDHA",
+      "channelTitle": "Huh Gak - Topic",
+      "publishedAt": "2026-11-18T09:01:10.000Z",
+      "categoryId": "10",
+      "viewCount": 17510
+    }
+  ]
+}

@@ -386,6 +386,15 @@ async function run() {
     return r;
   });
 
+  // 국내 실시간 트렌드(Google Trends KR RSS + YouTube KR 인기 급상승, 하루 1 unit)를 모은다(2026-11-19).
+  // nextInput 바로 앞에 두어 오늘의 한국 트렌드가 다음 기획 입력 13절에 바로 들어가게 한다.
+  await step('koreanTrends', async () => {
+    const {collectKoreanTrends} = await import('./korean-trends.mjs');
+    const r = await collectKoreanTrends({now: new Date()});
+    if (!r.ok) throw new Error(`국내 실시간 트렌드 수집 실패(두 소스 모두 실패): GT=${r.sources?.googleTrendsKr?.error}, YT=${r.sources?.youtubePopularKr?.error}`);
+    return r;
+  });
+
   // 모은 데이터를 다음 기획의 출발점 한 장으로 만든다(2026-11-12, knowledge/data-consumption-map.md).
   // 동기화·시청자 고민 분석이 끝난 뒤에 만들어야 오늘 데이터가 들어간다.
   await step('nextInput', async () => {

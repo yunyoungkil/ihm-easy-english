@@ -289,6 +289,7 @@ export function renderNextEpisodeInput(input) {
   out.push(...renderRetention(input.retention));
   out.push(...renderStudioMetrics(input.studio, input.titles));
   out.push(...renderAudienceCountries(input.audienceCountries));
+  out.push(...renderKoreanTrends(input.koreanTrends));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -395,6 +396,41 @@ export function renderAudienceCountries(store) {
   return out;
 }
 
+/** 국내 실시간 트렌드(Google Trends KR + YouTube KR 인기 급상승). 원재료 그대로 보여 주고, 3060 영어 학습과 자연스럽게 맞물릴 때만 AI가 채택한다. */
+export function renderKoreanTrends(store) {
+  const out = ['## 13. 국내 실시간 트렌드 (한국 내 관심 근거 · 기회 포착 레이더)', ''];
+  if (!store || (!store.googleTrends?.length && !store.youtubePopular?.length)) {
+    return [...out, '국내 실시간 트렌드 수집 전(`npm run korean-trends`, 매일 루프 koreanTrends 단계).', ''];
+  }
+  const gtSrc = store.sources?.googleTrendsKr;
+  const ytSrc = store.sources?.youtubePopularKr;
+  const statusOf = (s) => (!s ? '없음' : s.ok ? `정상(${s.count}건)` : (s.stale ? `이전 유지(${s.count}건, 실패: ${s.error || '오류'})` : `실패(${s.error || '오류'})`));
+  out.push(`확인 시각: ${day(store.collectedAt)} (${store.collectedAt || '측정 전'}) · 지역: ${store.region || 'KR'} · Google Trends KR: ${statusOf(gtSrc)} · YouTube KR 인기 급상승: ${statusOf(ytSrc)}.`);
+  out.push('매일 억지로 소재에 넣지 않는다. 영화·드라마·K-POP·뉴스 등 지금 한국에서 관심을 받는 화제 중 우리 3060 성인 영어 학습 약속과 자연스럽게 연결되는 단어·표현·발음이 있을 때만 AI가 판단해 채택하고, 채택 시 출처·확인 날짜·적용 위치를 남긴다.', '');
+
+  const gt = (store.googleTrends || []).slice(0, 10); // allow-literal: 화면 표시 상한
+  if (gt.length) {
+    out.push('**Google Trends 한국 급상승 검색어**', '');
+    for (const item of gt) {
+      const news = item.newsItems?.[0];
+      const newsText = news ? ` — 보도: "${cut(news.title, 60)}" (${news.source || '출처 없음'})` : '';
+      out.push(`- **${cut(item.keyword, 40)}** (${item.approxTraffic || '규모 미상'}, ${day(item.publishedAt)})${newsText}`);
+    }
+    out.push('');
+  }
+
+  const yt = (store.youtubePopular || []).slice(0, 10); // allow-literal: 화면 표시 상한
+  if (yt.length) {
+    out.push('**YouTube 한국 인기 급상승 동영상**', '');
+    for (const v of yt) {
+      const views = v.viewCount == null ? '조회 미상' : `${Number(v.viewCount).toLocaleString('ko-KR')}회`;
+      out.push(`- 「${cut(v.title, 55)}」 (\`${v.videoId}\`) — ${v.channelTitle || '채널 미상'}, ${views}, ${day(v.publishedAt)}`);
+    }
+    out.push('');
+  }
+  return out;
+}
+
 const readJson = (path, fallback) => {
   try { return JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')); } catch { return fallback; }
 };
@@ -443,6 +479,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     retention: readRetention(join(dataDir, 'retention')),
     studio: readJson(join(dataDir, 'studio-metrics.json'), null),
     audienceCountries: readJson(join(dataDir, 'audience-countries.json'), null),
+    koreanTrends: readJson(join(dataDir, 'korean-trends.json'), null),
     titles,
     transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };

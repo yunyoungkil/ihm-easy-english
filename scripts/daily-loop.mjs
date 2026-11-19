@@ -228,6 +228,12 @@ async function run() {
     return {d7: r.d7 || null};
   });
 
+  // 공개 후 자동 사후 관리(2026-11-20): 재생목록 오분류/누락 교정 + 신규 영상 고정 댓글 자동 게시 + 쇼츠 관련 동영상 자동 연결
+  await step('postPublish', async () => {
+    const {runPostPublishPipeline} = await import('./post-publish-pipeline.mjs');
+    return runPostPublishPipeline({projectDir, now: new Date()});
+  });
+
   if (plan.competitors) {
     await step('competitors', async () => {
       const r = await post('/api/market-demand/run', {syncAll: true}, 10 * 60 * 1000);

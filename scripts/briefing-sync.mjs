@@ -46,4 +46,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const {ensureGitHooks} = await import('./ensure-git-hooks.mjs');
   if (ensureGitHooks() === 'set') console.log('커밋 전 자동 검사를 켰습니다(.githooks)');
   console.log(await syncIfStale({timeoutMs: 120000}));
+  // 공개 후 자동 사후 관리(2026-11-20): 재생목록 교정 + 고정 댓글 + 쇼츠 관련 동영상 자동 연결
+  const {runPostPublishPipeline} = await import('./post-publish-pipeline.mjs');
+  await runPostPublishPipeline().catch((err) => console.warn('[BriefingSync] 사후 관리 파이프라인 경고:', err.message));
 }

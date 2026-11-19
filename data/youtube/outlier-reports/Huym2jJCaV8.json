@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Huym2jJCaV8",
+  "analyzedAt": "2026-11-18T16:07:43.337Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 37,
+  "meta": {
+    "videoId": "Huym2jJCaV8",
+    "title": "'시간' 영어단어5 | 일상생활영어 | 기초영어회화 | 왕초보영어",
+    "channelId": "UCSyomjvhjZ4Qp6Zp3dbXxTA",
+    "channelTitle": "굿럭영어",
+    "publishedAt": "2024-08-06T03:40:00Z",
+    "viewCount": 304815,
+    "likeCount": 3651,
+    "commentCount": 23,
+    "durationSeconds": 37,
+    "thumbnail": "https://i.ytimg.com/vi/Huym2jJCaV8/maxresdefault.jpg",
+    "description": "매일 꾸준한 영어공부로 다가오는 인생의 행운을 잡으세요~🍀\n\n#영어 #영어회화 #영어공부 #영어단어",
+    "tags": [
+      "영어회화",
+      "영어왕초보",
+      "필수기초영어",
+      "기초영어",
+      "생활영어",
+      "기초생활영어",
+      "기초영어회화",
+      "성인영어",
+      "성인영어회화",
+      "원어민영어",
+      "영어듣기",
+      "영어반복듣기",
+      "하루10분영어",
+      "매일영어듣기",
+      "영어습관",
+      "영어말하기",
+      "기초영단어",
+      "필수영단어",
+      "7살영어",
+      "쉬운영어",
+      "노인영어",
+      "영어공부",
+      "영어",
+      "#영어공부",
+      "#영어회화",
+      "#영어",
+      "#영어듣기",
+      "#영어단어",
+      "#영어말하기",
+      "#기초영어",
+      "#생활영어"
+    ]
+  },
+  "subscriberCount": 78500,
+  "viewsPerSubscriber": 3.88,
+  "outlierRatio": 32.81,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-17T09:10:53.256Z",
+  "ratioDenominator": 9268.5,
+  "ratioPeerCount": 48,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 11,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 16
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 37
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 162,
+      "lengthMedian": 162,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.32,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-18T16:07:38.747Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만), 고유 어절 비율 0.32(0.4 미만, 같은 말 반복)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "시간에 관련된 기초 영어 단어 5가지를 배울 수 있음을 직관적으로 제시함",
+      "titleQuote": "'시간' 영어단어5 | 일상생활영어 | 기초영어회화 | 왕초보영어",
+      "thumbnailText": "매일 들으면 나도 영어 고수 시간 영어단어 (5)",
+      "thumbnailWordCount": 7,
+      "thumbnailVisual": "보라색 배경 상단에 타이틀 상자가 있고, 아래에 '현재, 평일, 주말, 휴일, 기념일' 5개 단어 목록과 붉은 하트 아이콘이 그려져 있음",
+      "thumbnailVsTitle": "제목의 '시간 영어단어 5'와 썸네일의 '시간 영어단어 (5)'가 정확히 일치하여 단어 학습 내용임을 강조함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "시간 단어 목록 중 1번 '현재(Present)', 2번 '평일(Weekday)'의 영어 단어와 한글 발음 표기가 나오며 원어민 음성이 발음함",
+      "quote": "present",
+      "reasonToKeepWatching": "1번부터 5번까지 번호가 매겨진 시간 관련 단어 목록을 순서대로 완성해 가는 시각적 구조로 몰입감을 줌",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "1번 단어 '현재' 옆에 영어 'Present'와 한글 발음 '프레전트'가 나타나며 음성이 들림",
+      "quote": "present",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 6,
+        "what": "1번 단어 '현재'의 영어 단어 Present와 한글 발음 '프레전트' 표시 및 음성 반복",
+        "quote": "present",
+        "quoteVerified": true
+      },
+      {
+        "start": 7,
+        "end": 13,
+        "what": "2번 단어 '평일'의 영어 단어 Weekday와 한글 발음 '윅데이' 표시 및 음성 반복",
+        "quote": "weekday",
+        "quoteVerified": true
+      },
+      {
+        "start": 14,
+        "end": 20,
+        "what": "3번 단어 '주말'의 영어 단어 Weekend와 한글 발음 '위켄드' 표시 및 음성 반복",
+        "quote": "weekend",
+        "quoteVerified": true
+      },
+      {
+        "start": 21,
+        "end": 27,
+        "what": "4번 단어 '휴일'의 영어 단어 Holiday와 한글 발음 '할러데이' 표시 및 음성 반복",
+        "quote": "holiday",
+        "quoteVerified": true
+      },
+      {
+        "start": 28,
+        "end": 37,
+        "what": "5번 단어 '기념일'의 영어 단어 Anniversary와 한글 발음 '애너버서리' 표시 후 전체 목록 화면 조망",
+        "quote": "anniversary",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 1,
+        "what": "1번 '현재' 옆에 파란색 글씨로 'Present'가 추가됨",
+        "purpose": "한글 단어 뜻에 해당하는 영어 단어 제시"
+      },
+      {
+        "t": 3,
+        "what": "'Present' 아래에 검은색 박스 형태의 한글 발음 '프레전트'가 등장함",
+        "purpose": "영어 발음을 한글 표기로 읽기 쉽게 지원"
+      },
+      {
+        "t": 7,
+        "what": "2번 '평일' 옆에 파란색 글씨로 'Weekday'가 추가됨",
+        "purpose": "두 번째 단어 제시"
+      },
+      {
+        "t": 9,
+        "what": "'Weekday' 아래에 한글 발음 '윅데이' 박스가 등장함",
+        "purpose": "두 번째 단어 발음 표기 제공"
+      },
+      {
+        "t": 14,
+        "what": "3번 '주말' 옆에 파란색 글씨로 'Weekend'가 추가됨",
+        "purpose": "세 번째 단어 제시"
+      },
+      {
+        "t": 16,
+        "what": "'Weekend' 아래에 한글 발음 '위켄드' 박스가 등장함",
+        "purpose": "세 번째 단어 발음 표기 제공"
+      },
+      {
+        "t": 21,
+        "what": "4번 '휴일' 옆에 파란색 글씨로 'Holiday'가 추가됨",
+        "purpose": "네 번째 단어 제시"
+      },
+      {
+        "t": 23,
+        "what": "'Holiday' 아래에 한글 발음 '할러데이' 박스가 등장함",
+        "purpose": "네 번째 단어 발음 표기 제공"
+      },
+      {
+        "t": 28,
+        "what": "5번 '기념일' 옆에 파란색 글씨로 'Anniversary'가 추가됨",
+        "purpose": "다섯 번째 단어 제시"
+      },
+      {
+        "t": 31,
+        "what": "'Anniversary' 아래에 한글 발음 '애너버서리' 박스가 등장함",
+        "purpose": "다섯 번째 단어 발음 표기 제공"
+      },
+      {
+        "t": 35,
+        "what": "화면 전체가 줌아웃되며 완성된 5개 단어 화면이 한눈에 보임",
+        "purpose": "학습한 전체 내용을 한 번에 정리하여 보여줌"
+      }
+    ],
+    "ending": {
+      "what": "5개 단어 전체가 입력된 정리 화면이 줌아웃되며 학습이 마무리됨",
+      "quote": "anniversary",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "한글 발음 표기가 함께 적혀 있어 따라 읽기 편함",
+          "quote": "한글로 써있으니 더 따라하기 좋네요 ㅎㅎ❤❤",
+          "quoteVerified": true
+        },
+        {
+          "point": "초보자 입장에서 따라하기 쉽고 공부에 큰 도움이 됨",
+          "quote": "따라하기쉽고~저에게 큰도움이 됩니다~😊❤❤❤",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "한글로 써있으니 더 따라하기 좋네요",
+          "quote": "한글로 써있으니 더 따라하기 좋네요 ㅎㅎ❤❤",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 5,
+      "description": "시간에 관련된 단어 5개(현재, 평일, 주말, 휴일, 기념일)를 순차적으로 제시함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 단어 목록 영역",
+      "size": "보통",
+      "highlightColor": "파란색, 검은색 박스 배경",
+      "highlightMethod": "영어 단어는 파란색 텍스트로, 한글 발음은 검은색 라운드 박스로 표기함",
+      "textAmount": "단어가 진행됨에 따라 줄 단위로 하나씩 추가됨",
+      "changeTiming": "음성이 시작되는 타이밍에 맞춰 글자가 등장함"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "잔잔하고 따뜻한 느낌",
+      "tempo": "느림",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "한국어 뜻 및 영어 단어 음성이 중심이며 배경음악은 뒤에서 은은하게 들림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "시간 영어 단어 5개를 보여주는 학습 리스트 형식으로 시작함",
+        "quote": "present",
+        "type": "목록 제시형 훅",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "한국어 뜻만 쓰인 목록을 제시하여 영어 표현에 대한 호기심 유발",
+          "quote": "present",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 31,
+          "what": "마지막 단어까지 영어 표기와 한글 발음 표기가 제시됨",
+          "quote": "anniversary",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "독립된 단어 5개를 번호 순서대로 나열한 병렬 구조임",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 35,
+        "what": "영상 마지막에 완성된 5개 단어 카드 전체를 줌아웃으로 한 번에 보여줌",
+        "quote": "anniversary",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "영어 단어 밑에 검은색 상자로 한글 발음을 써준 시각 장치",
+        "reaction": "한글 표기 덕분에 초보자도 따라 하기 쉽다는 긍정 댓글",
+        "quote": "한글로 써있으니 더 따라하기 좋네요 ㅎㅎ❤❤",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "성인 왕초보 학습자가 영어 소리를 쉽게 인지하도록 한글 발음 표기와 원어민 발음을 함께 제시함",
+    "forUs": {
+      "adopt": "영어 단어 아래에 직관적인 한글 발음 라벨을 달아 시각적 부담을 줄이는 방식을 활용한다.",
+      "differentiate": "단순 단어 나열에 그치지 않고, 해당 단어들이 문장에서 소리가 어떻게 달라지는지 원어민 발음 팁을 원 포인트로 추가한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 17,
+    "verified": 17,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 21,
+      "file": "21.jpg"
+    },
+    {
+      "t": 23,
+      "file": "23.jpg"
+    },
+    {
+      "t": 28,
+      "file": "28.jpg"
+    },
+    {
+      "t": 31,
+      "file": "31.jpg"
+    },
+    {
+      "t": 35,
+      "file": "35.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 6697,
+    "candidatesTokenCount": 2413,
+    "totalTokenCount": 11465,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2321
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3276
+      }
+    ],
+    "thoughtsTokenCount": 2355,
+    "serviceTier": "standard"
+  }
+}

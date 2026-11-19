@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-18T04:20:20.321Z",
+  "computedAt": "2026-11-19T16:24:59.342Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -1133,10 +1133,10 @@
           "label": "공개 7일 조회수",
           "meaning": "제목·썸네일·소재(포장)",
           "unit": "회",
-          "n": 27,
+          "n": 28,
           "median": 6,
-          "upper": 9,
-          "spreadRatio": 1.5,
+          "upper": 11,
+          "spreadRatio": 1.8333333333333333,
           "promoteRule": "비율",
           "champion": {
             "videoId": "ROks87qezuU",
@@ -1146,7 +1146,7 @@
             "value": 46,
             "views": 46
           },
-          "promoteAbove": 69,
+          "promoteAbove": 84.33333333333333,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 46회로 100회 미만 — 참고용(가설)",
           "excluded": [
@@ -1163,10 +1163,10 @@
           "label": "공개 7일 평균 시청 시간",
           "meaning": "훅·화면·대본(내용). 영상이 길수록 유리해서 길이를 같이 본다",
           "unit": "초",
-          "n": 14,
-          "median": 117,
+          "n": 15,
+          "median": 106,
           "upper": 193,
-          "spreadRatio": 1.6495726495726495,
+          "spreadRatio": 1.820754716981132,
           "promoteRule": "비율",
           "champion": {
             "videoId": "-V1lwpEF7Ik",
@@ -1176,7 +1176,7 @@
             "value": 354,
             "views": 6
           },
-          "promoteAbove": 583.9487179487179,
+          "promoteAbove": 644.5471698113207,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 조회가 6회로 100회 미만 — 참고용(가설)",
           "excluded": [],
@@ -1186,7 +1186,7 @@
           "label": "공개 7일 구독 수",
           "meaning": "채널의 가치",
           "unit": "명",
-          "n": 27,
+          "n": 28,
           "median": 0,
           "upper": 0,
           "spreadRatio": null,
@@ -1209,10 +1209,10 @@
           "label": "공개 7일 썸네일 노출수",
           "meaning": "유튜브가 얼마나 보여 줬는가(포장의 앞 단계). 스튜디오 값",
           "unit": "회",
-          "n": 27,
-          "median": 44,
-          "upper": 89,
-          "spreadRatio": 2.022727272727273,
+          "n": 28,
+          "median": 45,
+          "upper": 125,
+          "spreadRatio": 2.7777777777777777,
           "promoteRule": "비율",
           "champion": {
             "videoId": "YoaCRYCWpws",
@@ -1225,15 +1225,15 @@
             "clicks": 19,
             "abTest": null
           },
-          "promoteAbove": 896.0681818181819,
+          "promoteAbove": 1230.5555555555554,
           "lowSample": true,
           "sampleNote": "표본 작음: 기준 영상의 첫 7일 노출이 443회로 1000회 미만 — 참고용(가설)",
           "abTestedCount": 16,
           "mixedNote": null,
           "coverage": {
-            "have": 27,
-            "recorded": 27,
-            "eligible": 27
+            "have": 28,
+            "recorded": 28,
+            "eligible": 28
           },
           "catchingUp": false,
           "catchingUpNote": null,
@@ -1274,8 +1274,8 @@
           "mixedNote": "기준 영상에 제목·썸네일 A/B 테스트가 걸려 있어 시안이 섞인 값(어느 제목·썸네일 덕인지 가릴 수 없다)",
           "coverage": {
             "have": 14,
-            "recorded": 27,
-            "eligible": 27
+            "recorded": 28,
+            "eligible": 28
           },
           "catchingUp": false,
           "catchingUpNote": null,
@@ -1283,9 +1283,15 @@
           "confidence": "가설"
         }
       },
-      "lengthMedianSeconds": 415,
+      "lengthMedianSeconds": 420,
       "recent": {
         "views7d": [
+          {
+            "videoId": "--Ajwp-UvIk",
+            "publishedAt": "2026-11-09T14:00:32Z",
+            "durationSeconds": 570,
+            "value": 11
+          },
           {
             "videoId": "9d9m869BCTI",
             "publishedAt": "2026-10-28T13:00:32Z",
@@ -1451,6 +1457,12 @@
         ],
         "watchSeconds7d": [
           {
+            "videoId": "--Ajwp-UvIk",
+            "publishedAt": "2026-11-09T14:00:32Z",
+            "durationSeconds": 570,
+            "value": 83
+          },
+          {
             "videoId": "9d9m869BCTI",
             "publishedAt": "2026-10-28T13:00:32Z",
             "durationSeconds": 1085,
@@ -1615,6 +1627,12 @@
         ],
         "subs7d": [
           {
+            "videoId": "--Ajwp-UvIk",
+            "publishedAt": "2026-11-09T14:00:32Z",
+            "durationSeconds": 570,
+            "value": 0
+          },
+          {
             "videoId": "9d9m869BCTI",
             "publishedAt": "2026-10-28T13:00:32Z",
             "durationSeconds": 1085,
@@ -1778,6 +1796,14 @@
           }
         ],
         "impressions7d": [
+          {
+            "videoId": "--Ajwp-UvIk",
+            "publishedAt": "2026-11-09T14:00:32Z",
+            "durationSeconds": 570,
+            "value": 294,
+            "impressions": 294,
+            "clicks": 4
+          },
           {
             "videoId": "9d9m869BCTI",
             "publishedAt": "2026-10-28T13:00:32Z",
@@ -1996,6 +2022,14 @@
           }
         ],
         "ctr7d": [
+          {
+            "videoId": "--Ajwp-UvIk",
+            "publishedAt": "2026-11-09T14:00:32Z",
+            "durationSeconds": 570,
+            "value": 1.36,
+            "impressions": 294,
+            "clicks": 4
+          },
           {
             "videoId": "9d9m869BCTI",
             "publishedAt": "2026-10-28T13:00:32Z",
@@ -2216,18 +2250,18 @@
       },
       "reference": {
         "subsPer1000Views": {
-          "value": 4.926108374384237,
+          "value": 4.796163069544364,
           "totalSubs": 2,
-          "totalViews": 406,
-          "n": 27
+          "totalViews": 417,
+          "n": 28
         },
         "watchRatio": {
           "median": 0.2146118721461187,
-          "n": 27
+          "n": 28
         },
         "totalWatchMinutes": {
-          "median": 9.416666666666666,
-          "n": 27
+          "median": 10.95,
+          "n": 28
         },
         "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
       }

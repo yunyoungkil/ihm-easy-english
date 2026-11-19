@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "videoId": "49VA7-b8oyc",
+  "analyzedAt": "2026-11-19T16:05:33.172Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 18,
+  "meta": {
+    "videoId": "49VA7-b8oyc",
+    "title": "한국vs미국 발음 차이 #shorts",
+    "channelId": "UCbBYYjUT-zUthyeJ4qZvzig",
+    "channelTitle": "희수 영어",
+    "publishedAt": "2022-11-25T11:24:33Z",
+    "viewCount": 2128444,
+    "likeCount": 14961,
+    "commentCount": 1656,
+    "durationSeconds": 18,
+    "thumbnail": "https://i.ytimg.com/vi/49VA7-b8oyc/maxresdefault.jpg",
+    "description": "",
+    "tags": [
+      "영어",
+      "영어발음",
+      "영어표현",
+      "도시이름",
+      "독일",
+      "뮌헨"
+    ]
+  },
+  "subscriberCount": 95400,
+  "viewsPerSubscriber": 22.31,
+  "outlierRatio": 273.73,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-18T16:00:48.179Z",
+  "ratioDenominator": 7775.5,
+  "ratioPeerCount": 38,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 6,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 18
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 98,
+      "lengthMedian": 98,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.92,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-19T16:05:25.556Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "한국과 미국의 발음 차이라는 주제를 제시하여 두 언어 간 고유명사 발음의 차이에 대한 호기심을 유발한다.",
+      "titleQuote": "한국vs미국 발음 차이 #shorts",
+      "thumbnailText": "뮌헨을 모른다고?🇩🇪",
+      "thumbnailWordCount": 2,
+      "thumbnailVisual": "검은색 반팔 티셔츠를 입은 남성이 의자에 앉아 의아한 표정으로 정면을 바라보고 있으며, 상단에 노란 글씨의 질문 자막이 떠 있다.",
+      "thumbnailVsTitle": "제목은 '발음 차이'라는 주제를 제시하고, 썸네일은 '뮌헨을 모른다고?'라는 특정 지명 예시로 궁금증을 유도하여 보완한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "한국어로 독일 도시 '뮌헨'을 알아듣지 못하던 남성이 영어 지명인 'Munich(뮤닉)'이라는 힌트에 맞춰 알아채고 발음 차이에 놀란다.",
+      "quote": "me and him Germany I'm not familiar with us today no you know this city Munich Munich yeah",
+      "reasonToKeepWatching": "한국식 독일 지명 발음(뮌헨)과 미국식 영어 지명 발음(뮤닉)의 극심한 차이를 확인하려는 기대감을 준다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "남성이 의자에 앉아 있는 상태에서 여성 목소리로 '뮌헨'이라는 한국식 발음이 나오고, 남성은 모른다는 표정으로 답변한다.",
+      "quote": "me and him Germany",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 5,
+        "what": "한국식 발음 '뮌헨'과 '독일에 있는 도시'라는 힌트를 던지지만 남성이 알아듣지 못하고 되묻는다.",
+        "quote": "me and him Germany",
+        "quoteVerified": true
+      },
+      {
+        "start": 6,
+        "end": 11,
+        "what": "여성이 다시 '뮌헨'을 강조하자 남성이 모르는 도시라고 하다가 'Oh, Munich'라며 영어 지명을 깨닫는다.",
+        "quote": "I'm not familiar with us today no you know this city Munich",
+        "quoteVerified": true
+      },
+      {
+        "start": 12,
+        "end": 18,
+        "what": "여성이 '뮤닉?'이라고 되묻고 남성이 'Munich'이라 확정하며 한국식 발음과 영어 발음이 전혀 닮지 않았다고 반응한다.",
+        "quote": "Munich yeah this doesn't sound even close",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "남성이 의자에 앉은 모습 위로 상단 검은 박스에 노란색 글씨로 '뮌헨을 모른다고?🇩🇪' 자막이 뜬다.",
+        "purpose": "영상 주제이자 핵심 질문인 '뮌헨' 발음 인지 여부를 시각적으로 명시한다."
+      },
+      {
+        "t": 1,
+        "what": "화면 하단에 태극기 아이콘과 함께 ': 뮌헨' 텍스트 자막이 나타난다.",
+        "purpose": "한국인 화자의 발음 대사를 보여준다."
+      },
+      {
+        "t": 5,
+        "what": "화면 하단에 미국 국기 아이콘과 함께 ': 민헨?' 텍스트 자막으로 바뀐다.",
+        "purpose": "미국인 남성이 한국어 발음을 흉내 내며 되묻는 상황을 표시한다."
+      },
+      {
+        "t": 7,
+        "what": "미국 국기 자막 아래에 영어 대사 및 한글 번역 '내가 모르는 도시야'가 함께 뜬다.",
+        "purpose": "남성의 영어 답변의 의미를 시청자가 이해하도록 돕는다."
+      },
+      {
+        "t": 10,
+        "what": "미국 국기 아이콘 옆 대사가 ': Oh, Munich'으로 바뀐다.",
+        "purpose": "남성이 영어 고유명사 'Munich'을 깨달은 순간을 보여준다."
+      },
+      {
+        "t": 12,
+        "what": "태극기 아이콘 대사가 ': 뮤닉?'으로 바뀐다.",
+        "purpose": "한국인 화자가 영어 발음을 되묻는 반응을 표시한다."
+      },
+      {
+        "t": 15,
+        "what": "미국 국기 아이콘 옆 대사가 ': That doesn't sound even close 발음이 완전 다르네'로 변경된다.",
+        "purpose": "한국어 발음과 영어 발음 차이에 대한 남성의 총평을 전달한다."
+      }
+    ],
+    "ending": {
+      "what": "남성이 한국어 발음과 영어 발음이 전혀 비슷하지 않다며 웃는 얼굴로 대화를 마무리한다.",
+      "quote": "this doesn't sound even close",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "독일 도시 뮌헨이나 폴란드 바르샤바 등 영어권에서 도시 이름을 본래 지명과 아주 다르게 부르는 현상에 공감함.",
+          "quote": "한국: 바르샤바 폴란드: 바르샤바 미국 : 월쏘우",
+          "quoteVerified": true
+        },
+        {
+          "point": "러시아 모스크바의 영어 표기 및 발음 차이에 대해 공감함.",
+          "quote": "러시아 : 마스크바 한국어 : 모스크바 영어 : 모스코우",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "해외 여행이나 현지 기차표 예매 시 영어식 도시 발음을 몰라 알아듣지 못하거나 당황했던 경험",
+          "quote": "아 이거 나도 기차표끊을때 당했어 ㅋㅋㅋ 아무리 얘기해도 못알아들어서 책 들고 스펠링 보여주고 겨우 됨.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "독일 현지 실제 발음(München)이 뮌헨에 가까운지, 영어식 발음에 가까운지에 대한 질문",
+          "quote": "독어:뮌쉔",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "발음에 개빡친거",
+          "quote": "댓글들 왤케 웃김 ㅋㅋㅋㅋ다 발음에 개빡친거 몇개씩 적고 가는거 봐",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 1,
+      "description": "독일 도시 '뮌헨(München)'의 한국어 발음과 영어 발음('Munich[뮤닉]')이라는 단 하나의 지명 발음 차이를 대화 형식으로 제시한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 상단(질문 제기)과 화면 하단 중앙(화자별 국기 아이콘 및 대사 자막)",
+      "size": "보통",
+      "highlightColor": "노란색, 하늘색, 흰색",
+      "highlightMethod": "국기 아이콘(한국/미국) 및 자막 색상 구별",
+      "textAmount": "한 번에 한두 문장의 대사 자막",
+      "changeTiming": "음성 대사 진행 상황에 맞춰 즉각 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 유머러스함",
+      "tempo": "보통",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "남성과 여성의 대사 음성이 중심이며 배경음악은 낮게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "독일 대표 도시 '뮌헨'을 모른다고 하는 미국인에게 질문을 던지며 시청자의 관심 유도",
+        "quote": "me and him",
+        "type": "질문 던지기 및 문화/발음 차이 제시",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "한국식 지명 발음인 '뮌헨'을 미국인 원어민이 전혀 알아듣지 못하는 문제 상황",
+          "quote": "me and him",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 10,
+          "what": "영어로는 지명을 'Munich(뮤닉)'이라고 불러야 통한다는 사실을 확인하며 해소됨",
+          "quote": "Munich",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "한국어 발음을 못 알아듣는 상태에서 '독일 도시'라는 힌트와 영어 명칭 Munich을 떠올리며 대화 오해가 풀리는 인과 구조다.",
+        "examples": [
+          {
+            "t": 10,
+            "what": "독일에 있는 도시라는 힌트를 통해 영어 명칭 Munich을 깨달음",
+            "quote": "Munich",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 10,
+          "what": "원어민이 직접 Munich이라고 발음하며 두 소리가 전혀 다르다고 말하는 실제 반응을 보여줌",
+          "quote": "this doesn't sound even close",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 15,
+        "what": "원어민이 두 발음이 전혀 안 비슷하다고 평가하며 영상에서 제시한 질문에 답함",
+        "quote": "this doesn't sound even close",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "한국어 지명 발음 '뮌헨'과 영어 지명 'Munich'의 큰 소리 차이를 보여주는 장면",
+        "reaction": "시청자들이 모스크바, 바르샤바 등 다른 고유명사의 영어식 발음 차이 경험을 댓글로 공유함",
+        "quote": "한국: 바르샤바 폴란드: 바르샤바 미국 : 월쏘우",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "한국어 표기 지명(뮌헨)과 미국식 영어 발음(Munich)의 소리 차이를 실제 원어민 대화로 보여주는 콘텐츠이다.",
+    "forUs": {
+      "adopt": "한국어 표기와 실제 영어 발음 간의 차이를 1대1 짧은 대화 상황극으로 직관적으로 전달하는 방식",
+      "differentiate": "발음 차이를 단순히 보여주는 데 그치지 않고, 왜 소리가 다른지(현지어 원음 vs 영어 명칭) 원리와 구체적인 입모양/음소 차이를 한 줄 해설로 덧붙이는 구성으로 발전시킨다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 19,
+    "verified": 19,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 7018,
+    "candidatesTokenCount": 2633,
+    "totalTokenCount": 12595,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 1559
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4359
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 2944,
+    "serviceTier": "standard"
+  }
+}

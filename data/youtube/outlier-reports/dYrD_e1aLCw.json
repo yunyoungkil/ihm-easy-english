@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "videoId": "dYrD_e1aLCw",
+  "analyzedAt": "2026-11-18T16:06:16.636Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 29,
+  "meta": {
+    "videoId": "dYrD_e1aLCw",
+    "title": "미국 영어 이렇게 하면 더 자연스럽다(?)",
+    "channelId": "UCAqesRjY3iCCz5D7UyPTNsg",
+    "channelTitle": "유재미in영어",
+    "publishedAt": "2025-04-07T06:15:13Z",
+    "viewCount": 10977326,
+    "likeCount": 107070,
+    "commentCount": 1477,
+    "durationSeconds": 29,
+    "thumbnail": "https://i.ytimg.com/vi/dYrD_e1aLCw/maxresdefault.jpg",
+    "description": "#미국영어 #호주영어 #영어발음 #지미팰런쇼 #rebelwilson #jimmyfallon \n#영어회화 #영어공부 #영어독학 #생활영어 #기초영어 #일상영어",
+    "tags": [
+      "유재미",
+      "기초영어",
+      "영어회화",
+      "생활영어",
+      "영어독학",
+      "영어공부"
+    ]
+  },
+  "subscriberCount": 75900,
+  "viewsPerSubscriber": 144.63,
+  "outlierRatio": 210.8,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-18T16:00:48.179Z",
+  "ratioDenominator": 52075,
+  "ratioPeerCount": 47,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 12,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 29
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 6,
+    "stats": {
+      "sentences": 6,
+      "lengthSum": 228,
+      "lengthMedian": 32.5,
+      "endings": {
+        "question": 1,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 5
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 1,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 6,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.82,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-18T16:06:09.304Z",
+    "note": "품질 낮음: 문장 6개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "미국 영어를 자연스럽게 하는 방법을 의문형으로 질문하여 시청자의 궁금증을 유발함.",
+      "titleQuote": "미국 영어 이렇게 하면 더 자연스럽다(?)",
+      "thumbnailText": "미국 영어 더 잘하는 방법?\n근데 왜 트럼프가 생각나는,,",
+      "thumbnailWordCount": 9,
+      "thumbnailVisual": "토크쇼에 출연한 배우 레벨 윌슨의 모습 위에 텍스트와 이모티콘, 국기 아이콘이 배치된 화면",
+      "thumbnailVsTitle": "제목은 미국 영어를 잘하는 방법에 집중하고, 썸네일은 트럼프를 연상시키는 유머 요소를 보태 시청 유도를 강화함.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "지미 팰런의 질문에 답변하며 호주 영어를 할 때 얼굴 근육을 안 쓰는 모습을 직접 시연함.",
+      "quote": "Is it hard to do like an American accent? Uh, yeah. Because, okay, for example, when I'm talking Australian, I don't actually use much of my face muscles.",
+      "reasonToKeepWatching": "호주 억양과 미국 억양의 차이를 얼굴 근육 사용법으로 보여주겠다는 시연 예고.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "지미 팰런이 미국 억양이 더 어려운지 묻고 레벨 윌슨이 그렇다고 대답함.",
+      "quote": "Is it hard to do like an American accent? Uh, yeah.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 4,
+        "what": "미국 억양이 더 어려운지 묻는 질문에 동의하며 대답 시작",
+        "quote": "Is it hard to do like an American accent? Uh, yeah.",
+        "quoteVerified": true
+      },
+      {
+        "start": 4,
+        "end": 13,
+        "what": "호주 영어를 할 때는 얼굴 근육을 거의 쓰지 않는다는 설명과 예시 시연",
+        "quote": "when I'm talking Australian, I don't actually use much of my face muscles. I just So, I just be like, 'Hi, how's it going?'",
+        "quoteVerified": true
+      },
+      {
+        "start": 14,
+        "end": 29,
+        "what": "미국 영어를 할 때는 얼굴 근육을 과장되게 많이 쓴다며 표정을 구기며 시연",
+        "quote": "but if I talk American, I go, 'Hi there. How are you?' That's a lot.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "토크쇼 세트장의 레벨 윌슨 모습 및 하단 자막 표시",
+        "purpose": "질문 답변 맥락 전달"
+      },
+      {
+        "t": 1,
+        "what": "지미 팰런이 질문하는 앵글로 화면 전환",
+        "purpose": "질문자 모습 확인"
+      },
+      {
+        "t": 2,
+        "what": "레벨 윌슨 화면으로 복귀",
+        "purpose": "답변자 표정에 집중"
+      },
+      {
+        "t": 11,
+        "what": "호주 국기 그래픽 아이콘 등장",
+        "purpose": "호주 억양 예시 시연 강조"
+      },
+      {
+        "t": 15,
+        "what": "미국 국기 그래픽 아이콘 등장",
+        "purpose": "미국 억양 예시 시연 강조"
+      },
+      {
+        "t": 18,
+        "what": "레벨 윌슨이 입과 얼굴 근육을 크게 구기며 과장된 표정 연출",
+        "purpose": "미국 영어의 과도한 근육 사용 시각적 유머 표현"
+      },
+      {
+        "t": 25,
+        "what": "웃음을 참지 못하는 지미 팰런의 모습으로 화면 전환",
+        "purpose": "현장 반응과 관객 웃음 유도"
+      }
+    ],
+    "ending": {
+      "what": "미국 영어를 할 땐 근육을 훨씬 많이 쓴다며 얼굴을 감싸쥐고 웃으며 마무리함.",
+      "quote": "That's a lot.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "과장된 미국 영어 시연 표정이 트럼프 전 대통령을 떠올리게 해서 웃음을 유발함",
+          "quote": "마지막 입모양 그냥 트럼프자낰ㅋㅋㅋㅋ",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "실제로 미국 영어를 할 때 입과 턱 근육을 많이 쓰느라 뻐근함이나 경련을 느낌",
+          "quote": "저두 미국와서 영어쓰는데.. 근육이 많이 활성화된느낌.. 그리고 예전에는 치아보이고 웃을때 입에 경련났는데 이젠 입을 하두 찢어대서그런지 경련은 안나네요..",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "근육 활성화, 입 찢기",
+          "quote": "근육이 많이 활성화된느낌.. 그리고 예전에는 치아보이고 웃을때 입에 경련났는데 이젠 입을 하두 찢어대서그런지 경련은 안나네요..",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 2,
+      "description": "호주 영어(얼굴 근육 안 씀)와 미국 영어(얼굴 근육을 과하게 씀) 2가지 정보를 대비 시연으로 전달함.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단",
+      "size": "보통",
+      "highlightColor": "노란색 및 분홍색",
+      "highlightMethod": "한국어 번역 자막에 색상을 넣어 강조하고 영어 원문은 흰색으로 배치",
+      "textAmount": "한 번에 1~2줄",
+      "changeTiming": "말소리에 맞춰 변경"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "토크쇼 현장 화음성과 관객 박수·웃음소리로 구성됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "미국 억양이 더 어려운 이유를 묻는 지미 팰런의 질문",
+        "quote": "Is it hard to do like an American accent?",
+        "type": "시연 예고 질문",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "미국 억양을 하는 게 호주 억양보다 왜 더 어려운가?",
+          "quote": "Is it hard to do like an American accent?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 14,
+          "what": "미국 영어를 할 때는 얼굴 근육을 극단적으로 크게 움직여야 하기 때문임을 표정 시연으로 보여줌",
+          "quote": "but if I talk American, I go, 'Hi there. How are you?'",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "호주 영어는 입 근육을 거의 안 쓴다는 전제 뒤에, 미국 영어는 표정을 크고 과장되게 써야 한다는 결과를 대비시켜 보여줌.",
+        "examples": [
+          {
+            "t": 14,
+            "what": "호주 영어 예시 후 미국 영어 표정 시연으로 반전 형성",
+            "quote": "but if I talk American, I go",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 18,
+          "what": "차분하게 설명하다가 갑자기 얼굴 전체 근육을 망가뜨리는 기괴하고 과장된 표정 묘사",
+          "quote": "Hi there. How are you?",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 11,
+          "what": "호주 영어와 미국 영어를 각각 직접 발음해 보이며 근육 움직임 차이를 증명",
+          "quote": "Hi, how's it going?",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 21,
+        "what": "과장된 표정 시연 직후 현장의 폭소를 끌어내며 이유를 입증",
+        "quote": "That's a lot.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "미국 영어를 시연할 때 레벨 윌슨이 턱과 입술을 오므리며 구기는 과장된 표정",
+        "reaction": "트럼프 특유의 입모양 및 표정과 똑같다는 반응",
+        "quote": "마지막 입모양 그냥 트럼프자낰ㅋㅋㅋㅋ",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "해외 토크쇼 방송 일부를 자막과 함께 재가공한 숏츠 클립으로, 성인을 위해 영어 소리를 직접 가르치는 원본 영상이 아님.",
+    "forUs": {
+      "adopt": "한국어와 영어 발음 시 입 근육과 턱의 사용 차이를 과장된 입모양 시연으로 직관적으로 설명하는 방식.",
+      "differentiate": "토크쇼 유머 클립 재가공에 그치지 않고, 5060 시청자가 한국어를 할 때와 영어 소리를 낼 때 입 근육을 실제로 어떻게 이완하고 풀어주어야 하는지 실습 동작으로 설명한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 18,
+    "verified": 18,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 25,
+      "file": "25.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 7786,
+    "candidatesTokenCount": 2416,
+    "totalTokenCount": 12951,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2631
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4055
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 2749,
+    "serviceTier": "standard"
+  }
+}

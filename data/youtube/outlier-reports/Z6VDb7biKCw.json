@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Z6VDb7biKCw",
+  "analyzedAt": "2026-11-18T16:07:08.622Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "Z6VDb7biKCw",
+    "title": "이러니 안 들리지.. 😅 | 영어축약발음",
+    "channelId": "UCbrCn3Bl4Cf9tGCTSa4GCLQ",
+    "channelTitle": "이지 액센트 Easy Accent",
+    "publishedAt": "2026-01-27T11:45:04Z",
+    "viewCount": 441490,
+    "likeCount": 18830,
+    "commentCount": 811,
+    "durationSeconds": 631,
+    "thumbnail": "https://i.ytimg.com/vi/Z6VDb7biKCw/maxresdefault.jpg",
+    "description": "#영어발음 #영어듣기 #영어말하기 #영어회화 #여행영어 #미드영어\n\n💡 '입으로 익힌 영어는 배신 안 함' 축약 발음 팁\n   - 한 번에 외우려고 하지 마세요. 시간 간격을 두고 여러 번 접하면서 자연스럽게 익숙해지는 게 중요합니다\n   - 한글 표기는 헷갈릴 때만 슬쩍 참고하시고, 가급적 실제 음성에 집중해 주세요\n   - 축약 발음을 이해하려고 애쓰기보다, 소리 자체에 익숙해지는 데 집중하세요\n   - 완벽한 발음보다는 소리의 흐름, 강약 조절, 그리고 멜로디를 느끼는 게 핵심입니다\n   - 한글을 참조할 때, 한국어식으로 끊어 읽으면 소리가 매끄럽게 이어지기 어렵습니다\n     예를 들어, Do you have any~ (듀브니)를 소리 낼 때\n     ‘듀 | 브 | 니’처럼 또박또박 끊어 발음하지 않고, ‘듀(으)브(으)니’ 혹은 ‘듀~브~니’처럼\n     소리의 파도가 끊김 없이 이어지듯 발성해야 훨씬 자연스럽고 실제 발음에 가까워집니다\n\n👉 복잡하게 생각하지 말고, \n       들리는 그대로 입과 귀에 붙이세요\n       내가 내 입으로 자연스럽게 말할 수 있으면\n       아무리 쓱 지나가도 들릴 뿐만 아니라,\n       굳이 신경 쓰지 않아도 돼서,\n       더 중요한 단어에 집중할 수 있어요\n\n👉 우리가 축약발음을 익히는 이유는 두 가지예요\n1. '교과서발음'에만 익숙한 우리가 얘네들의 캐주얼한 발음에 익숙해지기 위해 (리스닝)\n2. 자신의 말하기 유창성 정도에 따라 상황에 맞게 더 편하게 말하기 위해 (스피킹)\n\n✨ 축약 발음을 익히려 할 때, ‘How does this → 하르지스’ 이런 식으로 축약된 발음만 따로 외우면 \n금방 잊어버리기 쉽고, 비슷한 축약들이 많아서 나중엔 ‘이게 뭐였지?’ 하고 헷갈리게 됩니다 \n가장 쉬운 방법은 내 입에 잘 붙고 자주 쓸 만한 문장 하나를 골라, 시간 간격을 두고 반복 연습하는 거예요\n그렇게 익숙해지면 어느 순간부터는 머리가 아니라 입이 먼저 그 발음을 기억하게 됩니다 —바로 Muscle Memory\n\n\n🎉 영어 자음·모음 원데이 클래스 오픈\n       자음·모음 마스터 + 발성 레시피로\n       하루 만에 영어소리의 감을 잡아보세요!\n       → 축약발음의 비밀 영어 자음·모음에 있습니다\n\n      원데이 클래스 사전 신청하기\n      👉 https://forms.gle/iCJ2BJDEbehKmTEg8",
+    "tags": [
+      "영어",
+      "영어공부",
+      "영어회화",
+      "영어문법",
+      "기초영문법",
+      "영어독학",
+      "영어공부혼자하기",
+      "영어단어",
+      "영어동사",
+      "기초영단어",
+      "기초영어회화",
+      "영어말하기",
+      "영어어순",
+      "전치사",
+      "여행영어",
+      "영어무료강의",
+      "영어유튜브",
+      "영어유튜브추천",
+      "영어스피킹",
+      "영어쉐도잉",
+      "미드",
+      "미드 영어회화",
+      "미드 영어공부",
+      "미드영어",
+      "미드영어회화",
+      "영어회화 공부",
+      "영어 공부 방법",
+      "생활영어",
+      "영어대화",
+      "상황별영어",
+      "비지니스회화",
+      "영어듣기",
+      "영어리스닝",
+      "직장인영어",
+      "영어표현",
+      "상황영어",
+      "기초영어",
+      "쉬운영어",
+      "짧은영어",
+      "왕초보영어",
+      "원어민 영어표현",
+      "영어발음",
+      "원어민 발음",
+      "영어 음절",
+      "영어 강세",
+      "영어 리듬",
+      "영어 멜로디",
+      "영어 연음",
+      "영어 발성"
+    ]
+  },
+  "subscriberCount": 58600,
+  "viewsPerSubscriber": 7.53,
+  "outlierRatio": 44.31,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-18T16:00:33.590Z",
+  "ratioDenominator": 9963,
+  "ratioPeerCount": 16,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 251,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "long",
+    "sentences": 64,
+    "stats": {
+      "sentences": 64,
+      "lengthSum": 1552,
+      "lengthMedian": 17,
+      "endings": {
+        "question": 51,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 11,
+        "other": 2
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 51,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 64,
+      "hangulChars": 195,
+      "hangulRatio": 0.13,
+      "uniqueWordRatio": 0.24,
+      "uniqueSentenceRatio": 0.81
+    },
+    "computedAt": "2026-11-18T16:06:59.684Z",
+    "note": "품질 낮음: 한국어 글자 비율 0.13(0.7 미만), 고유 어절 비율 0.24(0.4 미만, 같은 말 반복)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "원어민 영어가 안 들렸던 이유가 축약 발음 때문이라는 점을 지적하며 호기심을 유발한다.",
+      "titleQuote": "이러니 안 들리지.. 😅 | 영어축약발음",
+      "thumbnailText": "입으로 익힌 영어는 배신 안 함 조회수 300만 필수 영어 축약 발음 30",
+      "thumbnailWordCount": 11,
+      "thumbnailVisual": "오른쪽에 인물이 배치되어 있고 검은색 배경 박스 안에 노란색과 흰색 글씨로 큰 제목 텍스트가 강조되어 있다.",
+      "thumbnailVsTitle": "제목은 안 들리는 이유에 집중하고, 썸네일은 입으로 익히는 영어 축약 발음 30개라는 보충 정보를 전달한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "채널 로고 화면 후 'How's that ~' 패턴을 '하우젯~'으로 발음하는 방식을 설명하고 예문 세 개를 화면에 차례로 보여준다.",
+      "quote": "How's that, How's that은 하우젯, 하우젯, 하우젯으로 편하게 발음할 수 있어요.",
+      "reasonToKeepWatching": "'How's that'을 '하우젯'으로 편하게 발음할 수 있다는 설명을 제시해 이후 나올 다른 축약 발음 패턴에 대한 기대감을 준다.",
+      "quoteVerified": false
+    },
+    "first3s": {
+      "what": "이지 액센트 로고가 등장한 후 검은 바탕에 '입으로 익힌 영어는 배신 안 함' 자막과 함께 'How's that ~' 패턴 설명이 시작된다.",
+      "quote": "How's that, How's that은",
+      "quoteVerified": false
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 20,
+        "what": "How's that 패턴을 '하우젯'으로 발음하는 법을 설명하고 예문 및 영화 실전 클립을 보여준다.",
+        "quote": "How's that, How's that은 하우젯, 하우젯, 하우젯으로 편하게 발음할 수 있어요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 21,
+        "end": 40,
+        "what": "Does your 패턴을 '더쥐여'로 발음하는 법을 설명하고 예문 및 미드·영화 장면으로 확인시킨다.",
+        "quote": "Does your, Does your는 더쥐여, 더쥐여, 더쥐여로 편하게 발음할 수 있어요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 41,
+        "end": 60,
+        "what": "Where did you 패턴을 '월쥬'로 발음하는 방식을 알려주고 예문과 실제 대사 영상으로 보여준다.",
+        "quote": "Where did you, Where did you는 월쥬, 월쥬, 월쥬로 편하게 발음할 수 있어요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 61,
+        "end": 117,
+        "what": "Is this 패턴을 '이지스'로 발음하는 법과 How does this 패턴을 '하르지스'로 발음하는 법을 차례로 연이어 설명하고 영화 클립으로 보여준다.",
+        "quote": "Is this, Is this는 이지스, 이지스, 이지스로 편하게 발음할 수 있어요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 118,
+        "end": 197,
+        "what": "How does this('하르지스'), Is that('쌧'), Why are you('와이유') 패턴의 축약 발음과 예문, 실전 연출 영상을 이어 보여준다.",
+        "quote": "How does this, How does this는 하르지스, 하르지스, 하르지스로 편하게 발음할 수 있어요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 198,
+        "end": 300,
+        "what": "Is there any('쎄어니'), When will you('웬으유'), How do you('하리유') 등의 발음 축약을 반복적인 구조로 연속 제시한다.",
+        "quote": "Is there any, Is there any는 세어니, 세어니, 세어니로 편하게 발음할 수 있어요.",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "이지 액센트 로고가 들어간 검은 화면이 1초간 나타난다.",
+        "purpose": "채널 브랜딩을 노출한다."
+      },
+      {
+        "t": 1,
+        "what": "상단에 '입으로 익힌 영어는 배신 안 함' 텍스트가 표시된다.",
+        "purpose": "핵심 주제 메시지를 상단에 고정한다."
+      },
+      {
+        "t": 2,
+        "what": "'How's that ~' 패턴 텍스트와 하단에 한글 발음 '하우젯~'이 들어간 고스트 아이콘이 함께 나타난다.",
+        "purpose": "학습할 기본 축약 패턴과 한국어 표기 발음을 제시한다."
+      },
+      {
+        "t": 7,
+        "what": "민트색 카드에 3개의 예문 틀이 빈칸 형태로 올라온다.",
+        "purpose": "축약 발음이 적용될 문장 구조를 시각화한다."
+      },
+      {
+        "t": 8,
+        "what": "첫 번째 빈칸에 'possible?' 단어가 타자기 소리와 함께 채워진다.",
+        "purpose": "첫 번째 예문을 완성하며 발음 연습을 유도한다."
+      },
+      {
+        "t": 10,
+        "what": "두 번째 빈칸에 'fair?' 단어가 완성된다.",
+        "purpose": "두 번째 예문을 제시한다."
+      },
+      {
+        "t": 13,
+        "what": "세 번째 빈칸에 'my fault?' 단어가 완성된다.",
+        "purpose": "세 번째 예문을 완성한다."
+      },
+      {
+        "t": 16,
+        "what": "영화 대사 실전 클립 화면으로 전환되어 대사와 한글 번역 자막이 하단에 표시된다.",
+        "purpose": "원어민 실제 대사에서 발음을 직접 확인시킨다."
+      },
+      {
+        "t": 21,
+        "what": "검은 화면에 'Does your ~' 패턴과 한글 '더쥐여~' 텍스트가 표시된다.",
+        "purpose": "새로운 패턴 설명으로 전환한다."
+      },
+      {
+        "t": 27,
+        "what": "민트색 카드 형태로 바뀌어 예문 3개가 순차적으로 채워진다.",
+        "purpose": "새 패턴의 예문들을 시각적으로 전달한다."
+      },
+      {
+        "t": 35,
+        "what": "미드/영화 실제 대사 3개 장면이 연달아 재생된다.",
+        "purpose": "해당 패턴이 실제 대사에서 어떻게 들리는지 입증한다."
+      },
+      {
+        "t": 41,
+        "what": "검은 화면에 'Where did you ~' 패턴과 '월쥬~' 한글 발음이 뜬다.",
+        "purpose": "새로운 축약 패턴을 안내한다."
+      },
+      {
+        "t": 55,
+        "what": "실제 영화 대사 화면 3개가 연속 전환된다.",
+        "purpose": "실제 대사 속 '월쥬' 발음을 들려준다."
+      },
+      {
+        "t": 101,
+        "what": "'Is this ~' 패턴과 한글 '이지스~' 텍스트가 나타난다.",
+        "purpose": "새 축약 발음 패턴을 제시한다."
+      },
+      {
+        "t": 118,
+        "what": "'How does this ~' 패턴과 한글 '하르지스~' 텍스트가 들어선다.",
+        "purpose": "새 패턴을 보여준다."
+      },
+      {
+        "t": 139,
+        "what": "'Is that ~' 패턴과 한글 '쌧~' 텍스트가 표시된다.",
+        "purpose": "새 축약 패턴을 설명한다."
+      },
+      {
+        "t": 158,
+        "what": "'Why are you ~' 패턴과 한글 '와이유~' 텍스트가 표시된다.",
+        "purpose": "새 축약 패턴을 나타낸다."
+      },
+      {
+        "t": 219,
+        "what": "'Is there any ~' 패턴과 한글 '쎄어니~' 텍스트가 표시된다.",
+        "purpose": "새 축약 패턴을 제시한다."
+      },
+      {
+        "t": 241,
+        "what": "'When will you ~' 패턴과 한글 '웬으유~' 텍스트가 표시된다.",
+        "purpose": "새 축약 패턴을 전달한다."
+      }
+    ],
+    "ending": {
+      "what": "300초 구간 안에서는 별도의 마무리 인사나 클로징 멘트 없이 동일한 패턴 학습 구조가 계속 이어진다.",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "사설 없이 핵심 패턴만 빠르게 연속해서 들려주는 영상 구조와 효율적인 구성에 찬사를 보냄.",
+          "quote": "이야...이정도 내용을 사설 붙여서 동영상 여러개로 만드는 분이 많은 와중..(아것도 감사할 일이지만) 한영상에 거를것 없이 해놓다니 효율충 한국인이 사랑하는 동영상이 될거예요. 쵝오예요.",
+          "quoteVerified": true
+        },
+        {
+          "point": "원어민 축약 발음을 한국어 표기로 직관적으로 짚어주어 그동안 안 들리던 원인을 깨닫고 배신감과 해방감을 느낌.",
+          "quote": "레전드 영싱이네요. 진짜 지렸고요, 일종의 배신감이랄까요? 미국놈들한테 당했다는 느낌? 아무리 공부해도 들리지 않은 이유. 학교에서는 이 단순한 훈련을 못시켜 주니 영어가 주는 배신감을 여기서 달랩니다.",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "미드나 영화 대본을 보고 하루 종일 들어도 단순 축약 발음을 몰라서 안 들렸던 답답함.",
+          "quote": "상상한 발음이 아니라 되게 충격적인데 감사합니다 그러니까 미드 대본놓고 하루종일 들어도 안들리는구나... 나는 당연히 생략된 단어가 있는줄 ㅎㅎ",
+          "quoteVerified": true
+        },
+        {
+          "pain": "미국 현지 생활이나 유학 중에도 문장 첫머리의 축약 발음을 캐치하지 못해 듣기에서 멘붕이 왔던 경험.",
+          "quote": "이거 진짜 필요했어요 미국와서 영어 못 듣는 이유가 이거라니까요 간단한것도 이게 축약 발음 듣는거 안하면 안들려요 너무 좋은 영상 감사",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "point": "원어민 대사 영상이 너무 빠르게 한 번씩만 지나가서 같은 문장을 3번 정도 반복해 주기를 요청함.",
+          "quote": "각 문장별 원어민 발음이 한반인데다 다른문장이 바로나와 따라가기가 좀 어려운데 같은문장을 3번정도 ㅁ반복한다면 좋겠습니다.",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "효율충",
+          "quote": "효율충 한국인이 사랑하는 동영상이 될거예요.",
+          "quoteVerified": true
+        },
+        {
+          "expression": "킹받네요",
+          "quote": "쎄어니 진짜 킹받네요 ㅋㅋㅋㅋㅋ 고맙습니다",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 30,
+      "description": "총 30개의 영어 표현 축약 발음 패턴을 각 패턴당 '패턴 제시 -> 한글 발음 표기 -> 예문 3개 -> 영화 클립 3개' 형식으로 일정하게 나열한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 및 상단/하단 카드 형태",
+      "size": "보통",
+      "highlightColor": "노란색, 연두색, 흰색",
+      "highlightMethod": "텍스트 색상 변경 및 배경 카드 박스 처리",
+      "textAmount": "한 번에 1~3줄 이내의 짧은 영어 문장과 한글 발음",
+      "changeTiming": "음성 발음 및 타이핑 소리에 맞춰 실시간으로 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "잔잔하고 집중도를 높여주는 깔끔한 타격음 배경음",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "글자가 채워질 때 타이핑 소리 효과음이 사용됨",
+      "voiceVsMusic": "나레이션 설명 음성과 영화 대사 소리가 중심이며 배경 음악은 낮게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 2,
+        "what": "How's that을 철자 그대로가 아닌 '하우젯'으로 편하게 발음하라고 곧바로 제시하여 시선을 끈다.",
+        "quote": "How's that, How's that은 하우젯, 하우젯, 하우젯으로 편하게 발음할 수 있어요.",
+        "type": "직관적 발음 파괴 제시",
+        "quoteVerified": false
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "영어가 안 들리는 이유가 무엇인지 묻는다.",
+          "quote": "이러니 안 들리지.. 😅 | 영어축약발음",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 2,
+          "what": "원어민이 연음 축약 발음으로 편하게 말하기 때문임을 발음 표기로 보여준다.",
+          "quote": "How's that, How's that은 하우젯, 하우젯, 하우젯으로 편하게 발음할 수 있어요.",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "서사적 원인과 결과의 연결 방식이 아닌 30개 축약 발음 패턴을 동등한 구조로 병렬 배치한 나열식 구성이다.",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [
+        {
+          "t": 1,
+          "what": "상단 자막 '입으로 익힌 영어는 배신 안 함'을 통해 시청자가 직접 입으로 따라 하게 유도한다.",
+          "quote": "입으로 익힌 영어는 배신 안 함",
+          "quoteVerified": false
+        }
+      ],
+      "evidence": [
+        {
+          "t": 16,
+          "what": "설명한 축약 발음이 실제 영화 대사에서 그대로 쓰이는지 실제 영화/미드 장면 클립으로 증명한다.",
+          "quote": "How's that possible?",
+          "quoteVerified": false
+        }
+      ],
+      "payoff": {
+        "t": 0,
+        "what": "확인 불가",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "Is there any 패턴을 '쎄어니'라고 무심하게 한글로 적어준 화면과 음성",
+        "reaction": "한글 표기가 기발하고 웃기다며 호응함",
+        "quote": "쎄어니 진짜 킹받네요 ㅋㅋㅋㅋㅋ 고맙습니다",
+        "quoteVerified": true
+      },
+      {
+        "cause": "군더더기 설명 없이 10분 동안 축약 패턴 30개를 빽빽하게 담아낸 영상 구성",
+        "reaction": "효율성을 중시하는 한국인 시청 성향에 딱 맞는 최고의 콘텐츠라고 극찬함",
+        "quote": "이야...이정도 내용을 사설 붙여서 동영상 여러개로 만드는 분이 많은 와중..(아것도 감사할 일이지만) 한영상에 거를것 없이 해놓다니 효율충 한국인이 사랑하는 동영상이 될거예요. 쵝오예요.",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "성인 시청자를 대상으로 원어민의 실제 영어 연음·축약 소리를 한국어 발음 표기와 예문, 미드 클립으로 직접 가르쳐주는 교육 콘텐츠다.",
+    "forUs": {
+      "adopt": "패턴 제시 후 한글 발음 표기와 함께 미드·영화 실전 예시 클립을 붙여 신뢰도와 이해도를 동시에 높이는 템플릿 구성을 벤치마킹할 수 있다.",
+      "differentiate": "원어민 대사가 빠르게 한 번만 지나가 시청자가 따라하기 어렵다는 아쉬움을 보완하여, 주요 축약 대사를 2~3회 반복 재생해 주는 장치를 더할 수 있다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 23,
+    "verified": 10,
+    "unverified": 13
+  },
+  "pacing": {
+    "count": 22,
+    "medianGapSeconds": 12,
+    "perMinute": 4.4,
+    "times": [
+      6.8,
+      26.4,
+      35.1,
+      46.9,
+      66.3,
+      84.2,
+      92.7,
+      103.9,
+      112.1,
+      124.1,
+      133.5,
+      145.7,
+      167.5,
+      185.8,
+      193.8,
+      204.8,
+      224.5,
+      233.1,
+      247.3,
+      255.6,
+      273.5,
+      294.7
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 8,
+      "file": "8.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 13,
+      "file": "13.jpg"
+    },
+    {
+      "t": 21,
+      "file": "21.jpg"
+    },
+    {
+      "t": 41,
+      "file": "41.jpg"
+    },
+    {
+      "t": 101,
+      "file": "101.jpg"
+    },
+    {
+      "t": 158,
+      "file": "158.jpg"
+    },
+    {
+      "t": 241,
+      "file": "241.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 36397,
+    "candidatesTokenCount": 4075,
+    "totalTokenCount": 42152,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 7996
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 1680,
+    "serviceTier": "standard"
+  }
+}

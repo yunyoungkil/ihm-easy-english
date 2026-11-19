@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "updatedAt": "2026-11-18T04:01:46.719Z",
+  "updatedAt": "2026-11-18T16:00:52.496Z",
   "filterVersion": 1,
   "runs": [
     {
@@ -128,31 +128,31 @@
       "date": "2026-11-18",
       "format": "LONGFORM",
       "list": "outliers",
-      "listed": 894,
+      "listed": 887,
       "endReason": "no-more",
       "possibleCap": false,
       "foldsMissing": 0,
-      "passedA": 143,
+      "passedA": 142,
       "passed": 25,
-      "newSinceLastRun": 39,
-      "goneSinceLastRun": 7,
+      "newSinceLastRun": 9,
+      "goneSinceLastRun": 16,
       "ourTopicShare": 0.08,
-      "ms": 23727
+      "ms": 23744
     },
     {
       "date": "2026-11-18",
       "format": "SHORTS",
       "list": "outliers",
-      "listed": 987,
+      "listed": 991,
       "endReason": "no-more",
       "possibleCap": false,
       "foldsMissing": 0,
-      "passedA": 177,
+      "passedA": 180,
       "passed": 55,
-      "newSinceLastRun": 82,
-      "goneSinceLastRun": 25,
+      "newSinceLastRun": 20,
+      "goneSinceLastRun": 16,
       "ourTopicShare": 0.10909090909090909,
-      "ms": 40085
+      "ms": 40439
     }
   ],
   "candidates": {
@@ -167,9 +167,9 @@
       "studioFolds": 25,
       "studioSubscribers": 13600,
       "studioViews": 120000,
-      "studioRank": 5,
+      "studioRank": 4,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "PUWClTGnxWk": {
@@ -183,9 +183,9 @@
       "studioFolds": 49,
       "studioSubscribers": 9830,
       "studioViews": 120000,
-      "studioRank": 4,
+      "studioRank": 5,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "xaTAV--wNxg": {
@@ -197,11 +197,11 @@
       "publishedAt": "2026-10-02T09:00:04Z",
       "durationSeconds": 745,
       "studioFolds": 19,
-      "studioSubscribers": 64500,
+      "studioSubscribers": 64600,
       "studioViews": 280000,
       "studioRank": 11,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "huqNK3Mq03M": {
@@ -217,7 +217,7 @@
       "studioViews": 41000,
       "studioRank": 13,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "gN1T27-WhVk": {
@@ -233,7 +233,7 @@
       "studioViews": 84000,
       "studioRank": 14,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "4LShGRVrbuQ": {
@@ -249,7 +249,7 @@
       "studioViews": 380000,
       "studioRank": 17,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "DPwalPjYRmI": {
@@ -261,11 +261,11 @@
       "publishedAt": "2026-09-28T12:00:26Z",
       "durationSeconds": 710,
       "studioFolds": 33,
-      "studioSubscribers": 80300,
+      "studioSubscribers": 80400,
       "studioViews": 200000,
       "studioRank": 21,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "eEizjMme90o": {
@@ -279,9 +279,9 @@
       "studioFolds": 11,
       "studioSubscribers": 56800,
       "studioViews": 190000,
-      "studioRank": 28,
+      "studioRank": 27,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "AAjB95YXQxc": {
@@ -295,9 +295,9 @@
       "studioFolds": 33,
       "studioSubscribers": 38100,
       "studioViews": 250000,
-      "studioRank": 31,
+      "studioRank": 29,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "UWfgU5QHt_0": {
@@ -311,9 +311,9 @@
       "studioFolds": 13,
       "studioSubscribers": 12900,
       "studioViews": 95000,
-      "studioRank": 36,
+      "studioRank": 33,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "_VUMngGcI6U": {
@@ -325,11 +325,11 @@
       "publishedAt": "2026-11-03T10:00:06Z",
       "durationSeconds": 5437,
       "studioFolds": 19,
-      "studioSubscribers": 15400,
-      "studioViews": 89000,
-      "studioRank": 72,
+      "studioSubscribers": 15600,
+      "studioViews": 91000,
+      "studioRank": 69,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "IT3BR0H95SE": {
@@ -343,9 +343,9 @@
       "studioFolds": 67,
       "studioSubscribers": 9830,
       "studioViews": 120000,
-      "studioRank": 74,
+      "studioRank": 71,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "jPPyTLIzf5k": {
@@ -357,11 +357,11 @@
       "publishedAt": "2026-10-13T23:00:36Z",
       "durationSeconds": 345,
       "studioFolds": 25,
-      "studioSubscribers": 80300,
+      "studioSubscribers": 80400,
       "studioViews": 380000,
-      "studioRank": 77,
+      "studioRank": 74,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "_DG6x915tv0": {
@@ -373,11 +373,11 @@
       "publishedAt": "2026-10-23T06:11:40Z",
       "durationSeconds": 951,
       "studioFolds": 16,
-      "studioSubscribers": 50700,
-      "studioViews": 480000,
-      "studioRank": 157,
+      "studioSubscribers": 50800,
+      "studioViews": 490000,
+      "studioRank": 154,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "w9Hyda2gIqM": {
@@ -389,11 +389,11 @@
       "publishedAt": "2026-09-09T15:23:05Z",
       "durationSeconds": 2293,
       "studioFolds": 50,
-      "studioSubscribers": 9740,
+      "studioSubscribers": 9850,
       "studioViews": 290000,
-      "studioRank": 165,
+      "studioRank": 163,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "8Slu_lQ0sgw": {
@@ -407,9 +407,9 @@
       "studioFolds": 14,
       "studioSubscribers": 20000,
       "studioViews": 15000,
-      "studioRank": 166,
+      "studioRank": 164,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "OcgFevPFPSs": {
@@ -423,9 +423,9 @@
       "studioFolds": 47,
       "studioSubscribers": 66400,
       "studioViews": 110000,
-      "studioRank": 179,
+      "studioRank": 177,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "uXzL8aMnzGc": {
@@ -439,9 +439,9 @@
       "studioFolds": 13,
       "studioSubscribers": 21100,
       "studioViews": 110000,
-      "studioRank": 190,
+      "studioRank": 184,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "zSXX-dL4Mp4": {
@@ -469,11 +469,11 @@
       "publishedAt": "2026-09-01T11:00:30Z",
       "durationSeconds": 1493,
       "studioFolds": 11,
-      "studioSubscribers": 29400,
+      "studioSubscribers": 32900,
       "studioViews": 120000,
-      "studioRank": 206,
+      "studioRank": 202,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "hHO-A8ti7Ss": {
@@ -487,9 +487,9 @@
       "studioFolds": 10,
       "studioSubscribers": 1170,
       "studioViews": 72000,
-      "studioRank": 276,
+      "studioRank": 275,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "Jdc0kFebXJY": {
@@ -517,11 +517,11 @@
       "publishedAt": "2026-10-04T12:26:36Z",
       "durationSeconds": 1594,
       "studioFolds": 17,
-      "studioSubscribers": 9740,
+      "studioSubscribers": 9850,
       "studioViews": 160000,
-      "studioRank": 330,
+      "studioRank": 327,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "Wf5t9ww2bFg": {
@@ -535,9 +535,9 @@
       "studioFolds": 40,
       "studioSubscribers": 12900,
       "studioViews": 350000,
-      "studioRank": 337,
+      "studioRank": 334,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "xAyXWGpE91M": {
@@ -551,9 +551,9 @@
       "studioFolds": 11,
       "studioSubscribers": 66400,
       "studioViews": 90000,
-      "studioRank": 342,
+      "studioRank": 339,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "Grk7LUWcV4s": {
@@ -565,11 +565,11 @@
       "publishedAt": "2026-10-12T23:00:21Z",
       "durationSeconds": 287,
       "studioFolds": 13,
-      "studioSubscribers": 80300,
+      "studioSubscribers": 80400,
       "studioViews": 200000,
-      "studioRank": 393,
+      "studioRank": 389,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "wxY9QSvbmB4": {
@@ -583,9 +583,9 @@
       "studioFolds": 22,
       "studioSubscribers": 9830,
       "studioViews": 250000,
-      "studioRank": 394,
+      "studioRank": 390,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "YPg-FHROJ5c": {
@@ -597,11 +597,11 @@
       "publishedAt": "2026-10-16T10:47:29Z",
       "durationSeconds": 177,
       "studioFolds": 73,
-      "studioSubscribers": 41300,
-      "studioViews": 300000,
+      "studioSubscribers": 41400,
+      "studioViews": 310000,
       "studioRank": 5,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "FTOijpUiGX0": {
@@ -613,11 +613,11 @@
       "publishedAt": "2026-08-26T08:30:39Z",
       "durationSeconds": 36,
       "studioFolds": 16,
-      "studioSubscribers": 64500,
+      "studioSubscribers": 64600,
       "studioViews": 67000,
-      "studioRank": 11,
+      "studioRank": 12,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "S9C2Uu2ZcAg": {
@@ -629,11 +629,11 @@
       "publishedAt": "2026-10-13T04:56:22Z",
       "durationSeconds": 62,
       "studioFolds": 100,
-      "studioSubscribers": 90500,
-      "studioViews": 2280000,
+      "studioSubscribers": 90700,
+      "studioViews": 2290000,
       "studioRank": 13,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "28q5G0UOJ48": {
@@ -645,11 +645,11 @@
       "publishedAt": "2026-10-12T02:08:42Z",
       "durationSeconds": 51,
       "studioFolds": 44,
-      "studioSubscribers": 13200,
-      "studioViews": 880000,
+      "studioSubscribers": 13300,
+      "studioViews": 900000,
       "studioRank": 17,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "2tvBBqQEoz0": {
@@ -663,9 +663,9 @@
       "studioFolds": 100,
       "studioSubscribers": 20500,
       "studioViews": 970000,
-      "studioRank": 138,
+      "studioRank": 141,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "1sUDrLZtk94": {
@@ -681,7 +681,7 @@
       "studioViews": 130000,
       "studioRank": 21,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "Wn-8gUliMWs": {
@@ -694,10 +694,10 @@
       "durationSeconds": 26,
       "studioFolds": 32,
       "studioSubscribers": 13400,
-      "studioViews": 290000,
+      "studioViews": 300000,
       "studioRank": 25,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "uHUyMvh6kWs": {
@@ -725,11 +725,11 @@
       "publishedAt": "2026-09-01T15:11:40Z",
       "durationSeconds": 26,
       "studioFolds": 19,
-      "studioSubscribers": 16400,
+      "studioSubscribers": 16500,
       "studioViews": 260000,
       "studioRank": 35,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "pzyrnLfZ5JA": {
@@ -745,7 +745,7 @@
       "studioViews": 53000,
       "studioRank": 36,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "d9vwu7P4y0U": {
@@ -761,7 +761,7 @@
       "studioViews": 1370000,
       "studioRank": 37,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "N0LEBxEo0bw": {
@@ -774,10 +774,10 @@
       "durationSeconds": 59,
       "studioFolds": 85,
       "studioSubscribers": 18500,
-      "studioViews": 2900000,
-      "studioRank": 50,
+      "studioViews": 2950000,
+      "studioRank": 52,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "EuBUiMUMMQY": {
@@ -793,7 +793,7 @@
       "studioViews": 1280000,
       "studioRank": 31,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "k7ZeeVv9r50": {
@@ -807,9 +807,9 @@
       "studioFolds": 21,
       "studioSubscribers": 34500,
       "studioViews": 86000,
-      "studioRank": 42,
+      "studioRank": 41,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "_0IdBrVZxAQ": {
@@ -821,11 +821,11 @@
       "publishedAt": "2026-10-07T03:00:04Z",
       "durationSeconds": 13,
       "studioFolds": 13,
-      "studioSubscribers": 2800,
+      "studioSubscribers": 2810,
       "studioViews": 26000,
-      "studioRank": 56,
+      "studioRank": 57,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "Bzwd5EdsQGk": {
@@ -839,9 +839,9 @@
       "studioFolds": 100,
       "studioSubscribers": 12000,
       "studioViews": 1050000,
-      "studioRank": 54,
+      "studioRank": 55,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "eJR661M6bIA": {
@@ -854,10 +854,10 @@
       "durationSeconds": 20,
       "studioFolds": 30,
       "studioSubscribers": 26500,
-      "studioViews": 730000,
+      "studioViews": 740000,
       "studioRank": 68,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "U2ntrEUPVDU": {
@@ -871,9 +871,9 @@
       "studioFolds": 43,
       "studioSubscribers": 3520,
       "studioViews": 880000,
-      "studioRank": 61,
+      "studioRank": 62,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "KK-AREml8EI": {
@@ -889,7 +889,7 @@
       "studioViews": 99000,
       "studioRank": 59,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "cBZ3ca2OGCY": {
@@ -919,9 +919,9 @@
       "studioFolds": 18,
       "studioSubscribers": 16400,
       "studioViews": 630000,
-      "studioRank": 65,
+      "studioRank": 66,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "dwTYJ9OlixQ": {
@@ -935,9 +935,9 @@
       "studioFolds": 14,
       "studioSubscribers": 6410,
       "studioViews": 54000,
-      "studioRank": 70,
+      "studioRank": 72,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "e0kEBFoyVF8": {
@@ -949,11 +949,11 @@
       "publishedAt": "2026-10-23T08:30:33Z",
       "durationSeconds": 18,
       "studioFolds": 10,
-      "studioSubscribers": 10600,
-      "studioViews": 2210000,
-      "studioRank": 78,
+      "studioSubscribers": 10700,
+      "studioViews": 2220000,
+      "studioRank": 80,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "F2bA-oPx2xk": {
@@ -967,9 +967,9 @@
       "studioFolds": 12,
       "studioSubscribers": 13300,
       "studioViews": 530000,
-      "studioRank": 86,
+      "studioRank": 88,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "c4B0oQdtfgU": {
@@ -983,9 +983,9 @@
       "studioFolds": 64,
       "studioSubscribers": 4460,
       "studioViews": 2080000,
-      "studioRank": 121,
+      "studioRank": 125,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "nNWyHFkw1-4": {
@@ -997,11 +997,11 @@
       "publishedAt": "2026-09-11T12:00:28Z",
       "durationSeconds": 47,
       "studioFolds": 100,
-      "studioSubscribers": 64500,
+      "studioSubscribers": 64600,
       "studioViews": 1520000,
-      "studioRank": 132,
+      "studioRank": 135,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "pa5i9r7v4mo": {
@@ -1013,11 +1013,11 @@
       "publishedAt": "2026-10-16T12:50:24Z",
       "durationSeconds": 58,
       "studioFolds": 17,
-      "studioSubscribers": 90500,
+      "studioSubscribers": 90700,
       "studioViews": 210000,
-      "studioRank": 137,
+      "studioRank": 140,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "TAqRBlzm_MM": {
@@ -1031,9 +1031,9 @@
       "studioFolds": 55,
       "studioSubscribers": 20500,
       "studioViews": 210000,
-      "studioRank": 8,
+      "studioRank": 9,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "ASay4Wog-Yk": {
@@ -1045,11 +1045,11 @@
       "publishedAt": "2026-10-24T10:24:35Z",
       "durationSeconds": 178,
       "studioFolds": 21,
-      "studioSubscribers": 41300,
+      "studioSubscribers": 41400,
       "studioViews": 83000,
-      "studioRank": 139,
+      "studioRank": 142,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "otma1oPB_so": {
@@ -1061,11 +1061,11 @@
       "publishedAt": "2026-10-07T13:00:23Z",
       "durationSeconds": 15,
       "studioFolds": 32,
-      "studioSubscribers": 62000,
-      "studioViews": 1460000,
-      "studioRank": 141,
+      "studioSubscribers": 62900,
+      "studioViews": 1470000,
+      "studioRank": 144,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "W06X2tB0-Cs": {
@@ -1077,11 +1077,11 @@
       "publishedAt": "2026-09-22T09:30:05Z",
       "durationSeconds": 10,
       "studioFolds": 15,
-      "studioSubscribers": 2800,
+      "studioSubscribers": 2810,
       "studioViews": 140000,
-      "studioRank": 155,
+      "studioRank": 158,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "kjGVKgPqruI": {
@@ -1093,11 +1093,11 @@
       "publishedAt": "2026-09-15T12:00:14Z",
       "durationSeconds": 41,
       "studioFolds": 16,
-      "studioSubscribers": 64500,
+      "studioSubscribers": 64600,
       "studioViews": 140000,
-      "studioRank": 190,
+      "studioRank": 193,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "RC3IVG_uvA4": {
@@ -1109,11 +1109,11 @@
       "publishedAt": "2026-09-27T05:17:58Z",
       "durationSeconds": 13,
       "studioFolds": 21,
-      "studioSubscribers": 62000,
+      "studioSubscribers": 62900,
       "studioViews": 240000,
-      "studioRank": 192,
+      "studioRank": 195,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "7B9CASK8qgE": {
@@ -1125,11 +1125,11 @@
       "publishedAt": "2026-09-26T08:00:19Z",
       "durationSeconds": 11,
       "studioFolds": 100,
-      "studioSubscribers": 62000,
-      "studioViews": 1690000,
-      "studioRank": 272,
+      "studioSubscribers": 62900,
+      "studioViews": 1700000,
+      "studioRank": 276,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "IYMO9Xzoaj0": {
@@ -1141,11 +1141,11 @@
       "publishedAt": "2026-10-15T03:00:06Z",
       "durationSeconds": 41,
       "studioFolds": 70,
-      "studioSubscribers": 7780,
+      "studioSubscribers": 7950,
       "studioViews": 140000,
-      "studioRank": 297,
+      "studioRank": 300,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "J_pQfDuvevg": {
@@ -1157,11 +1157,11 @@
       "publishedAt": "2026-09-17T04:00:02Z",
       "durationSeconds": 22,
       "studioFolds": 66,
-      "studioSubscribers": 23800,
-      "studioViews": 7740000,
-      "studioRank": 462,
+      "studioSubscribers": 23900,
+      "studioViews": 7820000,
+      "studioRank": 468,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "50uNdKlxqa8": {
@@ -1174,10 +1174,10 @@
       "durationSeconds": 56,
       "studioFolds": 14,
       "studioSubscribers": 17200,
-      "studioViews": 2790000,
-      "studioRank": 318,
+      "studioViews": 2860000,
+      "studioRank": 322,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "BMNeCP0FeM0": {
@@ -1189,11 +1189,11 @@
       "publishedAt": "2026-10-11T03:00:34Z",
       "durationSeconds": 13,
       "studioFolds": 37,
-      "studioSubscribers": 62000,
-      "studioViews": 1790000,
-      "studioRank": 435,
+      "studioSubscribers": 62900,
+      "studioViews": 1800000,
+      "studioRank": 439,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "DUzqrPusXCw": {
@@ -1205,11 +1205,11 @@
       "publishedAt": "2026-09-18T00:45:44Z",
       "durationSeconds": 20,
       "studioFolds": 12,
-      "studioSubscribers": 23800,
-      "studioViews": 2480000,
-      "studioRank": 76,
+      "studioSubscribers": 23900,
+      "studioViews": 2550000,
+      "studioRank": 77,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "d4JX6uioj68": {
@@ -1223,9 +1223,9 @@
       "studioFolds": 14,
       "studioSubscribers": 16400,
       "studioViews": 400000,
-      "studioRank": 473,
+      "studioRank": 478,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "6spFTbjx310": {
@@ -1237,11 +1237,11 @@
       "publishedAt": "2026-10-12T22:00:22Z",
       "durationSeconds": 17,
       "studioFolds": 28,
-      "studioSubscribers": 62000,
+      "studioSubscribers": 62900,
       "studioViews": 1450000,
-      "studioRank": 519,
+      "studioRank": 526,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "5lI0Djp_SKQ": {
@@ -1255,9 +1255,9 @@
       "studioFolds": 24,
       "studioSubscribers": 16800,
       "studioViews": 40000,
-      "studioRank": 578,
+      "studioRank": 588,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "BaBiUIbDvjs": {
@@ -1271,9 +1271,9 @@
       "studioFolds": 18,
       "studioSubscribers": 34500,
       "studioViews": 270000,
-      "studioRank": 582,
+      "studioRank": 591,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "Q_1ehBU62EM": {
@@ -1287,9 +1287,9 @@
       "studioFolds": 17,
       "studioSubscribers": 16800,
       "studioViews": 40000,
-      "studioRank": 686,
+      "studioRank": 696,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 4
     },
     "4rnQ6uc6NfI": {
@@ -1303,9 +1303,9 @@
       "studioFolds": 11,
       "studioSubscribers": 6410,
       "studioViews": 62000,
-      "studioRank": 593,
+      "studioRank": 210,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "Xc-H7tY8IXk": {
@@ -1319,9 +1319,9 @@
       "studioFolds": 11,
       "studioSubscribers": 16800,
       "studioViews": 37000,
-      "studioRank": 163,
+      "studioRank": 167,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "sR3gHiP5UNI": {
@@ -1335,9 +1335,9 @@
       "studioFolds": 11,
       "studioSubscribers": 16800,
       "studioViews": 41000,
-      "studioRank": 835,
+      "studioRank": 845,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "jZbmrzepnpQ": {
@@ -1351,9 +1351,9 @@
       "studioFolds": 10,
       "studioSubscribers": 16800,
       "studioViews": 35000,
-      "studioRank": 803,
+      "studioRank": 813,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "DbCyXoUkMek": {
@@ -1365,11 +1365,11 @@
       "publishedAt": "2026-10-12T18:00:00Z",
       "durationSeconds": 8,
       "studioFolds": 35,
-      "studioSubscribers": 62000,
+      "studioSubscribers": 62900,
       "studioViews": 1940000,
-      "studioRank": 879,
+      "studioRank": 888,
       "firstSeenAt": "2026-11-14T03:28:12.593Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 5
     },
     "uSbB1E6UvJE": {
@@ -1385,7 +1385,7 @@
       "studioViews": 34000,
       "studioRank": 6,
       "firstSeenAt": "2026-11-15T05:20:04.415Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 4
     },
     "81-u37zSNCY": {
@@ -1399,9 +1399,9 @@
       "studioFolds": 12,
       "studioSubscribers": 1910,
       "studioViews": 150000,
-      "studioRank": 267,
+      "studioRank": 270,
       "firstSeenAt": "2026-11-15T16:00:47.541Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 4
     },
     "R8cDe03BMB0": {
@@ -1415,9 +1415,9 @@
       "studioFolds": 15,
       "studioSubscribers": 20500,
       "studioViews": 100000,
-      "studioRank": 197,
+      "studioRank": 200,
       "firstSeenAt": "2026-11-16T16:00:38.559Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 3
     },
     "aJgJgJTwdQw": {
@@ -1431,9 +1431,9 @@
       "studioFolds": 42,
       "studioSubscribers": 1600,
       "studioViews": 490000,
-      "studioRank": 465,
+      "studioRank": 471,
       "firstSeenAt": "2026-11-16T16:00:38.559Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 3
     },
     "bFq3ieCIqbI": {
@@ -1445,11 +1445,11 @@
       "publishedAt": "2026-11-10T21:45:10Z",
       "durationSeconds": 16,
       "studioFolds": 66,
-      "studioSubscribers": 5840,
-      "studioViews": 1690000,
-      "studioRank": 41,
+      "studioSubscribers": 5880,
+      "studioViews": 1820000,
+      "studioRank": 43,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 1
     },
     "9xwcJV53ros": {
@@ -1463,9 +1463,9 @@
       "studioFolds": 17,
       "studioSubscribers": 1780,
       "studioViews": 41000,
-      "studioRank": 355,
+      "studioRank": 362,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 1
     },
     "Af7GoZoO94E": {
@@ -1479,9 +1479,9 @@
       "studioFolds": 10,
       "studioSubscribers": 20500,
       "studioViews": 42000,
-      "studioRank": 439,
+      "studioRank": 284,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 1
     },
     "_h58PepN2OY": {
@@ -1493,11 +1493,11 @@
       "publishedAt": "2026-11-04T08:00:30Z",
       "durationSeconds": 51,
       "studioFolds": 11,
-      "studioSubscribers": 10300,
+      "studioSubscribers": 10400,
       "studioViews": 440000,
-      "studioRank": 656,
+      "studioRank": 665,
       "firstSeenAt": "2026-11-18T04:01:46.719Z",
-      "lastSeenAt": "2026-11-18T04:01:46.719Z",
+      "lastSeenAt": "2026-11-18T16:00:52.496Z",
       "timesSeen": 1
     }
   }

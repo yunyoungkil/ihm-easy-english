@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-18T04:19:12.490Z",
+  "updatedAt": "2026-11-19T16:22:49.410Z",
   "entries": [
     {
       "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
@@ -481,6 +481,171 @@
       ],
       "firstSeenAt": "2026-09-07T06:25:33.613Z",
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
+    },
+    {
+      "id": "painPoint:미드 시청이나 현지 생활 시 빠른 연음 발음을 알아듣지 못해 겪었던 답답함",
+      "type": "painPoint",
+      "text": "미드 시청이나 현지 생활 시 빠른 연음 발음을 알아듣지 못해 겪었던 답답함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "0VjYs9FE8R0",
+          "channelTitle": "미국인 션쌤 Sean Teacher",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-19T16:22:49.410Z",
+      "lastSeenAt": "2026-11-19T16:22:49.410Z"
+    },
+    {
+      "id": "vocabulary:덩어리발음",
+      "type": "vocabulary",
+      "text": "덩어리발음",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "0VjYs9FE8R0",
+          "channelTitle": "미국인 션쌤 Sean Teacher",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-19T16:22:49.410Z",
+      "lastSeenAt": "2026-11-19T16:22:49.410Z"
+    },
+    {
+      "id": "painPoint:아이에게 파닉스를 가르쳐주다가 힘들어서 좌절했던 경험",
+      "type": "painPoint",
+      "text": "아이에게 파닉스를 가르쳐주다가 힘들어서 좌절했던 경험",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "bzwNIq8TQKw",
+          "channelTitle": "Jimmy class",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-19T16:06:51.526Z",
+      "lastSeenAt": "2026-11-19T16:06:51.526Z"
+    },
+    {
+      "id": "painPoint:해외 여행이나 현지 기차표 예매 시 영어식 도시 발음을 몰라 알아듣지 못하거나 당황했던 경험",
+      "type": "painPoint",
+      "text": "해외 여행이나 현지 기차표 예매 시 영어식 도시 발음을 몰라 알아듣지 못하거나 당황했던 경험",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "49VA7-b8oyc",
+          "channelTitle": "희수 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-19T16:05:33.216Z",
+      "lastSeenAt": "2026-11-19T16:05:33.216Z"
+    },
+    {
+      "id": "question:독일 현지 실제 발음(münchen)이 뮌헨에 가까운지, 영어식 발음에 가까운지에 대한 질문",
+      "type": "question",
+      "text": "독일 현지 실제 발음(München)이 뮌헨에 가까운지, 영어식 발음에 가까운지에 대한 질문",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "49VA7-b8oyc",
+          "channelTitle": "희수 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-19T16:05:33.216Z",
+      "lastSeenAt": "2026-11-19T16:05:33.216Z"
+    },
+    {
+      "id": "vocabulary:발음에 개빡친거",
+      "type": "vocabulary",
+      "text": "발음에 개빡친거",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "49VA7-b8oyc",
+          "channelTitle": "희수 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-19T16:05:33.216Z",
+      "lastSeenAt": "2026-11-19T16:05:33.216Z"
+    },
+    {
+      "id": "vocabulary:한글로 써있으니 더 따라하기 좋네요",
+      "type": "vocabulary",
+      "text": "한글로 써있으니 더 따라하기 좋네요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Huym2jJCaV8",
+          "channelTitle": "굿럭영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T16:07:43.368Z",
+      "lastSeenAt": "2026-11-18T16:07:43.368Z"
+    },
+    {
+      "id": "painPoint:미드나 영화 대본을 보고 하루 종일 들어도 단순 축약 발음을 몰라서 안 들렸던 답답함.",
+      "type": "painPoint",
+      "text": "미드나 영화 대본을 보고 하루 종일 들어도 단순 축약 발음을 몰라서 안 들렸던 답답함.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Z6VDb7biKCw",
+          "channelTitle": "이지 액센트 Easy Accent",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T16:07:08.652Z",
+      "lastSeenAt": "2026-11-18T16:07:08.652Z"
+    },
+    {
+      "id": "painPoint:미국 현지 생활이나 유학 중에도 문장 첫머리의 축약 발음을 캐치하지 못해 듣기에서 멘붕이 왔던 경험.",
+      "type": "painPoint",
+      "text": "미국 현지 생활이나 유학 중에도 문장 첫머리의 축약 발음을 캐치하지 못해 듣기에서 멘붕이 왔던 경험.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Z6VDb7biKCw",
+          "channelTitle": "이지 액센트 Easy Accent",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T16:07:08.652Z",
+      "lastSeenAt": "2026-11-18T16:07:08.652Z"
+    },
+    {
+      "id": "vocabulary:효율충",
+      "type": "vocabulary",
+      "text": "효율충",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Z6VDb7biKCw",
+          "channelTitle": "이지 액센트 Easy Accent",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T16:07:08.652Z",
+      "lastSeenAt": "2026-11-18T16:07:08.652Z"
+    },
+    {
+      "id": "vocabulary:킹받네요",
+      "type": "vocabulary",
+      "text": "킹받네요",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "Z6VDb7biKCw",
+          "channelTitle": "이지 액센트 Easy Accent",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-18T16:07:08.652Z",
+      "lastSeenAt": "2026-11-18T16:07:08.652Z"
     },
     {
       "id": "painPoint:모음 뭉치가 단어마다 다르게 발음되어 무작정 외우기가 어렵고 암기 방법에 대해 답답해합니다.",
@@ -4426,171 +4591,6 @@
       ],
       "firstSeenAt": "2026-11-12T06:29:10.134Z",
       "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:목이 뒤로 눌리는 소리",
-      "type": "vocabulary",
-      "text": "목이 뒤로 눌리는 소리",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:한글 표기의 늪",
-      "type": "vocabulary",
-      "text": "한글 표기의 늪",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:재능파",
-      "type": "vocabulary",
-      "text": "재능파",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "painPoint:영어가 왠수처럼 느껴지는 원인 모를 막막함 (댓글: '영어가 왠수인 사람.. ㅠㅠ')",
-      "type": "painPoint",
-      "text": "영어가 왠수처럼 느껴지는 원인 모를 막막함 (댓글: '영어가 왠수인 사람.. ㅠㅠ')",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "painPoint:알파벳 모음을 정직하게 다 발음하다가 묘하게 외국인 티가 나고 원어민이 못 알아듣는 현상",
-      "type": "painPoint",
-      "text": "알파벳 모음을 정직하게 다 발음하다가 묘하게 외국인 티가 나고 원어민이 못 알아듣는 현상",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "painPoint:글자(스펠링) 중심으로 영어를 배워서 눈으로는 읽지만 귀로는 들리지 않는 악순환",
-      "type": "painPoint",
-      "text": "글자(스펠링) 중심으로 영어를 배워서 눈으로는 읽지만 귀로는 들리지 않는 악순환",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "question:film이나 vulnerable처럼 l과 m, l과 r 소리가 연속으로 붙어있을 때는 혀를 어디에 붙여야 발음이 되나요?",
-      "type": "question",
-      "text": "Film이나 Vulnerable처럼 L과 M, L과 R 소리가 연속으로 붙어있을 때는 혀를 어디에 붙여야 발음이 되나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "vocabulary:영어가 왠수인 사람",
-      "type": "vocabulary",
-      "text": "영어가 왠수인 사람",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "vocabulary:버터 발음",
-      "type": "vocabulary",
-      "text": "버터 발음",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "vocabulary:소리가 뭉개짐",
-      "type": "vocabulary",
-      "text": "소리가 뭉개짐",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
-    },
-    {
-      "id": "vocabulary:방구석 훈련",
-      "type": "vocabulary",
-      "text": "방구석 훈련",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "ZqY8YPAdTgI",
-          "channelTitle": "엉클 조 잉글리쉬",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:28:38.788Z",
-      "lastSeenAt": "2026-11-12T06:28:38.788Z"
     }
   ]
 }

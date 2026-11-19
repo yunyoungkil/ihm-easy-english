@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 1,
+  "videoId": "RQC9PmGzPnE",
+  "analyzedAt": "2026-11-19T16:12:13.263Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 42,
+  "meta": {
+    "videoId": "RQC9PmGzPnE",
+    "title": "미국인도 이해 못하는 호주 영어 8가지 #영어회화 #미국 #호주영어 #호주",
+    "channelId": "UCR8fzJ6zX3HeC2n-agUtyzg",
+    "channelTitle": "다니엘 잉글리시 클럽! 다잉클!",
+    "publishedAt": "2025-04-01T09:00:27Z",
+    "viewCount": 43924,
+    "likeCount": 397,
+    "commentCount": 13,
+    "durationSeconds": 42,
+    "thumbnail": "https://i.ytimg.com/vi/RQC9PmGzPnE/maxresdefault.jpg",
+    "description": "",
+    "tags": []
+  },
+  "subscriberCount": 10000,
+  "viewsPerSubscriber": 4.39,
+  "outlierRatio": 22.9,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-18T16:00:22.100Z",
+  "ratioDenominator": 1916.5,
+  "ratioPeerCount": 30,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 15,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 8
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 42
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 34,
+    "stats": {
+      "sentences": 34,
+      "lengthSum": 464,
+      "lengthMedian": 10,
+      "endings": {
+        "question": 4,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 30
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 4,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 34,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.68,
+      "uniqueSentenceRatio": 0.91
+    },
+    "computedAt": "2026-11-19T16:12:08.552Z",
+    "note": "품질 낮음: 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "미국인조차 이해하지 못하는 호주 영어 표현 8가지를 소개하겠다고 숫자와 대상으로 궁금증을 유발한다.",
+      "titleQuote": "미국인도 이해 못하는 호주 영어 8가지 #영어회화 #미국 #호주영어 #호주",
+      "thumbnailText": "미국인도 이해 못하는 호주영어 8가지",
+      "thumbnailWordCount": 5,
+      "thumbnailVisual": "차 안에서 미국인 남성과 호주인 여성이 앉아있고 텍스트 자막이 썸네일 중앙에 크게 위치해 있다.",
+      "thumbnailVsTitle": "제목과 썸네일 텍스트가 완전히 identical하여 동일한 핵심 주제를 강조한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "남자가 맥도날드 프렌치프라이와 과자 칩을 들어 올리며 미국식 명칭을 말하고, 여자가 호주식 명칭(Macca's, chips)을 대답하며 비교한다.",
+      "quote": "McDonald's. Mackers. Macers. Okay. Well, French fry. That's a chip. So, what would you call chips? Chips. What's the difference? They're both chips, but you just know. No. No. Oh, dog. That's a snag.",
+      "reasonToKeepWatching": "실제 상표와 소품을 직접 들어 보여주며 호주인과 미국인의 실제 어휘 차이를 시각적으로 직관적이게 보여준다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "남자가 맥도날드 감자튀김을 보이며 'McDonald's'라고 말하자 여자가 'Macca's'라고 호주식 표현을 말한다.",
+      "quote": "McDonald's. Mackers. Macers. Okay. Well,",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 4,
+        "what": "맥도날드를 부르는 명칭 비교 (McDonald's vs Macca's)",
+        "quote": "McDonald's. Mackers. Macers. Okay. Well,",
+        "quoteVerified": true
+      },
+      {
+        "start": 4,
+        "end": 14,
+        "what": "감자튀김과 나초 칩을 부르는 명칭 비교 (French fry vs chips)",
+        "quote": "French fry. That's a chip. So, what would you call chips? Chips. What's the difference? They're both chips, but you just know. No. No. Oh,",
+        "quoteVerified": true
+      },
+      {
+        "start": 14,
+        "end": 20,
+        "what": "핫도그를 부르는 명칭 비교 (Hot dog vs snag)",
+        "quote": "dog. That's a snag. I honestly like that better. A snag? Yeah, it sounds fancier. I disagree.",
+        "quoteVerified": true
+      },
+      {
+        "start": 20,
+        "end": 25,
+        "what": "오레가노 향신료 발음 비교 (Oregano vs Oregano)",
+        "quote": "Oregano. Oregano. I feel like oregano is crazy. Oregano.",
+        "quoteVerified": true
+      },
+      {
+        "start": 25,
+        "end": 29,
+        "what": "아보카도를 축약해서 부르는 표현 비교 (Avocado vs Avo)",
+        "quote": "Avocado. Ao. We'd like to shorten everything. That's what I've noticed.",
+        "quoteVerified": true
+      },
+      {
+        "start": 29,
+        "end": 34,
+        "what": "사탕과 초콜릿을 부르는 축약 표현 비교 (Candy vs Lollies / Chocolate vs Choccy)",
+        "quote": "All right. Candy, lollies, chocolate, chalky, chalky,",
+        "quoteVerified": true
+      },
+      {
+        "start": 34,
+        "end": 42,
+        "what": "아이스바(아이시폴)를 부르는 명칭 비교 (Popsicle vs Icy pole)",
+        "quote": "popsicle. That's an icy pole. A what? An icy pole. Cuz it's a pole of ice. Literally. That's crazy.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "남자가 맥도날드 프렌치프라이 봉지를 손에 든 장면",
+        "purpose": "맥도날드 명칭 차이를 직관적으로 알리기 위함"
+      },
+      {
+        "t": 4,
+        "what": "남자가 치카스 또르띠아 칩 과자 봉지를 들어 올림",
+        "purpose": "과자 칩과 프렌치프라이의 호주식 명칭 대조"
+      },
+      {
+        "t": 15,
+        "what": "남자가 핫도그를 들고 카메라 앞에 보여줌",
+        "purpose": "핫도그(Snag) 표현 대조"
+      },
+      {
+        "t": 21,
+        "what": "남자가 오레가노 양념 병을 들어 올림",
+        "purpose": "오레가노 발음 차이 대조"
+      },
+      {
+        "t": 26,
+        "what": "남자가 아보카도 열매를 들어 보임",
+        "purpose": "아보카도(Avo) 축약 표현 대조"
+      },
+      {
+        "t": 30,
+        "what": "남자가 녹색 사탕이 가득 찬 유리병을 들어 보임",
+        "purpose": "사탕(Lollies) 표현 대조"
+      },
+      {
+        "t": 32,
+        "what": "남자가 허쉬 초콜릿 바를 들어 보임",
+        "purpose": "초콜릿(Choccy) 표현 대조"
+      },
+      {
+        "t": 34,
+        "what": "남자가 삼색 아이스 바(Popsicle)를 들어 보임",
+        "purpose": "아이스바(Icy pole) 표현 대조"
+      }
+    ],
+    "ending": {
+      "what": "여자가 Popsicle을 Icy pole이라고 부르는 이유를 설명하자 남자가 웃으며 신기해하며 끝난다.",
+      "quote": "Cuz it's a pole of ice. Literally. That's crazy.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "출연진의 훈훈한 외모에 찬사를 보냄",
+          "quote": "여자분 이쁘시다...",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "hot dog = snag",
+          "quote": "hot dog = snag",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 8,
+      "description": "미국인과 호주인이 단어나 발음을 다르게 쓰는 8가지 사례(맥도날드, 프렌치프라이, 핫도그, 오레가노, 아보카도, 사탕, 초콜릿, 팝시클)를 소품과 함께 순차적으로 나열함.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 및 국기 아이콘 아래",
+      "size": "보통",
+      "highlightColor": "노란색, 흰색",
+      "highlightMethod": "영어 대사와 한국어 번역 자막을 색깔별로 구분하여 표시",
+      "textAmount": "한 번에 1~2줄 분량의 텍스트",
+      "changeTiming": "출연진 대사 타이밍에 정확히 맞춰 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "밝고 가벼운 분위기",
+      "tempo": "보통",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "두 남녀의 대화 음성이 또렷하게 중심을 이루고 배경음악은 매우 낮게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "맥도날드 감자튀김을 보여주며 미국과 호주의 단어 차이 비교를 시작함",
+        "quote": "McDonald's. Mackers.",
+        "type": "실물 제시 및 명칭 비교",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 4,
+          "what": "프렌치프라이를 칩이라고 부르면 진짜 과자 칩은 뭐라 부르는지 질문",
+          "quote": "So, what would you call chips?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 7,
+          "what": "둘 다 칩스라고 부른다고 대답함",
+          "quote": "Chips.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "서사적 인과관계보다는 8개 단어 항목을 병렬적으로 하나씩 나열하는 구조임",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 0,
+          "what": "실제 상표가 붙은 소품들을 직접 들어 올리며 시각적 증거 제시",
+          "quote": "McDonald's.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 35,
+        "what": "마지막 단어 'Icy pole'의 어원을 즉석 설명하며 리액션으로 훈훈하게 마무리함",
+        "quote": "Cuz it's a pole of ice. Literally. That's crazy.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "호주 여성 출연자의 외모",
+        "reaction": "여성 출연자 외모에 대한 감탄 댓글",
+        "quote": "여자분 이쁘시다...",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "해외 숏폼 영상 클립에 한글 자막을 얹은 연예/유머형 콘텐츠로, 성인을 위한 발음 원리나 음성 체계 교육 내용이 없음.",
+    "forUs": {
+      "adopt": "실물 소품을 빠르게 보여주면서 두 언어권/발음의 차이를 실시간 대조하는 직관적인 연출 방식.",
+      "differentiate": "단순 재미성 단어 나열을 넘어 한국인이 왜 그 호주식 발음을 듣기 힘들어하는지 소리 구조(혀 위치, 모음 변형 등)를 직접 짚어주기."
+    }
+  },
+  "quoteCheck": {
+    "checked": 19,
+    "verified": 19,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 3,
+    "medianGapSeconds": 2.9,
+    "perMinute": 4.3,
+    "times": [
+      0.1,
+      5.3,
+      5.9
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 21,
+      "file": "21.jpg"
+    },
+    {
+      "t": 26,
+      "file": "26.jpg"
+    },
+    {
+      "t": 30,
+      "file": "30.jpg"
+    },
+    {
+      "t": 32,
+      "file": "32.jpg"
+    },
+    {
+      "t": 34,
+      "file": "34.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 7303,
+    "candidatesTokenCount": 2583,
+    "totalTokenCount": 12097,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2381
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3822
+      }
+    ],
+    "thoughtsTokenCount": 2211,
+    "serviceTier": "standard"
+  }
+}

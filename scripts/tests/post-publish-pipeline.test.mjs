@@ -4,6 +4,7 @@ import {
   PLAYLIST_IDS,
   auditAndFixPlaylists,
   postPendingPinnedComments,
+  manageCommunityPosts,
 } from '../post-publish-pipeline.mjs';
 
 test('PLAYLIST_IDS: 4대 핵심 재생목록 상수가 정의되어 있다', () => {
@@ -65,4 +66,23 @@ test('postPendingPinnedComments: 토큰이 없으면 ok:false를 반환한다', 
   const res = await postPendingPinnedComments({ accessToken: null, catalog: { videos: [] } });
   assert.equal(res.ok, false);
   assert.equal(res.reason, 'no-token');
+});
+
+test('manageCommunityPosts: community-post.json 파일이 없으면 ok:true와 빈 목록을 반환한다', async () => {
+  const res = await manageCommunityPosts({
+    projectDir: 'C:\\non-existent-dir-for-test',
+    dryRun: true,
+  });
+  assert.equal(res.ok, true);
+  assert.equal(res.posted.length, 0);
+  assert.equal(res.pending.length, 0);
+});
+
+test('manageCommunityPosts: dryRun 모드에서는 브라우저 없이 발행 대상을 식별한다', async () => {
+  const res = await manageCommunityPosts({
+    dryRun: true,
+  });
+  assert.equal(res.ok, true);
+  assert.ok(Array.isArray(res.posted));
+  assert.ok(Array.isArray(res.pending));
 });

@@ -374,6 +374,114 @@ export async function linkShortsRelatedVideos({
   return { ok: true, linked };
 }
 
+/** 4. 커뮤니티 예습/복습 게시물 자동 관리 */
+export async function manageCommunityPosts({
+  projectDir: dir = projectDir,
+  catalog,
+  now = new Date(),
+  dryRun = false,
+} = {}) {
+  const pkgRoot = join(dir, 'output', 'upload-packages');
+  if (!existsSync(pkgRoot)) return { ok: true, posted: [], pending: [] };
+
+  const donePath = join(dir, 'data', 'youtube', 'after-publish-done.json');
+  const doneMap = readJsonSafe(donePath, {});
+  const posted = [];
+  const pending = [];
+
+  try {
+    const { readdirSync } = await import('node:fs');
+    const folders = readdirSync(pkgRoot, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name);
+
+    for (const f of folders) {
+      const postFile = join(pkgRoot, f, 'community-post.json');
+      if (!existsSync(postFile)) continue;
+
+      const postData = readJsonSafe(postFile, null);
+      if (!postData || !postData.content) continue;
+
+      const key = `${postData.episodeId || f}:community-post`;
+      if (doneMap[key]) continue;
+
+      // 발행 시각 판정: targetPublishDate가 지났거나 없으면 즉시 발행 대상
+      const isDue = !postData.targetPublishDate || new Date(postData.targetPublishDate) <= now;
+      if (!isDue) {
+        pending.push({ episodeId: postData.episodeId || f, targetPublishDate: postData.targetPublishDate });
+        continue;
+      }
+
+      if (dryRun) {
+        posted.push({ episodeId: postData.episodeId || f, status: 'dry-run-ready' });
+        continue;
+      }
+
+      // 스튜디오 브라우저를 통해 커뮤니티 탭에 게시
+      try {
+        const { chromium } = await import('playwright');
+        const { setupStudioChrome, STUDIO_PORT } = await import('./setup-studio-chrome.mjs');
+        const chrome = await setupStudioChrome({ launchIfDown: true });
+        if (!chrome.supported || chrome.login !== 'logged-in') {
+          pending.push({ episodeId: postData.episodeId || f, reason: 'chrome-not-logged-in' });
+          continue;
+        }
+
+        const browser = await chromium.connectOverCDP(`http://localhost:${STUDIO_PORT}`);
+        const page = await browser.contexts()[0].newPage();
+
+        await page.goto('https://www.youtube.com/@이해하면쉬운영어/community', { waitUntil: 'domcontentloaded' });
+        await page.waitForTimeout(3000);
+
+        const dialog = page.locator('ytd-backstage-post-dialog-renderer').first();
+        if (await dialog.isVisible()) {
+          const placeholder = dialog.locator('#placeholder-area').first();
+          await placeholder.click({ force: true });
+          await page.waitForTimeout(1000);
+
+          // 이미지 프리뷰가 열려있으면 닫기
+          const imgCancel = dialog.locator('#image-preview-container button').first();
+          if (await imgCancel.isVisible().catch(() => false)) {
+            await imgCancel.click({ force: true });
+            await page.waitForTimeout(500);
+          }
+
+          const editor = dialog.locator('#contenteditable-root').first();
+          if (await editor.isVisible()) {
+            await editor.click({ force: true });
+            await editor.pressSequentially(postData.content);
+            await page.waitForTimeout(1000);
+
+            const postBtn = dialog.locator('#post-button button').first();
+            const isEnabled = await postBtn.isEnabled().catch(() => false);
+            if (isEnabled) {
+              await postBtn.click({ force: true });
+              await page.waitForTimeout(3000);
+              doneMap[key] = new Date().toISOString().slice(0, 10);
+              posted.push({ episodeId: postData.episodeId || f, status: 'published' });
+            } else {
+              pending.push({ episodeId: postData.episodeId || f, reason: 'button-disabled' });
+            }
+          }
+        }
+        await page.close();
+      } catch (postErr) {
+        console.warn(`[PostPublish] 커뮤니티 게시물 발행 실패 (${f}):`, postErr.message);
+        pending.push({ episodeId: postData.episodeId || f, error: postErr.message });
+      }
+    }
+
+    if (posted.length > 0) {
+      writeFileSync(donePath, JSON.stringify(doneMap, null, 2), 'utf8');
+    }
+  } catch (err) {
+    console.warn('[PostPublish] 커뮤니티 게시물 관리 중 오류:', err.message);
+    return { ok: false, error: err.message, posted, pending };
+  }
+
+  return { ok: true, posted, pending };
+}
+
 /** 통합 사후 관리 파이프라인 단일 진입점 */
 export async function runPostPublishPipeline({
   projectDir: dir = projectDir,
@@ -402,6 +510,9 @@ export async function runPostPublishPipeline({
 
   // 3. 쇼츠 관련 동영상 자동 연결
   results.relatedVideos = await linkShortsRelatedVideos({ projectDir: dir, catalog, now });
+
+  // 4. 커뮤니티 예습/복습 게시물 자동 관리
+  results.communityPosts = await manageCommunityPosts({ projectDir: dir, catalog, now });
 
   return results;
 }

@@ -13,7 +13,7 @@ import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
 import {loadReports as loadOutlierReports} from './outlier-report.mjs';
-import {loadSheets} from './transform-sheet.mjs';
+import {loadSheets, sheetStage} from './transform-sheet.mjs';
 import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 import {METRICS, MIN_POINTS_POOL, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
@@ -149,9 +149,10 @@ export function pickReviewLessons(reviews = [], n = 3) {
     .slice(0, n);
 }
 
-/** 합친 아웃라이어 리포트(data/youtube/outlier-reports) 요약: 새 방식 배수가 큰 영상부터, 옛 방식 값은 그 뒤(서로 숫자를 비교하지 않는다). */
+/** 합친 아웃라이어 리포트(data/youtube/outlier-reports) 요약: 성인 영어 소리가 아니라고 판정된 영상(false)은 빼고, 새 방식 배수가 큰 영상부터, 옛 방식 값은 그 뒤(서로 숫자를 비교하지 않는다). */
 export function summarizeOutlierReports(reports = [], n = 5) {
   return [...reports]
+    .filter((r) => r?.analysis?.teachesAdultEnglishSounds !== false)
     .sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
     .slice(0, n)
     .map((r) => ({
@@ -279,7 +280,8 @@ export function renderNextEpisodeInput(input) {
   if (transformSheets.length) {
     out.push('경쟁 영상을 같은 행에서 우리 콘텐츠와 비교한 시트. 경쟁 소재를 쓰는 편은 새로 만들기 전에 이 시트를 만들고 `BRIEF.md` 기획 근거에 `비교 시트:` 줄로 연결한다.', '');
     for (const t of transformSheets) {
-      out.push(`- **${cut(t.topic, 60)}** — ${t.status === 'draft' ? '초안' : t.status === 'approved' ? '승인' : '공개'} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개 · http://localhost:3001/transform-sheet/${t.sourceVideoId}`);
+      const stageLabel = t.stage === 'measured' ? `성적 측정(${t.resultsCount || 1}편)` : (t.status === 'draft' ? '초안' : t.status === 'approved' ? '승인' : '공개');
+      out.push(`- **${cut(t.topic, 60)}** — ${stageLabel} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개 · http://localhost:3001/transform-sheet/${t.sourceVideoId}`);
     }
     out.push('');
   } else out.push('비교 시트 없음.', '');
@@ -442,7 +444,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     studio: readJson(join(dataDir, 'studio-metrics.json'), null),
     audienceCountries: readJson(join(dataDir, 'audience-countries.json'), null),
     titles,
-    transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
+    transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
   };
 }
 

@@ -2508,7 +2508,7 @@ let gMatrixRetThresholdShorts = null;
 // (user override if set, else the dynamic channel-relative value) so renderMatrixTab() can
 // display/plot the real line without recomputing or threading a changed return shape through
 // every call site.
-let gMatrixResolvedThresholds = { ctr: 6.0, retLong: 42.0, retShorts: 70.0 };
+let gMatrixResolvedThresholds = { ctr: null, ctrLong: null, ctrShorts: null, retLong: null, retShorts: null };
 
 /* 검색 피드 탭의 "보통·흐림·흑백" 보기 상태 (예전 A/B 시뮬레이터 상태는 2026-11-11에 모두 지웠다) */
 let gAbVisionFilter = 'normal'; // 'normal' | 'blur' | 'grayscale' — 새 피드에서도 그대로 쓴다
@@ -2889,7 +2889,12 @@ function renderNextInputCard() {
   const q = ((n.audience || {}).question || [])[0];
   if (q) items.push('경쟁 영상 시청자 질문 1위: "' + esc(String(q.text).slice(0, 70)) + '" (경쟁 영상 ' + q.videoCount + '개)');
   const r = (n.outlierReports || [])[0];
-  if (r) items.push('관찰한 경쟁 영상 ' + (n.outlierReports || []).length + '편 · 1위: <a href="/outlier-report/' + encodeURIComponent(r.videoId) + '" target="_blank" rel="noopener" style="color:var(--accent-amber)">' + esc(String(r.title || r.videoId).slice(0, 40)) + '</a> (평소의 ' + Math.round(r.outlierRatio || 0) + '배)');
+  if (r) {
+    const rLabel = r.ratioMethod === 'peer-median-views-v2'
+      ? (r.ratioStatus === 'ok' && r.outlierRatio != null ? ('평소의 ' + (Math.round(Number(r.outlierRatio) * 10) / 10) + '배') : (r.ratioStatus === 'measuring' ? '측정 중' : '판정 보류'))
+      : (r.outlierRatio != null ? ('옛 방식 ' + Math.round(Number(r.outlierRatio)) + '배(참고용)') : '측정 전');
+    items.push('관찰한 경쟁 영상 ' + (n.outlierReports || []).length + '편 · 1위: <a href="/outlier-report/' + encodeURIComponent(r.videoId) + '" target="_blank" rel="noopener" style="color:var(--accent-amber)">' + esc(String(r.title || r.videoId).slice(0, 40)) + '</a> (' + rLabel + ')');
+  }
   const when = n.fileGeneratedAt ? ('파일 ' + new Date(n.fileGeneratedAt).toLocaleString('ko-KR', {month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'}) + ' · 이 카드는 지금 데이터로 다시 계산') : '파일 아직 없음 · 이 카드는 지금 데이터로 계산';
   return '<div class="bento-card col-12">' + head +
     '<ul style="margin:8px 0 0 18px;padding:0;line-height:1.8;font-size:13px;color:var(--text-normal)">' + items.map(t => '<li>' + t + '</li>').join('') + '</ul>' +
@@ -5128,17 +5133,17 @@ function computeMatrixDataset() {
   }
 
   function calcTrimmedWeightedStats(statItems) {
-    if (!statItems.length) return { weightedCtr: 5.5, weightedRet: 42.0 };
+    if (!statItems.length) return { weightedCtr: null, weightedRet: null };
     const sorted = [...statItems].sort((a, b) => a.views - b.views);
     const trimCount = Math.floor(sorted.length * 0.05);
     const trimmed = sorted.slice(trimCount, sorted.length - trimCount || sorted.length);
     const totalImpressions = trimmed.reduce((acc, x) => acc + (x.impressions || 0), 0);
     const totalClicks = trimmed.reduce((acc, x) => acc + ((x.impressions || 0) * (x.ctr || 0) / 100), 0);
-    const weightedCtr = totalImpressions > 0 ? (totalClicks / totalImpressions) * 100 : 5.5;
+    const weightedCtr = totalImpressions > 0 ? Math.round(((totalClicks / totalImpressions) * 100) * 10) / 10 : null;
     const totalViews = trimmed.reduce((acc, x) => acc + x.views, 0);
     const totalRetWeight = trimmed.reduce((acc, x) => acc + (x.views * x.retentionRate), 0);
-    const weightedRet = totalViews > 0 ? totalRetWeight / totalViews : 42.0;
-    return { weightedCtr: Math.round(weightedCtr * 10) / 10, weightedRet: Math.round(weightedRet * 10) / 10 };
+    const weightedRet = totalViews > 0 ? Math.round((totalRetWeight / totalViews) * 10) / 10 : null;
+    return { weightedCtr, weightedRet };
   }
 
   const verifiedLongPreScan = preScan.filter(x => x.format === 'LONGFORM' && x.hasRealCtr && x.hasValidRetention);
@@ -5147,12 +5152,13 @@ function computeMatrixDataset() {
   const dynamicStatsShorts = calcTrimmedWeightedStats(verifiedShortsPreScan);
 
   // A non-null gMatrixCtrThreshold/etc. means the user explicitly moved the slider — that
-  // always wins (matches matrix-diagnosis.mjs's customThresholds override precedence). Only
-  // fall back to the dynamic channel-relative value when the user hasn't touched it yet.
-  const resolvedCtrThreshold = gMatrixCtrThreshold != null ? gMatrixCtrThreshold : (dynamicStatsLong.weightedCtr || 5.5);
-  const resolvedRetThresholdLong = gMatrixRetThresholdLong != null ? gMatrixRetThresholdLong : (dynamicStatsLong.weightedRet || 42.0);
-  const resolvedRetThresholdShorts = gMatrixRetThresholdShorts != null ? gMatrixRetThresholdShorts : (dynamicStatsShorts.weightedRet || 70.0);
-  gMatrixResolvedThresholds = { ctr: resolvedCtrThreshold, retLong: resolvedRetThresholdLong, retShorts: resolvedRetThresholdShorts };
+  // always wins (matches matrix-diagnosis.mjs's customThresholds override precedence).
+  // 데이터가 없으면 임의 대신값 대신 null("기준 없음")로 둔다.
+  const resolvedCtrThresholdLong = gMatrixCtrThreshold != null ? gMatrixCtrThreshold : dynamicStatsLong.weightedCtr;
+  const resolvedCtrThresholdShorts = gMatrixCtrThreshold != null ? gMatrixCtrThreshold : dynamicStatsShorts.weightedCtr;
+  const resolvedRetThresholdLong = gMatrixRetThresholdLong != null ? gMatrixRetThresholdLong : dynamicStatsLong.weightedRet;
+  const resolvedRetThresholdShorts = gMatrixRetThresholdShorts != null ? gMatrixRetThresholdShorts : dynamicStatsShorts.weightedRet;
+  gMatrixResolvedThresholds = { ctr: resolvedCtrThresholdLong, ctrLong: resolvedCtrThresholdLong, ctrShorts: resolvedCtrThresholdShorts, retLong: resolvedRetThresholdLong, retShorts: resolvedRetThresholdShorts };
 
   const items = [];
 
@@ -5230,6 +5236,7 @@ function computeMatrixDataset() {
     const is48hWarmup = ageHours >= 0 && ageHours < 48;
     const hasStatisticalSignificance = hasRealCtr && hasValidRetention && !is48hWarmup && impressions >= minImpressions && views >= minViews;
 
+    const ctrThresh = isShort ? resolvedCtrThresholdShorts : resolvedCtrThresholdLong;
     const retThresh = isShort ? resolvedRetThresholdShorts : resolvedRetThresholdLong;
 
     if (!hasRealCtr) {
@@ -5319,7 +5326,36 @@ function computeMatrixDataset() {
       continue;
     }
 
-    const highCtr = (ctr || 0) >= resolvedCtrThreshold;
+    if (ctrThresh == null || retThresh == null) {
+      items.push({
+        videoId,
+        title: v.title || pkg.title || ('영상 ' + videoId),
+        thumbnail: thumb,
+        format: isShort ? 'SHORTS' : 'LONGFORM',
+        views,
+        impressions,
+        ctr: Math.round((ctr || 0) * 100) / 100,
+        hasRealCtr: true,
+        retentionRate: Math.round(retentionRate * 10) / 10,
+        hasValidRetention: true,
+        hasStatisticalSignificance: true,
+        avgDurationSec: Number(perf.averageViewDuration || 0),
+        durationSec,
+        subscribersGained,
+        publishedAt: pubStr,
+        ageHours: Math.round(ageHours * 10) / 10,
+        is48hWarmup: false,
+        quadrant: 'NO_BASELINE',
+        tentativeQuadrant: null,
+        quadrantLabel: '기준 없음 (표본 부족)',
+        actionBadge: '📏 기준선 수집 중',
+        actionHint: '같은 형식의 비교 기준선(실측 CTR·시청률)이 아직 없어 사분면을 확정하지 않습니다.',
+        isVerified: false,
+      });
+      continue;
+    }
+
+    const highCtr = (ctr || 0) >= ctrThresh;
     const highRet = retentionRate >= retThresh;
 
     let quadrant = 'Q4';
@@ -5416,9 +5452,11 @@ function renderMatrixTab() {
   const getX = (ctrVal) => padLeft + (Math.min(maxCtr, Math.max(0, ctrVal || 0)) / maxCtr) * chartW;
   const getY = (retVal) => (padTop + chartH) - (Math.min(maxRet, Math.max(0, retVal || 0)) / maxRet) * chartH;
 
-  const threshX = getX(gMatrixResolvedThresholds.ctr);
+  const activeCtrThresh = gMatrixFormatFilter === 'SHORTS' ? gMatrixResolvedThresholds.ctrShorts : gMatrixResolvedThresholds.ctrLong;
   const activeRetThresh = gMatrixFormatFilter === 'SHORTS' ? gMatrixResolvedThresholds.retShorts : gMatrixResolvedThresholds.retLong;
-  const threshY = getY(activeRetThresh);
+  const hasBaselineLines = activeCtrThresh != null && activeRetThresh != null;
+  const threshX = hasBaselineLines ? getX(activeCtrThresh) : null;
+  const threshY = hasBaselineLines ? getY(activeRetThresh) : null;
 
   // SVG Bubbles (verified + warmup with real CTR)
   const bubblesSvg = chartVideos.map(v => {
@@ -5496,8 +5534,8 @@ function renderMatrixTab() {
         '</div>' +
 
         '<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; font-size:12px;">' +
-          '<label style="display:flex; align-items:center; gap:4px; color:var(--accent-cyan);">CTR 기준: <input type="number" id="input-matrix-ctr-thresh" value="' + gMatrixResolvedThresholds.ctr + '" step="0.5" min="1" max="20" style="width:55px; padding:3px 6px; font-size:12px;">%</label>' +
-          '<label style="display:flex; align-items:center; gap:4px; color:var(--accent-magenta);">지속률 기준: <input type="number" id="input-matrix-ret-thresh" value="' + activeRetThresh + '" step="5" min="10" max="95" style="width:55px; padding:3px 6px; font-size:12px;">%</label>' +
+          '<label style="display:flex; align-items:center; gap:4px; color:var(--accent-cyan);">CTR 기준: <input type="number" id="input-matrix-ctr-thresh" value="' + (activeCtrThresh != null ? activeCtrThresh : '') + '" placeholder="기준 없음" step="0.5" min="1" max="20" style="width:65px; padding:3px 6px; font-size:12px;">%</label>' +
+          '<label style="display:flex; align-items:center; gap:4px; color:var(--accent-magenta);">지속률 기준: <input type="number" id="input-matrix-ret-thresh" value="' + (activeRetThresh != null ? activeRetThresh : '') + '" placeholder="기준 없음" step="5" min="10" max="95" style="width:65px; padding:3px 6px; font-size:12px;">%</label>' +
         '</div>' +
       '</div>' +
     '</div>' +
@@ -5519,10 +5557,12 @@ function renderMatrixTab() {
           '</defs>' +
 
           /* Quadrant Tint Rectangles */
-          '<rect x="' + threshX + '" y="' + padTop + '" width="' + (padLeft + chartW - threshX) + '" height="' + (threshY - padTop) + '" fill="url(#grad-q1)"/>' +
-          '<rect x="' + threshX + '" y="' + threshY + '" width="' + (padLeft + chartW - threshX) + '" height="' + (padTop + chartH - threshY) + '" fill="url(#grad-q2)"/>' +
-          '<rect x="' + padLeft + '" y="' + padTop + '" width="' + (threshX - padLeft) + '" height="' + (threshY - padTop) + '" fill="url(#grad-q3)"/>' +
-          '<rect x="' + padLeft + '" y="' + threshY + '" width="' + (threshX - padLeft) + '" height="' + (padTop + chartH - threshY) + '" fill="url(#grad-q4)"/>' +
+          (hasBaselineLines ? (
+            '<rect x="' + threshX + '" y="' + padTop + '" width="' + (padLeft + chartW - threshX) + '" height="' + (threshY - padTop) + '" fill="url(#grad-q1)"/>' +
+            '<rect x="' + threshX + '" y="' + threshY + '" width="' + (padLeft + chartW - threshX) + '" height="' + (padTop + chartH - threshY) + '" fill="url(#grad-q2)"/>' +
+            '<rect x="' + padLeft + '" y="' + padTop + '" width="' + (threshX - padLeft) + '" height="' + (threshY - padTop) + '" fill="url(#grad-q3)"/>' +
+            '<rect x="' + padLeft + '" y="' + threshY + '" width="' + (threshX - padLeft) + '" height="' + (padTop + chartH - threshY) + '" fill="url(#grad-q4)"/>'
+          ) : '') +
 
           /* Quadrant Watermark Labels */
           '<text x="' + (padLeft + chartW - 14) + '" y="' + (padTop + 24) + '" text-anchor="end" fill="rgba(0,240,255,0.7)" font-family="var(--font-display)" font-size="14" font-weight="800">🏆 Q1. 알고리즘 효자 영상 (High CTR · High Retention)</text>' +
@@ -5544,8 +5584,10 @@ function renderMatrixTab() {
           }).join('') +
 
           /* Threshold Dashed Dividing Crosshairs */
-          '<line x1="' + threshX + '" y1="' + padTop + '" x2="' + threshX + '" y2="' + (padTop + chartH) + '" stroke="var(--accent-cyan)" stroke-width="1.8" stroke-dasharray="6,4"/>' +
-          '<line x1="' + padLeft + '" y1="' + threshY + '" x2="' + (padLeft + chartW) + '" y2="' + threshY + '" stroke="var(--accent-magenta)" stroke-width="1.8" stroke-dasharray="6,4"/>' +
+          (hasBaselineLines ? (
+            '<line x1="' + threshX + '" y1="' + padTop + '" x2="' + threshX + '" y2="' + (padTop + chartH) + '" stroke="var(--accent-cyan)" stroke-width="1.8" stroke-dasharray="6,4"/>' +
+            '<line x1="' + padLeft + '" y1="' + threshY + '" x2="' + (padLeft + chartW) + '" y2="' + threshY + '" stroke="var(--accent-magenta)" stroke-width="1.8" stroke-dasharray="6,4"/>'
+          ) : '') +
 
           /* Axis Main Lines */
           '<line x1="' + padLeft + '" y1="' + padTop + '" x2="' + padLeft + '" y2="' + (padTop + chartH) + '" stroke="var(--border-active)" stroke-width="2"/>' +

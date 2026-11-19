@@ -19,7 +19,7 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {GEMINI_TEXT_MODELS} from './gemini-models.mjs';
 import {upsertAudienceDnaFile} from './audience-dna.mjs';
-import {comparableRatioOrNull} from './peer-ratio.mjs';
+import {comparableRatioOrNull, formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 import {buildSpeechField, buildSpeechPatterns} from './speech-stats.mjs';
 
 const execFileAsync = promisify(execFile);
@@ -231,10 +231,10 @@ export function pickFrameMoments(visualMoments = [], windowSeconds, max = MAX_FR
   return [...new Set([...early, ...spread])].sort((a, b) => a.t - b.t);
 }
 
-/** 연출 자료집: 모든 리포트의 화면 변화를 성과 배수 큰 영상부터 펼친다. 제작 단계에서 후보로 꺼내 쓴다. */
+/** 연출 자료집: 모든 리포트의 화면 변화를 새 방식 배수 큰 영상부터 펼친다(옛 방식은 그 뒤, 서로 섞어 비교하지 않는다). 제작 단계에서 후보로 꺼내 쓴다. */
 export function buildVisualLibrary(reports = []) {
   return [...reports]
-    .sort((a, b) => (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
+    .sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
     .flatMap((r) => {
       const frameByT = new Map((r.frames || []).map((f) => [f.t, f.file]));
       return (r.analysis?.visualMoments || []).map((m) => ({
@@ -242,6 +242,10 @@ export function buildVisualLibrary(reports = []) {
         title: r.meta?.title,
         channelTitle: r.meta?.channelTitle,
         outlierRatio: r.outlierRatio ?? null,
+        ratioMethod: r.ratioMethod ?? null,
+        ratioStatus: r.ratioStatus ?? null,
+        ratioReason: r.ratioReason ?? null,
+        teachesAdultEnglishSounds: r.analysis?.teachesAdultEnglishSounds ?? null,
         t: m.t,
         what: m.what,
         purpose: m.purpose,
@@ -357,16 +361,24 @@ export const REPORT_FAILURE_COOLDOWN_DAYS = 7;
 // 키워드 검색으로 들어온 아웃라이어에는 고양이 브이로그 같은 무관한 영상도 섞인다. 영어 학습과 관계있는 제목만 고른다.
 const RELEVANT_TITLE_RE = /영어|영단어|english|발음|파닉스|phonics|단어|회화|듣기|리스닝|스피킹|문법|원어민|미드|읽는/i;
 
-/** 매일 루프가 합친 리포트를 만들 경쟁 영상: 배수 큰 순, 하루 몫만. failures는 {영상ID: 실패 시각}. */
+/** 매일 루프가 합친 리포트를 만들 경쟁 영상: 새 방식 배수 큰 순(옛 방식은 그 뒤, 측정 중·보류는 마지막), 하루 몫만. failures는 {영상ID: 실패 시각}. */
 export function pickReportTargets({marketDemand = {}, existingIds = new Set(), failures = {}, now = new Date(), limit = REPORTS_PER_DAY} = {}) {
   const blockedChannel = (ch) => ch?.status === 'blocked' || ch?.status === 'graduated';
   const blockedIds = new Set((marketDemand.trackedChannels || []).filter(blockedChannel).flatMap((ch) => (ch.topOutliers || []).map((o) => o.videoId)));
+  const compareRatio = (a, b) => ratioTier(a) - ratioTier(b) || (Number(b.outlierRatio) || 0) - (Number(a.outlierRatio) || 0);
   const best = new Map();
   const add = (list) => {
     for (const o of list || []) {
       if (!o?.videoId || blockedIds.has(o.videoId)) continue;
+      const cand = {
+        videoId: o.videoId,
+        outlierRatio: o.outlierRatio != null && Number.isFinite(Number(o.outlierRatio)) ? Number(o.outlierRatio) : null,
+        ratioMethod: o.ratioMethod ?? null,
+        ratioStatus: o.ratioStatus ?? null,
+        title: o.title || '',
+      };
       const prev = best.get(o.videoId);
-      if (!prev || (Number(o.outlierRatio) || 0) > prev.outlierRatio) best.set(o.videoId, {videoId: o.videoId, outlierRatio: Number(o.outlierRatio) || 0, title: o.title || prev?.title || ''});
+      if (!prev || compareRatio(cand, prev) < 0) best.set(o.videoId, {...cand, title: cand.title || prev?.title || ''});
     }
   };
   for (const kw of marketDemand.byKeyword || []) add(kw.topOutliers);
@@ -378,7 +390,7 @@ export function pickReportTargets({marketDemand = {}, existingIds = new Set(), f
       const failedAt = Date.parse(failures[o.videoId] || '');
       return !(Number.isFinite(failedAt) && now.getTime() - failedAt < cooldownMs);
     })
-    .sort((a, b) => b.outlierRatio - a.outlierRatio)
+    .sort(compareRatio)
     .slice(0, limit)
     .map((o) => o.videoId);
 }
@@ -873,7 +885,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && pro
   console.log(`연출 자료집 ${found.length}개${query ? ` (검색어: ${query})` : ''} — 캡처는 이 PC에 있을 때만 경로가 나온다`);
   for (const e of found.slice(0, 40)) {
     const frame = e.frame && existsSync(join(projectDir, e.frame)) ? e.frame : '캡처 없음';
-    const ratio = e.outlierRatio == null ? '측정 전' : `${Math.round(e.outlierRatio)}배`;
+    const ratio = formatRatioLabel(e);
     console.log(`- [${e.channelTitle} · 평소 대비 ${ratio}] ${e.t}초: ${e.what} — ${e.purpose || ''} | ${frame} | http://localhost:3001/outlier-report/${e.videoId}`);
   }
   if (found.length > 40) console.log(`※ 앞 40개만 표시했다(전체 ${found.length}개). 전체를 종류별로 세어 보려면 npm run visual-summary`);

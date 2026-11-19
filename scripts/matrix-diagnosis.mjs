@@ -27,7 +27,7 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
 
   const browseAndSuggestedRatio = totalTrafficViews > 0
     ? Math.round(((browseViews + suggestedViews) / totalTrafficViews) * 100)
-    : 50;
+    : null;
 
   const videoItems = [];
 
@@ -128,10 +128,10 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
     });
   }
 
-  // 4. Dynamic Channel Weighted Averages & 5% Trimmed Outlier Removal
+  // 4. Dynamic Channel Weighted Averages & 5% Trimmed Outlier Removal (값이 없으면 대신값을 만들지 않고 null)
   function calcTrimmedWeightedStats(items) {
-    if (!items.length) return { weightedCtr: 5.5, weightedRet: 42.0, count: 0 };
-    
+    if (!items.length) return { weightedCtr: null, weightedRet: null, count: 0 };
+
     // Sort by views to trim top 5% and bottom 5% outliers
     const sorted = [...items].sort((a, b) => a.views - b.views);
     const trimCount = Math.floor(sorted.length * 0.05);
@@ -140,16 +140,16 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
     // Weighted CTR = (Total Clicks / Total Impressions) * 100
     const totalImpressions = trimmed.reduce((acc, v) => acc + (v.impressions || 0), 0);
     const totalClicks = trimmed.reduce((acc, v) => acc + ((v.impressions || 0) * (v.ctr || 0) / 100), 0);
-    const weightedCtr = totalImpressions > 0 ? (totalClicks / totalImpressions) * 100 : 5.5;
+    const weightedCtr = totalImpressions > 0 ? Math.round(((totalClicks / totalImpressions) * 100) * 10) / 10 : null;
 
     // Weighted Retention = sum(views * retention) / sum(views)
     const totalViews = trimmed.reduce((acc, v) => acc + v.views, 0);
     const totalRetWeight = trimmed.reduce((acc, v) => acc + (v.views * v.retentionRate), 0);
-    const weightedRet = totalViews > 0 ? totalRetWeight / totalViews : 42.0;
+    const weightedRet = totalViews > 0 ? Math.round((totalRetWeight / totalViews) * 10) / 10 : null;
 
     return {
-      weightedCtr: Math.round(weightedCtr * 10) / 10,
-      weightedRet: Math.round(weightedRet * 10) / 10,
+      weightedCtr,
+      weightedRet,
       count: trimmed.length,
     };
   }
@@ -160,24 +160,31 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
   const statsLong = calcTrimmedWeightedStats(verifiedLong);
   const statsShorts = calcTrimmedWeightedStats(verifiedShorts);
 
-  // Dynamic Thresholds (fallback to trimmed weighted channel averages if not explicitly overridden)
-  const ctrThreshold = customThresholds.ctrThreshold != null 
-    ? Number(customThresholds.ctrThreshold) 
-    : (statsLong.weightedCtr || 5.5);
+  // Dynamic Thresholds (형식별 실측 가중 평균. 데이터가 없으면 임의 대신값 대신 null)
+  const ctrThresholdLong = customThresholds.ctrThresholdLong != null
+    ? Number(customThresholds.ctrThresholdLong)
+    : (customThresholds.ctrThreshold != null ? Number(customThresholds.ctrThreshold) : statsLong.weightedCtr);
 
-  const retentionThresholdLong = customThresholds.retentionThresholdLong != null 
-    ? Number(customThresholds.retentionThresholdLong) 
-    : (statsLong.weightedRet || 42.0);
+  const ctrThresholdShorts = customThresholds.ctrThresholdShorts != null
+    ? Number(customThresholds.ctrThresholdShorts)
+    : (customThresholds.ctrThreshold != null ? Number(customThresholds.ctrThreshold) : statsShorts.weightedCtr);
 
-  const retentionThresholdShorts = customThresholds.retentionThresholdShorts != null 
-    ? Number(customThresholds.retentionThresholdShorts) 
-    : (statsShorts.weightedRet || 70.0);
+  const ctrThreshold = ctrThresholdLong;
+
+  const retentionThresholdLong = customThresholds.retentionThresholdLong != null
+    ? Number(customThresholds.retentionThresholdLong)
+    : statsLong.weightedRet;
+
+  const retentionThresholdShorts = customThresholds.retentionThresholdShorts != null
+    ? Number(customThresholds.retentionThresholdShorts)
+    : statsShorts.weightedRet;
 
   // Assign Quadrants
-  const quadrantCounts = { Q1: 0, Q2: 0, Q3: 0, Q4: 0, WARMUP: 0, PENDING_STUDIO: 0, LOW_SAMPLE: 0 };
+  const quadrantCounts = { Q1: 0, Q2: 0, Q3: 0, Q4: 0, WARMUP: 0, PENDING_STUDIO: 0, LOW_SAMPLE: 0, NO_BASELINE: 0 };
 
   const categorizedVideos = videoItems.map(item => {
     const isShort = item.format === 'SHORTS';
+    const ctrThresh = isShort ? ctrThresholdShorts : ctrThresholdLong;
     const retThresh = isShort ? retentionThresholdShorts : retentionThresholdLong;
 
     if (!item.hasRealCtr) {
@@ -219,7 +226,20 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
       };
     }
 
-    const highCtr = (item.ctr || 0) >= ctrThreshold;
+    if (ctrThresh == null || retThresh == null) {
+      quadrantCounts['NO_BASELINE']++;
+      return {
+        ...item,
+        quadrant: 'NO_BASELINE',
+        tentativeQuadrant: null,
+        quadrantLabel: '기준 없음 (표본 부족)',
+        actionBadge: '📏 기준선 수집 중',
+        actionHint: '같은 형식의 비교 기준선(실측 CTR·시청률)이 아직 없어 사분면을 확정하지 않습니다.',
+        isVerified: false,
+      };
+    }
+
+    const highCtr = (item.ctr || 0) >= ctrThresh;
     const highRet = item.retentionRate >= retThresh;
 
     let quadrant = 'Q4';
@@ -268,9 +288,11 @@ export function buildMatrixDataset(dashboardData, customThresholds = {}) {
     },
     thresholds: {
       ctrThreshold,
+      ctrThresholdLong,
+      ctrThresholdShorts,
       retentionThresholdLong,
       retentionThresholdShorts,
-      isDynamic: customThresholds.ctrThreshold == null,
+      isDynamic: customThresholds.ctrThreshold == null && customThresholds.ctrThresholdLong == null && customThresholds.ctrThresholdShorts == null,
     },
     averages: {
       avgCtrLong: statsLong.weightedCtr,

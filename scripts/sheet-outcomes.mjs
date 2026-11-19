@@ -102,7 +102,11 @@ export function settleSheet({sheet, videoId, format, metrics, baselines, video =
     ],
   }));
   const next = {...sheet, results, borrowed};
-  if (sheet.status === 'published') next.outcome = {...(sheet.outcome || {}), views7d: metrics.views7d, watchSeconds7d: metrics.watchSeconds7d, subs7d: metrics.subs7d, ...(metrics.ctr7d !== undefined ? {impressions7d: metrics.impressions7d, ctr7d: metrics.ctr7d} : {}), ...(metrics.stayedToWatch !== undefined ? {stayedToWatch: metrics.stayedToWatch} : {})};
+  if (sheet.status === 'published' || sheet.status === 'approved') {
+    next.status = 'published';
+    if (!next.publishedVideoId) next.publishedVideoId = videoId;
+    next.outcome = {...(sheet.outcome || {}), views7d: metrics.views7d, watchSeconds7d: metrics.watchSeconds7d, subs7d: metrics.subs7d, ...(metrics.ctr7d !== undefined ? {impressions7d: metrics.impressions7d, ctr7d: metrics.ctr7d} : {}), ...(metrics.stayedToWatch !== undefined ? {stayedToWatch: metrics.stayedToWatch} : {})};
+  }
   return {sheet: next, changed: true};
 }
 

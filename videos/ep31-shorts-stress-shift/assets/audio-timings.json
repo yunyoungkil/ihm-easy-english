@@ -1,0 +1,70 @@
+{
+  "voice": {
+    "c00": {
+      "file": "assets/voice-clean/c00.wav",
+      "duration": 3.283
+    },
+    "c01": {
+      "file": "assets/voice-clean/c01.wav",
+      "duration": 2.477
+    },
+    "c02": {
+      "file": "assets/voice-clean/c02.wav",
+      "duration": 2.435
+    },
+    "c03": {
+      "file": "assets/voice-clean/c03.wav",
+      "duration": 2.496
+    },
+    "c05": {
+      "file": "assets/voice-clean/c05.wav",
+      "duration": 1.88
+    },
+    "c06": {
+      "file": "assets/voice-clean/c06.wav",
+      "duration": 2.493
+    },
+    "c07": {
+      "file": "assets/voice-clean/c07.wav",
+      "duration": 2.165
+    },
+    "c09": {
+      "file": "assets/voice-clean/c09.wav",
+      "duration": 2.462
+    },
+    "c10": {
+      "file": "assets/voice-clean/c10.wav",
+      "duration": 2.91
+    },
+    "c11": {
+      "file": "assets/voice-clean/c11.wav",
+      "duration": 2.397
+    }
+  },
+  "voiceEn": {
+    "object-noun": {
+      "file": "assets/voice-en-clean/object-noun.wav",
+      "duration": 0.741
+    },
+    "object-verb": {
+      "file": "assets/voice-en-clean/object-verb.wav",
+      "duration": 0.986
+    },
+    "present-noun": {
+      "file": "assets/voice-en-clean/present-noun.wav",
+      "duration": 0.947
+    },
+    "present-verb": {
+      "file": "assets/voice-en-clean/present-verb.wav",
+      "duration": 0.59
+    },
+    "record-noun": {
+      "file": "assets/voice-en-clean/record-noun.wav",
+      "duration": 0.624
+    },
+    "record-verb": {
+      "file": "assets/voice-en-clean/record-verb.wav",
+      "duration": 0.815
+    }
+  }
+}

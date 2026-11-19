@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-16T09:17:31.360Z",
+  "updatedAt": "2026-11-19T11:37:00.000Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -428,6 +428,40 @@
       "episodeLabel": "EP31 쇼츠",
       "status": "selected",
       "selectedAt": "2026-11-16T09:17:31.360Z",
+      "producedAt": null
+    },
+    {
+      "topic": "철자 하나 안 바뀌는데 힘주는 자리 하나로 뜻이 뒤집히는 영어 단어 세 개 (present · record · object)",
+      "angleOrHook": "선물도 발표도 똑같이 씁니다. 앞은 이름, 뒤는 행동 — 원어민 소리를 2.5초 대비하고 마지막 object 법정 퀴즈로 맞혀 본다.",
+      "targetAudience": "한국에서 영어를 배운 3060 성인 학습자",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [
+        {
+          "source": "competitorOutlier",
+          "detail": "다니엘 잉글리시 클럽! 다잉클!·pvPBD9PLuyk·2,379배(옛 배수 참고)"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "분더스토리·G5unshk12zk·489배"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "Just do English·rooxbEm1oRc·58.9배"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "수키 suekii·Ux_M00VVmEU·274배"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "몬스터잉글리쉬_여행영어·Bxd1XRx25KQ·667배"
+        }
+      ],
+      "episodeSlug": "ep31-shorts-stress-shift",
+      "episodeLabel": "EP31 쇼츠",
+      "status": "selected",
+      "selectedAt": "2026-11-19T11:36:00.000Z",
       "producedAt": null
     }
   ]

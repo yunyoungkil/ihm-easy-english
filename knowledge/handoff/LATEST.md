@@ -14,10 +14,10 @@
 - **유튜브 실제 예약 상태**: `scheduledPublishAt: 2026-11-18T11:00:00Z` (한국시각 11/18 20:00), 영상 ID `Ng6amm9qFrI`.
 - 11/25 수 이후 공개 7일 지표(조회수, 시청시간, 계속시청함)를 수집해 기준선 갱신 여부를 판정한다.
 
-## 다음 제작 (12/1 화 20:00 쇼츠 자리) — 비교 시트 v4 `ep31-shorts-stress-shift` (상태 draft, Gate 1 승인 대기)
+## 다음 제작 (12/1 화 20:00 쇼츠 자리) — EP31 쇼츠 `videos/ep31-shorts-stress-shift/` (Gate 2 렌더 승인 대기)
 - **소재**: 철자 하나 안 바뀌는데 힘주는 자리 하나로 뜻이 뒤집히는 영어 단어 세 개 (`present` 선물/발표 · `record` 음반/녹음 · `object` 물건/반대 퀴즈).
-- **완료(2026-11-19)**: 기존 `w8g6-e9yLP4`·`videos/ep31-shorts-stress` 전부 삭제 후 비교 시트 v4(`schemaVersion: 4`, 단일 최적안 12컷 42.0초, 5편 명작 `references[]`, `selfCritique`, 유튜브 실검색 태그 9개, Korean Skills 교정) 신규 작성. AI Studio 무료 무워터마크 실사 6장 + 6종 탈템플릿 12컷 + 썸네일 3안 생성, `validateSheet` 0오류, `npm test` 779/779 통과, 브라우저 73장 이미지 로드 확인(`http://localhost:3001/transform-sheet/ep31-shorts-stress-shift`).
-- **다음 할 일**: 사용자 Gate 1 승인(제목·썸네일 체크 + 안전/취향 확인) ➔ `FACT-CHECK.md` ➔ 컷 단위 한국어 TTS + 원어민 발음 음성 ➔ Lyria 3.5 신규 BGM ➔ HyperFrames 1080×1920 30fps 조립 ➔ 렌더 검수(Gate 2).
+- **완료(2026-11-19)**: 시트 v4 승인(제목 2안·썸네일 B안) ➔ `FACT-CHECK.md` 8단어 검증 ➔ 한국어 10컷(`Gero`) + 원어민 6개(`Olin`) + 신규 Lyria 3.5 무보컬 BGM(65.75초) 생성 및 전수 청취 확인 ➔ `-18 LUFS` 정규화 ➔ 탈템플릿 `index.html`(40.6초, 12컷, 6종 레이아웃, 1.7초 카운트다운 퀴즈) 조립 ➔ `hyperframes check` 통과(0오류·0경고, 56/56 WCAG AA) · `check-terms` 금지어 없음 · 12컷 애니메이션 콘택트시트 시각 검수 완료.
+- **다음 할 일**: 사용자 Gate 2 렌더 승인 ➔ `npx --yes hyperframes@0.9.19 render` (1080×1920 30fps MP4) ➔ 업로드 패키지 빌드(썸네일 B 메인 + A·C 테스트 3안) ➔ Gate 3 업로드 승인.
 
 ## 토큰 규칙 (2026-11-16 사용자)
 - 시작 때 읽는 것: 이 파일(`LATEST.md`)만. `now.md`는 훅이 앞 8개만 넘긴다. 큰 파일은 `grep -n`으로 필요한 줄만 읽는다.

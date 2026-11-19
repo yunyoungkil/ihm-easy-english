@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="ko" data-resolution="portrait">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>EP31 쇼츠 - 똑같은 영어 단어, 앞을 세게 읽느냐 뒤를 세게 읽느냐로 뜻이 바뀝니다</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('assets/fonts/NotoSansKR-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: #070B14;
+  color: #FFFFFF;
+  font-family: 'Noto Sans KR', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: #070B14;
+}
+.clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #070B14;
+}
+.bg-photo {
+  position: absolute;
+  inset: -40px;
+  background-size: cover;
+  background-position: center;
+  transform-origin: center center;
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,12,22,0.78) 0%, rgba(8,12,22,0.14) 30%, rgba(8,12,22,0.22) 62%, rgba(8,12,22,0.92) 100%);
+}
+.top-hook {
+  position: absolute;
+  top: 186px;
+  left: 48px;
+  right: 170px;
+  z-index: 30;
+  text-align: left;
+  line-height: 1.18;
+  font-size: 62px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: #FFFFFF;
+  text-shadow:
+    0 5px 0 rgba(0,0,0,0.92),
+    0 12px 32px rgba(0,0,0,0.78),
+    -3px -3px 0 rgba(0,0,0,0.85),
+    3px -3px 0 rgba(0,0,0,0.85),
+    -3px 3px 0 rgba(0,0,0,0.85),
+    3px 3px 0 rgba(0,0,0,0.85);
+}
+.hl-gold { color: #FFE14D; }
+.hl-cyan { color: #38F3FF; }
+.hl-red  { color: #FF5A5F; }
+.hl-green { color: #34D399; }
+.pill-inline {
+  display: inline-block;
+  padding: 4px 20px 8px;
+  border-radius: 16px;
+  background: #FFE14D;
+  color: #0B101B;
+  text-shadow: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.step-chip {
+  position: absolute;
+  top: 108px;
+  left: 48px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: rgba(11, 16, 27, 0.84);
+  border: 2px solid rgba(255,255,255,0.24);
+  font-size: 36px;
+  font-weight: 800;
+  color: #F8FAFC;
+  white-space: nowrap;
+}
+.step-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FFE14D;
+}
+.safe-caption {
+  position: absolute;
+  bottom: 296px;
+  left: 48px;
+  right: 170px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(9, 13, 24, 0.86);
+  border-left: 8px solid #FFE14D;
+  padding: 18px 28px;
+  border-radius: 16px;
+  font-size: 40px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.3;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.48);
+}
+.safe-caption.cyan { border-left-color: #38F3FF; }
+.safe-caption.red  { border-left-color: #FF5A5F; }
+.safe-caption.green { border-left-color: #34D399; }
+.nowrap { white-space: nowrap; }
+.word-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.stress-syl {
+  display: inline-block;
+  transform-origin: center bottom;
+}
+.stress-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 16px;
+}
+.stress-bar-hi {
+  height: 22px;
+  border-radius: 12px;
+  transform-origin: left center;
+}
+.stress-bar-lo {
+  width: 110px;
+  height: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.34);
+}
+.flash-card {
+  position: relative;
+  height: 465px;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.52);
+  transform-origin: center center;
+}
+.flash-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.55);
+}
+.flash-body {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 36px;
+}
+.sum-row {
+  background: rgba(255,255,255,0.07);
+  border: 2px solid rgba(255,255,255,0.18);
+  border-radius: 26px;
+  padding: 28px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="40.6" data-width="1080" data-height="1920">
+
+  <!-- CUT 0: 0.00s ~ 3.60s | Diagonal Smash Split Hook (Gift vs Stage + PRESENT) -->
+  <div class="clip" id="scene-00" data-start="0" data-duration="3.6" data-track-index="10">
+    <div id="c0-top" style="position:absolute;inset:-30px;background:url('assets/images/art-gift.jpg') center/cover;clip-path:polygon(0 0, 100% 0, 100% 42%, 0 60%);filter:brightness(0.86) contrast(1.06);"></div>
+    <div id="c0-bot" style="position:absolute;inset:-30px;background:url('assets/images/art-stage.jpg') center/cover;clip-path:polygon(0 60%, 100% 42%, 100% 100%, 0 100%);filter:brightness(0.84) contrast(1.1);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(8,12,22,0.74) 0%, rgba(8,12,22,0.12) 28%, rgba(8,12,22,0.12) 72%, rgba(8,12,22,0.84) 100%);"></div>
+    <svg viewBox="0 0 1080 1920" style="position:absolute;inset:0;width:100%;height:100%;z-index:10">
+      <line id="c0-line1" pathLength="1" x1="0" y1="1152" x2="1080" y2="806" stroke="#FFE14D" stroke-width="14" stroke-dasharray="1 1"/>
+      <line id="c0-line2" pathLength="1" x1="0" y1="1152" x2="1080" y2="806" stroke="#FFFFFF" stroke-width="4" opacity="0.9" stroke-dasharray="1 1"/>
+    </svg>
+    <div class="top-hook" id="c0-hook">같은 영어, <span class="pill-inline">힘 하나로</span><br>뜻이 <span class="hl-gold">뒤집힙니다</span></div>
+    <div id="c0-tag1" class="nowrap" style="position:absolute;top:520px;left:56px;z-index:20;background:#FFE14D;color:#0B101B;padding:12px 30px;border-radius:18px;font-size:46px;font-weight:900;box-shadow:0 12px 30px rgba(0,0,0,0.45);">선물</div>
+    <div id="c0-tag2" class="nowrap" style="position:absolute;top:1240px;right:180px;z-index:20;background:#38F3FF;color:#0B101B;padding:12px 30px;border-radius:18px;font-size:46px;font-weight:900;box-shadow:0 12px 30px rgba(0,0,0,0.45);">발표하다</div>
+    <div id="c0-badge" style="position:absolute;top:850px;left:48px;right:150px;z-index:25;text-align:center;">
+      <div style="display:inline-block;background:#0B101B;border:6px solid #FFE14D;padding:24px 56px;border-radius:28px;box-shadow:0 24px 60px rgba(0,0,0,0.75);transform:rotate(-8deg);">
+        <span class="nowrap" style="font-size:112px;font-weight:900;letter-spacing:4px;color:#FFFFFF;">PRESENT</span>
+      </div>
+    </div>
+    <div class="safe-caption" id="c0-cap">선물도 발표도 똑같이 씁니다</div>
+  </div>
+
+  <!-- CUT 1: 3.40s ~ 6.50s (3.10s) | Kinetic Stress-Pillar Principle Diagram -->
+  <div class="clip" id="scene-01" data-start="3.4" data-duration="3.1" data-track-index="11" style="background:radial-gradient(circle at 28% 35%, #231942 0%, #0D1322 55%, #070A12 100%);">
+    <div class="top-hook">같은 영어, <span class="hl-gold">힘 하나로</span><br>뜻이 뒤집힙니다</div>
+    <div style="position:absolute;top:430px;left:56px;right:170px;z-index:20;">
+      <div id="c1-sub" style="font-size:44px;font-weight:800;color:#94A3B8;margin-bottom:26px;">딱 한 가지 소리 규칙</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div id="c1-card-l" style="background:linear-gradient(180deg, rgba(255,225,77,0.16), rgba(255,225,77,0.04));border:3px solid #FFE14D;border-radius:30px;padding:36px 24px;text-align:center;">
+          <div style="display:flex;align-items:flex-end;justify-content:center;gap:22px;height:280px;margin-bottom:28px;">
+            <div id="c1-pil-l" style="width:94px;height:250px;border-radius:20px;background:linear-gradient(180deg,#FFE14D,#F59E0B);display:flex;align-items:flex-start;justify-content:center;padding-top:18px;font-size:44px;font-weight:900;color:#0B101B;box-shadow:0 0 36px rgba(255,225,77,0.5);transform-origin:center bottom;">쾅!</div>
+            <div style="width:94px;height:96px;border-radius:20px;background:rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:#CBD5E1;">톡</div>
+          </div>
+          <div style="font-size:42px;font-weight:800;color:#FFE14D;">앞에 힘</div>
+          <div class="nowrap" style="font-size:56px;font-weight:900;color:#FFFFFF;margin-top:12px;">이름 · 물건</div>
+        </div>
+        <div id="c1-card-r" style="background:linear-gradient(180deg, rgba(56,243,255,0.16), rgba(56,243,255,0.04));border:3px solid #38F3FF;border-radius:30px;padding:36px 24px;text-align:center;">
+          <div style="display:flex;align-items:flex-end;justify-content:center;gap:22px;height:280px;margin-bottom:28px;">
+            <div style="width:94px;height:96px;border-radius:20px;background:rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:#CBD5E1;">톡</div>
+            <div id="c1-pil-r" style="width:94px;height:250px;border-radius:20px;background:linear-gradient(180deg,#38F3FF,#0284C7);display:flex;align-items:flex-start;justify-content:center;padding-top:18px;font-size:44px;font-weight:900;color:#0B101B;box-shadow:0 0 36px rgba(56,243,255,0.5);transform-origin:center bottom;">쾅!</div>
+          </div>
+          <div style="font-size:42px;font-weight:800;color:#38F3FF;">뒤에 힘</div>
+          <div class="nowrap" style="font-size:56px;font-weight:900;color:#FFFFFF;margin-top:12px;">행동</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption">앞은 이름, 뒤는 행동입니다</div>
+  </div>
+
+  <!-- CUT 2: 6.30s ~ 10.30s (4.00s) | Full-Bleed Gift — PRE-sent -->
+  <div class="clip" id="scene-02" data-start="6.3" data-duration="4.0" data-track-index="10">
+    <div class="bg-photo" id="c2-bg" style="background-image:url('assets/images/art-gift.jpg');filter:brightness(0.76) contrast(1.06);"></div>
+    <div class="vignette"></div>
+    <div class="step-chip"><span class="step-dot"></span><span>1 / 3 · 이름(앞 강세)</span></div>
+    <div class="top-hook">앞을 세게 <span class="hl-gold">쾅!</span><br>읽으면 <span class="pill-inline">선물</span></div>
+    <div id="c2-word" style="position:absolute;bottom:480px;left:48px;right:165px;z-index:20;">
+      <div class="word-row">
+        <span id="c2-hi" class="stress-syl nowrap" style="font-size:158px;font-weight:900;color:#FFE14D;text-shadow:0 10px 30px rgba(0,0,0,0.75);letter-spacing:-2px;">PRE</span>
+        <span class="nowrap" style="font-size:108px;font-weight:700;color:rgba(255,255,255,0.68);text-shadow:0 8px 24px rgba(0,0,0,0.7);">-sent</span>
+      </div>
+      <div class="stress-bar-wrap">
+        <div id="c2-bar" class="stress-bar-hi" style="width:220px;background:#FFE14D;box-shadow:0 0 24px rgba(255,225,77,0.7);"></div>
+        <div class="stress-bar-lo"></div>
+        <span class="nowrap" style="font-size:44px;font-weight:800;color:#FFE14D;margin-left:10px;">프레-즌트</span>
+      </div>
+    </div>
+    <div class="safe-caption">앞을 세게 읽으면 선물</div>
+  </div>
+
+  <!-- CUT 3: 10.10s ~ 13.80s (3.70s) | Full-Bleed Stage — pre-SENT -->
+  <div class="clip" id="scene-03" data-start="10.1" data-duration="3.7" data-track-index="11">
+    <div class="bg-photo" id="c3-bg" style="background-image:url('assets/images/art-stage.jpg');filter:brightness(0.76) contrast(1.1);"></div>
+    <div class="vignette"></div>
+    <div class="step-chip" style="border-color:rgba(56,243,255,0.45);"><span class="step-dot" style="background:#38F3FF;"></span><span>1 / 3 · 행동(뒤 강세)</span></div>
+    <div class="top-hook">뒤를 세게 <span class="hl-cyan">쾅!</span><br>읽으면 <span class="pill-inline" style="background:#38F3FF;">발표하다</span></div>
+    <div id="c3-word" style="position:absolute;bottom:480px;left:48px;right:165px;z-index:20;">
+      <div class="word-row">
+        <span class="nowrap" style="font-size:104px;font-weight:700;color:rgba(255,255,255,0.62);text-shadow:0 8px 24px rgba(0,0,0,0.7);">pre-</span>
+        <span id="c3-hi" class="stress-syl nowrap" style="font-size:158px;font-weight:900;color:#38F3FF;text-shadow:0 10px 34px rgba(0,0,0,0.8);letter-spacing:-2px;">SENT</span>
+      </div>
+      <div class="stress-bar-wrap">
+        <div class="stress-bar-lo"></div>
+        <div id="c3-bar" class="stress-bar-hi" style="width:240px;background:#38F3FF;box-shadow:0 0 24px rgba(56,243,255,0.75);"></div>
+        <span class="nowrap" style="font-size:44px;font-weight:800;color:#38F3FF;margin-left:10px;">프리-젠트</span>
+      </div>
+    </div>
+    <div class="safe-caption cyan">뒤를 세게 읽으면 발표</div>
+  </div>
+
+  <!-- CUT 4: 13.60s ~ 16.00s (2.40s) | Dual-Band Sound Flash — PRESENT -->
+  <div class="clip" id="scene-04" data-start="13.6" data-duration="2.4" data-track-index="10" style="background:#070B14;">
+    <div class="top-hook">귀로 바로 <span class="hl-gold">비교</span><br>힘이 어디로 갈까요?</div>
+    <div style="position:absolute;top:430px;left:48px;right:170px;display:flex;flex-direction:column;gap:34px;z-index:20;">
+      <div class="flash-card" id="c4-a" style="border:5px solid #FFE14D;">
+        <div class="flash-bg" style="background-image:url('assets/images/art-gift.jpg');"></div>
+        <div class="flash-body">
+          <div style="font-size:42px;font-weight:800;color:#FFE14D;">① 앞 강세</div>
+          <div style="margin-top:10px;"><span style="font-size:122px;font-weight:900;color:#FFE14D;">PRE</span><span style="font-size:84px;font-weight:700;color:rgba(255,255,255,0.72);">-sent</span></div>
+          <div style="font-size:50px;font-weight:900;color:#FFFFFF;margin-top:8px;">선물</div>
+        </div>
+      </div>
+      <div class="flash-card" id="c4-b" style="border:5px solid #38F3FF;">
+        <div class="flash-bg" style="background-image:url('assets/images/art-stage.jpg');"></div>
+        <div class="flash-body">
+          <div style="font-size:42px;font-weight:800;color:#38F3FF;">② 뒤 강세</div>
+          <div style="margin-top:10px;"><span style="font-size:84px;font-weight:700;color:rgba(255,255,255,0.72);">pre-</span><span style="font-size:122px;font-weight:900;color:#38F3FF;">SENT</span></div>
+          <div style="font-size:50px;font-weight:900;color:#FFFFFF;margin-top:8px;">발표하다</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption">연속 비교 · PRE-sent / pre-SENT</div>
+  </div>
+
+  <!-- CUT 5: 15.80s ~ 18.30s (2.50s) | Kinetic Chapter Teaser — 2/3 RECORD -->
+  <div class="clip" id="scene-05" data-start="15.8" data-duration="2.5" data-track-index="11" style="background:radial-gradient(circle at 50% 48%, #2B1810 0%, #100E16 58%, #07090F 100%);">
+    <div class="step-chip"><span class="step-dot"></span><span>2 / 3 · 두 번째 단어</span></div>
+    <div class="top-hook">둘째는 소리가<br><span class="hl-gold">더 확실히</span> 갈립니다</div>
+    <div style="position:absolute;top:640px;left:48px;right:165px;text-align:center;z-index:20;">
+      <div style="display:inline-flex;gap:22px;align-items:center;margin-bottom:44px;">
+        <img id="c5-img1" src="assets/images/art-vinyl.jpg" alt="" style="width:260px;height:200px;object-fit:cover;border-radius:24px;border:4px solid #FFE14D;transform:rotate(-5deg);box-shadow:0 16px 36px rgba(0,0,0,0.6);">
+        <span id="c5-vs" style="font-size:56px;font-weight:900;color:#FFE14D;">VS</span>
+        <img id="c5-img2" src="assets/images/art-rec.jpg" alt="" style="width:260px;height:200px;object-fit:cover;border-radius:24px;border:4px solid #FF5A5F;transform:rotate(5deg);box-shadow:0 16px 36px rgba(0,0,0,0.6);">
+      </div>
+      <div id="c5-word" class="nowrap" style="font-size:144px;font-weight:900;letter-spacing:6px;color:#FFFFFF;text-shadow:0 14px 40px rgba(0,0,0,0.8);">RECORD</div>
+      <div style="font-size:44px;font-weight:700;color:#CBD5E1;margin-top:24px;">음반 · 기록일까? 녹음하다일까?</div>
+    </div>
+    <div class="safe-caption">둘째는 더 확실합니다</div>
+  </div>
+
+  <!-- CUT 6: 18.10s ~ 21.80s (3.70s) | Full-Bleed Vinyl — RE-cord -->
+  <div class="clip" id="scene-06" data-start="18.1" data-duration="3.7" data-track-index="10">
+    <div class="bg-photo" id="c6-bg" style="background-image:url('assets/images/art-vinyl.jpg');filter:brightness(0.72) contrast(1.08);"></div>
+    <div class="vignette"></div>
+    <div class="step-chip"><span class="step-dot"></span><span>2 / 3 · 이름(앞 강세)</span></div>
+    <div class="top-hook">앞에 힘주면<br><span class="pill-inline">음반 · 기록</span></div>
+    <div id="c6-word" style="position:absolute;bottom:480px;left:48px;right:165px;z-index:20;">
+      <div class="word-row">
+        <span id="c6-hi" class="stress-syl nowrap" style="font-size:164px;font-weight:900;color:#FFE14D;text-shadow:0 10px 30px rgba(0,0,0,0.8);">RE</span>
+        <span class="nowrap" style="font-size:108px;font-weight:700;color:rgba(255,255,255,0.68);text-shadow:0 8px 24px rgba(0,0,0,0.7);">-cord</span>
+      </div>
+      <div class="stress-bar-wrap">
+        <div id="c6-bar" class="stress-bar-hi" style="width:220px;background:#FFE14D;box-shadow:0 0 24px rgba(255,225,77,0.75);"></div>
+        <div class="stress-bar-lo"></div>
+        <span class="nowrap" style="font-size:44px;font-weight:800;color:#FFE14D;margin-left:10px;">레-커드</span>
+      </div>
+    </div>
+    <div class="safe-caption">앞에 힘주면 음반, 기록</div>
+  </div>
+
+  <!-- CUT 7: 21.60s ~ 25.20s (3.60s) | Full-Bleed REC — re-CORD -->
+  <div class="clip" id="scene-07" data-start="21.6" data-duration="3.6" data-track-index="11">
+    <div class="bg-photo" id="c7-bg" style="background-image:url('assets/images/art-rec.jpg');filter:brightness(0.76) contrast(1.12);"></div>
+    <div class="vignette"></div>
+    <div class="step-chip" style="border-color:rgba(255,90,95,0.55);"><span id="c7-dot" class="step-dot" style="background:#FF5A5F;"></span><span>2 / 3 · 행동(뒤 강세)</span></div>
+    <div class="top-hook">뒤에 힘주면<br><span class="pill-inline" style="background:#FF5A5F;color:#FFFFFF;">● REC 녹음하다</span></div>
+    <div id="c7-word" style="position:absolute;bottom:480px;left:48px;right:165px;z-index:20;">
+      <div class="word-row">
+        <span class="nowrap" style="font-size:104px;font-weight:700;color:rgba(255,255,255,0.62);text-shadow:0 8px 24px rgba(0,0,0,0.7);">re-</span>
+        <span id="c7-hi" class="stress-syl nowrap" style="font-size:154px;font-weight:900;color:#FF5A5F;text-shadow:0 10px 34px rgba(0,0,0,0.85);">CORD</span>
+      </div>
+      <div class="stress-bar-wrap">
+        <div class="stress-bar-lo"></div>
+        <div id="c7-bar" class="stress-bar-hi" style="width:240px;background:#FF5A5F;box-shadow:0 0 26px rgba(255,90,95,0.8);"></div>
+        <span class="nowrap" style="font-size:44px;font-weight:800;color:#FF8589;margin-left:10px;">리-코드</span>
+      </div>
+    </div>
+    <div class="safe-caption red">뒤에 힘주면 녹음하다</div>
+  </div>
+
+  <!-- CUT 8: 25.00s ~ 27.30s (2.30s) | Dual-Band Sound Flash — RECORD -->
+  <div class="clip" id="scene-08" data-start="25.0" data-duration="2.3" data-track-index="10" style="background:#070B14;">
+    <div class="top-hook">소리가 완전히 <span class="hl-red">딴판!</span><br>바로 비교해 보세요</div>
+    <div style="position:absolute;top:430px;left:48px;right:170px;display:flex;flex-direction:column;gap:34px;z-index:20;">
+      <div class="flash-card" id="c8-a" style="border:5px solid #FFE14D;">
+        <div class="flash-bg" style="background-image:url('assets/images/art-vinyl.jpg');"></div>
+        <div class="flash-body">
+          <div style="font-size:42px;font-weight:800;color:#FFE14D;">① 앞 강세</div>
+          <div style="margin-top:10px;"><span style="font-size:126px;font-weight:900;color:#FFE14D;">RE</span><span style="font-size:84px;font-weight:700;color:rgba(255,255,255,0.72);">-cord</span></div>
+          <div style="font-size:50px;font-weight:900;color:#FFFFFF;margin-top:8px;">음반 · 기록</div>
+        </div>
+      </div>
+      <div class="flash-card" id="c8-b" style="border:5px solid #FF5A5F;">
+        <div class="flash-bg" style="background-image:url('assets/images/art-rec.jpg');"></div>
+        <div class="flash-body">
+          <div style="font-size:42px;font-weight:800;color:#FF8589;">② 뒤 강세</div>
+          <div style="margin-top:10px;"><span style="font-size:84px;font-weight:700;color:rgba(255,255,255,0.72);">re-</span><span style="font-size:120px;font-weight:900;color:#FF5A5F;">CORD</span></div>
+          <div style="font-size:50px;font-weight:900;color:#FFFFFF;margin-top:8px;">녹음하다</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption red">연속 비교 · RE-cord / re-CORD</div>
+  </div>
+
+  <!-- CUT 9: 27.10s ~ 32.80s (5.70s) | Live 1.7s Quiz Arena — OBJECT (Answer Hidden!) -->
+  <div class="clip" id="scene-09" data-start="27.1" data-duration="5.7" data-track-index="11" style="background:#090D18;">
+    <div id="c9-top" style="position:absolute;top:0;left:0;right:0;height:50%;background:url('assets/images/art-cup.jpg') center/cover;filter:brightness(0.68);"></div>
+    <div id="c9-bot" style="position:absolute;bottom:0;left:0;right:0;height:50%;background:url('assets/images/art-court.jpg') center/cover;filter:brightness(0.68);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(8,12,22,0.82) 0%, rgba(8,12,22,0.18) 28%, rgba(8,12,22,0.45) 50%, rgba(8,12,22,0.18) 72%, rgba(8,12,22,0.86) 100%);"></div>
+    <div class="step-chip" style="border-color:#FFE14D;"><span class="step-dot"></span><span>3 / 3 · 실전 귀 퀴즈</span></div>
+    <div class="top-hook">지금 들리는 뜻,<br><span class="hl-gold">A</span>일까요 <span class="hl-cyan">B</span>일까요?</div>
+    <div id="c9-optA" class="nowrap" style="position:absolute;top:520px;left:56px;z-index:20;background:rgba(11,16,27,0.88);border:4px solid #FFE14D;padding:18px 34px;border-radius:22px;font-size:50px;font-weight:900;color:#FFFFFF;">A. 물건 · 사물</div>
+    <div id="c9-optB" class="nowrap" style="position:absolute;top:1210px;left:56px;z-index:20;background:rgba(11,16,27,0.88);border:4px solid #38F3FF;padding:18px 34px;border-radius:22px;font-size:50px;font-weight:900;color:#FFFFFF;">B. 반대하다</div>
+    <div style="position:absolute;top:790px;left:48px;right:165px;z-index:25;display:flex;align-items:center;justify-content:center;gap:28px;">
+      <div id="c9-word" style="background:#0B101B;border:6px solid #FFFFFF;padding:26px 56px;border-radius:30px;box-shadow:0 24px 60px rgba(0,0,0,0.82);">
+        <span class="nowrap" style="font-size:116px;font-weight:900;letter-spacing:6px;color:#FFFFFF;">OBJECT</span>
+      </div>
+      <div id="c9-ring-wrap" style="position:relative;width:150px;height:150px;display:flex;align-items:center;justify-content:center;">
+        <svg width="150" height="150" viewBox="0 0 150 150" style="position:absolute;inset:0;transform:rotate(-90deg);">
+          <circle cx="75" cy="75" r="64" fill="rgba(11,16,27,0.92)" stroke="rgba(255,255,255,0.18)" stroke-width="10"/>
+          <circle id="c9-ring" pathLength="1" cx="75" cy="75" r="64" fill="none" stroke="#FFE14D" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 1" stroke-dashoffset="0"/>
+        </svg>
+        <span id="c9-q" style="position:relative;z-index:2;font-size:62px;font-weight:900;color:#FFE14D;">?</span>
+      </div>
+    </div>
+    <div class="safe-caption">마지막 퀴즈, 무슨 뜻일까요?</div>
+  </div>
+
+  <!-- CUT 10: 32.60s ~ 37.20s (4.60s) | Quiz Payoff Smash — ob-JECT -->
+  <div class="clip" id="scene-10" data-start="32.6" data-duration="4.6" data-track-index="10">
+    <div class="bg-photo" id="c10-bg" style="background-image:url('assets/images/art-court.jpg');filter:brightness(0.76) contrast(1.12);"></div>
+    <div class="vignette"></div>
+    <div id="c10-flash" style="position:absolute;inset:0;background:#FFE14D;opacity:0;z-index:15;"></div>
+    <div class="step-chip" style="border-color:#34D399;"><span class="step-dot" style="background:#34D399;"></span><span>정답 공개 · B 반대하다!</span></div>
+    <div class="top-hook">뒤가 세게 <span class="hl-green">쾅!</span><br>정답은 <span id="c10-stamp" class="pill-inline" style="background:#34D399;color:#06231A;">B. 반대하다</span></div>
+    <div id="c10-word" style="position:absolute;bottom:480px;left:48px;right:165px;z-index:20;">
+      <div class="word-row">
+        <span class="nowrap" style="font-size:104px;font-weight:700;color:rgba(255,255,255,0.65);text-shadow:0 8px 24px rgba(0,0,0,0.7);">ob-</span>
+        <span id="c10-hi" class="stress-syl nowrap" style="font-size:158px;font-weight:900;color:#34D399;text-shadow:0 10px 36px rgba(0,0,0,0.85);">JECT</span>
+      </div>
+      <div id="c10-note" class="nowrap" style="margin-top:20px;display:inline-block;background:rgba(11,16,27,0.86);border:2px solid rgba(255,255,255,0.28);padding:14px 28px;border-radius:16px;font-size:38px;font-weight:700;color:#E2E8F0;">
+        참고 · 앞 강세 <b style="color:#FFE14D;">OB-ject</b> = 물건
+      </div>
+    </div>
+    <div class="safe-caption green">뒤가 세죠? 정답은 반대하다</div>
+  </div>
+
+  <!-- CUT 11: 37.00s ~ 40.60s (3.60s) | 3-Row Checklist Summary + Pinned Comment CTA -->
+  <div class="clip" id="scene-11" data-start="37.0" data-duration="3.6" data-track-index="11" style="background:linear-gradient(165deg, #11192E 0%, #0A0F1D 55%, #070B14 100%);">
+    <div class="top-hook">오늘 끝낸 <span class="hl-gold">세 단어</span><br>앞=이름 · 뒤=행동</div>
+    <div style="position:absolute;top:430px;left:48px;right:170px;display:flex;flex-direction:column;gap:26px;z-index:20;">
+      <div class="sum-row" id="c11-r0">
+        <div>
+          <div class="nowrap" style="font-size:48px;font-weight:900;"><span style="color:#FFE14D;">PRE</span>-sent</div>
+          <div style="font-size:36px;font-weight:700;color:#E2E8F0;margin-top:4px;">선물</div>
+        </div>
+        <div style="font-size:44px;color:#64748B;">↔</div>
+        <div style="text-align:right;">
+          <div class="nowrap" style="font-size:48px;font-weight:900;">pre-<span style="color:#38F3FF;">SENT</span></div>
+          <div style="font-size:36px;font-weight:700;color:#E2E8F0;margin-top:4px;">발표</div>
+        </div>
+      </div>
+      <div class="sum-row" id="c11-r1">
+        <div>
+          <div class="nowrap" style="font-size:48px;font-weight:900;"><span style="color:#FFE14D;">RE</span>-cord</div>
+          <div style="font-size:36px;font-weight:700;color:#E2E8F0;margin-top:4px;">음반</div>
+        </div>
+        <div style="font-size:44px;color:#64748B;">↔</div>
+        <div style="text-align:right;">
+          <div class="nowrap" style="font-size:48px;font-weight:900;">re-<span style="color:#FF5A5F;">CORD</span></div>
+          <div style="font-size:36px;font-weight:700;color:#E2E8F0;margin-top:4px;">녹음</div>
+        </div>
+      </div>
+      <div class="sum-row" id="c11-r2">
+        <div>
+          <div class="nowrap" style="font-size:48px;font-weight:900;"><span style="color:#FFE14D;">OB</span>-ject</div>
+          <div style="font-size:36px;font-weight:700;color:#E2E8F0;margin-top:4px;">물건</div>
+        </div>
+        <div style="font-size:44px;color:#64748B;">↔</div>
+        <div style="text-align:right;">
+          <div class="nowrap" style="font-size:48px;font-weight:900;">ob-<span style="color:#34D399;">JECT</span></div>
+          <div style="font-size:36px;font-weight:700;color:#E2E8F0;margin-top:4px;">반대</div>
+        </div>
+      </div>
+      <div id="c11-cta" class="nowrap" style="margin-top:16px;background:linear-gradient(90deg,#FFE14D,#38F3FF);padding:24px 26px;border-radius:24px;color:#070B14;font-size:40px;font-weight:900;text-align:center;box-shadow:0 16px 36px rgba(56,243,255,0.34);">
+        고정 댓글에 보너스 다섯 단어!
+      </div>
+    </div>
+    <div class="safe-caption cyan">다섯 단어 더 고정 댓글에 있어요</div>
+  </div>
+
+  <!-- AUDIO TRACKS (Cleaned & Normalized -18 LUFS WAVs + Brand-New Lyria 3.5 BGM with Ducking) -->
+  <audio id="v00" src="assets/voice-clean/c00.wav" data-start="0.12" data-duration="3.283" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v01" src="assets/voice-clean/c01.wav" data-start="3.72" data-duration="2.477" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v02" src="assets/voice-clean/c02.wav" data-start="6.62" data-duration="2.435" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en02" src="assets/voice-en-clean/present-noun.wav" data-start="9.18" data-duration="0.947" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v03" src="assets/voice-clean/c03.wav" data-start="10.42" data-duration="2.496" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en03" src="assets/voice-en-clean/present-verb.wav" data-start="13.04" data-duration="0.59" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en04a" src="assets/voice-en-clean/present-noun.wav" data-start="13.95" data-duration="0.947" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en04b" src="assets/voice-en-clean/present-verb.wav" data-start="15.12" data-duration="0.59" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v05" src="assets/voice-clean/c05.wav" data-start="16.12" data-duration="1.88" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v06" src="assets/voice-clean/c06.wav" data-start="18.42" data-duration="2.493" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en06" src="assets/voice-en-clean/record-noun.wav" data-start="21.04" data-duration="0.624" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v07" src="assets/voice-clean/c07.wav" data-start="21.92" data-duration="2.165" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en07" src="assets/voice-en-clean/record-verb.wav" data-start="24.22" data-duration="0.815" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en08a" src="assets/voice-en-clean/record-noun.wav" data-start="25.35" data-duration="0.624" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en08b" src="assets/voice-en-clean/record-verb.wav" data-start="26.20" data-duration="0.815" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v09" src="assets/voice-clean/c09.wav" data-start="27.42" data-duration="2.462" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en09" src="assets/voice-en-clean/object-verb.wav" data-start="30.08" data-duration="0.986" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v10" src="assets/voice-clean/c10.wav" data-start="32.92" data-duration="2.91" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en10" src="assets/voice-en-clean/object-verb.wav" data-start="36.00" data-duration="0.986" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v11" src="assets/voice-clean/c11.wav" data-start="37.32" data-duration="2.397" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="40.6" data-track-index="3" data-volume="0.08" data-fade-out="1.2" data-fx-carve='{"enabled":true,"sources":["voiceover"],"strength":0.78}'></audio>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// Smooth 0.20s crossfades on incoming scenes
+const fades = [
+  ['#scene-01', 3.4], ['#scene-02', 6.3], ['#scene-03', 10.1],
+  ['#scene-04', 13.6], ['#scene-05', 15.8], ['#scene-06', 18.1],
+  ['#scene-07', 21.6], ['#scene-08', 25.0], ['#scene-09', 27.1],
+  ['#scene-10', 32.6], ['#scene-11', 37.0]
+];
+for (const [sel, t] of fades) {
+  tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'none' }, t);
+}
+
+// CUT 0 (0.00 ~ 3.60): Diagonal split smash + PRESENT pop
+tl.fromTo('#c0-top', { scale: 1.08, x: -24 }, { scale: 1.0, x: 0, duration: 3.6, ease: 'power1.out' }, 0);
+tl.fromTo('#c0-bot', { scale: 1.08, x: 24 }, { scale: 1.0, x: 0, duration: 3.6, ease: 'power1.out' }, 0);
+tl.fromTo('#c0-line1', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35, ease: 'power2.out' }, 0.08);
+tl.fromTo('#c0-line2', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35, ease: 'power2.out' }, 0.12);
+tl.fromTo('#c0-badge', { opacity: 0, scale: 0.72 }, { opacity: 1, scale: 1, duration: 0.42, ease: 'back.out(1.9)' }, 0.18);
+tl.fromTo('#c0-tag1', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 0.30);
+tl.fromTo('#c0-tag2', { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 0.85);
+
+// CUT 1 (3.40 ~ 6.50): Stress pillars shooting up on vocal beats
+tl.fromTo('#c1-card-l', { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }, 3.55);
+tl.fromTo('#c1-pil-l', { scaleY: 0.12 }, { scaleY: 1, duration: 0.42, ease: 'back.out(1.6)' }, 3.72);
+tl.fromTo('#c1-card-r', { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }, 4.55);
+tl.fromTo('#c1-pil-r', { scaleY: 0.12 }, { scaleY: 1, duration: 0.42, ease: 'back.out(1.6)' }, 4.78);
+
+// CUT 2 (6.30 ~ 10.30): Full-bleed Gift + PRE pop synced to en02 @ 9.18s
+tl.fromTo('#c2-bg', { scale: 1.0 }, { scale: 1.07, duration: 4.0, ease: 'none' }, 6.3);
+tl.fromTo('#c2-word', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 6.55);
+tl.fromTo('#c2-bar', { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.out' }, 9.15);
+tl.to('#c2-hi', { scale: 1.16, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 9.18);
+
+// CUT 3 (10.10 ~ 13.80): Full-bleed Stage + SENT pop synced to en03 @ 13.04s
+tl.fromTo('#c3-bg', { scale: 1.0 }, { scale: 1.07, duration: 3.7, ease: 'none' }, 10.1);
+tl.fromTo('#c3-word', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 10.35);
+tl.fromTo('#c3-bar', { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.out' }, 13.00);
+tl.to('#c3-hi', { scale: 1.16, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 13.04);
+
+// CUT 4 (13.60 ~ 16.00): Pure-sound dual-band flash synced to 13.95s & 15.12s
+tl.set('#c4-a', { opacity: 0.72, scale: 0.98 }, 13.6);
+tl.set('#c4-b', { opacity: 0.72, scale: 0.98 }, 13.6);
+tl.to('#c4-a', { opacity: 1, scale: 1.03, duration: 0.2, ease: 'power2.out' }, 13.92);
+tl.to('#c4-a', { opacity: 0.72, scale: 0.98, duration: 0.18, ease: 'power1.in' }, 15.05);
+tl.to('#c4-b', { opacity: 1, scale: 1.03, duration: 0.2, ease: 'power2.out' }, 15.10);
+
+// CUT 5 (15.80 ~ 18.30): RECORD chapter teaser
+tl.fromTo('#c5-img1', { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.38, ease: 'back.out(1.5)' }, 15.95);
+tl.fromTo('#c5-img2', { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.38, ease: 'back.out(1.5)' }, 16.05);
+tl.fromTo('#c5-word', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)' }, 16.15);
+
+// CUT 6 (18.10 ~ 21.80): Full-bleed Vinyl + RE pop synced to en06 @ 21.04s
+tl.fromTo('#c6-bg', { scale: 1.0, rotation: 0 }, { scale: 1.07, rotation: 4, duration: 3.7, ease: 'none' }, 18.1);
+tl.fromTo('#c6-word', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 18.35);
+tl.fromTo('#c6-bar', { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.out' }, 21.00);
+tl.to('#c6-hi', { scale: 1.16, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 21.04);
+
+// CUT 7 (21.60 ~ 25.20): Full-bleed REC + live blinking dot + CORD pop @ 24.22s
+tl.fromTo('#c7-bg', { scale: 1.0 }, { scale: 1.07, duration: 3.6, ease: 'none' }, 21.6);
+tl.to('#c7-dot', { opacity: 0.2, duration: 0.4, yoyo: true, repeat: 7, ease: 'sine.inOut' }, 21.7);
+tl.fromTo('#c7-word', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 21.85);
+tl.fromTo('#c7-bar', { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: 'power2.out' }, 24.18);
+tl.to('#c7-hi', { scale: 1.16, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 24.22);
+
+// CUT 8 (25.00 ~ 27.30): Pure-sound dual-band flash synced to 25.35s & 26.20s
+tl.set('#c8-a', { opacity: 0.72, scale: 0.98 }, 25.0);
+tl.set('#c8-b', { opacity: 0.72, scale: 0.98 }, 25.0);
+tl.to('#c8-a', { opacity: 1, scale: 1.03, duration: 0.18, ease: 'power2.out' }, 25.32);
+tl.to('#c8-a', { opacity: 0.72, scale: 0.98, duration: 0.16, ease: 'power1.in' }, 26.12);
+tl.to('#c8-b', { opacity: 1, scale: 1.03, duration: 0.18, ease: 'power2.out' }, 26.18);
+
+// CUT 9 (27.10 ~ 32.80): Live Quiz Arena + 1.7s SVG Countdown Ring!
+tl.fromTo('#c9-word', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.38, ease: 'back.out(1.7)' }, 27.30);
+tl.fromTo('#c9-optA', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.32, ease: 'power3.out' }, 27.75);
+tl.fromTo('#c9-optB', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.32, ease: 'power3.out' }, 28.05);
+// Pulse speaker/question mark right when ob-JECT plays at 30.08s
+tl.to('#c9-ring-wrap', { scale: 1.14, duration: 0.22, yoyo: true, repeat: 1, ease: 'power2.out' }, 30.08);
+// Smooth 1.70s countdown ring depletion during thinking window (31.05s ~ 32.75s)
+tl.fromTo('#c9-ring', { strokeDashoffset: 0 }, { strokeDashoffset: 1, duration: 1.70, ease: 'none' }, 31.05);
+tl.to('#c9-q', { scale: 1.18, duration: 0.28, yoyo: true, repeat: 4, ease: 'sine.inOut' }, 31.10);
+
+// CUT 10 (32.60 ~ 37.20): Courtroom Gavel Smash Payoff + JECT pop @ 36.00s
+tl.fromTo('#c10-bg', { scale: 1.12 }, { scale: 1.02, duration: 4.6, ease: 'power2.out' }, 32.6);
+tl.fromTo('#c10-flash', { opacity: 0.42 }, { opacity: 0, duration: 0.32, ease: 'power2.out' }, 32.65);
+tl.fromTo('#c10-stamp', { scale: 1.35, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: 'back.out(2)' }, 32.85);
+tl.fromTo('#c10-word', { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out' }, 33.15);
+tl.to('#c10-hi', { scale: 1.16, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 36.00);
+
+// CUT 11 (37.00 ~ 40.60): 3-Row Checklist Cascade + CTA Pulse
+tl.fromTo('#c11-r0', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 37.18);
+tl.fromTo('#c11-r1', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 37.42);
+tl.fromTo('#c11-r2', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 37.66);
+tl.fromTo('#c11-cta', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.38, ease: 'back.out(1.8)' }, 38.05);
+tl.to('#c11-cta', { scale: 1.04, duration: 0.32, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 38.65);
+
+window.__timelines = window.__timelines || {};
+window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

@@ -228,7 +228,7 @@ const kstLabel = (iso) => {
 const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
 
 const briefingLines = (check, briefing) => {
-  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = [], loopHealth = null} = briefing;
+  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = [], loopHealth = null, workflowDiagnosis = null} = briefing;
   const lines = ['브리핑 재료(이 숫자로 줄을 만든다. "줄을 쓰지 않는다"라고 적힌 줄은 뺀다. 형식: 00-unblock-and-weekly.md 0-C):'];
   lines.push(`- 제목 줄: **브리핑** (episode-planning 0-C · 동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
   lines.push(
@@ -271,6 +271,9 @@ const briefingLines = (check, briefing) => {
         ? `- 자동 루프: 정상 (마지막 자동 실행 ${kstLabel(loopHealth.lastLoopAt)}) — 짧게 한 줄로 쓴다`
         : `- 자동 루프 고장 ${loopHealth.problems.length}개: ${loopHealth.problems.map((p) => p.text).join(' / ')} — 브리핑에 그대로 쓰고, 브리핑 직후 Claude가 묻지 않고 원인을 찾아 고친 뒤 결과를 알린다(비교 시트·렌더·업로드 승인과 사용자 결정이 필요한 것만 묻는다). 코드: scripts/loop-health.mjs`,
     );
+  }
+  if (workflowDiagnosis) {
+    lines.push(`- 루프 진단 (1건): [${workflowDiagnosis.area}] ${workflowDiagnosis.finding} → 수정·업그레이드안: ${workflowDiagnosis.proposal}`);
   }
   if (comments) {
     lines.push(

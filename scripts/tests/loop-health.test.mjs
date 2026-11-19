@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {checkLoopHealth} from '../loop-health.mjs';
+import {checkLoopHealth, diagnoseWorkflowLoop} from '../loop-health.mjs';
+import {buildBriefingContext} from '../growth-rules.mjs';
 
 const now = new Date('2026-11-20T12:00:00Z');
 const hoursAgo = (h) => new Date(now.getTime() - h * 3600000).toISOString();
@@ -117,4 +118,49 @@ test('스튜디오 조사 목록: 한 형식의 통과 후보가 3일 연속 0�
   assert.deepEqual(ids(checkLoopHealth({...healthy(), studioResearch: short})), []);
   const recovered = {updatedAt: hoursAgo(5), runs: [run(days[0], 'SHORTS', 0), run(days[1], 'SHORTS', 2), run(days[2], 'SHORTS', 0)]};
   assert.deepEqual(ids(checkLoopHealth({...healthy(), studioResearch: recovered})), []);
+});
+
+test('diagnoseWorkflowLoop: 자동 루프 고장이 있으면 1순위로 진단하고 수정안을 제시한다', () => {
+  const d = diagnoseWorkflowLoop({
+    now,
+    loopHealth: {ok: false, problems: [{id: 'sync-stale', text: '유튜브 동기화가 40시간 안 됐다'}]},
+    studioResearch: {runs: [{date: '2026-11-19'}], candidates: {a: {}}},
+  });
+  assert.equal(d.severity, 'urgent');
+  assert.match(d.area, /sync-stale/);
+  assert.match(d.finding, /40시간/);
+  assert.ok(d.proposal.length > 0);
+});
+
+test('diagnoseWorkflowLoop: 고장이 없으면 실제 데이터 업그레이드 후보 중 하루 1건씩 돌아가며 제시하고 브리핑 문장에 들어간다', () => {
+  const input = {
+    loopHealth: {ok: true, problems: []},
+    dailyLoop: {outlierReportCatchUp: 1},
+    studioResearch: {runs: [{date: '2026-11-18'}, {date: '2026-11-19'}], candidates: {a: {}, b: {}}},
+    outlierReports: [{videoId: 'v1', ratioMethod: null, analysis: {}}],
+    transformSheets: [{sourceVideoId: 's1', status: 'approved', results: []}],
+    koreanTrends: null,
+  };
+  const d1 = diagnoseWorkflowLoop({...input, now: new Date('2026-11-19T12:00:00Z')});
+  const d2 = diagnoseWorkflowLoop({...input, now: new Date('2026-11-20T12:00:00Z')});
+  assert.equal(d1.severity, 'upgrade');
+  assert.equal(d1.candidateCount, 4);
+  assert.notEqual(d1.area, d2.area, '날짜가 바뀌면 다른 워크플로우 지점을 1건씩 순환 진단한다');
+
+  const ctx = buildBriefingContext({briefing: {data: {}, workflowDiagnosis: d1}}, []);
+  assert.ok(ctx.includes(`- 루프 진단 (1건): [${d1.area}]`), '브리핑 문맥에 루프 진단 1건 줄이 포함된다');
+  assert.ok(ctx.includes('수정·업그레이드안:'));
+});
+
+test('diagnoseWorkflowLoop: 모든 항목이 정상·최신이면 healthy 상태로 다음 점검안을 돌려준다', () => {
+  const d = diagnoseWorkflowLoop({
+    now,
+    loopHealth: {ok: true, problems: []},
+    studioResearch: null,
+    outlierReports: [{videoId: 'v1', ratioMethod: 'peer-median-views-v2', analysis: {teachesAdultEnglishSounds: true}}],
+    transformSheets: [{sourceVideoId: 's1', status: 'published', results: [{videoId: 'x'}]}],
+    koreanTrends: {sources: {googleTrendsKr: {ok: true}, youtubePopularKr: {ok: true}}},
+  });
+  assert.equal(d.severity, 'healthy');
+  assert.equal(d.candidateCount, 0);
 });

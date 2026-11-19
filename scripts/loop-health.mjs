@@ -114,3 +114,129 @@ export function loadLoopHealth(projectDir, now = new Date()) {
     oldReportFiles: ['outlier-comments', 'script-insights'].reduce((n, dir) => n + (existsSync(join(dataDir, dir)) ? readdirSync(join(dataDir, dir)).length : 0), 0),
   });
 }
+
+/**
+ * 현재 워크플로우 루프의 실제 데이터·상태를 점검해 가장 먼저 살필 1가지 문제점과 수정·업그레이드 방안을 돌려준다(2026-11-19 사용자 요청).
+ * 순수 함수(테스트 가능). 실제 수치가 없으면 꾸며내지 않고 있는 그대로 보고한다.
+ * @returns {{area: string, severity: 'urgent'|'upgrade'|'healthy', finding: string, proposal: string, candidateCount: number}}
+ */
+export function diagnoseWorkflowLoop({
+  now = new Date(),
+  loopHealth = null,
+  dailyLoop = null,
+  studioResearch = null,
+  koreanTrends = null,
+  outlierReports = [],
+  transformSheets = [],
+} = {}) {
+  // 1순위: 자동 루프에 실제 고장·누락이 있으면 그 첫 번째 문제를 바로 진단한다.
+  if (loopHealth && loopHealth.ok === false && Array.isArray(loopHealth.problems) && loopHealth.problems.length) {
+    const p = loopHealth.problems[0];
+    return {
+      area: `자동 루프(${p.id})`,
+      severity: 'urgent',
+      finding: p.text,
+      proposal: '브리핑 직후 해당 단계 로그와 원인을 열어 수정하고 단위 테스트·다음 주기 재소비까지 검증',
+      candidateCount: loopHealth.problems.length,
+    };
+  }
+
+  // 2순위: 고장이 없으면 실제 데이터에서 관측된 루프 업그레이드 후보들을 모으고, 날짜 기준으로 하루 1건씩 돌아가며 제시한다.
+  const candidates = [];
+
+  // (a) 스튜디오 조사 목록 2단계 전환 준비도
+  if (studioResearch) {
+    const okDays = [...new Set((studioResearch.runs || []).map((r) => r.date).filter(Boolean))].length;
+    const candCount = Object.keys(studioResearch.candidates || {}).length;
+    const catchUp = dailyLoop?.outlierReportCatchUp;
+    if (okDays > 0) {
+      candidates.push({
+        area: '조사 데이터 → 리포트 대상 전환',
+        severity: 'upgrade',
+        finding: `스튜디오 조사 1단계 ${okDays}일치(유효 후보 ${candCount}편) 수집됐으나 리포트 선정은 아직 옛 손입력 목록 기준(따라잡기 남은 편수 ${catchUp ?? '확인 전'})`,
+        proposal: catchUp === 0 && okDays >= 6
+          ? '설계 조건(6일+ 수집·따라잡기 0편)이 충족됐으니 pickReportTargets 2단계(조사 후보 우선) 전환을 착수'
+          : '설계 기준(7일 중 6일 ok·따라잡기 0편) 도달 시 2단계로 전환해 노이즈가 많은 옛 손입력 목록 의존을 축소',
+      });
+    }
+  }
+
+  // (b) 아웃라이어 리포트 옛 방식 배수·미판정 비중
+  if (outlierReports.length) {
+    const legacy = outlierReports.filter((r) => r?.ratioMethod == null).length;
+    const unjudged = outlierReports.filter((r) => r?.analysis?.teachesAdultEnglishSounds == null).length;
+    if (legacy > 0) {
+      candidates.push({
+        area: '배율 일관성(아웃라이어 리포트)',
+        severity: 'upgrade',
+        finding: `저장된 리포트 ${outlierReports.length}편 중 ${legacy}편이 옛 방식 배수(ratioMethod 없음), ${unjudged}편이 성인 영어 소리 판정 미기입(null) 상태`,
+        proposal: '옛 방식 리포트는 참고용으로 격리 유지하고, 실제 기획에 채택하는 영상부터 v2 배수(peer-ratio)와 적합성 판정을 우선 재확인',
+      });
+    }
+  }
+
+  // (c) 비교 시트 → 공개 성과 환류 공백
+  const approvedSheets = transformSheets.filter((s) => s?.status === 'approved');
+  const measuredSheets = transformSheets.filter((s) => Array.isArray(s?.results) && s.results.length > 0);
+  if (approvedSheets.length > 0 && measuredSheets.length === 0) {
+    candidates.push({
+      area: '비교 시트 → 성과 학습 환류',
+      severity: 'upgrade',
+      finding: `승인된 비교 시트 ${approvedSheets.length}장이 있으나 7일 성과가 정산된 시트가 아직 0장이라 시험 변수별 근거 묶음이 비어 있음`,
+      proposal: '공개된 시트 영상의 첫 7일 지표가 들어오는 시점에 sheet-outcomes 정산 → next-episode-input 8·9절 환류가 실제 닫히는지 확인',
+    });
+  }
+
+  // (d) 국내 실시간 트렌드 수집 상태
+  if (!koreanTrends) {
+    candidates.push({
+      area: '국내 실시간 트렌드 레이더',
+      severity: 'upgrade',
+      finding: '국내 실시간 트렌드 파일(data/youtube/korean-trends.json)이 아직 수집되지 않아 기회 포착 레이더가 비어 있음',
+      proposal: 'npm run korean-trends 실행으로 Google Trends KR + YouTube KR 인기 급상승을 수집해 next-episode-input 13절에 연결',
+    });
+  } else {
+    const gt = koreanTrends.sources?.googleTrendsKr;
+    const yt = koreanTrends.sources?.youtubePopularKr;
+    if (gt?.ok === false || yt?.ok === false) {
+      const broken = [gt?.ok === false ? `Google Trends(${gt.error || '오류'})` : null, yt?.ok === false ? `YouTube KR(${yt.error || '오류'})` : null].filter(Boolean).join(', ');
+      candidates.push({
+        area: '국내 실시간 트렌드 레이더',
+        severity: 'upgrade',
+        finding: `국내 트렌드 소스 일부 실패(${broken}) — 이전 수집 데이터로 임시 유지 중`,
+        proposal: '실패 소스 응답·API 키 상태를 점검해 양쪽 소스가 모두 최신으로 갱신되도록 복구',
+      });
+    }
+  }
+
+  if (!candidates.length) {
+    return {
+      area: '워크플로우 루프 전반',
+      severity: 'healthy',
+      finding: '자동 루프·배율·트렌드·시트 연결에서 즉시 조치할 구조적 단절이 관측되지 않음',
+      proposal: '다음 공개 영상의 7일 성과 정산과 비교 시트 적용 추적(appliedTo)이 실제 렌더 결과물과 일치하는지 점검',
+      candidateCount: 0,
+    };
+  }
+
+  const daySeed = Math.floor(new Date(now).getTime() / D);
+  const picked = candidates[Math.abs(daySeed) % candidates.length];
+  return {...picked, candidateCount: candidates.length};
+}
+
+/** 실제 디스크 파일을 읽어 브리핑용 워크플로우 루프 1건 진단을 만든다. */
+export function loadWorkflowLoopDiagnosis(projectDir, now = new Date(), loopHealth = null) {
+  const dataDir = join(projectDir, 'data', 'youtube');
+  const readDirJsons = (dir) => (existsSync(dir)
+    ? readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => readJson(join(dir, f), null)).filter(Boolean)
+    : []);
+  return diagnoseWorkflowLoop({
+    now,
+    loopHealth: loopHealth ?? loadLoopHealth(projectDir, now),
+    dailyLoop: readJson(join(dataDir, 'daily-loop.json'), null),
+    studioResearch: readJson(join(dataDir, 'studio-research.json'), null),
+    koreanTrends: readJson(join(dataDir, 'korean-trends.json'), null),
+    outlierReports: readDirJsons(join(dataDir, 'outlier-reports')),
+    transformSheets: readDirJsons(join(dataDir, 'transform-sheets')),
+  });
+}

@@ -8,4 +8,4 @@
 - [x] 탈템플릿 HyperFrames `index.html` 조립 완료 (40.6초, 12컷, 6종 레이아웃, `hyperframes check` 통과 0오류·0경고, 56/56 WCAG AA, 12컷 콘택트시트 시각 검수 완료)
 - [x] 렌더 승인 완료 (Gate 2) 및 최종 MP4 렌더링 완료 (`renders/ep31-shorts-stress-shift_2026-11-19_22-07-40.mp4`, 14.8MB, 40.6s 30fps)
 - [x] 업로드 패키지 빌드 완료 (`output/upload-packages/ep31-shorts-stress-shift/` 비디오, 메인 썸네일 thumb-B + A/C 시안, 제목, 설명, 태그, 고정 댓글, 자막 SRT, 승인 메타)
-- [ ] 유튜브 최종 업로드 승인 대기 (Gate 3, 12/01 화 20:00 예약 슬롯)
+- [x] 유튜브 최종 예약 완료 (Gate 3, `AkDKw4o_C58`, 2026-12-01 20:00 KST / 11:00 UTC 예약 등록 확인)

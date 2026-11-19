@@ -1,7 +1,9 @@
 {
-  "status": "ready_for_upload",
+  "status": "scheduled",
   "episodeId": "ep31-shorts-stress-shift",
   "format": "shorts",
   "createdAt": "2026-11-19T13:09:00Z",
-  "scheduledFor": "2026-12-01T11:00:00Z"
+  "scheduledFor": "2026-12-01T11:00:00Z",
+  "lastSyncedAt": "2026-11-19T13:17:59.987Z",
+  "videoId": "AkDKw4o_C58"
 }

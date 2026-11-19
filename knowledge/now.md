@@ -1,10 +1,11 @@
 # 지금 할 일
 
-마지막 확인: 2026-11-19
+마지막 확인: 2026-11-20
 
 ## ▶ 다음 할 일
 
 급한 순서로 적는다. 새 대화의 시작 브리핑에 그대로 나온다. 끝난 항목은 바로 지우고, 새 일이 생기면 여기에 적는다.
+- [ ] **커뮤니티 게시물 관리 (2026-11-20 구축 완료)**: `scripts/post-publish-pipeline.mjs`의 `manageCommunityPosts`가 롱폼 패키지의 `community-post.json`을 읽어 자동 발행 관리. EP27(DOGS 복습 퀴즈) 및 EP28(FAN vs PAN 0.1초 구별 퀴즈) 규격 생성 완료. 스튜디오 커뮤니티 탭 방치글(1, 3) 2건 삭제 정비 완료.
 - [ ] **Claude (12/08 화 이후, EP31 쇼츠 공개 7일 결과)**: 영상 ID `AkDKw4o_C58`(12/01 20:00 공개). 공개 7일 조회수·"계속 시청함"·평균 시청 시간을 `catalog.json`·스튜디오 수집에서 뽑아 `knowledge/style-experiments.md` 2번 줄 "공개 7일 결과"·"판정"에 적는다.
 - [ ] **다른 PC (2026-11-16, 사용자가 새벽 1시 이후에 쓴다 — 절차는 `knowledge/handoff/2026-11-14.md` 마지막 절 "다른 PC가 먼저 할 것")**: `git pull` → 대시보드 서버 다시 켜기 → 매일 루프 예약이 있으면 지우기 → 경쟁 영상 캡처가 비어 있으면 `npm run outlier-frames` → Studio-Automation 크롬 로그인 확인. 경쟁 영상 캡처는 2026-11-16 깃에 올리기로 결정·반영됨(`git pull`이면 온다).
 - [ ] **먼저 읽기 (2026-11-13)**: `knowledge/handoff/LATEST.md`(이전 대화·다른 PC의 맥락 요약, 날짜 파일은 grep으로만). 어려운 판단은 `CLAUDE.md` 규칙대로 `opus-expert`(Opus 5.5)에 먼저 묻는다.

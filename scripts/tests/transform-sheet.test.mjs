@@ -353,3 +353,88 @@ test('시트 화면: 3판의 시험 변수와 용어 풀이를 보여 주고, �
   const plain = renderTransformSheetPage(good(), report, []);
   assert.ok(!plain.includes('이번에 시험하는 변수') && !plain.includes('용어 풀이'), '1·2판 시트에는 이 칸이 안 나온다');
 });
+
+test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다중 references·입말 숫자 차단·AI 자체 비평을 검사하고 깔끔하게 그린다', async () => {
+  const {validateSheet, spokenKoreanProblems, selfCritiqueProblems, sheetLinksByVideo} = await import('../transform-sheet.mjs');
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const tags = ['영어발음', '영어듣기', '영어회화', '기초영어', '생활영어', '미국발음', '영어공부', '영어단어'];
+  const mkRow = (key, origin, extraOurs = {}) => ({
+    key,
+    origin,
+    originReason: `${key} 근거`,
+    competitor: origin === 'ours' ? {} : {text: `경쟁 ${key}`},
+    ours: {text: `우리 ${key}`, ...extraOurs},
+    why: `${key} 이유`,
+  });
+  const v4 = {
+    schemaVersion: 4,
+    episodeId: 'ep31-shorts-new',
+    topic: '새 기획 쇼츠',
+    status: 'draft',
+    format: 'SHORTS',
+    selfCritique: {
+      antiTemplate: '가운데 네모 카드 고정 없이 컷별 화면 분할과 볼드 타이포로 구성',
+      evolutionFromPrev: 'EP30 대비 0.5초 훅 시각 대비와 호흡 템포 강화',
+      fusionCheck: '명작 A의 첫 3초 질문과 명작 B의 시각 압축을 컷 0~2에 융합',
+    },
+    references: [
+      {videoId: 'REFAAAAAAAA', role: '훅', what: '첫 3초 반전 질문', reason: '시청자 스크롤 정지', evidence: '쇼츠 상위 5편 공통', appliedTo: ['cut:0', 'title:1']},
+      {videoId: 'REFBBBBBBBB', role: '비주얼', what: '좌우 대비 화면 분할', reason: '직관적 소리 차이', evidence: '유지율 상위 영상', appliedTo: ['cut:1', 'thumb:1']},
+    ],
+    rejected: [],
+    pending: [],
+    testVariables: [{variable: '다중 명작 비주얼 융합', hypothesis: '템플릿 탈피 시 계속 시청함 상승 가설', measure: '계속 시청함'}],
+    glossary: [],
+    rows: [
+      mkRow('title', 'mixed', {titles: ['첫 번째 제목 후보', '두 번째 제목 후보']}),
+      mkRow('thumbnail', 'mixed', {images: ['images/ep31-shorts-new/thumb-1.jpg']}),
+      mkRow('opening', 'mixed'),
+      mkRow('flow', 'ours'),
+      mkRow('visual', 'ours', {
+        cutPlan: {
+          durationSeconds: 12,
+          hook: ['네 글자 아닙니다, 딱 한 박자!'],
+          hookWhy: '0.5초 내 상식 깨기로 이탈 방지(9자 초과도 자유 형태 허용)',
+          cuts: [
+            {t: 0, image: 'images/ep31-shorts-new/cuts/cut-01.jpg', narration: '네 글자 아닙니다.', motion: '볼드 타이포 팝업'},
+            {t: 3.5, image: 'images/ep31-shorts-new/cuts/cut-02.jpg', narration: '딱 한 박자예요.', motion: '좌우 대비 분할'},
+            {t: 8.0, image: 'images/ep31-shorts-new/cuts/cut-03.jpg', narration: '다섯 글자도 한 박자!', motion: '압축 임팩트'},
+          ],
+        },
+      }),
+      mkRow('reaction', 'ours'),
+      mkRow('ending', 'ours'),
+      {
+        key: 'package',
+        origin: 'ours',
+        originReason: '업로드 패키지',
+        ours: {description: '설명글', tags, tagCheck: tags.map((tag) => ({tag, verdict: '맞음'})), pinnedComment: '고정 댓글'},
+        why: '패키지 이유',
+      },
+    ],
+  };
+
+  // 1) cutPlan2·sourceVideoId·9자 훅 제한·하단 띠 없어도 v4는 깔끔히 통과
+  assert.deepEqual(validateSheet(v4, {imageExists: () => true}), []);
+
+  // 2) 입말 숫자('4글자', '1박자')가 나레이션에 들어가면 즉시 차단
+  const badNum = structuredClone(v4);
+  badNum.rows.find((r) => r.key === 'visual').ours.cutPlan.cuts[0].narration = '4글자 아닙니다. 1박자예요.';
+  assert.ok(spokenKoreanProblems(badNum.rows.find((r) => r.key === 'visual').ours.cutPlan).some((p) => p.includes('4글자') && p.includes('1박자')));
+  assert.ok(validateSheet(badNum, {imageExists: () => true}).some((p) => p.includes('아라비아 숫자 입말')));
+
+  // 3) AI 자체 비평(selfCritique) 누락 시 차단
+  const noCrit = structuredClone(v4);
+  delete noCrit.selfCritique;
+  assert.ok(selfCritiqueProblems(noCrit).some((p) => p.includes('selfCritique')));
+  assert.ok(validateSheet(noCrit, {imageExists: () => true}).some((p) => p.includes('selfCritique')));
+
+  // 4) references 링크 추적 & 렌더링 확인(AI 자체 비평 + 다중 명작 + 단일 최적안 1줄)
+  const links = sheetLinksByVideo([v4]);
+  assert.equal(links.get('REFAAAAAAAA')[0].sheetId, 'ep31-shorts-new');
+  const html = renderTransformSheetPage(v4, null, []);
+  assert.ok(html.includes('🧠 AI 자체 비평'), '자체 비평 카드 표시');
+  assert.ok(html.includes('🎬 융합한 명작 레퍼런스'), '다중 명작 섹션 표시');
+  assert.ok(html.includes('🚀 AI 최적안 · 컷 1'), '단일 최적안 컷 라벨 표시');
+  assert.ok(!html.includes('1안 (경쟁 베이스)'), '레거시 1~4안 라벨 없음');
+});

@@ -6206,34 +6206,38 @@ const server = createServer(async (req, res) => {
       res.end(renderTransformSheetIndex(loadTransformSheets().map((sheet) => ({sheet, report: reports.get(sheet.sourceVideoId) || null}))));
       return;
     }
-    const sheetMatch = url.pathname.match(/^\/transform-sheet\/([\w-]{11})$/);
+    const sheetMatch = url.pathname.match(/^\/transform-sheet\/([\w-]{3,60})$/);
     if (sheetMatch) {
-      const sheet = loadTransformSheets().find((x) => x.sourceVideoId === sheetMatch[1]);
+      const sid = sheetMatch[1];
+      const sheet = loadTransformSheets().find((x) => x.episodeId === sid || x.sourceVideoId === sid);
       if (!sheet) return json(res, 404, {error: '이 영상의 비교 시트가 없습니다.'});
-      const reportPath = join(outlierReportsDir, sheetMatch[1] + '.json');
-      const report = existsSync(reportPath) ? await loadJson(reportPath) : null;
+      const srcVid = sheet.sourceVideoId || '';
+      const reportPath = srcVid ? join(outlierReportsDir, srcVid + '.json') : '';
+      const report = reportPath && existsSync(reportPath) ? await loadJson(reportPath) : null;
       if (report) queueMissingOutlierFrames(report);
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
       // 컷 감지가 0번인 영상(화면 안에서 바뀌는 영상)은 AI가 적은 화면 변화 시각의 속도로 우리 컷 수를 비교한다(2026-11-16 사용자: 경쟁 컷 리듬이 빠져 있다)
       const pacingForCheck = (rep) => { const p = rep?.pacing; if (!p || Number(p.perMinute) > 0) return p; const ts = [...new Set((rep?.analysis?.visualMoments || []).map((m) => Number(m.t)))]; const dur = Number(rep?.windowSeconds) || Number(rep?.meta?.durationSeconds) || 0; return ts.length && dur ? {...p, perMinute: Math.round((ts.length / dur) * 600) / 10} : p; };
-      // 경쟁 화면 캡처: 원본 + 가져온 출처 영상의 저장된 캡처를 초 순서로(2026-11-16)
+      // 경쟁 화면 캡처: 원본 + 가져온 출처(borrowed + v4 references)의 저장된 캡처를 초 순서로(2026-11-16, 2026-11-19 v4 확장)
       const thumbIds = (sheet.rows || []).flatMap((r) => (r.competitor?.images || []).map((tk) => String(tk).match(/^thumb:([A-Za-z0-9_-]{11})$/)?.[1]).filter(Boolean));
-      const refIds = [...new Set([sheetMatch[1], ...(sheet.borrowed || []).map((b) => b.fromVideoId).filter(Boolean), ...thumbIds])];
+      const refVideoIds = (sheet.references || []).map((r) => r.videoId).filter(Boolean);
+      const refIds = [...new Set([srcVid, ...(sheet.borrowed || []).map((b) => b.fromVideoId).filter(Boolean), ...refVideoIds, ...thumbIds].filter(Boolean))];
       const refReports = [];
       for (const rid of refIds) {
         const rp = join(outlierReportsDir, rid + '.json');
         const rr = existsSync(rp) ? await loadJson(rp) : null;
         if (!rr) continue;
         const frames = (rr.frames || []).filter((fr) => fr && fr.file && existsSync(join(outlierFramesDir, rid, fr.file))).sort((x, y) => Number(x.t) - Number(y.t));
-        refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', duration: Number(rr.windowSeconds) || Number(rr.meta?.durationSeconds) || 0, cutCount: Number(rr.pacing?.count) || 0, moments: [...new Set((rr.analysis?.visualMoments || []).map((m) => Number(m.t)).filter((x) => Number.isFinite(x)))].sort((a, b) => a - b), frames: rid === sheetMatch[1] || (sheet.borrowed || []).some((bb) => bb.fromVideoId === rid) ? frames : []});
+        const showFrames = rid === srcVid || (sheet.borrowed || []).some((bb) => bb.fromVideoId === rid) || refVideoIds.includes(rid);
+        refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', duration: Number(rr.windowSeconds) || Number(rr.meta?.durationSeconds) || 0, cutCount: Number(rr.pacing?.count) || 0, moments: [...new Set((rr.analysis?.visualMoments || []).map((m) => Number(m.t)).filter((x) => Number.isFinite(x)))].sort((a, b) => a - b), frames: showFrames ? frames : []});
       }
-      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report)}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sheetMatch[1]), join(outlierFramesDir, sheetMatch[1])])}));
+      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report)}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
       return;
     }
     if (url.pathname === '/api/transform-sheet-pick' && req.method === 'POST') {
       const body = await readJsonBody(req);
       const vid = String(body.videoId || '');
-      if (!/^[\w-]{11}$/.test(vid)) return json(res, 400, {error: '영상 ID가 이상합니다.'});
+      if (!/^[\w-]{3,60}$/.test(vid)) return json(res, 400, {error: '시트 ID가 이상합니다.'});
       const file = join(transformSheetsDir, vid + '.json');
       if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
       try {
@@ -6243,7 +6247,7 @@ const server = createServer(async (req, res) => {
         return json(res, 200, {ok: true, thumbnailPicks: next.thumbnailPicks, titlePicks: next.titlePicks});
       } catch (e) { return json(res, 400, {error: e.message}); }
     }
-    const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{11})\/((?:cuts[23]?\/)?[\w.-]{1,60}\.(?:jpg|png))$/);
+    const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{3,60})\/((?:cuts\d*\/)?[\w.-]{1,60}\.(?:jpg|png))$/);
     if (sheetImageMatch) {
       const imagePath = join(transformSheetsDir, 'images', sheetImageMatch[1], sheetImageMatch[2]);
       if (!existsSync(imagePath)) return json(res, 404, {error: '이미지가 없습니다.'});

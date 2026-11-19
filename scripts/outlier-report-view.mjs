@@ -30,7 +30,7 @@ h1{font-size:23px;font-weight:800;letter-spacing:-0.5px;margin:12px 0 16px;line-
 .moment{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}.moment img{width:auto;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
 .t{font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent);background:var(--accent-glow);padding:2px 6px;border-radius:4px;font-size:12.5px}
 table{width:100%;border-collapse:collapse;font-size:13.5px;display:table;border-radius:8px;overflow:hidden;border:1px solid var(--line);margin:10px 0}code{font-size:12.5px;background:var(--line);padding:2px 5px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}th{background:rgba(255,255,255,0.04);font-weight:700;color:var(--sub);border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}tr:last-child td{border-bottom:none}
-.thumbbox{display:flex;flex-wrap:nowrap;gap:14px;overflow:auto;max-height:80vh;padding:12px 6px 16px;border:1px solid var(--line);border-radius:12px;margin:10px 0;background:rgba(0,0,0,0.04)}.pick{position:relative;flex:0 0 auto;transition:transform 0.2s}.pick:hover{transform:translateY(-2px)}.pick img.real{width:200px;height:auto;display:block;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,0.12)}.pick input{position:absolute;top:6px;right:6px;width:24px;height:24px;accent-color:var(--accent);cursor:pointer}.titles label{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;cursor:pointer;border-radius:8px;border:1px solid var(--line);margin:6px 0;background:var(--card);transition:background 0.15s,border-color 0.15s}.titles label:hover{border-color:var(--accent);background:var(--card-hover)}.titles input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--accent);margin-top:2px}.thumb{max-width:380px;width:100%;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,0.15)}
+.thumbbox{display:flex;flex-wrap:nowrap;gap:14px;overflow:auto;max-height:80vh;padding:12px 6px 16px;border:1px solid var(--line);border-radius:12px;margin:10px 0;background:rgba(0,0,0,0.04)}.pick{position:relative;flex:0 0 auto;transition:transform 0.2s}.pick:hover{transform:translateY(-2px)}.pick img.real{width:200px;height:355px;object-fit:cover;display:block;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,0.12)}.pick input{position:absolute;top:6px;right:6px;width:24px;height:24px;accent-color:var(--accent);cursor:pointer}.titles label{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;cursor:pointer;border-radius:8px;border:1px solid var(--line);margin:6px 0;background:var(--card);transition:background 0.15s,border-color 0.15s}.titles label:hover{border-color:var(--accent);background:var(--card-hover)}.titles input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--accent);margin-top:2px}.thumb{max-width:380px;width:100%;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,0.15)}
 .list{display:flex;flex-direction:column;gap:10px}.list a{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;text-decoration:none;color:inherit;align-items:center}.list img{width:180px;border-radius:8px;border:1px solid var(--line)}
 @media (max-width:600px){.list a{grid-template-columns:100px minmax(0,1fr)}.list img{width:100px}}
 main > p:first-child{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--sub);font-size:13px}
@@ -239,6 +239,18 @@ const SHEET_CSS = `<style>
 .film img{height:300px;width:auto;border-radius:6px;border:1px solid var(--line);display:block}
 .film figcaption{font-size:11.5px;font-weight:700;color:var(--accent);margin-top:6px}
 .film figure .say{width:167px;margin:6px auto 0;font-size:13px;line-height:1.45;text-align:left;white-space:normal;word-break:keep-all;color:var(--ink);background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:6px}
+.film.ours-grid{display:grid;grid-template-columns:repeat(var(--cols,13),190px);grid-template-rows:repeat(var(--rows,4),minmax(0,auto));grid-auto-flow:column;gap:12px;overflow-x:auto;padding:8px 4px 16px;align-items:stretch}
+.cut-card{margin:0;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;box-shadow:0 2px 6px rgba(0,0,0,0.05);box-sizing:border-box;width:190px}
+.cut-card.p1{border-color:rgba(148,163,184,0.4)}
+.cut-card.p2{border-color:rgba(56,189,248,0.45)}
+.cut-card.p3{border-color:rgba(192,132,252,0.5);background:rgba(168,85,247,0.02)}
+.cut-card.p4{border-color:rgba(0,210,211,0.6);background:rgba(0,210,211,0.03)}
+.cut-card .vtag{font-size:11px;font-weight:800;margin-bottom:5px;padding:2px 6px;border-radius:4px;display:inline-block;align-self:flex-start}
+.cut-card img{width:172px;height:306px;object-fit:cover;border-radius:6px;border:1px solid var(--line);display:block}
+.cut-card figcaption{font-size:11.5px;font-weight:700;margin-top:6px;text-align:center}
+.cut-card .say{width:100%;box-sizing:border-box;margin:6px 0 0;font-size:12.5px;line-height:1.45;text-align:left;white-space:normal;word-break:keep-all;color:var(--ink);background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.05)}
+.cut-card .say.motion{font-size:11.5px;background:transparent;border:none;padding:4px 0 0}
+.cut-card .say.bottom{font-size:11px;opacity:0.85;padding:2px 0 0;background:transparent;border:none}
 .fullscript div{padding:4px 0;border-bottom:1px solid var(--line-subtle)}
 .pkg{white-space:pre-wrap;word-break:keep-all;margin:6px 0 10px;font:inherit;font-size:13.5px;background:rgba(0,0,0,0.03);padding:10px 12px;border-radius:8px;border:1px solid var(--line)}
 .film.ours figure{border-color:rgba(56,189,248,0.3)}
@@ -281,34 +293,80 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
   if (Array.isArray(times) && times.length) parts.push(`<div class="tl-label">경쟁 컷 이미지</div><div class="film comp">${times.map((t, i) => fig(ver(`/outlier-frames/${id}/cut-${String(i).padStart(2, '0')}.jpg`), t)).join('')}</div>`);
   // 경쟁 영상의 저장된 화면 캡처를 초 순서로 보여 준다(2026-11-16 사용자: 비교 시트에 경쟁 비주얼 컷이 하나도 없다). 컷 시각 감지가 실패한 영상(w8g6 등)도 캡처는 있다. 원본과 가져온 출처 영상 모두.
   for (const r of refs.filter((x) => x.frames && x.frames.length)) parts.push(`<div class="tl-label">경쟁 화면 캡처 — ${escapeHtml(r.label)} · ${r.frames.length}장(저장된 캡처를 초 순서로)</div><div class="film comp">${r.frames.map((fr) => fig(ver(`/outlier-frames/${encodeURIComponent(r.videoId)}/${escapeHtml(fr.file)}`), fr.t)).join('')}</div>`);
-  // 1안 아래에 2안·3안을 같은 칸으로 놓되 각 안의 대본·움직임·아래 띠는 자기 이미지 바로 아래에 둔다(2026-11-16 사용자).
+  // 1안 아래에 2안·3안·4안을 2D 그리드로 배치하여, 모든 컷에서 1·2·3·4안의 수평 시작선과 높이가 칼같이 일치하도록 한다(2026-11-17 정렬 일치).
   const plan2 = row.ours?.cutPlan2;
   const plan3 = row.ours?.cutPlan3;
-  const vtag = (label, color, extraStyle = '') => `<div style="font-size:11.5px;font-weight:800;color:${color};text-align:left;margin:2px 0 3px;${extraStyle}">${label}</div>`;
+  const plan4 = row.ours?.cutPlan4;
   const bottomText = (b) => (typeof b === 'string' ? b : b?.subtitle || b?.speaker || '');
-  const oursFig = (c, idx) => {
-    const c2 = plan2?.cuts?.[idx];
-    const c3 = plan3?.cuts?.[idx];
-    const nar2 = c2 ? (c2.narration ?? c.narration) : '';
-    const b2 = bottomText(c2?.bottom);
-    const b3 = bottomText(c3?.bottom);
-    const block1 = `${plan2 || plan3 ? vtag('1안', 'var(--sub)') : ''}<a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷 1안"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${!c2 && c.narration ? `<div class="say">${escapeHtml(c.narration)}</div>` : ''}`;
-    const block2 = c2
-      ? `${vtag('2안', 'var(--accent)', 'margin-top:8px;padding-top:6px;border-top:1px dashed var(--line)')}<a href="${oursUrl(c2.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c2.image)}" alt="${escapeHtml(c2.t)}초 컷 2안"></a><figcaption>${escapeHtml(c2.t)}초</figcaption>${nar2 ? `<div class="say">${escapeHtml(nar2)}</div>` : ''}${c2.motion ? `<div class="say" style="color:var(--sub)">2안 움직임: ${escapeHtml(c2.motion)}</div>` : ''}${b2 ? `<div class="say" style="color:var(--sub)">2안 아래 띠: ${escapeHtml(b2)}</div>` : ''}`
-      : '';
-    const block3 = c3
-      ? `${vtag('3안 · Gemini (내가 만듦)', '#c084fc', 'margin-top:8px;padding-top:6px;border-top:1px dashed rgba(192,132,252,0.45)')}<a href="${oursUrl(c3.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c3.image)}" alt="${escapeHtml(c3.t)}초 컷 3안"></a><figcaption style="color:#c084fc">${escapeHtml(c3.t)}초</figcaption>${c3.narration ? `<div class="say" style="color:#c084fc">3안 대본(Gemini): ${escapeHtml(c3.narration)}</div>` : ''}${c3.motion ? `<div class="say" style="color:#c084fc">3안 움직임: ${escapeHtml(c3.motion)}</div>` : ''}${b3 ? `<div class="say" style="color:#c084fc">3안 아래 띠: ${escapeHtml(b3)}</div>` : ''}`
-      : '';
-    return `<figure>${block1}${block2}${block3}</figure>`;
-  };
+
+  const hasP2 = Boolean(plan2?.cuts?.length);
+  const hasP3 = Boolean(plan3?.cuts?.length);
+  const hasP4 = Boolean(plan4?.cuts?.length);
+  const hasMultiPlans = hasP2 || hasP3 || hasP4;
+  const rowCount = 1 + (hasP2 ? 1 : 0) + (hasP3 ? 1 : 0) + (hasP4 ? 1 : 0);
+
+  const gridCards = [];
+  (plan?.cuts || []).forEach((c, idx) => {
+    // 단일 최적안(v4 슬로건 시트)이면 불필요한 '1안(경쟁 베이스)' 라벨 없이 AI 최적안 1줄로 깔끔하게 출력
+    if (!hasMultiPlans) {
+      const b1 = bottomText(c.bottom);
+      gridCards.push(`<figure class="cut-card p4"><span class="vtag" style="background:#00D2D3;color:#000">🚀 AI 최적안 · 컷 ${idx + 1}</span><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${c.narration ? `<div class="say"><b>대본:</b> ${escapeHtml(c.narration)}</div>` : ''}${c.motion ? `<div class="say motion" style="color:var(--sub)"><b>연출/모션:</b> ${escapeHtml(c.motion)}</div>` : ''}${b1 ? `<div class="say bottom" style="color:var(--sub)"><b>하단:</b> ${escapeHtml(b1)}</div>` : ''}</figure>`);
+      return;
+    }
+    // 레거시 1~4안 대조 카드
+    gridCards.push(`<figure class="cut-card p1"><span class="vtag" style="background:var(--sub);color:#fff">1안 (경쟁 베이스)</span><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷 1안"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${c.narration ? `<div class="say"><b>대본:</b> ${escapeHtml(c.narration)}</div>` : ''}</figure>`);
+
+    // 2안 카드
+    if (hasP2) {
+      const c2 = plan2?.cuts?.[idx];
+      const nar2 = c2 ? (c2.narration ?? c.narration) : '';
+      const b2 = bottomText(c2?.bottom);
+      if (c2) {
+        gridCards.push(`<figure class="cut-card p2"><span class="vtag" style="background:var(--accent);color:#fff">2안 (개선 시안)</span><a href="${oursUrl(c2.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c2.image)}" alt="${escapeHtml(c2.t)}초 컷 2안"></a><figcaption>${escapeHtml(c2.t)}초</figcaption>${nar2 ? `<div class="say"><b>대본:</b> ${escapeHtml(nar2)}</div>` : ''}${c2.motion ? `<div class="say motion" style="color:var(--sub)"><b>움직임:</b> ${escapeHtml(c2.motion)}</div>` : ''}${b2 ? `<div class="say bottom" style="color:var(--sub)"><b>하단 띠:</b> ${escapeHtml(b2)}</div>` : ''}</figure>`);
+      } else {
+        gridCards.push('<figure class="cut-card p2"><div class="meta" style="margin:auto">2안 컷 없음</div></figure>');
+      }
+    }
+
+    // 3안 카드
+    if (hasP3) {
+      const c3 = plan3?.cuts?.[idx];
+      const b3 = bottomText(c3?.bottom);
+      if (c3) {
+        gridCards.push(`<figure class="cut-card p3"><span class="vtag" style="background:#c084fc;color:#fff">3안 · Gemini 독자 설계</span><a href="${oursUrl(c3.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c3.image)}" alt="${escapeHtml(c3.t)}초 컷 3안"></a><figcaption style="color:#c084fc">${escapeHtml(c3.t)}초</figcaption>${c3.narration ? `<div class="say" style="color:#c084fc"><b>3안 대본:</b> ${escapeHtml(c3.narration)}</div>` : ''}${c3.motion ? `<div class="say motion" style="color:#c084fc"><b>움직임:</b> ${escapeHtml(c3.motion)}</div>` : ''}${b3 ? `<div class="say bottom" style="color:#c084fc"><b>하단 띠:</b> ${escapeHtml(b3)}</div>` : ''}</figure>`);
+      } else {
+        gridCards.push('<figure class="cut-card p3"><div class="meta" style="margin:auto">3안 컷 없음</div></figure>');
+      }
+    }
+
+    // 4안 카드
+    if (hasP4) {
+      const c4 = plan4?.cuts?.[idx];
+      const b4 = bottomText(c4?.bottom);
+      if (c4) {
+        gridCards.push(`<figure class="cut-card p4"><span class="vtag" style="background:#00D2D3;color:#000">4안 · 비주얼 전면 개방</span><a href="${oursUrl(c4.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c4.image)}" alt="${escapeHtml(c4.t)}초 컷 4안"></a><figcaption style="color:#00D2D3">${escapeHtml(c4.t)}초</figcaption>${c4.narration ? `<div class="say" style="color:#00D2D3;font-weight:700"><b>4안 대본:</b> ${escapeHtml(c4.narration)}</div>` : ''}${c4.motion ? `<div class="say motion" style="color:#00D2D3"><b>연출/모션:</b> ${escapeHtml(c4.motion)}</div>` : ''}${b4 ? `<div class="say bottom" style="color:#00D2D3"><b>하단 띠:</b> ${escapeHtml(b4)}</div>` : ''}</figure>`);
+      } else {
+        gridCards.push('<figure class="cut-card p4"><div class="meta" style="margin:auto">4안 컷 없음</div></figure>');
+      }
+    }
+  });
+
   if (plan3?.cuts?.length) {
     parts.push(`<div class="card" style="border-left:3px solid #c084fc;background:rgba(168,85,247,0.06);margin:10px 0 6px"><b style="color:#c084fc">🤖 3안 — Gemini (Antigravity) 독자 설계 (내가 직접 만듦 · 1·2안 미참고)</b>${plan3.designNote ? `<div class="meta" style="margin-top:4px;color:var(--ink)">${escapeHtml(plan3.designNote)}</div>` : ''}</div>`);
   }
-  if (Array.isArray(plan?.cuts) && plan.cuts.length) parts.push(`<div class="tl-label">우리 컷 이미지${plan.cuts.some((c) => c.narration) ? ' + 컷 대본' : ''}</div><div class="film ours">${plan.cuts.map(oursFig).join('')}</div>`);
+  if (plan4?.cuts?.length) {
+    parts.push(`<div class="card" style="border-left:3px solid #00D2D3;background:rgba(0,210,211,0.06);margin:10px 0 6px"><b style="color:#00D2D3">🚀 4안 — 비주얼 전면 개방 & 다각도 벤치마킹 융합 (슬로건 구현)</b>${plan4.designNote ? `<div class="meta" style="margin-top:4px;color:var(--ink)">${escapeHtml(plan4.designNote)}</div>` : ''}</div>`);
+  }
+  if (Array.isArray(plan?.cuts) && plan.cuts.length) {
+    const label = hasMultiPlans ? '우리 컷 이미지 + 대본 (열: 컷 시간대별 1:1 대조 · 행: 1안~4안 수평선 및 높이 완벽 일치)' : '우리 컷 이미지 + 대본 (AI 주도 최적안 1안)';
+    parts.push(`<div class="tl-label">${label}</div><div class="film ours-grid" style="--cols:${plan.cuts.length};--rows:${rowCount}">${gridCards.join('')}</div>`);
+  }
   const script = fullScript(plan);
   if (script.lines.length) parts.push(`<div class="sheet-label">전체 대본 (컷 대본을 이은 것 — 음성에 그대로 넣는 글)</div><div class="card fullscript">${script.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
   const script3 = plan3?.cuts?.length ? fullScript(plan3) : { lines: [] };
   if (script3.lines.length) parts.push(`<div class="sheet-label" style="color:#c084fc">3안 전체 대본 — Gemini (Antigravity 독자 설계)</div><div class="card fullscript" style="border-left:3px solid #c084fc">${script3.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
+  const script4 = plan4?.cuts?.length ? fullScript(plan4) : { lines: [] };
+  if (script4.lines.length) parts.push(`<div class="sheet-label" style="color:#00D2D3">4안 전체 대본 — 비주얼 전면 개방 & 슬로건 구현</div><div class="card fullscript" style="border-left:3px solid #00D2D3">${script4.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
   return parts.join('');
 }
 
@@ -322,7 +380,9 @@ export function evidenceHtml(b) {
 }
 
 export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [] } = {}) {
-  const id = encodeURIComponent(sheet.sourceVideoId);
+  const sid = String(sheet.episodeId || sheet.sourceVideoId || '');
+  const id = encodeURIComponent(sid);
+  const srcId = sheet.sourceVideoId ? encodeURIComponent(sheet.sourceVideoId) : '';
   const ver = (url) => (assetVersion ? `${url}?v=${encodeURIComponent(assetVersion)}` : url);
   const frameByT = new Map((report?.frames || []).map((f) => [String(f.t), f.file]));
   const competitorImg = (token) => {
@@ -331,20 +391,24 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     if (tm) { const rr = refReports.find((x) => x.videoId === tm[1]); return rr?.thumbnail ? `<img loading="lazy" style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid var(--line)" src="${escapeHtml(rr.thumbnail)}" title="${escapeHtml(rr.label)}" alt="경쟁 썸네일">` : ''; }
     const m = String(token).match(/^frame:(.+)$/);
     const file = m && frameByT.get(m[1]);
-    return file ? `<img loading="lazy" src="${ver(`/outlier-frames/${id}/${escapeHtml(file)}`)}" alt="${escapeHtml(m[1])}초 화면">` : '';
+    return file && srcId ? `<img loading="lazy" src="${ver(`/outlier-frames/${srcId}/${escapeHtml(file)}`)}" alt="${escapeHtml(m[1])}초 화면">` : '';
   };
   const oursUrl = (rel) => ver(`/transform-images/${id}/${escapeHtml(String(rel).replace(/^images\/[^/]+\//, ''))}`);
   const oursImg = (rel) => (rel ? `<img loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안">` : '');
   const stage = sheet.status === 'published' && sheet.outcome?.views7d != null ? 'measured' : sheet.status;
   const share = sheet.identityShare || { ours: 0, competitor: 0 };
   const parts = [
-    '<p><a href="/transform-sheets">← 비교 시트 목록</a> · <a href="/outlier-report/' + id + '">근거 보기(경쟁 영상 리포트)</a> · <a href="/">대시보드</a></p>',
+    '<p><a href="/transform-sheets">← 비교 시트 목록</a>' + (srcId ? ' · <a href="/outlier-report/' + srcId + '">근거 보기(경쟁 영상 리포트)</a>' : ' · <a href="/outlier-reports">근거(리포트 목록)</a>') + ' · <a href="/">대시보드</a></p>',
     SHEET_CSS,
     `<h1>비교 시트: ${escapeHtml(sheet.topic)}</h1>`,
-    `<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 12px"><span class="pill-badge">${escapeHtml(sheet.format)}</span> · <span>경쟁 영상: <b>${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</b></span> · <span>${escapeHtml(report?.meta?.channelTitle || '')}</span> · <span style="color:var(--accent-amber);font-weight:700">평소의 ${formatRatioLabel(report)}</span> · <span class="pill-badge" style="background:rgba(52,211,153,0.12);color:var(--ok);border-color:rgba(52,211,153,0.3)">상태: ${escapeHtml(STAGE_KO[stage] || stage)}</span></div>`,
+    `<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 12px"><span class="pill-badge">${escapeHtml(sheet.format)}</span>${sheet.episodeId ? ` · <span class="pill-badge" style="background:rgba(0,210,211,0.12);color:#00D2D3;border-color:rgba(0,210,211,0.35)">에피소드: ${escapeHtml(sheet.episodeId)}</span>` : ''}${report || sheet.sourceVideoId ? ` · <span>기준 영상: <b>${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</b></span> · <span>${escapeHtml(report?.meta?.channelTitle || '')}</span> · <span style="color:var(--accent-amber);font-weight:700">평소의 ${formatRatioLabel(report)}</span>` : ` · <span>다중 명작 융합 (${(sheet.references || []).length}편)</span>`} · <span class="pill-badge" style="background:rgba(52,211,153,0.12);color:var(--ok);border-color:rgba(52,211,153,0.3)">상태: ${escapeHtml(STAGE_KO[stage] || stage)}</span></div>`,
     (sheet.rows || []).some((x) => x.origin) ? (() => { const o = { competitor: 0, mixed: 0, ours: 0 }; for (const x of sheet.rows || []) if (o[x.origin] !== undefined) o[x.origin] += 1; const n = o.competitor + o.mixed + o.ours || 1; return `<p>행별 출처 <b>경쟁 구조 ${o.competitor} · 섞음 ${o.mixed} · 우리가 새로 만듦 ${o.ours}</b> (총 ${n}행) — 사람이 정한 비율이 아니라 아래 각 행에 적은 출처를 센 값이다.</p><div class="bar"><span style="width:${(o.ours / n) * 100}%"></span><span style="width:${(o.mixed / n) * 100}%;background:var(--accent-amber)"></span><span style="width:${(o.competitor / n) * 100}%"></span></div>`; })() : `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
   ];
   for (const p of problems) parts.push(`<div class="warn">⚠ ${escapeHtml(p)}</div>`);
+  if (sheet.selfCritique && typeof sheet.selfCritique === 'object') {
+    const sc = sheet.selfCritique;
+    parts.push(`<div class="card" style="border-left:3px solid #00D2D3;background:linear-gradient(135deg,rgba(0,210,211,0.08),rgba(56,189,248,0.05));margin:12px 0"><div style="font-size:14.5px;font-weight:800;color:#00D2D3;margin-bottom:6px">🧠 AI 자체 비평 (제출 전 슬로건 검수)</div><div class="meta" style="color:var(--ink);line-height:1.7"><div><b>① 템플릿 탈피:</b> ${escapeHtml(sc.antiTemplate || '')}</div><div><b>② 직전 편 대비 진화:</b> ${escapeHtml(sc.evolutionFromPrev || '')}</div><div><b>③ 명작 융합 검증:</b> ${escapeHtml(sc.fusionCheck || '')}</div></div></div>`);
+  }
   if ((sheet.testVariables || []).length) {
     parts.push('<h2>이번에 시험하는 변수</h2>');
     for (const v of sheet.testVariables) parts.push(`<div class="card" style="border-left:3px solid var(--accent);background:linear-gradient(135deg,rgba(56,189,248,0.06),rgba(168,85,247,0.06))"><div style="font-size:14.5px"><b>🧪 ${escapeHtml(v.variable)}</b> · <span class="pill-badge">보는 지표: ${escapeHtml(v.measure)}</span></div><div class="q" style="margin-top:8px"><b>왜 이렇게 될 것 같은가(가설)</b>: ${escapeHtml(v.hypothesis)}</div></div>`);
@@ -369,9 +433,17 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   <div class="sheet-why">${r.origin ? `출처: <b>${{ competitor: '경쟁 구조를 가져옴', mixed: '섞음', ours: '우리가 새로 만듦' }[r.origin] || escapeHtml(r.origin)}</b> — ${escapeHtml(r.originReason || '')}<br>` : ''}왜 바꿨나: ${escapeHtml(r.why)}</div>
 </div>${thumbs.length ? `${thumbs2.length || thumbs3.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}${thumbs3.length ? `<div class="tl-label" style="color:#c084fc;font-weight:800">3안 — Gemini (Antigravity) 독자 설계 시안 (내가 만듦 · 1·2안 미참고, 2안 아래 1:1 비교)</div>${pickRow(thumbs3)}` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports) : ''}`);
   }
-  parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');
-  for (const b of sheet.borrowed || []) parts.push(`<div class="card" style="border-left:3px solid var(--ok);background:rgba(52,211,153,0.03)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span style="color:var(--ok)">✓</span> ${escapeHtml(b.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">출처: ${escapeHtml(b.fromVideoId)} ↗</a></div><div style="margin-top:8px"><b>가져와도 되는 이유</b>: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div>${(b.appliedTo || []).length ? `<div class="q" style="border-left-color:var(--ok)"><b>적용한 곳</b>: ${b.appliedTo.map((x) => escapeHtml(x)).join(' · ')}</div>` : ''}${evidenceHtml(b)}</div>`);
-  for (const b of sheet.sourceApplied || []) parts.push(`<div class="card" style="border-left:3px solid var(--ok);background:rgba(52,211,153,0.03)"><b><span style="color:var(--ok)">✓</span> 원본에서 가져온 것: ${escapeHtml(b.what)}</b><div style="margin-top:8px"><b>가져온 이유</b>: ${escapeHtml(b.reason)}</div><div class="q" style="border-left-color:var(--ok)"><b>적용한 곳</b>: ${(b.appliedTo || []).map((x) => escapeHtml(x)).join(' · ')}</div></div>`);
+  if (Array.isArray(sheet.references) && sheet.references.length) {
+    parts.push('<h2>🎬 융합한 명작 레퍼런스 (다중 벤치마킹)</h2>');
+    for (const ref of sheet.references) {
+      parts.push(`<div class="card" style="border-left:3px solid #00D2D3;background:rgba(0,210,211,0.04)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span class="pill-badge" style="margin-right:6px">${escapeHtml(ref.role || '참고')}</span> ${escapeHtml(ref.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(ref.videoId)}">출처: ${escapeHtml(ref.videoId)} ↗</a></div><div style="margin-top:8px"><b>채택·융합 이유</b>: ${escapeHtml(ref.reason)}</div><div class="q">근거: ${escapeHtml(ref.evidence)}</div>${(ref.appliedTo || []).length ? `<div class="q" style="border-left-color:#00D2D3"><b>적용한 곳</b>: ${ref.appliedTo.map((x) => escapeHtml(x)).join(' · ')}</div>` : ''}</div>`);
+    }
+  }
+  if ((sheet.borrowed || []).length || (sheet.sourceApplied || []).length) {
+    parts.push('<h2>다른 경쟁 영상에서 가져온 것</h2>');
+    for (const b of sheet.borrowed || []) parts.push(`<div class="card" style="border-left:3px solid var(--ok);background:rgba(52,211,153,0.03)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span style="color:var(--ok)">✓</span> ${escapeHtml(b.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(b.fromVideoId)}">출처: ${escapeHtml(b.fromVideoId)} ↗</a></div><div style="margin-top:8px"><b>가져와도 되는 이유</b>: ${escapeHtml(b.reason)}</div><div class="q">근거: ${escapeHtml(b.evidence)}</div>${(b.appliedTo || []).length ? `<div class="q" style="border-left-color:var(--ok)"><b>적용한 곳</b>: ${b.appliedTo.map((x) => escapeHtml(x)).join(' · ')}</div>` : ''}${evidenceHtml(b)}</div>`);
+    for (const b of sheet.sourceApplied || []) parts.push(`<div class="card" style="border-left:3px solid var(--ok);background:rgba(52,211,153,0.03)"><b><span style="color:var(--ok)">✓</span> 원본에서 가져온 것: ${escapeHtml(b.what)}</b><div style="margin-top:8px"><b>가져온 이유</b>: ${escapeHtml(b.reason)}</div><div class="q" style="border-left-color:var(--ok)"><b>적용한 곳</b>: ${(b.appliedTo || []).map((x) => escapeHtml(x)).join(' · ')}</div></div>`);
+  }
   parts.push('<h2>안 맞아서 뺀 것</h2>');
   if (!(sheet.rejected || []).length) parts.push('<p class="meta">없음</p>');
   for (const r of sheet.rejected || []) parts.push(`<div class="card" style="border-left:3px solid var(--bad);background:rgba(248,113,113,0.03)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span style="color:var(--bad)">✗</span> ${escapeHtml(r.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(r.fromVideoId)}">출처: ${escapeHtml(r.fromVideoId)} ↗</a></div><div style="margin-top:8px"><b>뺀 이유</b>: ${escapeHtml(r.reason)}</div></div>`);
@@ -383,7 +455,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     parts.push('<h2>대본 전에 확인할 것</h2>');
     for (const t of sheet.pending) parts.push(`<div class="card" style="border-left:3px solid var(--accent-amber);background:rgba(245,158,11,0.04)">${escapeHtml(t)}</div>`);
   }
-  parts.push(`<script>document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset||(!t.dataset.pick&&!t.dataset.pickTitle))return;fetch('/api/transform-sheet-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:${JSON.stringify(sheet.sourceVideoId)},kind:t.dataset.pickTitle?'title':'thumbnail',image:t.dataset.pick||t.dataset.pickTitle,picked:t.checked})}).then(function(r){if(!r.ok){t.checked=!t.checked;alert('저장하지 못했습니다');}}).catch(function(){t.checked=!t.checked;alert('저장하지 못했습니다');});});</script>`);
+  parts.push(`<script>document.addEventListener('change',function(e){var t=e.target;if(!t||!t.dataset||(!t.dataset.pick&&!t.dataset.pickTitle))return;fetch('/api/transform-sheet-pick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:${JSON.stringify(sid)},kind:t.dataset.pickTitle?'title':'thumbnail',image:t.dataset.pick||t.dataset.pickTitle,picked:t.checked})}).then(function(r){if(!r.ok){t.checked=!t.checked;alert('저장하지 못했습니다');}}).catch(function(){t.checked=!t.checked;alert('저장하지 못했습니다');});});</script>`);
   if ((sheet.results || []).length) {
     parts.push('<h2>결과 기록 (공개 7일 뒤 자동)</h2>');
     for (const r of sheet.results) parts.push(`<div class="card"><b>${escapeHtml(r.videoId)}</b> · ${escapeHtml(r.summary)}</div>`);
@@ -396,8 +468,9 @@ const ROW_LABELS_VIEW = { title: '제목', thumbnail: '썸네일', opening: '첫
 
 export function renderTransformSheetIndex(items = []) {
   const cards = items.map(({ sheet, report }) => {
+    const sid = sheet.episodeId || sheet.sourceVideoId;
     const stage = sheet.status === 'published' && sheet.outcome?.views7d != null ? 'measured' : sheet.status;
-    return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><a href="/transform-sheet/${encodeURIComponent(sheet.sourceVideoId)}"><b style="font-size:16px">${escapeHtml(sheet.topic)}</b></a><div class="meta" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill-badge">${escapeHtml(STAGE_KO[stage] || stage)}</span> · <span class="pill-badge" style="background:rgba(255,255,255,0.05);color:var(--sub);border-color:var(--line)">${escapeHtml(sheet.format)}</span> · <span>경쟁 영상: ${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</span></div></div>`;
+    return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><a href="/transform-sheet/${encodeURIComponent(sid)}"><b style="font-size:16px">${escapeHtml(sheet.topic)}</b></a><div class="meta" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill-badge">${escapeHtml(STAGE_KO[stage] || stage)}</span> · <span class="pill-badge" style="background:rgba(255,255,255,0.05);color:var(--sub);border-color:var(--line)">${escapeHtml(sheet.format)}</span> · <span>${report?.meta?.title ? `기준: ${escapeHtml(report.meta.title)}` : (sheet.references?.length ? `다중 명작 ${sheet.references.length}편 융합` : escapeHtml(sid))}</span></div></div>`;
   });
   return page('비교 시트', `<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">근거(경쟁 영상 리포트 목록)</a></p><h1>비교 시트 ${items.length}장</h1><p class="meta">경쟁 영상 리포트를 우리 콘텐츠로 바꾼 한 장. 좌우로 비교하고, 다른 경쟁 영상에서 가져온 것과 뺀 것을 이유와 함께 남긴다. 실패·기각도 데이터로 쌓는다.</p>${cards.join('\n') || '<p class="meta">아직 없음</p>'}`);
 }

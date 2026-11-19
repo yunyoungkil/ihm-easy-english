@@ -41,19 +41,81 @@ test('비교 시트 화면 연출 행은 경쟁 영상의 저장된 캡처를 �
   assert.ok(!renderTransformSheetPage(sheet, null, [], {}).includes('경쟁 화면 캡처'), '캡처가 없으면 줄을 만들지 않는다');
 });
 
+function makeV3SheetFixture() {
+  const mkRow = (key, extraOurs = {}) => ({
+    key,
+    origin: key === 'visual' ? 'mixed' : 'ours',
+    originReason: `${key} 근거`,
+    competitor: {text: `경쟁 ${key}`},
+    ours: {text: `우리 ${key}`, ...extraOurs},
+    why: `${key} 이유`,
+  });
+  const tags = ['영어발음', '영어듣기', '영어회화', '기초영어', '생활영어', '미국발음', '영어공부', '영어단어'];
+  return {
+    schemaVersion: 3,
+    sourceVideoId: 'SRC11111111',
+    topic: '테스트 쇼츠 소재',
+    status: 'draft',
+    format: 'SHORTS',
+    rows: [
+      mkRow('title', {titles: ['제목 후보 하나', '제목 후보 둘']}),
+      mkRow('thumbnail', {images: ['images/SRC11111111/thumb-A.jpg', 'images/SRC11111111/thumb-B.jpg']}),
+      mkRow('opening'),
+      mkRow('flow'),
+      mkRow('visual', {
+        cutPlan: {
+          durationSeconds: 10,
+          cuts: [
+            {t: 0, image: 'images/SRC11111111/cuts/cut-00.png', narration: '첫 컷 대본'},
+            {t: 3, image: 'images/SRC11111111/cuts/cut-01.png', narration: '둘째 컷 대본'},
+            {t: 7, image: 'images/SRC11111111/cuts/cut-02.png', narration: '셋째 컷 대본'},
+          ],
+        },
+        cutPlan2: {
+          durationSeconds: 10,
+          hook: ['짧은 훅', '두째 줄'],
+          hookWhy: '경쟁 상위 쇼츠 훅 분석',
+          cuts: [
+            {t: 0, image: 'images/SRC11111111/cuts2/cut-00.png', narration: '첫 컷 대본', motion: '팝업', bottom: {subtitle: '첫 컷'}},
+            {t: 3, image: 'images/SRC11111111/cuts2/cut-01.png', narration: '둘째 컷', motion: '슬라이드', bottom: {subtitle: '둘째 컷'}},
+            {t: 7, image: 'images/SRC11111111/cuts2/cut-02.png', narration: '셋째 컷', motion: '강조', bottom: {subtitle: '셋째 컷'}},
+          ],
+        },
+      }),
+      mkRow('reaction'),
+      mkRow('ending'),
+      {
+        key: 'package',
+        origin: 'ours',
+        originReason: '업로드 패키지',
+        ours: {description: '설명글', tags, tagCheck: tags.map((tag) => ({tag, verdict: '맞음'})), pinnedComment: '고정 댓글'},
+        why: '패키지 이유',
+      },
+    ],
+    borrowed: [
+      {fromVideoId: 'REF22222222', what: '질문형 훅', reason: '시선 고정', evidence: '조회 3배', appliedTo: ['cut:0']},
+      {fromVideoId: 'REF33333333', what: '대비 썸네일', reason: '클릭 유도', evidence: '상위 3편', appliedTo: ['thumb:A']},
+    ],
+    sourceApplied: [{what: '제목 구조', reason: '호기심', appliedTo: ['title:1']}],
+    rejected: [],
+    pending: [],
+    testVariables: [{variable: '훅 유형', hypothesis: '질문형 가설', measure: '계속 시청함'}],
+    glossary: [],
+  };
+}
+
 test('행 출처(origin)를 쓴 시트는 비율 칸 없이도 통과하고, 출처나 이유가 빠지면 문제로 알린다(2026-11-16)', async () => {
-  const {validateSheet, sheetOrigins, sheetImageExists} = await import('../transform-sheet.mjs');
-  const {readFileSync} = await import('node:fs');
-  const sheet = JSON.parse(readFileSync(new URL('../../data/youtube/transform-sheets/w8g6-e9yLP4.json', import.meta.url), 'utf8'));
+  const {validateSheet, sheetOrigins} = await import('../transform-sheet.mjs');
+  const sheet = makeV3SheetFixture();
   assert.equal(sheet.identityShare, undefined, '사람이 정한 비율 칸은 쓰지 않는다');
-  assert.deepEqual(validateSheet(sheet, {imageExists: sheetImageExists}), []);
+  assert.deepEqual(validateSheet(sheet, {imageExists: () => true}), []);
   const o = sheetOrigins(sheet);
   assert.equal(o.total, 8);
   assert.equal(o.competitor + o.mixed + o.ours, 8);
   const noOrigin = JSON.parse(JSON.stringify(sheet)); delete noOrigin.rows[2].origin;
-  assert.ok(validateSheet(noOrigin, {imageExists: sheetImageExists}).some((p) => p.includes('출처(origin)')));
+  assert.ok(validateSheet(noOrigin, {imageExists: () => true}).some((p) => p.includes('출처(origin)')));
   const noReason = JSON.parse(JSON.stringify(sheet)); noReason.rows[3].originReason = '';
-  assert.ok(validateSheet(noReason, {imageExists: sheetImageExists}).some((p) => p.includes('originReason')));
+  assert.ok(validateSheet(noReason, {imageExists: () => true}).some((p) => p.includes('originReason')));
 });
 
 test('행 출처가 없는 예전 시트는 예전 비율 칸을 그대로 검사한다', async () => {
@@ -66,18 +128,17 @@ test('행 출처가 없는 예전 시트는 예전 비율 칸을 그대로 검�
 });
 
 test('가져온 것은 어디에 적용했는지(appliedTo)를 적어야 하고, 없는 컷·시안·제목을 가리키면 문제로 알린다(2026-11-16)', async () => {
-  const {validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
-  const {readFileSync} = await import('node:fs');
-  const sheet = JSON.parse(readFileSync(new URL('../../data/youtube/transform-sheets/w8g6-e9yLP4.json', import.meta.url), 'utf8'));
-  assert.deepEqual(validateSheet(sheet, {imageExists: sheetImageExists}), []);
+  const {validateSheet} = await import('../transform-sheet.mjs');
+  const sheet = makeV3SheetFixture();
+  assert.deepEqual(validateSheet(sheet, {imageExists: () => true}), []);
   const none = JSON.parse(JSON.stringify(sheet)); none.borrowed[0].appliedTo = [];
-  assert.ok(validateSheet(none, {imageExists: sheetImageExists}).some((p) => p.includes('appliedTo')));
+  assert.ok(validateSheet(none, {imageExists: () => true}).some((p) => p.includes('appliedTo')));
   const badCut = JSON.parse(JSON.stringify(sheet)); badCut.borrowed[0].appliedTo = ['cut:99'];
-  assert.ok(validateSheet(badCut, {imageExists: sheetImageExists}).some((p) => p.includes('컷 99번은 없다')));
+  assert.ok(validateSheet(badCut, {imageExists: () => true}).some((p) => p.includes('컷 99번은 없다')));
   const badThumb = JSON.parse(JSON.stringify(sheet)); badThumb.borrowed[1].appliedTo = ['thumb:Z'];
-  assert.ok(validateSheet(badThumb, {imageExists: sheetImageExists}).some((p) => p.includes('썸네일 시안 Z가 없다')));
+  assert.ok(validateSheet(badThumb, {imageExists: () => true}).some((p) => p.includes('썸네일 시안 Z가 없다')));
   const badTitle = JSON.parse(JSON.stringify(sheet)); badTitle.sourceApplied[0].appliedTo = ['title:9'];
-  assert.ok(validateSheet(badTitle, {imageExists: sheetImageExists}).some((p) => p.includes('제목 후보 9번은 없다')));
+  assert.ok(validateSheet(badTitle, {imageExists: () => true}).some((p) => p.includes('제목 후보 9번은 없다')));
 });
 
 test('비교 시트는 경쟁 영상별 화면 변화 막대를 그리고, 컷 감지가 0번이어도 변화 속도와 간격 변동을 보여 준다(2026-11-16)', async () => {
@@ -93,11 +154,10 @@ test('비교 시트는 경쟁 영상별 화면 변화 막대를 그리고, 컷 �
 });
 
 test('쇼츠 2안은 위 훅 띠·아래 정보 띠·움직임 메모가 있어야 하고, 낭독이 컷 길이를 넘으면 음성 예산 문제로 알린다(2026-11-16)', async () => {
-  const {validateSheet, sheetImageExists, voiceBudget, plan2Problems} = await import('../transform-sheet.mjs');
-  const {readFileSync} = await import('node:fs');
-  const sheet = JSON.parse(readFileSync(new URL('../../data/youtube/transform-sheets/w8g6-e9yLP4.json', import.meta.url), 'utf8'));
+  const {validateSheet, voiceBudget, plan2Problems} = await import('../transform-sheet.mjs');
+  const sheet = makeV3SheetFixture();
   assert.deepEqual(plan2Problems(sheet), []);
-  assert.deepEqual(validateSheet(sheet, {imageExists: sheetImageExists}), []);
+  assert.deepEqual(validateSheet(sheet, {imageExists: () => true}), []);
   const clone = () => JSON.parse(JSON.stringify(sheet));
   const noPlan = clone(); delete noPlan.rows.find((r) => r.key === 'visual').ours.cutPlan2;
   assert.ok(plan2Problems(noPlan).some((p) => p.includes('2안(cutPlan2)이 있어야')));

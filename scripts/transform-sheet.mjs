@@ -50,30 +50,102 @@ export function sheetOrigins(sheet) {
   for (const r of sheet?.rows || []) if (ORIGINS.includes(r?.origin)) { out[r.origin] += 1; out.total += 1; }
   return out;
 }
+/** 시트 식별자: v4 다중 레퍼런스 시트는 episodeId(예: ep31-shorts-stress), 기존 시트는 sourceVideoId를 쓴다. */
+export const sheetIdOf = (sheet) => String(sheet?.episodeId || sheet?.sourceVideoId || '').trim();
+export const isSloganV4 = (sheet) => Number(sheet?.schemaVersion) >= 4;
+
 /**
  * 가져온 것이 "어디에 쓰였는지"(appliedTo)를 적게 한다(2026-11-16 사용자: 근거로 가져왔으면 썸네일·화면·제목에 꼭 적용해야지, 보여주기식이면 쓸모없다).
- * 표기: cut:N(컷 번호, 0부터), thumb:A(썸네일 시안 글자), title:N(제목 후보 번호, 1부터), row:key(행). 실제로 있는 것만 통과한다.
+ * 표기: cut:N(컷 번호, 0부터), thumb:A 또는 thumb:1(썸네일 시안), title:N(제목 후보 번호, 1부터), row:key(행). 실제로 있는 것만 통과한다.
  */
 export function appliedProblems(sheet) {
   const out = [];
-  if (!usesRowOrigins(sheet)) return out;
+  if (!usesRowOrigins(sheet) && !isSloganV4(sheet)) return out;
   const cuts = (sheet.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan?.cuts || [];
-  const thumbs = (sheet.rows || []).find((r) => r.key === 'thumbnail')?.ours?.images || [];
+  const thumbRow = (sheet.rows || []).find((r) => r.key === 'thumbnail')?.ours || {};
+  const thumbs = [thumbRow.image, ...(thumbRow.images || [])].filter(Boolean);
   const titles = (sheet.rows || []).find((r) => r.key === 'title')?.ours?.titles || [];
   const check = (token, where) => {
     const m = String(token).match(/^(cut|thumb|title|row):(.+)$/);
     if (!m) return out.push(`${where}: 적용한 곳 "${token}"의 형식이 cut:N / thumb:A / title:N / row:key가 아니다`);
     const [, kind, v] = m;
     if (kind === 'cut' && !(Number.isInteger(Number(v)) && Number(v) >= 0 && Number(v) < cuts.length)) out.push(`${where}: 컷 ${v}번은 없다(컷 ${cuts.length}개)`);
-    if (kind === 'thumb' && !thumbs.some((p) => p.endsWith(`thumb-${v}.jpg`))) out.push(`${where}: 썸네일 시안 ${v}가 없다`);
+    if (kind === 'thumb') {
+      const idx = Number(v);
+      const matchByName = thumbs.some((p) => p.endsWith(`thumb-${v}.jpg`) || p.endsWith(`thumb-${v}.png`) || p.endsWith(`/${v}`));
+      const matchByIdx = Number.isInteger(idx) && idx >= 1 && idx <= thumbs.length;
+      if (!matchByName && !matchByIdx) out.push(`${where}: 썸네일 시안 ${v}가 없다`);
+    }
     if (kind === 'title' && !(Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= titles.length)) out.push(`${where}: 제목 후보 ${v}번은 없다`);
     if (kind === 'row' && !(sheet.rows || []).some((r) => r.key === v)) out.push(`${where}: 행 ${v}이 없다`);
   };
-  const items = [...(sheet.borrowed || []).map((b) => [`가져온 것(${String(b.what).slice(0, 18)})`, b.appliedTo]), ...(sheet.sourceApplied || []).map((b) => [`원본에서 가져온 것(${String(b.what).slice(0, 18)})`, b.appliedTo])];
+  const items = [
+    ...(sheet.borrowed || []).map((b) => [`가져온 것(${String(b.what).slice(0, 18)})`, b.appliedTo]),
+    ...(sheet.sourceApplied || []).map((b) => [`원본에서 가져온 것(${String(b.what).slice(0, 18)})`, b.appliedTo]),
+    ...(sheet.references || []).map((r) => [`명작 레퍼런스(${String(r.what || r.role || r.videoId).slice(0, 18)})`, r.appliedTo]),
+  ];
   for (const [where, applied] of items) {
     if (!Array.isArray(applied) || !applied.length) out.push(`${where}: 어디에 적용했는지(appliedTo)가 없다 — 보여주기식으로 가져오면 안 된다`);
     else applied.forEach((tk) => check(tk, where));
   }
+  return out;
+}
+
+/** Korean Skills 구어체 입말 규칙(2026-11-17 사용자 확정): 나레이션에서 '4글자·5글자·1박자' 같은 아라비아 숫자 표기를 막는다. */
+export const SPOKEN_DIGIT_RE = /\d+\s*(글자|박자|마디|개|번|가지|명|초)/g;
+export function spokenKoreanProblems(plan) {
+  const out = [];
+  (plan?.cuts || []).forEach((c, i) => {
+    const text = String(c?.narration || '').trim();
+    if (!text) return;
+    const where = `대본 ${i}번 컷(${c.t}초)`;
+    const digitHits = text.match(SPOKEN_DIGIT_RE);
+    if (digitHits) out.push(`${where}: 나레이션에 아라비아 숫자 입말(${digitHits.join(', ')}) 금지 — '네 글자', '다섯 글자', '한 박자'처럼 고유어 입말로 적는다`);
+    if (/^[A-Za-z]/.test(text)) out.push(`${where}: 나레이션이 영어로 시작한다 — 한글로 자연스럽게 시작한다`);
+    const banned = findBannedTerms(text);
+    if (banned.length) out.push(`${where}: 금지어(${banned.map((h) => h.term).join(', ')})가 있다`);
+  });
+  return out;
+}
+
+/** v4(슬로건 업그레이드) AI 자체 비평(Self-Critique) 필수 검사(2026-11-19). */
+export function selfCritiqueProblems(sheet) {
+  const out = [];
+  if (!isSloganV4(sheet)) return out;
+  const sc = sheet?.selfCritique;
+  if (!sc || typeof sc !== 'object') {
+    out.push('AI 자체 비평(selfCritique)이 없다 — 제출 전 템플릿 탈피·진화·융합 점검이 필수다');
+    return out;
+  }
+  if (!filled(sc.antiTemplate)) out.push('AI 자체 비평: antiTemplate(AI 템플릿 냄새 탈피 근거)이 비어 있다');
+  if (!filled(sc.evolutionFromPrev)) out.push('AI 자체 비평: evolutionFromPrev(직전 편 대비 진화 지점)이 비어 있다');
+  if (!filled(sc.fusionCheck)) out.push('AI 자체 비평: fusionCheck(명작 장치 융합 검증)이 비어 있다');
+  return out;
+}
+
+/** v4(슬로건 업그레이드) 쇼츠 단일 최적안(cutPlan) 검사: 물리 가드레일(0.5초 상단 훅 존재·음성 예산·모션·입말)만 강제하고 9자 제한·전 컷 하단 띠 강제는 푼다. */
+export function v4ShortsProblems(sheet, {imageExists = null} = {}) {
+  const out = [];
+  if (!isSloganV4(sheet) || sheet?.format !== 'SHORTS') return out;
+  const plan = (sheet.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan;
+  if (!plan || !Array.isArray(plan.cuts) || !plan.cuts.length) return out;
+  const hook = plan.hook;
+  if (!Array.isArray(hook) || hook.length < 1 || hook.length > 2 || hook.some((l) => !filled(l))) {
+    out.push('화면 연출(v4 최적안): 상단 0.5초 훅 글자(hook) 1~2줄은 필수 가드레일이다(형태·길이는 자율)');
+  }
+  if (!filled(plan.hookWhy)) out.push('화면 연출(v4 최적안): 상단 훅 근거(hookWhy)가 없다');
+  const times = plan.cuts.map((c) => Number(c.t));
+  plan.cuts.forEach((c, i) => {
+    const where = `화면 연출(v4) ${i}번 컷(${c.t}초)`;
+    if (!filled(c.image)) out.push(`${where}: 컷 이미지가 없다`);
+    else if (imageExists && !imageExists(c.image)) out.push(`${where}: 이미지 파일이 없다(${c.image})`);
+    if (!filled(c.motion)) out.push(`${where}: 연출·모션 메모(motion)가 없다`);
+    if (!filled(c.narration) && !(Array.isArray(c.voiceEn) && c.voiceEn.length)) out.push(`${where}: 한국어 낭독도 영어 소리도 없다`);
+    const dur = (i + 1 < times.length ? times[i + 1] : Number(plan.durationSeconds)) - times[i];
+    const need = voiceBudget(c);
+    if (Number.isFinite(dur) && need > dur + 0.001) out.push(`${where}: 음성 예산 ${Math.round(need * 100) / 100}초가 컷 길이 ${Math.round(dur * 100) / 100}초를 넘는다`);
+  });
+  out.push(...spokenKoreanProblems(plan));
   return out;
 }
 /**
@@ -122,6 +194,7 @@ function shortsPlanProblems(sheet, {planKey, label, requiredMsg = null, imageExi
   return out;
 }
 export function plan2Problems(sheet, {imageExists = null} = {}) {
+  if (isSloganV4(sheet)) return [];
   return shortsPlanProblems(sheet, {
     planKey: 'cutPlan2',
     label: '2안',
@@ -130,6 +203,7 @@ export function plan2Problems(sheet, {imageExists = null} = {}) {
   });
 }
 export function plan3Problems(sheet, {imageExists = null} = {}) {
+  if (isSloganV4(sheet)) return [];
   return shortsPlanProblems(sheet, {planKey: 'cutPlan3', label: '3안', imageExists});
 }
 export const STATUSES = Object.freeze(['draft', 'approved', 'published']);
@@ -139,9 +213,11 @@ export const sheetsDir = join(projectDir, 'data', 'youtube', 'transform-sheets')
 
 const filled = (v) => typeof v === 'string' && v.trim().length > 0;
 
-/** 다른 경쟁 영상(원본이 아닌 영상)에서 가져온 것의 출처 영상 ID 목록. */
+/** 다른 경쟁 영상(원본이 아닌 영상)에서 가져온 것의 출처 영상 ID 목록(v4 references 포함). */
 export function borrowedSources(sheet) {
-  return [...new Set((sheet?.borrowed || []).map((b) => b.fromVideoId).filter((id) => filled(id) && id !== sheet.sourceVideoId))];
+  const fromBorrowed = (sheet?.borrowed || []).map((b) => b.fromVideoId).filter((id) => filled(id) && id !== sheet.sourceVideoId);
+  const fromRefs = (sheet?.references || []).map((r) => r.videoId).filter((id) => filled(id) && id !== sheet.sourceVideoId);
+  return [...new Set([...fromBorrowed, ...fromRefs])];
 }
 
 export function sheetStage(sheet) {
@@ -226,13 +302,18 @@ function cutPlanProblems(plan, competitorPacing, imageExists, needScript = false
 
 export function validateSheet(sheet, {imageExists = () => true, competitorPacing = null} = {}) {
   const problems = [];
-  if (!filled(sheet?.sourceVideoId)) problems.push('원본 경쟁 영상 ID가 없다');
+  const v4 = isSloganV4(sheet);
+  if (v4) {
+    if (!filled(sheet?.episodeId) && !filled(sheet?.sourceVideoId)) problems.push('에피소드 ID(episodeId) 또는 원본 경쟁 영상 ID(sourceVideoId)가 없다');
+  } else if (!filled(sheet?.sourceVideoId)) {
+    problems.push('원본 경쟁 영상 ID가 없다');
+  }
   if (!filled(sheet?.topic)) problems.push('우리 소재가 없다');
   if (!STATUSES.includes(sheet?.status)) problems.push(`상태가 ${STATUSES.join('/')} 중 하나가 아니다`);
 
   // 정체성 비율(2026-11-16 사용자: 사람이 정한 70:30은 근거 없는 숫자였다). 행마다 출처(origin)와 이유를 적은 시트는 그 표를 세어 비율을 보여 주고,
   // 예전 시트(행 출처 없음)는 예전 칸을 그대로 검사한다.
-  if (usesRowOrigins(sheet)) {
+  if (usesRowOrigins(sheet) || v4) {
     for (const key of rowKeysFor(sheet)) {
       const r = (sheet?.rows || []).find((x) => x.key === key);
       if (!r) continue; // 행이 없다는 문제는 아래에서 따로 알린다
@@ -253,16 +334,29 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
       if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);
       continue;
     }
-    if (!filled(r.competitor?.text)) problems.push(`${ROW_LABELS[key]}: 경쟁 쪽 내용이 비어 있다`);
+    if (!(v4 && r.origin === 'ours') && !filled(r.competitor?.text)) problems.push(`${ROW_LABELS[key]}: 경쟁 쪽 내용이 비어 있다`);
     if (!filled(r.ours?.text)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 내용이 비어 있다`);
     if (!filled(r.why)) problems.push(`${ROW_LABELS[key]}: 바꾼 이유가 없다`);
-    if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing, imageExists, Number(sheet?.schemaVersion) >= 2));
+    if (key === 'visual') problems.push(...cutPlanProblems(r.ours?.cutPlan, competitorPacing, imageExists, Number(sheet?.schemaVersion) >= 2 && !v4));
     for (const img of [r.ours?.image, ...(r.ours?.images || []), ...(r.ours?.images3 || [])].filter(filled)) {
       if (!imageExists(img)) problems.push(`${ROW_LABELS[key]}: 우리 쪽 이미지 파일이 없다(${img})`);
     }
   }
 
-  if (!borrowedSources(sheet).length) problems.push('다른 경쟁 영상에서 가져온 것이 하나도 없다 — 영상 한 편만 보고 만들면 안 된다');
+  const refCount = (sheet?.references || []).filter((r) => filled(r?.videoId)).length;
+  if (v4) {
+    if (refCount === 0 && !borrowedSources(sheet).length) problems.push('융합할 명작 레퍼런스(references 또는 borrowed)가 하나도 없다');
+    for (const ref of sheet?.references || []) {
+      const label = `명작 레퍼런스(${String(ref?.what || ref?.role || ref?.videoId || '').slice(0, 20)})`;
+      if (!filled(ref?.videoId)) problems.push(`${label}: videoId가 없다`);
+      if (!filled(ref?.role)) problems.push(`${label}: 역할(role: 훅/비주얼/템포/포장 등)이 없다`);
+      if (!filled(ref?.what)) problems.push(`${label}: 무엇을 흡수했는지(what)가 없다`);
+      if (!filled(ref?.reason)) problems.push(`${label}: 채택 이유(reason)가 없다`);
+      if (!filled(ref?.evidence)) problems.push(`${label}: 근거(evidence)가 없다`);
+    }
+  } else if (!borrowedSources(sheet).length) {
+    problems.push('다른 경쟁 영상에서 가져온 것이 하나도 없다 — 영상 한 편만 보고 만들면 안 된다');
+  }
   for (const b of sheet?.borrowed || []) {
     if (!filled(b.fromVideoId) || b.fromVideoId === sheet.sourceVideoId) problems.push(`가져온 것(${String(b.what).slice(0, 20)})의 출처가 원본이거나 비어 있다 — 다른 경쟁 영상이어야 한다`);
     if (!filled(b.reason)) problems.push(`가져온 것(${String(b.what).slice(0, 20)})에 가져와도 되는 이유가 없다`);
@@ -271,7 +365,15 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
   for (const r of sheet?.rejected || []) {
     if (!filled(r.reason)) problems.push(`뺀 것(${String(r.what).slice(0, 20)})에 뺀 이유가 없다`);
   }
-  problems.push(...experimentProblems(sheet), ...evidenceProblems(sheet), ...appliedProblems(sheet), ...plan2Problems(sheet), ...plan3Problems(sheet, {imageExists}));
+  problems.push(
+    ...experimentProblems(sheet),
+    ...evidenceProblems(sheet),
+    ...appliedProblems(sheet),
+    ...selfCritiqueProblems(sheet),
+    ...v4ShortsProblems(sheet, {imageExists}),
+    ...plan2Problems(sheet),
+    ...plan3Problems(sheet, {imageExists}),
+  );
   return problems;
 }
 
@@ -353,14 +455,15 @@ export function setThumbnailPick(sheet, image, picked) {
 export function sheetLinksByVideo(sheets) {
   const map = new Map();
   const add = (videoId, sheet, role) => {
-    if (!filled(videoId)) return;
+    const sid = sheetIdOf(sheet);
+    if (!filled(videoId) || !filled(sid)) return;
     const list = map.get(videoId) || [];
-    if (list.some((x) => x.sheetId === sheet.sourceVideoId)) return;
-    list.push({sheetId: sheet.sourceVideoId, topic: sheet.topic, status: sheet.status, role});
+    if (list.some((x) => x.sheetId === sid)) return;
+    list.push({sheetId: sid, topic: sheet.topic, status: sheet.status, role});
     map.set(videoId, list);
   };
   for (const sheet of sheets || []) {
-    add(sheet.sourceVideoId, sheet, 'source');
+    if (filled(sheet.sourceVideoId)) add(sheet.sourceVideoId, sheet, 'source');
     for (const id of borrowedSources(sheet)) add(id, sheet, 'borrowed');
   }
   return map;

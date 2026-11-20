@@ -103,7 +103,7 @@ export function renderReportPage(report, { framesPending = 0, hasSheet = false, 
   const parts = [];
   parts.push(`<p><a href="/outlier-reports">← 리포트 목록</a> · <a href="/visual-library">연출 자료집</a> · <a href="/">대시보드</a></p>`);
   parts.push(`<h1>${escapeHtml(m.title)}</h1>`);
-  const studioFoldsBadge = report.studioFolds != null ? ` · <span class="pill-badge" style="background:rgba(139,92,246,0.14);color:#c4b5fd;border-color:rgba(139,92,246,0.35)">유튜브 조사 ${Number(report.studioFolds)}배</span>` : '';
+  const studioFoldsBadge = report.studioFolds != null ? ` · <span class="pill-badge" style="background:rgba(139,92,246,0.14);color:var(--accent-purple);border-color:rgba(139,92,246,0.4);font-weight:700">유튜브 조사 ${Number(report.studioFolds)}배</span>` : '';
   parts.push(`<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 10px"><span class="pill-badge">${escapeHtml(m.channelTitle)}</span> · <span>구독자 ${num(report.subscriberCount)}</span> · <span>조회수 ${num(m.viewCount)}</span> · <span>구독자 대비 ${report.viewsPerSubscriber ?? '측정 전'}배</span> · <span style="color:var(--accent-amber);font-weight:700">채널 평소 대비 ${formatRatioLabel(report)}</span>${studioFoldsBadge} · <span>길이 ${m.durationSeconds ?? '?'}초</span></div>`);
   const src = report.sources || {};
   parts.push(`<div class="meta" style="font-size:12px;opacity:0.85">분석 ${escapeHtml(String(report.analyzedAt || '').slice(0, 10))} · ${escapeHtml(report.model || '')} · 화면은 처음 ${report.windowSeconds}초 · 자막 ${src.transcript?.ok ? '있음' : `없음(${escapeHtml(src.transcript?.error || '')})`} · 댓글 ${src.comments?.count ?? 0}개 · 인용 확인 ${report.quoteCheck?.verified ?? 0}/${report.quoteCheck?.checked ?? 0}</div>`);
@@ -206,19 +206,19 @@ export function renderVisualLibraryPage(entries = [], { query = '', reports = 0,
     const img = !e.frame ? ''
       : e.frameReady ? `<a href="/outlier-report/${encodeURIComponent(e.videoId)}"><img loading="lazy" src="/${escapeHtml(e.frame.replace('data/youtube/', ''))}" alt="${mmss(e.t)} 화면"></a>`
         : '<div class="meta" style="padding:40px 0;text-align:center;background:rgba(255,255,255,0.02);border-radius:8px">⏳ 이 PC에서 캡처 만드는 중</div>';
-  const ratio = formatRatioLabel(e);
-  const studioPart = e.studioFolds != null ? ` · 유튜브 조사 ${Number(e.studioFolds)}배` : '';
-  return `<div class="card visual-tile">${img}<div class="visual-body"><div><span class="t">${mmss(e.t)}</span> ${escapeHtml(e.what)}</div><div class="q">${escapeHtml(e.purpose)}</div><div class="meta" style="margin-top:auto">${escapeHtml(e.channelTitle)} · 평소의 ${ratio}${studioPart} · <a class="btn-link" href="/outlier-report/${encodeURIComponent(e.videoId)}">리포트</a></div></div></div>`;
-});
-const body = [
-  '<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">경쟁 영상 리포트 목록</a></p>',
-  `<h1>📸 연출 자료집</h1>`,
-  `<p class="meta">경쟁 영상 ${reports}편 · 화면 변화 ${entries.length}개. 잘된 경쟁 영상이 화면을 어떻게 바꿨는지 1초 간격 3장 캡처로 본다. 구조만 배우고 그림·문구·남의 영상은 따라 하지 않는다. AI가 적은 시각은 몇 초 어긋날 수 있어 캡처 띠로 직접 확인한다. 매일 루프가 하루 2편씩 늘린다.${pendingReports ? ` 지금 이 PC에서 ${Number(pendingReports)}편의 캡처를 만드는 중이라 25초마다 새로고침한다.` : ''}</p>`,
-  `<form method="get" action="/visual-library" class="search-form"><input type="search" name="q" value="${escapeHtml(query)}" placeholder="검색: 비교, X 표시, 정답, 자막…" class="search-input"><button type="submit" class="search-btn">검색</button></form>`,
-  `<p class="meta" style="margin-top:14px;font-weight:600">${shown.length}개${shown.length > 150 ? ' (앞 150개만 표시)' : ''}</p>`,
-  tiles.length ? `<div class="visual-grid">${tiles.join('\n')}</div>` : `<p class="meta">${entries.length ? '검색어에 맞는 화면 변화가 없습니다.' : '아직 리포트가 없습니다. 매일 루프가 하루 2편씩 만듭니다.'}</p>`,
-];
-return page('연출 자료집', body.join('\n'), { refreshSeconds: pendingReports ? 25 : 0 });
+    const ratio = formatRatioLabel(e);
+    const studioPart = e.studioFolds != null ? ` · 유튜브 조사 ${Number(e.studioFolds)}배` : '';
+    return `<div class="card visual-tile">${img}<div class="visual-body"><div><span class="t">${mmss(e.t)}</span> ${escapeHtml(e.what)}</div><div class="q">${escapeHtml(e.purpose)}</div><div class="meta" style="margin-top:auto">${escapeHtml(e.channelTitle)} · 평소의 ${ratio}${studioPart} · <a class="btn-link" href="/outlier-report/${encodeURIComponent(e.videoId)}">리포트</a></div></div></div>`;
+  });
+  const body = [
+    '<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">경쟁 영상 리포트 목록</a></p>',
+    `<h1>📸 연출 자료집</h1>`,
+    `<p class="meta">경쟁 영상 ${reports}편 · 화면 변화 ${entries.length}개. 잘된 경쟁 영상이 화면을 어떻게 바꿨는지 1초 간격 3장 캡처로 본다. 구조만 배우고 그림·문구·남의 영상은 따라 하지 않는다. AI가 적은 시각은 몇 초 어긋날 수 있어 캡처 띠로 직접 확인한다. 매일 루프가 하루 2편씩 늘린다.${pendingReports ? ` 지금 이 PC에서 ${Number(pendingReports)}편의 캡처를 만드는 중이라 25초마다 새로고침한다.` : ''}</p>`,
+    `<form method="get" action="/visual-library" class="search-form"><input type="search" name="q" value="${escapeHtml(query)}" placeholder="검색: 비교, X 표시, 정답, 자막…" class="search-input"><button type="submit" class="search-btn">검색</button></form>`,
+    `<p class="meta" style="margin-top:14px;font-weight:600">${shown.length}개${shown.length > 150 ? ' (앞 150개만 표시)' : ''}</p>`,
+    tiles.length ? `<div class="visual-grid">${tiles.join('\n')}</div>` : `<p class="meta">${entries.length ? '검색어에 맞는 화면 변화가 없습니다.' : '아직 리포트가 없습니다. 매일 루프가 하루 2편씩 만듭니다.'}</p>`,
+  ];
+  return page('연출 자료집', body.join('\n'), { refreshSeconds: pendingReports ? 25 : 0 });
 }
 
 // ---- 비교 시트(2026-11-12): 경쟁 영상과 우리가 만들 영상을 같은 행에서 좌우로 비교한다 ----
@@ -381,12 +381,12 @@ export function evidenceHtml(b) {
 export function renderOutcomeCard(outcome) {
   if (!outcome || typeof outcome !== 'object') return '';
   const cells = [];
-  if (outcome.views7d != null) cells.push({label: '공개 7일 조회수', val: `${num(outcome.views7d)}회`});
-  if (outcome.watchSeconds7d != null) cells.push({label: '7일 평균 시청 시간', val: `${Math.round(Number(outcome.watchSeconds7d))}초`});
-  if (outcome.subs7d != null) cells.push({label: '7일 구독 전환', val: `${Number(outcome.subs7d) >= 0 ? '+' : ''}${num(outcome.subs7d)}명`});
-  if (outcome.stayedToWatch != null) cells.push({label: '계속 시청함 (쇼츠)', val: `${Number(outcome.stayedToWatch).toFixed(1)}%`});
-  if (outcome.impressions7d != null) cells.push({label: '7일 노출수', val: `${num(outcome.impressions7d)}회`});
-  if (outcome.ctr7d != null) cells.push({label: '7일 노출 클릭률(CTR)', val: `${Number(outcome.ctr7d).toFixed(2)}%`});
+  if (outcome.views7d != null) cells.push({ label: '공개 7일 조회수', val: `${num(outcome.views7d)}회` });
+  if (outcome.watchSeconds7d != null) cells.push({ label: '7일 평균 시청 시간', val: `${Math.round(Number(outcome.watchSeconds7d))}초` });
+  if (outcome.subs7d != null) cells.push({ label: '7일 구독 전환', val: `${Number(outcome.subs7d) >= 0 ? '+' : ''}${num(outcome.subs7d)}명` });
+  if (outcome.stayedToWatch != null) cells.push({ label: '계속 시청함 (쇼츠)', val: `${Number(outcome.stayedToWatch).toFixed(1)}%` });
+  if (outcome.impressions7d != null) cells.push({ label: '7일 노출수', val: `${num(outcome.impressions7d)}회` });
+  if (outcome.ctr7d != null) cells.push({ label: '7일 노출 클릭률(CTR)', val: `${Number(outcome.ctr7d).toFixed(2)}%` });
   if (!cells.length) return '<div class="card meta">정산 지표가 아직 입력되지 않았습니다.</div>';
   return `<div class="outcome-grid">${cells.map((c) => `<div class="outcome-cell"><div class="olabel">${escapeHtml(c.label)}</div><div class="oval">${escapeHtml(c.val)}</div></div>`).join('')}</div>`;
 }
@@ -411,7 +411,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   const stage = sheet.status === 'published' && sheet.outcome?.views7d != null ? 'measured' : sheet.status;
   const share = sheet.identityShare || { ours: 0, competitor: 0 };
   const studioFoldsMeta = report?.studioFolds != null
-    ? ` · <span class="pill-badge" style="background:rgba(139,92,246,0.16);color:#c4b5fd;border-color:rgba(139,92,246,0.4)">📡 유튜브 조사 ${Number(report.studioFolds)}배</span>`
+    ? ` · <span class="pill-badge" style="background:rgba(139,92,246,0.14);color:var(--accent-purple);border-color:rgba(139,92,246,0.4);font-weight:700">📡 유튜브 조사 ${Number(report.studioFolds)}배</span>`
     : '';
   const createdMeta = sheet.createdAt ? ` · <span>작성: ${escapeHtml(sheet.createdAt)}</span>` : '';
   const parts = [
@@ -467,7 +467,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
         ? `<a href="/outlier-report/${encodeURIComponent(ref.videoId)}"><img class="ref-thumb" loading="lazy" src="${escapeHtml(rr.thumbnail)}" alt="${escapeHtml(rr.label || ref.videoId)}"></a>`
         : '';
       const refMetaBadges = rr
-        ? `<div class="meta" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px"><span>${escapeHtml(rr.label || '')}</span>${rr.ratioLabel ? ` · <span style="color:var(--accent-amber);font-weight:700">평소의 ${escapeHtml(rr.ratioLabel)}</span>` : ''}${rr.studioFolds != null ? ` · <span class="pill-badge" style="background:rgba(139,92,246,0.16);color:#c4b5fd;border-color:rgba(139,92,246,0.4)">유튜브 조사 ${Number(rr.studioFolds)}배</span>` : ''}</div>`
+        ? `<div class="meta" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px"><span>${escapeHtml(rr.label || '')}</span>${rr.ratioLabel ? ` · <span style="color:var(--accent-amber);font-weight:700">평소의 ${escapeHtml(rr.ratioLabel)}</span>` : ''}${rr.studioFolds != null ? ` · <span class="pill-badge" style="background:rgba(139,92,246,0.14);color:var(--accent-purple);border-color:rgba(139,92,246,0.4);font-weight:700">유튜브 조사 ${Number(rr.studioFolds)}배</span>` : ''}</div>`
         : '';
       parts.push(`<div class="card" style="border-left:3px solid #00D2D3;background:rgba(0,210,211,0.04)"><div class="ref-card-wrap">${refThumb}<div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><b><span class="pill-badge" style="margin-right:6px">${escapeHtml(ref.role || '참고')}</span> ${escapeHtml(ref.what)}</b> <a class="pill-badge" href="/outlier-report/${encodeURIComponent(ref.videoId)}">출처: ${escapeHtml(ref.videoId)} ↗</a></div>${refMetaBadges}<div style="margin-top:8px"><b>채택·융합 이유</b>: ${escapeHtml(ref.reason)}</div><div class="q">근거: ${escapeHtml(ref.evidence)}</div>${(ref.appliedTo || []).length ? `<div class="q" style="border-left-color:#00D2D3"><b>적용한 곳</b>: ${ref.appliedTo.map((x) => escapeHtml(x)).join(' · ')}</div>` : ''}${evidenceHtml(ref)}</div></div></div>`);
     }
@@ -613,8 +613,8 @@ export function renderReportIndex(reports = [], { links = new Map() } = {}) {
     const isV2 = r.ratioMethod === 'peer-median-views-v2';
     const isLinked = linked(r);
     const srcBadge = isResearch
-      ? `<span class="pill-badge" style="background:rgba(139,92,246,0.18);color:#c4b5fd;border-color:rgba(139,92,246,0.45);font-weight:700">📡 스튜디오 조사${r.studioFolds != null ? ` ${Number(r.studioFolds)}배` : ''}</span>`
-      : (r.studioFolds != null ? `<span class="pill-badge" style="background:rgba(139,92,246,0.14);color:#c4b5fd;border-color:rgba(139,92,246,0.35)">유튜브 조사 ${Number(r.studioFolds)}배</span>` : '');
+      ? `<span class="pill-badge" style="background:rgba(139,92,246,0.14);color:var(--accent-purple);border-color:rgba(139,92,246,0.45);font-weight:700">📡 스튜디오 조사${r.studioFolds != null ? ` ${Number(r.studioFolds)}배` : ''}</span>`
+      : (r.studioFolds != null ? `<span class="pill-badge" style="background:rgba(139,92,246,0.14);color:var(--accent-purple);border-color:rgba(139,92,246,0.4);font-weight:700">유튜브 조사 ${Number(r.studioFolds)}배</span>` : '');
     const fmtBadge = r.format ? `<span class="pill-badge" style="background:rgba(56,189,248,0.12);color:var(--accent);border-color:rgba(56,189,248,0.35)">${escapeHtml(r.format)}</span>` : '';
     return `<div class="card report-item" data-source="${isResearch ? 'research' : 'legacy'}" data-ratio="${isV2 ? 'v2' : 'old'}" data-linked="${isLinked ? '1' : '0'}" style="padding:14px"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b style="font-size:15px">${escapeHtml(r.meta?.title)}</b><br><span class="meta" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px"><span class="pill-badge">${escapeHtml(r.meta?.channelTitle)}</span>${fmtBadge}${sheetBadgeHtml(links.get(r.videoId))}${srcBadge ? ` ${srcBadge}` : ''} · <span style="color:var(--accent-amber);font-weight:700">채널 평소 대비 ${formatRatioLabel(r)}</span> · <span>장면 전환 ${cutCountLabel(r.pacing)}</span> · <span>AI 화면 변화 ${(r.analysis?.visualMoments || []).length}개</span> · <span>캡처 ${(r.frames || []).length}장</span> · <span>인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0}</span> · <span>분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></span></a></div>`;
   });

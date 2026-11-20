@@ -1,0 +1,551 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Jdc0kFebXJY",
+  "analyzedAt": "2026-11-20T14:40:51.819Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "Jdc0kFebXJY",
+    "title": "평범한 나를 통역사로 만들어 준 단 1권의 영어독학책 | 국내파통역사의 효율10배 올리는 영어공부법 | 국내파통역사의 인생역전 아웃풋 영어공부법",
+    "channelId": "UCDp0BcWITympoRz30fODYLw",
+    "channelTitle": "만다블_국내파통역사의 영어공부법",
+    "publishedAt": "2026-08-17T12:00:53Z",
+    "viewCount": 517673,
+    "likeCount": 3694,
+    "commentCount": 57,
+    "durationSeconds": 2350,
+    "thumbnail": "https://i.ytimg.com/vi/Jdc0kFebXJY/maxresdefault.jpg",
+    "description": "#영어회화공부법#영어스피킹#영어공부법\n\n한국인의 평균 영어학습기간, 10년\n10년동안 공부해도 우리는 아직도 말 한마디 제대로 하는 것이 너무나 어렵습니다.\n그 근본적인 이유를 찾기 위해 오랫동안 공부하고 배우며 방법을 찾았습니다.\n\n저처럼 평범한 한국인에게 가장 효율적이면서도 근본적인 영어인풋 그리고 아웃풋 문제를 반드시 해결해 줄거라 믿습니다.\n\n오늘 영상은 제가 영어를 처음 시작한 순간부터 지금까지도 간직하고 있는, 그리고\n가장 먼저 추천하는 책을 소개해 드리고, 나아가서 어떻게 공부를 해야 하는지,\n독학으로 공부를 하기위한 방법까지 자세히 담았습니다. \n\n많은 분들이 수많은 책과 강의를 전부 들어야 하는지, 앱을 깔아야 하는지에 대해서\n물어보시지만, 결국 영어는 스스로 입을 움직이고 말을하면서 연습해야하고,\n나에게 가장 잘맞는 방법을 찾아서 그걸 꾸준히 반복하는데 그 성장의 힘이 있다고\n생각합니다. \n\n오늘 말씀드린 이 방법은 누구나 혼자서 할 수 있는  독학공부법입니다.\n일상에서 딱 15분만 매일 '영어공부'에 같이 투자하면 여러분의 한달 후 일년 후가\n완전히 달라집니다. \n\n저는 언제나처럼, 올해는 꼭, 영어공부에서 해방되시기를 진심으로\n바라며, 오늘도 여러분의 영어공부를 응원합니다.:)\n\n\n⏰ 타임라인 \n00:00 통역사의 추천하는 단하나의 인생책\n11:26 효율 10배 올리는 영어공부법\n22:02 상위 1%만 아는 영어공부법\n33:55 한국의 성인학습자가 당장 해야하는 것\n\n\n👉 좋아요, 댓글, 구독은 영상 제작에 큰 힘이 됩니다 🙌\n👉 이 영상이 도움되셨다면 소중한 사람들에게 공유해 주세요!",
+    "tags": [
+      "영어잘하는법",
+      "성인영어",
+      "고급영어",
+      "초급영어",
+      "중급영어",
+      "영어듣ㄷ기",
+      "영어말하기",
+      "영어스피킹",
+      "영어회화",
+      "직장인영어",
+      "30대영어",
+      "40대영어",
+      "50대영어",
+      "성인영어공부",
+      "직장인영어회화",
+      "어학연수",
+      "유학",
+      "영국영ㅇ어",
+      "미국영어",
+      "억양",
+      "영어발음",
+      "영어문장",
+      "영어문법",
+      "영어단어",
+      "영어문장만들기",
+      "영어문장구조",
+      "영어어순",
+      "영어스피치",
+      "영어발표",
+      "외국계회사영어",
+      "영어면접"
+    ]
+  },
+  "subscriberCount": 41500,
+  "viewsPerSubscriber": 12.47,
+  "outlierRatio": 47.72,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-20T14:36:29.957Z",
+  "ratioDenominator": 10847,
+  "ratioPeerCount": 23,
+  "source": "studio-research",
+  "studioFolds": 79,
+  "studioSeenAt": "2026-11-15T05:20:04.415Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 835,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 25
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "long",
+    "sentences": 46,
+    "stats": {
+      "sentences": 46,
+      "lengthSum": 1452,
+      "lengthMedian": 28.5,
+      "endings": {
+        "question": 4,
+        "command": 1,
+        "geodeunyo": 1,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 7,
+        "jyo": 2,
+        "hapsyo": 17,
+        "haeyo": 9,
+        "other": 5
+      },
+      "jointMid": 1,
+      "jointEnd": 7,
+      "fillers": {
+        "자": 2,
+        "그래서": 4,
+        "그런데": 2,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 8,
+        "이게": 1,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 4,
+        "우리": 3,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 4,
+      "pastConclusionSentences": 4
+    },
+    "qualityMetrics": {
+      "sentences": 46,
+      "hangulChars": 1256,
+      "hangulRatio": 0.92,
+      "uniqueWordRatio": 0.71,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-20T14:37:46.189Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "국내파 출신 통역사가 영어 실력을 10배 올리고 스피킹이 터지게 만든 '단 1권의 영어독학책'을 공개하겠다고 궁금증과 기대감을 자극한다.",
+      "titleQuote": "평범한 나를 통역사로 만들어 준 단 1권의 영어독학책 | 국내파통역사의 효율10배 올리는 영어공부법 | 국내파통역사의 인생역전 아웃풋 영어공부법",
+      "thumbnailText": "\"전 이 방법으로, 30살에 영어스피킹 확 터졌어요!\" 국내파 통역사의 영어공부법 이렇게 좋은 걸 왜 안해요? 독학으로 영어 입터지는법",
+      "thumbnailWordCount": 18,
+      "thumbnailVisual": "펼쳐진 영문법 교재와 필기 노트, 연필이 놓인 책상 배경 위에 자막과 제목 문구가 강조되어 배치됨",
+      "thumbnailVsTitle": "제목의 '단 1권의 독학책'과 썸네일의 '30살에 스피킹 확 터진 방법'이 호응하며 독학 스피킹 성공 비법을 보완한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "오프닝 4초간 텍스트 타이틀이 나온 뒤, 발표자가 자신감 있는 태도로 영어 오프닝 멘트를 전하며 영어 공부 성공을 확신한다.",
+      "quote": "In this way, whoever you are, wherever you study English, you will be definitely successful in your journey of studying English. Are you ready?",
+      "reasonToKeepWatching": "30살에 0부터 다시 시작해 통역사가 된 실제 국내파의 단 한 권 추천책을 공개한다고 밝혀 기대감을 준다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "검은 바탕 화면에 금색 타이틀 자막 '30살에 0부터 영어를 다시 시작한'이 뜬다.",
+      "quote": "30살에 0부터 영어를 다시 시작한",
+      "quoteVerified": false
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 15,
+        "what": "영어로 말하는 강한 확신의 오프닝 메시지 전달",
+        "quote": "In this way, whoever you are, wherever you study English, you will be definitely successful in your journey of studying English. Are you ready?",
+        "quoteVerified": true
+      },
+      {
+        "start": 15,
+        "end": 133,
+        "what": "책상 정리 중 발견한 본인의 영어 뼈대를 만들어 준 소중한 교재 '삼원소 영문법' 소개",
+        "quote": "이 책이 제 영어의 뼈대를 구축해 준 책이거든요... 바로 이 책입니다. 이 책이 삼원소 영문법이라는 책인데요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 134,
+        "end": 230,
+        "what": "영어 기초 테스트(1분 읽기) 제시 및 기초/기본 구조 다지기의 중요성 설명",
+        "quote": "자, 먼저 지금부터 영상을 멈추시고 1분 동안 이 콘텐츠를 봐 주세요... 읽는 동시에 바로 이해가 되지 않는다면 여러분은 사실 영어 기초가 부족한 상태가 맞습니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 231,
+        "end": 342,
+        "what": "어려운 시사지(이코노미스트, 타임지)보다 기초 문법 단순화가 왜 먼저인지 밝힘 (노광고 강조)",
+        "quote": "실제로 영어의 기초를 정확하게 이해하지 않은 상태에서 많은 분들께서 이코노미스트, 타임지와 같은 어려운 영어 콘텐츠를 보곤 하시는데요... 기초를 제대로 다지지 않은 상태에서 아무리 읽어도 반도 이해하기가 어렵습니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 343,
+        "end": 437,
+        "what": "10년 전 본인이 직접 필기하며 수십 번 회독했던 실제 삼원소 영문법 책 내부 공개",
+        "quote": "실제, 저의 10년전 공부 흔적입니다... 저는 1회독이 아니라 수 십번은 읽고 또 읽었습니다!",
+        "quoteVerified": false
+      },
+      {
+        "start": 438,
+        "end": 509,
+        "what": "'삼원소(명사, 형용사, 부사)'의 개념과 문법 단순화 원리 설명",
+        "quote": "여기서 삼원소라고 하는 건요. 명사, 형용사, 부사 이렇게 세 개를 지칭하는 말인데요... 명사의 성격을 가지는 구절들을 전체 포함하는 성분을 얘기합니다.",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "검은 바탕에 '30살에 0부터 영어를 다시 시작한' 텍스트 뜸",
+        "purpose": "영상 핵심 인물 서사 전제 제시"
+      },
+      {
+        "t": 2,
+        "what": "'국내파 통역사가 추천하는 단 한 권의 책' 자막으로 변경",
+        "purpose": "추천 대상 및 신뢰감 강조"
+      },
+      {
+        "t": 4,
+        "what": "발표자 상반신 등장 및 영문 자막Overlay '이 방법으로,' 등장",
+        "purpose": "발표자 등장과 영어 오프닝 시작"
+      },
+      {
+        "t": 15,
+        "what": "화면 톤 전환되며 한국어 서두 자막 '여러분, 제가 책상정리를 하다가' 등장",
+        "purpose": "본론 도입부 시작 알림"
+      },
+      {
+        "t": 22,
+        "what": "발표자가 직접 통역 노트를 들어 보임",
+        "purpose": "통역사 실무 흔적 시각화"
+      },
+      {
+        "t": 53,
+        "what": "화면 좌측 하단에 'But, 통대입학 후 깨달은 진짜, 영어공부법?' 그래픽 등장",
+        "purpose": "깨달은 핵심 메시지 환기"
+      },
+      {
+        "t": 61,
+        "what": "좌측 하단 그래픽이 ''영어의 기초' 가 가장 중요'로 변경",
+        "purpose": "공부법 핵심 결론 제시"
+      },
+      {
+        "t": 73,
+        "what": "핑크색 '삼원소 영문법' 책을 들고 '삼원소 영문법' 그래픽 자막 표시",
+        "purpose": "추천 교재 실물 공개"
+      },
+      {
+        "t": 94,
+        "what": "좌측 하단에 '왜 '삼원소 영문법'? / How to study with it?' 라벨 등장",
+        "purpose": "다음 이어질 설명 주제 안내"
+      },
+      {
+        "t": 101,
+        "what": "하단 자막이 '영상을 1분동안 멈추시고 영어콘텐츠를 읽어주세요!'로 전환",
+        "purpose": "시청자 참여 유도 행동 지시"
+      },
+      {
+        "t": 108,
+        "what": "영어 기사 텍스트(DEAR ABBY) 지문 화면으로 전체 전환",
+        "purpose": "실제 기초 측정용 영어 텍스트 제공"
+      },
+      {
+        "t": 112,
+        "what": "다시 발표자 화면으로 오며 ''1분' 동안 읽어보셨나요?' 라벨 표시",
+        "purpose": "테스트 점검 질문 던짐"
+      },
+      {
+        "t": 126,
+        "what": "좌측 하단 라벨이 'Why is that?'으로 변경",
+        "purpose": "원인 설명 구간 진입"
+      },
+      {
+        "t": 151,
+        "what": "좌측 하단에 '난, 중급이상 실력인데?' 반론 라벨 표시",
+        "purpose": "시청자 반론 예상 및 반박"
+      },
+      {
+        "t": 167,
+        "what": "우측 상단에 'The Economist', 'TIME' 로고 그래픽 등장",
+        "purpose": "흔히 복잡하게 공부하는 고급 매체 시각화"
+      },
+      {
+        "t": 196,
+        "what": "책을 다시 들고 '광고X / 책 저자님 관련X' 라벨 표시",
+        "purpose": "순수 내돈내산 추천임을 명시"
+      },
+      {
+        "t": 223,
+        "what": "라벨이 'But, some might say 또 '문법책'을 보라구?'로 전환",
+        "purpose": "기존 문법책에 대한 시청자 거부감 미리 차단"
+      },
+      {
+        "t": 240,
+        "what": "발표자의 필기 흔적이 빽빽한 교재 실물 근접 촬영 화면으로 전환",
+        "purpose": "10년 전 실제 공부한 증거 제시"
+      },
+      {
+        "t": 278,
+        "what": "필기 교재 페이지를 넘기며 구어체 설명 강조 라벨 표시",
+        "purpose": "교재의 실질적 장점 서술"
+      },
+      {
+        "t": 278,
+        "what": "발표자 상반신 화면으로 돌아와 ''삼원소'의 의미?' 및 명사·형용사·부사 자막 뜸",
+        "purpose": "삼원소 용어 개념 정리"
+      },
+      {
+        "t": 286,
+        "what": "전체 화면이 '명사' 정의 슬라이드 텍스트로 전환됨",
+        "purpose": "명사의 넓은 확장 개념 상세 서술"
+      }
+    ],
+    "ending": {
+      "what": "영어 목표를 정하고 3단계 공부법을 시작해 인생을 바꾸길 당부하며 고정 댓글 클릭 및 성공 기원 인사로 마무리한다.",
+      "quote": "지금 당장 여러분의 영어 목표를 정하시고 1단계부터 3단계까지 시작하시면 여러분의 영어 인생 반드시 달라지실 겁니다.",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "도서관에서 삼원소 영문법 책을 보고 영어의 퍼즐이 맞쳐지는 느낌을 받았다.",
+          "quote": "삼원소 영문법 도서관에서 우연히 보고 퍼즐이 다 맞춰지는 느낌이었어요...",
+          "quoteVerified": true
+        },
+        {
+          "point": "설명이 쉽고 명확해서 강의 몰입도가 최고였다.",
+          "quote": "이해하기 쉽게 설명을 잘 해주셔서 영상을 보는 내내 집중해서 잘 볼수있었습니다! 삼원소 책 당장 사러갑니다 ㅎㅎ",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "40대 후반에 마음만 급하고 입과 귀가 잘 안 트이는 애매한 실력 상태이다.",
+          "quote": "뭔가 영어실력이 애매한 느낌이랄까요..이제 40대 후반인데 나이도 있고 앞으로 인생을 탄탄하게 하고싶어 외국어를 공부해야 겠다 생각하고 있고, 한번씩 느끼는 걸 제미나이와 영어대화를 정리하고 외우고 있어요..문법도 입.귀도 트이게 해야하는데 마음만 급했던듯 해요..",
+          "quoteVerified": true
+        },
+        {
+          "pain": "미국에 살고 시험도 합격했지만 스펙에 비해 영어를 말하고 쓰기가 여전히 부끄럽고 위축된다.",
+          "quote": "저의 스펙에 비해 영어쓰기와 말하기가 참 쉽지 않은거 같습니다. 가끔은 제 영어가 낯부끄럽기도해서 위축될때도 많고요, 얼마전엔 영어로 인터뷰하는데 어찌나 버벅대고 머리가 하얘져서 정말 너무 힘들었었던 기억이 있습니다.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "해외 거주자라 이 책을 ebook으로도 구매 가능한지 문의함.",
+          "quote": "이 책 ebook 으로도 살수있나요? 해외라서요",
+          "quoteVerified": true
+        },
+        {
+          "question": "Grammar in use 책으로 대체해서 공부해도 효과가 동일할지 질문함.",
+          "quote": "한국이아니여서요.. 혹시 grammer in use intermediare 는 어떨까요?",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "퍼즐이 다 맞춰지는 느낌",
+          "quote": "삼원소 영문법 도서관에서 우연히 보고 퍼즐이 다 맞춰지는 느낌이었어요...",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 3,
+      "description": "기초 문법 단순화의 중요성(삼원소 영문법), 1개월 3단계 공부 프레임워크(읽기/생각하기/아웃풋), 구체적인 인풋·아웃풋 실천 루틴 등 3가지 핵심 축을 논리적으로 제시한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 하단 자막 위치 및 좌측 하단 키워드 라벨 박스",
+      "size": "보통",
+      "highlightColor": "주황색, 빨간색, 분홍색 박스",
+      "highlightMethod": "텍스트 바탕에 밝은 색 배경 박스를 깔고 핵심 단어 강조",
+      "textAmount": "한 번에 1~2줄 분량의 깔끔한 글자 수",
+      "changeTiming": "발표자의 화법 및 발화 호흡에 딱 맞춰 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "차분하면서도 경쾌하고 잔잔한 연주곡",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "자막이나 라벨이 시각적으로 짠 등장할 때 경쾌한 효과음 사용",
+      "voiceVsMusic": "발표자의 목소리가 또렷하게 돋보이고 배경음악은 매우 낮게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 4,
+        "what": "30살에 시작해 국내파 통역사가 된 단 한 권의 인생책을 공개하겠다고 선언함",
+        "quote": "In this way, whoever you are, wherever you study English, you will be definitely successful in your journey of studying English.",
+        "type": "결과 보장형 및 신뢰 기반 선언",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 101,
+          "what": "1분 동안 예시 영문을 직접 읽게 한 뒤 바로 이해되는지 질문을 던짐",
+          "quote": "영상을 1분동안 멈추시고 영어콘텐츠를 읽어주세요!",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 112,
+          "what": "읽자마자 바로 이해되지 않는 원인이 기초 문법 구조의 미흡 때문임을 밝힘",
+          "quote": "읽는동시에 바로 이해가 되셨나요? 만약, 그게 잘 안되신다면 지금 여러분은 영어·기초·즉 기본기가 부족한 상태입니다",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "1분 테스트로 시청자의 약점을 먼저 체감하게 만든 후, 왜 원어민 매체보다 기초 영문법 단순화(삼원소) 교재가 먼저 필요한지 논리적으로 연결함.",
+        "examples": [
+          {
+            "t": 196,
+            "what": "광고가 아님을 증명하기 위해 10년 전 손때 묻은 필기 교재를 직접 보여줌",
+            "quote": "광고X 책 저자님 관련X... 실제, 저의 10년전 공부 흔적입니다",
+            "quoteVerified": false
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 134,
+          "what": "삼원소 영문법 교재를 구체적으로 어떻게 3단계로 풀어 활용해야 하는가",
+          "quote": "이 책을 왜 추천하는지 어떻게 공부를 해야 하는지 말씀드리기에 앞서서",
+          "quoteVerified": true
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 240,
+          "what": "발표자 상반신 촬영 구도에서 10년 전 필기가 가득한 책 내부 실물 카메라 앵글로 전환",
+          "quote": "실제, 저의 10년전 공부 흔적입니다",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 101,
+          "what": "화면을 1분간 멈추고 텍스트를 읽도록 유도",
+          "quote": "영상을 1분동안 멈추시고 영어콘텐츠를 읽어주세요!",
+          "quoteVerified": false
+        }
+      ],
+      "evidence": [
+        {
+          "t": 240,
+          "what": "10년 전 손으로 빽빽하게 장문과 생각을 기록한 실제 '삼원소 영문법' 교재를 근접 촬영으로 보여줌",
+          "quote": "제가 공부하면서 여기저기 필기도 하고, 제 생각도 많이 적습니다",
+          "quoteVerified": false
+        }
+      ],
+      "payoff": {
+        "t": 311,
+        "what": "영문법 기초 단단하게 잡기가 왜 스피킹과 아웃풋의 원천이었는지 정리해 추천",
+        "quote": "그래서 제가 추천드리는, 최고의 영어공부책이 바로, 이 책입니다",
+        "quoteVerified": false
+      }
+    },
+    "links": [
+      {
+        "cause": "10년 전 실제 필기가 가득한 교재 화면을 공개하며 솔직하게 추천함",
+        "reaction": "시청자들이 진정성을 느끼고 당장 교재를 사러 가거나 도서관에서 퍼즐이 맞쳐졌던 경험을 공유함",
+        "quote": "삼원소 영문법 도서관에서 우연히 보고 퍼즐이 다 맞춰지는 느낌이었어요...",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 음성학이나 발음 메커니즘을 직접 가르치는 영상이 아니라, 영문법 독학 교재 추천 및 인풋·아웃풋 공부법 전반을 전달하는 영상이기 때문이다.",
+    "forUs": {
+      "adopt": "실제 수십 번 공부했던 낡은 교재 필기 흔적을 카메라로 찍어 보여주며 증명하는 진정성 연출 방식을 가져온다.",
+      "differentiate": "단순 교재 추천에 그치지 않고, 40~60대 성인이 소리를 직접 입으로 조율하고 들을 수 있게 돕는 음성 메커니즘 훈련 과정을 보강한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 27,
+    "verified": 13,
+    "unverified": 14
+  },
+  "pacing": {
+    "count": 1,
+    "medianGapSeconds": null,
+    "perMinute": 0.2,
+    "times": [
+      286.5
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 53,
+      "file": "53.jpg"
+    },
+    {
+      "t": 73,
+      "file": "73.jpg"
+    },
+    {
+      "t": 101,
+      "file": "101.jpg"
+    },
+    {
+      "t": 112,
+      "file": "112.jpg"
+    },
+    {
+      "t": 151,
+      "file": "151.jpg"
+    },
+    {
+      "t": 196,
+      "file": "196.jpg"
+    },
+    {
+      "t": 240,
+      "file": "240.jpg"
+    },
+    {
+      "t": 286,
+      "file": "286.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 44297,
+    "candidatesTokenCount": 4522,
+    "totalTokenCount": 52393,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 15896
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 3574,
+    "serviceTier": "standard"
+  }
+}

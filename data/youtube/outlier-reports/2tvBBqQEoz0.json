@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "videoId": "2tvBBqQEoz0",
+  "analyzedAt": "2026-11-20T14:42:42.557Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 64,
+  "meta": {
+    "videoId": "2tvBBqQEoz0",
+    "title": "명예영국인이 풀어주는 헷갈리는 영어 TOP3",
+    "channelId": "UCicnKwdmE8erQpt_ZWz8E8w",
+    "channelTitle": "라잌셀럽 ",
+    "publishedAt": "2026-11-07T14:47:03Z",
+    "viewCount": 1059723,
+    "likeCount": 3175,
+    "commentCount": 235,
+    "durationSeconds": 64,
+    "thumbnail": "https://i.ytimg.com/vi/2tvBBqQEoz0/maxresdefault.jpg",
+    "description": "#명예영국인 #백진경 #정일영 #영어",
+    "tags": []
+  },
+  "subscriberCount": 21000,
+  "viewsPerSubscriber": 50.46,
+  "outlierRatio": 38.2,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-20T14:40:52.189Z",
+  "ratioDenominator": 27743,
+  "ratioPeerCount": 38,
+  "source": "studio-research",
+  "studioFolds": 100,
+  "studioSeenAt": "2026-11-20T04:44:03.630Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 43,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 64
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "long",
+    "sentences": 34,
+    "stats": {
+      "sentences": 34,
+      "lengthSum": 492,
+      "lengthMedian": 11.5,
+      "endings": {
+        "question": 8,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 1,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 11,
+        "other": 14
+      },
+      "jointMid": 3,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 5,
+        "그러면": 1,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 2,
+        "진짜": 1,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 4
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 1,
+      "questionSentences": 8,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 34,
+      "hangulChars": 425,
+      "hangulRatio": 1,
+      "uniqueWordRatio": 0.66,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-20T14:42:36.600Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "명예영국인이 헷갈리는 영어 표현 TOP3를 풀어준다는 제목으로 호기심을 유발함",
+      "titleQuote": "명예영국인이 풀어주는 헷갈리는 영어 TOP3",
+      "thumbnailText": "명예영국인이 풀어주는 헷갈리는 영어 TOP3",
+      "thumbnailWordCount": 5,
+      "thumbnailVisual": "상단에 제목 텍스트, 좌측에 TOP3 목록(1., 2., 3. 갭 차이), 중앙에 안경을 쓴 출연자가 말하는 장면 배치",
+      "thumbnailVsTitle": "제목 텍스트와 썸네일 상단 문구가 완전히 동일하게 제시됨",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "한국 콩글리시 중 '갭 차이'가 '차이 차이'라는 뜻의 동의어 반복이라 이상하다는 점을 짚어냄",
+      "quote": "약간 그럼 한국 콩글리쉬 중에서 약간 요거 좀 거슬린다 하는 것도 있겠네요?",
+      "reasonToKeepWatching": "일상에서 흔히 쓰는 '갭 차이' 표현이 왜 어색한지 밝혀내며 다음 순위 표현에 대한 궁금증을 유발함",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "진행자가 콩글리시 중 거슬리는 표현이 있는지 묻고 출연자가 대답을 시작함",
+      "quote": "약간 그럼 한국 콩글리쉬 중에서 약간 요거 좀 거슬린다 하는 것도 있겠네요?",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 15,
+        "what": "3위 표현인 '갭 차이'가 영어 gap(차이)과 차이(差異)가 합쳐진 동의어 중복임을 설명함",
+        "quote": "거슬린다? 뭐 갭차이 이런 거.",
+        "quoteVerified": true
+      },
+      {
+        "start": 15,
+        "end": 33,
+        "what": "2위 표현인 '흥미로운 맛(interesting)'이 영국 문화에서 돌려 까거나 맛없음을 돌려 말할 때 쓰인다는 점을 설명함",
+        "quote": "영국 사람들은 뭐든지 극단적으로 얘기를 안 해서",
+        "quoteVerified": true
+      },
+      {
+        "start": 33,
+        "end": 64,
+        "what": "1위 표현인 'You look healthy'가 외모나 체중 언급을 피하는 서구권 문화에서 '살쪘다'를 돌려 표현할 때 쓰인다고 말한 뒤 반격 농담으로 마무리함",
+        "quote": "프랑스도 절대 외모 얘기를 안 해요.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "안경을 쓴 남성 진행자가 상의 자켓을 입고 서류를 든 채 질문하는 화면",
+        "purpose": "콩글리시 질문을 던지며 3위 갭 차이 토크 시작"
+      },
+      {
+        "t": 3,
+        "what": "여성 출연자(풍자)가 화면에 나타나 답함",
+        "purpose": "'갭 차이'라는 단어를 제시함"
+      },
+      {
+        "t": 5,
+        "what": "남성 진행자 컷으로 전환",
+        "purpose": "갭이 왜 문제인지 되묻는 장면"
+      },
+      {
+        "t": 6,
+        "what": "여성 출연자 컷으로 전환되며 자막 강조",
+        "purpose": "gap이 차이라는 뜻이라 '차이 차이'가 된다고 설명"
+      },
+      {
+        "t": 15,
+        "what": "마이크가 있는 보이는 라디오/팟캐스트 스튜디오 장면으로 전환, 좌측 TOP3 목록에 2. 흥미로운 맛 추가",
+        "purpose": "2위 '흥미로운 맛' 주제로 전환됨을 시각화"
+      },
+      {
+        "t": 25,
+        "what": "모자를 쓴 또 다른 출연자(송은이)가 질문하는 모습",
+        "purpose": "흥미롭다고 하면 맛있어 보이는 것 아니냐는 의문을 제기함"
+      },
+      {
+        "t": 33,
+        "what": "앤틱한 분위기의 토크쇼 세트장으로 장면 전환, 좌측 TOP3 목록 1번 위치에 '1. You look healthy' 추가",
+        "purpose": "1위 표현 'You look healthy' 주제로 전환"
+      },
+      {
+        "t": 44,
+        "what": "하단에 시청자 댓글 캡처 화면이 그래픽으로 노출됨",
+        "purpose": "외모 언급에 관한 대중의 시선과 반응 예시를 보여줌"
+      }
+    ],
+    "ending": {
+      "what": "외모 칭찬/평가에 대한 토크 끝에 'You look old!'라는 농담을 던지며 웃음으로 종료함",
+      "quote": "You look old!",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "영국 관련 콘텐츠에서 'interesting'이 자주 쓰이던 상황을 떠올리며 공감함",
+          "quote": "영국남자에 한국음식 먹일때 인터레스팅 개많이나왔었는데 ㅋㅋㅋ",
+          "quoteVerified": true
+        },
+        {
+          "point": "마지막의 기습적인 농담에 웃음을 터뜨림",
+          "quote": "냅다 올드 박아버리는게 개웃기넼ㅋㅋㅋㅋ",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "동의어 중복(족발, 역전앞 등)을 비유한 설명",
+          "quote": "갭차이 = 족발같은거임. 발발",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 3,
+      "description": "한국인이 헷갈리거나 잘못 쓰는 영어/문화적 표현 3가지(갭 차이, 흥미로운 맛, You look healthy)를 3위부터 1위 순으로 나열함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 하단",
+      "size": "보통",
+      "highlightColor": "노란색, 흰색",
+      "highlightMethod": "핵심 단어 색상 강조 및 큰 굵은 폰트 적용",
+      "textAmount": "한두 줄 분량의 대화 자막",
+      "changeTiming": "출연진의 음성 대사에 맞춰 실시간 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 유쾌한 토크 예능 분위기",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "웃음소리 강조 및 장면 전환 시 효과음 사용",
+      "voiceVsMusic": "출연자의 목소리 대화가 중심이며 배경음악은 낮게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "한국 콩글리시 중 거슬리는 것이 있는지 질문하며 시작",
+        "quote": "약간 그럼 한국 콩글리쉬 중에서 약간 요거 좀 거슬린다 하는 것도 있겠네요?",
+        "type": "질문형 훅",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "영국인이 보기에 이상하거나 헷갈리는 영어 TOP3가 무엇인지 궁금증 생성",
+          "quote": "명예영국인이 풀어주는 헷갈리는 영어 TOP3",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 58,
+          "what": "1위 'You look healthy'의 뉘앙스 차이를 밝히며 탑3 공개 완료",
+          "quote": "You look healthy라고 그래요.",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "갭 차이라는 콩글리시 지적에서 출발하여 영국 문화의 완곡한 표현 방식(흥미로운 맛, 건강해 보인다)으로 자연스럽게 연결됨",
+        "examples": [
+          {
+            "t": 15,
+            "what": "영국 문화의 돌려 말하기 특징 설명으로 연결",
+            "quote": "영국 사람들은 뭐든지 극단적으로 얘기를 안 해서",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 102,
+          "what": "훈훈한 문화 설명 중간에 상대방에게 냅다 공격성 농담 'You look old!'를 던짐",
+          "quote": "You look old!",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 44,
+          "what": "실제 인터넷 댓글 캡처를 화면 하단에 띄워 문화적 시선 차이를 증거로 활용함",
+          "quote": "살쪘냐고 물었는데 건강해보이는살겠다는건데",
+          "quoteVerified": false
+        }
+      ],
+      "payoff": {
+        "t": 58,
+        "what": "1위 표현과 함께 재치 있는 반격 대사로 토크를 마무리함",
+        "quote": "You look healthy / You look old!",
+        "quoteVerified": false
+      }
+    },
+    "links": [
+      {
+        "cause": "영국인들이 맛없다는 말을 'interesting'으로 돌려 표현한다는 설명",
+        "reaction": "영국남자 유튜브 등에서 외국인들이 'interesting'이라고 한 상황을 언급하며 공감함",
+        "quote": "영국남자에 한국음식 먹일때 인터레스팅 개많이나왔었는데 ㅋㅋㅋ",
+        "quoteVerified": true
+      },
+      {
+        "cause": "마지막 장면에서 'You look old!'라고 외치는 모습",
+        "reaction": "갑작스러운 반격 대사에 시청자들이 큰 웃음을 터뜨림",
+        "quote": "냅다 올드 박아버리는게 개웃기넼ㅋㅋㅋㅋ",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 발음이나 소리 훈련 영상이 아니라, 예능 방송 속 문화 차이와 표현 뉘앙스를 재미있게 다룬 클립 편집 영상이다.",
+    "forUs": {
+      "adopt": "한국인이 흔히 범하는 표현 오류(갭 차이 등 동의어 중복)나 문화적 뉘앙스 차이를 명확한 비교 예시를 통해 쉽고 흥미롭게 풀어내는 방식",
+      "differentiate": "단순 토크 예능 클립에 그치지 않고, 원어민이 실제 해당 표현을 발음할 때의 소리 원리(강세·연음)를 시청자가 직접 입으로 따라 하며 체득하도록 훈련 요소를 추가한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 19,
+    "verified": 13,
+    "unverified": 6
+  },
+  "pacing": {
+    "count": 19,
+    "medianGapSeconds": 2.5,
+    "perMinute": 17.8,
+    "times": [
+      5.3,
+      5.9,
+      8.1,
+      12,
+      12.7,
+      15.4,
+      25.2,
+      27.9,
+      31.2,
+      33.3,
+      37.6,
+      43.4,
+      44.4,
+      46.7,
+      51.7,
+      52.5,
+      59.4,
+      60.3,
+      61.7
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 6,
+      "file": "6.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 25,
+      "file": "25.jpg"
+    },
+    {
+      "t": 33,
+      "file": "33.jpg"
+    },
+    {
+      "t": 44,
+      "file": "44.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 11607,
+    "candidatesTokenCount": 2679,
+    "totalTokenCount": 15595,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4764
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 5743
+      }
+    ],
+    "thoughtsTokenCount": 1309,
+    "serviceTier": "standard"
+  }
+}

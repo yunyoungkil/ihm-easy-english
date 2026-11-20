@@ -1,10 +1,10 @@
-# 브랜드 & 대시보드 디자인 시스템 (Brand & HUD Design System)
+# 대시보드 디자인 시스템 (Dashboard HUD Design System)
 
 > **이해하면 쉬운영어 (IHM Easy English)**  
-> Faceless Explainer Video & YouTube Analytics Command Center  
-> 문서 최종 갱신: 2026-08-29
+> YouTube Analytics Command Center (데이터 분석 대시보드 UI 전용)  
+> 문서 최종 갱신: 2026-11-20
 
-이 문서는 채널 **'이해하면 쉬운영어'**의 모든 시각 자산(YouTube 썸네일, Faceless Explainer 자막 카드, 데이터 분석 대시보드)에 일관된 브랜드 아이덴티티와 프리미엄 시각 경험을 부여하기 위한 표준 디자인 가이드입니다.
+이 문서는 채널 **'이해하면 쉬운영어'**의 **데이터 분석 대시보드 UI 전용 디자인 시스템**입니다. **영상 화면·썸네일은 2026-11-17 탈템플릿 결정 및 2026-11-20 브랜드 3단계 진화 기준에 따라 이 문서의 고정 스타일(Cyber-HUD)을 따르지 않고 비교 시트·소재별로 자율 설계합니다.**
 
 ---
 
@@ -14,11 +14,7 @@
    - 피치블랙(Pitch Black) 우주 공간을 배경으로, 데이터와 신호(Signal)가 빛나는 사이버 콕핏 인터페이스.
    - 불필요한 여백 낭비 없이 정보 밀도(Information Density)를 극대화하되, 시각적 계층 구조(Visual Hierarchy)를 엄격히 준수하여 한눈에 스캔 가능하게 구성.
 
-2. **Intuitive Faceless Explainer (직관적 비얼굴 해설 영상)**
-   - 모바일 화면에서도 1초 만에 원리가 이해되는 고대비 자막 카드.
-   - 규칙을 외우게 하지 않고 "왜 그렇게 들리는지" 시각적·청각적 은유로 전달.
-
-3. **Vibrant Signal Accents (고발광 신호 색상)**
+2. **Vibrant Signal Accents (고발광 신호 색상)**
    - 무채색 다크 배경 위에 **네온 마젠타(Neon Magenta)**, **사이버 사이언(Cyber Cyan)**, **일렉트릭 앰버(Electric Amber)**, **레이저 에메랄드(Laser Emerald)**를 신호등처럼 사용하여 사용자의 시선을 즉시 유도.
 
 ---

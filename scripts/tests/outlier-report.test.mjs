@@ -298,3 +298,45 @@ test('일시적 오류(Gemini 과부하·한도·네트워크)는 7일 쉬기 �
   assert.equal(isTransientReportError('Gemini 리포트 분석 실패: JSON 형식이 아님'), false);
   assert.equal(isTransientReportError(''), false);
 });
+
+test('2단계 대상 선정: 조사 후보에서 롱폼 1 + 쇼츠 1을 studioFolds→최근 공개순으로 고르고, 같은 채널 7일 쿨다운·배치 중복을 막는다', async () => {
+  const {pickReportTargetsDetailed} = await import('../outlier-report.mjs');
+  const now = new Date('2026-11-20T00:00:00Z');
+  const research = {
+    candidates: {
+      L1: {videoId: 'L1', format: 'LONGFORM', channelId: 'UCchRecent', studioFolds: 100, publishedAt: '2026-11-15T00:00:00Z'},
+      L2: {videoId: 'L2', format: 'LONGFORM', channelId: 'UCchA', studioFolds: 80, publishedAt: '2026-11-10T00:00:00Z'},
+      L3: {videoId: 'L3', format: 'LONGFORM', channelId: 'UCchB', studioFolds: 80, publishedAt: '2026-11-18T00:00:00Z'},
+      S1: {videoId: 'S1', format: 'SHORTS', channelId: 'UCchB', studioFolds: 100, publishedAt: '2026-11-18T00:00:00Z'},
+      S2: {videoId: 'S2', format: 'SHORTS', channelId: 'UCchC', studioFolds: 60, publishedAt: '2026-11-12T00:00:00Z'},
+    },
+  };
+  const existingReports = [{videoId: 'OLD1', analyzedAt: '2026-11-18T00:00:00Z', meta: {channelId: 'UCchRecent'}}];
+  const picked = pickReportTargetsDetailed({research, existingReports, now, limit: 2});
+  // L1은 UCchRecent가 2일 전 분석돼 제외. L3와 L2는 80배 동률이지만 L3가 최신 공개라 먼저 선택.
+  // S1은 L3와 같은 채널(UCchB)이라 같은 배치 중복으로 건너뛰고 S2 선택.
+  assert.deepEqual(picked.map((x) => [x.videoId, x.source, x.format]), [
+    ['L3', 'studio-research', 'LONGFORM'],
+    ['S2', 'studio-research', 'SHORTS'],
+  ]);
+});
+
+test('2단계 대상 선정: 한쪽 형식 조사 후보가 비면 손입력 목록(marketDemand) 폴백으로 채우되 두 배수를 섞지 않는다', async () => {
+  const {pickReportTargetsDetailed} = await import('../outlier-report.mjs');
+  const now = new Date('2026-11-20T00:00:00Z');
+  const research = {
+    candidates: {
+      S1: {videoId: 'S1', format: 'SHORTS', channelId: 'UCchS', studioFolds: 20, publishedAt: '2026-11-15T00:00:00Z'},
+    },
+  };
+  const marketDemand = {
+    byKeyword: [{keyword: '영어', topOutliers: [{videoId: 'MD1', outlierRatio: 999, title: '영어 발음 비밀'}]}],
+    trackedChannels: [],
+  };
+  const picked = pickReportTargetsDetailed({marketDemand, research, now, limit: 2});
+  // 조사 후보(S1, 20배)가 손입력(MD1, 999배)보다 무조건 먼저 뽑히고, 빈 롱폼 자리는 손입력 폴백으로 채운다.
+  assert.deepEqual(picked.map((x) => [x.videoId, x.source]), [
+    ['S1', 'studio-research'],
+    ['MD1', 'market-demand-fallback'],
+  ]);
+});

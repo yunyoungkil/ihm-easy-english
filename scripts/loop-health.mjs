@@ -147,15 +147,16 @@ export function collectWorkflowSignals({
   if (studioResearch) {
     const okDays = [...new Set((studioResearch.runs || []).map((r) => r.date).filter(Boolean))].length;
     const candCount = Object.keys(studioResearch.candidates || {}).length;
-    const catchUp = dailyLoop?.outlierReportCatchUp;
+    const researchReports = outlierReports.filter((r) => r?.source === 'studio-research').length;
     if (okDays > 0) {
+      const stage3Ready = okDays >= 12 && researchReports >= 20;
       candidates.push({
-        area: '조사 데이터 → 리포트 대상 전환',
+        area: '조사 데이터 2단계 관찰',
         severity: 'upgrade',
-        finding: `스튜디오 조사 1단계 ${okDays}일치(유효 후보 ${candCount}편) 수집됐으나 리포트 선정은 아직 옛 손입력 목록 기준(따라잡기 남은 편수 ${catchUp ?? '확인 전'})`,
-        proposal: catchUp === 0 && okDays >= 6
-          ? '설계 조건(6일+ 수집·따라잡기 0편)이 충족됐으니 pickReportTargets 2단계(조사 후보 우선) 전환을 착수'
-          : '설계 기준(7일 중 6일 ok·따라잡기 0편) 도달 시 2단계로 전환해 노이즈가 많은 옛 손입력 목록 의존을 축소',
+        finding: `스튜디오 조사 2단계(조사 후보 우선 선정) 운영 중 — 수집 ${okDays}일치 · 유효 후보 ${candCount}편 · 조사 출처 리포트 ${researchReports}/20편`,
+        proposal: stage3Ready
+          ? '설계 조건(12일+ 수집 · 조사 리포트 20편+) 충족 — 대표님 재확인 후 3단계(구 손입력 목록 정리) 착수'
+          : '2단계 14일 관찰(조사 출처 리포트 20편·수집 12일+)을 쌓으며 조사 후보 품질과 API v2 배수 충실도를 확인',
       });
     }
   }

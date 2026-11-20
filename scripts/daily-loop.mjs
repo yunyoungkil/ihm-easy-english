@@ -282,22 +282,7 @@ async function run() {
     await step('audience', () => runAudienceBackfillStep(backfill, post));
   }
 
-  // 합친 아웃라이어 리포트: 배수 큰 영상부터 하루 2편. 예전 리포트만 있는 영상이 남아 있으면 따라잡는 동안 하루 6편.
-  // 실패한 영상은 7일 동안 다시 하지 않는다(Gemini 과부하·한도 같은 일시적 오류는 제외, 다음 날 다시).
-  const {pickReportTargets, analyzeOutlierVideo, loadReports, reportsPerDay, isTransientReportError} = await import('./outlier-report.mjs');
-  const keepSince = now.getTime() - 30 * 86400000;
-  report.outlierReportFailures = Object.fromEntries(Object.entries(prevLoop.outlierReportFailures || {}).filter(([, at]) => Date.parse(at) >= keepSince));
-  const reportPick = {
-    marketDemand: latestMarketDemand,
-    existingIds: new Set(loadReports().map((r) => r.videoId)),
-    failures: report.outlierReportFailures,
-    now,
-  };
-  const eligibleIds = pickReportTargets({...reportPick, limit: Infinity});
-  const oldReportIds = new Set([...existingCommentIds, ...existingScriptIds]);
-  report.outlierReportCatchUp = eligibleIds.filter((id) => oldReportIds.has(id)).length;
-  const reportTargets = pickReportTargets({...reportPick, limit: reportsPerDay({eligibleIds, oldReportIds})});
-  // 스튜디오 조사 목록 수집(2026-11-14 설계 2절): 실적 우수 목록의 후보를 모은다. 2단계에서 리포트 대상 고르기가 오늘 모은 후보를 바로 쓰도록 outlierReports 앞에 둔다.
+  // 스튜디오 조사 목록 수집(2026-11-14 설계 2절): 2단계에서 오늘 모은 후보를 바로 쓰도록 대상 고르기·outlierReports 앞에 둔다.
   // acquireLock(studio-export.mjs)은 다른 스튜디오 단계처럼 수집 함수 안에서 건다. 크롬 로그인이 풀리면 오류를 던져 loop-step 점검이 알린다.
   await step('studioResearch', async () => {
     const {collectStudioResearch} = await import('./studio-research.mjs');
@@ -306,16 +291,44 @@ async function run() {
     return r;
   });
 
-  if (reportTargets.length) {
+  // 합친 아웃라이어 리포트(2단계 전환 2026-11-20): 스튜디오 조사 후보(롱폼 1 + 쇼츠 1)를 우선 고르고, 한 형식이 비면 손입력 목록으로 채운다.
+  // 실패한 영상은 7일 동안 다시 하지 않는다(Gemini 과부하·한도 같은 일시적 오류는 제외, 다음 날 다시).
+  const {pickReportTargets, pickReportTargetsDetailed, analyzeOutlierVideo, loadReports, reportsPerDay, isTransientReportError, RESEARCH_STAGE} = await import('./outlier-report.mjs');
+  const keepSince = now.getTime() - 30 * 86400000;
+  report.outlierReportFailures = Object.fromEntries(Object.entries(prevLoop.outlierReportFailures || {}).filter(([, at]) => Date.parse(at) >= keepSince));
+  const existingReports = loadReports();
+  const existingIds = new Set(existingReports.map((r) => r.videoId));
+  const latestStudioResearch = readJson(join(projectDir, 'data', 'youtube', 'studio-research.json'), null);
+  const legacyEligibleIds = pickReportTargets({marketDemand: latestMarketDemand, existingIds, failures: report.outlierReportFailures, now, limit: Infinity});
+  const oldReportIds = new Set([...existingCommentIds, ...existingScriptIds]);
+  report.outlierReportCatchUp = legacyEligibleIds.filter((id) => oldReportIds.has(id)).length;
+  report.researchStage = RESEARCH_STAGE;
+  const dailyLimit = reportsPerDay({eligibleIds: legacyEligibleIds, oldReportIds});
+  const detailedTargets = pickReportTargetsDetailed({
+    marketDemand: latestMarketDemand,
+    research: latestStudioResearch,
+    existingIds,
+    existingReports,
+    failures: report.outlierReportFailures,
+    now,
+    limit: dailyLimit,
+  });
+  report.outlierReportSources = {
+    research: detailedTargets.filter((t) => t.source === 'studio-research').length,
+    fallback: detailedTargets.filter((t) => t.source !== 'studio-research').length,
+  };
+
+  if (detailedTargets.length) {
     await step('outlierReports', async () => {
       const done = [];
       const failed = [];
       // 자막을 받았는지도 남긴다(2026-11-12: 낮에 시험하느라 자막 요청이 막혔다 — 다음 브리핑에서 풀렸는지 본다).
       // 자막이 막혀도 리포트는 만들어진다(Gemini가 영상 소리를 직접 듣는다). 막힌 것만으로 실패 처리하지 않는다.
       const transcript = {ok: 0, blocked: 0};
-      for (const videoId of reportTargets) {
+      for (const target of detailedTargets) {
+        const {videoId, candidate} = target;
         try {
-          const r = await analyzeOutlierVideo(videoId);
+          const r = await analyzeOutlierVideo(videoId, {researchCandidate: candidate ?? undefined});
           done.push(videoId);
           transcript[r.sources?.transcript?.ok ? 'ok' : 'blocked'] += 1;
         } catch (err) {
@@ -324,7 +337,7 @@ async function run() {
         }
       }
       if (!done.length) throw new Error(`합친 아웃라이어 리포트 실패: ${failed.map((f) => `${f.videoId}(${f.error})`).join(', ')}`);
-      return {done, failed, transcript};
+      return {done, failed, transcript, sources: report.outlierReportSources};
     });
   }
 

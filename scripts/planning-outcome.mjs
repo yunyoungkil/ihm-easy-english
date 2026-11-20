@@ -55,9 +55,9 @@ export function parsePlanningSources(markdown = '') {
   const topic = topicRaw ? topicRaw.replace(/^"(.*)"$/, '$1') : null;
 
   const competitors = valueOf('경쟁 영상')
-    .map((text) => text.match(/^(.+?)\s*\((UC[\w-]{22})\)\s*·\s*([\w-]{11})\s*·.*?평소 대비\s*([\d.]+)\s*배/))
+    .map((text) => text.match(/^(.+?)\s*\((UC[\w-]{22})\)\s*·\s*([\w-]{11})\s*·.*?평소 대비\s*(?:([\d.]+)\s*배|측정 전|판정 보류|측정 중)/))
     .filter(Boolean)
-    .map((m) => ({channelTitle: m[1].trim(), channelId: m[2], videoId: m[3], sourceRatio: Number(m[4])}));
+    .map((m) => ({channelTitle: m[1].trim(), channelId: m[2], videoId: m[3], sourceRatio: m[4] ? Number(m[4]) : null}));
 
   const audienceRaw = valueOf('시청자 고민')[0] || '';
   const audienceMatch = audienceRaw.match(/^"(.+?)"/);

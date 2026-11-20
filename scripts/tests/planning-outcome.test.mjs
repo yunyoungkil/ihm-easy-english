@@ -138,3 +138,11 @@ test('기획 근거의 "다음 기획 입력" 줄(인용한 입력 파일의 만
   assert.equal(got.inputRef, '2026-11-20T05:10:00.000Z · 쓴 항목: 2절 롱폼 상위 물음표 제목, 5절 질문 1');
   assert.equal(parsePlanningSources(brief('- 경쟁 영상: 경쟁 근거 없음')).inputRef, null);
 });
+
+test('parsePlanningSources: 조사 출처 영상의 "평소 대비 측정 전"·"판정 보류" 줄도 경쟁 근거로 읽는다', () => {
+  const md = `## 기획 근거\n- 경쟁 영상: 테스트채널 (UC1234567890123456789012) · abcdefghijk · 평소 대비 측정 전\n- 경쟁 영상: 보류채널 (UC2234567890123456789012) · bbbbbbbbbbb · 평소 대비 판정 보류\n`;
+  const got = parsePlanningSources(md);
+  assert.equal(got.competitors.length, 2);
+  assert.deepEqual(got.competitors[0], {channelTitle: '테스트채널', channelId: 'UC1234567890123456789012', videoId: 'abcdefghijk', sourceRatio: null});
+  assert.deepEqual(got.competitors[1], {channelTitle: '보류채널', channelId: 'UC2234567890123456789012', videoId: 'bbbbbbbbbbb', sourceRatio: null});
+});

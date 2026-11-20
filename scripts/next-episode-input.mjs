@@ -162,6 +162,8 @@ export function summarizeOutlierReports(reports = [], n = 5) {
       outlierRatio: r.outlierRatio ?? null,
       ratioMethod: r.ratioMethod ?? null,
       ratioStatus: r.ratioStatus ?? null,
+      source: r.source ?? null,
+      studioFolds: r.studioFolds ?? null,
       titleDevice: r.analysis?.click?.titleDevice ?? null,
       thumbnailText: r.analysis?.click?.thumbnailText ?? null,
       thumbnailWordCount: r.analysis?.click?.thumbnailWordCount ?? null,
@@ -266,7 +268,8 @@ export function renderNextEpisodeInput(input) {
     out.push(`경쟁 영상 ${outlierReports.length}편을 화면·자막·댓글로 관찰한 기록(채널 평소 대비 배수 큰 순). 관찰은 사실이고 "가져올 점·다르게 할 점"은 AI 제안이다. 캡처와 원문 인용은 리포트 화면에서 본다. 화면 구성 후보는 \`npm run visual-library -- <검색어>\`로 꺼낸다.`, '');
     for (const r of outlierReports) {
       const ratio = formatRatioLabel(r);
-      out.push(`**${cut(r.title ?? r.videoId, 50)}** — ${r.channelTitle ?? '측정 전'}, 평소 대비 ${ratio} · http://localhost:3001/outlier-report/${r.videoId}`);
+      const studioTag = r.studioFolds != null ? ` · 유튜브 조사 ${r.studioFolds}배` : '';
+      out.push(`**${cut(r.title ?? r.videoId, 50)}** — ${r.channelTitle ?? '측정 전'}, 평소 대비 ${ratio}${studioTag} · http://localhost:3001/outlier-report/${r.videoId}`);
       out.push(`- 제목: ${r.titleDevice ?? '측정 전'}`);
       out.push(`- 썸네일 글자: ${r.thumbnailText ? `"${cut(r.thumbnailText, 40)}" (${r.thumbnailWordCount ?? '?'}단어)` : '측정 전'}`);
       out.push(`- 첫 15초: ${r.first15s ? cut(r.first15s, 160) : '측정 전'}`);

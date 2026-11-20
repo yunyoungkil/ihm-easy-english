@@ -287,10 +287,19 @@ function collectGrowthPulse({catalogVideos = [], backlog = [], shortsStatuses = 
   };
 }
 
+const studioMetrics = readJson(join(projectDir, 'data', 'youtube', 'studio-metrics.json'), {});
+const studioRecentPeriod = studioMetrics.periods?.['4_weeks'] || studioMetrics.periods?.quarter || null;
+const studioRecentVideos = studioRecentPeriod?.videos || {};
+
 const briefing = {
-  data: {syncedAt: analytics.syncedAt || catalog.syncedAt || null, statsEnd: (analytics.daily || []).at(-1)?.day || null},
+  data: {
+    syncedAt: analytics.syncedAt || catalog.syncedAt || null,
+    statsEnd: (analytics.daily || []).at(-1)?.day || null,
+    studioFetchedAt: studioMetrics.fetchedAt || null,
+    studioLastDay: studioRecentPeriod?.lastDay || null,
+  },
   weekly: weeklyComparison(analytics.daily || []),
-  recent: recentPublished(catalogVideos, analytics.videoPerformance || [], today),
+  recent: recentPublished(catalogVideos, analytics.videoPerformance || [], today, 7, studioRecentVideos),
   growthPulse: collectGrowthPulse({catalogVideos, backlog, shortsStatuses, reviewsDue, packages, today}),
   recentChanges: collectRecentChanges(projectDir),
   shortsLink: shortsLinkLive(shortsStatuses, today)

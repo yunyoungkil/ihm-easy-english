@@ -162,7 +162,7 @@ test('성장 점검 결과에 형식 배분과 표본 판정이 들어간다', (
 });
 
 test('훅을 실제로 실행하면 안내가 담긴 JSON을 내보낸다', () => {
-  const stdout = execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {cwd: projectDir, encoding: 'utf8', input: '{"source":"startup"}'});
+  const stdout = execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {cwd: projectDir, encoding: 'utf8', input: '{"source":"startup"}', env: {...process.env, BRIEFING_NO_SYNC: '1'}});
   const output = JSON.parse(stdout);
   assert.equal(output.hookSpecificOutput.hookEventName, 'SessionStart');
   assert.match(output.hookSpecificOutput.additionalContext, /자율 브리핑/);
@@ -172,7 +172,7 @@ test('훅을 실제로 실행하면 안내가 담긴 JSON을 내보낸다', () =
 test('실제 now.md에 다음 할 일 절이 있고 훅이 그 항목을 넘겨준다', () => {
   const actions = extractNextActions(readFileSync(join(projectDir, 'knowledge', 'now.md'), 'utf8'));
   assert.ok(actions.length > 0);
-  const stdout = execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {cwd: projectDir, encoding: 'utf8', input: '{"source":"startup"}'});
+  const stdout = execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {cwd: projectDir, encoding: 'utf8', input: '{"source":"startup"}', env: {...process.env, BRIEFING_NO_SYNC: '1'}});
   assert.ok(JSON.parse(stdout).hookSpecificOutput.additionalContext.includes(actions[0].slice(0, 100))); // 항목은 260자까지만 넘긴다(토큰 절약)
 });
 

@@ -1,7 +1,7 @@
 // 대화 시작 때 마지막 동기화가 30분보다 오래됐으면 대시보드 동기화를 부르는지 확인한다(2026-11-09 사용자 결정, 2026-11-20 30분 단축).
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {syncIfStale} from '../briefing-sync.mjs';
+import {syncIfStale, syncStudioMetricsIfStale} from '../briefing-sync.mjs';
 
 const NOW = new Date('2026-11-09T12:00:00+09:00');
 const okResponse = {ok: true, status: 200};
@@ -50,4 +50,45 @@ test('동기화가 실패하면 상태 코드와 함께 알린다', async () => 
   const fetch = fakeFetch({GET: okResponse, POST: {ok: false, status: 401}});
   const note = await syncIfStale({now: NOW, readSyncedAt: async () => null, fetch});
   assert.match(note, /동기화 실패\(401\)/);
+});
+
+test('스튜디오 지표가 6시간 안에 수집됐으면 생략한다', async () => {
+  let called = 0;
+  const note = await syncStudioMetricsIfStale({
+    now: NOW,
+    readFetchedAt: async () => '2026-11-09T08:00:00+09:00',
+    collect: async () => { called += 1; },
+  });
+  assert.match(note, /생략/);
+  assert.equal(called, 0);
+});
+
+test('스튜디오 지표가 6시간 넘게 오래됐으면 새로 수집한다', async () => {
+  let called = 0;
+  const note = await syncStudioMetricsIfStale({
+    now: NOW,
+    readFetchedAt: async () => '2026-11-09T01:00:00+09:00',
+    collect: async () => { called += 1; },
+  });
+  assert.match(note, /방금 스튜디오 지표 수집함/);
+  assert.equal(called, 1);
+});
+
+test('스튜디오 지표 수집이 실패해도 예외를 던지지 않고 마지막 수집본 안내를 반환한다', async () => {
+  const note = await syncStudioMetricsIfStale({
+    now: NOW,
+    readFetchedAt: async () => null,
+    collect: async () => { throw new Error('크롬 로그인 필요'); },
+  });
+  assert.match(note, /건너뜀\(크롬 로그인 필요\)/);
+});
+
+test('스튜디오 지표 수집이 시간 초과하면 마지막 수집본 안내를 반환한다', async () => {
+  const note = await syncStudioMetricsIfStale({
+    now: NOW,
+    timeoutMs: 20,
+    readFetchedAt: async () => null,
+    collect: () => new Promise(() => {}),
+  });
+  assert.match(note, /시간 초과/);
 });

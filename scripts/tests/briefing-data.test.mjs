@@ -140,3 +140,45 @@ test('쇼츠→롱폼 줄을 열 때인데 7일 유입 자료가 없으면 0 대
   assert.match(context, /최근 7일 유입 자료가 없다/);
   assert.doesNotMatch(context, /쇼츠 피드 조회 0회/);
 });
+
+test('최근 공개 성적에 쇼츠는 계속 시청함, 롱폼은 노출·CTR 스튜디오 지표를 함께 표시한다', () => {
+  const videos = [
+    {videoId: 's1', title: '새 쇼츠', format: 'SHORTS', privacyStatus: 'public', publishedAt: '2026-11-08T11:00:00Z'},
+    {videoId: 'l1', title: '새 롱폼', format: 'LONGFORM', privacyStatus: 'public', publishedAt: '2026-11-07T14:00:00Z'},
+  ];
+  const perf = [{video: 'l1', views: 15, averageViewPercentage: 3.8699999999999997}];
+  const studio = {
+    s1: {views: 1273, avgViewPercent: 52.1, stayedToWatchPercent: 47.37, impressions: 46, ctrPercent: 0},
+    l1: {views: 25, avgViewPercent: 4.1, stayedToWatchPercent: null, impressions: 1845, ctrPercent: 0.6},
+  };
+  const recent = recentPublished(videos, perf, NOW, 7, studio);
+  assert.equal(recent[0].stayedToWatchPct, 47.37);
+  assert.equal(recent[1].impressions, 1845);
+  assert.equal(recent[1].ctrPct, 0.6);
+
+  const check = {
+    generatedFor: '2026-11-09',
+    backlog: [],
+    reviewsDue: [],
+    formatPriority: {},
+    sample: {},
+    briefing: {
+      data: {
+        syncedAt: '2026-11-09T09:00:00+09:00',
+        statsEnd: '2026-11-07',
+        studioFetchedAt: '2026-11-09T09:05:00+09:00',
+        studioLastDay: '2026-11-08',
+        sync: '방금 동기화함',
+        studioSync: '방금 스튜디오 지표 수집함',
+      },
+      weekly: null,
+      recent,
+      shortsLink: null,
+      upcoming: {soon: [], failed: []},
+    },
+  };
+  const context = buildBriefingContext(check, []);
+  assert.match(context, /스튜디오 11\/9 09:05\(~2026-11-08\)/);
+  assert.match(context, /새 쇼츠 \(쇼츠 0일째, 스튜디오 조회 1273회, 평균 시청률 52\.1%, 계속 시청함 47\.37%\)/);
+  assert.match(context, /새 롱폼 \(롱폼 1일째, 조회 15회, 평균 시청률 3\.87%, 노출 1845회, CTR 0\.6%\)/);
+});

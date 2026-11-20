@@ -7,7 +7,7 @@ import {existsSync, readdirSync} from 'node:fs';
 import {readFile} from 'node:fs/promises';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {syncIfStale} from './briefing-sync.mjs';
+import {syncIfStale, syncStudioMetricsIfStale} from './briefing-sync.mjs';
 import {ensureGitHooks} from './ensure-git-hooks.mjs';
 import {buildBriefingContext, extractNextActions, renderSessionStartOutput} from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
@@ -49,8 +49,14 @@ if (!existsSync(framesDir) || readdirSync(framesDir).length === 0) {
   } catch { /* 대화 시작은 막지 않는다 */ }
 }
 
-// 마지막 동기화가 30분보다 오래됐으면 먼저 동기화한다(2026-11-20 개정). 실패해도 대화 시작은 막지 않는다.
-const syncNote = await syncIfStale().catch((err) => `동기화 확인 실패(${err.message})`);
+// 마지막 동기화가 30분(스튜디오 지표 6시간)보다 오래됐으면 먼저 동기화한다(2026-11-20 개정). 실패해도 대화 시작은 막지 않는다.
+const skipSync = process.env.BRIEFING_NO_SYNC === '1';
+const [syncNote, studioSyncNote] = skipSync
+  ? ['동기화 생략(테스트)', '스튜디오 수집 생략(테스트)']
+  : await Promise.all([
+      syncIfStale().catch((err) => `동기화 확인 실패(${err.message})`),
+      syncStudioMetricsIfStale({timeoutMs: 42000}).catch((err) => `스튜디오 지표 확인 실패(${err.message})`), // allow-literal: SessionStart 훅 60초 한도 내 안전 타임아웃
+    ]);
 const [check, nextActions, chromeStatus] = await Promise.all([
   runGrowthCheck(),
   readNextActions(),
@@ -61,5 +67,8 @@ if (chromeStatus && !chromeStatus.isLoggedIn) {
   nextActions.unshift('Gemini 자동화: 바탕화면 Gemini-Automation 아이콘에서 1회 로그인 필요 (차차)');
 }
 
-if (check?.briefing?.data) check.briefing.data.sync = syncNote;
+if (check?.briefing?.data) {
+  check.briefing.data.sync = syncNote;
+  check.briefing.data.studioSync = studioSyncNote;
+}
 process.stdout.write(`${renderSessionStartOutput(buildBriefingContext(check, nextActions, handoffLine(latestHandoff(projectDir))))}\n`);

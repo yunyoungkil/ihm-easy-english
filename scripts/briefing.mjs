@@ -9,7 +9,7 @@ import {existsSync, readFileSync} from 'node:fs';
 import {readFile} from 'node:fs/promises';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {syncIfStale} from './briefing-sync.mjs';
+import {syncIfStale, syncStudioMetricsIfStale} from './briefing-sync.mjs';
 import {ensureGitHooks} from './ensure-git-hooks.mjs';
 import {buildBriefingContext, extractNextActions} from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
@@ -22,10 +22,14 @@ const asJson = args.includes('--json');
 // 1. 커밋 전 자동 검사 보장
 ensureGitHooks();
 
-// 2. 필요시 대시보드 동기화 및 사후 관리
+// 2. 필요시 대시보드 동기화 + 스튜디오 지표(계속 시청함·노출·CTR) 최신화 + 사후 관리
 let syncNote = '동기화 생략(--no-sync)';
+let studioSyncNote = '스튜디오 수집 생략(--no-sync)';
 if (!noSync) {
-  syncNote = await syncIfStale({timeoutMs: 60000}).catch((err) => `동기화 실패(${err.message})`);
+  [syncNote, studioSyncNote] = await Promise.all([
+    syncIfStale({timeoutMs: 60000}).catch((err) => `동기화 실패(${err.message})`),
+    syncStudioMetricsIfStale({timeoutMs: 120000}).catch((err) => `스튜디오 지표 수집 실패(${err.message})`),
+  ]);
   if (syncNote === '방금 동기화함') {
     try {
       const {runPostPublishPipeline} = await import('./post-publish-pipeline.mjs');
@@ -59,7 +63,10 @@ const [check, nextActions] = await Promise.all([
   readFile(join(projectDir, 'knowledge', 'now.md'), 'utf8').then(extractNextActions).catch(() => []),
 ]);
 
-if (check?.briefing?.data) check.briefing.data.sync = syncNote;
+if (check?.briefing?.data) {
+  check.briefing.data.sync = syncNote;
+  check.briefing.data.studioSync = studioSyncNote;
+}
 
 const handoff = latestHandoff(projectDir);
 const handoffNote = handoffLine(handoff);

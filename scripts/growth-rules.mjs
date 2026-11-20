@@ -122,8 +122,9 @@ export function weeklyComparison(daily = []) {
   return {current, previous, deltaViews: previous ? current.views - previous.views : null};
 }
 
-// 최근 days일 안에 공개된 영상과 그 성적. 유튜브 통계는 2~3일 늦게 들어오므로 아직 없으면 null로 둔다.
-export function recentPublished(videos = [], performance = [], now = new Date(), days = 7) {
+// 최근 days일 안에 공개된 영상과 그 성적. 유튜브 API 통계는 2~3일 늦게 들어오므로 없으면 null로 두고,
+// 스튜디오 지표(studio-metrics.json)가 있으면 쇼츠 계속 시청함·롱폼 노출/CTR을 함께 붙여 전달한다.
+export function recentPublished(videos = [], performance = [], now = new Date(), days = 7, studioVideos = {}) {
   const perfById = new Map(performance.map((row) => [row.video, row]));
   return videos
     .filter((v) => v.privacyStatus === 'public' && v.publishedAt)
@@ -134,6 +135,7 @@ export function recentPublished(videos = [], performance = [], now = new Date(),
     .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
     .map((v) => {
       const perf = perfById.get(v.videoId);
+      const studio = studioVideos && typeof studioVideos === 'object' ? studioVideos[v.videoId] : null;
       return {
         videoId: v.videoId,
         title: v.title,
@@ -141,6 +143,11 @@ export function recentPublished(videos = [], performance = [], now = new Date(),
         daysSince: Math.floor((now - new Date(v.publishedAt)) / DAY_MS),
         views: perf ? asNumber(perf.views) : null,
         avgViewPct: perf && perf.averageViewPercentage != null ? Number(perf.averageViewPercentage) : null,
+        studioViews: studio && studio.views != null ? Number(studio.views) : null,
+        studioAvgViewPct: studio && studio.avgViewPercent != null ? Number(studio.avgViewPercent) : null,
+        stayedToWatchPct: studio && studio.stayedToWatchPercent != null ? Number(studio.stayedToWatchPercent) : null,
+        impressions: studio && studio.impressions != null ? Number(studio.impressions) : null,
+        ctrPct: studio && studio.ctrPercent != null ? Number(studio.ctrPercent) : null,
       };
     });
 }
@@ -226,6 +233,26 @@ const kstLabel = (iso) => {
   return `${d.getUTCMonth() + 1}/${d.getUTCDate()} ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
 };
 const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
+const round2 = (n) => Math.round(Number(n) * 100) / 100;
+
+const formatRecentItem = (v) => {
+  const kind = v.format === 'SHORTS' ? '쇼츠' : '롱폼';
+  const metrics = [];
+  if (v.views != null) {
+    metrics.push(`조회 ${v.views}회`);
+    if (v.avgViewPct != null) metrics.push(`평균 시청률 ${round2(v.avgViewPct)}%`);
+  } else if (v.studioViews != null) {
+    metrics.push(`스튜디오 조회 ${v.studioViews}회`);
+    if (v.studioAvgViewPct != null) metrics.push(`평균 시청률 ${round2(v.studioAvgViewPct)}%`);
+  }
+  if (v.format === 'SHORTS' && v.stayedToWatchPct != null) {
+    metrics.push(`계속 시청함 ${round2(v.stayedToWatchPct)}%`);
+  } else if (v.format !== 'SHORTS' && v.impressions != null) {
+    metrics.push(`노출 ${v.impressions}회${v.ctrPct == null ? '' : `, CTR ${round2(v.ctrPct)}%`}`);
+  }
+  const statText = metrics.length ? metrics.join(', ') : '통계 아직 없음';
+  return `${v.title} (${kind} ${v.daysSince}일째, ${statText})`;
+};
 
 const briefingLines = (check, briefing) => {
   const {
@@ -246,18 +273,18 @@ const briefingLines = (check, briefing) => {
     hygieneDiagnosis = null,
   } = briefing;
   const lines = ['브리핑 재료(이 숫자로 줄을 만든다. 지침: knowledge/playbooks/briefing/00-autonomous-briefing.md):'];
-  lines.push(`- 제목 줄: **업데이트를 요약해서 먼저 보고드립니다.** (동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
+  const studioMeta = data.studioFetchedAt
+    ? ` · 스튜디오 ${kstLabel(data.studioFetchedAt)}${data.studioLastDay ? `(~${data.studioLastDay})` : ''}`
+    : '';
+  const syncParts = [data.sync, data.studioSync].filter(Boolean).join(' / ');
+  lines.push(`- 제목 줄: **업데이트를 요약해서 먼저 보고드립니다.** (동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}${studioMeta})${syncParts ? ` — ${syncParts}` : ''}`);
   lines.push(
     weekly
       ? `- 최근 7일: 조회 ${weekly.current.views}회 (${weekly.previous ? `지난주 ${weekly.previous.views}회, ${signed(weekly.deltaViews)}` : '지난주 자료 없음'}), 구독 ${signed(weekly.current.subsNet)}명 (${weekly.current.start}~${weekly.current.end}) — 목표는 knowledge/channel-strategy.md "주간 목표" 표`
       : '- 최근 7일: 날짜별 자료가 7일보다 적다 — 대시보드 동기화 뒤 다시 본다',
   );
   if (recent.length) {
-    lines.push(
-      `- 최근 공개 성적: ${recent
-        .map((v) => `${v.title} (${v.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${v.daysSince}일째, ${v.views == null ? '통계 아직 없음' : `조회 ${v.views}회${v.avgViewPct == null ? '' : `, 평균 시청률 ${v.avgViewPct}%`}`})`)
-        .join(' / ')}`,
-    );
+    lines.push(`- 최근 공개 성적: ${recent.map(formatRecentItem).join(' / ')}`);
   }
   if (growthPulse) {
     if (growthPulse.upcomingSettlements?.length) {

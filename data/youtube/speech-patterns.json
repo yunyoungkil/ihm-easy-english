@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-19T16:22:49.410Z",
+  "computedAt": "2026-11-20T16:10:03.100Z",
   "confidence": "가설",
   "note": "경쟁 영상 말투 합계(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.",
   "qualityThresholds": {
@@ -10,89 +10,89 @@
     "UNIQUE_WORD_MIN": 0.4,
     "UNIQUE_SENTENCE_MIN": 0.8
   },
-  "excludedLowQuality": 15,
+  "excludedLowQuality": 21,
   "unmeasured": 20,
   "long": {
-    "videoCount": 8,
+    "videoCount": 11,
     "lowSample": false,
     "totals": {
-      "sentences": 335,
-      "lengthSum": 9165,
-      "jointMid": 17,
-      "jointEnd": 7,
+      "sentences": 461,
+      "lengthSum": 12824,
+      "jointMid": 26,
+      "jointEnd": 16,
       "dictFrameSentences": 1,
-      "meaningAfterSentences": 4,
-      "questionSentences": 20,
-      "pastConclusionSentences": 25,
+      "meaningAfterSentences": 5,
+      "questionSentences": 32,
+      "pastConclusionSentences": 35,
       "endings": {
-        "question": 20,
-        "command": 12,
-        "geodeunyo": 4,
-        "janhayo": 0,
+        "question": 32,
+        "command": 13,
+        "geodeunyo": 14,
+        "janhayo": 1,
         "neyo": 0,
-        "ndeyo": 7,
-        "jyo": 38,
-        "hapsyo": 111,
-        "haeyo": 92,
-        "other": 51
+        "ndeyo": 16,
+        "jyo": 40,
+        "hapsyo": 143,
+        "haeyo": 129,
+        "other": 73
       },
       "fillers": {
-        "자": 10,
-        "그래서": 17,
-        "그런데": 8,
-        "근데": 2,
-        "그러면": 3,
-        "여러분": 12,
-        "이게": 5,
-        "그냥": 4,
-        "진짜": 1,
+        "자": 12,
+        "그래서": 32,
+        "그런데": 10,
+        "근데": 8,
+        "그러면": 5,
+        "여러분": 20,
+        "이게": 6,
+        "그냥": 8,
+        "진짜": 3,
         "되게": 1,
-        "사실": 3,
-        "우리": 19,
-        "약간": 1
+        "사실": 9,
+        "우리": 22,
+        "약간": 5
       }
     },
     "rates": {
-      "sentences": 335,
-      "meanLength": 27.4,
+      "sentences": 461,
+      "meanLength": 27.8,
       "endingsPct": {
-        "question": 6,
-        "command": 3.6,
-        "geodeunyo": 1.2,
-        "janhayo": 0,
+        "question": 6.9,
+        "command": 2.8,
+        "geodeunyo": 3,
+        "janhayo": 0.2,
         "neyo": 0,
-        "ndeyo": 2.1,
-        "jyo": 11.3,
-        "hapsyo": 33.1,
-        "haeyo": 27.5,
-        "other": 15.2
+        "ndeyo": 3.5,
+        "jyo": 8.7,
+        "hapsyo": 31,
+        "haeyo": 28,
+        "other": 15.8
       },
-      "jointMidPer100": 5.1,
-      "jointEndPer100": 2.1,
+      "jointMidPer100": 5.6,
+      "jointEndPer100": 3.5,
       "fillersPer100": {
-        "자": 3,
-        "그래서": 5.1,
-        "그런데": 2.4,
-        "근데": 0.6,
-        "그러면": 0.9,
-        "여러분": 3.6,
-        "이게": 1.5,
-        "그냥": 1.2,
-        "진짜": 0.3,
-        "되게": 0.3,
-        "사실": 0.9,
-        "우리": 5.7,
-        "약간": 0.3
+        "자": 2.6,
+        "그래서": 6.9,
+        "그런데": 2.2,
+        "근데": 1.7,
+        "그러면": 1.1,
+        "여러분": 4.3,
+        "이게": 1.3,
+        "그냥": 1.7,
+        "진짜": 0.7,
+        "되게": 0.2,
+        "사실": 2,
+        "우리": 4.8,
+        "약간": 1.1
       },
-      "fillersTotalPer100": 25.7,
-      "dictFramePct": 0.3,
-      "meaningAfterPct": 1.2,
-      "questionPct": 6,
-      "pastConclusionPct": 7.5
+      "fillersTotalPer100": 30.6,
+      "dictFramePct": 0.2,
+      "meaningAfterPct": 1.1,
+      "questionPct": 6.9,
+      "pastConclusionPct": 7.6
     },
-    "lengthMedianOfVideos": 21,
+    "lengthMedianOfVideos": 24,
     "bySource": {
-      "transcript-api": 8
+      "transcript-api": 11
     },
     "videos": [
       {
@@ -100,6 +100,12 @@
         "channelTitle": "어션영어BasicEnglish",
         "source": "transcript-api",
         "sentences": 39
+      },
+      {
+        "videoId": "2tvBBqQEoz0",
+        "channelTitle": "라잌셀럽 ",
+        "source": "transcript-api",
+        "sentences": 34
       },
       {
         "videoId": "4cBa8D9P96I",
@@ -126,10 +132,22 @@
         "sentences": 46
       },
       {
+        "videoId": "IT3BR0H95SE",
+        "channelTitle": "생각하는 원서 읽기, 로사쌤",
+        "source": "transcript-api",
+        "sentences": 46
+      },
+      {
         "videoId": "J28QuPqOCyM",
         "channelTitle": "9988영어",
         "source": "transcript-api",
         "sentences": 35
+      },
+      {
+        "videoId": "Jdc0kFebXJY",
+        "channelTitle": "만다블_국내파통역사의 영어공부법",
+        "source": "transcript-api",
+        "sentences": 46
       },
       {
         "videoId": "UOxjVjiXyII",

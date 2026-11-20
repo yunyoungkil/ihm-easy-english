@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Bzwd5EdsQGk",
+  "analyzedAt": "2026-11-20T16:10:03.084Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 46,
+  "meta": {
+    "videoId": "Bzwd5EdsQGk",
+    "title": "존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음 #명예영국인 #존박 #백진경",
+    "channelId": "UCDVJw9iAsHstsU3GoPnRzyA",
+    "channelTitle": "낰낰티비",
+    "publishedAt": "2026-11-05T02:00:10Z",
+    "viewCount": 1058308,
+    "likeCount": 9196,
+    "commentCount": 236,
+    "durationSeconds": 46,
+    "thumbnail": "https://i.ytimg.com/vi/Bzwd5EdsQGk/maxresdefault.jpg",
+    "description": "존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음 #명예영국인 #존박 #백진경",
+    "tags": []
+  },
+  "subscriberCount": 12000,
+  "viewsPerSubscriber": 88.19,
+  "outlierRatio": 131.56,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-20T16:06:49.893Z",
+  "ratioDenominator": 8044,
+  "ratioPeerCount": 39,
+  "source": "studio-research",
+  "studioFolds": 100,
+  "studioSeenAt": "2026-11-20T16:00:34.853Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 36,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 46
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 42,
+    "stats": {
+      "sentences": 42,
+      "lengthSum": 634,
+      "lengthMedian": 14,
+      "endings": {
+        "question": 8,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 34
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 8,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 42,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.45,
+      "uniqueSentenceRatio": 0.86
+    },
+    "computedAt": "2026-11-20T16:09:57.924Z",
+    "note": "품질 낮음: 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "미국식 발음을 사용하는 존박과 과장된 영국식 발음을 주장하는 상대방의 황당한 대립 상황을 강조하여 호기심을 유발함.",
+      "titleQuote": "존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음",
+      "thumbnailText": "존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "영상 중앙에 존박이 눈을 크게 뜨고 당황스러운 표정을 짓고 있으며 상단에 핑크색과 흰색 글씨로 제목 텍스트가 배치되어 있음.",
+      "thumbnailVsTitle": "썸네일의 텍스트가 영상 제목과 완전히 일치함.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "백진경이 베이크드 빈스와 버터(butter)의 영국식 발음을 고집하고 존박이 T 발음을 생략하는 것에 대해 황당해하며 반박하는 장면이 펼쳐짐.",
+      "quote": "Have you tried beans? >> Baked beans? >> Yes. >> Look at disgusting. >> You are disgusting. We British people love baked beans. >> With butter. >> Butter? >> Butter. >> Babe, it's butter. >> Babe, it's butter. >> What happened to the two T's? >> Butter. Butter. >> just ignore letters?",
+      "reasonToKeepWatching": "미국식 발음과 과장된 영국식 발음 사이의 유쾌한 티키타카와 존박의 반응이 웃음을 줌.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "백진경이 콩을 먹어봤냐고 묻고 존박이 역겹다고 하자 백진경이 맞받아치는 장면.",
+      "quote": "Have you tried beans? >> Baked beans? >> Yes. >> Look at disgusting. >> You are disgusting.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 14,
+        "what": "버터(butter) 발음에서 T 소리를 생략하는 것에 대해 논쟁함.",
+        "quote": "Have you tried beans? >> Baked beans? >> Yes. >> Look at disgusting. >> You are disgusting. We British people love baked beans. >> With butter. >> Butter? >> Butter. >> Babe, it's butter. >> Babe, it's butter. >> What happened to the two T's? >> Butter. Butter. >> just ignore letters?",
+        "quoteVerified": true
+      },
+      {
+        "start": 14,
+        "end": 25,
+        "what": "가지(eggplant vs aubergine) 단어 명칭을 둘러싸고 대립함.",
+        "quote": "Oh my god, they have eggplant. It's aubergine. >> What the hell is that? >> It's aubergine. It's not eggplant. >> Eggplant. >> No, it's not eggplant. It's aubergine. It's aubergine. >> god.",
+        "quoteVerified": true
+      },
+      {
+        "start": 25,
+        "end": 29,
+        "what": "망고(mango)의 영국식/미국식 발음을 비교하며 다툼.",
+        "quote": "Oh, they have mango. >> Mango. >> Mango. >> Mango. >> a mango. >> Come on.",
+        "quoteVerified": false
+      },
+      {
+        "start": 30,
+        "end": 34,
+        "what": "콜라 제로(Coke Zero) 단어 순서와 발음에 대해 논쟁함.",
+        "quote": "I'd like some Coke Zero, right? >> Zero Coke. >> It's not Zero Coke. It's Coke Zero.",
+        "quoteVerified": true
+      },
+      {
+        "start": 35,
+        "end": 38,
+        "what": "닥터 페퍼(Doctor Pepper) 발음을 과장되게 소리 냄.",
+        "quote": "Oh, THEY HAVE DR. PEPPER. DR. PEPPER ZERO.",
+        "quoteVerified": true
+      },
+      {
+        "start": 39,
+        "end": 46,
+        "what": "오이(cucumber) 발음을 듣고 존박이 결국 웃음을 터뜨림.",
+        "quote": "THEY HAVE cucumber broccoli. >> You've got to be kidding me. You did you just say cucumber?",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "백진경의 얼굴 클로즈업과 함께 영문/한글 자막 등장",
+        "purpose": "대화의 시작과 주제 제시"
+      },
+      {
+        "t": 2,
+        "what": "존박의 얼굴로 화면 전환",
+        "purpose": "상대방의 의견에 반박하는 반응 포착"
+      },
+      {
+        "t": 3,
+        "what": "《부들부들》 감정 표현 자막 그래픽 등장",
+        "purpose": "백진경의 울컥하는 반응을 예능적으로 묘사"
+      },
+      {
+        "t": 6,
+        "what": "백진경의 입 모양 클로즈업",
+        "purpose": "버-어(bu-er) 발음의 입 모양을 강조"
+      },
+      {
+        "t": 12,
+        "what": "《더-디 무세》 텍스트 그래픽과 존박의 황당한 표정",
+        "purpose": "철자를 무시하는 발음에 황당해하는 심정 전달"
+      },
+      {
+        "t": 15,
+        "what": "메뉴판을 짚는 백진경의 손과 메뉴판 화면",
+        "purpose": "새로운 메뉴 단어(가지)로 주제 전환"
+      },
+      {
+        "t": 17,
+        "what": "《강 가치》 텍스트 그래픽 등장",
+        "purpose": "영국식 단어를 강요하는 고집스러운 연출"
+      },
+      {
+        "t": 24,
+        "what": "《진접머리》 자막 그래픽 및 존박의 좌절",
+        "purpose": "존박의 지친 반응을 강조"
+      },
+      {
+        "t": 30,
+        "what": "《지르를다 III》 그래픽 등장",
+        "purpose": "계속되는 억지 발음 주장에 지쳐가는 과정 묘사"
+      },
+      {
+        "t": 34,
+        "what": "《질리질리》 그래픽과 함께 고개를 조용히 숙이는 존박",
+        "purpose": "체념하는 존박의 모습을 극대화"
+      },
+      {
+        "t": 37,
+        "what": "《흔들디는 존박》 그래픽과 함께 웃음을 참는 표정",
+        "purpose": "존박이 결국 웃음을 터뜨리기 직전의 반응 묘사"
+      },
+      {
+        "t": 44,
+        "what": "《유참삼패 ㅋㅋㅋ》 그래픽 등장",
+        "purpose": "결국 존박이 웃음을 참지 못하고 항복한 결말 표시"
+      }
+    ],
+    "ending": {
+      "what": "백진경의 큐컴버 발음에 존박이 폭소를 터뜨리며 영상이 마무리됨.",
+      "quote": "you gotta be fxcking kidding me did you just say cucumber?",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "한국인 둘이서 미국식과 영국식 발음으로 대립하는 상황이 웃김",
+          "quote": "한국 사람 둘 이서 ㅋㅋㅋㅋ",
+          "quoteVerified": true
+        },
+        {
+          "point": "미국 영어를 사용하는 존박의 목소리와 발음이 멋짐",
+          "quote": "존박 영어할때 목소리 테스토스테론 과다네 ㄷㄷ 존나 멋있다",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "point": "영국식 발음과 미국식 발음의 차이 때문에 다국적 사람들이 서로 알아듣기 힘들어하는 경험",
+          "quote": "중국 유학때 케나다 친구와 영국친구가 있었는데 서로 말 빨리하면 서로 못알아 듣는다고 했던 기억이나네.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "영어는 기세다",
+          "quote": "이거 보고 느꼈다..... 영어는 기세다!!!!",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 6,
+      "description": "버터, 가지, 망고, 코크 제로, 닥터 페퍼, 오이 등 6가지 단어의 미국식/영국식 발음 및 표현 차이를 순차적으로 보여줌.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중심 및 중간 그래픽 자막",
+      "size": "보통",
+      "highlightColor": "노란색, 분홍색, 흰색",
+      "highlightMethod": "대사 자막에 하이라이트 색상을 입히고 예능용 자막 스티커를 별도로 삽입함",
+      "textAmount": "한 번에 1~2줄의 영문 대사와 한글 번역",
+      "changeTiming": "말하는 타이밍에 맞춰 빠르게 교체됨"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 유쾌한 예능 배경음악",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "자막이 등장하거나 웃음 포인트가 터질 때 띠용, ㅋㅋㅋ 등의 효과음 삽입",
+      "voiceVsMusic": "대화 목소리가 훨씬 크고 똑똑히 들림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "콩과 버터 발음을 두고 영국식 대 미국식으로 맞붙음",
+        "quote": "Have you tried beans?",
+        "type": "발음 차이로 인한 유쾌한 갈등",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 7,
+          "what": "버터의 T 발음 두 개가 왜 사라졌는지 물어봄",
+          "quote": "What happened to the two T's?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 12,
+          "what": "글자를 무시하냐는 질문에도 굴하지 않고 버-어 발음을 고집함",
+          "quote": "just ignore letters?",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "하나의 단어 발음 논쟁이 끝나면 메뉴판의 다음 음식 단어로 넘어가며 연쇄적인 대립이 발생함.",
+        "examples": [
+          {
+            "t": 14,
+            "what": "버터 논쟁 후 메뉴판의 가지(eggplant/aubergine) 단어로 연결됨",
+            "quote": "Oh my god, they have eggplant. It's aubergine.",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 39,
+          "what": "진지하게 반박하던 존박이 큐컴버 발음을 듣고 웃음을 참지 못함",
+          "quote": "they have cucumber broccoli. >> You've got to be kidding me.",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 14,
+          "what": "실제 메뉴판을 가리키며 단어를 언급함",
+          "quote": "Oh my god, they have eggplant. It's aubergine.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 41,
+        "what": "계속해서 버티던 존박이 상대의 억지 영국식 발음에 결국 웃터지며 승복함",
+        "quote": "You've got to be kidding me. You did you just say cucumber?",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "한국인 두 명이 각각 미국식과 과장된 영국식 발음으로 다투는 상황",
+        "reaction": "한국인끼리 영어를 두고 미국식/영국식으로 다투는 모습에 시청자들이 큰 재미를 느낌",
+        "quote": "한국 사람 둘 이서 ㅋㅋㅋㅋ",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 예능 프로그램의 유머러스한 원어민/명예영국인 대화 클립으로, 성인을 대상으로 영어 소리의 원리나 발음법을 가르치는 교육 콘텐츠가 아니다.",
+    "forUs": {
+      "adopt": "미국식 소리와 영국식 소리의 차이점(예: T 소리의 플랩 현상 vs 성문 파열음/생략)을 실생활 단어로 재미있게 비교해주는 대비 구조.",
+      "differentiate": "단순한 예능적 과장이나 웃음 유포에 그치지 않고, 3060 성인이 실제로 원어민의 T 소리 변화나 발음 차이를 명확히 이해하고 들을 수 있도록 음성학적 원리를 알기 쉽게 설명해준다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 22,
+    "verified": 20,
+    "unverified": 2
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 6,
+      "file": "6.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 17,
+      "file": "17.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 30,
+      "file": "30.jpg"
+    },
+    {
+      "t": 34,
+      "file": "34.jpg"
+    },
+    {
+      "t": 37,
+      "file": "37.jpg"
+    },
+    {
+      "t": 44,
+      "file": "44.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 9324,
+    "candidatesTokenCount": 3198,
+    "totalTokenCount": 15375,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4115
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 4109
+      }
+    ],
+    "thoughtsTokenCount": 2853,
+    "serviceTier": "standard"
+  }
+}

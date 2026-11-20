@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-19T16:24:59.342Z",
+  "computedAt": "2026-11-20T16:11:23.323Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -8,7 +8,7 @@
           "label": "공개 7일 조회수",
           "meaning": "제목·썸네일·소재(포장)",
           "unit": "회",
-          "n": 51,
+          "n": 52,
           "median": 1141,
           "upper": 1396,
           "spreadRatio": 1.2234881682734444,
@@ -54,7 +54,7 @@
           "label": "공개 7일 구독 수",
           "meaning": "채널의 가치",
           "unit": "명",
-          "n": 51,
+          "n": 52,
           "median": 1,
           "upper": 2,
           "spreadRatio": 2,
@@ -77,7 +77,7 @@
           "label": "계속 시청함",
           "meaning": "쇼츠 첫 1~3초 훅(피드에서 넘기지 않고 계속 본 비율, 길이와 상관없음). 스타일 시험의 1차 지표. 공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
           "unit": "%",
-          "n": 4,
+          "n": 5,
           "median": 36.33,
           "upper": 36.71,
           "spreadRatio": null,
@@ -85,15 +85,15 @@
           "lower": 33.64,
           "approxNote": "공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
           "champion": {
-            "videoId": "Si88xXt-EQc",
-            "title": "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
-            "publishedAt": "2026-08-27T11:00:01Z",
-            "durationSeconds": 51,
-            "value": 36.71,
-            "views": 1265,
-            "period": "quarter"
+            "videoId": "oMrCtSBbibc",
+            "title": "양일까 배일까? sheep과 ship, 소리만 듣고 맞혀 보세요 #영어발음 #shorts",
+            "publishedAt": "2026-11-10T11:00:25Z",
+            "durationSeconds": 45,
+            "value": 37.28,
+            "views": 676,
+            "period": "4_weeks"
           },
-          "promoteAbove": 39.78,
+          "promoteAbove": 40.35,
           "lowSample": false,
           "sampleNote": null,
           "excluded": [],
@@ -103,6 +103,12 @@
       "lengthMedianSeconds": 33,
       "recent": {
         "views7d": [
+          {
+            "videoId": "oMrCtSBbibc",
+            "publishedAt": "2026-11-10T11:00:25Z",
+            "durationSeconds": 45,
+            "value": 676
+          },
           {
             "videoId": "nVrCk8IZFGA",
             "publishedAt": "2026-09-02T11:00:33Z",
@@ -412,6 +418,12 @@
         ],
         "watchSeconds7d": [
           {
+            "videoId": "oMrCtSBbibc",
+            "publishedAt": "2026-11-10T11:00:25Z",
+            "durationSeconds": 45,
+            "value": 31
+          },
+          {
             "videoId": "nVrCk8IZFGA",
             "publishedAt": "2026-09-02T11:00:33Z",
             "durationSeconds": 21,
@@ -719,6 +731,12 @@
           }
         ],
         "subs7d": [
+          {
+            "videoId": "oMrCtSBbibc",
+            "publishedAt": "2026-11-10T11:00:25Z",
+            "durationSeconds": 45,
+            "value": 1
+          },
           {
             "videoId": "nVrCk8IZFGA",
             "publishedAt": "2026-09-02T11:00:33Z",
@@ -1028,6 +1046,12 @@
         ],
         "stayedToWatch": [
           {
+            "videoId": "oMrCtSBbibc",
+            "publishedAt": "2026-11-10T11:00:25Z",
+            "durationSeconds": 45,
+            "value": 37.28
+          },
+          {
             "videoId": "nVrCk8IZFGA",
             "publishedAt": "2026-09-02T11:00:33Z",
             "durationSeconds": 21,
@@ -1055,24 +1079,24 @@
       },
       "reference": {
         "firstWeekReach": {
-          "n": 51,
+          "n": 52,
           "medianImpressions": 60,
-          "pooledCtrPercent": 3.04,
-          "totalImpressions": 4079
+          "pooledCtrPercent": 3.06,
+          "totalImpressions": 4123
         },
         "subsPer1000Views": {
-          "value": 1.7221913928701276,
-          "totalSubs": 90,
-          "totalViews": 52259,
-          "n": 51
+          "value": 1.7190894493246436,
+          "totalSubs": 91,
+          "totalViews": 52935,
+          "n": 52
         },
         "watchRatio": {
-          "median": 0.6415094339622641,
-          "n": 51
+          "median": 0.6521739130434783,
+          "n": 52
         },
         "totalWatchMinutes": {
           "median": 473.85,
-          "n": 51
+          "n": 52
         },
         "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
       },
@@ -1123,6 +1147,18 @@
           "firstWeek": {
             "startDate": "2026-08-25",
             "endDate": "2026-08-31"
+          }
+        },
+        "oMrCtSBbibc": {
+          "value": 37.28,
+          "views": 676,
+          "period": "4_weeks",
+          "windowStart": "2026-10-23",
+          "windowLastDay": "2026-11-19",
+          "fetchedAt": "2026-11-20T16:10:07.895Z",
+          "firstWeek": {
+            "startDate": "2026-11-10",
+            "endDate": "2026-11-16"
           }
         }
       }
@@ -2349,6 +2385,20 @@
       "retiredAt": "2026-11-13T10:43:32.498Z",
       "replacedBy": "ROks87qezuU",
       "reason": "빈 조회 의심으로 기준선 후보에서 제외됨(더 낮은 기록이 새 기준선)"
+    },
+    {
+      "format": "SHORTS",
+      "metric": "stayedToWatch",
+      "videoId": "Si88xXt-EQc",
+      "title": "COMMERCIAL, ‘커머시알’이 아닙니다 #영어발음 #shorts",
+      "publishedAt": "2026-08-27T11:00:01Z",
+      "durationSeconds": 51,
+      "value": 36.71,
+      "views": 1265,
+      "period": "quarter",
+      "retiredAt": "2026-11-20T16:11:23.323Z",
+      "replacedBy": "oMrCtSBbibc",
+      "reason": "더 높은 기록이 나옴"
     }
   ]
 }

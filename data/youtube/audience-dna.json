@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-19T16:22:49.410Z",
+  "updatedAt": "2026-11-20T11:19:12.347Z",
   "entries": [
     {
       "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
@@ -481,6 +481,51 @@
       ],
       "firstSeenAt": "2026-09-07T06:25:33.613Z",
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
+    },
+    {
+      "id": "painPoint:특정 자음 연쇄나 빠른 발음 변화(예: asked의 'ㅋ'에서 'ㄷ'로 넘어가는 연결)에서 혀가 꼬이는 어려움",
+      "type": "painPoint",
+      "text": "특정 자음 연쇄나 빠른 발음 변화(예: asked의 'ㅋ'에서 'ㄷ'로 넘어가는 연결)에서 혀가 꼬이는 어려움",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-20T11:19:12.347Z",
+      "lastSeenAt": "2026-11-20T11:19:12.347Z"
+    },
+    {
+      "id": "question:연습할 때 배경으로 깔면 좋은 힙합 비트나 추천 랩 음악 정보 요청",
+      "type": "question",
+      "text": "연습할 때 배경으로 깔면 좋은 힙합 비트나 추천 랩 음악 정보 요청",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-20T11:19:12.347Z",
+      "lastSeenAt": "2026-11-20T11:19:12.347Z"
+    },
+    {
+      "id": "vocabulary:저점매수 시기",
+      "type": "vocabulary",
+      "text": "저점매수 시기",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "AAjB95YXQxc",
+          "channelTitle": "이빨파티",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-20T11:19:12.347Z",
+      "lastSeenAt": "2026-11-20T11:19:12.347Z"
     },
     {
       "id": "painPoint:미드 시청이나 현지 생활 시 빠른 연음 발음을 알아듣지 못해 겪었던 답답함",
@@ -4536,51 +4581,6 @@
       "id": "vocabulary:발음 챌린지",
       "type": "vocabulary",
       "text": "발음 챌린지",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:지옥의 맥도날드",
-      "type": "vocabulary",
-      "text": "지옥의 맥도날드",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:한방에 성공",
-      "type": "vocabulary",
-      "text": "한방에 성공",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:인토네이션",
-      "type": "vocabulary",
-      "text": "인토네이션",
       "occurrences": 1,
       "sources": [
         {

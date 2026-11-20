@@ -4,29 +4,25 @@
 
 ## 채널 제1 슬로건 & 사용자와 방향 (2026-11-17 확정, 결정문서 `2026-11-17-autonomous-ai-growth-and-guardrails.md`)
 - **"여러 명작의 장점을 흡수하고 우리 강점과 융합하여, AI 템플릿 냄새가 전혀 안 나는 압도적인 영상을 완성한다. 그리고 이 모든 과정은 AI가 주도적으로 생각하고, AI가 채널을 성장시킨다."**
-- **사용자의 현실과 AI의 책임**: 사용자는 유튜브·디자인·카피·마케팅 입문 초보라 감각적인 문제를 직접 지시하기 어렵다. AI가 프로 크리에이티브 디렉터/마케터로서 주도적으로 생각하고 벤치마킹을 융합해야 하며, 사용자에게 감각적 판단을 떠넘기지 않는다. 사용자는 3대 승인 관문(시트 승인 ➔ 렌더 ➔ 업로드)에서 최종 시청자(관객)로서 **취향 선택과 안전 확인**만 한다.
+- **사용자의 현실과 AI의 책임**: AI가 프로 크리에이티브 디렉터/마케터로서 주도적으로 생각하고 벤치마킹을 융합해야 하며, 사용자는 3대 승인 관문(시트 승인 ➔ 렌더 ➔ 업로드)에서 최종 시청자(관객)로서 **취향 선택과 안전 확인**만 한다.
 - **하드코딩(가드레일) vs AI 자율(창의·성장) 경계**:
-  - 🔒 **하드코딩**: 3대 승인 관문, 3060 국내파 타깃, FACT-CHECK 통과 전 음성 생성 금지, 전문학술용어 차단, 데이터 진실성(가짜 숫자 금지), 쇼츠 상단 0.5초 훅 글자 노출 필수(기능 가드레일), 최소 글자(34px), 음성 예산 일치.
+  - 🔒 **하드코딩**: 3대 승인 관문, 3060 국내파 타깃, FACT-CHECK 통과 전 음성 생성 금지, 전문학술용어 차단, 데이터 진실성(가짜 숫자 금지), 쇼츠 상단 0.5초 훅 글자 노출 필수, 최소 글자(34px), 음성 예산 일치.
   - 🧠 **절대 하드코딩 금지**: 템플릿 고착 금지, 상단 훅 형태 진화, 다각도 벤치마킹 융합 전략, 카피라이팅 & 컷 리듬, AI 사전 자체 비평(Self-Critique).
 
 ## 제작 현황
 - **EP30 쇼츠 `videos/ep30-shorts-chocolate`**: 11/18 수 20:00 공개 완료 (ID `Ng6amm9qFrI`). 11/25 수 이후 공개 7일 결과 정산 예정.
-- **EP31 쇼츠 `videos/ep31-shorts-stress-shift`**: **12/01 화 20:00 KST 예약 완료** (ID `AkDKw4o_C58`, 교육 27, 한국어 ko, 40.6s, 1080x1920 30fps).
-  - 업로드 패키지 완비: `output/upload-packages/ep31-shorts-stress-shift/`
-  - 유튜브 카탈로그(`catalog.json`) 및 `shorts-status.json` 상태 일치 확인. 12/08 화 이후 공개 7일 결과 정산 예정.
-  - `containsSyntheticMedia: true`(AI 사용 표시) 및 쇼츠 기본 재생목록(`PLCbnHG8SDRes`) 추가 완료.
+- **EP31 쇼츠 `videos/ep31-shorts-stress-shift`**: **12/01 화 20:00 KST 예약 완료** (ID `AkDKw4o_C58`, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`). 12/08 화 이후 공개 7일 결과 정산 예정.
+- **EP32 쇼츠 `videos/ep32-shorts-word-merge`**: **12/05 토 20:00 KST 예약 완료** (ID `YKaokru2ugg`, 교육 27, 한국어 ko, 40.4s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 게시, `community-post.json` 예습 퀴즈 `2026-12-05T09:00:00Z`).
+  - 시험 변수(#3): 비레이아웃 0.3초 청각 시그니처 4회 + 브라이트 에디토리얼 실사·가로 정중앙 대칭·확대 3060 폰트. 12/12 토 이후 공개 7일 결과 정산 예정.
 
 ## 핵심 규칙 및 파이프라인 추가 (2026-11-19~20)
-1. **자율 모델 티어 선택 (Rule 10)**: 단순 기계적 작업(조사, 브리핑, 오디오/BGM 생성, 테스트)은 `flash`/`flash_lite` 경량 모델 자율 사용, 퀄리티 가르는 작업(기획, 탈템플릿 비주얼/모션, 최종 검수)은 `pro`/최상위 모델 사용.
-2. **쇼츠 가로 중심 대칭 (`knowledge/production-rules.md`)**: PC/모바일 레이아웃 모두 상단 훅, 칩, 본문 카드, 퀴즈 텍스트는 좌우 비대칭 마진을 금지하고 균형 있는 가로 중심 대칭(`text-align: center`, 균형 마진) 유지.
-3. **업로드·예약 시 AI 사용 여부와 재생목록 필수 확인 (Rule 14)**: 실사형 AI 이미지, TTS, AI 음악 사용에 따라 스튜디오 더보기 문항 및 API 업로드 시 '변형되었거나 생성된 콘텐츠'('예'/`containsSyntheticMedia: true`)를 필수로 설정하고, 형식별 채널 기본 재생목록(쇼츠/롱폼)을 빠짐없이 연결.
-4. **공개 후 자동 사후 관리 파이프라인 (`scripts/post-publish-pipeline.mjs`)**: 재생목록 4대 테마 전면 감사·교정, 고정 댓글 자동 게시, 쇼츠 '관련 동영상' 자동 매핑, 커뮤니티 퀴즈 관리 탑재.
-5. **자율 브리핑 체계 완비 (`00-autonomous-briefing.md`, 2026-11-20)**:
-   - 기계적 4건 숙제 강제 출력 폐지 ➔ 데이터 기반 AI 자율 보수·진화(3단계 권한선, 자기 개선 브레이크) 구축.
-   - 단일 명령어 `npm run briefing` 탑재 (`scripts/briefing.mjs`).
-   - `knowledge/now.md` 28줄 슬림화 및 단일 원본 정합화 완료 (`scripts/tests/briefing-playbook-guard.test.mjs` 검증).
+1. **비교 시트 v4 `aiRecommendation` 추가 (`2026-11-20`)**: Gate 1 승인용 AI 1순위 제목·썸네일 추천 조합·이유·차선안을 시트 상단 카드 및 `★ AI 추천` 배지로 표시(`transform-sheet.mjs`, `outlier-report-view.mjs`, `comparison-sheet-playbook.md`).
+2. **3060 모바일 권장 글자 크기 (`2026-11-20`, 2층 기본값)**: 불변 하한 `34px` 위에 쇼츠 본편 보조 `46px+`·자막 `50px+`·썸네일 보조 `60px+`, 롱폼 본편 보조 `44px+`·자막 `56px+`·썸네일 보조 `56px+` 권장(`knowledge/production-rules.md`, `knowledge/rule-tiers.md`).
+3. **업로드·예약 시 AI 사용 여부와 재생목록 필수 확인 (Rule 14)**: `containsSyntheticMedia: true` 및 형식별 기본 재생목록 연결 필수(`studio-upload.mjs` `VIDEO_HAS_ALTERED_CONTENT_YES` 선택자 보완).
+4. **자율 브리핑·사후 관리 파이프라인 (`2026-11-20`)**: `npm run briefing` 단일 원본 정합화(`00-autonomous-briefing.md`), `post-publish-pipeline.mjs` 4대 사후 관리(재생목록·고정댓글·관련동영상·커뮤니티 게시물) 자동 순환.
 
 ## 다음 할 일
-1. **차기 쇼츠(12/5 토 슬롯) 기획**: 새 비교 시트 v4 양식 기반 소재 선정 및 기획 착수 (Gate 1 승인 대기).
-2. **11/23 월 사용자 확인**: 스튜디오 EP23 제목·썸네일 A/B 테스트 결과 확인 후 REVIEW.md 기록.
-3. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 결과 확인.
+1. **11/23 월 사용자 확인**: 스튜디오 EP23 제목·썸네일 A/B 테스트 결과 확인 후 REVIEW.md 기록.
+2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 결과 확인.
+3. **12/08 화 이후**: EP31 stress-shift 쇼츠(`AkDKw4o_C58`) 공개 7일 결과 확인.
+4. **12/12 토 이후**: EP32 word-merge 쇼츠(`YKaokru2ugg`) 공개 7일 결과 확인.

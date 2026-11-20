@@ -437,4 +437,24 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
   assert.ok(html.includes('🎬 융합한 명작 레퍼런스'), '다중 명작 섹션 표시');
   assert.ok(html.includes('🚀 AI 최적안 · 컷 1'), '단일 최적안 컷 라벨 표시');
   assert.ok(!html.includes('1안 (경쟁 베이스)'), '레거시 1~4안 라벨 없음');
+
+  // 5) AI 추천 조합(aiRecommendation): 카드·★ AI 추천 배지 렌더링 및 불일치 차단
+  const withRec = structuredClone(v4);
+  const firstTitle = withRec.rows.find((r) => r.key === 'title').ours.titles[0];
+  const firstThumb = withRec.rows.find((r) => r.key === 'thumbnail').ours.images[0];
+  withRec.aiRecommendation = {
+    title: firstTitle,
+    thumbnail: firstThumb,
+    thumbnailLabel: 'A안',
+    reason: '제목과 썸네일이 말을 반복하지 않고 시선과 호기심을 분담한다.',
+    alternative: '차선: 2안 + B안',
+  };
+  assert.deepEqual(validateSheet(withRec, {imageExists: () => true}), []);
+  const htmlRec = renderTransformSheetPage(withRec, null, []);
+  assert.ok(htmlRec.includes('🎯 AI 추천 조합'), 'AI 추천 조합 카드 표시');
+  assert.ok(htmlRec.includes('★ AI 추천'), '추천 제목·썸네일 배지 표시');
+
+  const badRec = structuredClone(withRec);
+  badRec.aiRecommendation.title = '후보에 없는 임의 제목';
+  assert.ok(validateSheet(badRec, {imageExists: () => true}).some((p) => p.includes('AI 추천 조합')));
 });

@@ -409,6 +409,11 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     const sc = sheet.selfCritique;
     parts.push(`<div class="card" style="border-left:3px solid #00D2D3;background:linear-gradient(135deg,rgba(0,210,211,0.08),rgba(56,189,248,0.05));margin:12px 0"><div style="font-size:14.5px;font-weight:800;color:#00D2D3;margin-bottom:6px">🧠 AI 자체 비평 (제출 전 슬로건 검수)</div><div class="meta" style="color:var(--ink);line-height:1.7"><div><b>① 템플릿 탈피:</b> ${escapeHtml(sc.antiTemplate || '')}</div><div><b>② 직전 편 대비 진화:</b> ${escapeHtml(sc.evolutionFromPrev || '')}</div><div><b>③ 명작 융합 검증:</b> ${escapeHtml(sc.fusionCheck || '')}</div></div></div>`);
   }
+  const aiRec = sheet.aiRecommendation && typeof sheet.aiRecommendation === 'object' ? sheet.aiRecommendation : null;
+  if (aiRec) {
+    const thumbPreview = aiRec.thumbnail ? `<img src="${oursUrl(aiRec.thumbnail)}" alt="AI 추천 썸네일" style="width:84px;height:auto;border-radius:10px;border:2px solid #f59e0b;box-shadow:0 4px 12px rgba(0,0,0,0.22);flex-shrink:0">` : '';
+    parts.push(`<div class="card" style="border-left:3px solid #f59e0b;background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(250,204,21,0.04));margin:12px 0"><div style="font-size:14.5px;font-weight:800;color:#d97706;margin-bottom:8px">🎯 AI 추천 조합 (1순위 제목 · 썸네일)</div><div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">${thumbPreview}<div class="meta" style="color:var(--ink);line-height:1.7;flex:1;min-width:240px"><div><b>추천 제목:</b> ${escapeHtml(aiRec.title || '')}</div><div><b>추천 썸네일:</b> ${escapeHtml(aiRec.thumbnailLabel || aiRec.thumbnail || '')}</div><div><b>추천 이유:</b> ${escapeHtml(aiRec.reason || '')}</div>${aiRec.alternative ? `<div style="margin-top:4px;color:var(--sub)"><b>차선 조합:</b> ${escapeHtml(aiRec.alternative)}</div>` : ''}</div></div></div>`);
+  }
   if ((sheet.testVariables || []).length) {
     parts.push('<h2>이번에 시험하는 변수</h2>');
     for (const v of sheet.testVariables) parts.push(`<div class="card" style="border-left:3px solid var(--accent);background:linear-gradient(135deg,rgba(56,189,248,0.06),rgba(168,85,247,0.06))"><div style="font-size:14.5px"><b>🧪 ${escapeHtml(v.variable)}</b> · <span class="pill-badge">보는 지표: ${escapeHtml(v.measure)}</span></div><div class="q" style="margin-top:8px"><b>왜 이렇게 될 것 같은가(가설)</b>: ${escapeHtml(v.hypothesis)}</div></div>`);
@@ -421,9 +426,9 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     const thumbs = r.key === 'thumbnail' ? [r.ours?.image, ...(r.ours?.images || [])].filter(Boolean) : [];
     const thumbs2 = r.key === 'thumbnail' ? (r.ours?.images2 || []).filter(Boolean) : [];
     const thumbs3 = r.key === 'thumbnail' ? (r.ours?.images3 || []).filter(Boolean) : [];
-    const pickRow = (list) => `<div class="thumbbox">${list.map((rel) => `<label class="pick"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`).join('')}</div>`;
+    const pickRow = (list) => `<div class="thumbbox">${list.map((rel) => { const isRec = aiRec?.thumbnail === rel; return `<label class="pick" style="${isRec ? 'outline:3px solid #f59e0b;border-radius:10px' : ''}"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안">${isRec ? '<span style="position:absolute;top:8px;left:8px;background:#f59e0b;color:#111827;font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.35)">★ AI 추천</span>' : ''}<input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`; }).join('')}</div>`;
     const titleBox = r.key === 'title' && (r.ours?.titles || []).length
-      ? `<div class="titles"><b>제목 후보 (고르기)</b>${r.ours.titles.map((t) => `<label><input type="checkbox" data-pick-title="${escapeHtml(t)}"${titlePicks.has(t) ? ' checked' : ''}><span>${escapeHtml(t)}</span></label>`).join('')}</div>`
+      ? `<div class="titles"><b>제목 후보 (고르기)</b>${r.ours.titles.map((t) => `<label><input type="checkbox" data-pick-title="${escapeHtml(t)}"${titlePicks.has(t) ? ' checked' : ''}><span>${escapeHtml(t)}${aiRec?.title === t ? ' <span class="pill-badge" style="background:rgba(245,158,11,0.22);color:#b45309;border:1px solid #f59e0b;font-weight:800;margin-left:4px">★ AI 추천</span>' : ''}</span></label>`).join('')}</div>`
       : '';
     const ours = r.key === 'thumbnail' ? '' : oursImg(r.ours?.image) + (r.ours?.images || []).map(oursImg).join('');
     parts.push(`<div class="sheet-label">${escapeHtml(ROW_LABELS_VIEW[r.key] || r.key)}</div>

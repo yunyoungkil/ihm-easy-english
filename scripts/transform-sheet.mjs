@@ -123,6 +123,30 @@ export function selfCritiqueProblems(sheet) {
   return out;
 }
 
+/** AI 1순위 제목·썸네일 추천 조합(aiRecommendation, 2026-11-20 사용자 요청) 검사. 기존 시트 호환을 위해 필드가 있을 때만 검사한다. */
+export function aiRecommendationProblems(sheet, {imageExists = null} = {}) {
+  const out = [];
+  const rec = sheet?.aiRecommendation;
+  if (rec === undefined || rec === null) return out;
+  if (typeof rec !== 'object') return ['AI 추천 조합(aiRecommendation)은 객체여야 한다'];
+  if (!filled(rec.title)) out.push('AI 추천 조합: 추천 제목(title)이 비어 있다');
+  if (!filled(rec.thumbnail)) out.push('AI 추천 조합: 추천 썸네일(thumbnail)이 비어 있다');
+  if (!filled(rec.reason)) out.push('AI 추천 조합: 추천 이유(reason)가 비어 있다');
+  const titles = ((sheet.rows || []).find((r) => r.key === 'title')?.ours?.titles || []).filter(Boolean);
+  if (filled(rec.title) && titles.length && !titles.includes(rec.title)) {
+    out.push('AI 추천 조합: 추천 제목이 제목 후보(ours.titles) 안에 없다');
+  }
+  const tRow = (sheet.rows || []).find((r) => r.key === 'thumbnail');
+  const allowedThumbs = [tRow?.ours?.image, ...(tRow?.ours?.images || []), ...(tRow?.ours?.images2 || []), ...(tRow?.ours?.images3 || [])].filter(Boolean);
+  if (filled(rec.thumbnail) && allowedThumbs.length && !allowedThumbs.includes(rec.thumbnail)) {
+    out.push(`AI 추천 조합: 추천 썸네일(${rec.thumbnail})이 썸네일 후보 목록에 없다`);
+  }
+  if (filled(rec.thumbnail) && imageExists && !imageExists(rec.thumbnail)) {
+    out.push(`AI 추천 조합: 추천 썸네일 파일이 없다(${rec.thumbnail})`);
+  }
+  return out;
+}
+
 /** v4(슬로건 업그레이드) 쇼츠 단일 최적안(cutPlan) 검사: 물리 가드레일(0.5초 상단 훅 존재·음성 예산·모션·입말)만 강제하고 9자 제한·전 컷 하단 띠 강제는 푼다. */
 export function v4ShortsProblems(sheet, {imageExists = null} = {}) {
   const out = [];
@@ -370,6 +394,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     ...evidenceProblems(sheet),
     ...appliedProblems(sheet),
     ...selfCritiqueProblems(sheet),
+    ...aiRecommendationProblems(sheet, {imageExists}),
     ...v4ShortsProblems(sheet, {imageExists}),
     ...plan2Problems(sheet),
     ...plan3Problems(sheet, {imageExists}),

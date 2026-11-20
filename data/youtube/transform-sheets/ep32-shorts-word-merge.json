@@ -1,0 +1,546 @@
+{
+  "schemaVersion": 4,
+  "episodeId": "ep32-shorts-word-merge",
+  "sourceVideoId": "Z6VDb7biKCw",
+  "createdAt": "2026-11-20",
+  "status": "approved",
+  "format": "SHORTS",
+  "topic": "눈으로 보면 다 아는데 원어민이 말하면 안 들리는 영어 합체 소리 네 가지 (give me · let me · kind of · out of)",
+  "selfCritique": {
+    "antiTemplate": "직전 EP31(다크 네온 스포트라이트 실사 + 대각선 2분할)의 어두운 룩을 반복하지 않고, 햇살 들어오는 밝은 킨포크 에디토리얼 실사 5장(카페 라떼, 테이블 스마트폰, 노을 책상, 출구 문손잡이, 오프화이트 3D 자석 큐브)과 코발트·코랄·앰버 매거진 타이포를 결합했다. 오해 대화 말풍선 핑퐁(컷 0), 3D 자석 충돌 원리 도해(컷 1), 풀블리드 프로스트 카드(컷 2·4), 딥 컬러 합체 스매시(컷 3·5·7), 킨포크 레터박스 화보(컷 6), 무나레이션 3단 컬러 스트립 플래시(컷 8), 원형 카운트다운 퀴즈(컷 9), 정답 스탬프 팝(컷 10), 4단 에디토리얼 체크리스트(컷 11)까지 7가지 서로 다른 레이아웃으로 컷마다 리듬을 바꿨다. 검은 직사각형 상단 띠는 쓰지 않았고 전 컷 가로 정중앙 대칭을 지켰다.",
+    "evolutionFromPrev": "EP31에서 검증 대기 중인 실사 대비 구조를 계승하면서도 세 가지를 업그레이드했다. ① 2026-11-19 확정 규칙(가로 정중앙 대칭)을 시트 12컷과 썸네일 3종 처음부터 반영해 좌우 쏠림을 없앴다. ② 2026-11-20 브랜드 3단계 진화 기준에 따라 시각 틀을 고정하지 않는 대신, 두 단어가 하나로 합체되는 카타르시스 순간(컷 3·5·7·10)에만 0.3초 고유 청각 시그니처(Audio Anchor)를 첫 시험 변수로 배치했다. ③ 퀴즈 컷(컷 9)은 원어민의 합체 소리(outta)를 먼저 들려주고 어떤 두 단어인지(A out of vs B auto) 맞히는 리스닝 반전형으로 진화시켰다.",
+    "fusionCheck": "단일 영상 모방을 피하고 직접 프레임으로 눈 확인한 5편의 명작 장치를 융합했다: Z6VDb7biKCw(44만 회)의 '이러니 안 들리지' 공감 프레임과 합체 소리 직관 강조(컷 3·5·7·제목 1), 49VA7-b8oyc(212만 회)의 1:1 오해 대화 핑퐁 훅(컷 0·썸네일 B·제목 2), dYrD_e1aLCw(1,097만 회)의 검은 박스 없는 2색 고대비 상단 훅과 입 힘 빼기 감각(전 컷 훅·컷 1), SF7u3wLKCEM(34만 회)의 밝은 바탕 위 소멸 자음 빨간색 강조 및 결합 도해(컷 1·2·4·6·썸네일 A), _xfBa82OAaw(4.3만 회)의 실전 짧은 생활 대화 예문과 약화 소리 대비(컷 3·5·7·10)."
+  },
+  "aiRecommendation": {
+    "title": "김미? 렘미? 원어민이 두 단어를 하나로 합쳐 먹는 진짜 이유",
+    "thumbnail": "images/ep32-shorts-word-merge/thumb-A.jpg",
+    "thumbnailLabel": "A안 (오프화이트 3D 자석 큐브 GIVE + ME → GIMME)",
+    "reason": "썸네일 A안('아는 단어인데 왜 안 들릴까?')과 제목 2안('김미? 렘미? 원어민이 두 단어를 하나로 합쳐 먹는 진짜 이유')이 말을 반복하지 않고 시각·청각 역할을 깔끔하게 분담한다. 밝은 오프화이트 3D 자석 구도는 어두운 피드·직전 EP31과 확실히 대비되며, 제목 2안은 34자라 모바일에서 잘리지 않고 최근 5편 겹침 최대 4.1%·우리 쇼츠 역대 1위('원어민 영어가 빠르게 들리는 이유') 구조와 맞물린다.",
+    "alternative": "퀴즈형 선호 시: 썸네일 C안(OUTTA A vs B) + 제목 3안('아는 영어인데 귀에 안 꽂힌다면? 원어민 축약 소리 네 가지 테스트')"
+  },
+  "testVariables": [
+    {
+      "variable": "비레이아웃 0.3초 청각 시그니처 (Audio Anchor) 4회 적용",
+      "hypothesis": "시각 템플릿을 고정하지 않고도 두 단어가 원어민 소리로 합체되는 카타르시스 순간(컷 3·5·7·10)에만 동일한 0.3초 고유 효과음을 울리면, 시청 몰입과 채널 기억도가 높아져 평균 시청 시간과 7일 구독 전환이 오를 것이다(가설, 2026-11-20 style-experiments.md 신규 대기열 첫 시험).",
+      "measure": "공개 7일 평균 시청 시간(watchSeconds7d) · 구독 수(subs7d) · 계속 시청함(stayedToWatch)"
+    },
+    {
+      "variable": "브라이트 에디토리얼 실사 + 1:1 오해 대화 핑퐁 훅 + 가로 정중앙 대칭",
+      "hypothesis": "EP31의 다크 네온 룩과 차별화된 낮 햇살 에디토리얼 실사와 0.5초 'Gimme a minute → 김미?' 오해 대화 훅을 가로 정중앙 대칭으로 배치하면, 피드 이탈이 줄어 계속 시청함이 평소 쇼츠 중앙값(36.33%)보다 판정 폭 이상 오를 것이다(가설).",
+      "measure": "stayedToWatch (1차) · 공개 7일 조회수(views7d, 보조)"
+    }
+  ],
+  "glossary": [
+    {
+      "term": "음운 탈락·축약 (Elision / Contraction)",
+      "plain": "입이 바쁘면 가운데 부딪히는 소리를 쏙 빼고 한 덩어리로 합침"
+    },
+    {
+      "term": "연음·동화 (Assimilation)",
+      "plain": "앞뒤 두 소리가 닮아지며 하나로 녹아 붙음"
+    },
+    {
+      "term": "탄설음 (Flap T)",
+      "plain": "t 소리를 세게 끊지 않고 혀끝으로 가볍게 튕겨 지나감"
+    }
+  ],
+  "references": [
+    {
+      "videoId": "49VA7-b8oyc",
+      "role": "0.5초 오해 대화 핑퐁 훅",
+      "what": "원어민 발음과 한국인 머릿속 인식이 어긋나는 순간을 1:1 대화 핑퐁으로 0.5초 만에 직격",
+      "reason": "설명부터 시작하면 3초 안에 넘긴다. 'Gimme a minute → 김미...? 누구 이름인가?'라는 즉각적 오해 상황으로 3060 시청자의 웃음과 공감을 동시에 잡는다.",
+      "evidence": "희수 영어 212.8만 회, 채널 평소 대비 273.73배(옛 배수 참고용, 프레임 0·7초 직접 눈 확인)",
+      "appliedTo": [
+        "cut:0",
+        "thumb:B",
+        "title:2"
+      ]
+    },
+    {
+      "videoId": "dYrD_e1aLCw",
+      "role": "검은 띠 없는 2색 상단 훅 & 힘 빼기 원리",
+      "what": "검은 직사각형 박스 없이 굵은 2색 고대비 상단 훅 배치 + 원어민이 입·혀의 힘을 빼고 편하게 소리 내는 직관 시연",
+      "reason": "검은 상단 띠의 PPT 느낌을 벗어나면서도 모바일 가독성을 지키고, '혀가 귀찮아서 소리를 합친다'는 이해 중심 원리와 잘 맞물린다.",
+      "evidence": "유재미in영어 1,097.7만 회, 채널 평소 대비 210.8배(옛 배수 참고용, 프레임 0·11초 직접 눈 확인)",
+      "appliedTo": [
+        "cut:0",
+        "cut:1",
+        "thumb:A"
+      ]
+    },
+    {
+      "videoId": "SF7u3wLKCEM",
+      "role": "밝은 바탕 위 소멸·결합 자음 시각화",
+      "what": "깨끗한 밝은 바탕에 큰 영단어를 두고 변화하는 핵심 자음만 빨간색으로 분리·강조해 소리 결합 경로를 한눈에 보여 줌",
+      "reason": "말로만 'v가 빠진다'고 하면 3060 초보자는 놓친다. 빨간 밑줄과 사선 소멸 표시로 눈이 먼저 원리를 이해하게 만든다.",
+      "evidence": "베이비보소 English 34.5만 회, 채널 평소 대비 80.4배(옛 배수 참고용, 프레임 7초 직접 눈 확인)",
+      "appliedTo": [
+        "cut:1",
+        "cut:2",
+        "cut:4",
+        "cut:6",
+        "thumb:A"
+      ]
+    },
+    {
+      "videoId": "_xfBa82OAaw",
+      "role": "실전 짧은 생활 대화 예문 결합",
+      "what": "단어 소리만 던지고 끝내지 않고 원어민이 실제로 쓰는 짧은 한 줄 생활 문장으로 즉시 연결",
+      "reason": "합체 소리는 단독보다 'Gimme a minute', 'Lemme see', 'I'm kinda tired', 'I'm outta here' 같은 짧은 생활 문장 속에서 들을 때 바로 기억된다(단, 원본의 영화·드라마 클립 재사용은 저작권상 배제하고 커스텀 에디토리얼 실사로 대체).",
+      "evidence": "이지톡잉글리쉬 4.3만 회, 채널 평소 대비 134.34배(옛 배수 참고용, 프레임 0초 직접 눈 확인)",
+      "appliedTo": [
+        "cut:3",
+        "cut:5",
+        "cut:7",
+        "cut:10",
+        "row:package"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "what": "성우 한국어 잰말놀이 발음 테스트",
+      "fromVideoId": "rhjcr61ngHA",
+      "reason": "프레임 5초를 직접 열어 본 결과 투니버스 애니메이션 한국어 발음 챌린지라 영어 소리 원리 채널과 무관해 제외했다."
+    },
+    {
+      "what": "철자 반전 플립 카드(BOMB/TOMB) 및 강세 뜻 대비",
+      "fromVideoId": "pvPBD9PLuyk",
+      "reason": "직전 EP31 쇼츠의 원본 레퍼런스라 같은 레퍼런스 반복 편향을 피하기 위해 제외했다."
+    },
+    {
+      "what": "단어 내부 묵음·음절 축소 5단어 나열",
+      "fromVideoId": "SbQVBQoRciA",
+      "reason": "EP30(chocolate)에서 이미 다룬 단일 단어 내부 축소 소재라 두 단어 합체(축약) 소재와 구분해 제외했다."
+    },
+    {
+      "what": "17분 진행자 얼굴 단독 토크 리스닝 강의",
+      "fromVideoId": "4cBa8D9P96I",
+      "reason": "프레임 1·12초 확인 결과 진행자 단독 원테이크 롱폼이라 40초대 시각 압축 쇼츠 레퍼런스로는 적합하지 않아 제외했다."
+    }
+  ],
+  "rows": [
+    {
+      "key": "title",
+      "origin": "mixed",
+      "originReason": "Z6VDb7biKCw의 '이러니 안 들리지' 공감 각도와 49VA7-b8oyc의 오해 대화 반전을 흡수하되, 우리 쇼츠 데이터(영어로 시작 0/3 vs 한글 질문·반전 상위)에 맞춰 100% 한글 시작 3안으로 설계했다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw: '이러니 안 들리지.. 😅 | 영어축약발음' / 49VA7-b8oyc: '한국vs미국 발음 차이 #shorts' / dYrD_e1aLCw: '미국 영어 이렇게 하면 더 자연스럽다(?)'",
+        "quote": "이러니 안 들리지.. 😅 | 영어축약발음"
+      },
+      "ours": {
+        "text": "서로 다른 심리적 앵글 3안(공감 충격 / 대화 반전 / 리스닝 테스트). 3안 모두 영어로 시작하지 않으며, 최근 5편 겹침 검사(0~20.3%)와 금지어 검사(0건)를 통과했다.",
+        "titles": [
+          "눈으로 보면 다 아는데 원어민이 말하면 안 들리는 영어 합체 소리 네 가지",
+          "김미? 렘미? 원어민이 두 단어를 하나로 합쳐 먹는 진짜 이유",
+          "아는 영어인데 귀에 안 꽂힌다면? 원어민 축약 소리 네 가지 테스트"
+        ]
+      },
+      "why": "우리 쇼츠 역대 1위(IfK4Itzgt6o, 2,164회: 원어민 영어가 빠르게 들리는 이유)와 시장 수요 2위('영어 연음 축약', 기회점수 44.8)가 모두 '아는 영어인데 안 들리는 이유'를 찌른다. 3안 각각 다른 훅으로 테스트할 수 있다."
+    },
+    {
+      "key": "thumbnail",
+      "origin": "mixed",
+      "originReason": "SF7u3wLKCEM의 밝은 대비 구조, 49VA7-b8oyc의 1:1 오해 말풍선, dYrD_e1aLCw의 2색 고대비 타이포를 흡수해 서로 다른 컨셉 3종(자석 합체 / 카페 오해 대화 / 리스닝 퀴즈 도발)으로 제작했다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw(검은 배경 민트 박스+노란 한글 독음), 49VA7-b8oyc(오해 대화 2줄), dYrD_e1aLCw(마젠타+화이트 2줄 상단 훅), SF7u3wLKCEM(흰 바탕 빨간 자음 강조)",
+        "images": [
+          "thumb:Z6VDb7biKCw",
+          "thumb:49VA7-b8oyc",
+          "thumb:dYrD_e1aLCw",
+          "thumb:SF7u3wLKCEM"
+        ]
+      },
+      "ours": {
+        "text": "유튜브 테스트 3안 규격(서로 다른 컨셉 3종, 1080×1920, 가로 정중앙 대칭): A안 오프화이트 3D 자석 큐브 충돌(GIVE+ME→GIMME), B안 밝은 카페 오해 대화 반전('김미? 렘미?'), C안 출구 문 실사 리스닝 퀴즈 도발('OUTTA = A out of vs B auto').",
+        "images": [
+          "images/ep32-shorts-word-merge/thumb-A.jpg",
+          "images/ep32-shorts-word-merge/thumb-B.jpg",
+          "images/ep32-shorts-word-merge/thumb-C.jpg"
+        ]
+      },
+      "why": "EP31의 다크 썸네일과 전혀 다른 밝은 오프화이트·낮 햇살 실사로 시각 피로를 끊고, 200px 축소 상태에서도 한 단어(GIMME / OUTTA)와 핵심 질문이 0.5초 만에 읽히도록 초대형 고대비 타이포로 설계했다."
+    },
+    {
+      "key": "opening",
+      "origin": "mixed",
+      "originReason": "49VA7-b8oyc의 0.5초 오해 대화 핑퐁과 SF7u3wLKCEM의 밝은 결합 도해를 합쳐, 7.3초 안에 '오해 공감 → 한 줄 자석 원리'를 완결했다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw: 로고 인트로 후 검은 화면에서 표현 나열(초반 정적). 49VA7-b8oyc: 0초부터 '뮌헨을 모른다고?' 오해 대화로 바로 진입.",
+        "images": [
+          "frame:0",
+          "frame:13"
+        ]
+      },
+      "ours": {
+        "text": "0.0초: 밝은 카페 실사 위로 'Gimme a minute → 김미...? 누구 이름인가?' 오해 말풍선 대비와 상단 훅('아는 영어인데 왜 안 들릴까요?')이 동시에 등장. 3.8초: 파랑·빨강 3D 자석 큐브가 맞닿아 스파크가 튀는 화면으로 '입이 바쁘면 두 단어를 합칩니다' 한 줄 원리 각인.",
+        "images": [
+          "images/ep32-shorts-word-merge/cuts/cut-00.png",
+          "images/ep32-shorts-word-merge/cuts/cut-01.png"
+        ]
+      },
+      "why": "우리 채널 쇼츠 이탈 곡선 중앙값이 4.6~5.5초다. 로고나 인사말을 0초로 잘라내고 첫 3.8초에 3060이 바로 겪어 본 '아는 단어인데 김미로 들리는 당황'을 꽂아 이탈 벽을 넘는다."
+    },
+    {
+      "key": "flow",
+      "origin": "ours",
+      "originReason": "오해 훅(3.8s) → 자석 원리(3.5s) → 1번 give me→gimme(2.9s+3.8s) → 2번 let me→lemme(2.9s+3.8s) → 3번 kind of→kinda(2.9s+3.8s) → 무나레이션 3연속 귀 트임 플래시(3.7s) → 4번 outta 1.5초 리스닝 퀴즈(5.4s) → 정답 스매시(3.7s) → 4단 체크리스트 CTA(3.8s)로 설계했다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw: 10분 31초 동안 축약 표현을 패턴별로 차분히 반복 나열. 49VA7-b8oyc: 18초 단일 단어 상황극으로 종결."
+      },
+      "ours": {
+        "text": "총 44.0초, 12컷(분당 16.4컷). '2.9초 분리 문제 → 3.8초 합체 스매시(0.3초 청각 시그니처)'의 짧고 굵은 호흡을 세 번 반복해 원리를 익힌 뒤, 27.4초 무나레이션 3연속 귀 트임과 31.1초 5.4초 리스닝 퀴즈로 클라이맥스를 만든다."
+      },
+      "why": "2.9초 분리 컷과 3.8초 합체 컷, 5.4초 퀴즈 컷이 교차하면서 컷 간격 변동(CV 17%+)이 살아나고, 같은 원리 세 개를 듣고 네 번째를 직접 맞히는 구조가 완주율을 끌어올린다."
+    },
+    {
+      "key": "visual",
+      "origin": "ours",
+      "originReason": "EP31의 다크 룩과 완전히 다른 브라이트 에디토리얼 실사 5장 + 7가지 서로 다른 레이아웃 + 가로 정중앙 대칭으로 탈템플릿을 구현했고, 합체 순간 4곳에 0.3초 청각 시그니처 음파 연출을 배치했다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw: 검은 배경 위 민트색 사각 박스 1종 반복. SF7u3wLKCEM: 흰 배경 글자·화살표 도해. 49VA7-b8oyc: 인물 고정 원샷 + 하단 2줄 대화.",
+        "images": [
+          "frame:0",
+          "frame:13",
+          "frame:41"
+        ]
+      },
+      "ours": {
+        "text": "단일 최적안(12컷, 44.0초). 모든 컷 1080×1920, 가로 정중앙 대칭, 모바일 최소 폰트 44~46px 이상, 검은 직사각형 상단 띠 ZERO. (시트 프리뷰의 '0.3초 합체 사운드' 배지는 오디오 앵커 시점을 보여 주는 표시이며, 최종 영상에서는 깔끔한 골드 음파 링 애니메이션으로 렌더링한다.)",
+        "cutPlan": {
+          "durationSeconds": 44,
+          "rhythm": "훅(3.8s)→원리(3.5s)→1번 분리·합체(2.9·3.8s)→2번 분리·합체(2.9·3.8s)→3번 화보·합체(2.9·3.8s)→무나레이션 3연속(3.7s)→4번 리스닝 퀴즈(5.4s)→정답 스매시(3.7s)→요약 CTA(3.8s), 분당 16.4컷",
+          "hook": [
+            "아는 영어인데",
+            "**왜 안 들릴까요?**"
+          ],
+          "hookWhy": "dYrD_e1aLCw의 검은 띠 없는 2색 고대비 상단 훅을 가로 정중앙 대칭으로 적용해, 0.5초 안에 3060 영어 학습자의 가장 큰 고민('아는데 안 들림')을 찌른다.",
+          "cuts": [
+            {
+              "t": 0,
+              "template": "chat-misunderstanding-hook",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-00.png",
+              "narration": "분명 아는 단어인데, 왜 안 들릴까요?",
+              "voiceEn": [],
+              "window": 0,
+              "motion": "0.0s 카페 햇살 실사 미세 줌인, 0.2s 상단 원어민 말풍선 팝 → 1.4s 노란 화살표와 하단 '김미...? 누구 이름인가?' 반전 말풍선 슬라이드 업",
+              "bottom": {
+                "subtitle": "분명 아는 단어인데, 왜 안 들릴까요?"
+              }
+            },
+            {
+              "t": 3.8,
+              "template": "magnetic-merge-diagram",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-01.png",
+              "narration": "입이 바쁘면 두 단어를 합칩니다.",
+              "voiceEn": [],
+              "window": 0,
+              "motion": "파랑·빨강 3D 자석 큐브가 중앙으로 미세 충돌하며 골드 스파크 점등, 하단 원리 카드 스케일 업",
+              "bottom": {
+                "subtitle": "입이 바쁘면 두 단어를 합칩니다"
+              }
+            },
+            {
+              "t": 7.3,
+              "template": "editorial-cafe-split",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-02.png",
+              "narration": "첫째, 이 두 단어.",
+              "voiceEn": [
+                "give me"
+              ],
+              "window": 0,
+              "motion": "카페 실사 위 프로스트 카드 팝, GIVE와 ME 분리 박스가 흔들리며 가운데 V에 빨간 밑줄 강조",
+              "bottom": {
+                "subtitle": "첫째, 이 두 단어 · give me"
+              }
+            },
+            {
+              "t": 10.2,
+              "template": "audio-anchor-merge-smash",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-03.png",
+              "narration": "하나로 쏙 합쳐집니다.",
+              "voiceEn": [
+                "gimme"
+              ],
+              "window": 0,
+              "motion": "0.3s GIVE의 VE에 빨간 사선 소멸 + 0.3초 고유 청각 시그니처(Audio Anchor)와 골드 음파 링 폭발 → GIMME 대형 타이포 스매시 합체",
+              "bottom": {
+                "subtitle": "하나로 쏙 합쳐집니다 · GIMME"
+              }
+            },
+            {
+              "t": 14,
+              "template": "editorial-phone-peek",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-04.png",
+              "narration": "둘째, 이 두 단어.",
+              "voiceEn": [
+                "let me"
+              ],
+              "window": 0,
+              "motion": "스마트폰 실사 컷 전환, LET와 ME 사이 T에 빨간 강조 밑줄 펄스",
+              "bottom": {
+                "subtitle": "둘째, 이 두 단어 · let me"
+              }
+            },
+            {
+              "t": 16.9,
+              "template": "audio-anchor-merge-smash",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-05.png",
+              "narration": "바로 녹아 붙습니다.",
+              "voiceEn": [
+                "lemme"
+              ],
+              "window": 0,
+              "motion": "0.3s T 사선 소멸 + 0.3초 청각 시그니처(Audio Anchor) 음파 링 확산 → LEMME 합체 카드 팝 및 예문 Lemme see 등장",
+              "bottom": {
+                "subtitle": "바로 녹아 붙습니다 · LEMME"
+              }
+            },
+            {
+              "t": 20.7,
+              "template": "kinfolk-letterbox-office",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-06.png",
+              "narration": "셋째, 이 표현.",
+              "voiceEn": [
+                "kind of"
+              ],
+              "window": 0,
+              "motion": "킨포크 화보형 오프화이트 상하 프레임 전개, 중앙 노을 책상 사진 미세 패닝, 상단 OF의 F에 빨간 밑줄 점등",
+              "bottom": {
+                "subtitle": "셋째, 이 표현 · kind of"
+              }
+            },
+            {
+              "t": 23.6,
+              "template": "audio-anchor-merge-smash",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-07.png",
+              "narration": "끝이 빠져 스르르 붙죠.",
+              "voiceEn": [
+                "kinda"
+              ],
+              "window": 0,
+              "motion": "0.3s F 사선 소멸 + 0.3초 청각 시그니처(Audio Anchor) 음파 링 확산 → KINDA 스매시 합체 및 I'm kinda tired 등장",
+              "bottom": {
+                "subtitle": "끝이 빠져 스르르 붙죠 · KINDA"
+              }
+            },
+            {
+              "t": 27.4,
+              "template": "triple-sound-flash",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-08.png",
+              "narration": "",
+              "voiceEn": [
+                "gimme",
+                "lemme",
+                "kinda"
+              ],
+              "window": 0,
+              "motion": "무나레이션 귀 트임 리듬 브레이크: 0.1s 코발트 GIMME 점등 → 1.2s 코랄 LEMME 점등 → 2.3s 앰버 KINDA 점등(각 원어민 소리 동기화)",
+              "bottom": {
+                "subtitle": "🔊 원어민 소리만 3연속으로 들어 보세요"
+              }
+            },
+            {
+              "t": 31.1,
+              "template": "door-quiz-countdown",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-09.png",
+              "narration": "퀴즈, 어떻게 들릴까요?",
+              "voiceEn": [
+                "outta"
+              ],
+              "window": 1.5,
+              "motion": "출구 문 실사 컷 전환, 원어민 'outta' 재생과 함께 중앙 노란 원형 1.5초 카운트다운 링 감소, 하단 A(out of) vs B(auto) 선택지 대칭 대기",
+              "bottom": {
+                "subtitle": "퀴즈, 어떻게 들릴까요? · A vs B"
+              }
+            },
+            {
+              "t": 36.5,
+              "template": "quiz-payoff-merge",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-10.png",
+              "narration": "정답은 바로 이 두 단어!",
+              "voiceEn": [
+                "outta"
+              ],
+              "window": 0,
+              "motion": "0.0s 0.3초 청각 시그니처(Audio Anchor) + 에메랄드 '정답 A · out + of' 스탬프 팝, OUTTA와 I'm outta here! 선명하게 고정",
+              "bottom": {
+                "subtitle": "정답은 바로 이 두 단어 · out of → OUTTA"
+              }
+            },
+            {
+              "t": 40.2,
+              "template": "four-merge-checklist-cta",
+              "image": "images/ep32-shorts-word-merge/cuts/cut-11.png",
+              "narration": "다섯 개 더 고정 댓글에 있어요.",
+              "voiceEn": [],
+              "window": 0,
+              "motion": "밝은 오프화이트 바탕 위 4단 합체 체크리스트 0.2s 간격 순차 슬라이드 인, 하단 코발트 고정 댓글 배지 2회 부드러운 펄스",
+              "bottom": {
+                "subtitle": "👇 보너스 다섯 개는 고정 댓글에 있어요!"
+              }
+            }
+          ]
+        }
+      },
+      "why": "EP31과 똑같은 다크 화면을 쓰면 바로 AI 템플릿처럼 보인다. 밝은 낮 햇살 실사·킨포크 레터박스·3D 자석 충돌·3단 컬러 스트립을 컷마다 다르게 배치해 눈이 쉴 틈이 없게 했고, 합체 4회 순간에 0.3초 청각 시그니처(Audio Anchor)를 걸어 귀로 채널을 기억하게 설계했다."
+    },
+    {
+      "key": "reaction",
+      "origin": "mixed",
+      "originReason": "49VA7-b8oyc의 '나도 저렇게 착각했다'는 댓글 공감과 리스닝 퀴즈('outta') 참여, 고정 댓글 보너스 5개 확인 행동을 결합했다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw: '진짜 이래서 안 들렸구나' 깨달음 댓글. 49VA7-b8oyc: 해외에서 못 알아들었던 경험담 댓글."
+      },
+      "ours": {
+        "text": "31.1초 마지막 퀴즈('outta'가 out of인지 auto인지 1.5초 생각 창)로 직접 귀를 시험하게 하고, 40.2초 고정 댓글에 보너스 다섯 표현(gonna·gotta·wanna·dunno·sorta)을 열어 가장 안 들렸던 표현을 남기게 유도한다."
+      },
+      "why": "시청자가 퀴즈를 직접 맞히고 고정 댓글을 열어 보는 동안 영상이 뒤에서 반복 재생되어 쇼츠 평균 시청 비율과 체류 시간이 함께 오른다."
+    },
+    {
+      "key": "ending",
+      "origin": "ours",
+      "originReason": "구독 구걸 아웃로를 빼고 40.2~44.0초(3.8초) 동안 4단 체크리스트를 밝은 바탕에 한눈에 띄워 자연스러운 재시청 루프를 유도한다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw: 롱폼이라 마지막 정리 후 인사 아웃로 존재. 49VA7-b8oyc: 반전 직후 즉시 종료."
+      },
+      "ours": {
+        "text": "3.8초 동안 오늘 배운 네 가지 합체 소리(GIMME·LEMME·KINDA·OUTTA)와 짧은 예문을 한 화면에 요약하고 '다섯 개 더 고정 댓글에 있어요' 한 마디로 깔끔하게 닫는다.",
+        "images": [
+          "images/ep32-shorts-word-merge/cuts/cut-11.png"
+        ]
+      },
+      "why": "요약 체크리스트를 3.8초 띄워 두면 3060 학습자가 네 개를 눈으로 한 번 더 훑거나 캡처하려 머물러 쇼츠 완주율이 높아진다."
+    },
+    {
+      "key": "package",
+      "origin": "ours",
+      "originReason": "유튜브 한국 검색 결과(oEmbed 실측)로 확인된 10개 적중 태그만 채택하고, 한국어 3종 스킬(humanizer·grammar-checker·style-guide) 기준으로 설명글과 고정 댓글을 다듬었다.",
+      "competitor": {
+        "text": "Z6VDb7biKCw: 축약 발음 키워드 중심 제목과 해시태그 구성. _xfBa82OAaw: 짧은 대화 예문 자막 제공."
+      },
+      "ours": {
+        "text": "설명글 첫 줄에 '눈으로 보면 다 아는데 귀로 안 들리는 이유'를 바로 짚고, 네 가지 합체 표현과 실전 짧은 문장을 정리했다. 태그는 실측 적중 10개만 담았고 고정 댓글에 보너스 다섯 개를 붙였다.",
+        "description": "눈으로 보면 다 아는 쉬운 단어인데, 원어민이 말하면 전혀 안 들리는 경우가 많습니다. 입이 바쁠 때 두 단어 사이에 부딪히는 소리를 쏙 빼고 한 덩어리로 합쳐 버리기 때문입니다.\n\n영상에서 다룬 네 가지 합체 소리\n- give me → gimme (Gimme a minute. 잠깐만 기다려 줘.)\n- let me → lemme (Lemme see. 어디 좀 보자.)\n- kind of → kinda (I'm kinda tired. 나 좀 피곤해.)\n- out of → outta (I'm outta here! 나 여기서 먼저 나갈게!)\n\n공식 발표나 격식 있는 자리에서는 또박또박 읽지만, 일상 대화와 미드에서는 이렇게 합쳐 말하는 경우가 훨씬 많습니다.\n원어민 일상에서 자주 나오는 보너스 다섯 표현은 고정 댓글에 적어 두었습니다.\n\n#영어발음 #영어축약발음 #영어연음 #영어듣기 #shorts",
+        "tags": [
+          "영어 축약 발음",
+          "영어 연음",
+          "영어 듣기 안들리는 이유",
+          "원어민 영어 발음",
+          "영어 연음 규칙",
+          "영어 합쳐지는 발음",
+          "영어 듣기 꿀팁",
+          "outta 발음",
+          "미드 영어 발음",
+          "영어발음"
+        ],
+        "tagCheck": [
+          {
+            "tag": "영어 축약 발음",
+            "verdict": "맞음",
+            "reason": "한국어 영어 리스닝·축약 발음 강의 영상이 상단에 집중 노출됨",
+            "top": [
+              "듣기 지옥은 축약에서 시작된다 🔥 | 영어축약발음 몰아보기",
+              "여태 이거 몰라서 손해봤다… 원어민이 꼭 쓰는 영어 축약 발음 TOP 10"
+            ]
+          },
+          {
+            "tag": "영어 연음",
+            "verdict": "맞음",
+            "reason": "한국어 리스닝·연음 규칙 및 쉐도잉 훈련 영상이 상단에 노출됨",
+            "top": [
+              "영어 연음 듣기, 이 3가지로 영어 귀를 뻥 뚫어드릴께요.",
+              "미국식 영어 발음 집중훈련 #2 I 영어 연음 규칙 알아보기"
+            ]
+          },
+          {
+            "tag": "영어 듣기 안들리는 이유",
+            "verdict": "맞음",
+            "reason": "연음·축약 때문에 아는 단어가 안 들리는 원인을 짚는 한국어 리스닝 영상이 상단 점유",
+            "top": [
+              "영어가 훅🌠 지나가고 안들리는 이유｜리스닝, 스피킹 다 되는 법 1편",
+              "영어가 안 들리는 진짜 이유?"
+            ]
+          },
+          {
+            "tag": "원어민 영어 발음",
+            "verdict": "맞음",
+            "reason": "원어민 소리 원리·한국식 발음 습관 교정 한국어 영상이 상단에 노출됨",
+            "top": [
+              "영어발음법｜원어민 발음 30개 핵심원리",
+              "원어민이 소리를 내는 방법, 영어처럼 말하려면 “이 소리”부터!🔥 | 한국식 영어 습관 탈출 Part 1"
+            ]
+          },
+          {
+            "tag": "영어 연음 규칙",
+            "verdict": "맞음",
+            "reason": "듣기가 안 들리는 연음 법칙을 다루는 한국어 인기 영상이 상단 점유",
+            "top": [
+              "영어 연음 규칙 하나면 듣기가 쉬워져요! (feat. 몬스터 대학교)",
+              "영어 연음법칙｜아는 단어도 안 들렸던 이유"
+            ]
+          },
+          {
+            "tag": "영어 합쳐지는 발음",
+            "verdict": "맞음",
+            "reason": "두 단어가 하나로 합쳐져 발음되는 소리 합성·연음 강의가 정확히 노출됨",
+            "top": [
+              "Combining Sounds, 소리 합성하기",
+              "[발음Q&A 9] - 영어연음규칙 3/ need to, had to, read the, called the 등 발음"
+            ]
+          },
+          {
+            "tag": "영어 듣기 꿀팁",
+            "verdict": "맞음",
+            "reason": "연음·소리 규칙으로 영어 귀를 트이는 한국어 리스닝 비법 영상이 상단에 노출됨",
+            "top": [
+              "영어듣기, 귀가 탁 트이는 3가지 방법. 빠른영어도 잘 듣는 법! (EBS 최연소 강사 김지원)",
+              "영어 듣기를 잡는 유일한 방법 | 영어 듣기 말하기"
+            ]
+          },
+          {
+            "tag": "outta 발음",
+            "verdict": "맞음",
+            "reason": "한국인 학습자 대상 out of → outta 발음 교정 쇼츠·Q&A 영상이 직접 노출됨",
+            "top": [
+              "“outta” 이렇게 읽는다고요? 아우타 아님🙅‍♀️",
+              "[발음Q&A 293] - out of 발음 원어민처럼 해보자/ outta 발음/ get out of 발음/ 원어민 발음/ 리스닝/ 쉐도잉/ how to pronounce outta"
+            ]
+          },
+          {
+            "tag": "미드 영어 발음",
+            "verdict": "맞음",
+            "reason": "원어민·미드 속 발음이 안 들리는 이유와 연음 연습 한국어 영상이 상단에 노출됨",
+            "top": [
+              "미드가 잘 안 들리는 이유/ 원어민발음이 안 들리는 이유/ 영어가 안 들리는 이유",
+              "[영어구간반복청취] 미드영어 - 영어발음 잘 하는 법 미드 발음연습 4  Tr, Dr 이 들어가는 단어 발음하기"
+            ]
+          },
+          {
+            "tag": "영어발음",
+            "verdict": "맞음",
+            "reason": "한국인 대상 미국식 영어 발음 비법 및 발음 테스트 대형 채널 영상이 상단에 노출됨",
+            "top": [
+              "이제 곧 당신의 영어 발음, 끝장나게 좋아집니다. | 미국식 영어 발음 비법 4",
+              "내 영어 발음 레벨 테스트하자~ 영어 꽤 한다는 사람도 흔히 실수하는 발음 5개! salmon, passionate, purchase, southern, mature"
+            ]
+          }
+        ],
+        "pinnedComment": "마지막 퀴즈 outta, 맞히셨나요? 같은 원리로 두 단어가 하나로 합쳐지는 원어민 단골 표현 다섯 개를 더 정리해 드립니다.\n\n1. going to → gonna (I'm gonna go. 나 이제 갈게.)\n2. got to → gotta (I gotta go. 나 가야 해.)\n3. want to → wanna (I wanna try. 나도 해 보고 싶어.)\n4. don't know → dunno (I dunno. 나도 잘 몰라.)\n5. sort of → sorta (It's sorta hard. 이거 좀 어렵네.)\n\n이 아홉 가지 가운데 평소 가장 안 들렸던 표현은 무엇이었나요? 댓글로 남겨 주세요!"
+      },
+      "why": "실제 유튜브 한국 검색에서 영어권 영상만 나온 gimme 발음·lemme 발음·kinda 발음을 제외하고, 한국 학습자 검색 결과에 정확히 적중하는 10개 태그만 선별했다."
+    }
+  ],
+  "pending": [
+    "시트 승인(Gate 1) 후 videos/ep32-shorts-word-merge/FACT-CHECK.md 표 작성 (Merriam-Webster · Cambridge US 발음기호 대조: give me /ˈɡɪm.i/, let me /ˈlem.i/, kind of /ˈkaɪn.də/, out of /ˈaʊt.ə/ 및 고정 댓글 보너스 5개 검증)",
+    "FACT-CHECK 통과 후 컷 단위 한국어 TTS(AI Studio Gemini TTS, 끝소리 늘어짐 방지 Style 지시) · 원어민 분리/합체 음성 · 0.3초 고유 청각 시그니처 SFX(Audio Anchor) 생성 → whisper words.json 실측으로 컷 경계 미세 조정",
+    "신규 AI Studio Lyria 3.5 BGM 1곡 생성(무보컬·무워터마크) 및 HyperFrames 1080×1920 30fps 조립(가로 정중앙 대칭) → Playwright 프레임 검수 후 렌더 승인(Gate 2)"
+  ],
+  "thumbnailPicks": [
+    "images/ep32-shorts-word-merge/thumb-A.jpg"
+  ],
+  "titlePicks": [
+    "김미? 렘미? 원어민이 두 단어를 하나로 합쳐 먹는 진짜 이유"
+  ]
+}

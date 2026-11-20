@@ -531,7 +531,7 @@ export async function scheduleInStudio(page, plan, schedule) {
     if (!/동영상 언어\s*한국어/.test(text)) throw new Error('"동영상 언어"가 한국어로 보이지 않습니다.');
   });
   await step('AI 사용 여부(변형되었거나 생성된 콘텐츠) 확인', async () => {
-    const alteredRadio = dlg.locator('tp-yt-paper-radio-button', {hasText: '예'}).first();
+    const alteredRadio = dlg.locator('tp-yt-paper-radio-button[name="VIDEO_HAS_ALTERED_CONTENT_YES"]').first();
     if (await alteredRadio.isVisible().catch(() => false)) {
       if ((await alteredRadio.getAttribute('aria-checked')) !== 'true') {
         await alteredRadio.click();
@@ -763,7 +763,7 @@ async function runWithStudio(plan, schedule) {
           await fetch('https://www.googleapis.com/youtube/v3/videos?part=status', {
             method: 'PUT',
             headers: {'Authorization': `Bearer ${token.access_token}`, 'Content-Type': 'application/json'},
-            body: JSON.stringify({id: done.videoId, status: {privacyStatus: 'private', publishAt: schedule.utcIso, containsSyntheticMedia: true}}),
+            body: JSON.stringify({id: done.videoId, status: {privacyStatus: 'private', publishAt: schedule.utcIso, embeddable: true, publicStatsViewable: true, license: 'youtube', selfDeclaredMadeForKids: false, containsSyntheticMedia: true}}),
           });
           log('  [완료] AI 사용 여부(변형되었거나 생성된 콘텐츠: true) API 반영');
 

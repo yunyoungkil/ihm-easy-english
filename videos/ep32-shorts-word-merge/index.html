@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="ko" data-resolution="portrait">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>EP32 쇼츠 - 김미? 렘미? 원어민이 두 단어를 하나로 합쳐 먹는 진짜 이유</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('assets/fonts/NotoSansKR-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: #FAF8F4;
+  color: #0F172A;
+  font-family: 'Noto Sans KR', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: #FAF8F4;
+}
+.clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #FAF8F4;
+}
+.bg-photo {
+  position: absolute;
+  inset: -44px;
+  background-size: cover;
+  background-position: center;
+  transform-origin: center center;
+}
+.scrim-warm {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0.62) 0%, rgba(15,23,42,0.22) 38%, rgba(15,23,42,0.30) 68%, rgba(15,23,42,0.80) 100%);
+}
+.scrim-soft {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,23,42,0.56) 0%, rgba(15,23,42,0.16) 36%, rgba(15,23,42,0.22) 66%, rgba(15,23,42,0.74) 100%);
+}
+.nowrap { white-space: nowrap; }
+
+/* 검은 직사각형 띠 ZERO — 가로 정중앙 대칭, 3060 확대 82px 상단 훅 */
+.top-hook {
+  position: absolute;
+  top: 170px;
+  left: 56px;
+  right: 56px;
+  z-index: 30;
+  text-align: center;
+  line-height: 1.22;
+  font-size: 82px;
+  font-weight: 900;
+  letter-spacing: -2.5px;
+  color: #FFFFFF;
+  text-shadow:
+    0 6px 24px rgba(0,0,0,0.68),
+    -3.5px -3.5px 0 #0F172A, 3.5px -3.5px 0 #0F172A,
+    -3.5px 3.5px 0 #0F172A, 3.5px 3.5px 0 #0F172A,
+    0 -4px 0 #0F172A, 0 4px 0 #0F172A, -4px 0 0 #0F172A, 4px 0 0 #0F172A;
+}
+.top-hook.dark-ink {
+  color: #0F172A;
+  text-shadow: 0 2px 0 rgba(255,255,255,0.88);
+}
+.pill-y {
+  display: inline-block;
+  background: #FACC15;
+  color: #0F172A;
+  padding: 4px 26px 8px;
+  border-radius: 20px;
+  text-shadow: none;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.32);
+  white-space: nowrap;
+}
+.pill-b {
+  display: inline-block;
+  background: #1D4ED8;
+  color: #FFFFFF;
+  padding: 4px 26px 8px;
+  border-radius: 20px;
+  text-shadow: none;
+  box-shadow: 0 10px 24px rgba(29,78,216,0.34);
+  white-space: nowrap;
+}
+.pill-r {
+  display: inline-block;
+  background: #F43F5E;
+  color: #FFFFFF;
+  padding: 4px 26px 8px;
+  border-radius: 20px;
+  text-shadow: none;
+  box-shadow: 0 10px 24px rgba(244,63,94,0.38);
+  white-space: nowrap;
+}
+
+.step-chip {
+  position: absolute;
+  top: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 38px;
+  border-radius: 999px;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #FFFFFF;
+  white-space: nowrap;
+  box-shadow: 0 12px 28px rgba(15,23,42,0.28);
+}
+
+/* 하단 안전구역 자막 — 3060 확대 54px, 가로 정중앙 대칭 */
+.safe-caption {
+  position: absolute;
+  bottom: 268px;
+  left: 56px;
+  right: 56px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(15, 23, 42, 0.90);
+  border: 2.5px solid rgba(255,255,255,0.20);
+  color: #FFFFFF;
+  font-size: 54px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  padding: 24px 30px;
+  border-radius: 28px;
+  box-shadow: 0 16px 38px rgba(0,0,0,0.38);
+  white-space: nowrap;
+}
+.safe-caption.light-bg {
+  background: #0F172A;
+  border-color: rgba(15,23,42,0.14);
+}
+
+/* 0.3초 청각 시그니처 (Audio Anchor) 골드 음파 링 (메타 텍스트 없이 순수 비주얼 링!) */
+.anchor-rings {
+  position: absolute;
+  top: 930px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+.anchor-ring {
+  position: absolute;
+  left: -260px;
+  top: -260px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  border: 14px solid #FACC15;
+  opacity: 0;
+  transform: scale(0.35);
+  box-shadow: 0 0 46px rgba(250,204,21,0.75);
+}
+.anchor-ring.outer {
+  border-width: 8px;
+  border-color: rgba(254,240,138,0.9);
+}
+
+/* 합체 스매시 공통 카드 */
+.merge-stage {
+  position: absolute;
+  top: 506px;
+  left: 56px;
+  right: 56px;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 36px;
+}
+.split-formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  font-size: 76px;
+  font-weight: 900;
+  color: #E2E8F0;
+  letter-spacing: -1.5px;
+}
+.drop-char {
+  position: relative;
+  display: inline-block;
+  color: #FB7185;
+  padding: 0 6px;
+}
+.drop-slash {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: 50%;
+  height: 11px;
+  background: #F43F5E;
+  border-radius: 6px;
+  transform: rotate(-22deg) scaleX(0);
+  transform-origin: left center;
+}
+.merge-card {
+  width: 100%;
+  background: rgba(255,255,255,0.98);
+  border-radius: 42px;
+  padding: 50px 42px 46px;
+  box-shadow: 0 30px 68px rgba(0,0,0,0.44);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.merge-word {
+  font-size: 156px;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: -4.5px;
+  line-height: 1.02;
+}
+.merge-phon {
+  margin-top: 16px;
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -1.2px;
+}
+.merge-ex-box {
+  width: 100%;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 3.5px solid #E2E8F0;
+}
+.merge-ex-en {
+  font-size: 62px;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: -1.5px;
+}
+.merge-ex-ko {
+  margin-top: 12px;
+  font-size: 54px;
+  font-weight: 800;
+  color: #475569;
+  letter-spacing: -1px;
+}
+
+/* 분리 문제 카드 (컷 2, 4) */
+.problem-card {
+  position: absolute;
+  top: 560px;
+  left: 56px;
+  right: 56px;
+  z-index: 25;
+  background: rgba(250,248,244,0.96);
+  border-radius: 40px;
+  padding: 58px 40px 54px;
+  box-shadow: 0 26px 60px rgba(15,23,42,0.38);
+  border: 4px solid rgba(255,255,255,0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.problem-sub {
+  font-size: 54px;
+  font-weight: 900;
+  color: #475569;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+}
+.word-pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  font-size: 118px;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: -3px;
+  line-height: 1.04;
+}
+.word-pill-l {
+  background: #EFF6FF;
+  border: 5px solid #1D4ED8;
+  border-radius: 28px;
+  padding: 18px 34px;
+}
+.word-pill-r {
+  background: #FFF1F2;
+  border: 5px solid #E11D48;
+  border-radius: 28px;
+  padding: 18px 34px;
+}
+.target-letter {
+  display: inline-block;
+  color: #E11D48;
+  position: relative;
+}
+.target-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 11px;
+  border-radius: 6px;
+  background: #E11D48;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+.trap-pill {
+  margin-top: 38px;
+  background: #FEF2F2;
+  color: #BE123C;
+  border: 3px solid #FDA4AF;
+  border-radius: 24px;
+  padding: 18px 34px;
+  font-size: 50px;
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="40.4" data-width="1080" data-height="1920">
+
+  <!-- CUT 0: 0.00s ~ 3.80s | 1:1 오해 대화 핑퐁 훅 (카페 실사) -->
+  <div class="clip" id="scene-00" data-start="0" data-duration="3.8" data-track-index="10">
+    <div class="bg-photo" id="c0-bg" style="background-image:url('assets/images/art-cafe.jpg');"></div>
+    <div class="scrim-warm"></div>
+    <div class="top-hook">아는 영어인데<br><span class="pill-y">왜 안 들릴까요?</span></div>
+    <div style="position:absolute;top:545px;left:56px;right:56px;z-index:25;display:flex;flex-direction:column;align-items:center;gap:34px;text-align:center;">
+      <div id="c0-b1" style="width:100%;background:rgba(255,255,255,0.97);border-radius:38px;padding:44px 36px;border:6px solid #1D4ED8;box-shadow:0 24px 54px rgba(0,0,0,0.38);">
+        <div style="display:inline-block;background:#DBEAFE;color:#1D4ED8;font-size:48px;font-weight:900;padding:8px 28px;border-radius:999px;margin-bottom:18px;">원어민이 카페에서 한 말</div>
+        <div class="nowrap" style="font-size:84px;font-weight:900;color:#0F172A;letter-spacing:-2px;line-height:1.1;">“Gimme a minute.”</div>
+      </div>
+      <div id="c0-arr" style="font-size:66px;font-weight:900;color:#FACC15;text-shadow:0 6px 18px rgba(0,0,0,0.7);line-height:1;">▼</div>
+      <div id="c0-b2" style="width:100%;background:#0F172A;border-radius:38px;padding:42px 36px;border:6px solid #F43F5E;box-shadow:0 24px 54px rgba(0,0,0,0.46);">
+        <div style="display:inline-block;background:rgba(244,63,94,0.24);color:#FDA4AF;font-size:48px;font-weight:900;padding:8px 28px;border-radius:999px;margin-bottom:18px;">내 귀에 들린 말</div>
+        <div class="nowrap" style="font-size:70px;font-weight:900;color:#FFFFFF;letter-spacing:-1.8px;line-height:1.16;">“김미...? 누구 이름인가?”</div>
+      </div>
+    </div>
+    <div class="safe-caption">분명 아는 단어인데, 왜 안 들릴까요?</div>
+  </div>
+
+  <!-- CUT 1: 3.60s ~ 7.30s | 3D 자석 합체 원리 도해 -->
+  <div class="clip" id="scene-01" data-start="3.6" data-duration="3.7" data-track-index="11" style="background:#FAF8F4;">
+    <div class="bg-photo" id="c1-bg" style="background-image:url('assets/images/art-magnet.jpg');"></div>
+    <div class="top-hook dark-ink">아는 영어인데<br><span class="pill-b">왜 안 들릴까요?</span></div>
+    <div style="position:absolute;top:450px;left:56px;right:56px;z-index:25;display:flex;align-items:center;justify-content:center;gap:34px;">
+      <div id="c1-l" class="nowrap" style="background:#1D4ED8;color:#FFFFFF;font-size:58px;font-weight:900;padding:24px 44px;border-radius:28px;box-shadow:0 18px 36px rgba(29,78,216,0.36);">앞 단어</div>
+      <div id="c1-spark" class="nowrap" style="font-size:66px;font-weight:900;color:#E11D48;">▶ ⚡ ◀</div>
+      <div id="c1-r" class="nowrap" style="background:#E11D48;color:#FFFFFF;font-size:58px;font-weight:900;padding:24px 44px;border-radius:28px;box-shadow:0 18px 36px rgba(225,29,72,0.36);">뒤 단어</div>
+    </div>
+    <div id="c1-rule" style="position:absolute;bottom:420px;left:56px;right:56px;z-index:25;background:rgba(255,255,255,0.96);border:5px solid #0F172A;border-radius:34px;padding:34px 36px;text-align:center;box-shadow:0 18px 42px rgba(15,23,42,0.18);">
+      <div style="font-size:56px;font-weight:900;color:#0F172A;line-height:1.35;letter-spacing:-1.5px;">
+        부딪히는 소리를 <span style="color:#E11D48;">쏙 빼고</span><br><span style="color:#1D4ED8;">한 덩어리</span>로 합칩니다
+      </div>
+    </div>
+    <div class="safe-caption light-bg">입이 바쁘면 두 단어를 합칩니다</div>
+  </div>
+
+  <!-- CUT 2: 7.10s ~ 10.80s | 1/4 GIVE + ME 분리 -->
+  <div class="clip" id="scene-02" data-start="7.1" data-duration="3.7" data-track-index="10">
+    <div class="bg-photo" id="c2-bg" style="background-image:url('assets/images/art-cafe.jpg');"></div>
+    <div class="scrim-soft"></div>
+    <div class="top-hook">아는 영어인데<br><span class="pill-y">왜 안 들릴까요?</span></div>
+    <div class="step-chip" style="background:#1D4ED8;">1 / 4 · 카페 단골 표현</div>
+    <div class="problem-card" id="c2-card">
+      <div class="problem-sub">눈으로 보면 아는 두 단어</div>
+      <div class="word-pair">
+        <span class="word-pill-l">GI<span class="target-letter" id="c2-t">V<span class="target-bar" id="c2-bar"></span></span>E</span>
+        <span style="font-size:78px;color:#94A3B8;">+</span>
+        <span class="word-pill-r">ME</span>
+      </div>
+      <div class="trap-pill">교과서처럼 따로 읽지 않습니다</div>
+    </div>
+    <div class="safe-caption">첫째, 이 두 단어 · give me</div>
+  </div>
+
+  <!-- CUT 3: 10.60s ~ 14.00s | 1/4 GIMME 합체 스매시 + 0.3초 청각 시그니처 #1 -->
+  <div class="clip" id="scene-03" data-start="10.6" data-duration="3.4" data-track-index="11" style="background:linear-gradient(160deg,#0F172A 0%,#1E3A8A 55%,#0F172A 100%);">
+    <div class="top-hook">아는 영어인데<br><span class="pill-y">왜 안 들릴까요?</span></div>
+    <div class="step-chip" style="background:rgba(255,255,255,0.16);border:2.5px solid rgba(255,255,255,0.34);">1 / 4 · GIVE + ME 합체</div>
+    <div class="anchor-rings">
+      <div class="anchor-ring" id="c3-ring1"></div>
+      <div class="anchor-ring outer" id="c3-ring2"></div>
+    </div>
+    <div class="merge-stage">
+      <div class="split-formula" id="c3-form">
+        <span>GI<span class="drop-char">VE<span class="drop-slash" id="c3-slash"></span></span></span>
+        <span style="color:#FACC15;">+</span>
+        <span>ME</span>
+      </div>
+      <div class="merge-card" id="c3-card" style="border:7px solid #2563EB;">
+        <div class="merge-word" id="c3-word">GIMME</div>
+        <div class="merge-phon" style="color:#2563EB;">김미 (v 소리 탈락)</div>
+        <div class="merge-ex-box">
+          <div class="merge-ex-en">“Gimme a minute.”</div>
+          <div class="merge-ex-ko">잠깐만 기다려 줘.</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption">하나로 쏙 합쳐집니다 · GIMME</div>
+  </div>
+
+  <!-- CUT 4: 13.80s ~ 17.35s | 2/4 LET + ME 분리 -->
+  <div class="clip" id="scene-04" data-start="13.8" data-duration="3.55" data-track-index="10">
+    <div class="bg-photo" id="c4-bg" style="background-image:url('assets/images/art-phone.jpg');"></div>
+    <div class="scrim-soft"></div>
+    <div class="top-hook">아는 영어인데<br><span class="pill-y">왜 안 들릴까요?</span></div>
+    <div class="step-chip" style="background:#E11D48;">2 / 4 · 대화 필수 표현</div>
+    <div class="problem-card" id="c4-card">
+      <div class="problem-sub">눈으로 보면 아는 두 단어</div>
+      <div class="word-pair">
+        <span class="word-pill-l">LE<span class="target-letter" id="c4-t">T<span class="target-bar" id="c4-bar"></span></span></span>
+        <span style="font-size:78px;color:#94A3B8;">+</span>
+        <span class="word-pill-r">ME</span>
+      </div>
+      <div class="trap-pill">중간 t를 또박또박 안 터뜨립니다</div>
+    </div>
+    <div class="safe-caption">둘째, 이 두 단어 · let me</div>
+  </div>
+
+  <!-- CUT 5: 17.15s ~ 20.15s | 2/4 LEMME 합체 스매시 + 0.3초 청각 시그니처 #2 -->
+  <div class="clip" id="scene-05" data-start="17.15" data-duration="3.0" data-track-index="11" style="background:linear-gradient(160deg,#1E1B4B 0%,#881337 55%,#111827 100%);">
+    <div class="top-hook">아는 영어인데<br><span class="pill-y">왜 안 들릴까요?</span></div>
+    <div class="step-chip" style="background:rgba(255,255,255,0.16);border:2.5px solid rgba(255,255,255,0.34);">2 / 4 · LET + ME 합체</div>
+    <div class="anchor-rings">
+      <div class="anchor-ring" id="c5-ring1"></div>
+      <div class="anchor-ring outer" id="c5-ring2"></div>
+    </div>
+    <div class="merge-stage">
+      <div class="split-formula" id="c5-form">
+        <span>LE<span class="drop-char">T<span class="drop-slash" id="c5-slash"></span></span></span>
+        <span style="color:#FACC15;">+</span>
+        <span>ME</span>
+      </div>
+      <div class="merge-card" id="c5-card" style="border:7px solid #E11D48;">
+        <div class="merge-word" id="c5-word">LEMME</div>
+        <div class="merge-phon" style="color:#E11D48;">렘미 (t 소리 멈춤·흡수)</div>
+        <div class="merge-ex-box">
+          <div class="merge-ex-en">“Lemme see.”</div>
+          <div class="merge-ex-ko">어디 좀 보자.</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption">바로 녹아 붙습니다 · LEMME</div>
+  </div>
+
+  <!-- CUT 6: 19.95s ~ 23.00s | 3/4 KIND + OF 킨포크 화보 레터박스 컷 -->
+  <div class="clip" id="scene-06" data-start="19.95" data-duration="3.05" data-track-index="10" style="background:#F7F6F2;">
+    <div class="bg-photo" id="c6-bg" style="inset:0;background-image:url('assets/images/art-office.jpg');"></div>
+    <div class="top-hook dark-ink" style="top:115px;font-size:78px;">아는 영어인데<br><span class="pill-b">왜 안 들릴까요?</span></div>
+    <div class="step-chip" style="top:338px;background:#D97706;font-size:46px;padding:12px 34px;">3 / 4 · 미드 최다 빈출</div>
+    <div id="c6-word" style="position:absolute;top:436px;left:56px;right:56px;z-index:25;display:flex;align-items:center;justify-content:center;gap:24px;font-size:102px;font-weight:900;color:#0F172A;letter-spacing:-3px;line-height:1;">
+      <span>KIND</span>
+      <span style="color:#D97706;">+</span>
+      <span>O<span class="target-letter" id="c6-t">F<span class="target-bar" id="c6-bar"></span></span></span>
+    </div>
+    <div id="c6-note" style="position:absolute;bottom:412px;left:56px;right:56px;z-index:25;display:flex;justify-content:center;">
+      <div class="nowrap" style="font-size:52px;font-weight:900;color:#334155;background:#FFFFFF;border:3.5px solid #CBD5E1;border-radius:26px;padding:20px 40px;box-shadow:0 12px 30px rgba(15,23,42,0.10);">
+        끝의 <span style="color:#E11D48;">f</span> 에 힘 빼고 바로 이어집니다
+      </div>
+    </div>
+    <div class="safe-caption light-bg">셋째, 이 표현 · kind of</div>
+  </div>
+
+  <!-- CUT 7: 22.80s ~ 26.35s | 3/4 KINDA 합체 스매시 + 0.3초 청각 시그니처 #3 -->
+  <div class="clip" id="scene-07" data-start="22.8" data-duration="3.55" data-track-index="11" style="background:linear-gradient(160deg,#1C1917 0%,#78350F 55%,#0F172A 100%);">
+    <div class="top-hook">아는 영어인데<br><span class="pill-y">왜 안 들릴까요?</span></div>
+    <div class="step-chip" style="background:rgba(255,255,255,0.16);border:2.5px solid rgba(255,255,255,0.34);">3 / 4 · KIND + OF 합체</div>
+    <div class="anchor-rings">
+      <div class="anchor-ring" id="c7-ring1"></div>
+      <div class="anchor-ring outer" id="c7-ring2"></div>
+    </div>
+    <div class="merge-stage">
+      <div class="split-formula" id="c7-form">
+        <span>KIND</span>
+        <span style="color:#FACC15;">+</span>
+        <span>O<span class="drop-char">F<span class="drop-slash" id="c7-slash"></span></span></span>
+      </div>
+      <div class="merge-card" id="c7-card" style="border:7px solid #D97706;">
+        <div class="merge-word" id="c7-word">KINDA</div>
+        <div class="merge-phon" style="color:#D97706;">카인다 (f 탈락 · 부드럽게)</div>
+        <div class="merge-ex-box">
+          <div class="merge-ex-en">“I'm kinda tired.”</div>
+          <div class="merge-ex-ko">나 좀 피곤해.</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption">끝이 빠져 스르르 붙죠 · KINDA</div>
+  </div>
+
+  <!-- CUT 8: 26.15s ~ 28.60s | 무나레이션 귀 트임 3연속 플래시 -->
+  <div class="clip" id="scene-08" data-start="26.15" data-duration="2.45" data-track-index="10" style="background:#0F172A;">
+    <div class="top-hook" style="top:185px;">귀로 <span class="pill-y">바로 연속</span> 비교</div>
+    <div style="position:absolute;top:410px;left:56px;right:56px;z-index:25;display:flex;flex-direction:column;gap:30px;text-align:center;">
+      <div id="c8-a" style="background:linear-gradient(90deg,#1D4ED8,#2563EB);border-radius:34px;padding:42px 36px;color:#FFFFFF;border:5px solid #93C5FD;box-shadow:0 20px 44px rgba(29,78,216,0.45);">
+        <div style="font-size:52px;font-weight:800;color:#DBEAFE;">give me →</div>
+        <div style="font-size:122px;font-weight:900;letter-spacing:-3.5px;line-height:1.05;">GIMME</div>
+      </div>
+      <div id="c8-b" style="background:linear-gradient(90deg,#BE123C,#F43F5E);border-radius:34px;padding:42px 36px;color:#FFFFFF;border:5px solid #FDA4AF;box-shadow:0 20px 44px rgba(244,63,94,0.42);">
+        <div style="font-size:52px;font-weight:800;color:#FFE4E6;">let me →</div>
+        <div style="font-size:122px;font-weight:900;letter-spacing:-3.5px;line-height:1.05;">LEMME</div>
+      </div>
+      <div id="c8-c" style="background:linear-gradient(90deg,#B45309,#F59E0B);border-radius:34px;padding:42px 36px;color:#FFFFFF;border:5px solid #FDE68A;box-shadow:0 20px 44px rgba(245,158,11,0.42);">
+        <div style="font-size:52px;font-weight:800;color:#FEF3C7;">kind of →</div>
+        <div style="font-size:122px;font-weight:900;letter-spacing:-3.5px;line-height:1.05;">KINDA</div>
+      </div>
+    </div>
+    <div class="safe-caption" style="font-size:52px;">원어민 소리만 3연속으로 들어 보세요</div>
+  </div>
+
+  <!-- CUT 9: 28.40s ~ 33.40s | 4/4 실전 리스닝 퀴즈 + 1.5초 SVG 카운트다운 링 -->
+  <div class="clip" id="scene-09" data-start="28.4" data-duration="5.0" data-track-index="11">
+    <div class="bg-photo" id="c9-bg" style="background-image:url('assets/images/art-door.jpg');"></div>
+    <div class="scrim-warm"></div>
+    <div class="top-hook"><span class="pill-r">마지막 실전 퀴즈</span><br>무슨 단어일까요?</div>
+    <div style="position:absolute;top:490px;left:56px;right:56px;z-index:25;display:flex;flex-direction:column;align-items:center;gap:42px;text-align:center;">
+      <div id="c9-ring-wrap" style="position:relative;width:490px;height:490px;display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 200 200" style="position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);">
+          <circle cx="100" cy="100" r="90" fill="rgba(15,23,42,0.90)" stroke="rgba(255,255,255,0.18)" stroke-width="10"/>
+          <circle id="c9-ring" cx="100" cy="100" r="90" fill="none" stroke="#FACC15" stroke-width="11" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="0"/>
+        </svg>
+        <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;">
+          <div style="font-size:48px;font-weight:900;color:#FACC15;margin-bottom:8px;">1.5초 생각!</div>
+          <div id="c9-word" style="font-size:102px;font-weight:900;color:#FFFFFF;letter-spacing:-2.5px;line-height:1;">OUTTA</div>
+          <div style="font-size:50px;font-weight:800;color:#CBD5E1;margin-top:12px;">아우러?</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;width:100%;">
+        <div id="c9-optA" style="background:rgba(255,255,255,0.97);border-radius:34px;padding:40px 24px;border:6px solid #1D4ED8;box-shadow:0 18px 40px rgba(0,0,0,0.36);">
+          <div style="font-size:52px;font-weight:900;color:#1D4ED8;">A</div>
+          <div style="font-size:80px;font-weight:900;color:#0F172A;margin-top:6px;">out of</div>
+        </div>
+        <div id="c9-optB" style="background:rgba(255,255,255,0.97);border-radius:34px;padding:40px 24px;border:6px solid #E11D48;box-shadow:0 18px 40px rgba(0,0,0,0.36);">
+          <div style="font-size:52px;font-weight:900;color:#E11D48;">B</div>
+          <div style="font-size:80px;font-weight:900;color:#0F172A;margin-top:6px;">auto</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption">퀴즈, 어떻게 들릴까요? · A vs B</div>
+  </div>
+
+  <!-- CUT 10: 33.20s ~ 36.90s | 퀴즈 정답 스매시 + 0.3초 청각 시그니처 #4 -->
+  <div class="clip" id="scene-10" data-start="33.2" data-duration="3.7" data-track-index="10">
+    <div class="bg-photo" id="c10-bg" style="background-image:url('assets/images/art-door.jpg');"></div>
+    <div class="scrim-warm"></div>
+    <div id="c10-flash" style="position:absolute;inset:0;background:#FEF08A;opacity:0;z-index:40;pointer-events:none;"></div>
+    <div class="top-hook" style="top:195px;"><span class="pill-y">정답 공개!</span></div>
+    <div class="anchor-rings" style="top:900px;">
+      <div class="anchor-ring" id="c10-ring1"></div>
+      <div class="anchor-ring outer" id="c10-ring2"></div>
+    </div>
+    <div style="position:absolute;top:490px;left:56px;right:56px;z-index:25;display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div id="c10-card" style="width:100%;background:rgba(255,255,255,0.98);border-radius:42px;padding:54px 40px 50px;border:8px solid #10B981;box-shadow:0 30px 68px rgba(0,0,0,0.48);">
+        <div id="c10-stamp" style="display:inline-block;background:#10B981;color:#FFFFFF;font-size:52px;font-weight:900;padding:12px 38px;border-radius:999px;margin-bottom:24px;">✓ 정답 A · out + of</div>
+        <div class="merge-word" id="c10-word" style="font-size:150px;">OUTTA</div>
+        <div style="margin-top:16px;font-size:50px;font-weight:900;color:#059669;letter-spacing:-1.2px;">아우러 (t 가볍게 튕기고 f 탈락)</div>
+        <div class="merge-ex-box">
+          <div class="merge-ex-en">“I'm outta here!”</div>
+          <div class="merge-ex-ko">나 여기서 먼저 나갈게!</div>
+        </div>
+      </div>
+    </div>
+    <div class="safe-caption" style="font-size:50px;">정답은 바로 이 두 단어 · out of → OUTTA</div>
+  </div>
+
+  <!-- CUT 11: 36.70s ~ 40.40s | 4단 밝은 에디토리얼 체크리스트 + 고정 댓글 CTA -->
+  <div class="clip" id="scene-11" data-start="36.7" data-duration="3.7" data-track-index="11" style="background:#FAF8F4;">
+    <div class="top-hook dark-ink" style="top:150px;font-size:76px;">오늘의 <span class="pill-b">합체 소리</span> 네 가지</div>
+    <div style="position:absolute;top:330px;left:56px;right:56px;z-index:25;display:flex;flex-direction:column;gap:22px;text-align:center;">
+      <div id="c11-r0" style="background:#FFFFFF;border-radius:30px;padding:24px 30px;border:3.5px solid #E2E8F0;border-left:18px solid #1D4ED8;box-shadow:0 12px 28px rgba(15,23,42,0.08);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:22px;">
+          <span style="font-size:52px;font-weight:800;color:#64748B;">give me</span>
+          <span style="font-size:50px;font-weight:900;color:#1D4ED8;">→</span>
+          <span style="font-size:66px;font-weight:900;color:#0F172A;letter-spacing:-1.5px;">GIMME</span>
+        </div>
+        <div style="margin-top:6px;font-size:48px;font-weight:800;color:#475569;">잠깐만 · Gimme a minute</div>
+      </div>
+      <div id="c11-r1" style="background:#FFFFFF;border-radius:30px;padding:24px 30px;border:3.5px solid #E2E8F0;border-left:18px solid #E11D48;box-shadow:0 12px 28px rgba(15,23,42,0.08);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:22px;">
+          <span style="font-size:52px;font-weight:800;color:#64748B;">let me</span>
+          <span style="font-size:50px;font-weight:900;color:#E11D48;">→</span>
+          <span style="font-size:66px;font-weight:900;color:#0F172A;letter-spacing:-1.5px;">LEMME</span>
+        </div>
+        <div style="margin-top:6px;font-size:48px;font-weight:800;color:#475569;">어디 보자 · Lemme see</div>
+      </div>
+      <div id="c11-r2" style="background:#FFFFFF;border-radius:30px;padding:24px 30px;border:3.5px solid #E2E8F0;border-left:18px solid #D97706;box-shadow:0 12px 28px rgba(15,23,42,0.08);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:22px;">
+          <span style="font-size:52px;font-weight:800;color:#64748B;">kind of</span>
+          <span style="font-size:50px;font-weight:900;color:#D97706;">→</span>
+          <span style="font-size:66px;font-weight:900;color:#0F172A;letter-spacing:-1.5px;">KINDA</span>
+        </div>
+        <div style="margin-top:6px;font-size:48px;font-weight:800;color:#475569;">좀 피곤해 · kinda tired</div>
+      </div>
+      <div id="c11-r3" style="background:#FFFFFF;border-radius:30px;padding:24px 30px;border:3.5px solid #E2E8F0;border-left:18px solid #059669;box-shadow:0 12px 28px rgba(15,23,42,0.08);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:22px;">
+          <span style="font-size:52px;font-weight:800;color:#64748B;">out of</span>
+          <span style="font-size:50px;font-weight:900;color:#059669;">→</span>
+          <span style="font-size:66px;font-weight:900;color:#0F172A;letter-spacing:-1.5px;">OUTTA</span>
+        </div>
+        <div style="margin-top:6px;font-size:48px;font-weight:800;color:#475569;">먼저 갈게 · outta here</div>
+      </div>
+    </div>
+    <div id="c11-cta" style="position:absolute;bottom:264px;left:56px;right:56px;z-index:30;background:#1D4ED8;color:#FFFFFF;font-size:54px;font-weight:900;letter-spacing:-1.2px;padding:28px 26px;border-radius:30px;text-align:center;box-shadow:0 18px 40px rgba(29,78,216,0.38);white-space:nowrap;">
+      보너스 다섯 개는 고정 댓글에 있어요!
+    </div>
+  </div>
+
+  <!-- AUDIO TRACK 1: 한국어 나레이션 11컷 (Gero, -16 LUFS) -->
+  <audio id="v00" src="assets/voice-clean/c00.wav" data-start="0.12" data-duration="3.314" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v01" src="assets/voice-clean/c01.wav" data-start="3.80" data-duration="3.075" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v02" src="assets/voice-clean/c02.wav" data-start="7.30" data-duration="2.156" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v03" src="assets/voice-clean/c03.wav" data-start="10.80" data-duration="1.962" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v04" src="assets/voice-clean/c04.wav" data-start="14.00" data-duration="1.945" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v05" src="assets/voice-clean/c05.wav" data-start="17.35" data-duration="1.634" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v06" src="assets/voice-clean/c06.wav" data-start="20.15" data-duration="1.418" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v07" src="assets/voice-clean/c07.wav" data-start="23.00" data-duration="2.129" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v09" src="assets/voice-clean/c09.wav" data-start="28.60" data-duration="2.420" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v10" src="assets/voice-clean/c10.wav" data-start="33.62" data-duration="2.339" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="v11" src="assets/voice-clean/c11.wav" data-start="36.90" data-duration="2.181" data-track-index="1" data-volume="1" data-audio-group="voiceover"></audio>
+
+  <!-- AUDIO TRACK 2: 원어민 영어 발음 (Olin, -16 LUFS) -->
+  <audio id="en02" src="assets/voice-en-clean/give-me.wav" data-start="9.62" data-duration="0.774" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en03" src="assets/voice-en-clean/gimme.wav" data-start="13.18" data-duration="0.380" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en04" src="assets/voice-en-clean/let-me.wav" data-start="16.10" data-duration="0.866" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en05" src="assets/voice-en-clean/lemme.wav" data-start="19.40" data-duration="0.349" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en06" src="assets/voice-en-clean/kind-of.wav" data-start="21.72" data-duration="0.858" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en07" src="assets/voice-en-clean/kinda.wav" data-start="25.54" data-duration="0.365" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en08a" src="assets/voice-en-clean/gimme.wav" data-start="26.40" data-duration="0.380" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en08b" src="assets/voice-en-clean/lemme.wav" data-start="27.10" data-duration="0.349" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en08c" src="assets/voice-en-clean/kinda.wav" data-start="27.78" data-duration="0.365" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en09" src="assets/voice-en-clean/outta.wav" data-start="31.18" data-duration="0.410" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+  <audio id="en10" src="assets/voice-en-clean/outta.wav" data-start="36.10" data-duration="0.410" data-track-index="2" data-volume="1" data-audio-group="voiceover"></audio>
+
+  <!-- AUDIO TRACK 3: 0.3초 고유 청각 시그니처 (Audio Anchor) 4회 시험 -->
+  <audio id="sfx03" src="assets/sfx/audio-anchor.wav" data-start="12.82" data-duration="0.300" data-track-index="3" data-volume="0.95"></audio>
+  <audio id="sfx05" src="assets/sfx/audio-anchor.wav" data-start="19.04" data-duration="0.300" data-track-index="3" data-volume="0.95"></audio>
+  <audio id="sfx07" src="assets/sfx/audio-anchor.wav" data-start="25.18" data-duration="0.300" data-track-index="3" data-volume="0.95"></audio>
+  <audio id="sfx10" src="assets/sfx/audio-anchor.wav" data-start="33.30" data-duration="0.300" data-track-index="3" data-volume="0.95"></audio>
+
+  <!-- AUDIO TRACK 4: BGM (6% 기본값 + voiceover 자동 더킹) -->
+  <audio id="bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="40.4" data-track-index="4" data-volume="0.06" data-fade-out="1.2" data-fx-carve='{"enabled":true,"sources":["voiceover"],"strength":0.78}'></audio>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// 전 컷 0.20s 부드러운 크로스페이드 (하드 컷 금지)
+const fades = [
+  ['#scene-01', 3.60], ['#scene-02', 7.10], ['#scene-03', 10.60],
+  ['#scene-04', 13.80], ['#scene-05', 17.15], ['#scene-06', 19.95],
+  ['#scene-07', 22.80], ['#scene-08', 26.15], ['#scene-09', 28.40],
+  ['#scene-10', 33.20], ['#scene-11', 36.70]
+];
+for (const [sel, t] of fades) {
+  tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.20, ease: 'none' }, t);
+}
+
+// 공용 0.3초 청각 시그니처(Audio Anchor) 골드 음파 링 폭발 헬퍼
+function pulseAnchor(r1, r2, t) {
+  tl.fromTo(r1, { scale: 0.35, opacity: 0.95 }, { scale: 2.15, opacity: 0, duration: 0.48, ease: 'power2.out' }, t);
+  tl.fromTo(r2, { scale: 0.25, opacity: 0.85 }, { scale: 2.65, opacity: 0, duration: 0.56, ease: 'power2.out' }, t + 0.06);
+}
+
+// CUT 0 (0.00 ~ 3.80): 카페 오해 대화 핑퐁 훅
+tl.fromTo('#c0-bg', { scale: 1.02 }, { scale: 1.09, duration: 3.8, ease: 'none' }, 0);
+tl.fromTo('#c0-b1', { opacity: 0, y: 36, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: 'back.out(1.6)' }, 0.14);
+tl.fromTo('#c0-arr', { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' }, 1.28);
+tl.fromTo('#c0-b2', { opacity: 0, y: 42, scale: 0.90 }, { opacity: 1, y: 0, scale: 1, duration: 0.38, ease: 'back.out(1.7)' }, 1.42);
+
+// CUT 1 (3.60 ~ 7.30): 3D 자석 충돌 원리 도해
+tl.fromTo('#c1-bg', { scale: 1.06 }, { scale: 1.0, duration: 3.7, ease: 'power1.out' }, 3.60);
+tl.fromTo('#c1-l', { opacity: 0, x: -70 }, { opacity: 1, x: 0, duration: 0.42, ease: 'back.out(1.6)' }, 3.82);
+tl.fromTo('#c1-r', { opacity: 0, x: 70 }, { opacity: 1, x: 0, duration: 0.42, ease: 'back.out(1.6)' }, 3.82);
+tl.fromTo('#c1-spark', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1.15, duration: 0.24, ease: 'back.out(2)' }, 4.28);
+tl.to('#c1-spark', { scale: 1.0, duration: 0.18, ease: 'power2.out' }, 4.52);
+tl.fromTo('#c1-rule', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.42, ease: 'power3.out' }, 4.68);
+
+// CUT 2 (7.10 ~ 10.80): 1/4 GIVE + ME 분리 (en02 @ 9.62s)
+tl.fromTo('#c2-bg', { scale: 1.0 }, { scale: 1.07, duration: 3.7, ease: 'none' }, 7.10);
+tl.fromTo('#c2-card', { opacity: 0, y: 38, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: 'power3.out' }, 7.28);
+tl.to('#c2-bar', { scaleX: 1, duration: 0.28, ease: 'power2.out' }, 9.58);
+tl.to('#c2-t', { scale: 1.18, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 9.62);
+
+// CUT 3 (10.60 ~ 14.00): 1/4 GIMME 합체 + Audio Anchor @ 12.82s + en03 @ 13.18s
+tl.fromTo('#c3-form', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' }, 10.78);
+tl.fromTo('#c3-card', { opacity: 0, scale: 0.88, y: 36 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: 'back.out(1.5)' }, 11.15);
+tl.to('#c3-slash', { scaleX: 1, duration: 0.20, ease: 'power3.out' }, 12.76);
+pulseAnchor('#c3-ring1', '#c3-ring2', 12.82);
+tl.to('#c3-card', { scale: 1.04, duration: 0.16, yoyo: true, repeat: 1, ease: 'power2.out' }, 12.82);
+tl.to('#c3-word', { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 13.18);
+
+// CUT 4 (13.80 ~ 17.35): 2/4 LET + ME 분리 (en04 @ 16.10s)
+tl.fromTo('#c4-bg', { scale: 1.0 }, { scale: 1.07, duration: 3.55, ease: 'none' }, 13.80);
+tl.fromTo('#c4-card', { opacity: 0, y: 38, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: 'power3.out' }, 13.98);
+tl.to('#c4-bar', { scaleX: 1, duration: 0.28, ease: 'power2.out' }, 16.06);
+tl.to('#c4-t', { scale: 1.18, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 16.10);
+
+// CUT 5 (17.15 ~ 20.15): 2/4 LEMME 합체 + Audio Anchor @ 19.04s + en05 @ 19.40s
+tl.fromTo('#c5-form', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' }, 17.32);
+tl.fromTo('#c5-card', { opacity: 0, scale: 0.88, y: 36 }, { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: 'back.out(1.5)' }, 17.65);
+tl.to('#c5-slash', { scaleX: 1, duration: 0.20, ease: 'power3.out' }, 18.98);
+pulseAnchor('#c5-ring1', '#c5-ring2', 19.04);
+tl.to('#c5-card', { scale: 1.04, duration: 0.16, yoyo: true, repeat: 1, ease: 'power2.out' }, 19.04);
+tl.to('#c5-word', { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 19.40);
+
+// CUT 6 (19.95 ~ 23.00): 3/4 KIND + OF 킨포크 화보 컷 (en06 @ 21.72s)
+tl.fromTo('#c6-word', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' }, 20.12);
+tl.fromTo('#c6-note', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' }, 20.38);
+tl.to('#c6-bar', { scaleX: 1, duration: 0.28, ease: 'power2.out' }, 21.68);
+tl.to('#c6-t', { scale: 1.18, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 21.72);
+
+// CUT 7 (22.80 ~ 26.35): 3/4 KINDA 합체 + Audio Anchor @ 25.18s + en07 @ 25.54s
+tl.fromTo('#c7-form', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.30, ease: 'power2.out' }, 22.98);
+tl.fromTo('#c7-card', { opacity: 0, scale: 0.88, y: 36 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: 'back.out(1.5)' }, 23.35);
+tl.to('#c7-slash', { scaleX: 1, duration: 0.20, ease: 'power3.out' }, 25.12);
+pulseAnchor('#c7-ring1', '#c7-ring2', 25.18);
+tl.to('#c7-card', { scale: 1.04, duration: 0.16, yoyo: true, repeat: 1, ease: 'power2.out' }, 25.18);
+tl.to('#c7-word', { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 25.54);
+
+// CUT 8 (26.15 ~ 28.60): 무나레이션 귀 트임 3연속 플래시 (26.40 / 27.10 / 27.78)
+tl.set(['#c8-a', '#c8-b', '#c8-c'], { opacity: 0.55, scale: 0.96 }, 26.15);
+tl.to('#c8-a', { opacity: 1, scale: 1.04, duration: 0.18, ease: 'power2.out' }, 26.38);
+tl.to('#c8-a', { opacity: 0.65, scale: 0.97, duration: 0.16, ease: 'power1.in' }, 26.98);
+tl.to('#c8-b', { opacity: 1, scale: 1.04, duration: 0.18, ease: 'power2.out' }, 27.08);
+tl.to('#c8-b', { opacity: 0.65, scale: 0.97, duration: 0.16, ease: 'power1.in' }, 27.66);
+tl.to('#c8-c', { opacity: 1, scale: 1.04, duration: 0.18, ease: 'power2.out' }, 27.76);
+
+// CUT 9 (28.40 ~ 33.40): 4/4 실전 리스닝 퀴즈 + 1.5s 카운트다운 링
+tl.fromTo('#c9-bg', { scale: 1.0 }, { scale: 1.07, duration: 5.0, ease: 'none' }, 28.40);
+tl.fromTo('#c9-ring-wrap', { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.38, ease: 'back.out(1.6)' }, 28.58);
+tl.fromTo('#c9-optA', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.32, ease: 'back.out(1.5)' }, 28.95);
+tl.fromTo('#c9-optB', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.32, ease: 'back.out(1.5)' }, 29.18);
+tl.to('#c9-ring-wrap', { scale: 1.10, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 31.18);
+tl.fromTo('#c9-ring', { strokeDashoffset: 0 }, { strokeDashoffset: 1, duration: 1.50, ease: 'none' }, 31.65);
+
+// CUT 10 (33.20 ~ 36.90): 정답 스매시 + Audio Anchor @ 33.30s + en10 @ 36.10s
+tl.fromTo('#c10-bg', { scale: 1.10 }, { scale: 1.02, duration: 3.7, ease: 'power2.out' }, 33.20);
+tl.fromTo('#c10-flash', { opacity: 0.45 }, { opacity: 0, duration: 0.30, ease: 'power2.out' }, 33.28);
+pulseAnchor('#c10-ring1', '#c10-ring2', 33.30);
+tl.fromTo('#c10-card', { opacity: 0, scale: 0.86, y: 32 }, { opacity: 1, scale: 1, y: 0, duration: 0.38, ease: 'back.out(1.7)' }, 33.32);
+tl.fromTo('#c10-stamp', { scale: 1.32, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.34, ease: 'back.out(2)' }, 33.42);
+tl.to('#c10-word', { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 36.10);
+
+// CUT 11 (36.70 ~ 40.40): 4단 체크리스트 순차 등장 + CTA 펄스
+tl.fromTo('#c11-r0', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' }, 36.88);
+tl.fromTo('#c11-r1', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' }, 37.06);
+tl.fromTo('#c11-r2', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' }, 37.24);
+tl.fromTo('#c11-r3', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' }, 37.42);
+tl.fromTo('#c11-cta', { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.36, ease: 'back.out(1.7)' }, 37.76);
+tl.to('#c11-cta', { scale: 1.04, duration: 0.30, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 38.30);
+
+window.__timelines = window.__timelines || {};
+window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

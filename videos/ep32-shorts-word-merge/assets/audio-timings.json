@@ -1,0 +1,367 @@
+{
+  "measuredAt": "2026-11-20T08:15:33.568Z",
+  "totalSuggestedDuration": 40.198,
+  "voice": {
+    "c00": {
+      "file": "assets/voice-clean/c00.wav",
+      "duration": 3.314
+    },
+    "c01": {
+      "file": "assets/voice-clean/c01.wav",
+      "duration": 3.075
+    },
+    "c02": {
+      "file": "assets/voice-clean/c02.wav",
+      "duration": 2.156
+    },
+    "c03": {
+      "file": "assets/voice-clean/c03.wav",
+      "duration": 1.962
+    },
+    "c04": {
+      "file": "assets/voice-clean/c04.wav",
+      "duration": 1.945
+    },
+    "c05": {
+      "file": "assets/voice-clean/c05.wav",
+      "duration": 1.634
+    },
+    "c06": {
+      "file": "assets/voice-clean/c06.wav",
+      "duration": 1.418
+    },
+    "c07": {
+      "file": "assets/voice-clean/c07.wav",
+      "duration": 2.129
+    },
+    "c09": {
+      "file": "assets/voice-clean/c09.wav",
+      "duration": 2.42
+    },
+    "c10": {
+      "file": "assets/voice-clean/c10.wav",
+      "duration": 2.339
+    },
+    "c11": {
+      "file": "assets/voice-clean/c11.wav",
+      "duration": 2.181
+    }
+  },
+  "voiceEn": {
+    "give-me": {
+      "file": "assets/voice-en-clean/give-me.wav",
+      "duration": 0.774
+    },
+    "gimme": {
+      "file": "assets/voice-en-clean/gimme.wav",
+      "duration": 0.38
+    },
+    "let-me": {
+      "file": "assets/voice-en-clean/let-me.wav",
+      "duration": 0.866
+    },
+    "lemme": {
+      "file": "assets/voice-en-clean/lemme.wav",
+      "duration": 0.349
+    },
+    "kind-of": {
+      "file": "assets/voice-en-clean/kind-of.wav",
+      "duration": 0.858
+    },
+    "kinda": {
+      "file": "assets/voice-en-clean/kinda.wav",
+      "duration": 0.365
+    },
+    "outta": {
+      "file": "assets/voice-en-clean/outta.wav",
+      "duration": 0.41
+    }
+  },
+  "sfx": {
+    "audio-anchor": {
+      "file": "assets/sfx/audio-anchor.wav",
+      "duration": 0.3,
+      "sampleRate": 48000,
+      "channels": 1,
+      "meanDb": -25.9,
+      "maxDb": -12
+    }
+  },
+  "bgm": {
+    "track": {
+      "file": "assets/bgm/track.mp3",
+      "duration": 98.182,
+      "sampleRate": 44100,
+      "channels": 2,
+      "source": "public/audio/BGM 35/19.Morning Stroll - Josh Kirsch_Media Right Productions.mp3",
+      "meanDb": -16.4,
+      "maxDb": 0
+    }
+  },
+  "cuts": [
+    {
+      "cut": 0,
+      "t": 0,
+      "duration": 3.684,
+      "sheetT": 0,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c00",
+        "offset": 0.12,
+        "duration": 3.314
+      },
+      "anchor": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 3.434
+    },
+    {
+      "cut": 1,
+      "t": 3.684,
+      "duration": 3.445,
+      "sheetT": 3.8,
+      "sheetDuration": 3.5,
+      "ko": {
+        "id": "c01",
+        "offset": 0.12,
+        "duration": 3.075
+      },
+      "anchor": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 3.195
+    },
+    {
+      "cut": 2,
+      "t": 7.129,
+      "duration": 3.48,
+      "sheetT": 7.3,
+      "sheetDuration": 2.9,
+      "ko": {
+        "id": "c02",
+        "offset": 0.12,
+        "duration": 2.156
+      },
+      "anchor": null,
+      "en": [
+        {
+          "id": "give-me",
+          "offset": 2.456,
+          "duration": 0.774
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.23
+    },
+    {
+      "cut": 3,
+      "t": 10.609,
+      "duration": 3.182,
+      "sheetT": 10.2,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c03",
+        "offset": 0.12,
+        "duration": 1.962
+      },
+      "anchor": {
+        "offset": 2.202,
+        "duration": 0.3
+      },
+      "en": [
+        {
+          "id": "gimme",
+          "offset": 2.552,
+          "duration": 0.38
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.932
+    },
+    {
+      "cut": 4,
+      "t": 13.791,
+      "duration": 3.361,
+      "sheetT": 14,
+      "sheetDuration": 2.9,
+      "ko": {
+        "id": "c04",
+        "offset": 0.12,
+        "duration": 1.945
+      },
+      "anchor": null,
+      "en": [
+        {
+          "id": "let-me",
+          "offset": 2.245,
+          "duration": 0.866
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.111
+    },
+    {
+      "cut": 5,
+      "t": 17.152,
+      "duration": 2.823,
+      "sheetT": 16.9,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c05",
+        "offset": 0.12,
+        "duration": 1.634
+      },
+      "anchor": {
+        "offset": 1.874,
+        "duration": 0.3
+      },
+      "en": [
+        {
+          "id": "lemme",
+          "offset": 2.224,
+          "duration": 0.349
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.573
+    },
+    {
+      "cut": 6,
+      "t": 19.975,
+      "duration": 2.826,
+      "sheetT": 20.7,
+      "sheetDuration": 2.9,
+      "ko": {
+        "id": "c06",
+        "offset": 0.12,
+        "duration": 1.418
+      },
+      "anchor": null,
+      "en": [
+        {
+          "id": "kind-of",
+          "offset": 1.718,
+          "duration": 0.858
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.576
+    },
+    {
+      "cut": 7,
+      "t": 22.801,
+      "duration": 3.334,
+      "sheetT": 23.6,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c07",
+        "offset": 0.12,
+        "duration": 2.129
+      },
+      "anchor": {
+        "offset": 2.369,
+        "duration": 0.3
+      },
+      "en": [
+        {
+          "id": "kinda",
+          "offset": 2.719,
+          "duration": 0.365
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.084
+    },
+    {
+      "cut": 8,
+      "t": 26.135,
+      "duration": 2.104,
+      "sheetT": 27.4,
+      "sheetDuration": 3.7,
+      "ko": null,
+      "anchor": null,
+      "en": [
+        {
+          "id": "gimme",
+          "offset": 0.12,
+          "duration": 0.38
+        },
+        {
+          "id": "lemme",
+          "offset": 0.82,
+          "duration": 0.349
+        },
+        {
+          "id": "kinda",
+          "offset": 1.489,
+          "duration": 0.365
+        }
+      ],
+      "window": 0,
+      "audioBudget": 1.854
+    },
+    {
+      "cut": 9,
+      "t": 28.239,
+      "duration": 4.88,
+      "sheetT": 31.1,
+      "sheetDuration": 5.4,
+      "ko": {
+        "id": "c09",
+        "offset": 0.12,
+        "duration": 2.42
+      },
+      "anchor": null,
+      "en": [
+        {
+          "id": "outta",
+          "offset": 2.72,
+          "duration": 0.41
+        }
+      ],
+      "window": 1.5,
+      "audioBudget": 4.63
+    },
+    {
+      "cut": 10,
+      "t": 33.119,
+      "duration": 3.579,
+      "sheetT": 36.5,
+      "sheetDuration": 3.7,
+      "ko": {
+        "id": "c10",
+        "offset": 0.4,
+        "duration": 2.339
+      },
+      "anchor": {
+        "offset": 0.05,
+        "duration": 0.3
+      },
+      "en": [
+        {
+          "id": "outta",
+          "offset": 2.919,
+          "duration": 0.41
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.329
+    },
+    {
+      "cut": 11,
+      "t": 36.698,
+      "duration": 3.5,
+      "sheetT": 40.2,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c11",
+        "offset": 0.12,
+        "duration": 2.181
+      },
+      "anchor": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 2.301
+    }
+  ]
+}

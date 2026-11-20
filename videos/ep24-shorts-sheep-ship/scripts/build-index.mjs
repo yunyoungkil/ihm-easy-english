@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 // EP24 쇼츠의 index.html을 만든다. 실제 음성 길이로 시각을 계산해 화면 시각과 소리를 맞춘다.
-// 다시 만들면 carve.mjs(배경음 더킹)도 다시 돌려야 한다.
+// index.html 저장 직후 scripts/run-carve.mjs로 배경음 더킹을 자동 적용한다(--no-carve로 생략 가능).
 import {spawnSync} from 'node:child_process';
 import {existsSync, mkdirSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {runCarve} from '../../../scripts/run-carve.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -396,4 +397,9 @@ const stamp = (sec) => {
 mkdirSync(join(root, 'subtitles'), {recursive: true});
 const NL = String.fromCharCode(10);
 writeFileSync(join(root, 'subtitles', 'subtitles-ko.srt'), cues.map((c, i) => [i + 1, `${stamp(c.start)} --> ${stamp(c.end)}`, c.text, ''].join(NL)).join(NL), 'utf8');
+if (!process.argv.includes('--no-carve')) {
+  const carved = runCarve({dir: root, strict: false});
+  if (!carved.ok) console.error(`⚠ ${carved.message}`);
+  else if (!carved.skipped) console.error('더킹 적용:', carved.summary);
+}
 console.log(JSON.stringify({total: TOTAL, gains, T}, null, 0));

@@ -7,6 +7,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runCarve } from '../../../scripts/run-carve.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SHEET = join(ROOT, '..', '..', 'data', 'youtube', 'transform-sheets', 'SbQVBQoRciA.json');
@@ -401,6 +402,11 @@ window.__timelines['main'] = tl;
 </html>
 `;
 writeFileSync(join(ROOT, 'index.html'), html);
+if (!process.argv.includes('--no-carve')) {
+  const carved = runCarve({ dir: ROOT, strict: false });
+  if (!carved.ok) console.error(`⚠ ${carved.message}`);
+  else if (!carved.skipped) console.error('더킹 적용:', carved.summary);
+}
 
 // ---------- 요약 출력 ----------
 console.log(`전체 길이 ${TOTAL}초 / BGM ${hasBgm ? '있음' : '없음(BGM 대기)'} / 원어민 단어 음성 ${voice.filter((v) => v.en).length}개`);

@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 // EP24 두 번째 쇼츠(seat·sit, 반전형)의 index.html과 자막을 만든다. 실제 음성 길이로 시각을 계산한다.
-// 다시 만들면 carve.mjs(배경음 더킹)도 다시 돌려야 한다.
+// index.html 저장 직후 scripts/run-carve.mjs로 배경음 더킹을 자동 적용한다(--no-carve로 생략 가능).
 // 이 쇼츠에만 있는 코너: 소리 길이 막대 — 막대 길이는 이 쇼츠가 틀어 주는 파일의 소리 부분 실측값(FACT-CHECK.md).
 import {spawnSync} from 'node:child_process';
 import {existsSync, mkdirSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {runCarve} from '../../../scripts/run-carve.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -341,4 +342,9 @@ const stamp = (sec) => {
 mkdirSync(join(root, 'subtitles'), {recursive: true});
 const NL = String.fromCharCode(10);
 writeFileSync(join(root, 'subtitles', 'subtitles-ko.srt'), cues.map((c, i) => [i + 1, `${stamp(c.start)} --> ${stamp(c.end)}`, c.text, ''].join(NL)).join(NL), 'utf8');
+if (!process.argv.includes('--no-carve')) {
+  const carved = runCarve({dir: root, strict: false});
+  if (!carved.ok) console.error(`⚠ ${carved.message}`);
+  else if (!carved.skipped) console.error('더킹 적용:', carved.summary);
+}
 console.log(JSON.stringify({total: TOTAL, gains, voiced, barW, T}, null, 0));

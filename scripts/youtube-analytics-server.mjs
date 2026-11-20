@@ -6390,7 +6390,7 @@ const server = createServer(async (req, res) => {
         if (!rr) continue;
         const frames = (rr.frames || []).filter((fr) => fr && fr.file && existsSync(join(outlierFramesDir, rid, fr.file))).sort((x, y) => Number(x.t) - Number(y.t));
         const showFrames = rid === srcVid || (sheet.borrowed || []).some((bb) => bb.fromVideoId === rid) || refVideoIds.includes(rid);
-        refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', duration: Number(rr.windowSeconds) || Number(rr.meta?.durationSeconds) || 0, cutCount: Number(rr.pacing?.count) || 0, moments: [...new Set((rr.analysis?.visualMoments || []).map((m) => Number(m.t)).filter((x) => Number.isFinite(x)))].sort((a, b) => a - b), frames: showFrames ? frames : []});
+        refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', studioFolds: rr.studioFolds ?? null, ratioLabel: formatRatioLabel(rr), duration: Number(rr.windowSeconds) || Number(rr.meta?.durationSeconds) || 0, cutCount: Number(rr.pacing?.count) || 0, moments: [...new Set((rr.analysis?.visualMoments || []).map((m) => Number(m.t)).filter((x) => Number.isFinite(x)))].sort((a, b) => a - b), frames: showFrames ? frames : []});
       }
       res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report)}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
       return;

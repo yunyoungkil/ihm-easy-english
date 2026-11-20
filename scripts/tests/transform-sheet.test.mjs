@@ -457,4 +457,40 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
   const badRec = structuredClone(withRec);
   badRec.aiRecommendation.title = '후보에 없는 임의 제목';
   assert.ok(validateSheet(badRec, {imageExists: () => true}).some((p) => p.includes('AI 추천 조합')));
+
+  // 6) 비교 시트 UI/UX 정비(2026-11-20): 기준 영상 유튜브 조사 배수, 컷 음성 예산 배지, 레퍼런스 썸네일·결과기록, 성적 KPI 카드, 목록 대표 썸네일
+  const withOutcome = structuredClone(withRec);
+  withOutcome.createdAt = '2026-11-20';
+  withOutcome.outcome = {views7d: 1450, watchSeconds7d: 32, subs7d: 6, stayedToWatch: 49.2};
+  const htmlFull = renderTransformSheetPage(withOutcome, {
+    videoId: 'REFAAAAAAAA',
+    outlierRatio: 18.5,
+    studioFolds: 75,
+    meta: {title: '기준 영상', channelTitle: '기준 채널', thumbnail: 'https://i.ytimg.com/vi/REFAAAAAAAA/hqdefault.jpg'},
+    frames: [],
+  }, [], {
+    refReports: [{
+      videoId: 'REFAAAAAAAA',
+      label: '기준 채널 · 기준 영상',
+      thumbnail: 'https://i.ytimg.com/vi/REFAAAAAAAA/hqdefault.jpg',
+      studioFolds: 75,
+      ratioLabel: '18.5배',
+      frames: [],
+    }],
+  });
+  assert.ok(htmlFull.includes('유튜브 조사 75배'), '상단·레퍼런스에 스튜디오 조사 배수 표시');
+  assert.ok(htmlFull.includes('budget-pill') && htmlFull.includes('🎙'), '컷 카드에 음성 예산 배지 표시');
+  assert.ok(htmlFull.includes('class="ref-thumb"'), 'v4 레퍼런스 카드에 썸네일 미리보기 표시');
+  assert.ok(htmlFull.includes('결과 기록: 아직 시험 전'), 'v4 레퍼런스 카드에 결과 기록 영역 표시');
+  assert.ok(htmlFull.includes('id="btn-apply-ai-rec"'), 'AI 추천 조합 한 번에 선택 버튼 표시');
+  assert.ok(htmlFull.includes('outcome-grid') && htmlFull.includes('1,450회') && htmlFull.includes('49.2%'), '성적 KPI 카드 표시');
+  assert.ok(!htmlFull.includes('{"views7d":1450'), 'JSON 원문 덤프가 남지 않음');
+
+  const idxHtml = renderTransformSheetIndex([
+    {sheet: {...good(), createdAt: '2026-11-12'}, report},
+    {sheet: withOutcome, report: null},
+  ]);
+  assert.ok(idxHtml.indexOf('ep31-shorts-new') < idxHtml.indexOf('AAAAAAAAAAA'), '시트 목록 최신 작성일 우선 정렬');
+  assert.ok(idxHtml.includes('class="sheet-idx-thumb"'), '시트 목록 대표 썸네일 표시');
+  assert.ok(idxHtml.includes('7일 조회 1,450회'), '시트 목록 성적 배지 표시');
 });

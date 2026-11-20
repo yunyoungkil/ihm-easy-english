@@ -36,6 +36,7 @@ angle: swallowed-t-nasal
 ## 기획 근거
 
 - 소재 이력 topic: "버튼·커튼·마운틴·임포턴트 — 한국인은 다 '트'를 읽는데 미국 원어민은 '트'를 삼키고 코로 넘기는 일상 단어 네 가지"
+- 다음 기획 입력: 2026-11-20T11:21:30.468Z · `data/youtube/next-episode-input.md` 인용 — 최근 쇼츠 20편 7일 조회 중앙값 1177회, 상위 3편 영어로 시작 0/3(하위 3/3) 반영 100% 한글 시작 제목 채택
 - 비교 시트: `data/youtube/transform-sheets/ep33-shorts-swallowed-t.json` (sourceVideoId: `49VA7-b8oyc`)
 - 융합 레퍼런스 5편: `49VA7-b8oyc`(0.5초 외래어 오해 충격 훅), `RQC9PmGzPnE`(실물 소품 1:1 촉각 시연), `Ux_M00VVmEU`(3D 통과 게이트 챌린지), `w8g6-e9yLP4`(타이머·통과 피드백 쾌감), `Bxd1XRx25KQ`(체크박스·형광펜 총정리).
 

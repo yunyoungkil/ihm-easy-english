@@ -493,6 +493,78 @@ export function renderReportIndex(reports = [], { links = new Map() } = {}) {
   const linked = (r) => (links.get(r.videoId) || []).length > 0;
   const sorted = [...reports].sort((a, b) => Number(linked(b)) - Number(linked(a)) || ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0));
   const linkedCount = sorted.filter(linked).length;
-  const items = sorted.map((r) => `<div class="card" style="padding:14px"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b style="font-size:15px">${escapeHtml(r.meta?.title)}</b><br><span class="meta" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px"><span class="pill-badge">${escapeHtml(r.meta?.channelTitle)}</span>${sheetBadgeHtml(links.get(r.videoId))} · <span style="color:var(--accent-amber);font-weight:700">채널 평소 대비 ${formatRatioLabel(r)}</span>${r.studioFolds != null ? ` · <span class="pill-badge" style="background:rgba(139,92,246,0.14);color:#c4b5fd;border-color:rgba(139,92,246,0.35)">유튜브 조사 ${Number(r.studioFolds)}배</span>` : ''} · <span>장면 전환 ${cutCountLabel(r.pacing)}</span> · <span>AI 화면 변화 ${(r.analysis?.visualMoments || []).length}개</span> · <span>캡처 ${(r.frames || []).length}장</span> · <span>인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0}</span> · <span>분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></span></a></div>`);
-  return page('아웃라이어 리포트', `<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">📝 비교 시트에 쓰인 영상 ${linkedCount}편은 맨 위에 보라색 배지와 함께 모여 있다(원본 = 시트의 출발 영상, 가져온 출처 = 다른 영상에서 가져온 것의 출처). <a href="/transform-sheets">비교 시트 목록 →</a></p><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p><div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div>`);
+  const researchCount = sorted.filter((r) => r.source === 'studio-research').length;
+  const legacyCount = sorted.length - researchCount;
+  const v2Count = sorted.filter((r) => r.ratioMethod === 'peer-median-views-v2').length;
+  const oldRatioCount = sorted.length - v2Count;
+  const filterCss = `<style>
+.rep-filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 16px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.rep-filter-group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rep-filter-label{font-size:12px;font-weight:700;color:var(--sub);margin-right:2px}
+.rep-fbtn{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,0.03);color:var(--ink);font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;cursor:pointer;transition:background .15s,border-color .15s}
+.rep-fbtn:hover{border-color:var(--accent)}
+.rep-fbtn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:800}
+.rep-fbtn.research.active{background:#8b5cf6;color:#fff;border-color:#8b5cf6}
+.rep-divider{width:1px;height:20px;background:var(--line);margin:0 4px}
+.rep-count{margin-left:auto;font-size:12.5px;color:var(--sub);font-weight:700}
+</style>`;
+  const items = sorted.map((r) => {
+    const isResearch = r.source === 'studio-research';
+    const isV2 = r.ratioMethod === 'peer-median-views-v2';
+    const isLinked = linked(r);
+    const srcBadge = isResearch
+      ? `<span class="pill-badge" style="background:rgba(139,92,246,0.18);color:#c4b5fd;border-color:rgba(139,92,246,0.45);font-weight:700">📡 스튜디오 조사${r.studioFolds != null ? ` ${Number(r.studioFolds)}배` : ''}</span>`
+      : (r.studioFolds != null ? `<span class="pill-badge" style="background:rgba(139,92,246,0.14);color:#c4b5fd;border-color:rgba(139,92,246,0.35)">유튜브 조사 ${Number(r.studioFolds)}배</span>` : '');
+    const fmtBadge = r.format ? `<span class="pill-badge" style="background:rgba(56,189,248,0.12);color:var(--accent);border-color:rgba(56,189,248,0.35)">${escapeHtml(r.format)}</span>` : '';
+    return `<div class="card report-item" data-source="${isResearch ? 'research' : 'legacy'}" data-ratio="${isV2 ? 'v2' : 'old'}" data-linked="${isLinked ? '1' : '0'}" style="padding:14px"><a href="/outlier-report/${encodeURIComponent(r.videoId)}">${r.meta?.thumbnail ? `<img src="${escapeHtml(r.meta.thumbnail)}" alt="">` : '<span></span>'}<span><b style="font-size:15px">${escapeHtml(r.meta?.title)}</b><br><span class="meta" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px"><span class="pill-badge">${escapeHtml(r.meta?.channelTitle)}</span>${fmtBadge}${sheetBadgeHtml(links.get(r.videoId))}${srcBadge ? ` ${srcBadge}` : ''} · <span style="color:var(--accent-amber);font-weight:700">채널 평소 대비 ${formatRatioLabel(r)}</span> · <span>장면 전환 ${cutCountLabel(r.pacing)}</span> · <span>AI 화면 변화 ${(r.analysis?.visualMoments || []).length}개</span> · <span>캡처 ${(r.frames || []).length}장</span> · <span>인용 확인 ${r.quoteCheck?.verified ?? 0}/${r.quoteCheck?.checked ?? 0}</span> · <span>분석 ${escapeHtml(String(r.analyzedAt || '').slice(0, 10))}</span></span></span></a></div>`;
+  });
+  const filterBar = `<div class="rep-filters" id="rep-filter-bar">
+  <div class="rep-filter-group" role="group" aria-label="출처 필터">
+    <span class="rep-filter-label">출처</span>
+    <button type="button" class="rep-fbtn active" data-filter-source="all">전체 (${sorted.length})</button>
+    <button type="button" class="rep-fbtn research" data-filter-source="research">📡 스튜디오 조사 (${researchCount})</button>
+    <button type="button" class="rep-fbtn" data-filter-source="legacy">기존 목록 (${legacyCount})</button>
+    <button type="button" class="rep-fbtn" data-filter-source="linked">📝 시트 연결 (${linkedCount})</button>
+  </div>
+  <span class="rep-divider" aria-hidden="true"></span>
+  <div class="rep-filter-group" role="group" aria-label="배수 방식 필터">
+    <span class="rep-filter-label">배수</span>
+    <button type="button" class="rep-fbtn active" data-filter-ratio="all">전체</button>
+    <button type="button" class="rep-fbtn" data-filter-ratio="v2">새 배수 v2 (${v2Count})</button>
+    <button type="button" class="rep-fbtn" data-filter-ratio="old">옛 방식 (${oldRatioCount})</button>
+  </div>
+  <span class="rep-count" id="rep-visible-count">표시 중: ${sorted.length} / ${sorted.length}편</span>
+</div>`;
+  const filterScript = `<script>(function(){
+  var src='all', rat='all';
+  var items=Array.prototype.slice.call(document.querySelectorAll('.report-item'));
+  var emptyEl=document.getElementById('rep-empty-msg');
+  var countEl=document.getElementById('rep-visible-count');
+  function apply(){
+    var shown=0;
+    items.forEach(function(el){
+      var okSrc=src==='all'||(src==='linked'?el.dataset.linked==='1':el.dataset.source===src);
+      var okRat=rat==='all'||el.dataset.ratio===rat;
+      var show=okSrc&&okRat;
+      el.style.display=show?'':'none';
+      if(show) shown++;
+    });
+    if(countEl) countEl.textContent='표시 중: '+shown+' / '+items.length+'편';
+    if(emptyEl) emptyEl.style.display=shown===0&&items.length>0?'block':'none';
+  }
+  document.addEventListener('click',function(e){
+    var btn=e.target&&e.target.closest?e.target.closest('.rep-fbtn'):null;
+    if(!btn)return;
+    if(btn.dataset.filterSource){
+      src=btn.dataset.filterSource;
+      document.querySelectorAll('[data-filter-source]').forEach(function(b){b.classList.toggle('active',b===btn);});
+      apply();
+    } else if(btn.dataset.filterRatio){
+      rat=btn.dataset.filterRatio;
+      document.querySelectorAll('[data-filter-ratio]').forEach(function(b){b.classList.toggle('active',b===btn);});
+      apply();
+    }
+  });
+})();</script>`;
+  return page('아웃라이어 리포트', `${filterCss}<p><a href="/">← 대시보드</a> · <a href="/visual-library">연출 자료집</a> · <a href="/next-input">다음 기획 입력</a></p><h1>아웃라이어 리포트 ${sorted.length}편</h1><p class="meta">📝 비교 시트에 쓰인 영상 ${linkedCount}편은 맨 위에 보라색 배지와 함께 모여 있다(원본 = 시트의 출발 영상, 가져온 출처 = 다른 영상에서 가져온 것의 출처). <a href="/transform-sheets">비교 시트 목록 →</a></p><p class="meta">경쟁 영상 한 편을 제목·썸네일·화면·자막·댓글로 한 번에 관찰한 기록. 채널 평소 대비 배수가 큰 영상부터.</p>${filterBar}<div class="list">${items.join('\n') || '<p class="meta">아직 없음</p>'}</div><p class="meta" id="rep-empty-msg" style="display:none;padding:24px 0;text-align:center">선택한 조건에 맞는 리포트가 아직 없습니다.</p>${filterScript}`);
 }

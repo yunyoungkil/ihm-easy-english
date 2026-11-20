@@ -231,6 +231,27 @@ async function main() {
         ],
         d7AutonomousCycle: {lastRunAt: '2026-11-11T00:00:00Z', applied: [{label: 'TEST_D7_APPLIED', ratio: 1.8, channels: ['TEST_TRACKED_CHANNEL']}], holdCount: 3},
       },
+      // renderStudioResearchSection — shape matches /api/studio-research (2단계 현황판, 2026-11-20)
+      gStudioResearch: {
+        stage: 2,
+        hasData: true,
+        updatedAt: '2026-11-20T04:44:03.630Z',
+        collectDays: 6,
+        targetCollectDays: 12,
+        researchReportsCount: 1,
+        targetResearchReports: 20,
+        totalCandidates: 2,
+        longformCount: 1,
+        shortsCount: 1,
+        reportedCandidatesCount: 0,
+        nextTargets: [
+          {videoId: 'RESLONG0001', source: 'studio-research', format: 'LONGFORM', title: 'TEST_RESEARCH_TITLE 롱폼', channelTitle: 'TEST_RES_CH', studioFolds: 79, publishedAt: '2026-11-15T00:00:00Z'},
+        ],
+        candidates: [
+          {videoId: 'RESLONG0001', format: 'LONGFORM', title: 'TEST_RESEARCH_TITLE 롱폼', channelTitle: 'TEST_RES_CH', publishedAt: '2026-11-15T00:00:00Z', studioFolds: 79, studioSubscribers: 12000, studioViews: 95000, hasReport: false, ratioLabel: null, sheetLinks: [], isNextTarget: true},
+          {videoId: 'RESSHRT0002', format: 'SHORTS', title: 'TEST_RESEARCH_SHORTS', channelTitle: 'TEST_RES_CH2', publishedAt: '2026-11-18T00:00:00Z', studioFolds: 100, studioSubscribers: 8000, studioViews: 200000, hasReport: true, ratioLabel: '15.2배', sheetLinks: [], isNextTarget: false},
+        ],
+      },
       // renderKnowledgeDbTab — shape matches data/youtube/audience-dna.json +
       // data/youtube/success-patterns.json (see upsertAudienceDna / renderKnowledgeDbTab)
       // renderNextInputCard — shape matches scripts/next-episode-input.mjs buildFromProject() (/api/next-input)
@@ -289,7 +310,7 @@ async function main() {
     // above (e.g. renderDesignSystemTab is self-contained).
     const expectedMarkers = {
       renderOverviewTab: ['Top Video', 'TEST_NEXT_INPUT_Q', 'TEST_NEXT_INPUT_HOLD', 'TEST_NEXT_INPUT_REPORT'],
-      renderMarketDemandTab: ['TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER', 'TEST_D7_APPLIED', '리포트 보기 (화면 변화 7)'],
+      renderMarketDemandTab: ['스튜디오 조사 2단계', 'TEST_RESEARCH_TITLE', 'TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER', 'TEST_D7_APPLIED', '리포트 보기 (화면 변화 7)'],
       renderBenchmarkTab: ['TEST_OUTCOME_LABEL', 'TEST_OUTCOME_CHANNEL', 'TEST_OUTCOME_AUDIENCE'],
       renderAbSimulatorTab: ['TEST_FEED_OUR_TITLE', 'TEST_FEED_RESULT', 'TEST_FEED_WINNER', 'TEST_FEED_OUTLIER'],
       renderEpisodesTab: ['EP16 Test Title'],

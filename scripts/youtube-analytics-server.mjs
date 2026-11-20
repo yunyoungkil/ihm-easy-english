@@ -43,7 +43,7 @@ import { syncAllTrackedChannels, runD7AutonomousCycle, loadPlannedSources, loadO
 import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath } from './planning-outcome.mjs';
 import { recordSuccessPatterns } from './success-patterns.mjs';
 import { resolveVideoFormat } from './video-format.mjs';
-import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir, missingFrames as missingOutlierFrames, ensureReportFrames, buildVisualLibrary } from './outlier-report.mjs';
+import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir, missingFrames as missingOutlierFrames, ensureReportFrames, buildVisualLibrary, pickReportTargetsDetailed } from './outlier-report.mjs';
 import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex } from './outlier-report-view.mjs';
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
@@ -73,6 +73,7 @@ const outputCommentsDir = join(youtubeDataDir, 'outlier-comments');
 const outputInsightsDir = join(projectDir, 'output', 'insights');
 const outputScriptInsightsDir = join(projectDir, 'output', 'script-insights');
 const marketDemandPath = join(youtubeDataDir, 'market-demand.json');
+const studioResearchPath = join(youtubeDataDir, 'studio-research.json');
 const audienceDnaPath = join(youtubeDataDir, 'audience-dna.json');
 const analysisFailuresPath = join(youtubeDataDir, 'analysis-failures.json');
 const successPatternsPath = join(youtubeDataDir, 'success-patterns.json');
@@ -2466,6 +2467,8 @@ const pickLatestPeriod = (periods) => Object.values(periods || {})
 
 let gDashboard = null;
 let gMarketDemand = null;
+let gStudioResearch = null;
+let gResearchFormatFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gEpisodes = null;
 let gEpisodeFilter = 'ALL'; // 'ALL' | 'LONGFORM' | 'SHORTS'
 let gKnowledgeDb = null;
@@ -2743,14 +2746,16 @@ document.addEventListener('click', (e) => {
 
 async function loadAll() {
   try {
-    const [dashRes, demandRes, epRes, kdbRes] = await Promise.all([
+    const [dashRes, demandRes, epRes, kdbRes, researchRes] = await Promise.all([
       fetch('/api/dashboard'),
       fetch('/api/market-demand'),
       fetch('/api/episodes/summary'),
       fetch('/api/knowledge-db'),
+      fetch('/api/studio-research').catch(() => ({ok: false})),
     ]);
 
     gMarketDemand = demandRes.ok ? await demandRes.json() : null;
+    gStudioResearch = researchRes && researchRes.ok ? await researchRes.json() : null;
     const epJson = epRes.ok ? await epRes.json() : [];
     gEpisodes = Array.isArray(epJson) ? epJson : [];
     gKnowledgeDb = kdbRes.ok ? await kdbRes.json() : null;
@@ -3214,15 +3219,161 @@ function bindOverviewEvents() {
   // 2026-11-10: 영상 수동 분류 UI 폐지 (업로드 패키징 개편 시 status.json 기반 자동 연결로 이관 예정)
 }
 
-/* TAB 2: MARKET DEMAND RADAR (통합 마스터-디테일 & D+7 자율 순환) */
+/* 스튜디오 조사 2단계 읽기 전용 현황판 (2026-11-20) */
+function renderStudioResearchSection() {
+  const sr = gStudioResearch;
+  if (!sr || !sr.hasData) {
+    return '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(139,92,246,0.08), rgba(6,182,212,0.06));border:1px solid rgba(139,92,246,0.35);padding:18px 22px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">' +
+        '<div>' +
+          '<div class="card-title" style="color:#c4b5fd;font-size:11px;letter-spacing:1px">STUDIO RESEARCH STAGE 2</div>' +
+          '<h3 style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--text-bright);margin-top:2px">📡 스튜디오 조사 2단계 현황판</h3>' +
+          '<div class="card-subtext" style="margin-top:4px">아직 수집된 스튜디오 조사 후보가 없습니다. 매일 루프 또는 <code>npm run studio-research</code> 실행 후 자동으로 채워집니다.</div>' +
+        '</div>' +
+        '<a class="btn btn-sm" href="/outlier-reports" target="_blank" rel="noopener">📄 리포트 목록 보기 →</a>' +
+      '</div>' +
+    '</div>';
+  }
+
+  const collectDays = Number(sr.collectDays || 0);
+  const targetDays = Number(sr.targetCollectDays || 12); // allow-literal: 2단계→3단계 관찰 설계 기준(12일)
+  const researchReports = Number(sr.researchReportsCount || 0);
+  const targetReports = Number(sr.targetResearchReports || 20); // allow-literal: 2단계→3단계 관찰 설계 기준(20편)
+  const daysPct = Math.min(100, Math.round((collectDays / Math.max(1, targetDays)) * 100));
+  const reportsPct = Math.min(100, Math.round((researchReports / Math.max(1, targetReports)) * 100));
+  const stage3Ready = collectDays >= targetDays && researchReports >= targetReports;
+  const allCandidates = Array.isArray(sr.candidates) ? sr.candidates : [];
+  const filteredCands = gResearchFormatFilter === 'ALL'
+    ? allCandidates
+    : allCandidates.filter((c) => c.format === gResearchFormatFilter);
+  const nextTargets = Array.isArray(sr.nextTargets) ? sr.nextTargets : [];
+  const updatedDate = sr.updatedAt ? String(sr.updatedAt).slice(0, 16).replace('T', ' ') : '확인 전';
+
+  const fmtCompact = (n) => {
+    const num = Number(n);
+    if (!Number.isFinite(num) || num <= 0) return '확인 전';
+    if (num >= 10000) return (Math.round(num / 1000) / 10) + '만';
+    if (num >= 1000) return (Math.round(num / 100) / 10) + '천';
+    return fmt.format(num);
+  };
+
+  let out = '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(139,92,246,0.10), rgba(6,182,212,0.06));border:1.5px solid rgba(139,92,246,0.42);padding:18px 22px">' +
+    '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px">' +
+      '<div>' +
+        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' +
+          '<span class="tag-chip" style="background:rgba(139,92,246,0.22);color:#ddd6fe;border:1px solid #8b5cf6;font-size:11px;padding:3px 10px;font-weight:800">📡 스튜디오 조사 2단계 운영 중</span>' +
+          '<span class="tag-chip" style="background:' + (stage3Ready ? 'rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid #10b981' : 'rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.4)') + ';font-size:11px;padding:3px 10px;font-weight:700">' +
+            (stage3Ready ? '✅ 3단계 전환 조건 충족 (사용자 재확인 대기)' : '⏳ 14일 관찰 진행 중 (3단계 전환 전)') +
+          '</span>' +
+        '</div>' +
+        '<h3 style="font-family:var(--font-display);font-size:20px;font-weight:900;color:var(--text-bright);margin-top:6px">유튜브 스튜디오 조사 후보 (리포트 1순위 소스 · 읽기 전용)</h3>' +
+        '<div class="card-subtext" style="margin-top:3px">유튜브가 우리 틈새에서 골라 준 실적 우수 후보(롱폼 1 + 쇼츠 1 우선 선정 · 유튜브 조사 배수와 우리 계산 배수 분리 표시) · 마지막 수집: ' + esc(updatedDate) + ' UTC</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
+        '<a class="btn btn-sm" href="/outlier-reports" target="_blank" rel="noopener">📄 리포트 목록 →</a>' +
+        '<a class="btn btn-sm btn-cyan" href="/transform-sheets" target="_blank" rel="noopener">📝 비교 시트 →</a>' +
+      '</div>' +
+    '</div>' +
+
+    // 2단계 관찰 지표 3열
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:16px">' +
+      '<div style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:12px 14px">' +
+        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)"><span>수집 일수 (3단계 기준 12일)</span><b style="color:#c4b5fd">' + collectDays + ' / ' + targetDays + '일</b></div>' +
+        '<div style="height:6px;background:#131826;border-radius:99px;overflow:hidden;margin-top:8px"><div style="height:100%;width:' + daysPct + '%;background:linear-gradient(90deg,#8b5cf6,#38bdf8)"></div></div>' +
+      '</div>' +
+      '<div style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:12px 14px">' +
+        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)"><span>조사 출처 리포트 (기준 20편)</span><b style="color:#38bdf8">' + researchReports + ' / ' + targetReports + '편</b></div>' +
+        '<div style="height:6px;background:#131826;border-radius:99px;overflow:hidden;margin-top:8px"><div style="height:100%;width:' + reportsPct + '%;background:linear-gradient(90deg,#06b6d4,#10b981)"></div></div>' +
+      '</div>' +
+      '<div style="background:#090e18;border:1px solid var(--border-subtle);border-radius:10px;padding:12px 14px">' +
+        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)"><span>유효 조사 후보 풀</span><b style="color:var(--text-bright)">' + Number(sr.totalCandidates || 0) + '편</b></div>' +
+        '<div style="font-size:11.5px;color:var(--text-subtle);margin-top:6px">롱폼 <b>' + Number(sr.longformCount || 0) + '편</b> · 쇼츠 <b>' + Number(sr.shortsCount || 0) + '편</b> · 리포트 완료 <b>' + Number(sr.reportedCandidatesCount || 0) + '편</b></div>' +
+      '</div>' +
+    '</div>';
+
+  // 다음 자동 분석 예정 2편
+  if (nextTargets.length > 0) {
+    out += '<div style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.3);border-radius:10px;padding:12px 14px;margin-bottom:14px">' +
+      '<div style="font-size:12px;font-weight:800;color:var(--accent-cyan);margin-bottom:8px">🎯 다음 자동 루프 분석 예정 (롱폼 1 + 쇼츠 1 · 2단계 선정 규칙 실계산)</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px">' +
+      nextTargets.map((t) => {
+        const isRes = t.source === 'studio-research';
+        return '<div style="background:#05070c;border:1px solid var(--border-subtle);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px">' +
+          '<div style="min-width:0;flex:1">' +
+            '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:4px">' +
+              '<span class="badge" style="font-size:10px;background:' + (t.format === 'SHORTS' ? 'rgba(217,70,239,0.16);color:#f0abfc' : 'rgba(56,189,248,0.16);color:#7dd3fc') + '">' + esc(t.format || '폴백') + '</span>' +
+              (t.studioFolds != null ? '<span class="badge" style="font-size:10px;background:rgba(139,92,246,0.2);color:#ddd6fe">유튜브 조사 ' + Number(t.studioFolds) + '배</span>' : '') +
+              '<span style="font-size:10.5px;color:var(--text-muted)">' + (isRes ? '스튜디오 조사' : '기존 목록 폴백') + '</span>' +
+            '</div>' +
+            '<a href="https://youtube.com/watch?v=' + encodeURIComponent(t.videoId) + '" target="_blank" rel="noopener" style="font-weight:700;font-size:13px;color:var(--text-bright);text-decoration:none;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + esc(t.title || t.videoId) + '">' + esc(t.title || t.videoId) + '</a>' +
+            '<div style="font-size:11px;color:var(--text-muted);margin-top:2px">' + esc(t.channelTitle || '') + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('') +
+      '</div>' +
+    '</div>';
+  }
+
+  // 조사 후보 리스트 + 형식 필터
+  out += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">' +
+    '<div style="font-size:13px;font-weight:800;color:var(--text-bright)">📋 조사 후보 상위 목록 (' + filteredCands.length + '편 중 상위 ' + Math.min(filteredCands.length, 24) + '편 표시)</div>' +
+    '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+      '<button class="btn btn-sm btn-research-format ' + (gResearchFormatFilter === 'ALL' ? 'btn-cyan' : '') + '" data-format="ALL">전체 (' + allCandidates.length + ')</button>' +
+      '<button class="btn btn-sm btn-research-format ' + (gResearchFormatFilter === 'LONGFORM' ? 'btn-cyan' : '') + '" data-format="LONGFORM">롱폼 (' + Number(sr.longformCount || 0) + ')</button>' +
+      '<button class="btn btn-sm btn-research-format ' + (gResearchFormatFilter === 'SHORTS' ? 'btn-cyan' : '') + '" data-format="SHORTS">쇼츠 (' + Number(sr.shortsCount || 0) + ')</button>' +
+    '</div>' +
+  '</div>';
+
+  if (filteredCands.length === 0) {
+    out += '<div style="background:#090e18;border:1px dashed var(--border-subtle);border-radius:8px;padding:18px;text-align:center;color:var(--text-muted);font-size:12.5px">선택한 형식의 조사 후보가 없습니다.</div>';
+  } else {
+    out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px;max-height:360px;overflow-y:auto;padding-right:4px">' +
+      filteredCands.slice(0, 24).map((c) => {
+        const fmtStyle = c.format === 'SHORTS'
+          ? 'background:rgba(217,70,239,0.16);color:#f0abfc;border:1px solid rgba(217,70,239,0.35)'
+          : 'background:rgba(56,189,248,0.16);color:#7dd3fc;border:1px solid rgba(56,189,248,0.35)';
+        const statusChip = c.hasReport
+          ? '<a class="btn btn-sm" style="padding:3px 9px;font-size:11px" href="/outlier-report/' + encodeURIComponent(c.videoId) + '" target="_blank" rel="noopener">📄 리포트</a>'
+          : (c.isNextTarget
+            ? '<span class="badge" style="font-size:10.5px;background:rgba(6,182,212,0.2);color:#38bdf8;border-color:#06b6d4">🎯 다음 순번</span>'
+            : '<span class="badge" style="font-size:10.5px;color:var(--text-muted)">분석 대기</span>');
+        const sheetChips = (c.sheetLinks || []).map((l) =>
+          '<a class="btn btn-sm" style="padding:3px 8px;font-size:10.5px;border-color:#a855f7;color:#e9d5ff" href="/transform-sheet/' + encodeURIComponent(l.sheetId) + '" target="_blank" rel="noopener">📝 시트</a>'
+        ).join('');
+        return '<div style="background:#090e18;border:1px solid ' + (c.isNextTarget ? 'rgba(6,182,212,0.55)' : 'var(--border-subtle)') + ';border-radius:9px;padding:10px 12px;display:flex;flex-direction:column;gap:6px">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">' +
+            '<div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">' +
+              '<span class="tag-chip" style="' + fmtStyle + ';font-size:10px;padding:2px 7px;font-weight:800">' + esc(c.format) + '</span>' +
+              '<span class="tag-chip" style="background:rgba(139,92,246,0.2);color:#ddd6fe;border:1px solid rgba(139,92,246,0.45);font-size:10.5px;padding:2px 7px;font-weight:800">유튜브 조사 ' + Number(c.studioFolds || 0) + '배</span>' +
+              (c.hasReport && c.ratioLabel ? '<span class="tag-chip" style="background:rgba(245,158,11,0.16);color:#fbbf24;border:1px solid rgba(245,158,11,0.35);font-size:10px;padding:2px 7px;font-weight:700">우리 계산 ' + esc(c.ratioLabel) + '</span>' : '') +
+            '</div>' +
+            '<div style="display:flex;gap:4px;align-items:center">' + statusChip + sheetChips + '</div>' +
+          '</div>' +
+          '<a href="https://youtube.com/watch?v=' + encodeURIComponent(c.videoId) + '" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--text-bright);text-decoration:none;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden" title="' + esc(c.title) + '">' + esc(c.title) + '</a>' +
+          '<div style="font-size:11px;color:var(--text-muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">' +
+            '<span>' + esc(c.channelTitle || '') + '</span>' +
+            '<span>구독 ' + fmtCompact(c.studioSubscribers) + ' · 조회 ' + fmtCompact(c.studioViews) + ' · ' + esc(String(c.publishedAt || '').slice(0, 10)) + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>';
+  }
+  out += '</div>';
+  return out;
+}
+
+/* TAB 2: MARKET DEMAND RADAR (스튜디오 조사 2단계 현황판 + 기존 손입력 폴백) */
 function renderMarketDemandTab() {
   const md = gMarketDemand;
   if (!md || !md.byKeyword) {
-    return '<div class="bento-card" style="padding:40px;text-align:center">' +
-      '<h3>시장 수요 데이터가 아직 생성되지 않았습니다.</h3>' +
-      '<p class="card-subtext" style="justify-content:center;margin-bottom:20px">아래 버튼을 눌러 경쟁 채널 시장 수요 분석을 즉시 실행하세요.</p>' +
-      '<button class="btn btn-magenta" id="btn-run-market-demand-direct">🚀 시장 수요 분석 실행 (market-demand.mjs)</button>' +
-      '</div>';
+    return '<div class="bento-grid">' +
+      renderStudioResearchSection() +
+      '<div class="bento-card col-12" style="padding:40px;text-align:center">' +
+        '<h3>기존 시장 수요(폴백) 데이터가 아직 생성되지 않았습니다.</h3>' +
+        '<p class="card-subtext" style="justify-content:center;margin-bottom:20px">아래 버튼을 눌러 경쟁 채널 시장 수요 분석을 즉시 실행하세요.</p>' +
+        '<button class="btn btn-magenta" id="btn-run-market-demand-direct">🚀 시장 수요 분석 실행 (market-demand.mjs)</button>' +
+      '</div>' +
+    '</div>';
   }
 
   const trackedChannels = md.trackedChannels || [];
@@ -3248,14 +3399,15 @@ function renderMarketDemandTab() {
   const d7LastRun = d7?.lastRunAt ? d7.lastRunAt.slice(0, 10) : '아직 안 돎';
 
   let html = '<div class="bento-grid">' +
-    // Top Autonomous Cockpit Header
+    renderStudioResearchSection() +
+    // Top Autonomous Cockpit Header (2단계 폴백용 기존 목록 구분)
     '<div class="bento-card col-12" style="background:linear-gradient(135deg, rgba(217,70,239,0.08), rgba(6,182,212,0.08));border:1px solid rgba(217,70,239,0.3);padding:18px 22px">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">' +
         '<div>' +
-          '<div class="card-title" style="color:var(--accent-magenta);font-size:12px;letter-spacing:1px">AUTONOMOUS RADAR COCKPIT</div>' +
-          '<h2 style="font-family:var(--font-display);font-size:22px;color:var(--text-bright);margin-top:2px">🤖 AI 키워드 & 경쟁 채널 통합 관제 센터</h2>' +
+          '<div class="card-title" style="color:var(--accent-magenta);font-size:12px;letter-spacing:1px">LEGACY FALLBACK · AUTONOMOUS RADAR COCKPIT</div>' +
+          '<h2 style="font-family:var(--font-display);font-size:20px;color:var(--text-bright);margin-top:2px">📦 기존 손입력 키워드 & 추적 채널 (2단계 폴백 · 3단계 정리 예정)</h2>' +
           '<div class="card-subtext" style="margin-top:4px">' +
-            '공개 D+7 자율 순환 검증 · 시청자 유입어 자동 흡수 ➔ 1등 경쟁 채널 선별 · 7일 성과(1.5배↑) 황금광산 자동 고정' +
+            '스튜디오 조사 후보가 빈 형식일 때만 대신 채우는 보조 목록입니다 · D+7 자율 순환 기록 보관' +
           '</div>' +
         '</div>' +
         '<div style="display:flex;gap:10px;align-items:center">' +
@@ -3560,6 +3712,13 @@ function renderMarketDemandTab() {
 }
 
 function bindMarketDemandEvents() {
+  document.querySelectorAll('.btn-research-format').forEach((btn) => {
+    btn.onclick = () => {
+      gResearchFormatFilter = btn.dataset.format || 'ALL';
+      renderCurrentTab();
+    };
+  });
+
   document.querySelectorAll('.btn-demand-filter').forEach((btn) => {
     btn.onclick = () => {
       gDemandFilter = btn.dataset.status || 'ALL';
@@ -3830,13 +3989,15 @@ function bindBenchmarkEvents() {
 async function refreshAnalysisDerivedDataSilently() {
   const seqAtStart = gDemandRefreshSeq;
   try {
-    const [demandRes, kdbRes] = await Promise.all([
+    const [demandRes, kdbRes, researchRes] = await Promise.all([
       fetch('/api/market-demand'),
       fetch('/api/knowledge-db'),
+      fetch('/api/studio-research').catch(() => ({ok: false})),
     ]);
     if (seqAtStart !== gDemandRefreshSeq) return false;
     if (demandRes.ok) gMarketDemand = await demandRes.json();
     if (kdbRes.ok) gKnowledgeDb = await kdbRes.json();
+    if (researchRes && researchRes.ok) gStudioResearch = await researchRes.json();
     return true;
   } catch (err) {
     console.warn('Failed to refresh market demand / knowledge DB after analysis:', err);
@@ -6451,6 +6612,94 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, {'Content-Type': contentType, 'Cache-Control': 'no-cache', 'Last-Modified': projLastModified});
       res.end(data);
       return;
+    }
+    if (url.pathname === '/api/studio-research') {
+      const [research, marketDemand] = await Promise.all([
+        loadJson(studioResearchPath, null),
+        loadJson(marketDemandPath, {}),
+      ]);
+      const reports = loadOutlierReports();
+      const reportById = new Map(reports.map((r) => [r.videoId, r]));
+      const sheetLinks = sheetLinksByVideo(loadTransformSheets());
+      const TARGET_COLLECT_DAYS = 12;
+      const TARGET_RESEARCH_REPORTS = 20;
+      if (!research || !research.candidates || typeof research.candidates !== 'object') {
+        return json(res, 200, {
+          stage: 2,
+          hasData: false,
+          updatedAt: null,
+          collectDays: 0,
+          targetCollectDays: TARGET_COLLECT_DAYS,
+          researchReportsCount: reports.filter((r) => r?.source === 'studio-research').length,
+          targetResearchReports: TARGET_RESEARCH_REPORTS,
+          totalCandidates: 0,
+          longformCount: 0,
+          shortsCount: 0,
+          reportedCandidatesCount: 0,
+          nextTargets: [],
+          candidates: [],
+        });
+      }
+      const rawCandidates = Object.values(research.candidates).filter((c) => c && c.videoId);
+      const collectDays = [...new Set((research.runs || []).map((r) => r.date).filter(Boolean))].length;
+      const researchReportsCount = reports.filter((r) => r?.source === 'studio-research').length;
+      const existingIds = new Set(reports.map((r) => r.videoId));
+      const picked = pickReportTargetsDetailed({
+        marketDemand: marketDemand || {},
+        research,
+        existingIds,
+        existingReports: reports,
+        limit: 2,
+      });
+      const nextTargetIds = new Set(picked.map((p) => p.videoId));
+      const nextTargets = picked.map((p) => {
+        const c = p.candidate || research.candidates[p.videoId] || null;
+        return {
+          videoId: p.videoId,
+          source: p.source,
+          format: p.format || c?.format || null,
+          title: c?.title || p.videoId,
+          channelTitle: c?.channelTitle || '',
+          studioFolds: c?.studioFolds ?? null,
+          publishedAt: c?.publishedAt || null,
+        };
+      });
+      const sortedCandidates = [...rawCandidates]
+        .sort((a, b) => (Number(b.studioFolds) || 0) - (Number(a.studioFolds) || 0)
+          || (Date.parse(b.publishedAt || '') || 0) - (Date.parse(a.publishedAt || '') || 0))
+        .map((c) => {
+          const rep = reportById.get(c.videoId) || null;
+          return {
+            videoId: c.videoId,
+            format: c.format,
+            title: c.title,
+            channelId: c.channelId,
+            channelTitle: c.channelTitle,
+            publishedAt: c.publishedAt,
+            studioFolds: c.studioFolds ?? null,
+            studioSubscribers: c.studioSubscribers ?? null,
+            studioViews: c.studioViews ?? null,
+            hasReport: Boolean(rep),
+            ratioLabel: rep ? formatRatioLabel(rep) : null,
+            sheetLinks: sheetLinks.get(c.videoId) || [],
+            isNextTarget: nextTargetIds.has(c.videoId),
+          };
+        });
+      return json(res, 200, {
+        stage: 2,
+        hasData: true,
+        updatedAt: research.updatedAt || null,
+        collectDays,
+        targetCollectDays: TARGET_COLLECT_DAYS,
+        researchReportsCount,
+        targetResearchReports: TARGET_RESEARCH_REPORTS,
+        totalCandidates: sortedCandidates.length,
+        longformCount: sortedCandidates.filter((c) => c.format === 'LONGFORM').length,
+        shortsCount: sortedCandidates.filter((c) => c.format === 'SHORTS').length,
+        reportedCandidatesCount: sortedCandidates.filter((c) => c.hasReport).length,
+        nextTargets,
+        candidates: sortedCandidates,
+      });
     }
     if (url.pathname === '/api/market-demand') {
       if (memoryMarketDemand && (Date.now() - lastMarketDemandTime < 60_000)) {

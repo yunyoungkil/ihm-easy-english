@@ -24,10 +24,17 @@ test('시트에 연결이 없으면 배지가 비어 있고, 있으면 역할과
 });
 
 test('리포트 목록은 시트에 쓰인 영상을 맨 위로 올리고 개수를 알려 준다', () => {
-  const rep = (videoId, ratio) => ({videoId, outlierRatio: ratio, meta: {title: videoId, channelTitle: 'c'}, analysis: {}, frames: [], quoteCheck: {}});
-  const html = renderReportIndex([rep('DDDDDDDDDDD', 500), rep('BBBBBBBBBBB', 10)], {links: sheetLinksByVideo(sheets)});
+  const rep = (videoId, ratio, extra = {}) => ({videoId, outlierRatio: ratio, meta: {title: videoId, channelTitle: 'c'}, analysis: {}, frames: [], quoteCheck: {}, ...extra});
+  const html = renderReportIndex([
+    rep('DDDDDDDDDDD', 500, {source: 'studio-research', studioFolds: 45, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok'}),
+    rep('BBBBBBBBBBB', 10),
+  ], {links: sheetLinksByVideo(sheets)});
   assert.ok(html.indexOf('BBBBBBBBBBB') < html.indexOf('DDDDDDDDDDD'), '시트에 쓰인 영상이 배수가 낮아도 먼저 나온다');
   assert.ok(html.includes('비교 시트에 쓰인 영상 1편'));
+  assert.ok(html.includes('data-filter-source="research"') && html.includes('스튜디오 조사 (1)'));
+  assert.ok(html.includes('data-filter-ratio="v2"') && html.includes('새 배수 v2 (1)'));
+  assert.ok(html.includes('data-source="research" data-ratio="v2"'));
+  assert.ok(html.includes('스튜디오 조사 45배'));
 });
 
 test('비교 시트 화면 연출 행은 경쟁 영상의 저장된 캡처를 초 순서로 보여 준다(컷 감지가 실패한 영상도, 2026-11-16)', async () => {

@@ -1585,10 +1585,15 @@ header.cockpit-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 24px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--border-subtle);
+}
+.header-left {
+  min-width: 0;
+  flex: 1 1 280px;
 }
 .header-left .eyebrow {
   display: flex;
@@ -1635,7 +1640,9 @@ h1.hero-greeting {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 100%;
 }
 .live-clock {
   font-family: var(--font-mono);
@@ -2383,6 +2390,18 @@ input:disabled, select:disabled {
 @media(max-width: 1024px) {
   .col-8, .col-6, .col-4, .col-3 { grid-column: span 12; }
   .app-container { padding: 16px; }
+}
+@media(max-width: 768px) {
+  .nav-rail { display: none; }
+  .app-container { padding: 14px 12px 60px; width: 100%; max-width: 100%; }
+  header.cockpit-header { flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 16px; padding-bottom: 14px; }
+  .header-left { flex: none; width: 100%; }
+  h1.hero-greeting { font-size: 22px; line-height: 1.25; word-break: keep-all; }
+  .header-right { width: 100%; gap: 8px; flex-wrap: wrap; }
+  .header-right .live-clock { flex: 1 1 100%; text-align: center; padding: 6px 10px; }
+  .header-right .btn { flex: 1 1 140px; min-width: 0; max-width: 100%; white-space: normal; justify-content: center; text-align: center; padding: 8px 10px; font-size: 12px; }
+  .bento-card { min-width: 0; max-width: 100%; padding: 14px; }
+  .card-header { flex-wrap: wrap; gap: 8px; }
 }
 </style>
 </head>
@@ -3327,7 +3346,7 @@ function renderStudioResearchSection() {
   if (filteredCands.length === 0) {
     out += '<div style="background:#090e18;border:1px dashed var(--border-subtle);border-radius:8px;padding:18px;text-align:center;color:var(--text-muted);font-size:12.5px">선택한 형식의 조사 후보가 없습니다.</div>';
   } else {
-    out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px;max-height:360px;overflow-y:auto;padding-right:4px">' +
+    out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:10px;max-height:360px;overflow-y:auto;padding-right:4px">' +
       filteredCands.slice(0, 24).map((c) => {
         const fmtStyle = c.format === 'SHORTS'
           ? 'background:rgba(217,70,239,0.16);color:#f0abfc;border:1px solid rgba(217,70,239,0.35)'
@@ -3436,9 +3455,9 @@ function renderMarketDemandTab() {
 
     // Single Smart Search & Sync Bar (단일 통합 스마트 바)
     '<div class="bento-card col-12" style="background:#090e18;border:1.5px solid rgba(6,182,212,0.35);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">' +
-      '<div style="display:flex;align-items:center;gap:10px;flex:1;min-width:320px">' +
+      '<div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">' +
         '<span style="font-size:18px">🔍</span>' +
-        '<input id="input-demand-smart" type="text" placeholder="키워드(예: be동사, 영어 발음) 또는 채널 링크/@핸들 입력 시 스마트 자동 분기..." style="flex:1;background:#05070c;border:1px solid var(--border-subtle);color:var(--text-bright);padding:10px 14px;border-radius:6px;font-size:13px;outline:none;" />' +
+        '<input id="input-demand-smart" type="text" placeholder="키워드(예: be동사, 영어 발음) 또는 채널 링크/@핸들 입력 시 스마트 자동 분기..." style="flex:1;min-width:180px;background:#05070c;border:1px solid var(--border-subtle);color:var(--text-bright);padding:10px 14px;border-radius:6px;font-size:13px;outline:none;" />' +
         '<button id="btn-run-demand-smart" class="btn btn-cyan btn-sm" style="white-space:nowrap;padding:10px 18px;font-weight:800">🚀 스마트 분석</button>' +
       '</div>' +
       '<div style="display:flex;align-items:center;gap:8px">' +

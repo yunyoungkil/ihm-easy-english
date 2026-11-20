@@ -1,6 +1,9 @@
 // 2026-11-09 점검 보고서(knowledge/growth/review-2026-11-09.md)의 대시보드 문제 1·3·4·6·8번 회귀 테스트.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {dirname, join} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {pickLatestPeriod, toStoredCtr} from '../studio-reach.mjs';
 import {isDiagnosable} from '../matrix-diagnosis.mjs';
 import {aiAnalysisFailed} from '../analyze-outlier-comments.mjs';
@@ -71,4 +74,12 @@ test('다른 파일은 따로 기다리고, 같은 파일은 한 번만 처리�
   debounce('a.zip', () => ran.push('a2'));
   t.mock.timers.tick(1000);
   assert.deepEqual(ran.sort(), ['a2', 'b']);
+});
+
+test('대시보드 헤더는 400px 모바일 화면에서 버튼이 넘치지 않도록 768px 이하 반응형 줄바꿈 규칙을 가진다', () => {
+  const serverPath = join(dirname(fileURLToPath(import.meta.url)), '..', 'youtube-analytics-server.mjs');
+  const src = readFileSync(serverPath, 'utf8');
+  assert.match(src, /@media\(max-width:\s*768px\)/);
+  assert.match(src, /\.header-right\s*\{[^}]*flex-wrap:\s*wrap/s);
+  assert.match(src, /\.header-right\s+\.btn\s*\{[^}]*max-width:\s*100%/s);
 });

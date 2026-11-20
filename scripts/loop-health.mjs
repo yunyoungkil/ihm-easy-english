@@ -20,15 +20,20 @@ export function checkLoopHealth({
   now = new Date(), dailyLoop = null, analyticsSyncedAt = null, catalogVideos = [], views7d = {},
   audienceDnaUpdatedAt = null, competitorsAnalyzedAt = null, episodeOutcomes = [], successPatternIds = [],
   episodesMissingSources = [], nextInputGeneratedAt = undefined, episodesMissingInputRef = [], oldReportFiles = 0, studioResearch = null,
+  scheduledLoopEnabled = false,
 }) {
   const problems = [];
   const add = (id, text) => problems.push({id, text});
 
   const loopAge = ageMs(dailyLoop?.finishedAt, now);
-  if (loopAge > LIMITS.loopHours * H) {
-    add('loop-ran', dailyLoop ? `매일 루프가 ${Math.round(loopAge / H)}시간째 안 돌았다(작업 스케줄러 IHM-Daily-Growth-Loop 확인)` : '매일 루프 실행 기록이 없다(data/youtube/daily-loop.json)');
-  } else {
-    const failed = Object.entries(dailyLoop.steps || {}).filter(([, s]) => s && s.ok === false);
+  if (scheduledLoopEnabled) {
+    if (loopAge > LIMITS.loopHours * H) {
+      add('loop-ran', dailyLoop ? `매일 루프가 ${Math.round(loopAge / H)}시간째 안 돌았다(작업 스케줄러 IHM-Daily-Growth-Loop 확인)` : '매일 루프 실행 기록이 없다(data/youtube/daily-loop.json)');
+    }
+  }
+
+  if (dailyLoop?.steps) {
+    const failed = Object.entries(dailyLoop.steps).filter(([, s]) => s && s.ok === false);
     if (failed.length) add('loop-step', `매일 루프 실패 단계: ${failed.map(([name, s]) => `${name}(${String(s.error || '').slice(0, 80)})`).join(', ')}`);
   }
 
@@ -80,7 +85,7 @@ const readJson = (path, fallback) => {
 };
 
 /** 파일에서 재료를 모아 판정한다(브리핑 growth-check가 부른다). */
-export function loadLoopHealth(projectDir, now = new Date()) {
+export function loadLoopHealth(projectDir, now = new Date(), {scheduledLoopEnabled = false} = {}) {
   const dataDir = join(projectDir, 'data', 'youtube');
   const catalog = readJson(join(dataDir, 'catalog.json'), {videos: []});
   const md = readJson(join(dataDir, 'market-demand.json'), {});
@@ -112,15 +117,15 @@ export function loadLoopHealth(projectDir, now = new Date()) {
     episodesMissingInputRef,
     studioResearch: readJson(join(dataDir, 'studio-research.json'), null),
     oldReportFiles: ['outlier-comments', 'script-insights'].reduce((n, dir) => n + (existsSync(join(dataDir, dir)) ? readdirSync(join(dataDir, dir)).length : 0), 0),
+    scheduledLoopEnabled,
   });
 }
 
 /**
- * 현재 워크플로우 루프의 실제 데이터·상태를 점검해 가장 먼저 살필 1가지 문제점과 수정·업그레이드 방안을 돌려준다(2026-11-19 사용자 요청).
- * 순수 함수(테스트 가능). 실제 수치가 없으면 꾸며내지 않고 있는 그대로 보고한다.
- * @returns {{area: string, severity: 'urgent'|'upgrade'|'healthy', finding: string, proposal: string, candidateCount: number}}
+ * 워크플로우 루프 이상 신호 풀을 순수 수집한다.
+ * 문제(고장)가 있으면 urgent 신호, 데이터상 업그레이드 기회가 있으면 upgrade 신호 목록을 돌려준다. 없으면 [].
  */
-export function diagnoseWorkflowLoop({
+export function collectWorkflowSignals({
   now = new Date(),
   loopHealth = null,
   dailyLoop = null,
@@ -129,22 +134,16 @@ export function diagnoseWorkflowLoop({
   outlierReports = [],
   transformSheets = [],
 } = {}) {
-  // 1순위: 자동 루프에 실제 고장·누락이 있으면 그 첫 번째 문제를 바로 진단한다.
   if (loopHealth && loopHealth.ok === false && Array.isArray(loopHealth.problems) && loopHealth.problems.length) {
-    const p = loopHealth.problems[0];
-    return {
+    return loopHealth.problems.map((p) => ({
       area: `자동 루프(${p.id})`,
       severity: 'urgent',
       finding: p.text,
       proposal: '브리핑 직후 해당 단계 로그와 원인을 열어 수정하고 단위 테스트·다음 주기 재소비까지 검증',
-      candidateCount: loopHealth.problems.length,
-    };
+    }));
   }
 
-  // 2순위: 고장이 없으면 실제 데이터에서 관측된 루프 업그레이드 후보들을 모으고, 날짜 기준으로 하루 1건씩 돌아가며 제시한다.
   const candidates = [];
-
-  // (a) 스튜디오 조사 목록 2단계 전환 준비도
   if (studioResearch) {
     const okDays = [...new Set((studioResearch.runs || []).map((r) => r.date).filter(Boolean))].length;
     const candCount = Object.keys(studioResearch.candidates || {}).length;
@@ -161,7 +160,6 @@ export function diagnoseWorkflowLoop({
     }
   }
 
-  // (b) 아웃라이어 리포트 옛 방식 배수·미판정 비중
   if (outlierReports.length) {
     const legacy = outlierReports.filter((r) => r?.ratioMethod == null).length;
     const unjudged = outlierReports.filter((r) => r?.analysis?.teachesAdultEnglishSounds == null).length;
@@ -175,7 +173,6 @@ export function diagnoseWorkflowLoop({
     }
   }
 
-  // (c) 비교 시트 → 공개 성과 환류 공백
   const approvedSheets = transformSheets.filter((s) => s?.status === 'approved');
   const measuredSheets = transformSheets.filter((s) => Array.isArray(s?.results) && s.results.length > 0);
   if (approvedSheets.length > 0 && measuredSheets.length === 0) {
@@ -187,7 +184,6 @@ export function diagnoseWorkflowLoop({
     });
   }
 
-  // (d) 국내 실시간 트렌드 수집 상태
   if (!koreanTrends) {
     candidates.push({
       area: '국내 실시간 트렌드 레이더',
@@ -209,7 +205,29 @@ export function diagnoseWorkflowLoop({
     }
   }
 
-  if (!candidates.length) {
+  return candidates;
+}
+
+/**
+ * 현재 워크플로우 루프의 실제 데이터·상태를 점검해 가장 먼저 살필 1가지 문제점과 수정·업그레이드 방안을 돌려준다(2026-11-19 사용자 요청).
+ * 순수 함수(테스트 가능). 실제 수치가 없으면 꾸며내지 않고 있는 그대로 보고한다.
+ * @returns {{area: string, severity: 'urgent'|'upgrade'|'healthy', finding: string, proposal: string, candidateCount: number}}
+ */
+export function diagnoseWorkflowLoop(params = {}) {
+  const {now = new Date(), loopHealth = null} = params;
+  const signals = collectWorkflowSignals(params);
+
+  if (loopHealth && loopHealth.ok === false && Array.isArray(loopHealth.problems) && loopHealth.problems.length) {
+    const first = signals[0] || {
+      area: `자동 루프(${loopHealth.problems[0].id})`,
+      severity: 'urgent',
+      finding: loopHealth.problems[0].text,
+      proposal: '브리핑 직후 해당 단계 로그와 원인을 열어 수정하고 단위 테스트·다음 주기 재소비까지 검증',
+    };
+    return {...first, candidateCount: loopHealth.problems.length};
+  }
+
+  if (!signals.length) {
     return {
       area: '워크플로우 루프 전반',
       severity: 'healthy',
@@ -220,8 +238,25 @@ export function diagnoseWorkflowLoop({
   }
 
   const daySeed = Math.floor(new Date(now).getTime() / D);
-  const picked = candidates[Math.abs(daySeed) % candidates.length];
-  return {...picked, candidateCount: candidates.length};
+  const picked = signals[Math.abs(daySeed) % signals.length];
+  return {...picked, candidateCount: signals.length};
+}
+
+/** 디스크 파일에서 재료를 모아 워크플로우 루프 신호 목록을 돌려준다. */
+export function loadWorkflowSignals(projectDir, now = new Date(), loopHealth = null) {
+  const dataDir = join(projectDir, 'data', 'youtube');
+  const readDirJsons = (dir) => (existsSync(dir)
+    ? readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => readJson(join(dir, f), null)).filter(Boolean)
+    : []);
+  return collectWorkflowSignals({
+    now,
+    loopHealth: loopHealth ?? loadLoopHealth(projectDir, now),
+    dailyLoop: readJson(join(dataDir, 'daily-loop.json'), null),
+    studioResearch: readJson(join(dataDir, 'studio-research.json'), null),
+    koreanTrends: readJson(join(dataDir, 'korean-trends.json'), null),
+    outlierReports: readDirJsons(join(dataDir, 'outlier-reports')),
+    transformSheets: readDirJsons(join(dataDir, 'transform-sheets')),
+  });
 }
 
 /** 실제 디스크 파일을 읽어 브리핑용 워크플로우 루프 1건 진단을 만든다. */
@@ -239,6 +274,27 @@ export function loadWorkflowLoopDiagnosis(projectDir, now = new Date(), loopHeal
     outlierReports: readDirJsons(join(dataDir, 'outlier-reports')),
     transformSheets: readDirJsons(join(dataDir, 'transform-sheets')),
   });
+}
+
+/**
+ * 코드베이스 위생 신호 풀을 순수 수집한다.
+ * 후보가 없으면 totalCount: 0을 돌려준다.
+ */
+export function collectCodebaseHygieneSignals({
+  dormantFiles = [],
+  staleCopy = [],
+  untestedActiveScripts = [],
+} = {}) {
+  const totalCount = dormantFiles.length + staleCopy.length + untestedActiveScripts.length;
+  return {
+    dormantFiles: dormantFiles.slice(0, 3), // allow-literal: 상위 3건 요약
+    dormantTotal: dormantFiles.length,
+    staleCopy: staleCopy.slice(0, 3), // allow-literal: 상위 3건 요약
+    staleTotal: staleCopy.length,
+    untestedActiveScripts: untestedActiveScripts.slice(0, 3), // allow-literal: 상위 3건 요약
+    untestedTotal: untestedActiveScripts.length,
+    totalCount,
+  };
 }
 
 /**
@@ -317,8 +373,8 @@ const STALE_COPY_RULES = [
   {label: '끝난 할 일([x]) 미삭제 잔존', re: /^- \[x\] /i, onlyFile: 'knowledge/now.md'},
 ];
 
-/** 실제 디스크를 스캔해 장기 잠적 파일·불필요 문구·버그 테스트 1안씩을 만든다. */
-export function loadCodebaseHygieneDiagnosis(projectDir, now = new Date()) {
+/** 실제 디스크를 스캔해 후보 배열들을 모은다. */
+export function scanCodebaseHygiene(projectDir, now = new Date()) {
   const scriptsDir = join(projectDir, 'scripts');
   const testsDir = join(scriptsDir, 'tests');
   const readText = (p) => {
@@ -394,5 +450,17 @@ export function loadCodebaseHygieneDiagnosis(projectDir, now = new Date()) {
     });
   }
 
+  return {dormantFiles, staleCopy, untestedActiveScripts};
+}
+
+/** 실제 디스크를 스캔해 장기 잠적 파일·불필요 문구·버그 테스트 1안씩을 만든다. */
+export function loadCodebaseHygieneDiagnosis(projectDir, now = new Date()) {
+  const {dormantFiles, staleCopy, untestedActiveScripts} = scanCodebaseHygiene(projectDir, now);
   return diagnoseCodebaseHygiene({now, dormantFiles, staleCopy, untestedActiveScripts});
+}
+
+/** 실제 디스크를 스캔해 코드베이스 위생 신호 풀 전체를 모은다. */
+export function loadCodebaseHygieneSignals(projectDir, now = new Date()) {
+  const {dormantFiles, staleCopy, untestedActiveScripts} = scanCodebaseHygiene(projectDir, now);
+  return collectCodebaseHygieneSignals({dormantFiles, staleCopy, untestedActiveScripts});
 }

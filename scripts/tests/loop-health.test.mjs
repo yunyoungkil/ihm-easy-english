@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {checkLoopHealth, diagnoseCodebaseHygiene, diagnoseWorkflowLoop} from '../loop-health.mjs';
+import {
+  checkLoopHealth,
+  collectCodebaseHygieneSignals,
+  collectWorkflowSignals,
+  diagnoseCodebaseHygiene,
+  diagnoseWorkflowLoop,
+} from '../loop-health.mjs';
 import {buildBriefingContext} from '../growth-rules.mjs';
 
 const now = new Date('2026-11-20T12:00:00Z');
@@ -27,9 +33,14 @@ test('모두 정상이면 문제가 없다', () => {
   assert.deepEqual(r.problems, []);
 });
 
-test('매일 루프 기록이 없거나 36시간 넘게 안 돌았으면 문제', () => {
-  assert.deepEqual(ids(checkLoopHealth({...healthy(), dailyLoop: null})), ['loop-ran']);
-  assert.deepEqual(ids(checkLoopHealth({...healthy(), dailyLoop: {...healthy().dailyLoop, finishedAt: hoursAgo(37)}})), ['loop-ran']);
+test('매일 루프 기록이 없거나 36시간 넘게 안 돌았을 때: scheduledLoopEnabled 설정에 따른 분기', () => {
+  // scheduledLoopEnabled: false (기본값) -> loop-ran 경고 없음
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), dailyLoop: null})), []);
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), dailyLoop: {...healthy().dailyLoop, finishedAt: hoursAgo(37)}})), []);
+
+  // scheduledLoopEnabled: true -> loop-ran 경고 발생
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), dailyLoop: null, scheduledLoopEnabled: true})), ['loop-ran']);
+  assert.deepEqual(ids(checkLoopHealth({...healthy(), dailyLoop: {...healthy().dailyLoop, finishedAt: hoursAgo(37)}, scheduledLoopEnabled: true})), ['loop-ran']);
 });
 
 test('루프 단계가 실패했으면 단계 이름과 오류를 알린다', () => {
@@ -148,8 +159,9 @@ test('diagnoseWorkflowLoop: 고장이 없으면 실제 데이터 업그레이드
   assert.notEqual(d1.area, d2.area, '날짜가 바뀌면 다른 워크플로우 지점을 1건씩 순환 진단한다');
 
   const ctx = buildBriefingContext({briefing: {data: {}, workflowDiagnosis: d1}}, []);
-  assert.ok(ctx.includes(`- 루프 진단 (1건): [${d1.area}]`), '브리핑 문맥에 루프 진단 1건 줄이 포함된다');
-  assert.ok(ctx.includes('수정·업그레이드안:'));
+  assert.ok(ctx.includes('참고 신호 풀'), '브리핑 문맥에 참고 신호 풀 줄이 포함된다');
+  assert.ok(ctx.includes(d1.area));
+  assert.ok(ctx.includes(d1.finding));
 });
 
 test('diagnoseWorkflowLoop: 모든 항목이 정상·최신이면 healthy 상태로 다음 점검안을 돌려준다', () => {
@@ -189,10 +201,31 @@ test('diagnoseCodebaseHygiene: 장기 잠적 파일·불필요 문구·버그 �
   assert.notEqual(h1.bugTest.target, h2.bugTest.target);
 
   const ctx = buildBriefingContext({briefing: {data: {}, hygieneDiagnosis: h1}}, []);
-  assert.ok(ctx.includes('- 정리·버그 점검 (1안씩):'));
-  assert.ok(ctx.includes(`① 삭제안(${h1.dormantFile.target})`));
-  assert.ok(ctx.includes(`② 문구 정리(${h1.staleCopy.target})`));
-  assert.ok(ctx.includes(`③ 버그 테스트(${h1.bugTest.target})`));
+  assert.ok(ctx.includes('참고 신호 풀'));
+  assert.ok(ctx.includes(`삭제안(${h1.dormantFile.target})`));
+  assert.ok(ctx.includes(`문구(${h1.staleCopy.target})`));
+  assert.ok(ctx.includes(`테스트(${h1.bugTest.target})`));
+});
+
+test('collectWorkflowSignals & collectCodebaseHygieneSignals: 후보 없을 때 정직하게 반환', () => {
+  const ws = collectWorkflowSignals({
+    loopHealth: {ok: true, problems: []},
+    studioResearch: null,
+    outlierReports: [],
+    transformSheets: [],
+    koreanTrends: {sources: {googleTrendsKr: {ok: true}, youtubePopularKr: {ok: true}}},
+  });
+  assert.deepEqual(ws, []);
+
+  const hs = collectCodebaseHygieneSignals({
+    dormantFiles: [],
+    staleCopy: [],
+    untestedActiveScripts: [],
+  });
+  assert.equal(hs.totalCount, 0);
+  assert.equal(hs.dormantTotal, 0);
+  assert.equal(hs.staleTotal, 0);
+  assert.equal(hs.untestedTotal, 0);
 });
 
 test('diagnoseCodebaseHygiene: 후보가 없으면 대상 없음으로 정직하게 돌려준다', () => {

@@ -3,6 +3,7 @@
 // 점검이 실패해도 대화 시작을 막으면 안 되므로 항상 정상 종료한다.
 
 import {execFile, spawn} from 'node:child_process';
+import {existsSync, readdirSync} from 'node:fs';
 import {readFile} from 'node:fs/promises';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -40,12 +41,15 @@ const readNextActions = () =>
 ensureGitHooks();
 
 // 아웃라이어 리포트 캡처는 깃으로 오지만 빠진 것은 PC에서 채운다(2026-11-12 사용자: 다른 PC에서도 작업한다).
-// 몇 분 걸릴 수 있어 대화 시작을 기다리게 하지 않고 따로 띄운다. 없으면 yt-dlp 설치도 시도한다.
-try {
-  spawn(process.execPath, [join(projectDir, 'scripts', 'outlier-report.mjs'), '--ensure-frames', '--install'], {cwd: projectDir, detached: true, stdio: 'ignore', windowsHide: true}).unref();
-} catch { /* 대화 시작은 막지 않는다 */ }
+// 로컬 캡처 폴더가 비어 있거나 없을 때만 백그라운드로 띄워 불필요한 중복 실행을 막는다.
+const framesDir = join(projectDir, 'data', 'youtube', 'outlier-frames');
+if (!existsSync(framesDir) || readdirSync(framesDir).length === 0) {
+  try {
+    spawn(process.execPath, [join(projectDir, 'scripts', 'outlier-report.mjs'), '--ensure-frames', '--install'], {cwd: projectDir, detached: true, stdio: 'ignore', windowsHide: true}).unref();
+  } catch { /* 대화 시작은 막지 않는다 */ }
+}
 
-// 마지막 동기화가 12시간보다 오래됐으면 먼저 동기화한다. 실패해도 대화 시작은 막지 않는다.
+// 마지막 동기화가 30분보다 오래됐으면 먼저 동기화한다(2026-11-20 개정). 실패해도 대화 시작은 막지 않는다.
 const syncNote = await syncIfStale().catch((err) => `동기화 확인 실패(${err.message})`);
 const [check, nextActions, chromeStatus] = await Promise.all([
   runGrowthCheck(),

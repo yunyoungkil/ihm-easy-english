@@ -124,7 +124,8 @@ test('브리핑 재료가 있으면 줄마다 넣고, 조건이 맞지 않는 �
     },
   };
   const context = buildBriefingContext(check, []);
-  assert.match(context, /episode-planning 0-C/);
+  assert.match(context, /업데이트를 요약해서 먼저 보고드립니다/);
+  assert.match(context, /00-autonomous-briefing\.md/);
   assert.match(context, /최근 7일: 조회 35회 \(지난주 23회, \+12\)/);
   assert.match(context, /EP24 롱폼/);
   assert.match(context, /ep25-pool-pull/);

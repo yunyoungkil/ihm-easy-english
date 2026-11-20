@@ -104,8 +104,8 @@ const sampleCheck = {
 
 test('브리핑 안내는 절차 위치와 점검 결과를 함께 담는다', () => {
   const context = buildBriefingContext(sampleCheck);
-  assert.match(context, /Phase 0-C/);
-  assert.match(context, /00-unblock-and-weekly\.md/);
+  assert.match(context, /자율 브리핑/);
+  assert.match(context, /00-autonomous-briefing\.md/);
   assert.match(context, /업로드 대기 2개/);
   assert.match(context, /쇼츠부터/);
   assert.match(context, /ep23-double-consonant/);
@@ -114,7 +114,7 @@ test('브리핑 안내는 절차 위치와 점검 결과를 함께 담는다', (
 
 test('점검이 실패해도 브리핑 안내는 남고 직접 실행하라고 알린다', () => {
   const context = buildBriefingContext(null);
-  assert.match(context, /Phase 0-C/);
+  assert.match(context, /자율 브리핑/);
   assert.match(context, /npm run growth-check/);
 });
 
@@ -165,7 +165,7 @@ test('훅을 실제로 실행하면 안내가 담긴 JSON을 내보낸다', () =
   const stdout = execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {cwd: projectDir, encoding: 'utf8', input: '{"source":"startup"}'});
   const output = JSON.parse(stdout);
   assert.equal(output.hookSpecificOutput.hookEventName, 'SessionStart');
-  assert.match(output.hookSpecificOutput.additionalContext, /Phase 0-C/);
+  assert.match(output.hookSpecificOutput.additionalContext, /자율 브리핑/);
   assert.match(output.hookSpecificOutput.additionalContext, /업로드 대기/);
 });
 
@@ -191,6 +191,6 @@ test('시작 브리핑: 다음 할 일은 앞 8개만, 항목당 260자까지(�
   assert.ok(context.includes('8. 8번 일') && !context.includes('9. 9번 일'));
   assert.ok(context.includes('나머지 4개는 knowledge/now.md'));
   assert.ok(context.includes('전문은 now.md') && !context.includes('가'.repeat(300)));
-  assert.ok(context.includes('스킬 본문과 reference 문서는 열지 않는다') && context.includes('Phase 0-C'));
+  assert.ok(context.includes('평소엔 스킬/지침 문서 열지 않음') && context.includes('자율 브리핑'));
   assert.ok(context.length < 6000, `맥락이 너무 길다: ${context.length}`); // allow-literal: 시작 맥락 글자 수 상한(토큰 절약 확인)
 });

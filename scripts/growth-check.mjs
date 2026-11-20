@@ -19,6 +19,7 @@
 //   node scripts/growth-check.mjs --save          # knowledge/growth/check-YYYY-MM-DD.md 로도 저장
 //   node scripts/growth-check.mjs --today=2026-11-06 --json
 
+import {execFileSync} from 'node:child_process';
 import {existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -36,7 +37,13 @@ import {
   weeklyComparison,
 } from './growth-rules.mjs';
 import {shortsPackageEpisode} from './upload-package-summary.mjs';
-import {loadCodebaseHygieneDiagnosis, loadLoopHealth, loadWorkflowLoopDiagnosis} from './loop-health.mjs';
+import {
+  loadCodebaseHygieneDiagnosis,
+  loadCodebaseHygieneSignals,
+  loadLoopHealth,
+  loadWorkflowLoopDiagnosis,
+  loadWorkflowSignals,
+} from './loop-health.mjs';
 import {loadPublishRules} from './youtube-publisher.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -224,10 +231,68 @@ const thumbnailItems = (existsSync(packagesDir) ? readdirSync(packagesDir, {with
     return {name: d.name, status: status.status || '(없음)', hasThumbnail: existsSync(join(packagesDir, d.name, 'thumbnail.jpg'))};
   })
   .filter(Boolean);
+function collectRecentChanges(dir) {
+  try {
+    const rawLog = execFileSync('git', ['log', '-n', '5', '--pretty=format:%h\t%cs\t%s'], {cwd: dir, encoding: 'utf8', timeout: 3000});
+    const recentCommits = rawLog.split(/\r?\n/).filter(Boolean).map((line) => {
+      const [hash, date, ...rest] = line.split('\t');
+      return {hash, date, subject: rest.join('\t')};
+    });
+    const statusOut = execFileSync('git', ['status', '--porcelain'], {cwd: dir, encoding: 'utf8', timeout: 3000});
+    const dirtyCount = statusOut.split(/\r?\n/).filter((l) => l.trim().length > 0).length;
+    return {recentCommits, dirtyCount};
+  } catch {
+    return null;
+  }
+}
+
+function collectGrowthPulse({catalogVideos = [], backlog = [], shortsStatuses = [], reviewsDue = [], packages = [], today = new Date()}) {
+  const reviews = reviewsDue.map((r) => ({name: r.name, kind: r.kind, age: r.age, due: r.due}));
+
+  const upcomingSettlements = catalogVideos
+    .filter((v) => isPublic(v) && v.publishedAt)
+    .map((v) => {
+      const age = daysSince(v.publishedAt);
+      const pubDate = new Date(v.publishedAt);
+      const settle = new Date(pubDate.getTime() + 7 * DAY); // allow-literal: 7일 정산 기준
+      return {
+        videoId: v.videoId,
+        title: v.title,
+        format: formatOf(v),
+        daysSince: age,
+        settleDate: ymd(settle),
+      };
+    })
+    .filter((v) => v.daysSince >= 5 && v.daysSince <= 10) // allow-literal: 5~10일 정산 도래 구간
+    .sort((a, b) => a.daysSince - b.daysSince);
+
+  const scheduledLong = packages
+    .filter((p) => p.kind === '롱폼' && p.status === 'scheduled' && p.scheduledFor && new Date(p.scheduledFor) > today)
+    .sort((a, b) => new Date(a.scheduledFor) - new Date(b.scheduledFor));
+  const scheduledShorts = shortsStatuses
+    .filter((s) => s.status === 'scheduled' && s.scheduledFor && new Date(s.scheduledFor) > today)
+    .sort((a, b) => new Date(a.scheduledFor) - new Date(b.scheduledFor));
+
+  return {
+    reviewsDue: reviews,
+    upcomingSettlements,
+    nextScheduledByFormat: {
+      longform: scheduledLong[0] ? {name: scheduledLong[0].name, date: ymd(new Date(scheduledLong[0].scheduledFor))} : null,
+      shorts: scheduledShorts[0] ? {name: scheduledShorts[0].name, date: ymd(new Date(scheduledShorts[0].scheduledFor))} : null,
+    },
+    scheduledCounts: {
+      longform: scheduledLong.length,
+      shorts: scheduledShorts.length,
+    },
+  };
+}
+
 const briefing = {
   data: {syncedAt: analytics.syncedAt || catalog.syncedAt || null, statsEnd: (analytics.daily || []).at(-1)?.day || null},
   weekly: weeklyComparison(analytics.daily || []),
   recent: recentPublished(catalogVideos, analytics.videoPerformance || [], today),
+  growthPulse: collectGrowthPulse({catalogVideos, backlog, shortsStatuses, reviewsDue, packages, today}),
+  recentChanges: collectRecentChanges(projectDir),
   shortsLink: shortsLinkLive(shortsStatuses, today)
     ? traffic7d?.rows?.length
       ? {...shortsToLongform(traffic7d.rows), range: `${traffic7d.startDate}~${traffic7d.endDate}`}
@@ -240,8 +305,10 @@ const briefing = {
   loopHealth: (() => { try { return loadLoopHealth(projectDir, today); } catch (err) { return {ok: false, problems: [{id: 'health-error', text: `경보기 실행 실패: ${err.message}`}]}; } })(),
   // 워크플로우 루프 1건 진단 + 수정·업그레이드 방안(2026-11-19 사용자 요청)
   workflowDiagnosis: (() => { try { return loadWorkflowLoopDiagnosis(projectDir, today); } catch (err) { return {area: '루프 진단', severity: 'urgent', finding: `진단 실행 실패: ${err.message}`, proposal: 'scripts/loop-health.mjs 점검'}; } })(),
+  workflowSignals: (() => { try { return loadWorkflowSignals(projectDir, today); } catch { return []; } })(),
   // 비대화 방지: 장기 잠적 파일 삭제안 + 불필요 문구 삭제안 + 버그 테스트 1안씩(2026-11-19 사용자 요청)
   hygieneDiagnosis: (() => { try { return loadCodebaseHygieneDiagnosis(projectDir, today); } catch (err) { return null; } })(),
+  hygieneSignals: (() => { try { return loadCodebaseHygieneSignals(projectDir, today); } catch { return null; } })(),
   afterPublish: afterPublishTasks({
     longform: packages.filter((p) => p.kind === '롱폼').map((p) => ({...p, episode: episodeOf(p.name)})),
     shorts: shortsStatuses.map((s) => ({...s, episode: shortsPackageEpisode(s.name)})),

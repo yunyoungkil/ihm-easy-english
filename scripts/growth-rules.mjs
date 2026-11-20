@@ -54,12 +54,12 @@ export function decideSampleSize(impressions) {
 }
 
 const BRIEFING_INSTRUCTION = [
-  '[시작 브리핑] 이 대화의 첫 답변은 episode-planning 0-C(Phase 0-C) 시작 브리핑으로 연다.',
-  '스킬 본문과 reference 문서는 열지 않는다 — 형식은 여기 다 있다(토큰 절약, 2026-11-16). 형식이 모호할 때만 .claude/skills/episode-planning/references/00-unblock-and-weekly.md 0-C절을 읽는다.',
-  '틀: 제목 줄 "**브리핑** (episode-planning 0-C · 동기화 시각, 통계 ~마지막 날)" 다음에 해당하는 줄만 평소 4~5줄, 많아도 7줄:',
-  '최근 7일(조회·구독, 지난주 대비) / 최근 공개 성적 / 쇼츠→롱폼 / 다음 공개 / 자동 루프 / 이번 주 할 일(급하지 않은 수리 줄은 아래 안내가 있을 때만 마지막에). 아래 재료에서 "줄을 쓰지 않는다"는 줄은 뺀다.',
-  '자동 루프가 고장이면 브리핑 직후 묻지 않고 그 부분만 고치고 알린다. 사용자 결정이 필요한 항목은 끝에 한 줄로 묻는다.',
-  '사용자 요청이 함께 있으면 브리핑 바로 뒤에 처리하고, 승인을 기다리며 멈추지 않는다. 사용자가 빼라고 하면 생략한다.',
+  '[시작 브리핑] 이 대화의 첫 답변은 자율 브리핑으로 연다.',
+  '단일 원본: knowledge/playbooks/briefing/00-autonomous-briefing.md (모호할 때만 확인, 평소엔 스킬/지침 문서 열지 않음).',
+  '시작 문구: "**업데이트를 요약해서 먼저 보고드립니다.** (동기화 시각 · 통계 기준일)".',
+  '우선순위: ① 채널·콘텐츠·성장 현실(성과·정산·다음 슬롯·승인 대기) → ② AI 데이터 기반 자율 보수·진화(자동 보수 결과 또는 진행할 삭제·수정·업그레이드·기능 추가의 근거) → ③ 시스템/Git/문서 예외(문제·변화 있을 때만, 정상·변화 없으면 생략).',
+  '3단계 권한선: 🟢 무과금·안전한 복구·밀린 리뷰·버그/낡은 문구/미참조 코드 정리는 묻지 않고 처리 후 검증 보고 / 🟡 기능 추가·구조 개선·기획 초안은 근거를 밝히고 추진(Gate 1 전 정지) / 🔴 3대 승인 관문(시트·렌더·업로드/일정)·유료 비용·공개 영상 수정·불변 규칙 변경은 승인 필수.',
+  '자기 개선 브레이크: 영상 완성도·데이터 신뢰도·토큰 절감 중 하나를 실제로 높이지 못하면 건드리지 않고 콘텐츠 성장에 집중. 사용자 요청이 함께 있으면 브리핑을 짧게 끝내고 요청을 최우선 처리.',
 ].join(' ');
 
 export const NEXT_ACTIONS_HEADING = '## ▶ 다음 할 일';
@@ -228,21 +228,53 @@ const kstLabel = (iso) => {
 const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
 
 const briefingLines = (check, briefing) => {
-  const {data = {}, weekly, recent = [], shortsLink, upcoming = {soon: [], failed: []}, comments, afterPublish = [], missingThumbnails = [], loopHealth = null, workflowDiagnosis = null, hygieneDiagnosis = null} = briefing;
-  const lines = ['브리핑 재료(이 숫자로 줄을 만든다. "줄을 쓰지 않는다"라고 적힌 줄은 뺀다. 형식: 00-unblock-and-weekly.md 0-C):'];
-  lines.push(`- 제목 줄: **브리핑** (episode-planning 0-C · 동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
+  const {
+    data = {},
+    weekly,
+    recent = [],
+    growthPulse,
+    recentChanges,
+    shortsLink,
+    upcoming = {soon: [], failed: []},
+    comments,
+    afterPublish = [],
+    missingThumbnails = [],
+    loopHealth = null,
+    workflowSignals = [],
+    hygieneSignals = null,
+    workflowDiagnosis = null,
+    hygieneDiagnosis = null,
+  } = briefing;
+  const lines = ['브리핑 재료(이 숫자로 줄을 만든다. 지침: knowledge/playbooks/briefing/00-autonomous-briefing.md):'];
+  lines.push(`- 제목 줄: **업데이트를 요약해서 먼저 보고드립니다.** (동기화 ${kstLabel(data.syncedAt)}, 통계 ~${data.statsEnd || '?'}) — ${data.sync || ''}`.trimEnd());
   lines.push(
     weekly
       ? `- 최근 7일: 조회 ${weekly.current.views}회 (${weekly.previous ? `지난주 ${weekly.previous.views}회, ${signed(weekly.deltaViews)}` : '지난주 자료 없음'}), 구독 ${signed(weekly.current.subsNet)}명 (${weekly.current.start}~${weekly.current.end}) — 목표는 knowledge/channel-strategy.md "주간 목표" 표`
       : '- 최근 7일: 날짜별 자료가 7일보다 적다 — 대시보드 동기화 뒤 다시 본다',
   );
-  lines.push(
-    recent.length
-      ? `- 최근 공개 성적: ${recent
-          .map((v) => `${v.title} (${v.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${v.daysSince}일째, ${v.views == null ? '통계 아직 없음' : `조회 ${v.views}회${v.avgViewPct == null ? '' : `, 평균 시청률 ${v.avgViewPct}%`}`})`)
-          .join(' / ')}`
-      : '- 최근 공개 성적: 7일 안에 공개된 영상이 없다 — 줄을 쓰지 않는다',
-  );
+  if (recent.length) {
+    lines.push(
+      `- 최근 공개 성적: ${recent
+        .map((v) => `${v.title} (${v.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${v.daysSince}일째, ${v.views == null ? '통계 아직 없음' : `조회 ${v.views}회${v.avgViewPct == null ? '' : `, 평균 시청률 ${v.avgViewPct}%`}`})`)
+        .join(' / ')}`,
+    );
+  }
+  if (growthPulse) {
+    if (growthPulse.upcomingSettlements?.length) {
+      lines.push(
+        `- 7일 성과 정산 도래: ${growthPulse.upcomingSettlements
+          .map((v) => `${v.title} (${v.format === 'SHORTS' ? '쇼츠' : '롱폼'} ${v.daysSince}일째, ${v.settleDate} 정산)`)
+          .join(' / ')}`,
+      );
+    }
+    const sched = growthPulse.nextScheduledByFormat;
+    if (sched && (sched.longform || sched.shorts)) {
+      const parts = [];
+      if (sched.longform) parts.push(`롱폼 ${sched.longform.name}(${sched.longform.date})`);
+      if (sched.shorts) parts.push(`쇼츠 ${sched.shorts.name}(${sched.shorts.date})`);
+      lines.push(`- 다음 예약 현황: ${parts.join(', ')} (남은 예약 롱폼 ${growthPulse.scheduledCounts?.longform || 0}편 · 쇼츠 ${growthPulse.scheduledCounts?.shorts || 0}편)`);
+    }
+  }
   lines.push(
     !shortsLink
       ? '- 쇼츠→롱폼: 아직 줄을 쓰지 않는다(관련 동영상을 단 쇼츠가 공개되고 하루가 지나야 연다)'
@@ -254,34 +286,47 @@ const briefingLines = (check, briefing) => {
     ...upcoming.soon.map((item) => `${item.name} ${kstLabel(item.scheduledFor)} 공개`),
     ...upcoming.failed.map((item) => `${item.name} 업로드 실패`),
   ];
-  lines.push(upcomingParts.length ? `- 다음 공개: ${upcomingParts.join(', ')}` : '- 다음 공개: 48시간 안 공개와 업로드 실패가 없다 — 줄을 쓰지 않는다');
-  lines.push(
-    afterPublish.length
-      ? `- 공개 후 할 일(할 일 줄 맨 앞에 넣는다): ${afterPublish.map((task) => task.text).join(' / ')} — 사용자가 끝냈다고 하면 data/youtube/after-publish-done.json에 키(${afterPublish.map((task) => task.key).join(', ')})와 날짜를 적는다`
-      : '- 공개 후 할 일: 없다 — 따로 쓰지 않는다',
-  );
-  lines.push(
-    missingThumbnails.length
-      ? `- 썸네일 없는 패키지(할 일 줄에 넣는다): ${missingThumbnails.join(', ')} — 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 만든다(06-shorts-and-next-watch.md)`
-      : '- 썸네일 없는 패키지: 없다 — 따로 쓰지 않는다',
-  );
+  if (upcomingParts.length) {
+    lines.push(`- 다음 공개: ${upcomingParts.join(', ')}`);
+  }
+  if (afterPublish.length) {
+    lines.push(`- 사후 관리 미완료(자동 파이프라인 확인 필요): ${afterPublish.map((task) => task.text).join(' / ')}`);
+  }
+  if (missingThumbnails.length) {
+    lines.push(`- 썸네일 없는 패키지: ${missingThumbnails.join(', ')}`);
+  }
   if (loopHealth) {
     lines.push(
       loopHealth.ok
-        ? `- 자동 루프: 정상 (마지막 자동 실행 ${kstLabel(loopHealth.lastLoopAt)}) — 짧게 한 줄로 쓴다`
-        : `- 자동 루프 고장 ${loopHealth.problems.length}개: ${loopHealth.problems.map((p) => p.text).join(' / ')} — 브리핑에 그대로 쓰고, 브리핑 직후 Claude가 묻지 않고 원인을 찾아 고친 뒤 결과를 알린다(비교 시트·렌더·업로드 승인과 사용자 결정이 필요한 것만 묻는다). 코드: scripts/loop-health.mjs`,
+        ? `- 시스템 건강: 정상 (마지막 자동 실행 ${kstLabel(loopHealth.lastLoopAt)})`
+        : `- 시스템 건강 고장 ${loopHealth.problems.length}개: ${loopHealth.problems.map((p) => p.text).join(' / ')} — 브리핑 직후 묻지 않고 원인을 고치고 검증 보고. 코드: scripts/loop-health.mjs`,
     );
   }
-  if (workflowDiagnosis) {
-    lines.push(`- 루프 진단 (1건): [${workflowDiagnosis.area}] ${workflowDiagnosis.finding} → 수정·업그레이드안: ${workflowDiagnosis.proposal}`);
+
+  const sigParts = [];
+  if (Array.isArray(workflowSignals) && workflowSignals.length) {
+    sigParts.push(`워크플로우 ${workflowSignals.length}건: ${workflowSignals[0].finding}`);
+  } else if (workflowDiagnosis && workflowDiagnosis.severity !== 'healthy') {
+    sigParts.push(`워크플로우: [${workflowDiagnosis.area}] ${workflowDiagnosis.finding}`);
   }
-  if (hygieneDiagnosis) {
-    const parts = [];
-    if (hygieneDiagnosis.dormantFile) parts.push(`① 삭제안(${hygieneDiagnosis.dormantFile.target}): ${hygieneDiagnosis.dormantFile.finding} → ${hygieneDiagnosis.dormantFile.proposal}`);
-    if (hygieneDiagnosis.staleCopy) parts.push(`② 문구 정리(${hygieneDiagnosis.staleCopy.target}): ${hygieneDiagnosis.staleCopy.finding} → ${hygieneDiagnosis.staleCopy.proposal}`);
-    if (hygieneDiagnosis.bugTest) parts.push(`③ 버그 테스트(${hygieneDiagnosis.bugTest.target}): ${hygieneDiagnosis.bugTest.finding} → ${hygieneDiagnosis.bugTest.proposal}`);
-    if (parts.length) lines.push(`- 정리·버그 점검 (1안씩): ${parts.join(' / ')}`);
+  if (hygieneSignals && hygieneSignals.totalCount > 0) {
+    sigParts.push(`코드 위생 ${hygieneSignals.totalCount}건 (미참조 ${hygieneSignals.dormantTotal}·문구 ${hygieneSignals.staleTotal}·미테스트 ${hygieneSignals.untestedTotal})`);
+  } else if (hygieneDiagnosis && (hygieneDiagnosis.dormantFile?.target !== '없음' || hygieneDiagnosis.staleCopy?.target !== '없음' || hygieneDiagnosis.bugTest?.target !== '없음')) {
+    const dParts = [];
+    if (hygieneDiagnosis.dormantFile?.target !== '없음') dParts.push(`삭제안(${hygieneDiagnosis.dormantFile.target})`);
+    if (hygieneDiagnosis.staleCopy?.target !== '없음') dParts.push(`문구(${hygieneDiagnosis.staleCopy.target})`);
+    if (hygieneDiagnosis.bugTest?.target !== '없음') dParts.push(`테스트(${hygieneDiagnosis.bugTest.target})`);
+    if (dParts.length) sigParts.push(`코드 위생: ${dParts.join(' / ')}`);
   }
+  if (sigParts.length) {
+    lines.push(`- 참고 신호 풀(의무 보고 아님 — 성장·신뢰도·토큰에 실제 이득이 있을 때만 AI가 선별해 자동 보수 또는 근거 보고 후 추진): ${sigParts.join(' / ')}`);
+  }
+
+  if (recentChanges && (recentChanges.recentCommits?.length || recentChanges.dirtyCount > 0)) {
+    const subjs = (recentChanges.recentCommits || []).slice(0, 3).map((c) => c.subject).filter(Boolean); // allow-literal: 상위 3건 요약
+    lines.push(`- 최근 변경: 커밋 ${recentChanges.recentCommits?.length || 0}건${subjs.length ? `(${subjs.join(' · ')})` : ''}, 미커밋 파일 ${recentChanges.dirtyCount || 0}개`);
+  }
+
   if (comments) {
     lines.push(
       `- 새 시청자 댓글 ${comments.count}개 (${comments.unanswered == null ? '답 여부 모름' : `답 없음 ${comments.unanswered}개`}) — 최근 7일, 답할 댓글이 있으면 할 일 줄에 넣는다`,

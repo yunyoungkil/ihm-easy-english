@@ -1,4 +1,4 @@
-// 대화 시작 때 마지막 동기화가 12시간보다 오래됐으면 대시보드 동기화를 부르는지 확인한다(2026-11-09 사용자 결정).
+// 대화 시작 때 마지막 동기화가 30분보다 오래됐으면 대시보드 동기화를 부르는지 확인한다(2026-11-09 사용자 결정, 2026-11-20 30분 단축).
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {syncIfStale} from '../briefing-sync.mjs';

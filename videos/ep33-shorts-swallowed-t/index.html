@@ -1,0 +1,1520 @@
+<!doctype html>
+<html lang="ko" data-resolution="portrait">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>EP33 쇼츠 - 버튼과 커튼, 원어민은 '트'를 아예 안 읽고 코로 넘깁니다</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('assets/fonts/NotoSansKR-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+:root {
+  --forest: #102820;
+  --forest-deep: #091914;
+  --forest-mid: #1A3C30;
+  --cream: #F6F1E7;
+  --cream-card: #FBF8F1;
+  --cream-line: #DDD2BE;
+  --vermilion: #E63946;
+  --mustard: #F4B942;
+  --mustard-soft: #FCE5B0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--forest);
+  color: var(--cream);
+  font-family: 'Noto Sans KR', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--forest);
+}
+.clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--forest);
+}
+.clip.cream-bg {
+  background: var(--cream);
+  color: var(--forest);
+}
+.bg-photo {
+  position: absolute;
+  inset: -48px;
+  background-size: cover;
+  background-position: center;
+  transform-origin: center center;
+}
+.scrim-forest {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9,25,20,0.74) 0%, rgba(9,25,20,0.22) 34%, rgba(9,25,20,0.34) 64%, rgba(9,25,20,0.84) 100%);
+}
+.scrim-deep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9,25,20,0.82) 0%, rgba(9,25,20,0.48) 42%, rgba(9,25,20,0.56) 70%, rgba(9,25,20,0.88) 100%);
+}
+.bg-photo.arch-shift {
+  top: 135px;
+  bottom: -175px;
+  left: -48px;
+  right: -48px;
+  background-position: center 65%;
+}
+.clip.arch-bg {
+  background: #ECE4D5;
+  color: var(--forest);
+}
+.scrim-cream {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(236,228,213,0.96) 0%, rgba(236,228,213,0.88) 23%, rgba(236,228,213,0.06) 33%, rgba(236,228,213,0.12) 68%, rgba(16,40,32,0.52) 100%);
+}
+.scrim-linen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16,40,32,0.78) 0%, rgba(16,40,32,0.36) 38%, rgba(16,40,32,0.42) 68%, rgba(16,40,32,0.84) 100%);
+}
+.nowrap { white-space: nowrap; flex-shrink: 0; }
+.ico {
+  display: inline-block;
+  vertical-align: -0.14em;
+  flex-shrink: 0;
+}
+
+/* TOP HOOK: top >= 232px, 검은 띠 ZERO, 가로 정중앙 대칭 */
+.top-hook {
+  position: absolute;
+  top: 236px;
+  left: 60px;
+  right: 60px;
+  z-index: 30;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top-hook .line1 {
+  font-size: 62px;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -1.8px;
+  color: var(--cream);
+  text-shadow: 0 5px 18px rgba(0,0,0,0.68);
+  white-space: nowrap;
+}
+.top-hook .line2 {
+  font-size: 82px;
+  font-weight: 900;
+  line-height: 1.16;
+  letter-spacing: -2.4px;
+  color: var(--mustard);
+  text-shadow: 0 6px 22px rgba(0,0,0,0.72);
+  margin-top: 4px;
+  white-space: nowrap;
+}
+.top-hook .accent-bar {
+  width: 148px;
+  height: 9px;
+  border-radius: 99px;
+  background: var(--vermilion);
+  margin-top: 14px;
+  box-shadow: 0 4px 14px rgba(230,57,70,0.45);
+}
+.top-hook.on-cream .line1 {
+  color: var(--forest);
+  text-shadow: 0 2px 0 rgba(255,255,255,0.8);
+}
+.top-hook.on-cream .line2 {
+  color: var(--vermilion);
+  text-shadow: 0 2px 0 rgba(255,255,255,0.8);
+}
+
+/* SAFE CAPTION: 가로 정중앙 대칭, 하단 끝 <= 1600px (bottom: 336px -> max bottom ~1584px) */
+.safe-caption {
+  position: absolute;
+  bottom: 336px;
+  left: 72px;
+  right: 72px;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.caption-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  max-width: 936px;
+  padding: 20px 40px;
+  border-radius: 36px;
+  background: rgba(16, 40, 32, 0.94);
+  border: 2.5px solid rgba(244, 185, 66, 0.55);
+  color: var(--cream);
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -1.2px;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.42);
+}
+.caption-pill .hl-m { color: var(--mustard); }
+.caption-pill .hl-v { color: #FF7B85; }
+
+/* STEP BADGE */
+.step-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 40px;
+  border-radius: 999px;
+  background: var(--mustard);
+  color: var(--forest);
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -1.1px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.34);
+  white-space: nowrap;
+}
+.step-pill.forest-pill {
+  background: rgba(16, 40, 32, 0.92);
+  color: var(--mustard);
+  border: 3px solid var(--mustard);
+}
+.step-pill.vermilion-pill {
+  background: var(--vermilion);
+  color: #FFFFFF;
+}
+
+/* ====== CUT 0: BRASS BUTTON SHOCK HOOK ====== */
+.c0-card {
+  position: absolute;
+  top: 1030px;
+  left: 72px;
+  right: 72px;
+  padding: 36px 40px 38px;
+  border-radius: 38px;
+  background: rgba(16, 40, 32, 0.93);
+  border: 3.5px solid var(--mustard);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.52);
+  text-align: center;
+}
+.c0-eyebrow {
+  font-size: 46px;
+  font-weight: 700;
+  color: var(--cream);
+  opacity: 0.9;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+}
+.c0-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.c0-wrong {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 34px;
+  border-radius: 26px;
+  background: rgba(230, 57, 70, 0.16);
+  border: 3px solid var(--vermilion);
+  color: #FFD1D5;
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  white-space: nowrap;
+}
+.c0-strike {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 50%;
+  height: 11px;
+  margin-top: -5.5px;
+  border-radius: 99px;
+  background: var(--vermilion);
+  transform-origin: left center;
+  transform: scaleX(0);
+  box-shadow: 0 2px 10px rgba(230,57,70,0.65);
+}
+.c0-arrow {
+  font-size: 60px;
+  font-weight: 900;
+  color: var(--mustard);
+}
+.c0-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 38px;
+  border-radius: 26px;
+  background: var(--mustard);
+  color: var(--forest);
+  font-size: 74px;
+  font-weight: 900;
+  letter-spacing: -1.8px;
+  box-shadow: 0 12px 30px rgba(244,185,66,0.38);
+  white-space: nowrap;
+}
+.c0-sub {
+  margin-top: 22px;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--mustard);
+  letter-spacing: -1px;
+}
+
+/* ====== CUT 1: 3D ARCH AIRFLOW DIAGRAM ====== */
+.c1-board {
+  position: absolute;
+  top: 635px;
+  left: 72px;
+  right: 72px;
+  padding: 46px 42px 44px;
+  border-radius: 42px;
+  background: rgba(16, 40, 32, 0.95);
+  border: 3.5px solid rgba(244,185,66,0.7);
+  box-shadow: 0 28px 68px rgba(16,40,32,0.44);
+  text-align: center;
+}
+.c1-formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  font-size: 98px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 36px;
+}
+.c1-t {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 118px;
+  height: 118px;
+  border-radius: 26px;
+  background: var(--vermilion);
+  color: #FFFFFF;
+  box-shadow: 0 10px 26px rgba(230,57,70,0.45);
+}
+.c1-plus { color: var(--cream); font-size: 78px; }
+.c1-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 118px;
+  height: 118px;
+  border-radius: 26px;
+  background: var(--mustard);
+  color: var(--forest);
+  box-shadow: 0 10px 26px rgba(244,185,66,0.42);
+}
+.c1-label-ko {
+  font-size: 78px;
+  font-weight: 900;
+  color: var(--cream);
+  margin-left: 8px;
+}
+.c1-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px 32px;
+  border-radius: 28px;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+  margin-top: 20px;
+}
+.c1-step.lock {
+  background: rgba(230, 57, 70, 0.22);
+  border: 3px solid var(--vermilion);
+  color: #FFFFFF;
+}
+.c1-step.nose {
+  background: rgba(244, 185, 66, 0.18);
+  border: 3px solid var(--mustard);
+  color: var(--mustard);
+}
+.c1-foot {
+  margin-top: 28px;
+  font-size: 46px;
+  font-weight: 700;
+  color: var(--cream);
+  opacity: 0.94;
+  letter-spacing: -1px;
+}
+
+/* ====== CUT 2 / 4 / 6: SPLIT CARDS (3 DISTINCT CRAFT LAYOUTS) ====== */
+.stage-top-badge {
+  position: absolute;
+  top: 560px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  justify-content: center;
+  z-index: 25;
+}
+/* Cut 2: Deep Forest Brass Plate */
+.c2-card {
+  position: absolute;
+  top: 685px;
+  left: 72px;
+  right: 72px;
+  padding: 50px 40px 46px;
+  border-radius: 40px;
+  background: rgba(16, 40, 32, 0.92);
+  border: 3.5px solid var(--mustard);
+  box-shadow: 0 26px 64px rgba(0,0,0,0.52);
+  text-align: center;
+}
+/* Cut 4: Warm Cream Linen Editorial Paper Card */
+.c4-frame-line {
+  position: absolute;
+  top: 470px;
+  bottom: 470px;
+  left: 44px;
+  right: 44px;
+  border: 2.5px solid rgba(244,185,66,0.45);
+  border-radius: 44px;
+  pointer-events: none;
+}
+.c4-card {
+  position: absolute;
+  top: 685px;
+  left: 80px;
+  right: 80px;
+  padding: 50px 40px 46px;
+  border-radius: 36px;
+  background: var(--cream-card);
+  border: 4px solid var(--forest);
+  box-shadow: 0 28px 66px rgba(0,0,0,0.46);
+  text-align: center;
+  color: var(--forest);
+}
+/* Cut 6: Tilt-Shift Mountain Lower Glass Banner (keeps snow peak visible above!) */
+.c6-badge {
+  position: absolute;
+  top: 515px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  justify-content: center;
+  z-index: 25;
+}
+.c6-card {
+  position: absolute;
+  top: 900px;
+  left: 72px;
+  right: 72px;
+  padding: 44px 36px 42px;
+  border-radius: 38px;
+  background: rgba(16, 40, 32, 0.92);
+  border: 3.5px solid var(--mustard);
+  box-shadow: 0 26px 64px rgba(0,0,0,0.54);
+  text-align: center;
+}
+.ko-tag {
+  font-size: 48px;
+  font-weight: 700;
+  opacity: 0.88;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+.spell-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 112px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin: 12px 0 34px;
+}
+.spell-row.compact { font-size: 94px; letter-spacing: 2px; }
+.t-lock-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 26px 16px;
+  border-radius: 24px;
+  background: var(--vermilion);
+  color: #FFFFFF;
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 12px 30px rgba(230,57,70,0.52);
+  transform-origin: center center;
+}
+.lock-note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 36px;
+  border-radius: 999px;
+  background: rgba(230, 57, 70, 0.22);
+  border: 2.5px solid var(--vermilion);
+  color: #FFE4E6;
+  font-size: 46px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.c4-card .lock-note {
+  background: var(--vermilion);
+  color: #FFFFFF;
+  border-color: var(--vermilion);
+}
+
+/* ====== CUT 3 / 5 / 7: 0.15s BREATH BREAK + NASAL WAVE REVEAL ====== */
+.breath-header {
+  position: absolute;
+  top: 525px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  justify-content: center;
+  z-index: 25;
+}
+.morph-word {
+  position: absolute;
+  top: 660px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 86px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--cream);
+  z-index: 22;
+}
+.morph-t {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 22px 10px;
+  border-radius: 20px;
+  background: var(--vermilion);
+  color: #FFFFFF;
+  transform-origin: center center;
+}
+.morph-t-slash {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: 50%;
+  height: 10px;
+  margin-top: -5px;
+  background: var(--mustard);
+  border-radius: 99px;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.ripple-anchor {
+  position: absolute;
+  top: 1040px;
+  left: 540px;
+  width: 0;
+  height: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+.ripple-ring {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  margin-left: -170px;
+  margin-top: -170px;
+  border-radius: 50%;
+  border: 10px solid var(--mustard);
+  opacity: 0;
+  transform: scale(0.35);
+}
+.reveal-card {
+  position: absolute;
+  top: 805px;
+  left: 76px;
+  right: 76px;
+  padding: 50px 44px 48px;
+  border-radius: 42px;
+  background: var(--mustard);
+  color: var(--forest);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.48);
+  text-align: center;
+  z-index: 20;
+}
+.reveal-card.cream-border {
+  border: 6px solid var(--cream-card);
+}
+.reveal-phonetic {
+  font-size: 136px;
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -2px;
+  color: var(--forest);
+  transform-origin: center center;
+}
+.reveal-phonetic.wide { font-size: 122px; }
+.reveal-divider {
+  width: 112px;
+  height: 7px;
+  border-radius: 99px;
+  background: rgba(16, 40, 32, 0.28);
+  margin: 24px auto 26px;
+}
+.reveal-en {
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--forest);
+  letter-spacing: -0.8px;
+}
+.reveal-ko {
+  margin-top: 10px;
+  font-size: 46px;
+  font-weight: 700;
+  color: rgba(16, 40, 32, 0.84);
+}
+
+/* ====== CUT 8: TRIPLE TACTILE RHYTHM STRIP ====== */
+.c8-sub {
+  position: absolute;
+  top: 505px;
+  left: 60px;
+  right: 60px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--forest);
+  letter-spacing: -1px;
+}
+.c8-stack {
+  position: absolute;
+  top: 600px;
+  left: 72px;
+  right: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.c8-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 48px;
+  border-radius: 36px;
+  box-shadow: 0 18px 44px rgba(16,40,32,0.16);
+  transform-origin: center center;
+}
+.c8-strip.s1 {
+  background: var(--forest);
+  color: var(--cream);
+  border: 4px solid var(--forest);
+}
+.c8-strip.s2 {
+  background: var(--cream-card);
+  color: var(--forest);
+  border: 4px solid var(--forest);
+}
+.c8-strip.s3 {
+  background: var(--mustard);
+  color: var(--forest);
+  border: 4px solid var(--forest);
+}
+.c8-en {
+  font-size: 66px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.c8-en .dim-t {
+  text-decoration: line-through;
+  text-decoration-thickness: 7px;
+  opacity: 1;
+}
+.c8-strip.s1 .c8-en .dim-t { color: #FF8A93; }
+.c8-strip.s2 .c8-en .dim-t { color: #B91C1C; }
+.c8-strip.s3 .c8-en .dim-t { color: #991B1B; }
+.c8-ko {
+  font-size: 74px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  padding: 8px 30px;
+  border-radius: 22px;
+}
+.c8-strip.s1 .c8-ko { background: var(--mustard); color: var(--forest); }
+.c8-strip.s2 .c8-ko { background: var(--forest); color: var(--mustard); }
+.c8-strip.s3 .c8-ko { background: var(--forest); color: var(--cream); }
+
+/* ====== CUT 9: 3D ARCH SPEECH GATE 1.5s CHALLENGE ====== */
+.c9-timer-wrap {
+  position: absolute;
+  top: 565px;
+  left: 50%;
+  width: 244px;
+  height: 244px;
+  margin-left: -122px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+}
+.c9-timer-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--forest);
+  box-shadow: 0 18px 46px rgba(16,40,32,0.44);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--mustard);
+}
+.c9-timer-num {
+  font-size: 74px;
+  font-weight: 900;
+  line-height: 1;
+}
+.c9-timer-unit {
+  font-size: 46px;
+  font-weight: 800;
+  color: var(--cream);
+  margin-top: 2px;
+}
+.c9-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 244px;
+  height: 244px;
+  transform: rotate(-90deg);
+}
+.c9-gate-card {
+  position: absolute;
+  top: 865px;
+  left: 68px;
+  right: 68px;
+  padding: 46px 36px 46px;
+  border-radius: 42px;
+  background: rgba(16, 40, 32, 0.95);
+  border: 4px solid var(--mustard);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.46);
+  text-align: center;
+  z-index: 22;
+}
+.c9-word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 88px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--cream);
+  margin: 30px 0 28px;
+}
+.c9-prompt {
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--mustard);
+  letter-spacing: -1.2px;
+}
+
+/* ====== CUT 10: VERMILION STAMP PAYOFF ====== */
+.c10-card {
+  position: absolute;
+  top: 720px;
+  left: 72px;
+  right: 72px;
+  padding: 72px 44px 52px;
+  border-radius: 42px;
+  background: var(--cream-card);
+  border: 5px solid var(--mustard);
+  box-shadow: 0 30px 72px rgba(0,0,0,0.52);
+  text-align: center;
+  color: var(--forest);
+  z-index: 20;
+}
+.c10-stamp {
+  position: absolute;
+  top: 635px;
+  left: 50%;
+  margin-left: -195px;
+  width: 390px;
+  padding: 16px 32px;
+  border-radius: 24px;
+  background: var(--vermilion);
+  border: 5px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 54px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: -1px;
+  transform: rotate(-4deg);
+  box-shadow: 0 18px 40px rgba(230,57,70,0.52);
+  z-index: 30;
+  white-space: nowrap;
+}
+.c10-spell {
+  font-size: 66px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--forest);
+}
+.c10-spell .x-t {
+  color: var(--vermilion);
+  text-decoration: line-through;
+  text-decoration-thickness: 8px;
+}
+.c10-phonetic {
+  margin: 18px 0 22px;
+  font-size: 132px;
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--vermilion);
+  letter-spacing: -2px;
+  transform-origin: center center;
+}
+.c10-en {
+  font-size: 54px;
+  font-weight: 900;
+  color: var(--forest);
+}
+.c10-ko {
+  margin-top: 10px;
+  font-size: 46px;
+  font-weight: 700;
+  color: rgba(16, 40, 32, 0.78);
+}
+
+/* ====== CUT 11: CREAM PAPER HIGHLIGHTER CHECKLIST ====== */
+.c11-title {
+  position: absolute;
+  top: 500px;
+  left: 60px;
+  right: 60px;
+  text-align: center;
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--forest);
+  letter-spacing: -1.4px;
+}
+.c11-list {
+  position: absolute;
+  top: 585px;
+  left: 72px;
+  right: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.c11-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 34px;
+  border-radius: 28px;
+  background: var(--cream-card);
+  border: 3.5px solid var(--forest);
+  box-shadow: 0 12px 26px rgba(16,40,32,0.10);
+}
+.c11-left {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.c11-chk {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--vermilion);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.c11-word {
+  font-size: 54px;
+  font-weight: 900;
+  color: var(--forest);
+  letter-spacing: 0.6px;
+}
+.c11-hi-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.c11-hi-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--mustard);
+  border-radius: 20px;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.c11-hi-text {
+  position: relative;
+  z-index: 2;
+  font-size: 54px;
+  font-weight: 900;
+  color: var(--forest);
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+.c11-cta-wrap {
+  position: absolute;
+  top: 1320px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  justify-content: center;
+}
+.c11-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 22px 48px;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--mustard);
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  box-shadow: 0 16px 36px rgba(16,40,32,0.28);
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="40.0" data-width="1080" data-height="1920">
+
+  <!-- ==================== CUT 0: BRASS BUTTON SHOCK HOOK (0.000 ~ 3.741) ==================== -->
+  <section id="scene-00" class="clip" style="z-index: 1; opacity: 1;">
+    <div id="c0-bg" class="bg-photo" style="background-image: url('assets/images/bg-button.jpg');"></div>
+    <div class="scrim-forest"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div id="c0-card" class="c0-card">
+      <div class="c0-eyebrow">매일 누르는 엘리베이터</div>
+      <div class="c0-row">
+        <div class="c0-wrong">
+          <span>버튼</span>
+          <svg class="ico" width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="3.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          <span id="c0-strike" class="c0-strike"></span>
+        </div>
+        <div id="c0-arr" class="c0-arrow">→</div>
+        <div id="c0-right" class="c0-right">
+          <span>버·은</span>
+          <svg class="ico" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="3.2"><circle cx="12" cy="12" r="8.5"/></svg>
+        </div>
+      </div>
+      <div class="c0-sub">BUTTON · 가운데 '트' 실종!</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">버튼, 원어민은 <span class="hl-m">'트'</span>를 안 읽습니다</div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 1: 3D ARCH AIRFLOW DIAGRAM (3.741 ~ 7.073) ==================== -->
+  <section id="scene-01" class="clip arch-bg" style="z-index: 2; opacity: 0; visibility: hidden;">
+    <div id="c1-bg" class="bg-photo arch-shift" style="background-image: url('assets/images/bg-craft-lock.jpg');"></div>
+    <div class="scrim-cream"></div>
+
+    <div class="top-hook on-cream">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div id="c1-board" class="c1-board">
+      <div class="c1-formula">
+        <span id="c1-t" class="c1-t">T</span>
+        <span class="c1-plus">+</span>
+        <span id="c1-n" class="c1-n">N</span>
+        <span class="c1-label-ko">공식</span>
+      </div>
+      <div id="c1-s1" class="c1-step lock">
+        <svg class="ico" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span>1단계 · 입 잠금 (혀끝 천장에 딱!)</span>
+      </div>
+      <div id="c1-s2" class="c1-step nose">
+        <svg class="ico" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round"><path d="M3 9h11a3 3 0 1 0-3-3"/><path d="M3 14h15a3 3 0 1 1-3 3"/><path d="M3 19h8"/></svg>
+        <span>2단계 · 코로 통과 ('은' 콧소리!)</span>
+      </div>
+      <div id="c1-foot" class="c1-foot">입에서 '트'를 터뜨리지 않습니다</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">T 뒤에 N이 오면 · <span class="hl-v">입 잠금</span> → <span class="hl-m">코로 '은'</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 2: 1/4 BUTTON SPLIT (7.073 ~ 9.686) ==================== -->
+  <section id="scene-02" class="clip" style="z-index: 3; opacity: 0;">
+    <div id="c2-bg" class="bg-photo" style="background-image: url('assets/images/bg-button.jpg');"></div>
+    <div class="scrim-forest"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="stage-top-badge">
+      <div class="step-pill">첫째 · 일상 버튼</div>
+    </div>
+
+    <div id="c2-card" class="c2-card">
+      <div class="ko-tag">한국식 표기: 버튼</div>
+      <div class="spell-row">
+        <span>BU</span>
+        <span id="c2-t" class="t-lock-box">TT</span>
+        <span>ON</span>
+      </div>
+      <div class="lock-note">
+        <svg class="ico" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span>T + N 만남 → '트' 잠금!</span>
+      </div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">첫째, 버튼 · <span class="hl-m">button</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 3: 1/4 BUTTON BREATH BREAK REVEAL (9.686 ~ 12.991) ==================== -->
+  <section id="scene-03" class="clip" style="z-index: 4; opacity: 0;">
+    <div id="c3-bg" class="bg-photo" style="background-image: url('assets/images/bg-button.jpg');"></div>
+    <div class="scrim-deep"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="breath-header">
+      <div class="step-pill forest-pill">
+        <svg class="ico" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.8" stroke-linecap="round"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
+        <span>0.15초 호흡 멈춤 → 코로 '은'</span>
+      </div>
+    </div>
+
+    <div id="c3-morph" class="morph-word">
+      <span>BU</span>
+      <span id="c3-t" class="morph-t">TT<span id="c3-slash" class="morph-t-slash"></span></span>
+      <span>ON</span>
+    </div>
+
+    <div class="ripple-anchor">
+      <div id="c3-r1" class="ripple-ring"></div>
+      <div id="c3-r2" class="ripple-ring"></div>
+    </div>
+
+    <div id="c3-card" class="reveal-card">
+      <div id="c3-word" class="reveal-phonetic">버 · 은</div>
+      <div class="reveal-divider"></div>
+      <div class="reveal-en">Press the button.</div>
+      <div class="reveal-ko">버튼을 눌러 주세요</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">입을 막고 코로 뺍니다 · <span class="hl-m">버·은</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 4: 2/4 CURTAIN LINEN FRAME (12.991 ~ 15.562) ==================== -->
+  <section id="scene-04" class="clip" style="z-index: 5; opacity: 0;">
+    <div id="c4-bg" class="bg-photo" style="background-image: url('assets/images/bg-curtain.jpg'); transform: scale(1.18);"></div>
+    <div class="scrim-linen"></div>
+    <div class="c4-frame-line"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="stage-top-badge">
+      <div class="step-pill">둘째 · 창문 커튼</div>
+    </div>
+
+    <div id="c4-card" class="c4-card">
+      <div class="ko-tag">한국식 표기: 커튼</div>
+      <div class="spell-row compact">
+        <span>CUR</span>
+        <span id="c4-t" class="t-lock-box">T</span>
+        <span>AIN</span>
+      </div>
+      <div class="lock-note">
+        <svg class="ico" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span>T + N 만남 → '트' 잠금!</span>
+      </div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">둘째, 커튼 · <span class="hl-m">curtain</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 5: 2/4 CURTAIN BREATH BREAK REVEAL (15.562 ~ 19.037) ==================== -->
+  <section id="scene-05" class="clip" style="z-index: 6; opacity: 0;">
+    <div id="c5-bg" class="bg-photo" style="background-image: url('assets/images/bg-curtain.jpg'); transform: scale(1.18);"></div>
+    <div class="scrim-deep"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="breath-header">
+      <div class="step-pill forest-pill">
+        <svg class="ico" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.8" stroke-linecap="round"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
+        <span>0.15초 호흡 멈춤 → 코로 '은'</span>
+      </div>
+    </div>
+
+    <div id="c5-morph" class="morph-word">
+      <span>CUR</span>
+      <span id="c5-t" class="morph-t">T<span id="c5-slash" class="morph-t-slash"></span></span>
+      <span>AIN</span>
+    </div>
+
+    <div class="ripple-anchor">
+      <div id="c5-r1" class="ripple-ring"></div>
+      <div id="c5-r2" class="ripple-ring"></div>
+    </div>
+
+    <div id="c5-card" class="reveal-card cream-border">
+      <div id="c5-word" class="reveal-phonetic">커 · 은</div>
+      <div class="reveal-divider"></div>
+      <div class="reveal-en">Open the curtain.</div>
+      <div class="reveal-ko">커튼을 열어 주세요</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">트 없이 코로 넘깁니다 · <span class="hl-m">커·은</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 6: 3/4 MOUNTAIN TILT-SHIFT CARD (19.037 ~ 22.218) ==================== -->
+  <section id="scene-06" class="clip" style="z-index: 7; opacity: 0;">
+    <div id="c6-bg" class="bg-photo" style="background-image: url('assets/images/bg-mountain.jpg');"></div>
+    <div class="scrim-forest"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="c6-badge">
+      <div class="step-pill">셋째 · 높은 산</div>
+    </div>
+
+    <div id="c6-card" class="c6-card">
+      <div class="ko-tag">한국식 표기: 마운틴</div>
+      <div class="spell-row compact">
+        <span>MOUN</span>
+        <span id="c6-t" class="t-lock-box">T</span>
+        <span>AIN</span>
+      </div>
+      <div class="lock-note">
+        <svg class="ico" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span>T + N 만남 → '트' 잠금!</span>
+      </div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">셋째, 마운틴 · <span class="hl-m">mountain</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 7: 3/4 MOUNTAIN BREATH BREAK REVEAL (22.218 ~ 25.635) ==================== -->
+  <section id="scene-07" class="clip" style="z-index: 8; opacity: 0;">
+    <div id="c7-bg" class="bg-photo" style="background-image: url('assets/images/bg-mountain.jpg');"></div>
+    <div class="scrim-deep"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="breath-header">
+      <div class="step-pill forest-pill">
+        <svg class="ico" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.8" stroke-linecap="round"><rect x="6" y="4" width="4" height="16" rx="1.5"/><rect x="14" y="4" width="4" height="16" rx="1.5"/></svg>
+        <span>0.15초 호흡 멈춤 → 코로 '은'</span>
+      </div>
+    </div>
+
+    <div id="c7-morph" class="morph-word">
+      <span>MOUN</span>
+      <span id="c7-t" class="morph-t">T<span id="c7-slash" class="morph-t-slash"></span></span>
+      <span>AIN</span>
+    </div>
+
+    <div class="ripple-anchor">
+      <div id="c7-r1" class="ripple-ring"></div>
+      <div id="c7-r2" class="ripple-ring"></div>
+    </div>
+
+    <div id="c7-card" class="reveal-card">
+      <div id="c7-word" class="reveal-phonetic wide">마운 · 은</div>
+      <div class="reveal-divider"></div>
+      <div class="reveal-en">Climb a mountain.</div>
+      <div class="reveal-ko">산에 오르다</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">티가 쏙 숨어 버리죠 · <span class="hl-m">마운·은</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 8: TRIPLE TACTILE RHYTHM STRIP (25.635 ~ 28.611) ==================== -->
+  <section id="scene-08" class="clip cream-bg" style="z-index: 9; opacity: 0; visibility: hidden;">
+    <div class="top-hook on-cream">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="c8-sub">원어민 소리만 3연속 귀 트임</div>
+
+    <div class="c8-stack">
+      <div id="c8-a" class="c8-strip s1">
+        <div class="c8-en">BU<span class="dim-t">TT</span>ON</div>
+        <div class="c8-ko">버 · 은</div>
+      </div>
+      <div id="c8-b" class="c8-strip s2">
+        <div class="c8-en">CUR<span class="dim-t">T</span>AIN</div>
+        <div class="c8-ko">커 · 은</div>
+      </div>
+      <div id="c8-c" class="c8-strip s3">
+        <div class="c8-en">MOUN<span class="dim-t">T</span>AIN</div>
+        <div class="c8-ko">마운 · 은</div>
+      </div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">
+        <svg class="ico" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        <span>'트' 없는 소리만 연달아 들어 보세요</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 9: 3D ARCH SPEECH GATE 1.5s CHALLENGE (28.611 ~ 32.774) ==================== -->
+  <section id="scene-09" class="clip arch-bg" style="z-index: 10; opacity: 0; visibility: hidden;">
+    <div id="c9-bg" class="bg-photo arch-shift" style="background-image: url('assets/images/bg-craft-lock.jpg');"></div>
+    <div class="scrim-cream"></div>
+
+    <div class="top-hook on-cream">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div id="c9-timer" class="c9-timer-wrap">
+      <div class="c9-timer-circle">
+        <div class="c9-timer-num">1.5</div>
+        <div class="c9-timer-unit">초</div>
+      </div>
+      <svg class="c9-ring-svg" viewBox="0 0 244 244">
+        <circle cx="122" cy="122" r="112" fill="none" stroke="rgba(16,40,32,0.22)" stroke-width="14"/>
+        <circle id="c9-ring" cx="122" cy="122" r="112" fill="none" stroke="#F4B942" stroke-width="14" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"/>
+      </svg>
+    </div>
+
+    <div id="c9-card" class="c9-gate-card">
+      <div class="step-pill vermilion-pill">통과 게이트 챌린지</div>
+      <div class="c9-word">
+        <span>IMPOR</span>
+        <span id="c9-t" class="t-lock-box">T</span>
+        <span>ANT</span>
+      </div>
+      <div class="c9-prompt">'트' 없이 코로 말해 보세요!</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">
+        <svg class="ico" width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v5"/><path d="M8 22h8"/></svg>
+        <span><span class="hl-m">1.5초</span> 안에 '트' 없이 말해 보세요!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 10: VERMILION STAMP PAYOFF (32.774 ~ 36.400) ==================== -->
+  <section id="scene-10" class="clip" style="z-index: 11; opacity: 0;">
+    <div id="c10-bg" class="bg-photo" style="background-image: url('assets/images/bg-important.jpg');"></div>
+    <div class="scrim-forest"></div>
+
+    <div class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div id="c10-stamp" class="c10-stamp">통과! 정답</div>
+
+    <div id="c10-card" class="c10-card">
+      <div class="c10-spell">IMPOR<span class="x-t">T</span>ANT</div>
+      <div id="c10-word" class="c10-phonetic">임포 · 른</div>
+      <div class="c10-en">It's really important.</div>
+      <div class="c10-ko">그건 정말 중요해요</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">임포턴트 대신 이렇게요 · <span class="hl-m">임포·른</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== CUT 11: CREAM PAPER HIGHLIGHTER CHECKLIST (36.400 ~ 40.000) ==================== -->
+  <section id="scene-11" class="clip cream-bg" style="z-index: 12; opacity: 0;">
+    <div class="top-hook on-cream">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <div class="c11-title">오늘의 '트' 소멸 체크리스트</div>
+
+    <div class="c11-list">
+      <div id="c11-r0" class="c11-row">
+        <div class="c11-left">
+          <div class="c11-chk"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="c11-word">BUTTON</div>
+        </div>
+        <div class="c11-hi-wrap"><span id="c11-h0" class="c11-hi-bg"></span><span class="c11-hi-text">버 · 은</span></div>
+      </div>
+
+      <div id="c11-r1" class="c11-row">
+        <div class="c11-left">
+          <div class="c11-chk"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="c11-word">CURTAIN</div>
+        </div>
+        <div class="c11-hi-wrap"><span id="c11-h1" class="c11-hi-bg"></span><span class="c11-hi-text">커 · 은</span></div>
+      </div>
+
+      <div id="c11-r2" class="c11-row">
+        <div class="c11-left">
+          <div class="c11-chk"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="c11-word">MOUNTAIN</div>
+        </div>
+        <div class="c11-hi-wrap"><span id="c11-h2" class="c11-hi-bg"></span><span class="c11-hi-text">마운 · 은</span></div>
+      </div>
+
+      <div id="c11-r3" class="c11-row">
+        <div class="c11-left">
+          <div class="c11-chk"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="c11-word">IMPORTANT</div>
+        </div>
+        <div class="c11-hi-wrap"><span id="c11-h3" class="c11-hi-bg"></span><span class="c11-hi-text">임포 · 른</span></div>
+      </div>
+    </div>
+
+    <div class="c11-cta-wrap">
+      <div id="c11-cta" class="c11-cta">보너스 네 단어는 고정 댓글에!</div>
+    </div>
+
+    <div class="safe-caption">
+      <div class="caption-pill">
+        <svg class="ico" width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#F4B942" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><polyline points="19 12 12 19 5 12"/></svg>
+        <span>보너스 네 단어는 <span class="hl-m">고정 댓글</span>에 있어요!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== AUDIO TRACK 1: 한국어 나레이션 (Gero, 11컷) ==================== -->
+  <audio id="ko00" src="assets/voice-clean/c00.wav" data-start="0.120" data-duration="3.361" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko01" src="assets/voice-clean/c01.wav" data-start="3.861" data-duration="2.952" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko02" src="assets/voice-clean/c02.wav" data-start="7.193" data-duration="1.577" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko03" src="assets/voice-clean/c03.wav" data-start="9.806" data-duration="2.039" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko04" src="assets/voice-clean/c04.wav" data-start="13.111" data-duration="1.454" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko05" src="assets/voice-clean/c05.wav" data-start="15.682" data-duration="2.128" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko06" src="assets/voice-clean/c06.wav" data-start="19.157" data-duration="1.778" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko07" src="assets/voice-clean/c07.wav" data-start="22.338" data-duration="1.784" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko09" src="assets/voice-clean/c09.wav" data-start="28.731" data-duration="2.103" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko10" src="assets/voice-clean/c10.wav" data-start="33.134" data-duration="2.330" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko11" src="assets/voice-clean/c11.wav" data-start="36.520" data-duration="2.850" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+
+  <!-- ==================== AUDIO TRACK 2: 원어민 미국식 [ʔn̩] (Olin, 10회) ==================== -->
+  <audio id="en02" src="assets/voice-en-clean/button.wav" data-start="8.950" data-duration="0.476" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en03" src="assets/voice-en-clean/button.wav" data-start="12.255" data-duration="0.476" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en04" src="assets/voice-en-clean/curtain.wav" data-start="14.745" data-duration="0.557" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en05" src="assets/voice-en-clean/curtain.wav" data-start="18.220" data-duration="0.557" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en06" src="assets/voice-en-clean/mountain.wav" data-start="21.115" data-duration="0.843" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en07" src="assets/voice-en-clean/mountain.wav" data-start="24.532" data-duration="0.843" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en08a" src="assets/voice-en-clean/button.wav" data-start="25.755" data-duration="0.476" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en08b" src="assets/voice-en-clean/curtain.wav" data-start="26.591" data-duration="0.557" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en08c" src="assets/voice-en-clean/mountain.wav" data-start="27.508" data-duration="0.843" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en10" src="assets/voice-en-clean/important.wav" data-start="35.644" data-duration="0.496" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+
+  <!-- ==================== AUDIO TRACK 3: 촉각 스튜디오 크래프트 SFX ==================== -->
+  <audio id="sfx03" src="assets/sfx/breath-lock.wav" data-start="11.965" data-duration="0.240" data-track-index="3" data-volume="0.90"></audio>
+  <audio id="sfx05" src="assets/sfx/breath-lock.wav" data-start="17.930" data-duration="0.240" data-track-index="3" data-volume="0.90"></audio>
+  <audio id="sfx07" src="assets/sfx/breath-lock.wav" data-start="24.242" data-duration="0.240" data-track-index="3" data-volume="0.90"></audio>
+  <audio id="sfx09" src="assets/sfx/gate-tick.wav" data-start="31.014" data-duration="1.500" data-track-index="3" data-volume="0.85"></audio>
+  <audio id="sfx10" src="assets/sfx/stamp-pass.wav" data-start="32.824" data-duration="0.360" data-track-index="3" data-volume="0.95"></audio>
+
+  <!-- ==================== AUDIO TRACK 4: BGM (6% 기본값 + voiceover 자동 더킹) ==================== -->
+  <audio id="bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="40.0" data-track-index="4" data-volume="0.06" data-fade-out="1.2" data-fx-carve='{"enabled":true,"sources":["voiceover"],"strength":0.78}'></audio>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// 전 컷 0.14s 부드러운 크로스페이드 + 직전 컷 즉시 퇴장(autoAlpha: 0)으로 DOM 겹침/대비 오탐 방지
+const cuts = [
+  ['#scene-00', '#scene-01', 3.741],
+  ['#scene-01', '#scene-02', 7.073],
+  ['#scene-02', '#scene-03', 9.686],
+  ['#scene-03', '#scene-04', 12.991],
+  ['#scene-04', '#scene-05', 15.562],
+  ['#scene-05', '#scene-06', 19.037],
+  ['#scene-06', '#scene-07', 22.218],
+  ['#scene-07', '#scene-08', 25.635],
+  ['#scene-08', '#scene-09', 28.611],
+  ['#scene-09', '#scene-10', 32.774],
+  ['#scene-10', '#scene-11', 36.400],
+];
+for (const [prevSel, nextSel, t] of cuts) {
+  tl.set(nextSel, { visibility: 'hidden', opacity: 0 }, 0);
+  tl.fromTo(nextSel, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.14, ease: 'none' }, Math.max(0, t - 0.07));
+  tl.to(prevSel, { autoAlpha: 0, duration: 0.06, ease: 'none' }, t + 0.07);
+}
+
+function nasalRipple(r1, r2, t) {
+  tl.fromTo(r1, { scale: 0.35, opacity: 0.92 }, { scale: 2.35, opacity: 0, duration: 0.56, ease: 'power2.out' }, t);
+  tl.fromTo(r2, { scale: 0.25, opacity: 0.80 }, { scale: 2.85, opacity: 0, duration: 0.64, ease: 'power2.out' }, t + 0.08);
+}
+
+// CUT 0 (0.000 ~ 3.741): 황동 엘리베이터 버튼 충격 훅
+tl.fromTo('#c0-bg', { scale: 1.02 }, { scale: 1.09, duration: 3.741, ease: 'none' }, 0);
+tl.fromTo('#c0-card', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out' }, 0.12);
+tl.fromTo('#c0-strike', { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: 'power3.out' }, 0.92);
+tl.fromTo('#c0-arr', { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.22, ease: 'power2.out' }, 1.10);
+tl.fromTo('#c0-right', { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.34, ease: 'power3.out' }, 1.22);
+
+// CUT 1 (3.741 ~ 7.073): 3D 아치 '입 잠금 -> 코 통과' 물리 도해
+tl.fromTo('#c1-bg', { scale: 1.07 }, { scale: 1.00, duration: 3.332, ease: 'power1.out' }, 3.741);
+tl.fromTo('#c1-board', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.36, ease: 'power3.out' }, 3.82);
+tl.fromTo('#c1-t', { scale: 0.88, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.30, ease: 'power3.out' }, 3.92);
+tl.fromTo('#c1-n', { scale: 0.88, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.30, ease: 'power3.out' }, 4.18);
+tl.fromTo('#c1-s1', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 4.52);
+tl.fromTo('#c1-s2', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 5.18);
+tl.fromTo('#c1-foot', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: 'power2.out' }, 5.65);
+
+// CUT 2 (7.073 ~ 9.686): 1/4 BUTTON 분리 (en02 @ 8.950s)
+tl.fromTo('#c2-bg', { scale: 1.00 }, { scale: 1.06, duration: 2.613, ease: 'none' }, 7.073);
+tl.fromTo('#c2-card', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' }, 7.16);
+tl.to('#c2-t', { scale: 1.15, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 8.950);
+
+// CUT 3 (9.686 ~ 12.991): 1/4 BUTTON 0.15초 호흡 멈춤(@11.965s) + 코 파동 + 버·은(@12.255s)
+tl.fromTo('#c3-morph', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.30, ease: 'power3.out' }, 9.78);
+tl.fromTo('#c3-card', { opacity: 0, y: 26, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: 'power3.out' }, 10.10);
+tl.fromTo('#c3-slash', { scaleX: 0 }, { scaleX: 1, duration: 0.16, ease: 'power3.out' }, 11.965);
+tl.fromTo('#c3-t', { scale: 1, opacity: 1 }, { scale: 0.78, opacity: 0.78, duration: 0.18, ease: 'power2.inOut' }, 11.965);
+nasalRipple('#c3-r1', '#c3-r2', 12.085);
+tl.to('#c3-word', { scale: 1.14, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 12.255);
+
+// CUT 4 (12.991 ~ 15.562): 2/4 CURTAIN 오트밀 린넨 프레임 (en04 @ 14.745s)
+tl.fromTo('#c4-bg', { scale: 1.16 }, { scale: 1.23, duration: 2.571, ease: 'none' }, 12.991);
+tl.fromTo('#c4-card', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' }, 13.08);
+tl.to('#c4-t', { scale: 1.15, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 14.745);
+
+// CUT 5 (15.562 ~ 19.037): 2/4 CURTAIN 0.15초 호흡 멈춤(@17.930s) + 코 파동 + 커·은(@18.220s)
+tl.fromTo('#c5-morph', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.30, ease: 'power3.out' }, 15.66);
+tl.fromTo('#c5-card', { opacity: 0, y: 26, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: 'power3.out' }, 15.98);
+tl.fromTo('#c5-slash', { scaleX: 0 }, { scaleX: 1, duration: 0.16, ease: 'power3.out' }, 17.930);
+tl.fromTo('#c5-t', { scale: 1, opacity: 1 }, { scale: 0.78, opacity: 0.78, duration: 0.18, ease: 'power2.inOut' }, 17.930);
+nasalRipple('#c5-r1', '#c5-r2', 18.050);
+tl.to('#c5-word', { scale: 1.14, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 18.220);
+
+// CUT 6 (19.037 ~ 22.218): 3/4 MOUNTAIN 틸트시프트 설산 (en06 @ 21.115s)
+tl.fromTo('#c6-bg', { y: 18, scale: 1.04 }, { y: -14, scale: 1.08, duration: 3.181, ease: 'none' }, 19.037);
+tl.fromTo('#c6-card', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' }, 19.14);
+tl.to('#c6-t', { scale: 1.15, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 21.115);
+
+// CUT 7 (22.218 ~ 25.635): 3/4 MOUNTAIN 0.15초 호흡 멈춤(@24.242s) + 코 파동 + 마운·은(@24.532s)
+tl.fromTo('#c7-morph', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.30, ease: 'power3.out' }, 22.32);
+tl.fromTo('#c7-card', { opacity: 0, y: 26, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: 'power3.out' }, 22.62);
+tl.fromTo('#c7-slash', { scaleX: 0 }, { scaleX: 1, duration: 0.16, ease: 'power3.out' }, 24.242);
+tl.fromTo('#c7-t', { scale: 1, opacity: 1 }, { scale: 0.78, opacity: 0.78, duration: 0.18, ease: 'power2.inOut' }, 24.242);
+nasalRipple('#c7-r1', '#c7-r2', 24.362);
+tl.to('#c7-word', { scale: 1.14, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 24.532);
+
+// CUT 8 (25.635 ~ 28.611): 무나레이션 3단 촉각 리듬 스트립 (25.755 / 26.591 / 27.508)
+tl.set(['#c8-a', '#c8-b', '#c8-c'], { opacity: 0.45, scale: 0.96 }, 25.635);
+tl.to('#c8-a', { opacity: 1, scale: 1.03, duration: 0.16, ease: 'power2.out' }, 25.74);
+tl.to('#c8-a', { opacity: 0.62, scale: 0.98, duration: 0.16, ease: 'power1.in' }, 26.42);
+tl.to('#c8-b', { opacity: 1, scale: 1.03, duration: 0.16, ease: 'power2.out' }, 26.57);
+tl.to('#c8-b', { opacity: 0.62, scale: 0.98, duration: 0.16, ease: 'power1.in' }, 27.34);
+tl.to('#c8-c', { opacity: 1, scale: 1.03, duration: 0.16, ease: 'power2.out' }, 27.49);
+
+// CUT 9 (28.611 ~ 32.774): 3D 아치 통과 게이트 1.5초 챌린지 (sfx09 @ 31.014s, 1.500s)
+tl.fromTo('#c9-bg', { scale: 1.00 }, { scale: 1.11, duration: 4.163, ease: 'none' }, 28.611);
+tl.fromTo('#c9-timer', { opacity: 0, scale: 0.90 }, { opacity: 1, scale: 1, duration: 0.34, ease: 'power3.out' }, 28.72);
+tl.fromTo('#c9-card', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.36, ease: 'power3.out' }, 28.88);
+tl.fromTo('#c9-ring', { strokeDashoffset: 0 }, { strokeDashoffset: 1, duration: 1.500, ease: 'none' }, 31.014);
+tl.to('#c9-t', { scale: 1.12, duration: 0.25, yoyo: true, repeat: 5, ease: 'sine.inOut' }, 31.014);
+
+// CUT 10 (32.774 ~ 36.400): 버밀리온 스탬프 통과 페이오프 (sfx10 @ 32.824s, en10 @ 35.644s)
+tl.fromTo('#c10-bg', { scale: 1.09 }, { scale: 1.02, duration: 3.626, ease: 'power2.out' }, 32.774);
+tl.fromTo('#c10-card', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 32.82);
+tl.fromTo('#c10-stamp', { opacity: 0, scale: 1.30 }, { opacity: 1, scale: 1, duration: 0.24, ease: 'power3.out' }, 32.824);
+tl.to('#c10-word', { scale: 1.14, duration: 0.18, yoyo: true, repeat: 1, ease: 'power2.out' }, 35.644);
+
+// CUT 11 (36.400 ~ 40.000): 크림 페이퍼 형광펜 체크리스트 + 고정 댓글 CTA
+tl.fromTo('#c11-r0', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.26, ease: 'power3.out' }, 36.52);
+tl.fromTo('#c11-h0', { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: 'power2.out' }, 36.70);
+tl.fromTo('#c11-r1', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.26, ease: 'power3.out' }, 36.74);
+tl.fromTo('#c11-h1', { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: 'power2.out' }, 36.92);
+tl.fromTo('#c11-r2', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.26, ease: 'power3.out' }, 36.96);
+tl.fromTo('#c11-h2', { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: 'power2.out' }, 37.14);
+tl.fromTo('#c11-r3', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.26, ease: 'power3.out' }, 37.18);
+tl.fromTo('#c11-h3', { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: 'power2.out' }, 37.36);
+tl.fromTo('#c11-cta', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' }, 37.62);
+tl.to('#c11-cta', { scale: 1.04, duration: 0.30, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 38.10);
+
+window.__timelines = window.__timelines || {};
+window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

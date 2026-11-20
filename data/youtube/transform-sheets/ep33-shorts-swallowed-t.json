@@ -3,7 +3,7 @@
   "episodeId": "ep33-shorts-swallowed-t",
   "sourceVideoId": "49VA7-b8oyc",
   "createdAt": "2026-11-20",
-  "status": "draft",
+  "status": "approved",
   "format": "SHORTS",
   "topic": "버튼·커튼·마운틴·임포턴트 — 한국인은 다 '트'를 읽는데 미국 원어민은 '트'를 삼키고 코로 넘기는 일상 단어 네 가지",
   "selfCritique": {
@@ -545,5 +545,11 @@
     "시트 승인(Gate 1) 후 videos/ep33-shorts-swallowed-t/FACT-CHECK.md 표 작성 (Merriam-Webster · Cambridge US 발음기호 및 미국 일상 회화 성문 막힘+비강 파열 [ʔn̩] 대조: button, curtain, mountain, important 및 보너스 certain, written, cotton, kitten, 영국식·또박또박 발음 한계 명시)",
     "FACT-CHECK 통과 후 컷 단위 한국어 TTS(AI Studio Gemini TTS, 끝소리 늘어짐 방지 Style 지시) · 원어민 단어 음성(실제 미국식 코 넘김 소리 확인) · 0.15초 호흡 멈춤/통과 스탬프 SFX 생성 → whisper words.json 실측으로 컷 경계 조정",
     "신규 AI Studio Lyria 3.5 BGM 1곡 생성(무보컬·무워터마크) 및 HyperFrames 1080×1920 30fps 조립(가로 정중앙 대칭) → Playwright 프레임 검수 후 렌더 승인(Gate 2)"
+  ],
+  "titlePicks": [
+    "버튼과 커튼, 원어민은 '트'를 아예 안 읽고 코로 넘깁니다"
+  ],
+  "thumbnailPicks": [
+    "images/ep33-shorts-swallowed-t/thumb-A.jpg"
   ]
 }

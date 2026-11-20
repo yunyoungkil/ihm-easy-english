@@ -1,0 +1,376 @@
+{
+  "measuredAt": "2026-11-20T12:12:09.117Z",
+  "totalSuggestedDuration": 40,
+  "voice": {
+    "c00": {
+      "file": "assets/voice-clean/c00.wav",
+      "duration": 3.361
+    },
+    "c01": {
+      "file": "assets/voice-clean/c01.wav",
+      "duration": 2.952
+    },
+    "c02": {
+      "file": "assets/voice-clean/c02.wav",
+      "duration": 1.577
+    },
+    "c03": {
+      "file": "assets/voice-clean/c03.wav",
+      "duration": 2.039
+    },
+    "c04": {
+      "file": "assets/voice-clean/c04.wav",
+      "duration": 1.454
+    },
+    "c05": {
+      "file": "assets/voice-clean/c05.wav",
+      "duration": 2.128
+    },
+    "c06": {
+      "file": "assets/voice-clean/c06.wav",
+      "duration": 1.778
+    },
+    "c07": {
+      "file": "assets/voice-clean/c07.wav",
+      "duration": 1.784
+    },
+    "c09": {
+      "file": "assets/voice-clean/c09.wav",
+      "duration": 2.103
+    },
+    "c10": {
+      "file": "assets/voice-clean/c10.wav",
+      "duration": 2.33
+    },
+    "c11": {
+      "file": "assets/voice-clean/c11.wav",
+      "duration": 2.85
+    }
+  },
+  "voiceEn": {
+    "button": {
+      "file": "assets/voice-en-clean/button.wav",
+      "duration": 0.476
+    },
+    "curtain": {
+      "file": "assets/voice-en-clean/curtain.wav",
+      "duration": 0.557
+    },
+    "mountain": {
+      "file": "assets/voice-en-clean/mountain.wav",
+      "duration": 0.843
+    },
+    "important": {
+      "file": "assets/voice-en-clean/important.wav",
+      "duration": 0.496
+    }
+  },
+  "sfx": {
+    "breath-lock": {
+      "file": "assets/sfx/breath-lock.wav",
+      "duration": 0.24,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -25.6,
+      "maxDb": -9.9
+    },
+    "gate-tick": {
+      "file": "assets/sfx/gate-tick.wav",
+      "duration": 1.5,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -31.7,
+      "maxDb": -11.2
+    },
+    "stamp-pass": {
+      "file": "assets/sfx/stamp-pass.wav",
+      "duration": 0.36,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -22.4,
+      "maxDb": -7.9
+    }
+  },
+  "bgm": {
+    "track": {
+      "file": "assets/bgm/track.mp3",
+      "duration": 90.385,
+      "sampleRate": 44100,
+      "channels": 2,
+      "source": "public/audio/BGM 35/12.Get Outside! - Jason Farnham.mp3",
+      "meanDb": -14.7,
+      "maxDb": 0
+    }
+  },
+  "cuts": [
+    {
+      "cut": 0,
+      "t": 0,
+      "duration": 3.741,
+      "sheetT": 0,
+      "sheetDuration": 3.6,
+      "ko": {
+        "id": "c00",
+        "offset": 0.12,
+        "duration": 3.361
+      },
+      "sfx": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 3.481
+    },
+    {
+      "cut": 1,
+      "t": 3.741,
+      "duration": 3.332,
+      "sheetT": 3.6,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c01",
+        "offset": 0.12,
+        "duration": 2.952
+      },
+      "sfx": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 3.072
+    },
+    {
+      "cut": 2,
+      "t": 7.073,
+      "duration": 2.613,
+      "sheetT": 7.4,
+      "sheetDuration": 2.8,
+      "ko": {
+        "id": "c02",
+        "offset": 0.12,
+        "duration": 1.577
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "button",
+          "offset": 1.877,
+          "duration": 0.476
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.353
+    },
+    {
+      "cut": 3,
+      "t": 9.686,
+      "duration": 3.305,
+      "sheetT": 10.2,
+      "sheetDuration": 3.9,
+      "ko": {
+        "id": "c03",
+        "offset": 0.12,
+        "duration": 2.039
+      },
+      "sfx": {
+        "id": "breath-lock",
+        "offset": 2.279,
+        "duration": 0.24
+      },
+      "en": [
+        {
+          "id": "button",
+          "offset": 2.569,
+          "duration": 0.476
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.045
+    },
+    {
+      "cut": 4,
+      "t": 12.991,
+      "duration": 2.571,
+      "sheetT": 14.1,
+      "sheetDuration": 2.8,
+      "ko": {
+        "id": "c04",
+        "offset": 0.12,
+        "duration": 1.454
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "curtain",
+          "offset": 1.754,
+          "duration": 0.557
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.311
+    },
+    {
+      "cut": 5,
+      "t": 15.562,
+      "duration": 3.475,
+      "sheetT": 16.9,
+      "sheetDuration": 3.9,
+      "ko": {
+        "id": "c05",
+        "offset": 0.12,
+        "duration": 2.128
+      },
+      "sfx": {
+        "id": "breath-lock",
+        "offset": 2.368,
+        "duration": 0.24
+      },
+      "en": [
+        {
+          "id": "curtain",
+          "offset": 2.658,
+          "duration": 0.557
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.215
+    },
+    {
+      "cut": 6,
+      "t": 19.037,
+      "duration": 3.181,
+      "sheetT": 20.8,
+      "sheetDuration": 2.9,
+      "ko": {
+        "id": "c06",
+        "offset": 0.12,
+        "duration": 1.778
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "mountain",
+          "offset": 2.078,
+          "duration": 0.843
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.921
+    },
+    {
+      "cut": 7,
+      "t": 22.218,
+      "duration": 3.417,
+      "sheetT": 23.7,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c07",
+        "offset": 0.12,
+        "duration": 1.784
+      },
+      "sfx": {
+        "id": "breath-lock",
+        "offset": 2.024,
+        "duration": 0.24
+      },
+      "en": [
+        {
+          "id": "mountain",
+          "offset": 2.314,
+          "duration": 0.843
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.157
+    },
+    {
+      "cut": 8,
+      "t": 25.635,
+      "duration": 2.976,
+      "sheetT": 27.5,
+      "sheetDuration": 3.8,
+      "ko": null,
+      "sfx": null,
+      "en": [
+        {
+          "id": "button",
+          "offset": 0.12,
+          "duration": 0.476
+        },
+        {
+          "id": "curtain",
+          "offset": 0.956,
+          "duration": 0.557
+        },
+        {
+          "id": "mountain",
+          "offset": 1.873,
+          "duration": 0.843
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.716
+    },
+    {
+      "cut": 9,
+      "t": 28.611,
+      "duration": 4.163,
+      "sheetT": 31.3,
+      "sheetDuration": 5.3,
+      "ko": {
+        "id": "c09",
+        "offset": 0.12,
+        "duration": 2.103
+      },
+      "sfx": {
+        "id": "gate-tick",
+        "offset": 2.403,
+        "duration": 1.5
+      },
+      "en": [],
+      "window": 1.5,
+      "audioBudget": 3.903
+    },
+    {
+      "cut": 10,
+      "t": 32.774,
+      "duration": 3.626,
+      "sheetT": 36.6,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c10",
+        "offset": 0.36,
+        "duration": 2.33
+      },
+      "sfx": {
+        "id": "stamp-pass",
+        "offset": 0.05,
+        "duration": 0.36
+      },
+      "en": [
+        {
+          "id": "important",
+          "offset": 2.87,
+          "duration": 0.496
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.366
+    },
+    {
+      "cut": 11,
+      "t": 36.4,
+      "duration": 3.6,
+      "sheetT": 40.4,
+      "sheetDuration": 3.6,
+      "ko": {
+        "id": "c11",
+        "offset": 0.12,
+        "duration": 2.85
+      },
+      "sfx": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 2.97
+    }
+  ]
+}

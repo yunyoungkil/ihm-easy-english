@@ -59,7 +59,7 @@ EP24 두 번째 쇼츠 BGM을 `aistudio.google.com/new_music?model=lyria-3.5`에
 - **무료 생성 및 출력 규격**: API 키를 선택하지 않은 웹 플레이그라운드(`key_off`)에서 무료로 생성되며, **44.1kHz 스테레오 `192 kbps` MP3**가 나온다(같은 날 비교한 `flowmusic.app` `128~133 kbps`보다 음질이 높음). 내장된 ID3 C2PA 매니페스트(~5.5 KB)는 `ffmpeg -i raw.mp3 -map 0:a:0 -c:a copy -map_metadata -1 track.mp3`로 떼어 깔끔한 오디오 스트림만 남긴다. 오디오 워터마크 없음.
 - **`Text` 모드 주의 (부정어 역효과 및 길이 초과)**: `Text` 모드에서 `"No vocals, no humming"` 같은 부정어를 적으면 오히려 모델이 단어를 인식해 1분 이후 구간(1차 테스트 `1:07~1:44`)에 허밍(`"음~ 음~"`)이 섞일 수 있다.
 - **`Composer` 모드 + 긍정문 필수 (검증된 해법)**: **`Composer` 모드**에서 구간별 블록(`Intro 0:00–0:06`, `Verse 0:06–0:31`, `Outro 0:31–0:38` 등)을 나누고 `"Instrumental only, 95 BPM, solo felt piano with soft muted drums..."`처럼 **원하는 악기·무드만 긍정문으로 적으면** `"vocals"`/`"humming"` 금지어 없이 62.25초 전 구간 순수 반주로 안정 생성됨을 확인했다. 요청 길이(38초)보다 길게(약 62초) 나올 수 있으나 초입이 부드럽고 음량이 균일(`0~33초` 평균 `-14.1 dB`, `peak 0.0 dB`)해 기존 쇼츠 `data-volume="0.06"` 및 `carve.mjs`와 바로 맞물린다.
-- **웹 UI 자동화 선택자**: 빈 화면에서는 `button[data-testid="text-input"]`을 눌러 입력란을 열고, 생성 버튼은 `button.ctrl-enter-submit`을 사용한다. `Composer`의 시간 입력칸은 `.fill()` 대신 좌표 클릭(`boundingBox()` + `mouse.click()`) 후 `Ctrl+A` → `insertText`가 안정적이다.
+- **웹 UI 자동화 선택자**: 빈 화면에서는 `button[data-testid="text-input"]`을 눌러 입력란을 열고, 생성 버튼은 `button.ctrl-enter-submits`(끝에 s, 2026-11-21 확인)를 누른다(Composer 칸에서는 Ctrl+Enter가 먹지 않는다). `Composer`의 시간 입력칸은 `.fill()` 대신 좌표 클릭(`boundingBox()` + `mouse.click()`) 후 `Ctrl+A` → `insertText`가 안정적이다.
 
 **팁**:
 - 형용사·부사로 구체적으로 묘사할 것("dramatically", "slowly" 등) — 모호하면 모델이 순한

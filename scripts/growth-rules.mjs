@@ -54,7 +54,7 @@ export function decideSampleSize(impressions) {
 }
 
 const BRIEFING_INSTRUCTION = [
-  '[시작 브리핑] 이 대화의 첫 답변은 자율 브리핑으로 연다.',
+  '[시작 브리핑] 오늘 첫 새 채팅(하루 1회)의 첫 답변은 자율 브리핑으로 연다.',
   '단일 원본: knowledge/playbooks/briefing/00-autonomous-briefing.md (모호할 때만 확인, 평소엔 스킬/지침 문서 열지 않음).',
   '시작 문구: "**업데이트를 요약해서 먼저 보고드립니다.** (동기화 시각 · 통계 기준일)".',
   '우선순위: ① 채널·콘텐츠·성장 현실(성과·정산·다음 슬롯·승인 대기) → ② AI 데이터 기반 자율 보수·진화(자동 보수 결과 또는 진행할 삭제·수정·업그레이드·기능 추가의 근거) → ③ 시스템/Git/문서 예외(문제·변화 있을 때만, 정상·변화 없으면 생략).',
@@ -226,12 +226,39 @@ export function needsSync(syncedAt, now = new Date(), hours = 12) {
   return !Number.isFinite(at) || now - at > hours * 60 * 60 * 1000;
 }
 
+// KST(UTC+9) 기준 YYYY-MM-DD 날짜 문자열. 유효하지 않으면 null.
+export function kstDateOf(value) {
+  const at = value instanceof Date ? value.getTime() : timeOf(value);
+  if (!Number.isFinite(at)) return null;
+  return new Date(at + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+// 하루 1회(KST 날짜 기준) 실행 필요 여부. 기록이 없거나 오늘(KST) 아직 실행하지 않았으면 true.
+export function needsDailyRun(lastAt, now = new Date()) {
+  const lastDay = kstDateOf(lastAt);
+  const today = kstDateOf(now);
+  return !lastDay || !today || lastDay !== today;
+}
+
 const kstLabel = (iso) => {
   const at = timeOf(iso);
   if (!Number.isFinite(at)) return '기록 없음';
   const d = new Date(at + 9 * 60 * 60 * 1000);
   return `${d.getUTCMonth() + 1}/${d.getUTCDate()} ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
 };
+
+// 같은 날 이미 시작 브리핑·데이터 수집을 마친 뒤 여는 새 채팅용 초경량 안내(2026-11-20 사용자 확정).
+export function buildContinuationContext({lastBriefingAt = null, handoffNote = null, now = new Date()} = {}) {
+  const today = kstDateOf(now) || '오늘';
+  const doneAt = lastBriefingAt ? kstLabel(lastBriefingAt) : today;
+  const lines = [
+    `[작업 이어가기] 오늘(${today}) 시작 브리핑과 데이터 수집은 이미 완료했다(${doneAt}).`,
+    '브리핑 요약("업데이트를 요약해서 먼저 보고드립니다.")과 데이터 수집을 반복하지 말고, knowledge/handoff/LATEST.md만 확인해 사용자 요청으로 바로 들어간다.',
+    '사용자가 "브리핑"·"동기화"·"현황 업데이트"를 명시적으로 요청하면 `npm run briefing -- --force`로 즉시 최신화한다.',
+  ];
+  if (handoffNote) lines.push(handoffNote);
+  return lines.join('\n');
+}
 const signed = (n) => (n > 0 ? `+${n}` : `${n}`);
 const round2 = (n) => Math.round(Number(n) * 100) / 100;
 

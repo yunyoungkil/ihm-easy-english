@@ -1,17 +1,56 @@
 #!/usr/bin/env node
-// 시작 브리핑 전에, 마지막 동기화가 30분보다 오래됐으면(2026-11-20 개정, 예약 작업 없이 브리핑 때 최신화) 대시보드에 동기화를 요청한다(2026-11-09 사용자 결정).
-// 세션 시작 훅(session-briefing-hook.mjs)이 먼저 부르고, 그때 대시보드가 꺼져 있었으면
-// 대시보드를 켠 뒤 `npm run briefing:sync`로 다시 부른다. 유튜브 사용량을 조금 쓰지만 돈은 들지 않는다.
+// 시작 브리핑 전에, 오늘(KST) 아직 동기화하지 않았으면 하루 1회만 대시보드·스튜디오 지표를 최신화한다(2026-11-20 사용자 확정: 하루 1회 자동 브리핑·수집).
+// 세션 시작 훅(session-briefing-hook.mjs)과 npm run briefing이 함께 쓰며,
+// 사용자가 명시적으로 요청할 때만 --force로 같은 날 재수집한다.
 // 대시보드 서버(request-guard)는 Origin이 없는 터미널 요청을 허용한다.
 
 import {execFile} from 'node:child_process';
-import {readFile} from 'node:fs/promises';
+import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {needsSync} from './growth-rules.mjs';
+import {kstDateOf, needsDailyRun} from './growth-rules.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
-const STUDIO_SYNC_HOURS = 6; // allow-literal: 스튜디오 지표(계속 시청함·노출·CTR) 자동 갱신 주기(6시간)
+export const DEFAULT_BRIEFING_STATE_PATH = join(projectDir, 'data', 'youtube', 'briefing-state.json');
+
+export async function readBriefingState(statePath = DEFAULT_BRIEFING_STATE_PATH) {
+  try {
+    const raw = await readFile(statePath, 'utf8');
+    const parsed = JSON.parse(raw.replace(/^\uFEFF/, ''));
+    return parsed && typeof parsed === 'object' ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function hasBriefedToday({
+  now = new Date(),
+  statePath = DEFAULT_BRIEFING_STATE_PATH,
+  state = undefined,
+} = {}) {
+  const current = state !== undefined ? state : await readBriefingState(statePath);
+  const today = kstDateOf(now);
+  if (!current || !today) return false;
+  const lastDay = current.lastBriefingDate || kstDateOf(current.lastBriefingAt);
+  return Boolean(lastDay && lastDay === today);
+}
+
+export async function recordBriefingDone({
+  now = new Date(),
+  statePath = DEFAULT_BRIEFING_STATE_PATH,
+} = {}) {
+  const payload = {
+    lastBriefingDate: kstDateOf(now),
+    lastBriefingAt: now.toISOString(),
+  };
+  try {
+    await mkdir(dirname(statePath), {recursive: true});
+    await writeFile(statePath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+  } catch {
+    // 상태 파일 저장 실패가 브리핑을 막지 않게 둔다.
+  }
+  return payload;
+}
 
 const readLatestSyncedAt = () =>
   readFile(join(projectDir, 'data', 'youtube', 'analytics-latest.json'), 'utf8')
@@ -46,10 +85,11 @@ export async function syncIfStale({
   now = new Date(),
   port = 3001,
   timeoutMs = 25000,
+  force = false,
   readSyncedAt = readLatestSyncedAt,
   fetch = globalThis.fetch,
 } = {}) {
-  if (!needsSync(await readSyncedAt(), now, 0.5)) return '30분 안에 동기화돼 있어 생략';
+  if (!force && !needsDailyRun(await readSyncedAt(), now)) return '오늘 이미 동기화돼 있어 생략';
   const base = `http://localhost:${port}`;
   try {
     const ping = await fetch(`${base}/`, {signal: AbortSignal.timeout(2000)});
@@ -68,17 +108,17 @@ export async function syncIfStale({
 }
 
 /**
- * 스튜디오 지표(계속 시청함·노출·CTR)가 hours시간보다 오래됐으면 studio-export.mjs로 자동 최신화한다(2026-11-20).
+ * 스튜디오 지표(계속 시청함·노출·CTR)가 오늘(KST) 아직 수집되지 않았으면 studio-export.mjs로 하루 1회 자동 최신화한다(2026-11-20).
  * 실패·타임아웃 시 브리핑을 막지 않고 마지막 수집본으로 폴백한다.
  */
 export async function syncStudioMetricsIfStale({
   now = new Date(),
-  hours = STUDIO_SYNC_HOURS,
+  force = false,
   timeoutMs = 120000, // allow-literal: 스튜디오 CSV 2기간 내려받기 상한(120초)
   readFetchedAt = readLatestStudioFetchedAt,
   collect = null,
 } = {}) {
-  if (!needsSync(await readFetchedAt(), now, hours)) return `${hours}시간 안에 스튜디오 지표 수집됨 — 생략`;
+  if (!force && !needsDailyRun(await readFetchedAt(), now)) return '오늘 이미 스튜디오 지표 수집됨 — 생략';
   try {
     if (collect) {
       let timer;
@@ -111,16 +151,19 @@ export async function syncStudioMetricsIfStale({
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  const force = process.argv.slice(2).includes('--force');
   // 훅이 없는 에이전트(Gemini 등)는 이 명령으로 브리핑을 시작하므로, 여기서 커밋 전 자동 검사도 켜 둔다(2026-11-12).
   const {ensureGitHooks} = await import('./ensure-git-hooks.mjs');
   if (ensureGitHooks() === 'set') console.log('커밋 전 자동 검사를 켰습니다(.githooks)');
   const [apiSync, studioSync] = await Promise.all([
-    syncIfStale({timeoutMs: 120000}),
-    syncStudioMetricsIfStale({timeoutMs: 120000}),
+    syncIfStale({timeoutMs: 120000, force}),
+    syncStudioMetricsIfStale({timeoutMs: 120000, force}),
   ]);
   console.log(apiSync);
   console.log(studioSync);
-  // 공개 후 자동 사후 관리(2026-11-20): 재생목록 교정 + 고정 댓글 + 쇼츠 관련 동영상 자동 연결
-  const {runPostPublishPipeline} = await import('./post-publish-pipeline.mjs');
-  await runPostPublishPipeline().catch((err) => console.warn('[BriefingSync] 사후 관리 파이프라인 경고:', err.message));
+  // 공개 후 자동 사후 관리(2026-11-20): 새로 동기화했거나 강제 실행일 때만 수행
+  if (apiSync === '방금 동기화함' || force) {
+    const {runPostPublishPipeline} = await import('./post-publish-pipeline.mjs');
+    await runPostPublishPipeline().catch((err) => console.warn('[BriefingSync] 사후 관리 파이프라인 경고:', err.message));
+  }
 }

@@ -7,9 +7,21 @@ import {existsSync, readdirSync} from 'node:fs';
 import {readFile} from 'node:fs/promises';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {syncIfStale, syncStudioMetricsIfStale} from './briefing-sync.mjs';
+import {
+  DEFAULT_BRIEFING_STATE_PATH,
+  hasBriefedToday,
+  readBriefingState,
+  recordBriefingDone,
+  syncIfStale,
+  syncStudioMetricsIfStale,
+} from './briefing-sync.mjs';
 import {ensureGitHooks} from './ensure-git-hooks.mjs';
-import {buildBriefingContext, extractNextActions, renderSessionStartOutput} from './growth-rules.mjs';
+import {
+  buildBriefingContext,
+  buildContinuationContext,
+  extractNextActions,
+  renderSessionStartOutput,
+} from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
 import {setupAutomationChrome} from './setup-automation-chrome.mjs';
 
@@ -40,6 +52,24 @@ const readNextActions = () =>
 // 커밋 전 자동 검사(.githooks)는 PC마다 켜야 해서 대화를 시작할 때마다 맞춘다(2026-11-12).
 ensureGitHooks();
 
+const skipSync = process.env.BRIEFING_NO_SYNC === '1';
+const force = process.env.BRIEFING_FORCE === '1';
+const statePath = process.env.BRIEFING_STATE_FILE || DEFAULT_BRIEFING_STATE_PATH;
+const checkDaily = !force && (!skipSync || Boolean(process.env.BRIEFING_STATE_FILE));
+
+// 하루 1회 자동 브리핑·수집(2026-11-20 사용자 확정): 오늘 이미 브리핑을 마쳤으면 수집·점검 없이 작업 이어가기 안내만 넘긴다.
+if (checkDaily) {
+  const state = await readBriefingState(statePath);
+  if (await hasBriefedToday({state})) {
+    const continuation = buildContinuationContext({
+      lastBriefingAt: state?.lastBriefingAt,
+      handoffNote: handoffLine(latestHandoff(projectDir)),
+    });
+    process.stdout.write(`${renderSessionStartOutput(continuation)}\n`);
+    process.exit(0);
+  }
+}
+
 // 아웃라이어 리포트 캡처는 깃으로 오지만 빠진 것은 PC에서 채운다(2026-11-12 사용자: 다른 PC에서도 작업한다).
 // 로컬 캡처 폴더가 비어 있거나 없을 때만 백그라운드로 띄워 불필요한 중복 실행을 막는다.
 const framesDir = join(projectDir, 'data', 'youtube', 'outlier-frames');
@@ -49,13 +79,12 @@ if (!existsSync(framesDir) || readdirSync(framesDir).length === 0) {
   } catch { /* 대화 시작은 막지 않는다 */ }
 }
 
-// 마지막 동기화가 30분(스튜디오 지표 6시간)보다 오래됐으면 먼저 동기화한다(2026-11-20 개정). 실패해도 대화 시작은 막지 않는다.
-const skipSync = process.env.BRIEFING_NO_SYNC === '1';
+// 오늘(KST) 아직 동기화하지 않았으면 하루 1회 먼저 동기화한다(2026-11-20 개정). 실패해도 대화 시작은 막지 않는다.
 const [syncNote, studioSyncNote] = skipSync
   ? ['동기화 생략(테스트)', '스튜디오 수집 생략(테스트)']
   : await Promise.all([
-      syncIfStale().catch((err) => `동기화 확인 실패(${err.message})`),
-      syncStudioMetricsIfStale({timeoutMs: 42000}).catch((err) => `스튜디오 지표 확인 실패(${err.message})`), // allow-literal: SessionStart 훅 60초 한도 내 안전 타임아웃
+      syncIfStale({force}).catch((err) => `동기화 확인 실패(${err.message})`),
+      syncStudioMetricsIfStale({timeoutMs: 42000, force}).catch((err) => `스튜디오 지표 확인 실패(${err.message})`), // allow-literal: SessionStart 훅 60초 한도 내 안전 타임아웃
     ]);
 const [check, nextActions, chromeStatus] = await Promise.all([
   runGrowthCheck(),
@@ -70,5 +99,8 @@ if (chromeStatus && !chromeStatus.isLoggedIn) {
 if (check?.briefing?.data) {
   check.briefing.data.sync = syncNote;
   check.briefing.data.studioSync = studioSyncNote;
+}
+if (!skipSync || Boolean(process.env.BRIEFING_STATE_FILE)) {
+  await recordBriefingDone({statePath});
 }
 process.stdout.write(`${renderSessionStartOutput(buildBriefingContext(check, nextActions, handoffLine(latestHandoff(projectDir))))}\n`);

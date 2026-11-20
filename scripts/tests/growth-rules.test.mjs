@@ -1,16 +1,20 @@
 // episode-planning 스킬의 판정 규칙과 새 대화 시작 브리핑 훅을 확인한다.
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
-import {readFileSync} from 'node:fs';
+import {mkdtempSync, readFileSync, rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
 import {dirname, join} from 'node:path';
 import test from 'node:test';
 import {fileURLToPath} from 'node:url';
 import {
   buildBriefingContext,
+  buildContinuationContext,
   decideFormatPriority,
   decideSampleSize,
   extractNextActions,
+  kstDateOf,
   latestImpressions,
+  needsDailyRun,
   renderSessionStartOutput,
 } from '../growth-rules.mjs';
 
@@ -193,4 +197,61 @@ test('시작 브리핑: 다음 할 일은 앞 8개만, 항목당 260자까지(�
   assert.ok(context.includes('전문은 now.md') && !context.includes('가'.repeat(300)));
   assert.ok(context.includes('평소엔 스킬/지침 문서 열지 않음') && context.includes('자율 브리핑'));
   assert.ok(context.length < 6000, `맥락이 너무 길다: ${context.length}`); // allow-literal: 시작 맥락 글자 수 상한(토큰 절약 확인)
+});
+
+test('하루 1회 판정(kstDateOf·needsDailyRun)과 작업 이어가기 안내(buildContinuationContext)', () => {
+  const now = new Date('2026-11-20T20:00:00+09:00');
+  assert.equal(kstDateOf('2026-11-20T00:05:00+09:00'), '2026-11-20');
+  assert.equal(needsDailyRun('2026-11-20T00:05:00+09:00', now), false);
+  assert.equal(needsDailyRun('2026-11-19T23:55:00+09:00', now), true);
+  assert.equal(needsDailyRun(null, now), true);
+
+  const cont = buildContinuationContext({lastBriefingAt: '2026-11-20T09:10:00+09:00', now});
+  assert.match(cont, /\[작업 이어가기\]/);
+  assert.match(cont, /LATEST\.md/);
+  assert.match(cont, /--force/);
+});
+
+test('같은 날 두 번째 세션 훅·briefing.mjs 실행은 수집과 브리핑을 건너뛰고 작업 이어가기만 반환한다', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'briefing-daily-'));
+  const stateFile = join(dir, 'briefing-state.json');
+  try {
+    const baseEnv = {...process.env, BRIEFING_NO_SYNC: '1', BRIEFING_STATE_FILE: stateFile};
+    // 1회차(그날 첫 채팅): 풀 브리핑 출력 + 오늘 날짜 저장
+    const first = JSON.parse(
+      execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {
+        cwd: projectDir,
+        encoding: 'utf8',
+        input: '{"source":"startup"}',
+        env: baseEnv,
+      }),
+    );
+    assert.match(first.hookSpecificOutput.additionalContext, /자율 브리핑/);
+    // 2회차(같은 날 새 채팅): 수집·점검 없이 작업 이어가기 안내만 반환
+    const second = JSON.parse(
+      execFileSync(process.execPath, [join(projectDir, 'scripts', 'session-briefing-hook.mjs')], {
+        cwd: projectDir,
+        encoding: 'utf8',
+        input: '{"source":"startup"}',
+        env: baseEnv,
+      }),
+    );
+    assert.match(second.hookSpecificOutput.additionalContext, /\[작업 이어가기\]/);
+    assert.doesNotMatch(second.hookSpecificOutput.additionalContext, /브리핑 재료/);
+    // briefing.mjs도 같은 날 2회차는 건너뛰고, --force는 강제 실행
+    const cliSkip = execFileSync(process.execPath, [join(projectDir, 'scripts', 'briefing.mjs'), '--no-sync'], {
+      cwd: projectDir,
+      encoding: 'utf8',
+      env: baseEnv,
+    });
+    assert.match(cliSkip, /\[작업 이어가기\]/);
+    const cliForce = execFileSync(process.execPath, [join(projectDir, 'scripts', 'briefing.mjs'), '--no-sync', '--force'], {
+      cwd: projectDir,
+      encoding: 'utf8',
+      env: baseEnv,
+    });
+    assert.match(cliForce, /자율 브리핑/);
+  } finally {
+    rmSync(dir, {recursive: true, force: true});
+  }
 });

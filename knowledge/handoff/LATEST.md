@@ -22,7 +22,7 @@
 1. **비교 시트 v4 `aiRecommendation` 추가 (`2026-11-20`)**: Gate 1 승인용 AI 1순위 제목·썸네일 추천 조합·이유·차선안을 시트 상단 카드 및 `★ AI 추천` 배지로 표시(`transform-sheet.mjs`, `outlier-report-view.mjs`, `comparison-sheet-playbook.md`).
 2. **3060 모바일 권장 글자 크기 (`2026-11-20`, 2층 기본값)**: 불변 하한 `34px` 위에 쇼츠 본편 보조 `46px+`·자막 `50px+`·썸네일 보조 `60px+`, 롱폼 본편 보조 `44px+`·자막 `56px+`·썸네일 보조 `56px+` 권장(`knowledge/production-rules.md`, `knowledge/rule-tiers.md`).
 3. **업로드·예약 시 AI 사용 여부와 재생목록 필수 확인 (Rule 14)**: `containsSyntheticMedia: true` 및 형식별 기본 재생목록 연결 필수(`studio-upload.mjs` `VIDEO_HAS_ALTERED_CONTENT_YES` 선택자 보완).
-4. **자율 브리핑·사후 관리 파이프라인 (`2026-11-20`)**: `npm run briefing` 단일 원본 정합화(`00-autonomous-briefing.md`), `post-publish-pipeline.mjs` 4대 사후 관리(재생목록·고정댓글·관련동영상·커뮤니티 게시물) 자동 순환.
+4. **자율 브리핑·사후 관리 파이프라인 (`2026-11-20` 하루 1회 개정)**: 자동 브리핑과 데이터 수집(API·스튜디오)은 **하루 1회(KST 기준, 그날 첫 새 채팅)**만 실행하고 `data/youtube/briefing-state.json`(로컬)에 기록. 같은 날 2번째 이후 새 채팅은 수집·요약 없이 `LATEST.md`만 보고 바로 본론 진입(수동 최신화: `npm run briefing -- --force`). `post-publish-pipeline.mjs` 4대 사후 관리 자동 순환.
 
 ## 다음 할 일
 1. **EP33 쇼츠 Gate 1 승인**: `http://localhost:3001/transform-sheet/ep33-shorts-swallowed-t` 시트 승인 후 제작 착수 (12/08 화 슬롯).

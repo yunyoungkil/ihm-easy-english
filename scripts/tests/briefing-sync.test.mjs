@@ -1,9 +1,18 @@
-// 대화 시작 때 마지막 동기화가 30분보다 오래됐으면 대시보드 동기화를 부르는지 확인한다(2026-11-09 사용자 결정, 2026-11-20 30분 단축).
+// 하루 1회(KST 날짜 기준) 동기화 및 브리핑 상태 기록 동작을 확인한다(2026-11-20 사용자 확정).
 import assert from 'node:assert/strict';
+import {mkdtemp, rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import test from 'node:test';
-import {syncIfStale, syncStudioMetricsIfStale} from '../briefing-sync.mjs';
+import {
+  hasBriefedToday,
+  readBriefingState,
+  recordBriefingDone,
+  syncIfStale,
+  syncStudioMetricsIfStale,
+} from '../briefing-sync.mjs';
 
-const NOW = new Date('2026-11-09T12:00:00+09:00');
+const NOW = new Date('2026-11-09T20:00:00+09:00');
 const okResponse = {ok: true, status: 200};
 const fakeFetch = (handlers) => {
   const calls = [];
@@ -17,23 +26,30 @@ const fakeFetch = (handlers) => {
   return fn;
 };
 
-test('30분 안에 동기화했으면 아무것도 부르지 않는다', async () => {
+test('오늘(KST) 이미 동기화했으면 시간이 많이 지나도 아무것도 부르지 않는다', async () => {
   const fetch = fakeFetch({});
-  const note = await syncIfStale({now: NOW, readSyncedAt: async () => '2026-11-09T11:50:00+09:00', fetch});
+  const note = await syncIfStale({now: NOW, readSyncedAt: async () => '2026-11-09T01:00:00+09:00', fetch});
   assert.match(note, /생략/);
   assert.equal(fetch.calls.length, 0);
 });
 
-test('대시보드가 꺼져 있으면 동기화하지 못했다고 알린다', async () => {
+test('오늘 동기화했더라도 force=true면 강제로 다시 동기화한다', async () => {
+  const fetch = fakeFetch({GET: okResponse, POST: okResponse});
+  const note = await syncIfStale({now: NOW, force: true, readSyncedAt: async () => '2026-11-09T19:50:00+09:00', fetch});
+  assert.match(note, /방금 동기화함/);
+  assert.equal(fetch.calls.length, 2);
+});
+
+test('어제 동기화했고 대시보드가 꺼져 있으면 동기화하지 못했다고 알린다', async () => {
   const fetch = fakeFetch({GET: new TypeError('fetch failed')});
-  const note = await syncIfStale({now: NOW, readSyncedAt: async () => '2026-11-07T21:00:00+09:00', fetch});
+  const note = await syncIfStale({now: NOW, readSyncedAt: async () => '2026-11-08T23:50:00+09:00', fetch});
   assert.match(note, /대시보드가 꺼져/);
   assert.equal(fetch.calls.filter((c) => c.method === 'POST').length, 0);
 });
 
-test('오래됐고 대시보드가 켜져 있으면 동기화를 부른다', async () => {
+test('기록이 없거나 날짜가 바뀌었고 대시보드가 켜져 있으면 동기화를 부른다', async () => {
   const fetch = fakeFetch({GET: okResponse, POST: okResponse});
-  const note = await syncIfStale({now: NOW, readSyncedAt: async () => null, fetch});
+  const note = await syncIfStale({now: NOW, readSyncedAt: async () => '2026-11-08T23:30:00+09:00', fetch});
   assert.match(note, /방금 동기화함/);
   assert.deepEqual(fetch.calls.map((c) => `${c.method} ${new URL(c.url).pathname}`), ['GET /', 'POST /api/sync']);
 });
@@ -52,22 +68,34 @@ test('동기화가 실패하면 상태 코드와 함께 알린다', async () => 
   assert.match(note, /동기화 실패\(401\)/);
 });
 
-test('스튜디오 지표가 6시간 안에 수집됐으면 생략한다', async () => {
+test('스튜디오 지표가 오늘(KST) 이미 수집됐으면 생략한다', async () => {
   let called = 0;
   const note = await syncStudioMetricsIfStale({
     now: NOW,
-    readFetchedAt: async () => '2026-11-09T08:00:00+09:00',
+    readFetchedAt: async () => '2026-11-09T02:00:00+09:00',
     collect: async () => { called += 1; },
   });
   assert.match(note, /생략/);
   assert.equal(called, 0);
 });
 
-test('스튜디오 지표가 6시간 넘게 오래됐으면 새로 수집한다', async () => {
+test('스튜디오 지표가 어제 수집됐으면 오늘 새로 수집한다', async () => {
   let called = 0;
   const note = await syncStudioMetricsIfStale({
     now: NOW,
-    readFetchedAt: async () => '2026-11-09T01:00:00+09:00',
+    readFetchedAt: async () => '2026-11-08T23:00:00+09:00',
+    collect: async () => { called += 1; },
+  });
+  assert.match(note, /방금 스튜디오 지표 수집함/);
+  assert.equal(called, 1);
+});
+
+test('스튜디오 지표도 force=true면 같은 날 강제 수집한다', async () => {
+  let called = 0;
+  const note = await syncStudioMetricsIfStale({
+    now: NOW,
+    force: true,
+    readFetchedAt: async () => '2026-11-09T19:00:00+09:00',
     collect: async () => { called += 1; },
   });
   assert.match(note, /방금 스튜디오 지표 수집함/);
@@ -91,4 +119,19 @@ test('스튜디오 지표 수집이 시간 초과하면 마지막 수집본 안�
     collect: () => new Promise(() => {}),
   });
   assert.match(note, /시간 초과/);
+});
+
+test('오늘 브리핑 완료를 기록하면 같은 날 true, 다음 날 false를 돌려준다', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'briefing-state-'));
+  const statePath = join(dir, 'briefing-state.json');
+  try {
+    assert.equal(await hasBriefedToday({now: NOW, statePath}), false);
+    await recordBriefingDone({now: NOW, statePath});
+    const saved = await readBriefingState(statePath);
+    assert.equal(saved.lastBriefingDate, '2026-11-09');
+    assert.equal(await hasBriefedToday({now: new Date('2026-11-09T23:59:00+09:00'), statePath}), true);
+    assert.equal(await hasBriefedToday({now: new Date('2026-11-10T00:01:00+09:00'), statePath}), false);
+  } finally {
+    await rm(dir, {recursive: true, force: true});
+  }
 });

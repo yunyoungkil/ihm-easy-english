@@ -56,6 +56,7 @@
 | `analysis-failures.json` | 리포트 분석 실패 기록 | `scripts/daily-loop.mjs`, `scripts/youtube-analytics-server.mjs` | 운영 | 영구 실패 영상을 다시 시도하지 않게 막는다 |
 | `daily-loop.json` | 매일 루프 | `scripts/daily-loop.mjs`, `scripts/loop-health.mjs` | 운영 | 브리핑의 자동 루프 점검 줄 |
 | `daily-loop-server.log` | 매일 루프가 띄운 서버의 기록 | `scripts/daily-loop.mjs` | 운영 | 고장 원인 확인용 |
+| `briefing-state.json` | 시작 브리핑(`scripts/briefing-sync.mjs`, 깃 미추적·PC 로컬) | `scripts/briefing-sync.mjs`, `scripts/briefing.mjs`, `scripts/session-briefing-hook.mjs` | 운영 | 하루 1회(KST) 자동 브리핑·수집 완료 날짜 기록. 같은 날 이어 가는 새 채팅에서 중복 수집과 브리핑 반복을 막는다(2026-11-20 신설) |
 | `snapshots/` | (2026-11-12 저장 멈춤) | 없음 | 없음 | **삭제됨.** 동기화마다 한 장씩 쓰기만 하고 읽는 곳이 없었다(152개, 61MB). 그중 124개는 `.gitignore`에 넣기 전에 깃에 올라가 있어서 깃에서도 지웠다. 다른 PC에 남은 나머지는 지운다 |
 | `studio-browser-profile/` | (옛 스튜디오 자동 브라우저 프로필, 깃에 안 올림) | 없음 | 없음 | **삭제됨**(23MB). 쓰는 코드가 없다. 다른 PC에 남아 있으면 지운다 |
 | `studio-debug.png` | (2026-08-30 옛 디버그 캡처, 깃에 안 올림) | 없음 | 없음 | **삭제됨.** 다른 PC에 남아 있으면 지운다 |

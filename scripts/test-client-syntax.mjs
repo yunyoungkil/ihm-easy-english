@@ -309,7 +309,7 @@ async function main() {
     // branch would also satisfy). Tabs not listed here don't depend on any of the fixtures
     // above (e.g. renderDesignSystemTab is self-contained).
     const expectedMarkers = {
-      renderOverviewTab: ['Top Video', 'TEST_NEXT_INPUT_Q', 'TEST_NEXT_INPUT_HOLD', 'TEST_NEXT_INPUT_REPORT'],
+      renderOverviewTab: ['Top Video', '스튜디오 조사 2단계', 'TEST_NEXT_INPUT_Q', 'TEST_NEXT_INPUT_HOLD', 'TEST_NEXT_INPUT_REPORT'],
       renderMarketDemandTab: ['스튜디오 조사 2단계', 'TEST_RESEARCH_TITLE', 'TEST_OUTLIER_TITLE', 'TEST_TRACKED_CHANNEL', 'TEST_TRACKED_OUTLIER', 'TEST_D7_APPLIED', '리포트 보기 (화면 변화 7)'],
       renderBenchmarkTab: ['TEST_OUTCOME_LABEL', 'TEST_OUTCOME_CHANNEL', 'TEST_OUTCOME_AUDIENCE'],
       renderAbSimulatorTab: ['TEST_FEED_OUR_TITLE', 'TEST_FEED_RESULT', 'TEST_FEED_WINNER', 'TEST_FEED_OUTLIER'],
@@ -361,7 +361,7 @@ async function main() {
       process.exit(1);
     }
     fetchedUrls.length = 0;
-    new vm.Script('gCurrentTab = "tab-demand"; gDemandBusyCount = 0;', { filename: 'sse-prep.js' }).runInContext(vmContext);
+    new vm.Script('gCurrentTab = "tab-demand";', { filename: 'sse-prep.js' }).runInContext(vmContext);
     await analysisHandler();
     if (!fetchedUrls.includes('/api/market-demand') || !fetchedUrls.includes('/api/knowledge-db')) {
       console.error('❌ SSE analysis-updated handler did not refresh /api/market-demand and /api/knowledge-db:', fetchedUrls);

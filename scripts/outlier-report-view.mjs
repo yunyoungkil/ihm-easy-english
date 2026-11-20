@@ -245,7 +245,6 @@ const SHEET_CSS = `<style>
 .cut-card{margin:0;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;box-shadow:0 2px 6px rgba(0,0,0,0.05);box-sizing:border-box;width:190px}
 .cut-card.p1{border-color:rgba(148,163,184,0.4)}
 .cut-card.p2{border-color:rgba(56,189,248,0.45)}
-.cut-card.p3{border-color:rgba(192,132,252,0.5);background:rgba(168,85,247,0.02)}
 .cut-card.p4{border-color:rgba(0,210,211,0.6);background:rgba(0,210,211,0.03)}
 .cut-card .vtag{font-size:11px;font-weight:800;margin-bottom:5px;padding:2px 6px;border-radius:4px;display:inline-block;align-self:flex-start}
 .cut-card img{width:172px;height:306px;object-fit:cover;border-radius:6px;border:1px solid var(--line);display:block}
@@ -315,10 +314,8 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
   if (Array.isArray(times) && times.length) parts.push(`<div class="tl-label">경쟁 컷 이미지</div><div class="film comp">${times.map((t, i) => fig(ver(`/outlier-frames/${id}/cut-${String(i).padStart(2, '0')}.jpg`), t)).join('')}</div>`);
   // 경쟁 영상의 저장된 화면 캡처를 초 순서로 보여 준다(2026-11-16 사용자: 비교 시트에 경쟁 비주얼 컷이 하나도 없다). 컷 시각 감지가 실패한 영상(w8g6 등)도 캡처는 있다. 원본과 가져온 출처 영상 모두.
   for (const r of refs.filter((x) => x.frames && x.frames.length)) parts.push(`<div class="tl-label">경쟁 화면 캡처 — ${escapeHtml(r.label)} · ${r.frames.length}장(저장된 캡처를 초 순서로)</div><div class="film comp">${r.frames.map((fr) => fig(ver(`/outlier-frames/${encodeURIComponent(r.videoId)}/${escapeHtml(fr.file)}`), fr.t)).join('')}</div>`);
-  // 1안 아래에 2안·3안·4안을 2D 그리드로 배치하여, 모든 컷에서 1·2·3·4안의 수평 시작선과 높이가 칼같이 일치하도록 한다(2026-11-17 정렬 일치).
+  // 레거시 v3(cutPlan2) 시트 호환용 2D 그리드. v4 단일 최적안 시트는 1줄로 출력한다.
   const plan2 = row.ours?.cutPlan2;
-  const plan3 = row.ours?.cutPlan3;
-  const plan4 = row.ours?.cutPlan4;
   const bottomText = (b) => (typeof b === 'string' ? b : b?.subtitle || b?.speaker || '');
   const cutBudgetHtml = (targetPlan, idx) => {
     const cuts = targetPlan?.cuts;
@@ -340,73 +337,35 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = []) {
   };
 
   const hasP2 = Boolean(plan2?.cuts?.length);
-  const hasP3 = Boolean(plan3?.cuts?.length);
-  const hasP4 = Boolean(plan4?.cuts?.length);
-  const hasMultiPlans = hasP2 || hasP3 || hasP4;
-  const rowCount = 1 + (hasP2 ? 1 : 0) + (hasP3 ? 1 : 0) + (hasP4 ? 1 : 0);
+  const rowCount = 1 + (hasP2 ? 1 : 0);
 
   const gridCards = [];
   (plan?.cuts || []).forEach((c, idx) => {
-    // 단일 최적안(v4 슬로건 시트)이면 불필요한 '1안(경쟁 베이스)' 라벨 없이 AI 최적안 1줄로 깔끔하게 출력
-    if (!hasMultiPlans) {
+    // 단일 최적안(v4 슬로건 시트)이면 AI 최적안 1줄로 깔끔하게 출력
+    if (!hasP2) {
       const b1 = bottomText(c.bottom);
       gridCards.push(`<figure class="cut-card p4"><span class="vtag" style="background:#00D2D3;color:#000">🚀 AI 최적안 · 컷 ${idx + 1}</span><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${cutBudgetHtml(plan, idx)}${c.narration ? `<div class="say"><b>대본:</b> ${escapeHtml(c.narration)}</div>` : ''}${c.motion ? `<div class="say motion" style="color:var(--sub)"><b>연출/모션:</b> ${escapeHtml(c.motion)}</div>` : ''}${b1 ? `<div class="say bottom" style="color:var(--sub)"><b>하단:</b> ${escapeHtml(b1)}</div>` : ''}</figure>`);
       return;
     }
-    // 레거시 1~4안 대조 카드
+    // 레거시 1·2안 대조 카드
     gridCards.push(`<figure class="cut-card p1"><span class="vtag" style="background:var(--sub);color:#fff">1안 (경쟁 베이스)</span><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷 1안"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${cutBudgetHtml(plan, idx)}${c.narration ? `<div class="say"><b>대본:</b> ${escapeHtml(c.narration)}</div>` : ''}</figure>`);
 
-    // 2안 카드
-    if (hasP2) {
-      const c2 = plan2?.cuts?.[idx];
-      const nar2 = c2 ? (c2.narration ?? c.narration) : '';
-      const b2 = bottomText(c2?.bottom);
-      if (c2) {
-        gridCards.push(`<figure class="cut-card p2"><span class="vtag" style="background:var(--accent);color:#fff">2안 (개선 시안)</span><a href="${oursUrl(c2.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c2.image)}" alt="${escapeHtml(c2.t)}초 컷 2안"></a><figcaption>${escapeHtml(c2.t)}초</figcaption>${cutBudgetHtml(plan2, idx)}${nar2 ? `<div class="say"><b>대본:</b> ${escapeHtml(nar2)}</div>` : ''}${c2.motion ? `<div class="say motion" style="color:var(--sub)"><b>움직임:</b> ${escapeHtml(c2.motion)}</div>` : ''}${b2 ? `<div class="say bottom" style="color:var(--sub)"><b>하단 띠:</b> ${escapeHtml(b2)}</div>` : ''}</figure>`);
-      } else {
-        gridCards.push('<figure class="cut-card p2"><div class="meta" style="margin:auto">2안 컷 없음</div></figure>');
-      }
-    }
-
-    // 3안 카드
-    if (hasP3) {
-      const c3 = plan3?.cuts?.[idx];
-      const b3 = bottomText(c3?.bottom);
-      if (c3) {
-        gridCards.push(`<figure class="cut-card p3"><span class="vtag" style="background:#c084fc;color:#fff">3안 · Gemini 독자 설계</span><a href="${oursUrl(c3.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c3.image)}" alt="${escapeHtml(c3.t)}초 컷 3안"></a><figcaption style="color:#c084fc">${escapeHtml(c3.t)}초</figcaption>${cutBudgetHtml(plan3, idx)}${c3.narration ? `<div class="say" style="color:#c084fc"><b>3안 대본:</b> ${escapeHtml(c3.narration)}</div>` : ''}${c3.motion ? `<div class="say motion" style="color:#c084fc"><b>움직임:</b> ${escapeHtml(c3.motion)}</div>` : ''}${b3 ? `<div class="say bottom" style="color:#c084fc"><b>하단 띠:</b> ${escapeHtml(b3)}</div>` : ''}</figure>`);
-      } else {
-        gridCards.push('<figure class="cut-card p3"><div class="meta" style="margin:auto">3안 컷 없음</div></figure>');
-      }
-    }
-
-    // 4안 카드
-    if (hasP4) {
-      const c4 = plan4?.cuts?.[idx];
-      const b4 = bottomText(c4?.bottom);
-      if (c4) {
-        gridCards.push(`<figure class="cut-card p4"><span class="vtag" style="background:#00D2D3;color:#000">4안 · 비주얼 전면 개방</span><a href="${oursUrl(c4.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c4.image)}" alt="${escapeHtml(c4.t)}초 컷 4안"></a><figcaption style="color:#00D2D3">${escapeHtml(c4.t)}초</figcaption>${cutBudgetHtml(plan4, idx)}${c4.narration ? `<div class="say" style="color:#00D2D3;font-weight:700"><b>4안 대본:</b> ${escapeHtml(c4.narration)}</div>` : ''}${c4.motion ? `<div class="say motion" style="color:#00D2D3"><b>연출/모션:</b> ${escapeHtml(c4.motion)}</div>` : ''}${b4 ? `<div class="say bottom" style="color:#00D2D3"><b>하단 띠:</b> ${escapeHtml(b4)}</div>` : ''}</figure>`);
-      } else {
-        gridCards.push('<figure class="cut-card p4"><div class="meta" style="margin:auto">4안 컷 없음</div></figure>');
-      }
+    const c2 = plan2?.cuts?.[idx];
+    const nar2 = c2 ? (c2.narration ?? c.narration) : '';
+    const b2 = bottomText(c2?.bottom);
+    if (c2) {
+      gridCards.push(`<figure class="cut-card p2"><span class="vtag" style="background:var(--accent);color:#fff">2안 (개선 시안)</span><a href="${oursUrl(c2.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c2.image)}" alt="${escapeHtml(c2.t)}초 컷 2안"></a><figcaption>${escapeHtml(c2.t)}초</figcaption>${cutBudgetHtml(plan2, idx)}${nar2 ? `<div class="say"><b>대본:</b> ${escapeHtml(nar2)}</div>` : ''}${c2.motion ? `<div class="say motion" style="color:var(--sub)"><b>움직임:</b> ${escapeHtml(c2.motion)}</div>` : ''}${b2 ? `<div class="say bottom" style="color:var(--sub)"><b>하단 띠:</b> ${escapeHtml(b2)}</div>` : ''}</figure>`);
+    } else {
+      gridCards.push('<figure class="cut-card p2"><div class="meta" style="margin:auto">2안 컷 없음</div></figure>');
     }
   });
 
-  if (plan3?.cuts?.length) {
-    parts.push(`<div class="card" style="border-left:3px solid #c084fc;background:rgba(168,85,247,0.06);margin:10px 0 6px"><b style="color:#c084fc">🤖 3안 — Gemini (Antigravity) 독자 설계 (내가 직접 만듦 · 1·2안 미참고)</b>${plan3.designNote ? `<div class="meta" style="margin-top:4px;color:var(--ink)">${escapeHtml(plan3.designNote)}</div>` : ''}</div>`);
-  }
-  if (plan4?.cuts?.length) {
-    parts.push(`<div class="card" style="border-left:3px solid #00D2D3;background:rgba(0,210,211,0.06);margin:10px 0 6px"><b style="color:#00D2D3">🚀 4안 — 비주얼 전면 개방 & 다각도 벤치마킹 융합 (슬로건 구현)</b>${plan4.designNote ? `<div class="meta" style="margin-top:4px;color:var(--ink)">${escapeHtml(plan4.designNote)}</div>` : ''}</div>`);
-  }
   if (Array.isArray(plan?.cuts) && plan.cuts.length) {
-    const label = hasMultiPlans ? '우리 컷 이미지 + 대본 (열: 컷 시간대별 1:1 대조 · 행: 1안~4안 수평선 및 높이 완벽 일치)' : '우리 컷 이미지 + 대본 (AI 주도 최적안 1안)';
+    const label = hasP2 ? '우리 컷 이미지 + 대본 (1안·2안 컷 시간대별 1:1 대조)' : '우리 컷 이미지 + 대본 (AI 주도 최적안 1안)';
     parts.push(`<div class="tl-label">${label}</div><div class="film ours-grid" style="--cols:${plan.cuts.length};--rows:${rowCount}">${gridCards.join('')}</div>`);
   }
   const script = fullScript(plan);
   if (script.lines.length) parts.push(`<div class="sheet-label">전체 대본 (컷 대본을 이은 것 — 음성에 그대로 넣는 글)</div><div class="card fullscript">${script.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
-  const script3 = plan3?.cuts?.length ? fullScript(plan3) : { lines: [] };
-  if (script3.lines.length) parts.push(`<div class="sheet-label" style="color:#c084fc">3안 전체 대본 — Gemini (Antigravity 독자 설계)</div><div class="card fullscript" style="border-left:3px solid #c084fc">${script3.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
-  const script4 = plan4?.cuts?.length ? fullScript(plan4) : { lines: [] };
-  if (script4.lines.length) parts.push(`<div class="sheet-label" style="color:#00D2D3">4안 전체 대본 — 비주얼 전면 개방 & 슬로건 구현</div><div class="card fullscript" style="border-left:3px solid #00D2D3">${script4.lines.map((l) => `<div><span class="meta">${escapeHtml(l.t)}초</span> ${escapeHtml(l.text)}</div>`).join('')}</div>`);
   return parts.join('');
 }
 
@@ -488,7 +447,6 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     const titlePicks = new Set(sheet.titlePicks || []);
     const thumbs = r.key === 'thumbnail' ? [r.ours?.image, ...(r.ours?.images || [])].filter(Boolean) : [];
     const thumbs2 = r.key === 'thumbnail' ? (r.ours?.images2 || []).filter(Boolean) : [];
-    const thumbs3 = r.key === 'thumbnail' ? (r.ours?.images3 || []).filter(Boolean) : [];
     const pickRow = (list) => `<div class="thumbbox">${list.map((rel) => { const isRec = aiRec?.thumbnail === rel; return `<label class="pick" style="${isRec ? 'outline:3px solid #f59e0b;border-radius:10px' : ''}"><img class="real" title="실제 유튜브 쇼츠 목록 크기(가로 200px)" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안">${isRec ? '<span style="position:absolute;top:8px;left:8px;background:#f59e0b;color:#111827;font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.35)">★ AI 추천</span>' : ''}<input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`; }).join('')}</div>`;
     const titleBox = r.key === 'title' && (r.ours?.titles || []).length
       ? `<div class="titles"><b>제목 후보 (고르기)</b>${r.ours.titles.map((t) => `<label><input type="checkbox" data-pick-title="${escapeHtml(t)}"${titlePicks.has(t) ? ' checked' : ''}><span>${escapeHtml(t)}${aiRec?.title === t ? ' <span class="pill-badge" style="background:rgba(245,158,11,0.22);color:#b45309;border:1px solid #f59e0b;font-weight:800;margin-left:4px">★ AI 추천</span>' : ''}</span></label>`).join('')}</div>`
@@ -499,7 +457,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.key === 'package' ? packageCompetitor(report) : ''}${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
   <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}${r.key === 'package' ? packageOurs(r.ours) : ''}</div>
   <div class="sheet-why">${r.origin ? `출처: <b>${{ competitor: '경쟁 구조를 가져옴', mixed: '섞음', ours: '우리가 새로 만듦' }[r.origin] || escapeHtml(r.origin)}</b> — ${escapeHtml(r.originReason || '')}<br>` : ''}왜 바꿨나: ${escapeHtml(r.why)}</div>
-</div>${thumbs.length ? `${thumbs2.length || thumbs3.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}${thumbs3.length ? `<div class="tl-label" style="color:#c084fc;font-weight:800">3안 — Gemini (Antigravity) 독자 설계 시안 (내가 만듦 · 1·2안 미참고, 2안 아래 1:1 비교)</div>${pickRow(thumbs3)}` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports) : ''}`);
+</div>${thumbs.length ? `${thumbs2.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports) : ''}`);
   }
   if (Array.isArray(sheet.references) && sheet.references.length) {
     parts.push('<h2>🎬 융합한 명작 레퍼런스 (다중 벤치마킹)</h2>');

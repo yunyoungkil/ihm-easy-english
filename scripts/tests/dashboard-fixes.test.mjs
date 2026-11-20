@@ -83,3 +83,11 @@ test('대시보드 헤더는 400px 모바일 화면에서 버튼이 넘치지 �
   assert.match(src, /\.header-right\s*\{[^}]*flex-wrap:\s*wrap/s);
   assert.match(src, /\.header-right\s+\.btn\s*\{[^}]*max-width:\s*100%/s);
 });
+
+test('대시보드 화면에서 폐기된 수동 관리 UI와 호출처 없는 옛 댓글·대본 분석 함수를 남기지 않는다', () => {
+  const serverPath = join(dirname(fileURLToPath(import.meta.url)), '..', 'youtube-analytics-server.mjs');
+  const src = readFileSync(serverPath, 'utf8');
+  for (const dead of ['btn-run-demand-smart', 'input-demand-smart', 'btn-sync-all-channels', 'btn-run-market-demand-direct', 'btn-outlier-view-comment', 'btn-outlier-view-script', 'function runAiCommentAnalysis', 'function runScriptAnalysis']) {
+    assert.ok(!src.includes(dead), `제거된 구형 UI/죽은 코드가 남아 있음: ${dead}`);
+  }
+});

@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 1,
+  "videoId": "ZqY8YPAdTgI",
+  "analyzedAt": "2026-11-20T11:14:59.975Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 26,
+  "meta": {
+    "videoId": "ZqY8YPAdTgI",
+    "title": "[Friends_237] It’s all hormones. | #Friends #프렌즈영어공부 #미드영어 #미드영어회화",
+    "channelId": "UCqRfYfhhSLaunDhyRpg6AdA",
+    "channelTitle": "엉클 조 잉글리쉬",
+    "publishedAt": "2025-10-11T07:42:17Z",
+    "viewCount": 31124,
+    "likeCount": 234,
+    "commentCount": 4,
+    "durationSeconds": 26,
+    "thumbnail": "https://i.ytimg.com/vi/ZqY8YPAdTgI/maxresdefault.jpg",
+    "description": "If you found this clip funny, please click 'Like' and subscribe for more! Please leave a comment!\n\n재미있으셨다면 '좋아요'와 '구독' 부탁드립니다. :)\n\n출처 : @Friends",
+    "tags": []
+  },
+  "subscriberCount": 5530,
+  "viewsPerSubscriber": 5.63,
+  "outlierRatio": 30.34,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 14,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 2
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 26
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 13,
+    "stats": {
+      "sentences": 13,
+      "lengthSum": 298,
+      "lengthMedian": 18,
+      "endings": {
+        "question": 9,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 4
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 9,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 13,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.6,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-20T11:14:51.952Z",
+    "note": "품질 낮음: 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "드라마 프렌즈의 장면과 제목을 통해 호르몬 때문에 벌어지는 코미디 상황에 대한 호기심을 유발함",
+      "titleQuote": "[Friends_237] It’s all hormones. | #Friends #프렌즈영어공부 #미드영어 #미드영어회화",
+      "thumbnailText": "",
+      "thumbnailWordCount": 0,
+      "thumbnailVisual": "확인 불가",
+      "thumbnailVsTitle": "확인 불가",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "여성 환자가 의사에게 취미와 이성 관계를 물으며 플러팅을 시도하고 의사의 질문에 당황해함",
+      "quote": "In your spare time, do you cook? Do you ski? Or just hang out with your wife or girlfriend?",
+      "reasonToKeepWatching": "의사와의 묘한 기류와 대화 중 발생하는 코미디 상황이 유머를 자극함",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "여성 인물이 의사에게 여가 시간에 요리나 스키를 타는지, 와이프나 여자친구가 있는지 질문함",
+      "quote": "In your spare time, do you cook? Do you ski? Or just hang out with your wife or girlfriend?",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 6,
+        "what": "여성이 의사의 여가 생활 및 이성 관계 유무를 물어봄",
+        "quote": "In your spare time, do you cook? Do you ski? Or just hang out with your wife or girlfriend?",
+        "quoteVerified": true
+      },
+      {
+        "start": 6,
+        "end": 12,
+        "what": "의사가 싱글이며 스키를 좋아한다고 대답하자 여성이 크게 호응함",
+        "quote": "I don't have a wife or girlfriend, but I I do like to ski.",
+        "quoteVerified": true
+      },
+      {
+        "start": 12,
+        "end": 16,
+        "what": "의사가 뜬금없이 가스 통증이 있냐고 묻자 여성이 민망해함",
+        "quote": "Any painful gas?",
+        "quoteVerified": true
+      },
+      {
+        "start": 16,
+        "end": 26,
+        "what": "의사의 진료 안내 질문을 여성이 오해하고 들이대자 의사가 혼란스러워함",
+        "quote": "Would you like to lie down on the table?",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "여성 인물(레이첼)이 말을 건네는 화면과 함께 핑크색 영어 자막, 한글 번역, 하단 어휘 설명 상자 등장",
+        "purpose": "드라마 대사와 주요 영어 표현(Free time / Spare time 등)을 동시에 전달함"
+      },
+      {
+        "t": 6,
+        "what": "의사 캐릭터 화면으로 전환되며 하단 어휘 설명 상자가 'Flirt (with A)' 관련 내용으로 변경됨",
+        "purpose": "상황에 맞는 플러팅 관련 표현 설명을 제공함"
+      },
+      {
+        "t": 8,
+        "what": "여성 캐릭터 화면으로 전환되며 하단 설명이 'Shoot one's shot'으로 변경됨",
+        "purpose": "용기 내어 고백/대시한다는 표현 문맥을 제시함"
+      },
+      {
+        "t": 12,
+        "what": "의사가 차트를 보며 질문하는 화면으로 전환",
+        "purpose": "진료 상황의 엉뚱한 질문으로 분위기가 반전됨을 보여줌"
+      },
+      {
+        "t": 14,
+        "what": "여성이 부끄러워하며 손으로 입을 가리는 장면으로 전환",
+        "purpose": "의사의 가스 관련 질문에 민망해하는 감정을 극대화함"
+      },
+      {
+        "t": 16,
+        "what": "의사가 진료대를 가리키는 장면으로 전환",
+        "purpose": "진료 절차 안내 상황을 시각적으로 보여줌"
+      },
+      {
+        "t": 18,
+        "what": "여성이 미소를 지으며 의사의 말을 오해해 들이대는 화면으로 전환",
+        "purpose": "대시하는 상황과 하단 'Be too forward' 설명이 맞물림"
+      },
+      {
+        "t": 20,
+        "what": "의사가 손을 저으며 당황해하는 화면으로 전환",
+        "purpose": "혼란스러워하는 의사의 반응과 'Send mixed signals' 하단 설명이 일치함"
+      },
+      {
+        "t": 25,
+        "what": "화면 중앙에 강조 자막 카드가 크게 재등장하며 영상이 마무리됨",
+        "purpose": "주요 문장(How amazing is this?)을 재확인시킴"
+      }
+    ],
+    "ending": {
+      "what": "드라마 대사 장면에 이어 특정 문장 학습 카드가 화면 중앙에 크게 강조되며 종료됨",
+      "quote": "Do you feel it, too?",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "사람 사는 모습에 대한 공감",
+          "quote": "사람 사는게 다 비슷한가바",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "영어 학습에 대한 부담감과 어려움",
+          "quote": "영어가 왠수인 사람.. ㅠㅠ",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [],
+      "vocabulary": []
+    },
+    "infoCount": {
+      "count": 4,
+      "description": "Spare time, Flirt, Shoot one's shot, Be too forward 등 대사 속 영어 숙어 및 표현 4가지를 하단 상자에 순차적으로 제시함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 핑크색 박스(영어 대사) 및 하단 핑크색 띠(어휘·구문 설명)",
+      "size": "보통",
+      "highlightColor": "보라색 및 흰색",
+      "highlightMethod": "텍스트 박스 바탕색을 활용해 시선 집중",
+      "textAmount": "한 번에 1~2줄 내외의 문장과 설명",
+      "changeTiming": "배우의 대사 호흡 및 장면 전환에 맞춰 변경"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": true,
+      "soundEffectUse": "방청객 웃음소리(관중 래프터 트랙)가 관성적으로 삽입되어 유머 지점을 강조함",
+      "voiceVsMusic": "배우들의 현장 대사 목소리와 관객 웃음소리가 중심임"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "환자가 의사에게 사적인 질문을 던지며 묘한 기류를 형성함",
+        "quote": "In your spare time, do you cook? Do you ski?",
+        "type": "호기심 유발형 질문",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "여성이 의사에게 이성 관계와 취미를 물어보며 관계가 발전할지 궁금하게 만듦",
+          "quote": "Or just hang out with your wife or girlfriend?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 20,
+          "what": "의사가 당황하며 선을 그어 착각이었음이 드러남",
+          "quote": "I'm sorry. Is there something going on here?",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "여성의 유혹적 태도에 의사가 직업적 질문(가스, 진료대)을 던지자 여성이 이를 사적인 의도로 착각하여 유쾌한 오해가 발생하는 연쇄 구조임",
+        "examples": [
+          {
+            "t": 16,
+            "what": "의사의 진료대 착석 요청을 여성이 사적인 제안으로 오해해 되묻음",
+            "quote": "Would you like me to lie down on the table?",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 12,
+          "what": "달달한 분위기가 이어지다가 의사가 갑자기 뜬금없는 가스 질문을 던짐",
+          "quote": "Any painful gas?",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 22,
+        "what": "서로 다른 동상을 꿈꾸는 남녀 대화의 유머러스한 오해로 상황이 마무리됨",
+        "quote": "Do you feel it, too?",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "드라마 속 공감 가고 재치 있는 상황극 연출",
+        "reaction": "사람 사는 모습이 다 비슷하다는 공감 반응",
+        "quote": "사람 사는게 다 비슷한가바",
+        "quoteVerified": true
+      },
+      {
+        "cause": "매일 꾸준히 공부할 수 있도록 드라마 짧은 클립과 자막 정리 제공",
+        "reaction": "매일 하나씩 보고 외우겠다는 구독 및 다짐 댓글",
+        "quote": "오늘 엉클죠 알게됐는데 하루에 하나씩 보고 외워볼려고요. 영어가 왠수인 사람.. ㅠㅠ 구독, 좋아요 했어요. ^^",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "미드 프렌즈의 하이라이트 클립에 자막과 주요 어휘 해설을 편집해 넣은 드라마 활용 학습 영상으로, 성인의 발음·소리 원리를 직접 가르치는 원본 영상이 아님.",
+    "forUs": {
+      "adopt": "드라마의 유머러스한 오해 상황을 활용해 실생활 구문과 어휘를 하단 띠 자막 형태로 깔끔하게 정리해 보여주는 방식을 참고할 수 있음.",
+      "differentiate": "단순 클립 재가공을 넘어, 실제 성인이 해당 문장의 소리(발음, 원어민 억양, 여름 법칙)를 직접 따라 하고 들을 수 있도록 소리 훈련 요소를 추가해야 함."
+    }
+  },
+  "quoteCheck": {
+    "checked": 18,
+    "verified": 18,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 9,
+    "medianGapSeconds": 2,
+    "perMinute": 20.8,
+    "source": "AI가 적은 화면 변화(영상을 못 받아 대신 씀)"
+  },
+  "frames": [],
+  "framesError": "Command failed: ffmpeg -loglevel error -y -ss 25 -t 3 -i C:\\Users\\yunyo\\AppData\\Local\\Temp\\outlier-frames-MGh31w\\v.mp4 -vf fps=1,scale=-2:240,tile=3x1 -frames:v 1 -q:v 5 C:\\Users\\yunyo\\Downloads\\project\\data\\youtube\\outlier-frames\\ZqY8YPAdTgI\\25.jpg\n[mjpeg @ 000002701d443c00] Non full-range YUV is n",
+  "usage": {
+    "promptTokenCount": 5594,
+    "candidatesTokenCount": 2524,
+    "totalTokenCount": 8878,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2210
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2284
+      }
+    ],
+    "thoughtsTokenCount": 760,
+    "serviceTier": "standard"
+  }
+}

@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "videoId": "WVtl3kD84Z0",
+  "analyzedAt": "2026-11-20T11:15:47.677Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 40,
+  "meta": {
+    "videoId": "WVtl3kD84Z0",
+    "title": "입국부터 출국까지 생활영어, 매일 영어단어 5개만 외우세요!",
+    "channelId": "UCueh_oEGfzVFKU4K-E1CIGg",
+    "channelTitle": "기브영어 Give English",
+    "publishedAt": "2025-01-08T03:55:00Z",
+    "viewCount": 548315,
+    "likeCount": 6133,
+    "commentCount": 11,
+    "durationSeconds": 40,
+    "thumbnail": "https://i.ytimg.com/vi/WVtl3kD84Z0/maxresdefault.jpg",
+    "description": "누구나 따라하는 쉬운 기브영어\n\n#기초영어 #영어단어 #영어회화 #영어공부 #영어",
+    "tags": [
+      "영어회화",
+      "영어왕초보",
+      "필수기초영어",
+      "기초영어",
+      "생활영어",
+      "기초생활영어",
+      "기초영어회화",
+      "성인영어",
+      "성인영어회화",
+      "원어민영어",
+      "영어듣기",
+      "영어반복듣기",
+      "하루10분영어",
+      "매일영어듣기",
+      "영어습관",
+      "영어말하기",
+      "기초영단어",
+      "필수영단어",
+      "7살영어",
+      "쉬운영어",
+      "노인영어",
+      "영어공부",
+      "영어",
+      "#영어공부",
+      "#영어회화",
+      "#영어",
+      "#영어듣기",
+      "#영어단어",
+      "#영어말하기",
+      "#기초영어",
+      "#생활영어"
+    ]
+  },
+  "subscriberCount": 36200,
+  "viewsPerSubscriber": 15.15,
+  "outlierRatio": 26.63,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 14,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 9
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 40
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 168,
+      "lengthMedian": 168,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.25,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-20T11:15:42.385Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만), 고유 어절 비율 0.25(0.4 미만, 같은 말 반복)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "공항에서 자주 쓰이는 필수 영어 단어 5개를 하루에 외우도록 유도하여 시청 욕구를 자극한다.",
+      "titleQuote": "입국부터 출국까지 생활영어, 매일 영어단어 5개만 외우세요!",
+      "thumbnailText": "공항 영어단어 no.2",
+      "thumbnailWordCount": 3,
+      "thumbnailVisual": "노트 양식 바탕에 5개 단어 빈칸 표가 그려져 있고 상단에 타이틀이 있는 그래픽",
+      "thumbnailVsTitle": "제목의 '매일 영어단어 5개'라는 내용에 맞춰 5개의 공항 단어 목록 표를 시각적으로 보여준다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "공항 관련 단어 '입국'과 '출국'에 해당하는 영어 단어 Arrival과 Departure, 그리고 한글 발음 표기가 순서대로 나타나며 음성이 반복 재생된다.",
+      "quote": "[00:01] arrival",
+      "reasonToKeepWatching": "표에 비어 있는 5개 단어를 하나씩 채워 나가는 과정을 보여주며 끝까지 따라 읽게 만든다.",
+      "quoteVerified": false
+    },
+    "first3s": {
+      "what": "'입국'이라는 한글 단어 옆에 파란색 'Arrival' 단어가 나타나고, 아래에 '어라이벌' 한글 발음 표기가 등장하며 발음 음성이 나온다.",
+      "quote": "[00:01] arrival",
+      "quoteVerified": false
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 7,
+        "what": "입국(Arrival / 어라이벌) 단어 표기와 한국어/영어 음성 반복 재생",
+        "quote": "[00:01] arrival",
+        "quoteVerified": false
+      },
+      {
+        "start": 7,
+        "end": 15,
+        "what": "출국(Departure / 디파처) 단어 표기와 한국어/영어 음성 반복 재생",
+        "quote": "[00:08] departure",
+        "quoteVerified": false
+      },
+      {
+        "start": 15,
+        "end": 22,
+        "what": "탑승구(Gate / 게이트) 단어 표기와 한국어/영어 음성 반복 재생",
+        "quote": "[00:15] departure gate gate gate",
+        "quoteVerified": false
+      },
+      {
+        "start": 22,
+        "end": 30,
+        "what": "검역(Quarantine / 쿼런틴) 단어 표기와 한국어/영어 음성 반복 재생",
+        "quote": "[00:23] quarantine",
+        "quoteVerified": false
+      },
+      {
+        "start": 30,
+        "end": 38,
+        "what": "수하물 찾는 곳(Baggage claim / 배기지 클레임) 단어 표기와 음성 반복 재생",
+        "quote": "[00:31] baggage claim baggage claim baggage",
+        "quoteVerified": false
+      },
+      {
+        "start": 38,
+        "end": 40,
+        "what": "화면이 축소되며 완성된 단어장 전체 표를 보여주고 종료",
+        "quote": "[00:36] claim baggage claim",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "공항 영어단어 5개 목록이 적힌 주황색 표 양식 화면 등장",
+        "purpose": "학습할 5개 단어 목록을 안내"
+      },
+      {
+        "t": 1,
+        "what": "'입국' 옆 빈칸에 파란색 'Arrival' 텍스트 등장",
+        "purpose": "입국에 대응하는 영어 단어 제시"
+      },
+      {
+        "t": 2,
+        "what": "'Arrival' 아래 검은색 박스에 '어라이벌' 한글 발음 텍스트 등장",
+        "purpose": "발음 읽는 법 안내"
+      },
+      {
+        "t": 7,
+        "what": "'출국' 옆 빈칸에 파란색 'Departure' 텍스트 등장",
+        "purpose": "출국에 대응하는 영어 단어 제시"
+      },
+      {
+        "t": 9,
+        "what": "'Departure' 아래 검은색 박스에 '디파처' 한글 발음 텍스트 등장",
+        "purpose": "두 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 15,
+        "what": "'탑승구' 옆 빈칸에 파란색 'Gate' 텍스트 등장",
+        "purpose": "탑승구에 대응하는 영어 단어 제시"
+      },
+      {
+        "t": 17,
+        "what": "'Gate' 아래 검은색 박스에 '게이트' 한글 발음 텍스트 등장",
+        "purpose": "세 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 22,
+        "what": "'검역' 옆 빈칸에 파란색 'Quarantine' 텍스트 등장",
+        "purpose": "검역에 대응하는 영어 단어 제시"
+      },
+      {
+        "t": 24,
+        "what": "'Quarantine' 아래 검은색 박스에 '쿼런틴' 한글 발음 텍스트 등장",
+        "purpose": "네 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 30,
+        "what": "'수하물 찾는 곳' 옆 빈칸에 파란색 'Baggage claim' 텍스트 등장",
+        "purpose": "수하물 찾는 곳에 대응하는 영어 단어 제시"
+      },
+      {
+        "t": 32,
+        "what": "'Baggage claim' 아래 검은색 박스에 '배기지 클레임' 한글 발음 텍스트 등장",
+        "purpose": "다섯 번째 단어 한글 발음 안내"
+      },
+      {
+        "t": 38,
+        "what": "화면이 축소되면서 5개 단어가 모두 채워진 노트 전체 모습이 나타남",
+        "purpose": "학습 완료 및 전체 단어 복습"
+      }
+    ],
+    "ending": {
+      "what": "완성된 5개 단어 표가 화면에 보이고 하단에 화면을 두 번 터치하라는 유도 문구가 유지된다.",
+      "quote": "[00:36] claim baggage claim",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "적절한 속도감과 친절한 설명 방식에 대한 만족감",
+          "quote": "속도감이 아주 좋아요 감사합니다 ❤❤❤❤❤",
+          "quoteVerified": true
+        },
+        {
+          "point": "아이들 교육에도 유용하다는 긍정적 평가",
+          "quote": "세세하게 가르쳐 주어 고맙습니다 애들한테도 큰도움 되어 감사드려요🎉🎉😊",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": []
+    },
+    "infoCount": {
+      "count": 5,
+      "description": "공항 필수 영어 단어 5개(입국, 출국, 탑승구, 검역, 수하물 찾는 곳)를 순차적으로 나열하며 제시한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 표 안",
+      "size": "보통",
+      "highlightColor": "파란색 및 검은색 바탕 흰 글씨",
+      "highlightMethod": "영어 단어는 파란색 텍스트, 한글 발음은 검은색 상자로 구분",
+      "textAmount": "한 번에 단어 1개와 한글 발음 1개씩 순차 누적",
+      "changeTiming": "음성 발음 재생 시점에 맞춰 등장"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "차분하고 잔잔함",
+      "tempo": "느림",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "한국어/영어 발음 음성이 중심이며 배경음악은 뒤에 작게 깔린다."
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "빈 칸이 남아있는 표를 보여주어 5개 단어가 채워지는 과정을 시청하도록 유도",
+        "quote": "",
+        "type": "단어장 채우기 형식"
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "5개 공항 한글 단어에 해당하는 영어 표현과 발음이 무엇인지 빈칸으로 제시",
+          "quote": ""
+        },
+        "resolved": {
+          "t": 30,
+          "what": "마지막 5번째 단어까지 영단어와 한글 발음을 모두 채워 제시",
+          "quote": "[00:31] baggage claim baggage claim baggage",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "단어 5개를 순서대로 보여주는 병렬식 구성이다.",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 38,
+          "what": "단어 제시가 끝난 뒤 화면 전체가 줌아웃되며 정리된 단어장이 한눈에 보임",
+          "quote": ""
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 0,
+          "what": "하단 텍스트를 통해 5개 단어를 외웠으면 화면을 두 번 터치(좋아요)하도록 요청",
+          "quote": ""
+        }
+      ],
+      "evidence": [],
+      "payoff": {
+        "t": 38,
+        "what": "5개 단어와 한글 발음이 정리된 표 전체를 완성해 보여줌",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "단어를 속도감 있게 반복해서 읽어주는 방식",
+        "reaction": "속도감에 대해 만족하는 반응",
+        "quote": "속도감이 아주 좋아요 감사합니다 ❤❤❤❤❤",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 원어민 발음 원리나 소리 연결을 가르치는 내용이 아닌, 한글 발음 표기(어라이벌, 쿼런틴 등)와 영단어를 나열하는 암기 콘텐츠이다.",
+    "forUs": {
+      "adopt": "단어장에 빈 칸이 순차적으로 채워지는 깔끔한 시각적 구성을 활용하여 시청 지속 시간을 늘릴 수 있다.",
+      "differentiate": "단순히 '디파처', '쿼런틴' 같은 한글 발음을 달아주는 데 그치지 않고, 성인 시청자가 원어민 소리를 실제로 듣고 따라할 수 있는 소리 원리를 원어민 음성과 함께 설명해준다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 14,
+    "verified": 4,
+    "unverified": 10
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 15,
+      "file": "15.jpg"
+    },
+    {
+      "t": 17,
+      "file": "17.jpg"
+    },
+    {
+      "t": 22,
+      "file": "22.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 30,
+      "file": "30.jpg"
+    },
+    {
+      "t": 32,
+      "file": "32.jpg"
+    },
+    {
+      "t": 38,
+      "file": "38.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 6926,
+    "candidatesTokenCount": 2668,
+    "totalTokenCount": 12733,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2277
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3549
+      }
+    ],
+    "thoughtsTokenCount": 3139,
+    "serviceTier": "standard"
+  }
+}

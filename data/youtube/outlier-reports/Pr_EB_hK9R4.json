@@ -1,0 +1,436 @@
+{
+  "schemaVersion": 1,
+  "videoId": "Pr_EB_hK9R4",
+  "analyzedAt": "2026-11-20T11:19:47.160Z",
+  "model": "gemini-3.5-flash-lite",
+  "windowSeconds": 23,
+  "meta": {
+    "videoId": "Pr_EB_hK9R4",
+    "title": "What If English Words Were Actually Literal? 4",
+    "channelId": "UCoHSkg720rcQZkic0g7EtLg",
+    "channelTitle": "Lev English",
+    "publishedAt": "2026-11-09T13:15:03Z",
+    "viewCount": 514605,
+    "likeCount": 0,
+    "commentCount": 25,
+    "durationSeconds": 23,
+    "thumbnail": "https://i.ytimg.com/vi/Pr_EB_hK9R4/maxresdefault.jpg",
+    "description": "",
+    "tags": [
+      "english",
+      "learn english",
+      "education",
+      "funny",
+      "shorts"
+    ]
+  },
+  "subscriberCount": 28200,
+  "viewsPerSubscriber": 18.25,
+  "outlierRatio": 19.55,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 12,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 24
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 23
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 87,
+      "lengthMedian": 87,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.57,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-20T11:19:42.405Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어 단어들을 말 그대로 해석했을 때 어떤 모습일지 궁금증을 유발함",
+      "titleQuote": "What If English Words Were Actually Literal? 4",
+      "thumbnailText": "Car",
+      "thumbnailWordCount": 1,
+      "thumbnailVisual": "초록색 배경 앞에 빨간색 셔츠를 입은 남성이 손가락을 들고 말하고 있고, 상단에는 초록색 자동차 이미지와 'Car'라는 글자가 있음",
+      "thumbnailVsTitle": "썸네일은 단어의 직역이라는 핵심 소재를 시각적으로 보여주고, 제목은 이를 시리즈물 형태로 확장하여 호기심을 더함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "출연자가 'Car'와 'Pet'을 합치면 'CarPet'이 되고, 이것이 결국 'Carpet(카펫)'이 된다는 식의 언어 유희 예시들을 빠르게 보여줌",
+      "quote": "car pet carpet oh carpet back fire back fire oh backfire mouth wash mouth wash oh mouthwash",
+      "reasonToKeepWatching": "단어들의 조합이 황당하면서도 시각적인 이미지로 바로 풀려 다음 단어는 무엇일지 호기심을 유발함",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "출연자가 손가락을 들고 'Car'와 'Pet'이라는 단어를 차례대로 말하며 화면에 관련 이미지가 나타남",
+      "quote": "car",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 6,
+        "what": "Car와 Pet을 합쳐 Carpet이 되는 과정을 이미지와 함께 보여줌",
+        "quote": "car pet carpet oh carpet",
+        "quoteVerified": true
+      },
+      {
+        "start": 6,
+        "end": 13,
+        "what": "Back과 Fire를 합쳐 Backfire가 되는 과정을 보여줌",
+        "quote": "back fire back fire oh backfire",
+        "quoteVerified": true
+      },
+      {
+        "start": 14,
+        "end": 20,
+        "what": "Mouth와 Wash를 합쳐 Mouthwash가 되는 과정을 보여줌",
+        "quote": "mouth wash mouth wash oh mouth wash",
+        "quoteVerified": true
+      },
+      {
+        "start": 21,
+        "end": 23,
+        "what": "Spring이라는 단어와 양파를 썰고 있는 손을 보여주며 질문을 던짐",
+        "quote": "spring",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "초록색 자동차 이미지와 'Car' 글자 등장",
+        "purpose": "첫 번째 단어 제시"
+      },
+      {
+        "t": 1,
+        "what": "개 목줄을 잡고 있는 사람 이미지와 'Pet' 글자 등장",
+        "purpose": "두 번째 단어 제시"
+      },
+      {
+        "t": 2,
+        "what": "중간에 '+' 기호 등장",
+        "purpose": "두 단어의 결합을 표현"
+      },
+      {
+        "t": 3,
+        "what": "강아지처럼 꾸며진 자동차를 사람이 산책시키는 합성 이미지와 'CarPet?' 글자 등장",
+        "purpose": "단어들을 말 그대로 합친 황당한 상상 시각화"
+      },
+      {
+        "t": 5,
+        "what": "실제 카펫 이미지와 'Carpet' 글자 등장",
+        "purpose": "정답 공개"
+      },
+      {
+        "t": 7,
+        "what": "근육질 등 상체 이미지와 불꽃 이미지 등장",
+        "purpose": "다음 단어 조합 제시"
+      },
+      {
+        "t": 9,
+        "what": "등에 불이 붙은 사람의 합성 이미지와 'BackFire?' 글자 등장",
+        "purpose": "직역한 이미지 시각화"
+      },
+      {
+        "t": 12,
+        "what": "자동차 배기구에서 불이 나오는 영상과 'Backfire' 글자 등장",
+        "purpose": "정답 공개"
+      },
+      {
+        "t": 14,
+        "what": "크게 소리치는 사람 얼굴과 거품 묻은 손 이미지 등장",
+        "purpose": "세 번째 단어 조합 제시"
+      },
+      {
+        "t": 16,
+        "what": "입안에서 사람들이 청소하는 합성 이미지와 'MouthWash?' 글자 등장",
+        "purpose": "직역한 이미지 시각화"
+      },
+      {
+        "t": 19,
+        "what": "입을 오물거리는 사람 영상과 'Mouthwash' 글자 등장",
+        "purpose": "정답 공개"
+      },
+      {
+        "t": 21,
+        "what": "봄 풍경 이미지와 칼로 양파를 써는 손 이미지, 'Spring' 글자 등장",
+        "purpose": "마지막 문제 제시"
+      }
+    ],
+    "ending": {
+      "what": "Spring과 양파를 썰고 있는 손을 보여주며 시청자에게 정답을 물어보고 영상이 끝남",
+      "quote": "spring",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "마지막 문제인 Spring과 양파를 보고 'Spring onion'이라는 정답을 맞힘",
+          "quote": "Spring onion 🧅",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "Springcut",
+          "quote": "Springcut",
+          "quoteVerified": true
+        },
+        {
+          "expression": "Spring Egg",
+          "quote": "Spring Egg 🥚 ?",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 4,
+      "description": "영어 단어 4개의 조합과 그에 따른 직역 이미지를 차례대로 나열하는 방식",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 하단",
+      "size": "큼",
+      "highlightColor": "초록색 및 노란색",
+      "highlightMethod": "단어별로 색상을 다르게 하고 굵은 폰트를 사용함",
+      "textAmount": "단어 단위로 짧게 끊어 보여줌",
+      "changeTiming": "출연자의 말과 화면 전환에 맞춰 바뀜"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 장난스러운 분위기",
+      "tempo": "빠름",
+      "hasSoundEffects": true,
+      "soundEffectUse": "장면이 바뀌거나 정답을 맞힐 때 전환 효과음이 사용됨",
+      "voiceVsMusic": "말소리가 중심이며 배경음악이 리듬감을 더해줌"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "단어 두 개를 합치면 전혀 다른 뜻이 되는 과정을 기괴하고 웃긴 합성 이미지로 먼저 보여줌",
+        "quote": "car pet",
+        "type": "시각적 반전과 언어 유희",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 3,
+          "what": "Car와 Pet을 합친 'CarPet?'의 황당한 이미지를 보여주며 실제 뜻이 무엇인지 궁금증을 유발함",
+          "quote": "CarPet?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 5,
+          "what": "실제 카펫 이미지를 보여주며 정답을 확인시켜 줌",
+          "quote": "Carpet",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "단어 조합 제시 -> 직역한 황당한 이미지 -> 실제 단어 뜻 공개의 패턴이 반복됨",
+        "examples": [
+          {
+            "t": 0,
+            "what": "단어 결합과 직역 이미지 제시 후 정답 공개로 이어짐",
+            "quote": "car pet carpet",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 21,
+          "what": "마지막 'Spring'과 양파를 썰고 있는 모습의 정답을 알려주지 않고 끝냄",
+          "quote": "Spring",
+          "quoteVerified": true
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 21,
+          "what": "이전까지는 정답을 바로 공개했으나, 마지막에는 정답을 알려주지 않고 끝냄",
+          "quote": "spring",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 21,
+          "what": "시청자가 댓글로 마지막 정답을 맞히도록 유도함",
+          "quote": "Do you know?",
+          "quoteVerified": false
+        }
+      ],
+      "evidence": [
+        {
+          "t": 3,
+          "what": "합성 사진을 통해 단어들을 말 그대로 직역했을 때의 모습을 시각적으로 보여줌",
+          "quote": "CarPet?",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": null,
+        "what": "없음",
+        "quote": ""
+      }
+    },
+    "links": [
+      {
+        "cause": "마지막에 Spring과 양파 써는 화면을 보여주며 정답을 비워둔 것",
+        "reaction": "시청자들이 댓글로 Spring onion이라고 정답을 적음",
+        "quote": "Spring onion 🧅",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 영어 단어의 조합을 말 그대로 해석한 시각적 개그 영상으로, 발음이나 듣기 소리를 가르치는 교육용 영상이 아님",
+    "forUs": {
+      "adopt": "단어의 의미나 구성 원리를 직관적인 시각 자료나 유머로 풀어내는 방식을 참고할 만함",
+      "differentiate": "우리는 단순한 단어 개그가 아니라 한국인 성인이 헷갈리는 영어 소리의 원리를 쉽고 명확하게 짚어주어야 함"
+    }
+  },
+  "quoteCheck": {
+    "checked": 20,
+    "verified": 19,
+    "unverified": 1
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 19,
+      "file": "19.jpg"
+    },
+    {
+      "t": 21,
+      "file": "21.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 5541,
+    "candidatesTokenCount": 2456,
+    "totalTokenCount": 7997,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2089
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2352
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

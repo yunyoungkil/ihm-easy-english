@@ -1,0 +1,842 @@
+{
+  "schemaVersion": 1,
+  "videoId": "1pdnyUemyRM",
+  "analyzedAt": "2026-11-20T11:21:06.408Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 144,
+  "meta": {
+    "videoId": "1pdnyUemyRM",
+    "title": "Literal vs Reality: If Dog Breeds Were Literal English Words 🐶🤯",
+    "channelId": "UCcZsHWiQvIPBPoBcc21ik4w",
+    "channelTitle": "BloopEnglish",
+    "publishedAt": "2026-07-13T12:00:18Z",
+    "viewCount": 32096,
+    "likeCount": 231,
+    "commentCount": 18,
+    "durationSeconds": 144,
+    "thumbnail": "https://i.ytimg.com/vi/1pdnyUemyRM/maxresdefault.jpg",
+    "description": "Literal vs Reality: If Dog Breeds Were Literal English Words 🐶🤯\n\nHave you ever thought about what \"Car-Key\" (Corgi) or \"Pool-Doll\" (Poodle) actually means? 🤔\n\nWhat if the names of the most popular dog breeds in the world were taken completely literally?\n🚗 Car + Key = A cute sports car starting its engine with a giant golden key!\n🛟 Pool + Doll = A toy doll floating lazily on a swimming pool donut!\n📦 Box + Ear = A cardboard box with giant, floppy human ears!\n\nIn this hilarious \"Literal vs Reality\" challenge, we bring 20 famous dog breeds to life using wild, funny 3D animations. Watch as our favorite furry friends are completely transformed by literal English word meanings into mind-bending, chaotic, and funny visual memes!\n\nCan you guess all the dog breeds before the reality is revealed? Whether you are a dog lover, learning English vocabulary, or just enjoy goofy internet memes, this video will blow your mind!\n\n💬 Which literal dog breed was the funniest? Let me know your favorite in the comments below! 👇\n\n#EnglishCompoundWords #DontMeanWhatYouThink #LiteralVsReal #LearnEnglish #EnglishVocabulary #FunnyEnglish #CompoundWords #ESL #EnglishTips #WeirdEnglish #SurprisingEnglish #VocabularyBuilding #LearnEnglishFun #EnglishForBeginners #funwithenglish",
+    "tags": [
+      "learn english",
+      "english learning",
+      "english vocabulary",
+      "vocabulary building",
+      "compound words",
+      "english words",
+      "english speaking",
+      "learn vocabulary",
+      "english lessons",
+      "english language",
+      "literal vs reality",
+      "funny english"
+    ]
+  },
+  "subscriberCount": 2170,
+  "viewsPerSubscriber": 14.79,
+  "outlierRatio": 8.03,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 80,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 8
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 144
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "long",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 434,
+      "lengthMedian": 434,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.53,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-20T11:20:52.480Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "강아지 품종 이름을 직역한 단어의 조합으로 나타내면 어떤 모습일지 궁금증을 유발한다.",
+      "titleQuote": "Literal vs Reality: If Dog Breeds Were Literal English Words 🐶🤯",
+      "thumbnailText": "SPAN IEL? SHIH TZU? BASSET HOUND? BASSET HOUND? BEAGLE? POOLDLE?",
+      "thumbnailWordCount": 11,
+      "thumbnailVisual": "AI로 생성한 직역 캐릭터 6개가 격자 형태로 배치되어 있고 각 이미지 아래에 물음표가 붙은 품종명이 적혀 있다.",
+      "thumbnailVsTitle": "제목은 직역과 실제의 비교라는 주제를 전달하고 썸네일은 그 직역 캐릭터 예시 이미지들을 시각적으로 보여준다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "Husk와 Key를 합성한 AI 이미지와 실제 Husky를 비교하고, Lab과 Door를 합성한 AI 이미지와 실제 Labrador를 비교한다.",
+      "quote": "husk",
+      "reasonToKeepWatching": "단어 두 개를 합성한 직역 캐릭터가 나온 뒤 실제 강아지 품종으로 바뀌는 리듬감 있는 구성을 통해 다음 강아지 종류를 궁금하게 만든다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "Husk 사진과 글자가 나타난 뒤 + 기호와 함께 Key 사진이 등장하고 두 단어를 합친 AI 캐릭터 HuskKey가 보여진다.",
+      "quote": "husk",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 14,
+        "what": "Husk+Key(Husky), Lab+Door(Labrador)의 직역 이미지와 실제 개 품종을 비교한다.",
+        "quote": "husk",
+        "quoteVerified": true
+      },
+      {
+        "start": 14,
+        "end": 35,
+        "what": "Pool+Doll(Poodle), Box+Ear(Boxer), Bee+Gull(Beagle)의 직역 이미지와 실제 개 품종을 비교한다.",
+        "quote": "pool",
+        "quoteVerified": true
+      },
+      {
+        "start": 35,
+        "end": 56,
+        "what": "Pit+Bull(Pitbull), She+Bar(Shiba), Dock+Sun(Dachshund)의 직역 이미지와 실제 개 품종을 비교한다.",
+        "quote": "pit",
+        "quoteVerified": true
+      },
+      {
+        "start": 56,
+        "end": 78,
+        "what": "Shoe+Zoo(Shih Tzu), Coal+Leaf(Collie), Pea+Kings(Pekingese)의 직역 이미지와 실제 개 품종을 비교한다.",
+        "quote": "shoe",
+        "quoteVerified": true
+      },
+      {
+        "start": 78,
+        "end": 104,
+        "what": "Mast+Thief(Mastiff), Chew+Choo(Chow Chow), Car+Key(Corgi)의 직역 이미지와 실제 개 품종을 비교한다.",
+        "quote": "mast",
+        "quoteVerified": true
+      },
+      {
+        "start": 104,
+        "end": 143,
+        "what": "Palm+Rain(Pomeranian), Grate+Day(Great Dane), Doll+Mason(Dalmatian), Bull+Dog(Bulldog), Bass+Set(Basset Hound), Span+Yell(Spaniel)의 직역 이미지와 실제 개 품종을 비교한다.",
+        "quote": "palm",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "Husk 이미지와 텍스트 표시",
+        "purpose": "첫 번째 합성 단어의 첫 요소 제시"
+      },
+      {
+        "t": 1,
+        "what": "+ 기호와 함께 Key 이미지 표시",
+        "purpose": "두 번째 결합 단어 제시"
+      },
+      {
+        "t": 3,
+        "what": "AI로 생성한 HuskKey 캐릭터와 오답 아이콘 등장",
+        "purpose": "직역된 합성어 캐릭터 묘사"
+      },
+      {
+        "t": 5,
+        "what": "초록색 체크 아이콘과 함께 실제 Husky 강아지 사진 등장",
+        "purpose": "실제 강아지 품종 정답 확인"
+      },
+      {
+        "t": 7,
+        "what": "Lab 이미지와 텍스트 표시",
+        "purpose": "두 번째 합성 퀴즈 시작"
+      },
+      {
+        "t": 9,
+        "what": "Door 이미지 표시",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 10,
+        "what": "LabDoor AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 12,
+        "what": "실제 Labrador 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 14,
+        "what": "Pool 이미지 등장",
+        "purpose": "세 번째 퀴즈 시작"
+      },
+      {
+        "t": 16,
+        "what": "Doll 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 17,
+        "what": "PoolDoll AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 19,
+        "what": "실제 Poodle 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 21,
+        "what": "Box 이미지 등장",
+        "purpose": "네 번째 퀴즈 시작"
+      },
+      {
+        "t": 23,
+        "what": "Ear 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 25,
+        "what": "BoxEar AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 27,
+        "what": "실제 Boxer 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 29,
+        "what": "Bee 이미지 등장",
+        "purpose": "다섯 번째 퀴즈 시작"
+      },
+      {
+        "t": 30,
+        "what": "Gull 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 32,
+        "what": "BeeGull AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 34,
+        "what": "실제 Beagle 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 36,
+        "what": "Pit 이미지 등장",
+        "purpose": "여섯 번째 퀴즈 시작"
+      },
+      {
+        "t": 37,
+        "what": "Bull 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 39,
+        "what": "PitBull AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 41,
+        "what": "실제 Pitbull 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 43,
+        "what": "She 이미지 등장",
+        "purpose": "일곱 번째 퀴즈 시작"
+      },
+      {
+        "t": 45,
+        "what": "Bar 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 46,
+        "what": "SheBar AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 48,
+        "what": "실제 Shiba 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 50,
+        "what": "Dock 이미지 등장",
+        "purpose": "여덟 번째 퀴즈 시작"
+      },
+      {
+        "t": 52,
+        "what": "Sun 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 53,
+        "what": "DockSun AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 55,
+        "what": "실제 Dachshund 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 57,
+        "what": "Shoe 이미지 등장",
+        "purpose": "아홉 번째 퀴즈 시작"
+      },
+      {
+        "t": 59,
+        "what": "Zoo 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 60,
+        "what": "ShoeZoo AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 62,
+        "what": "실제 Shih Tzu 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 65,
+        "what": "Coal 이미지 등장",
+        "purpose": "열 번째 퀴즈 시작"
+      },
+      {
+        "t": 66,
+        "what": "Leaf 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 68,
+        "what": "CoalLeaf AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 70,
+        "what": "실제 Collie 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 72,
+        "what": "Pea 이미지 등장",
+        "purpose": "열한 번째 퀴즈 시작"
+      },
+      {
+        "t": 73,
+        "what": "Kings 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 75,
+        "what": "PeaKings AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 77,
+        "what": "실제 Pekingese 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 79,
+        "what": "Mast 이미지 등장",
+        "purpose": "열두 번째 퀴즈 시작"
+      },
+      {
+        "t": 80,
+        "what": "Thief 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 82,
+        "what": "MastThief AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 84,
+        "what": "실제 Mastiff 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 86,
+        "what": "Chew 이미지 등장",
+        "purpose": "열세 번째 퀴즈 시작"
+      },
+      {
+        "t": 88,
+        "what": "Choo 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 89,
+        "what": "ChewChoo AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 91,
+        "what": "실제 Chow Chow 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 93,
+        "what": "Car 이미지 등장",
+        "purpose": "열네 번째 퀴즈 시작"
+      },
+      {
+        "t": 95,
+        "what": "Key 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 96,
+        "what": "CarKey AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 98,
+        "what": "실제 Corgi 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 100,
+        "what": "Palm 이미지 등장",
+        "purpose": "열다섯 번째 퀴즈 시작"
+      },
+      {
+        "t": 102,
+        "what": "Rain 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 103,
+        "what": "PalmRain AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 105,
+        "what": "실제 Pomeranian 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 108,
+        "what": "Grate 이미지 등장",
+        "purpose": "열여섯 번째 퀴즈 시작"
+      },
+      {
+        "t": 109,
+        "what": "Day 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 111,
+        "what": "GrateDay AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 113,
+        "what": "실제 Great Dane 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 115,
+        "what": "Doll 이미지 등장",
+        "purpose": "열일곱 번째 퀴즈 시작"
+      },
+      {
+        "t": 116,
+        "what": "Mason 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 118,
+        "what": "DollMason AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 120,
+        "what": "실제 Dalmatian 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 122,
+        "what": "Bull 이미지 등장",
+        "purpose": "열여덟 번째 퀴즈 시작"
+      },
+      {
+        "t": 123,
+        "what": "Dog 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 125,
+        "what": "BullDog AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 127,
+        "what": "실제 Bulldog 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 129,
+        "what": "Bass 이미지 등장",
+        "purpose": "열아홉 번째 퀴즈 시작"
+      },
+      {
+        "t": 131,
+        "what": "Set 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 132,
+        "what": "BassSet AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 134,
+        "what": "실제 Basset Hound 사진 등장",
+        "purpose": "정답 확인"
+      },
+      {
+        "t": 136,
+        "what": "Span 이미지 등장",
+        "purpose": "스무 번째 퀴즈 시작"
+      },
+      {
+        "t": 138,
+        "what": "Yell 이미지 등장",
+        "purpose": "결합 단어 제시"
+      },
+      {
+        "t": 139,
+        "what": "SpanYell AI 캐릭터 제시",
+        "purpose": "직역 캐릭터 묘사"
+      },
+      {
+        "t": 141,
+        "what": "실제 Spaniel 사진 등장",
+        "purpose": "정답 확인"
+      }
+    ],
+    "ending": {
+      "what": "Spaniel 품종의 사진과 명칭이 나타나며 영상이 끝난다.",
+      "quote": "spaniel",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "코르기(Corgi) 품종이 나온 1:33 구간이 마음에 든다고 표현함",
+          "quote": "I love corgi 1:33",
+          "quoteVerified": true
+        },
+        {
+          "point": "ShoeZoo 캐릭터를 브라질 마스코트에 비유함",
+          "quote": "ShoeZoo is like a mascote of Brazil",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "question": "치와와(Chihuahua) 품종은 왜 없는지 질문함",
+          "quote": "What about Chihuahua??",
+          "quoteVerified": true
+        },
+        {
+          "question": "골든 리트리버(Golden retriever)가 나오지 않아 아쉬워함",
+          "quote": "Golden retriever: WHY MEEEE😭😭😭",
+          "quoteVerified": true
+        },
+        {
+          "question": "래브라도리트리버와 푸들의 합성(Labradoodle)이 없는지 물어봄",
+          "quote": "labradoodle/labrador + poodle: WHYYYY",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "ShoeZoo",
+          "quote": "ShoeZoo is like a mascote of Brazil",
+          "quoteVerified": true
+        },
+        {
+          "expression": "palmrain",
+          "quote": "palm ➕ rain 🟰 palmrain👹🌋 pomeranian",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 20,
+      "description": "20가지 개 품종 이름을 유사한 음절의 두 단어 조합(직역 AI 이미지) 및 실제 개 사진과 연달아 비교하는 방식",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "없음",
+      "highlightMethod": "단어 등장 시 텍스트 표시",
+      "textAmount": "한 번에 1~2개 단어",
+      "changeTiming": "음성 및 이미지 변화 시점에 맞춰 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "밝고 경쾌한 분위기",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "오답 직역 캐릭터 등장 시 부저음, 실제 강아지 정답 공개 시 딩동 통과 음향 쓰임",
+      "voiceVsMusic": "여성 성우 음성이 전면에 나오고 배경음악은 낮게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "발음이 비슷한 단어 조합으로 엉뚱한 AI 이미지 몬스터를 만들어 호기심 유발",
+        "quote": "husk",
+        "type": "언어 유희 퀴즈",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 3,
+          "what": "Husk와 Key를 합친 조합이 무슨 강아지 이름인지 보여줌",
+          "quote": "husk key",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 5,
+          "what": "Husky 강아지 사진을 보여주며 정답 확인",
+          "quote": "husky",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "독립적인 퀴즈 문항들이 동일한 연출 방식으로 20회 반복 나열되는 구조다.",
+        "examples": [
+          {
+            "t": 7,
+            "what": "Husky 퀴즈 완료 후 곧바로 Labrador 퀴즈로 전환됨",
+            "quote": "lab",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 141,
+        "what": "20번째 Spaniel 퀴즈 정답까지 차례대로 모두 공개함",
+        "quote": "spaniel",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "1:33 CarKey -> Corgi 퀴즈 장면",
+        "reaction": "Corgi 품종 장면을 좋아한다고 반응함",
+        "quote": "I love corgi 1:33",
+        "quoteVerified": true
+      },
+      {
+        "cause": "1:00 Shoe + Zoo -> Shih Tzu 퀴즈 장면",
+        "reaction": "ShoeZoo가 브라질 마스코트 같다는 유머 코멘트",
+        "quote": "ShoeZoo is like a mascote of Brazil",
+        "quoteVerified": true
+      },
+      {
+        "cause": "1:43 Palm + Rain -> Pomeranian 퀴즈 장면",
+        "reaction": "PalmRain 단어 조합 텍스트 반응",
+        "quote": "palm ➕ rain 🟰 palmrain👹🌋 pomeranian",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "개 품종명 발음의 언어 유희를 활용한 오락성 숏폼 영상이며, 성인에게 영어 음성/발음 규칙을 가르치는 교육 콘텐츠가 아니다.",
+    "forUs": {
+      "adopt": "단어를 음절 단위로 쪼개어 재미있는 시각 이미지로 형상화하고 실제 발음/단어로 연결하는 퀴즈형 몰입 템플릿",
+      "differentiate": "단순 재미성 합성어를 넘어 한국인 성인이 헷갈리는 모음/자음 발음 차이를 시각적 단어 조합과 함께 원리로 풀어서 설명하기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 25,
+    "verified": 25,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 37,
+    "medianGapSeconds": 4,
+    "perMinute": 15.4,
+    "times": [
+      3.1,
+      7.2,
+      10.3,
+      17.5,
+      21.5,
+      24.6,
+      28.7,
+      31.8,
+      35.8,
+      39,
+      43,
+      46.1,
+      50.2,
+      53.3,
+      57.3,
+      60.5,
+      64.5,
+      67.6,
+      71.7,
+      74.8,
+      78.8,
+      82,
+      86,
+      89.1,
+      93.2,
+      96.3,
+      103.5,
+      107.5,
+      110.6,
+      114.7,
+      117.8,
+      121.8,
+      125,
+      129,
+      132.1,
+      136.2,
+      139.3
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 37,
+      "file": "37.jpg"
+    },
+    {
+      "t": 62,
+      "file": "62.jpg"
+    },
+    {
+      "t": 89,
+      "file": "89.jpg"
+    },
+    {
+      "t": 115,
+      "file": "115.jpg"
+    },
+    {
+      "t": 141,
+      "file": "141.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 16938,
+    "candidatesTokenCount": 5404,
+    "totalTokenCount": 27749,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2812
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 13026
+      }
+    ],
+    "thoughtsTokenCount": 5407,
+    "serviceTier": "standard"
+  }
+}

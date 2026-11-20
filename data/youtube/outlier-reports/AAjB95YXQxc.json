@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 1,
+  "videoId": "AAjB95YXQxc",
+  "analyzedAt": "2026-11-20T11:19:12.314Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "AAjB95YXQxc",
+    "title": "본토 영어 발음, 랩으로 연습하면 됩니다",
+    "channelId": "UCPAoqP-uh-toBBezBnDu5yQ",
+    "channelTitle": "이빨파티",
+    "publishedAt": "2026-08-21T09:41:55Z",
+    "viewCount": 250148,
+    "likeCount": 8380,
+    "commentCount": 142,
+    "durationSeconds": 577,
+    "thumbnail": "https://i.ytimg.com/vi/AAjB95YXQxc/maxresdefault.jpg",
+    "description": "Instagram: @teethpartyy",
+    "tags": []
+  },
+  "subscriberCount": 38200,
+  "viewsPerSubscriber": 6.55,
+  "outlierRatio": 21.31,
+  "ratioMethod": null,
+  "ratioStatus": null,
+  "ratioReason": null,
+  "ratioComputedAt": null,
+  "ratioDenominator": null,
+  "ratioPeerCount": null,
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 287,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 81
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "long",
+    "sentences": 77,
+    "stats": {
+      "sentences": 77,
+      "lengthSum": 1725,
+      "lengthMedian": 16,
+      "endings": {
+        "question": 5,
+        "command": 3,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 8,
+        "haeyo": 4,
+        "other": 57
+      },
+      "jointMid": 5,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 3,
+        "그래서": 4,
+        "그런데": 0,
+        "근데": 4,
+        "그러면": 3,
+        "여러분": 1,
+        "이게": 3,
+        "그냥": 3,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 2
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 5,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 77,
+      "hangulChars": 1118,
+      "hangulRatio": 0.69,
+      "uniqueWordRatio": 0.59,
+      "uniqueSentenceRatio": 0.99
+    },
+    "computedAt": "2026-11-20T11:16:38.711Z",
+    "note": "품질 낮음: 한국어 글자 비율 0.69(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어 발음을 본토인처럼 개선하는 방법으로 '랩 연습'이라는 파격적이고 흥미로운 해결책을 제안한다.",
+      "titleQuote": "본토 영어 발음, 랩으로 연습하면 됩니다",
+      "thumbnailText": "if i put it in my batter it will make my batter bitter",
+      "thumbnailWordCount": 12,
+      "thumbnailVisual": "보라색 후드티를 쓰고 선글라스를 낀 채 힙합 제스처를 취하는 인물의 모습이 담겨 있다.",
+      "thumbnailVsTitle": "제목은 '랩으로 발음 연습'이라는 주제를 명시하고, 썸네일은 실제 랩으로 연습할 영어 텅 트위스터 예시 문장과 힙합 연출 스타일을 visual로 보완한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "보라색 후드를 쓴 출연자가 빠른 템포의 영어 텅 트위스터를 랩처럼 뱉어내고 선글라스를 착용하며 힙합 비트에 맞춰 시범을 보인다.",
+      "quote": "If Peter Piper picked a pack of pickled peppers, where's a pack of pickled peppers?",
+      "reasonToKeepWatching": "실제로 랩 비트에 맞춰 텅 트위스터를 구현하는 화려한 시범을 보여줌으로써 영어 발음을 흥미롭게 배울 수 있다는 기대감을 준다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "출연자가 카메라를 정면으로 바라보며 영어 텅 트위스터 문장을 빠른 속도로 읊기 시작한다.",
+      "quote": "If Peter Piper picked a pack of pickled peppers",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 33,
+        "what": "힙합 비트에 맞춰 텅 트위스터 문장(Peter Piper, Batter bitter)을 랩처럼 신나게 구사하는 인트로 시범을 선보인다.",
+        "quote": "If Peter Piper picked a pack of pickled peppers... If I put it in my batter it will make my batter bitter",
+        "quoteVerified": false
+      },
+      {
+        "start": 34,
+        "end": 116,
+        "what": "한국어와 영어의 구강 근육 사용 차이를 설명하며 꼼수 없이 매일 훈련해야 발음이 좋아진다는 점을 강조한다.",
+        "quote": "회화는 되는데 발음이 안 된다... shortcut 없습니다. 그냥 존나게 많이 해야 돼요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 117,
+        "end": 224,
+        "what": "첫 번째 팁인 '입 풀기(얼굴 근육 쓰기)'를 소개하며 입술 털기 sound와 과장된 입 모양 시범을 보인다.",
+        "quote": "첫 번째 입 풀기. 입을 풀어야 됩니다. 얼굴 근육을 써야 됩니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 225,
+        "end": 298,
+        "what": "두 번째 팁인 '텅 트위스터 연습'을 제시하고 챗GPT를 활용해 텅 트위스터 문장을 받아 훈련하는 팁을 안내한다.",
+        "quote": "자 두 번째 tongue twisters... 채집비티한테 영어 tongue twister 한 다섯 개 달라 해 맨날",
+        "quoteVerified": false
+      },
+      {
+        "start": 299,
+        "end": 300,
+        "what": "세 번째 팁인 'Self-awareness(카메라 녹화를 통한 자기 객관화)'를 언급하기 시작한다.",
+        "quote": "자 이제 세 번째 self awareness 객관적인 판단이 중요한데요",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "화면 좌측 상단에 '이 영상으로 연습한 너 한 달 뒤:' 자막과 함께 하단 영어 자막이 등장함",
+        "purpose": "한 달 뒤의 완성된 모습을 미리 보여주는 콘셉트를 전달함"
+      },
+      {
+        "t": 10,
+        "what": "출연자가 검은색 선글라스를 착용하며 힙합 비트 음악이 시작됨",
+        "purpose": "랩 시범 분위기로 시각적 분위기를 전환함"
+      },
+      {
+        "t": 33,
+        "what": "선글라스를 벗고 인사를 하며 화면이 카메라 근접 구도로 클로즈업 전환됨",
+        "purpose": "오프닝 시범이 끝나고 진정성 있는 본론 설명 단계로 들어감을 표시함"
+      },
+      {
+        "t": 114,
+        "what": "출연자가 손가락 세 개를 펼쳐 보임",
+        "purpose": "앞으로 설명할 3가지 핵심 연습법 구조를 시각화함"
+      },
+      {
+        "t": 152,
+        "what": "입술을 털며 과장된 소리와 찌그러진 표정을 짓고 짧은 정적이 흐름",
+        "purpose": "입 풀기 연습 시 쑥스러움을 무릅쓰고 근육을 풀어야 함을 유머러스하게 전달함"
+      },
+      {
+        "t": 225,
+        "what": "손가락 두 개를 펴서 V 포즈를 취함",
+        "purpose": "두 번째 팁 단계로 넘어갔음을 명확히 안내함"
+      },
+      {
+        "t": 299,
+        "what": "손가락 세 개를 펴서 숫자를 표시함",
+        "purpose": "세 번째 팁 단계가 시작됨을 알려줌"
+      }
+    ],
+    "ending": {
+      "what": "300초 무렵 텅 트위스터 20개 실전 연습 세션의 시작을 알리고 시청자가 따라 할 수 있도록 안내한다.",
+      "quote": "자 그럼 내가 이제 다양한 발음을 할 수 있는 tongue twisters 20개를 골라봤는데요.",
+      "quoteVerified": false
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "팝송이나 랩을 억지로 따라 부르면서 구강 근육을 쓰고 억양과 발음이 획기적으로 개선되었다는 경험담",
+          "quote": "랩하면 확실히 발음 억양 진짜 외국인같이 변합니다. 저도 고3인데 중1때부터 랩에 흥미생겨서 시간 날때마다 막 몇시간씩 햇는데... 영어 선생님도 어디서 공부햇니?라고 질문하실정도로 좋아졋습니다",
+          "quoteVerified": false
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "특정 자음 연쇄나 빠른 발음 변화(예: asked의 'ㅋ'에서 'ㄷ'로 넘어가는 연결)에서 혀가 꼬이는 어려움",
+          "quote": "저는 제일 어려운 발음이 asked예요.. ask까지는 쉬운데 ㅋ에서 ㅇㄷ로 넘어가는게 넘 어렵네요",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "연습할 때 배경으로 깔면 좋은 힙합 비트나 추천 랩 음악 정보 요청",
+          "quote": "무슨 노래로 연습하면 좋은지 추천해 주세요ㅜ😎",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "저점매수 시기",
+          "quote": "지금이 저점매수 시기~ 제 알고리즘에 떠주셔서 감사합니다",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 3,
+      "description": "발음 향상을 위한 3단계 실천법(1. 구강/얼굴 근육 입 풀기, 2. 텅 트위스터 반복 훈련, 3. 카메라 촬영을 통한 셀프 모니터링)을 순서대로 제시한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "없음",
+      "highlightMethod": "없음",
+      "textAmount": "한 번에 1~2줄의 단어나 문장",
+      "changeTiming": "출연자의 말하기 속도에 맞춰 동기화되어 즉각 변경됨"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "인트로에서는 리드미컬하고 신나는 힙합 비트가 흐르고 본론에서는 조용함",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "입 풀기 시범이나 반전 정적 연출 시 유머러스한 효과음 적용",
+      "voiceVsMusic": "오프닝 퍼포먼스에서는 비트와 목소리가 조화를 이루고, 강의 본문에서는 출연자의 목소리가 주를 이룸"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 10,
+        "what": "선글라스를 끼고 힙합 비트에 맞춰 텅 트위스터 랩 시범을 선보여 흥미를 극대화한다.",
+        "quote": "If I put it in my batter, it will make my batter bitter.",
+        "type": "시범 연출 및 화려한 비주얼",
+        "quoteVerified": false
+      },
+      "curiosity": {
+        "opened": {
+          "t": 34,
+          "what": "회화는 가능하지만 본토 발음이 잘 안 나오는 원인에 대한 문제를 제기한다.",
+          "quote": "회화는 되는데 발음이 안 된다",
+          "quoteVerified": false
+        },
+        "resolved": {
+          "t": 109,
+          "what": "매일 아침 훈련할 수 있는 3가지 솔루션을 제시하겠다고 밝힌다.",
+          "quote": "그래서 내가 매일 아침 exercise 할 수 있는 거 3가지를 알려 줄게",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "한국어와 영어의 입 모양 근육이 다르기 때문에 제대로 된 발음을 내려면 근육을 푸는 연습(입 풀기)부터 해야 한다는 인과관계로 연결된다.",
+        "examples": [
+          {
+            "t": 117,
+            "what": "영어 입 모양을 만들기 위해 얼굴 근육을 써야 하므로 첫 단계로 입을 풀어야 한다고 설명함",
+            "quote": "첫 번째 입 풀기. 입을 풀어야 됩니다. 얼굴 근육을 써야 됩니다.",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 113,
+          "what": "발음을 혁신적으로 바꿀 수 있는 3가지 연습 팁",
+          "quote": "제일 useful 한 세 가지야",
+          "quoteVerified": false
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 152,
+          "what": "진지한 설명을 하다가 갑자기 소리를 내며 과장되게 혀와 입술을 터는 민망한 시범을 직접 보여준다.",
+          "quote": "집에서 이렇게 소리 내면서 말해야 돼",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 298,
+          "what": "영상을 멍하니 보기만 하지 말고 직접 입을 움직여 따라 하라고 요구한다.",
+          "quote": "그걸 보고 따라 해",
+          "quoteVerified": true
+        }
+      ],
+      "evidence": [
+        {
+          "t": 0,
+          "what": "출연자가 원어민급 템포로 텅 트위스터 문장들을 매끄럽게 읊는 퍼포먼스를 근거로 보여준다.",
+          "quote": "If Peter Piper picked a pack of pickled peppers",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 299,
+        "what": "핵심 훈련법 3가지를 차례대로 풀어서 안내하며 시청자의 발음 개선 욕구를 충족시킨다.",
+        "quote": "자 이제 세 번째 self awareness",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "1분 52초에 혀와 입술을 과장되게 털어내며 시범을 보인 후 흐르는 정적 장면",
+        "reaction": "해당 정적 구간의 유머 포인트에 크게 웃었다는 반응",
+        "quote": "1:56 이 정적이 넘웃김ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        "quoteVerified": false
+      }
+    ],
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "영어 발음과 조음 기관(구강 근육) 훈련법, 텅 트위스터를 활용한 소리 내기 훈련을 직접 시범 보이며 가르쳐주는 콘텐츠이다.",
+    "forUs": {
+      "adopt": "영어 발음 훈련 전 조음 기관과 얼굴 근육을 신나게 푸는 워밍업 훈련법을 영상 초반 요소로 차용한다.",
+      "differentiate": "젊은 층 위주의 빠른 힙합 템포 대신, 4060 중장년층이 쉽게 따라 할 수 있도록 구강 구조 원리 설명과 느린 속도의 음성 교정을 제공한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 23,
+    "verified": 13,
+    "unverified": 10
+  },
+  "pacing": {
+    "count": 4,
+    "medianGapSeconds": 106.2,
+    "perMinute": 0.8,
+    "times": [
+      33.5,
+      34.3,
+      140.5,
+      291
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 33,
+      "file": "33.jpg"
+    },
+    {
+      "t": 114,
+      "file": "114.jpg"
+    },
+    {
+      "t": 152,
+      "file": "152.jpg"
+    },
+    {
+      "t": 225,
+      "file": "225.jpg"
+    },
+    {
+      "t": 299,
+      "file": "299.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 36729,
+    "candidatesTokenCount": 3108,
+    "totalTokenCount": 42534,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 8328
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      }
+    ],
+    "thoughtsTokenCount": 2697,
+    "serviceTier": "standard"
+  }
+}

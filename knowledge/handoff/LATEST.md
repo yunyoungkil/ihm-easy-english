@@ -14,6 +14,9 @@
 - **EP31 쇼츠 `videos/ep31-shorts-stress-shift`**: **12/01 화 20:00 KST 예약 완료** (ID `AkDKw4o_C58`, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`). 12/08 화 이후 공개 7일 결과 정산 예정.
 - **EP32 쇼츠 `videos/ep32-shorts-word-merge`**: **12/05 토 20:00 KST 예약 완료** (ID `YKaokru2ugg`, 교육 27, 한국어 ko, 40.4s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 게시, `community-post.json` 예습 퀴즈 `2026-12-05T09:00:00Z`).
   - 시험 변수(#3): 비레이아웃 0.3초 청각 시그니처 4회 + 브라이트 에디토리얼 실사·가로 정중앙 대칭·확대 3060 폰트. 12/12 토 이후 공개 7일 결과 정산 예정.
+- **EP33 쇼츠 `ep33-shorts-swallowed-t` (12/08 화 슬롯)**: **Gate 1 비교 시트 v4 초안 완성** (`data/youtube/transform-sheets/ep33-shorts-swallowed-t.json`, `draft`, 버튼·커튼·마운틴·임포턴트 'T+N 코 넘김', 촉각 스튜디오 크래프트 실사 5장·썸네일 3종·12컷 프리뷰·태그 10개 실측·브라우저 검수 완료).
+- **11/30 롱폼 방향 확정 (2026-11-20 사용자 승인 A안)**: 11/30(월) 롱폼은 1회 쉬고, 쇼츠 선행 후 11/25 EP30 쇼츠 7일 정산으로 검증된 주제를 새 포맷 롱폼으로 확장.
+- **아웃라이어 리포트 따라잡기 5편 완료 (`2026-11-20`)**: 누적 48편, 남은 따라잡기 **0편** + 스튜디오 조사 6일치(후보 87편) 달성 → 0단계 구 리포트 정리 후 2단계(`pickReportTargets` 스튜디오 조사 우선 전환) 진입 가능.
 
 ## 핵심 규칙 및 파이프라인 추가 (2026-11-19~20)
 1. **비교 시트 v4 `aiRecommendation` 추가 (`2026-11-20`)**: Gate 1 승인용 AI 1순위 제목·썸네일 추천 조합·이유·차선안을 시트 상단 카드 및 `★ AI 추천` 배지로 표시(`transform-sheet.mjs`, `outlier-report-view.mjs`, `comparison-sheet-playbook.md`).
@@ -22,7 +25,8 @@
 4. **자율 브리핑·사후 관리 파이프라인 (`2026-11-20`)**: `npm run briefing` 단일 원본 정합화(`00-autonomous-briefing.md`), `post-publish-pipeline.mjs` 4대 사후 관리(재생목록·고정댓글·관련동영상·커뮤니티 게시물) 자동 순환.
 
 ## 다음 할 일
-1. **11/23 월 사용자 확인**: 스튜디오 EP23 제목·썸네일 A/B 테스트 결과 확인 후 REVIEW.md 기록.
-2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 결과 확인.
-3. **12/08 화 이후**: EP31 stress-shift 쇼츠(`AkDKw4o_C58`) 공개 7일 결과 확인.
-4. **12/12 토 이후**: EP32 word-merge 쇼츠(`YKaokru2ugg`) 공개 7일 결과 확인.
+1. **EP33 쇼츠 Gate 1 승인**: `http://localhost:3001/transform-sheet/ep33-shorts-swallowed-t` 시트 승인 후 제작 착수 (12/08 화 슬롯).
+2. **스튜디오 조사 2단계 전환 준비**: 구 댓글·대본 리포트 정리(0단계) → `pickReportTargets` 스튜디오 조사 우선 전환(2단계).
+3. **11/23 월 사용자 확인**: 스튜디오 EP23 제목·썸네일 A/B 테스트 결과 확인 후 REVIEW.md 기록.
+4. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 검토.
+5. **12/08 화 · 12/12 토 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) 쇼츠 공개 7일 결과 확인.

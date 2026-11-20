@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 시작 브리핑 전에, 마지막 동기화가 12시간보다 오래됐으면 대시보드에 동기화를 요청한다(2026-11-09 사용자 결정).
+// 시작 브리핑 전에, 마지막 동기화가 30분보다 오래됐으면(2026-11-20 개정, 예약 작업 없이 브리핑 때 최신화) 대시보드에 동기화를 요청한다(2026-11-09 사용자 결정).
 // 세션 시작 훅(session-briefing-hook.mjs)이 먼저 부르고, 그때 대시보드가 꺼져 있었으면
 // 대시보드를 켠 뒤 `npm run briefing:sync`로 다시 부른다. 유튜브 사용량을 조금 쓰지만 돈은 들지 않는다.
 // 대시보드 서버(request-guard)는 Origin이 없는 터미널 요청을 허용한다.
@@ -23,7 +23,7 @@ export async function syncIfStale({
   readSyncedAt = readLatestSyncedAt,
   fetch = globalThis.fetch,
 } = {}) {
-  if (!needsSync(await readSyncedAt(), now)) return '12시간 안에 동기화돼 있어 생략';
+  if (!needsSync(await readSyncedAt(), now, 0.5)) return '30분 안에 동기화돼 있어 생략';
   const base = `http://localhost:${port}`;
   try {
     const ping = await fetch(`${base}/`, {signal: AbortSignal.timeout(2000)});

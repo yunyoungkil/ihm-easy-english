@@ -17,9 +17,9 @@ const fakeFetch = (handlers) => {
   return fn;
 };
 
-test('12시간 안에 동기화했으면 아무것도 부르지 않는다', async () => {
+test('30분 안에 동기화했으면 아무것도 부르지 않는다', async () => {
   const fetch = fakeFetch({});
-  const note = await syncIfStale({now: NOW, readSyncedAt: async () => '2026-11-09T08:00:00+09:00', fetch});
+  const note = await syncIfStale({now: NOW, readSyncedAt: async () => '2026-11-09T11:50:00+09:00', fetch});
   assert.match(note, /생략/);
   assert.equal(fetch.calls.length, 0);
 });

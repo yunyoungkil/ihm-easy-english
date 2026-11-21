@@ -4,7 +4,10 @@
 // 기본값으로 ffmpeg(-an) 무음 처리를 자동 적용한다(--keep-audio 지정 시 오디오 보존).
 //
 // 사용:
-//   node scripts/generate-aistudio-video.mjs --prompt "..." --output "videos/x/assets/broll/clip.mp4" [--aspect 9:16] [--duration 5] [--resolution 720p] [--image path/to/ref.jpg] [--keep-audio]
+//   node scripts/generate-aistudio-video.mjs --prompt "..." --output "videos/x/assets/broll/clip.mp4" [--aspect 9:16] [--duration 5] [--resolution 720p] [--keep-audio]
+//        [--first a.png] [--last b.png] [--ref c.jpg --ref d.mp4] [--prompt-file p.txt]
+//   --first 첫 장면(이미지), --last 끝 장면(이미지), --ref 참고(이미지·영상, 여러 번 가능), --prompt-file 은 --prompt 대신 파일에서 읽음.
+//   --image는 --first의 옛 이름(둘 중 하나만). 결과 옆에 <파일>.prompt.json(실제로 보낸 지시문·첨부와 해시·설정)이 남는다.
 //
 // 클릭 지점(2026-11-20 직접 확인, 화면이 바뀌면 여기만 고친다):
 //   · 새 대화 주소: https://aistudio.google.com/prompts/new_chat?model=gemini-omni-1.2-flash
@@ -12,7 +15,8 @@
 //   · 비율: mat-select[aria-label="Aspect ratio"] (Auto | 16:9 | 9:16)
 //   · 길이: input[type="text"][aria-label="Video duration in seconds"] (3~15)
 //   · 해상도: mat-select[aria-label="Video Resolution"] (360p | 720p | 1080p | 4k)
-//   · 이미지 첨부(선택): button[aria-label="Insert images, videos, or files"] → filechooser
+//   · 첨부(선택, 2026-11-21 확인): button[aria-label="Insert images, videos, or files"] → 메뉴 "Upload files" → filechooser, 숨은 input[type=file] 하나(multiple).
+//     Omni 화면에는 첫 장면·끝 장면 전용 칸이 없다 → 첨부 순서(첫 장면 1번, 끝 장면 마지막)와 지시문 앞 영어 한 줄로 알려 준다. 한 장씩 순서대로 올린다.
 //   · 실행: button.ctrl-enter-submits (2026-11-21 확인 — 끝에 s, 없으면 프롬프트 칸에서 Ctrl+Enter)
 //   · 결과: 대화 안 <video>의 blob:/data: src를 바이트로 꺼내 저장(기본 -an 무음 정리)
 import { chromium } from 'playwright-core';
@@ -20,6 +24,7 @@ import { existsSync, mkdirSync, renameSync, unlinkSync, writeFileSync } from 'no
 import { dirname, resolve } from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { IMAGE_EXT, VIDEO_EXT, attachFiles, buildPromptRecord, checkRefFile, composePrompt, framePromptPrefix, orderAttachments, readPromptArgs, sha256Prefix, writePromptRecord } from './aistudio-attachments.mjs';
 
 const PROFILE_DIR = 'C:\\Users\\yunyo\\AppData\\Local\\Google\\Chrome\\AutomationProfile';
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
@@ -42,8 +47,13 @@ export function parseArgs(argv) {
     prompt: '',
     output: '',
     image: '',
+    first: '',
+    last: '',
+    refs: [],
+    promptFile: '',
     keepAudio: false,
   };
+  let imageArg = '';
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i];
     if (key === '--keep-audio') { out.keepAudio = true; continue; }
@@ -51,8 +61,20 @@ export function parseArgs(argv) {
     const val = argv[i + 1];
     i += 1;
     if (key === '--duration') out.duration = Number(val);
+    else if (key === '--image') imageArg = val;
+    else if (key === '--first') out.first = checkRefFile(val, IMAGE_EXT, '--first');
+    else if (key === '--last') out.last = checkRefFile(val, IMAGE_EXT, '--last');
+    else if (key === '--ref') out.refs.push(checkRefFile(val, [...IMAGE_EXT, ...VIDEO_EXT], '--ref'));
+    else if (key === '--prompt-file') out.promptFile = val;
     else out[key.slice(2)] = val;
   }
+  // --image는 --first의 옛 이름
+  if (imageArg) {
+    if (out.first) throw new Error('--image는 --first의 옛 이름이라 둘 중 하나만 줄 수 있습니다');
+    out.first = checkRefFile(imageArg, IMAGE_EXT, '--image');
+  }
+  out.image = out.first;
+  out.prompt = readPromptArgs({ prompt: out.prompt, promptFile: out.promptFile });
   if (!out.prompt || !String(out.prompt).trim()) throw new Error('--prompt가 필요합니다');
   if (!out.output) throw new Error('--output이 필요합니다');
   if (!ASPECTS.includes(out.aspect)) throw new Error(`--aspect는 ${ASPECTS.join(', ')} 중 하나여야 합니다(1:1 미지원)`);
@@ -61,7 +83,6 @@ export function parseArgs(argv) {
   }
   if (!RESOLUTIONS.includes(out.resolution)) throw new Error(`--resolution은 ${RESOLUTIONS.join(', ')} 중 하나여야 합니다`);
   if (!/^[\w.-]+$/.test(out.model)) throw new Error('--model 형식이 이상합니다');
-  if (out.image && !existsSync(resolve(out.image))) throw new Error(`--image 파일을 찾지 못했습니다: ${out.image}`);
   return out;
 }
 
@@ -151,7 +172,10 @@ async function generateOnce({
   duration = DEFAULT_DURATION,
   resolution = DEFAULT_RESOLUTION,
   model = DEFAULT_MODEL,
-  image = '',
+  first = '',
+  last = '',
+  refs = [],
+  promptFile = '',
   keepAudio = false,
 }) {
   await ensureChrome();
@@ -195,30 +219,15 @@ async function generateOnce({
       }
     }
 
-    // 선택 시작 이미지 첨부
-    if (image) {
-      const absImg = resolve(image);
-      const addBtn = page.locator('button[aria-label="Insert images, videos, or files"]').first();
-      await addBtn.click();
-      await page.waitForTimeout(800);
-      const [chooser] = await Promise.all([
-        page.waitForEvent('filechooser', { timeout: 8000 }).catch(() => null),
-        page.locator('.cdk-overlay-container [role="menuitem"]:has-text("Upload"), .cdk-overlay-container button:has-text("Upload")').first().click().catch(() => {}),
-      ]);
-      if (chooser) {
-        await chooser.setFiles(absImg);
-      } else {
-        const fileInput = page.locator('input[type="file"]').first();
-        if (await fileInput.count()) await fileInput.setInputFiles(absImg);
-        else throw new Error('이미지 업로드 입력칸을 찾지 못했습니다');
-      }
-      await page.waitForTimeout(2000);
-    }
+    // 첨부(첫 장면 → 참고 → 끝 장면 순서, 한 장씩). 첫·끝 장면은 지시문 앞 문장으로 알린다.
+    const attachments = orderAttachments({ first, refs, last });
+    if (attachments.length) await attachFiles(page, attachments);
+    const sentPrompt = composePrompt(framePromptPrefix(attachments), prompt);
 
     // 프롬프트 입력 및 생성 시작
     const promptBox = page.locator('textarea[aria-label="Enter a prompt"]').first();
     await promptBox.click();
-    await promptBox.fill(prompt);
+    await promptBox.fill(sentPrompt);
 
     const readVideos = () => page.evaluate(() =>
       [...document.querySelectorAll('video')]
@@ -273,8 +282,19 @@ async function generateOnce({
     writeFileSync(file, Buffer.from(payload.base64, 'base64'));
     if (!keepAudio) stripVideoAudio(file);
 
+    const record = writePromptRecord(file, buildPromptRecord({
+      tool: 'aistudio-video',
+      model,
+      prompt: sentPrompt,
+      promptFile: promptFile || null,
+      attachments: attachments.map((a) => ({ ...a, sha256: sha256Prefix(a.path) })),
+      settings: { aspect, duration, resolution, keepAudio },
+      output: { file, mime: payload.mime, bytes: payload.size, duration: found.dur || duration },
+    }));
+
     return {
       file,
+      record,
       mime: payload.mime,
       bytes: payload.size,
       duration: found.dur || duration,
@@ -293,7 +313,7 @@ const isCli = process.argv[1] && resolve(process.argv[1]) === resolve(fileURLToP
 if (isCli) {
   try {
     const r = await generateAiStudioVideo(parseArgs(process.argv.slice(2)));
-    console.log(`저장: ${r.file} (${r.aspect}, ${r.resolution}, ${Math.round(r.duration * 10) / 10}s, ${r.muted ? '무음 정리됨' : '오디오 유지'}, ${r.model})`);
+    console.log(`저장: ${r.file} (${r.aspect}, ${r.resolution}, ${Math.round(r.duration * 10) / 10}s, ${r.muted ? '무음 정리됨' : '오디오 유지'}, ${r.model}), 기록: ${r.record}`);
   } catch (err) {
     console.error(`실패: ${err.message}`);
     process.exitCode = 1;

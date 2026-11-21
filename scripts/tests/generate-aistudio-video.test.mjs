@@ -70,3 +70,53 @@ test('stripVideoAudio: ffmpeg -an -c:v copy로 무음 교체하고 실패 시 �
     rmSync(tmp, { recursive: true, force: true });
   }
 });
+
+// --- 첫·끝 장면, 참고 첨부, 지시문 파일(2026-11-21) ---
+function withTmpFiles(names, fn) {
+  const tmp = mkdtempSync(join(tmpdir(), 'omni-attach-'));
+  try {
+    const paths = names.map((n) => { const p = join(tmp, n); writeFileSync(p, 'x'); return p; });
+    return fn(paths, tmp);
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
+test('parseArgs: --image는 --first의 옛 이름이라 first와 image에 같은 값이 들어간다', () => {
+  withTmpFiles(['a.png'], ([a]) => {
+    const out = parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--image', a]);
+    assert.equal(out.first, a);
+    assert.equal(out.image, a);
+    assert.equal(out.last, '');
+    assert.deepEqual(out.refs, []);
+    assert.equal(out.promptFile, '');
+  });
+});
+
+test('parseArgs: --image와 --first를 같이 주면 막는다', () => {
+  withTmpFiles(['a.png', 'b.png'], ([a, b]) => {
+    assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--image', a, '--first', b]), /--image는 --first의 옛 이름/);
+    assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--first', b, '--image', a]), /--image는 --first의 옛 이름/);
+  });
+});
+
+test('parseArgs: --first·--ref(mp4 포함)·--last 조합과 --prompt-file', () => {
+  withTmpFiles(['f.png', 'r1.jpg', 'r2.mp4', 'l.webp', 'p.txt'], ([f, r1, r2, l, p]) => {
+    const out = parseArgs(['--output', 'o.mp4', '--first', f, '--ref', r1, '--ref', r2, '--last', l, '--prompt-file', p]);
+    assert.equal(out.first, f);
+    assert.equal(out.image, f);
+    assert.deepEqual(out.refs, [r1, r2]);
+    assert.equal(out.last, l);
+    assert.equal(out.promptFile, p);
+    assert.equal(out.prompt, 'x');
+    assert.throws(() => parseArgs(['--prompt', 'y', '--prompt-file', p, '--output', 'o.mp4']), /--prompt-file/);
+  });
+});
+
+test('parseArgs: 없는 --last·--first 파일과 영상 파일을 --first로 주는 것은 막는다', () => {
+  withTmpFiles(['v.mp4'], ([v]) => {
+    assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--last', 'no-such-file-12345.png']), /--last/);
+    assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--first', 'no-such-file-12345.png']), /--first/);
+    assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--first', v]), /--first/);
+  });
+});

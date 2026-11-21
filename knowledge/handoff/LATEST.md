@@ -25,7 +25,7 @@
 2. **3060 모바일 권장 글자 크기 (`2026-11-20`, 2층 기본값)**: 불변 하한 `34px` 위에 쇼츠 본편 보조 `46px+`·자막 `50px+`·썸네일 보조 `60px+`, 롱폼 본편 보조 `44px+`·자막 `56px+`·썸네일 보조 `56px+` 권장(`knowledge/production-rules.md`, `knowledge/rule-tiers.md`).
 3. **업로드·예약 시 AI 사용 여부와 재생목록 필수 확인 (Rule 14)**: `containsSyntheticMedia: true` 및 형식별 기본 재생목록 연결 필수(`studio-upload.mjs` `VIDEO_HAS_ALTERED_CONTENT_YES` 선택자 보완).
 4. **자율 브리핑·사후 관리 파이프라인 (`2026-11-20` 하루 1회 개정)**: 자동 브리핑과 데이터 수집(API·스튜디오)은 **하루 1회(KST 기준, 그날 첫 새 채팅)**만 실행하고 `data/youtube/briefing-state.json`(로컬)에 기록. 같은 날 2번째 이후 새 채팅은 수집·요약 없이 `LATEST.md`만 보고 바로 본론 진입(수동 최신화: `npm run briefing -- --force`). `post-publish-pipeline.mjs` 4대 사후 관리 자동 순환.
-5. **AI Studio 음악·영상 자동 생성 (`2026-11-21`, Gemini 초안 → Claude 완성)**: `npm run music`(Lyria 3.5, Composer 구간, 결과 약 62초·C2PA 자동 정리)·`npm run video`(Omni 1.2 Flash, 9:16 기본, 소리 트랙 자동 제거). 실행 버튼은 `ctrl-enter-submits`(끝에 s). 둘 다 실제 생성 확인, BGM은 만든 뒤 한 번 들어 허밍 확인.
+5. **AI Studio 음악·영상 자동 생성 (`2026-11-21`, Gemini 초안 → Claude 완성)**: `npm run music`(Lyria 3.5, Composer 구간, 결과 약 62초·C2PA 자동 정리)·`npm run video`(Omni 1.2 Flash, 9:16 기본, 소리 트랙 자동 제거). 실행 버튼은 `ctrl-enter-submits`(끝에 s). 둘 다 실제 생성 확인, BGM은 만든 뒤 한 번 들어 허밍 확인. 11/21 밤: 그림 `--ref` 여러 장, 영상 `--first`·`--last`·`--ref`, 둘 다 `--prompt-file`과 결과 옆 `.prompt.json` 기록 추가(실제 생성 확인).
 
 6. **답하기 전에 웹·유튜브부터 (`2026-11-21`, AGENTS.md 0번 15항)**: 도구 한계·방법을 내 기억·코드·정책만으로 말하지 않는다. 같은 날 확인: Omni 1.2 Flash는 1080p·소리(대사·입 모양) 포함, 정지 그림 → `npm run video -- --image ... --resolution 1080p --keep-audio`로 **한국어로 말하는 실사 인물 장면**이 된다(사용자 확인: 자연스럽고 입 모양 맞음). 명작의 "진짜 사람이 말하는 장면"을 생성 도구로 다시 만든다. 최근 쇼츠 4편은 영상 클립 0개·코드 상자 31~206개였다(AI 티의 뿌리).
 

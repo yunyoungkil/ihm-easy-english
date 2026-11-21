@@ -3,17 +3,22 @@
 // 자동화용 크롬(Gemini-Automation 프로필, 포트 9222)에 붙어서 쓴다. 로그인은 그 프로필에서 한 번 해 둔 상태여야 한다.
 //
 // 사용: node scripts/generate-aistudio-image.mjs --prompt "..." --output "videos/x/assets/a.png" [--aspect 16:9] [--model gemini-nano-banana-2.1]
+//        [--ref a.png --ref b.jpg]  참고 그림(여러 번 가능, 준 순서대로 한 장씩 첨부)   [--prompt-file p.txt]  --prompt 대신 파일에서 지시문을 읽음
+// 결과 옆에 <파일>.prompt.json(지시문·첨부 파일과 해시·설정)이 남는다.
 //
 // 클릭 지점(2026-11-12 직접 확인, 화면이 바뀌면 여기만 고친다):
 //   · 새 대화 주소: https://aistudio.google.com/prompts/new_chat?model=<모델 ID>
 //   · 프롬프트 입력: textarea[aria-label="Enter a prompt"]  → 실행: Ctrl+Enter
 //   · 오른쪽 "Aspect ratio"(mat-select) → 옵션(role=option, 이름이 "16:9" 등)
+//   · 참고 그림 첨부(2026-11-21 화면 확인): 프롬프트 칸 옆 button[aria-label="Insert images, videos, or files"] → 메뉴 "Upload files" → filechooser.
+//     숨은 input[type=file]은 하나(multiple). 그림 스크립트는 지시문 앞에 문장을 붙이지 않는다 — 어느 그림이 무슨 역할인지는 지시문에 직접 쓴다.
 //   · 계정 정보(PRO 표시)가 불러와지기 전에는 "Upgrade" 안내가 잠깐 떠서 14초 기다린 뒤에 판단한다. 결제 버튼은 절대 누르지 않는다.
 //   · 결과 이미지: 대화 안의 큰 <img>(blob/data URL). 화면에서 base64로 꺼내 저장한다.
 import {chromium} from 'playwright-core';
 import {existsSync, mkdirSync, writeFileSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 import {spawn} from 'node:child_process';
+import {IMAGE_EXT, attachFiles, buildPromptRecord, checkRefFile, orderAttachments, readPromptArgs, sha256Prefix, writePromptRecord} from './aistudio-attachments.mjs';
 
 const PROFILE_DIR = 'C:\\Users\\yunyo\\AppData\\Local\\Google\\Chrome\\AutomationProfile';
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
@@ -22,13 +27,17 @@ export const DEFAULT_MODEL = 'gemini-nano-banana-2.1';
 export const ASPECTS = ['Auto', '1:1', '2:3', '3:2', '3:4', '4:3', '4:5', '5:4', '9:16', '16:9', '21:9'];
 
 export function parseArgs(argv) {
-  const out = {model: DEFAULT_MODEL, aspect: '16:9', prompt: '', output: ''};
+  const out = {model: DEFAULT_MODEL, aspect: '16:9', prompt: '', output: '', refs: [], promptFile: ''};
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i];
     if (!key.startsWith('--')) continue;
-    out[key.slice(2)] = argv[i + 1];
+    const val = argv[i + 1];
     i += 1;
+    if (key === '--ref') out.refs.push(checkRefFile(val, IMAGE_EXT, '--ref'));
+    else if (key === '--prompt-file') out.promptFile = val;
+    else out[key.slice(2)] = val;
   }
+  out.prompt = readPromptArgs({prompt: out.prompt, promptFile: out.promptFile});
   if (!out.prompt) throw new Error('--prompt가 필요합니다');
   if (!out.output) throw new Error('--output이 필요합니다');
   if (!ASPECTS.includes(out.aspect)) throw new Error(`--aspect는 ${ASPECTS.join(', ')} 중 하나`);
@@ -76,7 +85,7 @@ export async function generateAiStudioImage(options) {
   }
 }
 
-async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MODEL}) {
+async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MODEL, refs = [], promptFile = ''}) {
   await ensureChrome();
   const browser = await chromium.connectOverCDP(`http://localhost:${DEBUG_PORT}`);
   const page = await browser.contexts()[0].newPage();
@@ -99,12 +108,18 @@ async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MO
       await page.waitForTimeout(500);
     }
 
+    // 참고 그림은 프롬프트를 채우기 전에 한 장씩 올린다
+    const attachments = orderAttachments({refs});
+    if (attachments.length) await attachFiles(page, attachments);
+
     const box = page.locator('textarea[aria-label="Enter a prompt"]');
     await box.click();
     await box.fill(prompt);
     // 결과 이미지는 blob: 주소로 온다. 첫 화면의 예시 그림(gstatic)과 섞이지 않게 blob만 센다.
     const countBlobs = () => page.evaluate(() => [...document.images].filter((i) => i.src.startsWith('blob:') && i.naturalWidth > 500).length);
     const before = await countBlobs();
+    // 올린 참고 그림도 blob: 큰 그림으로 잡힌다(2026-11-21). 실행 전에 있던 주소는 결과 후보에서 뺀다.
+    const beforeSrcs = await page.evaluate(() => [...document.images].filter((i) => i.src.startsWith('blob:')).map((i) => i.src));
     await page.keyboard.press('Control+Enter');
 
     // 큰 이미지가 새로 생기고 3초 동안 개수가 안 변하면 끝난 것으로 본다(최대 3분).
@@ -121,17 +136,26 @@ async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MO
     }
     if (last <= before) throw new Error('이미지가 만들어지지 않았습니다(시간 초과)');
 
-    const data = await page.evaluate(async () => {
-      const imgs = [...document.images].filter((i) => i.src.startsWith('blob:') && i.naturalWidth > 500);
+    const data = await page.evaluate(async (skip) => {
+      const imgs = [...document.images].filter((i) => i.src.startsWith('blob:') && i.naturalWidth > 500 && !skip.includes(i.src));
       const img = imgs.sort((a, b) => a.naturalWidth * a.naturalHeight - b.naturalWidth * b.naturalHeight)[imgs.length - 1];
       const blob = await (await fetch(img.src)).blob();
       const base64 = await new Promise((res) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
       return {base64, width: img.naturalWidth, height: img.naturalHeight, type: blob.type};
-    });
+    }, beforeSrcs);
     const file = resolve(extensionFor(data.type, output));
     if (!existsSync(dirname(file))) mkdirSync(dirname(file), {recursive: true});
     writeFileSync(file, Buffer.from(data.base64, 'base64'));
-    return {file, width: data.width, height: data.height, type: data.type, model, aspect};
+    const record = writePromptRecord(file, buildPromptRecord({
+      tool: 'aistudio-image',
+      model,
+      prompt,
+      promptFile: promptFile || null,
+      attachments: attachments.map((a) => ({...a, sha256: sha256Prefix(a.path)})),
+      settings: {aspect},
+      output: {file, width: data.width, height: data.height, type: data.type},
+    }));
+    return {file, width: data.width, height: data.height, type: data.type, model, aspect, record};
   } finally {
     await page.close().catch(() => {});
     await browser.close().catch(() => {});
@@ -141,7 +165,7 @@ async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MO
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))) {
   try {
     const result = await generateAiStudioImage(parseArgs(process.argv.slice(2)));
-    console.log(`저장: ${result.file} (${result.width}x${result.height}, ${result.type}, ${result.model}, ${result.aspect})`);
+    console.log(`저장: ${result.file} (${result.width}x${result.height}, ${result.type}, ${result.model}, ${result.aspect}), 기록: ${result.record}`);
   } catch (err) {
     console.error(`실패: ${err.message}`);
     process.exitCode = 1;

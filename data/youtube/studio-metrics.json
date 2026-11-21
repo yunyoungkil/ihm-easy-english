@@ -6,24 +6,38 @@
       "startDate": "2026-10-23",
       "endDate": "2026-11-20",
       "lastDay": "2026-11-19",
-      "fetchedAt": "2026-11-20T16:10:07.895Z",
+      "fetchedAt": "2026-11-21T06:23:32.594Z",
       "total": {
         "avgViewDurationSec": 37,
         "avgViewPercent": 44.48,
-        "newViewers": 1031,
-        "returningViewers": 25,
+        "newViewers": 1643,
+        "returningViewers": 32,
         "stayedToWatchPercent": 42.36,
         "views": 3995,
         "watchHours": 19.2502,
         "subscribers": 10,
-        "impressions": 5366,
-        "ctrPercent": 1.71
+        "impressions": 5369,
+        "ctrPercent": 1.73
       },
       "videos": {
+        "Ng6amm9qFrI": {
+          "avgViewDurationSec": 44,
+          "avgViewPercent": 61.25,
+          "newViewers": 578,
+          "returningViewers": 9,
+          "stayedToWatchPercent": 47.43,
+          "views": 1280,
+          "watchHours": 7.6348,
+          "subscribers": 5,
+          "impressions": 61,
+          "ctrPercent": 0,
+          "durationSec": 72,
+          "publishedAt": "2026-11-18"
+        },
         "ogCglr1VNYE": {
           "avgViewDurationSec": 19,
           "avgViewPercent": 44.31,
-          "newViewers": 640,
+          "newViewers": 641,
           "returningViewers": 9,
           "stayedToWatchPercent": 48.47,
           "views": 1280,
@@ -33,20 +47,6 @@
           "ctrPercent": 2.34,
           "durationSec": 43,
           "publishedAt": "2026-11-14"
-        },
-        "Ng6amm9qFrI": {
-          "avgViewDurationSec": 44,
-          "avgViewPercent": 61.25,
-          "newViewers": null,
-          "returningViewers": null,
-          "stayedToWatchPercent": 47.43,
-          "views": 1280,
-          "watchHours": 7.6348,
-          "subscribers": 5,
-          "impressions": 61,
-          "ctrPercent": 0,
-          "durationSec": 72,
-          "publishedAt": "2026-11-18"
         },
         "oMrCtSBbibc": {
           "avgViewDurationSec": 31,
@@ -65,7 +65,7 @@
         "OnhkMmAE5ZA": {
           "avgViewDurationSec": 17,
           "avgViewPercent": 39.96,
-          "newViewers": 79,
+          "newViewers": 106,
           "returningViewers": 5,
           "stayedToWatchPercent": 20.21,
           "views": 536,
@@ -79,21 +79,21 @@
         "ROks87qezuU": {
           "avgViewDurationSec": 178,
           "avgViewPercent": 42.94,
-          "newViewers": 47,
+          "newViewers": 49,
           "returningViewers": 3,
           "stayedToWatchPercent": null,
           "views": 90,
           "watchHours": 3.0243,
           "subscribers": 3,
-          "impressions": 1161,
-          "ctrPercent": 3.19,
+          "impressions": 1159,
+          "ctrPercent": 3.28,
           "durationSec": 415,
           "publishedAt": "2026-09-24"
         },
         "UDwLERu-Tu8": {
           "avgViewDurationSec": 26,
           "avgViewPercent": 3.51,
-          "newViewers": 10,
+          "newViewers": 12,
           "returningViewers": 0,
           "stayedToWatchPercent": null,
           "views": 27,
@@ -118,6 +118,20 @@
           "durationSec": 570,
           "publishedAt": "2026-11-09"
         },
+        "8Ul_lkCkUCI": {
+          "avgViewDurationSec": 239,
+          "avgViewPercent": 30.69,
+          "newViewers": 6,
+          "returningViewers": 1,
+          "stayedToWatchPercent": null,
+          "views": 10,
+          "watchHours": 0.6002,
+          "subscribers": 0,
+          "impressions": 244,
+          "ctrPercent": 2.05,
+          "durationSec": 781,
+          "publishedAt": "2026-11-12"
+        },
         "BsyRH8GWYJ4": {
           "avgViewDurationSec": 336,
           "avgViewPercent": 80.01,
@@ -132,24 +146,10 @@
           "durationSec": 420,
           "publishedAt": "2026-07-19"
         },
-        "8Ul_lkCkUCI": {
-          "avgViewDurationSec": 239,
-          "avgViewPercent": 30.69,
-          "newViewers": 3,
-          "returningViewers": 1,
-          "stayedToWatchPercent": null,
-          "views": 10,
-          "watchHours": 0.6002,
-          "subscribers": 0,
-          "impressions": 243,
-          "ctrPercent": 2.06,
-          "durationSec": 781,
-          "publishedAt": "2026-11-12"
-        },
         "pghOYvcjpIg": {
           "avgViewDurationSec": 28,
           "avgViewPercent": 55.36,
-          "newViewers": 1,
+          "newViewers": 2,
           "returningViewers": 0,
           "stayedToWatchPercent": 66.67,
           "views": 8,
@@ -476,8 +476,8 @@
           "stayedToWatchPercent": null,
           "views": 1,
           "watchHours": 0.0255,
-          "subscribers": null,
-          "impressions": 172,
+          "subscribers": 0,
+          "impressions": 174,
           "ctrPercent": 0,
           "durationSec": 500,
           "publishedAt": "2026-11-19"
@@ -560,7 +560,7 @@
           "stayedToWatchPercent": null,
           "views": 1,
           "watchHours": 0.0003,
-          "subscribers": null,
+          "subscribers": 0,
           "impressions": 1,
           "ctrPercent": 0,
           "durationSec": 34,
@@ -594,7 +594,7 @@
           "durationSec": 438,
           "publishedAt": "2026-07-29"
         },
-        "6nANjHxy2Lc": {
+        "EDjmQmvGA1o": {
           "avgViewDurationSec": null,
           "avgViewPercent": null,
           "newViewers": null,
@@ -602,11 +602,11 @@
           "stayedToWatchPercent": null,
           "views": 0,
           "watchHours": 0,
-          "subscribers": null,
-          "impressions": 8,
+          "subscribers": 0,
+          "impressions": 28,
           "ctrPercent": 0,
-          "durationSec": 21,
-          "publishedAt": "2026-07-22"
+          "durationSec": 507,
+          "publishedAt": "2026-10-02"
         },
         "_TEGdCgLmYE": {
           "avgViewDurationSec": null,
@@ -622,7 +622,7 @@
           "durationSec": 33,
           "publishedAt": "2026-06-24"
         },
-        "-UHrFcMRsEY": {
+        "6nANjHxy2Lc": {
           "avgViewDurationSec": null,
           "avgViewPercent": null,
           "newViewers": null,
@@ -631,10 +631,10 @@
           "views": null,
           "watchHours": null,
           "subscribers": null,
-          "impressions": 18,
+          "impressions": 8,
           "ctrPercent": 0,
-          "durationSec": 506,
-          "publishedAt": "2026-09-28"
+          "durationSec": 21,
+          "publishedAt": "2026-07-22"
         },
         "a2VrFQVjImI": {
           "avgViewDurationSec": null,
@@ -650,7 +650,7 @@
           "durationSec": 195,
           "publishedAt": "2026-09-05"
         },
-        "tFe-cB__uns": {
+        "-UHrFcMRsEY": {
           "avgViewDurationSec": null,
           "avgViewPercent": null,
           "newViewers": null,
@@ -659,10 +659,10 @@
           "views": null,
           "watchHours": null,
           "subscribers": null,
-          "impressions": 16,
+          "impressions": 18,
           "ctrPercent": 0,
-          "durationSec": 407,
-          "publishedAt": "2026-08-09"
+          "durationSec": 506,
+          "publishedAt": "2026-09-28"
         },
         "51fLblzetS0": {
           "avgViewDurationSec": null,
@@ -762,6 +762,20 @@
           "durationSec": 55,
           "publishedAt": "2026-08-31"
         },
+        "tFe-cB__uns": {
+          "avgViewDurationSec": null,
+          "avgViewPercent": null,
+          "newViewers": null,
+          "returningViewers": null,
+          "stayedToWatchPercent": null,
+          "views": null,
+          "watchHours": null,
+          "subscribers": null,
+          "impressions": 16,
+          "ctrPercent": 0,
+          "durationSec": 407,
+          "publishedAt": "2026-08-09"
+        },
         "oZUhK2YKW8w": {
           "avgViewDurationSec": null,
           "avgViewPercent": null,
@@ -789,20 +803,6 @@
           "ctrPercent": 0,
           "durationSec": 23,
           "publishedAt": "2026-06-24"
-        },
-        "EDjmQmvGA1o": {
-          "avgViewDurationSec": null,
-          "avgViewPercent": null,
-          "newViewers": null,
-          "returningViewers": null,
-          "stayedToWatchPercent": null,
-          "views": null,
-          "watchHours": null,
-          "subscribers": null,
-          "impressions": 28,
-          "ctrPercent": 0,
-          "durationSec": 507,
-          "publishedAt": "2026-10-02"
         },
         "l_9PYWiORjE": {
           "avgViewDurationSec": null,
@@ -1023,7 +1023,7 @@
           "views": null,
           "watchHours": null,
           "subscribers": null,
-          "impressions": 4,
+          "impressions": 5,
           "ctrPercent": 0,
           "durationSec": 56,
           "publishedAt": "2026-07-11"
@@ -1093,7 +1093,7 @@
           "views": null,
           "watchHours": null,
           "subscribers": null,
-          "impressions": 8,
+          "impressions": 9,
           "ctrPercent": 0,
           "durationSec": 86,
           "publishedAt": "2026-07-13"
@@ -1217,24 +1217,24 @@
       "startDate": "2026-08-22",
       "endDate": "2026-11-20",
       "lastDay": "2026-11-19",
-      "fetchedAt": "2026-11-20T16:10:07.895Z",
+      "fetchedAt": "2026-11-21T06:23:32.594Z",
       "total": {
         "avgViewDurationSec": 36,
         "avgViewPercent": 45.47,
-        "newViewers": 2567,
-        "returningViewers": 49,
+        "newViewers": 3181,
+        "returningViewers": 56,
         "stayedToWatchPercent": 35.63,
         "views": 9437,
         "watchHours": 37.2886,
         "subscribers": 25,
-        "impressions": 10187,
-        "ctrPercent": 2.71
+        "impressions": 10190,
+        "ctrPercent": 2.72
       },
       "videos": {
         "ogCglr1VNYE": {
           "avgViewDurationSec": 19,
           "avgViewPercent": 44.31,
-          "newViewers": 640,
+          "newViewers": 641,
           "returningViewers": 9,
           "stayedToWatchPercent": 48.47,
           "views": 1280,
@@ -1248,8 +1248,8 @@
         "Ng6amm9qFrI": {
           "avgViewDurationSec": 44,
           "avgViewPercent": 61.25,
-          "newViewers": null,
-          "returningViewers": null,
+          "newViewers": 578,
+          "returningViewers": 9,
           "stayedToWatchPercent": 47.43,
           "views": 1280,
           "watchHours": 7.6348,
@@ -1332,7 +1332,7 @@
         "OnhkMmAE5ZA": {
           "avgViewDurationSec": 17,
           "avgViewPercent": 39.96,
-          "newViewers": 79,
+          "newViewers": 106,
           "returningViewers": 5,
           "stayedToWatchPercent": 20.21,
           "views": 536,
@@ -1360,14 +1360,14 @@
         "ROks87qezuU": {
           "avgViewDurationSec": 166,
           "avgViewPercent": 40.15,
-          "newViewers": 101,
+          "newViewers": 103,
           "returningViewers": 3,
           "stayedToWatchPercent": null,
           "views": 191,
           "watchHours": 5.8109,
           "subscribers": 7,
-          "impressions": 1988,
-          "ctrPercent": 4.53,
+          "impressions": 1986,
+          "ctrPercent": 4.58,
           "durationSec": 415,
           "publishedAt": "2026-09-24"
         },
@@ -1388,7 +1388,7 @@
         "UDwLERu-Tu8": {
           "avgViewDurationSec": 26,
           "avgViewPercent": 3.51,
-          "newViewers": 10,
+          "newViewers": 12,
           "returningViewers": 0,
           "stayedToWatchPercent": null,
           "views": 27,
@@ -1444,7 +1444,7 @@
         "pghOYvcjpIg": {
           "avgViewDurationSec": 27,
           "avgViewPercent": 54.36,
-          "newViewers": 6,
+          "newViewers": 7,
           "returningViewers": 1,
           "stayedToWatchPercent": 91.67,
           "views": 19,
@@ -1570,14 +1570,14 @@
         "8Ul_lkCkUCI": {
           "avgViewDurationSec": 239,
           "avgViewPercent": 30.69,
-          "newViewers": 3,
+          "newViewers": 6,
           "returningViewers": 1,
           "stayedToWatchPercent": null,
           "views": 10,
           "watchHours": 0.6002,
           "subscribers": 0,
-          "impressions": 243,
-          "ctrPercent": 2.06,
+          "impressions": 244,
+          "ctrPercent": 2.05,
           "durationSec": 781,
           "publishedAt": "2026-11-12"
         },
@@ -1772,8 +1772,8 @@
           "views": 5,
           "watchHours": 0.0277,
           "subscribers": 0,
-          "impressions": 22,
-          "ctrPercent": 4.55,
+          "impressions": 23,
+          "ctrPercent": 4.35,
           "durationSec": 56,
           "publishedAt": "2026-07-11"
         },
@@ -1828,8 +1828,8 @@
           "views": 5,
           "watchHours": 0.0278,
           "subscribers": 0,
-          "impressions": 42,
-          "ctrPercent": 2.38,
+          "impressions": 43,
+          "ctrPercent": 2.33,
           "durationSec": 86,
           "publishedAt": "2026-07-13"
         },
@@ -2387,8 +2387,8 @@
           "stayedToWatchPercent": null,
           "views": 1,
           "watchHours": 0.0255,
-          "subscribers": null,
-          "impressions": 172,
+          "subscribers": 0,
+          "impressions": 174,
           "ctrPercent": 0,
           "durationSec": 500,
           "publishedAt": "2026-11-19"
@@ -2439,5 +2439,5 @@
     }
   },
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "fetchedAt": "2026-11-20T16:10:07.895Z"
+  "fetchedAt": "2026-11-21T06:23:32.594Z"
 }

@@ -1,10 +1,12 @@
 // Google AI Studio 영상 생성(Gemini Omni 1.2 Flash) 전용 자동화 스크립트(2026-11-20).
 // API 키를 쓰지 않고 자동화용 크롬(Gemini-Automation 프로필, 포트 9222)으로 무료 생성한다.
-// 2026-11-12 실측: 눈에 보이는 워터마크 없음(비가시 SynthID 별도). 단 "Silent" 프롬프트에도 오디오 트랙을 붙이므로
-// 기본값으로 ffmpeg(-an) 무음 처리를 자동 적용한다(--keep-audio 지정 시 오디오 보존).
+// 2026-11-12 실측: 눈에 보이는 워터마크 없음(비가시 SynthID 별도). Omni는 영상에 소리(환경음·대사)를 함께 만든다.
+// 2026-11-21부터 소리를 기본으로 살린다(유튜브 조사: 효과음·환경음이 "가짜 느낌"을 덜어 준다, knowledge/ai-craft-research-2026-11-21.md).
+// 소리가 필요 없는 클립만 --mute로 ffmpeg(-an) 무음 처리한다. --keep-audio는 옛 옵션이라 받기만 한다(기본과 같음).
+// HyperFrames에서 클립 소리를 쓰려면 <video data-has-audio="true">로 두거나, 소리를 따로 뽑아 <audio>(video는 muted)로 둔다(hyperframes-core creator-editing-recipes).
 //
 // 사용:
-//   node scripts/generate-aistudio-video.mjs --prompt "..." --output "videos/x/assets/broll/clip.mp4" [--aspect 9:16] [--duration 5] [--resolution 720p] [--keep-audio]
+//   node scripts/generate-aistudio-video.mjs --prompt "..." --output "videos/x/assets/broll/clip.mp4" [--aspect 9:16] [--duration 5] [--resolution 720p] [--mute]
 //        [--first a.png] [--last b.png] [--ref c.jpg --ref d.mp4] [--prompt-file p.txt]
 //   --first 첫 장면(이미지), --last 끝 장면(이미지), --ref 참고(이미지·영상, 여러 번 가능), --prompt-file 은 --prompt 대신 파일에서 읽음.
 //   --image는 --first의 옛 이름(둘 중 하나만). 결과 옆에 <파일>.prompt.json(실제로 보낸 지시문·첨부와 해시·설정)이 남는다.
@@ -18,7 +20,7 @@
 //   · 첨부(선택, 2026-11-21 확인): button[aria-label="Insert images, videos, or files"] → 메뉴 "Upload files" → filechooser, 숨은 input[type=file] 하나(multiple).
 //     Omni 화면에는 첫 장면·끝 장면 전용 칸이 없다 → 첨부 순서(첫 장면 1번, 끝 장면 마지막)와 지시문 앞 영어 한 줄로 알려 준다. 한 장씩 순서대로 올린다.
 //   · 실행: button.ctrl-enter-submits (2026-11-21 확인 — 끝에 s, 없으면 프롬프트 칸에서 Ctrl+Enter)
-//   · 결과: 대화 안 <video>의 blob:/data: src를 바이트로 꺼내 저장(기본 -an 무음 정리)
+//   · 결과: 대화 안 <video>의 blob:/data: src를 바이트로 꺼내 저장(소리 유지, --mute일 때만 -an 무음 정리)
 import { chromium } from 'playwright-core';
 import { existsSync, mkdirSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -51,12 +53,15 @@ export function parseArgs(argv) {
     last: '',
     refs: [],
     promptFile: '',
-    keepAudio: false,
+    keepAudio: true,
   };
   let imageArg = '';
+  let sawMute = false;
+  let sawKeep = false;
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i];
-    if (key === '--keep-audio') { out.keepAudio = true; continue; }
+    if (key === '--mute') { sawMute = true; out.keepAudio = false; continue; }
+    if (key === '--keep-audio') { sawKeep = true; continue; }
     if (!key.startsWith('--')) continue;
     const val = argv[i + 1];
     i += 1;
@@ -68,6 +73,7 @@ export function parseArgs(argv) {
     else if (key === '--prompt-file') out.promptFile = val;
     else out[key.slice(2)] = val;
   }
+  if (sawMute && sawKeep) throw new Error('--mute와 --keep-audio는 같이 줄 수 없습니다(소리는 기본으로 살린다)');
   // --image는 --first의 옛 이름
   if (imageArg) {
     if (out.first) throw new Error('--image는 --first의 옛 이름이라 둘 중 하나만 줄 수 있습니다');
@@ -176,7 +182,7 @@ async function generateOnce({
   last = '',
   refs = [],
   promptFile = '',
-  keepAudio = false,
+  keepAudio = true,
 }) {
   await ensureChrome();
   const browser = await chromium.connectOverCDP(`http://127.0.0.1:${DEBUG_PORT}`);

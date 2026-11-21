@@ -19,13 +19,13 @@ test('RUN_BUTTON: 실제 클래스 ctrl-enter-submits(끝에 s)를 잡는다(202
   assert.match(RUN_BUTTON, /button\.ctrl-enter-submits\b/);
 });
 
-test('parseArgs: 기본값(9:16, 5초, 720p, Omni 1.2 Flash, 기본 무음 정리)과 필수 인자를 검사한다', () => {
+test('parseArgs: 기본값(9:16, 5초, 720p, Omni 1.2 Flash, 소리 유지 — 2026-11-21 변경)과 필수 인자를 검사한다', () => {
   const a = parseArgs(['--prompt', 'static camera of brass button', '--output', 'out.mp4']);
   assert.equal(a.model, DEFAULT_MODEL);
   assert.equal(a.aspect, '9:16');
   assert.equal(a.duration, DEFAULT_DURATION);
   assert.equal(a.resolution, DEFAULT_RESOLUTION);
-  assert.equal(a.keepAudio, false);
+  assert.equal(a.keepAudio, true);
 
   const b = parseArgs(['--prompt', 'x', '--output', 'out.mp4', '--aspect', '16:9', '--duration', '8', '--resolution', '1080p', '--keep-audio']);
   assert.equal(b.aspect, '16:9');
@@ -35,6 +35,12 @@ test('parseArgs: 기본값(9:16, 5초, 720p, Omni 1.2 Flash, 기본 무음 정�
 
   assert.throws(() => parseArgs(['--output', 'out.mp4']), /--prompt/);
   assert.throws(() => parseArgs(['--prompt', 'x']), /--output/);
+});
+
+test('parseArgs: --mute일 때만 무음 정리하고, --mute와 옛 --keep-audio를 같이 주면 막는다', () => {
+  assert.equal(parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--mute']).keepAudio, false);
+  assert.equal(parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--keep-audio']).keepAudio, true);
+  assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--mute', '--keep-audio']), /--mute와 --keep-audio/);
 });
 
 test('parseArgs: 1:1 비율·범위 밖 길이·미지원 해상도·없는 첨부 이미지를 막는다', () => {

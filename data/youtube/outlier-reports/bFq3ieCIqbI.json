@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "videoId": "bFq3ieCIqbI",
+  "analyzedAt": "2026-11-21T16:12:42.466Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 16,
+  "meta": {
+    "videoId": "bFq3ieCIqbI",
+    "title": "미국인 박재범에게 영어 잘한다고 칭찬했더니ㅋㅋ",
+    "channelId": "UC7IuoeHXf6Y2D8ZC_UVouaQ",
+    "channelTitle": "하이라이스",
+    "publishedAt": "2026-11-10T21:45:10Z",
+    "viewCount": 2272945,
+    "likeCount": 3450,
+    "commentCount": 89,
+    "durationSeconds": 16,
+    "thumbnail": "https://i.ytimg.com/vi/bFq3ieCIqbI/maxresdefault.jpg",
+    "description": "영어를 칭찬받은 미국인 박재범의 반응부터 자신만만한 런던 바이브까지! 가벼운 질문 하나가 유쾌한 영국식 발음 주고받기로 이어집니다ㅋㅋ\n\n풀버전은 유튜브 ‘콜라이드 COLLIDE’의 〈미국과 영국의 자존심 영어부심(?)〉 편에서 만나보세요. 더 많은 재미와 감동이 기다리고 있습니다.\n\n#박재범 #명예영국인 #돈룩백 #콜라이드 #티키타카",
+    "tags": []
+  },
+  "subscriberCount": 6000,
+  "viewsPerSubscriber": 378.82,
+  "outlierRatio": 120.36,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-21T16:09:39.005Z",
+  "ratioDenominator": 18884,
+  "ratioPeerCount": 26,
+  "source": "studio-research",
+  "studioFolds": 100,
+  "studioSeenAt": "2026-11-21T16:00:27.549Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 11,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 57
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 16
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 10,
+    "stats": {
+      "sentences": 10,
+      "lengthSum": 126,
+      "lengthMedian": 12,
+      "endings": {
+        "question": 3,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 7
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 3,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 10,
+      "hangulChars": 19,
+      "hangulRatio": 0.21,
+      "uniqueWordRatio": 0.71,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-21T16:12:37.596Z",
+    "note": "품질 낮음: 한글 19자(150자 미만), 한국어 글자 비율 0.21(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "미국 출신인 박재범에게 영어를 잘한다고 칭찬했을 때 발생하는 엉뚱하고 재미있는 반응을 기대하게 만듦",
+      "titleQuote": "미국인 박재범에게 영어 잘한다고 칭찬했더니ㅋㅋ",
+      "thumbnailText": "미국인 박재범에게 영어 칭찬했더니",
+      "thumbnailWordCount": 4,
+      "thumbnailVisual": "상단에 검은 바탕과 흰색·노란색 글자 카드가 있고, 하단에 마이크를 들고 대화하는 박재범의 모습이 배치됨",
+      "thumbnailVsTitle": "제목의 핵심 내용인 '미국인 박재범에게 영어 칭찬했더니'를 거의 동일하게 요약하여 전달함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "박재범이 영어로 대화를 열자 상대방이 영어를 잘한다고 칭찬하고, 미국인인 박재범이 당황해하며 역으로 영국식 억양 흉내 대화를 주고받음",
+      "quote": "So you guys both live in London.",
+      "reasonToKeepWatching": "미국인 교포에게 영어를 잘한다고 했을 때 벌어지는 예상치 못한 티키타카와 웃음 상황을 보여줌",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "박재범이 영어 문장을 말하자 상대방이 영어를 잘한다고 칭찬하고 박재범이 얼떨떨해하며 되묻는 장면",
+      "quote": "So you guys both live in London.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 3,
+        "what": "박재범의 영어 말하기에 진경이 영어를 잘한다고 칭찬함",
+        "quote": "So you guys both live in London.",
+        "quoteVerified": true
+      },
+      {
+        "start": 3,
+        "end": 6,
+        "what": "박재범이 웃음을 터뜨리며 역으로 진경에게 영어를 잘하냐고 물음",
+        "quote": "진경 씨는 영어 잘 하세요?",
+        "quoteVerified": true
+      },
+      {
+        "start": 6,
+        "end": 11,
+        "what": "진경이 영국 억양 표현을 쓰자 박재범도 영국 억양 표현(bro 등)으로 맞춰 받아침",
+        "quote": "Yes, of course, mate.",
+        "quoteVerified": true
+      },
+      {
+        "start": 11,
+        "end": 16,
+        "what": "박재범과 진경이 영국식 물 발음(bottle of water)을 흉내 내며 함께 폭소함",
+        "quote": "Pass me the bottle of water.",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "마이크를 잡고 말하는 박재범의 전신 화면과 영문 하단 자막 등장",
+        "purpose": "박재범이 출연진에게 영어로 질문을 던지는 상황 연출"
+      },
+      {
+        "t": 1,
+        "what": "특이한 안경을 쓴 진경의 얼굴 클로즈업과 한글 칭찬 자막 등장",
+        "purpose": "영어 잘한다는 진경의 칭찬 대사 전달"
+      },
+      {
+        "t": 2,
+        "what": "박재범이 눈을 깜빡이며 되묻는 표정 클로즈업",
+        "purpose": "미국인으로서 영어 칭찬에 황당해하는 반전 표정 포착"
+      },
+      {
+        "t": 3,
+        "what": "웃음을 참는 진경의 얼굴 화면",
+        "purpose": "대화 상대방의 긍정적인 반응과 미소 전달"
+      },
+      {
+        "t": 4,
+        "what": "박재범의 정면 얼굴과 역질문 한글 자막 등장",
+        "purpose": "진경에게 영어를 잘하냐고 묻는 대화 전환"
+      },
+      {
+        "t": 7,
+        "what": "진경이 정면을 보며 대답하는 모습과 영국식 영어 자막",
+        "purpose": "영국 억양 표현(mate)을 사용하는 진경의 응대 연출"
+      },
+      {
+        "t": 9,
+        "what": "박재범이 감탄사를 뱉는 표정 클로즈업",
+        "purpose": "상대의 영국식 발음에 대한 박재범의 리액션"
+      },
+      {
+        "t": 10,
+        "what": "진경의 런던 언급 대사와 영문 자막",
+        "purpose": "영국 런던 억양 컨셉을 강조하는 대목"
+      },
+      {
+        "t": 11,
+        "what": "박재범이 영국식 유머로 억양을 맞받아치는 화면",
+        "purpose": "두 사람 간의 영국 억양 티키타카 심화"
+      },
+      {
+        "t": 13,
+        "what": "진경이 과장되게 영국식 물 발음을 따라 하는 표정과 클로즈업",
+        "purpose": "영국식 억양 개그의 시각적·청각적 하이라이트"
+      },
+      {
+        "t": 15,
+        "what": "박재범의 얼굴을 담은 중앙 프레임 카드와 대표 질문 텍스트가 적힌 엔딩 화면",
+        "purpose": "영상 마무리 및 핵심 순간 재조명"
+      }
+    ],
+    "ending": {
+      "what": "영국식 물 발음 흉내에 서로 웃음을 터뜨리며 종료됨",
+      "quote": "[laughter]",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "미국 출신 교포에게 영어를 잘한다고 칭찬하는 모순된 상황에 대한 재미",
+          "quote": "미국인한테 영어잘한데..ㅎㅎㅇㅎ",
+          "quoteVerified": true
+        },
+        {
+          "point": "영국식 bottle of water 발음 흉내 장면의 웃음 포인트",
+          "quote": "마지막에 트리거 땡겨주네...ㅋㅋㅋ",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "버오어",
+          "quote": "영국식 쉽네 버오어 하면 되네",
+          "quoteVerified": true
+        },
+        {
+          "expression": "보오오어",
+          "quote": "보오오어",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 1,
+      "description": "미국인에게 영어 칭찬을 했을 때 벌어지는 유머 상황과 영국식 억양 흉내라는 1가지 예능 에피소드를 보여줌",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙 및 썸네일 타이틀 위치",
+      "size": "보통",
+      "highlightColor": "민트색, 노란색, 흰색",
+      "highlightMethod": "말하는 사람에 따라 글자 색상을 다르게 적용하여 구별함",
+      "textAmount": "한 번에 한 문장 또는 단어 단위",
+      "changeTiming": "발화 타이밍에 맞추어 전환됨"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": true,
+      "soundEffectUse": "대화 사이 관객의 웃음소리와 환호 효과음이 삽입됨",
+      "voiceVsMusic": "별도의 배경음악 없이 대화 목소리와 관객 웃음 소리로 구성됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "미국인 박재범의 영어에 한국어로 영어를 잘한다고 칭찬하는 상황으로 시작함",
+        "quote": "So you guys both live in London.",
+        "type": "상황의 엉뚱함을 활용한 훅",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 1,
+          "what": "영어를 잘한다는 말을 들은 박재범의 반응이 어떨지 궁금하게 함",
+          "quote": "영어 잘 하신다.",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 5,
+          "what": "박재범이 황당해하며 역으로 상대에게 영어 실력을 물어보고 억양 흉내로 전환함",
+          "quote": "진경 씨는 영어 잘 하세요?",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "영어 칭찬에서 출발해 영국식 억양 흉내 티키타카로 자연스럽게 대화가 연결됨",
+        "examples": [
+          {
+            "t": 5,
+            "what": "칭찬을 받은 뒤 상대방에게 역질문을 던지며 영국식 영어 억양 대결로 상황이 확장됨",
+            "quote": "진경 씨는 영어 잘 하세요?",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [
+        {
+          "t": 12,
+          "what": "평범한 대화를 주고받다가 갑자기 영국식 물 발음(bottle of water)을 과장해서 흉내 냄",
+          "quote": "Pass me the bottle of water.",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 13,
+        "what": "영국식 억양 흉내의 웃음 포인트를 완성하고 관객 웃음으로 유머를 회수함",
+        "quote": "[laughter]",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "미국인 박재범에게 영어를 잘한다고 말하는 진경의 칭찬",
+        "reaction": "미국 사람에게 영어 잘한다고 칭찬하는 엉뚱함에 공감하며 웃음",
+        "quote": "미국인한테 영어잘한데..ㅎㅎㅇㅎ",
+        "quoteVerified": true
+      },
+      {
+        "cause": "박재범과 진경이 영국식 물 발음(bottle of water)을 흉내 내는 장면",
+        "reaction": "특유의 영국식 소리 표현(버오어)을 재미있어하며 댓글로 한글 표기함",
+        "quote": "영국식 쉽네 버오어 하면 되네",
+        "quoteVerified": true
+      }
+    ],
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 발음 원리나 소리를 교육하는 영상이 아니라 예능 프로그램의 유머 대화 장면을 발췌한 숏폼 영상이다.",
+    "forUs": {
+      "adopt": "미국식 발음과 영국식 발음(예: bottle of water)의 명확한 소리 차이를 대화나 상황극 형태로 흥미롭게 연출하는 방식",
+      "differentiate": "단순한 예능 흉내에 그치지 않고 성인 학습자가 이해하기 쉽게 혀 위치와 소리 억압(Glottal stop) 원리를 짚어주기"
+    }
+  },
+  "quoteCheck": {
+    "checked": 20,
+    "verified": 18,
+    "unverified": 2
+  },
+  "pacing": {
+    "count": 11,
+    "medianGapSeconds": 1,
+    "perMinute": 41.3,
+    "source": "AI가 적은 화면 변화(영상을 못 받아 대신 씀)"
+  },
+  "frames": [],
+  "framesError": "Command failed: ffmpeg -loglevel error -y -ss 15 -t 3 -i C:\\Users\\yunyo\\AppData\\Local\\Temp\\outlier-frames-1CQGLr\\v.mp4 -vf fps=1,scale=-2:240,tile=3x1 -frames:v 1 -q:v 5 C:\\Users\\yunyo\\Downloads\\project\\data\\youtube\\outlier-frames\\bFq3ieCIqbI\\15.jpg\n[mjpeg @ 000001cd2c371d40] Non full-range YUV is n",
+  "usage": {
+    "promptTokenCount": 6069,
+    "candidatesTokenCount": 2702,
+    "totalTokenCount": 11945,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 1379
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3590
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 3174,
+    "serviceTier": "standard"
+  }
+}

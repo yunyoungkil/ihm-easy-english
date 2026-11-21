@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "region": "KR",
-  "collectedAt": "2026-11-20T16:11:24.598Z",
-  "lastAttemptAt": "2026-11-20T16:11:24.598Z",
+  "collectedAt": "2026-11-21T16:14:57.030Z",
+  "lastAttemptAt": "2026-11-21T16:14:57.030Z",
   "sources": {
     "googleTrendsKr": {
       "ok": true,
-      "fetchedAt": "2026-11-20T16:11:24.598Z",
+      "fetchedAt": "2026-11-21T16:14:57.030Z",
       "count": 10,
       "stale": false,
       "error": null
     },
     "youtubePopularKr": {
       "ok": true,
-      "fetchedAt": "2026-11-20T16:11:24.598Z",
+      "fetchedAt": "2026-11-21T16:14:57.030Z",
       "count": 20,
       "stale": false,
       "error": null
@@ -22,215 +22,215 @@
   "googleTrends": [
     {
       "source": "google-trends-kr",
-      "keyword": "부동산",
-      "approxTraffic": "5000+",
-      "publishedAt": "2026-11-20T14:50:00.000Z",
-      "newsItems": [
-        {
-          "title": "내년 아파트 공시가격 현실화율 69%로 5년째 동결…보유세 영향은?",
-          "source": "KBS 뉴스",
-          "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8718593"
-        },
-        {
-          "title": "겹겹이 쌓인 보유세 인상 압박에… 공시가 현실화율 동결",
-          "source": "조선일보",
-          "url": "https://www.chosun.com/economy/real_estate/2026/11/21/T2N6SYATRBDYJOGZ3A4LGNKKGA/"
-        },
-        {
-          "title": "국토부, 주택공시가 현실화율 ‘동결’…묶여도 집값 오른 곳 보유세는 오를 듯",
-          "source": "경향신문",
-          "url": "https://www.khan.co.kr/article/202611202007001"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "u17 việt nam",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-20T14:40:00.000Z",
-      "newsItems": [
-        {
-          "title": "U17 Việt Nam và 90 phút đáng khen trước 'gã khổng lồ' U17 Bỉ",
-          "source": "Báo Tiền Phong",
-          "url": "https://tienphong.vn/u17-viet-nam-va-90-phut-dang-khen-truoc-ga-khong-lo-u17-bi-post1896207.tpo"
-        },
-        {
-          "title": "Bảng xếp hạng U.17 World Cup mới nhất: 2 siêu phẩm giúp Việt Nam thoát đáy, Mali tốp 1 nhờ thắng New Zealand",
-          "source": "Thanh Niên",
-          "url": "https://thanhnien.vn/bang-xep-hang-u17-world-cup-moi-nhat-2-sieu-pham-giup-viet-nam-thoat-day-mali-top-1-nho-thang-new-zealand-185261120222540314.htm"
-        },
-        {
-          "title": "5 bức ảnh trên trang cá nhân của Lê Sỹ Bách - cầu thủ Việt Nam đầu tiên ghi bàn ở World Cup",
-          "source": "Kenh14.vn",
-          "url": "https://kenh14.vn/5-buc-anh-tren-trang-ca-nhan-cua-le-sy-bach-cau-thu-viet-nam-dau-tien-ghi-ban-o-world-cup-215261120212333135.chn"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "오현민",
+      "keyword": "엑셀방송",
       "approxTraffic": "200+",
-      "publishedAt": "2026-11-20T14:00:00.000Z",
+      "publishedAt": "2026-11-21T15:10:00.000Z",
       "newsItems": [
         {
-          "title": "'데블스 플랜3' 오현민, 장동민 옆 눈물.. 탈락 심경 \"많이 부족했다\" [전문]",
-          "source": "조선일보",
-          "url": "https://www.chosun.com/entertainments/broadcast/2026/11/19/GRTDKZJYMQZWIM3EHFTDCODCMQ/"
+          "title": "성노예→학대 사이버 룸살롱 ‘엑셀’ 파헤친다 (그것이 알고싶다)",
+          "source": "스포츠동아",
+          "url": "https://sports.donga.com/ent/article/all/20261120/135062142/1"
         },
         {
-          "title": "'데블스플랜3' 탈락 오현민 \"누구 하나 못된 사람 없어…비난 말아달라\"",
-          "source": "뉴스1",
-          "url": "https://www.news1.kr/entertain/broadcast-tv/6359461"
+          "title": "'그것이 알고싶다'(그알) 딸의 방송 본 아버지 제보로 드러난 '엑셀 방송' 실태",
+          "source": "국제뉴스",
+          "url": "https://www.gukjenews.com/news/articleView.html?idxno=3759174"
         },
         {
-          "title": "‘데블스 플랜3’ 오현민 “출연진 비난하지 말아달라”",
-          "source": "아시아투데이",
-          "url": "https://www.asiatoday.co.kr/kn/view.php?key=20261119010007564"
+          "title": "벗고 때리고 괴식 먹이고…'그알', '사이버 룸살롱' 엑셀 방송 실태 파헤친다",
+          "source": "SBS 뉴스",
+          "url": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008855261"
         }
       ]
     },
     {
       "source": "google-trends-kr",
-      "keyword": "엔비디아",
-      "approxTraffic": "5000+",
-      "publishedAt": "2026-11-20T13:40:00.000Z",
-      "newsItems": [
-        {
-          "title": "젠슨 황 딸 폭언까지 터졌다…\"직원에 '금붕어' 호칭\" 논란",
-          "source": "한국경제",
-          "url": "https://www.hankyung.com/article/2026111982051"
-        },
-        {
-          "title": "젠슨 황 몰락의 진짜 이유...루비오와 매파의 '제거 작전'",
-          "source": "YTN",
-          "url": "https://www.ytn.co.kr/_cs/_ln_0104_202611202259212218_005.html"
-        },
-        {
-          "title": "엔비디아, 6거래일새 시총 893조원 증발…\"하락 안끝났다\"",
-          "source": "마켓인",
-          "url": "https://marketin.edaily.co.kr/News/ReadE?newsId=01882726645647688"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "india a cricket team vs nepal national cricket team match scorecard",
+      "keyword": "채령",
       "approxTraffic": "200+",
-      "publishedAt": "2026-11-20T13:40:00.000Z",
-      "newsItems": [
-        {
-          "title": "Live Cricket Score, Schedule, Latest News, Stats & Videos",
-          "source": "Cricbuzz",
-          "url": "https://www.cricbuzz.com/player-match-performance/match/177152/player/11290/bowling?inningsId=1"
-        },
-        {
-          "title": "Live Cricket Score, Schedule, Latest News, Stats & Videos",
-          "source": "Cricbuzz",
-          "url": "https://m.cricbuzz.com/player-match-performance/match/177152/player/11158/bowling"
-        },
-        {
-          "title": "Live Cricket Score, Schedule, Latest News, Stats & Videos",
-          "source": "Cricbuzz",
-          "url": "https://www.cricbuzz.com/player-match-performance/match/177152/player/14217/bowling"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "펍지",
-      "approxTraffic": "500+",
-      "publishedAt": "2026-11-20T13:30:00.000Z",
-      "newsItems": [
-        {
-          "title": "PUBG x IVE 콜라보레이션 아이템 모델링 개선 안내 - 뉴스 - PUBG: 배틀그라운드",
-          "source": "PUBG: BATTLEGROUNDS",
-          "url": "https://www.pubg.com/ko/news/11414"
-        },
-        {
-          "title": "PUBG, 베트남 선수 불매운동 여파로 스팀 매출 순위 12계단 급락",
-          "source": "씬짜오베트남",
-          "url": "https://chaovietnam.co.kr/195002/"
-        },
-        {
-          "title": "히마스-탄부 사건 이후 타격을 입은 PUBG가 한국 최고의 인기 K팝 그룹에 '도움'을 요청했다.",
-          "source": "Vietnam.vn",
-          "url": "https://www.vietnam.vn/ko/sa-sut-sau-vu-himass-tanvuu-pubg-cau-cuu-nhom-nhac-hot-nhat-han-quoc"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "미국 반도체 수출 통제로 인한 삼성전자와 tsmc의 중국 출하 중단 뉴스 알려줘",
-      "approxTraffic": "5000+",
-      "publishedAt": "2026-11-20T13:30:00.000Z",
+      "publishedAt": "2026-11-21T15:00:00.000Z",
       "newsItems": []
     },
     {
       "source": "google-trends-kr",
-      "keyword": "두산",
-      "approxTraffic": "1000+",
-      "publishedAt": "2026-11-20T13:10:00.000Z",
-      "newsItems": [
-        {
-          "title": "두산에너빌리티 해상풍력터빈, 글로벌 보험 문턱 넘었다",
-          "source": "전기신문",
-          "url": "https://www.electimes.com/news/articleView.html?idxno=375052"
-        },
-        {
-          "title": "두산에너빌리티 \"야월해상풍력발전단지, 글로벌 수준 보험 가입\"",
-          "source": "지디넷코리아",
-          "url": "https://zdnet.co.kr/view/?no=20261120093351"
-        },
-        {
-          "title": "두산에너빌리티 8MW 해상풍력터빈, 글로벌 보험 기준 적용…해외 시장 진출 기반 강화",
-          "source": "스트레이트뉴스",
-          "url": "https://www.straightnews.co.kr/news/articleView.html?idxno=315819"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "컴포즈",
+      "keyword": "man city vs fulham f.c. standings",
       "approxTraffic": "2000+",
-      "publishedAt": "2026-11-20T13:10:00.000Z",
+      "publishedAt": "2026-11-21T15:00:00.000Z",
       "newsItems": [
         {
-          "title": "“부모님이라 생각하니 속상”…키오스크 앞 노인에게 무슨 일? [잇슈#태그]",
-          "source": "KBS 뉴스",
-          "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8718228"
+          "title": "Manchester City 1-1 Fulham: Anderson rescues point for hosts",
+          "source": "BBC",
+          "url": "https://www.bbc.com/sport/football/live/c3kgdxnggq7pt"
         },
         {
-          "title": "\"주문하다 손까지 덜덜\"…날 선 직원 응대에 결국 본사 사과",
-          "source": "주간조선",
-          "url": "http://weekly.chosun.com/news/articleView.html?idxno=57273"
+          "title": "Manchester City draw with Fulham to extend winless Premier League run to 4 games",
+          "source": "Chosunbiz",
+          "url": "https://biz.chosun.com/en/en-sports/2026/11/22/WXUCUY7ADNAVPITNTGAQUTRDDM/"
         },
         {
-          "title": "키오스크 헤매는 어르신에 날 선 말투...컴포즈커피 응대 논란에 본사 사과 [앵커리포트]",
-          "source": "YTN",
-          "url": "https://www.ytn.co.kr/_ln/0103_202611202251454439"
+          "title": "Manchester City 1-1 Fulham: Premier League – as it happened",
+          "source": "The Guardian",
+          "url": "https://www.theguardian.com/football/live/2026/nov/21/manchester-city-v-fulham-premier-league-live"
         }
       ]
     },
     {
       "source": "google-trends-kr",
-      "keyword": "류효영",
+      "keyword": "chelsea vs leeds",
       "approxTraffic": "200+",
-      "publishedAt": "2026-11-20T13:10:00.000Z",
+      "publishedAt": "2026-11-21T14:50:00.000Z",
       "newsItems": [
         {
-          "title": "“오빠한테 관심 있어” 고백한 류효영, 이태성과 첫 키스 장소 방문 (신랑수업2)",
-          "source": "매일경제",
-          "url": "https://www.mk.co.kr/news/broadcasting-service/12213967"
+          "title": "Tottenham Hotspur vs Ipswich Town: Premier League preview, team news, stats & head-to-head",
+          "source": "BBC",
+          "url": "https://www.bbc.com/sport/football/live/c699exk99z54t"
         },
         {
-          "title": "두 사람이 키스했던 장소?! 일이 아닌 데이트로 다시 온 촬영 장소에서의 설렘♥",
-          "source": "채널A",
-          "url": "https://ichannela.com/program/clip/000000560996.do"
+          "title": "Chelsea vs Leeds LIVE! Premier League match updates, news, score and line-ups",
+          "source": "Sky Sports",
+          "url": "https://www.skysports.com/football/live-blog/13610684/chelsea-vs-leeds-live-premier-league-match-updates-news-score-and-line-ups"
         },
         {
-          "title": "'류화영 쌍둥이' 류효영, 돌싱+싱글대디 ♥이태성에 직진 \"나 아껴?\"('신랑수업2')",
+          "title": "How to watch Chelsea vs Leeds United soccer for free today: English Premier League live stream, TV channel, o",
+          "source": "OregonLive.com",
+          "url": "https://www.oregonlive.com/tv/2026/11/how-to-watch-chelsea-vs-leeds-united-soccer-for-free-today-english-premier-league-live-stream-tv-channel-odds.html"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "장동혁",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-21T14:50:00.000Z",
+      "newsItems": [
+        {
+          "title": "이 대통령 \"5500억 환수가 배임이면…\" 대장동 업자 인터뷰 SNS에 공유",
+          "source": "JTBC",
+          "url": "https://news.jtbc.co.kr/article/NB12329146"
+        },
+        {
+          "title": "이 대통령 “공익환수가 배임인가” 나경원 “주가 바닥을 치고 있어”",
+          "source": "미디어오늘",
+          "url": "https://www.mediatoday.co.kr/news/articleView.html?idxno=338617"
+        },
+        {
+          "title": "장동혁 \"억울하면 재판 받아라\"…민주 \"크게 착각\"",
+          "source": "연합뉴스TV",
+          "url": "https://www.yonhapnewstv.co.kr/news/AKR20261121165813814"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "민효린",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-21T14:50:00.000Z",
+      "newsItems": [
+        {
+          "title": "빅뱅, 데뷔 20주년에 'MAMA' 수상 겹경사..\"기분 좋은 상\"",
           "source": "조선일보",
-          "url": "https://www.chosun.com/entertainments/broadcast/2026/11/21/MJSTOMJRMQ4GKM3GG4ZWIMTDHE/"
+          "url": "https://www.chosun.com/entertainments/music/2026/11/21/MQ4DAMLFGBTDGZBTMQZTSOBRHE/"
+        },
+        {
+          "title": "빅뱅 태양, 무대를 지배하는 자",
+          "source": "뉴스1",
+          "url": "https://www.news1.kr/photos/8226435"
+        },
+        {
+          "title": "지드래곤도 감당 안되는 5대5 긴 생머리 '파격'..수상소감 방해하자 '대성 투입' [핫피플]",
+          "source": "미주중앙일보",
+          "url": "https://www.koreadaily.com/article/20261121034550373"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "코번트리 대 크리스털 팰리스",
+      "approxTraffic": "1000+",
+      "publishedAt": "2026-11-21T14:30:00.000Z",
+      "newsItems": [
+        {
+          "title": "Coventry vs Crystal Palace LIVE! Premier League match updates, news and score",
+          "source": "Sky Sports",
+          "url": "https://www.skysports.com/football/live-blog/13610683/coventry-vs-crystal-palace-live-premier-league-match-updates-news-and-score"
+        },
+        {
+          "title": "Chelsea vs Leeds United: Premier League preview, team news, stats & head-to-head",
+          "source": "BBC",
+          "url": "https://www.bbc.com/sport/football/live/c3dx19jxx15zt"
+        },
+        {
+          "title": "Licensable picture: Premier League - Coventry City v Crystal Palace",
+          "source": "Reuters Connect",
+          "url": "https://www.reutersconnect.com/item/premier-league-coventry-city-v-crystal-palace/dGFnOnJldXRlcnMuY29tLDIwMjY6bmV3c21sX1VQMUVNQkwxNkZISVA"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "장동민",
+      "approxTraffic": "100+",
+      "publishedAt": "2026-11-21T14:30:00.000Z",
+      "newsItems": [
+        {
+          "title": "‘독박투어’ 김재원 “역사 잘 알면 사람이 삐딱해져”",
+          "source": "iMBC 연예",
+          "url": "https://enews.imbc.com/News/RetrieveNewsInfo/525580"
+        },
+        {
+          "title": "인기 여행 예능프로그램, 김해 소개한다",
+          "source": "경남매일",
+          "url": "http://www.gnmaeil.com/news/articleView.html?idxno=599140"
+        },
+        {
+          "title": "'독박투어' 김준호, “아빠는 역사 다 알지” 김해 역사 투어에서 준비된 '아빠미’ 폭발",
+          "source": "SPOTV NEWS",
+          "url": "https://www.spotvnews.co.kr/news/articleView.html?idxno=1021166"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "쇼메이커",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-21T14:20:00.000Z",
+      "newsItems": [
+        {
+          "title": "[단독] ‘카나비’ 서진혁, ‘씨맥’ 품으로 가나… DK행 유력, 최종 협상 진행 중",
+          "source": "미주중앙일보",
+          "url": "https://www.koreadaily.com/article/20261119231915586"
+        },
+        {
+          "title": "[오피셜] T1 떠난 ‘도란’ 최현준, DK 유니폼 입는다… ‘카나비’와 함께 상체 구축",
+          "source": "OSEN",
+          "url": "https://www.osen.co.kr/article/G1112913126"
+        },
+        {
+          "title": "‘쇼메이커·스매쉬·씨맥’ 잔류…디플러스 기아, 핵심 전력 지켰다",
+          "source": "쿠키뉴스",
+          "url": "https://www.kukinews.com/article/view/kuk202611200021"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "첼시 대 리즈 유나이티드",
+      "approxTraffic": "2000+",
+      "publishedAt": "2026-11-21T14:10:00.000Z",
+      "newsItems": [
+        {
+          "title": "첼시 대 리즈: 상대 전적 통계 및 역사적 이정표",
+          "source": "Laodong.vn",
+          "url": "https://ko.laodong.vn/bong-da-quoc-te/chelsea-vs-leeds-thong-ke-doi-dau-va-nhung-cot-moc-lich-su-1803727.ldo"
+        },
+        {
+          "title": "첼시와 알론소 감독이 직면한 어려운 딜레마.",
+          "source": "Vietnam.vn",
+          "url": "https://www.vietnam.vn/ko/chelsea-va-bai-toan-nan-giai-cho-hlv-alonso"
+        },
+        {
+          "title": "첼시 vs 리즈 경기 예측: 우승 경쟁의 뜨거운 승부",
+          "source": "Vietnam.vn",
+          "url": "https://www.vietnam.vn/ko/nhan-dinh-chelsea-vs-leeds-diem-nong-cuoc-dua-top-dau"
         }
       ]
     }
@@ -244,7 +244,7 @@
       "channelTitle": "BIGBANG - Topic",
       "publishedAt": "2026-11-20T05:02:15.000Z",
       "categoryId": "10",
-      "viewCount": 1097721
+      "viewCount": 2149118
     },
     {
       "source": "youtube-popular-kr",
@@ -254,177 +254,27 @@
       "channelTitle": "블랙컴뱃",
       "publishedAt": "2026-11-19T08:40:26.000Z",
       "categoryId": "1",
-      "viewCount": 632938
+      "viewCount": 862977
     },
     {
       "source": "youtube-popular-kr",
-      "videoId": "wkg8kL5nx_4",
-      "title": "제우스 호소인",
-      "channelId": "UCDBAVzfX3yZ1hah0FHnOoaA",
-      "channelTitle": "괴물쥐 유튜브",
-      "publishedAt": "2026-11-19T13:00:03.000Z",
+      "videoId": "zHLQ0iITbdk",
+      "title": "드디어 시작된 멸망전!! 우승 팀 짜보겠습니다｜멸망전EP.01",
+      "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
+      "channelTitle": "저라뎃 JUSTLIKETHAT",
+      "publishedAt": "2026-11-21T04:08:59.000Z",
       "categoryId": "20",
-      "viewCount": 654877
+      "viewCount": 298537
     },
     {
       "source": "youtube-popular-kr",
-      "videoId": "LOLXD85SThc",
-      "title": "Do you know (2026 Version)",
-      "channelId": "UCyKkBOFlSdga_PowmZVqxaQ",
-      "channelTitle": "SOMEDAY - Topic",
-      "publishedAt": "2026-11-17T09:04:44.000Z",
+      "videoId": "XKYp0bYquv4",
+      "title": "난 못해 (Feat. 이병철)",
+      "channelId": "UCDcDeL6SRxRAZ8U3D0I7W9Q",
+      "channelTitle": "Private Story - Topic",
+      "publishedAt": "2026-11-18T03:01:56.000Z",
       "categoryId": "10",
-      "viewCount": 507733
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "WqQgO06emHU",
-      "title": "인내심이 바닥나버렸습니다... ≪어벤져스: 둠스데이≫ 메인 예고편 공개 임박 & 루머 총정리",
-      "channelId": "UCKBzr20577Xcn0LJoRVES_A",
-      "channelTitle": "무비띵크_Movie Think",
-      "publishedAt": "2026-11-17T06:08:14.000Z",
-      "categoryId": "1",
-      "viewCount": 516787
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "VqogAfzqrmE",
-      "title": "팀원을 미치게 하는법",
-      "channelId": "UCJpAwvQaZyCI5spAz7tipGA",
-      "channelTitle": "PAKA",
-      "publishedAt": "2026-11-19T08:30:06.000Z",
-      "categoryId": "20",
-      "viewCount": 519822
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "9OE7nhqfo70",
-      "title": "That′s Not It",
-      "channelId": "UCS2y-C0a852eMwItVOOHw2A",
-      "channelTitle": "Kim Siwon - Topic",
-      "publishedAt": "2026-11-19T03:01:57.000Z",
-      "categoryId": "10",
-      "viewCount": 56389
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "geP1C28wCeE",
-      "title": "Thank you, Choi 'Doran' Hyeon-Jun",
-      "channelId": "UCJprx3bX49vNl6Bcw01Cwfg",
-      "channelTitle": "T1",
-      "publishedAt": "2026-11-19T09:00:16.000Z",
-      "categoryId": "20",
-      "viewCount": 2488686
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "6POlUfjBIB4",
-      "title": "Sakuranbo",
-      "channelId": "UC4mOLela441MNvGJNy6h8bg",
-      "channelTitle": "YENA - Topic",
-      "publishedAt": "2026-11-17T09:01:35.000Z",
-      "categoryId": "10",
-      "viewCount": 570958
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "xgjuGnoQl0o",
-      "title": "[LIVE] 로스트아크 On Air l 2026.11.20 19:00",
-      "channelId": "UCL3gnarNIeI_M0cFxjNYdAA",
-      "channelTitle": "로스트아크 LOST ARK",
-      "publishedAt": "2026-11-20T11:37:17.000Z",
-      "categoryId": "20",
-      "viewCount": 156081
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "G-YQHFOU9_g",
-      "title": "WhOLLiN (홀린) '딱 1분만' Official MV",
-      "channelId": "UCQZ5dfVSTui3yfhkHtw0kEg",
-      "channelTitle": "WhOLLiN 홀린",
-      "publishedAt": "2026-11-18T09:00:03.000Z",
-      "categoryId": "24",
-      "viewCount": 77639
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "cbsYn9zAHfI",
-      "title": "GTA6 나오자마자 플레이 해봤습니다",
-      "channelId": "UCZ-UuK86Bk5sGzQQ2cEglJQ",
-      "channelTitle": "주키니TV",
-      "publishedAt": "2026-11-19T06:40:32.000Z",
-      "categoryId": "20",
-      "viewCount": 680711
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "eTOnRAaWIIw",
-      "title": "Us",
-      "channelId": "UCtoQeya79GmniaXzQ_IANdQ",
-      "channelTitle": "Isaac Hong - Topic",
-      "publishedAt": "2026-11-19T09:03:55.000Z",
-      "categoryId": "10",
-      "viewCount": 39065
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "CNzJ9-pjrTo",
-      "title": "GTA 6에서 별 6개를 찍으면 벌어지는 일 ㅋㅋㅋ",
-      "channelId": "UCABvetlXpdOwFz10fCpJkwQ",
-      "channelTitle": "시온",
-      "publishedAt": "2026-11-20T01:15:20.000Z",
-      "categoryId": "20",
-      "viewCount": 548755
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "FVNI7zBuk-4",
-      "title": "베스티(BESTie) - 연애의 조건(Love Options) | Suit Dance | 수트댄스 | Performance | 4K",
-      "channelId": "UCqq-ovGE01ErlXakPihhKDA",
-      "channelTitle": "1theK Originals - 원더케이 오리지널",
-      "publishedAt": "2026-11-20T09:00:15.000Z",
-      "categoryId": "24",
-      "viewCount": 368886
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "hKQ7_XWknQM",
-      "title": "식량 ZERO 좀비 세계에서 100일 동안 살아남기",
-      "channelId": "UCVJT18d9wSCnDUdnJ9ycO7Q",
-      "channelTitle": "동수칸TV",
-      "publishedAt": "2026-11-19T10:11:28.000Z",
-      "categoryId": "20",
-      "viewCount": 406596
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "tB4PXVGF0G4",
-      "title": "It Hurts",
-      "channelId": "UCmTM3KKMCA7ZlfRmCF0Jivw",
-      "channelTitle": "So Yeon Kim - Topic",
-      "publishedAt": "2026-11-19T09:00:02.000Z",
-      "categoryId": "10",
-      "viewCount": 41219
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "oc9GD5NSfzQ",
-      "title": "GTA6 를 모른다면 반드시 봐야합니다( 21세기 최고의 명작 게임 ) [풀자막]",
-      "channelId": "UCNzcxCN_Hh_lu5RCSFXKgGQ",
-      "channelTitle": "김블루",
-      "publishedAt": "2026-11-19T23:02:56.000Z",
-      "categoryId": "20",
-      "viewCount": 404020
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "A_H1EH6p4A0",
-      "title": "CL - ‘ICONIC’ M/V",
-      "channelId": "UCg8ZzloDPTrOiGztK0C9txQ",
-      "channelTitle": "THEBLACKLABEL",
-      "publishedAt": "2026-11-20T08:59:07.000Z",
-      "categoryId": "10",
-      "viewCount": 3988569
+      "viewCount": 406284
     },
     {
       "source": "youtube-popular-kr",
@@ -434,7 +284,157 @@
       "channelTitle": "혜안",
       "publishedAt": "2026-11-20T10:04:19.000Z",
       "categoryId": "20",
-      "viewCount": 153595
+      "viewCount": 487695
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "LOLXD85SThc",
+      "title": "Do you know (2026 Version)",
+      "channelId": "UCyKkBOFlSdga_PowmZVqxaQ",
+      "channelTitle": "SOMEDAY - Topic",
+      "publishedAt": "2026-11-17T09:04:44.000Z",
+      "categoryId": "10",
+      "viewCount": 679790
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "NVfyi_UkO2o",
+      "title": "개발자 정신 상태가 궁금한 백룸 게임",
+      "channelId": "UCta_NRwnsUaew0t3VNxBNyg",
+      "channelTitle": "김재원의 즐거운 세상",
+      "publishedAt": "2026-11-21T07:00:23.000Z",
+      "categoryId": "20",
+      "viewCount": 299063
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "FVNI7zBuk-4",
+      "title": "베스티(BESTie) - 연애의 조건(Love Options) | Suit Dance | 수트댄스 | Performance | 4K",
+      "channelId": "UCqq-ovGE01ErlXakPihhKDA",
+      "channelTitle": "1theK Originals - 원더케이 오리지널",
+      "publishedAt": "2026-11-20T09:00:15.000Z",
+      "categoryId": "24",
+      "viewCount": 1194060
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "Ui8HrAe5Wjk",
+      "title": "얘로 메가봉크를 어떻게 해 【포케봉크】",
+      "channelId": "UCEWqfxUKLIpqyMzebADGUlg",
+      "channelTitle": "근가놈",
+      "publishedAt": "2026-11-20T11:00:55.000Z",
+      "categoryId": "20",
+      "viewCount": 481958
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "nnffnIqaTrk",
+      "title": "ICONIC",
+      "channelId": "UCUR0bB6v1rYJqYRJioS1hDA",
+      "channelTitle": "CL (from 2NE1) - Topic",
+      "publishedAt": "2026-11-20T09:03:05.000Z",
+      "categoryId": "10",
+      "viewCount": 46909
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "AeXICD73EWQ",
+      "title": "Thank You, kkOma & Tom & Mata",
+      "channelId": "UCJprx3bX49vNl6Bcw01Cwfg",
+      "channelTitle": "T1",
+      "publishedAt": "2026-11-21T09:00:06.000Z",
+      "categoryId": "20",
+      "viewCount": 928079
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "G-YQHFOU9_g",
+      "title": "WhOLLiN (홀린) '딱 1분만' Official MV",
+      "channelId": "UCQZ5dfVSTui3yfhkHtw0kEg",
+      "channelTitle": "WhOLLiN 홀린",
+      "publishedAt": "2026-11-18T09:00:03.000Z",
+      "categoryId": "24",
+      "viewCount": 139638
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "9uSKqKuKGdE",
+      "title": "멸망전 시작..! 3년만에 다시 뭉친 스사교ㅋㅋㅋㅋ",
+      "channelId": "UCBA9XaL5wCdHnC5EmEzwrqw",
+      "channelTitle": "튜브김민교",
+      "publishedAt": "2026-11-21T08:24:52.000Z",
+      "categoryId": "20",
+      "viewCount": 221998
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "Z8ehh3ANZak",
+      "title": "BABY ANGEL",
+      "channelId": "UCBznuF9zIIbRS9Y1Yu4yOhg",
+      "channelTitle": "NAYEON - Topic",
+      "publishedAt": "2026-11-20T05:02:23.000Z",
+      "categoryId": "10",
+      "viewCount": 203886
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "oc9GD5NSfzQ",
+      "title": "GTA6 를 모른다면 반드시 봐야합니다 ( 21세기 최고의 명작 게임 ) [1편 풀자막]",
+      "channelId": "UCNzcxCN_Hh_lu5RCSFXKgGQ",
+      "channelTitle": "김블루",
+      "publishedAt": "2026-11-19T23:02:56.000Z",
+      "categoryId": "20",
+      "viewCount": 668094
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "A_H1EH6p4A0",
+      "title": "CL - ‘ICONIC’ M/V",
+      "channelId": "UCg8ZzloDPTrOiGztK0C9txQ",
+      "channelTitle": "THEBLACKLABEL",
+      "publishedAt": "2026-11-20T08:59:07.000Z",
+      "categoryId": "10",
+      "viewCount": 5823403
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "Mo6RUzuLTok",
+      "title": "무적의 트리오 ｜EP．1화",
+      "channelId": "UCZ6IM7_T-bCmr_7DgAKjYxg",
+      "channelTitle": "피닉스박",
+      "publishedAt": "2026-11-20T11:36:30.000Z",
+      "categoryId": "20",
+      "viewCount": 265211
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "9OE7nhqfo70",
+      "title": "That′s Not It",
+      "channelId": "UCS2y-C0a852eMwItVOOHw2A",
+      "channelTitle": "Kim Siwon - Topic",
+      "publishedAt": "2026-11-19T03:01:57.000Z",
+      "categoryId": "10",
+      "viewCount": 86534
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "CNzJ9-pjrTo",
+      "title": "GTA 6에서 별 6개를 찍으면 벌어지는 일 ㅋㅋㅋ",
+      "channelId": "UCABvetlXpdOwFz10fCpJkwQ",
+      "channelTitle": "시온",
+      "publishedAt": "2026-11-20T01:15:20.000Z",
+      "categoryId": "20",
+      "viewCount": 798320
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "0JQ9k6kcKVs",
+      "title": "NAYEON “BABY ANGEL” M/V",
+      "channelId": "UCaO6TYtlC8U5ttz62hTrZgg",
+      "channelTitle": "JYP Entertainment",
+      "publishedAt": "2026-11-20T05:00:03.000Z",
+      "categoryId": "10",
+      "viewCount": 6351552
     }
   ]
 }

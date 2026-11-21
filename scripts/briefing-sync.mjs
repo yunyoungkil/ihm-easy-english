@@ -131,7 +131,8 @@ export async function syncStudioMetricsIfStale({
               err.name = 'TimeoutError';
               reject(err);
             }, timeoutMs);
-            timer.unref?.();
+            // unref 하지 않는다: 수집이 아무 핸들 없이 멈추면 unref된 타이머는 울리기 전에 프로세스가 끝나
+            // 시간 초과 안내가 안 나온다(2026-11-21 briefing-sync 테스트 2개 취소로 확인). 끝나면 finally가 지운다.
           }),
         ]);
       } finally {

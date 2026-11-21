@@ -96,7 +96,21 @@ async function ensureChrome() {
   throw new Error('자동화용 크롬(9222)을 켜지 못했습니다');
 }
 
+/** 아래쪽 쿠키 안내 띠. 떠 있으면 버튼 클릭을 가로막는다(2026-11-21 확인: "intercepts pointer events"로 시간 초과). */
+export const COOKIE_BAR = '.glue-cookie-notification-bar.visible, [id^="glue-cookie-notification-bar"].visible';
+
+async function dismissCookieBar(page) {
+  const bar = page.locator(COOKIE_BAR).first();
+  if (!(await bar.count())) return;
+  const ok = bar.locator('button').filter({ hasText: /ok|got it|agree|accept|확인|동의/i }).first();
+  if (await ok.count()) await ok.click().catch(() => {});
+  await page.waitForTimeout(500);
+  // 버튼 글자가 달라 못 눌렀으면 띠만 화면에서 숨긴다(동의 여부는 건드리지 않음)
+  await page.evaluate((sel) => document.querySelectorAll(sel).forEach((el) => { el.style.display = 'none'; }), COOKIE_BAR);
+}
+
 async function dismissOverlays(page) {
+  await dismissCookieBar(page);
   for (let i = 0; i < 4; i += 1) {
     if (!(await page.locator('.cdk-overlay-backdrop-showing').count())) return;
     await page.keyboard.press('Escape');

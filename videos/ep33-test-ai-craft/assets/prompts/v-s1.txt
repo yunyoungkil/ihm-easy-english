@@ -1,0 +1,4 @@
+0-1s: static extreme macro. Her fingertip rests at the round steel call button with a tiny hesitation.
+1-1.6s: she presses the button firmly; the steel dome dips slightly under the fingertip.
+1.6-4s: the thin LED ring around the button lights up warm orange and stays lit; her finger eases back and leaves the frame; very slight handheld drift, ease out.
+Sound: one crisp mechanical click at the press, quiet elevator hall hum, a distant elevator motor starting. No music, no speech. No text, no watermark.

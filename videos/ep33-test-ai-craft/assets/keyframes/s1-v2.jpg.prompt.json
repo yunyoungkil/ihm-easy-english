@@ -1,0 +1,24 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-21T14:38:15.371Z",
+  "prompt": "Attached image 1: keep this world — the same brushed stainless steel elevator panel, the same mix of cool winter daylight and warm ceiling light, and the same woman's hand and camel wool coat sleeve. Do not show her face.\n\nA 9:16 vertical extreme close-up macro photograph. Her right index finger hovers about one centimetre in front of the round stainless steel elevator call button, about to press it. Natural unpolished nails, fine knuckle wrinkles, a little dry skin. The button's thin LED ring is still unlit. The camel coat cuff enters from the lower edge of the frame. Fingerprint smudges and fine brushed lines on the steel, a soft reflection of the ceiling light on the button dome. 100mm macro lens, very shallow depth of field, the button rim in sharp focus, the finger tip slightly soft.\n\nNo readable text, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "assets/prompts/s1.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "assets/keyframes/key-v2.jpg",
+      "sha256": "a885059e91165760"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "assets/keyframes/s1-v2.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  }
+}

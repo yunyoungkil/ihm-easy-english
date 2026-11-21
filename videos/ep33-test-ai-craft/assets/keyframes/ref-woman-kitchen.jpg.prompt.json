@@ -1,0 +1,30 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-21T14:10:45.296Z",
+  "prompt": "Image 1: use only its camera framing and subject placement (medium close shot, subject slightly left of center). Image 2: use only its color palette and lighting mood (dark, warm, cinematic). Do not copy any person, text, caption, or background from either image.\n\nScene: a Korean woman in her late 50s sits at a wooden kitchen table at night, holding a large brass coat button between her thumb and index finger close to the camera, studying it with a curious half-smile. A single warm practical lamp lights her from the left, the rest of the kitchen falls into soft shadow. 50mm lens, shallow depth of field, the button sharp and her face slightly soft. Natural skin texture with fine wrinkles and pores, a cardigan with visible knit texture. Vertical 9:16 photo.\n\nNo text, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../AppData/Local/Temp/claude/075614d6a71f4fa0/5d6ce1df-9e88-4b2c-a1ca-b077407edbb6/scratchpad/livetest/img-prompt.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "data/youtube/outlier-frames/0VjYs9FE8R0/cut-01.jpg",
+      "sha256": "625cd9b6069fdc65"
+    },
+    {
+      "order": 2,
+      "role": "ref",
+      "path": "data/youtube/outlier-frames/8nzWymZViuo/cut-01.jpg",
+      "sha256": "ddb5ec1a1925e262"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "../../AppData/Local/Temp/claude/075614d6a71f4fa0/5d6ce1df-9e88-4b2c-a1ca-b077407edbb6/scratchpad/livetest/button-woman.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  }
+}

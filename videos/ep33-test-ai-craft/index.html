@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko" data-resolution="portrait">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>EP33 시험 - 생성 영상 위주로 다시 만든 앞 13초</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('assets/fonts/NotoSansKR-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+:root {
+  --ink: #0E1512;
+  --cream: #F6F1E7;
+  --mustard: #F4B942;
+  --vermilion: #E63946;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+/* 생성 영상·그림이 화면 전체를 채운다. 코드는 글자·강조·전환·소리만 맡는다. */
+.footage {
+  position: absolute;
+  inset: 0;
+  width: 1080px;
+  height: 1920px;
+  object-fit: cover;
+}
+.overlay { position: absolute; inset: 0; z-index: 20; }
+/* 글자를 읽히게 하는 위·아래 그늘(상자 대신 영상 위에 옅게) */
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,14,12,0.62) 0%, rgba(10,14,12,0.10) 26%, rgba(10,14,12,0) 52%, rgba(10,14,12,0.18) 68%, rgba(10,14,12,0.70) 100%);
+}
+/* 위 훅: EP33과 같은 글·크기, 가로 정중앙 대칭, top >= 232px */
+.top-hook {
+  position: absolute;
+  top: 236px;
+  left: 60px;
+  right: 60px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top-hook .line1 {
+  font-size: 62px; font-weight: 800; line-height: 1.18; letter-spacing: -1.8px;
+  color: var(--cream); text-shadow: 0 4px 16px rgba(0,0,0,0.6); white-space: nowrap;
+}
+.top-hook .line2 {
+  font-size: 82px; font-weight: 900; line-height: 1.16; letter-spacing: -2.4px;
+  color: var(--mustard); text-shadow: 0 5px 20px rgba(0,0,0,0.65); margin-top: 4px; white-space: nowrap;
+}
+/* 낱말: 단추 위에 떠 있는 글자. 't'가 단추와 함께 구멍으로 들어간다 */
+.word {
+  position: absolute;
+  left: 0; right: 0;
+  top: 1150px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.word .en {
+  font-size: 128px; font-weight: 800; letter-spacing: -2px; line-height: 1;
+  color: var(--cream); text-shadow: 0 6px 24px rgba(0,0,0,0.55); white-space: nowrap;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.word .en span { display: inline-block; }
+.word .dot { color: rgba(246,241,231,0.55); padding: 0 18px; }
+.word .ko {
+  margin-top: 18px;
+  font-size: 76px; font-weight: 900; letter-spacing: -1.6px;
+  color: var(--mustard); text-shadow: 0 5px 20px rgba(0,0,0,0.6); white-space: nowrap;
+}
+/* 훅 낱말: EP33 첫 컷의 '버튼 ✕ → 버·은 ○'을 상자 없이 글자만으로 */
+.hookword {
+  position: absolute;
+  left: 0; right: 0;
+  top: 1180px;
+  display: flex; justify-content: center; align-items: center; gap: 30px;
+  font-size: 96px; font-weight: 900; letter-spacing: -2px; line-height: 1;
+  text-shadow: 0 6px 24px rgba(0,0,0,0.6);
+  white-space: nowrap;
+}
+.hookword .wrong { position: relative; color: var(--cream); }
+.hookword .strike {
+  position: absolute; left: -8px; right: -8px; top: 52%;
+  height: 10px; border-radius: 6px; background: var(--vermilion);
+  transform-origin: left center;
+}
+.hookword .arrow { color: rgba(246,241,231,0.8); font-size: 72px; }
+.hookword .right { color: var(--mustard); }
+/* 아래 자막: EP33과 같은 글, 가로 정중앙, 하단 끝 <= 1600px */
+.safe-caption {
+  position: absolute;
+  bottom: 336px; left: 72px; right: 72px;
+  display: flex; justify-content: center; align-items: center; text-align: center;
+}
+.caption-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  max-width: 936px; padding: 20px 40px; border-radius: 36px;
+  background: rgba(14, 21, 18, 0.82);
+  color: var(--cream); font-size: 50px; font-weight: 800; line-height: 1.28; letter-spacing: -1.2px;
+  white-space: nowrap;
+}
+.hl-m { color: var(--mustard); }
+.hl-v { color: #FF8A8F; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="13.0" data-width="1080" data-height="1920">
+
+  <!-- 장면: Omni 생성 영상(지금은 360p 시험본, 고른 지시문으로 1080p 다시 뽑아 바꾼다) -->
+  <video id="v1" class="footage" src="assets/clips/takes/s1-a-360.mp4" data-start="0" data-duration="3.891" data-track-index="0" muted playsinline style="z-index:1"></video>
+  <video id="v2" class="footage" src="assets/clips/takes/s2-b-360.mp4" data-start="3.591" data-duration="3.632" data-track-index="0" muted playsinline style="z-index:2; opacity:0"></video>
+  <video id="v3" class="footage" src="assets/clips/takes/s3-b-360.mp4" data-start="6.923" data-duration="2.913" data-track-index="0" muted playsinline style="z-index:3; opacity:0"></video>
+  <!-- S4는 Omni 하루 한도 때문에 아직 영상이 없다: 장면 그림을 임시로 둔다(내일 영상으로 바꾼다) -->
+  <img id="v4" class="footage clip" src="assets/keyframes/s4-v1.jpg" data-start="9.536" data-duration="3.464" data-track-index="0" style="z-index:4; opacity:0" alt="">
+
+  <div id="overlay" class="overlay clip" data-start="0" data-duration="13.0" data-track-index="5">
+    <div class="shade"></div>
+
+    <div id="hook" class="top-hook">
+      <div class="line1">버튼·커튼·마운틴</div>
+      <div class="line2">'트'를 안 읽습니다</div>
+    </div>
+
+    <div id="hookword" class="hookword clip" data-start="0" data-duration="3.741">
+      <span class="wrong"><span id="hw-wrong">버튼</span><span id="hw-strike" class="strike"></span></span>
+      <span id="hw-arrow" class="arrow">→</span>
+      <span id="hw-right" class="right">버·은</span>
+    </div>
+
+    <div id="word" class="word clip" data-start="7.073" data-duration="5.927">
+      <div id="word-en" class="en"><span id="w-but">but</span><span class="dot">·</span><span id="w-t">t</span><span id="w-on">on</span></div>
+      <div id="word-ko" class="ko">버·은</div>
+    </div>
+
+    <div id="cap0" class="safe-caption clip" data-start="0" data-duration="3.741">
+      <div class="caption-pill">버튼, 원어민은 <span class="hl-m">'트'</span>를 안 읽습니다</div>
+    </div>
+    <div id="cap1" class="safe-caption clip" data-start="3.741" data-duration="3.332">
+      <div class="caption-pill">T 뒤에 N이 오면 · <span class="hl-v">입 잠금</span> → <span class="hl-m">코로 '은'</span></div>
+    </div>
+    <div id="cap2" class="safe-caption clip" data-start="7.073" data-duration="2.613">
+      <div class="caption-pill">첫째, 버튼 · <span class="hl-m">button</span></div>
+    </div>
+    <div id="cap3" class="safe-caption clip" data-start="9.686" data-duration="3.314">
+      <div class="caption-pill">입을 막고 코로 뺍니다 · <span class="hl-m">버·은</span></div>
+    </div>
+  </div>
+
+  <!-- 소리: EP33과 같은 나레이션·원어민·효과음·배경음 + 생성 영상의 환경음 -->
+  <audio id="ko00" src="assets/voice/c00.wav" data-start="0.120" data-duration="3.361" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko01" src="assets/voice/c01.wav" data-start="3.861" data-duration="2.952" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko02" src="assets/voice/c02.wav" data-start="7.193" data-duration="1.577" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="ko03" src="assets/voice/c03.wav" data-start="9.806" data-duration="2.039" data-track-index="1" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en02" src="assets/voice-en/button.wav" data-start="8.950" data-duration="0.476" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="en03" src="assets/voice-en/button.wav" data-start="12.255" data-duration="0.476" data-track-index="2" data-audio-group="voiceover" data-volume="1.0"></audio>
+  <audio id="sfx03" src="assets/sfx/breath-lock.wav" data-start="11.965" data-duration="0.240" data-track-index="3" data-volume="0.90"></audio>
+  <audio id="bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="13.0" data-track-index="4" data-volume="0.06" data-fade-out="1.0" data-fx-carve='{"enabled":true,"sources":["voiceover"],"strength":0.78}'></audio>
+  <audio id="amb1" src="assets/clips/s1-amb.wav" data-start="0" data-duration="3.891" data-track-index="6" data-volume="0.8" data-fade-out="0.15"></audio>
+  <audio id="amb2" src="assets/clips/s2-amb.wav" data-start="3.591" data-duration="3.632" data-track-index="7" data-volume="0.8" data-fade-in="0.15" data-fade-out="0.15"></audio>
+  <audio id="amb3" src="assets/clips/s3-amb.wav" data-start="6.923" data-duration="2.913" data-track-index="6" data-volume="0.8" data-fade-in="0.15" data-fade-out="0.15"></audio>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// 장면 사이 0.3초 겹쳐 녹이기(영상 요소의 opacity만 움직인다)
+tl.to('#v2', { opacity: 1, duration: 0.3, ease: 'sine.inOut' }, 3.591);
+tl.to('#v3', { opacity: 1, duration: 0.3, ease: 'sine.inOut' }, 6.923);
+tl.to('#v4', { opacity: 1, duration: 0.3, ease: 'sine.inOut' }, 9.536);
+// 임시 그림(S4)만 아주 느리게 다가간다 — 영상으로 바꾸면 지운다
+tl.fromTo('#v4', { scale: 1.0 }, { scale: 1.06, duration: 3.464, ease: 'sine.out' }, 9.536);
+
+// 위 훅: 0.5초 안에 보인다
+tl.fromTo('#hook', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.24, ease: 'power2.out' }, 0);
+
+// 아래 자막: 들어올 때만 살짝
+for (const [sel, t] of [['#cap0', 0.05], ['#cap1', 3.741], ['#cap2', 7.073], ['#cap3', 9.686]]) {
+  tl.fromTo(`${sel} .caption-pill`, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out' }, t);
+}
+
+// 훅 낱말: EP33 첫 컷과 같은 시각(0.12 등장, 0.92 줄긋기, 1.10 화살표)
+tl.fromTo('#hw-wrong', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power3.out' }, 0.12);
+tl.fromTo('#hw-strike', { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: 'power3.out' }, 0.92);
+tl.fromTo('#hw-arrow', { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.22, ease: 'power2.out' }, 1.10);
+tl.fromTo('#hw-right', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.6)' }, 1.24);
+
+// 낱말: "첫째, 버튼"에 떠오르고, 원어민 button이 들릴 때 한 번 숨 쉬듯 커진다
+tl.fromTo('#word-en', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' }, 7.20);
+tl.set('#word-ko', { opacity: 0 }, 0);
+tl.to('#word-en', { scale: 1.05, duration: 0.18, ease: 'power2.out' }, 8.95);
+tl.to('#word-en', { scale: 1.0, duration: 0.40, ease: 'power2.inOut' }, 9.13);
+// 단추가 구멍으로 들어가는 순간(breath-lock 11.965초) 't'도 아래로 쏙 빠지고, 'on'만 남아 '은'이 된다
+tl.to('#w-t', { y: 70, scale: 0.35, opacity: 0, duration: 0.26, ease: 'power2.in' }, 11.90);
+tl.to('#w-on', { color: '#F4B942', duration: 0.20, ease: 'none' }, 12.02);
+tl.fromTo('#word-ko', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' }, 12.10);
+
+window.__timelines = window.__timelines || {};
+window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

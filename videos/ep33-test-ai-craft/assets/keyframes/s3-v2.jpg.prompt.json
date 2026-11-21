@@ -1,0 +1,24 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-21T14:41:16.743Z",
+  "prompt": "Attached image 1: keep this woman's camel wool coat, her hands and the same elevator-hall light.\n\nA 9:16 vertical photograph. Close shot of the front of the camel wool coat at chest height, her face out of frame. Both hands hold one large dark brown horn button with four holes, about to push it toward the stitched buttonhole on the opposite coat panel. The round button sits near the centre of the frame. Warm ceiling light from above, cool daylight from the left. Visible wool texture and stitching. 50mm lens, shallow depth of field.\n\nNo readable text, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "assets/prompts/s3.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "assets/keyframes/key-v2.jpg",
+      "sha256": "a885059e91165760"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "assets/keyframes/s3-v2.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  }
+}

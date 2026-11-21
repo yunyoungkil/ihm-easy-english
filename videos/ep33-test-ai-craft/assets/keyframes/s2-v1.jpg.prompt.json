@@ -1,0 +1,24 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-21T14:38:58.480Z",
+  "prompt": "Attached image 1: keep this woman (same face, hair, grey knit scarf, camel coat) and the same January morning.\n\nA 9:16 vertical photograph. She has just stepped outside the apartment entrance. Tight side profile close-up from her right side, her lips gently closed, two thin streams of white breath mist flowing out from her nostrils into the cold air. Low winter sun behind her makes the mist glow softly. The grey scarf is pulled up to her chin, a few loose strands of hair move in the air. Background: soft out-of-focus apartment blocks and a bare tree. 85mm lens, shallow depth of field. Her mouth stays closed. Natural skin, cold-pink nose tip.\n\nNo readable text, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "assets/prompts/s2.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "assets/keyframes/key-v2.jpg",
+      "sha256": "a885059e91165760"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "assets/keyframes/s2-v1.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  }
+}

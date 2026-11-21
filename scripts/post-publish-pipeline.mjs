@@ -10,7 +10,7 @@
 // 실행 결과를 data/youtube/after-publish-done.json에 기록하여 중복 실행을 방지하고
 // 아침 시작 브리핑에서 한 줄로 완료 결과를 보고한다.
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -217,6 +217,36 @@ export async function postPendingPinnedComments({
   const doneMap = readJsonSafe(donePath, {});
   const posted = [];
 
+  // 1. 패키지 디렉토리들에서 videoId 매핑 맵 생성
+  const pkgDirs = existsSync(pkgRoot) ? readdirSync(pkgRoot) : [];
+  const pkgByVideoId = new Map();
+  for (const d of pkgDirs) {
+    const dirPath = join(pkgRoot, d);
+    try {
+      if (!statSync(dirPath).isDirectory()) continue;
+    } catch {
+      continue;
+    }
+    let vid = null;
+    let sFile = null;
+    let sData = null;
+    const sf = join(dirPath, 'status.json');
+    const ssf = join(dirPath, 'shorts-status.json');
+    if (existsSync(sf)) {
+      sFile = sf;
+      sData = readJsonSafe(sf, null);
+      if (sData?.videoId) vid = sData.videoId;
+    }
+    if (!vid && existsSync(ssf)) {
+      sFile = ssf;
+      sData = readJsonSafe(ssf, null);
+      if (sData?.videoId) vid = sData.videoId;
+    }
+    if (vid) {
+      pkgByVideoId.set(vid, { pkgDir: dirPath, statusFile: sFile, status: sData, epFolder: d });
+    }
+  }
+
   const packages = (catalog?.videos || []).filter((v) => {
     // 공개 상태이거나 공개 시각이 지난 영상
     const isPublic = v.privacyStatus === 'public';
@@ -225,15 +255,18 @@ export async function postPendingPinnedComments({
   });
 
   for (const v of packages) {
+    const vid = v.videoId;
+    if (!vid) continue;
+
     // 이미 채널 댓글이 있거나 doneMap에 등록되어 있으면 생략
     const hasOwnerComment = (v.comments || []).some((c) => (c.author || '').includes('이해하면쉬운영어'));
-    const isRecorded = Object.keys(doneMap).some((k) => k.includes(v.videoId) && doneMap[k]);
+    const isRecorded = Object.keys(doneMap).some((k) => k.includes(vid) && doneMap[k]);
 
-    // status.json 검사
-    const epFolder = (v.videoFolder || '').toLowerCase();
-    const pkgDir = join(pkgRoot, epFolder);
-    const statusFile = join(pkgDir, 'status.json');
-    const status = readJsonSafe(statusFile, null);
+    const pkgInfo = pkgByVideoId.get(vid);
+    const epFolder = pkgInfo ? pkgInfo.epFolder : (v.videoFolder || '').toLowerCase();
+    const pkgDir = pkgInfo ? pkgInfo.pkgDir : join(pkgRoot, epFolder);
+    const statusFile = pkgInfo ? pkgInfo.statusFile : join(pkgDir, 'status.json');
+    const status = pkgInfo ? pkgInfo.status : readJsonSafe(statusFile, null);
     const commentTxtFile = join(pkgDir, 'pinned-comment.txt');
 
     const needsComment = status?.pinnedCommentPending === true || (!hasOwnerComment && !isRecorded && existsSync(commentTxtFile));
@@ -251,7 +284,7 @@ export async function postPendingPinnedComments({
           },
           body: JSON.stringify({
             snippet: {
-              videoId: v.videoId,
+              videoId: vid,
               topLevelComment: {
                 snippet: {
                   textOriginal: text,
@@ -263,21 +296,21 @@ export async function postPendingPinnedComments({
 
         if (res.ok) {
           const resData = await res.json();
-          posted.push({ videoId: v.videoId, commentId: resData.id, title: v.title });
+          posted.push({ videoId: vid, commentId: resData.id, title: v.title });
 
-          if (status) {
+          if (status && statusFile) {
             status.pinnedCommentPending = false;
             status.pinnedCommentAt = new Date().toISOString();
             status.pinnedCommentId = resData.id;
             writeFileSync(statusFile, JSON.stringify(status, null, 2), 'utf8');
           }
 
-          const epTag = epFolder.toUpperCase();
+          const epTag = (epFolder || vid).toUpperCase();
           doneMap[`${epTag}:pinned`] = new Date().toISOString().slice(0, 10);
           writeFileSync(donePath, JSON.stringify(doneMap, null, 2), 'utf8');
         }
       } catch (err) {
-        console.warn(`[PostPublish] 고정 댓글 등록 실패 (${v.videoId}):`, err.message);
+        console.warn(`[PostPublish] 고정 댓글 등록 실패 (${vid}):`, err.message);
       }
     }
   }

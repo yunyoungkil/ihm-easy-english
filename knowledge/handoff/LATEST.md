@@ -10,6 +10,7 @@
   - 🧠 **절대 하드코딩 금지**: 템플릿 고착 금지, 상단 훅 형태 진화, 다각도 벤치마킹 융합 전략, 카피라이팅 & 컷 리듬, AI 사전 자체 비평(Self-Critique).
 
 ## 제작 현황
+- **EP27 쇼츠 `videos/ep27-shorts-dogs-cats`**: **11/21 토 20:00 KST 공개 완료** (ID `blowoldSorE`). 사후 관리(고정 댓글 게시 `Ugxsd1ZaMjj4l5zV3554AaABAg`, 쇼츠 퀴즈 시즌1 재생목록 확인, 롱폼 `a4E6XlTbTW0` 관련동영상 확인) 완결. 11/28 토 이후 공개 7일 성과 정산 예정.
 - **EP30 쇼츠 `videos/ep30-shorts-chocolate`**: 11/18 수 20:00 공개 완료 (ID `Ng6amm9qFrI`). 11/25 수 이후 공개 7일 결과 정산 예정.
 - **EP31 쇼츠 `videos/ep31-shorts-stress-shift`**: **12/01 화 20:00 KST 예약 완료** (ID `AkDKw4o_C58`, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`). 12/08 화 이후 공개 7일 결과 정산 예정.
 - **EP32 쇼츠 `videos/ep32-shorts-word-merge`**: **12/05 토 20:00 KST 예약 완료** (ID `YKaokru2ugg`, 교육 27, 한국어 ko, 40.4s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 게시, `community-post.json` 예습 퀴즈 `2026-12-05T09:00:00Z`).
@@ -34,5 +35,6 @@
 0. **AI 티 논의 이어서 (다른 PC)**: 1·2번(나레이션 말투·제목/썸네일 문구) 논의 끝, 3~7번과 사용자 답 대기 제안 a~c가 남음(d "쇼츠는 첫 화면"은 하드코딩이라 거둠). 존코바 등 유튜브 32편 조사와 "우리 도구로 옮기는 법"(11/21 밤 다시 씀)은 `knowledge/ai-craft-research-2026-11-21.md`. 새 대화에 `2026-11-21.md` 마지막 절 "다음 대화 시작 프롬프트 (저녁 이어서" 를 붙인다.
 1. **11/23 월 사용자 확인**: 스튜디오 EP23 제목·썸네일 A/B 테스트 결과 확인 후 REVIEW.md 기록.
 2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 검토.
-3. **12/05 토 이후 (사용자 재확인)**: 스튜디오 조사 2단계 14일 관찰(수집 12일+·조사 리포트 20편+) 달성 시 3단계(구 손입력 목록 정리) 착수.
-4. **12/08 화 · 12/12 토 · 12/15 화 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) · EP33(`fVY5BNQ7Ciw`) 쇼츠 공개 7일 결과 확인.
+3. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 style-experiments.md 기록.
+4. **12/05 토 이후 (사용자 재확인)**: 스튜디오 조사 2단계 14일 관찰(수집 12일+·조사 리포트 20편+) 달성 시 3단계(구 손입력 목록 정리) 착수.
+5. **12/08 화 · 12/12 토 · 12/15 화 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) · EP33(`fVY5BNQ7Ciw`) 쇼츠 공개 7일 결과 확인.

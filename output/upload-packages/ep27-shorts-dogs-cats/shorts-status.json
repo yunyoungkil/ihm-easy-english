@@ -1,7 +1,12 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "plannedFor": "2026-11-21T11:00:00Z",
-  "lastSyncedAt": "2026-11-21T06:33:00.994Z",
+  "lastSyncedAt": "2026-11-21T12:36:42.105Z",
   "videoId": "blowoldSorE",
-  "scheduledFor": "2026-11-21T11:00:00Z"
+  "scheduledFor": "2026-11-21T11:00:00Z",
+  "publishedAt": "2026-11-21T11:00:09Z",
+  "publishedAtSource": "youtube",
+  "pinnedCommentPending": false,
+  "pinnedCommentAt": "2026-11-21T13:24:20.296Z",
+  "pinnedCommentId": "Ugxsd1ZaMjj4l5zV3554AaABAg"
 }

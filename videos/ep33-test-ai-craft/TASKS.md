@@ -17,4 +17,5 @@
 - [x] S1~S4 1080p 본생성(`s1-1080.mp4`~`s4-1080.mp4`, 1080×1920, `--parent`·`--changed-var "resolution:360p->1080p"`·`--status chosen` 실브라우저 첫 검증 완료) + 환경음 `s1~s4-amb.wav` 추출.
 - [x] `media-craft-tools.mjs` 실측: `compare-visual-metrics`로 S3 밝기 단차(`99.44` vs S4 `113.30`) 확인 → `unify-tone`으로 `s3-1080-graded.mp4` 보정. `lineage` 트리 계보 확인 완료.
 - [x] `index.html` src를 S1~S4 1080p(`s3-1080-graded.mp4` 포함)로 교체, `amb4` 연결, S4 임시 그림과 확대 트윈 삭제. `.word .dot`·`.shade` 대비 보강 후 `npx hyperframes@0.9.77 check` 통과(0 error, Contrast 33/33 WCAG AA, Audio 0 error, Motion 0 error).
-- [x] `npx hyperframes@0.9.77 snapshot --at "0.3,2,5,8.5,11,12.5" --no-end --against` EP33 렌더 비교 완료 → 사용자 렌더 승인 대기(렌더는 승인 뒤에만).
+- [x] `npx hyperframes@0.9.77 snapshot --at "0.3,2,5,8.5,11,12.5" --no-end --against` EP33 렌더 비교 완료 → 사용자 렌더 승인 획득.
+- [x] `npx hyperframes@0.9.77 render` 완료: `renders/ep33-test-ai-craft_2026-11-22.mp4` (`1080×1920`, `30fps`, `13.0s`, `20.8 MB`, `mean -18.0 dB` / `max -1.4 dB`, EP33 0~13s 대비 `avgMotionDiff` `10.32 → 12.52` / `avgSaturation` `13.51 → 8.60`). 업로드하지 않음(로컬 비교용).

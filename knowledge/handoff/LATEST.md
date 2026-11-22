@@ -32,7 +32,7 @@
 7. **AI 티 = 평준화와 모델별 특성 (`2026-11-21` 사용자 정의 · `2026-11-22` 13편 추가 조사·기존 진입점 정합화·제작 보조 스크립트 확장)**: 사람들이 싫어하는 건 대충 찍은 템플릿과 이미지·영상·제목·썸네일·문구·나레이션에 묻은 AI 평균값·모델 고유 티다. 새 스킬·고정 메뉴판을 늘리지 않고 기존 진입점(`.agents`/`.claude` `episode-planning` `SKILL.md`·`02`·`04`, `comparison-sheet-playbook.md`, `google-ai-studio-prompting.md`)에서 낡은 하드코딩 제약(코드 상자 강제·무지 단색·검은 마커·1~3개 생성)을 걷어내고 3중 하이브리드(Omni 영상 · Nano Banana+HyperFrames 레이어 · HyperFrames 타이포) 도구 상자로 교체했다. 13편(존코바·영상독학·디자인하는AI) 요약은 `knowledge/ai-craft-research-2026-11-21.md` 하단에 통합. 기계적 실행 도구로 `npm run image`/`video`에 계보 플래그(`--parent`·`--changed-var`·`--status`)를 추가하고 로컬 미디어 도구 `scripts/media-craft-tools.mjs`(`npm run craft`: `split-grid`, `extract-frame`, `extract-ref-clip`, `unify-tone`, `detect-beats`, `compare-visual-metrics`, `lineage`)를 신설했다.
 
 ## 다음 할 일
-0. **EP33 AI 크래프트 1080p 시험 렌더 승인 대기 & 남은 논의**: `videos/ep33-test-ai-craft` S4 확정·S1~S4 1080p 본생성(`--parent` 실전 검증)·`unify-tone`·`hyperframes check`(33/33 AA, 0 error)·EP33 대비 비교 이미지 완료 → 사용자 렌더 승인 대기. `studio-ab-tests.mjs` 보고서 수집 수리(완료 9편 전부 `insufficient_impressions` 확인) 및 7번("아바타 중단" 옛 문구 6개 문서 정합) 완료. 남은 결정: 제안 a + 3·5·6번.
+0. **AI 티 남은 논의 (5·6번 결정 대기)**: `videos/ep33-test-ai-craft` 13초 1080p 시험본 렌더 완료(`renders/ep33-test-ai-craft_2026-11-22.mp4`, 20.8 MB, mean -18.0 dB / max -1.4 dB, EP33 0~13s 대비 avgMotionDiff 10.32→12.52, 업로드 안 함) 및 제안 a + 3번(`comparison-sheet-playbook.md` 17번: 흔함 확률 후보 + 명작 옆 자체 비평) 반영 완료. 남은 결정: 5번(롱폼 포장)·6번(쇼츠→롱폼 연결).
 1. **11/23 월 사용자 확인**: 스튜디오 EP23 제목·썸네일 A/B 테스트 결과 확인 후 REVIEW.md 기록.
 2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 검토.
 3. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 style-experiments.md 기록.

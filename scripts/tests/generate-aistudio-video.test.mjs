@@ -126,3 +126,13 @@ test('parseArgs: 없는 --last·--first 파일과 영상 파일을 --first로 �
     assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--first', v]), /--first/);
   });
 });
+
+
+test('parseArgs: 노드 계보 인자(--parent, --changed-var, --status)를 검증한다', () => {
+  assert.equal(parseArgs(['--prompt', 'x', '--output', 'o.mp4']).lineage, null);
+  withTmpFiles(['anchor.jpg'], ([anchor]) => {
+    const out = parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--parent', anchor, '--changed-var', 'angle: low', '--status', 'candidate']);
+    assert.deepEqual(out.lineage, { parent: anchor, changedVar: 'angle: low', status: 'candidate' });
+    assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.mp4', '--status', 'invalid']), /--status/);
+  });
+});

@@ -64,3 +64,15 @@ test('--prompt-file은 파일에서 지시문을 읽고, --prompt와 같이 주�
     assert.throws(() => parseArgs(['--prompt', 'x', '--prompt-file', p, '--output', 'o.png']), /--prompt-file/);
   });
 });
+
+
+test('노드 계보 인자(--parent, --changed-var, --status)를 검증해 lineage에 담는다', () => {
+  assert.equal(parseArgs(['--prompt', 'x', '--output', 'o.png']).lineage, null);
+  withTmp((tmp) => {
+    const p = join(tmp, 'anchor.png');
+    writeFileSync(p, 'x');
+    const out = parseArgs(['--prompt', 'x', '--output', 'o.png', '--parent', p, '--changed-var', 'lighting: warm', '--status', 'chosen']);
+    assert.deepEqual(out.lineage, {parent: p, changedVar: 'lighting: warm', status: 'chosen'});
+    assert.throws(() => parseArgs(['--prompt', 'x', '--output', 'o.png', '--status', 'bad']), /--status/);
+  });
+});

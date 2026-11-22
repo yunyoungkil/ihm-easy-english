@@ -26,7 +26,7 @@ import { existsSync, mkdirSync, renameSync, unlinkSync, writeFileSync } from 'no
 import { dirname, resolve } from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { IMAGE_EXT, VIDEO_EXT, attachFiles, buildPromptRecord, checkRefFile, composePrompt, framePromptPrefix, orderAttachments, readPromptArgs, sha256Prefix, writePromptRecord } from './aistudio-attachments.mjs';
+import { IMAGE_EXT, VIDEO_EXT, attachFiles, buildPromptRecord, checkRefFile, composePrompt, framePromptPrefix, orderAttachments, parseLineageArgs, readPromptArgs, sha256Prefix, writePromptRecord } from './aistudio-attachments.mjs';
 
 const PROFILE_DIR = 'C:\\Users\\yunyo\\AppData\\Local\\Google\\Chrome\\AutomationProfile';
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
@@ -54,6 +54,9 @@ export function parseArgs(argv) {
     refs: [],
     promptFile: '',
     keepAudio: true,
+    parent: '',
+    changedVar: '',
+    status: '',
   };
   let imageArg = '';
   let sawMute = false;
@@ -71,6 +74,7 @@ export function parseArgs(argv) {
     else if (key === '--last') out.last = checkRefFile(val, IMAGE_EXT, '--last');
     else if (key === '--ref') out.refs.push(checkRefFile(val, [...IMAGE_EXT, ...VIDEO_EXT], '--ref'));
     else if (key === '--prompt-file') out.promptFile = val;
+    else if (key === '--changed-var') out.changedVar = val;
     else out[key.slice(2)] = val;
   }
   if (sawMute && sawKeep) throw new Error('--mute와 --keep-audio는 같이 줄 수 없습니다(소리는 기본으로 살린다)');
@@ -89,6 +93,7 @@ export function parseArgs(argv) {
   }
   if (!RESOLUTIONS.includes(out.resolution)) throw new Error(`--resolution은 ${RESOLUTIONS.join(', ')} 중 하나여야 합니다`);
   if (!/^[\w.-]+$/.test(out.model)) throw new Error('--model 형식이 이상합니다');
+  out.lineage = parseLineageArgs({ parent: out.parent, changedVar: out.changedVar, status: out.status });
   return out;
 }
 
@@ -183,6 +188,7 @@ async function generateOnce({
   refs = [],
   promptFile = '',
   keepAudio = true,
+  lineage = null,
 }) {
   await ensureChrome();
   const browser = await chromium.connectOverCDP(`http://127.0.0.1:${DEBUG_PORT}`);
@@ -296,6 +302,7 @@ async function generateOnce({
       attachments: attachments.map((a) => ({ ...a, sha256: sha256Prefix(a.path) })),
       settings: { aspect, duration, resolution, keepAudio },
       output: { file, mime: payload.mime, bytes: payload.size, duration: found.dur || duration },
+      lineage: lineage ? { ...lineage, parentSha256: lineage.parent ? sha256Prefix(lineage.parent) : null } : null,
     }));
 
     return {

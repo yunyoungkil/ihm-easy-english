@@ -5,11 +5,12 @@
 // 누르면 메뉴에 "Upload files"가 뜬다. 숨은 input[type=file]은 하나(multiple, image/* video/*).
 // Omni 화면에는 첫 장면·끝 장면 전용 칸이 없다 → 첨부 순서(첫 장면이 1번, 끝 장면이 마지막)와 지시문 문장으로 알려 준다.
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { relative, resolve } from 'node:path';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join, relative, resolve } from 'node:path';
 
 export const IMAGE_EXT = ['png', 'jpg', 'jpeg', 'webp'];
 export const VIDEO_EXT = ['mp4', 'mov', 'webm'];
+export const TAKE_STATUSES = ['candidate', 'chosen', 'rejected'];
 
 const INSERT_BUTTON = 'button[aria-label="Insert images, videos, or files"]';
 const UPLOAD_MENU = '.cdk-overlay-container [role="menuitem"]:has-text("Upload"), .cdk-overlay-container button:has-text("Upload")';
@@ -71,9 +72,25 @@ function relPosix(path, cwd) {
   return relative(cwd, resolve(cwd, path)).replace(/\\/g, '/');
 }
 
-/** 지시문 기록(순수 함수). attachments 각 항목의 sha256이 이미 들어 있으면 그대로 쓰고 없으면 null. */
-export function buildPromptRecord({ tool, model, prompt, promptFile = null, attachments = [], settings = {}, output = {}, cwd = process.cwd(), now = new Date() }) {
+/** 노드 계보 인자 검증(--parent, --changed-var, --status). 셋 다 비어 있으면 null을 돌려준다. */
+export function parseLineageArgs({ parent = '', changedVar = '', status = '' } = {}) {
+  const cleanParent = parent ? checkRefFile(parent, [...IMAGE_EXT, ...VIDEO_EXT], '--parent') : '';
+  const cleanVar = String(changedVar || '').trim();
+  const cleanStatus = String(status || '').trim();
+  if (cleanStatus && !TAKE_STATUSES.includes(cleanStatus)) {
+    throw new Error(`--status는 ${TAKE_STATUSES.join(', ')} 중 하나여야 합니다`);
+  }
+  if (!cleanParent && !cleanVar && !cleanStatus) return null;
   return {
+    parent: cleanParent || null,
+    changedVar: cleanVar || null,
+    status: cleanStatus || 'candidate',
+  };
+}
+
+/** 지시문 기록(순수 함수). attachments 각 항목의 sha256이 이미 들어 있으면 그대로 쓰고 없으면 null. */
+export function buildPromptRecord({ tool, model, prompt, promptFile = null, attachments = [], settings = {}, output = {}, lineage = null, cwd = process.cwd(), now = new Date() }) {
+  const rec = {
     tool,
     model,
     createdAt: now.toISOString(),
@@ -88,6 +105,58 @@ export function buildPromptRecord({ tool, model, prompt, promptFile = null, atta
     settings,
     output: { ...output, file: relPosix(output.file, cwd) },
   };
+  if (lineage && (lineage.parent || lineage.changedVar || lineage.status)) {
+    rec.lineage = {
+      parent: lineage.parent ? relPosix(lineage.parent, cwd) : null,
+      parentSha256: lineage.parent ? (lineage.parentSha256 ?? null) : null,
+      changedVar: lineage.changedVar || null,
+      status: lineage.status || 'candidate',
+    };
+  }
+  return rec;
+}
+
+/** 폴더 아래의 *.prompt.json을 모아 앵커→파생 노드 계보 트리를 만든다. */
+export function readLineageTree(dir, cwd = process.cwd()) {
+  const absDir = resolve(dir);
+  if (!existsSync(absDir)) throw new Error(`계보 폴더를 찾지 못했습니다: ${dir}`);
+  const recordFiles = [];
+  const walk = (d) => {
+    for (const ent of readdirSync(d, { withFileTypes: true })) {
+      const full = join(d, ent.name);
+      if (ent.isDirectory()) walk(full);
+      else if (ent.name.endsWith('.prompt.json')) recordFiles.push(full);
+    }
+  };
+  walk(absDir);
+  recordFiles.sort();
+
+  const nodes = [];
+  const byOutput = new Map();
+  for (const rf of recordFiles) {
+    const raw = JSON.parse(readFileSync(rf, 'utf8'));
+    const file = raw?.output?.file || relPosix(rf.replace(/\.prompt\.json$/, ''), cwd);
+    const node = {
+      file,
+      recordFile: relPosix(rf, cwd),
+      tool: raw.tool || null,
+      model: raw.model || null,
+      createdAt: raw.createdAt || null,
+      parent: raw.lineage?.parent || null,
+      changedVar: raw.lineage?.changedVar || null,
+      status: raw.lineage?.status || 'candidate',
+      children: [],
+    };
+    nodes.push(node);
+    byOutput.set(file, node);
+  }
+  const roots = [];
+  for (const node of nodes) {
+    const p = node.parent && byOutput.get(node.parent);
+    if (p && p !== node) p.children.push(node);
+    else roots.push(node);
+  }
+  return { nodes, roots };
 }
 
 export function recordPathFor(file) {

@@ -18,7 +18,7 @@ import {chromium} from 'playwright-core';
 import {existsSync, mkdirSync, writeFileSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 import {spawn} from 'node:child_process';
-import {IMAGE_EXT, attachFiles, buildPromptRecord, checkRefFile, orderAttachments, readPromptArgs, sha256Prefix, writePromptRecord} from './aistudio-attachments.mjs';
+import {IMAGE_EXT, attachFiles, buildPromptRecord, checkRefFile, orderAttachments, parseLineageArgs, readPromptArgs, sha256Prefix, writePromptRecord} from './aistudio-attachments.mjs';
 
 const PROFILE_DIR = 'C:\\Users\\yunyo\\AppData\\Local\\Google\\Chrome\\AutomationProfile';
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
@@ -27,7 +27,7 @@ export const DEFAULT_MODEL = 'gemini-nano-banana-2.1';
 export const ASPECTS = ['Auto', '1:1', '2:3', '3:2', '3:4', '4:3', '4:5', '5:4', '9:16', '16:9', '21:9'];
 
 export function parseArgs(argv) {
-  const out = {model: DEFAULT_MODEL, aspect: '16:9', prompt: '', output: '', refs: [], promptFile: ''};
+  const out = {model: DEFAULT_MODEL, aspect: '16:9', prompt: '', output: '', refs: [], promptFile: '', parent: '', changedVar: '', status: ''};
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i];
     if (!key.startsWith('--')) continue;
@@ -35,6 +35,7 @@ export function parseArgs(argv) {
     i += 1;
     if (key === '--ref') out.refs.push(checkRefFile(val, IMAGE_EXT, '--ref'));
     else if (key === '--prompt-file') out.promptFile = val;
+    else if (key === '--changed-var') out.changedVar = val;
     else out[key.slice(2)] = val;
   }
   out.prompt = readPromptArgs({prompt: out.prompt, promptFile: out.promptFile});
@@ -42,6 +43,7 @@ export function parseArgs(argv) {
   if (!out.output) throw new Error('--output이 필요합니다');
   if (!ASPECTS.includes(out.aspect)) throw new Error(`--aspect는 ${ASPECTS.join(', ')} 중 하나`);
   if (!/^[\w.-]+$/.test(out.model)) throw new Error('--model 형식이 이상합니다');
+  out.lineage = parseLineageArgs({parent: out.parent, changedVar: out.changedVar, status: out.status});
   return out;
 }
 
@@ -85,7 +87,7 @@ export async function generateAiStudioImage(options) {
   }
 }
 
-async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MODEL, refs = [], promptFile = ''}) {
+async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MODEL, refs = [], promptFile = '', lineage = null}) {
   await ensureChrome();
   const browser = await chromium.connectOverCDP(`http://localhost:${DEBUG_PORT}`);
   const page = await browser.contexts()[0].newPage();
@@ -154,6 +156,7 @@ async function generateOnce({prompt, output, aspect = '16:9', model = DEFAULT_MO
       attachments: attachments.map((a) => ({...a, sha256: sha256Prefix(a.path)})),
       settings: {aspect},
       output: {file, width: data.width, height: data.height, type: data.type},
+      lineage: lineage ? {...lineage, parentSha256: lineage.parent ? sha256Prefix(lineage.parent) : null} : null,
     }));
     return {file, width: data.width, height: data.height, type: data.type, model, aspect, record};
   } finally {

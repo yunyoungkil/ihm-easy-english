@@ -16,6 +16,9 @@ import {
   buildPromptRecord,
   recordPathFor,
   writePromptRecord,
+  TAKE_STATUSES,
+  parseLineageArgs,
+  readLineageTree,
 } from '../aistudio-attachments.mjs';
 
 function withTmp(fn) {
@@ -156,5 +159,47 @@ test('recordPathFor / writePromptRecord: <파일>.prompt.json으로 저장하고
     const text = readFileSync(path, 'utf8');
     assert.ok(text.endsWith('\n'));
     assert.deepEqual(JSON.parse(text), rec);
+  });
+});
+
+
+test('parseLineageArgs / buildPromptRecord(lineage) / readLineageTree: 노드 계보를 저장하고 트리로 복원한다', () => {
+  assert.deepEqual(TAKE_STATUSES, ['candidate', 'chosen', 'rejected']);
+  assert.equal(parseLineageArgs({}), null);
+  assert.throws(() => parseLineageArgs({ status: 'unknown' }), /--status/);
+
+  withTmp((tmp) => {
+    const anchor = join(tmp, 'anchor.png');
+    const v1 = join(tmp, 'v1.png');
+    const v2 = join(tmp, 'v2.mp4');
+    writeFileSync(anchor, 'a');
+    writeFileSync(v1, 'b');
+    writeFileSync(v2, 'c');
+
+    const lin1 = parseLineageArgs({ parent: anchor, changedVar: 'lighting: dimmer', status: 'chosen' });
+    assert.deepEqual(lin1, { parent: anchor, changedVar: 'lighting: dimmer', status: 'chosen' });
+    assert.throws(() => parseLineageArgs({ parent: join(tmp, 'none.png') }), /--parent/);
+
+    writePromptRecord(anchor, buildPromptRecord({
+      tool: 'aistudio-image', model: 'm', prompt: 'anchor', output: { file: anchor },
+      lineage: { status: 'chosen' }, cwd: tmp,
+    }));
+    writePromptRecord(v1, buildPromptRecord({
+      tool: 'aistudio-image', model: 'm', prompt: 'v1', output: { file: v1 },
+      lineage: { ...lin1, parentSha256: sha256Prefix(anchor) }, cwd: tmp,
+    }));
+    writePromptRecord(v2, buildPromptRecord({
+      tool: 'aistudio-video', model: 'omni', prompt: 'v2', output: { file: v2 },
+      lineage: { parent: v1, changedVar: 'camera: push-in', status: 'rejected', parentSha256: sha256Prefix(v1) }, cwd: tmp,
+    }));
+
+    const tree = readLineageTree(tmp, tmp);
+    assert.equal(tree.nodes.length, 3);
+    assert.equal(tree.roots.length, 1);
+    assert.equal(tree.roots[0].file, 'anchor.png');
+    assert.equal(tree.roots[0].children[0].file, 'v1.png');
+    assert.equal(tree.roots[0].children[0].changedVar, 'lighting: dimmer');
+    assert.equal(tree.roots[0].children[0].children[0].file, 'v2.mp4');
+    assert.equal(tree.roots[0].children[0].children[0].status, 'rejected');
   });
 });

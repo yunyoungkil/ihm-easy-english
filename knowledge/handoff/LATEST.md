@@ -1,4 +1,4 @@
-# 현재 상태 요약 (2026-11-21) — 새 대화는 이 파일만 먼저 읽는다
+# 현재 상태 요약 (2026-11-22) — 새 대화는 이 파일만 먼저 읽는다
 
 > 이 파일은 날짜 인수인계를 대신하는 **60줄 요약**이다. 작업 한 덩어리를 마칠 때마다 이 파일을 **고쳐 쓴다**(더하지 않고 낡은 줄은 지운다). 틀과 규칙은 `README.md`.
 
@@ -29,7 +29,7 @@
 
 6. **답하기 전에 웹·유튜브부터 (`2026-11-21`, AGENTS.md 0번 15항)**: 도구 한계·방법을 내 기억·코드·정책만으로 말하지 않는다. 같은 날 확인: Omni 1.2 Flash는 1080p·소리(대사·입 모양) 포함, 정지 그림 → `npm run video -- --image ... --resolution 1080p --keep-audio`로 **한국어로 말하는 실사 인물 장면**이 된다(사용자 확인: 자연스럽고 입 모양 맞음). 명작의 "진짜 사람이 말하는 장면"을 생성 도구로 다시 만든다. 최근 쇼츠 4편은 영상 클립 0개·코드 상자 31~206개였다(AI 티의 뿌리).
 
-7. **AI 티 = 평준화와 모델별 특성 (`2026-11-21` 사용자 정의 · `2026-11-22` 13편 추가 조사·기존 진입점 정합화)**: 사람들이 싫어하는 건 대충 찍은 템플릿과 이미지·영상·제목·썸네일·문구·나레이션에 묻은 AI 평균값·모델 고유 티다. 새 스킬·고정 메뉴판을 늘리지 않고 기존 진입점(`.agents`/`.claude` `episode-planning` `SKILL.md`·`02`·`04`, `comparison-sheet-playbook.md`, `google-ai-studio-prompting.md`)에서 낡은 하드코딩 제약(코드 상자 강제·무지 단색·검은 마커·1~3개 생성)을 걷어내고 3중 하이브리드(Omni 영상 · Nano Banana+HyperFrames 레이어 · HyperFrames 타이포) 도구 상자로 교체했다. 13편(존코바·영상독학·디자인하는AI) 추가 요약은 `knowledge/ai-craft-research-2026-11-21.md` 하단에 참고 자료(규칙 아님)로 통합.
+7. **AI 티 = 평준화와 모델별 특성 (`2026-11-21` 사용자 정의 · `2026-11-22` 13편 추가 조사·기존 진입점 정합화·제작 보조 스크립트 확장)**: 사람들이 싫어하는 건 대충 찍은 템플릿과 이미지·영상·제목·썸네일·문구·나레이션에 묻은 AI 평균값·모델 고유 티다. 새 스킬·고정 메뉴판을 늘리지 않고 기존 진입점(`.agents`/`.claude` `episode-planning` `SKILL.md`·`02`·`04`, `comparison-sheet-playbook.md`, `google-ai-studio-prompting.md`)에서 낡은 하드코딩 제약(코드 상자 강제·무지 단색·검은 마커·1~3개 생성)을 걷어내고 3중 하이브리드(Omni 영상 · Nano Banana+HyperFrames 레이어 · HyperFrames 타이포) 도구 상자로 교체했다. 13편(존코바·영상독학·디자인하는AI) 요약은 `knowledge/ai-craft-research-2026-11-21.md` 하단에 통합. 기계적 실행 도구로 `npm run image`/`video`에 계보 플래그(`--parent`·`--changed-var`·`--status`)를 추가하고 로컬 미디어 도구 `scripts/media-craft-tools.mjs`(`npm run craft`: `split-grid`, `extract-frame`, `extract-ref-clip`, `unify-tone`, `detect-beats`, `compare-visual-metrics`, `lineage`)를 신설했다.
 
 ## 다음 할 일
 0. **AI 티 논의 이어서 (다른 PC)**: 1·2번(나레이션 말투·제목/썸네일 문구) 논의 끝, 3~7번과 사용자 답 대기 제안 a~c가 남음(d "쇼츠는 첫 화면"은 하드코딩이라 거둠). 유튜브 다시 조사 81편(존코바 54 + 검색 27)과 "우리 도구로 옮기는 법"은 `knowledge/ai-craft-research-2026-11-21.md`. EP33 방식 시험 `videos/ep33-test-ai-craft` 진행 중(Omni 하루 한도로 11/22 S4·1080p → 렌더 승인 요청). 쇼츠 말 빠르기: 경쟁 설명형 1초 4~5.4음절, 우리 11월 3.3~5.0 — 빠르기는 큰 차이 아님(`data/research/speech-rate-2026-11-21/`). 새 대화에 `2026-11-21.md` 마지막 절 "다음 대화 시작 프롬프트 (저녁 이어서" 를 붙인다.

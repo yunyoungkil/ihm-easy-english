@@ -56,6 +56,9 @@ EP24 두 번째 쇼츠 1번 장면(`classroom_board.jpg`)을 5초·720p·`9:16`�
   - **무료 일일 한도(~6회) 대응**: 영상에서 리롤을 태우지 않고 무료 여유가 큰 `npm run image`(Nano Banana 2.1)에서 키이미지 1장 → 필요 시 6면 시트(`"@image 참고해서 형태 1px도 어긋나지 않도록 정면·반측면·측면·뒷면·아래·위"`) → 3×3 연속 스토리보드 1장으로 구도를 선검증한다. Omni는 확정 컷만 `360p` 테스트 후 합격 프롬프트만 `1080p`로 뽑는다.
   - **3대 부분 수정 & 4회 열화 리셋**: ① 요소만 수정할 때는 문제 프레임을 캡처 → `npm run image --ref`로 부분 수정 → 수정 이미지를 `--first`로 재영상화 ② 앵글만 바꿀 때는 영상→영상 앵글 전환 후 가장 나은 프레임을 캡처해 `--first`로 재영상화 ③ 같은 이미지를 4회 이상 고쳐 손·디테일이 번지면 이미지를 LLM에 넣어 프롬프트로 역변환한 뒤 새 생성으로 리셋한다.
   - **한글·미세 텍스트·컷아웃 경계**: AI 영상의 한글은 깨지기 쉬우므로 무텍스트(또는 영문 핵심어)로 뽑고 한글 타이포는 HyperFrames가 얹는다. 소품/배경의 미세 텍스트·로고·스티커는 프롬프트에서 빼고, 코드 레이어에 얹을 컷아웃 이미지는 가장자리가 직선으로 잘리지 않게 여백/테두리를 적는다. 0.5초 스쳐 가는 배경 미세 오차에 한도를 다 태우지 않는다.
+  - **로컬 제작 보조 CLI & 계보 추적 (`2026-11-22`)**:
+    - 노드 계보 플래그(`npm run image` / `npm run video` 선택 인자): `--parent <직전파일> --changed-var "<바꾼 변수>" --status candidate|chosen|rejected` → 결과 옆 `.prompt.json`의 `lineage`에 기록.
+    - 로컬 미디어 도구(`node scripts/media-craft-tools.mjs` / `npm run craft`): `split-grid`(3×3·6면 시트 분할), `extract-frame`(부분 수정용 프레임 추출), `extract-ref-clip`(`--ref`용 3~6초 레퍼런스 클립 컷), `unify-tone`(8bit 밝기·대비·채도·그레인·배속 통일), `detect-beats`(BGM 비트·BPM 추출), `compare-visual-metrics`(레퍼런스 대 우리 영상 밝기·채도·움직임·컷 밀도 대조), `lineage`(폴더 `.prompt.json` 계보 트리 조회).
 - **카메라 움직임 편향**: `"slow, subtle camera push-in"`처럼 약하게 적어도 5초 후반 줌인이 꽤 강하게 들어가 프레임 끝 피사체(손끝 등)가 잘릴 수 있다. 가장자리 여백이 넉넉한 16:9/9:16 배경에만 쓰거나 `"static camera, locked tripod"`로 움직임을 강하게 제한한다.
 
 ### AI Studio `Lyria 3.5` (`new_music?model=lyria-3.5`) 음악 생성 실측 특성 (2026-11-12)

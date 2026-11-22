@@ -181,3 +181,9 @@ test('실제 catalog.json에 이 검사가 읽는 칸이 있다', {skip: !exists
   const v = JSON.parse(readFileSync(catalogPath, 'utf8')).videos[0];
   for (const key of ['videoId', 'title', 'publishedAt', 'privacyStatus', 'scheduledPublishAt', 'format']) assert.ok(key in v, `${key} 칸이 없다`);
 });
+
+test('buildReport: 최신 비교 시트의 레퍼런스 반복 편향 경고를 비차단으로 포함한다', async () => {
+  const {buildReport} = await import('../check-sameness.mjs');
+  const rep = buildReport();
+  assert.ok(rep.referenceBias && Array.isArray(rep.referenceBias.warnings));
+});

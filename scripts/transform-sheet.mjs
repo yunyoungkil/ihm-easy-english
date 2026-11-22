@@ -496,3 +496,42 @@ export function sheetLinksByVideo(sheets) {
   }
   return map;
 }
+
+export const REF_BIAS_WINDOW = 3; // allow-literal: 직전 3편 시트 대조(가설)
+export const REF_BIAS_MIN_REPEATS = 2; // allow-literal: 직전 3편 중 2편 이상 중복 시 비차단 참고 경고(가설)
+
+/**
+ * 레퍼런스 반복 편향 비차단 경고(2026-11-22): validateSheet() 차단 에러와 분리한다(하드코딩·창작 제약 금지).
+ * 직전 window편 시트 중 minRepeats편 이상에 이미 쓰인 references[].videoId(또는 borrowed[].fromVideoId)가
+ * 이번 시트에도 들어 있으면 참고 경고 목록을 돌려준다.
+ */
+export function referenceBiasWarnings(sheet, allSheets = [], {window = REF_BIAS_WINDOW, minRepeats = REF_BIAS_MIN_REPEATS} = {}) {
+  const sid = sheetIdOf(sheet);
+  const refsOf = (s) => [...new Set([
+    ...(s?.references || []).map((r) => r?.videoId),
+    ...(s?.borrowed || []).map((b) => b?.fromVideoId),
+  ].filter(filled))];
+  const curRefs = refsOf(sheet);
+  if (!curRefs.length) return [];
+  const ordered = [...(allSheets || [])]
+    .filter((s) => s && sheetIdOf(s))
+    .sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')) || sheetIdOf(a).localeCompare(sheetIdOf(b)));
+  const curIdx = sid ? ordered.findIndex((s) => sheetIdOf(s) === sid) : -1;
+  const prev = (curIdx >= 0 ? ordered.slice(0, curIdx) : ordered.filter((s) => sheetIdOf(s) !== sid)).slice(-window);
+  if (prev.length < minRepeats) return [];
+  const warnings = [];
+  for (const vid of curRefs) {
+    const hits = prev.filter((p) => refsOf(p).includes(vid));
+    if (hits.length >= minRepeats) {
+      const hitIds = hits.map((h) => sheetIdOf(h));
+      warnings.push({
+        videoId: vid,
+        count: hits.length,
+        window: prev.length,
+        sheets: hitIds,
+        message: `참고 경고: 레퍼런스 ${vid}가 직전 ${prev.length}편 중 ${hits.length}편(${hitIds.join(', ')})과 겹친다 — 습관적 반복이 아닌지 점검(비차단)`,
+      });
+    }
+  }
+  return warnings;
+}

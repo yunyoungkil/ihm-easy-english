@@ -27,6 +27,7 @@ import {existsSync, readFileSync, readdirSync, statSync} from 'node:fs';
 import {dirname, join, basename} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {resolveVideoFormat} from './video-format.mjs';
+import {loadSheets, referenceBiasWarnings, sheetIdOf} from './transform-sheet.mjs';
 
 const projectDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -410,6 +411,15 @@ export function buildReport({root = projectDir, now = new Date(), target = null,
     }
   }
 
+  const sheets = loadSheets(join(root, 'data', 'youtube', 'transform-sheets'))
+    .sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')) || sheetIdOf(a).localeCompare(sheetIdOf(b)));
+  const latestSheet = sheets.at(-1) || null;
+  report.referenceBias = latestSheet ? {sheetId: sheetIdOf(latestSheet), warnings: referenceBiasWarnings(latestSheet, sheets)} : {sheetId: null, warnings: []};
+  if (report.target && !report.target.error) {
+    const targetSheet = sheets.find((s) => sheetIdOf(s) === report.target.name) || null;
+    if (targetSheet) report.target.referenceBias = referenceBiasWarnings(targetSheet, sheets);
+  }
+
   report.speed = {renders: summarizeRenders(rendersOnDisk(root), now), commits: commitCounts(now), month: monthCounts(videos, now)};
   return report;
 }
@@ -498,6 +508,17 @@ function printTarget(t) {
   else console.log(`  코드: ${t.generator ? '비교할 앞 편 생성기 없음' : '생성기 파일 없음'}`);
   if (t.scenes) for (const r of t.scenes.results) console.log(`  장면: ${r.prev}와 ${r.same}/${r.total}칸 ${pct(r.share)} (${sceneLevel(r.share)})`);
   else console.log(`  장면: ${t.sceneCount ? '비교할 앞 편 장면 없음' : '장면 이름 없음'}`);
+  if (t.referenceBias?.length) {
+    for (const w of t.referenceBias) console.log(`  ⚠ ${w.message}`);
+  }
+}
+
+function printReferenceBiasSection(report) {
+  const rb = report.referenceBias;
+  if (!rb?.sheetId) return;
+  console.log(`\n[5] 비교 시트 레퍼런스 반복 편향 (비차단 참고) — 최신 시트 ${rb.sheetId} 기준`);
+  if (!rb.warnings.length) { console.log('   통과: 직전 3편 중 2편 이상 반복된 레퍼런스가 없음'); return; }
+  for (const w of rb.warnings) console.log(`   ⚠ ${w.message}`);
 }
 
 function printReport(report) {
@@ -509,6 +530,7 @@ function printReport(report) {
     printTitleSection(report);
     printCodeSection(report);
     printSceneSection(report);
+    printReferenceBiasSection(report);
     if (report.skippedOldProjects.length) console.log(`\n  (공개 기록이 없는 옛 프로젝트 ${report.skippedOldProjects.length}개는 순서에 넣지 않음: ${report.skippedOldProjects.join(', ')})`);
   }
   printSpeed(report);

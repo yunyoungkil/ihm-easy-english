@@ -3,7 +3,7 @@
 // 규칙: 경쟁 영상이 한 편뿐이면 안 되고, 가져온 것마다 이유가 있어야 하며, 뺀 것도 이유와 함께 남는다.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {validateSheet, ROW_KEYS, sheetStage, borrowedSources} from '../transform-sheet.mjs';
+import {validateSheet, ROW_KEYS, sheetStage, borrowedSources, referenceBiasWarnings} from '../transform-sheet.mjs';
 
 const row = (key, extra = {}) => ({key, competitor: {text: '경쟁 쪽'}, ours: {text: '우리 쪽'}, why: '이유', ...extra});
 const good = () => ({
@@ -493,4 +493,16 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
   assert.ok(idxHtml.indexOf('ep31-shorts-new') < idxHtml.indexOf('AAAAAAAAAAA'), '시트 목록 최신 작성일 우선 정렬');
   assert.ok(idxHtml.includes('class="sheet-idx-thumb"'), '시트 목록 대표 썸네일 표시');
   assert.ok(idxHtml.includes('7일 조회 1,450회'), '시트 목록 성적 배지 표시');
+});
+
+test('referenceBiasWarnings: 직전 3편 중 2편 이상 중복된 레퍼런스만 비차단 참고 경고로 알리고 validateSheet는 막지 않는다', () => {
+  const s1 = {episodeId: 'ep31', createdAt: '2026-11-19', references: [{videoId: 'REPEAT11111'}, {videoId: 'ONCE1111111'}]};
+  const s2 = {episodeId: 'ep32', createdAt: '2026-11-20', references: [{videoId: 'OTHER222222'}]};
+  const s3 = {episodeId: 'ep33', createdAt: '2026-11-20', references: [{videoId: 'REPEAT11111'}, {videoId: 'ONCE3333333'}]};
+  const s4 = {episodeId: 'ep34', createdAt: '2026-11-22', references: [{videoId: 'REPEAT11111'}, {videoId: 'ONCE3333333'}, {videoId: 'FRESH444444'}]};
+  const warnings = referenceBiasWarnings(s4, [s1, s2, s3, s4]);
+  assert.equal(warnings.length, 1);
+  assert.equal(warnings[0].videoId, 'REPEAT11111');
+  assert.deepEqual(warnings[0].sheets, ['ep31', 'ep33']);
+  assert.match(warnings[0].message, /비차단/);
 });

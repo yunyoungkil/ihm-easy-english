@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="ko" data-resolution="portrait">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>EP34 쇼츠 - 스트레스, 영어로는 왜 한 박자밖에 안 될까요?</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('assets/fonts/NotoSansKR-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+:root {
+  --cobalt: #1432FF;
+  --cobalt-deep: #0D1959;
+  --paper: #F5F3EE;
+  --ink: #111216;
+  --orange: #FF4D1A;
+  --orange-text: #D9380B;
+  --yellow: #FFD23F;
+  --cream-soft: #E9E5DC;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--ink);
+  font-family: 'Noto Sans KR', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--ink);
+}
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--paper);
+}
+.scene.dark-scene {
+  background: var(--ink);
+  color: var(--paper);
+}
+.bg-layer {
+  position: absolute;
+  inset: -44px;
+  width: calc(100% + 88px);
+  height: calc(100% + 88px);
+  object-fit: cover;
+  transform-origin: center center;
+}
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 1080px;
+  height: 1920px;
+  object-fit: cover;
+}
+.scrim-paper-top {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 560px; z-index: 2;
+  background: linear-gradient(180deg, rgba(245,243,238,0.96) 0%, rgba(245,243,238,0.82) 56%, rgba(245,243,238,0) 100%);
+}
+.scrim-dark-top {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 600px; z-index: 2;
+  background: linear-gradient(180deg, rgba(13,18,48,0.94) 0%, rgba(13,18,48,0.72) 60%, rgba(13,18,48,0) 100%);
+}
+.scrim-dark-full {
+  position: absolute;
+  inset: 0; z-index: 2;
+  background: linear-gradient(180deg, rgba(13,18,48,0.86) 0%, rgba(13,18,48,0.58) 46%, rgba(13,18,48,0.88) 100%);
+}
+.scrim-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 500px; z-index: 2;
+  background: linear-gradient(0deg, rgba(17,18,22,0.90) 0%, rgba(17,18,22,0.56) 54%, rgba(17,18,22,0) 100%);
+}
+.swiss-grid {
+  position: absolute;
+  inset: 0; z-index: 1;
+  background-image:
+    linear-gradient(to right, rgba(20,50,255,0.09) 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(20,50,255,0.09) 2px, transparent 2px);
+  background-size: 180px 180px;
+}
+
+/* TOP HOOK: top >= 232px, center-symmetric, zero black strip */
+.top-hook {
+  position: absolute;
+  top: 236px;
+  left: 60px;
+  right: 60px;
+  z-index: 20;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hook-kicker {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--cobalt);
+  white-space: nowrap;
+}
+.hook-main {
+  margin-top: 8px;
+  font-size: 78px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.14;
+  color: var(--ink);
+  text-shadow: 0 3px 0 rgba(245,243,238,0.92);
+  white-space: nowrap;
+}
+.hook-main .accent { color: var(--orange-text); }
+.hook-main .cobalt { color: var(--cobalt); }
+.top-hook.dark .hook-kicker { color: var(--yellow); }
+.top-hook.dark .hook-main { color: var(--paper); text-shadow: 0 6px 20px rgba(0,0,0,0.58); }
+.top-hook.dark .hook-main .accent { color: var(--yellow); }
+
+.top-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 40px;
+  border-radius: 999px;
+  font-size: 48px;
+  font-weight: 900;
+  white-space: nowrap;
+  box-shadow: 0 10px 0 var(--ink);
+}
+
+/* CENTER STAGE */
+.center-stage {
+  position: absolute;
+  top: 520px;
+  bottom: 480px;
+  left: 60px;
+  right: 60px;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+}
+
+.blocks-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.syl-box {
+  min-width: 146px;
+  height: 146px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 68px;
+  font-weight: 900;
+  background: var(--paper);
+  color: var(--ink);
+  border: 6px solid var(--ink);
+  box-shadow: 0 12px 0 var(--ink);
+  position: relative;
+}
+.syl-box.warn {
+  background: #FFF1EC;
+  border-color: var(--orange-text);
+  color: var(--orange-text);
+  box-shadow: 0 12px 0 var(--orange-text);
+}
+.syl-box.sm {
+  min-width: 132px;
+  height: 132px;
+  font-size: 60px;
+}
+.eu-badge {
+  position: absolute;
+  top: -30px;
+  right: -12px;
+  background: var(--orange);
+  color: #FFFFFF;
+  font-size: 34px;
+  font-weight: 900;
+  padding: 3px 13px;
+  border-radius: 999px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.word-card {
+  width: 860px;
+  padding: 34px 40px;
+  border-radius: 30px;
+  background: rgba(245,243,238,0.96);
+  border: 6px solid var(--ink);
+  box-shadow: 0 16px 0 var(--cobalt);
+  text-align: center;
+}
+.word-big {
+  font-size: 114px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1.04;
+  white-space: nowrap;
+}
+.word-big .hl { color: var(--orange-text); }
+.word-sub {
+  margin-top: 10px;
+  font-size: 46px;
+  font-weight: 800;
+  color: var(--cobalt);
+  white-space: nowrap;
+}
+
+.one-beat-card {
+  width: 860px;
+  padding: 40px 44px;
+  border-radius: 34px;
+  background: var(--cobalt);
+  color: var(--paper);
+  text-align: center;
+  border: 6px solid var(--ink);
+  box-shadow: 0 18px 0 var(--ink);
+  position: relative;
+}
+.one-beat-en {
+  font-size: 132px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  white-space: nowrap;
+}
+.one-beat-en .cluster { color: var(--yellow); }
+.one-beat-sub {
+  margin-top: 14px;
+  font-size: 50px;
+  font-weight: 800;
+  color: #E2E8FF;
+  white-space: nowrap;
+}
+.one-beat-tag {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 36px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #FFFFFF;
+  font-size: 48px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.example-strip {
+  padding: 18px 36px;
+  border-radius: 22px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 48px;
+  font-weight: 800;
+  border: 5px solid var(--ink);
+  white-space: nowrap;
+  box-shadow: 0 10px 0 rgba(17,18,22,0.35);
+}
+
+.shock-ring {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 999px;
+  border: 14px solid var(--orange);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* METRONOME BARS (Cut 8) */
+.metro-row {
+  width: 880px;
+  padding: 34px 44px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px solid var(--paper);
+}
+.metro-word {
+  font-size: 78px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.metro-pill {
+  font-size: 48px;
+  font-weight: 900;
+  padding: 10px 28px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* CHALLENGE TIMER (Cut 9) */
+.timer-track {
+  width: 780px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(245,243,238,0.22);
+  overflow: hidden;
+  border: 3px solid rgba(255,210,63,0.7);
+}
+.timer-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--yellow), var(--orange));
+  transform-origin: left center;
+}
+
+/* SUMMARY ROWS (Cut 11) */
+.sum-row {
+  width: 900px;
+  padding: 26px 36px;
+  border-radius: 24px;
+  background: #FFFFFF;
+  border: 5px solid var(--ink);
+  box-shadow: 0 10px 0 var(--cobalt);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sum-check {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: var(--orange);
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.sum-en { font-size: 62px; font-weight: 900; color: var(--ink); white-space: nowrap; }
+.sum-ko { font-size: 46px; font-weight: 700; color: #555966; text-decoration: line-through; white-space: nowrap; }
+.sum-beat {
+  font-size: 46px;
+  font-weight: 900;
+  background: var(--cobalt);
+  color: #FFFFFF;
+  padding: 10px 26px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* BOTTOM SAFE CAPTION: bottom >= 320px (capBottom <= 1600px), font-size >= 50px */
+.safe-caption {
+  position: absolute;
+  bottom: 336px;
+  left: 60px;
+  right: 60px;
+  z-index: 25;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.caption-pill {
+  display: inline-block;
+  max-width: 940px;
+  padding: 18px 38px;
+  border-radius: 24px;
+  background: rgba(17,18,22,0.86);
+  border: 2px solid rgba(255,255,255,0.18);
+  color: #FFFFFF;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.caption-pill .hl-y { color: var(--yellow); }
+.caption-pill .hl-o { color: #FF7852; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="40.202" data-width="1080" data-height="1920">
+
+  <!-- Direct-child Omni 1080p Real-Action Macro Video (Cut 02: 6.600s ~ 9.116s) -->
+  <video id="s02-vid" class="bg-video" src="assets/clips/c02-stressball.mp4" data-start="6.600" data-duration="2.516" data-track-index="0" muted playsinline style="z-index:2;opacity:0"></video>
+
+  <!-- ================= SCENE 00: 0.000s ~ 3.400s (Hydraulic Compression Hook) ================= -->
+  <section id="scene-00" class="scene clip" data-start="0" data-duration="3.400" data-track-index="1">
+    <img id="s00-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-hook-press.jpg" alt="">
+    <div class="scrim-paper-top" data-layout-ignore></div>
+    <div class="scrim-bottom" data-layout-ignore></div>
+    <div id="s00-hook" class="top-hook">
+      <div class="hook-kicker">스트레스, 스트라이크</div>
+      <div class="hook-main">영어로는 <span class="accent">한 박자</span></div>
+    </div>
+    <div class="center-stage" style="padding-top:40px;">
+      <div id="s00-ring" class="shock-ring" data-layout-ignore></div>
+      <div id="s00-blocks" class="blocks-row">
+        <div id="s00-b0" class="syl-box warn">스<span id="s00-e0" class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div id="s00-b1" class="syl-box warn">트<span id="s00-e1" class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div id="s00-b2" class="syl-box">레</div>
+        <div id="s00-b3" class="syl-box warn">스<span id="s00-e3" class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+      </div>
+      <div id="s00-pill" class="top-pill" style="background:var(--cobalt);color:#FFF;font-size:54px;padding:18px 46px;">4글자 ✕ → 1박자 ○</div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">스트레스, 영어로는 <span class="hl-y">한 번에</span> 끝나요</div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 01: 3.400s ~ 6.600s ('으' Eject Principle) ================= -->
+  <section id="scene-01" class="scene clip" data-start="3.400" data-duration="3.200" data-track-index="1">
+    <div id="s01-grid" class="swiss-grid" data-layout-ignore></div>
+    <div id="s01-hook" class="top-hook">
+      <div class="hook-kicker">왜 한 박자일까요?</div>
+      <div class="hook-main">자음 사이 <span class="accent">'으' 빼기</span></div>
+    </div>
+    <div class="center-stage" style="gap:28px;">
+      <div id="s01-card-top" class="word-card" style="box-shadow:0 16px 0 var(--orange-text);">
+        <div style="font-size:46px;font-weight:800;color:var(--orange-text);margin-bottom:14px;">한글로 읽을 때 끼어드는 '으'</div>
+        <div style="font-size:80px;font-weight:900;letter-spacing:0.05em;white-space:nowrap;">
+          S<span id="s01-eu1" style="display:inline-block;color:var(--orange-text);text-decoration:line-through;">(으)</span>
+          · T<span id="s01-eu2" style="display:inline-block;color:var(--orange-text);text-decoration:line-through;">(으)</span>
+          · R
+        </div>
+      </div>
+      <div id="s01-arrow" style="font-size:62px;font-weight:900;color:var(--cobalt);white-space:nowrap;">↓ 바람만 가볍게 스치면</div>
+      <div id="s01-card-bot" class="one-beat-card">
+        <div class="one-beat-en"><span class="cluster">str-</span> + 모음</div>
+        <div class="one-beat-tag">입은 한 번만 · 한 박자</div>
+      </div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">자음 사이 <span class="hl-o">'으'</span>만 쏙 빼면 되거든요</div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 02: 6.600s ~ 9.116s (stress Omni Real-Action Macro Overlay) ================= -->
+  <section id="scene-02" class="scene clip" data-start="6.600" data-duration="2.516" data-track-index="1" style="background:transparent;">
+    <div class="scrim-paper-top" data-layout-ignore></div>
+    <div class="scrim-bottom" data-layout-ignore></div>
+    <div id="s02-hook" class="top-hook">
+      <div class="hook-kicker">스트레스</div>
+      <div class="hook-main">영어로는 <span class="cobalt">한 박자</span></div>
+    </div>
+    <div class="center-stage" style="padding-top:40px;">
+      <div id="s02-card" class="word-card">
+        <div class="word-big"><span class="hl">str</span>ess</div>
+        <div class="word-sub">한글 4글자 · 스 트 레 스</div>
+      </div>
+      <div id="s02-blocks" class="blocks-row">
+        <div class="syl-box warn sm">스<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box warn sm">트<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box sm">레</div>
+        <div class="syl-box warn sm">스<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+      </div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">스트레스부터! · <span class="hl-y">stress</span></div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 03: 9.116s ~ 13.172s (stress Hydraulic Snap Compress) ================= -->
+  <section id="scene-03" class="scene dark-scene clip" data-start="9.116" data-duration="4.056" data-track-index="1">
+    <img id="s03-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-stressball.jpg" style="filter:brightness(0.48) saturate(1.2);" alt="">
+    <div class="scrim-dark-full" data-layout-ignore></div>
+    <div id="s03-hook" class="top-hook dark">
+      <div class="hook-kicker">4글자 → 1박자</div>
+      <div class="hook-main">바람만 <span class="accent">가볍게 스쳐요</span></div>
+    </div>
+    <div class="center-stage">
+      <div id="s03-ring" class="shock-ring" data-layout-ignore style="border-color:var(--yellow);"></div>
+      <div id="s03-pre" class="blocks-row" data-layout-ignore style="position:absolute;">
+        <div class="syl-box warn sm">스<span class="eu-badge">ㅡ?</span></div>
+        <div class="syl-box warn sm">트<span class="eu-badge">ㅡ?</span></div>
+        <div class="syl-box sm">레</div>
+        <div class="syl-box warn sm">스<span class="eu-badge">ㅡ?</span></div>
+      </div>
+      <div id="s03-card" class="one-beat-card">
+        <div class="one-beat-en"><span class="cluster">str</span>ess</div>
+        <div class="one-beat-sub">/stres/ · s, t는 숨만 스치기</div>
+        <div class="one-beat-tag">한 박자</div>
+      </div>
+      <div id="s03-ex" class="example-strip">No stress. (부담 갖지 마세요)</div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">앞엔 바람만 가볍게 스쳐요 · <span class="hl-y">stress</span></div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 04: 13.172s ~ 15.505s (screen Low-Angle Macro) ================= -->
+  <section id="scene-04" class="scene clip" data-start="13.172" data-duration="2.333" data-track-index="1">
+    <img id="s04-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-screen.jpg" alt="">
+    <div class="scrim-paper-top" data-layout-ignore></div>
+    <div class="scrim-bottom" data-layout-ignore></div>
+    <div id="s04-hook" class="top-hook">
+      <div class="hook-kicker">스크린</div>
+      <div class="hook-main">영어로는 <span class="cobalt">한 박자</span></div>
+    </div>
+    <div class="center-stage" style="padding-top:40px;">
+      <div id="s04-card" class="word-card">
+        <div class="word-big"><span class="hl">scr</span>een</div>
+        <div class="word-sub">한글 3글자 · 스 크 린</div>
+      </div>
+      <div id="s04-blocks" class="blocks-row">
+        <div class="syl-box warn">스<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box warn">크<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box">린</div>
+      </div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">스크린도 같아요 · <span class="hl-y">screen</span></div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 05: 15.505s ~ 19.303s (screen Hydraulic Snap Compress) ================= -->
+  <section id="scene-05" class="scene dark-scene clip" data-start="15.505" data-duration="3.798" data-track-index="1">
+    <img id="s05-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-screen.jpg" style="filter:brightness(0.45) saturate(1.2);" alt="">
+    <div class="scrim-dark-full" data-layout-ignore></div>
+    <div id="s05-hook" class="top-hook dark">
+      <div class="hook-kicker">3글자 → 1박자</div>
+      <div class="hook-main">세 글자가 <span class="accent">한 번에 쫙</span></div>
+    </div>
+    <div class="center-stage">
+      <div id="s05-ring" class="shock-ring" data-layout-ignore style="border-color:var(--yellow);"></div>
+      <div id="s05-pre" class="blocks-row" data-layout-ignore style="position:absolute;">
+        <div class="syl-box warn">스<span class="eu-badge">ㅡ?</span></div>
+        <div class="syl-box warn">크<span class="eu-badge">ㅡ?</span></div>
+        <div class="syl-box">린</div>
+      </div>
+      <div id="s05-card" class="one-beat-card">
+        <div class="one-beat-en"><span class="cluster">scr</span>een</div>
+        <div class="one-beat-sub">/skriːn/ · s, k는 바람만 휙</div>
+        <div class="one-beat-tag">한 박자</div>
+      </div>
+      <div id="s05-ex" class="example-strip">Big screen. (큰 화면)</div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">세 글자가 한 번에 쫙 붙죠 · <span class="hl-y">screen</span></div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 06: 19.303s ~ 21.363s (spray Macro) ================= -->
+  <section id="scene-06" class="scene clip" data-start="19.303" data-duration="2.060" data-track-index="1">
+    <img id="s06-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-spray.jpg" alt="">
+    <div class="scrim-paper-top" data-layout-ignore></div>
+    <div class="scrim-bottom" data-layout-ignore></div>
+    <div id="s06-hook" class="top-hook">
+      <div class="hook-kicker">스프레이</div>
+      <div class="hook-main">영어로는 <span class="cobalt">한 박자</span></div>
+    </div>
+    <div class="center-stage" style="padding-top:40px;">
+      <div id="s06-card" class="word-card">
+        <div class="word-big"><span class="hl">spr</span>ay</div>
+        <div class="word-sub">한글 4글자 · 스 프 레 이</div>
+      </div>
+      <div id="s06-blocks" class="blocks-row">
+        <div class="syl-box warn sm">스<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box warn sm">프<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box sm">레</div>
+        <div class="syl-box sm">이</div>
+      </div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">스프레이는요? · <span class="hl-y">spray</span></div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 07: 21.363s ~ 25.087s (spray Hydraulic Snap Compress) ================= -->
+  <section id="scene-07" class="scene dark-scene clip" data-start="21.363" data-duration="3.724" data-track-index="1">
+    <img id="s07-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-spray.jpg" style="filter:brightness(0.46) saturate(1.18);" alt="">
+    <div class="scrim-dark-full" data-layout-ignore></div>
+    <div id="s07-hook" class="top-hook dark">
+      <div class="hook-kicker">4글자 → 1박자</div>
+      <div class="hook-main">칙, <span class="accent">한 번 뿜듯</span></div>
+    </div>
+    <div class="center-stage">
+      <div id="s07-ring" class="shock-ring" data-layout-ignore style="border-color:var(--yellow);"></div>
+      <div id="s07-pre" class="blocks-row" data-layout-ignore style="position:absolute;">
+        <div class="syl-box warn sm">스<span class="eu-badge">ㅡ?</span></div>
+        <div class="syl-box warn sm">프<span class="eu-badge">ㅡ?</span></div>
+        <div class="syl-box sm">레</div>
+        <div class="syl-box sm">이</div>
+      </div>
+      <div id="s07-card" class="one-beat-card">
+        <div class="one-beat-en"><span class="cluster">spr</span>ay</div>
+        <div class="one-beat-sub">/spreɪ/ · 안개 한 번 뿜듯</div>
+        <div class="one-beat-tag">한 박자</div>
+      </div>
+      <div id="s07-ex" class="example-strip">Hair spray. (헤어스프레이)</div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">칙 한 번 뿜듯 숨으로 뱉어요 · <span class="hl-y">spray</span></div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 08: 25.087s ~ 28.631s (Triple 1-Beat Metronome Flash) ================= -->
+  <section id="scene-08" class="scene dark-scene clip" data-start="25.087" data-duration="3.544" data-track-index="1">
+    <div id="s08-hook" class="top-hook dark">
+      <div class="hook-kicker">이어서 듣기</div>
+      <div class="hook-main">세 단어 <span class="accent">한 박자씩</span></div>
+    </div>
+    <div class="center-stage" style="gap:30px;">
+      <div id="s08-r0" class="metro-row" style="background:var(--cobalt);color:#FFF;">
+        <span class="metro-word">stress</span>
+        <span class="metro-pill" style="background:var(--yellow);color:var(--ink);">4 → 1박자</span>
+      </div>
+      <div id="s08-r1" class="metro-row" style="background:var(--paper);color:var(--ink);border-color:var(--cobalt);">
+        <span class="metro-word">screen</span>
+        <span class="metro-pill" style="background:var(--cobalt);color:#FFF;">3 → 1박자</span>
+      </div>
+      <div id="s08-r2" class="metro-row" style="background:var(--orange);color:#FFF;">
+        <span class="metro-word">spray</span>
+        <span class="metro-pill" style="background:var(--ink);color:var(--yellow);">4 → 1박자</span>
+      </div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">'으' 빼고 <span class="hl-y">한 박자씩</span> 이어서 들어 봐요</div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 09: 28.631s ~ 32.607s (STRIKE 1.5s Bowling Lane Challenge) ================= -->
+  <section id="scene-09" class="scene dark-scene clip" data-start="28.631" data-duration="3.976" data-track-index="1">
+    <img id="s09-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-strike.jpg" alt="">
+    <div class="scrim-dark-top" data-layout-ignore></div>
+    <div class="scrim-bottom" data-layout-ignore></div>
+    <div id="s09-hook" class="top-hook dark">
+      <div class="top-pill" style="background:var(--orange);color:#FFF;">1.5초 안에 읽기</div>
+      <div class="hook-main" style="margin-top:14px;">다섯 글자를 <span class="accent">한 박자로</span></div>
+    </div>
+    <div class="center-stage" style="gap:24px;padding-top:30px;">
+      <div id="s09-blocks" class="blocks-row" style="gap:10px;">
+        <div class="syl-box warn sm">스<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box warn sm">트<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+        <div class="syl-box sm">라</div>
+        <div class="syl-box sm">이</div>
+        <div class="syl-box warn sm">크<span class="eu-badge" data-layout-allow-overlap>ㅡ?</span></div>
+      </div>
+      <div id="s09-card" style="width:860px;padding:34px 40px;border-radius:32px;background:rgba(17,18,22,0.90);border:7px solid var(--yellow);text-align:center;">
+        <div style="font-size:132px;font-weight:900;color:#FFF;letter-spacing:-0.03em;line-height:1;">STRIKE</div>
+        <div style="margin-top:14px;font-size:48px;font-weight:900;color:var(--yellow);">지금 한번 소리 내어 읽어 봐요</div>
+      </div>
+      <div class="timer-track" data-layout-ignore><div id="s09-timer" class="timer-fill"></div></div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">다섯 글자, <span class="hl-y">직접 해 볼까요?</span></div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 10: 32.607s ~ 36.602s (STRIKE Smash Payoff) ================= -->
+  <section id="scene-10" class="scene dark-scene clip" data-start="32.607" data-duration="3.995" data-track-index="1">
+    <img id="s10-bg" class="bg-layer" data-layout-allow-overflow src="assets/images/bg-strike.jpg" style="filter:brightness(0.42) saturate(1.25);" alt="">
+    <div class="scrim-dark-full" data-layout-ignore></div>
+    <div id="s10-hook" class="top-hook dark">
+      <div class="top-pill" style="background:var(--yellow);color:var(--ink);">STRIKE · 한 박자</div>
+      <div class="hook-main" style="margin-top:14px;">다섯 글자 → <span style="color:var(--orange);">한 번에 툭!</span></div>
+    </div>
+    <div id="s10-stage" class="center-stage">
+      <div id="s10-ring" class="shock-ring" data-layout-ignore style="border-color:var(--yellow);"></div>
+      <div id="s10-card" class="one-beat-card" style="background:var(--orange);border-color:var(--yellow);">
+        <div class="one-beat-en"><span class="cluster" style="color:var(--ink);">str</span>ike</div>
+        <div class="one-beat-sub" style="color:#FFF;">/straɪk/ · 다섯 칸이 한 칸으로</div>
+        <div class="one-beat-tag" style="background:var(--ink);color:var(--yellow);">한 박자 끝!</div>
+      </div>
+      <div id="s10-ex" class="example-strip">Lucky strike. (운 좋은 한 방)</div>
+    </div>
+    <div class="safe-caption">
+      <div class="caption-pill">길게 끌지 말고 <span class="hl-y">한 번에 툭!</span> · strike</div>
+    </div>
+  </section>
+
+  <!-- ================= SCENE 11: 36.602s ~ 40.202s (Swiss 4-Row Summary & CTA) ================= -->
+  <section id="scene-11" class="scene clip" data-start="36.602" data-duration="3.600" data-track-index="1">
+    <div class="swiss-grid" data-layout-ignore></div>
+    <div id="s11-hook" class="top-hook">
+      <div class="hook-kicker">오늘의 네 단어</div>
+      <div class="hook-main">전부 <span class="cobalt">한 박자</span>예요</div>
+    </div>
+    <div class="center-stage" style="gap:20px;">
+      <div id="s11-r0" class="sum-row">
+        <div style="display:flex;align-items:center;gap:20px;"><span class="sum-check">✓</span><span class="sum-en">stress</span></div>
+        <div style="display:flex;align-items:center;gap:18px;"><span class="sum-ko">스트레스</span><span class="sum-beat">1박자</span></div>
+      </div>
+      <div id="s11-r1" class="sum-row">
+        <div style="display:flex;align-items:center;gap:20px;"><span class="sum-check">✓</span><span class="sum-en">screen</span></div>
+        <div style="display:flex;align-items:center;gap:18px;"><span class="sum-ko">스크린</span><span class="sum-beat">1박자</span></div>
+      </div>
+      <div id="s11-r2" class="sum-row">
+        <div style="display:flex;align-items:center;gap:20px;"><span class="sum-check">✓</span><span class="sum-en">spray</span></div>
+        <div style="display:flex;align-items:center;gap:18px;"><span class="sum-ko">스프레이</span><span class="sum-beat">1박자</span></div>
+      </div>
+      <div id="s11-r3" class="sum-row">
+        <div style="display:flex;align-items:center;gap:20px;"><span class="sum-check">✓</span><span class="sum-en">strike</span></div>
+        <div style="display:flex;align-items:center;gap:18px;"><span class="sum-ko">스트라이크</span><span class="sum-beat">1박자</span></div>
+      </div>
+    </div>
+    <div class="safe-caption">
+      <div id="s11-cta" class="top-pill" style="background:var(--cobalt);color:#FFF;font-size:48px;padding:20px 44px;">고정 댓글에 네 단어 더 적어 뒀어요</div>
+    </div>
+  </section>
+
+  <!-- ================= AUDIO TRACKS (Measured from assets/audio-timings.json, 0 overlaps) ================= -->
+  <audio id="bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="40.202" data-volume="0.14" data-fade-out="1.2" data-track-index="10"></audio>
+
+  <audio id="ko-c00" src="assets/voice-clean/c00.wav" data-start="0.120" data-duration="2.515" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c01" src="assets/voice-clean/c01.wav" data-start="3.520" data-duration="2.110" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c02" src="assets/voice-clean/c02.wav" data-start="6.720" data-duration="1.105" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c03" src="assets/voice-clean/c03.wav" data-start="9.236" data-duration="2.385" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c04" src="assets/voice-clean/c04.wav" data-start="13.292" data-duration="0.989" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c05" src="assets/voice-clean/c05.wav" data-start="15.625" data-duration="2.194" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c06" src="assets/voice-clean/c06.wav" data-start="19.423" data-duration="0.691" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c07" src="assets/voice-clean/c07.wav" data-start="21.483" data-duration="2.095" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c09" src="assets/voice-clean/c09.wav" data-start="28.751" data-duration="1.896" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c10" src="assets/voice-clean/c10.wav" data-start="32.967" data-duration="2.597" data-volume="1.0" data-track-index="11"></audio>
+  <audio id="ko-c11" src="assets/voice-clean/c11.wav" data-start="36.722" data-duration="2.215" data-volume="1.0" data-track-index="11"></audio>
+
+  <audio id="en-stress-1" src="assets/voice-en-clean/stress.wav" data-start="8.005" data-duration="0.831" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-stress-2" src="assets/voice-en-clean/stress.wav" data-start="12.061" data-duration="0.831" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-screen-1" src="assets/voice-en-clean/screen.wav" data-start="14.461" data-duration="0.764" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-screen-2" src="assets/voice-en-clean/screen.wav" data-start="18.259" data-duration="0.764" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-spray-1" src="assets/voice-en-clean/spray.wav" data-start="20.294" data-duration="0.789" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-spray-2" src="assets/voice-en-clean/spray.wav" data-start="24.018" data-duration="0.789" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-stress-3" src="assets/voice-en-clean/stress.wav" data-start="25.207" data-duration="0.831" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-screen-3" src="assets/voice-en-clean/screen.wav" data-start="26.418" data-duration="0.764" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-spray-3" src="assets/voice-en-clean/spray.wav" data-start="27.562" data-duration="0.789" data-volume="1.0" data-track-index="12"></audio>
+  <audio id="en-strike-1" src="assets/voice-en-clean/strike.wav" data-start="35.744" data-duration="0.578" data-volume="1.0" data-track-index="12"></audio>
+
+  <audio id="sfx-snap-0" src="assets/sfx/hydraulic-snap.wav" data-start="1.449" data-duration="0.260" data-volume="0.62" data-track-index="13"></audio>
+  <audio id="sfx-snap-3" src="assets/sfx/hydraulic-snap.wav" data-start="9.596" data-duration="0.260" data-volume="0.62" data-track-index="13"></audio>
+  <audio id="sfx-snap-5" src="assets/sfx/hydraulic-snap.wav" data-start="15.985" data-duration="0.260" data-volume="0.62" data-track-index="13"></audio>
+  <audio id="sfx-snap-7" src="assets/sfx/hydraulic-snap.wav" data-start="21.843" data-duration="0.260" data-volume="0.62" data-track-index="13"></audio>
+  <audio id="sfx-tick-9" src="assets/sfx/metronome-tick.wav" data-start="30.827" data-duration="1.500" data-volume="0.60" data-track-index="13"></audio>
+  <audio id="sfx-smash-10" src="assets/sfx/strike-smash.wav" data-start="32.657" data-duration="0.380" data-volume="0.72" data-track-index="13"></audio>
+</div>
+
+<script>
+const CUTS = [
+  {id: '#scene-00', t: 0.000, d: 3.400},
+  {id: '#scene-01', t: 3.400, d: 3.200},
+  {id: '#scene-02', t: 6.600, d: 2.516},
+  {id: '#scene-03', t: 9.116, d: 4.056},
+  {id: '#scene-04', t: 13.172, d: 2.333},
+  {id: '#scene-05', t: 15.505, d: 3.798},
+  {id: '#scene-06', t: 19.303, d: 2.060},
+  {id: '#scene-07', t: 21.363, d: 3.724},
+  {id: '#scene-08', t: 25.087, d: 3.544},
+  {id: '#scene-09', t: 28.631, d: 3.976},
+  {id: '#scene-10', t: 32.607, d: 3.995},
+  {id: '#scene-11', t: 36.602, d: 3.600},
+];
+
+const tl = gsap.timeline({paused: true});
+const totalDur = 40.202;
+
+// Direct-child Omni video visibility locked cleanly to Cut 02 window
+tl.set('#s02-vid', {opacity: 0}, 0);
+tl.set('#s02-vid', {opacity: 1}, 6.600);
+tl.set('#s02-vid', {opacity: 0}, 9.116);
+
+CUTS.forEach((c, idx) => {
+  if (idx === 0) {
+    tl.set(c.id, {opacity: 1, zIndex: 10}, 0);
+  } else {
+    tl.set(c.id, {opacity: 0, zIndex: 1}, 0);
+    tl.set(c.id, {opacity: 1, zIndex: 10 + idx}, c.t);
+  }
+  if (idx < CUTS.length - 1) {
+    tl.set(c.id, {opacity: 0, zIndex: 1}, +(c.t + c.d).toFixed(3));
+  }
+});
+
+// Helper: Early 0.25s Hydraulic Snap Compression (at +0.48s so 1-beat card + example hold 3.1~3.4s for effortless reading)
+function addSnapCompress(prefix, cutStart, snapOffset, enOffset) {
+  const s = cutStart;
+  tl.fromTo(`#${prefix}-bg`, {scale: 1.08}, {scale: 1.0, duration: 3.7, ease: 'none'}, s);
+  tl.fromTo(`#${prefix}-hook`, {y: -24, opacity: 0}, {y: 0, opacity: 1, duration: 0.26, ease: 'power3.out'}, s);
+  tl.fromTo(`#${prefix}-pre`, {autoAlpha: 1, scaleX: 1, scaleY: 1}, {autoAlpha: 1, scaleX: 0.94, scaleY: 1, duration: 0.28, ease: 'none'}, s);
+  tl.fromTo(`#${prefix}-pre`, {scaleX: 0.94, scaleY: 1, autoAlpha: 1}, {scaleX: 0.16, scaleY: 1.12, autoAlpha: 0, duration: 0.20, ease: 'power4.in'}, s + snapOffset - 0.20);
+  tl.fromTo(`#${prefix}-card`, {scale: 0.72, autoAlpha: 0}, {scale: 1, autoAlpha: 1, duration: 0.28, ease: 'back.out(1.7)'}, s + snapOffset);
+  tl.fromTo(`#${prefix}-ring`, {scale: 0.35, opacity: 0.95}, {scale: 2.3, opacity: 0, duration: 0.45, ease: 'power2.out'}, s + snapOffset);
+  tl.fromTo(`#${prefix}-ex`, {y: 22, autoAlpha: 0}, {y: 0, autoAlpha: 1, duration: 0.26, ease: 'power3.out'}, s + snapOffset + 0.14);
+  tl.fromTo(`#${prefix}-card`, {scale: 1}, {scale: 1.06, duration: 0.14, ease: 'power2.out'}, s + enOffset);
+  tl.fromTo(`#${prefix}-card`, {scale: 1.06}, {scale: 1.0, duration: 0.24, ease: 'power2.inOut'}, s + enOffset + 0.14);
+}
+
+// === SCENE 00 (0.000s): Hydraulic Compression Hook ===
+tl.fromTo('#s00-bg', {scale: 1.0, y: 0}, {scale: 1.07, y: 24, duration: 3.4, ease: 'power1.inOut'}, 0);
+tl.fromTo('#s00-hook', {y: -28, opacity: 0}, {y: 0, opacity: 1, duration: 0.32, ease: 'power3.out'}, 0);
+tl.fromTo('#s00-blocks', {scale: 0.88, opacity: 0}, {scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.5)'}, 0.08);
+tl.fromTo(['#s00-e0', '#s00-e1', '#s00-e3'], {y: 0, opacity: 1, scale: 1}, {y: -64, opacity: 0, scale: 1.35, duration: 0.28, ease: 'power3.out'}, 1.35);
+tl.fromTo('#s00-b0', {x: 0}, {x: 34, duration: 0.26, ease: 'back.out(2)'}, 1.45);
+tl.fromTo('#s00-b1', {x: 0}, {x: 12, duration: 0.26, ease: 'back.out(2)'}, 1.45);
+tl.fromTo('#s00-b2', {x: 0}, {x: -10, duration: 0.26, ease: 'back.out(2)'}, 1.45);
+tl.fromTo('#s00-b3', {x: 0}, {x: -34, duration: 0.26, ease: 'back.out(2)'}, 1.45);
+tl.fromTo('#s00-ring', {scale: 0.3, opacity: 0.95}, {scale: 2.4, opacity: 0, duration: 0.5, ease: 'power2.out'}, 1.45);
+tl.fromTo('#s00-pill', {scale: 0.72, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: 'back.out(1.8)'}, 1.45);
+
+// === SCENE 01 (3.400s): '으' Eject Principle ===
+tl.fromTo('#s01-hook', {y: -24, opacity: 0}, {y: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 3.400);
+tl.fromTo('#s01-card-top', {y: 24, opacity: 0}, {y: 0, opacity: 1, duration: 0.26, ease: 'power3.out'}, 3.45);
+tl.fromTo(['#s01-eu1', '#s01-eu2'], {y: 0, opacity: 1, scale: 1}, {y: -48, opacity: 0, scale: 1.35, duration: 0.28, ease: 'power3.out'}, 3.92);
+tl.fromTo('#s01-arrow', {y: -12, opacity: 0}, {y: 0, opacity: 1, duration: 0.22, ease: 'power2.out'}, 4.08);
+tl.fromTo('#s01-card-bot', {scale: 0.80, opacity: 0}, {scale: 1, opacity: 1, duration: 0.28, ease: 'back.out(1.6)'}, 4.18);
+
+// === SCENE 02 (6.600s): stress Omni Real-Action Macro ===
+tl.fromTo('#s02-hook', {y: -20, opacity: 0}, {y: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 6.600);
+tl.fromTo('#s02-card', {y: 28, opacity: 0}, {y: 0, opacity: 1, duration: 0.28, ease: 'back.out(1.5)'}, 6.68);
+tl.fromTo('#s02-blocks', {y: 24, opacity: 0}, {y: 0, opacity: 1, duration: 0.28, ease: 'power3.out'}, 6.84);
+tl.fromTo('#s02-card', {scale: 1}, {scale: 1.05, duration: 0.14, ease: 'power2.out'}, 8.005);
+tl.fromTo('#s02-card', {scale: 1.05}, {scale: 1, duration: 0.22, ease: 'power2.inOut'}, 8.145);
+
+// === SCENE 03 (9.116s): stress Snap Compress ===
+addSnapCompress('s03', 9.116, 0.48, 2.945);
+
+// === SCENE 04 (13.172s): screen Low-Angle Macro ===
+tl.fromTo('#s04-bg', {scale: 1.0, x: 0}, {scale: 1.06, x: -16, duration: 2.333, ease: 'none'}, 13.172);
+tl.fromTo('#s04-hook', {y: -20, opacity: 0}, {y: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 13.172);
+tl.fromTo('#s04-card', {y: 28, opacity: 0}, {y: 0, opacity: 1, duration: 0.28, ease: 'back.out(1.5)'}, 13.25);
+tl.fromTo('#s04-blocks', {y: 24, opacity: 0}, {y: 0, opacity: 1, duration: 0.28, ease: 'power3.out'}, 13.40);
+tl.fromTo('#s04-card', {scale: 1}, {scale: 1.05, duration: 0.14, ease: 'power2.out'}, 14.461);
+tl.fromTo('#s04-card', {scale: 1.05}, {scale: 1, duration: 0.22, ease: 'power2.inOut'}, 14.601);
+
+// === SCENE 05 (15.505s): screen Snap Compress ===
+addSnapCompress('s05', 15.505, 0.48, 2.754);
+
+// === SCENE 06 (19.303s): spray Macro ===
+tl.fromTo('#s06-bg', {scale: 1.0, y: 0}, {scale: 1.07, y: -12, duration: 2.060, ease: 'power1.out'}, 19.303);
+tl.fromTo('#s06-hook', {y: -20, opacity: 0}, {y: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 19.303);
+tl.fromTo('#s06-card', {y: 28, opacity: 0}, {y: 0, opacity: 1, duration: 0.26, ease: 'back.out(1.5)'}, 19.38);
+tl.fromTo('#s06-blocks', {y: 24, opacity: 0}, {y: 0, opacity: 1, duration: 0.26, ease: 'power3.out'}, 19.52);
+tl.fromTo('#s06-card', {scale: 1}, {scale: 1.05, duration: 0.14, ease: 'power2.out'}, 20.294);
+tl.fromTo('#s06-card', {scale: 1.05}, {scale: 1, duration: 0.22, ease: 'power2.inOut'}, 20.434);
+
+// === SCENE 07 (21.363s): spray Snap Compress ===
+addSnapCompress('s07', 21.363, 0.48, 2.655);
+
+// === SCENE 08 (25.087s): Triple 1-Beat Metronome Flash ===
+tl.fromTo('#s08-hook', {y: -20, opacity: 0}, {y: 0, opacity: 1, duration: 0.22, ease: 'power3.out'}, 25.087);
+tl.fromTo('#s08-r0', {opacity: 0.28, scale: 0.94}, {opacity: 1, scale: 1.04, duration: 0.18, ease: 'back.out(2)'}, 25.207);
+tl.fromTo('#s08-r0', {scale: 1.04}, {scale: 1.0, duration: 0.25, ease: 'power2.out'}, 25.387);
+tl.fromTo('#s08-r1', {opacity: 0.28, scale: 0.94}, {opacity: 1, scale: 1.04, duration: 0.18, ease: 'back.out(2)'}, 26.418);
+tl.fromTo('#s08-r1', {scale: 1.04}, {scale: 1.0, duration: 0.25, ease: 'power2.out'}, 26.598);
+tl.fromTo('#s08-r2', {opacity: 0.28, scale: 0.94}, {opacity: 1, scale: 1.04, duration: 0.18, ease: 'back.out(2)'}, 27.562);
+tl.fromTo('#s08-r2', {scale: 1.04}, {scale: 1.0, duration: 0.25, ease: 'power2.out'}, 27.742);
+
+// === SCENE 09 (28.631s): STRIKE 1.5s Bowling Lane Challenge ===
+tl.fromTo('#s09-bg', {scale: 1.0}, {scale: 1.14, duration: 3.976, ease: 'power1.in'}, 28.631);
+tl.fromTo('#s09-hook', {y: -24, opacity: 0}, {y: 0, opacity: 1, duration: 0.26, ease: 'power3.out'}, 28.631);
+tl.fromTo('#s09-blocks', {y: 24, opacity: 0}, {y: 0, opacity: 1, duration: 0.28, ease: 'power3.out'}, 28.78);
+tl.fromTo('#s09-card', {scale: 0.86, opacity: 0}, {scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.6)'}, 28.92);
+tl.fromTo('#s09-timer', {scaleX: 1}, {scaleX: 0, duration: 1.500, ease: 'none'}, 30.827);
+tl.fromTo('#s09-card', {scale: 1}, {scale: 1.04, duration: 0.10, ease: 'power2.out'}, 30.827);
+tl.fromTo('#s09-card', {scale: 1.04}, {scale: 1.0, duration: 0.15, ease: 'power2.in'}, 30.927);
+tl.fromTo('#s09-card', {scale: 1}, {scale: 1.04, duration: 0.10, ease: 'power2.out'}, 31.327);
+tl.fromTo('#s09-card', {scale: 1.04}, {scale: 1.0, duration: 0.15, ease: 'power2.in'}, 31.427);
+tl.fromTo('#s09-card', {scale: 1}, {scale: 1.05, duration: 0.10, ease: 'power2.out'}, 31.827);
+tl.fromTo('#s09-card', {scale: 1.05}, {scale: 1.0, duration: 0.15, ease: 'power2.in'}, 31.927);
+
+// === SCENE 10 (32.607s): STRIKE Smash Payoff ===
+tl.fromTo('#s10-bg', {scale: 1.12}, {scale: 1.02, duration: 3.995, ease: 'power2.out'}, 32.607);
+tl.fromTo('#s10-hook', {y: -26, opacity: 0}, {y: 0, opacity: 1, duration: 0.26, ease: 'power3.out'}, 32.607);
+tl.fromTo('#s10-card', {scale: 1.38, opacity: 0}, {scale: 1.0, opacity: 1, duration: 0.28, ease: 'back.out(1.8)'}, 32.657);
+tl.fromTo('#s10-ring', {scale: 0.35, opacity: 0.95}, {scale: 2.5, opacity: 0, duration: 0.48, ease: 'power2.out'}, 32.657);
+tl.fromTo('#s10-stage', {x: 0}, {x: -10, duration: 0.04}, 32.68);
+tl.fromTo('#s10-stage', {x: -10}, {x: 9, duration: 0.04}, 32.72);
+tl.fromTo('#s10-stage', {x: 9}, {x: 0, duration: 0.06}, 32.76);
+tl.fromTo('#s10-ex', {y: 26, opacity: 0}, {y: 0, opacity: 1, duration: 0.28, ease: 'power3.out'}, 32.95);
+tl.fromTo('#s10-card', {scale: 1}, {scale: 1.06, duration: 0.14, ease: 'power2.out'}, 35.744);
+tl.fromTo('#s10-card', {scale: 1.06}, {scale: 1.0, duration: 0.24, ease: 'power2.inOut'}, 35.884);
+
+// === SCENE 11 (36.602s): Swiss 4-Row Summary & Pinned Comment CTA ===
+tl.fromTo('#s11-hook', {y: -24, opacity: 0}, {y: 0, opacity: 1, duration: 0.26, ease: 'power3.out'}, 36.602);
+tl.fromTo('#s11-r0', {x: -44, opacity: 0}, {x: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 36.70);
+tl.fromTo('#s11-r1', {x: -44, opacity: 0}, {x: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 36.88);
+tl.fromTo('#s11-r2', {x: -44, opacity: 0}, {x: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 37.06);
+tl.fromTo('#s11-r3', {x: -44, opacity: 0}, {x: 0, opacity: 1, duration: 0.24, ease: 'power3.out'}, 37.24);
+tl.fromTo('#s11-cta', {y: 24, opacity: 0}, {y: 0, opacity: 1, duration: 0.30, ease: 'back.out(1.6)'}, 37.45);
+tl.fromTo('#s11-cta', {scale: 1}, {scale: 1.04, duration: 0.18, ease: 'power2.out'}, 38.60);
+tl.fromTo('#s11-cta', {scale: 1.04}, {scale: 1.0, duration: 0.22, ease: 'power2.inOut'}, 38.78);
+
+tl.set('#root', {attr: {'data-ready': '1'}}, totalDur);
+window.__timelines = {main: tl};
+</script>
+</body>
+</html>

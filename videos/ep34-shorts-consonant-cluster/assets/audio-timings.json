@@ -1,0 +1,380 @@
+{
+  "measuredAt": "2026-11-22T12:37:15.256Z",
+  "totalSuggestedDuration": 40.202,
+  "voice": {
+    "c00": {
+      "file": "assets/voice-clean/c00.wav",
+      "duration": 2.515
+    },
+    "c01": {
+      "file": "assets/voice-clean/c01.wav",
+      "duration": 2.11
+    },
+    "c02": {
+      "file": "assets/voice-clean/c02.wav",
+      "duration": 1.105
+    },
+    "c03": {
+      "file": "assets/voice-clean/c03.wav",
+      "duration": 2.385
+    },
+    "c04": {
+      "file": "assets/voice-clean/c04.wav",
+      "duration": 0.989
+    },
+    "c05": {
+      "file": "assets/voice-clean/c05.wav",
+      "duration": 2.194
+    },
+    "c06": {
+      "file": "assets/voice-clean/c06.wav",
+      "duration": 0.691
+    },
+    "c07": {
+      "file": "assets/voice-clean/c07.wav",
+      "duration": 2.095
+    },
+    "c09": {
+      "file": "assets/voice-clean/c09.wav",
+      "duration": 1.896
+    },
+    "c10": {
+      "file": "assets/voice-clean/c10.wav",
+      "duration": 2.597
+    },
+    "c11": {
+      "file": "assets/voice-clean/c11.wav",
+      "duration": 2.215
+    }
+  },
+  "voiceEn": {
+    "stress": {
+      "file": "assets/voice-en-clean/stress.wav",
+      "duration": 0.831
+    },
+    "screen": {
+      "file": "assets/voice-en-clean/screen.wav",
+      "duration": 0.764
+    },
+    "spray": {
+      "file": "assets/voice-en-clean/spray.wav",
+      "duration": 0.789
+    },
+    "strike": {
+      "file": "assets/voice-en-clean/strike.wav",
+      "duration": 0.578
+    }
+  },
+  "sfx": {
+    "hydraulic-snap": {
+      "file": "assets/sfx/hydraulic-snap.wav",
+      "duration": 0.26,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -23,
+      "maxDb": -5.1
+    },
+    "metronome-tick": {
+      "file": "assets/sfx/metronome-tick.wav",
+      "duration": 1.5,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -31.2,
+      "maxDb": -10.3
+    },
+    "strike-smash": {
+      "file": "assets/sfx/strike-smash.wav",
+      "duration": 0.38,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -21.8,
+      "maxDb": -7.5
+    }
+  },
+  "bgm": {
+    "track": {
+      "file": "assets/bgm/track.mp3",
+      "duration": 62.093,
+      "sampleRate": 44100,
+      "channels": 2,
+      "source": "Lyria 3.5 (AI Studio Composer Mode)",
+      "meanDb": -14.3,
+      "maxDb": -0.2
+    }
+  },
+  "cuts": [
+    {
+      "cut": 0,
+      "t": 0,
+      "duration": 3.4,
+      "sheetT": 0,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c00",
+        "offset": 0.12,
+        "duration": 2.515
+      },
+      "sfx": {
+        "id": "hydraulic-snap",
+        "offset": 1.449,
+        "duration": 0.26
+      },
+      "en": [],
+      "window": 0,
+      "audioBudget": 2.635
+    },
+    {
+      "cut": 1,
+      "t": 3.4,
+      "duration": 3.2,
+      "sheetT": 3.8,
+      "sheetDuration": 3.5,
+      "ko": {
+        "id": "c01",
+        "offset": 0.12,
+        "duration": 2.11
+      },
+      "sfx": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 2.23
+    },
+    {
+      "cut": 2,
+      "t": 6.6,
+      "duration": 2.516,
+      "sheetT": 7.3,
+      "sheetDuration": 2.8,
+      "ko": {
+        "id": "c02",
+        "offset": 0.12,
+        "duration": 1.105
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "stress",
+          "offset": 1.405,
+          "duration": 0.831
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.236
+    },
+    {
+      "cut": 3,
+      "t": 9.116,
+      "duration": 4.056,
+      "sheetT": 10.1,
+      "sheetDuration": 3.9,
+      "ko": {
+        "id": "c03",
+        "offset": 0.12,
+        "duration": 2.385
+      },
+      "sfx": {
+        "id": "hydraulic-snap",
+        "offset": 2.625,
+        "duration": 0.26
+      },
+      "en": [
+        {
+          "id": "stress",
+          "offset": 2.945,
+          "duration": 0.831
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.776
+    },
+    {
+      "cut": 4,
+      "t": 13.172,
+      "duration": 2.333,
+      "sheetT": 14,
+      "sheetDuration": 3,
+      "ko": {
+        "id": "c04",
+        "offset": 0.12,
+        "duration": 0.989
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "screen",
+          "offset": 1.289,
+          "duration": 0.764
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.053
+    },
+    {
+      "cut": 5,
+      "t": 15.505,
+      "duration": 3.798,
+      "sheetT": 17,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c05",
+        "offset": 0.12,
+        "duration": 2.194
+      },
+      "sfx": {
+        "id": "hydraulic-snap",
+        "offset": 2.434,
+        "duration": 0.26
+      },
+      "en": [
+        {
+          "id": "screen",
+          "offset": 2.754,
+          "duration": 0.764
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.518
+    },
+    {
+      "cut": 6,
+      "t": 19.303,
+      "duration": 2.06,
+      "sheetT": 20.8,
+      "sheetDuration": 2.8,
+      "ko": {
+        "id": "c06",
+        "offset": 0.12,
+        "duration": 0.691
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "spray",
+          "offset": 0.991,
+          "duration": 0.789
+        }
+      ],
+      "window": 0,
+      "audioBudget": 1.78
+    },
+    {
+      "cut": 7,
+      "t": 21.363,
+      "duration": 3.724,
+      "sheetT": 23.6,
+      "sheetDuration": 3.9,
+      "ko": {
+        "id": "c07",
+        "offset": 0.12,
+        "duration": 2.095
+      },
+      "sfx": {
+        "id": "hydraulic-snap",
+        "offset": 2.335,
+        "duration": 0.26
+      },
+      "en": [
+        {
+          "id": "spray",
+          "offset": 2.655,
+          "duration": 0.789
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.444
+    },
+    {
+      "cut": 8,
+      "t": 25.087,
+      "duration": 3.544,
+      "sheetT": 27.5,
+      "sheetDuration": 3.7,
+      "ko": null,
+      "sfx": null,
+      "en": [
+        {
+          "id": "stress",
+          "offset": 0.12,
+          "duration": 0.831
+        },
+        {
+          "id": "screen",
+          "offset": 1.331,
+          "duration": 0.764
+        },
+        {
+          "id": "spray",
+          "offset": 2.475,
+          "duration": 0.789
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.264
+    },
+    {
+      "cut": 9,
+      "t": 28.631,
+      "duration": 3.976,
+      "sheetT": 31.2,
+      "sheetDuration": 5.3,
+      "ko": {
+        "id": "c09",
+        "offset": 0.12,
+        "duration": 1.896
+      },
+      "sfx": {
+        "id": "metronome-tick",
+        "offset": 2.196,
+        "duration": 1.5
+      },
+      "en": [],
+      "window": 1.5,
+      "audioBudget": 3.696
+    },
+    {
+      "cut": 10,
+      "t": 32.607,
+      "duration": 3.995,
+      "sheetT": 36.5,
+      "sheetDuration": 3.7,
+      "ko": {
+        "id": "c10",
+        "offset": 0.36,
+        "duration": 2.597
+      },
+      "sfx": {
+        "id": "strike-smash",
+        "offset": 0.05,
+        "duration": 0.38
+      },
+      "en": [
+        {
+          "id": "strike",
+          "offset": 3.137,
+          "duration": 0.578
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.715
+    },
+    {
+      "cut": 11,
+      "t": 36.602,
+      "duration": 3.6,
+      "sheetT": 40.2,
+      "sheetDuration": 3.8,
+      "ko": {
+        "id": "c11",
+        "offset": 0.12,
+        "duration": 2.215
+      },
+      "sfx": null,
+      "en": [],
+      "window": 0,
+      "audioBudget": 2.335
+    }
+  ]
+}

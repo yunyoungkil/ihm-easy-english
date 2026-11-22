@@ -1,0 +1,13 @@
+{
+  "name": "ep34-shorts-consonant-cluster",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.9.77 preview",
+    "check": "npx --yes hyperframes@0.9.77 check",
+    "render": "npx --yes hyperframes@0.9.77 render"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.9.19"
+  }
+}

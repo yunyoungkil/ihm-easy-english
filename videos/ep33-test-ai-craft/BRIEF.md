@@ -33,3 +33,7 @@ angle: ai-craft-method-test
 - 영어 2음절 단어는 가운뎃점으로 음절 표시(`but · ton`).
 - 생성 그림·영상은 네 모서리 워터마크 확인 후 반입. 지시문에 워터마크 금지 문구.
 - 모든 생성물 옆에 `.prompt.json`(지시문·참고 그림·설정) 기록. 버린 것도 지우지 않는다(`assets/clips/takes/`).
+
+## 기획 근거
+- 시험 대상: EP33(`videos/ep33-shorts-swallowed-t`)과 동일한 소재·음성(FACT-CHECK 통과본)으로 화면 제작 방식(코드 상자 위주 vs 생성 영상 위주)만 대조 시험(업로드하지 않음).
+- 다음 기획 입력: 2026-11-20T11:21:30.468Z · `data/youtube/next-episode-input.md` (EP33 본편과 동일 근거 인용).

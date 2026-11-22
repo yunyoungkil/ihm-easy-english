@@ -1,0 +1,33 @@
+{
+  "tool": "aistudio-video",
+  "model": "gemini-omni-1.2-flash",
+  "createdAt": "2026-11-22T08:06:11.231Z",
+  "prompt": "Attached image 1 is the opening frame of the video.\n\n0-1s: static close shot. Her fingers turn the horn button slightly to line it up with the buttonhole, a small anticipation pause.\n1-3s: she guides the button toward the buttonhole; slow push-in toward the button at the centre of the frame, ease in.\nSound: soft wool rustle, faint indoor hall hum. No music, no speech. No text, no watermark.",
+  "promptFile": "videos/ep33-test-ai-craft/assets/prompts/v-s3.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "first",
+      "path": "videos/ep33-test-ai-craft/assets/keyframes/s3-v1.jpg",
+      "sha256": "f4178e93bc921277"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16",
+    "duration": 3,
+    "resolution": "1080p",
+    "keepAudio": true
+  },
+  "output": {
+    "file": "videos/ep33-test-ai-craft/assets/clips/s3-1080.mp4",
+    "mime": "video/mp4",
+    "bytes": 5735039,
+    "duration": 3.029333
+  },
+  "lineage": {
+    "parent": "videos/ep33-test-ai-craft/assets/clips/takes/s3-b-360.mp4",
+    "parentSha256": "b05b46fcbbfcea02",
+    "changedVar": "resolution:360p->1080p",
+    "status": "chosen"
+  }
+}

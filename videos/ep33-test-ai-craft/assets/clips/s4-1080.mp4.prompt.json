@@ -1,0 +1,33 @@
+{
+  "tool": "aistudio-video",
+  "model": "gemini-omni-1.2-flash",
+  "createdAt": "2026-11-22T08:08:32.449Z",
+  "prompt": "Attached image 1 is the opening frame of the video.\n\n0-1.5s: extreme macro. The fingertip behind the fabric pushes the horn button and it slides into the stitched buttonhole.\n1.5-2.5s: the button slips completely behind the wool and disappears from view; the buttonhole closes over it; a brief stillness.\n2.5-4s: very slow drift across the closed buttonhole, wool fibres catching the light.\nSound: a soft fabric slip and a muted tuck at the moment the button disappears, quiet room tone. No music, no speech. No text, no watermark.",
+  "promptFile": "videos/ep33-test-ai-craft/assets/prompts/v-s4.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "first",
+      "path": "videos/ep33-test-ai-craft/assets/keyframes/s4-v1.jpg",
+      "sha256": "6d7ad5a60a3370e8"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16",
+    "duration": 4,
+    "resolution": "1080p",
+    "keepAudio": true
+  },
+  "output": {
+    "file": "videos/ep33-test-ai-craft/assets/clips/s4-1080.mp4",
+    "mime": "video/mp4",
+    "bytes": 6468872,
+    "duration": 4.032
+  },
+  "lineage": {
+    "parent": "videos/ep33-test-ai-craft/assets/clips/takes/s4-a-360.mp4",
+    "parentSha256": "253354b2de9cf5a3",
+    "changedVar": "resolution:360p->1080p",
+    "status": "chosen"
+  }
+}

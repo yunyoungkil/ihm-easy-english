@@ -1,0 +1,33 @@
+{
+  "tool": "aistudio-video",
+  "model": "gemini-omni-1.2-flash",
+  "createdAt": "2026-11-22T08:02:18.263Z",
+  "prompt": "Attached image 1 is the opening frame of the video.\n\n0-1s: static extreme macro. Her fingertip rests at the round steel call button with a tiny hesitation.\n1-1.6s: she presses the button firmly; the steel dome dips slightly under the fingertip.\n1.6-4s: the thin LED ring around the button lights up warm orange and stays lit; her finger eases back and leaves the frame; very slight handheld drift, ease out.\nSound: one crisp mechanical click at the press, quiet elevator hall hum, a distant elevator motor starting. No music, no speech. No text, no watermark.",
+  "promptFile": "videos/ep33-test-ai-craft/assets/prompts/v-s1.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "first",
+      "path": "videos/ep33-test-ai-craft/assets/keyframes/s1-v1.jpg",
+      "sha256": "9dd7b0d43f392d8c"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16",
+    "duration": 4,
+    "resolution": "1080p",
+    "keepAudio": true
+  },
+  "output": {
+    "file": "videos/ep33-test-ai-craft/assets/clips/s1-1080.mp4",
+    "mime": "video/mp4",
+    "bytes": 3773700,
+    "duration": 4.032
+  },
+  "lineage": {
+    "parent": "videos/ep33-test-ai-craft/assets/clips/takes/s1-a-360.mp4",
+    "parentSha256": "781df71b291cc24e",
+    "changedVar": "resolution:360p->1080p",
+    "status": "chosen"
+  }
+}

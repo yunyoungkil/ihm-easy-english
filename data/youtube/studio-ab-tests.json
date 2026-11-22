@@ -4,122 +4,476 @@
     "9d9m869BCTI": {
       "state": "running",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "running",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "테스트 실행 중…",
+        "outcome": "running",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "Coffee, Hello 왜 두 글자인데 한 번만 낼까? 원어민 발음 18분 훈련 | 영어 겹자음 발음",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "평생 '컵-피'로 읽으셨나요? 같은 자음 2개 겹칠 때 단숨에 뚫리는 비밀 | 영어 더블 자음 규칙",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "이렇게 읽으면 원어민 100% 오해합니다! Hoping과 Hopping의 치명적 차이 | 영어 발음 원리",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "남은 예상 시간: 8시간 3분…",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "EDjmQmvGA1o": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "사전 찾아보고 배신감 느꼈습니다, City를 '시티'로 읽으면 절대 못 알아듣는 이유 | 영어 T 발음 원리",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "설마 이것도 또박또박 다 읽으셨나요? 원어민들이 중간 T 소리 낼 때 쓰는 지름길 | 영어 단어 읽는 법",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "평생 '베터'인 줄 알고 살았습니다, 양 모음 사이에 갇힌 T가 완전히 둔갑하네요 | 단어 읽는 법",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 10월 2일 23:00부터 2026년 10월 16일 23:56까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "-UHrFcMRsEY": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "외국인이 왜 못 알아듣나 했더니... World 할 때마다 '올드'로 굳는 이유 | 영어 단어 발음법",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "설마 혀끝 천장에 붙이셨나요? World, Girl 소리가 유독 망가지는 이유 | 원어민 영어 발음 꿀팁",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "버터 발음 흉내 내다 턱만 빠졌습니다, World 소리가 매번 외계어가 되는 이유 | 영어 R L 발음",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 9월 28일 23:00부터 2026년 10월 12일 23:02까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "4of_mgeLazQ": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
       "lastSeenAt": "2026-11-21T16:13:21.534Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "단어마다 -ate 끝소리 달라서 매번 멈칫했는데 소리 나는 길이 따로 있네요 | 영어 끝소리 발음",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "헷갈리던 -ate 발음 차이 이 원리 하나 알고 나니 입에서 바로 구분됩니다 | 영어 발음 차이",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 9월 26일 20:00부터 2026년 10월 10일 20:39까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "VwEkIUluszw": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "발음기호 외우다 지쳤는데, R 하나로 모음 5개가 한 번에 정리됩니다 | 성인 파닉스",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "Car, Bird 왜 다를까 했는데... 모음 뒤 R만 보면 바로 읽힙니다 | 파닉스 기초",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 9월 22일 20:00부터 2026년 10월 6일 20:09까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "MdLjt4zvg8g": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "여태 두 글자 다 읽었네요... 모음 2개 겹친 단어 소리 원리 | 파닉스 기초",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "파닉스 떼고도 막막했던 제가 모음 2개 겹칠 때 단번에 읽는 법 | 파닉스 영어",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "저도 1초 만에 입 열렸습니다! 모음 2개 붙은 단어 읽는 공식 | 성인 파닉스",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 9월 20일 20:00부터 2026년 10월 4일 20:25까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "uqmVMRhT_1A": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": []
     },
     "beKA35yvxdk": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": []
     },
     "AcNSDMpkR_A": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": []
     },
     "W7toujk6ER8": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": []
     },
     "a2VrFQVjImI": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": []
     },
     "f4wkmIvplCc": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "\"보고 싶어요\"를 영어로? 초급 영어 필수 문장 20개 EP2",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "이 20문장만 알아도 왕초보 영어회화 끝! (초급 영어 문장 EP2)",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 7월 29일 22:27부터 2026년 8월 12일 22:30까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "BLinHY3p4yc": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "영어 읽는 법 | HEROIC은 왜 히로익일까? -IC만 알면 끝! (영어기초배우기 EP5)",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "영어기초배우기 | HEROIC은 왜 히로익일까? (-IC 강세 규칙) | 영어 읽는 법 EP5",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 7월 22일 22:47부터 2026년 8월 5일 22:57까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "cu3EB5OJdMM": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": []
     },
     "jRoYudL30DE": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-21T16:13:21.534Z",
+      "lastSeenAt": "2026-11-22T08:01:11.575Z",
       "kind": [
+        "thumbnail",
         "title"
-      ]
+      ],
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "왜 영어 단어는 마지막 E를 무음으로 만들까? (영어 읽는 법, 성인 파닉스) #파닉스규칙,#영어단어읽는법,#영어공부법,#영어기초발음,#영어발음,#영어공부",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "영어 단어 읽는 법 | 끝에 붙는 E를 무시하면 안 되는 이유",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "'이것'만 알아도 영어 단어 읽기가 2배 쉬워집니다",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 7월 20일 14:44부터 2026년 8월 3일 15:30까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     },
     "ROks87qezuU": {
       "state": "completed",
       "kind": [
+        "thumbnail",
         "title"
       ],
       "firstSeenAt": "2026-11-13T14:09:25.233Z",
-      "lastSeenAt": "2026-11-13T14:09:25.233Z"
+      "lastSeenAt": "2026-11-13T14:09:25.233Z",
+      "outcome": "insufficient_impressions",
+      "winnerIndex": null,
+      "report": {
+        "kinds": [
+          "thumbnail",
+          "title"
+        ],
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
+        "winnerIndex": null,
+        "options": [
+          {
+            "index": 1,
+            "title": "여태 스펠링 다 읽으셨나요? K, B, W 소리 안 나는 진짜 이유 | 묵음 파닉스",
+            "watchTimeSharePercent": null,
+            "isActive": true,
+            "isWinner": false
+          },
+          {
+            "index": 2,
+            "title": "저도 왜 소리 안 나는지 몰랐습니다, 혀가 편해지는 묵음 원리 | 영어 왕초보",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          },
+          {
+            "index": 3,
+            "title": "외우지 않아도 저절로 읽힙니다, 3개 서랍으로 끝내는 묵음 법칙 | 성인 기초영어",
+            "watchTimeSharePercent": null,
+            "isActive": false,
+            "isWinner": false
+          }
+        ],
+        "periodText": "완료된 테스트입니다. 2026년 9월 24일 20:00부터 2026년 10월 8일 20:48까지 실행되었습니다.",
+        "checkedAt": "2026-11-22T08:01:11.575Z"
+      }
     }
   },
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "updatedAt": "2026-11-21T16:13:21.534Z",
+  "updatedAt": "2026-11-22T08:01:11.575Z",
   "scanned": {
     "8Ul_lkCkUCI": {
       "at": "2026-11-21T16:13:21.534Z",
@@ -146,56 +500,68 @@
       "hasTest": false
     },
     "9d9m869BCTI": {
-      "at": "2026-11-21T16:13:21.534Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "bPTAnjMT7xc": {
       "at": "2026-11-13T14:09:25.233Z",
       "hasTest": false
     },
     "EDjmQmvGA1o": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "-UHrFcMRsEY": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "4of_mgeLazQ": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "ROks87qezuU": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "VwEkIUluszw": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "MdLjt4zvg8g": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "uqmVMRhT_1A": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": false
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "beKA35yvxdk": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": false
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "AcNSDMpkR_A": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": false
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "W7toujk6ER8": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": false
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "a2VrFQVjImI": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": false
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "3PkSwrFIcRE": {
       "at": "2026-11-13T14:09:25.233Z",
@@ -218,32 +584,36 @@
       "hasTest": false
     },
     "f4wkmIvplCc": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "Ha_7wdnFNmo": {
       "at": "2026-11-13T14:09:25.233Z",
       "hasTest": false
     },
     "BLinHY3p4yc": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "BsyRH8GWYJ4": {
       "at": "2026-11-13T14:09:25.233Z",
       "hasTest": false
     },
     "cu3EB5OJdMM": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": false
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "-V1lwpEF7Ik": {
       "at": "2026-11-13T14:09:25.233Z",
       "hasTest": false
     },
     "jRoYudL30DE": {
-      "at": "2026-11-13T14:09:25.233Z",
-      "hasTest": true
+      "at": "2026-11-22T08:01:11.575Z",
+      "hasTest": true,
+      "reportChecked": true
     },
     "u2WOzu-0Hxc": {
       "at": "2026-11-13T14:09:25.233Z",

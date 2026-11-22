@@ -1,0 +1,33 @@
+{
+  "tool": "aistudio-video",
+  "model": "gemini-omni-1.2-flash",
+  "createdAt": "2026-11-22T08:04:37.381Z",
+  "prompt": "Attached image 1 is the opening frame of the video.\n\n0-1s: static tight side profile. She breathes in quietly through her nose, lips stay closed.\n1-3s: she exhales slowly through her nose: two thin streams of white breath mist flow forward from her nostrils and drift in the cold air, glowing in the backlight. Her mouth never opens.\n3-4s: the mist thins out, a strand of hair moves in the wind, she blinks once. Very slow push-in the whole time.\nSound: cold outdoor morning air, soft wind, a distant car passing, her quiet nasal exhale. No music, no speech. No text, no watermark.",
+  "promptFile": "videos/ep33-test-ai-craft/assets/prompts/v-s2.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "first",
+      "path": "videos/ep33-test-ai-craft/assets/keyframes/s2-v1.jpg",
+      "sha256": "c1bfc740d7f75fcc"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16",
+    "duration": 4,
+    "resolution": "1080p",
+    "keepAudio": true
+  },
+  "output": {
+    "file": "videos/ep33-test-ai-craft/assets/clips/s2-1080.mp4",
+    "mime": "video/mp4",
+    "bytes": 4308061,
+    "duration": 4.032
+  },
+  "lineage": {
+    "parent": "videos/ep33-test-ai-craft/assets/clips/takes/s2-b-360.mp4",
+    "parentSha256": "ac6b54bc86839e2e",
+    "changedVar": "resolution:360p->1080p",
+    "status": "chosen"
+  }
+}

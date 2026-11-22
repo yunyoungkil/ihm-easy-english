@@ -12,7 +12,9 @@
 - [x] `npm run check-terms -- videos/ep33-test-ai-craft`: 금지어 없음.
 - [x] CLI 고정 버전 0.9.19 → 0.9.77로 올림(skill 안내, check 통과로 확인). EP33은 0.9.19 그대로.
 
-## 다음 (11/22 Omni 한도가 풀린 뒤)
-- [ ] S4 영상 2개(`assets/prompts/v-s4.txt`, 첫 장면 `s4-v1.jpg`, 4초) → 단추가 사라지는 순간이 2.27초 안팎(breath-lock 11.965초 − 시작 9.686초)인 것을 고른다.
-- [ ] 고른 지시문으로 S1~S4 1080p 다시 뽑기(같은 첫 장면이라 모양은 비슷하게 나온다) → index.html의 src 교체, S4 임시 그림과 그 확대 움직임 삭제.
-- [ ] 같은 시각 비교(`--against` EP33 렌더) → 사용자에게 렌더 승인 요청. 렌더는 승인 뒤에만.
+## 2026-11-22 오후 (Gemini 4 Neon, Antigravity)
+- [x] S4 360p 시험본 2개(`s4-a-360.mp4`, `s4-b-360.mp4`, `--parent s4-v1.jpg`, `--status candidate`): 둘 다 2.25초 시점에 단추가 단춧구멍으로 완전히 사라짐(breath-lock 11.965초 - 시작 9.686초 = 2.279초와 일치), 워터마크 없음 → `v-s4.txt` 지시문 확정.
+- [x] S1~S4 1080p 본생성(`s1-1080.mp4`~`s4-1080.mp4`, 1080×1920, `--parent`·`--changed-var "resolution:360p->1080p"`·`--status chosen` 실브라우저 첫 검증 완료) + 환경음 `s1~s4-amb.wav` 추출.
+- [x] `media-craft-tools.mjs` 실측: `compare-visual-metrics`로 S3 밝기 단차(`99.44` vs S4 `113.30`) 확인 → `unify-tone`으로 `s3-1080-graded.mp4` 보정. `lineage` 트리 계보 확인 완료.
+- [x] `index.html` src를 S1~S4 1080p(`s3-1080-graded.mp4` 포함)로 교체, `amb4` 연결, S4 임시 그림과 확대 트윈 삭제. `.word .dot`·`.shade` 대비 보강 후 `npx hyperframes@0.9.77 check` 통과(0 error, Contrast 33/33 WCAG AA, Audio 0 error, Motion 0 error).
+- [x] `npx hyperframes@0.9.77 snapshot --at "0.3,2,5,8.5,11,12.5" --no-end --against` EP33 렌더 비교 완료 → 사용자 렌더 승인 대기(렌더는 승인 뒤에만).

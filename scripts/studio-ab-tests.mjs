@@ -11,8 +11,9 @@ import {OUR_CHANNEL_ID} from './youtube-publisher.mjs';
  * 두 곳을 본다: ① 콘텐츠 목록의 "A/B 테스트 실행 중 / 완료됨" 표시(지금 걸려 있거나 막 끝난 테스트, 시간이 지나면 사라진다 — 2026-11-13에 두 영상에서 확인)
  * ② 롱폼 편집 화면의 "제목 A/B 테스트" 줄과 "테스트 보고서 보기"(과거에 건 테스트의 흔적, 목록 표시가 사라진 뒤에도 남는다).
  * 제목·썸네일 테스트를 건 영상의 첫 7일 클릭률은 여러 시안이 섞인 값이라, 기준선과 시트 근거에 "시안이 섞인 값"이라고 적는 데 쓴다.
- * 테스트 보고서는 읽지 않는다: 2026-11-13에 보니 시청 시간 점유율만 나오고, 우리 노출 규모에서는 "노출수가 충분하지 않아 결정할 수 없다"며 값이 비어 있었다.
- * 읽기 전용이다(스튜디오 값을 바꾸지 않는다).
+ * 2026-11-22 보강: "테스트 보고서 보기" 팝업을 읽어 테스트 종류(제목/썸네일/묶음), 판정 결과(winner / tie / insufficient_impressions / running),
+ * 시안별 제목·시청 시간 점유율(%)·현재 적용 여부, 실행 기간을 함께 기록한다.
+ * 읽기 전용이다(스튜디오 값을 바꾸지 않는다 — 보고서 닫기만 수행).
  */
 const projectDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const abTestsPath = join(projectDir, 'data', 'youtube', 'studio-ab-tests.json');
@@ -49,6 +50,90 @@ export function kindFromEditLines(lines) {
 }
 
 /**
+ * "테스트 보고서 보기" 팝업의 innerText에서 테스트 종류·판정·시안별 시청 시간 점유율·기간을 뽑는다(2026-11-22 실측 기반).
+ * 스튜디오가 실제로 보여 준 값만 적고, 점유율이 '—'이면 null로 둔다(임의 숫자 금지).
+ */
+export function parseReportDialog(text) {
+  const lines = String(text || '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  if (!lines.length) return null;
+  const headerIdx = lines.findIndex((l) => /A\/B 테스트 보고서|Test\s*&\s*Compare/i.test(l));
+  const typeLine = headerIdx > 0 ? lines[headerIdx - 1] : '';
+  const kinds = [];
+  if (/제목|Title/i.test(typeLine)) kinds.push('title');
+  if (/썸네일|Thumbnail/i.test(typeLine)) kinds.push('thumbnail');
+  kinds.sort();
+
+  const headline = headerIdx >= 0 && lines[headerIdx + 1] ? lines[headerIdx + 1] : '';
+  const periodLine = lines.find((l) => /완료된 테스트|남은 예상 시간|실행되었습니다|테스트가 종료/i.test(l)) || null;
+
+  // 시안 블록은 "시청 시간 점유율" 줄을 끝점으로 끊어 읽는다.
+  const shareIndices = [];
+  lines.forEach((l, i) => { if (/^시청 시간 점유율$|^Watch time share$/i.test(l)) shareIndices.push(i); });
+
+  const options = [];
+  let cursor = headerIdx >= 0 ? headerIdx + 2 : 0;
+  for (let idx = 0; idx < shareIndices.length; idx++) {
+    const end = shareIndices[idx];
+    const nextLimit = idx + 1 < shareIndices.length ? shareIndices[idx + 1] : lines.length;
+    const block = lines.slice(cursor, end);
+    const tail = lines.slice(end + 1, Math.min(end + 3, nextLimit));
+    const shareRaw = block[block.length - 1] || '';
+    const pctMatch = shareRaw.match(/(\d+(?:\.\d+)?)\s*%/);
+    const watchTimeSharePercent = pctMatch ? Number(pctMatch[1]) : null;
+    const isActive = block.some((l) => /이제 모든 시청자에게 표시됨|현재 표시됨|shown to all viewers/i.test(l));
+    const hasWinnerBadge = block.some((l) => /^(승자|최고의 옵션|Winner)$/i.test(l)) || tail.some((l) => /^(승자|최고의 옵션|Winner)$/i.test(l));
+    // 시안 제목: 길이 표시(7:36), 채널명, 상태 문구, 점유율 수치를 뺀 본문 줄
+    const titleLine = block.find((l, bi) =>
+      bi < block.length - 1
+      && !/^\d{1,2}:\d{2}(:\d{2})?$/.test(l)
+      && !/^(이해하면 쉬운 영어|이제 모든 시청자에게 표시됨|이 옵션 설정|승자|최고의 옵션|—|-)$/.test(l)
+      && !/^\d+(?:\.\d+)?\s*%$/.test(l)
+    ) || null;
+    options.push({
+      index: idx + 1,
+      title: titleLine,
+      watchTimeSharePercent,
+      isActive,
+      isWinner: hasWinnerBadge,
+    });
+    // 다음 블록 시작점은 "이 옵션 설정" 등 꼬리 버튼 뒤부터
+    cursor = end + 1;
+    while (cursor < nextLimit && /^(이 옵션 설정|선택됨|적용됨|Set as|승자|최고의 옵션)$/i.test(lines[cursor])) cursor++;
+  }
+
+  let outcome = 'unknown';
+  if (/테스트 실행 중|Test running/i.test(headline)) outcome = 'running';
+  else if (/노출수가 충분하지 않아|결정할 수 없|not enough impressions|couldn't determine/i.test(headline)) outcome = 'insufficient_impressions';
+  else if (/비슷한 실적|실적이 같|유사한 실적|same performance|similar/i.test(headline)) outcome = 'tie';
+  else if (options.some((o) => o.isWinner) || /승자|최고의 옵션|Winner|outperformed/i.test(headline)) outcome = 'winner';
+  else if (options.some((o) => o.watchTimeSharePercent !== null)) {
+    const shares = options.map((o) => o.watchTimeSharePercent).filter((n) => n !== null);
+    outcome = shares.length >= 2 && Math.max(...shares) > Math.min(...shares) ? 'winner' : 'tie';
+  }
+
+  let winnerIndex = options.find((o) => o.isWinner)?.index ?? null;
+  if (outcome === 'winner' && winnerIndex === null) {
+    let best = null;
+    for (const o of options) {
+      if (o.watchTimeSharePercent !== null && (best === null || o.watchTimeSharePercent > best.watchTimeSharePercent)) best = o;
+    }
+    if (best) {
+      best.isWinner = true;
+      winnerIndex = best.index;
+    }
+  }
+
+  return {
+    kinds,
+    headline: headline || null,
+    outcome,
+    winnerIndex,
+    options,
+    periodText: periodLine,
+  };
+}
+
+/**
  * 읽은 결과(observed: [{videoId, state}])를 저장본에 합친다.
  * - 새로 보이면 firstSeenAt을 적는다(테스트 시작일이 아니다. 시작일은 스튜디오가 목록에 보여 주지 않는다).
  * - 표시가 사라져도(완료 표시가 일정 기간 뒤 없어질 수 있다) 이미 기록한 상태는 지우지 않는다. "테스트를 건 적이 있다"는 사실은 남는다.
@@ -66,23 +151,39 @@ export function mergeAbTests(store, observed, now = new Date()) {
 
 /**
  * 편집 화면을 읽은 결과를 합친다. 테스트 흔적이 있으면 영상 기록(videos)에 넣고(목록 표시가 사라졌어도 completed로), 없으면 읽었다는 사실만 scanned에 남긴다.
- * kind는 편집 화면에서 알아낸 종류(제목/썸네일)이고, 비어 있으면 종류를 모른다.
+ * kindOrScan은 기존 배열(['title']) 또는 { kind, report } 객체를 받는다.
  */
-export function applyEditScan(store, videoId, kind, now = new Date()) {
+export function applyEditScan(store, videoId, kindOrScan, now = new Date()) {
   const out = {...store, videos: {...(store?.videos || {})}, scanned: {...(store?.scanned || {})}};
-  const hasTest = kind.length > 0;
-  out.scanned[videoId] = {at: now.toISOString(), hasTest};
+  const kind = Array.isArray(kindOrScan) ? kindOrScan : (kindOrScan?.kind || []);
+  const report = Array.isArray(kindOrScan) ? null : (kindOrScan?.report || null);
+  const mergedKind = [...new Set([...(out.videos[videoId]?.kind || []), ...kind, ...(report?.kinds || [])])].sort();
+  const hasTest = mergedKind.length > 0 || Boolean(report);
+  out.scanned[videoId] = {at: now.toISOString(), hasTest, reportChecked: true};
   const prev = out.videos[videoId];
   if (hasTest || prev) {
-    out.videos[videoId] = {...prev, state: prev?.state || 'completed', kind: [...new Set([...(prev?.kind || []), ...kind])].sort(), firstSeenAt: prev?.firstSeenAt || now.toISOString(), lastSeenAt: prev?.lastSeenAt || now.toISOString()};
+    const next = {
+      ...prev,
+      state: prev?.state || (report?.outcome === 'running' ? 'running' : 'completed'),
+      kind: mergedKind,
+      firstSeenAt: prev?.firstSeenAt || now.toISOString(),
+      lastSeenAt: prev?.lastSeenAt || now.toISOString(),
+    };
+    if (report) {
+      next.outcome = report.outcome;
+      next.winnerIndex = report.winnerIndex;
+      next.report = {...report, checkedAt: now.toISOString()};
+    }
+    out.videos[videoId] = next;
   }
   return out;
 }
 
-/** 편집 화면을 열 영상: 롱폼 중 아직 안 읽은 것, 목록에 "실행 중"이 보이는 것, 공개 14일 안이면서 마지막으로 읽은 지 하루가 지난 것. 쇼츠는 기준선에 안 쓰니 읽지 않는다. 새 영상부터. */
+/** 편집 화면을 열 영상: 롱폼 중 아직 안 읽은 것, 실행 중, 완료됐지만 보고서 미확인, 공개 14일 안에 하루 지난 것. 쇼츠는 읽지 않는다. 새 영상부터. */
 export function selectEditScanTargets({store, listed, catalog, now = new Date()}) {
   const byId = new Map((catalog || []).map((v) => [v.videoId, v]));
   const scanned = store?.scanned || {};
+  const videos = store?.videos || {};
   const running = new Set((listed || []).filter((x) => x.state === 'running').map((x) => x.videoId));
   const out = [];
   for (const {videoId} of listed || []) {
@@ -90,7 +191,9 @@ export function selectEditScanTargets({store, listed, catalog, now = new Date()}
     if (!v || v.format !== 'LONGFORM') continue;
     const last = scanned[videoId]?.at;
     const recent = (now.getTime() - Date.parse(v.publishedAt)) / DAY_MS <= RECENT_DAYS;
-    if (!last || running.has(videoId) || (recent && now.getTime() - Date.parse(last) > DAY_MS)) out.push(v);
+    const needsReport = Boolean(videos[videoId]) && !videos[videoId].report && scanned[videoId]?.reportChecked !== true;
+    const settledRunning = videos[videoId]?.state === 'completed' && videos[videoId]?.outcome === 'running';
+    if (!last || running.has(videoId) || needsReport || settledRunning || (recent && now.getTime() - Date.parse(last) > DAY_MS)) out.push(v);
   }
   return out.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).map((v) => v.videoId);
 }
@@ -133,12 +236,28 @@ async function readListTab(page, tab) {
   return [...seen.entries()].map(([videoId, state]) => ({videoId, state}));
 }
 
-/** 편집 화면을 열어 테스트 흔적(제목/썸네일)을 읽는다. 없으면 빈 배열. */
-async function readKind(page, videoId) {
+/** 편집 화면을 열어 테스트 흔적(제목/썸네일)과 "테스트 보고서 보기" 팝업 내용을 읽는다. */
+async function readEditAndReport(page, videoId) {
   await page.goto(`https://studio.youtube.com/video/${videoId}/edit`, {waitUntil: 'domcontentloaded'});
-  await page.waitForTimeout(8000); // allow-literal: 편집 화면이 그려질 때까지
+  await page.waitForTimeout(6000); // allow-literal: 편집 화면이 그려질 때까지
   const lines = (await page.evaluate(() => document.body.innerText)).split('\n').filter((l) => l.trim());
-  return kindFromEditLines(lines);
+  const kind = kindFromEditLines(lines);
+  let report = null;
+  const reportBtn = page.getByRole('button', {name: /테스트 보고서 보기|View test report/i}).first();
+  if (await reportBtn.isVisible().catch(() => false)) {
+    await reportBtn.click();
+    await page.waitForTimeout(3000); // allow-literal: 보고서 팝업이 그려질 때까지
+    const dialogText = await page.evaluate(() => {
+      const dialogs = [...document.querySelectorAll('tp-yt-paper-dialog, [role="dialog"], ytcp-dialog')]
+        .map((el) => ({rect: el.getBoundingClientRect(), text: (el.innerText || '').trim()}))
+        .filter((d) => d.rect.width > 200 && d.rect.height > 100 && d.text.length > 20);
+      return dialogs.length ? dialogs[dialogs.length - 1].text : '';
+    });
+    if (dialogText) report = parseReportDialog(dialogText);
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(600); // allow-literal: 팝업 닫힘 대기
+  }
+  return {kind, report};
 }
 
 export async function collectAbTests({now = new Date(), limit = SCAN_LIMIT} = {}) {
@@ -163,7 +282,7 @@ export async function collectAbTests({now = new Date(), limit = SCAN_LIMIT} = {}
     const targets = selectEditScanTargets({store, listed: observed, catalog, now});
     result.scanPending = Math.max(0, targets.length - limit);
     for (const id of targets.slice(0, limit)) {
-      store = applyEditScan(store, id, await readKind(page, id), now);
+      store = applyEditScan(store, id, await readEditAndReport(page, id), now);
       result.scanned++;
       store.updatedAt = now.toISOString();
       writeJsonAtomic(abTestsPath, store); // 영상마다 저장해 중간에 멈춰도 잃지 않는다

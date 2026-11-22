@@ -25,7 +25,7 @@
 | 표기 일관성 | `korean-skills:style-guide` | 이전 편들과 용어·숫자·괄호 표기가 같은가 (`[반복 듣기]` 등) |
 | 맞춤법·띄어쓰기 | `korean-skills:grammar-checker` | 제목, 설명, 고정 댓글, 챕터 이름 전부 (마지막에 실행) |
 | 브랜드 톤 | `marketing:brand-review` | `knowledge/brand-persona.md` 기준, 금지어·과장 표현·가짜 해외 일화 없음 |
-| 썸네일 가독성 | `design:design-critique` | 5단어 이하, 칩 2단어 이하, 채널명 없음, 인물 없음, 시안 A/B/C가 서로 다른 훅인가 |
+| 썸네일 가독성 | `design:design-critique` | 채널명 없음, 3060 모바일 가독성(단어 수·인물 유무는 고정 금지 아님, 소재·시트 근거 기준), 시안 A/B/C가 서로 다른 훅인가 |
 | 3060 가독성 | `design:accessibility-review` | 글자 대비(WCAG AA), 모바일 피드 크기에서 읽히는가. 최종 확인은 대시보드 "🔍 검색 피드 & 잘된 썸네일" 탭(실제 한국 유튜브 검색 결과 사이에 우리 썸네일 + 흐림·흑백 보기)(사용자가 직접 본다) |
 | 짧은 문구 | `design:ux-copy` | 썸네일 카피·고정 댓글 첫 줄·CTA 문장 |
 

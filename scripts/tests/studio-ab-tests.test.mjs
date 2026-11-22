@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {computeBaselines} from '../baseline.mjs';
 import {settleAll} from '../sheet-outcomes.mjs';
-import {applyEditScan, kindFromEditLines, mergeAbTests, parseTestLabel, selectEditScanTargets} from '../studio-ab-tests.mjs';
+import {applyEditScan, kindFromEditLines, mergeAbTests, parseReportDialog, parseTestLabel, selectEditScanTargets} from '../studio-ab-tests.mjs';
 
 // 2026-11-13에 스튜디오에서 실제로 읽은 글자: 콘텐츠 목록의 "A/B 테스트 실행 중" / "A/B 테스트 완료됨", 편집 화면의 "제목 A/B 테스트"(테스트가 있는 영상)와 "A/B 테스팅"(테스트를 시작하는 버튼).
 
@@ -104,4 +104,103 @@ test('편집 화면을 열 영상: 안 읽은 롱폼, 실행 중, 공개 14일 �
     recentFresh: {at: '2026-11-13T06:00:00Z', hasTest: false}, // 공개 14일 안이지만 6시간 전에 읽음 -> 안 읽음
   }};
   assert.deepEqual(selectEditScanTargets({store, listed, catalog, now}), ['newOne', 'oldRunning', 'oldUnread']);
+});
+
+test('보고서 팝업 파싱: 노출 부족 / 실행 중 / 승자 / 비슷한 실적을 실측 문구 기준으로 구분한다', () => {
+  const insufficient = parseReportDialog(`제목과 썸네일
+A/B 테스트 보고서
+노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다
+7:36
+분명 똑같이 적힌 -ate 끝소리를 원어민들은 왜 다르게 흘릴까 궁금했습니다 | 영어 발음 원리
+이해하면 쉬운 영어
+이제 모든 시청자에게 표시됨
+—
+시청 시간 점유율
+7:36
+단어마다 -ate 끝소리 달라서 매번 멈칫했는데 소리 나는 길이 따로 있네요 | 영어 끝소리 발음
+이해하면 쉬운 영어
+—
+시청 시간 점유율
+이 옵션 설정
+완료된 테스트입니다. 2026년 9월 26일 20:00부터 2026년 10월 10일 20:39까지 실행되었습니다.`);
+  assert.deepEqual(insufficient.kinds, ['thumbnail', 'title']);
+  assert.equal(insufficient.outcome, 'insufficient_impressions');
+  assert.equal(insufficient.winnerIndex, null);
+  assert.equal(insufficient.options.length, 2);
+  assert.equal(insufficient.options[0].isActive, true);
+  assert.equal(insufficient.options[0].watchTimeSharePercent, null);
+  assert.match(insufficient.periodText, /2026년 9월 26일/);
+
+  const running = parseReportDialog(`제목과 썸네일
+A/B 테스트 보고서
+테스트 실행 중…
+18:05
+Coffee, Hello 왜 두 글자인데 한 번만 낼까?
+이해하면 쉬운 영어
+—
+시청 시간 점유율
+남은 예상 시간: 8시간 6분…`);
+  assert.equal(running.outcome, 'running');
+  assert.equal(running.winnerIndex, null);
+  assert.match(running.periodText, /남은 예상 시간/);
+
+  const won = parseReportDialog(`제목과 썸네일
+A/B 테스트 보고서
+최고의 옵션이 선택되었습니다
+8:10
+시안 A 제목
+이해하면 쉬운 영어
+28.5%
+시청 시간 점유율
+이 옵션 설정
+8:10
+시안 B 제목
+이해하면 쉬운 영어
+승자
+이제 모든 시청자에게 표시됨
+46.2%
+시청 시간 점유율
+8:10
+시안 C 제목
+이해하면 쉬운 영어
+25.3%
+시청 시간 점유율
+이 옵션 설정`);
+  assert.equal(won.outcome, 'winner');
+  assert.equal(won.winnerIndex, 2);
+  assert.equal(won.options[1].watchTimeSharePercent, 46.2);
+  assert.equal(won.options[1].isWinner, true);
+
+  const tied = parseReportDialog(`제목
+A/B 테스트 보고서
+옵션들이 비슷한 실적을 보였습니다
+6:00
+시안 1
+33.4%
+시청 시간 점유율
+6:00
+시안 2
+33.3%
+시청 시간 점유율`);
+  assert.deepEqual(tied.kinds, ['title']);
+  assert.equal(tied.outcome, 'tie');
+  assert.equal(tied.winnerIndex, null);
+});
+
+test('applyEditScan + selectEditScanTargets: 보고서 미확인 완료 영상은 1회 재스캔 후 outcome·report를 저장한다', () => {
+  const now = new Date('2026-11-22T08:00:00Z');
+  const storeBefore = {
+    videos: {OLD1: {state: 'completed', kind: ['title']}},
+    scanned: {OLD1: {at: '2026-11-13T00:00:00Z', hasTest: true}},
+  };
+  const catalog = [{videoId: 'OLD1', format: 'LONGFORM', publishedAt: '2026-09-24T00:00:00Z'}];
+  assert.deepEqual(selectEditScanTargets({store: storeBefore, listed: [{videoId: 'OLD1', state: null}], catalog, now}), ['OLD1']);
+  const after = applyEditScan(storeBefore, 'OLD1', {
+    kind: ['title'],
+    report: {kinds: ['thumbnail', 'title'], headline: '노출수가 충분하지 않아', outcome: 'insufficient_impressions', winnerIndex: null, options: [], periodText: null},
+  }, now);
+  assert.equal(after.videos.OLD1.outcome, 'insufficient_impressions');
+  assert.deepEqual(after.videos.OLD1.kind, ['thumbnail', 'title']);
+  assert.equal(after.scanned.OLD1.reportChecked, true);
+  assert.deepEqual(selectEditScanTargets({store: after, listed: [{videoId: 'OLD1', state: null}], catalog, now}), []);
 });

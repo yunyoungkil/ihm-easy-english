@@ -21,7 +21,7 @@
 | 점검 항목 | 쓰는 스킬 | 기준 |
 |---|---|---|
 | 제목·설명·태그 검색 노출 | `marketing:seo-audit` (유튜브 검색에 맞게 적용) | 시청자가 실제로 치는 검색어가 제목 앞쪽에 있는가. 근거는 대시보드 검색어 데이터, `market-demand.json` 제목 패턴, 웹 검색 |
-| AI 말투 | `korean-skills:humanizer` | 설명란·고정 댓글이 사람이 쓴 말처럼 읽히는가 |
+| AI 말투·평균값 | `slop-rewrite` + `korean-skills:humanizer` | `check_ai_tells.py`(67규칙) + `writing-taste v0.2`(`W-01~W-08`) + `check_fidelity.py` 기준 통과(설명란·고정 댓글은 구어체 안내 톤, 시청자용 카피에는 블로그 문체 금지) |
 | 표기 일관성 | `korean-skills:style-guide` | 이전 편들과 용어·숫자·괄호 표기가 같은가 (`[반복 듣기]` 등) |
 | 맞춤법·띄어쓰기 | `korean-skills:grammar-checker` | 제목, 설명, 고정 댓글, 챕터 이름 전부 (마지막에 실행) |
 | 브랜드 톤 | `marketing:brand-review` | `knowledge/brand-persona.md` 기준, 금지어·과장 표현·가짜 해외 일화 없음 |

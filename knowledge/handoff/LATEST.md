@@ -17,7 +17,7 @@
   - 시험 변수(#3): 비레이아웃 0.3초 청각 시그니처 4회 + 브라이트 에디토리얼 실사·가로 정중앙 대칭·확대 3060 폰트. 12/12 토 이후 공개 7일 결과 정산 예정.
 - **EP33 쇼츠 `videos/ep33-shorts-swallowed-t`**: **12/08 화 20:00 KST 예약 완료** (ID `fVY5BNQ7Ciw`, 교육 27, 한국어 ko, 40.0s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 `subtitles-ko.srt` 게시, `community-post.json` 예습 퀴즈 `2026-12-08T09:00:00Z`).
   - 시험 변수(#4): 촉각 실물 매크로 + 0.15초 호흡 멈춤·코 파동 도해 + 3D 아치 통과 게이트 1.5초 직접 말하기 챌린지 + 형광펜 체크리스트. 12/15 화 이후 공개 7일 결과 정산 예정.
-- **EP34 쇼츠 `videos/ep34-shorts-consonant-cluster`**: **비교 시트 v4 초안(`draft`, 12/12 토 20:00 자리, `stress·screen·spray·strike` 1박자 압축)** 작성 완료(Pinterest 스위스 코발트 × 2×2 그리드 `split-grid` × 5장 실물 매크로 × 3×4 시각 스토리보드). **다음 단계: `slop-rewrite`로 제목·썸네일 문구·나레이션 AI 티 제거 재작성 → Gate 1 승인.**
+- **EP34 쇼츠 `videos/ep34-shorts-consonant-cluster`**: **비교 시트 v4 (`draft`, 12/12 토 20:00 자리, `stress·screen·spray·strike` 1박자 압축)** `slop-rewrite`(67규칙 + `writing-taste` W-01~W-05 + `check_fidelity`) 0건 구어체 전면 재작성 및 썸네일 3종·12컷·3×4 시각 스토리보드 갱신 완료. **현재 Gate 1 승인 대기.**
 - **11/30 롱폼 방향 확정 (2026-11-20 사용자 승인 A안)**: 11/30(월) 롱폼은 1회 쉬고, 쇼츠 선행 후 11/25 EP30 쇼츠 7일 정산으로 검증된 주제를 새 포맷 롱폼으로 확장.
 - **스튜디오 조사 2단계 전환 완료 (`2026-11-20`)**: 따라잡기 0편·수집 6일(후보 87편) 달성 후 `pickReportTargets`를 조사 후보 우선(롱폼 1 + 쇼츠 1 · 같은 채널 7일 쿨다운 · 빈 형식은 손입력 폴백 · API 최근 50편 v2 배수 직접 계산)으로 전환 완료. 14일 관찰(조사 리포트 20편+) 후 사용자 재확인 뒤 3단계 착수.
 
@@ -34,7 +34,7 @@
 8. **`slop-rewrite` 한국어 AI 티 코드 검사기·취향 레이어 연결 (`2026-11-22` 사용자 지시)**: `C:\Users\yunyo\Downloads\slop-rewrite` 클론 + `.agents`/`.claude`/`~/.gemini/config/skills/slop-rewrite/SKILL.md` 진입 스킬 연결 + `taste/writing-taste.md`(`W-01`~`W-05`) 초기화. 쇼츠 카피·나레이션에는 블로그 문체 가이드를 씌우지 않고 `check_ai_tells.py`(67규칙)·`check_taste.py`·`check_fidelity.py`를 적용한다.
 
 ## 다음 할 일
-0. **즉시 (다음 세션)**: `slop-rewrite`로 EP34(`ep34-shorts-consonant-cluster`) 제목·썸네일 문자·나레이션 AI 티 제거 재작성 → 시트·썸네일·스토리보드 갱신 → Gate 1 승인 후 제작 착수.
+0. **즉시 (Gate 1 승인 대기)**: EP34(`ep34-shorts-consonant-cluster`) `slop-rewrite` 윤문 완료본 Gate 1 승인 후 3중 하이브리드 제작 착수(Omni 4클립 + TTS/원어민 음성 + Lyria 3.5 BGM + HyperFrames 조립).
 1. **11/23 월**: 스튜디오 EP23(`9d9m869BCTI`) 제목·썸네일 A/B 테스트 종료 결과 수집(`node scripts/studio-ab-tests.mjs`) 및 `REVIEW.md` 기록.
 2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
 3. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.

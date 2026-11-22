@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 4,
+  "episodeId": "ep35-shorts-ghost-letters",
+  "sourceVideoId": "Bzwd5EdsQGk",
+  "createdAt": "2026-11-22",
+  "status": "draft",
+  "format": "SHORTS",
+  "topic": "살몬(L)·영수증(P)·빚(B)·섬(S) + 의심(B) — 15~16세기 학자들이 라틴어 멋을 내려 철자에만 끼워 넣은 영어 유령 글자 네 가지와 직접 읽기 도전",
+  "selfCritique": {
+    "antiTemplate": "겉장치(3D 게이트·체크리스트·네온 카드)부터 고르지 않고 국내 3060 시청자의 세 가지 장벽(1초 교과서 예측 이탈 · 5.5초 단순 나열 이탈 · 엔딩 하드 CTA 반발 이탈)을 먼저 진단했다. 직전 EP31(다크 네온)·EP32(화이트 킨포크)·EP33(딥 포레스트 그린×황동)·EP34(코발트 스위스 유압 압축)와 색감·질감·메타포가 단 하나도 겹치지 않도록, kr.pinterest.com 실탐색 6개 핀(1113796551626780954, 925278685970260850, 739786676337600286 등)에서 추출한 '리소그래프 종이 찢기·마스킹 테이프 물리 해체'(비도공 신문지 #EFE8DA × 카본 잉크 #171614 × 찢긴 크림슨 #D92B2B × 웜 오커 #E0962D × 세이지 틸 #2F7D6D)를 설계했다. 가짜 글자를 손끝으로 뜯어내는 물리 행동이 '학자들이 끼워 넣은 가짜 글자'라는 주제의 본질과 1:1로 맞물린다. Verbalized Sampling으로 AI 평균값 제목('살몬이 아니라 새먼? 99%가 틀리는 묵음 4가지')과 하드 CTA('구독·좋아요·댓글 남기세요')를 걷어내고, slop-rewrite(check_ai_tells S1 0·S2 0·S3 0, check_taste --strict 규칙 0, check_fidelity --strict S1 0) + style-guide + grammar-checker를 전수 통과시켰다.",
+    "evolutionFromPrev": "직전 3편(EP31·33·34)에서 습관적으로 반복되던 레퍼런스(Ux_M00VVmEU·Bxd1XRx25KQ)를 단 하나도 쓰지 않아 check-sameness [5] 레퍼런스 반복 편향 경고를 0건으로 줄였다. 단순 '4단어 암기' 대신 15~16세기 어원 철자 개편이라는 실제 역사 반전 서사(4.0초)와 '착각해서 잘못 끼운 S(island)' 반전(28.8초)으로 5.5초 이탈 벽을 넘기고, 엔딩에서도 기계적 체크리스트·명령형 CTA 대신 무나레이션 4연속 원어민 귀 증명(컷 9) → doubt 1.2초 오픈 루프(컷 10) → 판단 선택권을 넘기는 자율 질문 Soft Nudge(컷 11)로 진화시켰다.",
+    "fusionCheck": "실제 프레임 스트립을 눈으로 직접 확인한 미사용 명작 5편의 작동 원리를 우리 3060 상황에 맞게 변형 융합했다: Bzwd5EdsQGk(105.8만 회, 131.6배 — '글자를 써 놓고 왜 안 읽어?' 인지 부조화 훅과 2색 에디토리얼 헤드라인 → 컷 0·1·제목 1·썸네일 A), eGh-AmQzqOc(60.8만 회, 975.9배 — 실물 종이·빨간 펜 표시와 4분할 촉각 콜라주 → 컷 2·4·6·9·썸네일 B), Pr_EB_hK9R4(51.5만 회, 19.6배 — 글자 그대로 읽었을 때의 착각 반전과 마지막 단어 오픈 루프 → 컷 10·11·제목 3·썸네일 C), 2tvBBqQEoz0(106.0만 회, 38.2배 — 좌측 진행 인덱스 목록으로 다음 단어 기대감 유지 → 컷 2~8·전개), rhjcr61ngHA(29.5만 회, 256.1배 — 인쇄 푯말 정면 제시 챌린지 → 컷 10·제목 2·시청자 반응 지점)."
+  },
+  "aiRecommendation": {
+    "title": "살몬에 L이 들어간 이유, 알고 보면 좀 억울해요",
+    "thumbnail": "images/ep35-shorts-ghost-letters/thumb-A.jpg",
+    "thumbnailLabel": "A안 (연어 실물 매크로 위 찢긴 크림슨 L 뜯기 + '살몬 L ✕ / 진짜 소리 새먼' 무배너 1초점)",
+    "reason": "한국 마트·식당에서 매일 보는 연어 실물 사진 위로 찢긴 크림슨 'L' 조각이 떨어져 나가는 물리 대비가 0.5초 만에 시선을 붙잡고, '살몬 L ✕ → 진짜 소리 새먼' 한 초점만으로 메타 라벨·하단 배너 없이 호기심을 만든다. 제목 1안('살몬에 L이 들어간 이유, 알고 보면 좀 억울해요')은 이항 대구와 홍보 과장을 덜어내고 '왜 억울하지?' 정보 공백을 열어 클릭을 이끈다.",
+    "alternative": "실물 영수증 호기심 실험 시: 썸네일 B안('영수증 P 왜 안 읽을까? RECEIPT → 리싯') + 제목 2안('영수증 영어 철자에 P가 있는데, 왜 아무도 안 읽을까요?')"
+  },
+  "testVariables": [
+    {
+      "variable": "리소그래프 종이 찢기 물리 해체(가짜 글자 테이프 뜯어내기) × 500년 전 라틴어 끼워 넣기 역사 반전 서사",
+      "hypothesis": "익숙한 '살몬' 실물에서 L 테이프를 뜯어내는 0.5초 예측 오차와 4.0초 역사 반전 서사('옛날 학자들이 멋 내려고 끼워 넣었다')를 결합하면, 단순 묵음 목록 대비 1초·5.5초 이탈이 줄어 계속 시청함(stayedToWatch)이 평소 쇼츠 중앙값(36.33%)보다 판정 폭(±3.07%p) 이상 오를 것이다(가설).",
+      "measure": "stayedToWatch (1차) · 공개 7일 평균 시청 시간(watchSeconds7d, 보조)"
+    },
+    {
+      "variable": "무나레이션 4연속 귀 증명(컷 9) + doubt 1.2초 오픈 루프(컷 10) + 명령형 CTA를 뺀 자율 질문 Soft Nudge(컷 11)",
+      "hypothesis": "'구독·좋아요·고정댓글 보세요' 명령형 CTA 대신 4단어 실음성 연속 증명과 doubt 직접 읽기 오픈 루프 뒤에 '제일 억울한 단어는 뭐였나요?'로 선택권을 넘기면, 엔딩 반발 스와이프가 줄고 완주율과 자발적 댓글·구독 전환(subs7d)이 오를 것이다(가설).",
+      "measure": "공개 7일 평균 시청 비율 · 댓글 참여 및 구독 전환(subs7d)"
+    }
+  ],
+  "glossary": [
+    {
+      "term": "어원 철자 개편 (Etymological Respelling)",
+      "plain": "15~16세기 학자들이 라틴어 뿌리를 드러내려고 원래 발음에 없던 글자를 영어 철자에만 억지로 끼워 넣은 일"
+    },
+    {
+      "term": "묵음 (Silent Letter)",
+      "plain": "철자에는 적혀 있지만 원어민이 소리 내지 않고 건너뛰는 글자(본편에선 '가짜 글자'·'안 읽는 글자'로 쉽게 표현)"
+    }
+  ],
+  "references": [
+    {
+      "videoId": "Bzwd5EdsQGk",
+      "role": "글자 무시 인지 부조화 훅 & 상단 2색 에디토리얼 헤드라인",
+      "what": "멀쩡히 써 놓은 글자를 원어민이 통째로 무시할 때 터지는 황당한 반전('What happened to the letters?')과 상단 2색 볼드 헤드라인",
+      "reason": "유명인 예능 대립 대신 한국 3060 시청자가 매일 마주하는 '살몬·영수증' 철자 배신으로 인지 부조화를 변형해 0.5초 이탈을 막는다.",
+      "evidence": "낰낰티비 105.8만 회, 채널 평소 대비 131.56배(프레임 스트립 직접 눈 확인, EP31~34 미사용)",
+      "appliedTo": [
+        "cut:0",
+        "cut:1",
+        "title:1",
+        "thumb:A"
+      ]
+    },
+    {
+      "videoId": "eGh-AmQzqOc",
+      "role": "실물 종이·빨간 펜 클로즈업 & 4분할 촉각 콜라주",
+      "what": "손끝으로 실제 종이·도구를 다루는 근접 컷과 빨간 펜 표시, 빠른 4분할 화면으로 PPT 템플릿 느낌을 지우는 촉각 연출",
+      "reason": "연어 포장지·열전사 영수증·장부 종이·종이 섬 실물 위에서 빨간 색연필 동그라미와 4분할 리소 그리드(컷 9)로 청각 증명을 눈으로 고정한다.",
+      "evidence": "engrit 60.8만 회, 채널 평소 대비 975.89배(프레임 스트립 직접 눈 확인, EP31~34 미사용)",
+      "appliedTo": [
+        "cut:2",
+        "cut:4",
+        "cut:6",
+        "cut:9",
+        "thumb:B"
+      ]
+    },
+    {
+      "videoId": "Pr_EB_hK9R4",
+      "role": "글자 그대로 착각 반전 & 마지막 단어 오픈 루프",
+      "what": "문자 그대로 읽었을 때의 어긋남을 시각 대비로 보여 준 뒤, 마지막 문제를 시청자 몫으로 넘겨 완주·댓글을 이끄는 오픈 루프 구조",
+      "reason": "마지막 5번째 단어 doubt를 바로 답하지 않고 1.2초 직접 읽기 오픈 루프로 넘겨 시청자가 스스로 B를 빼 보는 쾌감을 준다.",
+      "evidence": "Lev English 51.5만 회, 채널 평소 대비 19.55배(프레임 스트립 직접 눈 확인, EP31~34 미사용)",
+      "appliedTo": [
+        "cut:10",
+        "cut:11",
+        "title:3",
+        "thumb:C"
+      ]
+    },
+    {
+      "videoId": "2tvBBqQEoz0",
+      "role": "좌측 진행 인덱스 목록으로 호기심 끈 유지",
+      "what": "화면 한쪽에 살아 있는 번호 목록을 유지해 '다음 항목은 무엇일까'라는 미완결 호기심(Open Loop)을 끝까지 붙드는 시각 장치",
+      "reason": "기계적 '첫째/둘째/셋째' 나레이션 대신 화면 좌측 01~04 리소 인덱스 레일로 진행감을 시각화해 5.5초 이후 중도 이탈을 막는다.",
+      "evidence": "라잌셀럽 106.0만 회, 채널 평소 대비 38.2배(프레임 스트립 직접 눈 확인, EP31~34 미사용)",
+      "appliedTo": [
+        "cut:2",
+        "cut:4",
+        "cut:6",
+        "cut:8",
+        "row:flow"
+      ]
+    },
+    {
+      "videoId": "rhjcr61ngHA",
+      "role": "인쇄 푯말 정면 제시 챌린지",
+      "what": "발음 도전 문구·단어를 종이 푯말에 크게 인쇄해 화면 정면에 들이미는 즉각적 가독성과 도전 리듬",
+      "reason": "컷 10 doubt 도전과 썸네일 C안에서 고대비 인쇄 타일 카드를 정면에 세워 3060 모바일 화면에서도 0.3초 만에 읽히게 만든다.",
+      "evidence": "덕질러 29.5만 회, 채널 평소 대비 256.07배(프레임 스트립 직접 눈 확인, EP31~34 미사용)",
+      "appliedTo": [
+        "cut:10",
+        "title:2",
+        "row:reaction"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "what": "3D 원근 레인 원샷 돌진 챌린지 구도",
+      "fromVideoId": "Ux_M00VVmEU",
+      "reason": "EP31·33·34 직전 3편에 반복 사용되어 check-sameness [5] 편향 경고가 뜬 레퍼런스이므로 습관적 반복을 끊기 위해 제외했다."
+    },
+    {
+      "what": "마지막 2초 4~5행 체크마크 요약 표",
+      "fromVideoId": "Bxd1XRx25KQ",
+      "reason": "EP31·33·34에 연속 반복된 레퍼런스이자 체크리스트 공식 고착을 막기 위해 제외하고, 뜯겨 나온 글자 스크랩과 자율 질문 Soft Nudge로 대체했다."
+    },
+    {
+      "what": "상단 원형 타이머 발음 테스트 게임",
+      "fromVideoId": "w8g6-e9yLP4",
+      "reason": "직전 EP33·34에서 연속 채택했으므로 이번 편은 인쇄 푯말 + 찢긴 종이 퓨즈로 전혀 다른 참여 장치를 시험한다."
+    },
+    {
+      "what": "1:1 대화 오해 상황극 오프닝",
+      "fromVideoId": "49VA7-b8oyc",
+      "reason": "EP32·33에서 이미 사용한 구조라 이번 편은 실물 종이 테이프 뜯기 물리 훅으로 차별화한다."
+    }
+  ],
+  "rows": [
+    {
+      "key": "title",
+      "origin": "mixed",
+      "originReason": "Bzwd5EdsQGk의 글자 무시 반전(1안), rhjcr61ngHA의 직접 확인 호기심(2안), Pr_EB_hK9R4의 가짜 글자 찾기 참여(3안)를 서로 다른 심리 앵글로 풀고, Verbalized Sampling으로 AI 평균값('살몬이 아니라 새먼? 99%가 틀리는 묵음')을 버렸다. slop-rewrite(67규칙·W-03·W-04) 0건 및 우리 쇼츠 상위 3편 데이터(영어로 시작 0/3)를 반영했다.",
+      "competitor": {
+        "text": "Bzwd5EdsQGk: '존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음' / Pr_EB_hK9R4: 'What If English Words Were Actually Literal? 4' / rhjcr61ngHA: '양정화 성우 클라스(feat. 발음 테스트)'",
+        "quote": "존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음"
+      },
+      "ours": {
+        "text": "서로 다른 심리 앵글 3안(역사 억울함 호기심 / 영수증 P 일상 의문 / 가짜 글자 찾기 참여). 이항 대구·가운뎃점 3연타·과장 표현('바로 들립니다')·영문 시작 전부 배제. slop-rewrite 0건, check-sameness 최근 5편 겹침 0%대 통과.",
+        "titles": [
+          "살몬에 L이 들어간 이유, 알고 보면 좀 억울해요",
+          "영수증 영어 철자에 P가 있는데, 왜 아무도 안 읽을까요?",
+          "스펠링에 가짜 글자가 숨어 있어요, 몇 개나 보이세요?"
+        ]
+      },
+      "why": "YouTube 한국 검색 실측(2026-11-22)에서 '살몬 영어 발음'·'영수증 영어 발음'·'영어 묵음 발음'이 직접 적중했다. 정답을 제목에서 다 털어놓지 않고 '왜 들어갔을까 / 왜 아무도 안 읽을까' 정보 공백을 열어 클릭 호기심을 만든다."
+    },
+    {
+      "key": "thumbnail",
+      "origin": "mixed",
+      "originReason": "kr.pinterest.com 리소그래프·종이 찢기 무드보드(1113796551626780954, 925278685970260850) 위에 Bzwd5EdsQGk의 2색 고대비 1초점(A안), eGh-AmQzqOc의 실물 영수증+빨간 펜(B안), Pr_EB_hK9R4·rhjcr61ngHA의 푯말 도전 포스터(C안)를 서로 다른 세 컨셉으로 설계하고, writing-taste W-05에 따라 메타 라벨과 하단 홍보 배너를 0건으로 비웠다.",
+      "competitor": {
+        "text": "Bzwd5EdsQGk(상단 2색 볼드 헤드라인+표정), eGh-AmQzqOc(실물 종이·빨간 펜 클로즈업), Pr_EB_hK9R4(시각 반전 대비), rhjcr61ngHA(정면 인쇄 푯말)",
+        "images": [
+          "thumb:Bzwd5EdsQGk",
+          "thumb:eGh-AmQzqOc",
+          "thumb:Pr_EB_hK9R4",
+          "thumb:rhjcr61ngHA"
+        ]
+      },
+      "ours": {
+        "text": "메타 라벨·하단 배너 ZERO 3안(1080×1920, 가로 정중앙 대칭, 모바일 60px+ 가독성): A안 연어 실물 위 크림슨 L 뜯기('살몬 L ✕ / 진짜 소리 새먼'), B안 열전사 영수증 실물+빨간 펜 동그라미('영수증 P 왜 안 읽을까? / RECEIPT → 리싯'), C안 리소그래프 포스터 2D 참여 도전('가짜 글자 하나 빼고 읽어 보세요 / D O U B? T').",
+        "images": [
+          "images/ep35-shorts-ghost-letters/thumb-A.jpg",
+          "images/ep35-shorts-ghost-letters/thumb-B.jpg",
+          "images/ep35-shorts-ghost-letters/thumb-C.jpg"
+        ]
+      },
+      "why": "실물 연어(A)·실물 영수증(B)·2D 리소 포스터(C)로 완전히 다른 세 가지 시각 축을 제공하며, 비도공 신문지 크림과 찢긴 크림슨 레드 대비로 EP31~34 피드와 한눈에 구분된다."
+    },
+    {
+      "key": "opening",
+      "origin": "mixed",
+      "originReason": "Bzwd5EdsQGk의 글자 무시 반전 훅과 kr.pinterest.com 종이 찢기 메타포를 합쳐, 0.0초 연어 실물 위 'L' 뜯기(4.0s) → 4.0초 15~16세기 라틴어 멋 부리기 역사 반전(4.8s)으로 1초 스와이프와 5.5초 이탈 벽을 동시에 넘긴다.",
+      "competitor": {
+        "text": "Bzwd5EdsQGk: 0초부터 발음 속 빠진 글자('What happened to the two T's?')로 황당한 인지 부조화를 건다. eGh-AmQzqOc: 0초 실물 손끝 촉각 화면 진입.",
+        "images": [
+          "frame:0",
+          "frame:2"
+        ]
+      },
+      "ours": {
+        "text": "0.0초: 연어 살몬 실물 매크로(Omni 예정) 위로 검은 띠 없는 상단 2색 찢긴 종이 훅('살몬의 L, 영수증의 P / 원어민은 안 읽어요')이 뜨고, SA[L]MON의 크림슨 L 테이프가 손끝으로 뜯겨 나가며 '연어 살몬, 영어에선 엘을 안 읽어요'가 꽂힌다. 4.0초: 중세 철자 네 개 위로 붉은 도장 L·P·B·S가 찍히는 리소 콜라주로 '옛날 학자들이 멋 내려고 끼워 넣었거든요' 한 줄 반전을 준다.",
+        "images": [
+          "images/ep35-shorts-ghost-letters/cuts/cut-00.png",
+          "images/ep35-shorts-ghost-letters/cuts/cut-01.png"
+        ]
+      },
+      "why": "우리 쇼츠 이탈 시작 중앙값은 5.5초다. 0초에 실물 뜯기 예측 오차로 시선을 묶고, 4.0초에 '왜 이런 이상한 철자가 생겼나'라는 500년 역사 반전을 터뜨려 중도 이탈을 막는다."
+    },
+    {
+      "key": "flow",
+      "origin": "ours",
+      "originReason": "0.0초 살몬 L 뜯기 훅(4.0s) → 4.0초 500년 역사 반전(4.8s) → 01 salmon 제시·찢기(3.0s+3.4s) → 02 receipt 제시·찢기(3.3s+4.0s) → 03 debt 제시·찢기(2.8s+3.5s) → 04 island 착각 반전(4.7s) → 무나레이션 4분할 원어민 귀 증명(4.8s) → doubt 1.2초 오픈 루프 푯말 도전(4.9s) → 다웃 확정·자율 질문 Soft Nudge(5.6s)로 총 48.8초를 짰다.",
+      "competitor": {
+        "text": "Bzwd5EdsQGk: 46초간 음식 단어 발음 반전 연쇄. 2tvBBqQEoz0: 64초 좌측 TOP3 인덱스로 끝까지 유지. Pr_EB_hK9R4: 23초 시각 반전 후 마지막 오픈 루프.",
+        "quote": "What happened to the two T's?"
+      },
+      "ours": {
+        "text": "총 48.8초, 12컷(분당 14.8컷, 컷 간격 변동 CV 21.8%). '첫째/둘째/셋째' 기계적 번호 매김 없이 좌측 리소 인덱스(01~04)로 진행감을 보여 주고, 2.8~3.3초 짧은 제시와 3.4~4.0초 찢기 증명을 교차하다 4번째(island)에서 '착각해서 잘못 넣은 S' 감정 반전으로 호흡을 바꾼다."
+      },
+      "why": "단어 4개를 똑같은 박자로 나열하면 20초대에 지루해진다. 4번째 단어에서 역사적 착각 반전을 넣고, 컷 9에서 나레이션을 완전히 비워 원어민 소리만 4연속 들려줘 귀로 직접 검증하게 만든다."
+    },
+    {
+      "key": "visual",
+      "origin": "ours",
+      "originReason": "kr.pinterest.com 실탐색 6개 핀(1113796551626780954, 925278685970260850, 739786676337600286 등)과 2026 혼합 미디어·촉각 타이포 트렌드를 흡수해, 비도공 신문지 크림(#EFE8DA) × 카본 잉크(#171614) × 찢긴 크림슨(#D92B2B) × 웜 오커(#E0962D) × 세이지 틸(#2F7D6D) 세계관을 2×2 연속 스토리보드 그리드와 9:16 히어로 4장으로 잠갔다.",
+      "competitor": {
+        "text": "Bzwd5EdsQGk: 2색 볼드 상단 헤드라인 + 인물 클로즈업. eGh-AmQzqOc: 실물 종이·빨간 펜·4분할 콜라주. 2tvBBqQEoz0: 좌측 번호 인덱스. rhjcr61ngHA: 정면 인쇄 푯말.",
+        "images": [
+          "frame:0",
+          "frame:2",
+          "frame:3"
+        ]
+      },
+      "ours": {
+        "text": "단일 최적안(12컷, 48.8초, 1080×1920, 가로 정중앙 대칭, 모바일 보조 46px+·자막 52px+, 검은 상단 띠 ZERO). 2×2 연속 스토리보드 그리드 분할(split-grid) + 9:16 히어로 4장 + 3×4 시각 스토리보드 시트(storyboard-sheet.png) 선설계 완료. Gate 1 승인 후 컷 0(연어 테이프 뜯기)·컷 4(열전사 영수증 롤)·컷 8(종이 섬 테이프 떼기) 3클립을 Omni 1.2 Flash로 영상화하고 HyperFrames 12fps 스톱모션 종이 찢기 타이포와 정밀 싱크한다.",
+        "images": [
+          "images/ep35-shorts-ghost-letters/storyboard-sheet.png"
+        ],
+        "cutPlan": {
+          "durationSeconds": 48.8,
+          "rhythm": "살몬 L 뜯기 훅(4.0s)→500년 역사 반전(4.8s)→salmon 제시·찢기(3.0·3.4s)→receipt 제시·찢기(3.3·4.0s)→debt 제시·찢기(2.8·3.5s)→island 착각 반전(4.7s)→무나레이션 4분할 귀 증명(4.8s)→doubt 1.2초 푯말 도전(4.9s)→다웃 확정·자율 질문(5.6s), 분당 14.8컷",
+          "hook": [
+            "살몬의 L, 영수증의 P",
+            "**원어민은 안 읽어요**"
+          ],
+          "hookWhy": "Bzwd5EdsQGk의 검은 박스 없는 2색 에디토리얼 상단 훅과 Pinterest 찢긴 크림슨 종이 리본을 결합해 0.5초 안에 'L·P를 안 읽는다'는 예측 오차를 시선에 고정한다.",
+          "cuts": [
+            {
+              "t": 0,
+              "template": "riso-salmon-tear-hook",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-00.png",
+              "narration": "연어 살몬, 영어에선 엘을 안 읽어요.",
+              "voiceEn": [],
+              "window": 0,
+              "motion": "0.0s 연어 실물 매크로(Omni 예정) + 상단 찢긴 크림슨 훅 팝(Easy Ease 0.35s) → 1.3s SA[L]MON의 크림슨 L 테이프가 12fps 스톱모션으로 오른쪽 위 대각선으로 찢겨 나감(종이 찢기 SFX)",
+              "bottom": {
+                "subtitle": "연어 살몬, 영어에선 엘을 안 읽어요"
+              }
+            },
+            {
+              "t": 4,
+              "template": "latin-stamp-history",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-01.png",
+              "narration": "옛날 학자들이 멋 내려고 끼워 넣었거든요.",
+              "voiceEn": [],
+              "window": 0,
+              "motion": "빈티지 장부·만년필 배경 위로 samoun·receit·det·iland 4칸 카드가 0.16s 시간차 등장 → 1.4s 붉은 잉크 도장 L·P·B·S가 0.14s 간격으로 쾅 찍히며 리소 미세 어긋남(2px) 진동",
+              "bottom": {
+                "subtitle": "옛날 학자들이 멋 내려고 끼워 넣었거든요"
+              }
+            },
+            {
+              "t": 8.8,
+              "template": "index-word-spot",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-02.png",
+              "narration": "연어부터 볼까요?",
+              "voiceEn": [
+                "salmon"
+              ],
+              "window": 0,
+              "motion": "좌측 리소 인덱스 01 크림슨 점등(슬라이드 8px) + 연어 실물 컷 전환 → 0.6s SALMON의 L 주변으로 빨간 색연필 동그라미가 0.28s 손그림 스트로크로 그려짐 + 원어민 salmon 발화",
+              "bottom": {
+                "subtitle": "연어부터 볼까요? · salmon"
+              }
+            },
+            {
+              "t": 11.8,
+              "template": "paper-rip-reveal",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-03.png",
+              "narration": "엘만 떼면 새먼이죠.",
+              "voiceEn": [
+                "salmon"
+              ],
+              "window": 0,
+              "motion": "0.2s 12fps 종이 찢기 모션으로 L 테이프가 날아가고 세이지 틸 스탬프 '새먼 /ˈsæmən/'이 1.12배 오버슈트 착지 → 원어민 salmon 싱크 + Fresh salmon. 페이드 업",
+              "bottom": {
+                "subtitle": "엘만 떼면 새먼이죠 · salmon"
+              }
+            },
+            {
+              "t": 15.2,
+              "template": "receipt-roll-spot",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-04.png",
+              "narration": "영수증은 어떨까요?",
+              "voiceEn": [
+                "receipt"
+              ],
+              "window": 0,
+              "motion": "좌측 인덱스 01 완료(틸)·02 점등 + 열전사 영수증 롤 펼침(Omni 예정) → 0.7s RECEIPT의 P에 빨간 왁스 펜 동그라미 드로잉 + 원어민 receipt 발화",
+              "bottom": {
+                "subtitle": "영수증은 어떨까요? · receipt"
+              }
+            },
+            {
+              "t": 18.5,
+              "template": "paper-rip-reveal",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-05.png",
+              "narration": "피 자 빼고 리싯으로 읽어요.",
+              "voiceEn": [
+                "receipt"
+              ],
+              "window": 0,
+              "motion": "0.22s P 테이프 찢기 전환(종이 찢기 SFX) → 세이지 틸 '리싯 /rɪˈsiːt/' 스탬프 착지 + 원어민 receipt 싱크 + Need a receipt? 예문 고정",
+              "bottom": {
+                "subtitle": "피 자 빼고 리싯으로 읽어요 · receipt"
+              }
+            },
+            {
+              "t": 22.5,
+              "template": "ledger-debt-spot",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-06.png",
+              "narration": "이건 빚이에요.",
+              "voiceEn": [
+                "debt"
+              ],
+              "window": 0,
+              "motion": "좌측 인덱스 03 점등 + 빈티지 장부 종이 매크로 컷 전환 → 0.5s DEBT 가운데 B에 빨간 색연필 동그라미 점등 + 원어민 debt 발화",
+              "bottom": {
+                "subtitle": "이건 빚이에요 · debt"
+              }
+            },
+            {
+              "t": 25.3,
+              "template": "paper-rip-reveal",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-07.png",
+              "narration": "비 자 없이 깔끔하게 뎃!",
+              "voiceEn": [
+                "debt"
+              ],
+              "window": 0,
+              "motion": "0.18s 스냅 종이 찢기 전환으로 B 탭이 종이 섬유를 남기며 이탈 → '뎃 /det/' 스탬프 팝 + 원어민 debt 싱크 + No debt. 등장",
+              "bottom": {
+                "subtitle": "비 자 없이 깔끔하게 뎃! · debt"
+              }
+            },
+            {
+              "t": 28.8,
+              "template": "island-mistake-twist",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-08.png",
+              "narration": "섬은 착각해서 에스를 넣었대요.",
+              "voiceEn": [
+                "island"
+              ],
+              "window": 0,
+              "motion": "좌측 인덱스 04 점등 + 수제 종이 섬 콜라주(Omni 예정) 위로 웜 오커 배지 '라틴어와 착각해 잘못 넣은 S' 팝(0.3s) → 1.8s S 테이프 뜯기 + '아일랜드 /ˈaɪlənd/' 스탬프 + 원어민 island",
+              "bottom": {
+                "subtitle": "섬은 착각해서 에스를 넣었대요 · island"
+              }
+            },
+            {
+              "t": 33.5,
+              "template": "riso-quad-ear-proof",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-09.png",
+              "narration": "",
+              "voiceEn": [
+                "salmon",
+                "receipt",
+                "debt",
+                "island"
+              ],
+              "window": 0,
+              "motion": "무나레이션 4분할 리소 실물 그리드: 원어민 4단어 발화 시점(0.1s/1.2s/2.3s/3.4s)에 맞춰 각 패널이 1.06배 펄스하며 L·P·B·S 빨간 테이프가 연달아 찢겨 나감(순수 귀 증명)",
+              "bottom": {
+                "subtitle": "네 단어, 귀로 바로 이어서 들어 봐요"
+              }
+            },
+            {
+              "t": 38.3,
+              "template": "printed-placard-open-loop",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-10.png",
+              "narration": "그럼 이건요? 하나 빼고 읽어 볼까요?",
+              "voiceEn": [],
+              "window": 1.2,
+              "motion": "딥 차콜 리소 반전 배경 위로 인쇄 푯말 카드 'D O U [B?] T (뜻: 의심)'가 0.25s 슬램 진입 → 3.4s부터 1.2초 동안 크림슨 찢긴 종이 퓨즈 게이지가 부드럽게 줄어들며 시청자 직접 읽기 창 제공(정답 음성 비공개)",
+              "bottom": {
+                "subtitle": "그럼 이건요? 하나 빼고 읽어 볼까요?"
+              }
+            },
+            {
+              "t": 43.2,
+              "template": "torn-scrap-soft-nudge",
+              "image": "images/ep35-shorts-ghost-letters/cuts/cut-11.png",
+              "narration": "비 자 빼고 다웃! 제일 억울한 단어는 뭐였나요?",
+              "voiceEn": [
+                "doubt"
+              ],
+              "window": 0,
+              "motion": "0.15s B 타일이 찢겨 나가며 'DOU✕BT → 다웃 /daʊt/' 세이지 틸 스탬프 확정(원어민 doubt 싱크) → 1.4s 뜯긴 4글자(L·P·B·S) 리소 스크랩과 잔잔한 하단 각주('비슷한 세 단어는 고정 댓글에 있어요')가 부드럽게 안착",
+              "bottom": {
+                "subtitle": "비 자 빼고 다웃! 제일 억울한 단어는 뭐였나요?"
+              }
+            }
+          ]
+        }
+      },
+      "why": "직전 EP31~34와 0% 겹치는 Pinterest 리소그래프·종이 찢기 세계관 위에서, '가짜 글자 테이프 뜯기' 물리 행동이 주제의 핵심 원리를 눈으로 증명하고, 무나레이션 4분할 컷이 귀로 직접 증명한다."
+    },
+    {
+      "key": "reaction",
+      "origin": "mixed",
+      "originReason": "Pr_EB_hK9R4의 마지막 문제 오픈 루프와 rhjcr61ngHA의 정면 푯말 도전, 행동심리학의 자율성 보존 넛지(Autonomy-Preserving Soft Nudge)를 결합했다.",
+      "competitor": {
+        "text": "Pr_EB_hK9R4: 마지막 문제를 열어 두고 시청자가 직접 맞히며 댓글 참여. Bzwd5EdsQGk: '글자를 왜 안 읽어?' 공감·토론 댓글 폭주."
+      },
+      "ours": {
+        "text": "38.3초 인쇄 푯말 카드(D O U B? T)에서 정답 음성을 먼저 틀지 않고 1.2초 직접 읽기 창을 연 뒤, 43.2초에 '비 자 빼고 다웃! 제일 억울한 단어는 뭐였나요?'로 판단 선택권을 시청자에게 넘겨 강압 없는 자발적 댓글 참여를 이끈다."
+      },
+      "why": "시청자에게 명령('댓글에 적어 주세요!')하지 않고 본인이 제일 억울했던 단어를 고르게 하면 심리적 반발(Reactance) 없이 댓글과 재시청이 일어난다."
+    },
+    {
+      "key": "ending",
+      "origin": "ours",
+      "originReason": "Bxd1XRx25KQ 체크리스트 반복과 명령형 하드 CTA를 모두 걷어내고, 뜯긴 4글자 리소 스크랩과 잔잔한 하단 각주('비슷한 세 단어는 고정 댓글에 있어요')로 여운과 재시청 루프를 설계했다.",
+      "competitor": {
+        "text": "Pr_EB_hK9R4: 마지막 문제 제시 직후 깔끔하게 종료. eGh-AmQzqOc: 마지막 정리 화면 뒤 여운 있게 닫음."
+      },
+      "ours": {
+        "text": "5.6초 동안 doubt 정답 확정과 뜯긴 4글자 리소 스크랩(salmon L / receipt P / debt B / island S)을 한눈에 보여 주며, 나레이션은 자율 질문('제일 억울한 단어는 뭐였나요?')으로 닫고 고정 댓글 안내는 화면 하단 각주로만 은은하게 띄운다.",
+        "images": [
+          "images/ep35-shorts-ghost-letters/cuts/cut-11.png"
+        ]
+      },
+      "why": "구독·좋아요·댓글 명령으로 흐름을 깨지 않고 스크랩 카드와 질문으로 닫으면, 시청자가 자기 단어를 고르며 화면을 다시 보는 동안 쇼츠가 자연스럽게 재재생된다."
+    },
+    {
+      "key": "package",
+      "origin": "ours",
+      "originReason": "YouTube 한국 검색 API 실측(2026-11-22)에서 실제 영어 묵음·살몬·영수증·debt 발음 강의가 상단 적중한 10개 태그만 선별했고(결과 0건인 '연어 영어 발음' 제외), slop-rewrite 3종 검사(S1 0·규칙 0)와 style-guide·grammar-checker를 통과한 해요체로 정리했다.",
+      "competitor": {
+        "text": "Bzwd5EdsQGk: 인물·발음 해시태그 위주. eGh-AmQzqOc: 고정 댓글에 추가 정보 정리."
+      },
+      "ours": {
+        "text": "설명글에 L·P·B·S 4단어와 도전 단어 doubt의 IPA·예문·500년 어원 배경을 해요체로 담고, 고정 댓글에는 보너스 3단어(plumber·sword·castle)와 원인 차이까지 정직하게 구분해 적었다.",
+        "description": "마트에서 자주 보는 살몬, 영수증에 적힌 리싯, 뉴스에 나오는 뎃, 그리고 아일랜드까지. 철자 속에 L, P, B, S가 버젓이 적혀 있는데 원어민은 이 네 글자를 소리 내지 않아요.\n\n오백 년쯤 전 영어 학자들이 라틴어 뿌리를 드러내고 싶어서 원래 발음에는 없던 글자를 철자에 끼워 넣은 흔적이에요. 심지어 아일랜드는 라틴어 단어와 착각해 S를 잘못 넣은 경우라 더 엉뚱하죠.\n\n영상 속 단어 다섯 개\n- salmon (/ˈsæmən/, L 안 읽음 → 새먼): Fresh salmon. (신선한 연어)\n- receipt (/rɪˈsiːt/, P 안 읽음 → 리싯): Need a receipt? (영수증 필요하세요?)\n- debt (/det/, B 안 읽음 → 뎃): No debt. (빚 없음)\n- island (/ˈaɪlənd/, S 안 읽음 → 아일랜드): Small island. (작은 섬)\n- doubt (/daʊt/, B 안 읽음 → 다웃): No doubt. (틀림없이)\n\n단어를 처음 볼 때 철자 그대로 다 읽으려 애쓰기보다, 가운데 조용히 빠져 있는 글자가 없는지 한 번만 살펴보세요. 비슷한 원리의 세 단어는 고정 댓글에 정리해 두었어요.\n\n#영어발음 #영어묵음 #원어민영어발음 #영어외래어발음 #shorts",
+        "tags": [
+          "영어 묵음 발음",
+          "영어 묵음 단어",
+          "살몬 영어 발음",
+          "영수증 영어 발음",
+          "receipt 발음",
+          "salmon 발음",
+          "debt 발음",
+          "영어 외래어 발음",
+          "원어민 영어 발음",
+          "영어발음"
+        ],
+        "tagCheck": [
+          {
+            "tag": "영어 묵음 발음",
+            "verdict": "맞음",
+            "reason": "성인 대상 영어 묵음 총정리 및 불규칙 단어 읽기 강의가 상단 1~3위 전면 점유",
+            "top": [
+              "묵음 총정리 (최신편)",
+              "불규칙 영어 단어 읽는 방법 #1_ 자주 쓰이는 \"묵음\" 총정리 (친절한 대학 정주행 77편)"
+            ]
+          },
+          {
+            "tag": "영어 묵음 단어",
+            "verdict": "맞음",
+            "reason": "묵음 총정리 및 영어 읽기 실력 향상 강의 영상이 상단 1~3위 적중",
+            "top": [
+              "묵음 총정리 (최신편)",
+              "78. u 묵음 총정리(무료 교재 포함)-묵음u를 알면 단어가 쉬워진다"
+            ]
+          },
+          {
+            "tag": "살몬 영어 발음",
+            "verdict": "맞음",
+            "reason": "salmon을 살몬이 아니라 새먼으로 읽는 묵음 L 발음 쇼츠·강의가 상단 1~3위 직접 적중",
+            "top": [
+              "salmon 발음 정확히 아시는 분?",
+              "Salmon, 아직도 살몬이라고 읽나요? 99%가 틀리는 영어 발음"
+            ]
+          },
+          {
+            "tag": "영수증 영어 발음",
+            "verdict": "맞음",
+            "reason": "영수증(receipt) 발음 종결 및 생활영어 표현 강의가 상단 1~2위 적중",
+            "top": [
+              "영수증 영어발음 종결",
+              "[3][여행] Here's the receipt-여기 영수증이 있습니다-English"
+            ]
+          },
+          {
+            "tag": "receipt 발음",
+            "verdict": "맞음",
+            "reason": "한국인이 틀리기 쉬운 receipt P 묵음 발음 쇼츠가 상단 1~3위 전면 적중",
+            "top": [
+              "Receipt 어떻게 읽으셨나요? #shorts",
+              "의외로 많이는 틀리는 발음 RECEIPT(영수증). 리씹??"
+            ]
+          },
+          {
+            "tag": "salmon 발음",
+            "verdict": "맞음",
+            "reason": "salmon L 발음 여부 및 원어민 발음 교정 쇼츠가 상단 1~3위 적중",
+            "top": [
+              "salmon 발음 정확히 아시는 분?",
+              "영어 발음 깨부수기 'l', 발음할까? 말까? (almond, salmon 발음하기)"
+            ]
+          },
+          {
+            "tag": "debt 발음",
+            "verdict": "맞음",
+            "reason": "debt가 '댑트'가 아니라 '뎃'인 B 묵음 교정 강의가 상단 1~3위 적중",
+            "top": [
+              "debt 가 '댑트' 일까요? 이 발음 정확히 하는 방법 ! #debt #영어발음교정",
+              "발음 DEBT | DEBT 의미 | DEBT 발음"
+            ]
+          },
+          {
+            "tag": "영어 외래어 발음",
+            "verdict": "맞음",
+            "reason": "한글식 외래어 표기와 원어민 발음 차이를 교정하는 강의가 상단 점유",
+            "top": [
+              "99%의 한국인이 틀리는 외래어 영어 발음 100개 정리",
+              "외래어 영어 발음 (외래어 왜 이래여: How to Pronounce Loanwords)"
+            ]
+          },
+          {
+            "tag": "원어민 영어 발음",
+            "verdict": "맞음",
+            "reason": "국내파 성인 대상 원어민 발음 교정 강의 상단 점유",
+            "top": [
+              "여태 이거 몰라서 손해봤다… 원어민이 꼭 쓰는 영어 축약 발음 TOP 10",
+              "국내파 90%가 모르는 미국식 영어 발음 교정시리즈 3시간 통합본"
+            ]
+          },
+          {
+            "tag": "영어발음",
+            "verdict": "맞음",
+            "reason": "성인 왕초보 영어 발음 원리·비밀 강의 상단 점유",
+            "top": [
+              "영어 왜 이렇게 읽히는지 이해 안가셨던 분들 _ 영어 왕왕초보 발음 총정리",
+              "한국인 90%가 모르는 영어 발음의 비밀!"
+            ]
+          }
+        ],
+        "pinnedComment": "마지막 doubt, B를 빼고 다웃으로 읽어 보셨나요? 철자엔 적혀 있는데 원어민은 소리 내지 않는 일상 단어 세 개를 더 모아 두었어요.\n\n1. plumber (/ˈplʌmər/, B 안 읽음 → 플러머): Call a plumber. (배관공을 부르다)\n2. sword (/sɔːrd/, W 안 읽음 → 소드): Sharp sword. (날카로운 검)\n3. castle (/ˈkæsəl/, T 안 읽음 → 캐슬): Old castle. (오래된 성)\n\n(참고로 doubt는 살몬, 영수증처럼 라틴어 철자를 끼워 넣은 경우고, 위 세 단어는 옛날 발음이 사라지면서 글자만 남은 경우예요.)\n\n영상 속 단어 중에서 제일 억울했던 글자는 뭐였나요? 편하게 남겨 주세요."
+      },
+      "why": "YouTube 한국 검색 실측(2026-11-22)에서 결과가 0건이었던 '연어 영어 발음'을 과감히 빼고, 실제 묵음·살몬·영수증·debt 발음 영상이 상단 1~3위에 적중한 10개 태그만 엄선했다."
+    }
+  ],
+  "pending": [
+    "Gate 1 비교 시트 승인(제목·썸네일 취향 선택 및 안전 확인) 대기 — 승인 전 음성·영상·렌더 미실행",
+    "Gate 1 승인 후: AI Studio 한국어 컷별 TTS(11컷) + 원어민 5단어(salmon, receipt, debt, island, doubt) 생성·청취·whisper 실측(AUDIO-AUDIT.md)",
+    "Gate 1 승인 후: Omni 1.2 Flash 3클립(컷 0 연어 테이프 뜯기 · 컷 4 영수증 롤 펼침 · 컷 8 종이 섬 테이프 떼기, 360p 선별 → 1080p) + Lyria 3.5 BGM + 종이 찢기 SFX 제작",
+    "HyperFrames 1080×1920 30fps 조립(12fps 스톱모션 종이 찢기 + 좌측 01~04 인덱스 + 4분할 리소 그리드 + Omni 3클립 합성) → 콘택트시트 검수 → Gate 2 렌더 승인"
+  ],
+  "thumbnailPicks": [
+    "images/ep35-shorts-ghost-letters/thumb-A.jpg"
+  ]
+}
+�해요"
+  ]
+}

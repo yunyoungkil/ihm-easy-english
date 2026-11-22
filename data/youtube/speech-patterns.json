@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-21T16:12:42.509Z",
+  "computedAt": "2026-11-22T16:08:18.853Z",
   "confidence": "가설",
   "note": "경쟁 영상 말투 합계(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.",
   "qualityThresholds": {
@@ -10,89 +10,89 @@
     "UNIQUE_WORD_MIN": 0.4,
     "UNIQUE_SENTENCE_MIN": 0.8
   },
-  "excludedLowQuality": 22,
+  "excludedLowQuality": 23,
   "unmeasured": 20,
   "long": {
-    "videoCount": 12,
+    "videoCount": 13,
     "lowSample": false,
     "totals": {
-      "sentences": 570,
-      "lengthSum": 14404,
-      "jointMid": 30,
-      "jointEnd": 18,
+      "sentences": 625,
+      "lengthSum": 16054,
+      "jointMid": 33,
+      "jointEnd": 19,
       "dictFrameSentences": 1,
       "meaningAfterSentences": 5,
-      "questionSentences": 61,
-      "pastConclusionSentences": 39,
+      "questionSentences": 63,
+      "pastConclusionSentences": 44,
       "endings": {
-        "question": 61,
+        "question": 63,
         "command": 13,
-        "geodeunyo": 14,
-        "janhayo": 1,
+        "geodeunyo": 17,
+        "janhayo": 3,
         "neyo": 0,
-        "ndeyo": 18,
-        "jyo": 40,
-        "hapsyo": 148,
-        "haeyo": 142,
-        "other": 133
+        "ndeyo": 19,
+        "jyo": 46,
+        "hapsyo": 173,
+        "haeyo": 150,
+        "other": 141
       },
       "fillers": {
         "자": 17,
-        "그래서": 35,
+        "그래서": 36,
         "그런데": 10,
         "근데": 10,
         "그러면": 7,
-        "여러분": 20,
+        "여러분": 21,
         "이게": 8,
         "그냥": 10,
         "진짜": 3,
         "되게": 1,
         "사실": 9,
-        "우리": 28,
+        "우리": 33,
         "약간": 6
       }
     },
     "rates": {
-      "sentences": 570,
-      "meanLength": 25.3,
+      "sentences": 625,
+      "meanLength": 25.7,
       "endingsPct": {
-        "question": 10.7,
-        "command": 2.3,
-        "geodeunyo": 2.5,
-        "janhayo": 0.2,
+        "question": 10.1,
+        "command": 2.1,
+        "geodeunyo": 2.7,
+        "janhayo": 0.5,
         "neyo": 0,
-        "ndeyo": 3.2,
-        "jyo": 7,
-        "hapsyo": 26,
-        "haeyo": 24.9,
-        "other": 23.3
+        "ndeyo": 3,
+        "jyo": 7.4,
+        "hapsyo": 27.7,
+        "haeyo": 24,
+        "other": 22.6
       },
       "jointMidPer100": 5.3,
-      "jointEndPer100": 3.2,
+      "jointEndPer100": 3,
       "fillersPer100": {
-        "자": 3,
-        "그래서": 6.1,
-        "그런데": 1.8,
-        "근데": 1.8,
-        "그러면": 1.2,
-        "여러분": 3.5,
-        "이게": 1.4,
-        "그냥": 1.8,
+        "자": 2.7,
+        "그래서": 5.8,
+        "그런데": 1.6,
+        "근데": 1.6,
+        "그러면": 1.1,
+        "여러분": 3.4,
+        "이게": 1.3,
+        "그냥": 1.6,
         "진짜": 0.5,
         "되게": 0.2,
-        "사실": 1.6,
-        "우리": 4.9,
-        "약간": 1.1
+        "사실": 1.4,
+        "우리": 5.3,
+        "약간": 1
       },
-      "fillersTotalPer100": 28.8,
+      "fillersTotalPer100": 27.4,
       "dictFramePct": 0.2,
-      "meaningAfterPct": 0.9,
-      "questionPct": 10.7,
-      "pastConclusionPct": 6.8
+      "meaningAfterPct": 0.8,
+      "questionPct": 10.1,
+      "pastConclusionPct": 7
     },
-    "lengthMedianOfVideos": 21,
+    "lengthMedianOfVideos": 24,
     "bySource": {
-      "transcript-api": 12
+      "transcript-api": 13
     },
     "videos": [
       {
@@ -148,6 +148,12 @@
         "channelTitle": "만다블_국내파통역사의 영어공부법",
         "source": "transcript-api",
         "sentences": 46
+      },
+      {
+        "videoId": "OcgFevPFPSs",
+        "channelTitle": "매튜쌤의 영어수업",
+        "source": "transcript-api",
+        "sentences": 55
       },
       {
         "videoId": "UOxjVjiXyII",

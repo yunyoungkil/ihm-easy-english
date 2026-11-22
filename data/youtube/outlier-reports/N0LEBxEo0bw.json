@@ -1,0 +1,429 @@
+{
+  "schemaVersion": 1,
+  "videoId": "N0LEBxEo0bw",
+  "analyzedAt": "2026-11-22T16:08:18.759Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 59,
+  "meta": {
+    "videoId": "N0LEBxEo0bw",
+    "title": "김영철한테 잘못 걸린 외국인 #김영철회화 #라디오스타 #김영철 #영어회화 #shorts",
+    "channelId": "UCVAMjqMST_t7Zyujl0CKPoA",
+    "channelTitle": "신나고",
+    "publishedAt": "2026-10-17T03:00:03Z",
+    "viewCount": 3225789,
+    "likeCount": 21008,
+    "commentCount": 451,
+    "durationSeconds": 59,
+    "thumbnail": "https://i.ytimg.com/vi/N0LEBxEo0bw/maxresdefault.jpg",
+    "description": "김영철한테 잘못 걸린 외국인 #김영철회화 #라디오스타 #김영철 #영어회화 #shorts",
+    "tags": [
+      "예능",
+      "신상예능",
+      "신상 예능",
+      "쇼츠",
+      "코미디",
+      "리얼리티",
+      "예능 레전드",
+      "예능 추천"
+    ]
+  },
+  "subscriberCount": 19100,
+  "viewsPerSubscriber": 168.89,
+  "outlierRatio": 148,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-22T16:07:28.935Z",
+  "ratioDenominator": 21796.5,
+  "ratioPeerCount": 14,
+  "channelPeers": [
+    {
+      "videoId": "zolCEBOIfYU",
+      "title": "범실 해도 화 안 나는 순간?! #김연경특강 #신인감독김연경2 #김연경 #윤영인 #원더독스 #배구 #shorts",
+      "viewCount": 7849,
+      "durationSeconds": 51,
+      "publishedAt": "2026-11-21"
+    },
+    {
+      "videoId": "FqLUJ-iJyog",
+      "title": "리액션 하나는 기가 막힌 친구ㅋㅋㅋ #현실공감 #라디오스타 #윤하 #김국진 #shorts",
+      "viewCount": 12441,
+      "durationSeconds": 23,
+      "publishedAt": "2026-11-14"
+    },
+    {
+      "videoId": "qfQRpfGPuEI",
+      "title": "이 순간에 패스 페인트를 할 수 있다고? #하효림패스페인트 #신인감독김연경2 #김연경 #원더독스 #배구 #하효림 #shorts",
+      "viewCount": 22618,
+      "durationSeconds": 29,
+      "publishedAt": "2026-11-14"
+    },
+    {
+      "videoId": "7hyQ6T77WVc",
+      "title": "박지현 당황시킨 구성환의 한마디ㅋㅋㅋ #같이혼밥 #나혼자산다 #전현무 #코쿤 #박지현 #김신영 #기안 #구성환 #shorts",
+      "viewCount": 44165,
+      "durationSeconds": 18,
+      "publishedAt": "2026-11-14"
+    },
+    {
+      "videoId": "ApE1K1RrK-Q",
+      "title": "바로 전교생 박수 #아싸탈출 #전지적집착시점 #전현무 #김민경 #김원훈 #윤남노 #웅성 #이정욱 #shorts",
+      "viewCount": 89400,
+      "durationSeconds": 25,
+      "publishedAt": "2026-11-21"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": 100,
+  "studioSeenAt": "2026-11-22T16:00:41.550Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 27,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 59
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 11,
+    "stats": {
+      "sentences": 11,
+      "lengthSum": 348,
+      "lengthMedian": 26,
+      "endings": {
+        "question": 2,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 2,
+        "other": 7
+      },
+      "jointMid": 3,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 1,
+        "그런데": 0,
+        "근데": 2,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 2,
+        "진짜": 1,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 1
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 2,
+      "pastConclusionSentences": 3
+    },
+    "qualityMetrics": {
+      "sentences": 11,
+      "hangulChars": 146,
+      "hangulRatio": 0.45,
+      "uniqueWordRatio": 0.79,
+      "uniqueSentenceRatio": 1
+    },
+    "computedAt": "2026-11-22T16:08:15.002Z",
+    "note": "품질 낮음: 한글 146자(150자 미만), 한국어 글자 비율 0.45(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "유명 연예인 김영철이 외국인과의 기싸움에서 승리했다는 흥미로운 상황을 제시해 궁금증을 자극함",
+      "titleQuote": "김영철한테 잘못 걸린 외국인 #김영철회화 #라디오스타 #김영철 #영어회화 #shorts",
+      "thumbnailText": "김영철 무시당한 느낌 영어로 반박 후 사과받음",
+      "thumbnailWordCount": 6,
+      "thumbnailVisual": "MBC 라디오스타 스튜디오에서 김영철이 토크하는 모습 위에 금발 애니메이션 머리 그래픽이 얹어져 상대 외국인 안내원의 반응을 묘사하는 합성 장면",
+      "thumbnailVsTitle": "제목은 외국인이 '잘못 걸렸다'는 상황에 주목하고, 썸네일 글자는 '영어로 반박 후 사과받음'이라는 전개와 결말을 명확히 보태서 설명함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "미국 박람회에서 안내원에게 'Scoot over'라는 뉘앙스의 퉁명스러운 말을 듣고 무시당했다고 느낀 계기를 전달함",
+      "quote": "미국 박남회를 갔는데 I want this exib션 막 그랬더니 얘가 팜플레 주면서 this 뭐 갔더니스 음 딱 스 오버를 딱 들었는데 스쿠터 스이 뭐지? 근데 오버하는데 아 딱 느끼면 그냥 절로 가하는 거 같은 거예요.",
+      "reasonToKeepWatching": "억울한 상황에서 김영철이 영어로 어떻게 똑똑히 반박하여 사과를 받아내는지 결말을 보게 만듦",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "김영철이 미국 박람회에 갔던 에피소드를 말하기 시작함",
+      "quote": "미국 박남회를 갔는데 I want",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 19,
+        "what": "미국 박람회 안내원에게 'scoot over'라는 말을 듣고 부당하게 무시당했다고 느낀 당시의 상황과 느낌 묘사",
+        "quote": "미국 박남회를 갔는데 I want this exib션 막 그랬더니 얘가 팜플레 주면서 this 뭐 갔더니스 음 딱 스 오버를 딱 들었는데 스쿠터 스이 뭐지? 근데 오버하는데 아 딱 느끼면 그냥 절로 가하는 거 같은 거예요.",
+        "quoteVerified": true
+      },
+      {
+        "start": 20,
+        "end": 34,
+        "what": "속상해서 그냥 넘어가지 않고 또박또박 정중한 영어 문장으로 되물으며 항의를 시작함",
+        "quote": "근데 아 제가 그냥 가면 너무 눈물이 날 정도로 시카고에서 속상을 같아서 진짜 또박또박했어요. 그래서 제 영어를 excuse me. What did you say? Would you say once again please don't I didn't understand what you mean.",
+        "quoteVerified": true
+      },
+      {
+        "start": 35,
+        "end": 46,
+        "what": "안내원이 귀찮은 듯 짜증을 내며 재차 말하자 더 자세히 영어로 학습자임을 밝히며 계속 쏘아붙임",
+        "quote": "그까 이분이 약간 아씨 over what over English never heard that before. So 잘못 걸렸다. 잘못 걸렸어.",
+        "quoteVerified": false
+      },
+      {
+        "start": 47,
+        "end": 59,
+        "what": "끝까지 지지 않고 정중하게 반복 질문을 던지자 결국 안내원이 질려서 폭발하듯 사과하게 만듦",
+        "quote": "There is a l and mean do you mean over again pleas 계속했더니 이분도 짜나지. Yeah.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "라디오스타 스튜디오 전체 샷에서 김영철 단독 샷으로 전환되며 하단에 미국 박람회 배경 자막 등장",
+        "purpose": "에피소드의 배경 장소를 시각적으로 알림"
+      },
+      {
+        "t": 10,
+        "what": "김영철 억울한 표정과 함께 화면에 큼직하게 'Scoot over' 노란색 문구 자막 강조",
+        "purpose": "안내원이 던진 핵심 단어를 강조함"
+      },
+      {
+        "t": 27,
+        "what": "김영철 얼굴 확대 및 하단에 실제 사용한 영어 표현 자막(Excuse me what did you say?) 표시",
+        "purpose": "당시 사용한 영어 반박 문장을 보여줌"
+      },
+      {
+        "t": 35,
+        "what": "김영철 머리에 노란색 캐릭터 가발 그래픽이 얹어지며 안내원 연기 모드로 전환",
+        "purpose": "안내원의 짜증 섞인 반응을 1인 2역 묘사로 연출"
+      },
+      {
+        "t": 50,
+        "what": "화면이 분할되며 안내원 연기 김영철과 진지하게 눈을 희번덕이는 김영철 투샷 배치",
+        "purpose": "두 사람 사이의 치열한 기싸움을 희극적으로 묘사"
+      },
+      {
+        "t": 55,
+        "what": "'I'm so sorry about that!!!' 붉은 텍스트와 함께 김영철이 크게 소리치며 사과받은 장면 연출",
+        "purpose": "상대방의 굴복 및 사과라는 하이라이트 순간 전달"
+      }
+    ],
+    "ending": {
+      "what": "안내원의 극적인 사과 연기를 마치고 출연진이 폭소를 터뜨리며 토크 마무리",
+      "quote": "Yeah.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "무례한 언행에 참지 않고 정중하면서도 논리적인 영어로 사과를 받아낸 건강한 대처 방식에 통쾌해함",
+          "quote": "아니 되게 건강하게 대처 잘했다고 봄. 뭐 복수나 이런걸 떠나서 본인이 눈물날만큼 기분 상했는데 그 화난걸 나름 정중하게 표현한거잖아. 그리고 저렇게 무례한 애들은 좀 한번 당해봐야함 계속 참기만 하면 더 심해져서 잘했음!!",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "해외나 원어민 앞에서 뉘앙스상 무시당하는 느낌을 받아도 영어 실력이 부족해 제대로 따지지 못했던 경험",
+          "quote": "와 저상황에 저리 대처하시는게 ㅣ대단해요 전 영어도 안되는데 저리 무시받는느낌받아도 적극적으로 못 하지시퍼여...😢 또르르",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "Scoot over가 구체적으로 어떤 상황에서 쓰는 어떤 뉘앙스의 표현인지에 대한 부연 질문",
+          "quote": "쳇지피티로 물어봄 **“Scoot over”**는 영어로 **“옆으로 좀 비켜”, “자리 좀 좁혀줘”, “옆으로 조금 이동해”**라는 뜻입니다.",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "Scoot over",
+          "quote": "걍 Scoot over는 \"아 옆으로 가라고요. ㅡㅡ\" 이런 뉘앙스임 무시받은거 맞음",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 2,
+      "description": "원어민의 무례한 표현 'Scoot over'의 뉘앙스와, 이를 되물어 사과받아내는 'Would you say once again, please?' 식의 정중한 반박 템플릿 2가지를 토크 형식으로 전달함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 및 하단",
+      "size": "보통",
+      "highlightColor": "노란색, 빨간색",
+      "highlightMethod": "색상 전환, 글로우 효과, 굵은 폰트 테두리",
+      "textAmount": "한 번에 1~2줄의 문장 자막",
+      "changeTiming": "김영철의 발화 및 캐릭터 연기 속도에 맞춰 실시간 변경"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": true,
+      "soundEffectUse": "안내원이 반응하거나 기싸움이 팽팽해지는 순간 쿵 하는 효과음 및 웃음소리 삽입",
+      "voiceVsMusic": "출연진의 음성이 전체 오디오의 중심을 이룸"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "미국 박람회에서 외국인 안내원에게 무시당했던 사건을 꺼냄",
+        "quote": "미국 박남회를 갔는데 I want",
+        "type": "갈등 에피소드 제시",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 10,
+          "what": "scoot over라는 명령조 표현을 듣고 무시당했다고 느꼈을 때 어떻게 대응할 것인가",
+          "quote": "딱 스 오버를 딱 들었는데",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 55,
+          "what": "끝없는 정중한 되묻기로 안내원의 굴복 사과를 받아냄",
+          "quote": "I'm so sorry about that!!!",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "상대방의 무례에 감정적으로 화내지 않고 정중한 영어 문장을 연속으로 재차 요구함으로써 상대방이 미안하다고 사과하게 만드는 유기적 인과관계를 형성함",
+        "examples": [
+          {
+            "t": 27,
+            "what": "속상함에 굴하지 않고 영어 발음을 또박또박 되물음",
+            "quote": "Excuse me. What did you say?",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 24,
+          "what": "과연 어떤 영어 표현들로 기싸움을 이어가 사과를 받아낼 것인가",
+          "quote": "영어 발음을 또박또박 되물었어요",
+          "quoteVerified": false
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 35,
+          "what": "단순 상황 묘사를 넘어서 머리에 노란 가발 그래픽을 얹고 안내원 역할을 시늉하는 1인 2역 재현 연기로 전환",
+          "quote": "I said scoot over!",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 27,
+          "what": "실제 미국 현장에서 본인이 사용했던 영어 문장을 또박또박 재현해서 들려줌",
+          "quote": "Would you say once again, please?",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 55,
+        "what": "질려버린 안내원이 크게 사과하는 대목을 실감 나게 연기하며 기싸움 승리의 카타르시스를 전달",
+        "quote": "I'm so sorry about that!!!",
+        "quoteVerified": false
+      }
+    },
+    "links": [
+      {
+        "cause": "김영철이 'Excuse me, what did you say?' 등 정중하고 또박또박한 영어로 사과를 받아낼 때까지 집요하게 물어보는 장면",
+        "reaction": "시청자들이 당황하지 않고 정중하게 받아친 대처법이 훌륭하다고 칭찬함",
+        "quote": "아니 되게 건강하게 대처 잘했다고 봄. 뭐 복수나 이런걸 떠나서 본인이 눈물날만큼 기분 상했는데 그 화난걸 나름 정중하게 표현한거잖아.",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "유명 예능 방송 클립에 '해외에서 무시당했을 때 사이다 대응하는 법'이라는 대중적인 통쾌함과 공감대가 결합하여 일반 영상 대비 조회수가 148배 이상 급증함",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "예능 프로그램 라디오스타의 방송 에피소드 토크 클립으로, 성인 시청자 대상의 체계적인 영어 발음·소리 훈련 콘텐츠가 아니다.",
+    "forUs": {
+      "adopt": "해외나 일상에서 무시당하거나 억울한 상황에 처했을 때 정중하면서도 단호하게 기싸움을 이기는 핵심 영어 문장 템플릿 구성",
+      "differentiate": "단순 재미 위주의 에피소드 전달에 그치지 않고, 'scoot over' 같은 표현의 정확한 발음·소리 연결 체계와 실전 응대 음성 훈련을 짚어준다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 21,
+    "verified": 16,
+    "unverified": 5
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 27,
+      "file": "27.jpg"
+    },
+    {
+      "t": 35,
+      "file": "35.jpg"
+    },
+    {
+      "t": 50,
+      "file": "50.jpg"
+    },
+    {
+      "t": 55,
+      "file": "55.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 11424,
+    "candidatesTokenCount": 3113,
+    "totalTokenCount": 16781,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 5363
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4961
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 2244,
+    "serviceTier": "standard"
+  }
+}

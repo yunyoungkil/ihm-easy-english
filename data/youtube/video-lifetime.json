@@ -2141,7 +2141,16 @@
       "views": 0,
       "averageViewPercentage": 0,
       "averageViewDuration": 0,
-      "subscribersGained": 0
+      "subscribersGained": 0,
+      "first7d": {
+        "startDate": "2026-11-12",
+        "endDate": "2026-11-18",
+        "fetchedAt": "2026-11-22T16:08:35.469Z",
+        "views": 8,
+        "averageViewDuration": 272,
+        "subscribersGained": 0,
+        "estimatedMinutesWatched": 31
+      }
     },
     "ogCglr1VNYE": {
       "fetchedAt": "2026-11-15T16:08:10.176Z",
@@ -2187,7 +2196,16 @@
       "averageViewPercentage": 0,
       "averageViewDuration": 0,
       "subscribersGained": 0
+    },
+    "blowoldSorE": {
+      "fetchedAt": "2026-11-22T16:08:35.469Z",
+      "startDate": "2026-06-21",
+      "endDate": "2026-11-21",
+      "views": 0,
+      "averageViewPercentage": 0,
+      "averageViewDuration": 0,
+      "subscribersGained": 0
     }
   },
-  "updatedAt": "2026-11-21T16:12:51.092Z"
+  "updatedAt": "2026-11-22T16:08:35.469Z"
 }

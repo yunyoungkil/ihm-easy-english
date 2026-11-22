@@ -1,0 +1,30 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-22T14:37:58.956Z",
+  "prompt": "Vertical 9:16 tactile mixed-media handmade paper cutout and risograph editorial collage matching the exact warm cream uncoated newsprint ground (#EFE8DA), carbon charcoal ink (#171614), crimson red (#D92B2B), warm ochre (#E0962D), and muted teal (#2F7D6D) palette of the attached storyboard grid.\nIn the middle zone: a charming minimalist layered torn-paper diorama of a tiny coastal island with a miniature green paper pine hill, layered rippled teal-blue torn-paper ocean waves, pinned at two corners with translucent beige masking tape, and a small blank crimson red torn paper tab lifted off the edge.\nUpper 30% and lower 25% remain open, subtly textured uncoated cream newsprint paper for crisp typography overlay.\nCRITICAL RULES: ZERO text, ZERO letters, ZERO numbers, ZERO words, ZERO watermarks, ZERO logos anywhere in the image. Authentic indie risograph zine and tactile craft poster aesthetic.",
+  "promptFile": "../../.gemini/antigravity/brain/988cc0e5-cd90-4470-bc66-b7cdf5696ecc/scratch/prompt-ep35-island.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "data/youtube/transform-sheets/images/ep35-shorts-ghost-letters/bg/storyboard-2x2.jpg",
+      "sha256": "33b3175df514c90f"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep35-shorts-ghost-letters/bg/hero-island-collage.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  },
+  "lineage": {
+    "parent": "data/youtube/transform-sheets/images/ep35-shorts-ghost-letters/bg/storyboard-2x2.jpg",
+    "parentSha256": "33b3175df514c90f",
+    "changedVar": "panel-04 9:16 vertical collage",
+    "status": "chosen"
+  }
+}

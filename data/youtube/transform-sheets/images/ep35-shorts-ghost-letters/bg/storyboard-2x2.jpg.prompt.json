@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-22T14:34:17.014Z",
+  "prompt": "A clean 2x2 photographic editorial storyboard grid (4 equal square panels, thin 2px divider, no borders or captions), unified under soft warm natural studio daylight and tactile uncoated warm cream newsprint paper aesthetic (#EFE8DA), carbon charcoal shadows (#171614), and signature crimson red torn paper tape accents (#D92B2B).\nTop-left panel: Overhead macro still life of a fresh glistening salmon fillet resting on clean unprinted butcher paper on a warm light-wood desk, a realistic human fingertip gently peeling back a small blank torn crimson-red paper tape strip from the butcher paper.\nTop-right panel: Overhead macro photograph of a clean unprinted blank white thermal receipt paper roll uncurling across warm cream newsprint paper, with a red wax grease pencil and a torn crimson masking-tape scrap resting beside it.\nBottom-left panel: Overhead macro photograph of blank vintage warm cream lined ledger paper and an antique brass fountain pen on a newsprint desk, with a lifted blank crimson paper tab held by a small piece of beige masking tape.\nBottom-right panel: Tactile handmade paper-cutout editorial collage on warm cream newsprint showing a miniature green coastal island surrounded by layered teal-blue torn paper ocean waves, with fingertips gently lifting a small blank crimson paper strip off the center.\nCRITICAL RULES: ZERO text, ZERO letters, ZERO numbers, ZERO words, ZERO watermarks, ZERO logos, ZERO icons anywhere in any of the 4 panels. Crisp editorial photography, 35mm film grain texture, magazine craft quality.",
+  "promptFile": "../../.gemini/antigravity/brain/988cc0e5-cd90-4470-bc66-b7cdf5696ecc/scratch/prompt-ep35-grid.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "1:1"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep35-shorts-ghost-letters/bg/storyboard-2x2.jpg",
+    "width": 1024,
+    "height": 1024,
+    "type": "image/jpeg"
+  }
+}

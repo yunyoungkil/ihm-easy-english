@@ -1,0 +1,30 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-22T14:35:47.804Z",
+  "prompt": "Vertical 9:16 editorial overhead macro photography matching the exact warm uncoated newsprint aesthetic (#EFE8DA), natural daylight, film grain, and crimson torn-paper accent (#D92B2B) of the attached storyboard grid.\nIn the middle third of the frame: a fresh glistening orange salmon fillet resting on clean unprinted off-white butcher paper on a warm light-oak wooden surface; a realistic human hand gently peels back a small blank torn crimson-red paper tape strip from the center-right of the butcher paper, showing raw white torn paper fiber edges.\nUpper 30% and lower 25% of the frame remain calm, clean warm uncoated newsprint/butcher paper space so typography can be overlaid cleanly later.\nCRITICAL RULES: ZERO text, ZERO letters, ZERO numbers, ZERO words, ZERO stickers with writing, ZERO logos, ZERO watermarks anywhere in the image. Crisp tactile 35mm magazine craft photography.",
+  "promptFile": "../../.gemini/antigravity/brain/988cc0e5-cd90-4470-bc66-b7cdf5696ecc/scratch/prompt-ep35-salmon.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "data/youtube/transform-sheets/images/ep35-shorts-ghost-letters/bg/storyboard-2x2.jpg",
+      "sha256": "33b3175df514c90f"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep35-shorts-ghost-letters/bg/hero-salmon-peel.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  },
+  "lineage": {
+    "parent": "data/youtube/transform-sheets/images/ep35-shorts-ghost-letters/bg/storyboard-2x2.jpg",
+    "parentSha256": "33b3175df514c90f",
+    "changedVar": "panel-01 9:16 vertical macro",
+    "status": "chosen"
+  }
+}

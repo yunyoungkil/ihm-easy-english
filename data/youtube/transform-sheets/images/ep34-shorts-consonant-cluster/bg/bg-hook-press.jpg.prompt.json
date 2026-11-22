@@ -1,0 +1,30 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-22T09:15:36.693Z",
+  "prompt": "Using the attached storyboard image purely for unified Swiss editorial color palette (#F5F3EE warm off-white paper backdrop, #1432FF electric cobalt blue, #FF4D1A signal orange) and crisp single side-lighting, create a single full-bleed vertical 9:16 studio macro photograph: four glossy-matte acrylic blocks (three cobalt blue, one glowing signal orange) stacked vertically in the center-lower frame while a heavy brushed-aluminum industrial press plate descends from above, visibly compressing them downward with tactile weight. Generous clean warm off-white paper negative space in the top 30% and bottom 20% for clean typography layout. 85mm prime lens, crisp contact shadows, ultra-tactile gallery art direction. No text, no letters, no numbers, no captions, no labels, no logos, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/9a81d33f-72cd-4eee-a0e1-ea1ac8e1dcf9/scratch/ep34-prompts/hook.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "data/youtube/transform-sheets/images/ep34-shorts-consonant-cluster/bg/storyboard-2x2.jpg",
+      "sha256": "06faba5035dab117"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep34-shorts-consonant-cluster/bg/bg-hook-press.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  },
+  "lineage": {
+    "parent": "data/youtube/transform-sheets/images/ep34-shorts-consonant-cluster/bg/storyboard-2x2.jpg",
+    "parentSha256": "06faba5035dab117",
+    "changedVar": "4-block hydraulic press hero",
+    "status": "chosen"
+  }
+}

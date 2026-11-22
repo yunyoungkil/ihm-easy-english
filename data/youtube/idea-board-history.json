@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-20T11:03:02.027Z",
+  "updatedAt": "2026-11-22T09:06:05.917Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -462,6 +462,42 @@
       "episodeLabel": "EP31 쇼츠",
       "status": "scheduled",
       "selectedAt": "2026-11-19T11:36:00.000Z",
+      "producedAt": null
+    },
+    {
+      "topic": "눈으로 보면 다 아는데 원어민이 말하면 안 들리는 영어 합체 소리 네 가지 (give me · let me · kind of · out of)",
+      "angleOrHook": "김미? 렘미? 원어민이 두 단어를 하나로 합쳐 먹는 진짜 이유",
+      "targetAudience": "한국에서 영어를 배운 3060 성인 학습자",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [
+        {
+          "source": "competitorOutlier",
+          "detail": "비교 시트 ep32-shorts-word-merge (Z6VDb7biKCw)"
+        }
+      ],
+      "episodeSlug": "ep32-shorts-word-merge",
+      "episodeLabel": "EP32 쇼츠",
+      "status": "scheduled",
+      "selectedAt": "2026-11-22T09:06:05.904Z",
+      "producedAt": null
+    },
+    {
+      "topic": "버튼·커튼·마운틴·임포턴트 — 한국인은 다 '트'를 읽는데 미국 원어민은 '트'를 삼키고 코로 넘기는 일상 단어 네 가지",
+      "angleOrHook": "버튼과 커튼, 원어민은 '트'를 아예 안 읽고 코로 넘깁니다",
+      "targetAudience": "한국에서 영어를 배운 3060 성인 학습자",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [
+        {
+          "source": "competitorOutlier",
+          "detail": "비교 시트 ep33-shorts-swallowed-t (49VA7-b8oyc)"
+        }
+      ],
+      "episodeSlug": "ep33-shorts-swallowed-t",
+      "episodeLabel": "EP33 쇼츠",
+      "status": "scheduled",
+      "selectedAt": "2026-11-22T09:06:05.917Z",
       "producedAt": null
     }
   ]

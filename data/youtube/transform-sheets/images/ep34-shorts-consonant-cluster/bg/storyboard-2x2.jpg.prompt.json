@@ -1,0 +1,23 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-22T09:14:48.085Z",
+  "prompt": "A clean 2x2 four-panel visual storyboard photography sheet with thin crisp white dividers, all four panels sharing one unified Swiss editorial studio world: warm off-white matte paper backdrop (#F5F3EE), electric cobalt blue (#1432FF) hero objects, small signal-orange (#FF4D1A) accents, single crisp raking studio side-light, 85mm macro lens. Top-left panel: four stacked matte cobalt and orange cubes under a sleek brushed aluminum press piston ready to compress into one. Top-right panel: tactile macro of a matte electric cobalt stress ball squeezed firmly in studio light. Bottom-left panel: frosted cobalt glass spray bottle freezing a single crisp burst of fine water mist droplets in backlit air. Bottom-right panel: dynamic low-angle minimal cobalt 3D bowling lane leading toward gleaming white pins with a glowing orange impact ring. No text, no letters, no numbers, no captions, no labels, no logos, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/9a81d33f-72cd-4eee-a0e1-ea1ac8e1dcf9/scratch/ep34-prompts/grid.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep34-shorts-consonant-cluster/bg/storyboard-2x2.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  },
+  "lineage": {
+    "parent": null,
+    "parentSha256": null,
+    "changedVar": null,
+    "status": "chosen"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-22T09:17:52.745Z",
+  "prompt": "Using the attached storyboard image for unified Swiss editorial color palette (#F5F3EE warm off-white backdrop, #1432FF electric cobalt blue, #FF4D1A signal orange) and studio lighting, create a single full-bleed vertical 9:16 high-speed studio macro photograph: a sleek minimalist cobalt-blue frosted glass spray bottle with a bright signal-orange nozzle trigger held at the lower-left edge, freezing a single sharp, concentrated burst of fine backlit water mist particles shooting horizontally across the center frame against a clean warm off-white studio backdrop. Generous clean negative space at top 32% and bottom 22%. High-shutter freeze-frame photography, crisp water droplets. No text, no letters, no numbers, no captions, no labels, no logos, no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/9a81d33f-72cd-4eee-a0e1-ea1ac8e1dcf9/scratch/ep34-prompts/spray.txt",
+  "attachments": [
+    {
+      "order": 1,
+      "role": "ref",
+      "path": "data/youtube/transform-sheets/images/ep34-shorts-consonant-cluster/bg/storyboard-2x2.jpg",
+      "sha256": "06faba5035dab117"
+    }
+  ],
+  "settings": {
+    "aspect": "9:16"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep34-shorts-consonant-cluster/bg/bg-spray.jpg",
+    "width": 768,
+    "height": 1376,
+    "type": "image/jpeg"
+  },
+  "lineage": {
+    "parent": "data/youtube/transform-sheets/images/ep34-shorts-consonant-cluster/bg/storyboard-2x2.jpg",
+    "parentSha256": "06faba5035dab117",
+    "changedVar": "high-speed cobalt spray mist burst",
+    "status": "chosen"
+  }
+}

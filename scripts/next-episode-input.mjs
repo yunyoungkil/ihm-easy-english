@@ -13,7 +13,7 @@ import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadEpisodeOutcomes, SMALL_SAMPLE_VIEWS_7D} from './planning-outcome.mjs';
 import {loadReports as loadOutlierReports} from './outlier-report.mjs';
-import {loadSheets, sheetStage} from './transform-sheet.mjs';
+import {loadSheets, sheetIdOf, sheetStage} from './transform-sheet.mjs';
 import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 import {METRICS, MIN_POINTS_POOL, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
@@ -284,7 +284,7 @@ export function renderNextEpisodeInput(input) {
     out.push('경쟁 영상을 같은 행에서 우리 콘텐츠와 비교한 시트. 경쟁 소재를 쓰는 편은 새로 만들기 전에 이 시트를 만들고 `BRIEF.md` 기획 근거에 `비교 시트:` 줄로 연결한다.', '');
     for (const t of transformSheets) {
       const stageLabel = t.stage === 'measured' ? `성적 측정(${t.resultsCount || 1}편)` : (t.status === 'draft' ? '초안' : t.status === 'approved' ? '승인' : '공개');
-      out.push(`- **${cut(t.topic, 60)}** — ${stageLabel} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개 · http://localhost:3001/transform-sheet/${t.sourceVideoId}`);
+      out.push(`- **${cut(t.topic, 60)}** — ${stageLabel} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개 · http://localhost:3001/transform-sheet/${t.sheetId || t.sourceVideoId}`);
     }
     out.push('');
   } else out.push('비교 시트 없음.', '');
@@ -484,7 +484,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     audienceCountries: readJson(join(dataDir, 'audience-countries.json'), null),
     koreanTrends: readJson(join(dataDir, 'korean-trends.json'), null),
     titles,
-    transformSheets: loadSheets().map((t) => ({sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length, rejectedCount: (t.rejected || []).length})),
+    transformSheets: loadSheets().map((t) => ({sheetId: sheetIdOf(t), sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length + (t.references || []).length, rejectedCount: (t.rejected || []).length})),
   };
 }
 

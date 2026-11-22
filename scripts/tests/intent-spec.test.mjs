@@ -149,9 +149,14 @@ test('새 에피소드의 기획 근거는 다음 기획 입력 파일을 인용
 
 test('경쟁 영상 소재를 쓰는 새 에피소드는 비교 시트를 가리키고, 시트는 규칙을 통과한다 [2026-11-12 사용자: 소재만 가져오고 이유는 안 옮겼다, EP30부터]', async () => {
   const {parsePlanningSources} = await import('../planning-outcome.mjs');
-  const {loadSheets, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
+  const {loadSheets, sheetIdOf, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
   const videosDir = join(projectDir, 'videos');
-  const sheets = new Map(loadSheets().map((s) => [s.sourceVideoId, s]));
+  const sheets = new Map();
+  for (const s of loadSheets()) {
+    const sid = sheetIdOf(s);
+    if (sid) sheets.set(sid, s);
+    if (s.sourceVideoId && !sheets.has(s.sourceVideoId)) sheets.set(s.sourceVideoId, s);
+  }
   const problems = [];
   for (const d of readdirSync(videosDir, {withFileTypes: true})) {
     if (!d.isDirectory() || !/^ep(\d+)-/.test(d.name) || Number(d.name.match(/^ep(\d+)/)[1]) < 30) continue;
@@ -168,10 +173,10 @@ test('경쟁 영상 소재를 쓰는 새 에피소드는 비교 시트를 가리
 });
 
 test('저장된 비교 시트는 모두 규칙(다른 경쟁 영상에서 가져옴, 이유·근거, 뺀 이유, 이미지 파일)을 통과한다 [2026-11-12]', async () => {
-  const {loadSheets, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
+  const {loadSheets, sheetIdOf, validateSheet, sheetImageExists} = await import('../transform-sheet.mjs');
   const {loadReports} = await import('../outlier-report.mjs');
   const pacing = new Map(loadReports().map((r) => [r.videoId, r.pacing]));
-  const bad = loadSheets().flatMap((s) => validateSheet(s, {imageExists: sheetImageExists, competitorPacing: pacing.get(s.sourceVideoId)}).map((p) => s.sourceVideoId + ': ' + p));
+  const bad = loadSheets().flatMap((s) => validateSheet(s, {imageExists: sheetImageExists, competitorPacing: pacing.get(s.sourceVideoId)}).map((p) => sheetIdOf(s) + ': ' + p));
   assert.deepEqual(bad, []);
 });
 

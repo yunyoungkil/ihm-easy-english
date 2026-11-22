@@ -34,6 +34,27 @@ const round1 = (n) => Math.round(n * 10) / 10;
 const isPublic = (v) => v?.privacyStatus == null || v.privacyStatus === 'public';
 
 /**
+ * BRIEF.md의 "비교 시트:" 줄 목록에서 시트 식별자(episodeId 또는 11자 videoId)를 꺼낸다.
+ * 지원 형식:
+ *  - `data/youtube/transform-sheets/<id>.json` (경로·백틱 포함, v4 우선)
+ *  - `ep34-shorts-consonant-cluster (...)` (v4 episodeId)
+ *  - `SbQVBQoRciA (...)` (기존 11자 sourceVideoId)
+ */
+export function parseTransformSheetId(rawLines = []) {
+  const lines = Array.isArray(rawLines) ? rawLines : (rawLines ? [rawLines] : []);
+  for (const raw of lines) {
+    const m = String(raw).match(/transform-sheets\/([\w-]{3,80})\.json\b/);
+    if (m) return m[1];
+  }
+  for (const raw of lines) {
+    const cleaned = String(raw).trim().replace(/^`+/, '');
+    const m = cleaned.match(/^([\w-]{3,80})(?=[\s`.,;()|]|$)/);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+/**
  * BRIEF.md의 "## 기획 근거" 절만 읽는다. 절이 없으면 null(근거 기록 없음).
  * @param {string} markdown
  */
@@ -69,9 +90,8 @@ export function parsePlanningSources(markdown = '') {
 
   // 다음 기획 입력 파일(data/youtube/next-episode-input.md)을 인용한 줄 — 2026-11-12, EP30부터 필수
   const inputRef = valueOf("다음 기획 입력")[0] || null;
-  // 비교 시트(2026-11-12): 경쟁 영상 소재를 쓰는 편은 data/youtube/transform-sheets/<영상ID>.json을 가리킨다
-  const sheetRaw = valueOf("비교 시트")[0] || null;
-  const transformSheet = sheetRaw ? ((sheetRaw.match(/^[\w-]{11}/) || [])[0] || null) : null;
+  // 비교 시트(2026-11-12, 2026-11-22 v4 episodeId·경로 확장): data/youtube/transform-sheets/<id>.json을 가리킨다
+  const transformSheet = parseTransformSheetId(valueOf('비교 시트'));
 
   return {topic, competitors, audience, track, inputRef, transformSheet};
 }

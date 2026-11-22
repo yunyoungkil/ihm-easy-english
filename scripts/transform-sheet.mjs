@@ -432,9 +432,12 @@ export const BASELINE_RESULTS = Object.freeze(['갱신 기준 초과', '기준�
 export const EVIDENCE_RESULTS = Object.freeze([...USUAL_RESULTS, ...BASELINE_RESULTS]);
 export function evidenceProblems(sheet) {
   const out = [];
-  for (const b of sheet?.borrowed || []) {
-    for (const e of b.evidenceLog || []) {
-      const where = `가져온 것(${String(b.what).slice(0, 20)})의 근거 기록`;
+  const groups = [
+    ...(sheet?.borrowed || []).map((b) => [`가져온 것(${String(b.what).slice(0, 20)})의 근거 기록`, b.evidenceLog || []]),
+    ...(sheet?.references || []).map((r) => [`명작 레퍼런스(${String(r.what || r.role || r.videoId).slice(0, 20)})의 근거 기록`, r.evidenceLog || []]),
+  ];
+  for (const [where, log] of groups) {
+    for (const e of log) {
       if (!filled(e?.date) || !filled(e?.videoId)) out.push(`${where}에 날짜나 영상 ID가 없다`);
       else if (!EVIDENCE_METRICS.includes(e.metric)) out.push(`${where}의 지표(${e.metric})가 ${EVIDENCE_METRICS.join('/')} 중 하나가 아니다`);
       else if (!Number.isFinite(Number(e.value)) && e.value !== null) out.push(`${where}의 값이 숫자가 아니다`);

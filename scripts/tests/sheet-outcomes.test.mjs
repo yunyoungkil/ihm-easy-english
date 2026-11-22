@@ -150,3 +150,42 @@ test('리뷰 E: 근거 기록에 영상의 첫 7일 조회·표본 작음 표시
   const g = groupResultsByVariable([small]);
   assert.equal(g[0].lowSampleCount, 1, '표본 작은 영상이 섞여 있다는 것을 묶음에서도 센다');
 });
+
+test('v4 시트 정산: episodeId(sheetIdOf)로 매칭·충돌 방지하고 references[].evidenceLog까지 누적·검증한다', () => {
+  const v4a = {
+    schemaVersion: 4, episodeId: 'ep32-shorts-word-merge', sourceVideoId: 'SHARED11111',
+    topic: 'a', status: 'approved', format: 'SHORTS',
+    testVariables: [{variable: '훅A', hypothesis: 'h', measure: '조회수'}],
+    references: [{videoId: 'REF11111111', role: '훅', what: '원리A', reason: 'r', evidence: 'e', appliedTo: ['cut:0']}],
+  };
+  const v4b = {
+    schemaVersion: 4, episodeId: 'ep33-shorts-swallowed-t', sourceVideoId: 'SHARED11111',
+    topic: 'b', status: 'approved', format: 'SHORTS',
+    testVariables: [{variable: '훅B', hypothesis: 'h', measure: '조회수'}],
+    references: [{videoId: 'REF22222222', role: '전개', what: '원리B', reason: 'r', evidence: 'e', appliedTo: ['cut:1']}],
+  };
+  const v4NoSrc = {
+    schemaVersion: 4, episodeId: 'ep35-shorts-no-source',
+    topic: 'c', status: 'approved', format: 'SHORTS',
+    testVariables: [{variable: '훅C', hypothesis: 'h', measure: '조회수'}],
+    references: [{videoId: 'REF33333333', role: '결말', what: '원리C', reason: 'r', evidence: 'e', appliedTo: ['cut:2']}],
+  };
+  const outcomes = [
+    {videoId: 'VID_A', format: 'SHORTS', sources: {transformSheet: 'ep32-shorts-word-merge'}},
+    {videoId: 'VID_B', format: 'SHORTS', sources: {transformSheet: 'ep33-shorts-swallowed-t'}},
+    {videoId: 'VID_C', format: 'SHORTS', sources: {transformSheet: 'ep35-shorts-no-source'}},
+    {videoId: 'VID_AMBIG', format: 'SHORTS', sources: {transformSheet: 'SHARED11111'}}, // sourceVideoId가 2편에 겹치면 추측 매칭 금지
+  ];
+  const lifetime = {VID_A: f7(1400, 10, 3), VID_B: f7(600, 12, 1), VID_C: f7(900, 15, 2), VID_AMBIG: f7(1000, 10, 1)};
+  const {updated, settled} = settleAll({outcomes, sheets: [v4a, v4b, v4NoSrc], lifetime, baselines});
+  assert.equal(settled, 3, '고유 episodeId 3편만 정산되고 충돌하는 sourceVideoId는 건너뛴다');
+  assert.deepEqual(updated.map((s) => s.episodeId).sort(), ['ep32-shorts-word-merge', 'ep33-shorts-swallowed-t', 'ep35-shorts-no-source']);
+  for (const s of updated) {
+    assert.equal(s.references[0].evidenceLog.length, 3, 'references[]에 지표 3건 기록');
+    assert.deepEqual(evidenceProblems(s), [], 'references[].evidenceLog도 evidenceProblems를 통과한다');
+    assert.ok(evidenceHtml(s.references[0]).includes('결과 기록 3건'));
+  }
+  const badRef = structuredClone(updated[0]);
+  badRef.references[0].evidenceLog[0].result = '성공';
+  assert.ok(evidenceProblems(badRef).some((m) => m.includes('명작 레퍼런스') && m.includes('정해진 말이 아니다')));
+});

@@ -146,3 +146,11 @@ test('parsePlanningSources: 조사 출처 영상의 "평소 대비 측정 전"·
   assert.deepEqual(got.competitors[0], {channelTitle: '테스트채널', channelId: 'UC1234567890123456789012', videoId: 'abcdefghijk', sourceRatio: null});
   assert.deepEqual(got.competitors[1], {channelTitle: '보류채널', channelId: 'UC2234567890123456789012', videoId: 'bbbbbbbbbbb', sourceRatio: null});
 });
+
+test('parsePlanningSources: 비교 시트 v4(episodeId·백틱 경로·다중 줄)와 기존 11자 ID를 모두 정확히 읽는다', () => {
+  assert.equal(parsePlanningSources(brief('- 비교 시트: SbQVBQoRciA (기존 11자)')).transformSheet, 'SbQVBQoRciA');
+  assert.equal(parsePlanningSources(brief('- 비교 시트: pvPBD9PLuyk (메모)\n  - 비교 시트: data/youtube/transform-sheets/ep31-shorts-stress-shift.json')).transformSheet, 'ep31-shorts-stress-shift');
+  assert.equal(parsePlanningSources(brief('- 비교 시트: `data/youtube/transform-sheets/ep32-shorts-word-merge.json` (sourceVideoId: `Z6VDb7biKCw`)')).transformSheet, 'ep32-shorts-word-merge');
+  assert.equal(parsePlanningSources(brief('- 비교 시트: ep34-shorts-consonant-cluster (자음 뭉치)')).transformSheet, 'ep34-shorts-consonant-cluster');
+  assert.equal(parsePlanningSources(brief('- 비교 시트: 없음')).transformSheet, null);
+});

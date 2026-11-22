@@ -43,13 +43,12 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | 1 | **Phase 1** 라이브 데이터 분석 | `/api/sync` 직후 채널 현실 점검, **형식 배분 판정**, 페인포인트 검색 | [01-topic-and-data.md](references/01-topic-and-data.md) |
 | 2 | **Phase 2** 콘텐츠 유형 선택 | 방식 × 형식 결정, **검증 게이트 표**(결과 없는 형식 2편 이상이면 제외) | 01 |
 | 3 | **Phase 3** 경쟁 채널 스캔 & 레이더 | 추천 유입 기반 자동 발굴 + 7일 성과 연동 자율 라이프사이클(수습➔황금광산➔차단➔졸업) | 01 |
-| 4 | **Phase 4** 소재 후보 | 최종 3개(확장 2 + 가설 1), 예측은 같은 방식·형식 중앙값 대비 배수로 통일 | 01 |
+| 4 | **Phase 4** 소재 후보 & Kill-First 피치 | 최종 3개(확장 2 + 가설 1), **CCN New 연결 고리(구체적 앵커 + 1개 빈틈)** 점검, 시트 전 **Kill-First 피치(`data/youtube/pitch-log.json`)**로 뻔한 안 자체 폐기·기록 | 01 |
 | 5 | **Phase 5** 분량·포맷·스타일 | 고유 코너, **비주얼 스타일 1차 결정**, 쇼츠 세트와 연결 칸 | 01 |
 | 6 | **Phase 6** 제목 & 썸네일 | **근거 4종 먼저**(클릭률 상·하위, A/B 승자, 아웃라이어, 실제 검색어), 제목 3안, **방향 미리보기 비교**, 프롬프트(글자·색면뿐이면 생략, 서로 다른 컨셉 3개) | [02-title-and-thumbnail.md](references/02-title-and-thumbnail.md) |
-| 7 | **Phase 7** 목차 | 직전 3편과 구성 비교, 단일 현실 장면 | [03-script-and-narration.md](references/03-script-and-narration.md) |
-| 8 | **Phase 8** 대본·TTS 규격 | 초안 직후 **팩트 체크 표(`FACT-CHECK.md`)**, **`slop-rewrite`(67규칙 + `writing-taste v0.2 W-01~W-08` + `check_fidelity`) + korean-skills(style-guide → grammar-checker)**, 바뀐 문장 재판정, 금지어 검사 | 03 |
-| 9 | **Phase 9** 비주얼 스타일 확인 | Phase 5 결정을 확인만 함 | [04-visual-and-assets.md](references/04-visual-and-assets.md) |
-| 10 | **Phase 10** 그림·영상 프롬프트 | HyperFrames 필터, 워터마크 차단, 그림 속 전문용어 금지 | 04 |
+| 7 | **Phase 7·9** 시각 자료(Info Doc) → 거친 컷 흐름(Visual Outline) | **대본보다 시각 선행(2026-11-23)**: Pinterest·명작 화면·시각 증거 먼저 수집 → 화면만으로 통하는 컷 순서/시각 스토리보드 먼저 배치(나레이션 군살 제거) | [04-visual-and-assets.md](references/04-visual-and-assets.md) |
+| 8 | **Phase 8** 대본·TTS·컷별 팩트체크 정렬 | Visual Outline 옆에 대사·사운드·**컷별 팩트 체크(`FACT-CHECK.md`)** 정렬, 계단식 오픈 루프(Payoff Void 방지), **`slop-rewrite` + korean-skills**, 금지어 검사 | [03-script-and-narration.md](references/03-script-and-narration.md) |
+| 9 | **Phase 10** 그림·영상 프롬프트 | 3중 하이브리드(Omni · Nano Banana · HyperFrames), 워터마크 차단, 그림 속 전문용어 금지 | 04 |
 | — | 제작 | 음성·HyperFrames·검수·렌더 (`knowledge/VIDEO_WORKFLOW.md`) | — |
 | 11 | **Phase 12** 쇼츠 파생 & 다음 영상 연결 | 롱폼 1편당 쇼츠 2개, 롱폼 링크, 엔드스크린·재생목록. **쇼츠 썸네일 프롬프트는 대본 확정 직후 그림 프롬프트와 함께 쓴다** | [06-shorts-and-next-watch.md](references/06-shorts-and-next-watch.md) |
 | 12 | **Phase 13** 업로드 전 점검 | 금지어·업로드 페이지 검사, `slop-rewrite`·seo-audit·korean-skills·design 스킬 점검(작은 표본이면 필수 2개) | [07-packaging-check.md](references/07-packaging-check.md) |
@@ -85,6 +84,7 @@ description: 이해하면 쉬운영어 채널의 기획·성장 통합 워크플
 | 기획 근거 (`BRIEF.md` "기획 근거" 칸) | Phase 3, 11 | Phase 4 선택 직후 | — |
 | 예측과 실제 (`REVIEW.md`) | Phase 2, 4, 6 | Phase 4(예측), Phase 11(실제·판정) | 공개 7일·28일이 지나면 Phase 11을 바로 |
 | 통한 요소 기록 (`success-patterns.json`) | Phase 4, 6, 7 | Phase 11 (1편이면 가설, 2편 이상이면 확정) | — |
+| Kill-First 피치 기록 (`pitch-log.json`) | Phase 1, 4 (`next-episode-input.md` 17절) | Phase 4 피치 직후 (채택·폐기 사유 기록) | — |
 
 - 쓰기 전에 파일을 읽고 기존 형식을 지킨다. 출처(API 응답, `REVIEW.md`)가 있는 값만 쓰고, 숫자를 짐작으로 채우지 않는다.
 - Gemini를 부르는 갱신(댓글·대본 분석)은 지금처럼 비용·한도를 먼저 알린다. 동기화와 파일 읽기·쓰기는 묻지 않는다.

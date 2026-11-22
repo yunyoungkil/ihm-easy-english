@@ -228,3 +228,69 @@ test('경쟁 영상 리포트 요약: 새 방식 배수는 숫자로, 옛 방식
   assert.match(md, /평소 대비 옛 방식 570배\(참고용\)/);
   assert.match(md, /평소 대비 측정 중/);
 });
+
+test('14~17절(2026-11-23): 스튜디오 소형 폭발·키워드 포화도·시청자 날것 어휘·Kill-First 피치 기록이 빈 값과 실값을 정직하게 렌더링한다', async () => {
+  const {
+    summarizeStudioResearch, renderStudioResearch,
+    summarizeMarketDemand, renderMarketDemand,
+    parseInsightVocabMarkdown, renderInsightsVocab,
+    renderPitchLog,
+  } = await import('../next-episode-input.mjs');
+  const {validatePitchEntry, summarizePitchLog} = await import('../pitch-log.mjs');
+
+  // 14절: 스튜디오 조사 소형 채널 폭발 사례
+  assert.ok(renderStudioResearch(null).join('\n').includes('수집 전'));
+  const srSum = summarizeStudioResearch({
+    updatedAt: '2026-11-22T16:00:00Z',
+    candidates: {
+      s1: {videoId: 's1', format: 'SHORTS', title: '입국신고서 5개 단어', channelTitle: '여행채널', studioFolds: 100, studioSubscribers: 64700, studioViews: 1530000},
+      l1: {videoId: 'l1', format: 'LONGFORM', title: '랩으로 발음 연습', channelTitle: '발음채널', studioFolds: 33, studioSubscribers: 38100, studioViews: 250000},
+    },
+  });
+  const srMd = renderStudioResearch(srSum).join('\n');
+  assert.ok(srMd.includes('100배') && srMd.includes('64,700명') && srMd.includes('랩으로 발음 연습'));
+
+  // 15절: 키워드 포화도 + 미분석 추적 채널 경고
+  assert.ok(renderMarketDemand(null).join('\n').includes('수집 전'));
+  const mdSum = summarizeMarketDemand({
+    byKeyword: [
+      {keyword: '영어 연음 축약', opportunityScore: 44.8, marketDemandScore: 187.5, totalResults: 15334, videoCount: 14, analyzedAt: '2026-11-19T16:00:00Z'},
+      {keyword: '영어 왕초보 질문', opportunityScore: 107.8, marketDemandScore: 250, totalResults: 199, videoCount: 13, analyzedAt: '2026-11-15T16:00:00Z'},
+    ],
+    trackedChannels: [
+      {channelId: 'UC1', channelTitle: '수키', subscriberCount: 2350, analyzedAt: null, status: 'candidate'},
+      {channelId: 'UC2', channelTitle: '분석됨', subscriberCount: 10000, analyzedAt: '2026-11-20T00:00:00Z', status: 'candidate'},
+    ],
+  });
+  const mdText = renderMarketDemand(mdSum).join('\n');
+  assert.ok(mdText.indexOf('영어 왕초보 질문') < mdText.indexOf('영어 연음 축약'), '기회점수 높은 키워드가 먼저 나온다');
+  assert.ok(mdText.includes('미분석 추적 채널 1곳') && mdText.includes('수키(구독 2,350명)'));
+
+  // 16절: output/insights 시청자 날것 어휘 파싱 (우리 채널 제외)
+  assert.equal(parseInsightVocabMarkdown('- **채널명**: 이해하면 쉬운 영어 (★ 우리 채널)', 'ours.md'), null);
+  const parsed = parseInsightVocabMarkdown([
+    '# 📊 아웃라이어 영상 댓글 분석 리포트: 발음 챌린지',
+    '- **채널명**: 수키 suekii',
+    '- **조회수**: 4,180,208회 | **댓글 수집**: 100개',
+    '## 🗣️ 3. 시청자의 생생한 어휘 (Audience Vocabulary)',
+    '> `지옥의 맥도날드`, `한글 표기의 늪`',
+    '## 🎯 4. 호평받은 설명 논리 (What Worked)',
+    '- 멜로디로 통째로 설명해 줌',
+  ].join('\n'), 'suekii.md');
+  assert.deepEqual(parsed.vocab, ['지옥의 맥도날드', '한글 표기의 늪']);
+  assert.ok(renderInsightsVocab([parsed]).join('\n').includes('지옥의 맥도날드'));
+
+  // 17절: Kill-First 피치 검증 및 렌더링
+  assert.ok(renderPitchLog(summarizePitchLog({pitches: []})).join('\n').includes('기록 전'));
+  const bad = validatePitchEntry({id: 'p1', date: '2026-11-23', format: 'SHORTS', topic: 't', decision: 'maybe'});
+  assert.ok(bad.length > 0);
+  const good = {
+    id: 'p2', date: '2026-11-23', format: 'SHORTS', topic: '자음군 교과서 설명',
+    audienceBridge: '없음 — 교과서 용어만 나열', tldr: '자음군 3규칙 정리',
+    visualBeats: ['단어 카드', '발음 표시'], seriesPremise: '단발',
+    decision: 'killed', reason: 'New 시청자 연결 고리 없고 시각 한 방이 약함',
+  };
+  assert.deepEqual(validatePitchEntry(good), []);
+  const pitchMd = renderPitchLog(summarizePitchLog({pitches: [good]})).join('\n');
+  assert.ok(pitchMd.includes('폐기 1건') && pitchMd.includes('New 시청자 연결 고리 없고'));
+});

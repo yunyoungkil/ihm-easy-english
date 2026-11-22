@@ -55,16 +55,18 @@ const outputPath = join(projectDir, "data", "youtube", "market-demand.json");
 
 const dryRun = process.argv.includes("--dry-run");
 
-// Grounded in knowledge/content-formats.md ("영어 발음·듣기 원리", 시즌2 "문장 속 연결·축약·리듬")
-// and channel-strategy.md's 왕초보 audience framing. Keep this pool SHORT — each
-// entry is a 100-unit search.list call.
+// Grounded in knowledge/content-formats.md + 2026-11-23 CCN 2-track discovery:
+// Track A(발음·듣기 원리 4개) + Track B(3060 일상·New 연결 고리 4개).
+// Keep pool <= 8 entries (8 × 100 = 800 units/run, well under 10,000/day free quota).
 const DEFAULT_KEYWORD_POOL = [
-  "영어 발음 규칙",
   "영어 발음 원리",
   "영어 연음 축약",
-  "왕초보 영어 발음",
   "영어 듣기 안 들리는 이유",
   "미국식 발음 규칙",
+  "콩글리시 영어 발음 차이",
+  "여행 영어 필수 단어",
+  "국내파 영어 발음 교정",
+  "미드 영어 안 들리는 이유",
 ];
 
 // --keyword="..." (repeatable): check specific candidate ideas on demand

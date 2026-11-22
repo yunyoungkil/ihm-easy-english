@@ -19,6 +19,7 @@ import {METRICS, MIN_POINTS_POOL, quantile, RECENT_COUNT, usualBands, usualFor} 
 import {groupResultsByVariable} from './sheet-outcomes.mjs';
 import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
 import {summarizePeriod} from './audience-countries.mjs';
+import {summarizePitchLog} from './pitch-log.mjs';
 
 export const MIN_COMPARE_VIDEOS = 6; // 상위 3편과 하위 3편이 겹치지 않는 최소 수
 export const RECENT_POOL = 20; // 같은 형식 최근 20편 안에서 비교한다(오래된 영상이 지금 채널을 대표하지 않게)
@@ -284,7 +285,12 @@ export function renderNextEpisodeInput(input) {
     out.push('경쟁 영상을 같은 행에서 우리 콘텐츠와 비교한 시트. 경쟁 소재를 쓰는 편은 새로 만들기 전에 이 시트를 만들고 `BRIEF.md` 기획 근거에 `비교 시트:` 줄로 연결한다.', '');
     for (const t of transformSheets) {
       const stageLabel = t.stage === 'measured' ? `성적 측정(${t.resultsCount || 1}편)` : (t.status === 'draft' ? '초안' : t.status === 'approved' ? '승인' : '공개');
-      out.push(`- **${cut(t.topic, 60)}** — ${stageLabel} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개 · http://localhost:3001/transform-sheet/${t.sheetId || t.sourceVideoId}`);
+      const extras = [
+        t.audienceBridge ? `연결 고리: ${cut(t.audienceBridge, 45)}` : null,
+        t.seriesPremise ? `시리즈 축: ${cut(t.seriesPremise, 35)}` : null,
+      ].filter(Boolean);
+      const extraText = extras.length ? ` · ${extras.join(' · ')}` : '';
+      out.push(`- **${cut(t.topic, 60)}** — ${stageLabel} · ${t.format} · 다른 영상에서 가져온 것 ${t.borrowedCount}개, 뺀 것 ${t.rejectedCount}개${extraText} · http://localhost:3001/transform-sheet/${t.sheetId || t.sourceVideoId}`);
     }
     out.push('');
   } else out.push('비교 시트 없음.', '');
@@ -293,6 +299,10 @@ export function renderNextEpisodeInput(input) {
   out.push(...renderStudioMetrics(input.studio, input.titles));
   out.push(...renderAudienceCountries(input.audienceCountries));
   out.push(...renderKoreanTrends(input.koreanTrends));
+  out.push(...renderStudioResearch(input.studioResearch));
+  out.push(...renderMarketDemand(input.marketDemand));
+  out.push(...renderInsightsVocab(input.insightsVocab));
+  out.push(...renderPitchLog(input.pitchLog));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -434,6 +444,166 @@ export function renderKoreanTrends(store) {
   return out;
 }
 
+/** 스튜디오 조사 소형 채널 폭발 사례(data/youtube/studio-research.json) 요약. */
+export function summarizeStudioResearch(store, limitPerFormat = 8) {
+  if (!store || !store.candidates || typeof store.candidates !== 'object') return null;
+  const list = Object.values(store.candidates).filter((c) => c && c.videoId && Number.isFinite(Number(c.studioFolds)));
+  const pick = (isShort) => list
+    .filter((c) => (c.format === 'SHORTS' || c.isShort === true) === isShort)
+    .sort((a, b) => (Number(b.studioFolds) - Number(a.studioFolds)) || ((Number(b.studioViews) || 0) - (Number(a.studioViews) || 0)))
+    .slice(0, limitPerFormat)
+    .map((c) => ({
+      videoId: c.videoId,
+      title: c.title || c.videoId,
+      channelTitle: c.channelTitle || '채널 미상',
+      studioFolds: Number(c.studioFolds),
+      studioSubscribers: c.studioSubscribers == null ? null : Number(c.studioSubscribers),
+      studioViews: c.studioViews == null ? null : Number(c.studioViews),
+    }));
+  return {
+    updatedAt: store.updatedAt || null,
+    totalCandidates: list.length,
+    shorts: pick(true),
+    longform: pick(false),
+  };
+}
+
+export function renderStudioResearch(summary) {
+  const out = ['## 14. 스튜디오 조사 소형 채널 폭발 사례 (구독 10만 미만 · 10배 이상)', ''];
+  if (!summary || !summary.totalCandidates) {
+    return [...out, '스튜디오 조사 목록 수집 전(`data/youtube/studio-research.json`).', ''];
+  }
+  const fmtNum = (n) => (n == null ? '측정 전' : Number(n).toLocaleString('ko-KR'));
+  out.push(`수집 시각: ${day(summary.updatedAt)} · 후보 ${summary.totalCandidates}편(유튜브 스튜디오 배수 \`studioFolds\`는 우리 \`outlierRatio\`와 정의가 달라 섞지 않는다).`);
+  out.push('연예인·유명인 얼굴 덕분인 클립과, **소재·질문·해결법 자체의 힘**으로 터진 영상을 구분해 참고한다.', '');
+  for (const [label, rows] of [['쇼츠 상위', summary.shorts], ['롱폼 상위', summary.longform]]) {
+    if (!rows?.length) continue;
+    out.push(`**${label}**`, '', '| 배수 | 구독자 | 조회수 | 채널 | 제목 |', '|---|---|---|---|---|');
+    for (const r of rows) {
+      out.push(`| ${r.studioFolds}배 | ${fmtNum(r.studioSubscribers)}명 | ${fmtNum(r.studioViews)}회 | ${cell(cut(r.channelTitle, 18))} | ${cell(cut(r.title, 45))} (\`${r.videoId}\`) |`);
+    }
+    out.push('');
+  }
+  return out;
+}
+
+/** 키워드 수요·포화도 및 미분석 추적 채널(data/youtube/market-demand.json) 요약. */
+export function summarizeMarketDemand(store, limit = 10) {
+  if (!store || typeof store !== 'object') return null;
+  const byKeyword = (Array.isArray(store.byKeyword) ? store.byKeyword : [])
+    .filter((k) => k && k.keyword && k.opportunityScore != null && Number.isFinite(Number(k.opportunityScore)))
+    .sort((a, b) => (Number(b.opportunityScore) - Number(a.opportunityScore)) || ((Number(b.marketDemandScore) || 0) - (Number(a.marketDemandScore) || 0)))
+    .slice(0, limit)
+    .map((k) => ({
+      keyword: k.keyword,
+      opportunityScore: Number(k.opportunityScore),
+      marketDemandScore: k.marketDemandScore == null ? null : Number(k.marketDemandScore),
+      totalResults: k.totalResults == null ? null : Number(k.totalResults),
+      videoCount: k.videoCount == null ? null : Number(k.videoCount),
+      analyzedAt: k.analyzedAt || null,
+    }));
+  const unanalyzedTracked = (Array.isArray(store.trackedChannels) ? store.trackedChannels : [])
+    .filter((c) => c && !c.analyzedAt && c.status !== 'blocked' && c.status !== 'graduated')
+    .map((c) => ({
+      channelId: c.channelId,
+      channelTitle: c.channelTitle || c.channelId,
+      subscriberCount: c.subscriberCount == null ? null : Number(c.subscriberCount),
+    }));
+  return {
+    generatedAt: store.generatedAt || null,
+    keywordCount: Array.isArray(store.byKeyword) ? store.byKeyword.length : 0,
+    byKeyword,
+    unanalyzedTracked,
+  };
+}
+
+export function renderMarketDemand(summary) {
+  const out = ['## 15. 키워드 수요와 포화도 (market-demand.json)', ''];
+  if (!summary || (!summary.byKeyword?.length && !summary.unanalyzedTracked?.length)) {
+    return [...out, '키워드 시장 수요 수집 전(`node scripts/market-demand.mjs`).', ''];
+  }
+  const fmtNum = (n) => (n == null ? '측정 전' : Number(n).toLocaleString('ko-KR'));
+  out.push(`분석 키워드 ${summary.keywordCount}개 중 기회점수(\`opportunityScore = 수요 ÷ log10(포화도+10)\`) 상위 ${summary.byKeyword.length}개. 포화도(\`totalResults\`)가 낮으면서 수요가 높은 키워드가 빈틈 후보다.`, '');
+  if (summary.byKeyword.length) {
+    out.push('| 키워드 | 기회점수 | 수요점수 | 검색 결과 수(포화도) | 분석 영상 | 분석일 |', '|---|---|---|---|---|---|');
+    for (const k of summary.byKeyword) {
+      out.push(`| ${cell(cut(k.keyword, 30))} | ${k.opportunityScore} | ${show(k.marketDemandScore)} | ${fmtNum(k.totalResults)} | ${show(k.videoCount, '편')} | ${day(k.analyzedAt)} |`);
+    }
+    out.push('');
+  }
+  if (summary.unanalyzedTracked?.length) {
+    const names = summary.unanalyzedTracked.map((c) => `${c.channelTitle}(구독 ${fmtNum(c.subscriberCount)}명)`).join(', ');
+    out.push(`- 미분석 추적 채널 ${summary.unanalyzedTracked.length}곳(\`node scripts/market-demand.mjs --sync-all-tracked\` 필요): ${names}`, '');
+  }
+  return out;
+}
+
+/** output/insights/*.md에서 시청자 날것 어휘 & 호평 설명 논리를 뽑는다(우리 채널 파일 제외). */
+export function parseInsightVocabMarkdown(markdown = '', filename = '') {
+  const text = String(markdown || '');
+  if (!text || text.includes('★ 우리 채널')) return null;
+  const channel = text.match(/\*\*채널명\*\*:\s*([^\r\n]+)/)?.[1]?.trim() || null;
+  const viewsRaw = text.match(/\*\*조회수\*\*:\s*([\d,]+)회/)?.[1]?.replace(/,/g, '');
+  const views = viewsRaw ? Number(viewsRaw) : null;
+  const title = text.match(/^#\s+[^\r\n]*?:\s*([^\r\n]+)/m)?.[1]?.trim() || filename;
+  const vocabBlock = text.split(/##\s+[^\r\n]*시청자의 생생한 어휘[^\r\n]*\r?\n/)[1]?.split(/\r?\n##\s+/)[0] || '';
+  const vocab = [...vocabBlock.matchAll(/`([^`]+)`/g)].map((m) => m[1].trim()).filter(Boolean);
+  const workedBlock = text.split(/##\s+[^\r\n]*호평받은 설명 논리[^\r\n]*\r?\n/)[1]?.split(/\r?\n##\s+/)[0] || '';
+  const workedFirst = workedBlock.split(/\r?\n/).map((l) => l.match(/^\s*-\s+(.+)$/)?.[1]?.trim()).find(Boolean) || null;
+  if (!vocab.length && !workedFirst) return null;
+  return {title, channel, views, vocab: vocab.slice(0, 6), worked: workedFirst};
+}
+
+export function extractInsightsVocab(insightsDir, limit = 10) {
+  if (!insightsDir || !existsSync(insightsDir)) return [];
+  return readdirSync(insightsDir)
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => parseInsightVocabMarkdown(readFileSync(join(insightsDir, f), 'utf8'), f))
+    .filter(Boolean)
+    .sort((a, b) => (b.views ?? -1) - (a.views ?? -1))
+    .slice(0, limit);
+}
+
+export function renderInsightsVocab(entries = []) {
+  const out = ['## 16. 시청자 날것 어휘 & 통한 설명 (output/insights/*.md)', ''];
+  if (!entries?.length) return [...out, '시청자 댓글 어휘 리포트 없음(`output/insights/`).', ''];
+  out.push('경쟁 폭발 영상의 실제 시청자 댓글에서 뽑은 날것 표현과 호평받은 설명 논리(조회수 큰 순). 피치·제목·훅에서 교과서 말 대신 시청자 언어를 보존할 때 쓴다.', '');
+  for (const e of entries) {
+    const viewText = e.views == null ? '조회 미상' : `${Number(e.views).toLocaleString('ko-KR')}회`;
+    out.push(`- **${cut(e.title, 42)}** (${e.channel || '채널 미상'} · ${viewText})`);
+    if (e.vocab?.length) out.push(`  - 날것 어휘: ${e.vocab.map((v) => `\`${v}\``).join(', ')}`);
+    if (e.worked) out.push(`  - 통한 설명: ${cut(e.worked, 140)}`);
+  }
+  out.push('');
+  return out;
+}
+
+/** Kill-First 피치 채택·폐기 이력(data/youtube/pitch-log.json) 표시. */
+export function renderPitchLog(summary) {
+  const out = ['## 17. Kill-First 피치 기록 (채택 · 폐기 이력, pitch-log.json)', ''];
+  if (!summary || !summary.total) {
+    return [...out, '기록 전 — 비교 시트 착수 전 AI 자체 피치(후보 채택·폐기와 이유)를 `data/youtube/pitch-log.json`에 남긴다.', ''];
+  }
+  out.push(`누적 ${summary.total}건 (채택 ${summary.adoptedCount}건 · 폐기 ${summary.killedCount}건). 폐기 이유는 같은 평균값 기획을 되풀이하지 않기 위한 학습 기록이다.`, '');
+  if (summary.recentKilled?.length) {
+    out.push('**최근 폐기한 기획**', '');
+    for (const p of summary.recentKilled) {
+      out.push(`- [${day(p.date)} · ${p.format}] **${cut(p.topic, 45)}** — 폐기 이유: ${cut(p.reason, 100)}`);
+    }
+    out.push('');
+  }
+  if (summary.recentAdopted?.length) {
+    out.push('**최근 채택한 피치**', '');
+    for (const p of summary.recentAdopted) {
+      const bridge = p.audienceBridge ? ` · 연결 고리: ${cut(p.audienceBridge, 45)}` : '';
+      const premise = p.seriesPremise ? ` · 시리즈 축: ${cut(p.seriesPremise, 35)}` : '';
+      out.push(`- [${day(p.date)} · ${p.format}] **${cut(p.topic, 45)}**${bridge}${premise}`);
+    }
+    out.push('');
+  }
+  return out;
+}
+
 const readJson = (path, fallback) => {
   try { return JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')); } catch { return fallback; }
 };
@@ -483,8 +653,12 @@ export function buildFromProject(projectDir, now = new Date()) {
     studio: readJson(join(dataDir, 'studio-metrics.json'), null),
     audienceCountries: readJson(join(dataDir, 'audience-countries.json'), null),
     koreanTrends: readJson(join(dataDir, 'korean-trends.json'), null),
+    studioResearch: summarizeStudioResearch(readJson(join(dataDir, 'studio-research.json'), null)),
+    marketDemand: summarizeMarketDemand(readJson(join(dataDir, 'market-demand.json'), null)),
+    insightsVocab: extractInsightsVocab(join(projectDir, 'output', 'insights')),
+    pitchLog: summarizePitchLog(readJson(join(dataDir, 'pitch-log.json'), null)),
     titles,
-    transformSheets: loadSheets().map((t) => ({sheetId: sheetIdOf(t), sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length + (t.references || []).length, rejectedCount: (t.rejected || []).length})),
+    transformSheets: loadSheets().map((t) => ({sheetId: sheetIdOf(t), sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length + (t.references || []).length, rejectedCount: (t.rejected || []).length, audienceBridge: t.audienceBridge || null, seriesPremise: t.seriesPremise || null})),
   };
 }
 

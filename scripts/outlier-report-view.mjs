@@ -155,6 +155,17 @@ export function renderReportPage(report, { framesPending = 0, hasSheet = false, 
   if (!(a.links || []).length) parts.push('<p class="meta">없음</p>');
   for (const l of a.links || []) parts.push(`<div class="card"><b>${escapeHtml(l.cause)}</b> → ${escapeHtml(l.reaction)}${quote(l.quote, l.quoteVerified)}</div>`);
 
+  if (a.whyOutlierVsChannel || (report.channelPeers || []).length) {
+    parts.push('<h2>같은 채널 평소 영상 대조</h2><div class="card">');
+    if (a.whyOutlierVsChannel) parts.push(`<p><b>평소 영상 대비 핵심 차이</b>: ${escapeHtml(a.whyOutlierVsChannel)}</p>`);
+    if ((report.channelPeers || []).length) {
+      parts.push('<p class="meta" style="margin-bottom:6px">대조군(같은 채널·같은 형식 평소 영상)</p><ul>'
+        + report.channelPeers.map((cp) => `<li>${escapeHtml(cp.title)} <span class="meta">(조회수 ${num(cp.viewCount)} · 길이 ${cp.durationSeconds ?? '?'}초${cp.publishedAt ? ` · ${escapeHtml(cp.publishedAt)}` : ''})</span></li>`).join('')
+        + '</ul>');
+    }
+    parts.push('</div>');
+  }
+
   const u = a.forUs || {};
   parts.push(`<h2>7. 우리 채널에</h2><div class="card"><p><b>가져올 점</b>: ${escapeHtml(u.adopt)}</p><p><b>다르게 할 점</b>: ${escapeHtml(u.differentiate)}</p></div>`);
   parts.push(extraObservationsHtml(a));

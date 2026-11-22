@@ -50,8 +50,38 @@ export function analysisWindowSeconds(durationSeconds) {
   return Number.isFinite(d) && d > 0 && d <= LONG_VIDEO_WINDOW_SECONDS ? Math.ceil(d) : LONG_VIDEO_WINDOW_SECONDS;
 }
 
+/** 같은 채널의 같은 형식 평소 영상(대조군) 최대 limit편을 뽑는다. 다른 메가 히트나 다른 형식은 빼고 중앙값 주변의 전형적 평소 영상을 고른다. */
+export const CONTRAST_PEER_LIMIT = 5; // allow-literal: 대조군 표시 상한(프롬프트 토큰 절약)
+export function selectContrastPeers(channelVideos = [], target = {}, {limit = CONTRAST_PEER_LIMIT} = {}) {
+  const targetId = target?.videoId || '';
+  const targetViews = Number(target?.viewCount);
+  const targetIsShort = typeof target?.isShort === 'boolean' ? target.isShort : null;
+  const pool = (channelVideos || [])
+    .filter((v) => v && v.videoId && v.videoId !== targetId && String(v.title || '').trim() && Number.isFinite(Number(v.viewCount)))
+    .filter((v) => targetIsShort == null || v.isShort === targetIsShort)
+    .filter((v) => !Number.isFinite(targetViews) || Number(v.viewCount) < targetViews)
+    .sort((a, b) => Number(a.viewCount) - Number(b.viewCount));
+  if (!pool.length) return [];
+  let picked = pool;
+  if (pool.length > limit) {
+    // 양 극단(0회 오류·다른 대박 영상)을 피하고 20%~80% 구간에서 고르게 뽑는다.
+    const lo = Math.floor(pool.length * 0.2);
+    const hi = Math.max(lo, Math.min(pool.length - 1, Math.floor(pool.length * 0.8)));
+    const slice = pool.slice(lo, hi + 1);
+    if (slice.length <= limit) picked = slice;
+    else picked = Array.from({length: limit}, (_, i) => slice[Math.round((i * (slice.length - 1)) / Math.max(1, limit - 1))]);
+  }
+  return picked.map((v) => ({
+    videoId: v.videoId,
+    title: String(v.title).trim(),
+    viewCount: Number(v.viewCount),
+    durationSeconds: Number.isFinite(Number(v.durationSeconds)) ? Number(v.durationSeconds) : null,
+    publishedAt: v.publishedAt ? String(v.publishedAt).slice(0, 10) : null,
+  }));
+}
+
 /** 관찰만 시키는 프롬프트. 우리 철학·분류 목록·내용 예시는 넣지 않는다(AGENTS.md 2026-11-12). */
-export function buildReportPrompt({meta, subscriberCount = null, outlierRatio = null, transcriptLines = null, comments = [], windowSeconds}) {
+export function buildReportPrompt({meta, subscriberCount = null, outlierRatio = null, transcriptLines = null, comments = [], windowSeconds, channelPeers = []}) {
   let transcript = '자막 없음(가져오지 못함). 자막 인용 칸은 비워 둔다.';
   if (transcriptLines?.length) {
     const lines = [];
@@ -73,11 +103,14 @@ export function buildReportPrompt({meta, subscriberCount = null, outlierRatio = 
     `조회수 ${meta.viewCount}회 · 올린 날 ${String(meta.publishedAt || '').slice(0, 10)} · 길이 ${meta.durationSeconds ?? '확인 불가'}초`,
     outlierRatio != null ? `이 영상의 조회수는 같은 채널·같은 형식 최근 영상 조회수의 중앙값보다 ${Math.round(outlierRatio * 10) / 10}배 많다.` : '',
   ].filter(Boolean).join('\n');
+  const peerBlock = Array.isArray(channelPeers) && channelPeers.length
+    ? `\n\n[같은 채널의 같은 형식 평소 영상 대조군]\n${channelPeers.map((p) => `- "${String(p.title || '').replace(/\s+/g, ' ').trim()}" (조회수 ${Number(p.viewCount).toLocaleString('en-US')}회 · 길이 ${p.durationSeconds ?? '확인 불가'}초 · ${p.publishedAt || '날짜 없음'})`).join('\n')}`
+    : '';
 
   return `너는 유튜브 영상을 보고 있는 그대로 기록하는 관찰자다. 평가하거나 미리 정한 유형·공식에 끼워 넣지 말고, 실제로 보고 들은 것을 적는다.
 
 [영상 정보]
-${facts}
+${facts}${peerBlock}
 
 [함께 준 자료]
 1) 영상 자체 — 처음 ${windowSeconds}초 구간의 화면과 소리
@@ -138,6 +171,7 @@ ${commentBlock}
     "payoff": {"t": 0, "what": "끝에서 앞서 한 약속을 회수한 방식", "quote": "원문"}
   },
   "links": [{"cause": "영상의 어느 장면·말(시각 포함)", "reaction": "그에 대한 시청자 반응", "quote": "댓글 원문"}],
+  "whyOutlierVsChannel": "같은 채널의 평소 영상 대조군과 비교했을 때 이 영상만 조회수가 크게 오른 핵심 차이를 관찰된 근거로 한두 문장(대조군이 없거나 알 수 없으면 확인 불가)",
   "teachesAdultEnglishSounds": true,
   "teachesAdultEnglishSoundsReason": "위 판정의 이유 한 줄",
   "forUs": {
@@ -328,6 +362,7 @@ export function normalizeExtraObservations(analysis = {}) {
     };
     a.storytelling = out.hook || out.curiosity || out.causality || out.payoff || ['openLoops', 'patternBreaks', 'viewerActions', 'evidence'].some((k) => out[k] != null) ? out : null;
   } else a.storytelling = null;
+  a.whyOutlierVsChannel = textOf(a.whyOutlierVsChannel) || null;
   return a;
 }
 
@@ -917,13 +952,16 @@ function findResearchCandidateOnDisk(videoId) {
 }
 
 /**
- * 조사 출처 영상 등 market-demand.json에 v2 배수가 없는 영상의 우리 배수(peer-median-views-v2)를 API로 직접 계산한다.
- * 채널 업로드 최근 50편(UU + UUSH 플레이리스트, 약 3단위)을 받아 computePeerRatio를 돌린다.
+ * 채널 최근 업로드 50편(UU + UUSH 플레이리스트, 약 3단위)을 받아 우리 배수(peer-median-views-v2)와
+ * 같은 채널·같은 형식 평소 영상 대조군(channelPeers)을 함께 구한다(2026-11-22 대조군 추가).
  */
-async function fetchChannelPeerRatio(meta, ytKey, {knownFormat = null, now = new Date()} = {}) {
+async function fetchChannelPeerContext(meta, ytKey, {knownFormat = null, now = new Date()} = {}) {
   const channelId = meta?.channelId;
   if (!channelId || !channelId.startsWith('UC')) {
-    return ratioFieldsFromEntry({ratioMethod: RATIO_METHOD, ratioStatus: 'hold', ratioReason: '채널 ID가 없어 API 배수 계산 보류', ratioComputedAt: now.toISOString()});
+    return {
+      ratioFields: ratioFieldsFromEntry({ratioMethod: RATIO_METHOD, ratioStatus: 'hold', ratioReason: '채널 ID가 없어 API 배수 계산 보류', ratioComputedAt: now.toISOString()}),
+      channelPeers: [],
+    };
   }
   try {
     const uploadsId = `UU${channelId.slice(2)}`;
@@ -935,15 +973,20 @@ async function fetchChannelPeerRatio(meta, ytKey, {knownFormat = null, now = new
     const shortsIds = new Set((shData.items || []).map((it) => it.contentDetails?.videoId).filter(Boolean));
     const recentIds = [...new Set((upData.items || []).map((it) => it.contentDetails?.videoId).filter(Boolean))].slice(0, PEER_BASELINE_SAMPLE);
     if (!recentIds.length) {
-      return ratioFieldsFromEntry({ratioMethod: RATIO_METHOD, ratioStatus: 'hold', ratioReason: '채널 최근 업로드 목록이 비어 있어 판정 보류', ratioComputedAt: now.toISOString()});
+      return {
+        ratioFields: ratioFieldsFromEntry({ratioMethod: RATIO_METHOD, ratioStatus: 'hold', ratioReason: '채널 최근 업로드 목록이 비어 있어 판정 보류', ratioComputedAt: now.toISOString()}),
+        channelPeers: [],
+      };
     }
     const vidData = await youtubeJson('videos', {part: 'snippet,statistics,contentDetails', id: recentIds.join(',')}, ytKey);
     const channelVideos = (vidData.items || []).map((it) => {
       const dur = isoDurationSeconds(it.contentDetails?.duration);
       return {
         videoId: it.id,
+        title: it.snippet?.title || '',
         viewCount: Number(it.statistics?.viewCount ?? NaN),
         publishedAt: it.snippet?.publishedAt,
+        durationSeconds: dur,
         isShort: dur != null ? dur <= 60 || shortsIds.has(it.id) : (shortsIds.has(it.id) ? true : null),
       };
     });
@@ -957,14 +1000,18 @@ async function fetchChannelPeerRatio(meta, ytKey, {knownFormat = null, now = new
       channelVideos,
       now,
     });
-    return ratioFieldsFromEntry(computed);
+    const channelPeers = selectContrastPeers(channelVideos, {videoId: meta.videoId, viewCount: meta.viewCount, isShort});
+    return {ratioFields: ratioFieldsFromEntry(computed), channelPeers};
   } catch (err) {
-    return ratioFieldsFromEntry({
-      ratioMethod: RATIO_METHOD,
-      ratioStatus: 'hold',
-      ratioReason: `API 배수 계산 실패: ${String(err?.message || err).slice(0, 120)}`,
-      ratioComputedAt: now.toISOString(),
-    });
+    return {
+      ratioFields: ratioFieldsFromEntry({
+        ratioMethod: RATIO_METHOD,
+        ratioStatus: 'hold',
+        ratioReason: `API 배수 계산 실패: ${String(err?.message || err).slice(0, 120)}`,
+        ratioComputedAt: now.toISOString(),
+      }),
+      channelPeers: [],
+    };
   }
 }
 
@@ -979,18 +1026,20 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true, speechFal
   const candidate = researchCandidate !== undefined ? researchCandidate : findResearchCandidateOnDisk(videoId);
   const ratioEntry = findRatioEntryOnDisk(videoId);
   const needApiRatio = !ratioEntry || ratioTier(ratioEntry) !== 0;
-  const [subscriberCount, transcript, comments, thumbnailBase64, apiRatioFields] = await Promise.all([
+  const [subscriberCount, transcript, comments, thumbnailBase64, peerContext] = await Promise.all([
     fetchSubscribers(meta.channelId, ytKey),
     fetchTranscript(videoId),
     fetchTopComments(videoId, ytKey),
     fetchThumbnailBase64(meta.thumbnail),
-    needApiRatio ? fetchChannelPeerRatio(meta, ytKey, {knownFormat: candidate?.format || null}) : Promise.resolve(null),
+    fetchChannelPeerContext(meta, ytKey, {knownFormat: candidate?.format || null}),
   ]);
+  const apiRatioFields = needApiRatio ? peerContext.ratioFields : null;
+  const channelPeers = peerContext.channelPeers || [];
   const commentList = Array.isArray(comments) ? comments : [];
   const windowSeconds = analysisWindowSeconds(meta.durationSeconds);
   const ratioFields = apiRatioFields || ratioFieldsFromEntry(ratioEntry);
   // AI에게는 새 방식으로 계산된 배수만 알려 준다(옛 방식 값·측정 중·보류는 말하지 않는다).
-  const prompt = buildReportPrompt({meta, subscriberCount, outlierRatio: comparableRatioOrNull(ratioFields), transcriptLines: transcript.lines || null, comments: commentList, windowSeconds});
+  const prompt = buildReportPrompt({meta, subscriberCount, outlierRatio: comparableRatioOrNull(ratioFields), transcriptLines: transcript.lines || null, comments: commentList, windowSeconds, channelPeers});
   const {model, analysis: raw, usage} = await callGemini({videoId, windowSeconds, thumbnailBase64, prompt, geminiKey});
 
   raw.visualMoments = (raw.visualMoments || []).filter((m) => Number.isFinite(Number(m.t)) && m.t >= 0 && m.t <= windowSeconds).map((m) => ({...m, t: Number(m.t)}));
@@ -1016,6 +1065,7 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true, speechFal
     subscriberCount,
     viewsPerSubscriber: subscriberCount ? Math.round((meta.viewCount / subscriberCount) * 100) / 100 : null,
     ...ratioFields,
+    ...(channelPeers.length ? {channelPeers} : {}),
     ...(candidate ? {
       source: 'studio-research',
       studioFolds: candidate.studioFolds ?? null,

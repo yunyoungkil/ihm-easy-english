@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
   MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes, cutFrameName, missingCutFrames, CUT_FRAME_HEIGHT,
-  isVideoUnavailableError, framesRetryPaused, ytDlpErrorText, isTransientReportError,
+  isVideoUnavailableError, framesRetryPaused, ytDlpErrorText, isTransientReportError, selectContrastPeers, normalizeExtraObservations,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -20,6 +20,34 @@ test('프롬프트에는 우리 철학·미리 정한 분류 목록·채널 이�
   assert.match(prompt, /원문/);
   assert.match(prompt, /확인 불가/);
   assert.match(prompt, /\[00:00\] 발음 한번 해보세요/);
+  assert.match(prompt, /whyOutlierVsChannel/);
+});
+
+test('같은 채널 평소 영상 대조군: 같은 형식·더 낮은 조회수만 고르고, 프롬프트·정규화·화면에 안전하게 반영한다', () => {
+  const videos = [
+    {videoId: 'TARGET00001', title: '터진 쇼츠', viewCount: 50000, durationSeconds: 40, publishedAt: '2026-11-10T00:00:00Z', isShort: true},
+    {videoId: 'LONG0000001', title: '다른 형식 롱폼', viewCount: 100, durationSeconds: 600, publishedAt: '2026-11-01T00:00:00Z', isShort: false},
+    {videoId: 'BIGGER00001', title: '더 터진 쇼츠', viewCount: 90000, durationSeconds: 45, publishedAt: '2026-11-02T00:00:00Z', isShort: true},
+    {videoId: 'PEER0000001', title: '평소 쇼츠 1', viewCount: 500, durationSeconds: 35, publishedAt: '2026-11-03T00:00:00Z', isShort: true},
+    {videoId: 'PEER0000002', title: '평소 쇼츠 2', viewCount: 800, durationSeconds: 42, publishedAt: '2026-11-04T00:00:00Z', isShort: true},
+    {videoId: 'PEER0000003', title: '평소 쇼츠 3', viewCount: 1200, durationSeconds: 38, publishedAt: '2026-11-05T00:00:00Z', isShort: true},
+  ];
+  const peers = selectContrastPeers(videos, {videoId: 'TARGET00001', viewCount: 50000, isShort: true}, {limit: 5});
+  assert.deepEqual(peers.map((p) => p.videoId), ['PEER0000001', 'PEER0000002', 'PEER0000003']);
+  const prompt = buildReportPrompt({meta, subscriberCount: 1000, outlierRatio: 50, windowSeconds: 40, channelPeers: peers});
+  assert.match(prompt, /\[같은 채널의 같은 형식 평소 영상 대조군\]/);
+  assert.match(prompt, /평소 쇼츠 2/);
+  for (const banned of ['도파민', '앵커링', '손실 회피', '넛지']) assert.ok(!prompt.includes(banned));
+  assert.equal(normalizeExtraObservations({whyOutlierVsChannel: '  제목이 다름  '}).whyOutlierVsChannel, '제목이 다름');
+  assert.equal(normalizeExtraObservations({}).whyOutlierVsChannel, null);
+  const html = renderReportPage({
+    videoId: 'TARGET00001', analyzedAt: '2026-11-22T00:00:00Z', windowSeconds: 40, meta,
+    channelPeers: [{videoId: 'PEER1', title: '<b>평소</b> 영상', viewCount: 800, durationSeconds: 35, publishedAt: '2026-11-04'}],
+    analysis: {whyOutlierVsChannel: '평소와 달리 <script>x</script> 구조', visualMoments: [], flow: []},
+  });
+  assert.ok(html.includes('같은 채널 평소 영상 대조'));
+  assert.ok(html.includes('&lt;b&gt;평소&lt;/b&gt; 영상'));
+  assert.ok(!html.includes('<script>x</script>'));
 });
 
 test('인용 검사: 자막·댓글·제목에 실제로 있는 글자만 확인됨으로 표시한다(띄어쓰기·문장부호 차이는 무시)', () => {

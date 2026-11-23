@@ -1,0 +1,412 @@
+{
+  "measuredAt": "2026-11-23T05:07:40.473Z",
+  "totalSuggestedDuration": 44.288,
+  "voice": {
+    "c00": {
+      "file": "assets/voice-clean/c00.wav",
+      "duration": 3.216
+    },
+    "c01": {
+      "file": "assets/voice-clean/c01.wav",
+      "duration": 2.705
+    },
+    "c02": {
+      "file": "assets/voice-clean/c02.wav",
+      "duration": 0.971
+    },
+    "c03": {
+      "file": "assets/voice-clean/c03.wav",
+      "duration": 2.222
+    },
+    "c04": {
+      "file": "assets/voice-clean/c04.wav",
+      "duration": 1.275
+    },
+    "c05": {
+      "file": "assets/voice-clean/c05.wav",
+      "duration": 2.854
+    },
+    "c06": {
+      "file": "assets/voice-clean/c06.wav",
+      "duration": 1.631
+    },
+    "c07": {
+      "file": "assets/voice-clean/c07.wav",
+      "duration": 2.365
+    },
+    "c08": {
+      "file": "assets/voice-clean/c08.wav",
+      "duration": 2.636
+    },
+    "c10": {
+      "file": "assets/voice-clean/c10.wav",
+      "duration": 2.429
+    },
+    "c11": {
+      "file": "assets/voice-clean/c11.wav",
+      "duration": 3.641
+    }
+  },
+  "voiceEn": {
+    "salmon": {
+      "file": "assets/voice-en-clean/salmon.wav",
+      "duration": 0.727
+    },
+    "receipt": {
+      "file": "assets/voice-en-clean/receipt.wav",
+      "duration": 0.601
+    },
+    "debt": {
+      "file": "assets/voice-en-clean/debt.wav",
+      "duration": 0.549
+    },
+    "island": {
+      "file": "assets/voice-en-clean/island.wav",
+      "duration": 0.915
+    },
+    "doubt": {
+      "file": "assets/voice-en-clean/doubt.wav",
+      "duration": 0.557
+    }
+  },
+  "sfx": {
+    "paper-rip": {
+      "file": "assets/sfx/paper-rip.wav",
+      "duration": 0.28,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -22.8,
+      "maxDb": -5.8
+    },
+    "ink-stamp": {
+      "file": "assets/sfx/ink-stamp.wav",
+      "duration": 0.24,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -23.6,
+      "maxDb": -5.4
+    },
+    "paper-fuse-tick": {
+      "file": "assets/sfx/paper-fuse-tick.wav",
+      "duration": 1.2,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -30.8,
+      "maxDb": -9.8
+    },
+    "final-peel-chime": {
+      "file": "assets/sfx/final-peel-chime.wav",
+      "duration": 0.36,
+      "sampleRate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le",
+      "meanDb": -21.2,
+      "maxDb": -3.7
+    }
+  },
+  "bgm": {
+    "track": {
+      "file": "assets/bgm/track.mp3",
+      "duration": 61.388,
+      "sampleRate": 44100,
+      "channels": 2,
+      "source": "Lyria 3.5 (AI Studio Composer Mode)",
+      "meanDb": -14.3,
+      "maxDb": 0
+    }
+  },
+  "cuts": [
+    {
+      "cut": 0,
+      "t": 0,
+      "duration": 3.596,
+      "sheetT": 0,
+      "sheetDuration": 4,
+      "ko": {
+        "id": "c00",
+        "offset": 0.12,
+        "duration": 3.216
+      },
+      "sfx": {
+        "id": "paper-rip",
+        "offset": 1.55,
+        "duration": 0.28
+      },
+      "en": [],
+      "window": 0,
+      "audioBudget": 3.336
+    },
+    {
+      "cut": 1,
+      "t": 3.596,
+      "duration": 3.4,
+      "sheetT": 4,
+      "sheetDuration": 4.8,
+      "ko": {
+        "id": "c01",
+        "offset": 0.12,
+        "duration": 2.705
+      },
+      "sfx": {
+        "id": "ink-stamp",
+        "offset": 1.187,
+        "duration": 0.24
+      },
+      "en": [],
+      "window": 0,
+      "audioBudget": 2.825
+    },
+    {
+      "cut": 2,
+      "t": 6.996,
+      "duration": 2.238,
+      "sheetT": 8.8,
+      "sheetDuration": 3,
+      "ko": {
+        "id": "c02",
+        "offset": 0.12,
+        "duration": 0.971
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "salmon",
+          "offset": 1.251,
+          "duration": 0.727
+        }
+      ],
+      "window": 0,
+      "audioBudget": 1.978
+    },
+    {
+      "cut": 3,
+      "t": 9.234,
+      "duration": 3.769,
+      "sheetT": 11.8,
+      "sheetDuration": 3.4,
+      "ko": {
+        "id": "c03",
+        "offset": 0.12,
+        "duration": 2.222
+      },
+      "sfx": {
+        "id": "paper-rip",
+        "offset": 2.442,
+        "duration": 0.28
+      },
+      "en": [
+        {
+          "id": "salmon",
+          "offset": 2.782,
+          "duration": 0.727
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.509
+    },
+    {
+      "cut": 4,
+      "t": 13.003,
+      "duration": 2.416,
+      "sheetT": 15.2,
+      "sheetDuration": 3.3,
+      "ko": {
+        "id": "c04",
+        "offset": 0.12,
+        "duration": 1.275
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "receipt",
+          "offset": 1.555,
+          "duration": 0.601
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.156
+    },
+    {
+      "cut": 5,
+      "t": 15.419,
+      "duration": 4.275,
+      "sheetT": 18.5,
+      "sheetDuration": 4,
+      "ko": {
+        "id": "c05",
+        "offset": 0.12,
+        "duration": 2.854
+      },
+      "sfx": {
+        "id": "paper-rip",
+        "offset": 3.074,
+        "duration": 0.28
+      },
+      "en": [
+        {
+          "id": "receipt",
+          "offset": 3.414,
+          "duration": 0.601
+        }
+      ],
+      "window": 0,
+      "audioBudget": 4.015
+    },
+    {
+      "cut": 6,
+      "t": 19.694,
+      "duration": 2.72,
+      "sheetT": 22.5,
+      "sheetDuration": 2.8,
+      "ko": {
+        "id": "c06",
+        "offset": 0.12,
+        "duration": 1.631
+      },
+      "sfx": null,
+      "en": [
+        {
+          "id": "debt",
+          "offset": 1.911,
+          "duration": 0.549
+        }
+      ],
+      "window": 0,
+      "audioBudget": 2.46
+    },
+    {
+      "cut": 7,
+      "t": 22.414,
+      "duration": 3.734,
+      "sheetT": 25.3,
+      "sheetDuration": 3.5,
+      "ko": {
+        "id": "c07",
+        "offset": 0.12,
+        "duration": 2.365
+      },
+      "sfx": {
+        "id": "paper-rip",
+        "offset": 2.585,
+        "duration": 0.28
+      },
+      "en": [
+        {
+          "id": "debt",
+          "offset": 2.925,
+          "duration": 0.549
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.474
+    },
+    {
+      "cut": 8,
+      "t": 26.148,
+      "duration": 4.371,
+      "sheetT": 28.8,
+      "sheetDuration": 4.7,
+      "ko": {
+        "id": "c08",
+        "offset": 0.12,
+        "duration": 2.636
+      },
+      "sfx": {
+        "id": "paper-rip",
+        "offset": 2.856,
+        "duration": 0.28
+      },
+      "en": [
+        {
+          "id": "island",
+          "offset": 3.196,
+          "duration": 0.915
+        }
+      ],
+      "window": 0,
+      "audioBudget": 4.111
+    },
+    {
+      "cut": 9,
+      "t": 30.519,
+      "duration": 4.252,
+      "sheetT": 33.5,
+      "sheetDuration": 4.8,
+      "ko": null,
+      "sfx": null,
+      "en": [
+        {
+          "id": "salmon",
+          "offset": 0.12,
+          "duration": 0.727
+        },
+        {
+          "id": "receipt",
+          "offset": 1.207,
+          "duration": 0.601
+        },
+        {
+          "id": "debt",
+          "offset": 2.168,
+          "duration": 0.549
+        },
+        {
+          "id": "island",
+          "offset": 3.077,
+          "duration": 0.915
+        }
+      ],
+      "window": 0,
+      "audioBudget": 3.992
+    },
+    {
+      "cut": 10,
+      "t": 34.771,
+      "duration": 4.169,
+      "sheetT": 38.3,
+      "sheetDuration": 4.9,
+      "ko": {
+        "id": "c10",
+        "offset": 0.12,
+        "duration": 2.429
+      },
+      "sfx": {
+        "id": "paper-fuse-tick",
+        "offset": 2.709,
+        "duration": 1.2
+      },
+      "en": [],
+      "window": 1.2,
+      "audioBudget": 3.909
+    },
+    {
+      "cut": 11,
+      "t": 38.94,
+      "duration": 5.348,
+      "sheetT": 43.2,
+      "sheetDuration": 5.6,
+      "ko": {
+        "id": "c11",
+        "offset": 0.3,
+        "duration": 3.641
+      },
+      "sfx": {
+        "id": "final-peel-chime",
+        "offset": 0.04,
+        "duration": 0.36
+      },
+      "en": [
+        {
+          "id": "doubt",
+          "offset": 4.241,
+          "duration": 0.557
+        }
+      ],
+      "window": 0,
+      "audioBudget": 4.798
+    }
+  ]
+}

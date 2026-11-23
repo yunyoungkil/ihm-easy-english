@@ -3,7 +3,7 @@
   "episodeId": "ep35-shorts-ghost-letters",
   "sourceVideoId": "Bzwd5EdsQGk",
   "createdAt": "2026-11-22",
-  "status": "draft",
+  "status": "approved",
   "format": "SHORTS",
   "topic": "살몬(L)·영수증(P)·빚(B)·섬(S) + 의심(B) — 15~16세기 학자들이 라틴어 멋을 내려 철자에만 끼워 넣은 영어 유령 글자 네 가지와 직접 읽기 도전",
   "selfCritique": {
@@ -555,8 +555,9 @@
   ],
   "thumbnailPicks": [
     "images/ep35-shorts-ghost-letters/thumb-A.jpg"
-  ]
-}
-�해요"
-  ]
+  ],
+  "titlePicks": [
+    "살몬에 L이 들어간 이유, 알고 보면 좀 억울해요"
+  ],
+  "approvedAt": "2026-11-23T04:53:12.500Z"
 }

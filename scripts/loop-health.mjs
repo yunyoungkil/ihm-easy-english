@@ -237,12 +237,14 @@ export function collectWorkflowSignals({
     });
   }
 
-  // 서면 허락 요청 메일 회신 대기 알림 (2026-11-23 확정: 1단계 공식 Gmail 플러그인 확인 유도)
+  // 서면 허락 요청(이메일/SNS DM) 회신 대기 알림 (2026-11-23 확정: 이메일은 1단계 공식 Gmail 플러그인 확인 유도)
   const pendingPermissionEmails = [];
   for (const s of transformSheets) {
     for (const c of s?.clipRights?.clips || []) {
-      if (c?.pathway === 'written_permission' && c?.permissionEmail?.status === 'sent') {
-        pendingPermissionEmails.push(`${s.episodeId || s.sourceVideoId || s.topic}(${c.permissionEmail.threadId || c.sourceUrl || '스레드 미상'})`);
+      const pm = c?.permissionContact || c?.permissionEmail;
+      if (c?.pathway === 'written_permission' && pm?.status === 'sent') {
+        const ch = pm.channel === 'dm' ? 'DM' : '메일';
+        pendingPermissionEmails.push(`${s.episodeId || s.sourceVideoId || s.topic}(${ch}:${pm.threadId || c.sourceUrl || '미상'})`);
       }
     }
   }
@@ -250,8 +252,8 @@ export function collectWorkflowSignals({
     candidates.push({
       area: '원본 클립 허락 메일 회신 대기',
       severity: 'upgrade',
-      finding: `서면 허락 요청 메일 회신 대기 ${pendingPermissionEmails.length}건: ${pendingPermissionEmails.join(', ')}`,
-      proposal: '공식 Gmail 플러그인으로 해당 메일 스레드에 답장이 도착했는지 자동 확인하고, 승인 시 clipRights.permissionEmail.status를 approved로 갱신',
+      finding: `서면 허락 요청 회신 대기 ${pendingPermissionEmails.length}건: ${pendingPermissionEmails.join(', ')}`,
+      proposal: '이메일 건은 공식 Gmail 플러그인으로, DM 건은 해당 SNS에서 답장 도착 여부를 확인하고 승인 시 status를 approved로 갱신',
     });
   }
 

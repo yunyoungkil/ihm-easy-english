@@ -92,7 +92,7 @@ test('clipRightsProblems: 외부 클립 증빙 누락 차단 + CC BY 3대 조건
   });
   assert.deepEqual(okCc, []);
 
-  // 4) 쇼츠 리믹스 60초 초과 차단
+  // 4) 쇼츠 리믹스: 60초 초과 + 원작자 공식 채널 미확인 + 유튜브 전용/연동 삭제 미확인 차단
   const longRemix = clipRightsProblems({
     format: 'SHORTS',
     rows: [{key: 'visual', ours: {cutPlan: {durationSeconds: 75, cuts: [{t: 0}]}}}],
@@ -107,10 +107,30 @@ test('clipRightsProblems: 외부 클립 증빙 누락 차단 + CC BY 3대 조건
       }],
     },
   });
-  assert.equal(longRemix.length, 1);
-  assert.ok(longRemix[0].includes('60초 초과'));
+  assert.equal(longRemix.length, 3);
+  assert.ok(longRemix.some((m) => m.includes('60초 초과')));
+  assert.ok(longRemix.some((m) => m.includes('원작자 공식 채널')));
+  assert.ok(longRemix.some((m) => m.includes('유튜브 내부 전용')));
 
-  // 5) 서면 허락: sent는 차단, approved는 통과
+  const okRemix = clipRightsProblems({
+    format: 'SHORTS',
+    rows: [{key: 'visual', ours: {cutPlan: {durationSeconds: 42, cuts: [{t: 0}]}}}],
+    clipRights: {
+      usesExternalClip: true,
+      clips: [{
+        sourceUrl: 'https://youtu.be/remix123456',
+        pathway: 'shorts_remix',
+        scope: '리믹스 허용 원본',
+        segment: '0:00~0:04',
+        transformBasis: '4초 발음 훅 후 우리 원리 풀이',
+        officialChannelConfirmed: true,
+        youtubeOnlyAcknowledged: true,
+      }],
+    },
+  });
+  assert.deepEqual(okRemix, []);
+
+  // 5) 서면 허락(이메일·SNS DM): sent는 차단, approved는 통과
   const pendingMail = clipRightsProblems({
     clipRights: {
       usesExternalClip: true,
@@ -127,22 +147,22 @@ test('clipRightsProblems: 외부 클립 증빙 누락 차단 + CC BY 3대 조건
   assert.equal(pendingMail.length, 1);
   assert.ok(pendingMail[0].includes('확정(approved)되지 않았다'));
 
-  const approvedMail = clipRightsProblems({
+  const approvedDm = clipRightsProblems({
     clipRights: {
       usesExternalClip: true,
       clips: [{
         sourceUrl: 'https://youtu.be/perm1234567',
         pathway: 'written_permission',
-        scope: '쇼츠 1편 5초 구간 수익화 허용',
+        scope: '채널 포괄 허락(설명란 출처 링크 표기 조건)',
         segment: '1:10~1:15',
         transformBasis: '5초 대사 인용 후 38초 영어 표현 해설',
-        permissionEmail: {status: 'approved', threadId: 'thr_123'},
+        permissionContact: {channel: 'dm', status: 'approved', blanketScope: 'channel'},
       }],
     },
   });
-  assert.deepEqual(approvedMail, []);
+  assert.deepEqual(approvedDm, []);
 
-  // 6) 법적 인용 예외: 4개 항목(주·종, 4요소, 동일성유지권, YPP 리스크 확인) 모두 있어야 통과
+  // 6) 법적 인용 예외: 5개 항목(주·종, 4요소, 동일성유지권, 매칭 회피 트릭 미사용, YPP 리스크 확인) 모두 있어야 통과
   const badCitation = clipRightsProblems({
     clipRights: {
       usesExternalClip: true,
@@ -156,7 +176,8 @@ test('clipRightsProblems: 외부 클립 증빙 누락 차단 + CC BY 3대 조건
       }],
     },
   });
-  assert.equal(badCitation.length, 3);
+  assert.equal(badCitation.length, 4);
+  assert.ok(badCitation.some((m) => m.includes('자동 매칭 회피용 변형')));
 
   const okCitation = clipRightsProblems({
     clipRights: {
@@ -171,6 +192,7 @@ test('clipRightsProblems: 외부 클립 증빙 누락 차단 + CC BY 3대 조건
           primaryOursCheck: '우리 해설이 주(92%), 원본은 발음 비교 보조 3초',
           fairUseFourFactors: '비대체 교육 변형, 최소 분량, 원본 시장 대체 없음',
           integrityCheck: '원본 발화 맥락 그대로 유지, 왜곡·비하 없음',
+          noEvasionTricksConfirmed: true,
           yppRiskAcknowledged: true,
         },
       }],

@@ -227,8 +227,16 @@ export function clipRightsProblems(sheet) {
     if (!filled(clip.segment)) out.push(`${label}: 사용 구간(segment, 예: 0:12~0:16)이 없다`);
     if (!filled(clip.transformBasis)) out.push(`${label}: 우리 영어 해설이 주(主)가 되는 변형 근거(transformBasis)가 없다`);
 
-    if (clip.pathway === 'shorts_remix' && sheet?.format === 'SHORTS' && Number.isFinite(dur) && dur > 60) {
-      out.push(`${label}: 60초 초과 쇼츠(${dur}초)에 리믹스·권리 주장 클립을 쓰면 차단·수익 불가 위험이 크다 — 60초 이하로 줄이거나 자체 제작으로 전환`);
+    if (clip.pathway === 'shorts_remix') {
+      if (sheet?.format === 'SHORTS' && Number.isFinite(dur) && dur > 60) {
+        out.push(`${label}: 60초 초과 쇼츠(${dur}초)에 리믹스·권리 주장 클립을 쓰면 차단·수익 불가 위험이 크다 — 60초 이하로 줄이거나 자체 제작으로 전환`);
+      }
+      if (clip.officialChannelConfirmed !== true) {
+        out.push(`${label}(쇼츠 리믹스): 원본이 불법 재업로드가 아닌 원작자 공식 채널인지 확인(officialChannelConfirmed: true)이 필요하다`);
+      }
+      if (clip.youtubeOnlyAcknowledged !== true) {
+        out.push(`${label}(쇼츠 리믹스): 유튜브 내부 전용(타 플랫폼 재배포 금지) 및 원본 삭제 시 연동 삭제 위험 확인(youtubeOnlyAcknowledged: true)이 필요하다`);
+      }
     }
     if (clip.pathway === 'cc_by') {
       const cc = clip.ccProof;
@@ -246,9 +254,9 @@ export function clipRightsProblems(sheet) {
       if (!filled(clip.checkedAt)) out.push(`${label}(공식 가이드라인): 확인 날짜(checkedAt)가 없다`);
     }
     if (clip.pathway === 'written_permission') {
-      const pm = clip.permissionEmail;
+      const pm = clip.permissionContact || clip.permissionEmail;
       if (!pm || typeof pm !== 'object' || !PERMISSION_EMAIL_STATUSES.includes(pm.status)) {
-        out.push(`${label}(서면 허락): 허락 메일 상태(permissionEmail.status: ${PERMISSION_EMAIL_STATUSES.join('/')})가 없다`);
+        out.push(`${label}(서면 허락): 허락 요청 상태(permissionContact/permissionEmail.status: ${PERMISSION_EMAIL_STATUSES.join('/')})가 없다`);
       } else if (pm.status !== 'approved') {
         out.push(`${label}(서면 허락): 허락 회신이 확정(approved)되지 않았다(현재: ${pm.status}) — 승인 전 사용 차단`);
       }
@@ -261,6 +269,7 @@ export function clipRightsProblems(sheet) {
         if (!filled(rev.primaryOursCheck)) out.push(`${label}(법적 인용 예외): 제28조 주·종 관계 검토(primaryOursCheck)가 비어 있다`);
         if (!filled(rev.fairUseFourFactors)) out.push(`${label}(법적 인용 예외): 제35조의5 공정이용 4요소 검토(fairUseFourFactors)가 비어 있다`);
         if (!filled(rev.integrityCheck)) out.push(`${label}(법적 인용 예외): 동일성유지권(원본 맥락 왜곡 없음, integrityCheck) 검토가 비어 있다`);
+        if (rev.noEvasionTricksConfirmed !== true) out.push(`${label}(법적 인용 예외): 자동 매칭 회피용 변형(배속·좌우반전·순서 비틀기) 미사용 확인(noEvasionTricksConfirmed: true)이 필요하다`);
         if (rev.yppRiskAcknowledged !== true) out.push(`${label}(법적 인용 예외): Content ID·YPP 재사용 심사 리스크 확인(yppRiskAcknowledged: true)이 필요하다`);
       }
     }

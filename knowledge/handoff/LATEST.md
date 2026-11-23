@@ -36,7 +36,7 @@
 10. **트렌드 루프·원본 클립 권리·허락 메일 자동 검사 확정 (`2026-11-23`, `knowledge/decisions/2026-11-23-trend-loop-and-clip-rights.md`)**: ① 14일 누적+해외 한국 콘텐츠 보강·매 기획 AI 자율 검토·예약 순서 조정 허용(품질 선 유지)·7일 3축(조회수·구독전환·시청지속) 비교·검토 누락 알림 ② 원본 클립 3경로 개방(자체 제작 기본 + 권리 확인[리믹스·공식 원작자 CC BY 3대 조건·공식 가이드라인·서면 허락] + 불가피 시 법적 인용 예외 검토)하되 증빙·근거 기록 없으면 차단 ③ 허락 메일 회신 자동 검사 1단계 공식 Gmail 플러그인 → 2단계 `daily-loop.mjs` OAuth 확장.
 
 ## 다음 할 일
-0. **11/23 17:10 KST 이후**: EP34(`ep34-shorts-consonant-cluster`) 12/12 토 슬롯 — **사용자 결정(11/23): 잔여 Omni 3클립(`c00-press`, `c06-spray`, `c09-strike`)을 더한 뒤 렌더**. 클립 생성 → 모서리 워터마크 확인 → `index.html` 연결 → `hyperframes check`·`check-terms`·콘택트시트 → 렌더.
+0. **EP34 Gate 3 대기**: 11/23 Omni 4클립 연결·렌더 완료(`renders/ep34-shorts-consonant-cluster_2026-11-23_17-16-31.mp4`, 40.2초). 업로드 패키지 → 사용자 업로드 승인 → 12/12 토 20:00 KST 예약.
 1. **(완료 11/23)** EP23 A/B 테스트: `insufficient_impressions`(승자 없음), `REVIEW.md` 기록함.
 2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
 3. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.

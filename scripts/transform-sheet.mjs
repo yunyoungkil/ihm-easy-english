@@ -147,6 +147,127 @@ export function aiRecommendationProblems(sheet, {imageExists = null} = {}) {
   return out;
 }
 
+/**
+ * 트렌드 검토 기록(trendRef, 2026-11-23 확정) 검사.
+ * 기존 시트 호환을 위해 필드가 있을 때(또는 requireTrendRef=true) 검사한다.
+ * 화제 사용을 강제하지 않고, 검토 여부와 사용·미사용 근거가 비어 있지 않은지만 본다.
+ */
+export function trendRefProblems(sheet, {requireTrendRef = false} = {}) {
+  const out = [];
+  const tr = sheet?.trendRef;
+  if (tr === undefined || tr === null) {
+    if (requireTrendRef) out.push('트렌드 검토 기록(trendRef)이 없다 — 13·14절 화제를 살핀 결과와 이유를 남긴다');
+    return out;
+  }
+  if (typeof tr !== 'object') return ['트렌드 검토 기록(trendRef)은 객체여야 한다'];
+  if (typeof tr.used !== 'boolean') out.push('트렌드 검토 기록: 화제 활용 여부(used: true/false)가 없다');
+  if (!filled(tr.reason)) out.push('트렌드 검토 기록: 활용 또는 미활용 이유(reason)가 비어 있다');
+  if (tr.used === true) {
+    if (!filled(tr.topic)) out.push('트렌드 검토 기록: 어떤 화제인지(topic)가 비어 있다');
+    if (!filled(tr.source)) out.push('트렌드 검토 기록: 출처(source: 13절/14절/웹 등)가 비어 있다');
+    if (!filled(tr.sourceDate)) out.push('트렌드 검토 기록: 확인 날짜(sourceDate)가 비어 있다');
+    if (!filled(tr.howIntegrated)) out.push('트렌드 검토 기록: 3060 영어 정체성에 녹인 방식(howIntegrated)이 비어 있다');
+  }
+  if (tr.scheduleShift?.requested === true && !filled(tr.scheduleShift?.reason)) {
+    out.push('트렌드 검토 기록: 예약 순서 조정(scheduleShift)을 요청했지만 이유(reason)가 비어 있다');
+  }
+  return out;
+}
+
+/** 화제 원본 클립 권리 경로(2026-11-23 확정): 기본 자체 제작 외 3경로 모두 개방하되 증빙·근거 누락 시 차단. */
+export const CLIP_RIGHTS_PATHWAYS = Object.freeze([
+  'shorts_remix',       // 유튜브 쇼츠 리믹스 (허용 원본)
+  'cc_by',              // 공식 원작자 채널 CC BY (3대 안전 조건 필수)
+  'official_guideline', // 수익화 허용 공식 2차 창작 가이드라인
+  'written_permission', // 서면 허락 (범위·구간·수익화 명시)
+  'legal_citation',     // 불가피한 경우 법적 인용 예외 검토 (제28조·제35조의5·동일성유지권·YPP 리스크)
+]);
+export const PERMISSION_EMAIL_STATUSES = Object.freeze(['draft', 'sent', 'approved', 'denied']);
+
+/**
+ * 외부 원본 클립 권리 기록(clipRights, 2026-11-23 확정) 하드 가드레일 검사.
+ * - 컷 계획(cutPlan.cuts[])에 externalClip: true가 있는데 clipRights 기록이 없거나 usesExternalClip!==true면 차단.
+ * - clipRights.usesExternalClip === true이면 clips[]마다 URL·경로·범위·구간·변형 근거 및 경로별 필수 증빙이 있어야 통과.
+ */
+export function clipRightsProblems(sheet) {
+  const out = [];
+  const plan = (sheet?.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan;
+  const externalCuts = (plan?.cuts || []).filter((c) => c?.externalClip === true);
+  const cr = sheet?.clipRights;
+
+  if (externalCuts.length > 0 && (!cr || cr.usesExternalClip !== true)) {
+    out.push(`원본 클립 권리 기록(clipRights) 누락: 컷 계획에 외부 원본 클립 ${externalCuts.length}건이 있으나 권리 기록이 없다 — 증빙 없이 사용 불가`);
+    return out;
+  }
+  if (cr === undefined || cr === null) return out;
+  if (typeof cr !== 'object') return ['원본 클립 권리 기록(clipRights)은 객체여야 한다'];
+  if (typeof cr.usesExternalClip !== 'boolean') {
+    out.push('원본 클립 권리 기록: 외부 클립 사용 여부(usesExternalClip: true/false)가 없다');
+    return out;
+  }
+  if (cr.usesExternalClip === false) return out;
+
+  if (!Array.isArray(cr.clips) || cr.clips.length === 0) {
+    out.push('원본 클립 권리 기록: usesExternalClip이 true인데 clips 목록이 비어 있다');
+    return out;
+  }
+
+  const dur = Number(plan?.durationSeconds);
+  cr.clips.forEach((clip, idx) => {
+    const label = `원본 클립 #${idx + 1}`;
+    if (!clip || typeof clip !== 'object') {
+      out.push(`${label}: 클립 권리 객체가 비어 있다`);
+      return;
+    }
+    if (!filled(clip.sourceUrl)) out.push(`${label}: 원본 URL(sourceUrl)이 없다`);
+    if (!CLIP_RIGHTS_PATHWAYS.includes(clip.pathway)) {
+      out.push(`${label}: 권리 경로(pathway)가 ${CLIP_RIGHTS_PATHWAYS.join('/')} 중 하나가 아니다`);
+    }
+    if (!filled(clip.scope)) out.push(`${label}: 허락·근거 범위(scope)가 없다`);
+    if (!filled(clip.segment)) out.push(`${label}: 사용 구간(segment, 예: 0:12~0:16)이 없다`);
+    if (!filled(clip.transformBasis)) out.push(`${label}: 우리 영어 해설이 주(主)가 되는 변형 근거(transformBasis)가 없다`);
+
+    if (clip.pathway === 'shorts_remix' && sheet?.format === 'SHORTS' && Number.isFinite(dur) && dur > 60) {
+      out.push(`${label}: 60초 초과 쇼츠(${dur}초)에 리믹스·권리 주장 클립을 쓰면 차단·수익 불가 위험이 크다 — 60초 이하로 줄이거나 자체 제작으로 전환`);
+    }
+    if (clip.pathway === 'cc_by') {
+      const cc = clip.ccProof;
+      if (!cc || typeof cc !== 'object') {
+        out.push(`${label}(CC BY): 3대 안전 증빙(ccProof)이 없다`);
+      } else {
+        if (cc.officialChannelConfirmed !== true) out.push(`${label}(CC BY): 원작자 본인 공식 채널 확인(officialChannelConfirmed: true)이 없다 — 가짜 CC 차단`);
+        if (!filled(cc.capturePath)) out.push(`${label}(CC BY): CC 표시 화면 캡처 경로(capturePath)가 없다`);
+        if (!filled(cc.capturedAt)) out.push(`${label}(CC BY): CC 확인 날짜(capturedAt)가 없다`);
+        if (!filled(cc.attributionText)) out.push(`${label}(CC BY): 설명글 출처 표기 문구(attributionText)가 없다`);
+      }
+    }
+    if (clip.pathway === 'official_guideline') {
+      if (!filled(clip.guidelineUrl)) out.push(`${label}(공식 가이드라인): 원문 가이드라인 URL(guidelineUrl)이 없다`);
+      if (!filled(clip.checkedAt)) out.push(`${label}(공식 가이드라인): 확인 날짜(checkedAt)가 없다`);
+    }
+    if (clip.pathway === 'written_permission') {
+      const pm = clip.permissionEmail;
+      if (!pm || typeof pm !== 'object' || !PERMISSION_EMAIL_STATUSES.includes(pm.status)) {
+        out.push(`${label}(서면 허락): 허락 메일 상태(permissionEmail.status: ${PERMISSION_EMAIL_STATUSES.join('/')})가 없다`);
+      } else if (pm.status !== 'approved') {
+        out.push(`${label}(서면 허락): 허락 회신이 확정(approved)되지 않았다(현재: ${pm.status}) — 승인 전 사용 차단`);
+      }
+    }
+    if (clip.pathway === 'legal_citation') {
+      const rev = clip.citationReview;
+      if (!rev || typeof rev !== 'object') {
+        out.push(`${label}(법적 인용 예외): 사전 검토 기록(citationReview)이 없다`);
+      } else {
+        if (!filled(rev.primaryOursCheck)) out.push(`${label}(법적 인용 예외): 제28조 주·종 관계 검토(primaryOursCheck)가 비어 있다`);
+        if (!filled(rev.fairUseFourFactors)) out.push(`${label}(법적 인용 예외): 제35조의5 공정이용 4요소 검토(fairUseFourFactors)가 비어 있다`);
+        if (!filled(rev.integrityCheck)) out.push(`${label}(법적 인용 예외): 동일성유지권(원본 맥락 왜곡 없음, integrityCheck) 검토가 비어 있다`);
+        if (rev.yppRiskAcknowledged !== true) out.push(`${label}(법적 인용 예외): Content ID·YPP 재사용 심사 리스크 확인(yppRiskAcknowledged: true)이 필요하다`);
+      }
+    }
+  });
+  return out;
+}
+
 /** v4(슬로건 업그레이드) 쇼츠 단일 최적안(cutPlan) 검사: 물리 가드레일(0.5초 상단 훅 존재·음성 예산·모션·입말)만 강제하고 9자 제한·전 컷 하단 띠 강제는 푼다. */
 export function v4ShortsProblems(sheet, {imageExists = null} = {}) {
   const out = [];
@@ -395,6 +516,8 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     ...appliedProblems(sheet),
     ...selfCritiqueProblems(sheet),
     ...aiRecommendationProblems(sheet, {imageExists}),
+    ...trendRefProblems(sheet),
+    ...clipRightsProblems(sheet),
     ...v4ShortsProblems(sheet, {imageExists}),
     ...plan2Problems(sheet),
     ...plan3Problems(sheet, {imageExists}),

@@ -451,6 +451,21 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     parts.push('<h2>이번에 시험하는 변수</h2>');
     for (const v of sheet.testVariables) parts.push(`<div class="card" style="border-left:3px solid var(--accent);background:linear-gradient(135deg,rgba(56,189,248,0.06),rgba(168,85,247,0.06))"><div style="font-size:14.5px"><b>🧪 ${escapeHtml(v.variable)}</b> · <span class="pill-badge">보는 지표: ${escapeHtml(v.measure)}</span></div><div class="q" style="margin-top:8px"><b>왜 이렇게 될 것 같은가(가설)</b>: ${escapeHtml(v.hypothesis)}</div></div>`);
   }
+  if (sheet.trendRef && typeof sheet.trendRef === 'object') {
+    const tr = sheet.trendRef;
+    const shiftHtml = tr.scheduleShift?.requested
+      ? `<div style="margin-top:6px;padding:6px 10px;border-radius:8px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35)"><b>📅 예약 순서 조정 요청:</b> ${escapeHtml(tr.scheduleShift.reason || '')}${Array.isArray(tr.scheduleShift.pushedBack) && tr.scheduleShift.pushedBack.length ? ` (뒤로 밀리는 예약편: ${escapeHtml(tr.scheduleShift.pushedBack.join(', '))})` : ''}</div>`
+      : '';
+    parts.push(`<div class="card" style="border-left:3px solid #a855f7;background:linear-gradient(135deg,rgba(168,85,247,0.08),rgba(56,189,248,0.04));margin:12px 0"><div style="font-size:14.5px;font-weight:800;color:#a855f7;margin-bottom:6px">📡 트렌드 검토 기록 · <span class="pill-badge">${tr.used ? '화제 활용' : '화제 미활용'}</span></div><div class="meta" style="color:var(--ink);line-height:1.7">${tr.used ? `<div><b>화제:</b> ${escapeHtml(tr.topic || '')} (${escapeHtml(tr.source || '')} · ${escapeHtml(tr.sourceDate || '')})</div><div><b>3060 영어 녹인 방식:</b> ${escapeHtml(tr.howIntegrated || '')}</div>` : ''}<div><b>이유:</b> ${escapeHtml(tr.reason || '')}</div>${shiftHtml}</div></div>`);
+  }
+  if (sheet.clipRights && typeof sheet.clipRights === 'object') {
+    const cr = sheet.clipRights;
+    const pathLabels = {shorts_remix: '쇼츠 리믹스', cc_by: '공식 원작자 CC BY', official_guideline: '공식 2차 창작 가이드라인', written_permission: '서면 허락', legal_citation: '법적 인용 예외 검토'};
+    const clipsHtml = cr.usesExternalClip
+      ? (cr.clips || []).map((c, idx) => `<div style="margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)"><b>클립 #${idx + 1} (${escapeHtml(pathLabels[c.pathway] || c.pathway || '미지정')})</b> · 구간 ${escapeHtml(c.segment || '미상')} · <span style="word-break:break-all">${escapeHtml(c.sourceUrl || '')}</span><div><b>범위/변형:</b> ${escapeHtml(c.scope || '')} / ${escapeHtml(c.transformBasis || '')}</div>${c.permissionEmail ? `<div><b>허락 메일:</b> ${escapeHtml(c.permissionEmail.status || '')}${c.permissionEmail.threadId ? ` (스레드 ${escapeHtml(c.permissionEmail.threadId)})` : ''}</div>` : ''}</div>`).join('')
+      : '<div>외부 원본 클립 미사용 — 자체 비주얼·음성 제작 (권리·재사용 심사 리스크 없음)</div>';
+    parts.push(`<div class="card" style="border-left:3px solid #10b981;background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(56,189,248,0.04));margin:12px 0"><div style="font-size:14.5px;font-weight:800;color:#10b981;margin-bottom:6px">🛡️ 원본 클립 권리 기록 · <span class="pill-badge">${cr.usesExternalClip ? `외부 클립 ${(cr.clips || []).length}건` : '자체 제작'}</span></div><div class="meta" style="color:var(--ink);line-height:1.7">${clipsHtml}</div></div>`);
+  }
   parts.push('<div class="sheet-row" style="margin-top:20px;font-size:14px"><div class="sheet-col" style="background:rgba(255,255,255,0.03)"><b style="color:var(--sub)">🏛️ 경쟁 콘텐츠 (이미 출시)</b></div><div class="sheet-col ours"><b style="color:var(--accent)">🚀 우리가 만들 콘텐츠 (새 제작안)</b></div></div>');
   for (const r of sheet.rows || []) {
     const comp = (r.competitor?.images || []).map(competitorImg).join('');

@@ -1,20 +1,28 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "region": "KR",
-  "collectedAt": "2026-11-22T16:09:47.857Z",
-  "lastAttemptAt": "2026-11-22T16:09:47.857Z",
+  "retentionDays": 14,
+  "collectedAt": "2026-11-23T06:33:57.222Z",
+  "lastAttemptAt": "2026-11-23T06:33:57.222Z",
   "sources": {
     "googleTrendsKr": {
       "ok": true,
-      "fetchedAt": "2026-11-22T16:09:47.857Z",
+      "fetchedAt": "2026-11-23T06:33:57.222Z",
       "count": 10,
       "stale": false,
       "error": null
     },
     "youtubePopularKr": {
       "ok": true,
-      "fetchedAt": "2026-11-22T16:09:47.857Z",
+      "fetchedAt": "2026-11-23T06:33:57.222Z",
       "count": 20,
+      "stale": false,
+      "error": null
+    },
+    "overseasKoreanYt": {
+      "ok": true,
+      "fetchedAt": "2026-11-23T06:33:57.222Z",
+      "count": 10,
       "stale": false,
       "error": null
     }
@@ -22,215 +30,231 @@
   "googleTrends": [
     {
       "source": "google-trends-kr",
-      "keyword": "la liga",
-      "approxTraffic": "500+",
-      "publishedAt": "2026-11-22T14:50:00.000Z",
-      "newsItems": [
-        {
-          "title": "Barcelona vs Villarreal Confirmed Lineups",
-          "source": "WhoScored.com",
-          "url": "https://www.whoscored.com/news/UYwB3kUYiU2gZN87H5q8SA/show/cng112-20261122-barcelona-vs-villarreal-confirmed-lineup-1795348094"
-        },
-        {
-          "title": "Licensable picture: Soccer 2026: LaLiga: FC Barcelona - Villarreal CF",
-          "source": "Reuters Connect",
-          "url": "https://www.reutersconnect.com/item/soccer-2026-laliga-fc-barcelona-villarreal-cf/dGFnOnJldXRlcnMuY29tLDIwMjY6bmV3c21sX01UMVpVTUEwMDBPWlVWNUQ"
-        },
-        {
-          "title": "Mbappé curse strikes Yamal: disastrous historic record as Raphinha pays the price",
-          "source": "Goal.com",
-          "url": "https://www.goal.com/en/news/mbappe-curse-strikes-yamal-disastrous-historic-record-as-raphinha-pays-the-price/blt049a22c7245535b3"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "브라이튼",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-22T14:30:00.000Z",
-      "newsItems": [
-        {
-          "title": "헐 시티 vs 브라이튼 경기 프리뷰 및 예측: 브라이튼은 여전히 ​​높이 비상한다",
-          "source": "Vietnam.vn",
-          "url": "https://www.vietnam.vn/ko/nhan-dinh-du-doan-tran-dau-hull-city-vs-brighton-bay-chim-tiep-tuc-bay-cao"
-        },
-        {
-          "title": "헐 시티 vs 브라이튼 경기 예측: 홈팀이 승리 행진을 재개하려 할 것입니다.",
-          "source": "Vietnam.vn",
-          "url": "https://www.vietnam.vn/ko/nhan-dinh-hull-city-vs-brighton-chu-nha-tim-lai-chien-thang"
-        },
-        {
-          "title": "경기 프리뷰: 헐 시티 vs 브라이튼, 11월 22일 오후 9시: \"브라이튼\"은 여전히 ​​승승장구하고 있습니다.",
-          "source": "Vietnam.vn",
-          "url": "https://www.vietnam.vn/ko/nhan-dinh-tran-dau-hull-city-vs-brighton-21h00-ngay-22-11-mong-bien-chua-moi-canh"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "백종헌",
+      "keyword": "국민건강보험공단",
       "approxTraffic": "200+",
-      "publishedAt": "2026-11-22T14:10:00.000Z",
+      "publishedAt": "2026-11-23T05:30:00.000Z",
       "newsItems": [
         {
-          "title": "검증 안 된 농산물 성분 광고 제동…과학적 근거 따진다",
+          "title": "‘공짜 임플란트 주의보’ 건보공단 부당청구 집중 점검",
+          "source": "이투데이",
+          "url": "https://bravo.etoday.co.kr/view/atc_view/20539"
+        },
+        {
+          "title": "“임플란트 공짜로 해드려요”…건보 지급액 3000만원→9억원, 공단 전수조사",
+          "source": "동아일보",
+          "url": "https://www.donga.com/news/Society/article/all/20261123/135073789/2"
+        },
+        {
+          "title": "임플란트 싸다고 덥석 심었다간… 치과의사가 알려주는 ‘덤핑 치과’의 함정",
+          "source": "헬스조선",
+          "url": "https://health.chosun.com/site/data/html_dir/2026/11/23/2026112301535.html"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "정형돈",
+      "approxTraffic": "500+",
+      "publishedAt": "2026-11-23T05:10:00.000Z",
+      "newsItems": [
+        {
+          "title": "정형돈, 마운자로 맞고 홀쭉해졌나…“눈 밑 지방 재배치도” [DA클립]",
+          "source": "스포츠동아",
+          "url": "https://sports.donga.com/ent/article/all/20261123/135071928/1"
+        },
+        {
+          "title": "'21kg 감량' 정형돈, 마운자로 맞고 홀쭉…\"눈밑지 시술\" 고백 - 머니투데이",
+          "source": "머니투데이",
+          "url": "https://www.mt.co.kr/entertainment/2026/11/23/2026112306202219015"
+        },
+        {
+          "title": "정형돈, 살 21kg 빼더니 결국 '마운자로' 고백..정재형 \"얼굴 확 좋아져\" 깜짝[핫피플]",
+          "source": "Chosunbiz",
+          "url": "https://biz.chosun.com/entertainment/enter_general/2026/11/22/HFSGEYRQGA4DEOBYMFRGIYJTHE/"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "변리사",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-23T05:10:00.000Z",
+      "newsItems": [
+        {
+          "title": "세무사 이어 변리사도 ‘이상 급증’…2차 고득점자 14배 늘었다",
+          "source": "동아일보",
+          "url": "https://www.donga.com/news/Economy/article/all/20261123/135071932/1"
+        },
+        {
+          "title": "[사실은] \"국가시험 합격률 급증\" 전수분석 결과는",
+          "source": "SBS 뉴스",
+          "url": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008856994"
+        },
+        {
+          "title": "'AI 커닝 의혹' 속 변리사 2차 고득점자 14배 급증…1년 새 3명→42명",
+          "source": "부산파이낸셜뉴스",
+          "url": "https://busan.fnnews.com/news/202611231322148988"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "트리플스타",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-23T05:10:00.000Z",
+      "newsItems": [
+        {
+          "title": "사생활 논란 딛고…‘흑백요리사’ 유명 셰프, 깜짝 재혼 발표",
+          "source": "매일경제",
+          "url": "https://www.mk.co.kr/news/culture/12216020"
+        },
+        {
+          "title": "\"부족한 내게 안식처가 돼준 사람\"…'무혐의' 강승원 셰프 깜짝 재혼",
           "source": "뉴스1",
-          "url": "https://www.news1.kr/bio/welfare-medical/6361990"
+          "url": "https://www.news1.kr/entertain/celebrity-topic/6361806"
         },
         {
-          "title": "기능성 농산물 표시제 놓고 식약처·농식품부 충돌…법사위 제동",
-          "source": "푸드투데이",
-          "url": "https://www.foodtoday.or.kr/news/article.html?no=209942"
-        },
-        {
-          "title": "백종헌 의원, 식품표시광고법 개정안 대표발의",
-          "source": "글로벌뉴스통신GNA",
-          "url": "https://www.globalnewsagency.kr/news/articleView.html?idxno=506203"
+          "title": "트리플스타 재혼 발표···에드워드 리·철가방 축하 릴레이",
+          "source": "스포츠경향",
+          "url": "https://sports.khan.co.kr/article/202611221134003"
         }
       ]
     },
     {
       "source": "google-trends-kr",
-      "keyword": "아우크스부르크 대 마인츠 05",
-      "approxTraffic": "1000+",
-      "publishedAt": "2026-11-22T13:50:00.000Z",
-      "newsItems": [
-        {
-          "title": "Best of ESPN New York (Clips) - NY GameDay Hour 1: Why isn't Cade Klubnik starting?",
-          "source": "ESPN",
-          "url": "https://www.espn.com/radio/play/_/id/50561877"
-        },
-        {
-          "title": "Arizona 35-28 Kansas State (Nov 21, 2026) Game Recap",
-          "source": "ESPN",
-          "url": "https://www.espn.com/college-football/recap/_/gameId/401856865"
-        },
-        {
-          "title": "Arsenal vs. West Ham (Nov 22, 2026) Team Stats",
-          "source": "ESPN",
-          "url": "https://www.espn.com/soccer/team-stats/_/gameId/401902858/league/eng.w.1"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "맨유 리버풀",
-      "approxTraffic": "500+",
-      "publishedAt": "2026-11-22T13:50:00.000Z",
-      "newsItems": [
-        {
-          "title": "“새 감독 선임한 맨유가 어떤 축구를 할지 모르겠다”… 노스웨스트 더비 앞두고 경계심 드러낸 리버풀 감독, “경기 초반이 중요”",
-          "source": "베스트일레븐",
-          "url": "https://www.besteleven.com/news/articleView.html?idxno=314241"
-        },
-        {
-          "title": "리버풀은 안필드에서 맨체스터 유나이티드를 상대로 전력을 회복해야 합니다.",
-          "source": "Vietnam.vn",
-          "url": "https://www.vietnam.vn/ko/liverpool-can-lay-lai-suc-manh-tai-anfield-truoc-man-united"
-        },
-        {
-          "title": "리버풀·맨유 맞대결…이삭 7골 vs 음뵈모 4골 : EPL",
-          "source": "재경일보",
-          "url": "https://news.jkn.co.kr/post/1114277"
-        }
-      ]
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "조정석",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-22T13:40:00.000Z",
-      "newsItems": []
-    },
-    {
-      "source": "google-trends-kr",
-      "keyword": "총파업",
+      "keyword": "법관",
       "approxTraffic": "200+",
-      "publishedAt": "2026-11-22T13:40:00.000Z",
+      "publishedAt": "2026-11-23T05:10:00.000Z",
       "newsItems": [
         {
-          "title": "철도노조 23일 쟁의행위 돌입…코레일 비상 체제",
-          "source": "연합뉴스",
-          "url": "https://www.yna.co.kr/view/AKR20261122021300063"
+          "title": "[단독]“우리는 수령 모시는 조직원 아냐”…법관대표회의 의장 ‘행동’ 촉구에 판사들 반론",
+          "source": "경향신문",
+          "url": "https://www.khan.co.kr/article/202611231142001"
         },
         {
-          "title": "서울 지하철에 KTX까지…준법투쟁에 '무기한 총파업' 엄포 - 머니투데이",
-          "source": "머니투데이",
-          "url": "https://www.mt.co.kr/policy/2026/11/22/2026112209541850230"
+          "title": "보수 야권 “조희대 대법원장 탄핵 중단하고 이재명 대통령 재판 재개해야”",
+          "source": "경기일보",
+          "url": "https://www.kyeonggi.com/article/20261123580292"
         },
         {
-          "title": "열차 운행 재개‥철도노조, 내일부터 준법투쟁",
+          "title": "전용기 \"대법원이 한덕수 2심 인정했으면 탄핵 추진 없었을 것\"",
           "source": "MBC 뉴스",
-          "url": "https://imnews.imbc.com/replay/2026/nw1200/article/6867583_36967.html"
+          "url": "https://imnews.imbc.com/news/2026/politics/article/6867778_36911.html"
         }
       ]
     },
     {
       "source": "google-trends-kr",
-      "keyword": "지드래곤",
-      "approxTraffic": "2000+",
-      "publishedAt": "2026-11-22T13:30:00.000Z",
+      "keyword": "유현조",
+      "approxTraffic": "500+",
+      "publishedAt": "2026-11-23T04:50:00.000Z",
       "newsItems": [
         {
-          "title": "\"첫사랑 결혼\" 태양, ♥민효린 子육아에 8년 활동중단..미안해서 오열 \"주책이다\" [Oh!쎈 이슈]",
-          "source": "미주중앙일보",
-          "url": "https://www.koreadaily.com/article/20261121043352952"
+          "title": "김민선, LPGA Q시리즈 최종전 4R서 공동 4위로 도약",
+          "source": "연합뉴스",
+          "url": "https://www.yna.co.kr/view/AKR20261123007400007"
         },
         {
-          "title": "빅뱅, 신곡 ‘기립’ 최초 공개..‘2026 MAMA’ 빛낸 ‘레전드’의 위엄",
+          "title": "유현조·김민선, LPGA Q스쿨 3R 공동 10위",
+          "source": "서울경제",
+          "url": "https://www.sedaily.com/article/20117293"
+        },
+        {
+          "title": "공동 4위로 도약한 김민선7, 내년 LPGA 투어 무대가 보인다",
+          "source": "스포츠동아",
+          "url": "https://sports.donga.com/sports/article/all/20261123/135071764/1"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "카카오",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-23T04:20:00.000Z",
+      "newsItems": [
+        {
+          "title": "카카오T 2대 주주 TPG, 美상장 반대한 카카오에 1.5조 소송",
           "source": "조선일보",
-          "url": "https://www.chosun.com/entertainments/music/2026/11/22/MQYDOZRQGBRTGYRTGJSWINTFMY/"
+          "url": "https://www.chosun.com/economy/tech_it/2026/11/23/XR5FJKQA65CG5KRXCMEQUTIU2I/"
         },
         {
-          "title": "\"마왕 돌아왔나\"…故 신해철 연상시킨 장발의 지드래곤 - 머니투데이",
+          "title": "카카오, TPG와 1.5조원 국제중재 분쟁…모빌리티 美상장 갈등",
+          "source": "연합뉴스",
+          "url": "https://www.yna.co.kr/view/AKR20261123100000017"
+        },
+        {
+          "title": "\"美 ADR 상장 왜 반대?\"…TPG, 카카오 상대 1.5조 중재 신청 - 머니투데이",
           "source": "머니투데이",
-          "url": "https://www.mt.co.kr/entertainment/2026/11/22/2026112214251222851"
+          "url": "https://www.mt.co.kr/tech/2026/11/23/2026112308284747046"
         }
       ]
     },
     {
       "source": "google-trends-kr",
-      "keyword": "persib bandung vs bali united",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-22T13:30:00.000Z",
+      "keyword": "주차",
+      "approxTraffic": "500+",
+      "publishedAt": "2026-11-23T04:10:00.000Z",
       "newsItems": [
         {
-          "title": "Latest Super League Standings After Persib Beats Bali United: Maung Bandung Enters Top 4, Persija Threatened!",
-          "source": "Aktualita.co",
-          "url": "https://aktualita.co/en/sports/persib-bandung-super-league-standings-update"
+          "title": "천안시, 시민체육공원 주차장… 30일까지 전면 통제",
+          "source": "천지일보",
+          "url": "https://www.newscj.com/news/articleView.html?idxno=3451170"
         },
         {
-          "title": "Predicted Lineups for Persib vs Bali United Tonight: Thom Haye and Marc Klok in the Spotlight, Who Starts at GBLA?",
-          "source": "Aktualita.co",
-          "url": "https://aktualita.co/en/sports/persib-vs-bali-united-lineup-prediction"
+          "title": "천안시, 30일까지 시민체육공원 주차 전면 통제",
+          "source": "중도일보",
+          "url": "https://www.joongdo.co.kr/web/view.php?key=20261123010007750"
         },
         {
-          "title": "Full Time Persib vs Bali United 2-1: Dramatic Comeback for Maung Bandung, Menalo's Goal Rocks GBLA!",
-          "source": "Aktualita.co",
-          "url": "https://aktualita.co/en/sports/persib-vs-bali-united-dramatic-comeback"
+          "title": "천안시민체육공원 주차장 23일부터 전면 통제…30일까지 주차 불가",
+          "source": "충청매일",
+          "url": "https://www.ccdn.co.kr/news/articleView.html?idxno=1112715"
         }
       ]
     },
     {
       "source": "google-trends-kr",
-      "keyword": "pakistan a vs india a",
-      "approxTraffic": "100+",
-      "publishedAt": "2026-11-22T13:10:00.000Z",
+      "keyword": "fifa u-17 월드컵",
+      "approxTraffic": "1000+",
+      "publishedAt": "2026-11-23T04:00:00.000Z",
       "newsItems": [
         {
-          "title": "INDA vs PAKA, 8th Match, Group B, ACC Men's Asia Cup Rising Stars 2026 - Commentary",
-          "source": "Cricbuzz",
-          "url": "https://www.cricbuzz.com/live-cricket-scores/177178/paka-vs-inda-8th-match-group-b-acc-mens-asia-cup-rising-stars-2026"
+          "title": "’김지우 해트트릭’ U-17 축구, 월드컵 32강 조기 확정",
+          "source": "연합뉴스TV",
+          "url": "https://www.yonhapnewstv.co.kr/news/MYH2026112314400374z"
         },
         {
-          "title": "8th Match, Group B (D/N), Asia Cup Rising Stars (50 Overs) at Doha, Nov 22 2026",
-          "source": "ESPN",
-          "url": "https://www.espn.com/cricket/series/1562333/commentary/1562349/india-a-vs-pakistan-a-8th-match-group-b-asia-cup-rising-stars-50-overs-2026-27"
+          "title": "韓 남자축구 최초 역사! 17살 김지우, 'FIFA 월드컵' 해트트릭 작렬...U-17 김현준호, 뉴칼레도니아 6-0 꺾고 48개국 중 '1호' 32강 진출 - 머니투데이",
+          "source": "머니투데이",
+          "url": "https://www.mt.co.kr/sports/2026/11/23/202611230810777959O"
         },
         {
-          "title": "Vaibhav Sooryavanshi scores 11 runs against Pakistan A in Asia Cup Rising Stars",
-          "source": "Sportstar",
-          "url": "https://sportstar.thehindu.com/cricket/vaibhav-sooryavanshi-11-runs-batting-score-india-a-vs-pakistan-asia-cup-rising-stars/article71731894.ece"
+          "title": "韓 축구 새 재능 탄생…2009년생 '잘츠부르크 이적 확정' 김지호, U-17 월드컵 뉴칼레도니아전 '기대감'",
+          "source": "조선일보",
+          "url": "https://www.chosun.com/sports/football/2026/11/22/GI2TKZDCMJTDCYLCGNSDKOJXMQ/"
+        }
+      ]
+    },
+    {
+      "source": "google-trends-kr",
+      "keyword": "팝콘",
+      "approxTraffic": "200+",
+      "publishedAt": "2026-11-23T04:00:00.000Z",
+      "newsItems": [
+        {
+          "title": "카페인중독·바프 콜라보, 당류 1g 이하 팝콘 3종 선보여… 생크림·카라멜·피넛버터 구성",
+          "source": "피앤피뉴스",
+          "url": "https://www.gosiweek.com/article/1065577520120943"
+        },
+        {
+          "title": "백억커피, LG유플러스 멤버십 제휴…아메리카노·팝콘 무료 제공",
+          "source": "신아일보",
+          "url": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5086044"
+        },
+        {
+          "title": "백억커피, 카라멜 팝콘 누적 판매 500만 통 돌파… ‘반값 쿠폰’ 행사 진행",
+          "source": "www.cwn.kr",
+          "url": "https://www.cwn.kr/news/articleView.html?idxno=62398"
         }
       ]
     }
@@ -244,7 +268,7 @@
       "channelTitle": "BIGBANG - Topic",
       "publishedAt": "2026-11-20T05:02:15.000Z",
       "categoryId": "10",
-      "viewCount": 2918385
+      "viewCount": 3367539
     },
     {
       "source": "youtube-popular-kr",
@@ -254,7 +278,37 @@
       "channelTitle": "블랙컴뱃",
       "publishedAt": "2026-11-19T08:40:26.000Z",
       "categoryId": "1",
-      "viewCount": 1086600
+      "viewCount": 1108214
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "u201uSiHiko",
+      "title": "멸망전 팀 결정 마지막날 클리드에게 선수들 다 뺏긴 맵교ㅋㅋㅋ",
+      "channelId": "UCBA9XaL5wCdHnC5EmEzwrqw",
+      "channelTitle": "튜브김민교",
+      "publishedAt": "2026-11-22T09:58:49.000Z",
+      "categoryId": "20",
+      "viewCount": 378853
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "eZ_slVaJ9lo",
+      "title": "Please Be Happy",
+      "channelId": "UCjjXNVQndGgIP7OXv13eLYQ",
+      "channelTitle": "Roy Kim - Topic",
+      "publishedAt": "2026-11-22T09:00:29.000Z",
+      "categoryId": "10",
+      "viewCount": 101459
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "NKJyM8z8qFo",
+      "title": "[단독] 심형래 '디워', AI 입고 재개봉 한다...예고편 최초 공개 / YTN star",
+      "channelId": "UCMGn0Ns8k-2M-hZDoxlBUCA",
+      "channelTitle": "YTN star",
+      "publishedAt": "2026-11-23T02:30:01.000Z",
+      "categoryId": "24",
+      "viewCount": 6013
     },
     {
       "source": "youtube-popular-kr",
@@ -264,7 +318,7 @@
       "channelTitle": "혜안",
       "publishedAt": "2026-11-21T10:10:45.000Z",
       "categoryId": "20",
-      "viewCount": 1258163
+      "viewCount": 1413371
     },
     {
       "source": "youtube-popular-kr",
@@ -274,27 +328,27 @@
       "channelTitle": "Private Story - Topic",
       "publishedAt": "2026-11-18T03:01:56.000Z",
       "categoryId": "10",
-      "viewCount": 579262
+      "viewCount": 621778
     },
     {
       "source": "youtube-popular-kr",
-      "videoId": "AqxpOxdPBz8",
-      "title": "OFF THE RECORD | 예고편 TRAILER | I'll Win Over the Commander | Fantasy Romance",
-      "channelId": "UCc1Lu1qzH-Arhw5BPT87NAA",
-      "channelTitle": "문베일 스튜디오 Moonveil Studio",
-      "publishedAt": "2026-11-21T11:15:18.000Z",
-      "categoryId": "1",
-      "viewCount": 39446
+      "videoId": "V0qbfbg8EdE",
+      "title": "역주행 '디워' 다시 태어난다…'심형래 야심작' 예고편 최초 공개 [이 장면]",
+      "channelId": "UChlgI3UHCOnwUGzWzbJ3H5w",
+      "channelTitle": "YTN",
+      "publishedAt": "2026-11-23T00:44:29.000Z",
+      "categoryId": "25",
+      "viewCount": 21339
     },
     {
       "source": "youtube-popular-kr",
-      "videoId": "utP5cFNvBs4",
-      "title": "감스트 GTA6 오픈런!! 웃긴 장면 모음 ㅋㅋㅋ",
-      "channelId": "UCbFzvzDu17eDZ3RIeaLRswQ",
-      "channelTitle": "감스트GAMST",
-      "publishedAt": "2026-11-21T11:50:27.000Z",
+      "videoId": "tbWDrwQOq60",
+      "title": "비비는 맛",
+      "channelId": "UCDBAVzfX3yZ1hah0FHnOoaA",
+      "channelTitle": "괴물쥐 유튜브",
+      "publishedAt": "2026-11-22T14:00:21.000Z",
       "categoryId": "20",
-      "viewCount": 1631675
+      "viewCount": 483556
     },
     {
       "source": "youtube-popular-kr",
@@ -304,17 +358,17 @@
       "channelTitle": "1theK Originals - 원더케이 오리지널",
       "publishedAt": "2026-11-20T09:00:15.000Z",
       "categoryId": "24",
-      "viewCount": 1735998
+      "viewCount": 1920602
     },
     {
       "source": "youtube-popular-kr",
-      "videoId": "ks4cTu5dNgM",
-      "title": "입단했습니다",
-      "channelId": "UCDBAVzfX3yZ1hah0FHnOoaA",
-      "channelTitle": "괴물쥐 유튜브",
-      "publishedAt": "2026-11-21T13:00:10.000Z",
+      "videoId": "M8YQQk19YJQ",
+      "title": "역대급 하마냥이 등장 | 멸망전 EP.1",
+      "channelId": "UCyoSQyaCrZHro6F_nBiXIYg",
+      "channelTitle": "클리드",
+      "publishedAt": "2026-11-22T09:53:46.000Z",
       "categoryId": "20",
-      "viewCount": 779951
+      "viewCount": 358604
     },
     {
       "source": "youtube-popular-kr",
@@ -324,107 +378,7 @@
       "channelTitle": "SOMEDAY - Topic",
       "publishedAt": "2026-11-17T09:04:44.000Z",
       "categoryId": "10",
-      "viewCount": 915115
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "boEyYn8RjDk",
-      "title": "팀나빠 멤버들 모두..병원에 입원 해 버렸습니다.",
-      "channelId": "UCNOYTSGiu9bV6VjqnJa4ojw",
-      "channelTitle": "멜로우TV",
-      "publishedAt": "2026-11-22T02:30:07.000Z",
-      "categoryId": "20",
-      "viewCount": 267567
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "nnffnIqaTrk",
-      "title": "ICONIC",
-      "channelId": "UCUR0bB6v1rYJqYRJioS1hDA",
-      "channelTitle": "CL (from 2NE1) - Topic",
-      "publishedAt": "2026-11-20T09:03:05.000Z",
-      "categoryId": "10",
-      "viewCount": 81773
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "uJnPle41BTg",
-      "title": "멸망전 1점차이 두 경쟁자 미드라이너의 취업전쟁",
-      "channelId": "UCBA9XaL5wCdHnC5EmEzwrqw",
-      "channelTitle": "튜브김민교",
-      "publishedAt": "2026-11-22T01:30:30.000Z",
-      "categoryId": "20",
-      "viewCount": 392884
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "Z8ehh3ANZak",
-      "title": "BABY ANGEL",
-      "channelId": "UCBznuF9zIIbRS9Y1Yu4yOhg",
-      "channelTitle": "NAYEON - Topic",
-      "publishedAt": "2026-11-20T05:02:23.000Z",
-      "categoryId": "10",
-      "viewCount": 321450
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "NVfyi_UkO2o",
-      "title": "개발자 정신 상태가 궁금한 백룸 게임",
-      "channelId": "UCta_NRwnsUaew0t3VNxBNyg",
-      "channelTitle": "김재원의 즐거운 세상",
-      "publishedAt": "2026-11-21T07:00:23.000Z",
-      "categoryId": "20",
-      "viewCount": 550672
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "G-YQHFOU9_g",
-      "title": "WhOLLiN (홀린) '딱 1분만' Official MV",
-      "channelId": "UCQZ5dfVSTui3yfhkHtw0kEg",
-      "channelTitle": "WhOLLiN 홀린",
-      "publishedAt": "2026-11-18T09:00:03.000Z",
-      "categoryId": "24",
-      "viewCount": 204598
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "zHLQ0iITbdk",
-      "title": "드디어 시작된 멸망전!! 우승 팀 짜보겠습니다｜멸망전EP.01",
-      "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
-      "channelTitle": "저라뎃 JUSTLIKETHAT",
-      "publishedAt": "2026-11-21T04:08:59.000Z",
-      "categoryId": "20",
-      "viewCount": 418171
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "hwtAaj4Ly3k",
-      "title": "Just say it",
-      "channelId": "UCWr0MB1yP5Rz7GfK806-80Q",
-      "channelTitle": "Makewin - Topic",
-      "publishedAt": "2026-11-19T03:02:11.000Z",
-      "categoryId": "10",
-      "viewCount": 195385
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "pON3jmtFDEU",
-      "title": "폭풍전야! 멸망전 시작 직전 전력 분석 가겠습니다 ㄷㄷ",
-      "channelId": "UCyoSQyaCrZHro6F_nBiXIYg",
-      "channelTitle": "클리드",
-      "publishedAt": "2026-11-22T03:43:49.000Z",
-      "categoryId": "20",
-      "viewCount": 260997
-    },
-    {
-      "source": "youtube-popular-kr",
-      "videoId": "RAhu-3UfMyo",
-      "title": "FROM ZERO (demo)",
-      "channelId": "UCpwhmB2Ysn3cRS_yww7xorQ",
-      "channelTitle": "KIMMUSEUM - Topic",
-      "publishedAt": "2026-11-19T03:02:32.000Z",
-      "categoryId": "10",
-      "viewCount": 193959
+      "viewCount": 1019215
     },
     {
       "source": "youtube-popular-kr",
@@ -434,7 +388,721 @@
       "channelTitle": "PAKA",
       "publishedAt": "2026-11-22T08:30:11.000Z",
       "categoryId": "20",
-      "viewCount": 255183
+      "viewCount": 422236
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "i3xU56BTjhs",
+      "title": "KISS N TELL",
+      "channelId": "UCEdZAdnnKqbaHOlv8nM6OtA",
+      "channelTitle": "aespa - Topic",
+      "publishedAt": "2026-11-19T15:00:24.000Z",
+      "categoryId": "10",
+      "viewCount": 27060
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "utP5cFNvBs4",
+      "title": "감스트 GTA6 오픈런!! 웃긴 장면 모음 ㅋㅋㅋ",
+      "channelId": "UCbFzvzDu17eDZ3RIeaLRswQ",
+      "channelTitle": "감스트GAMST",
+      "publishedAt": "2026-11-21T11:50:27.000Z",
+      "categoryId": "20",
+      "viewCount": 1837979
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "nnffnIqaTrk",
+      "title": "ICONIC",
+      "channelId": "UCUR0bB6v1rYJqYRJioS1hDA",
+      "channelTitle": "CL (from 2NE1) - Topic",
+      "publishedAt": "2026-11-20T09:03:05.000Z",
+      "categoryId": "10",
+      "viewCount": 105682
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "hwD4dOfPobI",
+      "title": "특급 용병 불렀습니다.. \"돌아왔구나 존 스미스!!\"｜멸망전 EP.03",
+      "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
+      "channelTitle": "저라뎃 JUSTLIKETHAT",
+      "publishedAt": "2026-11-22T08:23:38.000Z",
+      "categoryId": "20",
+      "viewCount": 258381
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "hwtAaj4Ly3k",
+      "title": "Just say it",
+      "channelId": "UCWr0MB1yP5Rz7GfK806-80Q",
+      "channelTitle": "Makewin - Topic",
+      "publishedAt": "2026-11-19T03:02:11.000Z",
+      "categoryId": "10",
+      "viewCount": 230292
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "boEyYn8RjDk",
+      "title": "팀나빠 멤버들 모두..병원에 입원 해 버렸습니다.",
+      "channelId": "UCNOYTSGiu9bV6VjqnJa4ojw",
+      "channelTitle": "멜로우TV",
+      "publishedAt": "2026-11-22T02:30:07.000Z",
+      "categoryId": "20",
+      "viewCount": 295709
+    },
+    {
+      "source": "youtube-popular-kr",
+      "videoId": "sOXceXmqsn4",
+      "title": "Destiny",
+      "channelId": "UCu90gJfilAG-rj7M5AngKaA",
+      "channelTitle": "DOKO - Topic",
+      "publishedAt": "2026-10-27T03:03:01.000Z",
+      "categoryId": "10",
+      "viewCount": 164106
+    }
+  ],
+  "overseasKorean": [
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "t3Cf1k9iNug",
+      "title": "TESTING IF AMERICAN PIMPLE PATCHES ARE JUST BANDAIDS VS KOREAN ONES",
+      "channelId": "UCQx0NFQHoxA_q8EyOVyl9FA",
+      "channelTitle": "Floammi",
+      "publishedAt": "2026-11-12T19:11:11.000Z",
+      "categoryId": "26",
+      "viewCount": 26334247
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "PZOz_Lz0cEw",
+      "title": "cutest* mistake in typing 😭 The remarried empress #kdrama",
+      "channelId": "UCFF7C1NIEJe2qZpovMmWZKw",
+      "channelTitle": "𐙚 𝐕𝐢𝐯𝐢𝐬𝐡𝐚",
+      "publishedAt": "2026-11-09T12:35:02.000Z",
+      "categoryId": "24",
+      "viewCount": 20858276
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "xPNUI_XJnTQ",
+      "title": "SUBSCRIBE FOR 7 YEARS OF GOOD LUCK! 🍀😅 - #kpop #kpopdemonhunters #cosplay #huntrix",
+      "channelId": "UCj7pEDLShBbKUPFbfVow6YQ",
+      "channelTitle": "魔女姐妹组合",
+      "publishedAt": "2026-11-14T11:00:02.000Z",
+      "categoryId": "22",
+      "viewCount": 15551570
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "zceSOLbzXaE",
+      "title": "鲁米抢空调的下场#Rumi #cosplay #kpop #shorts",
+      "channelId": "UCiOyymvUEeL9IvnBgJO9ALg",
+      "channelTitle": "Marvel Rumi",
+      "publishedAt": "2026-11-16T12:00:36.000Z",
+      "categoryId": "22",
+      "viewCount": 12542987
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "htlPChZZcf8",
+      "title": "KATSEYE Random dance challenge ✅ #katseye #kpop #randomdance #kpoprandomplaydance",
+      "channelId": "UC-hiLP-ggr3mvSj6pqbG_Jw",
+      "channelTitle": "Hope & Sora",
+      "publishedAt": "2026-11-09T12:31:43.000Z",
+      "categoryId": "10",
+      "viewCount": 9170147
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "ZJ25FbxyDYk",
+      "title": "I flew to Korea to fix my bad posture 😩🇰🇷",
+      "channelId": "UC4BCJ8lszyk1vu_DrytqXpQ",
+      "channelTitle": "Rogerwh0",
+      "publishedAt": "2026-11-10T17:00:27.000Z",
+      "categoryId": "26",
+      "viewCount": 9642514
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "URN1QbeRokg",
+      "title": "#kpop#kpopdemonhunters#huntrix",
+      "channelId": "UCPmm_NKfS5mMoKmtI2nIC8w",
+      "channelTitle": "WILD COLORS",
+      "publishedAt": "2026-11-15T07:30:33.000Z",
+      "categoryId": "22",
+      "viewCount": 12333156
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "txE4kMXdGCE",
+      "title": "weird skills of idols😭✨ #kpop #fyp #shorts #hearts2hearts #kiiikiii #blackpink #izna #illit #ive",
+      "channelId": "UCtuTiAJE5UkNWjmdJbOYBKg",
+      "channelTitle": "Afiya's world",
+      "publishedAt": "2026-11-18T12:30:09.000Z",
+      "categoryId": "24",
+      "viewCount": 9441477
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "vs-4ZUFZI7I",
+      "title": "Do you like chips?😋🩷 #rumi #cosplay #kpop #mira",
+      "channelId": "UC4vcJYw80sHTvAfe-hKmgbQ",
+      "channelTitle": "VERSUSFOOTBALL",
+      "publishedAt": "2026-11-09T12:00:22.000Z",
+      "categoryId": "24",
+      "viewCount": 11361790
+    },
+    {
+      "source": "youtube-overseas-korean",
+      "videoId": "8E90vm7AOM8",
+      "title": "\"Free\" Cover | Rumi Is in Danger – Help Her Now!...💔[KPop Demon Hunters] | Official Music Video",
+      "channelId": "UCDfWN_vnZyNrWv47RipKEeg",
+      "channelTitle": "K-Pop DreamToon",
+      "publishedAt": "2026-11-09T08:31:02.000Z",
+      "categoryId": "22",
+      "viewCount": 6372831
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-11-23",
+      "collectedAt": "2026-11-23T06:33:57.222Z",
+      "googleTrends": [
+        {
+          "source": "google-trends-kr",
+          "keyword": "국민건강보험공단",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-23T05:30:00.000Z",
+          "newsItems": [
+            {
+              "title": "‘공짜 임플란트 주의보’ 건보공단 부당청구 집중 점검",
+              "source": "이투데이",
+              "url": "https://bravo.etoday.co.kr/view/atc_view/20539"
+            },
+            {
+              "title": "“임플란트 공짜로 해드려요”…건보 지급액 3000만원→9억원, 공단 전수조사",
+              "source": "동아일보",
+              "url": "https://www.donga.com/news/Society/article/all/20261123/135073789/2"
+            },
+            {
+              "title": "임플란트 싸다고 덥석 심었다간… 치과의사가 알려주는 ‘덤핑 치과’의 함정",
+              "source": "헬스조선",
+              "url": "https://health.chosun.com/site/data/html_dir/2026/11/23/2026112301535.html"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "정형돈",
+          "approxTraffic": "500+",
+          "publishedAt": "2026-11-23T05:10:00.000Z",
+          "newsItems": [
+            {
+              "title": "정형돈, 마운자로 맞고 홀쭉해졌나…“눈 밑 지방 재배치도” [DA클립]",
+              "source": "스포츠동아",
+              "url": "https://sports.donga.com/ent/article/all/20261123/135071928/1"
+            },
+            {
+              "title": "'21kg 감량' 정형돈, 마운자로 맞고 홀쭉…\"눈밑지 시술\" 고백 - 머니투데이",
+              "source": "머니투데이",
+              "url": "https://www.mt.co.kr/entertainment/2026/11/23/2026112306202219015"
+            },
+            {
+              "title": "정형돈, 살 21kg 빼더니 결국 '마운자로' 고백..정재형 \"얼굴 확 좋아져\" 깜짝[핫피플]",
+              "source": "Chosunbiz",
+              "url": "https://biz.chosun.com/entertainment/enter_general/2026/11/22/HFSGEYRQGA4DEOBYMFRGIYJTHE/"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "변리사",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-23T05:10:00.000Z",
+          "newsItems": [
+            {
+              "title": "세무사 이어 변리사도 ‘이상 급증’…2차 고득점자 14배 늘었다",
+              "source": "동아일보",
+              "url": "https://www.donga.com/news/Economy/article/all/20261123/135071932/1"
+            },
+            {
+              "title": "[사실은] \"국가시험 합격률 급증\" 전수분석 결과는",
+              "source": "SBS 뉴스",
+              "url": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008856994"
+            },
+            {
+              "title": "'AI 커닝 의혹' 속 변리사 2차 고득점자 14배 급증…1년 새 3명→42명",
+              "source": "부산파이낸셜뉴스",
+              "url": "https://busan.fnnews.com/news/202611231322148988"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "트리플스타",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-23T05:10:00.000Z",
+          "newsItems": [
+            {
+              "title": "사생활 논란 딛고…‘흑백요리사’ 유명 셰프, 깜짝 재혼 발표",
+              "source": "매일경제",
+              "url": "https://www.mk.co.kr/news/culture/12216020"
+            },
+            {
+              "title": "\"부족한 내게 안식처가 돼준 사람\"…'무혐의' 강승원 셰프 깜짝 재혼",
+              "source": "뉴스1",
+              "url": "https://www.news1.kr/entertain/celebrity-topic/6361806"
+            },
+            {
+              "title": "트리플스타 재혼 발표···에드워드 리·철가방 축하 릴레이",
+              "source": "스포츠경향",
+              "url": "https://sports.khan.co.kr/article/202611221134003"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "법관",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-23T05:10:00.000Z",
+          "newsItems": [
+            {
+              "title": "[단독]“우리는 수령 모시는 조직원 아냐”…법관대표회의 의장 ‘행동’ 촉구에 판사들 반론",
+              "source": "경향신문",
+              "url": "https://www.khan.co.kr/article/202611231142001"
+            },
+            {
+              "title": "보수 야권 “조희대 대법원장 탄핵 중단하고 이재명 대통령 재판 재개해야”",
+              "source": "경기일보",
+              "url": "https://www.kyeonggi.com/article/20261123580292"
+            },
+            {
+              "title": "전용기 \"대법원이 한덕수 2심 인정했으면 탄핵 추진 없었을 것\"",
+              "source": "MBC 뉴스",
+              "url": "https://imnews.imbc.com/news/2026/politics/article/6867778_36911.html"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "유현조",
+          "approxTraffic": "500+",
+          "publishedAt": "2026-11-23T04:50:00.000Z",
+          "newsItems": [
+            {
+              "title": "김민선, LPGA Q시리즈 최종전 4R서 공동 4위로 도약",
+              "source": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261123007400007"
+            },
+            {
+              "title": "유현조·김민선, LPGA Q스쿨 3R 공동 10위",
+              "source": "서울경제",
+              "url": "https://www.sedaily.com/article/20117293"
+            },
+            {
+              "title": "공동 4위로 도약한 김민선7, 내년 LPGA 투어 무대가 보인다",
+              "source": "스포츠동아",
+              "url": "https://sports.donga.com/sports/article/all/20261123/135071764/1"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "카카오",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-23T04:20:00.000Z",
+          "newsItems": [
+            {
+              "title": "카카오T 2대 주주 TPG, 美상장 반대한 카카오에 1.5조 소송",
+              "source": "조선일보",
+              "url": "https://www.chosun.com/economy/tech_it/2026/11/23/XR5FJKQA65CG5KRXCMEQUTIU2I/"
+            },
+            {
+              "title": "카카오, TPG와 1.5조원 국제중재 분쟁…모빌리티 美상장 갈등",
+              "source": "연합뉴스",
+              "url": "https://www.yna.co.kr/view/AKR20261123100000017"
+            },
+            {
+              "title": "\"美 ADR 상장 왜 반대?\"…TPG, 카카오 상대 1.5조 중재 신청 - 머니투데이",
+              "source": "머니투데이",
+              "url": "https://www.mt.co.kr/tech/2026/11/23/2026112308284747046"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "주차",
+          "approxTraffic": "500+",
+          "publishedAt": "2026-11-23T04:10:00.000Z",
+          "newsItems": [
+            {
+              "title": "천안시, 시민체육공원 주차장… 30일까지 전면 통제",
+              "source": "천지일보",
+              "url": "https://www.newscj.com/news/articleView.html?idxno=3451170"
+            },
+            {
+              "title": "천안시, 30일까지 시민체육공원 주차 전면 통제",
+              "source": "중도일보",
+              "url": "https://www.joongdo.co.kr/web/view.php?key=20261123010007750"
+            },
+            {
+              "title": "천안시민체육공원 주차장 23일부터 전면 통제…30일까지 주차 불가",
+              "source": "충청매일",
+              "url": "https://www.ccdn.co.kr/news/articleView.html?idxno=1112715"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "fifa u-17 월드컵",
+          "approxTraffic": "1000+",
+          "publishedAt": "2026-11-23T04:00:00.000Z",
+          "newsItems": [
+            {
+              "title": "’김지우 해트트릭’ U-17 축구, 월드컵 32강 조기 확정",
+              "source": "연합뉴스TV",
+              "url": "https://www.yonhapnewstv.co.kr/news/MYH2026112314400374z"
+            },
+            {
+              "title": "韓 남자축구 최초 역사! 17살 김지우, 'FIFA 월드컵' 해트트릭 작렬...U-17 김현준호, 뉴칼레도니아 6-0 꺾고 48개국 중 '1호' 32강 진출 - 머니투데이",
+              "source": "머니투데이",
+              "url": "https://www.mt.co.kr/sports/2026/11/23/202611230810777959O"
+            },
+            {
+              "title": "韓 축구 새 재능 탄생…2009년생 '잘츠부르크 이적 확정' 김지호, U-17 월드컵 뉴칼레도니아전 '기대감'",
+              "source": "조선일보",
+              "url": "https://www.chosun.com/sports/football/2026/11/22/GI2TKZDCMJTDCYLCGNSDKOJXMQ/"
+            }
+          ]
+        },
+        {
+          "source": "google-trends-kr",
+          "keyword": "팝콘",
+          "approxTraffic": "200+",
+          "publishedAt": "2026-11-23T04:00:00.000Z",
+          "newsItems": [
+            {
+              "title": "카페인중독·바프 콜라보, 당류 1g 이하 팝콘 3종 선보여… 생크림·카라멜·피넛버터 구성",
+              "source": "피앤피뉴스",
+              "url": "https://www.gosiweek.com/article/1065577520120943"
+            },
+            {
+              "title": "백억커피, LG유플러스 멤버십 제휴…아메리카노·팝콘 무료 제공",
+              "source": "신아일보",
+              "url": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5086044"
+            },
+            {
+              "title": "백억커피, 카라멜 팝콘 누적 판매 500만 통 돌파… ‘반값 쿠폰’ 행사 진행",
+              "source": "www.cwn.kr",
+              "url": "https://www.cwn.kr/news/articleView.html?idxno=62398"
+            }
+          ]
+        }
+      ],
+      "youtubePopular": [
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "IQI2qaqHFlg",
+          "title": "GiiiRIP",
+          "channelId": "UCI5OIwx9z32Zurb8t4Umzwg",
+          "channelTitle": "BIGBANG - Topic",
+          "publishedAt": "2026-11-20T05:02:15.000Z",
+          "categoryId": "10",
+          "viewCount": 3367539
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "pVFdva-Ifns",
+          "title": "추성훈 vs 크리스 리벤 [Official Trailer]",
+          "channelId": "UC_IYjiKaQBPq-K1Iq4sM-UQ",
+          "channelTitle": "블랙컴뱃",
+          "publishedAt": "2026-11-19T08:40:26.000Z",
+          "categoryId": "1",
+          "viewCount": 1108214
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "u201uSiHiko",
+          "title": "멸망전 팀 결정 마지막날 클리드에게 선수들 다 뺏긴 맵교ㅋㅋㅋ",
+          "channelId": "UCBA9XaL5wCdHnC5EmEzwrqw",
+          "channelTitle": "튜브김민교",
+          "publishedAt": "2026-11-22T09:58:49.000Z",
+          "categoryId": "20",
+          "viewCount": 378853
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "eZ_slVaJ9lo",
+          "title": "Please Be Happy",
+          "channelId": "UCjjXNVQndGgIP7OXv13eLYQ",
+          "channelTitle": "Roy Kim - Topic",
+          "publishedAt": "2026-11-22T09:00:29.000Z",
+          "categoryId": "10",
+          "viewCount": 101459
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "NKJyM8z8qFo",
+          "title": "[단독] 심형래 '디워', AI 입고 재개봉 한다...예고편 최초 공개 / YTN star",
+          "channelId": "UCMGn0Ns8k-2M-hZDoxlBUCA",
+          "channelTitle": "YTN star",
+          "publishedAt": "2026-11-23T02:30:01.000Z",
+          "categoryId": "24",
+          "viewCount": 6013
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "izlRpHOlgFE",
+          "title": "≪무기 강화하는 게임≫ 드디어...전설의 검 강화성공!!!!!!!",
+          "channelId": "UC8CIM3d3zDYMk-3T5aAz0yw",
+          "channelTitle": "혜안",
+          "publishedAt": "2026-11-21T10:10:45.000Z",
+          "categoryId": "20",
+          "viewCount": 1413371
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "XKYp0bYquv4",
+          "title": "난 못해 (Feat. 이병철)",
+          "channelId": "UCDcDeL6SRxRAZ8U3D0I7W9Q",
+          "channelTitle": "Private Story - Topic",
+          "publishedAt": "2026-11-18T03:01:56.000Z",
+          "categoryId": "10",
+          "viewCount": 621778
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "V0qbfbg8EdE",
+          "title": "역주행 '디워' 다시 태어난다…'심형래 야심작' 예고편 최초 공개 [이 장면]",
+          "channelId": "UChlgI3UHCOnwUGzWzbJ3H5w",
+          "channelTitle": "YTN",
+          "publishedAt": "2026-11-23T00:44:29.000Z",
+          "categoryId": "25",
+          "viewCount": 21339
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "tbWDrwQOq60",
+          "title": "비비는 맛",
+          "channelId": "UCDBAVzfX3yZ1hah0FHnOoaA",
+          "channelTitle": "괴물쥐 유튜브",
+          "publishedAt": "2026-11-22T14:00:21.000Z",
+          "categoryId": "20",
+          "viewCount": 483556
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "FVNI7zBuk-4",
+          "title": "베스티(BESTie) - 연애의 조건(Love Options) | Suit Dance | 수트댄스 | Performance | 4K",
+          "channelId": "UCqq-ovGE01ErlXakPihhKDA",
+          "channelTitle": "1theK Originals - 원더케이 오리지널",
+          "publishedAt": "2026-11-20T09:00:15.000Z",
+          "categoryId": "24",
+          "viewCount": 1920602
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "M8YQQk19YJQ",
+          "title": "역대급 하마냥이 등장 | 멸망전 EP.1",
+          "channelId": "UCyoSQyaCrZHro6F_nBiXIYg",
+          "channelTitle": "클리드",
+          "publishedAt": "2026-11-22T09:53:46.000Z",
+          "categoryId": "20",
+          "viewCount": 358604
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "LOLXD85SThc",
+          "title": "Do you know (2026 Version)",
+          "channelId": "UCyKkBOFlSdga_PowmZVqxaQ",
+          "channelTitle": "SOMEDAY - Topic",
+          "publishedAt": "2026-11-17T09:04:44.000Z",
+          "categoryId": "10",
+          "viewCount": 1019215
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "mCd3lzBY5Uw",
+          "title": "금단의 기술",
+          "channelId": "UCJpAwvQaZyCI5spAz7tipGA",
+          "channelTitle": "PAKA",
+          "publishedAt": "2026-11-22T08:30:11.000Z",
+          "categoryId": "20",
+          "viewCount": 422236
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "i3xU56BTjhs",
+          "title": "KISS N TELL",
+          "channelId": "UCEdZAdnnKqbaHOlv8nM6OtA",
+          "channelTitle": "aespa - Topic",
+          "publishedAt": "2026-11-19T15:00:24.000Z",
+          "categoryId": "10",
+          "viewCount": 27060
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "utP5cFNvBs4",
+          "title": "감스트 GTA6 오픈런!! 웃긴 장면 모음 ㅋㅋㅋ",
+          "channelId": "UCbFzvzDu17eDZ3RIeaLRswQ",
+          "channelTitle": "감스트GAMST",
+          "publishedAt": "2026-11-21T11:50:27.000Z",
+          "categoryId": "20",
+          "viewCount": 1837979
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "nnffnIqaTrk",
+          "title": "ICONIC",
+          "channelId": "UCUR0bB6v1rYJqYRJioS1hDA",
+          "channelTitle": "CL (from 2NE1) - Topic",
+          "publishedAt": "2026-11-20T09:03:05.000Z",
+          "categoryId": "10",
+          "viewCount": 105682
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "hwD4dOfPobI",
+          "title": "특급 용병 불렀습니다.. \"돌아왔구나 존 스미스!!\"｜멸망전 EP.03",
+          "channelId": "UC1dG3vI9FfHnH3YgyeKUz_A",
+          "channelTitle": "저라뎃 JUSTLIKETHAT",
+          "publishedAt": "2026-11-22T08:23:38.000Z",
+          "categoryId": "20",
+          "viewCount": 258381
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "hwtAaj4Ly3k",
+          "title": "Just say it",
+          "channelId": "UCWr0MB1yP5Rz7GfK806-80Q",
+          "channelTitle": "Makewin - Topic",
+          "publishedAt": "2026-11-19T03:02:11.000Z",
+          "categoryId": "10",
+          "viewCount": 230292
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "boEyYn8RjDk",
+          "title": "팀나빠 멤버들 모두..병원에 입원 해 버렸습니다.",
+          "channelId": "UCNOYTSGiu9bV6VjqnJa4ojw",
+          "channelTitle": "멜로우TV",
+          "publishedAt": "2026-11-22T02:30:07.000Z",
+          "categoryId": "20",
+          "viewCount": 295709
+        },
+        {
+          "source": "youtube-popular-kr",
+          "videoId": "sOXceXmqsn4",
+          "title": "Destiny",
+          "channelId": "UCu90gJfilAG-rj7M5AngKaA",
+          "channelTitle": "DOKO - Topic",
+          "publishedAt": "2026-10-27T03:03:01.000Z",
+          "categoryId": "10",
+          "viewCount": 164106
+        }
+      ],
+      "overseasKorean": [
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "t3Cf1k9iNug",
+          "title": "TESTING IF AMERICAN PIMPLE PATCHES ARE JUST BANDAIDS VS KOREAN ONES",
+          "channelId": "UCQx0NFQHoxA_q8EyOVyl9FA",
+          "channelTitle": "Floammi",
+          "publishedAt": "2026-11-12T19:11:11.000Z",
+          "categoryId": "26",
+          "viewCount": 26334247
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "PZOz_Lz0cEw",
+          "title": "cutest* mistake in typing 😭 The remarried empress #kdrama",
+          "channelId": "UCFF7C1NIEJe2qZpovMmWZKw",
+          "channelTitle": "𐙚 𝐕𝐢𝐯𝐢𝐬𝐡𝐚",
+          "publishedAt": "2026-11-09T12:35:02.000Z",
+          "categoryId": "24",
+          "viewCount": 20858276
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "xPNUI_XJnTQ",
+          "title": "SUBSCRIBE FOR 7 YEARS OF GOOD LUCK! 🍀😅 - #kpop #kpopdemonhunters #cosplay #huntrix",
+          "channelId": "UCj7pEDLShBbKUPFbfVow6YQ",
+          "channelTitle": "魔女姐妹组合",
+          "publishedAt": "2026-11-14T11:00:02.000Z",
+          "categoryId": "22",
+          "viewCount": 15551570
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "zceSOLbzXaE",
+          "title": "鲁米抢空调的下场#Rumi #cosplay #kpop #shorts",
+          "channelId": "UCiOyymvUEeL9IvnBgJO9ALg",
+          "channelTitle": "Marvel Rumi",
+          "publishedAt": "2026-11-16T12:00:36.000Z",
+          "categoryId": "22",
+          "viewCount": 12542987
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "htlPChZZcf8",
+          "title": "KATSEYE Random dance challenge ✅ #katseye #kpop #randomdance #kpoprandomplaydance",
+          "channelId": "UC-hiLP-ggr3mvSj6pqbG_Jw",
+          "channelTitle": "Hope & Sora",
+          "publishedAt": "2026-11-09T12:31:43.000Z",
+          "categoryId": "10",
+          "viewCount": 9170147
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "ZJ25FbxyDYk",
+          "title": "I flew to Korea to fix my bad posture 😩🇰🇷",
+          "channelId": "UC4BCJ8lszyk1vu_DrytqXpQ",
+          "channelTitle": "Rogerwh0",
+          "publishedAt": "2026-11-10T17:00:27.000Z",
+          "categoryId": "26",
+          "viewCount": 9642514
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "URN1QbeRokg",
+          "title": "#kpop#kpopdemonhunters#huntrix",
+          "channelId": "UCPmm_NKfS5mMoKmtI2nIC8w",
+          "channelTitle": "WILD COLORS",
+          "publishedAt": "2026-11-15T07:30:33.000Z",
+          "categoryId": "22",
+          "viewCount": 12333156
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "txE4kMXdGCE",
+          "title": "weird skills of idols😭✨ #kpop #fyp #shorts #hearts2hearts #kiiikiii #blackpink #izna #illit #ive",
+          "channelId": "UCtuTiAJE5UkNWjmdJbOYBKg",
+          "channelTitle": "Afiya's world",
+          "publishedAt": "2026-11-18T12:30:09.000Z",
+          "categoryId": "24",
+          "viewCount": 9441477
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "vs-4ZUFZI7I",
+          "title": "Do you like chips?😋🩷 #rumi #cosplay #kpop #mira",
+          "channelId": "UC4vcJYw80sHTvAfe-hKmgbQ",
+          "channelTitle": "VERSUSFOOTBALL",
+          "publishedAt": "2026-11-09T12:00:22.000Z",
+          "categoryId": "24",
+          "viewCount": 11361790
+        },
+        {
+          "source": "youtube-overseas-korean",
+          "videoId": "8E90vm7AOM8",
+          "title": "\"Free\" Cover | Rumi Is in Danger – Help Her Now!...💔[KPop Demon Hunters] | Official Music Video",
+          "channelId": "UCDfWN_vnZyNrWv47RipKEeg",
+          "channelTitle": "K-Pop DreamToon",
+          "publishedAt": "2026-11-09T08:31:02.000Z",
+          "categoryId": "22",
+          "viewCount": 6372831
+        }
+      ]
     }
   ]
 }

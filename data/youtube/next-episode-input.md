@@ -1,6 +1,6 @@
 # 다음 기획 입력
 
-만든 때: 2026-11-22T16:09:48.644Z · 만든 코드: `scripts/next-episode-input.mjs`(매일 루프가 자동 실행) · 손으로 고치지 않는다.
+만든 때: 2026-11-23T06:33:59.516Z · 만든 코드: `scripts/next-episode-input.mjs`(매일 루프가 자동 실행) · 손으로 고치지 않는다.
 데이터 기준: 카탈로그 동기화 2026-11-22, 분석 기간 2026-08-23~2026-11-20, 시청자 고민 갱신 2026-11-20.
 
 기획(소재·제목·썸네일·대본)은 이 파일에서 출발한다. `BRIEF.md`의 "기획 근거" 칸에는 여기서 쓴 항목을 그대로 옮긴다. 표본이 작다고 적힌 칸은 결론이 아니라 가설이다.
@@ -158,6 +158,7 @@
 - **눈으로 보면 다 아는데 원어민이 말하면 안 들리는 영어 합체 소리 네 가지 (give me · let me …** — 승인 · SHORTS · 다른 영상에서 가져온 것 4개, 뺀 것 4개 · http://localhost:3001/transform-sheet/ep32-shorts-word-merge
 - **버튼·커튼·마운틴·임포턴트 — 한국인은 다 '트'를 읽는데 미국 원어민은 '트'를 삼키고 코로 넘기는 일상 …** — 승인 · SHORTS · 다른 영상에서 가져온 것 5개, 뺀 것 4개 · http://localhost:3001/transform-sheet/ep33-shorts-swallowed-t
 - **스트레스·스크린·스프레이·스트라이크 — 한글로는 세 글자에서 다섯 글자인데 영어 원어민은 단 한 박자로 압축…** — 승인 · SHORTS · 다른 영상에서 가져온 것 5개, 뺀 것 4개 · http://localhost:3001/transform-sheet/ep34-shorts-consonant-cluster
+- **살몬(L)·영수증(P)·빚(B)·섬(S) + 의심(B) — 15~16세기 학자들이 라틴어 멋을 내려 철자에만…** — 승인 · SHORTS · 다른 영상에서 가져온 것 5개, 뺀 것 4개 · http://localhost:3001/transform-sheet/ep35-shorts-ghost-letters
 - **한국 사람이 아는 단어, 빨리 말하면 가운데 소리가 거의 안 들린다 (chocolate 외 4개)** — 승인 · SHORTS · 다른 영상에서 가져온 것 2개, 뺀 것 4개 · http://localhost:3001/transform-sheet/SbQVBQoRciA
 
 ## 9. 기준선 (현재 최고 기록)
@@ -215,36 +216,60 @@
 
 참고 최근 90일(5436회): 한국 99.2%, 그 외 0.8%.
 
-## 13. 국내 실시간 트렌드 (한국 내 관심 근거 · 기회 포착 레이더)
+## 13. 국내 실시간 트렌드 & 해외 한국 콘텐츠 (최근 14일 누적 · 기회 포착 레이더)
 
-확인 시각: 2026-11-22 (2026-11-22T16:09:47.857Z) · 지역: KR · Google Trends KR: 정상(10건) · YouTube KR 인기 급상승: 정상(20건).
-매일 억지로 소재에 넣지 않는다. 영화·드라마·K-POP·뉴스 등 지금 한국에서 관심을 받는 화제 중 우리 3060 성인 영어 학습 약속과 자연스럽게 연결되는 단어·표현·발음이 있을 때만 AI가 판단해 채택하고, 채택 시 출처·확인 날짜·적용 위치를 남긴다.
+확인 시각: 2026-11-23 (2026-11-23T06:33:57.222Z) · 지역: KR · 14일 누적 1일치(2026-11-23~2026-11-23) · Google Trends KR: 정상(10건) · YouTube KR 인기 급상승: 정상(20건) · 해외 한국 콘텐츠(YouTube US): 정상(10건).
+매 기획마다 살피되 억지로 끼워 맞추지 않는다. 14절(스튜디오 조사 소형 폭발)의 중기 화제와 함께 보며, 화제마다 우리 3060 영어 학습 정체성에 어떻게 녹일지를 AI가 자율 판단한다. 채택·미채택 모두 비교 시트 `trendRef`에 이유를 남긴다(외부 원본 클립 사용 시 `clipRights` 증빙 필수).
 
-**Google Trends 한국 급상승 검색어**
+**Google Trends 한국 급상승 검색어 (최신)**
 
-- **la liga** (500+, 2026-11-22) — 보도: "Barcelona vs Villarreal Confirmed Lineups" (WhoScored.com)
-- **브라이튼** (100+, 2026-11-22) — 보도: "헐 시티 vs 브라이튼 경기 프리뷰 및 예측: 브라이튼은 여전히 ​​높이 비상한다" (Vietnam.vn)
-- **백종헌** (200+, 2026-11-22) — 보도: "검증 안 된 농산물 성분 광고 제동…과학적 근거 따진다" (뉴스1)
-- **아우크스부르크 대 마인츠 05** (1000+, 2026-11-22) — 보도: "Best of ESPN New York (Clips) - NY GameDay Hour 1: Why isn't…" (ESPN)
-- **맨유 리버풀** (500+, 2026-11-22) — 보도: "“새 감독 선임한 맨유가 어떤 축구를 할지 모르겠다”… 노스웨스트 더비 앞두고 경계심 드러낸 리버풀 감독, …" (베스트일레븐)
-- **조정석** (100+, 2026-11-22)
-- **총파업** (200+, 2026-11-22) — 보도: "철도노조 23일 쟁의행위 돌입…코레일 비상 체제" (연합뉴스)
-- **지드래곤** (2000+, 2026-11-22) — 보도: ""첫사랑 결혼" 태양, ♥민효린 子육아에 8년 활동중단..미안해서 오열 "주책이다" [Oh!쎈 이슈]" (미주중앙일보)
-- **persib bandung vs bali united** (100+, 2026-11-22) — 보도: "Latest Super League Standings After Persib Beats Bali United…" (Aktualita.co)
-- **pakistan a vs india a** (100+, 2026-11-22) — 보도: "INDA vs PAKA, 8th Match, Group B, ACC Men's Asia Cup Rising …" (Cricbuzz)
+- **국민건강보험공단** (200+, 2026-11-23) — 보도: "‘공짜 임플란트 주의보’ 건보공단 부당청구 집중 점검" (이투데이)
+- **정형돈** (500+, 2026-11-23) — 보도: "정형돈, 마운자로 맞고 홀쭉해졌나…“눈 밑 지방 재배치도” [DA클립]" (스포츠동아)
+- **변리사** (200+, 2026-11-23) — 보도: "세무사 이어 변리사도 ‘이상 급증’…2차 고득점자 14배 늘었다" (동아일보)
+- **트리플스타** (200+, 2026-11-23) — 보도: "사생활 논란 딛고…‘흑백요리사’ 유명 셰프, 깜짝 재혼 발표" (매일경제)
+- **법관** (200+, 2026-11-23) — 보도: "[단독]“우리는 수령 모시는 조직원 아냐”…법관대표회의 의장 ‘행동’ 촉구에 판사들 반론" (경향신문)
+- **유현조** (500+, 2026-11-23) — 보도: "김민선, LPGA Q시리즈 최종전 4R서 공동 4위로 도약" (연합뉴스)
+- **카카오** (200+, 2026-11-23) — 보도: "카카오T 2대 주주 TPG, 美상장 반대한 카카오에 1.5조 소송" (조선일보)
+- **주차** (500+, 2026-11-23) — 보도: "천안시, 시민체육공원 주차장… 30일까지 전면 통제" (천지일보)
+- **fifa u-17 월드컵** (1000+, 2026-11-23) — 보도: "’김지우 해트트릭’ U-17 축구, 월드컵 32강 조기 확정" (연합뉴스TV)
+- **팝콘** (200+, 2026-11-23) — 보도: "카페인중독·바프 콜라보, 당류 1g 이하 팝콘 3종 선보여… 생크림·카라멜·피넛버터 구성" (피앤피뉴스)
 
-**YouTube 한국 인기 급상승 동영상**
+**YouTube 한국 인기 급상승 동영상 (최신)**
 
-- 「GiiiRIP」 (`IQI2qaqHFlg`) — BIGBANG - Topic, 2,918,385회, 2026-11-20
-- 「추성훈 vs 크리스 리벤 [Official Trailer]」 (`pVFdva-Ifns`) — 블랙컴뱃, 1,086,600회, 2026-11-19
-- 「≪무기 강화하는 게임≫ 드디어...전설의 검 강화성공!!!!!!!」 (`izlRpHOlgFE`) — 혜안, 1,258,163회, 2026-11-21
-- 「난 못해 (Feat. 이병철)」 (`XKYp0bYquv4`) — Private Story - Topic, 579,262회, 2026-11-18
-- 「OFF THE RECORD | 예고편 TRAILER | I'll Win Over the Comman…」 (`AqxpOxdPBz8`) — 문베일 스튜디오 Moonveil Studio, 39,446회, 2026-11-21
-- 「감스트 GTA6 오픈런!! 웃긴 장면 모음 ㅋㅋㅋ」 (`utP5cFNvBs4`) — 감스트GAMST, 1,631,675회, 2026-11-21
-- 「베스티(BESTie) - 연애의 조건(Love Options) | Suit Dance | 수트댄스 …」 (`FVNI7zBuk-4`) — 1theK Originals - 원더케이 오리지널, 1,735,998회, 2026-11-20
-- 「입단했습니다」 (`ks4cTu5dNgM`) — 괴물쥐 유튜브, 779,951회, 2026-11-21
-- 「Do you know (2026 Version)」 (`LOLXD85SThc`) — SOMEDAY - Topic, 915,115회, 2026-11-17
-- 「팀나빠 멤버들 모두..병원에 입원 해 버렸습니다.」 (`boEyYn8RjDk`) — 멜로우TV, 267,567회, 2026-11-22
+- 「GiiiRIP」 (`IQI2qaqHFlg`) — BIGBANG - Topic, 3,367,539회, 2026-11-20
+- 「추성훈 vs 크리스 리벤 [Official Trailer]」 (`pVFdva-Ifns`) — 블랙컴뱃, 1,108,214회, 2026-11-19
+- 「멸망전 팀 결정 마지막날 클리드에게 선수들 다 뺏긴 맵교ㅋㅋㅋ」 (`u201uSiHiko`) — 튜브김민교, 378,853회, 2026-11-22
+- 「Please Be Happy」 (`eZ_slVaJ9lo`) — Roy Kim - Topic, 101,459회, 2026-11-22
+- 「[단독] 심형래 '디워', AI 입고 재개봉 한다...예고편 최초 공개 / YTN star」 (`NKJyM8z8qFo`) — YTN star, 6,013회, 2026-11-23
+- 「≪무기 강화하는 게임≫ 드디어...전설의 검 강화성공!!!!!!!」 (`izlRpHOlgFE`) — 혜안, 1,413,371회, 2026-11-21
+- 「난 못해 (Feat. 이병철)」 (`XKYp0bYquv4`) — Private Story - Topic, 621,778회, 2026-11-18
+- 「역주행 '디워' 다시 태어난다…'심형래 야심작' 예고편 최초 공개 [이 장면]」 (`V0qbfbg8EdE`) — YTN, 21,339회, 2026-11-23
+- 「비비는 맛」 (`tbWDrwQOq60`) — 괴물쥐 유튜브, 483,556회, 2026-11-22
+- 「베스티(BESTie) - 연애의 조건(Love Options) | Suit Dance | 수트댄스 …」 (`FVNI7zBuk-4`) — 1theK Originals - 원더케이 오리지널, 1,920,602회, 2026-11-20
+
+**해외에서 뜨는 한국 콘텐츠 (YouTube US 최근 14일)**
+
+- 「TESTING IF AMERICAN PIMPLE PATCHES ARE JUST BANDAIDS VS KO…」 (`t3Cf1k9iNug`) — Floammi, 26,334,247회, 2026-11-12
+- 「cutest* mistake in typing 😭 The remarried empress #kdrama」 (`PZOz_Lz0cEw`) — 𐙚 𝐕𝐢𝐯𝐢𝐬𝐡𝐚, 20,858,276회, 2026-11-09
+- 「SUBSCRIBE FOR 7 YEARS OF GOOD LUCK! 🍀😅 - #kpop #kpopdemonh…」 (`xPNUI_XJnTQ`) — 魔女姐妹组合, 15,551,570회, 2026-11-14
+- 「鲁米抢空调的下场#Rumi #cosplay #kpop #shorts」 (`zceSOLbzXaE`) — Marvel Rumi, 12,542,987회, 2026-11-16
+- 「#kpop#kpopdemonhunters#huntrix」 (`URN1QbeRokg`) — WILD COLORS, 12,333,156회, 2026-11-15
+- 「Do you like chips?😋🩷 #rumi #cosplay #kpop #mira」 (`vs-4ZUFZI7I`) — VERSUSFOOTBALL, 11,361,790회, 2026-11-09
+- 「I flew to Korea to fix my bad posture 😩🇰🇷」 (`ZJ25FbxyDYk`) — Rogerwh0, 9,642,514회, 2026-11-10
+- 「weird skills of idols😭✨ #kpop #fyp #shorts #hearts2hearts …」 (`txE4kMXdGCE`) — Afiya's world, 9,441,477회, 2026-11-18
+- 「KATSEYE Random dance challenge ✅ #katseye #kpop #randomdan…」 (`htlPChZZcf8`) — Hope & Sora, 9,170,147회, 2026-11-09
+- 「"Free" Cover | Rumi Is in Danger – Help Her Now!...💔[KPop …」 (`8E90vm7AOM8`) — K-Pop DreamToon, 6,372,831회, 2026-11-09
+
+**트렌드 편 vs 일반 편 7일 3축 비교 (정산 완료 시트 기준)**
+
+조회수만 보지 않고 구독 전환(조회 1,000회당)과 시청 지속을 함께 비교해 관객 불일치 여부를 검증한다.
+
+| 구분 | 표본 | 7일 조회 중앙값 | 조회 1,000회당 구독 | 시청 지속(계속 시청함 / 평균 시청) |
+|---|---|---|---|---|
+| 쇼츠 · 트렌드 편 | 0편 | 측정 전 | 측정 전 | 측정 전 / 측정 전 |
+| 쇼츠 · 일반 편 | 0편 | 측정 전 | 측정 전 | 측정 전 / 측정 전 |
+| 롱폼 · 트렌드 편 | 0편 | 측정 전 | 측정 전 | 측정 전 |
+| 롱폼 · 일반 편 | 0편 | 측정 전 | 측정 전 | 측정 전 |
 
 ## 14. 스튜디오 조사 소형 채널 폭발 사례 (구독 10만 미만 · 10배 이상)
 

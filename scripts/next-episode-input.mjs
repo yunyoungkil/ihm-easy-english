@@ -16,7 +16,8 @@ import {loadReports as loadOutlierReports} from './outlier-report.mjs';
 import {loadSheets, sheetIdOf, sheetStage} from './transform-sheet.mjs';
 import {formatRatioLabel, ratioTier} from './peer-ratio.mjs';
 import {METRICS, MIN_POINTS_POOL, quantile, RECENT_COUNT, usualBands, usualFor} from './baseline.mjs';
-import {groupResultsByVariable} from './sheet-outcomes.mjs';
+import {compareTrendVsNonTrend, groupResultsByVariable} from './sheet-outcomes.mjs';
+import {summarizeRollingTrends} from './korean-trends.mjs';
 import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
 import {summarizePeriod} from './audience-countries.mjs';
 import {summarizePitchLog} from './pitch-log.mjs';
@@ -298,7 +299,7 @@ export function renderNextEpisodeInput(input) {
   out.push(...renderRetention(input.retention));
   out.push(...renderStudioMetrics(input.studio, input.titles));
   out.push(...renderAudienceCountries(input.audienceCountries));
-  out.push(...renderKoreanTrends(input.koreanTrends));
+  out.push(...renderKoreanTrends(input.koreanTrends, input.trendComparison));
   out.push(...renderStudioResearch(input.studioResearch));
   out.push(...renderMarketDemand(input.marketDemand));
   out.push(...renderInsightsVocab(input.insightsVocab));
@@ -409,21 +410,37 @@ export function renderAudienceCountries(store) {
   return out;
 }
 
-/** 국내 실시간 트렌드(Google Trends KR + YouTube KR 인기 급상승). 원재료 그대로 보여 주고, 3060 영어 학습과 자연스럽게 맞물릴 때만 AI가 채택한다. */
-export function renderKoreanTrends(store) {
-  const out = ['## 13. 국내 실시간 트렌드 (한국 내 관심 근거 · 기회 포착 레이더)', ''];
-  if (!store || (!store.googleTrends?.length && !store.youtubePopular?.length)) {
+/** 국내·해외 한국 콘텐츠 실시간 트렌드(14일 누적) + 트렌드 편 vs 일반 편 7일 3축 비교(2026-11-23 확정). */
+export function renderKoreanTrends(store, trendComparison = null) {
+  const out = ['## 13. 국내 실시간 트렌드 & 해외 한국 콘텐츠 (최근 14일 누적 · 기회 포착 레이더)', ''];
+  if (!store || (!store.googleTrends?.length && !store.youtubePopular?.length && !store.overseasKorean?.length)) {
     return [...out, '국내 실시간 트렌드 수집 전(`npm run korean-trends`, 매일 루프 koreanTrends 단계).', ''];
   }
   const gtSrc = store.sources?.googleTrendsKr;
   const ytSrc = store.sources?.youtubePopularKr;
+  const ovSrc = store.sources?.overseasKoreanYt;
   const statusOf = (s) => (!s ? '없음' : s.ok ? `정상(${s.count}건)` : (s.stale ? `이전 유지(${s.count}건, 실패: ${s.error || '오류'})` : `실패(${s.error || '오류'})`));
-  out.push(`확인 시각: ${day(store.collectedAt)} (${store.collectedAt || '측정 전'}) · 지역: ${store.region || 'KR'} · Google Trends KR: ${statusOf(gtSrc)} · YouTube KR 인기 급상승: ${statusOf(ytSrc)}.`);
-  out.push('매일 억지로 소재에 넣지 않는다. 영화·드라마·K-POP·뉴스 등 지금 한국에서 관심을 받는 화제 중 우리 3060 성인 영어 학습 약속과 자연스럽게 연결되는 단어·표현·발음이 있을 때만 AI가 판단해 채택하고, 채택 시 출처·확인 날짜·적용 위치를 남긴다.', '');
+  const rolling = summarizeRollingTrends(store);
+  const histNote = rolling.historyDays ? ` · 14일 누적 ${rolling.historyDays}일치(${rolling.firstDate}~${rolling.lastDate})` : '';
+  out.push(`확인 시각: ${day(store.collectedAt)} (${store.collectedAt || '측정 전'}) · 지역: ${store.region || 'KR'}${histNote} · Google Trends KR: ${statusOf(gtSrc)} · YouTube KR 인기 급상승: ${statusOf(ytSrc)} · 해외 한국 콘텐츠(YouTube US): ${statusOf(ovSrc)}.`);
+  out.push('매 기획마다 살피되 억지로 끼워 맞추지 않는다. 14절(스튜디오 조사 소형 폭발)의 중기 화제와 함께 보며, 화제마다 우리 3060 영어 학습 정체성에 어떻게 녹일지를 AI가 자율 판단한다. 채택·미채택 모두 비교 시트 `trendRef`에 이유를 남긴다(외부 원본 클립 사용 시 `clipRights` 증빙 필수).', '');
+
+  if (rolling.recurringGoogle.length || rolling.recurringYoutube.length) {
+    out.push('**최근 14일 지속·반복 화제 (2일 이상 등장)**', '');
+    for (const item of rolling.recurringGoogle.slice(0, 6)) { // allow-literal: 화면 표시 상한
+      const news = item.newsTitle ? ` — 보도: "${cut(item.newsTitle, 55)}" (${item.newsSource || '출처 없음'})` : '';
+      out.push(`- [구글 ${item.daysCount}일 · ${item.firstSeen}~${item.lastSeen}] **${cut(item.keyword, 40)}** (${item.approxTraffic || '규모 미상'})${news}`);
+    }
+    for (const v of rolling.recurringYoutube.slice(0, 6)) { // allow-literal: 화면 표시 상한
+      const views = v.viewCount == null ? '조회 미상' : `${Number(v.viewCount).toLocaleString('ko-KR')}회`;
+      out.push(`- [유튜브 ${v.daysCount}일 · ${v.firstSeen}~${v.lastSeen}] 「${cut(v.title, 52)}」 (\`${v.videoId}\`) — ${v.channelTitle || '채널 미상'}, ${views}`);
+    }
+    out.push('');
+  }
 
   const gt = (store.googleTrends || []).slice(0, 10); // allow-literal: 화면 표시 상한
   if (gt.length) {
-    out.push('**Google Trends 한국 급상승 검색어**', '');
+    out.push('**Google Trends 한국 급상승 검색어 (최신)**', '');
     for (const item of gt) {
       const news = item.newsItems?.[0];
       const newsText = news ? ` — 보도: "${cut(news.title, 60)}" (${news.source || '출처 없음'})` : '';
@@ -434,11 +451,35 @@ export function renderKoreanTrends(store) {
 
   const yt = (store.youtubePopular || []).slice(0, 10); // allow-literal: 화면 표시 상한
   if (yt.length) {
-    out.push('**YouTube 한국 인기 급상승 동영상**', '');
+    out.push('**YouTube 한국 인기 급상승 동영상 (최신)**', '');
     for (const v of yt) {
       const views = v.viewCount == null ? '조회 미상' : `${Number(v.viewCount).toLocaleString('ko-KR')}회`;
       out.push(`- 「${cut(v.title, 55)}」 (\`${v.videoId}\`) — ${v.channelTitle || '채널 미상'}, ${views}, ${day(v.publishedAt)}`);
     }
+    out.push('');
+  }
+
+  const ov = (rolling.recentOverseas.length ? rolling.recentOverseas : (store.overseasKorean || [])).slice(0, 10); // allow-literal: 화면 표시 상한
+  if (ov.length) {
+    out.push('**해외에서 뜨는 한국 콘텐츠 (YouTube US 최근 14일)**', '');
+    for (const v of ov) {
+      const views = v.viewCount == null ? '조회 미상' : `${Number(v.viewCount).toLocaleString('ko-KR')}회`;
+      const daysTag = v.daysCount >= 2 ? ` · ${v.daysCount}일 포착` : '';
+      out.push(`- 「${cut(v.title, 58)}」 (\`${v.videoId}\`) — ${v.channelTitle || '채널 미상'}, ${views}, ${day(v.publishedAt)}${daysTag}`);
+    }
+    out.push('');
+  }
+
+  if (trendComparison) {
+    const fmtMetric = (v, unit = '') => (v == null ? '측정 전' : `${Number(Number(v).toFixed(2)).toLocaleString('ko-KR')}${unit}`);
+    const rowLine = (label, b, isShorts) => `| ${label} | ${b.n}편 | ${fmtMetric(b.medianViews7d, '회')} | ${fmtMetric(b.subsPer1000Views, '명')} | ${isShorts ? `${fmtMetric(b.medianStayedToWatch, '%')} / ${fmtMetric(b.medianWatchSeconds7d, '초')}` : fmtMetric(b.medianWatchSeconds7d, '초')} |`;
+    out.push('**트렌드 편 vs 일반 편 7일 3축 비교 (정산 완료 시트 기준)**', '');
+    out.push('조회수만 보지 않고 구독 전환(조회 1,000회당)과 시청 지속을 함께 비교해 관객 불일치 여부를 검증한다.', '');
+    out.push('| 구분 | 표본 | 7일 조회 중앙값 | 조회 1,000회당 구독 | 시청 지속(계속 시청함 / 평균 시청) |', '|---|---|---|---|---|');
+    out.push(rowLine('쇼츠 · 트렌드 편', trendComparison.SHORTS.trend, true));
+    out.push(rowLine('쇼츠 · 일반 편', trendComparison.SHORTS.nonTrend, true));
+    out.push(rowLine('롱폼 · 트렌드 편', trendComparison.LONGFORM.trend, false));
+    out.push(rowLine('롱폼 · 일반 편', trendComparison.LONGFORM.nonTrend, false));
     out.push('');
   }
   return out;
@@ -634,6 +675,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     .map((slug) => ({slug, ...extractReviewLessons(readFileSync(join(videosDir, slug, 'REVIEW.md'), 'utf8'))})));
   const allViewerComments = Object.values(comments.commentsByVideo || {}).flat().filter((c) => c && !c.isChannelOwner).length;
 
+  const loadedSheets = loadSheets();
   const range = analytics.range ? `${analytics.range.startDate}~${analytics.range.endDate}` : null;
   return {
     generatedAt: now.toISOString(),
@@ -648,7 +690,8 @@ export function buildFromProject(projectDir, now = new Date()) {
     successPatternCount: (patterns.entries || []).length,
     outlierReports: summarizeOutlierReports(loadOutlierReports()),
     baselines: readJson(join(dataDir, 'baselines.json'), null),
-    variableGroups: groupResultsByVariable(loadSheets()),
+    variableGroups: groupResultsByVariable(loadedSheets),
+    trendComparison: compareTrendVsNonTrend(loadedSheets),
     retention: readRetention(join(dataDir, 'retention')),
     studio: readJson(join(dataDir, 'studio-metrics.json'), null),
     audienceCountries: readJson(join(dataDir, 'audience-countries.json'), null),
@@ -658,7 +701,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     insightsVocab: extractInsightsVocab(join(projectDir, 'output', 'insights')),
     pitchLog: summarizePitchLog(readJson(join(dataDir, 'pitch-log.json'), null)),
     titles,
-    transformSheets: loadSheets().map((t) => ({sheetId: sheetIdOf(t), sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length + (t.references || []).length, rejectedCount: (t.rejected || []).length, audienceBridge: t.audienceBridge || null, seriesPremise: t.seriesPremise || null})),
+    transformSheets: loadedSheets.map((t) => ({sheetId: sheetIdOf(t), sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length + (t.references || []).length, rejectedCount: (t.rejected || []).length, audienceBridge: t.audienceBridge || null, seriesPremise: t.seriesPremise || null})),
   };
 }
 

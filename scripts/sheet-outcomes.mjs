@@ -199,6 +199,62 @@ export function groupResultsByVariable(sheets) {
   return [...groups.values()].map((g) => ({...g, videoCount: g.videos.length})).sort((a, b) => b.videoCount - a.videoCount);
 }
 
+const medianNum = (vals) => {
+  const sorted = vals.filter((v) => v != null && Number.isFinite(Number(v))).map(Number).sort((a, b) => a - b);
+  if (!sorted.length) return null;
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+};
+
+/**
+ * 트렌드 편 vs 일반 편 7일 3축(조회수 · 조회 1,000회당 구독 전환 · 시청 지속) 분리 비교 (2026-11-23 확정).
+ * 정산된 실제 결과(sheet.results[])만 집계하며, 표본이 없으면 null/"측정 전"을 반환한다.
+ */
+export function compareTrendVsNonTrend(sheets = []) {
+  const buckets = {
+    SHORTS: {trend: [], nonTrend: []},
+    LONGFORM: {trend: [], nonTrend: []},
+  };
+  for (const s of sheets || []) {
+    const isTrend = s?.trendRef?.used === true;
+    for (const r of s?.results || []) {
+      const fmt = r?.format || s?.format;
+      if (!buckets[fmt]) continue;
+      const views = r?.metrics?.views7d?.value ?? r?.views7d ?? null;
+      const subs = r?.metrics?.subs7d?.value ?? null;
+      const watchSec = r?.metrics?.watchSeconds7d?.value ?? null;
+      const stayed = r?.metrics?.stayedToWatch?.value ?? null;
+      buckets[fmt][isTrend ? 'trend' : 'nonTrend'].push({
+        videoId: r.videoId,
+        views: views != null && Number.isFinite(Number(views)) ? Number(views) : null,
+        subs: subs != null && Number.isFinite(Number(subs)) ? Number(subs) : null,
+        watchSeconds: watchSec != null && Number.isFinite(Number(watchSec)) ? Number(watchSec) : null,
+        stayedToWatch: stayed != null && Number.isFinite(Number(stayed)) ? Number(stayed) : null,
+      });
+    }
+  }
+  const summarize = (rows) => {
+    const n = rows.length;
+    if (!n) {
+      return {n: 0, medianViews7d: null, subsPer1000Views: null, medianWatchSeconds7d: null, medianStayedToWatch: null};
+    }
+    const pairedForSubs = rows.filter((x) => x.views != null && x.views > 0 && x.subs != null);
+    const totalViews = pairedForSubs.reduce((a, x) => a + x.views, 0);
+    const totalSubs = pairedForSubs.reduce((a, x) => a + x.subs, 0);
+    return {
+      n,
+      medianViews7d: medianNum(rows.map((x) => x.views)),
+      subsPer1000Views: totalViews > 0 ? Math.round((totalSubs / totalViews) * 1000 * 100) / 100 : null,
+      medianWatchSeconds7d: medianNum(rows.map((x) => x.watchSeconds)),
+      medianStayedToWatch: medianNum(rows.map((x) => x.stayedToWatch)),
+    };
+  };
+  return {
+    SHORTS: {trend: summarize(buckets.SHORTS.trend), nonTrend: summarize(buckets.SHORTS.nonTrend)},
+    LONGFORM: {trend: summarize(buckets.LONGFORM.trend), nonTrend: summarize(buckets.LONGFORM.nonTrend)},
+  };
+}
+
 const readJson = (path, fallback) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')) : fallback);
 
 export function runSettle({now = new Date(), dir = sheetsDir} = {}) {

@@ -88,6 +88,8 @@ K. **어려운 설계는 `opus-expert`**: 부를 때 배경·결정된 것·읽�
 ## 5. 시트 필드와 코드 검사 (`scripts/transform-sheet.mjs`)
 - `rows[].origin`(`competitor`/`mixed`/`ours`) + `originReason`: 행마다 출처. 있으면 `identityShare`는 쓰지 않고 화면이 "경쟁 N · 섞음 M · 우리 K"로 센다. 예전 시트(없음)는 예전 검사 유지.
 - `borrowed[].appliedTo`, `sourceApplied[].appliedTo`: `cut:N`(0부터)·`thumb:A`·`title:N`(1부터)·`row:key`. 없는 것을 가리키면 `validateSheet`가 문제로 알림(`appliedProblems`).
+- `trendRef` (`2026-11-23` 확정): `{used: true|false, topic?, source?, sourceDate?, howIntegrated?, reason, scheduleShift?: {requested, reason?, pushedBack?}}`. `trendRefProblems`가 기록 완결성을 검사하고, `loop-health.mjs`가 신규 시트 검토 누락을 알린다. 정산 시 `compareTrendVsNonTrend`가 트렌드 편 vs 일반 편 7일 3축(조회수·구독전환·시청지속)을 분리 집계한다.
+- `clipRights` (`2026-11-23` 확정): `{usesExternalClip: true|false, clips?: [{sourceUrl, pathway, scope, segment, transformBasis, ccProof?, guidelineUrl?, checkedAt?, permissionEmail?, citationReview?}]}`. 컷에 `externalClip: true`가 있거나 `usesExternalClip: true`일 때 경로별 증빙(CC BY 3대 조건·서면 허락 `approved`·법적 인용 4요소 및 YPP 리스크 확인·쇼츠 리믹스 60초 초과 금지)이 빠지면 `clipRightsProblems`가 차단한다.
 - `rows[visual].ours.cutPlan2`: `{durationSeconds, hook:[1~2줄, "**강조**"], hookWhy, cuts:[{t, template, narration, voiceEn[], window, bottom:{subtitle|speaker, total, done, current}, motion, pic, image, ...}]}`. 쇼츠(format SHORTS)에서 없으면 문제(`plan2Problems`): 위 훅 띠 1~2줄·줄당 9자(쉼표·따옴표 1자 여유), `hookWhy`, 컷마다 아래 띠·움직임 메모·낭독 또는 영어 소리, 낭독이 영어로 시작 금지, **음성 예산(`voiceBudget`) ≤ 컷 길이**.
 - `rows[thumbnail].ours.images2`(1안 `images` 아래 같은 칸), 경쟁 썸네일 표시는 `competitor.images`에 `thumb:<영상ID>`.
 - 시트 화면은 `refReports`(원본 + 가져온 출처 + 썸네일 토큰 영상)의 저장 캡처·화면 변화 시각·썸네일을 서버가 실어 보낸다.

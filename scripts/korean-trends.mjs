@@ -1,16 +1,18 @@
-// 국내 실시간 트렌드 수집기 (2026-11-19 사용자 확정).
-// 목적: 한국 유튜브·검색에서 지금 관심을 얻고 있는 국내 실시간 트렌드(영화·드라마·K-POP·뉴스 등)를
-// 원재료 그대로 수집해 `next-episode-input.md` 13절(기회 포착 레이더)에 공급한다.
+// 국내·해외 한국 콘텐츠 실시간 트렌드 수집기 (2026-11-19 구축 · 2026-11-23 14일 누적 및 해외 한국 콘텐츠 확장).
+// 근거: knowledge/decisions/2026-11-23-trend-loop-and-clip-rights.md
+// 목적: 한국 유튜브·검색과 해외에서 뜨는 한국 콘텐츠 원재료를 최근 14일 누적으로 수집해
+// `next-episode-input.md` 13절(기회 포착 레이더)에 공급한다.
 //
 // 원칙:
-// - 무료·공식 공개 소스 2곳만 사용한다(크롬 로그인 자동화·유료 API 없음):
+// - 무료·공식 공개 소스만 사용한다(크롬 로그인 자동화·유료 API 없음):
 //   1) Google Trends 한국 일간 급상승 검색어 RSS (무료, 관련 한국어 보도 포함)
-//   2) YouTube 한국 인기 급상승 동영상 API (videos.list chart=mostPopular regionCode=KR, 하루 1 unit)
-// - 원천·식별자·확인 시각·실패 상태를 보존한다.
+//   2) YouTube 한국 인기 급상승 동영상 API (videos.list chart=mostPopular regionCode=KR, 1 unit)
+//   3) 해외에서 뜨는 한국 콘텐츠 YouTube API (search.list regionCode=US relevanceLanguage=en 최근 14일 조회순 + videos.list 통계, 101 units)
+// - 하루 덮어쓰기 대신 최근 14일 날짜별 이력(history)을 누적해 며칠~몇 주 이어지는 중기 화제를 포착한다.
 // - 창작 규칙이나 임의 카테고리/단어 필터를 코드에 하드코딩하지 않는다.
-//   영어 학습·3060 시청자와의 연결 여부와 표현 방식은 기획 단계에서 AI가 주도적으로 판단한다.
+//   우리 3060 영어 사명과의 연결 여부와 녹이는 방식은 기획 단계에서 AI가 주도적으로 판단한다.
 // - 한쪽 소스가 실패해도 다른 소스의 최신 결과는 저장하고, 실패한 쪽은 이전 정상 항목을 보존(stale 표시)한다.
-//   둘 다 실패하면 기존 정상 데이터를 덮어쓰지 않고 실패를 알린다.
+//   전부 실패하면 기존 정상 데이터를 덮어쓰지 않고 실패를 알린다.
 import {existsSync, mkdirSync, readFileSync, renameSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -19,8 +21,20 @@ const projectDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const KOREAN_TRENDS_PATH = join(projectDir, 'data', 'youtube', 'korean-trends.json');
 export const GOOGLE_TRENDS_KR_RSS_URL = 'https://trends.google.com/trending/rss?geo=KR';
 export const YOUTUBE_POPULAR_KR_URL = 'https://www.googleapis.com/youtube/v3/videos';
+export const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
 export const DEFAULT_MAX_YOUTUBE_RESULTS = 20; // allow-literal: 한국 인기 급상승 수집 편수
+export const DEFAULT_MAX_OVERSEAS_RESULTS = 10; // allow-literal: 해외 한국 콘텐츠 수집 편수
+export const HISTORY_RETENTION_DAYS = 14; // allow-literal: 최근 14일 누적 보관 일수 (2026-11-23 결정)
+export const OVERSEAS_KOREAN_QUERY = 'Korean OR K-drama OR K-pop OR Korea';
 const FETCH_TIMEOUT_MS = 15000; // allow-literal: 외부 요청 제한 시간(ms)
+const DAY_MS = 24 * 60 * 60 * 1000; // allow-literal: 하루(ms)
+const KST_OFFSET_MS = 9 * 60 * 60 * 1000; // allow-literal: KST UTC+9
+
+export function toKstDate(dateInput = new Date()) {
+  const ms = new Date(dateInput).getTime();
+  if (!Number.isFinite(ms)) return null;
+  return new Date(ms + KST_OFFSET_MS).toISOString().slice(0, 10);
+}
 
 export function decodeXmlEntities(text = '') {
   const s = String(text ?? '').replace(/^<!\[CDATA\[([\s\S]*?)\]\]>$/, '$1');
@@ -82,8 +96,8 @@ export function parseGoogleTrendsRss(xml = '') {
   return items;
 }
 
-/** YouTube Data API videos.list(chart=mostPopular, regionCode=KR) 응답 → 구조화된 항목 배열. */
-export function parseYoutubePopularKr(json = {}) {
+/** YouTube Data API videos.list 응답 → 구조화된 항목 배열. */
+export function parseYoutubePopularKr(json = {}, sourceName = 'youtube-popular-kr') {
   const raw = Array.isArray(json?.items) ? json.items : [];
   return raw
     .filter((v) => v?.id && v?.snippet?.title)
@@ -91,16 +105,177 @@ export function parseYoutubePopularKr(json = {}) {
       const vc = v.statistics?.viewCount;
       const viewCount = vc != null && vc !== '' && Number.isFinite(Number(vc)) ? Number(vc) : null;
       return {
-        source: 'youtube-popular-kr',
-        videoId: String(v.id),
-        title: String(v.snippet.title).trim(),
+        source: sourceName,
+        videoId: String(typeof v.id === 'object' ? v.id.videoId || '' : v.id).trim(),
+        title: decodeXmlEntities(String(v.snippet.title)),
         channelId: v.snippet.channelId || null,
-        channelTitle: v.snippet.channelTitle || null,
+        channelTitle: v.snippet.channelTitle ? decodeXmlEntities(String(v.snippet.channelTitle)) : null,
         publishedAt: toIsoOrNull(v.snippet.publishedAt),
         categoryId: v.snippet.categoryId || null,
         viewCount,
       };
+    })
+    .filter((v) => v.videoId);
+}
+
+/** YouTube Data API search.list + videos.list(선택) 응답 → 해외 한국 콘텐츠 항목 배열. */
+export function parseOverseasKoreanYoutube(searchJson = {}, statsJson = null) {
+  const statsById = new Map();
+  for (const v of Array.isArray(statsJson?.items) ? statsJson.items : []) {
+    if (!v?.id) continue;
+    const vc = v.statistics?.viewCount;
+    const viewCount = vc != null && vc !== '' && Number.isFinite(Number(vc)) ? Number(vc) : null;
+    statsById.set(String(v.id), {
+      viewCount,
+      categoryId: v.snippet?.categoryId || null,
     });
+  }
+  const raw = Array.isArray(searchJson?.items) ? searchJson.items : [];
+  return raw
+    .map((item) => {
+      const videoId = String(typeof item?.id === 'object' ? item.id.videoId || '' : item?.id || '').trim();
+      const title = item?.snippet?.title ? decodeXmlEntities(String(item.snippet.title)) : '';
+      if (!videoId || !title) return null;
+      const stat = statsById.get(videoId);
+      const rawVc = item?.statistics?.viewCount;
+      const fallbackVc = rawVc != null && rawVc !== '' && Number.isFinite(Number(rawVc)) ? Number(rawVc) : null;
+      return {
+        source: 'youtube-overseas-korean',
+        videoId,
+        title,
+        channelId: item.snippet.channelId || null,
+        channelTitle: item.snippet.channelTitle ? decodeXmlEntities(String(item.snippet.channelTitle)) : null,
+        publishedAt: toIsoOrNull(item.snippet.publishedAt),
+        categoryId: stat?.categoryId ?? item.snippet.categoryId ?? null,
+        viewCount: stat ? stat.viewCount : fallbackVc,
+      };
+    })
+    .filter(Boolean);
+}
+
+/**
+ * 날짜별 14일 누적 이력을 갱신한다.
+ * - v1 기존 파일(history 없음)을 읽었으면 기존 스냅샷을 1일치로 씨앗 보존한다.
+ * - 같은 KST 날짜 재실행 시 해당 날짜 항목만 덮어쓰고, retentionDays 밖의 오래된 날짜는 정리한다.
+ */
+export function mergeTrendHistory(prevStore, todayEntry, {now = new Date(), retentionDays = HISTORY_RETENTION_DAYS} = {}) {
+  const map = new Map();
+  if (Array.isArray(prevStore?.history)) {
+    for (const h of prevStore.history) {
+      if (h && typeof h.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(h.date)) {
+        map.set(h.date, h);
+      }
+    }
+  } else if (prevStore?.collectedAt && (prevStore.googleTrends?.length || prevStore.youtubePopular?.length || prevStore.overseasKorean?.length)) {
+    const prevDate = toKstDate(prevStore.collectedAt);
+    if (prevDate) {
+      map.set(prevDate, {
+        date: prevDate,
+        collectedAt: prevStore.collectedAt,
+        googleTrends: Array.isArray(prevStore.googleTrends) ? prevStore.googleTrends : [],
+        youtubePopular: Array.isArray(prevStore.youtubePopular) ? prevStore.youtubePopular : [],
+        overseasKorean: Array.isArray(prevStore.overseasKorean) ? prevStore.overseasKorean : [],
+      });
+    }
+  }
+  if (todayEntry?.date) {
+    map.set(todayEntry.date, todayEntry);
+  }
+  const cutoffDate = toKstDate(new Date(now).getTime() - (retentionDays - 1) * DAY_MS);
+  return [...map.values()]
+    .filter((h) => !cutoffDate || h.date >= cutoffDate)
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** 14일 누적 이력에서 여러 날 반복·지속된 화제와 해외 한국 콘텐츠를 요약한다. */
+export function summarizeRollingTrends(store) {
+  const history = Array.isArray(store?.history) ? store.history : [];
+  const gtMap = new Map();
+  const ytMap = new Map();
+  const overseasMap = new Map();
+
+  for (const dayEntry of history) {
+    const d = dayEntry?.date;
+    if (!d) continue;
+    for (const item of dayEntry.googleTrends || []) {
+      const k = String(item?.keyword || '').trim();
+      if (!k) continue;
+      const key = k.toLowerCase();
+      const prev = gtMap.get(key) || {
+        keyword: k,
+        dates: new Set(),
+        approxTraffic: null,
+        newsTitle: null,
+        newsSource: null,
+      };
+      prev.dates.add(d);
+      if (item.approxTraffic) prev.approxTraffic = item.approxTraffic;
+      if (item.newsItems?.[0]?.title) {
+        prev.newsTitle = item.newsItems[0].title;
+        prev.newsSource = item.newsItems[0].source || null;
+      }
+      gtMap.set(key, prev);
+    }
+    for (const v of dayEntry.youtubePopular || []) {
+      if (!v?.videoId) continue;
+      const prev = ytMap.get(v.videoId) || {
+        videoId: v.videoId,
+        title: v.title,
+        channelTitle: v.channelTitle || null,
+        dates: new Set(),
+        viewCount: null,
+        source: v.source || 'youtube-popular-kr',
+      };
+      prev.dates.add(d);
+      if (v.title) prev.title = v.title;
+      if (v.viewCount != null) prev.viewCount = v.viewCount;
+      ytMap.set(v.videoId, prev);
+    }
+    for (const v of dayEntry.overseasKorean || []) {
+      if (!v?.videoId) continue;
+      const prev = overseasMap.get(v.videoId) || {
+        videoId: v.videoId,
+        title: v.title,
+        channelTitle: v.channelTitle || null,
+        publishedAt: v.publishedAt || null,
+        dates: new Set(),
+        viewCount: null,
+      };
+      prev.dates.add(d);
+      if (v.title) prev.title = v.title;
+      if (v.viewCount != null) prev.viewCount = v.viewCount;
+      overseasMap.set(v.videoId, prev);
+    }
+  }
+
+  const finalizeDates = (entry) => {
+    const sorted = [...entry.dates].sort();
+    const {dates: _unused, ...rest} = entry;
+    return {...rest, daysCount: sorted.length, firstSeen: sorted[0] || null, lastSeen: sorted[sorted.length - 1] || null};
+  };
+
+  const recurringGoogle = [...gtMap.values()]
+    .map(finalizeDates)
+    .filter((x) => x.daysCount >= 2)
+    .sort((a, b) => b.daysCount - a.daysCount || String(b.lastSeen).localeCompare(String(a.lastSeen)));
+
+  const recurringYoutube = [...ytMap.values()]
+    .map(finalizeDates)
+    .filter((x) => x.daysCount >= 2)
+    .sort((a, b) => b.daysCount - a.daysCount || (b.viewCount ?? -1) - (a.viewCount ?? -1));
+
+  const recentOverseas = [...overseasMap.values()]
+    .map(finalizeDates)
+    .sort((a, b) => (b.viewCount ?? -1) - (a.viewCount ?? -1) || b.daysCount - a.daysCount);
+
+  return {
+    historyDays: history.length,
+    firstDate: history[0]?.date || null,
+    lastDate: history[history.length - 1]?.date || null,
+    recurringGoogle,
+    recurringYoutube,
+    recentOverseas,
+  };
 }
 
 function readExistingStore(path) {
@@ -130,8 +305,11 @@ export async function collectKoreanTrends({
   apiKey = undefined,
   path = KOREAN_TRENDS_PATH,
   maxYoutubeResults = DEFAULT_MAX_YOUTUBE_RESULTS,
+  maxOverseasResults = DEFAULT_MAX_OVERSEAS_RESULTS,
+  retentionDays = HISTORY_RETENTION_DAYS,
 } = {}) {
-  const nowIso = new Date(now).toISOString();
+  const nowDate = new Date(now);
+  const nowIso = nowDate.toISOString();
   const prev = readExistingStore(path);
   const resolvedKey = apiKey !== undefined ? apiKey : loadApiKeyFromEnv();
 
@@ -198,18 +376,94 @@ export async function collectKoreanTrends({
     }
   }
 
-  const anyOk = gtResult.ok || ytResult.ok;
+  // 3) 해외에서 뜨는 한국 콘텐츠 YouTube API (search.list 100 units + videos.list 1 unit)
+  let ovResult;
+  let ovItems = null;
+  if (!resolvedKey) {
+    ovResult = {
+      ok: false,
+      fetchedAt: prev?.sources?.overseasKoreanYt?.fetchedAt ?? null,
+      count: Array.isArray(prev?.overseasKorean) ? prev.overseasKorean.length : 0,
+      stale: Boolean(prev?.overseasKorean?.length),
+      error: 'YOUTUBE_API_KEY 없음',
+    };
+  } else {
+    try {
+      const publishedAfter = new Date(nowDate.getTime() - retentionDays * DAY_MS).toISOString();
+      const searchUrl = new URL(YOUTUBE_SEARCH_URL);
+      searchUrl.search = new URLSearchParams({
+        part: 'snippet',
+        type: 'video',
+        q: OVERSEAS_KOREAN_QUERY,
+        regionCode: 'US',
+        relevanceLanguage: 'en',
+        order: 'viewCount',
+        publishedAfter,
+        maxResults: String(maxOverseasResults),
+        key: resolvedKey,
+      });
+      const sRes = await fetchImpl(searchUrl, {signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)});
+      const sJson = await sRes.json();
+      if (!sRes.ok) throw new Error(`HTTP ${sRes.status}: ${String(sJson?.error?.message || '').slice(0, 120)}`);
+      const ids = (Array.isArray(sJson?.items) ? sJson.items : [])
+        .map((x) => (typeof x?.id === 'object' ? x.id.videoId : x?.id))
+        .filter(Boolean);
+      let statsJson = null;
+      if (ids.length) {
+        const statsUrl = new URL(YOUTUBE_POPULAR_KR_URL);
+        statsUrl.search = new URLSearchParams({
+          part: 'snippet,statistics',
+          id: ids.join(','),
+          key: resolvedKey,
+        });
+        const vRes = await fetchImpl(statsUrl, {signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)});
+        if (vRes.ok) statsJson = await vRes.json();
+      }
+      const parsed = parseOverseasKoreanYoutube(sJson, statsJson);
+      if (!parsed.length) throw new Error('해외 한국 콘텐츠 0건');
+      ovItems = parsed;
+      ovResult = {ok: true, fetchedAt: nowIso, count: parsed.length, stale: false, error: null};
+    } catch (err) {
+      ovResult = {
+        ok: false,
+        fetchedAt: prev?.sources?.overseasKoreanYt?.fetchedAt ?? null,
+        count: Array.isArray(prev?.overseasKorean) ? prev.overseasKorean.length : 0,
+        stale: Boolean(prev?.overseasKorean?.length),
+        error: String(err?.message || err).slice(0, 200),
+      };
+    }
+  }
+
+  const anyOk = gtResult.ok || ytResult.ok || ovResult.ok;
+  const finalGt = gtItems ?? (Array.isArray(prev?.googleTrends) ? prev.googleTrends : []);
+  const finalYt = ytItems ?? (Array.isArray(prev?.youtubePopular) ? prev.youtubePopular : []);
+  const finalOv = ovItems ?? (Array.isArray(prev?.overseasKorean) ? prev.overseasKorean : []);
+  const todayKey = toKstDate(nowDate);
+  const history = anyOk
+    ? mergeTrendHistory(prev, {
+      date: todayKey,
+      collectedAt: nowIso,
+      googleTrends: finalGt,
+      youtubePopular: finalYt,
+      overseasKorean: finalOv,
+    }, {now: nowDate, retentionDays})
+    : (Array.isArray(prev?.history) ? prev.history : []);
+
   const store = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     region: 'KR',
+    retentionDays,
     collectedAt: anyOk ? nowIso : (prev?.collectedAt ?? null),
     lastAttemptAt: nowIso,
     sources: {
       googleTrendsKr: gtResult,
       youtubePopularKr: ytResult,
+      overseasKoreanYt: ovResult,
     },
-    googleTrends: gtItems ?? (Array.isArray(prev?.googleTrends) ? prev.googleTrends : []),
-    youtubePopular: ytItems ?? (Array.isArray(prev?.youtubePopular) ? prev.youtubePopular : []),
+    googleTrends: finalGt,
+    youtubePopular: finalYt,
+    overseasKorean: finalOv,
+    history,
   };
 
   if (anyOk) {
@@ -221,6 +475,8 @@ export async function collectKoreanTrends({
     collectedAt: store.collectedAt,
     googleTrendsCount: store.googleTrends.length,
     youtubePopularCount: store.youtubePopular.length,
+    overseasKoreanCount: store.overseasKorean.length,
+    historyDays: store.history.length,
     sources: store.sources,
   };
 }

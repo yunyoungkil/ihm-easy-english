@@ -9,9 +9,10 @@ import {loadEpisodeOutcomes, parsePlanningSources, views7dPath} from './planning
 
 const H = 3600 * 1000;
 const D = 24 * H;
-export const LIMITS = Object.freeze({loopHours: 36, syncHours: 36, views7dDays: 12, audienceDays: 21, competitorDays: 10});
+export const LIMITS = Object.freeze({loopHours: 36, syncHours: 36, views7dDays: 12, audienceDays: 21, competitorDays: 10, trendHours: 48});
 export const RESEARCH_LIMIT_DAYS = 3; // allow-literal: 설계 2절 제안 값(research-stale·research-thin)
 export const SOURCES_REQUIRED_FROM_EP = 30; // 기획 근거 칸 규칙(2026-11-11)이 처음 적용되는 편
+export const TREND_REVIEW_REQUIRED_AFTER = '2026-11-23T15:00:00Z'; // 트렌드 검토 기록(trendRef) 누락 알림 적용 기준 시각 (2026-11-23 확정)
 
 const ageMs = (iso, now) => (iso && Number.isFinite(new Date(iso).getTime()) ? now - new Date(iso) : Infinity);
 
@@ -187,23 +188,71 @@ export function collectWorkflowSignals({
 
   if (!koreanTrends) {
     candidates.push({
-      area: '국내 실시간 트렌드 레이더',
+      area: '국내·해외 트렌드 레이더',
       severity: 'upgrade',
-      finding: '국내 실시간 트렌드 파일(data/youtube/korean-trends.json)이 아직 수집되지 않아 기회 포착 레이더가 비어 있음',
-      proposal: 'npm run korean-trends 실행으로 Google Trends KR + YouTube KR 인기 급상승을 수집해 next-episode-input 13절에 연결',
+      finding: '트렌드 파일(data/youtube/korean-trends.json)이 아직 수집되지 않아 기회 포착 레이더가 비어 있음',
+      proposal: 'npm run korean-trends 실행으로 Google Trends KR + YouTube KR + 해외 한국 콘텐츠(14일 누적)를 수집해 next-episode-input 13절에 연결',
     });
   } else {
-    const gt = koreanTrends.sources?.googleTrendsKr;
-    const yt = koreanTrends.sources?.youtubePopularKr;
-    if (gt?.ok === false || yt?.ok === false) {
-      const broken = [gt?.ok === false ? `Google Trends(${gt.error || '오류'})` : null, yt?.ok === false ? `YouTube KR(${yt.error || '오류'})` : null].filter(Boolean).join(', ');
+    const trendAge = koreanTrends.collectedAt ? ageMs(koreanTrends.collectedAt, now) : null;
+    if (trendAge !== null && trendAge > LIMITS.trendHours * H) {
       candidates.push({
-        area: '국내 실시간 트렌드 레이더',
+        area: '국내·해외 트렌드 레이더',
         severity: 'upgrade',
-        finding: `국내 트렌드 소스 일부 실패(${broken}) — 이전 수집 데이터로 임시 유지 중`,
-        proposal: '실패 소스 응답·API 키 상태를 점검해 양쪽 소스가 모두 최신으로 갱신되도록 복구',
+        finding: `트렌드 데이터(korean-trends.json)가 ${Math.round(trendAge / H)}시간째 갱신되지 않음`,
+        proposal: 'npm run korean-trends 실행 또는 매일 루프 koreanTrends 단계 상태를 확인',
       });
     }
+    const gt = koreanTrends.sources?.googleTrendsKr;
+    const yt = koreanTrends.sources?.youtubePopularKr;
+    const ov = koreanTrends.sources?.overseasKoreanYt;
+    if (gt?.ok === false || yt?.ok === false || ov?.ok === false) {
+      const broken = [
+        gt?.ok === false ? `Google Trends(${gt.error || '오류'})` : null,
+        yt?.ok === false ? `YouTube KR(${yt.error || '오류'})` : null,
+        ov?.ok === false ? `해외 한국 콘텐츠(${ov.error || '오류'})` : null,
+      ].filter(Boolean).join(', ');
+      candidates.push({
+        area: '국내·해외 트렌드 레이더',
+        severity: 'upgrade',
+        finding: `트렌드 소스 일부 실패(${broken}) — 이전 수집 데이터로 임시 유지 중`,
+        proposal: '실패 소스 응답·API 키 상태를 점검해 모든 소스가 최신으로 갱신되도록 복구',
+      });
+    }
+  }
+
+  // 시트 트렌드 검토 누락 알림 (2026-11-23 확정: 화제 사용 강제가 아니라 검토 여부·이유 기록 누락만 확인)
+  const cutoffMs = Date.parse(TREND_REVIEW_REQUIRED_AFTER);
+  const missingTrendReview = transformSheets.filter((s) => {
+    const createdMs = Date.parse(s?.createdAt || '');
+    return Number.isFinite(createdMs) && createdMs >= cutoffMs && !s?.trendRef;
+  });
+  if (missingTrendReview.length) {
+    const names = missingTrendReview.map((s) => s.episodeId || s.sourceVideoId || s.topic || '미상').join(', ');
+    candidates.push({
+      area: '트렌드 검토 기록 누락',
+      severity: 'upgrade',
+      finding: `2026-11-23 결정 이후 작성된 비교 시트 ${missingTrendReview.length}편(${names})에 트렌드 검토 기록(trendRef)이 빠짐`,
+      proposal: '화제 사용을 강제하는 알림이 아니라 검토 누락 점검 — 13·14절을 살핀 결과(활용/미활용 이유)를 시트 trendRef에 기록',
+    });
+  }
+
+  // 서면 허락 요청 메일 회신 대기 알림 (2026-11-23 확정: 1단계 공식 Gmail 플러그인 확인 유도)
+  const pendingPermissionEmails = [];
+  for (const s of transformSheets) {
+    for (const c of s?.clipRights?.clips || []) {
+      if (c?.pathway === 'written_permission' && c?.permissionEmail?.status === 'sent') {
+        pendingPermissionEmails.push(`${s.episodeId || s.sourceVideoId || s.topic}(${c.permissionEmail.threadId || c.sourceUrl || '스레드 미상'})`);
+      }
+    }
+  }
+  if (pendingPermissionEmails.length) {
+    candidates.push({
+      area: '원본 클립 허락 메일 회신 대기',
+      severity: 'upgrade',
+      finding: `서면 허락 요청 메일 회신 대기 ${pendingPermissionEmails.length}건: ${pendingPermissionEmails.join(', ')}`,
+      proposal: '공식 Gmail 플러그인으로 해당 메일 스레드에 답장이 도착했는지 자동 확인하고, 승인 시 clipRights.permissionEmail.status를 approved로 갱신',
+    });
   }
 
   return candidates;

@@ -104,10 +104,11 @@
 - **AI 생성 에셋 워터마크 노출 Zero Tolerance**: AI 툴(Google Veo/Gemini, Runway, Sora, Pika, Kling, Midjourney, Imagen 등)로 생성한 배경 비디오나 일러스트를 영상 컴포지션에 사용할 때, 플랫폼 워터마크·로고(Gemini 4각 별 스파클 아이콘, Runway 마크 등)가 시청자 화면에 1픽셀이라도 노출되는 것을 엄격히 금지한다.
 - **프롬프트 네거티브 지침 의무화**: 모든 이미지/비디오 생성 프롬프트 끝에 `no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges` 네거티브 지시를 필수 포함한다.
 - **에셋 반입 시 4방 모서리 전수 시각 검수**: AI로 생성한 비디오나 이미지를 프로젝트 `assets/` 디렉토리에 복사/배치하기 전에, 에이전트가 직접 모서리 4방(특히 우측 하단/상단)에 워터마크나 스파클 아이콘이 찍혀 있는지 시각적으로 확인(프레임 캡처 후 `view_file`)한다. 무검수로 컴포지션에 직결하는 행위를 일체 불허한다.
-- **워터마크 발견 시(또는 Flow/Gemini 앱 보조 생성 시) 사전 여백 + 자동 크롭 후처리 필수 (2026-11-23 실측 갱신)**:
-  - 2026-11-23 20px 격자 실측 결과, Flow와 Gemini 앱 영상(`720×1280` 9:16) 모두 우하단 끝에서 중심 120px·크기 48×48px(경계 144px = 세로 11.25%)에 동일 위치로 별 로고가 찍힌다.
-  - 프롬프트 단계에서 `scripts/watermark-crop.mjs`의 `appendSafeMarginPrompt`로 하단/우측 15% 안전 여백을 미리 확보하고, 반입 전 `node scripts/media-craft-tools.mjs crop-watermark`(9:16: 하단 12.5% 자름 + 가로 중앙 정렬 `crop=630:1120:44:0,scale=1080:1920:flags=lanczos` / 16:9: 우측 12.5% 자름 + 세로 중앙 정렬 `crop=1120:630:0:44,scale=1920:1080:flags=lanczos`)와 `check-corners`(240×240 4방 모서리 확대)로 잔상 0px를 확인한 뒤 반입한다.
-  - 주의: 외부 '워터마크 제거기'(인페인팅/SynthID 훼손)는 쓰지 않고, 구도 여백 크롭 + 유튜브 스튜디오 AI 사용 표시(`containsSyntheticMedia: true`, Rule 14)를 함께 유지한다.
+- **워터마크 발견 시(또는 Flow/Gemini 앱 보조 생성 시) 2가지 처리 선택지 (2026-11-23 실측·사용자 확정)**:
+  - 불변 안전선은 **"최종 시청 화면에 워터마크 0px 노출"** 하나뿐이며, 없애는 방법은 장면과 화질에 따라 아래 두 가지 중 더 자연스러운 쪽을 선택한다(2026-11-23 20px 격자 실측: Flow·Gemini 앱 `720×1280` 9:16 모두 우하단 끝에서 중심 120px·48×48px, 경계 144px=세로 11.25% 동일).
+  - **선택지 A — 사전 여백 + 자동 크롭(꽉 찬 전체 화면 실사 장면 기본)**: `scripts/watermark-crop.mjs`의 `appendSafeMarginPrompt`로 하단/우측 15% 여백을 미리 확보하고, 반입 전 `node scripts/media-craft-tools.mjs crop-watermark`(9:16: 하단 12.5% 자름 + 가로 중앙 정렬 `crop=630:1120:44:0,scale=1080:1920:flags=lanczos` / 16:9: 우측 12.5% 자름 + 세로 중앙 정렬 `crop=1120:630:0:44,scale=1920:1080:flags=lanczos`)와 `check-corners`로 잔상 0px를 확인한다.
+  - **선택지 B — 원본 화질 보존 + 편집 디자인 덮개(화질 손실이 아깝거나 설명 영역이 있는 장면)**: 자르지 않고 원본 화질 그대로(`--no-crop`) 반입하되, 편집 레이어에서 **화면 전체 디자인의 일부로 워터마크 영역을 자연스럽게 덮어 가린다**(예: 쇼츠 하단 12~15% 전체 어두운 그라데이션·색상 띠, 카드/액자형 프레임, 롱폼 좌우 분할 설명 카드). 단, ① 우하단 구석에 동떨어진 스티커·고정 채널 로고만 딱 붙이는 방식(유튜브 버튼과 겹침·AI 티)과 ② "유튜브 버튼이 가려 줄 것"으로 방치하는 행위는 금지하며, 최종 렌더 프레임의 4모서리 확대 검수에서 워터마크 0px를 반드시 확인한다.
+  - 주의: 외부 '워터마크 제거기'(인페인팅/SynthID 훼손)는 쓰지 않고, 유튜브 스튜디오 AI 사용 표시(`containsSyntheticMedia: true`, Rule 14)를 함께 유지한다.
 - **컴포지션 CSS 2중 안전망**: 배경 비디오 및 이미지 컨테이너에는 반드시 `overflow: hidden`을 지정하고, 배경 비디오 태그(`.bg-video`)에 `transform: scale(1.05); transform-origin: center center;` 등 미세 여백 안전망을 두어 브라우저나 디바이스 차이로 인한 모서리 누출 위험을 2중으로 원천 차단한다.
 
 ## 이미지 생성 2단계 원칙: 자체 모델 우선 및 한도 소진 시 브라우저 컨트롤 폴백 (2026-11-10 확정)

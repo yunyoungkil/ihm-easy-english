@@ -64,7 +64,7 @@
   - 모든 생성물 옆에는 `.prompt.json`과 버린 테이크(`assets/takes/`)를 남겨 어디서 어떤 변수 하나를 바꿔 뻗었는지 추적한다(`--parent <직전파일> --changed-var "<바꾼 변수>" --status candidate|chosen|rejected`, 조회: `node scripts/media-craft-tools.mjs lineage --dir <폴더>`).
   - 수정 시 처음부터 무작정 다시 뽑지 않고 **① 문제 프레임 캡처(`extract-frame`) → 이미지 부분 수정 → `--first` 재영상화 ② 앵글 전환 생성 → 베스트 프레임 캡처 → 재영상화 ③ 4회 이상 수정으로 열화되면 이미지를 LLM에 넣어 프롬프트로 역변환 후 처음부터 새로 생성(Fresh Generation)** 한다. 그리드/시트 분할(`split-grid`)·레퍼런스 컷(`extract-ref-clip`)도 필요 시 `scripts/media-craft-tools.mjs`로 실행한다.
 - **저화질 선별 & 선택적 수용**: 핵심 동작은 `360p`로 먼저 확인하고 합격 프롬프트만 `1080p` 본생성한다. 시청자 시선이 머무는 핵심 단어·입 모양·주인공 오류는 고치되, 0.5초 스쳐 가는 배경 미세 오차에 일일 한도를 다 쓰지 않는다.
-- **워터마크 4방 모서리 검수 (불변)**: `assets/` 반입 전 네 모서리를 직접 확대 확인한다(`node scripts/media-craft-tools.mjs check-corners --input <파일> --output <검수.png>`). Flow·Gemini 앱 등 워터마크가 찍히는 도구는 생성 시 사전 여백 프롬프트를 넣고 반입 전 자동 크롭한다(`node scripts/media-craft-tools.mjs crop-watermark --input <원본> --output <클린>` — 9:16 하단 12.5% 중앙정렬 `crop=630:1120:44:0,scale=1080:1920:flags=lanczos`, 16:9 우측 12.5% 중앙정렬).
+- **워터마크 4방 모서리 검수 (불변)**: 최종 화면에 워터마크 0px 노출만 고정하고, Flow·Gemini 앱 등 워터마크가 찍히는 도구는 장면에 따라 2가지 중 선택한다. ① **사전 여백 + 자동 크롭**(전체 화면 실사 기본: `crop-watermark` 9:16 하단 12.5%·16:9 우측 12.5% 중앙정렬) 또는 ② **원본 화질 보존(`--no-crop`) + 편집 디자인 덮개**(쇼츠 하단 12~15% 전체 띠·카드 액자·롱폼 분할 설명 카드 — 구석 스티커/고정 로고 및 유튜브 UI 방치 금지). 두 방식 모두 반입·렌더 후 4방 모서리 확대(`check-corners`)로 잔상 0px를 직접 눈으로 확인한다.
 
 ### 2. 후반 휴먼터치 (`HyperFrames` + `ffmpeg` + 사운드, 85점 → 완성)
 AI 생성본만 이어 붙이면 85점에서 멈춘다. 마지막 디테일을 후반 레이어에서 끌어올린다.

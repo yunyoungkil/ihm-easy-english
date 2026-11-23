@@ -16,8 +16,9 @@
   - 시험 변수(#3): 비레이아웃 0.3초 청각 시그니처 4회 + 브라이트 에디토리얼 실사·가로 정중앙 대칭·확대 3060 폰트. 12/12 토 이후 공개 7일 결과 정산 예정.
 - **EP33 쇼츠 `videos/ep33-shorts-swallowed-t`**: **12/08 화 20:00 KST 예약 완료** (ID `fVY5BNQ7Ciw`, 교육 27, 한국어 ko, 40.0s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 `subtitles-ko.srt` 게시, `community-post.json` 예습 퀴즈 `2026-12-08T09:00:00Z`).
   - 시험 변수(#4): 촉각 실물 매크로 + 0.15초 호흡 멈춤·코 파동 도해 + 3D 아치 통과 게이트 1.5초 직접 말하기 챌린지 + 형광펜 체크리스트. 12/15 화 이후 공개 7일 결과 정산 예정.
-- **EP34 쇼츠 `videos/ep34-shorts-consonant-cluster`**: **Gate 1 승인 완료(제목 1안 · 썸네일 A안)** → 한국어 `Gero` 11컷 + 원어민 `Olin` 4단어 직접 청취 검수 + Lyria 3.5 BGM(허밍 0 확인) + SFX 3종 + 실측 타임라인(`40.202초`, `AUDIO-AUDIT.md`) + Omni 1080p 1/4(`c02-stressball.mp4`) + HyperFrames `index.html` 조립 및 `hyperframes check` 통과·12컷 콘택트시트 검수 완료. **11/23 17:10 KST 이후 잔여 Omni 3클립(`c00/c06/c09`) 추가 후 렌더 대기.**
-- **EP35 쇼츠 `videos/ep35-shorts-ghost-letters`**: **Gate 1 승인 완료(11/23, 제목 1안 · 썸네일 A안) + 브라우저 프리뷰 구성 확정(11/23)** → 한국어 `Gero` 11컷 + 원어민 `Olin` 5단어 전수 청취 + Lyria 3.5 BGM(허밍 0) + SFX 4종 + 실측 타임라인(`44.288초`, `AUDIO-AUDIT.md`) + HyperFrames `index.html` 조립·`hyperframes check` 통과(0 errors · WCAG AA 69/69)·콘택트시트 검수 완료. **사용자 결정(11/23): 17:10 KST EP34 3클립 완료 후 EP35 Omni 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 부착 뒤 최종 렌더.**
+- **EP34 쇼츠 `videos/ep34-shorts-consonant-cluster`**: **12/12 토 20:00 KST 예약 완료** (ID `GudIUEIl2TI`, 교육 27, 한국어 ko, 40.2s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes` 30번째, 한국어 수동 자막 `subtitles-ko.srt` 게시, `community-post.json` 예습 퀴즈 `2026-12-12T09:00:00Z`).
+  - 시험 변수(#5): Pinterest 스위스 키네틱 유압 1박자 압축 × 3중 하이브리드(Omni 4클립+Nano Banana+HyperFrames) + 1박자 메트로놈 3연타 + `STRIKE` 1.5초 챌린지 + `slop-rewrite` 전면 윤문. 12/19 토 이후 공개 7일 결과 정산 예정.
+- **EP35 쇼츠 `videos/ep35-shorts-ghost-letters`**: **Gate 1 승인 완료(11/23, 제목 1안 · 썸네일 A안) + 브라우저 프리뷰 구성 확정(11/23)** → 한국어 `Gero` 11컷 + 원어민 `Olin` 5단어 전수 청취 + Lyria 3.5 BGM(허밍 0) + SFX 4종 + 실측 타임라인(`44.288초`, `AUDIO-AUDIT.md`) + HyperFrames `index.html` 조립·`hyperframes check` 통과(0 errors · WCAG AA 69/69)·콘택트시트 검수 완료. **다음: Omni 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 부착 뒤 최종 렌더.**
 - **11/30 롱폼 방향 확정 (2026-11-20 사용자 승인 A안)**: 11/30(월) 롱폼은 1회 쉬고, 쇼츠 선행 후 11/25 EP30 쇼츠 7일 정산으로 검증된 주제를 새 포맷 롱폼으로 확장.
 - **스튜디오 조사 2단계 전환 완료 (`2026-11-20`)**: 따라잡기 0편·수집 6일(후보 87편) 달성 후 `pickReportTargets`를 조사 후보 우선(롱폼 1 + 쇼츠 1 · 같은 채널 7일 쿨다운 · 빈 형식은 손입력 폴백 · API 최근 50편 v2 배수 직접 계산)으로 전환 완료. 14일 관찰(조사 리포트 20편+) 후 사용자 재확인 뒤 3단계 착수.
 
@@ -38,9 +39,8 @@
 12. **영상 효과 50가지 참고 도구 상자 & 비고정 연출 태도 (`2026-11-23`, `knowledge/video-effects-toolbox-2026-11-23.md`)**: 3060=정적 화면 단정 금지(재미로 들어와 학습하는 폭넓은 시청자 포괄), 연출 개수 제한(1~2개 등) 하드코딩 금지(영상을 좋게 만든다면 0개~전부 자율 선택). 매 기획마다 **효과·재미(끝까지 보기)·학습력**을 함께 고민·기록하고 공개 결과로 연구(`04-visual-and-assets.md` 양쪽 사본 연결).
 
 ## 다음 할 일
-0. **EP34 Gate 3 대기**: 11/23 Omni 4클립 연결·렌더 완료(`renders/ep34-shorts-consonant-cluster_2026-11-23_17-16-31.mp4`, 40.2초). 업로드 패키지 → 사용자 업로드 승인 → 12/12 토 20:00 KST 예약.
-1. **(완료 11/23)** EP23 A/B 테스트: `insufficient_impressions`(승자 없음), `REVIEW.md` 기록함.
-2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
-3. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.
-4. **12/05 토 이후 (사용자 재확인)**: 스튜디오 조사 2단계 14일 관찰(수집 12일+·조사 리포트 20편+) 달성 시 3단계(구 손입력 목록 정리) 착수.
-5. **12/08 화 · 12/12 토 · 12/15 화 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) · EP33(`fVY5BNQ7Ciw`) 쇼츠 공개 7일 결과 확인.
+0. **EP35 마무리**: Omni 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 부착·모서리 워터마크 검수 → 최종 렌더·12/15 화 20:00 KST 예약.
+1. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
+2. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.
+3. **12/05 토 이후 (사용자 재확인)**: 스튜디오 조사 2단계 14일 관찰(수집 12일+·조사 리포트 20편+) 달성 시 3단계(구 손입력 목록 정리) 착수.
+4. **12/08 화 · 12/12 토 · 12/15 화 · 12/19 토 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) · EP33(`fVY5BNQ7Ciw`) · EP34(`GudIUEIl2TI`) 쇼츠 공개 7일 결과 확인.

@@ -35,7 +35,7 @@
 
 ## 다음 할 일
 0. **즉시 (Gate 2 선택 대기)**: EP34(`ep34-shorts-consonant-cluster`) 12/12 토 슬롯 — 내일 Omni 한도 해제 후 잔여 3클립(`c00-press`, `c06-spray`, `c09-strike`) 보강 뒤 렌더할지, 현재 구성(`c02` Omni 실사 + 11컷 매크로/키네틱)으로 즉시 렌더할지 확정 후 Gate 2 렌더 진행.
-1. **11/23 월**: 스튜디오 EP23(`9d9m869BCTI`) 제목·썸네일 A/B 테스트 종료 결과 수집(`node scripts/studio-ab-tests.mjs`) 및 `REVIEW.md` 기록.
+1. **(완료 11/23)** EP23 A/B 테스트: `insufficient_impressions`(승자 없음), `REVIEW.md` 기록함.
 2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
 3. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.
 4. **12/05 토 이후 (사용자 재확인)**: 스튜디오 조사 2단계 14일 관찰(수집 12일+·조사 리포트 20편+) 달성 시 3단계(구 손입력 목록 정리) 착수.

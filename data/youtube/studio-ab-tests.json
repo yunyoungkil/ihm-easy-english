@@ -2,29 +2,29 @@
   "schemaVersion": 1,
   "videos": {
     "9d9m869BCTI": {
-      "state": "running",
+      "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-22T08:01:11.575Z",
+      "lastSeenAt": "2026-11-23T03:03:28.039Z",
       "kind": [
         "thumbnail",
         "title"
       ],
-      "outcome": "running",
+      "outcome": "insufficient_impressions",
       "winnerIndex": null,
       "report": {
         "kinds": [
           "thumbnail",
           "title"
         ],
-        "headline": "테스트 실행 중…",
-        "outcome": "running",
+        "headline": "노출수가 충분하지 않아 최고의 옵션을 결정할 수 없습니다",
+        "outcome": "insufficient_impressions",
         "winnerIndex": null,
         "options": [
           {
             "index": 1,
             "title": "Coffee, Hello 왜 두 글자인데 한 번만 낼까? 원어민 발음 18분 훈련 | 영어 겹자음 발음",
             "watchTimeSharePercent": null,
-            "isActive": false,
+            "isActive": true,
             "isWinner": false
           },
           {
@@ -42,8 +42,8 @@
             "isWinner": false
           }
         ],
-        "periodText": "남은 예상 시간: 8시간 3분…",
-        "checkedAt": "2026-11-22T08:01:11.575Z"
+        "periodText": "완료된 테스트입니다. 2026년 11월 9일 1:05부터 2026년 11월 23일 1:14까지 실행되었습니다.",
+        "checkedAt": "2026-11-23T03:03:28.039Z"
       }
     },
     "EDjmQmvGA1o": {
@@ -274,31 +274,31 @@
     "uqmVMRhT_1A": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-22T08:01:11.575Z",
+      "lastSeenAt": "2026-11-23T03:03:28.039Z",
       "kind": []
     },
     "beKA35yvxdk": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-22T08:01:11.575Z",
+      "lastSeenAt": "2026-11-23T03:03:28.039Z",
       "kind": []
     },
     "AcNSDMpkR_A": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-22T08:01:11.575Z",
+      "lastSeenAt": "2026-11-23T03:03:28.039Z",
       "kind": []
     },
     "W7toujk6ER8": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-22T08:01:11.575Z",
+      "lastSeenAt": "2026-11-23T03:03:28.039Z",
       "kind": []
     },
     "a2VrFQVjImI": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-22T08:01:11.575Z",
+      "lastSeenAt": "2026-11-23T03:03:28.039Z",
       "kind": []
     },
     "f4wkmIvplCc": {
@@ -378,7 +378,7 @@
     "cu3EB5OJdMM": {
       "state": "completed",
       "firstSeenAt": "2026-11-13T14:01:41.528Z",
-      "lastSeenAt": "2026-11-22T08:01:11.575Z",
+      "lastSeenAt": "2026-11-23T03:03:28.039Z",
       "kind": []
     },
     "jRoYudL30DE": {
@@ -473,34 +473,40 @@
     }
   },
   "channelId": "UCwNrEdm2jYAtUlfHVvH3WQw",
-  "updatedAt": "2026-11-22T08:01:11.575Z",
+  "updatedAt": "2026-11-23T03:03:28.039Z",
   "scanned": {
     "8Ul_lkCkUCI": {
-      "at": "2026-11-21T16:13:21.534Z",
-      "hasTest": false
+      "at": "2026-11-23T03:03:28.039Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "--Ajwp-UvIk": {
-      "at": "2026-11-21T16:13:21.534Z",
-      "hasTest": false
+      "at": "2026-11-23T03:03:28.039Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "cW9pREzzrt0": {
-      "at": "2026-11-21T16:13:21.534Z",
-      "hasTest": false
+      "at": "2026-11-23T03:03:28.039Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "91aunP3N8mQ": {
-      "at": "2026-11-21T16:13:21.534Z",
-      "hasTest": false
+      "at": "2026-11-23T03:03:28.039Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "a4E6XlTbTW0": {
-      "at": "2026-11-21T16:13:21.534Z",
-      "hasTest": false
+      "at": "2026-11-23T03:03:28.039Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "UDwLERu-Tu8": {
-      "at": "2026-11-21T16:13:21.534Z",
-      "hasTest": false
+      "at": "2026-11-23T03:03:28.039Z",
+      "hasTest": false,
+      "reportChecked": true
     },
     "9d9m869BCTI": {
-      "at": "2026-11-22T08:01:11.575Z",
+      "at": "2026-11-23T03:03:28.039Z",
       "hasTest": true,
       "reportChecked": true
     },

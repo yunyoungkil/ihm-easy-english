@@ -1,6 +1,6 @@
 // 비교 시트 2안 썸네일 6장(1안 A~F와 같은 칸에서 1:1 비교). 설계서(opus-expert, 2026-11-16) 5절.
 // 공통: 위 검은 띠(y 0~360)에 짧은 글 하나(110~150px), 가운데에 큰 물건 하나, 글자는 y 1030 위에만, 강조는 색이 아니라 밝기(#111 바탕 + #F5C518 글자) 차이로.
-// 만든 직후 200px 폭 미리보기 기준을 코드로 잰다: 가장 큰 글자 28px 이상·모든 글자 14px 이상(= 768px 기준 108px·54px), 글자 5단어 이하, 글자 아래 끝 y 1030 위.
+// 만든 직후 200px 폭 미리보기 기준을 코드로 잰다: 가장 큰 글자 28px 이상·모든 글자 14px 이상(= 768px 기준 108px·54px), 글자 아래 끝 y 1030 위(단어 수 하드코딩 폐지, 2026-11-23).
 // 사용: node scripts/sheet-thumbs2.mjs <원본 영상ID>   (자동화용 크롬 9222에 붙는다)
 import {chromium} from 'playwright-core';
 import {existsSync, mkdirSync, readFileSync} from 'node:fs';
@@ -83,7 +83,6 @@ export async function renderSheetThumbs2(videoId, {keys = Object.keys(THUMBS2)} 
       if (info.overflow) problems.push(`${k}2: 화면 넘침`);
       if (maxFont * scale < 28) problems.push(`${k}2: 200px에서 가장 큰 글자가 ${Math.round(maxFont * scale)}px(28px 필요)`);
       if (minFont * scale < 14) problems.push(`${k}2: 200px에서 가장 작은 글자가 ${Math.round(minFont * scale)}px(14px 필요)`);
-      if (info.words > 5) problems.push(`${k}2: 글자가 ${info.words}단어(5단어 이하)`);
       const out = join(dir, `thumb-${k}2.jpg`);
       await page.screenshot({path: out, type: 'jpeg', quality: 92, clip: {x: 0, y: 0, width: W, height: H}});
       made.push(`images/${videoId}/thumb-${k}2.jpg`);
@@ -99,7 +98,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   try {
     const {made, problems} = await renderSheetThumbs2(process.argv[2]);
     console.log(`2안 썸네일 ${made.length}장을 만들었습니다.`);
-    if (problems.length) { console.log('점검에 걸린 것:'); for (const p of problems) console.log(`- ${p}`); process.exitCode = 2; } else console.log('점검: 200px 글자 크기·단어 수·넘침 모두 통과');
+    if (problems.length) { console.log('점검에 걸린 것:'); for (const p of problems) console.log(`- ${p}`); process.exitCode = 2; } else console.log('점검: 200px 글자 크기·넘침 모두 통과');
   } catch (err) {
     console.error(`실패: ${err.message}`);
     process.exitCode = 1;

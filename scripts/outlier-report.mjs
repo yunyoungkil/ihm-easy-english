@@ -813,6 +813,24 @@ export function missingCutFrames(report, exists = (rel) => existsSync(join(proje
   return times.map((_, i) => i).filter((i) => !exists(`data/youtube/outlier-frames/${report.videoId}/${cutFrameName(i)}`));
 }
 
+/**
+ * 캡처 시작 초를 실제로 받은 영상 안으로 당긴다(1초 이상 남게). 순간은 반올림된 길이(16초)로 고르는데
+ * 받은 파일은 15.0초일 수 있어, 끝에 걸린 순간은 ffmpeg가 빈 화면으로 실패하고 그 영상의 캡처 전체를 잃었다
+ * (2026-11-23 bFq3ieCIqbI, 15초 지점). 길이를 모르면 예전처럼 그대로 쓴다.
+ */
+export function clampFrameSecond(t, clipSeconds) {
+  const s = Math.max(0, Math.floor(Number(t) || 0));
+  if (!Number.isFinite(clipSeconds) || clipSeconds <= 0) return s;
+  return Math.min(s, Math.max(0, Math.floor(clipSeconds - 1)));
+}
+
+async function probeSeconds(file) {
+  try {
+    const {stdout} = await execFileAsync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nw=1:nk=1', file], {timeout: 30000});
+    return Number.parseFloat(stdout);
+  } catch { return Number.NaN; }
+}
+
 async function processClip(videoId, moments, windowSeconds, {detectCuts = true, knownCutTimes = null, cutFrameIndexes = null} = {}) {
   const work = mkdtempSync(join(tmpdir(), 'outlier-frames-'));
   try {
@@ -840,11 +858,15 @@ async function processClip(videoId, moments, windowSeconds, {detectCuts = true, 
       await execFileAsync('ffmpeg', ['-loglevel', 'error', '-y', '-ss', String(t), '-i', join(work, video), '-frames:v', '1', '-vf', `scale=-2:${CUT_FRAME_HEIGHT}`, '-q:v', '3', join(outDir, cutFrameName(i))], {timeout: 60000}).catch(() => {});
     }
     const frames = [];
+    const clipSeconds = await probeSeconds(join(work, video));
+    const madeFiles = new Set();
     for (const m of moments) {
-      const t = Math.max(0, Math.floor(m.t));
+      const t = clampFrameSecond(m.t, clipSeconds);
       const file = `${t}.jpg`;
+      if (madeFiles.has(file)) continue;
+      madeFiles.add(file);
       await execFileAsync('ffmpeg', ['-loglevel', 'error', '-y', '-ss', String(t), '-t', '3', '-i', join(work, video), '-vf', 'fps=1,scale=-2:240,tile=3x1', '-frames:v', '1', '-q:v', '5', join(outDir, file)], {timeout: 60000});
-      if (existsSync(join(outDir, file))) frames.push({t: m.t, file});
+      if (existsSync(join(outDir, file))) frames.push({t: t === Math.max(0, Math.floor(m.t)) ? m.t : t, file});
     }
     return {frames, cuts, error: null};
   } catch (err) {

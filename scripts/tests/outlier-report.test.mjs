@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {
   buildReportPrompt, verifyQuotes, computePacing, pickFrameMoments, analysisWindowSeconds, buildVisualLibrary,
   MAX_FRAMES_PER_VIDEO, unwrapAnalysis, parseSceneTimes, searchVisualLibrary, pickReportTargets, missingFrames, audienceDnaEntriesFromReport, reportsPerDay, needsCutTimes, cutFrameName, missingCutFrames, CUT_FRAME_HEIGHT,
-  isVideoUnavailableError, framesRetryPaused, ytDlpErrorText, isTransientReportError, selectContrastPeers, normalizeExtraObservations,
+  isVideoUnavailableError, framesRetryPaused, ytDlpErrorText, isTransientReportError, selectContrastPeers, normalizeExtraObservations, clampFrameSecond,
 } from '../outlier-report.mjs';
 import {renderReportPage, renderReportIndex, renderMarkdownPage, renderVisualLibraryPage} from '../outlier-report-view.mjs';
 
@@ -367,4 +367,13 @@ test('2단계 대상 선정: 한쪽 형식 조사 후보가 비면 손입력 목
     ['S1', 'studio-research'],
     ['MD1', 'market-demand-fallback'],
   ]);
+});
+
+test('캡처 시작 초는 실제로 받은 영상 끝을 넘지 않는다(2026-11-23 bFq3ieCIqbI: 16초 영상의 15초 순간, 받은 파일은 15.0초)', () => {
+  assert.equal(clampFrameSecond(15, 15), 14);
+  assert.equal(clampFrameSecond(13, 15), 13);
+  assert.equal(clampFrameSecond(15.7, 15.4), 14);
+  assert.equal(clampFrameSecond(3, 0.6), 0);
+  assert.equal(clampFrameSecond(-2, 10), 0);
+  assert.equal(clampFrameSecond(42, Number.NaN), 42, '길이를 모르면 예전처럼 그대로');
 });

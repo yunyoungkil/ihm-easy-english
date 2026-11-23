@@ -345,8 +345,53 @@
     "perMinute": 41.3,
     "source": "AI가 적은 화면 변화(영상을 못 받아 대신 씀)"
   },
-  "frames": [],
-  "framesError": "Command failed: ffmpeg -loglevel error -y -ss 15 -t 3 -i C:\\Users\\yunyo\\AppData\\Local\\Temp\\outlier-frames-1CQGLr\\v.mp4 -vf fps=1,scale=-2:240,tile=3x1 -frames:v 1 -q:v 5 C:\\Users\\yunyo\\Downloads\\project\\data\\youtube\\outlier-frames\\bFq3ieCIqbI\\15.jpg\n[mjpeg @ 000001cd2c371d40] Non full-range YUV is n",
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 2,
+      "file": "2.jpg"
+    },
+    {
+      "t": 3,
+      "file": "3.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 9,
+      "file": "9.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 13,
+      "file": "13.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    }
+  ],
+  "framesError": null,
   "usage": {
     "promptTokenCount": 6069,
     "candidatesTokenCount": 2702,

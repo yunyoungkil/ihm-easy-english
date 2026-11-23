@@ -24,7 +24,8 @@ export const SCAN_LIMIT = 12; // allow-literal: 매일 루프가 한 번에 편�
 const RECENT_DAYS = 14; // allow-literal: 공개 후 이 기간 안의 영상은 하루에 한 번 다시 본다(새 영상에 테스트를 거는 때가 이 기간이다)
 const DAY_MS = 86400000; // allow-literal: 하루(ms)
 const MAX_PAGES = 10; // allow-literal: 페이지 넘기기 안전 한도(30편씩, 영상 수가 늘어도 무한 반복 방지)
-const PAGE_WAIT_MS = 3500; // allow-literal: 다음 페이지 표가 바뀔 때까지 기다리는 시간
+const PAGE_WAIT_MS = 2000; // allow-literal: 첫 줄이 바뀐 뒤 나머지 줄이 그려질 때까지
+const PAGE_CHANGE_TIMEOUT_MS = 30000; // allow-literal: 다음 페이지 표의 첫 줄이 바뀌기를 기다리는 한계(넘으면 전체 수 대조가 잡는다)
 
 export function parseTestLabel(text) {
   const s = String(text || '');
@@ -229,7 +230,11 @@ async function readListTab(page, tab) {
     if (m) total = Number(m[1]);
     const next = page.getByRole('button', {name: '다음 페이지로 이동'}).first();
     if (!(await next.isVisible().catch(() => false)) || !(await next.isEnabled().catch(() => false))) break;
+    // 표의 첫 줄이 바뀔 때까지 기다린다. 정해진 시간만 기다리면 안 바뀐 표를 읽고 한 페이지를 건너뛴다
+    // (2026-11-22 매일 루프: Shorts 61편 중 31편 = 1페이지 30편 + 3페이지 1편).
+    const firstHref = rows.find((r) => r.href)?.href || '';
     await next.click();
+    await page.waitForFunction((prev) => (document.querySelector('ytcp-video-row a[href*="/video/"]')?.getAttribute('href') || '') !== prev, firstHref, {timeout: PAGE_CHANGE_TIMEOUT_MS}).catch(() => {});
     await page.waitForTimeout(PAGE_WAIT_MS);
   }
   if (total !== null && seen.size !== total) throw new Error(`${tab.label} 목록을 ${seen.size}편만 읽음(표시된 전체 ${total}편) — 페이지 넘기기를 확인`);

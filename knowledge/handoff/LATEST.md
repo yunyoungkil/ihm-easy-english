@@ -41,6 +41,7 @@
 13. **클릭 심리 최우선·형식 비고정 & 공개 영상 6편 패키징 교체 완료 (`2026-11-23`)**: 썸네일·제목 형식 하드코딩(5단어 제한 `sheet-thumbs2.mjs` 포함·제목 겹침 금지·3요소·1인칭 금지)을 걷어내고 클릭 심리 원칙을 규칙·스킬에 반영. 대표님 승인 후 **롱폼 3편(`YoaCRYCWpws`·`VwEkIUluszw`·`8Ul_lkCkUCI`) + 쇼츠 3편(`oMrCtSBbibc`·`OnhkMmAE5ZA`·`c7Mp5L8HSXE`) 전부 실제 유튜브 제목·썸네일 교체 완료**(5편 API 200, `VwEkIUluszw` 스튜디오 A/B 잠금 해제 후 저장, 6편 실반영 확인·대시보드 동기화 200·`packaging-registry.json` 기준선 기록). **12/07(14일차)·12/21(28일차) 전후 비교 정산 예정.**
 
 ## 다음 할 일
+0-1. **`korean-trends.test.mjs` 편집기 오류 (이 PC 저장 안 된 탭)**: 저장본은 시험 통과, 오류는 저장 안 된 편집기 내용에만 있음. 사용자가 저장하면 고침(`2026-11-24.md` 이어서 할 일 3).
 0. **EP35 마무리**: Omni 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 부착·모서리 워터마크 검수 → 최종 렌더·12/15 화 20:00 KST 예약.
 1. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
 2. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.

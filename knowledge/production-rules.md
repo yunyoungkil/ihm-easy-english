@@ -104,7 +104,10 @@
 - **AI 생성 에셋 워터마크 노출 Zero Tolerance**: AI 툴(Google Veo/Gemini, Runway, Sora, Pika, Kling, Midjourney, Imagen 등)로 생성한 배경 비디오나 일러스트를 영상 컴포지션에 사용할 때, 플랫폼 워터마크·로고(Gemini 4각 별 스파클 아이콘, Runway 마크 등)가 시청자 화면에 1픽셀이라도 노출되는 것을 엄격히 금지한다.
 - **프롬프트 네거티브 지침 의무화**: 모든 이미지/비디오 생성 프롬프트 끝에 `no watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges` 네거티브 지시를 필수 포함한다.
 - **에셋 반입 시 4방 모서리 전수 시각 검수**: AI로 생성한 비디오나 이미지를 프로젝트 `assets/` 디렉토리에 복사/배치하기 전에, 에이전트가 직접 모서리 4방(특히 우측 하단/상단)에 워터마크나 스파클 아이콘이 찍혀 있는지 시각적으로 확인(프레임 캡처 후 `view_file`)한다. 무검수로 컴포지션에 직결하는 행위를 일체 불허한다.
-- **워터마크 발견 시 ffmpeg 고화질 크롭/스케일 후처리 필수**: 플랫폼 워터마크가 찍혀 있을 경우, ffmpeg를 사용하여 워터마크 영역이 화면 밖으로 완전히 잘려나가도록 미세 크롭 및 1080p 스케일(`crop=1696:954:0:0,scale=1920:1080:flags=lanczos`)하여 워터마크가 0.1픽셀도 없는 클린 에셋으로 재인코딩한 후 반입한다.
+- **워터마크 발견 시(또는 Flow/Gemini 앱 보조 생성 시) 사전 여백 + 자동 크롭 후처리 필수 (2026-11-23 실측 갱신)**:
+  - 2026-11-23 20px 격자 실측 결과, Flow와 Gemini 앱 영상(`720×1280` 9:16) 모두 우하단 끝에서 중심 120px·크기 48×48px(경계 144px = 세로 11.25%)에 동일 위치로 별 로고가 찍힌다.
+  - 프롬프트 단계에서 `scripts/watermark-crop.mjs`의 `appendSafeMarginPrompt`로 하단/우측 15% 안전 여백을 미리 확보하고, 반입 전 `node scripts/media-craft-tools.mjs crop-watermark`(9:16: 하단 12.5% 자름 + 가로 중앙 정렬 `crop=630:1120:44:0,scale=1080:1920:flags=lanczos` / 16:9: 우측 12.5% 자름 + 세로 중앙 정렬 `crop=1120:630:0:44,scale=1920:1080:flags=lanczos`)와 `check-corners`(240×240 4방 모서리 확대)로 잔상 0px를 확인한 뒤 반입한다.
+  - 주의: 외부 '워터마크 제거기'(인페인팅/SynthID 훼손)는 쓰지 않고, 구도 여백 크롭 + 유튜브 스튜디오 AI 사용 표시(`containsSyntheticMedia: true`, Rule 14)를 함께 유지한다.
 - **컴포지션 CSS 2중 안전망**: 배경 비디오 및 이미지 컨테이너에는 반드시 `overflow: hidden`을 지정하고, 배경 비디오 태그(`.bg-video`)에 `transform: scale(1.05); transform-origin: center center;` 등 미세 여백 안전망을 두어 브라우저나 디바이스 차이로 인한 모서리 누출 위험을 2중으로 원천 차단한다.
 
 ## 이미지 생성 2단계 원칙: 자체 모델 우선 및 한도 소진 시 브라우저 컨트롤 폴백 (2026-11-10 확정)
@@ -112,7 +115,10 @@
 1. **1단계 (자체 모델 우선 사용)**: 이미지/일러스트 제작 시 에이전트의 **자체 모델(`image-generator` 서브에이전트 / Gemini API / MCP 이미지 생성 도구)을 1차로 우선 사용**한다.
    - **Antigravity Gemini 에이전트 전용이다**(2026-11-11 사용자 확인). Claude Code처럼 자체 이미지 모델이 없는 에이전트는 바로 2단계로 만든다. 외부 유료 생성 MCP(Higgsfield, Abracadabrax 등)는 자체 모델이 아니므로 사용자 지시 없이 쓰지 않는다. 기준 문서: `AGENTS.md` 같은 절.
 2. **2단계 (자체 모델 한도 소진 시 브라우저 컨트롤 폴백)**: 자체 모델의 한도 소진(429 Quota Exhausted, 크레딧 소진 등) 발생 시, 코드로 어설픈 그래픽을 그리거나(SVG/Canvas/Chrome 스크린샷 렌더 등) 대체하지 않고 즉시 **브라우저 컨트롤(`scripts/generate-web-gemini-image.mjs` / Chrome CDP 연동 Web Gemini Pro)**을 사용하여 고품질 Imagen 3 이미지를 자동으로 제작·다운로드하여 프로젝트에 반입한다.
-   - **도구 우선순위 (2026-11-11 사용자 알림, 2026-11-12 시험 반영)**: 이미지는 Google AI Studio(워터마크 없음), 영상은 AI Studio의 Omni 1.2 Flash(눈에 보이는 워터마크 없음 확인), 배경음악(BGM)은 **AI Studio의 `Lyria 3.5` (`new_music?model=lyria-3.5`) 1순위**(무료·192kbps·오디오 워터마크 없음 확인), 효과음·음악 비디오·프롬프트 참고는 `flowmusic.app`(2순위, **하루 무료 크레딧 안에서만 무료** — 크레딧이 떨어지면 다음 날로 넘기며 커뮤니티 피드 인기작 프롬프트 참고). `gemini.google.com`은 첫 장 이후 워터마크가 찍혀(EP24 두 번째 쇼츠 썸네일에서 확인) AI Studio 자동화가 준비되기 전까지만 쓴다. 상세 표: `AGENTS.md` 이미지 생성 2단계 원칙.
+   - **도구 우선순위 (2026-11-23 실측 반영)**:
+     - **이미지**: 1순위 Google AI Studio `Nano Banana 2.1`(`npm run image`, 워터마크 0px·하루 11장+) → 2순위 비상 폴백 `gemini.google.com/app`(`npm run image:gemini`, 사전 여백+자동 크롭+4모서리 검수) / Google Flow `Nano Banana 2.1`(0크레딧·크롭).
+     - **영상**: 1순위 AI Studio `Omni 1.2 Flash`(`npm run video`, 워터마크 0px·1080p·하루 약 6회, 히어로 컷 우선) → 2순위 **Google Flow**(`npm run video:flow`, PRO 월 1,000+일 50크레딧, 9:16·16:9, 캐릭터·소재·프레임·대화형 수정 지원, 자동 여백+크롭) → 3순위 **Gemini 앱**(`npm run video:gemini`, Gemini Omni 9:16·16:9 10초, PRO 컴퓨팅 풀, 자동 여백+크롭).
+     - **배경음악(BGM)**: 1순위 AI Studio `Lyria 3.5`(`npm run music`, 무료·192kbps·오디오 워터마크 없음), 2순위 `flowmusic.app`(무료 크레딧 한도 내). 상세 표: `knowledge/free-generation-tools.md`.
 
 
 ## TTS

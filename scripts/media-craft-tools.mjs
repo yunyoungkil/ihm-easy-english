@@ -14,6 +14,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readLineageTree } from './aistudio-attachments.mjs';
+import { DEFAULT_TRIM_RATIO, cropWatermarkMedia, makeCornerCheckSheet } from './watermark-crop.mjs';
 
 function runBin(bin, args, opts = {}) {
   const res = spawnSync(bin, args, { maxBuffer: 64 * 1024 * 1024, ...opts });
@@ -332,12 +333,28 @@ if (isCli) {
     else if (cmd === 'unify-tone') out = unifyTone(opts);
     else if (cmd === 'detect-beats') out = detectBeats({ ...opts, minGapSec: opts.minGap ?? 0.22 });
     else if (cmd === 'compare-visual-metrics') out = compareVisualMetrics(opts);
-    else if (cmd === 'lineage') {
+    else if (cmd === 'crop-watermark') {
+      out = cropWatermarkMedia({
+        input: opts.input,
+        output: opts.output,
+        trimRatio: opts.trimRatio ?? DEFAULT_TRIM_RATIO,
+        targetWidth: opts.targetWidth ?? null,
+        targetHeight: opts.targetHeight ?? null,
+        mute: Boolean(opts.mute),
+      });
+    } else if (cmd === 'check-corners') {
+      out = makeCornerCheckSheet({
+        input: opts.input,
+        output: opts.output,
+        time: opts.time ?? 1.5,
+        cornerSize: opts.cornerSize ?? 240,
+      });
+    } else if (cmd === 'lineage') {
       const dir = opts.dir || opts._[0];
       if (!dir) throw new Error('--dir <폴더>가 필요합니다');
       out = readLineageTree(dir);
     } else {
-      throw new Error('지원 명령: split-grid | extract-frame | extract-ref-clip | unify-tone | detect-beats | compare-visual-metrics | lineage');
+      throw new Error('지원 명령: split-grid | extract-frame | extract-ref-clip | unify-tone | detect-beats | compare-visual-metrics | crop-watermark | check-corners | lineage');
     }
     console.log(JSON.stringify(out, null, 2));
   } catch (err) {

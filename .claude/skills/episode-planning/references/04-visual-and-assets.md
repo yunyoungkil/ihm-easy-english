@@ -48,8 +48,12 @@
 
 상세 CLI 플래그·프롬프트 문법은 **`knowledge/google-ai-studio-prompting.md`** 를 참고한다.
 
-### 1. 이미지·영상 생성 도구 상자 (`npm run image` · `npm run video`)
+### 1. 이미지·영상 생성 도구 상자 (`npm run image` · `npm run video` · `npm run video:flow` · `npm run video:gemini`)
 상황에 맞는 기법만 골라 쓴다(단순 2컷 영상에 불필요한 시트/그리드를 억지로 만들지 않는다).
+- **영상 3단 계층 폴백 & Google Flow 활용 (2026-11-23 실측 구축)**:
+  - **1순위 AI Studio (`npm run video`, Omni 1.2 Flash)**: 워터마크 0px·1080p·크롭 손실 0%. 얼굴 클로즈업·입 모양(한국어 대사)·디테일 핵심 히어로 컷에 우선 배정(하루 약 6회).
+  - **2순위 Google Flow (`npm run video:flow`, PRO 월 1,000+일 50크레딧)**: AI Studio 한도 소진 시·다중 테이크 시험 시 자동 사용(사전 15% 여백 프롬프트 + 하단/우측 12.5% 중앙정렬 크롭 → 1080p + 4모서리 검수 자동 수행). 또한 **연속 컷 캐릭터 일관성(`캐릭터`/`소재`), 첫·끝 프레임 전환(`프레임`), 생성 클립 대화형 부분 수정(`Omni 1.2 Flash`)·`프레임 저장`, 0크레딧 `Nano Banana 2.1` 이미지, 커스텀 `도구 만들기`**가 필요할 때 Flow 작업 공간을 적극 활용한다.
+  - **3순위 Gemini 앱 (`npm run video:gemini`, Gemini Omni 9:16·16:9 10초)**: AI Studio·Flow 모두 소진 시 보조 사용(동일 사전 여백+자동 크롭+4모서리 검수). 이미지 비상 폴백은 `npm run image:gemini`.
 - **시각 스토리보드 시트 선설계 & 멀티컷 한 번에 뽑기 (2026-11-22 사용자 지시)**:
   - 본격 영상 생성 전, **상단 메타(길이·스타일·오디오 무드) + 컷별 시간 구간(`0-2.5s` 등)·시각 컷·`VISUAL / ACTION / DIALOGUE`·효과 포인트(`POP!`, `ZOOM!` 등)**가 한눈에 보이는 시각 스토리보드 구조로 전체 흐름·흥미·도파민 리듬을 먼저 설계한다.
   - 여러 컷이 이어지는 영상은 AI Studio(Nano Banana) / Google Flow에서 **3×3·3×4 연속 스토리보드 그리드 1장으로 한 번에 여러 장을 뽑아** 세계관·색감·구도 흐름을 먼저 검증한 뒤, `node scripts/media-craft-tools.mjs split-grid`로 컷별 분할해 필요한 컷만 업스케일/Omni `--first` 영상화로 넘긴다(참고 원리: `knowledge/ai-craft-research-2026-11-21.md`).
@@ -60,8 +64,7 @@
   - 모든 생성물 옆에는 `.prompt.json`과 버린 테이크(`assets/takes/`)를 남겨 어디서 어떤 변수 하나를 바꿔 뻗었는지 추적한다(`--parent <직전파일> --changed-var "<바꾼 변수>" --status candidate|chosen|rejected`, 조회: `node scripts/media-craft-tools.mjs lineage --dir <폴더>`).
   - 수정 시 처음부터 무작정 다시 뽑지 않고 **① 문제 프레임 캡처(`extract-frame`) → 이미지 부분 수정 → `--first` 재영상화 ② 앵글 전환 생성 → 베스트 프레임 캡처 → 재영상화 ③ 4회 이상 수정으로 열화되면 이미지를 LLM에 넣어 프롬프트로 역변환 후 처음부터 새로 생성(Fresh Generation)** 한다. 그리드/시트 분할(`split-grid`)·레퍼런스 컷(`extract-ref-clip`)도 필요 시 `scripts/media-craft-tools.mjs`로 실행한다.
 - **저화질 선별 & 선택적 수용**: 핵심 동작은 `360p`로 먼저 확인하고 합격 프롬프트만 `1080p` 본생성한다. 시청자 시선이 머무는 핵심 단어·입 모양·주인공 오류는 고치되, 0.5초 스쳐 가는 배경 미세 오차에 일일 한도를 다 쓰지 않는다.
-- **워터마크 4방 모서리 검수 (불변)**: `assets/` 반입 전 네 모서리를 직접 확대 확인한다. 발견 시 ffmpeg 크롭 후처리:
-  `ffmpeg -i input.mp4 -vf "crop=1696:954:0:0,scale=1920:1080:flags=lanczos" -c:v libx264 -crf 18 -preset slow -an output_clean.mp4`
+- **워터마크 4방 모서리 검수 (불변)**: `assets/` 반입 전 네 모서리를 직접 확대 확인한다(`node scripts/media-craft-tools.mjs check-corners --input <파일> --output <검수.png>`). Flow·Gemini 앱 등 워터마크가 찍히는 도구는 생성 시 사전 여백 프롬프트를 넣고 반입 전 자동 크롭한다(`node scripts/media-craft-tools.mjs crop-watermark --input <원본> --output <클린>` — 9:16 하단 12.5% 중앙정렬 `crop=630:1120:44:0,scale=1080:1920:flags=lanczos`, 16:9 우측 12.5% 중앙정렬).
 
 ### 2. 후반 휴먼터치 (`HyperFrames` + `ffmpeg` + 사운드, 85점 → 완성)
 AI 생성본만 이어 붙이면 85점에서 멈춘다. 마지막 디테일을 후반 레이어에서 끌어올린다.

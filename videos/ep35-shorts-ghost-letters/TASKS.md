@@ -18,6 +18,6 @@
 ## Gate 1 승인 후 진행 단계
 - [x] 한국어 TTS 11컷(`Gero`, `c05/c07/c11` `'피 글자'/'비 글자'` 교정 재녹음 포함) + 원어민 5단어(`Olin`, 묵음 완전 무음) 전수 직접 청취 및 실측(`AUDIO-AUDIT.md`, 총 `44.288초`, 음원 겹침 0건)
 - [x] Lyria 3.5 BGM(`track.mp3`, 61.4s, 허밍 0 직접 청취 확인) + 커스텀 종이 찢기 SFX 4종(`paper-rip`, `ink-stamp`, `paper-fuse-tick`, `final-peel-chime`) 제작
-- [x] HyperFrames 1080×1920 30fps `index.html` 조립(12fps 스톱모션 종이 찢기 + 상단 `01~04` 인덱스 + 4분할 리소 그리드 + `DOUBT` 1.2초 퓨즈 챌린지) → `hyperframes check` + `check-terms` + 12컷 콘택트시트 검수
-- [ ] Omni 1.2 Flash 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 생성·모서리 워터마크 확인·`index.html` 연결 (17:10 EP34 3클립 우선 처리 후 한도 확인)
-- [ ] Gate 2 최종 렌더 승인 → 렌더 → 업로드 패키지 → Gate 3 예약 승인 (`containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`)
+- [x] HyperFrames 1080×1920 30fps `index.html` 조립(12fps 스톱모션 종이 찢기 + 상단 `01~04` 인덱스 + 4분할 리소 그리드 + `DOUBT` 1.2초 퓨즈 챌린지) → `hyperframes check` + `check-terms` + 12컷 콘택트시트 검수 + **사용자 브라우저 프리뷰 구성 확정 (`2026-11-23`)**
+- [ ] **17:10 KST 이후(EP34 3클립 우선 처리 뒤)** Omni 1.2 Flash 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 생성·모서리 워터마크 확인·`index.html` 연결 → 최종 렌더(사용자 방향 확정)
+- [ ] 업로드 패키지 생성 → Gate 3 예약 승인 (`containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`)

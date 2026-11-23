@@ -1,4 +1,4 @@
-# 현재 상태 요약 (2026-11-22) — 새 대화는 이 파일만 먼저 읽는다
+# 현재 상태 요약 (2026-11-23) — 새 대화는 이 파일만 먼저 읽는다
 
 > 이 파일은 날짜 인수인계를 대신하는 **60줄 요약**이다. 작업 한 덩어리를 마칠 때마다 이 파일을 **고쳐 쓴다**(더하지 않고 낡은 줄은 지운다). 틀과 규칙은 `README.md`.
 
@@ -34,7 +34,7 @@
 9. **발굴·피치·시각선행 루프 연결 (`2026-11-23`)**: `next-episode-input.md` 14~17절에 `studio-research.json`(소형 폭발 90편)·`market-demand.json`(포화도·기회점수·미분석 경고)·`output/insights/`(시청자 날것 어휘)·`pitch-log.json`(Kill-First 피치 채택·폐기)을 자동 연결. `market-demand.mjs` 키워드 풀을 발음 원리 4 + 3060 일상 New 앵커 4(8개) 2트랙으로 개편하고 추적 채널 13곳 동기화 완료. 기획 순서를 `Kill-First 피치 → 시각 선행(Info Doc·Visual Outline) → 대사·팩트체크 정렬`로 역전하고 `audienceBridge`·`seriesPremise` 회고를 연결.
 
 ## 다음 할 일
-0. **즉시 (Gate 2 선택 대기)**: EP34(`ep34-shorts-consonant-cluster`) 12/12 토 슬롯 — 내일 Omni 한도 해제 후 잔여 3클립(`c00-press`, `c06-spray`, `c09-strike`) 보강 뒤 렌더할지, 현재 구성(`c02` Omni 실사 + 11컷 매크로/키네틱)으로 즉시 렌더할지 확정 후 Gate 2 렌더 진행.
+0. **11/23 17:10 KST 이후**: EP34(`ep34-shorts-consonant-cluster`) 12/12 토 슬롯 — **사용자 결정(11/23): 잔여 Omni 3클립(`c00-press`, `c06-spray`, `c09-strike`)을 더한 뒤 렌더**. 클립 생성 → 모서리 워터마크 확인 → `index.html` 연결 → `hyperframes check`·`check-terms`·콘택트시트 → 렌더.
 1. **(완료 11/23)** EP23 A/B 테스트: `insufficient_impressions`(승자 없음), `REVIEW.md` 기록함.
 2. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
 3. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.

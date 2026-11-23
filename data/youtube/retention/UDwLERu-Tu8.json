@@ -1,0 +1,130 @@
+{
+  "videoId": "UDwLERu-Tu8",
+  "title": "미드에서 Right와 Light가 다르게 들렸던 진짜 이유 | 영어 R L 발음",
+  "format": "LONGFORM",
+  "durationSeconds": 745,
+  "startDate": "2026-11-16",
+  "endDate": "2026-11-22",
+  "fetchedAt": "2026-11-23T16:10:50.791Z",
+  "points": [
+    {
+      "ratio": 0.01,
+      "watch": 1,
+      "relative": 0.2061
+    },
+    {
+      "ratio": 0.02,
+      "watch": 0.6429,
+      "relative": 0.11249999999999999
+    },
+    {
+      "ratio": 0.03,
+      "watch": 0.5,
+      "relative": 0.05245
+    },
+    {
+      "ratio": 0.04,
+      "watch": 0.1429,
+      "relative": 0.03694999999999998
+    },
+    {
+      "ratio": 0.05,
+      "watch": 0.1429,
+      "relative": 0.034999999999999976
+    },
+    {
+      "ratio": 0.06,
+      "watch": 0.1429,
+      "relative": 0.03470000000000001
+    },
+    {
+      "ratio": 0.07,
+      "watch": 0.1429,
+      "relative": 0.03450000000000003
+    },
+    {
+      "ratio": 0.08,
+      "watch": 0.1429,
+      "relative": 0.03424999999999995
+    },
+    {
+      "ratio": 0.09,
+      "watch": 0.1429,
+      "relative": 0.033299999999999996
+    },
+    {
+      "ratio": 0.1,
+      "watch": 0.1429,
+      "relative": 0.030000000000000027
+    },
+    {
+      "ratio": 0.11,
+      "watch": 0.1429,
+      "relative": 0.024749999999999994
+    },
+    {
+      "ratio": 0.12,
+      "watch": 0.1429,
+      "relative": 0.021950000000000025
+    },
+    {
+      "ratio": 0.13,
+      "watch": 0.1429,
+      "relative": 0.023749999999999993
+    },
+    {
+      "ratio": 0.14,
+      "watch": 0.1429,
+      "relative": 0.02799999999999997
+    },
+    {
+      "ratio": 0.15,
+      "watch": 0.1429,
+      "relative": 0.030200000000000005
+    },
+    {
+      "ratio": 0.16,
+      "watch": 0.07139999999999999,
+      "relative": 0.029900000000000038
+    },
+    {
+      "ratio": 0.17,
+      "watch": 0.07139999999999999,
+      "relative": 0.02889999999999998
+    },
+    {
+      "ratio": 0.18,
+      "watch": 0.07139999999999999,
+      "relative": 0.028299999999999992
+    }
+  ],
+  "drops": [
+    {
+      "fromRatio": 0.01,
+      "toRatio": 0.02,
+      "fromSec": 7.5,
+      "toSec": 14.9,
+      "drop": 0.3571
+    },
+    {
+      "fromRatio": 0.03,
+      "toRatio": 0.04,
+      "fromSec": 22.3,
+      "toSec": 29.8,
+      "drop": 0.3571
+    },
+    {
+      "fromRatio": 0.02,
+      "toRatio": 0.03,
+      "fromSec": 14.9,
+      "toSec": 22.3,
+      "drop": 0.1429
+    }
+  ],
+  "watchAt": {
+    "q1": null,
+    "half": null,
+    "q3": null,
+    "end": null
+  }
+}

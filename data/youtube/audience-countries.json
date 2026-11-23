@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "fetchedAt": "2026-11-16T06:37:42.554Z",
+  "fetchedAt": "2026-11-23T16:09:58.739Z",
   "periods": {
     "28d": {
-      "startDate": "2026-10-19",
-      "endDate": "2026-11-15",
-      "totalViews": 645,
-      "totalMinutes": 216,
+      "startDate": "2026-10-26",
+      "endDate": "2026-11-22",
+      "totalViews": 3480,
+      "totalMinutes": 849,
       "rows": [
         {
           "country": "KR",
-          "views": 645,
-          "minutes": 216,
+          "views": 3480,
+          "minutes": 849,
           "viewsShare": 1,
           "minutesShare": 1
         }
       ]
     },
     "90d": {
-      "startDate": "2026-08-18",
-      "endDate": "2026-11-15",
-      "totalViews": 5436,
-      "totalMinutes": 940,
+      "startDate": "2026-08-25",
+      "endDate": "2026-11-22",
+      "totalViews": 8331,
+      "totalMinutes": 1636,
       "rows": [
         {
           "country": "KR",
-          "views": 5394,
-          "minutes": 927,
-          "viewsShare": 0.9923,
-          "minutesShare": 0.9862
+          "views": 8289,
+          "minutes": 1623,
+          "viewsShare": 0.995,
+          "minutesShare": 0.9921
         },
         {
           "country": "US",
           "views": 42,
           "minutes": 13,
-          "viewsShare": 0.0077,
-          "minutesShare": 0.0138
+          "viewsShare": 0.005,
+          "minutesShare": 0.0079
         }
       ]
     }

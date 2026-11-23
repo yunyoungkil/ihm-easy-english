@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-22T16:09:47.782Z",
+  "computedAt": "2026-11-23T16:10:50.762Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -86,7 +86,7 @@
           "approxNote": "공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
           "champion": {
             "videoId": "oMrCtSBbibc",
-            "title": "양일까 배일까? sheep과 ship, 소리만 듣고 맞혀 보세요 #영어발음 #shorts",
+            "title": "sheep과 ship, 길고 짧게로 구분하면 다 틀립니다 #shorts",
             "publishedAt": "2026-11-10T11:00:25Z",
             "durationSeconds": 45,
             "value": 37.28,
@@ -1252,7 +1252,7 @@
           "promoteRule": "비율",
           "champion": {
             "videoId": "YoaCRYCWpws",
-            "title": "영어 발음, PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초배우기 EP8)",
+            "title": "PICTURE를 '픽투어'로 읽으면 외국인이 못 알아듣는 이유",
             "publishedAt": "2026-08-10T05:51:39Z",
             "durationSeconds": 367,
             "value": 443,

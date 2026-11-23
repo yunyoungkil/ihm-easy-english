@@ -2,11 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   PLAYLIST_IDS,
+  COMMUNITY_POST_FORMATS,
   auditAndFixPlaylists,
   postPendingPinnedComments,
   pinnedDoneKey,
   manageCommunityPosts,
   communityPostBlockReason,
+  loadCommunityPostItems,
   contentSnippet,
   readPackageVideoIds,
   findRelatedCandidates,
@@ -316,4 +318,137 @@ test('connectStudio: 이미 logged-in이면 스튜디오로 다시 가지 않고
   const res = await connectStudio({ setupFn: async () => ({ supported: true, login: 'logged-in' }), connectFn: f.connectFn, probeWaitMs: 0 });
   assert.equal(res.ok, true);
   assert.equal(f.state.gotos.length, 0);
+});
+
+// ---- 2026-11-24: 독립 커뮤니티 보관함 · 퀴즈/설문/이미지 형식 검사 · 승인 관문 ----
+
+test('COMMUNITY_POST_FORMATS: 5가지 지원 형식이 정의되어 있다', () => {
+  assert.deepEqual(COMMUNITY_POST_FORMATS, ['text', 'quiz', 'text-poll', 'image-poll', 'image']);
+});
+
+test('communityPostBlockReason: 독립 보관함 미승인(approved !== true)과 보관/이관 상태를 구분한다', () => {
+  assert.equal(communityPostBlockReason(okPost({ approved: false }), { now: NOW, requireApproved: true }), 'unapproved');
+  assert.equal(communityPostBlockReason(okPost({ approved: true }), { now: NOW, requireApproved: true }), null);
+  assert.equal(communityPostBlockReason(okPost({ status: 'archived' }), { now: NOW }), 'archived');
+  assert.equal(communityPostBlockReason(okPost({ status: 'migrated' }), { now: NOW }), 'migrated');
+});
+
+test('communityPostBlockReason: quiz 형식의 보기 수·정답 위치·글자 수·해설·금지어를 검사한다', () => {
+  const validQuiz = okPost({
+    format: 'quiz',
+    options: ['give me', 'get me', 'game me'],
+    correctIndex: 0,
+    explanation: '빨리 말하면 한 덩어리로 들립니다.',
+  });
+  assert.equal(communityPostBlockReason(validQuiz, { now: NOW }), null);
+  assert.equal(communityPostBlockReason({ ...validQuiz, options: ['하나만'] }, { now: NOW }), 'invalid-quiz-options');
+  assert.equal(communityPostBlockReason({ ...validQuiz, options: ['가'.repeat(81), '나'] }, { now: NOW }), 'invalid-quiz-options');
+  assert.equal(communityPostBlockReason({ ...validQuiz, correctIndex: 5 }, { now: NOW }), 'invalid-quiz-correct-index');
+  assert.equal(communityPostBlockReason({ ...validQuiz, explanation: '가'.repeat(501) }, { now: NOW }), 'quiz-explanation-too-long');
+  assert.equal(communityPostBlockReason({ ...validQuiz, explanation: '조음 원리입니다' }, { now: NOW }), 'banned-terms');
+  assert.equal(communityPostBlockReason({ ...validQuiz, options: ['EP27 참고', '정상 보기'] }, { now: NOW }), 'internal-episode-number');
+});
+
+test('communityPostBlockReason: text-poll, image-poll, image 형식과 이미지 파일 존재 여부를 검사한다', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'community-assets-'));
+  const imgPath = join(dir, 'sample.png');
+  writeFileSync(imgPath, 'fake-png');
+
+  assert.equal(
+    communityPostBlockReason(okPost({ format: 'text-poll', options: ['A', 'B'] }), { now: NOW }),
+    null,
+  );
+  assert.equal(
+    communityPostBlockReason(okPost({ format: 'text-poll', options: ['가'.repeat(66), 'B'] }), { now: NOW }),
+    'invalid-poll-options',
+  );
+
+  assert.equal(
+    communityPostBlockReason(
+      okPost({ format: 'image-poll', options: [{ label: '간판 A', image: 'sample.png' }, { label: '간판 B', image: 'sample.png' }] }),
+      { now: NOW, projectDir: dir },
+    ),
+    null,
+  );
+  assert.equal(
+    communityPostBlockReason(
+      okPost({ format: 'image-poll', options: [{ label: '가'.repeat(37), image: 'sample.png' }, { label: 'B', image: 'sample.png' }] }),
+      { now: NOW, projectDir: dir },
+    ),
+    'invalid-image-poll-options',
+  );
+  assert.equal(
+    communityPostBlockReason(
+      okPost({ format: 'image-poll', options: [{ label: 'A', image: 'missing.png' }, { label: 'B', image: 'sample.png' }] }),
+      { now: NOW, projectDir: dir },
+    ),
+    'missing-image-file',
+  );
+
+  assert.equal(
+    communityPostBlockReason(okPost({ format: 'image', images: ['sample.png'] }), { now: NOW, projectDir: dir }),
+    null,
+  );
+  assert.equal(
+    communityPostBlockReason(okPost({ format: 'image', images: ['missing.png'] }), { now: NOW, projectDir: dir }),
+    'missing-image-file',
+  );
+  assert.equal(
+    communityPostBlockReason(okPost({ format: 'unknown-type' }), { now: NOW }),
+    'unsupported-format',
+  );
+});
+
+test('manageCommunityPosts: 독립 보관함 승인된 퀴즈만 통과시키고 미승인·보관·이관 글은 걸러낸다', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'community-standalone-'));
+  mkdirSync(join(dir, 'data', 'youtube'), { recursive: true });
+  mkdirSync(join(dir, 'output', 'upload-packages', 'ep27-old'), { recursive: true });
+  mkdirSync(join(dir, 'output', 'upload-packages', 'ep32-old'), { recursive: true });
+
+  writeFileSync(
+    join(dir, 'output', 'upload-packages', 'ep27-old', 'community-post.json'),
+    JSON.stringify(okPost({ status: 'archived' })),
+  );
+  writeFileSync(
+    join(dir, 'output', 'upload-packages', 'ep32-old', 'community-post.json'),
+    JSON.stringify(okPost({ status: 'migrated' })),
+  );
+  writeFileSync(
+    join(dir, 'data', 'youtube', 'community-posts.json'),
+    JSON.stringify({
+      schemaVersion: 1,
+      posts: [
+        {
+          id: 'cp-approved-quiz',
+          format: 'quiz',
+          approved: true,
+          status: 'ready',
+          targetPublishDate: new Date(NOW.getTime() - HOUR).toISOString(),
+          content: '원어민 발음 퀴즈입니다',
+          options: ['보기 1', '보기 2', '보기 3'],
+          correctIndex: 1,
+          explanation: '쉬운 해설입니다.',
+        },
+        {
+          id: 'cp-unapproved-quiz',
+          format: 'quiz',
+          approved: false,
+          status: 'ready',
+          targetPublishDate: new Date(NOW.getTime() - HOUR).toISOString(),
+          content: '아직 승인 전인 퀴즈입니다',
+          options: ['보기 1', '보기 2'],
+          correctIndex: 0,
+        },
+      ],
+    }),
+  );
+
+  const loaded = loadCommunityPostItems(dir);
+  assert.equal(loaded.length, 2);
+
+  const res = await manageCommunityPosts({ projectDir: dir, catalog: { videos: [] }, now: NOW, dryRun: true });
+  assert.equal(res.ok, true);
+  assert.deepEqual(res.posted, [{ episodeId: 'cp-approved-quiz', format: 'quiz', status: 'dry-run-ready' }]);
+  assert.deepEqual(res.blocked, [{ episodeId: 'cp-unapproved-quiz', reason: 'unapproved' }]);
+  assert.equal(res.pending.length, 0);
 });

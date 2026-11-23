@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-24T00:30:00+09:00",
+  "experiment": {
+    "startedAt": "2026-11-24",
+    "reviewAfter": "2026-12-22",
+    "cadence": "주 2~3회 (영상과 별도 독립 운영)",
+    "primaryFormats": [
+      "quiz",
+      "image-poll",
+      "text-poll",
+      "image"
+    ]
+  },
+  "posts": [
+    {
+      "id": "cp-20261205-word-merge",
+      "format": "quiz",
+      "type": "pre-quiz",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-12-05T09:00:00Z",
+      "content": "원어민이 카페에서 \"Gimme a minute.\"이라고 말할 때, 어떤 두 단어가 합쳐진 소리일까요?",
+      "options": [
+        "give me",
+        "get me",
+        "game me",
+        "go with me"
+      ],
+      "correctIndex": 0,
+      "explanation": "give me를 빨리 말하면 v와 m이 겹쳐 '김미'처럼 한 덩어리로 들립니다. 오늘 저녁 여덟 시 쇼츠에서 원어민이 합쳐 먹는 소리 네 가지를 바로 들어 보세요.",
+      "companionVideoId": "YKaokru2ugg",
+      "companionVideoScheduledAt": "2026-12-05T11:00:00Z",
+      "episodeId": "ep32-shorts-word-merge"
+    },
+    {
+      "id": "cp-20261208-swallowed-t",
+      "format": "quiz",
+      "type": "pre-quiz",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-12-08T09:00:00Z",
+      "content": "미국 원어민이 엘리베이터에서 \"Press the button.\"이라고 말할 때, button은 어떻게 들릴까요?",
+      "options": [
+        "버튼 (트 소리를 또렷하게)",
+        "버·은 (입을 잠깐 막고 코로 넘김)",
+        "버던 (드 소리로 바꿈)",
+        "버튼 (끝을 길게 늘임)"
+      ],
+      "correctIndex": 1,
+      "explanation": "미국 원어민은 button 가운데 t를 또렷하게 안 읽고 입을 잠깐 막은 채 코로 넘깁니다. 오늘 저녁 여덟 시 쇼츠에서 원어민 발음으로 바로 확인해 보세요.",
+      "companionVideoId": "fVY5BNQ7Ciw",
+      "companionVideoScheduledAt": "2026-12-08T11:00:00Z",
+      "episodeId": "ep33-shorts-swallowed-t"
+    },
+    {
+      "id": "cp-20261212-consonant-cluster",
+      "format": "quiz",
+      "type": "pre-quiz",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-12-12T09:00:00Z",
+      "content": "우리말로 '스트라이크'라고 다섯 글자로 읽는 strike는 영어에서 몇 박자일까요?",
+      "options": [
+        "다섯 박자 (스-트-라-이-크)",
+        "세 박자 (스트-라이-크)",
+        "두 박자 (스트-라잌)",
+        "한 박자 (앞쪽 s-t-r은 바람만 스치고 한 번에 툭!)"
+      ],
+      "correctIndex": 3,
+      "explanation": "영어 strike는 가운데 소리 하나에 앞쪽 s-t-r이 바람처럼 스쳐 지나가 딱 한 박자로 끝납니다. 오늘 저녁 여덟 시 쇼츠에서 원어민 소리 비교를 들려드릴게요.",
+      "companionVideoId": "GudIUEIl2TI",
+      "companionVideoScheduledAt": "2026-12-12T11:00:00Z",
+      "episodeId": "ep34-shorts-consonant-cluster"
+    }
+  ]
+}

@@ -54,6 +54,7 @@
 | `packaging-registry.json` | 2026-08 손으로 만든 목록(1개, EP9) | `scripts/youtube-analytics-server.mjs` | 운영 | 스튜디오 폴더 읽기가 참고하는 옛 목록. 항목이 1개뿐이다 → 정리 후보(코드 확인 필요) |
 | `publish-rules.json` | 손으로 둔 공개 일정 규칙 | `scripts/growth-check.mjs`, `scripts/youtube-analytics-server.mjs` | 운영 | 공개 간격 점검에 쓰임 |
 | `after-publish-done.json` | 공개 후 자동 작업 | `scripts/growth-check.mjs`, `scripts/growth-rules.mjs` | 운영 | 고정 댓글 등 공개 후 할 일 중복 방지 |
+| `community-posts.json` | 커뮤니티 독립 운영 보관함(`knowledge/decisions/2026-11-24-community-posts-workflow.md`) | `scripts/post-publish-pipeline.mjs` | 자동 결정 | 2026-11-24 신설. 영상 업로드 폴더와 분리된 주 2~3회 퀴즈·이미지 투표·텍스트 설문·이미지 게시물 보관함(`approved: true` 승인 건만 자동 게시) |
 | `analysis-failures.json` | 리포트 분석 실패 기록 | `scripts/daily-loop.mjs`, `scripts/youtube-analytics-server.mjs` | 운영 | 영구 실패 영상을 다시 시도하지 않게 막는다 |
 | `daily-loop.json` | 매일 루프 | `scripts/daily-loop.mjs`, `scripts/loop-health.mjs` | 운영 | 브리핑의 자동 루프 점검 줄 |
 | `daily-loop-server.log` | 매일 루프가 띄운 서버의 기록 | `scripts/daily-loop.mjs` | 운영 | 고장 원인 확인용 |

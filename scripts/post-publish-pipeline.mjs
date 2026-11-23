@@ -11,7 +11,7 @@
 // 아침 시작 브리핑에서 한 줄로 완료 결과를 보고한다.
 
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, isAbsolute, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { findBannedTerms } from './banned-terms.mjs';
 
@@ -510,17 +510,125 @@ export function contentSnippet(content, n = 20) {
   return String(content ?? '').replace(/\s+/g, ' ').trim().slice(0, n);
 }
 
+export const COMMUNITY_POST_FORMATS = ['text', 'quiz', 'text-poll', 'image-poll', 'image'];
+
+const COMMUNITY_LIMITS = {
+  quizOptionMax: 80, // allow-literal: YouTube 공식 퀴즈 답변 글자 수 제한
+  quizExplanationMax: 500, // allow-literal: YouTube 공식 퀴즈 해설 글자 수 제한
+  textPollOptionMax: 65, // allow-literal: YouTube 공식 텍스트 설문 보기 글자 수 제한
+  imagePollCaptionMax: 36, // allow-literal: YouTube 공식 이미지 설문 보기 글자 수 제한
+  minOptions: 2, // allow-literal: YouTube 설문/퀴즈 최소 보기 수
+  maxOptions: 4, // allow-literal: YouTube 설문/퀴즈 최대 보기 수
+  maxImages: 10, // allow-literal: YouTube 이미지 게시물 최대 이미지 수
+};
+
+function resolvePostAssetPath(dir, assetPath) {
+  if (!assetPath) return '';
+  return isAbsolute(assetPath) ? assetPath : join(dir, assetPath);
+}
+
+function collectCommunityPostTexts(postData) {
+  const parts = [String(postData?.content ?? '')];
+  if (postData?.explanation) parts.push(String(postData.explanation));
+  if (Array.isArray(postData?.options)) {
+    for (const opt of postData.options) {
+      if (typeof opt === 'string') parts.push(opt);
+      else if (opt && typeof opt.label === 'string') parts.push(opt.label);
+    }
+  }
+  return parts.join('\n');
+}
+
 /**
- * 커뮤니티 글을 지금 올리면 안 되는 이유 (2026-11-23). 없으면 null.
- * - 이미 올린 글, 시청자에게 보이면 안 되는 내부 에피소드 번호(EP27), 금지어
+ * 커뮤니티 글을 지금 올리면 안 되는 이유 (2026-11-23, 2026-11-24 확장). 없으면 null.
+ * - 이미 올린 글·보관·이관 글, 독립 보관함 미승인(approved !== true)
+ * - 시청자에게 보이면 안 되는 내부 에피소드 번호(EP27), 금지어 (본문·보기·해설 전체 검사)
+ * - 형식별 필수 조건(quiz·text-poll·image-poll·image 보기 수·글자 수·이미지 파일 존재)
  * - 본 영상이 이미 나온 뒤의 예습 퀴즈("곧 공개될 본 영상"이 거짓말이 된다)
  * - 목표 시각에서 24시간 넘게 지난 글(늦게 올리면 시기가 맞지 않는다)
  */
-export function communityPostBlockReason(postData, { now = new Date(), catalog } = {}) {
+export function communityPostBlockReason(
+  postData,
+  { now = new Date(), catalog, projectDir: dir = null, requireApproved = false } = {},
+) {
   if (postData?.status === 'posted') return 'already-posted';
-  const content = String(postData?.content ?? '');
-  if (/\bEP\s*\d+/i.test(content)) return 'internal-episode-number';
-  if (findBannedTerms(content).length > 0) return 'banned-terms';
+  if (postData?.status === 'archived') return 'archived';
+  if (postData?.status === 'migrated') return 'migrated';
+  if (requireApproved && postData?.approved !== true) return 'unapproved';
+
+  const allText = collectCommunityPostTexts(postData);
+  if (/\bEP\s*\d+/i.test(allText)) return 'internal-episode-number';
+  if (findBannedTerms(allText).length > 0) return 'banned-terms';
+
+  const format = postData?.format || 'text';
+  if (!COMMUNITY_POST_FORMATS.includes(format)) return 'unsupported-format';
+
+  if (format === 'quiz') {
+    const opts = postData?.options;
+    if (
+      !Array.isArray(opts) ||
+      opts.length < COMMUNITY_LIMITS.minOptions ||
+      opts.length > COMMUNITY_LIMITS.maxOptions ||
+      opts.some((o) => typeof o !== 'string' || !o.trim() || o.trim().length > COMMUNITY_LIMITS.quizOptionMax)
+    ) {
+      return 'invalid-quiz-options';
+    }
+    if (
+      !Number.isInteger(postData?.correctIndex) ||
+      postData.correctIndex < 0 ||
+      postData.correctIndex >= opts.length
+    ) {
+      return 'invalid-quiz-correct-index';
+    }
+    if (
+      postData?.explanation != null &&
+      (typeof postData.explanation !== 'string' || postData.explanation.trim().length > COMMUNITY_LIMITS.quizExplanationMax)
+    ) {
+      return 'quiz-explanation-too-long';
+    }
+  } else if (format === 'text-poll') {
+    const opts = postData?.options;
+    if (
+      !Array.isArray(opts) ||
+      opts.length < COMMUNITY_LIMITS.minOptions ||
+      opts.length > COMMUNITY_LIMITS.maxOptions ||
+      opts.some((o) => typeof o !== 'string' || !o.trim() || o.trim().length > COMMUNITY_LIMITS.textPollOptionMax)
+    ) {
+      return 'invalid-poll-options';
+    }
+  } else if (format === 'image-poll') {
+    const opts = postData?.options;
+    if (
+      !Array.isArray(opts) ||
+      opts.length < COMMUNITY_LIMITS.minOptions ||
+      opts.length > COMMUNITY_LIMITS.maxOptions ||
+      opts.some(
+        (o) =>
+          !o ||
+          typeof o.image !== 'string' ||
+          !o.image.trim() ||
+          (o.label != null && (typeof o.label !== 'string' || o.label.trim().length > COMMUNITY_LIMITS.imagePollCaptionMax)),
+      )
+    ) {
+      return 'invalid-image-poll-options';
+    }
+    if (dir && opts.some((o) => !existsSync(resolvePostAssetPath(dir, o.image)))) {
+      return 'missing-image-file';
+    }
+  } else if (format === 'image') {
+    const imgs = postData?.images;
+    if (
+      !Array.isArray(imgs) ||
+      imgs.length < 1 ||
+      imgs.length > COMMUNITY_LIMITS.maxImages ||
+      imgs.some((img) => typeof img !== 'string' || !img.trim())
+    ) {
+      return 'invalid-images';
+    }
+    if (dir && imgs.some((img) => !existsSync(resolvePostAssetPath(dir, img)))) {
+      return 'missing-image-file';
+    }
+  }
 
   if (postData?.type === 'pre-quiz') {
     const scheduled = postData.companionVideoScheduledAt ? new Date(postData.companionVideoScheduledAt) : null;
@@ -538,11 +646,248 @@ export function communityPostBlockReason(postData, { now = new Date(), catalog }
   return null;
 }
 
-const COMMUNITY_URL = 'https://www.youtube.com/@이해하면쉬운영어/community';
+const COMMUNITY_URL = 'https://www.youtube.com/channel/UCwNrEdm2jYAtUlfHVvH3WQw/posts';
 
 const normalizeText = (s) => String(s ?? '').replace(/\s+/g, ' ');
 
-/** 4. 커뮤니티 예습/복습 게시물 자동 관리 */
+/**
+ * 독립 커뮤니티 보관함(data/youtube/community-posts.json)과
+ * 기존 업로드 패키지(output/upload-packages/<folder>/community-post.json)에서
+ * 게시 후보 목록을 불러온다.
+ */
+export function loadCommunityPostItems(dir = projectDir) {
+  const items = [];
+  const standalonePath = join(dir, 'data', 'youtube', 'community-posts.json');
+  if (existsSync(standalonePath)) {
+    const queue = readJsonSafe(standalonePath, null);
+    for (const postData of queue?.posts || []) {
+      if (!postData || !postData.id || !postData.content) continue;
+      if (postData.status === 'posted' || postData.status === 'archived' || postData.status === 'migrated') continue;
+      items.push({
+        id: postData.id,
+        episodeId: postData.id,
+        key: `${postData.id}:community-post`,
+        source: 'standalone',
+        requireApproved: true,
+        standalonePath,
+        postData,
+      });
+    }
+  }
+
+  const pkgRoot = join(dir, 'output', 'upload-packages');
+  if (existsSync(pkgRoot)) {
+    const folders = readdirSync(pkgRoot, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name);
+
+    for (const f of folders) {
+      const postFile = join(pkgRoot, f, 'community-post.json');
+      if (!existsSync(postFile)) continue;
+
+      const postData = readJsonSafe(postFile, null);
+      if (!postData || !postData.content) continue;
+      if (postData.status === 'posted' || postData.status === 'archived' || postData.status === 'migrated') continue;
+
+      const episodeId = postData.episodeId || f;
+      items.push({
+        id: episodeId,
+        episodeId,
+        key: `${episodeId}:community-post`,
+        source: 'package',
+        requireApproved: false,
+        standalonePath: null,
+        postData,
+      });
+    }
+  }
+
+  return items;
+}
+
+function markStandalonePostPublished(standalonePath, postId, status, now) {
+  if (!standalonePath || !existsSync(standalonePath)) return;
+  const queue = readJsonSafe(standalonePath, null);
+  if (!queue || !Array.isArray(queue.posts)) return;
+  const target = queue.posts.find((p) => p.id === postId);
+  if (!target) return;
+  target.status = 'posted';
+  target.postedAt = now.toISOString();
+  target.postedMode = status;
+  queue.updatedAt = now.toISOString();
+  writeFileSync(standalonePath, JSON.stringify(queue, null, 2), 'utf8');
+}
+
+async function clickModeButton(dialog, page, buttonName) {
+  const modeBtn = dialog.getByRole('button', { name: buttonName, exact: true }).first();
+  if (!(await modeBtn.isVisible().catch(() => false))) {
+    await dialog.locator('#placeholder-area').first().click({ force: true }).catch(() => {});
+    await page.waitForTimeout(600);
+  }
+  await modeBtn.click();
+  await page.waitForTimeout(800);
+}
+
+async function fillYouTubeTextbox(box, value) {
+  await box.click({ force: true });
+  await box.fill(String(value ?? ''), { force: true });
+}
+
+/**
+ * 유튜브 게시물 작성기(ytd-backstage-post-dialog-renderer)에 형식별로 내용을 채운다.
+ * 2026-11-24 실제 한국어 작성 화면 접근성 라벨 기준(quiz / text-poll / image-poll / image / text).
+ */
+export async function fillCommunityPostComposer(page, dialog, postData, { projectDir: dir = projectDir } = {}) {
+  const format = postData?.format || 'text';
+
+  if (format === 'text') {
+    await dialog.locator('#placeholder-area').first().click({ force: true });
+    await page.waitForTimeout(1000);
+
+    const imgCancel = dialog.locator('#image-preview-container button').first();
+    if (await imgCancel.isVisible().catch(() => false)) {
+      await imgCancel.click({ force: true });
+      await page.waitForTimeout(500);
+    }
+
+    const editor = dialog.locator('#contenteditable-root').first();
+    if (!(await editor.isVisible().catch(() => false))) return { ok: false, reason: 'editor-not-found' };
+    await editor.click({ force: true });
+    await editor.pressSequentially(postData.content);
+    await page.waitForTimeout(800);
+    return { ok: true };
+  }
+
+  if (format === 'quiz') {
+    await clickModeButton(dialog, page, '퀴즈 추가');
+    const editor = dialog.locator('#contenteditable-root').first();
+    if (!(await editor.isVisible().catch(() => false))) return { ok: false, reason: 'editor-not-found' };
+    await editor.click({ force: true });
+    await editor.pressSequentially(postData.content);
+    await page.waitForTimeout(400);
+
+    const options = postData.options || [];
+    for (let i = 2; i < options.length; i += 1) {
+      await dialog.getByRole('button', { name: '답변 추가', exact: true }).first().click();
+      await page.waitForTimeout(300);
+    }
+
+    for (let i = 0; i < options.length; i += 1) {
+      const box = dialog.getByPlaceholder(`답변 ${i + 1}`, { exact: true }).first();
+      await fillYouTubeTextbox(box, options[i]);
+      await page.waitForTimeout(200);
+    }
+
+    if (postData.correctIndex > 0) {
+      const markBtn = dialog.getByRole('button', { name: '정답으로 표시', exact: true }).nth(postData.correctIndex - 1);
+      await markBtn.click({ force: true });
+      await page.waitForTimeout(300);
+    }
+
+    if (postData.explanation) {
+      const expBox = dialog.getByPlaceholder('설명 추가(선택사항)', { exact: true }).first();
+      if (await expBox.isVisible().catch(() => false)) {
+        await fillYouTubeTextbox(expBox, postData.explanation);
+        await page.waitForTimeout(200);
+      }
+    }
+
+    await page.waitForTimeout(500);
+    return { ok: true };
+  }
+
+  if (format === 'text-poll') {
+    await clickModeButton(dialog, page, '텍스트 설문조사 추가');
+    const editor = dialog.locator('#contenteditable-root').first();
+    if (!(await editor.isVisible().catch(() => false))) return { ok: false, reason: 'editor-not-found' };
+    await editor.click({ force: true });
+    await editor.pressSequentially(postData.content);
+    await page.waitForTimeout(400);
+
+    const options = postData.options || [];
+    for (let i = 2; i < options.length; i += 1) {
+      await dialog.getByRole('button', { name: '다른 옵션 추가', exact: true }).first().click();
+      await page.waitForTimeout(300);
+    }
+
+    for (let i = 0; i < options.length; i += 1) {
+      const box = dialog.getByPlaceholder('옵션 추가', { exact: true }).nth(i);
+      await fillYouTubeTextbox(box, options[i]);
+      await page.waitForTimeout(200);
+    }
+
+    await page.waitForTimeout(500);
+    return { ok: true };
+  }
+
+  if (format === 'image-poll') {
+    await clickModeButton(dialog, page, '이미지 설문조사 추가');
+    const editor = dialog.locator('#contenteditable-root').first();
+    if (!(await editor.isVisible().catch(() => false))) return { ok: false, reason: 'editor-not-found' };
+    await editor.click({ force: true });
+    await editor.pressSequentially(postData.content);
+    await page.waitForTimeout(400);
+
+    const options = postData.options || [];
+    for (let i = 2; i < options.length; i += 1) {
+      await dialog.getByRole('button', { name: '옵션 추가', exact: true }).first().click();
+      await page.waitForTimeout(300);
+    }
+
+    for (let i = 0; i < options.length; i += 1) {
+      const absImg = resolvePostAssetPath(dir, options[i].image);
+      const fileInputs = dialog.locator('input[type="file"]');
+      if ((await fileInputs.count()) > i) {
+        await fileInputs.nth(i).setInputFiles(absImg);
+      } else {
+        const optionRow = dialog.locator('ytd-backstage-image-poll-option-renderer, ytd-poll-choice-renderer').nth(i);
+        const uploadTrigger = optionRow.locator('button').first();
+        const [chooser] = await Promise.all([
+          page.waitForEvent('filechooser', { timeout: 5000 }),
+          uploadTrigger.click({ force: true }),
+        ]);
+        await chooser.setFiles(absImg);
+      }
+      await page.waitForTimeout(1500);
+
+      if (options[i].label) {
+        const box = dialog.getByPlaceholder(`옵션 ${i + 1}`, { exact: true }).first();
+        await fillYouTubeTextbox(box, options[i].label);
+        await page.waitForTimeout(200);
+      }
+    }
+
+    await page.waitForTimeout(800);
+    return { ok: true };
+  }
+
+  if (format === 'image') {
+    await clickModeButton(dialog, page, '이미지 추가');
+    const absImages = (postData.images || []).map((img) => resolvePostAssetPath(dir, img));
+    const fileInput = dialog.locator('input[type="file"]').first();
+    if ((await fileInput.count()) > 0) {
+      await fileInput.setInputFiles(absImages);
+    } else {
+      const [chooser] = await Promise.all([
+        page.waitForEvent('filechooser', { timeout: 5000 }),
+        dialog.getByRole('button', { name: '컴퓨터에서 선택', exact: true }).first().click(),
+      ]);
+      await chooser.setFiles(absImages);
+    }
+    await page.waitForTimeout(2500);
+
+    const editor = dialog.locator('#contenteditable-root').first();
+    if (!(await editor.isVisible().catch(() => false))) return { ok: false, reason: 'editor-not-found' };
+    await editor.click({ force: true });
+    await editor.pressSequentially(postData.content);
+    await page.waitForTimeout(800);
+    return { ok: true };
+  }
+
+  return { ok: false, reason: 'unsupported-format' };
+}
+
+/** 4. 커뮤니티 게시물 자동 관리 (독립 보관함 + 기존 업로드 패키지 통합) */
 export async function manageCommunityPosts({
   projectDir: dir = projectDir,
   catalog,
@@ -550,8 +895,8 @@ export async function manageCommunityPosts({
   dryRun = false,
   connect = connectStudio,
 } = {}) {
-  const pkgRoot = join(dir, 'output', 'upload-packages');
-  if (!existsSync(pkgRoot)) return { ok: true, posted: [], pending: [], blocked: [] };
+  const items = loadCommunityPostItems(dir);
+  if (items.length === 0) return { ok: true, posted: [], pending: [], blocked: [] };
 
   const donePath = join(dir, 'data', 'youtube', 'after-publish-done.json');
   const doneMap = readJsonSafe(donePath, {});
@@ -561,44 +906,42 @@ export async function manageCommunityPosts({
   let page = null;
 
   try {
-    const folders = readdirSync(pkgRoot, { withFileTypes: true })
-      .filter((d) => d.isDirectory())
-      .map((d) => d.name);
-
     // 1단계: 올릴 글 고르기 (브라우저 없이)
     const work = [];
-    for (const f of folders) {
-      const postFile = join(pkgRoot, f, 'community-post.json');
-      if (!existsSync(postFile)) continue;
-
-      const postData = readJsonSafe(postFile, null);
-      if (!postData || !postData.content) continue;
-
-      const episodeId = postData.episodeId || f;
-      const key = `${episodeId}:community-post`;
+    for (const item of items) {
+      const { episodeId, key, postData, requireApproved } = item;
       if (doneMap[key]) continue;
 
       // 발행 시각 판정: targetPublishDate가 지났거나 없으면 발행 대상
       const isDue = !postData.targetPublishDate || new Date(postData.targetPublishDate) <= now;
       if (!isDue) {
-        pending.push({ episodeId, targetPublishDate: postData.targetPublishDate });
+        pending.push({
+          episodeId,
+          format: postData.format || 'text',
+          targetPublishDate: postData.targetPublishDate,
+        });
         continue;
       }
 
-      const reason = communityPostBlockReason(postData, { now, catalog });
+      const reason = communityPostBlockReason(postData, {
+        now,
+        catalog,
+        projectDir: dir,
+        requireApproved,
+      });
       if (reason) {
         blocked.push({ episodeId, reason });
         continue;
       }
 
       if (dryRun) {
-        posted.push({ episodeId, status: 'dry-run-ready' });
+        posted.push({ episodeId, format: postData.format || 'text', status: 'dry-run-ready' });
         continue;
       }
-      work.push({ episodeId, key, postData });
+      work.push(item);
     }
 
-    // 2단계: 스튜디오 브라우저로 커뮤니티 탭에 게시 (할 일이 있을 때만 한 번 연결)
+    // 2단계: 스튜디오 브라우저로 커뮤니티(게시물) 탭에 게시 (할 일이 있을 때만 한 번 연결)
     if (work.length > 0) {
       const conn = await connect();
       if (!conn.ok) {
@@ -606,12 +949,15 @@ export async function manageCommunityPosts({
       } else {
         page = conn.page;
         for (const w of work) {
-          const { episodeId, key, postData } = w;
+          const { episodeId, key, postData, source, standalonePath } = w;
           const snippet = contentSnippet(postData.content);
           const record = (status) => {
-            doneMap[key] = new Date().toISOString().slice(0, 10);
+            doneMap[key] = now.toISOString().slice(0, 10);
             writeFileSync(donePath, JSON.stringify(doneMap, null, 2), 'utf8');
-            posted.push({ episodeId, status });
+            if (source === 'standalone') {
+              markStandalonePostPublished(standalonePath, episodeId, status, now);
+            }
+            posted.push({ episodeId, format: postData.format || 'text', status });
           };
           const bodyHas = async () => normalizeText(await page.locator('body').innerText().catch(() => '')).includes(snippet);
           // '최신순'은 탭(role=tab)이 아니라 글자 칩이다(2026-11-24 실제 화면 확인). 기본 '인기순'에서는 새 글이 안 보일 수 있다.
@@ -637,24 +983,11 @@ export async function manageCommunityPosts({
               continue;
             }
 
-            await dialog.locator('#placeholder-area').first().click({ force: true });
-            await page.waitForTimeout(1000);
-
-            // 이미지 프리뷰가 열려있으면 닫기
-            const imgCancel = dialog.locator('#image-preview-container button').first();
-            if (await imgCancel.isVisible().catch(() => false)) {
-              await imgCancel.click({ force: true });
-              await page.waitForTimeout(500);
-            }
-
-            const editor = dialog.locator('#contenteditable-root').first();
-            if (!(await editor.isVisible().catch(() => false))) {
-              pending.push({ episodeId, reason: 'editor-not-found' });
+            const filled = await fillCommunityPostComposer(page, dialog, postData, { projectDir: dir });
+            if (!filled.ok) {
+              pending.push({ episodeId, reason: filled.reason || 'compose-failed' });
               continue;
             }
-            await editor.click({ force: true });
-            await editor.pressSequentially(postData.content);
-            await page.waitForTimeout(1000);
 
             // 작성창에는 이름이 "게시"인 버튼이 둘이라 보이고 눌리는 쪽을 골라야 한다
             const buttons = dialog.getByRole('button', { name: '게시', exact: true });

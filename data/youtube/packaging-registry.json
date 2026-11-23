@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-21T16:20:48.327Z",
+  "updatedAt": "2026-11-23T14:44:00Z",
   "items": [
     {
       "id": "s1-ep09-longform-package-v2",
@@ -31,6 +31,288 @@
       "activeFrom": "2026-08-23T11:00:00Z",
       "activeTo": null,
       "notes": "EP9 V2. 제목+썸네일 패키징의 첫 기준점."
+    },
+    {
+      "id": "YoaCRYCWpws-repack-20261123-prev",
+      "videoId": "YoaCRYCWpws",
+      "version": "V1",
+      "status": "retired",
+      "format": "LONGFORM",
+      "title": "영어 발음, PICTURE는 왜 '픽투어'가 아닐까? | -TURE 규칙 (영어기초배우기 EP8)",
+      "thumbnailPath": null,
+      "activeFrom": null,
+      "activeTo": "2026-11-23T14:44:00Z",
+      "baselineBeforeChange": {
+        "lifetimeViews": 39,
+        "views28d": 1,
+        "avp90d": 62.67,
+        "imp7dInitial": 443,
+        "ctr7dInitial": 4.29
+      },
+      "notes": "2026-11-23 패키징 교체 테스트 직전 원본"
+    },
+    {
+      "id": "YoaCRYCWpws-repack-20261123-v2",
+      "videoId": "YoaCRYCWpws",
+      "version": "V2",
+      "status": "active",
+      "format": "LONGFORM",
+      "title": "PICTURE를 '픽투어'로 읽으면 외국인이 못 알아듣는 이유",
+      "thumbnailPath": "output/temp-thumbnails/repackaging-test-2026-11-23/thumb-YoaCRYCWpws.jpg",
+      "thumbnailMessage": [
+        "“픽투어?”",
+        "PICTURE",
+        "철자엔 없는데… 원어민은 왜 다르게?"
+      ],
+      "activeFrom": "2026-11-23T14:44:00Z",
+      "activeTo": null,
+      "reviewSchedule": {
+        "day14": "2026-12-07",
+        "day28": "2026-12-21"
+      },
+      "baselineBeforeChange": {
+        "lifetimeViews": 39,
+        "views28d": 1,
+        "avp90d": 62.67,
+        "imp7dInitial": 443,
+        "ctr7dInitial": 4.29
+      },
+      "notes": "교과서 목차·채널 배지 제거, 정답('처') 숨김, 어리둥절 원어민 실사 대비로 클릭 유도"
+    },
+    {
+      "id": "VwEkIUluszw-repack-20261123-prev",
+      "videoId": "VwEkIUluszw",
+      "version": "V1",
+      "status": "retired",
+      "format": "LONGFORM",
+      "title": "저도 이제 안 막힙니다, 모음 뒤에 R 붙은 단어 1초 만에 읽는 법 | 영어공부 혼자하기",
+      "thumbnailPath": null,
+      "activeFrom": null,
+      "activeTo": "2026-11-23T14:44:00Z",
+      "baselineBeforeChange": {
+        "lifetimeViews": 31,
+        "views28d": 0,
+        "avp90d": 47.67,
+        "imp7dInitial": 39,
+        "ctr7dInitial": 2.56
+      },
+      "notes": "2026-11-23 패키징 교체 테스트 직전 원본"
+    },
+    {
+      "id": "VwEkIUluszw-repack-20261123-v2",
+      "videoId": "VwEkIUluszw",
+      "version": "V2",
+      "status": "active",
+      "format": "LONGFORM",
+      "title": "HER, BIRD, FUR 철자가 다 다른데 원어민은 왜 똑같이 읽을까?",
+      "thumbnailPath": "output/temp-thumbnails/repackaging-test-2026-11-23/thumb-VwEkIUluszw.jpg",
+      "thumbnailMessage": [
+        "HER / BIRD / FUR",
+        "글자는 다 다른데",
+        "소리는 똑같다?!"
+      ],
+      "activeFrom": "2026-11-23T14:44:00Z",
+      "activeTo": null,
+      "reviewSchedule": {
+        "day14": "2026-12-07",
+        "day28": "2026-12-21"
+      },
+      "baselineBeforeChange": {
+        "lifetimeViews": 31,
+        "views28d": 0,
+        "avp90d": 47.67,
+        "imp7dInitial": 39,
+        "ctr7dInitial": 2.56
+      },
+      "notes": "옛 아바타·추상 문법·정답 스포일러('3개 소리 끝') 제거, 익숙한 3단어 소리 반전 제시"
+    },
+    {
+      "id": "8Ul_lkCkUCI-repack-20261123-prev",
+      "videoId": "8Ul_lkCkUCI",
+      "version": "V1",
+      "status": "retired",
+      "format": "LONGFORM",
+      "title": "Pool과 Pull, 둘 다 '풀'로 읽으셨나요? | 영어 모음 20쌍 반복 듣기",
+      "thumbnailPath": null,
+      "activeFrom": null,
+      "activeTo": "2026-11-23T14:44:00Z",
+      "baselineBeforeChange": {
+        "lifetimeViews": 13,
+        "views28d": 10,
+        "avp90d": 30.69,
+        "imp7dInitial": 220,
+        "ctr7dInitial": 1.82
+      },
+      "notes": "2026-11-23 패키징 교체 테스트 직전 원본"
+    },
+    {
+      "id": "8Ul_lkCkUCI-repack-20261123-v2",
+      "videoId": "8Ul_lkCkUCI",
+      "version": "V2",
+      "status": "active",
+      "format": "LONGFORM",
+      "title": "외국인 앞에서 \"배불러요\" 했는데 '바보'로 들리는 아찔한 이유",
+      "thumbnailPath": "output/temp-thumbnails/repackaging-test-2026-11-23/thumb-8Ul_lkCkUCI.jpg",
+      "thumbnailMessage": [
+        "“배불러요” → “바보?!”",
+        "FULL ≠ FOOL",
+        "길이 차이가 아니었다…"
+      ],
+      "activeFrom": "2026-11-23T14:44:00Z",
+      "activeTo": null,
+      "reviewSchedule": {
+        "day14": "2026-12-07",
+        "day28": "2026-12-21"
+      },
+      "baselineBeforeChange": {
+        "lifetimeViews": 13,
+        "views28d": 10,
+        "avp90d": 30.69,
+        "imp7dInitial": 220,
+        "ctr7dInitial": 1.82
+      },
+      "notes": "정답 스포일러('입술 모으면 끝')·평면 아이콘 제거, 식당 실생활 오해 장면+미완결 문구"
+    },
+    {
+      "id": "oMrCtSBbibc-repack-20261123-prev",
+      "videoId": "oMrCtSBbibc",
+      "version": "V1",
+      "status": "retired",
+      "format": "SHORTS",
+      "title": "양일까 배일까? sheep과 ship, 소리만 듣고 맞혀 보세요 #영어발음 #shorts",
+      "thumbnailPath": null,
+      "activeFrom": null,
+      "activeTo": "2026-11-23T14:44:00Z",
+      "baselineBeforeChange": {
+        "lifetimeViews": 677,
+        "views28d": 677,
+        "avp90d": 70.85,
+        "imp7dInitial": 44,
+        "ctr7dInitial": 4.55
+      },
+      "notes": "2026-11-23 패키징 교체 테스트 직전 원본"
+    },
+    {
+      "id": "oMrCtSBbibc-repack-20261123-v2",
+      "videoId": "oMrCtSBbibc",
+      "version": "V2",
+      "status": "active",
+      "format": "SHORTS",
+      "title": "sheep과 ship, 길고 짧게로 구분하면 다 틀립니다 #shorts",
+      "thumbnailPath": "output/temp-thumbnails/repackaging-test-2026-11-23/thumb-oMrCtSBbibc.jpg",
+      "thumbnailMessage": [
+        "길고 짧게? 다 틀렸다!",
+        "SHEEP ≠ SHIP",
+        "둘 다 ‘쉽’이 아닌 이유…"
+      ],
+      "activeFrom": "2026-11-23T14:44:00Z",
+      "activeTo": null,
+      "reviewSchedule": {
+        "day14": "2026-12-07",
+        "day28": "2026-12-21"
+      },
+      "baselineBeforeChange": {
+        "lifetimeViews": 677,
+        "views28d": 677,
+        "avp90d": 70.85,
+        "imp7dInitial": 44,
+        "ctr7dInitial": 4.55
+      },
+      "notes": "기존 상식('길고 짧게') 정면 반박+정답('입꼬리') 숨김, 실물 양·배 9:16 썸네일 교체"
+    },
+    {
+      "id": "OnhkMmAE5ZA-repack-20261123-prev",
+      "videoId": "OnhkMmAE5ZA",
+      "version": "V1",
+      "status": "retired",
+      "format": "SHORTS",
+      "title": "'라이트'가 두 번 나오는 문장, 소리가 같을까요? #영어발음 #shorts",
+      "thumbnailPath": null,
+      "activeFrom": null,
+      "activeTo": "2026-11-23T14:44:00Z",
+      "baselineBeforeChange": {
+        "lifetimeViews": 537,
+        "views28d": 533,
+        "avp90d": 39.96,
+        "imp7dInitial": null,
+        "ctr7dInitial": null
+      },
+      "notes": "2026-11-23 패키징 교체 테스트 직전 원본"
+    },
+    {
+      "id": "OnhkMmAE5ZA-repack-20261123-v2",
+      "videoId": "OnhkMmAE5ZA",
+      "version": "V2",
+      "status": "active",
+      "format": "SHORTS",
+      "title": "해외에서 길 물어봤는데 '라이트'가 2번 나오면? #shorts",
+      "thumbnailPath": "output/temp-thumbnails/repackaging-test-2026-11-23/thumb-OnhkMmAE5ZA.jpg",
+      "thumbnailMessage": [
+        "해외에서 길 물을 때",
+        "“라이트” ≠ “라이트”",
+        "같은 말인 줄 알았는데 소리가 달랐다?!"
+      ],
+      "activeFrom": "2026-11-23T14:44:00Z",
+      "activeTo": null,
+      "reviewSchedule": {
+        "day14": "2026-12-07",
+        "day28": "2026-12-21"
+      },
+      "baselineBeforeChange": {
+        "lifetimeViews": 537,
+        "views28d": 533,
+        "avp90d": 39.96,
+        "imp7dInitial": null,
+        "ctr7dInitial": null
+      },
+      "notes": "추상 문장을 해외 길 묻기 상황으로 구체화+밤 교차로 신호등 실사 9:16 썸네일"
+    },
+    {
+      "id": "c7Mp5L8HSXE-repack-20261123-prev",
+      "videoId": "c7Mp5L8HSXE",
+      "version": "V1",
+      "status": "retired",
+      "format": "SHORTS",
+      "title": "D 발음 배우기 | Dog으로 배우는 영어 #50대영어 #영어공부 #영어독학 #50대영어 #영어공부 #영어독학 #영어초보 #파닉스 #영어초보 #파닉스",
+      "thumbnailPath": null,
+      "activeFrom": null,
+      "activeTo": "2026-11-23T14:44:00Z",
+      "baselineBeforeChange": {
+        "lifetimeViews": 25,
+        "views28d": 0,
+        "avp90d": 94.97,
+        "imp7dInitial": 114,
+        "ctr7dInitial": 2.63
+      },
+      "notes": "2026-11-23 패키징 교체 테스트 직전 원본"
+    },
+    {
+      "id": "c7Mp5L8HSXE-repack-20261123-v2",
+      "videoId": "c7Mp5L8HSXE",
+      "version": "V2",
+      "status": "active",
+      "format": "SHORTS",
+      "title": "50대에 처음부터 다시 시작한 영어, 딱 한 글자 D부터 #shorts",
+      "thumbnailPath": "output/temp-thumbnails/repackaging-test-2026-11-23/thumb-c7Mp5L8HSXE.jpg",
+      "thumbnailMessage": [
+        "50대 영어 첫날",
+        "D, 그냥 읽으면…",
+        "D → DOG 이 한 글자부터 달랐다"
+      ],
+      "activeFrom": "2026-11-23T14:44:00Z",
+      "activeTo": null,
+      "reviewSchedule": {
+        "day14": "2026-12-07",
+        "day28": "2026-12-21"
+      },
+      "baselineBeforeChange": {
+        "lifetimeViews": 25,
+        "views28d": 0,
+        "avp90d": 94.97,
+        "imp7dInitial": 114,
+        "ctr7dInitial": 2.63
+      },
+      "notes": "중복 해시태그 10개·정답('드') 스포일러 썸네일 제거, 50대 공감 실사로 고지속 죽은 쇼츠 대조 실험"
     }
   ]
 }

@@ -13,6 +13,7 @@
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { findBannedTerms } from './banned-terms.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const projectDir = dirname(dirname(__filename));
@@ -327,45 +328,132 @@ export async function postPendingPinnedComments({
   return { ok: true, posted };
 }
 
+/**
+ * 스튜디오 전용 크롬(포트 9223)에 붙어 새 탭을 연다 (2026-11-23).
+ * 2026-11-23 원인: setupStudioChrome은 "지금 열린 탭 주소"로만 로그인을 판단한다. 크롬이 떠 있어도
+ * youtube.com 탭만 있으면 login:'unknown'이 나오는데, 예전 코드는 'logged-in'이 아니면 전부 건너뛰어
+ * 커뮤니티 글이 한 번도 올라가지 않았다. 실제로는 프로필이 로그인돼 있어 studio.youtube.com으로 가면 스튜디오에 남는다.
+ * 그래서 'unknown'이면 스튜디오로 직접 가 본 뒤 주소로 다시 판정한다.
+ * setupFn·connectFn을 주입하면 테스트에서 실제 브라우저 없이 확인할 수 있다.
+ */
+export async function connectStudio({ setupFn, connectFn, probeWaitMs = 4000 } = {}) {
+  const studio = await import('./setup-studio-chrome.mjs');
+  const { STUDIO_PORT, STUDIO_URL, judgeStudioLogin } = studio;
+  const setup = setupFn || studio.setupStudioChrome;
+
+  const chrome = await setup({ launchIfDown: true });
+  if (!chrome?.supported) return { ok: false, reason: 'studio-chrome-unsupported' };
+  if (chrome.login === 'login-needed') return { ok: false, reason: 'studio-login-needed' };
+
+  let connect = connectFn;
+  if (!connect) {
+    const { chromium } = await import('playwright');
+    connect = (url) => chromium.connectOverCDP(url);
+  }
+  const browser = await connect(`http://localhost:${STUDIO_PORT}`);
+  const page = await browser.contexts()[0].newPage();
+
+  if (chrome.login === 'unknown') {
+    try {
+      await page.goto(STUDIO_URL, { waitUntil: 'domcontentloaded' });
+      await new Promise((resolve) => setTimeout(resolve, probeWaitMs));
+      const result = judgeStudioLogin([page.url()]);
+      if (result !== 'logged-in') {
+        await page.close().catch(() => {});
+        return { ok: false, reason: `studio-login-${result}` };
+      }
+    } catch (err) {
+      await page.close().catch(() => {});
+      return { ok: false, reason: 'studio-login-probe-failed', error: err.message };
+    }
+  }
+  return { ok: true, browser, page };
+}
+
+/**
+ * output/upload-packages 폴더에서 폴더별 videoId를 읽는다 (2026-11-23).
+ * dir은 업로드 패키지 폴더 자체이거나, 그 위의 프로젝트 폴더다(둘 다 받는다).
+ * 쇼츠: ep28-shorts-fan-pan 같은 폴더의 shorts-status.json, 롱폼: ep28-f-vs-p 같은 폴더의 status.json.
+ * videoId가 없는 폴더(아직 업로드 전)는 뺀다.
+ */
+export function readPackageVideoIds(dir = projectDir) {
+  const nested = join(dir, 'output', 'upload-packages');
+  const root = existsSync(nested) ? nested : dir;
+  if (!existsSync(root)) return [];
+  const out = [];
+  for (const d of readdirSync(root, { withFileTypes: true })) {
+    if (!d.isDirectory()) continue;
+    const folder = d.name;
+    const shorts = /^ep(\d+)-shorts-/i.exec(folder);
+    const long = shorts ? null : /^ep(\d+)/i.exec(folder);
+    const m = shorts || long;
+    if (!m) continue;
+    const statusFile = join(root, folder, shorts ? 'shorts-status.json' : 'status.json');
+    const videoId = readJsonSafe(statusFile, null)?.videoId;
+    if (!videoId) continue;
+    out.push({ folder, videoId, kind: shorts ? 'shorts' : 'long', ep: m[1] });
+  }
+  return out;
+}
+
+/**
+ * 관련 동영상을 달아야 할 쇼츠 목록 (2026-11-23).
+ * 예전에는 제목의 "EP28"이나 catalog의 videoFolder로 짝을 찾았는데, 실제 catalog 제목에는 EP가 없고
+ * videoFolder 칸도 없어서 한 번도 짝이 맞지 않았다. 지금은 패키지 폴더의 videoId로 에피소드 번호를 잇는다.
+ * 롱폼은 공개됐거나 예약 시각이 지난 것만 짝으로 삼는다. 이미 끝낸 키(done)는 뺀다.
+ */
+export function findRelatedCandidates({ catalog, packages = [], done = {}, now = new Date() } = {}) {
+  const videos = catalog?.videos || [];
+  const shortsPkg = new Map(packages.filter((p) => p.kind === 'shorts').map((p) => [p.videoId, p]));
+  const longEpByVideoId = new Map(packages.filter((p) => p.kind === 'long').map((p) => [p.videoId, p.ep]));
+
+  const longs = videos.filter((v) => {
+    if (v.format !== 'LONGFORM' || !longEpByVideoId.has(v.videoId)) return false;
+    return v.privacyStatus === 'public' || Boolean(v.scheduledPublishAt && new Date(v.scheduledPublishAt) <= now);
+  });
+
+  const candidates = [];
+  for (const s of videos) {
+    if (s.format !== 'SHORTS') continue;
+    const pkg = shortsPkg.get(s.videoId);
+    if (!pkg) continue;
+    const key = `EP${pkg.ep}-shorts:related`;
+    if (done[key]) continue;
+    const companionLong = longs.find((l) => longEpByVideoId.get(l.videoId) === pkg.ep);
+    if (!companionLong) continue;
+    candidates.push({ short: s, companionLong, key });
+  }
+  return candidates;
+}
+
 /** 3. 쇼츠 관련 동영상 자동 연결 (Studio Playwright 브라우저 컨트롤) */
 export async function linkShortsRelatedVideos({
   projectDir: dir = projectDir,
   catalog,
   now = new Date(),
-}) {
+  connect = connectStudio,
+} = {}) {
   const donePath = join(dir, 'data', 'youtube', 'after-publish-done.json');
   const doneMap = readJsonSafe(donePath, {});
   const linked = [];
 
-  const videos = catalog?.videos || [];
-  const shorts = videos.filter((v) => v.format === 'SHORTS');
-  const longs = videos.filter((v) => v.format === 'LONGFORM' && (v.privacyStatus === 'public' || (v.scheduledPublishAt && new Date(v.scheduledPublishAt) <= now)));
-
   // 관련 동영상 연결이 필요한 쇼츠 탐색: 같은 에피소드 롱폼이 이미 공개된 경우
-  const candidates = [];
-  for (const s of shorts) {
-    const epMatch = s.title.match(/EP\s*(\d+)/i) || (s.videoFolder || '').match(/ep(\d+)/i);
-    if (!epMatch) continue;
-    const epNum = epMatch[1];
-    const longCompanion = longs.find((l) => (l.videoFolder || '').includes(`ep${epNum}`) || l.title.includes(`EP${epNum}`));
-    const key = `EP${epNum}-shorts:related`;
-    if (longCompanion && !doneMap[key]) {
-      candidates.push({ short: s, companionLong: longCompanion, key });
-    }
-  }
+  const candidates = findRelatedCandidates({
+    catalog,
+    packages: readPackageVideoIds(dir),
+    done: doneMap,
+    now,
+  });
 
   if (!candidates.length) return { ok: true, linked: [] };
 
+  let page = null;
   try {
-    const { chromium } = await import('playwright');
-    const { setupStudioChrome, STUDIO_PORT } = await import('./setup-studio-chrome.mjs');
-    const chrome = await setupStudioChrome({ launchIfDown: true });
-    if (!chrome.supported || chrome.login !== 'logged-in') {
-      return { ok: false, reason: `studio-chrome-not-logged-in (${chrome.login || 'unknown'})` };
+    const conn = await connect();
+    if (!conn.ok) {
+      return { ok: false, reason: conn.reason || 'studio-connect-failed', linked };
     }
-
-    const browser = await chromium.connectOverCDP(`http://localhost:${STUDIO_PORT}`);
-    const page = await browser.contexts()[0].newPage();
+    page = conn.page;
 
     for (const item of candidates) {
       try {
@@ -406,15 +494,53 @@ export async function linkShortsRelatedVideos({
       }
     }
 
-    await page.close();
     writeFileSync(donePath, JSON.stringify(doneMap, null, 2), 'utf8');
   } catch (err) {
     console.warn('[PostPublish] 스튜디오 자동화 실행 실패:', err.message);
     return { ok: false, error: err.message, linked };
+  } finally {
+    if (page) await page.close().catch(() => {});
   }
 
   return { ok: true, linked };
 }
+
+/** 글 앞부분(공백을 하나로 줄인 n글자). 중복 게시 확인과 게시 확인에 같이 쓴다. */
+export function contentSnippet(content, n = 20) {
+  return String(content ?? '').replace(/\s+/g, ' ').trim().slice(0, n);
+}
+
+/**
+ * 커뮤니티 글을 지금 올리면 안 되는 이유 (2026-11-23). 없으면 null.
+ * - 이미 올린 글, 시청자에게 보이면 안 되는 내부 에피소드 번호(EP27), 금지어
+ * - 본 영상이 이미 나온 뒤의 예습 퀴즈("곧 공개될 본 영상"이 거짓말이 된다)
+ * - 목표 시각에서 24시간 넘게 지난 글(늦게 올리면 시기가 맞지 않는다)
+ */
+export function communityPostBlockReason(postData, { now = new Date(), catalog } = {}) {
+  if (postData?.status === 'posted') return 'already-posted';
+  const content = String(postData?.content ?? '');
+  if (/\bEP\s*\d+/i.test(content)) return 'internal-episode-number';
+  if (findBannedTerms(content).length > 0) return 'banned-terms';
+
+  if (postData?.type === 'pre-quiz') {
+    const scheduled = postData.companionVideoScheduledAt ? new Date(postData.companionVideoScheduledAt) : null;
+    const scheduledOut = scheduled && !Number.isNaN(scheduled.getTime()) && scheduled <= now;
+    const companion = postData.companionVideoId
+      ? (catalog?.videos || []).find((v) => v.videoId === postData.companionVideoId)
+      : null;
+    if (scheduledOut || companion?.privacyStatus === 'public') return 'pre-quiz-after-video';
+  }
+
+  if (postData?.targetPublishDate) {
+    const target = new Date(postData.targetPublishDate);
+    if (!Number.isNaN(target.getTime()) && now - target > DAY_MS) return 'expired';
+  }
+  return null;
+}
+
+const COMMUNITY_URL = 'https://www.youtube.com/@이해하면쉬운영어/community';
+
+const normalizeText = (s) => String(s ?? '').replace(/\s+/g, ' ');
 
 /** 4. 커뮤니티 예습/복습 게시물 자동 관리 */
 export async function manageCommunityPosts({
@@ -422,21 +548,25 @@ export async function manageCommunityPosts({
   catalog,
   now = new Date(),
   dryRun = false,
+  connect = connectStudio,
 } = {}) {
   const pkgRoot = join(dir, 'output', 'upload-packages');
-  if (!existsSync(pkgRoot)) return { ok: true, posted: [], pending: [] };
+  if (!existsSync(pkgRoot)) return { ok: true, posted: [], pending: [], blocked: [] };
 
   const donePath = join(dir, 'data', 'youtube', 'after-publish-done.json');
   const doneMap = readJsonSafe(donePath, {});
   const posted = [];
   const pending = [];
+  const blocked = [];
+  let page = null;
 
   try {
-    const { readdirSync } = await import('node:fs');
     const folders = readdirSync(pkgRoot, { withFileTypes: true })
       .filter((d) => d.isDirectory())
       .map((d) => d.name);
 
+    // 1단계: 올릴 글 고르기 (브라우저 없이)
+    const work = [];
     for (const f of folders) {
       const postFile = join(pkgRoot, f, 'community-post.json');
       if (!existsSync(postFile)) continue;
@@ -444,84 +574,131 @@ export async function manageCommunityPosts({
       const postData = readJsonSafe(postFile, null);
       if (!postData || !postData.content) continue;
 
-      const key = `${postData.episodeId || f}:community-post`;
+      const episodeId = postData.episodeId || f;
+      const key = `${episodeId}:community-post`;
       if (doneMap[key]) continue;
 
-      // 발행 시각 판정: targetPublishDate가 지났거나 없으면 즉시 발행 대상
+      // 발행 시각 판정: targetPublishDate가 지났거나 없으면 발행 대상
       const isDue = !postData.targetPublishDate || new Date(postData.targetPublishDate) <= now;
       if (!isDue) {
-        pending.push({ episodeId: postData.episodeId || f, targetPublishDate: postData.targetPublishDate });
+        pending.push({ episodeId, targetPublishDate: postData.targetPublishDate });
+        continue;
+      }
+
+      const reason = communityPostBlockReason(postData, { now, catalog });
+      if (reason) {
+        blocked.push({ episodeId, reason });
         continue;
       }
 
       if (dryRun) {
-        posted.push({ episodeId: postData.episodeId || f, status: 'dry-run-ready' });
+        posted.push({ episodeId, status: 'dry-run-ready' });
         continue;
       }
+      work.push({ episodeId, key, postData });
+    }
 
-      // 스튜디오 브라우저를 통해 커뮤니티 탭에 게시
-      try {
-        const { chromium } = await import('playwright');
-        const { setupStudioChrome, STUDIO_PORT } = await import('./setup-studio-chrome.mjs');
-        const chrome = await setupStudioChrome({ launchIfDown: true });
-        if (!chrome.supported || chrome.login !== 'logged-in') {
-          pending.push({ episodeId: postData.episodeId || f, reason: 'chrome-not-logged-in' });
-          continue;
-        }
+    // 2단계: 스튜디오 브라우저로 커뮤니티 탭에 게시 (할 일이 있을 때만 한 번 연결)
+    if (work.length > 0) {
+      const conn = await connect();
+      if (!conn.ok) {
+        for (const w of work) pending.push({ episodeId: w.episodeId, reason: conn.reason || 'studio-connect-failed' });
+      } else {
+        page = conn.page;
+        for (const w of work) {
+          const { episodeId, key, postData } = w;
+          const snippet = contentSnippet(postData.content);
+          const record = (status) => {
+            doneMap[key] = new Date().toISOString().slice(0, 10);
+            writeFileSync(donePath, JSON.stringify(doneMap, null, 2), 'utf8');
+            posted.push({ episodeId, status });
+          };
+          const bodyHas = async () => normalizeText(await page.locator('body').innerText().catch(() => '')).includes(snippet);
+          // '최신순'은 탭(role=tab)이 아니라 글자 칩이다(2026-11-24 실제 화면 확인). 기본 '인기순'에서는 새 글이 안 보일 수 있다.
+          const showLatest = async () => {
+            await page.getByText('최신순', { exact: true }).first().click({ timeout: 3000 }).catch(() => {});
+            await page.waitForTimeout(2000);
+          };
 
-        const browser = await chromium.connectOverCDP(`http://localhost:${STUDIO_PORT}`);
-        const page = await browser.contexts()[0].newPage();
+          try {
+            await page.goto(COMMUNITY_URL, { waitUntil: 'domcontentloaded' });
+            await page.waitForTimeout(3000);
 
-        await page.goto('https://www.youtube.com/@이해하면쉬운영어/community', { waitUntil: 'domcontentloaded' });
-        await page.waitForTimeout(3000);
+            const dialog = page.locator('ytd-backstage-post-dialog-renderer').first();
+            if (!(await dialog.isVisible().catch(() => false))) {
+              pending.push({ episodeId, reason: 'composer-not-found' });
+              continue;
+            }
 
-        const dialog = page.locator('ytd-backstage-post-dialog-renderer').first();
-        if (await dialog.isVisible()) {
-          const placeholder = dialog.locator('#placeholder-area').first();
-          await placeholder.click({ force: true });
-          await page.waitForTimeout(1000);
+            // 이미 같은 글이 올라가 있으면 다시 쓰지 않는다(전에 올렸는데 기록만 빠진 경우)
+            await showLatest();
+            if (await bodyHas()) {
+              record('already-on-page');
+              continue;
+            }
 
-          // 이미지 프리뷰가 열려있으면 닫기
-          const imgCancel = dialog.locator('#image-preview-container button').first();
-          if (await imgCancel.isVisible().catch(() => false)) {
-            await imgCancel.click({ force: true });
-            await page.waitForTimeout(500);
-          }
+            await dialog.locator('#placeholder-area').first().click({ force: true });
+            await page.waitForTimeout(1000);
 
-          const editor = dialog.locator('#contenteditable-root').first();
-          if (await editor.isVisible()) {
+            // 이미지 프리뷰가 열려있으면 닫기
+            const imgCancel = dialog.locator('#image-preview-container button').first();
+            if (await imgCancel.isVisible().catch(() => false)) {
+              await imgCancel.click({ force: true });
+              await page.waitForTimeout(500);
+            }
+
+            const editor = dialog.locator('#contenteditable-root').first();
+            if (!(await editor.isVisible().catch(() => false))) {
+              pending.push({ episodeId, reason: 'editor-not-found' });
+              continue;
+            }
             await editor.click({ force: true });
             await editor.pressSequentially(postData.content);
             await page.waitForTimeout(1000);
 
-            const postBtn = dialog.locator('#post-button button').first();
-            const isEnabled = await postBtn.isEnabled().catch(() => false);
-            if (isEnabled) {
-              await postBtn.click({ force: true });
-              await page.waitForTimeout(3000);
-              doneMap[key] = new Date().toISOString().slice(0, 10);
-              posted.push({ episodeId: postData.episodeId || f, status: 'published' });
-            } else {
-              pending.push({ episodeId: postData.episodeId || f, reason: 'button-disabled' });
+            // 작성창에는 이름이 "게시"인 버튼이 둘이라 보이고 눌리는 쪽을 골라야 한다
+            const buttons = dialog.getByRole('button', { name: '게시', exact: true });
+            const count = await buttons.count();
+            let postBtn = null;
+            for (let i = 0; i < count; i += 1) {
+              const b = buttons.nth(i);
+              if ((await b.isVisible().catch(() => false)) && (await b.isEnabled().catch(() => false))) {
+                postBtn = b;
+                break;
+              }
             }
+            if (!postBtn) {
+              pending.push({ episodeId, reason: 'post-button-not-found' });
+              continue;
+            }
+            await postBtn.click();
+            await page.waitForTimeout(3000);
+
+            // 눌렀다고 올라간 것이 아니다. 새로 고쳐 글이 실제로 보일 때만 끝낸 일로 적는다.
+            await page.reload({ waitUntil: 'domcontentloaded' });
+            await page.waitForTimeout(3000);
+            await showLatest();
+
+            if (await bodyHas()) {
+              record('published');
+            } else {
+              pending.push({ episodeId, reason: 'not-confirmed' });
+            }
+          } catch (postErr) {
+            console.warn(`[PostPublish] 커뮤니티 게시물 발행 실패 (${episodeId}):`, postErr.message);
+            pending.push({ episodeId, error: postErr.message });
           }
         }
-        await page.close();
-      } catch (postErr) {
-        console.warn(`[PostPublish] 커뮤니티 게시물 발행 실패 (${f}):`, postErr.message);
-        pending.push({ episodeId: postData.episodeId || f, error: postErr.message });
       }
-    }
-
-    if (posted.length > 0) {
-      writeFileSync(donePath, JSON.stringify(doneMap, null, 2), 'utf8');
     }
   } catch (err) {
     console.warn('[PostPublish] 커뮤니티 게시물 관리 중 오류:', err.message);
-    return { ok: false, error: err.message, posted, pending };
+    return { ok: false, error: err.message, posted, pending, blocked };
+  } finally {
+    if (page) await page.close().catch(() => {});
   }
 
-  return { ok: true, posted, pending };
+  return { ok: true, posted, pending, blocked };
 }
 
 /** 통합 사후 관리 파이프라인 단일 진입점 */

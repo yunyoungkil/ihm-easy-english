@@ -1,5 +1,5 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "episodeId": "ep28-f-vs-p",
   "title": "원어민이 F와 P를 0.1초 만에 구별하는 법 | F vs P 24쌍 반복 듣기",
   "recommendedPublishAt": "2026-10-12T14:00:00Z",
@@ -10,14 +10,18 @@
   "thumbnailsCount": 4,
   "renderedAt": "2026-10-10T12:36:12Z",
   "generatedAt": "2026-10-10T08:34:12.711Z",
-  "lastSyncedAt": "2026-11-22T16:09:49.292Z",
+  "lastSyncedAt": "2026-11-23T14:44:57.749Z",
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "5e19d63b018a977473f9403d14f98b2e6dcad1ff73d8650afc3bbd9b820836f2",
     "approvedAt": "2026-11-07T13:37:00.294Z"
   },
-  "pinnedCommentPending": true,
+  "pinnedCommentPending": false,
   "videoId": "91aunP3N8mQ",
   "scheduledFor": "2026-11-23T14:00:00Z",
-  "uploadedAt": "2026-11-09T05:51:18.885Z"
+  "uploadedAt": "2026-11-09T05:51:18.885Z",
+  "publishedAt": "2026-11-23T14:00:25Z",
+  "publishedAtSource": "youtube",
+  "pinnedCommentAt": "2026-11-23T14:48:45.088Z",
+  "pinnedCommentId": "UgzsCzct6uXxXbefil94AaABAg"
 }

@@ -1,4 +1,4 @@
-# 현재 상태 요약 (2026-11-23) — 새 대화는 이 파일만 먼저 읽는다
+# 현재 상태 요약 (2026-11-24) — 새 대화는 이 파일만 먼저 읽는다
 
 > 이 파일은 날짜 인수인계를 대신하는 **60줄 요약**이다. 작업 한 덩어리를 마칠 때마다 이 파일을 **고쳐 쓴다**(더하지 않고 낡은 줄은 지운다). 틀과 규칙은 `README.md`.
 
@@ -10,6 +10,7 @@
 
 ## 제작 현황
 - **EP27 쇼츠 `videos/ep27-shorts-dogs-cats`**: **11/21 토 20:00 KST 공개 완료** (ID `blowoldSorE`). 사후 관리(고정 댓글 게시 `Ugxsd1ZaMjj4l5zV3554AaABAg`, 쇼츠 퀴즈 시즌1 재생목록 확인, 롱폼 `a4E6XlTbTW0` 관련동영상 확인) 완결. 11/28 토 이후 공개 7일 성과 정산 예정.
+- **EP28 F vs P 롱폼 `91aunP3N8mQ`**: **11/23 월 23:00 KST 공개 완료**. 사후 관리 끝냄(11/24 새벽, `2026-11-24.md`): 고정 댓글 게시·고정, 끝 화면(직전 편 `a4E6XlTbTW0`+구독, 6:46~), 짝 쇼츠 `bQNoYraxFY8`(11/24 화 20:00 공개 예약) 관련 동영상 연결, 커뮤니티 글 새로 써서 게시. 11/30 월 이후 롱폼 7일 정산, 12/01 화 이후 쇼츠 7일 정산.
 - **EP30 쇼츠 `videos/ep30-shorts-chocolate`**: 11/18 수 20:00 공개 완료 (ID `Ng6amm9qFrI`). 11/25 수 이후 공개 7일 결과 정산 예정.
 - **EP31 쇼츠 `videos/ep31-shorts-stress-shift`**: **12/01 화 20:00 KST 예약 완료** (ID `AkDKw4o_C58`, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`). 12/08 화 이후 공개 7일 결과 정산 예정.
 - **EP32 쇼츠 `videos/ep32-shorts-word-merge`**: **12/05 토 20:00 KST 예약 완료** (ID `YKaokru2ugg`, 교육 27, 한국어 ko, 40.4s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 게시, `community-post.json` 예습 퀴즈 `2026-12-05T09:00:00Z`).
@@ -26,7 +27,7 @@
 1. **비교 시트 v4 `aiRecommendation` 추가 (`2026-11-20`)**: Gate 1 승인용 AI 1순위 제목·썸네일 추천 조합·이유·차선안을 시트 상단 카드 및 `★ AI 추천` 배지로 표시(`transform-sheet.mjs`, `outlier-report-view.mjs`, `comparison-sheet-playbook.md`).
 2. **3060 모바일 권장 글자 크기 (`2026-11-20`, 2층 기본값)**: 불변 하한 `34px` 위에 쇼츠 본편 보조 `46px+`·자막 `50px+`·썸네일 보조 `60px+`, 롱폼 본편 보조 `44px+`·자막 `56px+`·썸네일 보조 `56px+` 권장(`knowledge/production-rules.md`, `knowledge/rule-tiers.md`).
 3. **업로드·예약 시 AI 사용 여부와 재생목록 필수 확인 (Rule 14)**: `containsSyntheticMedia: true` 및 형식별 기본 재생목록 연결 필수(`studio-upload.mjs` `VIDEO_HAS_ALTERED_CONTENT_YES` 선택자 보완).
-4. **자율 브리핑·사후 관리 파이프라인 (`2026-11-20` 하루 1회 개정)**: 자동 브리핑과 데이터 수집(API·스튜디오)은 **하루 1회(KST 기준, 그날 첫 새 채팅)**만 실행하고 `data/youtube/briefing-state.json`(로컬)에 기록. 같은 날 2번째 이후 새 채팅은 수집·요약 없이 `LATEST.md`만 보고 바로 본론 진입(수동 최신화: `npm run briefing -- --force`). `post-publish-pipeline.mjs` 4대 사후 관리 자동 순환.
+4. **자율 브리핑·사후 관리 파이프라인 (`2026-11-20` 하루 1회 개정)**: 자동 브리핑과 데이터 수집(API·스튜디오)은 **하루 1회(KST 기준, 그날 첫 새 채팅)**만 실행하고 `data/youtube/briefing-state.json`(로컬)에 기록. 같은 날 2번째 이후 새 채팅은 수집·요약 없이 `LATEST.md`만 보고 바로 본론 진입(수동 최신화: `npm run briefing -- --force`). `post-publish-pipeline.mjs` 4대 사후 관리 자동 순환. **11/24 수리**: 스튜디오 탭이 없을 때 '로그인 모름'으로 건너뛰던 것(커뮤니티 글이 한 번도 안 올라간 원인)을 직접 열어 판정, 내부 번호(EPxx)·금지어·공개 뒤 예습 퀴즈·24시간 지난 글은 막고 `blocked`로 보고, 쇼츠↔롱폼 관련 동영상 짝을 패키지 폴더 번호로 찾음. 커뮤니티 작성기에는 예약 기능이 없다.
 5. **AI Studio 음악·영상 자동 생성 (`2026-11-21`, Gemini 초안 → Claude 완성)**: `npm run music`(Lyria 3.5, Composer 구간, 결과 약 62초·C2PA 자동 정리)·`npm run video`(Omni 1.2 Flash, 9:16 기본, 11/21 밤부터 소리 기본 유지·`--mute`로 제거). 실행 버튼은 `ctrl-enter-submits`(끝에 s). 둘 다 실제 생성 확인, BGM은 만든 뒤 한 번 들어 허밍 확인. 11/21 밤: 그림 `--ref` 여러 장, 영상 `--first`·`--last`·`--ref`, 둘 다 `--prompt-file`과 결과 옆 `.prompt.json` 기록 추가(실제 생성 확인).
 
 6. **답하기 전에 웹·유튜브부터 (`2026-11-21`, AGENTS.md 0번 15항)**: 도구 한계·방법을 내 기억·코드·정책만으로 말하지 않는다. 같은 날 확인: Omni 1.2 Flash는 1080p·소리(대사·입 모양) 포함, 정지 그림 → `npm run video -- --image ... --resolution 1080p --keep-audio`로 **한국어로 말하는 실사 인물 장면**이 된다(사용자 확인: 자연스럽고 입 모양 맞음). 명작의 "진짜 사람이 말하는 장면"을 생성 도구로 다시 만든다. 최근 쇼츠 4편은 영상 클립 0개·코드 상자 31~206개였다(AI 티의 뿌리).
@@ -43,5 +44,6 @@
 0. **EP35 마무리**: Omni 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 부착·모서리 워터마크 검수 → 최종 렌더·12/15 화 20:00 KST 예약.
 1. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
 2. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.
+2-1. **11/30 월 · 12/01 화 이후**: EP28 F vs P 롱폼(`91aunP3N8mQ`) · EP28 쇼츠(`bQNoYraxFY8`) 공개 7일 정산.
 3. **12/05 토 이후 (사용자 재확인)**: 스튜디오 조사 2단계 14일 관찰(수집 12일+·조사 리포트 20편+) 달성 시 3단계(구 손입력 목록 정리) 착수.
 4. **12/08 화 · 12/12 토 · 12/15 화 · 12/19 토 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) · EP33(`fVY5BNQ7Ciw`) · EP34(`GudIUEIl2TI`) 쇼츠 공개 7일 결과 확인.

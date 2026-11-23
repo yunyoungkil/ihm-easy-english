@@ -200,6 +200,15 @@ export async function auditAndFixPlaylists({
   return { ok: true, actions };
 }
 
+// 끝낸 일 기록(after-publish-done.json) 키. 브리핑(growth-rules.mjs afterPublishTasks)이 읽는 형식과 같아야 한다.
+// 2026-11-23: 폴더 이름을 대문자로 쓴 'EP27-SHORTS-DOGS-CATS:pinned'를 적어 브리핑이 고정 댓글을 계속 할 일로 띄웠다.
+export function pinnedDoneKey(folder = '') {
+  const shorts = /^ep(\d+)-shorts-/i.exec(folder);
+  if (shorts) return `EP${shorts[1]}-shorts:pinned`;
+  const long = /^ep(\d+)/i.exec(folder);
+  return long ? `EP${long[1]}-long:pinned` : null;
+}
+
 /** 2. 누락된 고정 댓글 자동 게시 */
 export async function postPendingPinnedComments({
   accessToken,
@@ -260,10 +269,11 @@ export async function postPendingPinnedComments({
 
     // 이미 채널 댓글이 있거나 doneMap에 등록되어 있으면 생략
     const hasOwnerComment = (v.comments || []).some((c) => (c.author || '').includes('이해하면쉬운영어'));
-    const isRecorded = Object.keys(doneMap).some((k) => k.includes(vid) && doneMap[k]);
 
     const pkgInfo = pkgByVideoId.get(vid);
     const epFolder = pkgInfo ? pkgInfo.epFolder : (v.videoFolder || '').toLowerCase();
+    const doneKey = pinnedDoneKey(epFolder) || `${vid}:pinned`;
+    const isRecorded = Boolean(doneMap[doneKey]);
     const pkgDir = pkgInfo ? pkgInfo.pkgDir : join(pkgRoot, epFolder);
     const statusFile = pkgInfo ? pkgInfo.statusFile : join(pkgDir, 'status.json');
     const status = pkgInfo ? pkgInfo.status : readJsonSafe(statusFile, null);
@@ -305,8 +315,7 @@ export async function postPendingPinnedComments({
             writeFileSync(statusFile, JSON.stringify(status, null, 2), 'utf8');
           }
 
-          const epTag = (epFolder || vid).toUpperCase();
-          doneMap[`${epTag}:pinned`] = new Date().toISOString().slice(0, 10);
+          doneMap[doneKey] = new Date().toISOString().slice(0, 10);
           writeFileSync(donePath, JSON.stringify(doneMap, null, 2), 'utf8');
         }
       } catch (err) {

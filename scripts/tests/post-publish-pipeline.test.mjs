@@ -4,6 +4,7 @@ import {
   PLAYLIST_IDS,
   auditAndFixPlaylists,
   postPendingPinnedComments,
+  pinnedDoneKey,
   manageCommunityPosts,
 } from '../post-publish-pipeline.mjs';
 
@@ -66,6 +67,52 @@ test('postPendingPinnedComments: 토큰이 없으면 ok:false를 반환한다', 
   const res = await postPendingPinnedComments({ accessToken: null, catalog: { videos: [] } });
   assert.equal(res.ok, false);
   assert.equal(res.reason, 'no-token');
+});
+
+// 2026-11-23: 파이프라인이 'EP27-SHORTS-DOGS-CATS:pinned'로 적어 브리핑(growth-rules afterPublishTasks)이
+// 'EP27-shorts:pinned'를 못 찾고 "고정 댓글 등록"을 계속 할 일로 띄웠다. 같은 키 형식으로 적고 읽는지 본다.
+test('pinnedDoneKey: 브리핑이 읽는 키 형식(EP27-shorts:pinned / EP28-long:pinned)을 만든다', () => {
+  assert.equal(pinnedDoneKey('ep27-shorts-dogs-cats'), 'EP27-shorts:pinned');
+  assert.equal(pinnedDoneKey('ep28-f-vs-p'), 'EP28-long:pinned');
+  assert.equal(pinnedDoneKey('misc-folder'), null);
+});
+
+async function pinnedFixture({ done = {} } = {}) {
+  const { mkdtempSync, mkdirSync, writeFileSync } = await import('node:fs');
+  const { join } = await import('node:path');
+  const { tmpdir } = await import('node:os');
+  const dir = mkdtempSync(join(tmpdir(), 'pinned-'));
+  const pkg = join(dir, 'output', 'upload-packages', 'ep27-shorts-dogs-cats');
+  mkdirSync(pkg, { recursive: true });
+  mkdirSync(join(dir, 'data', 'youtube'), { recursive: true });
+  writeFileSync(join(pkg, 'shorts-status.json'), JSON.stringify({ status: 'published', videoId: 'vid27' }));
+  writeFileSync(join(pkg, 'pinned-comment.txt'), '끝소리가 제일 헷갈린 단어는?');
+  writeFileSync(join(dir, 'data', 'youtube', 'after-publish-done.json'), JSON.stringify(done));
+  const catalog = { videos: [{ videoId: 'vid27', privacyStatus: 'public', title: 't', comments: [] }] };
+  const calls = [];
+  const fetchFn = async (url, opts) => {
+    calls.push({ url, method: opts?.method });
+    return { ok: true, json: async () => ({ id: 'c1' }) };
+  };
+  return { dir, catalog, calls, fetchFn };
+}
+
+test('postPendingPinnedComments: 게시 후 브리핑이 읽는 키로 끝낸 일을 기록한다', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { join } = await import('node:path');
+  const { dir, catalog, calls, fetchFn } = await pinnedFixture();
+  const res = await postPendingPinnedComments({ accessToken: 't', projectDir: dir, catalog, fetchFn });
+  assert.equal(res.posted.length, 1);
+  assert.equal(calls.length, 1);
+  const done = JSON.parse(readFileSync(join(dir, 'data', 'youtube', 'after-publish-done.json'), 'utf8'));
+  assert.ok(done['EP27-shorts:pinned'], JSON.stringify(done));
+});
+
+test('postPendingPinnedComments: 이미 기록된 편은 채널 댓글이 목록에 없어도 다시 게시하지 않는다', async () => {
+  const { dir, catalog, calls, fetchFn } = await pinnedFixture({ done: { 'EP27-shorts:pinned': '2026-11-21' } });
+  const res = await postPendingPinnedComments({ accessToken: 't', projectDir: dir, catalog, fetchFn });
+  assert.equal(res.posted.length, 0);
+  assert.equal(calls.length, 0);
 });
 
 test('manageCommunityPosts: community-post.json 파일이 없으면 ok:true와 빈 목록을 반환한다', async () => {

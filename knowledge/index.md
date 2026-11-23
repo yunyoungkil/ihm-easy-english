@@ -56,6 +56,7 @@
 - [채널 아바타 인트로 클립 제작 전 결정 사항](decisions/2026-09-03-avatar-intro-clip-setup.md) — 아바타·목소리·대사는 확정, 화면비/배경/해상도/고지문구는 아직 미정
 - [단편/시즌 분류 정리](decisions/2026-09-03-standalone-vs-season-episodes.md) — 아이디어 보드로 고른 영상은 "시즌"이 아니라 "단편"으로 분류, EP11/EP12 라벨 정정
 - [HyperFrames + Gemini TTS는 하단 단어별 자막 기본 off](decisions/2026-09-04-no-word-level-captions-with-gemini-tts.md) — Gemini TTS는 단어 타임스탬프를 안 줘서 whisper 재정렬이 필요한데, 한글 속 영어 단어(Want/Won't 등)를 잘못 인식해 EP12 10줄 중 6줄이 근사치로 대체됨. 포커스 문구(구 단위)는 계속 유지, HeyGen TTS로 돌아가면 재검토
+- [트렌드 수집·루프 반영 및 화제 원본 클립 권리 기준](decisions/2026-11-23-trend-loop-and-clip-rights.md) — 14일 누적·해외 한국 콘텐츠 보강, 매 기획 AI 자율 검토, 3축(조회수·구독전환·시청지속) 7일 비교, 원본 클립 3경로 개방 + 증빙·근거 누락 차단, 허락 메일 Gmail 자동 확인(1단계 플러그인 → 2단계 무인 OAuth)
 
 
 ## 에피소드

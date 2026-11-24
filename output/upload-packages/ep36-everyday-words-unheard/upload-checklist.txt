@@ -1,0 +1,10 @@
+# EP36 롱폼 업로드 체크리스트 (Gate 3 승인 후 실행)
+- 영상 파일: English_Pronunciation_7_Everyday_Words_Native_Sound_Listening.mp4 (6분 16초, 1920x1080 30fps)
+- 제목: 평생 초콜릿·비타민이라 읽었는데… 원어민 영어 발음은 아예 딴 단어
+- 썸네일: thumbnail.jpg (밝은 아이보리 최종 A안, 1280x720, SHA256 기록 완료)
+- 카테고리: 교육 (27) / 동영상·제목 언어: 한국어 (ko)
+- 변형되었거나 생성된 콘텐츠(AI 사용 여부): 예 (containsSyntheticMedia: true)
+- 재생목록: 이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)
+- 한국어 수동 자막: subtitles-ko.srt (112개 자막 블록)
+- 끝 화면(마지막 9초 중앙 비움): 구독 버튼 + 다음 추천 영상 카드 배치
+- 공개 후 고정 댓글 게시 및 상단 고정: pinned-comment.txt

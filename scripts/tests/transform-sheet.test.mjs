@@ -558,3 +558,40 @@ test('clickWhy(2026-11-24 사용자): 새 4판 시트는 제목·썸네일 후�
   const html = renderTransformSheetPage({...shown, episodeId: 'ep99', topic: '주제', status: 'draft'}, null, []);
   assert.ok(html.includes('왜 눌렸나') && html.includes('&lt;b&gt;참고&lt;/b&gt; 문구') && html.includes('무슨 일?'));
 });
+
+test('롱폼 비교 시트는 썸네일·AI 추천·컷 카드·레퍼런스 썸네일을 16:9 가로(wide) 크기로 그린다', () => {
+  const base = good();
+  base.rows[1] = row('thumbnail', {
+    competitor: {text: '경쟁', images: ['thumb:REF11111111']},
+    ours: {text: '우리', images: ['images/ep99/thumb-A.jpg', 'images/ep99/thumb-B.jpg']},
+    why: '가로 비교',
+  });
+  base.rows[4] = row('visual', {
+    ours: {
+      text: '컷',
+      cutPlan: {durationSeconds: 60, cuts: [{t: 0, image: 'images/ep99/cuts/cut-00.png', narration: '테스트'}]},
+    },
+  });
+  const longSheet = {
+    ...base,
+    format: 'LONGFORM',
+    aiRecommendation: {title: '제목', thumbnail: 'images/ep99/thumb-A.jpg', reason: '이유'},
+    references: [{videoId: 'REF11111111', role: '구조', what: '참고', reason: '이유', evidence: '근거'}],
+  };
+  const refReports = [{videoId: 'REF11111111', label: '채널 · 롱폼', thumbnail: 'https://i.ytimg.com/vi/REF11111111/maxresdefault.jpg', isLongform: true}];
+  const longHtml = renderTransformSheetPage(longSheet, null, [], {refReports});
+  assert.match(longHtml, /class="real wide"/, '롱폼 썸네일 후보는 wide 클래스를 써야 한다');
+  assert.match(longHtml, /실제 유튜브 롱폼 목록 크기\(16:9, 가로 320px\)/);
+  assert.match(longHtml, /width:192px;height:108px/, 'AI 추천 썸네일도 16:9 가로 크기여야 한다');
+  assert.match(longHtml, /width:200px;height:112px/, '경쟁 롱폼 썸네일도 16:9 가로 크기여야 한다');
+  assert.match(longHtml, /class="film ours-grid wide"/, '롱폼 컷 카드 그리드는 wide 클래스를 써야 한다');
+  assert.match(longHtml, /class="cut-card p4 wide"/, '롱폼 컷 카드는 wide 클래스를 써야 한다');
+  assert.match(longHtml, /class="ref-thumb wide"/, '롱폼 레퍼런스 썸네일은 wide 클래스를 써야 한다');
+
+  const shortHtml = renderTransformSheetPage({...longSheet, format: 'SHORTS'}, null, [], {
+    refReports: [{...refReports[0], isLongform: false}],
+  });
+  assert.doesNotMatch(shortHtml, /class="real wide"/, '쇼츠 썸네일은 세로 기본 크기를 유지해야 한다');
+  assert.doesNotMatch(shortHtml, /class="film ours-grid wide"/, '쇼츠 컷 카드는 세로 기본 크기를 유지해야 한다');
+  assert.match(shortHtml, /width:104px;height:186px/, '쇼츠 경쟁 썸네일은 세로 비율을 유지해야 한다');
+});

@@ -150,3 +150,33 @@ test('extractNarration: text 블록이 없는 표 형식 쇼츠 SCRIPT.md에서 
   ]);
   assert.equal(checkNarration(md).sentenceCount, 2);
 });
+
+test('구조 경고(2026-11-24): 컷마다 3~4문장 균일 요약 카드(uniform-cut-blocks)와 교과서 대칭(ai-symmetry-tics)을 잡는다', () => {
+  const uniformBlocks = Array.from({ length: 6 }, (_, i) => [
+    `### cut-0${i}`,
+    '```text',
+    `첫 번째 두 번째 세 번째 순서로 봅니다. 이것도 똑같아요. 저것도 마찬가지예요. 얘도 역시 똑같습니다.`,
+    '```',
+  ].join('\n')).join('\n\n');
+  const ks = kinds(uniformBlocks);
+  assert.ok(ks.includes('uniform-cut-blocks'));
+  assert.ok(ks.includes('ai-symmetry-tics'));
+});
+
+test('--compare 구조 경고(2026-11-24): 권유 어미 과다와 입말 끊김(other) 부족을 짚는다', () => {
+  // 경쟁 롱폼에 other(입말 끊김)가 20% 이상이고 command가 거의 없는 기준 생성 (한글 150자·문장 8개 이상 품질 통과)
+  const HUMAN_WITH_OTHER = '자 여러분 이거 영어 듣기할 때 진짜 중요해요. 그냥 대충 넘어가면 평생 안 들려요. 바로 이 소리! 딱 한 박자. 근데 한국어는 글자마다 모음이 다 붙어서 소리가 달라요. 자음 뒤에 으가 막 붙어서 길게 늘어나죠. 진짜로요. 아, 여기 입 모양 잠깐 봐요. 완전 딴소리! 자 그러면 다음 단어로 넘어가 볼게요. 사실 처음엔 누구나 헷갈려요. 눈으로 보는 철자랑 귀로 들리는 소리가 완전히 다르거든요. 완전 딴판!';
+  const pats = buildSpeechPatterns(Array.from({ length: 3 }, (_, i) => ({
+    videoId: `h${String(i).padStart(10, '0')}`, meta: { channelTitle: `채널${i}` },
+    speech: buildSpeechField({ text: HUMAN_WITH_OTHER, source: 'transcript-api', kind: 'long', now: new Date('2026-11-24T00:00:00Z') }),
+  })), new Date('2026-11-24T00:00:00Z'));
+  const ROBOT_MD = wrap(
+    '지금부터 확인해 보세요.', '천천히 들어 보세요.', '눈으로 비교해 보세요.', '끝까지 지켜 보세요.',
+    '첫 번째 원리입니다.', '두 번째 원리입니다.', '세 번째 원리입니다.', '정리하겠습니다.', '기억해 두세요.', '남겨 주세요.',
+  );
+  const c = compareWithCompetitors(ROBOT_MD, pats, { kind: 'long' });
+  assert.equal(c.ok, true);
+  const joined = c.flags.join('\n');
+  assert.match(joined, /권유·지시 어미/);
+  assert.match(joined, /명사·입말 끊김/);
+});

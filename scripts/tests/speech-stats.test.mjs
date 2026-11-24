@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   splitSentences, endingKey, measureSpeech, assessSpeechQuality, buildSpeechField, speechRates, buildSpeechPatterns,
-  SPEECH_QUALITY, SPEECH_LOW_SAMPLE_VIDEOS, ENDING_KEYS, FILLER_KEYS,
+  extractSpokenExcerpts, SPEECH_QUALITY, SPEECH_LOW_SAMPLE_VIDEOS, ENDING_KEYS, FILLER_KEYS,
 } from '../speech-stats.mjs';
 
 // 실제 받아쓰기(tpveKY5pnis, 롱폼 하니티처)에서 뽑은 문장들
@@ -158,8 +158,11 @@ test('합계: ok인 영상만 롱폼·쇼츠로 나눠 더하고, low와 못 잰
   assert.equal(p.long.totals.endings.jyo, 4);
   assert.equal(p.long.rates.endingsPct.jyo, 25); // 4/16
   assert.equal(p.long.rates.fillersPer100.자, 25); // 4/16문장
-  // 원문은 어디에도 없다
-  assert.ok(!JSON.stringify(p).includes('알파벳'));
+  // 다채널 실제 말 덩어리 발췌(exemplars)가 채널당 1편씩 짧은 참고 덩어리로 들어간다(2026-11-24)
+  assert.equal(p.long.exemplars.length, 2);
+  assert.deepEqual(p.long.exemplars.map((e) => e.channelTitle), ['채널A', '채널B']);
+  assert.ok(p.long.exemplars[0].excerpts.length >= 1);
+  assert.ok(extractSpokenExcerpts(REAL_LONG)[0].length <= 240);
 });
 
 test('합계: 영상 수가 기준 이상이면 lowSample이 꺼지고, 리포트가 없으면 rates는 null', () => {

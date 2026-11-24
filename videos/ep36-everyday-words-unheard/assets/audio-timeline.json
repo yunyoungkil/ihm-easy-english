@@ -1,0 +1,1964 @@
+{
+  "generatedAt": "2026-11-24T14:21:23.935Z",
+  "totalDuration": 376.352,
+  "totalMinutes": "6:16",
+  "koCount": 22,
+  "enCount": 10,
+  "bgm": {
+    "file": "assets/bgm/track-full.mp3",
+    "sourceDuration": 79.177,
+    "duration": 376.352,
+    "sampleRate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "meanDb": -14.4,
+    "maxDb": -0.2
+  },
+  "scenes": [
+    {
+      "id": "scene-00",
+      "title": "실물 세 단어 직격 도입",
+      "start": 0,
+      "duration": 20.914,
+      "end": 20.914,
+      "events": {
+        "hook-choc": {
+          "localStart": 0.35,
+          "localEnd": 1.053,
+          "globalStart": 0.35,
+          "dur": 0.703
+        },
+        "hook-cam": {
+          "localStart": 1.503,
+          "localEnd": 2.026,
+          "globalStart": 1.503,
+          "dur": 0.523
+        },
+        "hook-steak": {
+          "localStart": 2.476,
+          "localEnd": 3.232,
+          "globalStart": 2.476,
+          "dur": 0.756
+        },
+        "c00": {
+          "localStart": 3.782,
+          "localEnd": 20.264,
+          "globalStart": 3.782,
+          "dur": 16.482
+        }
+      },
+      "cues": [
+        {
+          "id": "en-1-chocolate",
+          "kind": "en",
+          "key": "chocolate",
+          "tag": "hook-choc",
+          "file": "assets/voice-en-clean/chocolate.wav",
+          "text": "chocolate /ˈtʃɑːklət/",
+          "start": 0.35,
+          "localStart": 0.35,
+          "duration": 0.703,
+          "end": 1.053,
+          "localEnd": 1.053,
+          "volume": 1
+        },
+        {
+          "id": "en-2-camera",
+          "kind": "en",
+          "key": "camera",
+          "tag": "hook-cam",
+          "file": "assets/voice-en-clean/camera.wav",
+          "text": "camera /ˈkæmrə/",
+          "start": 1.503,
+          "localStart": 1.503,
+          "duration": 0.523,
+          "end": 2.026,
+          "localEnd": 2.026,
+          "volume": 1
+        },
+        {
+          "id": "en-3-steak",
+          "kind": "en",
+          "key": "steak",
+          "tag": "hook-steak",
+          "file": "assets/voice-en-clean/steak.wav",
+          "text": "steak /steɪk/",
+          "start": 2.476,
+          "localStart": 2.476,
+          "duration": 0.756,
+          "end": 3.232,
+          "localEnd": 3.232,
+          "volume": 1
+        },
+        {
+          "id": "ko-4-c00",
+          "kind": "ko",
+          "key": "c00",
+          "tag": "c00",
+          "file": "assets/voice-clean/c00.wav",
+          "text": "방금 세 단어, 몇 개나 들리셨어요? 초콜릿, 카메라, 스테이크. 다 아는 단어인데 막상 원어민이 툭 던지면 멍해지죠. 우리가 평소에 한국말처럼 쓰는 발음이랑 영어 소리가 아예 다르게 생겨서 그래요.",
+          "start": 3.782,
+          "localStart": 3.782,
+          "duration": 16.482,
+          "end": 20.264,
+          "localEnd": 20.264,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-01",
+      "title": "Before 자막 OFF 세 문장 블라인드 듣기",
+      "start": 20.914,
+      "duration": 35.347,
+      "end": 56.261,
+      "events": {
+        "c01a": {
+          "localStart": 0.3,
+          "localEnd": 8.177,
+          "globalStart": 21.214,
+          "dur": 7.877
+        },
+        "before-s1": {
+          "localStart": 8.827,
+          "localEnd": 14.803,
+          "globalStart": 29.741,
+          "dur": 5.976
+        },
+        "before-s2": {
+          "localStart": 15.553,
+          "localEnd": 17.187,
+          "globalStart": 36.467,
+          "dur": 1.634
+        },
+        "before-s3": {
+          "localStart": 17.937,
+          "localEnd": 20.815,
+          "globalStart": 38.851,
+          "dur": 2.878
+        },
+        "c01b": {
+          "localStart": 21.665,
+          "localEnd": 34.647,
+          "globalStart": 42.579,
+          "dur": 12.982
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-5-c01a",
+          "kind": "ko",
+          "key": "c01a",
+          "tag": "c01a",
+          "file": "assets/voice-clean/c01a.wav",
+          "text": "본격적으로 들어가기 전에, 자막 끄고 딱 세 문장만 먼저 들어 볼게요. 오늘 나올 일곱 단어가 그대로 들어가 있습니다.",
+          "start": 21.214,
+          "localStart": 0.3,
+          "duration": 7.877,
+          "end": 29.091,
+          "localEnd": 8.177,
+          "volume": 1
+        },
+        {
+          "id": "en-6-sent1",
+          "kind": "en",
+          "key": "sent1",
+          "tag": "before-s1",
+          "file": "assets/voice-en-clean/sent1.wav",
+          "text": "Grab your camera — this chocolate is great, and this chair is so comfortable.",
+          "start": 29.741,
+          "localStart": 8.827,
+          "duration": 5.976,
+          "end": 35.717,
+          "localEnd": 14.803,
+          "volume": 1
+        },
+        {
+          "id": "en-7-sent2",
+          "kind": "en",
+          "key": "sent2",
+          "tag": "before-s2",
+          "file": "assets/voice-en-clean/sent2.wav",
+          "text": "We ordered a steak at the hotel.",
+          "start": 36.467,
+          "localStart": 15.553,
+          "duration": 1.634,
+          "end": 38.101,
+          "localEnd": 17.187,
+          "volume": 1
+        },
+        {
+          "id": "en-8-sent3",
+          "kind": "en",
+          "key": "sent3",
+          "tag": "before-s3",
+          "file": "assets/voice-en-clean/sent3.wav",
+          "text": "Check the buffet for your allergy, and take your vitamin.",
+          "start": 38.851,
+          "localStart": 17.937,
+          "duration": 2.878,
+          "end": 41.729,
+          "localEnd": 20.815,
+          "volume": 1
+        },
+        {
+          "id": "ko-9-c01b",
+          "kind": "ko",
+          "key": "c01b",
+          "tag": "c01b",
+          "file": "assets/voice-clean/c01b.wav",
+          "text": "좀 훅 지나갔죠? 지금 다 안 들려도 상관없어요. 영상 끝무렵에 속도 하나 안 바꾸고 이 세 문장 그대로 다시 틀어 드릴게요. 지금 몇 단어쯤 잡혔는지만 머릿속에 살짝 담아 두면 됩니다.",
+          "start": 42.579,
+          "localStart": 21.665,
+          "duration": 12.982,
+          "end": 55.561,
+          "localEnd": 34.647,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-02",
+      "title": "심층 해부 1 chocolate & camera",
+      "start": 56.261,
+      "duration": 51.355,
+      "end": 107.616,
+      "events": {
+        "c02a": {
+          "localStart": 0.3,
+          "localEnd": 20.922,
+          "globalStart": 56.561,
+          "dur": 20.622
+        },
+        "choc-1": {
+          "localStart": 21.322,
+          "localEnd": 22.025,
+          "globalStart": 77.583,
+          "dur": 0.703
+        },
+        "choc-2": {
+          "localStart": 22.575,
+          "localEnd": 23.278,
+          "globalStart": 78.836,
+          "dur": 0.703
+        },
+        "c02b": {
+          "localStart": 23.828,
+          "localEnd": 40.001,
+          "globalStart": 80.089,
+          "dur": 16.173
+        },
+        "cam-1": {
+          "localStart": 40.401,
+          "localEnd": 40.924,
+          "globalStart": 96.662,
+          "dur": 0.523
+        },
+        "cam-2": {
+          "localStart": 41.474,
+          "localEnd": 41.997,
+          "globalStart": 97.735,
+          "dur": 0.523
+        },
+        "c02c": {
+          "localStart": 42.547,
+          "localEnd": 50.655,
+          "globalStart": 98.808,
+          "dur": 8.108
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-10-c02a",
+          "kind": "ko",
+          "key": "c02a",
+          "tag": "c02a",
+          "file": "assets/voice-clean/c02a.wav",
+          "text": "제일 만만한 초콜릿부터 들어 볼게요. 우리가 편의점이나 마트에서 뭐라고 해요? \"초콜릿 하나 사 올게.\" 초, 콜, 릿. 세 글자로 또박또박 말하잖아요. 철자도 길고, 입에도 세 박자가 딱 붙어 있죠. 근데 원어민은 가운데 콜을 거의 안 읽어요. 들어 볼까요?",
+          "start": 56.561,
+          "localStart": 0.3,
+          "duration": 20.622,
+          "end": 77.183,
+          "localEnd": 20.922,
+          "volume": 1
+        },
+        {
+          "id": "sfx-11-slash-cut",
+          "kind": "sfx",
+          "file": "assets/sfx/slash-cut.wav",
+          "start": 77.443,
+          "duration": 0.26,
+          "volume": 0.42
+        },
+        {
+          "id": "en-12-chocolate",
+          "kind": "en",
+          "key": "chocolate",
+          "tag": "choc-1",
+          "file": "assets/voice-en-clean/chocolate.wav",
+          "text": "chocolate /ˈtʃɑːklət/",
+          "start": 77.583,
+          "localStart": 21.322,
+          "duration": 0.703,
+          "end": 78.286,
+          "localEnd": 22.025,
+          "volume": 1
+        },
+        {
+          "id": "en-13-chocolate",
+          "kind": "en",
+          "key": "chocolate",
+          "tag": "choc-2",
+          "file": "assets/voice-en-clean/chocolate.wav",
+          "text": "chocolate /ˈtʃɑːklət/",
+          "start": 78.836,
+          "localStart": 22.575,
+          "duration": 0.703,
+          "end": 79.539,
+          "localEnd": 23.278,
+          "volume": 1
+        },
+        {
+          "id": "ko-14-c02b",
+          "kind": "ko",
+          "key": "c02b",
+          "tag": "c02b",
+          "file": "assets/voice-clean/c02b.wav",
+          "text": "초클릿, 딱 두 박자. 앞에 초만 세게 찍고 뒤는 그냥 흘려 넘겨서 초클릿으로 끝나요. 사진 찍을 때 맨날 쓰는 카메라도 비슷한 일이 생깁니다. 한글로는 카, 메, 라 세 글자인데, 원어민 소리는 어떨까요?",
+          "start": 80.089,
+          "localStart": 23.828,
+          "duration": 16.173,
+          "end": 96.262,
+          "localEnd": 40.001,
+          "volume": 1
+        },
+        {
+          "id": "sfx-15-slash-cut",
+          "kind": "sfx",
+          "file": "assets/sfx/slash-cut.wav",
+          "start": 96.522,
+          "duration": 0.26,
+          "volume": 0.42
+        },
+        {
+          "id": "en-16-camera",
+          "kind": "en",
+          "key": "camera",
+          "tag": "cam-1",
+          "file": "assets/voice-en-clean/camera.wav",
+          "text": "camera /ˈkæmrə/",
+          "start": 96.662,
+          "localStart": 40.401,
+          "duration": 0.523,
+          "end": 97.185,
+          "localEnd": 40.924,
+          "volume": 1
+        },
+        {
+          "id": "en-17-camera",
+          "kind": "en",
+          "key": "camera",
+          "tag": "cam-2",
+          "file": "assets/voice-en-clean/camera.wav",
+          "text": "camera /ˈkæmrə/",
+          "start": 97.735,
+          "localStart": 41.474,
+          "duration": 0.523,
+          "end": 98.258,
+          "localEnd": 41.997,
+          "volume": 1
+        },
+        {
+          "id": "ko-18-c02c",
+          "kind": "ko",
+          "key": "c02c",
+          "tag": "c02c",
+          "file": "assets/voice-clean/c02c.wav",
+          "text": "캠러. 방금 메 어디 갔지 싶죠? 가운데 약한 글자를 건너뛰고 앞뒤를 붙여서 진짜 두 박자밖에 안 남아요.",
+          "start": 98.808,
+          "localStart": 42.547,
+          "duration": 8.108,
+          "end": 106.916,
+          "localEnd": 50.655,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-03",
+      "title": "심층 해부 2 comfortable",
+      "start": 107.616,
+      "duration": 29.423,
+      "end": 137.039,
+      "events": {
+        "c03a": {
+          "localStart": 0.3,
+          "localEnd": 16.143,
+          "globalStart": 107.916,
+          "dur": 15.843
+        },
+        "comf-1": {
+          "localStart": 16.543,
+          "localEnd": 17.066,
+          "globalStart": 124.159,
+          "dur": 0.523
+        },
+        "comf-2": {
+          "localStart": 17.616,
+          "localEnd": 18.139,
+          "globalStart": 125.232,
+          "dur": 0.523
+        },
+        "c03b": {
+          "localStart": 18.689,
+          "localEnd": 28.723,
+          "globalStart": 126.305,
+          "dur": 10.034
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-19-c03a",
+          "kind": "ko",
+          "key": "c03a",
+          "tag": "c03a",
+          "file": "assets/voice-clean/c03a.wav",
+          "text": "미드에서 의자나 옷 얘기할 때 정말 자주 나오는 컴퍼터블. 한글로 쓰면 컴, 퍼, 터, 블 네 글자죠. 입도 네 번이나 움직여야 돼요. 막상 들어 보면 가운데 퍼가 쏙 빠지고 컴프터블처럼 짧아집니다.",
+          "start": 107.916,
+          "localStart": 0.3,
+          "duration": 15.843,
+          "end": 123.759,
+          "localEnd": 16.143,
+          "volume": 1
+        },
+        {
+          "id": "sfx-20-slash-cut",
+          "kind": "sfx",
+          "file": "assets/sfx/slash-cut.wav",
+          "start": 124.019,
+          "duration": 0.26,
+          "volume": 0.42
+        },
+        {
+          "id": "en-21-comfortable",
+          "kind": "en",
+          "key": "comfortable",
+          "tag": "comf-1",
+          "file": "assets/voice-en-clean/comfortable.wav",
+          "text": "comfortable /ˈkʌmftɚbəl/",
+          "start": 124.159,
+          "localStart": 16.543,
+          "duration": 0.523,
+          "end": 124.682,
+          "localEnd": 17.066,
+          "volume": 1
+        },
+        {
+          "id": "en-22-comfortable",
+          "kind": "en",
+          "key": "comfortable",
+          "tag": "comf-2",
+          "file": "assets/voice-en-clean/comfortable.wav",
+          "text": "comfortable /ˈkʌmftɚbəl/",
+          "start": 125.232,
+          "localStart": 17.616,
+          "duration": 0.523,
+          "end": 125.755,
+          "localEnd": 18.139,
+          "volume": 1
+        },
+        {
+          "id": "ko-23-c03b",
+          "kind": "ko",
+          "key": "c03b",
+          "tag": "c03b",
+          "file": "assets/voice-clean/c03b.wav",
+          "text": "입에선 벌써 끝났는데 내 머릿속엔 네 글자가 남아 있으니까 자꾸 놓치게 되죠. 앞에 힘이 들어가면 바로 뒤 글자는 빠진다, 일단 이것만 기억하면 돼요.",
+          "start": 126.305,
+          "localStart": 18.689,
+          "duration": 10.034,
+          "end": 136.339,
+          "localEnd": 28.723,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-04",
+      "title": "짧은 반전 전환",
+      "start": 137.039,
+      "duration": 10.403,
+      "end": 147.442,
+      "events": {
+        "c04": {
+          "localStart": 0.3,
+          "localEnd": 9.753,
+          "globalStart": 137.339,
+          "dur": 9.453
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-24-c04",
+          "kind": "ko",
+          "key": "c04",
+          "tag": "c04",
+          "file": "assets/voice-clean/c04.wav",
+          "text": "방금은 글자가 빠진 거였죠. 반대로 한국어가 글자를 억지로 늘려 놓은 단어도 있어요. 글자 보기 전에 소리 먼저 하나 들어 보실래요?",
+          "start": 137.339,
+          "localStart": 0.3,
+          "duration": 9.453,
+          "end": 146.792,
+          "localEnd": 9.753,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-05",
+      "title": "소리 먼저 퀴즈형 심층 해부 3 steak",
+      "start": 147.442,
+      "duration": 48.529,
+      "end": 195.971,
+      "events": {
+        "steak-blind": {
+          "localStart": 0.35,
+          "localEnd": 1.106,
+          "globalStart": 147.792,
+          "dur": 0.756
+        },
+        "c05a": {
+          "localStart": 2.306,
+          "localEnd": 12.807,
+          "globalStart": 149.748,
+          "dur": 10.501
+        },
+        "steak-1": {
+          "localStart": 13.157,
+          "localEnd": 13.913,
+          "globalStart": 160.599,
+          "dur": 0.756
+        },
+        "steak-2": {
+          "localStart": 14.463,
+          "localEnd": 15.219,
+          "globalStart": 161.905,
+          "dur": 0.756
+        },
+        "c05b": {
+          "localStart": 15.769,
+          "localEnd": 47.779,
+          "globalStart": 163.211,
+          "dur": 32.01
+        }
+      },
+      "cues": [
+        {
+          "id": "en-25-steak",
+          "kind": "en",
+          "key": "steak",
+          "tag": "steak-blind",
+          "file": "assets/voice-en-clean/steak.wav",
+          "text": "steak /steɪk/",
+          "start": 147.792,
+          "localStart": 0.35,
+          "duration": 0.756,
+          "end": 148.548,
+          "localEnd": 1.106,
+          "volume": 1
+        },
+        {
+          "id": "ko-26-c05a",
+          "kind": "ko",
+          "key": "c05a",
+          "tag": "c05a",
+          "file": "assets/voice-clean/c05a.wav",
+          "text": "방금 이거 무슨 단어인 줄 아셨어요? 스테이크예요. 스, 테, 이, 크, 한글로 세면 네 글자잖아요. 근데 영어에선 딱 한 박자. 스테익!",
+          "start": 149.748,
+          "localStart": 2.306,
+          "duration": 10.501,
+          "end": 160.249,
+          "localEnd": 12.807,
+          "volume": 1
+        },
+        {
+          "id": "sfx-27-hydraulic-snap",
+          "kind": "sfx",
+          "file": "assets/sfx/hydraulic-snap.wav",
+          "start": 160.459,
+          "duration": 0.28,
+          "volume": 0.42
+        },
+        {
+          "id": "en-28-steak",
+          "kind": "en",
+          "key": "steak",
+          "tag": "steak-1",
+          "file": "assets/voice-en-clean/steak.wav",
+          "text": "steak /steɪk/",
+          "start": 160.599,
+          "localStart": 13.157,
+          "duration": 0.756,
+          "end": 161.355,
+          "localEnd": 13.913,
+          "volume": 1
+        },
+        {
+          "id": "en-29-steak",
+          "kind": "en",
+          "key": "steak",
+          "tag": "steak-2",
+          "file": "assets/voice-en-clean/steak.wav",
+          "text": "steak /steɪk/",
+          "start": 161.905,
+          "localStart": 14.463,
+          "duration": 0.756,
+          "end": 162.661,
+          "localEnd": 15.219,
+          "volume": 1
+        },
+        {
+          "id": "ko-30-c05b",
+          "kind": "ko",
+          "key": "c05b",
+          "tag": "c05b",
+          "file": "assets/voice-clean/c05b.wav",
+          "text": "왜 이렇게 짧아지냐면요, 우리말은 자음 혼자서는 글자를 못 쓰잖아요. 그래서 스, 크 뒤에 억지로 으를 붙여서 네 덩어리로 읽는데, 영어엔 그 으가 없거든요. 앞에 에스는 소리 대신 이 사이로 바람만 쓰 하고 스치고, 끝의 케이도 입안에서 툭 막고 끝납니다. 원어민이 혀가 빨라서가 아니에요. 우린 네 번 끊어 읽을 걸 저쪽은 숨 한 번에 끝내니까 당연히 안 들릴 수밖에 없어요.",
+          "start": 163.211,
+          "localStart": 15.769,
+          "duration": 32.01,
+          "end": 195.221,
+          "localEnd": 47.779,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-06",
+      "title": "묶음 대비 심층 해부 4 allergy & vitamin",
+      "start": 195.971,
+      "duration": 54.388,
+      "end": 250.359,
+      "events": {
+        "c06a": {
+          "localStart": 0.3,
+          "localEnd": 16.625,
+          "globalStart": 196.271,
+          "dur": 16.325
+        },
+        "allergy-1": {
+          "localStart": 17.025,
+          "localEnd": 17.617,
+          "globalStart": 212.996,
+          "dur": 0.592
+        },
+        "allergy-2": {
+          "localStart": 18.167,
+          "localEnd": 18.759,
+          "globalStart": 214.138,
+          "dur": 0.592
+        },
+        "c06b": {
+          "localStart": 19.309,
+          "localEnd": 38.117,
+          "globalStart": 215.28,
+          "dur": 18.808
+        },
+        "vitamin-1": {
+          "localStart": 38.517,
+          "localEnd": 39.02,
+          "globalStart": 234.488,
+          "dur": 0.503
+        },
+        "vitamin-2": {
+          "localStart": 39.57,
+          "localEnd": 40.073,
+          "globalStart": 235.541,
+          "dur": 0.503
+        },
+        "c06c": {
+          "localStart": 40.623,
+          "localEnd": 53.638,
+          "globalStart": 236.594,
+          "dur": 13.015
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-31-c06a",
+          "kind": "ko",
+          "key": "c06a",
+          "tag": "c06a",
+          "file": "assets/voice-clean/c06a.wav",
+          "text": "이제 남은 세 단어는 아예 얘기가 달라요. 우리가 평소에 \"복숭아 알레르기 있어\" 이런 말 자주 하잖아요. 사실 알레르기는 영어 발음이 아니라 독일어에서 온 말이에요. 미드나 유튜브에서 원어민이 말할 땐 아예 딴소리가 납니다.",
+          "start": 196.271,
+          "localStart": 0.3,
+          "duration": 16.325,
+          "end": 212.596,
+          "localEnd": 16.625,
+          "volume": 1
+        },
+        {
+          "id": "sfx-32-card-flip",
+          "kind": "sfx",
+          "file": "assets/sfx/card-flip.wav",
+          "start": 212.856,
+          "duration": 0.18,
+          "volume": 0.42
+        },
+        {
+          "id": "en-33-allergy",
+          "kind": "en",
+          "key": "allergy",
+          "tag": "allergy-1",
+          "file": "assets/voice-en-clean/allergy.wav",
+          "text": "allergy /ˈælɚdʒi/",
+          "start": 212.996,
+          "localStart": 17.025,
+          "duration": 0.592,
+          "end": 213.588,
+          "localEnd": 17.617,
+          "volume": 1
+        },
+        {
+          "id": "en-34-allergy",
+          "kind": "en",
+          "key": "allergy",
+          "tag": "allergy-2",
+          "file": "assets/voice-en-clean/allergy.wav",
+          "text": "allergy /ˈælɚdʒi/",
+          "start": 214.138,
+          "localStart": 18.167,
+          "duration": 0.592,
+          "end": 214.73,
+          "localEnd": 18.759,
+          "volume": 1
+        },
+        {
+          "id": "ko-35-c06b",
+          "kind": "ko",
+          "key": "c06b",
+          "tag": "c06b",
+          "file": "assets/voice-clean/c06b.wav",
+          "text": "앨러지! 알, 레, 르, 기랑 앨러지. 소리가 아예 다른 단어처럼 들리죠. 약국에서 매일 보는 비타민도 미국 영어에선 첫 글자부터 바뀝니다. 우린 그냥 다 비타민이라고 하고 영국 쪽도 비슷하게 읽긴 해요. 미국 드라마나 일상 대화에선요?",
+          "start": 215.28,
+          "localStart": 19.309,
+          "duration": 18.808,
+          "end": 234.088,
+          "localEnd": 38.117,
+          "volume": 1
+        },
+        {
+          "id": "sfx-36-card-flip",
+          "kind": "sfx",
+          "file": "assets/sfx/card-flip.wav",
+          "start": 234.348,
+          "duration": 0.18,
+          "volume": 0.42
+        },
+        {
+          "id": "en-37-vitamin",
+          "kind": "en",
+          "key": "vitamin",
+          "tag": "vitamin-1",
+          "file": "assets/voice-en-clean/vitamin.wav",
+          "text": "vitamin /ˈvaɪt̬əmɪn/",
+          "start": 234.488,
+          "localStart": 38.517,
+          "duration": 0.503,
+          "end": 234.991,
+          "localEnd": 39.02,
+          "volume": 1
+        },
+        {
+          "id": "en-38-vitamin",
+          "kind": "en",
+          "key": "vitamin",
+          "tag": "vitamin-2",
+          "file": "assets/voice-en-clean/vitamin.wav",
+          "text": "vitamin /ˈvaɪt̬əmɪn/",
+          "start": 235.541,
+          "localStart": 39.57,
+          "duration": 0.503,
+          "end": 236.044,
+          "localEnd": 40.073,
+          "volume": 1
+        },
+        {
+          "id": "ko-39-c06c",
+          "kind": "ko",
+          "key": "c06c",
+          "tag": "c06c",
+          "file": "assets/voice-clean/c06c.wav",
+          "text": "바이러민! 앞을 바이로 확 열고 가운데 티까지 부드럽게 굴립니다. 머릿속엔 비타민만 들어 있는데 영상에서 \"테이크 유어 바이러민\" 하면 무슨 낯선 약 이름인가 싶죠.",
+          "start": 236.594,
+          "localStart": 40.623,
+          "duration": 13.015,
+          "end": 249.609,
+          "localEnd": 53.638,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-07",
+      "title": "깜짝 퀴즈 5 buffet",
+      "start": 250.359,
+      "duration": 36.699,
+      "end": 287.058,
+      "events": {
+        "c07a": {
+          "localStart": 0.3,
+          "localEnd": 16.948,
+          "globalStart": 250.659,
+          "dur": 16.648
+        },
+        "buffet-window": {
+          "localStart": 17.198,
+          "localEnd": 19.198,
+          "globalStart": 267.557,
+          "dur": 2
+        },
+        "buffet-1": {
+          "localStart": 19.448,
+          "localEnd": 20.054,
+          "globalStart": 269.807,
+          "dur": 0.606
+        },
+        "buffet-2": {
+          "localStart": 20.604,
+          "localEnd": 21.21,
+          "globalStart": 270.963,
+          "dur": 0.606
+        },
+        "c07b": {
+          "localStart": 21.76,
+          "localEnd": 35.949,
+          "globalStart": 272.119,
+          "dur": 14.189
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-40-c07a",
+          "kind": "ko",
+          "key": "c07a",
+          "tag": "c07a",
+          "file": "assets/voice-clean/c07a.wav",
+          "text": "마지막으로 하나만 직접 맞혀 볼까요? 호텔 조식에서 자주 보는 뷔페. 이것도 영어 소리가 아니라 프랑스어 발음이 그대로 들어왔어요. 그럼 미국 원어민은 이 단어를 어떻게 읽을까요? 잠깐, 입 밖으로 한 번만 말해 보세요.",
+          "start": 250.659,
+          "localStart": 0.3,
+          "duration": 16.648,
+          "end": 267.307,
+          "localEnd": 16.948,
+          "volume": 1
+        },
+        {
+          "id": "sfx-41-quiz-countdown",
+          "kind": "sfx",
+          "file": "assets/sfx/quiz-countdown.wav",
+          "start": 267.557,
+          "duration": 2,
+          "volume": 0.48
+        },
+        {
+          "id": "sfx-42-reveal-chime",
+          "kind": "sfx",
+          "file": "assets/sfx/reveal-chime.wav",
+          "start": 269.667,
+          "duration": 0.55,
+          "volume": 0.42
+        },
+        {
+          "id": "en-43-buffet",
+          "kind": "en",
+          "key": "buffet",
+          "tag": "buffet-1",
+          "file": "assets/voice-en-clean/buffet.wav",
+          "text": "buffet /bəˈfeɪ/",
+          "start": 269.807,
+          "localStart": 19.448,
+          "duration": 0.606,
+          "end": 270.413,
+          "localEnd": 20.054,
+          "volume": 1
+        },
+        {
+          "id": "en-44-buffet",
+          "kind": "en",
+          "key": "buffet",
+          "tag": "buffet-2",
+          "file": "assets/voice-en-clean/buffet.wav",
+          "text": "buffet /bəˈfeɪ/",
+          "start": 270.963,
+          "localStart": 20.604,
+          "duration": 0.606,
+          "end": 271.569,
+          "localEnd": 21.21,
+          "volume": 1
+        },
+        {
+          "id": "ko-45-c07b",
+          "kind": "ko",
+          "key": "c07b",
+          "tag": "c07b",
+          "file": "assets/voice-clean/c07b.wav",
+          "text": "버페이! 앞에 힘을 빼고 뒤에 페이를 올려서 버페이. 뷔페랑은 소리가 아예 다르죠. 이제 드라마나 여행 영상에서 버페이 나오면 낯설지 않을 텐데요.",
+          "start": 272.119,
+          "localStart": 21.76,
+          "duration": 14.189,
+          "end": 286.308,
+          "localEnd": 35.949,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-08",
+      "title": "After 자막 OFF 세 문장 재청취",
+      "start": 287.058,
+      "duration": 22.4,
+      "end": 309.458,
+      "events": {
+        "c08": {
+          "localStart": 0.3,
+          "localEnd": 8.862,
+          "globalStart": 287.358,
+          "dur": 8.562
+        },
+        "after-s1": {
+          "localStart": 9.512,
+          "localEnd": 15.488,
+          "globalStart": 296.57,
+          "dur": 5.976
+        },
+        "after-s2": {
+          "localStart": 16.238,
+          "localEnd": 17.872,
+          "globalStart": 303.296,
+          "dur": 1.634
+        },
+        "after-s3": {
+          "localStart": 18.622,
+          "localEnd": 21.5,
+          "globalStart": 305.68,
+          "dur": 2.878
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-46-c08",
+          "kind": "ko",
+          "key": "c08",
+          "tag": "c08",
+          "file": "assets/voice-clean/c08.wav",
+          "text": "그럼 처음에 들었던 그 세 문장, 속도 그대로 다시 틀어 드릴게요. 아까보다 몇 단어 더 들리는지 직접 한 번 세어 볼까요?",
+          "start": 287.358,
+          "localStart": 0.3,
+          "duration": 8.562,
+          "end": 295.92,
+          "localEnd": 8.862,
+          "volume": 1
+        },
+        {
+          "id": "en-47-sent1",
+          "kind": "en",
+          "key": "sent1",
+          "tag": "after-s1",
+          "file": "assets/voice-en-clean/sent1.wav",
+          "text": "Grab your camera — this chocolate is great, and this chair is so comfortable.",
+          "start": 296.57,
+          "localStart": 9.512,
+          "duration": 5.976,
+          "end": 302.546,
+          "localEnd": 15.488,
+          "volume": 1
+        },
+        {
+          "id": "en-48-sent2",
+          "kind": "en",
+          "key": "sent2",
+          "tag": "after-s2",
+          "file": "assets/voice-en-clean/sent2.wav",
+          "text": "We ordered a steak at the hotel.",
+          "start": 303.296,
+          "localStart": 16.238,
+          "duration": 1.634,
+          "end": 304.93,
+          "localEnd": 17.872,
+          "volume": 1
+        },
+        {
+          "id": "en-49-sent3",
+          "kind": "en",
+          "key": "sent3",
+          "tag": "after-s3",
+          "file": "assets/voice-en-clean/sent3.wav",
+          "text": "Check the buffet for your allergy, and take your vitamin.",
+          "start": 305.68,
+          "localStart": 18.622,
+          "duration": 2.878,
+          "end": 308.558,
+          "localEnd": 21.5,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-09",
+      "title": "자막 ON 일곱 단어 하이라이트 확인",
+      "start": 309.458,
+      "duration": 38.915,
+      "end": 348.373,
+      "events": {
+        "c09a": {
+          "localStart": 0.3,
+          "localEnd": 6.598,
+          "globalStart": 309.758,
+          "dur": 6.298
+        },
+        "check-s1": {
+          "localStart": 7.048,
+          "localEnd": 13.024,
+          "globalStart": 316.506,
+          "dur": 5.976
+        },
+        "c09b": {
+          "localStart": 13.474,
+          "localEnd": 17.759,
+          "globalStart": 322.932,
+          "dur": 4.285
+        },
+        "check-s2": {
+          "localStart": 18.209,
+          "localEnd": 19.843,
+          "globalStart": 327.667,
+          "dur": 1.634
+        },
+        "c09c": {
+          "localStart": 20.293,
+          "localEnd": 22.104,
+          "globalStart": 329.751,
+          "dur": 1.811
+        },
+        "check-s3": {
+          "localStart": 22.554,
+          "localEnd": 25.432,
+          "globalStart": 332.012,
+          "dur": 2.878
+        },
+        "c09d": {
+          "localStart": 25.882,
+          "localEnd": 38.165,
+          "globalStart": 335.34,
+          "dur": 12.283
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-50-c09a",
+          "kind": "ko",
+          "key": "c09a",
+          "tag": "c09a",
+          "file": "assets/voice-clean/c09a.wav",
+          "text": "어떠세요, 아까보단 귀에 걸리는 단어가 꽤 늘었죠? 자막 켜고 바로 확인해 볼게요.",
+          "start": 309.758,
+          "localStart": 0.3,
+          "duration": 6.298,
+          "end": 316.056,
+          "localEnd": 6.598,
+          "volume": 1
+        },
+        {
+          "id": "sfx-51-reveal-chime",
+          "kind": "sfx",
+          "file": "assets/sfx/reveal-chime.wav",
+          "start": 316.366,
+          "duration": 0.55,
+          "volume": 0.42
+        },
+        {
+          "id": "en-52-sent1",
+          "kind": "en",
+          "key": "sent1",
+          "tag": "check-s1",
+          "file": "assets/voice-en-clean/sent1.wav",
+          "text": "Grab your camera — this chocolate is great, and this chair is so comfortable.",
+          "start": 316.506,
+          "localStart": 7.048,
+          "duration": 5.976,
+          "end": 322.482,
+          "localEnd": 13.024,
+          "volume": 1
+        },
+        {
+          "id": "ko-53-c09b",
+          "kind": "ko",
+          "key": "c09b",
+          "tag": "c09b",
+          "file": "assets/voice-clean/c09b.wav",
+          "text": "첫 문장에 캠러, 초클릿, 컴프터블.",
+          "start": 322.932,
+          "localStart": 13.474,
+          "duration": 4.285,
+          "end": 327.217,
+          "localEnd": 17.759,
+          "volume": 1
+        },
+        {
+          "id": "en-54-sent2",
+          "kind": "en",
+          "key": "sent2",
+          "tag": "check-s2",
+          "file": "assets/voice-en-clean/sent2.wav",
+          "text": "We ordered a steak at the hotel.",
+          "start": 327.667,
+          "localStart": 18.209,
+          "duration": 1.634,
+          "end": 329.301,
+          "localEnd": 19.843,
+          "volume": 1
+        },
+        {
+          "id": "ko-55-c09c",
+          "kind": "ko",
+          "key": "c09c",
+          "tag": "c09c",
+          "file": "assets/voice-clean/c09c.wav",
+          "text": "둘째 문장에 스테익.",
+          "start": 329.751,
+          "localStart": 20.293,
+          "duration": 1.811,
+          "end": 331.562,
+          "localEnd": 22.104,
+          "volume": 1
+        },
+        {
+          "id": "en-56-sent3",
+          "kind": "en",
+          "key": "sent3",
+          "tag": "check-s3",
+          "file": "assets/voice-en-clean/sent3.wav",
+          "text": "Check the buffet for your allergy, and take your vitamin.",
+          "start": 332.012,
+          "localStart": 22.554,
+          "duration": 2.878,
+          "end": 334.89,
+          "localEnd": 25.432,
+          "volume": 1
+        },
+        {
+          "id": "ko-57-c09d",
+          "kind": "ko",
+          "key": "c09d",
+          "tag": "c09d",
+          "file": "assets/voice-clean/c09d.wav",
+          "text": "마지막 문장에 버페이, 앨러지, 바이러민까지. 속도 하나도 안 줄였는데, 가운데 빠지고 한 박자로 줄고 애초에 발음이 다르다는 것만 알아도 귀가 다르게 열립니다.",
+          "start": 335.34,
+          "localStart": 25.882,
+          "duration": 12.283,
+          "end": 347.623,
+          "localEnd": 38.165,
+          "volume": 1
+        }
+      ]
+    },
+    {
+      "id": "scene-10",
+      "title": "일곱 단어 한 장 요약표 & 엔드스크린",
+      "start": 348.373,
+      "duration": 27.979,
+      "end": 376.352,
+      "events": {
+        "c10": {
+          "localStart": 0.3,
+          "localEnd": 15.479,
+          "globalStart": 348.673,
+          "dur": 15.179
+        },
+        "endscreen": {
+          "localStart": 18.979,
+          "localEnd": 27.979,
+          "globalStart": 367.352,
+          "dur": 9
+        }
+      },
+      "cues": [
+        {
+          "id": "ko-58-c10",
+          "kind": "ko",
+          "key": "c10",
+          "tag": "c10",
+          "file": "assets/voice-clean/c10.wav",
+          "text": "오늘 나온 일곱 단어, 화면에 한 번에 띄워 둘게요. 외우려고 애쓰실 필요 없고, 필요할 때 잠깐 멈춰 놓고 캡처해 두셔도 됩니다. 일곱 개 중에 제일 \"이게 이 소리였어?\" 싶었던 단어 하나만 댓글에 남겨 주세요.",
+          "start": 348.673,
+          "localStart": 0.3,
+          "duration": 15.179,
+          "end": 363.852,
+          "localEnd": 15.479,
+          "volume": 1
+        }
+      ]
+    }
+  ],
+  "audioCues": [
+    {
+      "id": "en-1-chocolate",
+      "kind": "en",
+      "key": "chocolate",
+      "tag": "hook-choc",
+      "file": "assets/voice-en-clean/chocolate.wav",
+      "text": "chocolate /ˈtʃɑːklət/",
+      "start": 0.35,
+      "localStart": 0.35,
+      "duration": 0.703,
+      "end": 1.053,
+      "localEnd": 1.053,
+      "volume": 1
+    },
+    {
+      "id": "en-2-camera",
+      "kind": "en",
+      "key": "camera",
+      "tag": "hook-cam",
+      "file": "assets/voice-en-clean/camera.wav",
+      "text": "camera /ˈkæmrə/",
+      "start": 1.503,
+      "localStart": 1.503,
+      "duration": 0.523,
+      "end": 2.026,
+      "localEnd": 2.026,
+      "volume": 1
+    },
+    {
+      "id": "en-3-steak",
+      "kind": "en",
+      "key": "steak",
+      "tag": "hook-steak",
+      "file": "assets/voice-en-clean/steak.wav",
+      "text": "steak /steɪk/",
+      "start": 2.476,
+      "localStart": 2.476,
+      "duration": 0.756,
+      "end": 3.232,
+      "localEnd": 3.232,
+      "volume": 1
+    },
+    {
+      "id": "ko-4-c00",
+      "kind": "ko",
+      "key": "c00",
+      "tag": "c00",
+      "file": "assets/voice-clean/c00.wav",
+      "text": "방금 세 단어, 몇 개나 들리셨어요? 초콜릿, 카메라, 스테이크. 다 아는 단어인데 막상 원어민이 툭 던지면 멍해지죠. 우리가 평소에 한국말처럼 쓰는 발음이랑 영어 소리가 아예 다르게 생겨서 그래요.",
+      "start": 3.782,
+      "localStart": 3.782,
+      "duration": 16.482,
+      "end": 20.264,
+      "localEnd": 20.264,
+      "volume": 1
+    },
+    {
+      "id": "ko-5-c01a",
+      "kind": "ko",
+      "key": "c01a",
+      "tag": "c01a",
+      "file": "assets/voice-clean/c01a.wav",
+      "text": "본격적으로 들어가기 전에, 자막 끄고 딱 세 문장만 먼저 들어 볼게요. 오늘 나올 일곱 단어가 그대로 들어가 있습니다.",
+      "start": 21.214,
+      "localStart": 0.3,
+      "duration": 7.877,
+      "end": 29.091,
+      "localEnd": 8.177,
+      "volume": 1
+    },
+    {
+      "id": "en-6-sent1",
+      "kind": "en",
+      "key": "sent1",
+      "tag": "before-s1",
+      "file": "assets/voice-en-clean/sent1.wav",
+      "text": "Grab your camera — this chocolate is great, and this chair is so comfortable.",
+      "start": 29.741,
+      "localStart": 8.827,
+      "duration": 5.976,
+      "end": 35.717,
+      "localEnd": 14.803,
+      "volume": 1
+    },
+    {
+      "id": "en-7-sent2",
+      "kind": "en",
+      "key": "sent2",
+      "tag": "before-s2",
+      "file": "assets/voice-en-clean/sent2.wav",
+      "text": "We ordered a steak at the hotel.",
+      "start": 36.467,
+      "localStart": 15.553,
+      "duration": 1.634,
+      "end": 38.101,
+      "localEnd": 17.187,
+      "volume": 1
+    },
+    {
+      "id": "en-8-sent3",
+      "kind": "en",
+      "key": "sent3",
+      "tag": "before-s3",
+      "file": "assets/voice-en-clean/sent3.wav",
+      "text": "Check the buffet for your allergy, and take your vitamin.",
+      "start": 38.851,
+      "localStart": 17.937,
+      "duration": 2.878,
+      "end": 41.729,
+      "localEnd": 20.815,
+      "volume": 1
+    },
+    {
+      "id": "ko-9-c01b",
+      "kind": "ko",
+      "key": "c01b",
+      "tag": "c01b",
+      "file": "assets/voice-clean/c01b.wav",
+      "text": "좀 훅 지나갔죠? 지금 다 안 들려도 상관없어요. 영상 끝무렵에 속도 하나 안 바꾸고 이 세 문장 그대로 다시 틀어 드릴게요. 지금 몇 단어쯤 잡혔는지만 머릿속에 살짝 담아 두면 됩니다.",
+      "start": 42.579,
+      "localStart": 21.665,
+      "duration": 12.982,
+      "end": 55.561,
+      "localEnd": 34.647,
+      "volume": 1
+    },
+    {
+      "id": "ko-10-c02a",
+      "kind": "ko",
+      "key": "c02a",
+      "tag": "c02a",
+      "file": "assets/voice-clean/c02a.wav",
+      "text": "제일 만만한 초콜릿부터 들어 볼게요. 우리가 편의점이나 마트에서 뭐라고 해요? \"초콜릿 하나 사 올게.\" 초, 콜, 릿. 세 글자로 또박또박 말하잖아요. 철자도 길고, 입에도 세 박자가 딱 붙어 있죠. 근데 원어민은 가운데 콜을 거의 안 읽어요. 들어 볼까요?",
+      "start": 56.561,
+      "localStart": 0.3,
+      "duration": 20.622,
+      "end": 77.183,
+      "localEnd": 20.922,
+      "volume": 1
+    },
+    {
+      "id": "sfx-11-slash-cut",
+      "kind": "sfx",
+      "file": "assets/sfx/slash-cut.wav",
+      "start": 77.443,
+      "duration": 0.26,
+      "volume": 0.42
+    },
+    {
+      "id": "en-12-chocolate",
+      "kind": "en",
+      "key": "chocolate",
+      "tag": "choc-1",
+      "file": "assets/voice-en-clean/chocolate.wav",
+      "text": "chocolate /ˈtʃɑːklət/",
+      "start": 77.583,
+      "localStart": 21.322,
+      "duration": 0.703,
+      "end": 78.286,
+      "localEnd": 22.025,
+      "volume": 1
+    },
+    {
+      "id": "en-13-chocolate",
+      "kind": "en",
+      "key": "chocolate",
+      "tag": "choc-2",
+      "file": "assets/voice-en-clean/chocolate.wav",
+      "text": "chocolate /ˈtʃɑːklət/",
+      "start": 78.836,
+      "localStart": 22.575,
+      "duration": 0.703,
+      "end": 79.539,
+      "localEnd": 23.278,
+      "volume": 1
+    },
+    {
+      "id": "ko-14-c02b",
+      "kind": "ko",
+      "key": "c02b",
+      "tag": "c02b",
+      "file": "assets/voice-clean/c02b.wav",
+      "text": "초클릿, 딱 두 박자. 앞에 초만 세게 찍고 뒤는 그냥 흘려 넘겨서 초클릿으로 끝나요. 사진 찍을 때 맨날 쓰는 카메라도 비슷한 일이 생깁니다. 한글로는 카, 메, 라 세 글자인데, 원어민 소리는 어떨까요?",
+      "start": 80.089,
+      "localStart": 23.828,
+      "duration": 16.173,
+      "end": 96.262,
+      "localEnd": 40.001,
+      "volume": 1
+    },
+    {
+      "id": "sfx-15-slash-cut",
+      "kind": "sfx",
+      "file": "assets/sfx/slash-cut.wav",
+      "start": 96.522,
+      "duration": 0.26,
+      "volume": 0.42
+    },
+    {
+      "id": "en-16-camera",
+      "kind": "en",
+      "key": "camera",
+      "tag": "cam-1",
+      "file": "assets/voice-en-clean/camera.wav",
+      "text": "camera /ˈkæmrə/",
+      "start": 96.662,
+      "localStart": 40.401,
+      "duration": 0.523,
+      "end": 97.185,
+      "localEnd": 40.924,
+      "volume": 1
+    },
+    {
+      "id": "en-17-camera",
+      "kind": "en",
+      "key": "camera",
+      "tag": "cam-2",
+      "file": "assets/voice-en-clean/camera.wav",
+      "text": "camera /ˈkæmrə/",
+      "start": 97.735,
+      "localStart": 41.474,
+      "duration": 0.523,
+      "end": 98.258,
+      "localEnd": 41.997,
+      "volume": 1
+    },
+    {
+      "id": "ko-18-c02c",
+      "kind": "ko",
+      "key": "c02c",
+      "tag": "c02c",
+      "file": "assets/voice-clean/c02c.wav",
+      "text": "캠러. 방금 메 어디 갔지 싶죠? 가운데 약한 글자를 건너뛰고 앞뒤를 붙여서 진짜 두 박자밖에 안 남아요.",
+      "start": 98.808,
+      "localStart": 42.547,
+      "duration": 8.108,
+      "end": 106.916,
+      "localEnd": 50.655,
+      "volume": 1
+    },
+    {
+      "id": "ko-19-c03a",
+      "kind": "ko",
+      "key": "c03a",
+      "tag": "c03a",
+      "file": "assets/voice-clean/c03a.wav",
+      "text": "미드에서 의자나 옷 얘기할 때 정말 자주 나오는 컴퍼터블. 한글로 쓰면 컴, 퍼, 터, 블 네 글자죠. 입도 네 번이나 움직여야 돼요. 막상 들어 보면 가운데 퍼가 쏙 빠지고 컴프터블처럼 짧아집니다.",
+      "start": 107.916,
+      "localStart": 0.3,
+      "duration": 15.843,
+      "end": 123.759,
+      "localEnd": 16.143,
+      "volume": 1
+    },
+    {
+      "id": "sfx-20-slash-cut",
+      "kind": "sfx",
+      "file": "assets/sfx/slash-cut.wav",
+      "start": 124.019,
+      "duration": 0.26,
+      "volume": 0.42
+    },
+    {
+      "id": "en-21-comfortable",
+      "kind": "en",
+      "key": "comfortable",
+      "tag": "comf-1",
+      "file": "assets/voice-en-clean/comfortable.wav",
+      "text": "comfortable /ˈkʌmftɚbəl/",
+      "start": 124.159,
+      "localStart": 16.543,
+      "duration": 0.523,
+      "end": 124.682,
+      "localEnd": 17.066,
+      "volume": 1
+    },
+    {
+      "id": "en-22-comfortable",
+      "kind": "en",
+      "key": "comfortable",
+      "tag": "comf-2",
+      "file": "assets/voice-en-clean/comfortable.wav",
+      "text": "comfortable /ˈkʌmftɚbəl/",
+      "start": 125.232,
+      "localStart": 17.616,
+      "duration": 0.523,
+      "end": 125.755,
+      "localEnd": 18.139,
+      "volume": 1
+    },
+    {
+      "id": "ko-23-c03b",
+      "kind": "ko",
+      "key": "c03b",
+      "tag": "c03b",
+      "file": "assets/voice-clean/c03b.wav",
+      "text": "입에선 벌써 끝났는데 내 머릿속엔 네 글자가 남아 있으니까 자꾸 놓치게 되죠. 앞에 힘이 들어가면 바로 뒤 글자는 빠진다, 일단 이것만 기억하면 돼요.",
+      "start": 126.305,
+      "localStart": 18.689,
+      "duration": 10.034,
+      "end": 136.339,
+      "localEnd": 28.723,
+      "volume": 1
+    },
+    {
+      "id": "ko-24-c04",
+      "kind": "ko",
+      "key": "c04",
+      "tag": "c04",
+      "file": "assets/voice-clean/c04.wav",
+      "text": "방금은 글자가 빠진 거였죠. 반대로 한국어가 글자를 억지로 늘려 놓은 단어도 있어요. 글자 보기 전에 소리 먼저 하나 들어 보실래요?",
+      "start": 137.339,
+      "localStart": 0.3,
+      "duration": 9.453,
+      "end": 146.792,
+      "localEnd": 9.753,
+      "volume": 1
+    },
+    {
+      "id": "en-25-steak",
+      "kind": "en",
+      "key": "steak",
+      "tag": "steak-blind",
+      "file": "assets/voice-en-clean/steak.wav",
+      "text": "steak /steɪk/",
+      "start": 147.792,
+      "localStart": 0.35,
+      "duration": 0.756,
+      "end": 148.548,
+      "localEnd": 1.106,
+      "volume": 1
+    },
+    {
+      "id": "ko-26-c05a",
+      "kind": "ko",
+      "key": "c05a",
+      "tag": "c05a",
+      "file": "assets/voice-clean/c05a.wav",
+      "text": "방금 이거 무슨 단어인 줄 아셨어요? 스테이크예요. 스, 테, 이, 크, 한글로 세면 네 글자잖아요. 근데 영어에선 딱 한 박자. 스테익!",
+      "start": 149.748,
+      "localStart": 2.306,
+      "duration": 10.501,
+      "end": 160.249,
+      "localEnd": 12.807,
+      "volume": 1
+    },
+    {
+      "id": "sfx-27-hydraulic-snap",
+      "kind": "sfx",
+      "file": "assets/sfx/hydraulic-snap.wav",
+      "start": 160.459,
+      "duration": 0.28,
+      "volume": 0.42
+    },
+    {
+      "id": "en-28-steak",
+      "kind": "en",
+      "key": "steak",
+      "tag": "steak-1",
+      "file": "assets/voice-en-clean/steak.wav",
+      "text": "steak /steɪk/",
+      "start": 160.599,
+      "localStart": 13.157,
+      "duration": 0.756,
+      "end": 161.355,
+      "localEnd": 13.913,
+      "volume": 1
+    },
+    {
+      "id": "en-29-steak",
+      "kind": "en",
+      "key": "steak",
+      "tag": "steak-2",
+      "file": "assets/voice-en-clean/steak.wav",
+      "text": "steak /steɪk/",
+      "start": 161.905,
+      "localStart": 14.463,
+      "duration": 0.756,
+      "end": 162.661,
+      "localEnd": 15.219,
+      "volume": 1
+    },
+    {
+      "id": "ko-30-c05b",
+      "kind": "ko",
+      "key": "c05b",
+      "tag": "c05b",
+      "file": "assets/voice-clean/c05b.wav",
+      "text": "왜 이렇게 짧아지냐면요, 우리말은 자음 혼자서는 글자를 못 쓰잖아요. 그래서 스, 크 뒤에 억지로 으를 붙여서 네 덩어리로 읽는데, 영어엔 그 으가 없거든요. 앞에 에스는 소리 대신 이 사이로 바람만 쓰 하고 스치고, 끝의 케이도 입안에서 툭 막고 끝납니다. 원어민이 혀가 빨라서가 아니에요. 우린 네 번 끊어 읽을 걸 저쪽은 숨 한 번에 끝내니까 당연히 안 들릴 수밖에 없어요.",
+      "start": 163.211,
+      "localStart": 15.769,
+      "duration": 32.01,
+      "end": 195.221,
+      "localEnd": 47.779,
+      "volume": 1
+    },
+    {
+      "id": "ko-31-c06a",
+      "kind": "ko",
+      "key": "c06a",
+      "tag": "c06a",
+      "file": "assets/voice-clean/c06a.wav",
+      "text": "이제 남은 세 단어는 아예 얘기가 달라요. 우리가 평소에 \"복숭아 알레르기 있어\" 이런 말 자주 하잖아요. 사실 알레르기는 영어 발음이 아니라 독일어에서 온 말이에요. 미드나 유튜브에서 원어민이 말할 땐 아예 딴소리가 납니다.",
+      "start": 196.271,
+      "localStart": 0.3,
+      "duration": 16.325,
+      "end": 212.596,
+      "localEnd": 16.625,
+      "volume": 1
+    },
+    {
+      "id": "sfx-32-card-flip",
+      "kind": "sfx",
+      "file": "assets/sfx/card-flip.wav",
+      "start": 212.856,
+      "duration": 0.18,
+      "volume": 0.42
+    },
+    {
+      "id": "en-33-allergy",
+      "kind": "en",
+      "key": "allergy",
+      "tag": "allergy-1",
+      "file": "assets/voice-en-clean/allergy.wav",
+      "text": "allergy /ˈælɚdʒi/",
+      "start": 212.996,
+      "localStart": 17.025,
+      "duration": 0.592,
+      "end": 213.588,
+      "localEnd": 17.617,
+      "volume": 1
+    },
+    {
+      "id": "en-34-allergy",
+      "kind": "en",
+      "key": "allergy",
+      "tag": "allergy-2",
+      "file": "assets/voice-en-clean/allergy.wav",
+      "text": "allergy /ˈælɚdʒi/",
+      "start": 214.138,
+      "localStart": 18.167,
+      "duration": 0.592,
+      "end": 214.73,
+      "localEnd": 18.759,
+      "volume": 1
+    },
+    {
+      "id": "ko-35-c06b",
+      "kind": "ko",
+      "key": "c06b",
+      "tag": "c06b",
+      "file": "assets/voice-clean/c06b.wav",
+      "text": "앨러지! 알, 레, 르, 기랑 앨러지. 소리가 아예 다른 단어처럼 들리죠. 약국에서 매일 보는 비타민도 미국 영어에선 첫 글자부터 바뀝니다. 우린 그냥 다 비타민이라고 하고 영국 쪽도 비슷하게 읽긴 해요. 미국 드라마나 일상 대화에선요?",
+      "start": 215.28,
+      "localStart": 19.309,
+      "duration": 18.808,
+      "end": 234.088,
+      "localEnd": 38.117,
+      "volume": 1
+    },
+    {
+      "id": "sfx-36-card-flip",
+      "kind": "sfx",
+      "file": "assets/sfx/card-flip.wav",
+      "start": 234.348,
+      "duration": 0.18,
+      "volume": 0.42
+    },
+    {
+      "id": "en-37-vitamin",
+      "kind": "en",
+      "key": "vitamin",
+      "tag": "vitamin-1",
+      "file": "assets/voice-en-clean/vitamin.wav",
+      "text": "vitamin /ˈvaɪt̬əmɪn/",
+      "start": 234.488,
+      "localStart": 38.517,
+      "duration": 0.503,
+      "end": 234.991,
+      "localEnd": 39.02,
+      "volume": 1
+    },
+    {
+      "id": "en-38-vitamin",
+      "kind": "en",
+      "key": "vitamin",
+      "tag": "vitamin-2",
+      "file": "assets/voice-en-clean/vitamin.wav",
+      "text": "vitamin /ˈvaɪt̬əmɪn/",
+      "start": 235.541,
+      "localStart": 39.57,
+      "duration": 0.503,
+      "end": 236.044,
+      "localEnd": 40.073,
+      "volume": 1
+    },
+    {
+      "id": "ko-39-c06c",
+      "kind": "ko",
+      "key": "c06c",
+      "tag": "c06c",
+      "file": "assets/voice-clean/c06c.wav",
+      "text": "바이러민! 앞을 바이로 확 열고 가운데 티까지 부드럽게 굴립니다. 머릿속엔 비타민만 들어 있는데 영상에서 \"테이크 유어 바이러민\" 하면 무슨 낯선 약 이름인가 싶죠.",
+      "start": 236.594,
+      "localStart": 40.623,
+      "duration": 13.015,
+      "end": 249.609,
+      "localEnd": 53.638,
+      "volume": 1
+    },
+    {
+      "id": "ko-40-c07a",
+      "kind": "ko",
+      "key": "c07a",
+      "tag": "c07a",
+      "file": "assets/voice-clean/c07a.wav",
+      "text": "마지막으로 하나만 직접 맞혀 볼까요? 호텔 조식에서 자주 보는 뷔페. 이것도 영어 소리가 아니라 프랑스어 발음이 그대로 들어왔어요. 그럼 미국 원어민은 이 단어를 어떻게 읽을까요? 잠깐, 입 밖으로 한 번만 말해 보세요.",
+      "start": 250.659,
+      "localStart": 0.3,
+      "duration": 16.648,
+      "end": 267.307,
+      "localEnd": 16.948,
+      "volume": 1
+    },
+    {
+      "id": "sfx-41-quiz-countdown",
+      "kind": "sfx",
+      "file": "assets/sfx/quiz-countdown.wav",
+      "start": 267.557,
+      "duration": 2,
+      "volume": 0.48
+    },
+    {
+      "id": "sfx-42-reveal-chime",
+      "kind": "sfx",
+      "file": "assets/sfx/reveal-chime.wav",
+      "start": 269.667,
+      "duration": 0.55,
+      "volume": 0.42
+    },
+    {
+      "id": "en-43-buffet",
+      "kind": "en",
+      "key": "buffet",
+      "tag": "buffet-1",
+      "file": "assets/voice-en-clean/buffet.wav",
+      "text": "buffet /bəˈfeɪ/",
+      "start": 269.807,
+      "localStart": 19.448,
+      "duration": 0.606,
+      "end": 270.413,
+      "localEnd": 20.054,
+      "volume": 1
+    },
+    {
+      "id": "en-44-buffet",
+      "kind": "en",
+      "key": "buffet",
+      "tag": "buffet-2",
+      "file": "assets/voice-en-clean/buffet.wav",
+      "text": "buffet /bəˈfeɪ/",
+      "start": 270.963,
+      "localStart": 20.604,
+      "duration": 0.606,
+      "end": 271.569,
+      "localEnd": 21.21,
+      "volume": 1
+    },
+    {
+      "id": "ko-45-c07b",
+      "kind": "ko",
+      "key": "c07b",
+      "tag": "c07b",
+      "file": "assets/voice-clean/c07b.wav",
+      "text": "버페이! 앞에 힘을 빼고 뒤에 페이를 올려서 버페이. 뷔페랑은 소리가 아예 다르죠. 이제 드라마나 여행 영상에서 버페이 나오면 낯설지 않을 텐데요.",
+      "start": 272.119,
+      "localStart": 21.76,
+      "duration": 14.189,
+      "end": 286.308,
+      "localEnd": 35.949,
+      "volume": 1
+    },
+    {
+      "id": "ko-46-c08",
+      "kind": "ko",
+      "key": "c08",
+      "tag": "c08",
+      "file": "assets/voice-clean/c08.wav",
+      "text": "그럼 처음에 들었던 그 세 문장, 속도 그대로 다시 틀어 드릴게요. 아까보다 몇 단어 더 들리는지 직접 한 번 세어 볼까요?",
+      "start": 287.358,
+      "localStart": 0.3,
+      "duration": 8.562,
+      "end": 295.92,
+      "localEnd": 8.862,
+      "volume": 1
+    },
+    {
+      "id": "en-47-sent1",
+      "kind": "en",
+      "key": "sent1",
+      "tag": "after-s1",
+      "file": "assets/voice-en-clean/sent1.wav",
+      "text": "Grab your camera — this chocolate is great, and this chair is so comfortable.",
+      "start": 296.57,
+      "localStart": 9.512,
+      "duration": 5.976,
+      "end": 302.546,
+      "localEnd": 15.488,
+      "volume": 1
+    },
+    {
+      "id": "en-48-sent2",
+      "kind": "en",
+      "key": "sent2",
+      "tag": "after-s2",
+      "file": "assets/voice-en-clean/sent2.wav",
+      "text": "We ordered a steak at the hotel.",
+      "start": 303.296,
+      "localStart": 16.238,
+      "duration": 1.634,
+      "end": 304.93,
+      "localEnd": 17.872,
+      "volume": 1
+    },
+    {
+      "id": "en-49-sent3",
+      "kind": "en",
+      "key": "sent3",
+      "tag": "after-s3",
+      "file": "assets/voice-en-clean/sent3.wav",
+      "text": "Check the buffet for your allergy, and take your vitamin.",
+      "start": 305.68,
+      "localStart": 18.622,
+      "duration": 2.878,
+      "end": 308.558,
+      "localEnd": 21.5,
+      "volume": 1
+    },
+    {
+      "id": "ko-50-c09a",
+      "kind": "ko",
+      "key": "c09a",
+      "tag": "c09a",
+      "file": "assets/voice-clean/c09a.wav",
+      "text": "어떠세요, 아까보단 귀에 걸리는 단어가 꽤 늘었죠? 자막 켜고 바로 확인해 볼게요.",
+      "start": 309.758,
+      "localStart": 0.3,
+      "duration": 6.298,
+      "end": 316.056,
+      "localEnd": 6.598,
+      "volume": 1
+    },
+    {
+      "id": "sfx-51-reveal-chime",
+      "kind": "sfx",
+      "file": "assets/sfx/reveal-chime.wav",
+      "start": 316.366,
+      "duration": 0.55,
+      "volume": 0.42
+    },
+    {
+      "id": "en-52-sent1",
+      "kind": "en",
+      "key": "sent1",
+      "tag": "check-s1",
+      "file": "assets/voice-en-clean/sent1.wav",
+      "text": "Grab your camera — this chocolate is great, and this chair is so comfortable.",
+      "start": 316.506,
+      "localStart": 7.048,
+      "duration": 5.976,
+      "end": 322.482,
+      "localEnd": 13.024,
+      "volume": 1
+    },
+    {
+      "id": "ko-53-c09b",
+      "kind": "ko",
+      "key": "c09b",
+      "tag": "c09b",
+      "file": "assets/voice-clean/c09b.wav",
+      "text": "첫 문장에 캠러, 초클릿, 컴프터블.",
+      "start": 322.932,
+      "localStart": 13.474,
+      "duration": 4.285,
+      "end": 327.217,
+      "localEnd": 17.759,
+      "volume": 1
+    },
+    {
+      "id": "en-54-sent2",
+      "kind": "en",
+      "key": "sent2",
+      "tag": "check-s2",
+      "file": "assets/voice-en-clean/sent2.wav",
+      "text": "We ordered a steak at the hotel.",
+      "start": 327.667,
+      "localStart": 18.209,
+      "duration": 1.634,
+      "end": 329.301,
+      "localEnd": 19.843,
+      "volume": 1
+    },
+    {
+      "id": "ko-55-c09c",
+      "kind": "ko",
+      "key": "c09c",
+      "tag": "c09c",
+      "file": "assets/voice-clean/c09c.wav",
+      "text": "둘째 문장에 스테익.",
+      "start": 329.751,
+      "localStart": 20.293,
+      "duration": 1.811,
+      "end": 331.562,
+      "localEnd": 22.104,
+      "volume": 1
+    },
+    {
+      "id": "en-56-sent3",
+      "kind": "en",
+      "key": "sent3",
+      "tag": "check-s3",
+      "file": "assets/voice-en-clean/sent3.wav",
+      "text": "Check the buffet for your allergy, and take your vitamin.",
+      "start": 332.012,
+      "localStart": 22.554,
+      "duration": 2.878,
+      "end": 334.89,
+      "localEnd": 25.432,
+      "volume": 1
+    },
+    {
+      "id": "ko-57-c09d",
+      "kind": "ko",
+      "key": "c09d",
+      "tag": "c09d",
+      "file": "assets/voice-clean/c09d.wav",
+      "text": "마지막 문장에 버페이, 앨러지, 바이러민까지. 속도 하나도 안 줄였는데, 가운데 빠지고 한 박자로 줄고 애초에 발음이 다르다는 것만 알아도 귀가 다르게 열립니다.",
+      "start": 335.34,
+      "localStart": 25.882,
+      "duration": 12.283,
+      "end": 347.623,
+      "localEnd": 38.165,
+      "volume": 1
+    },
+    {
+      "id": "ko-58-c10",
+      "kind": "ko",
+      "key": "c10",
+      "tag": "c10",
+      "file": "assets/voice-clean/c10.wav",
+      "text": "오늘 나온 일곱 단어, 화면에 한 번에 띄워 둘게요. 외우려고 애쓰실 필요 없고, 필요할 때 잠깐 멈춰 놓고 캡처해 두셔도 됩니다. 일곱 개 중에 제일 \"이게 이 소리였어?\" 싶었던 단어 하나만 댓글에 남겨 주세요.",
+      "start": 348.673,
+      "localStart": 0.3,
+      "duration": 15.179,
+      "end": 363.852,
+      "localEnd": 15.479,
+      "volume": 1
+    }
+  ]
+}

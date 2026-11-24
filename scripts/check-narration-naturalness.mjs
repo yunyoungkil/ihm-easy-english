@@ -18,6 +18,10 @@ export const T = Object.freeze({
   OPENER_ANY_MIN: 5, // allow-literal: 임의 단어로 5번 이상 시작
   JAGGED_MIN_SENTENCES: 8, // allow-literal: 문장 8개 미만이면 분포를 판정하지 않음
   JAGGED_CV_MIN: 0.3, // allow-literal: 문장 길이 표준편차/평균이 이보다 낮으면 너무 균일(EP22~29 실제 대본이 0.33~0.38이라 0.3으로 낮춤)
+  UNIFORM_BLOCKS_MIN: 6, // allow-literal: 컷 블록 6개 이상일 때만 컷별 문장 수 균일성(요약 카드 증후군)을 본다
+  UNIFORM_BLOCKS_CV_MAX: 0.25, // allow-literal: 컷당 문장 수 변동계수가 이보다 낮으면 모든 컷이 똑같은 요약 슬라이드
+  UNIFORM_BLOCKS_MAX_SENTS: 6, // allow-literal: 컷마다 6문장 이하로 쪼개진 경우에만 요약 카드 의심
+  SYMMETRY_PARALLELS_MIN: 4, // allow-literal: '똑같-/마찬가지/역시' 병렬 연결 4회 이상이면 교과서 대칭 경고
 });
 
 // 끝맺음 틀: 어미 앞 틀을 이름으로 묶는다
@@ -159,6 +163,46 @@ export function checkNarration(markdown) {
     const cv = sd / mean;
     if (cv < T.JAGGED_CV_MIN) add('jagged-lack', 'warn', sentences[0], `cv=${cv.toFixed(2)}`, `문장 길이가 균일함(평균 ${mean.toFixed(0)}자, 기준 ${T.JAGGED_CV_MIN} 미만)`);
   }
+
+  // uniform-cut-blocks: 모든 ```text 블록이 3~5문장 요약 카드처럼 균일하게 쪼개졌는지 감지(2026-11-24 EP36 회고)
+  const blockCounts = [];
+  let inBlk = false;
+  let curBlk = [];
+  for (const raw of markdown.split(/\r?\n/)) {
+    if (/^\s*```/.test(raw)) {
+      if (!inBlk && /^\s*```text\b/.test(raw)) { inBlk = true; curBlk = []; }
+      else if (inBlk) {
+        inBlk = false;
+        const cnt = splitSentences(curBlk.map((text, idx) => ({ line: idx + 1, text }))).length;
+        if (cnt > 0) blockCounts.push(cnt);
+      }
+      continue;
+    }
+    if (inBlk && /[가-힣]/.test(raw) && !META_LINE.test(raw.trim())) curBlk.push(raw.trim());
+  }
+  if (blockCounts.length >= T.UNIFORM_BLOCKS_MIN) {
+    const bMean = blockCounts.reduce((a, b) => a + b, 0) / blockCounts.length;
+    const bSd = Math.sqrt(blockCounts.reduce((a, c) => a + (c - bMean) ** 2, 0) / blockCounts.length);
+    const bCv = bMean > 0 ? bSd / bMean : 0;
+    const bMax = Math.max(...blockCounts);
+    const bMin = Math.min(...blockCounts);
+    if (bCv < T.UNIFORM_BLOCKS_CV_MAX && bMax <= T.UNIFORM_BLOCKS_MAX_SENTS && sentences.length) {
+      add('uniform-cut-blocks', 'warn', sentences[0], `blocks=${blockCounts.length}(${bMin}~${bMax}문장,cv=${bCv.toFixed(2)})`, '컷마다 문장 수가 균일한 요약 카드 패턴 — 통대본 호흡으로 변주 권장');
+    }
+  }
+
+  // ai-symmetry-tics: 교과서 대칭·병렬 나열('첫 번째/두 번째/세 번째', '똑같-/마찬가지/역시' 과다) 감지(2026-11-24)
+  if (sentences.length >= 15) {
+    const joined = sentences.map((s) => s.text).join(' ');
+    const has123 = /첫\s?번째/.test(joined) && /두\s?번째/.test(joined) && /세\s?번째/.test(joined);
+    const parallels = joined.match(/똑같|마찬가지|역시/g) || [];
+    if (has123 && parallels.length >= T.SYMMETRY_PARALLELS_MIN) {
+      add('ai-symmetry-tics', 'warn', sentences[0], `첫/두/세번째 + 병렬(${parallels.length}회)`, '기계적 번호 선언과 "똑같-/마찬가지/역시" 대칭 반복 — 구어 흐름으로 풀기 권장');
+    } else if (parallels.length >= T.SYMMETRY_PARALLELS_MIN + 2) {
+      add('ai-symmetry-tics', 'warn', sentences[0], `병렬(${parallels.length}회)`, '"똑같-/마찬가지/역시" 병렬 연결 과다 — 변주 권장');
+    }
+  }
+
   return { sentenceCount: sentences.length, issues };
 }
 
@@ -170,6 +214,10 @@ export const COMPARE = Object.freeze({
   ENDING_SKEW_GAP_PCT: 15, // allow-literal: 가장 많은 끝맺음이 경쟁보다 15%p 넘게 쏠리면 짚는다(가설, 수동 측정에서 우리 61% vs 경쟁 42%)
   LENGTH_RATIO: 1.5, // allow-literal: 평균 문장 길이가 경쟁의 1.5배를 넘거나 2/3 미만이면 짚는다(가설)
   FILLER_RATIO: 0.5, // allow-literal: 말버릇이 경쟁의 절반 미만이면 짚는다(0이면 당연히 포함, 가설)
+  COMMAND_RATIO: 3, // allow-literal: 권유·지시 어미가 경쟁의 3배 이상이면서 6% 이상이면 안내 방송 톤 경고(2026-11-24 가설)
+  COMMAND_MIN_PCT: 6, // allow-literal: 위 권유·지시 경고 최소 비율
+  OTHER_LOW_RATIO: 0.35, // allow-literal: 입말 끊김(other)이 경쟁 12% 이상 구간에서 35% 미만이면 발표 원고 경고(2026-11-24 가설)
+  OTHER_THEIR_MIN_PCT: 12, // allow-literal: 위 입말 끊김 비교의 경쟁 최소 비율
 });
 const DEFAULT_PATTERNS_PATH = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'youtube', 'speech-patterns.json');
 
@@ -204,6 +252,18 @@ export function compareWithCompetitors(markdown, patterns, { kind = 'long' } = {
   }
   if (theirs.meanLength > 0 && (ours.meanLength > theirs.meanLength * COMPARE.LENGTH_RATIO || ours.meanLength < theirs.meanLength / COMPARE.LENGTH_RATIO)) {
     flags.push(`평균 문장 길이(공백 뺀 글자)가 우리 ${ours.meanLength}, 경쟁 ${theirs.meanLength}`);
+  }
+  if (ours.sentences >= COMPARE.MIN_SENTENCES) {
+    const ourCmd = ours.endingsPct.command ?? 0;
+    const theirCmd = theirs.endingsPct.command ?? 0;
+    if (ourCmd >= COMPARE.COMMAND_MIN_PCT && (theirCmd === 0 || ourCmd >= theirCmd * COMPARE.COMMAND_RATIO)) {
+      flags.push(`권유·지시 어미(~해 보세요/~하세요)가 우리 ${ourCmd}%, 경쟁 ${theirCmd}% — 안내 방송 톤으로 들릴 수 있음`);
+    }
+    const ourOther = ours.endingsPct.other ?? 0;
+    const theirOther = theirs.endingsPct.other ?? 0;
+    if (theirOther >= COMPARE.OTHER_THEIR_MIN_PCT && ourOther <= theirOther * COMPARE.OTHER_LOW_RATIO) {
+      flags.push(`명사·입말 끊김 호흡(other)이 우리 ${ourOther}%, 경쟁 ${theirOther}% — 문장이 매번 교과서처럼 닫혀 발표 원고처럼 들릴 수 있음`);
+    }
   }
   return { ok: true, kind, videoCount: videos, lowSample: Boolean(group.lowSample), confidence: patterns.confidence ?? null, ours, theirs, flags, fewSentences: ours.sentences < COMPARE.MIN_SENTENCES };
 }

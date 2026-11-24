@@ -664,7 +664,18 @@ export function renderSpeechPatterns(patterns) {
       .map(([k, v]) => `${k} ${v}%`)
       .join(' · ');
     const paceText = g.hangulPerSecMedian != null ? ` · 초당 한글 ${g.hangulPerSecMedian}자(중앙값)` : '';
-    return `- **${label}** (${n}편 · 문장 ${r.sentences}개${g.lowSample ? ' · 표본 작음' : ''}, 가설): 평균 문장 길이 ${r.meanLength}자${paceText} · 질문 ${r.questionPct}% · 말버릇/접속어 ${r.fillersTotalPer100}/100문장 · 사전풀이 ${r.dictFramePct}% · 상위 끝맺음(${topEndings})`;
+    const lines = [
+      `- **${label}** (${n}편 · 문장 ${r.sentences}개${g.lowSample ? ' · 표본 작음' : ''}, 가설): 평균 문장 길이 ${r.meanLength}자${paceText} · 질문 ${r.questionPct}% · 말버릇/접속어 ${r.fillersTotalPer100}/100문장 · 사전풀이 ${r.dictFramePct}% · 상위 끝맺음(${topEndings})`,
+    ];
+    const exemplars = Array.isArray(g.exemplars) ? g.exemplars.slice(0, 4) : [];
+    if (exemplars.length) {
+      lines.push(`  - *실제 인기 ${label} 말 덩어리 참고 (${exemplars.length}개 채널 — 호흡만 흡수, 말버릇 복사 금지)*:`);
+      for (const ex of exemplars) {
+        const sample = (ex.excerpts || [])[0];
+        if (sample) lines.push(`    - [${ex.channelTitle || ex.videoId} · \`${ex.videoId}\`] "${sample}"`);
+      }
+    }
+    return lines.join('\n');
   };
   out.push(fmtGroup('롱폼', patterns.long));
   out.push(fmtGroup('쇼츠', patterns.short));

@@ -1,0 +1,1664 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>EP36 - 평생 초콜릿·비타민이라 읽었는데… 원어민 영어 발음은 아예 딴 단어</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('assets/fonts/NotoSansKR-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+:root {
+  --ivory: #F7F4ED;
+  --ivory-card: #FFFDF8;
+  --charcoal: #171614;
+  --charcoal-soft: #24221F;
+  --ink: #1A1917;
+  --ink-muted: #5C574E;
+  --vermilion: #D94235;
+  --vermilion-soft: rgba(217, 66, 53, 0.13);
+  --teal: #18A999;
+  --teal-deep: #0F766E;
+  --teal-soft: rgba(24, 169, 153, 0.14);
+  --amber: #E8A838;
+  --amber-soft: rgba(232, 168, 56, 0.16);
+  --brand-gold: #F5C518;
+  --line-dark: rgba(26, 25, 23, 0.12);
+  --line-light: rgba(247, 244, 237, 0.16);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--charcoal);
+  color: var(--ink);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-variant-ligatures: none;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+.bg-video, .bg-photo-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.bg-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 10;
+}
+.scene-inner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.bg-ivory { background: var(--ivory); color: var(--ink); }
+.bg-dark { background: var(--charcoal); color: var(--ivory); }
+.bg-overlay { background: transparent; color: var(--ivory); }
+.paper-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(rgba(26, 25, 23, 0.16) 1px, transparent 1px),
+    radial-gradient(rgba(217, 66, 53, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px, 44px 44px;
+  background-position: 0 0, 12px 14px;
+}
+.scrim-dark-full {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(96deg, rgba(16, 15, 13, 0.90) 0%, rgba(16, 15, 13, 0.72) 56%, rgba(16, 15, 13, 0.28) 100%);
+}
+.scrim-dark-center {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(16, 15, 13, 0.70) 0%, rgba(16, 15, 13, 0.88) 100%);
+}
+.scrim-steak-left {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(18, 17, 15, 0.92) 0%, rgba(18, 17, 15, 0.78) 54%, rgba(18, 17, 15, 0.16) 100%);
+}
+.stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding: 62px 92px 168px 92px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.eyebrow-vermilion { background: var(--vermilion); color: #FFFFFF; }
+.eyebrow-teal { background: var(--teal); color: #092421; }
+.eyebrow-dark { background: var(--charcoal); color: var(--ivory); }
+.eyebrow-light { background: rgba(247, 244, 237, 0.14); color: var(--ivory); border: 1.5px solid var(--line-light); }
+.eyebrow-amber { background: var(--amber); color: #1A1407; }
+.eyebrow-subtle { background: rgba(26, 25, 23, 0.08); color: var(--ink); border: 1.5px solid var(--line-dark); }
+.chapter-tag {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.chapter-tag.light { color: rgba(247, 244, 237, 0.80); }
+.progress-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7px;
+  z-index: 60;
+  background: rgba(247, 244, 237, 0.14);
+}
+.progress-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--vermilion) 0%, var(--amber) 50%, var(--teal) 100%);
+  transform-origin: left center;
+}
+
+/* Scene 0: Hook (visible immediately at t=0!) */
+.s0-body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1120px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.s0-title {
+  font-size: 76px;
+  font-weight: 900;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+}
+.s0-accent { color: var(--amber); }
+.s0-chips {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+.word-chip {
+  position: relative;
+  height: 136px;
+  min-width: 280px;
+  border-radius: 18px;
+  background: rgba(247, 244, 237, 0.10);
+  border: 2px solid rgba(247, 244, 237, 0.24);
+  overflow: hidden;
+}
+.chip-face {
+  position: absolute;
+  inset: 0;
+  padding: 18px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+.word-chip .en { font-size: 42px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.01em; white-space: nowrap; }
+.word-chip .ko { font-size: 34px; font-weight: 700; color: var(--amber); white-space: nowrap; }
+.word-chip .q-label { font-size: 34px; font-weight: 800; color: rgba(247, 244, 237, 0.78); white-space: nowrap; }
+.word-chip .q-mark { font-size: 46px; font-weight: 900; color: var(--amber); letter-spacing: 0.08em; }
+.s0-sub {
+  font-size: 40px;
+  font-weight: 700;
+  color: rgba(247, 244, 237, 0.92);
+  line-height: 1.45;
+}
+
+/* Scene 1 & Scene 8: Blind Listening Test */
+.blind-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  text-align: center;
+}
+.blind-head-wrap {
+  position: relative;
+  height: 98px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blind-headline {
+  font-size: 74px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.blind-head-wrap .blind-headline {
+  position: absolute;
+}
+.eq-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  height: 150px;
+  padding: 24px 48px;
+  border-radius: 26px;
+  background: rgba(16, 15, 13, 0.65);
+  border: 2px solid rgba(232, 168, 56, 0.35);
+}
+.eq-box.teal { border-color: rgba(24, 169, 153, 0.55); }
+.eq-bar {
+  width: 16px;
+  border-radius: 999px;
+  background: var(--amber);
+}
+.eq-box.teal .eq-bar { background: var(--teal); }
+.sent-pills {
+  display: flex;
+  gap: 20px;
+}
+.sent-pill {
+  padding: 16px 34px;
+  border-radius: 16px;
+  font-size: 36px;
+  font-weight: 800;
+  background: rgba(247, 244, 237, 0.10);
+  border: 2px solid rgba(247, 244, 237, 0.22);
+  color: rgba(247, 244, 237, 0.72);
+  white-space: nowrap;
+}
+.blind-note {
+  font-size: 38px;
+  font-weight: 700;
+  color: rgba(247, 244, 237, 0.90);
+}
+
+/* Split Editorial (Scenes 2, 3, 6) */
+.split-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 580px 1fr;
+  gap: 58px;
+  align-items: center;
+}
+.photo-plate {
+  position: relative;
+  height: 640px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 2px solid var(--line-dark);
+  background: var(--ivory-card);
+  box-shadow: 0 24px 56px rgba(26, 25, 23, 0.12);
+}
+.photo-plate img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-caption {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  z-index: 3;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: rgba(23, 22, 20, 0.88);
+  color: var(--ivory);
+  font-size: 34px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.teach-stack {
+  position: relative;
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.word-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+.big-word {
+  font-size: 104px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.05;
+  white-space: nowrap;
+}
+.big-word .dot { color: rgba(26, 25, 23, 0.34); margin: 0 4px; }
+.big-word .drop {
+  position: relative;
+  display: inline-block;
+  color: var(--vermilion);
+}
+.slash-line {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: 52%;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--vermilion);
+  transform-origin: left center;
+}
+.syllable-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.syl-box {
+  padding: 16px 30px;
+  border-radius: 18px;
+  font-size: 44px;
+  font-weight: 900;
+  background: var(--ivory-card);
+  border: 2.5px solid var(--line-dark);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.native-banner {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 24px 32px;
+  border-radius: 24px;
+  background: var(--charcoal);
+  color: var(--ivory);
+}
+.native-banner .kr {
+  font-size: 62px;
+  font-weight: 900;
+  color: var(--teal);
+  white-space: nowrap;
+}
+.native-banner .ipa {
+  font-size: 38px;
+  font-weight: 700;
+  color: rgba(247, 244, 237, 0.85);
+  white-space: nowrap;
+}
+.native-banner .beats {
+  margin-left: auto;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: rgba(24, 169, 153, 0.22);
+  color: #6EE7D8;
+  font-size: 34px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.rule-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 12px 24px;
+  border-radius: 14px;
+  background: var(--teal-soft);
+  border: 1.5px solid var(--teal);
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--teal-deep);
+  white-space: nowrap;
+}
+
+/* Scene 3: Editorial Armchair + Honest Phonetic Compression (comfortable) */
+.s3-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 54px;
+  align-items: center;
+}
+.s3-left {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.s3-rails {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rail-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 22px 28px;
+  border-radius: 20px;
+  background: var(--ivory-card);
+  border: 3px solid var(--line-dark);
+  min-width: 196px;
+}
+.rail-tile .en { font-size: 52px; font-weight: 900; color: var(--ink); white-space: nowrap; }
+.rail-tile .ko { font-size: 34px; font-weight: 800; color: var(--ink-muted); white-space: nowrap; }
+.rail-tile.drop-tile {
+  border-color: var(--vermilion);
+  background: var(--vermilion-soft);
+}
+.rail-tile.drop-tile .en { color: var(--ink); }
+.rail-tile .or-del { color: var(--vermilion); text-decoration: line-through; text-decoration-thickness: 5px; }
+.rail-tile.drop-tile .ko { color: var(--vermilion); }
+.s3-result {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 26px 36px;
+  border-radius: 24px;
+  background: var(--charcoal);
+  color: var(--ivory);
+}
+.s3-result .kr { font-size: 64px; font-weight: 900; color: var(--teal); white-space: nowrap; }
+.s3-result .ipa { font-size: 38px; font-weight: 700; color: rgba(247, 244, 237, 0.85); white-space: nowrap; }
+.s3-result .beats { margin-left: auto; font-size: 34px; font-weight: 800; color: var(--amber); white-space: nowrap; }
+
+/* Scene 4: Pivot Interlude (clean kinetic break without heavy top chrome) */
+.pivot-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+}
+.pivot-row {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.pivot-card {
+  padding: 36px 46px;
+  border-radius: 26px;
+  min-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pivot-done {
+  background: rgba(247, 244, 237, 0.08);
+  border: 2px solid rgba(247, 244, 237, 0.22);
+}
+.pivot-next {
+  background: rgba(232, 168, 56, 0.16);
+  border: 2.5px solid var(--amber);
+}
+.pivot-card .num { font-size: 34px; font-weight: 800; color: var(--amber); }
+.pivot-done .num { color: var(--teal); }
+.pivot-card .head { font-size: 52px; font-weight: 900; color: #FFFFFF; }
+.pivot-card .desc { font-size: 34px; font-weight: 700; color: rgba(247, 244, 237, 0.82); }
+.pivot-arrow { font-size: 64px; font-weight: 900; color: var(--amber); }
+.pivot-cta { font-size: 48px; font-weight: 800; color: #FFFFFF; }
+
+/* Scene 5: Steak Sound-First Quiz -> Rich Dark-Split Skillet Compression */
+.s5-phase {
+  position: absolute;
+  inset: 0;
+  padding: 62px 92px 168px 92px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.s5-blind-bg {
+  background: var(--charcoal);
+  color: var(--ivory);
+}
+.s5-reveal-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  max-width: 1060px;
+}
+.hydraulic-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.h-block {
+  padding: 20px 36px;
+  border-radius: 20px;
+  font-size: 54px;
+  font-weight: 900;
+  background: rgba(247, 244, 237, 0.96);
+  border: 3px solid #FFFFFF;
+  color: var(--ink);
+}
+.h-block.ghost-eu {
+  border-color: var(--vermilion);
+  background: rgba(217, 66, 53, 0.22);
+  color: #FF8C82;
+}
+.steak-final {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 28px;
+  padding: 28px 42px;
+  border-radius: 24px;
+  background: rgba(16, 15, 13, 0.90);
+  border: 2.5px solid var(--teal);
+  color: var(--ivory);
+  align-self: flex-start;
+}
+.steak-final .en { font-size: 86px; font-weight: 900; color: #FFFFFF; white-space: nowrap; }
+.steak-final .kr { font-size: 66px; font-weight: 900; color: var(--teal); white-space: nowrap; }
+.steak-final .ipa { font-size: 40px; font-weight: 700; color: var(--amber); white-space: nowrap; }
+.airflow-box {
+  display: flex;
+  gap: 20px;
+}
+.air-pill {
+  padding: 16px 28px;
+  border-radius: 16px;
+  background: rgba(16, 15, 13, 0.84);
+  border: 2px solid rgba(247, 244, 237, 0.26);
+  font-size: 34px;
+  font-weight: 800;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+/* Scene 6: Origin Contrast (allergy peach -> vitamin amber bottle) */
+.origin-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 54px;
+  align-items: center;
+}
+.origin-stage {
+  position: relative;
+  height: 640px;
+}
+.origin-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+.vs-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.vs-box {
+  position: relative;
+  min-height: 280px;
+  padding: 30px 32px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+.vs-old {
+  background: var(--ivory-card);
+  border: 2.5px solid var(--line-dark);
+}
+.vs-new {
+  background: var(--charcoal);
+  border: 2.5px solid var(--teal);
+  color: var(--ivory);
+  overflow: hidden;
+}
+.vs-face {
+  position: absolute;
+  inset: 0;
+  padding: 30px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.vs-label { font-size: 34px; font-weight: 800; color: var(--ink-muted); white-space: nowrap; }
+.vs-new .vs-label { color: var(--amber); }
+.vs-word { font-size: 64px; font-weight: 900; color: var(--ink); white-space: nowrap; }
+.vs-new .vs-word { color: var(--teal); }
+.vs-ipa { font-size: 34px; font-weight: 700; color: rgba(247, 244, 237, 0.86); white-space: nowrap; }
+.vs-old .vs-ipa { color: var(--vermilion); }
+.vs-ex { font-size: 34px; font-weight: 700; color: #6EE7D8; white-space: nowrap; }
+
+/* Scene 7: Buffet 2-Second Quiz (Centered Card + Clean Ring Refill) */
+.s7-card {
+  margin: auto;
+  width: 100%;
+  max-width: 1280px;
+  padding: 46px 56px;
+  border-radius: 30px;
+  background: rgba(18, 17, 15, 0.88);
+  border: 2px solid rgba(247, 244, 237, 0.24);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.s7-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+}
+.s7-word { font-size: 108px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.02em; white-space: nowrap; }
+.s7-word .dot { color: rgba(247, 244, 237, 0.45); margin: 0 4px; }
+.s7-origin { font-size: 38px; font-weight: 700; color: rgba(247, 244, 237, 0.88); }
+.timer-wrap {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.timer-wrap svg {
+  position: absolute;
+  inset: 0;
+  width: 190px;
+  height: 190px;
+}
+.timer-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  font-weight: 900;
+  color: var(--amber);
+  text-align: center;
+}
+.timer-text.done { color: #6EE7D8; font-size: 36px; }
+.s7-reveal {
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  padding: 24px 36px;
+  border-radius: 22px;
+  background: rgba(24, 169, 153, 0.18);
+  border: 2.5px solid var(--teal);
+}
+.s7-reveal .kr { font-size: 74px; font-weight: 900; color: #6EE7D8; white-space: nowrap; }
+.s7-reveal .ipa { font-size: 42px; font-weight: 700; color: #FFFFFF; white-space: nowrap; }
+.s7-reveal .tip { margin-left: auto; font-size: 34px; font-weight: 800; color: var(--amber); white-space: nowrap; }
+
+/* Scene 9: Subtitle ON 3-Sentence Proof (tight punctuation, legible inactive cards) */
+.proof-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+.proof-card {
+  padding: 26px 36px;
+  border-radius: 24px;
+  background: rgba(247, 244, 237, 0.07);
+  border: 2px solid rgba(247, 244, 237, 0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.proof-en {
+  font-size: 38px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.44;
+}
+.hl {
+  display: inline;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--teal);
+  color: #06221F;
+  font-weight: 900;
+  box-decoration-break: clone;
+}
+.proof-ko-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.proof-chip {
+  padding: 6px 22px;
+  border-radius: 999px;
+  background: rgba(232, 168, 56, 0.18);
+  border: 1.5px solid var(--amber);
+  color: var(--amber);
+  font-size: 34px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Scene 10: Balanced 3-Column Cheat Sheet -> Clean 9s YouTube End Screen */
+.s10-summary {
+  position: absolute;
+  inset: 0;
+  padding: 58px 88px 164px 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sheet-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  align-items: stretch;
+  margin-top: 16px;
+}
+.sheet-col {
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: var(--ivory-card);
+  border: 2.5px solid var(--line-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sheet-col-head {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 34px;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+}
+.head-v { background: var(--vermilion-soft); color: var(--vermilion); }
+.head-a { background: var(--amber-soft); color: #9A6408; }
+.head-t { background: var(--teal-soft); color: var(--teal-deep); }
+.cheat-item {
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--ivory);
+  border: 1.5px solid var(--line-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cheat-item .w { font-size: 36px; font-weight: 900; color: var(--ink); line-height: 1.15; white-space: nowrap; }
+.cheat-item .pair {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.cheat-item .old { color: var(--ink-muted); text-decoration: line-through; }
+.cheat-item .new { color: var(--teal-deep); }
+.cheat-item .ipa { font-size: 34px; font-weight: 700; color: var(--ink-muted); line-height: 1.2; }
+
+/* Final 9s YouTube End Screen: 100% Clear Center/Bottom/Right, Top-Left Wordmark Only */
+.s10-endscreen {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 18% 18%, #262420 0%, #141311 72%);
+  padding: 72px 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 14px;
+}
+.brand-wordmark {
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.brand-wordmark .w1 { color: #FFFFFF; }
+.brand-wordmark .w2 { color: var(--brand-gold); }
+.endscreen-sub {
+  font-size: 34px;
+  font-weight: 700;
+  color: rgba(247, 244, 237, 0.78);
+  white-space: nowrap;
+}
+
+/* Lower-Third Korean Subtitles (track 3, 48px mobile-first) */
+.caption-wrap {
+  position: absolute;
+  left: 72px;
+  right: 72px;
+  bottom: 34px;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.caption-pill {
+  max-width: 1740px;
+  padding: 16px 38px;
+  border-radius: 18px;
+  background: rgba(16, 15, 13, 0.90);
+  border: 1.5px solid rgba(247, 244, 237, 0.20);
+  color: #FAF7F0;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.32;
+  text-align: center;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="ep36-everyday-words-unheard" data-width="1920" data-height="1080" data-fps="30" data-duration="376.352">
+
+  <!-- Persistent top chapter progress bar (fades out cleanly before End Screen) -->
+  <div id="progress-wrap" class="progress-track"><div id="progress-bar" class="progress-fill"></div></div>
+
+  <!-- TRACK 0: Continuous Seamless Videos / Photographic Plates (ZERO tiled jump cuts!) -->
+  <div id="vid-s0-fb" class="clip bg-photo-wrap" data-start="0" data-duration="21.164" data-track-index="0"><img id="vid-s0-img" data-layout-allow-overflow class="bg-photo" src="assets/images/thumb-a-v2-bg.jpg" alt=""></div>
+  <video id="vid-s1" class="clip bg-video" src="assets/clips/c01-smooth.mp4" data-start="20.914" data-duration="35.597" data-track-index="0" muted playsinline></video>
+  <video id="vid-s5" class="clip bg-video" src="assets/clips/c05-smooth.mp4" data-start="149.748" data-duration="46.473" data-track-index="0" muted playsinline></video>
+  <div id="vid-s7-fb" class="clip bg-photo-wrap" data-start="250.359" data-duration="36.949" data-track-index="0"><img id="vid-s7-img" data-layout-allow-overflow class="bg-photo" src="assets/images/panel-04.png" alt=""></div>
+  <video id="vid-s8" class="clip bg-video" src="assets/clips/c08-smooth.mp4" data-start="287.058" data-duration="22.65" data-track-index="0" muted playsinline></video>
+
+  <!-- TRACK 1: Scene 00 — 3-Word Real Audio Hook -->
+  <section id="s0" class="clip scene" data-start="0" data-duration="21.164" data-track-index="1">
+    <div id="s0-in" class="scene-inner bg-overlay">
+      <div class="scrim-dark-full"></div>
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-amber">원어민 실제 소리 테스트</div>
+          <div class="chapter-tag light">매일 쓰는 영어 일곱 단어</div>
+        </div>
+        <div class="s0-body">
+          <div id="s0-title" class="s0-title">다 아는 단어인데, 왜 <span class="s0-accent">못 알아들을까요?</span></div>
+          <div class="s0-chips">
+            <div id="s0-c1" class="word-chip">
+              <div id="s0-c1-q" class="chip-face"><div class="q-label">단어 1</div><div class="q-mark">???</div></div>
+              <div id="s0-c1-a" class="chip-face"><div class="en">choc·o·late</div><div class="ko">초콜릿</div></div>
+            </div>
+            <div id="s0-c2" class="word-chip">
+              <div id="s0-c2-q" class="chip-face"><div class="q-label">단어 2</div><div class="q-mark">???</div></div>
+              <div id="s0-c2-a" class="chip-face"><div class="en">cam·e·ra</div><div class="ko">카메라</div></div>
+            </div>
+            <div id="s0-c3" class="word-chip">
+              <div id="s0-c3-q" class="chip-face"><div class="q-label">단어 3</div><div class="q-mark">???</div></div>
+              <div id="s0-c3-a" class="chip-face"><div class="en">steak</div><div class="ko">스테이크</div></div>
+            </div>
+          </div>
+          <div id="s0-sub" class="s0-sub">우리가 평소에 쓰는 발음이랑 영어 소리가 아예 다르게 생겨서 그래요</div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 01 — Before Blind 3-Sentence Listening Test -->
+  <section id="s1" class="clip scene" data-start="20.914" data-duration="35.597" data-track-index="1">
+    <div id="s1-in" class="scene-inner bg-overlay">
+      <div class="scrim-dark-center"></div>
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-vermilion">BEFORE · 자막 OFF 귀 테스트</div>
+          <div class="chapter-tag light">오늘 나올 일곱 단어 포함</div>
+        </div>
+        <div class="blind-center">
+          <div class="blind-head-wrap">
+            <div id="s1-head-a" class="blind-headline">자막 끄고 딱 세 문장만 들어 보세요</div>
+            <div id="s1-head-b" class="blind-headline">지금 몇 단어쯤 들리셨나요?</div>
+          </div>
+          <div class="eq-box" id="s1-eq"><div class="eq-bar s1-bar" data-idx="0" style="height:72px"></div><div class="eq-bar s1-bar" data-idx="1" style="height:71px"></div><div class="eq-bar s1-bar" data-idx="2" style="height:57px"></div><div class="eq-bar s1-bar" data-idx="3" style="height:45px"></div><div class="eq-bar s1-bar" data-idx="4" style="height:44px"></div><div class="eq-bar s1-bar" data-idx="5" style="height:48px"></div><div class="eq-bar s1-bar" data-idx="6" style="height:45px"></div><div class="eq-bar s1-bar" data-idx="7" style="height:33px"></div><div class="eq-bar s1-bar" data-idx="8" style="height:25px"></div><div class="eq-bar s1-bar" data-idx="9" style="height:34px"></div><div class="eq-bar s1-bar" data-idx="10" style="height:57px"></div><div class="eq-bar s1-bar" data-idx="11" style="height:77px"></div><div class="eq-bar s1-bar" data-idx="12" style="height:77px"></div><div class="eq-bar s1-bar" data-idx="13" style="height:58px"></div><div class="eq-bar s1-bar" data-idx="14" style="height:37px"></div><div class="eq-bar s1-bar" data-idx="15" style="height:30px"></div><div class="eq-bar s1-bar" data-idx="16" style="height:36px"></div><div class="eq-bar s1-bar" data-idx="17" style="height:44px"></div></div>
+          <div class="sent-pills">
+            <div id="s1-p1" class="sent-pill">문장 1</div>
+            <div id="s1-p2" class="sent-pill">문장 2</div>
+            <div id="s1-p3" class="sent-pill">문장 3</div>
+          </div>
+          <div id="s1-note" class="blind-note">영상 끝무렵에 속도 그대로 다시 틀어 드릴게요</div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 02 — Deep Dive 1: chocolate & camera -->
+  <section id="s2" class="clip scene" data-start="56.261" data-duration="51.605" data-track-index="1">
+    <div id="s2-in" class="scene-inner bg-ivory">
+      <div class="paper-grain"></div>
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-vermilion">원리 1 / 3 · 가운데 약한 글자 빠짐</div>
+          <div class="chapter-tag">choc·o·late · cam·e·ra</div>
+        </div>
+        <div class="split-grid">
+          <div class="photo-plate">
+            <img id="s2-photo" data-layout-allow-overflow src="assets/images/panel-01.png" alt="초콜릿과 카메라">
+            <div class="photo-caption">일상에서 매일 쓰는 두 단어</div>
+          </div>
+          <div class="teach-stack">
+            <div id="s2-choc" class="word-panel">
+              <div class="big-word">choc<span class="dot">·</span><span class="drop">o<span id="s2-choc-slash" class="slash-line"></span></span><span class="dot">·</span>late</div>
+              <div class="syllable-row">
+                <div class="syl-box">초</div>
+                <div id="s2-choc-mid" class="syl-box">콜</div>
+                <div class="syl-box">릿</div>
+              </div>
+              <div id="s2-choc-native" class="native-banner">
+                <div class="kr">초클릿</div>
+                <div class="ipa">/ˈtʃɑːk.lət/</div>
+                <div class="beats">딱 두 박자</div>
+              </div>
+              <div class="rule-tag">앞에 힘 → 가운데 '콜' 탈락</div>
+            </div>
+            <div id="s2-cam" class="word-panel">
+              <div class="big-word">cam<span class="dot">·</span><span class="drop">e<span id="s2-cam-slash" class="slash-line"></span></span><span class="dot">·</span>ra</div>
+              <div class="syllable-row">
+                <div class="syl-box">카</div>
+                <div id="s2-cam-mid" class="syl-box">메</div>
+                <div class="syl-box">라</div>
+              </div>
+              <div id="s2-cam-native" class="native-banner">
+                <div class="kr">캠러</div>
+                <div class="ipa">/ˈkæm.rə/</div>
+                <div class="beats">딱 두 박자</div>
+              </div>
+              <div class="rule-tag">가운데 '메' 탈락 → 앞뒤 결합</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 03 — Deep Dive 2: comfortable (Editorial Armchair + Clear 3-Beat Phonetics) -->
+  <section id="s3" class="clip scene" data-start="107.616" data-duration="29.673" data-track-index="1">
+    <div id="s3-in" class="scene-inner bg-ivory">
+      <div class="paper-grain"></div>
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-vermilion">원리 1 / 3 · 미드 단골 단어</div>
+          <div class="chapter-tag">com·for·ta·ble · 가운데 '-or-' 탈락</div>
+        </div>
+        <div class="s3-grid">
+          <div class="s3-left">
+            <div class="s3-rails">
+              <div id="s3-t1" class="rail-tile"><div class="en">com</div><div class="ko">컴</div></div>
+              <div id="s3-t2" class="rail-tile drop-tile"><div class="en">f<span class="or-del">or</span></div><div class="ko">ㅍ만 남음</div></div>
+              <div id="s3-t3" class="rail-tile"><div class="en">ta</div><div class="ko">터</div></div>
+              <div id="s3-t4" class="rail-tile"><div class="en">ble</div><div class="ko">블</div></div>
+            </div>
+            <div id="s3-res" class="s3-result">
+              <div class="kr">컴프터블</div>
+              <div class="ipa">/ˈkʌmf.tɚ.bəl/</div>
+              <div class="beats">영어 3박자</div>
+            </div>
+            <div id="s3-rule" class="rule-tag">앞에 힘이 들어가면 바로 뒤 모음은 빠집니다</div>
+          </div>
+          <div class="photo-plate">
+            <img id="s3-photo" data-layout-allow-overflow src="assets/images/scene03-armchair.jpg" alt="편안한 의자">
+            <div class="photo-caption" style="translate: 47.431px -35px">미드 단골 · 편안한 의자</div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 04 — Short Rhythmic Chapter Pivot -->
+  <section id="s4" class="clip scene" data-start="137.039" data-duration="10.653" data-track-index="1">
+    <div id="s4-in" class="scene-inner bg-dark">
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-light">방향 전환</div>
+          <div class="chapter-tag light">빠지는 소리 → 늘어난 소리</div>
+        </div>
+        <div class="pivot-center">
+          <div class="pivot-row">
+            <div id="s4-left" class="pivot-card pivot-done">
+              <div class="num">원리 1 완료</div>
+              <div class="head">가운데가 빠지는 소리</div>
+              <div class="desc">초클릿 · 캠러 · 컴프터블</div>
+            </div>
+            <div id="s4-arrow" class="pivot-arrow">→</div>
+            <div id="s4-right" class="pivot-card pivot-next">
+              <div class="num">원리 2 시작</div>
+              <div class="head">억지로 늘린 소리</div>
+              <div class="desc">자음 뒤 '으'가 없는 한 박자</div>
+            </div>
+          </div>
+          <div id="s4-cta" class="pivot-cta">소리 먼저 하나 들어 보실래요?</div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 05 — Sound-First Quiz -> Steak Vivid Skillet Compression -->
+  <section id="s5" class="clip scene" data-start="147.442" data-duration="48.779" data-track-index="1">
+    <div id="s5-in" class="scene-inner bg-overlay">
+      <div id="s5-blind" class="s5-phase s5-blind-bg">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-amber">소리 먼저 퀴즈</div>
+          <div class="chapter-tag light">소리로 먼저 맞혀 보세요</div>
+        </div>
+        <div class="blind-center">
+          <div class="blind-headline">방금 들린 단어, 무슨 단어일까요?</div>
+          <div class="eq-box" id="s5-eq"><div class="eq-bar s5-bar" data-idx="0" style="height:72px"></div><div class="eq-bar s5-bar" data-idx="1" style="height:71px"></div><div class="eq-bar s5-bar" data-idx="2" style="height:57px"></div><div class="eq-bar s5-bar" data-idx="3" style="height:45px"></div><div class="eq-bar s5-bar" data-idx="4" style="height:44px"></div><div class="eq-bar s5-bar" data-idx="5" style="height:48px"></div><div class="eq-bar s5-bar" data-idx="6" style="height:45px"></div><div class="eq-bar s5-bar" data-idx="7" style="height:33px"></div><div class="eq-bar s5-bar" data-idx="8" style="height:25px"></div><div class="eq-bar s5-bar" data-idx="9" style="height:34px"></div><div class="eq-bar s5-bar" data-idx="10" style="height:57px"></div><div class="eq-bar s5-bar" data-idx="11" style="height:77px"></div><div class="eq-bar s5-bar" data-idx="12" style="height:77px"></div><div class="eq-bar s5-bar" data-idx="13" style="height:58px"></div><div class="eq-bar s5-bar" data-idx="14" style="height:37px"></div><div class="eq-bar s5-bar" data-idx="15" style="height:30px"></div><div class="eq-bar s5-bar" data-idx="16" style="height:36px"></div><div class="eq-bar s5-bar" data-idx="17" style="height:44px"></div></div>
+          <div class="blind-note">잠깐 떠올려 보세요</div>
+        </div>
+        <div></div>
+      </div>
+      <div id="s5-reveal" class="s5-phase">
+        <div class="scrim-steak-left"></div>
+        <div class="stage" style="padding:0">
+          <div class="top-bar">
+            <div class="eyebrow eyebrow-amber">원리 2 / 3 · 한글 '으' 빼고 한 박자</div>
+            <div class="chapter-tag light">네 박자 → 한 박자 압축</div>
+          </div>
+          <div class="s5-reveal-wrap">
+            <div class="hydraulic-row">
+              <div id="s5-b1" class="h-block ghost-eu">스</div>
+              <div id="s5-b2" class="h-block">테</div>
+              <div id="s5-b3" class="h-block">이</div>
+              <div id="s5-b4" class="h-block ghost-eu">크</div>
+            </div>
+            <div id="s5-final" class="steak-final">
+              <div class="en">steak</div>
+              <div class="kr">스테익</div>
+              <div class="ipa">/steɪk/ · 딱 한 박자</div>
+            </div>
+            <div id="s5-air" class="airflow-box">
+              <div class="air-pill">앞 S : 바람만 쓰-</div>
+              <div class="air-pill">끝 K : 입안에서 툭 막고 끝</div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 06 — Origin Contrast: allergy (peach) & vitamin (bottle) -->
+  <section id="s6" class="clip scene" data-start="195.971" data-duration="54.638" data-track-index="1">
+    <div id="s6-in" class="scene-inner bg-ivory">
+      <div class="paper-grain"></div>
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-teal">원리 3 / 3 · 다른 언어에서 온 발음</div>
+          <div class="chapter-tag">al·ler·gy · vi·ta·min</div>
+        </div>
+        <div class="origin-grid">
+          <div class="origin-stage">
+            <div id="s6-allergy" class="origin-panel">
+              <div class="big-word">al<span class="dot">·</span>ler<span class="dot">·</span>gy</div>
+              <div class="vs-cards">
+                <div class="vs-box vs-old">
+                  <div class="vs-label">독일어 유입 발음</div>
+                  <div class="vs-word">알레르기</div>
+                  <div class="vs-ipa">알 · 레 · 르 · 기</div>
+                </div>
+                <div class="vs-box vs-new">
+                  <div id="s6-allergy-q" class="vs-face">
+                    <div class="vs-label">원어민 실제 소리</div>
+                    <div class="vs-word" style="color:var(--amber)">???</div>
+                    <div class="vs-ipa">들어 볼까요?</div>
+                  </div>
+                  <div id="s6-allergy-new" class="vs-face">
+                    <div class="vs-label">원어민 실제 소리</div>
+                    <div class="vs-word">앨러지</div>
+                    <div class="vs-ipa">/ˈæl.ɚ.dʒi/</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="s6-vitamin" class="origin-panel">
+              <div class="big-word">vi<span class="dot">·</span>ta<span class="dot">·</span>min</div>
+              <div class="vs-cards">
+                <div class="vs-box vs-old">
+                  <div class="vs-label">한국 · 영국식 표기</div>
+                  <div class="vs-word">비타민</div>
+                  <div class="vs-ipa">비 · 타 · 민</div>
+                </div>
+                <div class="vs-box vs-new">
+                  <div id="s6-vitamin-q" class="vs-face">
+                    <div class="vs-label">미국 일상 실음성</div>
+                    <div class="vs-word" style="color:var(--amber)">???</div>
+                    <div class="vs-ipa">첫 글자부터 바뀝니다</div>
+                  </div>
+                  <div id="s6-vitamin-new" class="vs-face">
+                    <div class="vs-label">미국 일상 실음성</div>
+                    <div class="vs-word">바이러민</div>
+                    <div class="vs-ipa">/ˈvaɪ.t̬ə.mɪn/</div>
+                    <div class="vs-ex">Take your vitamin</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="photo-plate">
+            <img id="s6-photo-peach" data-layout-allow-overflow src="assets/images/scene06-peach.jpg" alt="복숭아">
+            <img id="s6-photo-vit" data-layout-allow-overflow src="assets/images/thumb-b-v2-bg.jpg" style="object-position: 86% center" alt="비타민 병">
+            <div id="s6-cap-peach" class="photo-caption" style="translate: 40.631px -19px">복숭아 알레르기</div>
+            <div id="s6-cap-vit" class="photo-caption" style="translate: 54.314px -19px">약국·일상 속 비타민</div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 07 — Surprise Quiz: buffet (Idle ? -> 2s Countdown -> Full Teal Ring!) -->
+  <section id="s7" class="clip scene" data-start="250.359" data-duration="36.949" data-track-index="1">
+    <div id="s7-in" class="scene-inner bg-overlay">
+      <div class="scrim-dark-full"></div>
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-amber">원리 3 / 3 · 마지막 깜짝 퀴즈</div>
+          <div class="chapter-tag light">프랑스어 유입 → 미국 실음성</div>
+        </div>
+        <div class="s7-card">
+          <div class="s7-top-row">
+            <div>
+              <div class="s7-word">buf<span class="dot">·</span>fet</div>
+              <div class="s7-origin">프랑스어에서 온 '뷔페', 미국 원어민은 어떻게 읽을까요?</div>
+            </div>
+            <div id="s7-timer" class="timer-wrap">
+              <svg viewBox="0 0 180 180">
+                <circle cx="90" cy="90" r="78" fill="none" stroke="rgba(247,244,237,0.18)" stroke-width="12"></circle>
+                <circle id="s7-ring" cx="90" cy="90" r="78" fill="none" stroke="#E8A838" stroke-width="12" stroke-linecap="round" stroke-dasharray="490" stroke-dashoffset="0" transform="rotate(-90 90 90)"></circle>
+                <circle id="s7-ring-done" cx="90" cy="90" r="78" fill="none" stroke="#18A999" stroke-width="12" stroke-linecap="round" transform="rotate(-90 90 90)"></circle>
+              </svg>
+              <div id="s7-tq" class="timer-text">?</div>
+              <div id="s7-t2" class="timer-text">2초</div>
+              <div id="s7-t1" class="timer-text">1초</div>
+              <div id="s7-tok" class="timer-text done">정답!</div>
+            </div>
+          </div>
+          <div id="s7-reveal" class="s7-reveal">
+            <div class="kr">버페이</div>
+            <div class="ipa">/bəˈfeɪ/</div>
+            <div class="tip">뒤의 '페이'에 강세</div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 08 — After Blind Re-Listening (Cool Teal Grade, Viewer-Centric Label) -->
+  <section id="s8" class="clip scene" data-start="287.058" data-duration="22.65" data-track-index="1">
+    <div id="s8-in" class="scene-inner bg-overlay">
+      <div class="scrim-dark-center"></div>
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-teal">AFTER · 자막 OFF 재청취</div>
+          <div class="chapter-tag light">원어민 속도 그대로 다시 듣기</div>
+        </div>
+        <div class="blind-center">
+          <div class="blind-headline">속도 그대로, 아까보다 몇 단어 더 들리세요?</div>
+          <div class="eq-box teal" id="s8-eq"><div class="eq-bar s8-bar" data-idx="0" style="height:72px"></div><div class="eq-bar s8-bar" data-idx="1" style="height:71px"></div><div class="eq-bar s8-bar" data-idx="2" style="height:57px"></div><div class="eq-bar s8-bar" data-idx="3" style="height:45px"></div><div class="eq-bar s8-bar" data-idx="4" style="height:44px"></div><div class="eq-bar s8-bar" data-idx="5" style="height:48px"></div><div class="eq-bar s8-bar" data-idx="6" style="height:45px"></div><div class="eq-bar s8-bar" data-idx="7" style="height:33px"></div><div class="eq-bar s8-bar" data-idx="8" style="height:25px"></div><div class="eq-bar s8-bar" data-idx="9" style="height:34px"></div><div class="eq-bar s8-bar" data-idx="10" style="height:57px"></div><div class="eq-bar s8-bar" data-idx="11" style="height:77px"></div><div class="eq-bar s8-bar" data-idx="12" style="height:77px"></div><div class="eq-bar s8-bar" data-idx="13" style="height:58px"></div><div class="eq-bar s8-bar" data-idx="14" style="height:37px"></div><div class="eq-bar s8-bar" data-idx="15" style="height:30px"></div><div class="eq-bar s8-bar" data-idx="16" style="height:36px"></div><div class="eq-bar s8-bar" data-idx="17" style="height:44px"></div></div>
+          <div class="sent-pills">
+            <div id="s8-p1" class="sent-pill">문장 1</div>
+            <div id="s8-p2" class="sent-pill">문장 2</div>
+            <div id="s8-p3" class="sent-pill">문장 3</div>
+          </div>
+          <div class="blind-note">귀에 걸리는 단어를 직접 세어 보세요</div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 09 — Subtitle ON 7-Word Highlight Proof -->
+  <section id="s9" class="clip scene" data-start="309.458" data-duration="39.165" data-track-index="1">
+    <div id="s9-in" class="scene-inner bg-dark">
+      <div class="stage">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-teal">자막 ON 정답 확인</div>
+          <div class="chapter-tag light">오늘의 일곱 단어 전부 확인</div>
+        </div>
+        <div class="proof-list">
+          <div id="s9-c1" class="proof-card">
+            <div class="proof-en">1. Grab your <span id="hl-cam" class="hl">cam·e·ra</span> — this <span id="hl-choc" class="hl">choc·o·late</span> is great, and this chair is so <span id="hl-comf" class="hl">com·for·ta·ble</span>.</div>
+            <div class="proof-ko-row">
+              <div class="proof-chip">캠러</div>
+              <div class="proof-chip">초클릿</div>
+              <div class="proof-chip">컴프터블</div>
+            </div>
+          </div>
+          <div id="s9-c2" class="proof-card">
+            <div class="proof-en">2. We ordered a <span id="hl-steak" class="hl">steak</span> at the hotel.</div>
+            <div class="proof-ko-row">
+              <div class="proof-chip">스테익 (한 박자)</div>
+            </div>
+          </div>
+          <div id="s9-c3" class="proof-card">
+            <div class="proof-en">3. Check the <span id="hl-buf" class="hl">buf·fet</span> for your <span id="hl-allergy" class="hl">al·ler·gy</span>, and take your <span id="hl-vit" class="hl">vi·ta·min</span>.</div>
+            <div class="proof-ko-row">
+              <div class="proof-chip">버페이</div>
+              <div class="proof-chip">앨러지</div>
+              <div class="proof-chip">바이러민</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 1: Scene 10 — Balanced 7-Word Cheat Sheet -> Final 9s YouTube End Screen -->
+  <section id="s10" data-hold class="clip scene" data-start="348.373" data-duration="27.979" data-track-index="1">
+    <div id="s10-in" class="scene-inner bg-ivory">
+      <div class="paper-grain"></div>
+      <div id="s10-summary" class="s10-summary">
+        <div class="top-bar">
+          <div class="eyebrow eyebrow-dark">오늘의 일곱 단어 한 장 요약</div>
+          <div class="eyebrow eyebrow-subtle">잠깐 멈추고 캡처해 두세요</div>
+        </div>
+        <div class="sheet-grid">
+          <div id="s10-g1" class="sheet-col">
+            <div class="sheet-col-head head-v">1. 가운데 빠짐 (3)</div>
+            <div class="cheat-item"><div class="w">choc·o·late</div><div class="pair"><span class="old">초콜릿</span><span>→</span><span class="new">초클릿</span></div><div class="ipa">/ˈtʃɑːk.lət/</div></div>
+            <div class="cheat-item"><div class="w">cam·e·ra</div><div class="pair"><span class="old">카메라</span><span>→</span><span class="new">캠러</span></div><div class="ipa">/ˈkæm.rə/</div></div>
+            <div class="cheat-item"><div class="w">com·for·ta·ble</div><div class="pair"><span class="old">컴퍼터블</span><span>→</span><span class="new">컴프터블</span></div><div class="ipa">/ˈkʌmf.tɚ.bəl/</div></div>
+          </div>
+          <div id="s10-g2" class="sheet-col" style="justify-content:space-between">
+            <div class="sheet-col-head head-a">2. '으' 빼고 한 박자 (1)</div>
+            <div class="cheat-item"><div class="w">steak</div><div class="pair"><span class="old">스테이크</span><span>→</span><span class="new">스테익</span></div><div class="ipa">/steɪk/ · 숨 한 번</div></div>
+            <div class="cheat-item" style="background:var(--ivory-card);border-color:var(--amber)">
+              <div class="w" style="font-size:34px;color:#9A6408">숨 한 번 포인트</div>
+              <div class="ipa" style="color:var(--ink);font-size:34px;line-height:1.38">앞 S는 바람만 쓰-</div>
+              <div class="ipa" style="color:var(--ink);font-size:34px;line-height:1.38">끝 K는 입안에서 툭 막음</div>
+            </div>
+            <div class="cheat-item" style="background:var(--amber-soft);border-color:var(--amber)">
+              <div class="w" style="font-size:34px">핵심 감각</div>
+              <div class="ipa" style="color:var(--ink);font-size:34px;line-height:1.35">우리말 네 글자를 영어는 숨 한 번에 묶어 말합니다</div>
+            </div>
+          </div>
+          <div id="s10-g3" class="sheet-col">
+            <div class="sheet-col-head head-t">3. 유입 경로 반전 (3)</div>
+            <div class="cheat-item"><div class="w">al·ler·gy</div><div class="pair"><span class="old">알레르기</span><span>→</span><span class="new">앨러지</span></div><div class="ipa">/ˈæl.ɚ.dʒi/</div></div>
+            <div class="cheat-item"><div class="w">vi·ta·min</div><div class="pair"><span class="old">비타민</span><span>→</span><span class="new">바이러민</span></div><div class="ipa">/ˈvaɪ.t̬ə.mɪn/</div></div>
+            <div class="cheat-item"><div class="w">buf·fet</div><div class="pair"><span class="old">뷔페</span><span>→</span><span class="new">버페이</span></div><div class="ipa">/bəˈfeɪ/</div></div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <!-- Final 9.0s YouTube End Screen Safe Frame: Center/Bottom/Right 100% Empty -->
+      <div id="s10-endscreen" data-hold class="s10-endscreen">
+        <div id="es-brand" class="brand-wordmark"><span class="w1">이해하면 </span><span class="w2">쉬운영어</span></div>
+        <div id="es-sub" class="endscreen-sub">다음 추천 영상에서 이어서 확인해 보세요</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK 3: Lower-Third Korean Subtitles (Monotonic Whisper-synced 48px single-line pills) -->
+  <div id="cap-0" class="clip caption-wrap" data-start="3.802" data-duration="3.628" data-track-index="3"><div class="caption-pill">방금 세 단어, 몇 개나 들리셨어요?</div></div>
+  <div id="cap-1" class="clip caption-wrap" data-start="7.43" data-duration="2.752" data-track-index="3"><div class="caption-pill">초콜릿, 카메라, 스테이크.</div></div>
+  <div id="cap-2" class="clip caption-wrap" data-start="10.182" data-duration="4.062" data-track-index="3"><div class="caption-pill">다 아는 단어인데 막상 원어민이 툭 던지면 멍해지죠.</div></div>
+  <div id="cap-3" class="clip caption-wrap" data-start="14.244" data-duration="3.525" data-track-index="3"><div class="caption-pill">우리가 평소에 한국말처럼 쓰는 발음이랑</div></div>
+  <div id="cap-4" class="clip caption-wrap" data-start="17.768" data-duration="2.496" data-track-index="3"><div class="caption-pill">영어 소리가 아예 다르게 생겨서 그래요.</div></div>
+  <div id="cap-5" class="clip caption-wrap" data-start="21.234" data-duration="2.845" data-track-index="3"><div class="caption-pill">본격적으로 들어가기 전에, 자막 끄고</div></div>
+  <div id="cap-6" class="clip caption-wrap" data-start="24.079" data-duration="2.05" data-track-index="3"><div class="caption-pill">딱 세 문장만 먼저 들어 볼게요.</div></div>
+  <div id="cap-7" class="clip caption-wrap" data-start="26.129" data-duration="2.962" data-track-index="3"><div class="caption-pill">오늘 나올 일곱 단어가 그대로 들어가 있습니다.</div></div>
+  <div id="cap-8" class="clip caption-wrap" data-start="42.579" data-duration="1.877" data-track-index="3"><div class="caption-pill">좀 훅 지나갔죠?</div></div>
+  <div id="cap-9" class="clip caption-wrap" data-start="44.456" data-duration="1.954" data-track-index="3"><div class="caption-pill">지금 다 안 들려도 상관없어요.</div></div>
+  <div id="cap-10" class="clip caption-wrap" data-start="46.41" data-duration="2.915" data-track-index="3"><div class="caption-pill">영상 끝무렵에 속도 하나 안 바꾸고</div></div>
+  <div id="cap-11" class="clip caption-wrap" data-start="49.325" data-duration="2.701" data-track-index="3"><div class="caption-pill">이 세 문장 그대로 다시 틀어 드릴게요.</div></div>
+  <div id="cap-12" class="clip caption-wrap" data-start="52.026" data-duration="2.117" data-track-index="3"><div class="caption-pill">지금 몇 단어쯤 잡혔는지만</div></div>
+  <div id="cap-13" class="clip caption-wrap" data-start="54.143" data-duration="1.85" data-track-index="3"><div class="caption-pill">머릿속에 살짝 담아 두면 됩니다.</div></div>
+  <div id="cap-14" class="clip caption-wrap" data-start="56.591" data-duration="2.69" data-track-index="3"><div class="caption-pill">제일 만만한 초콜릿부터 들어 볼게요.</div></div>
+  <div id="cap-15" class="clip caption-wrap" data-start="59.281" data-duration="2.836" data-track-index="3"><div class="caption-pill">우리가 편의점이나 마트에서 뭐라고 해요?</div></div>
+  <div id="cap-16" class="clip caption-wrap" data-start="62.117" data-duration="4.027" data-track-index="3"><div class="caption-pill">&quot;초콜릿 하나 사 올게.&quot; 초, 콜, 릿.</div></div>
+  <div id="cap-17" class="clip caption-wrap" data-start="66.144" data-duration="2.137" data-track-index="3"><div class="caption-pill">세 글자로 또박또박 말하잖아요.</div></div>
+  <div id="cap-18" class="clip caption-wrap" data-start="68.281" data-duration="3.48" data-track-index="3"><div class="caption-pill">철자도 길고, 입에도 세 박자가 딱 붙어 있죠.</div></div>
+  <div id="cap-19" class="clip caption-wrap" data-start="71.761" data-duration="3.478" data-track-index="3"><div class="caption-pill">근데 원어민은 가운데 콜을 거의 안 읽어요.</div></div>
+  <div id="cap-20" class="clip caption-wrap" data-start="75.239" data-duration="1.944" data-track-index="3"><div class="caption-pill">들어 볼까요?</div></div>
+  <div id="cap-21" class="clip caption-wrap" data-start="80.169" data-duration="2.345" data-track-index="3"><div class="caption-pill">초클릿, 딱 두 박자.</div></div>
+  <div id="cap-22" class="clip caption-wrap" data-start="82.514" data-duration="2.259" data-track-index="3"><div class="caption-pill">앞에 초만 세게 찍고 뒤는</div></div>
+  <div id="cap-23" class="clip caption-wrap" data-start="84.774" data-duration="3.024" data-track-index="3"><div class="caption-pill">그냥 흘려 넘겨서 초클릿으로 끝나요.</div></div>
+  <div id="cap-24" class="clip caption-wrap" data-start="87.797" data-duration="1.464" data-track-index="3"><div class="caption-pill">사진 찍을 때 맨날 쓰는</div></div>
+  <div id="cap-25" class="clip caption-wrap" data-start="89.261" data-duration="2.405" data-track-index="3"><div class="caption-pill">카메라도 비슷한 일이 생깁니다.</div></div>
+  <div id="cap-26" class="clip caption-wrap" data-start="91.666" data-duration="2.125" data-track-index="3"><div class="caption-pill">한글로는 카, 메, 라</div></div>
+  <div id="cap-27" class="clip caption-wrap" data-start="93.791" data-duration="2.471" data-track-index="3"><div class="caption-pill">세 글자인데, 원어민 소리는 어떨까요?</div></div>
+  <div id="cap-28" class="clip caption-wrap" data-start="98.808" data-duration="1.433" data-track-index="3"><div class="caption-pill">캠러.</div></div>
+  <div id="cap-29" class="clip caption-wrap" data-start="100.241" data-duration="1.987" data-track-index="3"><div class="caption-pill">방금 메 어디 갔지 싶죠?</div></div>
+  <div id="cap-30" class="clip caption-wrap" data-start="102.228" data-duration="2.467" data-track-index="3"><div class="caption-pill">가운데 약한 글자를 건너뛰고 앞뒤를</div></div>
+  <div id="cap-31" class="clip caption-wrap" data-start="104.695" data-duration="2.221" data-track-index="3"><div class="caption-pill">붙여서 진짜 두 박자밖에 안 남아요.</div></div>
+  <div id="cap-32" class="clip caption-wrap" data-start="107.946" data-duration="2.03" data-track-index="3"><div class="caption-pill">미드에서 의자나 옷 얘기할 때</div></div>
+  <div id="cap-33" class="clip caption-wrap" data-start="109.976" data-duration="2.86" data-track-index="3"><div class="caption-pill">정말 자주 나오는 컴퍼터블.</div></div>
+  <div id="cap-34" class="clip caption-wrap" data-start="112.836" data-duration="3.116" data-track-index="3"><div class="caption-pill">한글로 쓰면 컴, 퍼, 터, 블 네 글자죠.</div></div>
+  <div id="cap-35" class="clip caption-wrap" data-start="115.952" data-duration="3.311" data-track-index="3"><div class="caption-pill">입도 네 번이나 움직여야 돼요.</div></div>
+  <div id="cap-36" class="clip caption-wrap" data-start="119.263" data-duration="2.311" data-track-index="3"><div class="caption-pill">막상 들어 보면 가운데 퍼가 쏙</div></div>
+  <div id="cap-37" class="clip caption-wrap" data-start="121.574" data-duration="2.185" data-track-index="3"><div class="caption-pill">빠지고 컴프터블처럼 짧아집니다.</div></div>
+  <div id="cap-38" class="clip caption-wrap" data-start="126.305" data-duration="2.181" data-track-index="3"><div class="caption-pill">입에선 벌써 끝났는데 내 머릿속엔</div></div>
+  <div id="cap-39" class="clip caption-wrap" data-start="128.486" data-duration="3.339" data-track-index="3"><div class="caption-pill">네 글자가 남아 있으니까 자꾸 놓치게 되죠.</div></div>
+  <div id="cap-40" class="clip caption-wrap" data-start="131.825" data-duration="2.195" data-track-index="3"><div class="caption-pill">앞에 힘이 들어가면 바로 뒤 글자는</div></div>
+  <div id="cap-41" class="clip caption-wrap" data-start="134.02" data-duration="2.319" data-track-index="3"><div class="caption-pill">빠진다, 일단 이것만 기억하면 돼요.</div></div>
+  <div id="cap-42" class="clip caption-wrap" data-start="137.349" data-duration="2.801" data-track-index="3"><div class="caption-pill">방금은 글자가 빠진 거였죠.</div></div>
+  <div id="cap-43" class="clip caption-wrap" data-start="140.15" data-duration="2.295" data-track-index="3"><div class="caption-pill">반대로 한국어가 글자를 억지로</div></div>
+  <div id="cap-44" class="clip caption-wrap" data-start="142.445" data-duration="1.885" data-track-index="3"><div class="caption-pill">늘려 놓은 단어도 있어요.</div></div>
+  <div id="cap-45" class="clip caption-wrap" data-start="144.33" data-duration="2.462" data-track-index="3"><div class="caption-pill">글자 보기 전에 소리 먼저 하나 들어 보실래요?</div></div>
+  <div id="cap-46" class="clip caption-wrap" data-start="149.808" data-duration="2.536" data-track-index="3"><div class="caption-pill">방금 이거 무슨 단어인 줄 아셨어요?</div></div>
+  <div id="cap-47" class="clip caption-wrap" data-start="152.344" data-duration="1.15" data-track-index="3"><div class="caption-pill">스테이크예요.</div></div>
+  <div id="cap-48" class="clip caption-wrap" data-start="153.494" data-duration="3.209" data-track-index="3"><div class="caption-pill">스, 테, 이, 크, 한글로 세면 네 글자잖아요.</div></div>
+  <div id="cap-49" class="clip caption-wrap" data-start="156.704" data-duration="1.675" data-track-index="3"><div class="caption-pill">근데 영어에선 딱 한 박자.</div></div>
+  <div id="cap-50" class="clip caption-wrap" data-start="158.379" data-duration="1.87" data-track-index="3"><div class="caption-pill">스테익!</div></div>
+  <div id="cap-51" class="clip caption-wrap" data-start="163.261" data-duration="2.441" data-track-index="3"><div class="caption-pill">왜 이렇게 짧아지냐면요, 우리말은</div></div>
+  <div id="cap-52" class="clip caption-wrap" data-start="165.702" data-duration="3.959" data-track-index="3"><div class="caption-pill">자음 혼자서는 글자를 못 쓰잖아요.</div></div>
+  <div id="cap-53" class="clip caption-wrap" data-start="169.661" data-duration="2.56" data-track-index="3"><div class="caption-pill">그래서 스, 크 뒤에 억지로</div></div>
+  <div id="cap-54" class="clip caption-wrap" data-start="172.221" data-duration="1.864" data-track-index="3"><div class="caption-pill">으를 붙여서 네 덩어리로</div></div>
+  <div id="cap-55" class="clip caption-wrap" data-start="174.085" data-duration="2.923" data-track-index="3"><div class="caption-pill">읽는데, 영어엔 그 으가 없거든요.</div></div>
+  <div id="cap-56" class="clip caption-wrap" data-start="177.008" data-duration="3.293" data-track-index="3"><div class="caption-pill">앞에 에스는 소리 대신 이 사이로</div></div>
+  <div id="cap-57" class="clip caption-wrap" data-start="180.301" data-duration="2.122" data-track-index="3"><div class="caption-pill">바람만 쓰 하고 스치고, 끝의</div></div>
+  <div id="cap-58" class="clip caption-wrap" data-start="182.423" data-duration="4.466" data-track-index="3"><div class="caption-pill">케이도 입안에서 툭 막고 끝납니다.</div></div>
+  <div id="cap-59" class="clip caption-wrap" data-start="186.889" data-duration="1.966" data-track-index="3"><div class="caption-pill">원어민이 혀가 빨라서가 아니에요.</div></div>
+  <div id="cap-60" class="clip caption-wrap" data-start="188.856" data-duration="2.826" data-track-index="3"><div class="caption-pill">우린 네 번 끊어 읽을 걸 저쪽은 숨</div></div>
+  <div id="cap-61" class="clip caption-wrap" data-start="191.682" data-duration="3.539" data-track-index="3"><div class="caption-pill">한 번에 끝내니까 당연히 안 들릴 수밖에 없어요.</div></div>
+  <div id="cap-62" class="clip caption-wrap" data-start="196.271" data-duration="4.146" data-track-index="3"><div class="caption-pill">이제 남은 세 단어는 아예 얘기가 달라요.</div></div>
+  <div id="cap-63" class="clip caption-wrap" data-start="200.417" data-duration="1.15" data-track-index="3"><div class="caption-pill">우리가 평소에</div></div>
+  <div id="cap-64" class="clip caption-wrap" data-start="201.567" data-duration="3.584" data-track-index="3"><div class="caption-pill">&quot;복숭아 알레르기 있어&quot; 이런 말 자주 하잖아요.</div></div>
+  <div id="cap-65" class="clip caption-wrap" data-start="205.151" data-duration="2.444" data-track-index="3"><div class="caption-pill">사실 알레르기는 영어 발음이</div></div>
+  <div id="cap-66" class="clip caption-wrap" data-start="207.595" data-duration="2.161" data-track-index="3"><div class="caption-pill">아니라 독일어에서 온 말이에요.</div></div>
+  <div id="cap-67" class="clip caption-wrap" data-start="209.756" data-duration="1.663" data-track-index="3"><div class="caption-pill">미드나 유튜브에서 원어민이</div></div>
+  <div id="cap-68" class="clip caption-wrap" data-start="211.419" data-duration="1.85" data-track-index="3"><div class="caption-pill">말할 땐 아예 딴소리가 납니다.</div></div>
+  <div id="cap-69" class="clip caption-wrap" data-start="215.28" data-duration="1.754" data-track-index="3"><div class="caption-pill">앨러지!</div></div>
+  <div id="cap-70" class="clip caption-wrap" data-start="217.034" data-duration="1.829" data-track-index="3"><div class="caption-pill">알, 레, 르, 기랑 앨러지.</div></div>
+  <div id="cap-71" class="clip caption-wrap" data-start="218.863" data-duration="1.978" data-track-index="3"><div class="caption-pill">소리가 아예 다른 단어처럼 들리죠.</div></div>
+  <div id="cap-72" class="clip caption-wrap" data-start="220.841" data-duration="3.433" data-track-index="3"><div class="caption-pill">약국에서 매일 보는 비타민도 미국</div></div>
+  <div id="cap-73" class="clip caption-wrap" data-start="224.274" data-duration="2.109" data-track-index="3"><div class="caption-pill">영어에선 첫 글자부터 바뀝니다.</div></div>
+  <div id="cap-74" class="clip caption-wrap" data-start="226.382" data-duration="2.485" data-track-index="3"><div class="caption-pill">우린 그냥 다 비타민이라고 하고</div></div>
+  <div id="cap-75" class="clip caption-wrap" data-start="228.867" data-duration="3.133" data-track-index="3"><div class="caption-pill">영국 쪽도 비슷하게 읽긴 해요.</div></div>
+  <div id="cap-76" class="clip caption-wrap" data-start="232" data-duration="2.088" data-track-index="3"><div class="caption-pill">미국 드라마나 일상 대화에선요?</div></div>
+  <div id="cap-77" class="clip caption-wrap" data-start="236.664" data-duration="1.239" data-track-index="3"><div class="caption-pill">바이러민!</div></div>
+  <div id="cap-78" class="clip caption-wrap" data-start="237.903" data-duration="2.699" data-track-index="3"><div class="caption-pill">앞을 바이로 확 열고 가운데</div></div>
+  <div id="cap-79" class="clip caption-wrap" data-start="240.602" data-duration="1.759" data-track-index="3"><div class="caption-pill">티까지 부드럽게 굴립니다.</div></div>
+  <div id="cap-80" class="clip caption-wrap" data-start="242.361" data-duration="3.215" data-track-index="3"><div class="caption-pill">머릿속엔 비타민만 들어 있는데 영상에서</div></div>
+  <div id="cap-81" class="clip caption-wrap" data-start="245.576" data-duration="1.812" data-track-index="3"><div class="caption-pill">&quot;테이크 유어 바이러민&quot; 하면 무슨</div></div>
+  <div id="cap-82" class="clip caption-wrap" data-start="247.388" data-duration="2.221" data-track-index="3"><div class="caption-pill">낯선 약 이름인가 싶죠.</div></div>
+  <div id="cap-83" class="clip caption-wrap" data-start="250.839" data-duration="2.488" data-track-index="3"><div class="caption-pill">마지막으로 하나만 직접 맞혀 볼까요?</div></div>
+  <div id="cap-84" class="clip caption-wrap" data-start="253.327" data-duration="3.101" data-track-index="3"><div class="caption-pill">호텔 조식에서 자주 보는 뷔페.</div></div>
+  <div id="cap-85" class="clip caption-wrap" data-start="256.428" data-duration="1.584" data-track-index="3"><div class="caption-pill">이것도 영어 소리가 아니라</div></div>
+  <div id="cap-86" class="clip caption-wrap" data-start="258.012" data-duration="2.84" data-track-index="3"><div class="caption-pill">프랑스어 발음이 그대로 들어왔어요.</div></div>
+  <div id="cap-87" class="clip caption-wrap" data-start="260.852" data-duration="3.525" data-track-index="3"><div class="caption-pill">그럼 미국 원어민은 이 단어를 어떻게 읽을까요?</div></div>
+  <div id="cap-88" class="clip caption-wrap" data-start="264.377" data-duration="2.93" data-track-index="3"><div class="caption-pill">잠깐, 입 밖으로 한 번만 말해 보세요.</div></div>
+  <div id="cap-89" class="clip caption-wrap" data-start="272.119" data-duration="1.543" data-track-index="3"><div class="caption-pill">버페이!</div></div>
+  <div id="cap-90" class="clip caption-wrap" data-start="273.662" data-duration="5.236" data-track-index="3"><div class="caption-pill">앞에 힘을 빼고 뒤에 페이를 올려서 버페이.</div></div>
+  <div id="cap-91" class="clip caption-wrap" data-start="278.898" data-duration="2.591" data-track-index="3"><div class="caption-pill">뷔페랑은 소리가 아예 다르죠.</div></div>
+  <div id="cap-92" class="clip caption-wrap" data-start="281.49" data-duration="2.531" data-track-index="3"><div class="caption-pill">이제 드라마나 여행 영상에서</div></div>
+  <div id="cap-93" class="clip caption-wrap" data-start="284.02" data-duration="2.288" data-track-index="3"><div class="caption-pill">버페이 나오면 낯설지 않을 텐데요.</div></div>
+  <div id="cap-94" class="clip caption-wrap" data-start="287.358" data-duration="2.874" data-track-index="3"><div class="caption-pill">그럼 처음에 들었던 그 세 문장,</div></div>
+  <div id="cap-95" class="clip caption-wrap" data-start="290.232" data-duration="2.57" data-track-index="3"><div class="caption-pill">속도 그대로 다시 틀어 드릴게요.</div></div>
+  <div id="cap-96" class="clip caption-wrap" data-start="292.802" data-duration="1.968" data-track-index="3"><div class="caption-pill">아까보다 몇 단어 더 들리는지</div></div>
+  <div id="cap-97" class="clip caption-wrap" data-start="294.77" data-duration="1.85" data-track-index="3"><div class="caption-pill">직접 한 번 세어 볼까요?</div></div>
+  <div id="cap-98" class="clip caption-wrap" data-start="309.758" data-duration="4.6" data-track-index="3"><div class="caption-pill">어떠세요, 아까보단 귀에 걸리는 단어가 꽤 늘었죠?</div></div>
+  <div id="cap-99" class="clip caption-wrap" data-start="314.358" data-duration="1.698" data-track-index="3"><div class="caption-pill">자막 켜고 바로 확인해 볼게요.</div></div>
+  <div id="cap-100" class="clip caption-wrap" data-start="322.942" data-duration="4.275" data-track-index="3"><div class="caption-pill">첫 문장에 캠러, 초클릿, 컴프터블.</div></div>
+  <div id="cap-101" class="clip caption-wrap" data-start="329.751" data-duration="1.811" data-track-index="3"><div class="caption-pill">둘째 문장에 스테익.</div></div>
+  <div id="cap-102" class="clip caption-wrap" data-start="335.34" data-duration="3.105" data-track-index="3"><div class="caption-pill">마지막 문장에 버페이, 앨러지, 바이러민까지.</div></div>
+  <div id="cap-103" class="clip caption-wrap" data-start="338.445" data-duration="3.659" data-track-index="3"><div class="caption-pill">속도 하나도 안 줄였는데, 가운데 빠지고</div></div>
+  <div id="cap-104" class="clip caption-wrap" data-start="342.104" data-duration="3.42" data-track-index="3"><div class="caption-pill">한 박자로 줄고 애초에 발음이 다르다는</div></div>
+  <div id="cap-105" class="clip caption-wrap" data-start="345.525" data-duration="2.098" data-track-index="3"><div class="caption-pill">것만 알아도 귀가 다르게 열립니다.</div></div>
+  <div id="cap-106" class="clip caption-wrap" data-start="348.773" data-duration="3.036" data-track-index="3"><div class="caption-pill">오늘 나온 일곱 단어, 화면에 한 번에 띄워 둘게요.</div></div>
+  <div id="cap-107" class="clip caption-wrap" data-start="351.809" data-duration="2.531" data-track-index="3"><div class="caption-pill">외우려고 애쓰실 필요 없고, 필요할 때</div></div>
+  <div id="cap-108" class="clip caption-wrap" data-start="354.34" data-duration="2.826" data-track-index="3"><div class="caption-pill">잠깐 멈춰 놓고 캡처해 두셔도 됩니다.</div></div>
+  <div id="cap-109" class="clip caption-wrap" data-start="357.166" data-duration="1.171" data-track-index="3"><div class="caption-pill">일곱 개 중에</div></div>
+  <div id="cap-110" class="clip caption-wrap" data-start="358.336" data-duration="3.916" data-track-index="3"><div class="caption-pill">제일 &quot;이게 이 소리였어?&quot; 싶었던 단어</div></div>
+  <div id="cap-111" class="clip caption-wrap" data-start="362.253" data-duration="1.85" data-track-index="3"><div class="caption-pill">하나만 댓글에 남겨 주세요.</div></div>
+
+  <!-- TRACKS 4-7: BGM (7% carved) + KO Voice + EN Native Voice + SFX & Smooth Full-Scene Foley -->
+  <audio id="bgm" src="assets/bgm/track-full.mp3" data-start="0" data-duration="376.352" data-track-index="4" data-volume="0.08" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voiceover&quot;],&quot;strength&quot;:0.8}" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n1&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:160,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n2&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:400,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n3&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:630,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n4&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1000,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n5&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1600,&quot;gain&quot;:-14.8,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n6&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:2500,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;gain&quot;,&quot;id&quot;:&quot;n7&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;gain&quot;:0}}]}" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;fx.n1.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:4.747,&quot;v&quot;:0},{&quot;t&quot;:5.688,&quot;v&quot;:-2.6},{&quot;t&quot;:6.629,&quot;v&quot;:0},{&quot;t&quot;:9.452,&quot;v&quot;:0},{&quot;t&quot;:10.393,&quot;v&quot;:-4.1},{&quot;t&quot;:11.333,&quot;v&quot;:-2.3},{&quot;t&quot;:12.274,&quot;v&quot;:-4.8},{&quot;t&quot;:13.215,&quot;v&quot;:0},{&quot;t&quot;:14.156,&quot;v&quot;:-1.6},{&quot;t&quot;:15.097,&quot;v&quot;:0},{&quot;t&quot;:16.038,&quot;v&quot;:-5.3},{&quot;t&quot;:16.979,&quot;v&quot;:0},{&quot;t&quot;:22.624,&quot;v&quot;:0},{&quot;t&quot;:23.565,&quot;v&quot;:-4.2},{&quot;t&quot;:24.506,&quot;v&quot;:0},{&quot;t&quot;:29.21,&quot;v&quot;:0},{&quot;t&quot;:30.151,&quot;v&quot;:-2.4},{&quot;t&quot;:31.092,&quot;v&quot;:0},{&quot;t&quot;:32.033,&quot;v&quot;:-1.2},{&quot;t&quot;:32.974,&quot;v&quot;:0},{&quot;t&quot;:33.915,&quot;v&quot;:-3.6},{&quot;t&quot;:34.856,&quot;v&quot;:-3.3},{&quot;t&quot;:35.797,&quot;v&quot;:0},{&quot;t&quot;:36.738,&quot;v&quot;:-4.2},{&quot;t&quot;:37.678,&quot;v&quot;:-0.9},{&quot;t&quot;:38.619,&quot;v&quot;:0},{&quot;t&quot;:42.383,&quot;v&quot;:0},{&quot;t&quot;:43.324,&quot;v&quot;:-2.4},{&quot;t&quot;:44.265,&quot;v&quot;:0},{&quot;t&quot;:45.206,&quot;v&quot;:-2},{&quot;t&quot;:46.147,&quot;v&quot;:0},{&quot;t&quot;:47.087,&quot;v&quot;:-4.8},{&quot;t&quot;:48.028,&quot;v&quot;:0},{&quot;t&quot;:51.792,&quot;v&quot;:0},{&quot;t&quot;:52.733,&quot;v&quot;:-3.7},{&quot;t&quot;:53.674,&quot;v&quot;:-0.3},{&quot;t&quot;:59.319,&quot;v&quot;:0},{&quot;t&quot;:60.26,&quot;v&quot;:-5.5},{&quot;t&quot;:61.201,&quot;v&quot;:-3.2},{&quot;t&quot;:62.142,&quot;v&quot;:0},{&quot;t&quot;:63.083,&quot;v&quot;:-4.5},{&quot;t&quot;:64.024,&quot;v&quot;:0},{&quot;t&quot;:69.669,&quot;v&quot;:0},{&quot;t&quot;:70.61,&quot;v&quot;:-0.5},{&quot;t&quot;:71.551,&quot;v&quot;:0},{&quot;t&quot;:72.492,&quot;v&quot;:0},{&quot;t&quot;:73.433,&quot;v&quot;:-0.8},{&quot;t&quot;:74.373,&quot;v&quot;:0},{&quot;t&quot;:78.137,&quot;v&quot;:0},{&quot;t&quot;:79.078,&quot;v&quot;:-3.8},{&quot;t&quot;:80.019,&quot;v&quot;:0},{&quot;t&quot;:81.901,&quot;v&quot;:0},{&quot;t&quot;:82.841,&quot;v&quot;:-0.8},{&quot;t&quot;:83.782,&quot;v&quot;:0},{&quot;t&quot;:85.664,&quot;v&quot;:0},{&quot;t&quot;:86.605,&quot;v&quot;:-0.5},{&quot;t&quot;:87.546,&quot;v&quot;:0},{&quot;t&quot;:89.428,&quot;v&quot;:0},{&quot;t&quot;:90.369,&quot;v&quot;:-5.4},{&quot;t&quot;:91.31,&quot;v&quot;:0},{&quot;t&quot;:92.25,&quot;v&quot;:0},{&quot;t&quot;:93.191,&quot;v&quot;:-2.7},{&quot;t&quot;:94.132,&quot;v&quot;:-0.7},{&quot;t&quot;:95.073,&quot;v&quot;:-0.7},{&quot;t&quot;:96.014,&quot;v&quot;:0},{&quot;t&quot;:96.955,&quot;v&quot;:-3.6},{&quot;t&quot;:97.896,&quot;v&quot;:-2.9},{&quot;t&quot;:98.837,&quot;v&quot;:0},{&quot;t&quot;:99.778,&quot;v&quot;:0},{&quot;t&quot;:100.719,&quot;v&quot;:-1.4},{&quot;t&quot;:101.659,&quot;v&quot;:0},{&quot;t&quot;:102.6,&quot;v&quot;:-3.4},{&quot;t&quot;:103.541,&quot;v&quot;:0},{&quot;t&quot;:107.305,&quot;v&quot;:0},{&quot;t&quot;:108.246,&quot;v&quot;:-4.9},{&quot;t&quot;:109.187,&quot;v&quot;:0},{&quot;t&quot;:112.009,&quot;v&quot;:0},{&quot;t&quot;:112.95,&quot;v&quot;:-3.4},{&quot;t&quot;:113.891,&quot;v&quot;:0},{&quot;t&quot;:114.832,&quot;v&quot;:-5.6},{&quot;t&quot;:115.773,&quot;v&quot;:0},{&quot;t&quot;:116.714,&quot;v&quot;:0},{&quot;t&quot;:117.655,&quot;v&quot;:-5.2},{&quot;t&quot;:118.596,&quot;v&quot;:0},{&quot;t&quot;:119.536,&quot;v&quot;:0},{&quot;t&quot;:120.477,&quot;v&quot;:-3},{&quot;t&quot;:121.418,&quot;v&quot;:0},{&quot;t&quot;:122.359,&quot;v&quot;:-4.2},{&quot;t&quot;:123.3,&quot;v&quot;:-4.9},{&quot;t&quot;:124.241,&quot;v&quot;:-3.4},{&quot;t&quot;:125.182,&quot;v&quot;:0},{&quot;t&quot;:128.945,&quot;v&quot;:0},{&quot;t&quot;:129.886,&quot;v&quot;:-1.2},{&quot;t&quot;:130.827,&quot;v&quot;:-0.6},{&quot;t&quot;:131.768,&quot;v&quot;:0},{&quot;t&quot;:132.709,&quot;v&quot;:0},{&quot;t&quot;:133.65,&quot;v&quot;:-3.8},{&quot;t&quot;:134.591,&quot;v&quot;:0},{&quot;t&quot;:135.532,&quot;v&quot;:-5.4},{&quot;t&quot;:136.473,&quot;v&quot;:0},{&quot;t&quot;:137.413,&quot;v&quot;:0},{&quot;t&quot;:138.354,&quot;v&quot;:-2.8},{&quot;t&quot;:139.295,&quot;v&quot;:0},{&quot;t&quot;:140.236,&quot;v&quot;:-4.3},{&quot;t&quot;:141.177,&quot;v&quot;:-2.1},{&quot;t&quot;:142.118,&quot;v&quot;:0},{&quot;t&quot;:143.059,&quot;v&quot;:-2.9},{&quot;t&quot;:144,&quot;v&quot;:0},{&quot;t&quot;:144.941,&quot;v&quot;:-4.1},{&quot;t&quot;:145.882,&quot;v&quot;:0},{&quot;t&quot;:153.409,&quot;v&quot;:0},{&quot;t&quot;:154.35,&quot;v&quot;:-4.3},{&quot;t&quot;:155.29,&quot;v&quot;:0},{&quot;t&quot;:156.231,&quot;v&quot;:-1.2},{&quot;t&quot;:157.172,&quot;v&quot;:0},{&quot;t&quot;:158.113,&quot;v&quot;:-5.8},{&quot;t&quot;:159.054,&quot;v&quot;:-3.4},{&quot;t&quot;:159.995,&quot;v&quot;:0},{&quot;t&quot;:163.759,&quot;v&quot;:0},{&quot;t&quot;:164.699,&quot;v&quot;:-2.4},{&quot;t&quot;:165.64,&quot;v&quot;:-3.1},{&quot;t&quot;:166.581,&quot;v&quot;:-1.8},{&quot;t&quot;:167.522,&quot;v&quot;:0},{&quot;t&quot;:168.463,&quot;v&quot;:-1.6},{&quot;t&quot;:169.404,&quot;v&quot;:-4.5},{&quot;t&quot;:170.345,&quot;v&quot;:0},{&quot;t&quot;:171.286,&quot;v&quot;:0},{&quot;t&quot;:172.227,&quot;v&quot;:-4.3},{&quot;t&quot;:173.167,&quot;v&quot;:0},{&quot;t&quot;:175.99,&quot;v&quot;:0},{&quot;t&quot;:176.931,&quot;v&quot;:-3.1},{&quot;t&quot;:177.872,&quot;v&quot;:0},{&quot;t&quot;:178.813,&quot;v&quot;:0},{&quot;t&quot;:179.754,&quot;v&quot;:-5.6},{&quot;t&quot;:180.695,&quot;v&quot;:0},{&quot;t&quot;:181.636,&quot;v&quot;:0},{&quot;t&quot;:182.576,&quot;v&quot;:-4.8},{&quot;t&quot;:183.517,&quot;v&quot;:-1.6},{&quot;t&quot;:184.458,&quot;v&quot;:-5.6},{&quot;t&quot;:185.399,&quot;v&quot;:0},{&quot;t&quot;:186.34,&quot;v&quot;:0},{&quot;t&quot;:187.281,&quot;v&quot;:-1},{&quot;t&quot;:188.222,&quot;v&quot;:-5.6},{&quot;t&quot;:189.163,&quot;v&quot;:0},{&quot;t&quot;:190.104,&quot;v&quot;:-2},{&quot;t&quot;:191.045,&quot;v&quot;:0},{&quot;t&quot;:191.985,&quot;v&quot;:-5.1},{&quot;t&quot;:192.926,&quot;v&quot;:-4.3},{&quot;t&quot;:193.867,&quot;v&quot;:-0.9},{&quot;t&quot;:194.808,&quot;v&quot;:-1},{&quot;t&quot;:195.749,&quot;v&quot;:0},{&quot;t&quot;:197.631,&quot;v&quot;:0},{&quot;t&quot;:198.572,&quot;v&quot;:-2.5},{&quot;t&quot;:199.513,&quot;v&quot;:0},{&quot;t&quot;:200.453,&quot;v&quot;:-3.8},{&quot;t&quot;:201.394,&quot;v&quot;:-5},{&quot;t&quot;:202.335,&quot;v&quot;:0},{&quot;t&quot;:203.276,&quot;v&quot;:-2.8},{&quot;t&quot;:204.217,&quot;v&quot;:0},{&quot;t&quot;:205.158,&quot;v&quot;:-6.5},{&quot;t&quot;:206.099,&quot;v&quot;:-5},{&quot;t&quot;:207.04,&quot;v&quot;:0},{&quot;t&quot;:207.981,&quot;v&quot;:-2.5},{&quot;t&quot;:208.922,&quot;v&quot;:0},{&quot;t&quot;:209.862,&quot;v&quot;:-3.9},{&quot;t&quot;:210.803,&quot;v&quot;:-2.3},{&quot;t&quot;:211.744,&quot;v&quot;:0},{&quot;t&quot;:214.567,&quot;v&quot;:0},{&quot;t&quot;:215.508,&quot;v&quot;:-1.4},{&quot;t&quot;:216.449,&quot;v&quot;:0},{&quot;t&quot;:217.39,&quot;v&quot;:-5},{&quot;t&quot;:218.331,&quot;v&quot;:0},{&quot;t&quot;:222.094,&quot;v&quot;:0},{&quot;t&quot;:223.035,&quot;v&quot;:-6},{&quot;t&quot;:223.976,&quot;v&quot;:0},{&quot;t&quot;:224.917,&quot;v&quot;:-5.2},{&quot;t&quot;:225.858,&quot;v&quot;:0},{&quot;t&quot;:226.799,&quot;v&quot;:0},{&quot;t&quot;:227.739,&quot;v&quot;:-5.3},{&quot;t&quot;:228.68,&quot;v&quot;:-5.4},{&quot;t&quot;:229.621,&quot;v&quot;:0},{&quot;t&quot;:230.562,&quot;v&quot;:-6.1},{&quot;t&quot;:231.503,&quot;v&quot;:0},{&quot;t&quot;:232.444,&quot;v&quot;:-2},{&quot;t&quot;:233.385,&quot;v&quot;:-3.5},{&quot;t&quot;:234.326,&quot;v&quot;:0},{&quot;t&quot;:236.208,&quot;v&quot;:0},{&quot;t&quot;:237.148,&quot;v&quot;:-4.1},{&quot;t&quot;:238.089,&quot;v&quot;:-3.1},{&quot;t&quot;:239.03,&quot;v&quot;:0},{&quot;t&quot;:244.676,&quot;v&quot;:0},{&quot;t&quot;:245.616,&quot;v&quot;:-5.9},{&quot;t&quot;:246.557,&quot;v&quot;:-2.6},{&quot;t&quot;:247.498,&quot;v&quot;:0},{&quot;t&quot;:251.262,&quot;v&quot;:-0.2},{&quot;t&quot;:252.203,&quot;v&quot;:-2.9},{&quot;t&quot;:253.144,&quot;v&quot;:-3.2},{&quot;t&quot;:254.085,&quot;v&quot;:-1},{&quot;t&quot;:255.025,&quot;v&quot;:0},{&quot;t&quot;:255.966,&quot;v&quot;:-7.4},{&quot;t&quot;:256.907,&quot;v&quot;:-2.4},{&quot;t&quot;:257.848,&quot;v&quot;:-1.4},{&quot;t&quot;:258.789,&quot;v&quot;:0},{&quot;t&quot;:259.73,&quot;v&quot;:0},{&quot;t&quot;:260.671,&quot;v&quot;:-2.3},{&quot;t&quot;:261.612,&quot;v&quot;:0},{&quot;t&quot;:262.553,&quot;v&quot;:-6},{&quot;t&quot;:263.493,&quot;v&quot;:-1.1},{&quot;t&quot;:264.434,&quot;v&quot;:0},{&quot;t&quot;:265.375,&quot;v&quot;:0},{&quot;t&quot;:266.316,&quot;v&quot;:-2.2},{&quot;t&quot;:267.257,&quot;v&quot;:-5.1},{&quot;t&quot;:268.198,&quot;v&quot;:0},{&quot;t&quot;:269.139,&quot;v&quot;:0},{&quot;t&quot;:270.08,&quot;v&quot;:-2.9},{&quot;t&quot;:271.021,&quot;v&quot;:-0.8},{&quot;t&quot;:271.962,&quot;v&quot;:0},{&quot;t&quot;:275.725,&quot;v&quot;:0},{&quot;t&quot;:276.666,&quot;v&quot;:-2.7},{&quot;t&quot;:277.607,&quot;v&quot;:-0.9},{&quot;t&quot;:278.548,&quot;v&quot;:0},{&quot;t&quot;:279.489,&quot;v&quot;:-1.7},{&quot;t&quot;:280.43,&quot;v&quot;:0},{&quot;t&quot;:281.371,&quot;v&quot;:0},{&quot;t&quot;:282.311,&quot;v&quot;:-1.7},{&quot;t&quot;:283.252,&quot;v&quot;:0},{&quot;t&quot;:285.134,&quot;v&quot;:0},{&quot;t&quot;:286.075,&quot;v&quot;:-3.2},{&quot;t&quot;:287.016,&quot;v&quot;:0},{&quot;t&quot;:287.957,&quot;v&quot;:-2},{&quot;t&quot;:288.898,&quot;v&quot;:0},{&quot;t&quot;:291.72,&quot;v&quot;:0},{&quot;t&quot;:292.661,&quot;v&quot;:-4.6},{&quot;t&quot;:293.602,&quot;v&quot;:0},{&quot;t&quot;:297.366,&quot;v&quot;:0},{&quot;t&quot;:298.307,&quot;v&quot;:-6.5},{&quot;t&quot;:299.248,&quot;v&quot;:0},{&quot;t&quot;:300.188,&quot;v&quot;:-5.8},{&quot;t&quot;:301.129,&quot;v&quot;:-3.4},{&quot;t&quot;:302.07,&quot;v&quot;:0},{&quot;t&quot;:304.893,&quot;v&quot;:0},{&quot;t&quot;:305.834,&quot;v&quot;:-3.4},{&quot;t&quot;:306.775,&quot;v&quot;:-2.1},{&quot;t&quot;:307.716,&quot;v&quot;:-4},{&quot;t&quot;:308.656,&quot;v&quot;:0},{&quot;t&quot;:310.538,&quot;v&quot;:0},{&quot;t&quot;:311.479,&quot;v&quot;:-5.8},{&quot;t&quot;:312.42,&quot;v&quot;:-5.7},{&quot;t&quot;:313.361,&quot;v&quot;:0},{&quot;t&quot;:322.77,&quot;v&quot;:0},{&quot;t&quot;:323.711,&quot;v&quot;:-0.6},{&quot;t&quot;:324.652,&quot;v&quot;:0},{&quot;t&quot;:329.356,&quot;v&quot;:0},{&quot;t&quot;:330.297,&quot;v&quot;:-5.8},{&quot;t&quot;:331.238,&quot;v&quot;:0},{&quot;t&quot;:332.179,&quot;v&quot;:-3.7},{&quot;t&quot;:333.12,&quot;v&quot;:-2.1},{&quot;t&quot;:334.061,&quot;v&quot;:-5.1},{&quot;t&quot;:335.002,&quot;v&quot;:0},{&quot;t&quot;:335.942,&quot;v&quot;:0},{&quot;t&quot;:336.883,&quot;v&quot;:-5},{&quot;t&quot;:337.824,&quot;v&quot;:-2},{&quot;t&quot;:338.765,&quot;v&quot;:0},{&quot;t&quot;:339.706,&quot;v&quot;:-2.6},{&quot;t&quot;:340.647,&quot;v&quot;:-1},{&quot;t&quot;:341.588,&quot;v&quot;:-0.3},{&quot;t&quot;:342.529,&quot;v&quot;:0},{&quot;t&quot;:343.47,&quot;v&quot;:-1.6},{&quot;t&quot;:344.411,&quot;v&quot;:0},{&quot;t&quot;:346.292,&quot;v&quot;:0},{&quot;t&quot;:347.233,&quot;v&quot;:-3.6},{&quot;t&quot;:348.174,&quot;v&quot;:0},{&quot;t&quot;:349.115,&quot;v&quot;:-5},{&quot;t&quot;:350.056,&quot;v&quot;:0},{&quot;t&quot;:350.997,&quot;v&quot;:-1.8},{&quot;t&quot;:351.938,&quot;v&quot;:0},{&quot;t&quot;:353.82,&quot;v&quot;:0},{&quot;t&quot;:354.76,&quot;v&quot;:-4.4},{&quot;t&quot;:355.701,&quot;v&quot;:0},{&quot;t&quot;:356.642,&quot;v&quot;:-1.1},{&quot;t&quot;:357.583,&quot;v&quot;:0},{&quot;t&quot;:358.524,&quot;v&quot;:-3.5},{&quot;t&quot;:359.465,&quot;v&quot;:-3.5},{&quot;t&quot;:360.406,&quot;v&quot;:0},{&quot;t&quot;:374.519,&quot;v&quot;:0},{&quot;t&quot;:375.46,&quot;v&quot;:0},{&quot;t&quot;:376.352,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n2.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:4.747,&quot;v&quot;:0},{&quot;t&quot;:5.688,&quot;v&quot;:-6.6},{&quot;t&quot;:6.629,&quot;v&quot;:0},{&quot;t&quot;:9.452,&quot;v&quot;:0},{&quot;t&quot;:10.393,&quot;v&quot;:-3.3},{&quot;t&quot;:11.333,&quot;v&quot;:-2.2},{&quot;t&quot;:12.274,&quot;v&quot;:-4},{&quot;t&quot;:13.215,&quot;v&quot;:-3.1},{&quot;t&quot;:14.156,&quot;v&quot;:0},{&quot;t&quot;:15.097,&quot;v&quot;:0},{&quot;t&quot;:16.038,&quot;v&quot;:-4.6},{&quot;t&quot;:16.979,&quot;v&quot;:0},{&quot;t&quot;:18.861,&quot;v&quot;:0},{&quot;t&quot;:19.801,&quot;v&quot;:-4.3},{&quot;t&quot;:20.742,&quot;v&quot;:0},{&quot;t&quot;:21.683,&quot;v&quot;:-6.7},{&quot;t&quot;:22.624,&quot;v&quot;:0},{&quot;t&quot;:23.565,&quot;v&quot;:-3.2},{&quot;t&quot;:24.506,&quot;v&quot;:0},{&quot;t&quot;:26.388,&quot;v&quot;:0},{&quot;t&quot;:27.329,&quot;v&quot;:-1.1},{&quot;t&quot;:28.27,&quot;v&quot;:-0.8},{&quot;t&quot;:29.21,&quot;v&quot;:0},{&quot;t&quot;:30.151,&quot;v&quot;:-4.7},{&quot;t&quot;:31.092,&quot;v&quot;:-0.5},{&quot;t&quot;:32.033,&quot;v&quot;:0},{&quot;t&quot;:32.974,&quot;v&quot;:0},{&quot;t&quot;:33.915,&quot;v&quot;:-4.6},{&quot;t&quot;:34.856,&quot;v&quot;:-2.7},{&quot;t&quot;:35.797,&quot;v&quot;:0},{&quot;t&quot;:36.738,&quot;v&quot;:-2.8},{&quot;t&quot;:37.678,&quot;v&quot;:-1.2},{&quot;t&quot;:38.619,&quot;v&quot;:0},{&quot;t&quot;:39.56,&quot;v&quot;:-4.6},{&quot;t&quot;:40.501,&quot;v&quot;:0},{&quot;t&quot;:42.383,&quot;v&quot;:0},{&quot;t&quot;:43.324,&quot;v&quot;:-2.2},{&quot;t&quot;:44.265,&quot;v&quot;:0},{&quot;t&quot;:45.206,&quot;v&quot;:-2.3},{&quot;t&quot;:46.147,&quot;v&quot;:0},{&quot;t&quot;:47.087,&quot;v&quot;:-6.7},{&quot;t&quot;:48.028,&quot;v&quot;:0},{&quot;t&quot;:49.91,&quot;v&quot;:0},{&quot;t&quot;:50.851,&quot;v&quot;:-3.7},{&quot;t&quot;:51.792,&quot;v&quot;:0},{&quot;t&quot;:52.733,&quot;v&quot;:-2.8},{&quot;t&quot;:53.674,&quot;v&quot;:0},{&quot;t&quot;:59.319,&quot;v&quot;:0},{&quot;t&quot;:60.26,&quot;v&quot;:-4.5},{&quot;t&quot;:61.201,&quot;v&quot;:-5.6},{&quot;t&quot;:62.142,&quot;v&quot;:0},{&quot;t&quot;:63.083,&quot;v&quot;:-0.7},{&quot;t&quot;:64.024,&quot;v&quot;:0},{&quot;t&quot;:68.728,&quot;v&quot;:0},{&quot;t&quot;:69.669,&quot;v&quot;:-5.4},{&quot;t&quot;:70.61,&quot;v&quot;:-1.9},{&quot;t&quot;:71.551,&quot;v&quot;:0},{&quot;t&quot;:72.492,&quot;v&quot;:-4.6},{&quot;t&quot;:73.433,&quot;v&quot;:-6.6},{&quot;t&quot;:74.373,&quot;v&quot;:-0.6},{&quot;t&quot;:75.314,&quot;v&quot;:-6.2},{&quot;t&quot;:76.255,&quot;v&quot;:0},{&quot;t&quot;:81.901,&quot;v&quot;:0},{&quot;t&quot;:82.841,&quot;v&quot;:-5.3},{&quot;t&quot;:83.782,&quot;v&quot;:-0.3},{&quot;t&quot;:84.723,&quot;v&quot;:-2},{&quot;t&quot;:85.664,&quot;v&quot;:0},{&quot;t&quot;:86.605,&quot;v&quot;:-4.7},{&quot;t&quot;:87.546,&quot;v&quot;:0},{&quot;t&quot;:88.487,&quot;v&quot;:-4.4},{&quot;t&quot;:89.428,&quot;v&quot;:0},{&quot;t&quot;:90.369,&quot;v&quot;:-4.5},{&quot;t&quot;:91.31,&quot;v&quot;:0},{&quot;t&quot;:92.25,&quot;v&quot;:0},{&quot;t&quot;:93.191,&quot;v&quot;:-2.4},{&quot;t&quot;:94.132,&quot;v&quot;:-2},{&quot;t&quot;:95.073,&quot;v&quot;:-4.7},{&quot;t&quot;:96.014,&quot;v&quot;:-1},{&quot;t&quot;:96.955,&quot;v&quot;:-2.3},{&quot;t&quot;:97.896,&quot;v&quot;:-6.2},{&quot;t&quot;:98.837,&quot;v&quot;:-2.9},{&quot;t&quot;:99.778,&quot;v&quot;:0},{&quot;t&quot;:100.719,&quot;v&quot;:-4.5},{&quot;t&quot;:101.659,&quot;v&quot;:0},{&quot;t&quot;:102.6,&quot;v&quot;:-5.5},{&quot;t&quot;:103.541,&quot;v&quot;:-0.9},{&quot;t&quot;:104.482,&quot;v&quot;:0},{&quot;t&quot;:105.423,&quot;v&quot;:-5.1},{&quot;t&quot;:106.364,&quot;v&quot;:0},{&quot;t&quot;:107.305,&quot;v&quot;:0},{&quot;t&quot;:108.246,&quot;v&quot;:-7.2},{&quot;t&quot;:109.187,&quot;v&quot;:-3.1},{&quot;t&quot;:110.127,&quot;v&quot;:0},{&quot;t&quot;:111.068,&quot;v&quot;:-2.7},{&quot;t&quot;:112.009,&quot;v&quot;:-1},{&quot;t&quot;:112.95,&quot;v&quot;:-6.1},{&quot;t&quot;:113.891,&quot;v&quot;:0},{&quot;t&quot;:114.832,&quot;v&quot;:-4.3},{&quot;t&quot;:115.773,&quot;v&quot;:-6.7},{&quot;t&quot;:116.714,&quot;v&quot;:0},{&quot;t&quot;:117.655,&quot;v&quot;:-2.4},{&quot;t&quot;:118.596,&quot;v&quot;:0},{&quot;t&quot;:119.536,&quot;v&quot;:0},{&quot;t&quot;:120.477,&quot;v&quot;:-3.7},{&quot;t&quot;:121.418,&quot;v&quot;:0},{&quot;t&quot;:122.359,&quot;v&quot;:-3.4},{&quot;t&quot;:123.3,&quot;v&quot;:-4.5},{&quot;t&quot;:124.241,&quot;v&quot;:-5.6},{&quot;t&quot;:125.182,&quot;v&quot;:0},{&quot;t&quot;:128.005,&quot;v&quot;:0},{&quot;t&quot;:128.945,&quot;v&quot;:-1.7},{&quot;t&quot;:129.886,&quot;v&quot;:-4.1},{&quot;t&quot;:130.827,&quot;v&quot;:-6.7},{&quot;t&quot;:131.768,&quot;v&quot;:0},{&quot;t&quot;:132.709,&quot;v&quot;:-3.4},{&quot;t&quot;:133.65,&quot;v&quot;:-6.4},{&quot;t&quot;:134.591,&quot;v&quot;:0},{&quot;t&quot;:135.532,&quot;v&quot;:-0.8},{&quot;t&quot;:136.473,&quot;v&quot;:0},{&quot;t&quot;:137.413,&quot;v&quot;:-4.3},{&quot;t&quot;:138.354,&quot;v&quot;:-3.1},{&quot;t&quot;:139.295,&quot;v&quot;:0},{&quot;t&quot;:140.236,&quot;v&quot;:-7.4},{&quot;t&quot;:141.177,&quot;v&quot;:-1.9},{&quot;t&quot;:142.118,&quot;v&quot;:0},{&quot;t&quot;:143.059,&quot;v&quot;:-3.2},{&quot;t&quot;:144,&quot;v&quot;:0},{&quot;t&quot;:144.941,&quot;v&quot;:-4.4},{&quot;t&quot;:145.882,&quot;v&quot;:-5.8},{&quot;t&quot;:146.822,&quot;v&quot;:0},{&quot;t&quot;:150.586,&quot;v&quot;:0},{&quot;t&quot;:151.527,&quot;v&quot;:-0.8},{&quot;t&quot;:152.468,&quot;v&quot;:0},{&quot;t&quot;:157.172,&quot;v&quot;:0},{&quot;t&quot;:158.113,&quot;v&quot;:-2.9},{&quot;t&quot;:159.054,&quot;v&quot;:-3.3},{&quot;t&quot;:159.995,&quot;v&quot;:0},{&quot;t&quot;:160.936,&quot;v&quot;:-2.2},{&quot;t&quot;:161.877,&quot;v&quot;:0},{&quot;t&quot;:163.759,&quot;v&quot;:0},{&quot;t&quot;:164.699,&quot;v&quot;:-0.9},{&quot;t&quot;:165.64,&quot;v&quot;:-4.9},{&quot;t&quot;:166.581,&quot;v&quot;:-0.7},{&quot;t&quot;:167.522,&quot;v&quot;:-4.4},{&quot;t&quot;:168.463,&quot;v&quot;:0},{&quot;t&quot;:169.404,&quot;v&quot;:-2.1},{&quot;t&quot;:170.345,&quot;v&quot;:0},{&quot;t&quot;:172.227,&quot;v&quot;:0},{&quot;t&quot;:173.167,&quot;v&quot;:-3},{&quot;t&quot;:174.108,&quot;v&quot;:-1.8},{&quot;t&quot;:175.049,&quot;v&quot;:0},{&quot;t&quot;:177.872,&quot;v&quot;:0},{&quot;t&quot;:178.813,&quot;v&quot;:-2.2},{&quot;t&quot;:179.754,&quot;v&quot;:-1.1},{&quot;t&quot;:180.695,&quot;v&quot;:-1.5},{&quot;t&quot;:181.636,&quot;v&quot;:0},{&quot;t&quot;:182.576,&quot;v&quot;:-5.8},{&quot;t&quot;:183.517,&quot;v&quot;:-6},{&quot;t&quot;:184.458,&quot;v&quot;:-0.7},{&quot;t&quot;:185.399,&quot;v&quot;:0},{&quot;t&quot;:186.34,&quot;v&quot;:0},{&quot;t&quot;:187.281,&quot;v&quot;:-0.8},{&quot;t&quot;:188.222,&quot;v&quot;:-4.6},{&quot;t&quot;:189.163,&quot;v&quot;:0},{&quot;t&quot;:190.104,&quot;v&quot;:-4.2},{&quot;t&quot;:191.045,&quot;v&quot;:0},{&quot;t&quot;:191.985,&quot;v&quot;:-0.4},{&quot;t&quot;:192.926,&quot;v&quot;:-6.6},{&quot;t&quot;:193.867,&quot;v&quot;:-1.7},{&quot;t&quot;:194.808,&quot;v&quot;:-5.4},{&quot;t&quot;:195.749,&quot;v&quot;:0},{&quot;t&quot;:196.69,&quot;v&quot;:-3},{&quot;t&quot;:197.631,&quot;v&quot;:0},{&quot;t&quot;:198.572,&quot;v&quot;:-2},{&quot;t&quot;:199.513,&quot;v&quot;:0},{&quot;t&quot;:200.453,&quot;v&quot;:-5.8},{&quot;t&quot;:201.394,&quot;v&quot;:-1.1},{&quot;t&quot;:202.335,&quot;v&quot;:-5.4},{&quot;t&quot;:203.276,&quot;v&quot;:-3.6},{&quot;t&quot;:204.217,&quot;v&quot;:0},{&quot;t&quot;:205.158,&quot;v&quot;:-6},{&quot;t&quot;:206.099,&quot;v&quot;:-4.3},{&quot;t&quot;:207.04,&quot;v&quot;:-1.3},{&quot;t&quot;:207.981,&quot;v&quot;:-2.4},{&quot;t&quot;:208.922,&quot;v&quot;:0},{&quot;t&quot;:209.862,&quot;v&quot;:-1.6},{&quot;t&quot;:210.803,&quot;v&quot;:-2.9},{&quot;t&quot;:211.744,&quot;v&quot;:-0.5},{&quot;t&quot;:212.685,&quot;v&quot;:0},{&quot;t&quot;:213.626,&quot;v&quot;:0},{&quot;t&quot;:214.567,&quot;v&quot;:-4.4},{&quot;t&quot;:215.508,&quot;v&quot;:-7},{&quot;t&quot;:216.449,&quot;v&quot;:0},{&quot;t&quot;:222.094,&quot;v&quot;:0},{&quot;t&quot;:223.035,&quot;v&quot;:-0.6},{&quot;t&quot;:223.976,&quot;v&quot;:-1.1},{&quot;t&quot;:224.917,&quot;v&quot;:-1.9},{&quot;t&quot;:225.858,&quot;v&quot;:0},{&quot;t&quot;:227.739,&quot;v&quot;:-0.4},{&quot;t&quot;:228.68,&quot;v&quot;:-5.8},{&quot;t&quot;:229.621,&quot;v&quot;:0},{&quot;t&quot;:230.562,&quot;v&quot;:-2.8},{&quot;t&quot;:231.503,&quot;v&quot;:0},{&quot;t&quot;:232.444,&quot;v&quot;:-6.3},{&quot;t&quot;:233.385,&quot;v&quot;:-2.6},{&quot;t&quot;:234.326,&quot;v&quot;:0},{&quot;t&quot;:236.208,&quot;v&quot;:0},{&quot;t&quot;:237.148,&quot;v&quot;:-2.2},{&quot;t&quot;:238.089,&quot;v&quot;:-3.6},{&quot;t&quot;:239.03,&quot;v&quot;:0},{&quot;t&quot;:243.735,&quot;v&quot;:0},{&quot;t&quot;:244.676,&quot;v&quot;:-1.8},{&quot;t&quot;:245.616,&quot;v&quot;:-4.8},{&quot;t&quot;:246.557,&quot;v&quot;:-4.8},{&quot;t&quot;:247.498,&quot;v&quot;:0},{&quot;t&quot;:250.321,&quot;v&quot;:0},{&quot;t&quot;:251.262,&quot;v&quot;:-2.6},{&quot;t&quot;:252.203,&quot;v&quot;:0},{&quot;t&quot;:253.144,&quot;v&quot;:0},{&quot;t&quot;:254.085,&quot;v&quot;:-1.9},{&quot;t&quot;:255.025,&quot;v&quot;:0},{&quot;t&quot;:255.966,&quot;v&quot;:-1.9},{&quot;t&quot;:256.907,&quot;v&quot;:0},{&quot;t&quot;:257.848,&quot;v&quot;:-4.2},{&quot;t&quot;:258.789,&quot;v&quot;:0},{&quot;t&quot;:260.671,&quot;v&quot;:0},{&quot;t&quot;:261.612,&quot;v&quot;:-6},{&quot;t&quot;:262.553,&quot;v&quot;:0},{&quot;t&quot;:266.316,&quot;v&quot;:0},{&quot;t&quot;:267.257,&quot;v&quot;:-1.9},{&quot;t&quot;:268.198,&quot;v&quot;:0},{&quot;t&quot;:269.139,&quot;v&quot;:0},{&quot;t&quot;:270.08,&quot;v&quot;:-4.7},{&quot;t&quot;:271.021,&quot;v&quot;:-1.5},{&quot;t&quot;:271.962,&quot;v&quot;:0},{&quot;t&quot;:275.725,&quot;v&quot;:0},{&quot;t&quot;:276.666,&quot;v&quot;:-3.5},{&quot;t&quot;:277.607,&quot;v&quot;:-5.6},{&quot;t&quot;:278.548,&quot;v&quot;:-0.4},{&quot;t&quot;:279.489,&quot;v&quot;:-2.2},{&quot;t&quot;:280.43,&quot;v&quot;:0},{&quot;t&quot;:281.371,&quot;v&quot;:-6.2},{&quot;t&quot;:282.311,&quot;v&quot;:-3.4},{&quot;t&quot;:283.252,&quot;v&quot;:0},{&quot;t&quot;:284.193,&quot;v&quot;:-5.4},{&quot;t&quot;:285.134,&quot;v&quot;:0},{&quot;t&quot;:286.075,&quot;v&quot;:-3.4},{&quot;t&quot;:287.016,&quot;v&quot;:0},{&quot;t&quot;:287.957,&quot;v&quot;:-2},{&quot;t&quot;:288.898,&quot;v&quot;:-6.4},{&quot;t&quot;:289.839,&quot;v&quot;:0},{&quot;t&quot;:291.72,&quot;v&quot;:0},{&quot;t&quot;:292.661,&quot;v&quot;:-2.9},{&quot;t&quot;:293.602,&quot;v&quot;:-6.3},{&quot;t&quot;:294.543,&quot;v&quot;:0},{&quot;t&quot;:295.484,&quot;v&quot;:-2.9},{&quot;t&quot;:296.425,&quot;v&quot;:0},{&quot;t&quot;:297.366,&quot;v&quot;:0},{&quot;t&quot;:298.307,&quot;v&quot;:-3},{&quot;t&quot;:299.248,&quot;v&quot;:0},{&quot;t&quot;:300.188,&quot;v&quot;:-2},{&quot;t&quot;:301.129,&quot;v&quot;:-1.4},{&quot;t&quot;:302.07,&quot;v&quot;:-0.4},{&quot;t&quot;:303.011,&quot;v&quot;:0},{&quot;t&quot;:303.952,&quot;v&quot;:-1.6},{&quot;t&quot;:304.893,&quot;v&quot;:0},{&quot;t&quot;:305.834,&quot;v&quot;:-1.6},{&quot;t&quot;:306.775,&quot;v&quot;:-3.7},{&quot;t&quot;:307.716,&quot;v&quot;:-1.2},{&quot;t&quot;:308.656,&quot;v&quot;:0},{&quot;t&quot;:311.479,&quot;v&quot;:0},{&quot;t&quot;:312.42,&quot;v&quot;:-1.7},{&quot;t&quot;:313.361,&quot;v&quot;:0},{&quot;t&quot;:314.302,&quot;v&quot;:0},{&quot;t&quot;:315.243,&quot;v&quot;:-0.7},{&quot;t&quot;:316.184,&quot;v&quot;:0},{&quot;t&quot;:319.947,&quot;v&quot;:0},{&quot;t&quot;:320.888,&quot;v&quot;:-1.8},{&quot;t&quot;:321.829,&quot;v&quot;:-2.9},{&quot;t&quot;:322.77,&quot;v&quot;:0},{&quot;t&quot;:323.711,&quot;v&quot;:-0.4},{&quot;t&quot;:324.652,&quot;v&quot;:-4.4},{&quot;t&quot;:325.593,&quot;v&quot;:-1.1},{&quot;t&quot;:326.534,&quot;v&quot;:-2.4},{&quot;t&quot;:327.474,&quot;v&quot;:0},{&quot;t&quot;:331.238,&quot;v&quot;:0},{&quot;t&quot;:332.179,&quot;v&quot;:-2.6},{&quot;t&quot;:334.061,&quot;v&quot;:-2.6},{&quot;t&quot;:335.002,&quot;v&quot;:0},{&quot;t&quot;:335.942,&quot;v&quot;:-5.3},{&quot;t&quot;:336.883,&quot;v&quot;:-5.6},{&quot;t&quot;:337.824,&quot;v&quot;:-3.9},{&quot;t&quot;:338.765,&quot;v&quot;:0},{&quot;t&quot;:339.706,&quot;v&quot;:-0.3},{&quot;t&quot;:340.647,&quot;v&quot;:-4.5},{&quot;t&quot;:341.588,&quot;v&quot;:0},{&quot;t&quot;:342.529,&quot;v&quot;:-2.9},{&quot;t&quot;:343.47,&quot;v&quot;:-5.2},{&quot;t&quot;:344.411,&quot;v&quot;:0},{&quot;t&quot;:345.351,&quot;v&quot;:-5},{&quot;t&quot;:346.292,&quot;v&quot;:0},{&quot;t&quot;:347.233,&quot;v&quot;:-5.5},{&quot;t&quot;:348.174,&quot;v&quot;:0},{&quot;t&quot;:349.115,&quot;v&quot;:-2},{&quot;t&quot;:350.056,&quot;v&quot;:0},{&quot;t&quot;:350.997,&quot;v&quot;:-4.5},{&quot;t&quot;:351.938,&quot;v&quot;:0},{&quot;t&quot;:353.82,&quot;v&quot;:0},{&quot;t&quot;:354.76,&quot;v&quot;:-1.3},{&quot;t&quot;:355.701,&quot;v&quot;:-3},{&quot;t&quot;:356.642,&quot;v&quot;:-3.6},{&quot;t&quot;:357.583,&quot;v&quot;:0},{&quot;t&quot;:358.524,&quot;v&quot;:-3.2},{&quot;t&quot;:359.465,&quot;v&quot;:-0.6},{&quot;t&quot;:360.406,&quot;v&quot;:0},{&quot;t&quot;:362.288,&quot;v&quot;:0},{&quot;t&quot;:363.228,&quot;v&quot;:-5.9},{&quot;t&quot;:364.169,&quot;v&quot;:0},{&quot;t&quot;:374.519,&quot;v&quot;:0},{&quot;t&quot;:375.46,&quot;v&quot;:0},{&quot;t&quot;:376.352,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n3.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.984,&quot;v&quot;:0},{&quot;t&quot;:1.924,&quot;v&quot;:-0.6},{&quot;t&quot;:2.865,&quot;v&quot;:0},{&quot;t&quot;:3.806,&quot;v&quot;:-1.4},{&quot;t&quot;:4.747,&quot;v&quot;:0},{&quot;t&quot;:9.452,&quot;v&quot;:0},{&quot;t&quot;:10.393,&quot;v&quot;:-4.5},{&quot;t&quot;:11.333,&quot;v&quot;:-2.8},{&quot;t&quot;:12.274,&quot;v&quot;:-3.8},{&quot;t&quot;:13.215,&quot;v&quot;:0},{&quot;t&quot;:15.097,&quot;v&quot;:0},{&quot;t&quot;:16.038,&quot;v&quot;:-1.6},{&quot;t&quot;:16.979,&quot;v&quot;:0},{&quot;t&quot;:17.92,&quot;v&quot;:0},{&quot;t&quot;:18.861,&quot;v&quot;:-1.9},{&quot;t&quot;:19.801,&quot;v&quot;:-0.3},{&quot;t&quot;:20.742,&quot;v&quot;:0},{&quot;t&quot;:21.683,&quot;v&quot;:-2.8},{&quot;t&quot;:22.624,&quot;v&quot;:-0.2},{&quot;t&quot;:23.565,&quot;v&quot;:-4.2},{&quot;t&quot;:24.506,&quot;v&quot;:0},{&quot;t&quot;:26.388,&quot;v&quot;:0},{&quot;t&quot;:27.329,&quot;v&quot;:-2.2},{&quot;t&quot;:28.27,&quot;v&quot;:0},{&quot;t&quot;:29.21,&quot;v&quot;:0},{&quot;t&quot;:30.151,&quot;v&quot;:-3.1},{&quot;t&quot;:31.092,&quot;v&quot;:0},{&quot;t&quot;:32.974,&quot;v&quot;:0},{&quot;t&quot;:33.915,&quot;v&quot;:-1.4},{&quot;t&quot;:34.856,&quot;v&quot;:0},{&quot;t&quot;:35.797,&quot;v&quot;:0},{&quot;t&quot;:36.738,&quot;v&quot;:-0.7},{&quot;t&quot;:37.678,&quot;v&quot;:-1.3},{&quot;t&quot;:38.619,&quot;v&quot;:0},{&quot;t&quot;:39.56,&quot;v&quot;:-5.3},{&quot;t&quot;:40.501,&quot;v&quot;:0},{&quot;t&quot;:41.442,&quot;v&quot;:-0.8},{&quot;t&quot;:42.383,&quot;v&quot;:0},{&quot;t&quot;:43.324,&quot;v&quot;:-2.8},{&quot;t&quot;:44.265,&quot;v&quot;:0},{&quot;t&quot;:46.147,&quot;v&quot;:0},{&quot;t&quot;:47.087,&quot;v&quot;:-1.9},{&quot;t&quot;:48.028,&quot;v&quot;:0},{&quot;t&quot;:59.319,&quot;v&quot;:0},{&quot;t&quot;:60.26,&quot;v&quot;:-3.1},{&quot;t&quot;:61.201,&quot;v&quot;:-6.1},{&quot;t&quot;:62.142,&quot;v&quot;:0},{&quot;t&quot;:63.083,&quot;v&quot;:-6},{&quot;t&quot;:64.024,&quot;v&quot;:0},{&quot;t&quot;:64.964,&quot;v&quot;:-1.2},{&quot;t&quot;:65.905,&quot;v&quot;:0},{&quot;t&quot;:68.728,&quot;v&quot;:0},{&quot;t&quot;:69.669,&quot;v&quot;:-0.9},{&quot;t&quot;:70.61,&quot;v&quot;:0},{&quot;t&quot;:71.551,&quot;v&quot;:0},{&quot;t&quot;:72.492,&quot;v&quot;:-2.7},{&quot;t&quot;:73.433,&quot;v&quot;:-1.8},{&quot;t&quot;:74.373,&quot;v&quot;:0},{&quot;t&quot;:75.314,&quot;v&quot;:-2.7},{&quot;t&quot;:76.255,&quot;v&quot;:0},{&quot;t&quot;:81.901,&quot;v&quot;:0},{&quot;t&quot;:82.841,&quot;v&quot;:-5.2},{&quot;t&quot;:83.782,&quot;v&quot;:0},{&quot;t&quot;:84.723,&quot;v&quot;:-2.3},{&quot;t&quot;:85.664,&quot;v&quot;:0},{&quot;t&quot;:86.605,&quot;v&quot;:-2.4},{&quot;t&quot;:87.546,&quot;v&quot;:0},{&quot;t&quot;:89.428,&quot;v&quot;:0},{&quot;t&quot;:90.369,&quot;v&quot;:-5.1},{&quot;t&quot;:91.31,&quot;v&quot;:0},{&quot;t&quot;:92.25,&quot;v&quot;:0},{&quot;t&quot;:93.191,&quot;v&quot;:-1},{&quot;t&quot;:94.132,&quot;v&quot;:0},{&quot;t&quot;:95.073,&quot;v&quot;:-4.7},{&quot;t&quot;:96.014,&quot;v&quot;:-1.3},{&quot;t&quot;:96.955,&quot;v&quot;:0},{&quot;t&quot;:97.896,&quot;v&quot;:-6.7},{&quot;t&quot;:98.837,&quot;v&quot;:0},{&quot;t&quot;:99.778,&quot;v&quot;:0},{&quot;t&quot;:100.719,&quot;v&quot;:-1.7},{&quot;t&quot;:101.659,&quot;v&quot;:0},{&quot;t&quot;:102.6,&quot;v&quot;:-5.4},{&quot;t&quot;:103.541,&quot;v&quot;:0},{&quot;t&quot;:104.482,&quot;v&quot;:0},{&quot;t&quot;:105.423,&quot;v&quot;:-4},{&quot;t&quot;:106.364,&quot;v&quot;:0},{&quot;t&quot;:107.305,&quot;v&quot;:0},{&quot;t&quot;:108.246,&quot;v&quot;:-2.7},{&quot;t&quot;:109.187,&quot;v&quot;:0},{&quot;t&quot;:112.009,&quot;v&quot;:0},{&quot;t&quot;:112.95,&quot;v&quot;:-6.3},{&quot;t&quot;:113.891,&quot;v&quot;:0},{&quot;t&quot;:114.832,&quot;v&quot;:-2.8},{&quot;t&quot;:115.773,&quot;v&quot;:0},{&quot;t&quot;:116.714,&quot;v&quot;:0},{&quot;t&quot;:117.655,&quot;v&quot;:-1.7},{&quot;t&quot;:118.596,&quot;v&quot;:0},{&quot;t&quot;:119.536,&quot;v&quot;:0},{&quot;t&quot;:120.477,&quot;v&quot;:-4.3},{&quot;t&quot;:121.418,&quot;v&quot;:-0.2},{&quot;t&quot;:122.359,&quot;v&quot;:-3},{&quot;t&quot;:123.3,&quot;v&quot;:-6.3},{&quot;t&quot;:124.241,&quot;v&quot;:-5.1},{&quot;t&quot;:125.182,&quot;v&quot;:0},{&quot;t&quot;:128.945,&quot;v&quot;:0},{&quot;t&quot;:129.886,&quot;v&quot;:-0.9},{&quot;t&quot;:130.827,&quot;v&quot;:-2.4},{&quot;t&quot;:131.768,&quot;v&quot;:0},{&quot;t&quot;:132.709,&quot;v&quot;:-5.9},{&quot;t&quot;:133.65,&quot;v&quot;:-1.2},{&quot;t&quot;:134.591,&quot;v&quot;:0},{&quot;t&quot;:136.473,&quot;v&quot;:0},{&quot;t&quot;:137.413,&quot;v&quot;:-3.8},{&quot;t&quot;:138.354,&quot;v&quot;:-5},{&quot;t&quot;:139.295,&quot;v&quot;:0},{&quot;t&quot;:140.236,&quot;v&quot;:-4.5},{&quot;t&quot;:141.177,&quot;v&quot;:-1.3},{&quot;t&quot;:142.118,&quot;v&quot;:0},{&quot;t&quot;:143.059,&quot;v&quot;:-2.2},{&quot;t&quot;:144,&quot;v&quot;:0},{&quot;t&quot;:144.941,&quot;v&quot;:-5.8},{&quot;t&quot;:145.882,&quot;v&quot;:-2.2},{&quot;t&quot;:146.822,&quot;v&quot;:0},{&quot;t&quot;:153.409,&quot;v&quot;:0},{&quot;t&quot;:154.35,&quot;v&quot;:-2.1},{&quot;t&quot;:155.29,&quot;v&quot;:0},{&quot;t&quot;:157.172,&quot;v&quot;:0},{&quot;t&quot;:158.113,&quot;v&quot;:-5.4},{&quot;t&quot;:159.054,&quot;v&quot;:0},{&quot;t&quot;:163.759,&quot;v&quot;:0},{&quot;t&quot;:164.699,&quot;v&quot;:-2.7},{&quot;t&quot;:165.64,&quot;v&quot;:-7.4},{&quot;t&quot;:166.581,&quot;v&quot;:-2.5},{&quot;t&quot;:167.522,&quot;v&quot;:-1.9},{&quot;t&quot;:168.463,&quot;v&quot;:-0.9},{&quot;t&quot;:169.404,&quot;v&quot;:-3.3},{&quot;t&quot;:170.345,&quot;v&quot;:0},{&quot;t&quot;:172.227,&quot;v&quot;:0},{&quot;t&quot;:173.167,&quot;v&quot;:-3.8},{&quot;t&quot;:174.108,&quot;v&quot;:0},{&quot;t&quot;:175.99,&quot;v&quot;:0},{&quot;t&quot;:176.931,&quot;v&quot;:-3.5},{&quot;t&quot;:177.872,&quot;v&quot;:-2.7},{&quot;t&quot;:178.813,&quot;v&quot;:-0.3},{&quot;t&quot;:179.754,&quot;v&quot;:-1.5},{&quot;t&quot;:180.695,&quot;v&quot;:0},{&quot;t&quot;:181.636,&quot;v&quot;:0},{&quot;t&quot;:182.576,&quot;v&quot;:-6.8},{&quot;t&quot;:183.517,&quot;v&quot;:-2.2},{&quot;t&quot;:184.458,&quot;v&quot;:-6.9},{&quot;t&quot;:185.399,&quot;v&quot;:0},{&quot;t&quot;:187.281,&quot;v&quot;:0},{&quot;t&quot;:188.222,&quot;v&quot;:-5.9},{&quot;t&quot;:189.163,&quot;v&quot;:0},{&quot;t&quot;:190.104,&quot;v&quot;:-2},{&quot;t&quot;:191.045,&quot;v&quot;:0},{&quot;t&quot;:191.985,&quot;v&quot;:-2.3},{&quot;t&quot;:192.926,&quot;v&quot;:-4},{&quot;t&quot;:193.867,&quot;v&quot;:0},{&quot;t&quot;:194.808,&quot;v&quot;:-5.2},{&quot;t&quot;:195.749,&quot;v&quot;:0},{&quot;t&quot;:196.69,&quot;v&quot;:-2.6},{&quot;t&quot;:197.631,&quot;v&quot;:0},{&quot;t&quot;:198.572,&quot;v&quot;:-1.7},{&quot;t&quot;:199.513,&quot;v&quot;:0},{&quot;t&quot;:200.453,&quot;v&quot;:-3.3},{&quot;t&quot;:201.394,&quot;v&quot;:-6.6},{&quot;t&quot;:202.335,&quot;v&quot;:-4},{&quot;t&quot;:203.276,&quot;v&quot;:-4.1},{&quot;t&quot;:204.217,&quot;v&quot;:0},{&quot;t&quot;:205.158,&quot;v&quot;:-1.4},{&quot;t&quot;:206.099,&quot;v&quot;:-3.9},{&quot;t&quot;:207.04,&quot;v&quot;:0},{&quot;t&quot;:209.862,&quot;v&quot;:0},{&quot;t&quot;:210.803,&quot;v&quot;:-4.5},{&quot;t&quot;:211.744,&quot;v&quot;:-2},{&quot;t&quot;:212.685,&quot;v&quot;:0},{&quot;t&quot;:214.567,&quot;v&quot;:0},{&quot;t&quot;:215.508,&quot;v&quot;:-3.3},{&quot;t&quot;:216.449,&quot;v&quot;:0},{&quot;t&quot;:217.39,&quot;v&quot;:-2.4},{&quot;t&quot;:218.331,&quot;v&quot;:0},{&quot;t&quot;:219.271,&quot;v&quot;:0},{&quot;t&quot;:220.212,&quot;v&quot;:-0.7},{&quot;t&quot;:221.153,&quot;v&quot;:0},{&quot;t&quot;:222.094,&quot;v&quot;:0},{&quot;t&quot;:223.035,&quot;v&quot;:-0.8},{&quot;t&quot;:223.976,&quot;v&quot;:0},{&quot;t&quot;:224.917,&quot;v&quot;:-0.9},{&quot;t&quot;:225.858,&quot;v&quot;:0},{&quot;t&quot;:226.799,&quot;v&quot;:0},{&quot;t&quot;:227.739,&quot;v&quot;:-1.6},{&quot;t&quot;:228.68,&quot;v&quot;:-0.5},{&quot;t&quot;:229.621,&quot;v&quot;:0},{&quot;t&quot;:230.562,&quot;v&quot;:-3.2},{&quot;t&quot;:231.503,&quot;v&quot;:0},{&quot;t&quot;:232.444,&quot;v&quot;:-5.1},{&quot;t&quot;:233.385,&quot;v&quot;:0},{&quot;t&quot;:243.735,&quot;v&quot;:0},{&quot;t&quot;:244.676,&quot;v&quot;:-0.5},{&quot;t&quot;:245.616,&quot;v&quot;:-5.9},{&quot;t&quot;:246.557,&quot;v&quot;:-1.7},{&quot;t&quot;:247.498,&quot;v&quot;:0},{&quot;t&quot;:251.262,&quot;v&quot;:0},{&quot;t&quot;:252.203,&quot;v&quot;:-1.7},{&quot;t&quot;:253.144,&quot;v&quot;:0},{&quot;t&quot;:256.907,&quot;v&quot;:0},{&quot;t&quot;:257.848,&quot;v&quot;:-0.5},{&quot;t&quot;:258.789,&quot;v&quot;:0},{&quot;t&quot;:260.671,&quot;v&quot;:0},{&quot;t&quot;:261.612,&quot;v&quot;:-6.1},{&quot;t&quot;:262.553,&quot;v&quot;:-1.2},{&quot;t&quot;:263.493,&quot;v&quot;:0},{&quot;t&quot;:266.316,&quot;v&quot;:0},{&quot;t&quot;:267.257,&quot;v&quot;:-4},{&quot;t&quot;:268.198,&quot;v&quot;:0},{&quot;t&quot;:269.139,&quot;v&quot;:0},{&quot;t&quot;:270.08,&quot;v&quot;:-4.8},{&quot;t&quot;:271.021,&quot;v&quot;:0},{&quot;t&quot;:275.725,&quot;v&quot;:0},{&quot;t&quot;:276.666,&quot;v&quot;:-4},{&quot;t&quot;:277.607,&quot;v&quot;:-0.7},{&quot;t&quot;:278.548,&quot;v&quot;:0},{&quot;t&quot;:279.489,&quot;v&quot;:-4.2},{&quot;t&quot;:280.43,&quot;v&quot;:0},{&quot;t&quot;:281.371,&quot;v&quot;:-2.1},{&quot;t&quot;:282.311,&quot;v&quot;:-5},{&quot;t&quot;:283.252,&quot;v&quot;:0},{&quot;t&quot;:287.957,&quot;v&quot;:0},{&quot;t&quot;:288.898,&quot;v&quot;:-5.4},{&quot;t&quot;:289.839,&quot;v&quot;:0},{&quot;t&quot;:291.72,&quot;v&quot;:0},{&quot;t&quot;:292.661,&quot;v&quot;:-5.6},{&quot;t&quot;:293.602,&quot;v&quot;:-5.9},{&quot;t&quot;:294.543,&quot;v&quot;:0},{&quot;t&quot;:297.366,&quot;v&quot;:0},{&quot;t&quot;:298.307,&quot;v&quot;:-2.5},{&quot;t&quot;:299.248,&quot;v&quot;:-2},{&quot;t&quot;:300.188,&quot;v&quot;:0},{&quot;t&quot;:304.893,&quot;v&quot;:0},{&quot;t&quot;:305.834,&quot;v&quot;:-1.7},{&quot;t&quot;:306.775,&quot;v&quot;:-5},{&quot;t&quot;:307.716,&quot;v&quot;:0},{&quot;t&quot;:310.538,&quot;v&quot;:0},{&quot;t&quot;:311.479,&quot;v&quot;:-5.7},{&quot;t&quot;:312.42,&quot;v&quot;:-2.3},{&quot;t&quot;:313.361,&quot;v&quot;:0},{&quot;t&quot;:316.184,&quot;v&quot;:0},{&quot;t&quot;:317.125,&quot;v&quot;:-1},{&quot;t&quot;:318.065,&quot;v&quot;:0},{&quot;t&quot;:319.947,&quot;v&quot;:0},{&quot;t&quot;:320.888,&quot;v&quot;:-2},{&quot;t&quot;:321.829,&quot;v&quot;:-6.2},{&quot;t&quot;:322.77,&quot;v&quot;:0},{&quot;t&quot;:323.711,&quot;v&quot;:0},{&quot;t&quot;:324.652,&quot;v&quot;:-5.5},{&quot;t&quot;:325.593,&quot;v&quot;:-3.6},{&quot;t&quot;:326.534,&quot;v&quot;:-2.9},{&quot;t&quot;:327.474,&quot;v&quot;:0},{&quot;t&quot;:331.238,&quot;v&quot;:0},{&quot;t&quot;:332.179,&quot;v&quot;:-2.7},{&quot;t&quot;:333.12,&quot;v&quot;:-4.9},{&quot;t&quot;:334.061,&quot;v&quot;:-1.1},{&quot;t&quot;:335.002,&quot;v&quot;:0},{&quot;t&quot;:335.942,&quot;v&quot;:-4.5},{&quot;t&quot;:336.883,&quot;v&quot;:-3.1},{&quot;t&quot;:337.824,&quot;v&quot;:0},{&quot;t&quot;:340.647,&quot;v&quot;:0},{&quot;t&quot;:341.588,&quot;v&quot;:-1.2},{&quot;t&quot;:343.47,&quot;v&quot;:-1.2},{&quot;t&quot;:344.411,&quot;v&quot;:0},{&quot;t&quot;:345.351,&quot;v&quot;:-3.3},{&quot;t&quot;:346.292,&quot;v&quot;:0},{&quot;t&quot;:347.233,&quot;v&quot;:-3.2},{&quot;t&quot;:348.174,&quot;v&quot;:0},{&quot;t&quot;:349.115,&quot;v&quot;:-3.5},{&quot;t&quot;:350.056,&quot;v&quot;:0},{&quot;t&quot;:350.997,&quot;v&quot;:-2.7},{&quot;t&quot;:351.938,&quot;v&quot;:0},{&quot;t&quot;:353.82,&quot;v&quot;:0},{&quot;t&quot;:354.76,&quot;v&quot;:-1.7},{&quot;t&quot;:355.701,&quot;v&quot;:-1.7},{&quot;t&quot;:356.642,&quot;v&quot;:-0.3},{&quot;t&quot;:362.288,&quot;v&quot;:0},{&quot;t&quot;:363.228,&quot;v&quot;:-4},{&quot;t&quot;:364.169,&quot;v&quot;:0},{&quot;t&quot;:374.519,&quot;v&quot;:0},{&quot;t&quot;:375.46,&quot;v&quot;:0},{&quot;t&quot;:376.352,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n4.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.984,&quot;v&quot;:0},{&quot;t&quot;:1.924,&quot;v&quot;:-3.1},{&quot;t&quot;:2.865,&quot;v&quot;:0},{&quot;t&quot;:3.806,&quot;v&quot;:-3.5},{&quot;t&quot;:4.747,&quot;v&quot;:0},{&quot;t&quot;:9.452,&quot;v&quot;:0},{&quot;t&quot;:10.393,&quot;v&quot;:-7},{&quot;t&quot;:11.333,&quot;v&quot;:0},{&quot;t&quot;:12.274,&quot;v&quot;:-4.8},{&quot;t&quot;:13.215,&quot;v&quot;:0},{&quot;t&quot;:15.097,&quot;v&quot;:0},{&quot;t&quot;:16.038,&quot;v&quot;:-2.2},{&quot;t&quot;:16.979,&quot;v&quot;:0},{&quot;t&quot;:17.92,&quot;v&quot;:0},{&quot;t&quot;:18.861,&quot;v&quot;:-6.2},{&quot;t&quot;:19.801,&quot;v&quot;:-0.9},{&quot;t&quot;:20.742,&quot;v&quot;:0},{&quot;t&quot;:21.683,&quot;v&quot;:-4.9},{&quot;t&quot;:22.624,&quot;v&quot;:0},{&quot;t&quot;:29.21,&quot;v&quot;:0},{&quot;t&quot;:30.151,&quot;v&quot;:-1},{&quot;t&quot;:31.092,&quot;v&quot;:-0.4},{&quot;t&quot;:38.619,&quot;v&quot;:0},{&quot;t&quot;:39.56,&quot;v&quot;:-2.6},{&quot;t&quot;:40.501,&quot;v&quot;:0},{&quot;t&quot;:46.147,&quot;v&quot;:0},{&quot;t&quot;:47.087,&quot;v&quot;:-0.6},{&quot;t&quot;:48.028,&quot;v&quot;:0},{&quot;t&quot;:54.615,&quot;v&quot;:0},{&quot;t&quot;:55.556,&quot;v&quot;:-0.7},{&quot;t&quot;:56.496,&quot;v&quot;:0},{&quot;t&quot;:59.319,&quot;v&quot;:0},{&quot;t&quot;:60.26,&quot;v&quot;:-1.4},{&quot;t&quot;:61.201,&quot;v&quot;:-5.4},{&quot;t&quot;:62.142,&quot;v&quot;:0},{&quot;t&quot;:63.083,&quot;v&quot;:-5.3},{&quot;t&quot;:64.024,&quot;v&quot;:0},{&quot;t&quot;:64.964,&quot;v&quot;:-3.4},{&quot;t&quot;:65.905,&quot;v&quot;:0},{&quot;t&quot;:71.551,&quot;v&quot;:0},{&quot;t&quot;:72.492,&quot;v&quot;:-1.5},{&quot;t&quot;:73.433,&quot;v&quot;:-1.2},{&quot;t&quot;:74.373,&quot;v&quot;:-3},{&quot;t&quot;:75.314,&quot;v&quot;:-3.5},{&quot;t&quot;:76.255,&quot;v&quot;:0},{&quot;t&quot;:78.137,&quot;v&quot;:0},{&quot;t&quot;:79.078,&quot;v&quot;:-1.5},{&quot;t&quot;:80.019,&quot;v&quot;:0},{&quot;t&quot;:81.901,&quot;v&quot;:0},{&quot;t&quot;:82.841,&quot;v&quot;:-5.3},{&quot;t&quot;:83.782,&quot;v&quot;:0},{&quot;t&quot;:84.723,&quot;v&quot;:-0.9},{&quot;t&quot;:85.664,&quot;v&quot;:0},{&quot;t&quot;:86.605,&quot;v&quot;:-1.3},{&quot;t&quot;:87.546,&quot;v&quot;:0},{&quot;t&quot;:88.487,&quot;v&quot;:0},{&quot;t&quot;:89.428,&quot;v&quot;:-0.6},{&quot;t&quot;:90.369,&quot;v&quot;:-2.6},{&quot;t&quot;:91.31,&quot;v&quot;:0},{&quot;t&quot;:94.132,&quot;v&quot;:0},{&quot;t&quot;:95.073,&quot;v&quot;:-1.8},{&quot;t&quot;:96.014,&quot;v&quot;:-1},{&quot;t&quot;:96.955,&quot;v&quot;:-2.9},{&quot;t&quot;:97.896,&quot;v&quot;:-4},{&quot;t&quot;:98.837,&quot;v&quot;:0},{&quot;t&quot;:99.778,&quot;v&quot;:0},{&quot;t&quot;:100.719,&quot;v&quot;:-1.6},{&quot;t&quot;:101.659,&quot;v&quot;:0},{&quot;t&quot;:102.6,&quot;v&quot;:-1.5},{&quot;t&quot;:103.541,&quot;v&quot;:0},{&quot;t&quot;:104.482,&quot;v&quot;:0},{&quot;t&quot;:105.423,&quot;v&quot;:-3.1},{&quot;t&quot;:106.364,&quot;v&quot;:0},{&quot;t&quot;:112.009,&quot;v&quot;:0},{&quot;t&quot;:112.95,&quot;v&quot;:-3.9},{&quot;t&quot;:113.891,&quot;v&quot;:0},{&quot;t&quot;:114.832,&quot;v&quot;:-3.4},{&quot;t&quot;:115.773,&quot;v&quot;:0},{&quot;t&quot;:116.714,&quot;v&quot;:0},{&quot;t&quot;:117.655,&quot;v&quot;:-0.8},{&quot;t&quot;:118.596,&quot;v&quot;:0},{&quot;t&quot;:119.536,&quot;v&quot;:0},{&quot;t&quot;:120.477,&quot;v&quot;:-5.2},{&quot;t&quot;:121.418,&quot;v&quot;:0},{&quot;t&quot;:122.359,&quot;v&quot;:-2.4},{&quot;t&quot;:123.3,&quot;v&quot;:-3.4},{&quot;t&quot;:124.241,&quot;v&quot;:-7.4},{&quot;t&quot;:125.182,&quot;v&quot;:0},{&quot;t&quot;:129.886,&quot;v&quot;:0},{&quot;t&quot;:130.827,&quot;v&quot;:-1.6},{&quot;t&quot;:131.768,&quot;v&quot;:0},{&quot;t&quot;:132.709,&quot;v&quot;:-3.9},{&quot;t&quot;:133.65,&quot;v&quot;:-1},{&quot;t&quot;:134.591,&quot;v&quot;:0},{&quot;t&quot;:135.532,&quot;v&quot;:-3.2},{&quot;t&quot;:136.473,&quot;v&quot;:0},{&quot;t&quot;:137.413,&quot;v&quot;:-4.4},{&quot;t&quot;:138.354,&quot;v&quot;:-3},{&quot;t&quot;:139.295,&quot;v&quot;:0},{&quot;t&quot;:140.236,&quot;v&quot;:-3.4},{&quot;t&quot;:141.177,&quot;v&quot;:-1.6},{&quot;t&quot;:142.118,&quot;v&quot;:0},{&quot;t&quot;:143.059,&quot;v&quot;:-1.4},{&quot;t&quot;:144,&quot;v&quot;:0},{&quot;t&quot;:144.941,&quot;v&quot;:-2.2},{&quot;t&quot;:145.882,&quot;v&quot;:-5.6},{&quot;t&quot;:146.822,&quot;v&quot;:0},{&quot;t&quot;:153.409,&quot;v&quot;:0},{&quot;t&quot;:154.35,&quot;v&quot;:-0.7},{&quot;t&quot;:155.29,&quot;v&quot;:0},{&quot;t&quot;:157.172,&quot;v&quot;:0},{&quot;t&quot;:158.113,&quot;v&quot;:-3.5},{&quot;t&quot;:159.054,&quot;v&quot;:0},{&quot;t&quot;:163.759,&quot;v&quot;:0},{&quot;t&quot;:164.699,&quot;v&quot;:-3.4},{&quot;t&quot;:165.64,&quot;v&quot;:-3.5},{&quot;t&quot;:166.581,&quot;v&quot;:-1.1},{&quot;t&quot;:167.522,&quot;v&quot;:-0.9},{&quot;t&quot;:168.463,&quot;v&quot;:0},{&quot;t&quot;:169.404,&quot;v&quot;:-3.9},{&quot;t&quot;:170.345,&quot;v&quot;:0},{&quot;t&quot;:172.227,&quot;v&quot;:0},{&quot;t&quot;:173.167,&quot;v&quot;:-2.7},{&quot;t&quot;:174.108,&quot;v&quot;:0},{&quot;t&quot;:175.99,&quot;v&quot;:0},{&quot;t&quot;:176.931,&quot;v&quot;:-2.8},{&quot;t&quot;:177.872,&quot;v&quot;:-4},{&quot;t&quot;:178.813,&quot;v&quot;:0},{&quot;t&quot;:179.754,&quot;v&quot;:-1},{&quot;t&quot;:180.695,&quot;v&quot;:-1.8},{&quot;t&quot;:181.636,&quot;v&quot;:0},{&quot;t&quot;:183.517,&quot;v&quot;:0},{&quot;t&quot;:184.458,&quot;v&quot;:-4.7},{&quot;t&quot;:185.399,&quot;v&quot;:0},{&quot;t&quot;:187.281,&quot;v&quot;:0},{&quot;t&quot;:188.222,&quot;v&quot;:-3.6},{&quot;t&quot;:189.163,&quot;v&quot;:0},{&quot;t&quot;:191.045,&quot;v&quot;:0},{&quot;t&quot;:191.985,&quot;v&quot;:-3.3},{&quot;t&quot;:192.926,&quot;v&quot;:-0.8},{&quot;t&quot;:193.867,&quot;v&quot;:0},{&quot;t&quot;:194.808,&quot;v&quot;:-4.5},{&quot;t&quot;:195.749,&quot;v&quot;:0},{&quot;t&quot;:196.69,&quot;v&quot;:-4.2},{&quot;t&quot;:197.631,&quot;v&quot;:0},{&quot;t&quot;:199.513,&quot;v&quot;:0},{&quot;t&quot;:200.453,&quot;v&quot;:-1},{&quot;t&quot;:201.394,&quot;v&quot;:-4.3},{&quot;t&quot;:202.335,&quot;v&quot;:-5.3},{&quot;t&quot;:203.276,&quot;v&quot;:-2.4},{&quot;t&quot;:204.217,&quot;v&quot;:0},{&quot;t&quot;:205.158,&quot;v&quot;:-1.5},{&quot;t&quot;:206.099,&quot;v&quot;:-2.6},{&quot;t&quot;:207.04,&quot;v&quot;:-0.5},{&quot;t&quot;:207.981,&quot;v&quot;:0},{&quot;t&quot;:209.862,&quot;v&quot;:0},{&quot;t&quot;:210.803,&quot;v&quot;:-4.2},{&quot;t&quot;:211.744,&quot;v&quot;:0},{&quot;t&quot;:214.567,&quot;v&quot;:0},{&quot;t&quot;:215.508,&quot;v&quot;:-3.9},{&quot;t&quot;:216.449,&quot;v&quot;:0},{&quot;t&quot;:219.271,&quot;v&quot;:0},{&quot;t&quot;:220.212,&quot;v&quot;:-5.3},{&quot;t&quot;:221.153,&quot;v&quot;:0},{&quot;t&quot;:223.976,&quot;v&quot;:0},{&quot;t&quot;:224.917,&quot;v&quot;:-0.9},{&quot;t&quot;:225.858,&quot;v&quot;:0},{&quot;t&quot;:229.621,&quot;v&quot;:0},{&quot;t&quot;:230.562,&quot;v&quot;:-1.2},{&quot;t&quot;:231.503,&quot;v&quot;:0},{&quot;t&quot;:232.444,&quot;v&quot;:-2.9},{&quot;t&quot;:233.385,&quot;v&quot;:0},{&quot;t&quot;:244.676,&quot;v&quot;:0},{&quot;t&quot;:245.616,&quot;v&quot;:-2.5},{&quot;t&quot;:246.557,&quot;v&quot;:-0.9},{&quot;t&quot;:247.498,&quot;v&quot;:0},{&quot;t&quot;:250.321,&quot;v&quot;:0},{&quot;t&quot;:251.262,&quot;v&quot;:-2.1},{&quot;t&quot;:252.203,&quot;v&quot;:0},{&quot;t&quot;:254.085,&quot;v&quot;:0},{&quot;t&quot;:255.025,&quot;v&quot;:-4.1},{&quot;t&quot;:255.966,&quot;v&quot;:0},{&quot;t&quot;:256.907,&quot;v&quot;:0},{&quot;t&quot;:257.848,&quot;v&quot;:-0.5},{&quot;t&quot;:258.789,&quot;v&quot;:0},{&quot;t&quot;:260.671,&quot;v&quot;:-0.3},{&quot;t&quot;:261.612,&quot;v&quot;:-2.2},{&quot;t&quot;:262.553,&quot;v&quot;:-1.5},{&quot;t&quot;:263.493,&quot;v&quot;:0},{&quot;t&quot;:265.375,&quot;v&quot;:0},{&quot;t&quot;:266.316,&quot;v&quot;:-1.2},{&quot;t&quot;:267.257,&quot;v&quot;:-4.8},{&quot;t&quot;:268.198,&quot;v&quot;:0},{&quot;t&quot;:269.139,&quot;v&quot;:0},{&quot;t&quot;:270.08,&quot;v&quot;:-2.4},{&quot;t&quot;:271.021,&quot;v&quot;:0},{&quot;t&quot;:275.725,&quot;v&quot;:0},{&quot;t&quot;:276.666,&quot;v&quot;:-4},{&quot;t&quot;:277.607,&quot;v&quot;:0},{&quot;t&quot;:278.548,&quot;v&quot;:0},{&quot;t&quot;:279.489,&quot;v&quot;:-1.3},{&quot;t&quot;:280.43,&quot;v&quot;:0},{&quot;t&quot;:281.371,&quot;v&quot;:-1.5},{&quot;t&quot;:282.311,&quot;v&quot;:-4.6},{&quot;t&quot;:283.252,&quot;v&quot;:0},{&quot;t&quot;:287.957,&quot;v&quot;:0},{&quot;t&quot;:288.898,&quot;v&quot;:-1.6},{&quot;t&quot;:289.839,&quot;v&quot;:0},{&quot;t&quot;:291.72,&quot;v&quot;:0},{&quot;t&quot;:292.661,&quot;v&quot;:-3.1},{&quot;t&quot;:293.602,&quot;v&quot;:-4.4},{&quot;t&quot;:294.543,&quot;v&quot;:0},{&quot;t&quot;:295.484,&quot;v&quot;:-1.2},{&quot;t&quot;:296.425,&quot;v&quot;:0},{&quot;t&quot;:297.366,&quot;v&quot;:0},{&quot;t&quot;:298.307,&quot;v&quot;:-6.7},{&quot;t&quot;:299.248,&quot;v&quot;:-2.7},{&quot;t&quot;:300.188,&quot;v&quot;:0},{&quot;t&quot;:304.893,&quot;v&quot;:0},{&quot;t&quot;:305.834,&quot;v&quot;:-3.3},{&quot;t&quot;:306.775,&quot;v&quot;:-2.2},{&quot;t&quot;:307.716,&quot;v&quot;:0},{&quot;t&quot;:310.538,&quot;v&quot;:0},{&quot;t&quot;:311.479,&quot;v&quot;:-3.1},{&quot;t&quot;:312.42,&quot;v&quot;:-0.8},{&quot;t&quot;:313.361,&quot;v&quot;:0},{&quot;t&quot;:314.302,&quot;v&quot;:0},{&quot;t&quot;:315.243,&quot;v&quot;:-2},{&quot;t&quot;:316.184,&quot;v&quot;:0},{&quot;t&quot;:317.125,&quot;v&quot;:-0.9},{&quot;t&quot;:318.065,&quot;v&quot;:0},{&quot;t&quot;:319.947,&quot;v&quot;:0},{&quot;t&quot;:320.888,&quot;v&quot;:-1.2},{&quot;t&quot;:321.829,&quot;v&quot;:-6.1},{&quot;t&quot;:322.77,&quot;v&quot;:0},{&quot;t&quot;:323.711,&quot;v&quot;:0},{&quot;t&quot;:324.652,&quot;v&quot;:-2.9},{&quot;t&quot;:325.593,&quot;v&quot;:-1.9},{&quot;t&quot;:326.534,&quot;v&quot;:-4.7},{&quot;t&quot;:327.474,&quot;v&quot;:0},{&quot;t&quot;:331.238,&quot;v&quot;:0},{&quot;t&quot;:332.179,&quot;v&quot;:-4.6},{&quot;t&quot;:333.12,&quot;v&quot;:-2.2},{&quot;t&quot;:334.061,&quot;v&quot;:-0.4},{&quot;t&quot;:335.002,&quot;v&quot;:0},{&quot;t&quot;:335.942,&quot;v&quot;:-2.7},{&quot;t&quot;:336.883,&quot;v&quot;:-1.2},{&quot;t&quot;:337.824,&quot;v&quot;:0},{&quot;t&quot;:338.765,&quot;v&quot;:0},{&quot;t&quot;:339.706,&quot;v&quot;:-0.7},{&quot;t&quot;:340.647,&quot;v&quot;:-0.2},{&quot;t&quot;:341.588,&quot;v&quot;:-1.3},{&quot;t&quot;:342.529,&quot;v&quot;:0},{&quot;t&quot;:343.47,&quot;v&quot;:-3.4},{&quot;t&quot;:344.411,&quot;v&quot;:0},{&quot;t&quot;:345.351,&quot;v&quot;:-3},{&quot;t&quot;:346.292,&quot;v&quot;:0},{&quot;t&quot;:347.233,&quot;v&quot;:-2},{&quot;t&quot;:348.174,&quot;v&quot;:0},{&quot;t&quot;:349.115,&quot;v&quot;:-4.9},{&quot;t&quot;:350.056,&quot;v&quot;:0},{&quot;t&quot;:353.82,&quot;v&quot;:0},{&quot;t&quot;:354.76,&quot;v&quot;:-0.9},{&quot;t&quot;:355.701,&quot;v&quot;:-2.1},{&quot;t&quot;:356.642,&quot;v&quot;:0},{&quot;t&quot;:361.347,&quot;v&quot;:0},{&quot;t&quot;:362.288,&quot;v&quot;:-3.1},{&quot;t&quot;:363.228,&quot;v&quot;:-0.8},{&quot;t&quot;:364.169,&quot;v&quot;:0},{&quot;t&quot;:374.519,&quot;v&quot;:0},{&quot;t&quot;:375.46,&quot;v&quot;:0},{&quot;t&quot;:376.352,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n5.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.984,&quot;v&quot;:0},{&quot;t&quot;:1.924,&quot;v&quot;:-3.1},{&quot;t&quot;:2.865,&quot;v&quot;:0},{&quot;t&quot;:3.806,&quot;v&quot;:-6.3},{&quot;t&quot;:4.747,&quot;v&quot;:0},{&quot;t&quot;:5.688,&quot;v&quot;:-8.1},{&quot;t&quot;:6.629,&quot;v&quot;:0},{&quot;t&quot;:9.452,&quot;v&quot;:0},{&quot;t&quot;:10.393,&quot;v&quot;:-12},{&quot;t&quot;:11.333,&quot;v&quot;:-7.2},{&quot;t&quot;:12.274,&quot;v&quot;:-5},{&quot;t&quot;:13.215,&quot;v&quot;:0},{&quot;t&quot;:15.097,&quot;v&quot;:0},{&quot;t&quot;:16.038,&quot;v&quot;:-0.5},{&quot;t&quot;:16.979,&quot;v&quot;:0},{&quot;t&quot;:17.92,&quot;v&quot;:0},{&quot;t&quot;:18.861,&quot;v&quot;:-9.4},{&quot;t&quot;:19.801,&quot;v&quot;:-0.8},{&quot;t&quot;:20.742,&quot;v&quot;:0},{&quot;t&quot;:24.506,&quot;v&quot;:0},{&quot;t&quot;:25.447,&quot;v&quot;:-6.6},{&quot;t&quot;:26.388,&quot;v&quot;:0},{&quot;t&quot;:27.329,&quot;v&quot;:-5.3},{&quot;t&quot;:28.27,&quot;v&quot;:-5.7},{&quot;t&quot;:29.21,&quot;v&quot;:0},{&quot;t&quot;:30.151,&quot;v&quot;:-2.8},{&quot;t&quot;:31.092,&quot;v&quot;:-1.4},{&quot;t&quot;:32.033,&quot;v&quot;:0},{&quot;t&quot;:32.974,&quot;v&quot;:0},{&quot;t&quot;:33.915,&quot;v&quot;:-1.4},{&quot;t&quot;:34.856,&quot;v&quot;:0},{&quot;t&quot;:35.797,&quot;v&quot;:0},{&quot;t&quot;:36.738,&quot;v&quot;:-3.7},{&quot;t&quot;:37.678,&quot;v&quot;:-7.4},{&quot;t&quot;:38.619,&quot;v&quot;:0},{&quot;t&quot;:39.56,&quot;v&quot;:-1.7},{&quot;t&quot;:40.501,&quot;v&quot;:0},{&quot;t&quot;:41.442,&quot;v&quot;:-2.1},{&quot;t&quot;:42.383,&quot;v&quot;:0},{&quot;t&quot;:43.324,&quot;v&quot;:-5.3},{&quot;t&quot;:44.265,&quot;v&quot;:0},{&quot;t&quot;:45.206,&quot;v&quot;:0},{&quot;t&quot;:46.147,&quot;v&quot;:-1.8},{&quot;t&quot;:47.087,&quot;v&quot;:-10.8},{&quot;t&quot;:48.028,&quot;v&quot;:-7.5},{&quot;t&quot;:48.969,&quot;v&quot;:0},{&quot;t&quot;:49.91,&quot;v&quot;:-3.8},{&quot;t&quot;:50.851,&quot;v&quot;:-5.5},{&quot;t&quot;:51.792,&quot;v&quot;:0},{&quot;t&quot;:52.733,&quot;v&quot;:-3.8},{&quot;t&quot;:53.674,&quot;v&quot;:0},{&quot;t&quot;:54.615,&quot;v&quot;:0},{&quot;t&quot;:55.556,&quot;v&quot;:-1.8},{&quot;t&quot;:56.496,&quot;v&quot;:0},{&quot;t&quot;:59.319,&quot;v&quot;:0},{&quot;t&quot;:60.26,&quot;v&quot;:-6},{&quot;t&quot;:61.201,&quot;v&quot;:-6.8},{&quot;t&quot;:62.142,&quot;v&quot;:0},{&quot;t&quot;:63.083,&quot;v&quot;:-11.3},{&quot;t&quot;:64.024,&quot;v&quot;:-0.3},{&quot;t&quot;:68.728,&quot;v&quot;:0},{&quot;t&quot;:69.669,&quot;v&quot;:-10.6},{&quot;t&quot;:70.61,&quot;v&quot;:-0.2},{&quot;t&quot;:71.551,&quot;v&quot;:0},{&quot;t&quot;:72.492,&quot;v&quot;:-9.9},{&quot;t&quot;:73.433,&quot;v&quot;:-10.1},{&quot;t&quot;:74.373,&quot;v&quot;:-0.2},{&quot;t&quot;:81.901,&quot;v&quot;:0},{&quot;t&quot;:82.841,&quot;v&quot;:-2.1},{&quot;t&quot;:83.782,&quot;v&quot;:0},{&quot;t&quot;:84.723,&quot;v&quot;:-4.4},{&quot;t&quot;:85.664,&quot;v&quot;:0},{&quot;t&quot;:86.605,&quot;v&quot;:-6.2},{&quot;t&quot;:87.546,&quot;v&quot;:0},{&quot;t&quot;:88.487,&quot;v&quot;:-6.6},{&quot;t&quot;:89.428,&quot;v&quot;:-9.4},{&quot;t&quot;:90.369,&quot;v&quot;:-9.9},{&quot;t&quot;:91.31,&quot;v&quot;:-0.2},{&quot;t&quot;:92.25,&quot;v&quot;:0},{&quot;t&quot;:93.191,&quot;v&quot;:-0.9},{&quot;t&quot;:94.132,&quot;v&quot;:-3.9},{&quot;t&quot;:95.073,&quot;v&quot;:0},{&quot;t&quot;:96.014,&quot;v&quot;:-1.1},{&quot;t&quot;:96.955,&quot;v&quot;:0},{&quot;t&quot;:97.896,&quot;v&quot;:-8.3},{&quot;t&quot;:98.837,&quot;v&quot;:-1.8},{&quot;t&quot;:99.778,&quot;v&quot;:0},{&quot;t&quot;:100.719,&quot;v&quot;:-4.5},{&quot;t&quot;:101.659,&quot;v&quot;:0},{&quot;t&quot;:102.6,&quot;v&quot;:-9.5},{&quot;t&quot;:103.541,&quot;v&quot;:-0.2},{&quot;t&quot;:107.305,&quot;v&quot;:0},{&quot;t&quot;:108.246,&quot;v&quot;:-11.8},{&quot;t&quot;:109.187,&quot;v&quot;:-0.3},{&quot;t&quot;:111.068,&quot;v&quot;:0},{&quot;t&quot;:112.009,&quot;v&quot;:-2.4},{&quot;t&quot;:112.95,&quot;v&quot;:-10.9},{&quot;t&quot;:113.891,&quot;v&quot;:-0.3},{&quot;t&quot;:114.832,&quot;v&quot;:0},{&quot;t&quot;:115.773,&quot;v&quot;:-9.2},{&quot;t&quot;:116.714,&quot;v&quot;:-0.2},{&quot;t&quot;:117.655,&quot;v&quot;:-1.7},{&quot;t&quot;:118.596,&quot;v&quot;:0},{&quot;t&quot;:119.536,&quot;v&quot;:-3.6},{&quot;t&quot;:120.477,&quot;v&quot;:0},{&quot;t&quot;:122.359,&quot;v&quot;:0},{&quot;t&quot;:123.3,&quot;v&quot;:-11.2},{&quot;t&quot;:124.241,&quot;v&quot;:-4.1},{&quot;t&quot;:125.182,&quot;v&quot;:0},{&quot;t&quot;:129.886,&quot;v&quot;:0},{&quot;t&quot;:130.827,&quot;v&quot;:-9.6},{&quot;t&quot;:131.768,&quot;v&quot;:-0.2},{&quot;t&quot;:132.709,&quot;v&quot;:-7},{&quot;t&quot;:133.65,&quot;v&quot;:-10.3},{&quot;t&quot;:134.591,&quot;v&quot;:-0.2},{&quot;t&quot;:136.473,&quot;v&quot;:0},{&quot;t&quot;:137.413,&quot;v&quot;:-13.9},{&quot;t&quot;:138.354,&quot;v&quot;:-7.4},{&quot;t&quot;:139.295,&quot;v&quot;:0},{&quot;t&quot;:142.118,&quot;v&quot;:0},{&quot;t&quot;:143.059,&quot;v&quot;:-2.6},{&quot;t&quot;:144,&quot;v&quot;:0},{&quot;t&quot;:144.941,&quot;v&quot;:-8.1},{&quot;t&quot;:145.882,&quot;v&quot;:-0.3},{&quot;t&quot;:153.409,&quot;v&quot;:0},{&quot;t&quot;:154.35,&quot;v&quot;:-2.3},{&quot;t&quot;:155.29,&quot;v&quot;:0},{&quot;t&quot;:157.172,&quot;v&quot;:0},{&quot;t&quot;:158.113,&quot;v&quot;:-5.1},{&quot;t&quot;:159.054,&quot;v&quot;:0},{&quot;t&quot;:164.699,&quot;v&quot;:0},{&quot;t&quot;:165.64,&quot;v&quot;:-4.3},{&quot;t&quot;:166.581,&quot;v&quot;:0},{&quot;t&quot;:167.522,&quot;v&quot;:-11.4},{&quot;t&quot;:168.463,&quot;v&quot;:-0.3},{&quot;t&quot;:176.931,&quot;v&quot;:0},{&quot;t&quot;:177.872,&quot;v&quot;:-2.9},{&quot;t&quot;:178.813,&quot;v&quot;:0},{&quot;t&quot;:180.695,&quot;v&quot;:0},{&quot;t&quot;:181.636,&quot;v&quot;:-0.5},{&quot;t&quot;:182.576,&quot;v&quot;:-1.6},{&quot;t&quot;:183.517,&quot;v&quot;:-1.8},{&quot;t&quot;:184.458,&quot;v&quot;:-6.6},{&quot;t&quot;:185.399,&quot;v&quot;:0},{&quot;t&quot;:187.281,&quot;v&quot;:0},{&quot;t&quot;:188.222,&quot;v&quot;:-3.5},{&quot;t&quot;:189.163,&quot;v&quot;:0},{&quot;t&quot;:190.104,&quot;v&quot;:-2.9},{&quot;t&quot;:191.045,&quot;v&quot;:0},{&quot;t&quot;:191.985,&quot;v&quot;:0},{&quot;t&quot;:192.926,&quot;v&quot;:-8.4},{&quot;t&quot;:193.867,&quot;v&quot;:-0.4},{&quot;t&quot;:194.808,&quot;v&quot;:-2.6},{&quot;t&quot;:195.749,&quot;v&quot;:0},{&quot;t&quot;:197.631,&quot;v&quot;:0},{&quot;t&quot;:198.572,&quot;v&quot;:-4.8},{&quot;t&quot;:199.513,&quot;v&quot;:0},{&quot;t&quot;:200.453,&quot;v&quot;:-9.2},{&quot;t&quot;:201.394,&quot;v&quot;:-9.6},{&quot;t&quot;:202.335,&quot;v&quot;:-0.2},{&quot;t&quot;:203.276,&quot;v&quot;:-9.2},{&quot;t&quot;:204.217,&quot;v&quot;:-0.2},{&quot;t&quot;:205.158,&quot;v&quot;:-9.3},{&quot;t&quot;:206.099,&quot;v&quot;:-6.3},{&quot;t&quot;:207.04,&quot;v&quot;:-4.7},{&quot;t&quot;:207.981,&quot;v&quot;:0},{&quot;t&quot;:208.922,&quot;v&quot;:0},{&quot;t&quot;:209.862,&quot;v&quot;:-7},{&quot;t&quot;:210.803,&quot;v&quot;:-7},{&quot;t&quot;:211.744,&quot;v&quot;:-2.5},{&quot;t&quot;:212.685,&quot;v&quot;:0},{&quot;t&quot;:216.449,&quot;v&quot;:0},{&quot;t&quot;:217.39,&quot;v&quot;:-5.6},{&quot;t&quot;:218.331,&quot;v&quot;:0},{&quot;t&quot;:219.271,&quot;v&quot;:0},{&quot;t&quot;:220.212,&quot;v&quot;:-14},{&quot;t&quot;:221.153,&quot;v&quot;:-0.3},{&quot;t&quot;:222.094,&quot;v&quot;:0},{&quot;t&quot;:223.035,&quot;v&quot;:-6.2},{&quot;t&quot;:223.976,&quot;v&quot;:0},{&quot;t&quot;:225.858,&quot;v&quot;:0},{&quot;t&quot;:226.799,&quot;v&quot;:-6.6},{&quot;t&quot;:227.739,&quot;v&quot;:-3.4},{&quot;t&quot;:228.68,&quot;v&quot;:0},{&quot;t&quot;:229.621,&quot;v&quot;:-1.3},{&quot;t&quot;:230.562,&quot;v&quot;:-10.6},{&quot;t&quot;:231.503,&quot;v&quot;:-0.2},{&quot;t&quot;:232.444,&quot;v&quot;:-12.7},{&quot;t&quot;:233.385,&quot;v&quot;:-8.4},{&quot;t&quot;:234.326,&quot;v&quot;:0},{&quot;t&quot;:237.148,&quot;v&quot;:0},{&quot;t&quot;:238.089,&quot;v&quot;:-5.4},{&quot;t&quot;:239.03,&quot;v&quot;:0},{&quot;t&quot;:240.912,&quot;v&quot;:0},{&quot;t&quot;:241.853,&quot;v&quot;:-1.6},{&quot;t&quot;:242.794,&quot;v&quot;:0},{&quot;t&quot;:243.735,&quot;v&quot;:0},{&quot;t&quot;:244.676,&quot;v&quot;:-1.6},{&quot;t&quot;:245.616,&quot;v&quot;:-11.7},{&quot;t&quot;:246.557,&quot;v&quot;:-0.3},{&quot;t&quot;:254.085,&quot;v&quot;:0},{&quot;t&quot;:255.025,&quot;v&quot;:-10.7},{&quot;t&quot;:255.966,&quot;v&quot;:-0.7},{&quot;t&quot;:256.907,&quot;v&quot;:0},{&quot;t&quot;:257.848,&quot;v&quot;:0},{&quot;t&quot;:258.789,&quot;v&quot;:-1.4},{&quot;t&quot;:259.73,&quot;v&quot;:0},{&quot;t&quot;:261.612,&quot;v&quot;:0},{&quot;t&quot;:262.553,&quot;v&quot;:-6.6},{&quot;t&quot;:263.493,&quot;v&quot;:0},{&quot;t&quot;:265.375,&quot;v&quot;:0},{&quot;t&quot;:266.316,&quot;v&quot;:-5},{&quot;t&quot;:267.257,&quot;v&quot;:0},{&quot;t&quot;:269.139,&quot;v&quot;:0},{&quot;t&quot;:270.08,&quot;v&quot;:-9.4},{&quot;t&quot;:271.021,&quot;v&quot;:-1.7},{&quot;t&quot;:271.962,&quot;v&quot;:0},{&quot;t&quot;:272.902,&quot;v&quot;:0},{&quot;t&quot;:273.843,&quot;v&quot;:-2},{&quot;t&quot;:274.784,&quot;v&quot;:0},{&quot;t&quot;:277.607,&quot;v&quot;:0},{&quot;t&quot;:278.548,&quot;v&quot;:-5.9},{&quot;t&quot;:279.489,&quot;v&quot;:-8.2},{&quot;t&quot;:280.43,&quot;v&quot;:0},{&quot;t&quot;:281.371,&quot;v&quot;:-6.8},{&quot;t&quot;:282.311,&quot;v&quot;:-1},{&quot;t&quot;:283.252,&quot;v&quot;:0},{&quot;t&quot;:285.134,&quot;v&quot;:0},{&quot;t&quot;:286.075,&quot;v&quot;:-3.6},{&quot;t&quot;:287.016,&quot;v&quot;:0},{&quot;t&quot;:287.957,&quot;v&quot;:-4.1},{&quot;t&quot;:288.898,&quot;v&quot;:-7.6},{&quot;t&quot;:289.839,&quot;v&quot;:0},{&quot;t&quot;:291.72,&quot;v&quot;:0},{&quot;t&quot;:292.661,&quot;v&quot;:-9.3},{&quot;t&quot;:293.602,&quot;v&quot;:-0.2},{&quot;t&quot;:297.366,&quot;v&quot;:0},{&quot;t&quot;:298.307,&quot;v&quot;:-8.7},{&quot;t&quot;:299.248,&quot;v&quot;:-3.6},{&quot;t&quot;:300.188,&quot;v&quot;:0},{&quot;t&quot;:301.129,&quot;v&quot;:0},{&quot;t&quot;:302.07,&quot;v&quot;:-8.6},{&quot;t&quot;:303.011,&quot;v&quot;:0},{&quot;t&quot;:303.952,&quot;v&quot;:-6},{&quot;t&quot;:304.893,&quot;v&quot;:0},{&quot;t&quot;:305.834,&quot;v&quot;:-1.9},{&quot;t&quot;:306.775,&quot;v&quot;:-11.7},{&quot;t&quot;:307.716,&quot;v&quot;:-0.3},{&quot;t&quot;:310.538,&quot;v&quot;:0},{&quot;t&quot;:311.479,&quot;v&quot;:-7.7},{&quot;t&quot;:312.42,&quot;v&quot;:-8.5},{&quot;t&quot;:313.361,&quot;v&quot;:0},{&quot;t&quot;:316.184,&quot;v&quot;:0},{&quot;t&quot;:317.125,&quot;v&quot;:-8.6},{&quot;t&quot;:318.065,&quot;v&quot;:0},{&quot;t&quot;:319.947,&quot;v&quot;:0},{&quot;t&quot;:320.888,&quot;v&quot;:-9.9},{&quot;t&quot;:321.829,&quot;v&quot;:-7.7},{&quot;t&quot;:322.77,&quot;v&quot;:0},{&quot;t&quot;:323.711,&quot;v&quot;:0},{&quot;t&quot;:324.652,&quot;v&quot;:-7.8},{&quot;t&quot;:325.593,&quot;v&quot;:0},{&quot;t&quot;:326.534,&quot;v&quot;:-9},{&quot;t&quot;:327.474,&quot;v&quot;:-0.2},{&quot;t&quot;:328.415,&quot;v&quot;:-0.8},{&quot;t&quot;:329.356,&quot;v&quot;:0},{&quot;t&quot;:331.238,&quot;v&quot;:0},{&quot;t&quot;:332.179,&quot;v&quot;:-4.4},{&quot;t&quot;:333.12,&quot;v&quot;:-10.8},{&quot;t&quot;:334.061,&quot;v&quot;:-0.3},{&quot;t&quot;:335.002,&quot;v&quot;:0},{&quot;t&quot;:335.942,&quot;v&quot;:-14.8},{&quot;t&quot;:336.883,&quot;v&quot;:-6.4},{&quot;t&quot;:337.824,&quot;v&quot;:0},{&quot;t&quot;:339.706,&quot;v&quot;:0},{&quot;t&quot;:340.647,&quot;v&quot;:-10.9},{&quot;t&quot;:341.588,&quot;v&quot;:-10.4},{&quot;t&quot;:342.529,&quot;v&quot;:-0.2},{&quot;t&quot;:343.47,&quot;v&quot;:-2.7},{&quot;t&quot;:344.411,&quot;v&quot;:0},{&quot;t&quot;:345.351,&quot;v&quot;:-10.8},{&quot;t&quot;:346.292,&quot;v&quot;:-0.3},{&quot;t&quot;:347.233,&quot;v&quot;:-7.6},{&quot;t&quot;:348.174,&quot;v&quot;:0},{&quot;t&quot;:349.115,&quot;v&quot;:-3.2},{&quot;t&quot;:350.056,&quot;v&quot;:0},{&quot;t&quot;:350.997,&quot;v&quot;:-9.1},{&quot;t&quot;:351.938,&quot;v&quot;:-0.2},{&quot;t&quot;:353.82,&quot;v&quot;:0},{&quot;t&quot;:354.76,&quot;v&quot;:-6.7},{&quot;t&quot;:355.701,&quot;v&quot;:0},{&quot;t&quot;:356.642,&quot;v&quot;:-4.2},{&quot;t&quot;:357.583,&quot;v&quot;:0},{&quot;t&quot;:358.524,&quot;v&quot;:-4.1},{&quot;t&quot;:359.465,&quot;v&quot;:0},{&quot;t&quot;:361.347,&quot;v&quot;:0},{&quot;t&quot;:362.288,&quot;v&quot;:-9.2},{&quot;t&quot;:363.228,&quot;v&quot;:-9},{&quot;t&quot;:364.169,&quot;v&quot;:-0.2},{&quot;t&quot;:374.519,&quot;v&quot;:0},{&quot;t&quot;:375.46,&quot;v&quot;:0},{&quot;t&quot;:376.352,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n6.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.984,&quot;v&quot;:0},{&quot;t&quot;:1.924,&quot;v&quot;:-2.2},{&quot;t&quot;:2.865,&quot;v&quot;:0},{&quot;t&quot;:3.806,&quot;v&quot;:-4.9},{&quot;t&quot;:4.747,&quot;v&quot;:0},{&quot;t&quot;:5.688,&quot;v&quot;:-4},{&quot;t&quot;:6.629,&quot;v&quot;:0},{&quot;t&quot;:9.452,&quot;v&quot;:0},{&quot;t&quot;:10.393,&quot;v&quot;:-5},{&quot;t&quot;:11.333,&quot;v&quot;:-4.2},{&quot;t&quot;:12.274,&quot;v&quot;:-2.6},{&quot;t&quot;:13.215,&quot;v&quot;:0},{&quot;t&quot;:14.156,&quot;v&quot;:-3},{&quot;t&quot;:15.097,&quot;v&quot;:0},{&quot;t&quot;:16.038,&quot;v&quot;:-2.7},{&quot;t&quot;:16.979,&quot;v&quot;:0},{&quot;t&quot;:17.92,&quot;v&quot;:0},{&quot;t&quot;:18.861,&quot;v&quot;:-3.6},{&quot;t&quot;:19.801,&quot;v&quot;:-2.4},{&quot;t&quot;:20.742,&quot;v&quot;:0},{&quot;t&quot;:21.683,&quot;v&quot;:-0.5},{&quot;t&quot;:22.624,&quot;v&quot;:-1.4},{&quot;t&quot;:23.565,&quot;v&quot;:0},{&quot;t&quot;:24.506,&quot;v&quot;:0},{&quot;t&quot;:25.447,&quot;v&quot;:-2.8},{&quot;t&quot;:26.388,&quot;v&quot;:0},{&quot;t&quot;:27.329,&quot;v&quot;:-1.9},{&quot;t&quot;:28.27,&quot;v&quot;:-1.6},{&quot;t&quot;:29.21,&quot;v&quot;:0},{&quot;t&quot;:30.151,&quot;v&quot;:-6.3},{&quot;t&quot;:31.092,&quot;v&quot;:-3.2},{&quot;t&quot;:32.033,&quot;v&quot;:0},{&quot;t&quot;:32.974,&quot;v&quot;:0},{&quot;t&quot;:33.915,&quot;v&quot;:-4.8},{&quot;t&quot;:34.856,&quot;v&quot;:0},{&quot;t&quot;:35.797,&quot;v&quot;:0},{&quot;t&quot;:36.738,&quot;v&quot;:-5.7},{&quot;t&quot;:37.678,&quot;v&quot;:-3.9},{&quot;t&quot;:38.619,&quot;v&quot;:0},{&quot;t&quot;:39.56,&quot;v&quot;:-4.7},{&quot;t&quot;:40.501,&quot;v&quot;:0},{&quot;t&quot;:42.383,&quot;v&quot;:0},{&quot;t&quot;:43.324,&quot;v&quot;:-1.6},{&quot;t&quot;:44.265,&quot;v&quot;:0},{&quot;t&quot;:45.206,&quot;v&quot;:0},{&quot;t&quot;:46.147,&quot;v&quot;:-0.9},{&quot;t&quot;:47.087,&quot;v&quot;:-4.3},{&quot;t&quot;:48.028,&quot;v&quot;:-4.4},{&quot;t&quot;:48.969,&quot;v&quot;:0},{&quot;t&quot;:49.91,&quot;v&quot;:0},{&quot;t&quot;:50.851,&quot;v&quot;:-2.5},{&quot;t&quot;:51.792,&quot;v&quot;:-0.4},{&quot;t&quot;:52.733,&quot;v&quot;:-1.5},{&quot;t&quot;:53.674,&quot;v&quot;:0},{&quot;t&quot;:59.319,&quot;v&quot;:0},{&quot;t&quot;:60.26,&quot;v&quot;:-6.1},{&quot;t&quot;:61.201,&quot;v&quot;:-4.6},{&quot;t&quot;:63.083,&quot;v&quot;:-4.8},{&quot;t&quot;:64.024,&quot;v&quot;:0},{&quot;t&quot;:67.787,&quot;v&quot;:0},{&quot;t&quot;:68.728,&quot;v&quot;:-4.1},{&quot;t&quot;:69.669,&quot;v&quot;:-5.1},{&quot;t&quot;:70.61,&quot;v&quot;:0},{&quot;t&quot;:71.551,&quot;v&quot;:0},{&quot;t&quot;:72.492,&quot;v&quot;:-4.5},{&quot;t&quot;:73.433,&quot;v&quot;:-2.7},{&quot;t&quot;:74.373,&quot;v&quot;:0},{&quot;t&quot;:75.314,&quot;v&quot;:-1.2},{&quot;t&quot;:76.255,&quot;v&quot;:0},{&quot;t&quot;:81.901,&quot;v&quot;:0},{&quot;t&quot;:82.841,&quot;v&quot;:-2.7},{&quot;t&quot;:83.782,&quot;v&quot;:0},{&quot;t&quot;:85.664,&quot;v&quot;:0},{&quot;t&quot;:86.605,&quot;v&quot;:-3.3},{&quot;t&quot;:87.546,&quot;v&quot;:0},{&quot;t&quot;:88.487,&quot;v&quot;:-2.3},{&quot;t&quot;:89.428,&quot;v&quot;:-6},{&quot;t&quot;:90.369,&quot;v&quot;:-3.6},{&quot;t&quot;:91.31,&quot;v&quot;:0},{&quot;t&quot;:92.25,&quot;v&quot;:0},{&quot;t&quot;:93.191,&quot;v&quot;:-3.5},{&quot;t&quot;:94.132,&quot;v&quot;:-2.4},{&quot;t&quot;:95.073,&quot;v&quot;:0},{&quot;t&quot;:96.955,&quot;v&quot;:0},{&quot;t&quot;:97.896,&quot;v&quot;:-7.2},{&quot;t&quot;:98.837,&quot;v&quot;:-6},{&quot;t&quot;:99.778,&quot;v&quot;:0},{&quot;t&quot;:100.719,&quot;v&quot;:-3.2},{&quot;t&quot;:101.659,&quot;v&quot;:0},{&quot;t&quot;:102.6,&quot;v&quot;:-4.8},{&quot;t&quot;:103.541,&quot;v&quot;:-2.8},{&quot;t&quot;:104.482,&quot;v&quot;:0},{&quot;t&quot;:107.305,&quot;v&quot;:0},{&quot;t&quot;:108.246,&quot;v&quot;:-6.6},{&quot;t&quot;:109.187,&quot;v&quot;:-2.2},{&quot;t&quot;:110.127,&quot;v&quot;:-2.3},{&quot;t&quot;:111.068,&quot;v&quot;:-1.7},{&quot;t&quot;:112.009,&quot;v&quot;:0},{&quot;t&quot;:112.95,&quot;v&quot;:-4.9},{&quot;t&quot;:113.891,&quot;v&quot;:0},{&quot;t&quot;:114.832,&quot;v&quot;:-1},{&quot;t&quot;:115.773,&quot;v&quot;:-5.1},{&quot;t&quot;:116.714,&quot;v&quot;:0},{&quot;t&quot;:117.655,&quot;v&quot;:-4.8},{&quot;t&quot;:118.596,&quot;v&quot;:0},{&quot;t&quot;:119.536,&quot;v&quot;:-1},{&quot;t&quot;:120.477,&quot;v&quot;:-0.3},{&quot;t&quot;:122.359,&quot;v&quot;:0},{&quot;t&quot;:123.3,&quot;v&quot;:-4.2},{&quot;t&quot;:124.241,&quot;v&quot;:-3.5},{&quot;t&quot;:125.182,&quot;v&quot;:0},{&quot;t&quot;:128.005,&quot;v&quot;:0},{&quot;t&quot;:128.945,&quot;v&quot;:-4},{&quot;t&quot;:129.886,&quot;v&quot;:-2},{&quot;t&quot;:130.827,&quot;v&quot;:-6.3},{&quot;t&quot;:131.768,&quot;v&quot;:0},{&quot;t&quot;:132.709,&quot;v&quot;:-4.8},{&quot;t&quot;:133.65,&quot;v&quot;:-5.2},{&quot;t&quot;:134.591,&quot;v&quot;:0},{&quot;t&quot;:135.532,&quot;v&quot;:-4.9},{&quot;t&quot;:136.473,&quot;v&quot;:0},{&quot;t&quot;:137.413,&quot;v&quot;:-4.6},{&quot;t&quot;:138.354,&quot;v&quot;:-2},{&quot;t&quot;:139.295,&quot;v&quot;:0},{&quot;t&quot;:140.236,&quot;v&quot;:-1.5},{&quot;t&quot;:141.177,&quot;v&quot;:0},{&quot;t&quot;:142.118,&quot;v&quot;:0},{&quot;t&quot;:143.059,&quot;v&quot;:-3},{&quot;t&quot;:144,&quot;v&quot;:0},{&quot;t&quot;:144.941,&quot;v&quot;:-5.2},{&quot;t&quot;:145.882,&quot;v&quot;:-3},{&quot;t&quot;:146.822,&quot;v&quot;:0},{&quot;t&quot;:153.409,&quot;v&quot;:0},{&quot;t&quot;:154.35,&quot;v&quot;:-3.6},{&quot;t&quot;:155.29,&quot;v&quot;:0},{&quot;t&quot;:157.172,&quot;v&quot;:0},{&quot;t&quot;:158.113,&quot;v&quot;:-3.1},{&quot;t&quot;:159.054,&quot;v&quot;:-0.6},{&quot;t&quot;:159.995,&quot;v&quot;:-3.9},{&quot;t&quot;:160.936,&quot;v&quot;:-4.6},{&quot;t&quot;:161.877,&quot;v&quot;:0},{&quot;t&quot;:163.759,&quot;v&quot;:0},{&quot;t&quot;:164.699,&quot;v&quot;:-2.2},{&quot;t&quot;:165.64,&quot;v&quot;:-6.3},{&quot;t&quot;:166.581,&quot;v&quot;:-2.5},{&quot;t&quot;:167.522,&quot;v&quot;:-4.9},{&quot;t&quot;:168.463,&quot;v&quot;:0},{&quot;t&quot;:173.167,&quot;v&quot;:0},{&quot;t&quot;:174.108,&quot;v&quot;:-1.1},{&quot;t&quot;:175.049,&quot;v&quot;:0},{&quot;t&quot;:175.99,&quot;v&quot;:0},{&quot;t&quot;:176.931,&quot;v&quot;:-0.8},{&quot;t&quot;:177.872,&quot;v&quot;:-1.6},{&quot;t&quot;:178.813,&quot;v&quot;:-1.3},{&quot;t&quot;:179.754,&quot;v&quot;:-2.6},{&quot;t&quot;:180.695,&quot;v&quot;:-2.2},{&quot;t&quot;:181.636,&quot;v&quot;:-0.3},{&quot;t&quot;:182.576,&quot;v&quot;:-1.5},{&quot;t&quot;:183.517,&quot;v&quot;:-4.1},{&quot;t&quot;:184.458,&quot;v&quot;:-5.5},{&quot;t&quot;:185.399,&quot;v&quot;:0},{&quot;t&quot;:187.281,&quot;v&quot;:0},{&quot;t&quot;:188.222,&quot;v&quot;:-4.3},{&quot;t&quot;:189.163,&quot;v&quot;:0},{&quot;t&quot;:190.104,&quot;v&quot;:-5.5},{&quot;t&quot;:191.045,&quot;v&quot;:0},{&quot;t&quot;:191.985,&quot;v&quot;:-1.8},{&quot;t&quot;:192.926,&quot;v&quot;:-5.5},{&quot;t&quot;:193.867,&quot;v&quot;:-2.3},{&quot;t&quot;:194.808,&quot;v&quot;:-0.4},{&quot;t&quot;:195.749,&quot;v&quot;:0},{&quot;t&quot;:196.69,&quot;v&quot;:-5.1},{&quot;t&quot;:197.631,&quot;v&quot;:0},{&quot;t&quot;:198.572,&quot;v&quot;:-3},{&quot;t&quot;:199.513,&quot;v&quot;:0},{&quot;t&quot;:200.453,&quot;v&quot;:-6.2},{&quot;t&quot;:201.394,&quot;v&quot;:-2.8},{&quot;t&quot;:202.335,&quot;v&quot;:-1.7},{&quot;t&quot;:203.276,&quot;v&quot;:-4.2},{&quot;t&quot;:204.217,&quot;v&quot;:0},{&quot;t&quot;:205.158,&quot;v&quot;:-5.8},{&quot;t&quot;:206.099,&quot;v&quot;:-5},{&quot;t&quot;:207.04,&quot;v&quot;:-1.8},{&quot;t&quot;:207.981,&quot;v&quot;:-2.1},{&quot;t&quot;:208.922,&quot;v&quot;:0},{&quot;t&quot;:209.862,&quot;v&quot;:-4.3},{&quot;t&quot;:210.803,&quot;v&quot;:-4},{&quot;t&quot;:211.744,&quot;v&quot;:-0.6},{&quot;t&quot;:212.685,&quot;v&quot;:0},{&quot;t&quot;:213.626,&quot;v&quot;:0},{&quot;t&quot;:214.567,&quot;v&quot;:-2.9},{&quot;t&quot;:215.508,&quot;v&quot;:-2.7},{&quot;t&quot;:216.449,&quot;v&quot;:0},{&quot;t&quot;:217.39,&quot;v&quot;:-5.8},{&quot;t&quot;:218.331,&quot;v&quot;:0},{&quot;t&quot;:219.271,&quot;v&quot;:0},{&quot;t&quot;:220.212,&quot;v&quot;:-7.3},{&quot;t&quot;:221.153,&quot;v&quot;:0},{&quot;t&quot;:222.094,&quot;v&quot;:0},{&quot;t&quot;:223.035,&quot;v&quot;:-4.9},{&quot;t&quot;:223.976,&quot;v&quot;:-1.1},{&quot;t&quot;:224.917,&quot;v&quot;:0},{&quot;t&quot;:226.799,&quot;v&quot;:-0.4},{&quot;t&quot;:227.739,&quot;v&quot;:-4.8},{&quot;t&quot;:228.68,&quot;v&quot;:-2.8},{&quot;t&quot;:229.621,&quot;v&quot;:-0.9},{&quot;t&quot;:230.562,&quot;v&quot;:-4.5},{&quot;t&quot;:231.503,&quot;v&quot;:0},{&quot;t&quot;:232.444,&quot;v&quot;:-4.2},{&quot;t&quot;:233.385,&quot;v&quot;:-2.9},{&quot;t&quot;:234.326,&quot;v&quot;:0},{&quot;t&quot;:236.208,&quot;v&quot;:0},{&quot;t&quot;:237.148,&quot;v&quot;:-2.2},{&quot;t&quot;:238.089,&quot;v&quot;:-3.3},{&quot;t&quot;:239.03,&quot;v&quot;:0},{&quot;t&quot;:240.912,&quot;v&quot;:0},{&quot;t&quot;:241.853,&quot;v&quot;:-3.4},{&quot;t&quot;:242.794,&quot;v&quot;:0},{&quot;t&quot;:243.735,&quot;v&quot;:-7.4},{&quot;t&quot;:244.676,&quot;v&quot;:-1.4},{&quot;t&quot;:245.616,&quot;v&quot;:-4.7},{&quot;t&quot;:246.557,&quot;v&quot;:0},{&quot;t&quot;:254.085,&quot;v&quot;:0},{&quot;t&quot;:255.025,&quot;v&quot;:-6.5},{&quot;t&quot;:255.966,&quot;v&quot;:-4.5},{&quot;t&quot;:256.907,&quot;v&quot;:0},{&quot;t&quot;:257.848,&quot;v&quot;:-0.7},{&quot;t&quot;:258.789,&quot;v&quot;:-0.5},{&quot;t&quot;:259.73,&quot;v&quot;:0},{&quot;t&quot;:260.671,&quot;v&quot;:0},{&quot;t&quot;:261.612,&quot;v&quot;:-1.7},{&quot;t&quot;:262.553,&quot;v&quot;:-5.2},{&quot;t&quot;:263.493,&quot;v&quot;:0},{&quot;t&quot;:265.375,&quot;v&quot;:0},{&quot;t&quot;:266.316,&quot;v&quot;:-3.6},{&quot;t&quot;:267.257,&quot;v&quot;:0},{&quot;t&quot;:269.139,&quot;v&quot;:0},{&quot;t&quot;:270.08,&quot;v&quot;:-4.9},{&quot;t&quot;:271.021,&quot;v&quot;:-1.6},{&quot;t&quot;:271.962,&quot;v&quot;:0},{&quot;t&quot;:275.725,&quot;v&quot;:0},{&quot;t&quot;:276.666,&quot;v&quot;:-1.3},{&quot;t&quot;:277.607,&quot;v&quot;:-5.4},{&quot;t&quot;:278.548,&quot;v&quot;:-6.8},{&quot;t&quot;:279.489,&quot;v&quot;:-1.9},{&quot;t&quot;:280.43,&quot;v&quot;:0},{&quot;t&quot;:281.371,&quot;v&quot;:-6.4},{&quot;t&quot;:282.311,&quot;v&quot;:-1.1},{&quot;t&quot;:283.252,&quot;v&quot;:0},{&quot;t&quot;:284.193,&quot;v&quot;:-6.3},{&quot;t&quot;:285.134,&quot;v&quot;:0},{&quot;t&quot;:286.075,&quot;v&quot;:-3},{&quot;t&quot;:287.016,&quot;v&quot;:0},{&quot;t&quot;:287.957,&quot;v&quot;:-2.3},{&quot;t&quot;:288.898,&quot;v&quot;:-4.8},{&quot;t&quot;:289.839,&quot;v&quot;:0},{&quot;t&quot;:291.72,&quot;v&quot;:0},{&quot;t&quot;:292.661,&quot;v&quot;:-2.5},{&quot;t&quot;:293.602,&quot;v&quot;:-1.2},{&quot;t&quot;:294.543,&quot;v&quot;:0},{&quot;t&quot;:297.366,&quot;v&quot;:0},{&quot;t&quot;:298.307,&quot;v&quot;:-4.3},{&quot;t&quot;:299.248,&quot;v&quot;:-5.7},{&quot;t&quot;:300.188,&quot;v&quot;:0},{&quot;t&quot;:301.129,&quot;v&quot;:-3.2},{&quot;t&quot;:302.07,&quot;v&quot;:-3.8},{&quot;t&quot;:303.011,&quot;v&quot;:0},{&quot;t&quot;:303.952,&quot;v&quot;:-3.6},{&quot;t&quot;:304.893,&quot;v&quot;:0},{&quot;t&quot;:305.834,&quot;v&quot;:-5.1},{&quot;t&quot;:306.775,&quot;v&quot;:-1.4},{&quot;t&quot;:307.716,&quot;v&quot;:-4.1},{&quot;t&quot;:308.656,&quot;v&quot;:0},{&quot;t&quot;:310.538,&quot;v&quot;:0},{&quot;t&quot;:311.479,&quot;v&quot;:-2.7},{&quot;t&quot;:312.42,&quot;v&quot;:-4.8},{&quot;t&quot;:313.361,&quot;v&quot;:0},{&quot;t&quot;:314.302,&quot;v&quot;:0},{&quot;t&quot;:315.243,&quot;v&quot;:-2.6},{&quot;t&quot;:316.184,&quot;v&quot;:0},{&quot;t&quot;:317.125,&quot;v&quot;:-3},{&quot;t&quot;:318.065,&quot;v&quot;:-0.7},{&quot;t&quot;:319.006,&quot;v&quot;:0},{&quot;t&quot;:320.888,&quot;v&quot;:0},{&quot;t&quot;:321.829,&quot;v&quot;:-2},{&quot;t&quot;:322.77,&quot;v&quot;:0},{&quot;t&quot;:323.711,&quot;v&quot;:-3.7},{&quot;t&quot;:324.652,&quot;v&quot;:-4.3},{&quot;t&quot;:325.593,&quot;v&quot;:0},{&quot;t&quot;:326.534,&quot;v&quot;:-1.2},{&quot;t&quot;:327.474,&quot;v&quot;:0},{&quot;t&quot;:328.415,&quot;v&quot;:-2.8},{&quot;t&quot;:329.356,&quot;v&quot;:0},{&quot;t&quot;:330.297,&quot;v&quot;:-1.7},{&quot;t&quot;:331.238,&quot;v&quot;:-4.1},{&quot;t&quot;:332.179,&quot;v&quot;:-5.6},{&quot;t&quot;:333.12,&quot;v&quot;:-2.6},{&quot;t&quot;:334.061,&quot;v&quot;:-4.8},{&quot;t&quot;:335.002,&quot;v&quot;:0},{&quot;t&quot;:335.942,&quot;v&quot;:-6.1},{&quot;t&quot;:336.883,&quot;v&quot;:-6.4},{&quot;t&quot;:337.824,&quot;v&quot;:-1.2},{&quot;t&quot;:338.765,&quot;v&quot;:-2.6},{&quot;t&quot;:339.706,&quot;v&quot;:-0.3},{&quot;t&quot;:340.647,&quot;v&quot;:-4.7},{&quot;t&quot;:341.588,&quot;v&quot;:-4.5},{&quot;t&quot;:342.529,&quot;v&quot;:0},{&quot;t&quot;:343.47,&quot;v&quot;:-1.7},{&quot;t&quot;:344.411,&quot;v&quot;:-1.1},{&quot;t&quot;:345.351,&quot;v&quot;:-6.2},{&quot;t&quot;:346.292,&quot;v&quot;:0},{&quot;t&quot;:347.233,&quot;v&quot;:-4},{&quot;t&quot;:348.174,&quot;v&quot;:0},{&quot;t&quot;:349.115,&quot;v&quot;:-2.5},{&quot;t&quot;:350.056,&quot;v&quot;:0},{&quot;t&quot;:350.997,&quot;v&quot;:-5.5},{&quot;t&quot;:351.938,&quot;v&quot;:0},{&quot;t&quot;:352.879,&quot;v&quot;:-1},{&quot;t&quot;:353.82,&quot;v&quot;:0},{&quot;t&quot;:354.76,&quot;v&quot;:-5.5},{&quot;t&quot;:355.701,&quot;v&quot;:0},{&quot;t&quot;:356.642,&quot;v&quot;:-2.5},{&quot;t&quot;:357.583,&quot;v&quot;:0},{&quot;t&quot;:358.524,&quot;v&quot;:-2.4},{&quot;t&quot;:359.465,&quot;v&quot;:-1.7},{&quot;t&quot;:360.406,&quot;v&quot;:0},{&quot;t&quot;:361.347,&quot;v&quot;:0},{&quot;t&quot;:362.288,&quot;v&quot;:-5},{&quot;t&quot;:363.228,&quot;v&quot;:-5.2},{&quot;t&quot;:364.169,&quot;v&quot;:0},{&quot;t&quot;:374.519,&quot;v&quot;:0},{&quot;t&quot;:375.46,&quot;v&quot;:0},{&quot;t&quot;:376.352,&quot;v&quot;:0}]},{&quot;target&quot;:&quot;fx.n7.gain&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.984,&quot;v&quot;:0},{&quot;t&quot;:1.924,&quot;v&quot;:-19.2},{&quot;t&quot;:2.865,&quot;v&quot;:-13},{&quot;t&quot;:3.806,&quot;v&quot;:-15.5},{&quot;t&quot;:4.747,&quot;v&quot;:-10.5},{&quot;t&quot;:5.688,&quot;v&quot;:-9.6},{&quot;t&quot;:6.629,&quot;v&quot;:-6.5},{&quot;t&quot;:7.57,&quot;v&quot;:-4.4},{&quot;t&quot;:8.511,&quot;v&quot;:-3},{&quot;t&quot;:9.452,&quot;v&quot;:-2},{&quot;t&quot;:10.393,&quot;v&quot;:-4.6},{&quot;t&quot;:11.333,&quot;v&quot;:-14.6},{&quot;t&quot;:12.274,&quot;v&quot;:-15.8},{&quot;t&quot;:13.215,&quot;v&quot;:-14.5},{&quot;t&quot;:14.156,&quot;v&quot;:-19.2},{&quot;t&quot;:15.097,&quot;v&quot;:-13},{&quot;t&quot;:16.038,&quot;v&quot;:-11.9},{&quot;t&quot;:16.979,&quot;v&quot;:-19.2},{&quot;t&quot;:17.92,&quot;v&quot;:-13},{&quot;t&quot;:18.861,&quot;v&quot;:-12.5},{&quot;t&quot;:19.801,&quot;v&quot;:-19.2},{&quot;t&quot;:20.742,&quot;v&quot;:-13},{&quot;t&quot;:21.683,&quot;v&quot;:-10.4},{&quot;t&quot;:22.624,&quot;v&quot;:-19.2},{&quot;t&quot;:25.447,&quot;v&quot;:-19.2},{&quot;t&quot;:26.388,&quot;v&quot;:-13},{&quot;t&quot;:27.329,&quot;v&quot;:-18.7},{&quot;t&quot;:28.27,&quot;v&quot;:-19.2},{&quot;t&quot;:29.21,&quot;v&quot;:-13},{&quot;t&quot;:30.151,&quot;v&quot;:-19.2},{&quot;t&quot;:32.033,&quot;v&quot;:-19.2},{&quot;t&quot;:32.974,&quot;v&quot;:-13},{&quot;t&quot;:33.915,&quot;v&quot;:-19.2},{&quot;t&quot;:34.856,&quot;v&quot;:-19.2},{&quot;t&quot;:35.797,&quot;v&quot;:-13},{&quot;t&quot;:36.738,&quot;v&quot;:-19.2},{&quot;t&quot;:37.678,&quot;v&quot;:-19.2},{&quot;t&quot;:38.619,&quot;v&quot;:-13},{&quot;t&quot;:39.56,&quot;v&quot;:-18.7},{&quot;t&quot;:40.501,&quot;v&quot;:-19.2},{&quot;t&quot;:41.442,&quot;v&quot;:-19.2},{&quot;t&quot;:42.383,&quot;v&quot;:-13},{&quot;t&quot;:43.324,&quot;v&quot;:-18.3},{&quot;t&quot;:44.265,&quot;v&quot;:-12.3},{&quot;t&quot;:45.206,&quot;v&quot;:-19.2},{&quot;t&quot;:46.147,&quot;v&quot;:-13},{&quot;t&quot;:47.087,&quot;v&quot;:-14.6},{&quot;t&quot;:48.028,&quot;v&quot;:-19.2},{&quot;t&quot;:48.969,&quot;v&quot;:-13},{&quot;t&quot;:49.91,&quot;v&quot;:-19.2},{&quot;t&quot;:55.556,&quot;v&quot;:-19.2},{&quot;t&quot;:56.496,&quot;v&quot;:-13},{&quot;t&quot;:57.437,&quot;v&quot;:-19.2},{&quot;t&quot;:60.26,&quot;v&quot;:-19.1},{&quot;t&quot;:61.201,&quot;v&quot;:-17.8},{&quot;t&quot;:62.142,&quot;v&quot;:-19.2},{&quot;t&quot;:63.083,&quot;v&quot;:-18.9},{&quot;t&quot;:64.024,&quot;v&quot;:-12.8},{&quot;t&quot;:64.964,&quot;v&quot;:-19.2},{&quot;t&quot;:65.905,&quot;v&quot;:-19.2},{&quot;t&quot;:66.846,&quot;v&quot;:-13},{&quot;t&quot;:67.787,&quot;v&quot;:-8.8},{&quot;t&quot;:68.728,&quot;v&quot;:-19.2},{&quot;t&quot;:69.669,&quot;v&quot;:-16.6},{&quot;t&quot;:70.61,&quot;v&quot;:-19.2},{&quot;t&quot;:71.551,&quot;v&quot;:-13},{&quot;t&quot;:72.492,&quot;v&quot;:-9.8},{&quot;t&quot;:73.433,&quot;v&quot;:-6.6},{&quot;t&quot;:74.373,&quot;v&quot;:-4.5},{&quot;t&quot;:75.314,&quot;v&quot;:-3.1},{&quot;t&quot;:76.255,&quot;v&quot;:-2.1},{&quot;t&quot;:77.196,&quot;v&quot;:-1.4},{&quot;t&quot;:78.137,&quot;v&quot;:-0.9},{&quot;t&quot;:79.078,&quot;v&quot;:-12.9},{&quot;t&quot;:80.019,&quot;v&quot;:-8.7},{&quot;t&quot;:80.96,&quot;v&quot;:-5.9},{&quot;t&quot;:81.901,&quot;v&quot;:-4},{&quot;t&quot;:82.841,&quot;v&quot;:-7.6},{&quot;t&quot;:83.782,&quot;v&quot;:-19.2},{&quot;t&quot;:84.723,&quot;v&quot;:-18},{&quot;t&quot;:85.664,&quot;v&quot;:-12.2},{&quot;t&quot;:86.605,&quot;v&quot;:-15.2},{&quot;t&quot;:87.546,&quot;v&quot;:-10.2},{&quot;t&quot;:88.487,&quot;v&quot;:-9.8},{&quot;t&quot;:89.428,&quot;v&quot;:-19.2},{&quot;t&quot;:90.369,&quot;v&quot;:-15.8},{&quot;t&quot;:91.31,&quot;v&quot;:-10.7},{&quot;t&quot;:92.25,&quot;v&quot;:-19.2},{&quot;t&quot;:93.191,&quot;v&quot;:-18.5},{&quot;t&quot;:94.132,&quot;v&quot;:-19.2},{&quot;t&quot;:95.073,&quot;v&quot;:-17.7},{&quot;t&quot;:96.014,&quot;v&quot;:-17},{&quot;t&quot;:96.955,&quot;v&quot;:-19.2},{&quot;t&quot;:97.896,&quot;v&quot;:-16.7},{&quot;t&quot;:98.837,&quot;v&quot;:-17.6},{&quot;t&quot;:99.778,&quot;v&quot;:-11.9},{&quot;t&quot;:100.719,&quot;v&quot;:-19.2},{&quot;t&quot;:101.659,&quot;v&quot;:-13},{&quot;t&quot;:102.6,&quot;v&quot;:-17.8},{&quot;t&quot;:103.541,&quot;v&quot;:-19.2},{&quot;t&quot;:106.364,&quot;v&quot;:-19.2},{&quot;t&quot;:107.305,&quot;v&quot;:-13},{&quot;t&quot;:108.246,&quot;v&quot;:-19.2},{&quot;t&quot;:112.95,&quot;v&quot;:-19.2},{&quot;t&quot;:113.891,&quot;v&quot;:-13},{&quot;t&quot;:114.832,&quot;v&quot;:-16.8},{&quot;t&quot;:115.773,&quot;v&quot;:-19.1},{&quot;t&quot;:116.714,&quot;v&quot;:-12.9},{&quot;t&quot;:117.655,&quot;v&quot;:-17.7},{&quot;t&quot;:118.596,&quot;v&quot;:-12},{&quot;t&quot;:119.536,&quot;v&quot;:-19.2},{&quot;t&quot;:120.477,&quot;v&quot;:-18},{&quot;t&quot;:121.418,&quot;v&quot;:-19.2},{&quot;t&quot;:122.359,&quot;v&quot;:-18.2},{&quot;t&quot;:123.3,&quot;v&quot;:-19.2},{&quot;t&quot;:124.241,&quot;v&quot;:-18.6},{&quot;t&quot;:125.182,&quot;v&quot;:-12.6},{&quot;t&quot;:126.123,&quot;v&quot;:-8.5},{&quot;t&quot;:127.064,&quot;v&quot;:-19.2},{&quot;t&quot;:128.005,&quot;v&quot;:-13},{&quot;t&quot;:128.945,&quot;v&quot;:-13.1},{&quot;t&quot;:129.886,&quot;v&quot;:-19.2},{&quot;t&quot;:130.827,&quot;v&quot;:-18.4},{&quot;t&quot;:131.768,&quot;v&quot;:-12.4},{&quot;t&quot;:132.709,&quot;v&quot;:-19.2},{&quot;t&quot;:133.65,&quot;v&quot;:-18.6},{&quot;t&quot;:134.591,&quot;v&quot;:-12.6},{&quot;t&quot;:135.532,&quot;v&quot;:-19.2},{&quot;t&quot;:136.473,&quot;v&quot;:-13},{&quot;t&quot;:137.413,&quot;v&quot;:-17.7},{&quot;t&quot;:138.354,&quot;v&quot;:-19.2},{&quot;t&quot;:139.295,&quot;v&quot;:-13},{&quot;t&quot;:140.236,&quot;v&quot;:-13.8},{&quot;t&quot;:141.177,&quot;v&quot;:-19.2},{&quot;t&quot;:142.118,&quot;v&quot;:-13},{&quot;t&quot;:143.059,&quot;v&quot;:-19.2},{&quot;t&quot;:144,&quot;v&quot;:-13},{&quot;t&quot;:144.941,&quot;v&quot;:-14.6},{&quot;t&quot;:145.882,&quot;v&quot;:-14.1},{&quot;t&quot;:146.822,&quot;v&quot;:-9.5},{&quot;t&quot;:147.763,&quot;v&quot;:-6.4},{&quot;t&quot;:148.704,&quot;v&quot;:-4.3},{&quot;t&quot;:149.645,&quot;v&quot;:-2.9},{&quot;t&quot;:150.586,&quot;v&quot;:-14},{&quot;t&quot;:151.527,&quot;v&quot;:-10.8},{&quot;t&quot;:152.468,&quot;v&quot;:-10.8},{&quot;t&quot;:153.409,&quot;v&quot;:-7.3},{&quot;t&quot;:154.35,&quot;v&quot;:-4.9},{&quot;t&quot;:155.29,&quot;v&quot;:-3.3},{&quot;t&quot;:156.231,&quot;v&quot;:-13.9},{&quot;t&quot;:157.172,&quot;v&quot;:-19.2},{&quot;t&quot;:158.113,&quot;v&quot;:-16.5},{&quot;t&quot;:159.054,&quot;v&quot;:-14.9},{&quot;t&quot;:159.995,&quot;v&quot;:-19.2},{&quot;t&quot;:160.936,&quot;v&quot;:-19.2},{&quot;t&quot;:161.877,&quot;v&quot;:-13},{&quot;t&quot;:162.818,&quot;v&quot;:-8.8},{&quot;t&quot;:163.759,&quot;v&quot;:-19.2},{&quot;t&quot;:164.699,&quot;v&quot;:-18.3},{&quot;t&quot;:165.64,&quot;v&quot;:-14},{&quot;t&quot;:166.581,&quot;v&quot;:-15.7},{&quot;t&quot;:167.522,&quot;v&quot;:-13.6},{&quot;t&quot;:168.463,&quot;v&quot;:-19.2},{&quot;t&quot;:169.404,&quot;v&quot;:-19.2},{&quot;t&quot;:170.345,&quot;v&quot;:-13},{&quot;t&quot;:171.286,&quot;v&quot;:-8.8},{&quot;t&quot;:172.227,&quot;v&quot;:-13.5},{&quot;t&quot;:173.167,&quot;v&quot;:-13.7},{&quot;t&quot;:174.108,&quot;v&quot;:-19.2},{&quot;t&quot;:175.049,&quot;v&quot;:-13},{&quot;t&quot;:175.99,&quot;v&quot;:-8.8},{&quot;t&quot;:176.931,&quot;v&quot;:-19.2},{&quot;t&quot;:185.399,&quot;v&quot;:-19.2},{&quot;t&quot;:186.34,&quot;v&quot;:-13},{&quot;t&quot;:187.281,&quot;v&quot;:-19.2},{&quot;t&quot;:188.222,&quot;v&quot;:-18.7},{&quot;t&quot;:189.163,&quot;v&quot;:-12.6},{&quot;t&quot;:190.104,&quot;v&quot;:-19.2},{&quot;t&quot;:194.808,&quot;v&quot;:-19},{&quot;t&quot;:195.749,&quot;v&quot;:-12.8},{&quot;t&quot;:196.69,&quot;v&quot;:-18.9},{&quot;t&quot;:198.572,&quot;v&quot;:-19.2},{&quot;t&quot;:199.513,&quot;v&quot;:-13},{&quot;t&quot;:200.453,&quot;v&quot;:-19.2},{&quot;t&quot;:201.394,&quot;v&quot;:-18.5},{&quot;t&quot;:202.335,&quot;v&quot;:-18},{&quot;t&quot;:203.276,&quot;v&quot;:-19.2},{&quot;t&quot;:204.217,&quot;v&quot;:-13},{&quot;t&quot;:205.158,&quot;v&quot;:-14.5},{&quot;t&quot;:206.099,&quot;v&quot;:-14.4},{&quot;t&quot;:207.04,&quot;v&quot;:-19.2},{&quot;t&quot;:207.981,&quot;v&quot;:-19.2},{&quot;t&quot;:208.922,&quot;v&quot;:-13},{&quot;t&quot;:209.862,&quot;v&quot;:-19.2},{&quot;t&quot;:211.744,&quot;v&quot;:-19.2},{&quot;t&quot;:212.685,&quot;v&quot;:-13},{&quot;t&quot;:213.626,&quot;v&quot;:-8.8},{&quot;t&quot;:214.567,&quot;v&quot;:-19.2},{&quot;t&quot;:215.508,&quot;v&quot;:-17.6},{&quot;t&quot;:216.449,&quot;v&quot;:-11.9},{&quot;t&quot;:217.39,&quot;v&quot;:-17.1},{&quot;t&quot;:218.331,&quot;v&quot;:-11.5},{&quot;t&quot;:219.271,&quot;v&quot;:-7.8},{&quot;t&quot;:220.212,&quot;v&quot;:-19.2},{&quot;t&quot;:221.153,&quot;v&quot;:-19.2},{&quot;t&quot;:222.094,&quot;v&quot;:-13},{&quot;t&quot;:223.035,&quot;v&quot;:-13.1},{&quot;t&quot;:223.976,&quot;v&quot;:-18.2},{&quot;t&quot;:224.917,&quot;v&quot;:-15.2},{&quot;t&quot;:225.858,&quot;v&quot;:-10.2},{&quot;t&quot;:226.799,&quot;v&quot;:-19.2},{&quot;t&quot;:227.739,&quot;v&quot;:-13},{&quot;t&quot;:228.68,&quot;v&quot;:-8.8},{&quot;t&quot;:229.621,&quot;v&quot;:-5.9},{&quot;t&quot;:230.562,&quot;v&quot;:-4},{&quot;t&quot;:231.503,&quot;v&quot;:-2.7},{&quot;t&quot;:232.444,&quot;v&quot;:-7.6},{&quot;t&quot;:233.385,&quot;v&quot;:-6.7},{&quot;t&quot;:234.326,&quot;v&quot;:-4.6},{&quot;t&quot;:235.267,&quot;v&quot;:-3.1},{&quot;t&quot;:236.208,&quot;v&quot;:-2.1},{&quot;t&quot;:237.148,&quot;v&quot;:-13.3},{&quot;t&quot;:238.089,&quot;v&quot;:-14.7},{&quot;t&quot;:239.03,&quot;v&quot;:-9.9},{&quot;t&quot;:239.971,&quot;v&quot;:-6.7},{&quot;t&quot;:240.912,&quot;v&quot;:-4.5},{&quot;t&quot;:241.853,&quot;v&quot;:-6.3},{&quot;t&quot;:242.794,&quot;v&quot;:-4.3},{&quot;t&quot;:243.735,&quot;v&quot;:-19.2},{&quot;t&quot;:244.676,&quot;v&quot;:-16.8},{&quot;t&quot;:245.616,&quot;v&quot;:-16.7},{&quot;t&quot;:246.557,&quot;v&quot;:-16.3},{&quot;t&quot;:247.498,&quot;v&quot;:-19.2},{&quot;t&quot;:248.439,&quot;v&quot;:-19.2},{&quot;t&quot;:249.38,&quot;v&quot;:-13},{&quot;t&quot;:250.321,&quot;v&quot;:-8.8},{&quot;t&quot;:251.262,&quot;v&quot;:-19.2},{&quot;t&quot;:252.203,&quot;v&quot;:-19.2},{&quot;t&quot;:253.144,&quot;v&quot;:-17.5},{&quot;t&quot;:254.085,&quot;v&quot;:-19.2},{&quot;t&quot;:255.025,&quot;v&quot;:-19.2},{&quot;t&quot;:255.966,&quot;v&quot;:-17.6},{&quot;t&quot;:256.907,&quot;v&quot;:-19.2},{&quot;t&quot;:263.493,&quot;v&quot;:-19.2},{&quot;t&quot;:264.434,&quot;v&quot;:-13},{&quot;t&quot;:265.375,&quot;v&quot;:-8.8},{&quot;t&quot;:266.316,&quot;v&quot;:-19.2},{&quot;t&quot;:267.257,&quot;v&quot;:-19.2},{&quot;t&quot;:268.198,&quot;v&quot;:-13},{&quot;t&quot;:269.139,&quot;v&quot;:-8.8},{&quot;t&quot;:270.08,&quot;v&quot;:-19.2},{&quot;t&quot;:271.021,&quot;v&quot;:-19.2},{&quot;t&quot;:271.962,&quot;v&quot;:-13},{&quot;t&quot;:272.902,&quot;v&quot;:-8.8},{&quot;t&quot;:273.843,&quot;v&quot;:-19.2},{&quot;t&quot;:274.784,&quot;v&quot;:-13},{&quot;t&quot;:275.725,&quot;v&quot;:-8.8},{&quot;t&quot;:276.666,&quot;v&quot;:-17.3},{&quot;t&quot;:277.607,&quot;v&quot;:-19.2},{&quot;t&quot;:279.489,&quot;v&quot;:-19.2},{&quot;t&quot;:280.43,&quot;v&quot;:-13},{&quot;t&quot;:281.371,&quot;v&quot;:-16},{&quot;t&quot;:282.311,&quot;v&quot;:-19.1},{&quot;t&quot;:283.252,&quot;v&quot;:-12.9},{&quot;t&quot;:284.193,&quot;v&quot;:-15.6},{&quot;t&quot;:285.134,&quot;v&quot;:-10.6},{&quot;t&quot;:286.075,&quot;v&quot;:-19.2},{&quot;t&quot;:287.016,&quot;v&quot;:-13},{&quot;t&quot;:287.957,&quot;v&quot;:-18.4},{&quot;t&quot;:288.898,&quot;v&quot;:-18},{&quot;t&quot;:289.839,&quot;v&quot;:-19.2},{&quot;t&quot;:290.779,&quot;v&quot;:-19.2},{&quot;t&quot;:291.72,&quot;v&quot;:-13},{&quot;t&quot;:292.661,&quot;v&quot;:-14},{&quot;t&quot;:293.602,&quot;v&quot;:-14.4},{&quot;t&quot;:294.543,&quot;v&quot;:-9.7},{&quot;t&quot;:295.484,&quot;v&quot;:-19.2},{&quot;t&quot;:296.425,&quot;v&quot;:-13},{&quot;t&quot;:297.366,&quot;v&quot;:-8.8},{&quot;t&quot;:298.307,&quot;v&quot;:-12.6},{&quot;t&quot;:299.248,&quot;v&quot;:-17.7},{&quot;t&quot;:300.188,&quot;v&quot;:-17.1},{&quot;t&quot;:301.129,&quot;v&quot;:-19.2},{&quot;t&quot;:302.07,&quot;v&quot;:-16.8},{&quot;t&quot;:303.011,&quot;v&quot;:-11.3},{&quot;t&quot;:303.952,&quot;v&quot;:-11},{&quot;t&quot;:304.893,&quot;v&quot;:-17},{&quot;t&quot;:305.834,&quot;v&quot;:-11.5},{&quot;t&quot;:306.775,&quot;v&quot;:-7.7},{&quot;t&quot;:307.716,&quot;v&quot;:-5.2},{&quot;t&quot;:308.656,&quot;v&quot;:-3.5},{&quot;t&quot;:309.597,&quot;v&quot;:-2.4},{&quot;t&quot;:310.538,&quot;v&quot;:-1.6},{&quot;t&quot;:311.479,&quot;v&quot;:-11.8},{&quot;t&quot;:312.42,&quot;v&quot;:-14.1},{&quot;t&quot;:313.361,&quot;v&quot;:-19.2},{&quot;t&quot;:314.302,&quot;v&quot;:-13},{&quot;t&quot;:315.243,&quot;v&quot;:-19.2},{&quot;t&quot;:316.184,&quot;v&quot;:-13},{&quot;t&quot;:317.125,&quot;v&quot;:-19.2},{&quot;t&quot;:319.006,&quot;v&quot;:-19.2},{&quot;t&quot;:319.947,&quot;v&quot;:-13},{&quot;t&quot;:320.888,&quot;v&quot;:-19.2},{&quot;t&quot;:321.829,&quot;v&quot;:-15.8},{&quot;t&quot;:322.77,&quot;v&quot;:-10.7},{&quot;t&quot;:323.711,&quot;v&quot;:-19.2},{&quot;t&quot;:324.652,&quot;v&quot;:-16.6},{&quot;t&quot;:325.593,&quot;v&quot;:-19.2},{&quot;t&quot;:326.534,&quot;v&quot;:-19.2},{&quot;t&quot;:327.474,&quot;v&quot;:-13},{&quot;t&quot;:328.415,&quot;v&quot;:-19.2},{&quot;t&quot;:329.356,&quot;v&quot;:-13},{&quot;t&quot;:330.297,&quot;v&quot;:-12},{&quot;t&quot;:331.238,&quot;v&quot;:-19.2},{&quot;t&quot;:332.179,&quot;v&quot;:-18.5},{&quot;t&quot;:333.12,&quot;v&quot;:-19.2},{&quot;t&quot;:334.061,&quot;v&quot;:-18},{&quot;t&quot;:335.002,&quot;v&quot;:-12.2},{&quot;t&quot;:335.942,&quot;v&quot;:-12},{&quot;t&quot;:336.883,&quot;v&quot;:-19.2},{&quot;t&quot;:343.47,&quot;v&quot;:-19.2},{&quot;t&quot;:344.411,&quot;v&quot;:-13},{&quot;t&quot;:345.351,&quot;v&quot;:-19.2},{&quot;t&quot;:346.292,&quot;v&quot;:-19.2},{&quot;t&quot;:347.233,&quot;v&quot;:-18.7},{&quot;t&quot;:348.174,&quot;v&quot;:-12.6},{&quot;t&quot;:349.115,&quot;v&quot;:-15.8},{&quot;t&quot;:350.056,&quot;v&quot;:-10.7},{&quot;t&quot;:350.997,&quot;v&quot;:-19.2},{&quot;t&quot;:351.938,&quot;v&quot;:-13},{&quot;t&quot;:352.879,&quot;v&quot;:-19.2},{&quot;t&quot;:353.82,&quot;v&quot;:-13},{&quot;t&quot;:354.76,&quot;v&quot;:-19.2},{&quot;t&quot;:356.642,&quot;v&quot;:-19.2},{&quot;t&quot;:357.583,&quot;v&quot;:-13},{&quot;t&quot;:358.524,&quot;v&quot;:-18.5},{&quot;t&quot;:359.465,&quot;v&quot;:-17.9},{&quot;t&quot;:360.406,&quot;v&quot;:-19.2},{&quot;t&quot;:361.347,&quot;v&quot;:-13},{&quot;t&quot;:362.288,&quot;v&quot;:-19.2},{&quot;t&quot;:363.228,&quot;v&quot;:-17.4},{&quot;t&quot;:364.169,&quot;v&quot;:-11.8},{&quot;t&quot;:365.11,&quot;v&quot;:-8},{&quot;t&quot;:366.051,&quot;v&quot;:-5.4},{&quot;t&quot;:366.992,&quot;v&quot;:-3.6},{&quot;t&quot;:367.933,&quot;v&quot;:-2.5},{&quot;t&quot;:368.874,&quot;v&quot;:-1.7},{&quot;t&quot;:369.815,&quot;v&quot;:-1.1},{&quot;t&quot;:370.756,&quot;v&quot;:-0.8},{&quot;t&quot;:371.697,&quot;v&quot;:-0.5},{&quot;t&quot;:373.578,&quot;v&quot;:-0.2},{&quot;t&quot;:374.519,&quot;v&quot;:0},{&quot;t&quot;:375.46,&quot;v&quot;:0},{&quot;t&quot;:376.352,&quot;v&quot;:0}]}]}"></audio>
+  <audio id="voice-master" data-audio-group="voiceover" src="assets/mix-voice.wav" data-start="0" data-duration="376.352" data-track-index="5" data-volume="1"></audio>
+  <audio id="sfx-master" src="assets/mix-sfx.wav" data-start="0" data-duration="376.352" data-track-index="6" data-volume="1"></audio>
+
+</div>
+
+<script>
+const T = {"scene-00":{"id":"scene-00","title":"실물 세 단어 직격 도입","start":0,"duration":20.914,"end":20.914,"events":{"hook-choc":{"localStart":0.35,"localEnd":1.053,"globalStart":0.35,"dur":0.703},"hook-cam":{"localStart":1.503,"localEnd":2.026,"globalStart":1.503,"dur":0.523},"hook-steak":{"localStart":2.476,"localEnd":3.232,"globalStart":2.476,"dur":0.756},"c00":{"localStart":3.782,"localEnd":20.264,"globalStart":3.782,"dur":16.482}},"cues":[{"id":"en-1-chocolate","kind":"en","key":"chocolate","tag":"hook-choc","file":"assets/voice-en-clean/chocolate.wav","text":"chocolate /ˈtʃɑːklət/","start":0.35,"localStart":0.35,"duration":0.703,"end":1.053,"localEnd":1.053,"volume":1},{"id":"en-2-camera","kind":"en","key":"camera","tag":"hook-cam","file":"assets/voice-en-clean/camera.wav","text":"camera /ˈkæmrə/","start":1.503,"localStart":1.503,"duration":0.523,"end":2.026,"localEnd":2.026,"volume":1},{"id":"en-3-steak","kind":"en","key":"steak","tag":"hook-steak","file":"assets/voice-en-clean/steak.wav","text":"steak /steɪk/","start":2.476,"localStart":2.476,"duration":0.756,"end":3.232,"localEnd":3.232,"volume":1},{"id":"ko-4-c00","kind":"ko","key":"c00","tag":"c00","file":"assets/voice-clean/c00.wav","text":"방금 세 단어, 몇 개나 들리셨어요? 초콜릿, 카메라, 스테이크. 다 아는 단어인데 막상 원어민이 툭 던지면 멍해지죠. 우리가 평소에 한국말처럼 쓰는 발음이랑 영어 소리가 아예 다르게 생겨서 그래요.","start":3.782,"localStart":3.782,"duration":16.482,"end":20.264,"localEnd":20.264,"volume":1}]},"scene-01":{"id":"scene-01","title":"Before 자막 OFF 세 문장 블라인드 듣기","start":20.914,"duration":35.347,"end":56.261,"events":{"c01a":{"localStart":0.3,"localEnd":8.177,"globalStart":21.214,"dur":7.877},"before-s1":{"localStart":8.827,"localEnd":14.803,"globalStart":29.741,"dur":5.976},"before-s2":{"localStart":15.553,"localEnd":17.187,"globalStart":36.467,"dur":1.634},"before-s3":{"localStart":17.937,"localEnd":20.815,"globalStart":38.851,"dur":2.878},"c01b":{"localStart":21.665,"localEnd":34.647,"globalStart":42.579,"dur":12.982}},"cues":[{"id":"ko-5-c01a","kind":"ko","key":"c01a","tag":"c01a","file":"assets/voice-clean/c01a.wav","text":"본격적으로 들어가기 전에, 자막 끄고 딱 세 문장만 먼저 들어 볼게요. 오늘 나올 일곱 단어가 그대로 들어가 있습니다.","start":21.214,"localStart":0.3,"duration":7.877,"end":29.091,"localEnd":8.177,"volume":1},{"id":"en-6-sent1","kind":"en","key":"sent1","tag":"before-s1","file":"assets/voice-en-clean/sent1.wav","text":"Grab your camera — this chocolate is great, and this chair is so comfortable.","start":29.741,"localStart":8.827,"duration":5.976,"end":35.717,"localEnd":14.803,"volume":1},{"id":"en-7-sent2","kind":"en","key":"sent2","tag":"before-s2","file":"assets/voice-en-clean/sent2.wav","text":"We ordered a steak at the hotel.","start":36.467,"localStart":15.553,"duration":1.634,"end":38.101,"localEnd":17.187,"volume":1},{"id":"en-8-sent3","kind":"en","key":"sent3","tag":"before-s3","file":"assets/voice-en-clean/sent3.wav","text":"Check the buffet for your allergy, and take your vitamin.","start":38.851,"localStart":17.937,"duration":2.878,"end":41.729,"localEnd":20.815,"volume":1},{"id":"ko-9-c01b","kind":"ko","key":"c01b","tag":"c01b","file":"assets/voice-clean/c01b.wav","text":"좀 훅 지나갔죠? 지금 다 안 들려도 상관없어요. 영상 끝무렵에 속도 하나 안 바꾸고 이 세 문장 그대로 다시 틀어 드릴게요. 지금 몇 단어쯤 잡혔는지만 머릿속에 살짝 담아 두면 됩니다.","start":42.579,"localStart":21.665,"duration":12.982,"end":55.561,"localEnd":34.647,"volume":1}]},"scene-02":{"id":"scene-02","title":"심층 해부 1 chocolate & camera","start":56.261,"duration":51.355,"end":107.616,"events":{"c02a":{"localStart":0.3,"localEnd":20.922,"globalStart":56.561,"dur":20.622},"choc-1":{"localStart":21.322,"localEnd":22.025,"globalStart":77.583,"dur":0.703},"choc-2":{"localStart":22.575,"localEnd":23.278,"globalStart":78.836,"dur":0.703},"c02b":{"localStart":23.828,"localEnd":40.001,"globalStart":80.089,"dur":16.173},"cam-1":{"localStart":40.401,"localEnd":40.924,"globalStart":96.662,"dur":0.523},"cam-2":{"localStart":41.474,"localEnd":41.997,"globalStart":97.735,"dur":0.523},"c02c":{"localStart":42.547,"localEnd":50.655,"globalStart":98.808,"dur":8.108}},"cues":[{"id":"ko-10-c02a","kind":"ko","key":"c02a","tag":"c02a","file":"assets/voice-clean/c02a.wav","text":"제일 만만한 초콜릿부터 들어 볼게요. 우리가 편의점이나 마트에서 뭐라고 해요? \"초콜릿 하나 사 올게.\" 초, 콜, 릿. 세 글자로 또박또박 말하잖아요. 철자도 길고, 입에도 세 박자가 딱 붙어 있죠. 근데 원어민은 가운데 콜을 거의 안 읽어요. 들어 볼까요?","start":56.561,"localStart":0.3,"duration":20.622,"end":77.183,"localEnd":20.922,"volume":1},{"id":"sfx-11-slash-cut","kind":"sfx","file":"assets/sfx/slash-cut.wav","start":77.443,"duration":0.26,"volume":0.42},{"id":"en-12-chocolate","kind":"en","key":"chocolate","tag":"choc-1","file":"assets/voice-en-clean/chocolate.wav","text":"chocolate /ˈtʃɑːklət/","start":77.583,"localStart":21.322,"duration":0.703,"end":78.286,"localEnd":22.025,"volume":1},{"id":"en-13-chocolate","kind":"en","key":"chocolate","tag":"choc-2","file":"assets/voice-en-clean/chocolate.wav","text":"chocolate /ˈtʃɑːklət/","start":78.836,"localStart":22.575,"duration":0.703,"end":79.539,"localEnd":23.278,"volume":1},{"id":"ko-14-c02b","kind":"ko","key":"c02b","tag":"c02b","file":"assets/voice-clean/c02b.wav","text":"초클릿, 딱 두 박자. 앞에 초만 세게 찍고 뒤는 그냥 흘려 넘겨서 초클릿으로 끝나요. 사진 찍을 때 맨날 쓰는 카메라도 비슷한 일이 생깁니다. 한글로는 카, 메, 라 세 글자인데, 원어민 소리는 어떨까요?","start":80.089,"localStart":23.828,"duration":16.173,"end":96.262,"localEnd":40.001,"volume":1},{"id":"sfx-15-slash-cut","kind":"sfx","file":"assets/sfx/slash-cut.wav","start":96.522,"duration":0.26,"volume":0.42},{"id":"en-16-camera","kind":"en","key":"camera","tag":"cam-1","file":"assets/voice-en-clean/camera.wav","text":"camera /ˈkæmrə/","start":96.662,"localStart":40.401,"duration":0.523,"end":97.185,"localEnd":40.924,"volume":1},{"id":"en-17-camera","kind":"en","key":"camera","tag":"cam-2","file":"assets/voice-en-clean/camera.wav","text":"camera /ˈkæmrə/","start":97.735,"localStart":41.474,"duration":0.523,"end":98.258,"localEnd":41.997,"volume":1},{"id":"ko-18-c02c","kind":"ko","key":"c02c","tag":"c02c","file":"assets/voice-clean/c02c.wav","text":"캠러. 방금 메 어디 갔지 싶죠? 가운데 약한 글자를 건너뛰고 앞뒤를 붙여서 진짜 두 박자밖에 안 남아요.","start":98.808,"localStart":42.547,"duration":8.108,"end":106.916,"localEnd":50.655,"volume":1}]},"scene-03":{"id":"scene-03","title":"심층 해부 2 comfortable","start":107.616,"duration":29.423,"end":137.039,"events":{"c03a":{"localStart":0.3,"localEnd":16.143,"globalStart":107.916,"dur":15.843},"comf-1":{"localStart":16.543,"localEnd":17.066,"globalStart":124.159,"dur":0.523},"comf-2":{"localStart":17.616,"localEnd":18.139,"globalStart":125.232,"dur":0.523},"c03b":{"localStart":18.689,"localEnd":28.723,"globalStart":126.305,"dur":10.034}},"cues":[{"id":"ko-19-c03a","kind":"ko","key":"c03a","tag":"c03a","file":"assets/voice-clean/c03a.wav","text":"미드에서 의자나 옷 얘기할 때 정말 자주 나오는 컴퍼터블. 한글로 쓰면 컴, 퍼, 터, 블 네 글자죠. 입도 네 번이나 움직여야 돼요. 막상 들어 보면 가운데 퍼가 쏙 빠지고 컴프터블처럼 짧아집니다.","start":107.916,"localStart":0.3,"duration":15.843,"end":123.759,"localEnd":16.143,"volume":1},{"id":"sfx-20-slash-cut","kind":"sfx","file":"assets/sfx/slash-cut.wav","start":124.019,"duration":0.26,"volume":0.42},{"id":"en-21-comfortable","kind":"en","key":"comfortable","tag":"comf-1","file":"assets/voice-en-clean/comfortable.wav","text":"comfortable /ˈkʌmftɚbəl/","start":124.159,"localStart":16.543,"duration":0.523,"end":124.682,"localEnd":17.066,"volume":1},{"id":"en-22-comfortable","kind":"en","key":"comfortable","tag":"comf-2","file":"assets/voice-en-clean/comfortable.wav","text":"comfortable /ˈkʌmftɚbəl/","start":125.232,"localStart":17.616,"duration":0.523,"end":125.755,"localEnd":18.139,"volume":1},{"id":"ko-23-c03b","kind":"ko","key":"c03b","tag":"c03b","file":"assets/voice-clean/c03b.wav","text":"입에선 벌써 끝났는데 내 머릿속엔 네 글자가 남아 있으니까 자꾸 놓치게 되죠. 앞에 힘이 들어가면 바로 뒤 글자는 빠진다, 일단 이것만 기억하면 돼요.","start":126.305,"localStart":18.689,"duration":10.034,"end":136.339,"localEnd":28.723,"volume":1}]},"scene-04":{"id":"scene-04","title":"짧은 반전 전환","start":137.039,"duration":10.403,"end":147.442,"events":{"c04":{"localStart":0.3,"localEnd":9.753,"globalStart":137.339,"dur":9.453}},"cues":[{"id":"ko-24-c04","kind":"ko","key":"c04","tag":"c04","file":"assets/voice-clean/c04.wav","text":"방금은 글자가 빠진 거였죠. 반대로 한국어가 글자를 억지로 늘려 놓은 단어도 있어요. 글자 보기 전에 소리 먼저 하나 들어 보실래요?","start":137.339,"localStart":0.3,"duration":9.453,"end":146.792,"localEnd":9.753,"volume":1}]},"scene-05":{"id":"scene-05","title":"소리 먼저 퀴즈형 심층 해부 3 steak","start":147.442,"duration":48.529,"end":195.971,"events":{"steak-blind":{"localStart":0.35,"localEnd":1.106,"globalStart":147.792,"dur":0.756},"c05a":{"localStart":2.306,"localEnd":12.807,"globalStart":149.748,"dur":10.501},"steak-1":{"localStart":13.157,"localEnd":13.913,"globalStart":160.599,"dur":0.756},"steak-2":{"localStart":14.463,"localEnd":15.219,"globalStart":161.905,"dur":0.756},"c05b":{"localStart":15.769,"localEnd":47.779,"globalStart":163.211,"dur":32.01}},"cues":[{"id":"en-25-steak","kind":"en","key":"steak","tag":"steak-blind","file":"assets/voice-en-clean/steak.wav","text":"steak /steɪk/","start":147.792,"localStart":0.35,"duration":0.756,"end":148.548,"localEnd":1.106,"volume":1},{"id":"ko-26-c05a","kind":"ko","key":"c05a","tag":"c05a","file":"assets/voice-clean/c05a.wav","text":"방금 이거 무슨 단어인 줄 아셨어요? 스테이크예요. 스, 테, 이, 크, 한글로 세면 네 글자잖아요. 근데 영어에선 딱 한 박자. 스테익!","start":149.748,"localStart":2.306,"duration":10.501,"end":160.249,"localEnd":12.807,"volume":1},{"id":"sfx-27-hydraulic-snap","kind":"sfx","file":"assets/sfx/hydraulic-snap.wav","start":160.459,"duration":0.28,"volume":0.42},{"id":"en-28-steak","kind":"en","key":"steak","tag":"steak-1","file":"assets/voice-en-clean/steak.wav","text":"steak /steɪk/","start":160.599,"localStart":13.157,"duration":0.756,"end":161.355,"localEnd":13.913,"volume":1},{"id":"en-29-steak","kind":"en","key":"steak","tag":"steak-2","file":"assets/voice-en-clean/steak.wav","text":"steak /steɪk/","start":161.905,"localStart":14.463,"duration":0.756,"end":162.661,"localEnd":15.219,"volume":1},{"id":"ko-30-c05b","kind":"ko","key":"c05b","tag":"c05b","file":"assets/voice-clean/c05b.wav","text":"왜 이렇게 짧아지냐면요, 우리말은 자음 혼자서는 글자를 못 쓰잖아요. 그래서 스, 크 뒤에 억지로 으를 붙여서 네 덩어리로 읽는데, 영어엔 그 으가 없거든요. 앞에 에스는 소리 대신 이 사이로 바람만 쓰 하고 스치고, 끝의 케이도 입안에서 툭 막고 끝납니다. 원어민이 혀가 빨라서가 아니에요. 우린 네 번 끊어 읽을 걸 저쪽은 숨 한 번에 끝내니까 당연히 안 들릴 수밖에 없어요.","start":163.211,"localStart":15.769,"duration":32.01,"end":195.221,"localEnd":47.779,"volume":1}]},"scene-06":{"id":"scene-06","title":"묶음 대비 심층 해부 4 allergy & vitamin","start":195.971,"duration":54.388,"end":250.359,"events":{"c06a":{"localStart":0.3,"localEnd":16.625,"globalStart":196.271,"dur":16.325},"allergy-1":{"localStart":17.025,"localEnd":17.617,"globalStart":212.996,"dur":0.592},"allergy-2":{"localStart":18.167,"localEnd":18.759,"globalStart":214.138,"dur":0.592},"c06b":{"localStart":19.309,"localEnd":38.117,"globalStart":215.28,"dur":18.808},"vitamin-1":{"localStart":38.517,"localEnd":39.02,"globalStart":234.488,"dur":0.503},"vitamin-2":{"localStart":39.57,"localEnd":40.073,"globalStart":235.541,"dur":0.503},"c06c":{"localStart":40.623,"localEnd":53.638,"globalStart":236.594,"dur":13.015}},"cues":[{"id":"ko-31-c06a","kind":"ko","key":"c06a","tag":"c06a","file":"assets/voice-clean/c06a.wav","text":"이제 남은 세 단어는 아예 얘기가 달라요. 우리가 평소에 \"복숭아 알레르기 있어\" 이런 말 자주 하잖아요. 사실 알레르기는 영어 발음이 아니라 독일어에서 온 말이에요. 미드나 유튜브에서 원어민이 말할 땐 아예 딴소리가 납니다.","start":196.271,"localStart":0.3,"duration":16.325,"end":212.596,"localEnd":16.625,"volume":1},{"id":"sfx-32-card-flip","kind":"sfx","file":"assets/sfx/card-flip.wav","start":212.856,"duration":0.18,"volume":0.42},{"id":"en-33-allergy","kind":"en","key":"allergy","tag":"allergy-1","file":"assets/voice-en-clean/allergy.wav","text":"allergy /ˈælɚdʒi/","start":212.996,"localStart":17.025,"duration":0.592,"end":213.588,"localEnd":17.617,"volume":1},{"id":"en-34-allergy","kind":"en","key":"allergy","tag":"allergy-2","file":"assets/voice-en-clean/allergy.wav","text":"allergy /ˈælɚdʒi/","start":214.138,"localStart":18.167,"duration":0.592,"end":214.73,"localEnd":18.759,"volume":1},{"id":"ko-35-c06b","kind":"ko","key":"c06b","tag":"c06b","file":"assets/voice-clean/c06b.wav","text":"앨러지! 알, 레, 르, 기랑 앨러지. 소리가 아예 다른 단어처럼 들리죠. 약국에서 매일 보는 비타민도 미국 영어에선 첫 글자부터 바뀝니다. 우린 그냥 다 비타민이라고 하고 영국 쪽도 비슷하게 읽긴 해요. 미국 드라마나 일상 대화에선요?","start":215.28,"localStart":19.309,"duration":18.808,"end":234.088,"localEnd":38.117,"volume":1},{"id":"sfx-36-card-flip","kind":"sfx","file":"assets/sfx/card-flip.wav","start":234.348,"duration":0.18,"volume":0.42},{"id":"en-37-vitamin","kind":"en","key":"vitamin","tag":"vitamin-1","file":"assets/voice-en-clean/vitamin.wav","text":"vitamin /ˈvaɪt̬əmɪn/","start":234.488,"localStart":38.517,"duration":0.503,"end":234.991,"localEnd":39.02,"volume":1},{"id":"en-38-vitamin","kind":"en","key":"vitamin","tag":"vitamin-2","file":"assets/voice-en-clean/vitamin.wav","text":"vitamin /ˈvaɪt̬əmɪn/","start":235.541,"localStart":39.57,"duration":0.503,"end":236.044,"localEnd":40.073,"volume":1},{"id":"ko-39-c06c","kind":"ko","key":"c06c","tag":"c06c","file":"assets/voice-clean/c06c.wav","text":"바이러민! 앞을 바이로 확 열고 가운데 티까지 부드럽게 굴립니다. 머릿속엔 비타민만 들어 있는데 영상에서 \"테이크 유어 바이러민\" 하면 무슨 낯선 약 이름인가 싶죠.","start":236.594,"localStart":40.623,"duration":13.015,"end":249.609,"localEnd":53.638,"volume":1}]},"scene-07":{"id":"scene-07","title":"깜짝 퀴즈 5 buffet","start":250.359,"duration":36.699,"end":287.058,"events":{"c07a":{"localStart":0.3,"localEnd":16.948,"globalStart":250.659,"dur":16.648},"buffet-window":{"localStart":17.198,"localEnd":19.198,"globalStart":267.557,"dur":2},"buffet-1":{"localStart":19.448,"localEnd":20.054,"globalStart":269.807,"dur":0.606},"buffet-2":{"localStart":20.604,"localEnd":21.21,"globalStart":270.963,"dur":0.606},"c07b":{"localStart":21.76,"localEnd":35.949,"globalStart":272.119,"dur":14.189}},"cues":[{"id":"ko-40-c07a","kind":"ko","key":"c07a","tag":"c07a","file":"assets/voice-clean/c07a.wav","text":"마지막으로 하나만 직접 맞혀 볼까요? 호텔 조식에서 자주 보는 뷔페. 이것도 영어 소리가 아니라 프랑스어 발음이 그대로 들어왔어요. 그럼 미국 원어민은 이 단어를 어떻게 읽을까요? 잠깐, 입 밖으로 한 번만 말해 보세요.","start":250.659,"localStart":0.3,"duration":16.648,"end":267.307,"localEnd":16.948,"volume":1},{"id":"sfx-41-quiz-countdown","kind":"sfx","file":"assets/sfx/quiz-countdown.wav","start":267.557,"duration":2,"volume":0.48},{"id":"sfx-42-reveal-chime","kind":"sfx","file":"assets/sfx/reveal-chime.wav","start":269.667,"duration":0.55,"volume":0.42},{"id":"en-43-buffet","kind":"en","key":"buffet","tag":"buffet-1","file":"assets/voice-en-clean/buffet.wav","text":"buffet /bəˈfeɪ/","start":269.807,"localStart":19.448,"duration":0.606,"end":270.413,"localEnd":20.054,"volume":1},{"id":"en-44-buffet","kind":"en","key":"buffet","tag":"buffet-2","file":"assets/voice-en-clean/buffet.wav","text":"buffet /bəˈfeɪ/","start":270.963,"localStart":20.604,"duration":0.606,"end":271.569,"localEnd":21.21,"volume":1},{"id":"ko-45-c07b","kind":"ko","key":"c07b","tag":"c07b","file":"assets/voice-clean/c07b.wav","text":"버페이! 앞에 힘을 빼고 뒤에 페이를 올려서 버페이. 뷔페랑은 소리가 아예 다르죠. 이제 드라마나 여행 영상에서 버페이 나오면 낯설지 않을 텐데요.","start":272.119,"localStart":21.76,"duration":14.189,"end":286.308,"localEnd":35.949,"volume":1}]},"scene-08":{"id":"scene-08","title":"After 자막 OFF 세 문장 재청취","start":287.058,"duration":22.4,"end":309.458,"events":{"c08":{"localStart":0.3,"localEnd":8.862,"globalStart":287.358,"dur":8.562},"after-s1":{"localStart":9.512,"localEnd":15.488,"globalStart":296.57,"dur":5.976},"after-s2":{"localStart":16.238,"localEnd":17.872,"globalStart":303.296,"dur":1.634},"after-s3":{"localStart":18.622,"localEnd":21.5,"globalStart":305.68,"dur":2.878}},"cues":[{"id":"ko-46-c08","kind":"ko","key":"c08","tag":"c08","file":"assets/voice-clean/c08.wav","text":"그럼 처음에 들었던 그 세 문장, 속도 그대로 다시 틀어 드릴게요. 아까보다 몇 단어 더 들리는지 직접 한 번 세어 볼까요?","start":287.358,"localStart":0.3,"duration":8.562,"end":295.92,"localEnd":8.862,"volume":1},{"id":"en-47-sent1","kind":"en","key":"sent1","tag":"after-s1","file":"assets/voice-en-clean/sent1.wav","text":"Grab your camera — this chocolate is great, and this chair is so comfortable.","start":296.57,"localStart":9.512,"duration":5.976,"end":302.546,"localEnd":15.488,"volume":1},{"id":"en-48-sent2","kind":"en","key":"sent2","tag":"after-s2","file":"assets/voice-en-clean/sent2.wav","text":"We ordered a steak at the hotel.","start":303.296,"localStart":16.238,"duration":1.634,"end":304.93,"localEnd":17.872,"volume":1},{"id":"en-49-sent3","kind":"en","key":"sent3","tag":"after-s3","file":"assets/voice-en-clean/sent3.wav","text":"Check the buffet for your allergy, and take your vitamin.","start":305.68,"localStart":18.622,"duration":2.878,"end":308.558,"localEnd":21.5,"volume":1}]},"scene-09":{"id":"scene-09","title":"자막 ON 일곱 단어 하이라이트 확인","start":309.458,"duration":38.915,"end":348.373,"events":{"c09a":{"localStart":0.3,"localEnd":6.598,"globalStart":309.758,"dur":6.298},"check-s1":{"localStart":7.048,"localEnd":13.024,"globalStart":316.506,"dur":5.976},"c09b":{"localStart":13.474,"localEnd":17.759,"globalStart":322.932,"dur":4.285},"check-s2":{"localStart":18.209,"localEnd":19.843,"globalStart":327.667,"dur":1.634},"c09c":{"localStart":20.293,"localEnd":22.104,"globalStart":329.751,"dur":1.811},"check-s3":{"localStart":22.554,"localEnd":25.432,"globalStart":332.012,"dur":2.878},"c09d":{"localStart":25.882,"localEnd":38.165,"globalStart":335.34,"dur":12.283}},"cues":[{"id":"ko-50-c09a","kind":"ko","key":"c09a","tag":"c09a","file":"assets/voice-clean/c09a.wav","text":"어떠세요, 아까보단 귀에 걸리는 단어가 꽤 늘었죠? 자막 켜고 바로 확인해 볼게요.","start":309.758,"localStart":0.3,"duration":6.298,"end":316.056,"localEnd":6.598,"volume":1},{"id":"sfx-51-reveal-chime","kind":"sfx","file":"assets/sfx/reveal-chime.wav","start":316.366,"duration":0.55,"volume":0.42},{"id":"en-52-sent1","kind":"en","key":"sent1","tag":"check-s1","file":"assets/voice-en-clean/sent1.wav","text":"Grab your camera — this chocolate is great, and this chair is so comfortable.","start":316.506,"localStart":7.048,"duration":5.976,"end":322.482,"localEnd":13.024,"volume":1},{"id":"ko-53-c09b","kind":"ko","key":"c09b","tag":"c09b","file":"assets/voice-clean/c09b.wav","text":"첫 문장에 캠러, 초클릿, 컴프터블.","start":322.932,"localStart":13.474,"duration":4.285,"end":327.217,"localEnd":17.759,"volume":1},{"id":"en-54-sent2","kind":"en","key":"sent2","tag":"check-s2","file":"assets/voice-en-clean/sent2.wav","text":"We ordered a steak at the hotel.","start":327.667,"localStart":18.209,"duration":1.634,"end":329.301,"localEnd":19.843,"volume":1},{"id":"ko-55-c09c","kind":"ko","key":"c09c","tag":"c09c","file":"assets/voice-clean/c09c.wav","text":"둘째 문장에 스테익.","start":329.751,"localStart":20.293,"duration":1.811,"end":331.562,"localEnd":22.104,"volume":1},{"id":"en-56-sent3","kind":"en","key":"sent3","tag":"check-s3","file":"assets/voice-en-clean/sent3.wav","text":"Check the buffet for your allergy, and take your vitamin.","start":332.012,"localStart":22.554,"duration":2.878,"end":334.89,"localEnd":25.432,"volume":1},{"id":"ko-57-c09d","kind":"ko","key":"c09d","tag":"c09d","file":"assets/voice-clean/c09d.wav","text":"마지막 문장에 버페이, 앨러지, 바이러민까지. 속도 하나도 안 줄였는데, 가운데 빠지고 한 박자로 줄고 애초에 발음이 다르다는 것만 알아도 귀가 다르게 열립니다.","start":335.34,"localStart":25.882,"duration":12.283,"end":347.623,"localEnd":38.165,"volume":1}]},"scene-10":{"id":"scene-10","title":"일곱 단어 한 장 요약표 & 엔드스크린","start":348.373,"duration":27.979,"end":376.352,"events":{"c10":{"localStart":0.3,"localEnd":15.479,"globalStart":348.673,"dur":15.179},"endscreen":{"localStart":18.979,"localEnd":27.979,"globalStart":367.352,"dur":9}},"cues":[{"id":"ko-58-c10","kind":"ko","key":"c10","tag":"c10","file":"assets/voice-clean/c10.wav","text":"오늘 나온 일곱 단어, 화면에 한 번에 띄워 둘게요. 외우려고 애쓰실 필요 없고, 필요할 때 잠깐 멈춰 놓고 캡처해 두셔도 됩니다. 일곱 개 중에 제일 \"이게 이 소리였어?\" 싶었던 단어 하나만 댓글에 남겨 주세요.","start":348.673,"localStart":0.3,"duration":15.179,"end":363.852,"localEnd":15.479,"volume":1}]}};
+const EN_ONSETS = {"s1_cam":0.62,"s1_choc":1.75,"s1_comf":4.85,"s2_steak":0.56,"s3_buf":0.51,"s3_allergy":1.33,"s3_vit":2.35};
+const XFADE = 0.25;
+gsap.set('#s6-photo-vit', { x: 2.62, y: -4.036 });
+const tl = gsap.timeline({ paused: true });
+const endScreenStart = T['scene-10'].events.endscreen.globalStart;
+
+tl.fromTo('#progress-bar', { scaleX: 0 }, { scaleX: 1, duration: endScreenStart, ease: 'none' }, 0);
+tl.to('#progress-wrap', { opacity: 0, duration: 0.45, ease: 'power2.out' }, endScreenStart - 0.3);
+
+// 0.25s smooth crossfade on ALL 10 scene boundaries (rule-tiers.md #34: no hard cuts!)
+for (let idx = 0; idx < 11; idx++) {
+  const sc = T['scene-' + String(idx).padStart(2, '0')];
+  const inner = '#s' + idx + '-in';
+  if (idx > 0) {
+    tl.fromTo(inner, { opacity: 0 }, { opacity: 1, duration: XFADE, ease: 'power1.inOut' }, sc.start);
+  }
+  if (idx < 10) {
+    tl.to(inner, { opacity: 0, duration: XFADE, ease: 'power1.inOut' }, sc.end);
+  }
+}
+
+function pulseEq(selector, start, dur) {
+  const bars = gsap.utils.toArray(selector);
+  const steps = Math.max(4, Math.floor(dur / 0.16));
+  for (let s = 0; s < steps; s++) {
+    const t = start + s * 0.16;
+    bars.forEach((bar, i) => {
+      const wave = 0.30 + 0.70 * Math.abs(Math.sin((s + 1) * 0.85 + i * 0.55));
+      tl.to(bar, { scaleY: wave, duration: 0.14, ease: 'sine.inOut' }, t);
+    });
+  }
+  tl.to(bars, { scaleY: 0.26, duration: 0.25, ease: 'power2.out' }, start + dur);
+}
+
+function bounceWord(selector, t) {
+  tl.to(selector, { backgroundColor: '#E8A838', color: '#17140A', duration: 0.16, ease: 'power2.out' }, t);
+  tl.to(selector, { backgroundColor: '#18A999', color: '#06221F', duration: 0.30, ease: 'power2.out' }, t + 0.32);
+}
+
+// --- SCENE 00: 3-word Hook (Title visible at t=0, no split line, exact Whisper reveals) ---
+{
+  const s = T['scene-00'];
+  const c00Start = s.events.c00.globalStart;
+  tl.fromTo('#vid-s0-img', { scale: 1.0 }, { scale: 1.08, duration: s.duration, ease: 'none' }, s.start);
+  tl.set(['#s0-c1-a', '#s0-c2-a', '#s0-c3-a'], { opacity: 0, y: 14 }, s.start);
+  tl.set('#s0-sub', { opacity: 0, y: 16 }, s.start);
+  tl.fromTo('#s0-c1', { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: 'back.out(1.6)' }, s.events['hook-choc'].globalStart);
+  tl.fromTo('#s0-c2', { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: 'back.out(1.6)' }, s.events['hook-cam'].globalStart);
+  tl.fromTo('#s0-c3', { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: 'back.out(1.6)' }, s.events['hook-steak'].globalStart);
+  const reveals = [
+    {q: '#s0-c1-q', a: '#s0-c1-a', t: c00Start + 3.16},
+    {q: '#s0-c2-q', a: '#s0-c2-a', t: c00Start + 4.37},
+    {q: '#s0-c3-q', a: '#s0-c3-a', t: c00Start + 5.31},
+  ];
+  for (const rv of reveals) {
+    tl.to(rv.q, { opacity: 0, y: -14, duration: 0.22, ease: 'power2.in' }, rv.t);
+    tl.to(rv.a, { opacity: 1, y: 0, duration: 0.28, ease: 'back.out(1.5)' }, rv.t + 0.08);
+  }
+  tl.to('#s0-sub', { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, c00Start + 11.48);
+}
+
+// --- SCENE 01: Before Blind Listening (Clean idle EQ + Headline swap on c01b!) ---
+{
+  const s = T['scene-01'];
+  tl.set('.s1-bar', { scaleY: 0.26 }, s.start);
+  tl.set(['#s1-head-b', '#s1-note'], { opacity: 0 }, s.start);
+  const pills = [
+    {el: '#s1-p1', ev: s.events['before-s1']},
+    {el: '#s1-p2', ev: s.events['before-s2']},
+    {el: '#s1-p3', ev: s.events['before-s3']},
+  ];
+  for (const p of pills) {
+    pulseEq('.s1-bar', p.ev.globalStart, p.ev.dur);
+    tl.to(p.el, { backgroundColor: '#E8A838', borderColor: '#E8A838', color: '#17140A', scale: 1.06, duration: 0.2 }, p.ev.globalStart);
+    tl.to(p.el, { backgroundColor: 'rgba(247,244,237,0.10)', borderColor: 'rgba(247,244,237,0.22)', color: 'rgba(247,244,237,0.72)', scale: 1.0, duration: 0.25 }, p.ev.globalStart + p.ev.dur);
+  }
+  tl.to('#s1-head-a', { opacity: 0, y: -12, duration: 0.3 }, s.events.c01b.globalStart);
+  tl.to('#s1-head-b', { opacity: 1, y: 0, duration: 0.35 }, s.events.c01b.globalStart + 0.15);
+  tl.to('#s1-note', { opacity: 1, duration: 0.45 }, s.events.c01b.globalStart + 0.3);
+}
+
+// --- SCENE 02: chocolate & camera ---
+{
+  const s = T['scene-02'];
+  tl.fromTo('#s2-photo', { scale: 1.0 }, { scale: 1.07, duration: s.duration, ease: 'none' }, s.start);
+  tl.set('#s2-cam', { opacity: 0, y: 24 }, s.start);
+  tl.set('#s2-choc-slash', { scaleX: 0 }, s.start);
+  tl.set('#s2-cam-slash', { scaleX: 0 }, s.start);
+  tl.set('#s2-choc-native', { opacity: 0, y: 18 }, s.start);
+  tl.set('#s2-cam-native', { opacity: 0, y: 18 }, s.start);
+
+  const chocT = s.events['choc-1'].globalStart;
+  tl.to('#s2-choc-slash', { scaleX: 1, rotation: -12, duration: 0.28, ease: 'power3.out' }, chocT - 0.12);
+  tl.to('#s2-choc-mid', { backgroundColor: 'rgba(217,66,53,0.14)', borderColor: '#D94235', color: '#D94235', opacity: 0.52, duration: 0.28 }, chocT - 0.12);
+  tl.to('#s2-choc-native', { opacity: 1, y: 0, duration: 0.42, ease: 'back.out(1.4)' }, chocT);
+
+  const camSwitch = s.events.c02b.globalStart + 7.68;
+  tl.to('#s2-choc', { opacity: 0, y: -20, duration: 0.35, ease: 'power2.in' }, camSwitch);
+  tl.to('#s2-cam', { opacity: 1, y: 0, duration: 0.42, ease: 'power3.out' }, camSwitch + 0.18);
+
+  const camT = s.events['cam-1'].globalStart;
+  tl.to('#s2-cam-slash', { scaleX: 1, rotation: -12, duration: 0.28, ease: 'power3.out' }, camT - 0.12);
+  tl.to('#s2-cam-mid', { backgroundColor: 'rgba(217,66,53,0.14)', borderColor: '#D94235', color: '#D94235', opacity: 0.52, duration: 0.28 }, camT - 0.12);
+  tl.to('#s2-cam-native', { opacity: 1, y: 0, duration: 0.42, ease: 'back.out(1.4)' }, camT);
+}
+
+// --- SCENE 03: comfortable (Editorial Armchair + Clear 3-Beat Phonetics, ZERO tiny scale!) ---
+{
+  const s = T['scene-03'];
+  tl.fromTo('#s3-photo', { scale: 1.0 }, { scale: 1.07, duration: s.duration, ease: 'none' }, s.start);
+  tl.fromTo(['#s3-t1', '#s3-t2', '#s3-t3', '#s3-t4'], { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.10, duration: 0.40, ease: 'power3.out' }, s.start + 0.18);
+  tl.set(['#s3-res', '#s3-rule'], { opacity: 0, y: 18 }, s.start);
+  const hit = s.events['comf-1'].globalStart;
+  tl.to('#s3-t2', { opacity: 0.65, y: -10, duration: 0.34, ease: 'power2.out' }, hit - 0.12);
+  tl.to('#s3-res', { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.4)' }, hit);
+  tl.to('#s3-rule', { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, s.events.c03b.globalStart + s.events.c03b.dur * 0.42);
+}
+
+// --- SCENE 04: Chapter Pivot (Whisper-exact spoiler-free reveals!) ---
+{
+  const s = T['scene-04'];
+  const c04Start = s.events.c04.globalStart;
+  tl.set(['#s4-arrow', '#s4-right', '#s4-cta'], { opacity: 0, y: 18 }, s.start);
+  tl.fromTo('#s4-left', { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.42, ease: 'power3.out' }, s.start + 0.15);
+  tl.to('#s4-arrow', { opacity: 1, y: 0, duration: 0.30 }, c04Start + 2.46);
+  tl.to('#s4-right', { opacity: 1, y: 0, duration: 0.42, ease: 'power3.out' }, c04Start + 2.46 + 0.12);
+  tl.to('#s4-cta', { opacity: 1, y: 0, duration: 0.42, ease: 'power2.out' }, c04Start + 8.05);
+}
+
+// --- SCENE 05: Steak Blind -> Vivid Dark-Split Skillet Compression ---
+{
+  const s = T['scene-05'];
+  const blindEv = s.events['steak-blind'];
+  const revT = s.events.c05a.globalStart;
+  tl.set('.s5-bar', { scaleY: 0.26 }, s.start);
+  tl.set('#s5-reveal', { opacity: 0 }, s.start);
+  pulseEq('.s5-bar', blindEv.globalStart, blindEv.dur);
+  tl.to('#s5-blind', { opacity: 0, duration: 0.35, ease: 'power2.inOut' }, revT);
+  tl.to('#s5-reveal', { opacity: 1, duration: 0.4, ease: 'power2.out' }, revT + 0.1);
+  tl.set(['#s5-final', '#s5-air'], { opacity: 0, y: 20 }, s.start);
+  tl.fromTo(['#s5-b1', '#s5-b2', '#s5-b3', '#s5-b4'], { opacity: 0, y: 18 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.32 }, revT + 0.25);
+
+  const hit = s.events['steak-1'].globalStart;
+  tl.to(['#s5-b1', '#s5-b4'], { y: -12, opacity: 0.42, duration: 0.32, ease: 'power3.out' }, hit - 0.14);
+  tl.to('#s5-final', { opacity: 1, y: 0, duration: 0.42, ease: 'back.out(1.6)' }, hit);
+  tl.to('#s5-air', { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, s.events.c05b.globalStart + s.events.c05b.dur * 0.35);
+}
+
+// --- SCENE 06: allergy (peach photo) -> vitamin (bottle photo), Mystery ??? -> Reveal ---
+{
+  const s = T['scene-06'];
+  tl.fromTo('#s6-photo-peach', { scale: 1.0 }, { scale: 1.06, duration: s.duration * 0.5, ease: 'none' }, s.start);
+  tl.fromTo('#s6-photo-vit', { scale: 1.0 }, { scale: 1.06, duration: s.duration * 0.5, ease: 'none' }, s.events.c06b.globalStart + 7.08);
+  tl.set(['#s6-vitamin', '#s6-photo-vit', '#s6-cap-vit', '#s6-allergy-new', '#s6-vitamin-new'], { opacity: 0 }, s.start);
+
+  const alT = s.events['allergy-1'].globalStart;
+  tl.to('#s6-allergy-q', { opacity: 0, duration: 0.22 }, alT - 0.06);
+  tl.to('#s6-allergy-new', { opacity: 1, duration: 0.36, ease: 'power2.out' }, alT);
+
+  const vitSwitch = s.events.c06b.globalStart + 7.08;
+  tl.to(['#s6-allergy', '#s6-photo-peach', '#s6-cap-peach'], { opacity: 0, duration: 0.35 }, vitSwitch);
+  tl.to(['#s6-vitamin', '#s6-photo-vit', '#s6-cap-vit'], { opacity: 1, duration: 0.42, ease: 'power2.out' }, vitSwitch + 0.18);
+
+  const vitT = s.events['vitamin-1'].globalStart;
+  tl.to('#s6-vitamin-q', { opacity: 0, duration: 0.22 }, vitT - 0.06);
+  tl.to('#s6-vitamin-new', { opacity: 1, duration: 0.36, ease: 'power2.out' }, vitT);
+}
+
+// --- SCENE 07: buffet (Idle ? -> 2s -> 1s -> Full Teal Ring 정답!) ---
+{
+  const s = T['scene-07'];
+  const win = s.events['buffet-window'];
+  const hit = s.events['buffet-1'].globalStart;
+  tl.fromTo('#vid-s7-img', { scale: 1.0 }, { scale: 1.08, duration: s.duration, ease: 'none' }, s.start);
+  tl.set(['#s7-reveal', '#s7-t2', '#s7-t1', '#s7-tok', '#s7-ring-done'], { opacity: 0 }, s.start);
+  tl.set('#s7-ring', { strokeDashoffset: 0 }, s.start);
+
+  tl.to('#s7-tq', { opacity: 0, duration: 0.12 }, win.globalStart - 0.06);
+  tl.to('#s7-t2', { opacity: 1, duration: 0.14 }, win.globalStart);
+  tl.to('#s7-ring', { strokeDashoffset: 490, duration: win.dur, ease: 'none' }, win.globalStart);
+  tl.to('#s7-t2', { opacity: 0, duration: 0.12 }, win.globalStart + 0.95);
+  tl.to('#s7-t1', { opacity: 1, duration: 0.14 }, win.globalStart + 1.0);
+  tl.to('#s7-t1', { opacity: 0, duration: 0.12 }, hit - 0.06);
+  tl.to(['#s7-tok', '#s7-ring-done'], { opacity: 1, duration: 0.24, ease: 'power2.out' }, hit);
+  tl.to('#s7-reveal', { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.5)' }, hit);
+}
+
+// --- SCENE 08: After Blind Re-Listening (Clean idle EQ + Cool Teal Cafe Video) ---
+{
+  const s = T['scene-08'];
+  tl.set('.s8-bar', { scaleY: 0.26 }, s.start);
+  const pills = [
+    {el: '#s8-p1', ev: s.events['after-s1']},
+    {el: '#s8-p2', ev: s.events['after-s2']},
+    {el: '#s8-p3', ev: s.events['after-s3']},
+  ];
+  for (const p of pills) {
+    pulseEq('.s8-bar', p.ev.globalStart, p.ev.dur);
+    tl.to(p.el, { backgroundColor: '#18A999', borderColor: '#18A999', color: '#06221F', scale: 1.06, duration: 0.2 }, p.ev.globalStart);
+    tl.to(p.el, { backgroundColor: 'rgba(247,244,237,0.10)', borderColor: 'rgba(247,244,237,0.22)', color: 'rgba(247,244,237,0.72)', scale: 1.0, duration: 0.25 }, p.ev.globalStart + p.ev.dur);
+  }
+}
+
+// --- SCENE 09: Subtitle ON 7-Word Highlight + Exact Whisper Word Flash ---
+{
+  const s = T['scene-09'];
+  tl.set(['#s9-c1', '#s9-c2', '#s9-c3'], { opacity: 0.60 }, s.start);
+  const s1T = s.events['check-s1'].globalStart;
+  const s2T = s.events['check-s2'].globalStart;
+  const s3T = s.events['check-s3'].globalStart;
+  tl.to('#s9-c1', { opacity: 1, borderColor: '#18A999', backgroundColor: 'rgba(24,169,153,0.14)', duration: 0.35 }, s1T);
+  bounceWord('#hl-cam', s1T + EN_ONSETS.s1_cam);
+  bounceWord('#hl-choc', s1T + EN_ONSETS.s1_choc);
+  bounceWord('#hl-comf', s1T + EN_ONSETS.s1_comf);
+
+  tl.to('#s9-c2', { opacity: 1, borderColor: '#18A999', backgroundColor: 'rgba(24,169,153,0.14)', duration: 0.35 }, s2T);
+  bounceWord('#hl-steak', s2T + EN_ONSETS.s2_steak);
+
+  tl.to('#s9-c3', { opacity: 1, borderColor: '#18A999', backgroundColor: 'rgba(24,169,153,0.14)', duration: 0.35 }, s3T);
+  bounceWord('#hl-buf', s3T + EN_ONSETS.s3_buf);
+  bounceWord('#hl-allergy', s3T + EN_ONSETS.s3_allergy);
+  bounceWord('#hl-vit', s3T + EN_ONSETS.s3_vit);
+}
+
+// --- SCENE 10: 7-Word One-Page Summary -> Clean 9s YouTube End Screen ---
+{
+  const s = T['scene-10'];
+  const esT = s.events.endscreen.globalStart;
+  tl.set('#s10-endscreen', { opacity: 0 }, s.start);
+  tl.set('#es-sub', { opacity: 0, y: 10 }, s.start);
+  tl.fromTo(['#s10-g1', '#s10-g2', '#s10-g3'], { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.14, duration: 0.45, ease: 'power3.out' }, s.start + 0.15);
+  tl.to('#s10-summary', { opacity: 0, y: -16, duration: 0.55, ease: 'power2.inOut' }, esT - 0.35);
+  tl.to('#s10-endscreen', { opacity: 1, duration: 0.55, ease: 'power2.out' }, esT - 0.1);
+  tl.to('#es-sub', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, esT + 0.35);
+}
+
+window.__timelines['ep36-everyday-words-unheard'] = tl;
+</script>
+</body>
+</html>

@@ -151,6 +151,44 @@ export function assessSpeechQuality(text) {
 
 function round2(n) { return Math.round(n * 100) / 100; }
 
+const EXCERPT_MIN_CHARS = 70; // allow-literal: 짧은 감탄 한 줄만 남는 것을 막는 최소 발췌 길이
+const EXCERPT_MAX_CHARS = 240; // allow-literal: 실제 말 덩어리 20~30초 호흡 발췌 상한
+
+/**
+ * 실제 사람 진행자의 연속 말 덩어리(원문 발췌)를 도입·중반에서 최대 2토막 뽑는다(2026-11-24).
+ * 숫자 통계만 주면 AI가 발표 원고로 굳어지므로, 실제 말맛·호흡·끊김을 눈으로 보고 흡수하게 하기 위함이다.
+ */
+export function extractSpokenExcerpts(text, {maxExcerpts = 2, maxChars = EXCERPT_MAX_CHARS} = {}) {
+  const sents = splitSentences(text);
+  if (!sents.length) return [];
+  const takeChunk = (startIdx) => {
+    let chunk = '';
+    let idx = startIdx;
+    while (idx < sents.length) {
+      const next = chunk ? `${chunk} ${sents[idx]}` : sents[idx];
+      if (chunk && next.length > maxChars) break;
+      chunk = next;
+      idx += 1;
+      if (chunk.length >= EXCERPT_MIN_CHARS * 2) break;
+    }
+    const hangul = count(chunk, /[가-힣]/g);
+    const latin = count(chunk, /[A-Za-z]/g);
+    if (hangul < EXCERPT_MIN_CHARS / 2 || (hangul + latin > 0 && hangul / (hangul + latin) < 0.6)) return null;
+    return {text: chunk.slice(0, maxChars).trim(), endIdx: idx};
+  };
+  const out = [];
+  const first = takeChunk(0);
+  if (first) out.push(first.text);
+  if (maxExcerpts >= 2 && sents.length >= 6) {
+    const midStart = Math.max(first ? first.endIdx : 2, Math.floor(sents.length * 0.35));
+    if (midStart < sents.length) {
+      const second = takeChunk(midStart);
+      if (second && !out.includes(second.text)) out.push(second.text);
+    }
+  }
+  return out;
+}
+
 /**
  * 리포트의 speech 칸을 만든다. text가 비면 "측정 못 함"(source null)과 이유를 담는다.
  * kind는 'long' | 'short'. durationSeconds(측정 구간 길이, 초)가 있으면 초당 한글 밀도(hangulPerSec)도 함께 기록한다.
@@ -167,8 +205,11 @@ export function buildSpeechField({text, source, kind, durationSeconds = null, no
   const paceFields = Number.isFinite(dur) && dur > 0
     ? {windowSeconds: round1(dur), hangulPerSec: round2(metrics.hangulChars / dur)}
     : {};
+  const excerpts = quality === 'ok' ? extractSpokenExcerpts(text) : [];
   return {
-    source, quality, kind: kind ?? null, sentences: stats.sentences, stats, qualityMetrics: metrics, ...paceFields, computedAt,
+    source, quality, kind: kind ?? null, sentences: stats.sentences, stats, qualityMetrics: metrics, ...paceFields,
+    ...(excerpts.length ? {excerpts} : {}),
+    computedAt,
     note: note || (quality === 'low' ? `품질 낮음: ${reasons.join(', ')}` : null),
     ...extra,
   };
@@ -221,14 +262,23 @@ function speechHangulPerSec(report) {
   return dur > 0 ? round2(chars / dur) : null;
 }
 
+function fallbackExcerptsFromReport(report) {
+  const quotes = (report?.analysis?.flow || []).map((x) => String(x?.quote || '').trim()).filter(Boolean);
+  if (!quotes.length) return [];
+  const joined = quotes.slice(0, 4).join(' ');
+  return extractSpokenExcerpts(joined, {maxExcerpts: 1});
+}
+
+const MAX_EXEMPLARS_PER_FORMAT = 6; // allow-literal: 다채널 회전 참고용 최대 6채널 발췌 보관
+
 /**
- * 저장된 리포트들의 speech 칸으로 경쟁 말투 기준 합계를 만든다(순수 함수, 파일 접근 없음).
- * quality가 'ok'인 영상만 더하고, 롱폼·쇼츠를 따로 센다. 원문은 없고 숫자와 영상 ID·채널뿐이다.
+ * 저장된 리포트들의 speech 칸으로 경쟁 말투 기준 합계와 다채널 실제 말 덩어리(exemplars)를 만든다(순수 함수).
+ * quality가 'ok'인 영상만 더하고, 롱폼·쇼츠를 따로 센다. 한 채널 말투 복사를 막으려 채널당 1편씩만 발췌한다.
  */
 export function buildSpeechPatterns(reports = [], now = new Date()) {
   const groups = {
-    long: {totals: emptyTotals(), videos: [], lengthMedians: [], hangulPerSecs: [], bySource: {}},
-    short: {totals: emptyTotals(), videos: [], lengthMedians: [], hangulPerSecs: [], bySource: {}},
+    long: {totals: emptyTotals(), videos: [], lengthMedians: [], hangulPerSecs: [], bySource: {}, exemplars: [], seenChannels: new Set()},
+    short: {totals: emptyTotals(), videos: [], lengthMedians: [], hangulPerSecs: [], bySource: {}, exemplars: [], seenChannels: new Set()},
   };
   let excludedLow = 0;
   let unmeasured = 0;
@@ -244,12 +294,20 @@ export function buildSpeechPatterns(reports = [], now = new Date()) {
     g.videos.push({videoId: r.videoId, channelTitle: r.meta?.channelTitle ?? null, source: sp.source, sentences: sp.stats.sentences, ...(hps != null ? {hangulPerSec: hps} : {})});
     g.lengthMedians.push(sp.stats.lengthMedian);
     g.bySource[sp.source] = (g.bySource[sp.source] || 0) + 1;
+    const chKey = String(r.meta?.channelTitle || r.videoId || '').trim();
+    if (g.exemplars.length < MAX_EXEMPLARS_PER_FORMAT && !g.seenChannels.has(chKey)) {
+      const ex = Array.isArray(sp.excerpts) && sp.excerpts.length ? sp.excerpts : fallbackExcerptsFromReport(r);
+      if (ex.length) {
+        g.seenChannels.add(chKey);
+        g.exemplars.push({videoId: r.videoId, channelTitle: r.meta?.channelTitle ?? null, excerpts: ex});
+      }
+    }
   }
   const out = {
     schemaVersion: 1,
     computedAt: now.toISOString(),
     confidence: '가설',
-    note: '경쟁 영상 말투 합계(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.',
+    note: '경쟁 영상 말투 합계와 다채널 실제 말 덩어리(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.',
     qualityThresholds: {...SPEECH_QUALITY},
     excludedLowQuality: excludedLow,
     unmeasured,
@@ -264,6 +322,7 @@ export function buildSpeechPatterns(reports = [], now = new Date()) {
       lengthMedianOfVideos: median(g.lengthMedians),
       hangulPerSecMedian: hpsMed != null ? round2(hpsMed) : null,
       bySource: g.bySource,
+      exemplars: g.exemplars,
       videos: g.videos,
     };
   }

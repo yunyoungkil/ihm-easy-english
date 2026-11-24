@@ -157,7 +157,7 @@ test('차단 신호 문구', () => {
   for (const m of ['whisper 시간 초과', 'This video is not available', '', undefined]) assert.equal(isSpeechBlockSignal(m), false, String(m));
 });
 
-test('합계 파일: 저장된 리포트의 speech 칸으로 다시 계산해 쓴다(원문 없음)', async () => {
+test('합계 파일: 저장된 리포트의 speech 칸으로 다시 계산해 쓰고 다채널 짧은 말 덩어리(exemplars)를 함께 담는다', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'speech-patterns-'));
   try {
     const field = await resolveSpeechField({videoId: 'aaaaaaaaaaa', kind: 'long', transcript: transcriptOk, now: NOW});
@@ -168,7 +168,8 @@ test('합계 파일: 저장된 리포트의 speech 칸으로 다시 계산해 �
     assert.equal(written.long.videoCount, 1);
     assert.equal(written.long.totals.sentences, 8); // 앞 5분 안의 8문장만
     assert.equal(written.confidence, '가설');
-    assert.ok(!readFileSync(file, 'utf8').includes('알파벳'));
+    assert.equal(written.long.exemplars.length, 1);
+    assert.ok(written.long.exemplars[0].excerpts[0].length <= 240);
   } finally {
     rmSync(dir, {recursive: true, force: true});
   }

@@ -647,8 +647,10 @@ export const speechFallbackState = {lastAt: null};
 
 export function isSpeechBlockSignal(message) { return SPEECH_BLOCK_RE.test(String(message || '')); }
 
-/** 쇼츠/롱폼. 경쟁 영상 표(market-demand)의 isShort를 먼저 쓰고, 없으면 길이 60초 이하(market-demand.mjs와 같은 기준). */
-export function speechKindOf(durationSeconds, ratioEntry = null) {
+/** 쇼츠/롱폼. 스튜디오 조사·유튜브 공식 쇼츠 목록(knownIsShort)을 최우선 쓰고, 다음은 경쟁 영상 표(ratioEntry.isShort), 없으면 길이 60초 이하. */
+export function speechKindOf(durationSeconds, ratioEntry = null, knownIsShort = null) {
+  if (knownIsShort === true) return 'short';
+  if (knownIsShort === false) return 'long';
   if (ratioEntry?.isShort === true) return 'short';
   if (ratioEntry?.isShort === false) return 'long';
   const d = Number(durationSeconds);
@@ -1023,7 +1025,7 @@ async function fetchChannelPeerContext(meta, ytKey, {knownFormat = null, now = n
       now,
     });
     const channelPeers = selectContrastPeers(channelVideos, {videoId: meta.videoId, viewCount: meta.viewCount, isShort});
-    return {ratioFields: ratioFieldsFromEntry(computed), channelPeers};
+    return {ratioFields: ratioFieldsFromEntry(computed), channelPeers, isShort};
   } catch (err) {
     return {
       ratioFields: ratioFieldsFromEntry({
@@ -1033,6 +1035,7 @@ async function fetchChannelPeerContext(meta, ytKey, {knownFormat = null, now = n
         ratioComputedAt: now.toISOString(),
       }),
       channelPeers: [],
+      isShort: knownFormat === 'SHORTS' ? true : knownFormat === 'LONGFORM' ? false : null,
     };
   }
 }
@@ -1068,7 +1071,7 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true, speechFal
   const {analysis: verified, summary} = verifyQuotes(normalizeExtraObservations(raw),{title: meta.title, transcriptText: transcript.fullText ?? null, commentTexts: commentList.map((c) => c.text)});
   const analysis = normalizeTeachesAdultEnglishSounds(verified);
   // 말투 측정(2026-11-15): Gemini 호출이 성공한 뒤에만 한다(실패한 날 소리를 받지 않게). 말투를 못 재도 리포트는 만든다.
-  const speechKind = speechKindOf(meta.durationSeconds, ratioEntry);
+  const speechKind = speechKindOf(meta.durationSeconds, ratioEntry, peerContext.isShort);
   const speech = await resolveSpeechField({videoId, kind: speechKind, transcript, reports: loadReports(), fallback: speechFallback})
     .catch((err) => buildSpeechField({kind: speechKind, note: `말투 측정 오류: ${String(err?.message || err).slice(0, 200)}`}));
   const captured = withFrames ? await processClip(videoId, pickFrameMoments(analysis.visualMoments, windowSeconds), windowSeconds) : {frames: [], cuts: null, error: '캡처 안 함'};

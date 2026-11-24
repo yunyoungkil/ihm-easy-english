@@ -304,6 +304,7 @@ export function renderNextEpisodeInput(input) {
   out.push(...renderMarketDemand(input.marketDemand));
   out.push(...renderInsightsVocab(input.insightsVocab));
   out.push(...renderPitchLog(input.pitchLog));
+  out.push(...renderSpeechPatterns(input.speechPatterns));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -645,6 +646,31 @@ export function renderPitchLog(summary) {
   return out;
 }
 
+/** 경쟁 말투 참고 수치(data/youtube/speech-patterns.json): 롱폼·쇼츠를 철저히 분리해 비차단 참고(가설)로만 제공한다. */
+export function renderSpeechPatterns(patterns) {
+  const out = ['## 18. 경쟁 말투 참고 수치 (롱폼 · 쇼츠 분리, 가설, speech-patterns.json)', ''];
+  if (!patterns) return [...out, '경쟁 말투 통계 없음(`data/youtube/speech-patterns.json`).', ''];
+  out.push('쇼츠(짧은 박자)와 롱폼(긴 호흡)은 말의 리듬이 달라 **서로 섞지 않고 같은 형식끼리만 참고**한다. 강제 규칙이 아니라 제안(가설)이며, 표본 3편 미만 형식은 기준을 억지로 낮추지 않고 비교를 보류한다.', '');
+  const MIN_COMPARE = 3; // allow-literal: check-narration-naturalness.mjs COMPARE.MIN_VIDEOS와 동일
+  const fmtGroup = (label, g) => {
+    const n = g?.videoCount ?? 0;
+    if (n < MIN_COMPARE || !g?.rates) {
+      return `- **${label}**: 품질 통과 ${n}편 (최소 ${MIN_COMPARE}편 미만 — 표본 부족으로 비교 보류, 합격 기준은 낮추지 않음)`;
+    }
+    const r = g.rates;
+    const topEndings = Object.entries(r.endingsPct || {})
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([k, v]) => `${k} ${v}%`)
+      .join(' · ');
+    return `- **${label}** (${n}편 · 문장 ${r.sentences}개${g.lowSample ? ' · 표본 작음' : ''}, 가설): 평균 문장 길이 ${r.meanLength}자 · 질문 ${r.questionPct}% · 말버릇/접속어 ${r.fillersTotalPer100}/100문장 · 사전풀이 ${r.dictFramePct}% · 상위 끝맺음(${topEndings})`;
+  };
+  out.push(fmtGroup('롱폼', patterns.long));
+  out.push(fmtGroup('쇼츠', patterns.short));
+  out.push('');
+  return out;
+}
+
 const readJson = (path, fallback) => {
   try { return JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')); } catch { return fallback; }
 };
@@ -700,6 +726,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     marketDemand: summarizeMarketDemand(readJson(join(dataDir, 'market-demand.json'), null)),
     insightsVocab: extractInsightsVocab(join(projectDir, 'output', 'insights')),
     pitchLog: summarizePitchLog(readJson(join(dataDir, 'pitch-log.json'), null)),
+    speechPatterns: readJson(join(dataDir, 'speech-patterns.json'), null),
     titles,
     transformSheets: loadedSheets.map((t) => ({sheetId: sheetIdOf(t), sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length + (t.references || []).length, rejectedCount: (t.rejected || []).length, audienceBridge: t.audienceBridge || null, seriesPremise: t.seriesPremise || null})),
   };

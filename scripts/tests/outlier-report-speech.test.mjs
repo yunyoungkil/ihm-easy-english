@@ -55,11 +55,13 @@ test('롱폼은 자막의 앞 5분만 쓴다', () => {
   assert.equal(speechTextFromTranscript({lines: [], fullText: ''}, 'long'), '');
 });
 
-test('쇼츠·롱폼 판정: market-demand의 isShort를 먼저, 없으면 60초 이하', () => {
+test('쇼츠·롱폼 판정: knownIsShort(스튜디오 조사·UUSH 목록) → market-demand isShort → 60초 이하 순', () => {
   assert.equal(speechKindOf(53, null), 'short');
   assert.equal(speechKindOf(600, null), 'long');
   assert.equal(speechKindOf(53, {isShort: false}), 'long');
   assert.equal(speechKindOf(600, {isShort: true}), 'short');
+  assert.equal(speechKindOf(64, null, true), 'short');
+  assert.equal(speechKindOf(45, null, false), 'long');
   assert.equal(speechKindOf(undefined, null), 'long');
 });
 

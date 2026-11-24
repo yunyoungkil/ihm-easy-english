@@ -42,6 +42,31 @@ const PARTICLE_MISSING = /(?:^|\s)(귀|소리|입|혀|발음|실력)\s+(?:확실
 
 const META_LINE = /^[-*]\s|^\*\*|:\*\*|^[가-힣A-Za-z ]{1,10}:(?:\s|$)/; // 블록 안에 섞인 제작 메모(목록, **라벨:**, 라벨: 값)
 
+const TABLE_STAGE_RE = /^\*?\([^)]+\)\*?$/;
+
+function extractTableNarration(lines) {
+  const hangul = /[가-힣]/;
+  for (let i = 0; i < lines.length - 1; i++) {
+    const row = lines[i].trim();
+    const sep = lines[i + 1].trim();
+    if (!row.startsWith('|') || !/^\|[\s:|-]+\|?$/.test(sep)) continue;
+    const headers = row.split('|').slice(1, row.endsWith('|') ? -1 : undefined).map((c) => c.trim());
+    const col = headers.findIndex((h) => /(?:나레이션|대본)/.test(h) && !/(?:원어민|영어)/.test(h));
+    if (col < 0) continue;
+    const out = [];
+    for (let j = i + 2; j < lines.length; j++) {
+      const t = lines[j].trim();
+      if (!t.startsWith('|')) break;
+      const cells = t.split('|').slice(1, t.endsWith('|') ? -1 : undefined).map((c) => c.trim());
+      const cell = (cells[col] || '').replace(/^["'“”]+|["'“”]+$/g, '').trim();
+      if (!cell || /^[-—–]+$/.test(cell) || TABLE_STAGE_RE.test(cell)) continue;
+      if (hangul.test(cell)) out.push({ line: j + 1, text: cell });
+    }
+    if (out.length) return out;
+  }
+  return [];
+}
+
 export function extractNarration(markdown) {
   const lines = markdown.split(/\r?\n/);
   const out = [];
@@ -57,6 +82,8 @@ export function extractNarration(markdown) {
     if (inBlock && hangul.test(raw) && !META_LINE.test(raw.trim())) out.push({ line: i + 1, text: raw.trim() });
   }
   if (sawBlock) return out;
+  const fromTable = extractTableNarration(lines);
+  if (fromTable.length) return fromTable;
   return lines.map((t, i) => ({ line: i + 1, text: t.trim() })).filter((x) => hangul.test(x.text) && !/^[#|>]/.test(x.text) && !META_LINE.test(x.text));
 }
 

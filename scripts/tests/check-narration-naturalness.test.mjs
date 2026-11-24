@@ -133,3 +133,20 @@ test('--compare CLI: 옵션이 없으면 비교 줄이 없고, 있으면 기준�
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('extractNarration: text 블록이 없는 표 형식 쇼츠 SCRIPT.md에서 한국어 나레이션 열을 추출하고 무나레이션 지시문은 건너뛴다', () => {
+  const md = [
+    '# EP35 쇼츠 대본',
+    '| 컷 | 시작(초) | 길이(초) | 한국어 나레이션 (고유어 입말) | 원어민 음성 |',
+    '|---:|---:|---:|---|---|',
+    '| 0 | 0.0 | 4.0 | 연어 살몬, 영어에선 엘을 안 읽어요. | — |',
+    '| 1 | 4.0 | 4.8 | *(무나레이션 — 순수 귀 증명)* | salmon |',
+    '| 2 | 8.8 | 3.0 | 피 글자 빼고 리싯으로 읽어요. | receipt |',
+  ].join('\n');
+  const rows = extractNarration(md);
+  assert.deepEqual(rows.map((r) => r.text), [
+    '연어 살몬, 영어에선 엘을 안 읽어요.',
+    '피 글자 빼고 리싯으로 읽어요.',
+  ]);
+  assert.equal(checkNarration(md).sentenceCount, 2);
+});

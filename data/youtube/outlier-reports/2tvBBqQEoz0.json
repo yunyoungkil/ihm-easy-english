@@ -49,7 +49,7 @@
   "speech": {
     "source": "transcript-api",
     "quality": "ok",
-    "kind": "long",
+    "kind": "short",
     "sentences": 34,
     "stats": {
       "sentences": 34,

@@ -10,10 +10,11 @@
 // 10분마다 자동 실행(작업 스케줄러)과 대화 시작 때 실행(시작 훅·npm run briefing)은 이 파일이 스스로 맞춘다.
 
 import {execFileSync, spawn} from 'node:child_process';
-import {existsSync, mkdirSync, readFileSync, statfsSync, writeFileSync} from 'node:fs';
+import {createReadStream, existsSync, mkdirSync, readFileSync, statfsSync, writeFileSync} from 'node:fs';
 import {copyFile, mkdir, readdir, readFile, rename, stat, unlink, utimes, writeFile} from 'node:fs/promises';
 import {homedir, hostname, tmpdir} from 'node:os';
 import {basename, dirname, extname, join} from 'node:path';
+import {createInterface} from 'node:readline';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -216,11 +217,11 @@ function textOf(content) {
 }
 
 /**
- * 클로드 코드 대화(jsonl 줄 배열)를 사람 말과 AI 답만 남긴 글로 바꾼다.
+ * 클로드 코드 대화(jsonl 줄 단위)를 사람 말과 AI 답만 남긴 글로 바꾼다.
  * 사용자 글·붙여 넣은 자료·질문 창 답은 그대로, AI 글은 그대로, 도구 사용은 한 줄씩. 생각 과정과 도구 출력은 뺀다.
- * 반환: {markdown, firstRequest, lastRequest, start, end, userTurns, images: [{name, data(base64)}]}
+ * 대용량 jsonl(512MB 초과)에서도 V8 문자열 길이 제한에 걸리지 않도록 줄 단위로 처리한다.
  */
-export function slimClaudeTranscript(entries, {id = '', pc = ''} = {}) {
+function createClaudeSlimmer({id = '', pc = ''} = {}) {
   const toolNames = new Map();
   const lines = [];
   const images = [];
@@ -229,59 +230,69 @@ export function slimClaudeTranscript(entries, {id = '', pc = ''} = {}) {
   let start = '';
   let end = '';
   let userTurns = 0;
-  for (const e of entries) {
-    if (!e || e.isSidechain || !e.message) continue;
-    const content = e.message.content;
-    if (e.timestamp) {
-      start ||= e.timestamp;
-      end = e.timestamp;
-    }
-    if (e.type === 'assistant' && Array.isArray(content)) {
-      const out = [];
-      for (const p of content) {
-        if (p.type === 'text' && p.text?.trim()) out.push(p.text.trim());
-        else if (p.type === 'tool_use') {
-          toolNames.set(p.id, p.name);
-          out.push(toolLine(p.name, p.input));
-        }
+  return {
+    push(e) {
+      if (!e || e.isSidechain || !e.message) return;
+      const content = e.message.content;
+      if (e.timestamp) {
+        start ||= e.timestamp;
+        end = e.timestamp;
       }
-      pushAi(lines, out);
-    } else if (e.type === 'user') {
-      if (Array.isArray(content) && content.some((p) => p.type === 'tool_result')) {
+      if (e.type === 'assistant' && Array.isArray(content)) {
+        const out = [];
         for (const p of content) {
-          if (p.type !== 'tool_result' || toolNames.get(p.tool_use_id) !== 'AskUserQuestion') continue;
-          const ans = stripReminders(textOf(p.content));
-          if (ans) lines.push(`### 사용자 답 (질문 창) · ${kst(e.timestamp)}\n${ans}`);
-        }
-        continue;
-      }
-      const text = stripReminders(textOf(content));
-      const pics = [];
-      if (Array.isArray(content)) {
-        for (const p of content) {
-          if (p.type === 'image' && p.source?.type === 'base64' && p.source.data) {
-            const ext = (p.source.media_type || 'image/png').split('/')[1].replace('jpeg', 'jpg');
-            const name = `img-${images.length + 1}.${ext}`;
-            images.push({name, data: p.source.data});
-            pics.push(name);
+          if (p.type === 'text' && p.text?.trim()) out.push(p.text.trim());
+          else if (p.type === 'tool_use') {
+            toolNames.set(p.id, p.name);
+            out.push(toolLine(p.name, p.input));
           }
         }
+        pushAi(lines, out);
+      } else if (e.type === 'user') {
+        if (Array.isArray(content) && content.some((p) => p.type === 'tool_result')) {
+          for (const p of content) {
+            if (p.type !== 'tool_result' || toolNames.get(p.tool_use_id) !== 'AskUserQuestion') continue;
+            const ans = stripReminders(textOf(p.content));
+            if (ans) lines.push(`### 사용자 답 (질문 창) · ${kst(e.timestamp)}\n${ans}`);
+          }
+          return;
+        }
+        const text = stripReminders(textOf(content));
+        const pics = [];
+        if (Array.isArray(content)) {
+          for (const p of content) {
+            if (p.type === 'image' && p.source?.type === 'base64' && p.source.data) {
+              const ext = (p.source.media_type || 'image/png').split('/')[1].replace('jpeg', 'jpg');
+              const name = `img-${images.length + 1}.${ext}`;
+              images.push({name, data: p.source.data});
+              pics.push(name);
+            }
+          }
+        }
+        if (!text && !pics.length) return;
+        userTurns++;
+        firstRequest ||= text;
+        if (text) lastRequest = text;
+        const picLine = pics.length ? `\n(붙인 그림: ${pics.map((n) => `${id}-files/${n}`).join(', ')})` : '';
+        lines.push(`### 사용자 · ${kst(e.timestamp)}\n${text}${picLine}`);
       }
-      if (!text && !pics.length) continue;
-      userTurns++;
-      firstRequest ||= text;
-      if (text) lastRequest = text;
-      const picLine = pics.length ? `\n(붙인 그림: ${pics.map((n) => `${id}-files/${n}`).join(', ')})` : '';
-      lines.push(`### 사용자 · ${kst(e.timestamp)}\n${text}${picLine}`);
-    }
-  }
-  const header = [
-    `# 클로드 코드 대화 ${id}`,
-    `- PC: ${pc} · 시작 ${kst(start)} · 끝 ${kst(end)} (한국 시간) · 사용자 말 ${userTurns}번`,
-    `- 첫 요청: ${oneLine(firstRequest, 200)}`,
-    '',
-  ].join('\n');
-  return {markdown: `${header}\n${lines.join('\n\n')}\n`, firstRequest, lastRequest, start, end, userTurns, images};
+    },
+    finish() {
+      const header = [
+        `# 클로드 코드 대화 ${id}`,
+        `- PC: ${pc} · 시작 ${kst(start)} · 끝 ${kst(end)} (한국 시간) · 사용자 말 ${userTurns}번`,
+        `- 첫 요청: ${oneLine(firstRequest, 200)}`,
+        '',
+      ].join('\n');
+      return {markdown: `${header}\n${lines.join('\n\n')}\n`, firstRequest, lastRequest, start, end, userTurns, images};
+    },
+  };
+}
+
+export function slimClaudeTranscript(entries, opts = {}) {
+  const slimmer = createClaudeSlimmer(opts);
+  for (const e of entries) slimmer.push(e);
+  return slimmer.finish();
 }
 
 function userRequestText(content) {
@@ -297,10 +308,10 @@ function unquote(v) {
 }
 
 /**
- * 안티그래비티 대화(brain/<id>/.system_generated/logs/transcript.jsonl 줄 배열)를 글로 바꾼다.
+ * 안티그래비티 대화(brain/<id>/.system_generated/logs/transcript.jsonl 줄 단위)를 글로 바꾼다.
  * USER_INPUT은 그대로, PLANNER_RESPONSE의 content는 AI 글, tool_calls는 한 줄씩. 도구 출력(GENERIC)·시스템은 뺀다.
  */
-export function slimAntigravityTranscript(entries, {id = '', pc = ''} = {}) {
+function createAntigravitySlimmer({id = '', pc = ''} = {}) {
   const lines = [];
   const media = [];
   let firstRequest = '';
@@ -308,51 +319,62 @@ export function slimAntigravityTranscript(entries, {id = '', pc = ''} = {}) {
   let start = '';
   let end = '';
   let userTurns = 0;
-  for (const e of entries) {
-    if (!e) continue;
-    if (e.created_at) {
-      start ||= e.created_at;
-      end = e.created_at;
-    }
-    if (e.type === 'USER_INPUT') {
-      const text = userRequestText(e.content);
-      const pics = (e.media || []).map((m) => m.uri).filter(Boolean);
-      media.push(...pics);
-      if (!text && !pics.length) continue;
-      userTurns++;
-      firstRequest ||= text;
-      if (text) lastRequest = text;
-      const picLine = pics.length ? `\n(붙인 파일: ${pics.map((u) => `${id}-files/${basename(decodeURIComponent(u))}`).join(', ')})` : '';
-      lines.push(`### 사용자 · ${kst(e.created_at)}\n${text}${picLine}`);
-    } else if (e.type === 'PLANNER_RESPONSE') {
-      const out = [];
-      if (e.content?.trim()) out.push(e.content.trim());
-      for (const c of e.tool_calls || []) {
-        const a = c.args || {};
-        const hint = unquote(a.toolSummary) || unquote(a.CommandLine) || unquote(Object.values(a).find((v) => typeof v === 'string'));
-        out.push(`- (도구) ${c.name}${hint ? `: ${oneLine(hint, 160)}` : ''}`);
+  return {
+    push(e) {
+      if (!e) return;
+      if (e.created_at) {
+        start ||= e.created_at;
+        end = e.created_at;
       }
-      pushAi(lines, out);
-    }
-  }
-  const header = [
-    `# 안티그래비티 대화 ${id}`,
-    `- PC: ${pc} · 시작 ${kst(start)} · 끝 ${kst(end)} (한국 시간) · 사용자 말 ${userTurns}번`,
-    `- 첫 요청: ${oneLine(firstRequest, 200)}`,
-    '',
-  ].join('\n');
-  return {markdown: `${header}\n${lines.join('\n\n')}\n`, firstRequest, lastRequest, start, end, userTurns, media};
+      if (e.type === 'USER_INPUT') {
+        const text = userRequestText(e.content);
+        const pics = (e.media || []).map((m) => m.uri).filter(Boolean);
+        media.push(...pics);
+        if (!text && !pics.length) return;
+        userTurns++;
+        firstRequest ||= text;
+        if (text) lastRequest = text;
+        const picLine = pics.length ? `\n(붙인 파일: ${pics.map((u) => `${id}-files/${basename(decodeURIComponent(u))}`).join(', ')})` : '';
+        lines.push(`### 사용자 · ${kst(e.created_at)}\n${text}${picLine}`);
+      } else if (e.type === 'PLANNER_RESPONSE') {
+        const out = [];
+        if (e.content?.trim()) out.push(e.content.trim());
+        for (const c of e.tool_calls || []) {
+          const a = c.args || {};
+          const hint = unquote(a.toolSummary) || unquote(a.CommandLine) || unquote(Object.values(a).find((v) => typeof v === 'string'));
+          out.push(`- (도구) ${c.name}${hint ? `: ${oneLine(hint, 160)}` : ''}`);
+        }
+        pushAi(lines, out);
+      }
+    },
+    finish() {
+      const header = [
+        `# 안티그래비티 대화 ${id}`,
+        `- PC: ${pc} · 시작 ${kst(start)} · 끝 ${kst(end)} (한국 시간) · 사용자 말 ${userTurns}번`,
+        `- 첫 요청: ${oneLine(firstRequest, 200)}`,
+        '',
+      ].join('\n');
+      return {markdown: `${header}\n${lines.join('\n\n')}\n`, firstRequest, lastRequest, start, end, userTurns, media};
+    },
+  };
 }
 
-function parseJsonl(text) {
-  const out = [];
-  for (const line of text.split('\n')) {
+export function slimAntigravityTranscript(entries, opts = {}) {
+  const slimmer = createAntigravitySlimmer(opts);
+  for (const e of entries) slimmer.push(e);
+  return slimmer.finish();
+}
+
+/** jsonl 파일을 한 줄씩 스트리밍해 읽는다(512MB 이상 대용량 파일의 V8 문자열 길이 초과 방지). */
+async function readJsonlStream(filePath, onEntry, onRawLine) {
+  const rl = createInterface({input: createReadStream(filePath, {encoding: 'utf8'}), crlfDelay: Infinity});
+  for await (const line of rl) {
     if (!line.trim()) continue;
+    if (onRawLine) onRawLine(line);
     try {
-      out.push(JSON.parse(line));
-    } catch { /* 쓰다 만 마지막 줄 */ }
+      onEntry(JSON.parse(line));
+    } catch { /* 쓰다 만 마지막 줄이나 비정상 줄 */ }
   }
-  return out;
 }
 
 async function isUpToDate(outPath, srcMtimeMs) {
@@ -391,7 +413,9 @@ async function exportClaude({chatsRoot, pc, project, claudeHome}) {
         continue;
       } catch { /* 다시 만든다 */ }
     }
-    const slim = slimClaudeTranscript(parseJsonl(await readFile(src, 'utf8')), {id, pc});
+    const slimmer = createClaudeSlimmer({id, pc});
+    await readJsonlStream(src, (e) => slimmer.push(e));
+    const slim = slimmer.finish();
     if (!slim.userTurns) continue;
     const day = kst(slim.start).slice(0, 10);
     const mdName = `${day}-${id}.md`;
@@ -432,9 +456,13 @@ async function exportAntigravity({chatsRoot, pc, geminiHome, projectMarker}) {
         continue;
       } catch { /* 다시 만든다 */ }
     }
-    const text = await readFile(src, 'utf8');
-    if (!text.includes(projectMarker)) continue; // 다른 작업 공간의 대화는 나르지 않는다
-    const slim = slimAntigravityTranscript(parseJsonl(text), {id, pc});
+    let matched = false;
+    const slimmer = createAntigravitySlimmer({id, pc});
+    await readJsonlStream(src, (e) => slimmer.push(e), (line) => {
+      if (!matched && line.includes(projectMarker)) matched = true;
+    });
+    if (!matched) continue; // 다른 작업 공간의 대화는 나르지 않는다
+    const slim = slimmer.finish();
     if (!slim.userTurns) continue;
     const day = kst(slim.start).slice(0, 10);
     const mdName = `${day}-${id}.md`;

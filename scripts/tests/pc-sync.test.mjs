@@ -8,6 +8,7 @@ import {join} from 'node:path';
 import test from 'node:test';
 import {
   claudeProjectKey,
+  exportChats,
   findMyDrive,
   planCopies,
   renderChatIndex,
@@ -154,4 +155,34 @@ test('syncFiles: PC1이 올린 재료를 PC2가 받고, 추적 파일·글 파�
   const full = await syncFiles({direction: 'pull', project: pc2, remoteRoot: drive, tracked, minFree: Number.MAX_SAFE_INTEGER});
   assert.equal(full.copied, 0);
   assert.equal(full.skippedForSpace, 1);
+});
+
+test('exportChats: jsonl 파일을 줄 단위로 스트리밍해 클로드·안티그래비티 사본과 목록을 만들고 깨진 줄은 건너뛴다', async () => {
+  const base = mkdtempSync(join(tmpdir(), 'pc-sync-chats-'));
+  const project = join(base, 'my-proj');
+  const remote = join(base, 'drive');
+  const claudeHome = join(base, '.claude');
+  const geminiHome = join(base, '.gemini');
+
+  const claudeDir = join(claudeHome, 'projects', claudeProjectKey(project));
+  mkdirSync(claudeDir, {recursive: true});
+  writeFileSync(join(claudeDir, 'sess-1.jsonl'), [
+    JSON.stringify({type: 'user', timestamp: '2026-11-24T06:00:00.000Z', isSidechain: false, message: {role: 'user', content: '집 PC 첫 테스트'}}),
+    '{깨진 마지막 줄',
+    JSON.stringify({type: 'assistant', timestamp: '2026-11-24T06:00:05.000Z', isSidechain: false, message: {role: 'assistant', content: [{type: 'text', text: '스트리밍 완료'}]}}),
+  ].join('\n'));
+
+  const agDir = join(geminiHome, 'antigravity', 'brain', 'ag-1', '.system_generated', 'logs');
+  mkdirSync(agDir, {recursive: true});
+  writeFileSync(join(agDir, 'transcript.jsonl'), [
+    JSON.stringify({type: 'USER_INPUT', created_at: '2026-11-24T07:00:00Z', content: '<USER_REQUEST>\nmy-proj 대화\n</USER_REQUEST>'}),
+    JSON.stringify({type: 'PLANNER_RESPONSE', created_at: '2026-11-24T07:00:05Z', content: '확인했습니다.'}),
+  ].join('\n'));
+
+  const count = await exportChats({remoteRoot: remote, pc: 'HOME-PC', project, claudeHome, geminiHome});
+  assert.equal(count, 2);
+  const indexMd = readFileSync(join(remote, 'chats', 'INDEX-HOME-PC.md'), 'utf8');
+  assert.ok(indexMd.includes('집 PC 첫 테스트'));
+  assert.ok(indexMd.includes('my-proj 대화'));
+  assert.ok(readFileSync(join(remote, 'chats', 'claude', 'HOME-PC', '2026-11-24-sess-1.md'), 'utf8').includes('스트리밍 완료'));
 });

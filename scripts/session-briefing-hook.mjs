@@ -23,6 +23,7 @@ import {
   renderSessionStartOutput,
 } from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
+import {startBackgroundSync} from './pc-sync.mjs';
 import {setupAutomationChrome} from './setup-automation-chrome.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -51,6 +52,10 @@ const readNextActions = () =>
 
 // 커밋 전 자동 검사(.githooks)는 PC마다 켜야 해서 대화를 시작할 때마다 맞춘다(2026-11-12).
 ensureGitHooks();
+
+// 다른 PC가 만든 그림·영상·음성과 대화 사본을 구글 드라이브에서 받고 이 PC 것을 올린다(2026-11-24 사용자).
+// 같은 날 이어 가는 대화에도 매번 돈다. 뒤에서 돌아 대화 시작을 막지 않는다. 테스트(BRIEFING_NO_SYNC)에서는 끈다.
+if (process.env.BRIEFING_NO_SYNC !== '1') startBackgroundSync(projectDir);
 
 const skipSync = process.env.BRIEFING_NO_SYNC === '1';
 const force = process.env.BRIEFING_FORCE === '1';

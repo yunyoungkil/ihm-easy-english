@@ -22,6 +22,7 @@ import {
 import {ensureGitHooks} from './ensure-git-hooks.mjs';
 import {buildBriefingContext, buildContinuationContext, extractNextActions} from './growth-rules.mjs';
 import {handoffLine, latestHandoff} from './handoff.mjs';
+import {startBackgroundSync} from './pc-sync.mjs';
 
 const projectDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const args = process.argv.slice(2);
@@ -32,6 +33,9 @@ const statePath = process.env.BRIEFING_STATE_FILE || DEFAULT_BRIEFING_STATE_PATH
 
 // 1. 커밋 전 자동 검사 보장
 ensureGitHooks();
+
+// 1.2. PC 2대 자료·대화 공유(2026-11-24): 구글 드라이브에서 다른 PC가 만든 재료·대화 사본을 받고 이 PC 것을 올린다(뒤에서 실행).
+if (!noSync) startBackgroundSync(projectDir);
 
 // 1.5. 하루 1회 브리핑 가드: 같은 날 이미 브리핑을 마쳤으면 수집·성장 점검을 건너뛰고 바로 작업 이어가기 안내만 출력한다.
 // (--no-sync는 테스트/드라이런 용도로 상태 기록을 읽거나 덮어쓰지 않고 전체 컨텍스트를 확인한다.)

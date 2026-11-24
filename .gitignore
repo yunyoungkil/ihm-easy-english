@@ -98,3 +98,34 @@ data/youtube/briefing-state.json
 
 # 스튜디오 조사 목록 전체 줄(2026-11-14) — 거르기 규칙을 다시 돌리는 용도, 이 PC에만 둔다
 data/youtube/studio-research-raw.json
+
+# PC 2대 자료 공유(2026-11-24 사용자): videos/ 안의 그림·영상·음성과 생성 기록은 구글 드라이브로 나른다(scripts/pc-sync.mjs).
+# 이미 깃에 있는 파일은 그대로 추적된다. 새 파일만 깃에 안 올린다(두 길로 오면 받을 때 부딪힌다).
+videos/**/*.png
+videos/**/*.jpg
+videos/**/*.jpeg
+videos/**/*.webp
+videos/**/*.gif
+videos/**/*.avif
+videos/**/*.bmp
+videos/**/*.tif
+videos/**/*.tiff
+videos/**/*.heic
+videos/**/*.psd
+videos/**/*.pdf
+videos/**/*.mp4
+videos/**/*.mov
+videos/**/*.webm
+videos/**/*.mkv
+videos/**/*.m4v
+videos/**/*.avi
+videos/**/*.mp3
+videos/**/*.wav
+videos/**/*.m4a
+videos/**/*.aac
+videos/**/*.ogg
+videos/**/*.oga
+videos/**/*.flac
+videos/**/*.opus
+videos/**/*.prompt.json
+videos/**/*.words.json

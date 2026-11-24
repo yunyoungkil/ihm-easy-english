@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-24T10:57:41.588Z",
+  "prompt": "Dramatic dark slate-black minimalist studio tabletop photograph in 16:9 widescreen. Placed cleanly on the lower-right and right third: a glossy dark chocolate bar broken cleanly, a brushed brass hotel room key fob, and an amber glass bottle with clean blank label under warm directional studio spotlight. The left two-thirds and upper area are deep clean matte charcoal negative space designed for giant bold typography overlay. High-end mid-century editorial product photography, crisp specular highlights, rich tactile texture. Strictly NO text, NO letters, NO numbers anywhere on the chocolate, key fob, or bottle. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/06614c99-e269-4d10-bea1-2cd865539fc4/scratch/p-thumb-b.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep36-everyday-words-unheard/raw/thumb-b-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

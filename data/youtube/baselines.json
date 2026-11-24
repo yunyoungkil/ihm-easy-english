@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "computedAt": "2026-11-23T16:10:50.762Z",
+  "computedAt": "2026-11-24T16:10:36.790Z",
   "formats": {
     "SHORTS": {
       "metrics": {
@@ -8,10 +8,10 @@
           "label": "공개 7일 조회수",
           "meaning": "제목·썸네일·소재(포장)",
           "unit": "회",
-          "n": 52,
+          "n": 53,
           "median": 1141,
-          "upper": 1396,
-          "spreadRatio": 1.2234881682734444,
+          "upper": 1301,
+          "spreadRatio": 1.14022787028922,
           "promoteRule": "비율",
           "champion": {
             "videoId": "qb-vO3Qubec",
@@ -21,7 +21,7 @@
             "value": 2619,
             "views": 2619
           },
-          "promoteAbove": 3204.315512708151,
+          "promoteAbove": 2986.256792287467,
           "lowSample": false,
           "sampleNote": null,
           "excluded": [],
@@ -31,10 +31,10 @@
           "label": "공개 7일 평균 시청 시간",
           "meaning": "훅·화면·대본(내용). 영상이 길수록 유리해서 길이를 같이 본다",
           "unit": "초",
-          "n": 26,
-          "median": 30,
+          "n": 27,
+          "median": 29,
           "upper": 32,
-          "spreadRatio": 1.0666666666666667,
+          "spreadRatio": 1.103448275862069,
           "promoteRule": "비율",
           "champion": {
             "videoId": "r2dDUxflF0Y",
@@ -44,7 +44,7 @@
             "value": 41,
             "views": 1142
           },
-          "promoteAbove": 43.733333333333334,
+          "promoteAbove": 45.241379310344826,
           "lowSample": false,
           "sampleNote": null,
           "excluded": [],
@@ -54,7 +54,7 @@
           "label": "공개 7일 구독 수",
           "meaning": "채널의 가치",
           "unit": "명",
-          "n": 52,
+          "n": 53,
           "median": 1,
           "upper": 2,
           "spreadRatio": 2,
@@ -77,23 +77,23 @@
           "label": "계속 시청함",
           "meaning": "쇼츠 첫 1~3초 훅(피드에서 넘기지 않고 계속 본 비율, 길이와 상관없음). 스타일 시험의 1차 지표. 공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
           "unit": "%",
-          "n": 5,
-          "median": 36.33,
-          "upper": 36.71,
+          "n": 6,
+          "median": 36.71,
+          "upper": 37.28,
           "spreadRatio": null,
           "promoteRule": "차이(상위 25% − 하위 25%, %p)",
           "lower": 33.64,
           "approxNote": "공개 7일 값이 아니라 첫 7일을 온전히 포함한 스튜디오 28일·90일 기간 값(가설)",
           "champion": {
-            "videoId": "oMrCtSBbibc",
-            "title": "sheep과 ship, 길고 짧게로 구분하면 다 틀립니다 #shorts",
-            "publishedAt": "2026-11-10T11:00:25Z",
-            "durationSeconds": 45,
-            "value": 37.28,
-            "views": 676,
+            "videoId": "ogCglr1VNYE",
+            "title": "이 네 단어, 한글로 쓰면 전부 '풀'입니다 #영어발음 #shorts",
+            "publishedAt": "2026-11-14T11:00:32Z",
+            "durationSeconds": 43,
+            "value": 48.55,
+            "views": 1287,
             "period": "4_weeks"
           },
-          "promoteAbove": 40.35,
+          "promoteAbove": 52.19,
           "lowSample": false,
           "sampleNote": null,
           "excluded": [],
@@ -103,6 +103,12 @@
       "lengthMedianSeconds": 33,
       "recent": {
         "views7d": [
+          {
+            "videoId": "ogCglr1VNYE",
+            "publishedAt": "2026-11-14T11:00:32Z",
+            "durationSeconds": 43,
+            "value": 1286
+          },
           {
             "videoId": "oMrCtSBbibc",
             "publishedAt": "2026-11-10T11:00:25Z",
@@ -418,6 +424,12 @@
         ],
         "watchSeconds7d": [
           {
+            "videoId": "ogCglr1VNYE",
+            "publishedAt": "2026-11-14T11:00:32Z",
+            "durationSeconds": 43,
+            "value": 19
+          },
+          {
             "videoId": "oMrCtSBbibc",
             "publishedAt": "2026-11-10T11:00:25Z",
             "durationSeconds": 45,
@@ -731,6 +743,12 @@
           }
         ],
         "subs7d": [
+          {
+            "videoId": "ogCglr1VNYE",
+            "publishedAt": "2026-11-14T11:00:32Z",
+            "durationSeconds": 43,
+            "value": 0
+          },
           {
             "videoId": "oMrCtSBbibc",
             "publishedAt": "2026-11-10T11:00:25Z",
@@ -1046,6 +1064,12 @@
         ],
         "stayedToWatch": [
           {
+            "videoId": "ogCglr1VNYE",
+            "publishedAt": "2026-11-14T11:00:32Z",
+            "durationSeconds": 43,
+            "value": 48.55
+          },
+          {
             "videoId": "oMrCtSBbibc",
             "publishedAt": "2026-11-10T11:00:25Z",
             "durationSeconds": 45,
@@ -1079,24 +1103,24 @@
       },
       "reference": {
         "firstWeekReach": {
-          "n": 52,
+          "n": 53,
           "medianImpressions": 60,
           "pooledCtrPercent": 3.06,
-          "totalImpressions": 4123
+          "totalImpressions": 4352
         },
         "subsPer1000Views": {
-          "value": 1.7190894493246436,
+          "value": 1.6783165194297411,
           "totalSubs": 91,
-          "totalViews": 52935,
-          "n": 52
+          "totalViews": 54221,
+          "n": 53
         },
         "watchRatio": {
-          "median": 0.6521739130434783,
-          "n": 52
+          "median": 0.6415094339622641,
+          "n": 53
         },
         "totalWatchMinutes": {
-          "median": 473.85,
-          "n": 52
+          "median": 455.35,
+          "n": 53
         },
         "note": "기준선이 아니라 참고 표시다. 유튜브 추천 순위 신호에는 평균 시청 지속 시간과 평균 시청 비율(%)이 모두 들어가고, 썸네일 테스트의 승자는 시청 시간으로 정해진다. 시청률(%)은 아주 짧은 영상이 다시 보기로 100%를 넘겨서 기준선에서는 뺐다."
       },
@@ -1159,6 +1183,18 @@
           "firstWeek": {
             "startDate": "2026-11-10",
             "endDate": "2026-11-16"
+          }
+        },
+        "ogCglr1VNYE": {
+          "value": 48.55,
+          "views": 1287,
+          "period": "4_weeks",
+          "windowStart": "2026-10-27",
+          "windowLastDay": "2026-11-23",
+          "fetchedAt": "2026-11-24T16:08:54.729Z",
+          "firstWeek": {
+            "startDate": "2026-11-14",
+            "endDate": "2026-11-20"
           }
         }
       }
@@ -2432,6 +2468,20 @@
       "period": "quarter",
       "retiredAt": "2026-11-20T16:11:23.323Z",
       "replacedBy": "oMrCtSBbibc",
+      "reason": "더 높은 기록이 나옴"
+    },
+    {
+      "format": "SHORTS",
+      "metric": "stayedToWatch",
+      "videoId": "oMrCtSBbibc",
+      "title": "sheep과 ship, 길고 짧게로 구분하면 다 틀립니다 #shorts",
+      "publishedAt": "2026-11-10T11:00:25Z",
+      "durationSeconds": 45,
+      "value": 37.28,
+      "views": 676,
+      "period": "4_weeks",
+      "retiredAt": "2026-11-24T16:10:36.790Z",
+      "replacedBy": "ogCglr1VNYE",
       "reason": "더 높은 기록이 나옴"
     }
   ]

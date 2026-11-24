@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-24T10:57:00.910Z",
+  "prompt": "Editorial split-screen studio photograph in 16:9 widescreen composition. Left half: rich moody dark charcoal slate desk under warm amber directional side light showing a broken dark chocolate bar and a vintage silver film camera in crisp tactile macro detail, subtle deep crimson rim accent. Right half: clean bright studio slate-teal surface with minimalist acoustic soundwave brass rings and generous uncluttered negative space on the upper-center and right side for typography overlay. Crisp editorial magazine photography, shallow depth of field, high contrast value separation. Strictly NO text, NO letters, NO numbers, NO labels on objects. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/06614c99-e269-4d10-bea1-2cd865539fc4/scratch/p-thumb-a.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep36-everyday-words-unheard/raw/thumb-a-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

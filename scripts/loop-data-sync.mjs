@@ -18,6 +18,7 @@ const execFileAsync = promisify(execFile);
 /** 올릴 데이터. 은퇴 예정인 예전 댓글·대본 리포트와 PC 전용 파일(.gitignore)은 뺀다. */
 export const SYNC_INCLUDE = [
   'data/youtube',
+  'data/blog',
   'data/loop-host.json',
   'output/upload-packages/*/status.json',
   'output/upload-packages/*/shorts-status.json',

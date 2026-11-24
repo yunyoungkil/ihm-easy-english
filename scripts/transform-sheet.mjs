@@ -91,6 +91,62 @@ export function appliedProblems(sheet) {
   return out;
 }
 
+/**
+ * "왜 눌렸나"(clickWhy, 2026-11-24 사용자: 빠지면 승인 못 하게 막는다). 2026-11-23 클릭 심리 원칙 — 제목·썸네일은 참고한 문구의 겉모양이 아니라
+ * 사람들이 누른 이유를 가져온다 — 을 시트에 적게 한다. EP31~35는 겉모양 위주로 가져왔고, EP31은 고른 제목에 근거가 하나도 없었다.
+ * 제목·썸네일 행의 clickWhy = [{source, sourceText, mechanism, appliedTo}]:
+ *   source = 참고한 곳(경쟁·다른 분야 영상 ID, knowledge/click-references.md 항목), sourceText = 그 제목·썸네일 글자 그대로(없으면 "글자 없음"),
+ *   mechanism = 사람들이 누른 이유, appliedTo = 우리 후보(title:N / thumb:A). 후보마다 근거가 하나 이상 이어져야 한다.
+ * 기준일 전에 만든 시트(EP31~35)는 검사하지 않는다. 날짜가 없는 새 시트는 검사한다.
+ */
+export const CLICK_WHY_SINCE = '2026-11-24';
+const CLICK_WHY_FIELDS = Object.freeze({source: '참고한 곳', sourceText: '참고한 문구 그대로', mechanism: '사람들이 누른 이유'});
+export function clickWhyProblems(sheet) {
+  const out = [];
+  if (!isSloganV4(sheet)) return out;
+  if (filled(sheet?.createdAt) && String(sheet.createdAt) < CLICK_WHY_SINCE) return out;
+  const rows = sheet?.rows || [];
+  const titles = (rows.find((r) => r.key === 'title')?.ours?.titles || []).filter(filled);
+  const thumbOurs = rows.find((r) => r.key === 'thumbnail')?.ours || {};
+  const thumbs = [thumbOurs.image, ...(thumbOurs.images || [])].filter(filled);
+  const indexIn = (list, v) => (Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= list.length ? Number(v) - 1 : -1);
+  const groups = [
+    {key: 'title', kind: 'title', candidates: titles, find: (v) => indexIn(titles, v), label: (i) => `제목 후보 ${i + 1}번`},
+    {
+      key: 'thumbnail', kind: 'thumb', candidates: thumbs,
+      find: (v) => {
+        const byName = thumbs.findIndex((p) => p.endsWith(`thumb-${v}.jpg`) || p.endsWith(`thumb-${v}.png`) || p.endsWith(`/${v}`));
+        return byName >= 0 ? byName : indexIn(thumbs, v);
+      },
+      label: (i) => `썸네일 시안 ${String(thumbs[i]).split('/').pop().replace(/\.[^.]+$/, '')}`,
+    },
+  ];
+  for (const {key, kind, candidates, find, label} of groups) {
+    if (!candidates.length) continue;
+    const name = ROW_LABELS[key];
+    const list = rows.find((r) => r.key === key)?.clickWhy;
+    if (!Array.isArray(list) || !list.length) {
+      out.push(`${name}: 왜 눌렸나(clickWhy)가 없다 — 참고한 제목·썸네일 문구와 사람들이 누른 이유를 후보마다 적는다`);
+      continue;
+    }
+    const covered = new Set();
+    list.forEach((e, n) => {
+      const where = `${name}: 왜 눌렸나 ${n + 1}번`;
+      for (const [f, ko] of Object.entries(CLICK_WHY_FIELDS)) if (!filled(e?.[f])) out.push(`${where}에 ${f}(${ko})가 비어 있다`);
+      if (!Array.isArray(e?.appliedTo) || !e.appliedTo.length) { out.push(`${where}: 우리 어느 후보에 썼는지(appliedTo)가 없다`); return; }
+      for (const tk of e.appliedTo) {
+        const m = String(tk).match(/^(title|thumb):(.+)$/);
+        if (!m || m[1] !== kind) { out.push(`${where}: "${tk}"는 ${kind}:… 형식이어야 한다`); continue; }
+        const i = find(m[2]);
+        if (i < 0) out.push(`${where}: ${tk}는 없는 후보다`);
+        else covered.add(i);
+      }
+    });
+    candidates.forEach((_, i) => { if (!covered.has(i)) out.push(`${name}: ${label(i)}에 이어진 왜 눌렸나(clickWhy) 근거가 없다`); });
+  }
+  return out;
+}
+
 /** Korean Skills 구어체 입말 규칙(2026-11-17 사용자 확정): 나레이션에서 '4글자·5글자·1박자' 같은 아라비아 숫자 표기를 막는다. */
 export const SPOKEN_DIGIT_RE = /\d+\s*(글자|박자|마디|개|번|가지|명|초)/g;
 export function spokenKoreanProblems(plan) {
@@ -523,6 +579,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     ...experimentProblems(sheet),
     ...evidenceProblems(sheet),
     ...appliedProblems(sheet),
+    ...clickWhyProblems(sheet),
     ...selfCritiqueProblems(sheet),
     ...aiRecommendationProblems(sheet, {imageExists}),
     ...trendRefProblems(sheet),

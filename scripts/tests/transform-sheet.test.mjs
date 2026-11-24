@@ -386,8 +386,14 @@ test('4판(슬로건 업그레이드) 시트: 단일 최적안·episodeId·다�
     testVariables: [{variable: '다중 명작 비주얼 융합', hypothesis: '템플릿 탈피 시 계속 시청함 상승 가설', measure: '계속 시청함'}],
     glossary: [],
     rows: [
-      mkRow('title', 'mixed', {titles: ['첫 번째 제목 후보', '두 번째 제목 후보']}),
-      mkRow('thumbnail', 'mixed', {images: ['images/ep31-shorts-new/thumb-1.jpg']}),
+      {
+        ...mkRow('title', 'mixed', {titles: ['첫 번째 제목 후보', '두 번째 제목 후보']}),
+        clickWhy: [{source: 'REFAAAAAAAA', sourceText: '참고 영상 제목 그대로', mechanism: '아는 단어가 틀렸다는 말에 "나도?" 하고 멈춘다', appliedTo: ['title:1', 'title:2']}],
+      },
+      {
+        ...mkRow('thumbnail', 'mixed', {images: ['images/ep31-shorts-new/thumb-1.jpg']}),
+        clickWhy: [{source: 'REFBBBBBBBB', sourceText: '글자 없음', mechanism: '두 장면이 맞부딪혀 차이가 궁금해진다', appliedTo: ['thumb:1']}],
+      },
       mkRow('opening', 'mixed'),
       mkRow('flow', 'ours'),
       mkRow('visual', 'ours', {
@@ -505,4 +511,50 @@ test('referenceBiasWarnings: 직전 3편 중 2편 이상 중복된 레퍼런스�
   assert.equal(warnings[0].videoId, 'REPEAT11111');
   assert.deepEqual(warnings[0].sheets, ['ep31', 'ep33']);
   assert.match(warnings[0].message, /비차단/);
+});
+
+test('clickWhy(2026-11-24 사용자): 새 4판 시트는 제목·썸네일 후보마다 "왜 눌렸나" 근거가 있어야 승인되고, 그 전 시트는 건드리지 않는다', async () => {
+  const {clickWhyProblems, CLICK_WHY_SINCE, approveSheet} = await import('../transform-sheet.mjs');
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const tRow = (titles, clickWhy) => ({key: 'title', ours: {titles}, ...(clickWhy ? {clickWhy} : {})});
+  const thRow = (images, clickWhy) => ({key: 'thumbnail', ours: {images}, ...(clickWhy ? {clickWhy} : {})});
+  const entry = (appliedTo, extra = {}) => ({source: 'Bzwd5EdsQGk', sourceText: '존박 멘탈 탈탈 털어버린 명예영국인의 미친 발음', mechanism: '유명인이 당황하는 장면이라 "무슨 일?" 하고 누른다', appliedTo, ...extra});
+  const sheet = (rows, extra = {}) => ({schemaVersion: 4, createdAt: CLICK_WHY_SINCE, rows, ...extra});
+  const ok = sheet([tRow(['제목 하나', '제목 둘'], [entry(['title:1', 'title:2'])]), thRow(['images/x/thumb-A.jpg'], [entry(['thumb:A'])])]);
+  assert.deepEqual(clickWhyProblems(ok), []);
+
+  // 칸이 아예 없으면 제목·썸네일 둘 다 막는다
+  const none = sheet([tRow(['제목 하나']), thRow(['images/x/thumb-A.jpg'])]);
+  const p = clickWhyProblems(none);
+  assert.ok(p.some((x) => x.startsWith('제목') && x.includes('clickWhy')));
+  assert.ok(p.some((x) => x.startsWith('썸네일') && x.includes('clickWhy')));
+
+  // 근거가 이어지지 않은 후보가 있으면 막는다(EP31: 고른 제목 2번에 근거가 없었다)
+  const gap = sheet([tRow(['제목 하나', '제목 둘', '제목 셋'], [entry(['title:1', 'title:3'])]), thRow(['images/x/thumb-A.jpg', 'images/x/thumb-B.jpg'], [entry(['thumb:A'])])]);
+  const g = clickWhyProblems(gap);
+  assert.ok(g.some((x) => x.includes('제목 후보 2번')), g.join('\n'));
+  assert.ok(g.some((x) => x.includes('썸네일 시안 thumb-B')), g.join('\n'));
+
+  // 빈 칸·없는 후보·다른 행 표기는 막는다
+  const holes = sheet([tRow(['제목 하나'], [entry(['title:1'], {sourceText: ''}), entry(['title:9']), entry(['thumb:A'])]), thRow(['images/x/thumb-A.jpg'], [entry(['thumb:A'], {mechanism: ' '})])]);
+  const h = clickWhyProblems(holes);
+  assert.ok(h.some((x) => x.includes('sourceText')));
+  assert.ok(h.some((x) => x.includes('mechanism')));
+  assert.ok(h.some((x) => x.includes('title:9')));
+  assert.ok(h.some((x) => x.includes('"thumb:A"') && x.startsWith('제목')));
+
+  // 기준일 전 시트(EP31~35)와 3판 이하는 검사하지 않는다. 날짜가 없는 새 시트는 검사한다.
+  assert.deepEqual(clickWhyProblems({...none, createdAt: '2026-11-22'}), []);
+  assert.deepEqual(clickWhyProblems({...none, schemaVersion: 3}), []);
+  assert.ok(clickWhyProblems({...none, createdAt: undefined}).length > 0);
+
+  // 승인 관문에서 실제로 막힌다
+  const v4 = {schemaVersion: 4, episodeId: 'ep99', topic: '주제', status: 'draft', createdAt: CLICK_WHY_SINCE, rows: none.rows, titlePicks: ['제목 하나'], thumbnailPicks: ['images/x/thumb-A.jpg']};
+  assert.throws(() => approveSheet(v4, {imageExists: () => true}), (err) => err.blockers.some((b) => b.includes('clickWhy')), '승인이 clickWhy 누락으로 막혀야 한다');
+
+  // 시트 화면에 참고 문구와 누른 이유가 보인다(글자는 이스케이프)
+  const shown = structuredClone(ok);
+  shown.rows[0].clickWhy[0].sourceText = '<b>참고</b> 문구';
+  const html = renderTransformSheetPage({...shown, episodeId: 'ep99', topic: '주제', status: 'draft'}, null, []);
+  assert.ok(html.includes('왜 눌렸나') && html.includes('&lt;b&gt;참고&lt;/b&gt; 문구') && html.includes('무슨 일?'));
 });

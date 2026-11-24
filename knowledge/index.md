@@ -24,6 +24,7 @@
 - [구글 AI(제미나이·Veo·Imagen) 프롬프트 작성 기준](google-ai-studio-prompting.md) — 영상/이미지 생성·데이터 분석 프롬프트를 구글 모델에 직접 쓸 때마다 참고. `aistudio.google.com/docs` 재조회 없이 바로 쓸 것
 - [무료 생성 도구: 워터마크와 우선순위](free-generation-tools.md) — AI Studio·Omni·Lyria·flowmusic 등 도구별 워터마크 유무와 시험 결과. 새 도구는 처음 쓸 때 이 표에 적는다
 - [썸네일 전략](thumbnail-strategy.md) — 판단 원칙과 에피소드별 선택 맥락
+- [클릭 사례 모음](click-references.md) — 제목·썸네일을 정할 때 본 다른 분야·플랫폼 밖 사례(주소·그림·글자 그대로·왜 눌렸나). 비교 시트 `clickWhy`의 `click-ref:` 출처
 - [레퍼런스 영상 비주얼 분석 기록](visual-reference-analysis.md) — `/watch` 스킬로 경쟁/레퍼런스
   영상을 분석해 뽑아낸 화면 구성·모션 기법 누적. 새 영상 만들기 전 참고 소재로 훑어볼 것
 - [영상 효과 50가지 참고 도구 상자 & 연출 태도](video-effects-toolbox-2026-11-23.md) — 50가지 촬영·편집·시간·빛/색 용어와 영어 학습·재미 결합 참고(개수 제한 없는 자율 도구 상자, 3060=정적 화면 단정 금지)

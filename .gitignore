@@ -6,6 +6,7 @@ dist
 .env.*
 client_secret_*.json
 .youtube-oauth-token.json
+.blogger-oauth-token.json
 .youtube-video-map.json
 
 # Ignore the output video from Git but not videos you import into src/.

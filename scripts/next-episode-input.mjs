@@ -663,7 +663,8 @@ export function renderSpeechPatterns(patterns) {
       .slice(0, 3)
       .map(([k, v]) => `${k} ${v}%`)
       .join(' · ');
-    return `- **${label}** (${n}편 · 문장 ${r.sentences}개${g.lowSample ? ' · 표본 작음' : ''}, 가설): 평균 문장 길이 ${r.meanLength}자 · 질문 ${r.questionPct}% · 말버릇/접속어 ${r.fillersTotalPer100}/100문장 · 사전풀이 ${r.dictFramePct}% · 상위 끝맺음(${topEndings})`;
+    const paceText = g.hangulPerSecMedian != null ? ` · 초당 한글 ${g.hangulPerSecMedian}자(중앙값)` : '';
+    return `- **${label}** (${n}편 · 문장 ${r.sentences}개${g.lowSample ? ' · 표본 작음' : ''}, 가설): 평균 문장 길이 ${r.meanLength}자${paceText} · 질문 ${r.questionPct}% · 말버릇/접속어 ${r.fillersTotalPer100}/100문장 · 사전풀이 ${r.dictFramePct}% · 상위 끝맺음(${topEndings})`;
   };
   out.push(fmtGroup('롱폼', patterns.long));
   out.push(fmtGroup('쇼츠', patterns.short));

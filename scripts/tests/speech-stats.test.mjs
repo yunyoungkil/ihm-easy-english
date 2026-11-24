@@ -177,3 +177,14 @@ test('합계 함수는 입력을 바꾸지 않는다', () => {
   buildSpeechPatterns(reports);
   assert.equal(JSON.stringify(reports), before);
 });
+
+test('초당 한글 밀도(hangulPerSec): durationSeconds로 계산하고 롱폼·쇼츠 중앙값을 따로 쌓는다', () => {
+  const shortField = buildSpeechField({text: REAL_LONG, source: 'transcript-api', kind: 'short', durationSeconds: 40, now: new Date('2026-11-24T00:00:00Z')});
+  assert.equal(shortField.windowSeconds, 40);
+  assert.ok(shortField.hangulPerSec > 3);
+  // 옛 리포트(hangulPerSec 미기록)도 meta.durationSeconds로 자동 보완하며 롱폼은 300초 상한을 적용한다
+  const oldLong = {videoId: 'lllllllllll', meta: {channelTitle: '채널L', durationSeconds: 600}, speech: okField(REAL_LONG, 'long')};
+  const p = buildSpeechPatterns([reportWith('sssssssssss', '채널S', shortField), oldLong]);
+  assert.equal(p.short.hangulPerSecMedian, shortField.hangulPerSec);
+  assert.ok(p.long.hangulPerSecMedian > 0 && p.long.hangulPerSecMedian < p.short.hangulPerSecMedian);
+});

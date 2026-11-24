@@ -681,9 +681,9 @@ export function speechTextFromTranscript(transcript = {}, kind = 'long') {
  * fallback({videoId, kind}) → 받아쓴 글(문자열). 던지면 실패로 기록하고, 차단 신호면 그날 더 쓰지 않도록 blocked를 남긴다.
  * 이 함수는 리포트 생성을 막지 않는다(대체 경로의 오류를 삼킨다).
  */
-export async function resolveSpeechField({videoId, kind, transcript = {}, reports = [], now = new Date(), fallback = null, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), state = speechFallbackState, nowMs = () => Date.now()} = {}) {
+export async function resolveSpeechField({videoId, kind, durationSeconds = null, transcript = {}, reports = [], now = new Date(), fallback = null, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), state = speechFallbackState, nowMs = () => Date.now()} = {}) {
   const text = speechTextFromTranscript(transcript, kind);
-  if (text) return buildSpeechField({text, source: 'transcript-api', kind, now});
+  if (text) return buildSpeechField({text, source: 'transcript-api', kind, durationSeconds, now});
   const why = transcript.error ? '자막을 못 받음' : '자막이 비어 있음';
   if (!fallback) return buildSpeechField({kind, now, note: `${why}, 대체 경로 없음`});
   const budget = speechFallbackBudget(reports, now);
@@ -695,7 +695,7 @@ export async function resolveSpeechField({videoId, kind, transcript = {}, report
   }
   try {
     const spoken = await fallback({videoId, kind});
-    return buildSpeechField({text: spoken, source: 'whisper-small', kind, now, note: spoken && String(spoken).trim() ? null : '받아쓰기 결과가 비어 있음', extra: {fallbackTried: true}});
+    return buildSpeechField({text: spoken, source: 'whisper-small', kind, durationSeconds, now, note: spoken && String(spoken).trim() ? null : '받아쓰기 결과가 비어 있음', extra: {fallbackTried: true}});
   } catch (err) {
     const message = String(err?.message || err).slice(0, 300);
     return buildSpeechField({kind, now, note: `${why}, 받아쓰기 실패: ${message}`, extra: {fallbackTried: true, ...(isSpeechBlockSignal(message) ? {blocked: true} : {})}});
@@ -1072,7 +1072,10 @@ export async function analyzeOutlierVideo(videoId, {withFrames = true, speechFal
   const analysis = normalizeTeachesAdultEnglishSounds(verified);
   // 말투 측정(2026-11-15): Gemini 호출이 성공한 뒤에만 한다(실패한 날 소리를 받지 않게). 말투를 못 재도 리포트는 만든다.
   const speechKind = speechKindOf(meta.durationSeconds, ratioEntry, peerContext.isShort);
-  const speech = await resolveSpeechField({videoId, kind: speechKind, transcript, reports: loadReports(), fallback: speechFallback})
+  const speechDuration = meta.durationSeconds != null
+    ? (speechKind === 'long' ? Math.min(meta.durationSeconds, LONG_VIDEO_WINDOW_SECONDS) : meta.durationSeconds)
+    : null;
+  const speech = await resolveSpeechField({videoId, kind: speechKind, durationSeconds: speechDuration, transcript, reports: loadReports(), fallback: speechFallback})
     .catch((err) => buildSpeechField({kind: speechKind, note: `말투 측정 오류: ${String(err?.message || err).slice(0, 200)}`}));
   const captured = withFrames ? await processClip(videoId, pickFrameMoments(analysis.visualMoments, windowSeconds), windowSeconds) : {frames: [], cuts: null, error: '캡처 안 함'};
   // 컷 간격은 영상에서 코드가 직접 잰 장면 전환을 먼저 쓴다. 영상을 못 받았을 때만 AI가 적은 화면 변화로 대신하고, 출처를 남긴다.
@@ -1139,11 +1142,15 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && pro
   if (found.length > 40) console.log(`※ 앞 40개만 표시했다(전체 ${found.length}개). 전체를 종류별로 세어 보려면 npm run visual-summary`);
 } else if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const ids = process.argv.slice(2).filter((a) => !a.startsWith('--'));
-  if (!ids.length) { console.error('사용법: node scripts/outlier-report.mjs <영상ID> [...] | --library [검색어]'); process.exit(1); }
+  if (!ids.length) { console.error('사용법: node scripts/outlier-report.mjs [--short|--long] [--no-frames] <영상ID> [...] | --library [검색어]'); process.exit(1); }
+  const forcedFormat = process.argv.includes('--short') ? 'SHORTS' : (process.argv.includes('--long') ? 'LONGFORM' : null);
   for (const id of ids) {
     const t0 = Date.now();
     try {
-      const r = await analyzeOutlierVideo(id, {withFrames: !process.argv.includes('--no-frames')});
+      const r = await analyzeOutlierVideo(id, {
+        withFrames: !process.argv.includes('--no-frames'),
+        ...(forcedFormat ? {researchCandidate: {format: forcedFormat}} : {}),
+      });
       console.log(`${id}: ${((Date.now() - t0) / 1000).toFixed(0)}초 · 모델 ${r.model} · 인용 확인 ${r.quoteCheck.verified}/${r.quoteCheck.checked} · 장면 전환 ${r.pacing.count}번 · AI가 적은 화면 변화 ${r.analysis.visualMoments.length}개 · 캡처 ${r.frames.length}장${r.framesError ? ` (캡처 실패: ${r.framesError})` : ''} · 자막 ${r.sources.transcript.ok ? '있음' : `없음(${r.sources.transcript.error.slice(0, 60)})`} · 댓글 ${r.sources.comments.count ?? 0}개 · 시청자 고민 ${r.audienceDnaSent}개 보냄(새 항목 ${r.audienceDnaNew}개)`);
     } catch (err) {
       console.error(`${id}: 실패 — ${err.message}`);

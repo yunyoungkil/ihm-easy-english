@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 1,
+  "videoId": "rjnckcQq97E",
+  "analyzedAt": "2026-11-24T10:37:47.346Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 128,
+  "meta": {
+    "videoId": "rjnckcQq97E",
+    "title": "영단어 암기 전에 꼭 보세요",
+    "channelId": "UCJm_0C08ZDYvpADDIh6Ow6g",
+    "channelTitle": "영어 읽어주는 남자",
+    "publishedAt": "2026-11-23T04:40:37Z",
+    "viewCount": 6980,
+    "likeCount": 284,
+    "commentCount": 2,
+    "durationSeconds": 128,
+    "thumbnail": "https://i.ytimg.com/vi/rjnckcQq97E/maxresdefault.jpg",
+    "description": "",
+    "tags": []
+  },
+  "subscriberCount": 81600,
+  "viewsPerSubscriber": 0.09,
+  "outlierRatio": null,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "measuring",
+  "ratioReason": "공개 7일 미만(1.2일)이라 측정 중",
+  "ratioComputedAt": "2026-11-24T10:36:51.518Z",
+  "ratioDenominator": null,
+  "ratioPeerCount": 0,
+  "channelPeers": [
+    {
+      "videoId": "XcEbls3kXSw",
+      "title": "영단어를 오래 기억하는 방법",
+      "viewCount": 604,
+      "durationSeconds": 46,
+      "publishedAt": "2026-11-24"
+    },
+    {
+      "videoId": "4a-eppKNvro",
+      "title": "미국인들이 자주 쓰는 영어 회화 표현",
+      "viewCount": 4407,
+      "durationSeconds": 40,
+      "publishedAt": "2026-10-07"
+    },
+    {
+      "videoId": "Y5VmwsNh-1s",
+      "title": "갤럭시 홍보는 회장도 못 참지",
+      "viewCount": 5030,
+      "durationSeconds": 164,
+      "publishedAt": "2026-10-12"
+    },
+    {
+      "videoId": "MI-GY5MOC0E",
+      "title": "영어 공부할 때 꼭 가져야 할 자세",
+      "viewCount": 6033,
+      "durationSeconds": 130,
+      "publishedAt": "2026-10-06"
+    },
+    {
+      "videoId": "ZXURl9AzRmY",
+      "title": "청중을 빵 터뜨린 최태원 회장의 영어",
+      "viewCount": 6438,
+      "durationSeconds": 169,
+      "publishedAt": "2026-10-15"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": null,
+  "studioSeenAt": null,
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 57,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 2
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 128
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "short",
+    "sentences": 41,
+    "stats": {
+      "sentences": 41,
+      "lengthSum": 795,
+      "lengthMedian": 18,
+      "endings": {
+        "question": 3,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 6,
+        "hapsyo": 12,
+        "haeyo": 15,
+        "other": 5
+      },
+      "jointMid": 3,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 6,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 1,
+        "여러분": 0,
+        "이게": 1,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 7,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 8,
+      "questionSentences": 3,
+      "pastConclusionSentences": 4
+    },
+    "qualityMetrics": {
+      "sentences": 41,
+      "hangulChars": 615,
+      "hangulRatio": 0.81,
+      "uniqueWordRatio": 0.62,
+      "uniqueSentenceRatio": 0.98
+    },
+    "windowSeconds": 128,
+    "hangulPerSec": 4.8,
+    "computedAt": "2026-11-24T10:37:40.887Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "단어 암기 전 필수 숙지 사항을 강조하여 시청자의 호기심 유발",
+      "titleQuote": "영단어 암기 전에 꼭 보세요",
+      "thumbnailText": "struct = build 쌓다·짓다",
+      "thumbnailWordCount": 4,
+      "thumbnailVisual": "노란 안전모를 쓴 남성이 벽돌을 쌓는 일러스트와 하단에 마이크 앞에 선 출연자의 모습 배치",
+      "thumbnailVsTitle": "제목은 단어 암기 조언을 약속하고 썸네일은 핵심 어근 struct의 의미를 구체적으로 보여줌",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "출연자가 벽돌을 쌓는 그림으로 어근 struct의 의미를 설명한 뒤 접두사 con-의 개념으로 연결함",
+      "quote": "struct는 지금 여기 한 남성이 이렇게 벽돌을 쌓고 있죠. 이게 struct예요. 첫 번째 단어 construct. 우리 영어에서 con은 이렇게 한 데 모아 이렇게 하나로 모으는 느낌이에요.",
+      "reasonToKeepWatching": "그림과 어원 분석을 통해 영단어를 쉽고 오래 기억하게 해준다는 기대감 전달",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "벽돌을 쌓는 일러스트를 배경으로 출연자가 어근 struct의 기본 의미를 설명함",
+      "quote": "struct는 지금 여기 한 남성이 이렇게 벽돌을 쌓고 있죠.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 5,
+        "what": "기본 어근 struct(쌓다·짓다) 개념 제시",
+        "quote": "struct는 지금 여기 한 남성이 이렇게 벽돌을 쌓고 있죠. 이게 struct예요.",
+        "quoteVerified": true
+      },
+      {
+        "start": 5,
+        "end": 36,
+        "what": "첫 번째 단어 construct(con + struct)의 암기 원리와 예문 설명",
+        "quote": "첫 번째 단어 construct. 우리 영어에서 con은 이렇게 한 데 모아 이렇게 하나로 모으는 느낌이에요... 그래서 construct가 짓다 건설하다 이런 뜻입니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 36,
+        "end": 121,
+        "what": "두 번째 단어 obstruct(ob + struct)의 접두사 의미와 그림을 활용한 암기 원리 설명",
+        "quote": "두 번째 단어 obstruct. 우리 obstruct에서 이 ob는 앞을 가로막는 쪽에라는 뜻이 있어요... 그래서 뜻이 가로막다 방해하다 이런 뜻입니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 121,
+        "end": 128,
+        "what": "세 번째 단어 restructure(re + structure)의 의미와 조직 개편 그림을 활용한 예문 해설",
+        "quote": "오늘 마지막 단어입니다. restructure. 우리 영어에서 re는 다시라는 뜻이에요... 쉽게 얘기하면 우리 팀의 구성을 다시 짜야 된다. 이런 뜻입니다.",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "상단에 'struct = build 쌓다·짓다' 텍스트와 벽돌 쌓는 일러스트 등장",
+        "purpose": "핵심 어근 struct의 기본 개념 시각화"
+      },
+      {
+        "t": 5,
+        "what": "상단 일러스트가 다리 건설 장면으로 바뀌며 'construct' 및 예문 텍스트 표시",
+        "purpose": "첫 번째 학습 단어 construct 제시"
+      },
+      {
+        "t": 7,
+        "what": "화면 중앙에 'con = 한데 모아' 자막 등장",
+        "purpose": "접두사 con의 개념 설명"
+      },
+      {
+        "t": 12,
+        "what": "화면 중앙에 'concentrate = 집중하다' 텍스트 표시",
+        "purpose": "접두사 con 이해를 돕기 위한 보충 단어 제시"
+      },
+      {
+        "t": 18,
+        "what": "화면 중앙에 'struct = 쌓다, 짓다' 텍스트 표시",
+        "purpose": "어근 struct의 의미 재확인"
+      },
+      {
+        "t": 21,
+        "what": "그림 속 철근과 벽돌 상자에 빨간색 동그라미 표시",
+        "purpose": "모으는 대상 재료들을 시각적으로 강조"
+      },
+      {
+        "t": 25,
+        "what": "그림 속 다리 위치에 빨간색 화살표 표시",
+        "purpose": "재료를 모아 다리를 건설하는 과정 표시"
+      },
+      {
+        "t": 27,
+        "what": "화면 중앙에 'construct = 짓다, 건설하다' 텍스트 표시",
+        "purpose": "construct의 완성된 한국어 뜻 명시"
+      },
+      {
+        "t": 33,
+        "what": "예문 'They constructed a bridge.' 각 요소 아래 빨간색 밑줄 표시",
+        "purpose": "문장 해석 구조 도식화"
+      },
+      {
+        "t": 37,
+        "what": "상단 그림이 쓰러진 나무와 도로 장면으로 바뀌며 'obstruct' 및 예문 텍스트 표시",
+        "purpose": "두 번째 학습 단어 obstruct 제시"
+      },
+      {
+        "t": 41,
+        "what": "화면 중앙에 'ob = 앞을 가로막는 쪽에' 자막 표시",
+        "purpose": "접두사 ob의 개념 설명"
+      },
+      {
+        "t": 48,
+        "what": "화면 중앙에 'obstacle' 단어 표시 후 'Obstacle = 장애물'로 변경",
+        "purpose": "접두사 ob 관련 단어 보충"
+      },
+      {
+        "t": 54,
+        "what": "화면 중앙에 'struct = 쌓다, 짓다' 자막 표시",
+        "purpose": "어근 struct 의미 재강조"
+      },
+      {
+        "t": 104,
+        "what": "화면 상단 오른쪽 '가로막다' 단어에 빨간 동그라미 및 'obstruct = 가로막다, 방해하다' 텍스트 표시",
+        "purpose": "obstruct 단어의 완성된 의미 정리"
+      },
+      {
+        "t": 109,
+        "what": "그림 속 차, 운전자, 쓰러진 나무 주위에 빨간 동그라미 및 화살표 표시",
+        "purpose": "길이 가로막힌 상황 강조"
+      },
+      {
+        "t": 115,
+        "what": "예문 'A tree obstructed the road.' 요소에 빨간 밑줄 표시",
+        "purpose": "문장 구조 해석 지원"
+      },
+      {
+        "t": 121,
+        "what": "상단 그림이 조직도 발표판과 회의 장면으로 바뀌며 'restructure' 및 예문 텍스트 표시",
+        "purpose": "세 번째 학습 단어 restructure 제시"
+      },
+      {
+        "t": 126,
+        "what": "화면 중앙에 're = 다시' 텍스트 표시",
+        "purpose": "접두사 re의 의미 설명"
+      }
+    ],
+    "ending": {
+      "what": "restructure가 사용된 예문을 직역한 후 실생활에서 쉽게 이해할 수 있는 의미로 재정리하며 마침",
+      "quote": "쉽게 얘기하면 우리 팀의 구성을 다시 짜야 된다. 이런 뜻입니다.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "영상에서 소개된 예문을 그대로 댓글로 적으며 학습 효과를 나타냄",
+          "quote": "They constructed a bridge 😂🎉",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": [
+        {
+          "expression": "instruct, destruct",
+          "quote": "instruct 가르치다 destruct 파괴하다 두 개 추가해요.",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 3,
+      "description": "어근 'struct'에 접두사 con, ob, re를 조합한 3개의 핵심 단어를 각기 다른 이미지 일러스트 및 예문과 함께 순차적으로 설명함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 상단 그린보드 위 카드 및 하단 유튜버 영성 위에 차례로 배치",
+      "size": "보통",
+      "highlightColor": "빨간색",
+      "highlightMethod": "빨간색 펜으로 동그라미 치기, 밑줄 긋기, 텍스트 직접 써넣기",
+      "textAmount": "한 번에 한두 문장 또는 단어 조합 설명 자막 표시",
+      "changeTiming": "발화자의 설명 및 음성에 정확히 맞춰 전환됨"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 차분한 강의용 배경음",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "화면 텍스트 강조 시 톡톡 소리 사용",
+      "voiceVsMusic": "발화자의 음성이 선명하고 배경음악은 매우 낮게 유지됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "남성이 벽돌을 쌓는 썸네일 일러스트로 어근 struct의 시각적 뜻을 먼저 보여줌",
+        "quote": "struct는 지금 여기 한 남성이 이렇게 벽돌을 쌓고 있죠. 이게 struct예요.",
+        "type": "핵심 이미지 및 어치 사전 공개",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 6,
+          "what": "접두사 con의 의미를 설명하며 수강자의 이해 과정 유도",
+          "quote": "우리 영어에서 con은 이렇게 한 데 모아 이렇게 하나로 모으는 느낌이에요.",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 27,
+          "what": "모으다(con)와 쌓다(struct)를 합쳐 건설하다라는 단어가 됨을 보여줌",
+          "quote": "그래서 construct가 짓다 건설하다 이런 뜻입니다.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "어근의 원초적 뜻을 제시하고 접두사의 뜻을 더해 새로운 단어의 의미가 어떻게 파생되는지 일관되게 전개함",
+        "examples": [
+          {
+            "t": 39,
+            "what": "ob(앞을 가로막다)와 struct(쌓다)가 합쳐져 '길을 가로막다/방해하다'라는 뜻이 파생됨",
+            "quote": "ob는 앞을 가로막는 쪽에라는 뜻이 있어요... 내 앞에 무언가가 쌓여져 있어요. 그러면 저의 길을 가로막는 거죠.",
+            "quoteVerified": false
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 20,
+          "what": "그림 속 철근과 벽돌을 펜으로 지칭하며 조합 원리의 시각적 근거 제공",
+          "quote": "벽돌이나 이런 철근 같은 거를 한 데 다 모아서 뭐 하고 있죠?",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 203,
+        "what": "생소할 수 있는 restructure 단어를 '팀의 구성을 다시 짜다'라는 친숙한 언어로 번역해 마무리",
+        "quote": "쉽게 얘기하면 우리 팀의 구성을 다시 짜야 된다. 이런 뜻입니다.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "construct 단어 조합 설명 및 예문 제시",
+        "reaction": "시청자가 해당 예문을 따라 쓰며 감정을 표현함",
+        "quote": "They constructed a bridge 😂🎉",
+        "quoteVerified": true
+      },
+      {
+        "cause": "struct 어근을 활용한 단어 확장 구조 설명",
+        "reaction": "시청자가 동일한 어근의 다른 파생 단어들을 자발적으로 댓글에 추가함",
+        "quote": "instruct 가르치다 destruct 파괴하다 두 개 추가해요.",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "어근과 접두사의 조합 원리를 일러스트 그림 및 직관적인 펜 드로잉과 결합하여 시청자가 단어를 유연하게 암기할 수 있게 함.",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 영단어의 어원(접두사 및 어근)과 조합 암기법을 설명하며, 발음이나 소리 훈련을 다루지 않음.",
+    "forUs": {
+      "adopt": "어원과 접두사의 의미 결합 과정을 이미지와 펜 표시로 직관적으로 시각화하는 방식 활용.",
+      "differentiate": "어원 해석에 그치지 않고, 30~60대가 실제로 들을 때 뭉개지기 쉬운 연음 및 발음 소리 원리를 함께 연결하여 전달."
+    }
+  },
+  "quoteCheck": {
+    "checked": 18,
+    "verified": 14,
+    "unverified": 4
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 7,
+      "file": "7.jpg"
+    },
+    {
+      "t": 12,
+      "file": "12.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 25,
+      "file": "25.jpg"
+    },
+    {
+      "t": 33,
+      "file": "33.jpg"
+    },
+    {
+      "t": 41,
+      "file": "41.jpg"
+    },
+    {
+      "t": 48,
+      "file": "48.jpg"
+    },
+    {
+      "t": 104,
+      "file": "104.jpg"
+    },
+    {
+      "t": 115,
+      "file": "115.jpg"
+    },
+    {
+      "t": 126,
+      "file": "126.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 15886,
+    "candidatesTokenCount": 3482,
+    "totalTokenCount": 23822,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 11640
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3146
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 4454,
+    "serviceTier": "standard"
+  }
+}

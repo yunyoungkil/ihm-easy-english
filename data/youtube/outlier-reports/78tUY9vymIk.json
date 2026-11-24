@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 1,
+  "videoId": "78tUY9vymIk",
+  "analyzedAt": "2026-11-24T10:40:36.333Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 42,
+  "meta": {
+    "videoId": "78tUY9vymIk",
+    "title": "95%가 모르는 영단어 암기법",
+    "channelId": "UCJm_0C08ZDYvpADDIh6Ow6g",
+    "channelTitle": "영어 읽어주는 남자",
+    "publishedAt": "2026-09-01T13:50:54Z",
+    "viewCount": 130011,
+    "likeCount": 3239,
+    "commentCount": 46,
+    "durationSeconds": 42,
+    "thumbnail": "https://i.ytimg.com/vi/78tUY9vymIk/maxresdefault.jpg",
+    "description": "",
+    "tags": []
+  },
+  "subscriberCount": 81600,
+  "viewsPerSubscriber": 1.59,
+  "outlierRatio": 7.59,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-24T10:39:42.240Z",
+  "ratioDenominator": 17122,
+  "ratioPeerCount": 23,
+  "channelPeers": [
+    {
+      "videoId": "rjnckcQq97E",
+      "title": "영단어 암기 전에 꼭 보세요",
+      "viewCount": 6980,
+      "durationSeconds": 128,
+      "publishedAt": "2026-11-23"
+    },
+    {
+      "videoId": "MKD6L2xXqU0",
+      "title": "영어 단어 오래 기억하는 방법",
+      "viewCount": 8870,
+      "durationSeconds": 108,
+      "publishedAt": "2026-11-22"
+    },
+    {
+      "videoId": "c-Q1NaE7ixw",
+      "title": "영어는 기세다",
+      "viewCount": 12886,
+      "durationSeconds": 26,
+      "publishedAt": "2026-09-30"
+    },
+    {
+      "videoId": "m40UjenXsj0",
+      "title": "타블로가 말하는 영어 잘하는 방법",
+      "viewCount": 17122,
+      "durationSeconds": 130,
+      "publishedAt": "2026-09-29"
+    },
+    {
+      "videoId": "ul6kPvXu6Qs",
+      "title": "타블로가 알려주는 미국식 영어 표현",
+      "viewCount": 49288,
+      "durationSeconds": 29,
+      "publishedAt": "2026-10-03"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": null,
+  "studioSeenAt": null,
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 18,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 24
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 42
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "short",
+    "sentences": 16,
+    "stats": {
+      "sentences": 16,
+      "lengthSum": 257,
+      "lengthMedian": 16.5,
+      "endings": {
+        "question": 2,
+        "command": 1,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 1,
+        "hapsyo": 6,
+        "haeyo": 5,
+        "other": 1
+      },
+      "jointMid": 1,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 4,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 6,
+      "questionSentences": 2,
+      "pastConclusionSentences": 2
+    },
+    "qualityMetrics": {
+      "sentences": 16,
+      "hangulChars": 205,
+      "hangulRatio": 0.86,
+      "uniqueWordRatio": 0.76,
+      "uniqueSentenceRatio": 1
+    },
+    "windowSeconds": 42,
+    "hangulPerSec": 4.88,
+    "computedAt": "2026-11-24T10:40:29.995Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "'95%가 모르는'이라는 비율을 제시해 대다수가 놓치고 있는 효과적인 영단어 암기 꿀팁이 있음을 강조하여 호기심을 유발함",
+      "titleQuote": "95%가 모르는 영단어 암기법",
+      "thumbnailText": "95%가 모르는 영단어 암기법",
+      "thumbnailWordCount": 4,
+      "thumbnailVisual": "칠판에 Bankrupt, interrupt, erupt가 적혀 있고, 강사가 분필을 든 채 칠판을 가리키며 카메라를 응시하는 모습",
+      "thumbnailVsTitle": "썸네일 상단 텍스트와 영상 제목이 동일함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "세 단어를 10초 만에 암기할 수 있다고 선언하고, 공통 어근 rupt(=무너지다)의 의미를 밝힌 뒤 첫 단어 bankrupt를 풀이함",
+      "quote": "세 단어 10초 만에 가져갈 수 있습니다. 세 단어 모두 러트가 들어갔습니다. 러트는 뜻이 무너지다라는 뜻입니다. 그래서 은행이 무너졌어요. 은행이 무너지면은 어떤 상황이죠? 그죠? 파산한 상황이죠. 그래서 bankrupt 파산한 이런 뜻입니다.",
+      "reasonToKeepWatching": "10초 만에 세 단어를 한 번에 가져갈 수 있다는 명확한 시간 대비 이득을 약속함",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "칠판 앞 강사가 10초 만에 세 단어를 가져갈 수 있다며 단어 속 공통 요소 rupt를 언급함",
+      "quote": "세 단어 10초 만에 가져갈 수 있습니다. 세 단어 모두 러트가 들어갔습니다.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 16,
+        "what": "공통 어근 rupt(=무너지다)를 제시하고 bank+rupt 조합으로 bankrupt(=파산한) 설명",
+        "quote": "세 단어 10초 만에 가져갈 수 있습니다. 세 단어 모두 러트가 들어갔습니다. 러트는 뜻이 무너지다라는 뜻입니다. 그래서 은행이 무너졌어요. 은행이 무너지면은 어떤 상황이죠? 그죠? 파산한 상황이죠. 그래서 bankrupt 파산한 이런 뜻입니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 16,
+        "end": 26,
+        "what": "inter(=사이에)와 rupt(=무너지다)를 결합하여 interrupt(=방해하다, 끼어들다) 설명",
+        "quote": "interrupt 여기서 인터는 사이란 뜻이에요. 두 명 사이를 무너뜨리고 내가 들어가는 거예요. 그래서 방해하다, 끼어들다란는 뜻입니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 26,
+        "end": 42,
+        "what": "e(=밖)와 rupt(=무너지다)를 결합하여 erupt(=분출하다) 설명 후 정리 마무리",
+        "quote": "그다음 erupt erupt에서 e는 바뀌란 뜻이에요. 용암이 있는데 바깥쪽으로 무너져서 나오는 거예요. 그래서 erupt는 화산이나 용암 같은게 분출하다. 이런 뜻입니다. 세 단어 모두 가져가세요.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "칠판 앞 강사와 상단 제목 텍스트 및 하단 자막 등장",
+        "purpose": "강의 시작 알림 및 핵심 전달사항 표기"
+      },
+      {
+        "t": 4,
+        "what": "하단 자막으로 'rupt = 무너지다' 자막 박스 등장",
+        "purpose": "핵심 어근 의미 시각적 강조"
+      },
+      {
+        "t": 6,
+        "what": "강사가 칠판의 Bankrupt 단어 옆에 분필로 판서 시작",
+        "purpose": "어근 조합 과정 시각화"
+      },
+      {
+        "t": 14,
+        "what": "하단 자막으로 'bankrupt = 파산한' 박스 자막 등장",
+        "purpose": "첫 번째 단어 완성 뜻 강조"
+      },
+      {
+        "t": 18,
+        "what": "하단 자막으로 'inter = 사이에' 박스 자막 등장",
+        "purpose": "두 번째 단어 접두사 의미 시각화"
+      },
+      {
+        "t": 25,
+        "what": "하단 자막으로 'interrupt = 방해하다. 끼어들다' 박스 자막 등장",
+        "purpose": "두 번째 단어 완성 뜻 강조"
+      },
+      {
+        "t": 28,
+        "what": "하단 자막으로 'Erupt에서 \"E\"는 \"밖\"이란 뜻이에요' 박스 자막 등장",
+        "purpose": "세 번째 단어 접두사 의미 시각화"
+      },
+      {
+        "t": 35,
+        "what": "강사가 erupt 옆에 판서 후 완성 뜻을 말함",
+        "purpose": "세 번째 단어 최종 정리"
+      }
+    ],
+    "ending": {
+      "what": "세 단어 설명을 마무리하며 시청자에게 세 단어를 모두 챙겨가라고 권유함",
+      "quote": "그래서 erupt는 화산이나 용암 같은게 분출하다. 이런 뜻입니다. 세 단어 모두 가져가세요.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "이해하기 쉽고 재미있게 가르쳐 단어가 잘 외워진다는 반응",
+          "quote": "알아듣기 쉽게 가르치는 쌤 강의 자주 듣게 됩니다",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "영어 공부가 어렵게만 느껴졌던 경험",
+          "quote": "쌤 감사합니다 어렵게만 느껴지는 영어를 재미있게 강의하시네요 잘 들어볼게요^^",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "point": "예문 추가나 비슷한 다른 단어 풀이에 대한 요청",
+          "quote": "짧은 예문과 함께라면 기억하기에 더 쉬울것 같아요",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "시청자가 댓글에서 확장해서 정리해본 단어 목록",
+          "quote": "bankrupt 파산한, 파산, 파산시키다 interrupt 방해하다, 끼어들다 erupt 분출하다 corrupt 부패시키다 disrupt 1.…을 혼란시키다;[국가·정부 등을] 붕괴시키다; [교통망 등을] 두절시키다 2.(일반적으로) [물건을] 분리하다, 잡아 찢다, 파열시키다. a.혼란된; 중단된; 분열[붕괴]된.",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 3,
+      "description": "공통 어근 rupt를 공유하는 3개 단어(bankrupt, interrupt, erupt)의 뜻을 접두사 결합 원리로 나열함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "노란색, 하얀색",
+      "highlightMethod": "텍스트 배경 박스 처리 및 단어 뜻 강조 색상 전환",
+      "textAmount": "한 번에 한두 문장 혹은 단어 공식 한 줄",
+      "changeTiming": "강사의 멘트 및 판서 타이밍에 맞춰 실시간 변경"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "배경음이나 효과음 없이 강사의 강의 음성만으로 진행됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "10초 만에 3단어를 암기시켜 주겠다는 직관적 이득 제시",
+        "quote": "세 단어 10초 만에 가져갈 수 있습니다.",
+        "type": "효율적 암기 약속",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 1,
+          "what": "세 단어의 공통 어근 rupt의 뜻이 무엇인지 제시",
+          "quote": "세 단어 모두 러트가 들어갔습니다. 러트는 뜻이 무너지다라는 뜻입니다.",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 13,
+          "what": "bank(은행)+rupt(무너지다)의 조합으로 bankrupt의 의미 해석해줌",
+          "quote": "그래서 bankrupt 파산한 이런 뜻입니다.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "어근 rupt(=무너지다)를 기본 뼈대로 세운 뒤, 각 접두사의 의미를 하나씩 덧붙여 단어 뜻이 완성되는 인과관계를 차례대로 보여줌",
+        "examples": [
+          {
+            "t": 16,
+            "what": "inter(사이) + rupt(무너지다) 조합 설명",
+            "quote": "interrupt 여기서 인터는 사이란 뜻이에요. 두 명 사이를 무너뜨리고 내가 들어가는 거예요.",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 6,
+          "what": "칠판 판서를 통해 어원 분해 과정을 직접 적어가며 증명",
+          "quote": "은행이 무너지면은 어떤 상황이죠? 그죠? 파산한 상황이죠.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 40,
+        "what": "3개 단어의 어원적 풀이를 모두 마친 뒤 암기 완료 선언",
+        "quote": "세 단어 모두 가져가세요.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "어근 rupt를 활용한 확장 암기법 설명",
+        "reaction": "시청자가 corrupt 등 동일 어근의 다른 단어를 자발적으로 떠올리며 호응함",
+        "quote": "오 그러네 Corrupt 도 떠올라요!!!",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "공통 어근 1개로 3개 단어를 40초 안에 시각적 판서와 함께 원리 중심으로 풀어내 암기 부담을 획기적으로 낮췄기 때문이다.",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 어원과 접두사를 이용해 영단어 뜻을 암기하는 법을 다루며 소리(발음/듣기)를 가르치는 영상이 아니다.",
+    "forUs": {
+      "adopt": "하나의 공통 소리 원리나 원형을 중심에 두고 3개 표현을 숏폼 시간에 맞춰 빠르게 묶어주는 구조",
+      "differentiate": "단순 단어 뜻 풀이에 그치지 않고, 성인 시청자가 소리로 바로 알아듣고 발음할 수 있도록 입 모양과 연음 소리 원리를 시각화하여 결합"
+    }
+  },
+  "quoteCheck": {
+    "checked": 18,
+    "verified": 18,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 6,
+      "file": "6.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 25,
+      "file": "25.jpg"
+    },
+    {
+      "t": 28,
+      "file": "28.jpg"
+    },
+    {
+      "t": 35,
+      "file": "35.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 8040,
+    "candidatesTokenCount": 2707,
+    "totalTokenCount": 13601,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 3118
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 3822
+      }
+    ],
+    "thoughtsTokenCount": 2854,
+    "serviceTier": "standard"
+  }
+}

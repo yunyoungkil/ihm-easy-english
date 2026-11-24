@@ -1,0 +1,431 @@
+{
+  "schemaVersion": 1,
+  "videoId": "hVCYrz5leNM",
+  "analyzedAt": "2026-11-24T10:39:15.424Z",
+  "model": "gemini-flash-lite-latest",
+  "windowSeconds": 88,
+  "meta": {
+    "videoId": "hVCYrz5leNM",
+    "title": "'짧게 해' '조용히 해' keep 하나로 끝!🤫 #영어회화 #원어민영어 #영어구조",
+    "channelId": "UCv3aqvZYZM6FUMLqhMO9l6Q",
+    "channelTitle": "영어 키위새",
+    "publishedAt": "2026-11-23T22:00:30Z",
+    "viewCount": 2363,
+    "likeCount": 67,
+    "commentCount": 6,
+    "durationSeconds": 88,
+    "thumbnail": "https://i.ytimg.com/vi/hVCYrz5leNM/maxresdefault.jpg",
+    "description": "keep = 그 상태로 계속 붙잡아두기\n\n✔️ Keep it simple. 간단하게 해\n✔️ Keep it short. 짧게 해\n✔️ Keep it down. 좀 조용히 해\n✔️ Keep me posted. 진행 상황 계속 알려줘\n\n👉 풀영상에서 동사+목적어+상태 구조 한 번에 끝내기\n\n#keepit #영어회화 #원어민영어 #영어구조 #영어공부 #영어표현 #영어말하기",
+    "tags": []
+  },
+  "subscriberCount": 255000,
+  "viewsPerSubscriber": 0.01,
+  "outlierRatio": null,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "measuring",
+  "ratioReason": "공개 7일 미만(0.5일)이라 측정 중",
+  "ratioComputedAt": "2026-11-24T10:38:42.623Z",
+  "ratioDenominator": null,
+  "ratioPeerCount": 0,
+  "channelPeers": [
+    {
+      "videoId": "ux5m9GFOB4A",
+      "title": "딱 30분만 틀어두세요📚 영어원서 1권완독 (11/14) 10페이지 #영어원서 #영어공부 #원서읽기",
+      "viewCount": 1299,
+      "durationSeconds": 137,
+      "publishedAt": "2026-10-24"
+    },
+    {
+      "videoId": "RDqTkz3jmqI",
+      "title": "딱 30분만 틀어두세요📚 영어원서 1권완독 (12/14) 11페이지 #영어원서 #영어공부 #원서읽기",
+      "viewCount": 1577,
+      "durationSeconds": 174,
+      "publishedAt": "2026-10-24"
+    },
+    {
+      "videoId": "Aloc7Gjy12E",
+      "title": "'나 멘붕이야' 영어로?😱 #영어회화 #원어민영어 #유용한영어표현",
+      "viewCount": 1792,
+      "durationSeconds": 101,
+      "publishedAt": "2026-11-12"
+    },
+    {
+      "videoId": "KPauPL2r60s",
+      "title": "'내가 쏠게' '1/N 하자' 영어로 한 번에!💳 #영어회화 #원어민영어 #유용한영어표현",
+      "viewCount": 1924,
+      "durationSeconds": 132,
+      "publishedAt": "2026-11-11"
+    },
+    {
+      "videoId": "-wyhpchoYmY",
+      "title": "'뭐랑 해도 잘 어울려' 영어로?👗 #영어회화 #원어민영어 #유용한영어표현",
+      "viewCount": 2008,
+      "durationSeconds": 131,
+      "publishedAt": "2026-11-11"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": null,
+  "studioSeenAt": null,
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 31,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 3
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 88
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "short",
+    "sentences": 12,
+    "stats": {
+      "sentences": 12,
+      "lengthSum": 448,
+      "lengthMedian": 33,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 2,
+        "jyo": 2,
+        "hapsyo": 5,
+        "haeyo": 3,
+        "other": 0
+      },
+      "jointMid": 3,
+      "jointEnd": 2,
+      "fillers": {
+        "자": 0,
+        "그래서": 4,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 1,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 12,
+      "hangulChars": 334,
+      "hangulRatio": 0.76,
+      "uniqueWordRatio": 0.63,
+      "uniqueSentenceRatio": 1
+    },
+    "windowSeconds": 88,
+    "hangulPerSec": 3.8,
+    "computedAt": "2026-11-24T10:39:10.280Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "영어에서 'keep' 하나로 표현되는 다양한 표현 방식을 알려주겠다고 약속한다.",
+      "titleQuote": "'짧게 해' '조용히 해' keep 하나로 끝!🤫 #영어회화 #원어민영어 #영어구조",
+      "thumbnailText": "이걸 당장 바꾸세요 영어 10배 빨라지는 법",
+      "thumbnailWordCount": 9,
+      "thumbnailVisual": "검은색 배경 위에 빨간색 원형 테두리와 노트 메모지가 있고, 그 위에 '영어 키위새' 마스코트 캐릭터와 손글씨 느낌의 문구가 배치되어 있다.",
+      "thumbnailVsTitle": "썸네일은 '영어 10배 빨라지는 법'이라는 자극적인 문구로 시선을 끌고, 제목은 실제 다룰 구체적인 예시('짧게 해', '조용히 해')를 보태준다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "‘get’과 ‘keep’의 이미지 차이를 선과 막대기 그림을 통해 비교하며 설명한다.",
+      "quote": "get 요게 움직이는 느낌의 그림을 가지고 있었다면 keep 요건 무언가를 계속 붙잡아두는 느낌이 있습니다.",
+      "reasonToKeepWatching": "‘get’과 비교해 ‘keep’의 핵심 이미지를 시각적 그림과 함께 직관적으로 설명하여 흥미를 유발한다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "빨간색 동그라미로 강조된 'Get'이라는 단어와 함께 움직이는 사람의 그림이 나타난다.",
+      "quote": "get 요게 움직이는 느낌의 그림을",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 5,
+        "what": "Get과 Keep의 기본 이미지 차이를 설명한다.",
+        "quote": "get 요게 움직이는 느낌의 그림을 가지고 있었다면 keep 요건 무언가를 계속 붙잡아두는 느낌이 있습니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 5,
+        "end": 27,
+        "what": "Keep it simple 표현을 그림과 함께 풀어서 설명한다.",
+        "quote": "그래서 keep it simple 붙잡아두는 건데 it 그걸 simple 간단한 요 기준 안에 계속 붙잡아두라는 이야기 그래서 간단하게 해 요런 이야기를 keep it simple 이라고 표현을 합니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 27,
+        "end": 50,
+        "what": "Keep it short 표현의 의미와 사용 상황을 설명한다.",
+        "quote": "요고 어떤 발표나 이런 거 할 때도 짧게 해 요런 이야기 할 때 요고 역시도 keep it short 라고 이야기를 하는데요 keep 요게 붙잡아두는 거 it 그걸 붙잡아두는데 short 짧은 선 안에 계속 붙잡아두라는 이야기 그래서 짧게 해 이걸 keep it short 이렇게 이야기합니다.",
+        "quoteVerified": true
+      },
+      {
+        "start": 50,
+        "end": 101,
+        "what": "Keep it down과 Keep me posted 표현의 의미를 설명한다.",
+        "quote": "좀 조용히 이건 keep it down 이라고 하는데요 소리가 너무 시끄럽지 않게 요 아래 상태로 볼륨을 유지해라 요런 느낌으로 이야기하는 거죠.",
+        "quoteVerified": true
+      },
+      {
+        "start": 101,
+        "end": 126,
+        "what": "Keep me posted 표현의 뜻과 쓰임을 설명하며 마무리한다.",
+        "quote": "미래 진행 상황이나 어떤 과정을 계속 알려달라고 이야기할 때 요럴 때 keep me posted 라는 말을 사용합니다.",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "종이 질감의 흰색 배경에 빨간색 동그라미와 'Get' 글자가 나타난다.",
+        "purpose": "영상의 첫 단어인 Get을 시각적으로 강조한다."
+      },
+      {
+        "t": 1,
+        "what": "사람이 출발점에서 목적지 방향으로 이동하는 점선 화살표 그림이 등장한다.",
+        "purpose": "Get의 움직이는 느낌을 시각화한다."
+      },
+      {
+        "t": 5,
+        "what": "화면 중앙에 'Keep' 글자가 추가되고, 사람이 밧줄을 잡아당기는 그림이 나타난다.",
+        "purpose": "Keep의 붙잡아두는 이미지를 전달한다."
+      },
+      {
+        "t": 11,
+        "what": "'Keep it simple' 문구가 나오고 'simple' 글자에 빨간 밑줄이 생긴다.",
+        "purpose": "표현의 구조와 핵심 단어를 짚어준다."
+      },
+      {
+        "t": 28,
+        "what": "발표하는 사람과 청중들의 일러스트 그림으로 바뀐다.",
+        "purpose": "실제로 쓰이는 상황을 시각적으로 보여준다."
+      },
+      {
+        "t": 33,
+        "what": "'Keep it short' 문구와 함께 짧은 선을 기준으로 밧줄을 당기는 그림이 나온다.",
+        "purpose": "short의 개념을 시각적으로 설명한다."
+      },
+      {
+        "t": 50,
+        "what": "검지 손가락을 입에 대고 있는 남성의 사진과 'Keep it down' 문구가 나타난다.",
+        "purpose": "조용히 하라는 의미의 상황과 표현을 연결한다."
+      },
+      {
+        "t": 61,
+        "what": "두 여성이 태블릿을 보며 대화하는 실제 사무실 영상으로 바뀐다.",
+        "purpose": "진행 상황을 공유하는 업무 상황을 예시로 보여준다."
+      }
+    ],
+    "ending": {
+      "what": "keep me posted 표현의 의미와 사용되는 맥락을 최종 정리하며 끝난다.",
+      "quote": "그래서 나 계속 진행 상황 알려줘 요런 의미로 쓰이게 되는 거고요.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "영화 대사를 인용하며 표현의 배경을 흥미롭게 이해함",
+          "quote": "half as long. 절반으로 줄여라… (영화 - 흐르는 강물처럼…)에서 브래드 피트 아버 (직업 - 목사)가 브레드 피트 형의 글쓰기 종이를 보고 하시는 말씀입니다 ^^ 간결하게 글을 써야한다는 취지인듯…",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [],
+      "vocabulary": []
+    },
+    "infoCount": {
+      "count": 4,
+      "description": "Keep을 활용한 4가지 표현(Keep it simple, Keep it short, Keep it down, Keep me posted)을 순서대로 나열한다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단",
+      "size": "큼",
+      "highlightColor": "빨간색",
+      "highlightMethod": "핵심 단어에 빨간색 밑줄을 긋거나 색상을 다르게 표시함",
+      "textAmount": "한두 문장 단위의 짧은 구절",
+      "changeTiming": "말하는 속도에 맞춰 실시간으로 바뀜"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "밝고 경쾌한 느낌의 배경음악",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "장면이 바뀌거나 자막이 팝업될 때 톡톡 튀는 효과음이 사용됨",
+      "voiceVsMusic": "말소리가 중심이며 배경음악은 작게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "get과 keep의 움직임 차이를 그림으로 대조하며 호기심을 유발함",
+        "quote": "get 요게 움직이는 느낌의 그림을 가지고 있었다면 keep 요건 무언가를 계속 붙잡아두는 느낌이 있습니다.",
+        "type": "단어의 직관적인 이미지 비교",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "keep이라는 단어가 다양한 상황에서 어떻게 쓰이는지 궁금증을 열어둠",
+          "quote": "get 요게 움직이는 느낌의 그림을 가지고 있었다면 keep 요건 무언가를 계속 붙잡아두는 느낌이 있습니다.",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 11,
+          "what": "keep 뒤에 단어들을 붙여서 구체적인 표현을 만드는 방법을 설명함",
+          "quote": "그래서 keep it simple 붙잡아두는 건데 it 그걸 simple 간단한 요 기준 안에 계속 붙잡아두라는 이야기",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "keep의 기본 뜻(붙잡아두다)을 먼저 정의한 뒤, 그 뒤에 오는 단어에 따라 의미가 확장되는 인과 관계로 구성됨",
+        "examples": [
+          {
+            "t": 5,
+            "what": "붙잡아두는 뜻의 keep에 simple을 더해 keep it simple을 설명",
+            "quote": "그래서 keep it simple 붙잡아두는 건데 it 그걸 simple 간단한 요 기준 안에 계속 붙잡아두라는 이야기",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 1,
+          "what": "단어의 의미를 선, 막대기, 화살표 등의 직관적인 일러스트로 시각화함",
+          "quote": "get 요게 움직이는 느낌의 그림을 가지고 있었다면 keep 요건 무언가를 계속 붙잡아두는 느낌이 있습니다.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 101,
+        "what": "앞서 배운 keep의 응용형으로 keep me posted 표현을 최종 설명함",
+        "quote": "미래 진행 상황이나 어떤 과정을 계속 알려달라고 이야기할 때 요럴 때 keep me posted 라는 말을 사용합니다.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "Keep it short 표현 설명 부분",
+        "reaction": "영화 속 대사와 연관지어 간결함의 의미를 댓글로 풀어냄",
+        "quote": "half as long. 절반으로 줄여라… (영화 - 흐르는 강물처럼…)에서 브래드 피트 아버 (직업 - 목사)가 브레드 피트 형의 글쓰기 종이를 보고 하시는 말씀입니다 ^^ 간결하게 글을 써야한다는 취지인듯…",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "확인 불가",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 발음이나 원어민의 연음·소리 규칙을 가르치는 것이 아니라, 단어(keep)의 기본 이미지와 파생 표현의 의미를 설명하는 어휘/회화 콘텐츠이다.",
+    "forUs": {
+      "adopt": "추상적인 단어의 의미를 일러스트와 선 그림을 사용해 시각적으로 설명하는 방식을 그대로 가져온다.",
+      "differentiate": "복잡한 파생 표현을 한 번에 여러 개 나열하기보다, 성인 학습자가 일상에서 바로 쓸 수 있는 하나의 상황에 집중해 깊이 있게 다룬다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 17,
+    "verified": 17,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 1,
+    "medianGapSeconds": null,
+    "perMinute": 0.7,
+    "times": [
+      0.5
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 1,
+      "file": "1.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 28,
+      "file": "28.jpg"
+    },
+    {
+      "t": 33,
+      "file": "33.jpg"
+    },
+    {
+      "t": 50,
+      "file": "50.jpg"
+    },
+    {
+      "t": 61,
+      "file": "61.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 11963,
+    "candidatesTokenCount": 2772,
+    "totalTokenCount": 14735,
+    "cachedContentTokenCount": 9216,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2942
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 7921
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 2266
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 847
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 6103
+      }
+    ],
+    "serviceTier": "standard"
+  }
+}

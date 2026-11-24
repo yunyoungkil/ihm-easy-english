@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "computedAt": "2026-11-24T10:11:56.850Z",
+  "computedAt": "2026-11-24T10:40:36.387Z",
   "confidence": "가설",
   "note": "경쟁 영상 말투 합계(참고용). 품질이 ok인 영상만 더했고, 어색함의 최종 판정은 사용자 귀다. 자막(transcript-api)과 받아쓰기(whisper-small)는 문장 나눠지는 방식이 달라 섞여 있다.",
   "qualityThresholds": {
@@ -91,6 +91,7 @@
       "pastConclusionPct": 7.4
     },
     "lengthMedianOfVideos": 24.5,
+    "hangulPerSecMedian": 4.14,
     "bySource": {
       "transcript-api": 12
     },
@@ -99,164 +100,206 @@
         "videoId": "13MTKD2RPqA",
         "channelTitle": "어션영어BasicEnglish",
         "source": "transcript-api",
-        "sentences": 39
+        "sentences": 39,
+        "hangulPerSec": 4.35
       },
       {
         "videoId": "4cBa8D9P96I",
         "channelTitle": "JJEnglish101",
         "source": "transcript-api",
-        "sentences": 49
+        "sentences": 49,
+        "hangulPerSec": 4.56
       },
       {
         "videoId": "cPfLsKldido",
         "channelTitle": "할리노트",
         "source": "transcript-api",
-        "sentences": 45
+        "sentences": 45,
+        "hangulPerSec": 5.47
       },
       {
         "videoId": "duUjpyC60Xs",
         "channelTitle": "9988영어",
         "source": "transcript-api",
-        "sentences": 34
+        "sentences": 34,
+        "hangulPerSec": 1.81
       },
       {
         "videoId": "FFNfnU_nvHY",
         "channelTitle": "MagicEnglish 이근철의 마법영어",
         "source": "transcript-api",
-        "sentences": 46
+        "sentences": 46,
+        "hangulPerSec": 3.8
       },
       {
         "videoId": "IT3BR0H95SE",
         "channelTitle": "생각하는 원서 읽기, 로사쌤",
         "source": "transcript-api",
-        "sentences": 46
+        "sentences": 46,
+        "hangulPerSec": 5.5
       },
       {
         "videoId": "J28QuPqOCyM",
         "channelTitle": "9988영어",
         "source": "transcript-api",
-        "sentences": 35
+        "sentences": 35,
+        "hangulPerSec": 1.93
       },
       {
         "videoId": "Jdc0kFebXJY",
         "channelTitle": "만다블_국내파통역사의 영어공부법",
         "source": "transcript-api",
-        "sentences": 46
+        "sentences": 46,
+        "hangulPerSec": 4.19
       },
       {
         "videoId": "OcgFevPFPSs",
         "channelTitle": "매튜쌤의 영어수업",
         "source": "transcript-api",
-        "sentences": 55
+        "sentences": 55,
+        "hangulPerSec": 4.1
       },
       {
         "videoId": "UOxjVjiXyII",
         "channelTitle": "어션영어BasicEnglish",
         "source": "transcript-api",
-        "sentences": 45
+        "sentences": 45,
+        "hangulPerSec": 2.95
       },
       {
         "videoId": "w9Hyda2gIqM",
         "channelTitle": "윤글리시",
         "source": "transcript-api",
-        "sentences": 109
+        "sentences": 109,
+        "hangulPerSec": 4.2
       },
       {
         "videoId": "yUhwIkoPMTc",
         "channelTitle": "9988영어",
         "source": "transcript-api",
-        "sentences": 42
+        "sentences": 42,
+        "hangulPerSec": 2.53
       }
     ]
   },
   "short": {
-    "videoCount": 1,
-    "lowSample": true,
+    "videoCount": 5,
+    "lowSample": false,
     "totals": {
-      "sentences": 34,
-      "lengthSum": 492,
-      "jointMid": 3,
-      "jointEnd": 0,
+      "sentences": 140,
+      "lengthSum": 2756,
+      "jointMid": 11,
+      "jointEnd": 2,
       "dictFrameSentences": 0,
-      "meaningAfterSentences": 1,
-      "questionSentences": 8,
-      "pastConclusionSentences": 0,
+      "meaningAfterSentences": 15,
+      "questionSentences": 15,
+      "pastConclusionSentences": 7,
       "endings": {
-        "question": 8,
-        "command": 0,
+        "question": 15,
+        "command": 3,
         "geodeunyo": 0,
         "janhayo": 1,
-        "neyo": 0,
-        "ndeyo": 0,
-        "jyo": 0,
-        "hapsyo": 0,
-        "haeyo": 11,
-        "other": 14
+        "neyo": 6,
+        "ndeyo": 2,
+        "jyo": 11,
+        "hapsyo": 33,
+        "haeyo": 47,
+        "other": 22
       },
       "fillers": {
         "자": 0,
-        "그래서": 0,
+        "그래서": 15,
         "그런데": 0,
         "근데": 5,
-        "그러면": 1,
+        "그러면": 2,
         "여러분": 0,
-        "이게": 0,
+        "이게": 2,
         "그냥": 2,
         "진짜": 1,
         "되게": 0,
         "사실": 0,
-        "우리": 0,
+        "우리": 9,
         "약간": 4
       }
     },
     "rates": {
-      "sentences": 34,
-      "meanLength": 14.5,
+      "sentences": 140,
+      "meanLength": 19.7,
       "endingsPct": {
-        "question": 23.5,
-        "command": 0,
+        "question": 10.7,
+        "command": 2.1,
         "geodeunyo": 0,
-        "janhayo": 2.9,
-        "neyo": 0,
-        "ndeyo": 0,
-        "jyo": 0,
-        "hapsyo": 0,
-        "haeyo": 32.4,
-        "other": 41.2
+        "janhayo": 0.7,
+        "neyo": 4.3,
+        "ndeyo": 1.4,
+        "jyo": 7.9,
+        "hapsyo": 23.6,
+        "haeyo": 33.6,
+        "other": 15.7
       },
-      "jointMidPer100": 8.8,
-      "jointEndPer100": 0,
+      "jointMidPer100": 7.9,
+      "jointEndPer100": 1.4,
       "fillersPer100": {
         "자": 0,
-        "그래서": 0,
+        "그래서": 10.7,
         "그런데": 0,
-        "근데": 14.7,
-        "그러면": 2.9,
+        "근데": 3.6,
+        "그러면": 1.4,
         "여러분": 0,
-        "이게": 0,
-        "그냥": 5.9,
-        "진짜": 2.9,
+        "이게": 1.4,
+        "그냥": 1.4,
+        "진짜": 0.7,
         "되게": 0,
         "사실": 0,
-        "우리": 0,
-        "약간": 11.8
+        "우리": 6.4,
+        "약간": 2.9
       },
-      "fillersTotalPer100": 38.2,
+      "fillersTotalPer100": 28.6,
       "dictFramePct": 0,
-      "meaningAfterPct": 2.9,
-      "questionPct": 23.5,
-      "pastConclusionPct": 0
+      "meaningAfterPct": 10.7,
+      "questionPct": 10.7,
+      "pastConclusionPct": 5
     },
-    "lengthMedianOfVideos": 11.5,
+    "lengthMedianOfVideos": 16.5,
+    "hangulPerSecMedian": 4.8,
     "bySource": {
-      "transcript-api": 1
+      "transcript-api": 5
     },
     "videos": [
       {
         "videoId": "2tvBBqQEoz0",
         "channelTitle": "라잌셀럽 ",
         "source": "transcript-api",
-        "sentences": 34
+        "sentences": 34,
+        "hangulPerSec": 6.64
+      },
+      {
+        "videoId": "78tUY9vymIk",
+        "channelTitle": "영어 읽어주는 남자",
+        "source": "transcript-api",
+        "sentences": 16,
+        "hangulPerSec": 4.88
+      },
+      {
+        "videoId": "hVCYrz5leNM",
+        "channelTitle": "영어 키위새",
+        "source": "transcript-api",
+        "sentences": 12,
+        "hangulPerSec": 3.8
+      },
+      {
+        "videoId": "rjnckcQq97E",
+        "channelTitle": "영어 읽어주는 남자",
+        "source": "transcript-api",
+        "sentences": 41,
+        "hangulPerSec": 4.8
+      },
+      {
+        "videoId": "tHDbMAJOZxY",
+        "channelTitle": "김주혜 국어",
+        "source": "transcript-api",
+        "sentences": 37,
+        "hangulPerSec": 4.44
       }
     ]
   }

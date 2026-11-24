@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 1,
+  "videoId": "tHDbMAJOZxY",
+  "analyzedAt": "2026-11-24T10:38:42.253Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 162,
+  "meta": {
+    "videoId": "tHDbMAJOZxY",
+    "title": "에요 vs 예요 구분하기",
+    "channelId": "UCpOWJc0Q8k6x_-rW1socHRA",
+    "channelTitle": "김주혜 국어",
+    "publishedAt": "2026-07-28T09:00:21Z",
+    "viewCount": 5260321,
+    "likeCount": 104556,
+    "commentCount": 2472,
+    "durationSeconds": 162,
+    "thumbnail": "https://i.ytimg.com/vi/tHDbMAJOZxY/maxresdefault.jpg",
+    "description": "맞춤법 에요와 예요 구분하기",
+    "tags": [
+      "맞춤법",
+      "문법",
+      "에요예요",
+      "자기개발",
+      "상식",
+      "교양",
+      "국어"
+    ]
+  },
+  "subscriberCount": 538000,
+  "viewsPerSubscriber": 9.78,
+  "outlierRatio": 13.47,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-24T10:37:47.706Z",
+  "ratioDenominator": 390447,
+  "ratioPeerCount": 43,
+  "channelPeers": [
+    {
+      "videoId": "FKOpizxSUJk",
+      "title": "절대온도 4.2K는 영하일까? 영상일까?",
+      "viewCount": 165540,
+      "durationSeconds": 90,
+      "publishedAt": "2026-10-23"
+    },
+    {
+      "videoId": "UajtTkX2u-4",
+      "title": "보라색은 긍정? 부정?",
+      "viewCount": 234923,
+      "durationSeconds": 126,
+      "publishedAt": "2026-08-31"
+    },
+    {
+      "videoId": "7580kgy8aDs",
+      "title": "말씀은 높임일까? 낮춤일까?",
+      "viewCount": 374749,
+      "durationSeconds": 80,
+      "publishedAt": "2026-10-01"
+    },
+    {
+      "videoId": "cKc57EX9d5s",
+      "title": "두 번 묻지 않게 말하는 법",
+      "viewCount": 521472,
+      "durationSeconds": 81,
+      "publishedAt": "2026-09-10"
+    },
+    {
+      "videoId": "2_GXkScfvFw",
+      "title": "공황장애의 의미",
+      "viewCount": 824290,
+      "durationSeconds": 77,
+      "publishedAt": "2026-07-10"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": null,
+  "studioSeenAt": null,
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 57,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 162
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "short",
+    "sentences": 37,
+    "stats": {
+      "sentences": 37,
+      "lengthSum": 764,
+      "lengthMedian": 16,
+      "endings": {
+        "question": 2,
+        "command": 2,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 6,
+        "ndeyo": 0,
+        "jyo": 2,
+        "hapsyo": 10,
+        "haeyo": 13,
+        "other": 2
+      },
+      "jointMid": 1,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 1,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 2,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 2,
+      "pastConclusionSentences": 1
+    },
+    "qualityMetrics": {
+      "sentences": 37,
+      "hangulChars": 719,
+      "hangulRatio": 1,
+      "uniqueWordRatio": 0.71,
+      "uniqueSentenceRatio": 1
+    },
+    "windowSeconds": 162,
+    "hangulPerSec": 4.44,
+    "computedAt": "2026-11-24T10:38:36.878Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "사람들이 자주 헷갈려 하는 두 맞춤법 표현('에요'와 '예요')을 명시하고 확실히 구분해 주겠다고 밝힌다.",
+      "titleQuote": "에요 vs 예요 구분하기",
+      "thumbnailText": "맞춤법 에요 vs 예요 김주혜 국어",
+      "thumbnailWordCount": 5,
+      "thumbnailVisual": "칠판 앞에서 양손으로 머리를 감싸며 고민하는 표정을 지은 강사가 서 있고, 상단에 '맞춤법 에요 vs 예요' 타이틀 글자가 크게 배치되어 있다.",
+      "thumbnailVsTitle": "제목과 썸네일 모두 '에요 vs 예요'라는 동일한 주제를 직관적으로 전달하고 있다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "머리를 감싸며 헷갈리는 표정을 짓던 강사가 양손을 벌리며 오늘 이 맞춤법을 끝내자고 선언한 뒤 칠판에 '먹어요', '입어요'의 결합 원리를 적기 시작한다.",
+      "quote": "매일 헷갈리는 AOI예요. 오늘 끝내 봅시다. 우리는 먹다 뒤에 어요를 결합해서음 저 잘 먹어요라고 잘 사용하고 있고 입다 뒤에도 어유를 결합해서 편하게 입어요라고 잘 사용하고 있습니다.",
+      "reasonToKeepWatching": "'오늘 끝내 봅시다'라는 말로 헷갈리던 맞춤법을 완전히 해결해 주겠다고 선언한다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "강사가 머리를 짚으며 고민하다가 손을 펼치며 매일 헷갈리는 표현을 오늘 해결하자고 말한다.",
+      "quote": "매일 헷갈리는 AOI예요. 오늘 끝내 봅시다.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 30,
+        "what": "주제 제시 및 일반적인 어간과 어미 결합('먹어요', '입어요') 예시 설명",
+        "quote": "매일 헷갈리는 AOI예요. 오늘 끝내 봅시다... 발른상에 불편한 점이 생깁니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 30,
+        "end": 57,
+        "what": "연달아 모음을 발음할 때 발생하는 입근육의 불편함과 발음 뭉개짐 현상 설명",
+        "quote": "우리가 입을 풀고자 할 때... 발음을 뭉개서 하기 시작합니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 57,
+        "end": 121,
+        "what": "사용 빈도가 높은 '이다', '아니다'에서 '이에요', '아니에요' 발음이 허용된 이유 설명",
+        "quote": "그래서 어쩔 수 없이 사용 빈도가 높은... 딱 두 가지 이다, 아니다만요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 121,
+        "end": 144,
+        "what": "학생의 질문 형태 1인 2역을 거쳐 '이에요'가 줄어 '예요', '아녜요'가 되는 과정 설명",
+        "quote": "선생님 거기까지 이해했어요... 아예요로 말하기 시작한 거죠.",
+        "quoteVerified": false
+      },
+      {
+        "start": 144,
+        "end": 241,
+        "what": "받침 유무에 따라 '이에요'와 '예요'를 구분하는 직관적 공식 판서 및 예시 적용",
+        "quote": "그럼 에와 예요. 구분은 어떻게 하나?... 어디 예요로 줄임 버전을 사용합니다.",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "강사가 머리를 감싸 쥐며 괴로워하는 표정을 짓다가 양손을 펼친다.",
+        "purpose": "헷갈리는 상황에 대한 공감을 유도하고 주의를 집중시킨다."
+      },
+      {
+        "t": 4,
+        "what": "강사가 칠판 쪽으로 돌아서서 '먹' 아래에 '어요'를 적는다.",
+        "purpose": "어간과 어미의 결합 원리를 시각적으로 보여준다."
+      },
+      {
+        "t": 10,
+        "what": "칠판의 '입' 아래에 '어요'를 분필로 적는다.",
+        "purpose": "두 번째 결합 예시를 칠판에 적어 제시한다."
+      },
+      {
+        "t": 17,
+        "what": "칠판 '학생이', '아니' 옆에 화살표와 함께 글자를 써 내려간다.",
+        "purpose": "'이다', '아니다' 뒤에 어미가 붙는 상황을 시각화한다."
+      },
+      {
+        "t": 23,
+        "what": "강사가 정면을 바라보며 두 손을 벌려 발음상의 불편함을 제스처로 표현한다.",
+        "purpose": "발음할 때 느껴지는 생리적 불편함을 전달한다."
+      },
+      {
+        "t": 30,
+        "what": "손가락과 입 모양을 크게 움직이며 '아에이오우' 모음 발음 동작을 시연한다.",
+        "purpose": "모음 연쇄 발음 시 입 주변 근육의 쓰임을 강조한다."
+      },
+      {
+        "t": 57,
+        "what": "손가락 두 개를 펼쳐 '이다', '아니다' 두 가지를 강조한다.",
+        "purpose": "예외가 적용되는 핵심 두 가지를 수치적으로 강조한다."
+      },
+      {
+        "t": 116,
+        "what": "칠판에 썼던 글자 옆에 '이에요', '아니에요'를 수정해서 적는다.",
+        "purpose": "표준어로 허용된 형태를 칠판에 명확히 밝힌다."
+      },
+      {
+        "t": 134,
+        "what": "칠판 글자 옆에 화살표를 치고 줄임말인 '예요', '아녜요'를 적는다.",
+        "purpose": "'이에요'가 줄어들어 '예요'가 되는 과정을 시각적 화살표로 나타낸다."
+      },
+      {
+        "t": 144,
+        "what": "칠판 새로운 위치에 '책', '나', '달', '저'를 세로로 적는다.",
+        "purpose": "구분법을 적용할 실전 단어 목록을 마련한다."
+      },
+      {
+        "t": 151,
+        "what": "'책' 뒤에 '이에요'를 분필로 적는다.",
+        "purpose": "받침이 있는 경우의 결합 공식 시범을 보인다."
+      }
+    ],
+    "ending": {
+      "what": "'어디'에는 받침이 없으므로 줄임 버전인 '어디예요'를 쓴다고 정리하며 강의를 마무리한다.",
+      "quote": "어디 받침 없네요. 간단하게 빨리 말할 수 있게 어디 예요로 줄임 버전을 사용합니다.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "받침 유무라는 단순하고 직관적인 기준으로 쉽게 정리해 주어 명쾌함을 느낌",
+          "quote": "와 받침 있고 없고로 하니 넘 쉽다. 감사합니다. 😊",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "평소 문법 규칙이 너무 복잡해서 이해하기를 포기했던 답답함",
+          "quote": "와 이거 문법 진짜 어렵다고 느껴서 포기했는데, 이렇게 깔끔하게 설명해주시는 분 첨 봤어요",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "화면 자막에 자음 명칭 표기 오타가 있다는 지적",
+          "quote": "자막에 자음 기역을 기억으로 표기하는 오타가 있습니다!",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "강사의 뛰어난 발음과 전달력을 칭찬하는 표현",
+          "quote": "아니 이분영상 첨보는데 딕션 뭐임? 미쳤네.. 아나운서인줄..",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 8,
+      "description": "먹어요, 입어요, 학생이에요, 책이에요, 나예요, 달이에요, 내것이에요, 어디예요 등 8개 이상의 단어를 칠판에 적어 나열함.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "없음",
+      "highlightMethod": "없음",
+      "textAmount": "한 번에 1~2줄의 짧은 문장",
+      "changeTiming": "강사의 음성 타이밍에 맞춰 변환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "경쾌하고 가벼운 배경음",
+      "tempo": "보통",
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "강사의 목소리가 화면 전체를 주도하며 배경음악은 매우 작게 깔림"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "머리를 감싸쥐는 행동과 함께 매일 헷갈리는 맞춤법을 오늘 정리하자고 선언한다.",
+        "quote": "매일 헷갈리는 AOI예요. 오늘 끝내 봅시다.",
+        "type": "시청자가 매일 겪는 헷갈리는 문제를 건드리며 오늘 완벽히 해결하겠다고 약속함",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 28,
+          "what": "왜 '학생이어요'를 발음할 때 불편함이 생기는지 질문을 던짐",
+          "quote": "발른상에 불편한 점이 생깁니다.",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 144,
+          "what": "받침 유무라는 명확하고 간단한 구별법 공식을 공개함",
+          "quote": "그럼 에와 예요. 구분은 어떻게 하나? 생각보다 간단합니다.",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "발음상의 생리적 불편함 원리에서 축약형의 탄생 배경으로 이어지고, 최종적으로 받침 유무라는 구별 공식으로 자연스럽게 귀결된다.",
+        "examples": [
+          {
+            "t": 92,
+            "what": "연달아 발음하기 힘들어서 발음을 뭉개다 축약형이 허용되었다고 원인을 설명함",
+            "quote": "이 어 요를 연달아 발음하기 힘들자 발음을 뭉개서 하기 시작합니다.",
+            "quoteVerified": true
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 126,
+          "what": "'에요'의 규칙을 먼저 설명한 뒤 시청자가 가질 '그럼 예요는 언제 쓰나?'라는 의문을 이어서 던짐",
+          "quote": "그럼 예요는요.",
+          "quoteVerified": true
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 121,
+          "what": "일방적 설명 중간에 학생 역할을 맡아 자기 질문을 던지는 1인 2역 형태 연출",
+          "quote": "선생님 거기까지 이해했어요. 에요가 이다, 아니다에만 붙는 것까지는 그럼 예요는요.",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [],
+      "evidence": [
+        {
+          "t": 148,
+          "what": "칠판에 받침이 있는 단어와 없는 단어를 직접 적어 받침 소리의 유무를 시각적으로 입증함",
+          "quote": "책. 받침에 기억 소리가 있네요.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 235,
+        "what": "받침이 없는 '어디'에 줄임형 '예요'가 붙는 마지막 예시로 공식을 완벽히 회수함",
+        "quote": "어디 받침 없네요. 간단하게 빨리 말할 수 있게 어디 예요로 줄임 버전을 사용합니다.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "칠판에 받침 유무로 '에요'와 '예요'를 명쾌하게 적어서 보여주는 설명",
+        "reaction": "받침 유무라는 직관적인 공식 덕분에 단번에 이해했다고 감탄함",
+        "quote": "와 받침 있고 없고로 하니 넘 쉽다. 감사합니다. 😊",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "대중이 일상에서 자주 틀리는 맞춤법 주제를 단순 암기가 아닌 발음 구조와 '받침 유무'라는 직관적 공식으로 해결해 주어 높은 공유와 조회수를 얻었다.",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "이 영상은 영어 발음이나 듣기가 아닌 한국어 국어 맞춤법(에요 vs 예요) 규정을 가르친다.",
+    "forUs": {
+      "adopt": "복잡한 원리를 먼저 신체적 불편함(발음) 관점에서 밝히고, 최종 판단은 '받침 유무'처럼 1초 만에 알 수 있는 직관적 공식으로 정리해 주는 구성을 도입한다.",
+      "differentiate": "영어 소리 교육에서는 판서 위주의 설명에 그치지 않고, 시청자가 화면을 보며 소리를 직접 따라 해보는 실습 구간을 명확히 제시한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 22,
+    "verified": 17,
+    "unverified": 5
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 17,
+      "file": "17.jpg"
+    },
+    {
+      "t": 23,
+      "file": "23.jpg"
+    },
+    {
+      "t": 30,
+      "file": "30.jpg"
+    },
+    {
+      "t": 57,
+      "file": "57.jpg"
+    },
+    {
+      "t": 116,
+      "file": "116.jpg"
+    },
+    {
+      "t": 134,
+      "file": "134.jpg"
+    },
+    {
+      "t": 144,
+      "file": "144.jpg"
+    },
+    {
+      "t": 151,
+      "file": "151.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 20986,
+    "candidatesTokenCount": 3669,
+    "totalTokenCount": 27603,
+    "promptTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 5229
+      },
+      {
+        "modality": "VIDEO",
+        "tokenCount": 14657
+      }
+    ],
+    "thoughtsTokenCount": 2948,
+    "serviceTier": "standard"
+  }
+}

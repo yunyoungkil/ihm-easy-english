@@ -153,17 +153,22 @@ function round2(n) { return Math.round(n * 100) / 100; }
 
 /**
  * 리포트의 speech 칸을 만든다. text가 비면 "측정 못 함"(source null)과 이유를 담는다.
- * kind는 'long' | 'short'. extra는 fallbackTried·blocked 같은 표시를 그대로 붙인다.
+ * kind는 'long' | 'short'. durationSeconds(측정 구간 길이, 초)가 있으면 초당 한글 밀도(hangulPerSec)도 함께 기록한다.
+ * extra는 fallbackTried·blocked 같은 표시를 그대로 붙인다.
  */
-export function buildSpeechField({text, source, kind, now = new Date(), note = null, extra = {}} = {}) {
+export function buildSpeechField({text, source, kind, durationSeconds = null, now = new Date(), note = null, extra = {}} = {}) {
   const computedAt = now.toISOString();
   const stats = text ? measureSpeech(text) : null;
   if (!stats || !source) {
     return {source: null, quality: null, kind: kind ?? null, sentences: null, stats: null, computedAt, note: note || '말투를 재지 못함', ...extra};
   }
   const {quality, reasons, metrics} = assessSpeechQuality(text);
+  const dur = Number(durationSeconds);
+  const paceFields = Number.isFinite(dur) && dur > 0
+    ? {windowSeconds: round1(dur), hangulPerSec: round2(metrics.hangulChars / dur)}
+    : {};
   return {
-    source, quality, kind: kind ?? null, sentences: stats.sentences, stats, qualityMetrics: metrics, computedAt,
+    source, quality, kind: kind ?? null, sentences: stats.sentences, stats, qualityMetrics: metrics, ...paceFields, computedAt,
     note: note || (quality === 'low' ? `품질 낮음: ${reasons.join(', ')}` : null),
     ...extra,
   };
@@ -204,12 +209,27 @@ const emptyTotals = () => ({
 
 export const SPEECH_LOW_SAMPLE_VIDEOS = 5; // allow-literal: 영상 5편 미만이면 lowSample(2026-11-15 사용자 지시)
 
+const LONG_SPEECH_WINDOW_CAP = 300; // allow-literal: outlier-report.mjs 롱폼 앞 5분(300초) 창과 동일
+
+function speechHangulPerSec(report) {
+  const sp = report?.speech;
+  if (Number.isFinite(sp?.hangulPerSec) && sp.hangulPerSec > 0) return sp.hangulPerSec;
+  const chars = sp?.qualityMetrics?.hangulChars;
+  const rawDur = Number(sp?.windowSeconds ?? report?.meta?.durationSeconds);
+  if (!Number.isFinite(chars) || chars <= 0 || !Number.isFinite(rawDur) || rawDur <= 0) return null;
+  const dur = sp.kind === 'long' ? Math.min(rawDur, LONG_SPEECH_WINDOW_CAP) : rawDur;
+  return dur > 0 ? round2(chars / dur) : null;
+}
+
 /**
  * 저장된 리포트들의 speech 칸으로 경쟁 말투 기준 합계를 만든다(순수 함수, 파일 접근 없음).
  * quality가 'ok'인 영상만 더하고, 롱폼·쇼츠를 따로 센다. 원문은 없고 숫자와 영상 ID·채널뿐이다.
  */
 export function buildSpeechPatterns(reports = [], now = new Date()) {
-  const groups = {long: {totals: emptyTotals(), videos: [], lengthMedians: [], bySource: {}}, short: {totals: emptyTotals(), videos: [], lengthMedians: [], bySource: {}}};
+  const groups = {
+    long: {totals: emptyTotals(), videos: [], lengthMedians: [], hangulPerSecs: [], bySource: {}},
+    short: {totals: emptyTotals(), videos: [], lengthMedians: [], hangulPerSecs: [], bySource: {}},
+  };
   let excludedLow = 0;
   let unmeasured = 0;
   for (const r of reports) {
@@ -219,7 +239,9 @@ export function buildSpeechPatterns(reports = [], now = new Date()) {
     const g = groups[sp.kind];
     if (!g || !sp.stats) { unmeasured += 1; continue; }
     addTotals(g.totals, sp.stats);
-    g.videos.push({videoId: r.videoId, channelTitle: r.meta?.channelTitle ?? null, source: sp.source, sentences: sp.stats.sentences});
+    const hps = speechHangulPerSec(r);
+    if (hps != null) g.hangulPerSecs.push(hps);
+    g.videos.push({videoId: r.videoId, channelTitle: r.meta?.channelTitle ?? null, source: sp.source, sentences: sp.stats.sentences, ...(hps != null ? {hangulPerSec: hps} : {})});
     g.lengthMedians.push(sp.stats.lengthMedian);
     g.bySource[sp.source] = (g.bySource[sp.source] || 0) + 1;
   }
@@ -233,12 +255,14 @@ export function buildSpeechPatterns(reports = [], now = new Date()) {
     unmeasured,
   };
   for (const [kind, g] of Object.entries(groups)) {
+    const hpsMed = median(g.hangulPerSecs);
     out[kind] = {
       videoCount: g.videos.length,
       lowSample: g.videos.length < SPEECH_LOW_SAMPLE_VIDEOS,
       totals: g.totals,
       rates: speechRates(g.totals),
       lengthMedianOfVideos: median(g.lengthMedians),
+      hangulPerSecMedian: hpsMed != null ? round2(hpsMed) : null,
       bySource: g.bySource,
       videos: g.videos,
     };

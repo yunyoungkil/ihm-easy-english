@@ -19,7 +19,8 @@
   - 시험 변수(#4): 촉각 실물 매크로 + 0.15초 호흡 멈춤·코 파동 도해 + 3D 아치 통과 게이트 1.5초 직접 말하기 챌린지 + 형광펜 체크리스트. 12/15 화 이후 공개 7일 결과 정산 예정.
 - **EP34 쇼츠 `videos/ep34-shorts-consonant-cluster`**: **12/12 토 20:00 KST 예약 완료** (ID `GudIUEIl2TI`, 교육 27, 한국어 ko, 40.2s, 1080x1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes` 30번째, 한국어 수동 자막 `subtitles-ko.srt` 게시, `community-post.json` 예습 퀴즈 `2026-12-12T09:00:00Z`).
   - 시험 변수(#5): Pinterest 스위스 키네틱 유압 1박자 압축 × 3중 하이브리드(Omni 4클립+Nano Banana+HyperFrames) + 1박자 메트로놈 3연타 + `STRIKE` 1.5초 챌린지 + `slop-rewrite` 전면 윤문. 12/19 토 이후 공개 7일 결과 정산 예정.
-- **EP35 쇼츠 `videos/ep35-shorts-ghost-letters`**: **Gate 1 승인 완료(11/23, 제목 1안 · 썸네일 A안) + 브라우저 프리뷰 구성 확정(11/23)** → 한국어 `Gero` 11컷 + 원어민 `Olin` 5단어 전수 청취 + Lyria 3.5 BGM(허밍 0) + SFX 4종 + 실측 타임라인(`44.288초`, `AUDIO-AUDIT.md`) + HyperFrames `index.html` 조립·`hyperframes check` 통과(0 errors · WCAG AA 69/69)·콘택트시트 검수 완료. **다음: Omni 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 부착 뒤 최종 렌더.**
+- **EP35 쇼츠 `videos/ep35-shorts-ghost-letters`**: **12/15 화 20:00 KST 예약 완료** (ID `4lKoVEXlm78`, 교육 27, 한국어 `ko`, 44.3s, 1080×1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 수동 자막 `subtitles-ko.srt` 게시).
+  - 시험 변수(#6): Omni 3클립(`c00-salmon-peel`·`c04-receipt-roll-cut`·`c08-island-peel`) + 리소그래프 종이 찢기 물리 해체 × 500년 역사 반전 서사 + 무나레이션 4연속 귀 증명 + `doubt` 1.2초 퓨즈 오픈 루프 + 자율 질문 Soft Nudge. 12/22 화 이후 공개 7일 결과 정산 예정.
 - **11/30 롱폼 방향 확정 (2026-11-20 사용자 승인 A안)**: 11/30(월) 롱폼은 1회 쉬고, 쇼츠 선행 후 11/25 EP30 쇼츠 7일 정산으로 검증된 주제를 새 포맷 롱폼으로 확장.
 - **스튜디오 조사 2단계 전환 완료 (`2026-11-20`)**: 따라잡기 0편·수집 6일(후보 87편) 달성 후 `pickReportTargets`를 조사 후보 우선(롱폼 1 + 쇼츠 1 · 같은 채널 7일 쿨다운 · 빈 형식은 손입력 폴백 · API 최근 50편 v2 배수 직접 계산)으로 전환 완료. 14일 관찰(조사 리포트 20편+) 후 사용자 재확인 뒤 3단계 착수.
 
@@ -46,10 +47,9 @@
 0-3. **PC 2대 자료·대화 공유 (11/24 양쪽 PC 등록 완료)**: 그림·영상·음성·완성 영상은 구글 드라이브 `ihm-easy-english-sync/files/`, 두 AI 대화 사본은 `chats/`(`scripts/pc-sync.mjs`, 대화 시작 + 10분마다 자동). 다른 PC에서 시작한 주제는 요약만 믿지 말고 `chats/INDEX-<PC>.md`에서 원래 대화를 찾아 읽는다(`AGENTS.md` 절). **집 PC(DESKTOP-UA9AKL2) 첫 실행·자동 실행 등록 완료(11/24 저녁)**: 받기 7개(16.1MB)·올리기 387개(2.21GB, EP35 64개 포함)·대화 사본 53개(596MB 대용량 대화 줄 단위 스트리밍 수정 포함). 다음 노트북 실행 시 `npm run pc-sync:status`로 받기 확인. 대시보드 상태 파일 시각 변경 막기(`scripts/package-status-sync.mjs`)도 반영 완료.
 0-2. **클릭 사례 6개 채우기 (11/23 제미나이 대화 PC, 다음 비교 시트 전)**: `knowledge/click-references.md` "채울 것" 절.
 0-1. **`korean-trends.test.mjs` 편집기 오류 (이 PC 저장 안 된 탭)**: 저장본은 시험 통과, 오류는 저장 안 된 편집기 내용에만 있음. 사용자가 저장하면 고침(`2026-11-24.md` 이어서 할 일 3).
-0. **EP35 마무리**: Omni 3클립(`c00-salmon-peel` 1/3 완료, 잔여 `c04-receipt-roll`·`c08-island-peel`) 부착·모서리 워터마크 검수·배경음 더킹(`npm run carve`) → 최종 렌더·12/15 화 20:00 KST 예약. EP35 재료 64개 구글 드라이브 업로드 완료(11/24 저녁).
 1. **11/25 수 이후**: EP30 chocolate 쇼츠(`Ng6amm9qFrI`) 공개 7일 정산 + 검증 주제로 새 포맷 롱폼 확장 기획(2026-11-22 확정: 롱폼 포장 3원칙 · Pinterest+최신 영상미 리서치 · 시각 스토리보드 시트 · 쇼츠 끝 2초 Open Loop 연결 첫 적용).
    - **롱폼 두 갈래 시험 (2026-11-24 사용자 확정, 가설)**: ① 보면서 배우는 영상(길이는 내용만큼) ② 틀어 놓고 듣는 영상(길게, 소리만으로 이해되게)을 각각 시험해 7일 결과로 비교. 원인 분석: 9월 읽기 주제 클릭률 4~6% → 11월 두 소리 구별 0~2%(R/L 노출 1,883·0.74%), 쇼츠 링크→롱폼 90일 7회, 경쟁 롱폼은 길이보다 "큰 고민 하나"가 공통. 근거는 `2026-11-24.md` 오전 대화 절.
 2. **11/28 토 이후**: EP27 dogs-cats 쇼츠(`blowoldSorE`, 11/21 공개) 공개 7일 성과 정산 및 `style-experiments.md` 기록.
 2-1. **11/30 월 · 12/01 화 이후**: EP28 F vs P 롱폼(`91aunP3N8mQ`) · EP28 쇼츠(`bQNoYraxFY8`) 공개 7일 정산.
 3. **12/05 토 이후 (사용자 재확인)**: 스튜디오 조사 2단계 14일 관찰(수집 12일+·조사 리포트 20편+) 달성 시 3단계(구 손입력 목록 정리) 착수.
-4. **12/08 화 · 12/12 토 · 12/15 화 · 12/19 토 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) · EP33(`fVY5BNQ7Ciw`) · EP34(`GudIUEIl2TI`) 쇼츠 공개 7일 결과 확인.
+4. **12/08 화 · 12/12 토 · 12/15 화 · 12/19 토 · 12/22 화 이후**: EP31(`AkDKw4o_C58`) · EP32(`YKaokru2ugg`) · EP33(`fVY5BNQ7Ciw`) · EP34(`GudIUEIl2TI`) · EP35(`4lKoVEXlm78`) 쇼츠 공개 7일 결과 확인.

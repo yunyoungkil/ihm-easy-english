@@ -1,6 +1,6 @@
 # EP35 작업 기록 — `ep35-shorts-ghost-letters`
 
-- **상태**: Gate 1 승인 완료 (`2026-11-23`, 제목 1안 `살몬에 L이 들어간 이유, 알고 보면 좀 억울해요` + 썸네일 A안 `thumb-A.jpg`) → 오디오·BGM·HyperFrames 선행 제작 중
+- **상태**: **12/15 화 20:00 KST 예약 완료** (`2026-11-24`, 영상 ID `4lKoVEXlm78`, 제목 1안 `살몬에 L이 들어간 이유, 알고 보면 좀 억울해요` + 썸네일 A안 `thumb-A.jpg`, 교육 27, 한국어 `ko`, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 자막 `subtitles-ko.srt` 게시 완료)
 - **슬롯**: 2026-12-15 (화) 20:00 KST 단독 쇼츠
 
 ## 완료된 단계 (Gate 1 준비)
@@ -19,6 +19,7 @@
 - [x] 한국어 TTS 11컷(`Gero`, `c05/c07/c11` `'피 글자'/'비 글자'` 교정 재녹음 포함) + 원어민 5단어(`Olin`, 묵음 완전 무음) 전수 직접 청취 및 실측(`AUDIO-AUDIT.md`, 총 `44.288초`, 음원 겹침 0건)
 - [x] Lyria 3.5 BGM(`track.mp3`, 61.4s, 허밍 0 직접 청취 확인) + 커스텀 종이 찢기 SFX 4종(`paper-rip`, `ink-stamp`, `paper-fuse-tick`, `final-peel-chime`) 제작
 - [x] HyperFrames 1080×1920 30fps `index.html` 조립(12fps 스톱모션 종이 찢기 + 상단 `01~04` 인덱스 + 4분할 리소 그리드 + `DOUBT` 1.2초 퓨즈 챌린지) → `hyperframes check` + `check-terms` + 12컷 콘택트시트 검수 + **사용자 브라우저 프리뷰 구성 확정 (`2026-11-23`)**
-- [ ] Omni 1.2 Flash 3클립(`c00-salmon-peel` 1/3 완료 `11/23 17:15` · `1080×1920` · `4.032s` · 모서리 무워터마크·모션 검수 통과 / 잔여 `c04-receipt-roll`, `c08-island-peel`은 `11/23` 일일 한도 초과로 다음 리셋 이월) 생성·`index.html` 연결 → 최종 렌더(사용자 방향 확정). ⚠️ EP35 미디어(음성 16·BGM·SFX 4·장면 그림·썸네일 3안·컷 카드)는 git에 없고 **EP35를 만든 PC에만 있다**(PC 2대 드라이브 공유로 올릴 예정). DESKTOP-GPI3LM1에는 `assets/`에 `AUDIO-AUDIT.md`·`audio-timings.json` 2개뿐이고, Omni 3클립도 그 PC의 `hero-*.jpg`를 `--first`로 쓰므로 여기서는 만들 수 없다(11/24 확인). 사용자 결정: **그 PC에서 마무리**(다시 만들면 Gate 1 승인 썸네일·청취 확인한 음성이 바뀜).
-- [ ] 렌더 전 배경음 더킹: EP35 `index.html`의 배경음 `<audio id="bgm">`(볼륨 `0.14`)에 나레이션 때 소리를 줄이는 더킹(`data-fx-carve`)이 없다. 11/24 Antigravity(Gemini 4 Neon)가 만든 렌더 안전 관문(`scripts/production-gate.mjs`)이 이걸로 렌더를 막는 것을 DESKTOP-GPI3LM1에서 `node scripts/production-gate.mjs render videos/ep35-shorts-ghost-letters --skip-layout`로 확인했다(차단 1건). 렌더 전에 `npm run carve -- videos/ep35-shorts-ghost-letters`를 적용하고 볼륨 기본값 `0.06`과 비교한다.
-- [ ] 업로드 패키지 생성 → Gate 3 예약 승인 (`containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`)
+- [x] Omni 1.2 Flash 3클립(`c00-salmon-peel`, `c04-receipt-roll` → `c04-receipt-roll-cut` 뒷부분 튐 제거, `c08-island-peel`) 전수 생성·4모서리 무워터마크·모션 검수 통과 및 `index.html` 직계 `<video>` 연결 (`2026-11-24`)
+- [x] 렌더 전 배경음 더킹(`npm run carve -- videos/ep35-shorts-ghost-letters`, `data-fx-carve` strength `0.8`) + 글자 여백 CSS 조정 → `hyperframes check` 통과 + `npm run check-gate -- render` 0건 통과 (`2026-11-24`)
+- [x] 최종 MP4 렌더 완료 (`videos/ep35-shorts-ghost-letters/out/ep35-shorts-ghost-letters.mp4`, `1080×1920` 30fps, `44.30s`, `20.4 MB`, mean `-17.6 dB` · max `-1.4 dB`, 렌더본 프레임 스트립 직접 검수 통과) 및 업로드 패키지 생성 (`output/upload-packages/ep35-shorts-ghost-letters/`, `title/description/tags/pinned-comment/subtitles-ko.srt/thumbnail.jpg/sheet-thumbnail-approval.json/metadata.json/shorts-status.json`)
+- [x] Gate 3 최종 예약 승인 (`2026-11-24`, 사용자 "예약 올려줘") → 유튜브 스튜디오 예약 완료 (`4lKoVEXlm78`, `2026-12-15T11:00:00Z`, AI 표시 `aria-checked=true`, 재생목록 `PLCbnHG8SDRes`, 교육 27, 한국어 `ko`, 한국어 자막 `subtitles-ko.srt` 게시, 카탈로그·`shorts-status.json` 동기화 완료). 공개 7일 성과 정산은 `2026-12-22(화)` 이후 진행.

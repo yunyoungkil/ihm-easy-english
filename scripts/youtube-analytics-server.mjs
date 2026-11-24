@@ -20,6 +20,7 @@ import { startStudioWatcher } from './studio-auto-ingest.mjs';
 import { pickSearchQueries, rankWinners, fetchSearchFeed } from './thumb-feed.mjs';
 import { buildMatrixDataset, isDiagnosable } from './matrix-diagnosis.mjs';
 import { toStoredCtr } from './studio-reach.mjs';
+import { applyYouTubeStatus } from './package-status-sync.mjs';
 import { getRequestBlockReason } from './request-guard.mjs';
 import {
   loadPublishRules,
@@ -1115,6 +1116,8 @@ const getRecentUploadsForMatching = async (accessToken, {fresh = false} = {}) =>
 // videos.list(1 unit)만 호출하고, 모르면 채널 업로드 목록에서 제목으로 찾아낸 뒤로는 videoId를
 // 저장해 다음부터는 그 조회만 하게 한다. 5분에 한 번 이상은 확인하지 않는다.
 // statusFile: 롱폼은 status.json, 쇼츠는 대시보드만 읽는 shorts-status.json(packageStatusSource 참고).
+// 패키지마다 마지막으로 유튜브에 확인한 시각(메모리). 파일의 lastSyncedAt은 상태가 실제로 바뀔 때만 고친다(2026-11-24).
+const packageStatusCheckedAt = new Map();
 const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, titleCandidates, statusFile = 'status.json') => {
   if (!statusData?.status) return statusData; // status.json이 없는 옛 패키지
   // 공개일까지 유튜브 값으로 확인했으면 더 볼 게 없다. 예전 기록은 동기화한 시각이 공개일로 적혀 있어(최대 9일 차이)
@@ -1125,8 +1128,10 @@ const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, ti
   // 찾아서 기록해야 하고, 있어도 사용자가 유튜브 Studio에서 예약 시각을 바꿨을 수 있다(EP14에서
   // 실제로 20:00→08:00→20:00으로 바뀐 적 있음). "지난 것만 동기화"였던 예전 조건 때문에 막
   // 업로드해서 예약을 걸어도 패키징 카드에 반영이 안 되는 버그가 있었다(2026-09-11 확인).
-  const lastSyncedAt = statusData.lastSyncedAt ? new Date(statusData.lastSyncedAt).getTime() : 0;
+  const checkKey = join(pkgPath, statusFile);
+  const lastSyncedAt = Math.max(statusData.lastSyncedAt ? new Date(statusData.lastSyncedAt).getTime() : 0, packageStatusCheckedAt.get(checkKey) || 0);
   if (Date.now() - lastSyncedAt < 5 * 60 * 1000) return statusData;
+  packageStatusCheckedAt.set(checkKey, Date.now());
 
   const accessToken = await getAccessToken();
   if (!accessToken) return statusData;
@@ -1165,25 +1170,13 @@ const syncUploadPackageStatusFromYouTube = async (pkgPath, statusData, title, ti
         ytVideo = data.items?.[0] || null;
       }
     }
-    const ytStatus = ytVideo?.status || null;
-
-    const updated = {...statusData, lastSyncedAt: new Date().toISOString()};
-    if (videoId) updated.videoId = videoId;
-    if (ytStatus) {
-      if (ytStatus.privacyStatus === 'public') {
-        updated.status = 'published';
-        updated.publishedAt = ytVideo.snippet?.publishedAt || updated.publishedAt || new Date().toISOString();
-        if (ytVideo.snippet?.publishedAt) updated.publishedAtSource = 'youtube';
-      } else if (ytStatus.privacyStatus === 'private' && ytStatus.publishAt) {
-        updated.status = 'scheduled';
-        updated.scheduledFor = ytStatus.publishAt;
-      }
-    }
-    await saveJson(join(pkgPath, statusFile), updated);
+    // 상태가 실제로 바뀔 때만 파일에 쓴다. 시각만 바뀐 변경이 PC마다 생겨 새벽 루프 커밋과 부딪히던 것을 막는다(2026-11-24).
+    const {updated, changed} = applyYouTubeStatus(statusData, {videoId, ytVideo});
+    if (changed) await saveJson(join(pkgPath, statusFile), updated);
     return updated;
   } catch (err) {
     console.warn('[upload-package] YouTube 상태 동기화 실패:', err.message);
-    return {...statusData, lastSyncedAt: new Date().toISOString()};
+    return statusData;
   }
 };
 

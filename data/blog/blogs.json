@@ -1,0 +1,26 @@
+{
+  "home": {
+    "blogId": "1816781696920932166",
+    "url": "https://www.d40m.com/"
+  },
+  "tech": {
+    "blogId": "6595948324958151051",
+    "url": "https://tech.d40m.com/",
+    "name": "가전·디지털 해결 노트",
+    "blogspot": "https://d40m-tech.blogspot.com/",
+    "pages": {
+      "about": {"pageId": "3091455563679222377", "url": "https://tech.d40m.com/p/about.html"},
+      "privacy": {"pageId": "1313319208205199251", "url": "https://tech.d40m.com/p/privacy.html"}
+    }
+  },
+  "english": {
+    "blogId": "3734608323445645579",
+    "url": "https://english.d40m.com/",
+    "name": "이해하면 쉬운영어 복습 노트",
+    "blogspot": "https://d40m-english.blogspot.com/",
+    "pages": {
+      "about": {"pageId": "8225884688803434799", "url": "https://english.d40m.com/p/about.html"},
+      "privacy": {"pageId": "7381913230233669665", "url": "https://english.d40m.com/p/privacy.html"}
+    }
+  }
+}

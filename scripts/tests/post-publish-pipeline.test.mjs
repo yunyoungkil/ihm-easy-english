@@ -326,9 +326,10 @@ test('COMMUNITY_POST_FORMATS: 5가지 지원 형식이 정의되어 있다', () 
   assert.deepEqual(COMMUNITY_POST_FORMATS, ['text', 'quiz', 'text-poll', 'image-poll', 'image']);
 });
 
-test('communityPostBlockReason: 독립 보관함 미승인(approved !== true)과 보관/이관 상태를 구분한다', () => {
+test('communityPostBlockReason: 독립 보관함 미승인(approved !== true)과 예약·보관·이관 상태를 구분한다', () => {
   assert.equal(communityPostBlockReason(okPost({ approved: false }), { now: NOW, requireApproved: true }), 'unapproved');
   assert.equal(communityPostBlockReason(okPost({ approved: true }), { now: NOW, requireApproved: true }), null);
+  assert.equal(communityPostBlockReason(okPost({ status: 'scheduled' }), { now: NOW }), 'already-scheduled');
   assert.equal(communityPostBlockReason(okPost({ status: 'archived' }), { now: NOW }), 'archived');
   assert.equal(communityPostBlockReason(okPost({ status: 'migrated' }), { now: NOW }), 'migrated');
 });
@@ -436,6 +437,16 @@ test('manageCommunityPosts: 독립 보관함 승인된 퀴즈만 통과시키고
           status: 'ready',
           targetPublishDate: new Date(NOW.getTime() - HOUR).toISOString(),
           content: '아직 승인 전인 퀴즈입니다',
+          options: ['보기 1', '보기 2'],
+          correctIndex: 0,
+        },
+        {
+          id: 'cp-scheduled-quiz',
+          format: 'quiz',
+          approved: true,
+          status: 'scheduled',
+          targetPublishDate: new Date(NOW.getTime() - HOUR).toISOString(),
+          content: '이미 유튜브에 예약한 퀴즈입니다',
           options: ['보기 1', '보기 2'],
           correctIndex: 0,
         },

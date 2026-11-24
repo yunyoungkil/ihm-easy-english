@@ -552,6 +552,7 @@ export function communityPostBlockReason(
   { now = new Date(), catalog, projectDir: dir = null, requireApproved = false } = {},
 ) {
   if (postData?.status === 'posted') return 'already-posted';
+  if (postData?.status === 'scheduled') return 'already-scheduled';
   if (postData?.status === 'archived') return 'archived';
   if (postData?.status === 'migrated') return 'migrated';
   if (requireApproved && postData?.approved !== true) return 'unapproved';
@@ -662,7 +663,7 @@ export function loadCommunityPostItems(dir = projectDir) {
     const queue = readJsonSafe(standalonePath, null);
     for (const postData of queue?.posts || []) {
       if (!postData || !postData.id || !postData.content) continue;
-      if (postData.status === 'posted' || postData.status === 'archived' || postData.status === 'migrated') continue;
+      if (postData.status === 'posted' || postData.status === 'scheduled' || postData.status === 'archived' || postData.status === 'migrated') continue;
       items.push({
         id: postData.id,
         episodeId: postData.id,
@@ -687,7 +688,7 @@ export function loadCommunityPostItems(dir = projectDir) {
 
       const postData = readJsonSafe(postFile, null);
       if (!postData || !postData.content) continue;
-      if (postData.status === 'posted' || postData.status === 'archived' || postData.status === 'migrated') continue;
+      if (postData.status === 'posted' || postData.status === 'scheduled' || postData.status === 'archived' || postData.status === 'migrated') continue;
 
       const episodeId = postData.episodeId || f;
       items.push({

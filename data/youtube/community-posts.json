@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-24T14:37:00+09:00",
+  "updatedAt": "2026-11-24T06:26:16.870Z",
   "experiment": {
     "startedAt": "2026-11-24",
     "reviewAfter": "2026-12-22",
@@ -19,7 +19,7 @@
       "type": "standalone-quiz",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-11-25T09:00:00Z",
       "content": "미국 원어민이 마트에서 \"Fresh vegetables.\"라고 빨리 말할 때, vegetable은 몇 박자로 들릴까요?",
       "options": [
@@ -29,7 +29,8 @@
         "두 박자 (베즈-블)"
       ],
       "correctIndex": 1,
-      "explanation": "우리말로 '베지터블'이라고 네 글자로 쓰지만, 미국 원어민은 가운데 e 소리를 쏙 빼고 '베즈-터-블'처럼 세 박자로 가볍게 이어 말합니다. 초콜릿(chocolate)을 두 박자로 줄여 말하는 것과 같은 원리예요."
+      "explanation": "우리말로 '베지터블'이라고 네 글자로 쓰지만, 미국 원어민은 가운데 e 소리를 쏙 빼고 '베즈-터-블'처럼 세 박자로 가볍게 이어 말합니다. 초콜릿(chocolate)을 두 박자로 줄여 말하는 것과 같은 원리예요.",
+      "scheduledAt": "2026-11-24T06:25:12.770Z"
     },
     {
       "id": "cp-20261127-silent-letters-carousel",
@@ -37,7 +38,7 @@
       "type": "standalone-carousel",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-11-27T09:00:00Z",
       "content": "영어 단어에 적혀 있는데 원어민은 절대 안 읽는 글자 3가지, 한눈에 정리했습니다.\n\n옆으로 넘기며 확인해 보세요. 처음 보는 단어를 만나도 KN·MB·WR 세 짝만 눈에 익으면 훨씬 덜 헷갈립니다.\n\n이 중에 예전에 다 읽으셨던 단어가 있나요?",
       "images": [
@@ -45,7 +46,8 @@
         "output/community-posts/2026-11-27-silent-letters/slide-02.png",
         "output/community-posts/2026-11-27-silent-letters/slide-03.png",
         "output/community-posts/2026-11-27-silent-letters/slide-04.png"
-      ]
+      ],
+      "scheduledAt": "2026-11-24T06:04:06.280Z"
     },
     {
       "id": "cp-20261130-longform-style-poll",
@@ -53,7 +55,7 @@
       "type": "topic-poll",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-11-30T09:00:00Z",
       "content": "다음 긴 영어 영상, 지금 가장 필요하신 쪽에 한 표만 눌러 주세요.\n\n가장 많이 뽑힌 주제로 먼저 준비하겠습니다.",
       "options": [
@@ -61,7 +63,8 @@
         "출근·집안일하며 틀어 놓고 따라 하는 '소리 반복 듣기'",
         "카페·여행에서 바로 쓰는 '원어민이 빨리 말하는 20표현'",
         "외래어랑 달라서 매번 헷갈리는 '배신감 드는 영단어 모음'"
-      ]
+      ],
+      "scheduledAt": "2026-11-24T06:04:34.973Z"
     },
     {
       "id": "cp-20261202-buffet-quiz",
@@ -69,7 +72,7 @@
       "type": "standalone-quiz",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-12-02T09:00:00Z",
       "content": "미국 식당에서 \"It's a buffet.\"이라고 말할 때, 원어민은 buffet를 어떻게 읽을까요?",
       "options": [
@@ -79,7 +82,8 @@
         "버핏 (앞에 힘을 주고 짧게)"
       ],
       "correctIndex": 1,
-      "explanation": "프랑스어에서 들어온 단어라 끝의 t를 읽지 않고, 뒤쪽 '페이'에 힘을 주어 '버페이'에 가깝게 말합니다. 발레(ballet)나 부케(bouquet)도 똑같이 끝의 t가 소리 나지 않습니다."
+      "explanation": "프랑스어에서 들어온 단어라 끝의 t를 읽지 않고, 뒤쪽 '페이'에 힘을 주어 '버페이'에 가깝게 말합니다. 발레(ballet)나 부케(bouquet)도 똑같이 끝의 t가 소리 나지 않습니다.",
+      "scheduledAt": "2026-11-24T06:25:45.776Z"
     },
     {
       "id": "cp-20261204-her-bird-fur-card",
@@ -87,12 +91,13 @@
       "type": "standalone-card",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-12-04T09:00:00Z",
       "content": "철자는 E, I, U로 다 다른데, 원어민이 HER·BIRD·FUR를 읽으면 셋 다 똑같은 '얼' 소리가 납니다.\n\n모음 뒤에 R이 붙으면 원래 모음 소리가 약해지고 R 쪽으로 하나로 모이기 때문이에요. 다음번에 person, first, turn을 만나셔도 같은 느낌으로 읽으시면 됩니다.",
       "images": [
         "output/community-posts/2026-12-04-her-bird-fur/card-01.png"
-      ]
+      ],
+      "scheduledAt": "2026-11-24T06:05:50.035Z"
     },
     {
       "id": "cp-20261205-word-merge",
@@ -100,7 +105,7 @@
       "type": "pre-quiz",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-12-05T09:00:00Z",
       "content": "원어민이 카페에서 \"Gimme a minute.\"이라고 말할 때, 어떤 두 단어가 합쳐진 소리일까요?",
       "options": [
@@ -113,7 +118,8 @@
       "explanation": "give me를 빨리 말하면 v와 m이 겹쳐 '김미'처럼 한 덩어리로 들립니다. 오늘 저녁 여덟 시 쇼츠에서 원어민이 합쳐 먹는 소리 네 가지를 바로 들어 보세요.",
       "companionVideoId": "YKaokru2ugg",
       "companionVideoScheduledAt": "2026-12-05T11:00:00Z",
-      "episodeId": "ep32-shorts-word-merge"
+      "episodeId": "ep32-shorts-word-merge",
+      "scheduledAt": "2026-11-24T06:06:18.734Z"
     },
     {
       "id": "cp-20261208-swallowed-t",
@@ -121,7 +127,7 @@
       "type": "pre-quiz",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-12-08T09:00:00Z",
       "content": "미국 원어민이 엘리베이터에서 \"Press the button.\"이라고 말할 때, button은 어떻게 들릴까요?",
       "options": [
@@ -134,7 +140,8 @@
       "explanation": "미국 원어민은 button 가운데 t를 또렷하게 안 읽고 입을 잠깐 막은 채 코로 넘깁니다. 오늘 저녁 여덟 시 쇼츠에서 원어민 발음으로 바로 확인해 보세요.",
       "companionVideoId": "fVY5BNQ7Ciw",
       "companionVideoScheduledAt": "2026-12-08T11:00:00Z",
-      "episodeId": "ep33-shorts-swallowed-t"
+      "episodeId": "ep33-shorts-swallowed-t",
+      "scheduledAt": "2026-11-24T06:21:57.521Z"
     },
     {
       "id": "cp-20261212-consonant-cluster",
@@ -142,7 +149,7 @@
       "type": "pre-quiz",
       "topicTrack": "english-fun",
       "approved": true,
-      "status": "ready",
+      "status": "scheduled",
       "targetPublishDate": "2026-12-12T09:00:00Z",
       "content": "우리말로 '스트라이크'라고 다섯 글자로 읽는 strike는 영어에서 몇 박자일까요?",
       "options": [
@@ -155,7 +162,8 @@
       "explanation": "영어 strike는 가운데 소리 하나에 앞쪽 s-t-r이 바람처럼 스쳐 지나가 딱 한 박자로 끝납니다. 오늘 저녁 여덟 시 쇼츠에서 원어민 소리 비교를 들려드릴게요.",
       "companionVideoId": "GudIUEIl2TI",
       "companionVideoScheduledAt": "2026-12-12T11:00:00Z",
-      "episodeId": "ep34-shorts-consonant-cluster"
+      "episodeId": "ep34-shorts-consonant-cluster",
+      "scheduledAt": "2026-11-24T06:26:16.870Z"
     }
   ]
 }

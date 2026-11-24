@@ -19,5 +19,5 @@
 - [x] 한국어 TTS 11컷(`Gero`, `c05/c07/c11` `'피 글자'/'비 글자'` 교정 재녹음 포함) + 원어민 5단어(`Olin`, 묵음 완전 무음) 전수 직접 청취 및 실측(`AUDIO-AUDIT.md`, 총 `44.288초`, 음원 겹침 0건)
 - [x] Lyria 3.5 BGM(`track.mp3`, 61.4s, 허밍 0 직접 청취 확인) + 커스텀 종이 찢기 SFX 4종(`paper-rip`, `ink-stamp`, `paper-fuse-tick`, `final-peel-chime`) 제작
 - [x] HyperFrames 1080×1920 30fps `index.html` 조립(12fps 스톱모션 종이 찢기 + 상단 `01~04` 인덱스 + 4분할 리소 그리드 + `DOUBT` 1.2초 퓨즈 챌린지) → `hyperframes check` + `check-terms` + 12컷 콘택트시트 검수 + **사용자 브라우저 프리뷰 구성 확정 (`2026-11-23`)**
-- [ ] **17:10 KST 이후(EP34 3클립 우선 처리 뒤)** Omni 1.2 Flash 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 생성·모서리 워터마크 확인·`index.html` 연결 → 최종 렌더(사용자 방향 확정)
+- [ ] **17:10 KST 이후(EP34 3클립 우선 처리 뒤)** Omni 1.2 Flash 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 생성·모서리 워터마크 확인·`index.html` 연결 → 최종 렌더(사용자 방향 확정). ⚠️ EP35 미디어(음성 16·BGM·SFX 4·장면 그림·썸네일 3안·컷 카드)는 git에 없고 **EP35를 만든 PC에만 있다**. DESKTOP-GPI3LM1에는 `assets/`에 `AUDIO-AUDIT.md`·`audio-timings.json` 2개뿐이고, Omni 3클립도 그 PC의 `hero-*.jpg`를 `--first`로 쓰므로 여기서는 만들 수 없다(11/24 확인, 원드라이브·구글 드라이브·다운로드에도 없음). 사용자 결정: **그 PC에서 마무리**(다시 만들면 Gate 1 승인 썸네일·청취 확인한 음성이 바뀜).
 - [ ] 업로드 패키지 생성 → Gate 3 예약 승인 (`containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`)

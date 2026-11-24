@@ -42,7 +42,7 @@
 14. **비교 시트 "왜 눌렸나"(`clickWhy`) 승인 차단 & 클릭 사례 보관함 (`2026-11-24` 사용자, Claude)**: 점검 결과 EP31~35 쇼츠는 경쟁 썸네일·제목을 겉모양 위주로만 가져왔다(고른 제목 4/5만 근거 연결, 제목 이유 5/5가 경쟁 문구 아닌 우리 숫자·검색 근거). 롱폼은 비교 시트 0개였다. 그래서 2026-11-24 이후 시트는 제목 후보·썸네일 시안마다 `clickWhy`(참고한 곳·문구 그대로·누른 이유·적용 후보)가 없으면 승인이 막힌다(`transform-sheet.mjs` `clickWhyProblems`, EP31~35 제외). 다른 분야 사례는 `knowledge/click-references.md`에 모은다. 11/23 제미나이 대화의 사례 4장·전략 영상 2편은 그 대화를 한 PC에서 채울 것(DESKTOP-GPI3LM1엔 원본 없음).
 
 ## 다음 할 일
-0-3. **PC 2대 자료·대화 공유 (11/24 구현)**: 그림·영상·음성·완성 영상은 구글 드라이브 `ihm-easy-english-sync/files/`, 두 AI 대화 사본은 `chats/`(`scripts/pc-sync.mjs`, 대화 시작 + 10분마다 자동). 다른 PC에서 시작한 주제는 요약만 믿지 말고 `chats/INDEX-<PC>.md`에서 원래 대화를 찾아 읽는다(`AGENTS.md` 절). **집 PC는 `git pull` 뒤 `npm run pc-sync` 한 번**(자동 실행 등록 + EP35 재료 올리기). 대시보드가 상태 파일에 확인 시각만 새로 적던 것은 11/24에 막았다(`scripts/package-status-sync.mjs`, 상태가 바뀔 때만 저장).
+0-3. **PC 2대 자료·대화 공유 (11/24 구현)**: 그림·영상·음성·완성 영상은 구글 드라이브 `ihm-easy-english-sync/files/`, 두 AI 대화 사본은 `chats/`(`scripts/pc-sync.mjs`, 대화 시작 + 10분마다 자동). 다른 PC에서 시작한 주제는 요약만 믿지 말고 `chats/INDEX-<PC>.md`에서 원래 대화를 찾아 읽는다(`AGENTS.md` 절). **집 PC는 `git pull` 뒤 `npm run pc-sync` 한 번**(자동 실행 등록 + EP35 재료 올리기, 사용자가 11/24 밤 제미나이로 하기로 함). 대시보드가 상태 파일에 확인 시각만 새로 적던 것은 11/24에 막았다(`scripts/package-status-sync.mjs`, 상태가 바뀔 때만 저장).
 0-2. **클릭 사례 6개 채우기 (11/23 제미나이 대화 PC, 다음 비교 시트 전)**: `knowledge/click-references.md` "채울 것" 절.
 0-1. **`korean-trends.test.mjs` 편집기 오류 (이 PC 저장 안 된 탭)**: 저장본은 시험 통과, 오류는 저장 안 된 편집기 내용에만 있음. 사용자가 저장하면 고침(`2026-11-24.md` 이어서 할 일 3).
 0. **EP35 마무리**: Omni 3클립(`c00-salmon-peel`, `c04-receipt-roll`, `c08-island-peel`) 부착·모서리 워터마크 검수 → 최종 렌더·12/15 화 20:00 KST 예약. **EP35를 만든 PC에서만 가능**(미디어가 git에 없음, DESKTOP-GPI3LM1에는 없음 — `2026-11-24.md` 함정).

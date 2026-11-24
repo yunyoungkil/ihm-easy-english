@@ -1,0 +1,30 @@
+{
+  "production-gate": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ../scripts/production-gate.mjs --hook",
+            "timeout": 90
+          }
+        ]
+      }
+    ]
+  },
+  "sync-render-to-package": {
+    "PostToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ../scripts/sync-render-to-package.mjs --hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

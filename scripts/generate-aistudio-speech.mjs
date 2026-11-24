@@ -16,6 +16,7 @@ import {chromium} from 'playwright-core';
 import {existsSync, mkdirSync, writeFileSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 import {spawn} from 'node:child_process';
+import {ALLOW_VOICE_GATE, checkVoiceGate, findProjectDirFromOutput} from './production-gate.mjs';
 
 const PROFILE_DIR = 'C:\\Users\\yunyo\\AppData\\Local\\Google\\Chrome\\AutomationProfile';
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
@@ -96,13 +97,20 @@ async function dismissOverlays(page) {
 const LIMIT_RE = /rate limit|quota|exceeded|resource.?exhausted|too many requests|try again later/i;
 const ERROR_RE = /something went wrong|failed to generate|an error occurred/i;
 
-/** 한 번 실패하면 새 탭으로 한 번만 더 시도한다(팝업·일시 오류 대비). 로그인·요금제·한도 문제는 다시 해도 소용없어 바로 던진다. */
+/** 한 번 실패하면 새 탭으로 한 번만 더 시도한다(팝업·일시 오류 대비). 로그인·요금제·한도·관문 차단 문제는 다시 해도 소용없어 바로 던진다. */
 export async function generateAiStudioSpeech(options) {
   validateText(options.text);
+  if (!options.allowGate && process.env[ALLOW_VOICE_GATE] !== '1') {
+    const projectDir = options.projectDir || findProjectDirFromOutput(options.output);
+    const gate = checkVoiceGate({projectDir, text: options.text});
+    if (!gate.ok) {
+      throw new Error(`음성 제작 안전 관문 차단 (${gate.blockers.length}건): ${gate.blockers.join(' / ')}`);
+    }
+  }
   try {
     return await generateOnce(options);
   } catch (err) {
-    if (/로그인|요금제|한도/.test(err.message)) throw err;
+    if (/로그인|요금제|한도|안전 관문/.test(err.message)) throw err;
     return generateOnce(options);
   }
 }

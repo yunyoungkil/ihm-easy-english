@@ -48,7 +48,7 @@ import { renderReportPage as renderOutlierReportPage, renderReportIndex as rende
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
-import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, sheetImageExists, sheetsDir as transformSheetsDir, sheetLinksByVideo } from './transform-sheet.mjs';
+import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, classifySheetProblems, approveSheet, sheetImageExists, sheetsDir as transformSheetsDir, sheetLinksByVideo } from './transform-sheet.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -5966,8 +5966,26 @@ const server = createServer(async (req, res) => {
         const showFrames = rid === srcVid || (sheet.borrowed || []).some((bb) => bb.fromVideoId === rid) || refVideoIds.includes(rid);
         refReports.push({videoId: rid, label: (rr.meta?.channelTitle || '').trim() + ' · ' + String(rr.meta?.title || rid).slice(0, 26), thumbnail: rr.meta?.thumbnail || '', studioFolds: rr.studioFolds ?? null, ratioLabel: formatRatioLabel(rr), duration: Number(rr.windowSeconds) || Number(rr.meta?.durationSeconds) || 0, cutCount: Number(rr.pacing?.count) || 0, moments: [...new Set((rr.analysis?.visualMoments || []).map((m) => Number(m.t)).filter((x) => Number.isFinite(x)))].sort((a, b) => a - b), frames: showFrames ? frames : []});
       }
-      res.end(renderTransformSheetPage(sheet, report, validateTransformSheet(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report)}), {refReports, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
+      const allSheets = loadTransformSheets();
+      const classified = classifySheetProblems(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report), allSheets});
+      res.end(renderTransformSheetPage(sheet, report, classified.blockers, {refReports, blockers: classified.blockers, warnings: classified.warnings, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
       return;
+    }
+    if (url.pathname === '/api/transform-sheet-approve' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const vid = String(body.videoId || '');
+      if (!/^[\w-]{3,60}$/.test(vid)) return json(res, 400, {error: '시트 ID가 이상합니다.'});
+      const file = join(transformSheetsDir, vid + '.json');
+      if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
+      try {
+        const sheet = await loadJson(file);
+        const allSheets = loadTransformSheets();
+        const {sheet: next, warnings} = approveSheet(sheet, {imageExists: sheetImageExists, allSheets, requirePicks: true});
+        await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
+        return json(res, 200, {ok: true, status: next.status, approvedAt: next.approvedAt, warnings});
+      } catch (e) {
+        return json(res, 400, {error: e.message, blockers: e.blockers || [], warnings: e.warnings || []});
+      }
     }
     if (url.pathname === '/api/transform-sheet-pick' && req.method === 'POST') {
       const body = await readJsonBody(req);

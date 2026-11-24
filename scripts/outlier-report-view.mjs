@@ -402,13 +402,15 @@ export function renderOutcomeCard(outcome) {
   return `<div class="outcome-grid">${cells.map((c) => `<div class="outcome-cell"><div class="olabel">${escapeHtml(c.label)}</div><div class="oval">${escapeHtml(c.val)}</div></div>`).join('')}</div>`;
 }
 
-export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [] } = {}) {
+export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [], blockers = null, warnings = null } = {}) {
   const sid = String(sheet.episodeId || sheet.sourceVideoId || '');
   const id = encodeURIComponent(sid);
   const srcId = sheet.sourceVideoId ? encodeURIComponent(sheet.sourceVideoId) : '';
   const ver = (url) => (assetVersion ? `${url}?v=${encodeURIComponent(assetVersion)}` : url);
   const refById = new Map((refReports || []).map((x) => [x.videoId, x]));
   const frameByT = new Map((report?.frames || []).map((f) => [String(f.t), f.file]));
+  const blockerList = Array.isArray(blockers) ? blockers : (problems || []);
+  const warningList = Array.isArray(warnings) ? warnings : [];
   const competitorImg = (token) => {
     if (token === 'thumbnail') return report?.meta?.thumbnail ? `<img style="width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid var(--line)" src="${escapeHtml(report.meta.thumbnail)}" alt="경쟁 썸네일">` : '';
     const tm = String(token).match(/^thumb:(.+)$/);
@@ -432,7 +434,15 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     `<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 12px"><span class="pill-badge">${escapeHtml(sheet.format)}</span>${sheet.episodeId ? ` · <span class="pill-badge" style="background:rgba(0,210,211,0.12);color:#00D2D3;border-color:rgba(0,210,211,0.35)">에피소드: ${escapeHtml(sheet.episodeId)}</span>` : ''}${report || sheet.sourceVideoId ? ` · <span>기준 영상: <b>${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</b></span> · <span>${escapeHtml(report?.meta?.channelTitle || '')}</span> · <span style="color:var(--accent-amber);font-weight:700">평소의 ${formatRatioLabel(report)}</span>${studioFoldsMeta}` : ` · <span>다중 명작 융합 (${(sheet.references || []).length}편)</span>`} · <span class="pill-badge" style="background:rgba(52,211,153,0.12);color:var(--ok);border-color:rgba(52,211,153,0.3)">상태: ${escapeHtml(STAGE_KO[stage] || stage)}</span>${createdMeta}</div>`,
     (sheet.rows || []).some((x) => x.origin) ? (() => { const o = { competitor: 0, mixed: 0, ours: 0 }; for (const x of sheet.rows || []) if (o[x.origin] !== undefined) o[x.origin] += 1; const n = o.competitor + o.mixed + o.ours || 1; return `<p>행별 출처 <b>경쟁 구조 ${o.competitor} · 섞음 ${o.mixed} · 우리가 새로 만듦 ${o.ours}</b> (총 ${n}행) — 사람이 정한 비율이 아니라 아래 각 행에 적은 출처를 센 값이다.</p><div class="bar"><span style="width:${(o.ours / n) * 100}%"></span><span style="width:${(o.mixed / n) * 100}%;background:var(--accent-amber)"></span><span style="width:${(o.competitor / n) * 100}%"></span></div>`; })() : `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
   ];
-  for (const p of problems) parts.push(`<div class="warn">⚠ ${escapeHtml(p)}</div>`);
+  for (const p of blockerList) parts.push(`<div class="warn">⛔ [승인 차단] ${escapeHtml(p)}</div>`);
+  for (const w of warningList) parts.push(`<div class="card" style="border-left:3px solid #d97706;background:rgba(245,158,11,0.12);color:#92400e;margin:6px 0;padding:10px 14px;font-size:13.5px;font-weight:600">💡 [참고 경고 · 승인 가능] ${escapeHtml(w)}</div>`);
+  if (sheet.status === 'draft') {
+    const canApproveNow = blockerList.length === 0;
+    const approveNote = canApproveNow
+      ? '필수 항목을 모두 통과했습니다. 제목과 썸네일을 고른 뒤 승인할 수 있습니다.'
+      : `필수 보완 항목 ${blockerList.length}건을 해결해야 승인할 수 있습니다.`;
+    parts.push(`<div class="card" id="sheet-approve-bar" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-left:3px solid ${canApproveNow ? 'var(--ok)' : 'var(--bad)'};background:${canApproveNow ? 'rgba(52,211,153,0.08)' : 'rgba(248,113,113,0.08)'};margin:12px 0"><div><div style="font-size:14.5px;font-weight:800;color:${canApproveNow ? 'var(--ok)' : 'var(--bad)'}">🔒 비교 시트 승인 관문</div><div class="meta" id="sheet-approve-msg" style="margin-top:4px;color:var(--ink)">${escapeHtml(approveNote)}</div></div><button type="button" id="btn-approve-sheet" class="ai-pick-btn" style="background:${canApproveNow ? 'var(--ok)' : 'rgba(148,163,184,0.25)'};color:${canApproveNow ? '#06281e' : 'var(--sub)'};border:none;padding:9px 16px;font-weight:800;border-radius:8px;cursor:${canApproveNow ? 'pointer' : 'not-allowed'}"${canApproveNow ? '' : ' disabled'}>${canApproveNow ? '✅ 이 비교 시트 승인하기' : '🔒 필수 항목 해결 후 승인 가능'}</button></div>`);
+  }
   if (sheet.selfCritique && typeof sheet.selfCritique === 'object') {
     const sc = sheet.selfCritique;
     parts.push(`<div class="card" style="border-left:3px solid #00D2D3;background:linear-gradient(135deg,rgba(0,210,211,0.08),rgba(56,189,248,0.05));margin:12px 0"><div style="font-size:14.5px;font-weight:800;color:#00D2D3;margin-bottom:6px">🧠 AI 자체 비평 (제출 전 슬로건 검수)</div><div class="meta" style="color:var(--ink);line-height:1.7"><div><b>① 템플릿 탈피:</b> ${escapeHtml(sc.antiTemplate || '')}</div><div><b>② 직전 편 대비 진화:</b> ${escapeHtml(sc.evolutionFromPrev || '')}</div><div><b>③ 명작 융합 검증:</b> ${escapeHtml(sc.fusionCheck || '')}</div></div></div>`);
@@ -562,6 +572,32 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
       Promise.all(ops.map(function(op){
         return postPick(op.kind,op.val,true).then(function(r){if(!r.ok)throw new Error('fail');op.el.checked=true;});
       })).then(function(){syncAiRecUi();}).catch(function(){alert('추천 조합 저장 중 오류가 발생했습니다');syncAiRecUi();});
+    });
+  }
+  var approveBtn=document.getElementById('btn-approve-sheet');
+  if(approveBtn){
+    approveBtn.addEventListener('click',function(){
+      if(approveBtn.disabled)return;
+      if(!confirm('이 비교 시트를 승인(approved) 상태로 확정할까요?'))return;
+      approveBtn.disabled=true;
+      approveBtn.textContent='⏳ 승인 확인 중...';
+      fetch('/api/transform-sheet-approve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({videoId:sid})})
+        .then(function(r){return r.json().then(function(d){return {ok:r.ok,data:d};});})
+        .then(function(res){
+          if(!res.ok){
+            var lines=(res.data&&res.data.blockers&&res.data.blockers.length)?'\\n- '+res.data.blockers.join('\\n- '):'';
+            alert((res.data&&res.data.error||'승인할 수 없습니다')+lines);
+            approveBtn.disabled=false;
+            approveBtn.textContent='✅ 이 비교 시트 승인하기';
+            return;
+          }
+          location.reload();
+        })
+        .catch(function(){
+          alert('승인 요청 중 오류가 발생했습니다');
+          approveBtn.disabled=false;
+          approveBtn.textContent='✅ 이 비교 시트 승인하기';
+        });
     });
   }
 })();</script>`);

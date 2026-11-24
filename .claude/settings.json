@@ -28,8 +28,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/check-banned-terms.mjs\" --hook",
-            "timeout": 30
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/production-gate.mjs\" --hook",
+            "timeout": 90
           }
         ]
       }

@@ -35,6 +35,7 @@ test('데이터를 바꾸는 서버 통로는 허용 목록 안에서만 늘린�
     '/api/market-demand/run',
     '/api/schedule/approve-thumbnail', '/api/schedule/comment-done', '/api/schedule/resolve', '/api/schedule/rules', '/api/schedule/upload-now',
     '/api/transform-sheet-pick', // 썸네일 시안 고르기 = 사용자 승인 관문(2026-11-12 사용자 제안)
+    '/api/transform-sheet-approve', // 비교 시트 승인 잠금 = 사용자 승인 관문(2026-11-24 사용자 승인)
   ]);
   const posts = new Set();
   for (const line of serverLines) {

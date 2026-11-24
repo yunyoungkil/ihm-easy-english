@@ -580,6 +580,59 @@ export function evidenceProblems(sheet) {
   return out;
 }
 
+export const WARNING_PATTERNS = Object.freeze([
+  /컷 간격이 거의 일정하다/,
+  /경쟁\([^)]*\)의 절반 미만이다/,
+]);
+
+/**
+ * 시트 검사 결과를 '승인 차단(1층 불변·필수 항목)'과 '참고 경고(2~3층 창작 지표)'로 나눈다(2026-11-24).
+ * 창작 자유(리듬·비교 횟수·레퍼런스 편향)는 막지 않고 경고만 보여 주며, 금지어·저작권·필수 항목 누락만 승인을 막는다.
+ */
+export function classifySheetProblems(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null} = {}) {
+  const allProblems = validateSheet(sheet, {imageExists, competitorPacing});
+  const blockers = [];
+  const warnings = [];
+  for (const p of allProblems) {
+    if (WARNING_PATTERNS.some((re) => re.test(p))) warnings.push(p);
+    else blockers.push(p);
+  }
+  if (Array.isArray(allSheets) && allSheets.length) {
+    for (const w of referenceBiasWarnings(sheet, allSheets)) warnings.push(w.message);
+  }
+  return {blockers, warnings, all: [...blockers, ...warnings]};
+}
+
+/**
+ * 비교 시트를 승인(approved) 상태로 전환한다(2026-11-24).
+ * 1층 차단 항목이 남아 있거나(금지어·저작권 증빙·필수 항목 누락), 제목·썸네일 후보가 있는데 하나도 고르지 않았으면 승인을 막는다.
+ */
+export function approveSheet(sheet, {imageExists = () => true, competitorPacing = null, allSheets = null, requirePicks = true, now = new Date()} = {}) {
+  const {blockers, warnings} = classifySheetProblems(sheet, {imageExists, competitorPacing, allSheets});
+  const finalBlockers = [...blockers];
+  if (requirePicks) {
+    const titles = ((sheet?.rows || []).find((r) => r.key === 'title')?.ours?.titles || []).filter(Boolean);
+    if (titles.length > 0 && !(sheet?.titlePicks || []).length) {
+      finalBlockers.push('승인 전 제목 후보를 1개 이상 골라야 합니다');
+    }
+    const thumbRow = (sheet?.rows || []).find((r) => r.key === 'thumbnail')?.ours || {};
+    const thumbs = [thumbRow.image, ...(thumbRow.images || []), ...(thumbRow.images2 || []), ...(thumbRow.images3 || [])].filter(Boolean);
+    if (thumbs.length > 0 && !(sheet?.thumbnailPicks || []).length) {
+      finalBlockers.push('승인 전 썸네일 시안을 1개 이상 골라야 합니다');
+    }
+  }
+  if (finalBlockers.length) {
+    const err = new Error(`비교 시트 승인 차단 (${finalBlockers.length}건): ${finalBlockers.slice(0, 3).join(' / ')}`);
+    err.blockers = finalBlockers;
+    err.warnings = warnings;
+    throw err;
+  }
+  return {
+    sheet: {...sheet, status: 'approved', approvedAt: now.toISOString()},
+    warnings,
+  };
+}
+
 export function loadSheets(dir = sheetsDir) {
   if (!existsSync(dir)) return [];
   return readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => {

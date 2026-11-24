@@ -6,7 +6,7 @@ import {createHash} from 'node:crypto';
 import {copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {sheetsDir, validateSheet} from './transform-sheet.mjs';
+import {classifySheetProblems, sheetImageExists, sheetsDir} from './transform-sheet.mjs';
 
 /** 시트에서 패키지 파일 4개의 내용을 만든다. 제목은 사용자가 고른 것(titlePicks)만 쓴다. */
 export function packageFilesFromSheet(sheet) {
@@ -83,11 +83,16 @@ export function writeSheetThumbnailApproval({sheet, videoId, outDir, now = new D
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   try {
-    const [videoId, outDir] = process.argv.slice(2);
+    const args = process.argv.slice(2);
+    const allowDraft = args.includes('--allow-draft');
+    const [videoId, outDir] = args.filter((a) => !a.startsWith('--'));
     if (!videoId || !outDir) throw new Error('사용: node scripts/package-from-sheet.mjs <영상ID> <패키지 폴더>');
     const sheet = JSON.parse(readFileSync(join(sheetsDir, `${videoId}.json`), 'utf8'));
-    const problems = validateSheet(sheet).filter((p) => p.startsWith('설명글·태그·고정 댓글'));
-    if (problems.length) throw new Error(problems.join('; '));
+    if (!allowDraft && sheet.status !== 'approved' && sheet.status !== 'published') {
+      throw new Error(`비교 시트가 아직 '${sheet.status}' 상태입니다 — 승인 후 패키지를 만드세요.`);
+    }
+    const {blockers} = classifySheetProblems(sheet, {imageExists: sheetImageExists});
+    if (blockers.length) throw new Error(`비교 시트 차단 항목(${blockers.length}건): ${blockers.join('; ')}`);
     const files = packageFilesFromSheet(sheet);
     const images = packageImagesFromSheet(sheet);
     mkdirSync(outDir, {recursive: true});

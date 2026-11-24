@@ -73,13 +73,19 @@ export const runHook = (raw, {now = Date.now(), packagesRoot} = {}) => {
   } catch {
     return 0;
   }
-  const command = input?.tool_input?.command;
-  if (typeof command !== 'string' || !isRenderCommand(command)) return 0;
-  const projectDir = findRenderProject(command, input.cwd || process.cwd());
-  if (!projectDir) return 0;
+  const isAntigravity = Boolean(input?.hookEventName || input?.toolCall);
+  const command = isAntigravity ? input?.toolCall?.args?.CommandLine : input?.tool_input?.command;
+  const finish = (msg = '') => {
+    if (isAntigravity) console.log('{}');
+    else if (msg) respond(msg);
+    return 0;
+  };
+  if (typeof command !== 'string' || !isRenderCommand(command)) return finish();
+  const cwd = input.cwd || input.workspacePaths?.[0] || process.cwd();
+  const projectDir = findRenderProject(command, cwd);
+  if (!projectDir) return finish();
   const r = syncRender({projectDir: resolve(projectDir), packagesRoot, now});
-  respond(r.status === 'copied' ? `패키지에 반영: ${basename(r.to)} → ${basename(r.packageDir)}. 대시보드는 새로고침하면 보입니다.` : `패키지 반영 건너뜀: ${r.reason}`);
-  return 0;
+  return finish(r.status === 'copied' ? `패키지에 반영: ${basename(r.to)} → ${basename(r.packageDir)}. 대시보드는 새로고침하면 보입니다.` : `패키지 반영 건너뜀: ${r.reason}`);
 };
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {

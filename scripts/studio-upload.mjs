@@ -482,7 +482,34 @@ export async function scheduleInStudio(page, plan, schedule) {
     await page.locator('input[type="file"]').first().waitFor({state: 'attached', timeout: 45000}); // allow-literal: 대기 45초
   });
   await step('영상 파일 붙이기', async () => {
-    await page.locator('input[type="file"]').first().setInputFiles(plan.videoPath);
+    const fileInput = page.locator('input[type="file"]').first();
+    const sizeBytes = statSync(plan.videoPath).size;
+    if (sizeBytes > 45 * 1024 * 1024) { // allow-literal: Playwright connectOverCDP setInputFiles 50MB 제한 회피
+      const cdp = await page.context().newCDPSession(page);
+      try {
+        const evalRes = await cdp.send('Runtime.evaluate', {
+          expression: `(() => {
+            const walk = (root) => {
+              const hit = root.querySelector('input[type="file"]');
+              if (hit) return hit;
+              for (const el of root.querySelectorAll('*')) {
+                if (el.shadowRoot) { const r = walk(el.shadowRoot); if (r) return r; }
+              }
+              return null;
+            };
+            return walk(document);
+          })()`,
+          returnByValue: false,
+        });
+        const objectId = evalRes?.result?.objectId;
+        if (!objectId) throw new Error('영상 파일 입력 칸(input[type="file"])을 찾지 못했습니다.');
+        await cdp.send('DOM.setFileInputFiles', {objectId, files: [resolve(plan.videoPath)]});
+      } finally {
+        await cdp.detach().catch(() => {});
+      }
+    } else {
+      await fileInput.setInputFiles(plan.videoPath);
+    }
     await dlg.locator('#title-textarea #textbox').waitFor({state: 'visible', timeout: 120000}); // allow-literal: 대기 2분
   });
   await step('제목·설명 입력', async () => {

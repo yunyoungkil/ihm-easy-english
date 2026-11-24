@@ -21,7 +21,7 @@
   - 시험 변수(#5): Pinterest 스위스 키네틱 유압 1박자 압축 × 3중 하이브리드(Omni 4클립+Nano Banana+HyperFrames) + 1박자 메트로놈 3연타 + `STRIKE` 1.5초 챌린지 + `slop-rewrite` 전면 윤문. 12/19 토 이후 공개 7일 결과 정산 예정.
 - **EP35 쇼츠 `videos/ep35-shorts-ghost-letters`**: **12/15 화 20:00 KST 예약 완료** (ID `4lKoVEXlm78`, 교육 27, 한국어 `ko`, 44.3s, 1080×1920 30fps, `containsSyntheticMedia: true`, 재생목록 `PLCbnHG8SDRes`, 한국어 수동 자막 `subtitles-ko.srt` 게시).
   - 시험 변수(#6): Omni 3클립(`c00-salmon-peel`·`c04-receipt-roll-cut`·`c08-island-peel`) + 리소그래프 종이 찢기 물리 해체 × 500년 역사 반전 서사 + 무나레이션 4연속 귀 증명 + `doubt` 1.2초 퓨즈 오픈 루프 + 자율 질문 Soft Nudge. 12/22 화 이후 공개 7일 결과 정산 예정.
-- **EP36 롱폼 `videos/ep36-everyday-words-unheard`** (11/25 새벽, **렌더·업로드 패키지 완료 · Gate 3 업로드 승인 대기**): 1080p 30fps 6분 16초(`376.37s`, 67.4MB, 3트랙 마스터 음량 `-17.3dB`, 검은 화면 0·금지어 0·체크 경고 0), `output/upload-packages/ep36-everyday-words-unheard/`(SRT 112블록 · v3 밝은 아이보리 썸네일 A안 · 챕터 포함 설명글) 조립 완료. 실수 #15~#22 지침 기록 완료.
+- **EP36 새 포맷 롱폼 `videos/ep36-everyday-words-unheard`**: **12/07 월 23:00 KST 예약 완료** (ID `d9ywtP-2i2U`, 교육 27, 한국어 `ko`, 6분 16초 1080p 30fps, `containsSyntheticMedia: true`, 기초 시즌1 재생목록, 한국어 수동 자막 `subtitles-ko.srt` 112블록 게시, 12/14 월 이후 7일 성과 정산 · 시험 변수 #7). 실수 #15~#22 지침 및 `studio-upload.mjs` 50MB+ CDP 첨부 수리 완료.
 - **11/30 롱폼 방향 확정 (2026-11-20 사용자 승인 A안)**: 11/30(월) 롱폼은 1회 쉬고, 쇼츠 선행 후 11/25 EP30 쇼츠 7일 정산으로 검증된 주제를 새 포맷 롱폼으로 확장.
 - **스튜디오 조사 2단계 전환 완료 (`2026-11-20`)**: 따라잡기 0편·수집 6일(후보 87편) 달성 후 `pickReportTargets`를 조사 후보 우선(롱폼 1 + 쇼츠 1 · 같은 채널 7일 쿨다운 · 빈 형식은 손입력 폴백 · API 최근 50편 v2 배수 직접 계산)으로 전환 완료. 14일 관찰(조사 리포트 20편+) 후 사용자 재확인 뒤 3단계 착수.
 

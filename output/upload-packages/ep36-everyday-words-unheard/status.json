@@ -1,8 +1,10 @@
 {
-  "status": "ready-for-upload",
+  "status": "scheduled",
   "episodeId": "ep36-everyday-words-unheard",
   "format": "LONGFORM",
+  "videoId": "d9ywtP-2i2U",
   "title": "평생 초콜릿·비타민이라 읽었는데… 원어민 영어 발음은 아예 딴 단어",
+  "scheduledFor": "2026-12-07T14:00:00Z",
   "recommendedPublishAt": "2026-12-07T14:00:00Z",
   "playlist": "이해하면 쉬운 영어 | 영어 읽는 법 기초 시즌1 (왕초보 영어 읽기)",
   "containsSyntheticMedia": true,
@@ -15,12 +17,14 @@
   "thumbnailsCount": 3,
   "subtitlesFile": "subtitles-ko.srt",
   "subtitlesCount": 112,
-  "renderedAt": "2026-11-24T15:17:08.240Z",
-  "generatedAt": "2026-11-24T15:17:08.240Z",
+  "subtitlesPublished": true,
+  "uploadedAt": "2026-11-24T15:29:53.183Z",
+  "renderedAt": "2026-11-24T15:29:53.183Z",
+  "lastSyncedAt": "2026-11-24T15:29:53.183Z",
   "thumbnailApproval": {
     "file": "thumbnail.jpg",
     "sha256": "bf0f59397076dac7aa80940268d82b8953cb22c02258fa55deaf1a5e38369730",
-    "approvedAt": "2026-11-24T15:17:08.240Z"
+    "approvedAt": "2026-11-24T15:29:53.183Z"
   },
   "pinnedCommentPending": true
 }

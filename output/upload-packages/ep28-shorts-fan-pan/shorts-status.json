@@ -1,7 +1,12 @@
 {
-  "status": "scheduled",
+  "status": "published",
   "plannedFor": "2026-11-24T11:00:00Z",
-  "lastSyncedAt": "2026-11-23T16:10:54.801Z",
+  "lastSyncedAt": "2026-11-24T13:13:59.944Z",
   "videoId": "bQNoYraxFY8",
-  "scheduledFor": "2026-11-24T11:00:00Z"
+  "scheduledFor": "2026-11-24T11:00:00Z",
+  "publishedAt": "2026-11-24T11:00:08Z",
+  "publishedAtSource": "youtube",
+  "pinnedCommentPending": false,
+  "pinnedCommentAt": "2026-11-24T13:13:59.946Z",
+  "pinnedCommentId": "Ugz_qumIvPkNqXsLJjJ4AaABAg"
 }

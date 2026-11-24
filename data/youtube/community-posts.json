@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-24T00:30:00+09:00",
+  "updatedAt": "2026-11-24T14:37:00+09:00",
   "experiment": {
     "startedAt": "2026-11-24",
     "reviewAfter": "2026-12-22",
@@ -13,6 +13,87 @@
     ]
   },
   "posts": [
+    {
+      "id": "cp-20261125-vegetable-quiz",
+      "format": "quiz",
+      "type": "standalone-quiz",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-11-25T09:00:00Z",
+      "content": "미국 원어민이 마트에서 \"Fresh vegetables.\"라고 빨리 말할 때, vegetable은 몇 박자로 들릴까요?",
+      "options": [
+        "네 박자 (베-지-터-블)",
+        "세 박자 (베즈-터-블)",
+        "다섯 박자 (베-지-테-이-블)",
+        "두 박자 (베즈-블)"
+      ],
+      "correctIndex": 1,
+      "explanation": "우리말로 '베지터블'이라고 네 글자로 쓰지만, 미국 원어민은 가운데 e 소리를 쏙 빼고 '베즈-터-블'처럼 세 박자로 가볍게 이어 말합니다. 초콜릿(chocolate)을 두 박자로 줄여 말하는 것과 같은 원리예요."
+    },
+    {
+      "id": "cp-20261127-silent-letters-carousel",
+      "format": "image",
+      "type": "standalone-carousel",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-11-27T09:00:00Z",
+      "content": "영어 단어에 적혀 있는데 원어민은 절대 안 읽는 글자 3가지, 한눈에 정리했습니다.\n\n옆으로 넘기며 확인해 보세요. 처음 보는 단어를 만나도 KN·MB·WR 세 짝만 눈에 익으면 훨씬 덜 헷갈립니다.\n\n이 중에 예전에 다 읽으셨던 단어가 있나요?",
+      "images": [
+        "output/community-posts/2026-11-27-silent-letters/slide-01.png",
+        "output/community-posts/2026-11-27-silent-letters/slide-02.png",
+        "output/community-posts/2026-11-27-silent-letters/slide-03.png",
+        "output/community-posts/2026-11-27-silent-letters/slide-04.png"
+      ]
+    },
+    {
+      "id": "cp-20261130-longform-style-poll",
+      "format": "text-poll",
+      "type": "topic-poll",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-11-30T09:00:00Z",
+      "content": "다음 긴 영어 영상, 지금 가장 필요하신 쪽에 한 표만 눌러 주세요.\n\n가장 많이 뽑힌 주제로 먼저 준비하겠습니다.",
+      "options": [
+        "화면을 보며 이해하는 '영단어 읽는 규칙 총정리'",
+        "출근·집안일하며 틀어 놓고 따라 하는 '소리 반복 듣기'",
+        "카페·여행에서 바로 쓰는 '원어민이 빨리 말하는 20표현'",
+        "외래어랑 달라서 매번 헷갈리는 '배신감 드는 영단어 모음'"
+      ]
+    },
+    {
+      "id": "cp-20261202-buffet-quiz",
+      "format": "quiz",
+      "type": "standalone-quiz",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-12-02T09:00:00Z",
+      "content": "미국 식당에서 \"It's a buffet.\"이라고 말할 때, 원어민은 buffet를 어떻게 읽을까요?",
+      "options": [
+        "부펫 (끝의 t까지 또렷하게)",
+        "버페이 (끝의 t는 안 읽고 뒤에 힘)",
+        "뷔페 (우리말 외래어 그대로)",
+        "버핏 (앞에 힘을 주고 짧게)"
+      ],
+      "correctIndex": 1,
+      "explanation": "프랑스어에서 들어온 단어라 끝의 t를 읽지 않고, 뒤쪽 '페이'에 힘을 주어 '버페이'에 가깝게 말합니다. 발레(ballet)나 부케(bouquet)도 똑같이 끝의 t가 소리 나지 않습니다."
+    },
+    {
+      "id": "cp-20261204-her-bird-fur-card",
+      "format": "image",
+      "type": "standalone-card",
+      "topicTrack": "english-fun",
+      "approved": true,
+      "status": "ready",
+      "targetPublishDate": "2026-12-04T09:00:00Z",
+      "content": "철자는 E, I, U로 다 다른데, 원어민이 HER·BIRD·FUR를 읽으면 셋 다 똑같은 '얼' 소리가 납니다.\n\n모음 뒤에 R이 붙으면 원래 모음 소리가 약해지고 R 쪽으로 하나로 모이기 때문이에요. 다음번에 person, first, turn을 만나셔도 같은 느낌으로 읽으시면 됩니다.",
+      "images": [
+        "output/community-posts/2026-12-04-her-bird-fur/card-01.png"
+      ]
+    },
     {
       "id": "cp-20261205-word-merge",
       "format": "quiz",

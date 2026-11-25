@@ -1,0 +1,393 @@
+{
+  "schemaVersion": 1,
+  "videoId": "S9C2Uu2ZcAg",
+  "analyzedAt": "2026-11-25T16:05:46.438Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 62,
+  "meta": {
+    "videoId": "S9C2Uu2ZcAg",
+    "title": "취직 전 알야야 하는 단어 #취업",
+    "channelId": "UCCSBusSRUfkOdVGgKoaOldQ",
+    "channelTitle": "CalliTube",
+    "publishedAt": "2026-10-13T04:56:22Z",
+    "viewCount": 2393074,
+    "likeCount": 28537,
+    "commentCount": 770,
+    "durationSeconds": 62,
+    "thumbnail": "https://i.ytimg.com/vi/S9C2Uu2ZcAg/maxresdefault.jpg",
+    "description": "",
+    "tags": []
+  },
+  "subscriberCount": 93600,
+  "viewsPerSubscriber": 25.57,
+  "outlierRatio": 270.89,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-25T16:05:10.509Z",
+  "ratioDenominator": 8834,
+  "ratioPeerCount": 43,
+  "channelPeers": [
+    {
+      "videoId": "TfFo7nXKDqU",
+      "title": "소문자 h와 대문자 H 입니다 #딥펜",
+      "viewCount": 4712,
+      "durationSeconds": 18,
+      "publishedAt": "2026-10-28"
+    },
+    {
+      "videoId": "YghHPfpJlMo",
+      "title": "꼭 알아야 하는 영어단어-가족편 #영어공부",
+      "viewCount": 7253,
+      "durationSeconds": 57,
+      "publishedAt": "2026-10-31"
+    },
+    {
+      "videoId": "fa2_MNZKTgY",
+      "title": "대문자G 쓰는 법 #글씨",
+      "viewCount": 9501,
+      "durationSeconds": 17,
+      "publishedAt": "2026-11-17"
+    },
+    {
+      "videoId": "bo6H_Nn3v44",
+      "title": "한글자 애칭 #이름",
+      "viewCount": 13380,
+      "durationSeconds": 44,
+      "publishedAt": "2026-11-03"
+    },
+    {
+      "videoId": "0-QYKizE7pg",
+      "title": "미국인들이 매일 사용하는 영어표현 #영어공부",
+      "viewCount": 25111,
+      "durationSeconds": 59,
+      "publishedAt": "2026-11-21"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": 100,
+  "studioSeenAt": "2026-11-25T16:00:30.899Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 13,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 100
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 62
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 1,
+    "stats": {
+      "sentences": 1,
+      "lengthSum": 108,
+      "lengthMedian": 108,
+      "endings": {
+        "question": 0,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 1
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 0,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 1,
+      "hangulChars": 107,
+      "hangulRatio": 0.99,
+      "uniqueWordRatio": 0.98,
+      "uniqueSentenceRatio": 1
+    },
+    "windowSeconds": 62,
+    "hangulPerSec": 1.73,
+    "computedAt": "2026-11-25T16:05:37.552Z",
+    "note": "품질 낮음: 문장 1개(8개 미만), 한글 107자(150자 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "취업 전에 반드시 알아야 하는 업무 용어라는 필요성을 강조하여 직장 생활 용어가 궁금한 시청자의 호기심을 유발함.",
+      "titleQuote": "취직 전 알야야 하는 단어 #취업",
+      "thumbnailText": "취직 전 알아야 하는 단어✅",
+      "thumbnailWordCount": 5,
+      "thumbnailVisual": "노트에 만년필로 '취직 전 알아야 하는 영어' 제목 아래 용어 목록과 한국어 뜻을 정갈하게 적는 손 모양이 강조됨.",
+      "thumbnailVsTitle": "제목의 메시지를 상단 텍스트 박스로 동일하게 전달하여 어떤 내용을 다루는지 명확히 보완함.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "노트에 만년필로 픽스, 어레인지, 킥오프, 드랍 등 비즈니스 영어 단어를 쓰고 한국어 뜻을 정갈하게 적어 내려감.",
+      "quote": "취직전 알아야 하는 영어 픽스 최종 확정 어레인지 조율 키코프 시작 드랍 중단 혹은 취소",
+      "reasonToKeepWatching": "번호순으로 하나씩 적어 나가는 필기 과정을 시각적·청각적으로 보여주어 끝까지 완성되는 모습을 보게 만듦.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "만년필로 노트에 '1. 픽스: 최종확정'을 직접 쓰는 모습이 나오고 목소리로 읽어 줌.",
+      "quote": "취직전 알아야 하는 영어 픽스 최종",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 14,
+        "what": "픽스, 어레인지, 킥오프, 드랍 등 기본 업무 진행 용어의 한국어 뜻을 손글씨로 적음.",
+        "quote": "취직전 알아야 하는 영어 픽스 최종 확정 어레인지 조율 키코프 시작 드랍 중단 혹은 취소",
+        "quoteVerified": true
+      },
+      {
+        "start": 14,
+        "end": 24,
+        "what": "B2B, B2C 등 기업 거래 관련 영어 약어 용어의 뜻을 적음.",
+        "quote": "기업과 기업 b투 기업과 소비자",
+        "quoteVerified": true
+      },
+      {
+        "start": 24,
+        "end": 37,
+        "what": "팔로우업, 포워드, 얼라인 등 업무 커뮤니케이션 용어의 뜻을 작성함.",
+        "quote": "팔로우업 후속 조치 포워드 전달 언라인 방향을 맞춤",
+        "quoteVerified": true
+      },
+      {
+        "start": 37,
+        "end": 49,
+        "what": "캐치업, 드래프트, 리퀘스트 등 문서 및 진행 상황 관련 단어의 뜻을 적음.",
+        "quote": "캐치업 진행 상황 공유 드래프트 초안 리퀘스트 요청",
+        "quoteVerified": true
+      },
+      {
+        "start": 49,
+        "end": 62,
+        "what": "리마인더, 태스크, 어전트까지 작성하며 15개 용어 정리를 마침.",
+        "quote": "리마인더 재내 테스크 업무 어전트 긴급 지금",
+        "quoteVerified": true
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "화면 상단에 '취직 전 알아야 하는 단어' 텍스트 박스가 고정된 상태로 1번 픽스 뜻을 적기 시작함.",
+        "purpose": "영상 주제를 명확히 고정하고 시각적인 필기 액션 시작."
+      },
+      {
+        "t": 14,
+        "what": "카메라 시점이 노트 아래쪽 5번 B2B 항목 위치로移動함.",
+        "purpose": "다음 작성 항목에 시선을 집중시킴."
+      },
+      {
+        "t": 24,
+        "what": "7번 팔로우업 항목 위치로 노트 시점이 내려감.",
+        "purpose": "연속된 목록 작성을 자연스럽게 보여줌."
+      },
+      {
+        "t": 37,
+        "what": "노트를 위로 올려 10번 캐치업부터 15번까지의 하단 영역을 보여줌.",
+        "purpose": "남은 작성 분량을 화면에 확보함."
+      }
+    ],
+    "ending": {
+      "what": "15번 어전트의 뜻인 '긴급'을 다 적고 펜 작성을 완료하며 영상이 종료됨.",
+      "quote": "어전트 긴급 지금",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "우리말 대신 굳이 불필요하게 영어 용어를 남발하는 직장 문화에 대한 공감과 불만",
+          "quote": "그냥 한국말 쓰면안되나 꼭 영어로 해야되나.",
+          "quoteVerified": true
+        },
+        {
+          "point": "만년필로 써 내려가는 정갈하고 예쁜 필체에 대한 감탄",
+          "quote": "글씨 참 이쁘게 쓰시네요",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "직장에서 알아듣지 못하는 영어 용어를 써서 곤란했던 경험",
+          "quote": "전에 회의때 \"모두 캐치업하세요\" 이러는데 무슨 말인지몰라서 뻘쭘 뻘쭘..",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "point": "각 단어별 실제 문장 예문이 함께 제공되었으면 좋겠다는 요청",
+          "quote": "예문이 있으면 좋겠네요",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "판교 사투리 (IT/대기업 등에서 영어를 섞어 쓰는 언어 습관)",
+          "quote": "판교사투리 몇개는 한국어로 온전히 그 뉘앙스를 표현하기힘드니까 이해하는데 쓰잘데없는걸로 하는경우도많음",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 15,
+      "description": "회사에서 자주 쓰이는 영어 비즈니스 용어 15개의 한국어 뜻을 번호순으로 나열하여 손글씨로 보여줌.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 상단 중앙 고정",
+      "size": "보통",
+      "highlightColor": "없음",
+      "highlightMethod": "없음",
+      "textAmount": "'취직 전 알아야 하는 단어✅' 문구 고정",
+      "changeTiming": "변화 없이 계속 유지됨"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "잔잔하고 차분한 잔잔한 연주곡",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "만년필이 종이에 써지는 사각거리는 마찰음 강조",
+      "voiceVsMusic": "읽어주는 목소리와 사각거리는 필기음, 배경음악이 균형 있게 어우러짐"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "취직 전 꼭 알아야 하는 영어 단어 목록 작성을 바로 보여줌",
+        "quote": "취직전 알아야 하는 영어 픽스 최종",
+        "type": "실용적 필요성 제시",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "직장에서 쓰이는 15개 영어 용어의 뜻이 무엇인지에 대한 궁금증 유발",
+          "quote": "취직전 알아야 하는 영어",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 56,
+          "what": "마지막 15번 단어까지 한국어 뜻을 다 적어 보여주며 해소",
+          "quote": "어전트 긴급 지금",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "1번부터 15번까지 개별 용어를 단순 나열하여 보여주는 순차적 정보 구성임.",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 56,
+        "what": "15개의 유용한 직장 영어 용어 정리 목록 완성",
+        "quote": "어전트 긴급",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "만년필로 사각거리며 예쁜 글씨체로 15개 용어를 써 내려가는 시청각 연출",
+        "reaction": "글씨체 감탄 및 회사의 과도한 영어 사용 문화에 대한 뜨거운 댓글 논쟁 발생",
+        "quote": "그 와중에 필체는 이쁘네",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "단순 글씨 쓰기 연출을 넘어 '사회초년생 필수 영어 용어'라는 대중적이고 공감대 높은 현실적 주제를 다루어 댓글 참여와 공유를 폭발적으로 끌어냄.",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 소리나 발음 원리를 가르치는 것이 아니라 비즈니스 외래어 용어의 뜻을 손글씨로 적어주는 영상임.",
+    "forUs": {
+      "adopt": "사각거리는 펜 소리와 정갈한 필기 화면을 활용해 시각적·청각적 몰입감을 확보하는 연출 기법.",
+      "differentiate": "단순 단어-뜻 일대일 매칭을 넘어 실제 소리 차이와 한국인이 틀리기 쉬운 발음 포인트를 직접 들려주고 연습하게 구성하기."
+    }
+  },
+  "quoteCheck": {
+    "checked": 19,
+    "verified": 19,
+    "unverified": 0
+  },
+  "pacing": {
+    "count": 4,
+    "medianGapSeconds": 12.4,
+    "perMinute": 3.9,
+    "times": [
+      13.8,
+      24.2,
+      37,
+      49.4
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 14,
+      "file": "14.jpg"
+    },
+    {
+      "t": 24,
+      "file": "24.jpg"
+    },
+    {
+      "t": 37,
+      "file": "37.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 11058,
+    "candidatesTokenCount": 2358,
+    "totalTokenCount": 16255,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 5377
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 4581
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 2839,
+    "serviceTier": "standard"
+  }
+}

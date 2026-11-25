@@ -460,8 +460,57 @@
     "perMinute": 2.4,
     "source": "AI가 적은 화면 변화(영상을 못 받아 대신 씀)"
   },
-  "frames": [],
-  "framesError": "Command failed: python -m yt_dlp -q --no-warnings --download-sections *0-303 -f bv*[height<=480][ext=mp4]/b[height<=480]/b -o C:\\Users\\yunyo\\AppData\\Local\\Temp\\outlier-frames-3xOu7z\\v.%(ext)s https://www.youtube.com/watch?v=xaTAV--wNxg\n",
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 4,
+      "file": "4.jpg"
+    },
+    {
+      "t": 8,
+      "file": "8.jpg"
+    },
+    {
+      "t": 23,
+      "file": "23.jpg"
+    },
+    {
+      "t": 34,
+      "file": "34.jpg"
+    },
+    {
+      "t": 44,
+      "file": "44.jpg"
+    },
+    {
+      "t": 58,
+      "file": "58.jpg"
+    },
+    {
+      "t": 101,
+      "file": "101.jpg"
+    },
+    {
+      "t": 148,
+      "file": "148.jpg"
+    },
+    {
+      "t": 207,
+      "file": "207.jpg"
+    },
+    {
+      "t": 227,
+      "file": "227.jpg"
+    },
+    {
+      "t": 250,
+      "file": "250.jpg"
+    }
+  ],
+  "framesError": null,
   "usage": {
     "promptTokenCount": 35779,
     "candidatesTokenCount": 3465,

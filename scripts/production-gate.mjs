@@ -20,7 +20,7 @@ export const ALLOW_BANNED_TERMS = 'ALLOW_BANNED_TERMS';
 export const MIN_MOBILE_FONT_PX = 34; // allow-literal: 1층 불변 모바일 최소 글자 크기(knowledge/rule-tiers.md 14번)
 export const MIN_FACT_CHECK_CHARS = 100; // allow-literal: 빈 껍데기 FACT-CHECK.md 방지 하한
 const EXTERNAL_SLOP_DIR = 'C:\\Users\\yunyo\\Downloads\\slop-rewrite';
-const EXTERNAL_SLOP_SCRIPT = join(EXTERNAL_SLOP_DIR, '.claude', 'skills', 'slop-rewrite', 'scripts', 'check_ai_tells.py');
+export const EXTERNAL_SLOP_SCRIPT = join(EXTERNAL_SLOP_DIR, '.claude', 'skills', 'slop-rewrite', 'scripts', 'check_ai_tells.py');
 
 const VOICE_COMMAND = /(?:^|[;&|\s])(?:node\s+)?["']?(?:[^"'\s]*[\\/])?(?:generate-aistudio-speech|generate-tts)\.mjs\b/;
 

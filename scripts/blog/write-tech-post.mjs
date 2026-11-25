@@ -6,7 +6,7 @@
 //   - `-p, --print`: 비대화형 출력 후 종료
 //   - `--restricted`: 명령·코드 실행 내장 도구(Bash, PowerShell 등) 제거, 작업 폴더 밖 파일 접근 제한, user/project/local settings 무시, bypassPermissions 거부
 //   - `--tools "WebSearch,WebFetch,Write"`: 내장 도구를 웹 검색·웹 읽기·파일 쓰기만으로 고정(`--restricted`에서 제외되는 WebFetch를 명시해 복원)
-//   - `--allowedTools "WebSearch,WebFetch,Write(data/blog/drafts/**)"`: 허용 도구 화이트리스트(초안 폴더 쓰기만 허용)
+//   - `--allowedTools "WebSearch,WebFetch,Write"`(2026-11-26 정정: 윈도우에서 `Write(data/blog/drafts/**)` 같은 경로 규칙은 절대 경로 도구 호출과 맞지 않아 모두 거부됐다. 대신 작업 폴더를 초안 폴더로 하고 `--restricted`가 그 밖의 쓰기를 막게 했다. 시험: 안쪽 저장 성공, 바깥 파일은 거부): 허용 도구 화이트리스트(초안 폴더 쓰기만 허용)
 //   - `--permission-mode dontAsk`, `--permission-prompts none`: 프롬프트 없이 미허용 도구 자동 거부
 //   - `--output-format json`, `--no-session-persistence`, `--strict-mcp-config`: JSON 결과, 세션 미저장, 외부 MCP 차단
 // - 실제 제한 시험(`"git status를 실행해"` 프롬프트, stdin 차단, 45초 타임아웃):
@@ -142,7 +142,8 @@ export async function runWriter({
     return {ok: false, error: 'draftPath가 필요합니다.'};
   }
 
-  await mkdir(path.dirname(draftPath), {recursive: true});
+  const draftDir = path.dirname(draftPath);
+  await mkdir(draftDir, {recursive: true});
   await rm(draftPath, {force: true});
 
   const args = [
@@ -150,7 +151,7 @@ export async function runWriter({
     '--model', WRITER_MODEL,
     '--restricted',
     '--tools', 'WebSearch,WebFetch,Write',
-    '--allowedTools', 'WebSearch,WebFetch,Write(data/blog/drafts/**)',
+    '--allowedTools', 'WebSearch,WebFetch,Write',
     '--permission-mode', 'dontAsk',
     '--permission-prompts', 'none',
     '--output-format', 'json',
@@ -164,7 +165,7 @@ export async function runWriter({
     let timedOut = false;
     let stderr = '';
     const child = spawnImpl(exe, args, {
-      cwd,
+      cwd: draftDir, // 작업 폴더를 초안 폴더로 해 두면 --restricted가 그 밖의 쓰기를 막는다(2026-11-26 시험)
       stdio: ['ignore', 'pipe', 'pipe'],
       windowsHide: true,
     });

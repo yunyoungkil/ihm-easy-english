@@ -31,7 +31,7 @@ export function renderPostHtml(draft, {productLink = null, hero = null} = {}) {
     const width = escapeHtml(hero.width ?? HERO_DISPLAY_WIDTH);
     const height = escapeHtml(hero.height ?? HERO_DISPLAY_HEIGHT);
     parts.push(
-      `<p><img src="${escapeHtml(hero.url)}" alt="${escapeHtml(hero.alt)}" width="${width}" height="${height}" fetchpriority="high" decoding="async"></p>`,
+      `<p><img src="${escapeHtml(hero.url)}" alt="${escapeHtml(hero.alt)}" width="${width}" height="${height}" style="max-width:100%;height:auto" fetchpriority="high" decoding="async"></p>`,
     );
   }
   const body = stripLeadingDisclosure(draft?.bodyHtml);

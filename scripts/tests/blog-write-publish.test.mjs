@@ -324,7 +324,7 @@ test('renderPostHtml: hero가 있으면 대가 문구 문단 바로 다음에 �
   assert.equal(paragraphs[0], DISCLOSURE);
   assert.equal(
     paragraphs[1],
-    `<img src="${hero.url}" alt="${hero.alt}" width="1200" height="670" fetchpriority="high" decoding="async">`,
+    `<img src="${hero.url}" alt="${hero.alt}" width="1200" height="670" style="max-width:100%;height:auto" fetchpriority="high" decoding="async">`,
   );
   assert.equal(paragraphs[2], '연결된 전열 기기를 모두 분리합니다.');
   assert.equal(html.includes('loading="lazy"'), false);

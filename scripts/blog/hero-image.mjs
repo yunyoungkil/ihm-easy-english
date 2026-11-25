@@ -212,6 +212,8 @@ async function defaultRunImage({promptFile, output, aspect, cwd = process.cwd()}
   }
 }
 
+const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.webp'];
+
 /** 지시문을 파일로 쓰고 후보 그림 N장을 하나씩 순서대로 만든다(동시 실행 없음). */
 export async function generateCandidates({
   brief,
@@ -228,15 +230,15 @@ export async function generateCandidates({
     const promptFile = path.join(outDir, `prompt-${n}.txt`);
     const output = path.join(outDir, `cand-${n}.png`);
     await writeFile(promptFile, `${prompt}\n`, 'utf8');
-    await rm(output, {force: true});
+    for (const ext of IMAGE_EXTS) await rm(path.join(outDir, `cand-${n}${ext}`), {force: true});
     try {
       const res = await runImage({promptFile, output, aspect: '16:9', cwd: projectDir});
       if (res?.ok === false) {
         results.push({path: output, ok: false, error: res.error || '그림 만들기 실패'});
-      } else if (!existsSync(output)) {
-        results.push({path: output, ok: false, error: '그림 파일이 만들어지지 않았습니다.'});
       } else {
-        results.push({path: output, ok: true});
+        // AI 스튜디오 스크립트는 실제 그림 형식에 맞춰 확장자를 바꿀 수 있다(2026-11-26 확인: .png로 요청해도 .jpg로 저장됨)
+        const actual = IMAGE_EXTS.map((ext) => path.join(outDir, `cand-${n}${ext}`)).find((p) => existsSync(p));
+        results.push(actual ? {path: actual, ok: true} : {path: output, ok: false, error: '그림 파일이 만들어지지 않았습니다.'});
       }
     } catch (err) {
       results.push({path: output, ok: false, error: err.message});
@@ -352,7 +354,7 @@ async function defaultRunClaude({prompt, cwd = process.cwd(), timeoutMs = PICKER
     '--model', PICKER_MODEL,
     '--restricted',
     '--tools', 'Read,Write',
-    '--allowedTools', 'Read(output/blog/images/**),Write(output/blog/images/**)',
+    '--allowedTools', 'Read,Write', // 경로 규칙은 윈도우 절대 경로와 맞지 않아 거부됨(2026-11-26 시험). 작업 폴더를 그림 폴더로 해 --restricted가 바깥을 막는다
     '--permission-mode', 'dontAsk',
     '--permission-prompts', 'none',
     '--output-format', 'json',
@@ -397,6 +399,7 @@ function pickerPrompt({topicId, items, verdictRel}) {
     '볼 것(하나라도 걸리면 그 후보는 떨어뜨린다):',
     '1. 글이 다루는 문제 장면이 맞는가(일반적인 가전 사진이 아니라 그 문제의 순간).',
     '2. 로고, 상표, 특정 제품 모양을 닮은 물체가 있는가.',
+    '2-1. 한국 독자가 보는 한국 장면인가(외국 도시·외국식 시설, 한국인으로 보이지 않는 인물 일색, 외국 간판·번호판이 눈에 띄면 떨어뜨린다. 한국 지하철·한국 가정·한국 가게 같은 구체적 한국 환경이어야 한다).',
     '3. 워터마크, 별 모양 로고, 도장 같은 표시가 있는가(모서리 확대 조각 4개를 모두 본다).',
     '4. 글자나 숫자가 그려졌고 깨져 보이는가.',
     '5. 손가락 수·뒤틀림, 얼굴 일그러짐이 있는가.',
@@ -408,6 +411,8 @@ function pickerPrompt({topicId, items, verdictRel}) {
     'chosen에는 위 후보 이름만 쓴다. 이 파일 외에는 아무것도 쓰지 않는다.',
   ].join('\n');
 }
+
+const toSlash = (p) => String(p).split(String.fromCharCode(92)).join('/');
 
 const isStringArray = (v) => Array.isArray(v) && v.every((x) => typeof x === 'string');
 
@@ -433,7 +438,7 @@ export async function runPicker({
   try {
     for (const c of usable) {
       const corners = await cropCorners(c.path, path.join(dir, 'corners'));
-      items.push({name: path.basename(c.path), full: c.path, rel: rel(projectDir, c.path), corners: corners.map((p) => rel(projectDir, p))});
+      items.push({name: path.basename(c.path), full: c.path, rel: toSlash(c.path), corners: corners.map((p) => toSlash(p))});
     }
   } catch (err) {
     return fail(`모서리 조각을 만들지 못해 확인할 수 없습니다: ${err.message}`);
@@ -441,11 +446,11 @@ export async function runPicker({
 
   await mkdir(dir, {recursive: true});
   await rm(verdictPath, {force: true});
-  const prompt = pickerPrompt({topicId, items, verdictRel: rel(projectDir, verdictPath)});
+  const prompt = pickerPrompt({topicId, items, verdictRel: toSlash(verdictPath)});
 
   let run;
   try {
-    run = await runClaude({prompt, cwd: projectDir, verdictPath});
+    run = await runClaude({prompt, cwd: dir, verdictPath});
   } catch (err) {
     return fail(`고르기 실행 오류: ${err.message}`);
   }

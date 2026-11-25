@@ -202,6 +202,19 @@ test('generateCandidates: runImage가 ok여도 파일이 없으면 실패, count
   });
 });
 
+test('generateCandidates: 도구가 .jpg로 저장해도 실제 파일 경로를 돌려준다(2026-11-26 실측)', async () => {
+  await withTmp(async (projectDir) => {
+    const runImage = async ({output}) => {
+      await writeFile(output.replace(/.png$/, '.jpg'), 'fake-jpeg');
+      return {ok: true};
+    };
+    const res = await generateCandidates({brief: VALID_BRIEF, topicId: 't-4', count: 2, projectDir, runImage});
+    assert.equal(res.length, 2);
+    assert.ok(res.every((r) => r.ok === true && r.path.endsWith('.jpg')));
+    assert.ok(existsSync(res[0].path));
+  });
+});
+
 function pickerFixture(projectDir, topicId = 't-3') {
   const dir = heroDir(topicId, projectDir);
   const candidates = ['cand-1.png', 'cand-2.png', 'cand-3.png'].map((n) => ({path: path.join(dir, n), ok: true}));

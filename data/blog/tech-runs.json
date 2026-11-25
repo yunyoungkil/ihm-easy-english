@@ -1,0 +1,73 @@
+[
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T15:21:59.523Z",
+    "outcome": "writer-failed",
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "reasons": [
+      "초안 파일을 읽지 못했습니다(ENOENT)."
+    ]
+  },
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T15:28:02.994Z",
+    "outcome": "image-deferred",
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "reasons": [
+      "그림 만들기 실패: 그림 파일이 만들어지지 않았습니다.",
+      "그림 만들기 실패: 그림 파일이 만들어지지 않았습니다.",
+      "그림 만들기 실패: 그림 파일이 만들어지지 않았습니다."
+    ]
+  },
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T15:35:12.858Z",
+    "outcome": "preview",
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "previewPath": "C:\\Users\\yunyo\\Downloads\\project\\output\\blog\\preview\\magsafe-wallet-transit-card-not-read.html"
+  },
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T15:48:05.585Z",
+    "outcome": "image-deferred",
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "reasons": [
+      "그림 올리기 실패(find/draft-timeout)"
+    ]
+  },
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T15:56:22.301Z",
+    "outcome": "image-deferred",
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "reasons": [
+      "그림 올리기 실패(send/send-failed)"
+    ]
+  },
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T15:59:48.359Z",
+    "outcome": "paused",
+    "reasons": [
+      "대표 그림 실패 3회 연속: 그림 올리기 실패(send/send-failed)"
+    ]
+  },
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T16:00:13.144Z",
+    "outcome": "image-deferred",
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "reasons": [
+      "그림 올리기 실패(send/send-failed/sent-not-confirmed)"
+    ]
+  },
+  {
+    "date": "2026-11-26",
+    "startedAt": "2026-11-25T16:04:24.055Z",
+    "outcome": "published",
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "postId": "3655539546812854157",
+    "url": "https://tech.d40m.com/2026/11/blog-post.html",
+    "liveVerified": true
+  }
+]

@@ -1,0 +1,181 @@
+{
+  "topicId": "magsafe-wallet-transit-card-not-read",
+  "title": "맥세이프 카드지갑에 넣은 교통카드가 안 찍힐 때 점검 순서",
+  "labels": [
+    "교통카드",
+    "NFC·결제"
+  ],
+  "notUsedNote": "이 글에 나온 내용은 제품을 따로 구해 시험하지 않고, 서울시와 제조사 공식 안내, 사용자들이 자주 묻는 질문을 모아 정리한 것입니다.",
+  "bodyHtml": "<p>휴대폰 뒤에 붙인 맥세이프 카드지갑에 교통카드를 넣고 개찰구에 댔는데 단말기가 반응하지 않거나 ‘카드를 한 장만 대주세요’라는 안내가 나올 때가 있습니다. 카드지갑 속 카드와 휴대폰이 한꺼번에 단말기 앞에 놓이는 구조라서, 카드가 여러 장 겹쳤거나 휴대폰 쪽 신호가 같이 잡힌 경우가 많습니다. 아래 순서대로 하나씩 빼 보면 어디서 막혔는지 찾기 쉽습니다.</p><p>이 글에 나온 내용은 제품을 따로 구해 시험하지 않고, 서울시와 제조사 공식 안내, 사용자들이 자주 묻는 질문을 모아 정리한 것입니다.</p><h2>카드지갑 안에 카드가 몇 장 들었는지 봅니다</h2><p>맥세이프 카드지갑은 카드를 두세 장 넣게 만든 제품이 많아서 교통카드 옆에 신용카드나 체크카드를 같이 꽂아 두기 쉽습니다. 서울시 안내는 지갑째 찍을 때 다른 교통카드가 함께 있으면 안내 음성이 나오거나 요금이 두 번 빠질 수 있다고 설명합니다.</p><p>교통카드 기능을 신청하지 않은 카드라고 해서 괜찮은 것도 아닙니다. 카드에 와이파이처럼 생긴 비접촉 결제 표시가 있으면 그 카드에도 칩이 들어 있고, 단말기는 교통카드 기능 신청 여부보다 가까이 온 칩이 몇 개인지를 먼저 확인합니다.</p><p>그래서 가장 빠른 확인 방법은 카드지갑에 교통카드 한 장만 남기고 다시 찍어 보는 것입니다. 이렇게 해서 바로 찍힌다면 원인은 함께 넣어 둔 다른 카드였습니다.</p><h2>휴대폰의 교통카드와 겹치지 않는지 봅니다</h2><p>휴대폰에도 교통카드나 비접촉 결제 기능이 켜져 있다면 단말기 앞에 칩이 하나 더 있는 셈입니다. 삼성 커뮤니티 답변은 휴대폰 뒷면에 금속 액세서리나 지갑형 케이스, 실물카드처럼 NFC 신호를 읽을 수 있는 물체가 붙어 있으면 ‘카드를 한 장만 대주세요’ 오류가 날 수 있다고 안내합니다.</p><p>같은 답변은 갤럭시에서 휴대폰 교통카드를 쓸 때 뒷면의 물체를 떼고 NFC 설정을 카드 모드로 바꾼 뒤 이용하라고 권합니다. 메뉴 이름은 기종과 소프트웨어 버전에 따라 조금 다를 수 있습니다.</p><p>실물 카드와 휴대폰을 함께 대는 일이 잦다면, 휴대폰의 모바일 교통카드를 주력으로 쓰는 방법도 기사에서 권하는 선택지입니다. 이때는 카드지갑에 교통카드 기능이 있는 카드를 넣지 않아야 겹침이 생기지 않습니다.</p><h2>휴대폰으로 찍는다면 대는 자리도 확인합니다</h2><p>카드지갑을 떼고 휴대폰 교통카드로 바꿨는데도 잘 안 찍힌다면 단말기에 대는 자리가 맞지 않았을 수 있습니다. 삼성월렛 담당자는 설정 → 연결 → NFC 및 비접촉 결제 화면에서 휴대폰의 NFC 위치를 확인하라고 안내합니다.</p><p>설정을 바꾸고 자리를 맞춰도 휴대폰 교통카드가 계속 안 된다면 기기를 열어 보거나 손대지 말고 제조사 서비스센터에 문의하세요.</p><h2>카드를 여러 장 꼭 넣어 다녀야 할 때</h2><p>신용카드도 함께 들고 다녀야 한다면 교통카드와 다른 비접촉 카드 사이에 RFID 차단 카드를 한 장 끼우는 방법이 있습니다. 기사에서는 이렇게 하면 맨 앞의 교통카드 한 장만 읽힌다고 설명합니다. 카드지갑에서 단말기에 닿는 바깥쪽에 교통카드를 두고, 그 안쪽에 차단 카드와 나머지 카드를 차례로 넣으면 됩니다.</p><p>새 신용카드를 만들 계획이 있다면 교통카드 기능을 빼고 발급받는 것도 서울시가 권하는 방법입니다.</p><h2>맥세이프 충전 전에는 카드지갑을 떼어 둡니다</h2><p>카드지갑을 붙인 채 휴대폰을 맥세이프 충전기에 올려 두는 습관도 살펴볼 만합니다. 애플은 신용카드나 보안 배지, 여권, 전자 키 등을 iPhone과 MagSafe 충전기 사이에 두지 말라고 하며, 내장된 RFID 칩이나 마그네틱 스트립이 손상될 수 있다고 안내합니다. 충전하기 전에 카드지갑을 떼어 두면 카드가 충전기와 휴대폰 사이에 끼일 일이 없습니다.</p><h2>그래도 안 되면 카드 자체를 의심합니다</h2><p>교통카드 한 장만 꺼내 단말기에 댔는데도 반응이 없고, 같은 단말기에서 다른 사람들은 문제없이 찍힌다면 카드가 고장 났을 가능성이 큽니다.</p><p>서울시 안내에 따르면 카드 보증기간인 2년이 지나지 않았고 고객 과실이 없으면 카드값을 돌려받을 수 있습니다. 환불할 곳으로는 서울역 근처 ㈜한국스마트카드 본사 1층의 티머니 타운을 추천하고 있으니, 남은 잔액과 함께 상담받아 보세요.</p>",
+  "steps": [
+    {
+      "text": "서울시 안내는 지갑째 찍을 때 다른 교통카드가 함께 있으면 안내 음성이 나오거나 요금이 두 번 빠질 수 있다고 설명합니다.",
+      "source": {
+        "url": "https://mediahub.seoul.go.kr/archives/1206604",
+        "quote": "특히 지갑째 찍을 때 지갑 안에 다른 교통카드가 같이 있으면 “카드를 한 장만 대주세요”라는 말이 나오거나, 아예 이중결제가 될 수도 있으므로 반드시 피해야 하다."
+      }
+    },
+    {
+      "text": "카드에 와이파이처럼 생긴 비접촉 결제 표시가 있으면 그 카드에도 칩이 들어 있고, 단말기는 교통카드 기능 신청 여부보다 가까이 온 칩이 몇 개인지를 먼저 확인합니다.",
+      "source": {
+        "url": "https://v.daum.net/v/20260605200000956",
+        "quote": "결론부터 말씀드리면, 단말기는 카드의 '교통카드 기능 신청 여부'를 먼저 따지지 않고 자신에게 다가온 NFC(근거리 무선 통신) 칩이 몇 개인지부터 최우선으로 파악하기 때문입니다."
+      }
+    },
+    {
+      "text": "그래서 가장 빠른 확인 방법은 카드지갑에 교통카드 한 장만 남기고 다시 찍어 보는 것입니다.",
+      "source": {
+        "url": "https://mediahub.seoul.go.kr/archives/1206604",
+        "quote": "특히 지갑째 찍을 때 지갑 안에 다른 교통카드가 같이 있으면 “카드를 한 장만 대주세요”라는 말이 나오거나, 아예 이중결제가 될 수도 있으므로 반드시 피해야 하다."
+      }
+    },
+    {
+      "text": "삼성 커뮤니티 답변은 휴대폰 뒷면에 금속 액세서리나 지갑형 케이스, 실물카드처럼 NFC 신호를 읽을 수 있는 물체가 붙어 있으면 ‘카드를 한 장만 대주세요’ 오류가 날 수 있다고 안내합니다.",
+      "source": {
+        "url": "https://community.samsung.com/kr/conversations/samsung-wallet/%EC%B9%B4%EB%93%9C%EB%A5%BC-%ED%95%9C%EC%9E%A5%EB%A7%8C-%EB%8C%80%EC%A3%BC%EC%84%B8%EC%9A%94-%EB%9D%BC%EA%B3%A0-%EB%9C%A8%EB%8A%94%EB%8D%B0%EC%9A%94/r1_4976924",
+        "quote": "문의주신 '카드를 한 장만 대주세요.' 오류는 휴대폰 뒷면에 금속 악세서리, 지갑형 케이스, 실물카드 등 NFC 신호 인식이 가능한 물체가 부착된 경우에 발생할 수 있습니다."
+      }
+    },
+    {
+      "text": "같은 답변은 갤럭시에서 휴대폰 교통카드를 쓸 때 뒷면의 물체를 떼고 NFC 설정을 카드 모드로 바꾼 뒤 이용하라고 권합니다.",
+      "source": {
+        "url": "https://community.samsung.com/kr/conversations/samsung-wallet/%EC%B9%B4%EB%93%9C%EB%A5%BC-%ED%95%9C%EC%9E%A5%EB%A7%8C-%EB%8C%80%EC%A3%BC%EC%84%B8%EC%9A%94-%EB%9D%BC%EA%B3%A0-%EB%9C%A8%EB%8A%94%EB%8D%B0%EC%9A%94/r1_4976924",
+        "quote": "휴대폰 뒷면의 물체를 제거하시고 휴대폰의 NFC 설정을 카드 모드로 설정하신 뒤, 이용하시기를 권유드립니다."
+      }
+    },
+    {
+      "text": "실물 카드와 휴대폰을 함께 대는 일이 잦다면, 휴대폰의 모바일 교통카드를 주력으로 쓰는 방법도 기사에서 권하는 선택지입니다.",
+      "source": {
+        "url": "https://v.daum.net/v/20260605200000956",
+        "quote": "스마트폰의 NFC 기능을 활용한 모바일 교통카드를 주력으로 사용해 보시는 것도 권장합니다."
+      }
+    },
+    {
+      "text": "삼성월렛 담당자는 설정 → 연결 → NFC 및 비접촉 결제 화면에서 휴대폰의 NFC 위치를 확인하라고 안내합니다.",
+      "source": {
+        "url": "https://community.samsung.com/kr/conversations/samsung-wallet/%EC%A7%80%ED%95%98%EC%B2%A0%EC%97%90%EC%84%9C-%EA%B5%90%ED%86%B5%EC%B9%B4%EB%93%9C-%EC%9D%B8%EC%8B%9D%EC%9D%B4-%EC%9E%98-%EC%95%88%EB%90%A8/r1_31991017",
+        "quote": "대중교통 이용 시 휴대폰 접촉위치가 맞지 않아 인식이 원활하지 않다면, '휴대폰 설정 → 연결 → NFC 및 비접촉 결제' 화면에서 고객님 휴대폰의 NFC 위치를 확인해주시기 바랍니다."
+      }
+    },
+    {
+      "text": "신용카드도 함께 들고 다녀야 한다면 교통카드와 다른 비접촉 카드 사이에 RFID 차단 카드를 한 장 끼우는 방법이 있습니다.",
+      "source": {
+        "url": "https://v.daum.net/v/20260605200000956",
+        "quote": "교통카드 중복 인식 방지 카드(RFID 차단 카드)'를 지갑 속 주력 교통카드와 나머지 비접촉 카드들 사이에 끼워두면"
+      }
+    },
+    {
+      "text": "새 신용카드를 만들 계획이 있다면 교통카드 기능을 빼고 발급받는 것도 서울시가 권하는 방법입니다.",
+      "source": {
+        "url": "https://mediahub.seoul.go.kr/archives/1206604",
+        "quote": "여러 카드를 함께 지갑에 두어야 한다면 다른 신용카드 발급 시 교통카드 기능을 빼고 발급받는 것이 좋다."
+      }
+    },
+    {
+      "text": "애플은 신용카드나 보안 배지, 여권, 전자 키 등을 iPhone과 MagSafe 충전기 사이에 두지 말라고 하며, 내장된 RFID 칩이나 마그네틱 스트립이 손상될 수 있다고 안내합니다.",
+      "source": {
+        "url": "https://support.apple.com/ko-kr/HT211829",
+        "quote": "신용카드나 보안 배지, 여권, 전자 키 등을 iPhone과 MagSafe 충전기 사이에 두지 마십시오. 이로 인해 내장된 RFID 칩이나 마그네틱 스트립이 손상될 수 있습니다."
+      }
+    },
+    {
+      "text": "교통카드 한 장만 꺼내 단말기에 댔는데도 반응이 없고, 같은 단말기에서 다른 사람들은 문제없이 찍힌다면 카드가 고장 났을 가능성이 큽니다.",
+      "source": {
+        "url": "https://mediahub.seoul.go.kr/archives/906226",
+        "quote": "다른 사람들은 제대로 카드를 쓰고 있으니 단말기 문제는 아니고 내 카드가 문제임을 알 수 있다."
+      }
+    },
+    {
+      "text": "서울시 안내에 따르면 카드 보증기간인 2년이 지나지 않았고 고객 과실이 없으면 카드값을 돌려받을 수 있습니다.",
+      "source": {
+        "url": "https://mediahub.seoul.go.kr/archives/906226",
+        "quote": "이는 카드의 조건에 따라 달라지는데 카드보증기간인 2년이 지나지 않았으면 고객 과실이 없는 경우 카드값을 돌려받는다."
+      }
+    },
+    {
+      "text": "환불할 곳으로는 서울역 근처 ㈜한국스마트카드 본사 1층의 티머니 타운을 추천하고 있으니, 남은 잔액과 함께 상담받아 보세요.",
+      "source": {
+        "url": "https://mediahub.seoul.go.kr/archives/906226",
+        "quote": "한편 티머니 환불시 추천하고 싶은 장소는 ㈜한국스마트카드 본사 1층에 있는 ‘티머니 타운’이다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://mediahub.seoul.go.kr/archives/1206604",
+      "title": "서울교통카드 더 똑똑하게 사용하는 방법 (내 손안에 서울)"
+    },
+    {
+      "url": "https://mediahub.seoul.go.kr/archives/906226",
+      "title": "티머니카드가 ‘먹통’ 됐을 때 대처법 (내 손안에 서울)"
+    },
+    {
+      "url": "https://support.apple.com/ko-kr/HT211829",
+      "title": "iPhone에 MagSafe 충전기를 사용하는 방법 - Apple 지원"
+    },
+    {
+      "url": "https://community.samsung.com/kr/conversations/samsung-wallet/%EC%B9%B4%EB%93%9C%EB%A5%BC-%ED%95%9C%EC%9E%A5%EB%A7%8C-%EB%8C%80%EC%A3%BC%EC%84%B8%EC%9A%94-%EB%9D%BC%EA%B3%A0-%EB%9C%A8%EB%8A%94%EB%8D%B0%EC%9A%94/r1_4976924",
+      "title": "카드를 한장만 대주세요 라고 뜨는데요 - Samsung Members 커뮤니티"
+    },
+    {
+      "url": "https://community.samsung.com/kr/conversations/samsung-wallet/%EC%A7%80%ED%95%98%EC%B2%A0%EC%97%90%EC%84%9C-%EA%B5%90%ED%86%B5%EC%B9%B4%EB%93%9C-%EC%9D%B8%EC%8B%9D%EC%9D%B4-%EC%9E%98-%EC%95%88%EB%90%A8/r1_31991017",
+      "title": "지하철에서 교통카드 인식이 잘 안됨 - Samsung Members 커뮤니티"
+    },
+    {
+      "url": "https://v.daum.net/v/20260605200000956",
+      "title": "[IT애정남] 교통카드 기능은 한 장만 신청했는데, 왜 자꾸 겹쳐서 인식?"
+    }
+  ],
+  "product": {
+    "query": "교통카드 중복인식 방지 RFID 차단 카드",
+    "why": "카드지갑에 교통카드와 신용카드를 함께 넣어야 할 때 둘 사이에 끼워 교통카드 한 장만 읽히게 해 준다.",
+    "required": false,
+    "candidates": [
+      {
+        "productId": 9632696614,
+        "productName": "RFID 카드 중복인식 해킹방지 포켓 버스카드포켓 교통카드 차단 차폐 87x57mm 1P",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=9632696614&itemId=28774159490&vendorItemId=95711748611&traceid=V0-153-63b45950a9d1eb1f&requestid=20261126003224953076591873&token=31850C%7CGM&pt=0&slot=1"
+      },
+      {
+        "productId": 9404474038,
+        "productName": "교통카드중복방지 인식방지 지갑 케이스 차폐 RFID san+57853Da",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=9404474038&itemId=27937243534&vendorItemId=94895578767&traceid=V0-153-9e9059686320be00&requestid=20261126003224953076591873&token=31850C%7CGM&pt=0&slot=2"
+      },
+      {
+        "productId": 9481052251,
+        "productName": "교통카드중복방지 인식방지 지갑 케이스 차폐 RFID joe+1433fq",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=9481052251&itemId=28228732467&vendorItemId=95182533901&traceid=V0-153-66f050f9364f035e&requestid=20261126003224953076591873&token=31850C%7CGM&pt=0&slot=3"
+      },
+      {
+        "productId": 8707219486,
+        "productName": "대중교통 버스 교통 지하철 단말기가능 중복 인식 차폐 카드",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=8707219486&itemId=20621180224&vendorItemId=87695421358&traceid=V0-153-2b640e3a63280d31&requestid=20261126003224953076591873&token=31850C%7CGM&pt=0&slot=4"
+      },
+      {
+        "productId": 9481770425,
+        "productName": "교통카드중복방지 인식방지 지갑 케이스 차폐 RFID wkw+9233hq",
+        "productUrl": "https://link.coupang.com/re/AFFSDP?lptag=AF4472063&subid=techd40m&pageKey=9481770425&itemId=28231628415&vendorItemId=95185355339&traceid=V0-153-5e1b5b0e41e44a4d&requestid=20261126003224953076591873&token=31850C%7CGM&pt=0&slot=5"
+      }
+    ],
+    "chosenProductId": 9632696614
+  },
+  "heroImage": {
+    "moment": "a person presses the back of a phone, with a slim magnetic card wallet attached, against a Korean subway gate reader; the reader glows red and the gate flaps stay shut while a short line of Korean commuters waits behind",
+    "subject": "a person's hand and forearm holding a plain unbranded phone with a plain leather card wallet on its back, hovering over a turnstile card reader",
+    "setting": "a busy Seoul subway station fare gate in Korea during the morning rush, with the flap-barrier ticket gates and blue-green card readers typical of Korean subways, tidy modern platform behind",
+    "light": "flat cool overhead tube lighting mixed with a small warm red glow from the reader that tints the fingertips",
+    "lens": "35mm equivalent at about two meters, moderate depth of field so the waiting commuters behind are soft but readable as people",
+    "angle": "low side view from turnstile height, looking slightly up past the reader toward the person and the queue",
+    "texture": "brushed steel turnstile, scuffed tiled floor, soft pebbled leather of the card wallet, matte phone back",
+    "medium": "gouache illustration with visible brush grain and slightly muted subway colors",
+    "avoid": [
+      "any readable text, numbers or signage on the reader or walls",
+      "brand logos or a recognizable phone camera layout",
+      "awkward or extra fingers in the hand close-up",
+      "faces showing exaggerated anger",
+      "New York style tiled walls or bar-type turnstiles",
+      "non-Korean looking crowd"
+    ],
+    "alt": "카드지갑을 붙인 휴대폰을 개찰구에 댔지만 빨간 불만 켜지고 뒤에 줄이 선 순간."
+  }
+}

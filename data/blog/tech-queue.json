@@ -1,17 +1,5 @@
 [
   {
-    "topicId": "magsafe-wallet-transit-card-not-read",
-    "title": "맥세이프 카드지갑에 넣은 교통카드가 안 찍힐 때 점검 순서",
-    "kind": "fix",
-    "searchQuery": "맥세이프 카드지갑 교통카드 인식",
-    "sourceHints": [
-      "티머니 교통카드 이용안내(공식 사이트)",
-      "애플 지원 NFC·MagSafe 안내",
-      "삼성전자서비스 갤럭시 NFC 설정 안내"
-    ],
-    "productHint": "맥세이프 카드지갑(금속판 없는 제품)"
-  },
-  {
     "topicId": "cuisinart-airfryer-heating-element-cleaning",
     "title": "쿠진아트 에어프라이어 열선 청소, 분해하지 않고 하는 순서",
     "kind": "fix",

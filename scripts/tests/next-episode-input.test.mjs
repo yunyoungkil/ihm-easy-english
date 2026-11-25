@@ -229,6 +229,37 @@ test('경쟁 영상 리포트 요약: 새 방식 배수는 숫자로, 옛 방식
   assert.match(md, /평소 대비 측정 중/);
 });
 
+test('경쟁 영상 풀 요약(2026-11-25): 미사용 리포트를 형식별로 우선 보여 주고 이미 쓴 영상은 차단 없이 이력·실측 여부만 표시한다', async () => {
+  const {summarizeOutlierPool} = await import('../next-episode-input.mjs');
+  const reports = [
+    {videoId: 'USED_S_0001', outlierRatio: 200, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok', analyzedAt: '2026-11-10T00:00:00Z', meta: {title: '이미 쓴 쇼츠', channelTitle: '채널A', durationSeconds: 45}, pacing: {}, analysis: {}},
+    {videoId: 'NEW_S_00001', outlierRatio: 80, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok', analyzedAt: '2026-11-12T00:00:00Z', meta: {title: '미사용 쇼츠1', channelTitle: '채널B', durationSeconds: 40}, pacing: {}, analysis: {}},
+    {videoId: 'NEW_S_00002', outlierRatio: 15, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok', analyzedAt: '2026-11-25T00:00:00Z', meta: {title: '최신 미사용 쇼츠', channelTitle: '채널C', durationSeconds: 50}, pacing: {}, analysis: {}},
+    {videoId: 'NEW_S_TREND', outlierRatio: 50, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok', analyzedAt: '2026-11-20T00:00:00Z', meta: {title: '화제 인물 영어 쇼츠', channelTitle: '채널E', durationSeconds: 35}, pacing: {}, analysis: {teachesAdultEnglishSounds: false}},
+    {videoId: 'NEW_L_00001', outlierRatio: 30, ratioMethod: 'peer-median-views-v2', ratioStatus: 'ok', analyzedAt: '2026-11-24T00:00:00Z', meta: {title: '미사용 롱폼1', channelTitle: '채널D', durationSeconds: 600}, pacing: {}, analysis: {}},
+  ];
+  const sheets = [
+    {episodeId: 'ep31', status: 'approved', references: [{videoId: 'USED_S_0001'}]},
+    {episodeId: 'ep33', status: 'approved', sourceVideoId: 'USED_S_0001', references: []},
+  ];
+  const pool = summarizeOutlierPool(reports, sheets, {unusedPerFormat: 3});
+  assert.equal(pool.total, 5);
+  assert.equal(pool.unusedTotal, 4);
+  assert.equal(pool.usedTotal, 1);
+  assert.deepEqual(pool.unusedShorts.map((r) => r.videoId), ['NEW_S_00001', 'NEW_S_00002', 'NEW_S_TREND']);
+  assert.deepEqual(pool.unusedLongform.map((r) => r.videoId), ['NEW_L_00001']);
+  assert.equal(pool.usedSummary[0].usedCount, 2);
+  assert.equal(pool.usedSummary[0].measuredCount, 0);
+
+  const md = renderNextEpisodeInput({generatedAt: now.toISOString(), comparisons: {}, outlierPool: pool});
+  assert.ok(md.includes('미사용 4편'));
+  assert.ok(md.includes('최신 미사용 쇼츠'));
+  assert.ok(md.includes('확장 영어(회화·화제·공부법)'));
+  assert.ok(md.includes('미사용 롱폼1'));
+  assert.ok(md.includes('시트 2편 사용(ep31, ep33) · 7일 결과 측정 전'));
+  assert.ok(md.includes('재사용 금지 하드코딩 없음'));
+});
+
 test('14~17절(2026-11-23): 스튜디오 소형 폭발·키워드 포화도·시청자 날것 어휘·Kill-First 피치 기록이 빈 값과 실값을 정직하게 렌더링한다', async () => {
   const {
     summarizeStudioResearch, renderStudioResearch,

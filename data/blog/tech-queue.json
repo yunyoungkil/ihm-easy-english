@@ -12,17 +12,6 @@
     "productHint": "맥세이프 카드지갑(금속판 없는 제품)"
   },
   {
-    "topicId": "circulator-electricity-cost-check",
-    "title": "서큘레이터 전기요금, 사기 전에 소비전력으로 계산하는 법",
-    "kind": "before-buy",
-    "searchQuery": "서큘레이터 전기세",
-    "sourceHints": [
-      "한국전력 전기요금표(공식)",
-      "서큘레이터 제조사 제품 사양표(소비전력, 공식)"
-    ],
-    "productHint": "서큘레이터"
-  },
-  {
     "topicId": "cuisinart-airfryer-heating-element-cleaning",
     "title": "쿠진아트 에어프라이어 열선 청소, 분해하지 않고 하는 순서",
     "kind": "fix",
@@ -33,25 +22,14 @@
     "productHint": "에어프라이어 청소용 부드러운 솔"
   },
   {
-    "topicId": "lenovo-y700-game-mode-setting",
-    "title": "레노버 Y700 게임 모드 켜고 끄는 방법",
-    "kind": "fix",
-    "searchQuery": "y700 게임 모드 설정",
+    "topicId": "lg-membership-points-use-and-convert",
+    "title": "LG전자 멤버십 포인트 쓰는 곳과 전환 방법 정리",
+    "kind": "info",
+    "searchQuery": "lg 멤버십 포인트 사용처 전환",
     "sourceHints": [
-      "레노버 지원 Legion Y700 사용 설명(공식)"
+      "LG전자 멤버십 포인트 안내·자주 묻는 질문(공식 사이트)"
     ],
-    "productHint": "태블릿용 블루투스 게임패드"
-  },
-  {
-    "topicId": "clear-case-yellowing-why-and-cleaning",
-    "title": "투명 케이스가 누렇게 변하는 이유와 안전하게 닦는 법",
-    "kind": "fix",
-    "searchQuery": "투명 케이스 변색 복원",
-    "sourceHints": [
-      "애플 지원 케이스 청소 안내(공식)",
-      "삼성전자서비스 휴대폰 케이스 관리 안내"
-    ],
-    "productHint": "투명 케이스"
+    "productHint": null
   },
   {
     "topicId": "iphone-samsung-tv-mirroring-not-working",
@@ -77,13 +55,24 @@
   {
     "topicId": "power-bank-in-flight-rules-wh-check",
     "title": "보조배터리 기내 반입 규정과 용량(Wh) 보는 법",
-    "kind": "before-buy",
+    "kind": "info",
     "searchQuery": "보조배터리 기내 반입 규정",
     "sourceHints": [
       "국토교통부 항공기 반입 제한 배터리 안내(공식)",
       "항공사 위탁·기내 수하물 배터리 규정(공식)"
     ],
-    "productHint": "보조배터리 10000mAh"
+    "productHint": null
+  },
+  {
+    "topicId": "clear-case-yellowing-why-and-cleaning",
+    "title": "투명 케이스가 누렇게 변하는 이유와 안전하게 닦는 법",
+    "kind": "fix",
+    "searchQuery": "투명 케이스 변색 복원",
+    "sourceHints": [
+      "애플 지원 케이스 청소 안내(공식)",
+      "삼성전자서비스 휴대폰 케이스 관리 안내"
+    ],
+    "productHint": "투명 케이스"
   },
   {
     "topicId": "home-cam-install-cost-check",
@@ -97,14 +86,14 @@
     "productHint": "홈캠"
   },
   {
-    "topicId": "bidet-dry-function-odor-check",
-    "title": "비데 건조 기능에서 냄새가 날 때 확인할 곳",
-    "kind": "fix",
-    "searchQuery": "비데 건조 냄새",
+    "topicId": "coupang-return-market-how-to-find",
+    "title": "쿠팡 반품마켓에서 상품 찾는 법",
+    "kind": "info",
+    "searchQuery": "쿠팡 반품마켓 상품 찾는 법",
     "sourceHints": [
-      "비데 제조사 사용설명서(노즐·건조 관련 청소 안내, 공식)"
+      "쿠팡 고객센터 반품마켓 안내(공식)"
     ],
-    "productHint": "비데 노즐 청소 솔"
+    "productHint": null
   },
   {
     "topicId": "air-purifier-filter-replacement-cycle",
@@ -117,13 +106,23 @@
     "productHint": "공기청정기 필터"
   },
   {
-    "topicId": "cuisinart-toa-60-vs-70-spec-check",
-    "title": "쿠진아트 TOA-60과 TOA-70, 사기 전에 규격 차이 확인",
-    "kind": "before-buy",
-    "searchQuery": "쿠진아트 toa 60 70 차이",
+    "topicId": "lenovo-y700-game-mode-setting",
+    "title": "레노버 Y700 게임 모드 켜고 끄는 방법",
+    "kind": "fix",
+    "searchQuery": "y700 게임 모드 설정",
     "sourceHints": [
-      "쿠진아트 코리아 제품 사양표(공식)"
+      "레노버 지원 Legion Y700 사용 설명(공식)"
     ],
-    "productHint": "쿠진아트 에어프라이어 오븐"
+    "productHint": "태블릿용 블루투스 게임패드"
+  },
+  {
+    "topicId": "lg-tv-model-name-how-to-check",
+    "title": "LG TV 모델명 보는 법",
+    "kind": "info",
+    "searchQuery": "lg tv 모델명 보는법",
+    "sourceHints": [
+      "LG전자 고객지원 모델명 확인 안내(공식)"
+    ],
+    "productHint": null
   }
 ]

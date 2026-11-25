@@ -332,6 +332,19 @@ test('10) 필수 상품 링크 실패(맞는 후보 없음/deeplink 오류)면 d
   });
 });
 
+test('10-2) info 글감은 쿠팡 링크 없이도 게시된다(productUrl null)', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([{...makeTopic('dyson-v8-red-blink'), kind: 'info', productHint: null}]));
+    const {deps, calls} = makeBaseDeps({
+      runWriter: async () => ({ok: true, draft: makeDraft('dyson-v8-red-blink', null)}),
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(calls.publishToBlogger, 1);
+    assert.equal((await readPosts(blogDir))[0].productUrl, null);
+  });
+});
+
 test('11) 정상 auto 흐름: 후보 저장·상품 선택·딥링크·게시·appendPost·shiftQueue·syncData 1회씩', async () => {
   await withProject(async (projectDir, blogDir) => {
     await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic(), makeTopic('next-topic')]));

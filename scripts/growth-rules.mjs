@@ -294,6 +294,7 @@ const briefingLines = (check, briefing) => {
     afterPublish = [],
     missingThumbnails = [],
     loopHealth = null,
+    blogStatus = null,
     workflowSignals = [],
     hygieneSignals = null,
     workflowDiagnosis = null,
@@ -355,6 +356,9 @@ const briefingLines = (check, briefing) => {
         ? `- 시스템 건강: 정상 (마지막 자동 실행 ${kstLabel(loopHealth.lastLoopAt)})`
         : `- 시스템 건강 고장 ${loopHealth.problems.length}개: ${loopHealth.problems.map((p) => p.text).join(' / ')} — 브리핑 직후 묻지 않고 원인을 고치고 검증 보고. 코드: scripts/loop-health.mjs`,
     );
+  }
+  if (blogStatus) {
+    lines.push(`- 쿠팡 블로그: ${blogStatus}`);
   }
 
   const sigParts = [];

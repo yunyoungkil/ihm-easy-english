@@ -37,6 +37,7 @@ import {
   weeklyComparison,
 } from './growth-rules.mjs';
 import {shortsPackageEpisode} from './upload-package-summary.mjs';
+import {loadBlogStatus} from './blog/blog-status.mjs';
 import {
   loadCodebaseHygieneDiagnosis,
   loadCodebaseHygieneSignals,
@@ -290,6 +291,8 @@ function collectGrowthPulse({catalogVideos = [], backlog = [], shortsStatuses = 
 const studioMetrics = readJson(join(projectDir, 'data', 'youtube', 'studio-metrics.json'), {});
 const studioRecentPeriod = studioMetrics.periods?.['4_weeks'] || studioMetrics.periods?.quarter || null;
 const studioRecentVideos = studioRecentPeriod?.videos || {};
+const briefingState = readJson(join(projectDir, 'data', 'youtube', 'briefing-state.json'), null);
+const briefingSince = briefingState?.lastBriefingAt || null;
 
 const briefing = {
   data: {
@@ -312,6 +315,7 @@ const briefing = {
   missingThumbnails: thumbnailGaps(thumbnailItems),
   // 자동 성장 루프 화재경보기(2026-11-11): 매일 루프 기록·테스트 결과·데이터 신선도·기록 누락을 코드로 판정
   loopHealth: (() => { try { return loadLoopHealth(projectDir, today); } catch (err) { return {ok: false, problems: [{id: 'health-error', text: `경보기 실행 실패: ${err.message}`}]}; } })(),
+  blogStatus: (() => { try { return loadBlogStatus(projectDir, {since: briefingSince, now: today}); } catch (err) { return `블로그 상태 읽기 실패: ${err.message}`; } })(),
   // 워크플로우 루프 1건 진단 + 수정·업그레이드 방안(2026-11-19 사용자 요청)
   workflowDiagnosis: (() => { try { return loadWorkflowLoopDiagnosis(projectDir, today); } catch (err) { return {area: '루프 진단', severity: 'urgent', finding: `진단 실행 실패: ${err.message}`, proposal: 'scripts/loop-health.mjs 점검'}; } })(),
   workflowSignals: (() => { try { return loadWorkflowSignals(projectDir, today); } catch { return []; } })(),

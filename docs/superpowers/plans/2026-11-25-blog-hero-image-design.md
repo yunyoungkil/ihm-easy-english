@@ -82,3 +82,12 @@
 ## 출처
 
 [1] developers.google.com/blogger/docs/3.0/reference/posts · [2] support.google.com/blogger/answer/41641 · [3] support.google.com/blogger/answer/13656070 · [4] support.google.com/blogger/answer/41452 · [5] developers.cloudflare.com/pages/platform/limits/ · [6] developers.cloudflare.com/pages/configuration/custom-domains/ · [7] docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits · [8] developers.google.com/search/docs/appearance/google-discover · [9] cloudflare.com/service-specific-terms-application-services/ · [10] web.dev/articles/optimize-lcp · [11] developers.google.com/search/docs/appearance/structured-data/article · [12] searchadvisor.naver.com/guide/markup-content · [13] developers.google.com/search/docs/appearance/google-images (모두 https, 2026-11-25 읽음)
+
+---
+
+## 2026-11-26 이메일 올리기 시험 결과 (직접 실행, 시험 글은 삭제함)
+
+- **한 일**: 블로거 설정(가전·디지털 해결 노트)에서 "이메일을 사용하여 게시"를 "이메일을 임시 글로 저장"으로 켜고 비밀 낱말을 정했다(비밀 낱말은 `.env`의 `BLOGGER_TECH_EMAIL_SECRET`, git에 올라가지 않음). 지메일 화면(사용자의 로그인된 크롬)에서 1376x768 시험 그림을 붙인 메일을 블로거 게시용 주소로 보냈다.
+- **된 것**: ① 메일을 보내고 1분 안에 블로거에 **임시 글**이 생겼다(제목이 메일 제목) ② 첨부 그림이 `blogger.googleusercontent.com` 주소로 보관됐고 API(`posts.list?status=draft&fetchImages=true`)의 `images[]`와 본문 HTML에서 읽혔다 ③ 같은 주소에 크기 접미사를 바꾸면 원본 `/s1600/`은 1376x768, 대표 그림 크기 `/w1200-h630-p-k-no-nu/`는 1200x630 JPEG로 내려왔다 ④ 임시 글 본문을 API로 고치기(PATCH)가 200으로 됐다 ⑤ **임시 글을 삭제(204)한 뒤에도 그림 주소가 200으로 계속 열렸다**(3초 뒤 확인) → 임시 글은 그림을 받아 주소를 얻는 용도로만 쓰고 지워도 된다.
+- **권고 흐름(바뀐 점)**: 메일로 그림을 올리고 → 임시 글에서 그림 주소를 읽고 → 임시 글을 삭제하고 → 진짜 글을 `insert`로 올리되 본문에 `<img src="…/s1600/…" width height alt>`를 넣는다. 지메일 보내기는 두 가지가 가능하다. (가) 지메일 보내기 권한(범위가 넓음) 추가, (나) 그림 만들기에 이미 필요한 같은 크롬으로 지메일 화면에서 보내기(이번 시험이 이 방식, 권한 추가 없음, 화면이 바뀌면 깨질 수 있음). 이번 시험 결과로 (나)가 먼저다.
+- **아직 모르는 것**: 공개 글에서 첫 그림이 실제로 `og:image`로 잡히는지(첫 글 게시 뒤 확인), 그림이 오래 지나도 살아 있는지, 이미지 지연 로드 설정(블로거 설정에 "이미지 지연 로드"·"WebP 이미지 제공" 항목이 있음, 현재 값은 확인 안 함), "큰 미리보기 허용" 표시(블로거 맞춤 로봇 헤더 태그 기능은 꺼져 있고 항목에 이 값이 있는지는 열어 보지 못했다. 테마 head 수정은 백업 뒤에 한다).

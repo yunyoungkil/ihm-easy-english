@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "videoId": "_VUMngGcI6U",
+  "analyzedAt": "2026-11-25T02:37:48.103Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "_VUMngGcI6U",
+    "title": "[1시간 30분 흘려듣기] 영어 대답 40문장이면 충분합니다. 60대도 질문에 바로 대답 나와요",
+    "channelId": "UCQJEHG7bAaZGyoJgHvKhJuQ",
+    "channelTitle": "들려야 말하는 영어",
+    "publishedAt": "2026-11-03T10:00:06Z",
+    "viewCount": 130236,
+    "likeCount": 1661,
+    "commentCount": 64,
+    "durationSeconds": 5437,
+    "thumbnail": "https://i.ytimg.com/vi/_VUMngGcI6U/maxresdefault.jpg",
+    "description": "🎁 무료 단톡방 '헤일리의 1분 영어' · 오늘 문장 PDF + 9기 소식·무료 라이브 일정 먼저 👉 https://invite.kakao.com/tc/sbZeWc4EM6\n📣 영어 인앤아웃 클럽 9기 (11월 모집) 👉 https://mkt.shopping.naver.com/link/6a5dc1956693bb02b707aabf\n매일 10문장 + 원어민 음성 피드백 + 수강생 전용 'AI 회화 파트너' (오늘 배운 문장으로 AI와 영어 대화)\n\n\"어디야?\" \"어땠어?\" \"언제 와?\"\n원어민이 매일 묻는 질문에 영어로 바로 대답 나오세요?\n단어를 몰라서가 아니에요. 원어민이 대답할 때 쓰는 틀을 아직 몰라서 그래요.\n\n원어민이 실제로 쓰는 대답 30문장과 찐 리액션 10개를 미드 속 진짜 소리로 한 번에 몰아 드릴게요.\n틀어 놓고 들으셔도 되고요. 제가 \"한 번 더\" 하면 꼭 소리 내서 같이 대답해 주세요.\n\n📌 목차\n00:00 인트로\n01:21 1강 어디야? - Where are you?\n15:31 2강 어땠어? - How was it?\n34:12 3강 언제 도착해? - When will you be here?\n50:55 4강 찐 리액션 10개 - That makes sense.\n1:13:45 5강 같은 영어 다른 소리 - What are you going to do?\n\n#영어회화 #왕초보영어 #영어듣기 #시니어영어 #흘려듣기 #몰아보기",
+    "tags": []
+  },
+  "subscriberCount": 16800,
+  "viewsPerSubscriber": 7.75,
+  "outlierRatio": 21.9,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-25T02:33:14.867Z",
+  "ratioDenominator": 5946,
+  "ratioPeerCount": 23,
+  "channelPeers": [
+    {
+      "videoId": "Eiw6ZJtX7-8",
+      "title": "영어도 다릅니다 “안 해도 돼”를 “하지 마”로 말하고 있나요? 꼭 알아둘 생활영어 5문장",
+      "viewCount": 3145,
+      "durationSeconds": 807,
+      "publishedAt": "2026-10-13"
+    },
+    {
+      "videoId": "NIup4l_Sm-I",
+      "title": "원어민은 Wait보다 이 3가지를 더 많이 씁니다",
+      "viewCount": 5367,
+      "durationSeconds": 849,
+      "publishedAt": "2026-07-30"
+    },
+    {
+      "videoId": "1CSE4WtlA6I",
+      "title": "늦게 시작한 영어도 이 질문 50문장이면 대화가 이어집니다",
+      "viewCount": 6574,
+      "durationSeconds": 1746,
+      "publishedAt": "2026-11-05"
+    },
+    {
+      "videoId": "Qr6jYcPI2hs",
+      "title": "[38분 흘려듣기] 헷갈리는 영어 소리 4쌍 1초면 구분됩니다",
+      "viewCount": 8332,
+      "durationSeconds": 2296,
+      "publishedAt": "2026-11-08"
+    },
+    {
+      "videoId": "ofBe4GV_8fY",
+      "title": "[1시간 50분 흘려듣기] 늦게 시작한 영어도 이 200문장이면 충분합니다",
+      "viewCount": 16396,
+      "durationSeconds": 6599,
+      "publishedAt": "2026-11-22"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": 25,
+  "studioSeenAt": "2026-11-24T16:00:12.766Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 2383,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 43
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "ok",
+    "kind": "long",
+    "sentences": 87,
+    "stats": {
+      "sentences": 87,
+      "lengthSum": 1599,
+      "lengthMedian": 15,
+      "endings": {
+        "question": 11,
+        "command": 4,
+        "geodeunyo": 0,
+        "janhayo": 2,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 2,
+        "hapsyo": 15,
+        "haeyo": 31,
+        "other": 22
+      },
+      "jointMid": 2,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 3,
+        "그런데": 2,
+        "근데": 1,
+        "그러면": 0,
+        "여러분": 4,
+        "이게": 0,
+        "그냥": 1,
+        "진짜": 3,
+        "되게": 0,
+        "사실": 0,
+        "우리": 3,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 11,
+      "pastConclusionSentences": 6
+    },
+    "qualityMetrics": {
+      "sentences": 87,
+      "hangulChars": 1303,
+      "hangulRatio": 0.88,
+      "uniqueWordRatio": 0.56,
+      "uniqueSentenceRatio": 0.89
+    },
+    "windowSeconds": 300,
+    "hangulPerSec": 4.34,
+    "excerpts": [
+      "누가 영어로 어디야라고 물으면 대답 바로 나오세요. 아마 입에서 맴도는 단어가 있는데 쉽게 입이 떨어지진 않을 거예요. 그건 단어를 몰라서가 아니고요. 원어민이 대답할 때 쓰는 틀 패턴이 아직 익숙하지 않아서예요. 오늘은 원어민이 매일 물어보는 질문에 바로바로 대답할 수 있는 패턴을 제가 다 알려 드릴게요.",
+      "이런 상황에서 원어민들이 어떻게 얘기하고 있는지 약속 시간 중에 내가 뭐 늦을 때도 있고 가고 있는 중일 때도 있고 여러 가지 상황이 많이 나올 수 있잖아요. 그럴 때 원어민들은 진짜 어떤 말을 써서 얘기하는지 저희가 하나씩 확인해 보도록 하겠습니다."
+    ],
+    "computedAt": "2026-11-25T02:34:06.178Z",
+    "note": null
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "60대도 질문에 바로 대답이 나온다는 구체적 연령대와 40문장만으로 충분하다는 명확한 수치를 제시해 부담을 줄이고 호기심을 유발한다.",
+      "titleQuote": "[1시간 30분 흘려듣기] 영어 대답 40문장이면 충분합니다. 60대도 질문에 바로 대답 나와요",
+      "thumbnailText": "1시간 30분 연속 재생 영어 대답 \"40문장\" 이게 전부예요 바로 쓰는 대답 30문장 · 찐 리액션 10개 틀어만 놔도 입에 붙어요",
+      "thumbnailWordCount": 17,
+      "thumbnailVisual": "밝게 미소 짓는 강사(헤일리)의 상반신과 마이크, 검은색과 보라색 바탕 위에 노란색과 흰색 강조 자막이 또렷하게 배치되어 있다.",
+      "thumbnailVsTitle": "제목의 '1시간 30분', '40문장' 내용을 보완하여 '대답 30문장 + 리액션 10개'라는 상세 구성을 추가로 설명해 보충한다.",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "강사가 마이크 앞에서 '어디야?'라는 질문에 영어로 바로 대답이 나오는지 물으며, 입에서 맴도는 원인을 지적한다.",
+      "quote": "누가 영어로 어디야라고 물으면 대답 바로 나오세요. 아마 입에서 맴도는 단어가 있는데 쉽게 입이 떨어지진 않을 거예요. 그건 단어를 몰라서가 아니고요.",
+      "reasonToKeepWatching": "단어를 몰라서가 아니라 원어민의 대답 틀(패턴)에 익숙하지 않아서라며, 매일 듣는 질문에 바로 대답하는 패턴을 다 알려주겠다고 약속한다.",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "강사가 마이크 앞에 앉아 정면을 바라보며 질문을 던지고 화면 하단에 ''어디야?' 영어로 바로 대답 나오세요?' 자막이 뜬다.",
+      "quote": "누가 영어로 어디야라고 물으면 대답 바로 나오세요.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 38,
+        "what": "강사가 마이크 앞에서 학습자가 영어로 즉각 대답하지 못하는 이유를 진단하고 강의 목적을 소개한다.",
+        "quote": "누가 영어로 어디야라고 물으면 대답 바로 나오세요... 원어민이 대답할 때 쓰는 틀 패턴이 아직 익숙하지 않아서예요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 39,
+        "end": 115,
+        "what": "오늘 배울 5가지 커리큘럼 항목을 화면에 띄워 안내하고 학습 방법에 대해 설명한다.",
+        "quote": "첫 번째 어디야? 두 번째 어땠어? 세 번째 언제 도착해?... '한 번 더'가 나오면 큰 소리로 따라 하기",
+        "quoteVerified": false
+      },
+      {
+        "start": 116,
+        "end": 124,
+        "what": "채널 타이틀 애니메이션과 '1강 어디야? Where are you?' 단원 제목 화면이 나온다.",
+        "quote": ""
+      },
+      {
+        "start": 125,
+        "end": 228,
+        "what": "칠판 앞에서 약속 시간에 가고 있는 상황을 제시하고 콩글리시 표현(I'm going now)의 한계를 지적한다.",
+        "quote": "여러분들이 친구랑 2시에 만나기로 약속을 했어요... I'm going now... 나 안 늦을 거야라는 그 의미를 전달하기에는 뭔가 2%가 부족합니다.",
+        "quoteVerified": false
+      },
+      {
+        "start": 229,
+        "end": 346,
+        "what": "상황 1 '가는 중'에 대해 미드 원어민 소리를 들려주고 'I'm on my way'의 발음 연결 공식과 단어 의미를 해설한다.",
+        "quote": "전화하는 중에 상대가 물어본 거예요. 너 지금 어디야... I'm on my way... 무조건 아임이 아닌 암... way는 길을 의미하는 거예요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 347,
+        "end": 492,
+        "what": "응용 표현으로 'I'm on my way home'을 배우고 home 앞에 to를 붙이지 않는 예외 소리 규칙을 설명한다.",
+        "quote": "나 지금 집에 가는 중이야... I'm on my way home... to를 홈 앞에는 붙이지 않습니다... 예외적인 상황이기 때문에 소리로 기억을 해주세요.",
+        "quoteVerified": false
+      },
+      {
+        "start": 493,
+        "end": 3000,
+        "what": "'I'm on my way to work', 'I'm on my way to you', 'I'm almost there', 'I'm running late' 등 상황별 대답 문장 확장을 계속 해설한다.",
+        "quote": "나 회사로 출근하는 중이야... I'm on my way to work...",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "마이크 앞 강사 모습과 하단 보라색 자막 ''어디야?' 영어로 바로 대답 나오세요?' 등장",
+        "purpose": "시청자에게 즉각적인 질문을 던져 집중 유도"
+      },
+      {
+        "t": 5,
+        "what": "하단 자막이 '입에서 맴돌기만 하죠'로 변경",
+        "purpose": "시청자의 답답한 현 상황 공감"
+      },
+      {
+        "t": 11,
+        "what": "하단 자막이 '단어를 몰라서가 아니에요'로 변경",
+        "purpose": "문제의 원인이 단어량이 아님을 제시"
+      },
+      {
+        "t": 16,
+        "what": "하단 자막이 '원어민이 대답하는 틀이 낯설어서예요'로 변경",
+        "purpose": "진짜 원인인 패턴 미숙을 강조"
+      },
+      {
+        "t": 22,
+        "what": "하단 자막이 '매일 듣는 질문에 바로 대답하는 패턴'으로 변경",
+        "purpose": "강의 콘텐츠의 핵심 해결책 제시"
+      },
+      {
+        "t": 31,
+        "what": "하단 자막이 '교과서 소리 말고 진짜 미드 소리'로 변경",
+        "purpose": "실전 미드 음성 기반 학습임을 강조"
+      },
+      {
+        "t": 39,
+        "what": "강사 좌측에 1~5번 목차 박스 그래픽(1 어디야? 2 어땠어? 3 언제 도착해? 4 듣자마자 나오는 리액션 5 원어민처럼 말하는 비밀) 순차 등장",
+        "purpose": "전체 강의 목차 시각화"
+      },
+      {
+        "t": 102,
+        "what": "목차 사라지고 하단 자막 '틀어 놓고 들으셔도 돼요' 등장",
+        "purpose": "흘려듣기 학습법 안내"
+      },
+      {
+        "t": 104,
+        "what": "하단 자막 ''한 번 더'가 나오면 큰 소리로 따라 하기' 등장",
+        "purpose": "시청자 참여 행동 지침 전달"
+      },
+      {
+        "t": 110,
+        "what": "하단 자막 '첫 번째 '어디야?'부터 시작해요' 등장",
+        "purpose": "첫 단원 시작 알림"
+      },
+      {
+        "t": 116,
+        "what": "채널 로고 및 타이틀 그래픽 애니메이션 화면 전환",
+        "purpose": "브랜드 아이덴티티 및 브릿지 역할"
+      },
+      {
+        "t": 122,
+        "what": "흰 바탕에 보라색 '1강 '어디야?' Where are you?' 타이틀 카드 등장",
+        "purpose": "단원 제목 명시"
+      },
+      {
+        "t": 125,
+        "what": "칠판 배경 스튜디오로 화면 전환, 강사가 교탁 앞에 서서 강의 진행",
+        "purpose": "본격적인 강의 분위기 조성"
+      },
+      {
+        "t": 143,
+        "what": "칠판에 민트색 텍스트 'I'm going now.' 등장",
+        "purpose": "한국인들이 흔히 떠올리는 잘못된/부족한 영어 예시 제시"
+      },
+      {
+        "t": 229,
+        "what": "흰색 깔끔한 배경 슬라이드로 전환, 우측 하단 PIP에 강사 모습 배치. 좌상단 '상황 1·가는 중' 태그 표시",
+        "purpose": "상황별 문장 학습용 화면 구조로 변경"
+      },
+      {
+        "t": 231,
+        "what": "슬라이드에 '= 친구가 '너 지금 어디야?' 하고 물을 때' 보라색 텍스트 추가",
+        "purpose": "문장이 사용되는 구체적 상황 설명"
+      },
+      {
+        "t": 236,
+        "what": "슬라이드 중앙에 '나 지금 가고 있는 중이야' 텍스트 추가",
+        "purpose": "목표 한국어 표현 제시"
+      },
+      {
+        "t": 240,
+        "what": "미드 영화/드라마 속 원어민이 전화받는 실제 영상 클립으로 화면 일시 전환",
+        "purpose": "실제 원어민 발음 및 상황 증거 제시"
+      },
+      {
+        "t": 242,
+        "what": "다시 흰색 슬라이드 화면으로 돌아오며 영문 'I'm on my way.' 텍스트 등장",
+        "purpose": "원어민 표현 공개"
+      },
+      {
+        "t": 251,
+        "what": "텍스트 위에 '한 호흡에 빠르게 뭉쳐서' 보라색 뱃지 등장",
+        "purpose": "발음 연음 팁 안내"
+      },
+      {
+        "t": 257,
+        "what": "텍스트 아래 '아임 아니고 '암'' 보라색 뱃지 추가",
+        "purpose": "구체적 단어 축약 발음법 설명"
+      }
+    ],
+    "ending": {
+      "what": "확인 불가",
+      "quote": ""
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "원하는 대답 표현과 연음/발음 팁을 짚어주는 정확한 강의 방식에 감탄함",
+          "quote": "쌤♡ 왜 이제 만났을까???너무나 말하고 싶었던것을 꼭꼭 집어서,너무나 정확하게 발음과 연음 해주시니 너무나 기쁩니다~~",
+          "quoteVerified": true
+        },
+        {
+          "point": "목소리와 발음이 귀에 잘 들어오고 명쾌하다는 반응",
+          "quote": "목소리도 똑똑 귀에 쏙쏙 들어와요. 최고의 강의 감사 합니다.",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "강의가 너무 상세하고 길어서 필기나 완강에 약간 시간이 걸림",
+          "quote": "강의가 상세해서 좋은데 쪼매 길어요ㆍ",
+          "quoteVerified": true
+        },
+        {
+          "pain": "화면에 영문 발음을 한글 표기로도 더 써줬으면 하는 니즈",
+          "quote": "필기 좀 할수있게 한글로도 좀 적어주시면 best of best 입니다",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "실제 현장 강의 위치나 수강 문의",
+          "quote": "실제 강의 찾아가고 싶군요.. ㅡ",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "배운 표현을 댓글로 복습함 (I'm almost there. Give me five minutes.)",
+          "quote": "I'm almost there. Give me five minutes.",
+          "quoteVerified": true
+        },
+        {
+          "expression": "Much better than I expected.",
+          "quote": "Much better than I expected. 바로 외웠네요! 감사합니다.",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 40,
+      "description": "실전 대답 30문장과 찐 리액션 10개를 상황별 퀴즈-미드 음성-발음연음 공식 순으로 나열하여 가르친다.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 자막바 및 슬라이드 중앙 영문/뱃지 그래픽",
+      "size": "보통",
+      "highlightColor": "보라색, 민트색, 노란색",
+      "highlightMethod": "색상 뱃지 박스, 텍스트 연결선 및 취소선 표시",
+      "textAmount": "한 번에 1~2문장",
+      "changeTiming": "강사의 설명 호흡과 연음 포인트 강조 타이밍에 맞춰 실시간 전환"
+    },
+    "audio": {
+      "hasMusic": true,
+      "mood": "잔잔하고 집중도를 높여주는 깔끔한 인트로 음악 및 강의 배경음",
+      "tempo": "보통",
+      "hasSoundEffects": true,
+      "soundEffectUse": "슬라이드 텍스트/뱃지가 등장하거나 미드 장면으로 전환될 때 효과음 사용",
+      "voiceVsMusic": "강사 목소리와 미드 음성이 절대적으로 중심이며 음악은 인트로/전환 시에만 은은하게 들어감"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "'어디야?'에 바로 대답이 나오는지 묻고, 대답 못하는 이유가 단어 부족이 아닌 패턴 미숙임을 지적함",
+        "quote": "누가 영어로 어디야라고 물으면 대답 바로 나오세요... 단어를 몰라서가 아니에요. 원어민이 대답하는 틀이 낯설어서예요.",
+        "type": "질문 던지기 및 통념 깨기",
+        "quoteVerified": false
+      },
+      "curiosity": {
+        "opened": {
+          "t": 133,
+          "what": "약속 시간에 가고 있을 때 '나 가고 있어'를 영어로 어떻게 말할지 물음",
+          "quote": "어, 나 지금 가고 있어. 이걸 영어로 어떻게 할까요?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 242,
+          "what": "I'm going 대신 원어민이 쓰는 'I'm on my way' 표현과 소리 연결법을 제시함",
+          "quote": "I'm on my way... 원어민들은 이렇게 얘기를 합니다.",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "한국인이 직관적으로 떠올리는 콩글리시 표현의 한계를 먼저 보여주고, 그 한계를 해결해주는 원어민 실전 소리 및 발음 연음 공식을 단계별로 연결한다.",
+        "examples": [
+          {
+            "t": 143,
+            "what": "'I'm going now'는 단순 전달은 되지만 '안 늦을 거야'라는 뉘앙스가 부족함을 지적 후 'I'm on my way'로 연결함",
+            "quote": "I'm going now... 나 안 늦을 거야라는 그 의미를 전달하기에는 뭔가 2%가 부족합니다.",
+            "quoteVerified": false
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 39,
+          "what": "오늘 강의에서 '어디야', '어땠어', '언제 도착해', '리액션', '원어민처럼 말하는 비밀'까지 5가지를 모두 알려주겠다고 예고함",
+          "quote": "첫 번째 어디야? 두 번째 어땠어?... 마지막은요... 비밀까지 다 알려드릴게",
+          "quoteVerified": false
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 240,
+          "what": "강사 설명 도중 미드 드라마 원어민 실제 음성 및 영상 장면이 짧게 컷인됨",
+          "quote": "I'm on my way.",
+          "quoteVerified": true
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 105,
+          "what": "'한 번 더'라고 말할 때마다 시청자에게 소리 내어 따라 읽도록 유도함",
+          "quote": "제가 한 번 더라고 얘기할 때마다 여러분들 큰 소리로 따라만 해 주시면 됩니다.",
+          "quoteVerified": true
+        }
+      ],
+      "evidence": [
+        {
+          "t": 240,
+          "what": "미드 원어민 교재 음성을 직접 플레이하여 실제 원어민 연음 소리를 증거로 들려줌",
+          "quote": "I'm on my way.",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 844,
+        "what": "강의 후반부 음성파일 전체 복습 및 정리 퀴즈를 통해 오늘 배운 문장을 입에 붙게 만들어 줌",
+        "quote": "가장 중요한 건 음성파일 들으실 때 그냥 듣지 마시고 꼭 내가 들으면서 입으로 말해 주세요.",
+        "quoteVerified": false
+      }
+    },
+    "links": [
+      {
+        "cause": "강사가 03:00 구간에서 '아임'이 아니라 '암'으로 소리 내고 자음을 당겨 연결하라고 설명함",
+        "reaction": "시청자들이 발음과 연음을 콕 짚어 정확히 알려주는 강의 스타일에 열광함",
+        "quote": "너무나 정확하게 발음과 연음 해주시니 너무나 기쁩니다~~",
+        "quoteVerified": true
+      },
+      {
+        "cause": "강사가 'I'm almost there. Give me 5 minutes.' 문장을 상황극과 함께 연습시킴",
+        "reaction": "시청자가 댓글에 해당 문장을 직접 적으며 학습 성과를 인증함",
+        "quote": "I'm almost there. Give me five minutes.",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "단순 문장 암기가 아니라 '60대도 바로 대답 나오는 1시간 30분 연속 재생 흘려듣기'라는 자극적이고 명확한 이점을 썸네일/제목에 배치하고, 미드 원어민 실제 소리와 연음 원리를 짚어주는 높은 완성도의 장형 묶음집(1시간 30분)으로 시청 시간을 극대화했기 때문이다.",
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "한국 성인 시청자를 대상으로 미드 원어민 실제 소리의 연음 규칙(자음 끌어당김, T소리 생략, 축약음)을 상세히 설명하고 따라하게 시키기 때문이다.",
+    "forUs": {
+      "adopt": "상황별 콩글리시 표현을 먼저 제시해 공감을 끈 뒤, 미드 원어민 소리와 연음 가이드(뱃지 그래픽)를 붙여 반복 복습시키는 구성을 벤치마킹한다.",
+      "differentiate": "1시간 30분의 긴 분량으로 인해 필기나 집중이 부담스럽다는 시청자 피드백을 반영해, 핵심 소리 연음 공식을 한눈에 보는 한글 소리표 템플릿과 15~20분 단위 집중 숏폼/중형 포맷으로 변형해 제공한다."
+    }
+  },
+  "quoteCheck": {
+    "checked": 27,
+    "verified": 16,
+    "unverified": 11
+  },
+  "pacing": {
+    "count": 13,
+    "medianGapSeconds": 8.8,
+    "perMinute": 2.6,
+    "times": [
+      75.9,
+      81.9,
+      84.5,
+      148.6,
+      160.1,
+      162.3,
+      199.8,
+      200.5,
+      230.7,
+      233,
+      250.6,
+      251.3,
+      297.5,
+      300.9
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 11,
+      "file": "11.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 31,
+      "file": "31.jpg"
+    },
+    {
+      "t": 102,
+      "file": "102.jpg"
+    },
+    {
+      "t": 110,
+      "file": "110.jpg"
+    },
+    {
+      "t": 125,
+      "file": "125.jpg"
+    },
+    {
+      "t": 229,
+      "file": "229.jpg"
+    },
+    {
+      "t": 236,
+      "file": "236.jpg"
+    },
+    {
+      "t": 242,
+      "file": "242.jpg"
+    },
+    {
+      "t": 257,
+      "file": "257.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 43785,
+    "candidatesTokenCount": 5332,
+    "totalTokenCount": 50631,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 15384
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 1514,
+    "serviceTier": "standard"
+  }
+}

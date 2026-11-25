@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-20T11:19:12.347Z",
+  "updatedAt": "2026-11-25T03:12:03.559Z",
   "entries": [
     {
       "id": "question:초보자가 당장 내일부터 내 뇌의 '한국어 언어팩'을 '영어 언어팩'으로 교체하는 1일 10분 최소 루틴은 어떻게 짜야 하나요?",
@@ -481,6 +481,141 @@
       ],
       "firstSeenAt": "2026-09-07T06:25:33.613Z",
       "lastSeenAt": "2026-09-07T06:25:40.372Z"
+    },
+    {
+      "id": "vocabulary:영상에서 배운 10개 핵심 표현을 댓글로 복습해 정리함",
+      "type": "vocabulary",
+      "text": "영상에서 배운 10개 핵심 표현을 댓글로 복습해 정리함",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "xaTAV--wNxg",
+          "channelTitle": "밀가루쌤영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T03:12:03.559Z",
+      "lastSeenAt": "2026-11-25T03:12:03.559Z"
+    },
+    {
+      "id": "painPoint:나이가 들면서 영어가 잘 늘지 않고 영화나 드라마를 보면 잘 안 들려 답답함을 겪음",
+      "type": "painPoint",
+      "text": "나이가 들면서 영어가 잘 늘지 않고 영화나 드라마를 보면 잘 안 들려 답답함을 겪음",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "4LShGRVrbuQ",
+          "channelTitle": "영어식 사고ㅣ원어민 팟캐스트",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:41:15.777Z",
+      "lastSeenAt": "2026-11-25T02:41:15.777Z"
+    },
+    {
+      "id": "question:영어 자막 외에 한국어 번역이나 스크립트를 따로 볼 수 있는지 물어봄",
+      "type": "question",
+      "text": "영어 자막 외에 한국어 번역이나 스크립트를 따로 볼 수 있는지 물어봄",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "4LShGRVrbuQ",
+          "channelTitle": "영어식 사고ㅣ원어민 팟캐스트",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:41:15.777Z",
+      "lastSeenAt": "2026-11-25T02:41:15.777Z"
+    },
+    {
+      "id": "vocabulary:middle ground",
+      "type": "vocabulary",
+      "text": "middle ground",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "4LShGRVrbuQ",
+          "channelTitle": "영어식 사고ㅣ원어민 팟캐스트",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:41:15.777Z",
+      "lastSeenAt": "2026-11-25T02:41:15.777Z"
+    },
+    {
+      "id": "painPoint:강의가 너무 상세하고 길어서 필기나 완강에 약간 시간이 걸림",
+      "type": "painPoint",
+      "text": "강의가 너무 상세하고 길어서 필기나 완강에 약간 시간이 걸림",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_VUMngGcI6U",
+          "channelTitle": "들려야 말하는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:37:48.174Z",
+      "lastSeenAt": "2026-11-25T02:37:48.174Z"
+    },
+    {
+      "id": "painPoint:화면에 영문 발음을 한글 표기로도 더 써줬으면 하는 니즈",
+      "type": "painPoint",
+      "text": "화면에 영문 발음을 한글 표기로도 더 써줬으면 하는 니즈",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_VUMngGcI6U",
+          "channelTitle": "들려야 말하는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:37:48.174Z",
+      "lastSeenAt": "2026-11-25T02:37:48.174Z"
+    },
+    {
+      "id": "question:실제 현장 강의 위치나 수강 문의",
+      "type": "question",
+      "text": "실제 현장 강의 위치나 수강 문의",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_VUMngGcI6U",
+          "channelTitle": "들려야 말하는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:37:48.174Z",
+      "lastSeenAt": "2026-11-25T02:37:48.174Z"
+    },
+    {
+      "id": "vocabulary:배운 표현을 댓글로 복습함 (i'm almost there. give me five minutes.)",
+      "type": "vocabulary",
+      "text": "배운 표현을 댓글로 복습함 (I'm almost there. Give me five minutes.)",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_VUMngGcI6U",
+          "channelTitle": "들려야 말하는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:37:48.174Z",
+      "lastSeenAt": "2026-11-25T02:37:48.174Z"
+    },
+    {
+      "id": "vocabulary:much better than i expected.",
+      "type": "vocabulary",
+      "text": "Much better than I expected.",
+      "occurrences": 1,
+      "sources": [
+        {
+          "videoId": "_VUMngGcI6U",
+          "channelTitle": "들려야 말하는 영어",
+          "sourceType": "outlierComment"
+        }
+      ],
+      "firstSeenAt": "2026-11-25T02:37:48.174Z",
+      "lastSeenAt": "2026-11-25T02:37:48.174Z"
     },
     {
       "id": "painPoint:특정 자음 연쇄나 빠른 발음 변화(예: asked의 'ㅋ'에서 'ㄷ'로 넘어가는 연결)에서 혀가 꼬이는 어려움",
@@ -4446,141 +4581,6 @@
       "id": "painPoint:직장인들의 고질적인 발음 교정 한계 (💬 \"시간이 부족하고 직장 생활을 하며 영어 발음을 교정하는 것이 너무 어렵다는 좌절감\")",
       "type": "painPoint",
       "text": "직장인들의 고질적인 발음 교정 한계 (💬 \"시간이 부족하고 직장 생활을 하며 영어 발음을 교정하는 것이 너무 어렵다는 좌절감\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "painPoint:한국어 표기와 실제 영어 발음의 괴리 (💬 \"한글로 표기된 영어(예: 맥도날드, 스타벅스)를 그대로 고집하다가 원어민이 못 알아듣는 악순환\")",
-      "type": "painPoint",
-      "text": "한국어 표기와 실제 영어 발음의 괴리 (💬 \"한글로 표기된 영어(예: 맥도날드, 스타벅스)를 그대로 고집하다가 원어민이 못 알아듣는 악순환\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "painPoint:발음 챌린지나 유명 브랜드 단어의 높은 진입 장벽 (💬 \"맥도날드, kfc, 코카콜라 같은 익숙한 단어조차 원어민식 억양과 강세를 살리지 못해 실패하는 현상\")",
-      "type": "painPoint",
-      "text": "발음 챌린지나 유명 브랜드 단어의 높은 진입 장벽 (💬 \"맥도날드, KFC, 코카콜라 같은 익숙한 단어조차 원어민식 억양과 강세를 살리지 못해 실패하는 현상\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "painPoint:아시안 특유의 억양과 목이 뒤로 눌리는 발음 (💬 \"영어 발음을 굴리려고 할 때 목이 뒤로 눌리며 소리가 먹히는 현상\")",
-      "type": "painPoint",
-      "text": "아시안 특유의 억양과 목이 뒤로 눌리는 발음 (💬 \"영어 발음을 굴리려고 할 때 목이 뒤로 눌리며 소리가 먹히는 현상\")",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "question:단기간에 저런 원어민스러운 발음이 나오려면 도대체 어떤 공부법과 루틴을 써야 하나요?",
-      "type": "question",
-      "text": "단기간에 저런 원어민스러운 발음이 나오려면 도대체 어떤 공부법과 루틴을 써야 하나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "question:맥도날드나 스타벅스처럼 한글 외래어로 굳어진 단어는 혀와 입모양을 어떻게 바꿔야 원어민이 알아듣나요?",
-      "type": "question",
-      "text": "맥도날드나 스타벅스처럼 한글 외래어로 굳어진 단어는 혀와 입모양을 어떻게 바꿔야 원어민이 알아듣나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "question:발음을 잘하기 위해 무작정 소리를 굴리는 것과 인토네이션(강세)을 외우는 것 중 무엇이 먼저인가요?",
-      "type": "question",
-      "text": "발음을 잘하기 위해 무작정 소리를 굴리는 것과 인토네이션(강세)을 외우는 것 중 무엇이 먼저인가요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "question:한국어 표기('맥도날드'의 '도', '날')의 틀을 머릿속에서 완전히 지우는 구체적인 훈련법이 있나요?",
-      "type": "question",
-      "text": "한국어 표기('맥도날드'의 '도', '날')의 틀을 머릿속에서 완전히 지우는 구체적인 훈련법이 있나요?",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:영린이",
-      "type": "vocabulary",
-      "text": "영린이",
-      "occurrences": 1,
-      "sources": [
-        {
-          "videoId": "Ux_M00VVmEU",
-          "channelTitle": "수키 suekii",
-          "sourceType": "outlierComment"
-        }
-      ],
-      "firstSeenAt": "2026-11-12T06:29:10.134Z",
-      "lastSeenAt": "2026-11-12T06:29:10.134Z"
-    },
-    {
-      "id": "vocabulary:발음 챌린지",
-      "type": "vocabulary",
-      "text": "발음 챌린지",
       "occurrences": 1,
       "sources": [
         {

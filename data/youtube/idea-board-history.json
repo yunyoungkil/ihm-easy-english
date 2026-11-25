@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-24T10:54:04.709Z",
+  "updatedAt": "2026-11-25T03:05:28.969Z",
   "entries": [
     {
       "topic": "GOING TO를 원어민처럼 읽으면 GONNA가 됩니다",
@@ -528,6 +528,36 @@
       "episodeLabel": "EP36",
       "status": "selected",
       "selectedAt": "2026-11-24T10:54:04.709Z",
+      "producedAt": null
+    },
+    {
+      "topic": "외국인이 영어로 물으면 머리가 하얘지는 순간 — 다 아는 단어로 된 생활 질문 30개가 한 덩어리로 들리는 다섯 가지 이유",
+      "angleOrHook": "여섯 단어 다 아는 질문인데 왜 귀에는 두 덩어리만 남았을까 — 화면 없이 귀로 따라가는 약 40분 틀어 놓고 듣는 롱폼(갈래 ② 첫 시험)",
+      "targetAudience": "외국인이 영어로 말을 걸면 아는 단어인데도 얼어붙는 국내 3060 보통 성인",
+      "rank": null,
+      "score": null,
+      "dataSourceRefs": [
+        {
+          "source": "competitorOutlier",
+          "detail": "들려야 말하는 영어·_VUMngGcI6U·21.9배"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "영어식 사고·4LShGRVrbuQ·19.8배"
+        },
+        {
+          "source": "competitorOutlier",
+          "detail": "밀가루쌤영어·xaTAV--wNxg·19배(스튜디오 배수)"
+        },
+        {
+          "source": "audienceDna",
+          "detail": "머리가 하얘짐 / 백날 틀어놔도 아는 만큼만 들림"
+        }
+      ],
+      "episodeSlug": "ep37-listen-frozen-questions",
+      "episodeLabel": "EP37",
+      "status": "selected",
+      "selectedAt": "2026-11-25T03:05:28.969Z",
       "producedAt": null
     }
   ]

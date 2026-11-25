@@ -6000,7 +6000,7 @@ const server = createServer(async (req, res) => {
         return json(res, 200, {ok: true, thumbnailPicks: next.thumbnailPicks, titlePicks: next.titlePicks});
       } catch (e) { return json(res, 400, {error: e.message}); }
     }
-    const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{3,60})\/((?:cuts\d*\/)?[\w.-]{1,60}\.(?:jpg|png))$/);
+    const sheetImageMatch = url.pathname.match(/^\/transform-images\/([\w-]{3,60})\/((?:cuts\d*\/|raw\/)?[\w.-]{1,60}\.(?:jpg|png))$/);
     if (sheetImageMatch) {
       const imagePath = join(transformSheetsDir, 'images', sheetImageMatch[1], sheetImageMatch[2]);
       if (!existsSync(imagePath)) return json(res, 404, {error: '이미지가 없습니다.'});

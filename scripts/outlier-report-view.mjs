@@ -31,7 +31,7 @@ h1{font-size:23px;font-weight:800;letter-spacing:-0.5px;margin:12px 0 16px;line-
 .moment{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}.moment img{width:auto;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
 .t{font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent);background:var(--accent-glow);padding:2px 6px;border-radius:4px;font-size:12.5px}
 table{width:100%;border-collapse:collapse;font-size:13.5px;display:table;border-radius:8px;overflow:hidden;border:1px solid var(--line);margin:10px 0}code{font-size:12.5px;background:var(--line);padding:2px 5px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}th{background:rgba(255,255,255,0.04);font-weight:700;color:var(--sub);border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}tr:last-child td{border-bottom:none}
-.thumbbox{display:flex;flex-wrap:nowrap;gap:14px;overflow:auto;max-height:80vh;padding:12px 6px 16px;border:1px solid var(--line);border-radius:12px;margin:10px 0;background:rgba(0,0,0,0.04)}.pick{position:relative;flex:0 0 auto;transition:transform 0.2s}.pick:hover{transform:translateY(-2px)}.pick img.real{width:200px;height:355px;object-fit:cover;display:block;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,0.12)}.pick img.real.wide{width:320px;height:180px}.pick input{position:absolute;top:6px;right:6px;width:24px;height:24px;accent-color:var(--accent);cursor:pointer}.titles label{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;cursor:pointer;border-radius:8px;border:1px solid var(--line);margin:6px 0;background:var(--card);transition:background 0.15s,border-color 0.15s}.titles label:hover{border-color:var(--accent);background:var(--card-hover)}.titles input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--accent);margin-top:2px}.thumb{max-width:380px;width:100%;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,0.15)}
+.thumbbox{display:flex;flex-wrap:nowrap;gap:14px;overflow:auto;max-height:80vh;padding:12px 6px 16px;border:1px solid var(--line);border-radius:12px;margin:10px 0;background:rgba(0,0,0,0.04)}.pick{display:flex;flex-direction:column;gap:6px;flex:0 0 auto;padding:8px;border-radius:12px;background:var(--card);border:1px solid var(--line);cursor:pointer;transition:transform 0.2s,border-color 0.2s}.pick:hover{transform:translateY(-2px);border-color:var(--accent)}.pick.is-rec{border:2px solid #f59e0b;box-shadow:0 0 0 2px rgba(245,158,11,0.16)}.pick-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:24px}.pick-meta{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--sub)}.pick-rec-badge{background:#f59e0b;color:#111827;font-size:11px;font-weight:900;padding:2px 8px;border-radius:999px}.pick img.real{width:200px;height:355px;object-fit:cover;display:block;border-radius:8px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,0.12)}.pick img.real.wide{width:320px;height:180px}.pick input{width:20px;height:20px;margin:0;accent-color:var(--accent);cursor:pointer;flex:none}.titles label{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;cursor:pointer;border-radius:8px;border:1px solid var(--line);margin:6px 0;background:var(--card);transition:background 0.15s,border-color 0.15s}.titles label:hover{border-color:var(--accent);background:var(--card-hover)}.titles input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--accent);margin-top:2px}.thumb{max-width:380px;width:100%;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,0.15)}
 .list{display:flex;flex-direction:column;gap:10px}.list a{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;text-decoration:none;color:inherit;align-items:center}.list img{width:180px;border-radius:8px;border:1px solid var(--line)}
 @media (max-width:600px){.list a{grid-template-columns:100px minmax(0,1fr)}.list img{width:100px}}
 main > p:first-child{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--sub);font-size:13px}
@@ -239,7 +239,7 @@ const SHEET_CSS = `<style>
 .sheet-col{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
 .sheet-col.ours{border-color:var(--accent);background:linear-gradient(180deg, rgba(56,189,248,0.04) 0%, rgba(56,189,248,0) 100%)}
 .sheet-col h4{margin:0 0 8px;font-size:12px;font-weight:700;color:var(--sub);letter-spacing:0.5px;text-transform:uppercase}
-.sheet-col .imgs{display:flex;flex-wrap:nowrap;gap:10px;margin:8px 0;align-items:flex-start;overflow-x:auto}
+.sheet-col .imgs{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0;align-items:flex-start}
 .sheet-col img{width:auto;min-width:0;max-width:100%;max-height:300px;height:auto;border-radius:8px;border:1px solid var(--line);display:block}
 .sheet-why{grid-column:1/-1;font-size:13.5px;color:var(--ink);background:rgba(245,158,11,0.08);border-left:3px solid var(--accent-amber);border-radius:0 8px 8px 0;padding:12px 16px;margin:2px 0 10px;line-height:1.55}
 .sheet-label{font-weight:800;font-size:15px;margin:24px 0 6px;color:var(--ink);display:flex;align-items:center;gap:6px}
@@ -482,7 +482,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   const warningList = Array.isArray(warnings) ? warnings : [];
   const isWide = sheet.format === 'LONGFORM';
   const compThumbStyle = (wide) => (wide
-    ? 'width:200px;height:112px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid var(--line)'
+    ? 'width:152px;height:86px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid var(--line)'
     : 'width:104px;height:186px;object-fit:cover;object-position:center;flex:none;border-radius:6px;border:1px solid var(--line)');
   const competitorImg = (token) => {
     if (token === 'thumbnail') {
@@ -527,7 +527,11 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   const picks = new Set(sheet.thumbnailPicks || []);
   const titlePicks = new Set(sheet.titlePicks || []);
   const pickTitle = isWide ? '실제 유튜브 롱폼 목록 크기(16:9, 가로 320px)' : '실제 유튜브 쇼츠 목록 크기(가로 200px)';
-  const pickRow = (list) => `<div class="thumbbox">${list.map((rel) => { const isRec = aiRec?.thumbnail === rel; return `<label class="pick" style="${isRec ? 'outline:3px solid #f59e0b;border-radius:10px' : ''}"><img class="real${isWide ? ' wide' : ''}" title="${pickTitle}" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안">${isRec ? '<span style="position:absolute;top:8px;left:8px;background:#f59e0b;color:#111827;font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,0.35)">★ AI 추천</span>' : ''}<input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></label>`; }).join('')}</div>`;
+  const pickLabelOf = (rel, idx) => {
+    const m = String(rel).match(/thumb-([A-Za-z0-9]+)\.(?:jpg|png)$/i);
+    return m ? `${m[1].toUpperCase()}안` : `시안 ${idx + 1}`;
+  };
+  const pickRow = (list) => `<div class="thumbbox">${list.map((rel, idx) => { const isRec = aiRec?.thumbnail === rel; return `<label class="pick${isRec ? ' is-rec' : ''}"><span class="pick-head"><span class="pick-meta"><span>${escapeHtml(pickLabelOf(rel, idx))}</span>${isRec ? '<span class="pick-rec-badge">★ AI 추천</span>' : ''}</span><input type="checkbox" data-pick="${escapeHtml(rel)}"${picks.has(rel) ? ' checked' : ''}></span><img class="real${isWide ? ' wide' : ''}" title="${pickTitle}" loading="lazy" src="${oursUrl(rel)}" alt="우리 쪽 시안"></label>`; }).join('')}</div>`;
   // 사례집 사례(case:<id>)는 첫 그림과 사례집 링크를 같이 보여 준다(그림은 /transform-images/packaging-cases/ 로 나간다)
   const caseById = new Map((Array.isArray(cases) ? cases : []).map((c) => [c?.id, c]));
   const caseBit = (source) => {
@@ -559,8 +563,11 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     const evCounts = [clickWhy.length ? `왜 눌렸나 ${clickWhy.length}개` : '', craft.length ? `만드는 법 ${craft.length}개` : '', eyeOrder.length ? `눈이 가는 순서 ${eyeOrder.length}개` : '', pairing.length ? `일 나누기 ${pairing.length}개` : ''].filter(Boolean);
     const evFold = evBody ? fold(`근거 펼치기 <span class="meta">— ${evCounts.join(' · ')}</span>`, evBody) : '';
     const label = `${escapeHtml(ROW_LABELS_VIEW[r.key] || r.key)}${r.key === 'title' && titleBox ? ' — 고르기' : ''}${r.key === 'thumbnail' && thumbs.length ? ' — 고르기' : ''}`;
-    // 썸네일 칸은 우리 시안(고르기) 그림이 먼저 보이고, 경쟁 썸네일·설명·근거가 그 아래에 온다.
-    const picksHtml = `${thumbs.length ? `${thumbs2.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}`;
+    // 썸네일 칸은 우리 시안(고르기) 그림이 먼저 보이고, 200px·흑백 확인(있을 때)과 경쟁 썸네일·설명·근거가 그 아래에 온다.
+    const preview200Html = r.key === 'thumbnail' && r.ours?.preview200
+      ? fold('📱 200px 작은 화면 · 흑백 대비 확인', `<img loading="lazy" src="${oursUrl(r.ours.preview200)}" alt="200px 작은 화면·흑백 미리보기" style="max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line);display:block">`)
+      : '';
+    const picksHtml = `${thumbs.length ? `${thumbs2.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}${preview200Html}`;
     return `<div class="sheet-label" id="row-${escapeHtml(r.key)}">${label}</div>${picksHtml}
 <div class="sheet-row">
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.key === 'package' ? packageCompetitor(report) : ''}${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>

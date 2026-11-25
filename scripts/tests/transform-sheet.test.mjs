@@ -169,9 +169,9 @@ test('시트 화면: 경쟁 컷 시각과 우리 컷 계획을 같은 시간 막
   assert.match(html, /우리 계획 5번/);
 });
 
-test('시트 화면: 그림은 같은 높이로 제한하고 여러 장은 가로로 나란히 둔다', () => {
+test('시트 화면: 그림은 같은 높이로 제한하고 여러 장은 가로로 나란히 두며 좁으면 줄바꿈된다', () => {
   const html = renderTransformSheetPage(good(), report, []);
-  assert.match(html, /\.sheet-col \.imgs\{[^}]*flex-wrap:nowrap/);
+  assert.match(html, /\.sheet-col \.imgs\{[^}]*flex-wrap:wrap/);
   assert.match(html, /max-height:300px/);
 });
 
@@ -234,19 +234,20 @@ test('시트 페이지의 썸네일 시안마다 체크박스가 있고 고른 �
   assert.doesNotMatch(html, /data-pick="images\/x\/a\.jpg" checked/);
 });
 
-test('제목 후보 선택: 시트의 후보만 고를 수 있고, 시안 체크박스는 이미지 오른쪽 위 모서리에 글자 없이 있다', async () => {
+test('제목 후보 선택: 시트의 후보만 고를 수 있고, 시안 체크박스·추천 배지는 그림을 가리지 않고 상단 바(.pick-head)에 둔다', async () => {
   const {setTitlePick} = await import('../transform-sheet.mjs');
   const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
   const sheet = {sourceVideoId: 'AAAAAAAAAAA', topic: 't', status: 'draft', format: 'SHORTS', identityShare: {ours: 30, competitor: 70, reason: 'r'}, titlePicks: [],
-    rows: [{key: 'title', competitor: {text: 'c'}, ours: {text: 'o', titles: ['가', '나', '다']}, why: 'w'}, {key: 'thumbnail', competitor: {text: 'c'}, ours: {text: 'o', images: ['images/x/a.jpg']}, why: 'w'}], borrowed: [], rejected: []};
+    rows: [{key: 'title', competitor: {text: 'c'}, ours: {text: 'o', titles: ['가', '나', '다']}, why: 'w'}, {key: 'thumbnail', competitor: {text: 'c'}, ours: {text: 'o', images: ['images/x/a.jpg'], preview200: 'images/x/raw/thumb-check-200px.jpg'}, why: 'w'}], borrowed: [], rejected: []};
   const one = setTitlePick(sheet, '나', true);
   assert.deepEqual(one.titlePicks, ['나']);
   assert.throws(() => setTitlePick(sheet, '없는 제목', true), /후보/);
   const html = renderTransformSheetPage(one, null, []);
   assert.equal((html.match(/data-pick-title="/g) || []).length, 3);
   assert.match(html, /data-pick-title="나" checked/);
-  assert.match(html, /\.pick input\{position:absolute;top:\d+px;right:\d+px/);
+  assert.match(html, /class="pick-head"/);
   assert.match(html, /\.thumbbox\{[^}]*overflow:auto/);
+  assert.match(html, /200px 작은 화면 · 흑백 대비 확인/);
   assert.doesNotMatch(html, /이 시안 고르기/);
 });
 
@@ -583,7 +584,7 @@ test('롱폼 비교 시트는 썸네일·AI 추천·컷 카드·레퍼런스 썸
   assert.match(longHtml, /class="real wide"/, '롱폼 썸네일 후보는 wide 클래스를 써야 한다');
   assert.match(longHtml, /실제 유튜브 롱폼 목록 크기\(16:9, 가로 320px\)/);
   assert.match(longHtml, /width:192px;height:108px/, 'AI 추천 썸네일도 16:9 가로 크기여야 한다');
-  assert.match(longHtml, /width:200px;height:112px/, '경쟁 롱폼 썸네일도 16:9 가로 크기여야 한다');
+  assert.match(longHtml, /width:152px;height:86px/, '경쟁 롱폼 썸네일도 16:9 가로 크기여야 한다');
   assert.match(longHtml, /class="film ours-grid wide"/, '롱폼 컷 카드 그리드는 wide 클래스를 써야 한다');
   assert.match(longHtml, /class="cut-card p4 wide"/, '롱폼 컷 카드는 wide 클래스를 써야 한다');
   assert.match(longHtml, /class="ref-thumb wide"/, '롱폼 레퍼런스 썸네일은 wide 클래스를 써야 한다');

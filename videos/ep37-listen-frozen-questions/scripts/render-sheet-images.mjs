@@ -14,6 +14,16 @@ const RAW = join(OUT, 'raw');
 mkdirSync(join(OUT, 'cuts'), {recursive: true});
 
 const font = readFileSync(join(ROOT, 'videos', 'ep36-everyday-words-unheard', 'assets', 'fonts', 'NotoSansKR-VF.ttf')).toString('base64');
+const gfont = (f) => readFileSync(join(ROOT, 'public', 'fonts', 'google', f)).toString('base64');
+const GF = {
+  blackHan: gfont('BlackHanSans-Regular.ttf'),
+  gothicA1: gfont('GothicA1-Black.ttf'),
+  doHyeon: gfont('DoHyeon-Regular.ttf'),
+  ibmBold: gfont('IBMPlexSansKR-Bold.ttf'),
+  archivoBlack: gfont('ArchivoBlack-Regular.ttf'),
+  barlowCond: gfont('BarlowCondensed-ExtraBold.ttf'),
+  outfit: gfont('Outfit-VF.ttf'),
+};
 const img = (f) => `data:image/jpeg;base64,${readFileSync(join(RAW, f)).toString('base64')}`;
 
 // 장마다 서울 지하철 노선 색에서 따온 표지 색(어두운 바탕에서 읽히게 밝힌 값)
@@ -26,6 +36,13 @@ export const CH = {
 };
 
 const base = (w, h) => `@font-face{font-family:'K';src:url(data:font/ttf;base64,${font}) format('truetype');font-weight:100 900}
+@font-face{font-family:'BlackHan';src:url(data:font/ttf;base64,${GF.blackHan}) format('truetype');font-weight:400}
+@font-face{font-family:'GothicA1';src:url(data:font/ttf;base64,${GF.gothicA1}) format('truetype');font-weight:900}
+@font-face{font-family:'DoHyeon';src:url(data:font/ttf;base64,${GF.doHyeon}) format('truetype');font-weight:400}
+@font-face{font-family:'IBMBold';src:url(data:font/ttf;base64,${GF.ibmBold}) format('truetype');font-weight:700}
+@font-face{font-family:'ArchivoBlack';src:url(data:font/ttf;base64,${GF.archivoBlack}) format('truetype');font-weight:400}
+@font-face{font-family:'BarlowCond';src:url(data:font/ttf;base64,${GF.barlowCond}) format('truetype');font-weight:800}
+@font-face{font-family:'Outfit';src:url(data:font/ttf;base64,${GF.outfit}) format('truetype');font-weight:100 900}
 *{box-sizing:border-box;margin:0;padding:0}html,body{width:${w}px;height:${h}px;overflow:hidden}
 body{position:relative;font-family:'K',sans-serif;background:#0F1521;color:#F4F1EA;-webkit-font-smoothing:antialiased}
 .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -47,54 +64,68 @@ const wave = (w, h, color, bars = 64, seed = 7) => {
   return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${out}</svg>`;
 };
 
-// ── 썸네일 3안 (1280×720) — v3(2026-11-25 사용자: 다른 분야 수법·제작 자료를 썸네일에도) ───────────
-// 사례집(data/youtube/packaging-cases.json)에서 고른 사례와 제작 자료의 방법을 시안마다 층으로 쌓는다. 한 틀로 찍지 않는다.
-// 덮개는 글자 뒤에만 깔고 이야기 요소(외국인 어깨·귀·소품)는 가리지 않는다. 오른쪽 아래(재생 시간 자리)에는 글자를 두지 않는다.
-// 이전 판(v2, 배경 + 왼쪽 덮개 + 두 줄)은 raw/thumb-?-v2-ai-average.jpg와 실패 이유 raw/thumb-v2-ai-average.txt.
+// ── 썸네일 3안 (1280×720) — v4(2026-11-25 밤 검수 개편: 그래픽 층·구글 폰트 역할 분리·200px 대비·제목 시너지 정렬) ───────────
+// 사례집(data/youtube/packaging-cases.json) + 제작 자료(AI 티 빼기·영상 효과 14·15번) + 구글 폰트 서랍(public/fonts/google/).
+// 이전 판: raw/thumb-?-v2-ai-average.jpg, raw/thumb-?-v3.jpg, raw/thumb-v3-review.txt.
 const TL = JSON.parse(execFileSync(process.execPath, [join(HERE, 'estimate-timeline.mjs'), '--json'], {encoding: 'utf8'}));
 const MINUTES = Math.round(TL.totalSeconds / 60); // 추정 길이(음성 실측 뒤 다시 찍으면 실제 값으로 바뀐다)
-const stroke = (px, c = '#0B0F18') => `-webkit-text-stroke:${px}px ${c};paint-order:stroke fill`;
+const stroke = (px, c = '#070B14') => `-webkit-text-stroke:${px}px ${c};paint-order:stroke fill`;
 const THUMBS = {
-  // A 장면·대결: 외국인 어깨 너머로 얼어붙은 얼굴(case:smokinggun-sageon 마주 선 순간 + case:korea-expedition-france 실사 클로즈업·구체 장소,
-  // 영상 효과 15번 내 눈으로 보는 화면·어깨 너머). 눈: 얼굴 → 말풍선 → 노란 줄. 줄인 것: 꼬리표 없음, 역 배경은 흐리게.
+  // A 장면·대결: 외국인 어깨 너머 하이 앵글(12°) 당황 클로즈업 + 날아오는 오디오 강조 띠(평면 말풍선 탈피) + 구글 폰트 3종 역할 분리.
   A: page(1280, 720, `
-.low{position:absolute;left:0;right:0;bottom:0;height:330px;background:linear-gradient(0deg,rgba(8,11,18,.88) 0%,rgba(8,11,18,.6) 55%,rgba(8,11,18,0) 100%)}
-.top{position:absolute;left:0;right:0;top:0;height:230px;background:linear-gradient(180deg,rgba(8,11,18,.7) 0%,rgba(8,11,18,.35) 60%,rgba(8,11,18,0) 100%)}
-.bub{position:absolute;left:40px;top:40px;background:#fff;color:#111;border-radius:30px;padding:16px 30px;font-size:44px;font-weight:800;letter-spacing:-.5px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
-.bub:after{content:'';position:absolute;left:46px;bottom:-26px;border:15px solid transparent;border-top:22px solid #fff;border-right:24px solid #fff}
-.h1{position:absolute;left:44px;bottom:168px;font-size:70px;font-weight:900;letter-spacing:-2px;${stroke(10)}}
-.h2{position:absolute;left:38px;bottom:42px;font-size:116px;font-weight:900;color:#F5C518;letter-spacing:-4px;line-height:1;${stroke(12)}}`,
-  `<img class="bg" src="${img('thumb-a-v3-bg.jpg')}" style="object-position:55% 40%;transform:scale(1.16);transform-origin:70% 40%"><div class="top"></div><div class="low"></div>
-<div class="bub nw">How do I get to Seoul Station?</div>
-<div class="h1 nw">다 아는 단어 일곱 개인데</div><div class="h2 nw">들린 건 두 덩어리</div>`),
+.low{position:absolute;left:0;right:0;bottom:0;height:330px;background:linear-gradient(0deg,rgba(6,10,18,.94) 0%,rgba(6,10,18,.68) 54%,rgba(6,10,18,0) 100%)}
+.tl{position:absolute;left:0;top:0;width:740px;height:210px;background:radial-gradient(ellipse at 24% 20%,rgba(6,10,18,.78) 0%,rgba(6,10,18,0) 72%)}
+.voice-bar{position:absolute;left:38px;top:40px;display:inline-flex;align-items:center;gap:14px;background:rgba(10,15,26,.92);border:3px solid #FFD21A;border-radius:18px;padding:12px 24px;box-shadow:0 12px 28px rgba(0,0,0,.55);transform:rotate(-1.8deg)}
+.voice-txt{font-family:'BarlowCond',sans-serif;font-size:48px;font-weight:800;letter-spacing:.3px;line-height:1;display:flex;align-items:baseline;gap:10px}
+.voice-txt .dim{color:#94A3B8;font-size:36px}
+.voice-txt .hl{color:#FFD21A;text-decoration:underline;text-decoration-color:rgba(255,210,26,.55);text-underline-offset:5px;text-decoration-thickness:4px}
+.arrow-wrap{position:absolute;left:674px;top:64px;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,.6))}
+.h1{position:absolute;left:44px;bottom:178px;font-family:'GothicA1',sans-serif;font-size:66px;font-weight:900;color:#F8FAFC;letter-spacing:-2px;${stroke(11)};text-shadow:0 6px 18px rgba(0,0,0,.6)}
+.h2{position:absolute;left:38px;bottom:34px;font-family:'BlackHan',sans-serif;font-size:126px;font-weight:400;color:#FFD21A;letter-spacing:-3px;line-height:1;transform:rotate(-1deg);${stroke(14)};text-shadow:0 10px 26px rgba(0,0,0,.72)}`,
+  `<img class="bg" src="${img('thumb-a-v4-bg.jpg')}" style="object-position:56% 32%"><div class="tl"></div><div class="low"></div>
+<div class="voice-bar"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="2" y="13" width="5" height="8" rx="2.5" fill="#FFD21A"/><rect x="10" y="6" width="5" height="22" rx="2.5" fill="#FFD21A"/><rect x="18" y="2" width="5" height="30" rx="2.5" fill="#FFD21A"/><rect x="26" y="10" width="5" height="14" rx="2.5" fill="#FFD21A"/></svg><div class="voice-txt nw"><span class="dim">How do I</span><span class="hl">GET</span><span class="dim">to</span><span class="hl">SEOUL STATION</span><span class="dim">?</span></div></div>
+<svg class="arrow-wrap" width="96" height="82" viewBox="0 0 96 82" fill="none"><path d="M8 14 C38 14, 62 28, 82 56" stroke="#FFD21A" stroke-width="7" stroke-linecap="round" stroke-dasharray="10 10"/><path d="M63 56 L84 60 L82 38" stroke="#FFD21A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div class="h1 nw">아는 단어 7개인데</div><div class="h2 nw">들린 건 두 덩어리</div>`),
 
-  // B 소리 그림: 귀를 아주 가까이(영상 효과 14번) + 작은 말은 작고 흐리게, 힘 준 말만 크게(우리 고유 코너).
-  // case:english-podcast-class 내 문제를 묻는 질문. 눈: GET → 귀 → 질문. 줄인 것: how do I·to는 작고 흐리게, 다른 글자 없음.
+  // B 소리 그림: 밤 지하철 옆모습·이어폰 + Archivo Black/Outfit 영문 강약 극대화(200px 명도·여백 확보) + 36분 듣기 정체성 칩.
   B: page(1280, 720, `
-.q{position:absolute;left:56px;top:44px;font-size:84px;font-weight:900;letter-spacing:-3px;${stroke(8)}}
-.w{position:absolute;left:30px;top:250px;opacity:.18}
-.l1{position:absolute;left:60px;top:205px;display:flex;align-items:baseline;gap:22px}
-.l2{position:absolute;left:60px;top:410px;display:flex;align-items:baseline;gap:14px}
-.sm{font-size:44px;font-weight:600;color:#7C889C}
-.get{font-size:184px;font-weight:900;color:#F5C518;letter-spacing:-6px;line-height:1;${stroke(10)}}
-.ss{font-size:100px;font-weight:900;color:#F4F1EA;letter-spacing:-4px;line-height:1;${stroke(8)}}`,
-  `<img class="bg" src="${img('thumb-b-v3-bg.jpg')}" style="object-position:70% 50%">
-<div class="w">${wave(820, 280, '#9FB4D8', 60, 11)}</div>
+.scrim{position:absolute;left:0;top:0;bottom:0;width:860px;background:linear-gradient(90deg,rgba(7,12,24,.82) 0%,rgba(7,12,24,.55) 72%,rgba(7,12,24,0) 100%)}
+.w{position:absolute;left:28px;top:220px;opacity:.24}
+.q{position:absolute;left:50px;top:46px;font-family:'GothicA1',sans-serif;font-size:74px;font-weight:900;color:#F8FAFC;letter-spacing:-2.5px;${stroke(9)}}
+.l1{position:absolute;left:52px;top:186px;display:flex;align-items:baseline;gap:20px}
+.l2{position:absolute;left:52px;top:384px;display:flex;align-items:baseline;gap:14px}
+.sm{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:#CBD5E1;letter-spacing:-.5px;${stroke(6)}}
+.get{font-family:'ArchivoBlack',sans-serif;font-size:178px;font-weight:400;color:#FFD21A;letter-spacing:-4px;line-height:.95;${stroke(12)};text-shadow:0 10px 26px rgba(0,0,0,.6)}
+.ss{font-family:'ArchivoBlack',sans-serif;font-size:80px;font-weight:400;color:#F8FAFC;letter-spacing:-2px;line-height:1;${stroke(10)};text-shadow:0 8px 20px rgba(0,0,0,.55)}
+.beam{position:absolute;left:1084px;top:292px;pointer-events:none;filter:drop-shadow(0 0 10px rgba(255,210,26,.55))}
+.dur{position:absolute;left:52px;bottom:48px;display:inline-flex;align-items:center;gap:12px;background:rgba(10,16,30,.88);border:2.5px solid rgba(255,210,26,.78);border-radius:999px;padding:10px 24px;font-family:'DoHyeon',sans-serif;font-size:38px;color:#FFD21A;letter-spacing:-.5px;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+.dot{width:14px;height:14px;border-radius:50%;background:#EF4444;box-shadow:0 0 0 4px rgba(239,68,68,.28)}`,
+  `<img class="bg" src="${img('thumb-b-v4-bg.jpg')}" style="object-position:60% 50%"><div class="scrim"></div>
+<div class="w">${wave(790, 290, '#60A5FA', 58, 11)}</div>
 <div class="q nw">몇 단어 들리세요?</div>
 <div class="l1"><span class="sm nw">how do I</span><span class="get nw">GET</span><span class="sm nw">to</span></div>
-<div class="l2"><span class="ss nw">SEOUL STATION</span><span class="sm nw">?</span></div>`),
+<div class="l2"><span class="ss nw">SEOUL STATION</span><span class="sm nw">?</span></div>
+<svg class="beam" width="92" height="110" viewBox="0 0 92 110" fill="none"><path d="M30 28 C12 42, 12 68, 30 82" stroke="#FFD21A" stroke-width="5" stroke-linecap="round" opacity=".9"/><path d="M16 14 C-6 36, -6 74, 16 96" stroke="#FFD21A" stroke-width="4" stroke-linecap="round" opacity=".55"/></svg>
+<div class="dur nw"><span class="dot"></span>${MINUTES}분 틀어 두고 듣기</div>`),
 
-  // C 틀어 두기: 밝은 노랑 갈래 표시(case:english-podcast-class) + 긴 길이를 앞세우고 생활 소품을 모아 무엇을 듣는지(case:english-thinking-6hours)
-  // + 끝이 보이는 양과 쓰는 법 칩(case:listen-speak-answers40, 효과 약속은 뺌). 눈: 빨간 길이 칩 → "질문 30개" → 소품. 줄인 것: 사람 없음, 규칙 설명 없음.
+  // C 에디토리얼 콜라주: 따뜻한 머스터드 종이 + 서울 일상 인화 사진 3장 + 호기심 빈칸("그냥 틀면 안 들려요 / 딱 5가지만 알고 듣기").
   C: page(1280, 720, `
-.chip{position:absolute;left:52px;top:56px;background:#D7263D;color:#fff;font-size:54px;font-weight:900;padding:8px 26px;border-radius:14px;letter-spacing:-1px}
-.h1{position:absolute;left:54px;top:196px;font-size:66px;font-weight:900;color:#141B2D;letter-spacing:-2px}
-.h2{position:absolute;left:46px;top:282px;font-size:150px;font-weight:900;color:#141B2D;letter-spacing:-6px;line-height:1}
-.sub{position:absolute;left:56px;top:470px;font-size:50px;font-weight:800;color:#141B2D;background:rgba(255,255,255,.55);padding:6px 20px;border-radius:12px}`,
-  `<img class="bg" src="${img('thumb-c-v3-bg.jpg')}" style="object-position:60% 50%">
+.chip{position:absolute;left:48px;top:52px;background:#C81E37;color:#FFFDF8;font-family:'DoHyeon',sans-serif;font-size:48px;padding:10px 26px;border-radius:12px;letter-spacing:-.5px;transform:rotate(-1.5deg);box-shadow:5px 7px 0 #141B2D}
+.prob-wrap{position:absolute;left:50px;top:174px;display:inline-block}
+.prob{font-family:'GothicA1',sans-serif;font-size:52px;font-weight:900;color:#141B2D;letter-spacing:-2px}
+.strike{position:absolute;left:-4px;top:24px;width:206px;height:14px;pointer-events:none}
+.h1{position:absolute;left:46px;top:262px;font-family:'BlackHan',sans-serif;font-size:122px;color:#0E1422;letter-spacing:-4px;line-height:1}
+.hl-mark{display:inline-block;background:#FFFDF5;padding:0 12px 2px;border-radius:10px;box-shadow:5px 6px 0 #141B2D;color:#C81E37}
+.h2{position:absolute;left:46px;top:404px;font-family:'BlackHan',sans-serif;font-size:114px;color:#0E1422;letter-spacing:-4px;line-height:1}
+.sub{position:absolute;left:50px;bottom:50px;background:#141B2D;color:#FFFDF5;font-family:'IBMBold',sans-serif;font-size:36px;font-weight:700;padding:12px 24px;border-radius:12px;letter-spacing:-1px;box-shadow:0 8px 18px rgba(20,27,45,.24)}
+.ed-arrow{position:absolute;left:500px;top:444px;pointer-events:none}`,
+  `<img class="bg" src="${img('thumb-c-v4-bg.jpg')}" style="object-position:54% 50%">
 <div class="chip nw">${MINUTES}분 틀어 두기</div>
-<div class="h1 nw">외국인이 묻는 생활 영어</div><div class="h2 nw">질문 30개</div>
-<div class="sub nw">화면 안 봐도 돼요</div>`),
+<div class="prob-wrap"><span class="prob nw">그냥 틀면 안 들려요</span><svg class="strike" viewBox="0 0 236 14" fill="none"><path d="M4 10 C70 4, 160 11, 232 5" stroke="#C81E37" stroke-width="8" stroke-linecap="round"/></svg></div>
+<div class="h1 nw">딱 <span class="hl-mark">5가지</span>만</div>
+<div class="h2 nw">알고 듣기</div>
+<svg class="ed-arrow" width="124" height="62" viewBox="0 0 124 62" fill="none"><path d="M8 46 C42 54, 80 42, 112 16" stroke="#141B2D" stroke-width="6" stroke-linecap="round"/><path d="M94 14 L115 14 L111 35" stroke="#141B2D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div class="sub nw">화면 안 봐도 OK · 질문 30개</div>`),
 };
 
 // ── 화면 시안 컷 (1920×1080) ──────────────────────────────────────

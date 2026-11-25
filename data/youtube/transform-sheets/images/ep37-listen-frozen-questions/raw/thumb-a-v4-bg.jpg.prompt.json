@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T13:30:59.926Z",
+  "prompt": "Candid documentary photograph captured on a 35mm cinema camera, 16:9 widescreen.\nSubject: a Korean office worker in his early thirties with messy natural dark hair, wearing a dark navy knit cardigan over a plain white t-shirt, caught in the exact split second of freezing when a foreign tourist asks him a question in English. His eyes are wide open in genuine sudden panic and confusion, eyebrows tense and raised, mouth slightly open as if stuck mid-word, one hand half-lifted defensively near his chest. Real natural unretouched Korean skin with subtle pores, under-eye creases, stray hairs, authentic raw candid expression — NOT a posed stock photo, NOT a model smile, NOT a beige trench coat.\nComposition: tight over-the-shoulder shot from slightly above the tourist's eye level (subtle 12-degree high angle looking down at the Korean man to emphasize feeling caught off guard). The foreign tourist's out-of-focus dark jacket shoulder, ear edge, and backpack strap occupy the far left edge (left 26% of frame) very close to the lens. The Korean man fills the right half from the chest up, face large, sharp, and expressive on the right-center.\nSetting: Seoul subway station ticket gate concourse during busy evening commute, blurred commuters and warm orange-tinted ticket machines behind him. All overhead signs and monitors completely out of focus and unreadable.\nLighting: raw mixed practical lighting — cool overhead subway fluorescent tubes with warm amber spill from nearby station shops, dramatic contrast on his face, subtle real film grain, realistic exposure.\nLens: 85mm at f/1.8, razor-sharp focus on his startled eyes, creamy natural background bokeh.\nKeep the bottom-left and upper-left area over the tourist's dark shoulder relatively dark and uncluttered for graphic overlays added later.\nNo text, no letters, no numbers, no logos, no speech bubbles, no watermarks, no sparkle icons anywhere in the image. Ultra-clean corners and edges.",
+  "promptFile": "../../.gemini/antigravity/brain/29221213-618e-44c8-ab87-a9b06e8789ed/scratch/ep37-thumb-a-v4.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/thumb-a-v4-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

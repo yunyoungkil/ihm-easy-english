@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T13:31:40.595Z",
+  "prompt": "Cinematic moody night photograph, 16:9 widescreen.\nSubject: tight side-profile close-up of a Korean woman in her early thirties sitting near a dark subway window at night, wearing a sleek white wireless earbud in her right ear, looking thoughtfully forward with quiet focus. We see the clean side silhouette of her cheek, jaw, temple, dark hair strands, and the white earbud clearly in focus — natural real human skin texture without harsh clinical pore exaggeration, warm rim light tracing her profile and earbud.\nComposition: the woman's side profile and earbud occupy only the right 36% of the frame, cleanly framed against the right edge. The entire left 64% of the frame is a deep, rich dark midnight-navy out-of-focus subway window night scene with subtle distant blurred city lights (soft warm amber and cool blue bokeh) — plenty of clean dark space for large bold typography added later.\nLighting: moody cinematic night lighting — warm golden rim light along her profile and hair, soft cool blue interior ambient fill, gentle natural film grain.\nLens: 85mm at f/1.8, shallow depth of field, focus sharp on the white wireless earbud and her profile edge.\nNo text, no letters, no numbers, no logos, no watermarks, no sparkle icons anywhere in the image. Ultra-clean corners and edges.",
+  "promptFile": "../../.gemini/antigravity/brain/29221213-618e-44c8-ab87-a9b06e8789ed/scratch/ep37-thumb-b-v4.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/thumb-b-v4-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

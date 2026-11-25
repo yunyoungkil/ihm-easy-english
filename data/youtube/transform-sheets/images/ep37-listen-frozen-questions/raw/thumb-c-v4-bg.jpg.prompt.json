@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T13:32:24.480Z",
+  "prompt": "Editorial overhead flat-lay photograph shot on medium format camera, 16:9 widescreen.\nBackground: warm textured mustard-gold matte paper desk surface (rich warm tone around #F2C12E with subtle tactile paper grain and soft directional window shadow, NOT flat digital yellow).\nSubject on the RIGHT HALF ONLY (right 48% of the frame): three slightly overlapping printed glossy candid street photographs with crisp white photo borders, fanned casually at slight natural angles like real editorial scrapbook prints — (1) top photo shows Seoul subway ticket gates at rush hour with blurred commuters, (2) middle photo shows a cozy Korean neighborhood cafe counter with a barista handing over an iced Americano and a card terminal, (3) bottom photo shows a bright airport departure hall walkway with travelers rolling luggage. Resting naturally on the bottom edge of the photos is a pair of real white wireless earbuds next to their open charging case with soft realistic drop shadows. NO movie popcorn, NO generic 3D clipart icons, NO random cartoon objects.\nComposition: the entire LEFT HALF (left 52% of the frame) is clean, uncluttered warm textured mustard-gold paper surface with soft gentle daylight gradient for large bold Korean editorial typography added later.\nLighting: crisp natural morning window light from upper-left casting soft realistic paper shadows under each photo edge and the earbuds, authentic filmic color grading.\nLens: 50mm overhead flat-lay, sharp focus across the printed photos and earbuds.\nNo text, no letters, no numbers, no signs, no brand logos, no watermarks, no sparkle icons anywhere in the image or inside the printed photos. Ultra-clean corners and edges.",
+  "promptFile": "../../.gemini/antigravity/brain/29221213-618e-44c8-ab87-a9b06e8789ed/scratch/ep37-thumb-c-v4.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/thumb-c-v4-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

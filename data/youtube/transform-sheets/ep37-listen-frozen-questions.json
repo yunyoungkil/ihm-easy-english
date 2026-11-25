@@ -3,7 +3,7 @@
   "episodeId": "ep37-listen-frozen-questions",
   "sourceVideoId": "_VUMngGcI6U",
   "createdAt": "2026-11-25",
-  "status": "draft",
+  "status": "approved",
   "format": "LONGFORM",
   "topic": "외국인이 영어로 물으면 머리가 하얘지는 순간 — 다 아는 단어로 된 생활 질문 서른 개를 장소 다섯 장 × 소리 규칙 다섯 가지(작아지고·붙고·섞이고·구르고·빠진다)로 귀로 푸는 틀어 놓고 듣는 롱폼(1부 배우며 듣기 + 2부 몰아 듣기, 약 37분 추정)",
   "audienceBridge": "서울역 개찰구·가게 계산대·아파트 엘리베이터에서 외국인이 영어로 말을 거는 국내 장면(구체적 앵커) + \"다 아는 단어인데 왜 한 덩어리로 들릴까?\"라는 단 한 개의 빈틈",
@@ -1340,6 +1340,11 @@
     "승인 뒤: 신호음 3종·짧은 배경음(Lyria 3.5, 장 바뀜에만), 실측 길이로 시간표·썸네일 분수 칩·고정 댓글 들을 곳 확정(1~5장 장면 사진 5장은 시안 단계에서 생성 완료)",
     "HyperFrames 1920×1080 30fps 장별 조립 → 콘택트시트 → Gate 2 렌더 승인(목표 11/30 밤)"
   ],
-  "thumbnailPicks": [],
-  "titlePicks": []
+  "thumbnailPicks": [
+    "images/ep37-listen-frozen-questions/thumb-A.jpg"
+  ],
+  "titlePicks": [
+    "외국인이 말 걸면 머리가 하얘지는 이유 | 생활 영어 질문 30개 [틀어 두고 듣기]"
+  ],
+  "approvedAt": "2026-11-25T14:27:10.308Z"
 }

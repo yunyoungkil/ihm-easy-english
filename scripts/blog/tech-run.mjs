@@ -302,6 +302,16 @@ export async function runTechOnce({
     });
   }
   const productLink = productRes.productLink;
+  if (!productLink) {
+    // 2026-11-25 사용자 결정: 모든 글에 쿠팡 링크 1개 이상(해결에 도움이 되는 물건만)
+    return recordAndReturn({
+      date,
+      startedAt,
+      outcome: 'deferred',
+      topicId,
+      reasons: ['모든 글에는 해결에 도움이 되는 쿠팡 링크가 1개 이상 필요합니다(상품을 찾지 못했거나 product가 비어 있습니다).'],
+    });
+  }
 
   const check = await d.checkTechPost(draft, {posts});
   const html = d.renderPostHtml(draft, {productLink});

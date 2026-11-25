@@ -9,17 +9,18 @@
       "애플 지원 NFC·MagSafe 안내",
       "삼성전자서비스 갤럭시 NFC 설정 안내"
     ],
-    "productHint": "맥세이프 카드지갑"
+    "productHint": "맥세이프 카드지갑(금속판 없는 제품)"
   },
   {
-    "topicId": "lg-membership-points-use-and-convert",
-    "title": "LG전자 멤버십 포인트 쓰는 곳과 전환 방법 정리",
-    "kind": "fix",
-    "searchQuery": "lg 멤버십 포인트 사용처 전환",
+    "topicId": "circulator-electricity-cost-check",
+    "title": "서큘레이터 전기요금, 사기 전에 소비전력으로 계산하는 법",
+    "kind": "before-buy",
+    "searchQuery": "서큘레이터 전기세",
     "sourceHints": [
-      "LG전자 멤버십 포인트 안내·자주 묻는 질문(공식 사이트)"
+      "한국전력 전기요금표(공식)",
+      "서큘레이터 제조사 제품 사양표(소비전력, 공식)"
     ],
-    "productHint": null
+    "productHint": "서큘레이터"
   },
   {
     "topicId": "cuisinart-airfryer-heating-element-cleaning",
@@ -29,7 +30,7 @@
     "sourceHints": [
       "쿠진아트 코리아 사용설명서·청소 안내(공식)"
     ],
-    "productHint": null
+    "productHint": "에어프라이어 청소용 부드러운 솔"
   },
   {
     "topicId": "lenovo-y700-game-mode-setting",
@@ -39,7 +40,7 @@
     "sourceHints": [
       "레노버 지원 Legion Y700 사용 설명(공식)"
     ],
-    "productHint": null
+    "productHint": "태블릿용 블루투스 게임패드"
   },
   {
     "topicId": "clear-case-yellowing-why-and-cleaning",
@@ -61,7 +62,7 @@
       "삼성전자서비스 에어플레이 연결 안내(공식)",
       "애플 지원 AirPlay 문제 해결 안내"
     ],
-    "productHint": null
+    "productHint": "아이폰 HDMI 어댑터(TV 연결용)"
   },
   {
     "topicId": "bespoke-ai-combo-install-space-check",
@@ -71,7 +72,7 @@
     "sourceHints": [
       "삼성전자 비스포크 AI 콤보 설치 가이드·제품 규격(공식)"
     ],
-    "productHint": null
+    "productHint": "레이저 거리 측정기 또는 줄자"
   },
   {
     "topicId": "power-bank-in-flight-rules-wh-check",
@@ -96,14 +97,14 @@
     "productHint": "홈캠"
   },
   {
-    "topicId": "coupang-return-market-how-to-find",
-    "title": "쿠팡 반품마켓에서 상품 찾는 법",
+    "topicId": "bidet-dry-function-odor-check",
+    "title": "비데 건조 기능에서 냄새가 날 때 확인할 곳",
     "kind": "fix",
-    "searchQuery": "쿠팡 반품마켓 상품 찾는 법",
+    "searchQuery": "비데 건조 냄새",
     "sourceHints": [
-      "쿠팡 고객센터 반품마켓 안내(공식)"
+      "비데 제조사 사용설명서(노즐·건조 관련 청소 안내, 공식)"
     ],
-    "productHint": null
+    "productHint": "비데 노즐 청소 솔"
   },
   {
     "topicId": "air-purifier-filter-replacement-cycle",
@@ -123,6 +124,6 @@
     "sourceHints": [
       "쿠진아트 코리아 제품 사양표(공식)"
     ],
-    "productHint": null
+    "productHint": "쿠진아트 에어프라이어 오븐"
   }
 ]

@@ -26,6 +26,8 @@ const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_TEMPLATE_PATH = path.join(MODULE_DIR, 'prompts', 'tech-post.md');
 const DEFAULT_TIMEOUT_MS = 600_000; // allow-literal: 글쓰기 한 편 최대 대기 시간(10분)
 const RECENT_POSTS_LIMIT = 20; // allow-literal: 프롬프트에 넣을 최근 발행 제목 최대 개수
+// 2026-11-25 사용자 결정: 글 작성은 Opus로 고정(기본 모델이 바뀌어도 글 품질이 흔들리지 않게)
+export const WRITER_MODEL = 'claude-opus-5-5';
 const CLAUDE_EXT_RE = /^anthropic\.claude-code-(\d+(?:\.\d+)*)(?:-|$)/;
 
 function compareVersionsDesc(a, b) {
@@ -97,7 +99,7 @@ export async function buildWriterPrompt(
     `- 글 종류(kind): ${topic?.kind || 'fix'}`,
     `- 검색어(searchQuery): ${topic?.searchQuery || ''}`,
     `- 참고 출처 힌트(sourceHints): ${sourceHints}`,
-    `- 물건 힌트(productHint): ${topic?.productHint ?? '없음(필요 여부 직접 판단)'}`,
+    `- 물건 힌트(productHint): ${topic?.productHint ?? '없음(글에 도움이 되는 물건을 직접 찾아 product를 채운다)'}`,
     `- 저장할 초안 파일 경로(draftPath): ${draftPath}`,
     '',
     '## 중요 주의사항',
@@ -130,6 +132,7 @@ export async function runWriter({
 
   const args = [
     '-p',
+    '--model', WRITER_MODEL,
     '--restricted',
     '--tools', 'WebSearch,WebFetch,Write',
     '--allowedTools', 'WebSearch,WebFetch,Write(data/blog/drafts/**)',

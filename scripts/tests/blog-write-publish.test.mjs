@@ -143,6 +143,8 @@ test('runWriter: 종료 0 + 올바른 JSON이면 ok: true, 파일 없음/깨짐/
     assert.ok(capturedArgs.includes('-p'));
     assert.ok(capturedArgs.includes('--tools'));
     assert.ok(capturedArgs.includes('WebSearch,WebFetch,Write'));
+    // 글 작성은 Opus로 고정(2026-11-25 사용자 결정)
+    assert.equal(capturedArgs[capturedArgs.indexOf('--model') + 1], 'claude-opus-5-5');
 
     // 2) 파일 없음
     const missingPath = path.join(dir, 'missing.json');

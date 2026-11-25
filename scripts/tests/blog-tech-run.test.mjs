@@ -50,7 +50,9 @@ function makeTopic(topicId = 'dyson-v8-red-blink') {
   };
 }
 
-function makeDraft(topicId = 'dyson-v8-red-blink', product = null) {
+const DEFAULT_PRODUCT = {query: '다이슨 V8 어댑터', why: '교체용 확인', required: false};
+
+function makeDraft(topicId = 'dyson-v8-red-blink', product = DEFAULT_PRODUCT) {
   return {
     topicId,
     title: '다이슨 V8 빨간불 깜빡임 확인 순서',
@@ -88,7 +90,7 @@ function makeBaseDeps(overrides = {}) {
     },
     searchProducts: async () => {
       calls.searchProducts += 1;
-      return [];
+      return [{productId: 900, productName: '다이슨 V8 어댑터 호환형', productUrl: 'https://www.coupang.com/vp/900'}];
     },
     deeplink: async (urls) => {
       calls.deeplink += 1;
@@ -287,7 +289,7 @@ test('9) 앞선 2번 rejected 뒤에 deferred만 나면 멈춤을 쓰지 않는�
   });
 });
 
-test('10) 필수 상품 링크 실패(맞는 후보 없음/deeplink 오류)면 deferred이고 대기열 그대로; required=false면 링크 없이 게시', async () => {
+test('10) 필수 상품 링크 실패(맞는 후보 없음/deeplink 오류)면 deferred이고 대기열 그대로; required=false여도 링크를 못 만들면 deferred(모든 글에 쿠팡 링크 1개 이상)', async () => {
   await withProject(async (projectDir, blogDir) => {
     await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
     const {deps: noMatchDeps, calls: noMatchCalls} = makeBaseDeps({
@@ -314,10 +316,19 @@ test('10) 필수 상품 링크 실패(맞는 후보 없음/deeplink 오류)면 d
         throw new Error('API error');
       },
     });
-    const published = await runTechOnce({projectDir, now: KST_WED_2AM, deps: optionalDeps});
-    assert.equal(published.outcome, 'published');
-    assert.equal(optionalCalls.publishToBlogger, 1);
-    assert.equal((await readPosts(blogDir))[0].productUrl, null);
+    const stillDeferred = await runTechOnce({projectDir, now: KST_WED_2AM, deps: optionalDeps});
+    assert.equal(stillDeferred.outcome, 'deferred');
+    assert.equal(optionalCalls.publishToBlogger, 0);
+    assert.equal((await readPosts(blogDir)).length, 0);
+
+    const {deps: nullDeps, calls: nullCalls} = makeBaseDeps({
+      runWriter: async () => ({ok: true, draft: makeDraft('dyson-v8-red-blink', null)}),
+    });
+    const nullProduct = await runTechOnce({projectDir, now: KST_WED_2AM, deps: nullDeps});
+    assert.equal(nullProduct.outcome, 'deferred');
+    assert.match(nullProduct.reasons[0], /쿠팡 링크가 1개 이상 필요/);
+    assert.equal(nullCalls.publishToBlogger, 0);
+    assert.equal((await readQueue(blogDir)).length, 1);
   });
 });
 

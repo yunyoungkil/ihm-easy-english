@@ -26,18 +26,18 @@
       ]
     },
     {
-      "id": "gasoek-one",
-      "family": "Gasoek One",
-      "labelKo": "가석체",
+      "id": "gothic-a1",
+      "family": "Gothic A1",
+      "labelKo": "고딕 A1 Black",
       "role": "ko-display",
-      "mood": "돌처럼 단단한 극볼드, 강한 반전·비교 대비 썸네일 (200px 작은 줄은 뭉개지므로 1~2단어 초대형 제목 전용)",
-      "weights": "400",
+      "mood": "또렷한 극볼드 고딕, 받침이 많은 한글도 200px에서 안 뭉개지는 반전·비교 썸네일",
+      "weights": "900",
       "license": "OFL-1.1",
       "files": [
         {
-          "file": "GasoekOne-Regular.ttf",
-          "weight": "400",
-          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/gasoekone/GasoekOne-Regular.ttf"
+          "file": "GothicA1-Black.ttf",
+          "weight": "900",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/gothica1/GothicA1-Black.ttf"
         }
       ]
     },

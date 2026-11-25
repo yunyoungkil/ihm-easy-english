@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T05:05:52.247Z",
+  "prompt": "Photorealistic wide establishing photograph, 16:9 widescreen.\nSubject: an empty, calm subway station concourse in Seoul-style design in the late afternoon: a row of modern ticket gates, a ticket machine on the side wall, a few distant blurred commuters walking far in the background.\nSetting: clean tiled floor, white and light-grey walls, a staircase leading up toward daylight at the far end. Every sign, screen and map is softly blurred and unreadable.\nLighting: soft natural daylight from the stairway mixed with even overhead station light, gentle and quiet mood.\nShot: eye-level, 28mm lens, deep but slightly soft background, plenty of calm empty floor space in the lower half for on-screen captions.\nText: absolutely no text, no letters, no numbers, no Hangul, no readable signage anywhere.\nNo watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../AppData/Local/Temp/claude/075614d6a71f4fa0/b3e333d7-7a2a-4bf6-adeb-fb78c2ec356c/scratchpad/prompts/scene-ch1.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/scene-ch1-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

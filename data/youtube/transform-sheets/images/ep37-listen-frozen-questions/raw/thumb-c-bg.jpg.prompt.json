@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T05:05:12.362Z",
+  "prompt": "Photorealistic still-life photograph, 16:9 widescreen.\nSubject: an open white wireless-earbuds charging case with one earbud resting beside it and a black smartphone lying face down, placed on the wide window ledge of a subway train at dusk.\nSetting: through the train window, soft orange and blue city lights of an evening commute streak past as round bokeh. Calm, quiet, end-of-day mood.\nLighting: warm window glow from the left, cool blue ambient fill, gentle reflections on the glass.\nShot: close-up from a slightly high angle, 35mm lens, shallow depth of field. The objects sit in the lower right third. The upper and left two thirds are dark, calm, uncluttered bokeh so large headline text can be placed there later.\nText: absolutely no text, no letters, no numbers, no logos, no brand marks on the earbuds or phone.\nNo watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../AppData/Local/Temp/claude/075614d6a71f4fa0/b3e333d7-7a2a-4bf6-adeb-fb78c2ec356c/scratchpad/prompts/thumb-c.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/thumb-c-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

@@ -26,6 +26,7 @@ const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_TEMPLATE_PATH = path.join(MODULE_DIR, 'prompts', 'tech-post.md');
 const DEFAULT_TIMEOUT_MS = 600_000; // allow-literal: 글쓰기 한 편 최대 대기 시간(10분)
 const RECENT_POSTS_LIMIT = 20; // allow-literal: 프롬프트에 넣을 최근 발행 제목 최대 개수
+const RECENT_BRIEFS_LIMIT = 5; // allow-literal: 프롬프트에 넣을 최근 그림 설계도 최대 개수(설계 C절)
 // 2026-11-25 사용자 결정: 글 작성은 Opus로 고정(기본 모델이 바뀌어도 글 품질이 흔들리지 않게)
 export const WRITER_MODEL = 'claude-opus-5-5';
 const CLAUDE_EXT_RE = /^anthropic\.claude-code-(\d+(?:\.\d+)*)(?:-|$)/;
@@ -77,12 +78,18 @@ export function resolveClaudeExe({
 /** 글쓰기 지침 + 주제 + 중복 방지용 기존 글 목록 + 저장 경로를 합친 프롬프트를 만든다. */
 export async function buildWriterPrompt(
   topic,
-  {posts = [], draftPath = `data/blog/drafts/${topic?.topicId || 'draft'}.json`} = {},
+  {posts = [], draftPath = `data/blog/drafts/${topic?.topicId || 'draft'}.json`, recentBriefs = []} = {},
 ) {
   const guide = await readFile(PROMPT_TEMPLATE_PATH, 'utf8');
   const recentTitles = (posts || [])
     .slice(-RECENT_POSTS_LIMIT)
     .map((p) => `- [${p.topicId}] ${p.title}`)
+    .join('\n');
+
+  const recentHeroLines = (Array.isArray(recentBriefs) ? recentBriefs : [])
+    .filter((b) => b && typeof b === 'object')
+    .slice(-RECENT_BRIEFS_LIMIT)
+    .map((b) => `- moment: ${b.moment ?? ''} / angle: ${b.angle ?? ''} / light: ${b.light ?? ''} / lens: ${b.lens ?? ''} / medium: ${b.medium ?? ''}`)
     .join('\n');
 
   const sourceHints = Array.isArray(topic?.sourceHints) && topic.sourceHints.length
@@ -108,6 +115,14 @@ export async function buildWriterPrompt(
     '',
     '## 이미 올린 글 목록 (중복 주제·각도 피하기)',
     recentTitles || '(아직 올린 글 없음)',
+    ...(recentHeroLines
+      ? [
+        '',
+        '## 최근 대표 그림 설계도 (겹치지 않게)',
+        recentHeroLines,
+        '이 구도·빛·렌즈·화풍과 겹치지 않게 이번 글의 heroImage를 새로 정한다.',
+      ]
+      : []),
   ].join('\n');
 }
 

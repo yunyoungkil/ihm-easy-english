@@ -292,3 +292,52 @@ test('verifyLive: 200 + 유효 HTML(조각 및 Blogger post-body 포함 전체 �
   assert.equal(missingDisclosure.ok, false);
   assert.ok(missingDisclosure.problems.some((p) => p.id === 'disclosure-missing'));
 });
+
+test('buildWriterPrompt: 지침에 heroImage 설명이 있고, recentBriefs가 있으면 겹치지 않게 문장으로 넣는다', async () => {
+  const topic = {topicId: 't-hero', title: '교통카드 안 찍힐 때', kind: 'fix', searchQuery: '교통카드 인식 안됨', sourceHints: [], productHint: null};
+  const base = await buildWriterPrompt(topic, {posts: []});
+  assert.ok(base.includes('heroImage'));
+  assert.ok(base.includes('"moment"') && base.includes('"alt"'));
+  assert.equal(base.includes('최근 대표 그림 설계도'), false);
+
+  const briefs = Array.from({length: 7}, (_, i) => ({
+    moment: `moment-${i}`, angle: `angle-${i}`, light: `light-${i}`, lens: `lens-${i}`, medium: `medium-${i}`, subject: `secret-subject-${i}`,
+  }));
+  const withRecent = await buildWriterPrompt(topic, {posts: [], recentBriefs: briefs});
+  assert.ok(withRecent.includes('최근 대표 그림 설계도'));
+  assert.ok(withRecent.includes('겹치지 않게'));
+  assert.ok(withRecent.includes('moment-6') && withRecent.includes('lens-2') && withRecent.includes('medium-4'));
+  assert.equal(withRecent.includes('moment-1'), false); // 최근 5개만
+  assert.equal(withRecent.includes('secret-subject'), false); // 다섯 칸만 넣는다
+});
+
+test('renderPostHtml: hero가 있으면 대가 문구 문단 바로 다음에 그림 문단을 넣고 checkRenderedHtml(hero)를 통과한다', () => {
+  const draft = {
+    topicId: 't1',
+    title: '멀티탭 차단기 내려갈 때 확인 순서',
+    bodyHtml: '<p>연결된 전열 기기를 모두 분리합니다.</p>',
+    sources: [{url: 'https://example.com/manual', title: '공식 안내'}],
+  };
+  const hero = {url: 'https://blogger.googleusercontent.com/img/a/AVvXsExample/s1600/h.jpg', alt: '멀티탭 차단기가 내려가 불이 꺼진 순간.', width: 1200, height: 670};
+  const html = renderPostHtml(draft, {productLink: null, hero});
+  const paragraphs = [...html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => m[1]);
+  assert.equal(paragraphs[0], DISCLOSURE);
+  assert.equal(
+    paragraphs[1],
+    `<img src="${hero.url}" alt="${hero.alt}" width="1200" height="670" fetchpriority="high" decoding="async">`,
+  );
+  assert.equal(paragraphs[2], '연결된 전열 기기를 모두 분리합니다.');
+  assert.equal(html.includes('loading="lazy"'), false);
+  assert.deepEqual(checkRenderedHtml(html, {hero}), []);
+
+  // 크기를 안 주면 표시 크기 기본값, 따옴표는 이스케이프
+  const noSize = renderPostHtml(draft, {hero: {url: hero.url, alt: '"따옴표" 있는 설명.'}});
+  assert.match(noSize, /width="1200" height="670"/);
+  assert.ok(noSize.includes('alt="&quot;따옴표&quot; 있는 설명."'));
+
+  // hero가 없으면 예전 출력과 같다
+  const without = renderPostHtml(draft, {productLink: null});
+  assert.equal(without.includes('<img'), false);
+  assert.equal(renderPostHtml(draft, {productLink: null, hero: null}), without);
+  assert.equal(renderPostHtml(draft), without);
+});

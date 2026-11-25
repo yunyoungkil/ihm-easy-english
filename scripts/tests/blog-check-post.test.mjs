@@ -12,6 +12,18 @@ import {
 const VALID_NOT_USED = '이 글은 제품을 직접 써 보지 않고 제조사 안내와 사용자 질문을 정리했습니다.';
 const VALID_STEP = '어댑터 연결 상태를 먼저 확인합니다.';
 const VALID_SOURCE_URL = 'https://example.com/guide';
+const VALID_HERO_BRIEF = {
+  moment: 'a hand holds a vacuum charger plug while the indicator light stays dark',
+  subject: 'an unbranded cordless vacuum charger plug in a hand',
+  setting: 'a narrow hallway outlet at night',
+  light: 'single phone flashlight from below',
+  lens: '50mm close',
+  angle: 'over the shoulder',
+  texture: 'matte plastic, dusty baseboard',
+  medium: 'documentary photograph',
+  avoid: ['readable text', 'logos'],
+  alt: '충전기를 꽂았는데 표시등이 켜지지 않아 들여다보는 순간.',
+};
 
 function makeValidDraft(overrides = {}) {
   return {
@@ -28,6 +40,7 @@ function makeValidDraft(overrides = {}) {
     ],
     sources: [{url: VALID_SOURCE_URL, title: '제조사 고객지원 안내'}],
     product: null,
+    heroImage: VALID_HERO_BRIEF,
     ...overrides,
   };
 }
@@ -207,4 +220,68 @@ test('checkRenderedHtml: 첫 <p> 대가 문구 및 쿠팡 링크 rel=sponsored �
     checkRenderedHtml(nonSponsoredRel).map((p) => p.id),
     ['link-not-sponsored'],
   );
+});
+
+test('heroImage가 없으면 hero-brief-field-missing, 안전선을 어기면 hero-brief-… 로 막힌다', async () => {
+  const noHero = await checkTechPost(makeValidDraft({heroImage: undefined}), okDeps());
+  assert.equal(noHero.ok, false);
+  assert.deepEqual(problemIds(noHero), ['hero-brief-field-missing']);
+
+  const brand = await checkTechPost(
+    makeValidDraft({heroImage: {...VALID_HERO_BRIEF, subject: 'a Dyson vacuum charger plug'}}),
+    okDeps(),
+  );
+  assert.deepEqual(problemIds(brand), ['hero-brief-brand-word']);
+
+  const age = await checkTechPost(
+    makeValidDraft({heroImage: {...VALID_HERO_BRIEF, subject: 'an elderly person holding a plug'}}),
+    okDeps(),
+  );
+  assert.deepEqual(problemIds(age), ['hero-brief-age-word']);
+
+  const alt = await checkTechPost(
+    makeValidDraft({heroImage: {...VALID_HERO_BRIEF, alt: '사진: 충전기 표시등이 꺼진 순간.'}}),
+    okDeps(),
+  );
+  assert.deepEqual(problemIds(alt), ['hero-brief-alt-form']);
+});
+
+const HERO_URL = 'https://blogger.googleusercontent.com/img/a/AVvXsExample/s1600/hero.jpg';
+const heroImg = (attrs = `src="${HERO_URL}" alt="충전기를 꽂았지만 불이 안 들어오는 순간" width="1200" height="670" fetchpriority="high" decoding="async"`) => `<img ${attrs}>`;
+
+test('checkRenderedHtml: hero가 없으면 그림이 없어도 예전과 같이 통과한다', () => {
+  assert.deepEqual(checkRenderedHtml(`<p>${DISCLOSURE}</p><p>본문</p>`), []);
+  assert.deepEqual(checkRenderedHtml(`<p>${DISCLOSURE}</p><p>본문</p>`, {}), []);
+  // hero 없이는 그림 속성도 보지 않는다
+  assert.deepEqual(checkRenderedHtml(`<p>${DISCLOSURE}</p><p><img src="https://x.test/a.jpg" loading="lazy"></p>`), []);
+});
+
+test('checkRenderedHtml: hero가 있으면 첫 그림 자리·주소·속성·lazy·쿠팡 그림 주소를 본다', () => {
+  const hero = {url: HERO_URL};
+  const ok = `<p>${DISCLOSURE}</p><p>${heroImg()}</p><p>본문</p>`;
+  assert.deepEqual(checkRenderedHtml(ok, {hero}), []);
+
+  assert.deepEqual(checkRenderedHtml(`<p>${DISCLOSURE}</p><p>본문</p>`, {hero}).map((p) => p.id), ['hero-img-missing']);
+
+  const wrongHost = `<p>${DISCLOSURE}</p><p>${heroImg(`src="https://cdn.example.com/a.jpg" alt="설명" width="1200" height="670" fetchpriority="high"`)}</p>`;
+  assert.deepEqual(checkRenderedHtml(wrongHost, {hero}).map((p) => p.id), ['hero-img-src']);
+
+  const noAttrs = `<p>${DISCLOSURE}</p><p>${heroImg(`src="${HERO_URL}" fetchpriority="high"`)}</p>`;
+  assert.deepEqual(checkRenderedHtml(noAttrs, {hero}).map((p) => p.id), ['hero-img-attrs']);
+
+  const emptyAlt = `<p>${DISCLOSURE}</p><p>${heroImg(`src="${HERO_URL}" alt="" width="1200" height="670" fetchpriority="high"`)}</p>`;
+  assert.deepEqual(checkRenderedHtml(emptyAlt, {hero}).map((p) => p.id), ['hero-img-attrs']);
+
+  const lazy = `<p>${DISCLOSURE}</p><p>${heroImg(`src="${HERO_URL}" alt="설명" width="1200" height="670" loading="lazy" fetchpriority="high"`)}</p>`;
+  assert.deepEqual(checkRenderedHtml(lazy, {hero}).map((p) => p.id), ['hero-img-lazy']);
+
+  const noPriority = `<p>${DISCLOSURE}</p><p>${heroImg(`src="${HERO_URL}" alt="설명" width="1200" height="670"`)}</p>`;
+  assert.deepEqual(checkRenderedHtml(noPriority, {hero}).map((p) => p.id), ['hero-img-priority']);
+
+  const coupangImg = `<p>${DISCLOSURE}</p><p>${heroImg()}</p><p><img src="https://thumbnail6.coupangcdn.com/x.jpg" alt="상품"></p>`;
+  assert.deepEqual(checkRenderedHtml(coupangImg, {hero}).map((p) => p.id), ['hero-coupangcdn']);
+
+  // 대가 문구가 첫 문단이어야 하는 규칙은 hero가 있어도 그대로
+  const imgFirst = `<p>${heroImg()}</p><p>${DISCLOSURE}</p>`;
+  assert.deepEqual(checkRenderedHtml(imgFirst, {hero}).map((p) => p.id), ['disclosure-missing']);
 });

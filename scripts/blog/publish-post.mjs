@@ -3,6 +3,8 @@ import {DISCLOSURE, checkRenderedHtml} from './check-post.mjs';
 
 const BLOGGER_API_BASE = 'https://www.googleapis.com/blogger/v3';
 const HTTP_OK = 200; // allow-literal: HTTP 성공 응답 코드
+const HERO_DISPLAY_WIDTH = 1200; // allow-literal: 대표 그림 표시 가로(설계 B절)
+const HERO_DISPLAY_HEIGHT = 670; // allow-literal: 16:9 그림을 가로 1200으로 보일 때 세로(설계 B절)
 const BROWSER_USER_AGENT =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
@@ -22,8 +24,16 @@ function stripLeadingDisclosure(html) {
 }
 
 /** 초안과 선택된 쿠팡 링크·출처 목록으로 최종 Blogger 게시 HTML을 만든다. */
-export function renderPostHtml(draft, {productLink = null} = {}) {
+export function renderPostHtml(draft, {productLink = null, hero = null} = {}) {
   const parts = [`<p>${DISCLOSURE}</p>`];
+  // 대표 그림은 대가 문구 문단 바로 다음(첫 문단은 계속 대가 문구). hero.url은 /s1600/ 같은 크기까지 붙은 주소다.
+  if (hero?.url) {
+    const width = escapeHtml(hero.width ?? HERO_DISPLAY_WIDTH);
+    const height = escapeHtml(hero.height ?? HERO_DISPLAY_HEIGHT);
+    parts.push(
+      `<p><img src="${escapeHtml(hero.url)}" alt="${escapeHtml(hero.alt)}" width="${width}" height="${height}" fetchpriority="high" decoding="async"></p>`,
+    );
+  }
   const body = stripLeadingDisclosure(draft?.bodyHtml);
   if (body) parts.push(body);
 

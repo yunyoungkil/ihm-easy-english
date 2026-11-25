@@ -51,7 +51,14 @@
   - `query`: 웹 검색으로 확인한 **정확한 규격·모델명·핵심 낱말**을 넣은 검색어 (예: `"다이슨 V8 호환 어댑터 26.1V"`). 상품 목록에서 이 낱말이 모두 들어간 상품을 고를 때 쓰인다.
   - `why`: 이 물건이 왜 필요한지 한 줄 설명.
   - `required`: 이 물건 없이는 글이 완결되지 않으면 `true`, 보조/선택 용품이면 `false`.
-- **그림**: `bodyHtml`에는 `<img>` 태그나 이미지 주소를 쓰지 않는다. 대표 그림은 글과 별도로 AI 티 빼기 방식으로 만들어 넣는다(문제 장면 중심, 쿠팡·제조사 사진은 약관 확인 전까지 쓰지 않는다).
+- **그림**: `bodyHtml`에는 `<img>` 태그나 이미지 주소를 쓰지 않는다. 대표 그림은 프로그램이 `heroImage` 설계도로 따로 만들어 본문 첫머리에 넣는다. 쿠팡·제조사 사진은 약관 확인 전까지 쓰지 않는다.
+  - **`heroImage`는 모든 글에 필수다.** 이 글이 다루는 문제의 **순간 하나를 장면으로** 쓴다(예: 교통카드가 단말기에 안 찍혀 뒤에 줄이 선 순간, 충전기를 꽂았는데 불이 안 들어와 들여다보는 순간). 제품 소개 사진이나 "가전 제품이 놓인 방"처럼 순간이 없는 그림은 쓰지 않는다.
+  - 칸: `moment`(그 순간), `subject`(그림의 주인공), `setting`(장소), `light`(빛), `lens`(렌즈·거리), `angle`(카메라 위치), `texture`(재질·질감), `medium`(사진, 일러스트, 판화 등 화풍), `avoid`(이 장면에서 하지 말 것, 1개 이상, 배열), `alt`(문제 순간을 한국어 한 문장으로).
+  - `moment`~`avoid`는 그림 AI에게 줄 말이라 **영어**로 쓰고, `alt`만 한국어로 쓴다. 구도·빛·렌즈·질감·화풍은 **글마다 새로 정한다**. 아래에 최근 설계도가 있으면 그것과 비슷한 구도·빛·렌즈를 다시 쓰지 않는다.
+  - 제품은 **브랜드·로고 없는 일반 물체**로 그린다(삼성, 애플, 다이슨 같은 이름이나 특정 제품 모양을 닮게 그리지 않는다). 설계도 어느 칸에도 브랜드 이름을 쓰지 않는다.
+  - 사람이 나오면 **나이를 쓰지 않는다**(노인, 중년, 60대, elderly, senior 등 금지). 그냥 "a person"처럼 쓴다.
+  - 그림 안에 글자·로고·숫자를 넣지 않는다. `avoid`에는 이 장면에서 틀리기 쉬운 것(예: 화면에 읽히는 글자, 손가락이 어색한 클로즈업)을 적는다.
+  - `alt`는 "사진", "이미지", "그림"으로 시작하지 않고, 마침표로 끝나는 한국어 문장 하나(마침표 포함 10~80자)로 문제 순간을 말한다. 금지어와 AI 티 검사 대상이다.
 
 ## 7. 자연스러운 한국어·AI 티 제거 규칙
 작성한 본문은 외부 AI 티 검사기(`--genre 줄글 --strict`)와 금지어 검사를 모두 통과해야 한다.
@@ -93,7 +100,19 @@
     "query": "규격이 포함된 검색어",
     "why": "필요한 이유 한 줄",
     "required": false
+  },
+  "heroImage": {
+    "moment": "the single problem moment of this post, as one scene (English)",
+    "subject": "who or what the image is about (English, no brand names)",
+    "setting": "where it happens (English)",
+    "light": "the light, decided fresh for this post (English)",
+    "lens": "lens and distance, decided fresh (English)",
+    "angle": "camera position, decided fresh (English)",
+    "texture": "materials and surface feel (English)",
+    "medium": "photo, illustration, print or another look, decided fresh (English)",
+    "avoid": ["what must not appear in this scene (English)"],
+    "alt": "문제 순간을 한국어 한 문장으로 쓴 설명."
   }
 }
 ```
-(`fix`·`before-buy`는 `product`를 반드시 채운다. `info`만 `"product": null`.)
+(`fix`·`before-buy`는 `product`를 반드시 채운다. `info`만 `"product": null`. `heroImage`는 `info`를 포함한 모든 글에 반드시 채운다.)

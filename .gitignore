@@ -133,3 +133,7 @@ videos/**/*.prompt.json
 public/fonts/google/*.ttf
 
 videos/**/*.words.json
+
+# 블로그 대표 그림 작업물(2026-11-26)
+.gmail-send-oauth-token.json
+output/blog/images/

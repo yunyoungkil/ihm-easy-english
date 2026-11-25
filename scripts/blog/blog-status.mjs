@@ -112,6 +112,7 @@ export function summarizeBlogStatus({
     rejected: 0,
     'writer-failed': 0,
     'auth-failed': 0,
+    'image-deferred': 0,
   };
   for (const r of filteredRuns) {
     const outcome = r?.outcome;
@@ -125,6 +126,7 @@ export function summarizeBlogStatus({
   if (counts.rejected > 0) parts.push(`점검 실패 ${counts.rejected}번`);
   if (counts['writer-failed'] > 0) parts.push(`실행 실패 ${counts['writer-failed']}번`);
   if (counts['auth-failed'] > 0) parts.push(`인증 실패 ${counts['auth-failed']}번`);
+  if (counts['image-deferred'] > 0) parts.push(`그림 때문에 미룸 ${counts['image-deferred']}번`);
 
   const queueList = Array.isArray(queue) ? queue : [];
   parts.push(

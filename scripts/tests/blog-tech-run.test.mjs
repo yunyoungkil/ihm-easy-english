@@ -6,6 +6,7 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 
 import {
+  appendRun,
   readPause,
   readPosts,
   readQueue,
@@ -70,6 +71,15 @@ function makeDraft(topicId = 'dyson-v8-red-blink', product = DEFAULT_PRODUCT) {
   };
 }
 
+const FAKE_HERO = {
+  url: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXs/s1600/hero.jpg',
+  alt: '교통카드가 안 찍혀 당황한 순간',
+  width: 1200,
+  height: 670,
+  hash: '0f0f0f0f0f0f0f0f',
+  brief: {moment: '개찰구 앞에서 카드가 안 찍힘'},
+};
+
 function makeBaseDeps(overrides = {}) {
   const calls = {
     runWriter: 0,
@@ -79,6 +89,7 @@ function makeBaseDeps(overrides = {}) {
     verifyLive: 0,
     syncData: 0,
     writePause: 0,
+    produceHero: 0,
   };
   const deps = {
     getBlogAccessToken: async () => 'tok-valid',
@@ -95,6 +106,10 @@ function makeBaseDeps(overrides = {}) {
     deeplink: async (urls) => {
       calls.deeplink += 1;
       return urls.map((u) => ({originalUrl: u, shortenUrl: 'https://link.coupang.com/a/short'}));
+    },
+    produceHero: async () => {
+      calls.produceHero += 1;
+      return {ok: true, hero: {...FAKE_HERO}};
     },
     checkTechPost: async () => ({ok: true, problems: []}),
     publishToBlogger: async ({blogId, title}) => {
@@ -342,6 +357,62 @@ test('10-2) info 글감은 쿠팡 링크 없이도 게시된다(productUrl null)
     assert.equal(res.outcome, 'published');
     assert.equal(calls.publishToBlogger, 1);
     assert.equal((await readPosts(blogDir))[0].productUrl, null);
+  });
+});
+
+test('10-3) 그림 단계가 실패하면 image-deferred, 게시·큐 이동 없음, 3번 연속이면 멈춤', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    const {deps, calls} = makeBaseDeps({
+      produceHero: async () => ({ok: false, stage: 'pick', reasons: ['그림 만들기 실패: 로그아웃']}),
+    });
+    const first = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(first.outcome, 'image-deferred');
+    assert.match(first.reasons[0], /로그아웃/);
+    assert.equal(calls.publishToBlogger, 0);
+    assert.equal((await readQueue(blogDir)).length, 1);
+    assert.equal((await readPause(blogDir)).paused, false);
+
+    for (let i = 0; i < 2; i += 1) {
+      const again = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+      assert.equal(again.outcome, 'image-deferred');
+    }
+    assert.equal((await readPause(blogDir)).paused, true);
+  });
+});
+
+test('10-4) 이전 실행이 image-deferred였고 초안 파일이 남아 있으면 글쓰기를 건너뛰고 그림부터 다시 한다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    await mkdir(path.join(blogDir, 'drafts'), {recursive: true});
+    await writeFile(path.join(blogDir, 'drafts', 'dyson-v8-red-blink.json'), JSON.stringify(makeDraft()));
+    await appendRun(blogDir, {date: '2026-11-25', startedAt: 'x', outcome: 'image-deferred', topicId: 'dyson-v8-red-blink'});
+    const {deps, calls} = makeBaseDeps();
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.equal(calls.runWriter, 0);
+    assert.equal(calls.produceHero, 1);
+    assert.equal(calls.publishToBlogger, 1);
+  });
+});
+
+test('10-5) 게시 글에 대표 그림이 들어가고 기록에 hero가 남는다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([makeTopic()]));
+    let publishedHtml = '';
+    const {deps} = makeBaseDeps({
+      publishToBlogger: async ({html, blogId, title}) => {
+        publishedHtml = html;
+        return {postId: 'p1', url: `https://tech.d40m.com/${blogId}/${encodeURIComponent(title)}.html`};
+      },
+    });
+    const res = await runTechOnce({projectDir, now: KST_WED_2AM, deps});
+    assert.equal(res.outcome, 'published');
+    assert.ok(publishedHtml.includes(`<img src="${FAKE_HERO.url}"`));
+    const post = (await readPosts(blogDir))[0];
+    assert.equal(post.hero.url, FAKE_HERO.url);
+    assert.equal(post.hero.hash, FAKE_HERO.hash);
+    assert.deepEqual(post.hero.brief, FAKE_HERO.brief);
   });
 });
 

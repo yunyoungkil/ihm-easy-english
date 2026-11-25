@@ -18,6 +18,7 @@ import {
   writePause,
 } from './blog-store.mjs';
 import {checkRenderedHtml, checkTechPost} from './check-post.mjs';
+import {produceHero} from './hero-stage.mjs';
 import {deeplink, searchProducts} from './coupang-partners.mjs';
 import {getBlogAccessToken} from './google-auth.mjs';
 import {publishToBlogger, renderPostHtml, verifyLive} from './publish-post.mjs';
@@ -50,11 +51,11 @@ export function pickMatchingProduct(candidates, query) {
   return null;
 }
 
-function countTrailingRejects(runs) {
+function countTrailingRejects(runs, target = 'rejected') {
   let count = 0;
   for (let i = runs.length - 1; i >= 0; i -= 1) {
     const outcome = runs[i]?.outcome;
-    if (outcome === 'rejected') {
+    if (outcome === target) {
       count += 1;
     } else if (outcome === 'published' || outcome === 'paused') {
       break;
@@ -179,6 +180,7 @@ function buildDeps(deps = {}) {
     publishToBlogger,
     verifyLive,
     syncData,
+    produceHero,
     ...deps,
   };
 }
@@ -275,19 +277,35 @@ export async function runTechOnce({
 
     const relDraftPath = draftPath || path.posix.join('data/blog/drafts', `${topicId}.json`);
     absDraftPath = path.resolve(projectDir, relDraftPath);
-    const exe = d.resolveClaudeExe();
-    const prompt = await d.buildWriterPrompt(topic, {posts, draftPath: relDraftPath});
-    const writerRes = await d.runWriter({exe, prompt, draftPath: absDraftPath, cwd: projectDir});
-    if (!writerRes?.ok) {
-      return recordAndReturn({
-        date,
-        startedAt,
-        outcome: 'writer-failed',
-        topicId,
-        reasons: [writerRes?.error || '글쓰기 실행에 실패했습니다.'],
-      });
+    // 앞선 실행이 그림 단계에서 멈췄다면 글을 다시 쓰지 않고 남은 초안으로 그림부터 다시 한다(설계 C절).
+    const priorRuns = await d.readRuns(blogDir);
+    const lastRun = priorRuns[priorRuns.length - 1];
+    let resumed = null;
+    if (lastRun?.outcome === 'image-deferred' && lastRun.topicId === topicId && existsSync(absDraftPath)) {
+      try {
+        resumed = JSON.parse(await readFile(absDraftPath, 'utf8'));
+      } catch {
+        resumed = null;
+      }
     }
-    draft = writerRes.draft;
+    if (resumed) {
+      draft = resumed;
+    } else {
+      const exe = d.resolveClaudeExe();
+      const recentBriefs = posts.slice(-5).map((p) => p?.hero?.brief).filter(Boolean); // allow-literal: 설계 C절 최근 설계도 5개
+      const prompt = await d.buildWriterPrompt(topic, {posts, draftPath: relDraftPath, recentBriefs});
+      const writerRes = await d.runWriter({exe, prompt, draftPath: absDraftPath, cwd: projectDir});
+      if (!writerRes?.ok) {
+        return recordAndReturn({
+          date,
+          startedAt,
+          outcome: 'writer-failed',
+          topicId,
+          reasons: [writerRes?.error || '글쓰기 실행에 실패했습니다.'],
+        });
+      }
+      draft = writerRes.draft;
+    }
     if (draft?.topicId) topicId = draft.topicId;
   }
 
@@ -315,9 +333,9 @@ export async function runTechOnce({
   }
 
   const check = await d.checkTechPost(draft, {posts});
-  const html = d.renderPostHtml(draft, {productLink});
-  const htmlProblems = d.checkRenderedHtml(html);
-  const allProblems = [...(check?.problems || []), ...(htmlProblems || [])];
+  const textHtml = d.renderPostHtml(draft, {productLink});
+  const textHtmlProblems = d.checkRenderedHtml(textHtml);
+  const allProblems = [...(check?.problems || []), ...(textHtmlProblems || [])];
 
   if (check?.ok === false || allProblems.length > 0) {
     const reasons = allProblems.map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean);
@@ -331,6 +349,33 @@ export async function runTechOnce({
     return rec;
   }
 
+  // 글이 점검을 통과했을 때만 그림 한도를 쓴다(설계 C절). 그림이 실패한 날은 게시를 미룬다.
+  const blogId = await resolveTechBlogId(projectDir, d.blogId);
+  const recentHashes = posts.map((p) => p?.hero?.hash).filter(Boolean);
+  const heroRes = await d.produceHero({draft, topicId, mode, projectDir, blogId, token, recentHashes});
+  if (!heroRes?.ok) {
+    const priorRuns = await d.readRuns(blogDir);
+    const rec = {
+      date,
+      startedAt,
+      outcome: 'image-deferred',
+      topicId,
+      reasons: heroRes?.reasons || ['대표 그림을 만들지 못했습니다.'],
+    };
+    await d.appendRun(blogDir, rec);
+    if (countTrailingRejects([...priorRuns, rec], 'image-deferred') >= MAX_CONSECUTIVE_REJECTS) {
+      await d.writePause(blogDir, `대표 그림 실패 ${MAX_CONSECUTIVE_REJECTS}회 연속: ${rec.reasons.join('; ')}`, now);
+    }
+    return rec;
+  }
+  const hero = heroRes.hero;
+  const html = d.renderPostHtml(draft, {productLink, hero});
+  const finalProblems = d.checkRenderedHtml(html, heroRes.local ? {} : {hero});
+  if (finalProblems.length > 0) {
+    const reasons = finalProblems.map((p) => (typeof p === 'string' ? p : p?.text || p?.id)).filter(Boolean);
+    return recordAndReturn({date, startedAt, outcome: 'rejected', topicId, reasons});
+  }
+
   if (mode === 'preview') {
     const previewDir = path.join(projectDir, 'output', 'blog', 'preview');
     const previewPath = path.join(previewDir, `${topicId}.html`);
@@ -339,7 +384,6 @@ export async function runTechOnce({
     return recordAndReturn({date, startedAt, outcome: 'preview', topicId, previewPath});
   }
 
-  const blogId = await resolveTechBlogId(projectDir, d.blogId);
   const published = await d.publishToBlogger({
     blogId,
     title: draft.title,
@@ -360,6 +404,7 @@ export async function runTechOnce({
     postId: published.postId,
     sources: (draft.sources || []).map((s) => s?.url).filter(Boolean),
     productUrl: productLink?.shortenUrl || null,
+    hero: {url: hero.url, hash: hero.hash, brief: hero.brief},
   });
   await d.shiftQueue(blogDir, topicId);
 

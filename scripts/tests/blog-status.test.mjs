@@ -84,6 +84,7 @@ test('대기열 6개 이상이고 최근 7일 내 정상 점검이 있으면 보
       {date: '2026-11-24', startedAt: '2026-11-23T17:00:00Z', outcome: 'rejected', topicId: 't-1'},
       {date: '2026-11-24', startedAt: '2026-11-23T18:00:00Z', outcome: 'writer-failed', topicId: 't-2'},
       {date: '2026-11-25', startedAt: '2026-11-24T17:00:00Z', outcome: 'auth-failed', topicId: 't-3'},
+      {date: '2026-11-25', startedAt: '2026-11-24T18:00:00Z', outcome: 'image-deferred', topicId: 't-3'},
     ],
     posts: [],
     queue: Array.from({length: 6}, (_, i) => ({topicId: `q-${i}`})),
@@ -96,6 +97,7 @@ test('대기열 6개 이상이고 최근 7일 내 정상 점검이 있으면 보
   assert.match(line, /점검 실패 1번/);
   assert.match(line, /실행 실패 1번/);
   assert.match(line, /인증 실패 1번/);
+  assert.match(line, /그림 때문에 미룸 1번/);
   assert.match(line, /대기열 6개/);
   assert.doesNotMatch(line, /주제 보충 필요/);
   assert.doesNotMatch(line, /경고 화면 점검 필요/);

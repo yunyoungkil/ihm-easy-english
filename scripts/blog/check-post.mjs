@@ -7,6 +7,7 @@ import path from 'node:path';
 import {promisify} from 'node:util';
 import {findBannedTerms} from '../banned-terms.mjs';
 import {EXTERNAL_SLOP_SCRIPT} from '../production-gate.mjs';
+import {validateHeroBrief} from './hero-image.mjs';
 
 const execFileAsync = promisify(execFile);
 
@@ -239,6 +240,10 @@ export async function checkTechPost(
     problems.push({id: 'source-unreachable', text: `출처를 열지 못했습니다: ${badUrls.join(', ')}`});
   }
 
+  // 모든 글은 대표 그림 설계도(heroImage)가 있어야 한다(설계 2026-11-25 D절). 값은 정하지 않고 빈칸·안전선만 본다.
+  const heroCheck = validateHeroBrief(draft?.heroImage, {topic: {title: draft?.title, productHint: draft?.product?.query}});
+  for (const p of heroCheck.problems) problems.push({id: `hero-${p.id}`, text: p.text});
+
   const slop = await runSlop({title: draft?.title || '', bodyHtml});
   if (slop?.missing) {
     problems.push({id: 'slop-checker-missing', text: '외부 AI 티 검사기(slop-rewrite)를 찾지 못했습니다.'});
@@ -255,8 +260,41 @@ function readAttr(attrs, name) {
   return m ? (m[1] ?? m[2] ?? m[3] ?? '') : '';
 }
 
-/** 게시할 HTML 또는 라이브 HTML의 대가 문구·제휴 링크 속성을 점검한다. */
-export function checkRenderedHtml(html) {
+const HERO_SRC_PREFIX = 'https://blogger.googleusercontent.com/';
+
+/** 대표 그림 HTML 규칙(설계 D절). hero가 주어졌을 때만 부른다. */
+function checkHeroImageHtml(src) {
+  const problems = [];
+  const img = src.match(/<img\b([^>]*)>/i);
+  if (!img) {
+    return [{id: 'hero-img-missing', text: '본문에 대표 그림(<img>)이 없습니다.'}];
+  }
+  const attrs = img[1];
+  const imgSrc = decodeEntities(readAttr(attrs, 'src'));
+  if (!imgSrc.startsWith(HERO_SRC_PREFIX)) {
+    problems.push({id: 'hero-img-src', text: `대표 그림 주소가 ${HERO_SRC_PREFIX}로 시작하지 않습니다.`});
+  }
+  const missingAttrs = ['alt', 'width', 'height'].filter((name) => !normalizeWs(readAttr(attrs, name)));
+  if (missingAttrs.length) {
+    problems.push({id: 'hero-img-attrs', text: `대표 그림에 ${missingAttrs.join(', ')} 속성이 빠져 있습니다.`});
+  }
+  if (readAttr(attrs, 'loading').toLowerCase() === 'lazy') {
+    problems.push({id: 'hero-img-lazy', text: '대표 그림에 loading="lazy"가 있습니다. 가장 큰 그림은 지연 로딩하지 않습니다.'});
+  }
+  if (readAttr(attrs, 'fetchpriority').toLowerCase() !== 'high') {
+    problems.push({id: 'hero-img-priority', text: '대표 그림에 fetchpriority="high"가 없습니다.'});
+  }
+  if (/coupangcdn\.com/i.test(src)) {
+    problems.push({id: 'hero-coupangcdn', text: '본문에 쿠팡 그림 주소(coupangcdn.com)가 있습니다.'});
+  }
+  return problems;
+}
+
+/**
+ * 게시할 HTML 또는 라이브 HTML의 대가 문구·제휴 링크 속성을 점검한다.
+ * `hero`가 주어지면 대표 그림 규칙도 본다(없으면 예전과 같다).
+ */
+export function checkRenderedHtml(html, {hero} = {}) {
   const problems = [];
   const src = String(html || '');
   const firstP = src.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
@@ -277,6 +315,8 @@ export function checkRenderedHtml(html) {
   if (hasUnmarkedLink) {
     problems.push({id: 'link-not-sponsored', text: '쿠팡 링크에 rel="sponsored" 속성이 빠져 있습니다.'});
   }
+
+  if (hero) problems.push(...checkHeroImageHtml(src));
 
   return problems;
 }

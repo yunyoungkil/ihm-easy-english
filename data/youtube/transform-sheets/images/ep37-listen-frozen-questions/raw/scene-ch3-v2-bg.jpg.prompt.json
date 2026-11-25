@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T14:05:46.020Z",
+  "prompt": "Cinematic architectural twilight photograph, 16:9 widescreen.\nComposition: atmospheric diagonal framing shot looking through the warm glass lobby of a contemporary Seoul apartment residence out toward a quiet evening tree-lined neighborhood walkway. Warm golden interior wall lights contrast richly with deep midnight-blue twilight outside; soft reflections shimmer on sleek dark stone lobby tiles and glass doors. Distant blurred silhouettes of evening walkers, no one posing at camera.\nMood & lighting: calm intimate twilight atmosphere, deep clean dark shadows across center-left for text legibility, 35mm f/1.8 cinema lens, subtle film grain.\nNo readable text, no letters, no numbers, no logos, no watermarks, no sparkle icons anywhere. Ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/29221213-618e-44c8-ab87-a9b06e8789ed/scratch/ep37-scene-ch3.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/scene-ch3-v2-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

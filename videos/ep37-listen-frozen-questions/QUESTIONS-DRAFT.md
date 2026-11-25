@@ -1,4 +1,4 @@
-# EP37 질문·대답 (11/25 확정본 — FACT-CHECK 전, 비교 시트 전)
+# EP37 질문·대답 (11/25 확정본 — FACT-CHECK 완료, 비교 시트 반영)
 
 > 2026-11-25 Claude Opus 5.5 초안(DESKTOP-GPI3LM1) → 같은 날 저녁 확정(DESKTOP-UA9AKL2). 장 구성·원리는 설계서 `knowledge/playbooks/2026-11-25-listen-longform-design.md` 3-3절, 대본은 `SCRIPT.md`. **소리 설명은 전부 FACT-CHECK 대상**이고, 단어 사이 T 굴림·'쥬/츄' 섞임은 "자주 그렇다"는 경향이지 늘 그런 규칙이 아니다(영상에서 단정 금지). 경쟁 영상(`xaTAV--wNxg`)의 문장 목록은 베끼지 않는다.
 > 가장 큰 위험: AI 영어 음성이 실제로 이렇게 뭉개서 말해 주는지. 음성은 시트 승인 + FACT-CHECK 뒤에만 만들고, 만든 뒤 문항마다 원리대로 들리는지 확인해 안 맞으면 문항을 바꾸거나 해설을 실제 소리에 맞춘다.
@@ -12,7 +12,7 @@
 | q04 | 1 | D | Where can I buy a ticket? | Over there, at the machine. | can이 '큰'처럼 작아짐, can't는 안 작아짐 |
 | q05 | 1 | E | Does this train go to the airport? | Yes, it does. | train, airport |
 | q06 | 1 | Q | How long does it take to get there? | About twenty minutes. | how long, take |
-| q07 | 2 우리 가게 — 끝소리가 다음 모음에 붙는다 | E | How much is it? | It's fifteen thousand won. | much is it 한 덩어리 (우리말 '옷이→오시' 비유) |
+| q07 | 2 우리 가게 — 끝소리가 다음 모음에 붙는다 | E | How much is it? | It's fifteen thousand won. | much is it 한 덩어리 (우리말 '먹어요→머거요' 비유) |
 | q08 | 2 | D | Can I pay by card? | Sure, go ahead. | Can I → 캐나이 |
 | q09 | 2 | Q | Is it spicy? | Just a little. | Is it → 이짓 |
 | q10 | 2 | Q | Do you have this in black? | Yes, right here. | this in → 디씬 |
@@ -20,9 +20,9 @@
 | q12 | 2 | Q | Is this on sale? | Yes, thirty percent off. | this on → 디쏜 |
 | q13 | 3 처음 만난 사람 — 드·트 뒤의 '유'가 섞인다 | D | Did you just move in? | Yeah, last week. | Did you → 디쥬 |
 | q14 | 3 | Q | Would you like some coffee? | Yes, please. | Would you → 우쥬 |
-| q15 | 3 | D | Is that your dog? | Yes, she's very friendly. | that your → 대츄어 |
+| q15 | 3 | D | Is that your dog? | Yes, she's very friendly. | that your → 대츄어 또는 트가 짧게 끊김 |
 | q16 | 3 | Q | Could you help me with this? | No problem. | Could you → 쿠쥬 |
-| q17 | 3 | E | Can I get you anything? | Just water, thanks. | get you → 게츄 |
+| q17 | 3 | E | Can I get you anything? | Just water, thanks. | get you → 게츄 또는 트가 짧게 끊김 |
 | q18 | 3 | Q | Where did you get that? | At the market nearby. | did you → 디쥬 |
 | q19 | 4 여행지 — 모음 사이의 '트'가 구른다 | D | What are you looking for? | Just looking, thanks. | What are you → 워러유 ('워러' 비유) |
 | q20 | 4 | E | Should I put it in a bag? | No, thanks. | put it in a → 푸리리너 |

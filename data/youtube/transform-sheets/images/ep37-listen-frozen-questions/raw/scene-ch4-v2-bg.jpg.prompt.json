@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T14:06:23.688Z",
+  "prompt": "Cinematic sweeping architectural photograph, 16:9 widescreen.\nComposition: elevated high-angle diagonal shot looking across a grand modern international airport departure hall at golden-hour dusk. Dramatic floor-to-ceiling angled steel-and-glass windows cast long golden sunset rays and deep slate shadows across dark polished granite floors. Tiny motion-blurred travelers roll carry-on suitcases along the right corridor while jetliners sit silhouetted against a deep indigo-amber sunset sky outside.\nMood & lighting: rich cinematic travel atmosphere, deep shadowed slate tones across left-center, 28mm cinema lens, subtle film grain.\nAll airport signs and screens completely unreadable or absent. No text, no letters, no numbers, no airline logos, no watermarks, no sparkle icons anywhere. Ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/29221213-618e-44c8-ab87-a9b06e8789ed/scratch/ep37-scene-ch4.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/scene-ch4-v2-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

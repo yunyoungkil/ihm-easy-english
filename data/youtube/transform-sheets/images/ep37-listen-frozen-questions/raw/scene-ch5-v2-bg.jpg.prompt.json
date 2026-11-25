@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T14:07:03.595Z",
+  "prompt": "Cinematic low-key night interior photograph, 16:9 widescreen.\nComposition: intimate slightly angled medium-close perspective of a cozy modern apartment living room at night, evoking a warm late-night conversation between close friends. A soft amber floor lamp glows in the upper-right corner, casting warm golden rim light across a dark charcoal fabric sofa and two ceramic mugs on a dark oak coffee table in soft foreground bokeh. Through a wide window on the far left, deep midnight-blue blurred city lights glow softly.\nMood & lighting: warm intimate low-key cinema aesthetic, rich dark shadows with warm golden accents, 50mm f/1.4 lens, subtle natural film grain.\nNo people posing at camera, no TV screen text, no letters, no numbers, no logos, no watermarks, no sparkle icons anywhere. Ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/29221213-618e-44c8-ab87-a9b06e8789ed/scratch/ep37-scene-ch5.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/scene-ch5-v2-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

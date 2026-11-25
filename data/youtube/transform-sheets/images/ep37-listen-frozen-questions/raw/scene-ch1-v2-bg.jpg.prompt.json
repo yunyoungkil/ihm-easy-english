@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T14:01:06.672Z",
+  "prompt": "Cinematic wide documentary photograph, 16:9 widescreen.\nComposition: dramatic low-angle diagonal leading-line perspective looking slightly upward across a sleek Seoul subway transfer concourse at evening rush hour. Ticket gates and fast-moving motion-blurred commuters recede along the right diagonal; polished dark gray station tiles reflect cool overhead fluorescent lights and warm amber shopfront glow.\nMood & lighting: rich atmospheric contrast, deep moody shadows along the bottom and left edges, subtle warm orange and cool blue urban reflections, shallow depth of field, authentic 35mm cinema film grain.\nAll signs, departure monitors, and maps completely out of focus and unreadable.\nNo text, no letters, no numbers, no brand logos, no watermarks, no sparkle icons anywhere. Ultra-clean edges.",
+  "promptFile": "../../.gemini/antigravity/brain/29221213-618e-44c8-ab87-a9b06e8789ed/scratch/ep37-scene-ch1.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/scene-ch1-v2-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

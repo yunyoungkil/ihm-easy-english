@@ -115,7 +115,7 @@ export async function produceHero({
     return {ok: true, local: true, hero: {...base, url: pathToFileURL(jpg).href, hash, brief: brief5}};
   }
 
-  const postEmail = h.loadPostEmail(projectDir);
+  const postEmail = await h.loadPostEmail(projectDir); // loadPostEmail은 비동기다. await가 없으면 받는 주소가 "[object Promise]"가 된다(2026-11-26 파이프라인 안에서만 3번 실패한 원인)
   if (!postEmail) {
     return {ok: false, stage: 'upload', reasons: ['.env에 BLOGGER_TECH_POST_EMAIL이 없습니다.']};
   }

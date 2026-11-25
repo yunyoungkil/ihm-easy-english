@@ -14,6 +14,7 @@ import {
   readPosts,
   readQueue,
   readRuns,
+  rotateQueue,
   shiftQueue,
   writePause,
 } from './blog-store.mjs';
@@ -162,6 +163,7 @@ function buildDeps(deps = {}) {
   return {
     readQueue,
     shiftQueue,
+    rotateQueue,
     readPosts,
     appendPost,
     readRuns,
@@ -309,27 +311,22 @@ export async function runTechOnce({
     if (draft?.topicId) topicId = draft.topicId;
   }
 
+  // 링크 때문에 미룬 글감은 대기열에서 빼지 않고 맨 뒤로 보낸다(무인 실행에서만).
+  // 맨 앞에 두면 다음 실행이 같은 글감을 다시 쓰고 또 미루기를 끝없이 되풀이한다(2026-11-26 스케줄러 시험에서 발견).
+  const deferTopic = async (reasons) => {
+    if (mode === 'auto') await d.rotateQueue(blogDir, topicId);
+    return recordAndReturn({date, startedAt, outcome: 'deferred', topicId, reasons});
+  };
+
   const productRes = await resolveProductLink(draft, absDraftPath, d);
   if (!productRes.ok) {
-    return recordAndReturn({
-      date,
-      startedAt,
-      outcome: 'deferred',
-      topicId,
-      reasons: [productRes.reason],
-    });
+    return deferTopic([productRes.reason]);
   }
   const productLink = productRes.productLink;
   // 2026-11-25 사용자 결정: 해결·구매 전 확인 글은 쿠팡 링크 1개 이상, 정보 설명형(info) 글은 링크 없이 게시 가능
   const topicKind = (await d.readQueue(blogDir)).find((t) => t?.topicId === topicId)?.kind;
   if (!productLink && topicKind !== 'info') {
-    return recordAndReturn({
-      date,
-      startedAt,
-      outcome: 'deferred',
-      topicId,
-      reasons: ['해결·구매 전 확인 글에는 도움이 되는 쿠팡 링크가 1개 이상 필요합니다(상품을 찾지 못했거나 product가 비어 있습니다).'],
-    });
+    return deferTopic(['해결·구매 전 확인 글에는 도움이 되는 쿠팡 링크가 1개 이상 필요합니다(상품을 찾지 못했거나 product가 비어 있습니다).']);
   }
 
   const check = await d.checkTechPost(draft, {posts});

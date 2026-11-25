@@ -14,8 +14,9 @@
     },
     "registrations": {
       "google": {"date": "2026-11-25", "status": "sitemap-submitted-pending-first-post", "property": "sc-domain:d40m.com"},
-      "naver": {"date": "2026-11-25", "status": "verified-pending-first-post-feed"},
-      "daum": {"date": "2026-11-25", "status": "verified"}
+      "naver": {"date": "2026-11-26", "status": "sitemap-and-rss-submitted", "sitemap": "https://tech.d40m.com/sitemap.xml", "rss": "https://tech.d40m.com/feeds/posts/default?alt=rss"},
+      "daum": {"date": "2026-11-25", "status": "verified"},
+      "bing": {"date": "2026-11-26", "status": "sitemap-submitted-under-domain", "property": "d40m.com (imported from Google Search Console)", "sitemap": "https://tech.d40m.com/sitemap.xml", "note": "tech.d40m.com 단독 항목은 Not verified로 남음, 사이트맵은 d40m.com 아래에서 받아들여짐"}
     },
     "adsense": {"date": "2026-11-25", "autoAds": true}
   },

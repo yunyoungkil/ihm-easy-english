@@ -347,6 +347,26 @@ test('10) 필수 상품 링크 실패(맞는 후보 없음/deeplink 오류)면 d
   });
 });
 
+test('10-1) 무인 실행에서 링크 때문에 미룬 글감은 대기열 맨 뒤로 간다(빼지 않음), 미리보기는 순서를 안 바꾼다', async () => {
+  await withProject(async (projectDir, blogDir) => {
+    const queueFile = path.join(blogDir, 'tech-queue.json');
+    await writeFile(queueFile, JSON.stringify([makeTopic('a-topic'), makeTopic('b-topic')]));
+    const noLink = () => makeBaseDeps({
+      runWriter: async () => ({ok: true, draft: makeDraft('a-topic', null)}),
+    }).deps;
+
+    const preview = await runTechOnce({projectDir, now: KST_WED_2AM, mode: 'preview', deps: noLink()});
+    assert.equal(preview.outcome, 'deferred');
+    assert.deepEqual((await readQueue(blogDir)).map((t) => t.topicId), ['a-topic', 'b-topic']);
+
+    const auto = await runTechOnce({projectDir, now: KST_WED_2AM, deps: noLink()});
+    assert.equal(auto.outcome, 'deferred');
+    assert.equal(auto.topicId, 'a-topic');
+    assert.deepEqual((await readQueue(blogDir)).map((t) => t.topicId), ['b-topic', 'a-topic']);
+    assert.equal((await readPause(blogDir)).paused, false);
+  });
+});
+
 test('10-2) info 글감은 쿠팡 링크 없이도 게시된다(productUrl null)', async () => {
   await withProject(async (projectDir, blogDir) => {
     await writeFile(path.join(blogDir, 'tech-queue.json'), JSON.stringify([{...makeTopic('dyson-v8-red-blink'), kind: 'info', productHint: null}]));

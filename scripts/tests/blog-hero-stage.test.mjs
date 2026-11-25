@@ -194,6 +194,23 @@ test('게시용 주소(.env)가 없으면 올리지 않고 upload 단계 실패'
   });
 });
 
+test('게시용 주소를 비동기로 읽어도(실제 loadPostEmail처럼) 올리기에는 문자열이 넘어간다', async () => {
+  await withTmp(async (dir) => {
+    let received;
+    const {deps} = makeDeps({
+      loadPostEmail: async () => 'test.secret@blogger.com',
+      uploadHeroViaEmail: async ({postEmail}) => {
+        received = postEmail;
+        return {ok: true, base: 'https://blogger.googleusercontent.com/img/b/X', fileName: 'a.jpg', urls: {s1600: 'https://x/s1600/a.jpg', og: 'https://x/og/a.jpg'}};
+      },
+    });
+    const res = await run(dir, deps);
+    assert.equal(res.ok, true);
+    assert.equal(typeof received, 'string');
+    assert.equal(received, 'test.secret@blogger.com');
+  });
+});
+
 test('preview 모드는 올리지 않고 로컬 jpg 주소(file://)를 돌려준다', async () => {
   await withTmp(async (dir) => {
     const {deps, calls} = makeDeps();

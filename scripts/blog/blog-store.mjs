@@ -50,6 +50,15 @@ export async function shiftQueue(dir, topicId) {
   await writeJson(dir, FILES.queue, next);
 }
 
+/** topicId가 같은 주제를 큐 맨 뒤로 옮긴다(빼지 않는다). 없는 id거나 이미 맨 뒤면 파일을 건드리지 않는다. */
+export async function rotateQueue(dir, topicId) {
+  const queue = await readQueue(dir);
+  const idx = queue.findIndex((t) => t.topicId === topicId);
+  if (idx < 0 || idx === queue.length - 1) return;
+  const next = [...queue.slice(0, idx), ...queue.slice(idx + 1), queue[idx]];
+  await writeJson(dir, FILES.queue, next);
+}
+
 export async function readPosts(dir) {
   return readJson(dir, FILES.posts, []);
 }

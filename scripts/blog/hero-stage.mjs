@@ -105,7 +105,8 @@ export async function produceHero({
     return {ok: false, stage: 'pick', reasons: reasons.length ? reasons : ['쓸 수 있는 그림을 만들지 못했습니다.']};
   }
 
-  const jpg = chosen.replace(/\.[^./\\]+$/, '') + '.jpg';
+  // 고른 그림이 이미 .jpg여도 같은 파일을 덮어쓰지 않게 올리기용 파일을 따로 둔다(2026-11-26 첫 글에서 같은 파일을 다시 인코딩한 일이 있었음)
+  const jpg = chosen.replace(/\.[^./\\]+$/, '') + '-upload.jpg';
   await h.encodeForUpload(chosen, jpg);
   const hash = await h.dHash(chosen);
   await h.writeHeroRecord(dir, {...record, chosen, jpg, hash, brief: brief5});
@@ -120,7 +121,7 @@ export async function produceHero({
   }
   const up = await h.uploadHeroViaEmail({imagePath: jpg, topicId, blogId, token, postEmail});
   if (!up?.ok) {
-    return {ok: false, stage: 'upload', reasons: [`그림 올리기 실패(${up?.stage || '?'}/${up?.error || '?'})`]};
+    return {ok: false, stage: 'upload', reasons: [`그림 올리기 실패(${up?.stage || '?'}/${up?.error || '?'}${up?.detail ? `/${up.detail}` : ''})`]};
   }
   await h.writeHeroRecord(dir, {
     ...record,

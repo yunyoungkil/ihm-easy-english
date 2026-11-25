@@ -363,7 +363,7 @@ export async function runTechOnce({
       reasons: heroRes?.reasons || ['대표 그림을 만들지 못했습니다.'],
     };
     await d.appendRun(blogDir, rec);
-    if (countTrailingRejects([...priorRuns, rec], 'image-deferred') >= MAX_CONSECUTIVE_REJECTS) {
+    if (mode !== 'preview' && countTrailingRejects([...priorRuns, rec], 'image-deferred') >= MAX_CONSECUTIVE_REJECTS) {
       await d.writePause(blogDir, `대표 그림 실패 ${MAX_CONSECUTIVE_REJECTS}회 연속: ${rec.reasons.join('; ')}`, now);
     }
     return rec;

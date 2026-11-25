@@ -175,7 +175,7 @@ test('uploadHeroViaEmail: 필수 인자가 빠지면 stage=args', async () => {
 });
 
 // ---- sendHeroEmail (가짜 크롬) ----------------------------------------------
-const makeFakeBrowser = ({url = 'https://mail.google.com/mail/u/1/?view=cm', fileInputs = 1, bodyText = '', attachShows = true, clickThrows = false} = {}) => {
+const makeFakeBrowser = ({url = 'https://mail.google.com/mail/u/1/?view=cm', fileInputs = 1, bodyText = '', attachShows = true, clickThrows = false, sentShows = true} = {}) => {
   const log = {goto: null, files: null, clicked: false, pageClosed: false, browserClosed: false, newPages: 0};
   const page = {
     setViewportSize: async () => {},
@@ -189,7 +189,7 @@ const makeFakeBrowser = ({url = 'https://mail.google.com/mail/u/1/?view=cm', fil
         first: () => ({setInputFiles: async (f) => { log.files = f; }}),
       };
     },
-    innerText: async () => (attachShows && log.files ? `${bodyText} ${String(log.files).split(/[\\/]/).pop()} 보내기` : bodyText),
+    innerText: async () => (attachShows && log.files ? `${bodyText} ${String(log.files).split(/[\/]/).pop()} 보내기${sentShows && log.clicked ? ' 메시지 전송됨' : ''}` : bodyText),
     getByRole: (role, opts) => {
       assert.equal(role, 'button');
       assert.ok(opts.name.test('보내기'));
@@ -203,7 +203,7 @@ const makeFakeBrowser = ({url = 'https://mail.google.com/mail/u/1/?view=cm', fil
   };
   return {connect: async () => browser, log};
 };
-const sendArgs = {imagePath: 'C:/tmp/hero-test.jpg', subject: 'HERO-tp-1000', to: FAKE_TO, loadWaitMs: 0, attachTimeoutMs: 2000, sendWaitMs: 0};
+const sendArgs = {imagePath: 'C:/tmp/hero-test.jpg', subject: 'HERO-tp-1000', to: FAKE_TO, loadWaitMs: 0, attachTimeoutMs: 2000, sendWaitMs: 0, sendConfirmMs: 0};
 
 test('sendHeroEmail: 성공하면 작성 창 주소에 제목·받는 주소가 들어가고 보내기를 누른 뒤 페이지만 닫는다', async () => {
   const {connect, log} = makeFakeBrowser();
@@ -252,4 +252,16 @@ test('sendHeroEmail: 크롬에 연결하지 못해도 던지지 않고 gmail-not
   const r = await sendHeroEmail({...sendArgs, connect: async () => { throw new Error('ECONNREFUSED'); }});
   assert.equal(r.ok, false);
   assert.equal(r.error, 'gmail-not-ready');
+});
+
+test('sendHeroEmail: "메시지 전송됨"이 뜨면 성공, 안 뜨면 send-failed(sent-not-confirmed)이고 그때까지 창을 닫지 않는다', async () => {
+  const shown = makeFakeBrowser();
+  const ok = await sendHeroEmail({...sendArgs, sendConfirmMs: 3000, connect: shown.connect});
+  assert.deepEqual(ok, {ok: true});
+  const hidden = makeFakeBrowser({sentShows: false});
+  const bad = await sendHeroEmail({...sendArgs, sendConfirmMs: 3000, connect: hidden.connect});
+  assert.equal(bad.ok, false);
+  assert.equal(bad.error, 'send-failed');
+  assert.equal(bad.detail, 'sent-not-confirmed');
+  assert.equal(hidden.log.clicked, true);
 });

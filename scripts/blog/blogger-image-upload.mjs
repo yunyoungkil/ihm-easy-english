@@ -30,6 +30,8 @@ const GMAIL_LOAD_WAIT_MS = 7000; // allow-literal: 작성 창이 뜰 때까지 �
 const ATTACH_TIMEOUT_MS = 30000; // allow-literal: 첨부 이름이 화면에 나타날 때까지 최대 대기
 const ATTACH_POLL_MS = 1000; // allow-literal: 첨부 확인 주기
 const SEND_WAIT_MS = 5000; // allow-literal: 보내기 단추를 누른 뒤 기다린 시간(시험값)
+const SEND_CONFIRM_MS = 60000; // allow-literal: "메시지 전송됨"이 뜰 때까지 최대 대기(2026-11-26 실측: 약 4.5초, 첫 글 시험에서 5초 만에 창을 닫아 메일이 안 나간 일이 있었음)
+const SENT_TEXT = /메시지 전송됨|메일을 보냈습니다|Message sent/;
 const DRAFT_TIMEOUT_MS = 120000; // allow-literal: 임시 글이 생길 때까지 최대 대기(시험에서는 1분 안)
 const DRAFT_INTERVAL_MS = 5000; // allow-literal: 임시 글 조회 주기
 const ATTACH_NAME_PREFIX = 15; // allow-literal: 지메일이 긴 파일 이름을 줄여 보여 줄 때를 위한 비교 길이
@@ -106,6 +108,7 @@ export const sendHeroEmail = async ({
   loadWaitMs = GMAIL_LOAD_WAIT_MS,
   attachTimeoutMs = ATTACH_TIMEOUT_MS,
   sendWaitMs = SEND_WAIT_MS,
+  sendConfirmMs = SEND_CONFIRM_MS,
 }) => {
   let browser;
   let page;
@@ -142,6 +145,16 @@ export const sendHeroEmail = async ({
     stage = 'send-failed';
     await page.getByRole('button', {name: /^(보내기|Send)/}).first().click();
     await page.waitForTimeout(sendWaitMs);
+    // 보냈다는 표시가 뜰 때까지 기다린다. 표시 전에 창을 닫으면 메일이 취소될 수 있다.
+    if (sendConfirmMs > 0) {
+      let confirmed = false;
+      for (let waited = 0; waited <= sendConfirmMs; waited += ATTACH_POLL_MS) {
+        const body = String(await page.innerText('body'));
+        if (SENT_TEXT.test(body)) { confirmed = true; break; }
+        await page.waitForTimeout(ATTACH_POLL_MS);
+      }
+      if (!confirmed) return {ok: false, error: 'send-failed', detail: 'sent-not-confirmed'};
+    }
     return {ok: true};
   } catch (err) {
     return {ok: false, error: stage, detail: redact(err?.message, to)};

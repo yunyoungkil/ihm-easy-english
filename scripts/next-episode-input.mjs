@@ -151,31 +151,124 @@ export function pickReviewLessons(reviews = [], n = 3) {
     .slice(0, n);
 }
 
+function outlierReportFormat(r) {
+  if (r?.meta?.format === 'SHORTS' || r?.meta?.isShort === true) return 'SHORTS';
+  if (r?.meta?.format === 'LONGFORM') return 'LONGFORM';
+  const dur = Number(r?.meta?.durationSeconds ?? r?.meta?.duration);
+  if (Number.isFinite(dur) && dur > 0) return dur <= 180 ? 'SHORTS' : 'LONGFORM'; // allow-literal: 유튜브 쇼츠 3분 기준
+  return 'LONGFORM';
+}
+
+function mapOutlierReportItem(r, usageMap = null) {
+  const usage = usageMap?.get(r.videoId) || null;
+  return {
+    videoId: r.videoId,
+    format: outlierReportFormat(r),
+    analyzedAt: r.analyzedAt ?? null,
+    title: r.meta?.title ?? null,
+    channelTitle: r.meta?.channelTitle ?? null,
+    outlierRatio: r.outlierRatio ?? null,
+    ratioMethod: r.ratioMethod ?? null,
+    ratioStatus: r.ratioStatus ?? null,
+    source: r.source ?? null,
+    studioFolds: r.studioFolds ?? null,
+    titleDevice: r.analysis?.click?.titleDevice ?? null,
+    thumbnailText: r.analysis?.click?.thumbnailText ?? null,
+    thumbnailWordCount: r.analysis?.click?.thumbnailWordCount ?? null,
+    first15s: r.analysis?.opening?.first15s ?? null,
+    cutsPerMinute: r.pacing?.perMinute ?? null,
+    pacingSource: r.pacing?.source ?? null,
+    visualChanges: (r.analysis?.visualMoments || []).length,
+    adopt: r.analysis?.forUs?.adopt ?? null,
+    differentiate: r.analysis?.forUs?.differentiate ?? null,
+    soundFocus: r?.analysis?.teachesAdultEnglishSounds !== false,
+    usedSheets: usage ? usage.sheetIds : [],
+    usedCount: usage ? usage.count : 0,
+    measuredCount: usage ? usage.measuredCount : 0,
+  };
+}
+
+/** 비교 시트들에서 각 경쟁 영상 ID가 몇 편에 쓰였고 7일 실측이 몇 편인지 사실만 집계한다(재사용 차단 없음). */
+export function summarizeReferenceUsage(sheets = []) {
+  const map = new Map();
+  for (const s of sheets || []) {
+    const sid = sheetIdOf(s);
+    if (!sid) continue;
+    const measured = (s.results || []).length > 0;
+    const ids = new Set([
+      s.sourceVideoId,
+      ...(s.references || []).map((r) => r?.videoId),
+      ...(s.borrowed || []).map((b) => b?.fromVideoId),
+    ].filter((id) => typeof id === 'string' && id.trim().length > 0));
+    for (const id of ids) {
+      const entry = map.get(id) || {videoId: id, sheetIds: [], count: 0, measuredCount: 0};
+      if (!entry.sheetIds.includes(sid)) {
+        entry.sheetIds.push(sid);
+        entry.count += 1;
+        if (measured) entry.measuredCount += 1;
+      }
+      map.set(id, entry);
+    }
+  }
+  return map;
+}
+
 /** 합친 아웃라이어 리포트(data/youtube/outlier-reports) 요약: 성인 영어 소리가 아니라고 판정된 영상(false)은 빼고, 새 방식 배수가 큰 영상부터, 옛 방식 값은 그 뒤(서로 숫자를 비교하지 않는다). */
 export function summarizeOutlierReports(reports = [], n = 5) {
   return [...reports]
     .filter((r) => r?.analysis?.teachesAdultEnglishSounds !== false)
     .sort((a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
     .slice(0, n)
-    .map((r) => ({
-      videoId: r.videoId,
-      title: r.meta?.title ?? null,
-      channelTitle: r.meta?.channelTitle ?? null,
-      outlierRatio: r.outlierRatio ?? null,
-      ratioMethod: r.ratioMethod ?? null,
-      ratioStatus: r.ratioStatus ?? null,
-      source: r.source ?? null,
-      studioFolds: r.studioFolds ?? null,
-      titleDevice: r.analysis?.click?.titleDevice ?? null,
-      thumbnailText: r.analysis?.click?.thumbnailText ?? null,
-      thumbnailWordCount: r.analysis?.click?.thumbnailWordCount ?? null,
-      first15s: r.analysis?.opening?.first15s ?? null,
-      cutsPerMinute: r.pacing?.perMinute ?? null,
-      pacingSource: r.pacing?.source ?? null,
-      visualChanges: (r.analysis?.visualMoments || []).length,
-      adopt: r.analysis?.forUs?.adopt ?? null,
-      differentiate: r.analysis?.forUs?.differentiate ?? null,
-    }));
+    .map((r) => mapOutlierReportItem(r));
+}
+
+/**
+ * 아웃라이어 리포트 전체 풀 요약(2026-11-25): 배수 상위 5편만 고정 노출돼 같은 영상만 반복 채택되던 편향을 풀기 위해,
+ * 미사용 풀 현황과 형식별 미사용 상위+최신 리포트를 먼저 보여 주고, 이미 쓴 영상은 숨기거나 막지 않고 사용·실측 이력만 투명하게 적는다.
+ */
+export function summarizeOutlierPool(reports = [], sheets = [], {unusedPerFormat = 4, usedSummaryLimit = 8} = {}) {
+  // 2026-11-25: 발음 전용 필터(teachesAdultEnglishSounds)로 회화·여행·화제 인물 영어 리포트가 통째로 숨겨지던 편향을 풀고,
+  // 전체 리포트를 열어 두되 발음·소리 중심 / 확장 영어(회화·화제·공부법 등)만 태그로 투명하게 구분한다.
+  const eligible = [...(reports || [])].filter((r) => r && r.videoId);
+  const usageMap = summarizeReferenceUsage(sheets);
+  const byRatio = (a, b) => ratioTier(a) - ratioTier(b) || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0);
+  const byRecent = (a, b) => String(b.analyzedAt || '').localeCompare(String(a.analyzedAt || '')) || byRatio(a, b);
+  const unused = eligible.filter((r) => !usageMap.has(r.videoId));
+  const used = eligible.filter((r) => usageMap.has(r.videoId));
+
+  const pickUnused = (fmt) => {
+    const list = unused.filter((r) => outlierReportFormat(r) === fmt);
+    if (!list.length) return [];
+    const picked = [];
+    const seen = new Set();
+    const take = (item) => {
+      if (!item || seen.has(item.videoId) || picked.length >= unusedPerFormat) return;
+      seen.add(item.videoId);
+      picked.push(item);
+    };
+    // 배수 상위 2편 + 최신 분석 1편 + 발음 외 확장 영어(회화·화제·여행 등) 1편이 자연스럽게 섞여 보이도록 후보 노출(고정 할당 아님)
+    for (const r of [...list].sort(byRatio).slice(0, Math.max(1, unusedPerFormat - 2))) take(r);
+    take([...list].sort(byRecent).find((r) => !seen.has(r.videoId)));
+    take([...list].filter((r) => r?.analysis?.teachesAdultEnglishSounds === false).sort(byRatio).find((r) => !seen.has(r.videoId)));
+    for (const r of [...list].sort(byRatio)) take(r);
+    return picked.map((r) => mapOutlierReportItem(r, usageMap));
+  };
+
+  const usedSummary = [...used]
+    .map((r) => mapOutlierReportItem(r, usageMap))
+    .sort((a, b) => b.usedCount - a.usedCount || (b.outlierRatio ?? 0) - (a.outlierRatio ?? 0))
+    .slice(0, usedSummaryLimit);
+
+  return {
+    total: eligible.length,
+    shortsTotal: eligible.filter((r) => outlierReportFormat(r) === 'SHORTS').length,
+    longformTotal: eligible.filter((r) => outlierReportFormat(r) === 'LONGFORM').length,
+    unusedTotal: unused.length,
+    usedTotal: used.length,
+    unusedShorts: pickUnused('SHORTS'),
+    unusedLongform: pickUnused('LONGFORM'),
+    usedSummary,
+  };
 }
 
 const KO = {LONGFORM: '롱폼', SHORTS: '쇼츠'};
@@ -207,7 +300,7 @@ function renderComparison(c) {
 }
 
 export function renderNextEpisodeInput(input) {
-  const {generatedAt, freshness = {}, comparisons = {}, searchTerms = [], viewerComments = [], allViewerComments = null, audience = {}, reviews = [], outcomes = [], successPatternCount = 0, outlierReports = [], transformSheets = []} = input;
+  const {generatedAt, freshness = {}, comparisons = {}, searchTerms = [], viewerComments = [], allViewerComments = null, audience = {}, reviews = [], outcomes = [], successPatternCount = 0, outlierReports = [], outlierPool = null, transformSheets = []} = input;
   const out = [
     '# 다음 기획 입력',
     '',
@@ -266,18 +359,40 @@ export function renderNextEpisodeInput(input) {
   } else out.push('"다음 영상에 적용할 것"이 적힌 리뷰 없음.', '');
 
   out.push('## 7. 경쟁 영상 관찰 (합친 아웃라이어 리포트)', '');
-  if (outlierReports.length) {
-    out.push(`경쟁 영상 ${outlierReports.length}편을 화면·자막·댓글로 관찰한 기록(채널 평소 대비 배수 큰 순). 관찰은 사실이고 "가져올 점·다르게 할 점"은 AI 제안이다. 캡처와 원문 인용은 리포트 화면에서 본다. 화면 구성 후보는 \`npm run visual-library -- <검색어>\`로 꺼낸다.`, '');
-    for (const r of outlierReports) {
-      const ratio = formatRatioLabel(r);
-      const studioTag = r.studioFolds != null ? ` · 유튜브 조사 ${r.studioFolds}배` : '';
-      out.push(`**${cut(r.title ?? r.videoId, 50)}** — ${r.channelTitle ?? '측정 전'}, 평소 대비 ${ratio}${studioTag} · http://localhost:3001/outlier-report/${r.videoId}`);
-      out.push(`- 제목: ${r.titleDevice ?? '측정 전'}`);
-      out.push(`- 썸네일 글자: ${r.thumbnailText ? `"${cut(r.thumbnailText, 40)}" (${r.thumbnailWordCount ?? '?'}단어)` : '측정 전'}`);
-      out.push(`- 첫 15초: ${r.first15s ? cut(r.first15s, 160) : '측정 전'}`);
-      out.push(`- 장면 전환 1분에 ${r.cutsPerMinute ?? '측정 전'}번(${r.pacingSource ?? '출처 없음'}), AI가 적은 화면 변화 ${r.visualChanges}개`);
-      out.push(`- 가져올 점: ${r.adopt ?? '측정 전'} / 다르게 할 점: ${r.differentiate ?? '측정 전'}`, '');
+  const renderReportCard = (r) => {
+    const ratio = formatRatioLabel(r);
+    const studioTag = r.studioFolds != null ? ` · 유튜브 조사 ${r.studioFolds}배` : '';
+    const freshTag = r.usedCount === 0 && r.analyzedAt ? ` · 미사용(분석 ${day(r.analyzedAt)})` : '';
+    const scopeTag = r.soundFocus === false ? ' · 확장 영어(회화·화제·공부법)' : '';
+    out.push(`**${cut(r.title ?? r.videoId, 50)}** — ${r.channelTitle ?? '측정 전'}, 평소 대비 ${ratio}${studioTag}${scopeTag}${freshTag} · http://localhost:3001/outlier-report/${r.videoId}`);
+    out.push(`- 제목: ${r.titleDevice ?? '측정 전'}`);
+    out.push(`- 썸네일 글자: ${r.thumbnailText ? `"${cut(r.thumbnailText, 40)}" (${r.thumbnailWordCount ?? '?'}단어)` : '측정 전'}`);
+    out.push(`- 첫 15초: ${r.first15s ? cut(r.first15s, 160) : '측정 전'}`);
+    out.push(`- 장면 전환 1분에 ${r.cutsPerMinute ?? '측정 전'}번(${r.pacingSource ?? '출처 없음'}), AI가 적은 화면 변화 ${r.visualChanges}개`);
+    out.push(`- 가져올 점: ${r.adopt ?? '측정 전'} / 다르게 할 점: ${r.differentiate ?? '측정 전'}`, '');
+  };
+  if (outlierPool && outlierPool.total > 0) {
+    out.push(`전체 분석 리포트 **${outlierPool.total}편**(쇼츠 ${outlierPool.shortsTotal} · 롱폼 ${outlierPool.longformTotal}) 중 비교 시트 **미사용 ${outlierPool.unusedTotal}편** · 사용 이력 있음 ${outlierPool.usedTotal}편. 관찰은 사실이고 "가져올 점·다르게 할 점"은 AI 제안이다. 이미 쓴 영상도 소재에 진짜 맞거나 7일 실측 근거가 좋으면 다시 쓸 수 있되(재사용 금지 하드코딩 없음), 습관적 돌려막기를 피하기 위해 미사용 풀·타 분야 클릭 사례(\`knowledge/click-references.md\`)·최신 트렌드 영상도 함께 살핀다. 화면 구성 후보는 \`npm run visual-library -- <검색어>\`로 꺼낸다.`, '');
+    if (outlierPool.unusedShorts?.length) {
+      out.push('**아직 비교 시트에 안 쓴 쇼츠 리포트 (배수 상위 + 최신 분석)**', '');
+      for (const r of outlierPool.unusedShorts) renderReportCard(r);
     }
+    if (outlierPool.unusedLongform?.length) {
+      out.push('**아직 비교 시트에 안 쓴 롱폼 리포트 (배수 상위 + 최신 분석)**', '');
+      for (const r of outlierPool.unusedLongform) renderReportCard(r);
+    }
+    if (outlierPool.usedSummary?.length) {
+      out.push('**이미 비교 시트에 쓰인 리포트 이력 (참고용 · 재사용 시 타당성·실측 여부 스스로 확인)**', '');
+      for (const r of outlierPool.usedSummary) {
+        const ratio = formatRatioLabel(r);
+        const resNote = r.measuredCount > 0 ? `7일 실측 ${r.measuredCount}편` : '7일 결과 측정 전';
+        out.push(`- [${r.format === 'SHORTS' ? '쇼츠' : '롱폼'}] **${cut(r.title ?? r.videoId, 42)}** (${r.channelTitle ?? '측정 전'} · 평소 대비 ${ratio}) — 시트 ${r.usedCount}편 사용(${r.usedSheets.join(', ')}) · ${resNote} · http://localhost:3001/outlier-report/${r.videoId}`);
+      }
+      out.push('');
+    }
+  } else if (outlierReports.length) {
+    out.push(`경쟁 영상 ${outlierReports.length}편을 화면·자막·댓글로 관찰한 기록(채널 평소 대비 배수 큰 순). 관찰은 사실이고 "가져올 점·다르게 할 점"은 AI 제안이다. 캡처와 원문 인용은 리포트 화면에서 본다. 화면 구성 후보는 \`npm run visual-library -- <검색어>\`로 꺼낸다.`, '');
+    for (const r of outlierReports) renderReportCard(r);
   } else out.push('합친 아웃라이어 리포트 없음.', '');
 
   // 8절: 비교 시트(경쟁 영상을 우리 콘텐츠로 바꾼 한 장, 2026-11-12). 경쟁 소재를 쓰는 편은 여기서 출발한다.
@@ -424,7 +539,7 @@ export function renderKoreanTrends(store, trendComparison = null) {
   const rolling = summarizeRollingTrends(store);
   const histNote = rolling.historyDays ? ` · 14일 누적 ${rolling.historyDays}일치(${rolling.firstDate}~${rolling.lastDate})` : '';
   out.push(`확인 시각: ${day(store.collectedAt)} (${store.collectedAt || '측정 전'}) · 지역: ${store.region || 'KR'}${histNote} · Google Trends KR: ${statusOf(gtSrc)} · YouTube KR 인기 급상승: ${statusOf(ytSrc)} · 해외 한국 콘텐츠(YouTube US): ${statusOf(ovSrc)}.`);
-  out.push('매 기획마다 살피되 억지로 끼워 맞추지 않는다. 14절(스튜디오 조사 소형 폭발)의 중기 화제와 함께 보며, 화제마다 우리 3060 영어 학습 정체성에 어떻게 녹일지를 AI가 자율 판단한다. 채택·미채택 모두 비교 시트 `trendRef`에 이유를 남긴다(외부 원본 클립 사용 시 `clipRights` 증빙 필수).', '');
+  out.push('트렌드는 "타거나 안 타거나" 이분법이 아니다. 매 기획 출발선에서 14절(소형 폭발 중기 화제)·계절 흐름과 함께 보며, 순수 본질부터 도입·예문 양념, 트렌드 입구+우리 원리, 트렌드 전면까지 **고정 비율 없이 AI가 유연하게 섞어 시험**한다. 채택·미채택 모두 비교 시트 `trendRef`(선택 자유 서술 `blend` 포함)에 남겨 7일 실측으로 배운다(외부 원본 클립 사용 시 `clipRights` 증빙 필수).', '');
 
   if (rolling.recurringGoogle.length || rolling.recurringYoutube.length) {
     out.push('**최근 14일 지속·반복 화제 (2일 이상 등장)**', '');
@@ -482,6 +597,16 @@ export function renderKoreanTrends(store, trendComparison = null) {
     out.push(rowLine('롱폼 · 트렌드 편', trendComparison.LONGFORM.trend, false));
     out.push(rowLine('롱폼 · 일반 편', trendComparison.LONGFORM.nonTrend, false));
     out.push('');
+    const blendRows = [
+      ...(trendComparison.SHORTS.byBlend || []).map((b) => ({fmt: '쇼츠', isShorts: true, ...b})),
+      ...(trendComparison.LONGFORM.byBlend || []).map((b) => ({fmt: '롱폼', isShorts: false, ...b})),
+    ];
+    if (blendRows.length) {
+      out.push('**트렌드 녹임 방식별 7일 실측 (시트 `trendRef.blend` 자유 기록 기준)**', '');
+      out.push('| 형식 · 녹임 방식 | 표본 | 7일 조회 중앙값 | 조회 1,000회당 구독 | 시청 지속 |', '|---|---|---|---|---|');
+      for (const b of blendRows) out.push(rowLine(`${b.fmt} · ${cell(b.blend)}`, b, b.isShorts));
+      out.push('');
+    }
   }
   return out;
 }
@@ -517,7 +642,7 @@ export function renderStudioResearch(summary) {
   }
   const fmtNum = (n) => (n == null ? '측정 전' : Number(n).toLocaleString('ko-KR'));
   out.push(`수집 시각: ${day(summary.updatedAt)} · 후보 ${summary.totalCandidates}편(유튜브 스튜디오 배수 \`studioFolds\`는 우리 \`outlierRatio\`와 정의가 달라 섞지 않는다).`);
-  out.push('연예인·유명인 얼굴 덕분인 클립과, **소재·질문·해결법 자체의 힘**으로 터진 영상을 구분해 참고한다.', '');
+  out.push('연예인·화제 인물·예능 영어 영상은 원본 클립을 베끼지 않고 **우리 자체 해설·시각화로 재구성할 트렌드 씨앗**으로, 일반 소형 채널 폭발 영상은 **소재·질문·해결법 자체의 힘**을 참고하는 용도로 구분해 살핀다.', '');
   for (const [label, rows] of [['쇼츠 상위', summary.shorts], ['롱폼 상위', summary.longform]]) {
     if (!rows?.length) continue;
     out.push(`**${label}**`, '', '| 배수 | 구독자 | 조회수 | 채널 | 제목 |', '|---|---|---|---|---|');
@@ -713,6 +838,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     .map((slug) => ({slug, ...extractReviewLessons(readFileSync(join(videosDir, slug, 'REVIEW.md'), 'utf8'))})));
   const allViewerComments = Object.values(comments.commentsByVideo || {}).flat().filter((c) => c && !c.isChannelOwner).length;
 
+  const allOutlierReports = loadOutlierReports();
   const loadedSheets = loadSheets();
   const range = analytics.range ? `${analytics.range.startDate}~${analytics.range.endDate}` : null;
   return {
@@ -726,7 +852,8 @@ export function buildFromProject(projectDir, now = new Date()) {
     reviews,
     outcomes: loadEpisodeOutcomes(projectDir, now),
     successPatternCount: (patterns.entries || []).length,
-    outlierReports: summarizeOutlierReports(loadOutlierReports()),
+    outlierReports: summarizeOutlierReports(allOutlierReports),
+    outlierPool: summarizeOutlierPool(allOutlierReports, loadedSheets),
     baselines: readJson(join(dataDir, 'baselines.json'), null),
     variableGroups: groupResultsByVariable(loadedSheets),
     trendComparison: compareTrendVsNonTrend(loadedSheets),

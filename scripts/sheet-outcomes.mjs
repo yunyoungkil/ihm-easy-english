@@ -207,16 +207,19 @@ const medianNum = (vals) => {
 };
 
 /**
- * 트렌드 편 vs 일반 편 7일 3축(조회수 · 조회 1,000회당 구독 전환 · 시청 지속) 분리 비교 (2026-11-23 확정).
+ * 트렌드 편 vs 일반 편 7일 3축(조회수 · 조회 1,000회당 구독 전환 · 시청 지속) + 자유 기록 녹임 방식별(byBlend) 비교 (2026-11-23 확정 · 2026-11-25 확장).
  * 정산된 실제 결과(sheet.results[])만 집계하며, 표본이 없으면 null/"측정 전"을 반환한다.
+ * trendRef.blend는 고정 목록을 강제하지 않고 시트에 자유 서술된 값 그대로 묶는다.
  */
 export function compareTrendVsNonTrend(sheets = []) {
   const buckets = {
-    SHORTS: {trend: [], nonTrend: []},
-    LONGFORM: {trend: [], nonTrend: []},
+    SHORTS: {trend: [], nonTrend: [], byBlend: new Map()},
+    LONGFORM: {trend: [], nonTrend: [], byBlend: new Map()},
   };
   for (const s of sheets || []) {
     const isTrend = s?.trendRef?.used === true;
+    const rawBlend = typeof s?.trendRef?.blend === 'string' ? s.trendRef.blend.trim() : '';
+    const blendKey = isTrend ? (rawBlend || '미지정(트렌드 활용)') : null;
     for (const r of s?.results || []) {
       const fmt = r?.format || s?.format;
       if (!buckets[fmt]) continue;
@@ -224,19 +227,26 @@ export function compareTrendVsNonTrend(sheets = []) {
       const subs = r?.metrics?.subs7d?.value ?? null;
       const watchSec = r?.metrics?.watchSeconds7d?.value ?? null;
       const stayed = r?.metrics?.stayedToWatch?.value ?? null;
-      buckets[fmt][isTrend ? 'trend' : 'nonTrend'].push({
+      const ctr = r?.metrics?.ctr7d?.value ?? null;
+      const row = {
         videoId: r.videoId,
         views: views != null && Number.isFinite(Number(views)) ? Number(views) : null,
         subs: subs != null && Number.isFinite(Number(subs)) ? Number(subs) : null,
         watchSeconds: watchSec != null && Number.isFinite(Number(watchSec)) ? Number(watchSec) : null,
         stayedToWatch: stayed != null && Number.isFinite(Number(stayed)) ? Number(stayed) : null,
-      });
+        ctr: ctr != null && Number.isFinite(Number(ctr)) ? Number(ctr) : null,
+      };
+      buckets[fmt][isTrend ? 'trend' : 'nonTrend'].push(row);
+      if (blendKey) {
+        if (!buckets[fmt].byBlend.has(blendKey)) buckets[fmt].byBlend.set(blendKey, []);
+        buckets[fmt].byBlend.get(blendKey).push(row);
+      }
     }
   }
   const summarize = (rows) => {
     const n = rows.length;
     if (!n) {
-      return {n: 0, medianViews7d: null, subsPer1000Views: null, medianWatchSeconds7d: null, medianStayedToWatch: null};
+      return {n: 0, medianViews7d: null, subsPer1000Views: null, medianWatchSeconds7d: null, medianStayedToWatch: null, medianCtr7d: null};
     }
     const pairedForSubs = rows.filter((x) => x.views != null && x.views > 0 && x.subs != null);
     const totalViews = pairedForSubs.reduce((a, x) => a + x.views, 0);
@@ -247,11 +257,15 @@ export function compareTrendVsNonTrend(sheets = []) {
       subsPer1000Views: totalViews > 0 ? Math.round((totalSubs / totalViews) * 1000 * 100) / 100 : null,
       medianWatchSeconds7d: medianNum(rows.map((x) => x.watchSeconds)),
       medianStayedToWatch: medianNum(rows.map((x) => x.stayedToWatch)),
+      medianCtr7d: medianNum(rows.map((x) => x.ctr)),
     };
   };
+  const summarizeBlends = (map) => [...map.entries()]
+    .map(([blend, rows]) => ({blend, ...summarize(rows)}))
+    .sort((a, b) => b.n - a.n || a.blend.localeCompare(b.blend, 'ko'));
   return {
-    SHORTS: {trend: summarize(buckets.SHORTS.trend), nonTrend: summarize(buckets.SHORTS.nonTrend)},
-    LONGFORM: {trend: summarize(buckets.LONGFORM.trend), nonTrend: summarize(buckets.LONGFORM.nonTrend)},
+    SHORTS: {trend: summarize(buckets.SHORTS.trend), nonTrend: summarize(buckets.SHORTS.nonTrend), byBlend: summarizeBlends(buckets.SHORTS.byBlend)},
+    LONGFORM: {trend: summarize(buckets.LONGFORM.trend), nonTrend: summarize(buckets.LONGFORM.nonTrend), byBlend: summarizeBlends(buckets.LONGFORM.byBlend)},
   };
 }
 

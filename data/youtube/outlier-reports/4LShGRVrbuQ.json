@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "videoId": "4LShGRVrbuQ",
+  "analyzedAt": "2026-11-25T02:41:15.712Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 300,
+  "meta": {
+    "videoId": "4LShGRVrbuQ",
+    "title": "[6시간 영어 회화 듣기] 원어민 일상 대화는 이걸로 끝내세요 (영어 팟캐스트 흘려듣기)",
+    "channelId": "UCE0Wpy2DlQRkR4LR6wJAbaw",
+    "channelTitle": "영어식 사고ㅣ원어민 팟캐스트",
+    "publishedAt": "2026-09-02T11:14:45Z",
+    "viewCount": 408049,
+    "likeCount": 3193,
+    "commentCount": 113,
+    "durationSeconds": 22738,
+    "thumbnail": "https://i.ytimg.com/vi/4LShGRVrbuQ/maxresdefault.jpg",
+    "description": "영어 회화 듣기를 늘리려면 원어민의 자연스러운 실제 대화가 최고입니다. 미국 원어민 Kayla와 호주 (+프랑스) 원어민 Amelia의 자연스러운 대화로 영어 리스닝 연습을 해보세요. 에피소드 1~10편 통합본입니다.\n\n📍챕터\n영어 자막 보며 듣기 with the subtitles\n00:00 Ep.1 What We Learned Outside School\n15:51 Ep.2 What We Miss: Home vs. Korea\n33:46 Ep.3 Unexpected Things About Living in Korea\n52:49 Ep.4 Our Favorite Korean Conveniences\n01:12:31 Ep.5 Korean Small Talk That Confused Us\n01:30:33 Ep.6 K-Dramas vs. Real Life in Korea\n01:45:59 Ep.7 Korean Stereotypes We Got Wrong\n02:01:58 Ep.8 The Korea We'd Want Visitors To See\n02:21:59 Ep.9 Our Honest Take on Korean Food\n02:43:17 Ep.10 Dating in Korea vs. Back Home\n\n영어 자막 없이 듣기 without the subtitles\n03:09:38 Ep.1 What We Learned Outside School\n03:25:13 Ep.2 What We Miss: Home vs. Korea\n03:43:09 Ep.3 Unexpected Things About Living in Korea\n04:02:12 Ep.4 Our Favorite Korean Conveniences\n04:21:54 Ep.5 Korean Small Talk That Confused Us\n04:39:57 Ep.6 K-Dramas vs. Real Life in Korea\n04:55:23 Ep.7 Korean Stereotypes We Got Wrong\n05:11:23 Ep.8 The Korea We'd Want Visitors To See\n05:31:24 Ep.9 Our Honest Take on Korean Food\n05:52:42 Ep.10 Dating in Korea vs. Back Home",
+    "tags": []
+  },
+  "subscriberCount": 14200,
+  "viewsPerSubscriber": 28.74,
+  "outlierRatio": 19.78,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-25T02:37:48.440Z",
+  "ratioDenominator": 20625,
+  "ratioPeerCount": 17,
+  "channelPeers": [
+    {
+      "videoId": "zHceeY1XiAM",
+      "title": "자연스러운 영어 듣기 연습 (ep.4 한국의 편리함, 24시간 편의점, 택배, 영어 팟캐스트)",
+      "viewCount": 16450,
+      "durationSeconds": 2390,
+      "publishedAt": "2026-07-14"
+    },
+    {
+      "videoId": "fSROyL7Dtz4",
+      "title": "[영어 회화 듣기] 원어민끼리는 이렇게 쉽게 말해요 (미국·호주 원어민의 한국 이야기)",
+      "viewCount": 18593,
+      "durationSeconds": 2815,
+      "publishedAt": "2026-11-04"
+    },
+    {
+      "videoId": "-wdwqaMApX8",
+      "title": "[영어 회화 듣기] 원어민은 일상 대화도 이렇게 쉽게 합니다 (러닝 클럽, 와인 모임, 회식, 눈치 ep.4 This or That)",
+      "viewCount": 20625,
+      "durationSeconds": 4288,
+      "publishedAt": "2026-10-24"
+    },
+    {
+      "videoId": "BKlP_miwV6I",
+      "title": "[영어 회화 듣기] 원어민 영어가 얼마나 들리는지 확인해보세요 (영어 팟캐스트 흘려듣기, ep.5 This or That)",
+      "viewCount": 27195,
+      "durationSeconds": 3987,
+      "publishedAt": "2026-10-29"
+    },
+    {
+      "videoId": "2XfU6jOIGyU",
+      "title": "[20분 쉬운 영어 듣기] 원어민끼리는 정말 이렇게 말해요 (ep.8 독도, 찜질방, 한국의 절, 한강 배달음식, 영어 팟캐스트)",
+      "viewCount": 36067,
+      "durationSeconds": 2425,
+      "publishedAt": "2026-08-10"
+    }
+  ],
+  "source": "studio-research",
+  "studioFolds": 23,
+  "studioSeenAt": "2026-11-24T16:00:12.766Z",
+  "outlierRatioBasis": "api-channel-recent-50-v2",
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 10471,
+      "language": "en"
+    },
+    "comments": {
+      "ok": true,
+      "count": 56
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 300
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "long",
+    "sentences": 90,
+    "stats": {
+      "sentences": 90,
+      "lengthSum": 3347,
+      "lengthMedian": 31.5,
+      "endings": {
+        "question": 14,
+        "command": 0,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 76
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 14,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 90,
+      "hangulChars": 0,
+      "hangulRatio": 0,
+      "uniqueWordRatio": 0.35,
+      "uniqueSentenceRatio": 0.91
+    },
+    "windowSeconds": 300,
+    "hangulPerSec": 0,
+    "computedAt": "2026-11-25T02:38:43.702Z",
+    "note": "품질 낮음: 한글 0자(150자 미만), 한국어 글자 비율 0(0.7 미만), 고유 어절 비율 0.35(0.4 미만, 같은 말 반복)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "6시간 동안 틀어두기만 하면 원어민 일상 대화를 완벽히 끝낼 수 있다는 솔루션과 편의성을 강조함",
+      "titleQuote": "[6시간 영어 회화 듣기] 원어민 일상 대화는 이걸로 끝내세요 (영어 팟캐스트 흘려듣기)",
+      "thumbnailText": "6시간 연속 듣기 미국 원어민 호주 원어민 그냥 틀어두세요 영어가 귀에 꽂혀요 Nice to CU",
+      "thumbnailWordCount": 13,
+      "thumbnailVisual": "왼쪽 상단 미국 국기와 오른쪽 상단 호주 국기 아래에 밝게 웃는 두 여성 원어민(케일라, 아멜리아)이 마이크를 두고 앉아 있고, 중앙 배경에 닭발 요리와 한국 사찰, CU 편의점 이미지가 노란색 강조 문구와 함께 배치되어 있음",
+      "thumbnailVsTitle": "제목은 6시간 완성과 회화 듣기 목적을 강조하고, 썸네일은 미국/호주 원어민 출연 및 '그냥 틀어두세요'라는 흘려듣기 편의성을 시각화하여 상호 보완함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "오프닝 자막 안내와 함께 두 여성 출연자가 화면 2분할로 등장하여 리스닝 실력 향상을 위한 영상 소개 및 미국/호주/프랑스 억양 차이에 대해 안내함",
+      "quote": "This video will help you improve your listening skills. I'm from the U.S., and Amelia has experience living in Australia and France, so you'll get to hear different accents and ways of speaking.",
+      "reasonToKeepWatching": "편하게 앉아서 대화를 즐기며 얼마나 알아들을 수 있는지 테스트해보라는 메시지로 시청 동기를 부여함",
+      "quoteVerified": true
+    },
+    "first3s": {
+      "what": "검은 배경 상단에 에피소드 안내 문구가 뜨고 하단에 분할된 화상 화면으로 두 원어민이 인사하며 영상의 목적을 말함",
+      "quote": "This video will help you improve your listening skills.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 18,
+        "what": "영상 개요 및 출연진의 국적/거주 경험에 따른 억양 특징 소개",
+        "quote": "This video will help you improve your listening skills. I'm from the U.S., and Amelia has experience living in Australia and France, so you'll get to hear different accents and ways of speaking. Sit back, enjoy the conversation, and see how much you can catch!",
+        "quoteVerified": true
+      },
+      {
+        "start": 18,
+        "end": 54,
+        "what": "Ep.1 시작 안부 인사 및 최근 갑자기 더워진 여름 날씨와 밤에 에어컨 켜기 시작한 이야기",
+        "quote": "Hi Kayla. Hi Amelia, how are you? I'm great, how are you? Good, yes, surviving the heat so far. Right, it's been really hot these days.",
+        "quoteVerified": true
+      },
+      {
+        "start": 54,
+        "end": 146,
+        "what": "밤에 에어컨을 켜고 자는지에 대한 개인/남편 취향 차이 및 한국과 고국의 에어컨 문화 비교",
+        "quote": "Yes, but I like to sleep when it's cold, so I like having the air on. My husband is more comfortable with just a fan, but we have to compromise.",
+        "quoteVerified": false
+      },
+      {
+        "start": 146,
+        "end": 220,
+        "what": "요즘 한국의 높은 습도와 제습기 모드 사용 경험 공유",
+        "quote": "Yeah, well and it's so humid right now. So I think we're using the dehumidifying setting right now because it's like 60% 70% humidity in the house right now.",
+        "quoteVerified": false
+      },
+      {
+        "start": 220,
+        "end": 300,
+        "what": "딸 루엘라의 에어컨 사용 습관 및 한국 유치원/학원의 냉방 온도 기준과 부모들의 컴플레인 문화",
+        "quote": "She has her own air conditioning in her room. So she usually sleeps pretty well at night, but she's always preferred cooler temperatures.",
+        "quoteVerified": false
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "화면 상단에 'Ep.1-10 Full Compilation (에피 1-10 정주행)' 문구와 영문 오프닝 자막 등장",
+        "purpose": "몰아듣기 영상임을 알려주고 영상 전반의 목적 설명"
+      },
+      {
+        "t": 18,
+        "what": "상단 노란 상자에 에피소드 1 제목 'Ep.1 What We Learned Outside School' 등장 및 출연자 이름표(Kayla, Amelia) 표시",
+        "purpose": "본격적인 대화 주제와 화자 정보를 시청자에게 전달"
+      },
+      {
+        "t": 220,
+        "what": "자막 상단에 '(Luella = Kayla's daughter)' 괄호 보충 설명 자막 추가",
+        "purpose": "대화에 새로 등장한 인물 관계를 시청자에게 직관적으로 안내"
+      }
+    ],
+    "ending": {
+      "what": "에피소드 대화를 마치며 대화 소감을 나누고 시청자들에게 학습 이점이 있기를 당부하며 인사함",
+      "quote": "I had a great chat, Kayla. Thank you. Yes, me too. I think we covered a lot today, right? It was awesome. I hope our daily learners can learn a lot from our experiences.",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "인공지능 발음이 아닌 실제 원어민들의 자연스러운 토크 형태라 듣기 연습에 큰 도움이 된다고 느낌",
+          "quote": "Ai 팟캐스트가 아니라서 너무 도움되고 좋아요!",
+          "quoteVerified": true
+        },
+        {
+          "point": "한국에서의 일상이나 문화에 대한 대화라서 실생활 표현을 익히기 매우 좋음",
+          "quote": "특히 한국에대해 나누는 대화라 수업시간에 한국에 얘기하기도 진짜 너무 너무 좋아요..",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [
+        {
+          "pain": "나이가 들면서 영어가 잘 늘지 않고 영화나 드라마를 보면 잘 안 들려 답답함을 겪음",
+          "quote": "미국에 작년에와서 살고있는데요.. 나이들어서 영어가 너우 안 늘어요.",
+          "quoteVerified": true
+        }
+      ],
+      "unanswered": [
+        {
+          "question": "영어 자막 외에 한국어 번역이나 스크립트를 따로 볼 수 있는지 물어봄",
+          "quote": "안녕하세요! 너무 좋은 영상이네요 혹시 번역은 따로 없는건가요?",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "middle ground",
+          "quote": "Love your conversations! I live in the US, and the topics you two talk about are so similar to the English conversations I hear at work every day.",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 8,
+      "description": "에어컨 대 선풍기 선호, 고국과 한국의 에어컨 보급 차이, 집안 습도와 제습 기능, 유치원의 냉방 관리, 학원 부모들의 냉방 컴플레인, 학교생활 적응 등 일상 에피소드를 수다 형식으로 순차 전개함",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 하단 중앙",
+      "size": "보통",
+      "highlightColor": "없음",
+      "highlightMethod": "단색 흰색 텍스트 전환",
+      "textAmount": "한 번에 1~2문장씩 짧게 분할",
+      "changeTiming": "화자의 말속도와 발화 시점에 정확히 맞춰 변경"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "배경음악이나 효과음 없이 100% 원어민 대화 음성에 집중됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "이 영상이 듣기 실력을 향상시켜 주며 다양한 원어민 억양을 들을 수 있다고 안내함",
+        "quote": "This video will help you improve your listening skills. I'm from the U.S., and Amelia has experience living in Australia and France, so you'll get to hear different accents and ways of speaking.",
+        "type": "혜택 및 특징 제시형 훅",
+        "quoteVerified": true
+      },
+      "curiosity": {
+        "opened": {
+          "t": 51,
+          "what": "밤에도 에어컨을 틀고 자는지 질문을 던짐",
+          "quote": "Have you been using it at night as well?",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 54,
+          "what": "자신은 춥게 자는 걸 좋아해 켜지만 남편은 선풍기를 선호해 타협한다는 답변 제시",
+          "quote": "Yes, but I like to sleep when it's cold, so I like having the air on. My husband is more comfortable with just a fan, but we have to compromise.",
+          "quoteVerified": false
+        }
+      },
+      "causality": {
+        "connected": true,
+        "summary": "날씨가 급격히 더워진 원인 때문에 에어컨 사용 습관 이야기를 하게 되고, 그것이 남편과의 취향 차이 및 고국과의 비교로 연쇄 확장됨",
+        "examples": [
+          {
+            "t": 35,
+            "what": "지난주와 달리 갑자기 더워져서 밤에 에어컨을 켜게 됨",
+            "quote": "Right, it wasn't so hot like last week I think, but suddenly I had to turn on the aircon during the night",
+            "quoteVerified": false
+          }
+        ]
+      },
+      "openLoops": [
+        {
+          "t": 13,
+          "what": "자신이 얼마만큼의 대화를 캐치할 수 있는지 끝까지 들어보게 함",
+          "quote": "see how much you can catch!",
+          "quoteVerified": true
+        }
+      ],
+      "patternBreaks": [
+        {
+          "t": 220,
+          "what": "대화 중 등장한 루엘라라는 이름에 대해 하단 괄호 자막으로 배경 지식을 덧붙임",
+          "quote": "(Luella = Kayla's daughter)",
+          "quoteVerified": false
+        }
+      ],
+      "viewerActions": [
+        {
+          "t": 13,
+          "what": "편안하게 시청하며 리스닝 실력을 확인해볼 것을 권유",
+          "quote": "Sit back, enjoy the conversation, and see how much you can catch!",
+          "quoteVerified": true
+        }
+      ],
+      "evidence": [
+        {
+          "t": 197,
+          "what": "집안 습도가 60~70%에 달한다는 수치를 제시해 제습 모드 사용의 필요성을 증명",
+          "quote": "because it's like 60% 70% humidity in the house right now",
+          "quoteVerified": true
+        }
+      ],
+      "payoff": {
+        "t": 940,
+        "what": "대화가 끝난 후 학습자들에게 실제적 경험 공유가 도움이 되었을 것이라며 목적 달성을 확인",
+        "quote": "I hope our daily learners can learn a lot from our experiences.",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "실제 미국/호주 원어민들이 출연해 일상적인 한국 생활 소재로 주고받는 편안한 팟캐스트 형식",
+        "reaction": "기계음이 아니라 진짜 사람의 대화라 귀에 잘 들리고 공부하기 좋다는 찬사 댓글",
+        "quote": "Ai 팟캐스트가 아니라서 너무 도움되고 좋아요!",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "단편 에피소드 영상들과 달리 6시간 분량을 하나로 묶은 '정주행/몰아듣기' 형태를 취함으로써 일하면서나 집안일 하면서 종일 틀어두는 흘려듣기 시청 형태를 완벽히 저격함",
+    "teachesAdultEnglishSounds": true,
+    "teachesAdultEnglishSoundsReason": "원어민들이 직접 실제 속도와 발음으로 대화하며 성인 학습자의 듣기 능력 향상을 목표로 기획된 영상이기 때문",
+    "forUs": {
+      "adopt": "원어민 간의 대화에 '6시간 연속 흘려듣기'와 같은 초장시간 몰아듣기 썸네일/타이틀을 적용해 백그라운드 재생 시청자를 확보하는 점",
+      "differentiate": "그냥 대화만 들려주는 것에 그치지 않고 한국 성인이 대화 속 연음과 약음 소리를 직접 훈련할 수 있는 원리 설명 챕터를 추가하는 점"
+    }
+  },
+  "quoteCheck": {
+    "checked": 24,
+    "verified": 18,
+    "unverified": 6
+  },
+  "pacing": {
+    "count": 1,
+    "medianGapSeconds": null,
+    "perMinute": 0.2,
+    "times": [
+      17.5
+    ],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 18,
+      "file": "18.jpg"
+    },
+    {
+      "t": 220,
+      "file": "220.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 40379,
+    "candidatesTokenCount": 3143,
+    "totalTokenCount": 47243,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 27301
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 11978
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 3721,
+    "serviceTier": "standard"
+  }
+}

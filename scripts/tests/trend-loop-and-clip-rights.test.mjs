@@ -35,6 +35,7 @@ test('trendRefProblems: 기존 시트 호환 + 활용/미활용/예약 순서 �
   assert.deepEqual(trendRefProblems({
     trendRef: {
       used: true,
+      blend: '트렌드 입구 + 우리 발음 원리',
       topic: '존박 맥도날드 랩',
       source: '14절 스튜디오 조사',
       sourceDate: '2026-11-23',
@@ -42,7 +43,13 @@ test('trendRefProblems: 기존 시트 호환 + 활용/미활용/예약 순서 �
       reason: '화제 속 실제 영어 주문 장벽이 3060 고민과 직결',
       scheduleShift: {requested: true, reason: '화제 식기 전 공개 위해 EP36을 EP35 앞으로 이동', pushedBack: ['EP35']},
     },
-  }), []);
+  }), [], 'blend는 고정 목록 없는 자유 문자열로 통과한다');
+
+  const badBlend = trendRefProblems({
+    trendRef: {used: false, blend: 30, reason: '숫자 타입 오류 확인'},
+  });
+  assert.equal(badBlend.length, 1);
+  assert.ok(badBlend[0].includes('자유 문자열'));
 });
 
 test('clipRightsProblems: 외부 클립 증빙 누락 차단 + CC BY 3대 조건 + 60초 초과 리믹스 + 서면 허락 + 법적 인용 예외', () => {
@@ -209,7 +216,7 @@ test('compareTrendVsNonTrend & renderKoreanTrends: 7일 3축(조회수·구독�
   const sheets = [
     {
       format: 'SHORTS',
-      trendRef: {used: true, topic: '화제A', source: '13절', sourceDate: '2026-11-23', howIntegrated: '연결', reason: '이유'},
+      trendRef: {used: true, blend: '트렌드 입구+우리 원리', topic: '화제A', source: '13절', sourceDate: '2026-11-23', howIntegrated: '연결', reason: '이유'},
       results: [{format: 'SHORTS', videoId: 'T1', metrics: {views7d: {value: 2000}, subs7d: {value: 10}, watchSeconds7d: {value: 32}, stayedToWatch: {value: 58}}}],
     },
     {
@@ -224,6 +231,9 @@ test('compareTrendVsNonTrend & renderKoreanTrends: 7일 3축(조회수·구독�
   assert.equal(cmp.SHORTS.trend.subsPer1000Views, 5);
   assert.equal(cmp.SHORTS.trend.medianStayedToWatch, 58);
   assert.equal(cmp.SHORTS.nonTrend.subsPer1000Views, 12);
+  assert.equal(cmp.SHORTS.byBlend.length, 1);
+  assert.equal(cmp.SHORTS.byBlend[0].blend, '트렌드 입구+우리 원리');
+  assert.equal(cmp.SHORTS.byBlend[0].medianViews7d, 2000);
 
   const md = renderKoreanTrends({
     collectedAt: '2026-11-23T06:00:00Z',
@@ -233,6 +243,8 @@ test('compareTrendVsNonTrend & renderKoreanTrends: 7일 3축(조회수·구독�
     sources: {googleTrendsKr: {ok: true, count: 1}, youtubePopularKr: {ok: true, count: 0}, overseasKoreanYt: {ok: true, count: 0}},
   }, cmp).join('\n');
   assert.ok(md.includes('트렌드 편 vs 일반 편 7일 3축 비교'));
+  assert.ok(md.includes('트렌드 녹임 방식별 7일 실측'));
+  assert.ok(md.includes('트렌드 입구+우리 원리'));
   assert.ok(md.includes('2,000회'));
   assert.ok(md.includes('5명'));
   assert.ok(md.includes('측정 전'));

@@ -224,6 +224,10 @@ export function trendRefProblems(sheet, {requireTrendRef = false} = {}) {
     if (!filled(tr.sourceDate)) out.push('트렌드 검토 기록: 확인 날짜(sourceDate)가 비어 있다');
     if (!filled(tr.howIntegrated)) out.push('트렌드 검토 기록: 3060 영어 정체성에 녹인 방식(howIntegrated)이 비어 있다');
   }
+  // blend는 자유 서술 선택 칸(고정 목록·비율 하드코딩 금지, 2026-11-25): 적혀 있으면 문자열인지만 본다.
+  if (tr.blend !== undefined && tr.blend !== null && typeof tr.blend !== 'string') {
+    out.push('트렌드 검토 기록: 녹임 정도·방식(blend)은 자유 문자열이어야 한다');
+  }
   if (tr.scheduleShift?.requested === true && !filled(tr.scheduleShift?.reason)) {
     out.push('트렌드 검토 기록: 예약 순서 조정(scheduleShift)을 요청했지만 이유(reason)가 비어 있다');
   }
@@ -750,6 +754,7 @@ export const REF_BIAS_MIN_REPEATS = 2; // allow-literal: 직전 3편 중 2편 �
 export function referenceBiasWarnings(sheet, allSheets = [], {window = REF_BIAS_WINDOW, minRepeats = REF_BIAS_MIN_REPEATS} = {}) {
   const sid = sheetIdOf(sheet);
   const refsOf = (s) => [...new Set([
+    s?.sourceVideoId,
     ...(s?.references || []).map((r) => r?.videoId),
     ...(s?.borrowed || []).map((b) => b?.fromVideoId),
   ].filter(filled))];
@@ -766,12 +771,17 @@ export function referenceBiasWarnings(sheet, allSheets = [], {window = REF_BIAS_
     const hits = prev.filter((p) => refsOf(p).includes(vid));
     if (hits.length >= minRepeats) {
       const hitIds = hits.map((h) => sheetIdOf(h));
+      const measuredHits = hits.filter((h) => (h.results || []).length > 0).length;
+      const resultCue = measuredHits === 0
+        ? '아직 7일 실측 결과가 없다'
+        : `7일 실측 ${measuredHits}편 있음`;
       warnings.push({
         videoId: vid,
         count: hits.length,
+        measuredHits,
         window: prev.length,
         sheets: hitIds,
-        message: `참고 경고: 레퍼런스 ${vid}가 직전 ${prev.length}편 중 ${hits.length}편(${hitIds.join(', ')})과 겹친다 — 습관적 반복이 아닌지 점검(비차단)`,
+        message: `참고 경고: 레퍼런스 ${vid}가 직전 ${prev.length}편 중 ${hits.length}편(${hitIds.join(', ')})과 겹친다(${resultCue}) — 습관적 반복이 아닌지 점검(비차단, 타당하면 재사용 허용)`,
       });
     }
   }

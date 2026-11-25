@@ -595,3 +595,18 @@ test('롱폼 비교 시트는 썸네일·AI 추천·컷 카드·레퍼런스 썸
   assert.doesNotMatch(shortHtml, /class="film ours-grid wide"/, '쇼츠 컷 카드는 세로 기본 크기를 유지해야 한다');
   assert.match(shortHtml, /width:104px;height:186px/, '쇼츠 경쟁 썸네일은 세로 비율을 유지해야 한다');
 });
+
+test('referenceBiasWarnings(2026-11-25): sourceVideoId 포함·7일 실측 유무를 비차단 참고 경고로 표시한다', () => {
+  const prev1 = {episodeId: 'ep31', createdAt: '2026-11-20', sourceVideoId: 'SRC11111111', references: [{videoId: 'REF11111111'}]};
+  const prev2 = {episodeId: 'ep32', createdAt: '2026-11-21', sourceVideoId: 'SRC11111111', references: [{videoId: 'REF11111111'}], results: [{videoId: 'PUB1'}]};
+  const cur = {episodeId: 'ep33', createdAt: '2026-11-22', sourceVideoId: 'SRC11111111', references: [{videoId: 'REF11111111'}]};
+  const warns = referenceBiasWarnings(cur, [prev1, prev2, cur]);
+  assert.equal(warns.length, 2, 'sourceVideoId와 references 모두 중복 감지');
+  assert.equal(warns[0].measuredHits, 1);
+  assert.ok(warns[0].message.includes('7일 실측 1편 있음'));
+
+  const unmeasured = referenceBiasWarnings(cur, [prev1, {...prev2, results: []}, cur]);
+  assert.equal(unmeasured[0].measuredHits, 0);
+  assert.ok(unmeasured[0].message.includes('아직 7일 실측 결과가 없다'));
+  assert.ok(unmeasured[0].message.includes('재사용 허용'));
+});

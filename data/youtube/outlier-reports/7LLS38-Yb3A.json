@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 1,
+  "videoId": "7LLS38-Yb3A",
+  "analyzedAt": "2026-11-25T02:42:03.898Z",
+  "model": "gemini-3.5-flash",
+  "windowSeconds": 28,
+  "meta": {
+    "videoId": "7LLS38-Yb3A",
+    "title": "✈️ [여행 전 5문장만!] 필수 초간단 여행영어 | 왕초보 시니어 기초영어 | 반복 듣기",
+    "channelId": "UC4P1LpkV5EsqyLLpoY4lx0A",
+    "channelTitle": "입붙 영어(기초, 여행, 생활영어)",
+    "publishedAt": "2026-05-12T10:20:00Z",
+    "viewCount": 484269,
+    "likeCount": 2543,
+    "commentCount": 14,
+    "durationSeconds": 28,
+    "thumbnail": "https://i.ytimg.com/vi/7LLS38-Yb3A/maxresdefault.jpg",
+    "description": "✈️ 여행 가기 전, 딱 5문장만 입에 붙여보세요!\n\n복잡한 문법 없이 어르신들도 바로 따라할 수 있는 초간단 여행영어입니다 😊\n\n[오늘의 여행영어 5문장]\n이거 주세요 : This one!\n할인 되나요? : Any discount?\n여기 세워주세요 : Stop here!\n사진 찍어주실래요? : Take a picture?\n무료인가요? : Is it free?\n\n큰 글씨와 반복 듣기로 편하게 따라해 보세요 😊\n\n#여행영어 #시니어영어 #왕초보영어 #기초영어회화 #영어반복듣기 #입붙영어 #해외여행영어\n\n입에 붙는 영어, 입붙 영어입니다.\n왕초보·시니어도 듣기만 해도 말문이 트이는 영어 반복 채널입니다.",
+    "tags": [
+      "생활영어",
+      "기초영어",
+      "영어회화",
+      "영어말하기",
+      "영어듣기",
+      "영어입문",
+      "영어연습",
+      "영어배우기",
+      "영어공부",
+      "영어공부혼자하기",
+      "영어회화기초",
+      "여행영어",
+      "공항영어",
+      "여행영어단어",
+      "영어단어",
+      "영어문장",
+      "영어문장 외우기",
+      "생활회화",
+      "영어표현",
+      "영어기초회화",
+      "시니어영어",
+      "시니어영어회화",
+      "영어회화채널",
+      "생활영어 100문장",
+      "노인영어",
+      "영어쉐도잉",
+      "영어독학",
+      "할머니 영어",
+      "할아버지 영어",
+      "매일영어",
+      "아침영어",
+      "퇴근영어",
+      "퇴근길영어",
+      "출근길영어",
+      "영어 오디오북",
+      "2단어 영어",
+      "3단어영어",
+      "3단어 영어회화",
+      "쉬운영어공부",
+      "영어100문장",
+      "실용영어",
+      "잠잘때 듣는 영어",
+      "실버영어",
+      "입터지는 영어",
+      "초간단영어",
+      "영어",
+      "영어기초",
+      "쉬운영어",
+      "반복영어",
+      "해외여행 영어",
+      "영어반복듣기",
+      "50대 영어회화",
+      "원어민영어",
+      "영어회화 문장",
+      "영어습관",
+      "실생활 영어",
+      "영어 왕초보",
+      "영어 독학",
+      "영어 초보",
+      "중년 영어공부",
+      "영어쇼츠",
+      "shorts"
+    ]
+  },
+  "subscriberCount": 15700,
+  "viewsPerSubscriber": 30.85,
+  "outlierRatio": 17.54,
+  "ratioMethod": "peer-median-views-v2",
+  "ratioStatus": "ok",
+  "ratioReason": null,
+  "ratioComputedAt": "2026-11-17T09:10:53.256Z",
+  "ratioDenominator": 25698.5,
+  "ratioPeerCount": 6,
+  "channelPeers": [
+    {
+      "videoId": "_jBVSPI8ins",
+      "title": "초간단 2단어 생활영어 | 왕초보 시니어 기초영어 | 반복 듣기",
+      "viewCount": 17748,
+      "durationSeconds": 28,
+      "publishedAt": "2026-04-07"
+    },
+    {
+      "videoId": "UU0H3IZY89Q",
+      "title": "이 5개만 알면 끝! 하루 시간 영단어 | 왕초보 시니어 기초영어 | 반복 듣기",
+      "viewCount": 19301,
+      "durationSeconds": 21,
+      "publishedAt": "2026-08-06"
+    },
+    {
+      "videoId": "4V6lhXp77TU",
+      "title": "초간단 2단어 카페영어 | 왕초보 시니어 기초 생활영어 | 반복 듣기",
+      "viewCount": 33698,
+      "durationSeconds": 29,
+      "publishedAt": "2026-04-09"
+    },
+    {
+      "videoId": "RTdpCCtH6pM",
+      "title": "원어민이 매일 쓰는 2단어 생활영어 | 왕초보 시니어 기초영어 | 반복 듣기",
+      "viewCount": 40252,
+      "durationSeconds": 27,
+      "publishedAt": "2026-04-11"
+    }
+  ],
+  "sources": {
+    "transcript": {
+      "ok": true,
+      "lines": 14,
+      "language": "ko"
+    },
+    "comments": {
+      "ok": true,
+      "count": 6
+    },
+    "thumbnail": true,
+    "video": {
+      "analyzedSeconds": 28
+    }
+  },
+  "speech": {
+    "source": "transcript-api",
+    "quality": "low",
+    "kind": "short",
+    "sentences": 15,
+    "stats": {
+      "sentences": 15,
+      "lengthSum": 158,
+      "lengthMedian": 11,
+      "endings": {
+        "question": 5,
+        "command": 2,
+        "geodeunyo": 0,
+        "janhayo": 0,
+        "neyo": 0,
+        "ndeyo": 0,
+        "jyo": 0,
+        "hapsyo": 0,
+        "haeyo": 0,
+        "other": 8
+      },
+      "jointMid": 0,
+      "jointEnd": 0,
+      "fillers": {
+        "자": 0,
+        "그래서": 0,
+        "그런데": 0,
+        "근데": 0,
+        "그러면": 0,
+        "여러분": 0,
+        "이게": 0,
+        "그냥": 0,
+        "진짜": 0,
+        "되게": 0,
+        "사실": 0,
+        "우리": 0,
+        "약간": 0
+      },
+      "dictFrameSentences": 0,
+      "meaningAfterSentences": 0,
+      "questionSentences": 5,
+      "pastConclusionSentences": 0
+    },
+    "qualityMetrics": {
+      "sentences": 15,
+      "hangulChars": 31,
+      "hangulRatio": 0.25,
+      "uniqueWordRatio": 0.5,
+      "uniqueSentenceRatio": 0.8
+    },
+    "windowSeconds": 28,
+    "hangulPerSec": 1.11,
+    "computedAt": "2026-11-25T02:41:58.159Z",
+    "note": "품질 낮음: 한글 31자(150자 미만), 한국어 글자 비율 0.25(0.7 미만)"
+  },
+  "analysis": {
+    "click": {
+      "titleDevice": "여행 전 딱 5문장만 알면 된다는 구체적인 수치와 상황을 제시하여 왕초보도 부담 없이 짧게 시청할 수 있도록 호기심을 자극함",
+      "titleQuote": "✈️ [여행 전 5문장만!] 필수 초간단 여행영어 | 왕초보 시니어 기초영어 | 반복 듣기",
+      "thumbnailText": "초간단 여행영어 이거 주세요 할인 되나요? 여기서 세워주세요 사진 찍어주실래요? 무료인가요?",
+      "thumbnailWordCount": 11,
+      "thumbnailVisual": "밝은 노란색 배경 상단에 주황색 박스로 '초간단 여행영어' 제목이 있고, 그 아래 파란색 텍스트로 5가지 한국어 문장이 세로로 정렬되어 있음",
+      "thumbnailVsTitle": "썸네일은 제목에서 약속한 '5문장'이 실제로 어떤 표현들인지 한국어 문장 목록으로 직접 미리 보여주어 시청 목적을 명확히 함",
+      "titleQuoteVerified": true
+    },
+    "opening": {
+      "first15s": "한국어 질문 표현이 파란색 글씨로 뜨며 한국어 음성이 나온 뒤, 바로 붉은색 영어 표현과 검은색 한글 발음 표기가 나타나며 남녀 성우가 영어를 반복해서 읽어줌",
+      "quote": "이거 주세요. This one. 할인되나요? Any discount. 여기서 세워 주세요. Stop here.",
+      "reasonToKeepWatching": "한 화면 안에서 5개 문장이 위에서부터 차례로 채워지는 구성을 보여주어 끝까지 시청하면 5개 표현을 모두 익힐 수 있음을 직관적으로 보여줌",
+      "quoteVerified": false
+    },
+    "first3s": {
+      "what": "파란색 텍스트 '이거 주세요'와 여성 음성이 나온 뒤, 붉은색 'This one'과 검은색 '(디스 원)' 표기가 추가되며 남녀 영어 음성이 재생됨",
+      "quote": "이거 주세요. This one.",
+      "quoteVerified": true
+    },
+    "flow": [
+      {
+        "start": 0,
+        "end": 5,
+        "what": "'이거 주세요'에 해당하는 영어 표현 'This one'과 한글 발음 표기 '(디스 원)'을 보여주고 한국어 및 영어 음성을 들려줌",
+        "quote": "이거 주세요. This one.",
+        "quoteVerified": true
+      },
+      {
+        "start": 5,
+        "end": 10,
+        "what": "'할인 되나요?'에 해당하는 영어 표현 'Any discount?'와 한글 발음 표기 '(애니 디스카운트)'를 보여주고 음성을 재생함",
+        "quote": "할인되나요? Any discount.",
+        "quoteVerified": true
+      },
+      {
+        "start": 10,
+        "end": 16,
+        "what": "'여기서 세워주세요'에 해당하는 영어 표현 'Stop here'와 한글 발음 표기 '(스탑 히어)'를 보여주고 음성을 재생함",
+        "quote": "여기서 세워 주세요. Stop here.",
+        "quoteVerified": true
+      },
+      {
+        "start": 16,
+        "end": 22,
+        "what": "'사진 찍어주실래요?'에 해당하는 영어 표현 'Take a picture?'와 한글 발음 표기 '(테이크 어 픽처)'를 보여주고 음성을 재생함",
+        "quote": "사진 찍어주실래요? Take a picture.",
+        "quoteVerified": true
+      },
+      {
+        "start": 22,
+        "end": 27,
+        "what": "'무료인가요?'에 해당하는 영어 표현 'Is it free?'와 한글 발음 표기 '(이즈 잇 프리)'를 보여주고 음성을 재생함",
+        "quote": "무료인가요? Is it free? Is it free?",
+        "quoteVerified": true
+      },
+      {
+        "start": 27,
+        "end": 28,
+        "what": "전체 화면이 줌아웃되면서 학습한 5문장 전체 목록 레이아웃을 한눈에 보여주며 종료됨",
+        "quote": ""
+      }
+    ],
+    "visualMoments": [
+      {
+        "t": 0,
+        "what": "'이거 주세요' 아래에 붉은색 'This one'과 검은색 '(디스 원)' 글자가 나타남",
+        "purpose": "한국어 표현에 대응하는 첫 번째 영어 단어와 발음을 시각적으로 제시"
+      },
+      {
+        "t": 5,
+        "what": "'할인 되나요?' 아래에 붉은색 'Any discount?'와 줄바꿈된 '(애니 디스카운트)' 글자가 나타남",
+        "purpose": "두 번째 표현의 영어 번역과 발음표기를 추가 표시"
+      },
+      {
+        "t": 10,
+        "what": "'여기서 세워주세요' 아래에 붉은색 'Stop here'와 '(스탑 히어)' 글자가 나타남",
+        "purpose": "세 번째 표현의 영어 번역과 발음표기를 추가 표시"
+      },
+      {
+        "t": 16,
+        "what": "'사진 찍어주실래요?' 아래에 붉은색 'Take a picture?'와 '(테이크 어 픽처)' 글자가 나타남",
+        "purpose": "네 번째 표현의 영어 번역과 발음표기를 추가 표시"
+      },
+      {
+        "t": 22,
+        "what": "'무료인가요?' 아래에 붉은색 'Is it free?'와 '(이즈 잇 프리)' 글자가 나타남",
+        "purpose": "다섯 번째 표현의 영어 번역과 발음표기를 추가 표시"
+      },
+      {
+        "t": 27,
+        "what": "화면 전체가 축소(줌아웃)되면서 배경 그래픽과 함께 5문장 전체 텍스트 카드가 한눈에 들어옴",
+        "purpose": "영상 마무리 및 전체 5문장 최종 복습 유도"
+      }
+    ],
+    "ending": {
+      "what": "마지막 5번째 문장 읽기가 끝나고 화면 전체가 줌아웃되며 정리된 텍스트 카드를 보여주고 영상이 끝남",
+      "quote": "Is it free?",
+      "quoteVerified": true
+    },
+    "viewerReaction": {
+      "resonated": [
+        {
+          "point": "쉬운 표현과 정리 구성에 대해 유용함을 느끼고 감사함",
+          "quote": "감사합니다. 많은 도움 받고 있습니다",
+          "quoteVerified": true
+        }
+      ],
+      "painPoints": [],
+      "unanswered": [
+        {
+          "question": "실제 대화 시 예의를 차리기 위해 'Please'를 붙여야 하지 않냐는 보안적 질문",
+          "quote": "Please 를 붙여서 말해야 완성이 될거 같네요. 😅",
+          "quoteVerified": true
+        }
+      ],
+      "vocabulary": [
+        {
+          "expression": "Stop here 대신 표현 수정을 제안함",
+          "quote": "stop here은 현지인들끼리는 완전 명령어처럼 들려서 기분나빠합니다 let me here이 맞습니다",
+          "quoteVerified": true
+        }
+      ]
+    },
+    "infoCount": {
+      "count": 5,
+      "description": "여행 시 자주 쓰이는 5가지 대표 한국어 상황 문장에 1:1로 대응하는 초간단 영어 표현 5개를 순서대로 나열하여 전달함.",
+      "estimated": true
+    },
+    "captionStyle": {
+      "position": "화면 중앙 세로 정렬",
+      "size": "큼",
+      "highlightColor": "파란색, 빨간색, 검은색",
+      "highlightMethod": "한국어 질문은 파란색, 영어 표현은 붉은색 강조, 한글 발음 표기는 괄호 안 검은색 텍스트로 구분하여 표시",
+      "textAmount": "한 표현당 2~3줄 내외의 짧은 텍스트",
+      "changeTiming": "음성 출력 타이밍에 맞춰 순차적으로 텍스트가 덧붙여짐"
+    },
+    "audio": {
+      "hasMusic": false,
+      "mood": "",
+      "tempo": null,
+      "hasSoundEffects": false,
+      "soundEffectUse": "없음",
+      "voiceVsMusic": "배경음악이나 효과음 없이 한국어 및 영어 성우 목소리만 명확하게 출력됨"
+    },
+    "storytelling": {
+      "hook": {
+        "t": 0,
+        "what": "여행 전 긴 공부 필요 없이 '5문장만' 보면 된다는 점을 강조하여 학습 부담을 크게 줄여줌",
+        "quote": "✈️ [여행 전 5문장만!] 필수 초간단 여행영어",
+        "type": "분량 한정형 혜택 제시",
+        "quoteVerified": false
+      },
+      "curiosity": {
+        "opened": {
+          "t": 0,
+          "what": "여행에서 당장 쓸 수 있는 5가지 초간단 표현이 무엇일지 궁금하게 만듦",
+          "quote": "이거 주세요",
+          "quoteVerified": true
+        },
+        "resolved": {
+          "t": 27,
+          "what": "5가지 표현을 모두 순서대로 안내하며 궁금증 해결",
+          "quote": "Is it free?",
+          "quoteVerified": true
+        }
+      },
+      "causality": {
+        "connected": false,
+        "summary": "독립된 5개의 여행 필수 문장을 단순히 순서대로 열거하는 방식으로 문장 간 인과관계는 없음",
+        "examples": []
+      },
+      "openLoops": [],
+      "patternBreaks": [],
+      "viewerActions": [],
+      "evidence": [],
+      "payoff": {
+        "t": 27,
+        "what": "28초라는 짧은 시간 안에 약속했던 여행 5문장을 완성도 있게 전달함",
+        "quote": "Is it free?",
+        "quoteVerified": true
+      }
+    },
+    "links": [
+      {
+        "cause": "10초~16초 구간에서 '여기서 세워주세요'의 표현으로 'Stop here'를 제시함",
+        "reaction": "현지 반응이나 뉘앙스상 명령어처럼 들릴 수 있으니 어감 조정이 필요하다는 댓글 의견 발생",
+        "quote": "stop here은 현지인들끼리는 완전 명령어처럼 들려서 기분나빠합니다 let me here이 맞습니다",
+        "quoteVerified": true
+      }
+    ],
+    "whyOutlierVsChannel": "일반 생활영어/단어 콘텐츠보다 '여행 전 필수 5문장'이라는 명확한 목적성과 30초 미만의 초간단 1~2단어 표기 구성이 시니어/왕초보 시청층의 숏폼 시청 수요를 완벽히 사로잡음.",
+    "teachesAdultEnglishSounds": false,
+    "teachesAdultEnglishSoundsReason": "영어 원어민의 음성 소리 원리나 발음 규칙, 리스닝 팁을 가르치지 않고 단순 한국어 발음 표기와 성우 음성 반복 낭독만 제공함.",
+    "forUs": {
+      "adopt": "왕초보 시니어 시청자를 위해 30초 이내에 상황별 대표 텍스트와 음성을 직관적인 시각 구조로 깔끔히 보여주는 숏폼 구성.",
+      "differentiate": "단순한 한글 발음 표기 나열을 넘어, 실제로 원어민이 들었을 때 자연스러운 매너 있는 소리와 실제 소리 변화를 쉽게 들을 수 있도록 소리 원리를 원포인트로 짚어주는 가이드 추가."
+    }
+  },
+  "quoteCheck": {
+    "checked": 17,
+    "verified": 15,
+    "unverified": 2
+  },
+  "pacing": {
+    "count": 0,
+    "medianGapSeconds": null,
+    "perMinute": 0,
+    "times": [],
+    "source": "ffmpeg 장면 전환 감지(코드)"
+  },
+  "frames": [
+    {
+      "t": 0,
+      "file": "0.jpg"
+    },
+    {
+      "t": 5,
+      "file": "5.jpg"
+    },
+    {
+      "t": 10,
+      "file": "10.jpg"
+    },
+    {
+      "t": 16,
+      "file": "16.jpg"
+    },
+    {
+      "t": 22,
+      "file": "22.jpg"
+    },
+    {
+      "t": 26,
+      "file": "26.jpg"
+    }
+  ],
+  "framesError": null,
+  "usage": {
+    "promptTokenCount": 6215,
+    "candidatesTokenCount": 2704,
+    "totalTokenCount": 11529,
+    "promptTokensDetails": [
+      {
+        "modality": "VIDEO",
+        "tokenCount": 2549
+      },
+      {
+        "modality": "TEXT",
+        "tokenCount": 2566
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1100
+      }
+    ],
+    "thoughtsTokenCount": 2610,
+    "serviceTier": "standard"
+  }
+}

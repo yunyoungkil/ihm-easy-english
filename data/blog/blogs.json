@@ -31,7 +31,7 @@
     "registrations": {
       "google": {"date": "2026-11-25", "status": "sitemap-submitted-pending-first-post", "property": "sc-domain:d40m.com"},
       "naver": {"date": "2026-11-25", "status": "verified-pending-first-post-feed"},
-      "daum": {"date": "2026-11-25", "status": "robots-pin-installed"}
+      "daum": {"date": "2026-11-25", "status": "verified"}
     },
     "adsense": {"date": "2026-11-25", "autoAds": false, "excludedSection": "english.d40m.com"}
   }

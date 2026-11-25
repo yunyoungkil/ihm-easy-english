@@ -11,7 +11,13 @@
     "pages": {
       "about": {"pageId": "3091455563679222377", "url": "https://tech.d40m.com/p/about.html"},
       "privacy": {"pageId": "1313319208205199251", "url": "https://tech.d40m.com/p/privacy.html"}
-    }
+    },
+    "registrations": {
+      "google": {"date": "2026-11-25", "status": "sitemap-submitted-pending-first-post", "property": "sc-domain:d40m.com"},
+      "naver": {"date": "2026-11-25", "status": "verified-pending-first-post-feed"},
+      "daum": {"date": "2026-11-25", "status": "verified"}
+    },
+    "adsense": {"date": "2026-11-25", "autoAds": true}
   },
   "english": {
     "blogId": "3734608323445645579",
@@ -21,6 +27,12 @@
     "pages": {
       "about": {"pageId": "8225884688803434799", "url": "https://english.d40m.com/p/about.html"},
       "privacy": {"pageId": "7381913230233669665", "url": "https://english.d40m.com/p/privacy.html"}
-    }
+    },
+    "registrations": {
+      "google": {"date": "2026-11-25", "status": "sitemap-submitted-pending-first-post", "property": "sc-domain:d40m.com"},
+      "naver": {"date": "2026-11-25", "status": "verified-pending-first-post-feed"},
+      "daum": {"date": "2026-11-25", "status": "robots-pin-installed"}
+    },
+    "adsense": {"date": "2026-11-25", "autoAds": false, "excludedSection": "english.d40m.com"}
   }
 }

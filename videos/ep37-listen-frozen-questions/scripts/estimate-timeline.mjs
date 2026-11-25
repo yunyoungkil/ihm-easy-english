@@ -11,13 +11,13 @@ const KO_RATE = 4.19;
 const GAP = 0.3; // 조각 사이 숨
 const SIG = {띵: 0.6, 뽁: 0.5, 종: 1.6};
 
-// 영어 문장 표: q·a는 2부 표에서, d·x는 🔊 줄에서 읽는다.
+// 영어 문장 표: q·a는 2부 표에서, d·x는 [음성] 줄에서 읽는다.
 const en = {};
 for (const m of md.matchAll(/^\| (\d\d) \| ([^|]+)\| [^|]+\| ([^|]+)\|/gm)) {
   en[`q${m[1]}`] = m[2].trim();
   en[`a${m[1]}`] = m[3].trim();
 }
-for (const m of md.matchAll(/🔊 ([dx]\d\d)(?: \([^)]*\))? (.+)$/gm)) en[m[1]] = m[2].trim();
+for (const m of md.matchAll(/\[음성\] ([dx]\d\d)(?: \([^)]*\))? (.+)$/gm)) en[m[1]] = m[2].trim();
 const words = (s) => (s || '').split(/\s+/).filter(Boolean).length;
 const enDur = (id) => {
   const w = words(en[id]);
@@ -65,7 +65,7 @@ for (const raw of lines) {
     if (['06', '12', '18', '24'].includes(n)) t += SIG.종 + GAP;
     continue;
   }
-  if (part2 === 2 && line.startsWith('- 🔊 q01 → a01')) {
+  if (part2 === 2 && line.startsWith('- [음성] q01 → a01')) {
     for (let i = 1; i <= 30; i += 1) {
       const n = String(i).padStart(2, '0');
       play(`q${n}`);
@@ -77,10 +77,10 @@ for (const raw of lines) {
     continue;
   }
   if (!line.startsWith('-')) continue;
-  // 이어 듣기: (🔊 q → 🔔 뽁 → ⏸ 질문 길이+1초 [→ 🔊 a]) × qAA~qBB
+  // 이어 듣기: ([음성] q → [신호] 뽁 → [정적] 질문 길이+1초 [→ [음성] a]) × qAA~qBB
   const loop = line.match(/× q(\d\d)~q(\d\d)/);
   if (loop) {
-    const withA = line.includes('🔊 a');
+    const withA = line.includes('[음성] a');
     for (let i = Number(loop[1]); i <= Number(loop[2]); i += 1) {
       const n = String(i).padStart(2, '0');
       play(`q${n}`);
@@ -90,9 +90,9 @@ for (const raw of lines) {
     }
     continue;
   }
-  for (const s of line.matchAll(/🔔 (띵|뽁|종)/g)) t += SIG[s[1]] + GAP;
-  for (const s of line.matchAll(/🔊 ([qadx]\d\d)/g)) { play(s[1]); t += enDur(s[1]) + GAP; }
-  for (const s of line.matchAll(/⏸ (\d+)초/g)) t += Number(s[1]);
+  for (const s of line.matchAll(/\[신호\] (띵|뽁|종)/g)) t += SIG[s[1]] + GAP;
+  for (const s of line.matchAll(/\[음성\] ([qadx]\d\d)/g)) { play(s[1]); t += enDur(s[1]) + GAP; }
+  for (const s of line.matchAll(/\[정적\] (\d+)초/g)) t += Number(s[1]);
 }
 t += 9; // 엔드 화면
 const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;

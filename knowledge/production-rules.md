@@ -71,12 +71,13 @@
 ## 글자체(폰트) 역할 분리 및 구글 폰트 공용 서랍 (2026-11-25, 2층 기본값 · 3층 시험 변수)
 
 - **노토 산스 1종 고착 탈피 (고정 템플릿 금지)**: 최근 EP24~EP37 전 편이 `Noto Sans KR` 1종만 습관적으로 사용해 AI 기본값 인상이 굳어졌다. 특정 글자체 1~2개로 다시 고정하지 않고, **역할별로 나누어 편마다 주제·분위기·참고 명작에 맞게 AI가 자율 선택**한다.
-- **공용 서랍 위치 (`public/fonts/google/`)**: 일단 **구글 폰트(SIL Open Font License 1.1) 14종·16개 파일**만 모아 두고(추후 필요 시 눈누 등 상업 허용 무료 폰트 확장 가능), 목록은 `public/fonts/google/manifest.json`, 시각 견본은 `public/fonts/google/specimen.html`에서 확인한다. 두 대 PC 간 `.ttf` 파일은 `scripts/pc-sync.mjs`가 자동 동기화하며, 빠진 파일은 `npm run fonts:setup`(확인 `npm run fonts:check`)으로 즉시 받는다.
-- **4대 역할 분리**:
+- **공용 서랍 위치 (`public/fonts/google/`)**: 일단 **구글 폰트(SIL Open Font License 1.1) 18종·20개 파일**만 모아 두고(추후 필요 시 눈누 등 상업 허용 무료 폰트 확장 가능), 목록은 `public/fonts/google/manifest.json`, 시각 견본은 `public/fonts/google/specimen.html`에서 확인한다. 두 대 PC 간 `.ttf` 파일은 `scripts/pc-sync.mjs`가 자동 동기화하며, 빠진 파일은 `npm run fonts:setup`(확인 `npm run fonts:check`)으로 즉시 받는다.
+- **5대 역할 분리**:
   1. **썸네일 · 쇼츠 0.5초 훅 강한 제목 (`ko-display`)**: `Black Han Sans`, `Gothic A1`(900 Black, 받침 많은 한글도 200px에서 또렷함), `Do Hyeon`, `Bagel Fat One`
   2. **영상 본편 자막 · 설명 문장 (`ko-body`, 3060 모바일 가독성 우선)**: `IBM Plex Sans KR`(500/700, 노토 산스 기본값 탈피용 현대 고딕), `Noto Sans KR`(가변 100~900), `Gowun Dodum`
-  3. **신문·다큐·칠판/손글씨 포인트 (`ko-accent`, 본문 전체 금지·짧은 포인트 전용)**: `Hahmlet`(가변 명조 100~900), `Jua`, `Gaegu`(700 손글씨)
+  3. **신문·다큐·칠판·붓글씨 포인트 (`ko-accent`, 본문 전체 금지·짧은 포인트 전용)**: `Hahmlet`(가변 명조 100~900), `Jua`, `Gaegu`(700 손글씨), `Yeon Sung`(굵은 한글 붓글씨, 200px 가능), `Nanum Brush Script`(어른스러운 한글 붓 캘리, 작은 썸네일 금지·영상 큰 감정 포인트 전용)
   4. **영어 핵심 단어 전용 (`en-display`, 한글 폰트 내 기본 영문 탈피)**: `Outfit`(가변), `Archivo Black`, `Barlow Condensed`(700/800), `Rubik`(가변)
+  5. **영어 필기체 분위기 포인트 (`en-accent`, 가르칠 핵심 영단어 철자 금지·분위기 한마디 전용)**: `Caveat`(Bold, 3060도 읽기 쉬운 손필기), `Pacifico`(도톰한 카페·간판 필기, 200px 선명)
 - **프로젝트 반입 및 시안 기록**: 최종 렌더에 쓰는 글자체는 반드시 해당 영상 폴더의 `assets/fonts/`에 복사해 오프라인 결정론적 렌더를 보장한다. 비교 시트 썸네일·시각 설계 시 **이번 편에서 어떤 글자체 조합을 왜 골랐는지 1줄**을 남기고, 공개 7일 클릭률·시청 지속으로 검증한다.
 
 ## 롱폼 단어 드릴 및 듣기 영상 시각화 표준 (2026-10-09 정정 확정)

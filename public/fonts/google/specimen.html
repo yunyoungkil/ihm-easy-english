@@ -15,11 +15,15 @@
   @font-face { font-family: 'Hahmlet'; src: url('./Hahmlet-VF.ttf') format('truetype'); font-weight: 100 900; }
   @font-face { font-family: 'Jua'; src: url('./Jua-Regular.ttf') format('truetype'); font-weight: 400; }
   @font-face { font-family: 'Gaegu'; src: url('./Gaegu-Bold.ttf') format('truetype'); font-weight: 700; }
+  @font-face { font-family: 'Yeon Sung'; src: url('./YeonSung-Regular.ttf') format('truetype'); font-weight: 400; }
+  @font-face { font-family: 'Nanum Brush Script'; src: url('./NanumBrushScript-Regular.ttf') format('truetype'); font-weight: 400; }
   @font-face { font-family: 'Outfit'; src: url('./Outfit-VF.ttf') format('truetype'); font-weight: 100 900; }
   @font-face { font-family: 'Archivo Black'; src: url('./ArchivoBlack-Regular.ttf') format('truetype'); font-weight: 400; }
   @font-face { font-family: 'Barlow Condensed'; src: url('./BarlowCondensed-Bold.ttf') format('truetype'); font-weight: 700; }
   @font-face { font-family: 'Barlow Condensed'; src: url('./BarlowCondensed-ExtraBold.ttf') format('truetype'); font-weight: 800; }
   @font-face { font-family: 'Rubik'; src: url('./Rubik-VF.ttf') format('truetype'); font-weight: 300 900; }
+  @font-face { font-family: 'Caveat'; src: url('./Caveat-VF.ttf') format('truetype'); font-weight: 400 700; }
+  @font-face { font-family: 'Pacifico'; src: url('./Pacifico-Regular.ttf') format('truetype'); font-weight: 400; }
 
   * { box-sizing: border-box; }
   body {
@@ -63,7 +67,7 @@
 </style>
 </head>
 <body>
-  <h1>구글 폰트 공용 서랍 견본 (14종 · 상업용 무료 OFL)</h1>
+  <h1>구글 폰트 공용 서랍 견본 (18종 · 상업용 무료 OFL)</h1>
   <p class="sub">실제 내려받은 로컬 파일로만 표시됩니다. 썸네일 축소(200px)와 본편 가독성을 한눈에 확인합니다.</p>
 
   <h2>1. 썸네일 · 0.5초 훅 강한 제목용 (한글 Display)</h2>
@@ -113,7 +117,7 @@
     </div>
   </div>
 
-  <h2>3. 신문·다큐·칠판 포인트용 (명조 · 손글씨 — 짧은 포인트 전용)</h2>
+  <h2>3. 신문·다큐·칠판·붓글씨 포인트용 (명조 · 손글씨 · 필기 — 짧은 포인트 전용)</h2>
   <div class="grid">
     <div class="card">
       <div class="meta"><strong>함렛 (Hahmlet 가변 명조 100~900)</strong><span>다큐·신문 반전</span></div>
@@ -126,6 +130,17 @@
     <div class="card">
       <div class="meta"><strong>개구체 (Gaegu Bold)</strong><span>칠판·노트 손글씨</span></div>
       <div class="sample-big" style="font-family:'Gaegu';font-weight:700">여기는 <span class="sample-yellow">소리 안 나요!</span></div>
+    </div>
+    <div class="card">
+      <div class="meta"><strong>연성체 (Yeon Sung)</strong><span>굵은 한글 붓글씨</span></div>
+      <div class="sample-big" style="font-family:'Yeon Sung'">진짜 <span class="sample-yellow">원어민처럼</span></div>
+      <div class="thumb-mini"><div class="t1" style="font-family:'Yeon Sung'">이 한마디로</div><div class="t2" style="font-family:'Yeon Sung'">분위기 반전</div></div>
+      <div class="mini-label">휴대폰 목록 200px 실제 폭 미리보기</div>
+    </div>
+    <div class="card">
+      <div class="meta"><strong>나눔 붓글씨 (Nanum Brush Script)</strong><span>큰 감정·반전 캘리</span></div>
+      <div class="sample-big" style="font-family:'Nanum Brush Script';font-size:54px">진짜 <span class="sample-yellow">원어민처럼</span></div>
+      <div class="mini-label">작은 썸네일 금지 · 영상 본편 큰 감정 포인트 전용</div>
     </div>
   </div>
 
@@ -149,7 +164,22 @@
     </div>
   </div>
 
-  <h2>5. 조합 예시 (한글 제목 + 영문 단어 + 본편 자막)</h2>
+  <h2>5. 영어 필기체 포인트 전용 (핵심 영단어 철자 금지 · 분위기 한마디 전용)</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="meta"><strong>Caveat Bold (영어 손필기)</strong><span>칠판 메모·팁 포인트</span></div>
+      <div class="sample-big" style="font-family:'Caveat';font-weight:700;font-size:52px">Wait a <span class="sample-yellow">minute!</span></div>
+      <div class="mini-label">과하게 꼬이지 않아 3060도 읽기 쉬운 손필기</div>
+    </div>
+    <div class="card">
+      <div class="meta"><strong>Pacifico (영어 굵은 필기)</strong><span>카페·간판 감성 포인트</span></div>
+      <div class="sample-big" style="font-family:'Pacifico'">Everyday <span class="sample-yellow">English</span></div>
+      <div class="thumb-mini"><div class="t2" style="font-family:'Pacifico';font-size:24px">Cafe Talk</div></div>
+      <div class="mini-label">휴대폰 목록 200px 실제 폭 미리보기</div>
+    </div>
+  </div>
+
+  <h2>6. 조합 예시 (한글 제목 + 영문 단어 + 필기 포인트 + 본편 자막)</h2>
   <div class="pair-box">
     <div class="pair-card">
       <div class="meta"><strong>조합 예 A: 반전·충격 썸네일</strong><span>고딕 A1 Black + Archivo Black + IBM 플렉스</span></div>
@@ -162,6 +192,12 @@
       <div style="font-family:'Barlow Condensed';font-weight:800;font-size:48px;color:#f5c518;line-height:1">SALMON · ISLAND</div>
       <div style="font-family:'Hahmlet';font-weight:800;font-size:36px;margin-top:6px">읽지 않는 유령 글자</div>
       <div style="font-family:'Gaegu';font-weight:700;font-size:26px;color:#7dd3fc;margin-top:8px">L과 S는 소리 없이 자리만 지켜요!</div>
+    </div>
+    <div class="pair-card">
+      <div class="meta"><strong>조합 예 C: 카페·감성 필기 포인트</strong><span>Pacifico + 연성체 + IBM 플렉스</span></div>
+      <div style="font-family:'Pacifico';font-size:34px;color:#7dd3fc;line-height:1.1">Real Cafe Talk</div>
+      <div style="font-family:'Yeon Sung';font-size:42px;color:#f5c518;margin-top:4px">진짜 원어민 주문 한마디</div>
+      <div style="font-family:'IBM Plex Sans KR';font-weight:500;font-size:18px;color:#b8c4d9;margin-top:10px">자막: 핵심 영단어 철자는 본편에서 Outfit 고딕으로 또렷하게 보여 줍니다.</div>
     </div>
   </div>
 </body>

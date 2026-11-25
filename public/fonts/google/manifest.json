@@ -5,8 +5,9 @@
   "roles": {
     "ko-display": "썸네일 · 쇼츠 0.5초 훅 · 큰 강조 제목 (모바일 200px 목록 시인성 중심)",
     "ko-body": "영상 본편 자막 · 설명 문장 (3060 모바일 가독성 중심, 획이 고르고 안쪽 공간이 트인 고딕)",
-    "ko-accent": "신문·다큐·칠판·손글씨 포인트 (본문 전체 사용 금지, 짧은 포인트·장면 전환·고딕 대비용)",
-    "en-display": "영어 핵심 단어·음절 분리(wa · ter)·강세 강조 전용 (한글 폰트 내 기본 영문 대체)"
+    "ko-accent": "신문·다큐·칠판·손글씨·붓글씨 포인트 (본문 전체 사용 금지, 짧은 포인트·장면 전환·고딕 대비용)",
+    "en-display": "영어 핵심 단어·음절 분리(wa · ter)·강세 강조 전용 (한글 폰트 내 기본 영문 대체)",
+    "en-accent": "영어 필기체 분위기 포인트 전용 (가르칠 핵심 영단어 철자에는 금지, 카페·감성·팁 짧은 한마디 전용)"
   },
   "fonts": [
     {
@@ -175,6 +176,38 @@
       ]
     },
     {
+      "id": "yeon-sung",
+      "family": "Yeon Sung",
+      "labelKo": "연성체 (한글 붓글씨)",
+      "role": "ko-accent",
+      "mood": "획이 굵어 200px 썸네일에서도 읽히는 힘 있는 한글 붓글씨 포인트",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "YeonSung-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/yeonsung/YeonSung-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "nanum-brush-script",
+      "family": "Nanum Brush Script",
+      "labelKo": "나눔 붓글씨 (한글 캘리)",
+      "role": "ko-accent",
+      "mood": "어른스러운 붓 캘리그라피 (작은 썸네일 금지, 영상 본편 큰 감정·반전 한마디 전용)",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "NanumBrushScript-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/nanumbrushscript/NanumBrushScript-Regular.ttf"
+        }
+      ]
+    },
+    {
       "id": "outfit",
       "family": "Outfit",
       "labelKo": "아웃핏 (영문 가변)",
@@ -240,6 +273,38 @@
           "file": "Rubik-VF.ttf",
           "weight": "300 900",
           "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/rubik/Rubik%5Bwght%5D.ttf"
+        }
+      ]
+    },
+    {
+      "id": "caveat",
+      "family": "Caveat",
+      "labelKo": "Caveat (영어 손필기)",
+      "role": "en-accent",
+      "mood": "과하게 꼬이지 않아 3060도 읽기 쉬운 영어 펜 필기 (칠판 메모·팁 포인트, 핵심 영단어 철자 금지)",
+      "weights": "400 700",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "Caveat-VF.ttf",
+          "weight": "400 700",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/caveat/Caveat%5Bwght%5D.ttf"
+        }
+      ]
+    },
+    {
+      "id": "pacifico",
+      "family": "Pacifico",
+      "labelKo": "Pacifico (영어 굵은 필기)",
+      "role": "en-accent",
+      "mood": "도톰한 카페·간판 느낌 영어 필기체, 200px에서도 선명 (핵심 영단어 철자 금지, 분위기 장식 한마디 전용)",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "Pacifico-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/pacifico/Pacifico-Regular.ttf"
         }
       ]
     }

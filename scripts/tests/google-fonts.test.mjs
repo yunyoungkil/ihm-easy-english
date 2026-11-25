@@ -8,11 +8,11 @@ import { SYNC_ROOTS } from '../pc-sync.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
-test('구글 폰트 공용 서랍 manifest는 4대 역할과 OFL 라이선스·공식 URL을 모두 갖춘다', () => {
+test('구글 폰트 공용 서랍 manifest는 5대 역할과 OFL 라이선스·공식 URL을 모두 갖춘다', () => {
   const manifest = loadManifest();
-  assert.ok(Array.isArray(manifest.fonts) && manifest.fonts.length >= 10);
+  assert.ok(Array.isArray(manifest.fonts) && manifest.fonts.length >= 14);
   const roles = new Set(manifest.fonts.map((f) => f.role));
-  for (const required of ['ko-display', 'ko-body', 'ko-accent', 'en-display']) {
+  for (const required of ['ko-display', 'ko-body', 'ko-accent', 'en-display', 'en-accent']) {
     assert.ok(roles.has(required), `역할 누락: ${required}`);
   }
   const ids = new Set();

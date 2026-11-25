@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T12:31:48.987Z",
+  "prompt": "Photorealistic candid documentary photograph, 16:9 widescreen.\nSubject: a Korean office worker in her early thirties with a sleek shoulder-length bob, wearing a cream knit top under an open camel trench coat. A foreign tourist has just asked her a question in English and she is frozen for a split second: eyes wide, eyebrows raised, lips slightly parted mid-breath, one hand holding her smartphone half-raised near her chest. Real natural face with visible skin texture and pores, a few stray hairs, no beauty retouching, no plastic smoothness.\nComposition: over-the-shoulder shot from behind the tourist. The tourist's out-of-focus dark shoulder, part of the back of his head and a backpack strap fill the left third of the frame in the foreground, very close to the lens. The woman is on the right half, framed from the chest up, her face large and sharp, looking toward the tourist on the left, slightly below the camera.\nSetting: Seoul subway station ticket gates during evening rush hour, gates and commuters softly blurred behind her. All signs, screens and maps blurred and unreadable.\nLighting: mixed cool overhead fluorescent light and warm light from nearby shops, realistic exposure, natural contrast, subtle film grain.\nShot: 85mm lens at f/1.8, shallow depth of field, camera at the tourist's eye level, slightly looking down at her.\nKeep the lower-left area dark and uncluttered (the tourist's dark jacket) for text added later.\nNo text, no letters, no numbers, no logos or brand names anywhere in the image. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../AppData/Local/Temp/claude/075614d6a71f4fa0/d9b47547-1c92-4255-b6a8-e9e55adea918/scratchpad/pa.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/thumb-a-v3-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

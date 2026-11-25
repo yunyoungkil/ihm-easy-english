@@ -4,6 +4,7 @@
 
 import { fullScript, voiceBudget } from './transform-sheet.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
+import { CREDIT_KO, ANALYSIS_LABELS, EYE_LABELS, TAG_LABELS } from './packaging-cases.mjs';
 
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -407,7 +408,7 @@ export function renderOutcomeCard(outcome) {
   return `<div class="outcome-grid">${cells.map((c) => `<div class="outcome-cell"><div class="olabel">${escapeHtml(c.label)}</div><div class="oval">${escapeHtml(c.val)}</div></div>`).join('')}</div>`;
 }
 
-export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [], blockers = null, warnings = null } = {}) {
+export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [], blockers = null, warnings = null, cases = null } = {}) {
   const sid = String(sheet.episodeId || sheet.sourceVideoId || '');
   const id = encodeURIComponent(sid);
   const srcId = sheet.sourceVideoId ? encodeURIComponent(sheet.sourceVideoId) : '';
@@ -509,11 +510,31 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
     const clickWhy = Array.isArray(r.clickWhy) && r.clickWhy.length
       ? `<br><b>왜 눌렸나 (참고한 문구 → 누른 이유)</b><ul style="margin:4px 0 0 18px;padding:0">${r.clickWhy.map((e) => `<li>“${escapeHtml(e?.sourceText)}” <span class="meta">(${escapeHtml(e?.source)})</span> → ${escapeHtml(e?.mechanism)} <span class="meta">· 적용: ${escapeHtml((e?.appliedTo || []).join(', '))}</span></li>`).join('')}</ul>`
       : '';
+    // 만드는 법 근거(2026-11-25): 제작 자료·다른 분야 사례에서 가져온 것 / 눈이 가는 순서 / 제목과 썸네일의 일 나누기
+    const ul = (items) => `<ul style="margin:4px 0 0 18px;padding:0">${items.join('')}</ul>`;
+    // 사례집 사례(case:<id>)는 첫 그림과 사례집 링크를 같이 보여 준다(그림은 /transform-images/packaging-cases/ 로 나간다)
+    const caseById = new Map((Array.isArray(cases) ? cases : []).map((c) => [c?.id, c]));
+    const caseBit = (source) => {
+      const m = String(source || '').match(/^case:(.+)$/);
+      if (!m) return '';
+      const first = caseById.get(m[1])?.images?.[0];
+      const img = first ? `<br><a href="/packaging-cases#${encodeURIComponent(m[1])}"><img loading="lazy" style="max-width:200px;border-radius:6px;border:1px solid var(--line)" src="/transform-images/packaging-cases/${escapeHtml(String(first).replace('images/packaging-cases/', ''))}" alt="${escapeHtml(m[1])}"></a>` : '';
+      return `${img}<br><a href="/packaging-cases#${encodeURIComponent(m[1])}">사례집 ${escapeHtml(m[1])}</a>`;
+    };
+    const craftHtml = (Array.isArray(r.craft) && r.craft.length
+      ? `<br><b>만드는 법 근거 (가져온 곳 → 가져온 것)</b>${ul(r.craft.map((e) => `<li><span class="meta">${escapeHtml(e?.source)}</span> → ${escapeHtml(e?.took)} <span class="meta">· 적용: ${escapeHtml((e?.appliedTo || []).join(', '))}</span>${caseBit(e?.source)}</li>`))}`
+      : '')
+      + (Array.isArray(r.eyeOrder) && r.eyeOrder.length
+        ? `<br><b>눈이 가는 순서 (처음 → 두 번째 / 줄인 것)</b>${ul(r.eyeOrder.map((e) => `<li><span class="meta">${escapeHtml(e?.candidate)}</span> ${escapeHtml(e?.first)} → ${escapeHtml(e?.second)} <span class="meta">/ 줄임: ${escapeHtml(e?.shrink)}</span></li>`))}`
+        : '')
+      + (Array.isArray(r.pairing) && r.pairing.length
+        ? `<br><b>제목과 썸네일의 일 나누기</b>${ul(r.pairing.map((e) => `<li><span class="meta">${escapeHtml(e?.title)} + ${escapeHtml(e?.thumb)}</span> 썸네일: ${escapeHtml(e?.thumbDoes)} / 제목: ${escapeHtml(e?.titleDoes)}</li>`))}`
+        : '');
     parts.push(`<div class="sheet-label">${escapeHtml(ROW_LABELS_VIEW[r.key] || r.key)}</div>
 <div class="sheet-row">
   <div class="sheet-col"><h4>경쟁</h4>${comp ? `<div class="imgs">${comp}</div>` : ''}<div>${escapeHtml(r.competitor?.text)}</div>${r.key === 'package' ? packageCompetitor(report) : ''}${r.competitor?.quote ? `<div class="q">“${escapeHtml(r.competitor.quote)}”</div>` : ''}</div>
   <div class="sheet-col ours"><h4>우리</h4>${ours ? `<div class="imgs">${ours}</div>` : ''}<div>${escapeHtml(r.ours?.text)}</div>${titleBox}${r.key === 'package' ? packageOurs(r.ours) : ''}</div>
-  <div class="sheet-why">${r.origin ? `출처: <b>${{ competitor: '경쟁 구조를 가져옴', mixed: '섞음', ours: '우리가 새로 만듦' }[r.origin] || escapeHtml(r.origin)}</b> — ${escapeHtml(r.originReason || '')}<br>` : ''}왜 바꿨나: ${escapeHtml(r.why)}${clickWhy}</div>
+  <div class="sheet-why">${r.origin ? `출처: <b>${{ competitor: '경쟁 구조를 가져옴', mixed: '섞음', ours: '우리가 새로 만듦' }[r.origin] || escapeHtml(r.origin)}</b> — ${escapeHtml(r.originReason || '')}<br>` : ''}왜 바꿨나: ${escapeHtml(r.why)}${clickWhy}${craftHtml}</div>
 </div>${thumbs.length ? `${thumbs2.length ? '<div class="tl-label">1안 (처음 만든 시안, 위)</div>' : ''}${pickRow(thumbs)}` : ''}${thumbs2.length ? `<div class="tl-label">2안 (같은 칸 아래, 1안과 1:1 비교)</div>${pickRow(thumbs2)}` : ''}${r.key === 'visual' ? cutRhythm(r, report, oursUrl, ver, refReports, { isWide }) : ''}`);
   }
   if (Array.isArray(sheet.references) && sheet.references.length) {
@@ -663,7 +684,39 @@ export function renderTransformSheetIndex(items = []) {
       : '';
     return `<div class="card sheet-idx-card"><div class="sheet-idx-left">${thumbHtml}<div style="min-width:0;flex:1"><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:4px"><span class="pill-badge">${escapeHtml(STAGE_KO[stage] || stage)}</span><span class="pill-badge" style="background:rgba(255,255,255,0.05);color:var(--sub);border-color:var(--line)">${escapeHtml(sheet.format)}</span>${sheet.createdAt ? `<span class="meta">${escapeHtml(sheet.createdAt)}</span>` : ''}${pickSummary}${outcomeBadge}</div><a href="/transform-sheet/${encSid}" style="display:block"><b style="font-size:16px">${escapeHtml(sheet.topic)}</b></a><div class="meta" style="margin-top:4px">${report?.meta?.title ? `기준: ${escapeHtml(report.meta.title)}` : (sheet.references?.length ? `다중 명작 ${sheet.references.length}편 융합` : escapeHtml(sid))}${sheet.references?.length && report?.meta?.title ? ` · 명작 ${sheet.references.length}편 융합` : ''}</div></div></div></div>`;
   });
-  return page('비교 시트', `${SHEET_CSS}<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">근거(경쟁 영상 리포트 목록)</a></p><h1>비교 시트 ${sorted.length}장</h1><p class="meta">경쟁 영상 리포트를 우리 콘텐츠로 바꾼 한 장. 좌우로 비교하고, 다른 경쟁 영상에서 가져온 것과 뺀 것을 이유와 함께 남긴다. 실패·기각도 데이터로 쌓는다.</p>${cards.join('\n') || '<p class="meta">아직 없음</p>'}`);
+  return page('비교 시트', `${SHEET_CSS}<p><a href="/">← 대시보드</a> · <a href="/outlier-reports">근거(경쟁 영상 리포트 목록)</a> · <a href="/packaging-cases">썸네일·제목 사례집</a></p><h1>비교 시트 ${sorted.length}장</h1><p class="meta">경쟁 영상 리포트를 우리 콘텐츠로 바꾼 한 장. 좌우로 비교하고, 다른 경쟁 영상에서 가져온 것과 뺀 것을 이유와 함께 남긴다. 실패·기각도 데이터로 쌓는다.</p>${cards.join('\n') || '<p class="meta">아직 없음</p>'}`);
+}
+
+/** 썸네일·문구·제목 사례집 화면(2026-11-25). 읽기 전용. 활성 사례 전부 → 보관 사례. 글자는 전부 escapeHtml을 거친다. */
+const CASE_IMG = (rel) => `/transform-images/packaging-cases/${escapeHtml(String(rel).replace('images/packaging-cases/', ''))}`;
+export function renderPackagingCasesPage(lib, { recentIds = new Set() } = {}) {
+  const cases = Array.isArray(lib?.cases) ? lib.cases : [];
+  const active = cases.filter((c) => c.status !== 'archived');
+  const archived = cases.filter((c) => c.status === 'archived');
+  const row = (label, value) => `<tr><th style="width:150px;white-space:nowrap">${escapeHtml(label)}</th><td>${escapeHtml(value)}</td></tr>`;
+  const card = (c) => {
+    const a = c.analysis || {};
+    const nm = c.numbers || {};
+    const imgs = [...(c.images || []).map((p) => ({ p, cap: '썸네일' })), ...(c.contrast?.image ? [{ p: c.contrast.image, cap: '같은 채널 평소(대조)' }] : [])];
+    const imgHtml = imgs.map(({ p, cap }) => `<figure style="margin:0"><img loading="lazy" style="max-width:320px;max-height:240px;border-radius:8px;border:1px solid var(--line)" src="${CASE_IMG(p)}" alt="${escapeHtml(c.id)}"><figcaption class="meta">${escapeHtml(cap)}</figcaption></figure>`).join('');
+    const x = nm.xMedian != null ? `배수 x${escapeHtml(Number(nm.xMedian).toFixed(1))}` : '배수 측정 전';
+    const tags = Object.entries(TAG_LABELS).map(([f, ko]) => `${ko}: ${(c.tags?.[f] || []).join(', ')}`).join(' / ');
+    const rows = [
+      row('제목', c.title), row('썸네일 글자', c.thumbText),
+      ...(c.variants ? [row('기본 등록본과 다른 점', c.variants)] : []),
+      row('숫자', `조회수 ${num(nm.views)} · 구독자 ${num(nm.subs)} · 채널 중앙값 ${num(nm.channelMedian)} · ${nm.xMedian != null ? `x${Number(nm.xMedian).toFixed(1)}` : '배수 측정 전'} · 확인일 ${nm.checkedAt || ''}${nm.note ? ` · ${nm.note}` : ''}`),
+      row('누구 덕', `${CREDIT_KO[c.credit] || c.credit} — ${c.creditWhy || ''}`),
+      ...Object.entries(ANALYSIS_LABELS).slice(0, 3).map(([f, ko]) => row(ko, a[f])),
+      ...(a.eyeOrder ? [row('눈이 가는 순서', Object.entries(EYE_LABELS).map(([f, ko]) => `${ko}: ${a.eyeOrder[f] ?? ''}`).join(' / '))] : []),
+      ...Object.entries(ANALYSIS_LABELS).slice(3).map(([f, ko]) => row(ko, a[f])),
+      row('우리에게 옮길 원리', c.transfer), row('옮기지 못하는 것', c.notTransferable),
+      row('만들 때 볼 자료', (c.makeWith || []).join(', ')), row('태그', tags),
+      ...(c.contrast ? [row('대조(같은 채널 평소)', `${c.contrast.title} · 조회수 ${num(c.contrast.views)} · ${c.contrast.xMedian != null ? `x${Number(c.contrast.xMedian).toFixed(1)}` : '배수 측정 전'} · 다른 점: ${c.contrast.diff}`)] : []),
+      ...(c.usedIn?.length ? [row('쓴 곳', c.usedIn.map((u) => `${u.episodeId}(${u.appliedTo})`).join(', '))] : []),
+    ];
+    return `<div class="card" id="${escapeHtml(c.id)}"><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b style="font-size:16px">${escapeHtml(c.id)}</b><span class="meta">${escapeHtml(c.genre)} · ${escapeHtml(c.format)} · ${escapeHtml(c.channel)} · ${x}</span>${recentIds.has?.(c.id) ? '<span class="ok">최근 시트에 사용</span>' : ''}</div><div style="display:flex;gap:12px;flex-wrap:wrap;margin:10px 0">${imgHtml}</div><table>${rows.join('')}</table><div class="meta">넣은 사람·날짜: ${escapeHtml(c.addedBy)}, ${escapeHtml(c.addedAt)} · 출처: ${escapeHtml(c.source)} · 영상 ID: ${escapeHtml(c.videoId)}</div></div>`;
+  };
+  return page('썸네일·제목 사례집', `<p><a href="/">← 대시보드</a> · <a href="/transform-sheets">비교 시트</a></p><h1>썸네일·제목 사례집 (활성 ${active.length}개, 보관 ${archived.length}개)</h1><p class="meta">여러 분야에서 잘된 썸네일·문구·제목을 분석해 쌓은 곳. 비교 시트는 여기서 고른 사례를 만드는 법 근거(case:…)로 든다. 읽기 전용.</p>${active.map(card).join('') || '<p class="meta">아직 없음</p>'}${archived.length ? `<h2>보관한 사례</h2>${archived.map(card).join('')}` : ''}`);
 }
 
 const SHEET_ROLE_KO = { source: '원본', borrowed: '가져온 출처' };

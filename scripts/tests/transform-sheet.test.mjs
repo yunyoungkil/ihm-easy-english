@@ -624,3 +624,54 @@ test('v4 롱폼 시트(2026-11-25 사용자: "나레이션 대본은 어디 있�
   assert.deepEqual(v4LongformScriptProblems({...noScript, schemaVersion: 3}), [], '4판 전 시트는 건드리지 않는다');
   assert.deepEqual(v4LongformScriptProblems(sheetWith([])), [], '컷 계획이 없다는 문제는 cutPlanProblems가 알린다');
 });
+
+test('craftProblems(2026-11-25): 4판 시트는 만드는 법 근거·눈이 가는 순서·제목과 썸네일 일 나누기가 있어야 하고, 근거에 사례집 사례(case:)가 들어가야 한다', async () => {
+  const {craftProblems, CRAFT_SINCE} = await import('../transform-sheet.mjs');
+  assert.equal(CRAFT_SINCE, '2026-11-25');
+  const base = (over = {}) => ({
+    schemaVersion: 4, createdAt: '2026-11-25',
+    rows: [
+      {key: 'title', ours: {titles: ['제목 하나', '제목 둘']}},
+      {key: 'thumbnail', ours: {images: ['images/EP-T/thumb-A.jpg', 'images/EP-T/thumb-B.jpg']}},
+    ],
+    ...over,
+  });
+  const known = new Set(['x']);
+  const empty = craftProblems(base(), {knownCaseIds: known});
+  assert.ok(empty.some((p) => p.includes('만드는 법 근거(craft)가 없다')));
+  assert.ok(empty.some((p) => p.includes('눈이 가는 순서')));
+  assert.ok(empty.some((p) => p.includes('썸네일과 일 나누기')));
+
+  const full = (craftSources = ['knowledge/ai-craft-research-2026-11-21.md#썸네일', 'case:x']) => base({
+    rows: [
+      {key: 'title', ours: {titles: ['제목 하나', '제목 둘']}, pairing: [
+        {title: 'title:1', thumb: 'thumb:A', thumbDoes: '장면', titleDoes: '사실'},
+        {title: 'title:2', thumb: 'thumb:B', thumbDoes: '질문', titleDoes: '답'},
+      ]},
+      {key: 'thumbnail', ours: {images: ['images/EP-T/thumb-A.jpg', 'images/EP-T/thumb-B.jpg']},
+        craft: craftSources.map((source, i) => ({source, took: '가져온 것', appliedTo: i === 0 ? ['thumb:A'] : ['thumb:A', 'thumb:B']})),
+        eyeOrder: [
+          {candidate: 'thumb:A', first: '글자', second: '얼굴', shrink: '배경'},
+          {candidate: 'thumb:B', first: '얼굴', second: '글자', shrink: '소품'},
+        ]},
+    ],
+  });
+  assert.deepEqual(craftProblems(full(), {knownCaseIds: known}), []);
+  assert.ok(craftProblems(full(['knowledge/ai-craft-research-2026-11-21.md#썸네일', 'case:y']), {knownCaseIds: known}).some((p) => p.includes('case:y가 사례집에 없다')));
+  assert.ok(craftProblems(full(['knowledge/ai-craft-research-2026-11-21.md#썸네일', 'click-ref:z']), {knownCaseIds: known}).some((p) => p.includes('사례집 사례(case:…)가 하나도 없다')));
+  assert.ok(craftProblems(full(['case:x', 'case:x']), {knownCaseIds: known}).some((p) => p.includes('제작 자료')), '제작 자료 문서 요구는 그대로');
+  assert.deepEqual(craftProblems(base({createdAt: '2026-11-24'})), [], '기준일 전 시트는 건드리지 않는다');
+  assert.deepEqual(craftProblems(base({schemaVersion: 3})), [], '4판 전 시트는 건드리지 않는다');
+});
+
+test('renderTransformSheetPage는 만드는 법 근거·눈이 가는 순서·제목과 썸네일의 일 나누기를 보여 준다', async () => {
+  const {renderTransformSheetPage} = await import('../outlier-report-view.mjs');
+  const sheet = {schemaVersion: 4, episodeId: 'EP-T', format: 'LONGFORM', topic: '시험', rows: [
+    {key: 'title', competitor: {text: 'c'}, ours: {text: 'o'}, why: 'w', pairing: [{title: 'title:1', thumb: 'thumb:A', thumbDoes: '장면을 보여 줌', titleDoes: '사실을 말함'}]},
+    {key: 'thumbnail', competitor: {text: 'c'}, ours: {text: 'o'}, why: 'w',
+      craft: [{source: 'knowledge/x.md#1', took: '두 층 글자', appliedTo: ['thumb:A']}],
+      eyeOrder: [{candidate: 'thumb:A', first: '큰 글자', second: '얼굴', shrink: '배경'}]},
+  ]};
+  const html = renderTransformSheetPage(sheet, null, []);
+  for (const must of ['만드는 법 근거', '눈이 가는 순서', '제목과 썸네일의 일 나누기', '두 층 글자', '장면을 보여 줌']) assert.ok(html.includes(must), `${must} 빠짐`);
+});

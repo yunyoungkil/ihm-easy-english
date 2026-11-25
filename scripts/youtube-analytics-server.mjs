@@ -45,7 +45,8 @@ import { loadEpisodeOutcomes, videosNeedingViews7d, sevenDayWindow, views7dPath 
 import { recordSuccessPatterns } from './success-patterns.mjs';
 import { resolveVideoFormat } from './video-format.mjs';
 import { loadReports as loadOutlierReports, reportsDir as outlierReportsDir, framesDir as outlierFramesDir, missingFrames as missingOutlierFrames, ensureReportFrames, buildVisualLibrary, pickReportTargetsDetailed } from './outlier-report.mjs';
-import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex } from './outlier-report-view.mjs';
+import { renderReportPage as renderOutlierReportPage, renderReportIndex as renderOutlierReportIndex, renderMarkdownPage, renderVisualLibraryPage, renderTransformSheetPage, renderTransformSheetIndex, renderPackagingCasesPage } from './outlier-report-view.mjs';
+import { loadCases as loadPackagingCases, loadRecentCaseIds as loadRecentPackagingCaseIds } from './packaging-cases.mjs';
 import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from './next-episode-input.mjs';
 import { mergeAudienceDna } from './audience-dna.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
@@ -5934,6 +5935,12 @@ const server = createServer(async (req, res) => {
       res.end(renderTransformSheetIndex(loadTransformSheets().map((sheet) => ({sheet, report: reports.get(sheet.sourceVideoId) || null}))));
       return;
     }
+    // 썸네일·문구·제목 사례집(2026-11-25): 읽기 전용. 비교 시트는 여기서 고른 사례를 만드는 법 근거(case:…)로 든다.
+    if (url.pathname === '/packaging-cases') {
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store'});
+      res.end(renderPackagingCasesPage(loadPackagingCases(), {recentIds: loadRecentPackagingCaseIds()}));
+      return;
+    }
     const sheetMatch = url.pathname.match(/^\/transform-sheet\/([\w-]{3,60})$/);
     if (sheetMatch) {
       const sid = sheetMatch[1];
@@ -5961,7 +5968,7 @@ const server = createServer(async (req, res) => {
       }
       const allSheets = loadTransformSheets();
       const classified = classifySheetProblems(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report), allSheets});
-      res.end(renderTransformSheetPage(sheet, report, classified.blockers, {refReports, blockers: classified.blockers, warnings: classified.warnings, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
+      res.end(renderTransformSheetPage(sheet, report, classified.blockers, {refReports, cases: loadPackagingCases().cases, blockers: classified.blockers, warnings: classified.warnings, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
       return;
     }
     if (url.pathname === '/api/transform-sheet-approve' && req.method === 'POST') {

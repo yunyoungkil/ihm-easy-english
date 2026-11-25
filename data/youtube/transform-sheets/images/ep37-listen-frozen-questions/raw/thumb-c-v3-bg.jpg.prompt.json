@@ -1,0 +1,17 @@
+{
+  "tool": "aistudio-image",
+  "model": "gemini-nano-banana-2.1",
+  "createdAt": "2026-11-25T12:33:10.976Z",
+  "prompt": "Photorealistic still-life photograph, 16:9 widescreen, on a solid warm golden yellow background (hex F5C518) with soft natural shadows.\nSubject: everyday objects from daily life in Seoul arranged in a loose arc across the right half of the frame, slightly overlapping, seen from a slight high angle: a plain blue transit card, a handheld card payment terminal from a shop counter, a takeaway paper coffee cup, a small carry-on suitcase, a striped popcorn bucket, and in front a pair of white wireless earbuds with their open charging case.\nThe left half of the frame is empty yellow for large text added later.\nLighting: bright soft daylight, crisp realistic materials and reflections.\nShot: 50mm lens, everything in focus.\nNo text, no letters, no numbers, no logos or brand names anywhere in the image. No watermark, no AI logos, no Gemini logo or sparkle icons, clean corners without stamps or overlays, ultra-clean edges.",
+  "promptFile": "../../AppData/Local/Temp/claude/075614d6a71f4fa0/d9b47547-1c92-4255-b6a8-e9e55adea918/scratchpad/pc.txt",
+  "attachments": [],
+  "settings": {
+    "aspect": "16:9"
+  },
+  "output": {
+    "file": "data/youtube/transform-sheets/images/ep37-listen-frozen-questions/raw/thumb-c-v3-bg.jpg",
+    "width": 1376,
+    "height": 768,
+    "type": "image/jpeg"
+  }
+}

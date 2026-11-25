@@ -1,5 +1,7 @@
 # 클릭 사례 모음 — 제목·썸네일 "왜 눌렸나" 근거 보관함
 
+> **2026-11-25부터 새 사례는 사례집 `data/youtube/packaging-cases.json`에 넣는다**(숫자·같은 채널 덜 된 영상·그림·만드는 법 연결, `npm run packaging-cases`, 대시보드 `/packaging-cases`). 아래 ytn·snl·ttukttak·korea-expedition 4건은 사례집에 `ytn-assault-news`·`snl-tutor-clip`·`ttukttak-human-feed`·`korea-expedition-france`로 옮겨 분석을 더했다. 이 문서에는 사용자 설명 원문과 썸네일 전략 영상 2건이 남아 있다.
+
 > 2026-11-24 만듦. 2026-11-23 클릭 심리 원칙(`.claude/skills/episode-planning/references/02-title-and-thumbnail.md` 1-2절)을 정할 때 본 사례가 기록 한 줄(`knowledge/logs/2026-11.md` 11/23 밤 2차)로만 남았다. 영상 이름·주소·그림이 없어서 다른 PC나 다음 기획에서 다시 볼 수 없었다. 그래서 여기에 모은다.
 > 2026-11-24 저녁, 11/23 대화를 한 컴퓨터(DESKTOP-UA9AKL2)에서 원본(안티그래비티 대화 `d906e78d-71f5-475b-ada3-e8ba3622be6d`의 사용자 캡처 4장과 붙여 넣은 대본)으로 6개 항목을 채웠다. 주소와 지금 조회수는 프로젝트 유튜브 연동으로 확인했다.
 > 마지막 메타 광고·공개 웹 조사일: 미실시 (14일 주기 기준)
@@ -106,4 +108,4 @@
 - 우리에게 쓸 점 (11/23 제미나이 분석): 가져올 것은 질문과 감정, 다른 분야까지 넓힌 참고 사례, 올리기 전에 문구 여러 안 비교. 거를 것은 TV 기준 설계(우리 채널은 휴대폰 시청 84.3~86.2%, TV 1.15~1.51%, 11/23 기록)와 스튜디오 썸네일 비교 시험(우리 롱폼은 노출이 적어 10건 모두 결과가 나오지 않음).
 - 넣은 사람·날짜: Claude Opus 5.5, 2026-11-24
 
-(새 사례는 위 틀대로 이 아래에 더한다.)
+(새 사례는 사례집 `data/youtube/packaging-cases.json`에 더한다. 2026-11-25)

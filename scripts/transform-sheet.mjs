@@ -13,6 +13,7 @@ import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {findBannedTerms} from './banned-terms.mjs';
 import {USUAL_RESULTS} from './baseline.mjs';
+import {loadCases} from './packaging-cases.mjs';
 
 export const ROW_KEYS = Object.freeze(['title', 'thumbnail', 'opening', 'flow', 'visual', 'reaction', 'ending']);
 export const ROW_LABELS = Object.freeze({
@@ -143,6 +144,98 @@ export function clickWhyProblems(sheet) {
       }
     });
     candidates.forEach((_, i) => { if (!covered.has(i)) out.push(`${name}: ${label(i)}에 이어진 왜 눌렸나(clickWhy) 근거가 없다`); });
+  }
+  return out;
+}
+
+/**
+ * 썸네일·제목 만드는 법 근거(2026-11-25 사용자: 다른 분야 썸네일 8개를 주며 "이대로 쓰라는 게 아니라 보편적으로 이렇게 쓴다는 것",
+ * "그 자료를 영상에만 쓰려 해서 썸네일이 AI 평균값이 된다", "어디를 강조하고 줄이고, 제목과 시너지는 어떻게 내고, 호기심·심리는 어떻게 쓰나").
+ * 방법(카메라·구도·장치)은 고정하지 않고, 생각한 흔적만 칸으로 남긴다. 2026-11-25 이후에 만든 4판 시트부터 본다(EP37 포함, 사용자 결정).
+ * 사례집(data/youtube/packaging-cases.json, `npm run packaging-cases`)의 사례는 source에 `case:<id>`로 적고, 하나 이상 있어야 한다. 사례집에 없는 id는 막는다.
+ * - 썸네일 행 craft: [{source, took, appliedTo:['thumb:A']}] — 제작 자료(knowledge/·data/research/의 문서) 1개 이상 + 다른 분야 사례(click-ref:… 또는 이 시트 references 밖의 영상 ID) 1개 이상, 모든 시안에 이어짐
+ * - 썸네일 행 eyeOrder: [{candidate:'thumb:A', first, second, shrink}] — 시안마다 눈이 처음·두 번째로 가는 곳과 일부러 줄인 것
+ * - 제목 행 pairing: [{title:'title:1', thumb:'thumb:A', thumbDoes, titleDoes}] — 제목 후보마다 짝 썸네일과 일을 어떻게 나눴나
+ */
+export const CRAFT_SINCE = '2026-11-25';
+const isMaterialSource = (s) => /^(knowledge|data\/research)\//.test(String(s || '')) && !/click-references/.test(String(s));
+export function craftProblems(sheet, {knownCaseIds = null} = {}) {
+  const out = [];
+  if (!isSloganV4(sheet)) return out;
+  if (!filled(sheet?.createdAt) || String(sheet.createdAt) < CRAFT_SINCE) return out;
+  const known = knownCaseIds || new Set(loadCases().cases.map((c) => c?.id).filter(Boolean));
+  const rows = sheet?.rows || [];
+  const titleRow = rows.find((r) => r.key === 'title');
+  const thumbRow = rows.find((r) => r.key === 'thumbnail');
+  const titles = (titleRow?.ours?.titles || []).filter(filled);
+  const thumbs = [thumbRow?.ours?.image, ...(thumbRow?.ours?.images || [])].filter(filled);
+  const thumbIdx = (tk) => {
+    const m = String(tk || '').match(/^thumb:(.+)$/);
+    if (!m) return -1;
+    const v = m[1];
+    const byName = thumbs.findIndex((p) => p.endsWith(`thumb-${v}.jpg`) || p.endsWith(`thumb-${v}.png`) || p.endsWith(`/${v}`));
+    if (byName >= 0) return byName;
+    const n = Number(v);
+    return Number.isInteger(n) && n >= 1 && n <= thumbs.length ? n - 1 : -1;
+  };
+  const titleIdx = (tk) => {
+    const m = String(tk || '').match(/^title:(\d+)$/);
+    const n = m ? Number(m[1]) : NaN;
+    return Number.isInteger(n) && n >= 1 && n <= titles.length ? n - 1 : -1;
+  };
+  const thumbName = (i) => String(thumbs[i]).split('/').pop().replace(/\.[^.]+$/, '');
+  const refIds = new Set([sheet?.sourceVideoId, ...(sheet?.references || []).map((r) => r?.videoId)].filter(filled));
+
+  if (thumbs.length) {
+    const craft = thumbRow?.craft;
+    if (!Array.isArray(craft) || !craft.length) {
+      out.push('썸네일: 만드는 법 근거(craft)가 없다 — 제작 자료와 다른 분야 썸네일에서 무엇(카메라·구도·층·강조)을 가져왔는지 시안마다 적는다');
+    } else {
+      const covered = new Set();
+      craft.forEach((e, n) => {
+        const where = `썸네일: 만드는 법 근거 ${n + 1}번`;
+        if (!filled(e?.source)) out.push(`${where}에 source(참고한 자료·사례)가 비어 있다`);
+        const caseRef = String(e?.source || '').match(/^case:(.*)$/);
+        if (caseRef && !known.has(caseRef[1])) out.push(`썸네일: 만드는 법 근거 ${n + 1}번의 사례 case:${caseRef[1]}가 사례집에 없다`);
+        if (!filled(e?.took)) out.push(`${where}에 took(가져온 것)이 비어 있다`);
+        const list = Array.isArray(e?.appliedTo) ? e.appliedTo : [];
+        if (!list.length) out.push(`${where}: 우리 어느 시안에 썼는지(appliedTo)가 없다`);
+        for (const tk of list) {
+          const i = thumbIdx(tk);
+          if (i < 0) out.push(`${where}: "${tk}"는 없는 시안이다(thumb:A 형식)`);
+          else covered.add(i);
+        }
+      });
+      if (!craft.some((e) => isMaterialSource(e?.source))) out.push('썸네일: 만드는 법 근거에 제작 자료(knowledge/… 또는 data/research/… 문서, 예: AI 티 빼기·영상 효과 자료)가 하나도 없다');
+      if (!craft.some((e) => /^case:./.test(String(e?.source || '')))) out.push('썸네일: 만드는 법 근거에 사례집 사례(case:…)가 하나도 없다 — npm run packaging-cases로 목록 전체를 보고 고른다');
+      if (!craft.some((e) => filled(e?.source) && !isMaterialSource(e.source) && !refIds.has(e.source))) out.push('썸네일: 만드는 법 근거에 다른 분야 사례(click-ref:… 또는 이 시트 레퍼런스 밖의 영상)가 하나도 없다 — 같은 분야 경쟁 썸네일만 보면 그쪽 수준에 갇힌다');
+      thumbs.forEach((_, i) => { if (!covered.has(i)) out.push(`썸네일: 시안 ${thumbName(i)}에 이어진 만드는 법 근거(craft)가 없다`); });
+    }
+    const eye = thumbRow?.eyeOrder;
+    const seen = new Set();
+    (Array.isArray(eye) ? eye : []).forEach((e, n) => {
+      const i = thumbIdx(e?.candidate);
+      const where = `썸네일: 눈이 가는 순서 ${n + 1}번`;
+      if (i < 0) { out.push(`${where}: candidate "${e?.candidate ?? ''}"는 없는 시안이다(thumb:A 형식)`); return; }
+      seen.add(i);
+      for (const [f, ko] of [['first', '눈이 처음 가는 곳'], ['second', '두 번째로 가는 곳'], ['shrink', '일부러 줄이거나 뺀 것']]) if (!filled(e?.[f])) out.push(`${where}에 ${f}(${ko})가 비어 있다`);
+    });
+    thumbs.forEach((_, i) => { if (!seen.has(i)) out.push(`썸네일: 시안 ${thumbName(i)}에 눈이 가는 순서(eyeOrder: 처음·두 번째·줄인 것)가 없다`); });
+  }
+
+  if (titles.length) {
+    const pairing = titleRow?.pairing;
+    const seen = new Set();
+    (Array.isArray(pairing) ? pairing : []).forEach((e, n) => {
+      const where = `제목: 썸네일과 일 나누기 ${n + 1}번`;
+      const i = titleIdx(e?.title);
+      if (i < 0) { out.push(`${where}: title "${e?.title ?? ''}"는 없는 제목 후보다(title:1 형식)`); return; }
+      seen.add(i);
+      if (thumbs.length && thumbIdx(e?.thumb) < 0) out.push(`${where}: 짝 썸네일 "${e?.thumb ?? ''}"가 없는 시안이다(thumb:A 형식)`);
+      if (!filled(e?.thumbDoes)) out.push(`${where}에 thumbDoes(썸네일이 맡은 일)가 비어 있다`);
+      if (!filled(e?.titleDoes)) out.push(`${where}에 titleDoes(제목이 맡은 일)가 비어 있다`);
+    });
+    titles.forEach((_, i) => { if (!seen.has(i)) out.push(`제목: 후보 ${i + 1}번에 썸네일과 일 나누기(pairing: 짝 썸네일·각자 맡은 일)가 없다`); });
   }
   return out;
 }
@@ -532,7 +625,7 @@ function cutPlanProblems(plan, competitorPacing, imageExists, needScript = false
   return out;
 }
 
-export function validateSheet(sheet, {imageExists = () => true, competitorPacing = null} = {}) {
+export function validateSheet(sheet, {imageExists = () => true, competitorPacing = null, knownCaseIds = null} = {}) {
   const problems = [];
   const v4 = isSloganV4(sheet);
   if (v4) {
@@ -602,6 +695,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     ...evidenceProblems(sheet),
     ...appliedProblems(sheet),
     ...clickWhyProblems(sheet),
+    ...craftProblems(sheet, {knownCaseIds}),
     ...selfCritiqueProblems(sheet),
     ...aiRecommendationProblems(sheet, {imageExists}),
     ...trendRefProblems(sheet),

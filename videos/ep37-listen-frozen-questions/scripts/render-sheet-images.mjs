@@ -1,6 +1,7 @@
 // EP37 비교 시트용 썸네일 3안(1280×720)과 화면 시안 컷(1920×1080)을 코드로 찍는다.
 // 배경 사진은 AI 스튜디오(Nano Banana 2.1)로 만든 raw/*.jpg, 글자는 전부 여기서 얹는다(그림 속 글자 금지).
 // 사용: node videos/ep37-listen-frozen-questions/scripts/render-sheet-images.mjs
+import {execFileSync} from 'node:child_process';
 import {mkdirSync, readFileSync} from 'node:fs';
 import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -46,53 +47,54 @@ const wave = (w, h, color, bars = 64, seed = 7) => {
   return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${out}</svg>`;
 };
 
-// ── 썸네일 3안 (1280×720) ─────────────────────────────────────────
+// ── 썸네일 3안 (1280×720) — v3(2026-11-25 사용자: 다른 분야 수법·제작 자료를 썸네일에도) ───────────
+// 사례집(data/youtube/packaging-cases.json)에서 고른 사례와 제작 자료의 방법을 시안마다 층으로 쌓는다. 한 틀로 찍지 않는다.
+// 덮개는 글자 뒤에만 깔고 이야기 요소(외국인 어깨·귀·소품)는 가리지 않는다. 오른쪽 아래(재생 시간 자리)에는 글자를 두지 않는다.
+// 이전 판(v2, 배경 + 왼쪽 덮개 + 두 줄)은 raw/thumb-?-v2-ai-average.jpg와 실패 이유 raw/thumb-v2-ai-average.txt.
+const TL = JSON.parse(execFileSync(process.execPath, [join(HERE, 'estimate-timeline.mjs'), '--json'], {encoding: 'utf8'}));
+const MINUTES = Math.round(TL.totalSeconds / 60); // 추정 길이(음성 실측 뒤 다시 찍으면 실제 값으로 바뀐다)
+const stroke = (px, c = '#0B0F18') => `-webkit-text-stroke:${px}px ${c};paint-order:stroke fill`;
 const THUMBS = {
-  // A 장면: 지하철 개찰구에서 외국인이 말을 걸어 얼어붙은 순간
+  // A 장면·대결: 외국인 어깨 너머로 얼어붙은 얼굴(case:smokinggun-sageon 마주 선 순간 + case:korea-expedition-france 실사 클로즈업·구체 장소,
+  // 영상 효과 15번 내 눈으로 보는 화면·어깨 너머). 눈: 얼굴 → 말풍선 → 노란 줄. 줄인 것: 꼬리표 없음, 역 배경은 흐리게.
   A: page(1280, 720, `
-.scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,15,24,.95) 0%,rgba(11,15,24,.88) 40%,rgba(11,15,24,.35) 60%,rgba(11,15,24,0) 72%)}
-.top{position:absolute;left:0;right:0;top:0;height:120px;background:linear-gradient(180deg,rgba(11,15,24,.85),rgba(11,15,24,0))}
-.bub{position:absolute;left:48px;top:58px;background:#fff;color:#111;border-radius:28px;padding:18px 30px;font-size:42px;font-weight:800;letter-spacing:-.5px}
-.bub:after{content:'';position:absolute;left:70px;bottom:-22px;border:14px solid transparent;border-top:18px solid #fff;border-left:22px solid #fff}
-.h1{position:absolute;left:52px;top:220px;font-size:86px;font-weight:900;letter-spacing:-2px;line-height:1.05}
-.h2{position:absolute;left:46px;top:322px;font-size:118px;font-weight:900;color:#F5C518;letter-spacing:-4px;line-height:1.05}
-.chip{position:absolute;left:54px;top:520px;background:#F5C518;color:#111;font-size:56px;font-weight:900;padding:10px 26px;border-radius:16px;letter-spacing:-1px}`,
-  `<img class="bg" src="${img('thumb-a-bg.jpg')}" style="object-position:62% 50%"><div class="top"></div><div class="scrim"></div>
+.low{position:absolute;left:0;right:0;bottom:0;height:330px;background:linear-gradient(0deg,rgba(8,11,18,.88) 0%,rgba(8,11,18,.6) 55%,rgba(8,11,18,0) 100%)}
+.top{position:absolute;left:0;right:0;top:0;height:230px;background:linear-gradient(180deg,rgba(8,11,18,.7) 0%,rgba(8,11,18,.35) 60%,rgba(8,11,18,0) 100%)}
+.bub{position:absolute;left:40px;top:40px;background:#fff;color:#111;border-radius:30px;padding:16px 30px;font-size:44px;font-weight:800;letter-spacing:-.5px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.bub:after{content:'';position:absolute;left:46px;bottom:-26px;border:15px solid transparent;border-top:22px solid #fff;border-right:24px solid #fff}
+.h1{position:absolute;left:44px;bottom:168px;font-size:70px;font-weight:900;letter-spacing:-2px;${stroke(10)}}
+.h2{position:absolute;left:38px;bottom:42px;font-size:116px;font-weight:900;color:#F5C518;letter-spacing:-4px;line-height:1;${stroke(12)}}`,
+  `<img class="bg" src="${img('thumb-a-v3-bg.jpg')}" style="object-position:55% 40%;transform:scale(1.16);transform-origin:70% 40%"><div class="top"></div><div class="low"></div>
 <div class="bub nw">How do I get to Seoul Station?</div>
-<div class="h1 nw">외국인이 물으면</div><div class="h2 nw">머리가 하얘진다</div>
-<div class="chip nw">생활 질문 30개</div>`),
+<div class="h1 nw">다 아는 단어 일곱 개인데</div><div class="h2 nw">들린 건 두 덩어리</div>`),
 
-  // B 소리 그림: 작은 말은 작고 흐리게, 힘 준 말만 크게(사진 없음)
+  // B 소리 그림: 귀를 아주 가까이(영상 효과 14번) + 작은 말은 작고 흐리게, 힘 준 말만 크게(우리 고유 코너).
+  // case:english-podcast-class 내 문제를 묻는 질문. 눈: GET → 귀 → 질문. 줄인 것: how do I·to는 작고 흐리게, 다른 글자 없음.
   B: page(1280, 720, `
-body{background:radial-gradient(ellipse at 50% 55%,#1B2638 0%,#0C111B 70%)}
-.q{position:absolute;left:0;right:0;top:48px;text-align:center;font-size:96px;font-weight:900;letter-spacing:-3px}
-.w{position:absolute;left:0;right:0;top:250px;display:flex;justify-content:center;opacity:.22}
-.l1{position:absolute;left:0;right:0;top:196px;display:flex;justify-content:center;align-items:baseline;gap:26px}
-.l2{position:absolute;left:0;right:0;top:372px;display:flex;justify-content:center;align-items:baseline;gap:18px}
-.sm{font-size:46px;font-weight:600;color:#5E6878;letter-spacing:0}
-.get{font-size:190px;font-weight:900;color:#F5C518;letter-spacing:-6px;line-height:1}
-.ss{font-size:136px;font-weight:900;color:#F4F1EA;letter-spacing:-5px;line-height:1}
-.foot{position:absolute;left:0;right:0;bottom:52px;text-align:center;font-size:64px;font-weight:800;color:#F4F1EA}
-.foot b{color:#F5C518;font-weight:900}`,
-  `<div class="q nw">몇 단어 들리세요?</div>
-<div class="w">${wave(1100, 300, '#9FB4D8', 80, 11)}</div>
+.q{position:absolute;left:56px;top:44px;font-size:84px;font-weight:900;letter-spacing:-3px;${stroke(8)}}
+.w{position:absolute;left:30px;top:250px;opacity:.18}
+.l1{position:absolute;left:60px;top:205px;display:flex;align-items:baseline;gap:22px}
+.l2{position:absolute;left:60px;top:410px;display:flex;align-items:baseline;gap:14px}
+.sm{font-size:44px;font-weight:600;color:#7C889C}
+.get{font-size:184px;font-weight:900;color:#F5C518;letter-spacing:-6px;line-height:1;${stroke(10)}}
+.ss{font-size:100px;font-weight:900;color:#F4F1EA;letter-spacing:-4px;line-height:1;${stroke(8)}}`,
+  `<img class="bg" src="${img('thumb-b-v3-bg.jpg')}" style="object-position:70% 50%">
+<div class="w">${wave(820, 280, '#9FB4D8', 60, 11)}</div>
+<div class="q nw">몇 단어 들리세요?</div>
 <div class="l1"><span class="sm nw">how do I</span><span class="get nw">GET</span><span class="sm nw">to</span></div>
-<div class="l2"><span class="ss nw">SEOUL STATION</span><span class="sm nw">?</span></div>
-<div class="foot nw">다 듣지 말고, <b>두 군데만</b></div>`),
+<div class="l2"><span class="ss nw">SEOUL STATION</span><span class="sm nw">?</span></div>`),
 
-  // C 틀어 두기: 출퇴근길 이어폰, 끝이 보이는 수량
+  // C 틀어 두기: 밝은 노랑 갈래 표시(case:english-podcast-class) + 긴 길이를 앞세우고 생활 소품을 모아 무엇을 듣는지(case:english-thinking-6hours)
+  // + 끝이 보이는 양과 쓰는 법 칩(case:listen-speak-answers40, 효과 약속은 뺌). 눈: 빨간 길이 칩 → "질문 30개" → 소품. 줄인 것: 사람 없음, 규칙 설명 없음.
   C: page(1280, 720, `
-.scrim{position:absolute;inset:0;background:linear-gradient(100deg,rgba(9,12,20,.92) 0%,rgba(9,12,20,.78) 45%,rgba(9,12,20,.15) 70%,rgba(9,12,20,0) 85%)}
-.tag{position:absolute;left:56px;top:60px;border:4px solid #F4F1EA;border-radius:40px;padding:6px 26px;font-size:46px;font-weight:800}
-.h1{position:absolute;left:54px;top:170px;font-size:92px;font-weight:900;letter-spacing:-2px}
-.h2{position:absolute;left:48px;top:276px;font-size:168px;font-weight:900;color:#F5C518;letter-spacing:-5px;line-height:1}
-.sub{position:absolute;left:58px;top:478px;font-size:52px;font-weight:800;color:#F4F1EA}
-.w{position:absolute;left:58px;top:580px;opacity:.8}`,
-  `<img class="bg" src="${img('thumb-c-bg.jpg')}" style="object-position:70% 60%"><div class="scrim"></div>
-<div class="tag nw">출퇴근길</div>
-<div class="h1 nw">틀어 두고 듣는</div><div class="h2 nw">영어 질문 30</div>
-<div class="sub nw">대답 30 · 소리 규칙 다섯 가지</div>
-<div class="w">${wave(560, 80, '#F5C518', 40, 3)}</div>`),
+.chip{position:absolute;left:52px;top:56px;background:#D7263D;color:#fff;font-size:54px;font-weight:900;padding:8px 26px;border-radius:14px;letter-spacing:-1px}
+.h1{position:absolute;left:54px;top:196px;font-size:66px;font-weight:900;color:#141B2D;letter-spacing:-2px}
+.h2{position:absolute;left:46px;top:282px;font-size:150px;font-weight:900;color:#141B2D;letter-spacing:-6px;line-height:1}
+.sub{position:absolute;left:56px;top:470px;font-size:50px;font-weight:800;color:#141B2D;background:rgba(255,255,255,.55);padding:6px 20px;border-radius:12px}`,
+  `<img class="bg" src="${img('thumb-c-v3-bg.jpg')}" style="object-position:60% 50%">
+<div class="chip nw">${MINUTES}분 틀어 두기</div>
+<div class="h1 nw">외국인이 묻는 생활 영어</div><div class="h2 nw">질문 30개</div>
+<div class="sub nw">화면 안 봐도 돼요</div>`),
 };
 
 // ── 화면 시안 컷 (1920×1080) ──────────────────────────────────────

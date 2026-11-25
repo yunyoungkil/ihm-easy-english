@@ -49,8 +49,19 @@ for (let i = 0; i < tl.marks.length; i += 1) {
   } else if (T.includes('넓히기')) push(m.t, 'pattern-extend', hidden(curCh), `${T} — 이미 아는 말에 같은 소리`);
   else if (T.includes('이어 듣기')) push(m.t, 'chain-listen', hidden(curCh), `${T} — 질문 → 따라 말하기 신호 → 대답`);
 }
+// 컷마다 그 구간의 대본(한국어 낭독)과 영어 소리를 붙인다. SCRIPT.md에서 자동으로 가져와 둘이 어긋나지 않게 한다
+// (2026-11-25 사용자: "나레이션 대본은 어디 있어? 시트에 없는데?" — 시트 승인은 대본까지 한 번에 보는 자리다).
+const attachScript = () => cuts.forEach((c, i) => {
+  const end = cuts[i + 1]?.t ?? Infinity;
+  const inCut = tl.items.filter((x) => x.t >= c.t && x.t < end);
+  const ko = inCut.filter((x) => x.ko).map((x) => x.ko);
+  const en = inCut.filter((x) => x.en).map((x) => x.text);
+  if (ko.length) c.narration = ko.join('\n');
+  if (en.length) c.voiceEn = en;
+});
 const endT = tl.totalSeconds - 9;
 if (cuts.at(-1).t < endT) push(endT, 'end-screen', 'cut-08-end', '엔드 화면 9초 — 가운데 비움');
+attachScript();
 
 // ── 설명란 시간표 ─────────────────────────────────────────────
 const chapters = [

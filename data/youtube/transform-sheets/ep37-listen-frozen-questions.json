@@ -298,319 +298,745 @@
               "t": 0,
               "template": "ear-only-open",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-00-open.jpg",
-              "motion": "인사·로고 없이 원어민 질문 하나, 글자 없이 파형만"
+              "motion": "인사·로고 없이 원어민 질문 하나, 글자 없이 파형만",
+              "narration": "몇 단어나 들리셨어요? 하우, 두, 아이, 겟, 투, 서울, 스테이션. 일곱 개 다 아는 단어예요. 그런데 귀에 남은 건 아마 두 덩어리였을 거예요. 겟, 그리고 서울 스테이션. 나머지는 다 어디로 갔을까요? 오늘은 이렇게 다 아는 단어로 된 질문 서른 개를, 소리 규칙 다섯 가지로 나눠서 하나씩 풀어 볼게요. 화면은 안 보셔도 괜찮아요. 소리만 따라오시면 됩니다.",
+              "voiceEn": [
+                "How do I get to Seoul Station?"
+              ]
             },
             {
               "t": 36,
               "template": "signal-legend",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-01-signals.jpg",
-              "motion": "신호음 세 가지 약속(띵·뽁·종)"
+              "motion": "신호음 세 가지 약속(띵·뽁·종)",
+              "narration": "들으시는 방법부터 짧게 말씀드릴게요. 영어가 나오기 바로 전에는 이 소리가 납니다.\n처음 들을 때는 화면에서도 영어 글자를 일부러 숨겨 둡니다. 귀로 먼저 듣고, 글자는 두 번째에 보여 드려요. 다음은 이 소리. 따라 말할 차례라는 신호예요.\n지하철처럼 소리 내기 어려운 데서는 입속으로만 따라 하셔도 돼요. 마지막으로, 이 소리가 나면 장이 바뀝니다.\n장은 모두 다섯 개예요. 길에서, 우리 가게에서, 처음 만난 사람과, 여행지에서, 그리고 미드 속 친한 사이. 장마다 소리 규칙이 하나씩 숨어 있고, 마지막 장에 가면 질문의 앞부분이 아예 사라져 버립니다. 앞에서는 하나씩 풀어 보고, 뒤쪽 2부에서는 서른 개를 쭉 이어서 들려 드릴게요. 2부는 그냥 틀어 두셔도 됩니다."
             },
             {
               "t": 103,
               "template": "chapter-title",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-02-ch1-title.jpg",
-              "motion": "1장 표지 — 노선 색 띠, 장면 그림 천천히 확대"
+              "motion": "1장 표지 — 노선 색 띠, 장면 그림 천천히 확대",
+              "narration": "첫 장은 길과 지하철입니다. 서울역 개찰구 앞, 캐리어를 끈 관광객이 휴대폰 지도를 들고 다가옵니다. 이런 자리에서 나오는 질문은 대개 짧아요. 근데 한 단어도 놓치지 않으려고 하면 오히려 다 놓치기 쉽습니다. 영어 질문 안에는 힘을 주는 말과 힘을 빼는 말이 따로 있거든요. 겟, 스테이션, 티켓처럼 뜻을 싣는 말은 크고 길게 나와요. 투, 더, 캔 같은 작은 말은 대개 작고 짧게, 거의 '어' 소리로 지나가고요. 그러니까 다 잡으려 하지 마시고, 크게 들리는 두 군데만 잡으면 됩니다."
             },
             {
               "t": 149,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-03-q-hidden.jpg",
-              "motion": "q01 깊게 — How do I get to Seoul Station? (고유 코너: 두 단어만 남기기) — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q01 깊게 — How do I get to Seoul Station? (고유 코너: 두 단어만 남기기) — 첫 듣기는 글자 숨김·파형만",
+              "narration": "맨 처음에 들려 드린 질문, 다시 들어 볼게요. 이번엔 겟 나오기 전까지가 어떻게 지나가는지, 거기에 귀를 기울여 보세요.\n겟 앞에는 하우 두 아이, 세 단어가 있었어요. 이게 한 덩어리로 미끄러지듯 지나갔죠. 투도 겟 뒤에서 '터' 정도로 짧았고요. 크고 길게 난 건 결국 겟, 그리고 서울 스테이션. 딱 두 군데뿐이었습니다. 작은 말을 다 빼고 두 군데만 남기면 이렇게 들려요.",
+              "voiceEn": [
+                "How do I get to Seoul Station?"
+              ]
             },
             {
               "t": 185,
               "template": "two-words-corner",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-05-two-words.jpg",
-              "motion": "고유 코너: 작은 말이 지워지고 두 단어만 남음"
+              "motion": "고유 코너: 작은 말이 지워지고 두 단어만 남음",
+              "narration": "이것만 들어도 서울역에 어떻게 가냐는 뜻은 통하죠. 이제 원래 질문을 한 번 더 들어 볼게요. 아까보다 조금 덜 빠르게 느껴지실 수도 있어요.",
+              "voiceEn": [
+                "Get... Seoul Station?"
+              ]
             },
             {
               "t": 202,
               "template": "question-reveal",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-04-q-reveal.jpg",
-              "motion": "다시 듣기 — 글자 크기 = 소리 세기, 뜻·한글 소리"
+              "motion": "다시 듣기 — 글자 크기 = 소리 세기, 뜻·한글 소리",
+              "narration": "대답은 이 정도로 짧아도 됩니다.\n일호선 타세요.",
+              "voiceEn": [
+                "How do I get to Seoul Station?",
+                "Take Line 1."
+              ]
             },
             {
               "t": 215,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-03-q-hidden.jpg",
-              "motion": "q02 빠르게 — Which line goes to Gangnam? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q02 빠르게 — Which line goes to Gangnam? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "다음은 노선도 앞에서 강남 가는 길을 묻는 질문.\n크게 들린 건 라인하고 강남. 강남 가려면 몇 호선을 타야 하는지 묻고 있어요.\n초록색이요, 지하철 이호선.",
+              "voiceEn": [
+                "Which line goes to Gangnam?",
+                "Which line goes to Gangnam?",
+                "The green one, Line 2."
+              ]
             },
             {
               "t": 239,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-03-q-hidden.jpg",
-              "motion": "q03 빠르게 — Is this the right way to Myeongdong? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q03 빠르게 — Is this the right way to Myeongdong? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "지도를 보며 걷던 사람이 멈춰 서서 묻습니다.\n라잇 웨이, 그리고 명동. 두 군데만 들려도 충분해요. 명동 가는 길이 이쪽 맞냐고 묻는 거니까요.\n네, 쭉 가세요.",
+              "voiceEn": [
+                "Is this the right way to Myeongdong?",
+                "Is this the right way to Myeongdong?",
+                "Yes, go straight."
+              ]
             },
             {
               "t": 264,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-03-q-hidden.jpg",
-              "motion": "q04 깊게 — Where can I buy a ticket? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q04 깊게 — Where can I buy a ticket? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "표 사는 곳을 묻는 질문인데, 여기엔 '할 수 있다'는 뜻의 캔이 들어 있어요. 캔이 어떻게 나오는지만 들어 볼게요.\n캔이라고 또박또박 들리던가요? 크게 들린 건 바이, 그리고 티켓. 캔 아이는 '크나이'처럼 짧게 붙어서 지나갔습니다. 뜻으로 보면 중요한 말인데, 질문 안에서는 이렇게 작아져요. 반대로 못 한다는 캔트는 작아지지 않고 '캔' 소리가 그대로 살아 있어요. 캔을 또박또박 살려서 읽으면 이렇게 돼요.\n원어민 속도로 다시 갑니다.\n저기 기계에서요.",
+              "voiceEn": [
+                "Where can I buy a ticket?",
+                "Where can I buy a ticket?",
+                "Where can I buy a ticket?",
+                "Over there, at the machine."
+              ]
             },
             {
               "t": 322,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-03-q-hidden.jpg",
-              "motion": "q05 귀 시험 — Does this train go to the airport? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q05 귀 시험 — Does this train go to the airport? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "자, 여기선 힌트 없이 그냥 들어 볼게요.\n무슨 뜻이었을까요?\n이 열차가 공항에 가는지 물었어요. 트레인하고 에어포트, 두 군데만 잡으셨어도 충분합니다.\n네, 가요.",
+              "voiceEn": [
+                "Does this train go to the airport?",
+                "Yes, it does."
+              ]
             },
             {
               "t": 348,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-03-q-hidden.jpg",
-              "motion": "q06 빠르게 — How long does it take to get there? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q06 빠르게 — How long does it take to get there? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "이 장 마지막은 거기까지 얼마나 걸리는지 묻는 질문이에요.\n크게 난 건 하우 롱, 그리고 테익. 둘만 들려도 시간을 묻는 줄은 알 수 있어요.\n이십 분쯤이요.",
+              "voiceEn": [
+                "How long does it take to get there?",
+                "How long does it take to get there?",
+                "About twenty minutes."
+              ]
             },
             {
               "t": 373,
               "template": "chain-listen",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-03-q-hidden.jpg",
-              "motion": "1장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답"
+              "motion": "1장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답",
+              "narration": "길에서 들은 질문 여섯 개, 이어서 들려 드릴게요. 질문이 끝나고 신호가 나면 따라 하실 차례예요. 입속으로만 하셔도 되고요. 그다음엔 대답이 이어집니다.",
+              "voiceEn": [
+                "How do I get to Seoul Station?",
+                "Take Line 1.",
+                "Which line goes to Gangnam?",
+                "The green one, Line 2.",
+                "Is this the right way to Myeongdong?",
+                "Yes, go straight.",
+                "Where can I buy a ticket?",
+                "Over there, at the machine.",
+                "Does this train go to the airport?",
+                "Yes, it does.",
+                "How long does it take to get there?",
+                "About twenty minutes."
+              ]
             },
             {
               "t": 440,
               "template": "chapter-title",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-12-ch2-title.jpg",
-              "motion": "2장 표지 — 노선 색 띠, 장면 그림 천천히 확대"
+              "motion": "2장 표지 — 노선 색 띠, 장면 그림 천천히 확대",
+              "narration": "두 번째 장은 우리 가게예요. 가게나 식당에서 일하다 보면, 계산대 앞에서 외국인 손님이 말을 걸어올 때가 있죠. 여기선 설명보다 귀가 먼저입니다."
             },
             {
               "t": 456,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "q07 귀 시험 (장 첫머리) — How much is it? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q07 귀 시험 (장 첫머리) — How much is it? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "단어가 몇 개로 들리셨어요? 원래는 네 개인데, 귀에는 한 단어처럼 들렸을지도 몰라요. '하우 머치짓'. 얼마냐고 묻는 질문입니다.\n만 오천 원입니다.\n왜 한 덩어리로 들렸을까요? 머치의 끝소리가 뒤에 오는 이즈의 '이'로 넘어가 붙고, 이즈의 끝소리는 또 잇 앞에 붙었어요. 앞 단어가 받침 소리로 끝나고 뒤 단어가 모음으로 시작하면, 원어민은 그 사이를 끊지 않고 넘겨 붙이는 일이 많아요. 사실 우리말도 그래요. '먹어요'를 '먹, 어요' 하고 끊어 말하는 사람은 없잖아요. 다들 '머거요'라고 하죠. 영어는 이 일이 단어와 단어 사이에서도 일어납니다. 단어마다 끊어 읽으면 이렇고요.\n이어서 말하면 이렇게 됩니다.",
+              "voiceEn": [
+                "How much is it?",
+                "It's fifteen thousand won.",
+                "How. Much. Is. It.",
+                "How much is it?"
+              ]
             },
             {
               "t": 527,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "q08 깊게 — Can I pay by card? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q08 깊게 — Can I pay by card? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "계산대에서 정말 자주 나오는 질문이죠. 캔과 아이, 두 단어가 어떻게 이어지는지 들어 볼게요.\n캔 아이가 하나로 붙어서 '캐나이'. 캔의 끝소리가 아이 앞으로 넘어가서 '나이'가 됐어요. 그 뒤로 페이와 카드는 크게 들렸고요. 카드로 계산해도 되는지 묻는 말입니다. 캔은 첫 장에서도 작게 지나갔는데, 여기선 뒤에 붙기까지 하니까 더 안 들립니다. 끊어 읽은 소리, 그리고 원래 소리. 차례로 들려 드릴게요.\n그럼요, 하세요.",
+              "voiceEn": [
+                "Can I pay by card?",
+                "Can. I.",
+                "Can I pay by card?",
+                "Sure, go ahead."
+              ]
             },
             {
               "t": 578,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "q09 빠르게 — Is it spicy? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q09 빠르게 — Is it spicy? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "식당에서는 메뉴를 고르던 손님이 이렇게 묻습니다.\n맵냐고 묻는 말이에요. 앞의 이즈와 잇, 두 단어가 붙어서 '이짓'. 뒤에 스파이시가 크게 들렸죠.\n조금요.",
+              "voiceEn": [
+                "Is it spicy?",
+                "Is it spicy?",
+                "Just a little."
+              ]
             },
             {
               "t": 600,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "q10 빠르게 — Do you have this in black? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q10 빠르게 — Do you have this in black? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "옷 가게에서는 손님이 옷을 들어 보이며 이렇게도 묻습니다.\n디스 끝소리가 인에 붙어서 '디씬 블랙'. 이거 검은색으로도 있냐는 말이에요.\n네, 여기 있어요.",
+              "voiceEn": [
+                "Do you have this in black?",
+                "Do you have this in black?",
+                "Yes, right here."
+              ]
             },
             {
               "t": 624,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "q11 깊게 — Can I take a look? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q11 깊게 — Can I take a look? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "여기선 붙는 곳이 두 군데입니다. 어디하고 어디인지, 세면서 들어 볼게요.\n한 곳은 아까 들은 '캐나이', 다른 한 곳은 '테이커'. 테이크의 끝소리가 뒤의 '어'에 붙었죠. 이렇게 두 군데가 이어지니까 질문 전체가 '캐나이 테이커 룩', 한 줄로 흘러갑니다. 좀 봐도 되냐는 질문이에요. 뒤쪽 세 단어만 끊어 읽으면 이렇습니다.\n원어민 입에서는 이렇게 하나로 이어집니다.\n물론이죠.",
+              "voiceEn": [
+                "Can I take a look?",
+                "Take. A. Look.",
+                "Can I take a look?",
+                "Of course."
+              ]
             },
             {
               "t": 671,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "q12 빠르게 — Is this on sale? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q12 빠르게 — Is this on sale? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "이 장 마지막은 가격표를 보던 손님의 질문입니다.\n이거 할인하냐는 질문이에요. 디스와 온이 붙어서 '디쏜 세일'로 들렸죠.\n네, 삼십 퍼센트 할인이에요.",
+              "voiceEn": [
+                "Is this on sale?",
+                "Is this on sale?",
+                "Yes, thirty percent off."
+              ]
             },
             {
               "t": 694,
               "template": "pattern-extend",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "2장 넓히기 — 이미 알던 말 — 이미 아는 말에 같은 소리"
+              "motion": "2장 넓히기 — 이미 알던 말 — 이미 아는 말에 같은 소리",
+              "narration": "이렇게 붙는 소리는 이미 아는 말에도 숨어 있어요. 미드에서 자주 나오는 말부터 들어 볼게요.\n'컴 온'이 아니라 '커몬'. 컴의 끝소리가 온에 붙었죠. 하나 더 갑니다.\n'홀돈'. 홀드의 끝소리가 온에 붙었어요. 잠깐만 기다려 달라는 말이죠.",
+              "voiceEn": [
+                "Come on.",
+                "Hold on."
+              ]
             },
             {
               "t": 719,
               "template": "chain-listen",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-22-ch2-hidden.jpg",
-              "motion": "2장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답"
+              "motion": "2장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답",
+              "narration": "가게에서 들은 여섯 개, 대답까지 이어서 갑니다.",
+              "voiceEn": [
+                "How much is it?",
+                "It's fifteen thousand won.",
+                "Can I pay by card?",
+                "Sure, go ahead.",
+                "Is it spicy?",
+                "Just a little.",
+                "Do you have this in black?",
+                "Yes, right here.",
+                "Can I take a look?",
+                "Of course.",
+                "Is this on sale?",
+                "Yes, thirty percent off."
+              ]
             },
             {
               "t": 767,
               "template": "chapter-title",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-13-ch3-title.jpg",
-              "motion": "3장 표지 — 노선 색 띠, 장면 그림 천천히 확대"
+              "motion": "3장 표지 — 노선 색 띠, 장면 그림 천천히 확대",
+              "narration": "세 번째는 처음 만난 사람입니다. 이사한 아파트 엘리베이터에서, 동네 모임에서, 외국인 이웃이 처음 건네는 질문들이에요. 가게에선 끝소리가 뒤에 붙기만 했는데, 여기선 아예 섞여서 다른 소리가 돼요. 유, 그러니까 '너'라는 말이 앞 단어와 섞이는 소리입니다."
             },
             {
               "t": 794,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "q13 깊게 — Did you just move in? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q13 깊게 — Did you just move in? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "엘리베이터에서 옆집 사람이 말을 겁니다. 두 번째 단어, 유가 어떻게 들리는지만 들어 보세요.\n'디쥬'. 디드의 '드'와 유가 섞여서 '쥬'가 됐습니다. 혀끝이 '드' 자리에 닿아 있다가 그대로 '유'로 넘어가니까, 두 소리가 한 소리로 뭉쳐 버리거든요. 천천히 말할 때는 '디드 유'로 나기도 하지만, 평소 말에서는 이렇게 섞이는 일이 흔합니다. 막 이사 오셨냐는 질문이고요. 끊어 읽은 소리와 나란히 들어 볼게요.",
+              "voiceEn": [
+                "Did you just move in?"
+              ]
             },
             {
               "t": 824,
               "template": "question-reveal",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-06-ch3-reveal.jpg",
-              "motion": "다시 듣기 — 섞이는 두 단어만 장 색으로"
+              "motion": "다시 듣기 — 섞이는 두 단어만 장 색으로",
+              "narration": "네, 지난주에요.",
+              "voiceEn": [
+                "Did. You.",
+                "Did you just move in?",
+                "Yeah, last week."
+              ]
             },
             {
               "t": 844,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "q14 빠르게 — Would you like some coffee? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q14 빠르게 — Would you like some coffee? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "이웃집에 초대받아 앉으면, 이런 말부터 듣게 되죠.\n앞의 두 단어가 '우쥬', 한 덩어리였죠. 우드와 유가 섞였습니다. 커피 드시겠어요, 하고 권하는 말이에요.\n네, 주세요.",
+              "voiceEn": [
+                "Would you like some coffee?",
+                "Would you like some coffee?",
+                "Yes, please."
+              ]
             },
             {
               "t": 868,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "q15 깊게 — Is that your dog? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q15 깊게 — Is that your dog? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "산책길에서 만난 이웃이 강아지를 보고 묻습니다. 여기선 '쥬'가 아니라 '츄'가 나와요.\n'대츄어'. 댓 끝의 '트'와 유어가 섞여서 '츄'가 됐어요. 정리하면 '드' 뒤에서는 '쥬', '트' 뒤에서는 '츄'. 어느 쪽이든 앞 단어의 끝과 유가 한 덩어리가 돼요. 다만 '트' 쪽은 '츄'로 섞이지 않고, '트'가 거의 안 들린 채 숨이 잠깐 끊기듯 지나갈 때도 많습니다. 그 강아지 키우시냐고 묻고 있어요. 끊어 읽으면 이래요.\n다시 원어민 속도로요.\n네, 아주 순해요.",
+              "voiceEn": [
+                "Is that your dog?",
+                "That. Your.",
+                "Is that your dog?",
+                "Yes, she's very friendly."
+              ]
             },
             {
               "t": 919,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "q16 빠르게 — Could you help me with this? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q16 빠르게 — Could you help me with this? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "짐을 든 이웃이 부탁합니다.\n쿠드와 유가 섞여서 '쿠쥬'. 앞에서 들은 디쥬, 우쥬하고 같은 소리죠. 이것 좀 도와주실 수 있냐는 부탁이에요.\n그럼요.",
+              "voiceEn": [
+                "Could you help me with this?",
+                "Could you help me with this?",
+                "No problem."
+              ]
             },
             {
               "t": 941,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "q17 귀 시험 — Can I get you anything? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q17 귀 시험 — Can I get you anything? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "다시 힌트 없이 갑니다. 손님을 맞는 쪽에서 묻는 말이에요.\n무슨 뜻이었을까요?\n뭐 좀 갖다 드릴까, 그걸 물었습니다. 겟과 유가 섞여서 '게츄'처럼 들렸을 거예요. 디쥬, 우쥬, 대츄어를 거쳐 왔으니, 이번 건 조금 들리셨을 수도 있어요.\n물이면 돼요, 고마워요.",
+              "voiceEn": [
+                "Can I get you anything?",
+                "Just water, thanks."
+              ]
             },
             {
               "t": 976,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "q18 빠르게 — Where did you get that? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q18 빠르게 — Where did you get that? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "이 장 마지막 질문이에요. 이웃이 새로 산 물건을 보고 묻습니다.\n디쥬가 또 나왔죠. '웨어 디쥬 겟'. 그거 어디서 났어요, 어디서 샀어요, 하는 질문입니다.\n근처 시장에서요.",
+              "voiceEn": [
+                "Where did you get that?",
+                "Where did you get that?",
+                "At the market nearby."
+              ]
             },
             {
               "t": 1001,
               "template": "pattern-extend",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "3장 넓히기 — 이미 알던 인사 — 이미 아는 말에 같은 소리"
+              "motion": "3장 넓히기 — 이미 알던 인사 — 이미 아는 말에 같은 소리",
+              "narration": "처음 만나면 가장 먼저 듣는 인사에도 이 소리가 있습니다.\n'나이스 투 미츄'. 밋 끝의 '트'와 유가 섞여서 '미츄'처럼 들리죠. 이 인사를 '미츄'로 외우고 계셨다면, 그게 바로 이번 장의 소리예요.",
+              "voiceEn": [
+                "Nice to meet you."
+              ]
             },
             {
               "t": 1021,
               "template": "chain-listen",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-23-ch3-hidden.jpg",
-              "motion": "3장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답"
+              "motion": "3장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답",
+              "narration": "처음 만난 사람의 질문 여섯 개, 대답까지 이어서 들려 드립니다.",
+              "voiceEn": [
+                "Did you just move in?",
+                "Yeah, last week.",
+                "Would you like some coffee?",
+                "Yes, please.",
+                "Is that your dog?",
+                "Yes, she's very friendly.",
+                "Could you help me with this?",
+                "No problem.",
+                "Can I get you anything?",
+                "Just water, thanks.",
+                "Where did you get that?",
+                "At the market nearby."
+              ]
             },
             {
               "t": 1072,
               "template": "chapter-title",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-14-ch4-title.jpg",
-              "motion": "4장 표지 — 노선 색 띠, 장면 그림 천천히 확대"
+              "motion": "4장 표지 — 노선 색 띠, 장면 그림 천천히 확대",
+              "narration": "네 번째 장은 여행지예요. 해외여행을 가면 가게나 호텔에서 직원이 먼저 말을 걸어오죠. 붙고 섞이는 소리를 들었으니, 이번엔 구르는 소리입니다. 미국 영어에서 특히 자주 들려요."
             },
             {
               "t": 1091,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "q19 깊게 — What are you looking for? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q19 깊게 — What are you looking for? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "가게에 들어서자 직원이 다가와 묻습니다. 첫 단어 왓, 그 끝소리가 어떻게 되는지 들어 보세요.\n'워러유'. 왓 끝의 '트'가 '트'로 나지 않았죠. 혀끝이 윗잇몸 뒤를 톡 한 번 치고 지나가면서, 우리말 리을 소리처럼 들렸습니다. '트' 앞뒤로 모음이 오면 미국 영어는 이렇게 굴리는 일이 많아요. 워터를 '워러'처럼 들으신 적 있으시죠? 같은 소리예요. 뭘 찾으세요, 그 말이에요. '트'를 살려서 끊어 읽으면 이렇습니다.\n굴리면 이렇게 됩니다.\n그냥 구경하는 거예요, 고마워요.",
+              "voiceEn": [
+                "What are you looking for?",
+                "What. Are. You.",
+                "What are you looking for?",
+                "Just looking, thanks."
+              ]
             },
             {
               "t": 1146,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "q20 귀 시험 — Should I put it in a bag? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q20 귀 시험 — Should I put it in a bag? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "계산할 때 듣는 질문이에요. 이것도 힌트 없이 들어 볼게요.\n무슨 뜻이었을까요?\n봉투에 넣어 드릴지 묻는 질문이었어요. 풋 잇 인 어, 네 단어가 '푸리리너'처럼 굴러갔죠. '트'가 두 번 굴렀습니다.\n아뇨, 괜찮아요.",
+              "voiceEn": [
+                "Should I put it in a bag?",
+                "No, thanks."
+              ]
             },
             {
               "t": 1177,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "q21 빠르게 — Are you waiting for a taxi? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q21 빠르게 — Are you waiting for a taxi? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "호텔 앞에서 직원이 묻습니다.\n택시 기다리시냐는 질문인데, 웨이팅의 '트'가 굴러서 '웨이링'으로 들렸어요.\n네, 맞아요.",
+              "voiceEn": [
+                "Are you waiting for a taxi?",
+                "Are you waiting for a taxi?",
+                "Yes, I am."
+              ]
             },
             {
               "t": 1198,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "q22 깊게 — Is that it? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q22 깊게 — Is that it? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "세 단어짜리 아주 짧은 질문인데, 뜻이 헷갈리기 쉽습니다.\n'이즈 대릿'. 댓과 잇 사이에서 '트'가 굴렀어요. 단어대로 옮기면 '그게 그거예요'쯤 되죠. 그런데 계산대에서는 뜻이 달라요. 이게 다예요? 더 사실 건 없으세요? 이런 뜻입니다. 소리도 짧고 뜻도 낯서니 멈칫하기 쉽죠. 댓, 잇, 두 단어를 끊어 읽으면 이렇습니다.\n네, 그게 다예요.",
+              "voiceEn": [
+                "Is that it?",
+                "That. It.",
+                "Is that it?",
+                "Yes, that's all."
+              ]
             },
             {
               "t": 1239,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "q23 빠르게 — What about this one? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q23 빠르게 — What about this one? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "고르는 걸 돕던 직원이 하나를 집어 듭니다.\n'워러바웃'. 왓 어바웃, 두 단어 사이에서 '트'가 굴렀죠. 이건 어떠세요, 하고 권하는 말이죠.\n좋아 보이네요.",
+              "voiceEn": [
+                "What about this one?",
+                "What about this one?",
+                "That looks good."
+              ]
             },
             {
               "t": 1261,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "q24 빠르게 — Is it a little too big? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q24 빠르게 — Is it a little too big? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "입어 보고 나오자 직원이 묻습니다.\n'이지러 리를'. '트'가 두 군데서 굴렀습니다. 한 번은 '이지러', 또 한 번은 리틀이 '리를'로요. 좀 큰 것 같냐고 묻는 질문이에요.\n조금 그러네요.",
+              "voiceEn": [
+                "Is it a little too big?",
+                "Is it a little too big?",
+                "Maybe a little."
+              ]
             },
             {
               "t": 1286,
               "template": "pattern-extend",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "4장 넓히기 — 질문 밖의 구르는 '트' — 이미 아는 말에 같은 소리"
+              "motion": "4장 넓히기 — 질문 밖의 구르는 '트' — 이미 아는 말에 같은 소리",
+              "narration": "구르는 '트'는 질문 말고도 곳곳에 있어요.\n'얼라러브 피플'. 랏 다음에 어브가 오니까 '트'가 굴렀습니다. 많은 사람들, 이런 뜻이에요.\n'게라웃'. 여기서도 아웃 앞에서 겟 끝 '트'가 굴렀어요. 나가라는 말입니다.",
+              "voiceEn": [
+                "A lot of people.",
+                "Get out."
+              ]
             },
             {
               "t": 1309,
               "template": "chain-listen",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-24-ch4-hidden.jpg",
-              "motion": "4장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답"
+              "motion": "4장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답",
+              "narration": "여행지 질문 여섯 개입니다. 따라 하실 때는 '트'를 리을처럼 가볍게 굴려 보세요.",
+              "voiceEn": [
+                "What are you looking for?",
+                "Just looking, thanks.",
+                "Should I put it in a bag?",
+                "No, thanks.",
+                "Are you waiting for a taxi?",
+                "Yes, I am.",
+                "Is that it?",
+                "Yes, that's all.",
+                "What about this one?",
+                "That looks good.",
+                "Is it a little too big?",
+                "Maybe a little."
+              ]
             },
             {
               "t": 1362,
               "template": "chapter-title",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-15-ch5-title.jpg",
-              "motion": "5장 표지 — 노선 색 띠, 장면 그림 천천히 확대"
+              "motion": "5장 표지 — 노선 색 띠, 장면 그림 천천히 확대",
+              "narration": "마지막 장이에요. 미드나 영화에서 친한 사이끼리 주고받는 질문들. 지금까지 질문 속 소리는 작아지고, 붙고, 섞이고, 굴렀습니다. 여기서는 아예 사라집니다."
             },
             {
               "t": 1379,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "q25 깊게 — Want some? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q25 깊게 — Want some? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "친구가 과자 봉지를 내밀면서 묻습니다.\n들린 건 두 단어뿐이죠. 원, 썸. 다 갖춰 말하면 앞에 두 유가 붙어서 '두 유 원 썸'이 됩니다. 친한 사이에서는 그 앞머리를 통째로 빼고, 끝을 올려서 묻는 일이 많아요. 첫 장에서 작은 말은 작게 지나간다고 했죠. 여기서는 작아지다 못해 아예 안 나옵니다. 좀 먹을래, 그 말이에요. 앞머리까지 다 붙이면 이렇게 들리고요.\n친한 사이에서는 이렇게 줄어듭니다.\n응, 고마워.",
+              "voiceEn": [
+                "Want some?",
+                "Do you want some?",
+                "Want some?",
+                "Sure, thanks."
+              ]
             },
             {
               "t": 1428,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "q26 빠르게 — Ready? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q26 빠르게 — Ready? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "나갈 채비를 하는 친구에게 묻습니다.\n레디 하나만 남았어요. '아 유 레디'에서 앞의 두 단어가 빠졌어요. 준비됐냐는 말입니다.\n거의 다 됐어.",
+              "voiceEn": [
+                "Ready?",
+                "Ready?",
+                "Almost."
+              ]
             },
             {
               "t": 1447,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "q27 귀 시험 — Got a minute? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q27 귀 시험 — Got a minute? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "힌트 없이 가는 건 이게 마지막이에요.\n무슨 뜻이었을까요?\n잠깐 시간 되냐는 뜻이었습니다. 빠짐없이 말하면 '해브 유 갓 어 미닛'. 앞의 해브 유가 빠졌고, 갓 어는 여행지에서처럼 굴러서 '가러'로 들렸을 겁니다.",
+              "voiceEn": [
+                "Got a minute?",
+                "Yeah, what's up?"
+              ]
             },
             {
               "t": 1477,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "q28 깊게 — Need a hand? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q28 깊게 — Need a hand? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "응, 왜?\n무거운 상자를 들고 낑낑대는 친구에게 묻습니다. 이번엔 빠진 앞머리가 뭔지 짐작하면서 들어 보세요.\n다 갖춰 말하면 '두 유 니드 어 핸드'. 앞의 두 유가 통째로 빠지고, 남은 니드 어는 가게에서처럼 붙어서 '니더'로 넘어갔어요. 그런데 이 질문은 소리보다 뜻에서 한 번 더 멈칫하게 됩니다. 핸드는 손이죠. 손이 필요하냐, 그러니까 손 좀 빌려줄까, 도와줄까 하는 말이에요. 앞머리가 빠진 데다 뜻까지 돌려 말하니, 아는 단어인데도 머리가 하얘지기 쉬운 질문입니다. 한 번 더 들어 볼게요.\n아니, 괜찮아.",
+              "voiceEn": [
+                "Need a hand?",
+                "Need a hand?",
+                "No, I'm good."
+              ]
             },
             {
               "t": 1533,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "q29 빠르게 — Hungry? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q29 빠르게 — Hungry? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "저녁 무렵, 냉장고 문을 연 친구가 묻습니다.\n헝그리, 한 단어만 남았어요. 레디 때처럼 앞의 두 단어가 빠졌죠. 배고프냐는 말이에요.\n응, 배고파 죽겠어.",
+              "voiceEn": [
+                "Hungry?",
+                "Hungry?",
+                "Yeah, starving."
+              ]
             },
             {
               "t": 1553,
               "template": "question-ear-first",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "q30 빠르게 — Seen this? — 첫 듣기는 글자 숨김·파형만"
+              "motion": "q30 빠르게 — Seen this? — 첫 듣기는 글자 숨김·파형만",
+              "narration": "친구가 휴대폰 화면을 내밀며 묻습니다.\n씬 디스. 다 갖춰 말하면 '해브 유 씬 디스', 여기서 해브 유가 빠졌어요. 이거 봤냐는 말이죠.\n아니, 뭔데?",
+              "voiceEn": [
+                "Seen this?",
+                "Seen this?",
+                "No, what is it?"
+              ]
             },
             {
               "t": 1573,
               "template": "pattern-extend",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "5장 넓히기 — 말끝 하나로 갈리는 대답과 질문 — 이미 아는 말에 같은 소리"
+              "motion": "5장 넓히기 — 말끝 하나로 갈리는 대답과 질문 — 이미 아는 말에 같은 소리",
+              "narration": "앞머리가 빠진 질문은 말끝을 올려서 묻는 일이 많아요. 짧은 말로 한 번 들어 볼게요. 먼저 끝이 내려가는 쪽입니다.\n알겠다는 대답이죠. 이제 끝을 올립니다.\n알겠냐고 묻는 말이 됐죠. 단어는 그대로인데, 말끝이 올라가니 대답이 질문으로 들립니다.",
+              "voiceEn": [
+                "Got it.",
+                "Got it?"
+              ]
             },
             {
               "t": 1600,
               "template": "chain-listen",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-25-ch5-hidden.jpg",
-              "motion": "5장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답"
+              "motion": "5장 이어 듣기 — 질문 → 따라 말하기 신호 → 대답",
+              "narration": "마지막 장 질문 여섯 개입니다. 따라 하실 때 말끝을 살짝 올리는 것까지 같이 해 보세요.",
+              "voiceEn": [
+                "Want some?",
+                "Sure, thanks.",
+                "Ready?",
+                "Almost.",
+                "Got a minute?",
+                "Yeah, what's up?",
+                "Need a hand?",
+                "No, I'm good.",
+                "Hungry?",
+                "Yeah, starving.",
+                "Seen this?",
+                "No, what is it?"
+              ]
             },
             {
               "t": 1642,
               "template": "summary-card",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-09-summary.jpg",
-              "motion": "다섯 장 규칙 한 장(캡처용)"
+              "motion": "다섯 장 규칙 한 장(캡처용)",
+              "narration": "설명은 여기까지예요. 다섯 장을 한 줄로 이으면 이렇습니다. 작아지고, 붙고, 섞이고, 구르고, 빠진다. 길에서는 작은 말이 원래 작게 지나가니까, 크게 들리는 두 군데만 잡으면 됐죠. 가게에서는 앞 단어의 끝소리가 뒤 단어의 모음에 붙어 넘어갔고요. 처음 만난 사람의 질문에서는 드와 트 뒤의 유가 쥬, 츄로 섞였습니다. 여행지에서는 모음 사이의 트가 리을처럼 굴렀고, 친한 사이에서는 질문 앞머리가 통째로 빠졌어요."
             },
             {
               "t": 1683,
               "template": "part2-listen",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-07-part2.jpg",
-              "motion": "2부 1회차 — 영어 + 뜻 + 대답, 진행 막대"
+              "motion": "2부 1회차 — 영어 + 뜻 + 대답, 진행 막대",
+              "narration": "여기서부터 2부, 몰아 듣기입니다. 질문 서른 개와 대답을 두 번 이어서 들려 드려요. 첫 번째는 질문 뒤에 우리말 뜻이 붙고, 두 번째는 영어만 나옵니다. 집안일 하시면서, 걸으시면서 그냥 틀어 두셔도 돼요.\n서울역 어떻게 가요?\n강남 가려면 몇 호선 타요?\n명동 가는 길, 이쪽 맞아요?\n표는 어디서 사요?\n이 열차 공항 가요?\n거기까지 얼마나 걸려요?\n얼마예요?\n카드로 계산해도 돼요?\n매워요?\n이걸로 검은색 있어요?\n좀 봐도 돼요?\n이거 할인해요?\n얼마 전에 이사 오셨어요?\n커피 드실래요?\n그 강아지 키우시는 거예요?\n이것 좀 도와주실래요?\n뭐 좀 갖다 드릴까요?\n그거 어디서 났어요?\n뭐 찾으세요?\n봉투에 넣어 드릴까요?\n택시 기다리세요?\n이게 다예요?\n이건 어떠세요?\n좀 큰가요?\n좀 먹을래?\n준비됐어?\n잠깐 시간 돼?\n도와줄까?\n배고파?\n이거 봤어?",
+              "voiceEn": [
+                "How do I get to Seoul Station?",
+                "Take Line 1.",
+                "Which line goes to Gangnam?",
+                "The green one, Line 2.",
+                "Is this the right way to Myeongdong?",
+                "Yes, go straight.",
+                "Where can I buy a ticket?",
+                "Over there, at the machine.",
+                "Does this train go to the airport?",
+                "Yes, it does.",
+                "How long does it take to get there?",
+                "About twenty minutes.",
+                "How much is it?",
+                "It's fifteen thousand won.",
+                "Can I pay by card?",
+                "Sure, go ahead.",
+                "Is it spicy?",
+                "Just a little.",
+                "Do you have this in black?",
+                "Yes, right here.",
+                "Can I take a look?",
+                "Of course.",
+                "Is this on sale?",
+                "Yes, thirty percent off.",
+                "Did you just move in?",
+                "Yeah, last week.",
+                "Would you like some coffee?",
+                "Yes, please.",
+                "Is that your dog?",
+                "Yes, she's very friendly.",
+                "Could you help me with this?",
+                "No problem.",
+                "Can I get you anything?",
+                "Just water, thanks.",
+                "Where did you get that?",
+                "At the market nearby.",
+                "What are you looking for?",
+                "Just looking, thanks.",
+                "Should I put it in a bag?",
+                "No, thanks.",
+                "Are you waiting for a taxi?",
+                "Yes, I am.",
+                "Is that it?",
+                "Yes, that's all.",
+                "What about this one?",
+                "That looks good.",
+                "Is it a little too big?",
+                "Maybe a little.",
+                "Want some?",
+                "Sure, thanks.",
+                "Ready?",
+                "Almost.",
+                "Got a minute?",
+                "Yeah, what's up?",
+                "Need a hand?",
+                "No, I'm good.",
+                "Hungry?",
+                "Yeah, starving.",
+                "Seen this?",
+                "No, what is it?"
+              ]
             },
             {
               "t": 1956,
               "template": "part2-english-only",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-07-part2.jpg",
-              "motion": "2부 2회차 — 영어만"
+              "motion": "2부 2회차 — 영어만",
+              "voiceEn": [
+                "How do I get to Seoul Station?",
+                "Take Line 1.",
+                "Which line goes to Gangnam?",
+                "The green one, Line 2.",
+                "Is this the right way to Myeongdong?",
+                "Yes, go straight.",
+                "Where can I buy a ticket?",
+                "Over there, at the machine.",
+                "Does this train go to the airport?",
+                "Yes, it does.",
+                "How long does it take to get there?",
+                "About twenty minutes.",
+                "How much is it?",
+                "It's fifteen thousand won.",
+                "Can I pay by card?",
+                "Sure, go ahead.",
+                "Is it spicy?",
+                "Just a little.",
+                "Do you have this in black?",
+                "Yes, right here.",
+                "Can I take a look?",
+                "Of course.",
+                "Is this on sale?",
+                "Yes, thirty percent off.",
+                "Did you just move in?",
+                "Yeah, last week.",
+                "Would you like some coffee?",
+                "Yes, please.",
+                "Is that your dog?",
+                "Yes, she's very friendly.",
+                "Could you help me with this?",
+                "No problem.",
+                "Can I get you anything?",
+                "Just water, thanks.",
+                "Where did you get that?",
+                "At the market nearby.",
+                "What are you looking for?",
+                "Just looking, thanks.",
+                "Should I put it in a bag?",
+                "No, thanks.",
+                "Are you waiting for a taxi?",
+                "Yes, I am.",
+                "Is that it?",
+                "Yes, that's all.",
+                "What about this one?",
+                "That looks good.",
+                "Is it a little too big?",
+                "Maybe a little.",
+                "Want some?",
+                "Sure, thanks.",
+                "Ready?",
+                "Almost.",
+                "Got a minute?",
+                "Yeah, what's up?",
+                "Need a hand?",
+                "No, I'm good.",
+                "Hungry?",
+                "Yeah, starving.",
+                "Seen this?",
+                "No, what is it?"
+              ]
             },
             {
               "t": 2123,
               "template": "end-screen",
               "image": "images/ep37-listen-frozen-questions/cuts/cut-08-end.jpg",
-              "motion": "마지막 질문 → 엔드 화면 9초(가운데 비움)"
+              "motion": "마지막 질문 → 엔드 화면 9초(가운데 비움)",
+              "narration": "오늘 들으신 질문 서른 개와 대답은 고정 댓글에 영어, 뜻, 소리까지 적어 두었어요. 하나만 여쭤볼게요. 다섯 장 가운데 어느 장이 제일 안 들리셨어요? 길, 가게, 처음 만난 사람, 여행지, 친한 사이. 댓글에 장 이름 하나만 남겨 주셔도, 다음 질문을 고를 때 그 장부터 챙겨 보겠습니다."
             },
             {
               "t": 2151,

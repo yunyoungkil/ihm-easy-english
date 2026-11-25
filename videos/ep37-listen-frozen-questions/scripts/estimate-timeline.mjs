@@ -28,6 +28,10 @@ const han = (s) => (s.match(/[가-힣]/g) || []).length;
 
 let t = 0;
 const marks = [];
+// 시트 컷마다 대본을 보여 주려고 낭독 조각(한국어 블록·영어 소리)의 시작 시각도 적는다. 시간 계산은 바꾸지 않는다.
+const items = [];
+const say = (ko) => { if (ko.trim()) items.push({t, ko: ko.trim()}); };
+const play = (id, text = en[id]) => items.push({t, en: id, text: text || id});
 const lines = md.split(/\r?\n/);
 let inText = false;
 let buf = [];
@@ -37,7 +41,7 @@ for (const raw of lines) {
   const line = raw.trim();
   if (!started) { if (line === '## 여는 장') started = true; else continue; }
   if (inText) {
-    if (line.startsWith('```')) { t += han(buf.join(' ')) / KO_RATE + GAP; inText = false; buf = []; } else buf.push(line);
+    if (line.startsWith('```')) { say(buf.join(' ')); t += han(buf.join(' ')) / KO_RATE + GAP; inText = false; buf = []; } else buf.push(line);
     continue;
   }
   if (line.startsWith('```text')) { inText = true; continue; }
@@ -52,14 +56,22 @@ for (const raw of lines) {
   if (part2 && /^\| \d\d \|/.test(line)) {
     const n = line.slice(2, 4);
     const ko = line.split('|')[3] || '';
-    t += enDur(`q${n}`) + 2 + han(ko) / KO_RATE + GAP + enDur(`a${n}`) + 1;
+    play(`q${n}`);
+    t += enDur(`q${n}`) + 2;
+    say(ko);
+    t += han(ko) / KO_RATE + GAP;
+    play(`a${n}`);
+    t += enDur(`a${n}`) + 1;
     if (['06', '12', '18', '24'].includes(n)) t += SIG.종 + GAP;
     continue;
   }
   if (part2 === 2 && line.startsWith('- 🔊 q01 → a01')) {
     for (let i = 1; i <= 30; i += 1) {
       const n = String(i).padStart(2, '0');
-      t += enDur(`q${n}`) + 1 + enDur(`a${n}`) + 1;
+      play(`q${n}`);
+      t += enDur(`q${n}`) + 1;
+      play(`a${n}`);
+      t += enDur(`a${n}`) + 1;
       if (i % 6 === 0 && i < 30) t += SIG.종 + GAP;
     }
     continue;
@@ -71,18 +83,21 @@ for (const raw of lines) {
     const withA = line.includes('🔊 a');
     for (let i = Number(loop[1]); i <= Number(loop[2]); i += 1) {
       const n = String(i).padStart(2, '0');
-      t += enDur(`q${n}`) + SIG.뽁 + enDur(`q${n}`) + 1 + (withA ? enDur(`a${n}`) + GAP : 0) + GAP;
+      play(`q${n}`);
+      t += enDur(`q${n}`) + SIG.뽁 + enDur(`q${n}`) + 1;
+      if (withA) { play(`a${n}`); t += enDur(`a${n}`) + GAP; }
+      t += GAP;
     }
     continue;
   }
   for (const s of line.matchAll(/🔔 (띵|뽁|종)/g)) t += SIG[s[1]] + GAP;
-  for (const s of line.matchAll(/🔊 ([qadx]\d\d)/g)) t += enDur(s[1]) + GAP;
+  for (const s of line.matchAll(/🔊 ([qadx]\d\d)/g)) { play(s[1]); t += enDur(s[1]) + GAP; }
   for (const s of line.matchAll(/⏸ (\d+)초/g)) t += Number(s[1]);
 }
 t += 9; // 엔드 화면
 const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 if (process.argv.includes('--json')) {
-  console.log(JSON.stringify({totalSeconds: Math.round(t), marks: marks.map((m) => ({...m, t: Math.round(m.t)}))}, null, 1));
+  console.log(JSON.stringify({totalSeconds: Math.round(t), marks: marks.map((m) => ({...m, t: Math.round(m.t)})), items: items.map((x) => ({...x, t: Math.round(x.t)}))}, null, 1));
 } else {
   for (const m of marks.filter((x) => x.level === 2)) console.log(`${fmt(m.t)}  ${m.title}`);
   console.log(`합계 약 ${fmt(t)} (${Math.round(t)}초, 추정)`);

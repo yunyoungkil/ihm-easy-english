@@ -360,7 +360,7 @@ function cutRhythm(row, report, oursUrl = (x) => x, ver = (x) => x, refs = [], {
     // 단일 최적안(v4 슬로건 시트)이면 AI 최적안 1줄로 깔끔하게 출력
     if (!hasP2) {
       const b1 = bottomText(c.bottom);
-      gridCards.push(`<figure class="cut-card p4${wideCls}"><span class="vtag" style="background:#00D2D3;color:#000">🚀 AI 최적안 · 컷 ${idx + 1}</span><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${cutBudgetHtml(plan, idx)}${c.narration ? `<div class="say"><b>대본:</b> ${escapeHtml(c.narration)}</div>` : ''}${c.motion ? `<div class="say motion" style="color:var(--sub)"><b>연출/모션:</b> ${escapeHtml(c.motion)}</div>` : ''}${b1 ? `<div class="say bottom" style="color:var(--sub)"><b>하단:</b> ${escapeHtml(b1)}</div>` : ''}</figure>`);
+      gridCards.push(`<figure class="cut-card p4${wideCls}"><span class="vtag" style="background:#00D2D3;color:#000">🚀 AI 최적안 · 컷 ${idx + 1}</span><a href="${oursUrl(c.image)}" target="_blank" rel="noopener"><img loading="lazy" src="${oursUrl(c.image)}" alt="${escapeHtml(c.t)}초 컷"></a><figcaption>${escapeHtml(c.t)}초</figcaption>${cutBudgetHtml(plan, idx)}${c.narration ? `<div class="say"><b>대본:</b> ${escapeHtml(c.narration).replace(/\n/g, '<br>')}</div>` : ''}${Array.isArray(c.voiceEn) && c.voiceEn.length ? `<div class="say"><b>영어 소리:</b> ${c.voiceEn.map((x) => escapeHtml(x)).join(' / ')}</div>` : ''}${c.motion ? `<div class="say motion" style="color:var(--sub)"><b>연출/모션:</b> ${escapeHtml(c.motion)}</div>` : ''}${b1 ? `<div class="say bottom" style="color:var(--sub)"><b>하단:</b> ${escapeHtml(b1)}</div>` : ''}</figure>`);
       return;
     }
     // 레거시 1·2안 대조 카드

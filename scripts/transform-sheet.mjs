@@ -337,6 +337,24 @@ export function clipRightsProblems(sheet) {
   return out;
 }
 
+/**
+ * v4 롱폼 시트 대본 검사(2026-11-25 사용자: "나레이션 대본은 어디 있어? 시트에 없는데?"). 시트 승인은 기획·제목·썸네일·대본을 한 번에 보는 자리인데,
+ * v4 롱폼은 컷 대본 검사(scriptProblems는 v4 제외, v4ShortsProblems는 쇼츠만)에서 빠져 EP37 시트가 대본 없이 "문제 0건"으로 통과했다.
+ * 마지막 컷(엔드 화면)을 뺀 모든 컷에 한국어 낭독(narration)이나 영어 소리(voiceEn)가 있어야 한다. 컷 계획이 없다는 문제는 cutPlanProblems가 알린다.
+ */
+export function v4LongformScriptProblems(sheet) {
+  if (!isSloganV4(sheet) || sheet?.format !== 'LONGFORM') return [];
+  const cuts = (sheet.rows || []).find((r) => r.key === 'visual')?.ours?.cutPlan?.cuts;
+  if (!Array.isArray(cuts) || !cuts.length) return [];
+  const out = [];
+  cuts.slice(0, -1).forEach((c, i) => {
+    if (!filled(c?.narration) && !(Array.isArray(c?.voiceEn) && c.voiceEn.length)) {
+      out.push(`대본: ${i}번 컷(${c?.t}초)에 한국어 낭독(narration)도 영어 소리(voiceEn)도 없다 — 시트 승인은 대본까지 한 번에 본다`);
+    }
+  });
+  return out;
+}
+
 /** v4(슬로건 업그레이드) 쇼츠 단일 최적안(cutPlan) 검사: 물리 가드레일(0.5초 상단 훅 존재·음성 예산·모션·입말)만 강제하고 9자 제한·전 컷 하단 띠 강제는 푼다. */
 export function v4ShortsProblems(sheet, {imageExists = null} = {}) {
   const out = [];
@@ -589,6 +607,7 @@ export function validateSheet(sheet, {imageExists = () => true, competitorPacing
     ...trendRefProblems(sheet),
     ...clipRightsProblems(sheet),
     ...v4ShortsProblems(sheet, {imageExists}),
+    ...v4LongformScriptProblems(sheet),
     ...plan2Problems(sheet),
     ...plan3Problems(sheet, {imageExists}),
   );

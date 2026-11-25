@@ -610,3 +610,17 @@ test('referenceBiasWarnings(2026-11-25): sourceVideoId 포함·7일 실측 유�
   assert.ok(unmeasured[0].message.includes('아직 7일 실측 결과가 없다'));
   assert.ok(unmeasured[0].message.includes('재사용 허용'));
 });
+
+test('v4 롱폼 시트(2026-11-25 사용자: "나레이션 대본은 어디 있어? 시트에 없는데?"): 엔드 화면을 뺀 컷마다 낭독이나 영어 소리가 있어야 한다', async () => {
+  const {v4LongformScriptProblems} = await import('../transform-sheet.mjs');
+  const sheetWith = (cuts, extra = {}) => ({schemaVersion: 4, format: 'LONGFORM', rows: [{key: 'visual', ours: {cutPlan: {durationSeconds: 100, cuts}}}], ...extra});
+  const noScript = sheetWith([{t: 0, image: 'a.jpg'}, {t: 30, image: 'b.jpg'}, {t: 90, image: 'end.jpg'}]);
+  const p = v4LongformScriptProblems(noScript);
+  assert.equal(p.length, 2, '엔드 화면(마지막 컷)을 뺀 두 컷이 걸려야 한다');
+  assert.match(p[0], /0번 컷\(0초\)/);
+  const ok = sheetWith([{t: 0, image: 'a.jpg', narration: '몇 단어나 들리셨어요?'}, {t: 30, image: 'b.jpg', voiceEn: ['How do I get to Seoul Station?']}, {t: 90, image: 'end.jpg'}]);
+  assert.deepEqual(v4LongformScriptProblems(ok), []);
+  assert.deepEqual(v4LongformScriptProblems({...noScript, format: 'SHORTS'}), [], '쇼츠는 v4ShortsProblems가 따로 본다');
+  assert.deepEqual(v4LongformScriptProblems({...noScript, schemaVersion: 3}), [], '4판 전 시트는 건드리지 않는다');
+  assert.deepEqual(v4LongformScriptProblems(sheetWith([])), [], '컷 계획이 없다는 문제는 cutPlanProblems가 알린다');
+});

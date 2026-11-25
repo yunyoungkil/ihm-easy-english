@@ -41,6 +41,7 @@ export const SYNC_ROOTS = [
   {rel: 'output/upload-packages', mediaOnly: true},
   {rel: 'public/reference', mediaOnly: false},
   {rel: 'public/audio/BGM 35', mediaOnly: false},
+  {rel: 'public/fonts/google', mediaOnly: false},
 ];
 
 export function isMediaFile(name) {

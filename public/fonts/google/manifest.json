@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-25",
+  "policy": "구글 폰트(SIL Open Font License 1.1) 우선 공용 서랍. 고정 템플릿이 아니라 편마다 역할·분위기·참고 명작에 맞게 AI가 자율 선택한다. 추후 필요 시 눈누 등 외부 상업용 무료 폰트를 확장할 수 있다.",
+  "roles": {
+    "ko-display": "썸네일 · 쇼츠 0.5초 훅 · 큰 강조 제목 (모바일 200px 목록 시인성 중심)",
+    "ko-body": "영상 본편 자막 · 설명 문장 (3060 모바일 가독성 중심, 획이 고르고 안쪽 공간이 트인 고딕)",
+    "ko-accent": "신문·다큐·칠판·손글씨 포인트 (본문 전체 사용 금지, 짧은 포인트·장면 전환·고딕 대비용)",
+    "en-display": "영어 핵심 단어·음절 분리(wa · ter)·강세 강조 전용 (한글 폰트 내 기본 영문 대체)"
+  },
+  "fonts": [
+    {
+      "id": "black-han-sans",
+      "family": "Black Han Sans",
+      "labelKo": "블랙한산스",
+      "role": "ko-display",
+      "mood": "초강력 네모 고딕, 1~3단어 충격·핵심 키워드",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "BlackHanSans-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/blackhansans/BlackHanSans-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "gasoek-one",
+      "family": "Gasoek One",
+      "labelKo": "가석체",
+      "role": "ko-display",
+      "mood": "돌처럼 단단한 극볼드, 강한 반전·비교 대비 썸네일 (200px 작은 줄은 뭉개지므로 1~2단어 초대형 제목 전용)",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "GasoekOne-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/gasoekone/GasoekOne-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "do-hyeon",
+      "family": "Do Hyeon",
+      "labelKo": "배민 도현체",
+      "role": "ko-display",
+      "mood": "힘 있는 간판 직선 고딕, 퀴즈·예능·친근한 강조",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "DoHyeon-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/dohyeon/DoHyeon-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "bagel-fat-one",
+      "family": "Bagel Fat One",
+      "labelKo": "베이글 팻 원",
+      "role": "ko-display",
+      "mood": "통통하고 둥근 극볼드, 유쾌한 일상·호기심·예능 훅",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "BagelFatOne-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/bagelfatone/BagelFatOne-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "ibm-plex-sans-kr",
+      "family": "IBM Plex Sans KR",
+      "labelKo": "IBM 플렉스 산스 KR",
+      "role": "ko-body",
+      "mood": "세련되고 단정한 현대 고딕, 노토 산스 기본값 탈피용 본편 자막·설명",
+      "weights": "500, 700",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "IBMPlexSansKR-Medium.ttf",
+          "weight": "500",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsanskr/IBMPlexSansKR-Medium.ttf"
+        },
+        {
+          "file": "IBMPlexSansKR-Bold.ttf",
+          "weight": "700",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsanskr/IBMPlexSansKR-Bold.ttf"
+        }
+      ]
+    },
+    {
+      "id": "noto-sans-kr",
+      "family": "Noto Sans KR",
+      "labelKo": "노토 산스 KR (가변)",
+      "role": "ko-body",
+      "mood": "안정적인 범용 가변 고딕 (100~900), 기본 안전망 및 굵기 대비용",
+      "weights": "100 900",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "NotoSansKR-VF.ttf",
+          "weight": "100 900",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanskr/NotoSansKR%5Bwght%5D.ttf"
+        }
+      ]
+    },
+    {
+      "id": "gowun-dodum",
+      "family": "Gowun Dodum",
+      "labelKo": "고운돋움",
+      "role": "ko-body",
+      "mood": "부드럽고 따뜻한 현대 민부리, 편안한 생활 회화·스토리 설명",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "GowunDodum-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/gowundodum/GowunDodum-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "hahmlet",
+      "family": "Hahmlet",
+      "labelKo": "함렛 (가변 명조)",
+      "role": "ko-accent",
+      "mood": "굵기 조절(100~900) 되는 현대 명조, 신문·다큐·반전·고딕 대비 포인트",
+      "weights": "100 900",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "Hahmlet-VF.ttf",
+          "weight": "100 900",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/hahmlet/Hahmlet%5Bwght%5D.ttf"
+        }
+      ]
+    },
+    {
+      "id": "jua",
+      "family": "Jua",
+      "labelKo": "배민 주아체",
+      "role": "ko-accent",
+      "mood": "둥근 붓글씨·간판 느낌, 친근한 팁 배지·가벼운 포인트",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "Jua-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/jua/Jua-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "gaegu",
+      "family": "Gaegu",
+      "labelKo": "개구체 (손글씨 Bold)",
+      "role": "ko-accent",
+      "mood": "자연스러운 칠판·노트 손글씨, 발음 메모·밑줄 필기 포인트",
+      "weights": "700",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "Gaegu-Bold.ttf",
+          "weight": "700",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/gaegu/Gaegu-Bold.ttf"
+        }
+      ]
+    },
+    {
+      "id": "outfit",
+      "family": "Outfit",
+      "labelKo": "아웃핏 (영문 가변)",
+      "role": "en-display",
+      "mood": "깔끔한 기하학 영문, 음절 분리(wa · ter)·철자·강세 가독성 최상",
+      "weights": "100 900",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "Outfit-VF.ttf",
+          "weight": "100 900",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/Outfit%5Bwght%5D.ttf"
+        }
+      ]
+    },
+    {
+      "id": "archivo-black",
+      "family": "Archivo Black",
+      "labelKo": "아카이보 블랙 (영문)",
+      "role": "en-display",
+      "mood": "묵직한 영문 임팩트 제목·단어 대비",
+      "weights": "400",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "ArchivoBlack-Regular.ttf",
+          "weight": "400",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/archivoblack/ArchivoBlack-Regular.ttf"
+        }
+      ]
+    },
+    {
+      "id": "barlow-condensed",
+      "family": "Barlow Condensed",
+      "labelKo": "발로우 콘덴스드 (영문)",
+      "role": "en-display",
+      "mood": "좁고 세련된 잡지·스위스 타이포, 긴 영단어·표지 느낌",
+      "weights": "700, 800",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "BarlowCondensed-Bold.ttf",
+          "weight": "700",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Bold.ttf"
+        },
+        {
+          "file": "BarlowCondensed-ExtraBold.ttf",
+          "weight": "800",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-ExtraBold.ttf"
+        }
+      ]
+    },
+    {
+      "id": "rubik",
+      "family": "Rubik",
+      "labelKo": "루빅 (영문 가변)",
+      "role": "en-display",
+      "mood": "모서리가 살짝 둥글고 친근한 굵은 영문",
+      "weights": "300 900",
+      "license": "OFL-1.1",
+      "files": [
+        {
+          "file": "Rubik-VF.ttf",
+          "weight": "300 900",
+          "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/rubik/Rubik%5Bwght%5D.ttf"
+        }
+      ]
+    }
+  ]
+}

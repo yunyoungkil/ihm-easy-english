@@ -129,4 +129,7 @@ videos/**/*.oga
 videos/**/*.flac
 videos/**/*.opus
 videos/**/*.prompt.json
+# 구글 폰트 공용 서랍(2026-11-25): 목록(manifest.json)·견본(specimen.html)은 깃에 올리고, .ttf 파일은 pc-sync(구글 드라이브)와 npm run fonts:setup으로 채운다.
+public/fonts/google/*.ttf
+
 videos/**/*.words.json

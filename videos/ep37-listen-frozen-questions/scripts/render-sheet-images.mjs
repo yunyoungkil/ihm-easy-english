@@ -55,7 +55,7 @@ const THUMBS = {
 .bub{position:absolute;left:48px;top:58px;background:#fff;color:#111;border-radius:28px;padding:18px 30px;font-size:42px;font-weight:800;letter-spacing:-.5px}
 .bub:after{content:'';position:absolute;left:70px;bottom:-22px;border:14px solid transparent;border-top:18px solid #fff;border-left:22px solid #fff}
 .h1{position:absolute;left:52px;top:220px;font-size:86px;font-weight:900;letter-spacing:-2px;line-height:1.05}
-.h2{position:absolute;left:46px;top:318px;font-size:132px;font-weight:900;color:#F5C518;letter-spacing:-4px;line-height:1.05}
+.h2{position:absolute;left:46px;top:322px;font-size:118px;font-weight:900;color:#F5C518;letter-spacing:-4px;line-height:1.05}
 .chip{position:absolute;left:54px;top:520px;background:#F5C518;color:#111;font-size:56px;font-weight:900;padding:10px 26px;border-radius:16px;letter-spacing:-1px}`,
   `<img class="bg" src="${img('thumb-a-bg.jpg')}" style="object-position:62% 50%"><div class="top"></div><div class="scrim"></div>
 <div class="bub nw">How do I get to Seoul Station?</div>
@@ -213,7 +213,7 @@ for (const [k, html] of Object.entries(CUTS)) {
   if (over.length) problems.push(`${k}: 넘침 ${over.join(' / ')}`);
 }
 // 200px 폭·흑백 미리보기(썸네일 세 장 나란히)
-const strip = page(1280, 460, `body{background:#fff;color:#111}.r{display:flex;gap:24px;padding:20px}.c{text-align:center;font-size:20px;font-weight:700}`,
+const strip = page(1420, 460, `body{background:#fff;color:#111}.r{display:flex;gap:24px;padding:20px}.c{text-align:center;font-size:20px;font-weight:700}`,
   `<div class="r">${['A', 'B', 'C'].map((k) => `<div class="c"><img src="data:image/jpeg;base64,${readFileSync(join(OUT, `thumb-${k}.jpg`)).toString('base64')}" width="200"><div>${k} 200px</div></div>`).join('')}
 ${['A', 'B', 'C'].map((k) => `<div class="c"><img src="data:image/jpeg;base64,${readFileSync(join(OUT, `thumb-${k}.jpg`)).toString('base64')}" width="200" style="filter:grayscale(1)"><div>${k} 흑백</div></div>`).join('')}</div>`);
 await shot(strip, 1420, 220, join(OUT, 'raw', 'thumb-check-200px.jpg'), 'jpeg');

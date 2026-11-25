@@ -675,3 +675,45 @@ test('renderTransformSheetPage는 만드는 법 근거·눈이 가는 순서·�
   const html = renderTransformSheetPage(sheet, null, []);
   for (const must of ['만드는 법 근거', '눈이 가는 순서', '제목과 썸네일의 일 나누기', '두 층 글자', '장면을 보여 줌']) assert.ok(html.includes(must), `${must} 빠짐`);
 });
+
+test('시트 화면 정리(2026-11-25 사용자: 세로로 한참 내려야 한다): 승인에 필요한 것이 위에 모이고, 막는 문제는 접지 않고, 긴 글은 개수와 함께 접힌다', () => {
+  const cuts = [
+    {t: 0, image: 'images/ep99/cuts/c0.png', narration: '가'.repeat(120), voiceEn: ['Ready?', 'Ready?', 'Want some?'], motion: '천천히 다가감'},
+    {t: 5, image: 'images/ep99/cuts/c1.png', narration: '짧은 줄'},
+  ];
+  const s = good();
+  s.rows = s.rows.map((r) => {
+    if (r.key === 'title') return {...r, ours: {text: '우리', titles: ['제목 가', '제목 나']}, clickWhy: [{source: 'x', sourceText: '참고 문구', mechanism: '궁금함', appliedTo: ['title:1']}]};
+    if (r.key === 'thumbnail') return {...r, ours: {text: '우리', images: ['images/ep99/thumb-A.jpg', 'images/ep99/thumb-B.jpg']}};
+    if (r.key === 'visual') return {...r, ours: {text: '컷', cutPlan: {durationSeconds: 10, cuts}}};
+    return r;
+  });
+  s.rows.push(row('package', {ours: {description: '첫 줄\n둘째 줄', tags: ['a'], tagCheck: [], pinnedComment: '하나\n둘\n셋'}}));
+  s.thumbnailPicks = ['images/ep99/thumb-B.jpg'];
+  s.references = [{videoId: 'REF11111111', role: '구조', what: '참고', reason: '이유', evidence: '근거', appliedTo: ['title:1', 'thumb:A']}];
+  const html = renderTransformSheetPage(s, null, [], {blockers: ['금지어 발견'], warnings: []});
+  const at = (needle) => { const i = html.indexOf(needle); assert.ok(i >= 0, `${needle} 없음`); return i; };
+  // 순서: 막는 문제 → 구간 목차 → 승인에 필요한 것(제목·썸네일 고르기·승인 버튼) → 나머지 칸
+  assert.ok(at('[승인 차단] 금지어 발견') < at('<nav class="toc"') && at('<nav class="toc"') < at('id="sec-approve"'));
+  assert.ok(at('id="sec-approve"') < at('data-pick-title="제목 가"') && at('data-pick="images/ep99/thumb-A.jpg"') < at('id="btn-approve-sheet"') && at('id="btn-approve-sheet"') < at('id="sec-rows"'));
+  // 막는 문제는 접힌 칸 안에 들어가지 않는다
+  assert.doesNotMatch(html.slice(0, at('[승인 차단] 금지어 발견')), /<details/);
+  // 목차의 바로 가기마다 실제 칸이 있다
+  for (const [, id] of html.match(/<nav class="toc"[^]*?<\/nav>/)[0].matchAll(/href="#([^"]+)"/g)) assert.ok(html.includes(`id="${id}"`), `목차 ${id}에 맞는 칸이 없다`);
+  // 고른 개수는 데이터에서 센다(썸네일 1/2, 제목 0/2)
+  assert.match(html, /고른 썸네일 <b id="cnt-thumb">1<\/b> \/ 2개/);
+  assert.match(html, /고른 제목 <b id="cnt-title">0<\/b> \/ 2개/);
+  // 컷 카드: 가장 긴 카드에 맞춰 늘어나지 않고, 긴 대본·영어 소리·연출은 "더 보기"로 접는다
+  assert.match(html, /\.film\.ours-grid\{[^}]*align-items:start/);
+  assert.doesNotMatch(html, /\.film\.ours-grid\{[^}]*align-items:stretch/);
+  assert.match(html, /<details class="cut-more"><summary>더 보기 · 대본 전체 120자 · 영어 소리 3개 · 연출 메모<\/summary>/);
+  assert.equal((html.match(/class="cut-more"/g) || []).length, 1, '짧은 대본만 있는 컷은 더 보기가 없다');
+  // 전체 대본·근거·설명글·고정 댓글·레퍼런스는 접히고, 접힌 줄에 데이터에서 센 숫자가 나온다
+  assert.match(html, /<details class="fold" id="sec-script"><summary>전체 대본 보기 <span class="meta">— 컷 대본 2개를 이은 글\(음성에 그대로 넣는 글\) · 한글 123자 · 영어 소리 3번\(서로 다른 문장 2개\)<\/span>/);
+  assert.match(html, /근거 펼치기 <span class="meta">— 왜 눌렸나 1개<\/span>/);
+  assert.match(html, /설명글 보기 <span class="meta">— 2줄 · 8자<\/span>/);
+  assert.match(html, /고정 댓글 보기 <span class="meta">— 3줄 · 6자<\/span>/);
+  assert.match(html, /<details class="fold" id="sec-refs"><summary>🎬 융합한 명작 레퍼런스 \(다중 벤치마킹\) <span class="meta">— 1편 · 적용한 곳 2군데<\/span>/);
+  // 휴대폰 폭에서 긴 주소가 화면 밖으로 밀지 않는다
+  assert.match(html, /\.pkg\{[^}]*overflow-wrap:anywhere/);
+});

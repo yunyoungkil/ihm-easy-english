@@ -1,0 +1,128 @@
+[
+  {
+    "topicId": "magsafe-wallet-transit-card-not-read",
+    "title": "맥세이프 카드지갑에 넣은 교통카드가 안 찍힐 때 점검 순서",
+    "kind": "fix",
+    "searchQuery": "맥세이프 카드지갑 교통카드 인식",
+    "sourceHints": [
+      "티머니 교통카드 이용안내(공식 사이트)",
+      "애플 지원 NFC·MagSafe 안내",
+      "삼성전자서비스 갤럭시 NFC 설정 안내"
+    ],
+    "productHint": "맥세이프 카드지갑"
+  },
+  {
+    "topicId": "lg-membership-points-use-and-convert",
+    "title": "LG전자 멤버십 포인트 쓰는 곳과 전환 방법 정리",
+    "kind": "fix",
+    "searchQuery": "lg 멤버십 포인트 사용처 전환",
+    "sourceHints": [
+      "LG전자 멤버십 포인트 안내·자주 묻는 질문(공식 사이트)"
+    ],
+    "productHint": null
+  },
+  {
+    "topicId": "cuisinart-airfryer-heating-element-cleaning",
+    "title": "쿠진아트 에어프라이어 열선 청소, 분해하지 않고 하는 순서",
+    "kind": "fix",
+    "searchQuery": "쿠진아트 에어프라이어 열선 청소",
+    "sourceHints": [
+      "쿠진아트 코리아 사용설명서·청소 안내(공식)"
+    ],
+    "productHint": null
+  },
+  {
+    "topicId": "lenovo-y700-game-mode-setting",
+    "title": "레노버 Y700 게임 모드 켜고 끄는 방법",
+    "kind": "fix",
+    "searchQuery": "y700 게임 모드 설정",
+    "sourceHints": [
+      "레노버 지원 Legion Y700 사용 설명(공식)"
+    ],
+    "productHint": null
+  },
+  {
+    "topicId": "clear-case-yellowing-why-and-cleaning",
+    "title": "투명 케이스가 누렇게 변하는 이유와 안전하게 닦는 법",
+    "kind": "fix",
+    "searchQuery": "투명 케이스 변색 복원",
+    "sourceHints": [
+      "애플 지원 케이스 청소 안내(공식)",
+      "삼성전자서비스 휴대폰 케이스 관리 안내"
+    ],
+    "productHint": "투명 케이스"
+  },
+  {
+    "topicId": "iphone-samsung-tv-mirroring-not-working",
+    "title": "아이폰 화면이 삼성 TV에 안 뜰 때 점검 순서",
+    "kind": "fix",
+    "searchQuery": "아이폰 삼성 tv 미러링 안됨",
+    "sourceHints": [
+      "삼성전자서비스 에어플레이 연결 안내(공식)",
+      "애플 지원 AirPlay 문제 해결 안내"
+    ],
+    "productHint": null
+  },
+  {
+    "topicId": "bespoke-ai-combo-install-space-check",
+    "title": "비스포크 AI 콤보 설치 전에 공간·치수 확인할 것",
+    "kind": "before-buy",
+    "searchQuery": "비스포크 ai 콤보 설치 공간",
+    "sourceHints": [
+      "삼성전자 비스포크 AI 콤보 설치 가이드·제품 규격(공식)"
+    ],
+    "productHint": null
+  },
+  {
+    "topicId": "power-bank-in-flight-rules-wh-check",
+    "title": "보조배터리 기내 반입 규정과 용량(Wh) 보는 법",
+    "kind": "before-buy",
+    "searchQuery": "보조배터리 기내 반입 규정",
+    "sourceHints": [
+      "국토교통부 항공기 반입 제한 배터리 안내(공식)",
+      "항공사 위탁·기내 수하물 배터리 규정(공식)"
+    ],
+    "productHint": "보조배터리 10000mAh"
+  },
+  {
+    "topicId": "home-cam-install-cost-check",
+    "title": "홈캠 설치 비용, 직접 설치와 업체 설치 비교해서 확인할 것",
+    "kind": "before-buy",
+    "searchQuery": "홈캠 설치 비용",
+    "sourceHints": [
+      "통신사 홈캠 서비스 요금·설치 안내(공식)",
+      "홈캠 제조사 설치 설명서(공식)"
+    ],
+    "productHint": "홈캠"
+  },
+  {
+    "topicId": "coupang-return-market-how-to-find",
+    "title": "쿠팡 반품마켓에서 상품 찾는 법",
+    "kind": "fix",
+    "searchQuery": "쿠팡 반품마켓 상품 찾는 법",
+    "sourceHints": [
+      "쿠팡 고객센터 반품마켓 안내(공식)"
+    ],
+    "productHint": null
+  },
+  {
+    "topicId": "air-purifier-filter-replacement-cycle",
+    "title": "공기청정기 필터 교체 시기, 알림 말고 확인할 것",
+    "kind": "fix",
+    "searchQuery": "공기청정기 필터 교체 주기",
+    "sourceHints": [
+      "삼성·LG·코웨이 공기청정기 필터 교체 안내(공식 사용설명서)"
+    ],
+    "productHint": "공기청정기 필터"
+  },
+  {
+    "topicId": "cuisinart-toa-60-vs-70-spec-check",
+    "title": "쿠진아트 TOA-60과 TOA-70, 사기 전에 규격 차이 확인",
+    "kind": "before-buy",
+    "searchQuery": "쿠진아트 toa 60 70 차이",
+    "sourceHints": [
+      "쿠진아트 코리아 제품 사양표(공식)"
+    ],
+    "productHint": null
+  }
+]

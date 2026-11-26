@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "sheetId": "ep37-listen-frozen-questions",
+  "updatedAt": "2026-11-26T04:00:00.000Z",
+  "scriptEdits": {},
+  "lineQuestions": [],
+  "freeQuestions": [],
+  "focusWords": [
+    {
+      "word": "How do I get to Seoul Station?",
+      "phoneticHint": "하우두아이(작게) + 겟(세게) + 투(작게) + 서울 스테이션(세게)",
+      "mouthTip": "일곱 단어를 다 똑같이 힘주지 마세요. 앞 '하우두아이'는 웅얼거리듯 작게 지나가고 '겟'과 '서울 스테이션'만 또렷하게 말해 보세요.",
+      "status": "unseen",
+      "note": ""
+    },
+    {
+      "word": "Which line goes to Gangnam?",
+      "phoneticHint": "위치 라인 고우즈 투 강남",
+      "mouthTip": "뜻을 담은 단어 '라인(노선)'과 '강남'에 힘이 실립니다. 가운데 'to'는 '투'가 아니라 아주 짧은 '터'처럼 지나갑니다.",
+      "status": "unseen",
+      "note": ""
+    },
+    {
+      "word": "Where can I buy a ticket?",
+      "phoneticHint": "웨어 캐나이 바이 어 티켓",
+      "mouthTip": "'can I'를 따로 끊지 말고 '캐나이' 한 덩어리처럼 이어 보세요. 귀에 남는 핵심은 '웨어·바이·티켓' 세 개뿐입니다.",
+      "status": "unseen",
+      "note": ""
+    },
+    {
+      "word": "Does this train go to the airport?",
+      "phoneticHint": "더즈 디스 트레인 고우 터 디 에어포트",
+      "mouthTip": "앞의 'Does this'보다 '트레인'과 '에어포트' 두 단어를 귀로 잡는 연습을 해 보세요. 문장이 길어도 핵심 두 개만 들리면 뜻이 바로 옵니다.",
+      "status": "unseen",
+      "note": ""
+    },
+    {
+      "word": "How long does it take to get there?",
+      "phoneticHint": "하우 롱 더짓 테이크 투 겟 데어",
+      "mouthTip": "'does it'이 붙어서 '더짓'처럼 한 덩어리로 들려요. '하우 롱(얼마나 오래)'과 '테이크(걸리다)'만 잡아도 질문 뜻이 통합니다.",
+      "status": "unseen",
+      "note": ""
+    }
+  ],
+  "viewerQuestions": [
+    {
+      "id": "vq-1",
+      "q": "외국인이 말할 때 왜 내가 아는 쉬운 단어(do, to, the)가 아예 안 들리나요?",
+      "source": "1장 핵심 원리 · 대표 초보 고민",
+      "teacherAnswer": "영어는 뜻이 중요한 단어(장소·행동)만 크고 길게 읽고, 연결하는 작은 단어(do, to, the, a)는 숨을 아끼려고 아주 작고 빠르게 흘려 버려요. 못 들은 게 아니라 원래 작게 말한 겁니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-2",
+      "q": "단어를 다 못 알아들었는데 핵심 단어 두세 개만 듣고 대답해도 괜찮나요?",
+      "source": "실전 불안감 질문",
+      "teacherAnswer": "네, 실제 원어민도 모든 단어를 다 듣지 않고 핵심 단어만 귀로 잡아요. 'Get... Seoul Station?'만 들려도 '서울역 가는 길 묻는구나' 하고 'Take Line 1'이라고 짧게 답하면 100% 통합니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-3",
+      "q": "화면 안 보고 그냥 틀어 놓기만 해도 진짜 귀가 뚫리나요?",
+      "source": "틀어 놓고 듣는 롱폼 특징 질문",
+      "teacherAnswer": "소리를 그냥 배경음악처럼 흘려보내면 효과가 약하지만, 1부에서 '어디가 작아지고 붙는지' 한 번 짚어 준 뒤 2부에서 반복해 들으면 귀가 그 소리를 알아차리기 시작해요. 산책·설거지하면서 핵심 단어만 잡아 보는 게 좋습니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-4",
+      "q": "can I가 왜 '캔 아이'가 아니라 '캐나이'처럼 들리나요?",
+      "source": "2장 붙는 소리(연음) 질문",
+      "teacherAnswer": "앞 단어 끝의 받침(n)이 뒤 단어의 모음(I)과 만나면, 입을 멈추지 않고 자연스럽게 이어 버려요. 한국어에서 '안 아파'를 '아나파'라고 말하는 것과 똑같은 원리입니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-5",
+      "q": "does it이 '더즈 잇'이 아니라 '더짓'처럼 들리는 것도 같은 이유인가요?",
+      "source": "연음 확장 질문",
+      "teacherAnswer": "맞아요! does 끝의 '즈' 소리가 뒤의 it과 바로 붙어 '더짓' 한 덩어리가 돼요. 귀로 '더짓'을 한 단어처럼 익혀 두면 다음에 훨씬 편하게 들립니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-6",
+      "q": "외국인이 너무 빨리 말해서 못 들었을 때, 짧게 다시 말해 달라고 하려면 뭐라고 하나요?",
+      "source": "실전 대처 질문",
+      "teacherAnswer": "길게 말할 필요 없어요. 'Sorry? One more time, please.' 또는 그냥 'Slowly, please.' 한 마디면 누구나 천천히 다시 말해 줍니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-7",
+      "q": "대답할 때 'Take Line 1'처럼 짧게 말하면 무례하지 않나요? Please를 붙여야 하나요?",
+      "source": "경쟁 영상 실제 댓글 질문",
+      "teacherAnswer": "길 안내할 때 'Take Line 1'은 무례하지 않고 아주 자연스러운 안내 표현이에요. 조금 더 부드럽게 말하고 싶으면 웃으면서 'You can take Line 1' 정도만 붙이면 충분합니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-8",
+      "q": "get to를 말할 때 T가 두 번 있는데 왜 한 번만 소리 나나요?",
+      "source": "겹치는 자음 소리 질문",
+      "teacherAnswer": "get 끝의 T와 to 앞의 T가 똑같은 자리에서 부딪히기 때문에, 두 번 끊어 읽지 않고 한 번만 묶어서 '게투/게터'처럼 넘어가요. 우리말 '갓 쓴'을 부드럽게 이어 읽는 것과 비슷합니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-9",
+      "q": "따라 말할 때 내 발음이 어색한 것 같아 부끄러운데, 눈으로만 들으면 안 되나요?",
+      "source": "왕초보 심리 질문",
+      "teacherAnswer": "혼자 있을 때 아주 작은 목소리로라도 딱 한 번만 소리 내어 말해 보세요. 눈으로만 들을 때보다 입을 움직여 내 귀로 한 번 들으면 기억에 훨씬 오래 남고, 남이 말할 때도 그 소리가 더 잘 들립니다.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    },
+    {
+      "id": "vq-10",
+      "q": "이 30문장을 한 번에 다 외워야 하나요?",
+      "source": "학습 부담 질문",
+      "teacherAnswer": "절대 다 외울 필요 없어요! 오늘은 딱 1장 길 묻기 중 제일 익숙한 1~2문장만 귀에 남기셔도 충분합니다. 며칠 뒤에 틀어 놓으면 나머지도 슬슬 들리기 시작해요.",
+      "curious": false,
+      "guess": "",
+      "revealed": false
+    }
+  ]
+}

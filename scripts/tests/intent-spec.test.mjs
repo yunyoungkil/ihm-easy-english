@@ -36,6 +36,8 @@ test('데이터를 바꾸는 서버 통로는 허용 목록 안에서만 늘린�
     '/api/schedule/approve-thumbnail', '/api/schedule/comment-done', '/api/schedule/resolve', '/api/schedule/rules', '/api/schedule/upload-now',
     '/api/transform-sheet-pick', // 썸네일 시안 고르기 = 사용자 승인 관문(2026-11-12 사용자 제안)
     '/api/transform-sheet-approve', // 비교 시트 승인 잠금 = 사용자 승인 관문(2026-11-24 사용자 승인)
+    '/api/creator-study', // 대표님 1:1 발음 과외방 개인 학습 저장(2026-11-26 사용자 요청·승인, 기존 승인 흐름 비차단)
+    '/api/creator-study-apply-script', // 초안 시트에서 대표님이 직접 고친 문장 선택 반영(2026-11-26 사용자 요청·승인)
   ]);
   const posts = new Set();
   for (const line of serverLines) {

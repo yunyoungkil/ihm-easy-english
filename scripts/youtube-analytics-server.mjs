@@ -51,6 +51,7 @@ import { buildFromProject as buildNextEpisodeInput, nextEpisodeInputPath } from 
 import { mergeAudienceDna } from './audience-dna.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { setThumbnailPick, setTitlePick, loadSheets as loadTransformSheets, validateSheet as validateTransformSheet, classifySheetProblems, approveSheet, sheetImageExists, sheetsDir as transformSheetsDir, sheetLinksByVideo } from './transform-sheet.mjs';
+import { loadCreatorStudy, saveCreatorStudy, loadAllCreatorStudies, collectReviewItems, patchCreatorStudy, applyStudyEditsToSheet, SAFE_SHEET_ID_RE } from './creator-study.mjs';
 import {
   DEFAULT_ON_DEMAND_LIMIT,
   createSerialReportQueue,
@@ -5968,8 +5969,37 @@ const server = createServer(async (req, res) => {
       }
       const allSheets = loadTransformSheets();
       const classified = classifySheetProblems(sheet, {imageExists: sheetImageExists, competitorPacing: pacingForCheck(report), allSheets});
-      res.end(renderTransformSheetPage(sheet, report, classified.blockers, {refReports, cases: loadPackagingCases().cases, blockers: classified.blockers, warnings: classified.warnings, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
+      const study = loadCreatorStudy(sid);
+      const reviewItems = collectReviewItems(sid, loadAllCreatorStudies());
+      res.end(renderTransformSheetPage(sheet, report, classified.blockers, {refReports, cases: loadPackagingCases().cases, blockers: classified.blockers, warnings: classified.warnings, study, reviewItems, assetVersion: latestFileMtime([join(transformSheetsDir, 'images', sid), ...(srcVid ? [join(outlierFramesDir, srcVid)] : [])])}));
       return;
+    }
+    if (url.pathname === '/api/creator-study' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const vid = String(body.targetSheetId || body.videoId || '');
+      if (!SAFE_SHEET_ID_RE.test(vid)) return json(res, 400, {error: '시트 ID가 이상합니다.'});
+      const file = join(transformSheetsDir, vid + '.json');
+      if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
+      try {
+        const current = loadCreatorStudy(vid);
+        const next = patchCreatorStudy(current, body);
+        const saved = saveCreatorStudy(vid, next);
+        return json(res, 200, {ok: true, study: saved});
+      } catch (e) { return json(res, 400, {error: e.message}); }
+    }
+    if (url.pathname === '/api/creator-study-apply-script' && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const vid = String(body.videoId || '');
+      if (!SAFE_SHEET_ID_RE.test(vid)) return json(res, 400, {error: '시트 ID가 이상합니다.'});
+      const file = join(transformSheetsDir, vid + '.json');
+      if (!existsSync(file)) return json(res, 404, {error: '비교 시트가 없습니다.'});
+      try {
+        const sheet = await loadJson(file);
+        const study = loadCreatorStudy(vid);
+        const {sheet: next, appliedCount} = applyStudyEditsToSheet(sheet, study);
+        if (appliedCount > 0) await writeFile(file, JSON.stringify(next, null, 2) + '\n', 'utf8');
+        return json(res, 200, {ok: true, appliedCount});
+      } catch (e) { return json(res, 400, {error: e.message}); }
     }
     if (url.pathname === '/api/transform-sheet-approve' && req.method === 'POST') {
       const body = await readJsonBody(req);

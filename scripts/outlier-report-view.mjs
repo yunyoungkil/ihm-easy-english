@@ -5,6 +5,7 @@
 import { fullScript, hangulSyllables, voiceBudget } from './transform-sheet.mjs';
 import { formatRatioLabel, ratioTier } from './peer-ratio.mjs';
 import { CREDIT_KO, ANALYSIS_LABELS, EYE_LABELS, TAG_LABELS } from './packaging-cases.mjs';
+import { CREATOR_STUDY_CSS, renderCreatorStudySection } from './creator-study-view.mjs';
 
 const escapeHtml = (value) => String(value ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -471,7 +472,7 @@ export function renderOutcomeCard(outcome) {
   return `<div class="outcome-grid">${cells.map((c) => `<div class="outcome-cell"><div class="olabel">${escapeHtml(c.label)}</div><div class="oval">${escapeHtml(c.val)}</div></div>`).join('')}</div>`;
 }
 
-export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [], blockers = null, warnings = null, cases = null } = {}) {
+export function renderTransformSheetPage(sheet, report, problems = [], { assetVersion = '', refReports = [], blockers = null, warnings = null, cases = null, study = null, reviewItems = [] } = {}) {
   const sid = String(sheet.episodeId || sheet.sourceVideoId || '');
   const id = encodeURIComponent(sid);
   const srcId = sheet.sourceVideoId ? encodeURIComponent(sheet.sourceVideoId) : '';
@@ -514,6 +515,7 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
   const parts = [
     '<p><a href="/transform-sheets">← 비교 시트 목록</a>' + (srcId ? ' · <a href="/outlier-report/' + srcId + '">근거 보기(경쟁 영상 리포트)</a>' : ' · <a href="/outlier-reports">근거(리포트 목록)</a>') + ' · <a href="/">대시보드</a></p>',
     SHEET_CSS,
+    CREATOR_STUDY_CSS,
     `<h1>비교 시트: ${escapeHtml(sheet.topic)}</h1>`,
     `<div class="meta" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 12px"><span class="pill-badge">${escapeHtml(sheet.format)}</span>${sheet.episodeId ? ` · <span class="pill-badge" style="background:rgba(0,210,211,0.12);color:#00D2D3;border-color:rgba(0,210,211,0.35)">에피소드: ${escapeHtml(sheet.episodeId)}</span>` : ''}${report || sheet.sourceVideoId ? ` · <span>기준 영상: <b>${escapeHtml(report?.meta?.title || sheet.sourceVideoId)}</b></span> · <span>${escapeHtml(report?.meta?.channelTitle || '')}</span> · <span style="color:var(--accent-amber);font-weight:700">평소의 ${formatRatioLabel(report)}</span>${studioFoldsMeta}` : ` · <span>다중 명작 융합 (${(sheet.references || []).length}편)</span>`} · <span class="pill-badge" style="background:rgba(52,211,153,0.12);color:var(--ok);border-color:rgba(52,211,153,0.3)">상태: ${escapeHtml(STAGE_KO[stage] || stage)}</span>${createdMeta}</div>`,
     (sheet.rows || []).some((x) => x.origin) ? (() => { const o = { competitor: 0, mixed: 0, ours: 0 }; for (const x of sheet.rows || []) if (o[x.origin] !== undefined) o[x.origin] += 1; const n = o.competitor + o.mixed + o.ours || 1; return `<p>행별 출처 <b>경쟁 구조 ${o.competitor} · 섞음 ${o.mixed} · 우리가 새로 만듦 ${o.ours}</b> (총 ${n}행) — 사람이 정한 비율이 아니라 아래 각 행에 적은 출처를 센 값이다.</p><div class="bar"><span style="width:${(o.ours / n) * 100}%"></span><span style="width:${(o.mixed / n) * 100}%;background:var(--accent-amber)"></span><span style="width:${(o.competitor / n) * 100}%"></span></div>`; })() : `<p>정체성 비율 <b>경쟁 ${Number(share.competitor)}% · 우리 ${Number(share.ours)}%</b> — ${escapeHtml(share.reason)}</p><div class="bar"><span style="width:${Number(share.ours)}%"></span><span style="width:${Number(share.competitor)}%"></span></div>`,
@@ -643,6 +645,10 @@ export function renderTransformSheetPage(sheet, report, problems = [], { assetVe
       parts.push(rowHtml(r));
     }
   }
+
+  // ── 대표님 1:1 발음 과외방 (개인 학습 전용 · 기존 승인/제작과 분리, 2026-11-26) ──
+  toc.push({ href: '#sec-study-room', label: '🎓 1:1 과외방' });
+  parts.push(renderCreatorStudySection(sheet, study, reviewItems));
 
   // ── 근거 자료: 전부 접어 두고 접힌 줄에 개수를 보여 준다 ──
   const evidence = [];

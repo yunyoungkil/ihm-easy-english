@@ -21,6 +21,7 @@ import {summarizeRollingTrends} from './korean-trends.mjs';
 import {pickLatestPeriodWithImpressions} from './studio-reach.mjs';
 import {summarizePeriod} from './audience-countries.mjs';
 import {summarizePitchLog} from './pitch-log.mjs';
+import {summarizeCreatorStudy} from './creator-study.mjs';
 
 export const MIN_COMPARE_VIDEOS = 6; // 상위 3편과 하위 3편이 겹치지 않는 최소 수
 export const RECENT_POOL = 20; // 같은 형식 최근 20편 안에서 비교한다(오래된 영상이 지금 채널을 대표하지 않게)
@@ -420,6 +421,7 @@ export function renderNextEpisodeInput(input) {
   out.push(...renderInsightsVocab(input.insightsVocab));
   out.push(...renderPitchLog(input.pitchLog));
   out.push(...renderSpeechPatterns(input.speechPatterns));
+  out.push(...renderCreatorStudy(input.creatorStudy));
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
 
@@ -808,6 +810,44 @@ export function renderSpeechPatterns(patterns) {
   return out;
 }
 
+/** 대표님 1:1 발음 과외방 학습 기록(data/youtube/creator-study/*.json): 순수 개인 학습에서 나온 막힘·궁금증·말투 중 알짜만 슬로건대로 참고(강제 아님). */
+export function renderCreatorStudy(summary) {
+  const out = ['## 19. 대표님 1:1 과외방 학습 기록 (슬로건 참고용 · 강제 아님)', ''];
+  if (!summary || (!summary.fuzzyWords?.length && !summary.curiousQuestions?.length && !summary.openQuestions?.length && !summary.recentEdits?.length)) {
+    return [...out, '아직 대표님이 과외방에 남긴 질문·헷갈림·수정 기록이 없습니다(참고: `knowledge/creator-voice-card.md`).', ''];
+  }
+  out.push('기존 제작·승인 흐름과 분리된 개인 학습 기록이다. 매 편 기계적으로 다 넣지 않고, 3060 시청자 이해와 재미를 높이는 알짜만 골라 대본·고정 댓글·다음 편 소재에 녹인다(함께 참고: `knowledge/creator-voice-card.md`).', '');
+  if (summary.fuzzyWords?.length) {
+    out.push('**대표님이 “아직 헷갈려요”로 남긴 핵심 단어**', '');
+    for (const w of summary.fuzzyWords) {
+      out.push(`- [${w.sheetId}] **${w.word}**${w.note ? ` — 체감: ${cut(w.note, 80)}` : ''}`);
+    }
+    out.push('');
+  }
+  if (summary.curiousQuestions?.length) {
+    out.push('**대표님이 “나도 궁금해”로 고른 시청자 질문 (다음 편·고정 댓글 후보)**', '');
+    for (const q of summary.curiousQuestions) {
+      out.push(`- [${q.sheetId}] ${cut(q.q, 100)}${q.guess ? ` (대표님 생각: ${cut(q.guess, 60)})` : ''}`);
+    }
+    out.push('');
+  }
+  if (summary.openQuestions?.length) {
+    out.push('**대표님이 직접 남긴 미해결 질문**', '');
+    for (const q of summary.openQuestions) {
+      out.push(`- [${q.sheetId}] ${cut(q.question, 110)}${q.hasAnswer ? ' (설명 있음)' : ' (선생님 답변 대기)'}`);
+    }
+    out.push('');
+  }
+  if (summary.recentEdits?.length) {
+    out.push('**대표님이 직접 고친 문장 표현 (말투 참고)**', '');
+    for (const e of summary.recentEdits) {
+      out.push(`- [${e.sheetId} · ${e.cutIndex + 1}번 장면] “${cut(e.text, 90)}”`);
+    }
+    out.push('');
+  }
+  return out;
+}
+
 const readJson = (path, fallback) => {
   try { return JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')); } catch { return fallback; }
 };
@@ -866,6 +906,7 @@ export function buildFromProject(projectDir, now = new Date()) {
     insightsVocab: extractInsightsVocab(join(projectDir, 'output', 'insights')),
     pitchLog: summarizePitchLog(readJson(join(dataDir, 'pitch-log.json'), null)),
     speechPatterns: readJson(join(dataDir, 'speech-patterns.json'), null),
+    creatorStudy: summarizeCreatorStudy(join(dataDir, 'creator-study')),
     titles,
     transformSheets: loadedSheets.map((t) => ({sheetId: sheetIdOf(t), sourceVideoId: t.sourceVideoId, topic: t.topic, status: t.status, stage: sheetStage(t), resultsCount: (t.results || []).length, format: t.format, borrowedCount: (t.borrowed || []).length + (t.references || []).length, rejectedCount: (t.rejected || []).length, audienceBridge: t.audienceBridge || null, seriesPremise: t.seriesPremise || null})),
   };

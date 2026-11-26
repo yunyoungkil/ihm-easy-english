@@ -20,6 +20,7 @@
 - [블로그 정책·규칙·결과 루프 초안 (2026-11-26)](decisions/2026-11-26-blog-policy-rules-loop-draft.md) — 유튜브와 나눌 것·함께 쓸 것, 원문 확인된 안전선, 글쓰기 기본값, 시험 거리, 결과 루프 빈칸, 사용자 결정 3개(초안, 승인 전 적용 안 함)
 - [영상 제작 표준 워크플로우](VIDEO_WORKFLOW.md) — 기획부터 업로드·분석까지 10단계와 승인 게이트
 - [브랜드 아이덴티티 & 페르소나 헌장](brand-persona.md) — 대표님의 실제 철학, 3단계 도파민 공식, 시그니처 멘트 및 비주얼 DNA
+- [대표님 말하기 결 카드 (나레이션 참고 1장)](creator-voice-card.md) — 저장된 대화에서 뽑은 대표님의 담백한 결·호흡 참고 기준(강제 공식 아님, AI 평균값 완화용)
 - [채널 전략](channel-strategy.md) — 성장·수익화 목표와 판단 기준
 - [콘텐츠 포맷](content-formats.md) — 시즌 롱폼, Track A/B, 채널 쇼츠 C의 역할
 - [제작 규칙](production-rules.md) — 대상 시청자, 쇼츠 화면, TTS와 검수 원칙
@@ -62,6 +63,7 @@
 - [단편/시즌 분류 정리](decisions/2026-09-03-standalone-vs-season-episodes.md) — 아이디어 보드로 고른 영상은 "시즌"이 아니라 "단편"으로 분류, EP11/EP12 라벨 정정
 - [HyperFrames + Gemini TTS는 하단 단어별 자막 기본 off](decisions/2026-09-04-no-word-level-captions-with-gemini-tts.md) — Gemini TTS는 단어 타임스탬프를 안 줘서 whisper 재정렬이 필요한데, 한글 속 영어 단어(Want/Won't 등)를 잘못 인식해 EP12 10줄 중 6줄이 근사치로 대체됨. 포커스 문구(구 단위)는 계속 유지, HeyGen TTS로 돌아가면 재검토
 - [트렌드 수집·루프 반영 및 화제 원본 클립 권리 기준](decisions/2026-11-23-trend-loop-and-clip-rights.md) — 14일 누적·해외 한국 콘텐츠 보강, 매 기획 AI 자율 검토, 3축(조회수·구독전환·시청지속) 7일 비교, 원본 클립 3경로 개방 + 증빙·근거 누락 차단, 허락 메일 Gmail 자동 확인(1단계 플러그인 → 2단계 무인 OAuth)
+- [대표님 1:1 발음 과외방(개인 학습) + 말하기 결 카드](decisions/2026-11-26-creator-study-and-voice-loop.md) — 기존 제작·승인 흐름과 분리된 개인 발음 학습 공간(비교 시트 하단 4단계) + 채팅 기록 기반 1장짜리 말하기 결 카드(슬로건 기반 자율 선별)
 
 
 ## 에피소드

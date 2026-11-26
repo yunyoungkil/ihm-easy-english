@@ -1,0 +1,245 @@
+/* 가전·디지털 해결 노트 (tech.d40m.com) 경량 에디토리얼 꾸밈
+ * 근거: 핀터레스트 3개 사례 융합(Payable 딥틸 포인트 + 디지털 설명서 구획 + Luna UI 미색·여백)
+ * 원칙: 외부 스킨·무거운 스크립트 없음, 글자 링크 원칙 유지, 쿠팡 금지행위 0건, 애드센스 여백 확보.
+ */
+
+body {
+  background-color: #F7F7F5 !important;
+  color: #1F2937;
+  font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.bg-photo-overlay {
+  background: #0D3B36 !important;
+}
+
+.centered-top-container,
+.sticky .centered-top-container {
+  background-color: #0D3B36 !important;
+}
+
+.post-outer-container {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E6E8E6 !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  padding: 36px 40px !important;
+  max-width: 820px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+h3.post-title.entry-title,
+h1.post-title.entry-title,
+.post-title,
+.post-title a {
+  font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  line-height: 1.38 !important;
+  letter-spacing: -0.02em !important;
+  color: #111827 !important;
+  margin-bottom: 14px !important;
+  word-break: keep-all;
+}
+
+.post-header {
+  color: #6B7280 !important;
+  font-size: 13.5px !important;
+  margin-bottom: 20px !important;
+}
+
+.post-body {
+  font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif !important;
+  font-size: 17px !important;
+  line-height: 1.78 !important;
+  color: #1F2937 !important;
+  max-width: 700px;
+  margin: 0 auto !important;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.post-body p {
+  color: #1F2937 !important;
+  font-size: 17px !important;
+  line-height: 1.78 !important;
+  margin: 0 0 1.25em !important;
+}
+
+.post-body a {
+  color: #0F4C45 !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.post-body a:hover {
+  color: #09332E !important;
+}
+
+/* 맨 위 공정위 대가 문구 안내 띠 (첫 글 및 이후 모든 글 자동 적용, 소개·개인정보 페이지 제외) */
+.post-body > p.blog-disclosure,
+.post-body > p:first-of-type:has(+ p > img) {
+  font-size: 13.5px !important;
+  line-height: 1.55 !important;
+  color: #4B5563 !important;
+  background-color: #F5F6F5 !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  margin: 0 0 1.4em !important;
+}
+
+.post-body img {
+  border-radius: 12px !important;
+  display: block;
+  margin: 1.2em auto 1.6em !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.post-body h2 {
+  font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif !important;
+  margin: 2.2em 0 0.85em !important;
+  padding: 2px 0 2px 14px !important;
+  border-left: 4px solid #0F4C45 !important;
+  font-size: 21px !important;
+  font-weight: 800 !important;
+  line-height: 1.42 !important;
+  letter-spacing: -0.015em !important;
+  color: #111827 !important;
+}
+
+.post-body h3 {
+  font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif !important;
+  margin: 1.6em 0 0.6em !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+  color: #111827 !important;
+}
+
+.post-body ol,
+.post-body ul {
+  margin: 0 0 1.4em !important;
+  padding-left: 1.4em !important;
+}
+
+.post-body li {
+  color: #1F2937 !important;
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+  margin-bottom: 0.55em !important;
+}
+
+/* 필요한 제품 확인 (쿠팡 글자 링크 카드: 금지행위 없음, 애드센스 안전 여백) */
+.post-body .blog-product {
+  margin: 2.4em 0 !important;
+  padding: 22px 24px !important;
+  background-color: #F4F8F7 !important;
+  border: 1px solid #CDE0DC !important;
+  border-top: 3px solid #0F4C45 !important;
+  border-radius: 12px !important;
+}
+
+.post-body .blog-product h2 {
+  margin: 0 0 10px !important;
+  padding: 0 !important;
+  border-left: none !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  color: #0D3B36 !important;
+}
+
+.post-body .blog-product p {
+  margin: 0 0 12px !important;
+  font-size: 15.5px !important;
+  line-height: 1.65 !important;
+  color: #374151 !important;
+}
+
+.post-body .blog-product p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.post-body .blog-product a {
+  display: inline-block;
+  color: #0F4C45 !important;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+  text-decoration-thickness: 1.5px !important;
+}
+
+/* 맨 아래 참고 자료 출처 상자 */
+.post-body .blog-sources {
+  margin: 2.2em 0 0.5em !important;
+  padding: 18px 22px !important;
+  background-color: #FAFAFA !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 10px !important;
+}
+
+.post-body .blog-sources h2 {
+  margin: 0 0 10px !important;
+  padding: 0 !important;
+  border-left: none !important;
+  font-size: 15.5px !important;
+  font-weight: 700 !important;
+  color: #374151 !important;
+}
+
+.post-body .blog-sources ul {
+  margin: 0 !important;
+  padding-left: 1.2em !important;
+}
+
+.post-body .blog-sources li {
+  margin-bottom: 6px !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  color: #4B5563 !important;
+}
+
+.post-body .blog-sources a {
+  color: #0F4C45 !important;
+  word-break: break-all;
+}
+
+@media screen and (max-width: 768px) {
+  .post-outer-container {
+    padding: 22px 18px !important;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+
+  h3.post-title.entry-title,
+  h1.post-title.entry-title,
+  .post-title,
+  .post-title a {
+    font-size: 23px !important;
+  }
+
+  .post-body,
+  .post-body p,
+  .post-body li {
+    font-size: 16.5px !important;
+    line-height: 1.75 !important;
+  }
+
+  .post-body h2 {
+    font-size: 19px !important;
+  }
+
+  .post-body .blog-product {
+    padding: 18px 16px !important;
+  }
+
+  .post-body .blog-sources {
+    padding: 16px !important;
+  }
+}
